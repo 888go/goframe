@@ -5,17 +5,19 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtest
+
 import (
 	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
 	"testing"
-	
+
 	"github.com/888go/goframe/debug/gdebug"
 	"github.com/888go/goframe/internal/empty"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
+
 const (
 	pathFilterKey = "/test/gtest/gtest"
 )
@@ -302,8 +304,8 @@ func compareMap(value, expect interface{}) error {
 	if rvExpect.Kind() == reflect.Map {
 		if rvValue.Kind() == reflect.Map {
 			if rvExpect.Len() == rvValue.Len() {
-// 将两个接口映射转换为同一类型以便进行比较。
-// 若直接使用rvValue.MapIndex(key).Interface()，当键类型不一致时会触发 panic。
+				// 将两个接口映射转换为同一类型以便进行比较。
+				// 若直接使用rvValue.MapIndex(key).Interface()，当键类型不一致时会触发 panic。
 				mValue := make(map[string]string)
 				mExpect := make(map[string]string)
 				ksValue := rvValue.MapKeys()
