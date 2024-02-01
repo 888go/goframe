@@ -150,18 +150,13 @@ X异常捕捉并带异常处理
 # <翻译结束>
 
 # <翻译开始>
-func IsNil(value interface{}, traceSource
+func X是否为Nil(value interface{}, traceSource
 追踪到源变量
 # <翻译结束>
 
 # <翻译开始>
-func IsNil(value
+func X是否为Nil(value
 值
-# <翻译结束>
-
-# <翻译开始>
-func IsNil
-X是否为Nil
 # <翻译结束>
 
 # <翻译开始>
