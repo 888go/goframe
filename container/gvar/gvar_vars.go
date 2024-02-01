@@ -1,19 +1,16 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gvar
-
 import (
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// Vars is a slice of *Var.
+	"github.com/888go/goframe/util/gconv"
+	)
+// Vars 是一个 *Var 类型的切片。
 type Vars []*Var
 
-// Strings converts and returns `vs` as []string.
+// Strings 将 `vs` 转换并返回为 []string 类型的切片。
 func (vs Vars) Strings() (s []string) {
 	for _, v := range vs {
 		s = append(s, v.String())
@@ -21,7 +18,7 @@ func (vs Vars) Strings() (s []string) {
 	return s
 }
 
-// Interfaces converts and returns `vs` as []interface{}.
+// Interfaces将`vs`转换并返回为[]interface{}类型。
 func (vs Vars) Interfaces() (s []interface{}) {
 	for _, v := range vs {
 		s = append(s, v.Val())
@@ -29,7 +26,7 @@ func (vs Vars) Interfaces() (s []interface{}) {
 	return s
 }
 
-// Float32s converts and returns `vs` as []float32.
+// Float32s将`vs`转换并返回为[]float32类型。
 func (vs Vars) Float32s() (s []float32) {
 	for _, v := range vs {
 		s = append(s, v.Float32())
@@ -37,7 +34,7 @@ func (vs Vars) Float32s() (s []float32) {
 	return s
 }
 
-// Float64s converts and returns `vs` as []float64.
+// Float64s 将 `vs` 转换并返回为 []float64 类型的切片。
 func (vs Vars) Float64s() (s []float64) {
 	for _, v := range vs {
 		s = append(s, v.Float64())
@@ -45,7 +42,7 @@ func (vs Vars) Float64s() (s []float64) {
 	return s
 }
 
-// Ints converts and returns `vs` as []Int.
+// Ints将`vs`转换并返回为[]Int类型。
 func (vs Vars) Ints() (s []int) {
 	for _, v := range vs {
 		s = append(s, v.Int())
@@ -53,7 +50,7 @@ func (vs Vars) Ints() (s []int) {
 	return s
 }
 
-// Int8s converts and returns `vs` as []int8.
+// Int8s将`vs`转换并返回为[]int8类型。
 func (vs Vars) Int8s() (s []int8) {
 	for _, v := range vs {
 		s = append(s, v.Int8())
@@ -61,7 +58,7 @@ func (vs Vars) Int8s() (s []int8) {
 	return s
 }
 
-// Int16s converts and returns `vs` as []int16.
+// Int16s将`vs`转换并返回为[]int16类型。
 func (vs Vars) Int16s() (s []int16) {
 	for _, v := range vs {
 		s = append(s, v.Int16())
@@ -69,7 +66,7 @@ func (vs Vars) Int16s() (s []int16) {
 	return s
 }
 
-// Int32s converts and returns `vs` as []int32.
+// Int32s 将 `vs` 转换并返回为 []int32 类型的切片。
 func (vs Vars) Int32s() (s []int32) {
 	for _, v := range vs {
 		s = append(s, v.Int32())
@@ -77,7 +74,7 @@ func (vs Vars) Int32s() (s []int32) {
 	return s
 }
 
-// Int64s converts and returns `vs` as []int64.
+// Int64s将`vs`转换并返回为[]int64类型。
 func (vs Vars) Int64s() (s []int64) {
 	for _, v := range vs {
 		s = append(s, v.Int64())
@@ -85,7 +82,7 @@ func (vs Vars) Int64s() (s []int64) {
 	return s
 }
 
-// Uints converts and returns `vs` as []uint.
+// Uints 将 `vs` 转换并返回为 []uint 类型的切片。
 func (vs Vars) Uints() (s []uint) {
 	for _, v := range vs {
 		s = append(s, v.Uint())
@@ -93,7 +90,7 @@ func (vs Vars) Uints() (s []uint) {
 	return s
 }
 
-// Uint8s converts and returns `vs` as []uint8.
+// Uint8s将`vs`转换并返回为[]uint8类型。
 func (vs Vars) Uint8s() (s []uint8) {
 	for _, v := range vs {
 		s = append(s, v.Uint8())
@@ -101,7 +98,7 @@ func (vs Vars) Uint8s() (s []uint8) {
 	return s
 }
 
-// Uint16s converts and returns `vs` as []uint16.
+// Uint16s 将 `vs` 转换并返回为 []uint16 类型的切片。
 func (vs Vars) Uint16s() (s []uint16) {
 	for _, v := range vs {
 		s = append(s, v.Uint16())
@@ -109,7 +106,7 @@ func (vs Vars) Uint16s() (s []uint16) {
 	return s
 }
 
-// Uint32s converts and returns `vs` as []uint32.
+// Uint32s 将 `vs` 转换并返回为 []uint32 类型的切片。
 func (vs Vars) Uint32s() (s []uint32) {
 	for _, v := range vs {
 		s = append(s, v.Uint32())
@@ -117,7 +114,7 @@ func (vs Vars) Uint32s() (s []uint32) {
 	return s
 }
 
-// Uint64s converts and returns `vs` as []uint64.
+// Uint64s 将 `vs` 转换并返回为 []uint64 类型的切片。
 func (vs Vars) Uint64s() (s []uint64) {
 	for _, v := range vs {
 		s = append(s, v.Uint64())
@@ -125,7 +122,7 @@ func (vs Vars) Uint64s() (s []uint64) {
 	return s
 }
 
-// Scan converts `vs` to []struct/[]*struct.
+// Scan 将 `vs` 转换为 []struct 或 []*struct 类型的切片。
 func (vs Vars) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return gconv.Structs(vs.Interfaces(), pointer, mapping...)
 }

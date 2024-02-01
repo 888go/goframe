@@ -1,30 +1,27 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package mysql implements gdb.Driver, which supports operations for database MySQL.
+// Package mysql 实现了 gdb.Driver 接口，该接口支持对 MySQL 数据库的相关操作。
 package mysql
-
 import (
 	"context"
 	"database/sql"
 	"fmt"
 	"net/url"
 	"strings"
-
+	
 	_ "github.com/go-sql-driver/mysql"
-
-	"coding.net/gogit/go/goframe/database/gdb"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// Driver is the driver for mysql database.
+	
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/util/gutil"
+	)
+// Driver 是 MySQL 数据库的驱动程序。
 type Driver struct {
 	*gdb.Core
 }
@@ -46,38 +43,43 @@ func init() {
 	}
 }
 
-// New create and returns a driver that implements gdb.Driver, which supports operations for MySQL.
+// New 创建并返回一个实现 gdb.Driver 接口的驱动程序，该驱动程序支持针对 MySQL 的操作。
 func New() gdb.Driver {
 	return &Driver{}
 }
 
-// New creates and returns a database object for mysql.
-// It implements the interface of gdb.Driver for extra database driver installation.
+// New 创建并返回一个用于 mysql 的数据库对象。
+// 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
 }
 
-// Open creates and returns an underlying sql.DB object for mysql.
-// Note that it converts time.Time argument to local timezone in default.
+// Open 创建并返回一个用于 mysql 的底层 sql.DB 对象。
+// 注意，它默认会将 time.Time 类型参数转换为本地时区。
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "mysql"
 	)
-	// [username[:password]@][protocol[(address)]]/dbname[?param1=value1&...&paramN=valueN]
+	// [用户名[:密码]@][协议[(地址)]]/数据库名[?参数1=值1&...&参数N=值N]
+// 这段注释是对Go语言中符合MySQL连接格式的字符串进行描述，具体含义如下：
+// - `[username[:password]@]`：可选的用户名和密码部分，用于登录数据库。冒号（:）分隔用户名和密码。
+// - `[protocol[(address)]]`：指定数据库连接协议以及服务器地址，例如 `tcp(` 或 `unix(` 等，其中括号内的 `address` 为服务器地址或socket路径。
+// - `/dbname`：必填项，表示要连接的数据库名称。
+// - `[?param1=value1&...&paramN=valueN]`：可选的查询参数部分，通常用于设置额外的连接选项，如 `charset=utf8mb4`、`parseTime=true` 等，多个参数之间用 `&` 符号分隔。
 	if config.Link != "" {
-		// ============================================================================
-		// Deprecated from v2.2.0.
-		// ============================================================================
+// ============================================================================
+// 从 v2.2.0 版本开始已弃用。
+// ============================================================================
 		source = config.Link
-		// Custom changing the schema in runtime.
+		// 自定义在运行时更改架构
 		if config.Name != "" {
 			source, _ = gregex.ReplaceString(`/([\w\.\-]+)+`, "/"+config.Name, source)
 		}
 	} else {
-		// TODO: Do not set charset when charset is not specified (in v2.5.0)
+		// TODO: 当未指定字符集时（在v2.5.0版本中），不要设置字符集
 		source = fmt.Sprintf(
 			"%s:%s@%s(%s:%s)/%s?charset=%s",
 			config.User, config.Pass, config.Protocol, config.Host, config.Port, config.Name, config.Charset,
@@ -102,18 +104,18 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	return
 }
 
-// GetChars returns the security char for this type of database.
+// GetChars 返回此类型数据库的安全字符。
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }
 
-// DoFilter handles the sql before posts it to database.
+// DoFilter 在将 SQL 发送给数据库之前处理 SQL。
 func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return d.Core.DoFilter(ctx, link, sql, args)
 }
 
-// Tables retrieves and returns the tables of current schema.
-// It's mainly used in cli tool chain for automatically generating the models.
+// Tables 获取并返回当前模式的表。
+// 它主要用于cli工具链中，用于自动生成模型。
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
 	link, err := d.SlaveLink(schema...)
@@ -132,18 +134,13 @@ func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string,
 	return
 }
 
-// TableFields retrieves and returns the fields' information of specified table of current
-// schema.
+// TableFields 获取并返回当前模式下指定表的字段信息。
 //
-// The parameter `link` is optional, if given nil it automatically retrieves a raw sql connection
-// as its link to proceed necessary sql query.
+// 参数`link`是可选的，如果给定为nil，它会自动获取一个原始sql连接作为链接执行必要的sql查询。
 //
-// Note that it returns a map containing the field name and its corresponding fields.
-// As a map is unsorted, the TableField struct has a "Index" field marks its sequence in
-// the fields.
+// 注意，它返回一个包含字段名及其对应字段信息的map。由于map是无序的，TableField结构体中有一个"Index"字段标记其在所有字段中的顺序。
 //
-// It's using cache feature to enhance the performance, which is never expired util the
-// process restarts.
+// 为了提高性能，该方法使用了缓存功能，缓存有效期直到进程重启才会失效。
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result

@@ -1,29 +1,25 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package json provides json operations wrapping ignoring stdlib or third-party lib json.
+// Package json 提供了围绕标准库或第三方库的 JSON 操作，实现了对 JSON 的封装并忽略它们。
 package json
-
 import (
 	"bytes"
 	"encoding/json"
 	"io"
-
-	"coding.net/gogit/go/goframe/errors/gerror"
-)
-
-// RawMessage is a raw encoded JSON value.
-// It implements Marshaler and Unmarshaler and can
-// be used to delay JSON decoding or precompute a JSON encoding.
+	
+	"github.com/888go/goframe/errors/gerror"
+	)
+// RawMessage 是一个原始编码的 JSON 值。
+// 它实现了 Marshaler 和 Unmarshaler 接口，可用于延迟 JSON 解码或预计算 JSON 编码。
 type RawMessage = json.RawMessage
 
-// Marshal adapts to json/encoding Marshal API.
+// Marshal 适应 json/encoding 库的 Marshal API.
 //
-// Marshal returns the JSON encoding of v, adapts to json/encoding Marshal API
-// Refer to https://godoc.org/encoding/json#Marshal for more information.
+// Marshal 返回参数 v 的 JSON 编码结果，此方法适应于 json/encoding 库中的 Marshal API，
+// 更多信息请参考 https://godoc.org/encoding/json#Marshal 。
 func Marshal(v interface{}) (marshaledBytes []byte, err error) {
 	marshaledBytes, err = json.Marshal(v)
 	if err != nil {
@@ -32,7 +28,7 @@ func Marshal(v interface{}) (marshaledBytes []byte, err error) {
 	return
 }
 
-// MarshalIndent same as json.MarshalIndent.
+// MarshalIndent 与 json.MarshalIndent 功能相同。
 func MarshalIndent(v interface{}, prefix, indent string) (marshaledBytes []byte, err error) {
 	marshaledBytes, err = json.MarshalIndent(v, prefix, indent)
 	if err != nil {
@@ -41,10 +37,10 @@ func MarshalIndent(v interface{}, prefix, indent string) (marshaledBytes []byte,
 	return
 }
 
-// Unmarshal adapts to json/encoding Unmarshal API
+// Unmarshal 适应 json/encoding 的 Unmarshal API
 //
-// Unmarshal parses the JSON-encoded data and stores the result in the value pointed to by v.
-// Refer to https://godoc.org/encoding/json#Unmarshal for more information.
+// Unmarshal 解析 JSON 编码的数据，并将结果存储在 v 指向的值中。
+// 有关更多信息，请参考 https://godoc.org/encoding/json#Unmarshal 。
 func Unmarshal(data []byte, v interface{}) (err error) {
 	err = json.Unmarshal(data, v)
 	if err != nil {
@@ -53,7 +49,7 @@ func Unmarshal(data []byte, v interface{}) (err error) {
 	return
 }
 
-// UnmarshalUseNumber decodes the json data bytes to target interface using number option.
+// UnmarshalUseNumber 使用数字选项将json数据字节解码到目标接口。
 func UnmarshalUseNumber(data []byte, v interface{}) (err error) {
 	decoder := NewDecoder(bytes.NewReader(data))
 	decoder.UseNumber()
@@ -64,22 +60,22 @@ func UnmarshalUseNumber(data []byte, v interface{}) (err error) {
 	return
 }
 
-// NewEncoder same as json.NewEncoder
+// NewEncoder 与 json.NewEncoder 功能相同
 func NewEncoder(writer io.Writer) *json.Encoder {
 	return json.NewEncoder(writer)
 }
 
-// NewDecoder adapts to json/stream NewDecoder API.
+// NewDecoder 适应于 json/stream 的 NewDecoder API。
 //
-// NewDecoder returns a new decoder that reads from r.
+// NewDecoder 函数返回一个从 r 读取数据的新解码器。
 //
-// Instead of a json/encoding Decoder, a Decoder is returned
-// Refer to https://godoc.org/encoding/json#NewDecoder for more information.
+// 返回的不是一个 json/encoding 包中的 Decoder，而是一个自定义的 Decoder。
+// 有关更多信息，请参考 https://godoc.org/encoding/json#NewDecoder 。
 func NewDecoder(reader io.Reader) *json.Decoder {
 	return json.NewDecoder(reader)
 }
 
-// Valid reports whether data is a valid JSON encoding.
+// Valid 报告 data 是否为有效的 JSON 编码。
 func Valid(data []byte) bool {
 	return json.Valid(data)
 }

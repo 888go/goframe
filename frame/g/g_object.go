@@ -1,108 +1,105 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package g
-
 import (
-	"coding.net/gogit/go/goframe/database/gdb"
-	"coding.net/gogit/go/goframe/database/gredis"
-	"coding.net/gogit/go/goframe/frame/gins"
-	"coding.net/gogit/go/goframe/i18n/gi18n"
-	"coding.net/gogit/go/goframe/net/gclient"
-	"coding.net/gogit/go/goframe/net/ghttp"
-	"coding.net/gogit/go/goframe/net/gtcp"
-	"coding.net/gogit/go/goframe/net/gudp"
-	"coding.net/gogit/go/goframe/os/gcfg"
-	"coding.net/gogit/go/goframe/os/glog"
-	"coding.net/gogit/go/goframe/os/gres"
-	"coding.net/gogit/go/goframe/os/gview"
-	"coding.net/gogit/go/goframe/util/gvalid"
-)
-
-// Client is a convenience function, which creates and returns a new HTTP client.
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/database/gredis"
+	"github.com/888go/goframe/frame/gins"
+	"github.com/888go/goframe/i18n/gi18n"
+	"github.com/888go/goframe/net/gclient"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/net/gtcp"
+	"github.com/888go/goframe/net/gudp"
+	"github.com/888go/goframe/os/gcfg"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/os/gres"
+	"github.com/888go/goframe/os/gview"
+	"github.com/888go/goframe/util/gvalid"
+	)
+// Client 是一个便捷函数，它会创建并返回一个新的 HTTP 客户端。
 func Client() *gclient.Client {
 	return gclient.New()
 }
 
-// Server returns an instance of http server with specified name.
+// Server 返回一个具有指定名称的 http 服务器实例。
 func Server(name ...interface{}) *ghttp.Server {
 	return gins.Server(name...)
 }
 
-// TCPServer returns an instance of tcp server with specified name.
+// TCPServer 返回一个具有指定名称的TCP服务器实例。
 func TCPServer(name ...interface{}) *gtcp.Server {
 	return gtcp.GetServer(name...)
 }
 
-// UDPServer returns an instance of udp server with specified name.
+// UDPServer 返回一个具有指定名称的 UDP 服务器实例。
 func UDPServer(name ...interface{}) *gudp.Server {
 	return gudp.GetServer(name...)
 }
 
-// View returns an instance of template engine object with specified name.
+// View 返回指定名称的模板引擎对象实例。
 func View(name ...string) *gview.View {
 	return gins.View(name...)
 }
 
-// Config returns an instance of config object with specified name.
+// Config 返回一个具有指定名称的配置对象实例。
 func Config(name ...string) *gcfg.Config {
 	return gins.Config(name...)
 }
 
-// Cfg is alias of Config.
-// See Config.
+// Cfg 是 Config 的别名。
+// 请参阅 Config。
 func Cfg(name ...string) *gcfg.Config {
 	return Config(name...)
 }
 
-// Resource returns an instance of Resource.
-// The parameter `name` is the name for the instance.
+// Resource 返回一个 Resource 实例。
+// 参数 `name` 是该实例的名称。
 func Resource(name ...string) *gres.Resource {
 	return gins.Resource(name...)
 }
 
-// I18n returns an instance of gi18n.Manager.
-// The parameter `name` is the name for the instance.
+// I18n 返回一个 gi18n.Manager 的实例。
+// 参数 `name` 是该实例的名称。
 func I18n(name ...string) *gi18n.Manager {
 	return gins.I18n(name...)
 }
 
-// Res is alias of Resource.
-// See Resource.
+// Res 是 Resource 的别名。
+// 请参阅 Resource。
 func Res(name ...string) *gres.Resource {
 	return Resource(name...)
 }
 
-// Log returns an instance of glog.Logger.
-// The parameter `name` is the name for the instance.
+// Log 返回一个 glog.Logger 的实例。
+// 参数 `name` 是该实例的名称。
 func Log(name ...string) *glog.Logger {
 	return gins.Log(name...)
 }
 
-// DB returns an instance of database ORM object with specified configuration group name.
+// DB 返回一个指定配置组名称的数据库 ORM 对象实例。
 func DB(name ...string) gdb.DB {
 	return gins.Database(name...)
 }
 
-// Model creates and returns a model based on configuration of default database group.
+// Model 根据默认数据库组的配置创建并返回一个模型。
 func Model(tableNameOrStruct ...interface{}) *gdb.Model {
 	return DB().Model(tableNameOrStruct...)
 }
 
-// ModelRaw creates and returns a model based on a raw sql not a table.
+// ModelRaw 根据原始SQL（非表）创建并返回一个模型。
 func ModelRaw(rawSql string, args ...interface{}) *gdb.Model {
 	return DB().Raw(rawSql, args...)
 }
 
-// Redis returns an instance of redis client with specified configuration group name.
+// Redis 返回一个具有指定配置组名称的 redis 客户端实例。
 func Redis(name ...string) *gredis.Redis {
 	return gins.Redis(name...)
 }
 
-// Validator is a convenience function, which creates and returns a new validation manager object.
+// Validator 是一个便捷函数，用于创建并返回一个新的验证管理器对象。
 func Validator() *gvalid.Validator {
 	return gvalid.New()
 }

@@ -1,16 +1,14 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gstr_test
-
 import (
 	"fmt"
-
-	"coding.net/gogit/go/goframe/text/gstr"
-)
+	
+	"github.com/888go/goframe/text/gstr"
+	)
 
 func ExampleCount() {
 	var (
@@ -392,7 +390,7 @@ func ExampleChr() {
 	// A
 }
 
-// '103' is the 'g' in ASCII
+// '103'是ASCII码中的字符'g'
 func ExampleOrd() {
 	var (
 		str    = `goframe`
@@ -751,7 +749,7 @@ func ExampleParse() {
 		fmt.Println(result)
 	}
 	{
-		// The form of nested Slice is not yet supported.
+		// 目前还不支持嵌套切片的形式。
 		var str = `v[][]=m&v[][]=n`
 		result, err := gstr.Parse(str)
 		if err != nil {
@@ -760,7 +758,7 @@ func ExampleParse() {
 		fmt.Println(result)
 	}
 	{
-		// This will produce an error.
+		// 这将会产生一个错误。
 		var str = `v=m&v[a]=n`
 		result, err := gstr.Parse(str)
 		if err != nil {
@@ -1250,7 +1248,7 @@ func ExampleTrimLeftStr() {
 func ExampleTrimRight() {
 	var (
 		str           = `**Hello World**`
-		characterMask = "*def" // []byte{"*", "d", "e", "f"}
+		characterMask = "*def" // []byte{"*", "d", "e", "f"} // 这是一个字节切片（Byte Slice），内容包含四个元素："*"、"d"、"e" 和 "f"。
 		result        = gstr.TrimRight(str, characterMask)
 	)
 	fmt.Println(result)

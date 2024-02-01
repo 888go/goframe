@@ -1,20 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
-
 import (
 	"context"
 	"fmt"
 	"testing"
-
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/text/gregex"
-)
-
+	
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gregex"
+	)
 var (
 	db  DB
 	ctx = context.TODO()
@@ -100,7 +97,7 @@ func Test_parseConfigNodeLink_WithType(t *testing.T) {
 		t.Assert(newNode.Charset, defaultCharset)
 		t.Assert(newNode.Protocol, `tcp`)
 	})
-	// empty database preselect.
+	// 空数据库预选择。
 	gtest.C(t, func(t *gtest.T) {
 		node := &ConfigNode{
 			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/?loc=Local&parseTime=true&charset=latin`,
@@ -268,7 +265,7 @@ func Test_Func_doQuoteString(t *testing.T) {
 			"u.id asc":                         "`u`.`id` asc",
 			"u.id asc, ut.uid desc":            "`u`.`id` asc,`ut`.`uid` desc",
 			"user.user u, user.user_detail ut": "`user`.`user` u,`user`.`user_detail` ut",
-			// mssql global schema access with double dots.
+			// 使用双点操作符进行全局访问mssql模式
 			"user..user u, user.user_detail ut": "`user`..`user` u,`user`.`user_detail` ut",
 		}
 		for k, v := range array {
@@ -290,7 +287,7 @@ func Test_Func_addTablePrefix(t *testing.T) {
 			"`user`.`user_detail`":         "`user`.`user_detail`",
 			"user as u, user_detail as ut": "`user` as u,`user_detail` as ut",
 			"UserCenter.user as u, UserCenter.user_detail as ut": "`UserCenter`.`user` as u,`UserCenter`.`user_detail` as ut",
-			// mssql global schema access with double dots.
+			// 使用双点操作符进行全局访问mssql模式
 			"UserCenter..user as u, user_detail as ut": "`UserCenter`..`user` as u,`user_detail` as ut",
 		}
 		for k, v := range array {
@@ -309,7 +306,7 @@ func Test_Func_addTablePrefix(t *testing.T) {
 			"`user`.`user_detail`":         "`user`.`gf_user_detail`",
 			"user as u, user_detail as ut": "`gf_user` as u,`gf_user_detail` as ut",
 			"UserCenter.user as u, UserCenter.user_detail as ut": "`UserCenter`.`gf_user` as u,`UserCenter`.`gf_user_detail` as ut",
-			// mssql global schema access with double dots.
+			// 使用双点操作符进行全局访问mssql模式
 			"UserCenter..user as u, user_detail as ut": "`UserCenter`..`gf_user` as u,`gf_user_detail` as ut",
 		}
 		for k, v := range array {

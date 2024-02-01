@@ -1,56 +1,54 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可证条款。
+// 如果随此文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf 获取一份。
 //
 
 package gcmd
-
 import (
 	"context"
-
-	"coding.net/gogit/go/goframe/container/gset"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
-
-// Command holds the info about an argument that can handle custom logic.
+	
+	"github.com/888go/goframe/container/gset"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/text/gstr"
+	)
+// Command 结构体保存了关于一个可以处理自定义逻辑的参数的信息。
 type Command struct {
-	Name          string        // Command name(case-sensitive).
-	Usage         string        // A brief line description about its usage, eg: gf build main.go [OPTION]
-	Brief         string        // A brief info that describes what this command will do.
-	Description   string        // A detailed description.
-	Arguments     []Argument    // Argument array, configuring how this command act.
+	Name          string        // 命令名称（区分大小写）。
+	Usage         string        // 一行简短的描述，关于其使用方式，例如：gf build main.go [选项]
+	Brief         string        // 这个命令将要执行的简短描述
+	Description   string        // 一段详细描述
+	Arguments     []Argument    // 参数数组，用于配置此命令的行为。
 	Func          Function      // Custom function.
-	FuncWithValue FuncWithValue // Custom function with output parameters that can interact with command caller.
-	HelpFunc      Function      // Custom help function
+	FuncWithValue FuncWithValue // 自定义函数，带有输出参数，可以与命令调用者进行交互。
+	HelpFunc      Function      // 自定义帮助函数
 	Examples      string        // Usage examples.
-	Additional    string        // Additional info about this command, which will be appended to the end of help info.
-	Strict        bool          // Strict parsing options, which means it returns error if invalid option given.
-	CaseSensitive bool          // CaseSensitive parsing options, which means it parses input options in case-sensitive way.
-	Config        string        // Config node name, which also retrieves the values from config component along with command line.
-	parent        *Command      // Parent command for internal usage.
-	commands      []*Command    // Sub commands of this command.
+	Additional    string        // 这个命令的附加信息，将会被添加到帮助信息的末尾。
+	Strict        bool          // 严格解析选项，这意味着如果给出无效选项将返回错误。
+	CaseSensitive bool          // CaseSensitive 解析选项，表示以区分大小写的方式解析输入选项。
+	Config        string        // 配置节点名称，该名称同时从配置组件和命令行中获取值。
+	parent        *Command      // 用于内部使用的父命令。
+	commands      []*Command    // 此命令的子命令。
 }
 
-// Function is a custom command callback function that is bound to a certain argument.
+// Function 是一个自定义命令回调函数，它绑定到某个特定参数。
 type Function func(ctx context.Context, parser *Parser) (err error)
 
-// FuncWithValue is similar like Func but with output parameters that can interact with command caller.
+// FuncWithValue 类似于 Func，但是带有输出参数，可以与命令调用者进行交互。
 type FuncWithValue func(ctx context.Context, parser *Parser) (out interface{}, err error)
 
-// Argument is the command value that are used by certain command.
+// Argument 是某些命令所使用的命令值。
 type Argument struct {
 	Name   string // Option name.
 	Short  string // Option short.
-	Brief  string // Brief info about this Option, which is used in help info.
-	IsArg  bool   // IsArg marks this argument taking value from command line argument instead of option.
-	Orphan bool   // Whether this Option having or having no value bound to it.
+	Brief  string // 该Option的简要信息，用于帮助信息中。
+	IsArg  bool   // IsArg 标记这个参数从命令行参数而非选项中获取值。
+	Orphan bool   // 是否此Option已绑定或未绑定值。
 }
 
 var (
-	// defaultHelpOption is the default help option that will be automatically added to each command.
+	// defaultHelpOption 是默认的帮助选项，它将自动添加到每个命令中。
 	defaultHelpOption = Argument{
 		Name:   `help`,
 		Short:  `h`,
@@ -59,7 +57,7 @@ var (
 	}
 )
 
-// CommandFromCtx retrieves and returns Command from context.
+// CommandFromCtx 从上下文中检索并返回 Command。
 func CommandFromCtx(ctx context.Context) *Command {
 	if v := ctx.Value(CtxKeyCommand); v != nil {
 		if p, ok := v.(*Command); ok {
@@ -69,7 +67,7 @@ func CommandFromCtx(ctx context.Context) *Command {
 	return nil
 }
 
-// AddCommand adds one or more sub-commands to current command.
+// AddCommand 向当前命令添加一个或多个子命令。
 func (c *Command) AddCommand(commands ...*Command) error {
 	for _, cmd := range commands {
 		if err := c.doAddCommand(cmd); err != nil {
@@ -79,7 +77,7 @@ func (c *Command) AddCommand(commands ...*Command) error {
 	return nil
 }
 
-// doAddCommand adds one sub-command to current command.
+// doAddCommand 向当前命令添加一个子命令。
 func (c *Command) doAddCommand(command *Command) error {
 	command.Name = gstr.Trim(command.Name)
 	if command.Name == "" {
@@ -95,13 +93,13 @@ func (c *Command) doAddCommand(command *Command) error {
 	if commandNameSet.Contains(command.Name) {
 		return gerror.Newf(`command "%s" is already added to command "%s"`, command.Name, c.Name)
 	}
-	// Add the given command to its sub-commands array.
+	// 将给定的命令添加到其子命令数组中。
 	command.parent = c
 	c.commands = append(c.commands, command)
 	return nil
 }
 
-// AddObject adds one or more sub-commands to current command using struct object.
+// AddObject 通过结构体对象向当前命令添加一个或多个子命令。
 func (c *Command) AddObject(objects ...interface{}) error {
 	var commands []*Command
 	for _, object := range objects {

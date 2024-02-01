@@ -1,57 +1,55 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtime
-
 import (
 	"bytes"
 	"regexp"
 	"strconv"
 	"strings"
-
-	"coding.net/gogit/go/goframe/text/gregex"
-)
-
+	
+	"github.com/888go/goframe/text/gregex"
+	)
 var (
-	// Refer: http://php.net/manual/en/function.date.php
+	// 参考：http://php.net/manual/en/function.date.php
 	formats = map[byte]string{
-		'd': "02",                        // Day: Day of the month, 2 digits with leading zeros. Eg: 01 to 31.
-		'D': "Mon",                       // Day: A textual representation of a day, three letters. Eg: Mon through Sun.
-		'w': "Monday",                    // Day: Numeric representation of the day of the week. Eg: 0 (for Sunday) through 6 (for Saturday).
-		'N': "Monday",                    // Day: ISO-8601 numeric representation of the day of the week. Eg: 1 (for Monday) through 7 (for Sunday).
-		'j': "=j=02",                     // Day: Day of the month without leading zeros. Eg: 1 to 31.
-		'S': "02",                        // Day: English ordinal suffix for the day of the month, 2 characters. Eg: st, nd, rd or th. Works well with j.
-		'l': "Monday",                    // Day: A full textual representation of the day of the week. Eg: Sunday through Saturday.
-		'z': "",                          // Day: The day of the year (starting from 0). Eg: 0 through 365.
-		'W': "",                          // Week: ISO-8601 week number of year, weeks starting on Monday. Eg: 42 (the 42nd week in the year).
-		'F': "January",                   // Month: A full textual representation of a month, such as January or March. Eg: January through December.
-		'm': "01",                        // Month: Numeric representation of a month, with leading zeros. Eg: 01 through 12.
-		'M': "Jan",                       // Month: A short textual representation of a month, three letters. Eg: Jan through Dec.
-		'n': "1",                         // Month: Numeric representation of a month, without leading zeros. Eg: 1 through 12.
-		't': "",                          // Month: Number of days in the given month. Eg: 28 through 31.
-		'Y': "2006",                      // Year: A full numeric representation of a year, 4 digits. Eg: 1999 or 2003.
-		'y': "06",                        // Year: A two-digit representation of a year. Eg: 99 or 03.
-		'a': "pm",                        // Time: Lowercase Ante meridiem and Post meridiem. Eg: am or pm.
-		'A': "PM",                        // Time: Uppercase Ante meridiem and Post meridiem. Eg: AM or PM.
-		'g': "3",                         // Time: 12-hour format of an hour without leading zeros. Eg: 1 through 12.
-		'G': "=G=15",                     // Time: 24-hour format of an hour without leading zeros. Eg: 0 through 23.
-		'h': "03",                        // Time: 12-hour format of an hour with leading zeros. Eg: 01 through 12.
-		'H': "15",                        // Time: 24-hour format of an hour with leading zeros. Eg: 00 through 23.
-		'i': "04",                        // Time: Minutes with leading zeros. Eg: 00 to 59.
-		's': "05",                        // Time: Seconds with leading zeros. Eg: 00 through 59.
-		'u': "=u=.000",                   // Time: Milliseconds. Eg: 234, 678.
-		'U': "",                          // Time: Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT).
-		'O': "-0700",                     // Zone: Difference to Greenwich time (GMT) in hours. Eg: +0200.
-		'P': "-07:00",                    // Zone: Difference to Greenwich time (GMT) with colon between hours and minutes. Eg: +02:00.
-		'T': "MST",                       // Zone: Timezone abbreviation. Eg: UTC, EST, MDT ...
-		'c': "2006-01-02T15:04:05-07:00", // Format: ISO 8601 date. Eg: 2004-02-12T15:19:21+00:00.
-		'r': "Mon, 02 Jan 06 15:04 MST",  // Format: RFC 2822 formatted date. Eg: Thu, 21 Dec 2000 16:01:07 +0200.
+		'd': "02",                        // Day: 月份中的日期，以零填充的两位数字表示。例如：01至31。
+		'D': "Mon",                       // Day: 一个表示星期的文本表示形式，由三个字母组成。例如：Mon（周一）至Sun（周日）。
+		'w': "Monday",                    // Day: 表示星期几的数字表示。例如：0（代表星期日）到6（代表星期六）。
+		'N': "Monday",                    // Day: ISO-8601格式表示的星期几的数字表示。例如：1（代表星期一）到7（代表星期日）。
+		'j': "=j=02",                     // Day: 月份中的日期，不带前导零。例如：1 至 31。
+		'S': "02",                        // Day: 对于月份中某一天的英文序数后缀，2个字符。例如：st（用于1），nd（用于2），rd（用于3）或th（用于其它）。与j配合使用效果更佳。
+		'l': "Monday",                    // Day: 完整的星期几的文字表示。例如：星期日到星期六。
+		'z': "",                          // Day: 一年中的天数（从0开始计数）。例如：0至365。
+		'W': "",                          // Week: 根据ISO-8601标准的年份中的周数，以星期一开始计算。例如：42（一年中的第42周）。
+		'F': "January",                   // Month: 一个完整表示月份的文本，例如一月或三月。例如：从一月到十二月。
+		'm': "01",                        // Month: 月份的数字表示，前面带有零。例如：01至12。
+		'M': "Jan",                       // Month: 月份的简短文本表示，共三个字母。例如：Jan 至 Dec。
+		'n': "1",                         // Month: 月份的数字表示，不带前导零。例如：1 至 12。
+		't': "",                          // Month: 给定月份的天数。例如：28至31。
+		'Y': "2006",                      // Year：完整表示年份的数字形式，共4位数字。例如：1999或2003。
+		'y': "06",                        // Year: 一个两位数表示的年份。例如：99 或 03。
+		'a': "pm",                        // 时间：小写的上午和下午。例如：am 或 pm。
+		'A': "PM",                        // 时间：大写的上午和下午。例如：AM 或 PM。
+		'g': "3",                         // Time: 12小时制格式的小时，无前导零。例如：1至12。
+		'G': "=G=15",                     // Time: 24小时制的小时格式，无前导零。例如：0至23。
+		'h': "03",                        // Time: 12小时制格式的小时，前面补零。例如：01至12。
+		'H': "15",                        // Time: 24小时格式的小时，前面补零。例如：00至23。
+		'i': "04",                        // 时间：带有前导零的分钟。例如：00至59。
+		's': "05",                        // Time: 带前导零的秒数。例如：00至59。
+		'u': "=u=.000",                   // 时间：毫秒。例如：234，678。
+		'U': "",                          // 时间：自 Unix Epoch（1970年1月1日 00:00:00 GMT）以来的秒数。
+		'O': "-0700",                     // Zone: 与格林尼治标准时间（GMT）的时差，以小时为单位。例如：+0200。
+		'P': "-07:00",                    // Zone: 与格林尼治标准时间（GMT）的时差，小时和分钟之间用冒号分隔。例如：+02:00。
+		'T': "MST",                       // Zone: 时区缩写。例如：UTC、EST、MDT ...
+		'c': "2006-01-02T15:04:05-07:00", // 格式：ISO 8601日期。例如：2004-02-12T15:19:21+00:00。
+		'r': "Mon, 02 Jan 06 15:04 MST",  // 格式：RFC 2822格式化日期。例如：Thu, 21 Dec 2000 16:01:07 +0200。
+// （注：RFC 2822是互联网消息格式的标准，定义了电子邮件等协议中日期和时间的表示方式。）
 	}
 
-	// Week to number mapping.
+	// 星期到数字的映射。
 	weekMap = map[string]string{
 		"Sunday":    "0",
 		"Monday":    "1",
@@ -62,11 +60,11 @@ var (
 		"Saturday":  "6",
 	}
 
-	// Day count of each month which is not in leap year.
+	// 下面是每年非闰年的每月天数。
 	dayOfMonth = []int{0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334}
 )
 
-// Format formats and returns the formatted result with custom `format`.
+// Format 函数使用自定义的 `format` 进行格式化，并返回格式化后的结果。
 func (t *Time) Format(format string) string {
 	if t == nil {
 		return ""
@@ -98,7 +96,7 @@ func (t *Time) Format(format string) string {
 			}
 			if f, ok := formats[byte(runes[i])]; ok {
 				result := t.Time.Format(f)
-				// Particular chars should be handled here.
+				// 特殊字符应该在这里处理。
 				switch runes[i] {
 				case 'j':
 					for _, s := range []string{"=j=0", "=j="} {
@@ -130,7 +128,7 @@ func (t *Time) Format(format string) string {
 	return buffer.String()
 }
 
-// FormatNew formats and returns a new Time object with given custom `format`.
+// FormatNew 根据给定的自定义`format`格式化并返回一个新的Time对象。
 func (t *Time) FormatNew(format string) *Time {
 	if t == nil {
 		return nil
@@ -138,7 +136,7 @@ func (t *Time) FormatNew(format string) *Time {
 	return NewFromStr(t.Format(format))
 }
 
-// FormatTo formats `t` with given custom `format`.
+// FormatTo 根据给定的自定义 `format` 格式化 `t`。
 func (t *Time) FormatTo(format string) *Time {
 	if t == nil {
 		return nil
@@ -147,7 +145,7 @@ func (t *Time) FormatTo(format string) *Time {
 	return t
 }
 
-// Layout formats the time with stdlib layout and returns the formatted result.
+// Layout 使用标准库的布局格式化时间，并返回格式化后的结果。
 func (t *Time) Layout(layout string) string {
 	if t == nil {
 		return ""
@@ -155,7 +153,7 @@ func (t *Time) Layout(layout string) string {
 	return t.Time.Format(layout)
 }
 
-// LayoutNew formats the time with stdlib layout and returns the new Time object.
+// LayoutNew 根据stdlib布局格式化时间，并返回一个新的Time对象。
 func (t *Time) LayoutNew(layout string) *Time {
 	if t == nil {
 		return nil
@@ -167,7 +165,7 @@ func (t *Time) LayoutNew(layout string) *Time {
 	return newTime
 }
 
-// LayoutTo formats `t` with stdlib layout.
+// LayoutTo 根据stdlib布局格式化`t`。
 func (t *Time) LayoutTo(layout string) *Time {
 	if t == nil {
 		return nil
@@ -180,7 +178,7 @@ func (t *Time) LayoutTo(layout string) *Time {
 	return t
 }
 
-// IsLeapYear checks whether the time is leap year.
+// IsLeapYear 检查给定的时间是否为闰年。
 func (t *Time) IsLeapYear() bool {
 	year := t.Year()
 	if (year%4 == 0 && year%100 != 0) || year%400 == 0 {
@@ -189,7 +187,7 @@ func (t *Time) IsLeapYear() bool {
 	return false
 }
 
-// DayOfYear checks and returns the position of the day for the year.
+// DayOfYear 检查并返回一年中指定日期所在的天数位置。
 func (t *Time) DayOfYear() int {
 	var (
 		day   = t.Day()
@@ -204,7 +202,7 @@ func (t *Time) DayOfYear() int {
 	return dayOfMonth[month-1] + day - 1
 }
 
-// DaysInMonth returns the day count of current month.
+// DaysInMonth 返回当前月份的天数。
 func (t *Time) DaysInMonth() int {
 	switch t.Month() {
 	case 1, 3, 5, 7, 8, 10, 12:
@@ -218,13 +216,13 @@ func (t *Time) DaysInMonth() int {
 	return 28
 }
 
-// WeeksOfYear returns the point of current week for the year.
+// WeeksOfYear 返回当前年份中的周点。
 func (t *Time) WeeksOfYear() int {
 	_, week := t.ISOWeek()
 	return week
 }
 
-// formatToStdLayout converts custom format to stdlib layout.
+// formatToStdLayout 将自定义格式转换为stdlib布局。
 func formatToStdLayout(format string) string {
 	b := bytes.NewBuffer(nil)
 	for i := 0; i < len(format); {
@@ -240,7 +238,7 @@ func formatToStdLayout(format string) string {
 
 		default:
 			if f, ok := formats[format[i]]; ok {
-				// Handle particular chars.
+				// 处理特定字符。
 				switch format[i] {
 				case 'j':
 					b.WriteString("2")
@@ -265,7 +263,7 @@ func formatToStdLayout(format string) string {
 	return b.String()
 }
 
-// formatToRegexPattern converts the custom format to its corresponding regular expression.
+// formatToRegexPattern 将自定义格式转换为其对应的正则表达式。
 func formatToRegexPattern(format string) string {
 	s := regexp.QuoteMeta(formatToStdLayout(format))
 	s, _ = gregex.ReplaceString(`[0-9]`, `[0-9]`, s)
@@ -274,7 +272,7 @@ func formatToRegexPattern(format string) string {
 	return s
 }
 
-// formatMonthDaySuffixMap returns the short english word for current day.
+// formatMonthDaySuffixMap 返回当前日期的英文短词表示（如“日”，“月”）。
 func formatMonthDaySuffixMap(day string) string {
 	switch day {
 	case "01", "21", "31":

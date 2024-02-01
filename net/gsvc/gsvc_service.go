@@ -1,34 +1,32 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gsvc
-
 import (
 	"context"
-
-	"coding.net/gogit/go/goframe/encoding/gjson"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/intlog"
-	"coding.net/gogit/go/goframe/os/gcmd"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
-
-// LocalService provides a default implements for interface Service.
+	
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/gcmd"
+	"github.com/888go/goframe/text/gstr"
+	)
+// LocalService 为接口 Service 提供了一个默认的实现。
 type LocalService struct {
-	Head       string    // Service custom head string in service key.
-	Deployment string    // Service deployment name, eg: dev, qa, staging, prod, etc.
-	Namespace  string    // Service Namespace, to indicate different services in the same environment with the same Name.
-	Name       string    // Name for the service.
-	Version    string    // Service version, eg: v1.0.0, v2.1.1, etc.
-	Endpoints  Endpoints // Service Endpoints, pattern: IP:port, eg: 192.168.1.2:8000.
-	Metadata   Metadata  // Custom data for this service, which can be set using JSON by environment or command-line.
+	Head       string    // 在服务键中自定义头部字符串。
+	Deployment string    // 服务部署名称，例如：开发（dev）、测试（qa）、预发布（staging）、生产（prod）等。
+	Namespace  string    // 服务命名空间，用于在相同环境中标识具有相同名称的不同服务。
+	Name       string    // 服务名称。
+	Version    string    // 服务版本，例如：v1.0.0，v2.1.1等。
+	Endpoints  Endpoints // 服务端点，格式：IP:端口，例如：192.168.1.2:8000
+	Metadata   Metadata  // 此处为本服务自定义数据，可以通过环境变量或命令行使用 JSON 设置。
 }
 
-// NewServiceWithName creates and returns a default implements for interface Service by service name.
+// NewServiceWithName 通过服务名创建并返回一个接口 Service 的默认实现。
 func NewServiceWithName(name string) Service {
 	s := &LocalService{
 		Name:     name,
@@ -38,7 +36,7 @@ func NewServiceWithName(name string) Service {
 	return s
 }
 
-// NewServiceWithKV creates and returns a default implements for interface Service by key-value pair string.
+// NewServiceWithKV 通过键值对字符串创建并返回接口 Service 的一个默认实现。
 func NewServiceWithKV(key, value string) (Service, error) {
 	var (
 		err   error
@@ -67,30 +65,30 @@ func NewServiceWithKV(key, value string) (Service, error) {
 	return s, nil
 }
 
-// GetName returns the name of the service.
-// The name is necessary for a service, and should be unique among services.
+// GetName 返回服务的名称。
+// 服务必须具有名称，并且在各个服务之间应该是唯一的。
 func (s *LocalService) GetName() string {
 	return s.Name
 }
 
-// GetVersion returns the version of the service.
-// It is suggested using GNU version naming like: v1.0.0, v2.0.1, v2.1.0-rc.
-// A service can have multiple versions deployed at once.
-// If no version set in service, the default version of service is "latest".
+// GetVersion 返回服务的版本。
+// 建议采用类似 GNU 的版本命名方式，例如：v1.0.0、v2.0.1、v2.1.0-rc。
+// 一项服务可以同时部署多个版本。
+// 如果在服务中未设置版本，则服务的默认版本为 "latest"。
 func (s *LocalService) GetVersion() string {
 	return s.Version
 }
 
-// GetKey formats and returns a unique key string for service.
-// The result key is commonly used for key-value registrar server.
+// GetKey 格式化并返回服务的唯一密钥字符串。
+// 生成的密钥通常用于键值注册服务器。
 func (s *LocalService) GetKey() string {
 	serviceNameUnique := s.GetPrefix()
 	serviceNameUnique += DefaultSeparator + s.Endpoints.String()
 	return serviceNameUnique
 }
 
-// GetValue formats and returns the value of the service.
-// The result value is commonly used for key-value registrar server.
+// GetValue 格式化并返回服务的值。
+// 返回的结果值通常用于键值注册服务器。
 func (s *LocalService) GetValue() string {
 	b, err := gjson.Marshal(s.Metadata)
 	if err != nil {
@@ -99,11 +97,10 @@ func (s *LocalService) GetValue() string {
 	return string(b)
 }
 
-// GetPrefix formats and returns the key prefix string.
-// The result prefix string is commonly used in key-value registrar server
-// for service searching.
+// GetPrefix 格式化并返回键前缀字符串。
+// 生成的前缀字符串通常用于键值注册服务器中进行服务搜索。
 //
-// Take etcd server for example, the prefix string is used like:
+// 以 etcd 服务器为例，前缀字符串可以像这样使用：
 // `etcdctl get /services/prod/hello.svc --prefix`
 func (s *LocalService) GetPrefix() string {
 	s.autoFillDefaultAttributes()
@@ -119,14 +116,14 @@ func (s *LocalService) GetPrefix() string {
 	)
 }
 
-// GetMetadata returns the Metadata map of service.
-// The Metadata is key-value pair map specifying extra attributes of a service.
+// GetMetadata 返回服务的元数据映射。
+// 元数据是一个键值对映射，用于指定服务的额外属性。
 func (s *LocalService) GetMetadata() Metadata {
 	return s.Metadata
 }
 
-// GetEndpoints returns the Endpoints of service.
-// The Endpoints contain multiple host/port information of service.
+// GetEndpoints 返回服务的 Endpoints。
+// 这些 Endpoints 包含了服务的多个主机/端口信息。
 func (s *LocalService) GetEndpoints() Endpoints {
 	return s.Endpoints
 }

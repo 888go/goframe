@@ -1,18 +1,16 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gstructs
-
 import (
 	"strings"
-
-	"coding.net/gogit/go/goframe/util/gtag"
-)
-
-// TagJsonName returns the `json` tag name string of the field.
+	
+	"github.com/888go/goframe/util/gtag"
+	)
+// TagJsonName 返回该字段的 `json` 标签名称字符串。
 func (f *Field) TagJsonName() string {
 	if jsonTag := f.Tag(gtag.Json); jsonTag != "" {
 		return strings.Split(jsonTag, ",")[0]
@@ -20,7 +18,7 @@ func (f *Field) TagJsonName() string {
 	return ""
 }
 
-// TagDefault returns the most commonly used tag `default/d` value of the field.
+// TagDefault 返回该字段最常用的标签 `default/d` 的值。
 func (f *Field) TagDefault() string {
 	v := f.Tag(gtag.Default)
 	if v == "" {
@@ -29,7 +27,7 @@ func (f *Field) TagDefault() string {
 	return v
 }
 
-// TagParam returns the most commonly used tag `param/p` value of the field.
+// TagParam 返回该字段最常用的标签 `param/p` 的值。
 func (f *Field) TagParam() string {
 	v := f.Tag(gtag.Param)
 	if v == "" {
@@ -38,7 +36,7 @@ func (f *Field) TagParam() string {
 	return v
 }
 
-// TagValid returns the most commonly used tag `valid/v` value of the field.
+// TagValid 返回该字段最常用的标签 `valid/v` 的值。
 func (f *Field) TagValid() string {
 	v := f.Tag(gtag.Valid)
 	if v == "" {
@@ -47,7 +45,7 @@ func (f *Field) TagValid() string {
 	return v
 }
 
-// TagDescription returns the most commonly used tag `description/des/dc` value of the field.
+// TagDescription 返回字段中最常用的标签 `description/des/dc` 的值。
 func (f *Field) TagDescription() string {
 	v := f.Tag(gtag.Description)
 	if v == "" {
@@ -59,7 +57,7 @@ func (f *Field) TagDescription() string {
 	return v
 }
 
-// TagSummary returns the most commonly used tag `summary/sum/sm` value of the field.
+// TagSummary 返回该字段使用最频繁的标签值，标签键为 `summary`、`sum` 或 `sm`。
 func (f *Field) TagSummary() string {
 	v := f.Tag(gtag.Summary)
 	if v == "" {
@@ -71,7 +69,7 @@ func (f *Field) TagSummary() string {
 	return v
 }
 
-// TagAdditional returns the most commonly used tag `additional/ad` value of the field.
+// TagAdditional 返回该字段最常用的标签 "additional/ad" 的值。
 func (f *Field) TagAdditional() string {
 	v := f.Tag(gtag.Additional)
 	if v == "" {
@@ -80,7 +78,7 @@ func (f *Field) TagAdditional() string {
 	return v
 }
 
-// TagExample returns the most commonly used tag `example/eg` value of the field.
+// TagExample 返回该字段最常用的标签 `example/eg` 的值。
 func (f *Field) TagExample() string {
 	v := f.Tag(gtag.Example)
 	if v == "" {
@@ -89,7 +87,7 @@ func (f *Field) TagExample() string {
 	return v
 }
 
-// TagIn returns the most commonly used tag `in` value of the field.
+// TagIn 返回该字段最常用的标签 "in" 值。
 func (f *Field) TagIn() string {
 	v := f.Tag(gtag.In)
 	return v

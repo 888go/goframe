@@ -1,14 +1,15 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
 
-import "coding.net/gogit/go/goframe/container/gvar"
 
-// SetParam sets custom parameter with key-value pairs.
+import (
+	"github.com/888go/goframe/container/gvar"
+	)
+// SetParam 设置自定义参数，使用键值对。
 func (r *Request) SetParam(key string, value interface{}) {
 	if r.paramsMap == nil {
 		r.paramsMap = make(map[string]interface{})
@@ -16,7 +17,7 @@ func (r *Request) SetParam(key string, value interface{}) {
 	r.paramsMap[key] = value
 }
 
-// SetParamMap sets custom parameter with key-value pair maps.
+// SetParamMap 用于设置自定义参数，采用键值对形式的映射。
 func (r *Request) SetParamMap(data map[string]interface{}) {
 	if r.paramsMap == nil {
 		r.paramsMap = make(map[string]interface{})
@@ -26,9 +27,9 @@ func (r *Request) SetParamMap(data map[string]interface{}) {
 	}
 }
 
-// GetParam returns custom parameter with a given name `key`.
-// It returns `def` if `key` does not exist.
-// It returns nil if `def` is not passed.
+// GetParam 函数用于获取自定义参数，通过给定的名称 `key`。
+// 若 `key` 不存在，则返回 `def`。
+// 若未提供 `def`，则返回 nil。
 func (r *Request) GetParam(key string, def ...interface{}) *gvar.Var {
 	if len(r.paramsMap) > 0 {
 		if value, ok := r.paramsMap[key]; ok {

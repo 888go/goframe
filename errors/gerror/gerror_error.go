@@ -1,35 +1,32 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gerror
-
 import (
 	"errors"
 	"fmt"
 	"runtime"
 	"strings"
-
-	"coding.net/gogit/go/goframe/errors/gcode"
-)
-
-// Error is custom error for additional features.
+	
+	"github.com/888go/goframe/errors/gcode"
+	)
+// Error 是自定义错误类型，用于提供额外功能。
 type Error struct {
 	error error      // Wrapped error.
-	stack stack      // Stack array, which records the stack information when this error is created or wrapped.
-	text  string     // Custom Error text when Error is created, might be empty when its code is not nil.
-	code  gcode.Code // Error code if necessary.
+	stack stack      // Stack 数组，用于记录当此错误创建或被包裹时的堆栈信息。
+	text  string     // 当 Error 被创建时的自定义错误文本，如果其代码不为空，则可能为空。
+	code  gcode.Code // 如果必要，此处为错误代码。
 }
 
 const (
-	// Filtering key for current error module paths.
+	// 用于当前错误模块路径的过滤键。
 	stackFilterKeyLocal = "/errors/gerror/gerror"
 )
 
 var (
-	// goRootForFilter is used for stack filtering in development environment purpose.
+	// goRootForFilter 用于在开发环境目的中进行堆栈过滤。
 	goRootForFilter = runtime.GOROOT()
 )
 
@@ -39,7 +36,7 @@ func init() {
 	}
 }
 
-// Error implements the interface of Error, it returns all the error as string.
+// Error 实现了 Error 接口，它将所有错误以字符串形式返回。
 func (err *Error) Error() string {
 	if err == nil {
 		return ""
@@ -57,7 +54,7 @@ func (err *Error) Error() string {
 	return errStr
 }
 
-// Cause returns the root cause error.
+// Cause 返回根本原因错误。
 func (err *Error) Cause() error {
 	if err == nil {
 		return nil
@@ -66,26 +63,26 @@ func (err *Error) Cause() error {
 	for loop != nil {
 		if loop.error != nil {
 			if e, ok := loop.error.(*Error); ok {
-				// Internal Error struct.
+				// 内部错误结构体。
 				loop = e
 			} else if e, ok := loop.error.(ICause); ok {
-				// Other Error that implements ApiCause interface.
+				// 其他实现了ApiCause接口的错误类型。
 				return e.Cause()
 			} else {
 				return loop.error
 			}
 		} else {
-			// return loop
-			//
-			// To be compatible with Case of https://github.com/pkg/errors.
+// 返回循环
+//
+// 为了与 https://github.com/pkg/errors 包中的 Case 兼容。
 			return errors.New(loop.text)
 		}
 	}
 	return nil
 }
 
-// Current creates and returns the current level error.
-// It returns nil if current level error is nil.
+// Current函数创建并返回当前层级的错误信息。
+// 如果当前层级的错误信息为nil，则该函数返回nil。
 func (err *Error) Current() error {
 	if err == nil {
 		return nil
@@ -98,8 +95,8 @@ func (err *Error) Current() error {
 	}
 }
 
-// Unwrap is alias of function `Next`.
-// It is just for implements for stdlib errors.Unwrap from Go version 1.17.
+// Unwrap 是函数 `Next` 的别名。
+// 它仅为实现从 Go 1.17 版本开始的stdlib errors.Unwrap 接口而存在。
 func (err *Error) Unwrap() error {
 	if err == nil {
 		return nil
@@ -107,27 +104,27 @@ func (err *Error) Unwrap() error {
 	return err.error
 }
 
-// Equal reports whether current error `err` equals to error `target`.
-// Please note that, in default comparison for `Error`,
-// the errors are considered the same if both the `code` and `text` of them are the same.
+// Equal 判断当前错误 `err` 是否与目标错误 `target` 相等。
+// 请注意，在默认的 `Error` 比较方式下，
+// 如果两个错误的 `code` 和 `text` 都相同，则认为它们是相同的错误。
 func (err *Error) Equal(target error) bool {
 	if err == target {
 		return true
 	}
-	// Code should be the same.
-	// Note that if both errors have `nil` code, they are also considered equal.
+// 代码应当保持一致。
+// 注意，如果两个错误的code都是`nil`，则认为它们也是相等的。
 	if err.code != Code(target) {
 		return false
 	}
-	// Text should be the same.
+	// 文本内容应该保持一致。
 	if err.text != fmt.Sprintf(`%-s`, target) {
 		return false
 	}
 	return true
 }
 
-// Is reports whether current error `err` has error `target` in its chaining errors.
-// It is just for implements for stdlib errors.Is from Go version 1.17.
+// Is 报告当前错误 `err` 在其链式错误中是否包含错误 `target`。
+// 这只是为了实现从 Go 1.17 版本开始的stdlib errors.Is功能。
 func (err *Error) Is(target error) bool {
 	if Equal(err, target) {
 		return true

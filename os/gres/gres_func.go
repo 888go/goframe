@@ -1,24 +1,22 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gres
-
 import (
 	"archive/zip"
 	"bytes"
 	"encoding/hex"
 	"fmt"
-
-	"coding.net/gogit/go/goframe/encoding/gbase64"
-	"coding.net/gogit/go/goframe/encoding/gcompress"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
-
+	
+	"github.com/888go/goframe/encoding/gbase64"
+	"github.com/888go/goframe/encoding/gcompress"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/text/gstr"
+	)
 const (
 	packedGoSourceTemplate = `
 package %s
@@ -33,19 +31,18 @@ func init() {
 `
 )
 
-// Option contains the extra options for Pack functions.
+// Option 包含 Pack 函数的额外选项。
 type Option struct {
-	Prefix   string // The file path prefix for each file item in resource manager.
-	KeepPath bool   // Keep the passed path when packing, usually for relative path.
+	Prefix   string // 在资源管理器中，每个文件项的文件路径前缀。
+	KeepPath bool   // 在打包时保留传递的路径，通常用于相对路径。
 }
 
-// Pack packs the path specified by `srcPaths` into bytes.
-// The unnecessary parameter `keyPrefix` indicates the prefix for each file
-// packed into the result bytes.
+// Pack 将由 `srcPaths` 指定的路径打包成字节形式。
+// 不必要的参数 `keyPrefix` 表示每个文件被打包到结果字节中时的前缀。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，参数 `srcPaths` 支持使用 ',' 连接的多个路径。
 //
-// Deprecated: use PackWithOption instead.
+// 已弃用：请改用 PackWithOption。
 func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 	option := Option{}
 	if len(keyPrefix) > 0 && keyPrefix[0] != "" {
@@ -54,26 +51,25 @@ func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 	return PackWithOption(srcPaths, option)
 }
 
-// PackWithOption packs the path specified by `srcPaths` into bytes.
+// PackWithOption 函数将由 `srcPaths` 指定的路径打包成字节形式。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，参数 `srcPaths` 支持使用 ',' 连接的多个路径。
 func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 	var buffer = bytes.NewBuffer(nil)
 	err := zipPathWriter(srcPaths, buffer, option)
 	if err != nil {
 		return nil, err
 	}
-	// Gzip the data bytes to reduce the size.
+	// 使用Gzip压缩数据字节以减少其大小。
 	return gcompress.Gzip(buffer.Bytes(), 9)
 }
 
-// PackToFile packs the path specified by `srcPaths` to target file `dstPath`.
-// The unnecessary parameter `keyPrefix` indicates the prefix for each file
-// packed into the result bytes.
+// PackToFile 将由`srcPaths`指定的路径打包到目标文件`dstPath`中。
+// 不必要的参数`keyPrefix`表示每个被打包到结果字节中的文件前缀。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，参数`srcPaths`支持使用','连接的多个路径。
 //
-// Deprecated: use PackToFileWithOption instead.
+// 已弃用：请改用PackToFileWithOption。
 func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 	data, err := Pack(srcPaths, keyPrefix...)
 	if err != nil {
@@ -82,9 +78,9 @@ func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 	return gfile.PutBytes(dstPath, data)
 }
 
-// PackToFileWithOption packs the path specified by `srcPaths` to target file `dstPath`.
+// PackToFileWithOption 将由 `srcPaths` 指定的路径打包到目标文件 `dstPath`。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，参数 `srcPaths` 支持通过 ',' 连接的多个路径。
 func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	data, err := PackWithOption(srcPaths, option)
 	if err != nil {
@@ -93,15 +89,14 @@ func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	return gfile.PutBytes(dstPath, data)
 }
 
-// PackToGoFile packs the path specified by `srcPaths` to target go file `goFilePath`
-// with given package name `pkgName`.
+// PackToGoFile 将由 `srcPaths` 指定的路径打包到目标 Go 文件 `goFilePath`，
+// 并使用给定的包名 `pkgName`。
 //
-// The unnecessary parameter `keyPrefix` indicates the prefix for each file
-// packed into the result bytes.
+// 非必需参数 `keyPrefix` 表示每个打包进结果字节流文件的前缀。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，参数 `srcPaths` 支持以 ',' 连接的多个路径。
 //
-// Deprecated: use PackToGoFileWithOption instead.
+// 已弃用：请改用 PackToGoFileWithOption。
 func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) error {
 	data, err := Pack(srcPath, keyPrefix...)
 	if err != nil {
@@ -113,10 +108,10 @@ func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) erro
 	)
 }
 
-// PackToGoFileWithOption packs the path specified by `srcPaths` to target go file `goFilePath`
-// with given package name `pkgName`.
+// PackToGoFileWithOption 根据指定的 `srcPaths` 路径将文件打包到目标 Go 文件 `goFilePath`，
+// 同时使用给定的包名 `pkgName`。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，参数 `srcPaths` 支持通过 ',' 连接多个路径。
 func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) error {
 	data, err := PackWithOption(srcPath, option)
 	if err != nil {
@@ -128,7 +123,7 @@ func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) 
 	)
 }
 
-// Unpack unpacks the content specified by `path` to []*File.
+// Unpack 将由 `path` 指定的内容解包为 []*File 类型的切片。
 func Unpack(path string) ([]*File, error) {
 	realPath, err := gfile.Search(path)
 	if err != nil {
@@ -137,21 +132,21 @@ func Unpack(path string) ([]*File, error) {
 	return UnpackContent(gfile.GetContents(realPath))
 }
 
-// UnpackContent unpacks the content to []*File.
+// UnpackContent 解析内容到 []*File 类型的切片。
 func UnpackContent(content string) ([]*File, error) {
 	var (
 		err  error
 		data []byte
 	)
 	if isHexStr(content) {
-		// It here keeps compatible with old version packing string using hex string.
-		// TODO remove this support in the future.
+// 这里保留了使用十六进制字符串进行旧版本打包字符串的兼容性。
+// TODO：未来将删除对此种支持。
 		data, err = gcompress.UnGzip(hexStrToBytes(content))
 		if err != nil {
 			return nil, err
 		}
 	} else if isBase64(content) {
-		// New version packing string using base64.
+		// 新版本使用base64对字符串进行打包。
 		b, err := gbase64.DecodeString(content)
 		if err != nil {
 			return nil, err
@@ -178,8 +173,8 @@ func UnpackContent(content string) ([]*File, error) {
 	return array, nil
 }
 
-// isBase64 checks and returns whether given content `s` is base64 string.
-// It returns true if `s` is base64 string, or false if not.
+// isBase64 检查并返回给定内容 `s` 是否为 base64 字符串。
+// 如果 `s` 是 base64 字符串，则返回 true；否则返回 false。
 func isBase64(s string) bool {
 	var r bool
 	for i := 0; i < len(s); i++ {
@@ -195,8 +190,8 @@ func isBase64(s string) bool {
 	return true
 }
 
-// isHexStr checks and returns whether given content `s` is hex string.
-// It returns true if `s` is hex string, or false if not.
+// isHexStr 检查并返回给定内容 `s` 是否为十六进制字符串。
+// 如果 `s` 是十六进制字符串，则返回 true；否则返回 false。
 func isHexStr(s string) bool {
 	var r bool
 	for i := 0; i < len(s); i++ {
@@ -210,7 +205,7 @@ func isHexStr(s string) bool {
 	return true
 }
 
-// hexStrToBytes converts hex string content to []byte.
+// hexStrToBytes 将十六进制字符串内容转换为 []byte 类型。
 func hexStrToBytes(s string) []byte {
 	src := []byte(s)
 	dst := make([]byte, hex.DecodedLen(len(src)))

@@ -1,22 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package mysql_test
-
 import (
 	"fmt"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-)
-
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	)
 // CreateAt/UpdateAt/DeleteAt.
+// 创建时间/更新时间/删除时间。
 func Test_SoftCreateUpdateDeleteTimeMicroSecond(t *testing.T) {
 	table := "time_test_table_" + gtime.TimestampNanoStr()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -52,7 +50,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneInsert["create_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 		t.AssertGE(oneInsert["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Save
@@ -74,7 +72,7 @@ CREATE TABLE %s (
 		t.AssertNE(oneSave["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
 		t.AssertGE(oneSave["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Update
@@ -112,7 +110,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneReplace["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
 		t.AssertGE(oneReplace["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Delete
@@ -151,6 +149,7 @@ CREATE TABLE %s (
 }
 
 // CreateAt/UpdateAt/DeleteAt.
+// 创建时间/更新时间/删除时间。
 func Test_SoftCreateUpdateDeleteTimeSecond(t *testing.T) {
 	table := "time_test_table_" + gtime.TimestampNanoStr()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -186,7 +185,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneInsert["create_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 		t.AssertGE(oneInsert["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Save
@@ -208,7 +207,7 @@ CREATE TABLE %s (
 		t.AssertNE(oneSave["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
 		t.AssertGE(oneSave["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Update
@@ -246,7 +245,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneReplace["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
 		t.AssertGE(oneReplace["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Delete
@@ -285,6 +284,10 @@ CREATE TABLE %s (
 }
 
 // CreatedAt/UpdatedAt/DeletedAt.
+//这三个字段分别代表：
+// CreatedAt：记录创建的时间
+// UpdatedAt：记录最后一次更新的时间
+// DeletedAt：记录删除的时间（若该记录已被逻辑删除）
 func Test_SoftCreatedUpdatedDeletedTime_Map(t *testing.T) {
 	table := "time_test_table_" + gtime.TimestampNanoStr()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -320,7 +323,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneInsert["created_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 		t.AssertGE(oneInsert["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Save
@@ -342,7 +345,7 @@ CREATE TABLE %s (
 		t.AssertNE(oneSave["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
 		t.AssertGE(oneSave["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Update
@@ -380,7 +383,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneReplace["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
 		t.AssertGE(oneReplace["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Delete
@@ -419,6 +422,10 @@ CREATE TABLE %s (
 }
 
 // CreatedAt/UpdatedAt/DeletedAt.
+//这三个字段分别代表：
+// CreatedAt：记录创建的时间
+// UpdatedAt：记录最后一次更新的时间
+// DeletedAt：记录删除的时间（若该记录已被逻辑删除）
 func Test_SoftCreatedUpdatedDeletedTime_Struct(t *testing.T) {
 	table := "time_test_table_" + gtime.TimestampNanoStr()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -461,7 +468,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneInsert["created_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 		t.AssertGE(oneInsert["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Save
@@ -483,7 +490,7 @@ CREATE TABLE %s (
 		t.AssertNE(oneSave["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
 		t.AssertGE(oneSave["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Update
@@ -521,7 +528,7 @@ CREATE TABLE %s (
 		t.AssertGE(oneReplace["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
 		t.AssertGE(oneReplace["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
 
-		// For time asserting purpose.
+		// 用于时间断言的目的。
 		time.Sleep(2 * time.Second)
 
 		// Delete
@@ -810,8 +817,17 @@ CREATE TABLE %s (
 		gtest.Error(err)
 	}
 	defer dropTable(table)
-	// db.SetDebug(true)
-	// Add datas.
+	// 设置数据库调试模式为开启状态。
+// db.SetDebug(true)
+// 添加数据。
+// Add datas.
+// 这里的"datas"在中文中一般表示为“数据”，但在Go语言编程中，根据变量或方法的具体含义，可能会有不同的翻译。如果这里的"Add datas"是向数据库添加数据的意思，那么可以翻译为：
+// ```go
+// 开启数据库调试模式。
+// db.SetDebug(true)
+// 添加数据。
+// db.AddData(...)
+// 但请注意，具体的翻译需要根据上下文和实际代码逻辑进行准确理解。
 	gtest.C(t, func(t *gtest.T) {
 		for i := 1; i <= 10; i++ {
 			data := g.Map{
@@ -853,8 +869,10 @@ CREATE TABLE %s (
 	}
 	defer dropTable(table)
 
-	// db.SetDebug(true)
-	// defer db.SetDebug(false)
+	// 设置数据库调试模式为开启状态
+// db.SetDebug(true)
+// 在函数结束时，确保关闭数据库调试模式
+// defer db.SetDebug(false)
 
 	type Entity struct {
 		Id       uint64      `orm:"id,primary" json:"id"`

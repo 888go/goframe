@@ -1,43 +1,43 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可证条款。
+// 如果随此文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf 获取一份。
 //
 
 package gcmd
-
 import (
 	"context"
 	"os"
 	"strings"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/command"
-	"coding.net/gogit/go/goframe/internal/json"
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
-
-// ParserOption manages the parsing options.
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	)
+// ParserOption 管理解析选项。
 type ParserOption struct {
-	CaseSensitive bool // Marks options parsing in case-sensitive way.
-	Strict        bool // Whether stops parsing and returns error if invalid option passed.
+	CaseSensitive bool // 以区分大小写的方式标记选项解析
+	Strict        bool // 如果传递了无效的选项，则停止解析并返回错误。
 }
 
-// Parser for arguments.
+// 参数解析器
 type Parser struct {
 	option           ParserOption      // Parse option.
-	parsedArgs       []string          // As name described.
-	parsedOptions    map[string]string // As name described.
-	passedOptions    map[string]bool   // User passed supported options, like: map[string]bool{"name,n":true}
-	supportedOptions map[string]bool   // Option [OptionName:WhetherNeedArgument], like: map[string]bool{"name":true, "n":true}
-	commandFuncMap   map[string]func() // Command function map for function handler.
+	parsedArgs       []string          // 如名称所述。
+	parsedOptions    map[string]string // 如名称所述。
+	passedOptions    map[string]bool   // 用户传入支持的选项，格式如：map[string]bool{"name,n":true}
+// （该行代码注释表明，用户可以通过一个字符串到布尔值的映射表来传递支持的选项，其中键（key）为选项名，可能包含逗号分隔的别名，值（value）为true表示该选项被启用或选中。例如，在这个示例中，“name,n”表示选项名为"name"且其别名为 "n"，并且这个选项是被支持并启用的。）
+	supportedOptions map[string]bool   // Option [选项名称:是否需要参数], 格式如：map[string]bool{"name":true, "n":true}
+// 其中，键(如"name"和"n")代表选项名称，值(true或false)表示该选项在使用时是否需要携带参数。
+	commandFuncMap   map[string]func() // Command 函数映射，用于函数处理器。
 }
 
-// ParserFromCtx retrieves and returns Parser from context.
+// ParserFromCtx 从上下文中检索并返回 Parser。
 func ParserFromCtx(ctx context.Context) *Parser {
 	if v := ctx.Value(CtxKeyParser); v != nil {
 		if p, ok := v.(*Parser); ok {
@@ -47,12 +47,12 @@ func ParserFromCtx(ctx context.Context) *Parser {
 	return nil
 }
 
-// Parse creates and returns a new Parser with os.Args and supported options.
+// Parse 创建并返回一个新的 Parser，其参数为 os.Args 以及支持的选项。
 //
-// Note that the parameter `supportedOptions` is as [option name: need argument], which means
-// the value item of `supportedOptions` indicates whether corresponding option name needs argument or not.
+// 注意，参数 `supportedOptions` 形式为 [选项名: 是否需要参数]，这意味着
+// `supportedOptions` 的值项表示对应的选项名是否需要参数。
 //
-// The optional parameter `strict` specifies whether stops parsing and returns error if invalid option passed.
+// 可选参数 `strict` 指定在遇到无效选项时是否停止解析并返回错误。
 func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(os.Args...)
@@ -64,12 +64,12 @@ func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, e
 	return ParseArgs(os.Args, supportedOptions, option...)
 }
 
-// ParseArgs creates and returns a new Parser with given arguments and supported options.
+// ParseArgs 创建并返回一个新的解析器，该解析器包含给定的参数及支持的选项。
 //
-// Note that the parameter `supportedOptions` is as [option name: need argument], which means
-// the value item of `supportedOptions` indicates whether corresponding option name needs argument or not.
+// 注意，参数 `supportedOptions` 形式为 [选项名称: 是否需要参数]，这意味着
+// `supportedOptions` 中的值项表示对应的选项名称是否需要参数。
 //
-// The optional parameter `strict` specifies whether stops parsing and returns error if invalid option passed.
+// 可选参数 `strict` 指定了当遇到无效选项时，是否停止解析并返回错误。
 func ParseArgs(args []string, supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(args...)
@@ -137,8 +137,8 @@ func ParseArgs(args []string, supportedOptions map[string]bool, option ...Parser
 	return parser, nil
 }
 
-// parseMultiOption parses option to multiple valid options like: --dav.
-// It returns nil if given option is not multi-option.
+// parseMultiOption解析选项为多个有效选项，如：--dav。
+// 如果给定的选项不是多选项，则返回nil。
 func (p *Parser) parseMultiOption(option string) []string {
 	for i := 1; i <= len(option); i++ {
 		s := option[:i]
@@ -183,7 +183,7 @@ func (p *Parser) isOptionNeedArgument(name string) bool {
 	return p.supportedOptions[name]
 }
 
-// setOptionValue sets the option value for name and according alias.
+// setOptionValue 为名称name及其别名设置选项值。
 func (p *Parser) setOptionValue(name, value string) {
 	for optionName := range p.passedOptions {
 		array := gstr.SplitAndTrim(optionName, ",")
@@ -198,7 +198,7 @@ func (p *Parser) setOptionValue(name, value string) {
 	}
 }
 
-// GetOpt returns the option value named `name` as gvar.Var.
+// GetOpt 函数返回名为 `name` 的选项值，类型为 gvar.Var。
 func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
 	if v, ok := p.parsedOptions[name]; ok {
 		return gvar.New(v)
@@ -209,12 +209,12 @@ func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
 	return nil
 }
 
-// GetOptAll returns all parsed options.
+// GetOptAll 返回所有已解析的选项。
 func (p *Parser) GetOptAll() map[string]string {
 	return p.parsedOptions
 }
 
-// GetArg returns the argument at `index` as gvar.Var.
+// GetArg 返回位于`index`处的参数作为gvar.Var类型。
 func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
 	if index >= 0 && index < len(p.parsedArgs) {
 		return gvar.New(p.parsedArgs[index])
@@ -225,12 +225,12 @@ func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
 	return nil
 }
 
-// GetArgAll returns all parsed arguments.
+// GetArgAll 返回所有已解析的参数。
 func (p *Parser) GetArgAll() []string {
 	return p.parsedArgs
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (p Parser) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
 		"parsedArgs":       p.parsedArgs,

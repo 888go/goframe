@@ -1,19 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtime_test
-
 import (
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-)
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	)
 
 func Test_TimestampStr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -96,7 +94,7 @@ func Test_RFC822(t *testing.T) {
 
 func Test_StrToTime(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		// Correct datetime string.
+		// 正确的日期时间字符串。
 		var testDateTimes = []string{
 			"2006-01-02 15:04:05",
 			"2006/01/02 15:04:05",
@@ -118,7 +116,7 @@ func Test_StrToTime(t *testing.T) {
 			t.Assert(timeTemp.Time.Format("2006-01-02 15:04:05"), "2006-01-02 15:04:05")
 		}
 
-		// Correct date string,.
+		// 正确的日期字符串
 		var testDates = []string{
 			"2006.01.02",
 			"2006.01.02 00:00",
@@ -131,7 +129,7 @@ func Test_StrToTime(t *testing.T) {
 			t.Assert(timeTemp.Time.Format("2006-01-02 15:04:05"), "2006-01-02 00:00:00")
 		}
 
-		// Correct time string.
+		// 正确的时间字符串。
 		var testTimes = g.MapStrStr{
 			"16:12:01":     "15:04:05",
 			"16:12:01.789": "15:04:05.000",
@@ -217,7 +215,7 @@ func Test_ConvertZone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// 现行时间
 		nowUTC := time.Now().UTC()
-		// t.Log(nowUTC.Unix())
+		// t.Log(nowUTC.Unix()) // 输出当前UTC时间的Unix时间戳（单位为秒）
 		testZone := "errZone"
 
 		// 错误时间输入

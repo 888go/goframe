@@ -1,26 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
-
 import (
 	"strings"
-
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// Order sets the "ORDER BY" statement for the model.
+	
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	)
+// Order 为模型设置 "ORDER BY" 语句。
 //
-// Eg:
-// Order("id desc")
-// Order("id", "desc").
-// Order("id desc,name asc")
-// Order("id desc").Order("name asc")
-// Order(gdb.Raw("field(id, 3,1,2)")).
+// 示例：
+// Order("id desc") // 按 id 倒序排序
+// Order("id", "desc") // 等同于 Order("id desc")
+// Order("id desc,name asc") // 先按 id 倒序，再按 name 正序排序
+// Order("id desc").Order("name asc") // 分别对 id 和 name 进行倒序和正序排序
+// Order(gdb.Raw("field(id, 3,1,2)")) // 使用原生表达式进行排序，如MySQL中的 field 函数指定排序字段的顺序
 func (m *Model) Order(orderBy ...interface{}) *Model {
 	if len(orderBy) == 0 {
 		return m
@@ -40,7 +37,7 @@ func (m *Model) Order(orderBy ...interface{}) *Model {
 	return model
 }
 
-// OrderAsc sets the "ORDER BY xxx ASC" statement for the model.
+// OrderAsc 为模型设置 "ORDER BY xxx ASC" 语句。
 func (m *Model) OrderAsc(column string) *Model {
 	if len(column) == 0 {
 		return m
@@ -48,7 +45,7 @@ func (m *Model) OrderAsc(column string) *Model {
 	return m.Order(column + " ASC")
 }
 
-// OrderDesc sets the "ORDER BY xxx DESC" statement for the model.
+// OrderDesc 为模型设置 "ORDER BY xxx DESC" 语句。
 func (m *Model) OrderDesc(column string) *Model {
 	if len(column) == 0 {
 		return m
@@ -56,14 +53,14 @@ func (m *Model) OrderDesc(column string) *Model {
 	return m.Order(column + " DESC")
 }
 
-// OrderRandom sets the "ORDER BY RANDOM()" statement for the model.
+// OrderRandom 为模型设置 "ORDER BY RANDOM()" 语句。
 func (m *Model) OrderRandom() *Model {
 	model := m.getModel()
 	model.orderBy = "RAND()"
 	return model
 }
 
-// Group sets the "GROUP BY" statement for the model.
+// Group 设置模型的 "GROUP BY" 语句。
 func (m *Model) Group(groupBy ...string) *Model {
 	if len(groupBy) == 0 {
 		return m

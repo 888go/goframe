@@ -1,22 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可证条款。
+// 如果随此文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-// Package gcmd provides console operations, like options/arguments reading and command running.
+// Package gcmd 提供控制台操作功能，例如选项/参数读取和命令执行。
 package gcmd
-
 import (
 	"os"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/internal/command"
-	"coding.net/gogit/go/goframe/internal/utils"
-	"coding.net/gogit/go/goframe/os/gctx"
-)
-
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/os/gctx"
+	)
 const (
 	CtxKeyParser    gctx.StrKey = `CtxKeyParser`
 	CtxKeyCommand   gctx.StrKey = `CtxKeyCommand`
@@ -32,12 +30,12 @@ const (
 	tagNameShort          = "short"
 )
 
-// Init does custom initialization.
+// Init 进行自定义初始化。
 func Init(args ...string) {
 	command.Init(args...)
 }
 
-// GetOpt returns the option value named `name` as gvar.Var.
+// GetOpt 函数返回名为 `name` 的选项值，类型为 gvar.Var。
 func GetOpt(name string, def ...string) *gvar.Var {
 	if v := command.GetOpt(name, def...); v != "" {
 		return gvar.New(v)
@@ -48,12 +46,12 @@ func GetOpt(name string, def ...string) *gvar.Var {
 	return nil
 }
 
-// GetOptAll returns all parsed options.
+// GetOptAll 返回所有已解析的选项。
 func GetOptAll() map[string]string {
 	return command.GetOptAll()
 }
 
-// GetArg returns the argument at `index` as gvar.Var.
+// GetArg 返回位于`index`处的参数作为gvar.Var类型。
 func GetArg(index int, def ...string) *gvar.Var {
 	if v := command.GetArg(index, def...); v != "" {
 		return gvar.New(v)
@@ -61,7 +59,7 @@ func GetArg(index int, def ...string) *gvar.Var {
 	return nil
 }
 
-// GetArgAll returns all parsed arguments.
+// GetArgAll 返回所有已解析的参数。
 func GetArgAll() []string {
 	return command.GetArgAll()
 }
@@ -90,7 +88,7 @@ func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
 	return nil
 }
 
-// BuildOptions builds the options as string.
+// BuildOptions 将选项构建为字符串。
 func BuildOptions(m map[string]string, prefix ...string) string {
 	options := ""
 	leadStr := "-"

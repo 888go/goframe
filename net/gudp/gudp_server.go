@@ -1,25 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gudp
-
 import (
 	"fmt"
 	"net"
 	"sync"
-
-	"coding.net/gogit/go/goframe/container/gmap"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
+	
+	"github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	)
 const (
-	// FreePortAddress marks the server listens using random free port.
+	// FreePortAddress 表示服务器使用随机空闲端口进行监听。
 	FreePortAddress = ":0"
 )
 
@@ -27,20 +25,20 @@ const (
 	defaultServer = "default"
 )
 
-// Server is the UDP server.
+// Server 是 UDP 服务器。
 type Server struct {
-	mu      sync.Mutex  // Used for Server.listen concurrent safety. -- The golang test with data race checks this.
-	conn    *Conn       // UDP server connection object.
-	address string      // UDP server listening address.
-	handler func(*Conn) // Handler for UDP connection.
+	mu      sync.Mutex  // 用于保证Server.listen方法的并发安全性。-- 该Go语言测试会通过数据竞争检查进行验证。
+	conn    *Conn       // UDP服务器连接对象。
+	address string      // UDP服务器监听地址。
+	handler func(*Conn) // 处理UDP连接的处理器。
 }
 
 var (
-	// serverMapping is used for instance name to its UDP server mappings.
+	// serverMapping 用于实例名与其UDP服务器之间的映射。
 	serverMapping = gmap.NewStrAnyMap(true)
 )
 
-// GetServer creates and returns an UDP server instance with given name.
+// GetServer 根据给定名称创建并返回一个UDP服务器实例。
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
@@ -54,9 +52,8 @@ func GetServer(name ...interface{}) *Server {
 	return s
 }
 
-// NewServer creates and returns an UDP server.
-// The optional parameter `name` is used to specify its name, which can be used for
-// GetServer function to retrieve its instance.
+// NewServer 创建并返回一个 UDP 服务器。
+// 可选参数 `name` 用于指定其名称，可用于 GetServer 函数来获取其实例。
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -68,18 +65,18 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	return s
 }
 
-// SetAddress sets the server address for UDP server.
+// SetAddress 设置 UDP 服务器的服务器地址。
 func (s *Server) SetAddress(address string) {
 	s.address = address
 }
 
-// SetHandler sets the connection handler for UDP server.
+// SetHandler 设置 UDP 服务器的连接处理器。
 func (s *Server) SetHandler(handler func(*Conn)) {
 	s.handler = handler
 }
 
-// Close closes the connection.
-// It will make server shutdowns immediately.
+// Close 关闭连接。
+// 它将使服务器立即关闭。
 func (s *Server) Close() (err error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -90,7 +87,7 @@ func (s *Server) Close() (err error) {
 	return
 }
 
-// Run starts listening UDP connection.
+// Run 开始监听 UDP 连接。
 func (s *Server) Run() error {
 	if s.handler == nil {
 		err := gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
@@ -113,7 +110,7 @@ func (s *Server) Run() error {
 	return nil
 }
 
-// GetListenedAddress retrieves and returns the address string which are listened by current server.
+// GetListenedAddress 获取并返回当前服务器正在监听的地址字符串。
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -126,7 +123,7 @@ func (s *Server) GetListenedAddress() string {
 	return address
 }
 
-// GetListenedPort retrieves and returns one port which is listened to by current server.
+// GetListenedPort 获取并返回当前服务器正在监听的一个端口。
 func (s *Server) GetListenedPort() int {
 	s.mu.Lock()
 	defer s.mu.Unlock()

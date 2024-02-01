@@ -1,22 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package mysql_test
-
 import (
 	"fmt"
 	"testing"
-
-	"coding.net/gogit/go/goframe/container/garray"
-	"coding.net/gogit/go/goframe/database/gdb"
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/util/guid"
-)
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/guid"
+	)
 
 func Test_Master_Slave(t *testing.T) {
 	var err error
@@ -67,7 +65,7 @@ func Test_Master_Slave(t *testing.T) {
 		defer dropTableWithDb(masterSlaveDB.Schema("master"), table)
 		defer dropTableWithDb(masterSlaveDB.Schema("slave"), table)
 
-		// Data insert to master.
+		// 向主库插入数据。
 		array := garray.New(true)
 		for i := 1; i <= TableSize; i++ {
 			array.Append(g.Map{

@@ -1,22 +1,19 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv
-
 import (
 	"reflect"
 	"time"
-
-	"coding.net/gogit/go/goframe/os/gtime"
-)
-
-// Convert converts the variable `fromValue` to the type `toTypeName`, the type `toTypeName` is specified by string.
+	
+	"github.com/888go/goframe/os/gtime"
+	)
+// Convert 将变量 `fromValue` 转换为类型 `toTypeName`，其中 `toTypeName` 由字符串指定。
 //
-// The optional parameter `extraParams` is used for additional necessary parameter for this conversion.
-// It supports common basic types conversion as its conversion based on type name string.
+// 可选参数 `extraParams` 用于提供此次转换所需的额外必要参数。
+// 它支持基于类型名称字符串的基本常见类型的转换。
 func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{}) interface{} {
 	return doConvert(doConvertInput{
 		FromValue:  fromValue,
@@ -26,10 +23,10 @@ func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{
 	})
 }
 
-// ConvertWithRefer converts the variable `fromValue` to the type referred by value `referValue`.
+// ConvertWithRefer 将变量 `fromValue` 转换为由值 `referValue` 所引用的类型。
 //
-// The optional parameter `extraParams` is used for additional necessary parameter for this conversion.
-// It supports common basic types conversion as its conversion based on type name string.
+// 可选参数 `extraParams` 用于提供本次转换所需的额外必要参数。
+// 它支持基于类型名称字符串的基本常见类型的转换。
 func ConvertWithRefer(fromValue interface{}, referValue interface{}, extraParams ...interface{}) interface{} {
 	var referValueRf reflect.Value
 	if v, ok := referValue.(reflect.Value); ok {
@@ -46,16 +43,16 @@ func ConvertWithRefer(fromValue interface{}, referValue interface{}, extraParams
 }
 
 type doConvertInput struct {
-	FromValue  interface{}   // Value that is converted from.
-	ToTypeName string        // Target value type name in string.
-	ReferValue interface{}   // Referred value, a value in type `ToTypeName`. Note that its type might be reflect.Value.
-	Extra      []interface{} // Extra values for implementing the converting.
-	// Marks that the value is already converted and set to `ReferValue`. Caller can ignore the returned result.
-	// It is an attribute for internal usage purpose.
+	FromValue  interface{}   // 需要转换的原始值。
+	ToTypeName string        // 字符串形式的目标值类型名称
+	ReferValue interface{}   // 指针引用的值，类型为 `ToTypeName` 的值。注意，其实际类型可能为 reflect.Value。
+	Extra      []interface{} // 用于实现转换功能的额外值。
+// 标记该值已转换并设置为`ReferValue`。调用者可以忽略返回的结果。
+// 这是一个用于内部使用的属性。
 	alreadySetToReferValue bool
 }
 
-// doConvert does commonly use types converting.
+// doConvert 执行常用类型的转换。
 func doConvert(in doConvertInput) (convertedValue interface{}) {
 	switch in.ToTypeName {
 	case "int":
@@ -292,18 +289,22 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 			}()
 			switch referReflectValue.Kind() {
 			case reflect.Ptr:
-				// Type converting for custom type pointers.
-				// Eg:
-				// type PayMode int
-				// type Req struct{
-				//     Mode *PayMode
-				// }
-				//
-				// Struct(`{"Mode": 1000}`, &req)
+// 自定义类型指针的类型转换
+// 示例：
+// 定义自定义类型 PayMode，其为 int 类型的别名
+// 定义结构体 Req，其中包含一个指向 PayMode 类型的指针 Mode
+//
+// type PayMode int
+// type Req struct{
+//     Mode *PayMode
+// }
+//
+// 通过 Struct 函数将 `{"Mode": 1000}` 转换并解析到 req 指针所指向的结构体中
+// Struct(`{"Mode": 1000}`, &req)
 				originType := referReflectValue.Type().Elem()
 				switch originType.Kind() {
 				case reflect.Struct:
-					// Not support some kinds.
+					// 不支持某些类型。
 				default:
 					in.ToTypeName = originType.Kind().String()
 					in.ReferValue = nil

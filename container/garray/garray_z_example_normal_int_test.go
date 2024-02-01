@@ -1,28 +1,26 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package garray_test
-
 import (
 	"fmt"
-
-	"coding.net/gogit/go/goframe/internal/empty"
-
-	"coding.net/gogit/go/goframe/container/garray"
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/internal/json"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
+	
+	"github.com/888go/goframe/internal/empty"
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/util/gconv"
+	)
 
 func ExampleIntArray_Walk() {
 	var array garray.IntArray
 	tables := g.SliceInt{10, 20}
 	prefix := 99
 	array.Append(tables...)
-	// Add prefix for given table names.
+	// 为给定的表名添加前缀
 	array.Walk(func(value int) int {
 		return prefix + value
 	})
@@ -158,7 +156,7 @@ func ExampleIntArray_SortFunc() {
 	s := garray.NewIntArrayFrom(g.SliceInt{10, 20, 15, 30})
 	fmt.Println(s)
 	s.SortFunc(func(v1, v2 int) bool {
-		// fmt.Println(v1,v2)
+		// fmt.Println(v1, v2) // 输出变量v1和v2的值，其中fmt.Println是Go语言中的标准输出函数
 		return v1 > v2
 	})
 	fmt.Println(s)

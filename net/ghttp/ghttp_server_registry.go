@@ -1,23 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
-
 import (
 	"context"
 	"fmt"
-
-	"coding.net/gogit/go/goframe/net/gipv4"
-	"coding.net/gogit/go/goframe/net/gsvc"
-	"coding.net/gogit/go/goframe/os/gctx"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// doServiceRegister registers current service to Registry.
+	
+	"github.com/888go/goframe/net/gipv4"
+	"github.com/888go/goframe/net/gsvc"
+	"github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	)
+// doServiceRegister 将当前服务注册到注册中心。
 func (s *Server) doServiceRegister() {
 	if s.registrar == nil {
 		return
@@ -53,7 +50,7 @@ func (s *Server) doServiceRegister() {
 	}
 }
 
-// doServiceDeregister de-registers current service from Registry.
+// doServiceDeregister 从注册中心注销当前服务。
 func (s *Server) doServiceDeregister() {
 	if s.registrar == nil {
 		return
@@ -102,8 +99,7 @@ func (s *Server) calculateListenedEndpoints(ctx context.Context) gsvc.Endpoints 
 				s.Logger().Errorf(ctx, `error retrieving intranet ip: %+v`, err)
 				return nil
 			}
-			// If no intranet ips found, it uses all ips that can be retrieved,
-			// it may include internet ip.
+// 如果没有找到内网IP，它将使用所有能够获取到的IP，这其中可能包括公网IP。
 			if len(intranetIps) == 0 {
 				allIps, err := gipv4.GetIpArray()
 				if err != nil {

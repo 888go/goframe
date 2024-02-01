@@ -1,31 +1,28 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gcfg
-
 import (
 	"bytes"
 	"context"
 	"fmt"
 	"os"
-
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/intlog"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/os/gres"
-	"coding.net/gogit/go/goframe/os/gspath"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
-
-// SetPath sets the configuration `directory` path for file search.
-// The parameter `path` can be absolute or relative `directory` path,
-// but absolute `directory` path is strongly recommended.
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gres"
+	"github.com/888go/goframe/os/gspath"
+	"github.com/888go/goframe/text/gstr"
+	)
+// SetPath 设置配置文件搜索的 `directory` 路径。
+// 参数 `path` 可以是绝对路径或相对 `directory` 路径，
+// 但强烈建议使用绝对 `directory` 路径。
 //
-// Note that this parameter is a path to a directory not a file.
+// 注意，此参数是一个目录而非文件的路径。
 func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 	var (
 		isDir    = false
@@ -73,7 +70,7 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 		}
 		return gerror.New(buffer.String())
 	}
-	// Should be a directory.
+	// 应该是一个目录。
 	if !isDir {
 		return gerror.NewCodef(
 			gcode.CodeInvalidParameter,
@@ -81,7 +78,7 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 			directoryPath,
 		)
 	}
-	// Repeated path check.
+	// 重复路径检查。
 	if a.searchPaths.Search(realPath) != -1 {
 		return nil
 	}
@@ -92,9 +89,9 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 	return nil
 }
 
-// AddPath adds an absolute or relative `directory` path to the search paths.
+// AddPath 将绝对或相对的 `directory` 路径添加到搜索路径中。
 //
-// Note that this parameter is paths to a directories not files.
+// 注意，此参数是目录而非文件的路径。
 func (a *AdapterFile) AddPath(directoryPaths ...string) (err error) {
 	for _, directoryPath := range directoryPaths {
 		if err = a.doAddPath(directoryPath); err != nil {
@@ -104,14 +101,14 @@ func (a *AdapterFile) AddPath(directoryPaths ...string) (err error) {
 	return nil
 }
 
-// doAddPath adds an absolute or relative `directory` path to the search paths.
+// doAddPath 将绝对或相对 `directory` 路径添加到搜索路径中。
 func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 	var (
 		isDir    = false
 		realPath = ""
 	)
-	// It firstly checks the resource manager,
-	// and then checks the filesystem for the path.
+// 首先检查资源管理器，
+// 然后在文件系统中检查路径。
 	if file := gres.Get(directoryPath); file != nil {
 		realPath = directoryPath
 		isDir = file.FileInfo().IsDir()
@@ -160,7 +157,7 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 			directoryPath,
 		)
 	}
-	// Repeated path check.
+	// 重复路径检查。
 	if a.searchPaths.Search(realPath) != -1 {
 		return nil
 	}
@@ -169,21 +166,21 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 	return nil
 }
 
-// GetPaths returns the searching directory path array of current configuration manager.
+// GetPaths 返回当前配置管理器的搜索目录路径数组。
 func (a *AdapterFile) GetPaths() []string {
 	return a.searchPaths.Slice()
 }
 
-// doGetFilePath returns the absolute configuration file path for the given filename by `file`.
-// If `file` is not passed, it returns the configuration file path of the default name.
-// It returns an empty `path` string and an error if the given `file` does not exist.
+// doGetFilePath 根据传入的文件名 `file` 返回其绝对配置文件路径。
+// 若未传入 `file`，则返回默认文件名的配置文件路径。
+// 若给定的 `file` 不存在，则返回空字符串 `path` 及错误信息。
 func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 	var (
 		tempPath string
 		resFile  *gres.File
 		fileInfo os.FileInfo
 	)
-	// Searching resource manager.
+	// 搜索资源管理器
 	if !gres.IsEmpty() {
 		for _, tryFolder := range resourceTryFolders {
 			tempPath = tryFolder + fileName
@@ -213,7 +210,7 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 
 	a.autoCheckAndAddMainPkgPathToSearchPaths()
 
-	// Searching local file system.
+	// 正在搜索本地文件系统。
 	if filePath == "" {
 		// Absolute path.
 		if filePath = gfile.RealPath(fileName); filePath != "" && !gfile.IsDir(filePath) {
@@ -238,9 +235,9 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 	return
 }
 
-// GetFilePath returns the absolute configuration file path for the given filename by `file`.
-// If `file` is not passed, it returns the configuration file path of the default name.
-// It returns an empty `path` string and an error if the given `file` does not exist.
+// GetFilePath 函数根据传入的文件名`file`返回该文件的绝对配置文件路径。
+// 若未传递`file`参数，则返回默认文件名的配置文件路径。
+// 如果给定的`file`不存在，则返回一个空字符串`path`及错误信息。
 func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err error) {
 	var (
 		fileExtName  string
@@ -252,9 +249,8 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 	}
 	fileExtName = gfile.ExtName(usedFileName)
 	if filePath = a.doGetFilePath(usedFileName); (filePath == "" || gfile.IsDir(filePath)) && !gstr.InArray(supportedFileTypes, fileExtName) {
-		// If it's not using default configuration or its configuration file is not available,
-		// it searches the possible configuration file according to the name and all supported
-		// file types.
+// 如果不是使用默认配置，或者其配置文件不可用，
+// 则根据名称和所有支持的文件类型搜索可能的配置文件。
 		for _, fileType := range supportedFileTypes {
 			tempFileName = fmt.Sprintf(`%s.%s`, usedFileName, fileType)
 			if filePath = a.doGetFilePath(tempFileName); filePath != "" {
@@ -262,7 +258,7 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 			}
 		}
 	}
-	// If it cannot find the filePath of `file`, it formats and returns a detailed error.
+	// 如果无法找到`file`的filePath，它将格式化并返回一个详细的错误。
 	if filePath == "" {
 		var buffer = bytes.NewBuffer(nil)
 		if a.searchPaths.Len() > 0 {

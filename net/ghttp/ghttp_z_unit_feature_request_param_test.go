@@ -1,24 +1,25 @@
 package ghttp_test
-
 import (
 	"context"
 	"fmt"
 	"strconv"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/net/ghttp"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/util/guid"
-)
-
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/guid"
+	)
 type UserReq struct {
 	g.Meta `path:"/user" tags:"User" method:"post" summary:"user api" title:"api title"`
 	Id     int    `v:"required" d:"1"`
 	Name   string `v:"required" in:"cookie"`
 	Age    string `v:"required" in:"header"`
-	// header,query,cookie,form
+	// header: 头部信息
+// query: 查询参数
+// cookie: Cookie信息
+// form: 表单数据
 }
 
 type UserRes struct {

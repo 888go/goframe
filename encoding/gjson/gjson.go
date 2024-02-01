@@ -1,26 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gjson provides convenient API for JSON/XML/INI/YAML/TOML data handling.
+// Package gjson 提供了方便的 API 用于处理 JSON/XML/INI/YAML/TOML 数据。
 package gjson
-
 import (
 	"reflect"
 	"strconv"
 	"strings"
-
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/reflection"
-	"coding.net/gogit/go/goframe/internal/rwmutex"
-	"coding.net/gogit/go/goframe/internal/utils"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/rwmutex"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	)
 type ContentType string
 
 const (
@@ -35,44 +32,44 @@ const (
 )
 
 const (
-	defaultSplitChar = '.' // Separator char for hierarchical data access.
+	defaultSplitChar = '.' // 分隔符字符，用于分层数据访问。
 )
 
-// Json is the customized JSON struct.
+// Json 是自定义的 JSON 结构体。
 type Json struct {
 	mu rwmutex.RWMutex
 	p  *interface{} // Pointer for hierarchical data access, it's the root of data in default.
-	c  byte         // Char separator('.' in default).
-	vc bool         // Violence Check(false in default), which is used to access data when the hierarchical data key contains separator char.
+	c  byte         // 字符分隔符（默认为'.'）
+	vc bool         // 暴力检查（默认为false），用于在分层数据键包含分隔符字符时访问数据。
 }
 
-// Options for Json object creating/loading.
+// Json对象创建/加载的选项。
 type Options struct {
-	Safe      bool        // Mark this object is for in concurrent-safe usage. This is especially for Json object creating.
-	Tags      string      // Custom priority tags for decoding, eg: "json,yaml,MyTag". This is especially for struct parsing into Json object.
-	Type      ContentType // Type specifies the data content type, eg: json, xml, yaml, toml, ini.
-	StrNumber bool        // StrNumber causes the Decoder to unmarshal a number into an interface{} as a string instead of as a float64.
+	Safe      bool        // 标记此对象适用于并发安全的使用场景。这尤其针对Json对象的创建。
+	Tags      string      // 自定义解析优先级标签，例如："json,yaml,MyTag"。这主要用于将结构体解析为Json对象时。
+	Type      ContentType // Type 指定数据内容类型，例如：json、xml、yaml、toml、ini。
+	StrNumber bool        // StrNumber 使 Decoder 在将数字反序列化到 interface{} 时，将其作为字符串处理而非 float64。
 }
 
-// iInterfaces is used for type assert api for Interfaces().
+// iInterfaces 用于对 Interfaces() 方法进行类型断言。
 type iInterfaces interface {
 	Interfaces() []interface{}
 }
 
-// iMapStrAny is the interface support for converting struct parameter to map.
+// iMapStrAny 是支持将结构体参数转换为映射的接口。
 type iMapStrAny interface {
 	MapStrAny() map[string]interface{}
 }
 
-// iVal is the interface for underlying interface{} retrieving.
+// iVal 是用于获取底层 interface{} 的接口。
 type iVal interface {
 	Val() interface{}
 }
 
-// setValue sets `value` to `j` by `pattern`.
-// Note:
-// 1. If value is nil and removed is true, means deleting this value;
-// 2. It's quite complicated in hierarchical data search, node creating and data assignment;
+// setValue 通过 `pattern` 将 `value` 设置为 `j`。
+// 注意：
+// 1. 如果 value 为 nil 且 removed 为 true，表示删除这个值；
+// 2. 在层次数据搜索、节点创建和数据赋值过程中较为复杂。
 func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 	var (
 		err    error
@@ -82,7 +79,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 	if value, err = j.convertValue(value); err != nil {
 		return err
 	}
-	// Initialization checks.
+	// 初始化检查。
 	if *j.p == nil {
 		if gstr.IsNumeric(array[0]) {
 			*j.p = make([]interface{}, 0)
@@ -101,7 +98,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 		case map[string]interface{}:
 			if i == length-1 {
 				if removed && value == nil {
-					// Delete item from map.
+					// 从map中删除项目。
 					delete((*pointer).(map[string]interface{}), array[i])
 				} else {
 					if (*pointer).(map[string]interface{}) == nil {
@@ -110,20 +107,20 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 					(*pointer).(map[string]interface{})[array[i]] = value
 				}
 			} else {
-				// If the key does not exit in the map.
+				// 如果键在映射中不存在。
 				if v, ok := (*pointer).(map[string]interface{})[array[i]]; !ok {
 					if removed && value == nil {
 						goto done
 					}
-					// Creating new node.
+					// 创建新的节点。
 					if gstr.IsNumeric(array[i+1]) {
-						// Creating array node.
+						// 创建数组节点
 						n, _ := strconv.Atoi(array[i+1])
 						var v interface{} = make([]interface{}, n+1)
 						pparent = j.setPointerWithValue(pointer, array[i], v)
 						pointer = &v
 					} else {
-						// Creating map node.
+						// 创建映射节点。
 						var v interface{} = make(map[string]interface{})
 						pparent = j.setPointerWithValue(pointer, array[i], v)
 						pointer = &v
@@ -172,10 +169,10 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 						goto done
 					}
 					if pparent == nil {
-						// It is the root node.
+						// 这是根节点。
 						j.setPointerWithValue(pointer, array[i], value)
 					} else {
-						// It is not the root node.
+						// 它不是根节点。
 						s := make([]interface{}, valueNum+1)
 						copy(s, (*pointer).([]interface{}))
 						s[valueNum] = value
@@ -236,8 +233,9 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 				}
 			}
 
-		// If the variable pointed to by the `pointer` is not of a reference type,
-		// then it modifies the variable via its the parent, ie: pparent.
+// 如果通过`pointer`指向的变量不是引用类型，
+// 那么它将通过其父级（即：pparent）来修改该变量。
+// 在Go语言中，这段注释描述了如果给定的指针`pointer`不指向一个引用类型，那么对变量的修改会通过其上级父级指针`pparent`间接完成。
 		default:
 			if removed && value == nil {
 				goto done
@@ -280,8 +278,8 @@ done:
 	return nil
 }
 
-// convertValue converts `value` to map[string]interface{} or []interface{},
-// which can be supported for hierarchical data access.
+// convertValue 将 `value` 转换为 map[string]interface{} 或 []interface{}，
+// 这样就可以支持对层级数据的访问。
 func (j *Json) convertValue(value interface{}) (convertedValue interface{}, err error) {
 	if value == nil {
 		return
@@ -331,8 +329,8 @@ func (j *Json) convertValue(value interface{}) (convertedValue interface{}, err 
 	}
 }
 
-// setPointerWithValue sets `key`:`value` to `pointer`, the `key` may be a map key or slice index.
-// It returns the pointer to the new value set.
+// setPointerWithValue 将 `key`:`value` 设置到 `pointer` 中，其中 `key` 可能是 map 的键或 slice 的索引。
+// 它返回指向新设置值的指针。
 func (j *Json) setPointerWithValue(pointer *interface{}, key string, value interface{}) *interface{} {
 	switch (*pointer).(type) {
 	case map[string]interface{}:
@@ -356,7 +354,7 @@ func (j *Json) setPointerWithValue(pointer *interface{}, key string, value inter
 	return pointer
 }
 
-// getPointerByPattern returns a pointer to the value by specified `pattern`.
+// getPointerByPattern 根据指定的`pattern`返回一个指向该值的指针。
 func (j *Json) getPointerByPattern(pattern string) *interface{} {
 	if j.p == nil {
 		return nil
@@ -368,17 +366,17 @@ func (j *Json) getPointerByPattern(pattern string) *interface{} {
 	}
 }
 
-// getPointerByPatternWithViolenceCheck returns a pointer to the value of specified `pattern` with violence check.
+// getPointerByPatternWithViolenceCheck 函数通过暴力检查的方式，返回指定 `pattern` 的值的指针。
 func (j *Json) getPointerByPatternWithViolenceCheck(pattern string) *interface{} {
 	if !j.vc {
 		return j.getPointerByPatternWithoutViolenceCheck(pattern)
 	}
 
-	// It returns nil if pattern is empty.
+	// 如果模式为空，则返回nil。
 	if pattern == "" {
 		return nil
 	}
-	// It returns all if pattern is ".".
+	// 如果模式为"."，则返回所有内容。
 	if pattern == "." {
 		return j.p
 	}
@@ -405,7 +403,7 @@ func (j *Json) getPointerByPatternWithViolenceCheck(pattern string) *interface{}
 				pointer = r
 			}
 		} else {
-			// Get the position for next separator char.
+			// 获取下一个分隔符字符的位置。
 			index = strings.LastIndexByte(pattern[start:index], j.c)
 			if index != -1 && length > 0 {
 				index += length + 1
@@ -418,17 +416,17 @@ func (j *Json) getPointerByPatternWithViolenceCheck(pattern string) *interface{}
 	return nil
 }
 
-// getPointerByPatternWithoutViolenceCheck returns a pointer to the value of specified `pattern`, with no violence check.
+// getPointerByPatternWithoutViolenceCheck 根据指定的`pattern`返回一个指向其值的指针，且不进行暴力检查。
 func (j *Json) getPointerByPatternWithoutViolenceCheck(pattern string) *interface{} {
 	if j.vc {
 		return j.getPointerByPatternWithViolenceCheck(pattern)
 	}
 
-	// It returns nil if pattern is empty.
+	// 如果模式为空，则返回nil。
 	if pattern == "" {
 		return nil
 	}
-	// It returns all if pattern is ".".
+	// 如果模式为"."，则返回所有内容。
 	if pattern == "." {
 		return j.p
 	}
@@ -452,8 +450,8 @@ func (j *Json) getPointerByPatternWithoutViolenceCheck(pattern string) *interfac
 	return nil
 }
 
-// checkPatternByPointer checks whether there's value by `key` in specified `pointer`.
-// It returns a pointer to the value.
+// checkPatternByPointer 检查在指定的 `pointer` 中是否存在通过 `key` 访问的值。
+// 它会返回该值的指针。
 func (j *Json) checkPatternByPointer(key string, pointer *interface{}) *interface{} {
 	switch (*pointer).(type) {
 	case map[string]interface{}:

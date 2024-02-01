@@ -1,10 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gtree provides concurrent-safe/unsafe tree containers.
+// Package gtree 提供了并发安全/非安全的树型容器。
 //
-// Some implements are from: https://github.com/emirpasic/gods
+// 部分实现来源于：https://github.com/emirpasic/gods
 package gtree

@@ -1,53 +1,50 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
-
 import (
 	"context"
 	"net/http"
-
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// middleware is the plugin for request workflow management.
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/util/gutil"
+	)
+// middleware 是用于请求工作流程管理的插件。
 type middleware struct {
-	served         bool     // Is the request served, which is used for checking response status 404.
-	request        *Request // The request object pointer.
-	handlerIndex   int      // Index number for executing sequence purpose for handler items.
-	handlerMDIndex int      // Index number for executing sequence purpose for bound middleware of handler item.
+	served         bool     // Is the request served 是用于检查响应状态404的，即该请求是否已成功处理。
+	request        *Request // 请求对象指针。
+	handlerIndex   int      // Index 号用于执行顺序目的，针对处理项。
+	handlerMDIndex int      // Index 数值用于执行顺序的目的，用于处理器项绑定的中间件。
 }
 
-// Next calls the next workflow handler.
-// It's an important function controlling the workflow of the server request execution.
+// Next调用下一个工作流处理器。
+// 这是一个重要的函数，用于控制服务器请求执行的工作流程。
 func (m *middleware) Next() {
 	var item *HandlerItemParsed
 	var loop = true
 	for loop {
-		// Check whether the request is excited.
+		// 检查请求是否已激发。
 		if m.request.IsExited() || m.handlerIndex >= len(m.request.handlers) {
 			break
 		}
 		item = m.request.handlers[m.handlerIndex]
-		// Filter the HOOK handlers, which are designed to be called in another standalone procedure.
+		// 过滤HOOK处理程序，它们设计为在另一个独立的进程中被调用。
 		if item.Handler.Type == HandlerTypeHook {
 			m.handlerIndex++
 			continue
 		}
-		// Current router switching.
+		// 当前路由器切换中。
 		m.request.Router = item.Handler.Router
 
-		// Router values switching.
+		// 路由值切换。
 		m.request.routerMap = item.Values
 
 		var ctx = m.request.Context()
 		gutil.TryCatch(ctx, func(ctx context.Context) {
-			// Execute bound middleware array of the item if it's not empty.
+			// 如果item的绑定中间件数组不为空，则执行该数组中的中间件。
 			if m.handlerMDIndex < len(item.Handler.Middleware) {
 				md := item.Handler.Middleware[m.handlerMDIndex]
 				m.handlerMDIndex++
@@ -90,30 +87,29 @@ func (m *middleware) Next() {
 					m.callHandlerFunc(item.Handler.Info)
 				})
 
-			// Global middleware array.
+			// 全局中间件数组。
 			case HandlerTypeMiddleware:
 				niceCallFunc(func() {
 					item.Handler.Info.Func(m.request)
 				})
-				// It does not continue calling next middleware after another middleware done.
-				// There should be a "Next" function to be called in the middleware in order to manage the workflow.
+// 当某个中间件执行完毕后，它不会继续调用下一个中间件。
+// 若要管理工作流程，应在中间件中调用“Next”函数。
 				loop = false
 			}
 		}, func(ctx context.Context, exception error) {
 			if gerror.HasStack(exception) {
-				// It's already an error that has stack info.
+				// 这已经是一个带有堆栈信息的错误。
 				m.request.error = exception
 			} else {
-				// Create a new error with stack info.
-				// Note that there's a skip pointing the start stacktrace
-				// of the real error point.
+// 创建一个包含堆栈信息的新错误。
+// 注意，这里有一个skip参数用于指向实际错误点的堆栈跟踪起始位置。
 				m.request.error = gerror.WrapCodeSkip(gcode.CodeInternalError, 1, exception, "")
 			}
 			m.request.Response.WriteStatus(http.StatusInternalServerError, exception)
 			loop = false
 		})
 	}
-	// Check the http status code after all handlers and middleware done.
+	// 在所有处理器和中间件执行完毕后，检查HTTP状态码。
 	if m.request.IsExited() || m.handlerIndex >= len(m.request.handlers) {
 		if m.request.Response.Status == 0 {
 			if m.request.Middleware.served {

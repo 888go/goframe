@@ -1,11 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gfile
-
 import (
 	"bytes"
 	"os"
@@ -13,13 +11,12 @@ import (
 	"os/user"
 	"runtime"
 	"strings"
-
-	"coding.net/gogit/go/goframe/errors/gerror"
-)
-
-// Home returns absolute path of current user's home directory.
-// The optional parameter `names` specifies the sub-folders/sub-files,
-// which will be joined with current system separator and returned with the path.
+	
+	"github.com/888go/goframe/errors/gerror"
+	)
+// Home 返回当前用户主目录的绝对路径。
+// 可选参数 `names` 指定了子文件夹或子文件，
+// 这些名称将与当前系统分隔符连接，并与路径一起返回。
 func Home(names ...string) (string, error) {
 	path, err := getHomePath()
 	if err != nil {
@@ -31,7 +28,7 @@ func Home(names ...string) (string, error) {
 	return path, nil
 }
 
-// getHomePath returns absolute path of current user's home directory.
+// getHomePath 返回当前用户主目录的绝对路径。
 func getHomePath() (string, error) {
 	u, err := user.Current()
 	if nil == err {
@@ -43,7 +40,7 @@ func getHomePath() (string, error) {
 	return homeUnix()
 }
 
-// homeUnix retrieves and returns the home on unix system.
+// homeUnix在Unix系统上获取并返回用户的主目录。
 func homeUnix() (string, error) {
 	if home := os.Getenv("HOME"); home != "" {
 		return home, nil
@@ -64,7 +61,7 @@ func homeUnix() (string, error) {
 	return result, nil
 }
 
-// homeWindows retrieves and returns the home on windows system.
+// homeWindows 在Windows系统上获取并返回用户的主目录。
 func homeWindows() (string, error) {
 	var (
 		drive = os.Getenv("HOMEDRIVE")

@@ -1,27 +1,24 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package utils
-
 import (
-	"coding.net/gogit/go/goframe/internal/command"
-)
-
+	"github.com/888go/goframe/internal/command"
+	)
 const (
-	// Debug key for checking if in debug mode.
+	// Debug键，用于检查是否处于调试模式。
 	commandEnvKeyForDebugKey = "gf.debug"
 )
 
 var (
-	// isDebugEnabled marks whether GoFrame debug mode is enabled.
+	// isDebugEnabled 标记 GoFrame 是否启用了调试模式。
 	isDebugEnabled = false
 )
 
 func init() {
-	// Debugging configured.
+	// 已配置调试。
 	value := command.GetOptWithEnv(commandEnvKeyForDebugKey)
 	if value == "" || value == "0" || value == "false" {
 		isDebugEnabled = false
@@ -30,13 +27,13 @@ func init() {
 	}
 }
 
-// IsDebugEnabled checks and returns whether debug mode is enabled.
-// The debug mode is enabled when command argument "gf.debug" or environment "GF_DEBUG" is passed.
+// IsDebugEnabled 检查并返回是否启用了调试模式。
+// 当命令行参数 "gf.debug" 或环境变量 "GF_DEBUG" 被设置时，调试模式将被启用。
 func IsDebugEnabled() bool {
 	return isDebugEnabled
 }
 
-// SetDebugEnabled enables/disables the internal debug info.
+// SetDebugEnabled 用于开启或关闭内部调试信息。
 func SetDebugEnabled(enabled bool) {
 	isDebugEnabled = enabled
 }

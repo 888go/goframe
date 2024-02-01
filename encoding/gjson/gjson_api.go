@@ -1,21 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gjson
-
 import (
 	"fmt"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// Interface returns the json value.
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/util/gutil"
+	)
+// Interface 返回 JSON 值。
 func (j *Json) Interface() interface{} {
 	if j == nil {
 		return nil
@@ -28,12 +25,12 @@ func (j *Json) Interface() interface{} {
 	return *(j.p)
 }
 
-// Var returns the json value as *gvar.Var.
+// Var 返回json值作为*gvar.Var类型。
 func (j *Json) Var() *gvar.Var {
 	return gvar.New(j.Interface())
 }
 
-// IsNil checks whether the value pointed by `j` is nil.
+// IsNil 检查通过 `j` 指向的值是否为 nil。
 func (j *Json) IsNil() bool {
 	if j == nil {
 		return true
@@ -43,14 +40,14 @@ func (j *Json) IsNil() bool {
 	return j.p == nil || *(j.p) == nil
 }
 
-// Get retrieves and returns value by specified `pattern`.
-// It returns all values of current Json object if `pattern` is given ".".
-// It returns nil if no value found by `pattern`.
+// Get 方法通过指定的`pattern`获取并返回值。
+// 如果 `pattern` 为"."，则返回当前Json对象的所有值。
+// 如果根据`pattern`未找到值，则返回nil。
 //
-// We can also access slice item by its index number in `pattern` like:
-// "list.10", "array.0.name", "array.0.1.id".
+// 我们还可以通过在`pattern`中指定切片的索引号来访问切片项，例如：
+// "list.10", "array.0.name", "array.0.1.id"。
 //
-// It returns a default value specified by `def` if value for `pattern` is not found.
+// 如果未找到`pattern`对应的值，将返回由`def`指定的默认值。
 func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	if j == nil {
 		return nil
@@ -58,7 +55,7 @@ func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 
-	// It returns nil if pattern is empty.
+	// 如果模式为空，则返回nil。
 	if pattern == "" {
 		return nil
 	}
@@ -73,14 +70,14 @@ func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	return nil
 }
 
-// GetJson gets the value by specified `pattern`,
-// and converts it to an un-concurrent-safe Json object.
+// GetJson 通过指定的 `pattern` 获取值，
+// 并将其转换为一个非并发安全的 Json 对象。
 func (j *Json) GetJson(pattern string, def ...interface{}) *Json {
 	return New(j.Get(pattern, def...).Val())
 }
 
-// GetJsons gets the value by specified `pattern`,
-// and converts it to a slice of un-concurrent-safe Json object.
+// GetJsons 通过指定的 `pattern` 获取值，
+// 并将其转换为一个非并发安全的 Json 对象切片。
 func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 	array := j.Get(pattern, def...).Array()
 	if len(array) > 0 {
@@ -93,8 +90,8 @@ func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 	return nil
 }
 
-// GetJsonMap gets the value by specified `pattern`,
-// and converts it to a map of un-concurrent-safe Json object.
+// GetJsonMap 通过指定的 `pattern` 获取值，
+// 并将其转换为一个非并发安全的 Json 对象映射。
 func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 	m := j.Get(pattern, def...).Map()
 	if len(m) > 0 {
@@ -107,40 +104,40 @@ func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 	return nil
 }
 
-// Set sets value with specified `pattern`.
-// It supports hierarchical data access by char separator, which is '.' in default.
+// Set 使用指定的`pattern`设置值。
+// 它支持通过默认为'.'的字符分隔符进行层级数据访问。
 func (j *Json) Set(pattern string, value interface{}) error {
 	return j.setValue(pattern, value, false)
 }
 
-// MustSet performs as Set, but it panics if any error occurs.
+// MustSet 表现如同 Set，但当发生任何错误时会触发panic（异常）。
 func (j *Json) MustSet(pattern string, value interface{}) {
 	if err := j.Set(pattern, value); err != nil {
 		panic(err)
 	}
 }
 
-// Remove deletes value with specified `pattern`.
-// It supports hierarchical data access by char separator, which is '.' in default.
+// Remove 删除具有指定 `pattern` 的值。
+// 它支持通过默认为 '.' 的字符分隔符进行层级数据访问。
 func (j *Json) Remove(pattern string) error {
 	return j.setValue(pattern, nil, true)
 }
 
-// MustRemove performs as Remove, but it panics if any error occurs.
+// MustRemove 的行为与 Remove 相同，但是当发生任何错误时，它会触发 panic（异常）。
 func (j *Json) MustRemove(pattern string) {
 	if err := j.Remove(pattern); err != nil {
 		panic(err)
 	}
 }
 
-// Contains checks whether the value by specified `pattern` exist.
+// Contains 检查指定的 `pattern` 是否存在对应的值。
 func (j *Json) Contains(pattern string) bool {
 	return j.Get(pattern) != nil
 }
 
-// Len returns the length/size of the value by specified `pattern`.
-// The target value by `pattern` should be type of slice or map.
-// It returns -1 if the target value is not found, or its type is invalid.
+// Len 通过指定的 `pattern` 返回值的长度/大小。
+// 通过 `pattern` 所获取的目标值应为切片或字典类型。
+// 若目标值未找到，或者其类型无效，则返回 -1。
 func (j *Json) Len(pattern string) int {
 	p := j.getPointerByPattern(pattern)
 	if p != nil {
@@ -156,8 +153,8 @@ func (j *Json) Len(pattern string) int {
 	return -1
 }
 
-// Append appends value to the value by specified `pattern`.
-// The target value by `pattern` should be type of slice.
+// Append 函数通过指定的 `pattern` 追加值到目标值中。
+// 通过 `pattern` 所获取的目标值应当是切片类型。
 func (j *Json) Append(pattern string, value interface{}) error {
 	p := j.getPointerByPattern(pattern)
 	if p == nil || *p == nil {
@@ -176,32 +173,31 @@ func (j *Json) Append(pattern string, value interface{}) error {
 	return gerror.NewCodef(gcode.CodeInvalidParameter, "invalid variable type of %s", pattern)
 }
 
-// MustAppend performs as Append, but it panics if any error occurs.
+// MustAppend 的行为与 Append 相同，但当发生任何错误时，它会触发panic（异常）。
 func (j *Json) MustAppend(pattern string, value interface{}) {
 	if err := j.Append(pattern, value); err != nil {
 		panic(err)
 	}
 }
 
-// Map converts current Json object to map[string]interface{}.
-// It returns nil if fails.
+// Map 将当前的 Json 对象转换为 map[string]interface{} 类型。
+// 如果转换失败，则返回 nil。
 func (j *Json) Map() map[string]interface{} {
 	return j.Var().Map()
 }
 
-// Array converts current Json object to []interface{}.
-// It returns nil if fails.
+// Array 将当前Json对象转换为 []interface{} 类型的切片。
+// 如果转换失败，则返回nil。
 func (j *Json) Array() []interface{} {
 	return j.Var().Array()
 }
 
-// Scan automatically calls Struct or Structs function according to the type of parameter
-// `pointer` to implement the converting.
+// Scan 会根据参数 `pointer` 的类型自动调用 Struct 或 Structs 函数来实现转换功能。
 func (j *Json) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return j.Var().Scan(pointer, mapping...)
 }
 
-// Dump prints current Json object with more manually readable.
+// Dump 打印当前Json对象，使其更易于人工阅读。
 func (j *Json) Dump() {
 	if j == nil {
 		return

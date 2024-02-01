@@ -1,20 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf获取一个。
 
-// go test *.go -bench=".*" -benchmem
+// 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
 package gmap_test
-
 import (
 	"strconv"
 	"testing"
-
-	"coding.net/gogit/go/goframe/container/gmap"
-)
-
+	
+	"github.com/888go/goframe/container/gmap"
+	)
 var anyAnyMap = gmap.NewAnyAnyMap(true)
 
 var intIntMap = gmap.NewIntIntMap(true)
@@ -69,7 +66,7 @@ func Benchmark_AnyAnyMap_Set(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrIntMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -80,7 +77,7 @@ func Benchmark_StrIntMap_Set(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrAnyMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -91,7 +88,7 @@ func Benchmark_StrAnyMap_Set(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrStrMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -142,7 +139,7 @@ func Benchmark_AnyAnyMap_Get(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrIntMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -153,7 +150,7 @@ func Benchmark_StrIntMap_Get(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrAnyMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -164,7 +161,7 @@ func Benchmark_StrAnyMap_Get(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrStrMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0

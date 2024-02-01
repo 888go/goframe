@@ -1,12 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghash
 
-// PJW implements the classic PJW hash algorithm for 32 bits.
+// PJW 实现了适用于32位的经典的PJW哈希算法。
 func PJW(str []byte) uint32 {
 	var (
 		BitsInUnsignedInt uint32 = 32 // 4 * 8
@@ -25,7 +25,7 @@ func PJW(str []byte) uint32 {
 	return hash
 }
 
-// PJW64 implements the classic PJW hash algorithm for 64 bits.
+// PJW64 实现了适用于 64 位的经典 PJW 哈希算法。
 func PJW64(str []byte) uint64 {
 	var (
 		BitsInUnsignedInt uint64 = 32 // 4 * 8

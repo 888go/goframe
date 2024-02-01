@@ -1,26 +1,24 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp_test
-
 import (
 	"fmt"
 	"strings"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/net/ghttp"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-	"coding.net/gogit/go/goframe/util/guid"
-)
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/guid"
+	)
 
 func Test_ConfigFromMap(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -54,7 +52,7 @@ func Test_SetConfigWithMap(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		m := g.Map{
 			"Address": ":8199",
-			// "ServerRoot":       "/var/www/MyServerRoot",
+			// "ServerRoot":       "/var/www/我的服务器根目录",
 			"IndexFiles":       g.Slice{"index.php", "main.php"},
 			"AccessLogEnabled": true,
 			"ErrorLogEnabled":  true,

@@ -1,24 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
-
 import (
 	"bytes"
 	"context"
-
-	"coding.net/gogit/go/goframe/os/glog"
-)
-
-// errorLogger is the error logging logger for underlying net/http.Server.
+	
+	"github.com/888go/goframe/os/glog"
+	)
+// errorLogger 是用于底层 net/http.Server 的错误日志记录器。
 type errorLogger struct {
 	logger *glog.Logger
 }
 
-// Write implements the io.Writer interface.
+// Write 实现了 io.Writer 接口。
 func (l *errorLogger) Write(p []byte) (n int, err error) {
 	l.logger.Skip(1).Error(context.TODO(), string(bytes.TrimRight(p, "\r\n")))
 	return len(p), nil

@@ -1,28 +1,22 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
-
 import (
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/internal/empty"
-	"coding.net/gogit/go/goframe/net/goai"
-	"coding.net/gogit/go/goframe/os/gstructs"
-	"coding.net/gogit/go/goframe/util/gconv"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// GetRequest retrieves and returns the parameter named `key` passed from the client and
-// custom params as interface{}, no matter what HTTP method the client is using. The
-// parameter `def` specifies the default value if the `key` does not exist.
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/net/goai"
+	"github.com/888go/goframe/os/gstructs"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gutil"
+	)
+// GetRequest 函数用于获取并返回客户端通过任意HTTP方法传递的名为`key`的参数以及作为interface{}类型的自定义参数。参数`def`用于指定当`key`不存在时的默认值。
 //
-// GetRequest is one of the most commonly used functions for retrieving parameters.
+// GetRequest 是用于检索参数的最常用函数之一。
 //
-// Note that if there are multiple parameters with the same name, the parameters are
-// retrieved and overwrote in order of priority: router < query < body < form < custom.
+// 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
 func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
 	value := r.GetParam(key)
 	if value.IsNil() {
@@ -51,15 +45,11 @@ func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
 	return nil
 }
 
-// GetRequestMap retrieves and returns all parameters passed from the client and custom params
-// as the map, no matter what HTTP method the client is using. The parameter `kvMap` specifies
-// the keys retrieving from client parameters, the associated values are the default values
-// if the client does not pass the according keys.
+// GetRequestMap 从客户端获取并返回所有传递的参数以及自定义参数，无论客户端使用何种HTTP方法。参数`kvMap`指定了从客户端参数中检索的键，关联的值是如果客户端未传递相应键时的默认值。
 //
-// GetRequestMap is one of the most commonly used functions for retrieving parameters.
+// GetRequestMap 是用于检索参数的最常用函数之一。
 //
-// Note that if there are multiple parameters with the same name, the parameters are retrieved
-// and overwrote in order of priority: router < query < body < form < custom.
+// 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
 func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	r.parseForm()
@@ -121,7 +111,7 @@ func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]inte
 			}
 		}
 	}
-	// Check none exist parameters and assign it with default value.
+	// 检查不存在的参数，并赋予其默认值。
 	if filter {
 		for k, v := range kvMap[0] {
 			if _, ok = m[k]; !ok {
@@ -132,10 +122,9 @@ func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]inte
 	return m
 }
 
-// GetRequestMapStrStr retrieve and returns all parameters passed from the client and custom
-// params as map[string]string, no matter what HTTP method the client is using. The parameter
-// `kvMap` specifies the keys retrieving from client parameters, the associated values are the
-// default values if the client does not pass.
+// GetRequestMapStrStr 从客户端获取并返回所有传递的参数以及自定义参数，无论客户端使用何种HTTP方法。
+// 参数`kvMap`指定了从客户端参数中检索的键，如果客户端未传递，则关联的值是默认值。返回类型为map[string]string。
+// 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
 func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	requestMap := r.GetRequestMap(kvMap...)
 	if len(requestMap) > 0 {
@@ -148,10 +137,10 @@ func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[strin
 	return nil
 }
 
-// GetRequestMapStrVar retrieve and returns all parameters passed from the client and custom
-// params as map[string]*gvar.Var, no matter what HTTP method the client is using. The parameter
-// `kvMap` specifies the keys retrieving from client parameters, the associated values are the
-// default values if the client does not pass.
+// GetRequestMapStrVar 获取并返回客户端通过任何HTTP方法传递的所有参数，以及自定义参数，
+// 并以map[string]*gvar.Var的形式返回。参数`kvMap`指定了从客户端参数中获取的键，
+// 相关联的值是当客户端未传递时的默认值。
+// 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
 func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
 	requestMap := r.GetRequestMap(kvMap...)
 	if len(requestMap) > 0 {
@@ -164,10 +153,10 @@ func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[strin
 	return nil
 }
 
-// GetRequestStruct retrieves all parameters passed from the client and custom params no matter
-// what HTTP method the client is using, and converts them to give the struct object. Note that
-// the parameter `pointer` is a pointer to the struct object.
-// The optional parameter `mapping` is used to specify the key to attribute mapping.
+// GetRequestStruct 从客户端获取所有传递的参数以及自定义参数，无论客户端使用何种HTTP方法，
+// 并将它们转换为给定的结构体对象。注意，参数`pointer`是指向结构体对象的指针。
+// 可选参数`mapping`用于指定键到属性的映射关系。
+// 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
 func (r *Request) GetRequestStruct(pointer interface{}, mapping ...map[string]string) error {
 	_, err := r.doGetRequestStruct(pointer, mapping...)
 	return err
@@ -178,18 +167,18 @@ func (r *Request) doGetRequestStruct(pointer interface{}, mapping ...map[string]
 	if data == nil {
 		data = map[string]interface{}{}
 	}
-	// Default struct values.
+	// 默认结构体值。
 	if err = r.mergeDefaultStructValue(data, pointer); err != nil {
 		return data, nil
 	}
-	// `in` Tag Struct values.
+	// `in` 标签结构体值。
 	if err = r.mergeInTagStructValue(data, pointer); err != nil {
 		return data, nil
 	}
 	return data, gconv.Struct(data, pointer, mapping...)
 }
 
-// mergeDefaultStructValue merges the request parameters with default values from struct tag definition.
+// mergeDefaultStructValue 将请求参数与来自结构体标签定义的默认值进行合并。
 func (r *Request) mergeDefaultStructValue(data map[string]interface{}, pointer interface{}) error {
 	fields := r.serveHandler.Handler.Info.ReqStructFields
 	if len(fields) > 0 {
@@ -212,7 +201,7 @@ func (r *Request) mergeDefaultStructValue(data map[string]interface{}, pointer i
 		return nil
 	}
 
-	// provide non strict routing
+	// 提供非严格路由
 	tagFields, err := gstructs.TagFields(pointer, defaultValueTags)
 	if err != nil {
 		return err
@@ -237,7 +226,7 @@ func (r *Request) mergeDefaultStructValue(data map[string]interface{}, pointer i
 	return nil
 }
 
-// mergeInTagStructValue merges the request parameters with header or cookie values from struct `in` tag definition.
+// mergeInTagStructValue 将请求参数与来自 `in` 标签定义的结构体中的头部或cookie值进行合并。
 func (r *Request) mergeInTagStructValue(data map[string]interface{}, pointer interface{}) error {
 	fields := r.serveHandler.Handler.Info.ReqStructFields
 	if len(fields) > 0 {

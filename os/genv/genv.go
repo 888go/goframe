@@ -1,37 +1,32 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package genv provides operations for environment variables of system.
+// Package genv 提供了对系统环境变量的操作。
 package genv
-
 import (
 	"fmt"
 	"os"
 	"strings"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/command"
-	"coding.net/gogit/go/goframe/internal/utils"
-)
-
-// All returns a copy of strings representing the environment,
-// in the form "key=value".
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/internal/utils"
+	)
+// All 函数返回一个表示环境变量的字符串副本，其形式为 "key=value"。
 func All() []string {
 	return os.Environ()
 }
 
-// Map returns a copy of strings representing the environment as a map.
+// Map 返回一个字符串环境表示的映射副本。
 func Map() map[string]string {
 	return MapFromEnv(os.Environ())
 }
 
-// Get creates and returns a Var with the value of the environment variable
-// named by the `key`. It uses the given `def` if the variable does not exist
-// in the environment.
+// Get 函数创建并返回一个 Var，其值为环境变量中名为 `key` 的变量的值。
+// 如果该变量在环境中不存在，则使用给定的 `def` 作为默认值。
 func Get(key string, def ...interface{}) *gvar.Var {
 	v, ok := os.LookupEnv(key)
 	if !ok {
@@ -43,8 +38,8 @@ func Get(key string, def ...interface{}) *gvar.Var {
 	return gvar.New(v)
 }
 
-// Set sets the value of the environment variable named by the `key`.
-// It returns an error, if any.
+// Set 函数用于设置名为 `key` 的环境变量的值。
+// 如果出现错误，该函数会返回一个错误。
 func Set(key, value string) (err error) {
 	err = os.Setenv(key, value)
 	if err != nil {
@@ -53,7 +48,7 @@ func Set(key, value string) (err error) {
 	return
 }
 
-// SetMap sets the environment variables using map.
+// SetMap 通过 map 设置环境变量。
 func SetMap(m map[string]string) (err error) {
 	for k, v := range m {
 		if err = Set(k, v); err != nil {
@@ -63,13 +58,13 @@ func SetMap(m map[string]string) (err error) {
 	return nil
 }
 
-// Contains checks whether the environment variable named `key` exists.
+// Contains 检查名为 `key` 的环境变量是否存在。
 func Contains(key string) bool {
 	_, ok := os.LookupEnv(key)
 	return ok
 }
 
-// Remove deletes one or more environment variables.
+// Remove 删除一个或多个环境变量。
 func Remove(key ...string) (err error) {
 	for _, v := range key {
 		if err = os.Unsetenv(v); err != nil {
@@ -102,7 +97,7 @@ func GetWithCmd(key string, def ...interface{}) *gvar.Var {
 	return nil
 }
 
-// Build builds a map to an environment variable slice.
+// Build 函数用于构建一个映射到环境变量切片的映射。
 func Build(m map[string]string) []string {
 	array := make([]string, len(m))
 	index := 0
@@ -113,7 +108,7 @@ func Build(m map[string]string) []string {
 	return array
 }
 
-// MapFromEnv converts environment variables from slice to map.
+// MapFromEnv 将环境变量从切片转换为映射（map）。
 func MapFromEnv(envs []string) map[string]string {
 	m := make(map[string]string)
 	i := 0
@@ -124,7 +119,7 @@ func MapFromEnv(envs []string) map[string]string {
 	return m
 }
 
-// MapToEnv converts environment variables from map to slice.
+// MapToEnv 将环境变量从映射转换为切片。
 func MapToEnv(m map[string]string) []string {
 	envs := make([]string, 0)
 	for k, v := range m {
@@ -133,7 +128,7 @@ func MapToEnv(m map[string]string) []string {
 	return envs
 }
 
-// Filter filters repeated items from given environment variables.
+// Filter 从给定的环境变量中过滤掉重复项。
 func Filter(envs []string) []string {
 	return MapToEnv(MapFromEnv(envs))
 }

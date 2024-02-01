@@ -1,29 +1,26 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gsvc provides service registry and discovery definition.
+// Package gsvc 提供了服务注册与发现的定义。
 package gsvc
-
 import (
 	"fmt"
-
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// LocalEndpoint implements interface Endpoint.
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	)
+// LocalEndpoint 实现了接口 Endpoint。
 type LocalEndpoint struct {
-	host string // host can be either IPv4 or IPv6 address.
-	port int    // port is port as commonly known.
+	host string // host可以是IPv4或IPv6地址。
+	port int    // port 是我们通常所说的端口。
 }
 
-// NewEndpoint creates and returns an Endpoint from address string of pattern "host:port",
-// eg: "192.168.1.100:80".
+// NewEndpoint 从形如 "host:port"（例如："192.168.1.100:80"）的地址字符串创建并返回一个 Endpoint 对象。
 func NewEndpoint(address string) Endpoint {
 	array := gstr.SplitAndTrim(address, EndpointHostPortDelimiter)
 	if len(array) != 2 {
@@ -39,17 +36,17 @@ func NewEndpoint(address string) Endpoint {
 	}
 }
 
-// Host returns the IPv4/IPv6 address of a service.
+// Host 返回一个服务的 IPv4/IPv6 地址。
 func (e *LocalEndpoint) Host() string {
 	return e.host
 }
 
-// Port returns the port of a service.
+// Port 返回一个服务的端口号。
 func (e *LocalEndpoint) Port() int {
 	return e.port
 }
 
-// String formats and returns the Endpoint as a string, like: 192.168.1.100:80.
+// String 将Endpoint格式化并以字符串形式返回，例如：192.168.1.100:80。
 func (e *LocalEndpoint) String() string {
 	return fmt.Sprintf(`%s:%d`, e.host, e.port)
 }

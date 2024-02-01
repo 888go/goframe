@@ -1,28 +1,25 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package utils
-
 import (
 	"reflect"
-
-	"coding.net/gogit/go/goframe/internal/empty"
-)
-
-// IsNil checks whether `value` is nil, especially for interface{} type value.
+	
+	"github.com/888go/goframe/internal/empty"
+	)
+// IsNil 检查 `value` 是否为 nil，特别是针对 interface{} 类型的值。
 func IsNil(value interface{}) bool {
 	return empty.IsNil(value)
 }
 
-// IsEmpty checks whether `value` is empty.
+// IsEmpty 检查 `value` 是否为空。
 func IsEmpty(value interface{}) bool {
 	return empty.IsEmpty(value)
 }
 
-// IsInt checks whether `value` is type of int.
+// IsInt 检查 `value` 是否为 int 类型。
 func IsInt(value interface{}) bool {
 	switch value.(type) {
 	case int, *int, int8, *int8, int16, *int16, int32, *int32, int64, *int64:
@@ -31,7 +28,7 @@ func IsInt(value interface{}) bool {
 	return false
 }
 
-// IsUint checks whether `value` is type of uint.
+// IsUint 检查 `value` 是否为 uint 类型。
 func IsUint(value interface{}) bool {
 	switch value.(type) {
 	case uint, *uint, uint8, *uint8, uint16, *uint16, uint32, *uint32, uint64, *uint64:
@@ -40,7 +37,7 @@ func IsUint(value interface{}) bool {
 	return false
 }
 
-// IsFloat checks whether `value` is type of float.
+// IsFloat 检查 `value` 是否为浮点类型。
 func IsFloat(value interface{}) bool {
 	switch value.(type) {
 	case float32, *float32, float64, *float64:
@@ -49,7 +46,7 @@ func IsFloat(value interface{}) bool {
 	return false
 }
 
-// IsSlice checks whether `value` is type of slice.
+// IsSlice 检查 `value` 是否为切片类型。
 func IsSlice(value interface{}) bool {
 	var (
 		reflectValue = reflect.ValueOf(value)
@@ -66,7 +63,7 @@ func IsSlice(value interface{}) bool {
 	return false
 }
 
-// IsMap checks whether `value` is type of map.
+// IsMap 检查 `value` 是否为 map 类型。
 func IsMap(value interface{}) bool {
 	var (
 		reflectValue = reflect.ValueOf(value)
@@ -83,7 +80,7 @@ func IsMap(value interface{}) bool {
 	return false
 }
 
-// IsStruct checks whether `value` is type of struct.
+// IsStruct 检查 `value` 是否为结构体类型。
 func IsStruct(value interface{}) bool {
 	var reflectType = reflect.TypeOf(value)
 	if reflectType == nil {

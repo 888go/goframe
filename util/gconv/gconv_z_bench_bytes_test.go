@@ -1,20 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// go test *.go -bench "Benchmark_Bytes_To_*" -benchmem
+// 使用go test命令测试当前目录下所有.go文件，执行名称中包含"Benchmark_Bytes_To_"的基准测试，并开启内存使用统计
 
 package gconv
-
 import (
 	"testing"
 	"unsafe"
-
-	"coding.net/gogit/go/goframe/encoding/gbinary"
-)
-
+	
+	"github.com/888go/goframe/encoding/gbinary"
+	)
 var valueBytes = gbinary.Encode(123456789)
 
 func Benchmark_Bytes_To_String_Normal(b *testing.B) {

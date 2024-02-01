@@ -1,30 +1,28 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtest
-
 import (
 	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
 	"testing"
-
-	"coding.net/gogit/go/goframe/debug/gdebug"
-	"coding.net/gogit/go/goframe/internal/empty"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
+	
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/util/gconv"
+	)
 const (
 	pathFilterKey = "/test/gtest/gtest"
 )
 
-// C creates a unit testing case.
-// The parameter `t` is the pointer to testing.T of stdlib (*testing.T).
-// The parameter `f` is the closure function for unit testing case.
+// C 创建一个单元测试用例。
+// 参数 `t` 是指向标准库 testing.T 的指针（*testing.T）。
+// 参数 `f` 是用于单元测试用例的闭包函数。
 func C(t *testing.T, f func(t *T)) {
 	defer func() {
 		if err := recover(); err != nil {
@@ -35,7 +33,7 @@ func C(t *testing.T, f func(t *T)) {
 	f(&T{t})
 }
 
-// Assert checks `value` and `expect` EQUAL.
+// Assert 检查 `value` 和 `expect` 是否相等。
 func Assert(value, expect interface{}) {
 	rvExpect := reflect.ValueOf(expect)
 	if empty.IsNil(value) {
@@ -56,7 +54,7 @@ func Assert(value, expect interface{}) {
 	}
 }
 
-// AssertEQ checks `value` and `expect` EQUAL, including their TYPES.
+// AssertEQ 检查 `value` 和 `expect` 是否相等，包括它们的 TYPE（类型）。
 func AssertEQ(value, expect interface{}) {
 	// Value assert.
 	rvExpect := reflect.ValueOf(expect)
@@ -82,7 +80,7 @@ func AssertEQ(value, expect interface{}) {
 	}
 }
 
-// AssertNE checks `value` and `expect` NOT EQUAL.
+// AssertNE 检查 `value` 和 `expect` 是否不相等。
 func AssertNE(value, expect interface{}) {
 	rvExpect := reflect.ValueOf(expect)
 	if empty.IsNil(value) {
@@ -103,7 +101,7 @@ func AssertNE(value, expect interface{}) {
 	}
 }
 
-// AssertNQ checks `value` and `expect` NOT EQUAL, including their TYPES.
+// AssertNQ 检查 `value` 和 `expect` 是否不相等，包括它们的类型。
 func AssertNQ(value, expect interface{}) {
 	// Type assert.
 	t1 := reflect.TypeOf(value)
@@ -120,9 +118,9 @@ func AssertNQ(value, expect interface{}) {
 	AssertNE(value, expect)
 }
 
-// AssertGT checks `value` is GREATER THAN `expect`.
-// Notice that, only string, integer and float types can be compared by AssertGT,
-// others are invalid.
+// AssertGT 检查 `value` 是否大于 `expect`。
+// 注意，只有字符串、整数和浮点类型可以通过 AssertGT 进行比较，
+// 其他类型是无效的。
 func AssertGT(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -143,9 +141,8 @@ func AssertGT(value, expect interface{}) {
 	}
 }
 
-// AssertGE checks `value` is GREATER OR EQUAL THAN `expect`.
-// Notice that, only string, integer and float types can be compared by AssertGTE,
-// others are invalid.
+// AssertGE 检查 `value` 是否大于或等于 `expect`。
+// 注意，只有字符串、整数和浮点类型可以使用 AssertGTE 进行比较，其他类型无效。
 func AssertGE(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -170,9 +167,9 @@ func AssertGE(value, expect interface{}) {
 	}
 }
 
-// AssertLT checks `value` is LESS EQUAL THAN `expect`.
-// Notice that, only string, integer and float types can be compared by AssertLT,
-// others are invalid.
+// AssertLT 检查 `value` 是否小于等于 `expect`。
+// 注意，只有字符串、整数和浮点类型可以使用 AssertLT 进行比较，
+// 其他类型无效。
 func AssertLT(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -193,9 +190,9 @@ func AssertLT(value, expect interface{}) {
 	}
 }
 
-// AssertLE checks `value` is LESS OR EQUAL THAN `expect`.
-// Notice that, only string, integer and float types can be compared by AssertLTE,
-// others are invalid.
+// AssertLE 检查 `value` 是否小于等于 `expect`。
+// 注意，只有字符串、整数和浮点类型可以通过 AssertLTE 进行比较，
+// 其他类型是无效的。
 func AssertLE(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -216,11 +213,11 @@ func AssertLE(value, expect interface{}) {
 	}
 }
 
-// AssertIN checks `value` is IN `expect`.
-// The `expect` should be a slice,
-// but the `value` can be a slice or a basic type variable.
-// TODO map support.
-// TODO: gconv.Strings(0) is not [0]
+// AssertIN 检查 `value` 是否在 `expect` 中。
+// `expect` 应该是一个切片类型，
+// 但 `value` 可以是切片类型或基本类型变量。
+// TODO: 添加对 map 类型的支持。
+// TODO: gconv.Strings(0) 的结果不是 [0]
 func AssertIN(value, expect interface{}) {
 	var (
 		passed     = true
@@ -250,10 +247,10 @@ func AssertIN(value, expect interface{}) {
 	}
 }
 
-// AssertNI checks `value` is NOT IN `expect`.
-// The `expect` should be a slice,
-// but the `value` can be a slice or a basic type variable.
-// TODO map support.
+// AssertNI 检查 `value` 是否不在 `expect` 中。
+// `expect` 应该是一个切片，
+// 但 `value` 可以是切片或基本类型变量。
+// TODO: 添加对 map 的支持。
 func AssertNI(value, expect interface{}) {
 	var (
 		passed     = true
@@ -282,12 +279,12 @@ func AssertNI(value, expect interface{}) {
 	}
 }
 
-// Error panics with given `message`.
+// Error 使用给定的`message`引发panic异常。
 func Error(message ...interface{}) {
 	panic(fmt.Sprintf("[ERROR] %s", fmt.Sprint(message...)))
 }
 
-// Fatal prints `message` to stderr and exit the process.
+// Fatal将`message`打印到标准错误输出（stderr）并退出进程。
 func Fatal(message ...interface{}) {
 	_, _ = fmt.Fprintf(
 		os.Stderr, "[FATAL] %s\n%s", fmt.Sprint(message...),
@@ -296,7 +293,7 @@ func Fatal(message ...interface{}) {
 	os.Exit(1)
 }
 
-// compareMap compares two maps, returns nil if they are equal, or else returns error.
+// compareMap 比较两个映射，如果它们相等则返回 nil，否则返回错误。
 func compareMap(value, expect interface{}) error {
 	var (
 		rvValue  = reflect.ValueOf(value)
@@ -305,9 +302,8 @@ func compareMap(value, expect interface{}) error {
 	if rvExpect.Kind() == reflect.Map {
 		if rvValue.Kind() == reflect.Map {
 			if rvExpect.Len() == rvValue.Len() {
-				// Turn two interface maps to the same type for comparison.
-				// Direct use of rvValue.MapIndex(key).Interface() will panic
-				// when the key types are inconsistent.
+// 将两个接口映射转换为同一类型以便进行比较。
+// 若直接使用rvValue.MapIndex(key).Interface()，当键类型不一致时会触发 panic。
 				mValue := make(map[string]string)
 				mExpect := make(map[string]string)
 				ksValue := rvValue.MapKeys()
@@ -334,7 +330,7 @@ func compareMap(value, expect interface{}) error {
 	return nil
 }
 
-// AssertNil asserts `value` is nil.
+// AssertNil 断言 `value` 为 nil。
 func AssertNil(value interface{}) {
 	if empty.IsNil(value) {
 		return
@@ -345,10 +341,10 @@ func AssertNil(value interface{}) {
 	Assert(value, nil)
 }
 
-// DataPath retrieves and returns the testdata path of current package,
-// which is used for unit testing cases only.
-// The optional parameter `names` specifies the sub-folders/sub-files,
-// which will be joined with current system separator and returned with the path.
+// DataPath 获取并返回当前包的 testdata 路径，
+// 该路径仅用于单元测试用例。
+// 可选参数 `names` 指定子文件夹/子文件，
+// 这些名称将与当前系统分隔符连接，并与路径一起返回。
 func DataPath(names ...string) string {
 	_, path, _ := gdebug.CallerWithFilter([]string{pathFilterKey})
 	path = filepath.Dir(path) + string(filepath.Separator) + "testdata"
@@ -358,7 +354,7 @@ func DataPath(names ...string) string {
 	return path
 }
 
-// DataContent retrieves and returns the file content for specified testdata path of current package
+// DataContent 函数用于获取并返回当前包中指定testdata路径下的文件内容
 func DataContent(names ...string) string {
 	path := DataPath(names...)
 	if path != "" {

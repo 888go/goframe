@@ -1,21 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
-
 import (
 	"errors"
-
-	"coding.net/gogit/go/goframe/text/gregex"
-)
-
-// RuleEmail implements `email` rule:
-// Email address.
+	
+	"github.com/888go/goframe/text/gregex"
+	)
+// RuleEmail 实现了 `email` 规则：
+// 电子邮件地址。
 //
-// Format: email
+// 格式：email
 type RuleEmail struct{}
 
 func init() {

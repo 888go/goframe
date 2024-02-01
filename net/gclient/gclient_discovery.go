@@ -1,39 +1,36 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gclient
-
 import (
 	"context"
 	"net/http"
-
-	"coding.net/gogit/go/goframe/container/gmap"
-	"coding.net/gogit/go/goframe/internal/intlog"
-	"coding.net/gogit/go/goframe/net/gsel"
-	"coding.net/gogit/go/goframe/net/gsvc"
-)
-
+	
+	"github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/net/gsel"
+	"github.com/888go/goframe/net/gsvc"
+	)
 type discoveryNode struct {
 	service gsvc.Service
 	address string
 }
 
-// Service is the client discovery service.
+// Service 是客户端发现服务。
 func (n *discoveryNode) Service() gsvc.Service {
 	return n.service
 }
 
-// Address returns the address of the node.
+// Address 返回节点的地址。
 func (n *discoveryNode) Address() string {
 	return n.address
 }
 
 var clientSelectorMap = gmap.New(true)
 
-// internalMiddlewareDiscovery is a client middleware that enables service discovery feature for client.
+// internalMiddlewareDiscovery 是一个客户端中间件，用于为客户端启用服务发现功能。
 func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response, err error) {
 	if c.discovery == nil {
 		return c.Next(r)
@@ -62,7 +59,7 @@ func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response
 		selectorMapValue = clientSelectorMap.GetOrSetFuncLock(selectorMapKey, func() interface{} {
 			intlog.Printf(ctx, `http client create selector for service "%s"`, selectorMapKey)
 			selector := c.builder.Build()
-			// Update selector nodes.
+			// 更新选择器节点。
 			if err = updateSelectorNodesByService(ctx, selector, service); err != nil {
 				return nil
 			}
@@ -73,7 +70,7 @@ func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response
 		return nil, err
 	}
 	selector := selectorMapValue.(gsel.Selector)
-	// Pick one node from multiple addresses.
+	// 从多个地址中选择一个节点。
 	node, done, err := selector.Pick(ctx)
 	if err != nil {
 		return nil, err

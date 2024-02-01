@@ -1,6 +1,6 @@
 package gf
 
 const (
-	// VERSION is the current GoFrame version.
+	// VERSION 是当前 GoFrame 版本。
 	VERSION = "v2.6.1"
 )

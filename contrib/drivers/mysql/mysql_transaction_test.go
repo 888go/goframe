@@ -1,23 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package mysql_test
-
 import (
 	"context"
 	"fmt"
 	"testing"
-
-	"coding.net/gogit/go/goframe/database/gdb"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gctx"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-)
+	
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	)
 
 func Test_TX_Query(t *testing.T) {
 	tx, err := db.Begin(ctx)
@@ -952,8 +950,10 @@ func Test_Transaction_Nested_TX_Transaction_UseDB(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
 
-	// db.SetDebug(true)
-	// defer db.SetDebug(false)
+// 设置数据库调试模式为开启状态
+// db.SetDebug(true)
+// 在函数结束时，确保关闭数据库调试模式
+// defer db.SetDebug(false)
 
 	gtest.C(t, func(t *gtest.T) {
 		var (
@@ -1001,7 +1001,7 @@ func Test_Transaction_Nested_TX_Transaction_UseDB(t *testing.T) {
 					"create_time": gtime.Now().String(),
 				}).Insert()
 				t.AssertNil(err)
-				// panic makes this transaction rollback.
+				// panic会使得此次事务回滚。
 				panic("error")
 				return err
 			})
@@ -1055,7 +1055,7 @@ func Test_Transaction_Nested_TX_Transaction_UseDB(t *testing.T) {
 					"create_time": gtime.Now().String(),
 				}).Insert()
 				t.AssertNil(err)
-				// panic makes this transaction rollback.
+				// panic会使得此次事务回滚。
 				panic("error")
 				return err
 			})

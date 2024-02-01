@@ -1,43 +1,39 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
-
 import (
 	"context"
 	"fmt"
 	"reflect"
 	"runtime"
 	"strings"
-
-	"coding.net/gogit/go/goframe/container/glist"
-	"coding.net/gogit/go/goframe/container/gtype"
-	"coding.net/gogit/go/goframe/debug/gdebug"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/consts"
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gmeta"
-	"coding.net/gogit/go/goframe/util/gtag"
-)
-
+	
+	"github.com/888go/goframe/container/glist"
+	"github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gmeta"
+	"github.com/888go/goframe/util/gtag"
+	)
 var (
-	// handlerIdGenerator is handler item id generator.
+	// handlerIdGenerator 是处理器项 ID 生成器。
 	handlerIdGenerator = gtype.NewInt()
 )
 
-// routerMapKey creates and returns a unique router key for given parameters.
-// This key is used for Server.routerMap attribute, which is mainly for checks for
-// repeated router registering.
+// routerMapKey 根据给定的参数创建并返回一个唯一的路由键。
+// 此键用于 Server.routerMap 属性，主要用于检查重复的路由注册情况。
 func (s *Server) routerMapKey(hook HookName, method, path, domain string) string {
 	return string(hook) + "%" + s.serveHandlerKey(method, path, domain)
 }
 
-// parsePattern parses the given pattern to domain, method and path variable.
+// parsePattern 将给定的模式解析为域名、方法和路径变量。
 func (s *Server) parsePattern(pattern string) (domain, method, path string, err error) {
 	path = strings.TrimSpace(pattern)
 	domain = DefaultDomainName
@@ -69,10 +65,10 @@ type setHandlerInput struct {
 	HandlerItem *HandlerItem
 }
 
-// setHandler creates router item with a given handler and pattern and registers the handler to the router tree.
-// The router tree can be treated as a multilayer hash table, please refer to the comment in the following codes.
-// This function is called during server starts up, which cares little about the performance. What really cares
-// is the well-designed router storage structure for router searching when the request is under serving.
+// setHandler 根据给定的处理器和模式创建路由项，并将处理器注册到路由树中。
+// 路由树可以被视为一个多层哈希表，请参考下文中的注释。
+// 此函数在服务器启动时调用，对性能要求不高。真正重要的是
+// 当请求处于服务状态时，用于路由搜索的良好设计的路由存储结构。
 func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 	var (
 		prefix  = in.Prefix
@@ -91,10 +87,10 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 		s.Logger().Fatalf(ctx, `invalid pattern "%s", %+v`, pattern, err)
 		return
 	}
-	// ====================================================================================
-	// Change the registered route according to meta info from its request structure.
-	// It supports multiple methods that are joined using char `,`.
-	// ====================================================================================
+// ====================================================================================
+// 根据请求结构中的元信息更改已注册的路由。
+// 它支持使用逗号 `,` 连接的多种方法。
+// ====================================================================================
 	if handler.Info.Type != nil && handler.Info.Type.NumIn() == 2 {
 		var objectReq = reflect.New(handler.Info.Type.In(1))
 		if v := gmeta.Get(objectReq, gtag.Path); !v.IsEmpty() {
@@ -106,17 +102,17 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 		if v := gmeta.Get(objectReq, gtag.Method); !v.IsEmpty() {
 			method = v.String()
 		}
-		// Multiple methods registering, which are joined using char `,`.
+		// 多个方法注册，使用字符 `,` 连接。
 		if gstr.Contains(method, ",") {
 			methods := gstr.SplitAndTrim(method, ",")
 			for _, v := range methods {
-				// Each method has it own handler.
+				// 每个方法都有自己的处理程序。
 				clonedHandler := *handler
 				s.doSetHandler(ctx, &clonedHandler, prefix, uri, pattern, v, domain)
 			}
 			return
 		}
-		// Converts `all` to `ALL`.
+		// 将`all`转换为`ALL`。
 		if gstr.Equal(method, defaultMethod) {
 			method = defaultMethod
 		}
@@ -135,7 +131,7 @@ func (s *Server) doSetHandler(
 			method, supportedHttpMethods, defaultMethod,
 		)
 	}
-	// Prefix for URI feature.
+	// URI特征的前缀。
 	if prefix != "" {
 		uri = prefix + "/" + strings.TrimLeft(uri, "/")
 	}
@@ -148,7 +144,7 @@ func (s *Server) doSetHandler(
 		s.Logger().Fatalf(ctx, `invalid pattern "%s", URI should lead with '/'`, pattern)
 	}
 
-	// Repeated router checks, this feature can be disabled by server configuration.
+	// 重复路由检查，可以通过服务器配置禁用此功能。
 	var routerKey = s.routerMapKey(handler.HookName, method, uri, domain)
 	if !s.config.RouteOverWrite {
 		switch handler.Type {
@@ -174,9 +170,9 @@ func (s *Server) doSetHandler(
 			}
 		}
 	}
-	// Unique id for each handler.
+	// 每个处理器的唯一标识 ID
 	handler.Id = handlerIdGenerator.Add(1)
-	// Create a new router by given parameter.
+	// 根据给定参数创建一个新的路由器。
 	handler.Router = &Router{
 		Uri:      uri,
 		Domain:   domain,
@@ -188,8 +184,8 @@ func (s *Server) doSetHandler(
 	if _, ok := s.serveTree[domain]; !ok {
 		s.serveTree[domain] = make(map[string]interface{})
 	}
-	// List array, very important for router registering.
-	// There may be multiple lists adding into this array when searching from root to leaf.
+// List 数组，对于路由器注册非常重要。
+// 从根节点到叶子节点搜索过程中，可能会有多个列表添加到此数组中。
 	var (
 		array []string
 		lists = make([]*glist.List, 0)
@@ -199,29 +195,23 @@ func (s *Server) doSetHandler(
 	} else {
 		array = strings.Split(uri[1:], "/")
 	}
-	// Multilayer hash table:
-	// 1. Each node of the table is separated by URI path which is split by char '/'.
-	// 2. The key "*fuzz" specifies this node is a fuzzy node, which has no certain name.
-	// 3. The key "*list" is the list item of the node, MOST OF THE NODES HAVE THIS ITEM,
-	//    especially the fuzzy node. NOTE THAT the fuzzy node must have the "*list" item,
-	//    and the leaf node also has "*list" item. If the node is not a fuzzy node either
-	//    a leaf, it neither has "*list" item.
-	// 2. The "*list" item is a list containing registered router items ordered by their
-	//    priorities from high to low. If it's a fuzzy node, all the sub router items
-	//    from this fuzzy node will also be added to its "*list" item.
-	// 3. There may be repeated router items in the router lists. The lists' priorities
-	//    from root to leaf are from low to high.
+// 多层哈希表:
+// 1. 表中的每个节点通过以字符 '/' 分割的URI路径进行区分。
+// 2. 键 "*fuzz" 指定该节点是一个模糊节点，没有特定名称。
+// 3. 键 "*list" 是节点的列表项，**大多数节点都有此项**，特别是模糊节点。注意，模糊节点必须包含"*list"项，并且叶节点也具有"*list"项。如果节点既不是模糊节点也不是叶节点，则它不包含"*list"项。
+// 4. "*list" 项是一个按其优先级从高到低排序的已注册路由项列表。如果是模糊节点，从此模糊节点开始的所有子路由项也将被添加到其"*list"项中。
+// 5. 路由列表中可能存在重复的路由项。从根节点到叶节点的列表优先级是从低到高。
 	var p = s.serveTree[domain]
 	for i, part := range array {
-		// Ignore empty URI part, like: /user//index
+		// 忽略空的URI部分，例如：/user//index
 		if part == "" {
 			continue
 		}
-		// Check if it's a fuzzy node.
+		// 检查是否为模糊节点。
 		if gregex.IsMatchString(`^[:\*]|\{[\w\.\-]+\}|\*`, part) {
 			part = "*fuzz"
-			// If it's a fuzzy node, it creates a "*list" item - which is a list - in the hash map.
-			// All the sub router items from this fuzzy node will also be added to its "*list" item.
+// 如果这是一个模糊节点，它会在哈希映射中创建一个“*list”项——这是一个列表。
+// 从此模糊节点派生的所有子路由项也将被添加到其“*list”项中。
 			if v, ok := p.(map[string]interface{})["*list"]; !ok {
 				newListForFuzzy := glist.New()
 				p.(map[string]interface{})["*list"] = newListForFuzzy
@@ -230,16 +220,15 @@ func (s *Server) doSetHandler(
 				lists = append(lists, v.(*glist.List))
 			}
 		}
-		// Make a new bucket for the current node.
+		// 为当前节点新建一个桶。
 		if _, ok := p.(map[string]interface{})[part]; !ok {
 			p.(map[string]interface{})[part] = make(map[string]interface{})
 		}
-		// Loop to next bucket.
+		// 循环到下一个桶。
 		p = p.(map[string]interface{})[part]
-		// The leaf is a hash map and must have an item named "*list", which contains the router item.
-		// The leaf can be furthermore extended by adding more ket-value pairs into its map.
-		// Note that the `v != "*fuzz"` comparison is required as the list might be added in the former
-		// fuzzy checks.
+// 叶子节点是一个哈希表，且必须包含一个名为"*list"的项目，其中存储着路由项。
+// 通过向其映射中添加更多键值对，叶子节点可以进一步扩展。
+// 注意，由于在之前的模糊检查中可能已添加了列表，所以需要进行 `v != "*fuzz"` 的比较。
 		if i == len(array)-1 && part != "*fuzz" {
 			if v, ok := p.(map[string]interface{})["*list"]; !ok {
 				leafList := glist.New()
@@ -250,15 +239,14 @@ func (s *Server) doSetHandler(
 			}
 		}
 	}
-	// It iterates the list array of `lists`, compares priorities and inserts the new router item in
-	// the proper position of each list. The priority of the list is ordered from high to low.
+// 它遍历`lists`列表数组，比较优先级并将新的路由项插入到每个列表中的适当位置。列表的优先级从高到低排序。
 	var item *HandlerItem
 	for _, l := range lists {
 		pushed := false
 		for e := l.Front(); e != nil; e = e.Next() {
 			item = e.Value.(*HandlerItem)
-			// Checks the priority whether inserting the route item before current item,
-			// which means it has higher priority.
+// 检查优先级，是否在当前项之前插入路由项，
+// 这意味着它具有更高的优先级。
 			if s.compareRouterPriority(handler, item) {
 				l.InsertBefore(e, handler)
 				pushed = true
@@ -266,12 +254,12 @@ func (s *Server) doSetHandler(
 			}
 		}
 	end:
-		// Just push back in default.
+		// 默认情况下，仅向后推入
 		if !pushed {
 			l.PushBack(handler)
 		}
 	}
-	// Initialize the route map item.
+	// 初始化路由映射项。
 	if _, ok := s.routesMap[routerKey]; !ok {
 		s.routesMap[routerKey] = make([]*HandlerItem, 0)
 	}
@@ -288,24 +276,22 @@ func (s *Server) isValidMethod(method string) bool {
 	return ok
 }
 
-// compareRouterPriority compares the priority between `newItem` and `oldItem`. It returns true
-// if `newItem`'s priority is higher than `oldItem`, else it returns false. The higher priority
-// item will be inserted into the router list before the other one.
+// compareRouterPriority 比较 `newItem` 和 `oldItem` 之间的优先级。如果 `newItem` 的优先级高于 `oldItem`，则返回 true，否则返回 false。优先级较高的项将被插入到路由器列表的前面。
 //
-// Comparison rules:
-// 1. The middleware has the most high priority.
-// 2. URI: The deeper, the higher (simply check the count of char '/' in the URI).
-// 3. Route type: {xxx} > :xxx > *xxx.
+// 比较规则：
+// 1. 中间件具有最高的优先级。
+// 2. URI：路径越深，优先级越高（简单地检查 URI 中字符 '/' 的数量）。
+// 3. 路由类型：{xxx} > :xxx > *xxx。
 func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerItem) bool {
-	// If they're all types of middleware, the priority is according to their registered sequence.
+	// 如果它们都是中间件类型，则优先级根据其注册顺序决定。
 	if newItem.Type == HandlerTypeMiddleware && oldItem.Type == HandlerTypeMiddleware {
 		return false
 	}
-	// The middleware has the most high priority.
+	// 该中间件具有最高优先级。
 	if newItem.Type == HandlerTypeMiddleware && oldItem.Type != HandlerTypeMiddleware {
 		return true
 	}
-	// URI: The deeper, the higher (simply check the count of char '/' in the URI).
+	// URI：URI中'/'字符出现次数越多，级别越高。
 	if newItem.Router.Priority > oldItem.Router.Priority {
 		return true
 	}
@@ -313,19 +299,22 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return false
 	}
 
-	// Compare the length of their URI,
-	// but the fuzzy and named parts of the URI are not calculated to the result.
+// 比较它们URI的长度，
+// 但URI中的模糊部分和命名部分不计算到结果中。
 
-	// Example:
-	// /admin-goods-{page} > /admin-{page}
-	// /{hash}.{type}      > /{hash}
+// 示例：
+// /admin-goods-{page} > /admin-{page}
+// /{hash}.{type}      > /{hash}
+// 上面的注释是用于示例URL路径重写规则：
+// 第一条规则表示将 "/admin-goods-任意页码" 重写为 "/admin-任意页码"，其中 {page} 是一个占位符，代表任何数字页码。
+// 第二条规则表示将 "/任意哈希值.任意类型" 重写为 "/任意哈希值"，其中 {hash} 和 {type} 分别是占位符，代表任何哈希值和文件类型。
 	var uriNew, uriOld string
 	uriNew, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", newItem.Router.Uri)
 	uriOld, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", oldItem.Router.Uri)
 	uriNew, _ = gregex.ReplaceString(`:[^/]+?`, "", uriNew)
 	uriOld, _ = gregex.ReplaceString(`:[^/]+?`, "", uriOld)
-	uriNew, _ = gregex.ReplaceString(`\*[^/]*`, "", uriNew) // Replace "/*" and "/*any".
-	uriOld, _ = gregex.ReplaceString(`\*[^/]*`, "", uriOld) // Replace "/*" and "/*any".
+	uriNew, _ = gregex.ReplaceString(`\*[^/]*`, "", uriNew) // 将 "/*" 和 "/*any" 进行替换。
+	uriOld, _ = gregex.ReplaceString(`\*[^/]*`, "", uriOld) // 将 "/*" 和 "/*any" 进行替换。
 	if len(uriNew) > len(uriOld) {
 		return true
 	}
@@ -333,9 +322,10 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return false
 	}
 
-	// Route type checks: {xxx} > :xxx > *xxx.
-	// Example:
-	// /name/act > /{name}/:act
+// 路由类型检查规则：{xxx} > :xxx > *xxx。
+// 示例：
+// /name/act 对应于 /{name}/:act
+// （注释翻译：这段Go语言代码的注释描述了路由路径匹配的优先级规则，其中花括号 `{}`、冒号 `:` 以及星号 `*` 分别用于表示路径参数的不同格式。按照优先级从高到低排列为：`{xxx}`（命名路径参数）、`:xxx`（动态路径参数）和 `*xxx`（任意长度路径参数）。示例说明了这种对应关系，在路由 `/name/act` 中，`name` 可以映射为 `{name}` 形式的命名路径参数，而 `act` 可以映射为 `:act` 形式的动态路径参数。）
 	var (
 		fuzzyCountFieldNew int
 		fuzzyCountFieldOld int
@@ -375,16 +365,17 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return false
 	}
 
-	// If the counts of their fuzzy rules are equal.
+	// 如果它们的模糊规则计数相等。
 
-	// Eg: /name/{act} > /name/:act
+	// 示例：/name/{act} 转换为 /name/:act
 	if fuzzyCountFieldNew > fuzzyCountFieldOld {
 		return true
 	}
 	if fuzzyCountFieldNew < fuzzyCountFieldOld {
 		return false
 	}
-	// Eg: /name/:act > /name/*act
+	// 示例：/name/:act > /name/*act
+// 注释翻译：该注释用于表示一个路由映射规则的示例，其中"/name/:act"是一个动态路由模板，":act"是一个参数占位符，可以匹配任何非空字符串。在实际应用中，它将被映射到类似"/name/任意动作名"的实际路由路径。例如，如果":act"为"edit"，则此规则可匹配路径"/name/edit"。而"*act"则通常用于匹配任意后缀，包括"/"字符及其后面的所有内容。但在给定的代码片段中，并没有明确指出"*act"的行为，可能需要更多上下文信息来准确解释。
 	if fuzzyCountNameNew > fuzzyCountNameOld {
 		return true
 	}
@@ -392,8 +383,8 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return false
 	}
 
-	// It then compares the accuracy of their http method,
-	// the more accurate the more priority.
+// 然后比较它们的HTTP方法的准确性，
+// 越准确则优先级越高。
 	if newItem.Router.Method != defaultMethod {
 		return true
 	}
@@ -401,18 +392,18 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return true
 	}
 
-	// If they have different router type,
-	// the new router item has more priority than the other one.
+// 如果它们具有不同的路由类型，
+// 那么新的路由项比另一个具有更高的优先级。
 	if newItem.Type == HandlerTypeHandler || newItem.Type == HandlerTypeObject {
 		return true
 	}
 
-	// Other situations, like HOOK items,
-	// the old router item has more priority than the other one.
+// 其他情况，如 HOOK 项，
+// 则旧的路由项比其他项具有更高的优先级。
 	return false
 }
 
-// patternToRegular converts route rule to according to regular expression.
+// patternToRegular 将路由规则转换为相应的正则表达式。
 func (s *Server) patternToRegular(rule string) (regular string, names []string) {
 	if len(rule) < 2 {
 		return rule, nil
@@ -439,7 +430,7 @@ func (s *Server) patternToRegular(rule string) (regular string, names []string) 
 				regular += `/{0,1}.*`
 			}
 		default:
-			// Special chars replacement.
+			// 特殊字符替换。
 			v = gstr.ReplaceByMap(v, map[string]string{
 				`.`: `\.`,
 				`+`: `\+`,

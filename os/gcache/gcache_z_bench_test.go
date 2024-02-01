@@ -1,20 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// go test *.go -bench=".*" -benchmem
+// 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
 package gcache_test
-
 import (
 	"context"
 	"testing"
-
-	"coding.net/gogit/go/goframe/os/gcache"
-)
-
+	
+	"github.com/888go/goframe/os/gcache"
+	)
 var (
 	localCache    = gcache.New()
 	localCacheLru = gcache.New(10000)

@@ -1,12 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghash
 
-// DJB implements the classic DJB hash algorithm for 32 bits.
+// DJB 实现了适用于32位的经典的DJB哈希算法。
 func DJB(str []byte) uint32 {
 	var hash uint32 = 5381
 	for i := 0; i < len(str); i++ {
@@ -15,7 +15,7 @@ func DJB(str []byte) uint32 {
 	return hash
 }
 
-// DJB64 implements the classic DJB hash algorithm for 64 bits.
+// DJB64 实现了适用于 64 位的经典 DJB 哈希算法。
 func DJB64(str []byte) uint64 {
 	var hash uint64 = 5381
 	for i := 0; i < len(str); i++ {

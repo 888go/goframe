@@ -1,50 +1,48 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可证条款。
+// 如果随此文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf 获取一份。
 //
 
 package gdb
-
 import (
 	"context"
 	"database/sql"
 	"reflect"
-
+	
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
-
-	"coding.net/gogit/go/goframe/util/gconv"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/intlog"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/util/guid"
-)
-
-// Query commits one query SQL to underlying driver and returns the execution result.
-// It is most commonly used for data querying.
+	
+	"github.com/888go/goframe/util/gconv"
+	
+	"github.com/888go/goframe"
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/util/guid"
+	)
+// Query 将一个查询SQL语句提交给底层驱动并返回执行结果。
+// 这个方法最常用于数据查询。
 func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
 	return c.db.DoQuery(ctx, nil, sql, args...)
 }
 
-// DoQuery commits the sql string and its arguments to underlying driver
-// through given link object and returns the execution result.
+// DoQuery 通过给定的link对象，将sql字符串及其参数提交到底层驱动，并返回执行结果。
 func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
-	// Transaction checks.
+	// 事务检查。
 	if link == nil {
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			// Firstly, check and retrieve transaction link from context.
+			// 首先，从上下文检查并检索交易链接。
 			link = &txLink{tx.GetSqlTX()}
 		} else if link, err = c.SlaveLink(); err != nil {
-			// Or else it creates one from master node.
+			// 或者从主节点创建一个
 			return nil, err
 		}
 	} else if !link.IsTransaction() {
-		// If current link is not transaction link, it checks and retrieves transaction from context.
+		// 如果当前链接不是事务链接，它会检查并从上下文中获取事务。
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
 			link = &txLink{tx.GetSqlTX()}
 		}
@@ -60,7 +58,7 @@ func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...inter
 	if err != nil {
 		return nil, err
 	}
-	// SQL format and retrieve.
+	// SQL格式化并检索
 	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
@@ -84,26 +82,25 @@ func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...inter
 	return out.Records, err
 }
 
-// Exec commits one query SQL to underlying driver and returns the execution result.
-// It is most commonly used for data inserting and updating.
+// Exec方法将一个SQL查询语句提交给底层驱动执行并返回执行结果。
+// 该方法主要用于数据的插入和更新操作。
 func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {
 	return c.db.DoExec(ctx, nil, sql, args...)
 }
 
-// DoExec commits the sql string and its arguments to underlying driver
-// through given link object and returns the execution result.
+// DoExec通过给定的link对象，将SQL字符串及其参数提交给底层驱动，并返回执行结果。
 func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {
-	// Transaction checks.
+	// 事务检查。
 	if link == nil {
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			// Firstly, check and retrieve transaction link from context.
+			// 首先，从上下文检查并检索交易链接。
 			link = &txLink{tx.GetSqlTX()}
 		} else if link, err = c.MasterLink(); err != nil {
-			// Or else it creates one from master node.
+			// 或者从主节点创建一个
 			return nil, err
 		}
 	} else if !link.IsTransaction() {
-		// If current link is not transaction link, it checks and retrieves transaction from context.
+		// 如果当前链接不是事务链接，它会检查并从上下文中获取事务。
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
 			link = &txLink{tx.GetSqlTX()}
 		}
@@ -121,7 +118,7 @@ func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interf
 	if err != nil {
 		return nil, err
 	}
-	// SQL format and retrieve.
+	// SQL格式化并检索
 	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
@@ -145,16 +142,15 @@ func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interf
 	return out.Result, err
 }
 
-// DoFilter is a hook function, which filters the sql and its arguments before it's committed to underlying driver.
-// The parameter `link` specifies the current database connection operation object. You can modify the sql
-// string `sql` and its arguments `args` as you wish before they're committed to driver.
+// DoFilter 是一个钩子函数，在 SQL 语句及其参数提交给底层驱动程序之前对其进行过滤。
+// 参数 `link` 指定了当前数据库连接操作对象。您可以在 SQL 字符串 `sql` 和其参数 `args` 提交给驱动程序之前，根据需要自由修改它们。
 func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
 
-// DoCommit commits current sql and arguments to underlying sql driver.
+// DoCommit 将当前SQL语句及其参数提交给底层SQL驱动执行。
 func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error) {
-	// Inject internal data into ctx, especially for transaction creating.
+	// 将内部数据注入到ctx中，特别是用于创建事务。
 	ctx = c.InjectInternalCtxData(ctx)
 
 	var (
@@ -175,7 +171,7 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 	ctx, span := tr.Start(ctx, in.Type, trace.WithSpanKind(trace.SpanKindInternal))
 	defer span.End()
 
-	// Execution cased by type.
+	// 根据类型执行。
 	switch in.Type {
 	case SqlTypeBegin:
 		if sqlTx, err = in.Db.Begin(); err == nil {
@@ -289,14 +285,12 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 	return out, err
 }
 
-// Prepare creates a prepared statement for later queries or executions.
-// Multiple queries or executions may be run concurrently from the
-// returned statement.
-// The caller must call the statement's Close method
-// when the statement is no longer needed.
+// Prepare 函数用于为后续查询或执行创建预编译语句。
+// 从返回的语句可以并发地运行多个查询或执行操作。
+// 当该语句不再需要时，调用者必须调用该语句的 Close 方法。
 //
-// The parameter `execOnMaster` specifies whether executing the sql on master node,
-// or else it executes the sql on slave node if master-slave configured.
+// 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从模式，
+// 则此参数为 false 时将在从节点上执行 SQL。
 func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {
 	var (
 		err  error
@@ -314,29 +308,29 @@ func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*
 	return c.db.DoPrepare(ctx, link, sql)
 }
 
-// DoPrepare calls prepare function on given link object and returns the statement object.
+// DoPrepare在给定的link对象上调用prepare函数，并返回statement对象。
 func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt, err error) {
-	// Transaction checks.
+	// 事务检查。
 	if link == nil {
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			// Firstly, check and retrieve transaction link from context.
+			// 首先，从上下文检查并检索交易链接。
 			link = &txLink{tx.GetSqlTX()}
 		} else {
-			// Or else it creates one from master node.
+			// 或者从主节点创建一个
 			var err error
 			if link, err = c.MasterLink(); err != nil {
 				return nil, err
 			}
 		}
 	} else if !link.IsTransaction() {
-		// If current link is not transaction link, it checks and retrieves transaction from context.
+		// 如果当前链接不是事务链接，它会检查并从上下文中获取事务。
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
 			link = &txLink{tx.GetSqlTX()}
 		}
 	}
 
 	if c.db.GetConfig().PrepareTimeout > 0 {
-		// DO NOT USE cancel function in prepare statement.
+		// **请勿在预处理语句中使用取消函数。**
 		ctx, _ = context.WithTimeout(ctx, c.db.GetConfig().PrepareTimeout)
 	}
 
@@ -351,7 +345,7 @@ func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt
 	return out.Stmt, err
 }
 
-// RowsToResult converts underlying data record type sql.Rows to Result type.
+// RowsToResult 将底层数据记录类型 sql.Rows 转换为 Result 类型。
 func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error) {
 	if rows == nil {
 		return nil, nil
@@ -364,7 +358,7 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 	if !rows.Next() {
 		return nil, nil
 	}
-	// Column names and types.
+	// 列名和类型。
 	columnTypes, err := rows.ColumnTypes()
 	if err != nil {
 		return nil, err
@@ -390,8 +384,8 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 		record := Record{}
 		for i, value := range values {
 			if value == nil {
-				// DO NOT use `gvar.New(nil)` here as it creates an initialized object
-				// which will cause struct converting issue.
+// **注意**：在此处不要使用 `gvar.New(nil)`，因为它会创建一个已初始化的对象，
+// 这将会导致结构体转换问题。
 				record[columnTypes[i].Name()] = nil
 			} else {
 				var convertedValue interface{}
@@ -412,7 +406,7 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 func (c *Core) columnValueToLocalValue(ctx context.Context, value interface{}, columnType *sql.ColumnType) (interface{}, error) {
 	var scanType = columnType.ScanType()
 	if scanType != nil {
-		// Common basic builtin types.
+		// 常见的基本内置类型。
 		switch scanType.Kind() {
 		case
 			reflect.Bool,
@@ -425,6 +419,6 @@ func (c *Core) columnValueToLocalValue(ctx context.Context, value interface{}, c
 			), nil
 		}
 	}
-	// Other complex types, especially custom types.
+	// 其他复杂类型，特别是自定义类型。
 	return c.db.ConvertValueForLocal(ctx, columnType.DatabaseTypeName(), value)
 }

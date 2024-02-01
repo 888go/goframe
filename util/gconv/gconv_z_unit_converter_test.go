@@ -1,20 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv_test
-
 import (
 	"encoding/json"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
+	
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
+	)
 
 func TestConverter_Struct(t *testing.T) {
 	type tA struct {
@@ -190,7 +188,7 @@ func TestConverter_Struct(t *testing.T) {
 		t.Assert(dd.ValTa.Val2, "abc")
 	})
 
-	// fix: https://github.com/gogf/gf/issues/2665
+	// 修复：https://github.com/gogf/gf/issues/2665
 	gtest.C(t, func(t *gtest.T) {
 		aa := &tEE{}
 
@@ -207,7 +205,8 @@ func TestConverter_Struct(t *testing.T) {
 		t.Assert(aa.Val3.Local(), gtime.New("2006-01-02T15:04:05Z07:00").Local().Time)
 	})
 
-	// fix: https://github.com/gogf/gf/issues/3006
+	// 修复：https://github.com/gogf/gf/issues/3006
+// （该注释表明该代码是为了解决GitHub上gogf/gf项目中编号为3006的问题而编写的）
 	gtest.C(t, func(t *gtest.T) {
 		ff := &tFF{}
 		var tmp = map[string]any{
@@ -273,7 +272,7 @@ func TestConverter_CustomBasicType_ToStruct(t *testing.T) {
 	})
 }
 
-// fix: https://github.com/gogf/gf/issues/3099
+// 修复：https://github.com/gogf/gf/issues/3099
 func TestConverter_CustomTimeType_ToStruct(t *testing.T) {
 	type timestamppb struct {
 		S string

@@ -1,22 +1,19 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
-
 import (
 	"errors"
-
-	"coding.net/gogit/go/goframe/text/gregex"
-)
-
-// RulePassport implements `passport` rule:
-// Universal passport format rule:
-// Starting with letter, containing only numbers or underscores, length between 6 and 18
+	
+	"github.com/888go/goframe/text/gregex"
+	)
+// RulePassport 实现了 `passport` 规则：
+// 通用护照格式规则：
+// 以字母开头，仅包含数字或下划线，长度在6到18之间
 //
-// Format: passport
+// 格式：passport
 type RulePassport struct{}
 
 func init() {

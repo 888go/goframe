@@ -1,19 +1,16 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
-
 import (
 	"errors"
-)
-
-// RuleBankCard implements `bank-card` rule:
-// Bank card number.
+	)
+// RuleBankCard 实现了 `bank-card` 规则：
+// 银行卡号。
 //
-// Format: bank-card
+// 格式：银行卡号
 type RuleBankCard struct{}
 
 func init() {
@@ -35,8 +32,8 @@ func (r RuleBankCard) Run(in RunInput) error {
 	return errors.New(in.Message)
 }
 
-// checkLuHn checks `value` with LUHN algorithm.
-// It's usually used for bank card number validation.
+// checkLuHn 使用LUHN算法校验`value`。
+// 通常用于银行卡号的验证。
 func (r RuleBankCard) checkLuHn(value string) bool {
 	var (
 		sum     = 0

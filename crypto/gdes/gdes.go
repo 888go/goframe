@@ -1,27 +1,24 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gdes provides useful API for DES encryption/decryption algorithms.
+// Package gdes 提供了用于DES加密/解密算法的有用API。
 package gdes
-
 import (
 	"bytes"
 	"crypto/cipher"
 	"crypto/des"
-
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-)
-
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	)
 const (
 	NOPADDING = iota
 	PKCS5PADDING
 )
 
-// EncryptECB encrypts `plainText` using ECB mode.
+// EncryptECB 使用ECB模式加密`plainText`。
 func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
 	text, err := Padding(plainText, padding)
 	if err != nil {
@@ -43,7 +40,7 @@ func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
 	return cipherText, nil
 }
 
-// DecryptECB decrypts `cipherText` using ECB mode.
+// DecryptECB 使用ECB模式解密`cipherText`。
 func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	text := make([]byte, len(cipherText))
 	block, err := des.NewCipher(key)
@@ -65,8 +62,8 @@ func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	return plainText, nil
 }
 
-// EncryptECBTriple encrypts `plainText` using TripleDES and ECB mode.
-// The length of the `key` should be either 16 or 24 bytes.
+// EncryptECBTriple 使用TripleDES加密算法及ECB模式加密`plainText`。
+// `key`的长度应为16字节或24字节。
 func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
@@ -100,8 +97,8 @@ func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error)
 	return cipherText, nil
 }
 
-// DecryptECBTriple decrypts `cipherText` using TripleDES and ECB mode.
-// The length of the `key` should be either 16 or 24 bytes.
+// DecryptECBTriple 使用TripleDES和ECB模式解密`cipherText`。
+// `key`的长度应为16字节或24字节。
 func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
@@ -135,7 +132,7 @@ func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error
 	return plainText, nil
 }
 
-// EncryptCBC encrypts `plainText` using CBC mode.
+// EncryptCBC 使用CBC模式加密`plainText`。
 func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	block, err := des.NewCipher(key)
 	if err != nil {
@@ -159,7 +156,7 @@ func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, e
 	return cipherText, nil
 }
 
-// DecryptCBC decrypts `cipherText` using CBC mode.
+// DecryptCBC 使用CBC模式解密`cipherText`。
 func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	block, err := des.NewCipher(key)
 	if err != nil {
@@ -183,7 +180,7 @@ func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, 
 	return plainText, nil
 }
 
-// EncryptCBCTriple encrypts `plainText` using TripleDES and CBC mode.
+// EncryptCBCTriple 使用TripleDES算法和CBC模式加密`plainText`。
 func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")
@@ -219,7 +216,7 @@ func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]b
 	return cipherText, nil
 }
 
-// DecryptCBCTriple decrypts `cipherText` using TripleDES and CBC mode.
+// DecryptCBCTriple 使用3DES加密算法和CBC模式解密`cipherText`。
 func DecryptCBCTriple(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")

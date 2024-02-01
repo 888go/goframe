@@ -1,25 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package goai
-
 import (
 	"reflect"
-
-	"coding.net/gogit/go/goframe/internal/json"
-	"coding.net/gogit/go/goframe/os/gstructs"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
-
+	
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/os/gstructs"
+	"github.com/888go/goframe/text/gstr"
+	)
 type ResponseRef struct {
 	Ref   string
 	Value *Response
 }
 
-// Responses is specified by OpenAPI/Swagger 3.0 standard.
+// Responses 按照 OpenAPI/Swagger 3.0 标准进行指定。
 type Responses map[string]ResponseRef
 
 func (r ResponseRef) MarshalJSON() ([]byte, error) {
@@ -30,9 +28,9 @@ func (r ResponseRef) MarshalJSON() ([]byte, error) {
 }
 
 type getResponseSchemaRefInput struct {
-	BusinessStructName      string      // The business struct name.
-	CommonResponseObject    interface{} // Common response object.
-	CommonResponseDataField string      // Common response data field.
+	BusinessStructName      string      // 业务结构体名称。
+	CommonResponseObject    interface{} // 常用响应对象。
+	CommonResponseDataField string      // 公共响应数据字段。
 }
 
 func (oai *OpenApiV3) getResponseSchemaRef(in getResponseSchemaRefInput) (*SchemaRef, error) {
@@ -77,7 +75,7 @@ func (oai *OpenApiV3) getResponseSchemaRef(in getResponseSchemaRefInput) (*Schem
 					break
 				}
 			default:
-				// Recursively creating common response object schema.
+				// 递归创建通用响应对象模式
 				if structField.Name() == dataFieldsPartsArray[0] {
 					var structFieldInstance = reflect.New(structField.Type().Type).Elem()
 					schemaRef, err := oai.getResponseSchemaRef(getResponseSchemaRefInput{

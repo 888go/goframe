@@ -1,21 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gcompress provides kinds of compression algorithms for binary/bytes data.
+// 包gcompress提供了多种压缩算法，适用于二进制/字节数据。
 package gcompress
-
 import (
 	"bytes"
 	"compress/zlib"
 	"io"
-
-	"coding.net/gogit/go/goframe/errors/gerror"
-)
-
-// Zlib compresses `data` with zlib algorithm.
+	
+	"github.com/888go/goframe/errors/gerror"
+	)
+// Zlib 使用zlib算法压缩`data`。
 func Zlib(data []byte) ([]byte, error) {
 	if data == nil || len(data) < 13 {
 		return data, nil
@@ -37,7 +34,7 @@ func Zlib(data []byte) ([]byte, error) {
 	return in.Bytes(), nil
 }
 
-// UnZlib decompresses `data` with zlib algorithm.
+// UnZlib 使用zlib算法对`data`进行解压缩。
 func UnZlib(data []byte) ([]byte, error) {
 	if data == nil || len(data) < 13 {
 		return data, nil

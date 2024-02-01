@@ -1,19 +1,16 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gvar
-
 import (
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// Scan automatically checks the type of `pointer` and converts `params` to `pointer`. It supports `pointer`
-// with type of `*map/*[]map/*[]*map/*struct/**struct/*[]struct/*[]*struct` for converting.
+	"github.com/888go/goframe/util/gconv"
+	)
+// Scan 会自动检测 `pointer` 的类型，并将 `params` 转换为 `pointer`。它支持对 `pointer`
+// 进行转换的类型包括：`*map`、`*[]map`、`*[]*map`、`*struct`、`**struct`、`*[]struct` 和 `*[]*struct`。
 //
-// See gconv.Scan.
+// 详情请参阅 gconv.Scan。
 func (v *Var) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return gconv.Scan(v.Val(), pointer, mapping...)
 }

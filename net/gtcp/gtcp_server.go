@@ -1,26 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtcp
-
 import (
 	"crypto/tls"
 	"fmt"
 	"net"
 	"sync"
-
-	"coding.net/gogit/go/goframe/container/gmap"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
+	
+	"github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	)
 const (
-	// FreePortAddress marks the server listens using random free port.
+	// FreePortAddress 表示服务器使用随机空闲端口进行监听。
 	FreePortAddress = ":0"
 )
 
@@ -28,21 +25,21 @@ const (
 	defaultServer = "default"
 )
 
-// Server is a TCP server.
+// Server 是一个 TCP 服务器。
 type Server struct {
-	mu        sync.Mutex   // Used for Server.listen concurrent safety. -- The golang test with data race checks this.
-	listen    net.Listener // TCP address listener.
-	address   string       // Server listening address.
-	handler   func(*Conn)  // Connection handler.
-	tlsConfig *tls.Config  // TLS configuration.
+	mu        sync.Mutex   // 用于Server.listen方法的并发安全。-- 此段golang代码会通过数据竞争检测进行测试。
+	listen    net.Listener // TCP地址监听器。
+	address   string       // 服务监听地址。
+	handler   func(*Conn)  // 连接处理器
+	tlsConfig *tls.Config  // TLS 配置
 }
 
-// Map for name to server, for singleton purpose.
+// 用于单例目的，映射名称到服务器的Map。
 var serverMapping = gmap.NewStrAnyMap(true)
 
-// GetServer returns the TCP server with specified `name`,
-// or it returns a new normal TCP server named `name` if it does not exist.
-// The parameter `name` is used to specify the TCP server
+// GetServer 函数返回指定名称 `name` 的 TCP 服务器，
+// 如果该服务器不存在，则返回一个新的普通 TCP 服务器并命名为 `name`。
+// 参数 `name` 用于指定要获取的 TCP 服务器。
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
@@ -53,8 +50,8 @@ func GetServer(name ...interface{}) *Server {
 	}).(*Server)
 }
 
-// NewServer creates and returns a new normal TCP server.
-// The parameter `name` is optional, which is used to specify the instance name of the server.
+// NewServer 创建并返回一个新的普通TCP服务器。
+// 参数`name`是可选的，用于指定服务器实例的名称。
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -66,16 +63,16 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	return s
 }
 
-// NewServerTLS creates and returns a new TCP server with TLS support.
-// The parameter `name` is optional, which is used to specify the instance name of the server.
+// NewServerTLS 创建并返回一个带有 TLS 支持的新 TCP 服务器。
+// 参数 `name` 是可选的，用于指定服务器实例的名称。
 func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), name ...string) *Server {
 	s := NewServer(address, handler, name...)
 	s.SetTLSConfig(tlsConfig)
 	return s
 }
 
-// NewServerKeyCrt creates and returns a new TCP server with TLS support.
-// The parameter `name` is optional, which is used to specify the instance name of the server.
+// NewServerKeyCrt 创建并返回一个带有 TLS 支持的新 TCP 服务器。
+// 参数 `name` 是可选的，用于指定服务器实例名称。
 func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name ...string) (*Server, error) {
 	s := NewServer(address, handler, name...)
 	if err := s.SetTLSKeyCrt(crtFile, keyFile); err != nil {
@@ -84,22 +81,22 @@ func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name
 	return s, nil
 }
 
-// SetAddress sets the listening address for server.
+// SetAddress 设置服务器的监听地址。
 func (s *Server) SetAddress(address string) {
 	s.address = address
 }
 
-// GetAddress get the listening address for server.
+// GetAddress 获取服务器的监听地址。
 func (s *Server) GetAddress() string {
 	return s.address
 }
 
-// SetHandler sets the connection handler for server.
+// SetHandler 设置服务器的连接处理器。
 func (s *Server) SetHandler(handler func(*Conn)) {
 	s.handler = handler
 }
 
-// SetTLSKeyCrt sets the certificate and key file for TLS configuration of server.
+// SetTLSKeyCrt 用于设置服务器TLS配置所需的证书和密钥文件。
 func (s *Server) SetTLSKeyCrt(crtFile, keyFile string) error {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -109,12 +106,12 @@ func (s *Server) SetTLSKeyCrt(crtFile, keyFile string) error {
 	return nil
 }
 
-// SetTLSConfig sets the TLS configuration of server.
+// SetTLSConfig 设置服务器的 TLS 配置。
 func (s *Server) SetTLSConfig(tlsConfig *tls.Config) {
 	s.tlsConfig = tlsConfig
 }
 
-// Close closes the listener and shutdowns the server.
+// Close 关闭监听器并关闭服务器。
 func (s *Server) Close() error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -124,7 +121,7 @@ func (s *Server) Close() error {
 	return s.listen.Close()
 }
 
-// Run starts running the TCP Server.
+// Run 开始运行 TCP 服务器。
 func (s *Server) Run() (err error) {
 	if s.handler == nil {
 		err = gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
@@ -166,7 +163,7 @@ func (s *Server) Run() (err error) {
 	}
 }
 
-// GetListenedAddress retrieves and returns the address string which are listened by current server.
+// GetListenedAddress 获取并返回当前服务器监听的地址字符串。
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -179,7 +176,7 @@ func (s *Server) GetListenedAddress() string {
 	return address
 }
 
-// GetListenedPort retrieves and returns one port which is listened to by current server.
+// GetListenedPort 获取并返回当前服务器正在监听的一个端口。
 func (s *Server) GetListenedPort() int {
 	s.mu.Lock()
 	defer s.mu.Unlock()

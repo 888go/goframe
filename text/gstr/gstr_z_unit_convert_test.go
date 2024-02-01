@@ -1,17 +1,15 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gstr_test
-
 import (
 	"testing"
-
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
+	
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	)
 
 func Test_OctStr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -27,7 +25,7 @@ func Test_WordWrap(t *testing.T) {
 		t.Assert(gstr.WordWrap("A very long woooooooooooooooooord. and something", 7, "<br>"),
 			"A very<br>long<br>woooooooooooooooooord.<br>and<br>something")
 	})
-	// Chinese Punctuations.
+	// 中文标点符号
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			br      = "                       "

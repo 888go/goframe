@@ -1,24 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv_test
-
 import (
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/container/gtype"
-	"coding.net/gogit/go/goframe/encoding/gjson"
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// https://github.com/gogf/gf/issues/1227
+	
+	"github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
+	)
+// 这是GitHub上gogf/gf仓库的第1227号问题链接
 func Test_Issue1227(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type StructFromIssue1227 struct {
@@ -138,7 +135,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// It cannot change private attribute.
+	// 它无法改变私有属性。
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			init *gtype.Bool
@@ -162,7 +159,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// It can change public attribute.
+	// 它可以改变公共属性。
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			Init *gtype.Bool
@@ -188,7 +185,9 @@ func Test_Issue1946(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/2381
+// 这是Go语言代码中的一行注释，引用了GitHub上gogf/gf项目的一个问题链接。
+// 中文翻译：
+// 参考GitHub上gogf/gf项目中的第2381个问题。
 func Test_Issue2381(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -225,7 +224,7 @@ func Test_Issue2381(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/2391
+// 这是GitHub上gogf/gf仓库的第2391个issue
 func Test_Issue2391(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -265,7 +264,9 @@ func Test_Issue2391(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/2395
+// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题编号2395。
+// 中文翻译：
+// 参考GitHub上gogf/gf项目的问题#2395。
 func Test_Issue2395(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Test struct {
@@ -277,7 +278,9 @@ func Test_Issue2395(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/2371
+// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题：#2371
+// 中文翻译：
+// 参考GitHub上gogf/gf项目编号为2371的问题。
 func Test_Issue2371(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (

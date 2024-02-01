@@ -1,18 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gstructs_test
-
 import (
 	"testing"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gstructs"
-	"coding.net/gogit/go/goframe/test/gtest"
-)
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gstructs"
+	"github.com/888go/goframe/test/gtest"
+	)
 
 func Test_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -131,7 +130,7 @@ func Test_Fields_WithEmbedded1(t *testing.T) {
 		}
 		type A struct {
 			Site  string
-			B     // Should be put here to validate its index.
+			B     // 应该放在这里以验证其索引。
 			Score int64
 		}
 		r, err := gstructs.Fields(gstructs.FieldsInput{
@@ -185,7 +184,7 @@ func Test_Fields_WithEmbedded2(t *testing.T) {
 	})
 }
 
-// Filter repeated fields when there is embedded struct.
+// 当存在嵌套结构体时，过滤重复的字段。
 func Test_Fields_WithEmbedded_Filter(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -196,7 +195,7 @@ func Test_Fields_WithEmbedded_Filter(t *testing.T) {
 			Name  string
 			Site  string
 			Age   string
-			B     // Should be put here to validate its index.
+			B     // 应该放在这里以验证其索引。
 			Score int64
 		}
 		r, err := gstructs.Fields(gstructs.FieldsInput{
@@ -273,7 +272,7 @@ func Test_StructType(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A))
 		t.AssertNil(err)
-		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.A`)
+		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.A`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -284,7 +283,7 @@ func Test_StructType(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A).B)
 		t.AssertNil(err)
-		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.B`)
+		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.B`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -321,7 +320,7 @@ func Test_StructTypeBySlice(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A).Array)
 		t.AssertNil(err)
-		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.B`)
+		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.B`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -332,7 +331,7 @@ func Test_StructTypeBySlice(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A).Array)
 		t.AssertNil(err)
-		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.B`)
+		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.B`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -343,7 +342,7 @@ func Test_StructTypeBySlice(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A).Array)
 		t.AssertNil(err)
-		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.B`)
+		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.B`)
 	})
 }
 

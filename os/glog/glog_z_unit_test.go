@@ -1,11 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package glog_test
-
 import (
 	"bytes"
 	"context"
@@ -14,14 +12,14 @@ import (
 	"sync"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/os/glog"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	)
 
 func TestCase(t *testing.T) {
 	defaultLog := glog.DefaultLogger().Clone()

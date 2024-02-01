@@ -1,39 +1,36 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
-
 import (
 	"fmt"
-
-	"coding.net/gogit/go/goframe/container/garray"
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gutil"
+	)
 var (
-	createdFieldNames = []string{"created_at", "create_at"} // Default field names of table for automatic-filled created datetime.
-	updatedFieldNames = []string{"updated_at", "update_at"} // Default field names of table for automatic-filled updated datetime.
-	deletedFieldNames = []string{"deleted_at", "delete_at"} // Default field names of table for automatic-filled deleted datetime.
+	createdFieldNames = []string{"created_at", "create_at"} // 默认表字段名称，用于自动填充创建日期和时间。
+	updatedFieldNames = []string{"updated_at", "update_at"} // 默认表字段名称，用于自动填充更新的日期和时间。
+	deletedFieldNames = []string{"deleted_at", "delete_at"} // 默认表字段名称，用于自动填充删除时间戳。
 )
 
-// Unscoped disables the auto-update time feature for insert, update and delete options.
+// Unscoped 禁用在插入、更新和删除选项时自动更新时间的特性。
 func (m *Model) Unscoped() *Model {
 	model := m.getModel()
 	model.unscoped = true
 	return model
 }
 
-// getSoftFieldNameCreate checks and returns the field name for record creating time.
-// If there's no field name for storing creating time, it returns an empty string.
-// It checks the key with or without cases or chars '-'/'_'/'.'/' '.
+// getSoftFieldNameCreate 检查并返回记录创建时间的字段名称。
+// 如果没有存储创建时间的字段名称，则返回一个空字符串。
+// 它会检查包含或不包含大小写、字符 '-'/'_'/'.'/' ' 的键。
 func (m *Model) getSoftFieldNameCreated(schema string, table string) string {
-	// It checks whether this feature disabled.
+	// 它用于检查该特性是否已禁用。
 	if m.db.GetConfig().TimeMaintainDisabled {
 		return ""
 	}
@@ -50,11 +47,11 @@ func (m *Model) getSoftFieldNameCreated(schema string, table string) string {
 	return m.getSoftFieldName(schema, tableName, createdFieldNames)
 }
 
-// getSoftFieldNameUpdate checks and returns the field name for record updating time.
-// If there's no field name for storing updating time, it returns an empty string.
-// It checks the key with or without cases or chars '-'/'_'/'.'/' '.
+// getSoftFieldNameUpdate 检查并返回记录更新时间所对应的字段名称。
+// 如果没有存储更新时间的字段名称，则返回一个空字符串。
+// 它会检查包含或不包含大小写字符、'-'、'_'、'.'/' '等字符的关键字。
 func (m *Model) getSoftFieldNameUpdated(schema string, table string) (field string) {
-	// It checks whether this feature disabled.
+	// 它用于检查该特性是否已禁用。
 	if m.db.GetConfig().TimeMaintainDisabled {
 		return ""
 	}
@@ -71,11 +68,11 @@ func (m *Model) getSoftFieldNameUpdated(schema string, table string) (field stri
 	return m.getSoftFieldName(schema, tableName, updatedFieldNames)
 }
 
-// getSoftFieldNameDelete checks and returns the field name for record deleting time.
-// If there's no field name for storing deleting time, it returns an empty string.
-// It checks the key with or without cases or chars '-'/'_'/'.'/' '.
+// getSoftFieldNameDelete 检查并返回记录删除时间所使用的字段名。
+// 如果没有存储删除时间的字段名，则返回一个空字符串。
+// 它会检查包含或不包含大小写、字符 '-'/'_'/'.'/' ' 的键。
 func (m *Model) getSoftFieldNameDeleted(schema string, table string) (field string) {
-	// It checks whether this feature disabled.
+	// 它用于检查该特性是否已禁用。
 	if m.db.GetConfig().TimeMaintainDisabled {
 		return ""
 	}
@@ -92,9 +89,9 @@ func (m *Model) getSoftFieldNameDeleted(schema string, table string) (field stri
 	return m.getSoftFieldName(schema, tableName, deletedFieldNames)
 }
 
-// getSoftFieldName retrieves and returns the field name of the table for possible key.
+// getSoftFieldName 获取并返回表中可能键的字段名称。
 func (m *Model) getSoftFieldName(schema string, table string, keys []string) (field string) {
-	// Ignore the error from TableFields.
+	// 忽略 TableFields 函数返回的错误。
 	fieldsMap, _ := m.TableFields(table, schema)
 	if len(fieldsMap) > 0 {
 		for _, key := range keys {
@@ -109,12 +106,13 @@ func (m *Model) getSoftFieldName(schema string, table string, keys []string) (fi
 	return
 }
 
-// getConditionForSoftDeleting retrieves and returns the condition string for soft deleting.
-// It supports multiple tables string like:
-// "user u, user_detail ud"
-// "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid)"
-// "user LEFT JOIN user_detail ON(user_detail.uid=user.uid)"
-// "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid) LEFT JOIN user_stats us ON(us.uid=u.uid)".
+// getConditionForSoftDeleting 获取并返回用于软删除的条件字符串。
+// 它支持多种表字符串，例如：
+// "user u, user_detail ud" // 多个表别名定义
+// "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid)" // 左连接查询语句
+// "user LEFT JOIN user_detail ON(user_detail.uid=user.uid)" // 简化的左连接查询语句
+// "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid) LEFT JOIN user_stats us ON(us.uid=u.uid)" // 多表左连接查询语句
+// 该函数用于根据给定的多表查询条件，生成适用于软删除操作的SQL条件子句。
 func (m *Model) getConditionForSoftDeleting() string {
 	if m.unscoped {
 		return ""
@@ -124,14 +122,14 @@ func (m *Model) getConditionForSoftDeleting() string {
 		// Base table.
 		match, _ := gregex.MatchString(`(.+?) [A-Z]+ JOIN`, m.tables)
 		conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(match[1]))
-		// Multiple joined tables, exclude the sub query sql which contains char '(' and ')'.
+		// 多表连接，排除包含 '(' 和 ')' 字符的子查询SQL语句。
 		matches, _ := gregex.MatchAllString(`JOIN ([^()]+?) ON`, m.tables)
 		for _, match := range matches {
 			conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(match[1]))
 		}
 	}
 	if conditionArray.Len() == 0 && gstr.Contains(m.tables, ",") {
-		// Multiple base tables.
+		// 多个基础表。
 		for _, s := range gstr.SplitAndTrim(m.tables, ",") {
 			conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(s))
 		}
@@ -147,12 +145,12 @@ func (m *Model) getConditionForSoftDeleting() string {
 	return ""
 }
 
-// getConditionOfTableStringForSoftDeleting does something as its name describes.
-// Examples for `s`:
-// - `test`.`demo` as b
-// - `test`.`demo` b
-// - `demo`
-// - demo
+// getConditionOfTableStringForSoftDeleting 函数的作用正如其名称所描述的那样。
+// `s` 参数的例子：
+// - `test`.`demo` as b （将`test`数据库中的`demo`表别名为b）
+// - `test`.`demo` b （在`test`数据库中引用`demo`表，此处的 b 可能是别名或语法错误）
+// - `demo` （假设是在当前默认数据库中引用`demo`表）
+// - demo （与上例类似，直接引用`demo`表，未指定数据库）
 func (m *Model) getConditionOfTableStringForSoftDeleting(s string) string {
 	var (
 		field  string

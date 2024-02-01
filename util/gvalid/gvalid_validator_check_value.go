@@ -1,49 +1,48 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gvalid
-
 import (
 	"context"
 	"errors"
 	"reflect"
 	"strings"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/encoding/gjson"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-	"coding.net/gogit/go/goframe/util/gvalid/internal/builtin"
-)
-
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gvalid/internal/builtin"
+	)
 type doCheckValueInput struct {
-	Name      string                 // Name specifies the name of parameter `value`.
-	Value     interface{}            // Value specifies the value for the rules to be validated.
-	ValueType reflect.Type           // ValueType specifies the type of the value, mainly used for value type id retrieving.
-	Rule      string                 // Rule specifies the validation rules string, like "required", "required|between:1,100", etc.
-	Messages  interface{}            // Messages specifies the custom error messages for this rule from parameters input, which is usually type of map/slice.
-	DataRaw   interface{}            // DataRaw specifies the `raw data` which is passed to the Validator. It might be type of map/struct or a nil value.
-	DataMap   map[string]interface{} // DataMap specifies the map that is converted from `dataRaw`. It is usually used internally
+	Name      string                 // Name 指定参数 `value` 的名称。
+	Value     interface{}            // Value 指定待验证规则的值。
+	ValueType reflect.Type           // ValueType 指定值的类型，主要用于获取值的类型标识。
+	Rule      string                 // Rule 指定验证规则字符串，如 "required", "required|between:1,100" 等。
+	Messages  interface{}            // Messages 指定了该规则从输入参数（通常为 map 或 slice 类型）获取的自定义错误消息。
+	DataRaw   interface{}            // DataRaw 指定传递给验证器的 `原始数据`，其类型可以是 map 或 struct，也可以是 nil 值。
+	DataMap   map[string]interface{} // DataMap 指定了从 `dataRaw` 转换而来的映射（map）。它通常用于内部实现
+// ```go
+// DataMap 代表由 `dataRaw` 转化而来的数据映射，主要用于内部使用
 }
 
-// doCheckValue does the really rules validation for single key-value.
+// doCheckValue 对单个键值执行真正的规则验证。
 func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Error {
-	// If there's no validation rules, it does nothing and returns quickly.
+	// 如果没有验证规则，它将不做任何操作并迅速返回。
 	if in.Rule == "" {
 		return nil
 	}
-	// It converts value to string and then does the validation.
+	// 它将值转换为字符串，然后进行验证。
 	var (
-		// Do not trim it as the space is also part of the value.
+		// 不要进行修剪操作，因为空格也是值的一部分。
 		ruleErrorMap = make(map[string]error)
 	)
-	// Custom error messages handling.
+	// 自定义错误消息处理。
 	var (
 		msgArray     = make([]string, 0)
 		customMsgMap = make(map[string]string)
@@ -57,16 +56,16 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			customMsgMap[k] = gconv.String(message)
 		}
 	}
-	// Handle the char '|' in the rule,
-	// which makes this rule separated into multiple rules.
+// 处理规则中的字符' | '，
+// 这使得该规则被分割为多个规则。
 	ruleItems := strings.Split(strings.TrimSpace(in.Rule), "|")
 	for i := 0; ; {
 		array := strings.Split(ruleItems[i], ":")
 		if builtin.GetRule(array[0]) == nil && v.getCustomRuleFunc(array[0]) == nil {
-			// ============================ SPECIAL ============================
-			// Special `regex` and `not-regex` rules.
-			// Merge the regex pattern if there are special chars, like ':', '|', in pattern.
-			// ============================ SPECIAL ============================
+// ================================== 特殊规则 ==================================
+// 特殊的 `regex` 和 `not-regex` 规则。
+// 如果模式中包含特殊字符（如 ':'、'|' 等），则合并正则表达式模式。
+// ================================== 特殊规则 ==================================
 			var (
 				ruleNameRegexLengthMatch    bool
 				ruleNameNotRegexLengthMatch bool
@@ -104,9 +103,9 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 	for index := 0; index < len(ruleItems); {
 		var (
 			err         error
-			results     = ruleRegex.FindStringSubmatch(ruleItems[index]) // split single rule.
-			ruleKey     = gstr.Trim(results[1])                          // rule key like "max" in rule "max: 6"
-			rulePattern = gstr.Trim(results[2])                          // rule pattern is like "6" in rule:"max:6"
+			results     = ruleRegex.FindStringSubmatch(ruleItems[index]) // 分割单个规则。
+			ruleKey     = gstr.Trim(results[1])                          // rule key 类似于规则 "max: 6" 中的 "max"
+			rulePattern = gstr.Trim(results[2])                          // rule pattern 是规则中的模式部分，例如在规则 "max:6" 中的 "6"
 		)
 
 		if !hasBailRule && ruleKey == ruleNameBail {
@@ -119,7 +118,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			hasCaseInsensitive = true
 		}
 
-		// Ignore logic executing for marked rules.
+		// 忽略已标记规则的执行逻辑。
 		if decorativeRuleMap[ruleKey] {
 			index++
 			continue
@@ -136,15 +135,15 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			foreachValues  = []interface{}{in.Value}
 		)
 		if hasForeachRule {
-			// As it marks `foreach`, so it converts the value to slice.
+			// 因为此处标记了 `foreach`，所以它会将值转换为切片。
 			foreachValues = gconv.Interfaces(in.Value)
-			// Reset `foreach` rule as it only takes effect just once for next rule.
+			// 重置`foreach`规则，因为它只为下一条规则生效一次。
 			hasForeachRule = false
 		}
 
 		for _, value := range foreachValues {
 			switch {
-			// Custom validation rules.
+			// 自定义验证规则。
 			case customRuleFunc != nil:
 				err = customRuleFunc(ctx, RuleFuncInput{
 					Rule:      ruleItems[index],
@@ -155,7 +154,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 					Data:      gvar.New(in.DataRaw),
 				})
 
-			// Builtin validation rules.
+			// 内置验证规则。
 			case customRuleFunc == nil && builtinRule != nil:
 				err = builtinRule.Run(builtin.RunInput{
 					RuleKey:     ruleKey,
@@ -171,27 +170,27 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 				})
 
 			default:
-				// It never comes across here.
+				// 这里永远不会执行到。
 			}
 
 			// Error handling.
 			if err != nil {
-				// Error variable replacement for error message.
+				// 错误变量替换用于错误消息。
 				if errMsg := err.Error(); gstr.Contains(errMsg, "{") {
 					errMsg = gstr.ReplaceByMap(errMsg, map[string]string{
-						"{field}":     in.Name,             // Field name of the `value`.
-						"{value}":     gconv.String(value), // Current validating value.
-						"{pattern}":   rulePattern,         // The variable part of the rule.
-						"{attribute}": in.Name,             // The same as `{field}`. It is deprecated.
+						"{field}":     in.Name,             // `value`的字段名称。
+						"{value}":     gconv.String(value), // 当前验证中的值。
+						"{pattern}":   rulePattern,         // 规则的可变部分。
+						"{attribute}": in.Name,             // 与 `{field}` 相同。已被弃用。
 					})
 					errMsg, _ = gregex.ReplaceString(`\s{2,}`, ` `, errMsg)
 					err = errors.New(errMsg)
 				}
-				// The error should have stack info to indicate the error position.
+				// 该错误应包含堆栈信息以指示错误位置。
 				if !gerror.HasStack(err) {
 					err = gerror.NewCode(gcode.CodeValidationFailed, err.Error())
 				}
-				// The error should have error code that is `gcode.CodeValidationFailed`.
+				// 错误应具有错误代码 `gcode.CodeValidationFailed`。
 				if gerror.Code(err) == gcode.CodeNil {
 					if e, ok := err.(*gerror.Error); ok {
 						e.SetCode(gcode.CodeValidationFailed)
@@ -199,8 +198,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 				}
 				ruleErrorMap[ruleKey] = err
 
-				// If it is with error and there's bail rule,
-				// it then does not continue validating for left rules.
+// 如果遇到错误且存在中断规则，
+// 则不再继续验证剩余规则。
 				if hasBailRule {
 					goto CheckDone
 				}
@@ -223,11 +222,11 @@ CheckDone:
 }
 
 type doCheckValueRecursivelyInput struct {
-	Value               interface{}                 // Value to be validated.
-	Type                reflect.Type                // Struct/map/slice type which to be recursively validated.
-	Kind                reflect.Kind                // Struct/map/slice kind to be asserted in following switch case.
-	ErrorMaps           map[string]map[string]error // The validated failed error map.
-	ResultSequenceRules *[]fieldRule                // The validated failed rule in sequence.
+	Value               interface{}                 // 需要验证的值。
+	Type                reflect.Type                // 需要递归验证的结构体/映射/切片类型。
+	Kind                reflect.Kind                // 在接下来的switch case中，需要断言的结构体/映射/切片类型。
+	ErrorMaps           map[string]map[string]error // 验证失败的错误映射。
+	ResultSequenceRules *[]fieldRule                // 验证失败的规则按顺序排列。
 }
 
 func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValueRecursivelyInput) {
@@ -242,7 +241,7 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 		})
 
 	case reflect.Struct:
-		// Ignore data, assoc, rules and messages from parent.
+		// 忽略来自父级的数据、关联、规则和消息。
 		var (
 			validator           = v.Clone()
 			toBeValidatedObject interface{}
@@ -256,7 +255,7 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 		validator.rules = nil
 		validator.messages = nil
 		if err := validator.Data(toBeValidatedObject).Assoc(in.Value).Run(ctx); err != nil {
-			// It merges the errors into single error map.
+			// 它将错误合并成单个错误映射。
 			for k, m := range err.(*validationError).errors {
 				in.ErrorMaps[k] = m
 			}

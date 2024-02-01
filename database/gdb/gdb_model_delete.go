@@ -1,25 +1,22 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
-
 import (
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/intlog"
-	"coding.net/gogit/go/goframe/text/gstr"
 	"database/sql"
 	"fmt"
-
-	"coding.net/gogit/go/goframe/os/gtime"
-)
-
-// Delete does "DELETE FROM ... " statement for the model.
-// The optional parameter `where` is the same as the parameter of Model.Where function,
-// see Model.Where.
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/text/gstr"
+	
+	"github.com/888go/goframe/os/gtime"
+	)
+// Delete 执行 "DELETE FROM ..." 语句用于该模型。
+// 可选参数 `where` 与 Model.Where 函数的参数相同，
+// 请参阅 Model.Where。
 func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(where) > 0 {

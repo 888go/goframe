@@ -1,59 +1,57 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gproc
-
 import (
 	"context"
 	"fmt"
 	"sync"
-
-	"coding.net/gogit/go/goframe/container/gmap"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/intlog"
-	"coding.net/gogit/go/goframe/net/gtcp"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// MsgRequest is the request structure for process communication.
+	
+	"github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/net/gtcp"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/util/gconv"
+	)
+// MsgRequest 是用于进程间通信的请求结构体。
 type MsgRequest struct {
 	SenderPid   int    // Sender PID.
 	ReceiverPid int    // Receiver PID.
-	Group       string // Message group name.
+	Group       string // 消息组名称。
 	Data        []byte // Request data.
 }
 
-// MsgResponse is the response structure for process communication.
+// MsgResponse 是用于进程间通信的响应结构体。
 type MsgResponse struct {
-	Code    int    // 1: OK; Other: Error.
+	Code    int    // 1: 表示成功；其它值：表示错误
 	Message string // Response message.
 	Data    []byte // Response data.
 }
 
 const (
-	defaultFolderNameForProcComm = "gf_pid_port_mapping" // Default folder name for storing pid to port mapping files.
-	defaultGroupNameForProcComm  = ""                    // Default group name.
-	defaultTcpPortForProcComm    = 10000                 // Starting port number for receiver listening.
-	maxLengthForProcMsgQueue     = 10000                 // Max size for each message queue of the group.
+	defaultFolderNameForProcComm = "gf_pid_port_mapping" // 默认的文件夹名称，用于存储pid到端口映射的文件。
+	defaultGroupNameForProcComm  = ""                    // 默认分组名称。
+	defaultTcpPortForProcComm    = 10000                 // 接收器监听的起始端口号。
+	maxLengthForProcMsgQueue     = 10000                 // 每个组的消息队列的最大尺寸。
 )
 
 var (
-	// commReceiveQueues is the group name to queue map for storing received data.
-	// The value of the map is type of *gqueue.Queue.
+// commReceiveQueues 是用于存储接收到数据的组名到队列映射。
+// 该映射的值类型为 *gqueue.Queue。
 	commReceiveQueues = gmap.NewStrAnyMap(true)
 
-	// commPidFolderPath specifies the folder path storing pid to port mapping files.
+	// commPidFolderPath 指定存储进程ID到端口映射文件的文件夹路径。
 	commPidFolderPath string
 
-	// commPidFolderPathOnce is used for lazy calculation for `commPidFolderPath` is necessary.
+	// commPidFolderPathOnce 用于延迟计算，只有在必要时才计算 `commPidFolderPath`。
 	commPidFolderPathOnce sync.Once
 )
 
-// getConnByPid creates and returns a TCP connection for specified pid.
+// getConnByPid 为指定的pid创建并返回一个TCP连接。
 func getConnByPid(pid int) (*gtcp.PoolConn, error) {
 	port := getPortByPid(pid)
 	if port > 0 {
@@ -66,8 +64,8 @@ func getConnByPid(pid int) (*gtcp.PoolConn, error) {
 	return nil, gerror.Newf(`could not find port for pid "%d"`, pid)
 }
 
-// getPortByPid returns the listening port for specified pid.
-// It returns 0 if no port found for the specified pid.
+// getPortByPid 根据指定的进程id返回其监听的端口号。
+// 如果指定的pid没有找到对应的端口，则返回0。
 func getPortByPid(pid int) int {
 	path := getCommFilePath(pid)
 	if path == "" {
@@ -76,7 +74,7 @@ func getPortByPid(pid int) int {
 	return gconv.Int(gfile.GetContentsWithCache(path))
 }
 
-// getCommFilePath returns the pid to port mapping file path for given pid.
+// getCommFilePath 根据给定的pid返回其对应的端口映射文件路径。
 func getCommFilePath(pid int) string {
 	path, err := getCommPidFolderPath()
 	if err != nil {
@@ -86,7 +84,7 @@ func getCommFilePath(pid int) string {
 	return gfile.Join(path, gconv.String(pid))
 }
 
-// getCommPidFolderPath retrieves and returns the available directory for storing pid mapping files.
+// getCommPidFolderPath 获取并返回可用于存储pid映射文件的可用目录。
 func getCommPidFolderPath() (folderPath string, err error) {
 	commPidFolderPathOnce.Do(func() {
 		availablePaths := []string{

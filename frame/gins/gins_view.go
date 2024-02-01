@@ -1,25 +1,22 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gins
-
 import (
 	"context"
 	"fmt"
-
-	"coding.net/gogit/go/goframe/internal/consts"
-	"coding.net/gogit/go/goframe/internal/instance"
-	"coding.net/gogit/go/goframe/internal/intlog"
-	"coding.net/gogit/go/goframe/os/gview"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// View returns an instance of View with default settings.
-// The parameter `name` is the name for the instance.
-// Note that it panics if any error occurs duration instance creating.
+	
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/gview"
+	"github.com/888go/goframe/util/gutil"
+	)
+// View 返回一个使用默认设置的 View 实例。
+// 参数 `name` 是该实例的名称。
+// 注意：如果在创建实例过程中发生任何错误，将会导致程序 panic。
 func View(name ...string) *gview.View {
 	instanceName := gview.DefaultName
 	if len(name) > 0 && name[0] != "" {

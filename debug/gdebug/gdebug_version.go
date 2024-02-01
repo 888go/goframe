@@ -1,24 +1,22 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdebug
-
 import (
 	"crypto/md5"
 	"fmt"
 	"io"
 	"os"
 	"strconv"
-
-	"coding.net/gogit/go/goframe/encoding/ghash"
-	"coding.net/gogit/go/goframe/errors/gerror"
-)
-
-// BinVersion returns the version of current running binary.
-// It uses ghash.BKDRHash+BASE36 algorithm to calculate the unique version of the binary.
+	
+	"github.com/888go/goframe/encoding/ghash"
+	"github.com/888go/goframe/errors/gerror"
+	)
+// BinVersion 返回当前运行二进制文件的版本。
+// 它采用 ghash.BKDRHash+BASE36 算法来计算二进制文件的唯一版本。
 func BinVersion() string {
 	if binaryVersion == "" {
 		binaryContent, _ := os.ReadFile(selfPath)
@@ -30,8 +28,8 @@ func BinVersion() string {
 	return binaryVersion
 }
 
-// BinVersionMd5 returns the version of current running binary.
-// It uses MD5 algorithm to calculate the unique version of the binary.
+// BinVersionMd5 返回当前运行二进制文件的版本。
+// 它使用MD5算法来计算该二进制文件的唯一版本。
 func BinVersionMd5() string {
 	if binaryVersionMd5 == "" {
 		binaryVersionMd5, _ = md5File(selfPath)
@@ -39,7 +37,7 @@ func BinVersionMd5() string {
 	return binaryVersionMd5
 }
 
-// md5File encrypts file content of `path` using MD5 algorithms.
+// md5File 使用MD5算法加密`path`文件内容。
 func md5File(path string) (encrypt string, err error) {
 	f, err := os.Open(path)
 	if err != nil {

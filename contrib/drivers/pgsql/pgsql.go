@@ -1,36 +1,33 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package pgsql implements gdb.Driver, which supports operations for database PostgreSQL.
-//
-// Note:
-// 1. It does not support Save/Replace features.
-// 2. It does not support Insert Ignore features.
+// Package pgsql 实现了 gdb.Driver 接口，该接口支持对 PostgreSQL 数据库进行操作。
+// 注意：
+// 1. 该包不支持 Save/Replace 功能。
+// 2. 该包不支持 Insert Ignore 特性。
 package pgsql
-
 import (
 	"context"
 	"database/sql"
 	"fmt"
 	"regexp"
 	"strings"
-
+	
 	_ "github.com/lib/pq"
-
-	"coding.net/gogit/go/goframe/database/gdb"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/os/gctx"
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// Driver is the driver for postgresql database.
+	
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gutil"
+	)
+// Driver 是用于 PostgreSQL 数据库的驱动。
 type Driver struct {
 	*gdb.Core
 }
@@ -47,32 +44,32 @@ func init() {
 	}
 }
 
-// New create and returns a driver that implements gdb.Driver, which supports operations for PostgreSql.
+// New 创建并返回一个实现了 gdb.Driver 的驱动程序，该驱动程序支持针对 PostgreSql 的操作。
 func New() gdb.Driver {
 	return &Driver{}
 }
 
-// New creates and returns a database object for postgresql.
-// It implements the interface of gdb.Driver for extra database driver installation.
+// New 创建并返回一个用于 PostgreSQL 的数据库对象。
+// 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
 }
 
-// Open creates and returns an underlying sql.DB object for pgsql.
-// https://pkg.go.dev/github.com/lib/pq
+// Open 创建并返回一个用于pgsql的底层sql.DB对象。
+// 参考文档：https://pkg.go.dev/github.com/lib/pq
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "postgres"
 	)
 	if config.Link != "" {
-		// ============================================================================
-		// Deprecated from v2.2.0.
-		// ============================================================================
+// ============================================================================
+// 从 v2.2.0 版本开始已弃用。
+// ============================================================================
 		source = config.Link
-		// Custom changing the schema in runtime.
+		// 在运行时自定义更改架构
 		if config.Name != "" {
 			source, _ = gregex.ReplaceString(`dbname=([\w\.\-]+)+`, "dbname="+config.Name, source)
 		}
@@ -118,12 +115,12 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	return
 }
 
-// GetChars returns the security char for this type of database.
+// GetChars 返回该类型数据库的安全字符。
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }
 
-// CheckLocalTypeForField checks and returns corresponding local golang type for given db type.
+// CheckLocalTypeForField 检查并返回给定数据库类型对应的本地 Go 语言类型。
 func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (gdb.LocalType, error) {
 	var typeName string
 	match, _ := gregex.MatchString(`(.+?)\((.+)\)`, fieldType)
@@ -135,14 +132,14 @@ func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, f
 	typeName = strings.ToLower(typeName)
 	switch typeName {
 	case
-		// For pgsql, int2 = smallint.
+		// 对于pgsql，int2等于smallint。
 		"int2",
-		// For pgsql, int4 = integer
+		// 对于pgsql，int4等于integer（整数类型）
 		"int4":
 		return gdb.LocalTypeInt, nil
 
 	case
-		// For pgsql, int8 = bigint
+		// 对于pgsql，int8 等同于 bigint
 		"int8":
 		return gdb.LocalTypeInt64, nil
 
@@ -160,18 +157,18 @@ func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, f
 	}
 }
 
-// ConvertValueForLocal converts value to local Golang type of value according field type name from database.
-// The parameter `fieldType` is in lower case, like:
-// `float(5,2)`, `unsigned double(5,2)`, `decimal(10,2)`, `char(45)`, `varchar(100)`, etc.
+// ConvertValueForLocal 将值根据数据库中的字段类型名称转换为本地 Go 语言类型的值。
+// 参数 `fieldType` 为小写形式，例如：
+// `float(5,2)`, `unsigned double(5,2)`, `decimal(10,2)`, `char(45)`, `varchar(100)` 等。
 func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	typeName, _ := gregex.ReplaceString(`\(.+\)`, "", fieldType)
 	typeName = strings.ToLower(typeName)
 	switch typeName {
-	// For pgsql, int2 = smallint and int4 = integer.
+	// 对于pgsql，int2代表smallint，而int4代表integer。
 	case "int2", "int4":
 		return gconv.Int(gconv.String(fieldValue)), nil
 
-	// For pgsql, int8 = bigint.
+	// 对于pgsql，int8 等同于 bigint.
 	case "int8":
 		return gconv.Int64(gconv.String(fieldValue)), nil
 
@@ -204,18 +201,23 @@ func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fie
 	}
 }
 
-// DoFilter deals with the sql string before commits it to underlying sql driver.
+// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前，对其进行处理。
 func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	var index int
-	// Convert placeholder char '?' to string "$x".
+	// 将占位符字符 '?' 转换为字符串 "$x"。
 	newSql, _ = gregex.ReplaceStringFunc(`\?`, sql, func(s string) string {
 		index++
 		return fmt.Sprintf(`$%d`, index)
 	})
-	// Handle pgsql jsonb feature support, which contains place-holder char '?'.
-	// Refer:
-	// https://github.com/gogf/gf/issues/1537
-	// https://www.postgresql.org/docs/12/functions-json.html
+// 处理pgsql对jsonb特性的支持，其中包含占位符字符 '?'。
+// 参考：
+// https://github.com/gogf/gf/issues/1537
+// https://www.postgresql.org/docs/12/functions-json.html
+// 这段Go语言代码的注释翻译成中文后，其含义为：
+// 该处用于处理PostgreSQL中对jsonb类型功能的支持，这些功能可能包含问号（'?'）作为占位符字符。
+// 参考文档：
+// GitHub上gf框架的issue #1537
+// PostgreSQL官方文档中关于12版本的JSON函数介绍
 	newSql, _ = gregex.ReplaceStringFuncMatch(`(::jsonb([^\w\d]*)\$\d)`, newSql, func(match []string) string {
 		return fmt.Sprintf(`::jsonb%s?`, match[2])
 	})
@@ -223,8 +225,8 @@ func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args [
 	return d.Core.DoFilter(ctx, link, newSql, args)
 }
 
-// Tables retrieves and returns the tables of current schema.
-// It's mainly used in cli tool chain for automatically generating the models.
+// Tables 获取并返回当前模式的表格。
+// 它主要用于cli工具链中，用于自动生成模型。
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var (
 		result     gdb.Result
@@ -233,7 +235,7 @@ func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string,
 	if usedSchema == "" {
 		usedSchema = defaultSchema
 	}
-	// DO NOT use `usedSchema` as parameter for function `SlaveLink`.
+	// **请勿**将 `usedSchema` 作为参数传递给函数 `SlaveLink`。
 	link, err := d.SlaveLink(schema...)
 	if err != nil {
 		return nil, err
@@ -274,7 +276,7 @@ ORDER BY
 	return
 }
 
-// version checks and returns the database version.
+// version 检查并返回数据库版本。
 func (d *Driver) version(ctx context.Context, link gdb.Link) string {
 	result, err := d.DoSelect(ctx, link, "SELECT version();")
 	if err != nil {
@@ -291,13 +293,13 @@ func (d *Driver) version(ctx context.Context, link gdb.Link) string {
 	return ""
 }
 
-// TableFields retrieves and returns the fields' information of specified table of current schema.
+// TableFields 获取并返回当前模式下指定表的字段信息。
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result
 		link       gdb.Link
 		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
-		// TODO duplicated `id` result?
+		// TODO 是否存在重复的`id`结果？
 		structureSql = fmt.Sprintf(`
 SELECT a.attname AS field, t.typname AS type,a.attnotnull as null,
     (case when d.contype is not null then 'pri' else '' end)  as key
@@ -331,7 +333,7 @@ ORDER BY a.attnum`,
 	)
 	for _, m := range result {
 		name = m["field"].String()
-		// Filter duplicated fields.
+		// 过滤重复字段。
 		if _, ok = fields[name]; ok {
 			continue
 		}
@@ -349,7 +351,7 @@ ORDER BY a.attnum`,
 	return fields, nil
 }
 
-// DoInsert inserts or updates data forF given table.
+// DoInsert 对给定表执行插入或更新数据操作。
 func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
 	switch option.InsertOption {
 	case gdb.InsertOptionSave:
@@ -385,32 +387,31 @@ func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list
 	return d.Core.DoInsert(ctx, link, table, list, option)
 }
 
-// DoExec commits the sql string and its arguments to underlying driver
-// through given link object and returns the execution result.
+// DoExec 通过给定的link对象，将sql字符串及其参数提交到底层驱动，并返回执行结果。
 func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	var (
-		isUseCoreDoExec bool   = false // Check whether the default method needs to be used
+		isUseCoreDoExec bool   = false // 检查是否需要使用默认方法
 		primaryKey      string = ""
 		pkField         gdb.TableField
 	)
 
-	// Transaction checks.
+	// 事务检查。
 	if link == nil {
 		if tx := gdb.TXFromCtx(ctx, d.GetGroup()); tx != nil {
-			// Firstly, check and retrieve transaction link from context.
+			// 首先，从上下文检查并检索事务链接。
 			link = tx
 		} else if link, err = d.MasterLink(); err != nil {
-			// Or else it creates one from master node.
+			// 或者从主节点创建一个。
 			return nil, err
 		}
 	} else if !link.IsTransaction() {
-		// If current link is not transaction link, it checks and retrieves transaction from context.
+		// 如果当前链接不是事务链接，则检查并从上下文中检索事务。
 		if tx := gdb.TXFromCtx(ctx, d.GetGroup()); tx != nil {
 			link = tx
 		}
 	}
 
-	// Check if it is an insert operation with primary key.
+	// 检查是否为主键插入操作。
 	if value := ctx.Value(internalPrimaryKeyInCtx); value != nil {
 		var ok bool
 		pkField, ok = value.(gdb.TableField)
@@ -421,16 +422,16 @@ func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...
 		isUseCoreDoExec = true
 	}
 
-	// check if it is an insert operation.
+	// 检查是否为插入操作。
 	if !isUseCoreDoExec && pkField.Name != "" && strings.Contains(sql, "INSERT INTO") {
 		primaryKey = pkField.Name
 		sql += " RETURNING " + primaryKey
 	} else {
-		// use default DoExec
+		// 使用默认的DoExec
 		return d.Core.DoExec(ctx, link, sql, args...)
 	}
 
-	// Only the insert operation with primary key can execute the following code
+	// 仅当使用主键执行插入操作时，才能执行以下代码
 
 	if d.GetConfig().ExecTimeout > 0 {
 		var cancelFunc context.CancelFunc

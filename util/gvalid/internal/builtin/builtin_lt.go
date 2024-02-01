@@ -1,25 +1,22 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
-
 import (
 	"errors"
 	"strconv"
-
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// RuleLT implements `lt` rule:
-// Lesser than `field`.
-// It supports both integer and float.
+	
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gutil"
+	)
+// RuleLT 实现了 `lt` 规则：
+// 小于字段 `field`。
+// 它同时支持整数和浮点数。
 //
-// Format: lt:field
+// 格式：lt:field
 type RuleLT struct{}
 
 func init() {

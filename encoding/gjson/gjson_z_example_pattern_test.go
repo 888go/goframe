@@ -1,16 +1,14 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gjson_test
-
 import (
 	"fmt"
-
-	"coding.net/gogit/go/goframe/encoding/gjson"
-)
+	
+	"github.com/888go/goframe/encoding/gjson"
+	)
 
 func ExampleDecodeToJson_PatternGet() {
 	data :=
@@ -56,19 +54,19 @@ func ExampleJson_Get_MapSliceChange() {
 	m := j.Get("map").Map()
 	fmt.Println(m)
 
-	// Change the key-value pair.
+	// 修改键值对。
 	m["key"] = "john"
 
-	// It changes the underlying key-value pair.
+	// 它会改变底层的键值对。
 	fmt.Println(j.Get("map").Map())
 
 	s := j.Get("slice").Array()
 	fmt.Println(s)
 
-	// Change the value of specified index.
+	// 修改指定索引处的值。
 	s[0] = 100
 
-	// It changes the underlying slice.
+	// 它会改变底层的切片。
 	fmt.Println(j.Get("slice").Array())
 
 	// output:

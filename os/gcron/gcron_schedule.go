@@ -1,40 +1,38 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gcron
-
 import (
 	"context"
 	"strconv"
 	"strings"
 	"time"
-
-	"coding.net/gogit/go/goframe/container/gtype"
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/text/gregex"
-)
-
-// cronSchedule is the schedule for cron job.
+	
+	"github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/text/gregex"
+	)
+// cronSchedule 是cron作业的计划安排。
 type cronSchedule struct {
-	createTimestamp int64            // Created timestamp in seconds.
-	everySeconds    int64            // Running interval in seconds.
-	pattern         string           // The raw cron pattern string.
-	secondMap       map[int]struct{} // Job can run in these second numbers.
-	minuteMap       map[int]struct{} // Job can run in these minute numbers.
-	hourMap         map[int]struct{} // Job can run in these hour numbers.
-	dayMap          map[int]struct{} // Job can run in these day numbers.
-	weekMap         map[int]struct{} // Job can run in these week numbers.
-	monthMap        map[int]struct{} // Job can run in these moth numbers.
-	lastTimestamp   *gtype.Int64     // Last timestamp number, for timestamp fix in some delay.
+	createTimestamp int64            // 创建时间戳（以秒为单位）
+	everySeconds    int64            // 运行间隔时间（单位：秒）
+	pattern         string           // 原始的cron模式字符串。
+	secondMap       map[int]struct{} // Job可以在以下秒数运行。
+	minuteMap       map[int]struct{} // Job可以在以下分钟数运行。
+	hourMap         map[int]struct{} // Job可以在以下小时数运行。
+	dayMap          map[int]struct{} // Job可以在这些天数中运行。
+	weekMap         map[int]struct{} // Job可以在这些周数中运行。
+	monthMap        map[int]struct{} // Job 可以在以下月份数字中运行。
+	lastTimestamp   *gtype.Int64     // 上次时间戳编号，用于修正某些延迟情况下的时间戳。
 }
 
 const (
-	// regular expression for cron pattern, which contains 6 parts of time units.
+	// 正则表达式用于cron模式，该模式包含6部分时间单元。
 	regexForCron           = `^([\-/\d\*\?,]+)\s+([\-/\d\*\?,]+)\s+([\-/\d\*\?,]+)\s+([\-/\d\*\?,]+)\s+([\-/\d\*\?,A-Za-z]+)\s+([\-/\d\*\?,A-Za-z]+)$`
 	patternItemTypeUnknown = iota
 	patternItemTypeWeek
@@ -42,7 +40,7 @@ const (
 )
 
 var (
-	// Predefined pattern map.
+	// 预定义模式映射
 	predefinedPatternMap = map[string]string{
 		"@yearly":   "0 0 0 1 1 *",
 		"@annually": "0 0 0 1 1 *",
@@ -52,7 +50,7 @@ var (
 		"@midnight": "0 0 0 * * *",
 		"@hourly":   "0 0 * * * *",
 	}
-	// Short month name to its number.
+	// 短月份名称及其对应的数字。
 	monthShortNameMap = map[string]int{
 		"jan": 1,
 		"feb": 2,
@@ -67,7 +65,7 @@ var (
 		"nov": 11,
 		"dec": 12,
 	}
-	// Full month name to its number.
+	// 完整的月份名称转为对应的数字。
 	monthFullNameMap = map[string]int{
 		"january":   1,
 		"february":  2,
@@ -82,7 +80,7 @@ var (
 		"november":  11,
 		"december":  12,
 	}
-	// Short week name to its number.
+	// 短星期名称及其对应的数字。
 	weekShortNameMap = map[string]int{
 		"sun": 0,
 		"mon": 1,
@@ -92,7 +90,7 @@ var (
 		"fri": 5,
 		"sat": 6,
 	}
-	// Full week name to its number.
+	// 完整周名称及其对应的周数。
 	weekFullNameMap = map[string]int{
 		"sunday":    0,
 		"monday":    1,
@@ -104,10 +102,10 @@ var (
 	}
 )
 
-// newSchedule creates and returns a schedule object for given cron pattern.
+// newSchedule 根据给定的cron模式创建并返回一个schedule对象。
 func newSchedule(pattern string) (*cronSchedule, error) {
 	var currentTimestamp = time.Now().Unix()
-	// Check if the predefined patterns.
+	// 检查预定义的模式是否存在
 	if match, _ := gregex.MatchString(`(@\w+)\s*(\w*)\s*`, pattern); len(match) > 0 {
 		key := strings.ToLower(match[1])
 		if v, ok := predefinedPatternMap[key]; ok {
@@ -127,8 +125,13 @@ func newSchedule(pattern string) (*cronSchedule, error) {
 			return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
 		}
 	}
-	// Handle the common cron pattern, like:
-	// 0 0 0 1 1 2
+// 处理常见的cron模式，例如：
+// 0 0 0 1 1 2
+// （注：该段代码注释省略了对cron模式的具体解释，以下是补充说明）
+// 上述代码注释提到的"常见的cron模式"在Unix/Linux系统中用于表示定时任务的时间配置，
+// 其格式为：分 时 天(月) 月 星期 周
+// 示例 "0 0 0 1 1 2" 的含义是：
+// 在每月的第一天（1号）的第一个星期二（2）的凌晨0点0分执行定时任务。
 	if match, _ := gregex.MatchString(regexForCron, pattern); len(match) == 7 {
 		schedule := &cronSchedule{
 			createTimestamp: currentTimestamp,
@@ -177,7 +180,7 @@ func newSchedule(pattern string) (*cronSchedule, error) {
 	return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
 }
 
-// parsePatternItem parses every item in the pattern and returns the result as map, which is used for indexing.
+// parsePatternItem 解析模式中的每一项，并将结果以映射形式返回，该映射用于索引。
 func parsePatternItem(item string, min int, max int, allowQuestionMark bool) (map[int]struct{}, error) {
 	m := make(map[int]struct{}, max-min+1)
 	if item == "*" || (allowQuestionMark && item == "?") {
@@ -203,15 +206,15 @@ func parsePatternItem(item string, min int, max int, allowQuestionMark bool) (ma
 			rangeMin   = min
 			rangeMax   = max
 			itemType   = patternItemTypeUnknown
-			rangeArray = strings.Split(intervalArray[0], "-") // Like: 1-30, JAN-DEC
+			rangeArray = strings.Split(intervalArray[0], "-") // 类似于：1-30，JAN-DEC
 		)
 		switch max {
 		case 6:
-			// It's checking week field.
+			// 正在检查周字段。
 			itemType = patternItemTypeWeek
 
 		case 12:
-			// It's checking month field.
+			// 正在检查月份字段。
 			itemType = patternItemTypeMonth
 		}
 		// Eg: */5
@@ -239,16 +242,16 @@ func parsePatternItem(item string, min int, max int, allowQuestionMark bool) (ma
 	return m, nil
 }
 
-// parsePatternItemValue parses the field value to a number according to its field type.
+// parsePatternItemValue 根据字段类型将字段值解析为数字。
 func parsePatternItemValue(value string, itemType int) (int, error) {
 	if gregex.IsMatchString(`^\d+$`, value) {
-		// It is pure number.
+		// 这是一个纯数字。
 		if number, err := strconv.Atoi(value); err == nil {
 			return number, nil
 		}
 	} else {
-		// Check if it contains letter,
-		// it converts the value to number according to predefined map.
+// 检查其中是否包含字母，
+// 根据预定义的映射将其值转换为数字。
 		switch itemType {
 		case patternItemTypeWeek:
 			if number, ok := weekShortNameMap[strings.ToLower(value)]; ok {
@@ -269,7 +272,7 @@ func parsePatternItemValue(value string, itemType int) (int, error) {
 	return 0, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern value: "%s"`, value)
 }
 
-// checkMeetAndUpdateLastSeconds checks if the given time `t` meets the runnable point for the job.
+// checkMeetAndUpdateLastSeconds 检查给定的时间 `t` 是否满足作业的可执行时间点，并更新最后执行秒数。
 func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, t time.Time) bool {
 	var (
 		lastTimestamp = s.getAndUpdateLastTimestamp(ctx, t)
@@ -277,7 +280,7 @@ func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, t time
 	)
 
 	if s.everySeconds != 0 {
-		// It checks using interval.
+		// 它使用间隔进行检查。
 		secondsAfterCreated := lastTime.Timestamp() - s.createTimestamp
 		if secondsAfterCreated > 0 {
 			return secondsAfterCreated%s.everySeconds == 0
@@ -285,7 +288,7 @@ func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, t time
 		return false
 	}
 
-	// It checks using normal cron pattern.
+	// 它使用标准cron模式进行检查。
 	if _, ok := s.secondMap[lastTime.Second()]; !ok {
 		return false
 	}
@@ -307,8 +310,8 @@ func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, t time
 	return true
 }
 
-// Next returns the next time this schedule is activated, greater than the given
-// time.  If no time can be found to satisfy the schedule, return the zero time.
+// Next 函数返回该计划下一次激活的时间，该时间大于给定的时间。
+// 如果找不到满足计划要求的时间，则返回零时间（即时间的零值，表示无效时间）。
 func (s *cronSchedule) Next(t time.Time) time.Time {
 	if s.everySeconds != 0 {
 		var (
@@ -318,7 +321,7 @@ func (s *cronSchedule) Next(t time.Time) time.Time {
 		return t.Add(time.Duration(count*s.everySeconds) * time.Second)
 	}
 
-	// Start at the earliest possible time (the upcoming second).
+	// 从最早可能的时间开始（即即将到来的下一秒）。
 	t = t.Add(1*time.Second - time.Duration(t.Nanosecond())*time.Nanosecond)
 	var (
 		loc       = t.Location()
@@ -328,7 +331,7 @@ func (s *cronSchedule) Next(t time.Time) time.Time {
 
 WRAP:
 	if t.Year() > yearLimit {
-		return t // who will care the job that run in five years later
+		return t // 谁会在意五年后运行的那份工作
 	}
 
 	for !s.match(s.monthMap, int(t.Month())) {
@@ -350,8 +353,8 @@ WRAP:
 		}
 		t = t.AddDate(0, 0, 1)
 
-		// Notice if the hour is no longer midnight due to DST.
-		// Add an hour if it's 23, subtract an hour if it's 1.
+// 注意由于DST（夏令时）导致的小时数是否不再为午夜。
+// 如果是23点则加1小时，如果是1点则减1小时。
 		if t.Hour() != 0 {
 			if t.Hour() > 12 {
 				t = t.Add(time.Duration(24-t.Hour()) * time.Hour)
@@ -398,8 +401,7 @@ WRAP:
 	return t.In(loc)
 }
 
-// dayMatches returns true if the schedule's day-of-week and day-of-month
-// restrictions are satisfied by the given time.
+// dayMatches 函数返回一个布尔值，如果给定时间满足该计划的周几和每月几日的限制条件，则返回true。
 func (s *cronSchedule) dayMatches(t time.Time) bool {
 	_, ok1 := s.dayMap[t.Day()]
 	_, ok2 := s.weekMap[int(t.Weekday())]

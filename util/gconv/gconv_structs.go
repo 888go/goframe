@@ -1,49 +1,52 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv
-
 import (
 	"reflect"
-
-	"coding.net/gogit/go/goframe/errors/gcode"
-	"coding.net/gogit/go/goframe/errors/gerror"
-	"coding.net/gogit/go/goframe/internal/json"
-)
-
-// Structs converts any slice to given struct slice.
-// Also see Scan, Struct.
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	)
+// Structs 将任何切片转换为给定的结构体切片。
+// 也可以参考 Scan, Struct。
 func Structs(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
 
-// SliceStruct is alias of Structs.
+// SliceStruct 是 Structs 的别名。
 func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
 	return Structs(params, pointer, mapping...)
 }
 
-// StructsTag acts as Structs but also with support for priority tag feature, which retrieves the
-// specified tags for `params` key-value items to struct attribute names mapping.
-// The parameter `priorityTag` supports multiple tags that can be joined with char ','.
+// StructsTag的行为类似于Structs，但增加了对优先级标签功能的支持，该功能用于获取指定的标签，以便将`params`键值对映射到结构体属性名称。
+// 参数`priorityTag`支持多个标签，这些标签可以使用字符','连接。
 func StructsTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStructs(params, pointer, nil, priorityTag)
 }
 
-// doStructs converts any slice to given struct slice.
+// doStructs 将任何切片转换为给定的结构体切片。
 //
-// It automatically checks and converts json string to []map if `params` is string/[]byte.
+// 如果`params`是字符串或[]byte，它会自动检查并转换为json字符串到[]map。
 //
-// The parameter `pointer` should be type of pointer to slice of struct.
-// Note that if `pointer` is a pointer to another pointer of type of slice of struct,
-// it will create the struct/pointer internally.
+// 参数`pointer`应为指向结构体切片的指针类型。
+// 注意，如果`pointer`是指向另一个结构体切片类型的指针的指针，
+// 它将内部创建结构体/指针。
+// 以下是更详细的中文注释：
+// ```go
+// doStructs 函数用于将任意类型的切片转换为目标结构体切片。
+//
+// 当传入参数 `params` 为字符串或字节切片（[]byte）时，函数会自动检测并将其转换成 JSON 字符串，进一步解析为 []map 类型的数据。
+//
+// 参数 `pointer` 需要是指向结构体切片的指针类型。特别地，如果 `pointer` 是一个指向结构体切片指针的指针，该函数将在内部自行创建所需结构体及相应的指针。
 func doStructs(
 	params interface{}, pointer interface{}, paramKeyToAttrMap map[string]string, priorityTag string,
 ) (err error) {
 	if params == nil {
-		// If `params` is nil, no conversion.
+		// 如果`params`为nil，则不进行转换。
 		return nil
 	}
 	if pointer == nil {
@@ -55,7 +58,7 @@ func doStructs(
 	}
 
 	defer func() {
-		// Catch the panic, especially the reflection operation panics.
+		// 捕获 panic，特别是反射操作引发的 panic。
 		if exception := recover(); exception != nil {
 			if v, ok := exception.(error); ok && gerror.HasStack(v) {
 				err = v
@@ -64,7 +67,7 @@ func doStructs(
 			}
 		}
 	}()
-	// If given `params` is JSON, it then uses json.Unmarshal doing the converting.
+	// 如果给定的`params`是JSON格式，那么它将使用json.Unmarshal进行转换。
 	switch r := params.(type) {
 	case []byte:
 		if json.Valid(r) {
@@ -87,7 +90,7 @@ func doStructs(
 			}
 		}
 	}
-	// Pointer type check.
+	// 指针类型检查。
 	pointerRv, ok := pointer.(reflect.Value)
 	if !ok {
 		pointerRv = reflect.ValueOf(pointer)
@@ -95,7 +98,7 @@ func doStructs(
 			return gerror.NewCodef(gcode.CodeInvalidParameter, "pointer should be type of pointer, but got: %v", kind)
 		}
 	}
-	// Converting `params` to map slice.
+	// 将`params`转换为映射切片。
 	var (
 		paramsList []interface{}
 		paramsRv   = reflect.ValueOf(params)
@@ -118,7 +121,7 @@ func doStructs(
 			paramsList[i] = paramsMaps[i]
 		}
 	}
-	// If `params` is an empty slice, no conversion.
+	// 如果`params`是一个空切片，则不进行转换。
 	if len(paramsList) == 0 {
 		return nil
 	}
@@ -164,8 +167,8 @@ func doStructs(
 	return nil
 }
 
-// doStructsByDirectReflectSet do the converting directly using reflect Set.
-// It returns true if success, or else false.
+// doStructsByDirectReflectSet 直接使用 reflect.Set 进行转换操作。
+// 如果转换成功，返回 true，否则返回 false。
 func doStructsByDirectReflectSet(params interface{}, pointer interface{}) (ok bool) {
 	v1 := reflect.ValueOf(pointer)
 	v2 := reflect.ValueOf(params)

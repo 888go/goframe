@@ -1,36 +1,34 @@
-// Copyright 2020 gf Author(https://github.com/gogf/gf). All Rights Reserved.
+// 版权声明 2020 gf Author(https://github.com/gogf/gf)。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
 
 package gcache
-
 import (
 	"context"
 	"time"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-	"coding.net/gogit/go/goframe/database/gredis"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// AdapterRedis is the gcache adapter implements using Redis server.
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/database/gredis"
+	"github.com/888go/goframe/util/gconv"
+	)
+// AdapterRedis 是使用 Redis 服务器实现的 gcache 适配器。
 type AdapterRedis struct {
 	redis *gredis.Redis
 }
 
-// NewAdapterRedis creates and returns a new memory cache object.
+// NewAdapterRedis 创建并返回一个新的内存缓存对象。
 func NewAdapterRedis(redis *gredis.Redis) Adapter {
 	return &AdapterRedis{
 		redis: redis,
 	}
 }
 
-// Set sets cache with `key`-`value` pair, which is expired after `duration`.
+// Set 通过 `key`-`value` 对设置缓存，该对在 `duration` 后过期。
 //
-// It does not expire if `duration` == 0.
-// It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
+// 如果 `duration` == 0，则永不过期。
+// 如果 `duration` < 0 或提供的 `value` 为 nil，则删除 `data` 的键。
 func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (err error) {
 	redisKey := gconv.String(key)
 	if value == nil || duration < 0 {
@@ -45,10 +43,10 @@ func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface
 	return err
 }
 
-// SetMap batch sets cache with key-value pairs by `data` map, which is expired after `duration`.
+// SetMap 批量设置缓存，通过 `data` 参数中的键值对进行设置，并在 `duration` 时间后过期。
 //
-// It does not expire if `duration` == 0.
-// It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
+// 如果 `duration` == 0，则表示永不过期。
+// 如果 `duration` < 0 或者给定的 `value` 为 nil，则会删除 `data` 中的键。
 func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error {
 	if len(data) == 0 {
 		return nil
@@ -85,21 +83,20 @@ func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interfac
 	return nil
 }
 
-// SetIfNotExist sets cache with `key`-`value` pair which is expired after `duration`
-// if `key` does not exist in the cache. It returns true the `key` does not exist in the
-// cache, and it sets `value` successfully to the cache, or else it returns false.
+// SetIfNotExist 若`key`不存在于缓存中，则设置带有`key`-`value`对的缓存，该对在`duration`后过期。
+// 如果`key`在缓存中不存在，它将返回true，并成功将`value`设置到缓存中，否则返回false。
 //
-// It does not expire if `duration` == 0.
-// It deletes the `key` if `duration` < 0 or given `value` is nil.
+// 如果`duration` == 0，则不会设置过期时间。
+// 如果`duration` < 0 或给定的`value`为nil，则删除`key`。
 func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (bool, error) {
 	var (
 		err      error
 		redisKey = gconv.String(key)
 	)
-	// Execute the function and retrieve the result.
+	// 执行函数并获取结果。
 	f, ok := value.(Func)
 	if !ok {
-		// Compatible with raw function value.
+		// 与原始函数值兼容。
 		f, ok = value.(func(ctx context.Context) (value interface{}, err error))
 	}
 	if ok {
@@ -124,7 +121,7 @@ func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value
 		return ok, err
 	}
 	if ok && duration > 0 {
-		// Set the expiration.
+		// 设置过期时间。
 		_, err = c.redis.PExpire(ctx, redisKey, duration.Milliseconds())
 		if err != nil {
 			return ok, err
@@ -134,14 +131,13 @@ func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value
 	return ok, err
 }
 
-// SetIfNotExistFunc sets `key` with result of function `f` and returns true
-// if `key` does not exist in the cache, or else it does nothing and returns false if `key` already exists.
+// SetIfNotExistFunc 函数用于设置 `key` 为函数 `f` 的计算结果，并在 `key` 不存在于缓存中时返回 true，
+// 否则如果 `key` 已存在，则不做任何操作并返回 false。
 //
-// The parameter `value` can be type of `func() interface{}`, but it does nothing if its
-// result is nil.
+// 参数 `value` 可以是类型 `func() interface{}`，但如果其结果为 nil，则该函数不会执行任何操作。
 //
-// It does not expire if `duration` == 0.
-// It deletes the `key` if `duration` < 0 or given `value` is nil.
+// 如果 `duration` == 0，则不设置过期时间。
+// 如果 `duration` < 0 或给定的 `value` 为 nil，则会删除 `key`。
 func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -150,14 +146,13 @@ func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f
 	return c.SetIfNotExist(ctx, key, value, duration)
 }
 
-// SetIfNotExistFuncLock sets `key` with result of function `f` and returns true
-// if `key` does not exist in the cache, or else it does nothing and returns false if `key` already exists.
-//
-// It does not expire if `duration` == 0.
-// It deletes the `key` if `duration` < 0 or given `value` is nil.
-//
-// Note that it differs from function `SetIfNotExistFunc` is that the function `f` is executed within
-// writing mutex lock for concurrent safety purpose.
+// SetIfNotExistFuncLock 将通过函数 `f` 计算的结果设置为 `key` 的值，并在以下情况下返回 true：
+// 1. 如果 `key` 不存在于缓存中，则设置并返回 true。
+// 2. 否则，如果 `key` 已经存在，则不做任何操作并返回 false。
+// 若 `duration` 等于 0，则不设置过期时间。
+// 若 `duration` 小于 0 或提供的 `value` 为 nil，则删除 `key`。
+// 注意，此方法与函数 `SetIfNotExistFunc` 的不同之处在于，
+// 函数 `f` 在写入互斥锁保护下执行，以确保并发安全。
 func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -166,19 +161,17 @@ func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{
 	return c.SetIfNotExist(ctx, key, value, duration)
 }
 
-// Get retrieves and returns the associated value of given <key>.
-// It returns nil if it does not exist or its value is nil.
+// Get 函数根据给定的 <key> 获取并返回其关联的值。
+// 如果该键不存在，或者其对应的值为 nil，则返回 nil。
 func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, error) {
 	return c.redis.Get(ctx, gconv.String(key))
 }
 
-// GetOrSet retrieves and returns the value of `key`, or sets `key`-`value` pair and
-// returns `value` if `key` does not exist in the cache. The key-value pair expires
-// after `duration`.
+// GetOrSet 获取并返回键`key`的值，如果`key`在缓存中不存在，则设置`key`-`value`对并返回`value`。
+// 键值对在`duration`时间后过期。
 //
-// It does not expire if `duration` == 0.
-// It deletes the `key` if `duration` < 0 or given `value` is nil, but it does nothing
-// if `value` is a function and the function result is nil.
+// 如果`duration` == 0，则不会过期。
+// 如果`duration` < 0 或者给定的`value`为nil，则删除`key`，但如果`value`是一个函数且函数结果为nil，则不做任何操作。
 func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error) {
 	result, err = c.Get(ctx, key)
 	if err != nil {
@@ -190,13 +183,11 @@ func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value inte
 	return
 }
 
-// GetOrSetFunc retrieves and returns the value of `key`, or sets `key` with result of
-// function `f` and returns its result if `key` does not exist in the cache. The key-value
-// pair expires after `duration`.
+// GetOrSetFunc 函数用于获取并返回 `key` 对应的值，如果 `key` 不存在于缓存中，则使用函数 `f` 的结果设置 `key` 并返回其结果。
+// 这对键值在 `duration` 时间后将自动过期。
 //
-// It does not expire if `duration` == 0.
-// It deletes the `key` if `duration` < 0 or given `value` is nil, but it does nothing
-// if `value` is a function and the function result is nil.
+// 如果 `duration` 等于 0，则表示该键值对永不过期。
+// 如果 `duration` 小于 0 或者给定的 `value` 为 nil，则会删除 `key`，但如果 `value` 是一个函数且函数结果为 nil，则不做任何操作。
 func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -216,21 +207,15 @@ func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func
 	}
 }
 
-// GetOrSetFuncLock retrieves and returns the value of `key`, or sets `key` with result of
-// function `f` and returns its result if `key` does not exist in the cache. The key-value
-// pair expires after `duration`.
-//
-// It does not expire if `duration` == 0.
-// It deletes the `key` if `duration` < 0 or given `value` is nil, but it does nothing
-// if `value` is a function and the function result is nil.
-//
-// Note that it differs from function `GetOrSetFunc` is that the function `f` is executed within
-// writing mutex lock for concurrent safety purpose.
+// GetOrSetFuncLock 从缓存中获取并返回`key`的值，如果`key`不存在，则使用函数`f`的结果设置`key`并返回其结果。键值对在`duration`时间后过期。
+// 如果`duration`为0，则它不会过期。
+// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但如果`value`是一个函数且函数结果为nil，则不做任何操作。
+// 注意，该方法与函数`GetOrSetFunc`的不同之处在于，为了保证并发安全，函数`f`在写入互斥锁内执行。
 func (c *AdapterRedis) GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	return c.GetOrSetFunc(ctx, key, f, duration)
 }
 
-// Contains checks and returns true if `key` exists in the cache, or else returns false.
+// Contains 检查并返回 true，如果 `key` 存在于缓存中；否则返回 false。
 func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, error) {
 	n, err := c.redis.Exists(ctx, gconv.String(key))
 	if err != nil {
@@ -239,7 +224,7 @@ func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, err
 	return n > 0, nil
 }
 
-// Size returns the number of items in the cache.
+// Size 返回缓存中的项目数量。
 func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
 	n, err := c.redis.DBSize(ctx)
 	if err != nil {
@@ -248,9 +233,8 @@ func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
 	return int(n), nil
 }
 
-// Data returns a copy of all key-value pairs in the cache as map type.
-// Note that this function may lead lots of memory usage, you can implement this function
-// if necessary.
+// Data 返回缓存中所有键值对的副本，类型为 map。注意，此函数可能会导致大量内存使用，
+// 因此请按需实现该函数。
 func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, error) {
 	// Keys.
 	keys, err := c.redis.Keys(ctx, "*")
@@ -271,7 +255,7 @@ func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, e
 	return data, nil
 }
 
-// Keys returns all keys in the cache as slice.
+// Keys 返回缓存中的所有键作为切片。
 func (c *AdapterRedis) Keys(ctx context.Context) ([]interface{}, error) {
 	keys, err := c.redis.Keys(ctx, "*")
 	if err != nil {
@@ -280,7 +264,7 @@ func (c *AdapterRedis) Keys(ctx context.Context) ([]interface{}, error) {
 	return gconv.Interfaces(keys), nil
 }
 
-// Values returns all values in the cache as slice.
+// Values 返回缓存中的所有值作为一个切片。
 func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 	// Keys.
 	keys, err := c.redis.Keys(ctx, "*")
@@ -303,11 +287,11 @@ func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 	return values, nil
 }
 
-// Update updates the value of `key` without changing its expiration and returns the old value.
-// The returned value `exist` is false if the `key` does not exist in the cache.
+// Update 更新`key`的值，但不改变其过期时间，并返回旧值。
+// 返回的布尔值`exist`，如果`key`在缓存中不存在，则为false。
 //
-// It deletes the `key` if given `value` is nil.
-// It does nothing if `key` does not exist in the cache.
+// 如果给定的`value`为nil，则删除`key`。
+// 若`key`在缓存中不存在，则不做任何操作。
 func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error) {
 	var (
 		v        *gvar.Var
@@ -315,12 +299,12 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 		redisKey = gconv.String(key)
 	)
 	// TTL.
-	oldPTTL, err = c.redis.PTTL(ctx, redisKey) // update ttl -> pttl(millisecond)
+	oldPTTL, err = c.redis.PTTL(ctx, redisKey) // 更新ttl -> pttl（毫秒）
 	if err != nil {
 		return
 	}
 	if oldPTTL == -2 || oldPTTL == 0 {
-		// It does not exist or expired.
+		// 它不存在或已过期。
 		return
 	}
 	// Check existence.
@@ -341,17 +325,21 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 	if oldPTTL == -1 {
 		_, err = c.redis.Set(ctx, redisKey, value)
 	} else {
-		// update SetEX -> SET PX Option(millisecond)
-		// Starting with Redis version 2.6.12: Added the EX, PX, NX and XX options.
+// 更新 SetEX -> SET PX 选项（毫秒）
+// 自 Redis 版本 2.6.12 开始：添加了 EX、PX、NX 和 XX 选项。
+// 这段 Go 语言代码注释的中文翻译如下：
+// ```go
+// 将 SetEX 更新为使用 PX 选项（以毫秒为单位）
+// 从 Redis 版本 2.6.12 开始：新增了 EX、PX、NX 和 XX 等选项功能。
 		_, err = c.redis.Set(ctx, redisKey, value, gredis.SetOption{TTLOption: gredis.TTLOption{PX: gconv.PtrInt64(oldPTTL)}})
 	}
 	return oldValue, true, err
 }
 
-// UpdateExpire updates the expiration of `key` and returns the old expiration duration value.
+// UpdateExpire 更新键 `key` 的过期时间，并返回旧的过期持续时长值。
 //
-// It returns -1 and does nothing if the `key` does not exist in the cache.
-// It deletes the `key` if `duration` < 0.
+// 若 `key` 不存在于缓存中，则返回 -1 并不做任何操作。
+// 若 `duration` 小于 0，则删除 `key`。
 func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error) {
 	var (
 		v        *gvar.Var
@@ -364,7 +352,7 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 		return
 	}
 	if oldPTTL == -2 || oldPTTL == 0 {
-		// It does not exist or expired.
+		// 它不存在或已过期。
 		oldPTTL = -1
 		return
 	}
@@ -374,7 +362,7 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 		_, err = c.redis.Del(ctx, redisKey)
 		return
 	}
-	// Update the expiration.
+	// 更新过期时间
 	if duration > 0 {
 		_, err = c.redis.PExpire(ctx, redisKey, duration.Milliseconds())
 	}
@@ -389,11 +377,11 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 	return
 }
 
-// GetExpire retrieves and returns the expiration of `key` in the cache.
+// GetExpire 从缓存中检索并返回`key`的过期时间。
 //
-// Note that,
-// It returns 0 if the `key` does not expire.
-// It returns -1 if the `key` does not exist in the cache.
+// 注意：
+// 如果`key`永不过期，则返回0。
+// 如果`key`在缓存中不存在，则返回-1。
 func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Duration, error) {
 	pttl, err := c.redis.PTTL(ctx, gconv.String(key))
 	if err != nil {
@@ -402,38 +390,38 @@ func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Dur
 	switch pttl {
 	case -1:
 		return 0, nil
-	case -2, 0: // It does not exist or expired.
+	case -2, 0: // 它不存在或已过期。
 		return -1, nil
 	default:
 		return time.Duration(pttl) * time.Millisecond, nil
 	}
 }
 
-// Remove deletes the one or more keys from cache, and returns its value.
-// If multiple keys are given, it returns the value of the deleted last item.
+// Remove 从缓存中删除一个或多个键，并返回其对应的值。
+// 如果提供了多个键，它将返回被删除的最后一个项目的值。
 func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error) {
 	if len(keys) == 0 {
 		return nil, nil
 	}
-	// Retrieves the last key value.
+	// 获取最后一个键值对。
 	if lastValue, err = c.redis.Get(ctx, gconv.String(keys[len(keys)-1])); err != nil {
 		return nil, err
 	}
-	// Deletes all given keys.
+	// 删除所有给定的键。
 	_, err = c.redis.Del(ctx, gconv.Strings(keys)...)
 	return
 }
 
-// Clear clears all data of the cache.
-// Note that this function is sensitive and should be carefully used.
-// It uses `FLUSHDB` command in redis server, which might be disabled in server.
+// Clear 清除缓存中的所有数据。
+// 注意：此函数较为敏感，应谨慎使用。
+// 它在 Redis 服务器中使用了 `FLUSHDB` 命令，该命令可能在服务器中被禁用。
 func (c *AdapterRedis) Clear(ctx context.Context) (err error) {
-	// The "FLUSHDB" may not be available.
+	// "FLUSHDB" 可能不可用。
 	err = c.redis.FlushDB(ctx)
 	return
 }
 
-// Close closes the cache.
+// Close 关闭缓存。
 func (c *AdapterRedis) Close(ctx context.Context) error {
 	// It does nothing.
 	return nil

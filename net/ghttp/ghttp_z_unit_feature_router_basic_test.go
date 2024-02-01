@@ -1,21 +1,19 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp_test
-
 import (
 	"fmt"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/net/ghttp"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/util/guid"
-)
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/guid"
+	)
 
 func Test_Router_Basic1(t *testing.T) {
 	s := g.Server(guid.S())
@@ -103,7 +101,7 @@ func Test_Router_Value(t *testing.T) {
 	})
 }
 
-// HTTP method register.
+// HTTP方法注册。
 func Test_Router_Method(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("GET:/get", func(r *ghttp.Request) {
@@ -143,7 +141,7 @@ func Test_Router_Method(t *testing.T) {
 	})
 }
 
-// Extra char '/' of the router.
+// 路由器的额外字符 '/'
 func Test_Router_ExtraChar(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Group("/api", func(group *ghttp.RouterGroup) {
@@ -169,7 +167,7 @@ func Test_Router_ExtraChar(t *testing.T) {
 	})
 }
 
-// Custom status handler.
+// 自定义状态处理器
 func Test_Router_Status(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("/200", func(r *ghttp.Request) {
@@ -246,7 +244,7 @@ func Test_Router_CustomStatusHandler(t *testing.T) {
 	})
 }
 
-// 404 not found router.
+// 404未找到路由。
 func Test_Router_404(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("/", func(r *ghttp.Request) {

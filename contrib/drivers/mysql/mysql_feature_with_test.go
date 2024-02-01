@@ -1,22 +1,19 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package mysql_test
-
 import (
 	"fmt"
 	"testing"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gmeta"
-)
-
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gmeta"
+	)
 /*
 mysql> show tables;
 +----------------+
@@ -146,7 +143,7 @@ PRIMARY KEY (id)
 		UserScores []*UserScore `orm:"with:uid=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	gtest.C(t, func(t *gtest.T) {
 		for i := 1; i <= 5; i++ {
 			// User.
@@ -251,7 +248,7 @@ PRIMARY KEY (id)
 		t.Assert(user.UserScores[4].Uid, 4)
 		t.Assert(user.UserScores[4].Score, 5)
 	})
-	// With part attribute: UserDetail.
+	// 带有部分属性: UserDetail.
 	gtest.C(t, func(t *gtest.T) {
 		var user User
 		err := db.With(user).
@@ -265,7 +262,7 @@ PRIMARY KEY (id)
 		t.Assert(user.UserDetail.Address, `address_4`)
 		t.Assert(len(user.UserScores), 0)
 	})
-	// With part attribute: UserScores.
+	// 带有部分属性: UserScores.
 	gtest.C(t, func(t *gtest.T) {
 		var user User
 		err := db.With(user).
@@ -344,7 +341,7 @@ PRIMARY KEY (id)
 		UserScores []*UserScores `orm:"with:uid=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -431,7 +428,7 @@ PRIMARY KEY (id)
 		t.Assert(users[1].UserScores[4].Uid, 4)
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
-	// With part attribute: UserDetail.
+	// 带有部分属性: UserDetail.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
 		err := db.With(User{}).
@@ -454,7 +451,7 @@ PRIMARY KEY (id)
 		t.Assert(users[1].UserDetail.Address, "address_4")
 		t.Assert(len(users[1].UserScores), 0)
 	})
-	// With part attribute: UserScores.
+	// 带有部分属性: UserScores.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
 		err := db.With(User{}).
@@ -544,7 +541,7 @@ PRIMARY KEY (id)
 		UserScores []*UserScores `orm:"with:uid=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -659,7 +656,7 @@ PRIMARY KEY (id)
 		UserScores []*UserScores `orm:"with:uid=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -800,7 +797,7 @@ PRIMARY KEY (id)
 		UserScores []*UserScores `orm:"with:uid=id, where:score>1 and score<5, order:score desc"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -936,7 +933,7 @@ PRIMARY KEY (id)
 		UserScores  []*UserScores `orm:"with:uid=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -1056,7 +1053,7 @@ PRIMARY KEY (id)
 		UserScores []*UserScores `orm:"with:uid=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -1175,7 +1172,7 @@ PRIMARY KEY (id)
 		UserScores  []*UserScores `orm:"with:uid=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -1290,7 +1287,7 @@ PRIMARY KEY (id)
 		Name        string `json:"name"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -1430,7 +1427,7 @@ PRIMARY KEY (id)
 		Name        string `json:"name"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -1576,7 +1573,7 @@ PRIMARY KEY (id)
 		Name        string `json:"name"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -1934,7 +1931,7 @@ PRIMARY KEY (id)
 		UserScores []*UserScores `orm:"with:user_id=id"`
 	}
 
-	// Initialize the data.
+	// 初始化数据
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
@@ -1959,20 +1956,20 @@ PRIMARY KEY (id)
 		}
 	}
 
-	// gtest.C(t, func(t *gtest.T) {
-	//	var user *User
-	//	err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user)
-	//	t.AssertNil(err)
-	//	t.Assert(user.ID, 3)
-	//	t.AssertNE(user.UserDetail, nil)
-	//	t.Assert(user.UserDetail.UserID, 3)
-	//	t.Assert(user.UserDetail.Address, `address_3`)
-	//	t.Assert(len(user.UserScores), 5)
-	//	t.Assert(user.UserScores[0].UserID, 3)
-	//	t.Assert(user.UserScores[0].Score, 1)
-	//	t.Assert(user.UserScores[4].UserID, 3)
-	//	t.Assert(user.UserScores[4].Score, 5)
-	// })
+// gtest.C(t, func(t *gtest.T) { // 使用gtest框架对代码进行单元测试
+//	var user *User // 声明一个指向User类型的指针变量user
+//	err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user) // 根据id为3查询tableUser表中的数据到user变量中
+//	t.AssertNil(err) // 断言查询过程中无错误发生，即err应为nil
+//	t.Assert(user.ID, 3) // 断言查询结果中user的ID属性为3
+//	t.AssertNE(user.UserDetail, nil) // 断言user的UserDetail属性不为空（非nil）
+//	t.Assert(user.UserDetail.UserID, 3) // 断言user的UserDetail结构体中的UserID属性为3
+//	t.Assert(user.UserDetail.Address, `address_3`) // 断言user的UserDetail结构体中的Address属性为"address_3"
+//	t.Assert(len(user.UserScores), 5) // 断言user的UserScores切片长度为5
+//	t.Assert(user.UserScores[0].UserID, 3) // 断言user的UserScores切片中第一个元素的UserID属性为3
+//	t.Assert(user.UserScores[0].Score, 1) // 断言user的UserScores切片中第一个元素的Score属性为1
+//	t.Assert(user.UserScores[4].UserID, 3) // 断言user的UserScores切片中最后一个元素的UserID属性为3
+//	t.Assert(user.UserScores[4].Score, 5) // 断言user的UserScores切片中最后一个元素的Score属性为5
+// }) // 结束gtest.C()函数的测试用例定义
 	gtest.C(t, func(t *gtest.T) {
 		var user User
 		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)

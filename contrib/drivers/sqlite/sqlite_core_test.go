@@ -1,27 +1,25 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package sqlite_test
-
 import (
 	"context"
 	"database/sql"
 	"fmt"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/container/garray"
-	"coding.net/gogit/go/goframe/database/gdb"
-	"coding.net/gogit/go/goframe/encoding/gjson"
-	"coding.net/gogit/go/goframe/encoding/gxml"
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-)
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/encoding/gxml"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	)
 
 func Test_New(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -214,7 +212,7 @@ func Test_DB_Insert(t *testing.T) {
 	})
 }
 
-// Fix issue: https://github.com/gogf/gf/issues/819
+// 解决问题：https://github.com/gogf/gf/issues/819
 func Test_DB_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -398,7 +396,7 @@ func Test_DB_BatchInsert(t *testing.T) {
 }
 
 func Test_DB_BatchInsert_Struct(t *testing.T) {
-	// batch insert struct
+	// 批量插入结构体
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
@@ -1368,7 +1366,7 @@ func Test_Empty_Slice_Argument(t *testing.T) {
 	})
 }
 
-// update counter test.
+// 更新计数器测试
 func Test_DB_UpdateCounter(t *testing.T) {
 	tableName := "gf_update_counter_test_" + gtime.TimestampNanoStr()
 	_, err := db.Exec(ctx, fmt.Sprintf(`
@@ -1444,8 +1442,8 @@ func Test_DB_Ctx_Logger(t *testing.T) {
 	})
 }
 
-// All types testing.
-// https://www.sqlite.org/datatype3.html
+// 对所有类型进行测试。
+// 参考文档：https://www.sqlite.org/datatype3.html
 func Test_Types(t *testing.T) {
 	tableName := "types_" + gtime.TimestampNanoStr()
 	gtest.C(t, func(t *gtest.T) {
@@ -1503,7 +1501,7 @@ func Test_Types(t *testing.T) {
 		t.Assert(one["date"].String(), data["date"])
 		t.Assert(one["time"].String(), `10:00:01`)
 		t.Assert(one["timestamp"].GTime().Format(`Y-m-d H:i:s.u`), `2022-02-14 12:00:01.123`)
-		t.Assert(one["decimal"].String(), data["decimal"]) // In SQLite, the datatype of a value is associated with the value itself, not with its container.
+		t.Assert(one["decimal"].String(), data["decimal"]) // 在SQLite中，值的数据类型与其自身关联，而不是与其容器关联。
 		t.Assert(one["double"].String(), data["double"])
 		t.Assert(one["tinyint"].Bool(), data["tinyint"])
 
@@ -1541,7 +1539,7 @@ func Test_TableFields(t *testing.T) {
 		createTable(tableName)
 		defer dropTable(tableName)
 		var expect = map[string][]interface{}{
-			// fields		type	null	key	default	extra	comment
+			// fields 字段名称  类型 是否可为空 主键 默认值 额外信息 注释
 			"id":          {"INTEGER", false, "pri", nil, "", ""},
 			"passport":    {"VARCHAR(45)", false, "", "passport", "", ""},
 			"password":    {"VARCHAR(128)", false, "", "password", "", ""},

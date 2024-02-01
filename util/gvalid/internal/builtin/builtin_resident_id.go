@@ -1,23 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
-
 import (
 	"errors"
 	"strconv"
 	"strings"
-
-	"coding.net/gogit/go/goframe/text/gregex"
-)
-
-// RuleResidentId implements `resident-id` rule:
-// Resident id number.
+	
+	"github.com/888go/goframe/text/gregex"
+	)
+// RuleResidentId 实现了 `resident-id` 规则：
+// 居民身份证号码。
 //
-// Format: resident-id
+// 格式：居民身份证号
 type RuleResidentId struct{}
 
 func init() {

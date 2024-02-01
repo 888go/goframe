@@ -1,23 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
-
 import (
 	"errors"
-
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// RuleBeforeEqual implements `before-equal` rule:
-// The datetime value should be after or equal to the value of field `field`.
+	
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gutil"
+	)
+// RuleBeforeEqual 实现了“before-equal”规则：
+// 该日期时间值应当在或等于字段 `field` 的值之后。
 //
-// Format: before-equal:field
+// 格式：before-equal:field
 type RuleBeforeEqual struct{}
 
 func init() {

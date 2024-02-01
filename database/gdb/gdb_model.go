@@ -1,63 +1,60 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
-
 import (
 	"context"
 	"fmt"
-
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// Model is core struct implementing the DAO for ORM.
+	
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	)
+// Model 是核心结构体，实现了 ORM 的 DAO（数据访问对象）。
 type Model struct {
-	db            DB                // Underlying DB interface.
-	tx            TX                // Underlying TX interface.
-	rawSql        string            // rawSql is the raw SQL string which marks a raw SQL based Model not a table based Model.
-	schema        string            // Custom database schema.
-	linkType      int               // Mark for operation on master or slave.
-	tablesInit    string            // Table names when model initialization.
-	tables        string            // Operation table names, which can be more than one table names and aliases, like: "user", "user u", "user u, user_detail ud".
-	fields        string            // Operation fields, multiple fields joined using char ','.
-	fieldsEx      string            // Excluded operation fields, multiple fields joined using char ','.
-	withArray     []interface{}     // Arguments for With feature.
-	withAll       bool              // Enable model association operations on all objects that have "with" tag in the struct.
-	extraArgs     []interface{}     // Extra custom arguments for sql, which are prepended to the arguments before sql committed to underlying driver.
-	whereBuilder  *WhereBuilder     // Condition builder for where operation.
-	groupBy       string            // Used for "group by" statement.
-	orderBy       string            // Used for "order by" statement.
-	having        []interface{}     // Used for "having..." statement.
-	start         int               // Used for "select ... start, limit ..." statement.
-	limit         int               // Used for "select ... start, limit ..." statement.
-	option        int               // Option for extra operation features.
-	offset        int               // Offset statement for some databases grammar.
-	partition     string            // Partition table partition name.
-	data          interface{}       // Data for operation, which can be type of map/[]map/struct/*struct/string, etc.
-	batch         int               // Batch number for batch Insert/Replace/Save operations.
-	filter        bool              // Filter data and where key-value pairs according to the fields of the table.
-	distinct      string            // Force the query to only return distinct results.
-	lockInfo      string            // Lock for update or in shared lock.
-	cacheEnabled  bool              // Enable sql result cache feature, which is mainly for indicating cache duration(especially 0) usage.
-	cacheOption   CacheOption       // Cache option for query statement.
-	hookHandler   HookHandler       // Hook functions for model hook feature.
-	unscoped      bool              // Disables soft deleting features when select/delete operations.
-	safe          bool              // If true, it clones and returns a new model object whenever operation done; or else it changes the attribute of current model.
-	onDuplicate   interface{}       // onDuplicate is used for ON "DUPLICATE KEY UPDATE" statement.
-	onDuplicateEx interface{}       // onDuplicateEx is used for excluding some columns ON "DUPLICATE KEY UPDATE" statement.
-	tableAliasMap map[string]string // Table alias to true table name, usually used in join statements.
+	db            DB                // 基础数据库接口。
+	tx            TX                // 基础的TX接口。
+	rawSql        string            // rawSql 是原始SQL字符串，用于标记基于原始SQL的模型，而非基于表的模型。
+	schema        string            // 自定义数据库模式
+	linkType      int               // 标记用于在主服务器或从服务器上执行操作。
+	tablesInit    string            // 在模型初始化时的表格名称。
+	tables        string            // 操作表名，可以是多个表名及别名，例如："user"、"user u"、"user u, user_detail ud"。
+	fields        string            // 操作字段，多个字段使用字符 ',' 连接。
+	fieldsEx      string            // 排除的操作字段，多个字段使用逗号（char ',')连接。
+	withArray     []interface{}     // With功能的参数。
+	withAll       bool              // 在结构体中具有"with"标签的所有对象上启用模型关联操作。
+	extraArgs     []interface{}     // 在SQL提交给底层驱动之前，额外自定义的SQL参数，这些参数将被追加到原有参数之前。
+	whereBuilder  *WhereBuilder     // 条件构造器，用于where操作。
+	groupBy       string            // 用于“group by”语句。
+	orderBy       string            // 用于 "order by" 语句。
+	having        []interface{}     // 用于 "having..." 语句。
+	start         int               // 用于 "select ... start, limit ..." 语句。
+	limit         int               // 用于 "select ... start, limit ..." 语句。
+	option        int               // 用于额外操作功能的选项。
+	offset        int               // 为某些数据库语法提供的偏移量语句。
+	partition     string            // 分区表分区名称。
+	data          interface{}       // Data 用于操作的数据，其类型可以是 map/[]map/struct/*struct/string 等等。
+	batch         int               // 批量插入/替换/保存操作的批次号。
+	filter        bool              // 根据表格字段过滤并筛选出符合条件的键值对数据。
+	distinct      string            // 强制查询只返回不重复的结果。
+	lockInfo      string            // 加锁以便进行更新或共享锁操作。
+	cacheEnabled  bool              // 启用SQL结果缓存功能，主要用于指示缓存持续时间（尤其是0）的使用情况。
+	cacheOption   CacheOption       // 查询语句的缓存选项。
+	hookHandler   HookHandler       // 钩子函数，用于模型钩子功能。
+	unscoped      bool              // 禁用在选择/删除操作时的软删除功能。
+	safe          bool              // 如果为true，则在操作完成后克隆并返回一个新的模型对象；否则，它会改变当前模型的属性。
+	onDuplicate   interface{}       // onDuplicate 用于 ON "DUPLICATE KEY UPDATE" 语句。
+	onDuplicateEx interface{}       // onDuplicateEx 用于在 "DUPLICATE KEY UPDATE" 语句中排除某些列。
+	tableAliasMap map[string]string // 表别名到真实表名的映射，通常用于连接语句中。
 }
 
-// ModelHandler is a function that handles given Model and returns a new Model that is custom modified.
+// ModelHandler 是一个函数，用于处理给定的 Model，并返回一个经过自定义修改的新 Model。
 type ModelHandler func(m *Model) *Model
 
-// ChunkHandler is a function that is used in function Chunk, which handles given Result and error.
-// It returns true if it wants to continue chunking, or else it returns false to stop chunking.
+// ChunkHandler 是一个在 Chunk 函数中使用的函数，用于处理给定的 Result 和错误。
+// 如果希望继续分块处理，则返回 true；否则返回 false 以停止分块处理。
 type ChunkHandler func(result Result, err error) bool
 
 const (
@@ -72,17 +69,17 @@ const (
 	whereHolderTypeIn        = "In"
 )
 
-// Model creates and returns a new ORM model from given schema.
-// The parameter `tableNameQueryOrStruct` can be more than one table names, and also alias name, like:
-//  1. Model names:
-//     db.Model("user")
-//     db.Model("user u")
-//     db.Model("user, user_detail")
-//     db.Model("user u, user_detail ud")
-//  2. Model name with alias:
-//     db.Model("user", "u")
-//  3. Model name with sub-query:
-//     db.Model("? AS a, ? AS b", subQuery1, subQuery2)
+// Model 根据给定的模式创建并返回一个新的 ORM 模型。
+// 参数 `tableNameQueryOrStruct` 可以是多个表名，也可以包含别名，如下所示：
+// 1. 表名示例：
+//     db.Model("user")                 // 单个表名
+//     db.Model("user u")               // 带别名的表名
+//     db.Model("user, user_detail")    // 多个表名
+//     db.Model("user u, user_detail ud") // 多个带别名的表名
+// 2. 包含别名的表名示例：
+//     db.Model("user", "u")         // 表名和对应的别名
+// 3. 使用子查询作为表名的示例：
+//     db.Model("? AS a, ? AS b", subQuery1, subQuery2) // 使用子查询表达式作为模型，并为子查询结果设置别名
 func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	var (
 		ctx       = c.db.GetCtx()
@@ -90,7 +87,7 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 		tableName string
 		extraArgs []interface{}
 	)
-	// Model creation with sub-query.
+	// 使用子查询创建模型
 	if len(tableNameQueryOrStruct) > 1 {
 		conditionStr := gconv.String(tableNameQueryOrStruct[0])
 		if gstr.Contains(conditionStr, "?") {
@@ -107,7 +104,7 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 			})
 		}
 	}
-	// Normal model creation.
+	// 正常模型创建。
 	if tableStr == "" {
 		tableNames := make([]string, len(tableNameQueryOrStruct))
 		for k, v := range tableNameQueryOrStruct {
@@ -144,10 +141,14 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	return m
 }
 
-// Raw creates and returns a model based on a raw sql not a table.
-// Example:
-//
-//	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
+// Raw 根据原始 SQL（非表）创建并返回一个模型。
+// 通常用于嵌入原始sql语句,如:
+// g.Model("user").WhereLT("created_at", gdb.Raw("now()")).All()  // SELECT * FROM `user` WHERE `created_at`<now()
+// 参考文档:https://goframe.org/pages/viewpage.action?pageId=111911590&showComments=true
+
+// 也可以直接直接执行原始sql,示例：
+// db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
+// 上述代码表示，通过执行原始SQL语句（根据"name"为"john"的条件查询user表中所有列），并使用Scan方法将查询结果绑定到result变量中。
 func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 	model := c.Model()
 	model.rawSql = rawSql
@@ -155,12 +156,14 @@ func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 	return model
 }
 
-// Raw sets current model as a raw sql model.
-// Example:
+// Raw 将当前模型设置为原始SQL模型。
+// 通常用于嵌入原始sql语句,如:
+// g.Model("user").WhereLT("created_at", gdb.Raw("now()")).All()  // SELECT * FROM `user` WHERE `created_at`<now()
+// 参考文档:https://goframe.org/pages/viewpage.action?pageId=111911590&showComments=true
 //
-//	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
-//
-// See Core.Raw.
+// 也可以直接直接执行原始sql,示例:
+// db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
+// 请参阅Core.Raw。
 func (m *Model) Raw(rawSql string, args ...interface{}) *Model {
 	model := m.db.Raw(rawSql, args...)
 	model.db = m.db
@@ -172,7 +175,27 @@ func (tx *TXCore) Raw(rawSql string, args ...interface{}) *Model {
 	return tx.Model().Raw(rawSql, args...)
 }
 
-// With creates and returns an ORM model based on metadata of given object.
+// With 根据给定对象的元数据创建并返回一个ORM模型。
+//
+// 原注释未提及with使用方法, 以下摘自Model对象示例,仅供参考.
+// With 启用关联查询，通过给定的属性对象指定开启。
+// 常考"模型关联-静态关联"文档:https://goframe.org/pages/viewpage.action?pageId=7297190
+// 例如，如果给定如下的结构体定义：
+//
+//	type User struct {
+//		 gmeta.Meta `orm:"table:user"` // 定义表名为 user
+//		 Id         int           `json:"id"`    // 用户ID
+//		 Name       string        `json:"name"`   // 用户名
+//		 UserDetail *UserDetail   `orm:"with:uid=id"` // 关联 UserDetail 表，通过 uid 等于 id 进行关联
+//		 UserScores []*UserScores `orm:"with:uid=id"` // 关联 UserScores 表，通过 uid 等于 id 进行关联
+//	}
+//
+// 我们可以通过以下方式在属性 `UserDetail` 和 `UserScores` 上启用模型关联操作：
+// db.With(User{}.UserDetail).With(User{}.UserScores).Scan(xxx)
+// 或者：
+// db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
+// 或者：
+// db.With(UserDetail{}, UserScores{}).Scan(xxx)
 func (c *Core) With(objects ...interface{}) *Model {
 	return c.db.Model().With(objects...)
 }
@@ -186,8 +209,8 @@ func (m *Model) Partition(partitions ...string) *Model {
 	return model
 }
 
-// Model acts like Core.Model except it operates on transaction.
-// See Core.Model.
+// Model 类似于 Core.Model，但其在事务上进行操作。
+// 请参阅 Core.Model。
 func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	model := tx.db.Model(tableNameQueryOrStruct...)
 	model.db = tx.db
@@ -195,13 +218,32 @@ func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	return model
 }
 
-// With acts like Core.With except it operates on transaction.
-// See Core.With.
+// With 类似于 Core.With，但其操作针对事务。
+// 请参阅 Core.With。
+//
+// 原注释未提及with使用方法, 以下摘自Model对象示例,仅供参考.
+// With 启用关联查询，通过给定的属性对象指定开启。
+// 常考"模型关联-静态关联"文档:https://goframe.org/pages/viewpage.action?pageId=7297190
+// 例如，如果给定如下的结构体定义：
+//	type User struct {
+//		 gmeta.Meta `orm:"table:user"` // 定义表名为 user
+//		 Id         int           `json:"id"`    // 用户ID
+//		 Name       string        `json:"name"`   // 用户名
+//		 UserDetail *UserDetail   `orm:"with:uid=id"` // 关联 UserDetail 表，通过 uid 等于 id 进行关联
+//		 UserScores []*UserScores `orm:"with:uid=id"` // 关联 UserScores 表，通过 uid 等于 id 进行关联
+//	}
+//
+// 我们可以通过以下方式在属性 `UserDetail` 和 `UserScores` 上启用模型关联操作：
+// db.With(User{}.UserDetail).With(User{}.UserScores).Scan(xxx)
+// 或者：
+// db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
+// 或者：
+// db.With(UserDetail{}, UserScores{}).Scan(xxx)
 func (tx *TXCore) With(object interface{}) *Model {
 	return tx.Model().With(object)
 }
 
-// Ctx sets the context for current operation.
+// Ctx 设置当前操作的上下文。
 func (m *Model) Ctx(ctx context.Context) *Model {
 	if ctx == nil {
 		return m
@@ -214,8 +256,8 @@ func (m *Model) Ctx(ctx context.Context) *Model {
 	return model
 }
 
-// GetCtx returns the context for current Model.
-// It returns `context.Background()` is there's no context previously set.
+// GetCtx 返回当前 Model 的上下文。
+// 若此前未设置过上下文，则返回 `context.Background()`。
 func (m *Model) GetCtx() context.Context {
 	if m.tx != nil && m.tx.GetCtx() != nil {
 		return m.tx.GetCtx()
@@ -223,7 +265,7 @@ func (m *Model) GetCtx() context.Context {
 	return m.db.GetCtx()
 }
 
-// As sets an alias name for current table.
+// As 为当前表设置别名名称。
 func (m *Model) As(as string) *Model {
 	if m.tables != "" {
 		model := m.getModel()
@@ -242,14 +284,14 @@ func (m *Model) As(as string) *Model {
 	return m
 }
 
-// DB sets/changes the db object for current operation.
+// DB 设置/更改当前操作的数据库对象。
 func (m *Model) DB(db DB) *Model {
 	model := m.getModel()
 	model.db = db
 	return model
 }
 
-// TX sets/changes the transaction for current operation.
+// TX 设置/更改当前操作的事务。
 func (m *Model) TX(tx TX) *Model {
 	model := m.getModel()
 	model.db = tx.GetDB()
@@ -257,15 +299,15 @@ func (m *Model) TX(tx TX) *Model {
 	return model
 }
 
-// Schema sets the schema for current operation.
+// 设置当前操作的模式。
 func (m *Model) Schema(schema string) *Model {
 	model := m.getModel()
 	model.schema = schema
 	return model
 }
 
-// Clone creates and returns a new model which is a Clone of current model.
-// Note that it uses deep-copy for the Clone.
+// Clone 创建并返回一个新的模型，该模型是当前模型的克隆版本。
+// 注意，它使用深度复制进行克隆。
 func (m *Model) Clone() *Model {
 	newModel := (*Model)(nil)
 	if m.tx != nil {
@@ -273,12 +315,12 @@ func (m *Model) Clone() *Model {
 	} else {
 		newModel = m.db.Model(m.tablesInit)
 	}
-	// Basic attributes copy.
+	// 基础属性复制
 	*newModel = *m
-	// WhereBuilder copy, note the attribute pointer.
+	// WhereBuilder 复制，注意属性指针。
 	newModel.whereBuilder = m.whereBuilder.Clone()
 	newModel.whereBuilder.model = newModel
-	// Shallow copy slice attributes.
+	// 浅复制切片属性。
 	if n := len(m.extraArgs); n > 0 {
 		newModel.extraArgs = make([]interface{}, n)
 		copy(newModel.extraArgs, m.extraArgs)
@@ -290,23 +332,22 @@ func (m *Model) Clone() *Model {
 	return newModel
 }
 
-// Master marks the following operation on master node.
+// Master 标识以下操作将在主节点上执行。
 func (m *Model) Master() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeMaster
 	return model
 }
 
-// Slave marks the following operation on slave node.
-// Note that it makes sense only if there's any slave node configured.
+// Slave 标记在从属节点上执行的后续操作。
+// 注意，只有在配置了从属节点时才有意义。
 func (m *Model) Slave() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeSlave
 	return model
 }
 
-// Safe marks this model safe or unsafe. If safe is true, it clones and returns a new model object
-// whenever the operation done, or else it changes the attribute of current model.
+// Safe 用于标记该模型为安全或不安全。如果 safe 为 true，则在每次操作完成后都会克隆并返回一个新的模型对象；否则，它会改变当前模型的属性。
 func (m *Model) Safe(safe ...bool) *Model {
 	if len(safe) > 0 {
 		m.safe = safe[0]
@@ -316,7 +357,7 @@ func (m *Model) Safe(safe ...bool) *Model {
 	return m
 }
 
-// Args sets custom arguments for model operation.
+// Args 设置模型操作的自定义参数。
 func (m *Model) Args(args ...interface{}) *Model {
 	model := m.getModel()
 	model.extraArgs = append(model.extraArgs, args)
@@ -324,7 +365,7 @@ func (m *Model) Args(args ...interface{}) *Model {
 }
 
 // Handler calls each of `handlers` on current Model and returns a new Model.
-// ModelHandler is a function that handles given Model and returns a new Model that is custom modified.
+// ModelHandler 是一个函数，用于处理给定的 Model，并返回一个经过自定义修改的新 Model。
 func (m *Model) Handler(handlers ...ModelHandler) *Model {
 	model := m.getModel()
 	for _, handler := range handlers {

@@ -1,20 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gredis
-
 import (
 	"context"
 	"time"
-
-	"coding.net/gogit/go/goframe/container/gvar"
-)
-
-// IGroupGeneric manages generic redis operations.
-// Implements see redis.GroupGeneric.
+	
+	"github.com/888go/goframe/container/gvar"
+	)
+// IGroupGeneric 管理通用的 Redis 操作。
+// 实现请参考 redis.GroupGeneric。
 type IGroupGeneric interface {
 	Copy(ctx context.Context, source, destination string, option ...CopyOption) (int64, error)
 	Exists(ctx context.Context, keys ...string) (int64, error)
@@ -40,23 +37,23 @@ type IGroupGeneric interface {
 	PTTL(ctx context.Context, key string) (int64, error)
 }
 
-// CopyOption provides options for function Copy.
+// CopyOption 提供函数 Copy 的选项。
 type CopyOption struct {
-	DB      int  // DB option allows specifying an alternative logical database index for the destination key.
-	REPLACE bool // REPLACE option removes the destination key before copying the value to it.
+	DB      int  // DB选项允许为目标键指定一个替代的逻辑数据库索引。
+	REPLACE bool // REPLACE 选项在复制值到目标键之前会先移除该目标键。
 }
 
 type FlushOp string
 
 const (
-	FlushAsync FlushOp = "ASYNC" // ASYNC: flushes the databases asynchronously
-	FlushSync  FlushOp = "SYNC"  // SYNC: flushes the databases synchronously
+	FlushAsync FlushOp = "ASYNC" // 异步: 异步地刷新数据库
+	FlushSync  FlushOp = "SYNC"  // SYNC: 同步刷新数据库
 )
 
-// ExpireOption provides options for function Expire.
+// ExpireOption 提供了用于 Expire 函数的选项。
 type ExpireOption struct {
-	NX bool // NX -- Set expiry only when the key has no expiry
-	XX bool // XX -- Set expiry only when the key has an existing expiry
-	GT bool // GT -- Set expiry only when the new expiry is greater than current one
-	LT bool // LT -- Set expiry only when the new expiry is less than current one
+	NX bool // NX -- 当键未设置过期时间时，才设置过期时间
+	XX bool // XX -- 只在键已存在有效期时设置过期时间
+	GT bool // GT -- 当新的过期时间大于当前过期时间时，才设置过期时间
+	LT bool // LT -- 当新的过期时间小于当前过期时间时，才设置过期时间
 }

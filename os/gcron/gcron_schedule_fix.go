@@ -1,19 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gcron
-
 import (
 	"context"
 	"time"
-
-	"coding.net/gogit/go/goframe/internal/intlog"
-)
-
-// getAndUpdateLastTimestamp checks fixes and returns the last timestamp that have delay fix in some seconds.
+	
+	"github.com/888go/goframe/internal/intlog"
+	)
+// getAndUpdateLastTimestamp 检查并更新修复时间戳，返回在某些秒数内具有延迟修复的最后一个时间戳。
 func (s *cronSchedule) getAndUpdateLastTimestamp(ctx context.Context, t time.Time) int64 {
 	var (
 		currentTimestamp = t.Unix()
@@ -34,7 +32,7 @@ func (s *cronSchedule) getAndUpdateLastTimestamp(ctx context.Context, t time.Tim
 		lastTimestamp += 1
 
 	default:
-		// Too much delay, let's update the last timestamp to current one.
+		// 延迟过长，让我们将最后的时间戳更新为当前时间戳。
 		intlog.Printf(
 			ctx,
 			`too much delay, last timestamp "%d", current "%d"`,

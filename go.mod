@@ -1,4 +1,4 @@
-module coding.net/gogit/go/goframe
+module github.com/888go/goframe
 
 go 1.18
 

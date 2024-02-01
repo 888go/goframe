@@ -1,35 +1,32 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
-
 import (
 	"time"
-
-	"coding.net/gogit/go/goframe/container/gset"
-	"coding.net/gogit/go/goframe/internal/empty"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/text/gregex"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/gutil"
-)
-
-// QuoteWord checks given string `s` a word,
-// if true it quotes `s` with security chars of the database
-// and returns the quoted string; or else it returns `s` without any change.
+	
+	"github.com/888go/goframe/container/gset"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gutil"
+	)
+// 2024-01-09 改成内部方法,此方法属于底层, 几乎用不到.
+// QuoteWord 检查给定字符串 `s` 是否为一个单词，
+// 如果是，它会使用数据库的安全字符对 `s` 进行引用，并返回引述后的字符串；
+// 否则，它将直接返回未经修改的 `s`。
 //
-// The meaning of a `word` can be considered as a column name.
+// 这里的“单词”可以理解为列名。
 func (m *Model) QuoteWord(s string) string {
 	return m.db.GetCore().QuoteWord(s)
 }
 
-// TableFields retrieves and returns the fields' information of specified table of current
-// schema.
+// TableFields 获取并返回当前模式下指定表的字段信息。
 //
-// Also see DriverMysql.TableFields.
+// 另请参阅 DriverMysql.TableFields。
 func (m *Model) TableFields(tableStr string, schema ...string) (fields map[string]*TableField, err error) {
 	var (
 		table      = m.db.GetCore().guessPrimaryTableName(tableStr)
@@ -38,8 +35,7 @@ func (m *Model) TableFields(tableStr string, schema ...string) (fields map[strin
 	return m.db.TableFields(m.GetCtx(), table, usedSchema)
 }
 
-// getModel creates and returns a cloned model of current model if `safe` is true, or else it returns
-// the current model.
+// getModel函数如果`safe`为真，则创建并返回当前模型的一个克隆副本，否则直接返回当前模型。
 func (m *Model) getModel() *Model {
 	if !m.safe {
 		return m
@@ -48,8 +44,8 @@ func (m *Model) getModel() *Model {
 	}
 }
 
-// mappingAndFilterToTableFields mappings and changes given field name to really table field name.
-// Eg:
+// mappingAndFilterToTableFields 将给定的字段名映射并转换为实际的数据库表字段名。
+// 例如：
 // ID        -> id
 // NICK_Name -> nickname.
 func (m *Model) mappingAndFilterToTableFields(table string, fields []string, filter bool) []string {
@@ -79,7 +75,7 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 	for _, field := range inputFieldsArray {
 		if _, ok := fieldsKeyMap[field]; !ok {
 			if !gregex.IsMatchString(regularFieldNameWithoutDotRegPattern, field) {
-				// Eg: user.id, user.name
+				// 示例：user.id, user.name
 				outputFieldsArray = append(outputFieldsArray, field)
 				continue
 			} else {
@@ -97,8 +93,8 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 	return outputFieldsArray
 }
 
-// filterDataForInsertOrUpdate does filter feature with data for inserting/updating operations.
-// Note that, it does not filter list item, which is also type of map, for "omit empty" feature.
+// filterDataForInsertOrUpdate 对用于插入/更新操作的数据执行过滤功能。
+// 注意，它不针对“忽略空值”特性过滤列表项（该列表项也是映射类型）。
 func (m *Model) filterDataForInsertOrUpdate(data interface{}) (interface{}, error) {
 	var err error
 	switch value := data.(type) {
@@ -123,8 +119,8 @@ func (m *Model) filterDataForInsertOrUpdate(data interface{}) (interface{}, erro
 	}
 }
 
-// doMappingAndFilterForInsertOrUpdateDataMap does the filter features for map.
-// Note that, it does not filter list item, which is also type of map, for "omit empty" feature.
+// doMappingAndFilterForInsertOrUpdateDataMap 对 map 执行映射和过滤功能。
+// 注意，对于“忽略空值”特性，它不会过滤列表项（其类型也为 map）。
 func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEmpty bool) (Map, error) {
 	var err error
 	data, err = m.db.GetCore().mappingAndFilterData(
@@ -133,7 +129,7 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 	if err != nil {
 		return nil, err
 	}
-	// Remove key-value pairs of which the value is nil.
+	// 删除值为nil的键值对。
 	if allowOmitEmpty && m.option&optionOmitNilData > 0 {
 		tempMap := make(Map, len(data))
 		for k, v := range data {
@@ -145,14 +141,14 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 		data = tempMap
 	}
 
-	// Remove key-value pairs of which the value is empty.
+	// 删除值为空的键值对。
 	if allowOmitEmpty && m.option&optionOmitEmptyData > 0 {
 		tempMap := make(Map, len(data))
 		for k, v := range data {
 			if empty.IsEmpty(v) {
 				continue
 			}
-			// Special type filtering.
+			// 特殊类型过滤
 			switch r := v.(type) {
 			case time.Time:
 				if r.IsZero() {
@@ -177,7 +173,7 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 	}
 
 	if len(m.fields) > 0 && m.fields != "*" {
-		// Keep specified fields.
+		// 保留指定字段。
 		var (
 			set          = gset.NewStrSetFrom(gstr.SplitAndTrim(m.fields, ","))
 			charL, charR = m.db.GetChars()
@@ -193,7 +189,7 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 			}
 		}
 	} else if len(m.fieldsEx) > 0 {
-		// Filter specified fields.
+		// 过滤指定字段。
 		for _, v := range gstr.SplitAndTrim(m.fieldsEx, ",") {
 			delete(data, v)
 		}
@@ -201,8 +197,8 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 	return data, nil
 }
 
-// getLink returns the underlying database link object with configured `linkType` attribute.
-// The parameter `master` specifies whether using the master node if master-slave configured.
+// getLink 返回配置了 `linkType` 属性的基础数据库连接对象。
+// 参数 `master` 指定在主从配置时是否使用主节点。
 func (m *Model) getLink(master bool) Link {
 	if m.tx != nil {
 		return &txLink{m.tx.GetSqlTX()}
@@ -232,9 +228,9 @@ func (m *Model) getLink(master bool) Link {
 	return nil
 }
 
-// getPrimaryKey retrieves and returns the primary key name of the model table.
-// It parses m.tables to retrieve the primary table name, supporting m.tables like:
-// "user", "user u", "user as u, user_detail as ud".
+// getPrimaryKey 获取并返回模型表的主键名称。
+// 它通过解析 m.tables 来检索主表名，支持如下形式的 m.tables：
+// "user", "user u", "user as u, user_detail as ud"。
 func (m *Model) getPrimaryKey() string {
 	table := gstr.SplitAndTrim(m.tablesInit, " ")[0]
 	tableFields, err := m.TableFields(table)
@@ -249,7 +245,7 @@ func (m *Model) getPrimaryKey() string {
 	return ""
 }
 
-// mergeArguments creates and returns new arguments by merging `m.extraArgs` and given `args`.
+// mergeArguments通过合并`m.extraArgs`和给定的`args`创建并返回新的参数。
 func (m *Model) mergeArguments(args []interface{}) []interface{} {
 	if len(m.extraArgs) > 0 {
 		newArgs := make([]interface{}, len(m.extraArgs)+len(args))

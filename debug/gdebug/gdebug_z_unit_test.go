@@ -1,16 +1,15 @@
 package gdebug_test
-
 import (
 	"testing"
-
-	"coding.net/gogit/go/goframe/debug/gdebug"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/text/gstr"
-)
+	
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	)
 
 func Test_CallerPackage(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gdebug.CallerPackage(), "github.com/gogf/gf/v2/test/gtest")
+		t.Assert(gdebug.CallerPackage(), "github.com/888go/goframe/test/gtest")
 	})
 }
 
@@ -46,7 +45,7 @@ func Test_CallerFileLineShort(t *testing.T) {
 
 func Test_FuncPath(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gdebug.FuncPath(Test_FuncPath), "github.com/gogf/gf/v2/debug/gdebug_test.Test_FuncPath")
+		t.Assert(gdebug.FuncPath(Test_FuncPath), "github.com/888go/goframe/debug/gdebug_test.Test_FuncPath")
 	})
 }
 

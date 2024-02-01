@@ -1,31 +1,27 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package intlog provides internal logging for GoFrame development usage only.
+// Package intlog 提供内部日志功能，仅用于 GoFrame 开发使用。
 package intlog
-
 import (
 	"bytes"
 	"context"
 	"fmt"
 	"path/filepath"
 	"time"
-
+	
 	"go.opentelemetry.io/otel/trace"
-
-	"coding.net/gogit/go/goframe/debug/gdebug"
-	"coding.net/gogit/go/goframe/internal/utils"
-)
-
+	
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/internal/utils"
+	)
 const (
 	stackFilterKey = "/internal/intlog"
 )
 
-// Print prints `v` with newline using fmt.Println.
-// The parameter `v` can be multiple variables.
+// Print 通过 fmt.Println 打印 `v`（并附带换行）。参数 `v` 可以是多个变量。
 func Print(ctx context.Context, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -33,8 +29,10 @@ func Print(ctx context.Context, v ...interface{}) {
 	doPrint(ctx, fmt.Sprint(v...), false)
 }
 
-// Printf prints `v` with format `format` using fmt.Printf.
-// The parameter `v` can be multiple variables.
+// Printf 使用 fmt.Printf 格式化并打印 `v`。其中参数 `v` 可以是多个变量。
+// ```go
+// Printf 函数通过 fmt.Printf 格式化输出 `v`。
+// 注意，这里的 `v` 参数可以接受多个变量。
 func Printf(ctx context.Context, format string, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -42,8 +40,7 @@ func Printf(ctx context.Context, format string, v ...interface{}) {
 	doPrint(ctx, fmt.Sprintf(format, v...), false)
 }
 
-// Error prints `v` with newline using fmt.Println.
-// The parameter `v` can be multiple variables.
+// Error 使用 fmt.Println 打印 `v`（并附带换行）。参数 `v` 可以是多个变量。
 func Error(ctx context.Context, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -51,7 +48,7 @@ func Error(ctx context.Context, v ...interface{}) {
 	doPrint(ctx, fmt.Sprint(v...), true)
 }
 
-// Errorf prints `v` with format `format` using fmt.Printf.
+// Errorf使用fmt.Printf格式化方式打印变量v，格式字符串为format。
 func Errorf(ctx context.Context, format string, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -59,8 +56,8 @@ func Errorf(ctx context.Context, format string, v ...interface{}) {
 	doPrint(ctx, fmt.Sprintf(format, v...), true)
 }
 
-// PrintFunc prints the output from function `f`.
-// It only calls function `f` if debug mode is enabled.
+// PrintFunc 用于打印函数 `f` 的输出结果。
+// 只有在调试模式开启时，才会调用函数 `f`。
 func PrintFunc(ctx context.Context, f func() string) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -72,8 +69,8 @@ func PrintFunc(ctx context.Context, f func() string) {
 	doPrint(ctx, s, false)
 }
 
-// ErrorFunc prints the output from function `f`.
-// It only calls function `f` if debug mode is enabled.
+// ErrorFunc 用于打印函数 `f` 的输出结果。
+// 只有在调试模式开启的情况下，才会调用函数 `f`。
 func ErrorFunc(ctx context.Context, f func() string) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -106,7 +103,7 @@ func doPrint(ctx context.Context, content string, stack bool) {
 	fmt.Print(buffer.String())
 }
 
-// traceIdStr retrieves and returns the trace id string for logging output.
+// traceIdStr 用于获取并返回日志输出的追踪ID字符串。
 func traceIdStr(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -118,7 +115,7 @@ func traceIdStr(ctx context.Context) string {
 	return ""
 }
 
-// file returns caller file name along with its line number.
+// file 返回调用文件名及其行号。
 func file() string {
 	_, p, l := gdebug.CallerWithFilter([]string{stackFilterKey})
 	return fmt.Sprintf(`%s:%d`, filepath.Base(p), l)

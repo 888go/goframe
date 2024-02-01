@@ -1,20 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gcrc32 provides useful API for CRC32 encryption algorithms.
+// Package gcrc32 提供了用于 CRC32 加密算法的有用 API。
 package gcrc32
-
 import (
 	"hash/crc32"
-
-	"coding.net/gogit/go/goframe/util/gconv"
-)
-
-// Encrypt encrypts any type of variable using CRC32 algorithms.
-// It uses gconv package to convert `v` to its bytes type.
+	
+	"github.com/888go/goframe/util/gconv"
+	)
+// Encrypt 使用CRC32算法对任意类型的变量进行加密。
+// 它使用gconv包将`v`转换为字节类型。
 func Encrypt(v interface{}) uint32 {
 	return crc32.ChecksumIEEE(gconv.Bytes(v))
 }

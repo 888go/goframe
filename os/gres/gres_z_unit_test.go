@@ -1,23 +1,22 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gres_test
-
 import (
-	_ "coding.net/gogit/go/goframe/os/gres/testdata/data"
-
+	_ "github.com/888go/goframe/os/gres/testdata/data"
+	
 	"strings"
 	"testing"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/os/gfile"
-	"coding.net/gogit/go/goframe/os/gres"
-	"coding.net/gogit/go/goframe/os/gtime"
-	"coding.net/gogit/go/goframe/test/gtest"
-)
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gres"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	)
 
 func Test_PackFolderToGoFile(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {

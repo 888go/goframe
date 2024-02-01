@@ -1,26 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp_test
-
 import (
 	"bytes"
 	"fmt"
 	"sync"
 	"testing"
 	"time"
-
-	"coding.net/gogit/go/goframe/frame/g"
-	"coding.net/gogit/go/goframe/net/ghttp"
-	"coding.net/gogit/go/goframe/os/glog"
-	"coding.net/gogit/go/goframe/test/gtest"
-	"coding.net/gogit/go/goframe/text/gstr"
-	"coding.net/gogit/go/goframe/util/guid"
-)
-
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/guid"
+	)
 // 执行对象
 type GroupObject struct{}
 
@@ -168,7 +165,7 @@ func Test_Router_Group_Map(t *testing.T) {
 			"Post:/test": testFuncPost,
 		})
 	})
-	//s.SetDumpRouterMap(false)
+	// s.SetDumpRouterMap(false) // 设置s（通常是一个HTTP服务器或路由器）不输出路由映射信息
 	gtest.Assert(s.Start(), nil)
 	defer s.Shutdown()
 

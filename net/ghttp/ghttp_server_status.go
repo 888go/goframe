@@ -1,16 +1,13 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
-
 import (
 	"fmt"
-)
-
-// getStatusHandler retrieves and returns the handler for given status code.
+	)
+// getStatusHandler根据给定的状态码获取并返回处理程序。
 func (s *Server) getStatusHandler(status int, r *Request) []HandlerFunc {
 	domains := []string{r.GetHost(), DefaultDomainName}
 	for _, domain := range domains {
@@ -21,8 +18,8 @@ func (s *Server) getStatusHandler(status int, r *Request) []HandlerFunc {
 	return nil
 }
 
-// addStatusHandler sets the handler for given status code.
-// The parameter `pattern` is like: domain#status
+// addStatusHandler 为给定的状态码设置处理器。
+// 参数 `pattern` 形如：domain#status
 func (s *Server) addStatusHandler(pattern string, handler HandlerFunc) {
 	if s.statusHandlerMap[pattern] == nil {
 		s.statusHandlerMap[pattern] = make([]HandlerFunc, 0)
@@ -30,17 +27,17 @@ func (s *Server) addStatusHandler(pattern string, handler HandlerFunc) {
 	s.statusHandlerMap[pattern] = append(s.statusHandlerMap[pattern], handler)
 }
 
-// statusHandlerKey creates and returns key for given status and domain.
+// statusHandlerKey 为给定的状态和域名创建并返回一个键。
 func (s *Server) statusHandlerKey(status int, domain string) string {
 	return fmt.Sprintf("%s#%d", domain, status)
 }
 
-// BindStatusHandler registers handler for given status code.
+// BindStatusHandler 为给定的状态码注册处理器。
 func (s *Server) BindStatusHandler(status int, handler HandlerFunc) {
 	s.addStatusHandler(s.statusHandlerKey(status, DefaultDomainName), handler)
 }
 
-// BindStatusHandlerByMap registers handler for given status code using map.
+// BindStatusHandlerByMap 通过映射注册给定状态码的处理器。
 func (s *Server) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc) {
 	for k, v := range handlerMap {
 		s.BindStatusHandler(k, v)

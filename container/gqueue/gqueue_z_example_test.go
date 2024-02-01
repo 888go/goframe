@@ -1,19 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gqueue_test
-
 import (
 	"context"
 	"fmt"
 	"time"
-
-	"coding.net/gogit/go/goframe/container/gqueue"
-	"coding.net/gogit/go/goframe/os/gtimer"
-)
+	
+	"github.com/888go/goframe/container/gqueue"
+	"github.com/888go/goframe/os/gtimer"
+	)
 
 func ExampleNew() {
 	n := 10
@@ -24,26 +22,26 @@ func ExampleNew() {
 		q.Push(i)
 	}
 
-	// Close the queue in three seconds.
+	// 在三秒钟后关闭队列。
 	gtimer.SetTimeout(context.Background(), time.Second*3, func(ctx context.Context) {
 		q.Close()
 	})
 
-	// The consumer constantly reads the queue data.
-	// If there is no data in the queue, it will block.
-	// The queue is read using the queue.C property exposed
-	// by the queue object and the selectIO multiplexing syntax
-	// example:
-	// for {
-	//    select {
-	//        case v := <-queue.C:
-	//            if v != nil {
-	//                fmt.Println(v)
-	//            } else {
-	//                return
-	//            }
-	//    }
-	// }
+// 消费者持续读取队列中的数据。
+// 如果队列中没有数据，则会阻塞等待。
+// 通过队列对象公开的queue.C属性来读取队列，
+// 并使用selectIO多路复用语法进行操作。
+// 示例代码如下：
+// for {
+//     select {
+//         case v := <-queue.C: // 从队列channel接收数据
+//             if v != nil { // 若接收到的数据不为空
+//                 fmt.Println(v) // 输出接收到的数据
+//             } else { // 若接收到的数据为空
+//                 return // 则退出循环（或程序）
+//             }
+//     }
+// }
 	for {
 		if v := q.Pop(); v != nil {
 			fmt.Print(v)
@@ -125,7 +123,7 @@ func ExampleQueue_Size() {
 	q.Push(1)
 	q.Push(2)
 
-	// Size is alias of Len.
+	// Size 是 Len 的别名。
 	fmt.Println(q.Size())
 
 	// May Output:

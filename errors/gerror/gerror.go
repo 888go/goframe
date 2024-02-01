@@ -1,63 +1,59 @@
-// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame gf 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
 
-// Package gerror provides rich functionalities to manipulate errors.
+// Package gerror 提供了丰富的错误处理功能。
 //
-// For maintainers, please very note that,
-// this package is quite a basic package, which SHOULD NOT import extra packages
-// except standard packages and internal packages, to avoid cycle imports.
+// 维护者请注意，
+// 该包是一个基础包，除标准库和内部包外，**不应该**引入额外的包，以避免循环导入问题。
 package gerror
-
 import (
-	"coding.net/gogit/go/goframe/errors/gcode"
-)
-
-// IIs is the interface for Is feature.
+	"github.com/888go/goframe/errors/gcode"
+	)
+// IIs 是 Is 特性的接口。
 type IIs interface {
 	Error() string
 	Is(target error) bool
 }
 
-// IEqual is the interface for Equal feature.
+// IEqual 是用于 Equal 功能的接口。
 type IEqual interface {
 	Error() string
 	Equal(target error) bool
 }
 
-// ICode is the interface for Code feature.
+// ICode是Code功能的接口。
 type ICode interface {
 	Error() string
 	Code() gcode.Code
 }
 
-// IStack is the interface for Stack feature.
+// IStack 是 Stack 功能的接口。
 type IStack interface {
 	Error() string
 	Stack() string
 }
 
-// ICause is the interface for Cause feature.
+// ICause 是 Cause 功能的接口。
 type ICause interface {
 	Error() string
 	Cause() error
 }
 
-// ICurrent is the interface for Current feature.
+// ICurrent 是用于“当前特性”的接口。
 type ICurrent interface {
 	Error() string
 	Current() error
 }
 
-// IUnwrap is the interface for Unwrap feature.
+// IUnwrap 是用于 Unwrap 功能的接口。
 type IUnwrap interface {
 	Error() string
 	Unwrap() error
 }
 
 const (
-	// commaSeparatorSpace is the comma separator with space.
+	// commaSeparatorSpace 是带空格的逗号分隔符。
 	commaSeparatorSpace = ", "
 )
