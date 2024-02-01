@@ -1,15 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gspath 实现了文件索引和目录搜索功能。
+// Package gspath implements file index and search for folders.
 //
-// 它按照目录添加的顺序，内部高效地进行文件搜索。
-// 注意：
-// 如果启用了缓存功能，在添加或删除文件后，会有一个搜索延迟。
+// It searches file internally with high performance in order by the directory adding sequence.
+// Note that:
+// If caching feature enabled, there would be a searching delay after adding/deleting files.
 package gspath
+
 import (
 	"context"
 	"os"
@@ -23,25 +24,26 @@ import (
 	"github.com/888go/goframe/internal/intlog"
 	"github.com/888go/goframe/os/gfile"
 	"github.com/888go/goframe/text/gstr"
-	)
-// SPath 管理路径搜索功能。
+)
+
+// SPath manages the path searching feature.
 type SPath struct {
-	paths *garray.StrArray // 搜索目录的数组。
+	paths *garray.StrArray // The searching directories array.
 	cache *gmap.StrStrMap  // Searching cache map, it is not enabled if it's nil.
 }
 
-// SPathCacheItem 是一个用于搜索的缓存项。
+// SPathCacheItem is a cache item for searching.
 type SPathCacheItem struct {
-	path  string // 绝对路径（文件/目录）
-	isDir bool   // 是否是目录。
+	path  string // Absolute path for file/dir.
+	isDir bool   // Is directory or not.
 }
 
 var (
-	// 对象映射的搜索路径，用于实例管理。
+	// Path to searching object mapping, used for instance management.
 	pathsMap = gmap.NewStrAnyMap(true)
 )
 
-// New 创建并返回一个新的路径搜索管理器。
+// New creates and returns a new path searching manager.
 func New(path string, cache bool) *SPath {
 	sp := &SPath{
 		paths: garray.NewStrArray(true),
@@ -57,10 +59,10 @@ func New(path string, cache bool) *SPath {
 	return sp
 }
 
-// Get根据给定路径创建并返回一个搜索管理器实例。
-// 参数`cache`用于指定此管理器是否启用缓存功能。
-// 如果启用了缓存功能，它会异步地递归扫描该路径，
-// 并使用gfsnotify包更新所有子文件/文件夹到缓存中。
+// Get creates and returns an instance of searching manager for given path.
+// The parameter `cache` specifies whether using cache feature for this manager.
+// If cache feature is enabled, it asynchronously and recursively scans the path
+// and updates all sub files/folders to the cache using package gfsnotify.
 func Get(root string, cache bool) *SPath {
 	if root == "" {
 		root = "/"
@@ -70,25 +72,29 @@ func Get(root string, cache bool) *SPath {
 	}).(*SPath)
 }
 
-// Search 在路径 `root` 下搜索文件 `name`。
-// 参数 `root` 应为一个绝对路径。出于性能考虑，它不会自动将 `root` 转换为绝对路径。
-// 可选参数 `indexFiles` 指定了在结果是目录时要搜索的索引文件列表。
-// 例如，如果结果 `filePath` 是一个目录，并且 `indexFiles` 是 [index.html, main.html]，那么它还会在 `filePath` 下搜索 [index.html, main.html]。
-// 如果找到其中任意一个文件，它将返回该文件的绝对路径，否则返回 `filePath`。
+// Search searches file `name` under path `root`.
+// The parameter `root` should be an absolute path. It will not automatically
+// convert `root` to absolute path for performance reason.
+// The optional parameter `indexFiles` specifies the searching index files when the result is a directory.
+// For example, if the result `filePath` is a directory, and `indexFiles` is [index.html, main.html], it will also
+// search [index.html, main.html] under `filePath`. It returns the absolute file path if any of them found,
+// or else it returns `filePath`.
 func Search(root string, name string, indexFiles ...string) (filePath string, isDir bool) {
 	return Get(root, false).Search(name, indexFiles...)
 }
 
-// SearchWithCache 在启用缓存功能的情况下，搜索路径`root`下的文件`name`。
-// 参数`root`应为绝对路径。出于性能考虑，它不会自动将`root`转换为绝对路径。
-// 可选参数`indexFiles`用于指定当结果是目录时要搜索的索引文件。
-// 例如，如果结果`filePath`是一个目录，并且`indexFiles`为[index.html, main.html]，那么它还会在`filePath`下搜索[index.html, main.html]。
-// 如果找到其中任何一个文件，则返回该绝对文件路径，否则返回`filePath`。
+// SearchWithCache searches file `name` under path `root` with cache feature enabled.
+// The parameter `root` should be an absolute path. It will not automatically
+// convert `root` to absolute path for performance reason.
+// The optional parameter `indexFiles` specifies the searching index files when the result is a directory.
+// For example, if the result `filePath` is a directory, and `indexFiles` is [index.html, main.html], it will also
+// search [index.html, main.html] under `filePath`. It returns the absolute file path if any of them found,
+// or else it returns `filePath`.
 func SearchWithCache(root string, name string, indexFiles ...string) (filePath string, isDir bool) {
 	return Get(root, true).Search(name, indexFiles...)
 }
 
-// Set 删除所有其他搜索目录，并为此管理器设置搜索目录。
+// Set deletes all other searching directories and sets the searching directory for this manager.
 func (sp *SPath) Set(path string) (realPath string, err error) {
 	realPath = gfile.RealPath(path)
 	if realPath == "" {
@@ -100,7 +106,7 @@ func (sp *SPath) Set(path string) (realPath string, err error) {
 	if realPath == "" {
 		return realPath, gerror.NewCodef(gcode.CodeInvalidParameter, `path "%s" does not exist`, path)
 	}
-	// 设置的路径必须是一个目录。
+	// The set path must be a directory.
 	if gfile.IsDir(realPath) {
 		realPath = strings.TrimRight(realPath, gfile.Separator)
 		if sp.paths.Search(realPath) != -1 {
@@ -122,8 +128,8 @@ func (sp *SPath) Set(path string) (realPath string, err error) {
 	}
 }
 
-// Add 向管理器添加更多搜索目录。
-// 管理器将按照添加顺序搜索文件。
+// Add adds more searching directory to the manager.
+// The manager will search file in added order.
 func (sp *SPath) Add(path string) (realPath string, err error) {
 	realPath = gfile.RealPath(path)
 	if realPath == "" {
@@ -135,10 +141,10 @@ func (sp *SPath) Add(path string) (realPath string, err error) {
 	if realPath == "" {
 		return realPath, gerror.NewCodef(gcode.CodeInvalidParameter, `path "%s" does not exist`, path)
 	}
-	// 添加的路径必须是一个目录。
+	// The added path must be a directory.
 	if gfile.IsDir(realPath) {
-// fmt.Println("gspath:", realPath, sp.paths.Search(realPath)) // 输出gspath:（realPath的值），以及sp.paths在realPath路径下搜索的结果
-// 同一目录不会被重复添加两次。
+		// fmt.Println("gspath:", realPath, sp.paths.Search(realPath))
+		// It will not add twice for the same directory.
 		if sp.paths.Search(realPath) < 0 {
 			realPath = strings.TrimRight(realPath, gfile.Separator)
 			sp.paths.Append(realPath)
@@ -151,11 +157,11 @@ func (sp *SPath) Add(path string) (realPath string, err error) {
 	}
 }
 
-// Search 在manager中搜索文件`name`。
-// 可选参数`indexFiles`指定了当结果为目录时需要搜索的索引文件。
-// 例如，如果结果`filePath`是一个目录，并且`indexFiles`是[index.html, main.html]，
-// 它还会在`filePath`下搜索[index.html, main.html]。如果有任何一项被找到，它将返回该绝对文件路径，
-// 否则返回`filePath`。
+// Search searches file `name` in the manager.
+// The optional parameter `indexFiles` specifies the searching index files when the result is a directory.
+// For example, if the result `filePath` is a directory, and `indexFiles` is [index.html, main.html], it will also
+// search [index.html, main.html] under `filePath`. It returns the absolute file path if any of them found,
+// or else it returns `filePath`.
 func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isDir bool) {
 	// No cache enabled.
 	if sp.cache == nil {
@@ -165,7 +171,7 @@ func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isD
 				path = gfile.Join(v, name)
 				if stat, err := os.Stat(path); stat != nil && !os.IsNotExist(err) {
 					path = gfile.Abs(path)
-					// 安全检查：结果文件路径必须在搜索目录下。
+					// Security check: the result file path must be under the searching directory.
 					if len(path) >= len(v) && path[:len(v)] == v {
 						filePath = path
 						isDir = stat.IsDir()
@@ -190,7 +196,7 @@ func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isD
 		}
 		return
 	}
-	// 使用缓存功能。
+	// Using cache feature.
 	name = sp.formatCacheName(name)
 	if v := sp.cache.Get(name); v != "" {
 		filePath, isDir = sp.parseCacheValue(v)
@@ -208,8 +214,8 @@ func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isD
 	return
 }
 
-// Remove 从管理器的缓存文件中删除指定`path`。
-// 参数`path`可以是绝对路径，也可以只是一个相对文件名。
+// Remove deletes the `path` from cache files of the manager.
+// The parameter `path` can be either an absolute path or just a relative file name.
 func (sp *SPath) Remove(path string) {
 	if sp.cache == nil {
 		return
@@ -226,12 +232,12 @@ func (sp *SPath) Remove(path string) {
 	}
 }
 
-// Paths 返回所有搜索目录。
+// Paths returns all searching directories.
 func (sp *SPath) Paths() []string {
 	return sp.paths.Slice()
 }
 
-// AllPaths 返回缓存在manager中的所有路径。
+// AllPaths returns all paths cached in the manager.
 func (sp *SPath) AllPaths() []string {
 	if sp.cache == nil {
 		return nil
@@ -243,7 +249,7 @@ func (sp *SPath) AllPaths() []string {
 	return paths
 }
 
-// Size 返回搜索目录的数量。
+// Size returns the count of the searching directories.
 func (sp *SPath) Size() int {
 	return sp.paths.Len()
 }

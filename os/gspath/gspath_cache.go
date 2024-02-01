@@ -1,12 +1,14 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gspath 实现了文件索引和对文件夹的搜索功能。
+// Package gspath implements file index and search for folders.
+//
 
 package gspath
+
 import (
 	"runtime"
 	"strings"
@@ -14,8 +16,9 @@ import (
 	"github.com/888go/goframe/os/gfile"
 	"github.com/888go/goframe/os/gfsnotify"
 	"github.com/888go/goframe/text/gstr"
-	)
-// updateCacheByPath 递归地将`path`路径下所有文件添加到缓存中。
+)
+
+// updateCacheByPath adds all files under `path` recursively.
 func (sp *SPath) updateCacheByPath(path string) {
 	if sp.cache == nil {
 		return
@@ -23,9 +26,9 @@ func (sp *SPath) updateCacheByPath(path string) {
 	sp.addToCache(path, path)
 }
 
-// formatCacheName 根据以下规则格式化 `name`：
-// 1. 统一分隔符为字符 '/'。
-// 2. 名称应以 '/' 开头（类似于 HTTP URI）。
+// formatCacheName formats `name` with following rules:
+// 1. The separator is unified to char '/'.
+// 2. The name should be started with '/' (similar as HTTP URI).
 func (sp *SPath) formatCacheName(name string) string {
 	if runtime.GOOS != "linux" {
 		name = gstr.Replace(name, "\\", "/")
@@ -33,14 +36,14 @@ func (sp *SPath) formatCacheName(name string) string {
 	return "/" + strings.Trim(name, "./")
 }
 
-// nameFromPath将`filePath`转换为缓存名称。
+// nameFromPath converts `filePath` to cache name.
 func (sp *SPath) nameFromPath(filePath, rootPath string) string {
 	name := gstr.Replace(filePath, rootPath, "")
 	name = sp.formatCacheName(name)
 	return name
 }
 
-// makeCacheValue将`filePath`格式化为缓存值。
+// makeCacheValue formats `filePath` to cache value.
 func (sp *SPath) makeCacheValue(filePath string, isDir bool) string {
 	if isDir {
 		return filePath + "_D_"
@@ -48,7 +51,7 @@ func (sp *SPath) makeCacheValue(filePath string, isDir bool) string {
 	return filePath + "_F_"
 }
 
-// parseCacheValue 将缓存值解析为文件路径和类型。
+// parseCacheValue parses cache value to file path and type.
 func (sp *SPath) parseCacheValue(value string) (filePath string, isDir bool) {
 	if value[len(value)-2 : len(value)-1][0] == 'F' {
 		return value[:len(value)-3], false
@@ -56,19 +59,19 @@ func (sp *SPath) parseCacheValue(value string) (filePath string, isDir bool) {
 	return value[:len(value)-3], true
 }
 
-// addToCache 将一个项目添加到缓存中。
-// 如果 `filePath` 是一个目录，它还会递归地将该目录下的所有子文件和子目录
-// 一并添加到缓存中。
+// addToCache adds an item to cache.
+// If `filePath` is a directory, it also adds its all sub files/directories recursively
+// to the cache.
 func (sp *SPath) addToCache(filePath, rootPath string) {
-	// 首先对其自身进行加法操作。
+	// Add itself firstly.
 	idDir := gfile.IsDir(filePath)
 	sp.cache.SetIfNotExist(
 		sp.nameFromPath(filePath, rootPath), sp.makeCacheValue(filePath, idDir),
 	)
-	// 如果它是一个目录，那么它会添加其所有子文件/子目录。
+	// If it's a directory, it adds all of its sub files/directories.
 	if idDir {
 		if files, err := gfile.ScanDir(filePath, "*", true); err == nil {
-			// 输出到控制台：gspath添加到缓存中: filePath, files
+			// fmt.Println("gspath add to cache:", filePath, files)
 			for _, path := range files {
 				sp.cache.SetIfNotExist(sp.nameFromPath(path, rootPath), sp.makeCacheValue(path, gfile.IsDir(path)))
 			}
@@ -76,16 +79,17 @@ func (sp *SPath) addToCache(filePath, rootPath string) {
 	}
 }
 
-// addMonitorByPath 递归地添加gfsnotify监控。
-// 当目录下的文件被更新时，缓存会同时得到更新。
-// 注意，由于监听器是递归添加的，如果你删除了一个目录，那么该目录下的所有文件（包括目录本身）
-// 也会生成删除事件。这意味着，如果一个目录被删除且其下有N个文件，则总共会产生N+1个事件。
+// addMonitorByPath adds gfsnotify monitoring recursively.
+// When the files under the directory are updated, the cache will be updated meanwhile.
+// Note that since the listener is added recursively, if you delete a directory, the files (including the directory)
+// under the directory will also generate delete events, which means it will generate N+1 events in total
+// if a directory deleted and there're N files under it.
 func (sp *SPath) addMonitorByPath(path string) {
 	if sp.cache == nil {
 		return
 	}
 	_, _ = gfsnotify.Add(path, func(event *gfsnotify.Event) {
-		// glog.Debug(event.String()) // 使用glog库输出debug级别的日志，内容为event对象转换为字符串后的结果
+		// glog.Debug(event.String())
 		switch {
 		case event.IsRemove():
 			sp.cache.Remove(sp.nameFromPath(event.Path, path))
@@ -101,7 +105,7 @@ func (sp *SPath) addMonitorByPath(path string) {
 	}, true)
 }
 
-// removeMonitorByPath 递归地移除对`path`的gfsnotify监控。
+// removeMonitorByPath removes gfsnotify monitoring of `path` recursively.
 func (sp *SPath) removeMonitorByPath(path string) {
 	if sp.cache == nil {
 		return

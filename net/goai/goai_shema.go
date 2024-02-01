@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package goai
+
 import (
 	"reflect"
 	
@@ -18,8 +19,9 @@ import (
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gmeta"
 	"github.com/888go/goframe/util/gvalid"
-	)
-// Schema遵循OpenAPI/Swagger 3.0标准进行定义。
+)
+
+// Schema is specified by OpenAPI/Swagger 3.0 standard.
 type Schema struct {
 	OneOf                SchemaRefs     `json:"oneOf,omitempty"`
 	AnyOf                SchemaRefs     `json:"anyOf,omitempty"`
@@ -61,8 +63,8 @@ type Schema struct {
 	ValidationRules      string         `json:"-"`
 }
 
-// Clone仅克隆必要的属性。
-// TODO：克隆所有属性，或改进包deepcopy。
+// Clone only clones necessary attributes.
+// TODO clone all attributes, or improve package deepcopy.
 func (s *Schema) Clone() *Schema {
 	newSchema := *s
 	newSchema.Required = make([]string, len(s.Required))
@@ -77,7 +79,7 @@ func (s Schema) MarshalJSON() ([]byte, error) {
 		m   map[string]json.RawMessage
 		err error
 	)
-	type tempSchema Schema // 为防止JSON序列化时出现递归错误
+	type tempSchema Schema // To prevent JSON marshal recursion error.
 	if b, err = json.Marshal(tempSchema(s)); err != nil {
 		return nil, err
 	}
@@ -93,14 +95,14 @@ func (s Schema) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// Discriminator 是由 OpenAPI/Swagger 3.0 标准指定的。
+// Discriminator is specified by OpenAPI/Swagger standard version 3.0.
 type Discriminator struct {
 	PropertyName string            `json:"propertyName"`
 	Mapping      map[string]string `json:"mapping,omitempty"`
 }
 
-// addSchema 创建包含对象的模式。
-// 注意，`object` 可能是数组别名，例如：`type Res []Item`。
+// addSchema creates schemas with objects.
+// Note that the `object` can be array alias like: `type Res []Item`.
 func (oai *OpenApiV3) addSchema(object ...interface{}) error {
 	for _, v := range object {
 		if err := oai.doAddSchemaSingle(v); err != nil {
@@ -124,7 +126,7 @@ func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 	if oai.Components.Schemas.Get(structTypeName) != nil {
 		return nil
 	}
-	// 首先获取持有者。
+	// Take the holder first.
 	oai.Components.Schemas.Set(structTypeName, SchemaRef{})
 
 	schema, err := oai.structToSchema(object)
@@ -139,7 +141,7 @@ func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 	return nil
 }
 
-// structToSchema将给定的结构体对象转换并返回为Schema。
+// structToSchema converts and returns given struct object as Schema.
 func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 	var (
 		tagMap = gmeta.Data(object)
@@ -228,7 +230,7 @@ func (oai *OpenApiV3) tagMapToSchema(tagMap map[string]string, schema *Schema) e
 		return gerror.Wrap(err, `mapping struct tags to Schema failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, schema.XExtensions)
-	// 将验证信息转换为OpenAPI模式规范
+	// Validation info to OpenAPI schema pattern.
 	for _, tag := range gvalid.GetTags() {
 		if validationTagValue, ok := tagMap[tag]; ok {
 			_, validationRules, _ := gvalid.ParseTagValue(validationTagValue)

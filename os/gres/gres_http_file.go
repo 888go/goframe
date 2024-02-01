@@ -1,22 +1,24 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gres
+
 import (
 	"bytes"
 	"os"
 	
 	"github.com/888go/goframe/errors/gerror"
-	)
-// Close 实现了 http.File 接口的方法。
+)
+
+// Close implements interface of http.File.
 func (f *File) Close() error {
 	return nil
 }
 
-// Readdir 实现了 http.File 接口中的 Readdir 方法。
+// Readdir implements Readdir interface of http.File.
 func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	files := f.resource.ScanDir(f.Name(), "*", false)
 	if len(files) > 0 {
@@ -32,12 +34,12 @@ func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	return nil, nil
 }
 
-// Stat 实现了 http.File 接口的 Stat 方法。
+// Stat implements Stat interface of http.File.
 func (f *File) Stat() (os.FileInfo, error) {
 	return f.FileInfo(), nil
 }
 
-// Read 实现了 io.Reader 接口。
+// Read implements the io.Reader interface.
 func (f *File) Read(b []byte) (n int, err error) {
 	reader, err := f.getReader()
 	if err != nil {
@@ -49,7 +51,7 @@ func (f *File) Read(b []byte) (n int, err error) {
 	return
 }
 
-// Seek 实现了 io.Seeker 接口。
+// Seek implements the io.Seeker interface.
 func (f *File) Seek(offset int64, whence int) (n int64, err error) {
 	reader, err := f.getReader()
 	if err != nil {

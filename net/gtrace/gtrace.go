@@ -1,11 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// gtrace包提供了一种便利的封装功能，用于使用OpenTelemetry进行跟踪特性。
+// Package gtrace provides convenience wrapping functionality for tracing feature using OpenTelemetry.
 package gtrace
+
 import (
 	"context"
 	"os"
@@ -26,21 +27,22 @@ import (
 	"github.com/888go/goframe/net/gtrace/internal/provider"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
+
 const (
 	tracingCommonKeyIpIntranet        = `ip.intranet`
 	tracingCommonKeyIpHostname        = `hostname`
-	commandEnvKeyForMaxContentLogSize = "gf.gtrace.max.content.log.size" // 为了避免跟踪内容过大。
-	commandEnvKeyForTracingInternal   = "gf.gtrace.tracing.internal"     // 用于详细控制跟踪内容。
+	commandEnvKeyForMaxContentLogSize = "gf.gtrace.max.content.log.size" // To avoid too big tracing content.
+	commandEnvKeyForTracingInternal   = "gf.gtrace.tracing.internal"     // For detailed controlling for tracing content.
 )
 
 var (
 	intranetIps, _           = gipv4.GetIntranetIpArray()
 	intranetIpStr            = strings.Join(intranetIps, ",")
 	hostname, _              = os.Hostname()
-	tracingInternal          = true       // tracingInternal 开启内部类型跨度的追踪功能。
-	tracingMaxContentLogSize = 512 * 1024 // 请求和响应体的最大日志大小，特别是对于HTTP/RPC请求。
-	// defaultTextMapPropagator 是默认的上下文传播器，用于在对等节点之间进行上下文传播。
+	tracingInternal          = true       // tracingInternal enables tracing for internal type spans.
+	tracingMaxContentLogSize = 512 * 1024 // Max log size for request and response body, especially for HTTP/RPC request.
+	// defaultTextMapPropagator is the default propagator for context propagation between peers.
 	defaultTextMapPropagator = propagation.NewCompositeTextMapPropagator(
 		propagation.TraceContext{},
 		propagation.Baggage{},
@@ -52,29 +54,29 @@ func init() {
 	if maxContentLogSize := gconv.Int(command.GetOptWithEnv(commandEnvKeyForMaxContentLogSize)); maxContentLogSize > 0 {
 		tracingMaxContentLogSize = maxContentLogSize
 	}
-	// 默认追踪提供者。
+	// Default trace provider.
 	otel.SetTracerProvider(provider.New())
 	CheckSetDefaultTextMapPropagator()
 }
 
-// IsUsingDefaultProvider 检查并返回当前是否正在使用默认跟踪提供程序。
+// IsUsingDefaultProvider checks and return if currently using default trace provider.
 func IsUsingDefaultProvider() bool {
 	_, ok := otel.GetTracerProvider().(*provider.TracerProvider)
 	return ok
 }
 
-// IsTracingInternal 返回是否追踪内部组件的跟踪跨度。
+// IsTracingInternal returns whether tracing spans of internal components.
 func IsTracingInternal() bool {
 	return tracingInternal
 }
 
-// MaxContentLogSize 返回请求和响应正文的最大日志大小，特别是针对HTTP/RPC请求。
+// MaxContentLogSize returns the max log size for request and response body, especially for HTTP/RPC request.
 func MaxContentLogSize() int {
 	return tracingMaxContentLogSize
 }
 
-// CommonLabels 返回常用属性标签：
-// ip.intranet（内网IP），hostname（主机名）
+// CommonLabels returns common used attribute labels:
+// ip.intranet, hostname.
 func CommonLabels() []attribute.KeyValue {
 	return []attribute.KeyValue{
 		attribute.String(tracingCommonKeyIpHostname, hostname),
@@ -83,7 +85,7 @@ func CommonLabels() []attribute.KeyValue {
 	}
 }
 
-// CheckSetDefaultTextMapPropagator 检查并设置默认的 TextMapPropagator。如果此前未设置，则进行设置。
+// CheckSetDefaultTextMapPropagator sets the default TextMapPropagator if it is not set previously.
 func CheckSetDefaultTextMapPropagator() {
 	p := otel.GetTextMapPropagator()
 	if len(p.Fields()) == 0 {
@@ -91,13 +93,13 @@ func CheckSetDefaultTextMapPropagator() {
 	}
 }
 
-// GetDefaultTextMapPropagator 返回用于在对等节点间传播上下文的默认载体。
+// GetDefaultTextMapPropagator returns the default propagator for context propagation between peers.
 func GetDefaultTextMapPropagator() propagation.TextMapPropagator {
 	return defaultTextMapPropagator
 }
 
-// GetTraceID 从上下文中检索并返回 TraceId。
-// 如果追踪功能未激活，则返回一个空字符串。
+// GetTraceID retrieves and returns TraceId from context.
+// It returns an empty string is tracing feature is not activated.
 func GetTraceID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -109,8 +111,8 @@ func GetTraceID(ctx context.Context) string {
 	return ""
 }
 
-// GetSpanID 从上下文中检索并返回 SpanId。
-// 如果追踪功能未激活，则返回一个空字符串。
+// GetSpanID retrieves and returns SpanId from context.
+// It returns an empty string is tracing feature is not activated.
 func GetSpanID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -122,34 +124,34 @@ func GetSpanID(ctx context.Context) string {
 	return ""
 }
 
-// SetBaggageValue 是一个方便的函数，用于向 baggage 添加一对键值对。
-// 注意，它使用 attribute.Any 来设置键值对。
+// SetBaggageValue is a convenient function for adding one key-value pair to baggage.
+// Note that it uses attribute.Any to set the key-value pair.
 func SetBaggageValue(ctx context.Context, key string, value interface{}) context.Context {
 	return NewBaggage(ctx).SetValue(key, value)
 }
 
-// SetBaggageMap 是一个方便的函数，用于向 baggage 中添加映射键值对。
-// 注意，它使用 attribute.Any 来设置键值对。
+// SetBaggageMap is a convenient function for adding map key-value pairs to baggage.
+// Note that it uses attribute.Any to set the key-value pair.
 func SetBaggageMap(ctx context.Context, data map[string]interface{}) context.Context {
 	return NewBaggage(ctx).SetMap(data)
 }
 
-// GetBaggageMap 获取并以map形式返回 baggage 的值。
+// GetBaggageMap retrieves and returns the baggage values as map.
 func GetBaggageMap(ctx context.Context) *gmap.StrAnyMap {
 	return NewBaggage(ctx).GetMap()
 }
 
-// GetBaggageVar 从 baggage 中按照指定键检索值，并返回一个 *gvar.Var 类型的结果。
+// GetBaggageVar retrieves value and returns a *gvar.Var for specified key from baggage.
 func GetBaggageVar(ctx context.Context, key string) *gvar.Var {
 	return NewBaggage(ctx).GetVar(key)
 }
 
-// WithUUID 向上下文中注入自定义的 UUID 格式的跟踪 ID，以便进行传播。
+// WithUUID injects custom trace id with UUID into context to propagate.
 func WithUUID(ctx context.Context, uuid string) (context.Context, error) {
 	return WithTraceID(ctx, gstr.Replace(uuid, "-", ""))
 }
 
-// WithTraceID 向上下文中注入自定义跟踪 ID，以便进行传播。
+// WithTraceID injects custom trace id into context to propagate.
 func WithTraceID(ctx context.Context, traceID string) (context.Context, error) {
 	generatedTraceID, err := trace.TraceIDFromHex(traceID)
 	if err != nil {

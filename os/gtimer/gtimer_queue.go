@@ -1,37 +1,41 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtimer
+
 import (
 	"container/heap"
 	"math"
 	"sync"
 	
 	"github.com/888go/goframe/container/gtype"
-	)
-// priorityQueue 是一种类似于常规队列或堆栈数据结构的抽象数据类型，
-// 其中每个元素都额外关联有一个“优先级”。在优先队列中，具有高优先级的元素会优先于低优先级的元素被处理。
-// priorityQueue 是基于堆结构实现的。
+)
+
+// priorityQueue is an abstract data type similar to a regular queue or stack data structure in which
+// each element additionally has a "priority" associated with it. In a priority queue, an element with
+// high priority is served before an element with low priority.
+// priorityQueue is based on heap structure.
 type priorityQueue struct {
 	mu           sync.Mutex
-	heap         *priorityQueueHeap // 使用堆实现的基础队列项管理器。
-	nextPriority *gtype.Int64       // nextPriority 存储堆（heap）的下一个优先级值，该值用于通过 Timer 检查是否有必要调用堆的 Pop 方法。
+	heap         *priorityQueueHeap // the underlying queue items manager using heap.
+	nextPriority *gtype.Int64       // nextPriority stores the next priority value of the heap, which is used to check if necessary to call the Pop of heap by Timer.
 }
 
-// priorityQueueHeap 是一个堆管理器，其底层的 `array` 是一个实现了堆结构的数组。
+// priorityQueueHeap is a heap manager, of which the underlying `array` is an array implementing a heap structure.
 type priorityQueueHeap struct {
 	array []priorityQueueItem
 }
 
-// priorityQueueItem 用于存储队列项，其中包含一个 `priority` 属性，以便在堆中进行自我排序。
+// priorityQueueItem stores the queue item which has a `priority` attribute to sort itself in heap.
 type priorityQueueItem struct {
 	value    interface{}
 	priority int64
 }
 
-// newPriorityQueue 创建并返回一个优先队列。
+// newPriorityQueue creates and returns a priority queue.
 func newPriorityQueue() *priorityQueue {
 	queue := &priorityQueue{
 		heap:         &priorityQueueHeap{array: make([]priorityQueueItem, 0)},
@@ -41,14 +45,14 @@ func newPriorityQueue() *priorityQueue {
 	return queue
 }
 
-// NextPriority 获取并返回队列中的最小且优先级最高的值。
+// NextPriority retrieves and returns the minimum and the most priority value of the queue.
 func (q *priorityQueue) NextPriority() int64 {
 	return q.nextPriority.Val()
 }
 
-// Push 将一个值推送到队列中。
-// `priority` 参数用于指定该值的优先级。
-// `priority` 值越小，`value` 的优先级越高。
+// Push pushes a value to the queue.
+// The `priority` specifies the priority of the value.
+// The lesser the `priority` value the higher priority of the `value`.
 func (q *priorityQueue) Push(value interface{}, priority int64) {
 	q.mu.Lock()
 	defer q.mu.Unlock()
@@ -56,7 +60,7 @@ func (q *priorityQueue) Push(value interface{}, priority int64) {
 		value:    value,
 		priority: priority,
 	})
-	// 使用原子操作更新最小优先级。
+	// Update the minimum priority using atomic operation.
 	nextPriority := q.nextPriority.Val()
 	if priority >= nextPriority {
 		return
@@ -64,7 +68,7 @@ func (q *priorityQueue) Push(value interface{}, priority int64) {
 	q.nextPriority.Set(priority)
 }
 
-// Pop从队列中获取、移除并返回优先级最高的值。
+// Pop retrieves, removes and returns the most high priority value from the queue.
 func (q *priorityQueue) Pop() interface{} {
 	q.mu.Lock()
 	defer q.mu.Unlock()

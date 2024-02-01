@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package garray_test
+
 import (
 	"fmt"
 	
@@ -11,7 +13,7 @@ import (
 	
 	"github.com/888go/goframe/container/garray"
 	"github.com/888go/goframe/frame/g"
-	)
+)
 
 func ExampleNew() {
 	// A normal array.
@@ -22,40 +24,40 @@ func ExampleNew() {
 		a.Append(i)
 	}
 
-	// 打印数组长度。
+	// Print the array length.
 	fmt.Println(a.Len())
 
-	// 打印数组元素。
+	// Print the array items.
 	fmt.Println(a.Slice())
 
-	// 通过索引获取项。
+	// Retrieve item by index.
 	fmt.Println(a.Get(6))
 
-	// 检查项目是否存在。
+	// Check item existence.
 	fmt.Println(a.Contains(6))
 	fmt.Println(a.Contains(100))
 
-	// 在指定索引之前插入项。
+	// Insert item before specified index.
 	a.InsertAfter(9, 11)
-	// 在指定索引之后插入项目。
+	// Insert item after specified index.
 	a.InsertBefore(10, 10)
 
 	fmt.Println(a.Slice())
 
-	// 通过索引修改项。
+	// Modify item by index.
 	a.Set(0, 100)
 	fmt.Println(a.Slice())
 
 	fmt.Println(a.At(0))
 
-	// 搜索指定项并返回其索引。
+	// Search item and return its index.
 	fmt.Println(a.Search(5))
 
-	// 通过索引移除项
+	// Remove item by index.
 	a.Remove(0)
 	fmt.Println(a.Slice())
 
-	// 清空数组，移除其所有元素。
+	// Empty the array, removes all items of it.
 	fmt.Println(a.Slice())
 	a.Clear()
 	fmt.Println(a.Slice())
@@ -77,19 +79,15 @@ func ExampleNew() {
 
 func ExampleArray_Iterator() {
 	array := garray.NewArrayFrom(g.Slice{"a", "b", "c"})
-// Iterator 是 IteratorAsc 的别名，用于以升序方式对数组进行只读遍历，
-// 同时调用给定的回调函数 `f`。
-// 若 `f` 返回 true，则继续遍历；若返回 false，则停止遍历。
+	// Iterator is alias of IteratorAsc, which iterates the array readonly in ascending order
+	//  with given callback function `f`.
+	// If `f` returns true, then it continues iterating; or false to stop.
 	array.Iterator(func(k int, v interface{}) bool {
 		fmt.Println(k, v)
 		return true
 	})
-// IteratorDesc 以降序方式遍历给定回调函数 `f` 的只读数组。
-// 如果 `f` 返回 true，则继续迭代；若返回 false，则停止遍历。
-// 这段Go语言代码注释翻译成中文注释如下：
-// ```go
-// IteratorDesc 函数以降序顺序对给定的只读数组进行迭代，并使用指定的回调函数 `f` 进行处理。
-// 若回调函数 `f` 返回值为 true，则会继续进行迭代；若返回值为 false，则停止迭代过程。
+	// IteratorDesc iterates the array readonly in descending order with given callback function `f`.
+	// If `f` returns true, then it continues iterating; or false to stop.
 	array.IteratorDesc(func(k int, v interface{}) bool {
 		fmt.Println(k, v)
 		return true
@@ -107,7 +105,7 @@ func ExampleArray_Iterator() {
 func ExampleArray_Reverse() {
 	array := garray.NewFrom(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// Reverse将数组元素按逆序排列。
+	// Reverse makes array with elements in reverse order.
 	fmt.Println(array.Reverse().Slice())
 
 	// Output:
@@ -117,31 +115,31 @@ func ExampleArray_Reverse() {
 func ExampleArray_Shuffle() {
 	array := garray.NewFrom(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// Shuffle 随机地对数组进行洗牌。
+	// Shuffle randomly shuffles the array.
 	fmt.Println(array.Shuffle().Slice())
 }
 
 func ExampleArray_Rands() {
 	array := garray.NewFrom(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// 随机从数组中获取并返回 2 个元素。
-// 不会从数组中删除这些元素。
+	// Randomly retrieve and return 2 items from the array.
+	// It does not delete the items from array.
 	fmt.Println(array.Rands(2))
 
-// 从数组中随机选取并返回一个元素。
-// 它会从数组中删除已选取的元素。
+	// Randomly pick and return one item from the array.
+	// It deletes the picked up item from array.
 	fmt.Println(array.PopRand())
 }
 
 func ExampleArray_PopRand() {
 	array := garray.NewFrom(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// 随机从数组中获取并返回 2 个元素。
-// 不会从数组中删除这些元素。
+	// Randomly retrieve and return 2 items from the array.
+	// It does not delete the items from array.
 	fmt.Println(array.Rands(2))
 
-// 从数组中随机选取并返回一个元素。
-// 它会从数组中删除已选取的元素。
+	// Randomly pick and return one item from the array.
+	// It deletes the picked up item from array.
 	fmt.Println(array.PopRand())
 }
 
@@ -156,9 +154,9 @@ func ExampleArray_Join() {
 func ExampleArray_Chunk() {
 	array := garray.NewFrom(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// Chunk 函数将一个数组分割成多个子数组，
-// 每个子数组的大小由参数 `size` 确定。
-// 最后一个子数组可能包含少于 size 个元素。
+	// Chunk splits an array into multiple arrays,
+	// the size of each array is determined by `size`.
+	// The last chunk may contain less than size elements.
 	fmt.Println(array.Chunk(2))
 
 	// Output:
@@ -168,7 +166,7 @@ func ExampleArray_Chunk() {
 func ExampleArray_PopLeft() {
 	array := garray.NewFrom([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// Any Pop* functions pick, delete and return the item from array.
 
 	fmt.Println(array.PopLeft())
 	fmt.Println(array.PopLefts(2))
@@ -185,7 +183,7 @@ func ExampleArray_PopLeft() {
 func ExampleArray_PopLefts() {
 	array := garray.NewFrom([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// Any Pop* functions pick, delete and return the item from array.
 
 	fmt.Println(array.PopLeft())
 	fmt.Println(array.PopLefts(2))
@@ -202,7 +200,7 @@ func ExampleArray_PopLefts() {
 func ExampleArray_PopRight() {
 	array := garray.NewFrom([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// Any Pop* functions pick, delete and return the item from array.
 
 	fmt.Println(array.PopLeft())
 	fmt.Println(array.PopLefts(2))
@@ -219,7 +217,7 @@ func ExampleArray_PopRight() {
 func ExampleArray_PopRights() {
 	array := garray.NewFrom([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// Any Pop* functions pick, delete and return the item from array.
 
 	fmt.Println(array.PopLeft())
 	fmt.Println(array.PopLefts(2))

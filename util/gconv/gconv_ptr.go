@@ -1,94 +1,95 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
 
-// PtrAny 创建并返回一个指向此值的 interface{} 类型指针变量。
+// PtrAny creates and returns an interface{} pointer variable to this value.
 func PtrAny(any interface{}) *interface{} {
 	return &any
 }
 
-// PtrString 创建并返回一个指向此值的字符串指针变量。
+// PtrString creates and returns a string pointer variable to this value.
 func PtrString(any interface{}) *string {
 	v := String(any)
 	return &v
 }
 
-// PtrBool 创建并返回一个指向此值的布尔指针变量。
+// PtrBool creates and returns a bool pointer variable to this value.
 func PtrBool(any interface{}) *bool {
 	v := Bool(any)
 	return &v
 }
 
-// PtrInt 创建并返回一个指向该值的整数指针变量。
+// PtrInt creates and returns an int pointer variable to this value.
 func PtrInt(any interface{}) *int {
 	v := Int(any)
 	return &v
 }
 
-// PtrInt8 创建并返回一个指向此值的 int8 类型指针变量。
+// PtrInt8 creates and returns an int8 pointer variable to this value.
 func PtrInt8(any interface{}) *int8 {
 	v := Int8(any)
 	return &v
 }
 
-// PtrInt16 创建并返回一个指向此值的int16指针变量。
+// PtrInt16 creates and returns an int16 pointer variable to this value.
 func PtrInt16(any interface{}) *int16 {
 	v := Int16(any)
 	return &v
 }
 
-// PtrInt32 创建并返回一个指向此值的int32指针变量。
+// PtrInt32 creates and returns an int32 pointer variable to this value.
 func PtrInt32(any interface{}) *int32 {
 	v := Int32(any)
 	return &v
 }
 
-// PtrInt64 创建并返回一个指向此值的 int64 类型指针变量。
+// PtrInt64 creates and returns an int64 pointer variable to this value.
 func PtrInt64(any interface{}) *int64 {
 	v := Int64(any)
 	return &v
 }
 
-// PtrUint 创建并返回一个指向此值的uint指针变量。
+// PtrUint creates and returns an uint pointer variable to this value.
 func PtrUint(any interface{}) *uint {
 	v := Uint(any)
 	return &v
 }
 
-// PtrUint8 创建并返回一个指向此值的uint8类型的指针变量。
+// PtrUint8 creates and returns an uint8 pointer variable to this value.
 func PtrUint8(any interface{}) *uint8 {
 	v := Uint8(any)
 	return &v
 }
 
-// PtrUint16 创建并返回一个指向此值的uint16类型的指针变量。
+// PtrUint16 creates and returns an uint16 pointer variable to this value.
 func PtrUint16(any interface{}) *uint16 {
 	v := Uint16(any)
 	return &v
 }
 
-// PtrUint32 创建并返回一个指向此值的 uint32 类型指针变量。
+// PtrUint32 creates and returns an uint32 pointer variable to this value.
 func PtrUint32(any interface{}) *uint32 {
 	v := Uint32(any)
 	return &v
 }
 
-// PtrUint64 创建并返回一个指向此值的uint64类型的指针变量。
+// PtrUint64 creates and returns an uint64 pointer variable to this value.
 func PtrUint64(any interface{}) *uint64 {
 	v := Uint64(any)
 	return &v
 }
 
-// PtrFloat32 创建并返回一个指向此值的float32类型的指针变量。
+// PtrFloat32 creates and returns a float32 pointer variable to this value.
 func PtrFloat32(any interface{}) *float32 {
 	v := Float32(any)
 	return &v
 }
 
-// PtrFloat64 创建并返回一个指向此值的 float64 类型指针变量。
+// PtrFloat64 creates and returns a float64 pointer variable to this value.
 func PtrFloat64(any interface{}) *float64 {
 	v := Float64(any)
 	return &v

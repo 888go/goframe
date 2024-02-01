@@ -1,22 +1,25 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtype
+
 import (
 	"strconv"
 	"sync/atomic"
 	
 	"github.com/888go/goframe/util/gconv"
-	)
-// Byte 是一个结构体，用于对 byte 类型进行并发安全操作。
+)
+
+// Byte is a struct for concurrent-safe operation for type byte.
 type Byte struct {
 	value int32
 }
 
-// NewByte创建并返回一个用于byte类型的并发安全对象，
-// 其初始值为给定的`value`。
+// NewByte creates and returns a concurrent-safe object for byte type,
+// with given initial value `value`.
 func NewByte(value ...byte) *Byte {
 	if len(value) > 0 {
 		return &Byte{
@@ -26,54 +29,54 @@ func NewByte(value ...byte) *Byte {
 	return &Byte{}
 }
 
-// Clone 克隆并返回一个新的适用于 byte 类型的并发安全对象副本。
+// Clone clones and returns a new concurrent-safe object for byte type.
 func (v *Byte) Clone() *Byte {
 	return NewByte(v.Val())
 }
 
-// Set 方法通过原子操作将`value`存储到t.value中，并返回修改前的t.value的值。
+// Set atomically stores `value` into t.value and returns the previous value of t.value.
 func (v *Byte) Set(value byte) (old byte) {
 	return byte(atomic.SwapInt32(&v.value, int32(value)))
 }
 
-// Val 原子性地加载并返回 t.value。
+// Val atomically loads and returns t.value.
 func (v *Byte) Val() byte {
 	return byte(atomic.LoadInt32(&v.value))
 }
 
-// Add 原子性地将 `delta` 加到 t.value 上，并返回新的值。
+// Add atomically adds `delta` to t.value and returns the new value.
 func (v *Byte) Add(delta byte) (new byte) {
 	return byte(atomic.AddInt32(&v.value, int32(delta)))
 }
 
-// Cas 执行值的比较并交换操作。
+// Cas executes the compare-and-swap operation for value.
 func (v *Byte) Cas(old, new byte) (swapped bool) {
 	return atomic.CompareAndSwapInt32(&v.value, int32(old), int32(new))
 }
 
-// String 实现了 String 接口以便进行字符串打印。
+// String implements String interface for string printing.
 func (v *Byte) String() string {
 	return strconv.FormatUint(uint64(v.Val()), 10)
 }
 
-// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 func (v Byte) MarshalJSON() ([]byte, error) {
 	return []byte(strconv.FormatUint(uint64(v.Val()), 10)), nil
 }
 
-// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 func (v *Byte) UnmarshalJSON(b []byte) error {
 	v.Set(gconv.Uint8(string(b)))
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于为 `v` 设置任意类型的值。
+// UnmarshalValue is an interface implement which sets any type of value for `v`.
 func (v *Byte) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Byte(value))
 	return nil
 }
 
-// DeepCopy 实现接口，用于当前类型的深度复制。
+// DeepCopy implements interface for deep copy of current type.
 func (v *Byte) DeepCopy() interface{} {
 	if v == nil {
 		return nil

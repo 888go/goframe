@@ -1,13 +1,14 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gstr 提供了用于处理字符串的函数。
+// Package gstr provides functions for string handling.
 package gstr
 
 const (
-	// NotFoundIndex 是在搜索函数中未找到字符串时的位置索引。
+	// NotFoundIndex is the position index for string not found in searching functions.
 	NotFoundIndex = -1
 )
 

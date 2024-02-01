@@ -1,21 +1,22 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
 
-// Plugin 是服务器插件的接口。
+// Plugin is the interface for server plugin.
 type Plugin interface {
-	Name() string            // Name 返回插件的名称。
-	Author() string          // Author 返回插件的作者。
-	Version() string         // Version 返回插件的版本，如 "v1.0.0"。
-	Description() string     // 描述返回插件的描述。
-	Install(s *Server) error // Install 在服务器启动之前安装插件。
-	Remove() error           // Remove 在服务器关闭时移除插件。
+	Name() string            // Name returns the name of the plugin.
+	Author() string          // Author returns the author of the plugin.
+	Version() string         // Version returns the version of the plugin, like "v1.0.0".
+	Description() string     // Description returns the description of the plugin.
+	Install(s *Server) error // Install installs the plugin BEFORE the server starts.
+	Remove() error           // Remove removes the plugin when server shuts down.
 }
 
-// Plugin 向服务器添加插件。
+// Plugin adds plugin to the server.
 func (s *Server) Plugin(plugin ...Plugin) {
 	s.plugins = append(s.plugins, plugin...)
 }

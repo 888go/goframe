@@ -1,17 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
+// go test *.go -bench=".*"
 
 package ghash_test
+
 import (
 	"testing"
 	
 	"github.com/888go/goframe/encoding/ghash"
-	)
+)
+
 var (
 	str = []byte("This is the test string for hash.")
 )

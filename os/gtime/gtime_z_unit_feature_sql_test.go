@@ -1,10 +1,11 @@
 package gtime_test
+
 import (
 	"testing"
 	
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func TestTime_Scan(t1 *testing.T) {
 	gtest.C(t1, func(t *gtest.T) {

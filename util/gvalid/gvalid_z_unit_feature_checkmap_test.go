@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid_test
+
 import (
 	"context"
 	"testing"
@@ -12,7 +14,7 @@ import (
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gvalid"
-	)
+)
 
 func Test_CheckMap1(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -226,7 +228,7 @@ func Test_Map_Bail(t *testing.T) {
 		t.AssertNE(err, nil)
 		t.Assert(err.String(), "账号不能为空")
 	})
-	// 全局退出（bail）并使用规则bail
+	// global bail with rule bail
 	gtest.C(t, func(t *gtest.T) {
 		params := map[string]interface{}{
 			"passport":  "",

@@ -1,11 +1,13 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 // Timer Operations
 
 package gtimer_test
+
 import (
 	"context"
 	"testing"
@@ -14,25 +16,23 @@ import (
 	"github.com/888go/goframe/container/garray"
 	"github.com/888go/goframe/os/gtimer"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func TestTimer_Add_Close(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		timer := gtimer.New()
 		array := garray.New(true)
-		// 输出 "start" 及当前时间（用 time.Now() 获取）
-// ```go
-//fmt.Println("start", time.Now())
+		//fmt.Println("start", time.Now())
 		timer.Add(ctx, 200*time.Millisecond, func(ctx context.Context) {
-			// 输出 "job1" 及当前时间，使用 fmt.Println() 函数实现
+			//fmt.Println("job1", time.Now())
 			array.Append(1)
 		})
 		timer.Add(ctx, 200*time.Millisecond, func(ctx context.Context) {
-// 输出 "job2" 及当前时间（用 time.Now() 函数获取）到标准输出（通常是终端或控制台）
+			//fmt.Println("job2", time.Now())
 			array.Append(1)
 		})
 		timer.Add(ctx, 400*time.Millisecond, func(ctx context.Context) {
-// 打印输出 "job3" 及 当前时间，使用 fmt.Println() 函数
+			//fmt.Println("job3", time.Now())
 			array.Append(1)
 		})
 		time.Sleep(250 * time.Millisecond)

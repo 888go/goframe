@@ -1,19 +1,22 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
+
 import (
 	"errors"
 	
 	"github.com/888go/goframe/text/gregex"
-	)
-// RulePassword2 实现了 `password2` 规则：
-// 通用密码格式规则2：
-// 必须符合密码规则1，并且必须包含大小写字母和数字。
+)
+
+// RulePassword2 implements `password2` rule:
+// Universal password format rule2:
+// Must meet password rule1, must contain lower and upper letters and numbers.
 //
-// 格式：password2
+// Format: password2
 type RulePassword2 struct{}
 
 func init() {

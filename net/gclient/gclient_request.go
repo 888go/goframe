@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gclient
+
 import (
 	"bytes"
 	"context"
@@ -24,77 +26,78 @@ import (
 	"github.com/888go/goframe/text/gregex"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
-// Get 发送GET请求并返回响应对象。
-// 注意：如果响应对象将永远不会被使用，那么它必须被关闭。
+)
+
+// Get send GET request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Get(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodGet, url, data...)
 }
 
-// Put 发送PUT请求并返回响应对象。
-// 注意：如果响应对象将永不被使用，则必须关闭它。
+// Put send PUT request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Put(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPut, url, data...)
 }
 
-// Post 使用HTTP方法POST发送请求，并返回响应对象。
-// 注意，如果响应对象将永远不会被使用，则必须关闭它。
+// Post sends request using HTTP method POST and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Post(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPost, url, data...)
 }
 
-// Delete 发送DELETE请求并返回响应对象。
-// 注意：如果响应对象将永远不会被使用，那么它必须被关闭。
+// Delete send DELETE request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Delete(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodDelete, url, data...)
 }
 
-// Head 发送HEAD请求并返回响应对象。
-// 注意，如果响应对象将永远不会被使用，则必须关闭它。
+// Head send HEAD request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Head(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodHead, url, data...)
 }
 
-// Patch 发送 PATCH 请求并返回响应对象。
-// 注意：如果响应对象将永不被使用，那么它必须被关闭。
+// Patch send PATCH request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Patch(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPatch, url, data...)
 }
 
-// Connect 发送 CONNECT 请求并返回响应对象。
-// 注意：如果响应对象将永不被使用，则必须关闭它。
+// Connect send CONNECT request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Connect(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodConnect, url, data...)
 }
 
-// Options 发送 OPTIONS 请求并返回响应对象。
-// 注意，如果响应对象将永远不会被使用，则必须关闭它。
+// Options send OPTIONS request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Options(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodOptions, url, data...)
 }
 
-// Trace 发送 TRACE 请求并返回响应对象。
-// 注意：如果响应对象将永远不会被使用，则必须关闭它。
+// Trace send TRACE request and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) Trace(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodTrace, url, data...)
 }
 
-// PostForm 与 net/http.PostForm 不同。
-// 它是 Post 方法的一个包装器，会将 Content-Type 设置为 "multipart/form-data;"。
-// 并且它会自动为请求体和 Content-Type 设置边界字符。
+// PostForm is different from net/http.PostForm.
+// It's a wrapper of Post method, which sets the Content-Type as "multipart/form-data;".
+// and It will automatically set boundary characters for the request body and Content-Type.
 //
-// 其效果类似于以下情况：
+// It's Seem like the following case:
 //
 // Content-Type: multipart/form-data; boundary=----Boundarye4Ghaog6giyQ9ncN
 //
-// 表单数据格式如下：
+// And form data is like:
 // ------Boundarye4Ghaog6giyQ9ncN
 // Content-Disposition: form-data; name="checkType"
 //
 // none
 //
-// 该方法用于发送表单数据。
-// 注意，如果响应对象不再使用，则必须关闭它。
+// It's used for sending form data.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) PostForm(ctx context.Context, url string, data map[string]string) (resp *Response, err error) {
 	body := new(bytes.Buffer)
 	w := multipart.NewWriter(body)
@@ -111,19 +114,20 @@ func (c *Client) PostForm(ctx context.Context, url string, data map[string]strin
 	return c.ContentType(w.FormDataContentType()).Post(ctx, url, body)
 }
 
-// DoRequest 使用给定的HTTP方法和数据发送请求，并返回响应对象。
-// 注意，如果响应对象将不再使用，则必须关闭它。
+// DoRequest sends request with given HTTP method and data and returns the response object.
+// Note that the response object MUST be closed if it'll never be used.
 //
-// 注意，如果请求包含文件上传，则它使用"multipart/form-data"作为其Content-Type，
-// 否则使用"application/x-www-form-urlencoded"。它还会自动检测POST内容的JSON格式，
-// 对于JSON格式的内容，会自动将其Content-Type设置为"application/json"。
+// Note that it uses "multipart/form-data" as its Content-Type if it contains file uploading,
+// else it uses "application/x-www-form-urlencoded". It also automatically detects the post
+// content for JSON format, and for that it automatically sets the Content-Type as
+// "application/json".
 func (c *Client) DoRequest(ctx context.Context, method, url string, data ...interface{}) (resp *Response, err error) {
 	req, err := c.prepareRequest(ctx, method, url, data...)
 	if err != nil {
 		return nil, err
 	}
 
-	// 客户端中间件。
+	// Client middleware.
 	if len(c.middlewareHandler) > 0 {
 		mdlHandlers := make([]HandlerFunc, 0, len(c.middlewareHandler)+1)
 		mdlHandlers = append(mdlHandlers, c.middlewareHandler...)
@@ -143,7 +147,7 @@ func (c *Client) DoRequest(ctx context.Context, method, url string, data ...inte
 	return resp, err
 }
 
-// 准备请求：验证请求参数，构建并返回HTTP请求。
+// prepareRequest verifies request parameters, builds and returns http request.
 func (c *Client) prepareRequest(ctx context.Context, method, url string, data ...interface{}) (req *http.Request, err error) {
 	method = strings.ToUpper(method)
 	if len(c.prefix) > 0 {
@@ -191,7 +195,8 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 				httpHeaderContentTypeXml:
 				bodyBuffer = bytes.NewBuffer([]byte(params))
 			default:
-// 如果HTTP方法为GET且未指定Content-Type，则将参数追加到URL中。
+				// It appends the parameters to the url
+				// if http method is GET and Content-Type is not specified.
 				if gstr.Contains(url, "?") {
 					url = url + "&" + params
 				} else {
@@ -208,7 +213,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 		}
 	} else {
 		if strings.Contains(params, httpParamFileHolder) {
-			// 文件上传请求。
+			// File uploading request.
 			var (
 				buffer = bytes.NewBuffer(nil)
 				writer = multipart.NewWriter(buffer)
@@ -251,7 +256,8 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 					}
 				}
 			}
-// Close 结束多部分消息，并将尾部边界结束行写入输出。
+			// Close finishes the multipart message and writes the trailing
+			// boundary end line to the output.
 			if err = writer.Close(); err != nil {
 				err = gerror.Wrapf(err, `form writer close failed`)
 				return nil, err
@@ -271,14 +277,14 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 				return nil, err
 			} else {
 				if v, ok := c.header[httpHeaderContentType]; ok {
-					// 自定义内容类型。
+					// Custom Content-Type.
 					req.Header.Set(httpHeaderContentType, v)
 				} else if len(paramBytes) > 0 {
 					if (paramBytes[0] == '[' || paramBytes[0] == '{') && json.Valid(paramBytes) {
-						// 自动检测并设置帖子内容格式：JSON。
+						// Auto-detecting and setting the post content format: JSON.
 						req.Header.Set(httpHeaderContentType, httpHeaderContentTypeJson)
 					} else if gregex.IsMatchString(httpRegexParamJson, params) {
-						// 如果传入的参数类似 "name=value" 形式，则使用表单类型。
+						// If the parameters passed like "name=value", it then uses form type.
 						req.Header.Set(httpHeaderContentType, httpHeaderContentTypeForm)
 					}
 				}
@@ -296,8 +302,8 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 			req.Header.Set(k, v)
 		}
 	}
-// 如果你想自定义请求的host值，设置req.Host是必要的。
-// 如果header中的"Host"值不为空，则会使用该值。
+	// It's necessary set the req.Host if you want to custom the host value of the request.
+	// It uses the "Host" value from header if it's not empty.
 	if reqHeaderHost := req.Header.Get(httpHeaderHost); reqHeaderHost != "" {
 		req.Host = reqHeaderHost
 	}
@@ -314,29 +320,29 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 			req.Header.Set(httpHeaderCookie, headerCookie)
 		}
 	}
-	// HTTP基础认证
+	// HTTP basic authentication.
 	if len(c.authUser) > 0 {
 		req.SetBasicAuth(c.authUser, c.authPass)
 	}
 	return req, nil
 }
 
-// callRequest 函数使用给定的 http.Request 发送请求，并返回响应对象。
-// 注意：如果响应对象将永不被使用，则必须关闭该响应对象。
+// callRequest sends request with give http.Request, and returns the responses object.
+// Note that the response object MUST be closed if it'll never be used.
 func (c *Client) callRequest(req *http.Request) (resp *Response, err error) {
 	resp = &Response{
 		request: req,
 	}
-// Dump 功能.
-// 请求体可用于转储
-// 原始 HTTP 请求-响应过程.
+	// Dump feature.
+	// The request body can be reused for dumping
+	// raw HTTP request-response procedure.
 	reqBodyContent, _ := io.ReadAll(req.Body)
 	resp.requestBody = reqBodyContent
 	for {
 		req.Body = utils.NewReadCloser(reqBodyContent, false)
 		if resp.Response, err = c.Do(req); err != nil {
 			err = gerror.Wrapf(err, `request failed`)
-			// 当err不为nil时，response可能也不会为nil。
+			// The response might not be nil when err != nil.
 			if resp.Response != nil {
 				_ = resp.Response.Body.Close()
 			}

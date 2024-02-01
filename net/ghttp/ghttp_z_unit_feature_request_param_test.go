@@ -1,4 +1,5 @@
 package ghttp_test
+
 import (
 	"context"
 	"fmt"
@@ -10,16 +11,14 @@ import (
 	"github.com/888go/goframe/net/ghttp"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/guid"
-	)
+)
+
 type UserReq struct {
 	g.Meta `path:"/user" tags:"User" method:"post" summary:"user api" title:"api title"`
 	Id     int    `v:"required" d:"1"`
 	Name   string `v:"required" in:"cookie"`
 	Age    string `v:"required" in:"header"`
-	// header: 头部信息
-// query: 查询参数
-// cookie: Cookie信息
-// form: 表单数据
+	// header,query,cookie,form
 }
 
 type UserRes struct {

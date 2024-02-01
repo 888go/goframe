@@ -1,15 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcache
+
 import (
 	"sync"
-	)
+)
+
 type adapterMemoryExpireTimes struct {
-	mu          sync.RWMutex          // expireTimeMu 确保 expireTimes 映射表在并发环境下的安全性。
-	expireTimes map[interface{}]int64 // expireTimes 是一个过期键与其时间戳的映射，用于快速索引和删除。
+	mu          sync.RWMutex          // expireTimeMu ensures the concurrent safety of expireTimes map.
+	expireTimes map[interface{}]int64 // expireTimes is the expiring key to its timestamp mapping, which is used for quick indexing and deleting.
 }
 
 func newAdapterMemoryExpireTimes() *adapterMemoryExpireTimes {

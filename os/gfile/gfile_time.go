@@ -1,14 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfile
+
 import (
 	"os"
 	"time"
-	)
-// MTime 返回给定路径 `path` 下文件的修改时间（以秒为单位）。
+)
+
+// MTime returns the modification time of file given by `path` in second.
 func MTime(path string) time.Time {
 	s, e := os.Stat(path)
 	if e != nil {
@@ -17,7 +20,7 @@ func MTime(path string) time.Time {
 	return s.ModTime()
 }
 
-// MTimestamp 返回给定路径 `path` 文件的修改时间（以秒为单位）。
+// MTimestamp returns the modification time of file given by `path` in second.
 func MTimestamp(path string) int64 {
 	mtime := MTime(path)
 	if mtime.IsZero() {
@@ -26,7 +29,7 @@ func MTimestamp(path string) int64 {
 	return mtime.Unix()
 }
 
-// MTimestampMilli 返回给定路径 `path` 下文件的修改时间，单位为毫秒。
+// MTimestampMilli returns the modification time of file given by `path` in millisecond.
 func MTimestampMilli(path string) int64 {
 	mtime := MTime(path)
 	if mtime.IsZero() {

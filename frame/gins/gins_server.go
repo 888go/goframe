@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gins
+
 import (
 	"context"
 	"fmt"
@@ -14,9 +16,10 @@ import (
 	"github.com/888go/goframe/net/ghttp"
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gutil"
-	)
-// Server 返回指定名称的 http 服务器实例。
-// 注意，如果在创建实例期间发生任何错误，它会引发panic。
+)
+
+// Server returns an instance of http server with specified name.
+// Note that it panics if any error occurs duration instance creating.
 func Server(name ...interface{}) *ghttp.Server {
 	var (
 		err          error
@@ -30,7 +33,7 @@ func Server(name ...interface{}) *ghttp.Server {
 	return instance.GetOrSetFuncLock(instanceKey, func() interface{} {
 		server := ghttp.GetServer(instanceName)
 		if Config().Available(ctx) {
-			// 从配置中初始化服务器。
+			// Server initialization from configuration.
 			var (
 				configMap             map[string]interface{}
 				serverConfigMap       map[string]interface{}
@@ -40,7 +43,7 @@ func Server(name ...interface{}) *ghttp.Server {
 			if configMap, err = Config().Data(ctx); err != nil {
 				intlog.Errorf(ctx, `retrieve config data map failed: %+v`, err)
 			}
-			// 根据可能的名称查找可能的服务器配置项。
+			// Find possible server configuration item by possible names.
 			if len(configMap) > 0 {
 				if v, _ := gutil.MapPossibleItemByKey(configMap, consts.ConfigNodeNameServer); v != "" {
 					configNodeName = v
@@ -51,7 +54,7 @@ func Server(name ...interface{}) *ghttp.Server {
 					}
 				}
 			}
-			// 自动通过实例名称获取配置。
+			// Automatically retrieve configuration by instance name.
 			serverConfigMap = Config().MustGet(
 				ctx,
 				fmt.Sprintf(`%s.%s`, configNodeName, instanceName),
@@ -64,14 +67,14 @@ func Server(name ...interface{}) *ghttp.Server {
 					panic(err)
 				}
 			} else {
-				// 配置不是必需的，因此它仅打印内部日志。
+				// The configuration is not necessary, so it just prints internal logs.
 				intlog.Printf(
 					ctx,
 					`missing configuration from configuration component for HTTP server "%s"`,
 					instanceName,
 				)
 			}
-			// 服务器日志记录器配置检查。
+			// Server logger configuration checks.
 			serverLoggerConfigMap = Config().MustGet(
 				ctx,
 				fmt.Sprintf(`%s.%s.%s`, configNodeName, instanceName, consts.ConfigNodeNameLogger),
@@ -85,12 +88,12 @@ func Server(name ...interface{}) *ghttp.Server {
 				}
 			}
 		}
-		// 服务器名称是必需的。如果未配置，它将设置一个默认服务器名称。
+		// The server name is necessary. It sets a default server name is it is not configured.
 		if server.GetName() == "" || server.GetName() == ghttp.DefaultServerName {
 			server.SetName(instanceName)
 		}
-// 由于可能会使用模板功能，
-// 因此它也会初始化视图实例。
+		// As it might use template feature,
+		// it initializes the view instance as well.
 		_ = getViewInstance()
 		return server
 	}).(*ghttp.Server)

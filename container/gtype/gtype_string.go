@@ -1,22 +1,25 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtype
+
 import (
 	"bytes"
 	"sync/atomic"
 	
 	"github.com/888go/goframe/util/gconv"
-	)
-// String 是一个结构体，用于对字符串类型进行并发安全操作。
+)
+
+// String is a struct for concurrent-safe operation for type string.
 type String struct {
 	value atomic.Value
 }
 
-// NewString 创建并返回一个用于字符串类型的安全并发对象，
-// 其初始值为给定的 `value`。
+// NewString creates and returns a concurrent-safe object for string type,
+// with given initial value `value`.
 func NewString(value ...string) *String {
 	t := &String{}
 	if len(value) > 0 {
@@ -25,19 +28,19 @@ func NewString(value ...string) *String {
 	return t
 }
 
-// Clone 克隆并返回一个用于字符串类型的新并发安全对象。
+// Clone clones and returns a new concurrent-safe object for string type.
 func (v *String) Clone() *String {
 	return NewString(v.Val())
 }
 
-// Set 方法通过原子操作将`value`存储到t.value中，并返回修改前的t.value的值。
+// Set atomically stores `value` into t.value and returns the previous value of t.value.
 func (v *String) Set(value string) (old string) {
 	old = v.Val()
 	v.value.Store(value)
 	return
 }
 
-// Val 原子性地加载并返回 t.value。
+// Val atomically loads and returns t.value.
 func (v *String) Val() string {
 	s := v.value.Load()
 	if s != nil {
@@ -46,29 +49,29 @@ func (v *String) Val() string {
 	return ""
 }
 
-// String 实现了 String 接口以便进行字符串打印。
+// String implements String interface for string printing.
 func (v *String) String() string {
 	return v.Val()
 }
 
-// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 func (v String) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + v.Val() + `"`), nil
 }
 
-// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 func (v *String) UnmarshalJSON(b []byte) error {
 	v.Set(string(bytes.Trim(b, `"`)))
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于为 `v` 设置任意类型的值。
+// UnmarshalValue is an interface implement which sets any type of value for `v`.
 func (v *String) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.String(value))
 	return nil
 }
 
-// DeepCopy 实现接口，用于当前类型的深度复制。
+// DeepCopy implements interface for deep copy of current type.
 func (v *String) DeepCopy() interface{} {
 	if v == nil {
 		return nil

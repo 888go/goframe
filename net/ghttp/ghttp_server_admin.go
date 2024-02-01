@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"context"
 	"os"
@@ -14,11 +16,12 @@ import (
 	"github.com/888go/goframe/os/gproc"
 	"github.com/888go/goframe/os/gtimer"
 	"github.com/888go/goframe/os/gview"
-	)
-// utilAdmin 是管理控制的控制器。
+)
+
+// utilAdmin is the controller for administration.
 type utilAdmin struct{}
 
-// Index显示管理页面。
+// Index shows the administration page.
 func (p *utilAdmin) Index(r *Request) {
 	data := map[string]interface{}{
 		"pid":  gproc.Pid(),
@@ -41,13 +44,13 @@ func (p *utilAdmin) Index(r *Request) {
 	r.Response.Write(buffer)
 }
 
-// 重启 restarts 各个服务器进程中的所有服务器。
+// Restart restarts all the servers in the process.
 func (p *utilAdmin) Restart(r *Request) {
 	var (
 		ctx = r.Context()
 		err error
 	)
-	// 当该进程退出时，自定义启动二进制文件路径。
+	// Custom start binary path when this process exits.
 	path := r.GetQuery("newExeFilePath").String()
 	if path == "" {
 		path = os.Args[0]
@@ -59,18 +62,18 @@ func (p *utilAdmin) Restart(r *Request) {
 	}
 }
 
-// Shutdown 关闭所有服务器。
+// Shutdown shuts down all the servers.
 func (p *utilAdmin) Shutdown(r *Request) {
 	gtimer.SetTimeout(r.Context(), time.Second, func(ctx context.Context) {
-// 它在1秒后关闭服务器，这不是由系统信号触发的，
-// 以确保成功向客户端发送响应。
+		// It shuts down the server after 1 second, which is not triggered by system signal,
+		// to ensure the response successfully to the client.
 		_ = r.Server.Shutdown()
 	})
 	r.Response.WriteExit("server shutdown")
 }
 
-// EnableAdmin 启用进程的管理功能。
-// 可选参数 `pattern` 指定管理页面的 URI。
+// EnableAdmin enables the administration feature for the process.
+// The optional parameter `pattern` specifies the URI for the administration page.
 func (s *Server) EnableAdmin(pattern ...string) {
 	p := "/debug/admin"
 	if len(pattern) > 0 {
@@ -79,12 +82,12 @@ func (s *Server) EnableAdmin(pattern ...string) {
 	s.BindObject(p, &utilAdmin{})
 }
 
-// Shutdown 关闭当前服务器。
+// Shutdown shuts down current server.
 func (s *Server) Shutdown() error {
 	var ctx = context.TODO()
 	s.doServiceDeregister()
-// 仅关闭当前服务器。
-// 它可能有多个底层HTTP服务器。
+	// Only shut down current servers.
+	// It may have multiple underlying http servers.
 	for _, v := range s.servers {
 		v.close(ctx)
 	}

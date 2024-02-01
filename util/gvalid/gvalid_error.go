@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid
+
 import (
 	"strings"
 	
@@ -11,8 +13,9 @@ import (
 	"github.com/888go/goframe/errors/gcode"
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/text/gstr"
-	)
-// Error 是验证结果的错误信息。
+)
+
+// Error is the validation error for validation result.
 type Error interface {
 	Code() gcode.Code
 	Current() error
@@ -27,16 +30,16 @@ type Error interface {
 	Strings() (errs []string)
 }
 
-// validationError 是验证结果的验证错误。
+// validationError is the validation error for validation result.
 type validationError struct {
 	code      gcode.Code                  // Error code.
-	rules     []fieldRule                 // 按照顺序排列的规则，仅用于保留错误序列。
-	errors    map[string]map[string]error // 错误映射：map[字段]map[规则]消息
-	firstKey  string                      // 第一条错误规则键（默认为空）
-	firstItem map[string]error            // 第一条错误规则值（默认为nil）
+	rules     []fieldRule                 // Rules by sequence, which is used for keeping error sequence only.
+	errors    map[string]map[string]error // Error map:map[field]map[rule]message
+	firstKey  string                      // The first error rule key(empty in default).
+	firstItem map[string]error            // The first error rule value(nil in default).
 }
 
-// newValidationError 创建并返回一个验证错误。
+// newValidationError creates and returns a validation error.
 func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap map[string]map[string]error) *validationError {
 	for field, ruleErrorMap := range fieldRuleErrorMap {
 		for rule, err := range ruleErrorMap {
@@ -50,11 +53,11 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 		}
 		fieldRuleErrorMap[field] = ruleErrorMap
 	}
-	// 过滤重复的序列规则。
+	// Filter repeated sequence rules.
 	var ruleNameSet = gset.NewStrSet()
 	for i := 0; i < len(rules); {
 		if !ruleNameSet.AddIfNotExist(rules[i].Name) {
-			// 删除重复的规则。
+			// Delete repeated rule.
 			rules = append(rules[:i], rules[i+1:]...)
 			continue
 		}
@@ -67,7 +70,7 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 	}
 }
 
-// newValidationErrorByStr 通过字符串创建并返回一个验证错误。
+// newValidationErrorByStr creates and returns a validation error by string.
 func newValidationErrorByStr(key string, err error) *validationError {
 	return newValidationError(
 		gcode.CodeInternalError,
@@ -80,7 +83,7 @@ func newValidationErrorByStr(key string, err error) *validationError {
 	)
 }
 
-// Code 返回当前验证错误的错误代码。
+// Code returns the error code of current validation error.
 func (e *validationError) Code() gcode.Code {
 	if e == nil {
 		return gcode.CodeNil
@@ -88,7 +91,7 @@ func (e *validationError) Code() gcode.Code {
 	return e.code
 }
 
-// Map 返回第一个错误消息作为映射（map）。
+// Map returns the first error message as map.
 func (e *validationError) Map() map[string]error {
 	if e == nil {
 		return map[string]error{}
@@ -97,7 +100,7 @@ func (e *validationError) Map() map[string]error {
 	return m
 }
 
-// Maps 将所有错误消息以映射形式返回。
+// Maps returns all error messages as map.
 func (e *validationError) Maps() map[string]map[string]error {
 	if e == nil {
 		return nil
@@ -105,8 +108,8 @@ func (e *validationError) Maps() map[string]map[string]error {
 	return e.errors
 }
 
-// Items 函数尝试按顺序检索并返回错误项数组，如果无法按顺序获取，
-// 则返回无特定顺序的错误项数组。
+// Items retrieves and returns error items array in sequence if possible,
+// or else it returns error items with no sequence .
 func (e *validationError) Items() (items []map[string]map[string]error) {
 	if e == nil {
 		return []map[string]map[string]error{}
@@ -132,7 +135,7 @@ func (e *validationError) Items() (items []map[string]map[string]error) {
 	return
 }
 
-// FirstItem 返回第一个验证规则错误的字段名称和错误消息。
+// FirstItem returns the field name and error messages for the first validation rule error.
 func (e *validationError) FirstItem() (key string, messages map[string]error) {
 	if e == nil {
 		return "", map[string]error{}
@@ -159,7 +162,7 @@ func (e *validationError) FirstItem() (key string, messages map[string]error) {
 	return "", nil
 }
 
-// FirstRule 返回第一个错误规则及其消息字符串。
+// FirstRule returns the first error rule and message string.
 func (e *validationError) FirstRule() (rule string, err error) {
 	if e == nil {
 		return "", nil
@@ -187,8 +190,8 @@ func (e *validationError) FirstRule() (rule string, err error) {
 	return "", nil
 }
 
-// FirstError 返回第一个错误信息作为字符串。
-// 注意，如果没有顺序，返回的消息可能会不同。
+// FirstError returns the first error message as string.
+// Note that the returned message might be different if it has no sequence.
 func (e *validationError) FirstError() (err error) {
 	if e == nil {
 		return nil
@@ -197,12 +200,12 @@ func (e *validationError) FirstError() (err error) {
 	return
 }
 
-// Current 是 FirstError 的别名，实现了 gerror.iCurrent 接口。
+// Current is alis of FirstError, which implements interface gerror.iCurrent.
 func (e *validationError) Current() error {
 	return e.FirstError()
 }
 
-// String 将所有错误消息作为字符串返回，多个错误消息之间使用字符 ';' 连接。
+// String returns all error messages as string, multiple error messages joined using char ';'.
 func (e *validationError) String() string {
 	if e == nil {
 		return ""
@@ -210,7 +213,7 @@ func (e *validationError) String() string {
 	return strings.Join(e.Strings(), "; ")
 }
 
-// Error 实现了 error 接口的 Error 方法。
+// Error implements interface of error.Error.
 func (e *validationError) Error() string {
 	if e == nil {
 		return ""
@@ -218,7 +221,7 @@ func (e *validationError) Error() string {
 	return e.String()
 }
 
-// Strings 将所有错误消息作为字符串数组返回。
+// Strings returns all error messages as string array.
 func (e *validationError) Strings() (errs []string) {
 	if e == nil {
 		return []string{}
@@ -228,14 +231,14 @@ func (e *validationError) Strings() (errs []string) {
 	if len(e.rules) > 0 {
 		for _, v := range e.rules {
 			if errorItemMap, ok := e.errors[v.Name]; ok {
-				// 验证错误检查。
+				// validation error checks.
 				for _, ruleItem := range strings.Split(v.Rule, "|") {
 					ruleItem = strings.TrimSpace(strings.Split(ruleItem, ":")[0])
 					if err, ok := errorItemMap[ruleItem]; ok {
 						errs = append(errs, err.Error())
 					}
 				}
-				// 内部错误检查
+				// internal error checks.
 				for k := range internalErrKeyMap {
 					if err, ok := errorItemMap[k]; ok {
 						errs = append(errs, err.Error())

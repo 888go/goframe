@@ -1,11 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gyaml 提供对 YAML 内容的访问和转换功能。
+// Package gyaml provides accessing and converting for YAML content.
 package gyaml
+
 import (
 	"bytes"
 	"strings"
@@ -15,8 +16,9 @@ import (
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/util/gconv"
-	)
-// Encode 将`value`编码为YAML格式的字节内容。
+)
+
+// Encode encodes `value` to an YAML format content as bytes.
 func Encode(value interface{}) (out []byte, err error) {
 	if out, err = yaml.Marshal(value); err != nil {
 		err = gerror.Wrap(err, `yaml.Marshal failed`)
@@ -24,7 +26,7 @@ func Encode(value interface{}) (out []byte, err error) {
 	return
 }
 
-// EncodeIndent 将`value`编码为带缩进的YAML格式内容，并以字节形式输出。
+// EncodeIndent encodes `value` to an YAML format content with indent as bytes.
 func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 	out, err = Encode(value)
 	if err != nil {
@@ -45,7 +47,7 @@ func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 	return
 }
 
-// Decode 解析 `content` 并将其转换为 map 后返回。
+// Decode parses `content` into and returns as map.
 func Decode(content []byte) (map[string]interface{}, error) {
 	var (
 		result map[string]interface{}
@@ -58,7 +60,7 @@ func Decode(content []byte) (map[string]interface{}, error) {
 	return gconv.MapDeep(result), nil
 }
 
-// DecodeTo 将 `content` 解析到 `result` 中。
+// DecodeTo parses `content` into `result`.
 func DecodeTo(value []byte, result interface{}) (err error) {
 	err = yaml.Unmarshal(value, result)
 	if err != nil {
@@ -67,7 +69,7 @@ func DecodeTo(value []byte, result interface{}) (err error) {
 	return
 }
 
-// ToJson 将 `content` 转换为 JSON 格式的内容。
+// ToJson converts `content` to JSON format content.
 func ToJson(content []byte) (out []byte, err error) {
 	var (
 		result interface{}

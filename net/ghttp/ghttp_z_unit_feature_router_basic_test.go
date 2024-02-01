@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp_test
+
 import (
 	"fmt"
 	"testing"
@@ -13,7 +15,7 @@ import (
 	"github.com/888go/goframe/net/ghttp"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/guid"
-	)
+)
 
 func Test_Router_Basic1(t *testing.T) {
 	s := g.Server(guid.S())
@@ -101,7 +103,7 @@ func Test_Router_Value(t *testing.T) {
 	})
 }
 
-// HTTP方法注册。
+// HTTP method register.
 func Test_Router_Method(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("GET:/get", func(r *ghttp.Request) {
@@ -141,7 +143,7 @@ func Test_Router_Method(t *testing.T) {
 	})
 }
 
-// 路由器的额外字符 '/'
+// Extra char '/' of the router.
 func Test_Router_ExtraChar(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Group("/api", func(group *ghttp.RouterGroup) {
@@ -167,7 +169,7 @@ func Test_Router_ExtraChar(t *testing.T) {
 	})
 }
 
-// 自定义状态处理器
+// Custom status handler.
 func Test_Router_Status(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("/200", func(r *ghttp.Request) {
@@ -244,7 +246,7 @@ func Test_Router_CustomStatusHandler(t *testing.T) {
 	})
 }
 
-// 404未找到路由。
+// 404 not found router.
 func Test_Router_404(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("/", func(r *ghttp.Request) {

@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package mysql_test
+
 import (
 	"context"
 	"fmt"
@@ -14,7 +16,8 @@ import (
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 const (
 	TableSize        = 10
 	TableName        = "user"
@@ -168,7 +171,7 @@ func Test_PartitionTable(t *testing.T) {
 	createShopDBTable()
 	insertShopDBData()
 
-	// 延迟执行 dropShopDBTable() 函数
+	//defer dropShopDBTable()
 	gtest.C(t, func(t *gtest.T) {
 		data, err := db3.Ctx(ctx).Model("dbx_order").Partition("p3", "p4").All()
 		t.AssertNil(err)

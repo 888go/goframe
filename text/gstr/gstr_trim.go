@@ -1,27 +1,30 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
+
 import (
 	"strings"
 	
 	"github.com/888go/goframe/internal/utils"
-	)
-// Trim 函数用于从字符串的开头和结尾去除空格（或其他字符）。
-// 可选参数 `characterMask` 指定了需要额外去除的字符。
+)
+
+// Trim strips whitespace (or other characters) from the beginning and end of a string.
+// The optional parameter `characterMask` specifies the additional stripped characters.
 func Trim(str string, characterMask ...string) string {
 	return utils.Trim(str, characterMask...)
 }
 
-// TrimStr 从字符串的开头和结尾去除所有给定的`cut`子串。
-// 注意，它不会去除其开头或结尾的空格。
+// TrimStr strips all the given `cut` string from the beginning and end of a string.
+// Note that it does not strip the whitespaces of its beginning or end.
 func TrimStr(str string, cut string, count ...int) string {
 	return TrimLeftStr(TrimRightStr(str, cut, count...), cut, count...)
 }
 
-// TrimLeft 从字符串的开头剥离空白（或其他字符）。
+// TrimLeft strips whitespace (or other characters) from the beginning of a string.
 func TrimLeft(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -30,8 +33,8 @@ func TrimLeft(str string, characterMask ...string) string {
 	return strings.TrimLeft(str, trimChars)
 }
 
-// TrimLeftStr 从字符串的开头移除所有给定的 `cut` 字符串。
-// 注意，它不会移除其开头的空白字符。
+// TrimLeftStr strips all the given `cut` string from the beginning of a string.
+// Note that it does not strip the whitespaces of its beginning.
 func TrimLeftStr(str string, cut string, count ...int) string {
 	var (
 		lenCut   = len(cut)
@@ -47,7 +50,7 @@ func TrimLeftStr(str string, cut string, count ...int) string {
 	return str
 }
 
-// TrimRight 从字符串的末尾删除空白字符（或其他字符）。
+// TrimRight strips whitespace (or other characters) from the end of a string.
 func TrimRight(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -56,8 +59,8 @@ func TrimRight(str string, characterMask ...string) string {
 	return strings.TrimRight(str, trimChars)
 }
 
-// TrimRightStr 从字符串的末尾剥离所有给定的 `cut` 字符串。
-// 注意，它不会剥离其末尾的空白字符。
+// TrimRightStr strips all the given `cut` string from the end of a string.
+// Note that it does not strip the whitespaces of its end.
 func TrimRightStr(str string, cut string, count ...int) string {
 	var (
 		lenStr   = len(str)
@@ -75,7 +78,7 @@ func TrimRightStr(str string, cut string, count ...int) string {
 	return str
 }
 
-// TrimAll 删除字符串 `str` 中的所有字符。
+// TrimAll trims all characters in string `str`.
 func TrimAll(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -100,12 +103,12 @@ func TrimAll(str string, characterMask ...string) string {
 	return string(slice)
 }
 
-// HasPrefix 测试字符串 s 是否以 prefix 开头。
+// HasPrefix tests whether the string s begins with prefix.
 func HasPrefix(s, prefix string) bool {
 	return strings.HasPrefix(s, prefix)
 }
 
-// HasSuffix 测试字符串 s 是否以 suffix 结尾。
+// HasSuffix tests whether the string s ends with suffix.
 func HasSuffix(s, suffix string) bool {
 	return strings.HasSuffix(s, suffix)
 }

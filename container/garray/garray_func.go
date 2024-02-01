@@ -1,13 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package garray
+
 import (
 	"strings"
-	)
-// defaultComparatorInt 用于 int 类型的比较。
+)
+
+// defaultComparatorInt for int comparison.
 func defaultComparatorInt(a, b int) int {
 	if a < b {
 		return -1
@@ -18,12 +21,12 @@ func defaultComparatorInt(a, b int) int {
 	return 0
 }
 
-// defaultComparatorStr 用于字符串比较。
+// defaultComparatorStr for string comparison.
 func defaultComparatorStr(a, b string) int {
 	return strings.Compare(a, b)
 }
 
-// quickSortInt 是为 int 类型实现的快速排序算法。
+// quickSortInt is the quick-sorting algorithm implements for int.
 func quickSortInt(values []int, comparator func(a, b int) int) {
 	if len(values) <= 1 {
 		return
@@ -45,7 +48,7 @@ func quickSortInt(values []int, comparator func(a, b int) int) {
 	quickSortInt(values[head+1:], comparator)
 }
 
-// quickSortStr 是为字符串实现的快速排序算法。
+// quickSortStr is the quick-sorting algorithm implements for string.
 func quickSortStr(values []string, comparator func(a, b string) int) {
 	if len(values) <= 1 {
 		return

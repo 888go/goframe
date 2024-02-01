@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp_test
+
 import (
 	"context"
 	"fmt"
@@ -18,10 +20,9 @@ import (
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gtag"
 	"github.com/888go/goframe/util/guid"
-	)
-// 这是Go语言代码中的一行注释，其内容为一个URL链接地址，指向GitHub上gogf/gf项目的一个issue（问题）讨论页面，编号为1609。
-// 中文翻译：
-// 这是引用了GitHub上gogf/gf项目第1609号问题讨论页面的链接。
+)
+
+// https://github.com/gogf/gf/issues/1609
 func Test_Issue1609(t *testing.T) {
 	s := g.Server(guid.S())
 	group := s.Group("/api/get")
@@ -66,9 +67,7 @@ func Test_Issue1611(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个issue（问题）：#1626
-// 中文翻译：
-// 这是Go语言代码注释，它指向GitHub上gogf/gf项目中的一个问题编号1626。
+// https://github.com/gogf/gf/issues/1626
 func Test_Issue1626(t *testing.T) {
 	type TestReq struct {
 		Name string `v:"required"`
@@ -202,9 +201,7 @@ func (r cFoo1) PostTest1(ctx context.Context, req *TemplateCreateReq) (res *Temp
 	return
 }
 
-// 这是golang代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题：#1662
-// 翻译为：
-// 参考GitHub上gogf/gf项目的第1662号问题
+// https://github.com/gogf/gf/issues/1662
 func Test_Issue662(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Use(ghttp.MiddlewareHandlerResponse)
@@ -247,9 +244,7 @@ func (a *Api) Demo(ctx context.Context, req *DemoReq) (res *DemoRes, err error) 
 
 var api = Api{}
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题链接：https://github.com/gogf/gf/issues/2172
-// 翻译为：
-// 该注释指向GitHub上gogf/gf项目中的第2172号议题。
+// https://github.com/gogf/gf/issues/2172
 func Test_Issue2172(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Use(ghttp.MiddlewareHandlerResponse)
@@ -269,9 +264,7 @@ func Test_Issue2172(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题链接：https://github.com/gogf/gf/issues/2334
-// 翻译成中文：
-// 这里引用了GitHub上gogf/gf项目的一个问题（编号为2334）的链接：https://github.com/gogf/gf/issues/2334
+// https://github.com/gogf/gf/issues/2334
 func Test_Issue2334(t *testing.T) {
 	s := g.Server(guid.S())
 	s.SetServerRoot(gtest.DataPath("static1"))
@@ -311,7 +304,7 @@ func (c *OrderController) CreateOrder(ctx context.Context, req *CreateOrderReq) 
 	return
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库下的第2482号问题。
+// https://github.com/gogf/gf/issues/2482
 func Test_Issue2482(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Group("/api/v2", func(group *ghttp.RouterGroup) {
@@ -396,7 +389,7 @@ func (c *Issue2890Controller) Post(ctx context.Context, req *Issue2890Req) (res 
 	return
 }
 
-// 这是GitHub上gogf/gf仓库的第2890个issue链接
+// https://github.com/gogf/gf/issues/2890
 func Test_Issue2890(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		oldEnumsJson, err := gtag.GetGlobalEnums()
@@ -429,9 +422,7 @@ func Test_Issue2890(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容为一个GitHub仓库的issues链接地址。
-// 翻译为：
-// 参考GitHub上gogf/gf项目的问题2963
+// https://github.com/gogf/gf/issues/2963
 func Test_Issue2963(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())
@@ -465,9 +456,7 @@ func (c *Issue3077V1) Hello(ctx context.Context, req *Issue3077Req) (res *Issue3
 	return
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题编号3077。 
-// 翻译成中文：
-// 引用了GitHub上gogf/gf项目的问题 #3077
+// https://github.com/gogf/gf/issues/3077
 func Test_Issue3077(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())

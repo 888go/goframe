@@ -1,56 +1,58 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package builtin 实现了内置的验证规则。
+// Package builtin implements built-in validation rules.
 //
-// 参考了 Laravel 验证：
+// Referred to Laravel validation:
 // https://laravel.com/docs/master/validation#available-validation-rules
-// （该链接为 Laravel 框架关于可用验证规则的文档）
 package builtin
+
 import (
 	"reflect"
 	
 	"github.com/888go/goframe/container/gvar"
-	)
+)
+
 type Rule interface {
-	// Name 返回规则的内置名称。
+	// Name returns the builtin name of the rule.
 	Name() string
 
-	// Message 返回该规则的默认错误消息。
+	// Message returns the default error message of the rule.
 	Message() string
 
-	// Run 开始运行规则，如果运行成功则返回 nil，否则返回错误。
+	// Run starts running the rule, it returns nil if successful, or else an error.
 	Run(in RunInput) error
 }
 
 type RunInput struct {
-	RuleKey     string       // RuleKey 类似于规则中的 "max"，如 "max: 6" 中的 "max"
-	RulePattern string       // RulePattern 类似于规则 "max:6" 中的 "6"
-	Field       string       // Value的字段名称。
-	ValueType   reflect.Type // ValueType 指定了值的类型，该值可能为 nil。
-	Value       *gvar.Var    // Value 指定此规则验证的值。
-	Data        *gvar.Var    // Data 指定传递给 Validator 的 `data`。
-	Message     string       // Message 指定了该规则的自定义错误消息或配置好的国际化（i18n）消息。
-	Option      RunOption    // Option 提供了验证规则的额外配置选项。
+	RuleKey     string       // RuleKey is like the "max" in rule "max: 6"
+	RulePattern string       // RulePattern is like "6" in rule:"max:6"
+	Field       string       // The field name of Value.
+	ValueType   reflect.Type // ValueType specifies the type of the value, which might be nil.
+	Value       *gvar.Var    // Value specifies the value for this rule to validate.
+	Data        *gvar.Var    // Data specifies the `data` which is passed to the Validator.
+	Message     string       // Message specifies the custom error message or configured i18n message for this rule.
+	Option      RunOption    // Option provides extra configuration for validation rule.
 }
 
 type RunOption struct {
-	CaseInsensitive bool // CaseInsensitive 表示在进行字符串比较时采用不区分大小写的方式。
+	CaseInsensitive bool // CaseInsensitive indicates that it does Case-Insensitive comparison in string.
 }
 
 var (
-	// ruleMap 存储所有内置验证规则。
+	// ruleMap stores all builtin validation rules.
 	ruleMap = map[string]Rule{}
 )
 
-// Register 将内建规则注册到管理器中。
+// Register registers builtin rule into manager.
 func Register(rule Rule) {
 	ruleMap[rule.Name()] = rule
 }
 
-// GetRule 通过`name`检索并返回规则。
+// GetRule retrieves and returns rule by `name`.
 func GetRule(name string) Rule {
 	return ruleMap[name]
 }

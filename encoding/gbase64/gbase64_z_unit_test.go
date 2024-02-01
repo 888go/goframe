@@ -1,15 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gbase64_test
+
 import (
 	"testing"
 	
 	"github.com/888go/goframe/encoding/gbase64"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 type testPair struct {
 	decoded, encoded string
 }
@@ -29,7 +32,7 @@ var pairs = []testPair{
 	{"fooba", "Zm9vYmE="},
 	{"foobar", "Zm9vYmFy"},
 
-	// 维基百科示例
+	// Wikipedia examples
 	{"sure.", "c3VyZS4="},
 	{"sure", "c3VyZQ=="},
 	{"sur", "c3Vy"},

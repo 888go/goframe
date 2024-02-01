@@ -1,50 +1,54 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gi18n 实现了国际化和本地化功能。
+// Package gi18n implements internationalization and localization.
 package gi18n
+
 import (
 	"context"
-	)
-// SetPath 设置存储 i18n 文件的目录路径。
+)
+
+// SetPath sets the directory path storing i18n files.
 func SetPath(path string) error {
 	return Instance().SetPath(path)
 }
 
-// SetLanguage 设置翻译器的语言。
+// SetLanguage sets the language for translator.
 func SetLanguage(language string) {
 	Instance().SetLanguage(language)
 }
 
-// SetDelimiters 设置翻译器的分隔符。
+// SetDelimiters sets the delimiters for translator.
 func SetDelimiters(left, right string) {
 	Instance().SetDelimiters(left, right)
 }
 
-// T 是 Translate 的别名，用于提供便利。
+// T is alias of Translate for convenience.
 func T(ctx context.Context, content string) string {
 	return Instance().T(ctx, content)
 }
 
-// Tf 是 TranslateFormat 的别名，用于提供便利。
+// Tf is alias of TranslateFormat for convenience.
 func Tf(ctx context.Context, format string, values ...interface{}) string {
 	return Instance().TranslateFormat(ctx, format, values...)
 }
 
-// TranslateFormat 将根据配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
+// TranslateFormat translates, formats and returns the `format` with configured language
+// and given `values`.
 func TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return Instance().TranslateFormat(ctx, format, values...)
 }
 
-// Translate 使用配置的语言对`content`进行翻译并返回翻译后的内容。
+// Translate translates `content` with configured language and returns the translated content.
 func Translate(ctx context.Context, content string) string {
 	return Instance().Translate(ctx, content)
 }
 
-// GetContent 函数根据给定的键和指定的语言获取并返回配置的内容。
-// 如果未找到，则返回一个空字符串。
+// GetContent retrieves and returns the configured content for given key and specified language.
+// It returns an empty string if not found.
 func GetContent(ctx context.Context, key string) string {
 	return Instance().GetContent(ctx, key)
 }

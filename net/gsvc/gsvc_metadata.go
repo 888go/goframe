@@ -1,26 +1,28 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gsvc
+
 import (
 	"github.com/888go/goframe/container/gvar"
-	)
-// Set 将键值对设置到元数据中。
+)
+
+// Set sets key-value pair into metadata.
 func (m Metadata) Set(key string, value interface{}) {
 	m[key] = value
 }
 
-// 设置将键值对设置到元数据中。
+// Sets sets key-value pairs into metadata.
 func (m Metadata) Sets(kvs map[string]interface{}) {
 	for k, v := range kvs {
 		m[k] = v
 	}
 }
 
-// Get 函数用于获取并以 gvar 类型返回指定键的值。
+// Get retrieves and returns value of specified key as gvar.
 func (m Metadata) Get(key string) *gvar.Var {
 	if v, ok := m[key]; ok {
 		return gvar.New(v)
@@ -28,7 +30,7 @@ func (m Metadata) Get(key string) *gvar.Var {
 	return nil
 }
 
-// IsEmpty 检查并返回当前 Metadata 是否为空。
+// IsEmpty checks and returns whether current Metadata is empty.
 func (m Metadata) IsEmpty() bool {
 	return len(m) == 0
 }

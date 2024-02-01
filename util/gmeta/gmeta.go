@@ -1,24 +1,26 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gmeta 提供了为结构体嵌入元数据的功能。
+// Package gmeta provides embedded meta data feature for struct.
 package gmeta
+
 import (
 	"github.com/888go/goframe/container/gvar"
 	"github.com/888go/goframe/os/gstructs"
-	)
-// Meta 用于作为结构体的嵌入属性，以启用元数据功能。
+)
+
+// Meta is used as an embedded attribute for struct to enabled metadata feature.
 type Meta struct{}
 
 const (
-	metaAttributeName = "Meta"       // metaAttributeName 是结构体中元数据的属性名称。
-	metaTypeName      = "gmeta.Meta" // metaTypeName 用于类型字符串的比较。
+	metaAttributeName = "Meta"       // metaAttributeName is the attribute name of metadata in struct.
+	metaTypeName      = "gmeta.Meta" // metaTypeName is for type string comparison.
 )
 
-// Data 从`object`获取并返回所有元数据。
+// Data retrieves and returns all metadata from `object`.
 func Data(object interface{}) map[string]string {
 	reflectType, err := gstructs.StructType(object)
 	if err != nil {
@@ -32,7 +34,7 @@ func Data(object interface{}) map[string]string {
 	return map[string]string{}
 }
 
-// Get 通过 `key` 从 `object` 中获取并返回指定的元数据。
+// Get retrieves and returns specified metadata by `key` from `object`.
 func Get(object interface{}, key string) *gvar.Var {
 	v, ok := Data(object)[key]
 	if !ok {

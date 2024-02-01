@@ -1,9 +1,11 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf获取一个。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with gm file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gmap_test
+
 import (
 	"fmt"
 	
@@ -11,7 +13,7 @@ import (
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func ExampleStrIntMap_Iterator() {
 	m := gmap.NewStrIntMap()
@@ -47,7 +49,7 @@ func ExampleStrIntMap_Clone() {
 }
 
 func ExampleStrIntMap_Map() {
-	// 非并发安全，指向底层数据的指针
+	// non concurrent-safety, a pointer to the underlying data
 	m1 := gmap.NewStrIntMap()
 	m1.Set("key1", 1)
 	fmt.Println("m1:", m1)
@@ -57,7 +59,7 @@ func ExampleStrIntMap_Map() {
 	m1.Set("key1", 2)
 	fmt.Println("after n1:", n1)
 
-	// 并发安全，复制底层数据
+	// concurrent-safety, copy of underlying data
 	m2 := gmap.NewStrIntMap(true)
 	m2.Set("key1", 1)
 	fmt.Println("m2:", m2)

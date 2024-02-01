@@ -1,14 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package glog
+
 import (
 	"github.com/888go/goframe/container/gmap"
-	)
+)
+
 const (
-	// DefaultName 是用于实例使用的默认组名。
+	// DefaultName is the default group name for instance usage.
 	DefaultName = "default"
 )
 
@@ -17,8 +20,8 @@ var (
 	instances = gmap.NewStrAnyMap(true)
 )
 
-// Instance 返回一个具有默认设置的 Logger 实例。
-// 参数 `name` 是该实例的名称。
+// Instance returns an instance of Logger with default settings.
+// The parameter `name` is the name for the instance.
 func Instance(name ...string) *Logger {
 	key := DefaultName
 	if len(name) > 0 && name[0] != "" {

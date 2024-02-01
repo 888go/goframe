@@ -1,11 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gxml 提供了对 XML 内容的访问和转换功能。
+// Package gxml provides accessing and converting for XML content.
 package gxml
+
 import (
 	"strings"
 	
@@ -14,8 +15,9 @@ import (
 	"github.com/888go/goframe/encoding/gcharset"
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/text/gregex"
-	)
-// Decode 解析 `content` 并将其转换为 map 后返回。
+)
+
+// Decode parses `content` into and returns as map.
 func Decode(content []byte) (map[string]interface{}, error) {
 	res, err := convert(content)
 	if err != nil {
@@ -28,7 +30,7 @@ func Decode(content []byte) (map[string]interface{}, error) {
 	return m, err
 }
 
-// DecodeWithoutRoot 将 `content` 解析为一个映射（map），并返回没有根级别的映射。
+// DecodeWithoutRoot parses `content` into a map, and returns the map without root level.
 func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 	res, err := convert(content)
 	if err != nil {
@@ -47,8 +49,8 @@ func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 	return m, nil
 }
 
-// Encode 将字典 `m` 编码为 XML 格式的内容并以字节形式输出。
-// 可选参数 `rootTag` 用于指定 XML 根标签。
+// Encode encodes map `m` to an XML format content as bytes.
+// The optional parameter `rootTag` is used to specify the XML root tag.
 func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).Xml(rootTag...)
 	if err != nil {
@@ -57,8 +59,8 @@ func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	return b, err
 }
 
-// EncodeWithIndent 将 map `m` 编码为带有缩进的 XML 格式字节内容。
-// 可选参数 `rootTag` 用于指定 XML 根标签。
+// EncodeWithIndent encodes map `m` to an XML format content as bytes with indent.
+// The optional parameter `rootTag` is used to specify the XML root tag.
 func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).XmlIndent("", "\t", rootTag...)
 	if err != nil {
@@ -67,7 +69,7 @@ func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, erro
 	return b, err
 }
 
-// ToJson 将`content`以XML格式转换为JSON格式的字节流。
+// ToJson converts `content` as XML format into JSON format bytes.
 func ToJson(content []byte) ([]byte, error) {
 	res, err := convert(content)
 	if err != nil {
@@ -81,7 +83,7 @@ func ToJson(content []byte) ([]byte, error) {
 	return nil, err
 }
 
-// convert 将给定XML内容从XML根标签转换为UTF-8编码的内容。
+// convert does convert the encoding of given XML content from XML root tag into UTF-8 encoding content.
 func convert(xml []byte) (res []byte, err error) {
 	var (
 		patten      = `<\?xml.*encoding\s*=\s*['|"](.*?)['|"].*\?>`

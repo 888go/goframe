@@ -1,16 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gjson
 
-// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 func (j Json) MarshalJSON() ([]byte, error) {
 	return j.ToJson()
 }
 
-// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 func (j *Json) UnmarshalJSON(b []byte) error {
 	r, err := loadContentWithOptions(b, Options{
 		Type:      ContentTypeJson,
@@ -23,7 +24,7 @@ func (j *Json) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// UnmarshalValue 是一个接口实现，用于为 Json 设置任意类型的值。
+// UnmarshalValue is an interface implement which sets any type of value for Json.
 func (j *Json) UnmarshalValue(value interface{}) error {
 	if r := NewWithOptions(value, Options{
 		StrNumber: true,
@@ -34,7 +35,7 @@ func (j *Json) UnmarshalValue(value interface{}) error {
 	return nil
 }
 
-// MapStrAny 实现了接口函数 MapStrAny()。
+// MapStrAny implements interface function MapStrAny().
 func (j *Json) MapStrAny() map[string]interface{} {
 	if j == nil {
 		return nil
@@ -42,7 +43,7 @@ func (j *Json) MapStrAny() map[string]interface{} {
 	return j.Map()
 }
 
-// Interfaces 实现了接口函数 Interfaces()。
+// Interfaces implements interface function Interfaces().
 func (j *Json) Interfaces() []interface{} {
 	if j == nil {
 		return nil
@@ -50,7 +51,7 @@ func (j *Json) Interfaces() []interface{} {
 	return j.Array()
 }
 
-// String 将当前Json对象以字符串形式返回。
+// String returns current Json object as string.
 func (j *Json) String() string {
 	if j.IsNil() {
 		return ""

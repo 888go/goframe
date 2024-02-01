@@ -1,20 +1,24 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"fmt"
 	
 	"github.com/888go/goframe/text/gregex"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gpage"
-	)
-// GetPage 根据给定的`totalSize`（总数据量）和`pageSize`（每页大小）创建并返回分页对象。
-// 注意：为了简化和方便，来自客户端的页参数名始终定义为 gpage.DefaultPageName。
+)
+
+// GetPage creates and returns the pagination object for given `totalSize` and `pageSize`.
+// NOTE THAT the page parameter name from clients is constantly defined as gpage.DefaultPageName
+// for simplification and convenience.
 func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
-	// 它必须具有Router对象属性。
+	// It must have Router object attribute.
 	if r.Router == nil {
 		panic("Router object not found")
 	}
@@ -23,7 +27,7 @@ func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 		urlTemplate    = url.Path
 		uriHasPageName = false
 	)
-	// 检查URI中的page变量。
+	// Check the page variable in the URI.
 	if len(r.Router.RegNames) > 0 {
 		for _, name := range r.Router.RegNames {
 			if name == gpage.DefaultPageName {
@@ -52,12 +56,12 @@ func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 			}
 		}
 	}
-	// 检查查询字符串中的page变量。
+	// Check the page variable in the query string.
 	if !uriHasPageName {
 		values := url.Query()
 		values.Set(gpage.DefaultPageName, gpage.DefaultPagePlaceHolder)
 		url.RawQuery = values.Encode()
-		// 将编码后的“{.page}”替换为原始的“{.page}”。
+		// Replace the encoded "{.page}" to original "{.page}".
 		url.RawQuery = gstr.Replace(url.RawQuery, "%7B.page%7D", "{.page}")
 	}
 	if url.RawQuery != "" {

@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtcp_test
+
 import (
 	"testing"
 	"time"
@@ -11,7 +13,7 @@ import (
 	"github.com/888go/goframe/net/gtcp"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/text/gstr"
-	)
+)
 
 func Test_Pool_Basic1(t *testing.T) {
 	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
@@ -58,8 +60,8 @@ func Test_Pool_Basic2(t *testing.T) {
 		data := []byte("9999")
 		err = conn.SendPkg(data)
 		t.AssertNil(err)
-// 使用1秒超时时间发送数据包，并将错误结果赋值给err变量
-// 断言err为nil（即无错误）
+		//err = conn.SendPkgWithTimeout(data, time.Second)
+		//t.AssertNil(err)
 
 		_, err = conn.SendRecv(data, -1)
 		t.AssertNE(err, nil)

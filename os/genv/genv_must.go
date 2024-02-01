@@ -1,18 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package genv
 
-// MustSet 表现如同 Set，但当发生任何错误时会触发panic（异常）。
+// MustSet performs as Set, but it panics if any error occurs.
 func MustSet(key, value string) {
 	if err := Set(key, value); err != nil {
 		panic(err)
 	}
 }
 
-// MustRemove 的行为与 Remove 相同，但是当发生任何错误时，它会触发 panic（异常）。
+// MustRemove performs as Remove, but it panics if any error occurs.
 func MustRemove(key ...string) {
 	if err := Remove(key...); err != nil {
 		panic(err)

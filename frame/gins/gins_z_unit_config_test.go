@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gins_test
+
 import (
 	"context"
 	"fmt"
@@ -15,7 +17,8 @@ import (
 	"github.com/888go/goframe/os/gfile"
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 var (
 	ctx           = context.Background()
 	configContent = gfile.GetContents(
@@ -54,10 +57,10 @@ func Test_Config2(t *testing.T) {
 		t.Assert(gins.Config().MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config().MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// 用于gfsnotify回调以刷新配置文件的缓存
+	// for gfsnotify callbacks to refresh cache of config file
 	time.Sleep(500 * time.Millisecond)
 
-	// 相对路径，配置文件夹
+	// relative path, config folder
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		dirPath := gfile.Temp(gtime.TimestampNanoStr())
@@ -77,7 +80,7 @@ func Test_Config2(t *testing.T) {
 		t.Assert(gins.Config().MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config().MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 
-		// 用于gfsnotify回调以刷新配置文件的缓存
+		// for gfsnotify callbacks to refresh cache of config file
 		time.Sleep(500 * time.Millisecond)
 	})
 }
@@ -104,7 +107,7 @@ func Test_Config3(t *testing.T) {
 		t.Assert(gins.Config("test").MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config("test").MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// 用于gfsnotify回调以刷新配置文件的缓存
+	// for gfsnotify callbacks to refresh cache of config file
 	time.Sleep(500 * time.Millisecond)
 
 	gtest.C(t, func(t *gtest.T) {
@@ -128,7 +131,7 @@ func Test_Config3(t *testing.T) {
 		t.Assert(gins.Config("test").MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config("test").MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// 用于gfsnotify回调以刷新配置文件的缓存 for next unit testing case.
+	// for gfsnotify callbacks to refresh cache of config file for next unit testing case.
 	time.Sleep(500 * time.Millisecond)
 }
 

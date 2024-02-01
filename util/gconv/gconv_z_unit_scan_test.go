@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv_test
+
 import (
 	"fmt"
 	"math/big"
@@ -13,7 +15,7 @@ import (
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func Test_Scan_WithMapParameter(t *testing.T) {
 	type User struct {
@@ -174,7 +176,7 @@ func Test_Scan_Map(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(data, m)
 	})
-	// JSON格式字符串参数。
+	// json string parameter.
 	gtest.C(t, func(t *gtest.T) {
 		var m map[string]string
 		data := `{"k1":"v1","k2":"v2"}`
@@ -204,7 +206,7 @@ func Test_Scan_Maps(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(data, maps)
 	})
-	// JSON格式字符串参数。
+	// json string parameter.
 	gtest.C(t, func(t *gtest.T) {
 		var maps []map[string]string
 		data := `[{"k1":"v1","k2":"v2"},{"k3":"v3","k4":"v4"}]`
@@ -417,7 +419,7 @@ func Test_ScanList_Basic(t *testing.T) {
 
 		t.Assert(len(entities[2].UserScores), 0)
 	})
-	// 指针属性。
+	// Pointer attribute.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int
@@ -558,7 +560,7 @@ func Test_ScanList_Embedded(t *testing.T) {
 
 		t.Assert(len(entities[2].UserScores), 0)
 	})
-	// 指针属性。
+	// Pointer attribute.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int

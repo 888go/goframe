@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package mysql_test
+
 import (
 	"context"
 	"database/sql"
@@ -19,7 +21,7 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/text/gstr"
-	)
+)
 
 func Test_New(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -199,7 +201,7 @@ func Test_DB_Insert(t *testing.T) {
 	})
 }
 
-// 解决问题：https://github.com/gogf/gf/issues/819
+// Fix issue: https://github.com/gogf/gf/issues/819
 func Test_DB_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -332,40 +334,31 @@ func Test_DB_Update_KeyFieldNameMapping(t *testing.T) {
 	})
 }
 
-// 从GoFrame v1.16.0版本开始，此功能不再使用，因为过滤器特性已自动启用。
+// This is no longer used as the filter feature is automatically enabled from GoFrame v1.16.0.
 // func Test_DB_Insert_KeyFieldNameMapping_Error(t *testing.T) {
-// 	// 创建并获取测试用表
-// 	table := createTable()
-// 	defer dropTable(table) // 在测试结束后删除测试用表
-// 	// 使用gtest框架进行单元测试
-// 	gtest.C(t, func(t *gtest.T) {
-// 		// 定义User结构体
-// 		type User struct {
-// 			Id             int
-// 			Passport       string
-// 			Password       string
-// 			Nickname       string
-// 			CreateTime     string
-// 			NoneExistField string // 不存在于数据库中的字段
-// 		}
-// 
-// 		// 准备待插入的数据
-// 		data := User{
-// 			Id:         1,
-// 			Passport:   "user_1",
-// 			Password:   "pass_1",
-// 			Nickname:   "name_1",
-// 			CreateTime: "2020-10-10 12:00:01",
-// 		}
-// 
-// 		// 尝试将数据插入到数据库中
-// 		result, err := db.Insert(ctx, table, data)
-// 
-// 		// 断言错误不为nil，即预期该操作应出现错误
-// 		t.AssertNE(err, nil)
-// 	})
+//	table := createTable()
+//	defer dropTable(table)
+//
+//	gtest.C(t, func(t *gtest.T) {
+//		type User struct {
+//			Id             int
+//			Passport       string
+//			Password       string
+//			Nickname       string
+//			CreateTime     string
+//			NoneExistField string
+//		}
+//		data := User{
+//			Id:         1,
+//			Passport:   "user_1",
+//			Password:   "pass_1",
+//			Nickname:   "name_1",
+//			CreateTime: "2020-10-10 12:00:01",
+//		}
+//		_, err := db.Insert(ctx, table, data)
+//		t.AssertNE(err, nil)
+//	})
 // }
-// 上述代码是Go语言的一个单元测试函数，用于测试在存在键字段名称映射错误的情况下，执行数据库插入操作是否会返回非空错误。
 
 func Test_DB_InsertIgnore(t *testing.T) {
 	table := createInitTable()
@@ -463,7 +456,7 @@ func Test_DB_BatchInsert(t *testing.T) {
 }
 
 func Test_DB_BatchInsert_Struct(t *testing.T) {
-	// 批量插入结构体
+	// batch insert struct
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
@@ -1471,7 +1464,7 @@ func Test_Empty_Slice_Argument(t *testing.T) {
 	})
 }
 
-// 更新计数器测试
+// update counter test.
 func Test_DB_UpdateCounter(t *testing.T) {
 	tableName := "gf_update_counter_test_" + gtime.TimestampNanoStr()
 	_, err := db.Exec(ctx, fmt.Sprintf(`
@@ -1553,7 +1546,7 @@ func Test_DB_Ctx_Logger(t *testing.T) {
 	})
 }
 
-// 所有类型测试
+// All types testing.
 func Test_Types(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		if _, err := db.Exec(ctx, fmt.Sprintf(`

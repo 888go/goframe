@@ -1,25 +1,28 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
+
 import (
 	"github.com/888go/goframe/internal/json"
-	)
-// SliceMap 是 Maps 的别名。
+)
+
+// SliceMap is alias of Maps.
 func SliceMap(any interface{}, option ...MapOption) []map[string]interface{} {
 	return Maps(any, option...)
 }
 
-// SliceMapDeep 是 MapsDeep 的别名。
-// 已弃用：请改用 SliceMap。
+// SliceMapDeep is alias of MapsDeep.
+// Deprecated: used SliceMap instead.
 func SliceMapDeep(any interface{}) []map[string]interface{} {
 	return MapsDeep(any)
 }
 
-// Maps 将 `value` 转换为 []map[string]interface{} 类型。
-// 注意，如果 `value` 为 string 或 []byte 类型，它会自动检查并转换为 json 字符串到 []map。
+// Maps converts `value` to []map[string]interface{}.
+// Note that it automatically checks and converts json string to []map if `value` is string/[]byte.
 func Maps(value interface{}, option ...MapOption) []map[string]interface{} {
 	if value == nil {
 		return nil
@@ -63,10 +66,10 @@ func Maps(value interface{}, option ...MapOption) []map[string]interface{} {
 	}
 }
 
-// MapsDeep 递归地将`value`转换为[]map[string]interface{}。
+// MapsDeep converts `value` to []map[string]interface{} recursively.
 //
-// TODO 完全实现对所有类型的递归转换。
-// 废弃: 请改用Maps方法。
+// TODO completely implement the recursive converting for all types.
+// Deprecated: used Maps instead.
 func MapsDeep(value interface{}, tags ...string) []map[string]interface{} {
 	if value == nil {
 		return nil

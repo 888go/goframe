@@ -1,14 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfile_test
+
 import (
 	"fmt"
 	
 	"github.com/888go/goframe/os/gfile"
-	)
+)
 
 func ExampleCopy() {
 	// init
@@ -31,13 +33,13 @@ func ExampleCopy() {
 	// copy file
 	gfile.Copy(srcTempFile, dstTempFile)
 
-	// 在复制文件后读取内容
+	// read contents after copy file
 	fmt.Println(gfile.GetContents(dstTempFile))
 
 	// copy dir
 	gfile.Copy(srcTempDir, dstTempDir)
 
-	// 列表复制目录文件
+	// list copy dir file
 	fList, _ := gfile.ScanDir(dstTempDir, "*", false)
 	for _, v := range fList {
 		fmt.Println(gfile.Basename(v))

@@ -1,20 +1,15 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gview 实现了一个基于 text/template 的模板引擎。
+// Package gview implements a template engine based on text/template.
 //
-// 预留的模板变量名称：
-// I18nLanguage: 将此变量赋值以在每一页上定义 i18n 语言。
-// 这段 Go 代码注释翻译成中文后为：
-// ```go
-// 包 gview 实现了一个基于 text/template 标准库的模板引擎功能。
-//
-// 已保留的模板变量名称：
-// I18nLanguage：将该变量进行赋值，以便在每个页面上定义国际化的（i18n）语言设置。
+// Reserved template variable names:
+// I18nLanguage: Assign this variable to define i18n language for each page.
 package gview
+
 import (
 	"context"
 	
@@ -25,19 +20,20 @@ import (
 	"github.com/888go/goframe/os/gcmd"
 	"github.com/888go/goframe/os/gfile"
 	"github.com/888go/goframe/os/glog"
-	)
-// 模板引擎的视图对象。
+)
+
+// View object for template engine.
 type View struct {
-	searchPaths  *garray.StrArray       // 为了性能考虑，以下代码在数组中搜索路径，但并不保证并发安全。
-	data         map[string]interface{} // 全局模板变量。
-	funcMap      map[string]interface{} // 全局模板函数映射。
+	searchPaths  *garray.StrArray       // Searching array for path, NOT concurrent-safe for performance purpose.
+	data         map[string]interface{} // Global template variables.
+	funcMap      map[string]interface{} // Global template function map.
 	fileCacheMap *gmap.StrAnyMap        // File cache map.
-	config       Config                 // 额外的视图配置
+	config       Config                 // Extra configuration for the view.
 }
 
 type (
-	Params  = map[string]interface{} // Params 是模板参数的类型。
-	FuncMap = map[string]interface{} // FuncMap 是用于自定义模板函数的类型。
+	Params  = map[string]interface{} // Params is type for template params.
+	FuncMap = map[string]interface{} // FuncMap is type for custom template functions.
 )
 
 const (
@@ -45,27 +41,27 @@ const (
 )
 
 var (
-	// 默认视图对象。
+	// Default view object.
 	defaultViewObj *View
 )
 
-// checkAndInitDefaultView 检查并初始化默认视图对象。
-// 默认视图对象仅会被初始化一次。
+// checkAndInitDefaultView checks and initializes the default view object.
+// The default view object will be initialized just once.
 func checkAndInitDefaultView() {
 	if defaultViewObj == nil {
 		defaultViewObj = New()
 	}
 }
 
-// ParseContent 使用默认视图对象直接解析模板内容，
-// 并返回已解析的内容。
+// ParseContent parses the template content directly using the default view object
+// and returns the parsed content.
 func ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	checkAndInitDefaultView()
 	return defaultViewObj.ParseContent(ctx, content, params...)
 }
 
-// New返回一个新的视图对象。
-// 参数`path`用于指定加载模板文件的模板目录路径。
+// New returns a new view object.
+// The parameter `path` specifies the template directory path to load template files.
 func New(path ...string) *View {
 	var (
 		ctx = context.TODO()
@@ -82,7 +78,7 @@ func New(path ...string) *View {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
 	} else {
-		// 从环境变量/命令行自定义目录路径。
+		// Customized dir path from env/cmd.
 		if envPath := gcmd.GetOptWithEnv(commandEnvKeyForPath).String(); envPath != "" {
 			if gfile.Exists(envPath) {
 				if err := view.SetPath(envPath); err != nil {
@@ -94,17 +90,17 @@ func New(path ...string) *View {
 				}
 			}
 		} else {
-			// Dir：工作目录的路径。
+			// Dir path of working dir.
 			if err := view.SetPath(gfile.Pwd()); err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
-			// Dir 二进制文件的路径。
+			// Dir path of binary.
 			if selfPath := gfile.SelfDir(); selfPath != "" && gfile.Exists(selfPath) {
 				if err := view.AddPath(selfPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}
 			}
-			// Dir：主包的路径。
+			// Dir path of main package.
 			if mainPath := gfile.MainPkgPath(); mainPath != "" && gfile.Exists(mainPath) {
 				if err := view.AddPath(mainPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
@@ -113,11 +109,11 @@ func New(path ...string) *View {
 		}
 	}
 	view.SetDelimiters("{{", "}}")
-	// 默认内置变量
+	// default build-in variables.
 	view.data["GF"] = map[string]interface{}{
 		"version": gf.VERSION,
 	}
-	// 默认内置函数
+	// default build-in functions.
 	view.BindFuncMap(FuncMap{
 		"eq":         view.buildInFuncEq,
 		"ne":         view.buildInFuncNe,

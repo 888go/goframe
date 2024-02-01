@@ -1,16 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcache
+
 import (
 	"github.com/888go/goframe/os/gtime"
-	)
-// IsExpired 检查 `item` 是否已过期。
+)
+
+// IsExpired checks whether `item` is expired.
 func (item *adapterMemoryItem) IsExpired() bool {
-// 注意这里应当使用大于或等于的判断
-// 假设缓存时间仅为1毫秒
+	// Note that it should use greater than or equal judgement here
+	// imagining that the cache time is only 1 millisecond.
 
 	return item.e < gtime.TimestampMilli()
 }

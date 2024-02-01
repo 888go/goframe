@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv_test
+
 import (
 	"testing"
 	"time"
@@ -14,8 +16,9 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gconv"
-	)
-// 这是GitHub上gogf/gf仓库的第1227号问题链接
+)
+
+// https://github.com/gogf/gf/issues/1227
 func Test_Issue1227(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type StructFromIssue1227 struct {
@@ -135,7 +138,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// 它无法改变私有属性。
+	// It cannot change private attribute.
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			init *gtype.Bool
@@ -159,7 +162,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// 它可以改变公共属性。
+	// It can change public attribute.
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			Init *gtype.Bool
@@ -185,9 +188,7 @@ func Test_Issue1946(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，引用了GitHub上gogf/gf项目的一个问题链接。
-// 中文翻译：
-// 参考GitHub上gogf/gf项目中的第2381个问题。
+// https://github.com/gogf/gf/issues/2381
 func Test_Issue2381(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -224,7 +225,7 @@ func Test_Issue2381(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第2391个issue
+// https://github.com/gogf/gf/issues/2391
 func Test_Issue2391(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -264,9 +265,7 @@ func Test_Issue2391(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题编号2395。
-// 中文翻译：
-// 参考GitHub上gogf/gf项目的问题#2395。
+// https://github.com/gogf/gf/issues/2395
 func Test_Issue2395(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Test struct {
@@ -278,9 +277,7 @@ func Test_Issue2395(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题：#2371
-// 中文翻译：
-// 参考GitHub上gogf/gf项目编号为2371的问题。
+// https://github.com/gogf/gf/issues/2371
 func Test_Issue2371(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (

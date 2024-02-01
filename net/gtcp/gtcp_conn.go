@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtcp
+
 import (
 	"bufio"
 	"bytes"
@@ -13,22 +15,23 @@ import (
 	"time"
 	
 	"github.com/888go/goframe/errors/gerror"
-	)
-// Conn 是 TCP 连接对象。
+)
+
+// Conn is the TCP connection object.
 type Conn struct {
-	net.Conn                     // 底层TCP连接对象。
-	reader         *bufio.Reader // 连接的缓冲读取器
-	deadlineRecv   time.Time     // 读取操作的超时点。
-	deadlineSend   time.Time     // 写入操作的超时点。
-	bufferWaitRecv time.Duration // 读取缓冲区的间隔时长。
+	net.Conn                     // Underlying TCP connection object.
+	reader         *bufio.Reader // Buffer reader for connection.
+	deadlineRecv   time.Time     // Timeout point for reading.
+	deadlineSend   time.Time     // Timeout point for writing.
+	bufferWaitRecv time.Duration // Interval duration for reading buffer.
 }
 
 const (
-	// 默认读取缓冲区的间隔时间
+	// Default interval for reading buffer.
 	receiveAllWaitTimeout = time.Millisecond
 )
 
-// NewConn 根据给定的地址创建并返回一个新的连接。
+// NewConn creates and returns a new connection with given address.
 func NewConn(addr string, timeout ...time.Duration) (*Conn, error) {
 	if conn, err := NewNetConn(addr, timeout...); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -37,7 +40,8 @@ func NewConn(addr string, timeout ...time.Duration) (*Conn, error) {
 	}
 }
 
-// NewConnTLS 根据给定的地址和 TLS 配置创建并返回一个新的 TLS 连接。
+// NewConnTLS creates and returns a new TLS connection
+// with given address and TLS configuration.
 func NewConnTLS(addr string, tlsConfig *tls.Config) (*Conn, error) {
 	if conn, err := NewNetConnTLS(addr, tlsConfig); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -46,7 +50,8 @@ func NewConnTLS(addr string, tlsConfig *tls.Config) (*Conn, error) {
 	}
 }
 
-// NewConnKeyCrt 根据给定的地址和 TLS 证书及密钥文件创建并返回一个新的 TLS 连接。
+// NewConnKeyCrt creates and returns a new TLS connection
+// with given address and TLS certificate and key files.
 func NewConnKeyCrt(addr, crtFile, keyFile string) (*Conn, error) {
 	if conn, err := NewNetConnKeyCrt(addr, crtFile, keyFile); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -55,7 +60,7 @@ func NewConnKeyCrt(addr, crtFile, keyFile string) (*Conn, error) {
 	}
 }
 
-// NewConnByNetConn 根据给定的 net.Conn 对象创建并返回一个 TCP 连接对象。
+// NewConnByNetConn creates and returns a TCP connection object with given net.Conn object.
 func NewConnByNetConn(conn net.Conn) *Conn {
 	return &Conn{
 		Conn:           conn,
@@ -66,15 +71,15 @@ func NewConnByNetConn(conn net.Conn) *Conn {
 	}
 }
 
-// Send 将数据写入远程地址。
+// Send writes data to remote address.
 func (c *Conn) Send(data []byte, retry ...Retry) error {
 	for {
 		if _, err := c.Write(data); err != nil {
-			// 连接已关闭。
+			// Connection closed.
 			if err == io.EOF {
 				return err
 			}
-			// 即使重试后仍然失败。
+			// Still failed even after retrying.
 			if len(retry) == 0 || retry[0].Count == 0 {
 				err = gerror.Wrap(err, `Write data failed`)
 				return err
@@ -92,20 +97,22 @@ func (c *Conn) Send(data []byte, retry ...Retry) error {
 	}
 }
 
-// Recv 从连接中接收并返回数据。
+// Recv receives and returns data from the connection.
 //
-// 注意：
-//  1. 如果 length 等于 0，表示它会从当前缓冲区接收数据并立即返回。
-//  2. 如果 length 小于 0，表示它会从连接中接收所有数据并返回，直到没有更多的数据从连接中获取为止。开发者需要注意，
-//     如果决定从缓冲区接收所有数据，则需要自行处理包解析问题。
-//  3. 如果 length 大于 0，表示它会阻塞读取连接中的数据，直到接收到长度为 length 的数据为止。这是最常见的用于接收数据的长度值。
+// Note that,
+//  1. If length = 0, which means it receives the data from current buffer and returns immediately.
+//  2. If length < 0, which means it receives all data from connection and returns it until no data
+//     from connection. Developers should notice the package parsing yourself if you decide receiving
+//     all data from buffer.
+//  3. If length > 0, which means it blocks reading data from connection until length size was received.
+//     It is the most commonly used length value for data receiving.
 func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 	var (
 		err        error  // Reading error.
 		size       int    // Reading size.
 		index      int    // Received size.
 		buffer     []byte // Buffer object.
-		bufferWait bool   // 是否设置了缓冲区读取超时。
+		bufferWait bool   // Whether buffer reading timeout set.
 	)
 	if length > 0 {
 		buffer = make([]byte, length)
@@ -125,16 +132,16 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 		if size > 0 {
 			index += size
 			if length > 0 {
-				// 如果指定了`length`，则读取到指定长度为止。
+				// It reads til `length` size if `length` is specified.
 				if index == length {
 					break
 				}
 			} else {
 				if index >= defaultReadBufferSize {
-					// 如果超过缓冲区大小，它会自动增加其缓冲区大小。
+					// If it exceeds the buffer size, it then automatically increases its buffer size.
 					buffer = append(buffer, make([]byte, defaultReadBufferSize)...)
 				} else {
-					// 如果接收到的大小小于缓冲区大小，则它会立即返回。
+					// It returns immediately if received size is lesser than buffer size.
 					if !bufferWait {
 						break
 					}
@@ -142,11 +149,11 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 			}
 		}
 		if err != nil {
-			// 连接已关闭。
+			// Connection closed.
 			if err == io.EOF {
 				break
 			}
-			// 在读取数据时重新设置超时时间。
+			// Re-set the timeout when reading data.
 			if bufferWait && isTimeout(err) {
 				if err = c.SetReadDeadline(c.deadlineRecv); err != nil {
 					err = gerror.Wrap(err, `SetReadDeadline for connection failed`)
@@ -156,7 +163,7 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 				break
 			}
 			if len(retry) > 0 {
-				// 即使重试了也会失败。
+				// It fails even it retried.
 				if retry[0].Count == 0 {
 					break
 				}
@@ -169,7 +176,7 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 			}
 			break
 		}
-		// 仅从缓冲区读取一次。
+		// Just read once from buffer.
 		if length == 0 {
 			break
 		}
@@ -177,8 +184,8 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 	return buffer[:index], err
 }
 
-// RecvLine 从连接中读取数据，直到读取到字符 '\n'。
-// 注意，返回的结果不包含最后的字符 '\n'。
+// RecvLine reads data from the connection until reads char '\n'.
+// Note that the returned result does not contain the last char '\n'.
 func (c *Conn) RecvLine(retry ...Retry) ([]byte, error) {
 	var (
 		err    error
@@ -202,8 +209,8 @@ func (c *Conn) RecvLine(retry ...Retry) ([]byte, error) {
 	return data, err
 }
 
-// RecvTill从连接中读取数据，直到读取到指定字节序列`til`为止。
-// 注意，返回的结果中包含最后的字节序列`til`。
+// RecvTill reads data from the connection until reads bytes `til`.
+// Note that the returned result contains the last bytes `til`.
 func (c *Conn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 	var (
 		err    error
@@ -231,7 +238,7 @@ func (c *Conn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 	return data, err
 }
 
-// RecvWithTimeout函数以超时方式从连接中读取数据。
+// RecvWithTimeout reads data from the connection with timeout.
 func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) (data []byte, err error) {
 	if err = c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -243,7 +250,7 @@ func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry
 	return
 }
 
-// SendWithTimeout 函数在设定的超时时间内向连接写入数据。
+// SendWithTimeout writes data to the connection with timeout.
 func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) (err error) {
 	if err = c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -255,7 +262,7 @@ func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retr
 	return
 }
 
-// SendRecv 向连接写入数据，并阻塞等待读取响应。
+// SendRecv writes data to the connection and blocks reading response.
 func (c *Conn) SendRecv(data []byte, length int, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err == nil {
 		return c.Recv(length, retry...)
@@ -264,7 +271,7 @@ func (c *Conn) SendRecv(data []byte, length int, retry ...Retry) ([]byte, error)
 	}
 }
 
-// SendRecvWithTimeout 函数向连接写入数据并设定超时读取响应。
+// SendRecvWithTimeout writes data to the connection and reads response with timeout.
 func (c *Conn) SendRecvWithTimeout(data []byte, length int, timeout time.Duration, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err == nil {
 		return c.RecvWithTimeout(length, timeout, retry...)
@@ -273,7 +280,7 @@ func (c *Conn) SendRecvWithTimeout(data []byte, length int, timeout time.Duratio
 	}
 }
 
-// SetDeadline 设置当前连接的截止时间。
+// SetDeadline sets the deadline for current connection.
 func (c *Conn) SetDeadline(t time.Time) (err error) {
 	if err = c.Conn.SetDeadline(t); err == nil {
 		c.deadlineRecv = t
@@ -285,7 +292,7 @@ func (c *Conn) SetDeadline(t time.Time) (err error) {
 	return err
 }
 
-// SetDeadlineRecv为当前连接设置接收的截止时间。
+// SetDeadlineRecv sets the deadline of receiving for current connection.
 func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 	if err = c.SetReadDeadline(t); err == nil {
 		c.deadlineRecv = t
@@ -296,7 +303,7 @@ func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 	return err
 }
 
-// SetDeadlineSend 为当前连接设置发送的截止时间。
+// SetDeadlineSend sets the deadline of sending for current connection.
 func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 	if err = c.SetWriteDeadline(t); err == nil {
 		c.deadlineSend = t
@@ -307,8 +314,8 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 	return err
 }
 
-// SetBufferWaitRecv 设置从连接中读取所有数据时的缓冲等待超时时间。
-// 等待时长不能过长，否则可能导致接收远程地址数据延迟。
+// SetBufferWaitRecv sets the buffer waiting timeout when reading all data from connection.
+// The waiting duration cannot be too long which might delay receiving data from remote address.
 func (c *Conn) SetBufferWaitRecv(bufferWaitDuration time.Duration) {
 	c.bufferWaitRecv = bufferWaitDuration
 }

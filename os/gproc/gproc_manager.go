@@ -1,37 +1,39 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gproc
+
 import (
 	"os"
 	
 	"github.com/888go/goframe/container/gmap"
 	"github.com/888go/goframe/errors/gerror"
-	)
-// Manager 是一个进程管理器，用于维护多个进程。
+)
+
+// Manager is a process manager maintaining multiple processes.
 type Manager struct {
-	processes *gmap.IntAnyMap // 进程id到进程对象的映射。
+	processes *gmap.IntAnyMap // Process id to Process object mapping.
 }
 
-// NewManager 创建并返回一个新的进程管理器。
+// NewManager creates and returns a new process manager.
 func NewManager() *Manager {
 	return &Manager{
 		processes: gmap.NewIntAnyMap(true),
 	}
 }
 
-// NewProcess 创建并返回一个 Process 对象。
+// NewProcess creates and returns a Process object.
 func (m *Manager) NewProcess(path string, args []string, environment []string) *Process {
 	p := NewProcess(path, args, environment)
 	p.Manager = m
 	return p
 }
 
-// GetProcess 获取并返回一个 Process 对象。
-// 如果未找到给定 `pid` 的进程，则返回 nil。
+// GetProcess retrieves and returns a Process object.
+// It returns nil if it does not find the process with given `pid`.
 func (m *Manager) GetProcess(pid int) *Process {
 	if v := m.processes.Get(pid); v != nil {
 		return v.(*Process)
@@ -39,8 +41,8 @@ func (m *Manager) GetProcess(pid int) *Process {
 	return nil
 }
 
-// AddProcess 将一个进程添加到当前管理器中。
-// 如果给定 `pid` 的进程不存在，则不做任何操作。
+// AddProcess adds a process to current manager.
+// It does nothing if the process with given `pid` does not exist.
 func (m *Manager) AddProcess(pid int) {
 	if m.processes.Get(pid) == nil {
 		if process, err := os.FindProcess(pid); err == nil {
@@ -51,12 +53,12 @@ func (m *Manager) AddProcess(pid int) {
 	}
 }
 
-// RemoveProcess 从当前管理器中移除一个进程。
+// RemoveProcess removes a process from current manager.
 func (m *Manager) RemoveProcess(pid int) {
 	m.processes.Remove(pid)
 }
 
-// Processes 获取并返回当前管理器中的所有进程。
+// Processes retrieves and returns all processes in current manager.
 func (m *Manager) Processes() []*Process {
 	processes := make([]*Process, 0)
 	m.processes.RLockFunc(func(m map[int]interface{}) {
@@ -67,12 +69,12 @@ func (m *Manager) Processes() []*Process {
 	return processes
 }
 
-// Pids 获取并返回当前管理器中的所有进程ID数组。
+// Pids retrieves and returns all process id array in current manager.
 func (m *Manager) Pids() []int {
 	return m.processes.Keys()
 }
 
-// WaitAll等待直到所有进程退出。
+// WaitAll waits until all process exit.
 func (m *Manager) WaitAll() {
 	processes := m.Processes()
 	if len(processes) > 0 {
@@ -82,7 +84,7 @@ func (m *Manager) WaitAll() {
 	}
 }
 
-// KillAll杀掉当前管理器中的所有进程。
+// KillAll kills all processes in current manager.
 func (m *Manager) KillAll() error {
 	for _, p := range m.Processes() {
 		if err := p.Kill(); err != nil {
@@ -92,7 +94,7 @@ func (m *Manager) KillAll() error {
 	return nil
 }
 
-// SignalAll 向当前管理器中的所有进程发送信号 `sig`。
+// SignalAll sends a signal `sig` to all processes in current manager.
 func (m *Manager) SignalAll(sig os.Signal) error {
 	for _, p := range m.Processes() {
 		if err := p.Signal(sig); err != nil {
@@ -103,24 +105,24 @@ func (m *Manager) SignalAll(sig os.Signal) error {
 	return nil
 }
 
-// Send 向当前管理器中的所有进程发送 data 字节。
+// Send sends data bytes to all processes in current manager.
 func (m *Manager) Send(data []byte) {
 	for _, p := range m.Processes() {
 		_ = p.Send(data)
 	}
 }
 
-// SendTo 向当前管理器中指定进程发送数据字节。
+// SendTo sneds data bytes to specified processe in current manager.
 func (m *Manager) SendTo(pid int, data []byte) error {
 	return Send(pid, data)
 }
 
-// Clear 清除当前管理器中的所有进程。
+// Clear removes all processes in current manager.
 func (m *Manager) Clear() {
 	m.processes.Clear()
 }
 
-// Size 返回当前管理器中进程的数量。
+// Size returns the size of processes in current manager.
 func (m *Manager) Size() int {
 	return m.processes.Size()
 }

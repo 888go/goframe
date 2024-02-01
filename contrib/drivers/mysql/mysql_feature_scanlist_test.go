@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package mysql_test
+
 import (
 	"context"
 	"fmt"
@@ -14,7 +16,7 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func Test_Table_Relation_One(t *testing.T) {
 	var (
@@ -80,7 +82,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	var err error
 	gtest.C(t, func(t *gtest.T) {
 		err = db.Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
@@ -134,16 +136,15 @@ CREATE TABLE %s (
 	// Entity query.
 	gtest.C(t, func(t *gtest.T) {
 		var user Entity
-		// 从`user`表中选择所有列，条件为`name`字段等于'john'
-// 即：查询用户表中名为'john'的所有记录
+		// SELECT * FROM `user` WHERE `name`='john'
 		err := db.Model(tableUser).Scan(&user.User, "name", "john")
 		t.AssertNil(err)
 
-		// 从`user_detail`表中选取所有列，其条件为`uid`等于1
+		// SELECT * FROM `user_detail` WHERE `uid`=1
 		err = db.Model(tableUserDetail).Scan(&user.UserDetail, "uid", user.User.Uid)
 		t.AssertNil(err)
 
-		// 从`user_scores`表中选择所有列，其条件是`uid`等于1
+		// SELECT * FROM `user_scores` WHERE `uid`=1
 		err = db.Model(tableUserScores).Scan(&user.UserScores, "uid", user.User.Uid)
 		t.AssertNil(err)
 
@@ -221,7 +222,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -267,7 +268,7 @@ CREATE TABLE %s (
 		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["uid"], 3)
 		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["score"], 5)
 	})
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -300,7 +301,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList，具有指针元素和指针属性。
+	// Result ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -333,7 +334,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList 用于包含结构体元素及结构体属性的扫描列表。
+	// Result ScanList with struct elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -384,7 +385,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result 扫描并生成一个具有指针元素和结构体属性的列表。
+	// Result ScanList with pointer elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -436,7 +437,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Model ScanList，其中包含指针元素和指针属性。
+	// Model ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -535,7 +536,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -563,7 +564,7 @@ CREATE TABLE %s (
 	})
 
 	//db.SetDebug(true)
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -662,7 +663,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -708,7 +709,7 @@ CREATE TABLE %s (
 		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["uid"], 3)
 		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["score"], 5)
 	})
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -741,7 +742,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList，具有指针元素和指针属性。
+	// Result ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -774,7 +775,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList 用于包含结构体元素及结构体属性的扫描列表。
+	// Result ScanList with struct elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -825,7 +826,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result 扫描并生成一个具有指针元素和结构体属性的列表。
+	// Result ScanList with pointer elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -877,7 +878,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Model ScanList，其中包含指针元素和指针属性。
+	// Model ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -976,7 +977,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -1003,7 +1004,7 @@ CREATE TABLE %s (
 		}
 	})
 
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -1036,7 +1037,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList，具有指针元素和指针属性。
+	// Result ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -1069,7 +1070,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList 用于包含结构体元素及结构体属性的扫描列表。
+	// Result ScanList with struct elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -1120,7 +1121,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result 扫描并生成一个具有指针元素和结构体属性的列表。
+	// Result ScanList with pointer elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -1172,7 +1173,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Model ScanList，其中包含指针元素和指针属性。
+	// Model ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -1271,7 +1272,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -1293,7 +1294,7 @@ CREATE TABLE %s (
 		t.AssertNil(err)
 	})
 	return
-	// Result ScanList，具有指针元素和指针属性。
+	// Result ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -1316,7 +1317,7 @@ CREATE TABLE %s (
 		t.AssertNil(err)
 	})
 
-	// Result ScanList 用于包含结构体元素及结构体属性的扫描列表。
+	// Result ScanList with struct elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -1356,7 +1357,7 @@ CREATE TABLE %s (
 		t.AssertNil(err)
 	})
 
-	// Result 扫描并生成一个具有指针元素和结构体属性的列表。
+	// Result ScanList with pointer elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -1397,7 +1398,7 @@ CREATE TABLE %s (
 		t.AssertNil(err)
 	})
 
-	// Model ScanList，其中包含指针元素和指针属性。
+	// Model ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -1482,7 +1483,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -1492,24 +1493,24 @@ CREATE TABLE %s (
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
-// 用户详情.
-// _, err = db.Insert(ctx, tableUserDetail, g.Map{
-//	"uid":     i, // 用户ID
-//	"address": fmt.Sprintf(`address_%d`, i), // 格式化后的用户地址信息，索引为i
-// })
-// t.AssertNil(err) // 断言错误是否为nil，即检查插入用户详情操作是否成功
-// 用户得分.
-// for j := 1; j <= 5; j++ { // 遍历1到5的得分值
-//	_, err = db.Insert(ctx, tableUserScores, g.Map{
-//		"uid":   i, // 用户ID
-//		"score": j, // 用户对应得分值
-//	})
-//	t.AssertNil(err) // 断言错误是否为nil，即检查插入用户得分记录操作是否成功
-// }
+			// Detail.
+			// _, err = db.Insert(ctx, tableUserDetail, g.Map{
+			//	"uid":     i,
+			//	"address": fmt.Sprintf(`address_%d`, i),
+			// })
+			// t.AssertNil(err)
+			// Scores.
+			// for j := 1; j <= 5; j++ {
+			//	_, err = db.Insert(ctx, tableUserScores, g.Map{
+			//		"uid":   i,
+			//		"score": j,
+			//	})
+			//	t.AssertNil(err)
+			// }
 		}
 	})
 
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -1534,7 +1535,7 @@ CREATE TABLE %s (
 		t.Assert(len(users[0].UserScores), 0)
 	})
 
-	// Result ScanList，具有指针元素和指针属性。
+	// Result ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -1559,7 +1560,7 @@ CREATE TABLE %s (
 		t.Assert(len(users[0].UserScores), 0)
 	})
 
-	// Result ScanList 用于包含结构体元素及结构体属性的扫描列表。
+	// Result ScanList with struct elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -1602,7 +1603,7 @@ CREATE TABLE %s (
 		t.Assert(len(users[0].UserScores), 0)
 	})
 
-	// Result 扫描并生成一个具有指针元素和结构体属性的列表。
+	// Result ScanList with pointer elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -1646,7 +1647,7 @@ CREATE TABLE %s (
 		t.Assert(len(users[0].UserScores), 0)
 	})
 
-	// Model ScanList，其中包含指针元素和指针属性。
+	// Model ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -1735,7 +1736,7 @@ CREATE TABLE %s (
 		Score int `json:"score"`
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -1771,14 +1772,13 @@ CREATE TABLE %s (
 		err = db.Model(tableUserScores).Scan(&scores)
 		t.AssertNil(err)
 
-		// 从`user_scores`表中选取所有列，其条件是`uid`字段的值存在于列表(1,2,3,4,5)中
-// 即：查询`user_scores`表中uid为1、2、3、4或5的所有记录
+		// SELECT * FROM `user_scores` WHERE `uid` IN(1,2,3,4,5)
 		err = db.Model(tableUser).
 			Where("uid", gdb.ListItemValuesUnique(&scores, "Uid")).
 			ScanList(&scores, "EntityUser", "uid:Uid")
 		t.AssertNil(err)
 
-		// 从`user_detail`表中选择所有列，其条件是`uid`在(1,2,3,4,5)这个列表内
+		// SELECT * FROM `user_detail` WHERE `uid` IN(1,2,3,4,5)
 		err = db.Model(tableUserDetail).
 			Where("uid", gdb.ListItemValuesUnique(&scores, "Uid")).
 			ScanList(&scores, "EntityUserDetail", "uid:Uid")
@@ -1856,7 +1856,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -1903,7 +1903,7 @@ CREATE TABLE %s (
 		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["score"], 5)
 	})
 
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -1934,7 +1934,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList，具有指针元素和指针属性。
+	// Result ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
@@ -1965,7 +1965,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result ScanList 用于包含结构体元素及结构体属性的扫描列表。
+	// Result ScanList with struct elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -2014,7 +2014,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Result 扫描并生成一个具有指针元素和结构体属性的列表。
+	// Result ScanList with pointer elements and struct attributes.
 	gtest.C(t, func(t *gtest.T) {
 		type EntityUser struct {
 			Uid  int    `json:"uid"`
@@ -2064,7 +2064,7 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 
-	// Model ScanList，其中包含指针元素和指针属性。
+	// Model ScanList with pointer elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User

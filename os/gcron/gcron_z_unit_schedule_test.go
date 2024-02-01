@@ -1,17 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcron
+
 import (
 	"strings"
 	"testing"
 	"time"
 	
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func TestSlash(t *testing.T) {
 	runs := []struct {
@@ -58,7 +59,7 @@ func TestNext(t *testing.T) {
 		{"Mon Jul 9 23:35:51 2012", "15/35 20-35/15 * 9-20 * *", "Wed Jul 10 00:20:15 2012"},
 		{"Mon Jul 9 23:35:51 2012", "15/35 20-35/15 * 9-20 Jul *", "Wed Jul 10 00:20:15 2012"},
 
-		// 对月份进行循环处理
+		// Wrap around months
 		{"Mon Jul 9 23:35 2012", "0 0 0 9 Apr-Oct ?", "Thu Aug 9 00:00 2012"},
 		{"Mon Jul 9 23:35 2012", "0 0 0 */5 Apr,Aug,Oct Mon", "Mon Aug 6 00:00 2012"},
 		{"Mon Jul 9 23:35 2012", "0 0 0 */5 Oct Mon", "Mon Oct 1 00:00 2012"},
@@ -67,13 +68,13 @@ func TestNext(t *testing.T) {
 		{"Mon Jul 9 23:35 2012", "0 0 0 * Feb Mon", "Mon Feb 4 00:00 2013"},
 		{"Mon Jul 9 23:35 2012", "0 0 0 * Feb Mon/2", "Fri Feb 1 00:00 2013"},
 
-		// 对分钟、小时、天、月、年进行循环处理
+		// Wrap around minute, hour, day, month, and year
 		{"Mon Dec 31 23:59:45 2012", "0 * * * * *", "Tue Jan 1 00:00:00 2013"},
 
 		// Leap year
 		{"Mon Jul 9 23:35 2012", "0 0 0 29 Feb ?", "Mon Feb 29 00:00 2016"},
 
-		// 预定义模式映射
+		// Predefined pattern map.
 		{"Mon Jul 9 23:35 2012", "@yearly", "Sun Jan 1 00:00:00 2013"},
 		{"Mon Jul 9 23:35 2012", "@annually", "Sun Jan 1 00:00:00 2013"},
 		{"Mon Jul 9 23:35 2012", "@monthly", "Mon Aug 1 00:00:00 2012"},
@@ -89,7 +90,7 @@ func TestNext(t *testing.T) {
 			t.Error(err)
 			continue
 		}
-		// 使用 %+v 格式化标签打印 sched，会输出 sched 的详细信息，包括其字段名和值
+		// fmt.Printf("%+v", sched)
 		actual := sched.Next(getTime(c.time))
 		expected := getTime(c.expected)
 		if !(actual.Unix() == expected.Unix()) {

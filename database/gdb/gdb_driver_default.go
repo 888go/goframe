@@ -1,13 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
+
 import (
 	"database/sql"
-	)
-// DriverDefault 是 mysql 数据库的默认驱动，它实际上什么都不做。
+)
+
+// DriverDefault is the default driver for mysql database, which does nothing.
 type DriverDefault struct {
 	*Core
 }
@@ -18,26 +21,26 @@ func init() {
 	}
 }
 
-// New 创建并返回一个用于 mysql 的数据库对象。
-// 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
+// New creates and returns a database object for mysql.
+// It implements the interface of gdb.Driver for extra database driver installation.
 func (d *DriverDefault) New(core *Core, node *ConfigNode) (DB, error) {
 	return &DriverDefault{
 		Core: core,
 	}, nil
 }
 
-// Open 创建并返回一个用于 mysql 的底层 sql.DB 对象。
-// 注意，它默认会将 time.Time 类型参数转换为本地时区。
+// Open creates and returns an underlying sql.DB object for mysql.
+// Note that it converts time.Time argument to local timezone in default.
 func (d *DriverDefault) Open(config *ConfigNode) (db *sql.DB, err error) {
 	return
 }
 
-// PingMaster 用于向主节点发送心跳以检查身份验证或保持连接存活。
+// PingMaster pings the master node to check authentication or keeps the connection alive.
 func (d *DriverDefault) PingMaster() error {
 	return nil
 }
 
-// PingSlave 向从节点发送ping请求，用于检查身份验证或保持连接活跃。
+// PingSlave pings the slave node to check authentication or keeps the connection alive.
 func (d *DriverDefault) PingSlave() error {
 	return nil
 }

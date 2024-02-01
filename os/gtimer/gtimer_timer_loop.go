@@ -1,13 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtimer
+
 import (
 	"time"
-	)
-// loop 使用独立的 goroutine 启动ticker。
+)
+
+// loop starts the ticker using a standalone goroutine.
 func (t *Timer) loop() {
 	go func() {
 		var (
@@ -18,7 +21,7 @@ func (t *Timer) loop() {
 		for {
 			select {
 			case <-timerIntervalTicker.C:
-				// 检查定时器状态。
+				// Check the timer status.
 				switch t.status.Val() {
 				case StatusRunning:
 					// Timer proceeding.
@@ -38,7 +41,7 @@ func (t *Timer) loop() {
 	}()
 }
 
-// proceed 函数执行定时任务的检查和运行逻辑。
+// proceed function proceeds the timer job checking and running logic.
 func (t *Timer) proceed(currentTimerTicks int64) {
 	var (
 		value interface{}
@@ -49,17 +52,17 @@ func (t *Timer) proceed(currentTimerTicks int64) {
 			break
 		}
 		entry := value.(*Entry)
-		// 它检查是否满足滴答（ticks）的要求。
+		// It checks if it meets the ticks' requirement.
 		if jobNextTicks := entry.nextTicks.Val(); currentTimerTicks < jobNextTicks {
-			// 如果当前的ticks数未达到其运行所需的ticks要求，则将该任务重新推回。
+			// It pushes the job back if current ticks does not meet its running ticks requirement.
 			t.queue.Push(entry, entry.nextTicks.Val())
 			break
 		}
-		// 它检查作业运行需求，然后进行异步运行。
+		// It checks the job running requirements and then does asynchronous running.
 		entry.doCheckAndRunByTicks(currentTimerTicks)
-		// 状态检查：将其推回或忽略。
+		// Status check: push back or ignore it.
 		if entry.Status() != StatusClosed {
-			// 它将任务推回到队列中以便下次运行。
+			// It pushes the job back to queue for next running.
 			t.queue.Push(entry, entry.nextTicks.Val())
 		}
 	}

@@ -1,36 +1,39 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
+
 import (
 	"reflect"
 	
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/internal/reflection"
-	)
-// SliceFloat 是 Floats 的别名。
+)
+
+// SliceFloat is alias of Floats.
 func SliceFloat(any interface{}) []float64 {
 	return Floats(any)
 }
 
-// SliceFloat32 是 Float32s 的别名。
+// SliceFloat32 is alias of Float32s.
 func SliceFloat32(any interface{}) []float32 {
 	return Float32s(any)
 }
 
-// SliceFloat64 是 Float64s 的别名。
+// SliceFloat64 is alias of Float64s.
 func SliceFloat64(any interface{}) []float64 {
 	return Floats(any)
 }
 
-// Floats 将 `any` 转换为 []float64 类型的切片。
+// Floats converts `any` to []float64.
 func Floats(any interface{}) []float64 {
 	return Float64s(any)
 }
 
-// Float32s 将 `any` 类型转换为 []float32 类型。
+// Float32s converts `any` to []float32.
 func Float32s(any interface{}) []float32 {
 	if any == nil {
 		return nil
@@ -129,11 +132,11 @@ func Float32s(any interface{}) []float32 {
 	if v, ok := any.(iInterfaces); ok {
 		return Float32s(v.Interfaces())
 	}
-	// JSON格式字符串值转换
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 如果不是常见类型，它将使用反射进行转换。
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:
@@ -154,7 +157,7 @@ func Float32s(any interface{}) []float32 {
 	}
 }
 
-// Float64s将`any`转换为[]float64。
+// Float64s converts `any` to []float64.
 func Float64s(any interface{}) []float64 {
 	if any == nil {
 		return nil
@@ -253,11 +256,11 @@ func Float64s(any interface{}) []float64 {
 	if v, ok := any.(iInterfaces); ok {
 		return Floats(v.Interfaces())
 	}
-	// JSON格式字符串值转换
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 如果不是常见类型，它将使用反射进行转换。
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:

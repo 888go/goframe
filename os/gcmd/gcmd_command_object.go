@@ -1,11 +1,12 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可证条款。
-// 如果随此文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 //
 
 package gcmd
+
 import (
 	"context"
 	"fmt"
@@ -25,13 +26,14 @@ import (
 	"github.com/888go/goframe/util/gtag"
 	"github.com/888go/goframe/util/gutil"
 	"github.com/888go/goframe/util/gvalid"
-	)
+)
+
 var (
-	// defaultValueTags 是用于存储默认值的结构体标签名称。
+	// defaultValueTags is the struct tag names for default value storing.
 	defaultValueTags = []string{"d", "default"}
 )
 
-// NewFromObject 通过给定的对象创建并返回一个根命令对象。
+// NewFromObject creates and returns a root command object using given object.
 func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 	switch c := object.(type) {
 	case Command:
@@ -49,26 +51,21 @@ func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 		return
 	}
 	var reflectValue = originValueAndKind.InputValue
-// 如果给定的`object`不是指针，它会创建一个临时指针，
-// 其指向值为`reflectValue`。
-// 然后可以获取结构体（包括结构体指针）的所有方法。
-// 这段代码注释的翻译如下：
-// ```go
-// 如果传入的`object`不是一个指针类型，
-// 则会创建一个临时指针变量，该指针指向`reflectValue`。
-// 这样就可以获取到结构体及其指针类型的全部方法。
+	// If given `object` is not pointer, it then creates a temporary one,
+	// of which the value is `reflectValue`.
+	// It then can retrieve all the methods both of struct/*struct.
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectValue.Type())
 		newValue.Elem().Set(reflectValue)
 		reflectValue = newValue
 	}
 
-	// 创建根命令
+	// Root command creating.
 	rootCmd, err = newCommandFromObjectMeta(object, "")
 	if err != nil {
 		return
 	}
-	// 子命令创建
+	// Sub command creating.
 	var (
 		nameSet         = gset.NewStrSet()
 		rootCommandName = gmeta.Get(object, gtag.Root).String()
@@ -140,14 +137,14 @@ func methodToRootCmdWhenNameEqual(rootCmd *Command, methodCmd *Command) {
 	}
 }
 
-// `object` 是业务对象中的 Meta 属性，而 `name` 是命令名称，
-// 通常来源于方法名，在 Meta 中未定义 name 标签时使用。
+// The `object` is the Meta attribute from business object, and the `name` is the command name,
+// commonly from method name, which is used when no name tag is defined in Meta.
 func newCommandFromObjectMeta(object interface{}, name string) (command *Command, err error) {
 	var metaData = gmeta.Data(object)
 	if err = gconv.Scan(metaData, &command); err != nil {
 		return
 	}
-	// Name字段是必需的。
+	// Name field is necessary.
 	if command.Name == "" {
 		if name == "" {
 			err = gerror.Newf(
@@ -185,7 +182,7 @@ func newCommandFromObjectMeta(object interface{}, name string) (command *Command
 func newCommandFromMethod(
 	object interface{}, method reflect.Method, methodValue reflect.Value, methodType reflect.Type,
 ) (command *Command, err error) {
-	// 对输入/输出参数和命名进行必要的验证。
+	// Necessary validation for input/output parameters and naming.
 	if methodType.NumIn() != 2 || methodType.NumOut() != 2 {
 		if methodType.PkgPath() != "" {
 			err = gerror.NewCodef(
@@ -218,7 +215,7 @@ func newCommandFromMethod(
 		)
 		return
 	}
-	// 输入结构体应命名为 `xxxInput`。
+	// The input struct should be named as `xxxInput`.
 	if !gstr.HasSuffix(methodType.In(1).String(), `Input`) {
 		err = gerror.NewCodef(
 			gcode.CodeInvalidParameter,
@@ -227,7 +224,7 @@ func newCommandFromMethod(
 		)
 		return
 	}
-	// 输出结构体的名称应命名为`xxxOutput`。
+	// The output struct should be named as `xxxOutput`.
 	if !gstr.HasSuffix(methodType.Out(0).String(), `Output`) {
 		err = gerror.NewCodef(
 			gcode.CodeInvalidParameter,
@@ -254,9 +251,9 @@ func newCommandFromMethod(
 		return
 	}
 
-// =============================================================================================
-// 创建一个具有返回值的函数。
-// =============================================================================================
+	// =============================================================================================
+	// Create function that has value return.
+	// =============================================================================================
 	command.FuncWithValue = func(ctx context.Context, parser *Parser) (out interface{}, err error) {
 		ctx = context.WithValue(ctx, CtxKeyParser, parser)
 		var (
@@ -268,37 +265,37 @@ func newCommandFromMethod(
 		if data == nil {
 			data = map[string]interface{}{}
 		}
-		// 处理孤立选项。
+		// Handle orphan options.
 		for _, arg := range command.Arguments {
 			if arg.IsArg {
-				// 从命令行参数索引读取参数。
+				// Read argument from command line index.
 				if argIndex < len(arguments) {
 					data[arg.Name] = arguments[argIndex]
 					argIndex++
 				}
 			} else {
-				// 从命令行选项名称读取参数。
+				// Read argument from command line option name.
 				if arg.Orphan {
 					if orphanValue := parser.GetOpt(arg.Name); orphanValue != nil {
 						if orphanValue.String() == "" {
 							// Eg: gf -f
 							data[arg.Name] = "true"
 						} else {
-// 用户习惯适配器，包含通用用户习惯设置。
-// 例如：
-// `gf -f=0`：参数`f`将被解析为false
-// `gf -f=1`：参数`f`将被解析为true
+							// Adapter with common user habits.
+							// Eg:
+							// `gf -f=0`: which parameter `f` is parsed as false
+							// `gf -f=1`: which parameter `f` is parsed as true
 							data[arg.Name] = orphanValue.Bool()
 						}
 					}
 				}
 			}
 		}
-		// 结构体标签中的默认值。
+		// Default values from struct tag.
 		if err = mergeDefaultStructValue(data, inputObject.Interface()); err != nil {
 			return nil, err
 		}
-		// 构造输入参数。
+		// Construct input parameters.
 		if len(data) > 0 {
 			intlog.PrintFunc(ctx, func() string {
 				return fmt.Sprintf(`input command data map: %s`, gjson.MustEncode(data))
@@ -316,14 +313,14 @@ func newCommandFromMethod(
 			}
 		}
 
-		// 参数验证。
+		// Parameters validation.
 		if err = gvalid.New().Bail().Data(inputObject.Interface()).Assoc(data).Run(ctx); err != nil {
 			err = gerror.Wrapf(gerror.Current(err), `arguments validation failed for command "%s"`, command.Name)
 			return
 		}
 		inputValues = append(inputValues, inputObject)
 
-		// 使用动态创建的参数值调用处理器。
+		// Call handler with dynamic created parameter values.
 		results := methodValue.Call(inputValues)
 		out = results[0].Interface()
 		if !results[1].IsNil() {
@@ -399,7 +396,7 @@ func newArgumentsFromInput(object interface{}) (args []Argument, err error) {
 	return
 }
 
-// mergeDefaultStructValue 将请求参数与来自结构体标签定义的默认值进行合并。
+// mergeDefaultStructValue merges the request parameters with default values from struct tag definition.
 func mergeDefaultStructValue(data map[string]interface{}, pointer interface{}) error {
 	tagFields, err := gstructs.TagFields(pointer, defaultValueTags)
 	if err != nil {
@@ -415,7 +412,7 @@ func mergeDefaultStructValue(data map[string]interface{}, pointer interface{}) e
 				nameValue  = field.Tag(tagNameName)
 				shortValue = field.Tag(tagNameShort)
 			)
-			// 如果它已经有了值，则会忽略默认值。
+			// If it already has value, it then ignores the default value.
 			if value, ok := data[nameValue]; ok {
 				data[field.Name()] = value
 				continue

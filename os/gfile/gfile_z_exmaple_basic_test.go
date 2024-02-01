@@ -1,15 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfile_test
+
 import (
 	"fmt"
 	"os"
 	
 	"github.com/888go/goframe/os/gfile"
-	)
+)
 
 func ExampleMkdir() {
 	// init
@@ -20,7 +22,7 @@ func ExampleMkdir() {
 	// Creates directory
 	gfile.Mkdir(path)
 
-	// 检查目录是否存在
+	// Check if directory exists
 	fmt.Println(gfile.IsDir(path))
 
 	// Output:
@@ -33,24 +35,24 @@ func ExampleCreate() {
 		path     = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 		dataByte = make([]byte, 50)
 	)
-	// 检查文件是否存在
+	// Check whether the file exists
 	isFile := gfile.IsFile(path)
 
 	fmt.Println(isFile)
 
-	// 根据给定的`path`递归创建文件
+	// Creates file with given `path` recursively
 	fileHandle, _ := gfile.Create(path)
 	defer fileHandle.Close()
 
-	// 向文件写入一些内容
+	// Write some content to file
 	n, _ := fileHandle.WriteString("hello goframe")
 
-	// 检查文件是否存在
+	// Check whether the file exists
 	isFile = gfile.IsFile(path)
 
 	fmt.Println(isFile)
 
-	// 从File中读取len(b)个字节
+	// Reads len(b) bytes from the File
 	fileHandle.ReadAt(dataByte, 0)
 
 	fmt.Println(string(dataByte[:n]))
@@ -67,7 +69,7 @@ func ExampleOpen() {
 		path     = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 		dataByte = make([]byte, 4096)
 	)
-	// 以只读模式打开文件或目录
+	// Open file or directory with READONLY model
 	file, _ := gfile.Open(path)
 	defer file.Close()
 
@@ -86,12 +88,12 @@ func ExampleOpenFile() {
 		path     = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 		dataByte = make([]byte, 4096)
 	)
-// 通过自定义的`flag`和`perm`打开文件/目录
-// 如果文件不存在，则创建，创建时默认为可读写模式，权限为0777
+	// Opens file/directory with custom `flag` and `perm`
+	// Create if file does not exist,it is created in a readable and writable mode,prem 0777
 	openFile, _ := gfile.OpenFile(path, os.O_CREATE|os.O_RDWR, gfile.DefaultPermCopy)
 	defer openFile.Close()
 
-	// 向文件写入一些内容
+	// Write some content to file
 	writeLength, _ := openFile.WriteString("hello goframe test open file")
 
 	fmt.Println(writeLength)
@@ -113,12 +115,12 @@ func ExampleOpenWithFlag() {
 		dataByte = make([]byte, 4096)
 	)
 
-// 使用自定义`flag`打开文件/目录
-// 如果文件不存在，则创建，以默认权限`perm`为0666的可读写模式创建
+	// Opens file/directory with custom `flag`
+	// Create if file does not exist,it is created in a readable and writable mode with default `perm` is 0666
 	openFile, _ := gfile.OpenWithFlag(path, os.O_CREATE|os.O_RDWR)
 	defer openFile.Close()
 
-	// 向文件写入一些内容
+	// Write some content to file
 	writeLength, _ := openFile.WriteString("hello goframe test open file with flag")
 
 	fmt.Println(writeLength)
@@ -140,7 +142,7 @@ func ExampleJoin() {
 		filePath = "file1"
 	)
 
-	// 使用当前系统的文件分隔符连接字符串数组路径。
+	// Joins string array paths with file separator of current system.
 	joinString := gfile.Join(dirPath, filePath)
 
 	fmt.Println(joinString)
@@ -154,7 +156,7 @@ func ExampleExists() {
 	var (
 		path = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
-	// 检查给定的 `path` 是否存在。
+	// Checks whether given `path` exist.
 	joinString := gfile.Exists(path)
 
 	fmt.Println(joinString)
@@ -169,7 +171,7 @@ func ExampleIsDir() {
 		path     = gfile.Temp("gfile_example_basic_dir")
 		filePath = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
-	// 检查给定的`path`是否为一个目录。
+	// Checks whether given `path` a directory.
 	fmt.Println(gfile.IsDir(path))
 	fmt.Println(gfile.IsDir(filePath))
 
@@ -179,7 +181,7 @@ func ExampleIsDir() {
 }
 
 func ExamplePwd() {
-	// 获取当前工作目录的绝对路径。
+	// Get absolute path of current working directory.
 	fmt.Println(gfile.Pwd())
 
 	// May Output:
@@ -194,7 +196,7 @@ func ExampleChdir() {
 	// Get current working directory
 	fmt.Println(gfile.Pwd())
 
-	// 将当前工作目录更改为指定的目录。
+	// Changes the current working directory to the named directory.
 	gfile.Chdir(path)
 
 	// Get current working directory
@@ -211,7 +213,7 @@ func ExampleIsFile() {
 		filePath = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 		dirPath  = gfile.Temp("gfile_example_basic_dir")
 	)
-	// 检查给定的`path`是否为文件，也就是说它不是一个目录。
+	// Checks whether given `path` a file, which means it's not a directory.
 	fmt.Println(gfile.IsFile(filePath))
 	fmt.Println(gfile.IsFile(dirPath))
 
@@ -225,7 +227,7 @@ func ExampleStat() {
 	var (
 		path = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
-	// 获取描述指定文件的FileInfo对象。
+	// Get a FileInfo describing the named file.
 	stat, _ := gfile.Stat(path)
 
 	fmt.Println(stat.Name())
@@ -252,8 +254,8 @@ func ExampleMove() {
 	// Check is file
 	fmt.Println(gfile.IsFile(dstPath))
 
-// 将`src`移动到`dst`路径。
-// 如果`dst`已存在且不是一个目录，它将会被替换。
+	//  Moves `src` to `dst` path.
+	// If `dst` already exists and is not a directory, it'll be replaced.
 	gfile.Move(srcPath, dstPath)
 
 	fmt.Println(gfile.IsFile(srcPath))
@@ -274,8 +276,8 @@ func ExampleRename() {
 	// Check is file
 	fmt.Println(gfile.IsFile(dstPath))
 
-// 将`src`重命名为（移动到）`dst`路径。
-// 如果`dst`已存在且不是一个目录，则会被替换。
+	//  renames (moves) `src` to `dst` path.
+	// If `dst` already exists and is not a directory, it'll be replaced.
 	gfile.Rename(srcPath, dstPath)
 
 	fmt.Println(gfile.IsFile(srcPath))
@@ -292,7 +294,7 @@ func ExampleDirNames() {
 	var (
 		path = gfile.Temp("gfile_example_basic_dir")
 	)
-	// 获取给定目录 `path` 下的子文件名列表。
+	// Get sub-file names of given directory `path`.
 	dirNames, _ := gfile.DirNames(path)
 
 	fmt.Println(dirNames)
@@ -306,13 +308,13 @@ func ExampleGlob() {
 	var (
 		path = gfile.Pwd() + gfile.Separator + "*_example_basic_test.go"
 	)
-	// 获取给定目录 `path` 下的子文件名列表。
+	// Get sub-file names of given directory `path`.
 	// Only show file name
 	matchNames, _ := gfile.Glob(path, true)
 
 	fmt.Println(matchNames)
 
-	// 显示文件的完整路径
+	// Show full path of the file
 	matchNames, _ = gfile.Glob(path, false)
 
 	fmt.Println(matchNames)
@@ -328,7 +330,7 @@ func ExampleIsReadable() {
 		path = gfile.Pwd() + gfile.Separator + "testdata/readline/file.log"
 	)
 
-	// 检查给定的`path`是否可读。
+	// Checks whether given `path` is readable.
 	fmt.Println(gfile.IsReadable(path))
 
 	// Output:
@@ -342,7 +344,7 @@ func ExampleIsWritable() {
 		file = "file.log"
 	)
 
-	// 检查给定的`path`是否可写。
+	// Checks whether given `path` is writable.
 	fmt.Println(gfile.IsWritable(path))
 	fmt.Println(gfile.IsWritable(path + file))
 
@@ -357,20 +359,20 @@ func ExampleChmod() {
 		path = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
 
-	// 获取描述指定文件的FileInfo对象。
+	// Get a FileInfo describing the named file.
 	stat, err := gfile.Stat(path)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	// 显示原始模式
+	// Show original mode
 	fmt.Println(stat.Mode())
 
 	// Change file model
 	gfile.Chmod(path, gfile.DefaultPermCopy)
 
-	// 获取描述指定文件的FileInfo对象。
+	// Get a FileInfo describing the named file.
 	stat, _ = gfile.Stat(path)
-	// 显示修改后的模式
+	// Show the modified mode
 	fmt.Println(stat.Mode())
 
 	// Output:
@@ -384,7 +386,7 @@ func ExampleAbs() {
 		path = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
 
-	// 获取path的绝对表示形式。
+	// Get an absolute representation of path.
 	fmt.Println(gfile.Abs(path))
 
 	// May Output:
@@ -408,7 +410,7 @@ func ExampleRealPath() {
 
 func ExampleSelfPath() {
 
-	// 获取当前运行进程的绝对文件路径
+	// Get absolute file path of current running process
 	fmt.Println(gfile.SelfPath())
 
 	// May Output:
@@ -417,7 +419,7 @@ func ExampleSelfPath() {
 
 func ExampleSelfName() {
 
-	// 获取当前运行进程的文件名
+	// Get file name of current running process
 	fmt.Println(gfile.SelfName())
 
 	// May Output:
@@ -426,7 +428,7 @@ func ExampleSelfName() {
 
 func ExampleSelfDir() {
 
-	// 获取当前运行进程的绝对目录路径
+	// Get absolute directory path of current running process
 	fmt.Println(gfile.SelfDir())
 
 	// May Output:
@@ -439,7 +441,7 @@ func ExampleBasename() {
 		path = gfile.Pwd() + gfile.Separator + "testdata/readline/file.log"
 	)
 
-	// 获取路径中的最后一个元素，该元素包含文件扩展名。
+	// Get the last element of path, which contains file extension.
 	fmt.Println(gfile.Basename(path))
 
 	// Output:
@@ -452,7 +454,7 @@ func ExampleName() {
 		path = gfile.Pwd() + gfile.Separator + "testdata/readline/file.log"
 	)
 
-	// 获取路径中最后一个元素，不包括文件扩展名。
+	// Get the last element of path without file extension.
 	fmt.Println(gfile.Name(path))
 
 	// Output:
@@ -465,7 +467,7 @@ func ExampleDir() {
 		path = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
 
-	// 获取路径中除最后一个元素之外的所有元素，通常是指路径的目录部分。
+	// Get all but the last element of path, typically the path's directory.
 	fmt.Println(gfile.Dir(path))
 
 	// May Output:
@@ -478,13 +480,13 @@ func ExampleIsEmpty() {
 		path = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
 
-	// 检查 `path` 是否为空
+	// Check whether the `path` is empty
 	fmt.Println(gfile.IsEmpty(path))
 
 	// Truncate file
 	gfile.Truncate(path, 0)
 
-	// 检查 `path` 是否为空
+	// Check whether the `path` is empty
 	fmt.Println(gfile.IsEmpty(path))
 
 	// Output:
@@ -498,7 +500,7 @@ func ExampleExt() {
 		path = gfile.Pwd() + gfile.Separator + "testdata/readline/file.log"
 	)
 
-	// 获取路径中使用的文件名扩展名。
+	// Get the file name extension used by path.
 	fmt.Println(gfile.Ext(path))
 
 	// Output:
@@ -511,7 +513,7 @@ func ExampleExtName() {
 		path = gfile.Pwd() + gfile.Separator + "testdata/readline/file.log"
 	)
 
-	// 获取路径path所使用的文件名扩展名，但结果中不包含符号'.'。
+	// Get the file name extension used by path but the result does not contains symbol '.'.
 	fmt.Println(gfile.ExtName(path))
 
 	// Output:
@@ -539,10 +541,10 @@ func ExampleRemove() {
 		path = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 	)
 
-	// 检查给定的`path`是否为文件，也就是说它不是一个目录。
+	// Checks whether given `path` a file, which means it's not a directory.
 	fmt.Println(gfile.IsFile(path))
 
-	// 删除具有`path`参数的所有文件/目录。
+	// deletes all file/directory with `path` parameter.
 	gfile.Remove(path)
 
 	// Check again

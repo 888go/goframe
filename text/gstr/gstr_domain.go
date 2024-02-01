@@ -1,14 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
+
 import (
 	"strings"
-	)
-// IsSubDomain 检查 `subDomain` 是否为 `mainDomain` 的子域名。
-// 它支持在 `mainDomain` 中使用 '*'。
+)
+
+// IsSubDomain checks whether `subDomain` is sub-domain of mainDomain.
+// It supports '*' in `mainDomain`.
 func IsSubDomain(subDomain string, mainDomain string) bool {
 	if p := strings.IndexByte(subDomain, ':'); p != -1 {
 		subDomain = subDomain[0:p]
@@ -22,8 +25,8 @@ func IsSubDomain(subDomain string, mainDomain string) bool {
 		subLength  = len(subArray)
 		mainLength = len(mainArray)
 	)
-// 示例：
-// "goframe.org" 不是 "s.goframe.org" 的子域名。
+	// Eg:
+	// "goframe.org" is not sub-domain of "s.goframe.org".
 	if mainLength > subLength {
 		for i := range mainArray[0 : mainLength-subLength] {
 			if mainArray[i] != "*" {
@@ -32,10 +35,10 @@ func IsSubDomain(subDomain string, mainDomain string) bool {
 		}
 	}
 
-// 示例：
-// "s.s.goframe.org" 不是 "*.goframe.org" 的子域名，
-// 但是
-// "s.s.goframe.org" 是 "goframe.org" 的子域名。
+	// Eg:
+	// "s.s.goframe.org" is not sub-domain of "*.goframe.org"
+	// but
+	// "s.s.goframe.org" is sub-domain of "goframe.org"
 	if mainLength > 2 && subLength > mainLength {
 		return false
 	}

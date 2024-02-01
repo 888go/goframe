@@ -1,73 +1,72 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gstructs提供了用于获取结构体信息的函数。
-// 这个不翻译了, 这是一个偏底层组件，一般业务上很少会用到，在框架、基础库、中间件编写中用到。
+// Package gstructs provides functions for struct information retrieving.
 package gstructs
+
 import (
 	"reflect"
 	
 	"github.com/888go/goframe/errors/gerror"
-	)
-// Type 类型封装了 reflect.Type，提供了额外的功能。
+)
+
+// Type wraps reflect.Type for additional features.
 type Type struct {
 	reflect.Type
 }
 
-// Field 包含结构体字段的信息。
+// Field contains information of a struct field .
 type Field struct {
-	Value reflect.Value       // 字段的底层值
-	Field reflect.StructField // 字段的底层字段。
+	Value reflect.Value       // The underlying value of the field.
+	Field reflect.StructField // The underlying field of the field.
 
-	// 获取到的标签名称，其依赖于TagValue。
+	// Retrieved tag name. It depends TagValue.
 	TagName string
 
-// 获取到的标签值。
-// 在该字段中可能包含多个标签，
-// 但根据调用函数规则，只能获取其中一个。
+	// Retrieved tag value.
+	// There might be more than one tags in the field,
+	// but only one can be retrieved according to calling function rules.
 	TagValue string
 }
 
-// FieldsInput 是函数 Fields 的输入参数结构体类型。
+// FieldsInput is the input parameter struct type for function Fields.
 type FieldsInput struct {
-// Pointer 应为结构体类型。/*struct. */
-// TODO 这个属性名称不合适，可能会引起混淆。
+	// Pointer should be type of struct/*struct.
+	// TODO this attribute name is not suitable, which would make confuse.
 	Pointer interface{}
 
-// RecursiveOption 指定当属性是一个嵌入式结构体时，以何种方式递归获取其字段。默认情况下，其值为 RecursiveOptionNone。
-// ```go
-// RecursiveOption 指定了在遇到嵌入式结构体属性时，如何进行递归地获取其字段的选项。默认设置为 RecursiveOptionNone。
+	// RecursiveOption specifies the way retrieving the fields recursively if the attribute
+	// is an embedded struct. It is RecursiveOptionNone in default.
 	RecursiveOption RecursiveOption
 }
 
-// FieldMapInput 是函数 FieldMap 的输入参数结构体类型。
+// FieldMapInput is the input parameter struct type for function FieldMap.
 type FieldMapInput struct {
-// Pointer 应为结构体类型。/*struct. */
-// TODO 这个属性名称不合适，可能会引起混淆。
+	// Pointer should be type of struct/*struct.
+	// TODO this attribute name is not suitable, which would make confuse.
 	Pointer interface{}
 
-// PriorityTagArray 指定从高到低检索的优先级标签数组。
-// 如果传入 `nil`，则返回 map[name]Field，其中 `name` 是属性名。
+	// PriorityTagArray specifies the priority tag array for retrieving from high to low.
+	// If it's given `nil`, it returns map[name]Field, of which the `name` is attribute name.
 	PriorityTagArray []string
 
-// RecursiveOption 指定当属性是一个嵌入式结构体时，以何种方式递归获取其字段。默认情况下，其值为 RecursiveOptionNone。
-// ```go
-// RecursiveOption 指定了在遇到嵌入式结构体属性时，如何进行递归地获取其字段的选项。默认设置为 RecursiveOptionNone。
+	// RecursiveOption specifies the way retrieving the fields recursively if the attribute
+	// is an embedded struct. It is RecursiveOptionNone in default.
 	RecursiveOption RecursiveOption
 }
 
 type RecursiveOption int
 
 const (
-	RecursiveOptionNone          RecursiveOption = 0 // 如果字段是嵌入式结构体，则不递归地以 map 形式获取其字段。
-	RecursiveOptionEmbedded      RecursiveOption = 1 // 如果字段是一个嵌入式结构体，则递归地将其字段作为映射获取。
-	RecursiveOptionEmbeddedNoTag RecursiveOption = 2 // 如果字段是一个嵌入式结构体且该字段没有标签，则递归获取其字段并以映射形式返回。
+	RecursiveOptionNone          RecursiveOption = 0 // No recursively retrieving fields as map if the field is an embedded struct.
+	RecursiveOptionEmbedded      RecursiveOption = 1 // Recursively retrieving fields as map if the field is an embedded struct.
+	RecursiveOptionEmbeddedNoTag RecursiveOption = 2 // Recursively retrieving fields as map if the field is an embedded struct and the field has no tag.
 )
 
-// Fields 函数检索并返回 `pointer` 的字段作为一个切片。
+// Fields retrieves and returns the fields of `pointer` as slice.
 func Fields(in FieldsInput) ([]Field, error) {
 	var (
 		ok                   bool
@@ -107,7 +106,7 @@ func Fields(in FieldsInput) ([]Field, error) {
 					if err != nil {
 						return nil, err
 					}
-					// 当前层级字段可以覆盖具有相同名称的子结构体字段。
+					// The current level fields can overwrite the sub-struct fields with the same name.
 					for i := 0; i < len(structFields); i++ {
 						var (
 							structField = structFields[i]
@@ -134,15 +133,17 @@ func Fields(in FieldsInput) ([]Field, error) {
 	return retrievedFields, nil
 }
 
-// FieldMap 从`pointer`获取并返回结构体字段为map[name/tag]Field。
+// FieldMap retrieves and returns struct field as map[name/tag]Field from `pointer`.
 //
-// 参数`pointer`应为struct/*struct类型。
+// The parameter `pointer` should be type of struct/*struct.
 //
-// 参数`priority`指定了按从高到低优先级获取的标签数组。如果给出`nil`，则返回map[name]Field，其中`name`是属性名称。
+// The parameter `priority` specifies the priority tag array for retrieving from high to low.
+// If it's given `nil`, it returns map[name]Field, of which the `name` is attribute name.
 //
-// 参数`recursive`指定了当属性是一个嵌入式结构体时，是否递归地获取其字段。
+// The parameter `recursive` specifies whether retrieving the fields recursively if the attribute
+// is an embedded struct.
 //
-// 注意，它仅从结构体中获取首字母大写的导出属性（即公开属性）。
+// Note that it only retrieves the exported attributes with first letter upper-case from struct.
 func FieldMap(in FieldMapInput) (map[string]Field, error) {
 	fields, err := getFieldValues(in.Pointer)
 	if err != nil {
@@ -153,7 +154,7 @@ func FieldMap(in FieldMapInput) (map[string]Field, error) {
 		mapField = make(map[string]Field)
 	)
 	for _, field := range fields {
-		// 仅获取导出的属性。
+		// Only retrieve exported attributes.
 		if !field.IsExported() {
 			continue
 		}
@@ -202,8 +203,8 @@ func FieldMap(in FieldMapInput) (map[string]Field, error) {
 	return mapField, nil
 }
 
-// StructType 函数检索并返回指定结构体的结构体类型。
-// 参数 `object` 应为 struct 类型、指针到 struct 类型、struct 切片或指针到 struct 切片类型。
+// StructType retrieves and returns the struct Type of specified struct/*struct.
+// The parameter `object` should be either type of struct/*struct/[]struct/[]*struct.
 func StructType(object interface{}) (*Type, error) {
 	var (
 		reflectValue reflect.Value
@@ -220,7 +221,7 @@ func StructType(object interface{}) (*Type, error) {
 		switch reflectKind {
 		case reflect.Ptr:
 			if !reflectValue.IsValid() || reflectValue.IsNil() {
-				// 如果指针是结构体类型且为nil，则自动创建一个临时结构体。
+				// If pointer is type of *struct and nil, then automatically create a temporary struct.
 				reflectValue = reflect.New(reflectValue.Type().Elem()).Elem()
 				reflectKind = reflectValue.Kind()
 			} else {

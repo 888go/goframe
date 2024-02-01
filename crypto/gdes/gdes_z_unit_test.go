@@ -1,16 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdes_test
+
 import (
 	"encoding/hex"
 	"testing"
 	
 	"github.com/888go/goframe/crypto/gdes"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 var (
 	errKey     = []byte("1111111111111234123456789")
 	errIv      = []byte("123456789")
@@ -32,7 +35,7 @@ func TestDesECB(t *testing.T) {
 		t.AssertEQ(err, nil)
 		t.AssertEQ(string(clearText), "12345678")
 
-		// 加密错误测试。当抛出异常时，err不等于nil，并且字符串为nil
+		// encrypt err test. when throw exception,the err is not equal nil and the string is nil
 		errEncrypt, err := gdes.EncryptECB(text, key, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
@@ -106,18 +109,15 @@ func Test3DesECB(t *testing.T) {
 		clearText, err := gdes.DecryptECBTriple(cipherText, key, padding)
 		t.AssertEQ(err, nil)
 		t.AssertEQ(string(clearText), "123456789")
-		// err 测试，当 key 为错误值时，但 text 和 padding 是正确的
+		// err test, when key is err, but text and padding is right
 		errEncrypt, err := gdes.EncryptECBTriple(text, errKey, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 当填充错误时，但密钥和文本是正确的
-// 此句英文注释翻译成中文注释为：
-// ```go
-// 当填充格式错误时，但密钥和原文内容是正确的
+		// when padding is err,but key and text is right
 		errEncrypt, err = gdes.EncryptECBTriple(text, key, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 解密错误测试，当密钥错误时
+		// decrypt err test,when key is err
 		errEncrypt, err = gdes.DecryptECBTriple(text, errKey, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
@@ -147,11 +147,11 @@ func TestDesCBC(t *testing.T) {
 		errEncrypt, err = gdes.EncryptCBC(text, key, errIv, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 这里的填充有误
+		// the padding is err
 		errEncrypt, err = gdes.EncryptCBC(text, key, iv, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 解密错误测试，关键字为 err
+		// decrypt err test. the key is err
 		errDecrypt, err := gdes.DecryptCBC(cipherText, errKey, iv, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errDecrypt, nil)
@@ -159,7 +159,7 @@ func TestDesCBC(t *testing.T) {
 		errDecrypt, err = gdes.DecryptCBC(cipherText, key, errIv, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errDecrypt, nil)
-		// 这里的填充有误
+		// the padding is err
 		errDecrypt, err = gdes.DecryptCBC(cipherText, key, iv, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errDecrypt, nil)
@@ -209,7 +209,7 @@ func Test3DesCBC(t *testing.T) {
 		errEncrypt, err = gdes.EncryptCBCTriple(text, key, errIv, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 这里的填充有误
+		// the padding is err
 		errEncrypt, err = gdes.EncryptCBCTriple(text, key, iv, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
@@ -221,7 +221,7 @@ func Test3DesCBC(t *testing.T) {
 		errDecrypt, err = gdes.DecryptCBCTriple(cipherText, key, errIv, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errDecrypt, nil)
-		// 这里的填充有误
+		// the padding is err
 		errDecrypt, err = gdes.DecryptCBCTriple(cipherText, key, iv, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errDecrypt, nil)

@@ -1,18 +1,20 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gcron实现了cron模式解析器和任务执行器。
+// Package gcron implements a cron pattern parser and job runner.
 package gcron
+
 import (
 	"context"
 	"time"
 	
 	"github.com/888go/goframe/os/glog"
 	"github.com/888go/goframe/os/gtimer"
-	)
+)
+
 const (
 	StatusReady   = gtimer.StatusReady
 	StatusRunning = gtimer.StatusRunning
@@ -21,100 +23,100 @@ const (
 )
 
 var (
-	// 默认的cron对象。
+	// Default cron object.
 	defaultCron = New()
 )
 
-// SetLogger 用于设置cron的日志记录器。
+// SetLogger sets the logger for cron.
 func SetLogger(logger glog.ILogger) {
 	defaultCron.SetLogger(logger)
 }
 
-// GetLogger 返回cron中的日志器。
+// GetLogger returns the logger in the cron.
 func GetLogger() glog.ILogger {
 	return defaultCron.GetLogger()
 }
 
-// Add 向默认的 cron 对象添加一个定时任务。
-// 可以用唯一的 `name` 与定时任务关联。
-// 如果 `name` 已经被使用，则返回错误。
+// Add adds a timed task to default cron object.
+// A unique `name` can be bound with the timed task.
+// It returns and error if the `name` is already used.
 func Add(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return defaultCron.Add(ctx, pattern, job, name...)
 }
 
-// AddSingleton 添加单例定时任务到默认的cron对象。
-// 单例定时任务是指在同一时间只能运行一个实例的任务。
-// 可以通过唯一的`name`与定时任务关联绑定。
-// 如果`name`已经被使用，则返回错误。
+// AddSingleton adds a singleton timed task, to default cron object.
+// A singleton timed task is that can only be running one single instance at the same time.
+// A unique `name` can be bound with the timed task.
+// It returns and error if the `name` is already used.
 func AddSingleton(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return defaultCron.AddSingleton(ctx, pattern, job, name...)
 }
 
-// AddOnce 向默认的cron对象添加一个仅能执行一次的定时任务。
-// 可以为定时任务绑定一个唯一的`name`标识。
-// 如果`name`已被使用，则返回错误。
+// AddOnce adds a timed task which can be run only once, to default cron object.
+// A unique `name` can be bound with the timed task.
+// It returns and error if the `name` is already used.
 func AddOnce(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return defaultCron.AddOnce(ctx, pattern, job, name...)
 }
 
-// AddTimes 向默认的 cron 对象添加一个可运行指定次数的定时任务。
-// 可以为定时任务绑定一个唯一的 `name`。
-// 如果 `name` 已经被使用，将会返回错误。
+// AddTimes adds a timed task which can be run specified times, to default cron object.
+// A unique `name` can be bound with the timed task.
+// It returns and error if the `name` is already used.
 func AddTimes(ctx context.Context, pattern string, times int, job JobFunc, name ...string) (*Entry, error) {
 	return defaultCron.AddTimes(ctx, pattern, times, job, name...)
 }
 
-// DelayAdd 在 `delay` 时间后向默认的 cron 对象添加一个定时任务。
+// DelayAdd adds a timed task to default cron object after `delay` time.
 func DelayAdd(ctx context.Context, delay time.Duration, pattern string, job JobFunc, name ...string) {
 	defaultCron.DelayAdd(ctx, delay, pattern, job, name...)
 }
 
-// DelayAddSingleton 在`delay`时间后向默认的cron对象添加一个单例定时任务。
+// DelayAddSingleton adds a singleton timed task after `delay` time to default cron object.
 func DelayAddSingleton(ctx context.Context, delay time.Duration, pattern string, job JobFunc, name ...string) {
 	defaultCron.DelayAddSingleton(ctx, delay, pattern, job, name...)
 }
 
-// DelayAddOnce在`delay`时间后向默认的cron对象添加一个定时任务。
-// 这个定时任务只能运行一次。
+// DelayAddOnce adds a timed task after `delay` time to default cron object.
+// This timed task can be run only once.
 func DelayAddOnce(ctx context.Context, delay time.Duration, pattern string, job JobFunc, name ...string) {
 	defaultCron.DelayAddOnce(ctx, delay, pattern, job, name...)
 }
 
-// DelayAddTimes 在`delay`时间后向默认的cron对象添加一个定时任务。
-// 这个定时任务可以运行指定次数。
+// DelayAddTimes adds a timed task after `delay` time to default cron object.
+// This timed task can be run specified times.
 func DelayAddTimes(ctx context.Context, delay time.Duration, pattern string, times int, job JobFunc, name ...string) {
 	defaultCron.DelayAddTimes(ctx, delay, pattern, times, job, name...)
 }
 
-// Search 返回具有指定名称 `name` 的已计划任务。
-// 如果未找到，则返回 nil。
+// Search returns a scheduled task with the specified `name`.
+// It returns nil if no found.
 func Search(name string) *Entry {
 	return defaultCron.Search(name)
 }
 
-// Remove 删除名为 `name` 的已计划任务。
+// Remove deletes scheduled task which named `name`.
 func Remove(name string) {
 	defaultCron.Remove(name)
 }
 
-// Size 返回默认Cron定时任务的数量。
+// Size returns the size of the timed tasks of default cron.
 func Size() int {
 	return defaultCron.Size()
 }
 
-// Entries 返回所有定时任务作为一个切片。
+// Entries return all timed tasks as slice.
 func Entries() []*Entry {
 	return defaultCron.Entries()
 }
 
-// Start 开始运行指定的定时任务，名为 `name`。
-// 如果未指定 `name`，则启动整个 cron。
+// Start starts running the specified timed task named `name`.
+// If no`name` specified, it starts the entire cron.
 func Start(name ...string) {
 	defaultCron.Start(name...)
 }
 
-// Stop 停止运行指定的定时任务，该任务名为 `name`。
-// 如果未指定 `name`，则停止整个 cron。
+// Stop stops running the specified timed task named `name`.
+// If no`name` specified, it stops the entire cron.
 func Stop(name ...string) {
 	defaultCron.Stop(name...)
 }

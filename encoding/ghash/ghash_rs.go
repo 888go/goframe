@@ -1,12 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghash
 
-// RS 实现了适用于 32 位的经典 RS 哈希算法。
+// RS implements the classic RS hash algorithm for 32 bits.
 func RS(str []byte) uint32 {
 	var (
 		b    uint32 = 378551
@@ -20,7 +20,7 @@ func RS(str []byte) uint32 {
 	return hash
 }
 
-// RS64 实现了适用于 64 位的经典的 RS 哈希算法。
+// RS64 implements the classic RS hash algorithm for 64 bits.
 func RS64(str []byte) uint64 {
 	var (
 		b    uint64 = 378551

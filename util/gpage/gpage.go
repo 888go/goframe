@@ -1,46 +1,50 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gpage提供了针对网页的实用分页功能。
+// Package gpage provides useful paging functionality for web pages.
 package gpage
+
 import (
 	"fmt"
 	"math"
 	
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
-// Page 是分页实现器。
-// 所有的属性都是公开的，你可以在必要时更改它们。
+)
+
+// Page is the pagination implementer.
+// All the attributes are public, you can change them when necessary.
 type Page struct {
 	TotalSize      int    // Total size.
-	TotalPage      int    // 总页数，会自动计算得出。
-	CurrentPage    int    // 当前页码大于等于1。
-	UrlTemplate    string // 自定义URL模板用于生成页面URL。
-	LinkStyle      string // CSS样式名称，用于HTML链接标签`a`。
-	SpanStyle      string // CSS样式名称，用于HTML span标签`span`，该标签用于首页、当前页和末页标签。
-	SelectStyle    string // CSS样式名称，用于HTML选择标签`select`。
-	NextPageTag    string // 下一个p标签的名称
-	PrevPageTag    string // 前一个p标签的名称
-	FirstPageTag   string // 第一个p标签的名称
-	LastPageTag    string // 上一个p标签的名称
-	PrevBarTag     string // Tag字符串用于前一柱状图。
-	NextBarTag     string // 下一个条形图的标签字符串。
-	PageBarNum     int    // 分页栏显示的页码
-	AjaxActionName string // Ajax 函数名称。如果此属性不为空，则启用 Ajax。
+	TotalPage      int    // Total page, which is automatically calculated.
+	CurrentPage    int    // Current page number >= 1.
+	UrlTemplate    string // Custom url template for page url producing.
+	LinkStyle      string // CSS style name for HTML link tag `a`.
+	SpanStyle      string // CSS style name for HTML span tag `span`, which is used for first, current and last page tag.
+	SelectStyle    string // CSS style name for HTML select tag `select`.
+	NextPageTag    string // Tag name for next p.
+	PrevPageTag    string // Tag name for prev p.
+	FirstPageTag   string // Tag name for first p.
+	LastPageTag    string // Tag name for last p.
+	PrevBarTag     string // Tag string for prev bar.
+	NextBarTag     string // Tag string for next bar.
+	PageBarNum     int    // Page bar number for displaying.
+	AjaxActionName string // Ajax function name. Ajax is enabled if this attribute is not empty.
 }
 
 const (
-	DefaultPageName        = "page"    // DefaultPageName 定义默认页面名称。
-	DefaultPagePlaceHolder = "{.page}" // DefaultPagePlaceHolder 定义了URL模板中的占位符。
+	DefaultPageName        = "page"    // DefaultPageName defines the default page name.
+	DefaultPagePlaceHolder = "{.page}" // DefaultPagePlaceHolder defines the place holder for the url template.
 )
 
-// New 创建并返回一个分页管理器。
-// 注意，参数`urlTemplate`指定了生成URL的模板，例如：
-// /user/list/{.page}，/user/list/{.page}.html，/user/list?page={.page}&type=1 等等。
-// `urlTemplate`中的内置变量"{.page}"表示页码，在生成时会被特定的页码替换。
+// New creates and returns a pagination manager.
+// Note that the parameter `urlTemplate` specifies the URL producing template, like:
+// /user/list/{.page}, /user/list/{.page}.html, /user/list?page={.page}&type=1, etc.
+// The build-in variable in `urlTemplate` "{.page}" specifies the page number, which will be replaced by certain
+// page number when producing.
 func New(totalSize, pageSize, currentPage int, urlTemplate string) *Page {
 	p := &Page{
 		LinkStyle:    "GPageLink",
@@ -64,7 +68,7 @@ func New(totalSize, pageSize, currentPage int, urlTemplate string) *Page {
 	return p
 }
 
-// NextPage 返回下一页的 HTML 内容。
+// NextPage returns the HTML content for the next page.
 func (p *Page) NextPage() string {
 	if p.CurrentPage < p.TotalPage {
 		return p.GetLink(p.CurrentPage+1, p.NextPageTag, "")
@@ -72,7 +76,7 @@ func (p *Page) NextPage() string {
 	return fmt.Sprintf(`<span class="%s">%s</span>`, p.SpanStyle, p.NextPageTag)
 }
 
-// PrevPage 返回上一页的 HTML 内容。
+// PrevPage returns the HTML content for the previous page.
 func (p *Page) PrevPage() string {
 	if p.CurrentPage > 1 {
 		return p.GetLink(p.CurrentPage-1, p.PrevPageTag, "")
@@ -80,7 +84,7 @@ func (p *Page) PrevPage() string {
 	return fmt.Sprintf(`<span class="%s">%s</span>`, p.SpanStyle, p.PrevPageTag)
 }
 
-// FirstPage 返回首页面的 HTML 内容。
+// FirstPage returns the HTML content for the first page.
 func (p *Page) FirstPage() string {
 	if p.CurrentPage == 1 {
 		return fmt.Sprintf(`<span class="%s">%s</span>`, p.SpanStyle, p.FirstPageTag)
@@ -88,7 +92,7 @@ func (p *Page) FirstPage() string {
 	return p.GetLink(1, p.FirstPageTag, "")
 }
 
-// LastPage 返回最后一页的 HTML 内容。
+// LastPage returns the HTML content for the last page.
 func (p *Page) LastPage() string {
 	if p.CurrentPage == p.TotalPage {
 		return fmt.Sprintf(`<span class="%s">%s</span>`, p.SpanStyle, p.LastPageTag)
@@ -96,7 +100,7 @@ func (p *Page) LastPage() string {
 	return p.GetLink(p.TotalPage, p.LastPageTag, "")
 }
 
-// PageBar 函数返回带有链接（link标签）和段落（span标签）的HTML分页栏内容。
+// PageBar returns the HTML page bar content with link and span tags.
 func (p *Page) PageBar() string {
 	plus := int(math.Ceil(float64(p.PageBarNum / 2)))
 	if p.PageBarNum-plus+p.CurrentPage > p.TotalPage {
@@ -122,7 +126,7 @@ func (p *Page) PageBar() string {
 	return barContent
 }
 
-// SelectBar 返回用于分页的 select HTML 内容。
+// SelectBar returns the select HTML content for pagination.
 func (p *Page) SelectBar() string {
 	barContent := fmt.Sprintf(`<select name="%s" onchange="window.location.href=this.value">`, p.SelectStyle)
 	for i := 1; i <= p.TotalPage; i++ {
@@ -136,9 +140,9 @@ func (p *Page) SelectBar() string {
 	return barContent
 }
 
-// GetContent 返回预定义模式的页面内容。
-// 这些预定义的内容主要用于中文本地化目的。您可以根据此函数的实现来自定义
-// 页面函数以获取页面内容。
+// GetContent returns the page content for predefined mode.
+// These predefined contents are mainly for chinese localization purpose. You can defines your own
+// page function retrieving the page content according to the implementation of this function.
 func (p *Page) GetContent(mode int) string {
 	switch mode {
 	case 1:
@@ -199,13 +203,14 @@ func (p *Page) GetContent(mode int) string {
 	return ""
 }
 
-// GetUrl 根据给定的页码解析 UrlTemplate，并返回 URL 字符串。
-// 注意，UrlTemplate 属性可以是 URL 或包含 "{.page}" 占位符的 URI 字符串，该占位符用于指定页码的位置。
+// GetUrl parses the UrlTemplate with given page number and returns the URL string.
+// Note that the UrlTemplate attribute can be either an URL or an URI string with "{.page}"
+// place holder specifying the page number position.
 func (p *Page) GetUrl(page int) string {
 	return gstr.Replace(p.UrlTemplate, DefaultPagePlaceHolder, gconv.String(page))
 }
 
-// GetLink 返回给定页码的 HTML 链接标签 `a` 的内容。
+// GetLink returns the HTML link tag `a` content for given page number.
 func (p *Page) GetLink(page int, text, title string) string {
 	if len(p.AjaxActionName) > 0 {
 		return fmt.Sprintf(

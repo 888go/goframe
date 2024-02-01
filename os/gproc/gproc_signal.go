@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gproc
+
 import (
 	"context"
 	"os"
@@ -14,13 +15,14 @@ import (
 	
 	"github.com/888go/goframe/internal/intlog"
 	"github.com/888go/goframe/util/gutil"
-	)
-// SigHandler 定义了一个用于信号处理的函数类型。
+)
+
+// SigHandler defines a function type for signal handling.
 type SigHandler func(sig os.Signal)
 
 var (
-// 使用内部变量来保证并发安全性
-// 当发生多个Listen操作时。
+	// Use internal variable to guarantee concurrent safety
+	// when multiple Listen happen.
 	signalChan        = make(chan os.Signal, 1)
 	signalHandlerMu   sync.Mutex
 	signalHandlerMap  = make(map[os.Signal][]SigHandler)
@@ -39,7 +41,7 @@ func init() {
 	}
 }
 
-// AddSigHandler 为一个或多个自定义信号添加自定义处理函数。
+// AddSigHandler adds custom signal handler for custom one or more signals.
 func AddSigHandler(handler SigHandler, signals ...os.Signal) {
 	signalHandlerMu.Lock()
 	defer signalHandlerMu.Unlock()
@@ -48,12 +50,12 @@ func AddSigHandler(handler SigHandler, signals ...os.Signal) {
 	}
 }
 
-// AddSigHandlerShutdown 添加自定义信号处理器以处理关闭信号：
-// syscall.SIGINT（中断信号）
-// syscall.SIGQUIT（退出并生成 core 文件信号）
-// syscall.SIGKILL（强制终止信号，无法被捕获或忽略）
-// syscall.SIGTERM（软件终止信号）
-// syscall.SIGABRT（异常终止信号，如调用 abort 函数时触发）
+// AddSigHandlerShutdown adds custom signal handler for shutdown signals:
+// syscall.SIGINT,
+// syscall.SIGQUIT,
+// syscall.SIGKILL,
+// syscall.SIGTERM,
+// syscall.SIGABRT.
 func AddSigHandlerShutdown(handler ...SigHandler) {
 	signalHandlerMu.Lock()
 	defer signalHandlerMu.Unlock()
@@ -64,7 +66,7 @@ func AddSigHandlerShutdown(handler ...SigHandler) {
 	}
 }
 
-// Listen阻塞并执行信号监听和处理。
+// Listen blocks and does signal listening and handling.
 func Listen() {
 	var (
 		signals = getHandlerSignals()
@@ -91,14 +93,14 @@ func Listen() {
 				})
 			}
 		}
-		// 如果接收到的是关闭信号，则退出该信号监听。
+		// If it is shutdown signal, it exits this signal listening.
 		if _, ok := shutdownSignalMap[sig]; ok {
 			intlog.Printf(
 				ctx,
 				`receive shutdown signal "%s", waiting all signal handler done`,
 				sig.String(),
 			)
-			// 等待，直到信号处理器完成。
+			// Wait until signal handlers done.
 			wg.Wait()
 			intlog.Print(ctx, `all signal handler done, exit process`)
 			return

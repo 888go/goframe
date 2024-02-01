@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gclient_test
+
 import (
 	"bytes"
 	"context"
@@ -25,7 +27,8 @@ import (
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/guid"
-	)
+)
+
 var (
 	ctx = context.TODO()
 )
@@ -293,8 +296,8 @@ func Test_Client_Param_Containing_Special_Char(t *testing.T) {
 	})
 }
 
-// 它在上传文件的同时发送数据。
-// 它不会对参数进行URL编码。
+// It posts data along with file uploading.
+// It does not url-encodes the parameters.
 func Test_Client_File_And_Param(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("/", func(r *ghttp.Request) {
@@ -381,7 +384,7 @@ func Test_Client_Middleware(t *testing.T) {
 		t.Assert(resp.ReadAllString(), str2)
 		t.Assert(isServerHandler, true)
 
-		// 测试中止，中止将不会发送
+		// test abort, abort will not send
 		var (
 			str3     = ""
 			abortStr = "abort request"
@@ -506,7 +509,8 @@ func Test_WebSocketClient(t *testing.T) {
 	})
 	s.SetDumpRouterMap(false)
 	s.Start()
-// 由于WebSocket保持连接的特性，可能存在数据竞争情况，因此不在此处关闭。// 延迟调用 s.Shutdown()
+	// No closing in case of DATA RACE due to keep alive connection of WebSocket.
+	// defer s.Shutdown()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {

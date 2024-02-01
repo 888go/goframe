@@ -1,15 +1,17 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf获取一个。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with gm file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gmap_test
+
 import (
 	"fmt"
 	
 	"github.com/888go/goframe/container/gmap"
 	"github.com/888go/goframe/util/gutil"
-	)
+)
 
 func ExampleNew() {
 	m := gmap.New()
@@ -30,31 +32,31 @@ func ExampleNew() {
 	// Batch add data.
 	m.Sets(addMap)
 
-	// 获取相应键的值。
+	// Gets the value of the corresponding key.
 	fmt.Println(m.Get("key3"))
 
-	// 通过键获取值，如果不存在则使用给定的键值对设置它。
+	// Get the value by key, or set it with given key-value if not exist.
 	fmt.Println(m.GetOrSet("key4", "val4"))
 
-	// 如果键不存在，则设置键值对并返回true；否则返回false。
+	// Set key-value if the key does not exist, then return true; or else return false.
 	fmt.Println(m.SetIfNotExist("key3", "val3"))
 
 	// Remove key
 	m.Remove("key2")
 	fmt.Println(m.Keys())
 
-	// 批量删除键。
+	// Batch remove keys.
 	m.Removes([]interface{}{"key1", 1})
 	fmt.Println(m.Keys())
 
-	// Contains 检查键是否存在。
+	// Contains checks whether a key exists.
 	fmt.Println(m.Contains("key3"))
 
-	// Flip交换映射中的键值对，它会将键值对改为值键对。
+	// Flip exchanges key-value of the map, it will change key-value to value-key.
 	m.Flip()
 	fmt.Println(m.Map())
 
-	// 清空删除映射中的所有数据。
+	// Clear deletes all data of the map.
 	m.Clear()
 
 	fmt.Println(m.Size())

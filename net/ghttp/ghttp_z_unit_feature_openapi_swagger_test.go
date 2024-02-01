@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp_test
+
 import (
 	"context"
 	"fmt"
@@ -17,7 +19,7 @@ import (
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gmeta"
 	"github.com/888go/goframe/util/guid"
-	)
+)
 
 func Test_OpenApi_Swagger(t *testing.T) {
 	type TestReq struct {
@@ -113,13 +115,13 @@ func Test_OpenApi_Multiple_Methods_Swagger(t *testing.T) {
 		c := g.Client()
 		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
 
-		// 只适用于GET和POST方法。
+		// Only works on GET & POST methods.
 		t.Assert(c.GetContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
 		t.Assert(c.GetContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
 		t.Assert(c.PostContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
 		t.Assert(c.PostContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
 
-		// 对其他方法无效。
+		// Not works on other methods.
 		t.Assert(c.PutContent(ctx, "/test?age=18&name=john"), `{"code":65,"message":"Not Found","data":null}`)
 		t.Assert(c.PutContent(ctx, "/test/error"), `{"code":65,"message":"Not Found","data":null}`)
 

@@ -1,13 +1,14 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package goai 实现并提供了针对 OpenApi 规范的文档生成功能。
+// Package goai implements and provides document generating for OpenApi specification.
 //
-// 参考链接：https://editor.swagger.io/
+// https://editor.swagger.io/
 package goai
+
 import (
 	"context"
 	"fmt"
@@ -19,13 +20,11 @@ import (
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gtag"
-	)
-// OpenApiV3 是从以下网址定义的结构体：
+)
+
+// OpenApiV3 is the structure defined from:
 // https://swagger.io/specification/
 // https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md
-// （译：OpenApiV3 结构体是根据以下链接中定义的 OpenAPI 3.0 规范实现的：）
-// （https://swagger.io/specification/，以及 OpenAPI 3.0 的具体版本规范：）
-// （https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md）
 type OpenApiV3 struct {
 	Config       Config                `json:"-"`
 	OpenAPI      string                `json:"openapi"`
@@ -83,22 +82,22 @@ var (
 	}
 )
 
-// New 创建并返回一个实现了 OpenApiV3 的对象。
+// New creates and returns an OpenApiV3 implements object.
 func New() *OpenApiV3 {
 	oai := &OpenApiV3{}
 	oai.fillWithDefaultValue()
 	return oai
 }
 
-// AddInput 是函数 OpenApiV3.Add 的结构化参数。
+// AddInput is the structured parameter for function OpenApiV3.Add.
 type AddInput struct {
-	Path   string      // Path 指定自定义路径，如果在结构体标签的 Meta 中未配置此路径，则使用该指定路径。
-	Prefix string      // Prefix 指定自定义路由路径前缀，它将与结构体标签中 Meta 的 path 标签相结合。
-	Method string      // Method 指定自定义的 HTTP 方法，如果在结构体标签的 Meta 中未配置该方法时使用。
-	Object interface{} // Object 可以是结构体实例或路由函数。
+	Path   string      // Path specifies the custom path if this is not configured in Meta of struct tag.
+	Prefix string      // Prefix specifies the custom route path prefix, which will be added with the path tag in Meta of struct tag.
+	Method string      // Method specifies the custom HTTP method if this is not configured in Meta of struct tag.
+	Object interface{} // Object can be an instance of struct or a route function.
 }
 
-// Add 将一个结构体实例或路由函数添加到OpenApiV3定义实现中。
+// Add adds an instance of struct or a route function to OpenApiV3 definition implements.
 func (oai *OpenApiV3) Add(in AddInput) error {
 	var (
 		reflectValue = reflect.ValueOf(in.Object)
@@ -177,8 +176,8 @@ func (oai *OpenApiV3) golangTypeToOAIType(t reflect.Type) string {
 	}
 }
 
-// golangTypeToOAIFormat 将给定的Golang类型`t`转换并返回OpenAPI参数格式。
-// 注意，它不会返回标准的OpenAPI参数格式，而是返回Golang类型的自定义格式。
+// golangTypeToOAIFormat converts and returns OpenAPI parameter format for given golang type `t`.
+// Note that it does not return standard OpenAPI parameter format but custom format in golang type.
 func (oai *OpenApiV3) golangTypeToOAIFormat(t reflect.Type) string {
 	format := t.String()
 	switch gstr.TrimLeft(format, "*") {
@@ -198,7 +197,7 @@ func (oai *OpenApiV3) golangTypeToSchemaName(t reflect.Type) string {
 		pkgPath    string
 		schemaName = gstr.TrimLeft(t.String(), "*")
 	)
-	// 指针类型没有 PkgPath。
+	// Pointer type has no PkgPath.
 	for t.Kind() == reflect.Ptr {
 		t = t.Elem()
 	}

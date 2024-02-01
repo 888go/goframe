@@ -1,16 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gredis
+
 import (
 	"context"
 	
 	"github.com/888go/goframe/container/gvar"
-	)
-// IGroupSortedSet 管理 Redis 有序集合操作。
-// 实现参考 redis.GroupSortedSet。
+)
+
+// IGroupSortedSet manages redis sorted set operations.
+// Implements see redis.GroupSortedSet.
 type IGroupSortedSet interface {
 	ZAdd(ctx context.Context, key string, option *ZAddOption, member ZAddMember, members ...ZAddMember) (*gvar.Var, error)
 	ZScore(ctx context.Context, key string, member interface{}) (float64, error)
@@ -28,55 +31,55 @@ type IGroupSortedSet interface {
 	ZLexCount(ctx context.Context, key, min, max string) (int64, error)
 }
 
-// ZAddOption 提供了函数 ZAdd 的选项。
+// ZAddOption provides options for function ZAdd.
 type ZAddOption struct {
 	XX bool // Only update elements that already exist. Don't add new elements.
 	NX bool // Only add new elements. Don't update already existing elements.
-// 只有当新分数小于当前分数时，才更新已存在的元素。
-// 但请注意，此标志不会阻止添加新的元素。
+	// Only update existing elements if the new score is less than the current score.
+	// This flag doesn't prevent adding new elements.
 	LT bool
 
-// 如果新分数大于当前分数，则仅更新现有元素。
-// 此标志不会阻止添加新元素。
+	// Only update existing elements if the new score is greater than the current score.
+	// This flag doesn't prevent adding new elements.
 	GT bool
 
-// 将返回值由新增元素的数量修改为更改过的总元素数量（CH 是“changed”的缩写）。
-// 更改过的元素包括新添加的元素以及已存在但分数被更新的元素。
-// 因此，命令行中指定且其分数与过去相同的元素不会被计算在内。
-// 注意：通常情况下，ZAdd 的返回值仅计算新增元素的数量。
+	// Modify the return value from the number of new elements added, to the total number of elements changed (CH is an abbreviation of changed).
+	// Changed elements are new elements added and elements already existing for which the score was updated.
+	// So elements specified in the command line having the same score as they had in the past are not counted.
+	// Note: normally the return value of ZAdd only counts the number of new elements added.
 	CH bool
 
-	// 当指定了此选项时，ZAdd 表现得如同 ZIncrBy。在这种模式下，只能指定一个分数-元素对。
+	// When this option is specified ZAdd acts like ZIncrBy. Only one score-element pair can be specified in this mode.
 	INCR bool
 }
 
-// ZAddMember 是集合中元素的结构体。
+// ZAddMember is element struct for set.
 type ZAddMember struct {
 	Score  float64
 	Member interface{}
 }
 
-// ZRangeOption 为 ZRange 函数提供了额外的选项。
+// ZRangeOption provides extra option for ZRange function.
 type ZRangeOption struct {
 	ByScore bool
 	ByLex   bool
-// 可选参数 REV 用于反转排序顺序，因此元素按从高到低的分数进行排序，
-// 当分数相同时，采用反字典序进行排序结果的确定。
+	// The optional REV argument reverses the ordering, so elements are ordered from highest to lowest score,
+	// and score ties are resolved by reverse lexicographical ordering.
 	Rev   bool
 	Limit *ZRangeOptionLimit
-	// 可选的 WithScores 参数会用返回元素的分数来补充命令的回复。
+	// The optional WithScores argument supplements the command's reply with the scores of elements returned.
 	WithScores bool
 }
 
-// ZRangeOptionLimit 为 ZRange 函数提供 LIMIT 参数。
-// 可选的 LIMIT 参数可用于从匹配元素中获取一个子范围（类似于 SQL 中的 SELECT LIMIT offset, count）。
-// 如果 `Count` 为负数，则返回从 `Offset` 开始的所有元素。
+// ZRangeOptionLimit provides LIMIT argument for ZRange function.
+// The optional LIMIT argument can be used to obtain a sub-range from the matching elements
+// (similar to SELECT LIMIT offset, count in SQL). A negative `Count` returns all elements from the `Offset`.
 type ZRangeOptionLimit struct {
 	Offset *int
 	Count  *int
 }
 
-// ZRevRangeOption 提供了 ZRevRange 函数的选项。
+// ZRevRangeOption provides options for function ZRevRange.
 type ZRevRangeOption struct {
 	WithScores bool
 }

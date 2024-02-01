@@ -1,16 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid_test
+
 import (
 	"context"
 	"fmt"
 	
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/text/gstr"
-	)
+)
 
 func ExampleRule_Required() {
 	type BizReq struct {
@@ -210,7 +212,7 @@ func ExampleRule_CaseInsensitive() {
 		ctx = context.Background()
 		req = BizReq{
 			Account:   "gf",
-			Password:  "Goframe.org", // 与 Password2 不同，但由于存在 "ci" 规则检查，所以通过了验证
+			Password:  "Goframe.org", // Diff from Password2, but because of "ci", rule check passed
 			Password2: "goframe.org",
 		}
 	)
@@ -369,9 +371,9 @@ func ExampleRule_Phone() {
 		ctx = context.Background()
 		req = BizReq{
 			PhoneNumber1: "13578912345",
-			PhoneNumber2: "11578912345", // 错误：11x不存在
-			PhoneNumber3: "17178912345", //错误171不存在
-			PhoneNumber4: "1357891234",  // 错误：长度必须为11
+			PhoneNumber2: "11578912345", // error 11x not exist
+			PhoneNumber3: "17178912345", // error 171 not exit
+			PhoneNumber4: "1357891234",  // error len must be 11
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -396,9 +398,9 @@ func ExampleRule_PhoneLoose() {
 		ctx = context.Background()
 		req = BizReq{
 			PhoneNumber1: "13578912345",
-			PhoneNumber2: "11578912345", // 错误：11x不存在
+			PhoneNumber2: "11578912345", // error 11x not exist
 			PhoneNumber3: "17178912345",
-			PhoneNumber4: "1357891234", // 错误：长度必须为11
+			PhoneNumber4: "1357891234", // error len must be 11
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -424,7 +426,7 @@ func ExampleRule_Telephone() {
 			Telephone1: "010-77542145",
 			Telephone2: "0571-77542145",
 			Telephone3: "20-77542145", // error
-			Telephone4: "775421451",   // 错误：长度必须为7或8
+			Telephone4: "775421451",   // error len must be 7 or 8
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -448,9 +450,9 @@ func ExampleRule_Passport() {
 		ctx = context.Background()
 		req = BizReq{
 			Passport1: "goframe",
-			Passport2: "1356666",  // 错误信息以字母开头
-			Passport3: "goframe#", // 包含仅数字或下划线的错误
-			Passport4: "gf",       // 错误信息长度应在6到18个字符之间
+			Passport2: "1356666",  // error starting with letter
+			Passport3: "goframe#", // error containing only numbers or underscores
+			Passport4: "gf",       // error length between 6 and 18
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -473,7 +475,7 @@ func ExampleRule_Password() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "goframe",
-			Password2: "gofra", // 错误信息长度应在6到18个字符之间
+			Password2: "gofra", // error length between 6 and 18
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -496,9 +498,9 @@ func ExampleRule_Password2() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "Goframe123",
-			Password2: "gofra",      // 错误信息长度应在6到18个字符之间
-			Password3: "Goframe",    // 错误信息必须包含大小写字母和数字。
-			Password4: "goframe123", // 错误信息必须包含大小写字母和数字。
+			Password2: "gofra",      // error length between 6 and 18
+			Password3: "Goframe",    // error must contain lower and upper letters and numbers.
+			Password4: "goframe123", // error must contain lower and upper letters and numbers.
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -522,8 +524,8 @@ func ExampleRule_Password3() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "Goframe123#",
-			Password2: "gofra",      // 错误信息长度应在6到18个字符之间
-			Password3: "Goframe123", // 错误信息必须包含小写字母、大写字母、数字和特殊字符。
+			Password2: "gofra",      // error length between 6 and 18
+			Password3: "Goframe123", // error must contain lower and upper letters, numbers and special chars.
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -546,8 +548,8 @@ func ExampleRule_Postcode() {
 		ctx = context.Background()
 		req = BizReq{
 			Postcode1: "100000",
-			Postcode2: "10000",   // 错误：长度必须为6
-			Postcode3: "1000000", // 错误：长度必须为6
+			Postcode2: "10000",   // error length must be 6
+			Postcode3: "1000000", // error length must be 6
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {

@@ -1,22 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package mssql 实现了 gdb.Driver 接口，该接口支持对 MSSql 数据库进行操作。
+// Package mssql implements gdb.Driver, which supports operations for database MSSql.
 //
-// 注意：
-// 1. 不支持 Save/Replace 功能。
-// 2. 不支持 LastInsertId 功能。
-// 以下是将上述Go语言代码注释翻译成中文：
-// ```markdown
-// 这个mssql包实现了gdb.Driver接口，主要用于对MSSql数据库的各种操作提供支持。
-//
-// 注意事项：
-// 1. 该实现暂不支持Save/Replace功能。
-// 2. 该实现暂不支持LastInsertId方法。
+// Note:
+// 1. It does not support Save/Replace features.
+// 2. It does not support LastInsertId.
 package mssql
+
 import (
 	"context"
 	"database/sql"
@@ -32,8 +26,9 @@ import (
 	"github.com/888go/goframe/text/gregex"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gutil"
-	)
-// Driver 是 SQL 服务器数据库的驱动程序。
+)
+
+// Driver is the driver for SQL server database.
 type Driver struct {
 	*gdb.Core
 }
@@ -48,31 +43,31 @@ func init() {
 	}
 }
 
-// New 创建并返回一个实现 gdb.Driver 接口的驱动程序，该驱动支持对 Mssql 的操作。
+// New create and returns a driver that implements gdb.Driver, which supports operations for Mssql.
 func New() gdb.Driver {
 	return &Driver{}
 }
 
-// New 创建并返回一个用于SQL服务器的数据库对象。
-// 它实现了gdb.Driver接口，以便支持额外的数据库驱动安装。
+// New creates and returns a database object for SQL server.
+// It implements the interface of gdb.Driver for extra database driver installation.
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
 }
 
-// Open 创建并返回一个用于mssql的底层sql.DB对象。
+// Open creates and returns an underlying sql.DB object for mssql.
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlserver"
 	)
 	if config.Link != "" {
-// ============================================================================
-// 从 v2.2.0 版本开始已弃用。
-// ============================================================================
+		// ============================================================================
+		// Deprecated from v2.2.0.
+		// ============================================================================
 		source = config.Link
-		// 在运行时自定义更改架构
+		// Custom changing the schema in runtime.
 		if config.Name != "" {
 			source, _ = gregex.ReplaceString(`database=([\w\.\-]+)+`, "database="+config.Name, source)
 		}
@@ -102,15 +97,15 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	return
 }
 
-// GetChars 返回该类型数据库的安全字符。
+// GetChars returns the security char for this type of database.
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }
 
-// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前，对其进行处理。
+// DoFilter deals with the sql string before commits it to underlying sql driver.
 func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	var index int
-	// 将占位符字符 '?' 转换为字符串 "@px"。
+	// Convert placeholder char '?' to string "@px".
 	newSql, _ = gregex.ReplaceStringFunc("\\?", sql, func(s string) string {
 		index++
 		return fmt.Sprintf("@p%d", index)
@@ -119,14 +114,14 @@ func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args [
 	return d.Core.DoFilter(ctx, link, d.parseSql(newSql), args)
 }
 
-// parseSql在将SQL提交给底层驱动程序之前执行一些替换操作，
-// 以便支持Microsoft SQL Server。
+// parseSql does some replacement of the sql before commits it to underlying driver,
+// for support of microsoft sql server.
 func (d *Driver) parseSql(sql string) string {
-	// 从USER表中选取ID为1的记录，限制返回结果数量为1条
+	// SELECT * FROM USER WHERE ID=1 LIMIT 1
 	if m, _ := gregex.MatchString(`^SELECT(.+)LIMIT 1$`, sql); len(m) > 1 {
 		return fmt.Sprintf(`SELECT TOP 1 %s`, m[1])
 	}
-	// 从USER表中选取AGE大于18的所有列，并按ID降序排列，然后获取第101至300条记录（LIMIT offset, count语法）
+	// SELECT * FROM USER WHERE AGE>18 ORDER BY ID DESC LIMIT 100, 200
 	patten := `^\s*(?i)(SELECT)|(LIMIT\s*(\d+)\s*,\s*(\d+))`
 	if gregex.IsMatchString(patten, sql) == false {
 		return sql
@@ -142,7 +137,7 @@ func (d *Driver) parseSql(sql string) string {
 	index++
 	switch strings.ToUpper(keyword) {
 	case "SELECT":
-		// LIMIT语句检查。
+		// LIMIT statement checks.
 		if len(res) < 2 ||
 			(strings.HasPrefix(res[index][0], "LIMIT") == false &&
 				strings.HasPrefix(res[index][0], "limit") == false) {
@@ -151,7 +146,7 @@ func (d *Driver) parseSql(sql string) string {
 		if gregex.IsMatchString("((?i)SELECT)(.+)((?i)LIMIT)", sql) == false {
 			break
 		}
-		// ORDER BY 语句检查。
+		// ORDER BY statement checks.
 		var (
 			selectStr = ""
 			orderStr  = ""
@@ -215,8 +210,8 @@ func (d *Driver) parseSql(sql string) string {
 	return sql
 }
 
-// Tables 获取并返回当前模式的表格。
-// 它主要用于cli工具链中，用于自动生成模型。
+// Tables retrieves and returns the tables of current schema.
+// It's mainly used in cli tool chain for automatically generating the models.
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
 	link, err := d.SlaveLink(schema...)
@@ -238,9 +233,9 @@ func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string,
 	return
 }
 
-// TableFields 获取并返回当前模式下指定表的字段信息。
+// TableFields retrieves and returns the fields' information of specified table of current schema.
 //
-// 另请参阅 DriverMysql.TableFields。
+// Also see DriverMysql.TableFields.
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result
@@ -301,7 +296,7 @@ ORDER BY a.id,a.colorder`,
 	return fields, nil
 }
 
-// DoInsert 对给定表执行插入或更新数据操作。
+// DoInsert inserts or updates data forF given table.
 func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
 	switch option.InsertOption {
 	case gdb.InsertOptionSave:

@@ -1,37 +1,38 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
 
-// SetNameToUriType 为服务器设置 NameToUriType。
+// SetNameToUriType sets the NameToUriType for server.
 func (s *Server) SetNameToUriType(t int) {
 	s.config.NameToUriType = t
 }
 
-// SetDumpRouterMap 为服务器设置 DumpRouterMap。
-// 如果启用了 DumpRouterMap，服务器启动时会自动导出路由映射表。
+// SetDumpRouterMap sets the DumpRouterMap for server.
+// If DumpRouterMap is enabled, it automatically dumps the route map when server starts.
 func (s *Server) SetDumpRouterMap(enabled bool) {
 	s.config.DumpRouterMap = enabled
 }
 
-// SetClientMaxBodySize 为服务器设置客户端最大请求体大小。
+// SetClientMaxBodySize sets the ClientMaxBodySize for server.
 func (s *Server) SetClientMaxBodySize(maxSize int64) {
 	s.config.ClientMaxBodySize = maxSize
 }
 
-// SetFormParsingMemory 用于设置服务器的表单解析内存。
+// SetFormParsingMemory sets the FormParsingMemory for server.
 func (s *Server) SetFormParsingMemory(maxMemory int64) {
 	s.config.FormParsingMemory = maxMemory
 }
 
-// SetSwaggerPath 用于设置服务器的 SwaggerPath。
+// SetSwaggerPath sets the SwaggerPath for server.
 func (s *Server) SetSwaggerPath(path string) {
 	s.config.SwaggerPath = path
 }
 
-// SetOpenApiPath 为服务器设置 OpenApiPath。
+// SetOpenApiPath sets the OpenApiPath for server.
 func (s *Server) SetOpenApiPath(path string) {
 	s.config.OpenApiPath = path
 }

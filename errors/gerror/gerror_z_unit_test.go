@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gerror_test
+
 import (
 	"errors"
 	"fmt"
@@ -13,7 +15,7 @@ import (
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func nilError() error {
 	return nil
@@ -224,13 +226,13 @@ func Test_Stack(t *testing.T) {
 		err = gerror.Wrap(err, "2")
 		err = gerror.Wrap(err, "3")
 		t.AssertNE(err, nil)
-		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
+		// fmt.Printf("%+v", err)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		err := gerror.New("1")
 		t.AssertNE(fmt.Sprintf("%+v", err), "1")
-		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
+		// fmt.Printf("%+v", err)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
@@ -238,7 +240,7 @@ func Test_Stack(t *testing.T) {
 		err = gerror.Wrap(err, "2")
 		err = gerror.Wrap(err, "3")
 		t.AssertNE(err, nil)
-		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
+		// fmt.Printf("%+v", err)
 	})
 }
 

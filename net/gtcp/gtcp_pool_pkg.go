@@ -1,14 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtcp
+
 import (
 	"time"
-	)
-// SendPkg 将包含 `data` 的数据包发送到连接。
-// 可选参数 `option` 指定发送数据包的选项。
+)
+
+// SendPkg sends a package containing `data` to the connection.
+// The optional parameter `option` specifies the package options for sending.
 func (c *PoolConn) SendPkg(data []byte, option ...PkgOption) (err error) {
 	if err = c.Conn.SendPkg(data, option...); err != nil && c.status == connStatusUnknown {
 		if v, e := c.pool.NewFunc(); e == nil {
@@ -26,8 +29,8 @@ func (c *PoolConn) SendPkg(data []byte, option ...PkgOption) (err error) {
 	return err
 }
 
-// RecvPkg 通过简单的包协议从连接中接收数据包。
-// 可选参数 `option` 指定了接收数据包时的包选项。
+// RecvPkg receives package from connection using simple package protocol.
+// The optional parameter `option` specifies the package options for receiving.
 func (c *PoolConn) RecvPkg(option ...PkgOption) ([]byte, error) {
 	data, err := c.Conn.RecvPkg(option...)
 	if err != nil {
@@ -38,7 +41,7 @@ func (c *PoolConn) RecvPkg(option ...PkgOption) ([]byte, error) {
 	return data, err
 }
 
-// RecvPkgWithTimeout 使用简单包协议，以超时方式从连接中读取数据。
+// RecvPkgWithTimeout reads data from connection with timeout using simple package protocol.
 func (c *PoolConn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (data []byte, err error) {
 	if err := c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -50,7 +53,7 @@ func (c *PoolConn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption
 	return
 }
 
-// SendPkgWithTimeout 使用简单的包协议并设置超时，向连接写入数据。
+// SendPkgWithTimeout writes data to connection with timeout using simple package protocol.
 func (c *PoolConn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) (err error) {
 	if err := c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -62,7 +65,7 @@ func (c *PoolConn) SendPkgWithTimeout(data []byte, timeout time.Duration, option
 	return
 }
 
-// SendRecvPkg 使用简单的包协议将数据写入连接，并阻塞等待读取响应。
+// SendRecvPkg writes data to connection and blocks reading response using simple package protocol.
 func (c *PoolConn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkg(option...)
@@ -71,7 +74,7 @@ func (c *PoolConn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error)
 	}
 }
 
-// SendRecvPkgWithTimeout 使用简单包协议并通过超时读取从连接中接收数据。
+// SendRecvPkgWithTimeout reads data from connection with timeout using simple package protocol.
 func (c *PoolConn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkgWithTimeout(timeout, option...)

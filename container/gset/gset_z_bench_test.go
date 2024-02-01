@@ -1,17 +1,20 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
+// go test *.go -bench=".*" -benchmem
 
 package gset_test
+
 import (
 	"strconv"
 	"testing"
 	
 	"github.com/888go/goframe/container/gset"
-	)
+)
+
 var intSet = gset.NewIntSet(true)
 
 var anySet = gset.NewSet(true)
@@ -84,7 +87,7 @@ func Benchmark_AnySet_Remove(b *testing.B) {
 	})
 }
 
-// 注意，字符串转换会带来额外的性能开销。
+// Note that there's additional performance cost for string conversion.
 func Benchmark_StrSet_Add(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -95,7 +98,7 @@ func Benchmark_StrSet_Add(b *testing.B) {
 	})
 }
 
-// 注意，字符串转换会带来额外的性能开销。
+// Note that there's additional performance cost for string conversion.
 func Benchmark_StrSet_Contains(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -106,7 +109,7 @@ func Benchmark_StrSet_Contains(b *testing.B) {
 	})
 }
 
-// 注意，字符串转换会带来额外的性能开销。
+// Note that there's additional performance cost for string conversion.
 func Benchmark_StrSet_Remove(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -153,21 +156,21 @@ func Benchmark_Unsafe_AnySet_Remove(b *testing.B) {
 	}
 }
 
-// 注意，字符串转换会带来额外的性能开销。
+// Note that there's additional performance cost for string conversion.
 func Benchmark_Unsafe_StrSet_Add(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Add(strconv.Itoa(i))
 	}
 }
 
-// 注意，字符串转换会带来额外的性能开销。
+// Note that there's additional performance cost for string conversion.
 func Benchmark_Unsafe_StrSet_Contains(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Contains(strconv.Itoa(i))
 	}
 }
 
-// 注意，字符串转换会带来额外的性能开销。
+// Note that there's additional performance cost for string conversion.
 func Benchmark_Unsafe_StrSet_Remove(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Remove(strconv.Itoa(i))

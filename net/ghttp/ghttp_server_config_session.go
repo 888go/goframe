@@ -1,50 +1,53 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"time"
 	
 	"github.com/888go/goframe/os/gsession"
-	)
-// SetSessionMaxAge 设置服务器的 SessionMaxAge。
+)
+
+// SetSessionMaxAge sets the SessionMaxAge for server.
 func (s *Server) SetSessionMaxAge(ttl time.Duration) {
 	s.config.SessionMaxAge = ttl
 }
 
-// SetSessionIdName 为服务器设置 SessionIdName。
+// SetSessionIdName sets the SessionIdName for server.
 func (s *Server) SetSessionIdName(name string) {
 	s.config.SessionIdName = name
 }
 
-// SetSessionStorage 为服务器设置 SessionStorage。
+// SetSessionStorage sets the SessionStorage for server.
 func (s *Server) SetSessionStorage(storage gsession.Storage) {
 	s.config.SessionStorage = storage
 }
 
-// SetSessionCookieOutput设置服务器的SetSessionCookieOutput。
+// SetSessionCookieOutput sets the SetSessionCookieOutput for server.
 func (s *Server) SetSessionCookieOutput(enabled bool) {
 	s.config.SessionCookieOutput = enabled
 }
 
-// SetSessionCookieMaxAge 为服务器设置 SessionCookieMaxAge。
+// SetSessionCookieMaxAge sets the SessionCookieMaxAge for server.
 func (s *Server) SetSessionCookieMaxAge(maxAge time.Duration) {
 	s.config.SessionCookieMaxAge = maxAge
 }
 
-// GetSessionMaxAge 返回服务器的 SessionMaxAge 值。
+// GetSessionMaxAge returns the SessionMaxAge of server.
 func (s *Server) GetSessionMaxAge() time.Duration {
 	return s.config.SessionMaxAge
 }
 
-// GetSessionIdName 返回服务器的 SessionIdName。
+// GetSessionIdName returns the SessionIdName of server.
 func (s *Server) GetSessionIdName() string {
 	return s.config.SessionIdName
 }
 
-// GetSessionCookieMaxAge 返回服务器的 SessionCookieMaxAge 值。
+// GetSessionCookieMaxAge returns the SessionCookieMaxAge of server.
 func (s *Server) GetSessionCookieMaxAge() time.Duration {
 	return s.config.SessionCookieMaxAge
 }

@@ -1,13 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// reflection包提供了一些内部使用的反射功能。
+// Package reflection provides some reflection functions for internal usage.
 package reflection
+
 import (
 	"reflect"
-	)
+)
+
 type OriginValueAndKindOutput struct {
 	InputValue  reflect.Value
 	InputKind   reflect.Kind
@@ -15,7 +18,7 @@ type OriginValueAndKindOutput struct {
 	OriginKind  reflect.Kind
 }
 
-// OriginValueAndKind 获取并返回原始 reflect 值和类型。
+// OriginValueAndKind retrieves and returns the original reflect value and kind.
 func OriginValueAndKind(value interface{}) (out OriginValueAndKindOutput) {
 	if v, ok := value.(reflect.Value); ok {
 		out.InputValue = v
@@ -39,7 +42,7 @@ type OriginTypeAndKindOutput struct {
 	OriginKind reflect.Kind
 }
 
-// OriginTypeAndKind 获取并返回原始 reflect 类型和种类。
+// OriginTypeAndKind retrieves and returns the original reflect type and kind.
 func OriginTypeAndKind(value interface{}) (out OriginTypeAndKindOutput) {
 	if value == nil {
 		return
@@ -63,7 +66,7 @@ func OriginTypeAndKind(value interface{}) (out OriginTypeAndKindOutput) {
 	return
 }
 
-// ValueToInterface 将 reflect 值转换为其接口类型。
+// ValueToInterface converts reflect value to its interface type.
 func ValueToInterface(v reflect.Value) (value interface{}, ok bool) {
 	if v.IsValid() && v.CanInterface() {
 		return v.Interface(), true

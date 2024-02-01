@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	netpprof "net/http/pprof"
 	runpprof "runtime/pprof"
@@ -11,8 +13,9 @@ import (
 	
 	"github.com/888go/goframe/internal/intlog"
 	"github.com/888go/goframe/os/gview"
-	)
-// utilPProf 是 PProf 接口的实现者。
+)
+
+// utilPProf is the PProf interface implementer.
 type utilPProf struct{}
 
 const (
@@ -20,7 +23,7 @@ const (
 	defaultPProfPattern    = "/debug/pprof"
 )
 
-// StartPProfServer 启动并运行一个新的 pprof 服务端。
+// StartPProfServer starts and runs a new server for pprof.
 func StartPProfServer(port int, pattern ...string) {
 	s := GetServer(defaultPProfServerName)
 	s.EnablePProf()
@@ -28,12 +31,12 @@ func StartPProfServer(port int, pattern ...string) {
 	s.Run()
 }
 
-// EnablePProf 启用服务器的 PProf 功能。
+// EnablePProf enables PProf feature for server.
 func (s *Server) EnablePProf(pattern ...string) {
 	s.Domain(DefaultDomainName).EnablePProf(pattern...)
 }
 
-// EnablePProf 启用指定域名服务器的 PProf 功能。
+// EnablePProf enables PProf feature for server of specified domain.
 func (d *Domain) EnablePProf(pattern ...string) {
 	p := defaultPProfPattern
 	if len(pattern) > 0 && pattern[0] != "" {
@@ -51,7 +54,7 @@ func (d *Domain) EnablePProf(pattern ...string) {
 	})
 }
 
-// Index 显示 PProf 索引页面。
+// Index shows the PProf index page.
 func (p *utilPProf) Index(r *Request) {
 	var (
 		ctx      = r.Context()
@@ -96,29 +99,30 @@ func (p *utilPProf) Index(r *Request) {
 	}
 }
 
-// Cmdline 函数响应运行程序的命令行参数，其中各个参数由 NUL 字节分隔。
-// 包初始化时会将其注册为 /debug/pprof/cmdline 路径。
+// Cmdline responds with the running program's
+// command line, with arguments separated by NUL bytes.
+// The package initialization registers it as /debug/pprof/cmdline.
 func (p *utilPProf) Cmdline(r *Request) {
 	netpprof.Cmdline(r.Response.Writer, r.Request)
 }
 
-// Profile 函数响应 pprof 格式的 CPU 分析报告。
-// 分析的持续时间由 GET 参数中指定的秒数决定，如果未指定，则默认为 30 秒。
-// 包初始化时会将其注册为 /debug/pprof/profile 路径。
+// Profile responds with the pprof-formatted cpu profile.
+// Profiling lasts for duration specified in seconds GET parameter, or for 30 seconds if not specified.
+// The package initialization registers it as /debug/pprof/profile.
 func (p *utilPProf) Profile(r *Request) {
 	netpprof.Profile(r.Response.Writer, r.Request)
 }
 
-// Symbol 函数通过查询请求中列出的程序计数器，
-// 并以程序计数器到函数名称的映射表作为响应。
-// 包初始化时将其注册为 /debug/pprof/symbol 路径。
+// Symbol looks up the program counters listed in the request,
+// responding with a table mapping program counters to function names.
+// The package initialization registers it as /debug/pprof/symbol.
 func (p *utilPProf) Symbol(r *Request) {
 	netpprof.Symbol(r.Response.Writer, r.Request)
 }
 
-// Trace 以二进制形式响应执行跟踪。
-// 跟踪持续时间由GET参数中指定的秒数决定，如果未指定，则持续1秒。
-// 包初始化时将其注册为/debug/pprof/trace。
+// Trace responds with the execution trace in binary form.
+// Tracing lasts for duration specified in seconds GET parameter, or for 1 second if not specified.
+// The package initialization registers it as /debug/pprof/trace.
 func (p *utilPProf) Trace(r *Request) {
 	netpprof.Trace(r.Response.Writer, r.Request)
 }

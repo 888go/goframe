@@ -1,16 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package goai
+
 import (
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/util/gconv"
-	)
-// Operation 表示由 OpenAPI/Swagger 3.0 标准定义的 "操作"。
+)
+
+// Operation represents "operation" specified by OpenAPI/Swagger 3.0 standard.
 type Operation struct {
 	Tags         []string              `json:"tags,omitempty"`
 	Summary      string                `json:"summary,omitempty"`
@@ -42,7 +44,7 @@ func (o Operation) MarshalJSON() ([]byte, error) {
 		m   map[string]json.RawMessage
 		err error
 	)
-	type tempOperation Operation // 为防止JSON序列化时出现递归错误
+	type tempOperation Operation // To prevent JSON marshal recursion error.
 	if b, err = json.Marshal(tempOperation(o)); err != nil {
 		return nil, err
 	}

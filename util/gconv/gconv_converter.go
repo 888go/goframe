@@ -1,31 +1,35 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
+
 import (
 	"reflect"
 	
 	"github.com/888go/goframe/errors/gcode"
 	"github.com/888go/goframe/errors/gerror"
-	)
+)
+
 type (
 	converterInType  = reflect.Type
 	converterOutType = reflect.Type
 	converterFunc    = reflect.Value
 )
 
-// customConverters 用于内部转换器存储。
+// customConverters for internal converter storing.
 var customConverters = make(map[converterInType]map[converterOutType]converterFunc)
 
-// RegisterConverter 用于注册自定义转换器。
-// 在使用此自定义转换功能之前，必须先进行注册。
-// 建议在初始化阶段完成此操作。
-// 注意：
-// 1. 参数 `fn` 必须定义为模式 `func(T1) (T2, error)`。
-//    它将把类型 `T1` 转换为类型 `T2`。
-// 2. `T1` 不应为指针类型，但 `T2` 应为指针类型。
+// RegisterConverter to register custom converter.
+// It must be registered before you use this custom converting feature.
+// It is suggested to do it in boot.
+//
+// Note:
+//  1. The parameter `fn` must be defined as pattern `func(T1) (T2, error)`.
+//     It will convert type `T1` to type `T2`.
+//  2. The `T1` should not be type of pointer, but the `T2` should be type of pointer.
 func RegisterConverter(fn interface{}) (err error) {
 	var (
 		fnReflectType = reflect.TypeOf(fn)
@@ -42,7 +46,7 @@ func RegisterConverter(fn interface{}) (err error) {
 		return
 	}
 
-	// 转换器映射中的键和值不应为指针类型。
+	// The Key and Value of the converter map should not be pointer.
 	var (
 		inType  = fnReflectType.In(0)
 		outType = fnReflectType.Out(0)
@@ -81,7 +85,7 @@ func RegisterConverter(fn interface{}) (err error) {
 	return
 }
 
-// callCustomConverter 调用自定义转换器。它会尝试一些可能的类型。
+// callCustomConverter call the custom converter. It will try some possible type.
 func callCustomConverter(srcReflectValue reflect.Value, dstReflectValue reflect.Value) (converted bool, err error) {
 	if len(customConverters) == 0 {
 		return false, nil
@@ -97,7 +101,7 @@ func callCustomConverter(srcReflectValue reflect.Value, dstReflectValue reflect.
 		registeredOutTypeMap    map[converterOutType]converterFunc
 		registeredConverterFunc converterFunc
 	)
-	// 首先，通过输入参数类型搜索映射。
+	// firstly, it searches the map by input parameter type.
 	registeredOutTypeMap, ok = customConverters[srcType]
 	if !ok {
 		return false, nil
@@ -108,13 +112,13 @@ func callCustomConverter(srcReflectValue reflect.Value, dstReflectValue reflect.
 	} else if dstType.Kind() != reflect.Pointer && dstReflectValue.CanAddr() {
 		dstType = dstReflectValue.Addr().Type()
 	}
-// 其次，它在输入参数类型映射中搜索
-// 并通过输出参数类型找到结果转换函数。
+	// secondly, it searches the input parameter type map
+	// and finds the result converter function by the output parameter type.
 	registeredConverterFunc, ok = registeredOutTypeMap[dstType]
 	if !ok {
 		return false, nil
 	}
-	// 转换器函数调用。
+	// Converter function calling.
 	for srcReflectValue.Type() != srcType {
 		srcReflectValue = srcReflectValue.Elem()
 	}
@@ -122,7 +126,7 @@ func callCustomConverter(srcReflectValue reflect.Value, dstReflectValue reflect.
 	if !result[1].IsNil() {
 		return false, result[1].Interface().(error)
 	}
-	// `result[0]` 是一个指针。
+	// The `result[0]` is a pointer.
 	if result[0].IsNil() {
 		return false, nil
 	}

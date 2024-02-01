@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid_test
+
 import (
 	"context"
 	"errors"
@@ -14,7 +16,7 @@ import (
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/guid"
 	"github.com/888go/goframe/util/gvalid"
-	)
+)
 
 func Test_CustomRule1(t *testing.T) {
 	rule := "custom"
@@ -39,7 +41,7 @@ func Test_CustomRule1(t *testing.T) {
 		err = g.Validator().Data("123456").Assoc(g.Map{"data": "123456"}).Rules(rule).Messages("custom message").Run(ctx)
 		t.AssertNil(err)
 	})
-	// 结构体验证错误
+	// Error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@custom#自定义错误"`
@@ -52,7 +54,7 @@ func Test_CustomRule1(t *testing.T) {
 		err := g.Validator().Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
-	// 结构体验证无错误。
+	// No error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@custom#自定义错误"`
@@ -82,7 +84,7 @@ func Test_CustomRule2(t *testing.T) {
 		t.Assert(g.Validator().Data(g.Map{}).Messages(errStr).Rules(rule).Run(ctx), errStr)
 		t.Assert(g.Validator().Data(g.Map{"k": "v"}).Rules(rule).Messages(errStr).Run(ctx), nil)
 	})
-	// 结构体验证错误
+	// Error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value map[string]string `v:"uid@required-map#自定义错误"`
@@ -95,7 +97,7 @@ func Test_CustomRule2(t *testing.T) {
 		err := g.Validator().Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
-	// 结构体验证无错误。
+	// No error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value map[string]string `v:"uid@required-map#自定义错误"`
@@ -126,7 +128,7 @@ func Test_CustomRule_AllowEmpty(t *testing.T) {
 		t.Assert(g.Validator().Data("gf").Rules(rule).Messages(errStr).Run(ctx), "")
 		t.Assert(g.Validator().Data("gf2").Rules(rule).Messages(errStr).Run(ctx), errStr)
 	})
-	// 结构体验证错误
+	// Error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@allow-empty-str#自定义错误"`
@@ -139,7 +141,7 @@ func Test_CustomRule_AllowEmpty(t *testing.T) {
 		err := g.Validator().Data(st).Run(ctx)
 		t.AssertNil(err)
 	})
-	// 结构体验证无错误。
+	// No error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@allow-empty-str#自定义错误"`
@@ -181,7 +183,7 @@ func TestValidator_RuleFunc(t *testing.T) {
 			Run(ctx)
 		t.AssertNil(err)
 	})
-	// 结构体验证错误
+	// Error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@custom_1#自定义错误"`
@@ -194,7 +196,7 @@ func TestValidator_RuleFunc(t *testing.T) {
 		err := g.Validator().RuleFunc(ruleName, ruleFunc).Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
-	// 结构体验证无错误。
+	// No error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@custom_1#自定义错误"`
@@ -238,7 +240,7 @@ func TestValidator_RuleFuncMap(t *testing.T) {
 			}).Run(ctx)
 		t.AssertNil(err)
 	})
-	// 结构体验证错误
+	// Error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@custom_1#自定义错误"`
@@ -254,7 +256,7 @@ func TestValidator_RuleFuncMap(t *testing.T) {
 			}).Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
-	// 结构体验证无错误。
+	// No error with struct validation.
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Value string `v:"uid@custom_1#自定义错误"`

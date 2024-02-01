@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gproperties_test
+
 import (
 	"fmt"
 	"strings"
@@ -14,7 +15,8 @@ import (
 	"github.com/888go/goframe/encoding/gproperties"
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 var pStr string = `
 # 模板引擎目录
 viewpath = "/home/www/templates/"
@@ -37,11 +39,11 @@ var errorTests = []struct {
 	{"key\\u123g = value", "invalid unicode literal"},
 	{"key\\u123", "invalid unicode literal"},
 
-	// 循环引用
+	// circular references
 	{"key=${key}", `circular reference in:\nkey=\$\{key\}`},
 	{"key1=${key2}\nkey2=${key1}", `circular reference in:\n(key1=\$\{key2\}\nkey2=\$\{key1\}|key2=\$\{key1\}\nkey1=\$\{key2\})`},
 
-	// 不规范的表达式
+	// malformed expressions
 	{"key=${ke", "malformed expression"},
 	{"key=valu${ke", "malformed expression"},
 }

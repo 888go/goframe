@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtree
+
 import (
 	"bytes"
 	"fmt"
@@ -13,14 +15,15 @@ import (
 	"github.com/888go/goframe/internal/rwmutex"
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gutil"
-	)
+)
+
 type color bool
 
 const (
 	black, red color = true, false
 )
 
-// RedBlackTree 用于存储红黑树的元素。
+// RedBlackTree holds elements of the red-black tree.
 type RedBlackTree struct {
 	mu         rwmutex.RWMutex
 	root       *RedBlackTreeNode
@@ -28,7 +31,7 @@ type RedBlackTree struct {
 	comparator func(v1, v2 interface{}) int
 }
 
-// RedBlackTreeNode 是树中的单个元素。
+// RedBlackTreeNode is a single element within the tree.
 type RedBlackTreeNode struct {
 	Key    interface{}
 	Value  interface{}
@@ -38,8 +41,9 @@ type RedBlackTreeNode struct {
 	parent *RedBlackTreeNode
 }
 
-// NewRedBlackTree 创建一个带有自定义键比较器的红黑树。
-// 参数`safe`用于指定是否在并发安全的情况下使用该树，默认为false。
+// NewRedBlackTree instantiates a red-black tree with the custom key comparator.
+// The parameter `safe` is used to specify whether using tree in concurrent-safety,
+// which is false in default.
 func NewRedBlackTree(comparator func(v1, v2 interface{}) int, safe ...bool) *RedBlackTree {
 	return &RedBlackTree{
 		mu:         rwmutex.Create(safe...),
@@ -47,8 +51,9 @@ func NewRedBlackTree(comparator func(v1, v2 interface{}) int, safe ...bool) *Red
 	}
 }
 
-// NewRedBlackTreeFrom 通过自定义键比较器和 `data` 映射创建一个红黑树实例。
-// 参数 `safe` 用于指定是否在并发安全的情况下使用该树，默认为 false。
+// NewRedBlackTreeFrom instantiates a red-black tree with the custom key comparator and `data` map.
+// The parameter `safe` is used to specify whether using tree in concurrent-safety,
+// which is false in default.
 func NewRedBlackTreeFrom(comparator func(v1, v2 interface{}) int, data map[interface{}]interface{}, safe ...bool) *RedBlackTree {
 	tree := NewRedBlackTree(comparator, safe...)
 	for k, v := range data {
@@ -57,7 +62,7 @@ func NewRedBlackTreeFrom(comparator func(v1, v2 interface{}) int, data map[inter
 	return tree
 }
 
-// SetComparator 设置/更改用于排序的比较器。
+// SetComparator sets/changes the comparator for sorting.
 func (tree *RedBlackTree) SetComparator(comparator func(a, b interface{}) int) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -68,7 +73,7 @@ func (tree *RedBlackTree) SetComparator(comparator func(a, b interface{}) int) {
 			data[key] = value
 			return true
 		})
-		// 如果比较器发生改变，则重新对树进行排序。
+		// Resort the tree if comparator is changed.
 		tree.root = nil
 		tree.size = 0
 		for k, v := range data {
@@ -77,21 +82,21 @@ func (tree *RedBlackTree) SetComparator(comparator func(a, b interface{}) int) {
 	}
 }
 
-// Clone 返回一个新的树，其中包含当前树的副本。
+// Clone returns a new tree with a copy of current tree.
 func (tree *RedBlackTree) Clone() *RedBlackTree {
 	newTree := NewRedBlackTree(tree.comparator, tree.mu.IsSafe())
 	newTree.Sets(tree.Map())
 	return newTree
 }
 
-// Set 将键值对项插入到树中。
+// Set inserts key-value item into the tree.
 func (tree *RedBlackTree) Set(key interface{}, value interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
 	tree.doSet(key, value)
 }
 
-// Sets批量设置键值对到树中。
+// Sets batch sets key-values to the tree.
 func (tree *RedBlackTree) Sets(data map[interface{}]interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -100,11 +105,11 @@ func (tree *RedBlackTree) Sets(data map[interface{}]interface{}) {
 	}
 }
 
-// doSet 在没有互斥锁的情况下将键值对项插入到树中。
+// doSet inserts key-value item into the tree without mutex.
 func (tree *RedBlackTree) doSet(key interface{}, value interface{}) {
 	insertedNode := (*RedBlackTreeNode)(nil)
 	if tree.root == nil {
-		// 确保键是初始树中比较器的类型
+		// Assert key is of comparator's type for initial tree
 		tree.getComparator()(key, key)
 		tree.root = &RedBlackTreeNode{Key: key, Value: value, color: red}
 		insertedNode = tree.root
@@ -142,21 +147,21 @@ func (tree *RedBlackTree) doSet(key interface{}, value interface{}) {
 	tree.size++
 }
 
-// Get通过`key`在树中搜索节点，并返回其对应的值，如果在树中未找到该键，则返回nil。
+// Get searches the node in the tree by `key` and returns its value or nil if key is not found in tree.
 func (tree *RedBlackTree) Get(key interface{}) (value interface{}) {
 	value, _ = tree.Search(key)
 	return
 }
 
-// doSetWithLockCheck 检查在对 mutex 锁定后，给定 key 对应的值是否存在，
-// 如果不存在，则使用给定的 `key` 将 value 设置到映射中；
-// 否则，直接返回已存在的 value。
+// doSetWithLockCheck checks whether value of the key exists with mutex.Lock,
+// if not exists, set value to the map with given `key`,
+// or else just return the existing value.
 //
-// 在设置值的过程中，如果 `value` 的类型为 <func() interface {}>，
-// 会在哈希映射的 mutex 锁定下执行该函数，
-// 并将函数的返回值以 `key` 为键设置到映射中。
+// When setting value, if `value` is type of <func() interface {}>,
+// it will be executed with mutex.Lock of the hash map,
+// and its return value will be set to the map with `key`.
 //
-// 最终返回给定 `key` 对应的值。
+// It returns value with given `key`.
 func (tree *RedBlackTree) doSetWithLockCheck(key interface{}, value interface{}) interface{} {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -172,8 +177,8 @@ func (tree *RedBlackTree) doSetWithLockCheck(key interface{}, value interface{})
 	return value
 }
 
-// GetOrSet 函数通过 key 返回对应的 value，
-// 若该 key 不存在，则使用给定的 `value` 设置并返回这个设置后的值。
+// GetOrSet returns the value by key,
+// or sets value with given `value` if it does not exist and then returns this value.
 func (tree *RedBlackTree) GetOrSet(key interface{}, value interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, value)
@@ -182,8 +187,9 @@ func (tree *RedBlackTree) GetOrSet(key interface{}, value interface{}) interface
 	}
 }
 
-// GetOrSetFunc 通过键返回值，如果该键不存在，
-// 则使用回调函数 `f` 返回的值进行设置，并随后返回这个设置后的值。
+// GetOrSetFunc returns the value by key,
+// or sets value with returned value of callback function `f` if it does not exist
+// and then returns this value.
 func (tree *RedBlackTree) GetOrSetFunc(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f())
@@ -192,9 +198,12 @@ func (tree *RedBlackTree) GetOrSetFunc(key interface{}, f func() interface{}) in
 	}
 }
 
-// GetOrSetFuncLock 通过键返回值，如果该键不存在，则使用回调函数 `f` 返回的值设置并返回这个新值。
+// GetOrSetFuncLock returns the value by key,
+// or sets value with returned value of callback function `f` if it does not exist
+// and then returns this value.
 //
-// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在哈希映射的 mutex.Lock 保护下执行函数 `f`。
+// GetOrSetFuncLock differs with GetOrSetFunc function is that it executes function `f`
+// with mutex.Lock of the hash map.
 func (tree *RedBlackTree) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f)
@@ -203,32 +212,32 @@ func (tree *RedBlackTree) GetOrSetFuncLock(key interface{}, f func() interface{}
 	}
 }
 
-// GetVar 通过给定的 `key` 返回一个包含其值的 gvar.Var。
-// 返回的 gvar.Var 对象不支持并发安全。
+// GetVar returns a gvar.Var with the value by given `key`.
+// The returned gvar.Var is un-concurrent safe.
 func (tree *RedBlackTree) GetVar(key interface{}) *gvar.Var {
 	return gvar.New(tree.Get(key))
 }
 
-// GetVarOrSet 返回一个从 GetVarOrSet 获取结果的 gvar.Var。
-// 返回的 gvar.Var 不是线程安全的。
+// GetVarOrSet returns a gvar.Var with result from GetVarOrSet.
+// The returned gvar.Var is un-concurrent safe.
 func (tree *RedBlackTree) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSet(key, value))
 }
 
-// GetVarOrSetFunc 返回一个 gvar.Var，其结果来自 GetOrSetFunc。
-// 返回的 gvar.Var 不是线程安全的。
+// GetVarOrSetFunc returns a gvar.Var with result from GetOrSetFunc.
+// The returned gvar.Var is un-concurrent safe.
 func (tree *RedBlackTree) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFunc(key, f))
 }
 
-// GetVarOrSetFuncLock 返回一个 gvar.Var，其结果来自 GetOrSetFuncLock。
-// 返回的 gvar.Var 并未实现并发安全。
+// GetVarOrSetFuncLock returns a gvar.Var with result from GetOrSetFuncLock.
+// The returned gvar.Var is un-concurrent safe.
 func (tree *RedBlackTree) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFuncLock(key, f))
 }
 
-// SetIfNotExist 如果`key`不存在，则将`value`设置到map中，并返回true。
-// 若`key`已存在，则返回false，同时`value`将被忽略。
+// SetIfNotExist sets `value` to the map if the `key` does not exist, and then returns true.
+// It returns false if `key` exists, and `value` would be ignored.
 func (tree *RedBlackTree) SetIfNotExist(key interface{}, value interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, value)
@@ -237,8 +246,8 @@ func (tree *RedBlackTree) SetIfNotExist(key interface{}, value interface{}) bool
 	return false
 }
 
-// SetIfNotExistFunc 使用回调函数`f`的返回值设置键值，并返回true。
-// 若`key`已存在，则返回false，同时`value`将被忽略。
+// SetIfNotExistFunc sets value with return value of callback function `f`, and then returns true.
+// It returns false if `key` exists, and `value` would be ignored.
 func (tree *RedBlackTree) SetIfNotExistFunc(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f())
@@ -247,11 +256,11 @@ func (tree *RedBlackTree) SetIfNotExistFunc(key interface{}, f func() interface{
 	return false
 }
 
-// SetIfNotExistFuncLock 函数用于设置键值对，其值为回调函数 `f` 的返回值，并在设置成功时返回 true。
-// 若 `key` 已存在，则返回 false，并且将忽略 `value` 参数。
+// SetIfNotExistFuncLock sets value with return value of callback function `f`, and then returns true.
+// It returns false if `key` exists, and `value` would be ignored.
 //
-// SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
-// 它在执行回调函数 `f` 时会锁定哈希表的 mutex 锁。
+// SetIfNotExistFuncLock differs with SetIfNotExistFunc function is that
+// it executes function `f` with mutex.Lock of the hash map.
 func (tree *RedBlackTree) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f)
@@ -260,13 +269,13 @@ func (tree *RedBlackTree) SetIfNotExistFuncLock(key interface{}, f func() interf
 	return false
 }
 
-// Contains 检查 `key` 是否存在于树中。
+// Contains checks whether `key` exists in the tree.
 func (tree *RedBlackTree) Contains(key interface{}) bool {
 	_, ok := tree.Search(key)
 	return ok
 }
 
-// doRemove 在没有互斥锁的情况下，通过 `key` 从树中移除节点。
+// doRemove removes the node from the tree by `key` without mutex.
 func (tree *RedBlackTree) doRemove(key interface{}) (value interface{}) {
 	child := (*RedBlackTreeNode)(nil)
 	node, found := tree.doSearch(key)
@@ -299,14 +308,14 @@ func (tree *RedBlackTree) doRemove(key interface{}) (value interface{}) {
 	return
 }
 
-// Remove 通过 `key` 从树中移除节点。
+// Remove removes the node from the tree by `key`.
 func (tree *RedBlackTree) Remove(key interface{}) (value interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
 	return tree.doRemove(key)
 }
 
-// 删除树中通过`keys`指定的一批值。
+// Removes batch deletes values of the tree by `keys`.
 func (tree *RedBlackTree) Removes(keys []interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -315,19 +324,19 @@ func (tree *RedBlackTree) Removes(keys []interface{}) {
 	}
 }
 
-// IsEmpty 返回 true 如果树中不包含任何节点。
+// IsEmpty returns true if tree does not contain any nodes.
 func (tree *RedBlackTree) IsEmpty() bool {
 	return tree.Size() == 0
 }
 
-// Size 返回树中节点的数量。
+// Size returns number of nodes in the tree.
 func (tree *RedBlackTree) Size() int {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
 	return tree.size
 }
 
-// Keys 返回所有按升序排列的键。
+// Keys returns all keys in asc order.
 func (tree *RedBlackTree) Keys() []interface{} {
 	var (
 		keys  = make([]interface{}, tree.Size())
@@ -341,7 +350,7 @@ func (tree *RedBlackTree) Keys() []interface{} {
 	return keys
 }
 
-// Values 返回所有基于键升序排列的值。
+// Values returns all values in asc order based on the key.
 func (tree *RedBlackTree) Values() []interface{} {
 	var (
 		values = make([]interface{}, tree.Size())
@@ -355,7 +364,7 @@ func (tree *RedBlackTree) Values() []interface{} {
 	return values
 }
 
-// Map 返回所有键值对项作为映射（map）。
+// Map returns all key-value items as map.
 func (tree *RedBlackTree) Map() map[interface{}]interface{} {
 	m := make(map[interface{}]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -365,7 +374,7 @@ func (tree *RedBlackTree) Map() map[interface{}]interface{} {
 	return m
 }
 
-// MapStrAny 返回所有键值对项作为 map[string]interface{} 类型。
+// MapStrAny returns all key-value items as map[string]interface{}.
 func (tree *RedBlackTree) MapStrAny() map[string]interface{} {
 	m := make(map[string]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -375,7 +384,7 @@ func (tree *RedBlackTree) MapStrAny() map[string]interface{} {
 	return m
 }
 
-// Left 返回树中最左边（最小值）的节点，如果树为空则返回nil。
+// Left returns the left-most (min) node or nil if tree is empty.
 func (tree *RedBlackTree) Left() *RedBlackTreeNode {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -389,7 +398,7 @@ func (tree *RedBlackTree) Left() *RedBlackTreeNode {
 	return node
 }
 
-// Right 返回最右侧（最大）的节点，如果树为空则返回nil。
+// Right returns the right-most (max) node or nil if tree is empty.
 func (tree *RedBlackTree) Right() *RedBlackTreeNode {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -403,7 +412,7 @@ func (tree *RedBlackTree) Right() *RedBlackTreeNode {
 	return node
 }
 
-// leftNode 返回最左边（最小值）的节点，如果树为空则返回 nil。
+// leftNode returns the left-most (min) node or nil if tree is empty.
 func (tree *RedBlackTree) leftNode() *RedBlackTreeNode {
 	p := (*RedBlackTreeNode)(nil)
 	n := tree.root
@@ -414,7 +423,7 @@ func (tree *RedBlackTree) leftNode() *RedBlackTreeNode {
 	return p
 }
 
-// rightNode 返回最右侧（最大值）的节点，如果树为空则返回 nil。
+// rightNode returns the right-most (max) node or nil if tree is empty.
 func (tree *RedBlackTree) rightNode() *RedBlackTreeNode {
 	p := (*RedBlackTreeNode)(nil)
 	n := tree.root
@@ -425,11 +434,12 @@ func (tree *RedBlackTree) rightNode() *RedBlackTreeNode {
 	return p
 }
 
-// Floor 查找输入键的下界节点，返回下界节点或在未找到时返回 nil。
-// 第二个返回参数为布尔值，若找到下界节点则为 true，否则为 false。
+// Floor Finds floor node of the input key, return the floor node or nil if no floor node is found.
+// Second return parameter is true if floor was found, otherwise false.
 //
-// 下界节点定义为键小于等于给定 `key` 的最大节点。
-// 可能无法找到下界节点，原因可能是树为空，或者树中所有节点都大于给定节点。
+// Floor node is defined as the largest node that its key is smaller than or equal to the given `key`.
+// A floor node may not be found, either because the tree is empty, or because
+// all nodes in the tree are larger than the given node.
 func (tree *RedBlackTree) Floor(key interface{}) (floor *RedBlackTreeNode, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -452,11 +462,12 @@ func (tree *RedBlackTree) Floor(key interface{}) (floor *RedBlackTreeNode, found
 	return nil, false
 }
 
-// Ceiling 函数查找大于或等于输入键的最小节点（即上限节点），并返回该上限节点；若未找到上限节点，则返回 nil。
-// 第二个返回参数为布尔值，若找到上限节点则为 true，否则为 false。
+// Ceiling finds ceiling node of the input key, return the ceiling node or nil if no ceiling node is found.
+// Second return parameter is true if ceiling was found, otherwise false.
 //
-// 上限节点定义为：其键大于或等于给定 `key` 的最小节点。
-// 可能找不到上限节点，原因可能是树为空，或者树中所有节点都小于给定节点。
+// Ceiling node is defined as the smallest node that its key is larger than or equal to the given `key`.
+// A ceiling node may not be found, either because the tree is empty, or because
+// all nodes in the tree are smaller than the given node.
 func (tree *RedBlackTree) Ceiling(key interface{}) (ceiling *RedBlackTreeNode, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -479,28 +490,28 @@ func (tree *RedBlackTree) Ceiling(key interface{}) (ceiling *RedBlackTreeNode, f
 	return nil, false
 }
 
-// Iterator 是 IteratorAsc 的别名。
+// Iterator is alias of IteratorAsc.
 func (tree *RedBlackTree) Iterator(f func(key, value interface{}) bool) {
 	tree.IteratorAsc(f)
 }
 
-// IteratorFrom 是 IteratorAscFrom 的别名。
+// IteratorFrom is alias of IteratorAscFrom.
 func (tree *RedBlackTree) IteratorFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.IteratorAscFrom(key, match, f)
 }
 
-// IteratorAsc 以升序遍历给定回调函数 `f` 的只读树。
-// 如果 `f` 返回 true，则继续迭代；如果返回 false，则停止遍历。
+// IteratorAsc iterates the tree readonly in ascending order with given callback function `f`.
+// If `f` returns true, then it continues iterating; or false to stop.
 func (tree *RedBlackTree) IteratorAsc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
 	tree.doIteratorAsc(tree.leftNode(), f)
 }
 
-// IteratorAscFrom 以升序遍历（只读）给定回调函数 `f` 的树。
-// 参数 `key` 指定了遍历的起始项。`match` 指定了当 `key` 完全匹配时是否开始遍历，
-// 否则使用索引搜索方式进行遍历。
-// 若 `f` 返回 true，则继续遍历；若返回 false，则停止遍历。
+// IteratorAscFrom iterates the tree readonly in ascending order with given callback function `f`.
+// The parameter `key` specifies the start entry for iterating. The `match` specifies whether
+// starting iterating if the `key` is fully matched, or else using index searching iterating.
+// If `f` returns true, then it continues iterating; or false to stop.
 func (tree *RedBlackTree) IteratorAscFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -540,18 +551,18 @@ loop:
 	}
 }
 
-// IteratorDesc 以降序遍历给定回调函数 `f` 的只读树。
-// 如果 `f` 返回 true，则继续迭代；如果返回 false，则停止遍历。
+// IteratorDesc iterates the tree readonly in descending order with given callback function `f`.
+// If `f` returns true, then it continues iterating; or false to stop.
 func (tree *RedBlackTree) IteratorDesc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
 	tree.doIteratorDesc(tree.rightNode(), f)
 }
 
-// IteratorDescFrom 从指定的键(key)开始以降序方式遍历树（只读模式），并使用给定的回调函数`f`。
-// 参数`key`指定了遍历的起始条目。`match`参数指定了如果`key`完全匹配时是否开始遍历，
-// 否则将采用索引搜索方式进行遍历。
-// 若`f`返回值为true，则继续遍历；若返回false，则停止遍历。
+// IteratorDescFrom iterates the tree readonly in descending order with given callback function `f`.
+// The parameter `key` specifies the start entry for iterating. The `match` specifies whether
+// starting iterating if the `key` is fully matched, or else using index searching iterating.
+// If `f` returns true, then it continues iterating; or false to stop.
 func (tree *RedBlackTree) IteratorDescFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -591,7 +602,7 @@ loop:
 	}
 }
 
-// Clear 清除树中的所有节点。
+// Clear removes all nodes from the tree.
 func (tree *RedBlackTree) Clear() {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -599,7 +610,7 @@ func (tree *RedBlackTree) Clear() {
 	tree.size = 0
 }
 
-// 用给定的`data`替换树的数据。
+// Replace the data of the tree with given `data`.
 func (tree *RedBlackTree) Replace(data map[interface{}]interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -610,7 +621,7 @@ func (tree *RedBlackTree) Replace(data map[interface{}]interface{}) {
 	}
 }
 
-// String 返回 container 的字符串表示形式。
+// String returns a string representation of container.
 func (tree *RedBlackTree) String() string {
 	if tree == nil {
 		return ""
@@ -624,13 +635,13 @@ func (tree *RedBlackTree) String() string {
 	return str
 }
 
-// Print 将树打印到标准输出（stdout）。
+// Print prints the tree to stdout.
 func (tree *RedBlackTree) Print() {
 	fmt.Println(tree.String())
 }
 
-// Search 使用给定的`key`搜索树。
-// 第二个返回参数`found`如果找到key则为真（true），否则为假（false）。
+// Search searches the tree with given `key`.
+// Second return parameter `found` is true if key was found, otherwise false.
 func (tree *RedBlackTree) Search(key interface{}) (value interface{}, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -641,11 +652,11 @@ func (tree *RedBlackTree) Search(key interface{}) (value interface{}, found bool
 	return nil, false
 }
 
-// Flip 将树中的键值对进行交换，即将键和值互换。
-// 注意，你需要确保值的类型与键相同，
-// 否则比较器将会触发 panic 异常。
+// Flip exchanges key-value of the tree to value-key.
+// Note that you should guarantee the value is the same type as key,
+// or else the comparator would panic.
 //
-// 如果值的类型与键不同，你需要传入新的 `comparator`（比较器）。
+// If the type of value is different with key, you pass the new `comparator`.
 func (tree *RedBlackTree) Flip(comparator ...func(v1, v2 interface{}) int) {
 	t := (*RedBlackTree)(nil)
 	if len(comparator) > 0 {
@@ -691,8 +702,8 @@ func (tree *RedBlackTree) output(node *RedBlackTreeNode, prefix string, isTail b
 	}
 }
 
-// doSearch 在没有互斥锁的情况下，使用给定的 `key` 搜索树。
-// 如果找到，则返回节点，否则返回 nil。
+// doSearch searches the tree with given `key` without mutex.
+// It returns the node if found or otherwise nil.
 func (tree *RedBlackTree) doSearch(key interface{}) (node *RedBlackTreeNode, found bool) {
 	node = tree.root
 	for node != nil {
@@ -917,7 +928,7 @@ func (tree *RedBlackTree) nodeColor(node *RedBlackTreeNode) color {
 	return node.color
 }
 
-// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 func (tree RedBlackTree) MarshalJSON() (jsonBytes []byte, err error) {
 	if tree.root == nil {
 		return []byte("null"), nil
@@ -940,7 +951,7 @@ func (tree RedBlackTree) MarshalJSON() (jsonBytes []byte, err error) {
 	return buffer.Bytes(), nil
 }
 
-// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 func (tree *RedBlackTree) UnmarshalJSON(b []byte) error {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -957,7 +968,7 @@ func (tree *RedBlackTree) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于为 map 设置任意类型的值。
+// UnmarshalValue is an interface implement which sets any type of value for map.
 func (tree *RedBlackTree) UnmarshalValue(value interface{}) (err error) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -970,7 +981,8 @@ func (tree *RedBlackTree) UnmarshalValue(value interface{}) (err error) {
 	return
 }
 
-// getComparator 返回之前设置的比较器，如果之前未设置，则会引发panic。
+// getComparator returns the comparator if it's previously set,
+// or else it panics.
 func (tree *RedBlackTree) getComparator() func(a, b interface{}) int {
 	if tree.comparator == nil {
 		panic("comparator is missing for tree")

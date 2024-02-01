@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp_test
+
 import (
 	"context"
 	"fmt"
@@ -20,7 +22,8 @@ import (
 	"github.com/888go/goframe/os/genv"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/guid"
-	)
+)
+
 var (
 	ctx = context.TODO()
 )
@@ -141,7 +144,7 @@ func Test_RoutePathParams(t *testing.T) {
 }
 
 func Test_BuildParams(t *testing.T) {
-	// 普通情况与特殊案例
+	// normal && special cases
 	params := map[string]string{
 		"val":   "12345678",
 		"code1": "x&a=1", // for fix
@@ -159,7 +162,7 @@ func Test_BuildParams(t *testing.T) {
 		for k := range vs {
 			vv := vs.Get(k)
 			_, ok := params[k]
-			// 检查无额外参数
+			// check no additional param
 			t.Assert(ok, true)
 			// check equal
 			t.AssertEQ(params[k], vv)

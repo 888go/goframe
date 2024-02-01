@@ -1,26 +1,28 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// gsession包实现了会话的管理器和存储功能。
+// Package gsession implements manager and storage features for sessions.
 package gsession
+
 import (
 	"github.com/888go/goframe/errors/gcode"
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/util/guid"
-	)
+)
+
 var (
-	// ErrorDisabled 用于标记某些接口函数未被使用。
+	// ErrorDisabled is used for marking certain interface function not used.
 	ErrorDisabled = gerror.NewWithOption(gerror.Option{
 		Text: "this feature is disabled in this storage",
 		Code: gcode.CodeNotSupported,
 	})
 )
 
-// NewSessionId 创建并返回一个新的、唯一的会话ID字符串，
-// 这个字符串长度为32字节。
+// NewSessionId creates and returns a new and unique session id string,
+// which is in 32 bytes.
 func NewSessionId() string {
 	return guid.S()
 }

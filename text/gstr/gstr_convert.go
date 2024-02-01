@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
+
 import (
 	"bytes"
 	"fmt"
@@ -14,18 +16,19 @@ import (
 	"unicode"
 	
 	"github.com/888go/goframe/util/grand"
-	)
+)
+
 var (
-	// octReg 是用于检查八进制字符串的正则表达式对象。
+	// octReg is the regular expression object for checks octal string.
 	octReg = regexp.MustCompile(`\\[0-7]{3}`)
 )
 
-// Chr 返回一个数字（0-255）对应的ASCII字符串。
+// Chr return the ascii string of a number(0-255).
 func Chr(ascii int) string {
 	return string([]byte{byte(ascii % 256)})
 }
 
-// Ord将字符串的第一个字节转换为0到255之间的值。
+// Ord converts the first byte of a string to a value between 0 and 255.
 func Ord(char string) int {
 	return int(char[0])
 }
@@ -43,7 +46,7 @@ func OctStr(str string) string {
 	)
 }
 
-// Reverse 函数返回一个字符串，该字符串是 `str` 的反转字符串。
+// Reverse returns a string which is the reverse of `str`.
 func Reverse(str string) string {
 	runes := []rune(str)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
@@ -52,12 +55,11 @@ func Reverse(str string) string {
 	return string(runes)
 }
 
-// NumberFormat 对数字进行格式化，添加千位分隔符。
-// `decimals`: 设置小数点后的位数。
-// `decPoint`: 设置小数点的分隔符。
-// `thousandsSep`: 设置千位之间的分隔符。
-// 参考：http://php.net/manual/en/function.number-format.php
-// 这段注释是Go语言代码中对NumberFormat函数功能和参数的中文解释。
+// NumberFormat formats a number with grouped thousands.
+// `decimals`: Sets the number of decimal points.
+// `decPoint`: Sets the separator for the decimal point.
+// `thousandsSep`: Sets the thousands' separator.
+// See http://php.net/manual/en/function.number-format.php.
 func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) string {
 	neg := false
 	if number < 0 {
@@ -99,8 +101,8 @@ func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) s
 	return s
 }
 
-// Shuffle 随机打乱一个字符串。
-// 它将参数 `str` 视为unicode字符串。
+// Shuffle randomly shuffles a string.
+// It considers parameter `str` as unicode string.
 func Shuffle(str string) string {
 	runes := []rune(str)
 	s := make([]rune, len(runes))
@@ -110,8 +112,8 @@ func Shuffle(str string) string {
 	return string(s)
 }
 
-// HideStr 将字符串 `str` 中间部分按 `percentage` 百分比替换为 `hide`。
-// 此函数视参数 `str` 为 unicode 字符串。
+// HideStr replaces part of the string `str` to `hide` by `percentage` from the `middle`.
+// It considers parameter `str` as unicode string.
 func HideStr(str string, percent int, hide string) string {
 	array := strings.Split(str, "@")
 	if len(array) > 1 {
@@ -139,9 +141,9 @@ func HideStr(str string, percent int, hide string) string {
 	return buffer.String()
 }
 
-// Nl2Br在字符串中的所有换行符前插入HTML换行标签(`br`|<br />)：
-// 包括\n\r、\r\n、\r、\n。
-// 此函数将参数`str`视为Unicode字符串处理。
+// Nl2Br inserts HTML line breaks(`br`|<br />) before all newlines in a string:
+// \n\r, \r\n, \r, \n.
+// It considers parameter `str` as unicode string.
 func Nl2Br(str string, isXhtml ...bool) string {
 	r, n, runes := '\r', '\n', []rune(str)
 	var br []byte
@@ -173,9 +175,9 @@ func Nl2Br(str string, isXhtml ...bool) string {
 	return buf.String()
 }
 
-// WordWrap 将字符串按照给定的字符数进行换行处理。
-// 该函数支持对英文和中文标点符号进行截断处理。
-// TODO: 实现自定义截断参数功能，参考 http://php.net/manual/en/function.wordwrap.php.
+// WordWrap wraps a string to a given number of characters.
+// This function supports cut parameters of both english and chinese punctuations.
+// TODO: Enable custom cut parameter, see http://php.net/manual/en/function.wordwrap.php.
 func WordWrap(str string, width int, br string) string {
 	if br == "" {
 		br = "\n"
@@ -251,10 +253,10 @@ func WordWrap(str string, width int, br string) string {
 
 func isPunctuation(char int32) bool {
 	switch char {
-	// 英文标点符号
+	// English Punctuations.
 	case ';', '.', ',', ':', '~':
 		return true
-	// 中文标点符号
+	// Chinese Punctuations.
 	case '；', '，', '。', '：', '？', '！', '…', '、':
 		return true
 	default:

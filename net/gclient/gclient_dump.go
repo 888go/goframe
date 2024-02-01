@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gclient
+
 import (
 	"fmt"
 	"io"
@@ -12,8 +14,9 @@ import (
 	
 	"github.com/888go/goframe/internal/intlog"
 	"github.com/888go/goframe/internal/utils"
-	)
-// dumpTextFormat 是转储原始字符串的格式
+)
+
+// dumpTextFormat is the format of the dumped raw string
 const dumpTextFormat = `+---------------------------------------------+
 |                   %s                  |
 +---------------------------------------------+
@@ -21,7 +24,7 @@ const dumpTextFormat = `+---------------------------------------------+
 %s
 `
 
-// getResponseBody 函数返回响应体的文本内容。
+// getResponseBody returns the text of the response body.
 func getResponseBody(res *http.Response) string {
 	if res.Body == nil {
 		return ""
@@ -31,13 +34,13 @@ func getResponseBody(res *http.Response) string {
 	return string(bodyContent)
 }
 
-// RawRequest 返回请求的原始内容。
+// RawRequest returns the raw content of the request.
 func (r *Response) RawRequest() string {
-	// 响应可以为 nil。
+	// Response can be nil.
 	if r == nil || r.request == nil {
 		return ""
 	}
-	// DumpRequestOut 会比 DumpRequest 写出更多的请求头信息，比如 User-Agent。
+	// DumpRequestOut writes more request headers than DumpRequest, such as User-Agent.
 	bs, err := httputil.DumpRequestOut(r.request, false)
 	if err != nil {
 		intlog.Errorf(r.request.Context(), `%+v`, err)
@@ -51,9 +54,9 @@ func (r *Response) RawRequest() string {
 	)
 }
 
-// RawResponse 返回响应的原始内容。
+// RawResponse returns the raw content of the response.
 func (r *Response) RawResponse() string {
-	// 响应可能为 nil。
+	// Response might be nil.
 	if r == nil || r.Response == nil {
 		return ""
 	}
@@ -71,12 +74,12 @@ func (r *Response) RawResponse() string {
 	)
 }
 
-// Raw 返回请求和响应的原始文本。
+// Raw returns the raw text of the request and the response.
 func (r *Response) Raw() string {
 	return fmt.Sprintf("%s\n%s", r.RawRequest(), r.RawResponse())
 }
 
-// RawDump 将请求和响应的原始文本输出到标准输出（stdout）。
+// RawDump outputs the raw text of the request and the response to stdout.
 func (r *Response) RawDump() {
 	fmt.Println(r.Raw())
 }

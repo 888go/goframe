@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gview
+
 import (
 	"context"
 	
@@ -18,23 +19,24 @@ import (
 	"github.com/888go/goframe/os/gspath"
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gutil"
-	)
-// Config 是用于模板引擎的配置对象。
+)
+
+// Config is the configuration object for template engine.
 type Config struct {
-	Paths       []string               `json:"paths"`       // 为了性能考虑，以下代码在数组中搜索路径，但并不保证并发安全。
-	Data        map[string]interface{} `json:"data"`        // 全局模板变量，包括配置信息。
-	DefaultFile string                 `json:"defaultFile"` // 默认用于解析的模板文件。
-	Delimiters  []string               `json:"delimiters"`  // 自定义模板分隔符。
-	AutoEncode  bool                   `json:"autoEncode"`  // 自动进行编码并提供安全的HTML输出，有助于避免XSS攻击。
-	I18nManager *gi18n.Manager         `json:"-"`           // 视图的国际化管理器。
+	Paths       []string               `json:"paths"`       // Searching array for path, NOT concurrent-safe for performance purpose.
+	Data        map[string]interface{} `json:"data"`        // Global template variables including configuration.
+	DefaultFile string                 `json:"defaultFile"` // Default template file for parsing.
+	Delimiters  []string               `json:"delimiters"`  // Custom template delimiters.
+	AutoEncode  bool                   `json:"autoEncode"`  // Automatically encodes and provides safe html output, which is good for avoiding XSS.
+	I18nManager *gi18n.Manager         `json:"-"`           // I18n manager for the view.
 }
 
 const (
-	// 默认用于解析的模板文件。
+	// Default template file for parsing.
 	defaultParsingFile = "index.html"
 )
 
-// DefaultConfig 创建并返回一个包含默认配置的配置对象。
+// DefaultConfig creates and returns a configuration object with default configurations.
 func DefaultConfig() Config {
 	return Config{
 		DefaultFile: defaultParsingFile,
@@ -43,7 +45,7 @@ func DefaultConfig() Config {
 	}
 }
 
-// SetConfig 设置视图的配置。
+// SetConfig sets the configuration for view.
 func (view *View) SetConfig(config Config) error {
 	var err error
 	if len(config.Paths) > 0 {
@@ -63,24 +65,24 @@ func (view *View) SetConfig(config Config) error {
 		view.SetDelimiters(config.Delimiters[0], config.Delimiters[1])
 	}
 	view.config = config
-// 清除全局模板对象缓存。
-// 这只是缓存，不必犹豫去清除它。
+	// Clear global template object cache.
+	// It's just cache, do not hesitate clearing it.
 	templates.Clear()
 
 	intlog.Printf(context.TODO(), "SetConfig: %+v", view.config)
 	return nil
 }
 
-// SetConfigWithMap 使用map设置视图的相关配置。
+// SetConfigWithMap set configurations with map for the view.
 func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 	if len(m) == 0 {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "configuration cannot be empty")
 	}
-// 现在的m是m的一个浅拷贝。
-// 对m的任何改动都不会影响原始的那个m。
-// 有点小巧妙，不是吗？
+	// The m now is a shallow copy of m.
+	// Any changes to m does not affect the original one.
+	// A little tricky, isn't it?
 	m = gutil.MapCopy(m)
-	// 最常用的单视图路径配置支持。
+	// Most common used configuration support for single view path.
 	_, v1 := gutil.MapPossibleItemByKey(m, "paths")
 	_, v2 := gutil.MapPossibleItemByKey(m, "path")
 	if v1 == nil && v2 != nil {
@@ -98,8 +100,8 @@ func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 	return view.SetConfig(view.config)
 }
 
-// SetPath 设置模板文件搜索的目录路径。
-// 参数 `path` 可以是绝对路径或相对路径，但建议使用绝对路径。
+// SetPath sets the template directory path for template file search.
+// The parameter `path` can be absolute or relative path, but absolute path is suggested.
 func (view *View) SetPath(path string) error {
 	var (
 		ctx      = context.TODO()
@@ -135,7 +137,7 @@ func (view *View) SetPath(path string) error {
 		}
 		return err
 	}
-	// 应该是一个目录。
+	// Should be a directory.
 	if !isDir {
 		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.SetPath failed: path "%s" should be directory type`, path)
 		if errorPrint() {
@@ -143,7 +145,7 @@ func (view *View) SetPath(path string) error {
 		}
 		return err
 	}
-	// 重复路径添加检查。
+	// Repeated path adding check.
 	if view.searchPaths.Search(realPath) != -1 {
 		return nil
 	}
@@ -153,7 +155,7 @@ func (view *View) SetPath(path string) error {
 	return nil
 }
 
-// AddPath 将一个绝对路径或相对路径添加到搜索路径中。
+// AddPath adds an absolute or relative path to the search paths.
 func (view *View) AddPath(path string) error {
 	var (
 		ctx      = context.TODO()
@@ -188,7 +190,7 @@ func (view *View) AddPath(path string) error {
 		}
 		return err
 	}
-	// realPath 应为文件夹类型。
+	// realPath should be type of folder.
 	if !isDir {
 		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.AddPath failed: path "%s" should be directory type`, path)
 		if errorPrint() {
@@ -196,7 +198,7 @@ func (view *View) AddPath(path string) error {
 		}
 		return err
 	}
-	// 重复路径添加检查。
+	// Repeated path adding check.
 	if view.searchPaths.Search(realPath) != -1 {
 		return nil
 	}
@@ -205,53 +207,56 @@ func (view *View) AddPath(path string) error {
 	return nil
 }
 
-// Assigns 将多个全局模板变量绑定到当前视图对象。
-// 注意，它不是并发安全的，这意味着如果在运行时多个goroutine中调用它，将会引发panic。
+// Assigns binds multiple global template variables to current view object.
+// Note that it's not concurrent-safe, which means it would panic
+// if it's called in multiple goroutines in runtime.
 func (view *View) Assigns(data Params) {
 	for k, v := range data {
 		view.data[k] = v
 	}
 }
 
-// Assign 将全局模板变量绑定到当前视图对象。
-// 注意，它不是并发安全的，这意味着如果在运行时多个goroutine中调用它，将会导致panic。
+// Assign binds a global template variable to current view object.
+// Note that it's not concurrent-safe, which means it would panic
+// if it's called in multiple goroutines in runtime.
 func (view *View) Assign(key string, value interface{}) {
 	view.data[key] = value
 }
 
-// SetDefaultFile 设置用于解析的默认模板文件。
+// SetDefaultFile sets default template file for parsing.
 func (view *View) SetDefaultFile(file string) {
 	view.config.DefaultFile = file
 }
 
-// GetDefaultFile 返回用于解析的默认模板文件。
+// GetDefaultFile returns default template file for parsing.
 func (view *View) GetDefaultFile() string {
 	return view.config.DefaultFile
 }
 
-// SetDelimiters 设置用于模板解析的自定义分隔符。
+// SetDelimiters sets customized delimiters for template parsing.
 func (view *View) SetDelimiters(left, right string) {
 	view.config.Delimiters = []string{left, right}
 }
 
-// SetAutoEncode 用于开启或关闭自动HTML编码功能。
-// 当自动编码功能开启时，视图引擎会自动进行编码并提供安全的HTML输出，
-// 这有助于避免XSS（跨站脚本攻击）漏洞。
+// SetAutoEncode enables/disables automatically html encoding feature.
+// When AutoEncode feature is enables, view engine automatically encodes and provides safe html output,
+// which is good for avoid XSS.
 func (view *View) SetAutoEncode(enable bool) {
 	view.config.AutoEncode = enable
 }
 
-// BindFunc 注册一个名为 `name` 的自定义全局模板函数到当前视图对象，
-// 使用给定的 `function` 函数。在模板内容中，`name` 是可以被调用的函数名。
+// BindFunc registers customized global template function named `name`
+// with given function `function` to current view object.
+// The `name` is the function name which can be called in template content.
 func (view *View) BindFunc(name string, function interface{}) {
 	view.funcMap[name] = function
 	// Clear global template object cache.
 	templates.Clear()
 }
 
-// BindFuncMap 通过映射注册自定义的全局模板函数到当前视图对象。
-// 映射的键是模板函数名称
-// 映射的值是自定义函数的地址。
+// BindFuncMap registers customized global template functions by map to current view object.
+// The key of map is the template function name
+// and the value of map is the address of customized function.
 func (view *View) BindFuncMap(funcMap FuncMap) {
 	for k, v := range funcMap {
 		view.funcMap[k] = v
@@ -260,7 +265,7 @@ func (view *View) BindFuncMap(funcMap FuncMap) {
 	templates.Clear()
 }
 
-// SetI18n 将 i18n 管理器绑定到当前视图引擎。
+// SetI18n binds i18n manager to current view engine.
 func (view *View) SetI18n(manager *gi18n.Manager) {
 	view.config.I18nManager = manager
 }

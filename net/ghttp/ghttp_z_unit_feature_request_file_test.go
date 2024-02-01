@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp_test
+
 import (
 	"context"
 	"fmt"
@@ -21,7 +23,7 @@ import (
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gmeta"
 	"github.com/888go/goframe/util/guid"
-	)
+)
 
 func Test_Params_File_Single(t *testing.T) {
 	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
@@ -316,7 +318,7 @@ func Test_Params_File_MarshalJSON(t *testing.T) {
 	})
 }
 
-// 批量上传时仅选择一个文件
+// Select only one file when batch uploading
 func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 	type Req struct {
 		gmeta.Meta `method:"post" mime:"multipart/form-data"`
@@ -363,7 +365,7 @@ func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 	})
 }
 
-// 批量上传时选择多个文件
+// Select multiple files during batch upload
 func Test_Params_Strict_Route_File_Batch_Up_Multiple(t *testing.T) {
 	type Req struct {
 		gmeta.Meta `method:"post" mime:"multipart/form-data"`

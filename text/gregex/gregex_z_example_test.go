@@ -1,8 +1,10 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 package gregex_test
+
 import (
 	"bytes"
 	"fmt"
@@ -10,7 +12,7 @@ import (
 	
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/text/gregex"
-	)
+)
 
 func ExampleIsMatch() {
 	patternStr := `\d+`
@@ -39,7 +41,7 @@ func ExampleIsMatchString() {
 func ExampleMatch() {
 	patternStr := `(\w+)=(\w+)`
 	matchStr := "https://goframe.org/pages/viewpage.action?pageId=1114219&searchId=8QC5D1D2E!"
-	// 这个方法查找第一个匹配的索引
+	// This method looks for the first match index
 	result, err := gregex.Match(patternStr, []byte(matchStr))
 	g.Dump(result)
 	g.Dump(err)
@@ -56,7 +58,7 @@ func ExampleMatch() {
 func ExampleMatchString() {
 	patternStr := `(\w+)=(\w+)`
 	matchStr := "https://goframe.org/pages/viewpage.action?pageId=1114219&searchId=8QC5D1D2E!"
-	// 这个方法查找第一个匹配的索引
+	// This method looks for the first match index
 	result, err := gregex.MatchString(patternStr, matchStr)
 	g.Dump(result)
 	g.Dump(err)
@@ -140,8 +142,8 @@ func ExampleReplace() {
 }
 
 func ExampleReplaceFunc() {
-// 与[ExampleReplaceFunc]相反
-// 结果包含所有使用匹配函数的子模式的`pattern`
+	// In contrast to [ExampleReplaceFunc]
+	// the result contains the `pattern' of all subpattern that use the matching function
 	result, err := gregex.ReplaceFuncMatch(`(\d+)~(\d+)`, []byte("hello gf 2018~2020!"), func(match [][]byte) []byte {
 		g.Dump(match)
 		match[2] = []byte("2021")
@@ -165,8 +167,8 @@ func ExampleReplaceFuncMatch() {
 		patternStr = `(\d+)~(\d+)`
 		str        = "hello gf 2018~2020!"
 	)
-// 与 [ExampleReplaceFunc] 相反
-// 结果包含所有使用匹配函数的子模式的 `pattern`
+	// In contrast to [ExampleReplaceFunc]
+	// the result contains the `pattern' of all subpatterns that use the matching function
 	result, err := gregex.ReplaceFuncMatch(patternStr, []byte(str), func(match [][]byte) []byte {
 		g.Dump(match)
 		match[2] = []byte("2021")
@@ -203,8 +205,8 @@ func ExampleReplaceStringFunc() {
 	replaceStrMap := map[string]string{
 		"2020": "2021",
 	}
-// 当常规语句可以匹配多个结果时
-// 可以使用func进行进一步控制，以便确定需要修改的值
+	// When the regular statement can match multiple results
+	// func can be used to further control the value that needs to be modified
 	result, err := gregex.ReplaceStringFunc(`\d+`, `hello gf 2018~2020!`, func(b string) string {
 		g.Dump(b)
 		if replaceStr, ok := replaceStrMap[b]; ok {
@@ -233,8 +235,8 @@ func ExampleReplaceStringFuncMatch() {
 		patternStr = `([A-Z])\w+`
 		str        = "hello Golang 2018~2021!"
 	)
-// 与 [ExampleReplaceFunc] 相反
-// 结果包含所有使用匹配函数的子模式的 `pattern`
+	// In contrast to [ExampleReplaceFunc]
+	// the result contains the `pattern' of all subpatterns that use the matching function
 	result, err := gregex.ReplaceStringFuncMatch(patternStr, str, func(match []string) string {
 		g.Dump(match)
 		match[0] = "Gf"
@@ -266,9 +268,9 @@ func ExampleSplit() {
 }
 
 func ExampleValidate() {
-	// 有效的匹配语句
+	// Valid match statement
 	fmt.Println(gregex.Validate(`\d+`))
-	// 不匹配的语句
+	// Mismatched statement
 	fmt.Println(gregex.Validate(`[a-9]\d+`))
 
 	// Output:

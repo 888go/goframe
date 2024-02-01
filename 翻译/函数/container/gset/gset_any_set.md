@@ -28,11 +28,7 @@ func NewFrom(items
 func NewFrom
 X创建并按值
 # <翻译结束>
-
-# <翻译开始>
-) Iterator
-X遍历
-# <翻译结束>
+ 
 
 # <翻译开始>
 ) Add(items

@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"bytes"
 	"context"
@@ -38,23 +40,23 @@ import (
 	"github.com/888go/goframe/text/gregex"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func init() {
-	// 初始化方法映射。
+	// Initialize the method map.
 	for _, v := range strings.Split(supportedHttpMethods, ",") {
 		methodsMap[v] = struct{}{}
 	}
 }
 
-// serverProcessInit 初始化一些只能执行一次的进程配置。
+// serverProcessInit initializes some process configurations, which can only be done once.
 func serverProcessInit() {
 	var ctx = context.TODO()
 	if !serverProcessInitialized.Cas(false, true) {
 		return
 	}
-// 这意味着它是一个重启服务。在开始监听之前，它应该先终止其父进程，
-// 以避免在两个进程中因端口重复监听而产生问题。
+	// This means it is a restart server. It should kill its parent before starting its listening,
+	// to avoid duplicated port listening in two processes.
 	if !genv.Get(adminActionRestartEnvKey).IsEmpty() {
 		if p, err := os.FindProcess(gproc.PPid()); err == nil {
 			if err = p.Kill(); err != nil {
@@ -68,8 +70,8 @@ func serverProcessInit() {
 		}
 	}
 
-// 处理消息处理器。
-// 只有在启用了优雅特性时，它才会被启用。
+	// Process message handler.
+	// It enabled only a graceful feature is enabled.
 	if gracefulEnabled {
 		intlog.Printf(ctx, "pid[%d]: graceful reload feature is enabled", gproc.Pid())
 		go handleProcessMessage()
@@ -77,14 +79,15 @@ func serverProcessInit() {
 		intlog.Printf(ctx, "pid[%d]: graceful reload feature is disabled", gproc.Pid())
 	}
 
-// 这是一种用于在源代码开发环境中更好地初始化主包路径的丑陋调用方式。它仅在主goroutine中有用。
-// 在异步goroutine中，该方法无法正确获取主包路径。
+	// It's an ugly calling for better initializing the main package path
+	// in source development environment. It is useful only be used in main goroutine.
+	// It fails to retrieve the main package path in asynchronous goroutines.
 	gfile.MainPkgPath()
 }
 
-// GetServer 根据给定名称和默认配置创建并返回一个服务器实例。
-// 注意，参数`name`对于不同服务器应保持唯一。如果给定的`name`已在服务器映射中存在，
-// 则它将返回一个已存在的服务器实例。
+// GetServer creates and returns a server instance using given name and default configurations.
+// Note that the parameter `name` should be unique for different servers. It returns an existing
+// server instance if given `name` is already existing in the server mapping.
 func GetServer(name ...interface{}) *Server {
 	serverName := DefaultServerName
 	if len(name) > 0 && name[0] != "" {
@@ -104,19 +107,19 @@ func GetServer(name ...interface{}) *Server {
 			openapi:          goai.New(),
 			registrar:        gsvc.GetRegistry(),
 		}
-		// 使用默认配置初始化服务器。
+		// Initialize the server using default configurations.
 		if err := s.SetConfig(NewConfig()); err != nil {
 			panic(gerror.WrapCode(gcode.CodeInvalidConfiguration, err, ""))
 		}
-		// 它默认为服务器启用OpenTelemetry。
+		// It enables OpenTelemetry for server in default.
 		s.Use(internalMiddlewareServerTracing)
 		return s
 	})
 	return v.(*Server)
 }
 
-// Start 开始监听配置好的端口。
-// 该函数不会阻塞进程，你可以使用函数 Wait 来阻塞进程。
+// Start starts listening on configured port.
+// This function does not block the process, you can use function Wait blocking the process.
 func (s *Server) Start() error {
 	var ctx = gctx.GetInitCtx()
 
@@ -127,29 +130,29 @@ func (s *Server) Start() error {
 		s.BindHookHandler(s.config.SwaggerPath+"/*", HookBeforeServe, s.swaggerUI)
 	}
 
-	// OpenApi规范JSON生成处理器。
+	// OpenApi specification json producing handler.
 	if s.config.OpenApiPath != "" {
 		s.BindHandler(s.config.OpenApiPath, s.openapiSpec)
 	}
 
-	// 注册群组路由。
+	// Register group routes.
 	s.handlePreBindItems(ctx)
 
-	// 服务器进程初始化，只能初始化一次。
+	// Server process initialization, which can only be initialized once.
 	serverProcessInit()
 
-	// 服务只能运行一次。
+	// Server can only be run once.
 	if s.Status() == ServerStatusRunning {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "server is already running")
 	}
 
-	// 日志路径设置检查
+	// Logging path setting check.
 	if s.config.LogPath != "" && s.config.LogPath != s.config.Logger.GetPath() {
 		if err := s.config.Logger.SetPath(s.config.LogPath); err != nil {
 			return err
 		}
 	}
-	// 默认的会话存储。
+	// Default session storage.
 	if s.config.SessionStorage == nil {
 		sessionStoragePath := ""
 		if s.config.SessionPath != "" {
@@ -162,7 +165,7 @@ func (s *Server) Start() error {
 		}
 		s.config.SessionStorage = gsession.NewStorageFile(sessionStoragePath, s.config.SessionMaxAge)
 	}
-	// 在程序启动运行时初始化会话管理器。
+	// Initialize session manager when start running.
 	s.sessionManager = gsession.New(
 		s.config.SessionMaxAge,
 		s.config.SessionStorage,
@@ -173,31 +176,31 @@ func (s *Server) Start() error {
 		s.EnablePProf(s.config.PProfPattern)
 	}
 
-	// 默认HTTP处理器
+	// Default HTTP handler.
 	if s.config.Handler == nil {
 		s.config.Handler = s.ServeHTTP
 	}
 
-	// 安装外部插件。
+	// Install external plugins.
 	for _, p := range s.plugins {
 		if err := p.Install(s); err != nil {
 			s.Logger().Fatalf(ctx, `%+v`, err)
 		}
 	}
-	// 再次检查组路由中内部注册的路由。
+	// Check the group routes again for internally registered routes.
 	s.handlePreBindItems(ctx)
 
-// 如果没有注册路由且未启用静态服务，
-// 则返回服务器使用无效的错误。
+	// If there's no route registered and no static service enabled,
+	// it then returns an error of invalid usage of server.
 	if len(s.routesMap) == 0 && !s.config.FileServerEnabled {
 		return gerror.NewCode(
 			gcode.CodeInvalidOperation,
 			`there's no route set or static feature enabled, did you forget import the router?`,
 		)
 	}
-// ================================================================================================
-// 启动HTTP服务器。
-// ================================================================================================
+	// ================================================================================================
+	// Start the HTTP server.
+	// ================================================================================================
 	reloaded := false
 	fdMapStr := genv.Get(adminActionReloadEnvKey).String()
 	if len(fdMapStr) > 0 {
@@ -220,7 +223,7 @@ func (s *Server) Start() error {
 			s.config.SwaggerPath,
 		)
 	}
-	// OpenApi规范信息
+	// OpenApi specification info.
 	if s.config.OpenApiPath != "" {
 		s.Logger().Infof(
 			ctx,
@@ -242,7 +245,7 @@ func (s *Server) Start() error {
 		}
 	}
 
-	// 如果这是一个子进程，那么它会通知其父进程已退出。
+	// If this is a child process, it then notifies its parent exit.
 	if gproc.IsChild() {
 		gtimer.SetTimeout(ctx, time.Duration(s.config.GracefulTimeout)*time.Second, func(ctx context.Context) {
 			if err := gproc.Send(gproc.PPid(), []byte("exit"), adminGProcCommGroup); err != nil {
@@ -261,7 +264,7 @@ func (s *Server) getLocalListenedAddress() string {
 	return fmt.Sprintf(`http://127.0.0.1:%d`, s.GetListenedPort())
 }
 
-// doRouterMapDump 检查并把路由映射表转储到日志中。
+// doRouterMapDump checks and dumps the router map to the log.
 func (s *Server) doRouterMapDump() {
 	if !s.config.DumpRouterMap {
 		return
@@ -330,12 +333,12 @@ func (s *Server) doRouterMapDump() {
 	}
 }
 
-// GetOpenApi 返回当前服务器的OpenApi规范管理对象。
+// GetOpenApi returns the OpenApi specification management object of current server.
 func (s *Server) GetOpenApi() *goai.OpenApiV3 {
 	return s.openapi
 }
 
-// GetRoutes 获取并返回路由数组。
+// GetRoutes retrieves and returns the router array.
 func (s *Server) GetRoutes() []RouterItem {
 	var (
 		m              = make(map[string]*garray.SortedArray)
@@ -372,7 +375,7 @@ func (s *Server) GetRoutes() []RouterItem {
 			case HandlerTypeMiddleware:
 				item.Middleware = "GLOBAL MIDDLEWARE"
 			}
-			// 重复路径过滤以供转储
+			// Repeated route filtering for dump.
 			var setKey = fmt.Sprintf(
 				`%s|%s|%s|%s`,
 				item.Method, item.Route, item.Domain, item.Type,
@@ -388,10 +391,10 @@ func (s *Server) GetRoutes() []RouterItem {
 					item.Middleware += gdebug.FuncName(v)
 				}
 			}
-// 如果域名不存在于dump映射中，则创建该映射。
-// 映射的值是一个自定义排序的数组。
+			// If the domain does not exist in the dump map, it creates the map.
+			// The value of the map is a custom sorted array.
 			if _, ok := m[item.Domain]; !ok {
-				// 按升序排序
+				// Sort in ASC order.
 				m[item.Domain] = garray.NewSortedArray(func(v1, v2 interface{}) int {
 					item1 := v1.(RouterItem)
 					item2 := v2.(RouterItem)
@@ -425,8 +428,8 @@ func (s *Server) GetRoutes() []RouterItem {
 	return routerArray
 }
 
-// Run 启动服务器并以阻塞方式监听。
-// 该方法通常用于单服务器场景。
+// Run starts server listening in blocking way.
+// It's commonly used for single server situation.
 func (s *Server) Run() {
 	var ctx = context.TODO()
 
@@ -434,10 +437,10 @@ func (s *Server) Run() {
 		s.Logger().Fatalf(ctx, `%+v`, err)
 	}
 
-	// 以异步方式处理信号。
+	// Signal handler in asynchronous way.
 	go handleProcessSignal()
 
-	// 使用通道进行阻塞，实现优雅重启。
+	// Blocking using channel for graceful restart.
 	<-s.closeChan
 	// Remove plugins.
 	if len(s.plugins) > 0 {
@@ -452,12 +455,12 @@ func (s *Server) Run() {
 	s.Logger().Infof(ctx, "pid[%d]: all servers shutdown", gproc.Pid())
 }
 
-// Wait 阻塞等待所有服务器完成。
-// 在多服务器场景中，它通常被使用。
+// Wait blocks to wait for all servers done.
+// It's commonly used in multiple server situation.
 func Wait() {
 	var ctx = context.TODO()
 
-	// 以异步方式处理信号。
+	// Signal handler in asynchronous way.
 	go handleProcessSignal()
 
 	<-allShutdownChan
@@ -478,7 +481,7 @@ func Wait() {
 	glog.Infof(ctx, "pid[%d]: all servers shutdown", gproc.Pid())
 }
 
-// startServer 启动底层服务器并开始监听。
+// startServer starts the underlying server listening.
 func (s *Server) startServer(fdMap listenerFdMap) {
 	var (
 		ctx          = context.TODO()
@@ -512,7 +515,8 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 			)
 			if len(addrAndFd) > 1 {
 				itemFunc = addrAndFd[0]
-// Windows操作系统不支持从父进程传递socket文件描述符。
+				// The Windows OS does not support socket file descriptor passing
+				// from parent process.
 				if runtime.GOOS != "windows" {
 					fd = gconv.Int(addrAndFd[1])
 				}
@@ -546,7 +550,8 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 		)
 		if len(addrAndFd) > 1 {
 			itemFunc = addrAndFd[0]
-// Windows 操作系统不支持从父进程传递套接字文件描述符。
+			// The Window OS does not support socket file descriptor passing
+			// from the parent process.
 			if runtime.GOOS != "windows" {
 				fd = gconv.Int(addrAndFd[1])
 			}
@@ -557,7 +562,7 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 			s.servers = append(s.servers, s.newGracefulServer(itemFunc))
 		}
 	}
-	// 开始异步监听。
+	// Start listening asynchronously.
 	serverRunning.Add(1)
 	var wg = sync.WaitGroup{}
 	for _, v := range s.servers {
@@ -577,13 +582,13 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 				s.Logger().Fatalf(ctx, `%+v`, err)
 			}
 			wg.Done()
-			// 开始监听并以阻塞方式提供服务。
+			// Start listening and serving in blocking way.
 			err = server.Serve(ctx)
-			// 如果服务器在没有关闭错误的情况下被关闭，进程将退出。
+			// The process exits if the server is closed with none closing error.
 			if err != nil && !strings.EqualFold(http.ErrServerClosed.Error(), err.Error()) {
 				s.Logger().Fatalf(ctx, `%+v`, err)
 			}
-			// 如果所有底层服务器都关闭，进程将退出。
+			// If all the underlying servers' shutdown, the process exits.
 			if s.serverCount.Add(-1) < 1 {
 				s.closeChan <- struct{}{}
 				if serverRunning.Add(-1) < 1 {
@@ -596,12 +601,12 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 	wg.Wait()
 }
 
-// Status 获取并返回服务器状态。
+// Status retrieves and returns the server status.
 func (s *Server) Status() ServerStatus {
 	if serverRunning.Val() == 0 {
 		return ServerStatusStopped
 	}
-	// 如果任何底层服务器正在运行，则服务器状态为运行中。
+	// If any underlying server is running, the server status is running.
 	for _, v := range s.servers {
 		if v.status.Val() == ServerStatusRunning {
 			return ServerStatusRunning
@@ -610,8 +615,8 @@ func (s *Server) Status() ServerStatus {
 	return ServerStatusStopped
 }
 
-// getListenerFdMap 获取并返回套接字文件描述符的映射。
-// 返回映射中的键为 "http" 和 "https"。
+// getListenerFdMap retrieves and returns the socket file descriptors.
+// The key of the returned map is "http" and "https".
 func (s *Server) getListenerFdMap() map[string]string {
 	m := map[string]string{
 		"https": "",
@@ -634,7 +639,7 @@ func (s *Server) getListenerFdMap() map[string]string {
 	return m
 }
 
-// GetListenedPort 获取并返回当前服务器正在监听的一个端口。
+// GetListenedPort retrieves and returns one port which is listened by current server.
 func (s *Server) GetListenedPort() int {
 	ports := s.GetListenedPorts()
 	if len(ports) > 0 {
@@ -643,7 +648,7 @@ func (s *Server) GetListenedPort() int {
 	return 0
 }
 
-// GetListenedPorts 获取并返回当前服务器正在监听的所有端口。
+// GetListenedPorts retrieves and returns the ports which are listened by current server.
 func (s *Server) GetListenedPorts() []int {
 	ports := make([]int, 0)
 	for _, server := range s.servers {
@@ -652,7 +657,7 @@ func (s *Server) GetListenedPorts() []int {
 	return ports
 }
 
-// GetListenedAddress 获取并返回当前服务器监听的地址字符串。
+// GetListenedAddress retrieves and returns the address string which are listened by current server.
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.config.Address, FreePortAddress) {
 		return s.config.Address

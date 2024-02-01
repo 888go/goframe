@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gproc
+
 import (
 	"context"
 	"fmt"
@@ -18,16 +19,17 @@ import (
 	"github.com/888go/goframe/os/gfile"
 	"github.com/888go/goframe/os/glog"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
+
 var (
-	// tcpListened 标记接收端监听服务是否已启动。
+	// tcpListened marks whether the receiving listening service started.
 	tcpListened = gtype.NewBool()
 )
 
-// 接收区块并通过本地TCP监听从其他进程接收消息。
-// 注意，只有当调用此函数时，才会启用TCP监听服务。
+// Receive blocks and receives message from other process using local TCP listening.
+// Note that, it only enables the TCP listening service when this function called.
 func Receive(group ...string) *MsgRequest {
-	// 使用原子操作以确保只有一个接收goroutine在监听。
+	// Use atomic operations to guarantee only one receiver goroutine listening.
 	if tcpListened.Cas(false, true) {
 		go receiveTcpListening()
 	}
@@ -41,14 +43,14 @@ func Receive(group ...string) *MsgRequest {
 		return gqueue.New(maxLengthForProcMsgQueue)
 	}).(*gqueue.Queue)
 
-	// 阻塞接收。
+	// Blocking receiving.
 	if v := queue.Pop(); v != nil {
 		return v.(*MsgRequest)
 	}
 	return nil
 }
 
-// receiveTcpListening 在本地扫描可用端口并开始监听。
+// receiveTcpListening scans local for available port and starts listening.
 func receiveTcpListening() {
 	var (
 		listen  *net.TCPListener
@@ -64,7 +66,7 @@ func receiveTcpListening() {
 	if err != nil {
 		panic(gerror.Wrapf(err, `net.ListenTCP failed for address "%s"`, address))
 	}
-	// 将端口保存到pid文件中。
+	// Save the port to the pid file.
 	if err = gfile.PutContents(getCommFilePath(Pid()), gconv.String(port)); err != nil {
 		panic(err)
 	}
@@ -78,7 +80,7 @@ func receiveTcpListening() {
 	}
 }
 
-// receiveTcpHandler 是用于接收数据的连接处理器。
+// receiveTcpHandler is the connection handler for receiving data.
 func receiveTcpHandler(conn *gtcp.Conn) {
 	var (
 		ctx      = context.TODO()
@@ -106,7 +108,7 @@ func receiveTcpHandler(conn *gtcp.Conn) {
 				// Group check.
 				response.Message = fmt.Sprintf("group [%s] does not exist", msg.Group)
 			} else {
-				// 将元素推送到缓冲队列中。
+				// Push to buffer queue.
 				response.Code = 1
 				v.(*gqueue.Queue).Push(msg)
 			}
@@ -123,7 +125,7 @@ func receiveTcpHandler(conn *gtcp.Conn) {
 				glog.Error(ctx, err)
 			}
 		} else {
-			// 如果发生任何错误，仅关闭连接即可。
+			// Just close the connection if any error occurs.
 			if err = conn.Close(); err != nil {
 				glog.Error(ctx, err)
 			}

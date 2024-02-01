@@ -1,13 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
+
 import (
 	"strings"
-	)
-// Repeat 返回一个新的字符串，该字符串由 input 字符串重复 multiplier 次组成。
+)
+
+// Repeat returns a new string consisting of multiplier copies of the string input.
 func Repeat(input string, multiplier int) string {
 	return strings.Repeat(input, multiplier)
 }

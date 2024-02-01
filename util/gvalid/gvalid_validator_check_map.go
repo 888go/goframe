@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid
+
 import (
 	"context"
 	"errors"
@@ -13,7 +15,7 @@ import (
 	"github.com/888go/goframe/errors/gcode"
 	"github.com/888go/goframe/internal/reflection"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 	if params == nil {
@@ -21,12 +23,12 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 	}
 	var (
 		checkRules    = make([]fieldRule, 0)
-		customMessage = make(CustomMsg) // map[规则键]错误信息。
+		customMessage = make(CustomMsg) // map[RuleKey]ErrorMsg.
 		errorMaps     = make(map[string]map[string]error)
 	)
 	switch assertValue := v.rules.(type) {
-// 序列标签: []序列标签
-// 序列对错误结果有顺序要求。
+	// Sequence tag: []sequence tag
+	// Sequence has order for error results.
 	case []string:
 		for _, tag := range assertValue {
 			name, rule, msg := ParseTagValue(tag)
@@ -39,8 +41,8 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 					ruleArray = strings.Split(rule, "|")
 				)
 				for k, ruleItem := range ruleArray {
-// 如果自定义消息的长度小于规则的长度，
-// 剩余的规则将使用默认错误消息。
+					// If length of custom messages is lesser than length of rules,
+					// the rest rules use the default error messages.
 					if len(msgArray) <= k {
 						continue
 					}
@@ -60,8 +62,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 			})
 		}
 
-	// 无序规则：map[field]rule
-// （这段代码注释表明，该处定义了一个无序的映射关系，其中键（key）为field，值（value）为rule。在Go语言中，"map[field]rule"代表一个映射类型，其键和值分别为field类型和rule类型，且这个映射中的元素没有特定顺序。）
+	// No sequence rules: map[field]rule
 	case map[string]string:
 		for name, rule := range assertValue {
 			checkRules = append(checkRules, fieldRule{
@@ -91,8 +92,8 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 		validator = v.Clone()
 	)
 
-// 它递归地检查结构体，如果其属性是一个嵌入式结构体。
-// 忽略来自父级的inputParamMap、assoc、rules和messages。
+	// It checks the struct recursively if its attribute is an embedded struct.
+	// Ignore inputParamMap, assoc, rules and messages from parent.
 	validator.assoc = nil
 	validator.rules = nil
 	validator.messages = nil
@@ -116,7 +117,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 		return newValidationError(gcode.CodeValidationFailed, nil, errorMaps)
 	}
 
-	// 下面的逻辑与 CheckStruct 的部分功能相同，但不支持顺序检查。
+	// The following logic is the same as some of CheckStruct but without sequence support.
 	for _, checkRuleItem := range checkRules {
 		if len(checkRuleItem.Rule) == 0 {
 			continue
@@ -125,7 +126,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 		if valueItem, ok := inputParamMap[checkRuleItem.Name]; ok {
 			value = valueItem
 		}
-		// 它在循环中检查每一条规则及其对应的值。
+		// It checks each rule and its value in loop.
 		if validatedError := v.doCheckValue(ctx, doCheckValueInput{
 			Name:      checkRuleItem.Name,
 			Value:     value,
@@ -136,11 +137,11 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 			DataMap:   inputParamMap,
 		}); validatedError != nil {
 			_, errorItem := validatedError.FirstItem()
-// ===========================================================
-// 仅在map和结构体验证中：
-// 如果值为nil或空字符串且没有required*规则，
-// 它将清除错误消息。
-// ===========================================================
+			// ===========================================================
+			// Only in map and struct validations:
+			// If value is nil or empty string and has no required* rules,
+			// it clears the error message.
+			// ===========================================================
 			if gconv.String(value) == "" {
 				required := false
 				// rule => error

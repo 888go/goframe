@@ -1,28 +1,32 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gregex 提供了用于正则表达式功能的高性能 API。
+// Package gregex provides high performance API for regular expression functionality.
 package gregex
+
 import (
 	"regexp"
-	)
-// Quote通过将`s`中的特殊字符替换为符合正则表达式模式的规则，
-// 并返回处理后的副本。
+)
+
+// Quote quotes `s` by replacing special chars in `s`
+// to match the rules of regular expression pattern.
+// And returns the copy.
 //
-// 例如：Quote(`[foo]`) 将返回 `\[foo\]`。
+// Eg: Quote(`[foo]`) returns `\[foo\]`.
 func Quote(s string) string {
 	return regexp.QuoteMeta(s)
 }
 
-// Validate 检查给定的正则表达式模式 `pattern` 是否有效。
+// Validate checks whether given regular expression pattern `pattern` valid.
 func Validate(pattern string) error {
 	_, err := getRegexp(pattern)
 	return err
 }
 
-// IsMatch 检查给定的字节序列 `src` 是否匹配模式 `pattern`。
+// IsMatch checks whether given bytes `src` matches `pattern`.
 func IsMatch(pattern string, src []byte) bool {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.Match(src)
@@ -30,12 +34,12 @@ func IsMatch(pattern string, src []byte) bool {
 	return false
 }
 
-// IsMatchString 检查给定的字符串 `src` 是否与 `pattern` 匹配。
+// IsMatchString checks whether given string `src` matches `pattern`.
 func IsMatchString(pattern string, src string) bool {
 	return IsMatch(pattern, []byte(src))
 }
 
-// Match 返回匹配 `pattern` 的字节切片。
+// Match return bytes slice that matched `pattern`.
 func Match(pattern string, src []byte) ([][]byte, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.FindSubmatch(src), nil
@@ -44,7 +48,7 @@ func Match(pattern string, src []byte) ([][]byte, error) {
 	}
 }
 
-// MatchString 返回匹配`pattern`的字符串。
+// MatchString return strings that matched `pattern`.
 func MatchString(pattern string, src string) ([]string, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.FindStringSubmatch(src), nil
@@ -53,7 +57,7 @@ func MatchString(pattern string, src string) ([]string, error) {
 	}
 }
 
-// MatchAll 返回所有匹配 `pattern` 的字节切片。
+// MatchAll return all bytes slices that matched `pattern`.
 func MatchAll(pattern string, src []byte) ([][][]byte, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.FindAllSubmatch(src, -1), nil
@@ -62,7 +66,7 @@ func MatchAll(pattern string, src []byte) ([][][]byte, error) {
 	}
 }
 
-// MatchAllString 返回所有匹配 `pattern` 的字符串。
+// MatchAllString return all strings that matched `pattern`.
 func MatchAllString(pattern string, src string) ([][]string, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.FindAllStringSubmatch(src, -1), nil
@@ -71,7 +75,7 @@ func MatchAllString(pattern string, src string) ([][]string, error) {
 	}
 }
 
-// Replace 将字节 `src` 中所有匹配到的 `pattern` 替换为字节 `replace`。
+// Replace replaces all matched `pattern` in bytes `src` with bytes `replace`.
 func Replace(pattern string, replace, src []byte) ([]byte, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.ReplaceAll(src, replace), nil
@@ -80,13 +84,14 @@ func Replace(pattern string, replace, src []byte) ([]byte, error) {
 	}
 }
 
-// ReplaceString 将字符串 `src` 中所有匹配到的 `pattern` 替换为字符串 `replace`。
+// ReplaceString replace all matched `pattern` in string `src` with string `replace`.
 func ReplaceString(pattern, replace, src string) (string, error) {
 	r, e := Replace(pattern, []byte(replace), []byte(src))
 	return string(r), e
 }
 
-// ReplaceFunc 将字节切片 `src` 中所有匹配到的 `pattern` 用自定义替换函数 `replaceFunc` 进行替换。
+// ReplaceFunc replace all matched `pattern` in bytes `src`
+// with custom replacement function `replaceFunc`.
 func ReplaceFunc(pattern string, src []byte, replaceFunc func(b []byte) []byte) ([]byte, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.ReplaceAllFunc(src, replaceFunc), nil
@@ -95,10 +100,10 @@ func ReplaceFunc(pattern string, src []byte, replaceFunc func(b []byte) []byte) 
 	}
 }
 
-// ReplaceFuncMatch 在字节切片 `src` 中替换所有匹配的 `pattern`，
-// 使用自定义替换函数 `replaceFunc` 进行替换。
-// `replaceFunc` 参数中的 `match` 类型为 [][]byte，
-// 它是使用 Match 函数得到的所有 `pattern` 子模式的结果。
+// ReplaceFuncMatch replace all matched `pattern` in bytes `src`
+// with custom replacement function `replaceFunc`.
+// The parameter `match` type for `replaceFunc` is [][]byte,
+// which is the result contains all sub-patterns of `pattern` using Match function.
 func ReplaceFuncMatch(pattern string, src []byte, replaceFunc func(match [][]byte) []byte) ([]byte, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.ReplaceAllFunc(src, func(bytes []byte) []byte {
@@ -110,7 +115,8 @@ func ReplaceFuncMatch(pattern string, src []byte, replaceFunc func(match [][]byt
 	}
 }
 
-// ReplaceStringFunc 在字符串 `src` 中使用自定义替换函数 `replaceFunc` 替换所有匹配到的 `pattern`。
+// ReplaceStringFunc replace all matched `pattern` in string `src`
+// with custom replacement function `replaceFunc`.
 func ReplaceStringFunc(pattern string, src string, replaceFunc func(s string) string) (string, error) {
 	bytes, err := ReplaceFunc(pattern, []byte(src), func(bytes []byte) []byte {
 		return []byte(replaceFunc(string(bytes)))
@@ -118,8 +124,10 @@ func ReplaceStringFunc(pattern string, src string, replaceFunc func(s string) st
 	return string(bytes), err
 }
 
-// ReplaceStringFuncMatch 在字符串 `src` 中使用自定义替换函数 `replaceFunc` 替换所有匹配到的 `pattern`。
-// 参数 `replaceFunc` 的形参类型为 `[]string`，该结果包含通过 MatchString 函数得到的所有 `pattern` 的子模式。
+// ReplaceStringFuncMatch replace all matched `pattern` in string `src`
+// with custom replacement function `replaceFunc`.
+// The parameter `match` type for `replaceFunc` is []string,
+// which is the result contains all sub-patterns of `pattern` using MatchString function.
 func ReplaceStringFuncMatch(pattern string, src string, replaceFunc func(match []string) string) (string, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return string(r.ReplaceAllFunc([]byte(src), func(bytes []byte) []byte {
@@ -131,7 +139,8 @@ func ReplaceStringFuncMatch(pattern string, src string, replaceFunc func(match [
 	}
 }
 
-// Split 函数将 `src` 切片按照表达式进行分割，并返回由这些表达式匹配之间的子字符串构成的切片。
+// Split slices `src` into substrings separated by the expression and returns a slice of
+// the substrings between those expression matches.
 func Split(pattern string, src string) []string {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.Split(src, -1)

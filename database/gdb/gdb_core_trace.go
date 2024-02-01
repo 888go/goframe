@@ -1,11 +1,12 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可证条款。
-// 如果随此文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 //
 
 package gdb
+
 import (
 	"context"
 	"fmt"
@@ -16,7 +17,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	
 	"github.com/888go/goframe/net/gtrace"
-	)
+)
+
 const (
 	traceInstrumentName       = "github.com/gogf/gf/v2/database/gdb"
 	traceAttrDbType           = "db.type"
@@ -34,7 +36,7 @@ const (
 	traceEventDbExecutionType = "db.execution.type"
 )
 
-// addSqlToTracing 如果启用了追踪功能，则向追踪器添加SQL信息。
+// addSqlToTracing adds sql information to tracer if it's enabled.
 func (c *Core) traceSpanEnd(ctx context.Context, span trace.Span, sql *Sql) {
 	if gtrace.IsUsingDefaultProvider() || !gtrace.IsTracingInternal() {
 		return

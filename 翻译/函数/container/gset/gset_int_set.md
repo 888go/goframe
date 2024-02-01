@@ -23,12 +23,7 @@ func NewIntSetFrom(items
 func NewIntSetFrom
 X创建整数并按值
 # <翻译结束>
-
-# <翻译开始>
-) Iterator
-X遍历
-# <翻译结束>
-
+ 
 # <翻译开始>
 ) Add(item
 值s

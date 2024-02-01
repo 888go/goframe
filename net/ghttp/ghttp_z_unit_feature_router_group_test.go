@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp_test
+
 import (
 	"bytes"
 	"fmt"
@@ -17,7 +19,8 @@ import (
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/guid"
-	)
+)
+
 // 执行对象
 type GroupObject struct{}
 
@@ -165,7 +168,7 @@ func Test_Router_Group_Map(t *testing.T) {
 			"Post:/test": testFuncPost,
 		})
 	})
-	// s.SetDumpRouterMap(false) // 设置s（通常是一个HTTP服务器或路由器）不输出路由映射信息
+	//s.SetDumpRouterMap(false)
 	gtest.Assert(s.Start(), nil)
 	defer s.Shutdown()
 

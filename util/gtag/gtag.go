@@ -1,56 +1,49 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gtag 提供了为结构体存储标签内容的功能。
+// Package gtag providing tag content storing for struct.
 //
-// 注意：该包中的函数调用不保证并发安全，
-// 这意味着你不能在运行时调用它们，而只能在启动过程中调用。
-// 这段注释翻译成中文后为：
-// ```go
-// 包gtag 提供了用于为结构体提供标签内容存储的服务。
-//
-// 需要注意的是，本包中提供的函数并非线程安全的，
-// 即这些函数不能在程序运行时并发调用，只能在初始化或启动阶段调用。
+// Note that calling functions of this package is not concurrently safe,
+// which means you cannot call them in runtime but in boot procedure.
 package gtag
 
 const (
-	Default           = "default"      // 结构体字段的默认值标签，用于从HTTP请求接收参数。
-	DefaultShort      = "d"            // Default的简称。
-	Param             = "param"        // 将特定参数转换为指定结构体字段的参数名称。
-	ParamShort        = "p"            // Param的简称。
-	Valid             = "valid"        // 结构体字段的验证规则标签
-	ValidShort        = "v"            // Valid的简称
-	NoValidation      = "nv"           // 对指定的结构体/字段不进行验证。
-	ORM               = "orm"          // ORM标签用于ORM特性，根据不同的场景执行不同的功能。
-	Arg               = "arg"          // Arg标签用于结构体，通常用于命令行参数选项。
-	Brief             = "brief"        // 结构体的简短标签，通常被视为概述或摘要。
-	Root              = "root"         // Root标签用于结构体，通常用于嵌套命令的管理。
-	Additional        = "additional"   // 结构体的附加标签，通常用于命令的额外描述。
-	AdditionalShort   = "ad"           // Additional的简称。
-	Path              = `path`         // HTTP请求的路由路径。
-	Method            = `method`       // Route 方法用于处理 HTTP 请求。
-	Domain            = `domain`       // 为HTTP请求路由域名。
-	Mime              = `mime`         // HTTP请求/响应的MIME类型。
-	Consumes          = `consumes`     // HTTP请求的MIME类型。
-	Summary           = `summary`      // Summary 用于结构体，通常用于OpenAPI中的请求结构体。
-	SummaryShort      = `sm`           // Summary的简称。
-	SummaryShort2     = `sum`          // Summary的简称。
-	Description       = `description`  // 结构体描述，通常用于OpenAPI中的请求结构体。
-	DescriptionShort  = `dc`           // 描述的简称。
-	DescriptionShort2 = `des`          // 描述的简称。
-	Example           = `example`      // 示例：用于结构体，通常用于OpenAPI中的请求结构体。
-	ExampleShort      = `eg`           // Example 的简称。
-	Examples          = `examples`     // 示例代码展示结构体的用法，通常用于OpenAPI中的请求结构体。
-	ExamplesShort     = `egs`          // 示例的简称。
-	ExternalDocs      = `externalDocs` // 结构体外部文档，始终用于OpenAPI中的请求结构体。
-	ExternalDocsShort = `ed`           // ExternalDocs 的简称。
-	GConv             = "gconv"        // GConv 定义了为特定结构体字段指定的转换目标名称。
-	GConvShort        = "c"            // GConv 定义了为特定结构体字段指定的转换目标名称。
-	Json              = "json"         // Json标签受到stdlib的支持。
-	Security          = "security"     // Security 定义了身份验证方案。详情请参阅 https://swagger.io/docs/specification/authentication/
-	In                = "in"           // Swagger 根据参数位置区分以下几种参数类型。详情请参阅 https://swagger.io/docs/specification/describing-parameters/
-// 在Swagger中，根据参数所在的位置，对参数进行如下类型的区别定义
+	Default           = "default"      // Default value tag of struct field for receiving parameters from HTTP request.
+	DefaultShort      = "d"            // Short name of Default.
+	Param             = "param"        // Parameter name for converting certain parameter to specified struct field.
+	ParamShort        = "p"            // Short name of Param.
+	Valid             = "valid"        // Validation rule tag for struct of field.
+	ValidShort        = "v"            // Short name of Valid.
+	NoValidation      = "nv"           // No validation for specified struct/field.
+	ORM               = "orm"          // ORM tag for ORM feature, which performs different features according scenarios.
+	Arg               = "arg"          // Arg tag for struct, usually for command argument option.
+	Brief             = "brief"        // Brief tag for struct, usually be considered as summary.
+	Root              = "root"         // Root tag for struct, usually for nested commands management.
+	Additional        = "additional"   // Additional tag for struct, usually for additional description of command.
+	AdditionalShort   = "ad"           // Short name of Additional.
+	Path              = `path`         // Route path for HTTP request.
+	Method            = `method`       // Route method for HTTP request.
+	Domain            = `domain`       // Route domain for HTTP request.
+	Mime              = `mime`         // MIME type for HTTP request/response.
+	Consumes          = `consumes`     // MIME type for HTTP request.
+	Summary           = `summary`      // Summary for struct, usually for OpenAPI in request struct.
+	SummaryShort      = `sm`           // Short name of Summary.
+	SummaryShort2     = `sum`          // Short name of Summary.
+	Description       = `description`  // Description for struct, usually for OpenAPI in request struct.
+	DescriptionShort  = `dc`           // Short name of Description.
+	DescriptionShort2 = `des`          // Short name of Description.
+	Example           = `example`      // Example for struct, usually for OpenAPI in request struct.
+	ExampleShort      = `eg`           // Short name of Example.
+	Examples          = `examples`     // Examples for struct, usually for OpenAPI in request struct.
+	ExamplesShort     = `egs`          // Short name of Examples.
+	ExternalDocs      = `externalDocs` // External docs for struct, always for OpenAPI in request struct.
+	ExternalDocsShort = `ed`           // Short name of ExternalDocs.
+	GConv             = "gconv"        // GConv defines the converting target name for specified struct field.
+	GConvShort        = "c"            // GConv defines the converting target name for specified struct field.
+	Json              = "json"         // Json tag is supported by stdlib.
+	Security          = "security"     // Security defines scheme for authentication. Detail to see https://swagger.io/docs/specification/authentication/
+	In                = "in"           // Swagger distinguishes between the following parameter types based on the parameter location. Detail to see https://swagger.io/docs/specification/describing-parameters/
 )

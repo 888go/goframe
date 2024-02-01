@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfile_test
+
 import (
 	"os"
 	"testing"
@@ -12,7 +14,7 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/guid"
-	)
+)
 
 func Test_Copy(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -84,7 +86,7 @@ func Test_CopyFile(t *testing.T) {
 		t.AssertNE(gfile.CopyFile(paths, ""), nil)
 		t.AssertNE(gfile.CopyFile("", topath), nil)
 	})
-	// 内容替换
+	// Content replacement.
 	gtest.C(t, func(t *gtest.T) {
 		src := gfile.Temp(gtime.TimestampNanoStr())
 		dst := gfile.Temp(gtime.TimestampNanoStr())
@@ -116,7 +118,7 @@ func Test_CopyFile(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(dstStat.Mode().Perm(), dstMode)
 	})
-	// 保留源文件的模式
+	// Preserve src file's mode
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			src = "/testfile_copyfile1.txt"
@@ -180,7 +182,7 @@ func Test_CopyDir(t *testing.T) {
 		t.Assert(gfile.Remove(tofolder), nil)
 		t.Assert(gfile.Remove(""), nil)
 	})
-	// 内容替换
+	// Content replacement.
 	gtest.C(t, func(t *gtest.T) {
 		src := gfile.Temp(gtime.TimestampNanoStr(), gtime.TimestampNanoStr())
 		dst := gfile.Temp(gtime.TimestampNanoStr(), gtime.TimestampNanoStr())

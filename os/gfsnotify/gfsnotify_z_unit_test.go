@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfsnotify_test
+
 import (
 	"testing"
 	"time"
@@ -15,7 +17,7 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func TestWatcher_AddOnce(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -150,7 +152,7 @@ func TestWatcher_Callback1(t *testing.T) {
 }
 
 func TestWatcher_Callback2(t *testing.T) {
-	// 多个回调函数
+	// multiple callbacks
 	gtest.C(t, func(t *gtest.T) {
 		path1 := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.PutContents(path1, "1"), nil)
@@ -202,7 +204,7 @@ func TestWatcher_WatchFolderWithoutRecursively(t *testing.T) {
 		t.AssertNil(err)
 
 		_, err = gfsnotify.Add(dirPath, func(event *gfsnotify.Event) {
-			// 打印输出 event.String() 的结果
+			// fmt.Println(event.String())
 			array.Append(1)
 		}, false)
 		t.AssertNil(err)

@@ -1,11 +1,13 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 // go test *.go
 
 package garray_test
+
 import (
 	"testing"
 	"time"
@@ -17,7 +19,7 @@ import (
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func Test_Array_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -290,8 +292,7 @@ func TestArray_Merge(t *testing.T) {
 		array2 := garray.NewArrayFrom(i2)
 		t.Assert(array1.Merge(array2).Slice(), []interface{}{0, 1, 2, 3, 4, 5, 6, 7})
 
-		// 声明并初始化一个字符串切片s1，其中包含了四个元素："a", "b", "c", "d"
-// s1 := []string{"a", "b", "c", "d"}
+		// s1 := []string{"a", "b", "c", "d"}
 		s2 := []string{"e", "f"}
 		i3 := garray.NewIntArrayFrom([]int{1, 2, 3})
 		i4 := garray.NewArrayFrom([]interface{}{3})

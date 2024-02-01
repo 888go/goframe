@@ -1,28 +1,31 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
+
 import (
 	"bytes"
 	"strings"
 	"unicode"
-	)
-// Count 计算 `substr` 在 `s` 中出现的次数。
-// 如果在 `s` 中未找到 `substr`，则返回 0。
+)
+
+// Count counts the number of `substr` appears in `s`.
+// It returns 0 if no `substr` found in `s`.
 func Count(s, substr string) int {
 	return strings.Count(s, substr)
 }
 
-// CountI 计算字符串 `s` 中不区分大小写出现的子串 `substr` 的次数。
-// 如果在 `s` 中未找到 `substr`，则返回 0。
+// CountI counts the number of `substr` appears in `s`, case-insensitively.
+// It returns 0 if no `substr` found in `s`.
 func CountI(s, substr string) int {
 	return strings.Count(ToLower(s), ToLower(substr))
 }
 
-// CountWords 返回关于字符串中单词数量的信息。
-// 它将参数`str`视为unicode字符串。
+// CountWords returns information about words' count used in a string.
+// It considers parameter `str` as unicode string.
 func CountWords(str string) map[string]int {
 	m := make(map[string]int)
 	buffer := bytes.NewBuffer(nil)
@@ -42,8 +45,8 @@ func CountWords(str string) map[string]int {
 	return m
 }
 
-// CountChars 返回关于字符串中使用字符数量的信息。
-// 它将参数 `str` 视为unicode字符串。
+// CountChars returns information about chars' count used in a string.
+// It considers parameter `str` as unicode string.
 func CountChars(str string, noSpace ...bool) map[string]int {
 	m := make(map[string]int)
 	countSpace := true

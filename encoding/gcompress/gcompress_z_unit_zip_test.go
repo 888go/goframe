@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcompress_test
+
 import (
 	"bytes"
 	"testing"
@@ -12,7 +14,7 @@ import (
 	"github.com/888go/goframe/os/gfile"
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func Test_ZipPath(t *testing.T) {
 	// file
@@ -25,7 +27,7 @@ func Test_ZipPath(t *testing.T) {
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
 
-		// 解压缩到临时目录。
+		// unzip to temporary dir.
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
 		t.Assert(gcompress.UnZipFile(dstPath, tempDirPath), nil)
@@ -53,7 +55,7 @@ func Test_ZipPath(t *testing.T) {
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
 
-		// 将文件解压缩到另一个临时目录。
+		// unzip to another temporary dir.
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
 		err = gcompress.UnZipFile(dstPath, tempDirPath)
@@ -69,7 +71,7 @@ func Test_ZipPath(t *testing.T) {
 			gfile.GetContents(srcPath2),
 		)
 	})
-	// 一个目录和一个文件。
+	// one dir and one file.
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			srcPath1 = gtest.DataPath("zip", "path1")
@@ -86,7 +88,7 @@ func Test_ZipPath(t *testing.T) {
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
 
-		// 将文件解压缩到另一个临时目录。
+		// unzip to another temporary dir.
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
 		err = gcompress.UnZipFile(dstPath, tempDirPath)
@@ -135,7 +137,7 @@ func Test_ZipPath(t *testing.T) {
 			gfile.GetContents(gfile.Join(srcPath, "path2", "2.txt")),
 		)
 	})
-	// 使用字符','连接多个目录路径。
+	// multiple directory paths joined using char ','.
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			srcPath  = gtest.DataPath("zip")

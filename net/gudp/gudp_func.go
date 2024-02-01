@@ -1,16 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gudp
+
 import (
 	"net"
 	
 	"github.com/888go/goframe/errors/gerror"
-	)
-// NewNetConn 根据给定的地址创建并返回一个 *net.UDPConn 类型的实例。
+)
+
+// NewNetConn creates and returns a *net.UDPConn with given addresses.
 func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, error) {
 	var (
 		err        error
@@ -47,8 +49,8 @@ func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, err
 	return conn, nil
 }
 
-// Send通过UDP连接将数据写入`address`，然后关闭连接。
-// 注意，它适用于短连接场景。
+// Send writes data to `address` using UDP connection and then closes the connection.
+// Note that it is used for short connection usage.
 func Send(address string, data []byte, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -58,8 +60,8 @@ func Send(address string, data []byte, retry ...Retry) error {
 	return conn.Send(data, retry...)
 }
 
-// SendRecv 使用UDP连接将数据写入`address`，读取响应后再关闭连接。
-// 注意，它适用于短连接场景。
+// SendRecv writes data to `address` using UDP connection, reads response and then closes the connection.
+// Note that it is used for short connection usage.
 func SendRecv(address string, data []byte, receive int, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -69,7 +71,7 @@ func SendRecv(address string, data []byte, receive int, retry ...Retry) ([]byte,
 	return conn.SendRecv(data, receive, retry...)
 }
 
-// MustGetFreePort 的行为与 GetFreePort 相同，但是当出现任何错误时它会触发 panic。
+// MustGetFreePort performs as GetFreePort, but it panics if any error occurs.
 func MustGetFreePort() (port int) {
 	port, err := GetFreePort()
 	if err != nil {
@@ -78,7 +80,7 @@ func MustGetFreePort() (port int) {
 	return port
 }
 
-// GetFreePort 获取并返回一个可用的端口。
+// GetFreePort retrieves and returns a port that is free.
 func GetFreePort() (port int, err error) {
 	var (
 		network = `udp`
@@ -105,7 +107,7 @@ func GetFreePort() (port int, err error) {
 	return
 }
 
-// GetFreePorts 获取并返回指定数量的空闲端口。
+// GetFreePorts retrieves and returns specified number of ports that are free.
 func GetFreePorts(count int) (ports []int, err error) {
 	var (
 		network = `udp`

@@ -1,11 +1,12 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可证条款。
-// 如果随此文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 //
 
 package gcmd
+
 import (
 	"bytes"
 	"context"
@@ -26,15 +27,16 @@ import (
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gutil"
-	)
-// Run调用与此命令绑定的自定义函数。
-// 如果出现任何错误，它将使用退出码1退出此进程。
+)
+
+// Run calls custom function that bound to this command.
+// It exits this process with exit code 1 if any error occurs.
 func (c *Command) Run(ctx context.Context) {
 	_ = c.RunWithValue(ctx)
 }
 
-// RunWithValue 调用与此命令绑定的自定义函数，并传入输出的值。
-// 如果发生任何错误，该过程将以退出码 1 退出。
+// RunWithValue calls custom function that bound to this command with value output.
+// It exits this process with exit code 1 if any error occurs.
 func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 	value, err := c.RunWithValueError(ctx)
 	if err != nil {
@@ -62,15 +64,15 @@ func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 	return value
 }
 
-// RunWithError 调用与此命令绑定的自定义函数，并带有错误输出。
+// RunWithError calls custom function that bound to this command with error output.
 func (c *Command) RunWithError(ctx context.Context) (err error) {
 	_, err = c.RunWithValueError(ctx)
 	return
 }
 
-// RunWithValueError 调用与此命令绑定的自定义函数，并带有值和错误输出。
+// RunWithValueError calls custom function that bound to this command with value and error output.
 func (c *Command) RunWithValueError(ctx context.Context) (value interface{}, err error) {
-	// 使用默认算法解析命令行参数和选项。
+	// Parse command arguments and options using default algorithm.
 	parser, err := Parse(nil)
 	if err != nil {
 		return nil, err
@@ -80,16 +82,16 @@ func (c *Command) RunWithValueError(ctx context.Context) (value interface{}, err
 		return c.doRun(ctx, parser)
 	}
 
-	// 排除根二进制名称。
+	// Exclude the root binary name.
 	args = args[1:]
 
-	// 查找匹配的命令并执行它。
+	// Find the matched command and run it.
 	lastCmd, foundCmd, newCtx := c.searchCommand(ctx, args)
 	if foundCmd != nil {
 		return foundCmd.doRun(newCtx, parser)
 	}
 
-	// 如果未找到命令，则打印错误信息和帮助命令。
+	// Print error and help command if no command found.
 	err = gerror.NewCodef(
 		gcode.WithCode(gcode.CodeNotFound, lastCmd),
 		`command "%s" not found for command "%s", command line: %s`,
@@ -112,14 +114,14 @@ func (c *Command) doRun(ctx context.Context, parser *Parser) (value interface{},
 	}()
 
 	ctx = context.WithValue(ctx, CtxKeyCommand, c)
-	// 检查内置帮助命令。
+	// Check built-in help command.
 	if parser.GetOpt(helpOptionName) != nil || parser.GetOpt(helpOptionNameShort) != nil {
 		if c.HelpFunc != nil {
 			return nil, c.HelpFunc(ctx, parser)
 		}
 		return nil, c.defaultHelpFunc(ctx, parser)
 	}
-	// OpenTelemetry 用于命令。
+	// OpenTelemetry for command.
 	var (
 		span trace.Span
 		tr   = otel.GetTracerProvider().Tracer(
@@ -137,26 +139,26 @@ func (c *Command) doRun(ctx context.Context, parser *Parser) (value interface{},
 	)
 	defer span.End()
 	span.SetAttributes(gtrace.CommonLabels()...)
-	// 根据当前命令配置重新解析参数。
+	// Reparse the arguments for current command configuration.
 	parser, err = c.reParse(ctx, parser)
 	if err != nil {
 		return nil, err
 	}
-	// 调用已注册的命令函数
+	// Registered command function calling.
 	if c.Func != nil {
 		return nil, c.Func(ctx, parser)
 	}
 	if c.FuncWithValue != nil {
 		return c.FuncWithValue(ctx, parser)
 	}
-	// 如果当前命令未定义任何函数，则打印帮助信息。
+	// If no function defined in current command, it then prints help.
 	if c.HelpFunc != nil {
 		return nil, c.HelpFunc(ctx, parser)
 	}
 	return nil, c.defaultHelpFunc(ctx, parser)
 }
 
-// reParse 根据当前命令的选项配置重新解析参数。
+// reParse parses the arguments using option configuration of current command.
 func (c *Command) reParse(ctx context.Context, parser *Parser) (*Parser, error) {
 	if len(c.Arguments) == 0 {
 		return parser, nil
@@ -183,7 +185,7 @@ func (c *Command) reParse(ctx context.Context, parser *Parser) (*Parser, error) 
 	if err != nil {
 		return nil, err
 	}
-	// 如果配置组件带有"config"标签，则从该组件中获取选项值。
+	// Retrieve option values from config component if it has "config" tag.
 	if c.Config != "" && gcfg.Instance().Available(ctx) {
 		value, err := gcfg.Instance().Get(ctx, c.Config)
 		if err != nil {
@@ -191,11 +193,11 @@ func (c *Command) reParse(ctx context.Context, parser *Parser) (*Parser, error) 
 		}
 		configMap := value.Map()
 		for optionName := range parser.supportedOptions {
-			// 命令行参数具有高优先级
+			// The command line has the high priority.
 			if parser.GetOpt(optionName) != nil {
 				continue
 			}
-			// 将配置值合并到解析器中。
+			// Merge the config value into parser.
 			foundKey, foundValue := gutil.MapPossibleItemByKey(configMap, optionName)
 			if foundKey != "" {
 				parser.parsedOptions[optionName] = gconv.String(foundValue)
@@ -205,17 +207,17 @@ func (c *Command) reParse(ctx context.Context, parser *Parser) (*Parser, error) 
 	return parser, nil
 }
 
-// searchCommand 根据给定的参数递归搜索命令。
+// searchCommand recursively searches the command according given arguments.
 func (c *Command) searchCommand(ctx context.Context, args []string) (lastCmd, foundCmd *Command, newCtx context.Context) {
 	if len(args) == 0 {
 		return c, nil, ctx
 	}
 	for _, cmd := range c.commands {
-		// 递归搜索命令。
+		// Recursively searching the command.
 		if cmd.Name == args[0] {
 			leftArgs := args[1:]
-// 如果该命令需要参数，
-// 则将它左侧的所有参数传递给它。
+			// If this command needs argument,
+			// it then gives all its left arguments to it.
 			if cmd.hasArgumentFromIndex() {
 				ctx = context.WithValue(ctx, CtxKeyArguments, leftArgs)
 				return c, cmd, ctx

@@ -1,16 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
 
-// List2 使用`delimiter`分割`str`并将结果作为两个部分的字符串返回。
+// List2 Split the `str` with `delimiter` and returns the result as two parts string.
 func List2(str, delimiter string) (part1, part2 string) {
 	return doList2(delimiter, Split(str, delimiter))
 }
 
-// ListAndTrim2 使用`delimiter`分割并修剪`str`，然后将结果以两个部分的字符串形式返回。
+// ListAndTrim2 SplitAndTrim the `str` with `delimiter` and returns the result as two parts string.
 func ListAndTrim2(str, delimiter string) (part1, part2 string) {
 	return doList2(delimiter, SplitAndTrim(str, delimiter))
 }
@@ -28,12 +29,12 @@ func doList2(delimiter string, array []string) (part1, part2 string) {
 	}
 }
 
-// List3 使用`delimiter`分割`str`并将结果以三个部分的字符串形式返回。
+// List3 Split the `str` with `delimiter` and returns the result as three parts string.
 func List3(str, delimiter string) (part1, part2, part3 string) {
 	return doList3(delimiter, Split(str, delimiter))
 }
 
-// ListAndTrim3 以`delimiter`为分隔符对`str`进行分割并去除首尾空白字符，然后将结果返回为三个部分的字符串。
+// ListAndTrim3 SplitAndTrim the `str` with `delimiter` and returns the result as three parts string.
 func ListAndTrim3(str, delimiter string) (part1, part2, part3 string) {
 	return doList3(delimiter, SplitAndTrim(str, delimiter))
 }

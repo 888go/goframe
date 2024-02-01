@@ -1,15 +1,16 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gmutex 继承并扩展了 sync.Mutex 和 sync.RWMutex，提供了更多的功能。
+// Package gmutex inherits and extends sync.Mutex and sync.RWMutex with more futures.
 //
-// 注意：从 GoFrame 版本 v2.5.2 开始，它是通过对标准库中 sync 包中的互斥锁进行重构实现的。
+// Note that, it is refracted using stdlib mutex of package sync from GoFrame version v2.5.2.
 package gmutex
 
-// New 创建并返回一个新的互斥锁。
-// 已弃用：请改用 Mutex 或 RWMutex。
+// New creates and returns a new mutex.
+// Deprecated: use Mutex or RWMutex instead.
 func New() *RWMutex {
 	return &RWMutex{}
 }

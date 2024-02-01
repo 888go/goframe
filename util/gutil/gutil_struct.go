@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gutil
+
 import (
 	"reflect"
 	
@@ -11,9 +13,10 @@ import (
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/os/gstructs"
 	"github.com/888go/goframe/util/gconv"
-	)
-// StructToSlice 将结构体转换为键值对构成的切片。
-// 例如：{"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
+)
+
+// StructToSlice converts struct to slice of which all keys and values are its items.
+// Eg: {"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
 func StructToSlice(data interface{}) []interface{} {
 	var (
 		reflectValue = reflect.ValueOf(data)
@@ -26,7 +29,8 @@ func StructToSlice(data interface{}) []interface{} {
 	switch reflectKind {
 	case reflect.Struct:
 		array := make([]interface{}, 0)
-// 注意，如果在结构体属性中找到gconv标签，则它使用gconv标签名称而非属性名称。
+		// Note that, it uses the gconv tag name instead of the attribute name if
+		// the gconv tag is fined in the struct attributes.
 		for k, v := range gconv.Map(reflectValue) {
 			array = append(array, k)
 			array = append(array, v)
@@ -36,8 +40,8 @@ func StructToSlice(data interface{}) []interface{} {
 	return nil
 }
 
-// FillStructWithDefault 用 `default/d` 标签的值填充指针指向的结构体属性。
-// 参数 `structPtr` 应为 *struct 或 []*struct 类型。
+// FillStructWithDefault fills  attributes of pointed struct with tag value from `default/d` tag .
+// The parameter `structPtr` should be either type of *struct/[]*struct.
 func FillStructWithDefault(structPtr interface{}) error {
 	var (
 		reflectValue reflect.Value

@@ -1,17 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstructs_test
+
 import (
 	"testing"
 	
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/os/gstructs"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func Test_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -130,7 +131,7 @@ func Test_Fields_WithEmbedded1(t *testing.T) {
 		}
 		type A struct {
 			Site  string
-			B     // 应该放在这里以验证其索引。
+			B     // Should be put here to validate its index.
 			Score int64
 		}
 		r, err := gstructs.Fields(gstructs.FieldsInput{
@@ -184,7 +185,7 @@ func Test_Fields_WithEmbedded2(t *testing.T) {
 	})
 }
 
-// 当存在嵌套结构体时，过滤重复的字段。
+// Filter repeated fields when there is embedded struct.
 func Test_Fields_WithEmbedded_Filter(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -195,7 +196,7 @@ func Test_Fields_WithEmbedded_Filter(t *testing.T) {
 			Name  string
 			Site  string
 			Age   string
-			B     // 应该放在这里以验证其索引。
+			B     // Should be put here to validate its index.
 			Score int64
 		}
 		r, err := gstructs.Fields(gstructs.FieldsInput{

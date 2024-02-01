@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gi18n
+
 import (
 	"context"
 	"fmt"
@@ -19,8 +21,9 @@ import (
 	"github.com/888go/goframe/os/gres"
 	"github.com/888go/goframe/text/gregex"
 	"github.com/888go/goframe/util/gconv"
-	)
-// pathType 是用于国际化文件路径的类型。
+)
+
+// pathType is the type for i18n file path.
 type pathType string
 
 const (
@@ -29,37 +32,37 @@ const (
 	pathTypeGres   pathType = "gres"
 )
 
-// i18n内容的管理器，它是并发安全的，并支持热重载。
+// Manager for i18n contents, it is concurrent safe, supporting hot reload.
 type Manager struct {
 	mu       sync.RWMutex
 	data     map[string]map[string]string // Translating map.
-	pattern  string                       // 正则表达式解析的模式。
-	pathType pathType                     // Path 类型用于 i18n 文件。
-	options  Options                      // 配置选项
+	pattern  string                       // Pattern for regex parsing.
+	pathType pathType                     // Path type for i18n files.
+	options  Options                      // configuration options.
 }
 
-// Options 用于i18n对象配置。
+// Options is used for i18n object configuration.
 type Options struct {
-	Path       string         // 国际化文件存储路径。
-	Language   string         // 默认本地语言。
-	Delimiters []string       // 变量解析的分隔符。
-	Resource   *gres.Resource // i18n文件资源。
+	Path       string         // I18n files storage path.
+	Language   string         // Default local language.
+	Delimiters []string       // Delimiters for variable parsing.
+	Resource   *gres.Resource // Resource for i18n files.
 }
 
 var (
-	// defaultDelimiters 定义了如果用户在选项中未指定时的默认分隔符语言。
+	// defaultDelimiters defines the default language if user does not specify in options.
 	defaultLanguage = "en"
 
-	// defaultDelimiters 定义了默认的关键字变量分隔符。
+	// defaultDelimiters defines the default key variable delimiters.
 	defaultDelimiters = []string{"{#", "}"}
 
-	// i18n文件搜索目录
+	// i18n files searching folders.
 	searchFolders = []string{"manifest/i18n", "manifest/config/i18n", "i18n"}
 )
 
-// New 创建并返回一个新的 i18n 管理器。
-// 可选参数 `option` 指定 i18n 管理器的自定义选项。
-// 若未传递该参数，则使用默认选项。
+// New creates and returns a new i18n manager.
+// The optional parameter `option` specifies the custom options for i18n manager.
+// It uses a default one if it's not passed.
 func New(options ...Options) *Manager {
 	var opts Options
 	var pathType = pathTypeNone
@@ -75,7 +78,7 @@ func New(options ...Options) *Manager {
 			}
 		}
 		if opts.Path != "" {
-			// 为避免引用GoFrame的源路径：github.com/gogf/i18n/gi18n
+			// To avoid of the source path of GoFrame: github.com/gogf/i18n/gi18n
 			if gfile.Exists(opts.Path + gfile.Separator + "gi18n") {
 				opts.Path = ""
 				pathType = pathTypeNone
@@ -101,7 +104,7 @@ func New(options ...Options) *Manager {
 	return m
 }
 
-// checkPathType 对给定的目录路径进行检查并返回其路径类型。
+// checkPathType checks and returns the path type for given directory path.
 func (o *Options) checkPathType(dirPath string) pathType {
 	if dirPath == "" {
 		return pathTypeNone
@@ -125,7 +128,7 @@ func (o *Options) checkPathType(dirPath string) pathType {
 	return pathTypeNone
 }
 
-// SetPath 设置存储 i18n 文件的目录路径。
+// SetPath sets the directory path storing i18n files.
 func (m *Manager) SetPath(path string) error {
 	pathType := m.options.checkPathType(path)
 	if pathType == pathTypeNone {
@@ -134,39 +137,40 @@ func (m *Manager) SetPath(path string) error {
 
 	m.pathType = pathType
 	intlog.Printf(context.TODO(), `SetPath[%s]: %s`, m.pathType, m.options.Path)
-	// 在路径改变后重置管理器。
+	// Reset the manager after path changed.
 	m.reset()
 	return nil
 }
 
-// SetLanguage 设置翻译器的语言。
+// SetLanguage sets the language for translator.
 func (m *Manager) SetLanguage(language string) {
 	m.options.Language = language
 	intlog.Printf(context.TODO(), `SetLanguage: %s`, m.options.Language)
 }
 
-// SetDelimiters 设置翻译器的分隔符。
+// SetDelimiters sets the delimiters for translator.
 func (m *Manager) SetDelimiters(left, right string) {
 	m.pattern = fmt.Sprintf(`%s(.+?)%s`, gregex.Quote(left), gregex.Quote(right))
 	intlog.Printf(context.TODO(), `SetDelimiters: %v`, m.pattern)
 }
 
-// T 是 Translate 的别名，用于提供便利。
+// T is alias of Translate for convenience.
 func (m *Manager) T(ctx context.Context, content string) string {
 	return m.Translate(ctx, content)
 }
 
-// Tf 是 TranslateFormat 的别名，用于提供便利。
+// Tf is alias of TranslateFormat for convenience.
 func (m *Manager) Tf(ctx context.Context, format string, values ...interface{}) string {
 	return m.TranslateFormat(ctx, format, values...)
 }
 
-// TranslateFormat 将根据配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
+// TranslateFormat translates, formats and returns the `format` with configured language
+// and given `values`.
 func (m *Manager) TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return fmt.Sprintf(m.Translate(ctx, format), values...)
 }
 
-// Translate 使用配置的语言对`content`进行翻译。
+// Translate translates `content` with configured language.
 func (m *Manager) Translate(ctx context.Context, content string) string {
 	m.init(ctx)
 	m.mu.RLock()
@@ -179,27 +183,27 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 	if data == nil {
 		return content
 	}
-	// 将内容解析为名称。
+	// Parse content as name.
 	if v, ok := data[content]; ok {
 		return v
 	}
-	// 将内容解析为变量容器。
+	// Parse content as variables container.
 	result, _ := gregex.ReplaceStringFuncMatch(
 		m.pattern, content,
 		func(match []string) string {
 			if v, ok := data[match[1]]; ok {
 				return v
 			}
-// 返回match[1]将返回分隔符之间的内容
-// 返回match[0]将返回原始内容
+			// return match[1] will return the content between delimiters
+			// return match[0] will return the original content
 			return match[0]
 		})
 	intlog.Printf(ctx, `Translate for language: %s`, transLang)
 	return result
 }
 
-// GetContent 函数根据给定的键和指定的语言获取并返回配置的内容。
-// 如果未找到，则返回一个空字符串。
+// GetContent retrieves and returns the configured content for given key and specified language.
+// It returns an empty string if not found.
 func (m *Manager) GetContent(ctx context.Context, key string) string {
 	m.init(ctx)
 	m.mu.RLock()
@@ -214,18 +218,18 @@ func (m *Manager) GetContent(ctx context.Context, key string) string {
 	return ""
 }
 
-// reset 重置管理器的数据。
+// reset reset data of the manager.
 func (m *Manager) reset() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.data = nil
 }
 
-// init 用于实现延迟初始化设计，初始化i18n管理器。
-// i18n管理器只初始化一次。
+// init initializes the manager for lazy initialization design.
+// The i18n manager is only initialized once.
 func (m *Manager) init(ctx context.Context) {
 	m.mu.RLock()
-	// 如果数据不为nil，表示它已经被初始化过。
+	// If the data is not nil, means it's already initialized.
 	if m.data != nil {
 		m.mu.RUnlock()
 		return
@@ -303,10 +307,10 @@ func (m *Manager) init(ctx context.Context) {
 			}
 		}
 		intlog.Printf(ctx, "i18n files loaded in path: %s", m.options.Path)
-		// 监控i18n文件的更改以实现热重载功能。
+		// Monitor changes of i18n files for hot reload feature.
 		_, _ = gfsnotify.Add(m.options.Path, func(event *gfsnotify.Event) {
 			intlog.Printf(ctx, `i18n file changed: %s`, event.Path)
-			// 如果i18n文件有任何更改，清空数据。
+			// Any changes of i18n files, clear the data.
 			m.reset()
 			gfsnotify.Exit()
 		})

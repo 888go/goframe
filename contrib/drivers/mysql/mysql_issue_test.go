@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package mysql_test
+
 import (
 	"context"
 	"fmt"
@@ -18,10 +20,9 @@ import (
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gmeta"
 	"github.com/888go/goframe/util/guid"
-	)
-// 这是Go语言代码中的一行注释，其内容为一个URL链接，指向GitHub上gogf/gf项目的一个问题编号1934。
-// 中文翻译：
-// 参考GitHub上gogf/gf项目的问题1934。
+)
+
+// https://github.com/gogf/gf/issues/1934
 func Test_Issue1934(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -33,9 +34,7 @@ func Test_Issue1934(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库下的第1570号issue。
-// 翻译成中文：
-// 引用了GitHub上gogf/gf项目中的第1570号问题。
+// https://github.com/gogf/gf/issues/1570
 func Test_Issue1570(t *testing.T) {
 	var (
 		tableUser       = "user_" + gtime.TimestampMicroStr()
@@ -95,7 +94,7 @@ CREATE TABLE %s (
 		UserScores []*EntityUserScores
 	}
 
-	// 初始化数据
+	// Initialize the data.
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		for i := 1; i <= 5; i++ {
@@ -122,7 +121,7 @@ CREATE TABLE %s (
 		}
 	})
 
-	// Result ScanList，用于包含结构体元素和指针属性。
+	// Result ScanList with struct elements and pointer attributes.
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -163,9 +162,7 @@ CREATE TABLE %s (
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库的第1401个issue（问题）。
-// 中文翻译：
-// 引用了GitHub上gogf/gf项目的问题1401。
+// https://github.com/gogf/gf/issues/1401
 func Test_Issue1401(t *testing.T) {
 	var (
 		table1 = "parcels"
@@ -207,7 +204,7 @@ func Test_Issue1401(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第1412号问题链接
+// https://github.com/gogf/gf/issues/1412
 func Test_Issue1412(t *testing.T) {
 	var (
 		table1 = "parcels"
@@ -269,9 +266,7 @@ func Test_Issue1412(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容为一个GitHub仓库的issue链接。
-// 翻译为：
-// 参考GitHub上gogf/gf项目中的第1002号问题。
+// https://github.com/gogf/gf/issues/1002
 func Test_Issue1002(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -298,19 +293,19 @@ func Test_Issue1002(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + 字符串参数。
+	// where + string arguments.
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + gtime.Time 参数
+	// where + gtime.Time arguments.
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", gtime.New("2020-10-27 19:03:32"), gtime.New("2020-10-27 19:03:34")).Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// 函数参数中包含 where + time.Time 类型，时间使用 UTC（协调世界时）。
+	// where + time.Time arguments, UTC.
 	gtest.C(t, func(t *gtest.T) {
 		t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32")
 		t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34")
@@ -320,40 +315,32 @@ func Test_Issue1002(t *testing.T) {
 			t.Assert(v.Int(), 1)
 		}
 	})
-// 此处使用了+8时区的时间参数。
-// gtest.C(t, func(t *gtest.T) {
-//// 将当前时区更改为+8时区（即中国北京时间）。
-// location, err := time.LoadLocation("Asia/Shanghai")
-// t.AssertNil(err) // 断言加载时区无错误
-// t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location) // 解析字符串为指定时区的time.Time类型
-// t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
-// 
-// // 使用create_time字段在t1和t2时间范围内的查询条件，获取id字段值
-// {
-//     v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
-//     t.AssertNil(err) // 断言查询过程无错误
-//     t.Assert(v.Int(), 1) // 断言查询结果转换为整型后为1
-// }
-// 
-// // 使用create_time字段在t1和t2时间范围内的查询条件，通过FindValue方法获取id字段值
-// {
-//     v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
-//     t.AssertNil(err) // 断言查询过程无错误
-//     t.Assert(v.Int(), 1) // 断言查询结果转换为整型后为1
-// }
-// 
-// // 使用create_time字段在t1和t2时间范围内的查询条件，通过FindValue方法并指定"id"字段获取值
-// {
-//     v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
-//     t.AssertNil(err) // 断言查询过程无错误
-//     t.Assert(v.Int(), 1) // 断言查询结果转换为整型后为1
-// }
-// })
+	// where + time.Time arguments, +8.
+	// gtest.C(t, func(t *gtest.T) {
+	//	// Change current timezone to +8 zone.
+	//	location, err := time.LoadLocation("Asia/Shanghai")
+	//	t.AssertNil(err)
+	//	t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location)
+	//	t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
+	//	{
+	//		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
+	//		t.AssertNil(err)
+	//		t.Assert(v.Int(), 1)
+	//	}
+	//	{
+	//		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
+	//		t.AssertNil(err)
+	//		t.Assert(v.Int(), 1)
+	//	}
+	//	{
+	//		v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
+	//		t.AssertNil(err)
+	//		t.Assert(v.Int(), 1)
+	//	}
+	// })
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题 issue #1700。
-// 翻译为：
-// 参考GitHub上gogf/gf项目的第1700号问题。
+// https://github.com/gogf/gf/issues/1700
 func Test_Issue1700(t *testing.T) {
 	table := "user_" + gtime.Now().TimestampNanoStr()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -401,9 +388,7 @@ func Test_Issue1700(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容为一个URL链接，指向GitHub上gogf/gf项目的一个问题 issue 1701。
-// 中文翻译：
-// 这是引用了GitHub上gogf/gf项目第1701号问题的链接。
+// https://github.com/gogf/gf/issues/1701
 func Test_Issue1701(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -414,9 +399,7 @@ func Test_Issue1701(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容为一个URL链接，指向GitHub上gogf/gf项目的一个问题编号1733。
-// 中文翻译：
-// 这是引用了GitHub上gogf/gf项目第1733号问题的链接。
+// https://github.com/gogf/gf/issues/1733
 func Test_Issue1733(t *testing.T) {
 	table := "user_" + guid.S()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -447,9 +430,7 @@ func Test_Issue1733(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题编号2105。
-// 中文翻译：
-// 参考GitHub上gogf/gf项目的问题#2105
+// https://github.com/gogf/gf/issues/2105
 func Test_Issue2105(t *testing.T) {
 	table := "issue2105"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue2105.sql`), ";")
@@ -479,9 +460,7 @@ func Test_Issue2105(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库的第2231号议题。
-// 中文翻译：
-// 参考GitHub上gogf/gf项目的问题#2231
+// https://github.com/gogf/gf/issues/2231
 func Test_Issue2231(t *testing.T) {
 	var (
 		pattern = `(\w+):([\w\-]*):(.*?)@(\w+?)\((.+?)\)/{0,1}([^\?]*)\?{0,1}(.*)`
@@ -500,9 +479,7 @@ func Test_Issue2231(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容为一个URL链接，指向GitHub上gogf/gf项目的一个问题（issue）：#2339。
-// 翻译成中文：
-// 这是Go语言代码中的一个注释，它提供了一个链接地址：https://github.com/gogf/gf/issues/2339，该链接指向GitHub上gogf/gf项目的问题编号2339。
+// https://github.com/gogf/gf/issues/2339
 func Test_Issue2339(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -522,7 +499,7 @@ func Test_Issue2339(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第2356号issue
+// https://github.com/gogf/gf/issues/2356
 func Test_Issue2356(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table := "demo_" + guid.S()
@@ -547,7 +524,7 @@ func Test_Issue2356(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第2338个issue
+// https://github.com/gogf/gf/issues/2338
 func Test_Issue2338(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table1 := "demo_" + guid.S()
@@ -658,9 +635,7 @@ CREATE TABLE %s (
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库下的第2427个issue（问题）。
-// 翻译成中文：
-// 引用了GitHub上gogf/gf项目中的第2427个问题。
+// https://github.com/gogf/gf/issues/2427
 func Test_Issue2427(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table := "demo_" + guid.S()
@@ -691,7 +666,7 @@ CREATE TABLE %s (
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第2561个issue链接
+// https://github.com/gogf/gf/issues/2561
 func Test_Issue2561(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -753,7 +728,7 @@ func Test_Issue2561(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf项目的一个问题链接，编号为2439。
+// https://github.com/gogf/gf/issues/2439
 func Test_Issue2439(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := gstr.SplitAndTrim(gtest.DataContent(`issue2439.sql`), ";")
@@ -787,9 +762,7 @@ func Test_Issue2439(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容为一个URL链接，指向GitHub上gogf/gf项目的一个issue（问题）讨论页面，编号为2782。
-// 中文翻译：
-// 这是Go语言代码中的一个注释，它提供了一个链接至GitHub上gogf/gf项目第2782号问题的讨论页面。
+// https://github.com/gogf/gf/issues/2782
 func Test_Issue2787(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -826,7 +799,7 @@ func Test_Issue2787(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第2907号问题链接
+// https://github.com/gogf/gf/issues/2907
 func Test_Issue2907(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -851,7 +824,7 @@ func Test_Issue2907(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第3086个issue链接
+// https://github.com/gogf/gf/issues/3086
 func Test_Issue3086(t *testing.T) {
 	table := "issue3086_user"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue3086.sql`), ";")
@@ -910,9 +883,7 @@ func Test_Issue3086(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题链接：https://github.com/gogf/gf/issues/3204
-// 翻译成中文：
-// 这指向了GitHub上gogf/gf项目的一个问题，编号为3204
+// https://github.com/gogf/gf/issues/3204
 func Test_Issue3204(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -998,7 +969,7 @@ func Test_Issue3204(t *testing.T) {
 	})
 }
 
-// 这是GitHub上gogf/gf仓库的第3218个issue
+// https://github.com/gogf/gf/issues/3218
 func Test_Issue3218(t *testing.T) {
 	table := "issue3218_sys_config"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue3218.sql`), ";")

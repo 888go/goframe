@@ -1,33 +1,38 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
+
 import (
 	"reflect"
 	
 	"github.com/888go/goframe/errors/gcode"
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/internal/json"
-	)
-// MapToMap 使用 reflect 将任意类型的 map 变量 `params` 转换为另一种 map 类型变量 `pointer`
-// 详细实现请参考 doMapToMap 函数。
+)
+
+// MapToMap converts any map type variable `params` to another map type variable `pointer`
+// using reflect.
+// See doMapToMap.
 func MapToMap(params interface{}, pointer interface{}, mapping ...map[string]string) error {
 	return doMapToMap(params, pointer, mapping...)
 }
 
-// doMapToMap 将任意类型的 map 变量 `params` 转换为另一种 map 类型变量 `pointer`。
+// doMapToMap converts any map type variable `params` to another map type variable `pointer`.
 //
-// 参数 `params` 可以是任意类型的 map，例如：
-// map[string]string, map[string]struct, map[string]*struct, reflect.Value 等等。
+// The parameter `params` can be any type of map, like:
+// map[string]string, map[string]struct, map[string]*struct, reflect.Value, etc.
 //
-// 参数 `pointer` 应该是指向 map 的类型，例如：
-// *map[int]string, *map[string]struct, *map[string]*struct, *reflect.Value 等等。
+// The parameter `pointer` should be type of *map, like:
+// map[int]string, map[string]struct, map[string]*struct, reflect.Value, etc.
 //
-// 可选参数 `mapping` 用于 struct 属性到 map 键的映射，只有当原 map `params` 中的项为 struct 类型时才有意义。
+// The optional parameter `mapping` is used for struct attribute to map key mapping, which makes
+// sense only if the items of original map `params` is type struct.
 func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
-	// 如果给定的`params`是JSON格式，那么它将使用json.Unmarshal进行转换。
+	// If given `params` is JSON, it then uses json.Unmarshal doing the converting.
 	switch r := params.(type) {
 	case []byte:
 		if json.Valid(r) {
@@ -71,7 +76,7 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 	if paramsKind != reflect.Map {
 		return doMapToMap(Map(params), pointer, mapping...)
 	}
-	// 空参数映射，无需继续。
+	// Empty params map, no need continue.
 	if paramsRv.Len() == 0 {
 		return nil
 	}
@@ -90,7 +95,7 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 		return gerror.NewCodef(gcode.CodeInvalidParameter, "pointer should be type of *map, but got:%s", pointerKind)
 	}
 	defer func() {
-		// 捕获 panic，特别是反射操作引发的 panic。
+		// Catch the panic, especially the reflection operation panics.
 		if exception := recover(); exception != nil {
 			if v, ok := exception.(error); ok && gerror.HasStack(v) {
 				err = v
@@ -106,7 +111,7 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 		pointerValueKind = pointerValueType.Kind()
 		dataMap          = reflect.MakeMapWithSize(pointerRv.Type(), len(paramsKeys))
 	)
-	// 获取目标映射的真正元素类型。
+	// Retrieve the true element type of target map.
 	if pointerValueKind == reflect.Ptr {
 		pointerValueKind = pointerValueType.Elem().Kind()
 	}

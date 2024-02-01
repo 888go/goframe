@@ -1,33 +1,36 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfile
+
 import (
 	"bytes"
 	"fmt"
 	
 	"github.com/888go/goframe/container/garray"
 	"github.com/888go/goframe/errors/gerror"
-	)
+)
+
 // Search searches file by name `name` in following paths with priority:
 // prioritySearchPaths, Pwd()、SelfDir()、MainPkgPath().
 // It returns the absolute file path of `name` if found, or en empty string if not found.
 func Search(name string, prioritySearchPaths ...string) (realPath string, err error) {
-	// 检查是否为绝对路径。
+	// Check if it's an absolute path.
 	realPath = RealPath(name)
 	if realPath != "" {
 		return
 	}
-	// 搜索路径数组。
+	// Search paths array.
 	array := garray.NewStrArray()
 	array.Append(prioritySearchPaths...)
 	array.Append(Pwd(), SelfDir())
 	if path := MainPkgPath(); path != "" {
 		array.Append(path)
 	}
-	// 移除重复的项。
+	// Remove repeated items.
 	array.Unique()
 	// Do the searching.
 	array.RLockFunc(func(array []string) {
@@ -40,7 +43,7 @@ func Search(name string, prioritySearchPaths ...string) (realPath string, err er
 			}
 		}
 	})
-	// 如果搜索失败，它将返回格式化的错误信息。
+	// If it fails searching, it returns formatted error.
 	if realPath == "" {
 		buffer := bytes.NewBuffer(nil)
 		buffer.WriteString(fmt.Sprintf(`cannot find "%s" in following paths:`, name))

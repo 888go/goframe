@@ -1,24 +1,26 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可证条款。
-// 如果随此文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 //
 
-// Package command 提供控制台操作功能，如选项/参数读取。
+// Package command provides console operations, like options/arguments reading.
 package command
+
 import (
 	"os"
 	"regexp"
 	"strings"
-	)
+)
+
 var (
 	defaultParsedArgs    = make([]string, 0)
 	defaultParsedOptions = make(map[string]string)
 	argumentRegex        = regexp.MustCompile(`^\-{1,2}([\w\?\.\-]+)(=){0,1}(.*)$`)
 )
 
-// Init 进行自定义初始化。
+// Init does custom initialization.
 func Init(args ...string) {
 	if len(args) == 0 {
 		if len(defaultParsedArgs) == 0 && len(defaultParsedOptions) == 0 {
@@ -30,11 +32,11 @@ func Init(args ...string) {
 		defaultParsedArgs = make([]string, 0)
 		defaultParsedOptions = make(map[string]string)
 	}
-	// 使用默认算法解析os.Args
+	// Parsing os.Args with default algorithm.
 	defaultParsedArgs, defaultParsedOptions = ParseUsingDefaultAlgorithm(args...)
 }
 
-// 使用默认算法解析参数。
+// ParseUsingDefaultAlgorithm parses arguments using default algorithm.
 func ParseUsingDefaultAlgorithm(args ...string) (parsedArgs []string, parsedOptions map[string]string) {
 	parsedArgs = make([]string, 0)
 	parsedOptions = make(map[string]string)
@@ -45,8 +47,7 @@ func ParseUsingDefaultAlgorithm(args ...string) (parsedArgs []string, parsedOpti
 				parsedOptions[array[1]] = array[3]
 			} else if i < len(args)-1 {
 				if len(args[i+1]) > 0 && args[i+1][0] == '-' {
-					// 示例：gf gen -d -n 1
-// （注释翻译：该行代码为命令行使用示例，表示在gf框架中执行命令生成数据，其中参数-d表示进行数据驱动模式操作，-n 1表示生成1条数据。）
+					// Eg: gf gen -d -n 1
 					parsedOptions[array[1]] = array[3]
 				} else {
 					// Eg: gf gen -n 2
@@ -66,7 +67,7 @@ func ParseUsingDefaultAlgorithm(args ...string) (parsedArgs []string, parsedOpti
 	return
 }
 
-// GetOpt返回名为`name`的选项值。
+// GetOpt returns the option value named `name`.
 func GetOpt(name string, def ...string) string {
 	Init()
 	if v, ok := defaultParsedOptions[name]; ok {
@@ -78,20 +79,20 @@ func GetOpt(name string, def ...string) string {
 	return ""
 }
 
-// GetOptAll 返回所有已解析的选项。
+// GetOptAll returns all parsed options.
 func GetOptAll() map[string]string {
 	Init()
 	return defaultParsedOptions
 }
 
-// ContainsOpt 检查选项名 `name` 是否存在于参数中。
+// ContainsOpt checks whether option named `name` exist in the arguments.
 func ContainsOpt(name string) bool {
 	Init()
 	_, ok := defaultParsedOptions[name]
 	return ok
 }
 
-// GetArg 返回位于 `index` 索引处的参数。
+// GetArg returns the argument at `index`.
 func GetArg(index int, def ...string) string {
 	Init()
 	if index < len(defaultParsedArgs) {
@@ -103,7 +104,7 @@ func GetArg(index int, def ...string) string {
 	return ""
 }
 
-// GetArgAll 返回所有已解析的参数。
+// GetArgAll returns all parsed arguments.
 func GetArgAll() []string {
 	Init()
 	return defaultParsedArgs

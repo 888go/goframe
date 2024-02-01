@@ -1,16 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"context"
 	
 	"github.com/888go/goframe/net/goai"
 	"github.com/888go/goframe/text/gstr"
-	)
-// initOpenApi 使用 OpenApiV3 协议生成 API 规范。
+)
+
+// initOpenApi generates api specification using OpenApiV3 protocol.
 func (s *Server) initOpenApi() {
 	if s.config.OpenApiPath == "" {
 		return
@@ -44,7 +47,7 @@ func (s *Server) initOpenApi() {
 	}
 }
 
-// openapiSpec 是一个内置处理器，用于自动生成 openapi 规范的 JSON 文件。
+// openapiSpec is a build-in handler automatic producing for openapi specification json file.
 func (s *Server) openapiSpec(r *Request) {
 	if s.config.OpenApiPath == "" {
 		r.Response.Write(`OpenApi specification file producing is disabled`)

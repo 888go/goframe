@@ -1,15 +1,18 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
+
 import (
 	"bytes"
 	
 	"github.com/888go/goframe/internal/utils"
-	)
-// AddSlashes 为特定字符添加反斜杠 `\` 进行转义，这些字符包括：`"`、`\` 和 `.`。
+)
+
+// AddSlashes quotes with slashes `\` for chars: '"\.
 func AddSlashes(str string) string {
 	var buf bytes.Buffer
 	for _, char := range str {
@@ -22,13 +25,13 @@ func AddSlashes(str string) string {
 	return buf.String()
 }
 
-// StripSlashes 将通过 AddSlashes 方法添加了反斜杠的字符串进行去除引用操作。
+// StripSlashes un-quotes a quoted string by AddSlashes.
 func StripSlashes(str string) string {
 	return utils.StripSlashes(str)
 }
 
-// QuoteMeta 返回一个带有反斜杠字符 (`\`) 的 `str` 版本。
-// 若未提供自定义字符集 `chars`，则使用默认字符集：.+\*?[^]($)
+// QuoteMeta returns a version of `str` with a backslash character (`\`).
+// If custom chars `chars` not given, it uses default chars: .\+*?[^]($)
 func QuoteMeta(str string, chars ...string) string {
 	var buf bytes.Buffer
 	for _, char := range str {

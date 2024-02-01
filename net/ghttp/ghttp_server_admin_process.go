@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"bytes"
 	"context"
@@ -25,9 +27,10 @@ import (
 	"github.com/888go/goframe/os/gtimer"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
+
 const (
-	// 在服务器启动后，允许在此间隔（以毫秒为单位）后执行管理命令。
+	// Allow executing management command after server starts after this interval in milliseconds.
 	adminActionIntervalLimit = 2000
 	adminActionNone          = 0
 	adminActionRestarting    = 1
@@ -38,18 +41,18 @@ const (
 )
 
 var (
-	// serverActionLocker 是针对服务器管理操作的锁。
+	// serverActionLocker is the locker for server administration operations.
 	serverActionLocker sync.Mutex
 
-	// serverActionLastTime 是上一次管理操作发生时的时间戳，单位为毫秒。
+	// serverActionLastTime is timestamp in milliseconds of last administration operation.
 	serverActionLastTime = gtype.NewInt64(gtime.TimestampMilli())
 
-	// serverProcessStatus 是当前进程运行操作的服务器状态。
+	// serverProcessStatus is the server status for operation of current process.
 	serverProcessStatus = gtype.NewInt()
 )
 
-// RestartAllServer 将优雅地重启进程中的所有服务器。
-// 可选参数 `newExeFilePath` 指定了用于创建新进程的二进制文件。
+// RestartAllServer restarts all the servers of the process gracefully.
+// The optional parameter `newExeFilePath` specifies the new binary file for creating process.
 func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	if !gracefulEnabled {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "graceful reload feature is disabled")
@@ -65,7 +68,7 @@ func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	return restartWebServers(ctx, nil, newExeFilePath)
 }
 
-// ShutdownAllServer 将当前进程中的所有服务器优雅地关闭。
+// ShutdownAllServer shuts down all servers of current process gracefully.
 func ShutdownAllServer(ctx context.Context) error {
 	serverActionLocker.Lock()
 	defer serverActionLocker.Unlock()
@@ -79,7 +82,7 @@ func ShutdownAllServer(ctx context.Context) error {
 	return nil
 }
 
-// checkProcessStatus 检查当前进程的服务器状态。
+// checkProcessStatus checks the server status of current process.
 func checkProcessStatus() error {
 	status := serverProcessStatus.Val()
 	if status > 0 {
@@ -94,8 +97,8 @@ func checkProcessStatus() error {
 	return nil
 }
 
-// checkActionFrequency 检查操作频率。
-// 如果操作过于频繁，则返回错误。
+// checkActionFrequency checks the operation frequency.
+// It returns error if it is too frequency.
 func checkActionFrequency() error {
 	interval := gtime.TimestampMilli() - serverActionLastTime.Val()
 	if interval < adminActionIntervalLimit {
@@ -109,7 +112,7 @@ func checkActionFrequency() error {
 	return nil
 }
 
-// forkReloadProcess 创建一个新的子进程，并将文件描述符(fd)复制到子进程中。
+// forkReloadProcess creates a new child process and copies the fd to child process.
 func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 	var (
 		path = os.Args[0]
@@ -152,7 +155,7 @@ func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 	return nil
 }
 
-// forkRestartProcess 创建一个新的服务进程。
+// forkRestartProcess creates a new server process.
 func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 	var (
 		path = os.Args[0]
@@ -177,7 +180,7 @@ func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 	return nil
 }
 
-// getServerFdMap 返回一个映射，其中包含了所有服务器名称到文件描述符的映射关系，以map形式返回。
+// getServerFdMap returns all the servers name to file descriptor mapping as map.
 func getServerFdMap() map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	serverMapping.RLockFunc(func(m map[string]interface{}) {
@@ -188,7 +191,7 @@ func getServerFdMap() map[string]listenerFdMap {
 	return sfm
 }
 
-// bufferToServerFdMap 将二进制内容转换为文件描述符映射。
+// bufferToServerFdMap converts binary content to fd map.
 func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	if len(buffer) > 0 {
@@ -204,20 +207,20 @@ func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 	return sfm
 }
 
-// 重启Web服务器 restartWebServers 函数会重启所有服务器。
+// restartWebServers restarts all servers.
 func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath string) error {
 	serverProcessStatus.Set(adminActionRestarting)
 	if runtime.GOOS == "windows" {
 		if signal != nil {
-			// 由信号控制。
+			// Controlled by signal.
 			forceCloseWebServers(ctx)
 			if err := forkRestartProcess(ctx, newExeFilePath); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
 			return nil
 		}
-// 由网页控制。
-// 应确保响应已写入客户端，然后优雅地关闭所有服务器。
+		// Controlled by web page.
+		// It should ensure the response wrote to client and then close all servers gracefully.
 		gtimer.SetTimeout(ctx, time.Second, func(ctx context.Context) {
 			forceCloseWebServers(ctx)
 			if err := forkRestartProcess(ctx, newExeFilePath); err != nil {
@@ -241,7 +244,7 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 	return nil
 }
 
-// shutdownWebServersGracefully 优雅地关闭所有服务器。
+// shutdownWebServersGracefully gracefully shuts down all servers.
 func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 	serverProcessStatus.Set(adminActionShuttingDown)
 	if signal != nil {
@@ -264,7 +267,7 @@ func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 	})
 }
 
-// forceCloseWebServers 强制关闭所有服务器。
+// forceCloseWebServers forced shuts down all servers.
 func forceCloseWebServers(ctx context.Context) {
 	serverMapping.RLockFunc(func(m map[string]interface{}) {
 		for _, v := range m {
@@ -275,8 +278,8 @@ func forceCloseWebServers(ctx context.Context) {
 	})
 }
 
-// handleProcessMessage 接收并处理来自进程的消息，
-// 这通常用于优雅重载功能。
+// handleProcessMessage receives and handles the message from processes,
+// which are commonly used for graceful reloading feature.
 func handleProcessMessage() {
 	var (
 		ctx = context.TODO()

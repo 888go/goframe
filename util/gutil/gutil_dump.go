@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gutil
+
 import (
 	"bytes"
 	"encoding/json"
@@ -15,29 +17,30 @@ import (
 	"github.com/888go/goframe/internal/reflection"
 	"github.com/888go/goframe/os/gstructs"
 	"github.com/888go/goframe/text/gstr"
-	)
-// iString 用于在进行类型断言时，配合 String() 方法使用。
+)
+
+// iString is used for type assert api for String().
 type iString interface {
 	String() string
 }
 
-// iError 用于对 Error() 方法进行类型断言。
+// iError is used for type assert api for Error().
 type iError interface {
 	Error() string
 }
 
-// iMarshalJSON 是用于自定义 JSON 序列化的接口。
+// iMarshalJSON is the interface for custom Json marshaling.
 type iMarshalJSON interface {
 	MarshalJSON() ([]byte, error)
 }
 
-// DumpOption 定义了 Export 函数的行为。
+// DumpOption specifies the behavior of function Export.
 type DumpOption struct {
-	WithType     bool // WithType 指定在导出内容时包含类型信息。
-	ExportedOnly bool // 只导出结构体的公开字段。
+	WithType     bool // WithType specifies dumping content with type information.
+	ExportedOnly bool // Only dump Exported fields for structs.
 }
 
-// Dump 将变量 `values` 以更易于人工阅读的方式打印到标准输出（stdout）中。
+// Dump prints variables `values` to stdout with more manually readable.
 func Dump(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -47,8 +50,8 @@ func Dump(values ...interface{}) {
 	}
 }
 
-// DumpWithType 的行为类似于 Dump，但会包含类型信息。
-// 也可参考 Dump。
+// DumpWithType acts like Dump, but with type information.
+// Also see Dump.
 func DumpWithType(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -58,7 +61,7 @@ func DumpWithType(values ...interface{}) {
 	}
 }
 
-// DumpWithOption 使用自定义选项返回变量 `values`，将其格式化为更易读的字符串形式。
+// DumpWithOption returns variables `values` as a string with more manually readable.
 func DumpWithOption(value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	DumpTo(buffer, value, DumpOption{
@@ -68,7 +71,7 @@ func DumpWithOption(value interface{}, option DumpOption) {
 	fmt.Println(buffer.String())
 }
 
-// DumpTo 将变量 `values` 转换为字符串并写入到 `writer` 中，以更易于人工阅读的方式
+// DumpTo writes variables `values` as a string in to `writer` with more manually readable
 func DumpTo(writer io.Writer, value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	doDump(value, "", buffer, doDumpOption{
@@ -107,7 +110,7 @@ func doDump(value interface{}, indent string, buffer *bytes.Buffer, option doDum
 		reflectValue = reflect.ValueOf(value)
 	}
 	var reflectKind = reflectValue.Kind()
-	// 双重检查空值。
+	// Double check nil value.
 	if value == nil || reflectKind == reflect.Invalid {
 		buffer.WriteString(`<nil>`)
 		return
@@ -278,7 +281,7 @@ func doDumpMap(in doDumpInternalInput) {
 		} else {
 			mapKeyStr = fmt.Sprintf(`%v`, mapKey.Interface())
 		}
-		// 对映射键和缩进字符串进行转储。
+		// Map key and indent string dump.
 		if !in.Option.WithType {
 			in.Buffer.WriteString(fmt.Sprintf(
 				"%s%v:%s",
@@ -338,7 +341,7 @@ func doDumpStruct(in doDumpInternalInput) {
 			b, _ := v.MarshalJSON()
 			structContentStr = string(b)
 		} else {
-			// 没有实现共同接口。
+			// Has no common interface implements.
 			if len(structFields) != 0 {
 				goto dumpStructFields
 			}
@@ -468,7 +471,7 @@ func addSlashesForString(s string) string {
 	})
 }
 
-// DumpJson 将 JSON 内容格式化输出到标准输出（stdout）。
+// DumpJson pretty dumps json content to stdout.
 func DumpJson(jsonContent string) {
 	var (
 		buffer    = bytes.NewBuffer(nil)

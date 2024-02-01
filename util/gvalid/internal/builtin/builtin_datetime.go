@@ -1,19 +1,22 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
+
 import (
 	"errors"
 	"time"
 	
 	"github.com/888go/goframe/os/gtime"
-	)
-// RuleDatetime 实现了 `datetime` 规则：
-// 标准日期时间格式，例如：2006-01-02 12:00:00。
+)
+
+// RuleDatetime implements `datetime` rule:
+// Standard datetime, like: 2006-01-02 12:00:00.
 //
-// 格式：datetime
+// Format: datetime
 type RuleDatetime struct{}
 
 func init() {
@@ -33,7 +36,7 @@ func (r RuleDatetime) Run(in RunInput) error {
 		Date() (year int, month time.Month, day int)
 		IsZero() bool
 	}
-	// 支持时间值，例如：gtime.Time（gtime.Time, time.Time）
+	// support for time value, eg: gtime.Time/*gtime.Time, time.Time/*time.Time.
 	if obj, ok := in.Value.Val().(iTime); ok {
 		if obj.IsZero() {
 			return errors.New(in.Message)

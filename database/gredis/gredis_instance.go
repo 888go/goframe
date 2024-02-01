@@ -1,23 +1,26 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gredis
+
 import (
 	"context"
 	
 	"github.com/888go/goframe/container/gmap"
 	"github.com/888go/goframe/internal/intlog"
-	)
+)
+
 var (
-	// localInstances 用于 Redis 客户端实例的管理。
+	// localInstances for instance management of redis client.
 	localInstances = gmap.NewStrAnyMap(true)
 )
 
-// Instance 返回指定组的 Redis 客户端实例。
-// `name` 参数不是必需的，如果未传递 `name`，
-// 则返回一个使用默认配置组的 Redis 实例。
+// Instance returns an instance of redis client with specified group.
+// The `name` param is unnecessary, if `name` is not passed,
+// it returns a redis instance with default configuration group.
 func Instance(name ...string) *Redis {
 	group := DefaultGroupName
 	if len(name) > 0 && name[0] != "" {

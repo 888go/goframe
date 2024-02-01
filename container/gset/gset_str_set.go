@@ -1,11 +1,12 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可证条款。
-// 如果随此文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 //
 
 package gset
+
 import (
 	"bytes"
 	"strings"
@@ -14,18 +15,16 @@ import (
 	"github.com/888go/goframe/internal/rwmutex"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
+
 type StrSet struct {
 	mu   rwmutex.RWMutex
 	data map[string]struct{}
 }
 
-// NewStrSet 创建并返回一个新的不包含重复项的集合。
-// 参数`safe`用于指定是否在并发安全的情况下使用集合，默认为false。
-// func NewStrSet(safe ...bool) *StrSet {
-    // ...
-// }
-// 这里，NewStrSet函数用于创建一个字符串集合，并确保其中的元素互不重复。该函数接受一个可选参数`safe`，它是一个布尔值，表示是否需要保证在并发环境下的安全性。如果不特别指定，那么默认情况下这个集合是不保证并发安全的。
+// NewStrSet create and returns a new set, which contains un-repeated items.
+// The parameter `safe` is used to specify whether using set in concurrent-safety,
+// which is false in default.
 func NewStrSet(safe ...bool) *StrSet {
 	return &StrSet{
 		mu:   rwmutex.Create(safe...),
@@ -33,7 +32,7 @@ func NewStrSet(safe ...bool) *StrSet {
 	}
 }
 
-// NewStrSetFrom 从 `items` 中创建并返回一个新的集合。
+// NewStrSetFrom returns a new set from `items`.
 func NewStrSetFrom(items []string, safe ...bool) *StrSet {
 	m := make(map[string]struct{})
 	for _, v := range items {
@@ -45,8 +44,8 @@ func NewStrSetFrom(items []string, safe ...bool) *StrSet {
 	}
 }
 
-// Iterator 使用给定的回调函数`f`对集合进行只读遍历，
-// 如果`f`返回true，则继续遍历；若返回false，则停止遍历。
+// Iterator iterates the set readonly with given callback function `f`,
+// if `f` returns true then continue iterating; or false to stop.
 func (set *StrSet) Iterator(f func(v string) bool) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -57,7 +56,7 @@ func (set *StrSet) Iterator(f func(v string) bool) {
 	}
 }
 
-// Add 向集合中添加一个或多个项目。
+// Add adds one or multiple items to the set.
 func (set *StrSet) Add(item ...string) {
 	set.mu.Lock()
 	if set.data == nil {
@@ -69,9 +68,9 @@ func (set *StrSet) Add(item ...string) {
 	set.mu.Unlock()
 }
 
-// AddIfNotExist 检查项目是否已存在于集合中，
-// 若该项目不在集合中，则将其添加到集合并返回 true；
-// 否则，不做任何操作并返回 false。
+// AddIfNotExist checks whether item exists in the set,
+// it adds the item to set and returns true if it does not exist in the set,
+// or else it does nothing and returns false.
 func (set *StrSet) AddIfNotExist(item string) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -87,11 +86,11 @@ func (set *StrSet) AddIfNotExist(item string) bool {
 	return false
 }
 
-// AddIfNotExistFunc 检查项是否已存在于集合中，
-// 如果该项不存在于集合中，并且函数 `f` 返回 true，则将该项添加到集合并返回 true；
-// 否则，不执行任何操作并返回 false。
+// AddIfNotExistFunc checks whether item exists in the set,
+// it adds the item to set and returns true if it does not exists in the set and
+// function `f` returns true, or else it does nothing and returns false.
 //
-// 注意，函数 `f` 在无写入锁的情况下执行。
+// Note that, the function `f` is executed without writing lock.
 func (set *StrSet) AddIfNotExistFunc(item string, f func() bool) bool {
 	if !set.Contains(item) {
 		if f() {
@@ -109,11 +108,11 @@ func (set *StrSet) AddIfNotExistFunc(item string, f func() bool) bool {
 	return false
 }
 
-// AddIfNotExistFuncLock 检查项是否存在集合中，
-// 如果该项不存在于集合中，并且函数 `f` 返回 true，则将该项添加到集合并返回 true；
-// 否则，不执行任何操作并返回 false。
+// AddIfNotExistFuncLock checks whether item exists in the set,
+// it adds the item to set and returns true if it does not exists in the set and
+// function `f` returns true, or else it does nothing and returns false.
 //
-// 注意，函数 `f` 在无写入锁的情况下执行。
+// Note that, the function `f` is executed without writing lock.
 func (set *StrSet) AddIfNotExistFuncLock(item string, f func() bool) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -131,7 +130,7 @@ func (set *StrSet) AddIfNotExistFuncLock(item string, f func() bool) bool {
 	return false
 }
 
-// Contains 检查集合中是否包含 `item`。
+// Contains checks whether the set contains `item`.
 func (set *StrSet) Contains(item string) bool {
 	var ok bool
 	set.mu.RLock()
@@ -142,8 +141,8 @@ func (set *StrSet) Contains(item string) bool {
 	return ok
 }
 
-// ContainsI 检查某个值是否以不区分大小写的方式存在于集合中。
-// 注意：它内部会遍历整个集合，以不区分大小写的方式进行比较。
+// ContainsI checks whether a value exists in the set with case-insensitively.
+// Note that it internally iterates the whole set to do the comparison with case-insensitively.
 func (set *StrSet) ContainsI(item string) bool {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -155,7 +154,7 @@ func (set *StrSet) ContainsI(item string) bool {
 	return false
 }
 
-// Remove 从集合中删除`item`。
+// Remove deletes `item` from set.
 func (set *StrSet) Remove(item string) {
 	set.mu.Lock()
 	if set.data != nil {
@@ -164,7 +163,7 @@ func (set *StrSet) Remove(item string) {
 	set.mu.Unlock()
 }
 
-// Size 返回集合的大小。
+// Size returns the size of the set.
 func (set *StrSet) Size() int {
 	set.mu.RLock()
 	l := len(set.data)
@@ -172,14 +171,14 @@ func (set *StrSet) Size() int {
 	return l
 }
 
-// 清除删除集合中的所有项。
+// Clear deletes all items of the set.
 func (set *StrSet) Clear() {
 	set.mu.Lock()
 	set.data = make(map[string]struct{})
 	set.mu.Unlock()
 }
 
-// Slice 返回集合中项目的切片形式。
+// Slice returns the an of items of the set as slice.
 func (set *StrSet) Slice() []string {
 	set.mu.RLock()
 	var (
@@ -195,7 +194,7 @@ func (set *StrSet) Slice() []string {
 	return ret
 }
 
-// Join通过字符串`glue`连接items。
+// Join joins items with a string `glue`.
 func (set *StrSet) Join(glue string) string {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -217,7 +216,7 @@ func (set *StrSet) Join(glue string) string {
 	return buffer.String()
 }
 
-// String 返回 items 作为字符串，其实现方式类似于 json.Marshal。
+// String returns items as a string, which implements like json.Marshal does.
 func (set *StrSet) String() string {
 	if set == nil {
 		return ""
@@ -241,21 +240,21 @@ func (set *StrSet) String() string {
 	return buffer.String()
 }
 
-// LockFunc 使用回调函数`f`进行写入锁定。
+// LockFunc locks writing with callback function `f`.
 func (set *StrSet) LockFunc(f func(m map[string]struct{})) {
 	set.mu.Lock()
 	defer set.mu.Unlock()
 	f(set.data)
 }
 
-// RLockFunc 通过回调函数 `f` 对读取进行加锁。
+// RLockFunc locks reading with callback function `f`.
 func (set *StrSet) RLockFunc(f func(m map[string]struct{})) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
 	f(set.data)
 }
 
-// Equal 检查两个集合是否相等。
+// Equal checks whether the two sets equal.
 func (set *StrSet) Equal(other *StrSet) bool {
 	if set == other {
 		return true
@@ -275,7 +274,7 @@ func (set *StrSet) Equal(other *StrSet) bool {
 	return true
 }
 
-// IsSubsetOf 检查当前集合是否为 `other` 的子集。
+// IsSubsetOf checks whether the current set is a sub-set of `other`.
 func (set *StrSet) IsSubsetOf(other *StrSet) bool {
 	if set == other {
 		return true
@@ -292,8 +291,8 @@ func (set *StrSet) IsSubsetOf(other *StrSet) bool {
 	return true
 }
 
-// Union 返回一个新的集合，该集合是 `set` 和 `other` 的并集。
-// 这意味着，`newSet` 中的所有元素都在 `set` 或者 `other` 中。
+// Union returns a new set which is the union of `set` and `other`.
+// Which means, all the items in `newSet` are in `set` or in `other`.
 func (set *StrSet) Union(others ...*StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -318,8 +317,8 @@ func (set *StrSet) Union(others ...*StrSet) (newSet *StrSet) {
 	return
 }
 
-// Diff 返回一个新的集合，这个集合是 `set` 与 `other` 的差集。
-// 这意味着，新集合 `newSet` 中的所有元素都在 `set` 中，但不在 `other` 中。
+// Diff returns a new set which is the difference set from `set` to `other`.
+// Which means, all the items in `newSet` are in `set` but not in `other`.
 func (set *StrSet) Diff(others ...*StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -339,8 +338,8 @@ func (set *StrSet) Diff(others ...*StrSet) (newSet *StrSet) {
 	return
 }
 
-// Intersect 返回一个新的集合，它是从 `set` 到 `other` 的交集。
-// 这意味着，`newSet` 中的所有元素都在 `set` 中，并且也在 `other` 中。
+// Intersect returns a new set which is the intersection from `set` to `other`.
+// Which means, all the items in `newSet` are in `set` and also in `other`.
 func (set *StrSet) Intersect(others ...*StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -361,10 +360,11 @@ func (set *StrSet) Intersect(others ...*StrSet) (newSet *StrSet) {
 	return
 }
 
-// Complement 返回一个新的集合，该集合为 `set` 在 `full` 中的补集。
-// 这意味着，新集合 `newSet` 中的所有元素都在 `full` 中但不在 `set` 中。
+// Complement returns a new set which is the complement from `set` to `full`.
+// Which means, all the items in `newSet` are in `full` and not in `set`.
 //
-// 如果给定的集合 `full` 不是 `set` 的全集，则返回 `full` 与 `set` 之间的差集。
+// It returns the difference between `full` and `set`
+// if the given set `full` is not the full set of `set`.
 func (set *StrSet) Complement(full *StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -381,7 +381,7 @@ func (set *StrSet) Complement(full *StrSet) (newSet *StrSet) {
 	return
 }
 
-// Merge 将 `others` 中的元素合并到 `set` 中。
+// Merge adds items from `others` sets into `set`.
 func (set *StrSet) Merge(others ...*StrSet) *StrSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -399,9 +399,9 @@ func (set *StrSet) Merge(others ...*StrSet) *StrSet {
 	return set
 }
 
-// Sum 计算项的总和。
-// 注意：项应转换为 int 类型，
-// 否则你将得到一个意想不到的结果。
+// Sum sums items.
+// Note: The items should be converted to int type,
+// or you'd get a result that you unexpected.
 func (set *StrSet) Sum() (sum int) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -411,7 +411,7 @@ func (set *StrSet) Sum() (sum int) {
 	return
 }
 
-// Pop 随机地从集合中弹出一个元素。
+// Pop randomly pops an item from set.
 func (set *StrSet) Pop() string {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -422,8 +422,8 @@ func (set *StrSet) Pop() string {
 	return ""
 }
 
-// Pops 随机地从集合中弹出 `size` 个元素。
-// 如果 size == -1，则返回所有元素。
+// Pops randomly pops `size` items from set.
+// It returns all items if size == -1.
 func (set *StrSet) Pops(size int) []string {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -446,7 +446,7 @@ func (set *StrSet) Pops(size int) []string {
 	return array
 }
 
-// Walk 对集合中的每一个元素应用用户提供的函数 `f`。
+// Walk applies a user supplied function `f` to every item of set.
 func (set *StrSet) Walk(f func(item string) string) *StrSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -458,12 +458,12 @@ func (set *StrSet) Walk(f func(item string) string) *StrSet {
 	return set
 }
 
-// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 func (set StrSet) MarshalJSON() ([]byte, error) {
 	return json.Marshal(set.Slice())
 }
 
-// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 func (set *StrSet) UnmarshalJSON(b []byte) error {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -480,7 +480,7 @@ func (set *StrSet) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于为 set 设置任意类型的值。
+// UnmarshalValue is an interface implement which sets any type of value for set.
 func (set *StrSet) UnmarshalValue(value interface{}) (err error) {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -500,7 +500,7 @@ func (set *StrSet) UnmarshalValue(value interface{}) (err error) {
 	return
 }
 
-// DeepCopy 实现接口，用于当前类型的深度复制。
+// DeepCopy implements interface for deep copy of current type.
 func (set *StrSet) DeepCopy() interface{} {
 	if set == nil {
 		return nil

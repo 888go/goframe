@@ -1,12 +1,14 @@
 package deepcopy
+
 import (
 	"fmt"
 	"reflect"
 	"testing"
 	"time"
 	"unsafe"
-	)
-// 这只是基本功能是否能正常运行的测试
+)
+
+// just basic is this working stuff
 func TestSimple(t *testing.T) {
 	Strings := []string{"a", "b", "c"}
 	cpyS := Copy(Strings).([]string)
@@ -167,7 +169,8 @@ type Basics struct {
 	Interfaces  []interface{}
 }
 
-// 这些测试用于验证所有支持的基本类型都能被正确复制。这是通过将包含多种基本类型的字段结构体以 []T 的形式进行复制来实现的。
+// These tests test that all supported basic types are copied correctly.  This
+// is done by copying a struct with fields of most of the basic types as []T.
 func TestMostTypes(t *testing.T) {
 	test := Basics{
 		String:      "kimchi",
@@ -210,13 +213,13 @@ func TestMostTypes(t *testing.T) {
 
 	cpy := Copy(test).(Basics)
 
-	// 检查它们是否指向同一位置
+	// see if they point to the same location
 	if fmt.Sprintf("%p", &cpy) == fmt.Sprintf("%p", &test) {
 		t.Error("address of copy was the same as original; they should be different")
 		return
 	}
 
-	// 遍历每个字段，并检查是否已正确复制
+	// Go through each field and check to see it got copied properly
 	if cpy.String != test.String {
 		t.Errorf("String: got %v; want %v", cpy.String, test.String)
 	}
@@ -571,7 +574,7 @@ Interfaces:
 	}
 }
 
-// 并不旨在穷举所有情况
+// not meant to be exhaustive
 func TestComplexSlices(t *testing.T) {
 	orig3Int := [][][]int{{{1, 2, 3}, {11, 22, 33}}, {{7, 8, 9}, {66, 77, 88, 99}}}
 	cpyI := Copy(orig3Int).([][][]int)
@@ -732,7 +735,7 @@ AMapB:
 			t.Errorf("A.MapB[%s]: expected the addresses of the values to be different; they weren't", k)
 			continue
 		}
-		// 切片头应指向不同的数据
+		// the slice headers should point to different data
 		if (*reflect.SliceHeader)(unsafe.Pointer(&v.Vals)).Data == (*reflect.SliceHeader)(unsafe.Pointer(&val.Vals)).Data {
 			t.Errorf("%s: expected B's SliceHeaders to point to different Data locations; they did not.", k)
 			continue
@@ -845,7 +848,8 @@ func TestUnexportedFields(t *testing.T) {
 	}
 }
 
-// 注意：在 https://github.com/golang/go/issues/15716 问题得到修复且包含此修复的版本发布之前，该测试将失败。
+// Note: this test will fail until https://github.com/golang/go/issues/15716 is
+// fixed and the version it is part of gets released.
 type T struct {
 	time.Time
 }
@@ -905,7 +909,7 @@ func TestPointerToStruct(t *testing.T) {
 }
 
 func TestIssue9(t *testing.T) {
-	// 简单指针复制
+	// simple pointer copy
 	x := 42
 	testA := map[string]*int{
 		"a": nil,
@@ -961,7 +965,7 @@ func TestIssue9(t *testing.T) {
 		return
 	}
 
-	// 检查两个映射是否指向不同的位置
+	// check that the maps point to different locations
 	if unsafe.Pointer(&testB.Epsilon) == unsafe.Pointer(&copyB.Epsilon) {
 		t.Fatalf("expected the map pointers to be different; they weren't: testB: %v\tcopyB: %v", unsafe.Pointer(&testB.Epsilon), unsafe.Pointer(&copyB.Epsilon))
 	}
@@ -999,7 +1003,7 @@ func TestIssue9(t *testing.T) {
 		}
 	}
 
-	// 测试map的键是否被深度复制
+	// test that map keys are deep copied
 	testC := map[*Foo][]string{
 		{Alpha: "Henry Dorsett Case"}: {
 			"Cutter",
@@ -1016,19 +1020,20 @@ func TestIssue9(t *testing.T) {
 		t.Fatalf("expected the map pointers to be different; they weren't: testB: %v\tcopyB: %v", unsafe.Pointer(&testB.Epsilon), unsafe.Pointer(&copyB.Epsilon))
 	}
 
-	// 确保长度相同
+	// make sure the lengths are the same
 	if len(testC) != len(copyC) {
 		t.Fatalf("got len %d; want %d", len(copyC), len(testC))
 	}
 
-// 检查所有内容是否已深度复制：由于键是指针，我们检查这些指针是否不同，但指向的值是相同的。
+	// check that everything was deep copied: since the key is a pointer, we check to
+	// see if the pointers are different but the values being pointed to are the same.
 	for k, v := range testC {
 		for kk, vv := range copyC {
 			if *kk == *k {
 				if kk == k {
 					t.Errorf("key pointers should be different: orig: %p; copy: %p", k, kk)
 				}
-				// 检查两个切片内容相同但指向不同
+				// check that the slices are the same but different
 				if !reflect.DeepEqual(v, vv) {
 					t.Errorf("expected slice contents to be the same; they weren't: orig: %v; copy: %v", v, vv)
 				}
@@ -1059,7 +1064,7 @@ func TestIssue9(t *testing.T) {
 		for kk, vv := range copyD {
 			if reflect.DeepEqual(k, kk) {
 				found = true
-				// 检查Foo指向不同的位置
+				// check that Foo points to different locations
 				if unsafe.Pointer(k.Foo) == unsafe.Pointer(kk.Foo) {
 					t.Errorf("Expected Foo to point to different locations; they didn't: orig: %p; copy %p", k.Foo, kk.Foo)
 					break
@@ -1096,7 +1101,7 @@ func TestInterface(t *testing.T) {
 	if copied.A != "custom copy" {
 		t.Errorf("expected value %v, but it's %v", "custom copy", copied.A)
 	}
-	// 检查嵌套值
+	// check for nesting values
 	ni := &NestI{I: &I{A: "A"}}
 	copiedNest := Copy(ni).(*NestI)
 	if copiedNest.I.A != "custom copy" {

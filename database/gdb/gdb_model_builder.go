@@ -1,28 +1,31 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
+
 import (
 	"fmt"
-	)
-// WhereBuilder 在一个组合中持有多个条件语句。
+)
+
+// WhereBuilder holds multiple where conditions in a group.
 type WhereBuilder struct {
-	model       *Model        // WhereBuilder 应该绑定到特定的 Model。
-	whereHolder []WhereHolder // 条件字符串，用于where操作。
+	model       *Model        // A WhereBuilder should be bound to certain Model.
+	whereHolder []WhereHolder // Condition strings for where operation.
 }
 
-// WhereHolder 是用于准备 where 条件的占位符。
+// WhereHolder is the holder for where condition preparing.
 type WhereHolder struct {
-	Type     string        // 此持有者的类型。
-	Operator int           // 此持有者的操作员。
-	Where    interface{}   // Where 参数，通常可以是 string、map 或 struct 类型。
-	Args     []interface{} // "where" 参数的对应条件。
-	Prefix   string        // 字段前缀，例如："user.", "order."
+	Type     string        // Type of this holder.
+	Operator int           // Operator for this holder.
+	Where    interface{}   // Where parameter, which can commonly be type of string/map/struct.
+	Args     []interface{} // Arguments for where parameter.
+	Prefix   string        // Field prefix, eg: "user.", "order.".
 }
 
-// Builder 创建并返回一个 WhereBuilder。请注意，该构建器支持链式调用，即链式安全。
+// Builder creates and returns a WhereBuilder. Please note that the builder is chain-safe.
 func (m *Model) Builder() *WhereBuilder {
 	b := &WhereBuilder{
 		model:       m,
@@ -31,12 +34,12 @@ func (m *Model) Builder() *WhereBuilder {
 	return b
 }
 
-// getBuilder 创建并返回当前WhereBuilder的一个克隆副本的WhereBuilder
+// getBuilder creates and returns a cloned WhereBuilder of current WhereBuilder
 func (b *WhereBuilder) getBuilder() *WhereBuilder {
 	return b.Clone()
 }
 
-// Clone 克隆并返回当前 WhereBuilder 的副本。
+// Clone clones and returns a WhereBuilder that is a copy of current one.
 func (b *WhereBuilder) Clone() *WhereBuilder {
 	newBuilder := b.model.Builder()
 	newBuilder.whereHolder = make([]WhereHolder, len(b.whereHolder))
@@ -44,7 +47,7 @@ func (b *WhereBuilder) Clone() *WhereBuilder {
 	return newBuilder
 }
 
-// Build 函数用于构建当前的 WhereBuilder，并返回条件字符串及参数。
+// Build builds current WhereBuilder and returns the condition string and parameters.
 func (b *WhereBuilder) Build() (conditionWhere string, conditionArgs []interface{}) {
 	var (
 		ctx                         = b.model.GetCtx()
@@ -100,7 +103,7 @@ func (b *WhereBuilder) Build() (conditionWhere string, conditionArgs []interface
 	return
 }
 
-// convertWhereBuilder 将参数 `where` 转换为条件字符串及参数，如果 `where` 也是一个 WhereBuilder 对象。
+// convertWhereBuilder converts parameter `where` to condition string and parameters if `where` is also a WhereBuilder.
 func (b *WhereBuilder) convertWhereBuilder(where interface{}, args []interface{}) (newWhere interface{}, newArgs []interface{}) {
 	var builder *WhereBuilder
 	switch v := where.(type) {

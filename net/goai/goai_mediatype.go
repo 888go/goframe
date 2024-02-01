@@ -1,12 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package goai
 
-// MediaType 是由 OpenAPI/Swagger 3.0 标准指定的。
+// MediaType is specified by OpenAPI/Swagger 3.0 standard.
 type MediaType struct {
 	Schema   *SchemaRef           `json:"schema,omitempty"`
 	Example  interface{}          `json:"example,omitempty"`
@@ -14,10 +14,10 @@ type MediaType struct {
 	Encoding map[string]*Encoding `json:"encoding,omitempty"`
 }
 
-// Content 是由 OpenAPI/Swagger 3.0 标准指定的。
+// Content is specified by OpenAPI/Swagger 3.0 standard.
 type Content map[string]MediaType
 
-// 编码由 OpenAPI/Swagger 3.0 标准指定。
+// Encoding is specified by OpenAPI/Swagger 3.0 standard.
 type Encoding struct {
 	ContentType   string  `json:"contentType,omitempty"`
 	Headers       Headers `json:"headers,omitempty"`

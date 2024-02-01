@@ -1,10 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gvar提供了一种通用变量类型，类似于泛型。
+// Package gvar provides an universal variable type, like generics.
 package gvar
+
 import (
 	"time"
 	
@@ -14,15 +16,17 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gutil"
-	)
-// Var 是一个通用变量类型的实现者。
+)
+
+// Var is an universal variable type implementer.
 type Var struct {
 	value interface{} // Underlying value.
-	safe  bool        // 是否支持并发安全
+	safe  bool        // Concurrent safe or not.
 }
 
-// New 函数用于创建并返回一个具有给定 `value` 的新 Var。
-// 可选参数 `safe` 指定了 Var 是否在并发安全环境下使用，默认为 false。
+// New creates and returns a new Var with given `value`.
+// The optional parameter `safe` specifies whether Var is used in concurrent-safety,
+// which is false in default.
 func New(value interface{}, safe ...bool) *Var {
 	if len(safe) > 0 && safe[0] {
 		return &Var{
@@ -35,17 +39,17 @@ func New(value interface{}, safe ...bool) *Var {
 	}
 }
 
-// Copy 对当前 Var 进行深度复制，并返回指向新复制得到的 Var 的指针。
+// Copy does a deep copy of current Var and returns a pointer to this Var.
 func (v *Var) Copy() *Var {
 	return New(gutil.Copy(v.Val()), v.safe)
 }
 
-// Clone 执行当前 Var 的浅复制，并返回指向此 Var 的指针。
+// Clone does a shallow copy of current Var and returns a pointer to this Var.
 func (v *Var) Clone() *Var {
 	return New(v.Val(), v.safe)
 }
 
-// Set将`value`设置为`v`，并返回旧的值。
+// Set sets `value` to `v`, and returns the old value.
 func (v *Var) Set(value interface{}) (old interface{}) {
 	if v.safe {
 		if t, ok := v.value.(*gtype.Interface); ok {
@@ -58,7 +62,7 @@ func (v *Var) Set(value interface{}) (old interface{}) {
 	return
 }
 
-// Val 返回当前变量 `v` 的值。
+// Val returns the current value of `v`.
 func (v *Var) Val() interface{} {
 	if v == nil {
 		return nil
@@ -71,112 +75,112 @@ func (v *Var) Val() interface{} {
 	return v.value
 }
 
-// Interface 是 Val 的别名。
+// Interface is alias of Val.
 func (v *Var) Interface() interface{} {
 	return v.Val()
 }
 
-// Bytes 将 `v` 转换并返回为 []byte 类型。
+// Bytes converts and returns `v` as []byte.
 func (v *Var) Bytes() []byte {
 	return gconv.Bytes(v.Val())
 }
 
-// String将`v`转换并以字符串形式返回。
+// String converts and returns `v` as string.
 func (v *Var) String() string {
 	return gconv.String(v.Val())
 }
 
-// Bool将`v`转换并作为布尔值返回。
+// Bool converts and returns `v` as bool.
 func (v *Var) Bool() bool {
 	return gconv.Bool(v.Val())
 }
 
-// Int 将 `v` 转换并返回为 int 类型。
+// Int converts and returns `v` as int.
 func (v *Var) Int() int {
 	return gconv.Int(v.Val())
 }
 
-// Int8将`v`转换并返回为int8类型。
+// Int8 converts and returns `v` as int8.
 func (v *Var) Int8() int8 {
 	return gconv.Int8(v.Val())
 }
 
-// Int16将`v`转换并返回为int16类型。
+// Int16 converts and returns `v` as int16.
 func (v *Var) Int16() int16 {
 	return gconv.Int16(v.Val())
 }
 
-// Int32将`v`转换为int32类型并返回。
+// Int32 converts and returns `v` as int32.
 func (v *Var) Int32() int32 {
 	return gconv.Int32(v.Val())
 }
 
-// Int64将`v`转换并作为int64类型返回。
+// Int64 converts and returns `v` as int64.
 func (v *Var) Int64() int64 {
 	return gconv.Int64(v.Val())
 }
 
-// Uint将`v`转换并作为uint类型返回。
+// Uint converts and returns `v` as uint.
 func (v *Var) Uint() uint {
 	return gconv.Uint(v.Val())
 }
 
-// Uint8将`v`转换并作为uint8类型返回。
+// Uint8 converts and returns `v` as uint8.
 func (v *Var) Uint8() uint8 {
 	return gconv.Uint8(v.Val())
 }
 
-// Uint16将`v`转换并作为uint16类型返回。
+// Uint16 converts and returns `v` as uint16.
 func (v *Var) Uint16() uint16 {
 	return gconv.Uint16(v.Val())
 }
 
-// Uint32将`v`转换并作为uint32类型返回。
+// Uint32 converts and returns `v` as uint32.
 func (v *Var) Uint32() uint32 {
 	return gconv.Uint32(v.Val())
 }
 
-// Uint64将`v`转换并作为uint64类型返回。
+// Uint64 converts and returns `v` as uint64.
 func (v *Var) Uint64() uint64 {
 	return gconv.Uint64(v.Val())
 }
 
-// Float32将`v`转换为float32类型并返回。
+// Float32 converts and returns `v` as float32.
 func (v *Var) Float32() float32 {
 	return gconv.Float32(v.Val())
 }
 
-// Float64将`v`转换为float64类型并返回。
+// Float64 converts and returns `v` as float64.
 func (v *Var) Float64() float64 {
 	return gconv.Float64(v.Val())
 }
 
-// Time将`v`转换并返回为time.Time类型。
-// 参数`format`用于指定时间字符串的格式，采用gtime格式规范，
-// 例如：Y-m-d H:i:s。
+// Time converts and returns `v` as time.Time.
+// The parameter `format` specifies the format of the time string using gtime,
+// eg: Y-m-d H:i:s.
 func (v *Var) Time(format ...string) time.Time {
 	return gconv.Time(v.Val(), format...)
 }
 
-// Duration 将 `v` 转换并返回为 time.Duration 类型。
-// 如果 `v` 的值为字符串，那么它将使用 time.ParseDuration 进行转换。
+// Duration converts and returns `v` as time.Duration.
+// If value of `v` is string, then it uses time.ParseDuration for conversion.
 func (v *Var) Duration() time.Duration {
 	return gconv.Duration(v.Val())
 }
 
-// GTime 将 `v` 转换并返回为 *gtime.Time 类型。
-// 参数 `format` 指定了时间字符串的格式，遵循 gtime 的规则，
-// 例如：Y-m-d H:i:s。
+// GTime converts and returns `v` as *gtime.Time.
+// The parameter `format` specifies the format of the time string using gtime,
+// eg: Y-m-d H:i:s.
 func (v *Var) GTime(format ...string) *gtime.Time {
 	return gconv.GTime(v.Val(), format...)
 }
 
-// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 func (v Var) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.Val())
 }
 
-// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 func (v *Var) UnmarshalJSON(b []byte) error {
 	var i interface{}
 	if err := json.UnmarshalUseNumber(b, &i); err != nil {
@@ -186,13 +190,13 @@ func (v *Var) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于为 Var 设置任意类型的值。
+// UnmarshalValue is an interface implement which sets any type of value for Var.
 func (v *Var) UnmarshalValue(value interface{}) error {
 	v.Set(value)
 	return nil
 }
 
-// DeepCopy 实现接口，用于当前类型的深度复制。
+// DeepCopy implements interface for deep copy of current type.
 func (v *Var) DeepCopy() interface{} {
 	if v == nil {
 		return nil

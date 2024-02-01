@@ -1,18 +1,21 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT许可协议条款。如果随此文件未分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 //
 
 package gipv4
+
 import (
 	"net"
 	"strconv"
 	"strings"
 	
 	"github.com/888go/goframe/errors/gerror"
-	)
-// GetIpArray 获取并返回当前主机的所有IP地址。
+)
+
+// GetIpArray retrieves and returns all the ip of current host.
 func GetIpArray() (ips []string, err error) {
 	interfaceAddr, err := net.InterfaceAddrs()
 	if err != nil {
@@ -30,7 +33,7 @@ func GetIpArray() (ips []string, err error) {
 	return ips, nil
 }
 
-// MustGetIntranetIp 的行为与 GetIntranetIp 相同，但当发生任何错误时，它会触发 panic。
+// MustGetIntranetIp performs as GetIntranetIp, but it panics if any error occurs.
 func MustGetIntranetIp() string {
 	ip, err := GetIntranetIp()
 	if err != nil {
@@ -39,7 +42,7 @@ func MustGetIntranetIp() string {
 	return ip
 }
 
-// GetIntranetIp 获取并返回当前机器的第一个内网IP地址。
+// GetIntranetIp retrieves and returns the first intranet ip of current machine.
 func GetIntranetIp() (ip string, err error) {
 	ips, err := GetIntranetIpArray()
 	if err != nil {
@@ -51,7 +54,7 @@ func GetIntranetIp() (ip string, err error) {
 	return ips[0], nil
 }
 
-// GetIntranetIpArray 获取并返回当前机器的内网IP列表。
+// GetIntranetIpArray retrieves and returns the intranet ip list of current machine.
 func GetIntranetIpArray() (ips []string, err error) {
 	var (
 		addresses  []net.Addr
@@ -68,10 +71,10 @@ func GetIntranetIpArray() (ips []string, err error) {
 			continue
 		}
 		if interFace.Flags&net.FlagLoopback != 0 {
-			// 回环接口
+			// loop back interface
 			continue
 		}
-		// 忽略守卫桥接
+		// ignore warden bridge
 		if strings.HasPrefix(interFace.Name, "w-") {
 			continue
 		}
@@ -94,7 +97,7 @@ func GetIntranetIpArray() (ips []string, err error) {
 			}
 			ip = ip.To4()
 			if ip == nil {
-				// 不是IPv4地址
+				// not an ipv4 address
 				continue
 			}
 			ipStr := ip.String()
@@ -106,12 +109,12 @@ func GetIntranetIpArray() (ips []string, err error) {
 	return ips, nil
 }
 
-// IsIntranet 检查并返回给定的IP是否为内网IP。
+// IsIntranet checks and returns whether given ip an intranet ip.
 //
-// 本地（Local）：127.0.0.1
-// A类：10.0.0.0--10.255.255.255
-// B类：172.16.0.0--172.31.255.255
-// C类：192.168.0.0--192.168.255.255
+// Local: 127.0.0.1
+// A: 10.0.0.0--10.255.255.255
+// B: 172.16.0.0--172.31.255.255
+// C: 192.168.0.0--192.168.255.255
 func IsIntranet(ip string) bool {
 	if ip == "127.0.0.1" {
 		return true

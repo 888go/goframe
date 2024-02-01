@@ -1,31 +1,34 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
+
 import (
 	"reflect"
 	
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/internal/reflection"
-	)
-// SliceInt 是 Ints 的别名。
+)
+
+// SliceInt is alias of Ints.
 func SliceInt(any interface{}) []int {
 	return Ints(any)
 }
 
-// SliceInt32 是 Int32s 的别名。
+// SliceInt32 is alias of Int32s.
 func SliceInt32(any interface{}) []int32 {
 	return Int32s(any)
 }
 
-// SliceInt64 是 Int64s 的别名。
+// SliceInt64 is alias of Int64s.
 func SliceInt64(any interface{}) []int64 {
 	return Int64s(any)
 }
 
-// Ints 将 `any` 类型转换为 []int 类型。
+// Ints converts `any` to []int.
 func Ints(any interface{}) []int {
 	if any == nil {
 		return nil
@@ -129,11 +132,11 @@ func Ints(any interface{}) []int {
 	if v, ok := any.(iInterfaces); ok {
 		return Ints(v.Interfaces())
 	}
-	// JSON格式字符串值转换
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 如果不是常见类型，它将使用反射进行转换。
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:
@@ -154,7 +157,7 @@ func Ints(any interface{}) []int {
 	}
 }
 
-// Int32s将`any`转换为[]int32。
+// Int32s converts `any` to []int32.
 func Int32s(any interface{}) []int32 {
 	if any == nil {
 		return nil
@@ -258,11 +261,11 @@ func Int32s(any interface{}) []int32 {
 	if v, ok := any.(iInterfaces); ok {
 		return Int32s(v.Interfaces())
 	}
-	// JSON格式字符串值转换
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 如果不是常见类型，它将使用反射进行转换。
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:
@@ -283,7 +286,7 @@ func Int32s(any interface{}) []int32 {
 	}
 }
 
-// Int64s 将 `any` 转换为 []int64 类型的切片。
+// Int64s converts `any` to []int64.
 func Int64s(any interface{}) []int64 {
 	if any == nil {
 		return nil
@@ -387,11 +390,11 @@ func Int64s(any interface{}) []int64 {
 	if v, ok := any.(iInterfaces); ok {
 		return Int64s(v.Interfaces())
 	}
-	// JSON格式字符串值转换
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 如果不是常见类型，它将使用反射进行转换。
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:

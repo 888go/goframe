@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtime_test
+
 import (
 	"testing"
 	
@@ -11,7 +13,7 @@ import (
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func Test_Json_Pointer(t *testing.T) {
 	// Marshal
@@ -48,7 +50,7 @@ func Test_Json_Pointer(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":null}`)
 	})
-	// 使用json标签omitempty对nil进行序列化
+	// Marshal nil with json omitempty
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
 			MyTime *gtime.Time `json:"time,omitempty"`
@@ -100,7 +102,7 @@ func Test_Json_Struct(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":""}`)
 	})
-	// 对空值进行序列化时忽略（omitempty）
+	// Marshal nil omitempty
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
 			MyTime gtime.Time `json:"time,omitempty"`

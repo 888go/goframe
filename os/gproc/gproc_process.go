@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gproc
+
 import (
 	"context"
 	"fmt"
@@ -24,15 +25,16 @@ import (
 	"github.com/888go/goframe/net/gtrace"
 	"github.com/888go/goframe/os/genv"
 	"github.com/888go/goframe/text/gstr"
-	)
-// Process是用于单个进程的结构体。
+)
+
+// Process is the struct for a single process.
 type Process struct {
 	exec.Cmd
 	Manager *Manager
 	PPid    int
 }
 
-// NewProcess 创建并返回一个新的 Process。
+// NewProcess creates and returns a new Process.
 func NewProcess(path string, args []string, environment ...[]string) *Process {
 	env := os.Environ()
 	if len(environment) > 0 {
@@ -53,7 +55,7 @@ func NewProcess(path string, args []string, environment ...[]string) *Process {
 	}
 	process.Dir, _ = os.Getwd()
 	if len(args) > 0 {
-		// 排除当前二进制文件路径。
+		// Exclude of current binary path.
 		start := 0
 		if strings.EqualFold(path, args[0]) {
 			start = 1
@@ -63,18 +65,18 @@ func NewProcess(path string, args []string, environment ...[]string) *Process {
 	return process
 }
 
-// NewProcessCmd根据给定的命令和可选的环境变量数组创建并返回一个进程。
+// NewProcessCmd creates and returns a process with given command and optional environment variable array.
 func NewProcessCmd(cmd string, environment ...[]string) *Process {
 	return NewProcess(getShell(), append([]string{getShellOption()}, parseCommand(cmd)...), environment...)
 }
 
-// Start以非阻塞方式启动进程执行。
-// 如果成功，返回pid；否则返回错误。
+// Start starts executing the process in non-blocking way.
+// It returns the pid if success, or else it returns an error.
 func (p *Process) Start(ctx context.Context) (int, error) {
 	if p.Process != nil {
 		return p.Pid(), nil
 	}
-	// OpenTelemetry 用于命令。
+	// OpenTelemetry for command.
 	var (
 		span trace.Span
 		tr   = otel.GetTracerProvider().Tracer(
@@ -93,7 +95,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	defer span.End()
 	span.SetAttributes(gtrace.CommonLabels()...)
 
-	// OpenTelemetry 传播
+	// OpenTelemetry propagation.
 	tracingEnv := tracingEnvFromCtx(ctx)
 	if len(tracingEnv) > 0 {
 		p.Env = append(p.Env, tracingEnv...)
@@ -111,7 +113,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	}
 }
 
-// Run以阻塞方式执行进程。
+// Run executes the process in blocking way.
 func (p *Process) Run(ctx context.Context) error {
 	if _, err := p.Start(ctx); err == nil {
 		return p.Wait()
@@ -120,7 +122,7 @@ func (p *Process) Run(ctx context.Context) error {
 	}
 }
 
-// Pid 获取并返回当前进程的PID（进程标识符）
+// Pid retrieves and returns the PID for the process.
 func (p *Process) Pid() int {
 	if p.Process != nil {
 		return p.Process.Pid
@@ -128,7 +130,7 @@ func (p *Process) Pid() int {
 	return 0
 }
 
-// Send 向进程发送自定义数据。
+// Send sends custom data to the process.
 func (p *Process) Send(data []byte) error {
 	if p.Process != nil {
 		return Send(p.Process.Pid, data)
@@ -136,14 +138,14 @@ func (p *Process) Send(data []byte) error {
 	return gerror.NewCode(gcode.CodeInvalidParameter, "invalid process")
 }
 
-// Release 会释放与进程p关联的任何资源，
-// 使其在未来无法使用。
-// 只有在不调用Wait的情况下，才需要调用Release。
+// Release releases any resources associated with the Process p,
+// rendering it unusable in the future.
+// Release only needs to be called if Wait is not.
 func (p *Process) Release() error {
 	return p.Process.Release()
 }
 
-// Kill 导致 Process 立即退出。
+// Kill causes the Process to exit immediately.
 func (p *Process) Kill() (err error) {
 	err = p.Process.Kill()
 	if err != nil {
@@ -158,14 +160,14 @@ func (p *Process) Kill() (err error) {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
 	}
-	// 它忽略这个错误，仅将其记录到日志中。
+	// It ignores this error, just log it.
 	_, err = p.Process.Wait()
 	intlog.Errorf(context.TODO(), `%+v`, err)
 	return nil
 }
 
-// Signal 向 Process 发送一个信号。
-// 在 Windows 系统上发送 Interrupt 信号尚未实现。
+// Signal sends a signal to the Process.
+// Sending Interrupt on Windows is not implemented.
 func (p *Process) Signal(sig os.Signal) error {
 	return p.Process.Signal(sig)
 }

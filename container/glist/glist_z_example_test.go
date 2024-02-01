@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package glist_test
+
 import (
 	"container/list"
 	"fmt"
@@ -11,7 +13,7 @@ import (
 	"github.com/888go/goframe/container/garray"
 	"github.com/888go/goframe/container/glist"
 	"github.com/888go/goframe/frame/g"
-	)
+)
 
 func ExampleNew() {
 	n := 10
@@ -350,7 +352,7 @@ func ExampleList_MoveBefore() {
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	// 不是 `l` 的元素
+	// not element of `l`
 	e = &glist.Element{Value: 7}
 	l.MoveBefore(e, l.Front())
 
@@ -384,7 +386,7 @@ func ExampleList_MoveAfter() {
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	// 不是 `l` 的元素
+	// not element of `l`
 	e = &glist.Element{Value: -1}
 	l.MoveAfter(e, l.Back())
 
@@ -414,7 +416,7 @@ func ExampleList_MoveToFront() {
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	// 不是 `l` 的元素
+	// not element of `l`
 	e := &glist.Element{Value: 6}
 	l.MoveToFront(e)
 
@@ -442,7 +444,7 @@ func ExampleList_MoveToBack() {
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	// 不是 `l` 的元素
+	// not element of `l`
 	e := &glist.Element{Value: 0}
 	l.MoveToBack(e)
 
@@ -602,9 +604,9 @@ func ExampleList_RemoveAll() {
 }
 
 func ExampleList_RLockFunc() {
-	// 并发安全列表。
+	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// 从头部开始迭代读取
+	// iterate reading from head.
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {
@@ -614,7 +616,7 @@ func ExampleList_RLockFunc() {
 		}
 	})
 	fmt.Println()
-	// 从尾部开始迭代读取
+	// iterate reading from tail.
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {
@@ -631,9 +633,9 @@ func ExampleList_RLockFunc() {
 }
 
 func ExampleList_IteratorAsc() {
-	// 并发安全列表。
+	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// 使用IteratorAsc从头部开始进行迭代读取。
+	// iterate reading from head using IteratorAsc.
 	l.IteratorAsc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
 		return true
@@ -644,9 +646,9 @@ func ExampleList_IteratorAsc() {
 }
 
 func ExampleList_IteratorDesc() {
-	// 并发安全列表。
+	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// 使用IteratorDesc从尾部开始迭代读取
+	// iterate reading from tail using IteratorDesc.
 	l.IteratorDesc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
 		return true
@@ -656,9 +658,9 @@ func ExampleList_IteratorDesc() {
 }
 
 func ExampleList_LockFunc() {
-	// 并发安全列表。
+	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// 从头部开始进行迭代写入。
+	// iterate writing from head.
 	l.LockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {

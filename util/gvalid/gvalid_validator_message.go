@@ -1,17 +1,20 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid
+
 import (
 	"context"
 	
 	"github.com/888go/goframe/util/gvalid/internal/builtin"
-	)
-// getErrorMessageByRule 根据指定规则获取并返回错误消息。
-// 首先从自定义消息映射中检索消息，然后检查 i18n 管理器，
-// 如果在自定义消息映射和 i18n 管理器中都未找到，则返回默认错误消息。
+)
+
+// getErrorMessageByRule retrieves and returns the error message for specified rule.
+// It firstly retrieves the message from custom message map, and then checks i18n manager,
+// it returns the default error message if it's not found in neither custom message map nor i18n manager.
 func (v *Validator) getErrorMessageByRule(ctx context.Context, ruleKey string, customMsgMap map[string]string) string {
 	content := customMsgMap[ruleKey]
 	if content != "" {
@@ -23,22 +26,22 @@ func (v *Validator) getErrorMessageByRule(ctx context.Context, ruleKey string, c
 		return content
 	}
 
-	// 根据特定规则获取默认消息。
+	// Retrieve default message according to certain rule.
 	content = v.i18nManager.GetContent(ctx, ruleMessagePrefixForI18n+ruleKey)
 	if content == "" {
 		content = defaultErrorMessages[ruleKey]
 	}
-	// 内置规则消息
+	// Builtin rule message.
 	if content == "" {
 		if builtinRule := builtin.GetRule(ruleKey); builtinRule != nil {
 			content = builtinRule.Message()
 		}
 	}
-	// 如果没有配置规则消息，则使用默认消息。
+	// If there's no configured rule message, it uses default one.
 	if content == "" {
 		content = v.i18nManager.GetContent(ctx, ruleMessagePrefixForI18n+internalDefaultRuleName)
 	}
-	// 如果没有配置规则消息，则使用默认消息。
+	// If there's no configured rule message, it uses default one.
 	if content == "" {
 		content = defaultErrorMessages[internalDefaultRuleName]
 	}

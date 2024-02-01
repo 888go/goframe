@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp_test
+
 import (
 	"compress/gzip"
 	"fmt"
@@ -19,7 +21,7 @@ import (
 	"github.com/888go/goframe/util/guid"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
-	)
+)
 
 func Test_BindMiddleware_Basic1(t *testing.T) {
 	s := g.Server(guid.S())
@@ -245,7 +247,7 @@ func Test_Middleware_Hook_With_Static(t *testing.T) {
 		client := g.Client()
 		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
 
-		// 由于长度断言有时会失败，因此我在此为了调试目的添加了 time.Sleep。
+		// The length assert sometimes fails, so I added time.Sleep here for debug purpose.
 
 		t.Assert(client.GetContent(ctx, "/"), "index")
 		time.Sleep(100 * time.Millisecond)
@@ -666,7 +668,7 @@ func Test_Middleware_Panic(t *testing.T) {
 			group.Middleware(func(r *ghttp.Request) {
 				i++
 				panic("error")
-				// r.Middleware.Next() 表示调用下一个中间件。
+				// r.Middleware.Next()
 			}, func(r *ghttp.Request) {
 				i++
 				r.Middleware.Next()

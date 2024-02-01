@@ -1,14 +1,17 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包grand提供了高性能的随机字节/数字/字符串生成功能。
+// Package grand provides high performance random bytes/number/string generation functionality.
 package grand
+
 import (
 	"encoding/binary"
 	"time"
-	)
+)
+
 var (
 	letters    = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" // 52
 	symbols    = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"                   // 32
@@ -16,12 +19,12 @@ var (
 	characters = letters + digits + symbols                             // 94
 )
 
-// Intn 返回一个在0和max之间的随机整数: [0, max)。
+// Intn returns an int number which is between 0 and max: [0, max).
 //
-// 注意事项：
-// 1. 参数`max`必须大于0，否则函数直接返回`max`；
-// 2. 返回结果大于等于0且小于`max`；
-// 3. 返回的随机数是32位整数，并且小于math.MaxUint32。
+// Note that:
+// 1. The `max` can only be greater than 0, or else it returns `max` directly;
+// 2. The result is greater than or equal to 0, but less than `max`;
+// 3. The result number is 32bit and less than math.MaxUint32.
 func Intn(max int) int {
 	if max <= 0 {
 		return max
@@ -33,7 +36,7 @@ func Intn(max int) int {
 	return n
 }
 
-// B 函数获取并返回指定长度 `n` 的随机字节。
+// B retrieves and returns random bytes of given length `n`.
 func B(n int) []byte {
 	if n <= 0 {
 		return nil
@@ -50,8 +53,8 @@ func B(n int) []byte {
 	return b
 }
 
-// N 返回一个在 min 和 max 范围内的随机整数：[min, max]。
-// 其中 `min` 和 `max` 也支持负数。
+// N returns a random int between min and max: [min, max].
+// The `min` and `max` also support negative numbers.
 func N(min, max int) int {
 	if min >= max {
 		return min
@@ -59,15 +62,16 @@ func N(min, max int) int {
 	if min >= 0 {
 		return Intn(max-min+1) + min
 	}
-// 由于`Intn`函数不支持负数，
-// 因此我们首先需要将数值右移，
-// 然后调用`Intn`生成随机数，
-// 最后将结果左移回来。
+	// As `Intn` dose not support negative number,
+	// so we should first shift the value to right,
+	// then call `Intn` to produce the random number,
+	// and finally shift the result back to left.
 	return Intn(max+(0-min)+1) - (0 - min)
 }
 
-// S 返回一个随机字符串，该字符串包含数字和字母，其长度为 `n`。
-// 可选参数 `symbols` 指定生成的字符串是否可以包含符号，默认情况下为 false（不包含）。
+// S returns a random string which contains digits and letters, and its length is `n`.
+// The optional parameter `symbols` specifies whether the result could contain symbols,
+// which is false in default.
 func S(n int, symbols ...bool) string {
 	if n <= 0 {
 		return ""
@@ -86,7 +90,7 @@ func S(n int, symbols ...bool) string {
 	return string(b)
 }
 
-// D 返回一个在min和max之间随机的time.Duration值：[min, max]。
+// D returns a random time.Duration between min and max: [min, max].
 func D(min, max time.Duration) time.Duration {
 	multiple := int64(1)
 	if min != 0 {
@@ -100,8 +104,8 @@ func D(min, max time.Duration) time.Duration {
 	return time.Duration(n * multiple)
 }
 
-// Str 从给定的字符串 `s` 中随机选取并返回 `n` 个字符。
-// 它还支持Unicode字符串，如中文、俄文、日文等。
+// Str randomly picks and returns `n` count of chars from given string `s`.
+// It also supports unicode string like Chinese/Russian/Japanese, etc.
 func Str(s string, n int) string {
 	if n <= 0 {
 		return ""
@@ -123,7 +127,7 @@ func Str(s string, n int) string {
 	return string(b)
 }
 
-// Digits 返回一个随机字符串，其中只包含数字，并且其长度为 `n`。
+// Digits returns a random string which contains only digits, and its length is `n`.
 func Digits(n int) string {
 	if n <= 0 {
 		return ""
@@ -138,7 +142,7 @@ func Digits(n int) string {
 	return string(b)
 }
 
-// Letters 返回一个随机字符串，该字符串只包含字母，并且长度为 `n`。
+// Letters returns a random string which contains only letters, and its length is `n`.
 func Letters(n int) string {
 	if n <= 0 {
 		return ""
@@ -153,7 +157,7 @@ func Letters(n int) string {
 	return string(b)
 }
 
-// Symbols 返回一个随机字符串，其中只包含符号，并且其长度为 `n`。
+// Symbols returns a random string which contains only symbols, and its length is `n`.
 func Symbols(n int) string {
 	if n <= 0 {
 		return ""
@@ -168,8 +172,8 @@ func Symbols(n int) string {
 	return string(b)
 }
 
-// Perm 函数返回一个整数切片，其中包含了从 [0, n) 范围内随机排列的 n 个整数。
-// TODO：优化处理大规模切片生成时的性能。
+// Perm returns, as a slice of n int numbers, a pseudo-random permutation of the integers [0,n).
+// TODO performance improving for large slice producing.
 func Perm(n int) []int {
 	m := make([]int, n)
 	for i := 0; i < n; i++ {
@@ -180,12 +184,12 @@ func Perm(n int) []int {
 	return m
 }
 
-// Meet 随机计算给定的概率 `num`/`total` 是否满足条件。
+// Meet randomly calculate whether the given probability `num`/`total` is met.
 func Meet(num, total int) bool {
 	return Intn(total) < num
 }
 
-// MeetProb 随机计算给定概率是否满足。
+// MeetProb randomly calculate whether the given probability is met.
 func MeetProb(prob float32) bool {
 	return Intn(1e7) < int(prob*1e7)
 }

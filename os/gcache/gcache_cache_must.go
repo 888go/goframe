@@ -1,16 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcache
+
 import (
 	"context"
 	"time"
 	
 	"github.com/888go/goframe/container/gvar"
-	)
-// MustGet 行为类似于 Get，但当发生任何错误时，它会触发panic。
+)
+
+// MustGet acts like Get, but it panics if any error occurs.
 func (c *Cache) MustGet(ctx context.Context, key interface{}) *gvar.Var {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -19,7 +22,7 @@ func (c *Cache) MustGet(ctx context.Context, key interface{}) *gvar.Var {
 	return v
 }
 
-// MustGetOrSet 行为类似于 GetOrSet，但是当发生任何错误时，它会触发panic（异常）。
+// MustGetOrSet acts like GetOrSet, but it panics if any error occurs.
 func (c *Cache) MustGetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) *gvar.Var {
 	v, err := c.GetOrSet(ctx, key, value, duration)
 	if err != nil {
@@ -28,7 +31,7 @@ func (c *Cache) MustGetOrSet(ctx context.Context, key interface{}, value interfa
 	return v
 }
 
-// MustGetOrSetFunc 行为类似于 GetOrSetFunc，但当发生任何错误时它会触发panic。
+// MustGetOrSetFunc acts like GetOrSetFunc, but it panics if any error occurs.
 func (c *Cache) MustGetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) *gvar.Var {
 	v, err := c.GetOrSetFunc(ctx, key, f, duration)
 	if err != nil {
@@ -37,7 +40,7 @@ func (c *Cache) MustGetOrSetFunc(ctx context.Context, key interface{}, f Func, d
 	return v
 }
 
-// MustGetOrSetFuncLock 类似于 GetOrSetFuncLock，但如果发生任何错误，它会触发 panic。
+// MustGetOrSetFuncLock acts like GetOrSetFuncLock, but it panics if any error occurs.
 func (c *Cache) MustGetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) *gvar.Var {
 	v, err := c.GetOrSetFuncLock(ctx, key, f, duration)
 	if err != nil {
@@ -46,7 +49,7 @@ func (c *Cache) MustGetOrSetFuncLock(ctx context.Context, key interface{}, f Fun
 	return v
 }
 
-// MustContains 行为类似于 Contains，但当发生任何错误时，它会触发panic（异常退出）。
+// MustContains acts like Contains, but it panics if any error occurs.
 func (c *Cache) MustContains(ctx context.Context, key interface{}) bool {
 	v, err := c.Contains(ctx, key)
 	if err != nil {
@@ -55,7 +58,7 @@ func (c *Cache) MustContains(ctx context.Context, key interface{}) bool {
 	return v
 }
 
-// MustGetExpire 的行为类似于 GetExpire，但是当发生任何错误时，它会触发panic。
+// MustGetExpire acts like GetExpire, but it panics if any error occurs.
 func (c *Cache) MustGetExpire(ctx context.Context, key interface{}) time.Duration {
 	v, err := c.GetExpire(ctx, key)
 	if err != nil {
@@ -64,7 +67,7 @@ func (c *Cache) MustGetExpire(ctx context.Context, key interface{}) time.Duratio
 	return v
 }
 
-// MustSize 的行为类似于 Size，但如果发生任何错误，它会触发 panic。
+// MustSize acts like Size, but it panics if any error occurs.
 func (c *Cache) MustSize(ctx context.Context) int {
 	v, err := c.Size(ctx)
 	if err != nil {
@@ -73,7 +76,7 @@ func (c *Cache) MustSize(ctx context.Context) int {
 	return v
 }
 
-// MustData 的行为类似于 Data，但是当发生任何错误时它会触发panic（异常）。
+// MustData acts like Data, but it panics if any error occurs.
 func (c *Cache) MustData(ctx context.Context) map[interface{}]interface{} {
 	v, err := c.Data(ctx)
 	if err != nil {
@@ -82,7 +85,7 @@ func (c *Cache) MustData(ctx context.Context) map[interface{}]interface{} {
 	return v
 }
 
-// MustKeys 行为类似 Keys，但当发生任何错误时会触发 panic。
+// MustKeys acts like Keys, but it panics if any error occurs.
 func (c *Cache) MustKeys(ctx context.Context) []interface{} {
 	v, err := c.Keys(ctx)
 	if err != nil {
@@ -91,7 +94,7 @@ func (c *Cache) MustKeys(ctx context.Context) []interface{} {
 	return v
 }
 
-// MustKeyStrings 行为类似 KeyStrings，但当发生任何错误时，它会引发 panic。
+// MustKeyStrings acts like KeyStrings, but it panics if any error occurs.
 func (c *Cache) MustKeyStrings(ctx context.Context) []string {
 	v, err := c.KeyStrings(ctx)
 	if err != nil {
@@ -100,7 +103,7 @@ func (c *Cache) MustKeyStrings(ctx context.Context) []string {
 	return v
 }
 
-// MustValues 行为类似 Values，但是当发生任何错误时它会触发panic（异常）。
+// MustValues acts like Values, but it panics if any error occurs.
 func (c *Cache) MustValues(ctx context.Context) []interface{} {
 	v, err := c.Values(ctx)
 	if err != nil {

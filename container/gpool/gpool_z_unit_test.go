@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gpool_test
+
 import (
 	"errors"
 	"testing"
@@ -13,7 +14,8 @@ import (
 	"github.com/888go/goframe/container/gpool"
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 var nf gpool.NewFunc = func() (i interface{}, e error) {
 	return "hello", nil
 }
@@ -33,7 +35,7 @@ func Test_Gpool(t *testing.T) {
 		p1.Put(1)
 		p1.Put(2)
 		time.Sleep(1 * time.Second)
-		// 测试不会超时
+		// test won't be timeout
 		v1, err1 := p1.Get()
 		t.Assert(err1, nil)
 		t.AssertIN(v1, g.Slice{1, 2})
@@ -68,12 +70,12 @@ func Test_Gpool(t *testing.T) {
 		v2, err2 := p2.Get()
 		t.Assert(err2, nil)
 		t.Assert(v2, 0)
-		// 测试超时过期函数
+		// test timeout expireFunc
 		time.Sleep(3 * time.Second)
 		v2, err2 = p2.Get()
 		t.Assert(err2, errors.New("pool is empty"))
 		t.Assert(v2, nil)
-		// 测试关闭expireFunc
+		// test close expireFunc
 		for index := 0; index < 10; index++ {
 			p2.Put(index)
 		}

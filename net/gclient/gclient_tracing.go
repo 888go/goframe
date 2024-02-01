@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gclient
+
 import (
 	"context"
 	"fmt"
@@ -24,7 +26,8 @@ import (
 	"github.com/888go/goframe/os/gctx"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
+
 const (
 	tracingInstrumentName                       = "github.com/gogf/gf/v2/net/gclient.Client"
 	tracingAttrHttpAddressRemote                = "http.address.remote"
@@ -43,11 +46,11 @@ const (
 	tracingMiddlewareHandled        gctx.StrKey = `MiddlewareClientTracingHandled`
 )
 
-// internalMiddlewareTracing 是一个客户端中间件，它利用 OpenTelemetry 的标准启用追踪功能。
+// internalMiddlewareTracing is a client middleware that enables tracing feature using standards of OpenTelemetry.
 func internalMiddlewareTracing(c *Client, r *http.Request) (response *Response, err error) {
 	var ctx = r.Context()
-// 标记该请求已被服务器追踪中间件处理，
-// 以避免被同一中间件重复处理。
+	// Mark this request is handled by server tracing middleware,
+	// to avoid repeated handling by the same middleware.
 	if ctx.Value(tracingMiddlewareHandled) != nil {
 		return c.Next(r)
 	}
@@ -62,16 +65,16 @@ func internalMiddlewareTracing(c *Client, r *http.Request) (response *Response, 
 
 	span.SetAttributes(gtrace.CommonLabels()...)
 
-	// 向HTTP头中注入追踪内容
+	// Inject tracing content into http header.
 	otel.GetTextMapPropagator().Inject(ctx, propagation.HeaderCarrier(r.Header))
 
-	// 如果当前正在使用默认的追踪提供者，则不执行任何复杂的追踪任务。
+	// If it is now using default trace provider, it then does no complex tracing jobs.
 	if gtrace.IsUsingDefaultProvider() {
 		response, err = c.Next(r)
 		return
 	}
 
-	// 继续执行客户端处理器。
+	// Continue client handler executing.
 	response, err = c.Next(
 		r.WithContext(
 			httptrace.WithClientTrace(

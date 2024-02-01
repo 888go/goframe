@@ -1,56 +1,57 @@
-// 版权所有 GoFrame gf 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gcode 提供通用错误码定义及常见错误码实现。
+// Package gcode provides universal error code definition and common error codes implements.
 package gcode
 
-// Code 是通用错误码接口的定义。
+// Code is universal error code interface definition.
 type Code interface {
-	// Code 返回当前错误代码的整数值。
+	// Code returns the integer number of current error code.
 	Code() int
 
-	// Message 返回当前错误代码的简短消息。
+	// Message returns the brief message for current error code.
 	Message() string
 
-// Detail 返回当前错误代码的详细信息，
-// 主要设计为错误代码的扩展字段。
+	// Detail returns the detailed information of current error code,
+	// which is mainly designed as an extension field for error code.
 	Detail() interface{}
 }
 
 // ================================================================================================================
-// 公共错误码定义。
-// 框架内部预留了以下错误码：code < 1000。
+// Common error code definition.
+// There are reserved internal error code by framework: code < 1000.
 // ================================================================================================================
 
 var (
-	CodeNil                       = localCode{-1, "", nil}                             // 未指定错误代码。
+	CodeNil                       = localCode{-1, "", nil}                             // No error code specified.
 	CodeOK                        = localCode{0, "OK", nil}                            // It is OK.
-	CodeInternalError             = localCode{50, "Internal Error", nil}               // 发生了内部错误。
-	CodeValidationFailed          = localCode{51, "Validation Failed", nil}            // 数据验证失败。
-	CodeDbOperationError          = localCode{52, "Database Operation Error", nil}     // 数据库操作错误。
-	CodeInvalidParameter          = localCode{53, "Invalid Parameter", nil}            // 当前操作给定的参数无效。
-	CodeMissingParameter          = localCode{54, "Missing Parameter", nil}            // 当前操作缺少参数。
-	CodeInvalidOperation          = localCode{55, "Invalid Operation", nil}            // 该函数不能这样使用。
-	CodeInvalidConfiguration      = localCode{56, "Invalid Configuration", nil}        // 当前操作的配置无效。
-	CodeMissingConfiguration      = localCode{57, "Missing Configuration", nil}        // 当前操作缺少配置。
-	CodeNotImplemented            = localCode{58, "Not Implemented", nil}              // 该操作尚未实现。
-	CodeNotSupported              = localCode{59, "Not Supported", nil}                // 该操作尚未被支持。
-	CodeOperationFailed           = localCode{60, "Operation Failed", nil}             // 我尝试了，但我无法给你你想要的东西。
+	CodeInternalError             = localCode{50, "Internal Error", nil}               // An error occurred internally.
+	CodeValidationFailed          = localCode{51, "Validation Failed", nil}            // Data validation failed.
+	CodeDbOperationError          = localCode{52, "Database Operation Error", nil}     // Database operation error.
+	CodeInvalidParameter          = localCode{53, "Invalid Parameter", nil}            // The given parameter for current operation is invalid.
+	CodeMissingParameter          = localCode{54, "Missing Parameter", nil}            // Parameter for current operation is missing.
+	CodeInvalidOperation          = localCode{55, "Invalid Operation", nil}            // The function cannot be used like this.
+	CodeInvalidConfiguration      = localCode{56, "Invalid Configuration", nil}        // The configuration is invalid for current operation.
+	CodeMissingConfiguration      = localCode{57, "Missing Configuration", nil}        // The configuration is missing for current operation.
+	CodeNotImplemented            = localCode{58, "Not Implemented", nil}              // The operation is not implemented yet.
+	CodeNotSupported              = localCode{59, "Not Supported", nil}                // The operation is not supported yet.
+	CodeOperationFailed           = localCode{60, "Operation Failed", nil}             // I tried, but I cannot give you what you want.
 	CodeNotAuthorized             = localCode{61, "Not Authorized", nil}               // Not Authorized.
 	CodeSecurityReason            = localCode{62, "Security Reason", nil}              // Security Reason.
-	CodeServerBusy                = localCode{63, "Server Is Busy", nil}               // 服务器繁忙，请稍后再试。
+	CodeServerBusy                = localCode{63, "Server Is Busy", nil}               // Server is busy, please try again later.
 	CodeUnknown                   = localCode{64, "Unknown Error", nil}                // Unknown error.
-	CodeNotFound                  = localCode{65, "Not Found", nil}                    // 资源不存在。
+	CodeNotFound                  = localCode{65, "Not Found", nil}                    // Resource does not exist.
 	CodeInvalidRequest            = localCode{66, "Invalid Request", nil}              // Invalid request.
-	CodeNecessaryPackageNotImport = localCode{67, "Necessary Package Not Import", nil} // 它需要必要的包导入。
-	CodeInternalPanic             = localCode{68, "Internal Panic", nil}               // 发生了内部 panic
-	CodeBusinessValidationFailed  = localCode{300, "Business Validation Failed", nil}  // 业务验证失败。
+	CodeNecessaryPackageNotImport = localCode{67, "Necessary Package Not Import", nil} // It needs necessary package import.
+	CodeInternalPanic             = localCode{68, "Internal Panic", nil}               // An panic occurred internally.
+	CodeBusinessValidationFailed  = localCode{300, "Business Validation Failed", nil}  // Business validation failed.
 )
 
-// New 创建并返回一个错误代码。
-// 注意，它返回的是 Code 接口对象。
+// New creates and returns an error code.
+// Note that it returns an interface object of Code.
 func New(code int, message string, detail interface{}) Code {
 	return localCode{
 		code:    code,
@@ -59,8 +60,8 @@ func New(code int, message string, detail interface{}) Code {
 	}
 }
 
-// WithCode根据给定的Code创建并返回一个新的错误代码。
-// 代码和消息来自给定的`code`，但详情来自给定的`detail`。
+// WithCode creates and returns a new error code based on given Code.
+// The code and message is from given `code`, but the detail if from given `detail`.
 func WithCode(code Code, detail interface{}) Code {
 	return localCode{
 		code:    code.Code(),

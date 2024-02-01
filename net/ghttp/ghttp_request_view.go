@@ -1,18 +1,21 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"github.com/888go/goframe/os/gview"
-	)
-// SetView 设置模板视图引擎对象，用于当前请求。
+)
+
+// SetView sets template view engine object for this request.
 func (r *Request) SetView(view *gview.View) {
 	r.viewObject = view
 }
 
-// GetView 返回当前请求的模板视图引擎对象。
+// GetView returns the template view engine object for this request.
 func (r *Request) GetView() *gview.View {
 	view := r.viewObject
 	if view == nil {
@@ -24,7 +27,7 @@ func (r *Request) GetView() *gview.View {
 	return view
 }
 
-// Assigns 将多个模板变量绑定到当前请求。
+// Assigns binds multiple template variables to current request.
 func (r *Request) Assigns(data gview.Params) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params, len(data))
@@ -34,7 +37,7 @@ func (r *Request) Assigns(data gview.Params) {
 	}
 }
 
-// Assign 将模板变量绑定到当前请求。
+// Assign binds a template variable to current request.
 func (r *Request) Assign(key string, value interface{}) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params)

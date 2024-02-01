@@ -1,60 +1,72 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gclient
+
 import (
 	"context"
 	"net/http"
-	)
-// GetContent 是一个便捷方法，用于发送 GET 请求，它获取并返回结果内容，并自动关闭响应对象。
+)
+
+// GetContent is a convenience method for sending GET request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) GetContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodGet, url, data...))
 }
 
-// PutContent 是一个便捷的方法，用于发送 PUT 请求，它会获取并返回结果内容，并自动关闭响应对象。
+// PutContent is a convenience method for sending PUT request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) PutContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodPut, url, data...))
 }
 
-// PostContent 是一个便捷方法，用于发送 POST 请求，它会检索并返回结果内容，并自动关闭响应对象。
+// PostContent is a convenience method for sending POST request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) PostContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodPost, url, data...))
 }
 
-// DeleteContent 是一个便捷方法，用于发送 DELETE 请求，该方法会获取并返回结果内容，并自动关闭响应对象。
+// DeleteContent is a convenience method for sending DELETE request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) DeleteContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodDelete, url, data...))
 }
 
-// HeadContent 是一个便捷方法，用于发送 HEAD 请求。该方法会检索并返回结果内容，并自动关闭响应对象。
+// HeadContent is a convenience method for sending HEAD request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) HeadContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodHead, url, data...))
 }
 
-// PatchContent 是一个便捷方法，用于发送 PATCH 请求。它会获取并返回结果内容，并自动关闭响应对象。
+// PatchContent is a convenience method for sending PATCH request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) PatchContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodPatch, url, data...))
 }
 
-// ConnectContent 是一个便捷方法，用于发送 CONNECT 请求，它会检索并返回结果内容，并自动关闭响应对象。
+// ConnectContent is a convenience method for sending CONNECT request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) ConnectContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodConnect, url, data...))
 }
 
-// OptionsContent 是一个便捷方法，用于发送 OPTIONS 请求，该方法会获取并返回结果内容，并自动关闭响应对象。
+// OptionsContent is a convenience method for sending OPTIONS request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) OptionsContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodOptions, url, data...))
 }
 
-// TraceContent 是一个便捷方法，用于发送 TRACE 请求，该请求会检索并返回结果内容，并自动关闭响应对象。
+// TraceContent is a convenience method for sending TRACE request, which retrieves and returns
+// the result content and automatically closes response object.
 func (c *Client) TraceContent(ctx context.Context, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, http.MethodTrace, url, data...))
 }
 
-// RequestContent 是一个便捷方法，用于发送自定义 HTTP 方法请求，
-// 它会获取并返回结果内容，并自动关闭响应对象。
+// RequestContent is a convenience method for sending custom http method request, which
+// retrieves and returns the result content and automatically closes response object.
 func (c *Client) RequestContent(ctx context.Context, method string, url string, data ...interface{}) string {
 	return string(c.RequestBytes(ctx, method, url, data...))
 }

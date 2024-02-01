@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gins
+
 import (
 	"context"
 	"fmt"
@@ -16,9 +18,10 @@ import (
 	"github.com/888go/goframe/internal/intlog"
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gutil"
-	)
-// Redis 返回一个使用指定配置组名称的 Redis 客户端实例。
-// 需要注意的是，如果在创建实例期间发生任何错误，它会引发 panic。
+)
+
+// Redis returns an instance of redis client with specified configuration group name.
+// Note that it panics if any error occurs duration instance creating.
 func Redis(name ...string) *gredis.Redis {
 	var (
 		err   error
@@ -30,7 +33,7 @@ func Redis(name ...string) *gredis.Redis {
 	}
 	instanceKey := fmt.Sprintf("%s.%s", frameCoreComponentNameRedis, group)
 	result := instance.GetOrSetFuncLock(instanceKey, func() interface{} {
-		// 如果已经配置过，则返回redis实例。
+		// If already configured, it returns the redis instance.
 		if _, ok := gredis.GetConfig(group); ok {
 			return gredis.Instance(group)
 		}

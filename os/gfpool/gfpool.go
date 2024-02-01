@@ -1,11 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gfpool 提供了用于文件指针的可重用 io 资源池。
+// Package gfpool provides io-reusable pool for file pointer.
 package gfpool
+
 import (
 	"os"
 	"time"
@@ -13,27 +14,28 @@ import (
 	"github.com/888go/goframe/container/gmap"
 	"github.com/888go/goframe/container/gpool"
 	"github.com/888go/goframe/container/gtype"
-	)
-// Pool 指针池。
+)
+
+// Pool pointer pool.
 type Pool struct {
-	id   *gtype.Int    // Pool id，用于标记此pool是否已重建。
+	id   *gtype.Int    // Pool id, which is used to mark this pool whether recreated.
 	pool *gpool.Pool   // Underlying pool.
-	init *gtype.Bool   // 是否已初始化，用于标记该文件是否已添加到fsnotify，且只能添加一次。
-	ttl  time.Duration // 文件指针项的生存时间（TTL）
+	init *gtype.Bool   // Whether initialized, used for marking this file added to fsnotify, and it can only be added just once.
+	ttl  time.Duration // Time to live for file pointer items.
 }
 
-// File 是池中的一个项目。
+// File is an item in the pool.
 type File struct {
-	*os.File             // 底层文件指针。
-	stat     os.FileInfo // 当前文件指针的状态。
+	*os.File             // Underlying file pointer.
+	stat     os.FileInfo // State of current file pointer.
 	pid      int         // Belonging pool id, which is set when file pointer created. It's used to check whether the pool is recreated.
 	pool     *Pool       // Belonging ool.
-	flag     int         // 用于打开文件的闪存（快速暂存）
-	perm     os.FileMode // 打开文件所需的权限。
-	path     string      // 文件的绝对路径。
+	flag     int         // Flash for opening file.
+	perm     os.FileMode // Permission for opening file.
+	path     string      // Absolute path of the file.
 }
 
 var (
-	// 全局文件指针池。
+	// Global file pointer pool.
 	pools = gmap.NewStrAnyMap(true)
 )

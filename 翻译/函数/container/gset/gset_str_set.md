@@ -23,12 +23,7 @@ func NewStrSetFrom(items
 func NewStrSetFrom
 X创建文本并按值
 # <翻译结束>
-
-# <翻译开始>
-) Iterator
-X遍历
-# <翻译结束>
-
+ 
 # <翻译开始>
 ) Add(item
 值s

@@ -1,90 +1,93 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtest
+
 import (
 	"testing"
-	)
-// T 是测试用例管理对象。
+)
+
+// T is the testing unit case management object.
 type T struct {
 	*testing.T
 }
 
-// Assert 检查 `value` 和 `expect` 是否相等。
+// Assert checks `value` and `expect` EQUAL.
 func (t *T) Assert(value, expect interface{}) {
 	Assert(value, expect)
 }
 
-// AssertEQ 检查 `value` 和 `expect` 是否相等，包括它们的 TYPE（类型）。
+// AssertEQ checks `value` and `expect` EQUAL, including their TYPES.
 func (t *T) AssertEQ(value, expect interface{}) {
 	AssertEQ(value, expect)
 }
 
-// AssertNE 检查 `value` 和 `expect` 是否不相等。
+// AssertNE checks `value` and `expect` NOT EQUAL.
 func (t *T) AssertNE(value, expect interface{}) {
 	AssertNE(value, expect)
 }
 
-// AssertNQ 检查 `value` 和 `expect` 是否不相等，包括它们的类型。
+// AssertNQ checks `value` and `expect` NOT EQUAL, including their TYPES.
 func (t *T) AssertNQ(value, expect interface{}) {
 	AssertNQ(value, expect)
 }
 
-// AssertGT 检查 `value` 是否大于 `expect`。
-// 注意，只有字符串、整数和浮点类型可以通过 AssertGT 进行比较，
-// 其他类型是无效的。
+// AssertGT checks `value` is GREATER THAN `expect`.
+// Notice that, only string, integer and float types can be compared by AssertGT,
+// others are invalid.
 func (t *T) AssertGT(value, expect interface{}) {
 	AssertGT(value, expect)
 }
 
-// AssertGE 检查 `value` 是否大于或等于 `expect`。
-// 注意，只有字符串、整数和浮点类型可以使用 AssertGTE 进行比较，其他类型无效。
+// AssertGE checks `value` is GREATER OR EQUAL THAN `expect`.
+// Notice that, only string, integer and float types can be compared by AssertGTE,
+// others are invalid.
 func (t *T) AssertGE(value, expect interface{}) {
 	AssertGE(value, expect)
 }
 
-// AssertLT 检查 `value` 是否小于等于 `expect`。
-// 注意，只有字符串、整数和浮点类型可以使用 AssertLT 进行比较，
-// 其他类型无效。
+// AssertLT checks `value` is LESS EQUAL THAN `expect`.
+// Notice that, only string, integer and float types can be compared by AssertLT,
+// others are invalid.
 func (t *T) AssertLT(value, expect interface{}) {
 	AssertLT(value, expect)
 }
 
-// AssertLE 检查 `value` 是否小于等于 `expect`。
-// 注意，只有字符串、整数和浮点类型可以通过 AssertLTE 进行比较，
-// 其他类型是无效的。
+// AssertLE checks `value` is LESS OR EQUAL THAN `expect`.
+// Notice that, only string, integer and float types can be compared by AssertLTE,
+// others are invalid.
 func (t *T) AssertLE(value, expect interface{}) {
 	AssertLE(value, expect)
 }
 
-// AssertIN 检查 `value` 是否在 `expect` 内。
-// 其中 `expect` 应为一个切片，
-// 但 `value` 可以是切片或基本类型变量。
+// AssertIN checks `value` is IN `expect`.
+// The `expect` should be a slice,
+// but the `value` can be a slice or a basic type variable.
 func (t *T) AssertIN(value, expect interface{}) {
 	AssertIN(value, expect)
 }
 
-// AssertNI 检查 `value` 是否不在 `expect` 中。
-// `expect` 应该是一个切片，
-// 但 `value` 可以是切片或基本类型变量。
+// AssertNI checks `value` is NOT IN `expect`.
+// The `expect` should be a slice,
+// but the `value` can be a slice or a basic type variable.
 func (t *T) AssertNI(value, expect interface{}) {
 	AssertNI(value, expect)
 }
 
-// AssertNil 断言 `value` 为 nil。
+// AssertNil asserts `value` is nil.
 func (t *T) AssertNil(value interface{}) {
 	AssertNil(value)
 }
 
-// Error 使用给定的`message`引发panic异常。
+// Error panics with given `message`.
 func (t *T) Error(message ...interface{}) {
 	Error(message...)
 }
 
-// Fatal将`message`打印到标准错误输出（stderr）并退出进程。
+// Fatal prints `message` to stderr and exit the process.
 func (t *T) Fatal(message ...interface{}) {
 	Fatal(message...)
 }

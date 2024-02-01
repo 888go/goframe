@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv_test
+
 import (
 	"testing"
 	"time"
@@ -15,7 +17,8 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
+
 type MyTime struct {
 	time.Time
 }
@@ -60,7 +63,7 @@ type Pkg struct {
 	Data   []byte
 }
 
-// NewPkg 根据给定的数据创建并返回一个包。
+// NewPkg creates and returns a package with given data.
 func NewPkg(data []byte) *Pkg {
 	return &Pkg{
 		Length: uint16(len(data) + 6),
@@ -69,7 +72,7 @@ func NewPkg(data []byte) *Pkg {
 	}
 }
 
-// Marshal 将协议结构体编码为字节流。
+// Marshal encodes the protocol struct to bytes.
 func (p *Pkg) Marshal() []byte {
 	b := make([]byte, 6+len(p.Data))
 	copy(b, gbinary.EncodeUint16(p.Length))
@@ -78,7 +81,7 @@ func (p *Pkg) Marshal() []byte {
 	return b
 }
 
-// UnmarshalValue 将字节解码为协议结构体。
+// UnmarshalValue decodes bytes to protocol struct.
 func (p *Pkg) UnmarshalValue(v interface{}) error {
 	b := gconv.Bytes(v)
 	if len(b) < 6 {

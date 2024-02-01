@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gins_test
+
 import (
 	"testing"
 	"time"
@@ -13,7 +15,7 @@ import (
 	"github.com/888go/goframe/os/gfile"
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func Test_Database(t *testing.T) {
 	databaseContent := gfile.GetContents(
@@ -35,10 +37,10 @@ func Test_Database(t *testing.T) {
 
 		defer gins.Config().GetAdapter().(*gcfg.AdapterFile).Clear()
 
-		// 用于gfsnotify回调刷新配置文件的缓存
+		// for gfsnotify callbacks to refresh cache of config file
 		time.Sleep(500 * time.Millisecond)
 
-		// 输出 "gins Test_Database" 和 Config() 获取到的 "test" 配置项内容
+		// fmt.Println("gins Test_Database", Config().Get("test"))
 		var (
 			db        = gins.Database()
 			dbDefault = gins.Database("default")

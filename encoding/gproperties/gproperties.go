@@ -1,11 +1,12 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gproperties 提供了对 .properties 文件内容的访问和转换功能。
+// Package gproperties provides accessing and converting for .properties content.
 package gproperties
+
 import (
 	"bytes"
 	"sort"
@@ -16,8 +17,9 @@ import (
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/internal/json"
 	"github.com/888go/goframe/util/gconv"
-	)
-// Decode将属性格式转换为映射。
+)
+
+// Decode converts properties format to map.
 func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	pr, err := properties.Load(data, properties.UTF8)
@@ -26,20 +28,20 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 		return nil, err
 	}
 	for _, key := range pr.Keys() {
-		// 忽略存在性检查：我们知道它在那里
+		// ignore existence check: we know it's there
 		value, _ := pr.Get(key)
-		// 递归构建嵌套映射
+		// recursively build nested maps
 		path := strings.Split(key, ".")
 		lastKey := strings.ToLower(path[len(path)-1])
 		deepestMap := deepSearch(res, path[0:len(path)-1])
 
-		// 设置最内层的值
+		// set innermost value
 		deepestMap[lastKey] = value
 	}
 	return res, nil
 }
 
-// Encode 将map转换为属性格式。
+// Encode converts map to properties format.
 func Encode(data map[string]interface{}) (res []byte, err error) {
 	pr := properties.NewProperties()
 
@@ -74,7 +76,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 	return buf.Bytes(), nil
 }
 
-// ToJson 将 .properties 格式转换为 JSON。
+// ToJson convert .properties format to JSON.
 func ToJson(data []byte) (res []byte, err error) {
 	prMap, err := Decode(data)
 	if err != nil {
@@ -83,14 +85,14 @@ func ToJson(data []byte) (res []byte, err error) {
 	return json.Marshal(prMap)
 }
 
-// deepSearch 深度扫描映射，根据序列"path"中列出的键索引进行查找。
-// 期望最后一个值为另一个映射，并将其返回。
+// deepSearch scans deep maps, following the key indexes listed in the sequence "path".
+// The last value is expected to be another map, and is returned.
 func deepSearch(m map[string]interface{}, path []string) map[string]interface{} {
 	for _, k := range path {
 		m2, ok := m[k]
 		if !ok {
-// 中间键不存在
-// => 创建它并从此处继续
+			// intermediate key does not exist
+			// => create it and continue from there
 			m3 := make(map[string]interface{})
 			m[k] = m3
 			m = m3
@@ -101,13 +103,13 @@ func deepSearch(m map[string]interface{}, path []string) map[string]interface{} 
 			m3 = make(map[string]interface{})
 			m[k] = m3
 		}
-		// 从这里继续搜索
+		// continue search from here
 		m = m3
 	}
 	return m
 }
 
-// flattenAndMergeMap 递归地将给定的映射扁平化并合并到一个新的映射中
+// flattenAndMergeMap recursively flattens the given map into a new map
 func flattenAndMergeMap(shadow map[string]interface{}, m map[string]interface{}, prefix string, delimiter string) map[string]interface{} {
 	if shadow != nil && prefix != "" && shadow[prefix] != nil {
 		return shadow
@@ -129,7 +131,7 @@ func flattenAndMergeMap(shadow map[string]interface{}, m map[string]interface{},
 			shadow[strings.ToLower(fullKey)] = val
 			continue
 		}
-		// 递归合并至影子映射
+		// recursively merge to shadow map
 		shadow = flattenAndMergeMap(shadow, m2, fullKey, delimiter)
 	}
 	return shadow

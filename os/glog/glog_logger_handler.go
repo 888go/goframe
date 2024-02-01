@@ -1,50 +1,53 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package glog
+
 import (
 	"bytes"
 	"context"
 	"time"
 	
 	"github.com/888go/goframe/util/gconv"
-	)
-// Handler 是用于自定义日志内容输出的函数处理器。
+)
+
+// Handler is function handler for custom logging content outputs.
 type Handler func(ctx context.Context, in *HandlerInput)
 
-// HandlerInput 是 logging Handler 的输入参数结构体。
+// HandlerInput is the input parameter struct for logging Handler.
 type HandlerInput struct {
 	internalHandlerInfo
-	Logger      *Logger       // 当前日志器对象。
-	Buffer      *bytes.Buffer // Buffer，用于日志内容输出。
-	Time        time.Time     // 日志时间，即触发日志记录的时间。
-	TimeFormat  string        // 格式化的时间字符串，如 "2016-01-09 12:00:00"。
-	Color       int           // 使用颜色，如COLOR_RED、COLOR_BLUE等。例如：34
-	Level       int           // 使用级别，如 LEVEL_INFO, LEVEL_ERRO 等。例如：256
-	LevelFormat string        // 格式化的级别字符串，如 "DEBU", "ERRO" 等。例如：ERRO
-	CallerFunc  string        // 如果设置了F_CALLER_FN，该变量记录调用日志函数的源函数名。
-	CallerPath  string        // 调用日志记录的源文件路径及其行号，仅在设置了 F_FILE_SHORT 或 F_FILE_LONG 时可用。
-	CtxStr      string        // 从context中获取的字符串类型的上下文值，但只有在配置了Config.CtxKeys时才可用。
-	TraceId     string        // 跟踪ID，仅在启用OpenTelemetry时可用。
-	Prefix      string        // 自定义日志内容前缀字符串。
-	Content     string        // Content 是由 logger 生成的、不包含错误堆栈信息的主要日志内容。
-	Values      []any         // 传递给 logger 的未格式化的值数组。
-	Stack       string        // Stack 字符串由 logger 生成，仅在配置了 Config.StStatus 时可用。
-	IsAsync     bool          // IsAsync 标记它处于异步日志记录状态。
+	Logger      *Logger       // Current Logger object.
+	Buffer      *bytes.Buffer // Buffer for logging content outputs.
+	Time        time.Time     // Logging time, which is the time that logging triggers.
+	TimeFormat  string        // Formatted time string, like "2016-01-09 12:00:00".
+	Color       int           // Using color, like COLOR_RED, COLOR_BLUE, etc. Eg: 34
+	Level       int           // Using level, like LEVEL_INFO, LEVEL_ERRO, etc. Eg: 256
+	LevelFormat string        // Formatted level string, like "DEBU", "ERRO", etc. Eg: ERRO
+	CallerFunc  string        // The source function name that calls logging, only available if F_CALLER_FN set.
+	CallerPath  string        // The source file path and its line number that calls logging, only available if F_FILE_SHORT or F_FILE_LONG set.
+	CtxStr      string        // The retrieved context value string from context, only available if Config.CtxKeys configured.
+	TraceId     string        // Trace id, only available if OpenTelemetry is enabled.
+	Prefix      string        // Custom prefix string for logging content.
+	Content     string        // Content is the main logging content without error stack string produced by logger.
+	Values      []any         // The passed un-formatted values array to logger.
+	Stack       string        // Stack string produced by logger, only available if Config.StStatus configured.
+	IsAsync     bool          // IsAsync marks it is in asynchronous logging.
 }
 
 type internalHandlerInfo struct {
-	index    int       // 此中间件用于内部使用，处理索引功能。
-	handlers []Handler // 通过索引调用处理器数组
+	index    int       // Middleware handling index for internal usage.
+	handlers []Handler // Handler array calling bu index.
 }
 
-// defaultHandler 是该包的默认处理器。
+// defaultHandler is the default handler for package.
 var defaultHandler Handler
 
-// doFinalPrint 是一个用于记录内容打印的处理器。
-// 如果其中任意一项被配置，此处理器会将日志内容输出到文件、标准输出(stdout)或写入指定位置。
+// doFinalPrint is a handler for logging content printing.
+// This handler outputs logging content to file/stdout/write if any of them configured.
 func doFinalPrint(ctx context.Context, in *HandlerInput) {
 	buffer := in.Logger.doFinalPrint(ctx, in)
 	if in.Buffer.Len() == 0 {
@@ -52,17 +55,17 @@ func doFinalPrint(ctx context.Context, in *HandlerInput) {
 	}
 }
 
-// SetDefaultHandler 设置包的默认处理器。
+// SetDefaultHandler sets default handler for package.
 func SetDefaultHandler(handler Handler) {
 	defaultHandler = handler
 }
 
-// GetDefaultHandler 返回该包的默认处理器。
+// GetDefaultHandler returns the default handler of package.
 func GetDefaultHandler() Handler {
 	return defaultHandler
 }
 
-// Next 以中间件方式调用下一个日志处理程序。
+// Next calls the next logging handler in middleware way.
 func (in *HandlerInput) Next(ctx context.Context) {
 	in.index++
 	if in.index < len(in.handlers) {
@@ -70,7 +73,7 @@ func (in *HandlerInput) Next(ctx context.Context) {
 	}
 }
 
-// String 返回由默认日志处理程序格式化的日志内容。
+// String returns the logging content formatted by default logging handler.
 func (in *HandlerInput) String(withColor ...bool) string {
 	formatWithColor := false
 	if len(withColor) > 0 {
@@ -118,7 +121,7 @@ func (in *HandlerInput) getDefaultBuffer(withColor bool) *bytes.Buffer {
 		in.addStringToBuffer(buffer, in.Content)
 	}
 
-	// 将values字符串内容进行转换
+	// Convert values string content.
 	var valueContent string
 	for _, v := range in.Values {
 		valueContent = gconv.String(v)
@@ -127,7 +130,7 @@ func (in *HandlerInput) getDefaultBuffer(withColor bool) *bytes.Buffer {
 		}
 		if buffer.Len() > 0 {
 			if buffer.Bytes()[buffer.Len()-1] == '\n' {
-				// 删除一个空行（\n\n）
+				// Remove one blank line(\n\n).
 				if valueContent[0] == '\n' {
 					valueContent = valueContent[1:]
 				}
@@ -143,7 +146,7 @@ func (in *HandlerInput) getDefaultBuffer(withColor bool) *bytes.Buffer {
 	if in.Stack != "" {
 		in.addStringToBuffer(buffer, "\nStack:\n"+in.Stack)
 	}
-	// 避免在行尾出现单个空格。
+	// avoid a single space at the end of a line.
 	buffer.WriteString("\n")
 	return buffer
 }

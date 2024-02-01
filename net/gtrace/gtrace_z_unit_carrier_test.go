@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtrace_test
+
 import (
 	"context"
 	"testing"
@@ -14,7 +15,8 @@ import (
 	
 	"github.com/888go/goframe/net/gtrace"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 const (
 	traceIDStr = "4bf92f3577b34da6a3ce929d0e0e4736"
 	spanIDStr  = "00f067aa0ba902b7"
@@ -61,6 +63,6 @@ func TestNewCarrier(t *testing.T) {
 		ctx = otel.GetTextMapPropagator().Extract(ctx, carrier1)
 		gotSc := trace.SpanContextFromContext(ctx)
 		t.Assert(gotSc.TraceID().String(), traceID.String())
-		// 新建的span在内部创建，因此SpanID是不同的。
+		// New span is created internally, so the SpanID is different.
 	})
 }

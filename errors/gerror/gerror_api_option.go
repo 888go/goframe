@@ -1,22 +1,25 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gerror
+
 import (
 	"github.com/888go/goframe/errors/gcode"
-	)
-// Option 是用于创建错误的选项。
+)
+
+// Option is option for creating error.
 type Option struct {
-	Error error      // 如果存在，则为包装后的错误。
-	Stack bool       // 是否将堆栈信息记录到错误中。
-	Text  string     // 错误文本，由 New* 函数创建。
-	Code  gcode.Code // 如果必要，此处为错误代码。
+	Error error      // Wrapped error if any.
+	Stack bool       // Whether recording stack information into error.
+	Text  string     // Error text, which is created by New* functions.
+	Code  gcode.Code // Error code if necessary.
 }
 
-// NewWithOption 根据选项创建并返回一个自定义错误。
-// 这是用于创建错误的高级用法，常在框架内部使用。
+// NewWithOption creates and returns a custom error with Option.
+// It is the senior usage for creating error, which is often used internally in framework.
 func NewWithOption(option Option) error {
 	err := &Error{
 		error: option.Error,
@@ -29,8 +32,8 @@ func NewWithOption(option Option) error {
 	return err
 }
 
-// NewOption 创建并返回一个带有 Option 的自定义错误。
-// 已弃用：请改用 NewWithOption。
+// NewOption creates and returns a custom error with Option.
+// Deprecated: use NewWithOption instead.
 func NewOption(option Option) error {
 	return NewWithOption(option)
 }

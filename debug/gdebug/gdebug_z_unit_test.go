@@ -1,12 +1,12 @@
 package gdebug_test
+
 import (
-	"fmt"
 	"testing"
 	
 	"github.com/888go/goframe/debug/gdebug"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/text/gstr"
-	)
+)
 
 func Test_CallerPackage(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -30,21 +30,17 @@ func Test_CallerDirectory(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(gstr.Contains(gdebug.CallerDirectory(), "gtest"), true)
 	})
-
 }
 
 func Test_CallerFileLine(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gstr.Contains(gdebug.CallerFileLine(), "gtest_util.go:33"), true)
+		t.Assert(gstr.Contains(gdebug.CallerFileLine(), "gtest_util.go:35"), true)
 	})
 }
 
 func Test_CallerFileLineShort(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		fmt.Println(gdebug.CallerFileLineShort())
-		fmt.Println(gdebug.CallerFileLineShort())
-
-		t.Assert(gstr.Contains(gdebug.CallerFileLineShort(), "gtest_util.go:33"), true)
+		t.Assert(gstr.Contains(gdebug.CallerFileLineShort(), "gtest_util.go:35"), true)
 	})
 }
 
@@ -74,13 +70,13 @@ func Test_GoroutineId(t *testing.T) {
 
 func Test_Stack(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gstr.Contains(gdebug.Stack(), "gtest_util.go:33"), true)
+		t.Assert(gstr.Contains(gdebug.Stack(), "gtest_util.go:35"), true)
 	})
 }
 
 func Test_StackWithFilter(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gstr.Contains(gdebug.StackWithFilter([]string{"github.com"}), "gtest_util.go:33"), true)
+		t.Assert(gstr.Contains(gdebug.StackWithFilter([]string{"github.com"}), "gtest_util.go:35"), true)
 	})
 }
 

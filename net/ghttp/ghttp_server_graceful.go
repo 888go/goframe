@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"context"
 	"crypto/tls"
@@ -22,24 +24,25 @@ import (
 	"github.com/888go/goframe/os/gproc"
 	"github.com/888go/goframe/os/gres"
 	"github.com/888go/goframe/text/gstr"
-	)
-// gracefulServer 将 net/http.Server 包装起来，为其提供优雅的重新加载/重启功能。
+)
+
+// gracefulServer wraps the net/http.Server with graceful reload/restart feature.
 type gracefulServer struct {
 	server      *Server      // Belonged server.
-	fd          uintptr      // 用于在优雅重启时传递给子进程的文件描述符。
-	address     string       // 监听地址格式如":80"、":8080"。
-	httpServer  *http.Server // 底层的 http.Server.
-	rawListener net.Listener // 基础的 net.Listener.
-	rawLnMu     sync.RWMutex // `rawListener`的并发安全互斥锁。
-	listener    net.Listener // 包装过的 net.Listener。
+	fd          uintptr      // File descriptor for passing to the child process when graceful reload.
+	address     string       // Listening address like:":80", ":8080".
+	httpServer  *http.Server // Underlying http.Server.
+	rawListener net.Listener // Underlying net.Listener.
+	rawLnMu     sync.RWMutex // Concurrent safety mutex for `rawListener`.
+	listener    net.Listener // Wrapped net.Listener.
 	isHttps     bool         // Is HTTPS.
-	status      *gtype.Int   // 当前服务器状态，使用 `gtype` 以确保并发安全性。
+	status      *gtype.Int   // Status of current server. Using `gtype` to ensure concurrent safety.
 }
 
-// newGracefulServer 根据给定的地址创建并返回一个优雅的 HTTP 服务器。
-// 可选参数 `fd` 指定了从父服务器传递过来的文件描述符。
+// newGracefulServer creates and returns a graceful http server with a given address.
+// The optional parameter `fd` specifies the file descriptor which is passed from parent server.
 func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
-	// 将端口更改为地址形式，例如：80 -> :80
+	// Change port to address like: 80 -> :80
 	if gstr.IsNumeric(address) {
 		address = ":" + address
 	}
@@ -67,7 +70,7 @@ func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
 	return gs
 }
 
-// newHttpServer 根据给定的地址创建并返回一个底层的 http.Server。
+// newHttpServer creates and returns an underlying http.Server with a given address.
 func (s *Server) newHttpServer(address string) *http.Server {
 	server := &http.Server{
 		Addr:           address,
@@ -82,8 +85,8 @@ func (s *Server) newHttpServer(address string) *http.Server {
 	return server
 }
 
-// Fd 获取并返回当前服务器的文件描述符。
-// 该功能仅在类*nix操作系统中可用，如linux、unix、darwin。
+// Fd retrieves and returns the file descriptor of the current server.
+// It is available ony in *nix like operating systems like linux, unix, darwin.
 func (s *gracefulServer) Fd() uintptr {
 	if ln := s.getRawListener(); ln != nil {
 		file, err := ln.(*net.TCPListener).File()
@@ -94,7 +97,7 @@ func (s *gracefulServer) Fd() uintptr {
 	return 0
 }
 
-// CreateListener 在配置的地址上创建监听器。
+// CreateListener creates listener on configured address.
 func (s *gracefulServer) CreateListener() error {
 	ln, err := s.getNetListener()
 	if err != nil {
@@ -105,9 +108,9 @@ func (s *gracefulServer) CreateListener() error {
 	return nil
 }
 
-// CreateListenerTLS 在配置的地址上创建 HTTPS 侦听器。
-// 参数 `certFile` 和 `keyFile` 指定用于 HTTPS 的必要证书和密钥文件。
-// 可选参数 `tlsConfig` 指定自定义 TLS 配置。
+// CreateListenerTLS creates listener on configured address with HTTPS.
+// The parameter `certFile` and `keyFile` specify the necessary certification and key files for HTTPS.
+// The optional parameter `tlsConfig` specifies the custom TLS configuration.
 func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig ...*tls.Config) error {
 	var config *tls.Config
 	if len(tlsConfig) > 0 && tlsConfig[0] != nil {
@@ -145,7 +148,7 @@ func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig .
 	return nil
 }
 
-// Serve 以阻塞方式启动服务。
+// Serve starts the serving with blocking way.
 func (s *gracefulServer) Serve(ctx context.Context) error {
 	if s.rawListener == nil {
 		return gerror.NewCode(gcode.CodeInvalidOperation, `call CreateListener/CreateListenerTLS before Serve`)
@@ -166,7 +169,7 @@ func (s *gracefulServer) Serve(ctx context.Context) error {
 	return err
 }
 
-// GetListenedAddress 获取并返回当前服务器监听的地址字符串。
+// GetListenedAddress retrieves and returns the address string which are listened by current server.
 func (s *gracefulServer) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -179,8 +182,8 @@ func (s *gracefulServer) GetListenedAddress() string {
 	return address
 }
 
-// GetListenedPort 获取并返回当前服务器监听的端口。
-// 注意：只有当服务器正在监听单个端口时，此方法才可用。
+// GetListenedPort retrieves and returns one port which is listened to by current server.
+// Note that this method is only available if the server is listening on one port.
 func (s *gracefulServer) GetListenedPort() int {
 	if ln := s.getRawListener(); ln != nil {
 		return ln.Addr().(*net.TCPAddr).Port
@@ -188,7 +191,7 @@ func (s *gracefulServer) GetListenedPort() int {
 	return -1
 }
 
-// getProto 获取并返回当前服务器的协议字符串。
+// getProto retrieves and returns the proto string of current server.
 func (s *gracefulServer) getProto() string {
 	proto := "http"
 	if s.isHttps {
@@ -197,7 +200,7 @@ func (s *gracefulServer) getProto() string {
 	return proto
 }
 
-// getNetListener 获取并返回封装后的 net.Listener。
+// getNetListener retrieves and returns the wrapped net.Listener.
 func (s *gracefulServer) getNetListener() (net.Listener, error) {
 	if s.rawListener != nil {
 		return s.rawListener, nil
@@ -222,7 +225,7 @@ func (s *gracefulServer) getNetListener() (net.Listener, error) {
 	return ln, err
 }
 
-// shutdown优雅地关闭服务器。
+// shutdown shuts down the server gracefully.
 func (s *gracefulServer) shutdown(ctx context.Context) {
 	if s.status.Val() == ServerStatusStopped {
 		return
@@ -241,21 +244,21 @@ func (s *gracefulServer) shutdown(ctx context.Context) {
 	}
 }
 
-// setRawListener 将给定的 net.Listener 设置到 `rawListener`。
+// setRawListener sets `rawListener` with given net.Listener.
 func (s *gracefulServer) setRawListener(ln net.Listener) {
 	s.rawLnMu.Lock()
 	defer s.rawLnMu.Unlock()
 	s.rawListener = ln
 }
 
-// setRawListener 返回当前服务器的 `原始监听器`。
+// setRawListener returns the `rawListener` of current server.
 func (s *gracefulServer) getRawListener() net.Listener {
 	s.rawLnMu.RLock()
 	defer s.rawLnMu.RUnlock()
 	return s.rawListener
 }
 
-// close 强制关闭服务器。
+// close shuts down the server forcibly.
 func (s *gracefulServer) close(ctx context.Context) {
 	if s.status.Val() == ServerStatusStopped {
 		return

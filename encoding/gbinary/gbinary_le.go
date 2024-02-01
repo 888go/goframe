@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gbinary
+
 import (
 	"bytes"
 	"context"
@@ -14,11 +15,14 @@ import (
 	
 	"github.com/888go/goframe/errors/gerror"
 	"github.com/888go/goframe/internal/intlog"
-	)
-// LeEncode 使用LittleEndian对一个或多个`values`进行编码成字节。
-// 它通过类型断言检查`values`中每个值的类型，并在内部调用相应的转换函数完成字节转换。
+)
+
+// LeEncode encodes one or multiple `values` into bytes using LittleEndian.
+// It uses type asserting checking the type of each value of `values` and internally
+// calls corresponding converting function do the bytes converting.
 //
-// 它支持通用变量类型的断言，最后使用fmt.Sprintf将值转换为字符串，然后再转换为字节。
+// It supports common variable type asserting, and finally it uses fmt.Sprintf converting
+// value to string and then to bytes.
 func LeEncode(values ...interface{}) []byte {
 	buf := new(bytes.Buffer)
 	for i := 0; i < len(values); i++ {
@@ -269,9 +273,10 @@ func LeDecodeToFloat64(b []byte) float64 {
 	return math.Float64frombits(binary.LittleEndian.Uint64(LeFillUpSize(b, 8)))
 }
 
-// LeFillUpSize 函数使用LittleEndian方式填充字节切片`b`，使其长度达到给定的`l`。
+// LeFillUpSize fills up the bytes `b` to given length `l` using LittleEndian.
 //
-// 注意：该函数通过复制原始字节切片创建一个新的字节切片来实现填充，以避免修改原参数字节。
+// Note that it creates a new bytes slice by copying the original one to avoid changing
+// the original parameter bytes.
 func LeFillUpSize(b []byte, l int) []byte {
 	if len(b) >= l {
 		return b[:l]

@@ -1,10 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受 MIT 许可协议条款约束。
-// 如果随此文件未分发 MIT 许可协议副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gring_test
+
 import (
 	"container/ring"
 	"testing"
@@ -12,7 +13,8 @@ import (
 	"github.com/888go/goframe/container/gring"
 	"github.com/888go/goframe/frame/g"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
+
 type Student struct {
 	position int
 	name     string
@@ -138,9 +140,7 @@ func TestRing_Slice(t *testing.T) {
 	})
 }
 
-// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题链接：https://github.com/gogf/gf/issues/1394
-// 翻译成中文：
-// 引用了GitHub上gogf/gf项目的一个问题：https://github.com/gogf/gf/issues/1394
+// https://github.com/gogf/gf/issues/1394
 func Test_Issue1394(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// gring.

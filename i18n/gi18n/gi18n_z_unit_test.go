@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gi18n_test
+
 import (
 	"time"
 	
@@ -21,7 +23,7 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gconv"
-	)
+)
 
 func Test_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -41,7 +43,7 @@ func Test_Basic(t *testing.T) {
 		t.Assert(i18n.T(context.Background(), "{$hello}{$world}"), "你好世界")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "{#hello}{#world}")
 		t.Assert(i18n.T(context.Background(), "{$你好} {$世界}"), "hello world")
-		// 未定义的变量。
+		// undefined variables.
 		t.Assert(i18n.T(context.Background(), "{$你好1}{$世界1}"), "{$你好1}{$世界1}")
 	})
 
@@ -137,7 +139,7 @@ func Test_Instance(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(g.I18n().T(context.Background(), "{#hello}{#world}"), "你好世界")
 	})
-	// 默认语言为：en
+	// Default language is: en
 	gtest.C(t, func(t *gtest.T) {
 		m := gi18n.Instance(gconv.String(gtime.TimestampNano()))
 		m.SetPath(gtest.DataPath("i18n-dir"))
@@ -219,9 +221,9 @@ func Test_PathInResource(t *testing.T) {
 }
 
 func Test_PathInNormal(t *testing.T) {
-	// 将国际化文件复制到当前目录。
+	// Copy i18n files to current directory.
 	gfile.CopyDir(gtest.DataPath("i18n"), gfile.Join(gdebug.CallerDirectory(), "manifest/i18n"))
-	// 在测试后删除复制的文件。
+	// Remove copied files after testing.
 	defer gfile.Remove(gfile.Join(gdebug.CallerDirectory(), "manifest"))
 
 	i18n := gi18n.New()
@@ -229,7 +231,7 @@ func Test_PathInNormal(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		i18n.SetLanguage("zh-CN")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "你好世界")
-		// 设置不存在的路径。
+		// Set not exist path.
 		err := i18n.SetPath("i18n-not-exist")
 		t.AssertNE(err, nil)
 		err = i18n.SetPath("")
@@ -238,13 +240,13 @@ func Test_PathInNormal(t *testing.T) {
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "こんにちは世界")
 	})
 
-	// 更改语言文件内容
+	// Change language file content.
 	gtest.C(t, func(t *gtest.T) {
 		i18n.SetLanguage("en")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}{#name}"), "HelloWorld{#name}")
 		err := gfile.PutContentsAppend(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en.toml"), "\nname = \"GoFrame\"")
 		t.Assert(err, nil)
-		// 等待文件修改时间发生变化。
+		// Wait for the file modification time to change.
 		time.Sleep(10 * time.Millisecond)
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}{#name}"), "HelloWorldGoFrame")
 	})
@@ -253,7 +255,7 @@ func Test_PathInNormal(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		err := gfile.PutContents(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en-US.toml"), "lang = \"en-US\"")
 		t.Assert(err, nil)
-		// 等待文件修改时间发生变化。
+		// Wait for the file modification time to change.
 		time.Sleep(10 * time.Millisecond)
 		i18n.SetLanguage("en-US")
 		t.Assert(i18n.T(context.Background(), "{#lang}"), "en-US")

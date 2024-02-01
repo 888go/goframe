@@ -1,11 +1,13 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 静态服务测试。
+// static service testing.
 
 package ghttp_test
+
 import (
 	"fmt"
 	"testing"
@@ -18,7 +20,7 @@ import (
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/guid"
-	)
+)
 
 func Test_Log(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -52,12 +54,11 @@ func Test_Log(t *testing.T) {
 		t.Assert(gstr.Contains(content, "HANDLER"), true)
 
 		logPath2 := gfile.Join(logDir, "access-"+gtime.Now().Format("Ymd")+".log")
-		// 打印logPath2文件的全部内容
-// fmt.Println(gfile.GetContents(logPath2))
+		// fmt.Println(gfile.GetContents(logPath2))
 		t.Assert(gstr.Contains(gfile.GetContents(logPath2), " /hello "), true)
 
 		logPath3 := gfile.Join(logDir, "error-"+gtime.Now().Format("Ymd")+".log")
-		// 打印从logPath3获取的文件内容到控制台（标准输出）
+		// fmt.Println(gfile.GetContents(logPath3))
 		t.Assert(gstr.Contains(gfile.GetContents(logPath3), "custom error"), true)
 	})
 }

@@ -1,11 +1,13 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
+// go test *.go -bench=".*" -benchmem
 
 package gcmd_test
+
 import (
 	"context"
 	"os"
@@ -16,11 +18,12 @@ import (
 	"github.com/888go/goframe/os/gctx"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gtag"
-	)
+)
+
 type commandBuild struct {
 	g.Meta               `name:"build" root:"build" args:"true" brief:"{commandBuildBrief}" dc:"{commandBuildDc}" eg:"{commandBuildEg}" ad:"{commandBuildAd}"`
-	nodeNameInConfigFile string // nodeNameInConfigFile 是配置文件中编译器配置所使用的节点名称。
-	packedGoFileName     string // packedGoFileName 指定将公共文件夹打包到单个 Go 文件时的文件名。
+	nodeNameInConfigFile string // nodeNameInConfigFile is the node name for compiler configurations in configuration file.
+	packedGoFileName     string // packedGoFileName specifies the file name for packing common folders into one single go file.
 }
 
 const (
@@ -51,7 +54,7 @@ PLATFORMS
     openbsd   386,amd64,arm
     windows   386,amd64
 `
-	// 这是Go语言（Golang）官方文档中关于从源代码安装Go语言的网址链接
+	// https://golang.google.cn/doc/install/source
 	commandBuildPlatforms = `
     darwin    amd64
     darwin    arm64

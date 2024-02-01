@@ -1,16 +1,19 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gredis
+
 import (
 	"context"
 	
 	"github.com/888go/goframe/container/gvar"
-	)
-// IGroupScript 管理 Redis 脚本操作。
-// 实现细节参考 redis.GroupScript。
+)
+
+// IGroupScript manages redis script operations.
+// Implements see redis.GroupScript.
 type IGroupScript interface {
 	Eval(ctx context.Context, script string, numKeys int64, keys []string, args []interface{}) (*gvar.Var, error)
 	EvalSha(ctx context.Context, sha1 string, numKeys int64, keys []string, args []interface{}) (*gvar.Var, error)
@@ -20,8 +23,8 @@ type IGroupScript interface {
 	ScriptKill(ctx context.Context) error
 }
 
-// ScriptFlushOption 提供了函数 ScriptFlush 的选项。
+// ScriptFlushOption provides options for function ScriptFlush.
 type ScriptFlushOption struct {
-	SYNC  bool // SYNC 同步刷新缓存。
-	ASYNC bool // ASYNC 异步刷新缓存。
+	SYNC  bool // SYNC  flushes the cache synchronously.
+	ASYNC bool // ASYNC flushes the cache asynchronously.
 }

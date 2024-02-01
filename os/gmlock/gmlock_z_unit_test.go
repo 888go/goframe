@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gmlock_test
+
 import (
 	"sync"
 	"testing"
@@ -12,7 +14,7 @@ import (
 	"github.com/888go/goframe/container/garray"
 	"github.com/888go/goframe/os/gmlock"
 	"github.com/888go/goframe/test/gtest"
-	)
+)
 
 func Test_Locker_Lock(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -248,7 +250,7 @@ func Test_Locker_RLock(t *testing.T) {
 		t.Assert(array.Len(), 2)
 	})
 
-	// 在RLocks之前加锁
+	// Lock before RLocks
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeRLocks"
 		array := garray.New(true)
@@ -280,7 +282,7 @@ func Test_Locker_RLock(t *testing.T) {
 }
 
 func Test_Locker_TryRLock(t *testing.T) {
-	// 在尝试RLock之前加锁
+	// Lock before TryRLock
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLock"
 		array := garray.New(true)
@@ -303,7 +305,7 @@ func Test_Locker_TryRLock(t *testing.T) {
 		t.Assert(array.Len(), 1)
 	})
 
-	// 在尝试RLock之前加锁s
+	// Lock before TryRLocks
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLocks"
 		array := garray.New(true)
@@ -335,7 +337,7 @@ func Test_Locker_TryRLock(t *testing.T) {
 }
 
 func Test_Locker_RLockFunc(t *testing.T) {
-	// RLockFunc 在 Lock 之前执行
+	// RLockFunc before Lock
 	gtest.C(t, func(t *gtest.T) {
 		key := "testRLockFuncBeforeLock"
 		array := garray.New(true)
@@ -357,7 +359,7 @@ func Test_Locker_RLockFunc(t *testing.T) {
 		t.Assert(array.Len(), 2)
 	})
 
-	// 在RLockFunc之前加锁
+	// Lock before RLockFunc
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeRLockFunc"
 		array := garray.New(true)
@@ -379,7 +381,7 @@ func Test_Locker_RLockFunc(t *testing.T) {
 		t.Assert(array.Len(), 2)
 	})
 
-	// 在RLockFunc之前加锁s
+	// Lock before RLockFuncs
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeRLockFuncs"
 		array := garray.New(true)
@@ -411,7 +413,7 @@ func Test_Locker_RLockFunc(t *testing.T) {
 }
 
 func Test_Locker_TryRLockFunc(t *testing.T) {
-	// 在尝试RLock之前加锁Func
+	// Lock before TryRLockFunc
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFunc"
 		array := garray.New(true)
@@ -433,7 +435,7 @@ func Test_Locker_TryRLockFunc(t *testing.T) {
 		t.Assert(array.Len(), 1)
 	})
 
-	// 在尝试RLock之前加锁Funcs
+	// Lock before TryRLockFuncs
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFuncs"
 		array := garray.New(true)

@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid_test
+
 import (
 	"testing"
 	"time"
@@ -15,7 +17,8 @@ import (
 	"github.com/888go/goframe/os/gtime"
 	"github.com/888go/goframe/test/gtest"
 	"github.com/888go/goframe/util/gtag"
-	)
+)
+
 var (
 	ctx = gctx.New()
 )
@@ -1112,8 +1115,7 @@ func Test_Not_Regex(t *testing.T) {
 	})
 }
 
-// 问题：https://github.com/gogf/gf/issues/1077
-// （该注释表明这是一个指向GitHub上gogf/gf项目中第1077号问题的链接，用于记录或追踪与当前代码相关的某个具体问题或bug。）
+// issue: https://github.com/gogf/gf/issues/1077
 func Test_InternalError_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type a struct {
@@ -1144,7 +1146,7 @@ func Test_Code(t *testing.T) {
 }
 
 func Test_Bail(t *testing.T) {
-	// 检查值但不提前退出
+	// check value with no bail
 	gtest.C(t, func(t *gtest.T) {
 		err := g.Validator().
 			Rules("required|min:1|between:1,100").
@@ -1154,7 +1156,7 @@ func Test_Bail(t *testing.T) {
 		t.Assert(err.Error(), "min number is 1; size is between 1 and 100")
 	})
 
-	// 使用bail检查值
+	// check value with bail
 	gtest.C(t, func(t *gtest.T) {
 		err := g.Validator().
 			Rules("bail|required|min:1|between:1,100").
@@ -1164,7 +1166,7 @@ func Test_Bail(t *testing.T) {
 		t.Assert(err.Error(), "min number is 1")
 	})
 
-	// 结构体，无bail属性
+	// struct with no bail
 	gtest.C(t, func(t *gtest.T) {
 		type Params struct {
 			Page int `v:"required|min:1"`

@@ -1,36 +1,37 @@
-// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循MIT协议条款。如果随此文件未分发MIT协议副本，
-// 您可以在https://github.com/gogf/gf获取一份。
+// ThIs Source Code Form Is subject to the terms of the MIT License.
+// If a copy of the MIT was not dIstributed with thIs file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfsnotify
 
-// String 返回当前事件的字符串表示。
+// String returns current event as string.
 func (e *Event) String() string {
 	return e.event.String()
 }
 
-// IsCreate 检查当前事件是否包含文件/文件夹创建事件。
+// IsCreate checks whether current event contains file/folder create event.
 func (e *Event) IsCreate() bool {
 	return e.Op == 1 || e.Op&CREATE == CREATE
 }
 
-// IsWrite 检查当前事件是否包含文件/文件夹写入事件。
+// IsWrite checks whether current event contains file/folder write event.
 func (e *Event) IsWrite() bool {
 	return e.Op&WRITE == WRITE
 }
 
-// IsRemove 检查当前事件是否包含文件/文件夹移除事件。
+// IsRemove checks whether current event contains file/folder remove event.
 func (e *Event) IsRemove() bool {
 	return e.Op&REMOVE == REMOVE
 }
 
-// IsRename 检查当前事件是否包含文件/文件夹重命名事件。
+// IsRename checks whether current event contains file/folder rename event.
 func (e *Event) IsRename() bool {
 	return e.Op&RENAME == RENAME
 }
 
-// IsChmod 检查当前事件是否包含文件/文件夹权限更改事件。
+// IsChmod checks whether current event contains file/folder chmod event.
 func (e *Event) IsChmod() bool {
 	return e.Op&CHMOD == CHMOD
 }

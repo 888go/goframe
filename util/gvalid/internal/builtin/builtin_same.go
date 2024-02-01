@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
+
 import (
 	"errors"
 	"strings"
@@ -11,11 +13,12 @@ import (
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
 	"github.com/888go/goframe/util/gutil"
-	)
-// RuleSame 实现了 `same` 规则：
-// 当前值应与指定字段的值相同。
+)
+
+// RuleSame implements `same` rule:
+// Value should be the same as value of field.
 //
-// 格式： same:field
+// Format: same:field
 type RuleSame struct{}
 
 func init() {

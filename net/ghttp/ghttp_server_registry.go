@@ -1,9 +1,11 @@
-// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
-// 您可以在 https://github.com/gogf/gf 获取一份。
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
+
 import (
 	"context"
 	"fmt"
@@ -13,8 +15,9 @@ import (
 	"github.com/888go/goframe/os/gctx"
 	"github.com/888go/goframe/text/gstr"
 	"github.com/888go/goframe/util/gconv"
-	)
-// doServiceRegister 将当前服务注册到注册中心。
+)
+
+// doServiceRegister registers current service to Registry.
 func (s *Server) doServiceRegister() {
 	if s.registrar == nil {
 		return
@@ -50,7 +53,7 @@ func (s *Server) doServiceRegister() {
 	}
 }
 
-// doServiceDeregister 从注册中心注销当前服务。
+// doServiceDeregister de-registers current service from Registry.
 func (s *Server) doServiceDeregister() {
 	if s.registrar == nil {
 		return
@@ -99,7 +102,8 @@ func (s *Server) calculateListenedEndpoints(ctx context.Context) gsvc.Endpoints 
 				s.Logger().Errorf(ctx, `error retrieving intranet ip: %+v`, err)
 				return nil
 			}
-// 如果没有找到内网IP，它将使用所有能够获取到的IP，这其中可能包括公网IP。
+			// If no intranet ips found, it uses all ips that can be retrieved,
+			// it may include internet ip.
 			if len(intranetIps) == 0 {
 				allIps, err := gipv4.GetIpArray()
 				if err != nil {
