@@ -6,8 +6,6 @@
 
 // 包gipv6提供了用于处理IPv6地址的有用API。
 package gipv6
-
-
 import (
 	"github.com/888go/goframe/text/gregex"
 	)

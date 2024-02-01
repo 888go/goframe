@@ -1,6 +1,4 @@
 package swaggerui
-
-
 import (
 	"github.com/888go/goframe/os/gres"
 	)

@@ -4,8 +4,6 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
-
-
 import (
 	"github.com/888go/goframe/container/gvar"
 	)

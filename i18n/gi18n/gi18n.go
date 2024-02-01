@@ -5,8 +5,6 @@
 
 // Package gi18n 实现了国际化和本地化功能。
 package gi18n
-
-
 import (
 	"context"
 	)
