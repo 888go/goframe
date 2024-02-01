@@ -10,11 +10,11 @@ package httputil
 import (
 	"net/http"
 	"strings"
-	
-	"github.com/888go/goframe/encoding/gurl"
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

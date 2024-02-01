@@ -8,9 +8,9 @@ package gins
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/net/gclient"
+
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/net/gclient"
 )
 
 // HttpClient returns an instance of http client with specified name.

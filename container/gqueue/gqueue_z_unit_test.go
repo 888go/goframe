@@ -11,9 +11,9 @@ package gqueue_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/gqueue"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/gqueue"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestQueue_Len(t *testing.T) {

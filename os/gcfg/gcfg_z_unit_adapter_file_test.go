@@ -10,10 +10,10 @@ package gcfg_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/os/gcfg"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestAdapterFile_Dump(t *testing.T) {

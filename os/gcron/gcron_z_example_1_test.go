@@ -9,9 +9,9 @@ package gcron_test
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/os/gcron"
-	"github.com/888go/goframe/os/glog"
+
+	"github.com/gogf/gf/v2/os/gcron"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 func ExampleCronAddSingleton() {

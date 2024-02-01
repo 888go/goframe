@@ -13,19 +13,19 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // GetCore returns the underlying *Core object.

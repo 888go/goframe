@@ -11,8 +11,8 @@ package gmap_test
 import (
 	"strconv"
 	"testing"
-	
-	"github.com/888go/goframe/container/gmap"
+
+	"github.com/gogf/gf/v2/container/gmap"
 )
 
 var anyAnyMapUnsafe = gmap.New()

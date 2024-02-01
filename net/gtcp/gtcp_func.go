@@ -11,9 +11,9 @@ import (
 	"crypto/tls"
 	"net"
 	"time"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gfile"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 const (

@@ -9,15 +9,15 @@ package gutil_test
 import (
 	"bytes"
 	"testing"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/net/ghttp"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gmeta"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Dump(t *testing.T) {

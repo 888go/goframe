@@ -13,10 +13,10 @@ import (
 	"context"
 	"os"
 	"syscall"
-	
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/os/gproc"
+
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gproc"
 )
 
 // handleProcessSignal handles all signals from system in blocking way.

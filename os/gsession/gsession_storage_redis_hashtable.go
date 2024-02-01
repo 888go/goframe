@@ -9,10 +9,10 @@ package gsession
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/database/gredis"
-	"github.com/888go/goframe/internal/intlog"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/database/gredis"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // StorageRedisHashTable implements the Session Storage interface with redis hash table.

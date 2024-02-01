@@ -8,8 +8,8 @@ package gcache
 
 import (
 	"sync"
-	
-	"github.com/888go/goframe/container/gset"
+
+	"github.com/gogf/gf/v2/container/gset"
 )
 
 type adapterMemoryExpireSets struct {

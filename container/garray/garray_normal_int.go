@@ -11,13 +11,13 @@ import (
 	"fmt"
 	"math"
 	"sort"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/grand"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 // IntArray is a golang int array with rich features.

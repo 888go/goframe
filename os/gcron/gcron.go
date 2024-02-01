@@ -10,9 +10,9 @@ package gcron
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/os/gtimer"
+
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 const (

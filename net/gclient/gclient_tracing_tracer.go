@@ -16,15 +16,15 @@ import (
 	"net/textproto"
 	"strings"
 	"sync"
-	
+
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
-	
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/net/gtrace"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // clientTracer is used for implementing httptrace.ClientTrace.

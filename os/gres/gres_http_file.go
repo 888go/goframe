@@ -9,8 +9,8 @@ package gres
 import (
 	"bytes"
 	"os"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Close implements interface of http.File.

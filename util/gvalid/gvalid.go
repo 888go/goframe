@@ -12,10 +12,10 @@ import (
 	"reflect"
 	"regexp"
 	"strings"
-	
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/util/gtag"
+
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // CustomMsg is the custom error message type,

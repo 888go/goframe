@@ -11,19 +11,19 @@ import (
 	"context"
 	"database/sql"
 	"reflect"
-	
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
-	
-	"github.com/888go/goframe/util/gconv"
-	
-	"github.com/888go/goframe"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/util/guid"
+
+	"github.com/gogf/gf/v2/util/gconv"
+
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 // Query commits one query SQL to underlying driver and returns the execution result.

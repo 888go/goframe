@@ -8,10 +8,10 @@ package gjson
 
 import (
 	"bytes"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Valid checks whether `data` is a valid JSON data type.

@@ -9,9 +9,9 @@ package builtin
 import (
 	"errors"
 	"strings"
-	
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // RuleRequiredWithAll implements `required-with-all` rule:

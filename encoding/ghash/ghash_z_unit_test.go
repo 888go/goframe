@@ -8,9 +8,9 @@ package ghash_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/encoding/ghash"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/encoding/ghash"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

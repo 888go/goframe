@@ -10,13 +10,13 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // DriverWrapperDB is a DB wrapper for extending features with embedded DB.

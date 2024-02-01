@@ -9,11 +9,11 @@ package gconv
 import (
 	"database/sql"
 	"reflect"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/os/gstructs"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gstructs"
 )
 
 // Scan automatically checks the type of `pointer` and converts `params` to `pointer`. It supports `pointer`

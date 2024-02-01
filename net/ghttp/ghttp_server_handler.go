@@ -11,16 +11,16 @@ import (
 	"os"
 	"sort"
 	"strings"
-	
-	"github.com/888go/goframe/encoding/ghtml"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/os/gspath"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/encoding/ghtml"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gspath"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // ServeHTTP is the default handler for http request.

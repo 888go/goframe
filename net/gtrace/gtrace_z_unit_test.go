@@ -9,10 +9,10 @@ package gtrace_test
 import (
 	"context"
 	"testing"
-	
-	"github.com/888go/goframe/net/gtrace"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 func TestWithTraceID(t *testing.T) {

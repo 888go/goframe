@@ -9,8 +9,8 @@ package gclient
 import (
 	"context"
 	"net/http"
-	
-	"github.com/888go/goframe/internal/intlog"
+
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // GetBytes sends a GET request, retrieves and returns the result content as bytes.

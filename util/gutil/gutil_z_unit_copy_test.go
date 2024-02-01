@@ -8,10 +8,10 @@ package gutil_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Copy(t *testing.T) {

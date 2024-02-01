@@ -11,15 +11,15 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/encoding/gcompress"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gmlock"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/os/gtimer"
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/encoding/gcompress"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gmlock"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 const (

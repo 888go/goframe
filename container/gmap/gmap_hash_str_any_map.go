@@ -9,13 +9,13 @@ package gmap
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/deepcopy"
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // StrAnyMap implements map[string]interface{} with RWMutex that has switch.

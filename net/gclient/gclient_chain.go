@@ -8,8 +8,8 @@ package gclient
 
 import (
 	"time"
-	
-	"github.com/888go/goframe/net/gsvc"
+
+	"github.com/gogf/gf/v2/net/gsvc"
 )
 
 // Prefix is a chaining function,

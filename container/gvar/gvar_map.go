@@ -6,9 +6,7 @@
 
 package gvar
 
-import (
-	"github.com/888go/goframe/util/gconv"
-)
+import "github.com/gogf/gf/v2/util/gconv"
 
 // MapOption specifies the option for map converting.
 type MapOption = gconv.MapOption

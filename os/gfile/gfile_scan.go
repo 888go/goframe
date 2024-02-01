@@ -9,9 +9,9 @@ package gfile
 import (
 	"path/filepath"
 	"sort"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 const (

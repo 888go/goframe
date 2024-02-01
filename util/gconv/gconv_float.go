@@ -8,8 +8,8 @@ package gconv
 
 import (
 	"strconv"
-	
-	"github.com/888go/goframe/encoding/gbinary"
+
+	"github.com/gogf/gf/v2/encoding/gbinary"
 )
 
 // Float32 converts `any` to float32.

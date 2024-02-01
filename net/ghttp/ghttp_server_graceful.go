@@ -17,13 +17,13 @@ import (
 	"strconv"
 	"sync"
 	"time"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gproc"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // gracefulServer wraps the net/http.Server with graceful reload/restart feature.

@@ -8,9 +8,9 @@ package glog
 
 import (
 	"strings"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Note that the LEVEL_PANI and LEVEL_FATA levels are not used for logging output,

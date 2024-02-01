@@ -9,13 +9,13 @@ package gdb
 import (
 	"database/sql"
 	"reflect"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // With creates and returns an ORM model based on metadata of given object.

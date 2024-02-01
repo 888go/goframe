@@ -9,9 +9,9 @@ package gutil
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

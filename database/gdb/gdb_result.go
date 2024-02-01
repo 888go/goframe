@@ -8,8 +8,8 @@ package gdb
 
 import (
 	"database/sql"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // SqlResult is execution result for sql operations.

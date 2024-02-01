@@ -8,17 +8,17 @@ package goai
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gmeta"
-	"github.com/888go/goframe/util/gvalid"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gvalid"
 )
 
 // Schema is specified by OpenAPI/Swagger 3.0 standard.

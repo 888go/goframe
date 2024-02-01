@@ -7,7 +7,7 @@
 package goai
 
 import (
-	"github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // XExtensions stores the `x-` custom extensions.

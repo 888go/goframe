@@ -9,14 +9,14 @@ package goai
 import (
 	"fmt"
 	"net/http"
-	
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Parameters is specified by OpenAPI/Swagger 3.0 standard.

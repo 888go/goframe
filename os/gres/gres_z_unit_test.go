@@ -7,16 +7,16 @@
 package gres_test
 
 import (
-	_ "github.com/888go/goframe/os/gres/testdata/data"
-	
+	_ "github.com/gogf/gf/v2/os/gres/testdata/data"
+
 	"strings"
 	"testing"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_PackFolderToGoFile(t *testing.T) {

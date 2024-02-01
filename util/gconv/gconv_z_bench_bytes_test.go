@@ -11,8 +11,8 @@ package gconv
 import (
 	"testing"
 	"unsafe"
-	
-	"github.com/888go/goframe/encoding/gbinary"
+
+	"github.com/gogf/gf/v2/encoding/gbinary"
 )
 
 var valueBytes = gbinary.Encode(123456789)

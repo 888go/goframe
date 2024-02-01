@@ -9,8 +9,8 @@ package gtime_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/os/gtime"
+
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 func Benchmark_Timestamp(b *testing.B) {

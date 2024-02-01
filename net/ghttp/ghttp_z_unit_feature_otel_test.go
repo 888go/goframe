@@ -10,12 +10,12 @@ import (
 	"fmt"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/net/ghttp"
-	"github.com/888go/goframe/net/gtrace"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/guid"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 func Test_OTEL_TraceID(t *testing.T) {

@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // BindObject registers object to server routes with a given pattern.

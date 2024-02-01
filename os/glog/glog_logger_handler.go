@@ -10,8 +10,8 @@ import (
 	"bytes"
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Handler is function handler for custom logging content outputs.

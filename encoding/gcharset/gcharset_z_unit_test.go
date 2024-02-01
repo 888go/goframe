@@ -8,9 +8,9 @@ package gcharset_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/encoding/gcharset"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/encoding/gcharset"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var testData = []struct {

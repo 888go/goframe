@@ -8,8 +8,8 @@ package builtin
 
 import (
 	"errors"
-	
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // RuleUrl implements `url` rule:

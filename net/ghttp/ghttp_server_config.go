@@ -15,19 +15,19 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/net/gsvc"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/os/gsession"
-	"github.com/888go/goframe/os/gview"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/os/gview"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 const (

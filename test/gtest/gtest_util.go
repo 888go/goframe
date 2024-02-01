@@ -12,10 +12,10 @@ import (
 	"path/filepath"
 	"reflect"
 	"testing"
-	
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

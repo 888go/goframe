@@ -8,9 +8,9 @@ package gdb
 
 import (
 	"strings"
-	
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Order sets the "ORDER BY" statement for the model.

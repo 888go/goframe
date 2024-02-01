@@ -10,12 +10,12 @@ import (
 	"context"
 	"fmt"
 	"testing"
-	
-	"github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Table_Relation_One(t *testing.T) {

@@ -11,8 +11,8 @@ package grpool_test
 import (
 	"context"
 	"testing"
-	
-	"github.com/888go/goframe/os/grpool"
+
+	"github.com/gogf/gf/v2/os/grpool"
 )
 
 var (

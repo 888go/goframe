@@ -9,12 +9,12 @@ package gdb
 import (
 	"database/sql"
 	"fmt"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/text/gstr"
-	
-	"github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/text/gstr"
+
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // Delete does "DELETE FROM ... " statement for the model.

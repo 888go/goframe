@@ -8,10 +8,10 @@ package goai
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RequestBody is specified by OpenAPI/Swagger 3.0 standard.

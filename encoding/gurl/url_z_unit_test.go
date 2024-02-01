@@ -8,9 +8,9 @@ package gurl_test
 import (
 	"net/url"
 	"testing"
-	
-	"github.com/888go/goframe/encoding/gurl"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

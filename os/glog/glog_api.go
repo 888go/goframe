@@ -6,9 +6,7 @@
 
 package glog
 
-import (
-	"context"
-)
+import "context"
 
 // Print prints `v` with newline using fmt.Sprintln.
 // The parameter `v` can be multiple variables.

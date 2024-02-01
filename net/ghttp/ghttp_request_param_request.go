@@ -7,12 +7,12 @@
 package ghttp
 
 import (
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/net/goai"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/net/goai"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // GetRequest retrieves and returns the parameter named `key` passed from the client and

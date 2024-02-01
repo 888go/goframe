@@ -8,9 +8,9 @@ package ghttp
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/os/gctx"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 // RequestFromCtx retrieves and returns the Request object from context.

@@ -8,8 +8,8 @@ package glog
 
 import (
 	"io"
-	
-	"github.com/888go/goframe/os/gfile"
+
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // To is a chaining function,

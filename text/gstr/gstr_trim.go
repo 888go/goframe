@@ -8,8 +8,8 @@ package gstr
 
 import (
 	"strings"
-	
-	"github.com/888go/goframe/internal/utils"
+
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // Trim strips whitespace (or other characters) from the beginning and end of a string.

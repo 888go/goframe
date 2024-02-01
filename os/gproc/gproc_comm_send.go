@@ -8,10 +8,10 @@ package gproc
 
 import (
 	"io"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/net/gtcp"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/net/gtcp"
 )
 
 // Send sends data to specified process of given pid.

@@ -9,10 +9,10 @@ package builtin
 import (
 	"errors"
 	"strconv"
-	
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // RuleLT implements `lt` rule:

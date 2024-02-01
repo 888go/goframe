@@ -10,10 +10,10 @@ package gproc_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/os/gproc"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_ShellExec(t *testing.T) {

@@ -6,9 +6,7 @@
 
 package gstr
 
-import (
-	"unicode/utf8"
-)
+import "unicode/utf8"
 
 // LenRune returns string length of unicode.
 func LenRune(str string) int {

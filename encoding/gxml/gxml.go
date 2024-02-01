@@ -9,12 +9,12 @@ package gxml
 
 import (
 	"strings"
-	
+
 	"github.com/clbanning/mxj/v2"
-	
-	"github.com/888go/goframe/encoding/gcharset"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/encoding/gcharset"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // Decode parses `content` into and returns as map.

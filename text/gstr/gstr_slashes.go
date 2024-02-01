@@ -8,8 +8,8 @@ package gstr
 
 import (
 	"bytes"
-	
-	"github.com/888go/goframe/internal/utils"
+
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // AddSlashes quotes with slashes `\` for chars: '"\.

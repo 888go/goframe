@@ -10,10 +10,10 @@ package gcfg_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gcfg"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestAdapterContent_Available_Get_Data(t *testing.T) {

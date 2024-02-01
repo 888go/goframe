@@ -10,13 +10,13 @@ import (
 	"context"
 	"math"
 	"time"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/os/gtimer"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // AdapterMemory is an adapter implements using memory.

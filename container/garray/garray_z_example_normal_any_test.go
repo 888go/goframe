@@ -8,11 +8,11 @@ package garray_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/internal/empty"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/frame/g"
+
+	"github.com/gogf/gf/v2/internal/empty"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 func ExampleNew() {

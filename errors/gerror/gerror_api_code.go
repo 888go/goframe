@@ -9,8 +9,8 @@ package gerror
 import (
 	"fmt"
 	"strings"
-	
-	"github.com/888go/goframe/errors/gcode"
+
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // NewCode creates and returns an error that has error code and given text.

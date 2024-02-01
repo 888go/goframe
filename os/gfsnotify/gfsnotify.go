@@ -11,18 +11,18 @@ import (
 	"context"
 	"sync"
 	"time"
-	
+
 	"github.com/fsnotify/fsnotify"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gqueue"
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gcache"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gqueue"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcache"
 )
 
 // Watcher is the monitor for file changes.

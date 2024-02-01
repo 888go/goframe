@@ -11,8 +11,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 var (

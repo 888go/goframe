@@ -11,8 +11,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // RawMessage is a raw encoded JSON value.

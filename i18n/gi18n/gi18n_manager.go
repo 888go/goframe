@@ -11,16 +11,16 @@ import (
 	"fmt"
 	"strings"
 	"sync"
-	
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gfsnotify"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // pathType is the type for i18n file path.

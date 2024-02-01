@@ -8,9 +8,9 @@ package gconv
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/reflection"
+
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/reflection"
 )
 
 // SliceInt is alias of Ints.

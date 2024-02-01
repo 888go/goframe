@@ -11,9 +11,9 @@ import (
 	"fmt"
 	"reflect"
 	"runtime"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/intlog"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // RuleFunc is the custom function for data validation.

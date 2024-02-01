@@ -9,11 +9,11 @@ package gtype_test
 import (
 	"sync"
 	"testing"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Byte(t *testing.T) {

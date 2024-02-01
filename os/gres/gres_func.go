@@ -11,12 +11,12 @@ import (
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	
-	"github.com/888go/goframe/encoding/gbase64"
-	"github.com/888go/goframe/encoding/gcompress"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/encoding/gbase64"
+	"github.com/gogf/gf/v2/encoding/gcompress"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 const (

@@ -7,19 +7,19 @@
 package g
 
 import (
-	"github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/database/gredis"
-	"github.com/888go/goframe/frame/gins"
-	"github.com/888go/goframe/i18n/gi18n"
-	"github.com/888go/goframe/net/gclient"
-	"github.com/888go/goframe/net/ghttp"
-	"github.com/888go/goframe/net/gtcp"
-	"github.com/888go/goframe/net/gudp"
-	"github.com/888go/goframe/os/gcfg"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/os/gview"
-	"github.com/888go/goframe/util/gvalid"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/database/gredis"
+	"github.com/gogf/gf/v2/frame/gins"
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/net/gclient"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/net/gtcp"
+	"github.com/gogf/gf/v2/net/gudp"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gview"
+	"github.com/gogf/gf/v2/util/gvalid"
 )
 
 // Client is a convenience function, which creates and returns a new HTTP client.

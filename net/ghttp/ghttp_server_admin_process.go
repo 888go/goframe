@@ -15,18 +15,18 @@ import (
 	"strings"
 	"sync"
 	"time"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/os/gproc"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/os/gtimer"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

@@ -10,10 +10,10 @@ import (
 	"context"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gsession"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_StorageMemory(t *testing.T) {

@@ -10,8 +10,8 @@ import (
 	"errors"
 	"strconv"
 	"strings"
-	
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // RuleSize implements `size` rule:

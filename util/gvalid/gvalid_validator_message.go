@@ -8,8 +8,8 @@ package gvalid
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/util/gvalid/internal/builtin"
+
+	"github.com/gogf/gf/v2/util/gvalid/internal/builtin"
 )
 
 // getErrorMessageByRule retrieves and returns the error message for specified rule.

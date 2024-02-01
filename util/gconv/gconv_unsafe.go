@@ -6,9 +6,7 @@
 
 package gconv
 
-import (
-	"unsafe"
-)
+import "unsafe"
 
 // UnsafeStrToBytes converts string to []byte without memory copy.
 // Note that, if you completely sure you will never use `s` variable in the feature,

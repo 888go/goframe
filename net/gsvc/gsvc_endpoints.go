@@ -8,7 +8,7 @@
 package gsvc
 
 import (
-	"github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // NewEndpoints creates and returns Endpoints from multiple addresses like:

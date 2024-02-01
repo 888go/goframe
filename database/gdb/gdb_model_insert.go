@@ -10,15 +10,15 @@ import (
 	"context"
 	"database/sql"
 	"reflect"
-	
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Batch sets the batch operation number for the model.

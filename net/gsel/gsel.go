@@ -9,8 +9,8 @@ package gsel
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/net/gsvc"
+
+	"github.com/gogf/gf/v2/net/gsvc"
 )
 
 // Builder creates and returns selector in runtime.

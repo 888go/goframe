@@ -9,8 +9,8 @@ package gstructs_test
 import (
 	"reflect"
 	"testing"
-	
-	"github.com/888go/goframe/os/gstructs"
+
+	"github.com/gogf/gf/v2/os/gstructs"
 )
 
 type User struct {

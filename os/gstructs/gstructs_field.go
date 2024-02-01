@@ -8,10 +8,10 @@ package gstructs
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/util/gtag"
+
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // Tag returns the value associated with key in the tag string. If there is no

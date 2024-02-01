@@ -11,8 +11,8 @@ import (
 	"bytes"
 	"compress/zlib"
 	"io"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Zlib compresses `data` with zlib algorithm.

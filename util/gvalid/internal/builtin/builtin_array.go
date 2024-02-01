@@ -8,8 +8,8 @@ package builtin
 
 import (
 	"errors"
-	
-	"github.com/888go/goframe/internal/json"
+
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // RuleArray implements `array` rule:

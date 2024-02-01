@@ -11,8 +11,8 @@ package gregex_test
 import (
 	"regexp"
 	"testing"
-	
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 var pattern = `(\w+).+\-\-\s*(.+)`

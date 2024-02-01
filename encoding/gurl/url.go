@@ -10,8 +10,8 @@ package gurl
 import (
 	"net/url"
 	"strings"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Encode escapes the string so it can be safely placed

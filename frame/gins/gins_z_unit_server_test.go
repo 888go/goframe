@@ -10,14 +10,14 @@ import (
 	"fmt"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/frame/gins"
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/net/ghttp"
-	"github.com/888go/goframe/os/gcfg"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/frame/gins"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Server(t *testing.T) {

@@ -9,10 +9,10 @@ package gtime_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_TimestampStr(t *testing.T) {

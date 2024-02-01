@@ -17,13 +17,13 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	
-	"github.com/888go/goframe/encoding/gbinary"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/util/gtag"
+
+	"github.com/gogf/gf/v2/encoding/gbinary"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 var (

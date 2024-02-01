@@ -9,10 +9,10 @@ package rwmutex_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/internal/rwmutex"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestRWMutexIsSafe(t *testing.T) {

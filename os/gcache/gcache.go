@@ -12,8 +12,8 @@ package gcache
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/gvar"
+
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // Func is the cache function that calculates and returns the value.

@@ -19,9 +19,9 @@ package gqueue
 
 import (
 	"math"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/container/gtype"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gtype"
 )
 
 // Queue is a concurrent-safe queue built on doubly linked list and channel.

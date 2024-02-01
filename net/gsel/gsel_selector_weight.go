@@ -9,10 +9,10 @@ package gsel
 import (
 	"context"
 	"sync"
-	
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/net/gsvc"
-	"github.com/888go/goframe/util/grand"
+
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 type selectorWeight struct {

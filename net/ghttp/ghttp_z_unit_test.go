@@ -14,14 +14,14 @@ import (
 	"runtime"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/encoding/gurl"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/httputil"
-	"github.com/888go/goframe/net/ghttp"
-	"github.com/888go/goframe/os/genv"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/guid"
+
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/httputil"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 var (

@@ -9,12 +9,12 @@ package gsession
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // Session struct for storing single session data, which is bound to a single request.

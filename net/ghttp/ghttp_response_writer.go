@@ -12,8 +12,8 @@ import (
 	"bytes"
 	"net"
 	"net/http"
-	
-	"github.com/888go/goframe/net/ghttp/internal/response"
+
+	"github.com/gogf/gf/v2/net/ghttp/internal/response"
 )
 
 // ResponseWriter is the custom writer for http response.

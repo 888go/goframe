@@ -12,10 +12,10 @@ import (
 	"context"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/os/gtimer"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestTimer_Add_Close(t *testing.T) {

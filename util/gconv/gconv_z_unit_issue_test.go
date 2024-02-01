@@ -9,13 +9,13 @@ package gconv_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // https://github.com/gogf/gf/issues/1227

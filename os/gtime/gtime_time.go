@@ -10,9 +10,9 @@ import (
 	"bytes"
 	"strconv"
 	"time"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Time is a wrapper for time.Time for additional features.

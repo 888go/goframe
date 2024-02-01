@@ -11,8 +11,8 @@ import (
 	"bytes"
 	"io"
 	"os"
-	
-	"github.com/888go/goframe/internal/json"
+
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 type File struct {

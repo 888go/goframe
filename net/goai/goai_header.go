@@ -7,7 +7,7 @@
 package goai
 
 import (
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // Header is specified by OpenAPI/Swagger 3.0 standard.

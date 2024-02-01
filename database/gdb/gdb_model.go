@@ -9,10 +9,10 @@ package gdb
 import (
 	"context"
 	"fmt"
-	
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Model is core struct implementing the DAO for ORM.

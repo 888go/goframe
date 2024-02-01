@@ -7,10 +7,10 @@
 package ghttp
 
 import (
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/httputil"
-	"github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/httputil"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // SupportedMethods returns all supported HTTP methods.

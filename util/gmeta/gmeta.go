@@ -8,8 +8,8 @@
 package gmeta
 
 import (
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/os/gstructs"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/os/gstructs"
 )
 
 // Meta is used as an embedded attribute for struct to enabled metadata feature.

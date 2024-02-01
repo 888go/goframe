@@ -8,8 +8,8 @@ package gerror
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/errors/gcode"
+
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // New creates and returns an error which is formatted from given text.

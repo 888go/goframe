@@ -12,19 +12,19 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gcache"
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/util/grand"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/util/grand"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // DB defines the interfaces for ORM operations.

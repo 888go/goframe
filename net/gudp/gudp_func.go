@@ -8,8 +8,8 @@ package gudp
 
 import (
 	"net"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // NewNetConn creates and returns a *net.UDPConn with given addresses.

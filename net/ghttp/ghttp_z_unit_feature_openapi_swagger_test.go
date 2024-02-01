@@ -11,14 +11,14 @@ import (
 	"fmt"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/net/ghttp"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gmeta"
-	"github.com/888go/goframe/util/guid"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 func Test_OpenApi_Swagger(t *testing.T) {
@@ -110,7 +110,7 @@ func Test_OpenApi_Multiple_Methods_Swagger(t *testing.T) {
 
 		t.Assert(len(openapi.Paths["/test"].Get.Parameters), 2)
 		t.Assert(len(openapi.Paths["/test/error"].Get.Parameters), 2)
-		t.Assert(len(openapi.Components.Schemas.Get(`github.com.888go.goframe.net.ghttp_test.TestReq`).Value.Properties.Map()), 2)
+		t.Assert(len(openapi.Components.Schemas.Get(`github.com.gogf.gf.v2.net.ghttp_test.TestReq`).Value.Properties.Map()), 2)
 
 		c := g.Client()
 		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))

@@ -10,8 +10,8 @@
 package instance
 
 import (
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/encoding/ghash"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/encoding/ghash"
 )
 
 const (

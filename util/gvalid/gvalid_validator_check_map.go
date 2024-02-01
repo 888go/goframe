@@ -11,10 +11,10 @@ import (
 	"errors"
 	"reflect"
 	"strings"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {

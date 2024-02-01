@@ -9,9 +9,9 @@ package gfile
 import (
 	"bytes"
 	"fmt"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Search searches file by name `name` in following paths with priority:

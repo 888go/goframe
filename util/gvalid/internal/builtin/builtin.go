@@ -12,8 +12,8 @@ package builtin
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/container/gvar"
+
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 type Rule interface {

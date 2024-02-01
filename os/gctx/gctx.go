@@ -11,11 +11,11 @@ import (
 	"context"
 	"os"
 	"strings"
-	
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
-	
-	"github.com/888go/goframe/net/gtrace"
+
+	"github.com/gogf/gf/v2/net/gtrace"
 )
 
 type (

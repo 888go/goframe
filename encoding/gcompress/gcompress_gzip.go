@@ -10,9 +10,9 @@ import (
 	"bytes"
 	"compress/gzip"
 	"io"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gfile"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // Gzip compresses `data` using gzip algorithm.

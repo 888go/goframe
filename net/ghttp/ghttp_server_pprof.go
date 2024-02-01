@@ -10,9 +10,9 @@ import (
 	netpprof "net/http/pprof"
 	runpprof "runtime/pprof"
 	"strings"
-	
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gview"
+
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gview"
 )
 
 // utilPProf is the PProf interface implementer.

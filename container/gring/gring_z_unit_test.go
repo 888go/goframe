@@ -9,10 +9,10 @@ package gring_test
 import (
 	"container/ring"
 	"testing"
-	
-	"github.com/888go/goframe/container/gring"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/gring"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 type Student struct {

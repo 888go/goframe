@@ -8,8 +8,8 @@ package gdb
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // doWhereType sets the condition statement for the model. The parameter `where` can be type of

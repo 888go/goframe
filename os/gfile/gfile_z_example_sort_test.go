@@ -8,8 +8,8 @@ package gfile_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/os/gfile"
+
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 func ExampleSortFiles() {

@@ -11,8 +11,8 @@ package gset_test
 import (
 	"strconv"
 	"testing"
-	
-	"github.com/888go/goframe/container/gset"
+
+	"github.com/gogf/gf/v2/container/gset"
 )
 
 var intSet = gset.NewIntSet(true)

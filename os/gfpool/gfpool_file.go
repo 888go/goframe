@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"os"
 	"time"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Open creates and returns a file item with given file path, flag and opening permission.

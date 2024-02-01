@@ -9,13 +9,13 @@ package gins
 import (
 	"context"
 	"fmt"
-	
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/net/ghttp"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Server returns an instance of http server with specified name.

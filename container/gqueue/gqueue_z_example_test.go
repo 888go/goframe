@@ -10,9 +10,9 @@ import (
 	"context"
 	"fmt"
 	"time"
-	
-	"github.com/888go/goframe/container/gqueue"
-	"github.com/888go/goframe/os/gtimer"
+
+	"github.com/gogf/gf/v2/container/gqueue"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 func ExampleNew() {

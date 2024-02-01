@@ -9,14 +9,14 @@ package gcfg
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/os/genv"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/genv"
 )
 
 // Config is the configuration management object.

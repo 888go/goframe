@@ -9,8 +9,8 @@ package gipv4
 
 import (
 	"net"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // GetMac retrieves and returns the first mac address of current host.

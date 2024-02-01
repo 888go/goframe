@@ -11,11 +11,11 @@ import (
 	"fmt"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gcron"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcron"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

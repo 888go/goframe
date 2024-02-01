@@ -9,11 +9,11 @@ package gsession_test
 import (
 	"fmt"
 	"time"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/os/gsession"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gsession"
 )
 
 func ExampleNew() {

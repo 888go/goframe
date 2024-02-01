@@ -12,17 +12,17 @@ import (
 	"reflect"
 	"runtime"
 	"strings"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gmeta"
-	"github.com/888go/goframe/util/gtag"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 var (

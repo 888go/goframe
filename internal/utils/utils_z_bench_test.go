@@ -9,8 +9,8 @@ package utils_test
 import (
 	"regexp"
 	"testing"
-	
-	"github.com/888go/goframe/internal/utils"
+
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 var (

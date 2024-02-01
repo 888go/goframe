@@ -11,9 +11,9 @@ package gcmd_test
 import (
 	"os"
 	"testing"
-	
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Parse(t *testing.T) {

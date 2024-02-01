@@ -9,14 +9,14 @@ package gfsnotify_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gfsnotify"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func TestWatcher_AddOnce(t *testing.T) {

@@ -10,13 +10,13 @@ import (
 	"context"
 	"fmt"
 	"sync"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/net/gtcp"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/gtcp"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // MsgRequest is the request structure for process communication.

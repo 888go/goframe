@@ -8,8 +8,8 @@ package gfile
 
 import (
 	"strings"
-	
-	"github.com/888go/goframe/container/garray"
+
+	"github.com/gogf/gf/v2/container/garray"
 )
 
 // fileSortFunc is the comparison function for files.

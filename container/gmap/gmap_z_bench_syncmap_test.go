@@ -11,8 +11,8 @@ package gmap_test
 import (
 	"sync"
 	"testing"
-	
-	"github.com/888go/goframe/container/gmap"
+
+	"github.com/gogf/gf/v2/container/gmap"
 )
 
 var gm = gmap.NewIntIntMap(true)

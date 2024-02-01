@@ -10,8 +10,8 @@ package gbase64
 import (
 	"encoding/base64"
 	"os"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Encode encodes bytes with BASE64 algorithm.

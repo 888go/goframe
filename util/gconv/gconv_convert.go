@@ -9,8 +9,8 @@ package gconv
 import (
 	"reflect"
 	"time"
-	
-	"github.com/888go/goframe/os/gtime"
+
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // Convert converts the variable `fromValue` to the type `toTypeName`, the type `toTypeName` is specified by string.

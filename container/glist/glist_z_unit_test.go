@@ -9,10 +9,10 @@ package glist
 import (
 	"container/list"
 	"testing"
-	
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func checkListLen(t *gtest.T, l *List, len int) bool {

@@ -9,8 +9,8 @@ package builtin
 import (
 	"errors"
 	"reflect"
-	
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // RuleRequired implements `required` rule.

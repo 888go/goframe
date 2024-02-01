@@ -8,9 +8,9 @@ package ghttp
 
 import (
 	"net/http"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // SetQuery sets custom query value with key-value pairs.

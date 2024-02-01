@@ -13,21 +13,21 @@ import (
 	"io"
 	"net/http"
 	"strings"
-	
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
-	
-	"github.com/888go/goframe"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/httputil"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/net/gtrace"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/httputil"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

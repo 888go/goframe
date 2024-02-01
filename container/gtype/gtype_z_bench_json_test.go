@@ -10,9 +10,9 @@ package gtype_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/json"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 var (

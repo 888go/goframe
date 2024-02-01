@@ -9,9 +9,9 @@ package gvalid_test
 import (
 	"context"
 	"fmt"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 func ExampleRule_Required() {

@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_New(t *testing.T) {

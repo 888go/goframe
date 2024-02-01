@@ -9,9 +9,9 @@ package gset_test
 import (
 	"encoding/json"
 	"fmt"
-	
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/frame/g"
+
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 // NewStrSet create and returns a new set, which contains un-repeated items.

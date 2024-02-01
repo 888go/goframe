@@ -9,9 +9,9 @@ package gring
 
 import (
 	"container/ring"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/rwmutex"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/rwmutex"
 )
 
 // Ring is a struct of ring structure.

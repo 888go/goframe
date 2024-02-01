@@ -8,10 +8,10 @@ package gvar_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/json"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // New

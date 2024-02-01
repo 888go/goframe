@@ -9,12 +9,12 @@ package ghttp
 import (
 	"context"
 	"fmt"
-	
-	"github.com/888go/goframe/net/gipv4"
-	"github.com/888go/goframe/net/gsvc"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/net/gipv4"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // doServiceRegister registers current service to Registry.

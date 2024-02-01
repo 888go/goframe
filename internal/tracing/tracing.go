@@ -10,12 +10,12 @@ package tracing
 import (
 	"math"
 	"time"
-	
+
 	"go.opentelemetry.io/otel/trace"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/encoding/gbinary"
-	"github.com/888go/goframe/util/grand"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/gbinary"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 var (

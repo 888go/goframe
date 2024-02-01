@@ -10,10 +10,10 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 type (

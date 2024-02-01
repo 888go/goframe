@@ -8,8 +8,8 @@ package builtin
 
 import (
 	"errors"
-	
-	"github.com/888go/goframe/net/gipv4"
+
+	"github.com/gogf/gf/v2/net/gipv4"
 )
 
 // RuleIpv4 implements `ipv4` rule:

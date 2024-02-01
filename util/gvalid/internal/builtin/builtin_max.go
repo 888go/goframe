@@ -9,8 +9,8 @@ package builtin
 import (
 	"errors"
 	"strconv"
-	
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RuleMax implements `max` rule:

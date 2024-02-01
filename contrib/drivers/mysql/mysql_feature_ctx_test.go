@@ -9,10 +9,10 @@ package mysql_test
 import (
 	"context"
 	"testing"
-	
-	"github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Ctx(t *testing.T) {

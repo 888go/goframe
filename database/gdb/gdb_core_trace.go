@@ -10,13 +10,13 @@ package gdb
 import (
 	"context"
 	"fmt"
-	
+
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
 	"go.opentelemetry.io/otel/trace"
-	
-	"github.com/888go/goframe/net/gtrace"
+
+	"github.com/gogf/gf/v2/net/gtrace"
 )
 
 const (

@@ -8,10 +8,10 @@ package ghtml_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/encoding/ghtml"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/encoding/ghtml"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_StripTags(t *testing.T) {

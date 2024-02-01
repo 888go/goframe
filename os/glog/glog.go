@@ -9,10 +9,10 @@ package glog
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/os/grpool"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/os/grpool"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // ILogger is the API interface for logger.

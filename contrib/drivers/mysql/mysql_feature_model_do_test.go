@@ -8,11 +8,11 @@ package mysql_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Model_Insert_Data_DO(t *testing.T) {

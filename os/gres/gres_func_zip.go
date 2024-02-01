@@ -12,11 +12,11 @@ import (
 	"os"
 	"strings"
 	"time"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/fileinfo"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/fileinfo"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // ZipPathWriter compresses `paths` to `writer` using zip compressing algorithm.

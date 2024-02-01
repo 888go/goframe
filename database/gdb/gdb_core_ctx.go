@@ -8,8 +8,8 @@ package gdb
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/os/gctx"
+
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 // internalCtxData stores data in ctx for internal usage purpose.

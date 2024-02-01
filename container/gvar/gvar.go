@@ -9,13 +9,13 @@ package gvar
 
 import (
 	"time"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/deepcopy"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Var is an universal variable type implementer.

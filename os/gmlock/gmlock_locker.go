@@ -8,8 +8,8 @@ package gmlock
 
 import (
 	"sync"
-	
-	"github.com/888go/goframe/container/gmap"
+
+	"github.com/gogf/gf/v2/container/gmap"
 )
 
 // Locker is a memory based locker.

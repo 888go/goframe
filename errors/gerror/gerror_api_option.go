@@ -6,9 +6,7 @@
 
 package gerror
 
-import (
-	"github.com/888go/goframe/errors/gcode"
-)
+import "github.com/gogf/gf/v2/errors/gcode"
 
 // Option is option for creating error.
 type Option struct {

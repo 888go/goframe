@@ -6,9 +6,7 @@
 
 package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // Pos returns the position of the first occurrence of `needle`
 // in `haystack` from `startOffset`, case-sensitively.

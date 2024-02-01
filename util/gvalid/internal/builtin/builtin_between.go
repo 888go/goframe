@@ -10,8 +10,8 @@ import (
 	"errors"
 	"strconv"
 	"strings"
-	
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RuleBetween implements `between` rule:

@@ -9,8 +9,8 @@ package gtimer
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/gtype"
+
+	"github.com/gogf/gf/v2/container/gtype"
 )
 
 // New creates and returns a Timer.

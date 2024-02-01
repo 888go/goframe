@@ -6,9 +6,7 @@
 
 package gcfg
 
-import (
-	"context"
-)
+import "context"
 
 // Adapter is the interface for configuration retrieving.
 type Adapter interface {

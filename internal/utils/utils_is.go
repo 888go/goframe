@@ -8,8 +8,8 @@ package utils
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/internal/empty"
+
+	"github.com/gogf/gf/v2/internal/empty"
 )
 
 // IsNil checks whether `value` is nil, especially for interface{} type value.

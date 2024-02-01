@@ -12,8 +12,8 @@ package ghttp
 import (
 	"context"
 	"os"
-	
-	"github.com/888go/goframe/os/gproc"
+
+	"github.com/gogf/gf/v2/os/gproc"
 )
 
 // handleProcessSignal handles all signals from system in blocking way.

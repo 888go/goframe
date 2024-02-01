@@ -9,8 +9,8 @@ package gcron
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/internal/intlog"
+
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // getAndUpdateLastTimestamp checks fixes and returns the last timestamp that have delay fix in some seconds.

@@ -8,11 +8,11 @@ package gcompress_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/encoding/gcompress"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/encoding/gcompress"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Gzip_UnGzip(t *testing.T) {

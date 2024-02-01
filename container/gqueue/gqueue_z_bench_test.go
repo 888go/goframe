@@ -10,8 +10,8 @@ package gqueue_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/container/gqueue"
+
+	"github.com/gogf/gf/v2/container/gqueue"
 )
 
 var bn = 20000000

@@ -11,13 +11,13 @@ import (
 	"os"
 	"strconv"
 	"time"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/encoding/ghash"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/net/gipv4"
-	"github.com/888go/goframe/util/grand"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/ghash"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/gipv4"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 const (

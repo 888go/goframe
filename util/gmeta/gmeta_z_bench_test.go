@@ -8,8 +8,8 @@ package gmeta_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/util/gmeta"
+
+	"github.com/gogf/gf/v2/util/gmeta"
 )
 
 type A struct {

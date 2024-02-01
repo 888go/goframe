@@ -8,10 +8,10 @@ package provider
 
 import (
 	"context"
-	
+
 	"go.opentelemetry.io/otel/trace"
-	
-	"github.com/888go/goframe/internal/tracing"
+
+	"github.com/gogf/gf/v2/internal/tracing"
 )
 
 // IDGenerator is a trace ID generator.

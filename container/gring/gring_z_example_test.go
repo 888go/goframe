@@ -8,8 +8,8 @@ package gring_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/container/gring"
+
+	"github.com/gogf/gf/v2/container/gring"
 )
 
 func ExampleNew() {

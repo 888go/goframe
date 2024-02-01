@@ -9,13 +9,13 @@ package genv_test
 import (
 	"os"
 	"testing"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/os/genv"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_GEnv_All(t *testing.T) {

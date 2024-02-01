@@ -14,8 +14,8 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
-	
-	"github.com/888go/goframe/util/grand"
+
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 var (

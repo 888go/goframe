@@ -12,8 +12,8 @@ import (
 	"sync"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/gpool"
+
+	"github.com/gogf/gf/v2/container/gpool"
 )
 
 var pool = gpool.New(time.Hour, nil)

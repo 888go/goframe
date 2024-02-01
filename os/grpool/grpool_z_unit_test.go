@@ -11,10 +11,10 @@ import (
 	"sync"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/os/grpool"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/grpool"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Basic(t *testing.T) {

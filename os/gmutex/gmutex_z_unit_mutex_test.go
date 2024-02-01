@@ -9,10 +9,10 @@ package gmutex_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/os/gmutex"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/gmutex"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Mutex_Unlock(t *testing.T) {

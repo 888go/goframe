@@ -9,12 +9,12 @@ package gcron
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/os/gtimer"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 type Cron struct {

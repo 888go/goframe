@@ -9,9 +9,9 @@ package utils_test
 import (
 	"io"
 	"testing"
-	
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_ReadCloser(t *testing.T) {

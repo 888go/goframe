@@ -10,10 +10,10 @@ package gfpool
 import (
 	"os"
 	"time"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gpool"
-	"github.com/888go/goframe/container/gtype"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gpool"
+	"github.com/gogf/gf/v2/container/gtype"
 )
 
 // Pool pointer pool.

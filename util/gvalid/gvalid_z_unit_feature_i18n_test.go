@@ -9,10 +9,10 @@ package gvalid_test
 import (
 	"context"
 	"testing"
-	
-	"github.com/888go/goframe/i18n/gi18n"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gvalid"
+
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gvalid"
 )
 
 func TestValidator_I18n(t *testing.T) {

@@ -8,10 +8,10 @@ package gcfg
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // AdapterContent implements interface Adapter using content.

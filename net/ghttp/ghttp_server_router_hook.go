@@ -10,8 +10,8 @@ import (
 	"context"
 	"net/http"
 	"reflect"
-	
-	"github.com/888go/goframe/debug/gdebug"
+
+	"github.com/gogf/gf/v2/debug/gdebug"
 )
 
 // BindHookHandler registers handler for specified hook.

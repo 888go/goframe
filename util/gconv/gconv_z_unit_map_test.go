@@ -9,13 +9,13 @@ package gconv_test
 import (
 	"encoding/json"
 	"testing"
-	
+
 	"gopkg.in/yaml.v3"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Map_Basic(t *testing.T) {

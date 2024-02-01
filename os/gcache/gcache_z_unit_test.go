@@ -13,13 +13,13 @@ import (
 	"math"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gcache"
-	"github.com/888go/goframe/os/grpool"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/guid"
+
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/grpool"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 var (

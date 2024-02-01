@@ -12,9 +12,9 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // BeEncode encodes one or multiple `values` into bytes using BigEndian.

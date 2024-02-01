@@ -13,10 +13,10 @@ import (
 	"io"
 	"reflect"
 	"strings"
-	
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // iString is used for type assert api for String().

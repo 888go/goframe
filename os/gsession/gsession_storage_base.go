@@ -9,8 +9,8 @@ package gsession
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/gmap"
+
+	"github.com/gogf/gf/v2/container/gmap"
 )
 
 // StorageBase is a base implement for Session Storage.

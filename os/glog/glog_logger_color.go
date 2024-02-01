@@ -6,9 +6,7 @@
 
 package glog
 
-import (
-	"github.com/fatih/color"
-)
+import "github.com/fatih/color"
 
 const (
 	COLOR_BLACK = 30 + iota

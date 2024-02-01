@@ -8,11 +8,11 @@ package gutil
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // StructToSlice converts struct to slice of which all keys and values are its items.

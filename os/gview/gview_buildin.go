@@ -12,15 +12,15 @@ import (
 	"fmt"
 	htmltpl "html/template"
 	"strings"
-	
-	"github.com/888go/goframe/encoding/ghtml"
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/encoding/gurl"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gmode"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/encoding/ghtml"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gmode"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // buildInFuncDump implements build-in template function: dump

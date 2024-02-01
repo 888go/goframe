@@ -10,9 +10,9 @@
 package gmode
 
 import (
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 const (

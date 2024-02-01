@@ -10,12 +10,12 @@ import (
 	"context"
 	"fmt"
 	"reflect"
-	
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type (

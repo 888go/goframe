@@ -8,11 +8,11 @@ package ghttp
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // handleAccessLog handles the access logging for server.

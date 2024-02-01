@@ -10,8 +10,8 @@ import (
 	"io"
 	"net"
 	"time"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Conn handles the UDP connection.

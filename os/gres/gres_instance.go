@@ -6,9 +6,7 @@
 
 package gres
 
-import (
-	"github.com/888go/goframe/container/gmap"
-)
+import "github.com/gogf/gf/v2/container/gmap"
 
 const (
 	// DefaultName default group name for instance usage.

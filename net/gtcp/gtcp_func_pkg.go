@@ -6,9 +6,7 @@
 
 package gtcp
 
-import (
-	"time"
-)
+import "time"
 
 // SendPkg sends a package containing `data` to `address` and closes the connection.
 // The optional parameter `option` specifies the package options for sending.

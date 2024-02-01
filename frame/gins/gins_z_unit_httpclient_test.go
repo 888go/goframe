@@ -9,9 +9,9 @@ package gins_test
 import (
 	"fmt"
 	"testing"
-	
-	"github.com/888go/goframe/frame/gins"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/frame/gins"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Client(t *testing.T) {

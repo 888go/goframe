@@ -10,10 +10,10 @@ import (
 	"errors"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/gpool"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/container/gpool"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var nf gpool.NewFunc = func() (i interface{}, e error) {

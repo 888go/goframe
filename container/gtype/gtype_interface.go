@@ -8,10 +8,10 @@ package gtype
 
 import (
 	"sync/atomic"
-	
-	"github.com/888go/goframe/internal/deepcopy"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Interface is a struct for concurrent-safe operation for type interface{}.

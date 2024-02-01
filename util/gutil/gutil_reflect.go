@@ -7,7 +7,7 @@
 package gutil
 
 import (
-	"github.com/888go/goframe/internal/reflection"
+	"github.com/gogf/gf/v2/internal/reflection"
 )
 
 type (

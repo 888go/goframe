@@ -6,9 +6,7 @@
 
 package ghttp
 
-import (
-	"net/http"
-)
+import "net/http"
 
 // WrapF is a helper function for wrapping http.HandlerFunc and returns a ghttp.HandlerFunc.
 func WrapF(f http.HandlerFunc) HandlerFunc {

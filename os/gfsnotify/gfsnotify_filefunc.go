@@ -12,8 +12,8 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // fileDir returns all but the last element of path, typically the path's directory.

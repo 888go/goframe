@@ -12,20 +12,20 @@ import (
 	"reflect"
 	"sync"
 	"time"
-	
+
 	"github.com/gorilla/websocket"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/net/goai"
-	"github.com/888go/goframe/net/gsvc"
-	"github.com/888go/goframe/os/gcache"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/os/gsession"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/util/gtag"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/goai"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 type (

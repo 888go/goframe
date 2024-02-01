@@ -11,7 +11,7 @@ import (
 	"html"
 	"reflect"
 	"strings"
-	
+
 	strip "github.com/grokify/html-strip-tags-go"
 )
 

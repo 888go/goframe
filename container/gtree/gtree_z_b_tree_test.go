@@ -9,11 +9,11 @@ package gtree_test
 import (
 	"fmt"
 	"testing"
-	
-	"github.com/888go/goframe/container/gtree"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/gtree"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_BTree_Basic(t *testing.T) {

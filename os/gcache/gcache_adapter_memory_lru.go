@@ -8,11 +8,11 @@ package gcache
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/os/gtimer"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // LRU cache object.

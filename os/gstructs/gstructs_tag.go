@@ -9,10 +9,10 @@ package gstructs
 import (
 	"reflect"
 	"strconv"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/util/gtag"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // ParseTag parses tag string into map.

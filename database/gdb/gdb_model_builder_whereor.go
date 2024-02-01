@@ -8,8 +8,8 @@ package gdb
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // WhereOr adds "OR" condition to the where statement.

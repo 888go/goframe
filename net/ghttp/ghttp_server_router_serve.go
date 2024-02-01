@@ -11,13 +11,13 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/encoding/gurl"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // handlerCacheItem is an item just for internal router searching cache.

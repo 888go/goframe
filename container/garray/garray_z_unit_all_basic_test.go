@@ -11,11 +11,11 @@ package garray_test
 import (
 	"strings"
 	"testing"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Array_Var(t *testing.T) {

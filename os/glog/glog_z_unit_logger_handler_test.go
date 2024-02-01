@@ -10,11 +10,11 @@ import (
 	"bytes"
 	"context"
 	"testing"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 var arrayForHandlerTest1 = garray.NewStrArray()

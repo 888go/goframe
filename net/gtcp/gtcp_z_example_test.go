@@ -8,8 +8,8 @@ package gtcp_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/net/gtcp"
+
+	"github.com/gogf/gf/v2/net/gtcp"
 )
 
 func ExampleGetFreePort() {

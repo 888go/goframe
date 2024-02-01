@@ -12,14 +12,14 @@ package gview
 
 import (
 	"context"
-	
-	"github.com/888go/goframe"
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/glog"
+
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 // View object for template engine.

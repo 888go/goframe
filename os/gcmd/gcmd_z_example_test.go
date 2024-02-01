@@ -10,11 +10,11 @@ import (
 	"context"
 	"fmt"
 	"os"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/os/genv"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/genv"
 )
 
 func ExampleInit() {

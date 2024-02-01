@@ -11,15 +11,15 @@ import (
 	"net/http"
 	"strings"
 	"time"
-	
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/os/gsession"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/os/gview"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/guid"
+
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gview"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 // Request is the context object for a request.

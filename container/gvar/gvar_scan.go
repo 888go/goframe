@@ -7,7 +7,7 @@
 package gvar
 
 import (
-	"github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Scan automatically checks the type of `pointer` and converts `params` to `pointer`. It supports `pointer`

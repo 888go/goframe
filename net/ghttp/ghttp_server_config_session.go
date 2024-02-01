@@ -8,8 +8,8 @@ package ghttp
 
 import (
 	"time"
-	
-	"github.com/888go/goframe/os/gsession"
+
+	"github.com/gogf/gf/v2/os/gsession"
 )
 
 // SetSessionMaxAge sets the SessionMaxAge for server.

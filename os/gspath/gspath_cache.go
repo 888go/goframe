@@ -12,10 +12,10 @@ package gspath
 import (
 	"runtime"
 	"strings"
-	
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gfsnotify"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // updateCacheByPath adds all files under `path` recursively.

@@ -9,11 +9,11 @@ package gfile_test
 import (
 	"os"
 	"testing"
-	
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/guid"
+
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 func Test_Copy(t *testing.T) {

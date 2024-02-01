@@ -6,9 +6,7 @@
 
 package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // Repeat returns a new string consisting of multiplier copies of the string input.
 func Repeat(input string, multiplier int) string {

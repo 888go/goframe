@@ -7,7 +7,7 @@
 package gfile
 
 import (
-	"github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // ReplaceFile replaces content for file `path`.

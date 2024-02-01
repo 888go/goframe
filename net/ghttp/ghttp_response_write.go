@@ -10,11 +10,11 @@ package ghttp
 import (
 	"fmt"
 	"net/http"
-	
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Write writes `content` to the response buffer.

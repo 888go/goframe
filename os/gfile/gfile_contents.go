@@ -10,8 +10,8 @@ import (
 	"bufio"
 	"io"
 	"os"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 var (

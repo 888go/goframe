@@ -8,8 +8,8 @@ package gstr
 
 import (
 	"strings"
-	
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // IsGNUVersion checks and returns whether given `version` is valid GNU version string.

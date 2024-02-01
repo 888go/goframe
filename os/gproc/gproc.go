@@ -11,11 +11,11 @@ import (
 	"os"
 	"runtime"
 	"time"
-	
-	"github.com/888go/goframe/os/genv"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

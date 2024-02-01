@@ -9,8 +9,8 @@ package gstructs
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Type wraps reflect.Type for additional features.

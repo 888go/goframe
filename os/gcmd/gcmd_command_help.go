@@ -13,8 +13,8 @@ import (
 	"fmt"
 	"io"
 	"os"
-	
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Print prints help info to stdout for current command.

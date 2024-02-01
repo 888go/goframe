@@ -7,9 +7,7 @@
 // Package gi18n implements internationalization and localization.
 package gi18n
 
-import (
-	"context"
-)
+import "context"
 
 // SetPath sets the directory path storing i18n files.
 func SetPath(path string) error {

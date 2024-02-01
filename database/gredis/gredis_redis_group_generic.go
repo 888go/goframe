@@ -9,8 +9,8 @@ package gredis
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/gvar"
+
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // IGroupGeneric manages generic redis operations.

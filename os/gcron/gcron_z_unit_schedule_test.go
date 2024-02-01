@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestSlash(t *testing.T) {

@@ -8,8 +8,8 @@ package glog_test
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/frame/g"
+
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 func ExampleContext() {

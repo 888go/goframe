@@ -8,9 +8,9 @@ package glog
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // HandlerOutputJson is the structure outputting logging content as single json.

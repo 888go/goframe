@@ -6,9 +6,7 @@
 
 package gcode
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // localCode is an implementer for interface Code for internal usage only.
 type localCode struct {

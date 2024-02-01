@@ -10,13 +10,13 @@ import (
 	"context"
 	"database/sql"
 	"reflect"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // TXCore is the struct for transaction management.

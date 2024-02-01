@@ -10,13 +10,13 @@ package gcfg_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/os/gcfg"
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/os/genv"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Basic1(t *testing.T) {

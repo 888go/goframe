@@ -9,8 +9,8 @@ package builtin
 import (
 	"errors"
 	"time"
-	
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // RuleDate implements `date` rule:

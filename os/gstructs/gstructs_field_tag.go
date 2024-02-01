@@ -8,8 +8,8 @@ package gstructs
 
 import (
 	"strings"
-	
-	"github.com/888go/goframe/util/gtag"
+
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // TagJsonName returns the `json` tag name string of the field.

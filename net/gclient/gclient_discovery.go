@@ -9,11 +9,11 @@ package gclient
 import (
 	"context"
 	"net/http"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/net/gsel"
-	"github.com/888go/goframe/net/gsvc"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/gsel"
+	"github.com/gogf/gf/v2/net/gsvc"
 )
 
 type discoveryNode struct {

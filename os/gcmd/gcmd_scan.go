@@ -11,8 +11,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Scan prints `info` to stdout, reads and returns user input, which stops by '\n'.

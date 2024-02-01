@@ -7,7 +7,7 @@
 package gvar
 
 import (
-	"github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Struct maps value of `v` to `pointer`.

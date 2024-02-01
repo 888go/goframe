@@ -8,8 +8,8 @@ package gredis
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/container/gvar"
+
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // IGroupScript manages redis script operations.

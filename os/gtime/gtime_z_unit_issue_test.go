@@ -8,9 +8,9 @@ package gtime_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 // https://github.com/gogf/gf/issues/1681

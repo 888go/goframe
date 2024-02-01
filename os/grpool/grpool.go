@@ -10,11 +10,11 @@ package grpool
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/os/gtimer"
-	"github.com/888go/goframe/util/grand"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 // Func is the pool function which contains context parameter.

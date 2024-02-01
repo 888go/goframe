@@ -9,9 +9,9 @@ package gdb
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
+
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // CacheOption is options for model cache control in query.

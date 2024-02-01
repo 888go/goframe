@@ -8,13 +8,13 @@ package gsvc
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // LocalService provides a default implements for interface Service.

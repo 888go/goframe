@@ -8,11 +8,11 @@ package gtree_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/container/gtree"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/gtree"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func ExampleAVLTree_Clone() {

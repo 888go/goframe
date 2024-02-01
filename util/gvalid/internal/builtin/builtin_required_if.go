@@ -9,9 +9,9 @@ package builtin
 import (
 	"errors"
 	"strings"
-	
-	"github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // RuleRequiredIf implements `required-if` rule:

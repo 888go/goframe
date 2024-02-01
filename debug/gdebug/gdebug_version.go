@@ -12,9 +12,9 @@ import (
 	"io"
 	"os"
 	"strconv"
-	
-	"github.com/888go/goframe/encoding/ghash"
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/encoding/ghash"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // BinVersion returns the version of current running binary.

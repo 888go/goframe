@@ -8,8 +8,8 @@ package gutil
 
 import (
 	"reflect"
-	
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // SliceCopy does a shallow copy of slice `data` for most commonly used slice type

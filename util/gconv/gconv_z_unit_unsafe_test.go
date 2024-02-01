@@ -8,9 +8,9 @@ package gconv_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Unsafe(t *testing.T) {

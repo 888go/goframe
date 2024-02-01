@@ -9,11 +9,11 @@ package gtoml
 
 import (
 	"bytes"
-	
+
 	"github.com/BurntSushi/toml"
-	
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
+
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 func Encode(v interface{}) ([]byte, error) {

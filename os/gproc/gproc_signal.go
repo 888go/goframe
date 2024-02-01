@@ -12,9 +12,9 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
-	
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // SigHandler defines a function type for signal handling.

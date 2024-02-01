@@ -12,10 +12,10 @@ import (
 	"strings"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/grand"
+
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 func Test_Intn(t *testing.T) {

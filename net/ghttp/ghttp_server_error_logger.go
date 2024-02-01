@@ -9,8 +9,8 @@ package ghttp
 import (
 	"bytes"
 	"context"
-	
-	"github.com/888go/goframe/os/glog"
+
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 // errorLogger is the error logging logger for underlying net/http.Server.

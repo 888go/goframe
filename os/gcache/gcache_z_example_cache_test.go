@@ -10,11 +10,11 @@ import (
 	"context"
 	"fmt"
 	"time"
-	
-	"github.com/888go/goframe/database/gredis"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gcache"
-	"github.com/888go/goframe/os/gctx"
+
+	"github.com/gogf/gf/v2/database/gredis"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 func ExampleNew() {

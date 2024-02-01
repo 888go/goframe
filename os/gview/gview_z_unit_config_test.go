@@ -9,12 +9,12 @@ package gview_test
 import (
 	"context"
 	"testing"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/i18n/gi18n"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/os/gview"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/os/gview"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Config(t *testing.T) {

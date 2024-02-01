@@ -12,12 +12,12 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	
-	"github.com/888go/goframe/container/gtree"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/container/gtree"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 type Resource struct {

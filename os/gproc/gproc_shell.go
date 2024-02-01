@@ -12,12 +12,12 @@ import (
 	"fmt"
 	"io"
 	"runtime"
-	
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
-	
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/text/gstr"
+
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Shell executes command `cmd` synchronously with given input pipe `in` and output pipe `out`.

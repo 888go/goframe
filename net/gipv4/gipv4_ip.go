@@ -11,8 +11,8 @@ import (
 	"net"
 	"strconv"
 	"strings"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // GetIpArray retrieves and returns all the ip of current host.

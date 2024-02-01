@@ -8,11 +8,11 @@ package gmap_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func ExampleStrIntMap_Iterator() {

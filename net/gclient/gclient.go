@@ -14,12 +14,12 @@ import (
 	"net/http"
 	"os"
 	"time"
-	
-	"github.com/888go/goframe"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/net/gsel"
-	"github.com/888go/goframe/net/gsvc"
-	"github.com/888go/goframe/os/gfile"
+
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/gsel"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // Client is the HTTP client for HTTP request management.

@@ -9,12 +9,12 @@ package gdb
 import (
 	"sync"
 	"time"
-	
-	"github.com/888go/goframe/os/gcache"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Config is the configuration management object.

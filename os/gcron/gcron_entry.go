@@ -12,13 +12,13 @@ import (
 	"reflect"
 	"runtime"
 	"time"
-	
-	"github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/os/gtimer"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // JobFunc is the timing called job function in cron.

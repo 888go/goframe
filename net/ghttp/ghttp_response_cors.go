@@ -10,9 +10,9 @@ package ghttp
 import (
 	"net/http"
 	"net/url"
-	
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // CORSOptions is the options for CORS feature.

@@ -9,9 +9,9 @@ package gdes_test
 import (
 	"encoding/hex"
 	"testing"
-	
-	"github.com/888go/goframe/crypto/gdes"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/crypto/gdes"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

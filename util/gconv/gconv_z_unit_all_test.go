@@ -10,13 +10,13 @@ import (
 	"math"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/container/gvar"
-	
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gvar"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type iString interface {

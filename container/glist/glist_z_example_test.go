@@ -9,10 +9,10 @@ package glist_test
 import (
 	"container/list"
 	"fmt"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/frame/g"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 func ExampleNew() {

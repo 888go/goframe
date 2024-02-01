@@ -9,10 +9,10 @@ package gconv
 import (
 	"reflect"
 	"strings"
-	
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/utils"
+
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 type recursiveType string

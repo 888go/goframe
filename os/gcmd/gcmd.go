@@ -10,11 +10,11 @@ package gcmd
 
 import (
 	"os"
-	
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/os/gctx"
+
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 const (

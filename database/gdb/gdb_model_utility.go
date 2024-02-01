@@ -8,13 +8,13 @@ package gdb
 
 import (
 	"time"
-	
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/os/gtime"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // QuoteWord checks given string `s` a word,

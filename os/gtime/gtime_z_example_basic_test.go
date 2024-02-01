@@ -8,8 +8,8 @@ package gtime_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/os/gtime"
+
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // New creates and returns a Time object with given parameter.

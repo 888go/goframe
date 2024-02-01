@@ -10,8 +10,8 @@ import (
 	"context"
 	"sync"
 	"time"
-	
-	"github.com/888go/goframe/os/gtime"
+
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 type adapterMemoryData struct {

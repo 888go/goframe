@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"runtime"
 	"strings"
-	
-	"github.com/888go/goframe/errors/gcode"
+
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // Error is custom error for additional features.

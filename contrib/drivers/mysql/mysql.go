@@ -13,15 +13,15 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
-	
+
 	_ "github.com/go-sql-driver/mysql"
-	
-	"github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Driver is the driver for mysql database.

@@ -10,9 +10,9 @@ package gpage_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gpage"
+
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gpage"
 )
 
 func Test_New(t *testing.T) {

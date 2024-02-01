@@ -9,21 +9,21 @@ package gjson
 import (
 	"bytes"
 	"reflect"
-	
-	"github.com/888go/goframe/encoding/gini"
-	"github.com/888go/goframe/encoding/gproperties"
-	"github.com/888go/goframe/encoding/gtoml"
-	"github.com/888go/goframe/encoding/gxml"
-	"github.com/888go/goframe/encoding/gyaml"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/internal/rwmutex"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/encoding/gini"
+	"github.com/gogf/gf/v2/encoding/gproperties"
+	"github.com/gogf/gf/v2/encoding/gtoml"
+	"github.com/gogf/gf/v2/encoding/gxml"
+	"github.com/gogf/gf/v2/encoding/gyaml"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // New creates a Json object with any variable type of `data`, but `data` should be a map

@@ -10,9 +10,9 @@ import (
 	"context"
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_NeverDone(t *testing.T) {

@@ -8,8 +8,8 @@ package gstr
 
 import (
 	"strings"
-	
-	"github.com/888go/goframe/internal/utils"
+
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // ToLower returns a copy of the string s with all Unicode letters mapped to their lower case.

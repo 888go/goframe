@@ -11,14 +11,14 @@ package garray_test
 import (
 	"testing"
 	"time"
-	
-	"github.com/888go/goframe/internal/empty"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/internal/empty"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Array_Basic(t *testing.T) {

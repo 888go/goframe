@@ -9,8 +9,8 @@ package gclient
 import (
 	"context"
 	"net/http"
-	
-	"github.com/888go/goframe/container/gvar"
+
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // GetVar sends a GET request, retrieves and converts the result content to specified pointer.

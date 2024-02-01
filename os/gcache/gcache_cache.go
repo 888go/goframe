@@ -9,9 +9,9 @@ package gcache
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/os/gtimer"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Cache struct.

@@ -8,10 +8,10 @@ package gdb
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Fields appends `fieldNamesOrMapStruct` to the operation fields of the model, multiple fields joined using char ','.

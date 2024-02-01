@@ -8,9 +8,9 @@ package gjson_test
 
 import (
 	"fmt"
-	
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func ExampleLoad() {

@@ -8,12 +8,12 @@ package gtrace
 
 import (
 	"context"
-	
+
 	"go.opentelemetry.io/otel/baggage"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Baggage holds the data through all tracing spans.

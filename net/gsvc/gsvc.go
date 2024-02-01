@@ -10,8 +10,8 @@ package gsvc
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/errors/gerror"
+
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Registry interface for service.

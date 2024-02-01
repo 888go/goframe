@@ -12,7 +12,7 @@
 package gerror
 
 import (
-	"github.com/888go/goframe/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // IIs is the interface for Is feature.

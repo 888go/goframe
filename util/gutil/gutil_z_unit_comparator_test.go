@@ -8,9 +8,9 @@ package gutil_test
 
 import (
 	"testing"
-	
-	"github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_ComparatorString(t *testing.T) {

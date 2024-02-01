@@ -9,10 +9,10 @@ package gsession
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/os/gcache"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/os/gcache"
 )
 
 // StorageMemory implements the Session Storage interface with memory.

@@ -9,11 +9,11 @@ package gins
 import (
 	"context"
 	"fmt"
-	
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/os/glog"
-	"github.com/888go/goframe/util/gutil"
+
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Log returns an instance of glog.Logger.

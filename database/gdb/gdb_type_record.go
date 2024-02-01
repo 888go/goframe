@@ -8,11 +8,11 @@ package gdb
 
 import (
 	"database/sql"
-	
-	"github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Json converts `r` to JSON format content.

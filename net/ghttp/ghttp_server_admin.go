@@ -11,11 +11,11 @@ import (
 	"os"
 	"strings"
 	"time"
-	
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gproc"
-	"github.com/888go/goframe/os/gtimer"
-	"github.com/888go/goframe/os/gview"
+
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/os/gview"
 )
 
 // utilAdmin is the controller for administration.

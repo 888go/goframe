@@ -11,11 +11,11 @@ package ghttp
 import (
 	"context"
 	"strings"
-	
-	"github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/os/gfile"
-	"github.com/888go/goframe/os/gres"
-	"github.com/888go/goframe/util/gconv"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // staticPathItem is the item struct for static path configuration.

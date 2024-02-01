@@ -13,8 +13,8 @@ import (
 	"fmt"
 	"net"
 	"strconv"
-	
-	"github.com/888go/goframe/text/gregex"
+
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // Ip2long converts ip address to an uint32 integer.

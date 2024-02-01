@@ -7,7 +7,7 @@
 package ghttp
 
 import (
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // MiddlewareJsonBody validates and returns request body whether JSON format.

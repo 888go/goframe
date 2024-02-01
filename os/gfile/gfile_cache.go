@@ -9,13 +9,13 @@ package gfile
 import (
 	"context"
 	"time"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/os/gcache"
-	"github.com/888go/goframe/os/gfsnotify"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gfsnotify"
 )
 
 const (

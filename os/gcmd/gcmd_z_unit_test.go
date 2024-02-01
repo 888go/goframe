@@ -14,14 +14,14 @@ import (
 	"os"
 	"strings"
 	"testing"
-	
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/os/gcmd"
-	"github.com/888go/goframe/os/gctx"
-	"github.com/888go/goframe/os/genv"
-	"github.com/888go/goframe/test/gtest"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Default(t *testing.T) {

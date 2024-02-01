@@ -8,11 +8,11 @@ package gfsnotify
 
 import (
 	"context"
-	
-	"github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/errors/gcode"
-	"github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
+
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // Add monitors `path` with callback function `callbackFunc` to the watcher.

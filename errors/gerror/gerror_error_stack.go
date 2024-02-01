@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"runtime"
 	"strings"
-	
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/errors"
+
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/errors"
 )
 
 // stackInfo manages stack info of certain error.
