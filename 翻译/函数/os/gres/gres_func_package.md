@@ -1,12 +1,12 @@
 
 # <翻译开始>
-package gmeta
-元数据类
+package gres
+资源类
 # <翻译结束>
 
 
 # <翻译开始>
-= "gmeta.Meta"
-= "元数据类.Meta"
+if err := gres.
+if err := 资源类.
 <替换文本>
 # <翻译结束>
