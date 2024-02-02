@@ -17,6 +17,7 @@
 
 <原文开始>
 // Package gi18n implements internationalization and localization.
+// 备注2024-02-02, 测试发现, 不能用"多语言类" 作为包名, 原因不详.
 <原文结束>
 
 # <翻译开始>
