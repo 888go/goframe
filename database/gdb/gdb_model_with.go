@@ -1,48 +1,40 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
 
 import (
 	"database/sql"
 	"reflect"
-
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gutil"
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/os/gstructs"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gutil"
 )
 
-// With creates and returns an ORM model based on metadata of given object.
-// It also enables model association operations feature on given `object`.
-// It can be called multiple times to add one or more objects to model and enable
-// their mode association operations feature.
-// For example, if given struct definition:
+// With 启用关联查询，通过给定的属性对象指定开启。
+// 常考"模型关联-静态关联"文档:https://goframe.org/pages/viewpage.action?pageId=7297190
+// 例如，如果给定如下的结构体定义：
 //
 //	type User struct {
-//		 gmeta.Meta `orm:"table:user"`
-//		 Id         int           `json:"id"`
-//		 Name       string        `json:"name"`
-//		 UserDetail *UserDetail   `orm:"with:uid=id"`
-//		 UserScores []*UserScores `orm:"with:uid=id"`
+//		 gmeta.Meta `orm:"table:user"` // 定义表名为 user
+//		 Id         int           `json:"id"`    // 用户ID
+//		 Name       string        `json:"name"`   // 用户名
+//		 UserDetail *UserDetail   `orm:"with:uid=id"` // 关联 UserDetail 表，通过 uid 等于 id 进行关联
+//		 UserScores []*UserScores `orm:"with:uid=id"` // 关联 UserScores 表，通过 uid 等于 id 进行关联
 //	}
 //
-// We can enable model association operations on attribute `UserDetail` and `UserScores` by:
-//
-//	db.With(User{}.UserDetail).With(User{}.UserScores).Scan(xxx)
-//
-// Or:
-//
-//	db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
-//
-// Or:
-//
-//	db.With(UserDetail{}, UserScores{}).Scan(xxx)
+// 我们可以通过以下方式在属性 `UserDetail` 和 `UserScores` 上启用模型关联操作：
+// db.With(User{}.UserDetail).With(User{}.UserScores).Scan(xxx)
+// 或者：
+// db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
+// 或者：
+// db.With(UserDetail{}, UserScores{}).Scan(xxx)
 func (m *Model) With(objects ...interface{}) *Model {
 	model := m.getModel()
 	for _, object := range objects {
@@ -58,14 +50,15 @@ func (m *Model) With(objects ...interface{}) *Model {
 	return model
 }
 
-// WithAll enables model association operations on all objects that have "with" tag in the struct.
+// WithAll 开启在所有具有"struct"标签中包含"with"标签的对象上的模型关联操作。
+// 常考"模型关联-静态关联"文档:https://goframe.org/pages/viewpage.action?pageId=7297190
 func (m *Model) WithAll() *Model {
 	model := m.getModel()
 	model.withAll = true
 	return model
 }
 
-// doWithScanStruct handles model association operations feature for single struct.
+// doWithScanStruct 处理单个结构体的模型关联操作功能。
 func (m *Model) doWithScanStruct(pointer interface{}) error {
 	var (
 		err                 error
@@ -79,7 +72,7 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 	if err != nil {
 		return err
 	}
-	// It checks the with array and automatically calls the ScanList to complete association querying.
+	// 它会检查with数组，并自动调用ScanList完成关联查询。
 	if !m.withAll {
 		for _, field := range currentStructFieldMap {
 			for _, withItem := range m.withArray {
@@ -91,7 +84,7 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 					fieldTypeStr                = gstr.TrimAll(field.Type().String(), "*[]")
 					withItemReflectValueTypeStr = gstr.TrimAll(withItemReflectValueType.String(), "*[]")
 				)
-				// It does select operation if the field type is in the specified "with" type array.
+				// 如果字段类型在指定的“with”类型数组中，则进行选择操作。
 				if gstr.Compare(fieldTypeStr, withItemReflectValueTypeStr) == 0 {
 					allowedTypeStrArray = append(allowedTypeStrArray, fieldTypeStr)
 				}
@@ -106,14 +99,14 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 		if parsedTagOutput.With == "" {
 			continue
 		}
-		// It just handlers "with" type attribute struct, so it ignores other struct types.
+		// 它仅处理“with”类型属性的结构体，因此会忽略其他类型的结构体。
 		if !m.withAll && !gstr.InArray(allowedTypeStrArray, fieldTypeStr) {
 			continue
 		}
 		array := gstr.SplitAndTrim(parsedTagOutput.With, "=")
 		if len(array) == 1 {
-			// It also supports using only one column name
-			// if both tables associates using the same column name.
+// 它还支持仅使用一个列名
+// 如果两个表关联时使用相同的列名。
 			array = append(array, parsedTagOutput.With)
 		}
 		var (
@@ -123,7 +116,7 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 			relatedTargetName  = array[1]
 			relatedTargetValue interface{}
 		)
-		// Find the value of related attribute from `pointer`.
+		// 从`pointer`中查找相关属性的值。
 		for attributeName, attributeValue := range currentStructFieldMap {
 			if utils.EqualFoldWithoutChars(attributeName, relatedTargetName) {
 				relatedTargetValue = attributeValue.Value.Interface()
@@ -142,14 +135,14 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 			bindToReflectValue = bindToReflectValue.Addr()
 		}
 
-		// It automatically retrieves struct field names from current attribute struct/slice.
+		// 它会自动从当前属性结构体/切片中检索结构体字段名称。
 		if structType, err := gstructs.StructType(field.Value); err != nil {
 			return err
 		} else {
 			fieldKeys = structType.FieldKeys()
 		}
 
-		// Recursively with feature checks.
+		// 递归并进行特性检查
 		model = m.db.With(field.Value).Hook(m.hookHandler)
 		if m.withAll {
 			model = model.WithAll()
@@ -162,14 +155,14 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 		if parsedTagOutput.Order != "" {
 			model = model.Order(parsedTagOutput.Order)
 		}
-		// With cache feature.
+		// 带有缓存功能。
 		if m.cacheEnabled && m.cacheOption.Name == "" {
 			model = model.Cache(m.cacheOption)
 		}
 		err = model.Fields(fieldKeys).
 			Where(relatedSourceName, relatedTargetValue).
 			Scan(bindToReflectValue)
-		// It ignores sql.ErrNoRows in with feature.
+		// 它在特性中忽略 sql.ErrNoRows 错误。
 		if err != nil && err != sql.ErrNoRows {
 			return err
 		}
@@ -177,8 +170,8 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 	return nil
 }
 
-// doWithScanStructs handles model association operations feature for struct slice.
-// Also see doWithScanStruct.
+// doWithScanStructs 处理结构体切片的模型关联操作特性。
+// 也可参考 doWithScanStruct。
 func (m *Model) doWithScanStructs(pointer interface{}) error {
 	if v, ok := pointer.(reflect.Value); ok {
 		pointer = v.Interface()
@@ -196,7 +189,7 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 	if err != nil {
 		return err
 	}
-	// It checks the with array and automatically calls the ScanList to complete association querying.
+	// 它会检查with数组，并自动调用ScanList完成关联查询。
 	if !m.withAll {
 		for _, field := range currentStructFieldMap {
 			for _, withItem := range m.withArray {
@@ -208,7 +201,7 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 					fieldTypeStr                = gstr.TrimAll(field.Type().String(), "*[]")
 					withItemReflectValueTypeStr = gstr.TrimAll(withItemReflectValueType.String(), "*[]")
 				)
-				// It does select operation if the field type is in the specified with type array.
+				// 如果字段类型在指定的类型数组中，它将执行选择操作。
 				if gstr.Compare(fieldTypeStr, withItemReflectValueTypeStr) == 0 {
 					allowedTypeStrArray = append(allowedTypeStrArray, fieldTypeStr)
 				}
@@ -229,8 +222,7 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 		}
 		array := gstr.SplitAndTrim(parsedTagOutput.With, "=")
 		if len(array) == 1 {
-			// It supports using only one column name
-			// if both tables associates using the same column name.
+// 如果两个表使用相同的列名关联，则它支持仅使用一个列名。
 			array = append(array, parsedTagOutput.With)
 		}
 		var (
@@ -240,7 +232,7 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 			relatedTargetName  = array[1]
 			relatedTargetValue interface{}
 		)
-		// Find the value slice of related attribute from `pointer`.
+		// 从`pointer`中找到相关属性的值切片。
 		for attributeName := range currentStructFieldMap {
 			if utils.EqualFoldWithoutChars(attributeName, relatedTargetName) {
 				relatedTargetValue = ListItemValuesUnique(pointer, attributeName)
@@ -254,17 +246,17 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 				relatedTargetName, parsedTagOutput.With,
 			)
 		}
-		// If related value is empty, it does nothing but just returns.
+		// 如果相关值为空，则此函数不做任何操作，仅返回。
 		if gutil.IsEmpty(relatedTargetValue) {
 			return nil
 		}
-		// It automatically retrieves struct field names from current attribute struct/slice.
+		// 它会自动从当前属性结构体/切片中检索结构体字段名称。
 		if structType, err := gstructs.StructType(field.Value); err != nil {
 			return err
 		} else {
 			fieldKeys = structType.FieldKeys()
 		}
-		// Recursively with feature checks.
+		// 递归并进行特性检查
 		model = m.db.With(field.Value).Hook(m.hookHandler)
 		if m.withAll {
 			model = model.WithAll()
@@ -277,14 +269,14 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 		if parsedTagOutput.Order != "" {
 			model = model.Order(parsedTagOutput.Order)
 		}
-		// With cache feature.
+		// 带有缓存功能。
 		if m.cacheEnabled && m.cacheOption.Name == "" {
 			model = model.Cache(m.cacheOption)
 		}
 		err = model.Fields(fieldKeys).
 			Where(relatedSourceName, relatedTargetValue).
 			ScanList(pointer, fieldName, parsedTagOutput.With)
-		// It ignores sql.ErrNoRows in with feature.
+		// 它在特性中忽略 sql.ErrNoRows 错误。
 		if err != nil && err != sql.ErrNoRows {
 			return err
 		}

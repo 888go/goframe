@@ -1,16 +1,16 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 package gtoml_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gtoml"
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/encoding/gtoml"
+	"github.com/888go/goframe/test/gtest"
 )
 
 var tomlStr string = `

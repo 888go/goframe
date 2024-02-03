@@ -1,29 +1,28 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gins
 
 import (
 	"context"
 	"fmt"
-
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/gcfg"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gutil"
 )
 
-// Database returns an instance of database ORM object with specified configuration group name.
-// Note that it panics if any error occurs duration instance creating.
+// Database 返回指定配置组名称的数据库 ORM 对象实例。
+// 注意，如果实例创建过程中发生任何错误，它会触发 panic。
 func Database(name ...string) gdb.DB {
 	var (
 		ctx   = context.Background()
@@ -35,12 +34,12 @@ func Database(name ...string) gdb.DB {
 	}
 	instanceKey := fmt.Sprintf("%s.%s", frameCoreComponentNameDatabase, group)
 	db := instance.GetOrSetFuncLock(instanceKey, func() interface{} {
-		// It ignores returned error to avoid file no found error while it's not necessary.
+		// 它忽略返回的错误，以防止在不必要的时候出现文件未找到的错误。
 		var (
 			configMap     map[string]interface{}
 			configNodeKey = consts.ConfigNodeNameDatabase
 		)
-		// It firstly searches the configuration of the instance name.
+		// 首先，它会搜索实例名称的配置。
 		if configData, _ := Config().Data(ctx); len(configData) > 0 {
 			if v, _ := gutil.MapPossibleItemByKey(configData, consts.ConfigNodeNameDatabase); v != "" {
 				configNodeKey = v
@@ -49,9 +48,9 @@ func Database(name ...string) gdb.DB {
 		if v, _ := Config().Get(ctx, configNodeKey); !v.IsEmpty() {
 			configMap = v.Map()
 		}
-		// No configuration found, it formats and panics error.
+		// 未找到配置，它将格式化并引发错误。
 		if len(configMap) == 0 && !gdb.IsConfigured() {
-			// File configuration object checks.
+			// 文件配置对象检查。
 			var err error
 			if fileConfig, ok := Config().GetAdapter().(*gcfg.AdapterFile); ok {
 				if _, err = fileConfig.GetFilePath(); err != nil {
@@ -60,7 +59,7 @@ func Database(name ...string) gdb.DB {
 					))
 				}
 			}
-			// Panic if nothing found in Config object or in gdb configuration.
+			// 如果在Config对象或gdb配置中未找到任何内容，则引发panic。
 			if len(configMap) == 0 && !gdb.IsConfigured() {
 				panic(gerror.NewCodef(
 					gcode.CodeMissingConfiguration,
@@ -73,7 +72,7 @@ func Database(name ...string) gdb.DB {
 		if len(configMap) == 0 {
 			configMap = make(map[string]interface{})
 		}
-		// Parse `m` as map-slice and adds it to global configurations for package gdb.
+		// 将`m`解析为映射切片并将其添加到gdb包的全局配置中。
 		for g, groupConfig := range configMap {
 			cg := gdb.ConfigGroup{}
 			switch value := groupConfig.(type) {
@@ -98,8 +97,8 @@ func Database(name ...string) gdb.DB {
 				}
 			}
 		}
-		// Parse `m` as a single node configuration,
-		// which is the default group configuration.
+// 将`m`解析为单节点配置，
+// 这是默认的组配置。
 		if node := parseDBConfigNode(configMap); node != nil {
 			cg := gdb.ConfigGroup{}
 			if node.Link != "" || node.Host != "" {
@@ -120,9 +119,9 @@ func Database(name ...string) gdb.DB {
 			}
 		}
 
-		// Create a new ORM object with given configurations.
+		// 使用给定的配置创建一个新的ORM对象。
 		if db, err := gdb.NewByGroup(name...); err == nil {
-			// Initialize logger for ORM.
+			// 初始化ORM的logger（日志器）。
 			var (
 				loggerConfigMap map[string]interface{}
 				loggerNodeName  = fmt.Sprintf("%s.%s", configNodeKey, consts.ConfigNodeNameLogger)
@@ -144,7 +143,7 @@ func Database(name ...string) gdb.DB {
 			}
 			return db
 		} else {
-			// If panics, often because it does not find its configuration for given group.
+			// 如果出现 panic，通常是因为在给定的组中没有找到其配置。
 			panic(err)
 		}
 		return nil
@@ -167,7 +166,7 @@ func parseDBConfigNode(value interface{}) *gdb.ConfigNode {
 	if err != nil {
 		panic(err)
 	}
-	// Find possible `Link` configuration content.
+	// 查找可能的`Link`配置内容。
 	if _, v := gutil.MapPossibleItemByKey(nodeMap, "Link"); v != nil {
 		node.Link = gconv.String(v)
 	}

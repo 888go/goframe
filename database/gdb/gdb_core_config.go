@@ -1,69 +1,68 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
 
 import (
 	"sync"
 	"time"
-
-	"github.com/gogf/gf/v2/os/gcache"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/os/gcache"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// Config is the configuration management object.
+// Config 是配置管理对象。
 type Config map[string]ConfigGroup
 
-// ConfigGroup is a slice of configuration node for specified named group.
+// ConfigGroup 是为指定名称组配置的配置节点切片。
 type ConfigGroup []ConfigNode
 
-// ConfigNode is configuration for one node.
+// ConfigNode 是单个节点的配置。
 type ConfigNode struct {
-	Host                 string        `json:"host"`                 // Host of server, ip or domain like: 127.0.0.1, localhost
+	Host                 string        `json:"host"`                 // 服务器主机，可以是IP地址或域名，例如：127.0.0.1、localhost
 	Port                 string        `json:"port"`                 // Port, it's commonly 3306.
-	User                 string        `json:"user"`                 // Authentication username.
-	Pass                 string        `json:"pass"`                 // Authentication password.
-	Name                 string        `json:"name"`                 // Default used database name.
-	Type                 string        `json:"type"`                 // Database type: mysql, sqlite, mssql, pgsql, oracle.
-	Link                 string        `json:"link"`                 // (Optional) Custom link information for all configuration in one single string.
-	Extra                string        `json:"extra"`                // (Optional) Extra configuration according the registered third-party database driver.
-	Role                 string        `json:"role"`                 // (Optional, "master" in default) Node role, used for master-slave mode: master, slave.
-	Debug                bool          `json:"debug"`                // (Optional) Debug mode enables debug information logging and output.
-	Prefix               string        `json:"prefix"`               // (Optional) Table prefix.
-	DryRun               bool          `json:"dryRun"`               // (Optional) Dry run, which does SELECT but no INSERT/UPDATE/DELETE statements.
-	Weight               int           `json:"weight"`               // (Optional) Weight for load balance calculating, it's useless if there's just one node.
-	Charset              string        `json:"charset"`              // (Optional, "utf8" in default) Custom charset when operating on database.
-	Protocol             string        `json:"protocol"`             // (Optional, "tcp" in default) See net.Dial for more information which networks are available.
-	Timezone             string        `json:"timezone"`             // (Optional) Sets the time zone for displaying and interpreting time stamps.
-	Namespace            string        `json:"namespace"`            // (Optional) Namespace for some databases. Eg, in pgsql, the `Name` acts as the `catalog`, the `NameSpace` acts as the `schema`.
-	MaxIdleConnCount     int           `json:"maxIdle"`              // (Optional) Max idle connection configuration for underlying connection pool.
-	MaxOpenConnCount     int           `json:"maxOpen"`              // (Optional) Max open connection configuration for underlying connection pool.
-	MaxConnLifeTime      time.Duration `json:"maxLifeTime"`          // (Optional) Max amount of time a connection may be idle before being closed.
-	QueryTimeout         time.Duration `json:"queryTimeout"`         // (Optional) Max query time for per dql.
-	ExecTimeout          time.Duration `json:"execTimeout"`          // (Optional) Max exec time for dml.
-	TranTimeout          time.Duration `json:"tranTimeout"`          // (Optional) Max exec time for a transaction.
-	PrepareTimeout       time.Duration `json:"prepareTimeout"`       // (Optional) Max exec time for prepare operation.
-	CreatedAt            string        `json:"createdAt"`            // (Optional) The field name of table for automatic-filled created datetime.
-	UpdatedAt            string        `json:"updatedAt"`            // (Optional) The field name of table for automatic-filled updated datetime.
-	DeletedAt            string        `json:"deletedAt"`            // (Optional) The field name of table for automatic-filled updated datetime.
-	TimeMaintainDisabled bool          `json:"timeMaintainDisabled"` // (Optional) Disable the automatic time maintaining feature.
+	User                 string        `json:"user"`                 // 认证用户名。
+	Pass                 string        `json:"pass"`                 // 认证密码
+	Name                 string        `json:"name"`                 // 默认使用的数据库名称。
+	Type                 string        `json:"type"`                 // 数据库类型：mysql，sqlite，mssql，pgsql，oracle。
+	Link                 string        `json:"link"`                 // (可选) 将所有配置的自定义链接信息放在一个单独字符串中。
+	Extra                string        `json:"extra"`                // (可选) 根据已注册的第三方数据库驱动进行额外配置
+	Role                 string        `json:"role"`                 // （可选，默认为 "master"）节点角色，用于主从模式：master（主节点），slave（从节点）。
+	Debug                bool          `json:"debug"`                // (可选) Debug模式启用调试信息日志记录和输出。
+	Prefix               string        `json:"prefix"`               // （可选）表前缀。
+	DryRun               bool          `json:"dryRun"`               // (可选) 干预运行，仅执行 SELECT 语句但不执行 INSERT/UPDATE/DELETE 语句。
+	Weight               int           `json:"weight"`               // (可选) 用于负载均衡计算的权重，如果只有一个节点则该参数无效。
+	Charset              string        `json:"charset"`              // （可选，默认为"utf8"）在操作数据库时自定义的字符集。
+	Protocol             string        `json:"protocol"`             // （可选，默认为 "tcp"）有关可用网络的更多信息，请参阅 net.Dial。
+	Timezone             string        `json:"timezone"`             // (可选) 设置显示和解释时间戳时区。
+	Namespace            string        `json:"namespace"`            // （可选）为某些数据库提供命名空间。例如，在pgsql中，`Name`充当`catalog`的角色，而`NameSpace`充当`schema`的角色。
+	MaxIdleConnCount     int           `json:"maxIdle"`              // （可选）为底层连接池配置的最大空闲连接数。
+	MaxOpenConnCount     int           `json:"maxOpen"`              // (可选) 用于底层连接池的最大打开连接配置。
+	MaxConnLifeTime      time.Duration `json:"maxLifeTime"`          // （可选）在连接被关闭之前，允许其空闲的最大时长。
+	QueryTimeout         time.Duration `json:"queryTimeout"`         // (可选) 每个DQL的最大查询时间。
+	ExecTimeout          time.Duration `json:"execTimeout"`          // （可选）dml的最大执行时间。
+	TranTimeout          time.Duration `json:"tranTimeout"`          // (可选) 事务执行的最大时间。
+	PrepareTimeout       time.Duration `json:"prepareTimeout"`       // （可选）为准备操作设置最大执行时间。
+	CreatedAt            string        `json:"createdAt"`            // (可选) 自动填充创建日期时间的表字段名称。
+	UpdatedAt            string        `json:"updatedAt"`            // (可选) 自动填充更新日期时间的表格字段名称。
+	DeletedAt            string        `json:"deletedAt"`            // (可选) 自动填充更新日期时间的表格字段名称。
+	TimeMaintainDisabled bool          `json:"timeMaintainDisabled"` // (可选) 禁用自动时间维护功能。
 }
 
 const (
-	DefaultGroupName = "default" // Default group name.
+	DefaultGroupName = "default" // 默认分组名称。
 )
 
-// configs specifies internal used configuration object.
+// configs 指定内部使用的配置对象。
 var configs struct {
 	sync.RWMutex
-	config Config // All configurations.
-	group  string // Default configuration group.
+	config Config // 所有配置。
+	group  string // 默认配置组。
 }
 
 func init() {
@@ -71,8 +70,8 @@ func init() {
 	configs.group = DefaultGroupName
 }
 
-// SetConfig sets the global configuration for package.
-// It will overwrite the old configuration of package.
+// SetConfig 设置包的全局配置。
+// 它将覆盖包的旧配置。
 func SetConfig(config Config) {
 	defer instances.Clear()
 	configs.Lock()
@@ -86,7 +85,7 @@ func SetConfig(config Config) {
 	configs.config = config
 }
 
-// SetConfigGroup sets the configuration for given group.
+// SetConfigGroup 为给定的组设置配置。
 func SetConfigGroup(group string, nodes ConfigGroup) {
 	defer instances.Clear()
 	configs.Lock()
@@ -97,7 +96,7 @@ func SetConfigGroup(group string, nodes ConfigGroup) {
 	configs.config[group] = nodes
 }
 
-// AddConfigNode adds one node configuration to configuration of given group.
+// AddConfigNode 向给定组的配置中添加一个节点配置。
 func AddConfigNode(group string, node ConfigNode) {
 	defer instances.Clear()
 	configs.Lock()
@@ -105,7 +104,7 @@ func AddConfigNode(group string, node ConfigNode) {
 	configs.config[group] = append(configs.config[group], parseConfigNode(node))
 }
 
-// parseConfigNode parses `Link` configuration syntax.
+// parseConfigNode 解析 `Link` 配置语法。
 func parseConfigNode(node ConfigNode) ConfigNode {
 	if node.Link != "" {
 		node = *parseConfigNodeLink(&node)
@@ -120,24 +119,24 @@ func parseConfigNode(node ConfigNode) ConfigNode {
 	return node
 }
 
-// AddDefaultConfigNode adds one node configuration to configuration of default group.
+// AddDefaultConfigNode 将一个节点配置添加到默认组的配置中。
 func AddDefaultConfigNode(node ConfigNode) {
 	AddConfigNode(DefaultGroupName, node)
 }
 
-// AddDefaultConfigGroup adds multiple node configurations to configuration of default group.
+// AddDefaultConfigGroup 向默认组的配置中添加多个节点配置。
 func AddDefaultConfigGroup(nodes ConfigGroup) {
 	SetConfigGroup(DefaultGroupName, nodes)
 }
 
-// GetConfig retrieves and returns the configuration of given group.
+// GetConfig 获取并返回给定组的配置。
 func GetConfig(group string) ConfigGroup {
 	configs.RLock()
 	defer configs.RUnlock()
 	return configs.config[group]
 }
 
-// SetDefaultGroup sets the group name for default configuration.
+// SetDefaultGroup 设置默认配置的组名称。
 func SetDefaultGroup(name string) {
 	defer instances.Clear()
 	configs.Lock()
@@ -145,7 +144,7 @@ func SetDefaultGroup(name string) {
 	configs.group = name
 }
 
-// GetDefaultGroup returns the { name of default configuration.
+// GetDefaultGroup 返回默认配置的名称。
 func GetDefaultGroup() string {
 	defer instances.Clear()
 	configs.RLock()
@@ -153,68 +152,73 @@ func GetDefaultGroup() string {
 	return configs.group
 }
 
-// IsConfigured checks and returns whether the database configured.
-// It returns true if any configuration exists.
+// IsConfigured 检查并返回数据库是否已配置。
+// 如果存在任何配置信息，则返回 true。
 func IsConfigured() bool {
 	configs.RLock()
 	defer configs.RUnlock()
 	return len(configs.config) > 0
 }
 
-// SetLogger sets the logger for orm.
+// SetLogger 设置orm的记录器。
 func (c *Core) SetLogger(logger glog.ILogger) {
 	c.logger = logger
 }
 
-// GetLogger returns the (logger) of the orm.
+// GetLogger 返回 orm 的（日志器）
 func (c *Core) GetLogger() glog.ILogger {
 	return c.logger
 }
 
-// SetMaxIdleConnCount sets the maximum number of connections in the idle
-// connection pool.
+// 设置空闲连接池中的最大连接数。
 //
-// If MaxOpenConns is greater than 0 but less than the new MaxIdleConns,
-// then the new MaxIdleConns will be reduced to match the MaxOpenConns limit.
+// 如果MaxOpenConns大于0但小于新的MaxIdleConns，则新的MaxIdleConns将减小以匹配MaxOpenConns限制。
 //
-// If n <= 0, no idle connections are retained.
+// 若n <= 0，则不保留任何空闲连接。
 //
-// The default max idle connections is currently 2. This may change in
-// a future release.
+// 当前默认的最大空闲连接数为2，这在未来版本中可能会发生变化。
+// 以下是逐行翻译：
+// ```go
+// SetMaxIdleConnCount 用于设置闲置连接池中允许的最大连接数量。
+//
+// 如果 MaxOpenConns 大于0但小于新设置的 MaxIdleConns 值，
+// 那么新的 MaxIdleConns 将会被调整以匹配 MaxOpenConns 的限制。
+//
+// 如果传入的参数 n 小于等于0，则不会保留任何空闲连接。
+//
+// 目前默认的最大空闲连接数是2，在未来版本中这个数值可能会有所更改。
 func (c *Core) SetMaxIdleConnCount(n int) {
 	c.dynamicConfig.MaxIdleConnCount = n
 }
 
-// SetMaxOpenConnCount sets the maximum number of open connections to the database.
+// SetMaxOpenConnCount 设置与数据库的最大连接数。
 //
-// If MaxIdleConns is greater than 0 and the new MaxOpenConns is less than
-// MaxIdleConns, then MaxIdleConns will be reduced to match the new
-// MaxOpenConns limit.
+// 如果 MaxIdleConns 大于0且新的 MaxOpenConns 值小于 MaxIdleConns，则 MaxIdleConns 会相应减少以匹配新的 MaxOpenConns 限制。
 //
-// If n <= 0, then there is no limit on the number of open connections.
-// The default is 0 (unlimited).
+// 若 n <= 0，则表示对打开的连接数没有限制。
+// 默认值为 0（无限制）。
 func (c *Core) SetMaxOpenConnCount(n int) {
 	c.dynamicConfig.MaxOpenConnCount = n
 }
 
-// SetMaxConnLifeTime sets the maximum amount of time a connection may be reused.
+// SetMaxConnLifeTime 设置单个连接可重用的最大时长。
 //
-// Expired connections may be closed lazily before reuse.
+// 到期的连接在重用前可能被延迟关闭。
 //
-// If d <= 0, connections are not closed due to a connection's age.
+// 如果 d <= 0，则不会因为连接存在时间过长而关闭连接。
 func (c *Core) SetMaxConnLifeTime(d time.Duration) {
 	c.dynamicConfig.MaxConnLifeTime = d
 }
 
-// GetConfig returns the current used node configuration.
+// GetConfig 返回当前正在使用的节点配置。
 func (c *Core) GetConfig() *ConfigNode {
 	internalData := c.GetInternalCtxDataFromCtx(c.db.GetCtx())
 	if internalData != nil && internalData.ConfigNode != nil {
-		// Note:
-		// It so here checks and returns the config from current DB,
-		// if different schemas between current DB and config.Name from context,
-		// for example, in nested transaction scenario, the context is passed all through the logic procedure,
-		// but the config.Name from context may be still the original one from the first transaction object.
+// 注意：
+// 该处会检查并返回当前数据库的配置信息，
+// 如果当前数据库与从context获取到的config.Name中的模式（schema）不同时，
+// 比如在嵌套事务场景中，context会在整个逻辑过程中被传递，
+// 但context中的config.Name可能仍然是最初第一个事务对象中的原始值。
 		if c.config.Name == internalData.ConfigNode.Name {
 			return internalData.ConfigNode
 		}
@@ -222,42 +226,42 @@ func (c *Core) GetConfig() *ConfigNode {
 	return c.config
 }
 
-// SetDebug enables/disables the debug mode.
+// SetDebug用于开启或关闭调试模式。
 func (c *Core) SetDebug(debug bool) {
 	c.debug.Set(debug)
 }
 
-// GetDebug returns the debug value.
+// GetDebug 返回调试值。
 func (c *Core) GetDebug() bool {
 	return c.debug.Val()
 }
 
-// GetCache returns the internal cache object.
+// GetCache 返回内部缓存对象。
 func (c *Core) GetCache() *gcache.Cache {
 	return c.cache
 }
 
-// GetGroup returns the group string configured.
+// GetGroup 返回已配置的组字符串。
 func (c *Core) GetGroup() string {
 	return c.group
 }
 
-// SetDryRun enables/disables the DryRun feature.
+// SetDryRun 用于启用/禁用 DryRun 功能。
 func (c *Core) SetDryRun(enabled bool) {
 	c.config.DryRun = enabled
 }
 
-// GetDryRun returns the DryRun value.
+// GetDryRun 返回 DryRun 的值。
 func (c *Core) GetDryRun() bool {
 	return c.config.DryRun || allDryRun
 }
 
-// GetPrefix returns the table prefix string configured.
+// GetPrefix 返回已配置的表前缀字符串。
 func (c *Core) GetPrefix() string {
 	return c.config.Prefix
 }
 
-// GetSchema returns the schema configured.
+// GetSchema 返回已配置的架构。
 func (c *Core) GetSchema() string {
 	schema := c.schema
 	if schema == "" {
@@ -294,7 +298,7 @@ func parseConfigNodeLink(node *ConfigNode) *ConfigNode {
 			_ = gconv.Struct(m, &node)
 		}
 	}
-	// Default value checks.
+	// 默认值检查。
 	if node.Charset == "" {
 		node.Charset = defaultCharset
 	}

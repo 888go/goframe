@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtcp_test
 
@@ -10,12 +9,12 @@ import (
 	"fmt"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/net/gtcp"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
 )
 
 func Test_Package_Basic(t *testing.T) {
@@ -46,7 +45,7 @@ func Test_Package_Basic(t *testing.T) {
 			t.AssertNil(err)
 		}
 	})
-	// SendPkg with big data - failure.
+	// SendPkg 传输大数据 - 失败
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -73,7 +72,7 @@ func Test_Package_Basic(t *testing.T) {
 			t.Assert(result, data)
 		}
 	})
-	// SendRecvPkg with big data - failure.
+	// SendRecvPkg 在大数据量下的发送与接收 - 失败情况
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -83,7 +82,7 @@ func Test_Package_Basic(t *testing.T) {
 		t.AssertNE(err, nil)
 		t.Assert(result, nil)
 	})
-	// SendRecvPkg with big data - success.
+	// SendRecvPkg 处理大数据 - 成功。
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -112,7 +111,7 @@ func Test_Package_Basic_HeaderSize1(t *testing.T) {
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
 
-	// SendRecvPkg with empty data.
+	// SendRecvPkg 用于发送和接收空数据。
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -183,7 +182,7 @@ func Test_Package_Option(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	// SendRecvPkg with big data - failure.
+	// SendRecvPkg 在大数据量下的发送与接收 - 失败情况
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -193,7 +192,7 @@ func Test_Package_Option(t *testing.T) {
 		t.AssertNE(err, nil)
 		t.Assert(result, nil)
 	})
-	// SendRecvPkg with big data - success.
+	// SendRecvPkg 处理大数据 - 成功。
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -251,7 +250,7 @@ func Test_Package_Option_HeadSize4(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	// SendRecvPkg with big data - failure.
+	// SendRecvPkg 在大数据量下的发送与接收 - 失败情况
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -260,7 +259,7 @@ func Test_Package_Option_HeadSize4(t *testing.T) {
 		_, err = conn.SendRecvPkg(data, gtcp.PkgOption{HeaderSize: 4})
 		t.Assert(err, nil)
 	})
-	// SendRecvPkg with big data - success.
+	// SendRecvPkg 处理大数据 - 成功。
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
@@ -272,7 +271,7 @@ func Test_Package_Option_HeadSize4(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result, data)
 	})
-	// pkgOption.HeaderSize oversize
+	// pkgOption.HeaderSize 超出了限制
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)

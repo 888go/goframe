@@ -1,18 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gmode provides release mode management for project.
+// Package gmode 为项目提供发布模式管理功能。
 //
-// It uses string to mark the mode instead of integer, which is convenient for configuration.
+// 它使用字符串而非整数来标记模式，这种方式对于配置更为方便。
 package gmode
 
 import (
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/os/gfile"
 )
 
 const (
@@ -25,44 +25,44 @@ const (
 )
 
 var (
-	// Note that `currentMode` is not concurrent safe.
+	// 注意，`currentMode` 不是线程安全的。
 	currentMode = NOT_SET
 )
 
-// Set sets the mode for current application.
+// Set 设置当前应用程序的模式。
 func Set(mode string) {
 	currentMode = mode
 }
 
-// SetDevelop sets current mode DEVELOP for current application.
+// SetDevelop 将当前应用程序的当前模式设置为 DEVELOP 模式。
 func SetDevelop() {
 	Set(DEVELOP)
 }
 
-// SetTesting sets current mode TESTING for current application.
+// SetTesting 设置当前应用程序的当前模式为 TESTING。
 func SetTesting() {
 	Set(TESTING)
 }
 
-// SetStaging sets current mode STAGING for current application.
+// SetStaging 将当前应用的当前模式设置为 STAGING。
 func SetStaging() {
 	Set(STAGING)
 }
 
-// SetProduct sets current mode PRODUCT for current application.
+// SetProduct 将当前应用的模式设置为PRODUCT模式。
 func SetProduct() {
 	Set(PRODUCT)
 }
 
-// Mode returns current application mode set.
+// Mode 返回当前设置的应用程序模式。
 func Mode() string {
-	// If current mode is not set, do this auto check.
+	// 如果当前模式未设置，则执行此自动检查。
 	if currentMode == NOT_SET {
 		if v := command.GetOptWithEnv(commandEnvKey); v != "" {
-			// Mode configured from command argument of environment.
+			// Mode 由命令行参数或环境变量配置。
 			currentMode = v
 		} else {
-			// If there are source codes found, it's in develop mode, or else in product mode.
+			// 如果找到了源代码，那么处于开发模式；否则，处于产品模式。
 			if gfile.Exists(gdebug.CallerFilePath()) {
 				currentMode = DEVELOP
 			} else {
@@ -73,22 +73,22 @@ func Mode() string {
 	return currentMode
 }
 
-// IsDevelop checks and returns whether current application is running in DEVELOP mode.
+// IsDevelop 检查并返回当前应用程序是否在开发模式下运行。
 func IsDevelop() bool {
 	return Mode() == DEVELOP
 }
 
-// IsTesting checks and returns whether current application is running in TESTING mode.
+// IsTesting 检查并返回当前应用程序是否处于测试模式运行。
 func IsTesting() bool {
 	return Mode() == TESTING
 }
 
-// IsStaging checks and returns whether current application is running in STAGING mode.
+// IsStaging 检查并返回当前应用程序是否在 STAGING（暂存）模式下运行。
 func IsStaging() bool {
 	return Mode() == STAGING
 }
 
-// IsProduct checks and returns whether current application is running in PRODUCT mode.
+// IsProduct 检查并返回当前应用程序是否在PRODUCT模式下运行。
 func IsProduct() bool {
 	return Mode() == PRODUCT
 }

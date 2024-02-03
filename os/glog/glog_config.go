@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package glog
 
@@ -11,151 +10,154 @@ import (
 	"io"
 )
 
-// SetConfig set configurations for the defaultLogger.
+// SetConfig 设置默认日志器的配置。
 func SetConfig(config Config) error {
 	return defaultLogger.SetConfig(config)
 }
 
-// SetConfigWithMap set configurations with map for the defaultLogger.
+// SetConfigWithMap 通过map为默认日志器设置配置。
 func SetConfigWithMap(m map[string]interface{}) error {
 	return defaultLogger.SetConfigWithMap(m)
 }
 
-// SetPath sets the directory path for file logging.
+// SetPath 设置文件日志的目录路径。
 func SetPath(path string) error {
 	return defaultLogger.SetPath(path)
 }
 
-// GetPath returns the logging directory path for file logging.
-// It returns empty string if no directory path set.
+// GetPath 返回用于文件日志记录的日志目录路径。
+// 如果未设置目录路径，则返回空字符串。
 func GetPath() string {
 	return defaultLogger.GetPath()
 }
 
-// SetFile sets the file name `pattern` for file logging.
-// Datetime pattern can be used in `pattern`, eg: access-{Ymd}.log.
-// The default file name pattern is: Y-m-d.log, eg: 2018-01-01.log
+// SetFile 设置文件日志的文件名`pattern`。
+// 在`pattern`中可以使用日期时间模式，例如：access-{Ymd}.log。
+// 默认的文件名模式是：Y-m-d.log，例如：2018-01-01.log
+// 这段Go语言代码注释翻译成中文为：
+// 设置文件日志的文件名为 `pattern`。
+// 可以在 `pattern` 中使用日期时间格式化字符串，例如：access-{Ymd}.log（表示按年月日生成不同文件）。
+// 默认的文件名格式是：Y-m-d.log，例如：2018-01-01.log
 func SetFile(pattern string) {
 	defaultLogger.SetFile(pattern)
 }
 
-// SetLevel sets the default logging level.
+// SetLevel 设置默认的日志级别。
 func SetLevel(level int) {
 	defaultLogger.SetLevel(level)
 }
 
-// GetLevel returns the default logging level value.
+// GetLevel 返回默认的日志级别值。
 func GetLevel() int {
 	return defaultLogger.GetLevel()
 }
 
-// SetWriter sets the customized logging `writer` for logging.
-// The `writer` object should implements the io.Writer interface.
-// Developer can use customized logging `writer` to redirect logging output to another service,
-// eg: kafka, mysql, mongodb, etc.
+// SetWriter 设置自定义的日志 `writer` 用于日志记录。
+// `writer` 对象应实现 io.Writer 接口。
+// 开发者可以使用自定义的日志 `writer` 将日志输出重定向到其他服务，
+// 例如：kafka、mysql、mongodb 等等。
 func SetWriter(writer io.Writer) {
 	defaultLogger.SetWriter(writer)
 }
 
-// GetWriter returns the customized writer object, which implements the io.Writer interface.
-// It returns nil if no customized writer set.
+// GetWriter 返回一个自定义的writer对象，该对象实现了io.Writer接口。
+// 如果未设置自定义writer，则返回nil。
 func GetWriter() io.Writer {
 	return defaultLogger.GetWriter()
 }
 
-// SetDebug enables/disables the debug level for default defaultLogger.
-// The debug level is enabled in default.
+// SetDebug 用于启用/禁用默认 defaultLogger 的调试级别。
+// 调试级别默认是启用状态。
 func SetDebug(debug bool) {
 	defaultLogger.SetDebug(debug)
 }
 
-// SetAsync enables/disables async logging output feature for default defaultLogger.
+// SetAsync 用于启用/禁用默认默认Logger的异步日志输出功能。
 func SetAsync(enabled bool) {
 	defaultLogger.SetAsync(enabled)
 }
 
-// SetStdoutPrint sets whether ouptput the logging contents to stdout, which is true in default.
+// SetStdoutPrint 设置是否将日志内容输出到标准输出（stdout），默认情况下为true。
 func SetStdoutPrint(enabled bool) {
 	defaultLogger.SetStdoutPrint(enabled)
 }
 
-// SetHeaderPrint sets whether output header of the logging contents, which is true in default.
+// SetHeaderPrint 设置是否输出日志内容的头部，默认为true。
 func SetHeaderPrint(enabled bool) {
 	defaultLogger.SetHeaderPrint(enabled)
 }
 
-// SetPrefix sets prefix string for every logging content.
-// Prefix is part of header, which means if header output is shut, no prefix will be output.
+// SetPrefix 设置每个日志内容的前缀字符串。
+// 前缀是头部的一部分，这意味着如果关闭了头部输出，则不会输出任何前缀。
 func SetPrefix(prefix string) {
 	defaultLogger.SetPrefix(prefix)
 }
 
-// SetFlags sets extra flags for logging output features.
+// SetFlags 设置日志输出功能的额外标志。
 func SetFlags(flags int) {
 	defaultLogger.SetFlags(flags)
 }
 
-// GetFlags returns the flags of defaultLogger.
+// GetFlags 返回默认日志器的标志。
 func GetFlags() int {
 	return defaultLogger.GetFlags()
 }
 
-// SetCtxKeys sets the context keys for defaultLogger. The keys is used for retrieving values
-// from context and printing them to logging content.
+// SetCtxKeys 为 defaultLogger 设置上下文键。这些键用于从上下文中检索值并将其打印到日志内容中。
 //
-// Note that multiple calls of this function will overwrite the previous set context keys.
+// 注意，多次调用此函数会覆盖之前设置的上下文键。
 func SetCtxKeys(keys ...interface{}) {
 	defaultLogger.SetCtxKeys(keys...)
 }
 
-// GetCtxKeys retrieves and returns the context keys for logging.
+// GetCtxKeys 获取并返回用于日志记录的上下文键。
 func GetCtxKeys() []interface{} {
 	return defaultLogger.GetCtxKeys()
 }
 
-// PrintStack prints the caller stack,
-// the optional parameter `skip` specify the skipped stack offset from the end point.
+// PrintStack 打印调用栈，
+// 可选参数 `skip` 指定了从终点开始需要跳过的堆栈偏移量。
 func PrintStack(ctx context.Context, skip ...int) {
 	defaultLogger.PrintStack(ctx, skip...)
 }
 
-// GetStack returns the caller stack content,
-// the optional parameter `skip` specify the skipped stack offset from the end point.
+// GetStack 返回调用堆栈的内容，
+// 可选参数 `skip` 指定了从终点开始跳过的堆栈偏移量。
 func GetStack(skip ...int) string {
 	return defaultLogger.GetStack(skip...)
 }
 
-// SetStack enables/disables the stack feature in failure logging outputs.
+// SetStack 启用/禁用失败日志输出中的堆栈跟踪功能。
 func SetStack(enabled bool) {
 	defaultLogger.SetStack(enabled)
 }
 
-// SetLevelStr sets the logging level by level string.
+// SetLevelStr 通过级别字符串设置日志记录级别。
 func SetLevelStr(levelStr string) error {
 	return defaultLogger.SetLevelStr(levelStr)
 }
 
-// SetLevelPrefix sets the prefix string for specified level.
+// SetLevelPrefix 为指定等级设置前缀字符串。
 func SetLevelPrefix(level int, prefix string) {
 	defaultLogger.SetLevelPrefix(level, prefix)
 }
 
-// SetLevelPrefixes sets the level to prefix string mapping for the defaultLogger.
+// SetLevelPrefixes 为默认日志器设置等级到前缀字符串的映射。
 func SetLevelPrefixes(prefixes map[int]string) {
 	defaultLogger.SetLevelPrefixes(prefixes)
 }
 
-// GetLevelPrefix returns the prefix string for specified level.
+// GetLevelPrefix 返回指定级别的前缀字符串。
 func GetLevelPrefix(level int) string {
 	return defaultLogger.GetLevelPrefix(level)
 }
 
-// SetHandlers sets the logging handlers for default defaultLogger.
+// SetHandlers 为默认的 defaultLogger 设置日志处理器。
 func SetHandlers(handlers ...Handler) {
 	defaultLogger.SetHandlers(handlers...)
 }
 
-// SetWriterColorEnable sets the file logging with color
+// SetWriterColorEnable 设置文件日志记录使用颜色
 func SetWriterColorEnable(enabled bool) {
 	defaultLogger.SetWriterColorEnable(enabled)
 }

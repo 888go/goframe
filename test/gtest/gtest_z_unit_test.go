@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtest_test
 
@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"strconv"
 	"testing"
-
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -308,8 +308,10 @@ func TestAssertIN(t *testing.T) {
 				t.Assert(err, "[ASSERT] EXPECT 4 IN [1 2 3]")
 			}
 		}()
-		// t.AssertIN(0, []int{0, 1, 2, 3})
-		// t.AssertIN(0, []int{ 1, 2, 3})
+// t.AssertIN(0, []int{0, 1, 2, 3})
+// 检查整数0是否在给定的整数切片([]int)中，该切片包含元素0、1、2和3
+// t.AssertIN(0, []int{1, 2, 3})
+// 检查整数0是否在给定的整数切片([]int)中，该切片包含元素1、2、3
 		t.AssertIN(4, []int{1, 2, 3})
 	})
 }

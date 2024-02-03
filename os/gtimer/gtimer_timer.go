@@ -1,19 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtimer
 
 import (
 	"context"
 	"time"
-
-	"github.com/gogf/gf/v2/container/gtype"
+	
+	"github.com/888go/goframe/container/gtype"
 )
 
-// New creates and returns a Timer.
+// New 创建并返回一个 Timer。
 func New(options ...TimerOptions) *Timer {
 	t := &Timer{
 		queue:  newPriorityQueue(),
@@ -32,7 +31,7 @@ func New(options ...TimerOptions) *Timer {
 	return t
 }
 
-// Add adds a timing job to the timer, which runs in interval of `interval`.
+// Add 向定时器添加一个计时任务，该任务以 `interval` 为间隔运行。
 func (t *Timer) Add(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
 		Ctx:         ctx,
@@ -44,17 +43,15 @@ func (t *Timer) Add(ctx context.Context, interval time.Duration, job JobFunc) *E
 	})
 }
 
-// AddEntry adds a timing job to the timer with detailed parameters.
+// AddEntry 向定时器添加一个具有详细参数的定时任务。
 //
-// The parameter `interval` specifies the running interval of the job.
+// 参数 `interval` 指定了该任务的运行间隔时间。
 //
-// The parameter `singleton` specifies whether the job running in singleton mode.
-// There's only one of the same job is allowed running when it's a singleton mode job.
+// 参数 `singleton` 指定了任务是否以单例模式运行。如果是单例模式的任务，同一任务在运行时只允许存在一个实例。
 //
-// The parameter `times` specifies limit for the job running times, which means the job
-// exits if its run times exceeds the `times`.
+// 参数 `times` 指定了任务运行次数的限制，意味着当任务运行次数超过 `times` 时，该任务将结束运行。
 //
-// The parameter `status` specifies the job status when it's firstly added to the timer.
+// 参数 `status` 指定了任务首次添加到定时器时的状态。
 func (t *Timer) AddEntry(ctx context.Context, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) *Entry {
 	return t.createEntry(createEntryInput{
 		Ctx:         ctx,
@@ -66,7 +63,7 @@ func (t *Timer) AddEntry(ctx context.Context, interval time.Duration, job JobFun
 	})
 }
 
-// AddSingleton is a convenience function for add singleton mode job.
+// AddSingleton 是一个用于添加单例模式任务的便捷函数。
 func (t *Timer) AddSingleton(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
 		Ctx:         ctx,
@@ -78,7 +75,7 @@ func (t *Timer) AddSingleton(ctx context.Context, interval time.Duration, job Jo
 	})
 }
 
-// AddOnce is a convenience function for adding a job which only runs once and then exits.
+// AddOnce 是一个便捷函数，用于添加一个仅运行一次然后退出的任务。
 func (t *Timer) AddOnce(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
 		Ctx:         ctx,
@@ -90,7 +87,7 @@ func (t *Timer) AddOnce(ctx context.Context, interval time.Duration, job JobFunc
 	})
 }
 
-// AddTimes is a convenience function for adding a job which is limited running times.
+// AddTimes 是一个便捷函数，用于添加有一定运行次数限制的任务。
 func (t *Timer) AddTimes(ctx context.Context, interval time.Duration, times int, job JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
 		Ctx:         ctx,
@@ -102,57 +99,57 @@ func (t *Timer) AddTimes(ctx context.Context, interval time.Duration, times int,
 	})
 }
 
-// DelayAdd adds a timing job after delay of `delay` duration.
-// Also see Add.
+// DelayAdd 在 `delay` 延迟时间后添加一个定时任务。
+// 也可参考 Add。
 func (t *Timer) DelayAdd(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
 	t.AddOnce(ctx, delay, func(ctx context.Context) {
 		t.Add(ctx, interval, job)
 	})
 }
 
-// DelayAddEntry adds a timing job after delay of `delay` duration.
-// Also see AddEntry.
+// DelayAddEntry 在`delay`延迟时间后添加一个定时任务。
+// 也可参考 AddEntry。
 func (t *Timer) DelayAddEntry(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) {
 	t.AddOnce(ctx, delay, func(ctx context.Context) {
 		t.AddEntry(ctx, interval, job, isSingleton, times, status)
 	})
 }
 
-// DelayAddSingleton adds a timing job after delay of `delay` duration.
-// Also see AddSingleton.
+// DelayAddSingleton在`delay`延迟时间后添加一个定时任务。
+// 也请参阅AddSingleton。
 func (t *Timer) DelayAddSingleton(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
 	t.AddOnce(ctx, delay, func(ctx context.Context) {
 		t.AddSingleton(ctx, interval, job)
 	})
 }
 
-// DelayAddOnce adds a timing job after delay of `delay` duration.
-// Also see AddOnce.
+// DelayAddOnce在`delay`延迟时间之后添加一个定时任务。
+// 另请参阅AddOnce。
 func (t *Timer) DelayAddOnce(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
 	t.AddOnce(ctx, delay, func(ctx context.Context) {
 		t.AddOnce(ctx, interval, job)
 	})
 }
 
-// DelayAddTimes adds a timing job after delay of `delay` duration.
-// Also see AddTimes.
+// DelayAddTimes 在`delay`延迟时间后添加一个定时任务。
+// 另请参阅 AddTimes。
 func (t *Timer) DelayAddTimes(ctx context.Context, delay time.Duration, interval time.Duration, times int, job JobFunc) {
 	t.AddOnce(ctx, delay, func(ctx context.Context) {
 		t.AddTimes(ctx, interval, times, job)
 	})
 }
 
-// Start starts the timer.
+// Start 开始计时器。
 func (t *Timer) Start() {
 	t.status.Set(StatusRunning)
 }
 
-// Stop stops the timer.
+// Stop 停止定时器。
 func (t *Timer) Stop() {
 	t.status.Set(StatusStopped)
 }
 
-// Close closes the timer.
+// Close 关闭计时器。
 func (t *Timer) Close() {
 	t.status.Set(StatusClosed)
 }
@@ -166,7 +163,7 @@ type createEntryInput struct {
 	Status      int
 }
 
-// createEntry creates and adds a timing job to the timer.
+// createEntry 创建并添加一个定时任务到计时器中。
 func (t *Timer) createEntry(in createEntryInput) *Entry {
 	var (
 		infinite  = false
@@ -179,13 +176,13 @@ func (t *Timer) createEntry(in createEntryInput) *Entry {
 		intervalTicksOfJob = int64(in.Interval / t.options.Interval)
 	)
 	if intervalTicksOfJob == 0 {
-		// If the given interval is lesser than the one of the wheel,
-		// then sets it to one tick, which means it will be run in one interval.
+// 如果给定的间隔小于轮子的间隔，
+// 则将其设置为一个刻度，这意味着它将在一个间隔后运行。
 		intervalTicksOfJob = 1
 	}
 	if t.options.Quick {
-		// If the quick mode is enabled, which means it will be run right now.
-		// Don't need to wait for the first interval.
+// 如果启用了快速模式，意味着它将立即运行。
+// 不需要等待第一个间隔时间。
 		nextTicks = t.ticks.Val()
 	} else {
 		nextTicks = t.ticks.Val() + intervalTicksOfJob

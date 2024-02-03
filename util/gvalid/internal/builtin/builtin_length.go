@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
 
@@ -10,16 +9,16 @@ import (
 	"errors"
 	"strconv"
 	"strings"
-
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// RuleLength implements `length` rule:
-// Length between :min and :max.
-// The length is calculated using unicode string, which means one chinese character or letter both has the length of 1.
+// RuleLength 实现了 `length` 规则：
+// 长度在 :min 和 :max 之间。
+// 长度计算采用的是 unicode 字符串，这意味着一个中文字符或字母的长度都为 1。
 //
-// Format: length:min,max
+// 格式：length:min,max
 type RuleLength struct{}
 
 func init() {

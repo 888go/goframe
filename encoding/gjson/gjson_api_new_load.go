@@ -1,48 +1,42 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gjson
 
 import (
 	"bytes"
 	"reflect"
-
-	"github.com/gogf/gf/v2/encoding/gini"
-	"github.com/gogf/gf/v2/encoding/gproperties"
-	"github.com/gogf/gf/v2/encoding/gtoml"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/encoding/gyaml"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/encoding/gini"
+	"github.com/888go/goframe/encoding/gproperties"
+	"github.com/888go/goframe/encoding/gtoml"
+	"github.com/888go/goframe/encoding/gxml"
+	"github.com/888go/goframe/encoding/gyaml"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/rwmutex"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// New creates a Json object with any variable type of `data`, but `data` should be a map
-// or slice for data access reason, or it will make no sense.
+// New 函数通过任意类型的 `data` 创建一个 Json 对象，但 `data` 应为 map 或 slice 类型以保证数据可访问性，否则创建此对象将无实际意义。
 //
-// The parameter `safe` specifies whether using this Json object in concurrent-safe context,
-// which is false in default.
+// 参数 `safe` 指定是否在并发安全的上下文中使用此 Json 对象，默认情况下 `safe` 为 false。
 func New(data interface{}, safe ...bool) *Json {
 	return NewWithTag(data, string(ContentTypeJson), safe...)
 }
 
-// NewWithTag creates a Json object with any variable type of `data`, but `data` should be a map
-// or slice for data access reason, or it will make no sense.
+// NewWithTag 创建一个Json对象，其数据类型可以是任意的 `data`，但为了方便数据访问，`data` 应该是一个 map 或 slice，否则将失去意义。
 //
-// The parameter `tags` specifies priority tags for struct conversion to map, multiple tags joined
-// with char ','.
+// 参数 `tags` 指定了在结构体转为 map 时使用的优先级标签，多个标签使用字符 ',' 连接。
 //
-// The parameter `safe` specifies whether using this Json object in concurrent-safe context, which
-// is false in default.
+// 参数 `safe` 指定了是否在并发安全的上下文中使用此 Json 对象，默认情况下为 false。
 func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
 	option := Options{
 		Tags: tags,
@@ -53,8 +47,7 @@ func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
 	return NewWithOptions(data, option)
 }
 
-// NewWithOptions creates a Json object with any variable type of `data`, but `data` should be a map
-// or slice for data access reason, or it will make no sense.
+// NewWithOptions 创建一个Json对象，其变量类型可以是 `data` 的任意类型，但为了能够访问数据，`data` 应该是一个 map 或 slice，否则将毫无意义。
 func NewWithOptions(data interface{}, options Options) *Json {
 	var j *Json
 	switch data.(type) {
@@ -99,7 +92,7 @@ func NewWithOptions(data interface{}, options Options) *Json {
 	return j
 }
 
-// Load loads content from specified file `path`, and creates a Json object from its content.
+// Load 从指定的文件路径`path`加载内容，并根据其内容创建一个Json对象。
 func Load(path string, safe ...bool) (*Json, error) {
 	if p, err := gfile.Search(path); err != nil {
 		return nil, err
@@ -115,12 +108,12 @@ func Load(path string, safe ...bool) (*Json, error) {
 	return doLoadContentWithOptions(gfile.GetBytesWithCache(path), options)
 }
 
-// LoadWithOptions creates a Json object from given JSON format content and options.
+// LoadWithOptions 根据给定的JSON格式内容和选项，创建一个Json对象。
 func LoadWithOptions(data interface{}, options Options) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), options)
 }
 
-// LoadJson creates a Json object from given JSON format content.
+// LoadJson 从给定的 JSON 格式内容创建一个 Json 对象。
 func LoadJson(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeJson,
@@ -131,7 +124,7 @@ func LoadJson(data interface{}, safe ...bool) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), option)
 }
 
-// LoadXml creates a Json object from given XML format content.
+// LoadXml 从给定的 XML 格式内容创建一个 Json 对象。
 func LoadXml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeXml,
@@ -142,7 +135,7 @@ func LoadXml(data interface{}, safe ...bool) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), option)
 }
 
-// LoadIni creates a Json object from given INI format content.
+// LoadIni 从给定的 INI 格式内容创建一个 Json 对象。
 func LoadIni(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeIni,
@@ -153,7 +146,7 @@ func LoadIni(data interface{}, safe ...bool) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), option)
 }
 
-// LoadYaml creates a Json object from given YAML format content.
+// LoadYaml 从给定的YAML格式内容创建一个Json对象。
 func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeYaml,
@@ -164,7 +157,7 @@ func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), option)
 }
 
-// LoadToml creates a Json object from given TOML format content.
+// LoadToml 从给定的TOML格式内容创建一个Json对象。
 func LoadToml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeToml,
@@ -175,7 +168,7 @@ func LoadToml(data interface{}, safe ...bool) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), option)
 }
 
-// LoadProperties creates a Json object from given TOML format content.
+// LoadProperties 从给定的TOML格式内容创建一个Json对象。
 func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeProperties,
@@ -186,9 +179,9 @@ func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), option)
 }
 
-// LoadContent creates a Json object from given content, it checks the data type of `content`
-// automatically, supporting data content type as follows:
-// JSON, XML, INI, YAML and TOML.
+// LoadContent 从给定的内容创建一个 Json 对象，它会自动检查 `content` 的数据类型，
+// 支持以下数据内容类型：
+// JSON、XML、INI、YAML 和 TOML。
 func LoadContent(data interface{}, safe ...bool) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
@@ -197,9 +190,9 @@ func LoadContent(data interface{}, safe ...bool) (*Json, error) {
 	return LoadContentType(checkDataType(content), content, safe...)
 }
 
-// LoadContentType creates a Json object from given type and content,
-// supporting data content type as follows:
-// JSON, XML, INI, YAML and TOML.
+// LoadContentType 从给定的类型和内容创建一个 Json 对象，
+// 支持以下数据内容类型：
+// JSON、XML、INI、YAML 和 TOML。
 func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
@@ -219,7 +212,7 @@ func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Jso
 	return doLoadContentWithOptions(content, options)
 }
 
-// IsValidDataType checks and returns whether given `dataType` a valid data type for loading.
+// IsValidDataType 检查并返回给定的 `dataType` 是否为有效载入数据类型。
 func IsValidDataType(dataType ContentType) bool {
 	if dataType == "" {
 		return false
@@ -265,9 +258,9 @@ func loadContentTypeWithOptions(data interface{}, options Options) (*Json, error
 	return doLoadContentWithOptions(content, options)
 }
 
-// doLoadContent creates a Json object from given content.
-// It supports data content type as follows:
-// JSON, XML, INI, YAML and TOML.
+// doLoadContent 从给定的内容创建一个 Json 对象。
+// 它支持以下数据内容类型：
+// JSON、XML、INI、YAML 和 TOML。
 func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 	var (
 		err    error
@@ -333,9 +326,9 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 	return NewWithOptions(result, options), nil
 }
 
-// checkDataType automatically checks and returns the data type for `content`.
-// Note that it uses regular expression for loose checking, you can use LoadXXX/LoadContentType
-// functions to load the content for certain content type.
+// checkDataType 自动检查并返回 `content` 的数据类型。
+// 注意，它使用正则表达式进行宽松的检查，你可以使用 LoadXXX/LoadContentType
+// 函数来按特定内容类型加载内容。
 func checkDataType(content []byte) ContentType {
 	if json.Valid(content) {
 		return ContentTypeJson
@@ -353,7 +346,7 @@ func checkDataType(content []byte) ContentType {
 		return ContentTypeToml
 	} else if gregex.IsMatch(`\[[\w\.]+\]`, content) &&
 		(gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*".+"`, content) || gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content)) {
-		// Must contain "[xxx]" section.
+		// 必须包含 "[xxx]" 部分。
 		return ContentTypeIni
 	} else if gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content) {
 		return ContentTypeProperties

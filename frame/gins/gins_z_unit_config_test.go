@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gins_test
 
@@ -11,12 +10,12 @@ import (
 	"fmt"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/frame/gins"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/frame/gins"
+	"github.com/888go/goframe/os/gcfg"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -57,10 +56,10 @@ func Test_Config2(t *testing.T) {
 		t.Assert(gins.Config().MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config().MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// for gfsnotify callbacks to refresh cache of config file
+	// 用于gfsnotify回调以刷新配置文件的缓存
 	time.Sleep(500 * time.Millisecond)
 
-	// relative path, config folder
+	// 相对路径，配置文件夹
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		dirPath := gfile.Temp(gtime.TimestampNanoStr())
@@ -80,7 +79,7 @@ func Test_Config2(t *testing.T) {
 		t.Assert(gins.Config().MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config().MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 
-		// for gfsnotify callbacks to refresh cache of config file
+		// 用于gfsnotify回调以刷新配置文件的缓存
 		time.Sleep(500 * time.Millisecond)
 	})
 }
@@ -107,7 +106,7 @@ func Test_Config3(t *testing.T) {
 		t.Assert(gins.Config("test").MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config("test").MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// for gfsnotify callbacks to refresh cache of config file
+	// 用于gfsnotify回调以刷新配置文件的缓存
 	time.Sleep(500 * time.Millisecond)
 
 	gtest.C(t, func(t *gtest.T) {
@@ -131,7 +130,7 @@ func Test_Config3(t *testing.T) {
 		t.Assert(gins.Config("test").MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config("test").MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// for gfsnotify callbacks to refresh cache of config file for next unit testing case.
+	// 用于gfsnotify回调以刷新配置文件的缓存 for next unit testing case.
 	time.Sleep(500 * time.Millisecond)
 }
 

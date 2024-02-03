@@ -1,20 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gutil
 
 import (
-	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/888go/goframe/internal/deepcopy"
 )
 
-// Copy returns a deep copy of v.
+// Copy 返回v的深度拷贝。
 //
-// Copy is unable to copy unexported fields in a struct (lowercase field names).
-// Unexported fields can't be reflected by the Go runtime and therefore
-// they can't perform any data copies.
+// Copy无法复制结构体中的未导出字段（小写字段名）。
+// 未导出字段不能被Go运行时反射，因此无法执行任何数据拷贝操作。
 func Copy(src interface{}) (dst interface{}) {
 	return deepcopy.Copy(src)
 }

@@ -1,37 +1,36 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gbase64 provides useful API for BASE64 encoding/decoding algorithm.
+// Package gbase64 提供了用于 BASE64 编码/解码算法的有用 API。
 package gbase64
 
 import (
 	"encoding/base64"
 	"os"
-
-	"github.com/gogf/gf/v2/errors/gerror"
+	
+	"github.com/888go/goframe/errors/gerror"
 )
 
-// Encode encodes bytes with BASE64 algorithm.
+// Encode 使用BASE64算法对字节进行编码。
 func Encode(src []byte) []byte {
 	dst := make([]byte, base64.StdEncoding.EncodedLen(len(src)))
 	base64.StdEncoding.Encode(dst, src)
 	return dst
 }
 
-// EncodeString encodes string with BASE64 algorithm.
+// EncodeString 使用BASE64算法对字符串进行编码。
 func EncodeString(src string) string {
 	return EncodeToString([]byte(src))
 }
 
-// EncodeToString encodes bytes to string with BASE64 algorithm.
+// EncodeToString 使用BASE64算法将字节编码为字符串。
 func EncodeToString(src []byte) string {
 	return string(Encode(src))
 }
 
-// EncodeFile encodes file content of `path` using BASE64 algorithms.
+// EncodeFile 使用BASE64算法对`path`指定的文件内容进行编码。
 func EncodeFile(path string) ([]byte, error) {
 	content, err := os.ReadFile(path)
 	if err != nil {
@@ -41,8 +40,8 @@ func EncodeFile(path string) ([]byte, error) {
 	return Encode(content), nil
 }
 
-// MustEncodeFile encodes file content of `path` using BASE64 algorithms.
-// It panics if any error occurs.
+// MustEncodeFile 使用BASE64算法对`path`指定文件的内容进行编码。
+// 如果出现任何错误，将会导致panic。
 func MustEncodeFile(path string) []byte {
 	result, err := EncodeFile(path)
 	if err != nil {
@@ -51,7 +50,7 @@ func MustEncodeFile(path string) []byte {
 	return result
 }
 
-// EncodeFileToString encodes file content of `path` to string using BASE64 algorithms.
+// EncodeFileToString 使用BASE64算法将`path`指定文件的内容编码为字符串。
 func EncodeFileToString(path string) (string, error) {
 	content, err := EncodeFile(path)
 	if err != nil {
@@ -60,8 +59,8 @@ func EncodeFileToString(path string) (string, error) {
 	return string(content), nil
 }
 
-// MustEncodeFileToString encodes file content of `path` to string using BASE64 algorithms.
-// It panics if any error occurs.
+// MustEncodeFileToString 使用BASE64算法将`path`指定文件的内容编码为字符串。
+// 如果发生任何错误，它将会引发panic。
 func MustEncodeFileToString(path string) string {
 	result, err := EncodeFileToString(path)
 	if err != nil {
@@ -70,7 +69,7 @@ func MustEncodeFileToString(path string) string {
 	return result
 }
 
-// Decode decodes bytes with BASE64 algorithm.
+// Decode 使用BASE64算法解码字节。
 func Decode(data []byte) ([]byte, error) {
 	var (
 		src    = make([]byte, base64.StdEncoding.DecodedLen(len(data)))
@@ -82,8 +81,8 @@ func Decode(data []byte) ([]byte, error) {
 	return src[:n], err
 }
 
-// MustDecode decodes bytes with BASE64 algorithm.
-// It panics if any error occurs.
+// MustDecode 使用BASE64算法解码字节。
+// 如果发生任何错误，它会触发panic。
 func MustDecode(data []byte) []byte {
 	result, err := Decode(data)
 	if err != nil {
@@ -92,13 +91,13 @@ func MustDecode(data []byte) []byte {
 	return result
 }
 
-// DecodeString decodes string with BASE64 algorithm.
+// DecodeString 使用BASE64算法解码字符串。
 func DecodeString(data string) ([]byte, error) {
 	return Decode([]byte(data))
 }
 
-// MustDecodeString decodes string with BASE64 algorithm.
-// It panics if any error occurs.
+// MustDecodeString 使用BASE64算法解码字符串。
+// 如果发生任何错误，它会引发panic。
 func MustDecodeString(data string) []byte {
 	result, err := DecodeString(data)
 	if err != nil {
@@ -107,14 +106,14 @@ func MustDecodeString(data string) []byte {
 	return result
 }
 
-// DecodeToString decodes string with BASE64 algorithm.
+// DecodeToString 使用BASE64算法解码字符串。
 func DecodeToString(data string) (string, error) {
 	b, err := DecodeString(data)
 	return string(b), err
 }
 
-// MustDecodeToString decodes string with BASE64 algorithm.
-// It panics if any error occurs.
+// MustDecodeToString 使用BASE64算法解码字符串。
+// 如果出现任何错误，将会导致panic。
 func MustDecodeToString(data string) string {
 	result, err := DecodeToString(data)
 	if err != nil {

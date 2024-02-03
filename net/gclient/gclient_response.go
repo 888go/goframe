@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gclient
 
@@ -10,23 +9,23 @@ import (
 	"bytes"
 	"io"
 	"net/http"
-
-	"github.com/gogf/gf/v2/internal/intlog"
+	
+	"github.com/888go/goframe/internal/intlog"
 )
 
-// Response is the struct for client request response.
+// Response 是用于客户端请求响应的结构体。
 type Response struct {
-	*http.Response                   // Response is the underlying http.Response object of certain request.
-	request        *http.Request     // Request is the underlying http.Request object of certain request.
-	requestBody    []byte            // The body bytes of certain request, only available in Dump feature.
-	cookies        map[string]string // Response cookies, which are only parsed once.
+	*http.Response                   // Response 是某个请求的底层 http.Response 对象。
+	request        *http.Request     // Request 是某个请求的底层 http.Request 对象。
+	requestBody    []byte            // 这是某些请求的主体字节，仅在Dump功能中可用。
+	cookies        map[string]string // 响应cookies，这些只解析一次。
 }
 
-// initCookie initializes the cookie map attribute of Response.
+// initCookie 初始化 Response 结构体中的 cookie map 属性。
 func (r *Response) initCookie() {
 	if r.cookies == nil {
 		r.cookies = make(map[string]string)
-		// Response might be nil.
+		// 响应可能为 nil。
 		if r.Response != nil {
 			for _, v := range r.Cookies() {
 				r.cookies[v.Name] = v.Value
@@ -35,13 +34,13 @@ func (r *Response) initCookie() {
 	}
 }
 
-// GetCookie retrieves and returns the cookie value of specified `key`.
+// GetCookie 根据指定的 `key` 获取并返回 cookie 的值。
 func (r *Response) GetCookie(key string) string {
 	r.initCookie()
 	return r.cookies[key]
 }
 
-// GetCookieMap retrieves and returns a copy of current cookie values map.
+// GetCookieMap 获取并返回当前cookie值的映射副本。
 func (r *Response) GetCookieMap() map[string]string {
 	r.initCookie()
 	m := make(map[string]string, len(r.cookies))
@@ -51,9 +50,9 @@ func (r *Response) GetCookieMap() map[string]string {
 	return m
 }
 
-// ReadAll retrieves and returns the response content as []byte.
+// ReadAll 方法获取并返回响应内容作为 []byte 类型的切片。
 func (r *Response) ReadAll() []byte {
-	// Response might be nil.
+	// 响应可能为 nil。
 	if r == nil || r.Response == nil {
 		return []byte{}
 	}
@@ -65,19 +64,19 @@ func (r *Response) ReadAll() []byte {
 	return body
 }
 
-// ReadAllString retrieves and returns the response content as string.
+// ReadAllString 获取并返回响应内容作为字符串。
 func (r *Response) ReadAllString() string {
 	return string(r.ReadAll())
 }
 
-// SetBodyContent overwrites response content with custom one.
+// SetBodyContent 函数用于覆盖并替换响应内容为自定义内容。
 func (r *Response) SetBodyContent(content []byte) {
 	buffer := bytes.NewBuffer(content)
 	r.Body = io.NopCloser(buffer)
 	r.ContentLength = int64(buffer.Len())
 }
 
-// Close closes the response when it will never be used.
+// Close在响应不再需要使用时关闭该响应。
 func (r *Response) Close() error {
 	if r == nil || r.Response == nil {
 		return nil

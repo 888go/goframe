@@ -1,24 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gins
 
 import (
 	"context"
 	"fmt"
-
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/util/gutil"
+	
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/util/gutil"
 )
 
-// Log returns an instance of glog.Logger.
-// The parameter `name` is the name for the instance.
-// Note that it panics if any error occurs duration instance creating.
+// Log 返回一个 glog.Logger 实例。
+// 参数 `name` 是该实例的名称。
+// 注意：如果在创建实例过程中发生任何错误，它会触发 panic。
 func Log(name ...string) *glog.Logger {
 	var (
 		ctx          = context.Background()
@@ -30,29 +29,29 @@ func Log(name ...string) *glog.Logger {
 	instanceKey := fmt.Sprintf("%s.%s", frameCoreComponentNameLogger, instanceName)
 	return instance.GetOrSetFuncLock(instanceKey, func() interface{} {
 		logger := glog.Instance(instanceName)
-		// To avoid file no found error while it's not necessary.
+		// 为了避免在不必要的时候出现文件未找到错误
 		var (
 			configMap      map[string]interface{}
 			loggerNodeName = consts.ConfigNodeNameLogger
 		)
-		// Try to find possible `loggerNodeName` in case-insensitive way.
+		// 尝试以不区分大小写的方式查找可能的`loggerNodeName`。
 		if configData, _ := Config().Data(ctx); len(configData) > 0 {
 			if v, _ := gutil.MapPossibleItemByKey(configData, consts.ConfigNodeNameLogger); v != "" {
 				loggerNodeName = v
 			}
 		}
-		// Retrieve certain logger configuration by logger name.
+		// 通过日志器名称获取特定的日志器配置。
 		certainLoggerNodeName := fmt.Sprintf(`%s.%s`, loggerNodeName, instanceName)
 		if v, _ := Config().Get(ctx, certainLoggerNodeName); !v.IsEmpty() {
 			configMap = v.Map()
 		}
-		// Retrieve global logger configuration if configuration for certain logger name does not exist.
+		// 如果不存在特定日志器名称的配置，则获取全局日志器配置。
 		if len(configMap) == 0 {
 			if v, _ := Config().Get(ctx, loggerNodeName); !v.IsEmpty() {
 				configMap = v.Map()
 			}
 		}
-		// Set logger config if config map is not empty.
+		// 如果配置映射不为空，则设置日志器配置。
 		if len(configMap) > 0 {
 			if err := logger.SetConfigWithMap(configMap); err != nil {
 				panic(err)

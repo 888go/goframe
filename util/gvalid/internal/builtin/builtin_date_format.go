@@ -1,22 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
 
 import (
 	"errors"
 	"time"
-
-	"github.com/gogf/gf/v2/os/gtime"
+	
+	"github.com/888go/goframe/os/gtime"
 )
 
-// RuleDateFormat implements `date-format` rule:
-// Custom date format.
+// RuleDateFormat 实现了 `date-format` 规则：
+// 自定义日期格式。
 //
-// Format: date-format:format
+// 格式：date-format:format
 type RuleDateFormat struct{}
 
 func init() {
@@ -36,7 +35,7 @@ func (r RuleDateFormat) Run(in RunInput) error {
 		Date() (year int, month time.Month, day int)
 		IsZero() bool
 	}
-	// support for time value, eg: gtime.Time/*gtime.Time, time.Time/*time.Time.
+	// 支持时间值，例如：gtime.Time（gtime.Time, time.Time）
 	if obj, ok := in.Value.Val().(iTime); ok {
 		if obj.IsZero() {
 			return errors.New(in.Message)

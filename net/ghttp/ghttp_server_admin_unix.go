@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 //go:build !windows
 // +build !windows
@@ -13,21 +12,21 @@ import (
 	"context"
 	"os"
 	"syscall"
-
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gproc"
+	
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/os/gproc"
 )
 
-// handleProcessSignal handles all signals from system in blocking way.
+// handleProcessSignal 以阻塞方式处理来自系统的所有信号。
 func handleProcessSignal() {
 	var ctx = context.TODO()
 	gproc.AddSigHandlerShutdown(func(sig os.Signal) {
 		shutdownWebServersGracefully(ctx, sig)
 	})
 	gproc.AddSigHandler(func(sig os.Signal) {
-		// If the graceful restart feature is not enabled,
-		// it does nothing except printing a warning log.
+// 如果优雅重启功能未启用，
+// 除了打印一条警告日志外，不做任何操作。
 		if !gracefulEnabled {
 			glog.Warning(ctx, "graceful reload feature is disabled")
 			return

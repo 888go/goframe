@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp_test
 
@@ -12,17 +11,17 @@ import (
 	"strings"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/internal/json"
-
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/guid"
+	
+	"github.com/888go/goframe/internal/json"
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gmeta"
+	"github.com/888go/goframe/util/guid"
 )
 
 func Test_Params_File_Single(t *testing.T) {
@@ -318,7 +317,7 @@ func Test_Params_File_MarshalJSON(t *testing.T) {
 	})
 }
 
-// Select only one file when batch uploading
+// 批量上传时仅选择一个文件
 func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 	type Req struct {
 		gmeta.Meta `method:"post" mime:"multipart/form-data"`
@@ -365,7 +364,7 @@ func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 	})
 }
 
-// Select multiple files during batch upload
+// 批量上传时选择多个文件
 func Test_Params_Strict_Route_File_Batch_Up_Multiple(t *testing.T) {
 	type Req struct {
 		gmeta.Meta `method:"post" mime:"multipart/form-data"`

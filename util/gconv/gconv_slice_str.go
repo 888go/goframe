@@ -1,24 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv
 
 import (
 	"reflect"
-
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
+	
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
 )
 
-// SliceStr is alias of Strings.
+// SliceStr 是 Strings 的别名。
 func SliceStr(any interface{}) []string {
 	return Strings(any)
 }
 
-// Strings converts `any` to []string.
+// Strings 将 `any` 转换为 []string 类型。
 func Strings(any interface{}) []string {
 	if any == nil {
 		return nil
@@ -118,11 +117,11 @@ func Strings(any interface{}) []string {
 	if v, ok := any.(iInterfaces); ok {
 		return Strings(v.Interfaces())
 	}
-	// JSON format string value converting.
+	// JSON格式字符串值转换
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// Not a common type, it then uses reflection for conversion.
+	// 如果不是常见类型，它将使用反射进行转换。
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:

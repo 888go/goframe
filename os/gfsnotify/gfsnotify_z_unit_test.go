@@ -1,22 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gfsnotify_test
 
 import (
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gfsnotify"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gfsnotify"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
 )
 
 func TestWatcher_AddOnce(t *testing.T) {
@@ -152,7 +151,7 @@ func TestWatcher_Callback1(t *testing.T) {
 }
 
 func TestWatcher_Callback2(t *testing.T) {
-	// multiple callbacks
+	// 多个回调函数
 	gtest.C(t, func(t *gtest.T) {
 		path1 := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.PutContents(path1, "1"), nil)
@@ -204,7 +203,7 @@ func TestWatcher_WatchFolderWithoutRecursively(t *testing.T) {
 		t.AssertNil(err)
 
 		_, err = gfsnotify.Add(dirPath, func(event *gfsnotify.Event) {
-			// fmt.Println(event.String())
+			// 打印输出 event.String() 的结果
 			array.Append(1)
 		}, false)
 		t.AssertNil(err)

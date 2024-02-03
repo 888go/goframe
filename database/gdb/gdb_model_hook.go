@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
 
@@ -10,10 +9,10 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
 )
 
 type (
@@ -23,7 +22,7 @@ type (
 	HookFuncDelete func(ctx context.Context, in *HookDeleteInput) (result sql.Result, err error)
 )
 
-// HookHandler manages all supported hook functions for Model.
+// HookHandler 管理 Model 支持的所有钩子函数。
 type HookHandler struct {
 	Select HookFuncSelect
 	Insert HookFuncInsert
@@ -31,14 +30,14 @@ type HookHandler struct {
 	Delete HookFuncDelete
 }
 
-// internalParamHook manages all internal parameters for hook operations.
-// The `internal` obviously means you cannot access these parameters outside this package.
+// internalParamHook 管理 hook 操作的所有内部参数。
+// `internal` 显然意味着你无法在本包外部访问这些参数。
 type internalParamHook struct {
-	link               Link      // Connection object from third party sql driver.
-	handlerCalled      bool      // Simple mark for custom handler called, in case of recursive calling.
-	removedWhere       bool      // Removed mark for condition string that was removed `WHERE` prefix.
-	originalTableName  *gvar.Var // The original table name.
-	originalSchemaName *gvar.Var // The original schema name.
+	link               Link      // Connection 对象来自第三方 SQL 驱动程序。
+	handlerCalled      bool      // 简单标记用于自定义处理程序被调用的情况，以防递归调用。
+	removedWhere       bool      // 移除了带有`WHERE`前缀的条件字符串的标记
+	originalTableName  *gvar.Var // 原始表名。
+	originalSchemaName *gvar.Var // 原始模式名称。
 }
 
 type internalParamHookSelect struct {
@@ -61,59 +60,59 @@ type internalParamHookDelete struct {
 	handler HookFuncDelete
 }
 
-// HookSelectInput holds the parameters for select hook operation.
-// Note that, COUNT statement will also be hooked by this feature,
-// which is usually not be interesting for upper business hook handler.
+// HookSelectInput 保存了 select 钩子操作的参数。
+// 注意，此特性也会对 COUNT 语句进行钩子处理，
+// 而这通常对于上层业务钩子处理器来说并不有趣（即可能不需要处理）。
 type HookSelectInput struct {
 	internalParamHookSelect
-	Model  *Model        // Current operation Model.
-	Table  string        // The table name that to be used. Update this attribute to change target table name.
-	Schema string        // The schema name that to be used. Update this attribute to change target schema name.
-	Sql    string        // The sql string that to be committed.
-	Args   []interface{} // The arguments of sql.
+	Model  *Model        // 当前操作模型
+	Table  string        // 将要使用的表名。更新此属性以更改目标表名。
+	Schema string        // 要使用的架构名称。更新此属性以更改目标架构名称。
+	Sql    string        // 需要执行提交的SQL字符串。
+	Args   []interface{} // sql的参数
 }
 
-// HookInsertInput holds the parameters for insert hook operation.
+// HookInsertInput 用于存储插入钩子操作的参数。
 type HookInsertInput struct {
 	internalParamHookInsert
-	Model  *Model         // Current operation Model.
-	Table  string         // The table name that to be used. Update this attribute to change target table name.
-	Schema string         // The schema name that to be used. Update this attribute to change target schema name.
-	Data   List           // The data records list to be inserted/saved into table.
-	Option DoInsertOption // The extra option for data inserting.
+	Model  *Model         // 当前操作模型
+	Table  string         // 将要使用的表名。更新此属性以更改目标表名。
+	Schema string         // 要使用的架构名称。更新此属性以更改目标架构名称。
+	Data   List           // 待插入/保存到表中的数据记录列表
+	Option DoInsertOption // 数据插入时的额外选项。
 }
 
-// HookUpdateInput holds the parameters for update hook operation.
+// HookUpdateInput 用于保存更新钩子操作的参数。
 type HookUpdateInput struct {
 	internalParamHookUpdate
-	Model     *Model        // Current operation Model.
-	Table     string        // The table name that to be used. Update this attribute to change target table name.
-	Schema    string        // The schema name that to be used. Update this attribute to change target schema name.
-	Data      interface{}   // Data can be type of: map[string]interface{}/string. You can use type assertion on `Data`.
-	Condition string        // The where condition string for updating.
-	Args      []interface{} // The arguments for sql place-holders.
+	Model     *Model        // 当前操作模型
+	Table     string        // 将要使用的表名。更新此属性以更改目标表名。
+	Schema    string        // 要使用的架构名称。更新此属性以更改目标架构名称。
+	Data      interface{}   // Data 的类型可以是：map[string]interface{}/string。你可以对 `Data` 使用类型断言。
+	Condition string        // 更新时的条件字符串。
+	Args      []interface{} // 用于SQL占位符的参数。
 }
 
-// HookDeleteInput holds the parameters for delete hook operation.
+// HookDeleteInput 用于持有删除钩子操作的参数。
 type HookDeleteInput struct {
 	internalParamHookDelete
-	Model     *Model        // Current operation Model.
-	Table     string        // The table name that to be used. Update this attribute to change target table name.
-	Schema    string        // The schema name that to be used. Update this attribute to change target schema name.
-	Condition string        // The where condition string for deleting.
-	Args      []interface{} // The arguments for sql place-holders.
+	Model     *Model        // 当前操作模型
+	Table     string        // 将要使用的表名。更新此属性以更改目标表名。
+	Schema    string        // 要使用的架构名称。更新此属性以更改目标架构名称。
+	Condition string        // 删除操作的条件字符串
+	Args      []interface{} // 用于SQL占位符的参数。
 }
 
 const (
 	whereKeyInCondition = " WHERE "
 )
 
-// IsTransaction checks and returns whether current operation is during transaction.
+// IsTransaction 检查并返回当前操作是否在事务中进行。
 func (h *internalParamHook) IsTransaction() bool {
 	return h.link.IsTransaction()
 }
 
-// Next calls the next hook handler.
+// Next调用下一个钩子处理器。
 func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -121,7 +120,7 @@ func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
 	if h.originalSchemaName.IsNil() {
 		h.originalSchemaName = gvar.New(h.Schema)
 	}
-	// Custom hook handler call.
+	// 自定义钩子处理器调用。
 	if h.handler != nil && !h.handlerCalled {
 		h.handlerCalled = true
 		return h.handler(ctx, h)
@@ -148,7 +147,7 @@ func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
 	return h.Model.db.DoSelect(ctx, h.link, toBeCommittedSql, h.Args...)
 }
 
-// Next calls the next hook handler.
+// Next调用下一个钩子处理器。
 func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -172,7 +171,7 @@ func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err erro
 	return h.Model.db.DoInsert(ctx, h.link, h.Table, h.Data, h.Option)
 }
 
-// Next calls the next hook handler.
+// Next调用下一个钩子处理器。
 func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -202,7 +201,7 @@ func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err erro
 	return h.Model.db.DoUpdate(ctx, h.link, h.Table, h.Data, h.Condition, h.Args...)
 }
 
-// Next calls the next hook handler.
+// Next调用下一个钩子处理器。
 func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -232,7 +231,7 @@ func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err erro
 	return h.Model.db.DoDelete(ctx, h.link, h.Table, h.Condition, h.Args...)
 }
 
-// Hook sets the hook functions for current model.
+// Hook 设置当前模型的钩子函数。
 func (m *Model) Hook(hook HookHandler) *Model {
 	model := m.getModel()
 	model.hookHandler = hook

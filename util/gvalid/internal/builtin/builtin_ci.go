@@ -1,16 +1,14 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
 
-// RuleCi implements `ci` rule:
-// Case-Insensitive configuration for those rules that need value comparison like:
-// same, different, in, not-in, etc.
+// RuleCi 实现了 `ci` 规则：
+// 对于那些需要进行值比较（如：same, different, in, not-in 等）的规则提供不区分大小写的配置。
 //
-// Format: ci
+// 格式：ci
 type RuleCi struct{}
 
 func init() {

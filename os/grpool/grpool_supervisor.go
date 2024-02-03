@@ -1,19 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package grpool
 
 import (
 	"context"
-
-	"github.com/gogf/gf/v2/os/gtimer"
+	
+	"github.com/888go/goframe/os/gtimer"
 )
 
-// supervisor checks the job list and fork new worker goroutine to handle the job
-// if there are jobs but no workers in pool.
+// supervisor 负责检查任务列表，如果存在待处理任务且池中无工作进程时，会创建新的 worker 协程来处理该任务。
 func (p *Pool) supervisor(_ context.Context) {
 	if p.IsClosed() {
 		gtimer.Exit()

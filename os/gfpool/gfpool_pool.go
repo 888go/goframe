@@ -1,28 +1,28 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gfpool
 
 import (
 	"os"
 	"time"
-
-	"github.com/gogf/gf/v2/container/gpool"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gfsnotify"
+	
+	"github.com/888go/goframe/container/gpool"
+	"github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/os/gfsnotify"
 )
 
-// New creates and returns a file pointer pool with given file path, flag and opening permission.
+// New根据给定的文件路径、标志和打开权限创建并返回一个文件指针池。
 //
-// Note the expiration logic:
-// ttl = 0 : not expired;
-// ttl < 0 : immediate expired after use;
-// ttl > 0 : timeout expired;
-// It is not expired in default.
+// 注意过期逻辑：
+// ttl = 0 : 不过期；
+// ttl < 0 : 使用后立即过期；
+// ttl > 0 : 超时后过期；
+// 默认情况下，它不会过期。
 func New(path string, flag int, perm os.FileMode, ttl ...time.Duration) *Pool {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -37,7 +37,7 @@ func New(path string, flag int, perm os.FileMode, ttl ...time.Duration) *Pool {
 	return p
 }
 
-// newFilePool creates and returns a file pointer pool with given file path, flag and opening permission.
+// newFilePool 根据给定的文件路径、标志和打开权限创建并返回一个文件指针池。
 func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Duration) *gpool.Pool {
 	pool := gpool.New(ttl, func() (interface{}, error) {
 		file, err := os.OpenFile(path, flag, perm)
@@ -59,10 +59,8 @@ func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Dura
 	return pool
 }
 
-// File retrieves file item from the file pointer pool and returns it. It creates one if
-// the file pointer pool is empty.
-// Note that it should be closed when it will never be used. When it's closed, it is not
-// really closed the underlying file pointer but put back to the file pointer pool.
+// File 从文件指针池中获取文件项并返回，如果文件指针池为空，则创建一个新的文件项。
+// 注意：当文件项不再使用时，应关闭它。当其被关闭时，并非真正关闭底层的文件指针，而是将其放回文件指针池中。
 func (p *Pool) File() (*File, error) {
 	if v, err := p.pool.Get(); err != nil {
 		return nil, err
@@ -74,7 +72,7 @@ func (p *Pool) File() (*File, error) {
 				if f.File, err = os.OpenFile(f.path, f.flag, f.perm); err != nil {
 					return nil, err
 				} else {
-					// Retrieve the state of the new created file.
+					// 获取新创建文件的状态。
 					if f.stat, err = f.File.Stat(); err != nil {
 						return nil, err
 					}
@@ -97,17 +95,17 @@ func (p *Pool) File() (*File, error) {
 				return nil, err
 			}
 		}
-		// It firstly checks using !p.init.Val() for performance purpose.
+		// 为了性能优化，首先使用 !p.init.Val() 进行检查。
 		if !p.init.Val() && p.init.Cas(false, true) {
 			_, _ = gfsnotify.Add(f.path, func(event *gfsnotify.Event) {
-				// If the file is removed or renamed, recreates the pool by increasing the pool id.
+				// 如果文件被删除或重命名，通过增加pool id重新创建pool。
 				if event.IsRemove() || event.IsRename() {
-					// It drops the old pool.
+					// 它会丢弃旧的连接池。
 					p.id.Add(1)
-					// Clears the pool items staying in the pool.
+					// 清除池中留存的池项。
 					p.pool.Clear()
-					// It uses another adding to drop the file items between the two adding.
-					// Whenever the pool id changes, the pool will be recreated.
+// 它利用另一个添加操作来丢弃两个添加之间的文件项。
+// 每当池ID发生变化时，将会重新创建该池。
 					p.id.Add(1)
 				}
 			}, false)
@@ -116,7 +114,7 @@ func (p *Pool) File() (*File, error) {
 	}
 }
 
-// Close closes current file pointer pool.
+// Close 关闭当前文件指针池。
 func (p *Pool) Close() {
 	p.pool.Close()
 }

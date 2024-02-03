@@ -1,19 +1,19 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package goai
 
 import (
 	"fmt"
 	"reflect"
-
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gtag"
+	
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gtag"
 )
 
 type SchemaRefs []SchemaRef
@@ -23,21 +23,21 @@ type SchemaRef struct {
 	Value *Schema
 }
 
-// isEmbeddedStructDefinition checks and returns whether given golang type is embedded struct definition, like:
+// isEmbeddedStructDefinition 检查并返回给定的 Go 语言类型是否为嵌入式结构体定义，例如：
 //
 //	struct A struct{
 //	    B struct{
-//	        // ...
+//	   // ...
 //	    }
 //	}
 //
-// The `B` in `A` is called `embedded struct definition`.
+// 在 `A` 中的 `B` 被称为 `嵌入式结构体定义`。
 func (oai *OpenApiV3) isEmbeddedStructDefinition(golangType reflect.Type) bool {
 	s := golangType.String()
 	return gstr.Contains(s, `struct {`)
 }
 
-// newSchemaRefWithGolangType creates a new Schema and returns its SchemaRef.
+// newSchemaRefWithGolangType 根据 Go 语言类型创建一个新的 Schema，并返回其对应的 SchemaRef。
 func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap map[string]string) (*SchemaRef, error) {
 	var (
 		err       error
@@ -82,35 +82,35 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 		if schemaRef.Value.Default != nil {
 			schemaRef.Value.Default = gconv.Int64(schemaRef.Value.Default)
 		}
-		// keep the default value as nil.
+		// 保留默认值为 nil。
 
-		// example value needs to be converted just like default value
+		// 示例值需要像默认值一样进行转换
 		if schemaRef.Value.Example != nil {
 			schemaRef.Value.Example = gconv.Int64(schemaRef.Value.Example)
 		}
-		// keep the example value as nil.
+		// 保留示例值为nil。
 	case TypeNumber:
 		if schemaRef.Value.Default != nil {
 			schemaRef.Value.Default = gconv.Float64(schemaRef.Value.Default)
 		}
-		// keep the default value as nil.
+		// 保留默认值为 nil。
 
-		// example value needs to be converted just like default value
+		// 示例值需要像默认值一样进行转换
 		if schemaRef.Value.Example != nil {
 			schemaRef.Value.Example = gconv.Float64(schemaRef.Value.Example)
 		}
-		// keep the example value as nil.
+		// 保留示例值为nil。
 	case TypeBoolean:
 		if schemaRef.Value.Default != nil {
 			schemaRef.Value.Default = gconv.Bool(schemaRef.Value.Default)
 		}
-		// keep the default value as nil.
+		// 保留默认值为 nil。
 
-		// example value needs to be converted just like default value
+		// 示例值需要像默认值一样进行转换
 		if schemaRef.Value.Example != nil {
 			schemaRef.Value.Example = gconv.Bool(schemaRef.Value.Example)
 		}
-		// keep the example value as nil.
+		// 保留示例值为nil。
 	case
 		TypeArray:
 		subSchemaRef, err := oai.newSchemaRefWithGolangType(golangType.Elem(), nil)
@@ -130,7 +130,7 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 		}
 		switch golangType.Kind() {
 		case reflect.Map:
-			// Specially for map type.
+			// 特别为 map 类型设计
 			subSchemaRef, err := oai.newSchemaRefWithGolangType(golangType.Elem(), nil)
 			if err != nil {
 				return nil, err
@@ -139,7 +139,7 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 			return schemaRef, nil
 
 		case reflect.Interface:
-			// Specially for interface type.
+			// 特别用于接口类型。
 			var (
 				structTypeName = oai.golangTypeToSchemaName(golangType)
 			)

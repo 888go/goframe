@@ -1,16 +1,15 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gcharset_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/encoding/gcharset"
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/encoding/gcharset"
+	"github.com/888go/goframe/test/gtest"
 )
 
 var testData = []struct {
@@ -22,7 +21,12 @@ var testData = []struct {
 	{"これは漢字です。", "0S0\x8c0oo\"[W0g0Y0\x02", "UTF-16BE"},
 	{"これは漢字です。", "\xfe\xff0S0\x8c0oo\"[W0g0Y0\x02", "UTF-16"},
 	{"𝄢𝄞𝄪𝄫", "\xfe\xff\xd8\x34\xdd\x22\xd8\x34\xdd\x1e\xd8\x34\xdd\x2a\xd8\x34\xdd\x2b", "UTF-16"},
-	//{"Hello, world", "Hello, world", "ASCII"},
+// {"Hello, world", "Hello, world", "ASCII"}，
+// 这是一段Go语言中的字符串字面量表示，它定义了一个包含三个元素的切片（类似于数组）。
+// 每个元素都是一个字符串：
+// 第一个和第二个元素都是 "Hello, world"，表示两个相同的字符串常量。
+// 第三个元素是 "ASCII"，也是一个字符串常量。
+// 整体来看，这个切片用于存储多个与ASCII字符集相关的字符串。
 	{"Gdańsk", "Gda\xf1sk", "ISO-8859-2"},
 	{"Ââ Čč Đđ Ŋŋ Õõ Šš Žž Åå Ää", "\xc2\xe2 \xc8\xe8 \xa9\xb9 \xaf\xbf \xd5\xf5 \xaa\xba \xac\xbc \xc5\xe5 \xc4\xe4", "ISO-8859-10"},
 	//{"สำหรับ", "\xca\xd3\xcb\xc3\u047a", "ISO-8859-11"},

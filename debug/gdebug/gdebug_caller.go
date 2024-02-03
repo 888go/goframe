@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdebug
 
@@ -22,17 +22,17 @@ const (
 )
 
 var (
-	goRootForFilter  = runtime.GOROOT() // goRootForFilter is used for stack filtering purpose.
-	binaryVersion    = ""               // The version of current running binary(uint64 hex).
-	binaryVersionMd5 = ""               // The version of current running binary(MD5).
-	selfPath         = ""               // Current running binary absolute path.
+	goRootForFilter  = runtime.GOROOT() // goRootForFilter 用于堆栈过滤的目的。
+	binaryVersion    = ""               // 当前运行二进制文件的版本（uint64进制表示）。
+	binaryVersionMd5 = ""               // 当前运行二进制文件的版本（MD5）。
+	selfPath         = ""               // 当前运行的二进制文件绝对路径。
 )
 
 func init() {
 	if goRootForFilter != "" {
 		goRootForFilter = strings.ReplaceAll(goRootForFilter, "\\", "/")
 	}
-	// Initialize internal package variable: selfPath.
+	// 初始化内部包变量：selfPath。
 	selfPath, _ = exec.LookPath(os.Args[0])
 	if selfPath != "" {
 		selfPath, _ = filepath.Abs(selfPath)
@@ -42,16 +42,14 @@ func init() {
 	}
 }
 
-// Caller returns the function name and the absolute file path along with its line
-// number of the caller.
+// Caller 返回调用者函数的名称以及其所在的绝对文件路径及行号。
 func Caller(skip ...int) (function string, path string, line int) {
 	return CallerWithFilter(nil, skip...)
 }
 
-// CallerWithFilter returns the function name and the absolute file path along with
-// its line number of the caller.
+// CallerWithFilter 返回调用者函数名称以及绝对文件路径及其行号。
 //
-// The parameter `filters` is used to filter the path of the caller.
+// 参数`filters`用于过滤调用者路径。
 func CallerWithFilter(filters []string, skip ...int) (function string, path string, line int) {
 	var (
 		number = 0
@@ -85,10 +83,9 @@ func CallerWithFilter(filters []string, skip ...int) (function string, path stri
 	return "", "", -1
 }
 
-// callerFromIndex returns the caller position and according information exclusive of the
-// debug package.
+// callerFromIndex 返回调用位置及其相关信息，但排除了 debug 包内的信息。
 //
-// VERY NOTE THAT, the returned index value should be `index - 1` as the caller's start point.
+// 非常注意：返回的索引值应为 `index - 1`，作为调用者开始的位置点。
 func callerFromIndex(filters []string) (pc uintptr, file string, line int, index int) {
 	var ok bool
 	for index = 0; index < maxCallerDepth; index++ {
@@ -106,11 +103,11 @@ func callerFromIndex(filters []string) (pc uintptr, file string, line int, index
 }
 
 func filterFileByFilters(file string, filters []string) (filtered bool) {
-	// Filter empty file.
+	// 过滤空文件。
 	if file == "" {
 		return true
 	}
-	// Filter gdebug package callings.
+	// 过滤gdebug包的调用。
 	if strings.Contains(file, stackFilterKey) {
 		return true
 	}
@@ -121,7 +118,7 @@ func filterFileByFilters(file string, filters []string) (filtered bool) {
 	}
 	// GOROOT filter.
 	if goRootForFilter != "" && len(file) >= len(goRootForFilter) && file[0:len(goRootForFilter)] == goRootForFilter {
-		// https://github.com/gogf/gf/issues/2047
+		// 这是 gf(golang frame) 项目在 GitHub 上的一个 issue 链接，具体为第 2047 号问题。
 		fileSeparator := file[len(goRootForFilter)]
 		if fileSeparator == filepath.Separator || fileSeparator == '\\' || fileSeparator == '/' {
 			return true
@@ -130,7 +127,7 @@ func filterFileByFilters(file string, filters []string) (filtered bool) {
 	return false
 }
 
-// CallerPackage returns the package name of the caller.
+// CallerPackage 返回调用者的包名。
 func CallerPackage() string {
 	function, _, _ := Caller()
 	indexSplit := strings.LastIndexByte(function, '/')
@@ -145,7 +142,7 @@ func CallerPackage() string {
 	}
 }
 
-// CallerFunction returns the function name of the caller.
+// CallerFunction 返回调用者函数的名称。
 func CallerFunction() string {
 	function, _, _ := Caller()
 	function = function[strings.LastIndexByte(function, '/')+1:]
@@ -153,36 +150,36 @@ func CallerFunction() string {
 	return function
 }
 
-// CallerFilePath returns the file path of the caller.
+// CallerFilePath 返回调用者所在的文件路径。
 func CallerFilePath() string {
 	_, path, _ := Caller()
 	return path
 }
 
-// CallerDirectory returns the directory of the caller.
+// CallerDirectory 返回调用者所在的目录。
 func CallerDirectory() string {
 	_, path, _ := Caller()
 	return filepath.Dir(path)
 }
 
-// CallerFileLine returns the file path along with the line number of the caller.
+// CallerFileLine 返回调用者所在的文件路径及行号。
 func CallerFileLine() string {
 	_, path, line := Caller()
 	return fmt.Sprintf(`%s:%d`, path, line)
 }
 
-// CallerFileLineShort returns the file name along with the line number of the caller.
+// CallerFileLineShort 返回调用者所在的文件名及行号。
 func CallerFileLineShort() string {
 	_, path, line := Caller()
 	return fmt.Sprintf(`%s:%d`, filepath.Base(path), line)
 }
 
-// FuncPath returns the complete function path of given `f`.
+// FuncPath 返回给定函数 `f` 的完整函数路径。
 func FuncPath(f interface{}) string {
 	return runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()
 }
 
-// FuncName returns the function name of given `f`.
+// FuncName 返回给定函数 `f` 的函数名称。
 func FuncName(f interface{}) string {
 	path := FuncPath(f)
 	if path == "" {

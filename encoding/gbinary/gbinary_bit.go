@@ -1,23 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gbinary
 
-// NOTE: THIS IS AN EXPERIMENTAL FEATURE!
+// 注意：这是一个实验性功能！
 
-// Bit Binary bit (0 | 1)
+// 二进制位 (0 | 1)
 type Bit int8
 
-// EncodeBits does encode bits return bits Default coding
+// EncodeBits 对比特进行编码，并返回编码后的比特，默认采用默认编码方式
 func EncodeBits(bits []Bit, i int, l int) []Bit {
 	return EncodeBitsWithUint(bits, uint(i), l)
 }
 
-// EncodeBitsWithUint . Merge ui bitwise into the bits array and occupy the length bits
-// (Note: binary 0 | 1 digits are stored in the uis array)
+// EncodeBitsWithUint . 将ui的按位与bits数组进行合并，并占用length位
+// （注意：二进制的0 | 1数字存储在uis数组中）
 func EncodeBitsWithUint(bits []Bit, ui uint, l int) []Bit {
 	a := make([]Bit, l)
 	for i := l - 1; i >= 0; i-- {
@@ -30,8 +30,8 @@ func EncodeBitsWithUint(bits []Bit, ui uint, l int) []Bit {
 	return a
 }
 
-// EncodeBitsToBytes . does encode bits to bytes
-// Convert bits to [] byte, encode from left to right, and add less than 1 byte from 0 to the end.
+// EncodeBitsToBytes . 将位编码为字节
+// 将位转换为[] byte，从左到右进行编码，并在末尾不足1字节时添加0填充。
 func EncodeBitsToBytes(bits []Bit) []byte {
 	if len(bits)%8 != 0 {
 		for i := 0; i < len(bits)%8; i++ {
@@ -45,8 +45,8 @@ func EncodeBitsToBytes(bits []Bit) []byte {
 	return b
 }
 
-// DecodeBits .does decode bits to int
-// Resolve to int
+// DecodeBits .将位解码为整数
+// 解析为整数
 func DecodeBits(bits []Bit) int {
 	v := 0
 	for _, i := range bits {
@@ -55,7 +55,7 @@ func DecodeBits(bits []Bit) int {
 	return v
 }
 
-// DecodeBitsToUint .Resolve to uint
+// DecodeBitsToUint 解码bits并转换为uint类型
 func DecodeBitsToUint(bits []Bit) uint {
 	v := uint(0)
 	for _, i := range bits {
@@ -64,7 +64,7 @@ func DecodeBitsToUint(bits []Bit) uint {
 	return v
 }
 
-// DecodeBytesToBits .Parsing [] byte into character array [] uint8
+// DecodeBytesToBits .将字节切片解析为字符数组（uint8切片）
 func DecodeBytesToBits(bs []byte) []Bit {
 	bits := make([]Bit, 0)
 	for _, b := range bs {

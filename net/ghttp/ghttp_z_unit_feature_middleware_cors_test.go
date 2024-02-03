@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp_test
 
@@ -10,11 +9,11 @@ import (
 	"fmt"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/guid"
 )
 
 func Test_Middleware_CORS1(t *testing.T) {
@@ -36,14 +35,14 @@ func Test_Middleware_CORS1(t *testing.T) {
 		t.Assert(client.GetContent(ctx, "/"), "Not Found")
 		t.Assert(client.GetContent(ctx, "/api.v2"), "Not Found")
 
-		// GET request does not any route.
+		// GET 请求未匹配到任何路由。
 		resp, err := client.Get(ctx, "/api.v2/user/list")
 		t.AssertNil(err)
 		t.Assert(len(resp.Header["Access-Control-Allow-Headers"]), 0)
 		t.Assert(resp.StatusCode, 404)
 		resp.Close()
 
-		// POST request matches the route and CORS middleware.
+		// POST 请求与路由匹配，并且经过 CORS 中间件处理。
 		resp, err = client.Post(ctx, "/api.v2/user/list")
 		t.AssertNil(err)
 		t.Assert(len(resp.Header["Access-Control-Allow-Headers"]), 1)

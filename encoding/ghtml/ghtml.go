@@ -1,41 +1,40 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package ghtml provides useful API for HTML content handling.
+// Package ghtml 提供了用于处理 HTML 内容的有用 API。
 package ghtml
 
 import (
 	"html"
 	"reflect"
 	"strings"
-
+	
 	strip "github.com/grokify/html-strip-tags-go"
 )
 
-// StripTags strips HTML tags from content, and returns only text.
-// Referer: http://php.net/manual/zh/function.strip-tags.php
+// StripTags 从内容中剥离 HTML 标签，仅返回文本内容。
+// 参考来源：http://php.net/manual/zh/function.strip-tags.php
 func StripTags(s string) string {
 	return strip.StripTags(s)
 }
 
-// Entities encodes all HTML chars for content.
-// Referer: http://php.net/manual/zh/function.htmlentities.php
+// Entities 将内容中的所有HTML字符进行编码。
+// 参考来源: http://php.net/manual/zh/function.htmlentities.php
 func Entities(s string) string {
 	return html.EscapeString(s)
 }
 
-// EntitiesDecode decodes all HTML chars for content.
-// Referer: http://php.net/manual/zh/function.html-entity-decode.php
+// EntitiesDecode 将内容中的所有HTML字符进行解码。
+// 参考：http://php.net/manual/zh/function.html-entity-decode.php
 func EntitiesDecode(s string) string {
 	return html.UnescapeString(s)
 }
 
-// SpecialChars encodes some special chars for content, these special chars are:
+// SpecialChars 为内容编码一些特殊字符，这些特殊字符包括：
 // "&", "<", ">", `"`, "'".
-// Referer: http://php.net/manual/zh/function.htmlspecialchars.php
+// 参考：http://php.net/manual/zh/function.htmlspecialchars.php
 func SpecialChars(s string) string {
 	return strings.NewReplacer(
 		"&", "&amp;",
@@ -46,9 +45,9 @@ func SpecialChars(s string) string {
 	).Replace(s)
 }
 
-// SpecialCharsDecode decodes some special chars for content, these special chars are:
-// "&", "<", ">", `"`, "'".
-// Referer: http://php.net/manual/zh/function.htmlspecialchars-decode.php
+// SpecialCharsDecode 对内容中的某些特殊字符进行解码，这些特殊字符包括：
+// "&"（和号）、"<"（小于号）、">"（大于号）、`"`（双引号）、"'"（单引号）。
+// 参考文档：http://php.net/manual/zh/function.htmlspecialchars-decode.php
 func SpecialCharsDecode(s string) string {
 	return strings.NewReplacer(
 		"&amp;", "&",
@@ -59,7 +58,7 @@ func SpecialCharsDecode(s string) string {
 	).Replace(s)
 }
 
-// SpecialCharsMapOrStruct automatically encodes string values/attributes for map/struct.
+// SpecialCharsMapOrStruct 自动对 map 或 struct 中的字符串值/属性进行编码。
 func SpecialCharsMapOrStruct(mapOrStruct interface{}) error {
 	var (
 		reflectValue = reflect.ValueOf(mapOrStruct)

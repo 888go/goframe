@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package utils
 
@@ -10,17 +9,17 @@ import (
 	"io"
 )
 
-// ReadCloser implements the io.ReadCloser interface
-// which is used for reading request body content multiple times.
+// ReadCloser 实现了 io.ReadCloser 接口，
+// 这个接口常用于多次读取请求正文内容。
 //
-// Note that it cannot be closed.
+// 注意，它不能被关闭。
 type ReadCloser struct {
-	index      int    // Current read position.
+	index      int    // 当前读取位置。
 	content    []byte // Content.
-	repeatable bool   // Mark the content can be repeatable read.
+	repeatable bool   // 标记内容可以进行可重复读取。
 }
 
-// NewReadCloser creates and returns a RepeatReadCloser object.
+// NewReadCloser 创建并返回一个 RepeatReadCloser 对象。
 func NewReadCloser(content []byte, repeatable bool) io.ReadCloser {
 	return &ReadCloser{
 		content:    content,
@@ -28,9 +27,9 @@ func NewReadCloser(content []byte, repeatable bool) io.ReadCloser {
 	}
 }
 
-// Read implements the io.ReadCloser interface.
+// Read 实现了 io.ReadCloser 接口。
 func (b *ReadCloser) Read(p []byte) (n int, err error) {
-	// Make it repeatable reading.
+	// 使其可重复读取。
 	if b.index >= len(b.content) && b.repeatable {
 		b.index = 0
 	}
@@ -42,7 +41,7 @@ func (b *ReadCloser) Read(p []byte) (n int, err error) {
 	return n, nil
 }
 
-// Close implements the io.ReadCloser interface.
+// Close 实现了 io.ReadCloser 接口中的 Close 方法。
 func (b *ReadCloser) Close() error {
 	return nil
 }

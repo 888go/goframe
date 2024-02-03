@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
 
@@ -15,22 +14,22 @@ import (
 	"strings"
 	"sync"
 	"time"
-
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gproc"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/os/gtimer"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/os/gproc"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/os/gtimer"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
 const (
-	// Allow executing management command after server starts after this interval in milliseconds.
+	// 在服务器启动后，允许在此间隔（以毫秒为单位）后执行管理命令。
 	adminActionIntervalLimit = 2000
 	adminActionNone          = 0
 	adminActionRestarting    = 1
@@ -41,18 +40,18 @@ const (
 )
 
 var (
-	// serverActionLocker is the locker for server administration operations.
+	// serverActionLocker 是针对服务器管理操作的锁。
 	serverActionLocker sync.Mutex
 
-	// serverActionLastTime is timestamp in milliseconds of last administration operation.
+	// serverActionLastTime 是上一次管理操作发生时的时间戳，单位为毫秒。
 	serverActionLastTime = gtype.NewInt64(gtime.TimestampMilli())
 
-	// serverProcessStatus is the server status for operation of current process.
+	// serverProcessStatus 是当前进程运行操作的服务器状态。
 	serverProcessStatus = gtype.NewInt()
 )
 
-// RestartAllServer restarts all the servers of the process gracefully.
-// The optional parameter `newExeFilePath` specifies the new binary file for creating process.
+// RestartAllServer 将优雅地重启进程中的所有服务器。
+// 可选参数 `newExeFilePath` 指定了用于创建新进程的二进制文件。
 func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	if !gracefulEnabled {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "graceful reload feature is disabled")
@@ -68,7 +67,7 @@ func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	return restartWebServers(ctx, nil, newExeFilePath)
 }
 
-// ShutdownAllServer shuts down all servers of current process gracefully.
+// ShutdownAllServer 将当前进程中的所有服务器优雅地关闭。
 func ShutdownAllServer(ctx context.Context) error {
 	serverActionLocker.Lock()
 	defer serverActionLocker.Unlock()
@@ -82,7 +81,7 @@ func ShutdownAllServer(ctx context.Context) error {
 	return nil
 }
 
-// checkProcessStatus checks the server status of current process.
+// checkProcessStatus 检查当前进程的服务器状态。
 func checkProcessStatus() error {
 	status := serverProcessStatus.Val()
 	if status > 0 {
@@ -97,8 +96,8 @@ func checkProcessStatus() error {
 	return nil
 }
 
-// checkActionFrequency checks the operation frequency.
-// It returns error if it is too frequency.
+// checkActionFrequency 检查操作频率。
+// 如果操作过于频繁，则返回错误。
 func checkActionFrequency() error {
 	interval := gtime.TimestampMilli() - serverActionLastTime.Val()
 	if interval < adminActionIntervalLimit {
@@ -112,7 +111,7 @@ func checkActionFrequency() error {
 	return nil
 }
 
-// forkReloadProcess creates a new child process and copies the fd to child process.
+// forkReloadProcess 创建一个新的子进程，并将文件描述符(fd)复制到子进程中。
 func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 	var (
 		path = os.Args[0]
@@ -155,7 +154,7 @@ func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 	return nil
 }
 
-// forkRestartProcess creates a new server process.
+// forkRestartProcess 创建一个新的服务进程。
 func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 	var (
 		path = os.Args[0]
@@ -180,7 +179,7 @@ func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 	return nil
 }
 
-// getServerFdMap returns all the servers name to file descriptor mapping as map.
+// getServerFdMap 返回一个映射，其中包含了所有服务器名称到文件描述符的映射关系，以map形式返回。
 func getServerFdMap() map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	serverMapping.RLockFunc(func(m map[string]interface{}) {
@@ -191,7 +190,7 @@ func getServerFdMap() map[string]listenerFdMap {
 	return sfm
 }
 
-// bufferToServerFdMap converts binary content to fd map.
+// bufferToServerFdMap 将二进制内容转换为文件描述符映射。
 func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	if len(buffer) > 0 {
@@ -207,20 +206,20 @@ func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 	return sfm
 }
 
-// restartWebServers restarts all servers.
+// 重启Web服务器 restartWebServers 函数会重启所有服务器。
 func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath string) error {
 	serverProcessStatus.Set(adminActionRestarting)
 	if runtime.GOOS == "windows" {
 		if signal != nil {
-			// Controlled by signal.
+			// 由信号控制。
 			forceCloseWebServers(ctx)
 			if err := forkRestartProcess(ctx, newExeFilePath); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
 			return nil
 		}
-		// Controlled by web page.
-		// It should ensure the response wrote to client and then close all servers gracefully.
+// 由网页控制。
+// 应确保响应已写入客户端，然后优雅地关闭所有服务器。
 		gtimer.SetTimeout(ctx, time.Second, func(ctx context.Context) {
 			forceCloseWebServers(ctx)
 			if err := forkRestartProcess(ctx, newExeFilePath); err != nil {
@@ -244,7 +243,7 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 	return nil
 }
 
-// shutdownWebServersGracefully gracefully shuts down all servers.
+// shutdownWebServersGracefully 优雅地关闭所有服务器。
 func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 	serverProcessStatus.Set(adminActionShuttingDown)
 	if signal != nil {
@@ -267,7 +266,7 @@ func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 	})
 }
 
-// forceCloseWebServers forced shuts down all servers.
+// forceCloseWebServers 强制关闭所有服务器。
 func forceCloseWebServers(ctx context.Context) {
 	serverMapping.RLockFunc(func(m map[string]interface{}) {
 		for _, v := range m {
@@ -278,8 +277,8 @@ func forceCloseWebServers(ctx context.Context) {
 	})
 }
 
-// handleProcessMessage receives and handles the message from processes,
-// which are commonly used for graceful reloading feature.
+// handleProcessMessage 接收并处理来自进程的消息，
+// 这通常用于优雅重载功能。
 func handleProcessMessage() {
 	var (
 		ctx = context.TODO()

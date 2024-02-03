@@ -1,33 +1,32 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gstr
 
 import (
 	"strings"
-
-	"github.com/gogf/gf/v2/internal/utils"
+	
+	"github.com/888go/goframe/internal/utils"
 )
 
-// ToLower returns a copy of the string s with all Unicode letters mapped to their lower case.
+// ToLower 返回一个字符串 s 的副本，其中所有 Unicode 字母都转换为小写。
 func ToLower(s string) string {
 	return strings.ToLower(s)
 }
 
-// ToUpper returns a copy of the string s with all Unicode letters mapped to their upper case.
+// ToUpper 返回字符串 s 的副本，其中所有 Unicode 字母都转换为它们的大写形式。
 func ToUpper(s string) string {
 	return strings.ToUpper(s)
 }
 
-// UcFirst returns a copy of the string s with the first letter mapped to its upper case.
+// UcFirst 返回一个字符串 s 的副本，其中首字母已转换为大写。
 func UcFirst(s string) string {
 	return utils.UcFirst(s)
 }
 
-// LcFirst returns a copy of the string s with the first letter mapped to its lower case.
+// LcFirst 返回一个字符串s的副本，其中首字母被转换为小写。
 func LcFirst(s string) string {
 	if len(s) == 0 {
 		return s
@@ -38,17 +37,17 @@ func LcFirst(s string) string {
 	return s
 }
 
-// UcWords uppercase the first character of each word in a string.
+// UcWords 将字符串中每个单词的首字母转换为大写。
 func UcWords(str string) string {
 	return strings.Title(str)
 }
 
-// IsLetterLower tests whether the given byte b is in lower case.
+// IsLetterLower 测试给定的字节 b 是否为小写字母。
 func IsLetterLower(b byte) bool {
 	return utils.IsLetterLower(b)
 }
 
-// IsLetterUpper tests whether the given byte b is in upper case.
+// IsLetterUpper测试给定的字节b是否为大写字母。
 func IsLetterUpper(b byte) bool {
 	return utils.IsLetterUpper(b)
 }

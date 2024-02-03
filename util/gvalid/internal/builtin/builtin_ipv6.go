@@ -1,21 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
 
 import (
 	"errors"
-
-	"github.com/gogf/gf/v2/net/gipv6"
+	
+	"github.com/888go/goframe/net/gipv6"
 )
 
-// RuleIpv6 implements `ipv6` rule:
-// IPv6.
+// RuleIpv6 实现了 `ipv6` 规则：
+// IPv6。
 //
-// Format: ipv6
+// 格式：ipv6
 type RuleIpv6 struct{}
 
 func init() {

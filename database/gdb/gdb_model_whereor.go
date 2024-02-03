@@ -1,97 +1,95 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
 
-// WhereOr adds "OR" condition to the where statement.
-// See WhereBuilder.WhereOr.
+// WhereOr 向 WHERE 语句添加“OR”条件。
+// 请参阅 WhereBuilder.WhereOr。
 func (m *Model) WhereOr(where interface{}, args ...interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOr(where, args...))
 }
 
-// WhereOrf builds `OR` condition string using fmt.Sprintf and arguments.
-// See WhereBuilder.WhereOrf.
+// WhereOrf 通过 fmt.Sprintf 和参数构建 `OR` 条件字符串。 
+// 参见 WhereBuilder.WhereOrf 。
 func (m *Model) WhereOrf(format string, args ...interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrf(format, args...))
 }
 
-// WhereOrLT builds `column < value` statement in `OR` conditions.
-// See WhereBuilder.WhereOrLT.
+// WhereOrLT 用于构建在“OR”条件中的 `column < value` 语句。
+// 请参阅 WhereBuilder.WhereOrLT。
 func (m *Model) WhereOrLT(column string, value interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrLT(column, value))
 }
 
-// WhereOrLTE builds `column <= value` statement in `OR` conditions.
-// See WhereBuilder.WhereOrLTE.
+// WhereOrLTE 用于构建 `column <= value` 条件语句，并以 `OR` 连接。 // 详情请参考 WhereBuilder.WhereOrLTE 。
 func (m *Model) WhereOrLTE(column string, value interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrLTE(column, value))
 }
 
-// WhereOrGT builds `column > value` statement in `OR` conditions.
-// See WhereBuilder.WhereOrGT.
+// WhereOrGT 用于构建 `column > value` 条件语句，并以 `OR` 连接。 
+// 详情参见 WhereBuilder.WhereOrGT。
 func (m *Model) WhereOrGT(column string, value interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrGT(column, value))
 }
 
-// WhereOrGTE builds `column >= value` statement in `OR` conditions.
-// See WhereBuilder.WhereOrGTE.
+// WhereOrGTE 用于构建在“OR”条件中的`column >= value`语句。
+// 参见WhereBuilder.WhereOrGTE。
 func (m *Model) WhereOrGTE(column string, value interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrGTE(column, value))
 }
 
-// WhereOrBetween builds `column BETWEEN min AND max` statement in `OR` conditions.
-// See WhereBuilder.WhereOrBetween.
+// WhereOrBetween 在“OR”条件下构建 `column BETWEEN min AND max` 语句。
+// 参见 WhereBuilder.WhereOrBetween。
 func (m *Model) WhereOrBetween(column string, min, max interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrBetween(column, min, max))
 }
 
-// WhereOrLike builds `column LIKE like` statement in `OR` conditions.
-// See WhereBuilder.WhereOrLike.
+// WhereOrLike 用于构建 `column LIKE like` 语句并在 `OR` 条件中使用。
+// 参考 WhereBuilder.WhereOrLike。
 func (m *Model) WhereOrLike(column string, like interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrLike(column, like))
 }
 
-// WhereOrIn builds `column IN (in)` statement in `OR` conditions.
-// See WhereBuilder.WhereOrIn.
+// WhereOrIn 在`OR`条件下构建`column IN (in)`语句。 
+// 参见WhereBuilder.WhereOrIn方法。
 func (m *Model) WhereOrIn(column string, in interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrIn(column, in))
 }
 
-// WhereOrNull builds `columns[0] IS NULL OR columns[1] IS NULL ...` statement in `OR` conditions.
-// See WhereBuilder.WhereOrNull.
+// WhereOrNull 用于构建以 `OR` 条件连接的 `columns[0] IS NULL OR columns[1] IS NULL ...` 语句。
+// 请参阅 WhereBuilder.WhereOrNull。
 func (m *Model) WhereOrNull(columns ...string) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrNull(columns...))
 }
 
-// WhereOrNotBetween builds `column NOT BETWEEN min AND max` statement in `OR` conditions.
-// See WhereBuilder.WhereOrNotBetween.
+// WhereOrNotBetween 用于构建 `column NOT BETWEEN min AND max` 语句，并将其以 `OR` 条件形式加入到查询中。
+// 参考 WhereBuilder.WhereOrNotBetween。
 func (m *Model) WhereOrNotBetween(column string, min, max interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrNotBetween(column, min, max))
 }
 
-// WhereOrNotLike builds `column NOT LIKE 'like'` statement in `OR` conditions.
-// See WhereBuilder.WhereOrNotLike.
+// WhereOrNotLike 用于构建在“OR”条件中的`column NOT LIKE 'like'`语句。
+// 参见 WhereBuilder.WhereOrNotLike。
 func (m *Model) WhereOrNotLike(column string, like interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrNotLike(column, like))
 }
 
-// WhereOrNot builds `column != value` statement.
-// See WhereBuilder.WhereOrNot.
+// WhereOrNot 用于构建 `column != value` 的语句。
+// 参见 WhereBuilder.WhereOrNot。
 func (m *Model) WhereOrNot(column string, value interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrNot(column, value))
 }
 
-// WhereOrNotIn builds `column NOT IN (in)` statement.
-// See WhereBuilder.WhereOrNotIn.
+// WhereOrNotIn 用于构建 `column NOT IN (in)` 语句。
+// 参见 WhereBuilder.WhereOrNotIn。
 func (m *Model) WhereOrNotIn(column string, in interface{}) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrNotIn(column, in))
 }
 
-// WhereOrNotNull builds `columns[0] IS NOT NULL OR columns[1] IS NOT NULL ...` statement in `OR` conditions.
-// See WhereBuilder.WhereOrNotNull.
+// WhereOrNotNull 用于构建在`OR`条件中的`columns[0] IS NOT NULL OR columns[1] IS NOT NULL ...`语句。
+// 参见WhereBuilder.WhereOrNotNull方法。
 func (m *Model) WhereOrNotNull(columns ...string) *Model {
 	return m.callWhereBuilder(m.whereBuilder.WhereOrNotNull(columns...))
 }

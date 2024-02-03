@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gproc
 
@@ -13,28 +13,28 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
-
+	
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
-
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/net/gtrace"
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/text/gstr"
+	
+	"github.com/888go/goframe"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/net/gtrace"
+	"github.com/888go/goframe/os/genv"
+	"github.com/888go/goframe/text/gstr"
 )
 
-// Process is the struct for a single process.
+// Process是用于单个进程的结构体。
 type Process struct {
 	exec.Cmd
 	Manager *Manager
 	PPid    int
 }
 
-// NewProcess creates and returns a new Process.
+// NewProcess 创建并返回一个新的 Process。
 func NewProcess(path string, args []string, environment ...[]string) *Process {
 	env := os.Environ()
 	if len(environment) > 0 {
@@ -55,7 +55,7 @@ func NewProcess(path string, args []string, environment ...[]string) *Process {
 	}
 	process.Dir, _ = os.Getwd()
 	if len(args) > 0 {
-		// Exclude of current binary path.
+		// 排除当前二进制文件路径。
 		start := 0
 		if strings.EqualFold(path, args[0]) {
 			start = 1
@@ -65,18 +65,18 @@ func NewProcess(path string, args []string, environment ...[]string) *Process {
 	return process
 }
 
-// NewProcessCmd creates and returns a process with given command and optional environment variable array.
+// NewProcessCmd根据给定的命令和可选的环境变量数组创建并返回一个进程。
 func NewProcessCmd(cmd string, environment ...[]string) *Process {
 	return NewProcess(getShell(), append([]string{getShellOption()}, parseCommand(cmd)...), environment...)
 }
 
-// Start starts executing the process in non-blocking way.
-// It returns the pid if success, or else it returns an error.
+// Start以非阻塞方式启动进程执行。
+// 如果成功，返回pid；否则返回错误。
 func (p *Process) Start(ctx context.Context) (int, error) {
 	if p.Process != nil {
 		return p.Pid(), nil
 	}
-	// OpenTelemetry for command.
+	// OpenTelemetry 用于命令。
 	var (
 		span trace.Span
 		tr   = otel.GetTracerProvider().Tracer(
@@ -95,7 +95,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	defer span.End()
 	span.SetAttributes(gtrace.CommonLabels()...)
 
-	// OpenTelemetry propagation.
+	// OpenTelemetry 传播
 	tracingEnv := tracingEnvFromCtx(ctx)
 	if len(tracingEnv) > 0 {
 		p.Env = append(p.Env, tracingEnv...)
@@ -113,7 +113,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	}
 }
 
-// Run executes the process in blocking way.
+// Run以阻塞方式执行进程。
 func (p *Process) Run(ctx context.Context) error {
 	if _, err := p.Start(ctx); err == nil {
 		return p.Wait()
@@ -122,7 +122,7 @@ func (p *Process) Run(ctx context.Context) error {
 	}
 }
 
-// Pid retrieves and returns the PID for the process.
+// Pid 获取并返回当前进程的PID（进程标识符）
 func (p *Process) Pid() int {
 	if p.Process != nil {
 		return p.Process.Pid
@@ -130,7 +130,7 @@ func (p *Process) Pid() int {
 	return 0
 }
 
-// Send sends custom data to the process.
+// Send 向进程发送自定义数据。
 func (p *Process) Send(data []byte) error {
 	if p.Process != nil {
 		return Send(p.Process.Pid, data)
@@ -138,14 +138,14 @@ func (p *Process) Send(data []byte) error {
 	return gerror.NewCode(gcode.CodeInvalidParameter, "invalid process")
 }
 
-// Release releases any resources associated with the Process p,
-// rendering it unusable in the future.
-// Release only needs to be called if Wait is not.
+// Release 会释放与进程p关联的任何资源，
+// 使其在未来无法使用。
+// 只有在不调用Wait的情况下，才需要调用Release。
 func (p *Process) Release() error {
 	return p.Process.Release()
 }
 
-// Kill causes the Process to exit immediately.
+// Kill 导致 Process 立即退出。
 func (p *Process) Kill() (err error) {
 	err = p.Process.Kill()
 	if err != nil {
@@ -160,14 +160,14 @@ func (p *Process) Kill() (err error) {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
 	}
-	// It ignores this error, just log it.
+	// 它忽略这个错误，仅将其记录到日志中。
 	_, err = p.Process.Wait()
 	intlog.Errorf(context.TODO(), `%+v`, err)
 	return nil
 }
 
-// Signal sends a signal to the Process.
-// Sending Interrupt on Windows is not implemented.
+// Signal 向 Process 发送一个信号。
+// 在 Windows 系统上发送 Interrupt 信号尚未实现。
 func (p *Process) Signal(sig os.Signal) error {
 	return p.Process.Signal(sig)
 }

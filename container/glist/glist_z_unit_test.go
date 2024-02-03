@@ -1,18 +1,17 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package glist
 
 import (
 	"container/list"
 	"testing"
-
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
 )
 
 func checkListLen(t *gtest.T, l *List, len int) bool {
@@ -120,7 +119,7 @@ func TestList(t *testing.T) {
 		l := New()
 		checkListPointers(t, l, []*Element{})
 
-		// Single element list
+		// 单元素列表
 		e := l.PushFront("a")
 		checkListPointers(t, l, []*Element{e})
 		l.MoveToFront(e)
@@ -157,27 +156,27 @@ func TestList(t *testing.T) {
 		l.MoveToBack(e3) // should be no-op
 		checkListPointers(t, l, []*Element{e1, e4, e3})
 
-		e2 = l.InsertBefore(e1, 2) // insert before front
+		e2 = l.InsertBefore(e1, 2) // 在前面插入
 		checkListPointers(t, l, []*Element{e2, e1, e4, e3})
 		l.Remove(e2)
-		e2 = l.InsertBefore(e4, 2) // insert before middle
+		e2 = l.InsertBefore(e4, 2) // 在中间之前插入
 		checkListPointers(t, l, []*Element{e1, e2, e4, e3})
 		l.Remove(e2)
-		e2 = l.InsertBefore(e3, 2) // insert before back
+		e2 = l.InsertBefore(e3, 2) // 在结尾处插入
 		checkListPointers(t, l, []*Element{e1, e4, e2, e3})
 		l.Remove(e2)
 
-		e2 = l.InsertAfter(e1, 2) // insert after front
+		e2 = l.InsertAfter(e1, 2) // 在前面之后插入
 		checkListPointers(t, l, []*Element{e1, e2, e4, e3})
 		l.Remove(e2)
-		e2 = l.InsertAfter(e4, 2) // insert after middle
+		e2 = l.InsertAfter(e4, 2) // 在中间位置后插入
 		checkListPointers(t, l, []*Element{e1, e4, e2, e3})
 		l.Remove(e2)
 		e2 = l.InsertAfter(e3, 2) // insert after back
 		checkListPointers(t, l, []*Element{e1, e4, e3, e2})
 		l.Remove(e2)
 
-		// Check standard iteration.
+		// 检查标准迭代。
 		sum := 0
 		for e := l.Front(); e != nil; e = e.Next() {
 			if i, ok := e.Value.(int); ok {
@@ -188,7 +187,7 @@ func TestList(t *testing.T) {
 			t.Errorf("sum over l = %d, want 4", sum)
 		}
 
-		// Clear all elements by iterating
+		// 通过遍历清空所有元素
 		var next *Element
 		for e := l.Front(); e != nil; e = next {
 			next = e.Next()
@@ -221,13 +220,17 @@ func checkList(t *gtest.T, l *List, es []interface{}) {
 		i++
 	}
 
-	// for e := l.Front(); e != nil; e = e.Next() {
-	//	le := e.Value.(int)
-	//	if le != es[i] {
-	//		t.Errorf("elt[%d].Value() = %v, want %v", i, le, es[i])
-	//	}
-	//	i++
-	// }
+// 遍历链表l，从头部开始直到链表结束（e不为空）
+// for e := l.Front(); e != nil; e = e.Next() {
+// 获取当前元素e的值，并将其转换为int类型，赋值给le
+// le := e.Value.(int)
+// 如果le与期望的es[i]不相等，则输出错误信息
+// if le != es[i] {
+//		t.Errorf("elt[%d].Value() = %v, want %v", i, le, es[i])
+// }
+// 将索引i加1，继续遍历下一个元素
+// i++
+// }
 }
 
 func TestExtending(t *testing.T) {
@@ -283,11 +286,16 @@ func TestRemove(t *testing.T) {
 		e1 := l.PushBack(1)
 		e2 := l.PushBack(2)
 		checkListPointers(t, l, []*Element{e1, e2})
-		// e := l.Front()
-		// l.Remove(e)
-		// checkListPointers(t, l, []*Element{e2})
-		// l.Remove(e)
-		// checkListPointers(t, l, []*Element{e2})
+// 获取链表l的头部元素，并赋值给e
+// e := l.Front()
+// 从链表l中移除元素e
+// l.Remove(e)
+// 调用checkListPointers函数，检查链表l的指针情况是否符合预期，此时链表中应包含元素e2
+// checkListPointers(t, l, []*Element{e2})
+// 再次尝试从链表l中移除元素e（由于之前已经移除过，这里实际操作无意义）
+// l.Remove(e)
+// 再次调用checkListPointers函数，检查链表l的指针情况是否符合预期，此时链表中仍应只包含元素e2
+// checkListPointers(t, l, []*Element{e2})
 	})
 }
 
@@ -301,7 +309,7 @@ func TestIssue4103(t *testing.T) {
 	l2.PushBack(4)
 
 	e := l1.Front()
-	l2.Remove(e) // l2 should not change because e is not an element of l2
+	l2.Remove(e) // l2不应发生改变，因为e不是l2中的元素
 	if n := l2.Len(); n != 2 {
 		t.Errorf("l2.Len() = %d, want 2", n)
 	}
@@ -322,12 +330,14 @@ func TestIssue6349(t *testing.T) {
 	if e.Value != 1 {
 		t.Errorf("e.value = %d, want 1", e.Value)
 	}
-	// if e.Next() != nil {
-	//    t.Errorf("e.Next() != nil")
-	// }
-	// if e.Prev() != nil {
-	//    t.Errorf("e.Prev() != nil")
-	// }
+// 如果e.Next()不为nil（非空）{
+//    t.Errorf("e.Next() != nil") // 输出错误信息："e.Next() 不应为nil"
+// }
+// 如果e.Prev()不为nil（非空）{
+//    t.Errorf("e.Prev() != nil") // 输出错误信息："e.Prev() 不应为nil"
+// }
+// 这段Go代码的注释翻译成中文后，含义如下：
+// 在测试中，如果`e.Next()`方法返回的结果不是nil，则通过`t.Errorf`输出错误信息，表示期望`e.Next()`的结果应为nil；同理，如果`e.Prev()`方法返回的结果不是nil，也会输出相应的错误信息，表示期望`e.Prev()`的结果应为nil。
 }
 
 func TestMove(t *testing.T) {
@@ -366,7 +376,7 @@ func TestMove(t *testing.T) {
 	})
 }
 
-// Test PushFront, PushBack, PushFrontList, PushBackList with uninitialized List
+// 测试未初始化的List使用PushFront、PushBack、PushFrontList和PushBackList函数
 func TestZeroList(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var l1 = New()
@@ -387,7 +397,7 @@ func TestZeroList(t *testing.T) {
 	})
 }
 
-// Test that a list l is not modified when calling InsertBefore with a mark that is not an element of l.
+// 测试当使用一个非列表l元素的标记调用InsertBefore时，列表l不会被修改。
 func TestInsertBeforeUnknownMark(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		l := New()
@@ -399,7 +409,7 @@ func TestInsertBeforeUnknownMark(t *testing.T) {
 	})
 }
 
-// Test that a list l is not modified when calling InsertAfter with a mark that is not an element of l.
+// 测试当使用一个不在列表l中的标记调用InsertAfter时，列表l不会被修改。
 func TestInsertAfterUnknownMark(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		l := New()
@@ -411,7 +421,7 @@ func TestInsertAfterUnknownMark(t *testing.T) {
 	})
 }
 
-// Test that a list l is not modified when calling MoveAfter or MoveBefore with a mark that is not an element of l.
+// 测试当在列表l上调用MoveAfter或MoveBefore方法时，如果移动标记不是l的元素，则列表l不会被修改。
 func TestMoveUnknownMark(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		l1 := New()

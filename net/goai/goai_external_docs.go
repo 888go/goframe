@@ -1,18 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package goai
 
 import (
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// ExternalDocs is specified by OpenAPI/Swagger standard version 3.0.
+// ExternalDocs 是由 OpenAPI/Swagger 标准 3.0 版本定义的。
 type ExternalDocs struct {
 	URL         string `json:"url,omitempty"`
 	Description string `json:"description,omitempty"`

@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gins
 
@@ -10,12 +9,12 @@ import (
 	"context"
 	"fmt"
 	"testing"
-
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/os/gcfg"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
 )
 
 func Test_View(t *testing.T) {

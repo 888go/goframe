@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gproperties_test
 
@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"strings"
 	"testing"
-
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gproperties"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/encoding/gproperties"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/test/gtest"
 )
 
 var pStr string = `
@@ -39,11 +39,11 @@ var errorTests = []struct {
 	{"key\\u123g = value", "invalid unicode literal"},
 	{"key\\u123", "invalid unicode literal"},
 
-	// circular references
+	// 循环引用
 	{"key=${key}", `circular reference in:\nkey=\$\{key\}`},
 	{"key1=${key2}\nkey2=${key1}", `circular reference in:\n(key1=\$\{key2\}\nkey2=\$\{key1\}|key2=\$\{key1\}\nkey1=\$\{key2\})`},
 
-	// malformed expressions
+	// 不规范的表达式
 	{"key=${ke", "malformed expression"},
 	{"key=valu${ke", "malformed expression"},
 }

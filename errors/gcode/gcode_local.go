@@ -1,37 +1,38 @@
-// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame gf 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
 
 package gcode
 
-import "fmt"
+import (
+	"fmt"
+)
 
-// localCode is an implementer for interface Code for internal usage only.
+// localCode 是一个仅用于内部使用的 Code 接口的实现者。
 type localCode struct {
-	code    int         // Error code, usually an integer.
-	message string      // Brief message for this error code.
-	detail  interface{} // As type of interface, it is mainly designed as an extension field for error code.
+	code    int         // 错误代码，通常是一个整数。
+	message string      // 此错误代码的简短消息。
+	detail  interface{} // 作为接口类型，它主要设计为错误码的扩展字段。
 }
 
-// Code returns the integer number of current error code.
+// Code 返回当前错误代码的整数值。
 func (c localCode) Code() int {
 	return c.code
 }
 
-// Message returns the brief message for current error code.
+// Message 返回当前错误代码的简短消息。
 func (c localCode) Message() string {
 	return c.message
 }
 
-// Detail returns the detailed information of current error code,
-// which is mainly designed as an extension field for error code.
+// Detail 返回当前错误代码的详细信息，
+// 主要设计为错误代码的扩展字段。
 func (c localCode) Detail() interface{} {
 	return c.detail
 }
 
-// String returns current error code as a string.
+// String 将当前错误代码以字符串形式返回。
 func (c localCode) String() string {
 	if c.detail != nil {
 		return fmt.Sprintf(`%d:%s %v`, c.code, c.message, c.detail)

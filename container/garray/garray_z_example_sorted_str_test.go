@@ -1,20 +1,19 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package garray_test
 
 import (
 	"fmt"
-
-	"github.com/gogf/gf/v2/internal/empty"
-
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/internal/empty"
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/util/gconv"
 )
 
 func ExampleSortedStrArray_Walk() {
@@ -22,7 +21,7 @@ func ExampleSortedStrArray_Walk() {
 	tables := g.SliceStr{"user", "user_detail"}
 	prefix := "gf_"
 	array.Append(tables...)
-	// Add prefix for given table names.
+	// 为给定的表名添加前缀
 	array.Walk(func(value string) string {
 		return prefix + value
 	})

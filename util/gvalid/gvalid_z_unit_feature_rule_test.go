@@ -1,22 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gvalid_test
 
 import (
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gtag"
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gtag"
 )
 
 var (
@@ -1115,7 +1114,8 @@ func Test_Not_Regex(t *testing.T) {
 	})
 }
 
-// issue: https://github.com/gogf/gf/issues/1077
+// 问题：https://github.com/gogf/gf/issues/1077
+// （该注释表明这是一个指向GitHub上gogf/gf项目中第1077号问题的链接，用于记录或追踪与当前代码相关的某个具体问题或bug。）
 func Test_InternalError_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type a struct {
@@ -1146,7 +1146,7 @@ func Test_Code(t *testing.T) {
 }
 
 func Test_Bail(t *testing.T) {
-	// check value with no bail
+	// 检查值但不提前退出
 	gtest.C(t, func(t *gtest.T) {
 		err := g.Validator().
 			Rules("required|min:1|between:1,100").
@@ -1156,7 +1156,7 @@ func Test_Bail(t *testing.T) {
 		t.Assert(err.Error(), "min number is 1; size is between 1 and 100")
 	})
 
-	// check value with bail
+	// 使用bail检查值
 	gtest.C(t, func(t *gtest.T) {
 		err := g.Validator().
 			Rules("bail|required|min:1|between:1,100").
@@ -1166,7 +1166,7 @@ func Test_Bail(t *testing.T) {
 		t.Assert(err.Error(), "min number is 1")
 	})
 
-	// struct with no bail
+	// 结构体，无bail属性
 	gtest.C(t, func(t *gtest.T) {
 		type Params struct {
 			Page int `v:"required|min:1"`
@@ -1572,7 +1572,7 @@ func Test_Enums(t *testing.T) {
 		t.AssertNil(err)
 		defer t.AssertNil(gtag.SetGlobalEnums(oldEnumsJson))
 
-		err = gtag.SetGlobalEnums(`{"github.com/gogf/gf/v2/util/gvalid_test.EnumsTest": ["a","b"]}`)
+		err = gtag.SetGlobalEnums(`{"github.com/888go/goframe/util/gvalid_test.EnumsTest": ["a","b"]}`)
 		t.AssertNil(err)
 
 		err = g.Validator().Data(&Params{

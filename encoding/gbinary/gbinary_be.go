@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gbinary
 
@@ -12,17 +12,15 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math"
-
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
+	
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
 )
 
-// BeEncode encodes one or multiple `values` into bytes using BigEndian.
-// It uses type asserting checking the type of each value of `values` and internally
-// calls corresponding converting function do the bytes converting.
+// BeEncode 采用大端序（BigEndian）将一个或多个 `values` 值编码为字节。
+// 它通过类型断言检查 `values` 中每个值的类型，并在内部调用相应的转换函数进行字节转换。
 //
-// It supports common variable type asserting, and finally it uses fmt.Sprintf converting
-// value to string and then to bytes.
+// 它支持常见的变量类型断言，最终使用 fmt.Sprintf 将值转换为字符串，然后再转为字节。
 func BeEncode(values ...interface{}) []byte {
 	buf := new(bytes.Buffer)
 	for i := 0; i < len(values); i++ {
@@ -273,10 +271,9 @@ func BeDecodeToFloat64(b []byte) float64 {
 	return math.Float64frombits(binary.BigEndian.Uint64(BeFillUpSize(b, 8)))
 }
 
-// BeFillUpSize fills up the bytes `b` to given length `l` using big BigEndian.
+// BeFillUpSize 使用大端序将字节切片`b`填充到给定长度`l`。
 //
-// Note that it creates a new bytes slice by copying the original one to avoid changing
-// the original parameter bytes.
+// 注意：为了防止改变原始参数字节，它会通过复制原始字节切片创建一个新的字节切片。
 func BeFillUpSize(b []byte, l int) []byte {
 	if len(b) >= l {
 		return b[:l]

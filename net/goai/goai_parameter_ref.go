@@ -1,25 +1,25 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package goai
 
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/container/gset"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/os/gstructs"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// Parameters is specified by OpenAPI/Swagger 3.0 standard.
+// 参数遵循OpenAPI/Swagger 3.0标准进行指定。
 type Parameters []ParameterRef
 
 type ParameterRef struct {
@@ -52,11 +52,11 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 		}
 	}
 	if parameter.In == "" {
-		// Automatically detect its "in" attribute.
+		// 自动检测其 "in" 属性。
 		if gstr.ContainsI(path, fmt.Sprintf(`{%s}`, parameter.Name)) {
 			parameter.In = ParameterInPath
 		} else {
-			// Default the parameter input to "query" if method is "GET/DELETE".
+			// 如果请求方法为 "GET" 或 "DELETE"，则将参数输入默认设置为 "query"。
 			switch gstr.ToUpper(method) {
 			case http.MethodGet, http.MethodDelete:
 				parameter.In = ParameterInQuery
@@ -69,7 +69,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 
 	switch parameter.In {
 	case ParameterInPath:
-		// Required for path parameter.
+		// 用于路径参数，这是必需的。
 		parameter.Required = true
 
 	case ParameterInCookie, ParameterInHeader, ParameterInQuery:
@@ -77,7 +77,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	default:
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid tag value "%s" for In`, parameter.In)
 	}
-	// Necessary schema or content.
+	// 必要的架构或内容。
 	schemaRef, err := oai.newSchemaRefWithGolangType(field.Type().Type, tagMap)
 	if err != nil {
 		return nil, err

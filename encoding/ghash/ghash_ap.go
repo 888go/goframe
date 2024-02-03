@@ -1,12 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghash
 
-// AP implements the classic AP hash algorithm for 32 bits.
+// AP 实现了适用于32位的经典的AP哈希算法。
 func AP(str []byte) uint32 {
 	var hash uint32
 	for i := 0; i < len(str); i++ {
@@ -19,7 +19,7 @@ func AP(str []byte) uint32 {
 	return hash
 }
 
-// AP64 implements the classic AP hash algorithm for 64 bits.
+// AP64 实现了适用于 64 位的经典的 AP 哈希算法。
 func AP64(str []byte) uint64 {
 	var hash uint64
 	for i := 0; i < len(str); i++ {

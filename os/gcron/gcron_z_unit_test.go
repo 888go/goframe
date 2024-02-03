@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gcron_test
 
@@ -11,11 +11,11 @@ import (
 	"fmt"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcron"
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gcron"
+	"github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -53,7 +53,9 @@ func TestCron_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		cron := gcron.New()
 		cron.Add(ctx, "* * * * * *", func(ctx context.Context) {}, "add")
-		// fmt.Println("start", time.Now())
+		// 打印输出 "start" 及当前时间（使用 time.Now() 函数获取）
+// ```go
+// fmt.Println("start", time.Now())
 		cron.DelayAdd(ctx, time.Second, "* * * * * *", func(ctx context.Context) {}, "delay_add")
 		t.Assert(cron.Size(), 1)
 		time.Sleep(1200 * time.Millisecond)
@@ -136,7 +138,7 @@ func doTestCronAddFixedPattern(t *testing.T) {
 }
 
 func TestCron_AddSingleton(t *testing.T) {
-	// un used, can be removed
+	// 未使用，可以移除
 	gtest.C(t, func(t *gtest.T) {
 		cron := gcron.New()
 		cron.Add(ctx, "* * * * * *", func(ctx context.Context) {}, "add")

@@ -1,12 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gconv implements powerful and convenient converting functionality for any types of variables.
+// Package gconv 提供了强大且方便的任意类型变量转换功能。
 //
-// This package should keep much less dependencies with other packages.
+// 本包应尽量减少对其他包的依赖。
 package gconv
 
 import (
@@ -17,13 +16,13 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/util/gtag"
+	
+	"github.com/888go/goframe/encoding/gbinary"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/util/gtag"
 )
 
 var (
@@ -36,15 +35,15 @@ var (
 		"false": {},
 	}
 
-	// StructTagPriority defines the default priority tags for Map*/Struct* functions.
-	// Note that, the `gconv/param` tags are used by old version of package.
-	// It is strongly recommended using short tag `c/p` instead in the future.
+// StructTagPriority 定义了 Map*/Struct* 函数的默认优先级标签。
+// 注意，`gconv/param` 标签在旧版本包中使用。
+// 强烈建议在未来使用简写标签 `c/p` 代替。
 	StructTagPriority = []string{
 		gtag.GConv, gtag.Param, gtag.GConvShort, gtag.ParamShort, gtag.Json,
 	}
 )
 
-// Byte converts `any` to byte.
+// Byte将`any`转换为字节。
 func Byte(any interface{}) byte {
 	if v, ok := any.(byte); ok {
 		return v
@@ -52,7 +51,7 @@ func Byte(any interface{}) byte {
 	return Uint8(any)
 }
 
-// Bytes converts `any` to []byte.
+// Bytes 将 `any` 类型转换为 []byte 类型。
 func Bytes(any interface{}) []byte {
 	if any == nil {
 		return nil
@@ -98,7 +97,7 @@ func Bytes(any interface{}) []byte {
 	}
 }
 
-// Rune converts `any` to rune.
+// Rune将`any`转换为rune类型。
 func Rune(any interface{}) rune {
 	if v, ok := any.(rune); ok {
 		return v
@@ -106,7 +105,7 @@ func Rune(any interface{}) rune {
 	return Int32(any)
 }
 
-// Runes converts `any` to []rune.
+// Runes 将 `any` 转换为 []rune 类型。
 func Runes(any interface{}) []rune {
 	if v, ok := any.([]rune); ok {
 		return v
@@ -114,8 +113,8 @@ func Runes(any interface{}) []rune {
 	return []rune(String(any))
 }
 
-// String converts `any` to string.
-// It's most commonly used converting function.
+// String 将`any`转换为字符串。
+// 这是最常用的转换函数。
 func String(any interface{}) string {
 	if any == nil {
 		return ""
@@ -177,13 +176,13 @@ func String(any interface{}) string {
 			return ""
 		}
 		if f, ok := value.(iString); ok {
-			// If the variable implements the String() interface,
-			// then use that interface to perform the conversion
+// 如果变量实现了String()接口，
+// 那么就使用该接口来执行转换
 			return f.String()
 		}
 		if f, ok := value.(iError); ok {
-			// If the variable implements the Error() interface,
-			// then use that interface to perform the conversion
+// 如果变量实现了Error()接口，
+// 那么使用该接口进行转换
 			return f.Error()
 		}
 		// Reflect checks.
@@ -208,7 +207,7 @@ func String(any interface{}) string {
 		if kind == reflect.Ptr {
 			return String(rv.Elem().Interface())
 		}
-		// Finally, we use json.Marshal to convert.
+		// 最后，我们使用json.Marshal将数据转换。
 		if jsonContent, err := json.Marshal(value); err != nil {
 			return fmt.Sprint(value)
 		} else {
@@ -217,8 +216,8 @@ func String(any interface{}) string {
 	}
 }
 
-// Bool converts `any` to bool.
-// It returns false if `any` is: false, "", 0, "false", "off", "no", empty slice/map.
+// Bool将`any`转换为布尔值。
+// 当`any`为：false、空字符串、0、"false"、"off"、"no"或空切片/映射时，返回false。
 func Bool(any interface{}) bool {
 	if any == nil {
 		return false
@@ -262,7 +261,7 @@ func Bool(any interface{}) bool {
 	}
 }
 
-// checkJsonAndUnmarshalUseNumber checks if given `any` is JSON formatted string value and does converting using `json.UnmarshalUseNumber`.
+// checkJsonAndUnmarshalUseNumber 检查给定的 `any` 是否为格式化的 JSON 字符串值，并使用 `json.UnmarshalUseNumber` 进行转换。
 func checkJsonAndUnmarshalUseNumber(any interface{}, target interface{}) bool {
 	switch r := any.(type) {
 	case []byte:

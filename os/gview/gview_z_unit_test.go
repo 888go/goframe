@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gview_test
 
@@ -13,19 +13,19 @@ import (
 	"strings"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/encoding/ghtml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/os/gview"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmode"
-	"github.com/gogf/gf/v2/util/guid"
+	
+	"github.com/888go/goframe/encoding/ghtml"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gres"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/os/gview"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gmode"
+	"github.com/888go/goframe/util/guid"
 )
 
 func init() {
@@ -180,7 +180,7 @@ func Test_Func(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result, `ILoveGoFrame`)
 	})
-	// eq: multiple values.
+	// eq: 多个值。
 	gtest.C(t, func(t *gtest.T) {
 		str := `{{eq 1 2 1 3 4 5}}`
 		result, err := gview.ParseContent(context.TODO(), str, nil)
@@ -616,7 +616,7 @@ func Test_Issue1416(t *testing.T) {
 }
 
 // template/gview_test.html
-// name:{{.name}}
+// name:{{.name}} // （在模板中）名称：{{.name}}
 func init() {
 	if err := gres.Add("H4sIAAAAAAAC/wrwZmYRYeBg4GBIFA0LY0ACEgycDCWpuQU5iSWp+ullmanl8SWpxSV6GSW5OaEhrAyM5o1fk095n/HdumrdNeaLW7c2MDAw/P8f4M3OoZ+9QESIgYGBj4GBAWYBA0MTmgUcSBaADSxt/JoM0o6sKMCbkUmEGeFCZKNBLoSBbY0gkqB7EcZhdw8ECDD8d0xEMg7JdaxsIAVMDEwMfQwMDAvAygEBAAD//0d6jptEAQAA"); err != nil {
 		panic("add binary content to resource manager failed: " + err.Error())

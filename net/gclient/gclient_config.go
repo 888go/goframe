@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gclient
 
@@ -15,20 +14,19 @@ import (
 	"net/url"
 	"strings"
 	"time"
-
+	
 	"golang.org/x/net/proxy"
-
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/net/gsel"
-	"github.com/gogf/gf/v2/net/gsvc"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/net/gsel"
+	"github.com/888go/goframe/net/gsvc"
+	"github.com/888go/goframe/text/gregex"
+	"github.com/888go/goframe/text/gstr"
 )
 
-// SetBrowserMode enables browser mode of the client.
-// When browser mode is enabled, it automatically saves and sends cookie content
-// from and to server.
+// SetBrowserMode启用客户端的浏览器模式。
+// 当浏览器模式被启用后，它会自动保存并从服务器发送、接收cookie内容。
 func (c *Client) SetBrowserMode(enabled bool) *Client {
 	if enabled {
 		jar, _ := cookiejar.New(nil)
@@ -37,13 +35,13 @@ func (c *Client) SetBrowserMode(enabled bool) *Client {
 	return c
 }
 
-// SetHeader sets a custom HTTP header pair for the client.
+// SetHeader 为客户端设置自定义HTTP头键值对。
 func (c *Client) SetHeader(key, value string) *Client {
 	c.header[key] = value
 	return c
 }
 
-// SetHeaderMap sets custom HTTP headers with map.
+// SetHeaderMap 通过映射设置自定义HTTP头。
 func (c *Client) SetHeaderMap(m map[string]string) *Client {
 	for k, v := range m {
 		c.header[k] = v
@@ -51,19 +49,19 @@ func (c *Client) SetHeaderMap(m map[string]string) *Client {
 	return c
 }
 
-// SetAgent sets the User-Agent header for client.
+// SetAgent 设置客户端的 User-Agent 头部信息。
 func (c *Client) SetAgent(agent string) *Client {
 	c.header[httpHeaderUserAgent] = agent
 	return c
 }
 
-// SetContentType sets HTTP content type for the client.
+// SetContentType 为客户端设置HTTP内容类型。
 func (c *Client) SetContentType(contentType string) *Client {
 	c.header[httpHeaderContentType] = contentType
 	return c
 }
 
-// SetHeaderRaw sets custom HTTP header using raw string.
+// SetHeaderRaw 通过原始字符串设置自定义HTTP头。
 func (c *Client) SetHeaderRaw(headers string) *Client {
 	for _, line := range gstr.SplitAndTrim(headers, "\n") {
 		array, _ := gregex.MatchString(httpRegexHeaderRaw, line)
@@ -74,13 +72,13 @@ func (c *Client) SetHeaderRaw(headers string) *Client {
 	return c
 }
 
-// SetCookie sets a cookie pair for the client.
+// SetCookie 为客户端设置一个cookie对。
 func (c *Client) SetCookie(key, value string) *Client {
 	c.cookies[key] = value
 	return c
 }
 
-// SetCookieMap sets cookie items with map.
+// SetCookieMap 通过map设置cookie项目。
 func (c *Client) SetCookieMap(m map[string]string) *Client {
 	for k, v := range m {
 		c.cookies[k] = v
@@ -88,33 +86,33 @@ func (c *Client) SetCookieMap(m map[string]string) *Client {
 	return c
 }
 
-// SetPrefix sets the request server URL prefix.
+// SetPrefix 设置请求服务器 URL 前缀。
 func (c *Client) SetPrefix(prefix string) *Client {
 	c.prefix = prefix
 	return c
 }
 
-// SetTimeout sets the request timeout for the client.
+// SetTimeout 设置客户端的请求超时时间。
 func (c *Client) SetTimeout(t time.Duration) *Client {
 	c.Client.Timeout = t
 	return c
 }
 
-// SetBasicAuth sets HTTP basic authentication information for the client.
+// SetBasicAuth为客户端设置HTTP基础认证信息。
 func (c *Client) SetBasicAuth(user, pass string) *Client {
 	c.authUser = user
 	c.authPass = pass
 	return c
 }
 
-// SetRetry sets retry count and interval.
+// SetRetry 设置重试次数和间隔。
 func (c *Client) SetRetry(retryCount int, retryInterval time.Duration) *Client {
 	c.retryCount = retryCount
 	c.retryInterval = retryInterval
 	return c
 }
 
-// SetRedirectLimit limits the number of jumps.
+// SetRedirectLimit 限制跳转次数。
 func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
 	c.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 		if len(via) >= redirectLimit {
@@ -125,16 +123,16 @@ func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
 	return c
 }
 
-// SetNoUrlEncode sets the mark that do not encode the parameters before sending request.
+// SetNoUrlEncode 设置标记，表示在发送请求前不对参数进行URL编码。
 func (c *Client) SetNoUrlEncode(noUrlEncode bool) *Client {
 	c.noUrlEncode = noUrlEncode
 	return c
 }
 
-// SetProxy set proxy for the client.
-// This func will do nothing when the parameter `proxyURL` is empty or in wrong pattern.
-// The correct pattern is like `http://USER:PASSWORD@IP:PORT` or `socks5://USER:PASSWORD@IP:PORT`.
-// Only `http` and `socks5` proxies are supported currently.
+// SetProxy 为客户端设置代理。
+// 当参数`proxyURL`为空或者格式不正确时，此函数将不做任何操作。
+// 正确的格式应如 `http://USER:PASSWORD@IP:PORT` 或 `socks5://USER:PASSWORD@IP:PORT`。
+// 目前仅支持 `http` 和 `socks5` 类型的代理。
 func (c *Client) SetProxy(proxyURL string) {
 	if strings.TrimSpace(proxyURL) == "" {
 		return
@@ -160,7 +158,7 @@ func (c *Client) SetProxy(proxyURL string) {
 		} else {
 			auth = nil
 		}
-		// refer to the source code, error is always nil
+		// 参考源代码，error 值始终为 nil
 		dialer, err := proxy.SOCKS5(
 			"tcp",
 			_proxy.Host,
@@ -179,11 +177,11 @@ func (c *Client) SetProxy(proxyURL string) {
 				return dialer.Dial(network, addr)
 			}
 		}
-		// c.SetTimeout(10*time.Second)
+		// c.SetTimeout(10*time.Second) // 设置c的超时时间为10秒钟
 	}
 }
 
-// SetTLSKeyCrt sets the certificate and key file for TLS configuration of client.
+// SetTLSKeyCrt 用于设置客户端TLS配置所需的证书和密钥文件。
 func (c *Client) SetTLSKeyCrt(crtFile, keyFile string) error {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -197,7 +195,7 @@ func (c *Client) SetTLSKeyCrt(crtFile, keyFile string) error {
 	return gerror.New(`cannot set TLSClientConfig for custom Transport of the client`)
 }
 
-// SetTLSConfig sets the TLS configuration of client.
+// SetTLSConfig 设置客户端的 TLS 配置。
 func (c *Client) SetTLSConfig(tlsConfig *tls.Config) error {
 	if v, ok := c.Transport.(*http.Transport); ok {
 		v.TLSClientConfig = tlsConfig
@@ -206,12 +204,12 @@ func (c *Client) SetTLSConfig(tlsConfig *tls.Config) error {
 	return gerror.New(`cannot set TLSClientConfig for custom Transport of the client`)
 }
 
-// SetBuilder sets the load balance builder for client.
+// SetBuilder 为客户端设置负载均衡器生成器。
 func (c *Client) SetBuilder(builder gsel.Builder) {
 	c.builder = builder
 }
 
-// SetDiscovery sets the load balance builder for client.
+// SetDiscovery 设置客户端的负载均衡器生成器。
 func (c *Client) SetDiscovery(discovery gsvc.Discovery) {
 	c.discovery = discovery
 }

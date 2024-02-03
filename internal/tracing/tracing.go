@@ -1,21 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package tracing provides some utility functions for tracing functionality.
+// Package tracing 提供了一些用于追踪功能的实用工具函数。
 package tracing
 
 import (
 	"math"
 	"time"
-
+	
 	"go.opentelemetry.io/otel/trace"
-
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/util/grand"
+	
+	"github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/encoding/gbinary"
+	"github.com/888go/goframe/util/grand"
 )
 
 var (
@@ -23,12 +22,12 @@ var (
 	sequence           = gtype.NewInt32(randomInitSequence)
 )
 
-// NewIDs creates and returns a new trace and span ID.
+// NewIDs 创建并返回一个新的跟踪ID和跨度ID。
 func NewIDs() (traceID trace.TraceID, spanID trace.SpanID) {
 	return NewTraceID(), NewSpanID()
 }
 
-// NewTraceID creates and returns a trace ID.
+// NewTraceID 创建并返回一个追踪ID。
 func NewTraceID() (traceID trace.TraceID) {
 	var (
 		timestampNanoBytes = gbinary.EncodeInt64(time.Now().UnixNano())
@@ -41,7 +40,7 @@ func NewTraceID() (traceID trace.TraceID) {
 	return
 }
 
-// NewSpanID creates and returns a span ID.
+// NewSpanID 创建并返回一个跨度ID。
 func NewSpanID() (spanID trace.SpanID) {
 	copy(spanID[:], gbinary.EncodeInt64(time.Now().UnixNano()/1e3))
 	copy(spanID[4:], grand.B(4))

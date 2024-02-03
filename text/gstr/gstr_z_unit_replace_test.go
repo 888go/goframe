@@ -1,19 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// go test *.go -bench=".*"
+// 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
 package gstr_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
 )
 
 func Test_Replace(t *testing.T) {
@@ -77,7 +76,7 @@ func Test_ReplaceI_2(t *testing.T) {
 		t.Assert(gstr.ReplaceI("aaa", "A", "AA"), `AAAAAA`)
 		t.Assert(gstr.ReplaceI("a duration", "duration", "recordduration"), `a recordduration`)
 	})
-	// With count parameter.
+	// 带有 count 参数。
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(gstr.ReplaceI("aaaaaa", "aa", "a", 2), `aaaa`)
 		t.Assert(gstr.ReplaceI("aaaaaa", "AA", "A", 1), `Aaaaa`)

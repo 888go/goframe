@@ -1,21 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
 
 import (
 	"fmt"
-
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/text/gstr"
+	
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/text/gstr"
 )
 
-// handleAccessLog handles the access logging for server.
+// handleAccessLog 处理服务器的访问日志。
 func (s *Server) handleAccessLog(r *Request) {
 	if !s.IsAccessLogEnabled() {
 		return
@@ -45,9 +44,9 @@ func (s *Server) handleAccessLog(r *Request) {
 	logger.Print(r.Context(), content)
 }
 
-// handleErrorLog handles the error logging for server.
+// handleErrorLog 处理服务器的错误日志。
 func (s *Server) handleErrorLog(err error, r *Request) {
-	// It does nothing if error logging is custom disabled.
+	// 如果错误日志自定义禁用，则此操作无任何效果。
 	if !s.IsErrorLogEnabled() {
 		return
 	}

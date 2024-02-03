@@ -1,19 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv
 
 import (
 	"math"
 	"strconv"
-
-	"github.com/gogf/gf/v2/encoding/gbinary"
+	
+	"github.com/888go/goframe/encoding/gbinary"
 )
 
-// Uint converts `any` to uint.
+// Uint 将 `any` 类型转换为 uint 类型。
 func Uint(any interface{}) uint {
 	if any == nil {
 		return 0
@@ -24,7 +23,7 @@ func Uint(any interface{}) uint {
 	return uint(Uint64(any))
 }
 
-// Uint8 converts `any` to uint8.
+// Uint8将`any`转换为uint8类型。
 func Uint8(any interface{}) uint8 {
 	if any == nil {
 		return 0
@@ -35,7 +34,7 @@ func Uint8(any interface{}) uint8 {
 	return uint8(Uint64(any))
 }
 
-// Uint16 converts `any` to uint16.
+// Uint16将`any`转换为uint16。
 func Uint16(any interface{}) uint16 {
 	if any == nil {
 		return 0
@@ -46,7 +45,7 @@ func Uint16(any interface{}) uint16 {
 	return uint16(Uint64(any))
 }
 
-// Uint32 converts `any` to uint32.
+// Uint32将`any`转换为uint32。
 func Uint32(any interface{}) uint32 {
 	if any == nil {
 		return 0
@@ -57,7 +56,7 @@ func Uint32(any interface{}) uint32 {
 	return uint32(Uint64(any))
 }
 
-// Uint64 converts `any` to uint64.
+// Uint64将`any`转换为uint64类型。
 func Uint64(any interface{}) uint64 {
 	if any == nil {
 		return 0

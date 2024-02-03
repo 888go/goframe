@@ -40,13 +40,13 @@ X密码
 
 # <翻译开始>
 Name                 string        `json:"name"
-X默认数据库名称
+X名称
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 Type                 string        `json:"type"`
-X数据库类型
+X类型
 <跳到行首>
 # <翻译结束>
 
@@ -58,7 +58,7 @@ X自定义链接信息
 
 # <翻译开始>
 Extra                string        `json:"extra"
-X额外配置
+X额外
 <跳到行首>
 # <翻译结束>
 

@@ -1,12 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghash
 
-// JS implements the classic JS hash algorithm for 32 bits.
+// JS 实现了适用于32位的经典的JS哈希算法。
 func JS(str []byte) uint32 {
 	var hash uint32 = 1315423911
 	for i := 0; i < len(str); i++ {
@@ -15,7 +15,7 @@ func JS(str []byte) uint32 {
 	return hash
 }
 
-// JS64 implements the classic JS hash algorithm for 64 bits.
+// JS64实现了适用于64位的经典的JS哈希算法。
 func JS64(str []byte) uint64 {
 	var hash uint64 = 1315423911
 	for i := 0; i < len(str); i++ {

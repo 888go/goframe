@@ -1,19 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// go test *.go -bench=".*"
+// 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
 package gregex_test
 
 import (
 	"strings"
 	"testing"
-
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gregex"
+	
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gregex"
 )
 
 var (
@@ -315,7 +314,7 @@ func Test_Split(t *testing.T) {
 		item1 := "dd"
 		s := item0 + matched + item1
 		t.Assert(gregex.IsMatchString(re, matched), true)
-		items := gregex.Split(re, s) //split string with matched
+		items := gregex.Split(re, s) // 通过匹配的分隔符拆分字符串
 		if items[0] != item0 {
 			t.Fatalf("regex:%s,Split(%q) want %q", re, s, item0)
 		}
@@ -331,7 +330,7 @@ func Test_Split(t *testing.T) {
 		item1 := "dd"
 		s := item0 + notmatched + item1
 		t.Assert(gregex.IsMatchString(re, notmatched), false)
-		items := gregex.Split(re, s) //split string with notmatched then nosplitting
+		items := gregex.Split(re, s) // 使用notmatched进行字符串分割，若未匹配则不进行分割
 		if items[0] != s {
 			t.Fatalf("regex:%s,Split(%q) want %q", re, s, item0)
 		}

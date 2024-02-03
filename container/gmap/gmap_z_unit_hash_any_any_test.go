@@ -1,21 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf获取一个。
 
 package gmap_test
 
 import (
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
 )
 
 func Test_AnyAnyMap_Var(t *testing.T) {

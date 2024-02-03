@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gclient_test
 
@@ -12,16 +11,16 @@ import (
 	"net/http"
 	"testing"
 	"time"
-
+	
 	"go.opentelemetry.io/otel"
 	sdkTrace "go.opentelemetry.io/otel/sdk/trace"
 	"go.opentelemetry.io/otel/trace"
-
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/tracing"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/tracing"
+	"github.com/888go/goframe/net/ghttp"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/guid"
 )
 
 type CustomProvider struct {

@@ -1,22 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv_test
 
 import (
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/crypto/gcrc32"
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/crypto/gcrc32"
+	"github.com/888go/goframe/encoding/gbinary"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
 )
 
 type MyTime struct {
@@ -63,7 +62,7 @@ type Pkg struct {
 	Data   []byte
 }
 
-// NewPkg creates and returns a package with given data.
+// NewPkg 根据给定的数据创建并返回一个包。
 func NewPkg(data []byte) *Pkg {
 	return &Pkg{
 		Length: uint16(len(data) + 6),
@@ -72,7 +71,7 @@ func NewPkg(data []byte) *Pkg {
 	}
 }
 
-// Marshal encodes the protocol struct to bytes.
+// Marshal 将协议结构体编码为字节流。
 func (p *Pkg) Marshal() []byte {
 	b := make([]byte, 6+len(p.Data))
 	copy(b, gbinary.EncodeUint16(p.Length))
@@ -81,7 +80,7 @@ func (p *Pkg) Marshal() []byte {
 	return b
 }
 
-// UnmarshalValue decodes bytes to protocol struct.
+// UnmarshalValue 将字节解码为协议结构体。
 func (p *Pkg) UnmarshalValue(v interface{}) error {
 	b := gconv.Bytes(v)
 	if len(b) < 6 {

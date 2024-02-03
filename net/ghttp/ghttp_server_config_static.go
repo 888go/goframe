@@ -1,53 +1,52 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Static Searching Priority: Resource > ServerPaths > ServerRoot > SearchPath
+// 静态搜索优先级：Resource > ServerPaths > ServerRoot > SearchPath
+// （注释翻译：该注释描述了在Go语言代码中执行静态搜索时的资源查找顺序，优先级从高到低依次为Resource、ServerPaths、ServerRoot和SearchPath。）
 
 package ghttp
 
 import (
 	"context"
 	"strings"
-
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gres"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// staticPathItem is the item struct for static path configuration.
+// staticPathItem 是静态路径配置项的结构体。
 type staticPathItem struct {
 	Prefix string // The router URI.
 	Path   string // The static path.
 }
 
-// SetIndexFiles sets the index files for server.
+// SetIndexFiles 设置服务器的索引文件。
 func (s *Server) SetIndexFiles(indexFiles []string) {
 	s.config.IndexFiles = indexFiles
 }
 
-// GetIndexFiles retrieves and returns the index files from the server.
+// GetIndexFiles 从服务器获取并返回索引文件。
 func (s *Server) GetIndexFiles() []string {
 	return s.config.IndexFiles
 }
 
-// SetIndexFolder enables/disables listing the sub-files if requesting a directory.
+// SetIndexFolder 设置启用或禁用在请求目录时列出子文件。
 func (s *Server) SetIndexFolder(enabled bool) {
 	s.config.IndexFolder = enabled
 }
 
-// SetFileServerEnabled enables/disables the static file service.
-// It's the main switch for the static file service. When static file service configuration
-// functions like SetServerRoot, AddSearchPath and AddStaticPath are called, this configuration
-// is automatically enabled.
+// SetFileServerEnabled 用于启用/禁用静态文件服务。
+// 这是静态文件服务的主要开关。当调用如 SetServerRoot、AddSearchPath 和 AddStaticPath 等静态文件服务配置函数时，
+// 此配置会自动启用。
 func (s *Server) SetFileServerEnabled(enabled bool) {
 	s.config.FileServerEnabled = enabled
 }
 
-// SetServerRoot sets the document root for static service.
+// SetServerRoot 设置静态服务的文档根目录。
 func (s *Server) SetServerRoot(root string) {
 	var (
 		ctx      = context.TODO()
@@ -65,7 +64,7 @@ func (s *Server) SetServerRoot(root string) {
 	s.config.FileServerEnabled = true
 }
 
-// AddSearchPath add searching directory path for static file service.
+// AddSearchPath 添加静态文件服务的搜索目录路径。
 func (s *Server) AddSearchPath(path string) {
 	var (
 		ctx      = context.TODO()
@@ -82,7 +81,7 @@ func (s *Server) AddSearchPath(path string) {
 	s.config.FileServerEnabled = true
 }
 
-// AddStaticPath sets the uri to static directory path mapping for static file service.
+// AddStaticPath 设置静态文件服务的URI到静态目录路径映射。
 func (s *Server) AddStaticPath(prefix string, path string) {
 	var (
 		ctx      = context.TODO()
@@ -101,7 +100,7 @@ func (s *Server) AddStaticPath(prefix string, path string) {
 	}
 	if len(s.config.StaticPaths) > 0 {
 		s.config.StaticPaths = append(s.config.StaticPaths, addItem)
-		// Sort the array by length of prefix from short to long.
+		// 按前缀长度从短到长对数组进行排序。
 		array := garray.NewSortedArray(func(v1, v2 interface{}) int {
 			s1 := gconv.String(v1)
 			s2 := gconv.String(v2)
@@ -114,7 +113,7 @@ func (s *Server) AddStaticPath(prefix string, path string) {
 		for _, v := range s.config.StaticPaths {
 			array.Add(v.Prefix)
 		}
-		// Add the items to paths by previous sorted slice.
+		// 根据先前已排序的切片，将项目添加到paths中。
 		paths := make([]staticPathItem, 0)
 		for _, v := range array.Slice() {
 			for _, item := range s.config.StaticPaths {

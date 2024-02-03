@@ -1,16 +1,15 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gfile_test
 
 import (
 	"fmt"
 	"regexp"
-
-	"github.com/gogf/gf/v2/os/gfile"
+	
+	"github.com/888go/goframe/os/gfile"
 )
 
 func ExampleReplaceFile() {
@@ -27,7 +26,7 @@ func ExampleReplaceFile() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content directly by file path.
+	// 它通过文件路径直接替换内容。
 	gfile.ReplaceFile("content", "replace word", tempFile)
 
 	fmt.Println(gfile.GetContents(tempFile))
@@ -51,9 +50,9 @@ func ExampleReplaceFileFunc() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content directly by file path and callback function.
+	// 它通过文件路径和回调函数直接替换内容。
 	gfile.ReplaceFileFunc(func(path, content string) string {
-		// Replace with regular match
+		// 用普通匹配替换
 		reg, _ := regexp.Compile(`\d{3}`)
 		return reg.ReplaceAllString(content, "[num]")
 	}, tempFile)
@@ -79,7 +78,7 @@ func ExampleReplaceDir() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content of all files under specified directory recursively.
+	// 它递归地替换指定目录下所有文件的内容。
 	gfile.ReplaceDir("content", "replace word", tempDir, "gflie_example.txt", true)
 
 	// read contents
@@ -104,9 +103,9 @@ func ExampleReplaceDirFunc() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content of all files under specified directory with custom callback function recursively.
+	// 它会递归地替换指定目录下所有文件的内容，使用自定义的回调函数进行替换。
 	gfile.ReplaceDirFunc(func(path, content string) string {
-		// Replace with regular match
+		// 用普通匹配替换
 		reg, _ := regexp.Compile(`\d{3}`)
 		return reg.ReplaceAllString(content, "[num]")
 	}, tempDir, "gflie_example.txt", true)

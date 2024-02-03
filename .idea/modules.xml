@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/goframe.iml" filepath="$PROJECT_DIR$/.idea/goframe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../debug/package_youxiam/.idea/package_youxiam.iml" filepath="$PROJECT_DIR$/../debug/package_youxiam/.idea/package_youxiam.iml" />
     </modules>
   </component>
 </project>

@@ -1,22 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf获取一个。
 
 package gset_test
 
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/frame/g"
+	
+	"github.com/888go/goframe/container/gset"
+	"github.com/888go/goframe/frame/g"
 )
 
-// New create and returns a new set, which contains un-repeated items.
-// The parameter `safe` is used to specify whether using set in concurrent-safety,
-// which is false in default.
+// New 创建并返回一个新的集合，其中包含无重复项。
+// 参数`safe`用于指定是否在并发安全的情况下使用集合，默认为false。
 func ExampleNewIntSet() {
 	intSet := gset.NewIntSet()
 	intSet.Add([]int{1, 2, 3}...)
@@ -26,7 +24,7 @@ func ExampleNewIntSet() {
 	// [2 1 3]
 }
 
-// NewIntSetFrom  returns a new set from `items`.
+// NewIntSetFrom 返回一个从`items`创建的新集合。
 func ExampleNewFrom() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	fmt.Println(intSet.Slice())
@@ -35,7 +33,7 @@ func ExampleNewFrom() {
 	// [2 1 3]
 }
 
-// Add adds one or multiple items to the set.
+// Add 向集合中添加一个或多个项目。
 func ExampleIntSet_Add() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	intSet.Add(1)
@@ -47,9 +45,9 @@ func ExampleIntSet_Add() {
 	// false
 }
 
-// AddIfNotExist checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set,
-// or else it does nothing and returns false.
+// AddIfNotExist 检查项是否已存在于集合中，
+// 如果该项不在集合中，则将其添加到集合中并返回 true；
+// 否则，不进行任何操作并返回 false。
 func ExampleIntSet_AddIfNotExist() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	intSet.Add(1)
@@ -61,10 +59,10 @@ func ExampleIntSet_AddIfNotExist() {
 	// false
 }
 
-// AddIfNotExistFunc checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set and function `f` returns true,
-// or else it does nothing and returns false.
-// Note that, the function `f` is executed without writing lock.
+// AddIfNotExistFunc 检查项是否存在集合中，
+// 如果该项不存在于集合中，并且函数 `f` 返回 true，则将该项添加到集合中并返回 true，
+// 否则不做任何操作并返回 false。
+// 注意，函数 `f` 在无写入锁的情况下执行。
 func ExampleIntSet_AddIfNotExistFunc() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	intSet.Add(1)
@@ -78,10 +76,10 @@ func ExampleIntSet_AddIfNotExistFunc() {
 	// true
 }
 
-// AddIfNotExistFunc checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set and function `f` returns true,
-// or else it does nothing and returns false.
-// Note that, the function `f` is executed without writing lock.
+// AddIfNotExistFunc 检查项是否存在集合中，
+// 如果该项不存在于集合中，并且函数 `f` 返回 true，则将该项添加到集合中并返回 true，
+// 否则不做任何操作并返回 false。
+// 注意，函数 `f` 在无写入锁的情况下执行。
 func ExampleIntSet_AddIfNotExistFuncLock() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	intSet.Add(1)
@@ -95,7 +93,7 @@ func ExampleIntSet_AddIfNotExistFuncLock() {
 	// true
 }
 
-// Clear deletes all items of the set.
+// 清除删除集合中的所有项。
 func ExampleIntSet_Clear() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	fmt.Println(intSet.Size())
@@ -107,9 +105,9 @@ func ExampleIntSet_Clear() {
 	// 0
 }
 
-// Complement returns a new set which is the complement from `set` to `full`.
-// Which means, all the items in `newSet` are in `full` and not in `set`.
-// It returns the difference between `full` and `set` if the given set `full` is not the full set of `set`.
+// Complement 返回一个新的集合，它是从 `set` 到 `full` 的补集。
+// 这意味着，新集合`newSet`中的所有元素都在`full`中但不在`set`中。
+// 如果给定的集合 `full` 不是 `set` 的全集，则返回 `full` 和 `set` 之间的差集。
 func ExampleIntSet_Complement() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3, 4, 5})
 	s := gset.NewIntSetFrom([]int{1, 2, 3})
@@ -119,7 +117,7 @@ func ExampleIntSet_Complement() {
 	// [4 5]
 }
 
-// Contains checks whether the set contains `item`.
+// Contains 检查集合中是否包含 `item`。
 func ExampleIntSet_Contains() {
 	var set1 gset.IntSet
 	set1.Add(1, 4, 5, 6, 7)
@@ -134,8 +132,8 @@ func ExampleIntSet_Contains() {
 	// false
 }
 
-// Diff returns a new set which is the difference set from `set` to `other`.
-// Which means, all the items in `newSet` are in `set` but not in `other`.
+// Diff 返回一个新的集合，这个集合是 `set` 与 `other` 的差集。
+// 这意味着，新集合 `newSet` 中的所有元素都在 `set` 中，但不在 `other` 中。
 func ExampleIntSet_Diff() {
 	s1 := gset.NewIntSetFrom([]int{1, 2, 3})
 	s2 := gset.NewIntSetFrom([]int{1, 2, 3, 4})
@@ -145,7 +143,7 @@ func ExampleIntSet_Diff() {
 	// [4]
 }
 
-// Equal checks whether the two sets equal.
+// Equal 检查两个集合是否相等。
 func ExampleIntSet_Equal() {
 	s1 := gset.NewIntSetFrom([]int{1, 2, 3})
 	s2 := gset.NewIntSetFrom([]int{1, 2, 3, 4})
@@ -160,8 +158,8 @@ func ExampleIntSet_Equal() {
 	// true
 }
 
-// Intersect returns a new set which is the intersection from `set` to `other`.
-// Which means, all the items in `newSet` are in `set` and also in `other`.
+// Intersect 返回一个新的集合，它是从 `set` 到 `other` 的交集。
+// 这意味着，`newSet` 中的所有元素都在 `set` 中，并且也在 `other` 中。
 func ExampleIntSet_Intersect() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3}...)
@@ -173,7 +171,7 @@ func ExampleIntSet_Intersect() {
 	// [1 2 3]
 }
 
-// IsSubsetOf checks whether the current set is a sub-set of `other`
+// IsSubsetOf 检查当前集合是否为 `other` 的子集
 func ExampleIntSet_IsSubsetOf() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -185,8 +183,8 @@ func ExampleIntSet_IsSubsetOf() {
 	// true
 }
 
-// Iterator iterates the set readonly with given callback function `f`,
-// if `f` returns true then continue iterating; or false to stop.
+// Iterator 使用给定的回调函数`f`对集合进行只读遍历，
+// 如果`f`返回true，则继续遍历；若返回false，则停止遍历。
 func ExampleIntSet_Iterator() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -201,7 +199,7 @@ func ExampleIntSet_Iterator() {
 	// Iterator 4
 }
 
-// Join joins items with a string `glue`.
+// Join通过字符串`glue`连接items。
 func ExampleIntSet_Join() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -211,7 +209,7 @@ func ExampleIntSet_Join() {
 	// 3,4,1,2
 }
 
-// LockFunc locks writing with callback function `f`.
+// LockFunc 使用回调函数`f`进行写入锁定。
 func ExampleIntSet_LockFunc() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2}...)
@@ -220,11 +218,11 @@ func ExampleIntSet_LockFunc() {
 	})
 	fmt.Println(s1.Slice())
 
-	// May Output
-	// [2 3 1]
+// 可能的输出
+// [2 3 1]
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func ExampleIntSet_MarshalJSON() {
 	type Student struct {
 		Id     int
@@ -243,7 +241,7 @@ func ExampleIntSet_MarshalJSON() {
 	// {"Id":1,"Name":"john","Scores":[100,99,98]}
 }
 
-// Merge adds items from `others` sets into `set`.
+// Merge 将 `others` 中的元素合并到 `set` 中。
 func ExampleIntSet_Merge() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -255,7 +253,7 @@ func ExampleIntSet_Merge() {
 	// [1 2 3 4]
 }
 
-// Pops randomly pops an item from set.
+// Pops 随机地从集合中弹出一个元素。
 func ExampleIntSet_Pop() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -266,8 +264,8 @@ func ExampleIntSet_Pop() {
 	// 1
 }
 
-// Pops randomly pops `size` items from set.
-// It returns all items if size == -1.
+// Pops 随机地从集合中弹出 `size` 个元素。
+// 如果 size == -1，则返回所有元素。
 func ExampleIntSet_Pops() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -280,7 +278,7 @@ func ExampleIntSet_Pops() {
 	// 2
 }
 
-// RLockFunc locks reading with callback function `f`.
+// RLockFunc 通过回调函数 `f` 对读取进行加锁。
 func ExampleIntSet_RLockFunc() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -292,7 +290,7 @@ func ExampleIntSet_RLockFunc() {
 	// map[1:{} 2:{} 3:{} 4:{}]
 }
 
-// Remove deletes `item` from set.
+// Remove 从集合中删除`item`。
 func ExampleIntSet_Remove() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -303,7 +301,7 @@ func ExampleIntSet_Remove() {
 	// [3 4 2]
 }
 
-// Size returns the size of the set.
+// Size 返回集合的大小。
 func ExampleIntSet_Size() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -313,7 +311,7 @@ func ExampleIntSet_Size() {
 	// 4
 }
 
-// Slice returns the an of items of the set as slice.
+// Slice 返回集合中项目的切片形式。
 func ExampleIntSet_Slice() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -323,7 +321,7 @@ func ExampleIntSet_Slice() {
 	// [1, 2, 3, 4]
 }
 
-// String returns items as a string, which implements like json.Marshal does.
+// String 返回 items 作为字符串，其实现方式类似于 json.Marshal。
 func ExampleIntSet_String() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -333,8 +331,8 @@ func ExampleIntSet_String() {
 	// [1,2,3,4]
 }
 
-// Sum sums items. Note: The items should be converted to int type,
-// or you'd get a result that you unexpected.
+// Sum 计算项目总和。注意：项目应转换为 int 类型，
+// 否则你可能会得到一个意想不到的结果。
 func ExampleIntSet_Sum() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -344,8 +342,8 @@ func ExampleIntSet_Sum() {
 	// 10
 }
 
-// Union returns a new set which is the union of `set` and `other`.
-// Which means, all the items in `newSet` are in `set` or in `other`.
+// Union 返回一个新的集合，该集合是 `set` 和 `other` 的并集。
+// 这意味着，`newSet` 中的所有元素都在 `set` 或者 `other` 中。
 func ExampleIntSet_Union() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -357,7 +355,7 @@ func ExampleIntSet_Union() {
 	// [3 4 1 2]
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
 func ExampleIntSet_UnmarshalJSON() {
 	b := []byte(`{"Id":1,"Name":"john","Scores":[100,99,98]}`)
 	type Student struct {
@@ -373,7 +371,7 @@ func ExampleIntSet_UnmarshalJSON() {
 	// {1 john [100,99,98]}
 }
 
-// UnmarshalValue is an interface implement which sets any type of value for set.
+// UnmarshalValue 是一个接口实现，用于为 set 设置任意类型的值。
 func ExampleIntSet_UnmarshalValue() {
 	b := []byte(`{"Id":1,"Name":"john","Scores":100,99,98}`)
 	type Student struct {
@@ -389,7 +387,7 @@ func ExampleIntSet_UnmarshalValue() {
 	// {1 john [100,99,98]}
 }
 
-// Walk applies a user supplied function `f` to every item of set.
+// Walk 对集合中的每一个元素应用用户提供的函数 `f`。
 func ExampleIntSet_Walk() {
 	var (
 		set   gset.IntSet
@@ -397,7 +395,7 @@ func ExampleIntSet_Walk() {
 		delta = 10
 	)
 	set.Add(names...)
-	// Add prefix for given table names.
+	// 为给定的表名添加前缀
 	set.Walk(func(item int) int {
 		return delta + item
 	})

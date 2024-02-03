@@ -1,39 +1,38 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gdb
 
 import (
 	"database/sql"
 	"math"
-
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// IsEmpty checks and returns whether `r` is empty.
+// IsEmpty 检查并返回 `r` 是否为空。
 func (r Result) IsEmpty() bool {
 	return r == nil || r.Len() == 0
 }
 
-// Len returns the length of result list.
+// Len 返回结果列表的长度。
 func (r Result) Len() int {
 	return len(r)
 }
 
-// Size is alias of function Len.
+// Size 是函数 Len 的别名。
 func (r Result) Size() int {
 	return r.Len()
 }
 
-// Chunk splits a Result into multiple Results,
-// the size of each array is determined by `size`.
-// The last chunk may contain less than size elements.
+// Chunk 将一个 Result 切分成多个 Result，
+// 每个数组的大小由 `size` 决定。
+// 最后一块切片可能包含少于 size 个元素。
 func (r Result) Chunk(size int) []Result {
 	if size < 1 {
 		return nil
@@ -52,19 +51,19 @@ func (r Result) Chunk(size int) []Result {
 	return n
 }
 
-// Json converts `r` to JSON format content.
+// Json 将 `r` 转换为 JSON 格式的内容。
 func (r Result) Json() string {
 	content, _ := gjson.New(r.List()).ToJsonString()
 	return content
 }
 
-// Xml converts `r` to XML format content.
+// Xml 将`r`转换为XML格式的内容。
 func (r Result) Xml(rootTag ...string) string {
 	content, _ := gjson.New(r.List()).ToXmlString(rootTag...)
 	return content
 }
 
-// List converts `r` to a List.
+// List 将 `r` 转换为一个 List。
 func (r Result) List() List {
 	list := make(List, len(r))
 	for k, v := range r {
@@ -73,9 +72,9 @@ func (r Result) List() List {
 	return list
 }
 
-// Array retrieves and returns specified column values as slice.
-// The parameter `field` is optional is the column field is only one.
-// The default `field` is the first field name of the first item in `Result` if parameter `field` is not given.
+// Array 根据指定列字段获取并返回其值作为一个切片。
+// 当列字段只有一个时，参数 `field` 可选。
+// 如果未给出参数 `field`，则默认的 `field` 为 `Result` 中第一项的第一个字段名。
 func (r Result) Array(field ...string) []Value {
 	array := make([]Value, len(r))
 	if len(r) == 0 {
@@ -96,8 +95,8 @@ func (r Result) Array(field ...string) []Value {
 	return array
 }
 
-// MapKeyValue converts `r` to a map[string]Value of which key is specified by `key`.
-// Note that the item value may be type of slice.
+// MapKeyValue 将 `r` 转换为一个 map[string]Value，其中键由 `key` 指定。
+// 注意，项值可能为切片类型。
 func (r Result) MapKeyValue(key string) map[string]Value {
 	var (
 		s              string
@@ -124,7 +123,7 @@ func (r Result) MapKeyValue(key string) map[string]Value {
 	return m
 }
 
-// MapKeyStr converts `r` to a map[string]Map of which key is specified by `key`.
+// MapKeyStr 将 `r` 转换为一个 map[string]Map 类型的映射，其中的键由 `key` 指定。
 func (r Result) MapKeyStr(key string) map[string]Map {
 	m := make(map[string]Map)
 	for _, item := range r {
@@ -135,7 +134,8 @@ func (r Result) MapKeyStr(key string) map[string]Map {
 	return m
 }
 
-// MapKeyInt converts `r` to a map[int]Map of which key is specified by `key`.
+// MapKeyInt 将 `r` 转换为一个映射 map[int]Map，其中键由 `key` 指定。
+// （注：这里可能需要上下文信息，对于 `Map` 类型没有明确说明，所以翻译时假设它是一个已知的类型名。如果 `Map` 是自定义类型或有特殊含义，请替换为实际含义。）
 func (r Result) MapKeyInt(key string) map[int]Map {
 	m := make(map[int]Map)
 	for _, item := range r {
@@ -146,7 +146,7 @@ func (r Result) MapKeyInt(key string) map[int]Map {
 	return m
 }
 
-// MapKeyUint converts `r` to a map[uint]Map of which key is specified by `key`.
+// MapKeyUint 将`r`转换为一个map[uint]Map类型，其中键由`key`指定。
 func (r Result) MapKeyUint(key string) map[uint]Map {
 	m := make(map[uint]Map)
 	for _, item := range r {
@@ -157,7 +157,7 @@ func (r Result) MapKeyUint(key string) map[uint]Map {
 	return m
 }
 
-// RecordKeyStr converts `r` to a map[string]Record of which key is specified by `key`.
+// RecordKeyStr 将 `r` 转换为一个 map[string]Record 类型的映射，其中键由 `key` 指定。
 func (r Result) RecordKeyStr(key string) map[string]Record {
 	m := make(map[string]Record)
 	for _, item := range r {
@@ -168,7 +168,7 @@ func (r Result) RecordKeyStr(key string) map[string]Record {
 	return m
 }
 
-// RecordKeyInt converts `r` to a map[int]Record of which key is specified by `key`.
+// RecordKeyInt 将 `r` 转换为一个 map[int]Record 类型的映射，其中键由 `key` 指定。
 func (r Result) RecordKeyInt(key string) map[int]Record {
 	m := make(map[int]Record)
 	for _, item := range r {
@@ -179,7 +179,7 @@ func (r Result) RecordKeyInt(key string) map[int]Record {
 	return m
 }
 
-// RecordKeyUint converts `r` to a map[uint]Record of which key is specified by `key`.
+// RecordKeyUint 将 `r` 转换为一个 map[uint]Record 类型的映射，其中键由 `key` 指定。
 func (r Result) RecordKeyUint(key string) map[uint]Record {
 	m := make(map[uint]Record)
 	for _, item := range r {
@@ -190,10 +190,10 @@ func (r Result) RecordKeyUint(key string) map[uint]Record {
 	return m
 }
 
-// Structs converts `r` to struct slice.
-// Note that the parameter `pointer` should be type of *[]struct/*[]*struct.
+// Structs 将 `r` 转换为结构体切片。
+// 注意参数 `pointer` 应该是指向结构体切片的指针类型，即 *[]struct 或 *[]*struct。
 func (r Result) Structs(pointer interface{}) (err error) {
-	// If the result is empty and the target pointer is not empty, it returns error.
+	// 如果结果为空且目标指针不为空，则返回错误。
 	if r.IsEmpty() {
 		if !empty.IsEmpty(pointer, true) {
 			return sql.ErrNoRows

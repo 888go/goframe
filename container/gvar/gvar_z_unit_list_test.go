@@ -1,17 +1,16 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gvar_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/test/gtest"
 )
 
 func TestVar_ListItemValues_Map(t *testing.T) {
@@ -63,7 +62,7 @@ func TestVar_ListItemValues_Struct(t *testing.T) {
 		t.Assert(gvar.New(listStruct).ListItemValues("Id"), g.Slice{1, 2, 3})
 		t.Assert(gvar.New(listStruct).ListItemValues("Score"), g.Slice{100, 99, 0})
 	})
-	// Nil element value.
+	// 空元素值。
 	gtest.C(t, func(t *gtest.T) {
 		type T struct {
 			Id    int

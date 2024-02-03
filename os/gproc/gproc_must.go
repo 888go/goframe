@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gproc
 
@@ -11,21 +11,21 @@ import (
 	"io"
 )
 
-// MustShell performs as Shell, but it panics if any error occurs.
+// MustShell 的行为与 Shell 相同，但如果出现任何错误，它会引发 panic。
 func MustShell(ctx context.Context, cmd string, out io.Writer, in io.Reader) {
 	if err := Shell(ctx, cmd, out, in); err != nil {
 		panic(err)
 	}
 }
 
-// MustShellRun performs as ShellRun, but it panics if any error occurs.
+// MustShellRun 的行为与 ShellRun 相同，但当出现任何错误时，它会触发 panic。
 func MustShellRun(ctx context.Context, cmd string) {
 	if err := ShellRun(ctx, cmd); err != nil {
 		panic(err)
 	}
 }
 
-// MustShellExec performs as ShellExec, but it panics if any error occurs.
+// MustShellExec 的执行方式与 ShellExec 相同，但当出现任何错误时，它会触发 panic。
 func MustShellExec(ctx context.Context, cmd string, environment ...[]string) string {
 	result, err := ShellExec(ctx, cmd, environment...)
 	if err != nil {

@@ -1,19 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf获取一个。
 
 package gtree_test
 
 import (
 	"fmt"
 	"testing"
-
-	"github.com/gogf/gf/v2/container/gtree"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	
+	"github.com/888go/goframe/container/gtree"
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gutil"
 )
 
 func Test_BTree_Basic(t *testing.T) {
@@ -52,7 +51,7 @@ func Test_BTree_Basic(t *testing.T) {
 }
 
 func Test_BTree_Set_Fun(t *testing.T) {
-	//GetOrSetFunc lock or unlock
+// GetOrSetFunc 获取或设置（锁定或解锁）
 	gtest.C(t, func(t *gtest.T) {
 		m := gtree.NewBTree(3, gutil.ComparatorString)
 		t.Assert(m.GetOrSetFunc("fun", getValue), 3)
@@ -62,7 +61,8 @@ func Test_BTree_Set_Fun(t *testing.T) {
 		t.Assert(m.Get("funlock"), 3)
 		t.Assert(m.Get("fun"), 3)
 	})
-	//SetIfNotExistFunc lock or unlock
+// SetIfNotExistFunc 设置不存在时的处理函数，用于锁定或解锁
+// 这个注释翻译可能不够准确，因为缺少了上下文。但从字面意思上看，该函数（SetIfNotExistFunc）可能是用来设置一个回调函数，当某个条件（例如资源）不存在时，执行锁定或解锁操作。但在实际应用中，请结合具体代码逻辑理解此注释含义。
 	gtest.C(t, func(t *gtest.T) {
 		m := gtree.NewBTree(3, gutil.ComparatorString)
 		t.Assert(m.SetIfNotExistFunc("fun", getValue), true)

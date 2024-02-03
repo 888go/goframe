@@ -1,21 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gproc implements management and communication for processes.
+// 包gproc实现了对进程的管理和通信功能。
 package gproc
 
 import (
 	"os"
 	"runtime"
 	"time"
-
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/os/genv"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -24,16 +24,16 @@ const (
 )
 
 var (
-	processPid       = os.Getpid() // processPid is the pid of current process.
-	processStartTime = time.Now()  // processStartTime is the start time of current process.
+	processPid       = os.Getpid() // processPid 是当前进程的进程ID。
+	processStartTime = time.Now()  // processStartTime 是当前进程的启动时间。
 )
 
-// Pid returns the pid of current process.
+// Pid 返回当前进程的进程ID。
 func Pid() int {
 	return processPid
 }
 
-// PPid returns the custom parent pid if exists, or else it returns the system parent pid.
+// PPid 返回自定义父进程ID（如果存在），否则返回系统父进程ID。
 func PPid() int {
 	if !IsChild() {
 		return Pid()
@@ -45,22 +45,21 @@ func PPid() int {
 	return PPidOS()
 }
 
-// PPidOS returns the system parent pid of current process.
-// Note that the difference between PPidOS and PPid function is that the PPidOS returns
-// the system ppid, but the PPid functions may return the custom pid by gproc if the custom
-// ppid exists.
+// PPidOS 返回当前进程的系统父进程ID。
+// 注意，PPidOS 和 PPid 函数之间的区别在于：PPidOS 返回的是系统的父进程ID，
+// 但若存在自定义父进程ID，PPid 函数可能会返回由 gproc 提供的自定义进程ID。
 func PPidOS() int {
 	return os.Getppid()
 }
 
-// IsChild checks and returns whether current process is a child process.
-// A child process is forked by another gproc process.
+// IsChild 检查并返回当前进程是否为子进程。
+// 子进程是由另一个 gproc 进程 fork（派生）出来的。
 func IsChild() bool {
 	ppidValue := os.Getenv(envKeyPPid)
 	return ppidValue != "" && ppidValue != "0"
 }
 
-// SetPPid sets custom parent pid for current process.
+// SetPPid 设置当前进程的自定义父进程ID。
 func SetPPid(ppid int) error {
 	if ppid > 0 {
 		return os.Setenv(envKeyPPid, gconv.String(ppid))
@@ -69,26 +68,26 @@ func SetPPid(ppid int) error {
 	}
 }
 
-// StartTime returns the start time of current process.
+// StartTime 返回当前进程的启动时间。
 func StartTime() time.Time {
 	return processStartTime
 }
 
-// Uptime returns the duration which current process has been running
+// Uptime 返回当前进程已经运行的时间间隔
 func Uptime() time.Duration {
 	return time.Since(processStartTime)
 }
 
-// SearchBinary searches the binary `file` in current working folder and PATH environment.
+// SearchBinary 在当前工作目录和PATH环境变量中搜索二进制文件 `file`。
 func SearchBinary(file string) string {
-	// Check if it is absolute path of exists at current working directory.
+	// 检查给定路径是否为绝对路径，或者在当前工作目录中是否存在。
 	if gfile.Exists(file) {
 		return file
 	}
 	return SearchBinaryPath(file)
 }
 
-// SearchBinaryPath searches the binary `file` in PATH environment.
+// SearchBinaryPath在PATH环境变量中搜索二进制文件`file`。
 func SearchBinaryPath(file string) string {
 	array := ([]string)(nil)
 	switch runtime.GOOS {

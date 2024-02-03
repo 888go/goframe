@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
 
@@ -13,21 +12,21 @@ import (
 	"io"
 	"net/http"
 	"strings"
-
+	
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
-
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/httputil"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/net/gtrace"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/httputil"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/net/gtrace"
+	"github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -43,13 +42,13 @@ const (
 	tracingMiddlewareHandled        gctx.StrKey = `MiddlewareServerTracingHandled`
 )
 
-// internalMiddlewareServerTracing is a serer middleware that enables tracing feature using standards of OpenTelemetry.
+// internalMiddlewareServerTracing 是一个服务器中间件，它利用 OpenTelemetry 的标准启用追踪功能。
 func internalMiddlewareServerTracing(r *Request) {
 	var (
 		ctx = r.Context()
 	)
-	// Mark this request is handled by server tracing middleware,
-	// to avoid repeated handling by the same middleware.
+// 标记该请求已被服务器追踪中间件处理，
+// 以避免被同一中间件重复处理。
 	if ctx.Value(tracingMiddlewareHandled) != nil {
 		r.Middleware.Next()
 		return
@@ -75,16 +74,16 @@ func internalMiddlewareServerTracing(r *Request) {
 
 	span.SetAttributes(gtrace.CommonLabels()...)
 
-	// Inject tracing context.
+	// 注入追踪上下文。
 	r.SetCtx(ctx)
 
-	// If it is now using a default trace provider, it then does no complex tracing jobs.
+	// 如果当前正在使用默认的追踪提供者，则不执行复杂的追踪任务。
 	if gtrace.IsUsingDefaultProvider() {
 		r.Middleware.Next()
 		return
 	}
 
-	// Request content logging.
+	// 请求内容日志记录。
 	reqBodyContentBytes, err := io.ReadAll(r.Body)
 	if err != nil {
 		r.SetError(gerror.Wrap(err, `read request body failed`))
@@ -104,14 +103,14 @@ func internalMiddlewareServerTracing(r *Request) {
 		)),
 	))
 
-	// Continue executing.
+	// 继续执行。
 	r.Middleware.Next()
 
 	// Error logging.
 	if err = r.GetError(); err != nil {
 		span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, err))
 	}
-	// Response content logging.
+	// 响应内容日志记录。
 	var resBodyContent = gstr.StrLimit(r.Response.BufferString(), gtrace.MaxContentLogSize(), "...")
 	if gzipAccepted(r.Response.Header()) {
 		reader, err := gzip.NewReader(strings.NewReader(r.Response.BufferString()))
@@ -132,7 +131,7 @@ func internalMiddlewareServerTracing(r *Request) {
 	))
 }
 
-// gzipAccepted returns whether the client will accept gzip-encoded content.
+// gzipAccepted 返回一个布尔值，表示客户端是否接受 gzip 压缩编码的内容。
 func gzipAccepted(header http.Header) bool {
 	a := header.Get("Content-Encoding")
 	parts := strings.Split(a, ",")

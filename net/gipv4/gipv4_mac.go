@@ -1,19 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随此文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf获取一份。
 //
 
 package gipv4
 
 import (
 	"net"
-
-	"github.com/gogf/gf/v2/errors/gerror"
+	
+	"github.com/888go/goframe/errors/gerror"
 )
 
-// GetMac retrieves and returns the first mac address of current host.
+// GetMac 获取并返回当前主机的第一个MAC地址。
 func GetMac() (mac string, err error) {
 	macs, err := GetMacArray()
 	if err != nil {
@@ -25,7 +24,7 @@ func GetMac() (mac string, err error) {
 	return "", nil
 }
 
-// GetMacArray retrieves and returns all the mac address of current host.
+// GetMacArray 获取并返回当前主机的所有MAC地址。
 func GetMacArray() (macs []string, err error) {
 	netInterfaces, err := net.Interfaces()
 	if err != nil {

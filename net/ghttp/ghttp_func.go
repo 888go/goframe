@@ -1,32 +1,31 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package ghttp
 
 import (
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/httputil"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/httputil"
+	"github.com/888go/goframe/text/gstr"
 )
 
-// SupportedMethods returns all supported HTTP methods.
+// SupportedMethods 返回所有支持的HTTP方法。
 func SupportedMethods() []string {
 	return gstr.SplitAndTrim(supportedHttpMethods, ",")
 }
 
-// BuildParams builds the request string for the http client. The `params` can be type of:
-// string/[]byte/map/struct/*struct.
+// BuildParams 为 http 客户端构建请求字符串。`params` 参数可以是以下类型：
+// string/[]byte/map/struct/*struct。
 //
-// The optional parameter `noUrlEncode` specifies whether to ignore the url encoding for the data.
+// 可选参数 `noUrlEncode` 指定是否忽略对数据的 URL 编码。
 func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr string) {
 	return httputil.BuildParams(params, noUrlEncode...)
 }
 
-// niceCallFunc calls function `f` with exception capture logic.
+// niceCallFunc 调用函数 `f` 并实现异常捕获逻辑。
 func niceCallFunc(f func()) {
 	defer func() {
 		if exception := recover(); exception != nil {
@@ -36,12 +35,11 @@ func niceCallFunc(f func()) {
 
 			default:
 				if v, ok := exception.(error); ok && gerror.HasStack(v) {
-					// It's already an error that has stack info.
+					// 这已经是一个带有堆栈信息的错误。
 					panic(v)
 				}
-				// Create a new error with stack info.
-				// Note that there's a skip pointing the start stacktrace
-				// of the real error point.
+// 创建一个包含堆栈信息的新错误。
+// 注意，这里有一个skip参数用于指向实际错误点的堆栈跟踪起始位置。
 				if v, ok := exception.(error); ok {
 					if gerror.Code(v) != gcode.CodeNil {
 						panic(v)

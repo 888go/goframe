@@ -1,46 +1,45 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gredis
 
 import (
 	"context"
-
-	"github.com/gogf/gf/v2/container/gvar"
+	
+	"github.com/888go/goframe/container/gvar"
 )
 
-// Adapter is an interface for universal redis operations.
+// Adapter 是一个用于通用 Redis 操作的接口。
 type Adapter interface {
 	AdapterGroup
 
-	// Do send a command to the server and returns the received reply.
-	// It uses json.Marshal for struct/slice/map type values before committing them to redis.
+// 向服务器发送命令并返回接收到的回复。
+// 在将结构体、切片或映射类型值提交到redis前，它使用json.Marshal进行序列化。
 	Do(ctx context.Context, command string, args ...interface{}) (*gvar.Var, error)
 
-	// Conn retrieves and returns a connection object for continuous operations.
-	// Note that you should call Close function manually if you do not use this connection any further.
+// Conn 获取并返回一个用于连续操作的连接对象。
+// 注意，如果你不再使用此连接，应手动调用 Close 函数。
 	Conn(ctx context.Context) (conn Conn, err error)
 
-	// Close closes current redis client, closes its connection pool and releases all its related resources.
+	// Close 关闭当前的 Redis 客户端，关闭其连接池并释放所有相关的资源。
 	Close(ctx context.Context) (err error)
 }
 
-// Conn is an interface of a connection from universal redis client.
+// Conn 是一个通用 Redis 客户端连接的接口。
 type Conn interface {
 	ConnCommand
 
-	// Do send a command to the server and returns the received reply.
-	// It uses json.Marshal for struct/slice/map type values before committing them to redis.
+// 向服务器发送命令并返回接收到的回复。
+// 在将结构体、切片或映射类型值提交到redis前，它使用json.Marshal进行序列化。
 	Do(ctx context.Context, command string, args ...interface{}) (result *gvar.Var, err error)
 
-	// Close puts the connection back to connection pool.
+	// Close将连接放回连接池。
 	Close(ctx context.Context) (err error)
 }
 
-// AdapterGroup is an interface managing group operations for redis.
+// AdapterGroup 是一个接口，用于管理针对 Redis 的组操作。
 type AdapterGroup interface {
 	GroupGeneric() IGroupGeneric
 	GroupHash() IGroupHash
@@ -52,27 +51,27 @@ type AdapterGroup interface {
 	GroupString() IGroupString
 }
 
-// ConnCommand is an interface managing some operations bound to certain connection.
+// ConnCommand 是一个接口，用于管理与特定连接相关的一些操作。
 type ConnCommand interface {
-	// Subscribe subscribes the client to the specified channels.
-	// https://redis.io/commands/subscribe/
+// Subscribe 订阅函数，使客户端订阅指定的频道。
+// 参考文档：https://redis.io/commands/subscribe/
 	Subscribe(ctx context.Context, channel string, channels ...string) ([]*Subscription, error)
 
-	// PSubscribe subscribes the client to the given patterns.
-	//
-	// Supported glob-style patterns:
-	// - h?llo subscribes to hello, hallo and hxllo
-	// - h*llo subscribes to hllo and heeeello
-	// - h[ae]llo subscribes to hello and hallo, but not hillo
-	//
-	// Use \ to escape special characters if you want to match them verbatim.
-	//
-	// https://redis.io/commands/psubscribe/
+// PSubscribe 订阅客户端到给定的模式。
+//
+// 支持的glob风格模式：
+// - h?llo 订阅hello, hallo和hxllo
+// - h*llo 订阅hllo和heeeello
+// - h[ae]llo 订阅hello和hallo，但不订阅hillo
+//
+// 如果你想精确匹配特殊字符，请使用\进行转义。
+//
+// 参考文档：https://redis.io/commands/psubscribe/
 	PSubscribe(ctx context.Context, pattern string, patterns ...string) ([]*Subscription, error)
 
-	// ReceiveMessage receives a single message of subscription from the Redis server.
+	// ReceiveMessage 从 Redis 服务器接收订阅的单条消息。
 	ReceiveMessage(ctx context.Context) (*Message, error)
 
-	// Receive receives a single reply as gvar.Var from the Redis server.
+	// Receive 从Redis服务器接收单个回复作为gvar.Var。
 	Receive(ctx context.Context) (result *gvar.Var, err error)
 }

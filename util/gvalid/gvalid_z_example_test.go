@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gvalid_test
 
@@ -10,14 +9,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/i18n/gi18n"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gvalid"
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/i18n/gi18n"
+	"github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gvalid"
 )
 
 func ExampleNew() {
@@ -151,7 +150,7 @@ func ExampleValidator_Ci() {
 		ctx = context.Background()
 		req = BizReq{
 			Account:   "gf",
-			Password:  "Goframe.org", // Diff from Password2, but because of "ci", rule check passed
+			Password:  "Goframe.org", // 与 Password2 不同，但由于“ci”的存在，规则检查通过
 			Password2: "goframe.org",
 		}
 	)
@@ -179,7 +178,7 @@ func ExampleValidator_Data() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "goframe",
-			Password2: "gofra", // error length between 6 and 18
+			Password2: "gofra", // 错误信息长度应在6到18个字符之间
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -282,7 +281,7 @@ func ExampleValidator_Data_Map3() {
 	// }
 }
 
-// Empty string attribute.
+// 空字符串属性。
 func ExampleValidator_Data_Struct1() {
 	type Params struct {
 		Page      int    `v:"required|min:1         # page is required"`
@@ -299,7 +298,7 @@ func ExampleValidator_Data_Struct1() {
 	// true
 }
 
-// Empty pointer attribute.
+// 空指针属性。
 func ExampleValidator_Data_Struct2() {
 	type Params struct {
 		Page      int       `v:"required|min:1         # page is required"`
@@ -316,7 +315,7 @@ func ExampleValidator_Data_Struct2() {
 	// true
 }
 
-// Empty integer attribute.
+// 空整数属性。
 func ExampleValidator_Data_Struct3() {
 	type Params struct {
 		Page      int `v:"required|min:1         # page is required"`
@@ -424,7 +423,7 @@ func ExampleValidator_RuleFunc() {
 		Value: "123",
 		Data:  "123456",
 	}
-	// single error sample
+	// 单个错误示例
 	if err := g.Validator().RuleFunc(lenErrRuleName, lenErrRuleFunc).Data(st).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
@@ -438,7 +437,7 @@ func ExampleValidator_RuleFunc() {
 		Value: "123",
 		Data:  "123456",
 	}
-	// multi error sample
+	// 多错误示例
 	if err := g.Validator().RuleFunc(lenErrRuleName, lenErrRuleFunc).RuleFunc(passErrRuleName, passErrRuleFunc).Data(multi).Run(ctx); err != nil {
 		fmt.Println(err)
 	}

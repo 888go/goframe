@@ -1,10 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gini provides accessing and converting for INI content.
+// Package gini 提供了对 INI 内容的访问和转换功能。
 package gini
 
 import (
@@ -13,13 +12,13 @@ import (
 	"fmt"
 	"io"
 	"strings"
-
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
 )
 
-// Decode converts INI format to map.
+// Decode将INI格式转换为map。
 func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	var (
@@ -78,7 +77,7 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 	return res, nil
 }
 
-// Encode converts map to INI format.
+// Encode 将 map 转换为 INI 格式。
 func Encode(data map[string]interface{}) (res []byte, err error) {
 	var (
 		n  int
@@ -87,7 +86,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 		ok bool
 	)
 	for section, item := range data {
-		// Section key-value pairs.
+		// 配置项键值对。
 		if m, ok = item.(map[string]interface{}); ok {
 			n, err = w.WriteString(fmt.Sprintf("[%s]\n", section))
 			if err != nil || n == 0 {
@@ -100,7 +99,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 			}
 			continue
 		}
-		// Simple key-value pairs.
+		// 简单的键值对。
 		for k, v := range data {
 			if n, err = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); err != nil || n == 0 {
 				return nil, gerror.Wrapf(err, "w.WriteString failed")
@@ -115,7 +114,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 	return res, nil
 }
 
-// ToJson convert INI format to JSON.
+// ToJson 将 INI 格式转换为 JSON。
 func ToJson(data []byte) (res []byte, err error) {
 	iniMap, err := Decode(data)
 	if err != nil {

@@ -1,20 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gproc
 
 import (
 	"io"
-
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/net/gtcp"
+	
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/net/gtcp"
 )
 
-// Send sends data to specified process of given pid.
+// Send 将数据发送给指定的进程ID（pid）所对应的进程。
 func Send(pid int, data []byte, group ...string) error {
 	msg := MsgRequest{
 		SenderPid:   Pid(),
@@ -50,7 +50,7 @@ func Send(pid int, data []byte, group ...string) error {
 			}
 		}
 	}
-	// EOF is not really an error.
+	// EOF 并不是一个真正的错误。
 	if err == io.EOF {
 		err = nil
 	}

@@ -1,24 +1,23 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
 
 import (
 	"errors"
 	"strings"
-
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/util/gutil"
+	
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/util/gutil"
 )
 
-// RuleRequiredWithoutAll implements `required-without-all` rule:
-// Required if all given fields are empty.
+// RuleRequiredWithoutAll 实现了 `required-without-all` 规则：
+// 当所有给定的字段都为空时，该字段为必填。
 //
-// Format:  required-without-all:field1,field2,...
-// Example: required-without-all:id,name
+// 格式： required-without-all:field1,field2,...
+// 示例： required-without-all:id,name
 type RuleRequiredWithoutAll struct{}
 
 func init() {

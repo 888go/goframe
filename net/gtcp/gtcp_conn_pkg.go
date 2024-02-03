@@ -1,36 +1,34 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtcp
 
 import (
 	"encoding/binary"
 	"time"
-
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
 )
 
 const (
-	pkgHeaderSizeDefault = 2 // Header size for simple package protocol.
-	pkgHeaderSizeMax     = 4 // Max header size for simple package protocol.
+	pkgHeaderSizeDefault = 2 // 简单包协议的头部大小
+	pkgHeaderSizeMax     = 4 // 简单包协议的最大头部大小
 )
 
-// PkgOption is package option for simple protocol.
+// PkgOption 是用于简单协议的包选项。
 type PkgOption struct {
-	// HeaderSize is used to mark the data length for next data receiving.
-	// It's 2 bytes in default, 4 bytes max, which stands for the max data length
-	// from 65535 to 4294967295 bytes.
+// HeaderSize 用于标记下一段数据的长度，用于接收数据时进行判断。
+// 默认情况下占2字节，最大为4字节，可表示的数据长度范围从65535字节到4294967295字节。
 	HeaderSize int
 
-	// MaxDataSize is the data field size in bytes for data length validation.
-	// If it's not manually set, it'll automatically be set correspondingly with the HeaderSize.
+// MaxDataSize 是用于数据长度验证的数据字段大小，单位为字节。
+// 若未手动设置，它将根据 HeaderSize 自动进行相应的设置。
 	MaxDataSize int
 
-	// Retry policy when operation fails.
+	// 当操作失败时的重试策略。
 	Retry Retry
 }
 
@@ -64,7 +62,7 @@ func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	return c.Send(buffer[offset:])
 }
 
-// SendPkgWithTimeout writes data to connection with timeout using simple package protocol.
+// SendPkgWithTimeout 使用简单的包协议并设置超时，向连接写入数据。
 func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) (err error) {
 	if err := c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -76,7 +74,7 @@ func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...
 	return
 }
 
-// SendRecvPkg writes data to connection and blocks reading response using simple package protocol.
+// SendRecvPkg 使用简单的包协议将数据写入连接，并阻塞等待读取响应。
 func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkg(option...)
@@ -85,7 +83,7 @@ func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	}
 }
 
-// SendRecvPkgWithTimeout writes data to connection and reads response with timeout using simple package protocol.
+// SendRecvPkgWithTimeout 使用简单包协议，以超时机制向连接写入数据并读取响应。
 func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkgWithTimeout(timeout, option...)
@@ -94,7 +92,7 @@ func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option
 	}
 }
 
-// RecvPkg receives data from connection using simple package protocol.
+// RecvPkg 通过简单的包协议从连接中接收数据。
 func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	var (
 		buffer []byte
@@ -111,7 +109,7 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	}
 	switch pkgOption.HeaderSize {
 	case 1:
-		// It fills with zero if the header size is lesser than 4 bytes (uint32).
+		// 如果头部大小小于4字节（uint32），则用零填充。
 		length = int(binary.BigEndian.Uint32([]byte{0, 0, 0, buffer[0]}))
 	case 2:
 		length = int(binary.BigEndian.Uint32([]byte{0, 0, buffer[0], buffer[1]}))
@@ -120,8 +118,8 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	default:
 		length = int(binary.BigEndian.Uint32([]byte{buffer[0], buffer[1], buffer[2], buffer[3]}))
 	}
-	// It here validates the size of the package.
-	// It clears the buffer and returns error immediately if it validates failed.
+// 在这里，它验证包的大小。
+// 如果验证失败，它会立即清除缓冲区并返回错误。
 	if length < 0 || length > pkgOption.MaxDataSize {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid package size %d`, length)
 	}
@@ -133,7 +131,7 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	return c.Recv(length, pkgOption.Retry)
 }
 
-// RecvPkgWithTimeout reads data from connection with timeout using simple package protocol.
+// RecvPkgWithTimeout 使用简单包协议，以超时方式从连接中读取数据。
 func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (data []byte, err error) {
 	if err = c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -145,8 +143,8 @@ func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (d
 	return
 }
 
-// getPkgOption wraps and returns the PkgOption.
-// If no option given, it returns a new option with default value.
+// getPkgOption 包装并返回 PkgOption。
+// 如果未提供选项，则返回一个具有默认值的新选项。
 func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 	pkgOption := PkgOption{}
 	if len(option) > 0 {
@@ -171,7 +169,8 @@ func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 		case 3:
 			pkgOption.MaxDataSize = 0xFFFFFF
 		case 4:
-			// math.MaxInt32 not math.MaxUint32
+			// math.MaxInt32 不是 math.MaxUint32
+// （这段注释是在强调或纠正某个变量或函数的使用，指出这里使用的是32位整数的最大值常量 `math.MaxInt32`，而不是32位无符号整数的最大值常量 `math.MaxUint32`。）
 			pkgOption.MaxDataSize = 0x7FFFFFFF
 		}
 	}

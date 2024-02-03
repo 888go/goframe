@@ -1,18 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package goai
 
 import (
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// Response is specified by OpenAPI/Swagger 3.0 standard.
+// Response 由 OpenAPI/Swagger 3.0 标准指定。
 type Response struct {
 	Description string      `json:"description"`
 	Headers     Headers     `json:"headers,omitempty"`
@@ -36,7 +36,7 @@ func (r Response) MarshalJSON() ([]byte, error) {
 		m   map[string]json.RawMessage
 		err error
 	)
-	type tempResponse Response // To prevent JSON marshal recursion error.
+	type tempResponse Response // 为防止JSON序列化时出现递归错误
 	if b, err = json.Marshal(tempResponse(r)); err != nil {
 		return nil, err
 	}

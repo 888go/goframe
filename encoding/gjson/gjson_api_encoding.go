@@ -1,23 +1,27 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gjson
 
 import (
-	"github.com/gogf/gf/v2/encoding/gini"
-	"github.com/gogf/gf/v2/encoding/gproperties"
-	"github.com/gogf/gf/v2/encoding/gtoml"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/encoding/gyaml"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/encoding/gini"
+	"github.com/888go/goframe/encoding/gproperties"
+	"github.com/888go/goframe/encoding/gtoml"
+	"github.com/888go/goframe/encoding/gxml"
+	"github.com/888go/goframe/encoding/gyaml"
+	"github.com/888go/goframe/internal/json"
 )
 
-// ========================================================================
+// ===========================================================================
 // JSON
-// ========================================================================
+// ===========================================================================
+// （此部分代码注释为标题性描述，翻译如下）
+// ============================================================================
+// JSON 部分
+// ============================================================================
+// （这里表示该段代码与 JSON 相关，可能是用于处理、解析或生成 JSON 的功能模块）
 
 func (j *Json) ToJson() ([]byte, error) {
 	j.mu.RLock()
@@ -68,6 +72,9 @@ func (j *Json) MustToJsonIndentString() string {
 // ========================================================================
 // XML
 // ========================================================================
+// ===中文注释开始===
+// 此部分代码与XML相关功能实现
+// ========================================================================
 
 func (j *Json) ToXml(rootTag ...string) ([]byte, error) {
 	return gxml.Encode(j.Var().Map(), rootTag...)
@@ -111,9 +118,14 @@ func (j *Json) MustToXmlIndentString(rootTag ...string) string {
 	return string(j.MustToXmlIndent(rootTag...))
 }
 
-// ========================================================================
+// ==========================================================================
 // YAML
+// ==========================================================================
+// （这段代码的注释表明了该部分代码与YAML相关，但没有给出具体的功能描述，故无法精确翻译更多内容。）
 // ========================================================================
+// 表示分割线，用于组织和划分代码区域
+// YAML
+// 这行注释表示这部分代码与YAML（一种数据序列化格式）有关
 
 func (j *Json) ToYaml() ([]byte, error) {
 	j.mu.RLock()
@@ -144,9 +156,14 @@ func (j *Json) MustToYamlString() string {
 	return string(j.MustToYaml())
 }
 
-// ========================================================================
+// ===========================================================================
 // TOML
-// ========================================================================
+// ===========================================================================
+// （注释翻译：）
+// ============================================================================
+// TOML
+// ============================================================================
+// 这段代码的注释表明了该部分与TOML相关。TOML是一种配置文件格式，因此这部分可能是用于解析、生成或操作TOML格式数据的Go语言代码段。此处的“//”表示单行注释，中文翻译后含义不变，仅将原有的英文内容转换为中文展示。
 
 func (j *Json) ToToml() ([]byte, error) {
 	j.mu.RLock()
@@ -171,16 +188,20 @@ func (j *Json) MustToTomlString() string {
 	return string(j.MustToToml())
 }
 
-// ========================================================================
+// ===========================================================================
 // INI
-// ========================================================================
+// ===========================================================================
+// （此部分代码的注释表明该部分与INI文件相关，但没有提供详细信息，故直接翻译为中文即可）
+// ===========================================================================
+// INI配置文件相关代码
+// ===========================================================================
 
 // ToIni json to ini
 func (j *Json) ToIni() ([]byte, error) {
 	return gini.Encode(j.Map())
 }
 
-// ToIniString ini to string
+// ToIniString 将ini转换为字符串
 func (j *Json) ToIniString() (string, error) {
 	b, e := j.ToIni()
 	return string(b), e
@@ -199,15 +220,15 @@ func (j *Json) MustToIniString() string {
 	return string(j.MustToIni())
 }
 
-// ========================================================================
-// properties
-// ========================================================================
-// Toproperties json to properties
+// ==========================================================================
+// 属性
+// ==========================================================================
+// 将JSON转换为属性
 func (j *Json) ToProperties() ([]byte, error) {
 	return gproperties.Encode(j.Map())
 }
 
-// TopropertiesString properties to string
+// TopropertiesString 将属性转换为字符串
 func (j *Json) ToPropertiesString() (string, error) {
 	b, e := j.ToProperties()
 	return string(b), e
@@ -221,7 +242,7 @@ func (j *Json) MustToProperties() []byte {
 	return result
 }
 
-// MustTopropertiesString
+// MustToPropertiesString
 func (j *Json) MustToPropertiesString() string {
 	return string(j.MustToProperties())
 }

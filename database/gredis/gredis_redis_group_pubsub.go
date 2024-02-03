@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gredis
 
@@ -11,15 +10,15 @@ import (
 	"fmt"
 )
 
-// IGroupPubSub manages redis pub/sub operations.
-// Implements see redis.GroupPubSub.
+// IGroupPubSub 管理 Redis 发布/订阅操作。
+// 实现请参见 redis.GroupPubSub。
 type IGroupPubSub interface {
 	Publish(ctx context.Context, channel string, message interface{}) (int64, error)
 	Subscribe(ctx context.Context, channel string, channels ...string) (Conn, []*Subscription, error)
 	PSubscribe(ctx context.Context, pattern string, patterns ...string) (Conn, []*Subscription, error)
 }
 
-// Message received as result of a PUBLISH command issued by another client.
+// 作为另一个客户端发出的 PUBLISH 命令的结果接收到的消息。
 type Message struct {
 	Channel      string
 	Pattern      string
@@ -27,14 +26,14 @@ type Message struct {
 	PayloadSlice []string
 }
 
-// Subscription received after a successful subscription to channel.
+// 订阅成功后接收到的订阅信息（针对通道）
 type Subscription struct {
-	Kind    string // Can be "subscribe", "unsubscribe", "psubscribe" or "punsubscribe".
-	Channel string // Channel name we have subscribed to.
-	Count   int    // Number of channels we are currently subscribed to.
+	Kind    string // 可以是 "subscribe", "unsubscribe", "psubscribe" 或 "punsubscribe"。
+	Channel string // 我们已订阅的通道名称。
+	Count   int    // 当前我们已订阅的频道数量。
 }
 
-// String converts current object to a readable string.
+// String 将当前对象转换为可读的字符串。
 func (m *Subscription) String() string {
 	return fmt.Sprintf("%s: %s", m.Kind, m.Channel)
 }

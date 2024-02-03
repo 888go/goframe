@@ -1,27 +1,26 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
 
 import (
 	"errors"
 	"fmt"
-
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gtag"
+	
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gtag"
 )
 
-// RuleEnums implements `enums` rule:
-// Value should be in enums of its constant type.
+// RuleEnums 实现了 `enums` 规则：
+// 值应该在其常量类型中属于枚举值。
 //
-// Format: enums
+// 格式：enums
 type RuleEnums struct{}
 
 func init() {

@@ -1,15 +1,14 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package builtin
 
-// RuleBail implements `bail` rule:
-// Stop validating when this field's validation failed.
+// RuleBail 实现了 `bail` 规则：
+// 当该字段的验证失败时，停止对其他字段的验证。
 //
-// Format: bail
+// 格式：bail
 type RuleBail struct{}
 
 func init() {

@@ -1,17 +1,16 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/Agogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
+// 您可以在https://github.com/Agogf/gf获取一个。
 
 package gtree_test
 
 import (
 	"fmt"
-
-	"github.com/gogf/gf/v2/container/gtree"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	
+	"github.com/888go/goframe/container/gtree"
+	"github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gutil"
 )
 
 func ExampleNewAVLTree() {

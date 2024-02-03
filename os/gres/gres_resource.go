@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gres
 
@@ -12,12 +12,12 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/gogf/gf/v2/container/gtree"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gstr"
+	
+	"github.com/888go/goframe/container/gtree"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/text/gstr"
 )
 
 type Resource struct {
@@ -28,7 +28,7 @@ const (
 	defaultTreeM = 100
 )
 
-// New creates and returns a new resource object.
+// New 创建并返回一个新的资源对象。
 func New() *Resource {
 	return &Resource{
 		tree: gtree.NewBTree(defaultTreeM, func(v1, v2 interface{}) int {
@@ -37,9 +37,8 @@ func New() *Resource {
 	}
 }
 
-// Add unpacks and adds the `content` into current resource object.
-// The unnecessary parameter `prefix` indicates the prefix
-// for each file storing into current resource object.
+// Add 方法对`content`进行解包并将其添加到当前资源对象中。
+// 不必要的参数`prefix`表示存储到当前资源对象时，每个文件的前缀。
 func (r *Resource) Add(content string, prefix ...string) error {
 	files, err := UnpackContent(content)
 	if err != nil {
@@ -58,9 +57,8 @@ func (r *Resource) Add(content string, prefix ...string) error {
 	return nil
 }
 
-// Load loads, unpacks and adds the data from `path` into current resource object.
-// The unnecessary parameter `prefix` indicates the prefix
-// for each file storing into current resource object.
+// Load 从`path`加载、解压并将数据添加到当前资源对象中。
+// 不必要的参数`prefix`表示存储到当前资源对象中的每个文件的前缀。
 func (r *Resource) Load(path string, prefix ...string) error {
 	realPath, err := gfile.Search(path)
 	if err != nil {
@@ -69,7 +67,7 @@ func (r *Resource) Load(path string, prefix ...string) error {
 	return r.Add(gfile.GetContents(realPath), prefix...)
 }
 
-// Get returns the file with given path.
+// Get 返回指定路径的文件。
 func (r *Resource) Get(path string) *File {
 	if path == "" {
 		return nil
@@ -88,12 +86,12 @@ func (r *Resource) Get(path string) *File {
 	return nil
 }
 
-// GetWithIndex searches file with `path`, if the file is directory
-// it then does index files searching under this directory.
+// GetWithIndex 搜索指定 `path` 的文件，如果该文件是一个目录，
+// 则进一步在该目录下进行索引文件的搜索。
 //
-// GetWithIndex is usually used for http static file service.
+// GetWithIndex 通常用于 HTTP 静态文件服务。
 func (r *Resource) GetWithIndex(path string, indexFiles []string) *File {
-	// Necessary for double char '/' replacement in prefix.
+	// 用于在前缀中替换双字符 '/'
 	path = strings.ReplaceAll(path, "\\", "/")
 	path = strings.ReplaceAll(path, "//", "/")
 	if path != "/" {
@@ -115,7 +113,7 @@ func (r *Resource) GetWithIndex(path string, indexFiles []string) *File {
 	return nil
 }
 
-// GetContent directly returns the content of `path`.
+// GetContent直接返回`path`的内容。
 func (r *Resource) GetContent(path string) []byte {
 	file := r.Get(path)
 	if file != nil {
@@ -124,24 +122,24 @@ func (r *Resource) GetContent(path string) []byte {
 	return nil
 }
 
-// Contains checks whether the `path` exists in current resource object.
+// Contains 检查当前资源对象中是否存在 `path`。
 func (r *Resource) Contains(path string) bool {
 	return r.Get(path) != nil
 }
 
-// IsEmpty checks and returns whether the resource manager is empty.
+// IsEmpty 检查并返回资源管理器是否为空。
 func (r *Resource) IsEmpty() bool {
 	return r.tree.IsEmpty()
 }
 
-// ScanDir returns the files under the given path, the parameter `path` should be a folder type.
+// ScanDir 返回给定路径下的文件，参数`path`应为文件夹类型。
 //
-// The pattern parameter `pattern` supports multiple file name patterns,
-// using the ',' symbol to separate multiple patterns.
+// 参数`pattern`支持多个文件名模式，
+// 使用','符号来分隔多个模式。
 //
-// It scans directory recursively if given parameter `recursive` is true.
+// 如果给定参数`recursive`为真，则会递归扫描目录。
 //
-// Note that the returned files does not contain given parameter `path`.
+// 注意，返回的文件列表中不包含给定的参数`path`所代表的目录自身。
 func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -150,10 +148,10 @@ func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*Fi
 	return r.doScanDir(path, pattern, isRecursive, false)
 }
 
-// ScanDirFile returns all sub-files with absolute paths of given `path`,
-// It scans directory recursively if given parameter `recursive` is true.
+// ScanDirFile 返回给定 `path` 下所有子文件的绝对路径，
+// 若给定参数 `recursive` 为 true，则会递归扫描目录。
 //
-// Note that it returns only files, exclusive of directories.
+// 注意，该函数仅返回文件，不包括目录。
 func (r *Resource) ScanDirFile(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -162,13 +160,11 @@ func (r *Resource) ScanDirFile(path string, pattern string, recursive ...bool) [
 	return r.doScanDir(path, pattern, isRecursive, true)
 }
 
-// doScanDir is an internal method which scans directory
-// and returns the absolute path list of files that are not sorted.
+// doScanDir 是一个内部方法，用于扫描目录并返回一个未排序的文件绝对路径列表。
 //
-// The pattern parameter `pattern` supports multiple file name patterns,
-// using the ',' symbol to separate multiple patterns.
+// 参数`pattern`支持多个文件名模式，使用','符号分隔多个模式。
 //
-// It scans directory recursively if given parameter `recursive` is true.
+// 如果给定参数`recursive`为真，则会递归地扫描目录。
 func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFile bool) []*File {
 	path = strings.ReplaceAll(path, "\\", "/")
 	path = strings.ReplaceAll(path, "//", "/")
@@ -186,7 +182,7 @@ func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFi
 	for i := 0; i < len(patterns); i++ {
 		patterns[i] = strings.TrimSpace(patterns[i])
 	}
-	// Used for type checking for first entry.
+	// 用于对第一个条目的类型检查。
 	first := true
 	r.tree.IteratorFrom(path, true, func(key, value interface{}) bool {
 		if first {
@@ -205,7 +201,7 @@ func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFi
 		if path != name[:length] {
 			return false
 		}
-		// To avoid of, eg: /i18n and /i18n-dir
+		// 为避免出现诸如/i18n和/i18n-dir这样的情况
 		if !first && name[length] != '/' {
 			return true
 		}
@@ -225,12 +221,12 @@ func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFi
 	return files
 }
 
-// ExportOption is the option for function Export.
+// ExportOption 是函数 Export 的选项。
 type ExportOption struct {
-	RemovePrefix string // Remove the prefix of file name from resource.
+	RemovePrefix string // 从资源中移除文件名前缀
 }
 
-// Export exports and saves specified path `srcPath` and all its sub files to specified system path `dstPath` recursively.
+// Export 递归地导出并保存指定路径`srcPath`及其所有子文件到指定系统路径`dstPath`。
 func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 	var (
 		err          error
@@ -271,7 +267,7 @@ func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 	return nil
 }
 
-// Dump prints the files of current resource object.
+// Dump 打印当前资源对象的文件。
 func (r *Resource) Dump() {
 	var info os.FileInfo
 	r.tree.Iterator(func(key, value interface{}) bool {

@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// ThIs Source Code Form Is subject to the terms of the MIT License.
-// If a copy of the MIT was not dIstributed with thIs file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT协议条款。如果随此文件未分发MIT协议副本，
+// 您可以在https://github.com/gogf/gf获取一份。
 
 package gfsnotify
 
@@ -12,23 +11,28 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
-
-	"github.com/gogf/gf/v2/errors/gerror"
+	
+	"github.com/888go/goframe/errors/gerror"
 )
 
-// fileDir returns all but the last element of path, typically the path's directory.
-// After dropping the final element, Dir calls Clean on the path and trailing
-// slashes are removed.
-// If the path is empty, Dir returns ".".
-// If the path consists entirely of separators, Dir returns a single separator.
-// The returned path does not end in a separator unless it is the root directory.
+// fileDir 返回路径中除最后一个元素之外的所有元素，通常是路径的目录部分。
+// 在去掉最后一个元素后，Dir 会调用 Clean 来清理路径，并移除尾部的斜杠。
+// 如果路径为空，Dir 返回 "."
+// 如果路径完全由分隔符组成，Dir 返回单个分隔符。
+// 返回的路径除非是根目录，否则不会以分隔符结尾。
+// 此函数（fileDir）用于提取并返回给定路径的基本目录部分，在处理过程中会对路径进行规范化处理。具体规则如下：
+// 1. 删除路径的最后一部分（通常为文件名或子目录名）。
+// 2. 调用标准库中的 `Clean` 函数清理路径，去除末尾多余的斜杠。
+// 3. 若路径为空，则返回当前目录（`.`）表示。
+// 4. 若路径仅包含分隔符，则返回一个分隔符。
+// 5. 返回的目录路径不以分隔符结尾，除非该路径指向的是根目录。
 func fileDir(path string) string {
 	return filepath.Dir(path)
 }
 
-// fileRealPath converts the given `path` to its absolute path
-// and checks if the file path exists.
-// If the file does not exist, return an empty string.
+// fileRealPath 将给定的 `path` 转换为绝对路径
+// 并检查文件路径是否存在。
+// 若文件不存在，则返回一个空字符串。
 func fileRealPath(path string) string {
 	p, err := filepath.Abs(path)
 	if err != nil {
@@ -40,7 +44,7 @@ func fileRealPath(path string) string {
 	return p
 }
 
-// fileExists checks whether given `path` exist.
+// fileExists 检查给定的 `path` 是否存在。
 func fileExists(path string) bool {
 	if stat, err := os.Stat(path); stat != nil && !os.IsNotExist(err) {
 		return true
@@ -48,7 +52,7 @@ func fileExists(path string) bool {
 	return false
 }
 
-// fileIsDir checks whether given `path` a directory.
+// fileIsDir 检查给定的 `path` 是否为一个目录。
 func fileIsDir(path string) bool {
 	s, err := os.Stat(path)
 	if err != nil {
@@ -57,7 +61,7 @@ func fileIsDir(path string) bool {
 	return s.IsDir()
 }
 
-// fileAllDirs returns all sub-folders including itself of given `path` recursively.
+// fileAllDirs 返回给定 `path`（包括其自身）的所有子目录，递归遍历。
 func fileAllDirs(path string) (list []string) {
 	list = []string{path}
 	file, err := os.Open(path)
@@ -80,8 +84,8 @@ func fileAllDirs(path string) (list []string) {
 	return
 }
 
-// fileScanDir returns all sub-files with absolute paths of given `path`,
-// It scans directory recursively if given parameter `recursive` is true.
+// fileScanDir 函数返回给定 `path` 下所有子文件的绝对路径，
+// 如果给定参数 `recursive` 为 true，则会递归地扫描目录。
 func fileScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 	list, err := doFileScanDir(path, pattern, recursive...)
 	if err != nil {
@@ -93,13 +97,11 @@ func fileScanDir(path string, pattern string, recursive ...bool) ([]string, erro
 	return list, nil
 }
 
-// doFileScanDir is an internal method which scans directory
-// and returns the absolute path list of files that are not sorted.
+// doFileScanDir 是一个内部方法，用于扫描目录并返回未排序的文件绝对路径列表。
 //
-// The pattern parameter `pattern` supports multiple file name patterns,
-// using the ',' symbol to separate multiple patterns.
+// 参数`pattern`支持多个文件名模式，使用逗号 ',' 作为分隔符来指定多个模式。
 //
-// It scans directory recursively if given parameter `recursive` is true.
+// 如果给定的参数 `recursive` 为 true，则会递归地扫描目录。
 func doFileScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 	var (
 		list      []string

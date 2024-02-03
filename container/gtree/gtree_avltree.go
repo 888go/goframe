@@ -1,22 +1,21 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtree
 
 import (
 	"bytes"
 	"fmt"
-
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/util/gconv"
+	
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/rwmutex"
+	"github.com/888go/goframe/util/gconv"
 )
 
-// AVLTree holds elements of the AVL tree.
+// AVLTree 用于存储 AVL 树中的元素。
 type AVLTree struct {
 	mu         rwmutex.RWMutex
 	root       *AVLTreeNode
@@ -24,7 +23,7 @@ type AVLTree struct {
 	size       int
 }
 
-// AVLTreeNode is a single element within the tree.
+// AVLTreeNode 是树中的一个单元素。
 type AVLTreeNode struct {
 	Key      interface{}
 	Value    interface{}
@@ -33,9 +32,8 @@ type AVLTreeNode struct {
 	b        int8
 }
 
-// NewAVLTree instantiates an AVL tree with the custom key comparator.
-// The parameter `safe` is used to specify whether using tree in concurrent-safety,
-// which is false in default.
+// NewAVLTree 通过自定义键比较器实例化一个 AVL 树。
+// 参数 `safe` 用于指定是否在并发安全模式下使用该树，默认为 false。
 func NewAVLTree(comparator func(v1, v2 interface{}) int, safe ...bool) *AVLTree {
 	return &AVLTree{
 		mu:         rwmutex.Create(safe...),
@@ -43,9 +41,8 @@ func NewAVLTree(comparator func(v1, v2 interface{}) int, safe ...bool) *AVLTree 
 	}
 }
 
-// NewAVLTreeFrom instantiates an AVL tree with the custom key comparator and data map.
-// The parameter `safe` is used to specify whether using tree in concurrent-safety,
-// which is false in default.
+// NewAVLTreeFrom 通过自定义键比较器和数据映射创建一个AVL树。
+// 参数 `safe` 用于指定是否在并发安全环境下使用该树，默认为 false。
 func NewAVLTreeFrom(comparator func(v1, v2 interface{}) int, data map[interface{}]interface{}, safe ...bool) *AVLTree {
 	tree := NewAVLTree(comparator, safe...)
 	for k, v := range data {
@@ -54,21 +51,21 @@ func NewAVLTreeFrom(comparator func(v1, v2 interface{}) int, data map[interface{
 	return tree
 }
 
-// Clone returns a new tree with a copy of current tree.
+// Clone 返回一个新的树，其中包含当前树的副本。
 func (tree *AVLTree) Clone() *AVLTree {
 	newTree := NewAVLTree(tree.comparator, tree.mu.IsSafe())
 	newTree.Sets(tree.Map())
 	return newTree
 }
 
-// Set inserts node into the tree.
+// Set 将节点插入到树中。
 func (tree *AVLTree) Set(key interface{}, value interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
 	tree.put(key, value, nil, &tree.root)
 }
 
-// Sets batch sets key-values to the tree.
+// Sets批量设置键值对到树中。
 func (tree *AVLTree) Sets(data map[interface{}]interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -77,8 +74,8 @@ func (tree *AVLTree) Sets(data map[interface{}]interface{}) {
 	}
 }
 
-// Search searches the tree with given `key`.
-// Second return parameter `found` is true if key was found, otherwise false.
+// Search 使用给定的`key`搜索树。
+// 第二个返回参数`found`如果找到key则为真（true），否则为假（false）。
 func (tree *AVLTree) Search(key interface{}) (value interface{}, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -88,8 +85,8 @@ func (tree *AVLTree) Search(key interface{}) (value interface{}, found bool) {
 	return nil, false
 }
 
-// doSearch searches the tree with given `key`.
-// Second return parameter `found` is true if key was found, otherwise false.
+// doSearch 用给定的 `key` 搜索树。
+// 第二个返回参数 `found` 如果找到了 key，则为 true，否则为 false。
 func (tree *AVLTree) doSearch(key interface{}) (node *AVLTreeNode, found bool) {
 	node = tree.root
 	for node != nil {
@@ -106,21 +103,21 @@ func (tree *AVLTree) doSearch(key interface{}) (node *AVLTreeNode, found bool) {
 	return nil, false
 }
 
-// Get searches the node in the tree by `key` and returns its value or nil if key is not found in tree.
+// Get通过`key`在树中搜索节点，并返回其对应的值，如果在树中未找到该键，则返回nil。
 func (tree *AVLTree) Get(key interface{}) (value interface{}) {
 	value, _ = tree.Search(key)
 	return
 }
 
-// doSetWithLockCheck checks whether value of the key exists with mutex.Lock,
-// if not exists, set value to the map with given `key`,
-// or else just return the existing value.
+// doSetWithLockCheck 检查在对 mutex 锁定后，给定 key 对应的值是否存在，
+// 如果不存在，则使用给定的 `key` 将 value 设置到映射中；
+// 否则，直接返回已存在的 value。
 //
-// When setting value, if `value` is type of <func() interface {}>,
-// it will be executed with mutex.Lock of the hash map,
-// and its return value will be set to the map with `key`.
+// 在设置值的过程中，如果 `value` 的类型为 <func() interface {}>，
+// 会在哈希映射的 mutex 锁定下执行该函数，
+// 并将函数的返回值以 `key` 为键设置到映射中。
 //
-// It returns value with given `key`.
+// 最终返回给定 `key` 对应的值。
 func (tree *AVLTree) doSetWithLockCheck(key interface{}, value interface{}) interface{} {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -136,8 +133,8 @@ func (tree *AVLTree) doSetWithLockCheck(key interface{}, value interface{}) inte
 	return value
 }
 
-// GetOrSet returns the value by key,
-// or sets value with given `value` if it does not exist and then returns this value.
+// GetOrSet 函数通过 key 返回对应的 value，
+// 若该 key 不存在，则使用给定的 `value` 设置并返回这个设置后的值。
 func (tree *AVLTree) GetOrSet(key interface{}, value interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, value)
@@ -146,9 +143,8 @@ func (tree *AVLTree) GetOrSet(key interface{}, value interface{}) interface{} {
 	}
 }
 
-// GetOrSetFunc returns the value by key,
-// or sets value with returned value of callback function `f` if it does not exist
-// and then returns this value.
+// GetOrSetFunc 通过键返回值，如果该键不存在，
+// 则使用回调函数 `f` 返回的值进行设置，并随后返回这个设置后的值。
 func (tree *AVLTree) GetOrSetFunc(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f())
@@ -157,12 +153,9 @@ func (tree *AVLTree) GetOrSetFunc(key interface{}, f func() interface{}) interfa
 	}
 }
 
-// GetOrSetFuncLock returns the value by key,
-// or sets value with returned value of callback function `f` if it does not exist
-// and then returns this value.
+// GetOrSetFuncLock 通过键返回值，如果该键不存在，则使用回调函数 `f` 返回的值设置并返回这个新值。
 //
-// GetOrSetFuncLock differs with GetOrSetFunc function is that it executes function `f`
-// with mutex.Lock of the hash map.
+// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在哈希映射的 mutex.Lock 保护下执行函数 `f`。
 func (tree *AVLTree) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f)
@@ -171,32 +164,32 @@ func (tree *AVLTree) GetOrSetFuncLock(key interface{}, f func() interface{}) int
 	}
 }
 
-// GetVar returns a gvar.Var with the value by given `key`.
-// The returned gvar.Var is un-concurrent safe.
+// GetVar 通过给定的 `key` 返回一个包含其值的 gvar.Var。
+// 返回的 gvar.Var 对象不支持并发安全。
 func (tree *AVLTree) GetVar(key interface{}) *gvar.Var {
 	return gvar.New(tree.Get(key))
 }
 
-// GetVarOrSet returns a gvar.Var with result from GetVarOrSet.
-// The returned gvar.Var is un-concurrent safe.
+// GetVarOrSet 返回一个从 GetVarOrSet 获取结果的 gvar.Var。
+// 返回的 gvar.Var 不是线程安全的。
 func (tree *AVLTree) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSet(key, value))
 }
 
-// GetVarOrSetFunc returns a gvar.Var with result from GetOrSetFunc.
-// The returned gvar.Var is un-concurrent safe.
+// GetVarOrSetFunc 返回一个 gvar.Var，其结果来自 GetOrSetFunc。
+// 返回的 gvar.Var 不是线程安全的。
 func (tree *AVLTree) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFunc(key, f))
 }
 
-// GetVarOrSetFuncLock returns a gvar.Var with result from GetOrSetFuncLock.
-// The returned gvar.Var is un-concurrent safe.
+// GetVarOrSetFuncLock 返回一个 gvar.Var，其结果来自 GetOrSetFuncLock。
+// 返回的 gvar.Var 并未实现并发安全。
 func (tree *AVLTree) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFuncLock(key, f))
 }
 
-// SetIfNotExist sets `value` to the map if the `key` does not exist, and then returns true.
-// It returns false if `key` exists, and `value` would be ignored.
+// SetIfNotExist 如果`key`不存在，则将`value`设置到map中，并返回true。
+// 若`key`已存在，则返回false，同时`value`将被忽略。
 func (tree *AVLTree) SetIfNotExist(key interface{}, value interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, value)
@@ -205,8 +198,8 @@ func (tree *AVLTree) SetIfNotExist(key interface{}, value interface{}) bool {
 	return false
 }
 
-// SetIfNotExistFunc sets value with return value of callback function `f`, and then returns true.
-// It returns false if `key` exists, and `value` would be ignored.
+// SetIfNotExistFunc 使用回调函数`f`的返回值设置键值，并返回true。
+// 若`key`已存在，则返回false，同时`value`将被忽略。
 func (tree *AVLTree) SetIfNotExistFunc(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f())
@@ -215,11 +208,11 @@ func (tree *AVLTree) SetIfNotExistFunc(key interface{}, f func() interface{}) bo
 	return false
 }
 
-// SetIfNotExistFuncLock sets value with return value of callback function `f`, and then returns true.
-// It returns false if `key` exists, and `value` would be ignored.
+// SetIfNotExistFuncLock 函数用于设置键值对，其值为回调函数 `f` 的返回值，并在设置成功时返回 true。
+// 若 `key` 已存在，则返回 false，并且将忽略 `value` 参数。
 //
-// SetIfNotExistFuncLock differs with SetIfNotExistFunc function is that
-// it executes function `f` with mutex.Lock of the hash map.
+// SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
+// 它在执行回调函数 `f` 时会锁定哈希表的 mutex 锁。
 func (tree *AVLTree) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f)
@@ -228,14 +221,14 @@ func (tree *AVLTree) SetIfNotExistFuncLock(key interface{}, f func() interface{}
 	return false
 }
 
-// Contains checks whether `key` exists in the tree.
+// Contains 检查 `key` 是否存在于树中。
 func (tree *AVLTree) Contains(key interface{}) bool {
 	_, ok := tree.Search(key)
 	return ok
 }
 
-// Remove removes the node from the tree by key.
-// Key should adhere to the comparator's type assertion, otherwise method panics.
+// Remove 通过键从树中移除节点。
+// 键应遵循比较器的类型断言，否则该方法会引发恐慌。
 func (tree *AVLTree) Remove(key interface{}) (value interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -243,7 +236,7 @@ func (tree *AVLTree) Remove(key interface{}) (value interface{}) {
 	return
 }
 
-// Removes batch deletes values of the tree by `keys`.
+// 删除树中通过`keys`指定的一批值。
 func (tree *AVLTree) Removes(keys []interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -252,19 +245,19 @@ func (tree *AVLTree) Removes(keys []interface{}) {
 	}
 }
 
-// IsEmpty returns true if tree does not contain any nodes.
+// IsEmpty 返回 true 如果树中不包含任何节点。
 func (tree *AVLTree) IsEmpty() bool {
 	return tree.Size() == 0
 }
 
-// Size returns number of nodes in the tree.
+// Size 返回树中节点的数量。
 func (tree *AVLTree) Size() int {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
 	return tree.size
 }
 
-// Keys returns all keys in asc order.
+// Keys 返回所有按升序排列的键。
 func (tree *AVLTree) Keys() []interface{} {
 	keys := make([]interface{}, tree.Size())
 	index := 0
@@ -276,7 +269,7 @@ func (tree *AVLTree) Keys() []interface{} {
 	return keys
 }
 
-// Values returns all values in asc order based on the key.
+// Values 返回所有基于键升序排列的值。
 func (tree *AVLTree) Values() []interface{} {
 	values := make([]interface{}, tree.Size())
 	index := 0
@@ -288,8 +281,8 @@ func (tree *AVLTree) Values() []interface{} {
 	return values
 }
 
-// Left returns the minimum element of the AVL tree
-// or nil if the tree is empty.
+// Left 返回 AVL 树中的最小元素，
+// 若树为空，则返回 nil。
 func (tree *AVLTree) Left() *AVLTreeNode {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -303,8 +296,8 @@ func (tree *AVLTree) Left() *AVLTreeNode {
 	return node
 }
 
-// Right returns the maximum element of the AVL tree
-// or nil if the tree is empty.
+// Right 返回 AVL 树中最大的元素，
+// 如果树为空，则返回 nil。
 func (tree *AVLTree) Right() *AVLTreeNode {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -318,14 +311,13 @@ func (tree *AVLTree) Right() *AVLTreeNode {
 	return node
 }
 
-// Floor Finds floor node of the input key, return the floor node or nil if no floor node is found.
-// Second return parameter is true if floor was found, otherwise false.
+// Floor 查找输入键的下界节点，返回下界节点或若未找到则返回 nil。
+// 第二个返回参数为布尔值，表示是否找到了下界节点（找到为 true，否则为 false）。
 //
-// Floor node is defined as the largest node that is smaller than or equal to the given node.
-// A floor node may not be found, either because the tree is empty, or because
-// all nodes in the tree is larger than the given node.
+// 下界节点定义为小于等于给定节点的最大节点。
+// 可能无法找到下界节点，原因可能是树为空，或者树中所有节点都大于给定节点。
 //
-// Key should adhere to the comparator's type assertion, otherwise method panics.
+// 键应遵循比较器的类型断言，否则该方法将引发 panic。
 func (tree *AVLTree) Floor(key interface{}) (floor *AVLTreeNode, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -348,14 +340,13 @@ func (tree *AVLTree) Floor(key interface{}) (floor *AVLTreeNode, found bool) {
 	return nil, false
 }
 
-// Ceiling finds ceiling node of the input key, return the ceiling node or nil if no ceiling node is found.
-// Second return parameter is true if ceiling was found, otherwise false.
+// Ceiling 查找大于或等于输入键的最小节点，返回该天花板节点（ceiling node）；若未找到满足条件的节点，则返回 nil。
+// 第二个返回参数为布尔值，表示是否找到了天花板节点，找到则为 true，否则为 false。
 //
-// Ceiling node is defined as the smallest node that is larger than or equal to the given node.
-// A ceiling node may not be found, either because the tree is empty, or because
-// all nodes in the tree is smaller than the given node.
+// “天花板节点”定义为大于或等于给定节点的最小节点。
+// 可能找不到天花板节点，原因可能包括：树为空，或者树中所有节点都小于给定节点。
 //
-// Key should adhere to the comparator's type assertion, otherwise method panics.
+// 键需符合比较器的类型断言，否则该方法将引发 panic。
 func (tree *AVLTree) Ceiling(key interface{}) (ceiling *AVLTreeNode, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -378,7 +369,7 @@ func (tree *AVLTree) Ceiling(key interface{}) (ceiling *AVLTreeNode, found bool)
 	return nil, false
 }
 
-// Clear removes all nodes from the tree.
+// Clear 清除树中的所有节点。
 func (tree *AVLTree) Clear() {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -386,7 +377,7 @@ func (tree *AVLTree) Clear() {
 	tree.size = 0
 }
 
-// Replace the data of the tree with given `data`.
+// 用给定的`data`替换树的数据。
 func (tree *AVLTree) Replace(data map[interface{}]interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -397,7 +388,7 @@ func (tree *AVLTree) Replace(data map[interface{}]interface{}) {
 	}
 }
 
-// String returns a string representation of container
+// String 返回容器的字符串表示形式
 func (tree *AVLTree) String() string {
 	if tree == nil {
 		return ""
@@ -411,12 +402,12 @@ func (tree *AVLTree) String() string {
 	return str
 }
 
-// Print prints the tree to stdout.
+// Print 将树打印到标准输出（stdout）。
 func (tree *AVLTree) Print() {
 	fmt.Println(tree.String())
 }
 
-// Map returns all key-value items as map.
+// Map 返回所有键值对项作为映射（map）。
 func (tree *AVLTree) Map() map[interface{}]interface{} {
 	m := make(map[interface{}]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -426,7 +417,7 @@ func (tree *AVLTree) Map() map[interface{}]interface{} {
 	return m
 }
 
-// MapStrAny returns all key-value items as map[string]interface{}.
+// MapStrAny 返回所有键值对项作为 map[string]interface{} 类型。
 func (tree *AVLTree) MapStrAny() map[string]interface{} {
 	m := make(map[string]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -436,11 +427,11 @@ func (tree *AVLTree) MapStrAny() map[string]interface{} {
 	return m
 }
 
-// Flip exchanges key-value of the tree to value-key.
-// Note that you should guarantee the value is the same type as key,
-// or else the comparator would panic.
+// Flip 将树中的键值对进行交换，即将键和值互换。
+// 注意，你需要确保值的类型与键相同，
+// 否则比较器将会触发 panic 异常。
 //
-// If the type of value is different with key, you pass the new `comparator`.
+// 如果值的类型与键不同，你需要传入新的 `comparator`（比较器）。
 func (tree *AVLTree) Flip(comparator ...func(v1, v2 interface{}) int) {
 	t := (*AVLTree)(nil)
 	if len(comparator) > 0 {
@@ -458,28 +449,28 @@ func (tree *AVLTree) Flip(comparator ...func(v1, v2 interface{}) int) {
 	tree.mu.Unlock()
 }
 
-// Iterator is alias of IteratorAsc.
+// Iterator 是 IteratorAsc 的别名。
 func (tree *AVLTree) Iterator(f func(key, value interface{}) bool) {
 	tree.IteratorAsc(f)
 }
 
-// IteratorFrom is alias of IteratorAscFrom.
+// IteratorFrom 是 IteratorAscFrom 的别名。
 func (tree *AVLTree) IteratorFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.IteratorAscFrom(key, match, f)
 }
 
-// IteratorAsc iterates the tree readonly in ascending order with given callback function `f`.
-// If `f` returns true, then it continues iterating; or false to stop.
+// IteratorAsc 以升序遍历给定回调函数 `f` 的只读树。
+// 如果 `f` 返回 true，则继续迭代；如果返回 false，则停止遍历。
 func (tree *AVLTree) IteratorAsc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
 	tree.doIteratorAsc(tree.bottom(0), f)
 }
 
-// IteratorAscFrom iterates the tree readonly in ascending order with given callback function `f`.
-// The parameter `key` specifies the start entry for iterating. The `match` specifies whether
-// starting iterating if the `key` is fully matched, or else using index searching iterating.
-// If `f` returns true, then it continues iterating; or false to stop.
+// IteratorAscFrom 以升序遍历（只读）给定回调函数 `f` 的树。
+// 参数 `key` 指定了遍历的起始项。`match` 指定了当 `key` 完全匹配时是否开始遍历，
+// 否则使用索引搜索方式进行遍历。
+// 若 `f` 返回 true，则继续遍历；若返回 false，则停止遍历。
 func (tree *AVLTree) IteratorAscFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -502,18 +493,18 @@ func (tree *AVLTree) doIteratorAsc(node *AVLTreeNode, f func(key, value interfac
 	}
 }
 
-// IteratorDesc iterates the tree readonly in descending order with given callback function `f`.
-// If `f` returns true, then it continues iterating; or false to stop.
+// IteratorDesc 以降序遍历给定回调函数 `f` 的只读树。
+// 如果 `f` 返回 true，则继续迭代；如果返回 false，则停止遍历。
 func (tree *AVLTree) IteratorDesc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
 	tree.doIteratorDesc(tree.bottom(1), f)
 }
 
-// IteratorDescFrom iterates the tree readonly in descending order with given callback function `f`.
-// The parameter `key` specifies the start entry for iterating. The `match` specifies whether
-// starting iterating if the `key` is fully matched, or else using index searching iterating.
-// If `f` returns true, then it continues iterating; or false to stop.
+// IteratorDescFrom 从指定的键(key)开始以降序方式遍历树（只读模式），并使用给定的回调函数`f`。
+// 参数`key`指定了遍历的起始条目。`match`参数指定了如果`key`完全匹配时是否开始遍历，
+// 否则将采用索引搜索方式进行遍历。
+// 若`f`返回值为true，则继续遍历；若返回false，则停止遍历。
 func (tree *AVLTree) IteratorDescFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -722,14 +713,12 @@ func (tree *AVLTree) bottom(d int) *AVLTreeNode {
 	return n
 }
 
-// Prev returns the previous element in an inorder
-// walk of the AVL tree.
+// Prev 返回在AVL树中 inorder 遍历的前一个元素。
 func (node *AVLTreeNode) Prev() *AVLTreeNode {
 	return node.walk1(0)
 }
 
-// Next returns the next element in an inorder
-// walk of the AVL tree.
+// Next 返回AVL树中 inorder 遍历的下一个元素。
 func (node *AVLTreeNode) Next() *AVLTreeNode {
 	return node.walk1(1)
 }
@@ -783,7 +772,7 @@ func output(node *AVLTreeNode, prefix string, isTail bool, str *string) {
 	}
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (tree AVLTree) MarshalJSON() (jsonBytes []byte, err error) {
 	if tree.root == nil {
 		return []byte("null"), nil
@@ -806,8 +795,7 @@ func (tree AVLTree) MarshalJSON() (jsonBytes []byte, err error) {
 	return buffer.Bytes(), nil
 }
 
-// getComparator returns the comparator if it's previously set,
-// or else it panics.
+// getComparator 返回之前设置的比较器，如果之前未设置，则会引发panic。
 func (tree *AVLTree) getComparator() func(a, b interface{}) int {
 	if tree.comparator == nil {
 		panic("comparator is missing for tree")

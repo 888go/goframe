@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package mysql_test
 
@@ -14,20 +13,20 @@ import (
 	"os"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/guid"
-	"github.com/gogf/gf/v2/util/gutil"
+	
+	"github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/os/gfile"
+	"github.com/888go/goframe/os/glog"
+	"github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/guid"
+	"github.com/888go/goframe/util/gutil"
 )
 
 func Test_Model_Insert(t *testing.T) {
@@ -105,7 +104,7 @@ func Test_Model_Insert(t *testing.T) {
 	})
 }
 
-// Fix issue: https://github.com/gogf/gf/issues/819
+// 解决问题：https://github.com/gogf/gf/issues/819
 func Test_Model_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -295,7 +294,7 @@ func Test_Model_Batch(t *testing.T) {
 		t.Assert(n, 2)
 	})
 
-	// batch insert, retrieving last insert auto-increment id.
+	// 批量插入数据，并获取最后插入的自增ID。
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
@@ -416,7 +415,7 @@ func Test_Model_Update(t *testing.T) {
 		t.Assert(n, 1)
 	})
 
-	// Update + Data(string)
+	// 更新 + 数据(字符串)
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Data("passport='user_33'").Where("passport='user_3'").Update()
 		t.AssertNil(err)
@@ -424,6 +423,7 @@ func Test_Model_Update(t *testing.T) {
 		t.Assert(n, 1)
 	})
 	// Update + Fields(string)
+// 更新 + 字段(string)
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Fields("passport").Data(g.Map{
 			"passport": "user_44",
@@ -703,7 +703,7 @@ func Test_Model_Count(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
-	// Count with cache, check internal ctx data feature.
+	// 带缓存计数，检查内部ctx数据特性。
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 10; i++ {
 			count, err := db.Model(table).Cache(gdb.CacheOption{
@@ -934,7 +934,7 @@ func Test_Model_Struct(t *testing.T) {
 		t.Assert(user.NickName, "name_1")
 		t.Assert(user.CreateTime.String(), "2018-10-24 10:00:00")
 	})
-	// Auto creating struct object.
+	// 自动创建结构体对象。
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1041,7 +1041,7 @@ func Test_Model_Structs(t *testing.T) {
 		t.Assert(users[2].NickName, "name_3")
 		t.Assert(users[0].CreateTime.String(), "2018-10-24 10:00:00")
 	})
-	// Auto create struct slice.
+	// 自动创建结构体切片。
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1123,7 +1123,7 @@ func Test_Model_StructsWithOrmTag(t *testing.T) {
 		dbInvalid.GetLogger().(*glog.Logger).SetWriter(buffer)
 		defer dbInvalid.GetLogger().(*glog.Logger).SetWriter(os.Stdout)
 		dbInvalid.Model(table).Order("id asc").Scan(&users)
-		// fmt.Println(buffer.String())
+		// 打印buffer.String()的输出结果
 		t.Assert(
 			gstr.Contains(
 				buffer.String(),
@@ -1133,8 +1133,10 @@ func Test_Model_StructsWithOrmTag(t *testing.T) {
 		)
 	})
 
-	// db.SetDebug(true)
-	// defer db.SetDebug(false)
+// 设置数据库调试模式为开启状态
+// db.SetDebug(true)
+// 在函数结束时，确保关闭数据库调试模式
+// defer db.SetDebug(false)
 	gtest.C(t, func(t *gtest.T) {
 		type A struct {
 			Passport string
@@ -1395,7 +1397,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(result[0].GMap().Get("id"), 1)
 		t.Assert(result[1].GMap().Get("id"), 10)
 	})
-	// map + slice parameter
+	// map + slice 参数
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Where(g.Map{
 			"id":       g.Slice{1, 2, 3},
@@ -1483,7 +1485,7 @@ func Test_Model_Where(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 3)
 	})
-	// gmap.Map key operator
+	// gmap.Map 键操作器
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Where(gmap.NewFrom(g.MapAnyAny{"id>": 1, "id<": 3})).One()
 		t.AssertNil(err)
@@ -1496,7 +1498,7 @@ func Test_Model_Where(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 3)
 	})
-	// list map key operator
+	// 列表映射键操作员
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Where(gmap.NewListMapFrom(g.MapAnyAny{"id>": 1, "id<": 3})).One()
 		t.AssertNil(err)
@@ -1509,14 +1511,14 @@ func Test_Model_Where(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 3)
 	})
-	// tree map key operator
+	// 树状映射键操作器
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Where(gmap.NewTreeMapFrom(gutil.ComparatorString, g.MapAnyAny{"id>": 1, "id<": 3})).One()
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 2)
 	})
 
-	// complicated where 1
+	// 复杂条件 1
 	gtest.C(t, func(t *gtest.T) {
 		// db.SetDebug(true)
 		conditions := g.Map{
@@ -1531,7 +1533,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["id"].Int(), 1)
 	})
-	// complicated where 2
+	// 复杂条件 2
 	gtest.C(t, func(t *gtest.T) {
 		// db.SetDebug(true)
 		conditions := g.Map{
@@ -1546,7 +1548,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["id"].Int(), 1)
 	})
-	// struct, automatic mapping and filtering.
+	// 结构体，自动映射和过滤。
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -1722,7 +1724,7 @@ func Test_Model_WherePri(t *testing.T) {
 		t.Assert(result[0].GMap().Get("id"), 1)
 		t.Assert(result[1].GMap().Get("id"), 10)
 	})
-	// map + slice parameter
+	// map + slice 参数
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).WherePri(g.Map{
 			"id":       g.Slice{1, 2, 3},
@@ -1819,7 +1821,7 @@ func Test_Model_WherePri(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 3)
 	})
-	// gmap.Map key operator
+	// gmap.Map 键操作器
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).WherePri(gmap.NewFrom(g.MapAnyAny{"id>": 1, "id<": 3})).One()
 		t.AssertNil(err)
@@ -1832,7 +1834,7 @@ func Test_Model_WherePri(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 3)
 	})
-	// list map key operator
+	// 列表映射键操作员
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).WherePri(gmap.NewListMapFrom(g.MapAnyAny{"id>": 1, "id<": 3})).One()
 		t.AssertNil(err)
@@ -1845,14 +1847,14 @@ func Test_Model_WherePri(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 3)
 	})
-	// tree map key operator
+	// 树状映射键操作器
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).WherePri(gmap.NewTreeMapFrom(gutil.ComparatorString, g.MapAnyAny{"id>": 1, "id<": 3})).One()
 		t.AssertNil(err)
 		t.Assert(result["id"].Int(), 2)
 	})
 
-	// complicated where 1
+	// 复杂条件 1
 	gtest.C(t, func(t *gtest.T) {
 		// db.SetDebug(true)
 		conditions := g.Map{
@@ -1867,7 +1869,7 @@ func Test_Model_WherePri(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["id"].Int(), 1)
 	})
-	// complicated where 2
+	// 复杂条件 2
 	gtest.C(t, func(t *gtest.T) {
 		// db.SetDebug(true)
 		conditions := g.Map{
@@ -2391,7 +2393,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(r[0]["id"], "1")
 		t.Assert(r[1]["id"], "2")
 	})
-	// Select with alias.
+	// 使用别名进行选择。
 	gtest.C(t, func(t *gtest.T) {
 		r, err := db.Model(table+" as u").Where("u.id in (?)", g.Slice{1, 2}).Order("u.id asc").All()
 		t.AssertNil(err)
@@ -2399,7 +2401,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(r[0]["id"], "1")
 		t.Assert(r[1]["id"], "2")
 	})
-	// Select with alias to struct.
+	// 使用别名选择到结构体。
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2414,7 +2416,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(users[0].Id, 1)
 		t.Assert(users[1].Id, 5)
 	})
-	// Select with alias and join statement.
+	// 使用别名和连接语句进行选择。
 	gtest.C(t, func(t *gtest.T) {
 		r, err := db.Model(table+" as u1").LeftJoin(table+" as u2", "u2.id=u1.id").Where("u1.id in (?)", g.Slice{1, 2}).Order("u1.id asc").All()
 		t.AssertNil(err)
@@ -2759,7 +2761,7 @@ func Test_Model_Cache(t *testing.T) {
 	})
 	// transaction.
 	gtest.C(t, func(t *gtest.T) {
-		// make cache for id 3
+		// 为id 3创建缓存
 		one, err := db.Model(table).Cache(gdb.CacheOption{
 			Duration: time.Second,
 			Name:     "test3",
@@ -2799,7 +2801,7 @@ func Test_Model_Cache(t *testing.T) {
 		t.Assert(one["passport"], "user_3")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		// make cache for id 4
+		// 为id 4创建缓存
 		one, err := db.Model(table).Cache(gdb.CacheOption{
 			Duration: time.Second,
 			Name:     "test4",
@@ -2819,7 +2821,7 @@ func Test_Model_Cache(t *testing.T) {
 		t.Assert(n, 1)
 
 		err = db.Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
-			// Cache feature disabled.
+			// 缓存功能已禁用。
 			one, err := tx.Model(table).Cache(gdb.CacheOption{
 				Duration: time.Second,
 				Name:     "test4",
@@ -2957,11 +2959,11 @@ func Test_Model_FieldsEx_AutoMapping(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 
-	// "id":          i,
-	// "passport":    fmt.Sprintf(`user_%d`, i),
-	// "password":    fmt.Sprintf(`pass_%d`, i),
-	// "nickname":    fmt.Sprintf(`name_%d`, i),
-	// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(),
+// "id":          i, // "id"字段：i的值
+// "passport":    fmt.Sprintf(`user_%d`, i), // "passport"字段：格式化输出字符串，形如"user_1"，其中%d用i的值替换
+// "password":    fmt.Sprintf(`pass_%d`, i), // "password"字段：格式化输出字符串，形如"pass_1"，其中%d用i的值替换
+// "nickname":    fmt.Sprintf(`name_%d`, i), // "nickname"字段：格式化输出字符串，形如"name_1"，其中%d用i的值替换
+// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(), // "create_time"字段：创建一个时间对象，使用"2018-10-24 10:00:00"字符串初始化，并将其转换为字符串表示形式
 
 	gtest.C(t, func(t *gtest.T) {
 		value, err := db.Model(table).FieldsEx("Passport, Password, NickName, CreateTime").Where("id", 2).Value()
@@ -3148,7 +3150,7 @@ func createTableForTimeZoneTest() string {
 	return tableName
 }
 
-// https://github.com/gogf/gf/issues/1012
+// 这是GitHub上gogf/gf项目的一个问题链接，具体为第1012号问题
 func Test_TimeZoneInsert(t *testing.T) {
 	tableName := createTableForTimeZoneTest()
 	defer dropTable(tableName)
@@ -3975,7 +3977,7 @@ func Test_Model_OmitEmptyWhere(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1387
+// 这是GitHub上gogf/gf仓库中关于第1387号问题的链接
 func Test_Model_GTime_DefaultValue(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -4016,7 +4018,7 @@ func Test_Model_GTime_DefaultValue(t *testing.T) {
 	})
 }
 
-// Using filter does not affect the outside value inside function.
+// 在函数内部使用filter不会影响外部的值。
 func Test_Model_Insert_Filter(t *testing.T) {
 	// map
 	gtest.C(t, func(t *gtest.T) {
@@ -4108,30 +4110,37 @@ func Test_Model_Embedded_Filter(t *testing.T) {
 	})
 }
 
-// This is no longer used as the filter feature is automatically enabled from GoFrame v1.16.0.
+// 从GoFrame v1.16.0开始，此功能不再使用，因为过滤特性会自动启用。
 // func Test_Model_Insert_KeyFieldNameMapping_Error(t *testing.T) {
-//	table := createTable()
-//	defer dropTable(table)
+// 	// 创建测试表
+// 	table := createTable()
+// 	// 在测试结束后删除测试表
+// 	defer dropTable(table)
 //
-//	gtest.C(t, func(t *gtest.T) {
-//		type User struct {
-//			Id             int
-//			Passport       string
-//			Password       string
-//			Nickname       string
-//			CreateTime     string
-//			NoneExistField string
-//		}
-//		data := User{
-//			Id:         1,
-//			Passport:   "user_1",
-//			Password:   "pass_1",
-//			Nickname:   "name_1",
-//			CreateTime: "2020-10-10 12:00:01",
-//		}
-//		_, err := db.Model(table).Data(data).Insert()
-//		t.AssertNE(err, nil)
-//	})
+// 	// 使用gtest进行单元测试
+// 	gtest.C(t, func(t *gtest.T) {
+//  	// 定义User结构体
+//  	type User struct {
+//  		Id             int
+//  		Passport       string
+//  		Password       string
+//  		Nickname       string
+//  		CreateTime     string
+//  		NoneExistField string // 不存在的字段
+//  	}
+//  	// 初始化用户数据
+//  	data := User{
+//  		Id:         1,
+//  		Passport:   "user_1",
+//  		Password:   "pass_1",
+//  		Nickname:   "name_1",
+//  		CreateTime: "2020-10-10 12:00:01",
+//  	}
+//  	// 尝试将数据插入到指定表中
+//  	result, err := db.Model(table).Data(data).Insert()
+//  	// 断言错误不为空
+//  	t.AssertNE(err, nil)
+//  })
 // }
 
 func Test_Model_Fields_AutoFilterInJoinStatement(t *testing.T) {
@@ -4302,7 +4311,9 @@ func Test_Model_WherePrefixLike(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库的第1159号问题。
+// 中文翻译：
+// 参考GitHub上gogf/gf项目的问题1159。
 func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4358,7 +4369,9 @@ func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库的第1159号问题。
+// 中文翻译：
+// 参考GitHub上gogf/gf项目的问题1159。
 func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4414,7 +4427,9 @@ func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库的第1159号问题。
+// 中文翻译：
+// 参考GitHub上gogf/gf项目的问题1159。
 func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4473,7 +4488,7 @@ func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 			},
 		}
 		err = r2.ScanList(&s, "Many", "One", "pid:Id")
-		// fmt.Printf("%+v", err)
+		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 		t.Assert(s[0].One.Name, "john")
@@ -4501,7 +4516,7 @@ func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 			},
 		}
 		err = r3.ScanList(&s, "Many", "One", "pid:Id")
-		// fmt.Printf("%+v", err)
+		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 		t.Assert(s[0].One.Name, "john")
@@ -4518,7 +4533,9 @@ func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库的第1159号问题。
+// 中文翻译：
+// 参考GitHub上gogf/gf项目的问题1159。
 func Test_ScanList_NoRecreate_SliceAttribute_Struct(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4577,7 +4594,7 @@ func Test_ScanList_NoRecreate_SliceAttribute_Struct(t *testing.T) {
 			},
 		}
 		err = r2.ScanList(&s, "Many", "One", "pid:Id")
-		// fmt.Printf("%+v", err)
+		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 		t.Assert(s[0].One.Name, "john")
@@ -4605,7 +4622,7 @@ func Test_ScanList_NoRecreate_SliceAttribute_Struct(t *testing.T) {
 			},
 		}
 		err = r3.ScanList(&s, "Many", "One", "pid:Id")
-		// fmt.Printf("%+v", err)
+		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 		t.Assert(s[0].One.Name, "john")
@@ -4701,7 +4718,7 @@ func Test_Scan_Nil_Result_Error(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(len(ss), TableSize)
 	})
-	// If the result is empty, it returns error.
+	// 如果结果为空，则返回错误。
 	gtest.C(t, func(t *gtest.T) {
 		var ss = make([]*S, 10)
 		err := db.Model(table).WhereGT("id", 100).Scan(&ss)

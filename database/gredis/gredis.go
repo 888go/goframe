@@ -1,46 +1,45 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gredis provides convenient client for redis server.
+// Package gredis 提供了一个方便的 Redis 服务器客户端。
 //
-// Redis Client.
+// Redis 客户端。
 //
-// Redis Commands Official: https://redis.io/commands
+// Redis 官方命令参考: https://redis.io/commands
 //
-// Redis Chinese Documentation: http://redisdoc.com/
+// Redis 中文文档: http://redisdoc.com/
 package gredis
 
 import (
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/errors/gerror"
 )
 
-// AdapterFunc is the function creating redis adapter.
+// AdapterFunc 是用于创建 Redis 适配器的函数。
 type AdapterFunc func(config *Config) Adapter
 
 var (
-	// defaultAdapterFunc is the default adapter function creating redis adapter.
+	// defaultAdapterFunc 是默认适配器函数，用于创建 Redis 适配器。
 	defaultAdapterFunc AdapterFunc = func(config *Config) Adapter {
 		return nil
 	}
 )
 
-// New creates and returns a redis client.
-// It creates a default redis adapter of go-redis.
+// New 创建并返回一个 Redis 客户端。
+// 它创建了一个 go-redis 的默认 Redis 适配器。
 func New(config ...*Config) (*Redis, error) {
 	var (
 		usedConfig  *Config
 		usedAdapter Adapter
 	)
 	if len(config) > 0 && config[0] != nil {
-		// Redis client with go redis implements adapter from given configuration.
+		// 根据给定配置实现 Redis 客户端，使用 Go 语言的 Redis 库作为适配器。
 		usedConfig = config[0]
 		usedAdapter = defaultAdapterFunc(config[0])
 	} else if configFromGlobal, ok := GetConfig(); ok {
-		// Redis client with go redis implements adapter from package configuration.
+		// 使用go redis实现Redis客户端，该客户端适配了包配置中的相关设置。
 		usedConfig = configFromGlobal
 		usedAdapter = defaultAdapterFunc(configFromGlobal)
 	}
@@ -63,7 +62,7 @@ func New(config ...*Config) (*Redis, error) {
 	return redis.initGroup(), nil
 }
 
-// NewWithAdapter creates and returns a redis client with given adapter.
+// NewWithAdapter 根据给定的适配器创建并返回一个redis客户端。
 func NewWithAdapter(adapter Adapter) (*Redis, error) {
 	if adapter == nil {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `adapter cannot be nil`)
@@ -72,7 +71,7 @@ func NewWithAdapter(adapter Adapter) (*Redis, error) {
 	return redis.initGroup(), nil
 }
 
-// RegisterAdapterFunc registers default function creating redis adapter.
+// RegisterAdapterFunc 注册一个默认的创建 redis 适配器的函数。
 func RegisterAdapterFunc(adapterFunc AdapterFunc) {
 	defaultAdapterFunc = adapterFunc
 }

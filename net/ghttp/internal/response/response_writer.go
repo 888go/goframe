@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package response
 
@@ -12,44 +11,44 @@ import (
 	"net/http"
 )
 
-// Writer wraps http.ResponseWriter for extra features.
+// Writer 封装了 http.ResponseWriter，提供了额外的功能。
 type Writer struct {
-	http.ResponseWriter      // The underlying ResponseWriter.
-	hijacked            bool // Mark this request is hijacked or not.
-	wroteHeader         bool // Is header wrote or not, avoiding error: superfluous/multiple response.WriteHeader call.
+	http.ResponseWriter      // 基础的 ResponseWriter。
+	hijacked            bool // 标记该请求是否已被劫持
+	wroteHeader         bool // IsHeaderWroteOrNot 判断头部是否已写入，避免出现“superfluous/multiple response.WriteHeader call”错误。
 }
 
-// NewWriter creates and returns a new Writer.
+// NewWriter 创建并返回一个新的 Writer。
 func NewWriter(writer http.ResponseWriter) *Writer {
 	return &Writer{
 		ResponseWriter: writer,
 	}
 }
 
-// WriteHeader implements the interface of http.ResponseWriter.WriteHeader.
+// WriteHeader 实现了 http.ResponseWriter 接口中的 WriteHeader 方法。
 func (w *Writer) WriteHeader(status int) {
 	w.ResponseWriter.WriteHeader(status)
 	w.wroteHeader = true
 }
 
-// Hijack implements the interface function of http.Hijacker.Hijack.
+// Hijack 实现了 http.Hijacker 接口中的 Hijack 函数。
 func (w *Writer) Hijack() (conn net.Conn, writer *bufio.ReadWriter, err error) {
 	conn, writer, err = w.ResponseWriter.(http.Hijacker).Hijack()
 	w.hijacked = true
 	return
 }
 
-// IsHeaderWrote returns if the header status is written.
+// IsHeaderWrote 返回是否已写入头部状态。
 func (w *Writer) IsHeaderWrote() bool {
 	return w.wroteHeader
 }
 
-// IsHijacked returns if the connection is hijacked.
+// IsHijacked 返回连接是否已被劫持。
 func (w *Writer) IsHijacked() bool {
 	return w.hijacked
 }
 
-// Flush sends any buffered data to the client.
+// Flush 将任何缓冲的数据发送到客户端。
 func (w *Writer) Flush() {
 	flusher, ok := w.ResponseWriter.(http.Flusher)
 	if ok {
