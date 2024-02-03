@@ -639,3 +639,9 @@ func Instance(name
 func Instance
 X取单例对象
 # <翻译结束>
+
+# <翻译开始>
+List = []Map
+Map数组
+<跳到行首>
+# <翻译结束>
