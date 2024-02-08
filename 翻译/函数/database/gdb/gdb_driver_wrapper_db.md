@@ -25,17 +25,17 @@ X取表字段信息Map
 # <翻译结束>
 
 # <翻译开始>
-) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err
+) DoInsert(ctx context.Context, link Link, table string, list Map数组, option DoInsertOption) (result sql.Result, err
 错误
 # <翻译结束>
 
 # <翻译开始>
-) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result
+) DoInsert(ctx context.Context, link Link, table string, list Map数组, option DoInsertOption) (result
 结果
 # <翻译结束>
 
 # <翻译开始>
-) DoInsert(ctx context.Context, link Link, table string, list List, option
+) DoInsert(ctx context.Context, link Link, table string, list Map数组, option
 选项
 # <翻译结束>
 

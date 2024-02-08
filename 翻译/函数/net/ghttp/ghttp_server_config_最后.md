@@ -119,8 +119,9 @@ X静态文件额外搜索目录
 # <翻译结束>
 
 # <翻译开始>
-StaticPaths []staticPathItem
+StaticPaths []
 X静态文件目录映射
+<跳到行首>
 # <翻译结束>
 
 # <翻译开始>
@@ -146,12 +147,7 @@ CookieDomain string
 Cookie域名
 <跳到行首>
 # <翻译结束>
-
-# <翻译开始>
-CookieSameSite string
-CookieSameSite
-<跳到行首>
-# <翻译结束>
+ 
 
 # <翻译开始>
 CookieSecure bool
@@ -184,7 +180,7 @@ Session存储目录路径
 # <翻译结束>
 
 # <翻译开始>
-SessionStorage gsession.Storage
+SessionStorage session类.Storage
 Session存储
 <跳到行首>
 # <翻译结束>

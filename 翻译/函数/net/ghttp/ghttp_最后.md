@@ -54,7 +54,7 @@ X是否为服务处理器
 # <翻译结束>
 
 # <翻译开始>
-HandlerFunc = func(r *Request)
+HandlerFunc = func(r
 X处理函数
 <跳到行首>
 # <翻译结束>
@@ -102,7 +102,7 @@ Hook名称
 # <翻译结束>
 
 # <翻译开始>
-Router *Router
+Router *
 X路由
 <跳到行首>
 # <翻译结束>
