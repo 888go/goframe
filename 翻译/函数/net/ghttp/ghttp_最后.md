@@ -53,11 +53,6 @@ X是否为服务处理器
 <跳到行首>
 # <翻译结束>
 
-# <翻译开始>
-HandlerFunc = func(r
-X处理函数
-<跳到行首>
-# <翻译结束>
 
 # <翻译开始>
 HandlerItem struct {
