@@ -37,7 +37,7 @@ const (
 )
 
 var (
-	intranetIps, _           = gipv4.GetIntranetIpArray()
+	intranetIps, _           = ipv4类.GetIntranetIpArray()
 	intranetIpStr            = strings.Join(intranetIps, ",")
 	hostname, _              = os.Hostname()
 	tracingInternal          = true       // tracingInternal 开启内部类型跨度的追踪功能。
@@ -50,8 +50,8 @@ var (
 )
 
 func init() {
-	tracingInternal = gconv.Bool(command.GetOptWithEnv(commandEnvKeyForTracingInternal, "true"))
-	if maxContentLogSize := gconv.Int(command.GetOptWithEnv(commandEnvKeyForMaxContentLogSize)); maxContentLogSize > 0 {
+	tracingInternal = 转换类.X取布尔(command.GetOptWithEnv(commandEnvKeyForTracingInternal, "true"))
+	if maxContentLogSize := 转换类.X取整数(command.GetOptWithEnv(commandEnvKeyForMaxContentLogSize)); maxContentLogSize > 0 {
 		tracingMaxContentLogSize = maxContentLogSize
 	}
 	// 默认追踪提供者。
@@ -137,26 +137,26 @@ func SetBaggageMap(ctx context.Context, data map[string]interface{}) context.Con
 }
 
 // GetBaggageMap 获取并以map形式返回 baggage 的值。
-func GetBaggageMap(ctx context.Context) *gmap.StrAnyMap {
+func GetBaggageMap(ctx context.Context) *map类.StrAnyMap {
 	return NewBaggage(ctx).GetMap()
 }
 
 // GetBaggageVar 从 baggage 中按照指定键检索值，并返回一个 *gvar.Var 类型的结果。
-func GetBaggageVar(ctx context.Context, key string) *gvar.Var {
+func GetBaggageVar(ctx context.Context, key string) *泛型类.Var {
 	return NewBaggage(ctx).GetVar(key)
 }
 
 // WithUUID 向上下文中注入自定义的 UUID 格式的跟踪 ID，以便进行传播。
 func WithUUID(ctx context.Context, uuid string) (context.Context, error) {
-	return WithTraceID(ctx, gstr.Replace(uuid, "-", ""))
+	return WithTraceID(ctx, 文本类.X替换(uuid, "-", ""))
 }
 
 // WithTraceID 向上下文中注入自定义跟踪 ID，以便进行传播。
 func WithTraceID(ctx context.Context, traceID string) (context.Context, error) {
 	generatedTraceID, err := trace.TraceIDFromHex(traceID)
 	if err != nil {
-		return ctx, gerror.WrapCodef(
-			gcode.CodeInvalidParameter,
+		return ctx, 错误类.X多层错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			err,
 			`invalid custom traceID "%s", a traceID string should be composed with [0-f] and fixed length 32`,
 			traceID,

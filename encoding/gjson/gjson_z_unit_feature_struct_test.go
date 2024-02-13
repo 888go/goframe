@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gjson_test
+package json类_test
 
 import (
 	"testing"
@@ -17,19 +17,19 @@ func Test_GetScan(t *testing.T) {
 		Name  string
 		Score float64
 	}
-	j := gjson.New(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
-	gtest.C(t, func(t *gtest.T) {
+	j := json类.X创建(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var user *User
-		err := j.Get("1").Scan(&user)
+		err := j.X取值("1").X取结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user, &User{
 			Name:  "smith",
 			Score: 60,
 		})
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []User
-		err := j.Get(".").Scan(&users)
+		err := j.X取值(".").X取结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(users, []User{
 			{
@@ -49,19 +49,19 @@ func Test_GetScanDeep(t *testing.T) {
 		Name  string
 		Score float64
 	}
-	j := gjson.New(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
-	gtest.C(t, func(t *gtest.T) {
+	j := json类.X创建(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var user *User
-		err := j.Get("1").Scan(&user)
+		err := j.X取值("1").X取结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user, &User{
 			Name:  "smith",
 			Score: 60,
 		})
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []User
-		err := j.Get(".").Scan(&users)
+		err := j.X取值(".").X取结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(users, []User{
 			{
@@ -81,10 +81,10 @@ func Test_Scan1(t *testing.T) {
 		Name  string
 		Score float64
 	}
-	j := gjson.New(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
-	gtest.C(t, func(t *gtest.T) {
+	j := json类.X创建(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []User
-		err := j.Var().Scan(&users)
+		err := j.X取泛型类().X取结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(users, []User{
 			{
@@ -104,10 +104,10 @@ func Test_Scan2(t *testing.T) {
 		Name  string
 		Score float64
 	}
-	j := gjson.New(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
-	gtest.C(t, func(t *gtest.T) {
+	j := json类.X创建(`[{"name":"john", "score":"100"},{"name":"smith", "score":"60"}]`)
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []User
-		err := j.Var().Scan(&users)
+		err := j.X取泛型类().X取结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(users, []User{
 			{
@@ -123,7 +123,7 @@ func Test_Scan2(t *testing.T) {
 }
 
 func Test_Struct1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type BaseInfoItem struct {
 			IdCardNumber        string `db:"id_card_number" json:"idCardNumber" field:"id_card_number"`
 			IsHouseholder       bool   `db:"is_householder" json:"isHouseholder" field:"is_householder"`
@@ -196,15 +196,15 @@ func Test_Struct1(t *testing.T) {
 	}]
 }`
 		data := new(UserCollectionAddReq)
-		j, err := gjson.LoadJson(jsonContent, true)
+		j, err := json类.X加载json(jsonContent, true)
 		t.AssertNil(err)
-		err = j.Scan(data)
+		err = j.X取结构体指针(data)
 		t.AssertNil(err)
 	})
 }
 
 func Test_Struct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Item struct {
 			Title string `json:"title"`
 			Key   string `json:"key"`
@@ -224,14 +224,14 @@ func Test_Struct(t *testing.T) {
 		  "items":null
 		 }`
 
-		j, err := gjson.LoadContent(txt)
+		j, err := json类.X加载并自动识别格式(txt)
 		t.AssertNil(err)
-		t.Assert(j.Get("me.name").String(), "mikey")
-		t.Assert(j.Get("items").String(), "")
-		t.Assert(j.Get("items").Bool(), false)
-		t.Assert(j.Get("items").Array(), nil)
+		t.Assert(j.X取值("me.name").String(), "mikey")
+		t.Assert(j.X取值("items").String(), "")
+		t.Assert(j.X取值("items").X取布尔(), false)
+		t.Assert(j.X取值("items").Array别名(), nil)
 		m := new(M)
-		err = j.Scan(m)
+		err = j.X取结构体指针(m)
 		t.AssertNil(err)
 		t.AssertNE(m.Me, nil)
 		t.Assert(m.Me["day"], "20009")
@@ -279,7 +279,7 @@ func Test_Struct_Complicated(t *testing.T) {
 		CertList  []CertList `json:"certList"`
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		jsonContent := `{
 "certList":[
 {"certId":"2023313","certInfo":"{\"address\":\"xxxxxxx\",\"phoneNumber\":\"15084890\",\"companyName\":\"dddd\",\"communityCreditCode\":\"91110111MBE1G2B\",\"operateRange\":\"fff\",\"registerNo\":\"91110111MA00G2B\",\"legalPersonName\":\"rrr\"}","srcType":"1","statusCode":"2"},
@@ -287,10 +287,10 @@ func Test_Struct_Complicated(t *testing.T) {
 {"certId":"2023322","certInfo":"{\"businessLicense\":\"91110111MA00BE1G\",\"companyName\":\"sssss\",\"communityCreditCode\":\"91110111MA00BE1\"}","srcType":"2","statusCode":"0"}
 ]
 }`
-		j, err := gjson.LoadContent(jsonContent)
+		j, err := json类.X加载并自动识别格式(jsonContent)
 		t.AssertNil(err)
 		var response = new(Response)
-		err = j.Scan(response)
+		err = j.X取结构体指针(response)
 		t.AssertNil(err)
 		t.Assert(len(response.CertList), 3)
 		t.Assert(response.CertList[0].CertID, 2023313)

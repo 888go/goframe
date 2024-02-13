@@ -1,4 +1,4 @@
-package gjson_test
+package json类_test
 
 import (
 	"fmt"
@@ -17,11 +17,11 @@ func ExampleJson_SetSplitChar() {
             ]
         }
     }`
-	if j, err := gjson.DecodeToJson(data); err != nil {
+	if j, err := json类.X解码到json(data); err != nil {
 		panic(err)
 	} else {
-		j.SetSplitChar('#')
-		fmt.Println("John Score:", j.Get("users#list#1#score").Float32())
+		j.X设置参数分隔符('#')
+		fmt.Println("John Score:", j.X取值("users#list#1#score").X取小数32位())
 	}
 	// Output:
 	// John Score: 99.5
@@ -35,13 +35,13 @@ func ExampleJson_SetViolenceCheck() {
         },
         "users.count" : 101
     }`
-	if j, err := gjson.DecodeToJson(data); err != nil {
+	if j, err := json类.X解码到json(data); err != nil {
 		fmt.Println(err)
 	} else {
-		j.SetViolenceCheck(false)
-		fmt.Println("Users Count:", j.Get("users.count"))
-		j.SetViolenceCheck(true)
-		fmt.Println("Users Count:", j.Get("users.count"))
+		j.X设置分层冲突检查(false)
+		fmt.Println("Users Count:", j.X取值("users.count"))
+		j.X设置分层冲突检查(true)
+		fmt.Println("Users Count:", j.X取值("users.count"))
 	}
 	// Output:
 	// Users Count: 100
@@ -67,8 +67,8 @@ func ExampleJson_ToJson() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonBytes, _ := j.ToJson()
+	j := json类.X创建(info)
+	jsonBytes, _ := j.X取json字节集()
 	fmt.Println(string(jsonBytes))
 
 	// Output:
@@ -86,8 +86,8 @@ func ExampleJson_ToJsonString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonStr, _ := j.ToJsonString()
+	j := json类.X创建(info)
+	jsonStr, _ := j.X取json文本()
 	fmt.Println(jsonStr)
 
 	// Output:
@@ -105,8 +105,8 @@ func ExampleJson_ToJsonIndent() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonBytes, _ := j.ToJsonIndent()
+	j := json类.X创建(info)
+	jsonBytes, _ := j.X取json字节集并格式化()
 	fmt.Println(string(jsonBytes))
 
 	// Output:
@@ -127,8 +127,8 @@ func ExampleJson_ToJsonIndentString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonStr, _ := j.ToJsonIndentString()
+	j := json类.X创建(info)
+	jsonStr, _ := j.X取json文本并格式化()
 	fmt.Println(jsonStr)
 
 	// Output:
@@ -149,8 +149,8 @@ func ExampleJson_MustToJson() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonBytes := j.MustToJson()
+	j := json类.X创建(info)
+	jsonBytes := j.X取json字节集PANI()
 	fmt.Println(string(jsonBytes))
 
 	// Output:
@@ -168,8 +168,8 @@ func ExampleJson_MustToJsonString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonStr := j.MustToJsonString()
+	j := json类.X创建(info)
+	jsonStr := j.X取json文本PANI()
 	fmt.Println(jsonStr)
 
 	// Output:
@@ -187,8 +187,8 @@ func ExampleJson_MustToJsonIndent() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonBytes := j.MustToJsonIndent()
+	j := json类.X创建(info)
+	jsonBytes := j.X取json字节集并格式化PANI()
 	fmt.Println(string(jsonBytes))
 
 	// Output:
@@ -209,8 +209,8 @@ func ExampleJson_MustToJsonIndentString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	jsonStr := j.MustToJsonIndentString()
+	j := json类.X创建(info)
+	jsonStr := j.X取json文本并格式化PANI()
 	fmt.Println(jsonStr)
 
 	// Output:
@@ -237,8 +237,8 @@ func ExampleJson_ToXml() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlBytes, _ := j.ToXml()
+	j := json类.X创建(info)
+	xmlBytes, _ := j.X取xml字节集()
 	fmt.Println(string(xmlBytes))
 
 	// Output:
@@ -256,8 +256,8 @@ func ExampleJson_ToXmlString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlStr, _ := j.ToXmlString()
+	j := json类.X创建(info)
+	xmlStr, _ := j.X取xml文本()
 	fmt.Println(string(xmlStr))
 
 	// Output:
@@ -275,8 +275,8 @@ func ExampleJson_ToXmlIndent() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlBytes, _ := j.ToXmlIndent()
+	j := json类.X创建(info)
+	xmlBytes, _ := j.X取xml字节集并格式化()
 	fmt.Println(string(xmlBytes))
 
 	// Output:
@@ -297,8 +297,8 @@ func ExampleJson_ToXmlIndentString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlStr, _ := j.ToXmlIndentString()
+	j := json类.X创建(info)
+	xmlStr, _ := j.X取xml文本并格式化()
 	fmt.Println(string(xmlStr))
 
 	// Output:
@@ -319,8 +319,8 @@ func ExampleJson_MustToXml() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlBytes := j.MustToXml()
+	j := json类.X创建(info)
+	xmlBytes := j.X取xml字节集PANI()
 	fmt.Println(string(xmlBytes))
 
 	// Output:
@@ -338,8 +338,8 @@ func ExampleJson_MustToXmlString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlStr := j.MustToXmlString()
+	j := json类.X创建(info)
+	xmlStr := j.X取xml文本PANI()
 	fmt.Println(string(xmlStr))
 
 	// Output:
@@ -357,8 +357,8 @@ func ExampleJson_MustToXmlIndent() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlBytes := j.MustToXmlIndent()
+	j := json类.X创建(info)
+	xmlBytes := j.X取xml字节集并格式化PANI()
 	fmt.Println(string(xmlBytes))
 
 	// Output:
@@ -379,8 +379,8 @@ func ExampleJson_MustToXmlIndentString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	xmlStr := j.MustToXmlIndentString()
+	j := json类.X创建(info)
+	xmlStr := j.X取xml文本并格式化PANI()
 	fmt.Println(string(xmlStr))
 
 	// Output:
@@ -409,8 +409,8 @@ func ExampleJson_ToYaml() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	YamlBytes, _ := j.ToYaml()
+	j := json类.X创建(info)
+	YamlBytes, _ := j.X取YAML字节集()
 	fmt.Println(string(YamlBytes))
 
 	// Output:
@@ -429,8 +429,8 @@ func ExampleJson_ToYamlString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	YamlStr, _ := j.ToYamlString()
+	j := json类.X创建(info)
+	YamlStr, _ := j.X取YAML文本()
 	fmt.Println(string(YamlStr))
 
 	// Output:
@@ -449,8 +449,8 @@ func ExampleJson_ToYamlIndent() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	YamlBytes, _ := j.ToYamlIndent("")
+	j := json类.X创建(info)
+	YamlBytes, _ := j.X取YAML字节集并格式化("")
 	fmt.Println(string(YamlBytes))
 
 	// Output:
@@ -469,8 +469,8 @@ func ExampleJson_MustToYaml() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	YamlBytes := j.MustToYaml()
+	j := json类.X创建(info)
+	YamlBytes := j.X取YAML字节集PANI()
 	fmt.Println(string(YamlBytes))
 
 	// Output:
@@ -489,8 +489,8 @@ func ExampleJson_MustToYamlString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	YamlStr := j.MustToYamlString()
+	j := json类.X创建(info)
+	YamlStr := j.X取YAML文本PANI()
 	fmt.Println(string(YamlStr))
 
 	// Output:
@@ -517,8 +517,8 @@ func ExampleJson_ToToml() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	TomlBytes, _ := j.ToToml()
+	j := json类.X创建(info)
+	TomlBytes, _ := j.X取TOML字节集()
 	fmt.Println(string(TomlBytes))
 
 	// Output:
@@ -537,8 +537,8 @@ func ExampleJson_ToTomlString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	TomlStr, _ := j.ToTomlString()
+	j := json类.X创建(info)
+	TomlStr, _ := j.X取TOML文本()
 	fmt.Println(string(TomlStr))
 
 	// Output:
@@ -557,8 +557,8 @@ func ExampleJson_MustToToml() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	TomlBytes := j.MustToToml()
+	j := json类.X创建(info)
+	TomlBytes := j.X取TOML字节集PANI()
 	fmt.Println(string(TomlBytes))
 
 	// Output:
@@ -577,8 +577,8 @@ func ExampleJson_MustToTomlString() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	TomlStr := j.MustToTomlString()
+	j := json类.X创建(info)
+	TomlStr := j.X取TOML文本PANI()
 	fmt.Println(string(TomlStr))
 
 	// Output:
@@ -604,8 +604,8 @@ func ExampleJson_ToIni() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	IniBytes, _ := j.ToIni()
+	j := json类.X创建(info)
+	IniBytes, _ := j.X取ini字节集()
 	fmt.Println(string(IniBytes))
 
 	// May Output:
@@ -622,8 +622,8 @@ func ExampleJson_ToIniString() {
 		Name: "John",
 	}
 
-	j := gjson.New(info)
-	IniStr, _ := j.ToIniString()
+	j := json类.X创建(info)
+	IniStr, _ := j.X取ini文本()
 	fmt.Println(string(IniStr))
 
 	// Output:
@@ -639,8 +639,8 @@ func ExampleJson_MustToIni() {
 		Name: "John",
 	}
 
-	j := gjson.New(info)
-	IniBytes := j.MustToIni()
+	j := json类.X创建(info)
+	IniBytes := j.X取ini字节集PANI()
 	fmt.Println(string(IniBytes))
 
 	// Output:
@@ -656,8 +656,8 @@ func ExampleJson_MustToIniString() {
 		Name: "John",
 	}
 
-	j := gjson.New(info)
-	IniStr := j.MustToIniString()
+	j := json类.X创建(info)
+	IniStr := j.X取ini文本PANI()
 	fmt.Println(string(IniStr))
 
 	// Output:
@@ -683,8 +683,8 @@ func ExampleJson_ToProperties() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	pr, _ := j.ToProperties()
+	j := json类.X创建(info)
+	pr, _ := j.X取properties字节集()
 	fmt.Println(string(pr))
 
 	// May Output:
@@ -701,8 +701,8 @@ func ExampleJson_ToPropertiesString() {
 		Name: "John",
 	}
 
-	j := gjson.New(info)
-	pr, _ := j.ToPropertiesString()
+	j := json类.X创建(info)
+	pr, _ := j.X取properties文本()
 	fmt.Println(pr)
 
 	// Output:
@@ -718,8 +718,8 @@ func ExampleJson_MustToProperties() {
 		Name: "John",
 	}
 
-	j := gjson.New(info)
-	pr := j.MustToProperties()
+	j := json类.X创建(info)
+	pr := j.X取properties字节集PANI()
 	fmt.Println(string(pr))
 
 	// Output:
@@ -735,8 +735,8 @@ func ExampleJson_MustToPropertiesString() {
 		Name: "John",
 	}
 
-	j := gjson.New(info)
-	pr := j.MustToPropertiesString()
+	j := json类.X创建(info)
+	pr := j.X取properties文本PANI()
 	fmt.Println(pr)
 
 	// Output:
@@ -754,7 +754,7 @@ func ExampleJson_MarshalJSON() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
+	j := json类.X创建(info)
 	jsonBytes, _ := j.MarshalJSON()
 	fmt.Println(string(jsonBytes))
 
@@ -765,9 +765,9 @@ func ExampleJson_MarshalJSON() {
 func ExampleJson_UnmarshalJSON() {
 	jsonStr := `{"Age":18,"Name":"John"}`
 
-	j := gjson.New("")
+	j := json类.X创建("")
 	j.UnmarshalJSON([]byte(jsonStr))
-	fmt.Println(j.Map())
+	fmt.Println(j.X取Map())
 
 	// Output:
 	// map[Age:18 Name:John]
@@ -779,9 +779,9 @@ func ExampleJson_UnmarshalValue_Yaml() {
   name: john
   score: 100`
 
-	j := gjson.New("")
+	j := json类.X创建("")
 	j.UnmarshalValue([]byte(yamlContent))
-	fmt.Println(j.Var().String())
+	fmt.Println(j.X取泛型类().String())
 
 	// Output:
 	// {"base":{"name":"john","score":100}}
@@ -790,9 +790,9 @@ func ExampleJson_UnmarshalValue_Yaml() {
 func ExampleJson_UnmarshalValue_Xml() {
 	xmlStr := `<?xml version="1.0" encoding="UTF-8"?><doc><name>john</name><score>100</score></doc>`
 
-	j := gjson.New("")
+	j := json类.X创建("")
 	j.UnmarshalValue([]byte(xmlStr))
-	fmt.Println(j.Var().String())
+	fmt.Println(j.X取泛型类().String())
 
 	// Output:
 	// {"doc":{"name":"john","score":"100"}}
@@ -809,8 +809,8 @@ func ExampleJson_MapStrAny() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	fmt.Println(j.MapStrAny())
+	j := json类.X创建(info)
+	fmt.Println(j.X取MapStrAny())
 
 	// Output:
 	// map[Age:18 Name:John]
@@ -833,8 +833,8 @@ func ExampleJson_Interfaces() {
 		},
 	}
 
-	j := gjson.New(infoList)
-	fmt.Println(j.Interfaces())
+	j := json类.X创建(infoList)
+	fmt.Println(j.X取any数组())
 
 	// Output:
 	// [{John 18} {Tom 20}]
@@ -851,10 +851,10 @@ func ExampleJson_Interface() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
+	j := json类.X创建(info)
 	fmt.Println(j.Interface())
 
-	var nilJ *gjson.Json = nil
+	var nilJ *json类.Json = nil
 	fmt.Println(nilJ.Interface())
 
 	// Output:
@@ -873,9 +873,9 @@ func ExampleJson_Var() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	fmt.Println(j.Var().String())
-	fmt.Println(j.Var().Map())
+	j := json类.X创建(info)
+	fmt.Println(j.X取泛型类().String())
+	fmt.Println(j.X取泛型类().X取Map())
 
 	// Output:
 	// {"Age":18,"Name":"John"}
@@ -886,11 +886,11 @@ func ExampleJson_IsNil() {
 	data1 := []byte(`{"n":123456789, "m":{"k":"v"}, "a":[1,2,3]}`)
 	data2 := []byte(`{"n":123456789, "m":{"k":"v"}, "a":[1,2,3]`)
 
-	j1, _ := gjson.LoadContent(data1)
-	fmt.Println(j1.IsNil())
+	j1, _ := json类.X加载并自动识别格式(data1)
+	fmt.Println(j1.X是否为Nil())
 
-	j2, _ := gjson.LoadContent(data2)
-	fmt.Println(j2.IsNil())
+	j2, _ := json类.X加载并自动识别格式(data2)
+	fmt.Println(j2.X是否为Nil())
 
 	// Output:
 	// false
@@ -906,14 +906,14 @@ func ExampleJson_Get() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
-	fmt.Println(j.Get("."))
-	fmt.Println(j.Get("users"))
-	fmt.Println(j.Get("users.count"))
-	fmt.Println(j.Get("users.array"))
+	j, _ := json类.X加载并自动识别格式(data)
+	fmt.Println(j.X取值("."))
+	fmt.Println(j.X取值("users"))
+	fmt.Println(j.X取值("users.count"))
+	fmt.Println(j.X取值("users.array"))
 
-	var nilJ *gjson.Json = nil
-	fmt.Println(nilJ.Get("."))
+	var nilJ *json类.Json = nil
+	fmt.Println(nilJ.X取值("."))
 
 	// Output:
 	// {"users":{"array":["John","Ming"],"count":1}}
@@ -931,9 +931,9 @@ func ExampleJson_GetJson() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	fmt.Println(j.GetJson("users.array").Array())
+	fmt.Println(j.X取对象("users.array").X取数组())
 
 	// Output:
 	// [John Ming]
@@ -948,9 +948,9 @@ func ExampleJson_GetJsons() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	jsons := j.GetJsons("users.array")
+	jsons := j.X取对象数组("users.array")
 	for _, json := range jsons {
 		fmt.Println(json.Interface())
 	}
@@ -972,9 +972,9 @@ func ExampleJson_GetJsonMap() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	jsonMap := j.GetJsonMap("users.array")
+	jsonMap := j.X取对象Map("users.array")
 
 	for _, json := range jsonMap {
 		fmt.Println(json.Interface())
@@ -996,10 +996,10 @@ func ExampleJson_Set() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	j.Set("Addr", "ChengDu")
-	j.Set("Friends.0", "Tom")
-	fmt.Println(j.Var().String())
+	j := json类.X创建(info)
+	j.X设置值("Addr", "ChengDu")
+	j.X设置值("Friends.0", "Tom")
+	fmt.Println(j.X取泛型类().String())
 
 	// Output:
 	// {"Addr":"ChengDu","Age":18,"Friends":["Tom"],"Name":"John"}
@@ -1016,9 +1016,9 @@ func ExampleJson_MustSet() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	j.MustSet("Addr", "ChengDu")
-	fmt.Println(j.Var().String())
+	j := json类.X创建(info)
+	j.X设置值PANI("Addr", "ChengDu")
+	fmt.Println(j.X取泛型类().String())
 
 	// Output:
 	// {"Addr":"ChengDu","Age":18,"Name":"John"}
@@ -1035,9 +1035,9 @@ func ExampleJson_Remove() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	j.Remove("Age")
-	fmt.Println(j.Var().String())
+	j := json类.X创建(info)
+	j.X删除("Age")
+	fmt.Println(j.X取泛型类().String())
 
 	// Output:
 	// {"Name":"John"}
@@ -1054,9 +1054,9 @@ func ExampleJson_MustRemove() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	j.MustRemove("Age")
-	fmt.Println(j.Var().String())
+	j := json类.X创建(info)
+	j.X删除PANI("Age")
+	fmt.Println(j.X取泛型类().String())
 
 	// Output:
 	// {"Name":"John"}
@@ -1073,9 +1073,9 @@ func ExampleJson_Contains() {
 		Age:  18,
 	}
 
-	j := gjson.New(info)
-	fmt.Println(j.Contains("Age"))
-	fmt.Println(j.Contains("Addr"))
+	j := json类.X创建(info)
+	fmt.Println(j.X是否存在("Age"))
+	fmt.Println(j.X是否存在("Addr"))
 
 	// Output:
 	// true
@@ -1096,10 +1096,10 @@ func ExampleJson_Len() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	fmt.Println(j.Len("users.nameArray"))
-	fmt.Println(j.Len("users.infoMap"))
+	fmt.Println(j.X取长度("users.nameArray"))
+	fmt.Println(j.X取长度("users.infoMap"))
 
 	// Output:
 	// 2
@@ -1115,11 +1115,11 @@ func ExampleJson_Append() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	j.Append("users.array", "Lily")
+	j.X加入("users.array", "Lily")
 
-	fmt.Println(j.Get("users.array").Array())
+	fmt.Println(j.X取值("users.array").Array别名())
 
 	// Output:
 	// [John Ming Lily]
@@ -1134,11 +1134,11 @@ func ExampleJson_MustAppend() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	j.MustAppend("users.array", "Lily")
+	j.X加入PANI("users.array", "Lily")
 
-	fmt.Println(j.Get("users.array").Array())
+	fmt.Println(j.X取值("users.array").Array别名())
 
 	// Output:
 	// [John Ming Lily]
@@ -1157,9 +1157,9 @@ func ExampleJson_Map() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	fmt.Println(j.Get("users.info").Map())
+	fmt.Println(j.X取值("users.info").X取Map())
 
 	// Output:
 	// map[addr:ChengDu age:18 name:John]
@@ -1174,9 +1174,9 @@ func ExampleJson_Array() {
         }
     }`
 
-	j, _ := gjson.LoadContent(data)
+	j, _ := json类.X加载并自动识别格式(data)
 
-	fmt.Println(j.Get("users.array"))
+	fmt.Println(j.X取值("users.array"))
 
 	// Output:
 	// ["John","Ming"]
@@ -1192,8 +1192,8 @@ func ExampleJson_Scan() {
 
 	info := BaseInfo{}
 
-	j, _ := gjson.LoadContent(data)
-	j.Scan(&info)
+	j, _ := json类.X加载并自动识别格式(data)
+	j.X取结构体指针(&info)
 
 	fmt.Println(info)
 
@@ -1204,8 +1204,8 @@ func ExampleJson_Scan() {
 func ExampleJson_Dump() {
 	data := `{"name":"john","age":"18"}`
 
-	j, _ := gjson.LoadContent(data)
-	j.Dump()
+	j, _ := json类.X加载并自动识别格式(data)
+	j.X调试输出()
 
 	// May Output:
 	// {

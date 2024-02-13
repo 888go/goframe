@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gcmd
+package cmd类
 
 import (
 	"context"
@@ -81,19 +81,19 @@ func (c *Command) AddCommand(commands ...*Command) error {
 
 // doAddCommand 向当前命令添加一个子命令。
 func (c *Command) doAddCommand(command *Command) error {
-	command.Name = gstr.Trim(command.Name)
+	command.Name = 文本类.X过滤首尾符并含空白(command.Name)
 	if command.Name == "" {
-		return gerror.New("command name should not be empty")
+		return 错误类.X创建("command name should not be empty")
 	}
 	// Repeated check.
 	var (
-		commandNameSet = gset.NewStrSet()
+		commandNameSet = 集合类.X创建文本()
 	)
 	for _, cmd := range c.commands {
-		commandNameSet.Add(cmd.Name)
+		commandNameSet.X加入(cmd.Name)
 	}
-	if commandNameSet.Contains(command.Name) {
-		return gerror.Newf(`command "%s" is already added to command "%s"`, command.Name, c.Name)
+	if commandNameSet.X是否存在(command.Name) {
+		return 错误类.X创建并格式化(`command "%s" is already added to command "%s"`, command.Name, c.Name)
 	}
 	// 将给定的命令添加到其子命令数组中。
 	command.parent = c

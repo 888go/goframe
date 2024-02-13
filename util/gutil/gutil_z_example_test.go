@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil_test
+package 工具类_test
 
 import (
 	"fmt"
@@ -12,10 +12,10 @@ import (
 )
 
 func ExampleSliceInsertBefore() {
-	s1 := g.Slice{
+	s1 := g.Slice别名{
 		0, 1, 2, 3, 4,
 	}
-	s2 := gutil.SliceInsertBefore(s1, 1, 8, 9)
+	s2 := 工具类.SliceInsertBefore(s1, 1, 8, 9)
 	fmt.Println(s1)
 	fmt.Println(s2)
 
@@ -25,10 +25,10 @@ func ExampleSliceInsertBefore() {
 }
 
 func ExampleSliceInsertAfter() {
-	s1 := g.Slice{
+	s1 := g.Slice别名{
 		0, 1, 2, 3, 4,
 	}
-	s2 := gutil.SliceInsertAfter(s1, 1, 8, 9)
+	s2 := 工具类.SliceInsertAfter(s1, 1, 8, 9)
 	fmt.Println(s1)
 	fmt.Println(s2)
 

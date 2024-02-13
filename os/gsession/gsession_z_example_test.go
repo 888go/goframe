@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gsession_test
+package session类_test
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ import (
 )
 
 func ExampleNew() {
-	manager := gsession.New(time.Second)
+	manager := session类.New(time.Second)
 	fmt.Println(manager.GetTTL())
 
 	// Output:
@@ -25,8 +25,8 @@ func ExampleNew() {
 }
 
 func ExampleManager_SetStorage() {
-	manager := gsession.New(time.Second)
-	manager.SetStorage(gsession.NewStorageMemory())
+	manager := session类.New(time.Second)
+	manager.SetStorage(session类.NewStorageMemory())
 	fmt.Println(manager.GetTTL())
 
 	// Output:
@@ -34,8 +34,8 @@ func ExampleManager_SetStorage() {
 }
 
 func ExampleManager_GetStorage() {
-	manager := gsession.New(time.Second, gsession.NewStorageMemory())
-	size, _ := manager.GetStorage().GetSize(gctx.New(), "id")
+	manager := session类.New(time.Second, session类.NewStorageMemory())
+	size, _ := manager.GetStorage().GetSize(上下文类.X创建(), "id")
 	fmt.Println(size)
 
 	// Output:
@@ -43,7 +43,7 @@ func ExampleManager_GetStorage() {
 }
 
 func ExampleManager_SetTTL() {
-	manager := gsession.New(time.Second)
+	manager := session类.New(time.Second)
 	manager.SetTTL(time.Minute)
 	fmt.Println(manager.GetTTL())
 
@@ -52,19 +52,19 @@ func ExampleManager_SetTTL() {
 }
 
 func ExampleSession_Set() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
-	s := manager.New(gctx.New())
-	fmt.Println(s.Set("key", "val") == nil)
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
+	s := manager.New(上下文类.X创建())
+	fmt.Println(s.X设置值("key", "val") == nil)
 
 	// Output:
 	// true
 }
 
 func ExampleSession_SetMap() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
-	s := manager.New(gctx.New())
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
+	s := manager.New(上下文类.X创建())
 	fmt.Println(s.SetMap(map[string]interface{}{}) == nil)
 
 	// Output:
@@ -72,12 +72,12 @@ func ExampleSession_SetMap() {
 }
 
 func ExampleSession_Remove() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
-	s1 := manager.New(gctx.New())
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
+	s1 := manager.New(上下文类.X创建())
 	fmt.Println(s1.Remove("key"))
 
-	s2 := manager.New(gctx.New(), "Remove")
+	s2 := manager.New(上下文类.X创建(), "Remove")
 	fmt.Println(s2.Remove("key"))
 
 	// Output:
@@ -86,12 +86,12 @@ func ExampleSession_Remove() {
 }
 
 func ExampleSession_RemoveAll() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
-	s1 := manager.New(gctx.New())
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
+	s1 := manager.New(上下文类.X创建())
 	fmt.Println(s1.RemoveAll())
 
-	s2 := manager.New(gctx.New(), "Remove")
+	s2 := manager.New(上下文类.X创建(), "Remove")
 	fmt.Println(s2.RemoveAll())
 
 	// Output:
@@ -100,9 +100,9 @@ func ExampleSession_RemoveAll() {
 }
 
 func ExampleSession_Id() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
-	s := manager.New(gctx.New(), "Id")
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
+	s := manager.New(上下文类.X创建(), "Id")
 	id, _ := s.Id()
 	fmt.Println(id)
 
@@ -111,12 +111,12 @@ func ExampleSession_Id() {
 }
 
 func ExampleSession_SetId() {
-	nilSession := &gsession.Session{}
+	nilSession := &session类.Session{}
 	fmt.Println(nilSession.SetId("id"))
 
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
-	s := manager.New(gctx.New())
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
+	s := manager.New(上下文类.X创建())
 	s.Id()
 	fmt.Println(s.SetId("id"))
 
@@ -126,14 +126,14 @@ func ExampleSession_SetId() {
 }
 
 func ExampleSession_SetIdFunc() {
-	nilSession := &gsession.Session{}
+	nilSession := &session类.Session{}
 	fmt.Println(nilSession.SetIdFunc(func(ttl time.Duration) string {
 		return "id"
 	}))
 
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
-	s := manager.New(gctx.New())
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
+	s := manager.New(上下文类.X创建())
 	s.Id()
 	fmt.Println(s.SetIdFunc(func(ttl time.Duration) string {
 		return "id"
@@ -145,14 +145,14 @@ func ExampleSession_SetIdFunc() {
 }
 
 func ExampleSession_Data() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
 
-	s1 := manager.New(gctx.New())
+	s1 := manager.New(上下文类.X创建())
 	data1, _ := s1.Data()
 	fmt.Println(data1)
 
-	s2 := manager.New(gctx.New(), "id_data")
+	s2 := manager.New(上下文类.X创建(), "id_data")
 	data2, _ := s2.Data()
 	fmt.Println(data2)
 
@@ -162,14 +162,14 @@ func ExampleSession_Data() {
 }
 
 func ExampleSession_Size() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
 
-	s1 := manager.New(gctx.New())
+	s1 := manager.New(上下文类.X创建())
 	size1, _ := s1.Size()
 	fmt.Println(size1)
 
-	s2 := manager.New(gctx.New(), "Size")
+	s2 := manager.New(上下文类.X创建(), "Size")
 	size2, _ := s2.Size()
 	fmt.Println(size2)
 
@@ -179,14 +179,14 @@ func ExampleSession_Size() {
 }
 
 func ExampleSession_Contains() {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
 
-	s1 := manager.New(gctx.New())
+	s1 := manager.New(上下文类.X创建())
 	notContains, _ := s1.Contains("Contains")
 	fmt.Println(notContains)
 
-	s2 := manager.New(gctx.New(), "Contains")
+	s2 := manager.New(上下文类.X创建(), "Contains")
 	contains, _ := s2.Contains("Contains")
 	fmt.Println(contains)
 
@@ -196,10 +196,10 @@ func ExampleSession_Contains() {
 }
 
 func ExampleStorageFile_SetCryptoKey() {
-	storage := gsession.NewStorageFile("", time.Second)
+	storage := session类.NewStorageFile("", time.Second)
 	storage.SetCryptoKey([]byte("key"))
 
-	size, _ := storage.GetSize(gctx.New(), "id")
+	size, _ := storage.GetSize(上下文类.X创建(), "id")
 	fmt.Println(size)
 
 	// Output:
@@ -207,10 +207,10 @@ func ExampleStorageFile_SetCryptoKey() {
 }
 
 func ExampleStorageFile_SetCryptoEnabled() {
-	storage := gsession.NewStorageFile("", time.Second)
+	storage := session类.NewStorageFile("", time.Second)
 	storage.SetCryptoEnabled(true)
 
-	size, _ := storage.GetSize(gctx.New(), "id")
+	size, _ := storage.GetSize(上下文类.X创建(), "id")
 	fmt.Println(size)
 
 	// Output:
@@ -219,10 +219,10 @@ func ExampleStorageFile_SetCryptoEnabled() {
 
 func ExampleStorageFile_UpdateTTL() {
 	var (
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 	)
 
-	storage := gsession.NewStorageFile("", time.Second)
+	storage := session类.NewStorageFile("", time.Second)
 	fmt.Println(storage.UpdateTTL(ctx, "id", time.Second*15))
 
 	time.Sleep(time.Second * 11)
@@ -232,8 +232,8 @@ func ExampleStorageFile_UpdateTTL() {
 }
 
 func ExampleStorageRedis_Get() {
-	storage := gsession.NewStorageRedis(g.Redis())
-	val, _ := storage.Get(gctx.New(), "id", "key")
+	storage := session类.NewStorageRedis(g.Redis类())
+	val, _ := storage.Get(上下文类.X创建(), "id", "key")
 	fmt.Println(val)
 
 	// May Output:
@@ -241,8 +241,8 @@ func ExampleStorageRedis_Get() {
 }
 
 func ExampleStorageRedis_Data() {
-	storage := gsession.NewStorageRedis(g.Redis())
-	val, _ := storage.Data(gctx.New(), "id")
+	storage := session类.NewStorageRedis(g.Redis类())
+	val, _ := storage.Data(上下文类.X创建(), "id")
 	fmt.Println(val)
 
 	// May Output:
@@ -250,8 +250,8 @@ func ExampleStorageRedis_Data() {
 }
 
 func ExampleStorageRedis_GetSize() {
-	storage := gsession.NewStorageRedis(g.Redis())
-	val, _ := storage.GetSize(gctx.New(), "id")
+	storage := session类.NewStorageRedis(g.Redis类())
+	val, _ := storage.GetSize(上下文类.X创建(), "id")
 	fmt.Println(val)
 
 	// May Output:
@@ -259,8 +259,8 @@ func ExampleStorageRedis_GetSize() {
 }
 
 func ExampleStorageRedis_Remove() {
-	storage := gsession.NewStorageRedis(g.Redis())
-	err := storage.Remove(gctx.New(), "id", "key")
+	storage := session类.NewStorageRedis(g.Redis类())
+	err := storage.Remove(上下文类.X创建(), "id", "key")
 	fmt.Println(err != nil)
 
 	// May Output:
@@ -268,8 +268,8 @@ func ExampleStorageRedis_Remove() {
 }
 
 func ExampleStorageRedis_RemoveAll() {
-	storage := gsession.NewStorageRedis(g.Redis())
-	err := storage.RemoveAll(gctx.New(), "id")
+	storage := session类.NewStorageRedis(g.Redis类())
+	err := storage.RemoveAll(上下文类.X创建(), "id")
 	fmt.Println(err != nil)
 
 	// May Output:
@@ -277,8 +277,8 @@ func ExampleStorageRedis_RemoveAll() {
 }
 
 func ExampleStorageRedis_UpdateTTL() {
-	storage := gsession.NewStorageRedis(g.Redis())
-	err := storage.UpdateTTL(gctx.New(), "id", time.Second*15)
+	storage := session类.NewStorageRedis(g.Redis类())
+	err := storage.UpdateTTL(上下文类.X创建(), "id", time.Second*15)
 	fmt.Println(err)
 
 	time.Sleep(time.Second * 11)
@@ -288,9 +288,9 @@ func ExampleStorageRedis_UpdateTTL() {
 }
 
 func ExampleStorageRedisHashTable_Get() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
 
-	v, err := storage.Get(gctx.New(), "id", "key")
+	v, err := storage.Get(上下文类.X创建(), "id", "key")
 
 	fmt.Println(v)
 	fmt.Println(err)
@@ -301,9 +301,9 @@ func ExampleStorageRedisHashTable_Get() {
 }
 
 func ExampleStorageRedisHashTable_Data() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
 
-	data, err := storage.Data(gctx.New(), "id")
+	data, err := storage.Data(上下文类.X创建(), "id")
 
 	fmt.Println(data)
 	fmt.Println(err)
@@ -314,9 +314,9 @@ func ExampleStorageRedisHashTable_Data() {
 }
 
 func ExampleStorageRedisHashTable_GetSize() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
 
-	size, err := storage.GetSize(gctx.New(), "id")
+	size, err := storage.GetSize(上下文类.X创建(), "id")
 
 	fmt.Println(size)
 	fmt.Println(err)
@@ -327,9 +327,9 @@ func ExampleStorageRedisHashTable_GetSize() {
 }
 
 func ExampleStorageRedisHashTable_Remove() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
 
-	err := storage.Remove(gctx.New(), "id", "key")
+	err := storage.Remove(上下文类.X创建(), "id", "key")
 
 	fmt.Println(err)
 
@@ -338,9 +338,9 @@ func ExampleStorageRedisHashTable_Remove() {
 }
 
 func ExampleStorageRedisHashTable_RemoveAll() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
 
-	err := storage.RemoveAll(gctx.New(), "id")
+	err := storage.RemoveAll(上下文类.X创建(), "id")
 
 	fmt.Println(err)
 
@@ -349,8 +349,8 @@ func ExampleStorageRedisHashTable_RemoveAll() {
 }
 
 func ExampleStorageRedisHashTable_GetSession() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
-	data, err := storage.GetSession(gctx.New(), "id", time.Second)
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
+	data, err := storage.GetSession(上下文类.X创建(), "id", time.Second)
 
 	fmt.Println(data)
 	fmt.Println(err)
@@ -361,11 +361,11 @@ func ExampleStorageRedisHashTable_GetSession() {
 }
 
 func ExampleStorageRedisHashTable_SetSession() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
 
-	strAnyMap := gmap.StrAnyMap{}
+	strAnyMap := map类.StrAnyMap{}
 
-	err := storage.SetSession(gctx.New(), "id", &strAnyMap, time.Second)
+	err := storage.SetSession(上下文类.X创建(), "id", &strAnyMap, time.Second)
 
 	fmt.Println(err)
 
@@ -374,9 +374,9 @@ func ExampleStorageRedisHashTable_SetSession() {
 }
 
 func ExampleStorageRedisHashTable_UpdateTTL() {
-	storage := gsession.NewStorageRedisHashTable(g.Redis())
+	storage := session类.NewStorageRedisHashTable(g.Redis类())
 
-	err := storage.UpdateTTL(gctx.New(), "id", time.Second)
+	err := storage.UpdateTTL(上下文类.X创建(), "id", time.Second)
 
 	fmt.Println(err)
 

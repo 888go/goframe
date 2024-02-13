@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gjson
+package json类
 
 import (
 	"testing"
@@ -12,7 +12,7 @@ import (
 )
 
 func Test_checkDataType(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := []byte(`
 bb           = """
                    dig := dig;                         END;"""
@@ -20,7 +20,7 @@ bb           = """
 		t.Assert(checkDataType(data), "toml")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := []byte(`
 # 模板引擎目录
 viewpath = "/home/www/templates/"
@@ -34,7 +34,7 @@ dd = 11
 		t.Assert(checkDataType(data), "toml")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := []byte(`
 "gf.gvalid.rule.required"             = "The :attribute field is required"
 "gf.gvalid.rule.required-if"          = "The :attribute field is required"
@@ -93,7 +93,7 @@ dd = 11
 		t.Assert(checkDataType(data), "toml")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := []byte(`
 [default]
 db.engine         = mysql
@@ -118,7 +118,7 @@ app_conf = ./config/app.ini
 		t.Assert(checkDataType(data), "ini")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := []byte(`
 # API Server
 [server]

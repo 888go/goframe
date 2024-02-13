@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包grpool实现了goroutine可复用池。
-package grpool
+package 协程类
 
 import (
 	"context"
@@ -25,9 +25,9 @@ type RecoverFunc func(ctx context.Context, exception error)
 // Pool 通过使用 goroutine 池来管理 goroutines。
 type Pool struct {
 	limit  int         // 最大goroutine数量限制。
-	count  *gtype.Int  // 当前运行的 goroutine 数量
-	list   *glist.List // 用于异步任务添加目的的列表。
-	closed *gtype.Bool // 是否已关闭池。
+	count  *安全变量类.Int  // 当前运行的 goroutine 数量
+	list   *链表类.List // 用于异步任务添加目的的列表。
+	closed *安全变量类.Bool // 是否已关闭池。
 }
 
 // localPoolItem 是存储在任务列表中的工作项。
@@ -52,11 +52,11 @@ func New(limit ...int) *Pool {
 	var (
 		pool = &Pool{
 			limit:  -1,
-			count:  gtype.NewInt(),
-			list:   glist.New(true),
-			closed: gtype.NewBool(),
+			count:  安全变量类.NewInt(),
+			list:   链表类.New(true),
+			closed: 安全变量类.NewBool(),
 		}
-		timerDuration = grand.D(
+		timerDuration = 随机类.X时长(
 			minSupervisorTimerDuration,
 			maxSupervisorTimerDuration,
 		)
@@ -64,7 +64,7 @@ func New(limit ...int) *Pool {
 	if len(limit) > 0 && limit[0] > 0 {
 		pool.limit = limit[0]
 	}
-	gtimer.Add(context.Background(), timerDuration, pool.supervisor)
+	定时类.X加入循环任务(context.Background(), timerDuration, pool.supervisor)
 	return pool
 }
 

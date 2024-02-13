@@ -6,7 +6,7 @@
 // 静态搜索优先级：Resource > ServerPaths > ServerRoot > SearchPath
 // （注释翻译：该注释描述了在Go语言代码中执行静态搜索时的资源查找顺序，优先级从高到低依次为Resource、ServerPaths、ServerRoot和SearchPath。）
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -25,54 +25,54 @@ type staticPathItem struct {
 }
 
 // SetIndexFiles 设置服务器的索引文件。
-func (s *Server) SetIndexFiles(indexFiles []string) {
-	s.config.IndexFiles = indexFiles
+func (s *Server) X设置静态文件索引(索引 []string) {
+	s.config.IndexFiles = 索引
 }
 
 // GetIndexFiles 从服务器获取并返回索引文件。
-func (s *Server) GetIndexFiles() []string {
+func (s *Server) X取静态文件索引() []string {
 	return s.config.IndexFiles
 }
 
 // SetIndexFolder 设置启用或禁用在请求目录时列出子文件。
-func (s *Server) SetIndexFolder(enabled bool) {
-	s.config.IndexFolder = enabled
+func (s *Server) X设置静态文件是否列出子文件(是否 bool) {
+	s.config.IndexFolder = 是否
 }
 
 // SetFileServerEnabled 用于启用/禁用静态文件服务。
 // 这是静态文件服务的主要开关。当调用如 SetServerRoot、AddSearchPath 和 AddStaticPath 等静态文件服务配置函数时，
 // 此配置会自动启用。
-func (s *Server) SetFileServerEnabled(enabled bool) {
-	s.config.FileServerEnabled = enabled
+func (s *Server) X设置静态文件是否开启(开启 bool) {
+	s.config.FileServerEnabled = 开启
 }
 
 // SetServerRoot 设置静态服务的文档根目录。
-func (s *Server) SetServerRoot(root string) {
+func (s *Server) X设置静态文件根目录(根目录 string) {
 	var (
 		ctx      = context.TODO()
-		realPath = root
+		realPath = 根目录
 	)
-	if !gres.Contains(realPath) {
-		if p, err := gfile.Search(root); err != nil {
-			s.Logger().Fatalf(ctx, `SetServerRoot failed: %+v`, err)
+	if !资源类.Contains(realPath) {
+		if p, err := 文件类.X查找(根目录); err != nil {
+			s.Logger别名().X输出并格式化FATA(ctx, `SetServerRoot failed: %+v`, err)
 		} else {
 			realPath = p
 		}
 	}
-	s.Logger().Debug(ctx, "SetServerRoot path:", realPath)
-	s.config.SearchPaths = []string{strings.TrimRight(realPath, gfile.Separator)}
+	s.Logger别名().X输出DEBU(ctx, "SetServerRoot path:", realPath)
+	s.config.SearchPaths = []string{strings.TrimRight(realPath, 文件类.Separator)}
 	s.config.FileServerEnabled = true
 }
 
 // AddSearchPath 添加静态文件服务的搜索目录路径。
-func (s *Server) AddSearchPath(path string) {
+func (s *Server) X静态文件添加额外搜索目录(目录 string) {
 	var (
 		ctx      = context.TODO()
-		realPath = path
+		realPath = 目录
 	)
-	if !gres.Contains(realPath) {
-		if p, err := gfile.Search(path); err != nil {
-			s.Logger().Fatalf(ctx, `AddSearchPath failed: %+v`, err)
+	if !资源类.Contains(realPath) {
+		if p, err := 文件类.X查找(目录); err != nil {
+			s.Logger别名().X输出并格式化FATA(ctx, `AddSearchPath failed: %+v`, err)
 		} else {
 			realPath = p
 		}
@@ -82,28 +82,28 @@ func (s *Server) AddSearchPath(path string) {
 }
 
 // AddStaticPath 设置静态文件服务的URI到静态目录路径映射。
-func (s *Server) AddStaticPath(prefix string, path string) {
+func (s *Server) X静态文件添加目录映射(旧路径 string, 新路径 string) {
 	var (
 		ctx      = context.TODO()
-		realPath = path
+		realPath = 新路径
 	)
-	if !gres.Contains(realPath) {
-		if p, err := gfile.Search(path); err != nil {
-			s.Logger().Fatalf(ctx, `AddStaticPath failed: %+v`, err)
+	if !资源类.Contains(realPath) {
+		if p, err := 文件类.X查找(新路径); err != nil {
+			s.Logger别名().X输出并格式化FATA(ctx, `AddStaticPath failed: %+v`, err)
 		} else {
 			realPath = p
 		}
 	}
 	addItem := staticPathItem{
-		Prefix: prefix,
+		Prefix: 旧路径,
 		Path:   realPath,
 	}
 	if len(s.config.StaticPaths) > 0 {
 		s.config.StaticPaths = append(s.config.StaticPaths, addItem)
 		// 按前缀长度从短到长对数组进行排序。
-		array := garray.NewSortedArray(func(v1, v2 interface{}) int {
-			s1 := gconv.String(v1)
-			s2 := gconv.String(v2)
+		array := 数组类.X创建排序(func(v1, v2 interface{}) int {
+			s1 := 转换类.String(v1)
+			s2 := 转换类.String(v2)
 			r := len(s2) - len(s1)
 			if r == 0 {
 				r = strings.Compare(s1, s2)
@@ -111,13 +111,13 @@ func (s *Server) AddStaticPath(prefix string, path string) {
 			return r
 		})
 		for _, v := range s.config.StaticPaths {
-			array.Add(v.Prefix)
+			array.X入栈右(v.Prefix)
 		}
 		// 根据先前已排序的切片，将项目添加到paths中。
 		paths := make([]staticPathItem, 0)
-		for _, v := range array.Slice() {
+		for _, v := range array.X取切片() {
 			for _, item := range s.config.StaticPaths {
-				if strings.EqualFold(gconv.String(v), item.Prefix) {
+				if strings.EqualFold(转换类.String(v), item.Prefix) {
 					paths = append(paths, item)
 					break
 				}

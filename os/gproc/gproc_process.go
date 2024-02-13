@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gproc
+package 进程类
 
 import (
 	"context"
@@ -87,9 +87,9 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	ctx, span = tr.Start(
 		otel.GetTextMapPropagator().Extract(
 			ctx,
-			propagation.MapCarrier(genv.Map()),
+			propagation.MapCarrier(环境变量类.X取Map()),
 		),
-		gstr.Join(os.Args, " "),
+		文本类.X连接(os.Args, " "),
 		trace.WithSpanKind(trace.SpanKindInternal),
 	)
 	defer span.End()
@@ -101,11 +101,11 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 		p.Env = append(p.Env, tracingEnv...)
 	}
 	p.Env = append(p.Env, fmt.Sprintf("%s=%d", envKeyPPid, p.PPid))
-	p.Env = genv.Filter(p.Env)
+	p.Env = 环境变量类.X数组去重(p.Env)
 
 	if err := p.Cmd.Start(); err == nil {
 		if p.Manager != nil {
-			p.Manager.processes.Set(p.Process.Pid, p)
+			p.Manager.processes.X设置值(p.Process.Pid, p)
 		}
 		return p.Process.Pid, nil
 	} else {
@@ -135,7 +135,7 @@ func (p *Process) Send(data []byte) error {
 	if p.Process != nil {
 		return Send(p.Process.Pid, data)
 	}
-	return gerror.NewCode(gcode.CodeInvalidParameter, "invalid process")
+	return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid process")
 }
 
 // Release 会释放与进程p关联的任何资源，
@@ -149,11 +149,11 @@ func (p *Process) Release() error {
 func (p *Process) Kill() (err error) {
 	err = p.Process.Kill()
 	if err != nil {
-		err = gerror.Wrapf(err, `kill process failed for pid "%d"`, p.Process.Pid)
+		err = 错误类.X多层错误并格式化(err, `kill process failed for pid "%d"`, p.Process.Pid)
 		return err
 	}
 	if p.Manager != nil {
-		p.Manager.processes.Remove(p.Pid())
+		p.Manager.processes.X删除(p.Pid())
 	}
 	if runtime.GOOS != "windows" {
 		if err = p.Process.Release(); err != nil {

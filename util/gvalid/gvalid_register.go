@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid
+package 效验类
 
 import (
 	"context"
@@ -33,11 +33,11 @@ type RuleFuncInput struct {
 	ValueType reflect.Type
 
 	// Value 指定此规则验证的值。
-	Value *gvar.Var
+	Value *泛型类.Var
 
 // Data 指定传递给 Validator 的 `data`，它可以是 map 或 struct 类型，也可以是 nil 值。
 // 如果在自定义验证规则中并不真正需要这个参数，你可以忽略 `Data`。
-	Data *gvar.Var
+	Data *泛型类.Var
 }
 
 var (

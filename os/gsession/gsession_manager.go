@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gsession
+package session类
 
 import (
 	"context"

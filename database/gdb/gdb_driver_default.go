@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"database/sql"
@@ -15,14 +15,14 @@ type DriverDefault struct {
 }
 
 func init() {
-	if err := Register("default", &DriverDefault{}); err != nil {
+	if err := X注册驱动("default", &DriverDefault{}); err != nil {
 		panic(err)
 	}
 }
 
 // New 创建并返回一个用于 mysql 的数据库对象。
 // 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
-func (d *DriverDefault) New(core *Core, node *ConfigNode) (DB, error) {
+func (d *DriverDefault) New(core *Core, node *X配置项) (DB, error) {
 	return &DriverDefault{
 		Core: core,
 	}, nil
@@ -30,16 +30,16 @@ func (d *DriverDefault) New(core *Core, node *ConfigNode) (DB, error) {
 
 // Open 创建并返回一个用于 mysql 的底层 sql.DB 对象。
 // 注意，它默认会将 time.Time 类型参数转换为本地时区。
-func (d *DriverDefault) Open(config *ConfigNode) (db *sql.DB, err error) {
+func (d *DriverDefault) X底层Open(配置对象 *X配置项) (db *sql.DB, err error) {
 	return
 }
 
 // PingMaster 用于向主节点发送心跳以检查身份验证或保持连接存活。
-func (d *DriverDefault) PingMaster() error {
+func (d *DriverDefault) X向主节点发送心跳() error {
 	return nil
 }
 
 // PingSlave 向从节点发送ping请求，用于检查身份验证或保持连接活跃。
-func (d *DriverDefault) PingSlave() error {
+func (d *DriverDefault) X向从节点发送心跳() error {
 	return nil
 }

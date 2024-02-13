@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghash
+package 哈希类
 
 // RS 实现了适用于 32 位的经典 RS 哈希算法。
 func RS(str []byte) uint32 {

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid
+package 效验类
 
 import (
 	"context"
@@ -54,8 +54,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 		msgArray = strings.Split(messages, "|")
 
 	default:
-		for k, message := range gconv.Map(in.Messages) {
-			customMsgMap[k] = gconv.String(message)
+		for k, message := range 转换类.X取Map(in.Messages) {
+			customMsgMap[k] = 转换类.String(message)
 		}
 	}
 // 处理规则中的字符' | '，
@@ -106,8 +106,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 		var (
 			err         error
 			results     = ruleRegex.FindStringSubmatch(ruleItems[index]) // 分割单个规则。
-			ruleKey     = gstr.Trim(results[1])                          // rule key 类似于规则 "max: 6" 中的 "max"
-			rulePattern = gstr.Trim(results[2])                          // rule pattern 是规则中的模式部分，例如在规则 "max:6" 中的 "6"
+			ruleKey     = 文本类.X过滤首尾符并含空白(results[1])                          // rule key 类似于规则 "max: 6" 中的 "max"
+			rulePattern = 文本类.X过滤首尾符并含空白(results[2])                          // rule pattern 是规则中的模式部分，例如在规则 "max:6" 中的 "6"
 		)
 
 		if !hasBailRule && ruleKey == ruleNameBail {
@@ -138,7 +138,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 		)
 		if hasForeachRule {
 			// 因为此处标记了 `foreach`，所以它会将值转换为切片。
-			foreachValues = gconv.Interfaces(in.Value)
+			foreachValues = 转换类.X取any数组(in.Value)
 			// 重置`foreach`规则，因为它只为下一条规则生效一次。
 			hasForeachRule = false
 		}
@@ -152,8 +152,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 					Message:   message,
 					Field:     in.Name,
 					ValueType: in.ValueType,
-					Value:     gvar.New(value),
-					Data:      gvar.New(in.DataRaw),
+					Value:     泛型类.X创建(value),
+					Data:      泛型类.X创建(in.DataRaw),
 				})
 
 			// 内置验证规则。
@@ -163,8 +163,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 					RulePattern: rulePattern,
 					Field:       in.Name,
 					ValueType:   in.ValueType,
-					Value:       gvar.New(value),
-					Data:        gvar.New(in.DataRaw),
+					Value:       泛型类.X创建(value),
+					Data:        泛型类.X创建(in.DataRaw),
 					Message:     message,
 					Option: builtin.RunOption{
 						CaseInsensitive: hasCaseInsensitive,
@@ -178,24 +178,24 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			// Error handling.
 			if err != nil {
 				// 错误变量替换用于错误消息。
-				if errMsg := err.Error(); gstr.Contains(errMsg, "{") {
-					errMsg = gstr.ReplaceByMap(errMsg, map[string]string{
+				if errMsg := err.Error(); 文本类.X是否包含(errMsg, "{") {
+					errMsg = 文本类.Map替换(errMsg, map[string]string{
 						"{field}":     in.Name,             // `value`的字段名称。
-						"{value}":     gconv.String(value), // 当前验证中的值。
+						"{value}":     转换类.String(value), // 当前验证中的值。
 						"{pattern}":   rulePattern,         // 规则的可变部分。
 						"{attribute}": in.Name,             // 与 `{field}` 相同。已被弃用。
 					})
-					errMsg, _ = gregex.ReplaceString(`\s{2,}`, ` `, errMsg)
+					errMsg, _ = 正则类.X替换文本(`\s{2,}`, ` `, errMsg)
 					err = errors.New(errMsg)
 				}
 				// 该错误应包含堆栈信息以指示错误位置。
-				if !gerror.HasStack(err) {
-					err = gerror.NewCode(gcode.CodeValidationFailed, err.Error())
+				if !错误类.X判断是否带堆栈(err) {
+					err = 错误类.X创建错误码(错误码类.CodeValidationFailed, err.Error())
 				}
 				// 错误应具有错误代码 `gcode.CodeValidationFailed`。
-				if gerror.Code(err) == gcode.CodeNil {
-					if e, ok := err.(*gerror.Error); ok {
-						e.SetCode(gcode.CodeValidationFailed)
+				if 错误类.X取错误码(err) == 错误码类.CodeNil {
+					if e, ok := err.(*错误类.Error); ok {
+						e.SetCode(错误码类.CodeValidationFailed)
 					}
 				}
 				ruleErrorMap[ruleKey] = err
@@ -213,7 +213,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 CheckDone:
 	if len(ruleErrorMap) > 0 {
 		return newValidationError(
-			gcode.CodeValidationFailed,
+			错误码类.CodeValidationFailed,
 			[]fieldRule{{Name: in.Name, Rule: in.Rule}},
 			map[string]map[string]error{
 				in.Name: ruleErrorMap,
@@ -268,7 +268,7 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 
 	case reflect.Map:
 		var (
-			dataMap     = gconv.Map(in.Value)
+			dataMap     = 转换类.X取Map(in.Value)
 			mapTypeElem = in.Type.Elem()
 			mapTypeKind = mapTypeElem.Kind()
 		)
@@ -288,10 +288,10 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 
 	case reflect.Slice, reflect.Array:
 		var array []interface{}
-		if gjson.Valid(in.Value) {
-			array = gconv.Interfaces(gconv.Bytes(in.Value))
+		if json类.X是否为有效json(in.Value) {
+			array = 转换类.X取any数组(转换类.X取字节集(in.Value))
 		} else {
-			array = gconv.Interfaces(in.Value)
+			array = 转换类.X取any数组(in.Value)
 		}
 		if len(array) == 0 {
 			return

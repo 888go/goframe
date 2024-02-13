@@ -5,35 +5,35 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gvar
+package 泛型类
 
 import (
 	"testing"
 )
 
-var varPtr = New(nil)
+var varPtr = X创建(nil)
 
 func Benchmark_Ptr_Set(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Set(i)
+		varPtr.X设置值(i)
 	}
 }
 
 func Benchmark_Ptr_Val(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Val()
+		varPtr.X取值()
 	}
 }
 
 func Benchmark_Ptr_IsNil(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.IsNil()
+		varPtr.X是否为Nil()
 	}
 }
 
 func Benchmark_Ptr_Bytes(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Bytes()
+		varPtr.X取字节集()
 	}
 }
 
@@ -45,102 +45,102 @@ func Benchmark_Ptr_String(b *testing.B) {
 
 func Benchmark_Ptr_Bool(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Bool()
+		varPtr.X取布尔()
 	}
 }
 
 func Benchmark_Ptr_Int(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Int()
+		varPtr.X取整数()
 	}
 }
 
 func Benchmark_Ptr_Int8(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Int8()
+		varPtr.X取整数8位()
 	}
 }
 
 func Benchmark_Ptr_Int16(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Int16()
+		varPtr.X取整数16位()
 	}
 }
 
 func Benchmark_Ptr_Int32(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Int32()
+		varPtr.X取整数32位()
 	}
 }
 
 func Benchmark_Ptr_Int64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Int64()
+		varPtr.X取整数64位()
 	}
 }
 
 func Benchmark_Ptr_Uint(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Uint()
+		varPtr.X取正整数()
 	}
 }
 
 func Benchmark_Ptr_Uint8(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Uint8()
+		varPtr.X取正整数8位()
 	}
 }
 
 func Benchmark_Ptr_Uint16(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Uint16()
+		varPtr.X取正整数16位()
 	}
 }
 
 func Benchmark_Ptr_Uint32(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Uint32()
+		varPtr.X取正整数32位()
 	}
 }
 
 func Benchmark_Ptr_Uint64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Uint64()
+		varPtr.X取正整数64位()
 	}
 }
 
 func Benchmark_Ptr_Float32(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Float32()
+		varPtr.X取小数32位()
 	}
 }
 
 func Benchmark_Ptr_Float64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Float64()
+		varPtr.X取小数64位()
 	}
 }
 
 func Benchmark_Ptr_Ints(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Ints()
+		varPtr.X取整数数组()
 	}
 }
 
 func Benchmark_Ptr_Strings(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Strings()
+		varPtr.X取文本数组()
 	}
 }
 
 func Benchmark_Ptr_Floats(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Floats()
+		varPtr.X取小数数组()
 	}
 }
 
 func Benchmark_Ptr_Interfaces(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.Interfaces()
+		varPtr.X取any数组()
 	}
 }

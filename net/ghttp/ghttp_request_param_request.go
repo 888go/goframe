@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"github.com/888go/goframe/container/gvar"
@@ -19,30 +19,30 @@ import (
 // GetRequest 是用于检索参数的最常用函数之一。
 //
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
-	value := r.GetParam(key)
-	if value.IsNil() {
-		value = r.GetForm(key)
+func (r *Request) X取参数(名称 string, 默认 ...interface{}) *泛型类.Var {
+	value := r.X取自定义参数到泛型类(名称)
+	if value.X是否为Nil() {
+		value = r.X取表单值到泛型类(名称)
 	}
-	if value.IsNil() {
+	if value.X是否为Nil() {
 		r.parseBody()
 		if len(r.bodyMap) > 0 {
-			if v := r.bodyMap[key]; v != nil {
-				value = gvar.New(v)
+			if v := r.bodyMap[名称]; v != nil {
+				value = 泛型类.X创建(v)
 			}
 		}
 	}
-	if value.IsNil() {
-		value = r.GetQuery(key)
+	if value.X是否为Nil() {
+		value = r.X取查询参数到泛型类(名称)
 	}
-	if value.IsNil() {
-		value = r.GetRouter(key)
+	if value.X是否为Nil() {
+		value = r.X取路由器值到泛型类(名称)
 	}
-	if !value.IsNil() {
+	if !value.X是否为Nil() {
 		return value
 	}
-	if len(def) > 0 {
-		return gvar.New(def[0])
+	if len(默认) > 0 {
+		return 泛型类.X创建(默认[0])
 	}
 	return nil
 }
@@ -52,7 +52,7 @@ func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
 // GetRequestMap 是用于检索参数的最常用函数之一。
 //
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]interface{} {
+func (r *Request) X取参数到Map(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	r.parseForm()
 	r.parseBody()
@@ -106,7 +106,7 @@ func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]inte
 	// File uploading.
 	if r.MultipartForm != nil {
 		for name := range r.MultipartForm.File {
-			if uploadFiles := r.GetUploadFiles(name); len(uploadFiles) == 1 {
+			if uploadFiles := r.X取上传文件数组对象(name); len(uploadFiles) == 1 {
 				m[name] = uploadFiles[0]
 			} else {
 				m[name] = uploadFiles
@@ -127,12 +127,12 @@ func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]inte
 // GetRequestMapStrStr 从客户端获取并返回所有传递的参数以及自定义参数，无论客户端使用何种HTTP方法。
 // 参数`kvMap`指定了从客户端参数中检索的键，如果客户端未传递，则关联的值是默认值。返回类型为map[string]string。
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[string]string {
-	requestMap := r.GetRequestMap(kvMap...)
+func (r *Request) X取参数到MapStrStr(kvMap ...map[string]interface{}) map[string]string {
+	requestMap := r.X取参数到Map(kvMap...)
 	if len(requestMap) > 0 {
 		m := make(map[string]string, len(requestMap))
 		for k, v := range requestMap {
-			m[k] = gconv.String(v)
+			m[k] = 转换类.String(v)
 		}
 		return m
 	}
@@ -143,12 +143,12 @@ func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[strin
 // 并以map[string]*gvar.Var的形式返回。参数`kvMap`指定了从客户端参数中获取的键，
 // 相关联的值是当客户端未传递时的默认值。
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
-	requestMap := r.GetRequestMap(kvMap...)
+func (r *Request) X取参数到Map泛型类(kvMap ...map[string]interface{}) map[string]*泛型类.Var {
+	requestMap := r.X取参数到Map(kvMap...)
 	if len(requestMap) > 0 {
-		m := make(map[string]*gvar.Var, len(requestMap))
+		m := make(map[string]*泛型类.Var, len(requestMap))
 		for k, v := range requestMap {
-			m[k] = gvar.New(v)
+			m[k] = 泛型类.X创建(v)
 		}
 		return m
 	}
@@ -159,13 +159,13 @@ func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[strin
 // 并将它们转换为给定的结构体对象。注意，参数`pointer`是指向结构体对象的指针。
 // 可选参数`mapping`用于指定键到属性的映射关系。
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) GetRequestStruct(pointer interface{}, mapping ...map[string]string) error {
-	_, err := r.doGetRequestStruct(pointer, mapping...)
+func (r *Request) X取参数到结构体(结构体指针 interface{}, 名称映射 ...map[string]string) error {
+	_, err := r.doGetRequestStruct(结构体指针, 名称映射...)
 	return err
 }
 
 func (r *Request) doGetRequestStruct(pointer interface{}, mapping ...map[string]string) (data map[string]interface{}, err error) {
-	data = r.GetRequestMap()
+	data = r.X取参数到Map()
 	if data == nil {
 		data = map[string]interface{}{}
 	}
@@ -177,7 +177,7 @@ func (r *Request) doGetRequestStruct(pointer interface{}, mapping ...map[string]
 	if err = r.mergeInTagStructValue(data, pointer); err != nil {
 		return data, nil
 	}
-	return data, gconv.Struct(data, pointer, mapping...)
+	return data, 转换类.Struct(data, pointer, mapping...)
 }
 
 // mergeDefaultStructValue 将请求参数与来自结构体标签定义的默认值进行合并。
@@ -190,7 +190,7 @@ func (r *Request) mergeDefaultStructValue(data map[string]interface{}, pointer i
 		)
 		for _, field := range fields {
 			if tagValue := field.TagDefault(); tagValue != "" {
-				foundKey, foundValue = gutil.MapPossibleItemByKey(data, field.Name())
+				foundKey, foundValue = 工具类.MapPossibleItemByKey(data, field.Name())
 				if foundKey == "" {
 					data[field.Name()] = tagValue
 				} else {
@@ -214,7 +214,7 @@ func (r *Request) mergeDefaultStructValue(data map[string]interface{}, pointer i
 			foundValue interface{}
 		)
 		for _, field := range tagFields {
-			foundKey, foundValue = gutil.MapPossibleItemByKey(data, field.Name())
+			foundKey, foundValue = 工具类.MapPossibleItemByKey(data, field.Name())
 			if foundKey == "" {
 				data[field.Name()] = field.TagValue
 			} else {
@@ -253,9 +253,9 @@ func (r *Request) mergeInTagStructValue(data map[string]interface{}, pointer int
 			if tagValue := field.TagIn(); tagValue != "" {
 				switch tagValue {
 				case goai.ParameterInHeader:
-					foundHeaderKey, foundHeaderValue := gutil.MapPossibleItemByKey(headerMap, field.Name())
+					foundHeaderKey, foundHeaderValue := 工具类.MapPossibleItemByKey(headerMap, field.Name())
 					if foundHeaderKey != "" {
-						foundKey, foundValue = gutil.MapPossibleItemByKey(data, foundHeaderKey)
+						foundKey, foundValue = 工具类.MapPossibleItemByKey(data, foundHeaderKey)
 						if foundKey == "" {
 							data[field.Name()] = foundHeaderValue
 						} else {
@@ -265,9 +265,9 @@ func (r *Request) mergeInTagStructValue(data map[string]interface{}, pointer int
 						}
 					}
 				case goai.ParameterInCookie:
-					foundCookieKey, foundCookieValue := gutil.MapPossibleItemByKey(cookieMap, field.Name())
+					foundCookieKey, foundCookieValue := 工具类.MapPossibleItemByKey(cookieMap, field.Name())
 					if foundCookieKey != "" {
-						foundKey, foundValue = gutil.MapPossibleItemByKey(data, foundCookieKey)
+						foundKey, foundValue = 工具类.MapPossibleItemByKey(data, foundCookieKey)
 						if foundKey == "" {
 							data[field.Name()] = foundCookieValue
 						} else {

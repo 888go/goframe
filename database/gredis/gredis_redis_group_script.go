@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gredis
+package redis类
 
 import (
 	"context"
@@ -14,8 +14,8 @@ import (
 // IGroupScript 管理 Redis 脚本操作。
 // 实现细节参考 redis.GroupScript。
 type IGroupScript interface {
-	Eval(ctx context.Context, script string, numKeys int64, keys []string, args []interface{}) (*gvar.Var, error)
-	EvalSha(ctx context.Context, sha1 string, numKeys int64, keys []string, args []interface{}) (*gvar.Var, error)
+	Eval(ctx context.Context, script string, numKeys int64, keys []string, args []interface{}) (*泛型类.Var, error)
+	EvalSha(ctx context.Context, sha1 string, numKeys int64, keys []string, args []interface{}) (*泛型类.Var, error)
 	ScriptLoad(ctx context.Context, script string) (string, error)
 	ScriptExists(ctx context.Context, sha1 string, sha1s ...string) (map[string]bool, error)
 	ScriptFlush(ctx context.Context, option ...ScriptFlushOption) error

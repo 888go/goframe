@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile
+package 文件类
 
 import (
 	"path/filepath"
@@ -23,12 +23,12 @@ const (
 //
 // 参数`pattern`支持多种文件名模式，
 // 可以使用逗号 ',' 作为分隔符来指定多个模式。
-func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
+func X枚举并含子目录名(目录 string, 匹配文件模式 string, 是否递归替换 ...bool) ([]string, error) {
 	isRecursive := false
-	if len(recursive) > 0 {
-		isRecursive = recursive[0]
+	if len(是否递归替换) > 0 {
+		isRecursive = 是否递归替换[0]
 	}
-	list, err := doScanDir(0, path, pattern, isRecursive, nil)
+	list, err := doScanDir(0, 目录, 匹配文件模式, isRecursive, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -46,8 +46,8 @@ func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 // 参数 `recursive` 指定是否递归扫描 `path`，这意味着如果子文件也是一个文件夹，它会扫描其下的子文件并将文件路径追加到结果数组中，默认情况下为 false。
 //
 // 参数 `handler` 指定了处理 `path` 及其子文件夹下每个子文件路径的回调函数。如果 `handler` 返回空字符串，则忽略该子文件路径，否则将其子文件路径追加到结果切片中。
-func ScanDirFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
-	list, err := doScanDir(0, path, pattern, recursive, handler)
+func X枚举并含子目录名_函数(目录 string, 匹配文件模式 string, 是否递归替换 bool, 回调函数 func(路径 string) string) ([]string, error) {
+	list, err := doScanDir(0, 目录, 匹配文件模式, 是否递归替换, 回调函数)
 	if err != nil {
 		return nil, err
 	}
@@ -64,13 +64,13 @@ func ScanDirFunc(path string, pattern string, recursive bool, handler func(path 
 // 使用 `,` 符号来分隔多个模式。
 //
 // 注意，它只返回文件，不包括目录。
-func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, error) {
+func X枚举(目录 string, 匹配文件模式 string, 是否递归查找 ...bool) ([]string, error) {
 	isRecursive := false
-	if len(recursive) > 0 {
-		isRecursive = recursive[0]
+	if len(是否递归查找) > 0 {
+		isRecursive = 是否递归查找[0]
 	}
-	list, err := doScanDir(0, path, pattern, isRecursive, func(path string) string {
-		if IsDir(path) {
+	list, err := doScanDir(0, 目录, 匹配文件模式, isRecursive, func(path string) string {
+		if X是否存在目录(path) {
 			return ""
 		}
 		return path
@@ -95,12 +95,12 @@ func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, erro
 //
 // 注意，传给 `handler` 的参数 `path` 不是一个目录而是一个文件。
 // 此函数仅返回文件（不包括目录）。
-func ScanDirFileFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
-	list, err := doScanDir(0, path, pattern, recursive, func(path string) string {
-		if IsDir(path) {
+func X枚举_函数(目录 string, 匹配文件模式 string, 是否递归查找 bool, 匿名函数 func(路径 string) string) ([]string, error) {
+	list, err := doScanDir(0, 目录, 匹配文件模式, 是否递归查找, func(path string) string {
+		if X是否存在目录(path) {
 			return ""
 		}
-		return handler(path)
+		return 匿名函数(path)
 	})
 	if err != nil {
 		return nil, err
@@ -117,11 +117,11 @@ func ScanDirFileFunc(path string, pattern string, recursive bool, handler func(p
 // 参数 `handler` 指定了处理 `path` 及其子文件夹下每个子文件路径的回调函数。如果 `handler` 返回空字符串，则忽略该子文件路径，否则将其追加到结果切片中。
 func doScanDir(depth int, path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	if depth >= maxScanDepth {
-		return nil, gerror.Newf("directory scanning exceeds max recursive depth: %d", maxScanDepth)
+		return nil, 错误类.X创建并格式化("directory scanning exceeds max recursive depth: %d", maxScanDepth)
 	}
 	var (
 		list      []string
-		file, err = Open(path)
+		file, err = X打开并按只读模式(path)
 	)
 	if err != nil {
 		return nil, err
@@ -129,16 +129,16 @@ func doScanDir(depth int, path string, pattern string, recursive bool, handler f
 	defer file.Close()
 	names, err := file.Readdirnames(-1)
 	if err != nil {
-		err = gerror.Wrapf(err, `read directory files failed from path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `read directory files failed from path "%s"`, path)
 		return nil, err
 	}
 	var (
 		filePath string
-		patterns = gstr.SplitAndTrim(pattern, ",")
+		patterns = 文本类.X分割并忽略空值(pattern, ",")
 	)
 	for _, name := range names {
 		filePath = path + Separator + name
-		if IsDir(filePath) && recursive {
+		if X是否存在目录(filePath) && recursive {
 			array, _ := doScanDir(depth+1, filePath, pattern, true, handler)
 			if len(array) > 0 {
 				list = append(list, array...)
@@ -154,7 +154,7 @@ func doScanDir(depth int, path string, pattern string, recursive bool, handler f
 		// 如果满足模式，则将其添加到结果列表中。
 		for _, p := range patterns {
 			if match, _ := filepath.Match(p, name); match {
-				if filePath = Abs(filePath); filePath != "" {
+				if filePath = X取绝对路径(filePath); filePath != "" {
 					list = append(list, filePath)
 				}
 			}

@@ -15,7 +15,7 @@ import (
 )
 
 func Test_Basic(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Id   int
 			Name string `params:"name"`
@@ -35,7 +35,7 @@ func Test_Basic(t *testing.T) {
 		t.Assert(m, g.Map{"name": "Name", "pass2": "Pass"})
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Base struct {
 			Pass1 string `params:"password1"`
 			Pass2 string `params:"password2"`
@@ -54,7 +54,7 @@ func Test_Basic(t *testing.T) {
 		})
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Base struct {
 			Pass1 string `params:"password1"`
 			Pass2 string `params:"password2"`
@@ -79,7 +79,7 @@ func Test_Basic(t *testing.T) {
 }
 
 func Test_StructOfNilPointer(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Id   int
 			Name string `params:"name"`
@@ -101,7 +101,7 @@ func Test_StructOfNilPointer(t *testing.T) {
 }
 
 func Test_Fields(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Id   int
 			Name string `params:"name"`
@@ -124,7 +124,7 @@ func Test_Fields(t *testing.T) {
 }
 
 func Test_Fields_WithEmbedded1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 			Age  int
@@ -169,7 +169,7 @@ func Test_Fields_WithEmbedded2(t *testing.T) {
 		Allocatable []MetaNodeZone `dc:"Allocatable []MetaNodeZone"`
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		r, err := gstructs.Fields(gstructs.FieldsInput{
 			Pointer:         new(MetaNodeItem),
 			RecursiveOption: gstructs.RecursiveOptionEmbeddedNoTag,
@@ -187,7 +187,7 @@ func Test_Fields_WithEmbedded2(t *testing.T) {
 
 // 当存在嵌套结构体时，过滤重复的字段。
 func Test_Fields_WithEmbedded_Filter(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 			Age  int
@@ -213,7 +213,7 @@ func Test_Fields_WithEmbedded_Filter(t *testing.T) {
 }
 
 func Test_FieldMap(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Id   int
 			Name string `params:"name"`
@@ -237,7 +237,7 @@ func Test_FieldMap(t *testing.T) {
 		_, ok = m["pass"]
 		t.Assert(ok, true)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Id   int
 			Name string `params:"name"`
@@ -264,7 +264,7 @@ func Test_FieldMap(t *testing.T) {
 }
 
 func Test_StructType(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 		}
@@ -275,7 +275,7 @@ func Test_StructType(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.A`)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 		}
@@ -286,7 +286,7 @@ func Test_StructType(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.B`)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 		}
@@ -298,7 +298,7 @@ func Test_StructType(t *testing.T) {
 		t.Assert(r.String(), `gstructs_test.B`)
 	})
 	// Error.
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 		}
@@ -312,7 +312,7 @@ func Test_StructType(t *testing.T) {
 }
 
 func Test_StructTypeBySlice(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 		}
@@ -323,7 +323,7 @@ func Test_StructTypeBySlice(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.B`)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 		}
@@ -334,7 +334,7 @@ func Test_StructTypeBySlice(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(r.Signature(), `github.com/888go/goframe/os/gstructs_test/gstructs_test.B`)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Name string
 		}
@@ -348,7 +348,7 @@ func Test_StructTypeBySlice(t *testing.T) {
 }
 
 func TestType_FieldKeys(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
 			Id   int
 			Name string
@@ -358,12 +358,12 @@ func TestType_FieldKeys(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A).Array)
 		t.AssertNil(err)
-		t.Assert(r.FieldKeys(), g.Slice{"Id", "Name"})
+		t.Assert(r.FieldKeys(), g.Slice别名{"Id", "Name"})
 	})
 }
 
 func TestType_TagMap(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Id   int    `d:"123" description:"I love gf"`
 			Name string `v:"required" description:"应用Id"`
@@ -383,7 +383,7 @@ func TestType_TagMap(t *testing.T) {
 }
 
 func TestType_TagJsonName(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name string `json:"name,omitempty"`
 		}
@@ -399,7 +399,7 @@ func TestType_TagJsonName(t *testing.T) {
 }
 
 func TestType_TagDefault(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name  string `default:"john"`
 			Name2 string `d:"john"`
@@ -417,7 +417,7 @@ func TestType_TagDefault(t *testing.T) {
 }
 
 func TestType_TagParam(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name  string `param:"name"`
 			Name2 string `p:"name"`
@@ -435,7 +435,7 @@ func TestType_TagParam(t *testing.T) {
 }
 
 func TestType_TagValid(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name  string `valid:"required"`
 			Name2 string `v:"required"`
@@ -453,7 +453,7 @@ func TestType_TagValid(t *testing.T) {
 }
 
 func TestType_TagDescription(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name  string `description:"my name"`
 			Name2 string `des:"my name"`
@@ -473,7 +473,7 @@ func TestType_TagDescription(t *testing.T) {
 }
 
 func TestType_TagSummary(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name  string `summary:"my name"`
 			Name2 string `sum:"my name"`
@@ -493,7 +493,7 @@ func TestType_TagSummary(t *testing.T) {
 }
 
 func TestType_TagAdditional(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name  string `additional:"my name"`
 			Name2 string `ad:"my name"`
@@ -511,7 +511,7 @@ func TestType_TagAdditional(t *testing.T) {
 }
 
 func TestType_TagExample(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			Name  string `example:"john"`
 			Name2 string `eg:"john"`

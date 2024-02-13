@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -21,25 +21,25 @@ import (
 )
 
 // GetDB 返回底层的 DB（数据库）
-func (c *Core) GetDB() DB {
+func (c *Core) X取DB对象() DB {
 	return c.db
 }
 
 // GetLink 创建并返回底层的数据库连接对象，同时进行事务检查。
 // 参数 `master` 指定在主从配置的情况下是否使用主节点。
-func (c *Core) GetLink(ctx context.Context, master bool, schema string) (Link, error) {
-	tx := TXFromCtx(ctx, c.db.GetGroup())
+func (c *Core) X取数据库链接对象(上下文 context.Context, 主节点 bool, schema string) (X底层链接, error) {
+	tx := X事务从上下文取对象(上下文, c.db.X取配置组名称())
 	if tx != nil {
-		return &txLink{tx.GetSqlTX()}, nil
+		return &txLink{tx.X底层取事务对象()}, nil
 	}
-	if master {
-		link, err := c.db.GetCore().MasterLink(schema)
+	if 主节点 {
+		link, err := c.db.X取Core对象().X底层MasterLink(schema)
 		if err != nil {
 			return nil, err
 		}
 		return link, nil
 	}
-	link, err := c.db.GetCore().SlaveLink(schema)
+	link, err := c.db.X取Core对象().X底层SlaveLink(schema)
 	if err != nil {
 		return nil, err
 	}
@@ -48,8 +48,8 @@ func (c *Core) GetLink(ctx context.Context, master bool, schema string) (Link, e
 
 // MasterLink 表现得像函数 Master，但额外添加了一个 `schema` 参数用于指定连接的模式。它被定义为内部使用。
 // 有关更多信息，请参阅 Master。
-func (c *Core) MasterLink(schema ...string) (Link, error) {
-	db, err := c.db.Master(schema...)
+func (c *Core) X底层MasterLink(schema ...string) (X底层链接, error) {
+	db, err := c.db.X取主节点对象(schema...)
 	if err != nil {
 		return nil, err
 	}
@@ -61,8 +61,8 @@ func (c *Core) MasterLink(schema ...string) (Link, error) {
 
 // SlaveLink 表现得像函数 Slave，但额外添加了一个 `schema` 参数用于指定连接的模式。它被定义为内部使用。
 // 有关更多信息，请参阅 Slave。
-func (c *Core) SlaveLink(schema ...string) (Link, error) {
-	db, err := c.db.Slave(schema...)
+func (c *Core) X底层SlaveLink(schema ...string) (X底层链接, error) {
+	db, err := c.db.X取从节点对象(schema...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,12 +78,12 @@ func (c *Core) SlaveLink(schema ...string) (Link, error) {
 // 否则，它将直接返回未经修改的 `s`。
 //
 // 这里的“单词”可以理解为列名。
-func (c *Core) QuoteWord(s string) string {
-	s = gstr.Trim(s)
+func (c *Core) X底层QuoteWord(s string) string {
+	s = 文本类.X过滤首尾符并含空白(s)
 	if s == "" {
 		return s
 	}
-	charLeft, charRight := c.db.GetChars()
+	charLeft, charRight := c.db.X底层取数据库安全字符()
 	return doQuoteWord(s, charLeft, charRight)
 }
 
@@ -91,8 +91,8 @@ func (c *Core) QuoteWord(s string) string {
 // "user", "user u", "user,user_detail", "user u, user_detail ut", "u.id asc".
 //
 // 可以将 `string` 的含义视为包含列部分的语句字符串中的一部分。
-func (c *Core) QuoteString(s string) string {
-	charLeft, charRight := c.db.GetChars()
+func (c *Core) X底层QuoteString(s string) string {
+	charLeft, charRight := c.db.X底层取数据库安全字符()
 	return doQuoteString(s, charLeft, charRight)
 }
 
@@ -105,20 +105,20 @@ func (c *Core) QuoteString(s string) string {
 //
 // 注意，此函数会自动检查表名是否已添加了前缀，
 // 如果已经添加，则不对表名做任何处理；否则，将前缀添加到表名中。
-func (c *Core) QuotePrefixTableName(table string) string {
-	charLeft, charRight := c.db.GetChars()
-	return doQuoteTableName(table, c.db.GetPrefix(), charLeft, charRight)
+func (c *Core) X底层添加前缀字符和引用字符(表名称 string) string {
+	charLeft, charRight := c.db.X底层取数据库安全字符()
+	return doQuoteTableName(表名称, c.db.X取表前缀(), charLeft, charRight)
 }
 
 // GetChars 返回当前数据库的安全字符。
 // 默认情况下，此方法不做任何操作。
-func (c *Core) GetChars() (charLeft string, charRight string) {
+func (c *Core) X底层取数据库安全字符() (左字符 string, 右字符 string) {
 	return "", ""
 }
 
 // Tables 获取并返回当前模式的表。
 // 它主要用于cli工具链中，用于自动生成模型。
-func (c *Core) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
+func (c *Core) X取表名称数组(上下文 context.Context, schema ...string) (表名称数组 []string, 错误 error) {
 	return
 }
 
@@ -129,84 +129,84 @@ func (c *Core) Tables(ctx context.Context, schema ...string) (tables []string, e
 // 注意，它返回一个包含字段名及其对应字段信息的映射。由于映射是无序的，TableField 结构体有一个 "Index" 字段用于标记其在所有字段中的顺序。
 //
 // 为了提高性能，该函数使用了缓存特性，缓存有效期直到进程重启才会过期。
-func (c *Core) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*TableField, err error) {
+func (c *Core) X取表字段信息Map(上下文 context.Context, 表名称 string, schema ...string) (字段信息Map map[string]*X字段信息, 错误 error) {
 	return
 }
 
 // ClearTableFields 删除当前配置组中特定的缓存表字段。
-func (c *Core) ClearTableFields(ctx context.Context, table string, schema ...string) (err error) {
-	tableFieldsMap.Remove(fmt.Sprintf(
+func (c *Core) X删除表字段缓存(上下文 context.Context, 表名称 string, schema ...string) (错误 error) {
+	tableFieldsMap.X删除(fmt.Sprintf(
 		`%s%s@%s#%s`,
 		cachePrefixTableFields,
-		c.db.GetGroup(),
-		gutil.GetOrDefaultStr(c.db.GetSchema(), schema...),
-		table,
+		c.db.X取配置组名称(),
+		工具类.X取文本值或取默认值(c.db.X取默认数据库名称(), schema...),
+		表名称,
 	))
 	return
 }
 
 // ClearTableFieldsAll 清除当前配置组中所有已缓存的表字段。
-func (c *Core) ClearTableFieldsAll(ctx context.Context) (err error) {
+func (c *Core) X删除表字段所有缓存(上下文 context.Context) (错误 error) {
 	var (
-		keys        = tableFieldsMap.Keys()
-		cachePrefix = fmt.Sprintf(`%s@%s`, cachePrefixTableFields, c.db.GetGroup())
+		keys        = tableFieldsMap.X取所有名称()
+		cachePrefix = fmt.Sprintf(`%s@%s`, cachePrefixTableFields, c.db.X取配置组名称())
 		removedKeys = make([]string, 0)
 	)
 	for _, key := range keys {
-		if gstr.HasPrefix(key, cachePrefix) {
+		if 文本类.X开头判断(key, cachePrefix) {
 			removedKeys = append(removedKeys, key)
 		}
 	}
 	if len(removedKeys) > 0 {
-		tableFieldsMap.Removes(removedKeys)
+		tableFieldsMap.X删除多个值(removedKeys)
 	}
 	return
 }
 
 // ClearCache 清除特定表的缓存SQL结果。
-func (c *Core) ClearCache(ctx context.Context, table string) (err error) {
-	return c.db.GetCache().Clear(ctx)
+func (c *Core) X删除表查询缓存(上下文 context.Context, 表名称 string) (错误 error) {
+	return c.db.X取缓存对象().X清空(上下文)
 }
 
 // ClearCacheAll 从缓存中移除所有已缓存的SQL查询结果
-func (c *Core) ClearCacheAll(ctx context.Context) (err error) {
-	return c.db.GetCache().Clear(ctx)
+func (c *Core) X删除所有表查询缓存(上下文 context.Context) (错误 error) {
+	return c.db.X取缓存对象().X清空(上下文)
 }
 
 func (c *Core) makeSelectCacheKey(name, schema, table, sql string, args ...interface{}) string {
 	if name == "" {
 		name = fmt.Sprintf(
 			`%s@%s#%s:%s`,
-			c.db.GetGroup(),
+			c.db.X取配置组名称(),
 			schema,
 			table,
-			gmd5.MustEncryptString(sql+", @PARAMS:"+gconv.String(args)),
+			加密md5类.X加密文本PANI(sql+", @PARAMS:"+转换类.String(args)),
 		)
 	}
 	return fmt.Sprintf(`%s%s`, cachePrefixSelectCache, name)
 }
 
 // HasField 判断字段是否在表中存在。
-func (c *Core) HasField(ctx context.Context, table, field string, schema ...string) (bool, error) {
-	table = c.guessPrimaryTableName(table)
-	tableFields, err := c.db.TableFields(ctx, table, schema...)
+func (c *Core) X是否存在字段(上下文 context.Context, 表名称, 字段名称 string, schema ...string) (bool, error) {
+	表名称 = c.guessPrimaryTableName(表名称)
+	tableFields, err := c.db.X取表字段信息Map(上下文, 表名称, schema...)
 	if err != nil {
 		return false, err
 	}
 	if len(tableFields) == 0 {
-		return false, gerror.NewCodef(
-			gcode.CodeNotFound,
-			`empty table fields for table "%s"`, table,
+		return false, 错误类.X创建错误码并格式化(
+			错误码类.CodeNotFound,
+			`empty table fields for table "%s"`, 表名称,
 		)
 	}
 	fieldsArray := make([]string, len(tableFields))
 	for k, v := range tableFields {
-		fieldsArray[v.Index] = k
+		fieldsArray[v.X排序] = k
 	}
-	charLeft, charRight := c.db.GetChars()
-	field = gstr.Trim(field, charLeft+charRight)
+	charLeft, charRight := c.db.X底层取数据库安全字符()
+	字段名称 = 文本类.X过滤首尾符并含空白(字段名称, charLeft+charRight)
 	for _, f := range fieldsArray {
-		if f == field {
+		if f == 字段名称 {
 			return true, nil
 		}
 	}
@@ -220,20 +220,20 @@ func (c *Core) guessPrimaryTableName(tableStr string) string {
 	}
 	var (
 		guessedTableName string
-		array1           = gstr.SplitAndTrim(tableStr, ",")
-		array2           = gstr.SplitAndTrim(array1[0], " ")
-		array3           = gstr.SplitAndTrim(array2[0], ".")
+		array1           = 文本类.X分割并忽略空值(tableStr, ",")
+		array2           = 文本类.X分割并忽略空值(array1[0], " ")
+		array3           = 文本类.X分割并忽略空值(array2[0], ".")
 	)
 	if len(array3) >= 2 {
 		guessedTableName = array3[1]
 	} else {
 		guessedTableName = array3[0]
 	}
-	charL, charR := c.db.GetChars()
+	charL, charR := c.db.X底层取数据库安全字符()
 	if charL != "" || charR != "" {
-		guessedTableName = gstr.Trim(guessedTableName, charL+charR)
+		guessedTableName = 文本类.X过滤首尾符并含空白(guessedTableName, charL+charR)
 	}
-	if !gregex.IsMatchString(regularFieldNameRegPattern, guessedTableName) {
+	if !正则类.X是否匹配文本(regularFieldNameRegPattern, guessedTableName) {
 		return ""
 	}
 	return guessedTableName

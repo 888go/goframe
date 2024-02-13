@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"bytes"
@@ -23,161 +23,161 @@ import (
 // 执行对象
 type GroupObject struct{}
 
-func (o *GroupObject) Init(r *ghttp.Request) {
-	r.Response.Write("1")
+func (o *GroupObject) Init(r *http类.Request) {
+	r.Response.X写响应缓冲区("1")
 }
 
-func (o *GroupObject) Shut(r *ghttp.Request) {
-	r.Response.Write("2")
+func (o *GroupObject) Shut(r *http类.Request) {
+	r.Response.X写响应缓冲区("2")
 }
 
-func (o *GroupObject) Index(r *ghttp.Request) {
-	r.Response.Write("Object Index")
+func (o *GroupObject) Index(r *http类.Request) {
+	r.Response.X写响应缓冲区("Object Index")
 }
 
-func (o *GroupObject) Show(r *ghttp.Request) {
-	r.Response.Write("Object Show")
+func (o *GroupObject) Show(r *http类.Request) {
+	r.Response.X写响应缓冲区("Object Show")
 }
 
-func (o *GroupObject) Delete(r *ghttp.Request) {
-	r.Response.Write("Object Delete")
+func (o *GroupObject) Delete(r *http类.Request) {
+	r.Response.X写响应缓冲区("Object Delete")
 }
 
-func Handler(r *ghttp.Request) {
-	r.Response.Write("Handler")
+func Handler(r *http类.Request) {
+	r.Response.X写响应缓冲区("Handler")
 }
 
 func Test_Router_GroupBasic1(t *testing.T) {
-	s := g.Server(guid.S())
+	s := g.Http类(uid类.X生成())
 	obj := new(GroupObject)
 	// 分组路由方法注册
-	group := s.Group("/api")
-	group.ALL("/handler", Handler)
-	group.ALL("/obj", obj)
-	group.GET("/obj/my-show", obj, "Show")
-	group.REST("/obj/rest", obj)
+	group := s.X创建分组路由("/api")
+	group.X绑定所有类型("/handler", Handler)
+	group.X绑定所有类型("/obj", obj)
+	group.X绑定GET("/obj/my-show", obj, "Show")
+	group.X绑定RESTfulAPI对象("/obj/rest", obj)
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/api/handler"), "Handler")
+		t.Assert(client.Get文本(ctx, "/api/handler"), "Handler")
 
-		t.Assert(client.GetContent(ctx, "/api/obj"), "1Object Index2")
-		t.Assert(client.GetContent(ctx, "/api/obj/"), "1Object Index2")
-		t.Assert(client.GetContent(ctx, "/api/obj/index"), "1Object Index2")
-		t.Assert(client.GetContent(ctx, "/api/obj/delete"), "1Object Delete2")
-		t.Assert(client.GetContent(ctx, "/api/obj/my-show"), "1Object Show2")
-		t.Assert(client.GetContent(ctx, "/api/obj/show"), "1Object Show2")
-		t.Assert(client.DeleteContent(ctx, "/api/obj/rest"), "1Object Delete2")
+		t.Assert(client.Get文本(ctx, "/api/obj"), "1Object Index2")
+		t.Assert(client.Get文本(ctx, "/api/obj/"), "1Object Index2")
+		t.Assert(client.Get文本(ctx, "/api/obj/index"), "1Object Index2")
+		t.Assert(client.Get文本(ctx, "/api/obj/delete"), "1Object Delete2")
+		t.Assert(client.Get文本(ctx, "/api/obj/my-show"), "1Object Show2")
+		t.Assert(client.Get文本(ctx, "/api/obj/show"), "1Object Show2")
+		t.Assert(client.Delete文本(ctx, "/api/obj/rest"), "1Object Delete2")
 
-		t.Assert(client.DeleteContent(ctx, "/ThisDoesNotExist"), "Not Found")
-		t.Assert(client.DeleteContent(ctx, "/api/ThisDoesNotExist"), "Not Found")
+		t.Assert(client.Delete文本(ctx, "/ThisDoesNotExist"), "Not Found")
+		t.Assert(client.Delete文本(ctx, "/api/ThisDoesNotExist"), "Not Found")
 	})
 }
 
 func Test_Router_GroupBuildInVar(t *testing.T) {
-	s := g.Server(guid.S())
+	s := g.Http类(uid类.X生成())
 	obj := new(GroupObject)
 	// 分组路由方法注册
-	group := s.Group("/api")
-	group.ALL("/{.struct}/{.method}", obj)
+	group := s.X创建分组路由("/api")
+	group.X绑定所有类型("/{.struct}/{.method}", obj)
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/api/group-object/index"), "1Object Index2")
-		t.Assert(client.GetContent(ctx, "/api/group-object/delete"), "1Object Delete2")
-		t.Assert(client.GetContent(ctx, "/api/group-object/show"), "1Object Show2")
+		t.Assert(client.Get文本(ctx, "/api/group-object/index"), "1Object Index2")
+		t.Assert(client.Get文本(ctx, "/api/group-object/delete"), "1Object Delete2")
+		t.Assert(client.Get文本(ctx, "/api/group-object/show"), "1Object Show2")
 
-		t.Assert(client.DeleteContent(ctx, "/ThisDoesNotExist"), "Not Found")
-		t.Assert(client.DeleteContent(ctx, "/api/ThisDoesNotExist"), "Not Found")
+		t.Assert(client.Delete文本(ctx, "/ThisDoesNotExist"), "Not Found")
+		t.Assert(client.Delete文本(ctx, "/api/ThisDoesNotExist"), "Not Found")
 	})
 }
 
 func Test_Router_Group_Methods(t *testing.T) {
-	s := g.Server(guid.S())
+	s := g.Http类(uid类.X生成())
 	obj := new(GroupObject)
-	group := s.Group("/")
-	group.ALL("/obj", obj, "Show, Delete")
+	group := s.X创建分组路由("/")
+	group.X绑定所有类型("/obj", obj, "Show, Delete")
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.GetContent(ctx, "/obj/show"), "1Object Show2")
-		t.Assert(client.GetContent(ctx, "/obj/delete"), "1Object Delete2")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Get文本(ctx, "/obj/show"), "1Object Show2")
+		t.Assert(client.Get文本(ctx, "/obj/delete"), "1Object Delete2")
 	})
 }
 
 func Test_Router_Group_MultiServer(t *testing.T) {
-	s1 := g.Server(guid.S())
-	s2 := g.Server(guid.S())
-	s1.Group("/", func(group *ghttp.RouterGroup) {
-		group.POST("/post", func(r *ghttp.Request) {
-			r.Response.Write("post1")
+	s1 := g.Http类(uid类.X生成())
+	s2 := g.Http类(uid类.X生成())
+	s1.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定POST("/post", func(r *http类.Request) {
+			r.Response.X写响应缓冲区("post1")
 		})
 	})
-	s2.Group("/", func(group *ghttp.RouterGroup) {
-		group.POST("/post", func(r *ghttp.Request) {
-			r.Response.Write("post2")
+	s2.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定POST("/post", func(r *http类.Request) {
+			r.Response.X写响应缓冲区("post2")
 		})
 	})
 	s1.SetDumpRouterMap(false)
 	s2.SetDumpRouterMap(false)
-	gtest.Assert(s1.Start(), nil)
-	gtest.Assert(s2.Start(), nil)
-	defer s1.Shutdown()
-	defer s2.Shutdown()
+	单元测试类.Assert(s1.X开始监听(), nil)
+	单元测试类.Assert(s2.X开始监听(), nil)
+	defer s1.X关闭当前服务()
+	defer s2.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		c1 := g.Client()
-		c1.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s1.GetListenedPort()))
-		c2 := g.Client()
-		c2.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s2.GetListenedPort()))
-		t.Assert(c1.PostContent(ctx, "/post"), "post1")
-		t.Assert(c2.PostContent(ctx, "/post"), "post2")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c1 := g.X网页类()
+		c1.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s1.X取已监听端口()))
+		c2 := g.X网页类()
+		c2.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s2.X取已监听端口()))
+		t.Assert(c1.Post文本(ctx, "/post"), "post1")
+		t.Assert(c2.Post文本(ctx, "/post"), "post2")
 	})
 }
 
 func Test_Router_Group_Map(t *testing.T) {
-	testFuncGet := func(r *ghttp.Request) {
-		r.Response.Write("get")
+	testFuncGet := func(r *http类.Request) {
+		r.Response.X写响应缓冲区("get")
 	}
-	testFuncPost := func(r *ghttp.Request) {
-		r.Response.Write("post")
+	testFuncPost := func(r *http类.Request) {
+		r.Response.X写响应缓冲区("post")
 	}
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.Map(map[string]interface{}{
+	s := g.Http类(uid类.X生成())
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定Map(map[string]interface{}{
 			"Get: /test": testFuncGet,
 			"Post:/test": testFuncPost,
 		})
 	})
 	// s.SetDumpRouterMap(false) // 设置s（通常是一个HTTP服务器或路由器）不输出路由映射信息
-	gtest.Assert(s.Start(), nil)
-	defer s.Shutdown()
+	单元测试类.Assert(s.X开始监听(), nil)
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(c.GetContent(ctx, "/test"), "get")
-		t.Assert(c.PostContent(ctx, "/test"), "post")
+		t.Assert(c.Get文本(ctx, "/test"), "get")
+		t.Assert(c.Post文本(ctx, "/test"), "post")
 	})
 }
 
@@ -200,35 +200,35 @@ func (b *SafeBuffer) String() string {
 
 func Test_Router_OverWritten(t *testing.T) {
 	var (
-		s   = g.Server(guid.S())
+		s   = g.Http类(uid类.X生成())
 		obj = new(GroupObject)
 		buf = &SafeBuffer{
 			buffer: bytes.NewBuffer(nil),
 			mu:     sync.Mutex{},
 		}
-		logger = glog.NewWithWriter(buf)
+		logger = 日志类.X创建并按writer(buf)
 	)
-	logger.SetStdoutPrint(false)
-	s.SetLogger(logger)
-	s.SetRouteOverWrite(true)
-	s.Group("/api", func(group *ghttp.RouterGroup) {
-		group.ALLMap(g.Map{
+	logger.X设置是否同时输出到终端(false)
+	s.X设置日志记录器(logger)
+	s.X设置路由允许覆盖(true)
+	s.X创建分组路由("/api", func(group *http类.RouterGroup) {
+		group.X绑定所有类型Map(g.Map{
 			"/obj": obj,
 		})
-		group.ALLMap(g.Map{
+		group.X绑定所有类型Map(g.Map{
 			"/obj": obj,
 		})
 	})
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	dumpContent := buf.String()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gstr.Count(dumpContent, `/api/obj `), 1)
-		t.Assert(gstr.Count(dumpContent, `/api/obj/index`), 1)
-		t.Assert(gstr.Count(dumpContent, `/api/obj/show`), 1)
-		t.Assert(gstr.Count(dumpContent, `/api/obj/delete`), 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(文本类.X统计次数(dumpContent, `/api/obj `), 1)
+		t.Assert(文本类.X统计次数(dumpContent, `/api/obj/index`), 1)
+		t.Assert(文本类.X统计次数(dumpContent, `/api/obj/show`), 1)
+		t.Assert(文本类.X统计次数(dumpContent, `/api/obj/delete`), 1)
 	})
 }

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
@@ -19,7 +19,7 @@ import (
 )
 
 func Test_Struct_Basic1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Uid      int
 			Name     string
@@ -37,7 +37,7 @@ func Test_Struct_Basic1(t *testing.T) {
 			"PASS1":     "123",
 			"PASS2":     "456",
 		}
-		if err := gconv.Struct(params1, user); err != nil {
+		if err := 转换类.Struct(params1, user); err != nil {
 			t.Error(err)
 		}
 		t.Assert(user, &User{
@@ -58,7 +58,7 @@ func Test_Struct_Basic1(t *testing.T) {
 			"password1": "111",
 			"password2": "222",
 		}
-		if err := gconv.Struct(params2, user); err != nil {
+		if err := 转换类.Struct(params2, user); err != nil {
 			t.Error(err)
 		}
 		t.Assert(user, &User{
@@ -73,7 +73,7 @@ func Test_Struct_Basic1(t *testing.T) {
 }
 
 func Test_Struct_Basic2(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Uid     int
 			Name    string
@@ -89,7 +89,7 @@ func Test_Struct_Basic2(t *testing.T) {
 			"PASS1":    "123",
 			"PASS2":    "456",
 		}
-		if err := gconv.Struct(params, user); err != nil {
+		if err := 转换类.Struct(params, user); err != nil {
 			t.Error(err)
 		}
 		t.Assert(user, &User{
@@ -103,7 +103,7 @@ func Test_Struct_Basic2(t *testing.T) {
 }
 
 func Test_Struct_Attr_Pointer(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Uid  *int
 			Name *string
@@ -113,7 +113,7 @@ func Test_Struct_Attr_Pointer(t *testing.T) {
 			"uid":  "1",
 			"Name": "john",
 		}
-		if err := gconv.Struct(params, user); err != nil {
+		if err := 转换类.Struct(params, user); err != nil {
 			t.Error(err)
 		}
 		t.Assert(user.Uid, 1)
@@ -122,13 +122,13 @@ func Test_Struct_Attr_Pointer(t *testing.T) {
 }
 
 func Test_Struct_Attr_Slice1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []int
 		}
 		scores := []interface{}{99, 100, 60, 140}
 		user := new(User)
-		if err := gconv.Struct(g.Map{"Scores": scores}, user); err != nil {
+		if err := 转换类.Struct(g.Map{"Scores": scores}, user); err != nil {
 			t.Error(err)
 		} else {
 			t.Assert(user, &User{
@@ -163,7 +163,7 @@ func Test_Struct_Attr_Slice1(t *testing.T) {
 //}
 
 func Test_Struct_Attr_Struct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Score struct {
 			Name   string
 			Result int
@@ -181,7 +181,7 @@ func Test_Struct_Attr_Struct(t *testing.T) {
 		}
 
 		// 嵌套struct转换
-		if err := gconv.Struct(scores, user); err != nil {
+		if err := 转换类.Struct(scores, user); err != nil {
 			t.Error(err)
 		} else {
 			t.Assert(user, &User{
@@ -195,7 +195,7 @@ func Test_Struct_Attr_Struct(t *testing.T) {
 }
 
 func Test_Struct_Attr_Struct_Ptr(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Score struct {
 			Name   string
 			Result int
@@ -213,7 +213,7 @@ func Test_Struct_Attr_Struct_Ptr(t *testing.T) {
 		}
 
 		// 嵌套struct转换
-		if err := gconv.Struct(scores, user); err != nil {
+		if err := 转换类.Struct(scores, user); err != nil {
 			t.Error(err)
 		} else {
 			t.Assert(user.Scores, &Score{
@@ -225,7 +225,7 @@ func Test_Struct_Attr_Struct_Ptr(t *testing.T) {
 }
 
 func Test_Struct_Attr_Struct_Slice1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Score struct {
 			Name   string
 			Result int
@@ -242,7 +242,7 @@ func Test_Struct_Attr_Struct_Slice1(t *testing.T) {
 			},
 		}
 
-		if err := gconv.Struct(scores, user); err != nil {
+		if err := 转换类.Struct(scores, user); err != nil {
 			t.Error(err)
 		} else {
 			t.Assert(user.Scores, []Score{
@@ -256,7 +256,7 @@ func Test_Struct_Attr_Struct_Slice1(t *testing.T) {
 }
 
 func Test_Struct_Attr_Struct_Slice2(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Score struct {
 			Name   string
 			Result int
@@ -279,7 +279,7 @@ func Test_Struct_Attr_Struct_Slice2(t *testing.T) {
 			},
 		}
 
-		if err := gconv.Struct(scores, user); err != nil {
+		if err := 转换类.Struct(scores, user); err != nil {
 			t.Error(err)
 		} else {
 			t.Assert(user.Scores, []Score{
@@ -297,7 +297,7 @@ func Test_Struct_Attr_Struct_Slice2(t *testing.T) {
 }
 
 func Test_Struct_Attr_Struct_Slice_Ptr(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Score struct {
 			Name   string
 			Result int
@@ -321,7 +321,7 @@ func Test_Struct_Attr_Struct_Slice_Ptr(t *testing.T) {
 		}
 
 		// 嵌套struct转换，属性为slice类型，数值为slice map类型
-		if err := gconv.Struct(scores, user); err != nil {
+		if err := 转换类.Struct(scores, user); err != nil {
 			t.Error(err)
 		} else {
 			t.Assert(len(user.Scores), 2)
@@ -343,9 +343,9 @@ func Test_Struct_Attr_CustomType1(t *testing.T) {
 		Id   MyInt
 		Name string
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := new(User)
-		err := gconv.Struct(g.Map{"id": 1, "name": "john"}, user)
+		err := 转换类.Struct(g.Map{"id": 1, "name": "john"}, user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 1)
 		t.Assert(user.Name, "john")
@@ -358,11 +358,11 @@ func Test_Struct_Attr_CustomType2(t *testing.T) {
 		Id   []MyInt
 		Name string
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := new(User)
-		err := gconv.Struct(g.Map{"id": g.Slice{1, 2}, "name": "john"}, user)
+		err := 转换类.Struct(g.Map{"id": g.Slice别名{1, 2}, "name": "john"}, user)
 		t.AssertNil(err)
-		t.Assert(user.Id, g.Slice{1, 2})
+		t.Assert(user.Id, g.Slice别名{1, 2})
 		t.Assert(user.Name, "john")
 	})
 }
@@ -399,15 +399,15 @@ func Test_Struct_Attr_CustomType3(t *testing.T) {
 	type Config struct {
 		D MyDuration
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		config := new(Config)
-		err := gconv.Struct(g.Map{"d": "15s"}, config)
+		err := 转换类.Struct(g.Map{"d": "15s"}, config)
 		t.AssertNil(err)
 		t.Assert(config.D, "15s")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		config := new(Config)
-		err := gconv.Struct(g.Map{"d": `"15s"`}, config)
+		err := 转换类.Struct(g.Map{"d": `"15s"`}, config)
 		t.AssertNil(err)
 		t.Assert(config.D, "15s")
 	})
@@ -418,9 +418,9 @@ func Test_Struct_PrivateAttribute(t *testing.T) {
 		Id   int
 		name string
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := new(User)
-		err := gconv.Struct(g.Map{"id": 1, "name": "john"}, user)
+		err := 转换类.Struct(g.Map{"id": 1, "name": "john"}, user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 1)
 		t.Assert(user.name, "")
@@ -436,14 +436,14 @@ func Test_StructEmbedded1(t *testing.T) {
 		Name string
 		Base
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := new(User)
 		params := g.Map{
 			"id":   1,
 			"name": "john",
 			"age":  18,
 		}
-		err := gconv.Struct(params, user)
+		err := 转换类.Struct(params, user)
 		t.AssertNil(err)
 		t.Assert(user.Id, params["id"])
 		t.Assert(user.Name, params["name"])
@@ -469,9 +469,9 @@ func Test_StructEmbedded2(t *testing.T) {
 		"uid":  10,
 		"name": "john",
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := new(User)
-		err := gconv.Struct(params, user)
+		err := 转换类.Struct(params, user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 1)
 		t.Assert(user.Uid, 10)
@@ -480,7 +480,7 @@ func Test_StructEmbedded2(t *testing.T) {
 }
 
 func Test_StructEmbedded3(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Ids struct {
 			Id  int `json:"id"`
 			Uid int `json:"uid"`
@@ -504,7 +504,7 @@ func Test_StructEmbedded3(t *testing.T) {
 			"create_time": "2019",
 		}
 		user := new(User)
-		err := gconv.Struct(data, user)
+		err := 转换类.Struct(data, user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 100)
 		t.Assert(user.Uid, 101)
@@ -517,7 +517,7 @@ func Test_StructEmbedded3(t *testing.T) {
 // 翻译成中文：
 // 引用了GitHub上gogf/gf项目中的第775号议题。
 func Test_StructEmbedded4(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Sub2 struct {
 			SubName string
 		}
@@ -545,7 +545,7 @@ func Test_StructEmbedded4(t *testing.T) {
 			},
 		}
 		tx := new(Test)
-		if err := gconv.Struct(data, &tx); err != nil {
+		if err := 转换类.Struct(data, &tx); err != nil {
 			panic(err)
 		}
 		t.Assert(tx, expect)
@@ -553,7 +553,7 @@ func Test_StructEmbedded4(t *testing.T) {
 }
 
 func Test_StructEmbedded5(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Base struct {
 			Pass1 string `param:"password1"`
 			Pass2 string `param:"password2"`
@@ -578,77 +578,77 @@ func Test_StructEmbedded5(t *testing.T) {
 		var err error
 		user1 := new(UserWithBase1)
 		user2 := new(UserWithBase2)
-		err = gconv.Struct(data, user1)
+		err = 转换类.Struct(data, user1)
 		t.AssertNil(err)
 		t.Assert(user1, &UserWithBase1{1, "john", Base{"123", "456"}})
 
-		err = gconv.Struct(data, user2)
+		err = 转换类.Struct(data, user2)
 		t.AssertNil(err)
 		t.Assert(user2, &UserWithBase2{1, "john", Base{"", ""}})
 
 		var user3 *UserWithBase1
-		err = gconv.Struct(user1, &user3)
+		err = 转换类.Struct(user1, &user3)
 		t.AssertNil(err)
 		t.Assert(user3, user1)
 	})
 }
 
 func Test_Struct_Time(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			CreateTime time.Time
 		}
 		now := time.Now()
 		user := new(User)
-		gconv.Struct(g.Map{
+		转换类.Struct(g.Map{
 			"create_time": now,
 		}, user)
 		t.Assert(user.CreateTime.UTC().String(), now.UTC().String())
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			CreateTime *time.Time
 		}
 		now := time.Now()
 		user := new(User)
-		gconv.Struct(g.Map{
+		转换类.Struct(g.Map{
 			"create_time": &now,
 		}, user)
 		t.Assert(user.CreateTime.UTC().String(), now.UTC().String())
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
-			CreateTime *gtime.Time
+			CreateTime *时间类.Time
 		}
 		now := time.Now()
 		user := new(User)
-		gconv.Struct(g.Map{
+		转换类.Struct(g.Map{
 			"create_time": &now,
 		}, user)
 		t.Assert(user.CreateTime.Time.UTC().String(), now.UTC().String())
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
-			CreateTime gtime.Time
+			CreateTime 时间类.Time
 		}
 		now := time.Now()
 		user := new(User)
-		gconv.Struct(g.Map{
+		转换类.Struct(g.Map{
 			"create_time": &now,
 		}, user)
 		t.Assert(user.CreateTime.Time.UTC().String(), now.UTC().String())
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
-			CreateTime gtime.Time
+			CreateTime 时间类.Time
 		}
 		now := time.Now()
 		user := new(User)
-		gconv.Struct(g.Map{
+		转换类.Struct(g.Map{
 			"create_time": now,
 		}, user)
 		t.Assert(user.CreateTime.Time.UTC().String(), now.UTC().String())
@@ -659,13 +659,13 @@ func Test_Struct_GTime(t *testing.T) {
 	// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库下的第1387号议题。
 // 翻译为：
 // 参考GitHub上gogf/gf项目中的第1387个问题。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Name       string
-			CreateTime *gtime.Time
+			CreateTime *时间类.Time
 		}
 		var user *User
-		err := gconv.Struct(`{"Name":"John","CreateTime":""}`, &user)
+		err := 转换类.Struct(`{"Name":"John","CreateTime":""}`, &user)
 		t.AssertNil(err)
 		t.AssertNE(user, nil)
 		t.Assert(user.Name, `John`)
@@ -675,7 +675,7 @@ func Test_Struct_GTime(t *testing.T) {
 
 // 当给定指针时自动创建结构体。
 func Test_Struct_Create(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Uid  int
 			Name string
@@ -685,13 +685,13 @@ func Test_Struct_Create(t *testing.T) {
 			"uid":  1,
 			"Name": "john",
 		}
-		err := gconv.Struct(params, &user)
+		err := 转换类.Struct(params, &user)
 		t.AssertNil(err)
 		t.Assert(user.Uid, 1)
 		t.Assert(user.Name, "john")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Uid  int
 			Name string
@@ -701,14 +701,14 @@ func Test_Struct_Create(t *testing.T) {
 			"uid":  1,
 			"Name": "john",
 		}
-		err := gconv.Struct(params, user)
+		err := 转换类.Struct(params, user)
 		t.AssertNE(err, nil)
 		t.Assert(user, nil)
 	})
 }
 
 func Test_Struct_Interface(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Uid  interface{}
 			Name interface{}
@@ -718,7 +718,7 @@ func Test_Struct_Interface(t *testing.T) {
 			"uid":  1,
 			"Name": nil,
 		}
-		err := gconv.Struct(params, &user)
+		err := 转换类.Struct(params, &user)
 		t.AssertNil(err)
 		t.Assert(user.Uid, 1)
 		t.Assert(user.Name, nil)
@@ -726,7 +726,7 @@ func Test_Struct_Interface(t *testing.T) {
 }
 
 func Test_Struct_NilAttribute(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Item struct {
 			Title string `json:"title"`
 			Key   string `json:"key"`
@@ -739,7 +739,7 @@ func Test_Struct_NilAttribute(t *testing.T) {
 			Items []*Item                `json:"items"`
 		}
 		m := new(M)
-		err := gconv.Struct(g.Map{
+		err := 转换类.Struct(g.Map{
 			"id": "88888",
 			"me": g.Map{
 				"name": "mikey",
@@ -756,7 +756,7 @@ func Test_Struct_NilAttribute(t *testing.T) {
 }
 
 func Test_Struct_Complex(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type ApplyReportDetail struct {
 			ApplyScore        string `json:"apply_score"`
 			ApplyCredibility  string `json:"apply_credibility"`
@@ -894,7 +894,7 @@ func Test_Struct_Complex(t *testing.T) {
 		t.AssertNil(err)
 
 		model := new(XinYanModel)
-		err = gconv.Struct(m, model)
+		err = 转换类.Struct(m, model)
 		t.AssertNil(err)
 		t.Assert(model.ErrorCode, nil)
 		t.Assert(model.ErrorMsg, nil)
@@ -908,7 +908,7 @@ func Test_Struct_Complex(t *testing.T) {
 }
 
 func Test_Struct_CatchPanic(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Score struct {
 			Name   string
 			Result int
@@ -921,7 +921,7 @@ func Test_Struct_CatchPanic(t *testing.T) {
 		scores := map[string]interface{}{
 			"Score": 1,
 		}
-		err := gconv.Struct(scores, user)
+		err := 转换类.Struct(scores, user)
 		t.AssertNE(err, nil)
 	})
 }
@@ -944,117 +944,117 @@ type TestStruct struct {
 
 func Test_Struct_Embedded(t *testing.T) {
 	// 实现了接口属性。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		v1 := TestStruct{
 			TestInterface: &T{"john"},
 		}
 		v2 := g.Map{}
-		err := gconv.Struct(v2, &v1)
+		err := 转换类.Struct(v2, &v1)
 		t.AssertNil(err)
 		t.Assert(v1.Test(), "john")
 	})
 	// 实现了接口属性。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		v1 := TestStruct{
 			TestInterface: &T{"john"},
 		}
 		v2 := g.Map{
 			"name": "test",
 		}
-		err := gconv.Struct(v2, &v1)
+		err := 转换类.Struct(v2, &v1)
 		t.AssertNil(err)
 		t.Assert(v1.Test(), "test")
 	})
 	// 未实现接口属性。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		v1 := TestStruct{}
 		v2 := g.Map{
 			"name": "test",
 		}
-		err := gconv.Struct(v2, &v1)
+		err := 转换类.Struct(v2, &v1)
 		t.AssertNil(err)
 		t.Assert(v1.TestInterface, nil)
 	})
 }
 
 func Test_Struct_Slice(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []int
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []int32
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []int64
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []uint
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []uint32
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []uint64
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []float32
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Scores []float64
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
-		err := gconv.Struct(g.Map{"scores": array}, user)
+		array := g.Slice别名{1, 2, 3}
+		err := 转换类.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
 	})
@@ -1073,8 +1073,8 @@ func Test_Struct_To_Struct(t *testing.T) {
 	TestB.Id = 666
 	TestB.Date = time.Now()
 
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gconv.Struct(TestB, &TestA), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(转换类.Struct(TestB, &TestA), nil)
 		t.Assert(TestA.Id, TestB.Id)
 		t.Assert(TestA.Date, TestB.Date)
 	})
@@ -1088,13 +1088,13 @@ func Test_Struct_WithJson(t *testing.T) {
 		A
 		Score int
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		b1 := &B{}
 		b1.Name = "john"
 		b1.Score = 100
 		b, _ := json.Marshal(b1)
 		b2 := &B{}
-		err := gconv.Struct(b, b2)
+		err := 转换类.Struct(b, b2)
 		t.AssertNil(err)
 		t.Assert(b2, b1)
 	})
@@ -1112,13 +1112,13 @@ func Test_Struct_AttrStructHasTheSameTag(t *testing.T) {
 		UpdatedAt time.Time `json:"updated_at"`
 		Product   Product   `json:"products"`
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := g.Map{
 			"id":         1,
 			"updated_at": time.Now(),
 		}
 		order := new(Order)
-		err := gconv.Struct(data, order)
+		err := 转换类.Struct(data, order)
 		t.AssertNil(err)
 		t.Assert(order.Id, data["id"])
 		t.Assert(order.UpdatedAt, data["updated_at"])
@@ -1134,7 +1134,7 @@ func Test_Struct_DirectReflectSet(t *testing.T) {
 		Name string
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a = &A{
 				Id:   1,
@@ -1142,11 +1142,11 @@ func Test_Struct_DirectReflectSet(t *testing.T) {
 			}
 			b *A
 		)
-		err := gconv.Struct(a, &b)
+		err := 转换类.Struct(a, &b)
 		t.AssertNil(err)
 		t.AssertEQ(a, b)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a = A{
 				Id:   1,
@@ -1154,7 +1154,7 @@ func Test_Struct_DirectReflectSet(t *testing.T) {
 			}
 			b A
 		)
-		err := gconv.Struct(a, &b)
+		err := 转换类.Struct(a, &b)
 		t.AssertNil(err)
 		t.AssertEQ(a, b)
 	})
@@ -1169,11 +1169,11 @@ func Test_Struct_NilEmbeddedStructAttribute(t *testing.T) {
 		Id int
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			b *B
 		)
-		err := gconv.Struct(g.Map{
+		err := 转换类.Struct(g.Map{
 			"id":   1,
 			"name": nil,
 		}, &b)
@@ -1189,25 +1189,25 @@ func Test_Struct_JsonParam(t *testing.T) {
 		Name string `json:"name"`
 	}
 	// struct
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var a = A{}
-		err := gconv.Struct([]byte(`{"id":1,"name":"john"}`), &a)
+		err := 转换类.Struct([]byte(`{"id":1,"name":"john"}`), &a)
 		t.AssertNil(err)
 		t.Assert(a.Id, 1)
 		t.Assert(a.Name, "john")
 	})
 	// *struct
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var a = &A{}
-		err := gconv.Struct([]byte(`{"id":1,"name":"john"}`), a)
+		err := 转换类.Struct([]byte(`{"id":1,"name":"john"}`), a)
 		t.AssertNil(err)
 		t.Assert(a.Id, 1)
 		t.Assert(a.Name, "john")
 	})
 	// *struct nil
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var a *A
-		err := gconv.Struct([]byte(`{"id":1,"name":"john"}`), &a)
+		err := 转换类.Struct([]byte(`{"id":1,"name":"john"}`), &a)
 		t.AssertNil(err)
 		t.Assert(a.Id, 1)
 		t.Assert(a.Name, "john")
@@ -1220,16 +1220,16 @@ func Test_Struct_GVarAttribute(t *testing.T) {
 		Name   string `json:"name"`
 		Status bool   `json:"status"`
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a    = A{}
 			data = g.Map{
 				"id":     100,
 				"name":   "john",
-				"status": gvar.New(false),
+				"status": 泛型类.X创建(false),
 			}
 		)
-		err := gconv.Struct(data, &a)
+		err := 转换类.Struct(data, &a)
 		t.AssertNil(err)
 		t.Assert(a.Id, data["id"])
 		t.Assert(a.Name, data["name"])
@@ -1247,7 +1247,7 @@ func Test_Struct_MapAttribute(t *testing.T) {
 		Nodes Nodes
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			out  = Output{}
 			data = g.Map{
@@ -1258,19 +1258,19 @@ func Test_Struct_MapAttribute(t *testing.T) {
 				},
 			}
 		)
-		err := gconv.Struct(data, &out)
+		err := 转换类.Struct(data, &out)
 		t.AssertNil(err)
 	})
 }
 
 func Test_Struct_Empty_MapStringString(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type S struct {
 			Id int
 		}
 		var (
 			s   = &S{}
-			err = gconv.Struct(map[string]string{}, s)
+			err = 转换类.Struct(map[string]string{}, s)
 		)
 		t.AssertNil(err)
 	})
@@ -1283,7 +1283,7 @@ func Test_Struct_Issue1563(t *testing.T) {
 	type User struct {
 		Pass1 string `c:"password1"`
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for i := 0; i < 100; i++ {
 			user := new(User)
 			params2 := g.Map{
@@ -1295,7 +1295,7 @@ func Test_Struct_Issue1563(t *testing.T) {
 // 这里定义了一个键为"PASS1"，值为"222"的键值对。
 				"Pass1": "333",
 			}
-			if err := gconv.Struct(params2, user); err == nil {
+			if err := 转换类.Struct(params2, user); err == nil {
 				t.Assert(user.Pass1, `111`)
 			}
 		}
@@ -1304,7 +1304,7 @@ func Test_Struct_Issue1563(t *testing.T) {
 
 // 这是GitHub上gogf/gf仓库的第1597号问题
 func Test_Struct_Issue1597(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type S struct {
 			A int
 			B json.RawMessage
@@ -1316,10 +1316,10 @@ func Test_Struct_Issue1597(t *testing.T) {
 			"c": 3
 		}
 	}`)
-		data, err := gjson.DecodeToJson(jsonByte)
+		data, err := json类.X解码到json(jsonByte)
 		t.AssertNil(err)
 		s := &S{}
-		err = data.Scan(s)
+		err = data.X取结构体指针(s)
 		t.AssertNil(err)
 		t.Assert(s.B, `{"c":3}`)
 	})
@@ -1328,7 +1328,7 @@ func Test_Struct_Issue1597(t *testing.T) {
 // 这是GitHub上gogf/gf仓库的第2980个issue的链接
 func Test_Struct_Issue2980(t *testing.T) {
 	type Post struct {
-		CreatedAt *gtime.Time `json:"createdAt" `
+		CreatedAt *时间类.Time `json:"createdAt" `
 	}
 
 	type PostWithUser struct {
@@ -1336,14 +1336,14 @@ func Test_Struct_Issue2980(t *testing.T) {
 		UserName string `json:"UserName"`
 	}
 
-	gtest.C(t, func(t *gtest.T) {
-		date := gtime.New("2023-09-22 12:00:00").UTC()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		date := 时间类.X创建("2023-09-22 12:00:00").X取UTC时区()
 		params := g.Map{
-			"CreatedAt": gtime.New("2023-09-22 12:00:00").UTC(),
+			"CreatedAt": 时间类.X创建("2023-09-22 12:00:00").X取UTC时区(),
 			"UserName":  "Galileo",
 		}
 		postWithUser := new(PostWithUser)
-		err := gconv.Scan(params, postWithUser)
+		err := 转换类.Scan(params, postWithUser)
 		t.AssertNil(err)
 		t.Assert(date.Location(), postWithUser.CreatedAt.Location())
 		t.Assert(date.Unix(), postWithUser.CreatedAt.Unix())
@@ -1360,9 +1360,9 @@ func Test_Scan_WithDoubleSliceAttribute(t *testing.T) {
 	}{
 		Data: inputData,
 	}
-	gtest.C(t, func(t *gtest.T) {
-		jv := gjson.New(gjson.MustEncodeString(data))
-		err := jv.Scan(&data)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		jv := json类.X创建(json类.X变量到json文本PANI(data))
+		err := jv.X取结构体指针(&data)
 		t.AssertNil(err)
 		t.Assert(data.Data, inputData)
 	})
@@ -1379,15 +1379,15 @@ func Test_Struct_WithCustomType(t *testing.T) {
 		PayMode *PayMode
 	}
 	var (
-		params = gconv.Map(`{"PayMode": 1000}`)
+		params = 转换类.X取Map(`{"PayMode": 1000}`)
 		req1   *Req1
 		req2   *Req2
 		err1   error
 		err2   error
 	)
-	err1 = gconv.Struct(params, &req1)
-	err2 = gconv.Struct(params, &req2)
-	gtest.C(t, func(t *gtest.T) {
+	err1 = 转换类.Struct(params, &req1)
+	err2 = 转换类.Struct(params, &req2)
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertNil(err1)
 		t.Assert(req1.PayMode, 1000)
 
@@ -1398,7 +1398,7 @@ func Test_Struct_WithCustomType(t *testing.T) {
 }
 
 func Test_Struct_EmptyStruct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var err error
 
 		type StructA struct {
@@ -1410,10 +1410,10 @@ func Test_Struct_EmptyStruct(t *testing.T) {
 		var s1 StructA
 		var s2 *StructB
 
-		err = gconv.Scan(s1, &s2)
+		err = 转换类.Scan(s1, &s2)
 		t.AssertNil(err)
 
-		err = gconv.Scan(&s1, &s2)
+		err = 转换类.Scan(&s1, &s2)
 		t.AssertNil(err)
 
 		type StructC struct {
@@ -1427,20 +1427,20 @@ func Test_Struct_EmptyStruct(t *testing.T) {
 		var s3 StructC
 		var s4 *StructD
 
-		err = gconv.Scan(s3, &s4)
+		err = 转换类.Scan(s3, &s4)
 		t.AssertNil(err)
 		t.Assert(s4.Val, 0)
 
-		err = gconv.Scan(&s3, &s4)
+		err = 转换类.Scan(&s3, &s4)
 		t.AssertNil(err)
 		t.Assert(s4.Val, 0)
 
 		s3.Val = 123
-		err = gconv.Scan(s3, &s4)
+		err = 转换类.Scan(s3, &s4)
 		t.AssertNil(err)
 		t.Assert(s4.Val, 123)
 
-		err = gconv.Scan(&s3, &s4)
+		err = 转换类.Scan(&s3, &s4)
 		t.AssertNil(err)
 		t.Assert(s4.Val, 123)
 

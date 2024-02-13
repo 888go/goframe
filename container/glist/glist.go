@@ -5,7 +5,7 @@
 //
 
 // 包glist提供了最常用的双向链表容器，同时支持并发安全/非安全模式切换功能。
-package glist
+package 链表类
 
 import (
 	"bytes"
@@ -438,7 +438,7 @@ func (l *List) LockFunc(f func(list *list.List)) {
 }
 
 // Iterator 是 IteratorAsc 的别名。
-func (l *List) Iterator(f func(e *Element) bool) {
+func (l *List) X遍历(f func(e *Element) bool) {
 	l.IteratorAsc(f)
 }
 
@@ -489,7 +489,7 @@ func (l *List) Join(glue string) string {
 	length := l.list.Len()
 	if length > 0 {
 		for i, e := 0, l.list.Front(); i < length; i, e = i+1, e.Next() {
-			buffer.WriteString(gconv.String(e.Value))
+			buffer.WriteString(转换类.String(e.Value))
 			if i != length-1 {
 				buffer.WriteString(glue)
 			}
@@ -536,9 +536,9 @@ func (l *List) UnmarshalValue(value interface{}) (err error) {
 	var array []interface{}
 	switch value.(type) {
 	case string, []byte:
-		err = json.UnmarshalUseNumber(gconv.Bytes(value), &array)
+		err = json.UnmarshalUseNumber(转换类.X取字节集(value), &array)
 	default:
-		array = gconv.SliceAny(value)
+		array = 转换类.SliceAny别名(value)
 	}
 	l.PushBacks(array)
 	return err

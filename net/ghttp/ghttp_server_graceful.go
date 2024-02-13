@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -35,27 +35,27 @@ type gracefulServer struct {
 	rawLnMu     sync.RWMutex // `rawListener`的并发安全互斥锁。
 	listener    net.Listener // 包装过的 net.Listener。
 	isHttps     bool         // Is HTTPS.
-	status      *gtype.Int   // 当前服务器状态，使用 `gtype` 以确保并发安全性。
+	status      *安全变量类.Int   // 当前服务器状态，使用 `gtype` 以确保并发安全性。
 }
 
 // newGracefulServer 根据给定的地址创建并返回一个优雅的 HTTP 服务器。
 // 可选参数 `fd` 指定了从父服务器传递过来的文件描述符。
 func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
 	// 将端口更改为地址形式，例如：80 -> :80
-	if gstr.IsNumeric(address) {
+	if 文本类.X是否为数字(address) {
 		address = ":" + address
 	}
 	gs := &gracefulServer{
 		server:     s,
 		address:    address,
 		httpServer: s.newHttpServer(address),
-		status:     gtype.NewInt(),
+		status:     安全变量类.NewInt(),
 	}
 	if len(fd) > 0 && fd[0] > 0 {
 		gs.fd = uintptr(fd[0])
 	}
 	if s.config.Listeners != nil {
-		addrArray := gstr.SplitAndTrim(address, ":")
+		addrArray := 文本类.X分割并忽略空值(address, ":")
 		addrPort, err := strconv.Atoi(addrArray[len(addrArray)-1])
 		if err == nil {
 			for _, v := range s.config.Listeners {
@@ -125,17 +125,17 @@ func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig .
 	var err error
 	if len(config.Certificates) == 0 {
 		config.Certificates = make([]tls.Certificate, 1)
-		if gres.Contains(certFile) {
+		if 资源类.Contains(certFile) {
 			config.Certificates[0], err = tls.X509KeyPair(
-				gres.GetContent(certFile),
-				gres.GetContent(keyFile),
+				资源类.GetContent(certFile),
+				资源类.GetContent(keyFile),
 			)
 		} else {
 			config.Certificates[0], err = tls.LoadX509KeyPair(certFile, keyFile)
 		}
 	}
 	if err != nil {
-		return gerror.Wrapf(err, `open certFile "%s" and keyFile "%s" failed`, certFile, keyFile)
+		return 错误类.X多层错误并格式化(err, `open certFile "%s" and keyFile "%s" failed`, certFile, keyFile)
 	}
 	ln, err := s.getNetListener()
 	if err != nil {
@@ -150,34 +150,34 @@ func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig .
 // Serve 以阻塞方式启动服务。
 func (s *gracefulServer) Serve(ctx context.Context) error {
 	if s.rawListener == nil {
-		return gerror.NewCode(gcode.CodeInvalidOperation, `call CreateListener/CreateListenerTLS before Serve`)
+		return 错误类.X创建错误码(错误码类.CodeInvalidOperation, `call CreateListener/CreateListenerTLS before Serve`)
 	}
 
 	action := "started"
 	if s.fd != 0 {
 		action = "reloaded"
 	}
-	s.server.Logger().Infof(
+	s.server.Logger别名().X输出并格式化INFO(
 		ctx,
 		`pid[%d]: %s server %s listening on [%s]`,
-		gproc.Pid(), s.getProto(), action, s.GetListenedAddress(),
+		进程类.Pid(), s.getProto(), action, s.GetListenedAddress(),
 	)
-	s.status.Set(ServerStatusRunning)
+	s.status.X设置值(ServerStatusRunning)
 	err := s.httpServer.Serve(s.listener)
-	s.status.Set(ServerStatusStopped)
+	s.status.X设置值(ServerStatusStopped)
 	return err
 }
 
 // GetListenedAddress 获取并返回当前服务器监听的地址字符串。
 func (s *gracefulServer) GetListenedAddress() string {
-	if !gstr.Contains(s.address, FreePortAddress) {
+	if !文本类.X是否包含(s.address, FreePortAddress) {
 		return s.address
 	}
 	var (
 		address      = s.address
 		listenedPort = s.GetListenedPort()
 	)
-	address = gstr.Replace(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
+	address = 文本类.X替换(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
 	return address
 }
 
@@ -212,13 +212,13 @@ func (s *gracefulServer) getNetListener() (net.Listener, error) {
 		f := os.NewFile(s.fd, "")
 		ln, err = net.FileListener(f)
 		if err != nil {
-			err = gerror.Wrap(err, "net.FileListener failed")
+			err = 错误类.X多层错误(err, "net.FileListener failed")
 			return nil, err
 		}
 	} else {
 		ln, err = net.Listen("tcp", s.httpServer.Addr)
 		if err != nil {
-			err = gerror.Wrapf(err, `net.Listen address "%s" failed`, s.httpServer.Addr)
+			err = 错误类.X多层错误并格式化(err, `net.Listen address "%s" failed`, s.httpServer.Addr)
 		}
 	}
 	return ln, err
@@ -226,7 +226,7 @@ func (s *gracefulServer) getNetListener() (net.Listener, error) {
 
 // shutdown优雅地关闭服务器。
 func (s *gracefulServer) shutdown(ctx context.Context) {
-	if s.status.Val() == ServerStatusStopped {
+	if s.status.X取值() == ServerStatusStopped {
 		return
 	}
 	timeoutCtx, cancelFunc := context.WithTimeout(
@@ -235,10 +235,10 @@ func (s *gracefulServer) shutdown(ctx context.Context) {
 	)
 	defer cancelFunc()
 	if err := s.httpServer.Shutdown(timeoutCtx); err != nil {
-		s.server.Logger().Errorf(
+		s.server.Logger别名().X输出并格式化ERR(
 			ctx,
 			"%d: %s server [%s] shutdown error: %v",
-			gproc.Pid(), s.getProto(), s.address, err,
+			进程类.Pid(), s.getProto(), s.address, err,
 		)
 	}
 }
@@ -259,14 +259,14 @@ func (s *gracefulServer) getRawListener() net.Listener {
 
 // close 强制关闭服务器。
 func (s *gracefulServer) close(ctx context.Context) {
-	if s.status.Val() == ServerStatusStopped {
+	if s.status.X取值() == ServerStatusStopped {
 		return
 	}
 	if err := s.httpServer.Close(); err != nil {
-		s.server.Logger().Errorf(
+		s.server.Logger别名().X输出并格式化ERR(
 			ctx,
 			"%d: %s server [%s] closed error: %v",
-			gproc.Pid(), s.getProto(), s.address, err,
+			进程类.Pid(), s.getProto(), s.address, err,
 		)
 	}
 }

@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"os"
@@ -16,9 +16,9 @@ import (
 )
 
 func Test_Parse(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		os.Args = []string{"gf", "--force", "remove", "-fq", "-p=www", "path", "-n", "root"}
-		p, err := gcmd.Parse(map[string]bool{
+		p, err := cmd类.Parse(map[string]bool{
 			"n, name":   true,
 			"p, prefix": true,
 			"f,force":   false,
@@ -54,8 +54,8 @@ func Test_Parse(t *testing.T) {
 }
 
 func Test_ParseArgs(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		p, err := gcmd.ParseArgs(
+	单元测试类.C(t, func(t *单元测试类.T) {
+		p, err := cmd类.ParseArgs(
 			[]string{"gf", "--force", "remove", "-fq", "-p=www", "path", "-n", "root"},
 			map[string]bool{
 				"n, name":   true,

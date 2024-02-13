@@ -5,7 +5,7 @@
 
 // 静态服务测试。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -19,46 +19,46 @@ import (
 )
 
 func Test_StatusHandler(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
-		s.BindStatusHandlerByMap(map[int]ghttp.HandlerFunc{
-			404: func(r *ghttp.Request) { r.Response.WriteOver("404") },
-			502: func(r *ghttp.Request) { r.Response.WriteOver("502") },
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := g.Http类(uid类.X生成())
+		s.X绑定状态码中间件Map(map[int]http类.HandlerFunc{
+			404: func(r *http类.Request) { r.Response.X写覆盖响应缓冲区("404") },
+			502: func(r *http类.Request) { r.Response.X写覆盖响应缓冲区("502") },
 		})
-		s.BindHandler("/502", func(r *ghttp.Request) {
-			r.Response.WriteStatusExit(502)
+		s.X绑定("/502", func(r *http类.Request) {
+			r.Response.X写响应缓冲区与HTTP状态码并退出(502)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/404"), "404")
-		t.Assert(client.GetContent(ctx, "/502"), "502")
+		t.Assert(client.Get文本(ctx, "/404"), "404")
+		t.Assert(client.Get文本(ctx, "/502"), "502")
 	})
 }
 
 func Test_StatusHandler_Multi(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
-		s.BindStatusHandler(502, func(r *ghttp.Request) {
-			r.Response.WriteOver("1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := g.Http类(uid类.X生成())
+		s.X绑定状态码中间件(502, func(r *http类.Request) {
+			r.Response.X写覆盖响应缓冲区("1")
 		})
-		s.BindStatusHandler(502, func(r *ghttp.Request) {
-			r.Response.Write("2")
+		s.X绑定状态码中间件(502, func(r *http类.Request) {
+			r.Response.X写响应缓冲区("2")
 		})
-		s.BindHandler("/502", func(r *ghttp.Request) {
-			r.Response.WriteStatusExit(502)
+		s.X绑定("/502", func(r *http类.Request) {
+			r.Response.X写响应缓冲区与HTTP状态码并退出(502)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/502"), "12")
+		t.Assert(client.Get文本(ctx, "/502"), "12")
 	})
 }

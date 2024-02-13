@@ -1,4 +1,4 @@
-package gclient
+package 网页类
 
 import (
 	"net/http"
@@ -7,22 +7,22 @@ import (
 )
 
 // HandlerFunc 中间件处理函数
-type HandlerFunc = func(c *Client, r *http.Request) (*Response, error)
+type X中间件函数 = func(c *Client, r *http.Request) (*Response, error)
 
 // clientMiddleware 是用于 HTTP 客户端请求流程管理的插件。
 type clientMiddleware struct {
 	client       *Client       // http client.
-	handlers     []HandlerFunc // mdl handlers.
+	handlers     []X中间件函数 // mdl handlers.
 	handlerIndex int           // 当前处理器索引。
 	resp         *Response     // save resp.
 	err          error         // save err.
 }
 
-const clientMiddlewareKey gctx.StrKey = "__clientMiddlewareKey"
+const clientMiddlewareKey 上下文类.StrKey = "__clientMiddlewareKey"
 
 // Use 向客户端添加一个或多个中间件处理器。
-func (c *Client) Use(handlers ...HandlerFunc) *Client {
-	c.middlewareHandler = append(c.middlewareHandler, handlers...)
+func (c *Client) X中间件(中间件s ...X中间件函数) *Client {
+	c.middlewareHandler = append(c.middlewareHandler, 中间件s...)
 	return c
 }
 

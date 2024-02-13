@@ -30,7 +30,7 @@ func (r RulePostcode) Message() string {
 }
 
 func (r RulePostcode) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`^\d{6}$`,
 		in.Value.String(),
 	)

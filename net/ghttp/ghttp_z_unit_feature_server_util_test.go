@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -18,7 +18,7 @@ import (
 )
 
 type testWrapStdHTTPStruct struct {
-	T    *gtest.T
+	T    *单元测试类.T
 	text string
 }
 
@@ -30,39 +30,39 @@ func (t *testWrapStdHTTPStruct) ServeHTTP(w http.ResponseWriter, req *http.Reque
 }
 
 func Test_Server_Wrap_Handler(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := g.Http类(uid类.X生成())
 		str1 := "hello"
 		str2 := "hello again"
-		s.Group("/api", func(group *ghttp.RouterGroup) {
-			group.GET("/wrapf", ghttp.WrapF(func(w http.ResponseWriter, req *http.Request) {
+		s.X创建分组路由("/api", func(group *http类.RouterGroup) {
+			group.X绑定GET("/wrapf", http类.WrapF(func(w http.ResponseWriter, req *http.Request) {
 				t.Assert(req.Method, "GET")
 				t.Assert(req.URL.Path, "/api/wrapf")
 				w.WriteHeader(http.StatusBadRequest)
 				fmt.Fprint(w, str1)
 			}))
 
-			group.POST("/wraph", ghttp.WrapH(&testWrapStdHTTPStruct{t, str2}))
+			group.X绑定POST("/wraph", http类.WrapH(&testWrapStdHTTPStruct{t, str2}))
 		})
 
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d/api", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d/api", s.X取已监听端口()))
 
-		response, err := client.Get(ctx, "/wrapf")
+		response, err := client.Get响应对象(ctx, "/wrapf")
 		t.AssertNil(err)
-		defer response.Close()
+		defer response.X关闭()
 		t.Assert(response.StatusCode, http.StatusBadRequest)
-		t.Assert(response.ReadAllString(), str1)
+		t.Assert(response.X取响应文本(), str1)
 
-		response2, err := client.Post(ctx, "/wraph")
+		response2, err := client.Post响应对象(ctx, "/wraph")
 		t.AssertNil(err)
-		defer response2.Close()
+		defer response2.X关闭()
 		t.Assert(response2.StatusCode, http.StatusInternalServerError)
-		t.Assert(response2.ReadAllString(), str2)
+		t.Assert(response2.X取响应文本(), str2)
 	})
 }

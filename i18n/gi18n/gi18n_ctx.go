@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	ctxLanguage gctx.StrKey = "I18nLanguage"
+	ctxLanguage 上下文类.StrKey = "I18nLanguage"
 )
 
 // WithLanguage 将语言设置追加到上下文中并返回一个新的上下文。

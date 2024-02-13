@@ -21,11 +21,11 @@ import (
 
 // Redis 返回一个使用指定配置组名称的 Redis 客户端实例。
 // 需要注意的是，如果在创建实例期间发生任何错误，它会引发 panic。
-func Redis(name ...string) *gredis.Redis {
+func Redis(name ...string) *redis类.Redis {
 	var (
 		err   error
 		ctx   = context.Background()
-		group = gredis.DefaultGroupName
+		group = redis类.DefaultGroupName
 	)
 	if len(name) > 0 && name[0] != "" {
 		group = name[0]
@@ -33,24 +33,24 @@ func Redis(name ...string) *gredis.Redis {
 	instanceKey := fmt.Sprintf("%s.%s", frameCoreComponentNameRedis, group)
 	result := instance.GetOrSetFuncLock(instanceKey, func() interface{} {
 		// 如果已经配置过，则返回redis实例。
-		if _, ok := gredis.GetConfig(group); ok {
-			return gredis.Instance(group)
+		if _, ok := redis类.GetConfig(group); ok {
+			return redis类.Instance(group)
 		}
-		if Config().Available(ctx) {
+		if Config().X是否可用(ctx) {
 			var (
 				configMap   map[string]interface{}
-				redisConfig *gredis.Config
-				redisClient *gredis.Redis
+				redisConfig *redis类.Config
+				redisClient *redis类.Redis
 			)
-			if configMap, err = Config().Data(ctx); err != nil {
+			if configMap, err = Config().X取Map(ctx); err != nil {
 				intlog.Errorf(ctx, `retrieve config data map failed: %+v`, err)
 			}
-			if _, v := gutil.MapPossibleItemByKey(configMap, consts.ConfigNodeNameRedis); v != nil {
-				configMap = gconv.Map(v)
+			if _, v := 工具类.MapPossibleItemByKey(configMap, consts.ConfigNodeNameRedis); v != nil {
+				configMap = 转换类.X取Map(v)
 			}
 			if len(configMap) > 0 {
 				if v, ok := configMap[group]; ok {
-					if redisConfig, err = gredis.ConfigFromMap(gconv.Map(v)); err != nil {
+					if redisConfig, err = redis类.ConfigFromMap(转换类.X取Map(v)); err != nil {
 						panic(err)
 					}
 				} else {
@@ -59,19 +59,19 @@ func Redis(name ...string) *gredis.Redis {
 			} else {
 				intlog.Print(ctx, `missing configuration for redis: "redis" node not found`)
 			}
-			if redisClient, err = gredis.New(redisConfig); err != nil {
+			if redisClient, err = redis类.New(redisConfig); err != nil {
 				panic(err)
 			}
 			return redisClient
 		}
-		panic(gerror.NewCode(
-			gcode.CodeMissingConfiguration,
+		panic(错误类.X创建错误码(
+			错误码类.CodeMissingConfiguration,
 			`no configuration found for creating redis client`,
 		))
 		return nil
 	})
 	if result != nil {
-		return result.(*gredis.Redis)
+		return result.(*redis类.Redis)
 	}
 	return nil
 }

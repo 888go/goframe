@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 )
 
 func Test_CheckMap1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := map[string]interface{}{
 			"id":   "0",
 			"name": "john",
@@ -25,7 +25,7 @@ func Test_CheckMap1(t *testing.T) {
 			"id":   "required|between:1,100",
 			"name": "required|length:6,16",
 		}
-		if m := g.Validator().Data(data).Rules(rules).Run(context.TODO()); m == nil {
+		if m := g.X效验类().Data(data).Rules(rules).Run(context.TODO()); m == nil {
 			t.Error("CheckMap校验失败")
 		} else {
 			t.Assert(len(m.Maps()), 2)
@@ -37,8 +37,8 @@ func Test_CheckMap1(t *testing.T) {
 
 func Test_CheckMap2(t *testing.T) {
 	var params interface{}
-	gtest.C(t, func(t *gtest.T) {
-		if err := g.Validator().Data(params).Run(context.TODO()); err == nil {
+	单元测试类.C(t, func(t *单元测试类.T) {
+		if err := g.X效验类().Data(params).Run(context.TODO()); err == nil {
 			t.AssertNil(err)
 		}
 	})
@@ -51,14 +51,14 @@ func Test_CheckMap2(t *testing.T) {
 		"id":   "required|between:1,100",
 		"name": "required|length:6,16",
 	}
-	msgs := gvalid.CustomMsg{
+	msgs := 效验类.CustomMsg{
 		"id": "ID不能为空|ID范围应当为{min}到{max}",
 		"name": map[string]string{
 			"required": "名称不能为空",
 			"length":   "名称长度为{min}到{max}个字符",
 		},
 	}
-	if m := g.Validator().Data(kvmap).Rules(rules).Messages(msgs).Run(context.TODO()); m == nil {
+	if m := g.X效验类().Data(kvmap).Rules(rules).Messages(msgs).Run(context.TODO()); m == nil {
 		t.Error("CheckMap校验失败")
 	}
 
@@ -77,7 +77,7 @@ func Test_CheckMap2(t *testing.T) {
 			"length":   "名称长度为{min}到{max}个字符",
 		},
 	}
-	if m := g.Validator().Data(kvmap).Rules(rules).Messages(msgs).Run(context.TODO()); m != nil {
+	if m := g.X效验类().Data(kvmap).Rules(rules).Messages(msgs).Run(context.TODO()); m != nil {
 		t.Error(m)
 	}
 
@@ -96,7 +96,7 @@ func Test_CheckMap2(t *testing.T) {
 			"length":   "名称长度为{min}到{max}个字符",
 		},
 	}
-	if m := g.Validator().Data(kvmap).Rules(rules).Messages(msgs).Run(context.TODO()); m != nil {
+	if m := g.X效验类().Data(kvmap).Rules(rules).Messages(msgs).Run(context.TODO()); m != nil {
 		t.Error(m)
 	}
 
@@ -115,7 +115,7 @@ func Test_CheckMap2(t *testing.T) {
 			"length":   "名称长度为{min}到{max}个字符",
 		},
 	}
-	if m := g.Validator().Data(kvmap).Rules(rules2).Messages(msgs).Run(context.TODO()); m != nil {
+	if m := g.X效验类().Data(kvmap).Rules(rules2).Messages(msgs).Run(context.TODO()); m != nil {
 		t.Error(m)
 	}
 
@@ -134,7 +134,7 @@ func Test_CheckMap2(t *testing.T) {
 			"length":   "名称长度为{min}到{max}个字符",
 		},
 	}
-	if m := g.Validator().Data(kvmap).Rules(rules2).Messages(msgs).Run(context.TODO()); m != nil {
+	if m := g.X效验类().Data(kvmap).Rules(rules2).Messages(msgs).Run(context.TODO()); m != nil {
 		t.Error(m)
 	}
 
@@ -153,7 +153,7 @@ func Test_CheckMap2(t *testing.T) {
 			"length":   "名称长度为{min}到{max}个字符",
 		},
 	}
-	if m := g.Validator().Data(kvmap).Rules(rules2).Messages(msgs).Run(context.TODO()); m != nil {
+	if m := g.X效验类().Data(kvmap).Rules(rules2).Messages(msgs).Run(context.TODO()); m != nil {
 		t.Error(m)
 	}
 }
@@ -166,13 +166,13 @@ func Test_CheckMapWithNilAndNotRequiredField(t *testing.T) {
 		"id":   "required",
 		"name": "length:4,16",
 	}
-	if m := g.Validator().Data(data).Rules(rules).Run(context.TODO()); m != nil {
+	if m := g.X效验类().Data(data).Rules(rules).Run(context.TODO()); m != nil {
 		t.Error(m)
 	}
 }
 
 func Test_Sequence(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		params := map[string]interface{}{
 			"passport":  "",
 			"password":  "123456",
@@ -183,7 +183,7 @@ func Test_Sequence(t *testing.T) {
 			"password@required|length:6,16|same:password2#密码不能为空|密码长度应当在{min}到{max}之间|两次密码输入不相等",
 			"password2@required|length:6,16#",
 		}
-		err := g.Validator().Data(params).Rules(rules).Run(context.TODO())
+		err := g.X效验类().Data(params).Rules(rules).Run(context.TODO())
 		t.AssertNE(err, nil)
 		t.Assert(len(err.Map()), 2)
 		t.Assert(err.Map()["required"], "账号不能为空")
@@ -196,7 +196,7 @@ func Test_Sequence(t *testing.T) {
 		t.Assert(err.Items()[1]["password"]["same"], "两次密码输入不相等")
 
 		t.Assert(err.String(), "账号不能为空; 账号长度应当在6到16之间; 两次密码输入不相等")
-		t.Assert(err.Strings(), []string{"账号不能为空", "账号长度应当在6到16之间", "两次密码输入不相等"})
+		t.Assert(err.X取文本数组(), []string{"账号不能为空", "账号长度应当在6到16之间", "两次密码输入不相等"})
 
 		k, m := err.FirstItem()
 		t.Assert(k, "passport")
@@ -206,13 +206,13 @@ func Test_Sequence(t *testing.T) {
 		t.Assert(r, "required")
 		t.Assert(s, "账号不能为空")
 
-		t.Assert(gerror.Current(err), "账号不能为空")
+		t.Assert(错误类.X取当前错误(err), "账号不能为空")
 	})
 }
 
 func Test_Map_Bail(t *testing.T) {
 	// global bail
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		params := map[string]interface{}{
 			"passport":  "",
 			"password":  "123456",
@@ -223,12 +223,12 @@ func Test_Map_Bail(t *testing.T) {
 			"password@required|length:6,16|same:password2#密码不能为空|密码长度应当在{min}到{max}之间|两次密码输入不相等",
 			"password2@required|length:6,16#",
 		}
-		err := g.Validator().Bail().Rules(rules).Data(params).Run(ctx)
+		err := g.X效验类().Bail().Rules(rules).Data(params).Run(ctx)
 		t.AssertNE(err, nil)
 		t.Assert(err.String(), "账号不能为空")
 	})
 	// 全局退出（bail）并使用规则bail
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		params := map[string]interface{}{
 			"passport":  "",
 			"password":  "123456",
@@ -239,7 +239,7 @@ func Test_Map_Bail(t *testing.T) {
 			"password@required|length:6,16|same:password2#密码不能为空|密码长度应当在{min}到{max}之间|两次密码输入不相等",
 			"password2@required|length:6,16#",
 		}
-		err := g.Validator().Bail().Rules(rules).Data(params).Run(ctx)
+		err := g.X效验类().Bail().Rules(rules).Data(params).Run(ctx)
 		t.AssertNE(err, nil)
 		t.Assert(err.String(), "账号不能为空")
 	})

@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gproc
+package 进程类
 
 import (
 	"context"
@@ -23,7 +23,7 @@ import (
 
 var (
 	// tcpListened 标记接收端监听服务是否已启动。
-	tcpListened = gtype.NewBool()
+	tcpListened = 安全变量类.NewBool()
 )
 
 // 接收区块并通过本地TCP监听从其他进程接收消息。
@@ -39,12 +39,12 @@ func Receive(group ...string) *MsgRequest {
 	} else {
 		groupName = defaultGroupNameForProcComm
 	}
-	queue := commReceiveQueues.GetOrSetFuncLock(groupName, func() interface{} {
-		return gqueue.New(maxLengthForProcMsgQueue)
-	}).(*gqueue.Queue)
+	queue := commReceiveQueues.X取值或设置值_函数带锁(groupName, func() interface{} {
+		return 队列类.X创建(maxLengthForProcMsgQueue)
+	}).(*队列类.Queue)
 
 	// 阻塞接收。
-	if v := queue.Pop(); v != nil {
+	if v := queue.X出栈(); v != nil {
 		return v.(*MsgRequest)
 	}
 	return nil
@@ -55,33 +55,33 @@ func receiveTcpListening() {
 	var (
 		listen  *net.TCPListener
 		conn    net.Conn
-		port    = gtcp.MustGetFreePort()
+		port    = tcp类.MustGetFreePort()
 		address = fmt.Sprintf("127.0.0.1:%d", port)
 	)
 	tcpAddress, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
-		panic(gerror.Wrap(err, `net.ResolveTCPAddr failed`))
+		panic(错误类.X多层错误(err, `net.ResolveTCPAddr failed`))
 	}
 	listen, err = net.ListenTCP("tcp", tcpAddress)
 	if err != nil {
-		panic(gerror.Wrapf(err, `net.ListenTCP failed for address "%s"`, address))
+		panic(错误类.X多层错误并格式化(err, `net.ListenTCP failed for address "%s"`, address))
 	}
 	// 将端口保存到pid文件中。
-	if err = gfile.PutContents(getCommFilePath(Pid()), gconv.String(port)); err != nil {
+	if err = 文件类.X写入文本(getCommFilePath(Pid()), 转换类.String(port)); err != nil {
 		panic(err)
 	}
 	// Start listening.
 	for {
 		if conn, err = listen.Accept(); err != nil {
-			glog.Error(context.TODO(), err)
+			日志类.Error(context.TODO(), err)
 		} else if conn != nil {
-			go receiveTcpHandler(gtcp.NewConnByNetConn(conn))
+			go receiveTcpHandler(tcp类.NewConnByNetConn(conn))
 		}
 	}
 }
 
 // receiveTcpHandler 是用于接收数据的连接处理器。
-func receiveTcpHandler(conn *gtcp.Conn) {
+func receiveTcpHandler(conn *tcp类.Conn) {
 	var (
 		ctx      = context.TODO()
 		result   []byte
@@ -104,13 +104,13 @@ func receiveTcpHandler(conn *gtcp.Conn) {
 					"receiver pid not match, target: %d, current: %d",
 					msg.ReceiverPid, Pid(),
 				)
-			} else if v := commReceiveQueues.Get(msg.Group); v == nil {
+			} else if v := commReceiveQueues.X取值(msg.Group); v == nil {
 				// Group check.
 				response.Message = fmt.Sprintf("group [%s] does not exist", msg.Group)
 			} else {
 				// 将元素推送到缓冲队列中。
 				response.Code = 1
-				v.(*gqueue.Queue).Push(msg)
+				v.(*队列类.Queue).X入栈(msg)
 			}
 		} else {
 			// Empty package.
@@ -119,15 +119,15 @@ func receiveTcpHandler(conn *gtcp.Conn) {
 		if err == nil {
 			result, err = json.Marshal(response)
 			if err != nil {
-				glog.Error(ctx, err)
+				日志类.Error(ctx, err)
 			}
 			if err = conn.SendPkg(result); err != nil {
-				glog.Error(ctx, err)
+				日志类.Error(ctx, err)
 			}
 		} else {
 			// 如果发生任何错误，仅关闭连接即可。
 			if err = conn.Close(); err != nil {
-				glog.Error(ctx, err)
+				日志类.Error(ctx, err)
 			}
 			break
 		}

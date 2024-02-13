@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview
+package 模板类
 
 import (
 	"github.com/888go/goframe/os/gcmd"
@@ -18,5 +18,5 @@ const (
 
 // errorPrint 检查是否将错误输出到标准输出（stdout）
 func errorPrint() bool {
-	return gcmd.GetOptWithEnv(commandEnvKeyForErrorPrint, true).Bool()
+	return cmd类.GetOptWithEnv(commandEnvKeyForErrorPrint, true).X取布尔()
 }

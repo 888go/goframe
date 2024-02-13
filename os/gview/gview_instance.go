@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview
+package 模板类
 
 import (
 	"github.com/888go/goframe/container/gmap"
@@ -17,7 +17,7 @@ const (
 
 var (
 	// Instances map.
-	instances = gmap.NewStrAnyMap(true)
+	instances = map类.X创建StrAny(true)
 )
 
 // Instance 返回一个使用默认设置的 View 实例。
@@ -27,7 +27,7 @@ func Instance(name ...string) *View {
 	if len(name) > 0 && name[0] != "" {
 		key = name[0]
 	}
-	return instances.GetOrSetFuncLock(key, func() interface{} {
+	return instances.X取值或设置值_函数带锁(key, func() interface{} {
 		return New()
 	}).(*View)
 }

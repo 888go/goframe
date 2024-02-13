@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtest
+package 单元测试类
 
 import (
 	"fmt"
@@ -38,7 +38,7 @@ func C(t *testing.T, f func(t *T)) {
 // Assert 检查 `value` 和 `expect` 是否相等。
 func Assert(value, expect interface{}) {
 	rvExpect := reflect.ValueOf(expect)
-	if empty.IsNil(value) {
+	if empty.X是否为Nil(value) {
 		value = nil
 	}
 	if rvExpect.Kind() == reflect.Map {
@@ -48,8 +48,8 @@ func Assert(value, expect interface{}) {
 		return
 	}
 	var (
-		strValue  = gconv.String(value)
-		strExpect = gconv.String(expect)
+		strValue  = 转换类.String(value)
+		strExpect = 转换类.String(expect)
 	)
 	if strValue != strExpect {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v == %v`, strValue, strExpect))
@@ -60,7 +60,7 @@ func Assert(value, expect interface{}) {
 func AssertEQ(value, expect interface{}) {
 	// Value assert.
 	rvExpect := reflect.ValueOf(expect)
-	if empty.IsNil(value) {
+	if empty.X是否为Nil(value) {
 		value = nil
 	}
 	if rvExpect.Kind() == reflect.Map {
@@ -69,8 +69,8 @@ func AssertEQ(value, expect interface{}) {
 		}
 		return
 	}
-	strValue := gconv.String(value)
-	strExpect := gconv.String(expect)
+	strValue := 转换类.String(value)
+	strExpect := 转换类.String(expect)
 	if strValue != strExpect {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v == %v`, strValue, strExpect))
 	}
@@ -85,7 +85,7 @@ func AssertEQ(value, expect interface{}) {
 // AssertNE 检查 `value` 和 `expect` 是否不相等。
 func AssertNE(value, expect interface{}) {
 	rvExpect := reflect.ValueOf(expect)
-	if empty.IsNil(value) {
+	if empty.X是否为Nil(value) {
 		value = nil
 	}
 	if rvExpect.Kind() == reflect.Map {
@@ -95,8 +95,8 @@ func AssertNE(value, expect interface{}) {
 		return
 	}
 	var (
-		strValue  = gconv.String(value)
-		strExpect = gconv.String(expect)
+		strValue  = 转换类.String(value)
+		strExpect = 转换类.String(expect)
 	)
 	if strValue == strExpect {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v != %v`, strValue, strExpect))
@@ -112,7 +112,7 @@ func AssertNQ(value, expect interface{}) {
 		panic(
 			fmt.Sprintf(
 				`[ASSERT] EXPECT TYPE %v[%v] != %v[%v]`,
-				gconv.String(value), t1, gconv.String(expect), t2,
+				转换类.String(value), t1, 转换类.String(expect), t2,
 			),
 		)
 	}
@@ -127,16 +127,16 @@ func AssertGT(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
 	case reflect.String:
-		passed = gconv.String(value) > gconv.String(expect)
+		passed = 转换类.String(value) > 转换类.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int(value) > gconv.Int(expect)
+		passed = 转换类.X取整数(value) > 转换类.X取整数(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint(value) > gconv.Uint(expect)
+		passed = 转换类.X取正整数(value) > 转换类.X取正整数(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) > gconv.Float64(expect)
+		passed = 转换类.X取小数64位(value) > 转换类.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v > %v`, value, expect))
@@ -149,16 +149,16 @@ func AssertGE(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
 	case reflect.String:
-		passed = gconv.String(value) >= gconv.String(expect)
+		passed = 转换类.String(value) >= 转换类.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int64(value) >= gconv.Int64(expect)
+		passed = 转换类.X取整数64位(value) >= 转换类.X取整数64位(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint64(value) >= gconv.Uint64(expect)
+		passed = 转换类.X取正整数64位(value) >= 转换类.X取正整数64位(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) >= gconv.Float64(expect)
+		passed = 转换类.X取小数64位(value) >= 转换类.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(
@@ -176,16 +176,16 @@ func AssertLT(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
 	case reflect.String:
-		passed = gconv.String(value) < gconv.String(expect)
+		passed = 转换类.String(value) < 转换类.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int(value) < gconv.Int(expect)
+		passed = 转换类.X取整数(value) < 转换类.X取整数(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint(value) < gconv.Uint(expect)
+		passed = 转换类.X取正整数(value) < 转换类.X取正整数(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) < gconv.Float64(expect)
+		passed = 转换类.X取小数64位(value) < 转换类.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v < %v`, value, expect))
@@ -199,16 +199,16 @@ func AssertLE(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
 	case reflect.String:
-		passed = gconv.String(value) <= gconv.String(expect)
+		passed = 转换类.String(value) <= 转换类.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int(value) <= gconv.Int(expect)
+		passed = 转换类.X取整数(value) <= 转换类.X取整数(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint(value) <= gconv.Uint(expect)
+		passed = 转换类.X取正整数(value) <= 转换类.X取正整数(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) <= gconv.Float64(expect)
+		passed = 转换类.X取小数64位(value) <= 转换类.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v <= %v`, value, expect))
@@ -227,8 +227,8 @@ func AssertIN(value, expect interface{}) {
 	)
 	switch expectKind {
 	case reflect.Slice, reflect.Array:
-		expectSlice := gconv.Strings(expect)
-		for _, v1 := range gconv.Strings(value) {
+		expectSlice := 转换类.X取文本数组(expect)
+		for _, v1 := range 转换类.X取文本数组(value) {
 			result := false
 			for _, v2 := range expectSlice {
 				if v1 == v2 {
@@ -260,9 +260,9 @@ func AssertNI(value, expect interface{}) {
 	)
 	switch expectKind {
 	case reflect.Slice, reflect.Array:
-		for _, v1 := range gconv.Strings(value) {
+		for _, v1 := range 转换类.X取文本数组(value) {
 			result := true
-			for _, v2 := range gconv.Strings(expect) {
+			for _, v2 := range 转换类.X取文本数组(expect) {
 				if v1 == v2 {
 					result = false
 					break
@@ -311,10 +311,10 @@ func compareMap(value, expect interface{}) error {
 				ksValue := rvValue.MapKeys()
 				ksExpect := rvExpect.MapKeys()
 				for _, key := range ksValue {
-					mValue[gconv.String(key.Interface())] = gconv.String(rvValue.MapIndex(key).Interface())
+					mValue[转换类.String(key.Interface())] = 转换类.String(rvValue.MapIndex(key).Interface())
 				}
 				for _, key := range ksExpect {
-					mExpect[gconv.String(key.Interface())] = gconv.String(rvExpect.MapIndex(key).Interface())
+					mExpect[转换类.String(key.Interface())] = 转换类.String(rvExpect.MapIndex(key).Interface())
 				}
 				for k, v := range mExpect {
 					if v != mValue[k] {
@@ -334,7 +334,7 @@ func compareMap(value, expect interface{}) error {
 
 // AssertNil 断言 `value` 为 nil。
 func AssertNil(value interface{}) {
-	if empty.IsNil(value) {
+	if empty.X是否为Nil(value) {
 		return
 	}
 	if err, ok := value.(error); ok {

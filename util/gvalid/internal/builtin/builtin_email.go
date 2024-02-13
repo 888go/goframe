@@ -30,7 +30,7 @@ func (r RuleEmail) Message() string {
 }
 
 func (r RuleEmail) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)+$`,
 		in.Value.String(),
 	)

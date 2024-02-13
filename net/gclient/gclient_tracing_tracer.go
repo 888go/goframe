@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient
+package 网页类
 
 import (
 	"context"
@@ -153,9 +153,9 @@ func (ct *clientTracer) wroteRequest(info httptrace.WroteRequestInfo) {
 	}
 
 	ct.span.AddEvent(tracingEventHttpRequest, trace.WithAttributes(
-		attribute.String(tracingEventHttpRequestHeaders, gconv.String(ct.headers)),
+		attribute.String(tracingEventHttpRequestHeaders, 转换类.String(ct.headers)),
 		attribute.String(tracingEventHttpRequestBaggage, gtrace.GetBaggageMap(ct.Context).String()),
-		attribute.String(tracingEventHttpRequestBody, gstr.StrLimit(
+		attribute.String(tracingEventHttpRequestBody, 文本类.X按长度取左边并带前缀(
 			string(ct.requestBody),
 			gtrace.MaxContentLogSize(),
 			"...",

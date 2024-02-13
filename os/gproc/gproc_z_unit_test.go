@@ -6,7 +6,7 @@
 
 // 使用 go test 命令测试所有.go文件，启用基准测试（-bench=".*"），并显示内存使用情况统计信息（-benchmem）
 
-package gproc_test
+package 进程类_test
 
 import (
 	"testing"
@@ -17,14 +17,14 @@ import (
 )
 
 func Test_ShellExec(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s, err := gproc.ShellExec(gctx.New(), `echo 123`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s, err := 进程类.ShellExec(上下文类.X创建(), `echo 123`)
 		t.AssertNil(err)
 		t.Assert(s, "123\r\n")//2024-01-14 此处替换成win平台的换行符, 以免在win平台单元测试不过
 	})
 	// error
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gproc.ShellExec(gctx.New(), `NoneExistCommandCall`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := 进程类.ShellExec(上下文类.X创建(), `NoneExistCommandCall`)
 		t.AssertNE(err, nil)
 	})
 }

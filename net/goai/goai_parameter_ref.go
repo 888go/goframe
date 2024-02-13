@@ -32,13 +32,13 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 		tagMap    = field.TagMap()
 		fieldName = field.Name()
 	)
-	for _, tagName := range gconv.StructTagPriority {
+	for _, tagName := range 转换类.StructTagPriority {
 		if tagValue := field.Tag(tagName); tagValue != "" {
 			fieldName = tagValue
 			break
 		}
 	}
-	fieldName = gstr.Split(gstr.Trim(fieldName), ",")[0]
+	fieldName = 文本类.X分割(文本类.X过滤首尾符并含空白(fieldName), ",")[0]
 	if fieldName == "" {
 		fieldName = field.Name()
 	}
@@ -53,11 +53,11 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	}
 	if parameter.In == "" {
 		// 自动检测其 "in" 属性。
-		if gstr.ContainsI(path, fmt.Sprintf(`{%s}`, parameter.Name)) {
+		if 文本类.X是否包含并忽略大小写(path, fmt.Sprintf(`{%s}`, parameter.Name)) {
 			parameter.In = ParameterInPath
 		} else {
 			// 如果请求方法为 "GET" 或 "DELETE"，则将参数输入默认设置为 "query"。
-			switch gstr.ToUpper(method) {
+			switch 文本类.X到大写(method) {
 			case http.MethodGet, http.MethodDelete:
 				parameter.In = ParameterInQuery
 
@@ -75,7 +75,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	case ParameterInCookie, ParameterInHeader, ParameterInQuery:
 
 	default:
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid tag value "%s" for In`, parameter.In)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid tag value "%s" for In`, parameter.In)
 	}
 	// 必要的架构或内容。
 	schemaRef, err := oai.newSchemaRefWithGolangType(field.Type().Type, tagMap)
@@ -91,8 +91,8 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 
 	// Required check.
 	if parameter.Schema.Value != nil && parameter.Schema.Value.ValidationRules != "" {
-		validationRuleArray := gstr.Split(parameter.Schema.Value.ValidationRules, "|")
-		if gset.NewStrSetFrom(validationRuleArray).Contains(validationRuleKeyForRequired) {
+		validationRuleArray := 文本类.X分割(parameter.Schema.Value.ValidationRules, "|")
+		if 集合类.X创建文本并按值(validationRuleArray).X是否存在(validationRuleKeyForRequired) {
 			parameter.Required = true
 		}
 	}

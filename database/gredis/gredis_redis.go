@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gredis
+package redis类
 
 import (
 	"context"
@@ -48,7 +48,7 @@ const (
 )
 
 var (
-	errorNilAdapter = gstr.Trim(gstr.Replace(`
+	errorNilAdapter = 文本类.X过滤首尾符并含空白(文本类.X替换(`
 redis adapter is not set, missing configuration or adapter register? 
 possible reference: https://github.com/gogf/gf/tree/master/contrib/nosql/redis
 `, "\n", ""))
@@ -72,7 +72,7 @@ func (r *Redis) initGroup() *Redis {
 // SetAdapter 更改当前Redis客户端的底层适配器，使用自定义适配器。
 func (r *Redis) SetAdapter(adapter Adapter) {
 	if r == nil {
-		panic(gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis))
+		panic(错误类.X创建错误码(错误码类.CodeInvalidParameter, errorNilRedis))
 	}
 	r.localAdapter = adapter
 }
@@ -89,22 +89,22 @@ func (r *Redis) GetAdapter() Adapter {
 // 注意，如果你不再使用此连接，应手动调用 Close 函数。
 func (r *Redis) Conn(ctx context.Context) (Conn, error) {
 	if r == nil {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, errorNilRedis)
 	}
 	if r.localAdapter == nil {
-		return nil, gerror.NewCode(gcode.CodeNecessaryPackageNotImport, errorNilAdapter)
+		return nil, 错误类.X创建错误码(错误码类.CodeNecessaryPackageNotImport, errorNilAdapter)
 	}
 	return r.localAdapter.Conn(ctx)
 }
 
 // 向服务器发送命令并返回接收到的回复。
 // 在将结构体/切片/映射类型值提交给redis之前，它使用json.Marshal进行序列化。
-func (r *Redis) Do(ctx context.Context, command string, args ...interface{}) (*gvar.Var, error) {
+func (r *Redis) Do(ctx context.Context, command string, args ...interface{}) (*泛型类.Var, error) {
 	if r == nil {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, errorNilRedis)
 	}
 	if r.localAdapter == nil {
-		return nil, gerror.NewCodef(gcode.CodeMissingConfiguration, errorNilAdapter)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeMissingConfiguration, errorNilAdapter)
 	}
 	return r.localAdapter.Do(ctx, command, args...)
 }
@@ -119,7 +119,7 @@ func (r *Redis) MustConn(ctx context.Context) Conn {
 }
 
 // MustDo 执行与函数 Do 相同的操作，但如果内部出现任何错误，它会触发 panic（异常）。
-func (r *Redis) MustDo(ctx context.Context, command string, args ...interface{}) *gvar.Var {
+func (r *Redis) MustDo(ctx context.Context, command string, args ...interface{}) *泛型类.Var {
 	v, err := r.Do(ctx, command, args...)
 	if err != nil {
 		panic(err)

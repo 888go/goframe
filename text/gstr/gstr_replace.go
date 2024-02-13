@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gstr
+package 文本类
 
 import (
 	"strings"
@@ -13,35 +13,35 @@ import (
 
 // Replace 返回 `origin` 字符串的一个副本，
 // 其中字符串 `search` 被 `replace` 按照大小写敏感的方式替换。
-func Replace(origin, search, replace string, count ...int) string {
+func X替换(文本, 替换文本, 用作替换文本 string, 替换次数 ...int) string {
 	n := -1
-	if len(count) > 0 {
-		n = count[0]
+	if len(替换次数) > 0 {
+		n = 替换次数[0]
 	}
-	return strings.Replace(origin, search, replace, n)
+	return strings.Replace(文本, 替换文本, 用作替换文本, n)
 }
 
 // ReplaceI返回一个`origin`字符串的副本，
 // 其中不区分大小写地将字符串`search`替换为`replace`。
-func ReplaceI(origin, search, replace string, count ...int) string {
+func X替换并忽略大小写(文本, 替换文本, 用作替换文本 string, 替换次数 ...int) string {
 	n := -1
-	if len(count) > 0 {
-		n = count[0]
+	if len(替换次数) > 0 {
+		n = 替换次数[0]
 	}
 	if n == 0 {
-		return origin
+		return 文本
 	}
 	var (
-		searchLength  = len(search)
-		replaceLength = len(replace)
-		searchLower   = strings.ToLower(search)
+		searchLength  = len(替换文本)
+		replaceLength = len(用作替换文本)
+		searchLower   = strings.ToLower(替换文本)
 		originLower   string
 		pos           int
 	)
 	for {
-		originLower = strings.ToLower(origin)
-		if pos = Pos(originLower, searchLower, pos); pos != -1 {
-			origin = origin[:pos] + replace + origin[pos+searchLength:]
+		originLower = strings.ToLower(文本)
+		if pos = X查找(originLower, searchLower, pos); pos != -1 {
+			文本 = 文本[:pos] + 用作替换文本 + 文本[pos+searchLength:]
 			pos += replaceLength
 			if n--; n == 0 {
 				break
@@ -50,44 +50,44 @@ func ReplaceI(origin, search, replace string, count ...int) string {
 			break
 		}
 	}
-	return origin
+	return 文本
 }
 
 // ReplaceByArray 返回 `origin` 的副本，
 // 其中内容会按照顺序被切片中的元素替换，并且是区分大小写的。
-func ReplaceByArray(origin string, array []string) string {
-	for i := 0; i < len(array); i += 2 {
-		if i+1 >= len(array) {
+func X数组替换(文本 string, 数组 []string) string {
+	for i := 0; i < len(数组); i += 2 {
+		if i+1 >= len(数组) {
 			break
 		}
-		origin = Replace(origin, array[i], array[i+1])
+		文本 = X替换(文本, 数组[i], 数组[i+1])
 	}
-	return origin
+	return 文本
 }
 
 // ReplaceIByArray 返回 `origin` 的副本，
 // 其中内容按照顺序被切片替换，并且不区分大小写。
-func ReplaceIByArray(origin string, array []string) string {
-	for i := 0; i < len(array); i += 2 {
-		if i+1 >= len(array) {
+func X数组替换并忽略大小写(文本 string, 数组 []string) string {
+	for i := 0; i < len(数组); i += 2 {
+		if i+1 >= len(数组) {
 			break
 		}
-		origin = ReplaceI(origin, array[i], array[i+1])
+		文本 = X替换并忽略大小写(文本, 数组[i], 数组[i+1])
 	}
-	return origin
+	return 文本
 }
 
 // ReplaceByMap 函数返回 `origin` 的一个副本，
 // 并使用一个无序的映射进行替换，且替换操作区分大小写。
-func ReplaceByMap(origin string, replaces map[string]string) string {
-	return utils.ReplaceByMap(origin, replaces)
+func Map替换(文本 string, 用作替换的Map map[string]string) string {
+	return utils.ReplaceByMap(文本, 用作替换的Map)
 }
 
 // ReplaceIByMap 返回 `origin` 的副本，
 // 其中内容将以无序方式、不区分大小写地通过一个映射表进行替换。
-func ReplaceIByMap(origin string, replaces map[string]string) string {
-	for k, v := range replaces {
-		origin = ReplaceI(origin, k, v)
+func Map替换并忽略大小写(文本 string, map数组 map[string]string) string {
+	for k, v := range map数组 {
+		文本 = X替换并忽略大小写(文本, k, v)
 	}
-	return origin
+	return 文本
 }

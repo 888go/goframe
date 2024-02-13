@@ -47,7 +47,7 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 	}
 
 	var (
-		dataFieldsPartsArray      = gstr.Split(in.RequestDataField, ".")
+		dataFieldsPartsArray      = 文本类.X分割(in.RequestDataField, ".")
 		bizRequestStructSchemaRef = oai.Components.Schemas.Get(in.BusinessStructName)
 		schema, err               = oai.structToSchema(in.RequestObject)
 	)
@@ -56,8 +56,8 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 	}
 	if in.RequestDataField == "" && bizRequestStructSchemaRef != nil {
 		// Normal request.
-		bizRequestStructSchemaRef.Value.Properties.Iterator(func(key string, ref SchemaRef) bool {
-			schema.Properties.Set(key, ref)
+		bizRequestStructSchemaRef.Value.Properties.X遍历(func(key string, ref SchemaRef) bool {
+			schema.Properties.X设置值(key, ref)
 			return true
 		})
 	} else {
@@ -77,7 +77,7 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 					if err = oai.tagMapToSchema(structField.TagMap(), bizRequestStructSchemaRef.Value); err != nil {
 						return nil, err
 					}
-					schema.Properties.Set(fieldName, *bizRequestStructSchemaRef)
+					schema.Properties.X设置值(fieldName, *bizRequestStructSchemaRef)
 					break
 				}
 			default:
@@ -86,12 +86,12 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 					schemaRef, err := oai.getRequestSchemaRef(getRequestSchemaRefInput{
 						BusinessStructName: in.BusinessStructName,
 						RequestObject:      structFieldInstance,
-						RequestDataField:   gstr.Join(dataFieldsPartsArray[1:], "."),
+						RequestDataField:   文本类.X连接(dataFieldsPartsArray[1:], "."),
 					})
 					if err != nil {
 						return nil, err
 					}
-					schema.Properties.Set(fieldName, *schemaRef)
+					schema.Properties.X设置值(fieldName, *schemaRef)
 					break
 				}
 			}

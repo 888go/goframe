@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"database/sql"
@@ -19,13 +19,13 @@ import (
 // Delete 执行 "DELETE FROM ..." 语句用于该模型。
 // 可选参数 `where` 与 Model.Where 函数的参数相同，
 // 请参阅 Model.Where。
-func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(where) > 0 {
-		return m.Where(where[0], where[1:]...).Delete()
+func (m *Model) X删除(条件 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(条件) > 0 {
+		return m.X条件(条件[0], 条件[1:]...).X删除()
 	}
 	defer func() {
-		if err == nil {
+		if 错误 == nil {
 			m.checkAndRemoveSelectCache(ctx)
 		}
 	}()
@@ -37,14 +37,14 @@ func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
 	if m.unscoped {
 		fieldNameDelete = ""
 	}
-	if !gstr.ContainsI(conditionStr, " WHERE ") || (fieldNameDelete != "" && !gstr.ContainsI(conditionStr, " AND ")) {
+	if !文本类.X是否包含并忽略大小写(conditionStr, " WHERE ") || (fieldNameDelete != "" && !文本类.X是否包含并忽略大小写(conditionStr, " AND ")) {
 		intlog.Printf(
 			ctx,
 			`sql condition string "%s" has no WHERE for DELETE operation, fieldNameDelete: %s`,
 			conditionStr, fieldNameDelete,
 		)
-		return nil, gerror.NewCode(
-			gcode.CodeMissingParameter,
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeMissingParameter,
 			"there should be WHERE condition statement for DELETE operation",
 		)
 	}
@@ -60,9 +60,9 @@ func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
 			},
 			Model:     m,
 			Table:     m.tables,
-			Data:      fmt.Sprintf(`%s=?`, m.db.GetCore().QuoteString(fieldNameDelete)),
+			Data:      fmt.Sprintf(`%s=?`, m.db.X取Core对象().X底层QuoteString(fieldNameDelete)),
 			Condition: conditionStr,
-			Args:      append([]interface{}{gtime.Now()}, conditionArgs...),
+			Args:      append([]interface{}{时间类.X创建并按当前时间()}, conditionArgs...),
 		}
 		return in.Next(ctx)
 	}

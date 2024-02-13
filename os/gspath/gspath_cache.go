@@ -6,7 +6,7 @@
 
 // Package gspath 实现了文件索引和对文件夹的搜索功能。
 
-package gspath
+package 文件搜索类
 
 import (
 	"runtime"
@@ -30,14 +30,14 @@ func (sp *SPath) updateCacheByPath(path string) {
 // 2. 名称应以 '/' 开头（类似于 HTTP URI）。
 func (sp *SPath) formatCacheName(name string) string {
 	if runtime.GOOS != "linux" {
-		name = gstr.Replace(name, "\\", "/")
+		name = 文本类.X替换(name, "\\", "/")
 	}
 	return "/" + strings.Trim(name, "./")
 }
 
 // nameFromPath将`filePath`转换为缓存名称。
 func (sp *SPath) nameFromPath(filePath, rootPath string) string {
-	name := gstr.Replace(filePath, rootPath, "")
+	name := 文本类.X替换(filePath, rootPath, "")
 	name = sp.formatCacheName(name)
 	return name
 }
@@ -63,16 +63,16 @@ func (sp *SPath) parseCacheValue(value string) (filePath string, isDir bool) {
 // 一并添加到缓存中。
 func (sp *SPath) addToCache(filePath, rootPath string) {
 	// 首先对其自身进行加法操作。
-	idDir := gfile.IsDir(filePath)
-	sp.cache.SetIfNotExist(
+	idDir := 文件类.X是否存在目录(filePath)
+	sp.cache.X设置值并跳过已存在(
 		sp.nameFromPath(filePath, rootPath), sp.makeCacheValue(filePath, idDir),
 	)
 	// 如果它是一个目录，那么它会添加其所有子文件/子目录。
 	if idDir {
-		if files, err := gfile.ScanDir(filePath, "*", true); err == nil {
+		if files, err := 文件类.X枚举并含子目录名(filePath, "*", true); err == nil {
 			// 输出到控制台：gspath添加到缓存中: filePath, files
 			for _, path := range files {
-				sp.cache.SetIfNotExist(sp.nameFromPath(path, rootPath), sp.makeCacheValue(path, gfile.IsDir(path)))
+				sp.cache.X设置值并跳过已存在(sp.nameFromPath(path, rootPath), sp.makeCacheValue(path, 文件类.X是否存在目录(path)))
 			}
 		}
 	}
@@ -86,15 +86,15 @@ func (sp *SPath) addMonitorByPath(path string) {
 	if sp.cache == nil {
 		return
 	}
-	_, _ = gfsnotify.Add(path, func(event *gfsnotify.Event) {
+	_, _ = 文件监控类.Add(path, func(event *文件监控类.Event) {
 		// glog.Debug(event.String()) // 使用glog库输出debug级别的日志，内容为event对象转换为字符串后的结果
 		switch {
 		case event.IsRemove():
-			sp.cache.Remove(sp.nameFromPath(event.Path, path))
+			sp.cache.X删除(sp.nameFromPath(event.Path, path))
 
 		case event.IsRename():
-			if !gfile.Exists(event.Path) {
-				sp.cache.Remove(sp.nameFromPath(event.Path, path))
+			if !文件类.X是否存在(event.Path) {
+				sp.cache.X删除(sp.nameFromPath(event.Path, path))
 			}
 
 		case event.IsCreate():
@@ -108,5 +108,5 @@ func (sp *SPath) removeMonitorByPath(path string) {
 	if sp.cache == nil {
 		return
 	}
-	_ = gfsnotify.Remove(path)
+	_ = 文件监控类.Remove(path)
 }

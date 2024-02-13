@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"context"
@@ -50,11 +50,11 @@ type Config struct {
 }
 
 type internalConfig struct {
-	rotatedHandlerInitialized *gtype.Bool // 是否已初始化旋转功能
+	rotatedHandlerInitialized *安全变量类.Bool // 是否已初始化旋转功能
 }
 
 // DefaultConfig 返回日志器的默认配置。
-func DefaultConfig() Config {
+func X生成默认配置() Config {
 	c := Config{
 		File:                defaultFileFormat,
 		Flags:               F_TIME_STD,
@@ -68,7 +68,7 @@ func DefaultConfig() Config {
 		LevelPrefixes:       make(map[int]string, len(defaultLevelPrefixes)),
 		RotateCheckInterval: time.Hour,
 		internalConfig: internalConfig{
-			rotatedHandlerInitialized: gtype.NewBool(),
+			rotatedHandlerInitialized: 安全变量类.NewBool(),
 		},
 	}
 	for k, v := range defaultLevelPrefixes {
@@ -81,16 +81,16 @@ func DefaultConfig() Config {
 }
 
 // GetConfig 返回当前 Logger 的配置。
-func (l *Logger) GetConfig() Config {
+func (l *Logger) X取配置项() Config {
 	return l.config
 }
 
 // SetConfig 为日志器设置配置。
-func (l *Logger) SetConfig(config Config) error {
-	l.config = config
+func (l *Logger) X设置配置项(配置项 Config) error {
+	l.config = 配置项
 	// 必要的验证
-	if config.Path != "" {
-		if err := l.SetPath(config.Path); err != nil {
+	if 配置项.Path != "" {
+		if err := l.X设置文件路径(配置项.Path); err != nil {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 			return err
 		}
@@ -100,40 +100,40 @@ func (l *Logger) SetConfig(config Config) error {
 }
 
 // SetConfigWithMap 通过map设置日志器的配置。
-func (l *Logger) SetConfigWithMap(m map[string]interface{}) error {
+func (l *Logger) X设置配置Map(m map[string]interface{}) error {
 	if len(m) == 0 {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "configuration cannot be empty")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "configuration cannot be empty")
 	}
 // 现在的m是m的一个浅拷贝。
 // 这有点巧妙，不是吗？
-	m = gutil.MapCopy(m)
+	m = 工具类.MapCopy(m)
 	// 将字符串配置转换为级别对应的整数值。
-	levelKey, levelValue := gutil.MapPossibleItemByKey(m, "Level")
+	levelKey, levelValue := 工具类.MapPossibleItemByKey(m, "Level")
 	if levelValue != nil {
-		if level, ok := levelStringMap[strings.ToUpper(gconv.String(levelValue))]; ok {
+		if level, ok := levelStringMap[strings.ToUpper(转换类.String(levelValue))]; ok {
 			m[levelKey] = level
 		} else {
-			return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid level string: %v`, levelValue)
+			return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid level string: %v`, levelValue)
 		}
 	}
 	// 将字符串配置转换为文件旋转大小的整数值。
-	rotateSizeKey, rotateSizeValue := gutil.MapPossibleItemByKey(m, "RotateSize")
+	rotateSizeKey, rotateSizeValue := 工具类.MapPossibleItemByKey(m, "RotateSize")
 	if rotateSizeValue != nil {
-		m[rotateSizeKey] = gfile.StrToSize(gconv.String(rotateSizeValue))
+		m[rotateSizeKey] = 文件类.X易读格式转字节长度(转换类.String(rotateSizeValue))
 		if m[rotateSizeKey] == -1 {
-			return gerror.NewCodef(gcode.CodeInvalidConfiguration, `invalid rotate size: %v`, rotateSizeValue)
+			return 错误类.X创建错误码并格式化(错误码类.CodeInvalidConfiguration, `invalid rotate size: %v`, rotateSizeValue)
 		}
 	}
-	if err := gconv.Struct(m, &l.config); err != nil {
+	if err := 转换类.Struct(m, &l.config); err != nil {
 		return err
 	}
-	return l.SetConfig(l.config)
+	return l.X设置配置项(l.config)
 }
 
 // SetDebug 用于开启或关闭日志器的调试级别。
 // 默认情况下，调试级别是启用的。
-func (l *Logger) SetDebug(debug bool) {
-	if debug {
+func (l *Logger) X设置debug(开启 bool) {
+	if 开启 {
 		l.config.Level = l.config.Level | LEVEL_DEBU
 	} else {
 		l.config.Level = l.config.Level & ^LEVEL_DEBU
@@ -141,8 +141,8 @@ func (l *Logger) SetDebug(debug bool) {
 }
 
 // SetAsync 启用/禁用异步日志输出功能。
-func (l *Logger) SetAsync(enabled bool) {
-	if enabled {
+func (l *Logger) X设置异步输出(开启 bool) {
+	if 开启 {
 		l.config.Flags = l.config.Flags | F_ASYNC
 	} else {
 		l.config.Flags = l.config.Flags & ^F_ASYNC
@@ -150,18 +150,18 @@ func (l *Logger) SetAsync(enabled bool) {
 }
 
 // SetFlags 设置日志输出功能的额外标志。
-func (l *Logger) SetFlags(flags int) {
-	l.config.Flags = flags
+func (l *Logger) X设置额外标识(标识 int) {
+	l.config.Flags = 标识
 }
 
 // GetFlags 返回日志器的标志。
-func (l *Logger) GetFlags() int {
+func (l *Logger) X取标识() int {
 	return l.config.Flags
 }
 
 // SetStack 启用/禁用失败日志输出中的堆栈跟踪功能。
-func (l *Logger) SetStack(enabled bool) {
-	if enabled {
+func (l *Logger) X设置堆栈跟踪(开启 bool) {
+	if 开启 {
 		l.config.StStatus = 1
 	} else {
 		l.config.StStatus = 0
@@ -169,20 +169,20 @@ func (l *Logger) SetStack(enabled bool) {
 }
 
 // SetStackSkip 设置从终点开始的堆栈偏移量。
-func (l *Logger) SetStackSkip(skip int) {
-	l.config.StSkip = skip
+func (l *Logger) X设置堆栈偏移量(偏移量 int) {
+	l.config.StSkip = 偏移量
 }
 
 // SetStackFilter 从终点设置堆栈过滤器。
-func (l *Logger) SetStackFilter(filter string) {
-	l.config.StFilter = filter
+func (l *Logger) X设置堆栈过滤(过滤器 string) {
+	l.config.StFilter = 过滤器
 }
 
 // SetCtxKeys 设置日志器的上下文键。这些键用于从上下文中检索值并将其打印到日志内容中。
 //
 // 注意，多次调用此函数将覆盖之前设置的上下文键。
-func (l *Logger) SetCtxKeys(keys ...interface{}) {
-	l.config.CtxKeys = keys
+func (l *Logger) X设置上下文名称(名称 ...interface{}) {
+	l.config.CtxKeys = 名称
 }
 
 // AppendCtxKeys 向日志器追加额外键。
@@ -204,7 +204,7 @@ func (l *Logger) AppendCtxKeys(keys ...interface{}) {
 }
 
 // GetCtxKeys 获取并返回用于日志记录的上下文键。
-func (l *Logger) GetCtxKeys() []interface{} {
+func (l *Logger) X取上下文名称() []interface{} {
 	return l.config.CtxKeys
 }
 
@@ -212,33 +212,33 @@ func (l *Logger) GetCtxKeys() []interface{} {
 // `writer` 对象应实现 io.Writer 接口。
 // 开发者可以使用自定义的日志 `writer` 将日志输出重定向到其他服务，
 // 例如：kafka、mysql、mongodb 等。
-func (l *Logger) SetWriter(writer io.Writer) {
+func (l *Logger) X设置Writer(writer io.Writer) {
 	l.config.Writer = writer
 }
 
 // GetWriter 返回自定义的writer对象，该对象实现了io.Writer接口。
 // 如果之前未设置过writer，则返回nil。
-func (l *Logger) GetWriter() io.Writer {
+func (l *Logger) X取Writer() io.Writer {
 	return l.config.Writer
 }
 
 // SetPath 设置文件日志的目录路径。
-func (l *Logger) SetPath(path string) error {
-	if path == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "logging path is empty")
+func (l *Logger) X设置文件路径(文件路径 string) error {
+	if 文件路径 == "" {
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "logging path is empty")
 	}
-	if !gfile.Exists(path) {
-		if err := gfile.Mkdir(path); err != nil {
-			return gerror.Wrapf(err, `Mkdir "%s" failed in PWD "%s"`, path, gfile.Pwd())
+	if !文件类.X是否存在(文件路径) {
+		if err := 文件类.X创建目录(文件路径); err != nil {
+			return 错误类.X多层错误并格式化(err, `Mkdir "%s" failed in PWD "%s"`, 文件路径, 文件类.X取当前工作目录())
 		}
 	}
-	l.config.Path = strings.TrimRight(path, gfile.Separator)
+	l.config.Path = strings.TrimRight(文件路径, 文件类.Separator)
 	return nil
 }
 
 // GetPath 返回用于文件日志记录的日志目录路径。
 // 如果未设置目录路径，则返回空字符串。
-func (l *Logger) GetPath() string {
+func (l *Logger) X取文件路径() string {
 	return l.config.Path
 }
 
@@ -249,47 +249,47 @@ func (l *Logger) GetPath() string {
 // 设置文件日志的文件名为 `pattern`。
 // 可以在 `pattern` 中使用日期时间格式化字符串，例如：access-{Ymd}.log（表示按年月日生成不同文件）。
 // 默认的文件名格式是：Y-m-d.log，例如：2018-01-01.log
-func (l *Logger) SetFile(pattern string) {
-	l.config.File = pattern
+func (l *Logger) X设置文件名格式(文件名格式 string) {
+	l.config.File = 文件名格式
 }
 
 // SetTimeFormat 设置日志时间的时间格式。
-func (l *Logger) SetTimeFormat(timeFormat string) {
-	l.config.TimeFormat = timeFormat
+func (l *Logger) X设置时间格式(时间格式 string) {
+	l.config.TimeFormat = 时间格式
 }
 
 // SetStdoutPrint 设置是否将日志内容输出到标准输出(stdout)，默认为true。
-func (l *Logger) SetStdoutPrint(enabled bool) {
-	l.config.StdoutPrint = enabled
+func (l *Logger) X设置是否同时输出到终端(开启 bool) {
+	l.config.StdoutPrint = 开启
 }
 
 // SetHeaderPrint 设置是否输出日志内容的头部，默认为true。
-func (l *Logger) SetHeaderPrint(enabled bool) {
-	l.config.HeaderPrint = enabled
+func (l *Logger) X设置是否输出头信息(开启 bool) {
+	l.config.HeaderPrint = 开启
 }
 
 // SetLevelPrint 设置是否输出日志内容的级别字符串，默认为true。
-func (l *Logger) SetLevelPrint(enabled bool) {
-	l.config.LevelPrint = enabled
+func (l *Logger) X设置是否输出级别(开启 bool) {
+	l.config.LevelPrint = 开启
 }
 
 // SetPrefix 设置每个日志内容的前缀字符串。
 // 前缀是头部的一部分，这意味着如果关闭了头部输出，则不会输出任何前缀。
-func (l *Logger) SetPrefix(prefix string) {
-	l.config.Prefix = prefix
+func (l *Logger) X设置前缀(前缀 string) {
+	l.config.Prefix = 前缀
 }
 
 // SetHandlers 设置当前日志器的处理程序。
-func (l *Logger) SetHandlers(handlers ...Handler) {
-	l.config.Handlers = handlers
+func (l *Logger) X设置中间件(处理函数 ...Handler) {
+	l.config.Handlers = 处理函数
 }
 
 // SetWriterColorEnable 开启文件/写入器日志的彩色输出功能。
-func (l *Logger) SetWriterColorEnable(enabled bool) {
-	l.config.WriterColorEnable = enabled
+func (l *Logger) X设置文件是否输出颜色(开启 bool) {
+	l.config.WriterColorEnable = 开启
 }
 
 // SetStdoutColorDisabled 禁用 stdout 日志颜色输出。
-func (l *Logger) SetStdoutColorDisabled(disabled bool) {
-	l.config.StdoutColorDisabled = disabled
+func (l *Logger) X设置关闭终端颜色输出(关闭 bool) {
+	l.config.StdoutColorDisabled = 关闭
 }

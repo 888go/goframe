@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gbuild 管理来自 "gf build" 的内置变量。
-package gbuild
+package 构建信息类
 
 import (
 	"context"
@@ -44,7 +44,7 @@ var (
 func init() {
 	// `builtInVarStr`是由go构建标志注入的。
 	if builtInVarStr != "" {
-		err := json.UnmarshalUseNumber(gbase64.MustDecodeString(builtInVarStr), &builtInVarMap)
+		err := json.UnmarshalUseNumber(编码base64类.X文本解码到字节集PANI(builtInVarStr), &builtInVarMap)
 		if err != nil {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
@@ -71,12 +71,12 @@ func Info() BuildInfo {
 }
 
 // Get 函数用于获取并返回指定名称的内置二进制变量。
-func Get(name string, def ...interface{}) *gvar.Var {
+func Get(name string, def ...interface{}) *泛型类.Var {
 	if v, ok := builtInVarMap[name]; ok {
-		return gvar.New(v)
+		return 泛型类.X创建(v)
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0])
+		return 泛型类.X创建(def[0])
 	}
 	return nil
 }

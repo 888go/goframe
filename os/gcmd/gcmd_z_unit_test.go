@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
@@ -24,43 +24,43 @@ import (
 )
 
 func Test_Default(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		gcmd.Init([]string{"gf", "--force", "remove", "-fq", "-p=www", "path", "-n", "root"}...)
-		t.Assert(len(gcmd.GetArgAll()), 2)
-		t.Assert(gcmd.GetArg(1), "path")
-		t.Assert(gcmd.GetArg(100, "test"), "test")
-		t.Assert(gcmd.GetOpt("force"), "remove")
-		t.Assert(gcmd.GetOpt("n"), "root")
-		t.Assert(gcmd.GetOpt("fq").IsNil(), false)
-		t.Assert(gcmd.GetOpt("p").IsNil(), false)
-		t.Assert(gcmd.GetOpt("none").IsNil(), true)
-		t.Assert(gcmd.GetOpt("none", "value"), "value")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		cmd类.Init([]string{"gf", "--force", "remove", "-fq", "-p=www", "path", "-n", "root"}...)
+		t.Assert(len(cmd类.GetArgAll()), 2)
+		t.Assert(cmd类.GetArg(1), "path")
+		t.Assert(cmd类.GetArg(100, "test"), "test")
+		t.Assert(cmd类.GetOpt("force"), "remove")
+		t.Assert(cmd类.GetOpt("n"), "root")
+		t.Assert(cmd类.GetOpt("fq").X是否为Nil(), false)
+		t.Assert(cmd类.GetOpt("p").X是否为Nil(), false)
+		t.Assert(cmd类.GetOpt("none").X是否为Nil(), true)
+		t.Assert(cmd类.GetOpt("none", "value"), "value")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		gcmd.Init([]string{"gf", "gen", "-h"}...)
-		t.Assert(len(gcmd.GetArgAll()), 2)
-		t.Assert(gcmd.GetOpt("h"), "")
-		t.Assert(gcmd.GetOpt("h").IsNil(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		cmd类.Init([]string{"gf", "gen", "-h"}...)
+		t.Assert(len(cmd类.GetArgAll()), 2)
+		t.Assert(cmd类.GetOpt("h"), "")
+		t.Assert(cmd类.GetOpt("h").X是否为Nil(), false)
 	})
 }
 
 func Test_BuildOptions(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := gcmd.BuildOptions(g.MapStrStr{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := cmd类.BuildOptions(g.MapStrStr{
 			"n": "john",
 		})
 		t.Assert(s, "-n=john")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		s := gcmd.BuildOptions(g.MapStrStr{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := cmd类.BuildOptions(g.MapStrStr{
 			"n": "john",
 		}, "-test")
 		t.Assert(s, "-testn=john")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		s := gcmd.BuildOptions(g.MapStrStr{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := cmd类.BuildOptions(g.MapStrStr{
 			"n1": "john",
 			"n2": "huang",
 		})
@@ -70,38 +70,38 @@ func Test_BuildOptions(t *testing.T) {
 }
 
 func Test_GetWithEnv(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		genv.Set("TEST", "1")
-		defer genv.Remove("TEST")
-		t.Assert(gcmd.GetOptWithEnv("test"), 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		环境变量类.X设置值("TEST", "1")
+		defer 环境变量类.X删除("TEST")
+		t.Assert(cmd类.GetOptWithEnv("test"), 1)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		genv.Set("TEST", "1")
-		defer genv.Remove("TEST")
-		gcmd.Init("-test", "2")
-		t.Assert(gcmd.GetOptWithEnv("test"), 2)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		环境变量类.X设置值("TEST", "1")
+		defer 环境变量类.X删除("TEST")
+		cmd类.Init("-test", "2")
+		t.Assert(cmd类.GetOptWithEnv("test"), 2)
 	})
 }
 
 func Test_Command(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 			err error
 		)
-		commandRoot := &gcmd.Command{
+		commandRoot := &cmd类.Command{
 			Name: "gf",
 		}
 		// env
-		commandEnv := &gcmd.Command{
+		commandEnv := &cmd类.Command{
 			Name: "env",
-			Func: func(ctx context.Context, parser *gcmd.Parser) error {
+			Func: func(ctx context.Context, parser *cmd类.Parser) error {
 				fmt.Println("env")
 				return nil
 			},
 		}
 		// test
-		commandTest := &gcmd.Command{
+		commandTest := &cmd类.Command{
 			Name:        "test",
 			Brief:       "test brief",
 			Description: "test description current Golang environment variables",
@@ -111,7 +111,7 @@ gf get github.com/gogf/gf@latest
 gf get github.com/gogf/gf@master
 gf get golang.org/x/sys
 `,
-			Arguments: []gcmd.Argument{
+			Arguments: []cmd类.Argument{
 				{
 					Name:   "my-option",
 					Short:  "o",
@@ -125,7 +125,7 @@ gf get golang.org/x/sys
 					Orphan: true,
 				},
 			},
-			Func: func(ctx context.Context, parser *gcmd.Parser) error {
+			Func: func(ctx context.Context, parser *cmd类.Parser) error {
 				fmt.Println("test")
 				return nil
 			},
@@ -134,17 +134,17 @@ gf get golang.org/x/sys
 			commandEnv,
 		)
 		if err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 		err = commandRoot.AddObject(
 			commandTest,
 		)
 		if err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 
 		if err = commandRoot.RunWithError(ctx); err != nil {
-			if gerror.Code(err) == gcode.CodeNotFound {
+			if 错误类.X取错误码(err) == 错误码类.CodeNotFound {
 				commandRoot.Print()
 			}
 		}
@@ -152,31 +152,31 @@ gf get golang.org/x/sys
 }
 
 func Test_Command_Print(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 			err error
 		)
-		c := &gcmd.Command{
+		c := &cmd类.Command{
 			Name:        "gf",
 			Description: `GoFrame Command Line Interface, which is your helpmate for building GoFrame application with convenience.`,
 			Additional: `
 Use 'gf help COMMAND' or 'gf COMMAND -h' for detail about a command, which has '...' in the tail of their comments.`,
 		}
 		// env
-		commandEnv := &gcmd.Command{
+		commandEnv := &cmd类.Command{
 			Name:        "env",
 			Brief:       "show current Golang environment variables, long brief.long brief.long brief.long brief.long brief.long brief.long brief.long brief.",
 			Description: "show current Golang environment variables",
-			Func: func(ctx context.Context, parser *gcmd.Parser) error {
+			Func: func(ctx context.Context, parser *cmd类.Parser) error {
 				return nil
 			},
 		}
 		if err = c.AddCommand(commandEnv); err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 		// get
-		commandGet := &gcmd.Command{
+		commandGet := &cmd类.Command{
 			Name:        "get",
 			Brief:       "install or update GF to system in default...",
 			Description: "show current Golang environment variables",
@@ -187,12 +187,12 @@ gf get github.com/gogf/gf@latest
 gf get github.com/gogf/gf@master
 gf get golang.org/x/sys
 `,
-			Func: func(ctx context.Context, parser *gcmd.Parser) error {
+			Func: func(ctx context.Context, parser *cmd类.Parser) error {
 				return nil
 			},
 		}
 		if err = c.AddCommand(commandGet); err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 // 构建
 //-n, --name       输出二进制文件名称
@@ -206,7 +206,7 @@ gf get golang.org/x/sys
 //-c, --cgo        启用或禁用 cgo 功能，默认是禁用状态
 // 以上代码是对golang构建命令行参数的注释翻译，这些参数用于控制构建过程中的各种行为，如指定输出文件名、版本、架构、操作系统、输出路径等，并可对Go模块和cgo特性进行控制。
 
-		commandBuild := gcmd.Command{
+		commandBuild := cmd类.Command{
 			Name:  "build",
 			Usage: "gf build FILE [OPTION]",
 			Brief: "cross-building go project for lots of platforms...",
@@ -228,37 +228,37 @@ gf build main.go -n my-app -a all -s all
 gf build main.go -n my-app -a amd64,386 -s linux -p .
 gf build main.go -n my-app -v 1.0 -a amd64,386 -s linux,windows,darwin -p ./docker/bin
 `,
-			Func: func(ctx context.Context, parser *gcmd.Parser) error {
+			Func: func(ctx context.Context, parser *cmd类.Parser) error {
 				return nil
 			},
 		}
 		if err = c.AddCommand(&commandBuild); err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 		_ = c.RunWithError(ctx)
 	})
 }
 
 func Test_Command_NotFound(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c0 := &gcmd.Command{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c0 := &cmd类.Command{
 			Name: "c0",
 		}
-		c1 := &gcmd.Command{
+		c1 := &cmd类.Command{
 			Name: "c1",
-			FuncWithValue: func(ctx context.Context, parser *gcmd.Parser) (interface{}, error) {
+			FuncWithValue: func(ctx context.Context, parser *cmd类.Parser) (interface{}, error) {
 				return nil, nil
 			},
 		}
-		c21 := &gcmd.Command{
+		c21 := &cmd类.Command{
 			Name: "c21",
-			FuncWithValue: func(ctx context.Context, parser *gcmd.Parser) (interface{}, error) {
+			FuncWithValue: func(ctx context.Context, parser *cmd类.Parser) (interface{}, error) {
 				return nil, nil
 			},
 		}
-		c22 := &gcmd.Command{
+		c22 := &cmd类.Command{
 			Name: "c22",
-			FuncWithValue: func(ctx context.Context, parser *gcmd.Parser) (interface{}, error) {
+			FuncWithValue: func(ctx context.Context, parser *cmd类.Parser) (interface{}, error) {
 				return nil, nil
 			},
 		}
@@ -266,7 +266,7 @@ func Test_Command_NotFound(t *testing.T) {
 		t.AssertNil(c1.AddCommand(c21, c22))
 
 		os.Args = []string{"c0", "c1", "c23", `--test="abc"`}
-		err := c0.RunWithError(gctx.New())
+		err := c0.RunWithError(上下文类.X创建())
 		t.Assert(err.Error(), `command "c1 c23" not found for command "c0", command line: c0 c1 c23 --test="abc"`)
 	})
 }

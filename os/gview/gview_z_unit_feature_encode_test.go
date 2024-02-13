@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview_test
+package 模板类_test
 
 import (
 	"context"
@@ -17,9 +17,9 @@ import (
 )
 
 func Test_Encode_Parse(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		v := gview.New()
-		v.SetPath(gtest.DataPath("tpl"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		v := 模板类.New()
+		v.SetPath(单元测试类.DataPath("tpl"))
 		v.SetAutoEncode(true)
 		result, err := v.Parse(context.TODO(), "encode.tpl", g.Map{
 			"title": "<b>my title</b>",
@@ -30,9 +30,9 @@ func Test_Encode_Parse(t *testing.T) {
 }
 
 func Test_Encode_ParseContent(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		v := gview.New()
-		tplContent := gfile.GetContents(gtest.DataPath("tpl", "encode.tpl"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		v := 模板类.New()
+		tplContent := 文件类.X读文本(单元测试类.DataPath("tpl", "encode.tpl"))
 		v.SetAutoEncode(true)
 		result, err := v.ParseContent(context.TODO(), tplContent, g.Map{
 			"title": "<b>my title</b>",

@@ -34,12 +34,12 @@ func (r RuleMaxLength) Message() string {
 
 func (r RuleMaxLength) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = 转换类.X取字符数组(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	max, err := strconv.Atoi(in.RulePattern)
 	if valueLen > max || err != nil {
-		return errors.New(gstr.Replace(in.Message, "{max}", strconv.Itoa(max)))
+		return errors.New(文本类.X替换(in.Message, "{max}", strconv.Itoa(max)))
 	}
 	return nil
 }

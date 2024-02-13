@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient_test
+package 网页类_test
 
 import (
 	"fmt"
@@ -33,23 +33,23 @@ func Test_Client_DoRequestObj(t *testing.T) {
 		Id   int
 		Name string
 	}
-	s := g.Server(guid.S())
-	s.Group("/user", func(group *ghttp.RouterGroup) {
-		group.GET("/{id}", func(r *ghttp.Request) {
-			r.Response.WriteJson(g.Map{"id": r.Get("id").Int(), "name": "john"})
+	s := g.Http类(uid类.X生成())
+	s.X创建分组路由("/user", func(group *http类.RouterGroup) {
+		group.X绑定GET("/{id}", func(r *http类.Request) {
+			r.Response.X写响应缓冲区JSON(g.Map{"id": r.Get别名("id").X取整数(), "name": "john"})
 		})
-		group.POST("/", func(r *ghttp.Request) {
-			r.Response.WriteJson(g.Map{"id": r.Get("Id")})
+		group.X绑定POST("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区JSON(g.Map{"id": r.Get别名("Id")})
 		})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		client := g.Client().SetPrefix(url).ContentJson()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		url := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
+		client := g.X网页类().X设置url前缀(url).X内容类型json()
 		var (
 			createRes *UserCreateRes
 			createReq = UserCreateReq{
@@ -61,9 +61,9 @@ func Test_Client_DoRequestObj(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(createRes.Id, 1)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		client := g.Client().SetPrefix(url).ContentJson()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		url := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
+		client := g.X网页类().X设置url前缀(url).X内容类型json()
 		var (
 			queryRes *UserQueryRes
 			queryReq = UserQueryReq{

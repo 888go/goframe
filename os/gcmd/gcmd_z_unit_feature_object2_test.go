@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
@@ -138,11 +138,11 @@ func (c commandBuild) Index(ctx context.Context, in commandBuildInput) (out *com
 }
 
 func TestNewFromObject(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 		)
-		cmd, err := gcmd.NewFromObject(commandBuild{
+		cmd, err := cmd类.NewFromObject(commandBuild{
 			nodeNameInConfigFile: "gfcli.build",
 			packedGoFileName:     "build_pack_data.go",
 		})

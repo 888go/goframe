@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil
+package 工具类
 
 import (
 	"reflect"
@@ -82,7 +82,7 @@ func SliceToMap(slice interface{}) map[string]interface{} {
 		}
 		data := make(map[string]interface{})
 		for i := 0; i < reflectValue.Len(); i += 2 {
-			data[gconv.String(reflectValue.Index(i).Interface())] = reflectValue.Index(i + 1).Interface()
+			data[转换类.String(reflectValue.Index(i).Interface())] = reflectValue.Index(i + 1).Interface()
 		}
 		return data
 	}

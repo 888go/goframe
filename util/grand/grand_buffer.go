@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package grand
+package 随机类
 
 import (
 	"crypto/rand"
@@ -34,7 +34,7 @@ func asyncProducingRandomBufferBytesLoop() {
 	for {
 		buffer := make([]byte, 1024)
 		if n, err := rand.Read(buffer); err != nil {
-			panic(gerror.WrapCode(gcode.CodeInternalError, err, `error reading random buffer from system`))
+			panic(错误类.X多层错误码(错误码类.CodeInternalError, err, `error reading random buffer from system`))
 		} else {
 // 系统提供的随机缓冲区代价非常高昂，
 // 因此，通过改变步进值（使用不同的数字）来充分复用随机缓冲区，

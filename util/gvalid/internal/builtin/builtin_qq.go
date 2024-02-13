@@ -30,7 +30,7 @@ func (r RuleQQ) Message() string {
 }
 
 func (r RuleQQ) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`^[1-9][0-9]{4,}$`,
 		in.Value.String(),
 	)

@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gfpool 提供了用于文件指针的可重用 io 资源池。
-package gfpool
+package 文件指针池类
 
 import (
 	"os"
@@ -18,9 +18,9 @@ import (
 
 // Pool 指针池。
 type Pool struct {
-	id   *gtype.Int    // Pool id，用于标记此pool是否已重建。
-	pool *gpool.Pool   // Underlying pool.
-	init *gtype.Bool   // 是否已初始化，用于标记该文件是否已添加到fsnotify，且只能添加一次。
+	id   *安全变量类.Int    // Pool id，用于标记此pool是否已重建。
+	pool *对象复用类.Pool   // Underlying pool.
+	init *安全变量类.Bool   // 是否已初始化，用于标记该文件是否已添加到fsnotify，且只能添加一次。
 	ttl  time.Duration // 文件指针项的生存时间（TTL）
 }
 
@@ -37,5 +37,5 @@ type File struct {
 
 var (
 	// 全局文件指针池。
-	pools = gmap.NewStrAnyMap(true)
+	pools = map类.X创建StrAny(true)
 )

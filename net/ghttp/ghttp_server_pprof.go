@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	netpprof "net/http/pprof"
@@ -23,49 +23,49 @@ const (
 )
 
 // StartPProfServer 启动并运行一个新的 pprof 服务端。
-func StartPProfServer(port int, pattern ...string) {
-	s := GetServer(defaultPProfServerName)
-	s.EnablePProf()
-	s.SetPort(port)
-	s.Run()
+func PProf服务端创建(监听端口 int, 作废参数 ...string) {
+	s := X取服务对象(defaultPProfServerName)
+	s.PProf开启()
+	s.X设置监听端口(监听端口)
+	s.X启动服务()
 }
 
 // EnablePProf 启用服务器的 PProf 功能。
-func (s *Server) EnablePProf(pattern ...string) {
-	s.Domain(DefaultDomainName).EnablePProf(pattern...)
+func (s *Server) PProf开启(路由地址 ...string) {
+	s.X创建域名路由(DefaultDomainName).PProf开启(路由地址...)
 }
 
 // EnablePProf 启用指定域名服务器的 PProf 功能。
-func (d *Domain) EnablePProf(pattern ...string) {
+func (d *Domain) PProf开启(路由地址 ...string) {
 	p := defaultPProfPattern
-	if len(pattern) > 0 && pattern[0] != "" {
-		p = pattern[0]
+	if len(路由地址) > 0 && 路由地址[0] != "" {
+		p = 路由地址[0]
 	}
 	up := &utilPProf{}
 	_, _, uri, _ := d.server.parsePattern(p)
 	uri = strings.TrimRight(uri, "/")
-	d.Group(uri, func(group *RouterGroup) {
-		group.ALL("/*action", up.Index)
-		group.ALL("/cmdline", up.Cmdline)
-		group.ALL("/profile", up.Profile)
-		group.ALL("/symbol", up.Symbol)
-		group.ALL("/trace", up.Trace)
+	d.X创建分组路由(uri, func(group *RouterGroup) {
+		group.X绑定所有类型("/*action", up.X显示页面)
+		group.X绑定所有类型("/cmdline", up.Cmdline)
+		group.X绑定所有类型("/profile", up.Profile)
+		group.X绑定所有类型("/symbol", up.Symbol)
+		group.X绑定所有类型("/trace", up.Trace)
 	})
 }
 
 // Index 显示 PProf 索引页面。
-func (p *utilPProf) Index(r *Request) {
+func (p *utilPProf) X显示页面(r *Request) {
 	var (
-		ctx      = r.Context()
+		ctx      = r.Context别名()
 		profiles = runpprof.Profiles()
-		action   = r.Get("action").String()
+		action   = r.Get别名("action").String()
 		data     = map[string]interface{}{
 			"uri":      strings.TrimRight(r.URL.Path, "/") + "/",
 			"profiles": profiles,
 		}
 	)
 	if len(action) == 0 {
-		buffer, _ := gview.ParseContent(r.Context(), `
+		buffer, _ := 模板类.ParseContent(r.Context别名(), `
             <html>
             <head>
                 <title>GoFrame PProf</title>
@@ -85,12 +85,12 @@ func (p *utilPProf) Index(r *Request) {
             </body>
             </html>
             `, data)
-		r.Response.Write(buffer)
+		r.Response.X写响应缓冲区(buffer)
 		return
 	}
 	for _, p := range profiles {
 		if p.Name() == action {
-			if err := p.WriteTo(r.Response.Writer, r.GetRequest("debug").Int()); err != nil {
+			if err := p.WriteTo(r.Response.Writer, r.X取参数("debug").X取整数()); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
 			break

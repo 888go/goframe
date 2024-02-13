@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview
+package 模板类
 
 import (
 	"bytes"
@@ -28,9 +28,9 @@ func (view *View) buildInFuncDump(values ...interface{}) string {
 	buffer := bytes.NewBuffer(nil)
 	buffer.WriteString("\n")
 	buffer.WriteString("<!--\n")
-	if gmode.IsDevelop() {
+	if 环境类.IsDevelop() {
 		for _, v := range values {
-			gutil.DumpTo(buffer, v, gutil.DumpOption{})
+			工具类.X调试输出到Writer(buffer, v, 工具类.DumpOption{})
 			buffer.WriteString("\n")
 		}
 	} else {
@@ -43,7 +43,7 @@ func (view *View) buildInFuncDump(values ...interface{}) string {
 // buildInFuncMap 实现了内置模板函数：map
 func (view *View) buildInFuncMap(value ...interface{}) map[string]interface{} {
 	if len(value) > 0 {
-		return gconv.Map(value[0])
+		return 转换类.X取Map(value[0])
 	}
 	return map[string]interface{}{}
 }
@@ -51,16 +51,16 @@ func (view *View) buildInFuncMap(value ...interface{}) map[string]interface{} {
 // buildInFuncMaps 实现了内置模板函数：maps
 func (view *View) buildInFuncMaps(value ...interface{}) []map[string]interface{} {
 	if len(value) > 0 {
-		return gconv.Maps(value[0])
+		return 转换类.X取Map数组(value[0])
 	}
 	return []map[string]interface{}{}
 }
 
 // buildInFuncEq 实现了内建模板函数：eq
 func (view *View) buildInFuncEq(value interface{}, others ...interface{}) bool {
-	s := gconv.String(value)
+	s := 转换类.String(value)
 	for _, v := range others {
-		if strings.Compare(s, gconv.String(v)) == 0 {
+		if strings.Compare(s, 转换类.String(v)) == 0 {
 			return true
 		}
 	}
@@ -69,45 +69,45 @@ func (view *View) buildInFuncEq(value interface{}, others ...interface{}) bool {
 
 // buildInFuncNe 实现了内建模板函数：ne
 func (view *View) buildInFuncNe(value, other interface{}) bool {
-	return strings.Compare(gconv.String(value), gconv.String(other)) != 0
+	return strings.Compare(转换类.String(value), 转换类.String(other)) != 0
 }
 
 // buildInFuncLt 实现了内置模板函数：lt
 func (view *View) buildInFuncLt(value, other interface{}) bool {
-	s1 := gconv.String(value)
-	s2 := gconv.String(other)
-	if gstr.IsNumeric(s1) && gstr.IsNumeric(s2) {
-		return gconv.Int64(value) < gconv.Int64(other)
+	s1 := 转换类.String(value)
+	s2 := 转换类.String(other)
+	if 文本类.X是否为数字(s1) && 文本类.X是否为数字(s2) {
+		return 转换类.X取整数64位(value) < 转换类.X取整数64位(other)
 	}
 	return strings.Compare(s1, s2) < 0
 }
 
 // buildInFuncLe 实现了内置模板函数：le
 func (view *View) buildInFuncLe(value, other interface{}) bool {
-	s1 := gconv.String(value)
-	s2 := gconv.String(other)
-	if gstr.IsNumeric(s1) && gstr.IsNumeric(s2) {
-		return gconv.Int64(value) <= gconv.Int64(other)
+	s1 := 转换类.String(value)
+	s2 := 转换类.String(other)
+	if 文本类.X是否为数字(s1) && 文本类.X是否为数字(s2) {
+		return 转换类.X取整数64位(value) <= 转换类.X取整数64位(other)
 	}
 	return strings.Compare(s1, s2) <= 0
 }
 
 // buildInFuncGt 实现了内置模板函数：gt
 func (view *View) buildInFuncGt(value, other interface{}) bool {
-	s1 := gconv.String(value)
-	s2 := gconv.String(other)
-	if gstr.IsNumeric(s1) && gstr.IsNumeric(s2) {
-		return gconv.Int64(value) > gconv.Int64(other)
+	s1 := 转换类.String(value)
+	s2 := 转换类.String(other)
+	if 文本类.X是否为数字(s1) && 文本类.X是否为数字(s2) {
+		return 转换类.X取整数64位(value) > 转换类.X取整数64位(other)
 	}
 	return strings.Compare(s1, s2) > 0
 }
 
 // buildInFuncGe 实现了内置模板函数：ge
 func (view *View) buildInFuncGe(value, other interface{}) bool {
-	s1 := gconv.String(value)
-	s2 := gconv.String(other)
-	if gstr.IsNumeric(s1) && gstr.IsNumeric(s2) {
-		return gconv.Int64(value) >= gconv.Int64(other)
+	s1 := 转换类.String(value)
+	s2 := 转换类.String(other)
+	if 文本类.X是否为数字(s1) && 文本类.X是否为数字(s2) {
+		return 转换类.X取整数64位(value) >= 转换类.X取整数64位(other)
 	}
 	return strings.Compare(s1, s2) >= 0
 }
@@ -119,7 +119,7 @@ func (view *View) buildInFuncInclude(file interface{}, data ...map[string]interf
 	if len(data) > 0 {
 		m = data[0]
 	}
-	path := gconv.String(file)
+	path := 转换类.String(file)
 	if path == "" {
 		return ""
 	}
@@ -133,18 +133,18 @@ func (view *View) buildInFuncInclude(file interface{}, data ...map[string]interf
 
 // buildInFuncText 实现了内置模板函数：text
 func (view *View) buildInFuncText(html interface{}) string {
-	return ghtml.StripTags(gconv.String(html))
+	return html类.X删除HTML标记(转换类.String(html))
 }
 
 // buildInFuncHtmlEncode 实现了内置模板函数：html Encode
 // 此函数用于对输入内容进行 HTML 编码，以确保在网页中安全显示，防止 XSS 攻击
 func (view *View) buildInFuncHtmlEncode(html interface{}) string {
-	return ghtml.Entities(gconv.String(html))
+	return html类.X编码(转换类.String(html))
 }
 
 // buildInFuncHtmlDecode 实现了内置模板函数：htmldecode
 func (view *View) buildInFuncHtmlDecode(html interface{}) string {
-	return ghtml.EntitiesDecode(gconv.String(html))
+	return html类.X解码(转换类.String(html))
 }
 
 // buildInFuncUrlEncode 实现了内置模板函数：url编码
@@ -153,12 +153,12 @@ func (view *View) buildInFuncHtmlDecode(html interface{}) string {
 // 具体实现了对字符串进行 URL 编码的处理。
 // 当在模板中调用 url 函数时，会调用此函数进行实际的 URL 编码操作。
 func (view *View) buildInFuncUrlEncode(url interface{}) string {
-	return gurl.Encode(gconv.String(url))
+	return url类.X编码(转换类.String(url))
 }
 
 // buildInFuncUrlDecode 实现了内置模板函数：urldecode
 func (view *View) buildInFuncUrlDecode(url interface{}) string {
-	if content, err := gurl.Decode(gconv.String(url)); err == nil {
+	if content, err := url类.X解码(转换类.String(url)); err == nil {
 		return content
 	} else {
 		return err.Error()
@@ -169,151 +169,151 @@ func (view *View) buildInFuncUrlDecode(url interface{}) string {
 func (view *View) buildInFuncDate(format interface{}, timestamp ...interface{}) string {
 	t := int64(0)
 	if len(timestamp) > 0 {
-		t = gconv.Int64(timestamp[0])
+		t = 转换类.X取整数64位(timestamp[0])
 	}
 	if t == 0 {
-		t = gtime.Timestamp()
+		t = 时间类.X取时间戳秒()
 	}
-	return gtime.NewFromTimeStamp(t).Format(gconv.String(format))
+	return 时间类.X创建并从时间戳(t).X取格式文本(转换类.String(format))
 }
 
 // buildInFuncCompare 实现了内置模板函数：compare
 func (view *View) buildInFuncCompare(value1, value2 interface{}) int {
-	return strings.Compare(gconv.String(value1), gconv.String(value2))
+	return strings.Compare(转换类.String(value1), 转换类.String(value2))
 }
 
 // buildInFuncSubStr 实现了内置模板函数：substr
 func (view *View) buildInFuncSubStr(start, end, str interface{}) string {
-	return gstr.SubStrRune(gconv.String(str), gconv.Int(start), gconv.Int(end))
+	return 文本类.X按长度取文本Unicode(转换类.String(str), 转换类.X取整数(start), 转换类.X取整数(end))
 }
 
 // buildInFuncStrLimit 实现了内置模板函数：strlimit
 func (view *View) buildInFuncStrLimit(length, suffix, str interface{}) string {
-	return gstr.StrLimitRune(gconv.String(str), gconv.Int(length), gconv.String(suffix))
+	return 文本类.X按长度取左边并带前缀Unicode(转换类.String(str), 转换类.X取整数(length), 转换类.String(suffix))
 }
 
 // buildInFuncConcat 实现了内置模板函数：concat
 func (view *View) buildInFuncConcat(str ...interface{}) string {
 	var s string
 	for _, v := range str {
-		s += gconv.String(v)
+		s += 转换类.String(v)
 	}
 	return s
 }
 
 // buildInFuncReplace 实现了内置模板函数：replace
 func (view *View) buildInFuncReplace(search, replace, str interface{}) string {
-	return gstr.Replace(gconv.String(str), gconv.String(search), gconv.String(replace), -1)
+	return 文本类.X替换(转换类.String(str), 转换类.String(search), 转换类.String(replace), -1)
 }
 
 // buildInFuncHighlight 实现了内置模板函数：highlight
 func (view *View) buildInFuncHighlight(key, color, str interface{}) string {
-	return gstr.Replace(gconv.String(str), gconv.String(key), fmt.Sprintf(`<span style="color:%v;">%v</span>`, color, key))
+	return 文本类.X替换(转换类.String(str), 转换类.String(key), fmt.Sprintf(`<span style="color:%v;">%v</span>`, color, key))
 }
 
 // buildInFuncHideStr 实现了内建模板函数：hidestr
 func (view *View) buildInFuncHideStr(percent, hide, str interface{}) string {
-	return gstr.HideStr(gconv.String(str), gconv.Int(percent), gconv.String(hide))
+	return 文本类.X替换中间字符(转换类.String(str), 转换类.X取整数(percent), 转换类.String(hide))
 }
 
 // buildInFuncToUpper 实现了内置模板函数：toupper
 func (view *View) buildInFuncToUpper(str interface{}) string {
-	return gstr.ToUpper(gconv.String(str))
+	return 文本类.X到大写(转换类.String(str))
 }
 
 // buildInFuncToLower 实现了内置模板函数：tolower
 func (view *View) buildInFuncToLower(str interface{}) string {
-	return gstr.ToLower(gconv.String(str))
+	return 文本类.X到小写(转换类.String(str))
 }
 
 // buildInFuncNl2Br 实现了内置模板函数：nl2br
 func (view *View) buildInFuncNl2Br(str interface{}) string {
-	return gstr.Nl2Br(gconv.String(str))
+	return 文本类.X替换换行符(转换类.String(str))
 }
 
 // buildInFuncJson 实现了内建模板函数：json ，
 // 它将 `value` 编码并以 JSON 字符串的形式返回。
 func (view *View) buildInFuncJson(value interface{}) (string, error) {
-	b, err := gjson.Marshal(value)
+	b, err := json类.Marshal别名(value)
 	return string(b), err
 }
 
 // buildInFuncXml 实现了内建模板函数：xml ，
 // 它将`value`编码并以 XML 字符串形式返回。
 func (view *View) buildInFuncXml(value interface{}, rootTag ...string) (string, error) {
-	b, err := gjson.New(value).ToXml(rootTag...)
+	b, err := json类.X创建(value).X取xml字节集(rootTag...)
 	return string(b), err
 }
 
 // buildInFuncIni 实现了内置模板函数：ini，
 // 它将`value`编码并以XML字符串形式返回。
 func (view *View) buildInFuncIni(value interface{}) (string, error) {
-	b, err := gjson.New(value).ToIni()
+	b, err := json类.X创建(value).X取ini字节集()
 	return string(b), err
 }
 
 // buildInFuncYaml 实现了内置模板函数：yaml，
 // 它将`value`编码并以 YAML 字符串形式返回。
 func (view *View) buildInFuncYaml(value interface{}) (string, error) {
-	b, err := gjson.New(value).ToYaml()
+	b, err := json类.X创建(value).X取YAML字节集()
 	return string(b), err
 }
 
 // buildInFuncYamlIndent 实现了内置模板函数：yamli，
 // 它将`value`按照自定义缩进字符串编码并以 YAML 字符串形式返回。
 func (view *View) buildInFuncYamlIndent(value, indent interface{}) (string, error) {
-	b, err := gjson.New(value).ToYamlIndent(gconv.String(indent))
+	b, err := json类.X创建(value).X取YAML字节集并格式化(转换类.String(indent))
 	return string(b), err
 }
 
 // buildInFuncToml 实现了内置模板函数：toml，
 // 它将`value`编码并以TOML字符串的形式返回。
 func (view *View) buildInFuncToml(value interface{}) (string, error) {
-	b, err := gjson.New(value).ToToml()
+	b, err := json类.X创建(value).X取TOML字节集()
 	return string(b), err
 }
 
 // buildInFuncPlus 实现了内建模板函数：plus ，
 // 它返回将所有 `deltas` 加到 `value` 后的结果。
 func (view *View) buildInFuncPlus(value interface{}, deltas ...interface{}) string {
-	result := gconv.Float64(value)
+	result := 转换类.X取小数64位(value)
 	for _, v := range deltas {
-		result += gconv.Float64(v)
+		result += 转换类.X取小数64位(v)
 	}
-	return gconv.String(result)
+	return 转换类.String(result)
 }
 
 // buildInFuncMinus 实现了内置模板函数：minus，
 // 它返回从 `value` 中减去所有 `deltas` 后的结果。
 func (view *View) buildInFuncMinus(value interface{}, deltas ...interface{}) string {
-	result := gconv.Float64(value)
+	result := 转换类.X取小数64位(value)
 	for _, v := range deltas {
-		result -= gconv.Float64(v)
+		result -= 转换类.X取小数64位(v)
 	}
-	return gconv.String(result)
+	return 转换类.String(result)
 }
 
 // buildInFuncTimes 实现了内置模板函数：times ，
 // 它返回将 `value` 与 `values` 中的所有值相乘的结果。
 func (view *View) buildInFuncTimes(value interface{}, values ...interface{}) string {
-	result := gconv.Float64(value)
+	result := 转换类.X取小数64位(value)
 	for _, v := range values {
-		result *= gconv.Float64(v)
+		result *= 转换类.X取小数64位(v)
 	}
-	return gconv.String(result)
+	return 转换类.String(result)
 }
 
 // buildInFuncDivide 实现了内置模板函数：divide，
 // 它将 `value` 除以 `values` 中的所有值并返回结果。
 func (view *View) buildInFuncDivide(value interface{}, values ...interface{}) string {
-	result := gconv.Float64(value)
+	result := 转换类.X取小数64位(value)
 	for _, v := range values {
-		value2Float64 := gconv.Float64(v)
+		value2Float64 := 转换类.X取小数64位(v)
 		if value2Float64 == 0 {
 			// Invalid `value2`.
 			return "0"
 		}
 		result /= value2Float64
 	}
-	return gconv.String(result)
+	return 转换类.String(result)
 }

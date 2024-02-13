@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gudp
+package udp类
 
 import (
 	"fmt"
@@ -37,20 +37,20 @@ type Server struct {
 
 var (
 	// serverMapping 用于实例名与其UDP服务器之间的映射。
-	serverMapping = gmap.NewStrAnyMap(true)
+	serverMapping = map类.X创建StrAny(true)
 )
 
 // GetServer 根据给定名称创建并返回一个UDP服务器实例。
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
-		serverName = gconv.String(name[0])
+		serverName = 转换类.String(name[0])
 	}
-	if s := serverMapping.Get(serverName); s != nil {
+	if s := serverMapping.X取值(serverName); s != nil {
 		return s.(*Server)
 	}
 	s := NewServer("", nil)
-	serverMapping.Set(serverName, s)
+	serverMapping.X设置值(serverName, s)
 	return s
 }
 
@@ -62,7 +62,7 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 		handler: handler,
 	}
 	if len(name) > 0 && name[0] != "" {
-		serverMapping.Set(name[0], s)
+		serverMapping.X设置值(name[0], s)
 	}
 	return s
 }
@@ -84,7 +84,7 @@ func (s *Server) Close() (err error) {
 	defer s.mu.Unlock()
 	err = s.conn.Close()
 	if err != nil {
-		err = gerror.Wrap(err, "connection failed")
+		err = 错误类.X多层错误(err, "connection failed")
 	}
 	return
 }
@@ -92,17 +92,17 @@ func (s *Server) Close() (err error) {
 // Run 开始监听 UDP 连接。
 func (s *Server) Run() error {
 	if s.handler == nil {
-		err := gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
+		err := 错误类.X创建错误码(错误码类.CodeMissingConfiguration, "start running failed: socket handler not defined")
 		return err
 	}
 	addr, err := net.ResolveUDPAddr("udp", s.address)
 	if err != nil {
-		err = gerror.Wrapf(err, `net.ResolveUDPAddr failed for address "%s"`, s.address)
+		err = 错误类.X多层错误并格式化(err, `net.ResolveUDPAddr failed for address "%s"`, s.address)
 		return err
 	}
 	conn, err := net.ListenUDP("udp", addr)
 	if err != nil {
-		err = gerror.Wrapf(err, `net.ListenUDP failed for address "%s"`, s.address)
+		err = 错误类.X多层错误并格式化(err, `net.ListenUDP failed for address "%s"`, s.address)
 		return err
 	}
 	s.mu.Lock()
@@ -114,14 +114,14 @@ func (s *Server) Run() error {
 
 // GetListenedAddress 获取并返回当前服务器正在监听的地址字符串。
 func (s *Server) GetListenedAddress() string {
-	if !gstr.Contains(s.address, FreePortAddress) {
+	if !文本类.X是否包含(s.address, FreePortAddress) {
 		return s.address
 	}
 	var (
 		address      = s.address
 		listenedPort = s.GetListenedPort()
 	)
-	address = gstr.Replace(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
+	address = 文本类.X替换(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
 	return address
 }
 

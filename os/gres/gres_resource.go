@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gres
+package 资源类
 
 import (
 	"context"
@@ -21,7 +21,7 @@ import (
 )
 
 type Resource struct {
-	tree *gtree.BTree
+	tree *树形类.BTree
 }
 
 const (
@@ -31,7 +31,7 @@ const (
 // New 创建并返回一个新的资源对象。
 func New() *Resource {
 	return &Resource{
-		tree: gtree.NewBTree(defaultTreeM, func(v1, v2 interface{}) int {
+		tree: 树形类.NewBTree(defaultTreeM, func(v1, v2 interface{}) int {
 			return strings.Compare(v1.(string), v2.(string))
 		}),
 	}
@@ -51,7 +51,7 @@ func (r *Resource) Add(content string, prefix ...string) error {
 	}
 	for i := 0; i < len(files); i++ {
 		files[i].resource = r
-		r.tree.Set(namePrefix+files[i].file.Name, files[i])
+		r.tree.X设置值(namePrefix+files[i].file.Name, files[i])
 	}
 	intlog.Printf(context.TODO(), "Add %d files to resource manager", r.tree.Size())
 	return nil
@@ -60,11 +60,11 @@ func (r *Resource) Add(content string, prefix ...string) error {
 // Load 从`path`加载、解压并将数据添加到当前资源对象中。
 // 不必要的参数`prefix`表示存储到当前资源对象中的每个文件的前缀。
 func (r *Resource) Load(path string, prefix ...string) error {
-	realPath, err := gfile.Search(path)
+	realPath, err := 文件类.X查找(path)
 	if err != nil {
 		return err
 	}
-	return r.Add(gfile.GetContents(realPath), prefix...)
+	return r.Add(文件类.X读文本(realPath), prefix...)
 }
 
 // Get 返回指定路径的文件。
@@ -211,7 +211,7 @@ func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFi
 			}
 		}
 		for _, p := range patterns {
-			if match, err := filepath.Match(p, gfile.Basename(name)); err == nil && match {
+			if match, err := filepath.Match(p, 文件类.X路径取文件名(name)); err == nil && match {
 				files = append(files, value.(*File))
 				return true
 			}
@@ -248,17 +248,17 @@ func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 	for _, file := range files {
 		name = file.Name()
 		if exportOption.RemovePrefix != "" {
-			name = gstr.TrimLeftStr(name, exportOption.RemovePrefix)
+			name = 文本类.X过滤首字符(name, exportOption.RemovePrefix)
 		}
-		name = gstr.Trim(name, `\/`)
+		name = 文本类.X过滤首尾符并含空白(name, `\/`)
 		if name == "" {
 			continue
 		}
-		path = gfile.Join(dst, name)
+		path = 文件类.X路径生成(dst, name)
 		if file.FileInfo().IsDir() {
-			err = gfile.Mkdir(path)
+			err = 文件类.X创建目录(path)
 		} else {
-			err = gfile.PutBytes(path, file.Content())
+			err = 文件类.X写入字节集(path, file.Content())
 		}
 		if err != nil {
 			return err
@@ -270,12 +270,12 @@ func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 // Dump 打印当前资源对象的文件。
 func (r *Resource) Dump() {
 	var info os.FileInfo
-	r.tree.Iterator(func(key, value interface{}) bool {
+	r.tree.X遍历(func(key, value interface{}) bool {
 		info = value.(*File).FileInfo()
 		fmt.Printf(
 			"%v %8s %s\n",
-			gtime.New(info.ModTime()).ISO8601(),
-			gfile.FormatSize(info.Size()),
+			时间类.X创建(info.ModTime()).X取文本时间ISO8601(),
+			文件类.X字节长度转易读格式(info.Size()),
 			key,
 		)
 		return true

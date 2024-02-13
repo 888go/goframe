@@ -7,7 +7,7 @@
 //
 // 维护者请注意，
 // 该包是一个基础包，除标准库和内部包外，**不应该**引入额外的包，以避免循环导入问题。
-package gerror
+package 错误类
 
 import (
 	"github.com/888go/goframe/errors/gcode"
@@ -28,7 +28,7 @@ type IEqual interface {
 // ICode是Code功能的接口。
 type ICode interface {
 	Error() string
-	Code() gcode.Code
+	Code() 错误码类.Code
 }
 
 // IStack 是 Stack 功能的接口。

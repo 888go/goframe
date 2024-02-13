@@ -31,7 +31,7 @@ func (r RulePassword) Message() string {
 }
 
 func (r RulePassword) Run(in RunInput) error {
-	if !gregex.IsMatchString(`^[\w\S]{6,18}$`, in.Value.String()) {
+	if !正则类.X是否匹配文本(`^[\w\S]{6,18}$`, in.Value.String()) {
 		return errors.New(in.Message)
 	}
 	return nil

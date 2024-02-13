@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"compress/gzip"
@@ -39,13 +39,13 @@ const (
 	tracingEventHttpResponseHeaders             = "http.response.headers"
 	tracingEventHttpResponseBody                = "http.response.body"
 	tracingEventHttpRequestUrl                  = "http.request.url"
-	tracingMiddlewareHandled        gctx.StrKey = `MiddlewareServerTracingHandled`
+	tracingMiddlewareHandled        上下文类.StrKey = `MiddlewareServerTracingHandled`
 )
 
 // internalMiddlewareServerTracing 是一个服务器中间件，它利用 OpenTelemetry 的标准启用追踪功能。
 func internalMiddlewareServerTracing(r *Request) {
 	var (
-		ctx = r.Context()
+		ctx = r.Context别名()
 	)
 // 标记该请求已被服务器追踪中间件处理，
 // 以避免被同一中间件重复处理。
@@ -75,7 +75,7 @@ func internalMiddlewareServerTracing(r *Request) {
 	span.SetAttributes(gtrace.CommonLabels()...)
 
 	// 注入追踪上下文。
-	r.SetCtx(ctx)
+	r.X设置上下文对象(ctx)
 
 	// 如果当前正在使用默认的追踪提供者，则不执行复杂的追踪任务。
 	if gtrace.IsUsingDefaultProvider() {
@@ -86,7 +86,7 @@ func internalMiddlewareServerTracing(r *Request) {
 	// 请求内容日志记录。
 	reqBodyContentBytes, err := io.ReadAll(r.Body)
 	if err != nil {
-		r.SetError(gerror.Wrap(err, `read request body failed`))
+		r.X设置错误信息(错误类.X多层错误(err, `read request body failed`))
 		span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, err))
 		return
 	}
@@ -94,9 +94,9 @@ func internalMiddlewareServerTracing(r *Request) {
 
 	span.AddEvent(tracingEventHttpRequest, trace.WithAttributes(
 		attribute.String(tracingEventHttpRequestUrl, r.URL.String()),
-		attribute.String(tracingEventHttpRequestHeaders, gconv.String(httputil.HeaderToMap(r.Header))),
+		attribute.String(tracingEventHttpRequestHeaders, 转换类.String(httputil.HeaderToMap(r.Header))),
 		attribute.String(tracingEventHttpRequestBaggage, gtrace.GetBaggageMap(ctx).String()),
-		attribute.String(tracingEventHttpRequestBody, gstr.StrLimit(
+		attribute.String(tracingEventHttpRequestBody, 文本类.X按长度取左边并带前缀(
 			string(reqBodyContentBytes),
 			gtrace.MaxContentLogSize(),
 			"...",
@@ -107,13 +107,13 @@ func internalMiddlewareServerTracing(r *Request) {
 	r.Middleware.Next()
 
 	// Error logging.
-	if err = r.GetError(); err != nil {
+	if err = r.X取错误信息(); err != nil {
 		span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, err))
 	}
 	// 响应内容日志记录。
-	var resBodyContent = gstr.StrLimit(r.Response.BufferString(), gtrace.MaxContentLogSize(), "...")
+	var resBodyContent = 文本类.X按长度取左边并带前缀(r.Response.X取缓冲区文本(), gtrace.MaxContentLogSize(), "...")
 	if gzipAccepted(r.Response.Header()) {
-		reader, err := gzip.NewReader(strings.NewReader(r.Response.BufferString()))
+		reader, err := gzip.NewReader(strings.NewReader(r.Response.X取缓冲区文本()))
 		if err != nil {
 			span.SetStatus(codes.Error, fmt.Sprintf(`read gzip response err:%+v`, err))
 		}
@@ -122,11 +122,11 @@ func internalMiddlewareServerTracing(r *Request) {
 		if err != nil {
 			span.SetStatus(codes.Error, fmt.Sprintf(`get uncompress value err:%+v`, err))
 		}
-		resBodyContent = gstr.StrLimit(string(uncompressed), gtrace.MaxContentLogSize(), "...")
+		resBodyContent = 文本类.X按长度取左边并带前缀(string(uncompressed), gtrace.MaxContentLogSize(), "...")
 	}
 
 	span.AddEvent(tracingEventHttpResponse, trace.WithAttributes(
-		attribute.String(tracingEventHttpResponseHeaders, gconv.String(httputil.HeaderToMap(r.Response.Header()))),
+		attribute.String(tracingEventHttpResponseHeaders, 转换类.String(httputil.HeaderToMap(r.Response.Header()))),
 		attribute.String(tracingEventHttpResponseBody, resBodyContent),
 	))
 }

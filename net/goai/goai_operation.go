@@ -31,8 +31,8 @@ type Operation struct {
 
 func (oai *OpenApiV3) tagMapToOperation(tagMap map[string]string, operation *Operation) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
-	if err := gconv.Struct(mergedTagMap, operation); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Operation failed`)
+	if err := 转换类.Struct(mergedTagMap, operation); err != nil {
+		return 错误类.X多层错误(err, `mapping struct tags to Operation failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, operation.XExtensions)
 	return nil

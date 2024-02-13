@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"fmt"
@@ -18,8 +18,8 @@ import (
 // Model("user").LeftJoin("user_detail", "user_detail.uid=user.uid") // 用户表与用户详情表进行左连接，关联条件为 user_detail.uid 等于 user.uid
 // Model("user", "u").LeftJoin("user_detail", "ud", "ud.uid=u.uid") // 使用别名，用户表（别名u）与用户详情表（别名ud）进行左连接，关联条件为 ud.uid 等于 u.uid
 // Model("user", "u").LeftJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid") // 将子查询结果作为联接表，并使用别名，用户表（别名u）与子查询结果（别名a）进行左连接，关联条件为 a.uid 等于 u.uid
-func (m *Model) LeftJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
-	return m.doJoin(joinOperatorLeft, tableOrSubQueryAndJoinConditions...)
+func (m *Model) X左连接(表或子查询和连接条件 ...string) *Model {
+	return m.doJoin(joinOperatorLeft, 表或子查询和连接条件...)
 }
 
 // RightJoin 对模型执行 "RIGHT JOIN ... ON ..." 语句。
@@ -29,8 +29,8 @@ func (m *Model) LeftJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // Model("user").RightJoin("user_detail", "user_detail.uid=user.uid") // 连接 user 表和 user_detail 表，连接条件为 user_detail.uid 等于 user.uid
 // Model("user", "u").RightJoin("user_detail", "ud", "ud.uid=u.uid")   // 使用别名 u 和 ud 连接 user 表和 user_detail 表，连接条件为 ud.uid 等于 u.uid
 // Model("user", "u").RightJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid") // 将查询结果作为连接表，使用别名 u 和 a 连接 user 表和查询结果表，连接条件为 a.uid 等于 u.uid
-func (m *Model) RightJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
-	return m.doJoin(joinOperatorRight, tableOrSubQueryAndJoinConditions...)
+func (m *Model) X右连接(表或子查询和连接条件 ...string) *Model {
+	return m.doJoin(joinOperatorRight, 表或子查询和连接条件...)
 }
 
 // InnerJoin does "INNER JOIN ... ON ..." statement on the model.
@@ -41,8 +41,8 @@ func (m *Model) RightJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // Model("user").InnerJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").InnerJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").InnerJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid").
-func (m *Model) InnerJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
-	return m.doJoin(joinOperatorInner, tableOrSubQueryAndJoinConditions...)
+func (m *Model) X内连接(表或子查询和连接条件 ...string) *Model {
+	return m.doJoin(joinOperatorInner, 表或子查询和连接条件...)
 }
 
 // LeftJoinOnField 执行类似 LeftJoin 的操作，但是它通过“相同字段名”将两个表连接起来。
@@ -50,13 +50,13 @@ func (m *Model) InnerJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // 例如：
 // Model("order").LeftJoinOnField("user", "user_id") // 使用 user 表与 order 表的 user_id 字段进行左连接
 // Model("order").LeftJoinOnField("product", "product_id") // 使用 product 表与 order 表的 product_id 字段进行左连接
-func (m *Model) LeftJoinOnField(table, field string) *Model {
-	return m.doJoin(joinOperatorLeft, table, fmt.Sprintf(
+func (m *Model) X左连接相同字段(表名, 相同字段名 string) *Model {
+	return m.doJoin(joinOperatorLeft, 表名, fmt.Sprintf(
 		`%s.%s=%s.%s`,
 		m.tablesInit,
-		m.db.GetCore().QuoteWord(field),
-		m.db.GetCore().QuoteWord(table),
-		m.db.GetCore().QuoteWord(field),
+		m.db.X取Core对象().X底层QuoteWord(相同字段名),
+		m.db.X取Core对象().X底层QuoteWord(表名),
+		m.db.X取Core对象().X底层QuoteWord(相同字段名),
 	))
 }
 
@@ -72,13 +72,13 @@ func (m *Model) LeftJoinOnField(table, field string) *Model {
 // 例如：
 // Model("order").RightJoinOnField("user", "user_id") // 根据 user_id 字段将 order 表与 user 表进行右连接
 // Model("order").RightJoinOnField("product", "product_id") // 根据 product_id 字段将 order 表与 product 表进行右连接
-func (m *Model) RightJoinOnField(table, field string) *Model {
-	return m.doJoin(joinOperatorRight, table, fmt.Sprintf(
+func (m *Model) X右连接相同字段(表名, 相同字段名 string) *Model {
+	return m.doJoin(joinOperatorRight, 表名, fmt.Sprintf(
 		`%s.%s=%s.%s`,
 		m.tablesInit,
-		m.db.GetCore().QuoteWord(field),
-		m.db.GetCore().QuoteWord(table),
-		m.db.GetCore().QuoteWord(field),
+		m.db.X取Core对象().X底层QuoteWord(相同字段名),
+		m.db.X取Core对象().X底层QuoteWord(表名),
+		m.db.X取Core对象().X底层QuoteWord(相同字段名),
 	))
 }
 
@@ -87,13 +87,13 @@ func (m *Model) RightJoinOnField(table, field string) *Model {
 // 例如：
 // Model("order").InnerJoinOnField("user", "user_id") // 使用user表与order表中user_id字段进行内连接
 // Model("order").InnerJoinOnField("product", "product_id") // 使用product表与order表中product_id字段进行内连接
-func (m *Model) InnerJoinOnField(table, field string) *Model {
-	return m.doJoin(joinOperatorInner, table, fmt.Sprintf(
+func (m *Model) X内连接相同字段(表名, 相同字段名 string) *Model {
+	return m.doJoin(joinOperatorInner, 表名, fmt.Sprintf(
 		`%s.%s=%s.%s`,
 		m.tablesInit,
-		m.db.GetCore().QuoteWord(field),
-		m.db.GetCore().QuoteWord(table),
-		m.db.GetCore().QuoteWord(field),
+		m.db.X取Core对象().X底层QuoteWord(相同字段名),
+		m.db.X取Core对象().X底层QuoteWord(表名),
+		m.db.X取Core对象().X底层QuoteWord(相同字段名),
 	))
 }
 
@@ -104,14 +104,14 @@ func (m *Model) InnerJoinOnField(table, field string) *Model {
 // Model("user").LeftJoinOnFields("order", "id", ">", "user_id") // 根据 id 大于 user_id 进行左连接
 // Model("user").LeftJoinOnFields("order", "id", "<", "user_id") // 根据 id 小于 user_id 进行左连接
 // 这段 Go 代码的注释翻译成中文注释如上，该函数主要是对两个数据表进行左连接操作，并允许用户自定义连接条件中的字段和比较运算符。
-func (m *Model) LeftJoinOnFields(table, firstField, operator, secondField string) *Model {
-	return m.doJoin(joinOperatorLeft, table, fmt.Sprintf(
+func (m *Model) X左连接带比较运算符(表名, 第一个字段, 比较运算符, 第二个字段 string) *Model {
+	return m.doJoin(joinOperatorLeft, 表名, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
 		m.tablesInit,
-		m.db.GetCore().QuoteWord(firstField),
-		operator,
-		m.db.GetCore().QuoteWord(table),
-		m.db.GetCore().QuoteWord(secondField),
+		m.db.X取Core对象().X底层QuoteWord(第一个字段),
+		比较运算符,
+		m.db.X取Core对象().X底层QuoteWord(表名),
+		m.db.X取Core对象().X底层QuoteWord(第二个字段),
 	))
 }
 
@@ -122,14 +122,14 @@ func (m *Model) LeftJoinOnFields(table, firstField, operator, secondField string
 // Model("user").RightJoinOnFields("order", "id", ">", "user_id") // 用户表通过id字段大于order表中的user_id字段进行右连接
 // Model("user").RightJoinOnFields("order", "id", "<", "user_id") // 用户表通过id字段小于order表中的user_id字段进行右连接
 // 这段Go语言代码的注释翻译为中文注释，其功能是定义一个RightJoinOnFields方法，该方法用于执行SQL查询中的右连接操作，并允许用户自定义连接的字段及比较条件。
-func (m *Model) RightJoinOnFields(table, firstField, operator, secondField string) *Model {
-	return m.doJoin(joinOperatorRight, table, fmt.Sprintf(
+func (m *Model) X右连接带比较运算符(表名, 第一个字段, 比较运算符, 第二个字段 string) *Model {
+	return m.doJoin(joinOperatorRight, 表名, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
 		m.tablesInit,
-		m.db.GetCore().QuoteWord(firstField),
-		operator,
-		m.db.GetCore().QuoteWord(table),
-		m.db.GetCore().QuoteWord(secondField),
+		m.db.X取Core对象().X底层QuoteWord(第一个字段),
+		比较运算符,
+		m.db.X取Core对象().X底层QuoteWord(表名),
+		m.db.X取Core对象().X底层QuoteWord(第二个字段),
 	))
 }
 
@@ -140,14 +140,14 @@ func (m *Model) RightJoinOnFields(table, firstField, operator, secondField strin
 // Model("user").InnerJoinOnFields("order", "id", ">", "user_id")  // 根据 id 大于 user_id 进行内连接
 // Model("user").InnerJoinOnFields("order", "id", "<", "user_id")  // 根据 id 小于 user_id 进行内连接
 // 该函数主要用于在Go语言中进行数据库查询时，通过自定义字段与运算符实现两个表之间的内连接操作。
-func (m *Model) InnerJoinOnFields(table, firstField, operator, secondField string) *Model {
-	return m.doJoin(joinOperatorInner, table, fmt.Sprintf(
+func (m *Model) X内连接带比较运算符(表名, 第一个字段, 比较运算符, 第二个字段 string) *Model {
+	return m.doJoin(joinOperatorInner, 表名, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
 		m.tablesInit,
-		m.db.GetCore().QuoteWord(firstField),
-		operator,
-		m.db.GetCore().QuoteWord(table),
-		m.db.GetCore().QuoteWord(secondField),
+		m.db.X取Core对象().X底层QuoteWord(第一个字段),
+		比较运算符,
+		m.db.X取Core对象().X底层QuoteWord(表名),
+		m.db.X取Core对象().X底层QuoteWord(第二个字段),
 	))
 }
 
@@ -171,13 +171,13 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 	// 检查第一个参数，表格或子查询。
 	if len(tableOrSubQueryAndJoinConditions) > 0 {
 		if isSubQuery(tableOrSubQueryAndJoinConditions[0]) {
-			joinStr = gstr.Trim(tableOrSubQueryAndJoinConditions[0])
+			joinStr = 文本类.X过滤首尾符并含空白(tableOrSubQueryAndJoinConditions[0])
 			if joinStr[0] != '(' {
 				joinStr = "(" + joinStr + ")"
 			}
 		} else {
 			table = tableOrSubQueryAndJoinConditions[0]
-			joinStr = m.db.GetCore().QuotePrefixTableName(table)
+			joinStr = m.db.X取Core对象().X底层添加前缀字符和引用字符(table)
 		}
 	}
 	// 生成连接条件语句字符串。
@@ -188,7 +188,7 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 		model.tables += fmt.Sprintf(
 			" %s JOIN %s AS %s ON (%s)",
 			operator, joinStr,
-			m.db.GetCore().QuoteWord(alias),
+			m.db.X取Core对象().X底层QuoteWord(alias),
 			tableOrSubQueryAndJoinConditions[2],
 		)
 		m.tableAliasMap[alias] = table
@@ -219,9 +219,9 @@ func (m *Model) getTableNameByPrefixOrAlias(prefixOrAlias string) string {
 
 // isSubQuery 检查并返回给定的字符串是否为子查询SQL字符串。
 func isSubQuery(s string) bool {
-	s = gstr.TrimLeft(s, "()")
-	if p := gstr.Pos(s, " "); p != -1 {
-		if gstr.Equal(s[:p], "select") {
+	s = 文本类.X过滤首字符并含空白(s, "()")
+	if p := 文本类.X查找(s, " "); p != -1 {
+		if 文本类.X相等比较并忽略大小写(s[:p], "select") {
 			return true
 		}
 	}

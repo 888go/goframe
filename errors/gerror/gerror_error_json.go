@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gerror
+package 错误类
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 // 注意：此处接收者不使用指针。

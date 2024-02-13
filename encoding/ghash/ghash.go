@@ -5,4 +5,4 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包ghash在Go中提供了一些经典的哈希函数（uint32/uint64）。
-package ghash
+package 哈希类

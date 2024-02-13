@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package ghtml 提供了用于处理 HTML 内容的有用 API。
-package ghtml
+package html类
 
 import (
 	"html"
@@ -16,52 +16,52 @@ import (
 
 // StripTags 从内容中剥离 HTML 标签，仅返回文本内容。
 // 参考来源：http://php.net/manual/zh/function.strip-tags.php
-func StripTags(s string) string {
-	return strip.StripTags(s)
+func X删除HTML标记(html文本 string) string {
+	return strip.StripTags(html文本)
 }
 
 // Entities 将内容中的所有HTML字符进行编码。
 // 参考来源: http://php.net/manual/zh/function.htmlentities.php
-func Entities(s string) string {
-	return html.EscapeString(s)
+func X编码(html文本 string) string {
+	return html.EscapeString(html文本)
 }
 
 // EntitiesDecode 将内容中的所有HTML字符进行解码。
 // 参考：http://php.net/manual/zh/function.html-entity-decode.php
-func EntitiesDecode(s string) string {
-	return html.UnescapeString(s)
+func X解码(文本 string) string {
+	return html.UnescapeString(文本)
 }
 
 // SpecialChars 为内容编码一些特殊字符，这些特殊字符包括：
 // "&", "<", ">", `"`, "'".
 // 参考：http://php.net/manual/zh/function.htmlspecialchars.php
-func SpecialChars(s string) string {
+func X编码特殊字符(文本 string) string {
 	return strings.NewReplacer(
 		"&", "&amp;",
 		"<", "&lt;",
 		">", "&gt;",
 		`"`, "&#34;",
 		"'", "&#39;",
-	).Replace(s)
+	).Replace(文本)
 }
 
 // SpecialCharsDecode 对内容中的某些特殊字符进行解码，这些特殊字符包括：
 // "&"（和号）、"<"（小于号）、">"（大于号）、`"`（双引号）、"'"（单引号）。
 // 参考文档：http://php.net/manual/zh/function.htmlspecialchars-decode.php
-func SpecialCharsDecode(s string) string {
+func X解码特殊字符(文本 string) string {
 	return strings.NewReplacer(
 		"&amp;", "&",
 		"&lt;", "<",
 		"&gt;", ">",
 		"&#34;", `"`,
 		"&#39;", "'",
-	).Replace(s)
+	).Replace(文本)
 }
 
 // SpecialCharsMapOrStruct 自动对 map 或 struct 中的字符串值/属性进行编码。
-func SpecialCharsMapOrStruct(mapOrStruct interface{}) error {
+func X编码Map(map或Struct interface{}) error {
 	var (
-		reflectValue = reflect.ValueOf(mapOrStruct)
+		reflectValue = reflect.ValueOf(map或Struct)
 		reflectKind  = reflectValue.Kind()
 	)
 	for reflectValue.IsValid() && (reflectKind == reflect.Ptr || reflectKind == reflect.Interface) {
@@ -78,10 +78,10 @@ func SpecialCharsMapOrStruct(mapOrStruct interface{}) error {
 			mapValue = reflectValue.MapIndex(key)
 			switch mapValue.Kind() {
 			case reflect.String:
-				reflectValue.SetMapIndex(key, reflect.ValueOf(SpecialChars(mapValue.String())))
+				reflectValue.SetMapIndex(key, reflect.ValueOf(X编码特殊字符(mapValue.String())))
 			case reflect.Interface:
 				if mapValue.Elem().Kind() == reflect.String {
-					reflectValue.SetMapIndex(key, reflect.ValueOf(SpecialChars(mapValue.Elem().String())))
+					reflectValue.SetMapIndex(key, reflect.ValueOf(X编码特殊字符(mapValue.Elem().String())))
 				}
 			}
 		}
@@ -94,7 +94,7 @@ func SpecialCharsMapOrStruct(mapOrStruct interface{}) error {
 			fieldValue = reflectValue.Field(i)
 			switch fieldValue.Kind() {
 			case reflect.String:
-				fieldValue.Set(reflect.ValueOf(SpecialChars(fieldValue.String())))
+				fieldValue.Set(reflect.ValueOf(X编码特殊字符(fieldValue.String())))
 			}
 		}
 	}

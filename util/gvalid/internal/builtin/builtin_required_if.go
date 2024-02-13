@@ -44,11 +44,11 @@ func (r RuleRequiredIf) Run(in RunInput) error {
 		for i := 0; i < len(array); {
 			tk := array[i]
 			tv := array[i+1]
-			_, foundValue = gutil.MapPossibleItemByKey(in.Data.Map(), tk)
+			_, foundValue = 工具类.MapPossibleItemByKey(in.Data.X取Map(), tk)
 			if in.Option.CaseInsensitive {
-				required = strings.EqualFold(tv, gconv.String(foundValue))
+				required = strings.EqualFold(tv, 转换类.String(foundValue))
 			} else {
-				required = strings.Compare(tv, gconv.String(foundValue)) == 0
+				required = strings.Compare(tv, 转换类.String(foundValue)) == 0
 			}
 			if required {
 				break
@@ -57,7 +57,7 @@ func (r RuleRequiredIf) Run(in RunInput) error {
 		}
 	}
 
-	if required && isRequiredEmpty(in.Value.Val()) {
+	if required && isRequiredEmpty(in.Value.X取值()) {
 		return errors.New(in.Message)
 	}
 	return nil

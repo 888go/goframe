@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -29,88 +29,88 @@ import (
 )
 
 // GetCore 返回底层的 *Core 对象。
-func (c *Core) GetCore() *Core {
+func (c *Core) X取Core对象() *Core {
 	return c
 }
 
 // Ctx 是一个链式函数，它创建并返回一个新的 DB 对象，该对象是对当前 DB 对象的浅复制，并且其中包含给定的上下文。
 // 注意，返回的这个 DB 对象只能使用一次，所以不要将其赋值给全局或包级别的变量以长期使用。
-func (c *Core) Ctx(ctx context.Context) DB {
-	if ctx == nil {
+func (c *Core) X设置上下文并取副本(上下文 context.Context) DB {
+	if 上下文 == nil {
 		return c.db
 	}
 	// 它对当前db进行浅复制，并更改其上下文以进行下一个链式操作。
 	var (
 		err        error
 		newCore    = &Core{}
-		configNode = c.db.GetConfig()
+		configNode = c.db.X取当前节点配置()
 	)
 	*newCore = *c
 	// 它创建一个新的DB对象（非新连接），这个对象通常是对`Core`对象的一个包装。
-	newCore.db, err = driverMap[configNode.Type].New(newCore, configNode)
+	newCore.db, err = driverMap[configNode.X类型].New(newCore, configNode)
 	if err != nil {
 // 这里确实是一个严重的错误。
 // 不要让它继续执行。
 		panic(err)
 	}
-	newCore.ctx = WithDB(ctx, newCore.db)
-	newCore.ctx = c.InjectInternalCtxData(newCore.ctx)
+	newCore.ctx = 底层WithDB(上下文, newCore.db)
+	newCore.ctx = c.底层_InjectInternalCtxData(newCore.ctx)
 	return newCore.db
 }
 
 // GetCtx 返回当前数据库的上下文。
 // 如果之前未设置上下文，则返回 `context.Background()`。
-func (c *Core) GetCtx() context.Context {
+func (c *Core) X取上下文对象() context.Context {
 	ctx := c.ctx
 	if ctx == nil {
 		ctx = context.TODO()
 	}
-	return c.InjectInternalCtxData(ctx)
+	return c.底层_InjectInternalCtxData(ctx)
 }
 
 // GetCtxTimeout 根据指定的超时类型返回上下文和取消函数。
-func (c *Core) GetCtxTimeout(ctx context.Context, timeoutType int) (context.Context, context.CancelFunc) {
-	if ctx == nil {
-		ctx = c.db.GetCtx()
+func (c *Core) X取超时上下文对象(上下文 context.Context, 超时类型 int) (context.Context, context.CancelFunc) {
+	if 上下文 == nil {
+		上下文 = c.db.X取上下文对象()
 	} else {
-		ctx = context.WithValue(ctx, "WrappedByGetCtxTimeout", nil)
+		上下文 = context.WithValue(上下文, "WrappedByGetCtxTimeout", nil)
 	}
-	switch timeoutType {
+	switch 超时类型 {
 	case ctxTimeoutTypeExec:
-		if c.db.GetConfig().ExecTimeout > 0 {
-			return context.WithTimeout(ctx, c.db.GetConfig().ExecTimeout)
+		if c.db.X取当前节点配置().X执行超时时长 > 0 {
+			return context.WithTimeout(上下文, c.db.X取当前节点配置().X执行超时时长)
 		}
 	case ctxTimeoutTypeQuery:
-		if c.db.GetConfig().QueryTimeout > 0 {
-			return context.WithTimeout(ctx, c.db.GetConfig().QueryTimeout)
+		if c.db.X取当前节点配置().X查询超时时长 > 0 {
+			return context.WithTimeout(上下文, c.db.X取当前节点配置().X查询超时时长)
 		}
 	case ctxTimeoutTypePrepare:
-		if c.db.GetConfig().PrepareTimeout > 0 {
-			return context.WithTimeout(ctx, c.db.GetConfig().PrepareTimeout)
+		if c.db.X取当前节点配置().X预准备SQL超时时长 > 0 {
+			return context.WithTimeout(上下文, c.db.X取当前节点配置().X预准备SQL超时时长)
 		}
 	default:
-		panic(gerror.NewCodef(gcode.CodeInvalidParameter, "invalid context timeout type: %d", timeoutType))
+		panic(错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, "invalid context timeout type: %d", 超时类型))
 	}
-	return ctx, func() {}
+	return 上下文, func() {}
 }
 
 // Close 关闭数据库并阻止新的查询开始。
 // Close 会等待在服务器上已经开始处理的所有查询完成。
 //
 // 很少会关闭一个 DB，因为 DB 处理程序旨在长期存在并被多个 goroutine 共享。
-func (c *Core) Close(ctx context.Context) (err error) {
-	if err = c.cache.Close(ctx); err != nil {
-		return err
+func (c *Core) X关闭数据库(上下文 context.Context) (错误 error) {
+	if 错误 = c.cache.X关闭(上下文); 错误 != nil {
+		return 错误
 	}
-	c.links.LockFunc(func(m map[string]interface{}) {
+	c.links.X遍历写锁定(func(m map[string]interface{}) {
 		for k, v := range m {
 			if db, ok := v.(*sql.DB); ok {
-				err = db.Close()
-				if err != nil {
-					err = gerror.WrapCode(gcode.CodeDbOperationError, err, `db.Close failed`)
+				错误 = db.Close()
+				if 错误 != nil {
+					错误 = 错误类.X多层错误码(错误码类.CodeDbOperationError, 错误, `db.Close failed`)
 				}
-				intlog.Printf(ctx, `close link: %s, err: %v`, k, err)
-				if err != nil {
+				intlog.Printf(上下文, `close link: %s, err: %v`, k, 错误)
+				if 错误 != nil {
 					return
 				}
 				delete(m, k)
@@ -121,36 +121,36 @@ func (c *Core) Close(ctx context.Context) (err error) {
 }
 
 // Master在主从配置的情况下，创建并从主节点返回一个连接。如果未配置主从，则返回默认连接。
-func (c *Core) Master(schema ...string) (*sql.DB, error) {
+func (c *Core) X取主节点对象(数据库名称 ...string) (*sql.DB, error) {
 	var (
-		usedSchema   = gutil.GetOrDefaultStr(c.schema, schema...)
-		charL, charR = c.db.GetChars()
+		usedSchema   = 工具类.X取文本值或取默认值(c.schema, 数据库名称...)
+		charL, charR = c.db.X底层取数据库安全字符()
 	)
-	return c.getSqlDb(true, gstr.Trim(usedSchema, charL+charR))
+	return c.getSqlDb(true, 文本类.X过滤首尾符并含空白(usedSchema, charL+charR))
 }
 
 // Slave在主从配置的情况下，创建并返回从节点的连接。如果未配置主从，则返回默认连接。
-func (c *Core) Slave(schema ...string) (*sql.DB, error) {
+func (c *Core) X取从节点对象(数据库名称 ...string) (*sql.DB, error) {
 	var (
-		usedSchema   = gutil.GetOrDefaultStr(c.schema, schema...)
-		charL, charR = c.db.GetChars()
+		usedSchema   = 工具类.X取文本值或取默认值(c.schema, 数据库名称...)
+		charL, charR = c.db.X底层取数据库安全字符()
 	)
-	return c.getSqlDb(false, gstr.Trim(usedSchema, charL+charR))
+	return c.getSqlDb(false, 文本类.X过滤首尾符并含空白(usedSchema, charL+charR))
 }
 
 // GetAll 从数据库查询并返回数据记录。
-func (c *Core) GetAll(ctx context.Context, sql string, args ...interface{}) (Result, error) {
-	return c.db.DoSelect(ctx, nil, sql, args...)
+func (c *Core) GetAll别名(上下文 context.Context, sql string, 参数 ...interface{}) (X行记录数组, error) {
+	return c.db.X底层查询(上下文, nil, sql, 参数...)
 }
 
 // DoSelect 从数据库查询并返回数据记录。
-func (c *Core) DoSelect(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
-	return c.db.DoQuery(ctx, link, sql, args...)
+func (c *Core) X底层查询(上下文 context.Context, 链接 X底层链接, sql string, 参数 ...interface{}) (结果 X行记录数组, 错误 error) {
+	return c.db.X底层原生SQL查询(上下文, 链接, sql, 参数...)
 }
 
 // GetOne 从数据库查询并返回一条记录。
-func (c *Core) GetOne(ctx context.Context, sql string, args ...interface{}) (Record, error) {
-	list, err := c.db.GetAll(ctx, sql, args...)
+func (c *Core) X原生SQL查询单条记录(上下文 context.Context, sql string, 参数 ...interface{}) (X行记录, error) {
+	list, err := c.db.GetAll别名(上下文, sql, 参数...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,55 +162,55 @@ func (c *Core) GetOne(ctx context.Context, sql string, args ...interface{}) (Rec
 
 // GetArray 从数据库查询并返回数据值作为切片。
 // 注意，如果结果中有多个列，则它会随机返回其中一列的值。
-func (c *Core) GetArray(ctx context.Context, sql string, args ...interface{}) ([]Value, error) {
-	all, err := c.db.DoSelect(ctx, nil, sql, args...)
+func (c *Core) X原生SQL查询数组(上下文 context.Context, sql string, 参数 ...interface{}) ([]X字段值, error) {
+	all, err := c.db.X底层查询(上下文, nil, sql, 参数...)
 	if err != nil {
 		return nil, err
 	}
-	return all.Array(), nil
+	return all.X取字段数组(), nil
 }
 
 // doGetStruct 从数据库查询一条记录并将其转换为给定的结构体。
 // 参数 `pointer` 应该是指向结构体的指针。
 func (c *Core) doGetStruct(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
-	one, err := c.db.GetOne(ctx, sql, args...)
+	one, err := c.db.X原生SQL查询单条记录(ctx, sql, args...)
 	if err != nil {
 		return err
 	}
-	return one.Struct(pointer)
+	return one.X取结构体指针(pointer)
 }
 
 // doGetStructs 从数据库查询记录并将其转换为给定的结构体。
 // 参数 `pointer` 应为结构体切片类型：[]struct 或 []*struct。
 func (c *Core) doGetStructs(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
-	all, err := c.db.GetAll(ctx, sql, args...)
+	all, err := c.db.GetAll别名(ctx, sql, args...)
 	if err != nil {
 		return err
 	}
-	return all.Structs(pointer)
+	return all.X取数组结构体指针(pointer)
 }
 
 // GetScan 从数据库查询一个或多个记录，并将它们转换为给定的结构体或结构体数组。
 //
 // 如果参数`pointer`是结构体指针类型，它会内部调用 GetStruct 进行转换。如果参数 `pointer` 是切片类型，则会内部调用 GetStructs 进行转换。
-func (c *Core) GetScan(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
-	reflectInfo := reflection.OriginTypeAndKind(pointer)
+func (c *Core) X原生SQL查询到结构体指针(上下文 context.Context, 结构体指针 interface{}, sql string, 参数 ...interface{}) error {
+	reflectInfo := reflection.OriginTypeAndKind(结构体指针)
 	if reflectInfo.InputKind != reflect.Ptr {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			"params should be type of pointer, but got: %v",
 			reflectInfo.InputKind,
 		)
 	}
 	switch reflectInfo.OriginKind {
 	case reflect.Array, reflect.Slice:
-		return c.db.GetCore().doGetStructs(ctx, pointer, sql, args...)
+		return c.db.X取Core对象().doGetStructs(上下文, 结构体指针, sql, 参数...)
 
 	case reflect.Struct:
-		return c.db.GetCore().doGetStruct(ctx, pointer, sql, args...)
+		return c.db.X取Core对象().doGetStruct(上下文, 结构体指针, sql, 参数...)
 	}
-	return gerror.NewCodef(
-		gcode.CodeInvalidParameter,
+	return 错误类.X创建错误码并格式化(
+		错误码类.CodeInvalidParameter,
 		`in valid parameter type "%v", of which element type should be type of struct/slice`,
 		reflectInfo.InputType,
 	)
@@ -218,42 +218,42 @@ func (c *Core) GetScan(ctx context.Context, pointer interface{}, sql string, arg
 
 // GetValue 从数据库查询并返回字段值。
 // SQL语句应当只查询数据库中的一个字段，否则它将仅返回结果中的一个字段。
-func (c *Core) GetValue(ctx context.Context, sql string, args ...interface{}) (Value, error) {
-	one, err := c.db.GetOne(ctx, sql, args...)
+func (c *Core) X原生SQL查询字段值(上下文 context.Context, sql string, 参数 ...interface{}) (X字段值, error) {
+	one, err := c.db.X原生SQL查询单条记录(上下文, sql, 参数...)
 	if err != nil {
-		return gvar.New(nil), err
+		return 泛型类.X创建(nil), err
 	}
 	for _, v := range one {
 		return v, nil
 	}
-	return gvar.New(nil), nil
+	return 泛型类.X创建(nil), nil
 }
 
 // GetCount 从数据库查询并返回计数。
-func (c *Core) GetCount(ctx context.Context, sql string, args ...interface{}) (int, error) {
+func (c *Core) X原生SQL查询字段计数(上下文 context.Context, sql string, 参数 ...interface{}) (int, error) {
 // 如果查询字段中不包含函数"COUNT"，
 // 则替换sql字符串，并在字段中添加"COUNT"函数。
 // 这段代码的注释是说，当SQL查询语句中的字段部分未使用“COUNT”函数时，会对原始的sql字符串进行替换处理，将“COUNT”函数添加到字段表达式中。
-	if !gregex.IsMatchString(`(?i)SELECT\s+COUNT\(.+\)\s+FROM`, sql) {
-		sql, _ = gregex.ReplaceString(`(?i)(SELECT)\s+(.+)\s+(FROM)`, `$1 COUNT($2) $3`, sql)
+	if !正则类.X是否匹配文本(`(?i)SELECT\s+COUNT\(.+\)\s+FROM`, sql) {
+		sql, _ = 正则类.X替换文本(`(?i)(SELECT)\s+(.+)\s+(FROM)`, `$1 COUNT($2) $3`, sql)
 	}
-	value, err := c.db.GetValue(ctx, sql, args...)
+	value, err := c.db.X原生SQL查询字段值(上下文, sql, 参数...)
 	if err != nil {
 		return 0, err
 	}
-	return value.Int(), nil
+	return value.X取整数(), nil
 }
 
 // Union 执行 "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." 语句。
-func (c *Core) Union(unions ...*Model) *Model {
-	var ctx = c.db.GetCtx()
-	return c.doUnion(ctx, unionTypeNormal, unions...)
+func (c *Core) X多表去重查询(Model对象 ...*Model) *Model {
+	var ctx = c.db.X取上下文对象()
+	return c.doUnion(ctx, unionTypeNormal, Model对象...)
 }
 
 // UnionAll 执行 "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." 语句。
-func (c *Core) UnionAll(unions ...*Model) *Model {
-	var ctx = c.db.GetCtx()
-	return c.doUnion(ctx, unionTypeAll, unions...)
+func (c *Core) X多表查询(Model对象 ...*Model) *Model {
+	var ctx = c.db.X取上下文对象()
+	return c.doUnion(ctx, unionTypeAll, Model对象...)
 }
 
 func (c *Core) doUnion(ctx context.Context, unionType int, unions ...*Model) *Model {
@@ -276,30 +276,30 @@ func (c *Core) doUnion(ctx context.Context, unionType int, unions ...*Model) *Mo
 		}
 		composedArgs = append(composedArgs, holderArgs...)
 	}
-	return c.db.Raw(composedSqlStr, composedArgs...)
+	return c.db.X原生SQL(composedSqlStr, composedArgs...)
 }
 
 // PingMaster 用于向主节点发送心跳以检查身份验证或保持连接存活。
-func (c *Core) PingMaster() error {
-	var ctx = c.db.GetCtx()
-	if master, err := c.db.Master(); err != nil {
+func (c *Core) X向主节点发送心跳() error {
+	var ctx = c.db.X取上下文对象()
+	if master, err := c.db.X取主节点对象(); err != nil {
 		return err
 	} else {
 		if err = master.PingContext(ctx); err != nil {
-			err = gerror.WrapCode(gcode.CodeDbOperationError, err, `master.Ping failed`)
+			err = 错误类.X多层错误码(错误码类.CodeDbOperationError, err, `master.Ping failed`)
 		}
 		return err
 	}
 }
 
 // PingSlave 向从节点发送ping请求，用于检查身份验证或保持连接活跃。
-func (c *Core) PingSlave() error {
-	var ctx = c.db.GetCtx()
-	if slave, err := c.db.Slave(); err != nil {
+func (c *Core) X向从节点发送心跳() error {
+	var ctx = c.db.X取上下文对象()
+	if slave, err := c.db.X取从节点对象(); err != nil {
 		return err
 	} else {
 		if err = slave.PingContext(ctx); err != nil {
-			err = gerror.WrapCode(gcode.CodeDbOperationError, err, `slave.Ping failed`)
+			err = 错误类.X多层错误码(错误码类.CodeDbOperationError, err, `slave.Ping failed`)
 		}
 		return err
 	}
@@ -314,11 +314,11 @@ func (c *Core) PingSlave() error {
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // 当给定的数据为切片时，参数 `batch` 指定了批量操作的数量。
-func (c *Core) Insert(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
-	if len(batch) > 0 {
-		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Insert()
+func (c *Core) X插入(上下文 context.Context, 表名称 string, 值 interface{}, 批量操作行数 ...int) (sql.Result, error) {
+	if len(批量操作行数) > 0 {
+		return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X设置批量操作行数(批量操作行数[0]).X插入()
 	}
-	return c.Model(table).Ctx(ctx).Data(data).Insert()
+	return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X插入()
 }
 
 // InsertIgnore 执行针对表的 "INSERT IGNORE INTO ..." 语句。
@@ -330,19 +330,19 @@ func (c *Core) Insert(ctx context.Context, table string, data interface{}, batch
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // 当给定数据为切片时，参数 `batch` 指定批量操作的数量。
-func (c *Core) InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
-	if len(batch) > 0 {
-		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).InsertIgnore()
+func (c *Core) X插入并跳过已存在(上下文 context.Context, 表名称 string, 值 interface{}, 批量操作行数 ...int) (sql.Result, error) {
+	if len(批量操作行数) > 0 {
+		return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X设置批量操作行数(批量操作行数[0]).X插入并跳过已存在()
 	}
-	return c.Model(table).Ctx(ctx).Data(data).InsertIgnore()
+	return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X插入并跳过已存在()
 }
 
 // InsertAndGetId 执行插入操作，并返回自动生成的最后一个插入ID。
-func (c *Core) InsertAndGetId(ctx context.Context, table string, data interface{}, batch ...int) (int64, error) {
-	if len(batch) > 0 {
-		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).InsertAndGetId()
+func (c *Core) X插入并取ID(上下文 context.Context, 表名称 string, 值 interface{}, 批量操作行数 ...int) (int64, error) {
+	if len(批量操作行数) > 0 {
+		return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X设置批量操作行数(批量操作行数[0]).X插入并取ID()
 	}
-	return c.Model(table).Ctx(ctx).Data(data).InsertAndGetId()
+	return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X插入并取ID()
 }
 
 // Replace 执行针对该表的 "REPLACE INTO ..." 语句。
@@ -356,11 +356,11 @@ func (c *Core) InsertAndGetId(ctx context.Context, table string, data interface{
 // 参数 `data` 可以是 map/gmap/struct/*struct/[]map/[]struct 等类型。
 // 若给定的数据是切片类型，它将执行批量替换操作，可选参数
 // `batch` 指定了批量操作的数量。
-func (c *Core) Replace(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
-	if len(batch) > 0 {
-		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Replace()
+func (c *Core) X插入并替换已存在(上下文 context.Context, 表名称 string, 值 interface{}, 批量操作行数 ...int) (sql.Result, error) {
+	if len(批量操作行数) > 0 {
+		return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X设置批量操作行数(批量操作行数[0]).X插入并替换已存在()
 	}
-	return c.Model(table).Ctx(ctx).Data(data).Replace()
+	return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X插入并替换已存在()
 }
 
 // Save 执行针对表的 "INSERT INTO ... ON DUPLICATE KEY UPDATE..." 语句。
@@ -373,18 +373,18 @@ func (c *Core) Replace(ctx context.Context, table string, data interface{}, batc
 //
 // 如果给定的数据是切片类型，那么它将执行批量保存操作，可选参数
 // `batch` 指定了批量操作的数量。
-func (c *Core) Save(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
-	if len(batch) > 0 {
-		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Save()
+func (c *Core) X插入并更新已存在(上下文 context.Context, 表名称 string, 值 interface{}, 批量操作行数 ...int) (sql.Result, error) {
+	if len(批量操作行数) > 0 {
+		return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X设置批量操作行数(批量操作行数[0]).X插入并更新已存在()
 	}
-	return c.Model(table).Ctx(ctx).Data(data).Save()
+	return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(值).X插入并更新已存在()
 }
 
 func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []string) ([]string, error) {
 	var (
-		fieldSet               = gset.NewStrSetFrom(fields)
+		fieldSet               = 集合类.X创建文本并按值(fields)
 		fieldsResultInSequence = make([]string, 0)
-		tableFields, err       = c.db.TableFields(ctx, table)
+		tableFields, err       = c.db.X取表字段信息Map(ctx, table)
 	)
 	if err != nil {
 		return nil, err
@@ -392,11 +392,11 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 	// 按照顺序对字段进行排序。
 	var fieldsOfTableInSequence = make([]string, len(tableFields))
 	for _, field := range tableFields {
-		fieldsOfTableInSequence[field.Index] = field.Name
+		fieldsOfTableInSequence[field.X排序] = field.X名称
 	}
 	// 对输入字段进行排序。
 	for _, fieldName := range fieldsOfTableInSequence {
-		if fieldSet.Contains(fieldName) {
+		if fieldSet.X是否存在(fieldName) {
 			fieldsResultInSequence = append(fieldsResultInSequence, fieldName)
 		}
 	}
@@ -414,7 +414,7 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 // InsertOptionReplace：如果数据中存在唯一/主键，先从表中删除，再插入新的数据；
 // InsertOptionSave：如果数据中存在唯一/主键，则更新该记录，否则插入新记录；
 // InsertOptionIgnore：如果数据中存在唯一/主键，则忽略插入操作。
-func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
+func (c *Core) X底层插入(上下文 context.Context, 链接 X底层链接, 表名称 string, list Map数组, option X底层输入) (result sql.Result, err error) {
 	var (
 		keys           []string      // Field names.
 		values         []string      // 值持有者字符串数组，例如：(?,?,?)
@@ -425,7 +425,7 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 // 根据字段对列表进行分组。不同的字段将数据分到不同的列表中。
 // 这里使用ListMap来保持数据插入时的顺序。
 // ============================================================================================
-	var keyListMap = gmap.NewListMap()
+	var keyListMap = map类.X创建链表mp()
 	for _, item := range list {
 		var (
 			tmpKeys              = make([]string, 0)
@@ -434,26 +434,26 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 		for k := range item {
 			tmpKeys = append(tmpKeys, k)
 		}
-		keys, err = c.fieldsToSequence(ctx, table, tmpKeys)
+		keys, err = c.fieldsToSequence(上下文, 表名称, tmpKeys)
 		if err != nil {
 			return nil, err
 		}
-		tmpKeysInSequenceStr = gstr.Join(keys, ",")
-		if !keyListMap.Contains(tmpKeysInSequenceStr) {
-			keyListMap.Set(tmpKeysInSequenceStr, make(List, 0))
+		tmpKeysInSequenceStr = 文本类.X连接(keys, ",")
+		if !keyListMap.X是否存在(tmpKeysInSequenceStr) {
+			keyListMap.X设置值(tmpKeysInSequenceStr, make(Map数组, 0))
 		}
-		tmpKeysInSequenceList := keyListMap.Get(tmpKeysInSequenceStr).(List)
+		tmpKeysInSequenceList := keyListMap.X取值(tmpKeysInSequenceStr).(Map数组)
 		tmpKeysInSequenceList = append(tmpKeysInSequenceList, item)
-		keyListMap.Set(tmpKeysInSequenceStr, tmpKeysInSequenceList)
+		keyListMap.X设置值(tmpKeysInSequenceStr, tmpKeysInSequenceList)
 	}
-	if keyListMap.Size() > 1 {
+	if keyListMap.X取数量() > 1 {
 		var (
 			tmpResult    sql.Result
-			sqlResult    SqlResult
+			sqlResult    Sql执行结果
 			rowsAffected int64
 		)
-		keyListMap.Iterator(func(key, value interface{}) bool {
-			tmpResult, err = c.DoInsert(ctx, link, table, value.(List), option)
+		keyListMap.X遍历(func(key, value interface{}) bool {
+			tmpResult, err = c.X底层插入(上下文, 链接, 表名称, value.(Map数组), option)
 			if err != nil {
 				return false
 			}
@@ -461,8 +461,8 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 			if err != nil {
 				return false
 			}
-			sqlResult.Result = tmpResult
-			sqlResult.Affected += rowsAffected
+			sqlResult.X原生sql行记录 = tmpResult
+			sqlResult.X影响行数 += rowsAffected
 			return true
 		})
 		return &sqlResult, err
@@ -470,10 +470,10 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 
 	// 准备批量结果指针。
 	var (
-		charL, charR = c.db.GetChars()
-		batchResult  = new(SqlResult)
+		charL, charR = c.db.X底层取数据库安全字符()
+		batchResult  = new(Sql执行结果)
 		keysStr      = charL + strings.Join(keys, charR+","+charL) + charR
-		operation    = GetInsertOperationByOption(option.InsertOption)
+		operation    = 底层GetInsertOperationByOption(option.InsertOption)
 	)
 	if option.InsertOption == InsertOptionSave {
 		onDuplicateStr = c.formatOnDuplicate(keys, option)
@@ -487,35 +487,35 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 // 请注意，map类型是无序的，
 // 所以应当使用切片+键来获取值。
 		for _, k := range keys {
-			if s, ok := list[i][k].(Raw); ok {
-				values = append(values, gconv.String(s))
+			if s, ok := list[i][k].(X原生sql); ok {
+				values = append(values, 转换类.String(s))
 			} else {
 				values = append(values, "?")
 				params = append(params, list[i][k])
 			}
 		}
-		valueHolder = append(valueHolder, "("+gstr.Join(values, ",")+")")
+		valueHolder = append(valueHolder, "("+文本类.X连接(values, ",")+")")
 		// 批量校验包：满足批量数量，或者已是最后一个元素。
 		if len(valueHolder) == option.BatchCount || (i == listLength-1 && len(valueHolder) > 0) {
 			var (
 				stdSqlResult sql.Result
 				affectedRows int64
 			)
-			stdSqlResult, err = c.db.DoExec(ctx, link, fmt.Sprintf(
+			stdSqlResult, err = c.db.X底层原生SQL执行(上下文, 链接, fmt.Sprintf(
 				"%s INTO %s(%s) VALUES%s %s",
-				operation, c.QuotePrefixTableName(table), keysStr,
-				gstr.Join(valueHolder, ","),
+				operation, c.X底层添加前缀字符和引用字符(表名称), keysStr,
+				文本类.X连接(valueHolder, ","),
 				onDuplicateStr,
 			), params...)
 			if err != nil {
 				return stdSqlResult, err
 			}
 			if affectedRows, err = stdSqlResult.RowsAffected(); err != nil {
-				err = gerror.WrapCode(gcode.CodeDbOperationError, err, `sql.Result.RowsAffected failed`)
+				err = 错误类.X多层错误码(错误码类.CodeDbOperationError, err, `sql.Result.RowsAffected failed`)
 				return stdSqlResult, err
 			} else {
-				batchResult.Result = stdSqlResult
-				batchResult.Affected += affectedRows
+				batchResult.X原生sql行记录 = stdSqlResult
+				batchResult.X影响行数 += affectedRows
 			}
 			params = params[:0]
 			valueHolder = valueHolder[:0]
@@ -524,7 +524,7 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 	return batchResult, nil
 }
 
-func (c *Core) formatOnDuplicate(columns []string, option DoInsertOption) string {
+func (c *Core) formatOnDuplicate(columns []string, option X底层输入) string {
 	var onDuplicateStr string
 	if option.OnDuplicateStr != "" {
 		onDuplicateStr = option.OnDuplicateStr
@@ -534,17 +534,17 @@ func (c *Core) formatOnDuplicate(columns []string, option DoInsertOption) string
 				onDuplicateStr += ","
 			}
 			switch v.(type) {
-			case Raw, *Raw:
+			case X原生sql, *X原生sql:
 				onDuplicateStr += fmt.Sprintf(
 					"%s=%s",
-					c.QuoteWord(k),
+					c.X底层QuoteWord(k),
 					v,
 				)
 			default:
 				onDuplicateStr += fmt.Sprintf(
 					"%s=VALUES(%s)",
-					c.QuoteWord(k),
-					c.QuoteWord(gconv.String(v)),
+					c.X底层QuoteWord(k),
+					c.X底层QuoteWord(转换类.String(v)),
 				)
 			}
 		}
@@ -559,8 +559,8 @@ func (c *Core) formatOnDuplicate(columns []string, option DoInsertOption) string
 			}
 			onDuplicateStr += fmt.Sprintf(
 				"%s=VALUES(%s)",
-				c.QuoteWord(column),
-				c.QuoteWord(column),
+				c.X底层QuoteWord(column),
+				c.X底层QuoteWord(column),
 			)
 		}
 	}
@@ -581,16 +581,16 @@ func (c *Core) formatOnDuplicate(columns []string, option DoInsertOption) string
 // "age IN(?,?)", 18, 50
 // User{ Id : 1, UserName : "john"}
 // 注：这里的 `g.Map` 和 `g.Slice` 是一种特定的 Go 语言数据结构（可能是自定义类型），分别代表映射和切片。
-func (c *Core) Update(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) {
-	return c.Model(table).Ctx(ctx).Data(data).Where(condition, args...).Update()
+func (c *Core) X更新(上下文 context.Context, 表名称 string, 数据 interface{}, 条件 interface{}, 参数 ...interface{}) (sql.Result, error) {
+	return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X设置数据(数据).X条件(条件, 参数...).X更新()
 }
 
 // DoUpdate 执行针对该表的 "UPDATE ... " 语句。
 // 该函数通常用于自定义接口定义，您无需手动调用它。
-func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) {
-	table = c.QuotePrefixTableName(table)
+func (c *Core) X底层更新(上下文 context.Context, 链接 X底层链接, 表名称 string, 值 interface{}, 条件 string, 参数 ...interface{}) (result sql.Result, err error) {
+	表名称 = c.X底层添加前缀字符和引用字符(表名称)
 	var (
-		rv   = reflect.ValueOf(data)
+		rv   = reflect.ValueOf(值)
 		kind = rv.Kind()
 	)
 	if kind == reflect.Ptr {
@@ -606,12 +606,12 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 		var (
 			fields         []string
 			dataMap        map[string]interface{}
-			counterHandler = func(column string, counter Counter) {
-				if counter.Value != 0 {
-					column = c.QuoteWord(column)
+			counterHandler = func(column string, counter X增减) {
+				if counter.X增减值 != 0 {
+					column = c.X底层QuoteWord(column)
 					var (
-						columnRef = c.QuoteWord(counter.Field)
-						columnVal = counter.Value
+						columnRef = c.X底层QuoteWord(counter.X字段名称)
+						columnVal = counter.X增减值
 						operator  = "+"
 					)
 					if columnVal < 0 {
@@ -623,7 +623,7 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 				}
 			}
 		)
-		dataMap, err = c.ConvertDataForRecord(ctx, data, table)
+		dataMap, err = c.X底层ConvertDataForRecord(上下文, 值, 表名称)
 		if err != nil {
 			return nil, err
 		}
@@ -635,24 +635,24 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 		for k := range dataMap {
 			dataKeys = append(dataKeys, k)
 		}
-		keysInSequence, err = c.fieldsToSequence(ctx, table, dataKeys)
+		keysInSequence, err = c.fieldsToSequence(上下文, 表名称, dataKeys)
 		if err != nil {
 			return nil, err
 		}
 		for _, k := range keysInSequence {
 			v := dataMap[k]
 			switch value := v.(type) {
-			case *Counter:
+			case *X增减:
 				counterHandler(k, *value)
 
-			case Counter:
+			case X增减:
 				counterHandler(k, value)
 
 			default:
-				if s, ok := v.(Raw); ok {
-					fields = append(fields, c.QuoteWord(k)+"="+gconv.String(s))
+				if s, ok := v.(X原生sql); ok {
+					fields = append(fields, c.X底层QuoteWord(k)+"="+转换类.String(s))
 				} else {
-					fields = append(fields, c.QuoteWord(k)+"=?")
+					fields = append(fields, c.X底层QuoteWord(k)+"=?")
 					params = append(params, v)
 				}
 			}
@@ -660,25 +660,25 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 		updates = strings.Join(fields, ",")
 
 	default:
-		updates = gconv.String(data)
+		updates = 转换类.String(值)
 	}
 	if len(updates) == 0 {
-		return nil, gerror.NewCode(gcode.CodeMissingParameter, "data cannot be empty")
+		return nil, 错误类.X创建错误码(错误码类.CodeMissingParameter, "data cannot be empty")
 	}
 	if len(params) > 0 {
-		args = append(params, args...)
+		参数 = append(params, 参数...)
 	}
 	// 如果没有传递链接，则使用主链接。
-	if link == nil {
-		if link, err = c.MasterLink(); err != nil {
+	if 链接 == nil {
+		if 链接, err = c.X底层MasterLink(); err != nil {
 			return nil, err
 		}
 	}
-	return c.db.DoExec(ctx, link, fmt.Sprintf(
+	return c.db.X底层原生SQL执行(上下文, 链接, fmt.Sprintf(
 		"UPDATE %s SET %s%s",
-		table, updates, condition,
+		表名称, updates, 条件,
 	),
-		args...,
+		参数...,
 	)
 }
 
@@ -703,27 +703,27 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 // "status IN (?)", g.Slice{1,2,3} （条件为 status 字段在数组 [1,2,3] 中）
 // "age IN(?,?)", 18, 50 （条件为 age 字段在范围 18 到 50 内）
 // User{ Id : 1, UserName : "john"} （根据结构体定义的字段作为条件）
-func (c *Core) Delete(ctx context.Context, table string, condition interface{}, args ...interface{}) (result sql.Result, err error) {
-	return c.Model(table).Ctx(ctx).Where(condition, args...).Delete()
+func (c *Core) X删除(上下文 context.Context, 表名称 string, 条件 interface{}, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
+	return c.X创建Model对象(表名称).X设置上下文并取副本(上下文).X条件(条件, 参数...).X删除()
 }
 
 // DoDelete 执行针对表的 "DELETE FROM ..." 语句。
 // 该函数通常用于自定义接口定义，无需手动调用。
-func (c *Core) DoDelete(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error) {
-	if link == nil {
-		if link, err = c.MasterLink(); err != nil {
-			return nil, err
+func (c *Core) X底层删除(上下文 context.Context, 链接 X底层链接, 表名称 string, 条件 string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
+	if 链接 == nil {
+		if 链接, 错误 = c.X底层MasterLink(); 错误 != nil {
+			return nil, 错误
 		}
 	}
-	table = c.QuotePrefixTableName(table)
-	return c.db.DoExec(ctx, link, fmt.Sprintf("DELETE FROM %s%s", table, condition), args...)
+	表名称 = c.X底层添加前缀字符和引用字符(表名称)
+	return c.db.X底层原生SQL执行(上下文, 链接, fmt.Sprintf("DELETE FROM %s%s", 表名称, 条件), 参数...)
 }
 
 // FilteredLink 获取并返回可用于日志记录或跟踪目的的已过滤`linkInfo`。
-func (c *Core) FilteredLink() string {
+func (c *Core) X取数据库链接信息() string {
 	return fmt.Sprintf(
 		`%s@%s(%s:%s)/%s`,
-		c.config.User, c.config.Protocol, c.config.Host, c.config.Port, c.config.Name,
+		c.config.X账号, c.config.X协议, c.config.X地址, c.config.X端口, c.config.X名称,
 	)
 }
 
@@ -739,31 +739,31 @@ func (c Core) MarshalJSON() ([]byte, error) {
 // 仅当配置项 "debug" 为 true 时，此功能才被启用。
 func (c *Core) writeSqlToLogger(ctx context.Context, sql *Sql) {
 	var transactionIdStr string
-	if sql.IsTransaction {
+	if sql.X是否为事务 {
 		if v := ctx.Value(transactionIdForLoggerCtx); v != nil {
 			transactionIdStr = fmt.Sprintf(`[txid:%d] `, v.(uint64))
 		}
 	}
 	s := fmt.Sprintf(
 		"[%3d ms] [%s] [%s] [rows:%-3d] %s%s",
-		sql.End-sql.Start, sql.Group, sql.Schema, sql.RowsAffected, transactionIdStr, sql.Format,
+		sql.X结束时间戳-sql.X开始时间戳, sql.X配置组名称, sql.X架构名称, sql.X影响行数, transactionIdStr, sql.SQL格式化后,
 	)
-	if sql.Error != nil {
-		s += "\nError: " + sql.Error.Error()
+	if sql.X执行错误 != nil {
+		s += "\nError: " + sql.X执行错误.Error()
 		c.logger.Error(ctx, s)
 	} else {
-		c.logger.Debug(ctx, s)
+		c.logger.X输出DEBU(ctx, s)
 	}
 }
 
 // HasTable 判断给定的表名是否存在于数据库中。
-func (c *Core) HasTable(name string) (bool, error) {
-	tables, err := c.GetTablesWithCache()
+func (c *Core) X是否存在表名(表名称 string) (bool, error) {
+	tables, err := c.X取表名称缓存()
 	if err != nil {
 		return false, err
 	}
 	for _, table := range tables {
-		if table == name {
+		if table == 表名称 {
 			return true, nil
 		}
 	}
@@ -771,14 +771,14 @@ func (c *Core) HasTable(name string) (bool, error) {
 }
 
 // GetTablesWithCache 使用缓存获取并返回当前数据库的表名。
-func (c *Core) GetTablesWithCache() ([]string, error) {
+func (c *Core) X取表名称缓存() ([]string, error) {
 	var (
-		ctx      = c.db.GetCtx()
-		cacheKey = fmt.Sprintf(`Tables: %s`, c.db.GetGroup())
+		ctx      = c.db.X取上下文对象()
+		cacheKey = fmt.Sprintf(`Tables: %s`, c.db.X取配置组名称())
 	)
-	result, err := c.GetCache().GetOrSetFuncLock(
+	result, err := c.X取缓存对象().X取值或设置值_并发安全函数(
 		ctx, cacheKey, func(ctx context.Context) (interface{}, error) {
-			tableList, err := c.db.Tables(ctx)
+			tableList, err := c.db.X取表名称数组(ctx)
 			if err != nil {
 				return false, err
 			}
@@ -788,7 +788,7 @@ func (c *Core) GetTablesWithCache() ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.Strings(), nil
+	return result.X取文本数组(), nil
 }
 
 // isSoftCreatedFieldName 检查并返回给定的字段名是否为自动填充的创建时间。
@@ -796,11 +796,11 @@ func (c *Core) isSoftCreatedFieldName(fieldName string) bool {
 	if fieldName == "" {
 		return false
 	}
-	if config := c.db.GetConfig(); config.CreatedAt != "" {
-		if utils.EqualFoldWithoutChars(fieldName, config.CreatedAt) {
+	if config := c.db.X取当前节点配置(); config.X创建时间字段名 != "" {
+		if utils.EqualFoldWithoutChars(fieldName, config.X创建时间字段名) {
 			return true
 		}
-		return gstr.InArray(append([]string{config.CreatedAt}, createdFieldNames...), fieldName)
+		return 文本类.X数组是否存在(append([]string{config.X创建时间字段名}, createdFieldNames...), fieldName)
 	}
 	for _, v := range createdFieldNames {
 		if utils.EqualFoldWithoutChars(fieldName, v) {
@@ -813,10 +813,10 @@ func (c *Core) isSoftCreatedFieldName(fieldName string) bool {
 // FormatSqlBeforeExecuting 在执行SQL之前，对SQL字符串及其参数进行格式化处理。
 // 在SQL过程中，内部函数handleArguments可能被调用两次，
 // 但请不用担心，这是安全且高效的。
-func (c *Core) FormatSqlBeforeExecuting(sql string, args []interface{}) (newSql string, newArgs []interface{}) {
+func (c *Core) X格式化Sql(sql string, 参数数组 []interface{}) (新sql string, 新参数数组 []interface{}) {
 // **不要**这样做，因为SQL中可能包含多行和注释。
 // 删除sql的首尾空格
 // 将sql中的换行符("\n")替换为空格
 // 使用正则表达式将sql中连续出现2个或以上空格的情况替换为单个空格，并返回处理后的sql（_用于忽略错误信息）
-	return handleArguments(sql, args)
+	return handleArguments(sql, 参数数组)
 }

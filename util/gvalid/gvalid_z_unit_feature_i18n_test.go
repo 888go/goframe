@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
@@ -16,23 +16,23 @@ import (
 
 func TestValidator_I18n(t *testing.T) {
 	var (
-		err         gvalid.Error
-		i18nManager = gi18n.New(gi18n.Options{Path: gtest.DataPath("i18n")})
+		err         效验类.Error
+		i18nManager = gi18n.New(gi18n.Options{Path: 单元测试类.DataPath("i18n")})
 		ctxCn       = gi18n.WithLanguage(context.TODO(), "cn")
-		validator   = gvalid.New().I18n(i18nManager)
+		validator   = 效验类.New().I18n(i18nManager)
 	)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err = validator.Rules("required").Data("").Run(ctx)
 		t.Assert(err.String(), "The field is required")
 
 		err = validator.Rules("required").Data("").Run(ctxCn)
 		t.Assert(err.String(), "字段不能为空")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err = validator.Rules("required").Messages("CustomMessage").Data("").Run(ctxCn)
 		t.Assert(err.String(), "自定义错误")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Params struct {
 			Page      int `v:"required|min:1         # page is required"`
 			Size      int `v:"required|between:1,100 # size is required"`

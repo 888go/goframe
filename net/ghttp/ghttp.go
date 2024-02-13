@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package ghttp 提供了强大的HTTP服务器及简洁的客户端实现。
-package ghttp
+package http类
 
 import (
 	"net/http"
@@ -34,13 +34,13 @@ type (
 		config           ServerConfig              // 服务器配置
 		plugins          []Plugin                  // 插件数组，用于扩展服务器功能。
 		servers          []*gracefulServer         // 底层 http.Server 数组
-		serverCount      *gtype.Int                // 用于内部使用的底层http.Server数字。
+		serverCount      *安全变量类.Int                // 用于内部使用的底层http.Server数字。
 		closeChan        chan struct{}             // 用于底层服务器关闭事件的通知。
 		serveTree        map[string]interface{}    // 路由映射树
-		serveCache       *gcache.Cache             // Server内部使用的缓存。
+		serveCache       *缓存类.Cache             // Server内部使用的缓存。
 		routesMap        map[string][]*HandlerItem // 路由映射表主要用于路由转储和重复路由检查。
 		statusHandlerMap map[string][]HandlerFunc  // 自定义状态处理映射。
-		sessionManager   *gsession.Manager         // Session manager.
+		sessionManager   *session类.Manager         // Session manager.
 		openapi          *goai.OpenApiV3           // OpenApi规范管理对象。
 		serviceMu        sync.Mutex                // 并发安全：保证属性服务操作的并发安全性。
 		service          gsvc.Service              // Registry服务。
@@ -149,7 +149,7 @@ const (
 	supportedHttpMethods                    = "GET,PUT,POST,DELETE,PATCH,HEAD,CONNECT,OPTIONS,TRACE"
 	defaultMethod                           = "ALL"
 	routeCacheDuration                      = time.Hour
-	ctxKeyForRequest            gctx.StrKey = "gHttpRequestObject"
+	ctxKeyForRequest            上下文类.StrKey = "gHttpRequestObject"
 	contentTypeXml                          = "text/xml"
 	contentTypeHtml                         = "text/html"
 	contentTypeJson                         = "application/json"
@@ -175,11 +175,11 @@ var (
 
 // serverMapping 用于存储当前进程中多个服务器实例。
 // 键是服务器的名称，值是其对应的实例。
-	serverMapping = gmap.NewStrAnyMap(true)
+	serverMapping = map类.X创建StrAny(true)
 
 // serverRunning 标记正在运行的服务器数量。
 // 如果没有运行成功的服务器，或者所有服务器都已关闭，则该值为0。
-	serverRunning = gtype.NewInt()
+	serverRunning = 安全变量类.NewInt()
 
 	// wsUpGrader 是用于websocket的默认升级配置。
 	wsUpGrader = websocket.Upgrader{
@@ -194,7 +194,7 @@ var (
 
 // serverProcessInitialized 用于服务端的延迟初始化。
 // 这个过程只能被初始化一次。
-	serverProcessInitialized = gtype.NewBool()
+	serverProcessInitialized = 安全变量类.NewBool()
 
 	// gracefulEnabled 用于实现优雅重启功能，默认情况下为 false。
 	gracefulEnabled = false
@@ -204,8 +204,8 @@ var (
 )
 
 var (
-	ErrNeedJsonBody = gerror.NewWithOption(gerror.Option{
+	ErrNeedJsonBody = 错误类.NewWithOption(错误类.Option{
 		Text: "the request body content should be JSON format",
-		Code: gcode.CodeInvalidRequest,
+		Code: 错误码类.CodeInvalidRequest,
 	})
 )

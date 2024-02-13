@@ -18,8 +18,8 @@ import (
 )
 
 var (
-	randomInitSequence = int32(grand.Intn(math.MaxInt32))
-	sequence           = gtype.NewInt32(randomInitSequence)
+	randomInitSequence = int32(随机类.X整数(math.MaxInt32))
+	sequence           = 安全变量类.NewInt32(randomInitSequence)
 )
 
 // NewIDs 创建并返回一个新的跟踪ID和跨度ID。
@@ -30,9 +30,9 @@ func NewIDs() (traceID trace.TraceID, spanID trace.SpanID) {
 // NewTraceID 创建并返回一个追踪ID。
 func NewTraceID() (traceID trace.TraceID) {
 	var (
-		timestampNanoBytes = gbinary.EncodeInt64(time.Now().UnixNano())
-		sequenceBytes      = gbinary.EncodeInt32(sequence.Add(1))
-		randomBytes        = grand.B(4)
+		timestampNanoBytes = 字节集类.EncodeInt64(time.Now().UnixNano())
+		sequenceBytes      = 字节集类.EncodeInt32(sequence.Add(1))
+		randomBytes        = 随机类.X字节集(4)
 	)
 	copy(traceID[:], timestampNanoBytes)
 	copy(traceID[8:], sequenceBytes)
@@ -42,7 +42,7 @@ func NewTraceID() (traceID trace.TraceID) {
 
 // NewSpanID 创建并返回一个跨度ID。
 func NewSpanID() (spanID trace.SpanID) {
-	copy(spanID[:], gbinary.EncodeInt64(time.Now().UnixNano()/1e3))
-	copy(spanID[4:], grand.B(4))
+	copy(spanID[:], 字节集类.EncodeInt64(time.Now().UnixNano()/1e3))
+	copy(spanID[4:], 随机类.X字节集(4))
 	return
 }

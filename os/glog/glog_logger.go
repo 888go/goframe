@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"bytes"
@@ -74,22 +74,22 @@ const (
 )
 
 // New 创建并返回一个自定义日志器。
-func New() *Logger {
+func X创建() *Logger {
 	return &Logger{
-		config: DefaultConfig(),
+		config: X生成默认配置(),
 	}
 }
 
 // NewWithWriter 通过 io.Writer 创建并返回一个自定义的日志记录器。
-func NewWithWriter(writer io.Writer) *Logger {
-	l := New()
-	l.SetWriter(writer)
+func X创建并按writer(writer io.Writer) *Logger {
+	l := X创建()
+	l.X设置Writer(writer)
 	return l
 }
 
 // Clone 返回一个新的日志器，它是当前日志器的“浅复制”。
 // 注意，克隆后的日志器其 `config` 属性是对当前日志器该属性的浅复制。
-func (l *Logger) Clone() *Logger {
+func (l *Logger) X取副本() *Logger {
 	return &Logger{
 		config: l.config,
 		parent: l,
@@ -100,10 +100,10 @@ func (l *Logger) Clone() *Logger {
 // 日志文件名必须包含 ".log" 扩展名。
 func (l *Logger) getFilePath(now time.Time) string {
 	// 文件名中包含 "{}" 的内容将使用 gtime 进行格式化。
-	file, _ := gregex.ReplaceStringFunc(`{.+?}`, l.config.File, func(s string) string {
-		return gtime.New(now).Format(strings.Trim(s, "{}"))
+	file, _ := 正则类.X替换文本_函数(`{.+?}`, l.config.File, func(s string) string {
+		return 时间类.X创建(now).X取格式文本(strings.Trim(s, "{}"))
 	})
-	file = gfile.Join(l.config.Path, file)
+	file = 文件类.X路径生成(l.config.Path, file)
 	return file
 }
 
@@ -114,7 +114,7 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 // 这里使用了CAP以保证性能和并发安全性。
 // 对于每个日志器，仅初始化一次。
 	if l.config.RotateSize > 0 || l.config.RotateExpire > 0 {
-		if !l.config.rotatedHandlerInitialized.Val() && l.config.rotatedHandlerInitialized.Cas(false, true) {
+		if !l.config.rotatedHandlerInitialized.X取值() && l.config.rotatedHandlerInitialized.Cas(false, true) {
 			l.rotateChecksTimely(ctx)
 			intlog.Printf(ctx, "logger rotation initialized: every %s", l.config.RotateCheckInterval.String())
 		}
@@ -171,7 +171,7 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 	}
 
 	// Level string.
-	input.LevelFormat = l.GetLevelPrefix(level)
+	input.LevelFormat = l.X取级别前缀(level)
 
 	// 调用路径和函数名称。
 	if l.config.Flags&(F_FILE_LONG|F_FILE_SHORT|F_CALLER_FN) > 0 {
@@ -189,7 +189,7 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 				input.CallerPath = fmt.Sprintf(`%s:%d:`, path, line)
 			}
 			if l.config.Flags&F_FILE_SHORT > 0 {
-				input.CallerPath = fmt.Sprintf(`%s:%d:`, gfile.Basename(path), line)
+				input.CallerPath = fmt.Sprintf(`%s:%d:`, 文件类.X路径取文件名(path), line)
 			}
 		}
 	}
@@ -210,13 +210,13 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 			for _, ctxKey := range l.config.CtxKeys {
 				var ctxValue interface{}
 				if ctxValue = ctx.Value(ctxKey); ctxValue == nil {
-					ctxValue = ctx.Value(gctx.StrKey(gconv.String(ctxKey)))
+					ctxValue = ctx.Value(上下文类.StrKey(转换类.String(ctxKey)))
 				}
 				if ctxValue != nil {
 					if input.CtxStr != "" {
 						input.CtxStr += ", "
 					}
-					input.CtxStr += gconv.String(ctxValue)
+					input.CtxStr += 转换类.String(ctxValue)
 				}
 			}
 		}
@@ -299,11 +299,11 @@ func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput)
 		logFilePath   = l.getFilePath(t)
 		memoryLockKey = memoryLockPrefixForPrintingToFile + logFilePath
 	)
-	gmlock.Lock(memoryLockKey)
-	defer gmlock.Unlock(memoryLockKey)
+	内存锁类.X写锁定(memoryLockKey)
+	defer 内存锁类.X退出写锁定(memoryLockKey)
 
 	// 旋转文件大小检查。
-	if l.config.RotateSize > 0 && gfile.Size(logFilePath) > l.config.RotateSize {
+	if l.config.RotateSize > 0 && 文件类.X取大小(logFilePath) > l.config.RotateSize {
 		if runtime.GOOS == "windows" {
 			file := l.createFpInPool(ctx, logFilePath)
 			if file == nil {
@@ -340,8 +340,8 @@ func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput)
 }
 
 // createFpInPool 从文件池中获取并返回一个文件指针。
-func (l *Logger) createFpInPool(ctx context.Context, path string) *gfpool.File {
-	file, err := gfpool.Open(
+func (l *Logger) createFpInPool(ctx context.Context, path string) *文件指针池类.File {
+	file, err := 文件指针池类.Open(
 		path,
 		defaultFileFlags,
 		defaultFilePerm,
@@ -355,8 +355,8 @@ func (l *Logger) createFpInPool(ctx context.Context, path string) *gfpool.File {
 }
 
 // getFpFromPool 从文件池中获取并返回一个文件指针。
-func (l *Logger) getFpFromPool(ctx context.Context, path string) *gfpool.File {
-	file := gfpool.Get(
+func (l *Logger) getFpFromPool(ctx context.Context, path string) *文件指针池类.File {
+	file := 文件指针池类.Get(
 		path,
 		defaultFileFlags,
 		defaultFilePerm,
@@ -377,7 +377,7 @@ func (l *Logger) printStd(ctx context.Context, level int, values ...interface{})
 func (l *Logger) printErr(ctx context.Context, level int, values ...interface{}) {
 	var stack string
 	if l.config.StStatus == 1 {
-		stack = l.GetStack()
+		stack = l.X取堆栈信息()
 	}
 	// 在顺序输出方面，此处不要使用 stderr，而应使用相同的 stdout。
 	l.print(ctx, level, stack, values...)
@@ -391,19 +391,19 @@ func (l *Logger) format(format string, values ...interface{}) string {
 // PrintStack 打印调用栈，
 // 可选参数 `skip` 指定了从终点开始需要跳过的堆栈偏移量。
 func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
-	if s := l.GetStack(skip...); s != "" {
-		l.Print(ctx, "Stack:\n"+s)
+	if s := l.X取堆栈信息(skip...); s != "" {
+		l.X输出(ctx, "Stack:\n"+s)
 	} else {
-		l.Print(ctx)
+		l.X输出(ctx)
 	}
 }
 
 // GetStack 返回调用堆栈的内容，
 // 可选参数 `skip` 指定了从终点开始跳过的堆栈偏移量。
-func (l *Logger) GetStack(skip ...int) string {
+func (l *Logger) X取堆栈信息(偏移量 ...int) string {
 	stackSkip := l.config.StSkip
-	if len(skip) > 0 {
-		stackSkip += skip[0]
+	if len(偏移量) > 0 {
+		stackSkip += 偏移量[0]
 	}
 	filters := []string{pathFilterKey}
 	if l.config.StFilter != "" {

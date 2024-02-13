@@ -195,7 +195,7 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 // IsNil 检查给定的 `value` 是否为 nil，特别是对 interface{} 类型的值。
 // 参数 `traceSource` 用于在 `value` 是指针类型且指向另一个指针时，追踪到源变量。如果源变量为 nil 并且 `traceSource` 为真，则返回 nil。
 // 注意，该函数可能会使用 reflect 特性，这会对性能造成一定的影响。
-func IsNil(value interface{}, traceSource ...bool) bool {
+func X是否为Nil(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true
 	}

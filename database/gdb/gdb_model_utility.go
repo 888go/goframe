@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"time"
@@ -22,19 +22,19 @@ import (
 // 否则，它将直接返回未经修改的 `s`。
 //
 // 这里的“单词”可以理解为列名。
-func (m *Model) QuoteWord(s string) string {
-	return m.db.GetCore().QuoteWord(s)
+func (m *Model) 底层QuoteWord(s string) string {
+	return m.db.X取Core对象().X底层QuoteWord(s)
 }
 
 // TableFields 获取并返回当前模式下指定表的字段信息。
 //
 // 另请参阅 DriverMysql.TableFields。
-func (m *Model) TableFields(tableStr string, schema ...string) (fields map[string]*TableField, err error) {
+func (m *Model) X取表字段信息Map(表名称 string, schema ...string) (字段信息Map map[string]*X字段信息, 错误 error) {
 	var (
-		table      = m.db.GetCore().guessPrimaryTableName(tableStr)
-		usedSchema = gutil.GetOrDefaultStr(m.schema, schema...)
+		table      = m.db.X取Core对象().guessPrimaryTableName(表名称)
+		usedSchema = 工具类.X取文本值或取默认值(m.schema, schema...)
 	)
-	return m.db.TableFields(m.GetCtx(), table, usedSchema)
+	return m.db.X取表字段信息Map(m.X取上下文对象(), table, usedSchema)
 }
 
 // getModel函数如果`safe`为真，则创建并返回当前模型的一个克隆副本，否则直接返回当前模型。
@@ -42,7 +42,7 @@ func (m *Model) getModel() *Model {
 	if !m.safe {
 		return m
 	} else {
-		return m.Clone()
+		return m.X取副本()
 	}
 }
 
@@ -53,7 +53,7 @@ func (m *Model) getModel() *Model {
 func (m *Model) mappingAndFilterToTableFields(table string, fields []string, filter bool) []string {
 	var fieldsTable = table
 	if fieldsTable != "" {
-		hasTable, _ := m.db.GetCore().HasTable(fieldsTable)
+		hasTable, _ := m.db.X取Core对象().X是否存在表名(fieldsTable)
 		if !hasTable {
 			fieldsTable = m.tablesInit
 		}
@@ -62,12 +62,12 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 		fieldsTable = m.tablesInit
 	}
 
-	fieldsMap, _ := m.TableFields(fieldsTable)
+	fieldsMap, _ := m.X取表字段信息Map(fieldsTable)
 	if len(fieldsMap) == 0 {
 		return fields
 	}
 	var (
-		inputFieldsArray  = gstr.SplitAndTrim(gstr.Join(fields, ","), ",")
+		inputFieldsArray  = 文本类.X分割并忽略空值(文本类.X连接(fields, ","), ",")
 		outputFieldsArray = make([]string, 0, len(inputFieldsArray))
 	)
 	fieldsKeyMap := make(map[string]interface{}, len(fieldsMap))
@@ -76,13 +76,13 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 	}
 	for _, field := range inputFieldsArray {
 		if _, ok := fieldsKeyMap[field]; !ok {
-			if !gregex.IsMatchString(regularFieldNameWithoutDotRegPattern, field) {
+			if !正则类.X是否匹配文本(regularFieldNameWithoutDotRegPattern, field) {
 				// 示例：user.id, user.name
 				outputFieldsArray = append(outputFieldsArray, field)
 				continue
 			} else {
 				// Eg: id, name
-				if foundKey, _ := gutil.MapPossibleItemByKey(fieldsKeyMap, field); foundKey != "" {
+				if foundKey, _ := 工具类.MapPossibleItemByKey(fieldsKeyMap, field); foundKey != "" {
 					outputFieldsArray = append(outputFieldsArray, foundKey)
 				} else if !filter {
 					outputFieldsArray = append(outputFieldsArray, field)
@@ -100,7 +100,7 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 func (m *Model) filterDataForInsertOrUpdate(data interface{}) (interface{}, error) {
 	var err error
 	switch value := data.(type) {
-	case List:
+	case Map数组:
 		var omitEmpty bool
 		if m.option&optionOmitNilDataList > 0 {
 			omitEmpty = true
@@ -125,8 +125,8 @@ func (m *Model) filterDataForInsertOrUpdate(data interface{}) (interface{}, erro
 // 注意，对于“忽略空值”特性，它不会过滤列表项（其类型也为 map）。
 func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEmpty bool) (Map, error) {
 	var err error
-	data, err = m.db.GetCore().mappingAndFilterData(
-		m.GetCtx(), m.schema, m.tablesInit, data, m.filter,
+	data, err = m.db.X取Core对象().mappingAndFilterData(
+		m.X取上下文对象(), m.schema, m.tablesInit, data, m.filter,
 	)
 	if err != nil {
 		return nil, err
@@ -135,7 +135,7 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 	if allowOmitEmpty && m.option&optionOmitNilData > 0 {
 		tempMap := make(Map, len(data))
 		for k, v := range data {
-			if empty.IsNil(v) {
+			if empty.X是否为Nil(v) {
 				continue
 			}
 			tempMap[k] = v
@@ -160,11 +160,11 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 				if r.IsZero() {
 					continue
 				}
-			case gtime.Time:
+			case 时间类.Time:
 				if r.IsZero() {
 					continue
 				}
-			case *gtime.Time:
+			case *时间类.Time:
 				if r.IsZero() {
 					continue
 				}
@@ -177,22 +177,22 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 	if len(m.fields) > 0 && m.fields != "*" {
 		// 保留指定字段。
 		var (
-			set          = gset.NewStrSetFrom(gstr.SplitAndTrim(m.fields, ","))
-			charL, charR = m.db.GetChars()
+			set          = 集合类.X创建文本并按值(文本类.X分割并忽略空值(m.fields, ","))
+			charL, charR = m.db.X底层取数据库安全字符()
 			chars        = charL + charR
 		)
-		set.Walk(func(item string) string {
-			return gstr.Trim(item, chars)
+		set.X遍历修改(func(item string) string {
+			return 文本类.X过滤首尾符并含空白(item, chars)
 		})
 		for k := range data {
-			k = gstr.Trim(k, chars)
-			if !set.Contains(k) {
+			k = 文本类.X过滤首尾符并含空白(k, chars)
+			if !set.X是否存在(k) {
 				delete(data, k)
 			}
 		}
 	} else if len(m.fieldsEx) > 0 {
 		// 过滤指定字段。
-		for _, v := range gstr.SplitAndTrim(m.fieldsEx, ",") {
+		for _, v := range 文本类.X分割并忽略空值(m.fieldsEx, ",") {
 			delete(data, v)
 		}
 	}
@@ -201,9 +201,9 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 
 // getLink 返回配置了 `linkType` 属性的基础数据库连接对象。
 // 参数 `master` 指定在主从配置时是否使用主节点。
-func (m *Model) getLink(master bool) Link {
+func (m *Model) getLink(master bool) X底层链接 {
 	if m.tx != nil {
-		return &txLink{m.tx.GetSqlTX()}
+		return &txLink{m.tx.X底层取事务对象()}
 	}
 	linkType := m.linkType
 	if linkType == 0 {
@@ -215,13 +215,13 @@ func (m *Model) getLink(master bool) Link {
 	}
 	switch linkType {
 	case linkTypeMaster:
-		link, err := m.db.GetCore().MasterLink(m.schema)
+		link, err := m.db.X取Core对象().X底层MasterLink(m.schema)
 		if err != nil {
 			panic(err)
 		}
 		return link
 	case linkTypeSlave:
-		link, err := m.db.GetCore().SlaveLink(m.schema)
+		link, err := m.db.X取Core对象().X底层SlaveLink(m.schema)
 		if err != nil {
 			panic(err)
 		}
@@ -234,13 +234,13 @@ func (m *Model) getLink(master bool) Link {
 // 它通过解析 m.tables 来检索主表名，支持如下形式的 m.tables：
 // "user", "user u", "user as u, user_detail as ud"。
 func (m *Model) getPrimaryKey() string {
-	table := gstr.SplitAndTrim(m.tablesInit, " ")[0]
-	tableFields, err := m.TableFields(table)
+	table := 文本类.X分割并忽略空值(m.tablesInit, " ")[0]
+	tableFields, err := m.X取表字段信息Map(table)
 	if err != nil {
 		return ""
 	}
 	for name, field := range tableFields {
-		if gstr.ContainsI(field.Key, "pri") {
+		if 文本类.X是否包含并忽略大小写(field.X索引信息, "pri") {
 			return name
 		}
 	}

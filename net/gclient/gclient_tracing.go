@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient
+package 网页类
 
 import (
 	"context"
@@ -42,7 +42,7 @@ const (
 	tracingEventHttpResponse                    = "http.response"
 	tracingEventHttpResponseHeaders             = "http.response.headers"
 	tracingEventHttpResponseBody                = "http.response.body"
-	tracingMiddlewareHandled        gctx.StrKey = `MiddlewareClientTracingHandled`
+	tracingMiddlewareHandled        上下文类.StrKey = `MiddlewareClientTracingHandled`
 )
 
 // internalMiddlewareTracing 是一个客户端中间件，它利用 OpenTelemetry 的标准启用追踪功能。
@@ -92,8 +92,8 @@ func internalMiddlewareTracing(c *Client, r *http.Request) (response *Response, 
 	response.Body = utils.NewReadCloser(reqBodyContentBytes, false)
 
 	span.AddEvent(tracingEventHttpResponse, trace.WithAttributes(
-		attribute.String(tracingEventHttpResponseHeaders, gconv.String(httputil.HeaderToMap(response.Header))),
-		attribute.String(tracingEventHttpResponseBody, gstr.StrLimit(
+		attribute.String(tracingEventHttpResponseHeaders, 转换类.String(httputil.HeaderToMap(response.Header))),
+		attribute.String(tracingEventHttpResponseBody, 文本类.X按长度取左边并带前缀(
 			string(reqBodyContentBytes),
 			gtrace.MaxContentLogSize(),
 			"...",

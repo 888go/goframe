@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -41,10 +41,10 @@ func (s *Server) serveHandlerKey(method, path, domain string) string {
 // getHandlersWithCache 根据给定的请求，搜索具有缓存功能的路由器项。
 func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemParsed, serveItem *HandlerItemParsed, hasHook, hasServe bool) {
 	var (
-		ctx    = r.Context()
+		ctx    = r.Context别名()
 		method = r.Method
 		path   = r.URL.Path
-		host   = r.GetHost()
+		host   = r.X取主机名()
 	)
 // 举例说明：
 // 情况1：
@@ -75,7 +75,7 @@ func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemPar
 		path = xUrlPath
 	}
 	var handlerCacheKey = s.serveHandlerKey(method, path, host)
-	value, err := s.serveCache.GetOrSetFunc(ctx, handlerCacheKey, func(ctx context.Context) (interface{}, error) {
+	value, err := s.serveCache.X取值或设置值_函数(ctx, handlerCacheKey, func(ctx context.Context) (interface{}, error) {
 		parsedItems, serveItem, hasHook, hasServe = s.searchHandlers(method, path, host)
 		if parsedItems != nil {
 			return &handlerCacheItem{parsedItems, serveItem, hasHook, hasServe}, nil
@@ -86,7 +86,7 @@ func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemPar
 		intlog.Errorf(ctx, `%+v`, err)
 	}
 	if value != nil {
-		item := value.Val().(*handlerCacheItem)
+		item := value.X取值().(*handlerCacheItem)
 		return item.parsedItems, item.serveItem, item.hasHook, item.hasServe
 	}
 	return
@@ -126,8 +126,8 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 		array = strings.Split(path[1:], "/")
 	}
 	var (
-		lastMiddlewareElem    *glist.Element
-		parsedItemList        = glist.New()
+		lastMiddlewareElem    *链表类.Element
+		parsedItemList        = 链表类.New()
 		repeatHandlerCheckMap = make(map[int]struct{}, 16)
 	)
 
@@ -139,18 +139,18 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 			continue
 		}
 		// 创建一个容量为16的list数组
-		lists := make([]*glist.List, 0, 16)
+		lists := make([]*链表类.List, 0, 16)
 		for i, part := range array {
 			// 将每个节点的所有列表添加到list数组中。
 			if v, ok := p.(map[string]interface{})["*list"]; ok {
-				lists = append(lists, v.(*glist.List))
+				lists = append(lists, v.(*链表类.List))
 			}
 			if v, ok := p.(map[string]interface{})[part]; ok {
 				// 通过指定的键名循环到下一个节点。
 				p = v
 				if i == len(array)-1 {
 					if v, ok := p.(map[string]interface{})["*list"]; ok {
-						lists = append(lists, v.(*glist.List))
+						lists = append(lists, v.(*链表类.List))
 						break
 					}
 				}
@@ -166,7 +166,7 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 				}
 				// 叶子节点必须包含一个列表项。它将该列表添加到列表数组中。
 				if v, ok := p.(map[string]interface{})["*list"]; ok {
-					lists = append(lists, v.(*glist.List))
+					lists = append(lists, v.(*链表类.List))
 				}
 			}
 		}
@@ -204,7 +204,7 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 				}
 				if item.Router.Method == defaultMethod || item.Router.Method == method {
 					// 注意这个规则：没有模糊规则时，匹配项的长度为1
-					if match, err := gregex.MatchString(item.Router.RegRule, path); err == nil && len(match) > 0 {
+					if match, err := 正则类.X匹配文本(item.Router.RegRule, path); err == nil && len(match) > 0 {
 						parsedItem := &HandlerItemParsed{item, nil}
 // 如果规则中包含模糊名称，
 // 则需要解析URL以获取这些名称的值。
@@ -213,7 +213,7 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 								parsedItem.Values = make(map[string]string)
 								// 如果存在重复的名字，它只会覆盖相同的那个。
 								for i, name := range item.Router.RegNames {
-									parsedItem.Values[name], _ = gurl.Decode(match[i+1])
+									parsedItem.Values[name], _ = url类.X解码(match[i+1])
 								}
 							}
 						}
@@ -246,7 +246,7 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 							parsedItemList.PushBack(parsedItem)
 
 						default:
-							panic(gerror.Newf(`invalid handler type %s`, item.Type))
+							panic(错误类.X创建并格式化(`invalid handler type %s`, item.Type))
 						}
 					}
 				}

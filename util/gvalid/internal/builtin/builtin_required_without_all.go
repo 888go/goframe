@@ -39,14 +39,14 @@ func (r RuleRequiredWithoutAll) Run(in RunInput) error {
 		foundValue interface{}
 	)
 	for i := 0; i < len(array); i++ {
-		_, foundValue = gutil.MapPossibleItemByKey(in.Data.Map(), array[i])
+		_, foundValue = 工具类.MapPossibleItemByKey(in.Data.X取Map(), array[i])
 		if !empty.IsEmpty(foundValue) {
 			required = false
 			break
 		}
 	}
 
-	if required && isRequiredEmpty(in.Value.Val()) {
+	if required && isRequiredEmpty(in.Value.X取值()) {
 		return errors.New(in.Message)
 	}
 	return nil

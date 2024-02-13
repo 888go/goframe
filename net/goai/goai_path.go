@@ -62,8 +62,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	var reflectType = reflect.TypeOf(in.Function)
 	if reflectType.NumIn() != 2 || reflectType.NumOut() != 2 {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`unsupported function "%s" for OpenAPI Path register, there should be input & output structures`,
 			reflectType.String(),
 		)
@@ -87,8 +87,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	var (
 		mime                 string
 		path                 = Path{XExtensions: make(XExtensions)}
-		inputMetaMap         = gmeta.Data(inputObject.Interface())
-		outputMetaMap        = gmeta.Data(outputObject.Interface())
+		inputMetaMap         = 元数据类.Data(inputObject.Interface())
+		outputMetaMap        = 元数据类.Data(outputObject.Interface())
 		isInputStructEmpty   = oai.doesStructHasNoFields(inputObject.Interface())
 		inputStructTypeName  = oai.golangTypeToSchemaName(inputObject.Type())
 		outputStructTypeName = oai.golangTypeToSchemaName(outputObject.Type())
@@ -100,14 +100,14 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	)
 	// Path check.
 	if in.Path == "" {
-		in.Path = gmeta.Get(inputObject.Interface(), gtag.Path).String()
+		in.Path = 元数据类.Get(inputObject.Interface(), gtag.Path).String()
 		if in.Prefix != "" {
-			in.Path = gstr.TrimRight(in.Prefix, "/") + "/" + gstr.TrimLeft(in.Path, "/")
+			in.Path = 文本类.X过滤尾字符并含空白(in.Prefix, "/") + "/" + 文本类.X过滤首字符并含空白(in.Path, "/")
 		}
 	}
 	if in.Path == "" {
-		return gerror.NewCodef(
-			gcode.CodeMissingParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeMissingParameter,
 			`missing necessary path parameter "%s" for input struct "%s", missing tag in attribute Meta?`,
 			gtag.Path, inputStructTypeName,
 		)
@@ -119,11 +119,11 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// Method check.
 	if in.Method == "" {
-		in.Method = gmeta.Get(inputObject.Interface(), gtag.Method).String()
+		in.Method = 元数据类.Get(inputObject.Interface(), gtag.Method).String()
 	}
 	if in.Method == "" {
-		return gerror.NewCodef(
-			gcode.CodeMissingParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeMissingParameter,
 			`missing necessary method parameter "%s" for input struct "%s", missing tag in attribute Meta?`,
 			gtag.Method, inputStructTypeName,
 		)
@@ -136,8 +136,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	if len(inputMetaMap) > 0 {
 // Path（路径）和 Operation（操作）不是同一概念，因此有必要从 Operation 中为 Path 复制一份 Meta 信息并进行编辑。
 // 另外需要注意的是，我们在 Operation 上设置 Summary（摘要）和 Description（描述），而不是在 Path 上设置，所以我们需要将它们移除。
-		inputMetaMapForPath := gmap.NewStrStrMapFrom(inputMetaMap).Clone()
-		inputMetaMapForPath.Removes([]string{
+		inputMetaMapForPath := map类.X创建StrStr并从Map(inputMetaMap).X取副本()
+		inputMetaMapForPath.X删除多个值([]string{
 			gtag.SummaryShort,
 			gtag.SummaryShort2,
 			gtag.Summary,
@@ -145,7 +145,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 			gtag.DescriptionShort2,
 			gtag.Description,
 		})
-		if err := oai.tagMapToPath(inputMetaMapForPath.Map(), &path); err != nil {
+		if err := oai.tagMapToPath(inputMetaMapForPath.X取Map(), &path); err != nil {
 			return err
 		}
 
@@ -161,8 +161,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 // 路径安全
 // 注：安全模式类型仅支持http和apiKey，不支持oauth2和openIdConnect。
 // 多种模式之间用逗号分隔，例如 `security: apiKey1,apiKey2`
-	TagNameSecurity := gmeta.Get(inputObject.Interface(), gtag.Security).String()
-	securities := gstr.SplitAndTrim(TagNameSecurity, ",")
+	TagNameSecurity := 元数据类.Get(inputObject.Interface(), gtag.Security).String()
+	securities := 文本类.X分割并忽略空值(TagNameSecurity, ",")
 	for _, sec := range securities {
 		seRequirement[sec] = []string{}
 	}
@@ -206,10 +206,10 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		// 请求支持的MIME类型。
 		var (
 			contentTypes = oai.Config.ReadContentTypes
-			tagMimeValue = gmeta.Get(inputObject.Interface(), gtag.Mime).String()
+			tagMimeValue = 元数据类.Get(inputObject.Interface(), gtag.Mime).String()
 		)
 		if tagMimeValue != "" {
-			contentTypes = gstr.SplitAndTrim(tagMimeValue, ",")
+			contentTypes = 文本类.X分割并忽略空值(tagMimeValue, ",")
 		}
 		for _, v := range contentTypes {
 			if isInputStructEmpty {
@@ -251,7 +251,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		// 响应支持的MIME类型。
 		var (
 			contentTypes = oai.Config.ReadContentTypes
-			tagMimeValue = gmeta.Get(outputObject.Interface(), gtag.Mime).String()
+			tagMimeValue = 元数据类.Get(outputObject.Interface(), gtag.Mime).String()
 			refInput     = getResponseSchemaRefInput{
 				BusinessStructName:      outputStructTypeName,
 				CommonResponseObject:    oai.Config.CommonResponse,
@@ -259,7 +259,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 			}
 		)
 		if tagMimeValue != "" {
-			contentTypes = gstr.SplitAndTrim(tagMimeValue, ",")
+			contentTypes = 文本类.X分割并忽略空值(tagMimeValue, ",")
 		}
 		for _, v := range contentTypes {
 			// 如果指定了自定义的响应MIME类型，则会忽略通用的响应特性。
@@ -282,7 +282,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	oai.removeOperationDuplicatedProperties(operation)
 
 	// 给特定操作属性赋值。
-	switch gstr.ToUpper(in.Method) {
+	switch 文本类.X到大写(in.Method) {
 	case http.MethodGet:
 		// GET方法不能包含请求体。
 		operation.RequestBody = nil
@@ -315,7 +315,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		path.Trace = &operation
 
 	default:
-		return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid method "%s"`, in.Method)
+		return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid method "%s"`, in.Method)
 	}
 	oai.Paths[in.Path] = path
 	return nil
@@ -337,7 +337,7 @@ func (oai *OpenApiV3) removeOperationDuplicatedProperties(operation Operation) {
 	}
 
 	// 检查操作请求体中是否包含通用请求数据字段。
-	dataFields := gstr.Split(oai.Config.CommonRequestDataField, ".")
+	dataFields := 文本类.X分割(oai.Config.CommonRequestDataField, ".")
 	if len(dataFields) > 0 && dataFields[0] != "" {
 		dataField = dataFields[0]
 	}
@@ -377,13 +377,13 @@ func (oai *OpenApiV3) removeOperationDuplicatedProperties(operation Operation) {
 }
 
 func (oai *OpenApiV3) removeItemsFromArray(array []string, items []interface{}) []string {
-	arr := garray.NewStrArrayFrom(array)
+	arr := 数组类.X创建文本并从数组(array)
 	for _, item := range items {
 		if value, ok := item.(string); ok {
-			arr.RemoveValue(value)
+			arr.X删除值(value)
 		}
 	}
-	return arr.Slice()
+	return arr.X取切片()
 }
 
 func (oai *OpenApiV3) doesStructHasNoFields(s interface{}) bool {
@@ -392,8 +392,8 @@ func (oai *OpenApiV3) doesStructHasNoFields(s interface{}) bool {
 
 func (oai *OpenApiV3) tagMapToPath(tagMap map[string]string, path *Path) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
-	if err := gconv.Struct(mergedTagMap, path); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Path failed`)
+	if err := 转换类.Struct(mergedTagMap, path); err != nil {
+		return 错误类.X多层错误(err, `mapping struct tags to Path failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, path.XExtensions)
 	return nil

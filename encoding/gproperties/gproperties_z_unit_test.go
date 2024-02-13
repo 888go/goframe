@@ -49,7 +49,7 @@ var errorTests = []struct {
 }
 
 func TestDecode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]interface{})
 		m["properties"] = pStr
 		res, err := gproperties.Encode(m)
@@ -65,7 +65,7 @@ func TestDecode(t *testing.T) {
 		t.Assert(decodeMap["properties"], pStr)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for _, v := range errorTests {
 			_, err := gproperties.Decode(([]byte)(v.input))
 			if err == nil {
@@ -78,7 +78,7 @@ func TestDecode(t *testing.T) {
 }
 
 func TestEncode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]interface{})
 		m["properties"] = pStr
 		res, err := gproperties.Encode(m)
@@ -96,7 +96,7 @@ func TestEncode(t *testing.T) {
 }
 
 func TestToJson(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		res, err := gproperties.Encode(map[string]interface{}{
 			"sql": g.Map{
 				"userName": "admin",
@@ -113,15 +113,15 @@ func TestToJson(t *testing.T) {
 		}
 		fmt.Print(string(jsonPr))
 
-		p := gjson.New(res)
-		expectJson, err := p.ToJson()
+		p := json类.X创建(res)
+		expectJson, err := p.X取json字节集()
 		if err != nil {
 			t.Errorf("parser ToJson failed. %v", err)
 			return
 		}
 		t.Assert(jsonPr, expectJson)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for _, v := range errorTests {
 			_, err := gproperties.ToJson(([]byte)(v.input))
 			if err == nil {

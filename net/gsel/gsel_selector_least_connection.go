@@ -21,7 +21,7 @@ type selectorLeastConnection struct {
 
 type leastConnectionNode struct {
 	Node
-	inflight *gtype.Int
+	inflight *安全变量类.Int
 }
 
 func NewSelectorLeastConnection() Selector {
@@ -37,7 +37,7 @@ func (s *selectorLeastConnection) Update(ctx context.Context, nodes Nodes) error
 		node := v
 		newNodes = append(newNodes, &leastConnectionNode{
 			Node:     node,
-			inflight: gtype.NewInt(),
+			inflight: 安全变量类.NewInt(),
 		})
 	}
 	s.mu.Lock()
@@ -56,7 +56,7 @@ func (s *selectorLeastConnection) Pick(ctx context.Context) (node Node, done Don
 		for _, v := range s.nodes {
 			if pickedNode == nil {
 				pickedNode = v
-			} else if v.inflight.Val() < pickedNode.inflight.Val() {
+			} else if v.inflight.X取值() < pickedNode.inflight.X取值() {
 				pickedNode = v
 			}
 		}

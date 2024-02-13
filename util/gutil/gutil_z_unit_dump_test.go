@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil_test
+package 工具类_test
 
 import (
 	"bytes"
@@ -31,12 +31,12 @@ func Test_Dump(t *testing.T) {
 	}
 	type CreateResourceReq struct {
 		CommonReq
-		gmeta.Meta `path:"/CreateResourceReq" method:"POST" tags:"default" sum:"CreateResourceReq sum"`
+		元数据类.Meta `path:"/CreateResourceReq" method:"POST" tags:"default" sum:"CreateResourceReq sum"`
 		Name       string
-		CreatedAt  *gtime.Time
+		CreatedAt  *时间类.Time
 		SetMap     map[string]*SetSpecInfo
 		SetSlice   []SetSpecInfo
-		Handler    ghttp.HandlerFunc
+		Handler    http类.HandlerFunc
 		internal   string
 	}
 	req := &CreateResourceReq{
@@ -45,7 +45,7 @@ func Test_Dump(t *testing.T) {
 			ResourceId: "tdchqy-xxx",
 		},
 		Name:      "john",
-		CreatedAt: gtime.Now(),
+		CreatedAt: 时间类.X创建并按当前时间(),
 		SetMap: map[string]*SetSpecInfo{
 			"test1": {
 				StorageType: "ssd",
@@ -66,28 +66,28 @@ func Test_Dump(t *testing.T) {
 			},
 		},
 	}
-	gtest.C(t, func(t *gtest.T) {
-		gutil.Dump(map[int]int{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		工具类.X调试输出(map[int]int{
 			100: 100,
 		})
-		gutil.Dump(req)
-		gutil.Dump(true, false)
-		gutil.Dump(make(chan int))
-		gutil.Dump(func() {})
-		gutil.Dump(nil)
-		gutil.Dump(gtype.NewInt(1))
+		工具类.X调试输出(req)
+		工具类.X调试输出(true, false)
+		工具类.X调试输出(make(chan int))
+		工具类.X调试输出(func() {})
+		工具类.X调试输出(nil)
+		工具类.X调试输出(安全变量类.NewInt(1))
 	})
 }
 
 func Test_Dump_Map(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		buffer := bytes.NewBuffer(nil)
 		m := g.Map{
 			"k1": g.Map{
 				"k2": "v2",
 			},
 		}
-		gutil.DumpTo(buffer, m, gutil.DumpOption{})
+		工具类.X调试输出到Writer(buffer, m, 工具类.DumpOption{})
 		t.Assert(buffer.String(), `{
     "k1": {
         "k2": "v2",
@@ -108,12 +108,12 @@ func TestDumpWithType(t *testing.T) {
 	}
 	type CreateResourceReq struct {
 		CommonReq
-		gmeta.Meta `path:"/CreateResourceReq" method:"POST" tags:"default" sum:"CreateResourceReq sum"`
+		元数据类.Meta `path:"/CreateResourceReq" method:"POST" tags:"default" sum:"CreateResourceReq sum"`
 		Name       string
-		CreatedAt  *gtime.Time
+		CreatedAt  *时间类.Time
 		SetMap     map[string]*SetSpecInfo `v:"required" des:"配置Map"`
 		SetSlice   []SetSpecInfo           `v:"required" des:"配置Slice"`
-		Handler    ghttp.HandlerFunc
+		Handler    http类.HandlerFunc
 		internal   string
 	}
 	req := &CreateResourceReq{
@@ -122,7 +122,7 @@ func TestDumpWithType(t *testing.T) {
 			ResourceId: "tdchqy-xxx",
 		},
 		Name:      "john",
-		CreatedAt: gtime.Now(),
+		CreatedAt: 时间类.X创建并按当前时间(),
 		SetMap: map[string]*SetSpecInfo{
 			"test1": {
 				StorageType: "ssd",
@@ -143,12 +143,12 @@ func TestDumpWithType(t *testing.T) {
 			},
 		},
 	}
-	gtest.C(t, func(t *gtest.T) {
-		gutil.DumpWithType(map[int]int{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		工具类.X调试输出并带类型(map[int]int{
 			100: 100,
 		})
-		gutil.DumpWithType(req)
-		gutil.DumpWithType([][]byte{[]byte("hello")})
+		工具类.X调试输出并带类型(req)
+		工具类.X调试输出并带类型([][]byte{[]byte("hello")})
 	})
 }
 
@@ -159,12 +159,12 @@ func Test_Dump_Slashes(t *testing.T) {
 	req := &Req{
 		Content: `{"name":"john", "age":18}`,
 	}
-	gtest.C(t, func(t *gtest.T) {
-		gutil.Dump(req)
-		gutil.Dump(req.Content)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		工具类.X调试输出(req)
+		工具类.X调试输出(req.Content)
 
-		gutil.DumpWithType(req)
-		gutil.DumpWithType(req.Content)
+		工具类.X调试输出并带类型(req)
+		工具类.X调试输出并带类型(req.Content)
 	})
 }
 
@@ -181,7 +181,7 @@ func Test_Dump_Issue1661(t *testing.T) {
 		ab string
 		cc []B
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var q1 []A
 		var q2 []A
 		q2 = make([]A, 0)
@@ -198,7 +198,7 @@ func Test_Dump_Issue1661(t *testing.T) {
 			}
 		}
 		buffer := bytes.NewBuffer(nil)
-		gutil.DumpTo(buffer, q2, gutil.DumpOption{})
+		工具类.X调试输出到Writer(buffer, q2, 工具类.DumpOption{})
 		t.Assert(buffer.String(), `[
     {
         aa: 1,
@@ -283,16 +283,16 @@ func Test_Dump_Cycle_Attribute(t *testing.T) {
 	}
 	abc := Abc{ab: 3}
 	abc.cd = &abc
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		buffer := bytes.NewBuffer(nil)
-		g.DumpTo(buffer, abc, gutil.DumpOption{})
-		t.Assert(gstr.Contains(buffer.String(), "cycle"), true)
+		g.X调试输出到Writer(buffer, abc, 工具类.DumpOption{})
+		t.Assert(文本类.X是否包含(buffer.String(), "cycle"), true)
 	})
 }
 
 func Test_DumpJson(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var jsonContent = `{"a":1,"b":2}`
-		gutil.DumpJson(jsonContent)
+		工具类.X调试输出json(jsonContent)
 	})
 }

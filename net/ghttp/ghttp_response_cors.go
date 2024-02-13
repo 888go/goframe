@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package ghttp
+package http类
 
 import (
 	"net/http"
@@ -38,7 +38,7 @@ var (
 )
 
 func init() {
-	array := gstr.SplitAndTrim(defaultAllowHeaders, ",")
+	array := 文本类.X分割并忽略空值(defaultAllowHeaders, ",")
 	for _, header := range array {
 		defaultAllowHeadersMap[header] = struct{}{}
 	}
@@ -46,7 +46,7 @@ func init() {
 
 // DefaultCORSOptions 返回默认的 CORS 选项，
 // 这些选项允许任何跨域请求。
-func (r *Response) DefaultCORSOptions() CORSOptions {
+func (r *Response) X取跨域默认选项() CORSOptions {
 	options := CORSOptions{
 		AllowOrigin:      "*",
 		AllowMethods:     supportedHttpMethods,
@@ -56,7 +56,7 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 	}
 	// 默认情况下，允许所有客户端自定义头部。
 	if headers := r.Request.Header.Get("Access-Control-Request-Headers"); headers != "" {
-		array := gstr.SplitAndTrim(headers, ",")
+		array := 文本类.X分割并忽略空值(headers, ",")
 		for _, header := range array {
 			if _, ok := defaultAllowHeadersMap[header]; !ok {
 				options.AllowHeaders += "," + header
@@ -67,7 +67,7 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 	if origin := r.Request.Header.Get("Origin"); origin != "" {
 		options.AllowOrigin = origin
 	} else if referer := r.Request.Referer(); referer != "" {
-		if p := gstr.PosR(referer, "/", 6); p != -1 {
+		if p := 文本类.X倒找(referer, "/", 6); p != -1 {
 			options.AllowOrigin = referer[:p]
 		} else {
 			options.AllowOrigin = referer
@@ -78,40 +78,40 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 
 // CORS 设置自定义 CORS 选项。
 // 参见 https://www.w3.org/TR/cors/ 。
-func (r *Response) CORS(options CORSOptions) {
-	if r.CORSAllowedOrigin(options) {
-		r.Header().Set("Access-Control-Allow-Origin", options.AllowOrigin)
+func (r *Response) X跨域请求设置(跨域选项 CORSOptions) {
+	if r.X是否允许跨域(跨域选项) {
+		r.Header().Set("Access-Control-Allow-Origin", 跨域选项.AllowOrigin)
 	}
-	if options.AllowCredentials != "" {
-		r.Header().Set("Access-Control-Allow-Credentials", options.AllowCredentials)
+	if 跨域选项.AllowCredentials != "" {
+		r.Header().Set("Access-Control-Allow-Credentials", 跨域选项.AllowCredentials)
 	}
-	if options.ExposeHeaders != "" {
-		r.Header().Set("Access-Control-Expose-Headers", options.ExposeHeaders)
+	if 跨域选项.ExposeHeaders != "" {
+		r.Header().Set("Access-Control-Expose-Headers", 跨域选项.ExposeHeaders)
 	}
-	if options.MaxAge != 0 {
-		r.Header().Set("Access-Control-Max-Age", gconv.String(options.MaxAge))
+	if 跨域选项.MaxAge != 0 {
+		r.Header().Set("Access-Control-Max-Age", 转换类.String(跨域选项.MaxAge))
 	}
-	if options.AllowMethods != "" {
-		r.Header().Set("Access-Control-Allow-Methods", options.AllowMethods)
+	if 跨域选项.AllowMethods != "" {
+		r.Header().Set("Access-Control-Allow-Methods", 跨域选项.AllowMethods)
 	}
-	if options.AllowHeaders != "" {
-		r.Header().Set("Access-Control-Allow-Headers", options.AllowHeaders)
+	if 跨域选项.AllowHeaders != "" {
+		r.Header().Set("Access-Control-Allow-Headers", 跨域选项.AllowHeaders)
 	}
 // 如果请求为OPTIONS，则不进行继续服务处理。
 // 注意，之前在路由搜索中有特殊的检查，
 // 所以如果执行到这里，意味着已存在正在服务的处理程序。
-	if gstr.Equal(r.Request.Method, "OPTIONS") {
+	if 文本类.X相等比较并忽略大小写(r.Request.Method, "OPTIONS") {
 		if r.Status == 0 {
 			r.Status = http.StatusOK
 		}
 		// 不再继续服务。
-		r.Request.ExitAll()
+		r.Request.X退出全部()
 	}
 }
 
 // CORSAllowedOrigin CORSAllowedOrigin函数检查当前请求的来源是否允许跨域。
-func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
-	if options.AllowDomain == nil {
+func (r *Response) X是否允许跨域(跨域选项 CORSOptions) bool {
+	if 跨域选项.AllowDomain == nil {
 		return true
 	}
 	origin := r.Request.Header.Get("Origin")
@@ -122,8 +122,8 @@ func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
 	if err != nil {
 		return false
 	}
-	for _, v := range options.AllowDomain {
-		if gstr.IsSubDomain(parsed.Host, v) {
+	for _, v := range 跨域选项.AllowDomain {
+		if 文本类.X是否为子域名(parsed.Host, v) {
 			return true
 		}
 	}
@@ -132,6 +132,6 @@ func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
 
 // CORSDefault 使用默认CORS选项设置CORS，
 // 这将允许任何跨域请求。
-func (r *Response) CORSDefault() {
-	r.CORS(r.DefaultCORSOptions())
+func (r *Response) X跨域请求全允许() {
+	r.X跨域请求设置(r.X取跨域默认选项())
 }

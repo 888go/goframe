@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -41,46 +41,46 @@ func (c *Core) traceSpanEnd(ctx context.Context, span trace.Span, sql *Sql) {
 	if gtrace.IsUsingDefaultProvider() || !gtrace.IsTracingInternal() {
 		return
 	}
-	if sql.Error != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, sql.Error))
+	if sql.X执行错误 != nil {
+		span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, sql.X执行错误))
 	}
 	labels := make([]attribute.KeyValue, 0)
 	labels = append(labels, gtrace.CommonLabels()...)
 	labels = append(labels,
-		attribute.String(traceAttrDbType, c.db.GetConfig().Type),
-		semconv.DBStatementKey.String(sql.Format),
+		attribute.String(traceAttrDbType, c.db.X取当前节点配置().X类型),
+		semconv.DBStatementKey.String(sql.SQL格式化后),
 	)
-	if c.db.GetConfig().Host != "" {
-		labels = append(labels, attribute.String(traceAttrDbHost, c.db.GetConfig().Host))
+	if c.db.X取当前节点配置().X地址 != "" {
+		labels = append(labels, attribute.String(traceAttrDbHost, c.db.X取当前节点配置().X地址))
 	}
-	if c.db.GetConfig().Port != "" {
-		labels = append(labels, attribute.String(traceAttrDbPort, c.db.GetConfig().Port))
+	if c.db.X取当前节点配置().X端口 != "" {
+		labels = append(labels, attribute.String(traceAttrDbPort, c.db.X取当前节点配置().X端口))
 	}
-	if c.db.GetConfig().Name != "" {
-		labels = append(labels, attribute.String(traceAttrDbName, c.db.GetConfig().Name))
+	if c.db.X取当前节点配置().X名称 != "" {
+		labels = append(labels, attribute.String(traceAttrDbName, c.db.X取当前节点配置().X名称))
 	}
-	if c.db.GetConfig().User != "" {
-		labels = append(labels, attribute.String(traceAttrDbUser, c.db.GetConfig().User))
+	if c.db.X取当前节点配置().X账号 != "" {
+		labels = append(labels, attribute.String(traceAttrDbUser, c.db.X取当前节点配置().X账号))
 	}
-	if filteredLink := c.db.GetCore().FilteredLink(); filteredLink != "" {
-		labels = append(labels, attribute.String(traceAttrDbLink, c.db.GetCore().FilteredLink()))
+	if filteredLink := c.db.X取Core对象().X取数据库链接信息(); filteredLink != "" {
+		labels = append(labels, attribute.String(traceAttrDbLink, c.db.X取Core对象().X取数据库链接信息()))
 	}
-	if group := c.db.GetGroup(); group != "" {
+	if group := c.db.X取配置组名称(); group != "" {
 		labels = append(labels, attribute.String(traceAttrDbGroup, group))
 	}
 	span.SetAttributes(labels...)
 	events := []attribute.KeyValue{
-		attribute.String(traceEventDbExecutionSql, sql.Format),
-		attribute.String(traceEventDbExecutionCost, fmt.Sprintf(`%d ms`, sql.End-sql.Start)),
-		attribute.String(traceEventDbExecutionRows, fmt.Sprintf(`%d`, sql.RowsAffected)),
+		attribute.String(traceEventDbExecutionSql, sql.SQL格式化后),
+		attribute.String(traceEventDbExecutionCost, fmt.Sprintf(`%d ms`, sql.X结束时间戳-sql.X开始时间戳)),
+		attribute.String(traceEventDbExecutionRows, fmt.Sprintf(`%d`, sql.X影响行数)),
 	}
-	if sql.IsTransaction {
+	if sql.X是否为事务 {
 		if v := ctx.Value(transactionIdForLoggerCtx); v != nil {
 			events = append(events, attribute.String(
 				traceEventDbExecutionTxID, fmt.Sprintf(`%d`, v.(uint64)),
 			))
 		}
 	}
-	events = append(events, attribute.String(traceEventDbExecutionType, sql.Type))
+	events = append(events, attribute.String(traceEventDbExecutionType, sql.X类型))
 	span.AddEvent(traceEventDbExecution, trace.WithAttributes(events...))
 }

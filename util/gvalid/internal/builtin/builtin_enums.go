@@ -37,8 +37,8 @@ func (r RuleEnums) Message() string {
 
 func (r RuleEnums) Run(in RunInput) error {
 	if in.ValueType == nil {
-		return gerror.NewCode(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码(
+			错误码类.CodeInvalidParameter,
 			`value type cannot be empty to use validation rule "enums"`,
 		)
 	}
@@ -47,8 +47,8 @@ func (r RuleEnums) Run(in RunInput) error {
 		typeName = in.ValueType.Name()
 	)
 	if pkgPath == "" {
-		return gerror.NewCodef(
-			gcode.CodeInvalidOperation,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidOperation,
 			`no pkg path found for type "%s"`,
 			in.ValueType.String(),
 		)
@@ -58,8 +58,8 @@ func (r RuleEnums) Run(in RunInput) error {
 		tagEnums = gtag.GetEnumsByType(typeId)
 	)
 	if tagEnums == "" {
-		return gerror.NewCodef(
-			gcode.CodeInvalidOperation,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidOperation,
 			`no enums found for type "%s", missing using command "gf gen enums"?`,
 			typeId,
 		)
@@ -68,8 +68,8 @@ func (r RuleEnums) Run(in RunInput) error {
 	if err := json.Unmarshal([]byte(tagEnums), &enumsValues); err != nil {
 		return err
 	}
-	if !gstr.InArray(gconv.Strings(enumsValues), in.Value.String()) {
-		return errors.New(gstr.Replace(
+	if !文本类.X数组是否存在(转换类.X取文本数组(enumsValues), in.Value.String()) {
+		return errors.New(文本类.X替换(
 			in.Message, `{enums}`, tagEnums,
 		))
 	}

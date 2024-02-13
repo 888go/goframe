@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfsnotify
+package 文件监控类
 
 import (
 	"context"
@@ -26,11 +26,11 @@ func (w *Watcher) watchLoop() {
 			// Event listening.
 			case ev := <-w.watcher.Events:
 				// 在自定义时间段内过滤重复事件。
-				_, err := w.cache.SetIfNotExist(
+				_, err := w.cache.X设置值并跳过已存在(
 					context.Background(),
 					ev.String(),
 					func(ctx context.Context) (value interface{}, err error) {
-						w.events.Push(&Event{
+						w.events.X入栈(&Event{
 							event:   ev,
 							Path:    ev.Name,
 							Op:      Op(ev.Op),
@@ -54,7 +54,7 @@ func (w *Watcher) watchLoop() {
 func (w *Watcher) eventLoop() {
 	go func() {
 		for {
-			if v := w.events.Pop(); v != nil {
+			if v := w.events.X出栈(); v != nil {
 				event := v.(*Event)
 				// 如果此路径没有任何回调函数，它将从监视器中移除该路径。
 				callbacks := w.getCallbacks(event.Path)
@@ -129,7 +129,7 @@ func (w *Watcher) eventLoop() {
 									w.RemoveCallback(callback.Id)
 								default:
 									if e, ok := err.(error); ok {
-										panic(gerror.WrapCode(gcode.CodeInternalPanic, e))
+										panic(错误类.X多层错误码(错误码类.CodeInternalPanic, e))
 									}
 									panic(err)
 								}
@@ -149,8 +149,8 @@ func (w *Watcher) eventLoop() {
 // 如果它们是递归的，还会在其父级中搜索回调函数。
 func (w *Watcher) getCallbacks(path string) (callbacks []*Callback) {
 	// 首先添加自身的回调函数。
-	if v := w.callbacks.Get(path); v != nil {
-		for _, v := range v.(*glist.List).FrontAll() {
+	if v := w.callbacks.X取值(path); v != nil {
+		for _, v := range v.(*链表类.List).FrontAll() {
 			callback := v.(*Callback)
 			callbacks = append(callbacks, callback)
 		}
@@ -159,8 +159,8 @@ func (w *Watcher) getCallbacks(path string) (callbacks []*Callback) {
 // 这里有特殊处理，这是`递归`和`非递归`逻辑之间的区别，
 // 特指从`path`的直接父目录传递过来的事件。
 	dirPath := fileDir(path)
-	if v := w.callbacks.Get(dirPath); v != nil {
-		for _, v := range v.(*glist.List).FrontAll() {
+	if v := w.callbacks.X取值(dirPath); v != nil {
+		for _, v := range v.(*链表类.List).FrontAll() {
 			callback := v.(*Callback)
 			callbacks = append(callbacks, callback)
 		}
@@ -171,8 +171,8 @@ func (w *Watcher) getCallbacks(path string) (callbacks []*Callback) {
 		if parentDirPath == dirPath {
 			break
 		}
-		if v := w.callbacks.Get(parentDirPath); v != nil {
-			for _, v := range v.(*glist.List).FrontAll() {
+		if v := w.callbacks.X取值(parentDirPath); v != nil {
+			for _, v := range v.(*链表类.List).FrontAll() {
 				callback := v.(*Callback)
 				if callback.recursive {
 					callbacks = append(callbacks, callback)

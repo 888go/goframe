@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package ghttp
+package http类
 
 import (
 	"bytes"
@@ -46,24 +46,24 @@ func newResponse(s *Server, w http.ResponseWriter) *Response {
 // ServeFile 将文件发送至响应。
 // 会自动识别文件格式，如果是目录或者文本内容将会直接展示文件内容。
 // 如果path参数为目录，那么第二个参数allowIndex控制是否可以展示目录下的文件列表。
-func (r *Response) ServeFile(path string, allowIndex ...bool) {
+func (r *Response) X发送文件(文件路径 string, 是否展示目录文件列表 ...bool) {
 	var (
 		serveFile *staticFile
 	)
-	if file := gres.Get(path); file != nil {
+	if file := 资源类.Get(文件路径); file != nil {
 		serveFile = &staticFile{
 			File:  file,
 			IsDir: file.FileInfo().IsDir(),
 		}
 	} else {
-		path, _ = gfile.Search(path)
-		if path == "" {
-			r.WriteStatus(http.StatusNotFound)
+		文件路径, _ = 文件类.X查找(文件路径)
+		if 文件路径 == "" {
+			r.X写响应缓冲区与HTTP状态码(http.StatusNotFound)
 			return
 		}
-		serveFile = &staticFile{Path: path}
+		serveFile = &staticFile{Path: 文件路径}
 	}
-	r.Server.serveFile(r.Request, serveFile, allowIndex...)
+	r.Server.serveFile(r.Request, serveFile, 是否展示目录文件列表...)
 }
 
 // ServeFileDownload 为响应提供文件下载服务。
@@ -78,32 +78,32 @@ func (r *Response) ServeFile(path string, allowIndex ...bool) {
 // 	s.SetPort(8999)
 // 	s.Run()
 // }
-func (r *Response) ServeFileDownload(path string, name ...string) {
+func (r *Response) X下载文件(路径 string, 文件名 ...string) {
 	var (
 		serveFile    *staticFile
 		downloadName = ""
 	)
 
-	if len(name) > 0 {
-		downloadName = name[0]
+	if len(文件名) > 0 {
+		downloadName = 文件名[0]
 	}
-	if file := gres.Get(path); file != nil {
+	if file := 资源类.Get(路径); file != nil {
 		serveFile = &staticFile{
 			File:  file,
 			IsDir: file.FileInfo().IsDir(),
 		}
 		if downloadName == "" {
-			downloadName = gfile.Basename(file.Name())
+			downloadName = 文件类.X路径取文件名(file.Name())
 		}
 	} else {
-		path, _ = gfile.Search(path)
-		if path == "" {
-			r.WriteStatus(http.StatusNotFound)
+		路径, _ = 文件类.X查找(路径)
+		if 路径 == "" {
+			r.X写响应缓冲区与HTTP状态码(http.StatusNotFound)
 			return
 		}
-		serveFile = &staticFile{Path: path}
+		serveFile = &staticFile{Path: 路径}
 		if downloadName == "" {
-			downloadName = gfile.Basename(path)
+			downloadName = 文件类.X路径取文件名(路径)
 		}
 	}
 	r.Header().Set("Content-Type", "application/force-download")
@@ -115,45 +115,45 @@ func (r *Response) ServeFileDownload(path string, name ...string) {
 // RedirectTo 重定向客户端到另一个位置。
 // 可选参数 `code` 指定了用于重定向的 HTTP 状态码，
 // 通常可以是 301 或 302，默认为 302。
-func (r *Response) RedirectTo(location string, code ...int) {
-	r.Header().Set("Location", location)
-	if len(code) > 0 {
-		r.WriteHeader(code[0])
+func (r *Response) X重定向(url地址 string, 重定向状态码 ...int) {
+	r.Header().Set("Location", url地址)
+	if len(重定向状态码) > 0 {
+		r.WriteHeader(重定向状态码[0])
 	} else {
 		r.WriteHeader(http.StatusFound)
 	}
-	r.Request.Exit()
+	r.Request.X退出当前()
 }
 
 // RedirectBack 重定向客户端返回到referer页面。
 // 可选参数 `code` 指定用于重定向的http状态码，通常可以是301或302，默认为302。
-func (r *Response) RedirectBack(code ...int) {
-	r.RedirectTo(r.Request.GetReferer(), code...)
+func (r *Response) X重定向到来源页面(重定向状态码 ...int) {
+	r.X重定向(r.Request.X取引用来源URL(), 重定向状态码...)
 }
 
 // Buffer返回缓冲区中的内容作为[]byte。
-func (r *Response) Buffer() []byte {
+func (r *Response) X取缓冲区字节集() []byte {
 	return r.buffer.Bytes()
 }
 
 // BufferString 返回缓冲区中的内容作为字符串。
-func (r *Response) BufferString() string {
+func (r *Response) X取缓冲区文本() string {
 	return r.buffer.String()
 }
 
 // BufferLength 返回缓冲区内容的长度。
-func (r *Response) BufferLength() int {
+func (r *Response) X取缓冲区长度() int {
 	return r.buffer.Len()
 }
 
 // SetBuffer 将`data`覆盖写入缓冲区。
-func (r *Response) SetBuffer(data []byte) {
+func (r *Response) X设置缓冲区字节集(字节集值 []byte) {
 	r.buffer.Reset()
-	r.buffer.Write(data)
+	r.buffer.Write(字节集值)
 }
 
 // 清空缓冲区 ClearBuffer 用于清空响应缓冲区。
-func (r *Response) ClearBuffer() {
+func (r *Response) X清空缓冲区() {
 	r.buffer.Reset()
 }
 
@@ -165,8 +165,8 @@ func (r *Response) ServeContent(name string, modTime time.Time, content io.ReadS
 }
 
 // Flush 将缓冲区内容输出到客户端并清空缓冲区。
-func (r *Response) Flush() {
-	r.Header().Set(responseHeaderTraceID, gtrace.GetTraceID(r.Request.Context()))
+func (r *Response) X输出缓存区() {
+	r.Header().Set(responseHeaderTraceID, gtrace.GetTraceID(r.Request.Context别名()))
 	if r.Server.config.ServerAgent != "" {
 		r.Header().Set("Server", r.Server.config.ServerAgent)
 	}

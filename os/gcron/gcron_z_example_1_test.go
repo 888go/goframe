@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcron_test
+package 定时cron类_test
 
 import (
 	"context"
@@ -15,8 +15,8 @@ import (
 )
 
 func ExampleCronAddSingleton() {
-	gcron.AddSingleton(ctx, "* * * * * *", func(ctx context.Context) {
-		glog.Print(context.TODO(), "doing")
+	定时cron类.AddSingleton(ctx, "* * * * * *", func(ctx context.Context) {
+		日志类.X输出(context.TODO(), "doing")
 		time.Sleep(2 * time.Second)
 	})
 	select {}

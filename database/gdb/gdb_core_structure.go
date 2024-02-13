@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -24,27 +24,27 @@ import (
 )
 
 // GetFieldTypeStr 通过名称检索并返回特定字段的字段类型字符串。
-func (c *Core) GetFieldTypeStr(ctx context.Context, fieldName, table, schema string) string {
-	field := c.GetFieldType(ctx, fieldName, table, schema)
+func (c *Core) X取字段类型(上下文 context.Context, 字段名称, 表名称, 数据库名称 string) string {
+	field := c.X取字段信息对象(上下文, 字段名称, 表名称, 数据库名称)
 	if field != nil {
-		return field.Type
+		return field.X类型
 	}
 	return ""
 }
 
 // GetFieldType通过名称获取并返回特定字段的字段类型对象。
-func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string) *TableField {
-	fieldsMap, err := c.db.TableFields(ctx, table, schema)
+func (c *Core) X取字段信息对象(上下文 context.Context, 字段名称, 表名称, 数据库名称 string) *X字段信息 {
+	fieldsMap, err := c.db.X取表字段信息Map(上下文, 表名称, 数据库名称)
 	if err != nil {
 		intlog.Errorf(
-			ctx,
+			上下文,
 			`TableFields failed for table "%s", schema "%s": %+v`,
-			table, schema, err,
+			表名称, 数据库名称, err,
 		)
 		return nil
 	}
 	for tableFieldName, tableField := range fieldsMap {
-		if tableFieldName == fieldName {
+		if tableFieldName == 字段名称 {
 			return tableField
 		}
 	}
@@ -54,19 +54,19 @@ func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string
 // ConvertDataForRecord 是一个非常重要的函数，用于将任何要作为记录插入到表/集合中的数据进行转换。
 //
 // 参数 `value` 应为 *map、map、*struct 或 struct 类型。对于 struct，它支持嵌套的 struct 定义。
-func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, table string) (map[string]interface{}, error) {
+func (c *Core) X底层ConvertDataForRecord(上下文 context.Context, 值 interface{}, 表名称 string) (map[string]interface{}, error) {
 	var (
 		err  error
-		data = MapOrStructToMapDeep(value, true)
+		data = X转换到Map(值, true)
 	)
 	for fieldName, fieldValue := range data {
-		data[fieldName], err = c.db.ConvertValueForField(
-			ctx,
-			c.GetFieldTypeStr(ctx, fieldName, table, c.GetSchema()),
+		data[fieldName], err = c.db.X底层ConvertValueForField(
+			上下文,
+			c.X取字段类型(上下文, fieldName, 表名称, c.X取默认数据库名称()),
 			fieldValue,
 		)
 		if err != nil {
-			return nil, gerror.Wrapf(err, `ConvertDataForRecord failed for value: %#v`, fieldValue)
+			return nil, 错误类.X多层错误并格式化(err, `ConvertDataForRecord failed for value: %#v`, fieldValue)
 		}
 	}
 	return data, nil
@@ -75,7 +75,7 @@ func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, tabl
 // ConvertValueForField 将值转换为目标记录字段的类型。
 // 参数`fieldType`是目标记录字段。
 // 参数`fieldValue`是要提交到记录字段的值。
-func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
+func (c *Core) X底层ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	var (
 		err            error
 		convertedValue = fieldValue
@@ -118,14 +118,14 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 				convertedValue = nil
 			}
 
-		case gtime.Time:
+		case 时间类.Time:
 			if r.IsZero() {
 				convertedValue = nil
 			} else {
 				convertedValue = r.Time
 			}
 
-		case *gtime.Time:
+		case *时间类.Time:
 			if r.IsZero() {
 				convertedValue = nil
 			} else {
@@ -135,7 +135,7 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 		case *time.Time:
 			// Nothing to do.
 
-		case Counter, *Counter:
+		case X增减, *X增减:
 			// Nothing to do.
 
 		default:
@@ -143,7 +143,7 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 // 检查其IsNil()函数，如果得到true，
 // 则将该值作为"null"插入/更新到数据库中。
 // 在Go语言中，这段代码的注释描述了当变量value实现了名为iNil的接口时，会进一步调用其IsNil()方法进行判断。若该方法返回true，则会在对数据库进行操作时，将这个变量值视为"null"进行插入或更新操作。
-			if v, ok := fieldValue.(iNil); ok && v.IsNil() {
+			if v, ok := fieldValue.(iNil); ok && v.X是否为Nil() {
 				convertedValue = nil
 			} else if s, ok := fieldValue.(iString); ok {
 				// 默认情况下使用字符串转换
@@ -161,17 +161,17 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 }
 
 // CheckLocalTypeForField 检查并返回给定数据库类型对应的本地类型。
-func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) {
+func (c *Core) X底层CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) {
 	var (
 		typeName    string
 		typePattern string
 	)
-	match, _ := gregex.MatchString(`(.+?)\((.+)\)`, fieldType)
+	match, _ := 正则类.X匹配文本(`(.+?)\((.+)\)`, fieldType)
 	if len(match) == 3 {
-		typeName = gstr.Trim(match[1])
-		typePattern = gstr.Trim(match[2])
+		typeName = 文本类.X过滤首尾符并含空白(match[1])
+		typePattern = 文本类.X过滤首尾符并含空白(match[2])
 	} else {
-		typeName = gstr.Split(fieldType, " ")[0]
+		typeName = 文本类.X分割(fieldType, " ")[0]
 	}
 
 	typeName = strings.ToLower(typeName)
@@ -194,7 +194,7 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 		fieldTypeMediumInt,
 		fieldTypeMediumint,
 		fieldTypeSerial:
-		if gstr.ContainsI(fieldType, "unsigned") {
+		if 文本类.X是否包含并忽略大小写(fieldType, "unsigned") {
 			return LocalTypeUint, nil
 		}
 		return LocalTypeInt, nil
@@ -203,7 +203,7 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 		fieldTypeBigInt,
 		fieldTypeBigint,
 		fieldTypeBigserial:
-		if gstr.ContainsI(fieldType, "unsigned") {
+		if 文本类.X是否包含并忽略大小写(fieldType, "unsigned") {
 			return LocalTypeUint64, nil
 		}
 		return LocalTypeInt64, nil
@@ -229,12 +229,12 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 		if typePattern == "1" {
 			return LocalTypeBool, nil
 		}
-		s := gconv.String(fieldValue)
+		s := 转换类.String(fieldValue)
 		// mssql 是一个表示真或假的字符串。
 		if strings.EqualFold(s, "true") || strings.EqualFold(s, "false") {
 			return LocalTypeBool, nil
 		}
-		if gstr.ContainsI(fieldType, "unsigned") {
+		if 文本类.X是否包含并忽略大小写(fieldType, "unsigned") {
 			return LocalTypeUint64Bytes, nil
 		}
 		return LocalTypeInt64Bytes, nil
@@ -277,7 +277,7 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 			return LocalTypeBytes, nil
 
 		case strings.Contains(typeName, "int"):
-			if gstr.ContainsI(fieldType, "unsigned") {
+			if 文本类.X是否包含并忽略大小写(fieldType, "unsigned") {
 				return LocalTypeUint, nil
 			}
 			return LocalTypeInt, nil
@@ -297,13 +297,13 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 // ConvertValueForLocal 将值根据数据库字段类型名称转换为本地 Golang 类型的值。
 // 参数 `fieldType` 为小写形式，例如：
 // `float(5,2)`、`unsigned double(5,2)`、`decimal(10,2)`、`char(45)`、`varchar(100)` 等。
-func (c *Core) ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
+func (c *Core) X底层ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 // 如果没有检索到类型，它会直接返回 `fieldValue`，使用其原始数据类型，
 // 因为 `fieldValue` 是 interface{} 类型。
 	if fieldType == "" {
 		return fieldValue, nil
 	}
-	typeName, err := c.db.CheckLocalTypeForField(ctx, fieldType, fieldValue)
+	typeName, err := c.db.X底层CheckLocalTypeForField(ctx, fieldType, fieldValue)
 	if err != nil {
 		return nil, err
 	}
@@ -313,34 +313,34 @@ func (c *Core) ConvertValueForLocal(ctx context.Context, fieldType string, field
 		if strings.Contains(typeNameStr, "binary") || strings.Contains(typeNameStr, "blob") {
 			return fieldValue, nil
 		}
-		return gconv.Bytes(fieldValue), nil
+		return 转换类.X取字节集(fieldValue), nil
 
 	case LocalTypeInt:
-		return gconv.Int(gconv.String(fieldValue)), nil
+		return 转换类.X取整数(转换类.String(fieldValue)), nil
 
 	case LocalTypeUint:
-		return gconv.Uint(gconv.String(fieldValue)), nil
+		return 转换类.X取正整数(转换类.String(fieldValue)), nil
 
 	case LocalTypeInt64:
-		return gconv.Int64(gconv.String(fieldValue)), nil
+		return 转换类.X取整数64位(转换类.String(fieldValue)), nil
 
 	case LocalTypeUint64:
-		return gconv.Uint64(gconv.String(fieldValue)), nil
+		return 转换类.X取正整数64位(转换类.String(fieldValue)), nil
 
 	case LocalTypeInt64Bytes:
-		return gbinary.BeDecodeToInt64(gconv.Bytes(fieldValue)), nil
+		return 字节集类.BeDecodeToInt64(转换类.X取字节集(fieldValue)), nil
 
 	case LocalTypeUint64Bytes:
-		return gbinary.BeDecodeToUint64(gconv.Bytes(fieldValue)), nil
+		return 字节集类.BeDecodeToUint64(转换类.X取字节集(fieldValue)), nil
 
 	case LocalTypeFloat32:
-		return gconv.Float32(gconv.String(fieldValue)), nil
+		return 转换类.X取小数32位(转换类.String(fieldValue)), nil
 
 	case LocalTypeFloat64:
-		return gconv.Float64(gconv.String(fieldValue)), nil
+		return 转换类.X取小数64位(转换类.String(fieldValue)), nil
 
 	case LocalTypeBool:
-		s := gconv.String(fieldValue)
+		s := 转换类.String(fieldValue)
 		// mssql 是一个表示真或假的字符串。
 		if strings.EqualFold(s, "true") {
 			return 1, nil
@@ -348,31 +348,31 @@ func (c *Core) ConvertValueForLocal(ctx context.Context, fieldType string, field
 		if strings.EqualFold(s, "false") {
 			return 0, nil
 		}
-		return gconv.Bool(fieldValue), nil
+		return 转换类.X取布尔(fieldValue), nil
 
 	case LocalTypeDate:
 		// 仅日期，不含时间。
 		if t, ok := fieldValue.(time.Time); ok {
-			return gtime.NewFromTime(t).Format("Y-m-d"), nil
+			return 时间类.X创建并按Time(t).X取格式文本("Y-m-d"), nil
 		}
-		t, _ := gtime.StrToTime(gconv.String(fieldValue))
-		return t.Format("Y-m-d"), nil
+		t, _ := 时间类.X转换文本(转换类.String(fieldValue))
+		return t.X取格式文本("Y-m-d"), nil
 
 	case LocalTypeDatetime:
 		if t, ok := fieldValue.(time.Time); ok {
-			return gtime.NewFromTime(t), nil
+			return 时间类.X创建并按Time(t), nil
 		}
-		t, _ := gtime.StrToTime(gconv.String(fieldValue))
+		t, _ := 时间类.X转换文本(转换类.String(fieldValue))
 		return t, nil
 
 	default:
-		return gconv.String(fieldValue), nil
+		return 转换类.String(fieldValue), nil
 	}
 }
 
 // mappingAndFilterData 自动将映射键映射到表字段，并移除所有非给定表字段的键值对。
 func (c *Core) mappingAndFilterData(ctx context.Context, schema, table string, data map[string]interface{}, filter bool) (map[string]interface{}, error) {
-	fieldsMap, err := c.db.TableFields(ctx, c.guessPrimaryTableName(table), schema)
+	fieldsMap, err := c.db.X取表字段信息Map(ctx, c.guessPrimaryTableName(table), schema)
 	if err != nil {
 		return nil, err
 	}
@@ -384,7 +384,7 @@ func (c *Core) mappingAndFilterData(ctx context.Context, schema, table string, d
 	var foundKey string
 	for dataKey, dataValue := range data {
 		if _, ok := fieldsKeyMap[dataKey]; !ok {
-			foundKey, _ = gutil.MapPossibleItemByKey(fieldsKeyMap, dataKey)
+			foundKey, _ = 工具类.MapPossibleItemByKey(fieldsKeyMap, dataKey)
 			if foundKey != "" {
 				if _, ok = data[foundKey]; !ok {
 					data[foundKey] = dataValue

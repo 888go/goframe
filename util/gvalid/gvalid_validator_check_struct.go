@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid
+package 效验类
 
 import (
 	"context"
@@ -111,7 +111,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 	if v.assoc == nil || !v.useAssocInsteadOfObjectAttributes {
 		inputParamMap = make(map[string]interface{})
 	} else {
-		inputParamMap = gconv.Map(v.assoc)
+		inputParamMap = 转换类.X取Map(v.assoc)
 	}
 	// 检查并使用结构体别名标签扩展参数映射。
 	if !v.useAssocInsteadOfObjectAttributes {
@@ -150,7 +150,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 				inputParamMap[name] = field.Value.Interface()
 			} else {
 				if name != fieldName {
-					if foundKey, foundValue := gutil.MapPossibleItemByKey(inputParamMap, fieldName); foundKey != "" {
+					if foundKey, foundValue := 工具类.MapPossibleItemByKey(inputParamMap, fieldName); foundKey != "" {
 						inputParamMap[name] = foundValue
 					}
 				}
@@ -173,7 +173,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 			} else {
 				nameToRuleMap[name] = rule
 				if fieldValue := field.Value.Interface(); fieldValue != nil {
-					_, isMeta = fieldValue.(gmeta.Meta)
+					_, isMeta = fieldValue.(元数据类.Meta)
 				}
 				checkRules = append(checkRules, fieldRule{
 					Name:      name,
@@ -277,7 +277,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		}
 	}
 	if v.bail && len(errorMaps) > 0 {
-		return newValidationError(gcode.CodeValidationFailed, resultSequenceRules, errorMaps)
+		return newValidationError(错误码类.CodeValidationFailed, resultSequenceRules, errorMaps)
 	}
 
 	// 下面的逻辑与 CheckMap 的部分功能相同，但增加了对序列的支持。
@@ -291,11 +291,11 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		if value != nil {
 			switch checkRuleItem.FieldKind {
 			case reflect.Struct, reflect.Map:
-				if gconv.String(value) == emptyJsonObjectStr {
+				if 转换类.String(value) == emptyJsonObjectStr {
 					value = ""
 				}
 			case reflect.Slice, reflect.Array:
-				if gconv.String(value) == emptyJsonArrayStr {
+				if 转换类.String(value) == emptyJsonArrayStr {
 					value = ""
 				}
 			}
@@ -316,7 +316,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 // 如果值为nil或空字符串且没有required*规则，
 // 它将清除错误消息。
 // ============================================================
-			if !checkRuleItem.IsMeta && (value == nil || gconv.String(value) == "") {
+			if !checkRuleItem.IsMeta && (value == nil || 转换类.String(value) == "") {
 				required := false
 				// rule => error
 				for ruleKey := range errorItem {
@@ -342,7 +342,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 	}
 	if len(errorMaps) > 0 {
 		return newValidationError(
-			gcode.CodeValidationFailed,
+			错误码类.CodeValidationFailed,
 			append(checkRules, resultSequenceRules...),
 			errorMaps,
 		)
@@ -351,9 +351,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 }
 
 func getPossibleValueFromMap(inputParamMap map[string]interface{}, fieldName, aliasName string) (value interface{}) {
-	_, value = gutil.MapPossibleItemByKey(inputParamMap, fieldName)
+	_, value = 工具类.MapPossibleItemByKey(inputParamMap, fieldName)
 	if value == nil && aliasName != "" {
-		_, value = gutil.MapPossibleItemByKey(inputParamMap, aliasName)
+		_, value = 工具类.MapPossibleItemByKey(inputParamMap, aliasName)
 	}
 	return
 }

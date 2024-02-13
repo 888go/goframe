@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtimer
+package 定时类
 
 import (
 	"container/heap"
@@ -19,7 +19,7 @@ import (
 type priorityQueue struct {
 	mu           sync.Mutex
 	heap         *priorityQueueHeap // 使用堆实现的基础队列项管理器。
-	nextPriority *gtype.Int64       // nextPriority 存储堆（heap）的下一个优先级值，该值用于通过 Timer 检查是否有必要调用堆的 Pop 方法。
+	nextPriority *安全变量类.Int64       // nextPriority 存储堆（heap）的下一个优先级值，该值用于通过 Timer 检查是否有必要调用堆的 Pop 方法。
 }
 
 // priorityQueueHeap 是一个堆管理器，其底层的 `array` 是一个实现了堆结构的数组。
@@ -37,7 +37,7 @@ type priorityQueueItem struct {
 func newPriorityQueue() *priorityQueue {
 	queue := &priorityQueue{
 		heap:         &priorityQueueHeap{array: make([]priorityQueueItem, 0)},
-		nextPriority: gtype.NewInt64(math.MaxInt64),
+		nextPriority: 安全变量类.NewInt64(math.MaxInt64),
 	}
 	heap.Init(queue.heap)
 	return queue
@@ -45,7 +45,7 @@ func newPriorityQueue() *priorityQueue {
 
 // NextPriority 获取并返回队列中的最小且优先级最高的值。
 func (q *priorityQueue) NextPriority() int64 {
-	return q.nextPriority.Val()
+	return q.nextPriority.X取值()
 }
 
 // Push 将一个值推送到队列中。
@@ -59,11 +59,11 @@ func (q *priorityQueue) Push(value interface{}, priority int64) {
 		priority: priority,
 	})
 	// 使用原子操作更新最小优先级。
-	nextPriority := q.nextPriority.Val()
+	nextPriority := q.nextPriority.X取值()
 	if priority >= nextPriority {
 		return
 	}
-	q.nextPriority.Set(priority)
+	q.nextPriority.X设置值(priority)
 }
 
 // Pop从队列中获取、移除并返回优先级最高的值。
@@ -75,7 +75,7 @@ func (q *priorityQueue) Pop() interface{} {
 		if len(q.heap.array) > 0 {
 			nextPriority = q.heap.array[0].priority
 		}
-		q.nextPriority.Set(nextPriority)
+		q.nextPriority.X设置值(nextPriority)
 		return v.(priorityQueueItem).value
 	}
 	return nil

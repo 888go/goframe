@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp_test
+package tcp类_test
 
 import (
 	"testing"
@@ -15,7 +15,7 @@ import (
 )
 
 func Test_Pool_Basic1(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
 		for {
 			data, err := conn.RecvPkg()
@@ -28,8 +28,8 @@ func Test_Pool_Basic1(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999")
@@ -39,21 +39,21 @@ func Test_Pool_Basic1(t *testing.T) {
 		t.AssertNil(err)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gtcp.NewPoolConn("127.0.0.1:80")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := tcp类.NewPoolConn("127.0.0.1:80")
 		t.AssertNE(err, nil)
 	})
 }
 
 func Test_Pool_Basic2(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		conn.Close()
 	})
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999")
@@ -68,7 +68,7 @@ func Test_Pool_Basic2(t *testing.T) {
 }
 
 func Test_Pool_Send(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		for {
 			data, err := conn.Recv(-1)
 			if err != nil {
@@ -80,8 +80,8 @@ func Test_Pool_Send(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999")
@@ -94,7 +94,7 @@ func Test_Pool_Send(t *testing.T) {
 }
 
 func Test_Pool_Recv(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		for {
 			data, err := conn.Recv(-1)
 			if err != nil {
@@ -106,8 +106,8 @@ func Test_Pool_Recv(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999")
@@ -121,7 +121,7 @@ func Test_Pool_Recv(t *testing.T) {
 }
 
 func Test_Pool_RecvLine(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		for {
 			data, err := conn.Recv(-1)
 			if err != nil {
@@ -133,8 +133,8 @@ func Test_Pool_RecvLine(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999\n")
@@ -143,13 +143,13 @@ func Test_Pool_RecvLine(t *testing.T) {
 		time.Sleep(100 * time.Millisecond)
 		result, err := conn.RecvLine()
 		t.AssertNil(err)
-		splitData := gstr.Split(string(data), "\n")
+		splitData := 文本类.X分割(string(data), "\n")
 		t.Assert(result, splitData[0])
 	})
 }
 
 func Test_Pool_RecvTill(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		for {
 			data, err := conn.Recv(-1)
 			if err != nil {
@@ -161,8 +161,8 @@ func Test_Pool_RecvTill(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999\n")
@@ -176,7 +176,7 @@ func Test_Pool_RecvTill(t *testing.T) {
 }
 
 func Test_Pool_RecvWithTimeout(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		for {
 			data, err := conn.Recv(-1)
 			if err != nil {
@@ -188,8 +188,8 @@ func Test_Pool_RecvWithTimeout(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999")
@@ -203,7 +203,7 @@ func Test_Pool_RecvWithTimeout(t *testing.T) {
 }
 
 func Test_Pool_SendWithTimeout(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		for {
 			data, err := conn.Recv(-1)
 			if err != nil {
@@ -215,8 +215,8 @@ func Test_Pool_SendWithTimeout(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999")
@@ -229,7 +229,7 @@ func Test_Pool_SendWithTimeout(t *testing.T) {
 }
 
 func Test_Pool_SendRecvWithTimeout(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		for {
 			data, err := conn.Recv(-1)
 			if err != nil {
@@ -241,8 +241,8 @@ func Test_Pool_SendRecvWithTimeout(t *testing.T) {
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewPoolConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewPoolConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("9999")

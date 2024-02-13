@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil_test
+package 工具类_test
 
 import (
 	"context"
@@ -16,48 +16,48 @@ import (
 )
 
 func Test_Go(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			wg    = sync.WaitGroup{}
-			array = garray.NewArray(true)
+			array = 数组类.NewArray别名(true)
 		)
 		wg.Add(1)
-		gutil.Go(ctx, func(ctx context.Context) {
+		工具类.Go(ctx, func(ctx context.Context) {
 			defer wg.Done()
-			array.Append(1)
+			array.Append别名(1)
 		}, nil)
 		wg.Wait()
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 	// recover
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			wg    = sync.WaitGroup{}
-			array = garray.NewArray(true)
+			array = 数组类.NewArray别名(true)
 		)
 		wg.Add(1)
-		gutil.Go(ctx, func(ctx context.Context) {
+		工具类.Go(ctx, func(ctx context.Context) {
 			defer wg.Done()
 			panic("error")
-			array.Append(1)
+			array.Append别名(1)
 		}, nil)
 		wg.Wait()
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			wg    = sync.WaitGroup{}
-			array = garray.NewArray(true)
+			array = 数组类.NewArray别名(true)
 		)
 		wg.Add(1)
-		gutil.Go(ctx, func(ctx context.Context) {
+		工具类.Go(ctx, func(ctx context.Context) {
 			panic("error")
 		}, func(ctx context.Context, exception error) {
 			defer wg.Done()
-			array.Append(exception)
+			array.Append别名(exception)
 		})
 		wg.Wait()
-		t.Assert(array.Len(), 1)
-		t.Assert(array.At(0), "error")
+		t.Assert(array.X取长度(), 1)
+		t.Assert(array.X取值(0), "error")
 	})
 }

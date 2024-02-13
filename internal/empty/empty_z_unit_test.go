@@ -30,7 +30,7 @@ func (woman TestWoman) Say() string {
 }
 
 func TestIsEmpty(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		tmpT1 := "0"
 		tmpT2 := func() {}
 		tmpT2 = nil
@@ -55,24 +55,24 @@ func TestIsEmpty(t *testing.T) {
 		// true
 		t.Assert(empty.IsEmpty(nil), true)
 		t.Assert(empty.IsEmpty(0), true)
-		t.Assert(empty.IsEmpty(gconv.Int(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Int8(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Int16(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Int32(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Int64(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Uint64(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Uint(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Uint16(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Uint32(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Uint64(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Float32(tmpT1)), true)
-		t.Assert(empty.IsEmpty(gconv.Float64(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取整数(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取整数8位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取整数16位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取整数32位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取整数64位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取正整数64位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取正整数(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取正整数16位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取正整数32位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取正整数64位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取小数32位(tmpT1)), true)
+		t.Assert(empty.IsEmpty(转换类.X取小数64位(tmpT1)), true)
 		t.Assert(empty.IsEmpty(false), true)
 		t.Assert(empty.IsEmpty([]byte("")), true)
 		t.Assert(empty.IsEmpty(""), true)
 		t.Assert(empty.IsEmpty(g.Map{}), true)
-		t.Assert(empty.IsEmpty(g.Slice{}), true)
-		t.Assert(empty.IsEmpty(g.Array{}), true)
+		t.Assert(empty.IsEmpty(g.Slice别名{}), true)
+		t.Assert(empty.IsEmpty(g.X数组{}), true)
 		t.Assert(empty.IsEmpty(tmpT2), true)
 		t.Assert(empty.IsEmpty(tmpT3), true)
 		t.Assert(empty.IsEmpty(tmpT3), true)
@@ -83,24 +83,24 @@ func TestIsEmpty(t *testing.T) {
 		t.Assert(empty.IsEmpty(tmpT8), true)
 
 		// false
-		t.Assert(empty.IsEmpty(gconv.Int(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Int8(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Int16(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Int32(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Int64(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Uint(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Uint8(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Uint16(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Uint32(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Uint64(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Float32(tmpF1)), false)
-		t.Assert(empty.IsEmpty(gconv.Float64(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取整数(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取整数8位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取整数16位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取整数32位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取整数64位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取正整数(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取正整数8位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取正整数16位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取正整数32位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取正整数64位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取小数32位(tmpF1)), false)
+		t.Assert(empty.IsEmpty(转换类.X取小数64位(tmpF1)), false)
 		t.Assert(empty.IsEmpty(true), false)
 		t.Assert(empty.IsEmpty(tmpT1), false)
 		t.Assert(empty.IsEmpty([]byte("1")), false)
 		t.Assert(empty.IsEmpty(g.Map{"a": 1}), false)
-		t.Assert(empty.IsEmpty(g.Slice{"1"}), false)
-		t.Assert(empty.IsEmpty(g.Array{"1"}), false)
+		t.Assert(empty.IsEmpty(g.Slice别名{"1"}), false)
+		t.Assert(empty.IsEmpty(g.X数组{"1"}), false)
 		t.Assert(empty.IsEmpty(tmpF2), false)
 		t.Assert(empty.IsEmpty(tmpF3), false)
 		t.Assert(empty.IsEmpty(tmpF4), false)
@@ -110,20 +110,20 @@ func TestIsEmpty(t *testing.T) {
 }
 
 func TestIsNil(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(empty.IsNil(nil), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(empty.X是否为Nil(nil), true)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var i int
-		t.Assert(empty.IsNil(i), false)
+		t.Assert(empty.X是否为Nil(i), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var i *int
-		t.Assert(empty.IsNil(i), true)
+		t.Assert(empty.X是否为Nil(i), true)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var i *int
-		t.Assert(empty.IsNil(&i), false)
-		t.Assert(empty.IsNil(&i, true), true)
+		t.Assert(empty.X是否为Nil(&i), false)
+		t.Assert(empty.X是否为Nil(&i, true), true)
 	})
 }

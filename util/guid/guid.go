@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package guid 提供了简单且高性能的唯一标识符生成功能。
-package guid
+package uid类
 
 import (
 	"os"
@@ -25,7 +25,7 @@ const (
 )
 
 var (
-	sequence     gtype.Uint32 // 用于当前进程唯一目的的序列号
+	sequence     安全变量类.Uint32 // 用于当前进程唯一目的的序列号
 	macAddrStr   = "0000000"  // MAC地址哈希结果为7字节。
 	processIdStr = "0000"     // 4字节表示的进程ID
 )
@@ -33,14 +33,14 @@ var (
 // init 初始化几个固定的局部变量。
 func init() {
 	// MAC地址哈希结果为7字节。
-	macs, _ := gipv4.GetMacArray()
+	macs, _ := ipv4类.GetMacArray()
 	if len(macs) > 0 {
 		var macAddrBytes []byte
 		for _, mac := range macs {
 			macAddrBytes = append(macAddrBytes, []byte(mac)...)
 		}
 		b := []byte{'0', '0', '0', '0', '0', '0', '0'}
-		s := strconv.FormatUint(uint64(ghash.SDBM(macAddrBytes)), 36)
+		s := strconv.FormatUint(uint64(哈希类.SDBM(macAddrBytes)), 36)
 		copy(b, s)
 		macAddrStr = string(b)
 	}
@@ -70,20 +70,20 @@ func init() {
 //  1. The returned length is fixed to 32 bytes for performance purpose.
 //  2. The custom parameter `data` composed should have unique attribute in your
 //     business scenario.
-func S(data ...[]byte) string {
+func X生成(参数 ...[]byte) string {
 	var (
 		b       = make([]byte, 32)
 		nanoStr = strconv.FormatInt(time.Now().UnixNano(), 36)
 	)
-	if len(data) == 0 {
+	if len(参数) == 0 {
 		copy(b, macAddrStr)
 		copy(b[7:], processIdStr)
 		copy(b[11:], nanoStr)
 		copy(b[23:], getSequence())
 		copy(b[26:], getRandomStr(6))
-	} else if len(data) <= 2 {
+	} else if len(参数) <= 2 {
 		n := 0
-		for i, v := range data {
+		for i, v := range 参数 {
 			// 忽略空数据项字节。
 			if len(v) > 0 {
 				copy(b[i*7:], getDataHashStr(v))
@@ -94,8 +94,8 @@ func S(data ...[]byte) string {
 		copy(b[n+12:], getSequence())
 		copy(b[n+12+3:], getRandomStr(32-n-12-3))
 	} else {
-		panic(gerror.NewCode(
-			gcode.CodeInvalidParameter,
+		panic(错误类.X创建错误码(
+			错误码类.CodeInvalidParameter,
 			"too many data parts, it should be no more than 2 parts",
 		))
 	}
@@ -118,7 +118,7 @@ func getRandomStr(n int) []byte {
 	}
 	var (
 		b           = make([]byte, n)
-		numberBytes = grand.B(n)
+		numberBytes = 随机类.X字节集(n)
 	)
 	for i := range b {
 		b[i] = randomStrBase[numberBytes[i]%36]
@@ -129,7 +129,7 @@ func getRandomStr(n int) []byte {
 // getDataHashStr 根据给定的数据字节创建并返回7字节的哈希值。
 func getDataHashStr(data []byte) []byte {
 	b := []byte{'0', '0', '0', '0', '0', '0', '0'}
-	s := strconv.FormatUint(uint64(ghash.SDBM(data)), 36)
+	s := strconv.FormatUint(uint64(哈希类.SDBM(data)), 36)
 	copy(b, s)
 	return b
 }

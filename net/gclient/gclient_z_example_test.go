@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient_test
+package 网页类_test
 
 import (
 	"context"
@@ -23,116 +23,116 @@ import (
 )
 
 var (
-	crtFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.crt"
-	keyFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.key"
+	crtFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/server.crt"
+	keyFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/server.key"
 )
 
 func init() {
 	// 默认的客户端服务器。
 	p := 8999
-	s := g.Server(p)
+	s := g.Http类(p)
 	// HTTP方法处理器。
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.GET("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定GET("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"GET: query: %d, %s",
-				r.GetQuery("id").Int(),
-				r.GetQuery("name").String(),
+				r.X取查询参数到泛型类("id").X取整数(),
+				r.X取查询参数到泛型类("name").String(),
 			)
 		})
-		group.PUT("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定PUT("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"PUT: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.POST("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定POST("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"POST: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.DELETE("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定DELETE("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"DELETE: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.HEAD("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定HEAD("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"HEAD: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.PATCH("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定PATCH("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"PATCH: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.CONNECT("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定CONNECT("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"CONNECT: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.OPTIONS("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定OPTIONS("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"OPTIONS: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.TRACE("/", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定TRACE("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"TRACE: form: %d, %s",
-				r.GetForm("id").Int(),
-				r.GetForm("name").String(),
+				r.X取表单值到泛型类("id").X取整数(),
+				r.X取表单值到泛型类("name").String(),
 			)
 		})
 	})
 	// 客户端链式操作处理程序。
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.ALL("/header", func(r *ghttp.Request) {
-			r.Response.Writef(
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定所有类型("/header", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"Span-Id: %s, Trace-Id: %s",
 				r.Header.Get("Span-Id"),
 				r.Header.Get("Trace-Id"),
 			)
 		})
-		group.ALL("/cookie", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定所有类型("/cookie", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"SessionId: %s",
-				r.Cookie.Get("SessionId"),
+				r.Cookie.X取值("SessionId"),
 			)
 		})
-		group.ALL("/json", func(r *ghttp.Request) {
-			r.Response.Writef(
+		group.X绑定所有类型("/json", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并格式化(
 				"Content-Type: %s, id: %d",
 				r.Header.Get("Content-Type"),
-				r.Get("id").Int(),
+				r.Get别名("id").X取整数(),
 			)
 		})
 	})
 	// 其他测试处理程序。
-	s.Group("/var", func(group *ghttp.RouterGroup) {
-		group.ALL("/json", func(r *ghttp.Request) {
-			r.Response.Write(`{"id":1,"name":"john"}`)
+	s.X创建分组路由("/var", func(group *http类.RouterGroup) {
+		group.X绑定所有类型("/json", func(r *http类.Request) {
+			r.Response.X写响应缓冲区(`{"id":1,"name":"john"}`)
 		})
-		group.ALL("/jsons", func(r *ghttp.Request) {
-			r.Response.Write(`[{"id":1,"name":"john"}, {"id":2,"name":"smith"}]`)
+		group.X绑定所有类型("/jsons", func(r *http类.Request) {
+			r.Response.X写响应缓冲区(`[{"id":1,"name":"john"}, {"id":2,"name":"smith"}]`)
 		})
 	})
-	s.SetAccessLogEnabled(false)
+	s.X设置日志开启访客记录(false)
 	s.SetDumpRouterMap(false)
-	s.SetPort(p)
-	err := s.Start()
+	s.X设置监听端口(p)
+	err := s.X开始监听()
 	if err != nil {
 		panic(err)
 	}
@@ -141,15 +141,15 @@ func init() {
 
 func ExampleNew() {
 	var (
-		ctx    = gctx.New()
-		client = gclient.New()
+		ctx    = 上下文类.X创建()
+		client = 网页类.X创建()
 	)
 
-	if r, err := client.Get(ctx, "http://127.0.0.1:8999/var/json"); err != nil {
+	if r, err := client.Get响应对象(ctx, "http://127.0.0.1:8999/var/json"); err != nil {
 		panic(err)
 	} else {
-		defer r.Close()
-		fmt.Println(r.ReadAllString())
+		defer r.X关闭()
+		fmt.Println(r.X取响应文本())
 	}
 
 	// Output:
@@ -158,18 +158,18 @@ func ExampleNew() {
 
 func ExampleClient_Clone() {
 	var (
-		ctx    = gctx.New()
-		client = gclient.New()
+		ctx    = 上下文类.X创建()
+		client = 网页类.X创建()
 	)
 
-	client.SetCookie("key", "value")
-	cloneClient := client.Clone()
+	client.X设置cookie("key", "value")
+	cloneClient := client.X取副本()
 
-	if r, err := cloneClient.Get(ctx, "http://127.0.0.1:8999/var/json"); err != nil {
+	if r, err := cloneClient.Get响应对象(ctx, "http://127.0.0.1:8999/var/json"); err != nil {
 		panic(err)
 	} else {
-		defer r.Close()
-		fmt.Println(r.ReadAllString())
+		defer r.X关闭()
+		fmt.Println(r.X取响应文本())
 	}
 
 	// Output:
@@ -183,19 +183,19 @@ func fromHex(s string) []byte {
 
 func ExampleNew_MultiConn_Recommend() {
 	var (
-		ctx    = gctx.New()
-		client = g.Client()
+		ctx    = 上下文类.X创建()
+		client = g.X网页类()
 	)
 
 	// 控制每个主机保持的最大空闲(keep-alive)连接数
 	client.Transport.(*http.Transport).MaxIdleConnsPerHost = 5
 
 	for i := 0; i < 5; i++ {
-		if r, err := client.Get(ctx, "http://127.0.0.1:8999/var/json"); err != nil {
+		if r, err := client.Get响应对象(ctx, "http://127.0.0.1:8999/var/json"); err != nil {
 			panic(err)
 		} else {
-			fmt.Println(r.ReadAllString())
-			r.Close()
+			fmt.Println(r.X取响应文本())
+			r.X关闭()
 		}
 	}
 
@@ -215,7 +215,7 @@ func ExampleClient_Header() {
 			"Trace-Id": "123456789",
 		}
 	)
-	content := g.Client().Header(header).PostContent(ctx, url, g.Map{
+	content := g.X网页类().X协议头(header).Post文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
@@ -234,7 +234,7 @@ Span-Id: 0.1
 Trace-Id: 123456789
 `
 	)
-	content := g.Client().HeaderRaw(headerRaw).PostContent(ctx, url, g.Map{
+	content := g.X网页类().X原始协议头(headerRaw).Post文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
@@ -251,7 +251,7 @@ func ExampleClient_Cookie() {
 			"SessionId": "123",
 		}
 	)
-	content := g.Client().Cookie(cookie).PostContent(ctx, url, g.Map{
+	content := g.X网页类().Cookie(cookie).Post文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
@@ -271,9 +271,9 @@ func ExampleClient_ContentJson() {
 		}
 	)
 	// 使用JSON字符串进行POST请求。
-	fmt.Println(g.Client().ContentJson().PostContent(ctx, url, jsonStr))
+	fmt.Println(g.X网页类().X内容类型json().Post文本(ctx, url, jsonStr))
 	// 使用JSON映射进行POST请求。
-	fmt.Println(g.Client().ContentJson().PostContent(ctx, url, jsonMap))
+	fmt.Println(g.X网页类().X内容类型json().Post文本(ctx, url, jsonMap))
 
 	// Output:
 	// Content-Type: application/json, id: 10000
@@ -283,23 +283,23 @@ func ExampleClient_ContentJson() {
 func ExampleClient_Post() {
 	url := "http://127.0.0.1:8999"
 	// 使用字符串参数作为请求体发送。
-	r1, err := g.Client().Post(ctx, url, "id=10000&name=john")
+	r1, err := g.X网页类().Post响应对象(ctx, url, "id=10000&name=john")
 	if err != nil {
 		panic(err)
 	}
-	defer r1.Close()
-	fmt.Println(r1.ReadAllString())
+	defer r1.X关闭()
+	fmt.Println(r1.X取响应文本())
 
 	// 使用map参数发送。
-	r2, err := g.Client().Post(ctx, url, g.Map{
+	r2, err := g.X网页类().Post响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
 	if err != nil {
 		panic(err)
 	}
-	defer r2.Close()
-	fmt.Println(r2.ReadAllString())
+	defer r2.X关闭()
+	fmt.Println(r2.X取响应文本())
 
 	// Output:
 	// POST: form: 10000, john
@@ -308,7 +308,7 @@ func ExampleClient_Post() {
 
 func ExampleClient_PostBytes() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(string(g.Client().PostBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Post字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -319,7 +319,7 @@ func ExampleClient_PostBytes() {
 
 func ExampleClient_DeleteBytes() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(string(g.Client().DeleteBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Delete字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -330,7 +330,7 @@ func ExampleClient_DeleteBytes() {
 
 func ExampleClient_HeadBytes() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(string(g.Client().HeadBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Head字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -340,7 +340,7 @@ func ExampleClient_HeadBytes() {
 
 func ExampleClient_PatchBytes() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(string(g.Client().PatchBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Patch字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -351,7 +351,7 @@ func ExampleClient_PatchBytes() {
 
 func ExampleClient_ConnectBytes() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(string(g.Client().ConnectBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Connect字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -362,7 +362,7 @@ func ExampleClient_ConnectBytes() {
 
 func ExampleClient_OptionsBytes() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(string(g.Client().OptionsBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Options字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -373,7 +373,7 @@ func ExampleClient_OptionsBytes() {
 
 func ExampleClient_TraceBytes() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(string(g.Client().TraceBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Trace字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -384,7 +384,7 @@ func ExampleClient_TraceBytes() {
 
 func ExampleClient_PostContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().PostContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Post文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -402,7 +402,7 @@ func ExampleClient_PostVar() {
 		users []User
 		url   = "http://127.0.0.1:8999/var/jsons"
 	)
-	err := g.Client().PostVar(ctx, url).Scan(&users)
+	err := g.X网页类().Post泛型类(ctx, url).X取结构体指针(&users)
 	if err != nil {
 		panic(err)
 	}
@@ -419,31 +419,31 @@ func ExampleClient_Get() {
 	)
 
 	// 使用字符串参数并通过URL发送。
-	r1, err := g.Client().Get(ctx, url+"?id=10000&name=john")
+	r1, err := g.X网页类().Get响应对象(ctx, url+"?id=10000&name=john")
 	if err != nil {
 		panic(err)
 	}
-	defer r1.Close()
-	fmt.Println(r1.ReadAllString())
+	defer r1.X关闭()
+	fmt.Println(r1.X取响应文本())
 
 	// 使用字符串参数作为请求体发送。
-	r2, err := g.Client().Get(ctx, url, "id=10000&name=john")
+	r2, err := g.X网页类().Get响应对象(ctx, url, "id=10000&name=john")
 	if err != nil {
 		panic(err)
 	}
-	defer r2.Close()
-	fmt.Println(r2.ReadAllString())
+	defer r2.X关闭()
+	fmt.Println(r2.X取响应文本())
 
 	// 使用map参数发送。
-	r3, err := g.Client().Get(ctx, url, g.Map{
+	r3, err := g.X网页类().Get响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
 	if err != nil {
 		panic(err)
 	}
-	defer r3.Close()
-	fmt.Println(r3.ReadAllString())
+	defer r3.X关闭()
+	fmt.Println(r3.X取响应文本())
 
 	// Output:
 	// GET: query: 10000, john
@@ -453,12 +453,12 @@ func ExampleClient_Get() {
 
 func ExampleClient_Put() {
 	url := "http://127.0.0.1:8999"
-	r, _ := g.Client().Put(ctx, url, g.Map{
+	r, _ := g.X网页类().Put响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	defer r.Close()
-	fmt.Println(r.ReadAllString())
+	defer r.X关闭()
+	fmt.Println(r.X取响应文本())
 
 	// Output:
 	// PUT: form: 10000, john
@@ -469,7 +469,7 @@ func ExampleClient_GetBytes() {
 		ctx = context.Background()
 		url = "http://127.0.0.1:8999"
 	)
-	fmt.Println(string(g.Client().GetBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Get字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -483,7 +483,7 @@ func ExampleClient_PutBytes() {
 		ctx = context.Background()
 		url = "http://127.0.0.1:8999"
 	)
-	fmt.Println(string(g.Client().PutBytes(ctx, url, g.Map{
+	fmt.Println(string(g.X网页类().Put字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -494,7 +494,7 @@ func ExampleClient_PutBytes() {
 
 func ExampleClient_GetContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().GetContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Get文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -513,7 +513,7 @@ func ExampleClient_GetVar() {
 		ctx  = context.Background()
 		url  = "http://127.0.0.1:8999/var/json"
 	)
-	err := g.Client().GetVar(ctx, url).Scan(&user)
+	err := g.X网页类().Get泛型类(ctx, url).X取结构体指针(&user)
 	if err != nil {
 		panic(err)
 	}
@@ -529,10 +529,10 @@ func ExampleClient_GetVar() {
 // SOCKS5 代理服务器监听 `127.0.0.1:1080`
 func ExampleClient_SetProxy() {
 	// 连接到一个HTTP代理服务器
-	client := g.Client()
-	client.SetProxy("http://127.0.0.1:1081")
-	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
-	resp, err := client.Get(ctx, "http://127.0.0.1:8999")
+	client := g.X网页类()
+	client.X设置代理("http://127.0.0.1:1081")
+	client.X设置超时(5 * time.Second) // it's suggested to set http client timeout
+	resp, err := client.Get响应对象(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 // 当你的代理服务器无法访问时，err将不为nil。
 // 例如：尝试获取"http://127.0.0.1:8999"时，出现如下错误：
@@ -540,12 +540,12 @@ func ExampleClient_SetProxy() {
 // （注：原文中的 "proxyconnect tcp: dial tcp" 是golang中通过代理连接远程地址时可能出现的错误信息，意指在建立TCP连接至代理服务器的过程中出现了问题，具体表现为连接被拒绝。）
 	}
 	fmt.Println(err != nil)
-	resp.Close()
+	resp.X关闭()
 
 	// 连接到一个HTTP代理服务器 which needs auth
-	client.SetProxy("http://user:password:127.0.0.1:1081")
-	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
-	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
+	client.X设置代理("http://user:password:127.0.0.1:1081")
+	client.X设置超时(5 * time.Second) // it's suggested to set http client timeout
+	resp, err = client.Get响应对象(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 // 当你的代理服务器无法访问时，err将不为nil。
 // 例如：尝试获取"http://127.0.0.1:8999"时，出现如下错误：
@@ -553,12 +553,12 @@ func ExampleClient_SetProxy() {
 // （注：原文中的 "proxyconnect tcp: dial tcp" 是golang中通过代理连接远程地址时可能出现的错误信息，意指在建立TCP连接至代理服务器的过程中出现了问题，具体表现为连接被拒绝。）
 	}
 	fmt.Println(err != nil)
-	resp.Close()
+	resp.X关闭()
 
 	// 连接到一个SOCKS5代理服务器
-	client.SetProxy("socks5://127.0.0.1:1080")
-	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
-	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
+	client.X设置代理("socks5://127.0.0.1:1080")
+	client.X设置超时(5 * time.Second) // it's suggested to set http client timeout
+	resp, err = client.Get响应对象(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 // 当您的代理服务器不可用时，err将不为nil。
 // 例如：获取"http://127.0.0.1:8999"时出错，错误信息为：
@@ -571,12 +571,12 @@ func ExampleClient_SetProxy() {
 // 具体原因为：尝试连接到tcp 127.0.0.1:1087时被拒绝，连接无法建立。"
 	}
 	fmt.Println(err != nil)
-	resp.Close()
+	resp.X关闭()
 
 	// 连接到一个SOCKS5代理服务器 which needs auth
-	client.SetProxy("socks5://user:password@127.0.0.1:1080")
-	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
-	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
+	client.X设置代理("socks5://user:password@127.0.0.1:1080")
+	client.X设置超时(5 * time.Second) // it's suggested to set http client timeout
+	resp, err = client.Get响应对象(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 // 当您的代理服务器不可用时，err将不为nil。
 // 例如：获取"http://127.0.0.1:8999"时出错，错误信息为：
@@ -589,7 +589,7 @@ func ExampleClient_SetProxy() {
 // 具体原因为：尝试连接到tcp 127.0.0.1:1087时被拒绝，连接无法建立。"
 	}
 	fmt.Println(err != nil)
-	resp.Close()
+	resp.X关闭()
 
 	// Output:
 	// true
@@ -607,21 +607,21 @@ func ExampleClient_Proxy() {
 	var (
 		ctx = context.Background()
 	)
-	client := g.Client()
-	_, err := client.Proxy("http://127.0.0.1:1081").Get(ctx, "http://127.0.0.1:8999")
+	client := g.X网页类()
+	_, err := client.X代理("http://127.0.0.1:1081").Get响应对象(ctx, "http://127.0.0.1:8999")
 	fmt.Println(err != nil)
 
-	client2 := g.Client()
-	_, err = client2.Proxy("socks5://127.0.0.1:1080").Get(ctx, "http://127.0.0.1:8999")
+	client2 := g.X网页类()
+	_, err = client2.X代理("socks5://127.0.0.1:1080").Get响应对象(ctx, "http://127.0.0.1:8999")
 	fmt.Println(err != nil)
 
-	client3 := g.Client()
-	_, err = client3.Proxy("").Get(ctx, "http://127.0.0.1:8999")
+	client3 := g.X网页类()
+	_, err = client3.X代理("").Get响应对象(ctx, "http://127.0.0.1:8999")
 	fmt.Println(err != nil)
 
-	client4 := g.Client()
+	client4 := g.X网页类()
 	url := "http://127.0.0.1:1081" + string([]byte{0x7f})
-	_, err = client4.Proxy(url).Get(ctx, "http://127.0.0.1:8999")
+	_, err = client4.X代理(url).Get响应对象(ctx, "http://127.0.0.1:8999")
 	fmt.Println(err != nil)
 
 	// Output:
@@ -633,31 +633,31 @@ func ExampleClient_Proxy() {
 
 func ExampleClient_Prefix() {
 	var (
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 	)
 
-	s := g.Server(guid.S())
+	s := g.Http类(uid类.X生成())
 	// HTTP方法处理器。
-	s.Group("/api", func(group *ghttp.RouterGroup) {
-		group.GET("/v1/prefix", func(r *ghttp.Request) {
-			r.Response.Write("this is v1 prefix")
+	s.X创建分组路由("/api", func(group *http类.RouterGroup) {
+		group.X绑定GET("/v1/prefix", func(r *http类.Request) {
+			r.Response.X写响应缓冲区("this is v1 prefix")
 		})
-		group.GET("/v1/hello", func(r *ghttp.Request) {
-			r.Response.Write("this is v1 hello")
+		group.X绑定GET("/v1/hello", func(r *http类.Request) {
+			r.Response.X写响应缓冲区("this is v1 hello")
 		})
 	})
-	s.SetAccessLogEnabled(false)
+	s.X设置日志开启访客记录(false)
 	s.SetDumpRouterMap(false)
-	s.Start()
+	s.X开始监听()
 	time.Sleep(time.Millisecond * 100)
 
 	// 添加客户端URI前缀
-	client := g.Client().Prefix(fmt.Sprintf(
-		"http://127.0.0.1:%d/api/v1/", s.GetListenedPort(),
+	client := g.X网页类().Url前缀(fmt.Sprintf(
+		"http://127.0.0.1:%d/api/v1/", s.X取已监听端口(),
 	))
 
-	fmt.Println(string(client.GetBytes(ctx, "prefix")))
-	fmt.Println(string(client.GetBytes(ctx, "hello")))
+	fmt.Println(string(client.Get字节集(ctx, "prefix")))
+	fmt.Println(string(client.Get字节集(ctx, "hello")))
 
 	// Output:
 	// this is v1 prefix
@@ -666,12 +666,12 @@ func ExampleClient_Prefix() {
 
 func ExampleClient_Retry() {
 	var (
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 		url = "http://127.0.0.1:8999"
 	)
-	client := g.Client().Retry(2, time.Second)
+	client := g.X网页类().X重试与间隔(2, time.Second)
 
-	fmt.Println(string(client.GetBytes(ctx, url, g.Map{
+	fmt.Println(string(client.Get字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -682,12 +682,12 @@ func ExampleClient_Retry() {
 
 func ExampleClient_RedirectLimit() {
 	var (
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 		url = "http://127.0.0.1:8999"
 	)
-	client := g.Client().RedirectLimit(1)
+	client := g.X网页类().X重定向次数限制(1)
 
-	fmt.Println(string(client.GetBytes(ctx, url, g.Map{
+	fmt.Println(string(client.Get字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -698,12 +698,12 @@ func ExampleClient_RedirectLimit() {
 
 func ExampleClient_SetBrowserMode() {
 	var (
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 		url = "http://127.0.0.1:8999"
 	)
-	client := g.Client().SetBrowserMode(true)
+	client := g.X网页类().X启用浏览器模式(true)
 
-	fmt.Println(string(client.GetBytes(ctx, url, g.Map{
+	fmt.Println(string(client.Get字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -714,14 +714,14 @@ func ExampleClient_SetBrowserMode() {
 
 func ExampleClient_SetHeader() {
 	var (
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 		url = "http://127.0.0.1:8999"
 	)
-	client := g.Client()
-	client.SetHeader("Server", "GoFrameServer")
-	client.SetHeader("Client", "g.Client()")
+	client := g.X网页类()
+	client.X设置协议头("Server", "GoFrameServer")
+	client.X设置协议头("Client", "g.Client()")
 
-	fmt.Println(string(client.GetBytes(ctx, url, g.Map{
+	fmt.Println(string(client.Get字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -732,45 +732,45 @@ func ExampleClient_SetHeader() {
 
 func ExampleClient_SetRedirectLimit() {
 	go func() {
-		s := g.Server()
-		s.BindHandler("/hello", func(r *ghttp.Request) {
-			r.Response.Writeln("hello world")
+		s := g.Http类()
+		s.X绑定("/hello", func(r *http类.Request) {
+			r.Response.X写响应缓冲区并换行("hello world")
 		})
-		s.BindHandler("/back", func(r *ghttp.Request) {
-			r.Response.RedirectBack()
+		s.X绑定("/back", func(r *http类.Request) {
+			r.Response.X重定向到来源页面()
 		})
 		s.SetDumpRouterMap(false)
-		s.SetPort(8199)
-		s.Run()
+		s.X设置监听端口(8199)
+		s.X启动服务()
 	}()
 
 	time.Sleep(time.Second)
 
 	var (
-		ctx      = gctx.New()
+		ctx      = 上下文类.X创建()
 		urlHello = "http://127.0.0.1:8199/hello"
 		urlBack  = "http://127.0.0.1:8199/back"
 	)
-	client := g.Client().SetRedirectLimit(1)
-	client.SetHeader("Referer", urlHello)
+	client := g.X网页类().X设置重定向次数限制(1)
+	client.X设置协议头("Referer", urlHello)
 
-	resp, err := client.DoRequest(ctx, http.MethodGet, urlBack, g.Map{
+	resp, err := client.X请求响应对象(ctx, http.MethodGet, urlBack, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
 	if err == nil {
-		fmt.Println(resp.ReadAllString())
-		resp.Close()
+		fmt.Println(resp.X取响应文本())
+		resp.X关闭()
 	}
 
-	client.SetRedirectLimit(2)
-	resp, err = client.DoRequest(ctx, http.MethodGet, urlBack, g.Map{
+	client.X设置重定向次数限制(2)
+	resp, err = client.X请求响应对象(ctx, http.MethodGet, urlBack, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
 	if err == nil {
-		fmt.Println(resp.ReadAllString())
-		resp.Close()
+		fmt.Println(resp.X取响应文本())
+		resp.X关闭()
 	}
 
 	// Output:
@@ -780,15 +780,15 @@ func ExampleClient_SetRedirectLimit() {
 
 func ExampleClient_SetTLSKeyCrt() {
 	var (
-		ctx         = gctx.New()
+		ctx         = 上下文类.X创建()
 		url         = "http://127.0.0.1:8999"
-		testCrtFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/upload/file1.txt"
-		testKeyFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/upload/file2.txt"
+		testCrtFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/upload/file1.txt"
+		testKeyFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/upload/file2.txt"
 	)
-	client := g.Client()
-	client.SetTLSKeyCrt(testCrtFile, testKeyFile)
-	client.SetTLSKeyCrt(crtFile, keyFile)
-	fmt.Println(string(client.GetBytes(ctx, url, g.Map{
+	client := g.X网页类()
+	client.X设置证书(testCrtFile, testKeyFile)
+	client.X设置证书(crtFile, keyFile)
+	fmt.Println(string(client.Get字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -799,13 +799,13 @@ func ExampleClient_SetTLSKeyCrt() {
 
 func ExampleClient_SetTLSConfig() {
 	var (
-		ctx       = gctx.New()
+		ctx       = 上下文类.X创建()
 		url       = "http://127.0.0.1:8999"
 		tlsConfig = &tls.Config{}
 	)
-	client := g.Client()
-	client.SetTLSConfig(tlsConfig)
-	fmt.Println(string(client.GetBytes(ctx, url, g.Map{
+	client := g.X网页类()
+	client.X设置TLS配置(tlsConfig)
+	fmt.Println(string(client.Get字节集(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})))
@@ -816,7 +816,7 @@ func ExampleClient_SetTLSConfig() {
 
 func ExampleClient_PutContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().PutContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Put文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -827,7 +827,7 @@ func ExampleClient_PutContent() {
 
 func ExampleClient_DeleteContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().DeleteContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Delete文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -838,7 +838,7 @@ func ExampleClient_DeleteContent() {
 
 func ExampleClient_HeadContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().HeadContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Head文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -848,7 +848,7 @@ func ExampleClient_HeadContent() {
 
 func ExampleClient_PatchContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().PatchContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Patch文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -859,7 +859,7 @@ func ExampleClient_PatchContent() {
 
 func ExampleClient_ConnectContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().ConnectContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Connect文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -870,7 +870,7 @@ func ExampleClient_ConnectContent() {
 
 func ExampleClient_OptionsContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().OptionsContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Options文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -881,7 +881,7 @@ func ExampleClient_OptionsContent() {
 
 func ExampleClient_TraceContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().TraceContent(ctx, url, g.Map{
+	fmt.Println(g.X网页类().Trace文本(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -892,7 +892,7 @@ func ExampleClient_TraceContent() {
 
 func ExampleClient_RequestContent() {
 	url := "http://127.0.0.1:8999"
-	fmt.Println(g.Client().RequestContent(ctx, http.MethodGet, url, g.Map{
+	fmt.Println(g.X网页类().X请求文本(ctx, http.MethodGet, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	}))
@@ -903,11 +903,11 @@ func ExampleClient_RequestContent() {
 
 func ExampleClient_RawRequest() {
 	url := "http://127.0.0.1:8999"
-	response, _ := g.Client().Get(ctx, url, g.Map{
+	response, _ := g.X网页类().Get响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	fmt.Println(len(response.RawResponse()) > 100)
+	fmt.Println(len(response.X取响应原始文本()) > 100)
 
 	// Output:
 	// true
@@ -915,12 +915,12 @@ func ExampleClient_RawRequest() {
 
 func ExampleClient_Delete() {
 	url := "http://127.0.0.1:8999"
-	r, _ := g.Client().Delete(ctx, url, g.Map{
+	r, _ := g.X网页类().Delete响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	defer r.Close()
-	fmt.Println(r.ReadAllString())
+	defer r.X关闭()
+	fmt.Println(r.X取响应文本())
 
 	// Output:
 	// DELETE: form: 10000, john
@@ -928,12 +928,12 @@ func ExampleClient_Delete() {
 
 func ExampleClient_Head() {
 	url := "http://127.0.0.1:8999"
-	r, _ := g.Client().Head(ctx, url, g.Map{
+	r, _ := g.X网页类().Head响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	defer r.Close()
-	fmt.Println(r.ReadAllString())
+	defer r.X关闭()
+	fmt.Println(r.X取响应文本())
 
 	// Output:
 	//
@@ -941,12 +941,12 @@ func ExampleClient_Head() {
 
 func ExampleClient_Patch() {
 	url := "http://127.0.0.1:8999"
-	r, _ := g.Client().Patch(ctx, url, g.Map{
+	r, _ := g.X网页类().Patch响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	defer r.Close()
-	fmt.Println(r.ReadAllString())
+	defer r.X关闭()
+	fmt.Println(r.X取响应文本())
 
 	// Output:
 	// PATCH: form: 10000, john
@@ -954,12 +954,12 @@ func ExampleClient_Patch() {
 
 func ExampleClient_Connect() {
 	url := "http://127.0.0.1:8999"
-	r, _ := g.Client().Connect(ctx, url, g.Map{
+	r, _ := g.X网页类().Connect响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	defer r.Close()
-	fmt.Println(r.ReadAllString())
+	defer r.X关闭()
+	fmt.Println(r.X取响应文本())
 
 	// Output:
 	// CONNECT: form: 10000, john
@@ -967,12 +967,12 @@ func ExampleClient_Connect() {
 
 func ExampleClient_Options() {
 	url := "http://127.0.0.1:8999"
-	r, _ := g.Client().Options(ctx, url, g.Map{
+	r, _ := g.X网页类().Options响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	defer r.Close()
-	fmt.Println(r.ReadAllString())
+	defer r.X关闭()
+	fmt.Println(r.X取响应文本())
 
 	// Output:
 	// OPTIONS: form: 10000, john
@@ -980,12 +980,12 @@ func ExampleClient_Options() {
 
 func ExampleClient_Trace() {
 	url := "http://127.0.0.1:8999"
-	r, _ := g.Client().Trace(ctx, url, g.Map{
+	r, _ := g.X网页类().Trace响应对象(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
 	})
-	defer r.Close()
-	fmt.Println(r.ReadAllString())
+	defer r.X关闭()
+	fmt.Println(r.X取响应文本())
 
 	// Output:
 	// TRACE: form: 10000, john
@@ -1001,7 +1001,7 @@ func ExampleClient_PutVar() {
 		ctx  = context.Background()
 		url  = "http://127.0.0.1:8999/var/json"
 	)
-	err := g.Client().PutVar(ctx, url).Scan(&user)
+	err := g.X网页类().Put泛型类(ctx, url).X取结构体指针(&user)
 	if err != nil {
 		panic(err)
 	}
@@ -1020,7 +1020,7 @@ func ExampleClient_DeleteVar() {
 		users []User
 		url   = "http://127.0.0.1:8999/var/jsons"
 	)
-	err := g.Client().DeleteVar(ctx, url).Scan(&users)
+	err := g.X网页类().Delete泛型类(ctx, url).X取结构体指针(&users)
 	if err != nil {
 		panic(err)
 	}
@@ -1039,7 +1039,7 @@ func ExampleClient_HeadVar() {
 		users []User
 		url   = "http://127.0.0.1:8999/var/jsons"
 	)
-	err := g.Client().HeadVar(ctx, url).Scan(&users)
+	err := g.X网页类().Head泛型类(ctx, url).X取结构体指针(&users)
 	if err != nil {
 		panic(err)
 	}
@@ -1058,7 +1058,7 @@ func ExampleClient_PatchVar() {
 		users []User
 		url   = "http://127.0.0.1:8999/var/jsons"
 	)
-	err := g.Client().PatchVar(ctx, url).Scan(&users)
+	err := g.X网页类().Patch泛型类(ctx, url).X取结构体指针(&users)
 	if err != nil {
 		panic(err)
 	}
@@ -1077,7 +1077,7 @@ func ExampleClient_ConnectVar() {
 		users []User
 		url   = "http://127.0.0.1:8999/var/jsons"
 	)
-	err := g.Client().ConnectVar(ctx, url).Scan(&users)
+	err := g.X网页类().Connect泛型类(ctx, url).X取结构体指针(&users)
 	if err != nil {
 		panic(err)
 	}
@@ -1096,7 +1096,7 @@ func ExampleClient_OptionsVar() {
 		users []User
 		url   = "http://127.0.0.1:8999/var/jsons"
 	)
-	err := g.Client().OptionsVar(ctx, url).Scan(&users)
+	err := g.X网页类().Options泛型类(ctx, url).X取结构体指针(&users)
 	if err != nil {
 		panic(err)
 	}
@@ -1115,7 +1115,7 @@ func ExampleClient_TraceVar() {
 		users []User
 		url   = "http://127.0.0.1:8999/var/jsons"
 	)
-	err := g.Client().TraceVar(ctx, url).Scan(&users)
+	err := g.X网页类().Trace泛型类(ctx, url).X取结构体指针(&users)
 	if err != nil {
 		panic(err)
 	}

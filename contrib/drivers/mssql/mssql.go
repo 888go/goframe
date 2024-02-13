@@ -37,7 +37,7 @@ import (
 
 // Driver 是 SQL 服务器数据库的驱动程序。
 type Driver struct {
-	*gdb.Core
+	*db类.Core
 }
 
 const (
@@ -45,48 +45,48 @@ const (
 )
 
 func init() {
-	if err := gdb.Register(`mssql`, New()); err != nil {
+	if err := db类.X注册驱动(`mssql`, New()); err != nil {
 		panic(err)
 	}
 }
 
 // New 创建并返回一个实现 gdb.Driver 接口的驱动程序，该驱动支持对 Mssql 的操作。
-func New() gdb.Driver {
+func New() db类.Driver {
 	return &Driver{}
 }
 
 // New 创建并返回一个用于SQL服务器的数据库对象。
 // 它实现了gdb.Driver接口，以便支持额外的数据库驱动安装。
-func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
+func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
 }
 
 // Open 创建并返回一个用于mssql的底层sql.DB对象。
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, 错误 error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlserver"
 	)
-	if config.Link != "" {
+	if 配置对象.Link != "" {
 // ============================================================================
 // 从 v2.2.0 版本开始已弃用。
 // ============================================================================
-		source = config.Link
+		source = 配置对象.Link
 		// 在运行时自定义更改架构
-		if config.Name != "" {
-			source, _ = gregex.ReplaceString(`database=([\w\.\-]+)+`, "database="+config.Name, source)
+		if 配置对象.Name != "" {
+			source, _ = 正则类.X替换文本(`database=([\w\.\-]+)+`, "database="+配置对象.Name, source)
 		}
 	} else {
 		source = fmt.Sprintf(
 			"user id=%s;password=%s;server=%s;port=%s;database=%s;encrypt=disable",
-			config.User, config.Pass, config.Host, config.Port, config.Name,
+			配置对象.User, 配置对象.Pass, 配置对象.Host, 配置对象.Port, 配置对象.Name,
 		)
-		if config.Extra != "" {
+		if 配置对象.Extra != "" {
 			var extraMap map[string]interface{}
-			if extraMap, err = gstr.Parse(config.Extra); err != nil {
-				return nil, err
+			if extraMap, 错误 = 文本类.X参数解析(配置对象.Extra); 错误 != nil {
+				return nil, 错误
 			}
 			for k, v := range extraMap {
 				source += fmt.Sprintf(`;%s=%s`, k, v)
@@ -94,46 +94,46 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		}
 	}
 
-	if db, err = sql.Open(underlyingDriverName, source); err != nil {
-		err = gerror.WrapCodef(
-			gcode.CodeDbOperationError, err,
+	if db, 错误 = sql.Open(underlyingDriverName, source); 错误 != nil {
+		错误 = 错误类.X多层错误码并格式化(
+			错误码类.CodeDbOperationError, 错误,
 			`sql.Open failed for driver "%s" by source "%s"`, underlyingDriverName, source,
 		)
-		return nil, err
+		return nil, 错误
 	}
 	return
 }
 
 // GetChars 返回该类型数据库的安全字符。
-func (d *Driver) GetChars() (charLeft string, charRight string) {
+func (d *Driver) X底层取数据库安全字符() (左字符 string, 右字符 string) {
 	return quoteChar, quoteChar
 }
 
 // DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前，对其进行处理。
-func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+func (d *Driver) X底层DoFilter(ctx context.Context, link db类.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	var index int
 	// 将占位符字符 '?' 转换为字符串 "@px"。
-	newSql, _ = gregex.ReplaceStringFunc("\\?", sql, func(s string) string {
+	newSql, _ = 正则类.X替换文本_函数("\\?", sql, func(s string) string {
 		index++
 		return fmt.Sprintf("@p%d", index)
 	})
-	newSql, _ = gregex.ReplaceString("\"", "", newSql)
-	return d.Core.DoFilter(ctx, link, d.parseSql(newSql), args)
+	newSql, _ = 正则类.X替换文本("\"", "", newSql)
+	return d.Core.X底层DoFilter(ctx, link, d.parseSql(newSql), args)
 }
 
 // parseSql在将SQL提交给底层驱动程序之前执行一些替换操作，
 // 以便支持Microsoft SQL Server。
 func (d *Driver) parseSql(sql string) string {
 	// 从USER表中选取ID为1的记录，限制返回结果数量为1条
-	if m, _ := gregex.MatchString(`^SELECT(.+)LIMIT 1$`, sql); len(m) > 1 {
+	if m, _ := 正则类.X匹配文本(`^SELECT(.+)LIMIT 1$`, sql); len(m) > 1 {
 		return fmt.Sprintf(`SELECT TOP 1 %s`, m[1])
 	}
 	// 从USER表中选取AGE大于18的所有列，并按ID降序排列，然后获取第101至300条记录（LIMIT offset, count语法）
 	patten := `^\s*(?i)(SELECT)|(LIMIT\s*(\d+)\s*,\s*(\d+))`
-	if gregex.IsMatchString(patten, sql) == false {
+	if 正则类.X是否匹配文本(patten, sql) == false {
 		return sql
 	}
-	res, err := gregex.MatchAllString(patten, sql)
+	res, err := 正则类.X匹配全部文本(patten, sql)
 	if err != nil {
 		return ""
 	}
@@ -150,24 +150,24 @@ func (d *Driver) parseSql(sql string) string {
 				strings.HasPrefix(res[index][0], "limit") == false) {
 			break
 		}
-		if gregex.IsMatchString("((?i)SELECT)(.+)((?i)LIMIT)", sql) == false {
+		if 正则类.X是否匹配文本("((?i)SELECT)(.+)((?i)LIMIT)", sql) == false {
 			break
 		}
 		// ORDER BY 语句检查。
 		var (
 			selectStr = ""
 			orderStr  = ""
-			haveOrder = gregex.IsMatchString("((?i)SELECT)(.+)((?i)ORDER BY)", sql)
+			haveOrder = 正则类.X是否匹配文本("((?i)SELECT)(.+)((?i)ORDER BY)", sql)
 		)
 		if haveOrder {
-			queryExpr, _ := gregex.MatchString("((?i)SELECT)(.+)((?i)ORDER BY)", sql)
+			queryExpr, _ := 正则类.X匹配文本("((?i)SELECT)(.+)((?i)ORDER BY)", sql)
 			if len(queryExpr) != 4 ||
 				strings.EqualFold(queryExpr[1], "SELECT") == false ||
 				strings.EqualFold(queryExpr[3], "ORDER BY") == false {
 				break
 			}
 			selectStr = queryExpr[2]
-			orderExpr, _ := gregex.MatchString("((?i)ORDER BY)(.+)((?i)LIMIT)", sql)
+			orderExpr, _ := 正则类.X匹配文本("((?i)ORDER BY)(.+)((?i)LIMIT)", sql)
 			if len(orderExpr) != 4 ||
 				strings.EqualFold(orderExpr[1], "ORDER BY") == false ||
 				strings.EqualFold(orderExpr[3], "LIMIT") == false {
@@ -175,7 +175,7 @@ func (d *Driver) parseSql(sql string) string {
 			}
 			orderStr = orderExpr[2]
 		} else {
-			queryExpr, _ := gregex.MatchString("((?i)SELECT)(.+)((?i)LIMIT)", sql)
+			queryExpr, _ := 正则类.X匹配文本("((?i)SELECT)(.+)((?i)LIMIT)", sql)
 			if len(queryExpr) != 4 ||
 				strings.EqualFold(queryExpr[1], "SELECT") == false ||
 				strings.EqualFold(queryExpr[3], "LIMIT") == false {
@@ -219,22 +219,22 @@ func (d *Driver) parseSql(sql string) string {
 
 // Tables 获取并返回当前模式的表格。
 // 它主要用于cli工具链中，用于自动生成模型。
-func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
-	var result gdb.Result
-	link, err := d.SlaveLink(schema...)
-	if err != nil {
-		return nil, err
+func (d *Driver) X取表名称数组(上下文 context.Context, schema ...string) (表名称数组 []string, 错误 error) {
+	var result db类.Result
+	link, 错误 := d.X底层SlaveLink(schema...)
+	if 错误 != nil {
+		return nil, 错误
 	}
 
-	result, err = d.DoSelect(
-		ctx, link, `SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND STATUS >= 0 ORDER BY NAME`,
+	result, 错误 = d.X底层查询(
+		上下文, link, `SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND STATUS >= 0 ORDER BY NAME`,
 	)
-	if err != nil {
+	if 错误 != nil {
 		return
 	}
 	for _, m := range result {
 		for _, v := range m {
-			tables = append(tables, v.String())
+			表名称数组 = append(表名称数组, v.String())
 		}
 	}
 	return
@@ -243,14 +243,14 @@ func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string,
 // TableFields 获取并返回当前模式下指定表的字段信息。
 //
 // 另请参阅 DriverMysql.TableFields。
-func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
+func (d *Driver) X取表字段信息Map(上下文 context.Context, 表名称 string, schema ...string) (字段信息Map map[string]*db类.TableField, 错误 error) {
 	var (
-		result     gdb.Result
-		link       gdb.Link
-		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
+		result     db类.Result
+		link       db类.Link
+		usedSchema = 工具类.X取文本值或取默认值(d.X取默认数据库名称(), schema...)
 	)
-	if link, err = d.SlaveLink(usedSchema); err != nil {
-		return nil, err
+	if link, 错误 = d.X底层SlaveLink(usedSchema); 错误 != nil {
+		return nil, 错误
 	}
 	structureSql := fmt.Sprintf(`
 SELECT 
@@ -280,45 +280,45 @@ LEFT JOIN sys.extended_properties g ON a.id=g.major_id AND a.colid=g.minor_id
 LEFT JOIN sys.extended_properties f ON d.id=f.major_id AND f.minor_id =0
 WHERE d.name='%s'
 ORDER BY a.id,a.colorder`,
-		table,
+		表名称,
 	)
-	structureSql, _ = gregex.ReplaceString(`[\n\r\s]+`, " ", gstr.Trim(structureSql))
-	result, err = d.DoSelect(ctx, link, structureSql)
-	if err != nil {
-		return nil, err
+	structureSql, _ = 正则类.X替换文本(`[\n\r\s]+`, " ", 文本类.X过滤首尾符并含空白(structureSql))
+	result, 错误 = d.X底层查询(上下文, link, structureSql)
+	if 错误 != nil {
+		return nil, 错误
 	}
-	fields = make(map[string]*gdb.TableField)
+	字段信息Map = make(map[string]*db类.TableField)
 	for i, m := range result {
-		fields[m["Field"].String()] = &gdb.TableField{
+		字段信息Map[m["Field"].String()] = &db类.TableField{
 			Index:   i,
 			Name:    m["Field"].String(),
 			Type:    m["Type"].String(),
-			Null:    m["Null"].Bool(),
+			Null:    m["Null"].X取布尔(),
 			Key:     m["Key"].String(),
-			Default: m["Default"].Val(),
+			Default: m["Default"].X取值(),
 			Extra:   m["Extra"].String(),
 			Comment: m["Comment"].String(),
 		}
 	}
-	return fields, nil
+	return 字段信息Map, nil
 }
 
 // DoInsert 对给定表执行插入或更新数据操作。
-func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
-	switch option.InsertOption {
-	case gdb.InsertOptionSave:
-		return nil, gerror.NewCode(
-			gcode.CodeNotSupported,
+func (d *Driver) X底层插入(上下文 context.Context, 链接 db类.Link, 表名称 string, list db类.Map数组, 选项 db类.DoInsertOption) (结果 sql.Result, 错误 error) {
+	switch 选项.InsertOption {
+	case db类.InsertOptionSave:
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeNotSupported,
 			`Save operation is not supported by mssql driver`,
 		)
 
-	case gdb.InsertOptionReplace:
-		return nil, gerror.NewCode(
-			gcode.CodeNotSupported,
+	case db类.InsertOptionReplace:
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeNotSupported,
 			`Replace operation is not supported by mssql driver`,
 		)
 
 	default:
-		return d.Core.DoInsert(ctx, link, table, list, option)
+		return d.Core.X底层插入(上下文, 链接, 表名称, list, 选项)
 	}
 }

@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gsession
+package session类
 
 import (
 	"testing"
@@ -13,7 +13,7 @@ import (
 )
 
 func Test_NewSessionId(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		id1 := NewSessionId()
 		id2 := NewSessionId()
 		t.AssertNE(id1, id2)

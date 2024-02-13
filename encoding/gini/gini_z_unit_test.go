@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gini_test
+package ini类_test
 
 import (
 	"testing"
@@ -34,10 +34,10 @@ command=/bin/echo "gf=GoFrame"
 `
 
 func TestDecode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		res, err := gini.Decode([]byte(iniContent))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		res, err := ini类.X取Map([]byte(iniContent))
 		if err != nil {
-			gtest.Fatal(err)
+			单元测试类.Fatal(err)
 		}
 		t.Assert(res["addr"].(map[string]interface{})["ip"], "127.0.0.1")
 		t.Assert(res["addr"].(map[string]interface{})["port"], "9001")
@@ -47,32 +47,32 @@ func TestDecode(t *testing.T) {
 		t.Assert(res["键"].(map[string]interface{})["呵呵"], "值")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		errContent := `
 		a = b
 `
-		_, err := gini.Decode([]byte(errContent))
+		_, err := ini类.X取Map([]byte(errContent))
 		if err == nil {
-			gtest.Fatal(err)
+			单元测试类.Fatal(err)
 		}
 	})
 }
 
 func TestEncode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		iniMap, err := gini.Decode([]byte(iniContent))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		iniMap, err := ini类.X取Map([]byte(iniContent))
 		if err != nil {
-			gtest.Fatal(err)
+			单元测试类.Fatal(err)
 		}
 
-		iniStr, err := gini.Encode(iniMap)
+		iniStr, err := ini类.Map到ini(iniMap)
 		if err != nil {
-			gtest.Fatal(err)
+			单元测试类.Fatal(err)
 		}
 
-		res, err := gini.Decode(iniStr)
+		res, err := ini类.X取Map(iniStr)
 		if err != nil {
-			gtest.Fatal(err)
+			单元测试类.Fatal(err)
 		}
 
 		t.Assert(res["addr"].(map[string]interface{})["ip"], "127.0.0.1")
@@ -84,23 +84,23 @@ func TestEncode(t *testing.T) {
 }
 
 func TestToJson(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		jsonStr, err := gini.ToJson([]byte(iniContent))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		jsonStr, err := ini类.X取json([]byte(iniContent))
 		if err != nil {
-			gtest.Fatal(err)
+			单元测试类.Fatal(err)
 		}
 
-		json, err := gjson.LoadContent(jsonStr)
+		json, err := json类.X加载并自动识别格式(jsonStr)
 		if err != nil {
-			gtest.Fatal(err)
+			单元测试类.Fatal(err)
 		}
 
-		iniMap, err := gini.Decode([]byte(iniContent))
+		iniMap, err := ini类.X取Map([]byte(iniContent))
 		t.AssertNil(err)
 
-		t.Assert(iniMap["addr"].(map[string]interface{})["ip"], json.Get("addr.ip").String())
-		t.Assert(iniMap["addr"].(map[string]interface{})["port"], json.Get("addr.port").String())
-		t.Assert(iniMap["DBINFO"].(map[string]interface{})["user"], json.Get("DBINFO.user").String())
-		t.Assert(iniMap["DBINFO"].(map[string]interface{})["type"], json.Get("DBINFO.type").String())
+		t.Assert(iniMap["addr"].(map[string]interface{})["ip"], json.X取值("addr.ip").String())
+		t.Assert(iniMap["addr"].(map[string]interface{})["port"], json.X取值("addr.port").String())
+		t.Assert(iniMap["DBINFO"].(map[string]interface{})["user"], json.X取值("DBINFO.user").String())
+		t.Assert(iniMap["DBINFO"].(map[string]interface{})["type"], json.X取值("DBINFO.type").String())
 	})
 }

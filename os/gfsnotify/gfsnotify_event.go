@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT协议条款。如果随此文件未分发MIT协议副本，
 // 您可以在https://github.com/gogf/gf获取一份。
 
-package gfsnotify
+package 文件监控类
 
 // String 返回当前事件的字符串表示。
 func (e *Event) String() string {

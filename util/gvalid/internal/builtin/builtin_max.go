@@ -36,7 +36,7 @@ func (r RuleMax) Run(in RunInput) error {
 		valueN, err2 = strconv.ParseFloat(in.Value.String(), 10)
 	)
 	if valueN > max || err1 != nil || err2 != nil {
-		return errors.New(gstr.Replace(in.Message, "{max}", strconv.FormatFloat(max, 'f', -1, 64)))
+		return errors.New(文本类.X替换(in.Message, "{max}", strconv.FormatFloat(max, 'f', -1, 64)))
 	}
 	return nil
 }

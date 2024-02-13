@@ -45,7 +45,7 @@ func (r RuleTelephone) Message() string {
 }
 
 func (r RuleTelephone) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`^((\d{3,4})|\d{3,4}-)?\d{7,8}$`,
 		in.Value.String(),
 	)

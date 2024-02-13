@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcron
+package 定时cron类
 
 import (
 	"strings"
@@ -22,7 +22,7 @@ func TestSlash(t *testing.T) {
 		{"0 0 0 * Feb Mon/2", map[int]struct{}{1: {}, 3: {}, 5: {}}},
 		{"0 0 0 * Feb *", map[int]struct{}{1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 0: {}}},
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for _, c := range runs {
 			sched, err := newSchedule(c.spec)
 			if err != nil {

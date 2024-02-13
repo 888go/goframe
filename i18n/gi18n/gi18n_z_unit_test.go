@@ -25,9 +25,9 @@ import (
 )
 
 func Test_Basic(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		i18n := gi18n.New(gi18n.Options{
-			Path: gtest.DataPath("i18n"),
+			Path: 单元测试类.DataPath("i18n"),
 		})
 		i18n.SetLanguage("none")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "{#hello}{#world}")
@@ -46,9 +46,9 @@ func Test_Basic(t *testing.T) {
 		t.Assert(i18n.T(context.Background(), "{$你好1}{$世界1}"), "{$你好1}{$世界1}")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		i18n := gi18n.New(gi18n.Options{
-			Path: gtest.DataPath("i18n-file"),
+			Path: 单元测试类.DataPath("i18n-file"),
 		})
 		i18n.SetLanguage("none")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "{#hello}{#world}")
@@ -61,9 +61,9 @@ func Test_Basic(t *testing.T) {
 		t.Assert(i18n.T(context.Background(), "{#你好} {#世界}"), "hello world")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		i18n := gi18n.New(gi18n.Options{
-			Path: gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n-dir",
+			Path: gdebug.CallerDirectory() + 文件类.Separator + "testdata" + 文件类.Separator + "i18n-dir",
 		})
 		i18n.SetLanguage("none")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "{#hello}{#world}")
@@ -78,9 +78,9 @@ func Test_Basic(t *testing.T) {
 
 func Test_TranslateFormat(t *testing.T) {
 	// Tf
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		i18n := gi18n.New(gi18n.Options{
-			Path: gtest.DataPath("i18n"),
+			Path: 单元测试类.DataPath("i18n"),
 		})
 		i18n.SetLanguage("none")
 		t.Assert(i18n.Tf(context.Background(), "{#hello}{#world} %d", 2020), "{#hello}{#world} 2020")
@@ -91,8 +91,8 @@ func Test_TranslateFormat(t *testing.T) {
 }
 
 func Test_DefaultManager(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		err := gi18n.SetPath(gtest.DataPath("i18n"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := gi18n.SetPath(单元测试类.DataPath("i18n"))
 		t.AssertNil(err)
 
 		gi18n.SetLanguage("none")
@@ -105,8 +105,8 @@ func Test_DefaultManager(t *testing.T) {
 		t.Assert(gi18n.T(context.Background(), "{#hello}{#world}"), "你好世界")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gi18n.SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n-dir")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := gi18n.SetPath(gdebug.CallerDirectory() + 文件类.Separator + "testdata" + 文件类.Separator + "i18n-dir")
 		t.AssertNil(err)
 
 		gi18n.SetLanguage("none")
@@ -121,35 +121,35 @@ func Test_DefaultManager(t *testing.T) {
 }
 
 func Test_Instance(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := gi18n.Instance()
-		err := m.SetPath(gtest.DataPath("i18n-dir"))
+		err := m.SetPath(单元测试类.DataPath("i18n-dir"))
 		t.AssertNil(err)
 		m.SetLanguage("zh-CN")
 		t.Assert(m.T(context.Background(), "{#hello}{#world}"), "你好世界")
 		t.Assert(m.T(context.Background(), "{#你好} {#世界}"), "hello world")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := gi18n.Instance()
 		t.Assert(m.T(context.Background(), "{#hello}{#world}"), "你好世界")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.I18n().T(context.Background(), "{#hello}{#world}"), "你好世界")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X多语言类().T(context.Background(), "{#hello}{#world}"), "你好世界")
 	})
 	// 默认语言为：en
-	gtest.C(t, func(t *gtest.T) {
-		m := gi18n.Instance(gconv.String(gtime.TimestampNano()))
-		m.SetPath(gtest.DataPath("i18n-dir"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := gi18n.Instance(转换类.String(时间类.X取时间戳纳秒()))
+		m.SetPath(单元测试类.DataPath("i18n-dir"))
 		t.Assert(m.T(context.Background(), "{#hello}{#world}"), "HelloWorld")
 	})
 }
 
 func Test_Resource(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		m := g.I18n("resource")
-		err := m.SetPath(gtest.DataPath("i18n-dir"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := g.X多语言类("resource")
+		err := m.SetPath(单元测试类.DataPath("i18n-dir"))
 		t.AssertNil(err)
 
 		m.SetLanguage("none")
@@ -164,22 +164,22 @@ func Test_Resource(t *testing.T) {
 }
 
 func Test_SetCtxLanguage(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		ctx := gctx.New()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		ctx := 上下文类.X创建()
 		t.Assert(gi18n.LanguageFromCtx(ctx), "")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.Assert(gi18n.LanguageFromCtx(nil), "")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		ctx := gctx.New()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		ctx := 上下文类.X创建()
 		ctx = gi18n.WithLanguage(ctx, "zh-CN")
 		t.Assert(gi18n.LanguageFromCtx(ctx), "zh-CN")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		ctx := gi18n.WithLanguage(context.Background(), "zh-CN")
 		t.Assert(gi18n.LanguageFromCtx(ctx), "zh-CN")
 	})
@@ -188,9 +188,9 @@ func Test_SetCtxLanguage(t *testing.T) {
 
 func Test_GetContent(t *testing.T) {
 	i18n := gi18n.New(gi18n.Options{
-		Path: gtest.DataPath("i18n-file"),
+		Path: 单元测试类.DataPath("i18n-file"),
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.Assert(i18n.GetContent(context.Background(), "hello"), "Hello")
 
 		ctx := gi18n.WithLanguage(context.Background(), "zh-CN")
@@ -202,10 +202,10 @@ func Test_GetContent(t *testing.T) {
 }
 
 func Test_PathInResource(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		binContent, err := gres.Pack(gtest.DataPath("i18n"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		binContent, err := 资源类.Pack(单元测试类.DataPath("i18n"))
 		t.AssertNil(err)
-		err = gres.Add(gbase64.EncodeToString(binContent))
+		err = 资源类.Add(编码base64类.X字节集编码到文本(binContent))
 		t.AssertNil(err)
 
 		i18n := gi18n.New()
@@ -221,13 +221,13 @@ func Test_PathInResource(t *testing.T) {
 
 func Test_PathInNormal(t *testing.T) {
 	// 将国际化文件复制到当前目录。
-	gfile.CopyDir(gtest.DataPath("i18n"), gfile.Join(gdebug.CallerDirectory(), "manifest/i18n"))
+	文件类.X复制目录(单元测试类.DataPath("i18n"), 文件类.X路径生成(gdebug.CallerDirectory(), "manifest/i18n"))
 	// 在测试后删除复制的文件。
-	defer gfile.Remove(gfile.Join(gdebug.CallerDirectory(), "manifest"))
+	defer 文件类.X删除(文件类.X路径生成(gdebug.CallerDirectory(), "manifest"))
 
 	i18n := gi18n.New()
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		i18n.SetLanguage("zh-CN")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "你好世界")
 		// 设置不存在的路径。
@@ -240,10 +240,10 @@ func Test_PathInNormal(t *testing.T) {
 	})
 
 	// 更改语言文件内容
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		i18n.SetLanguage("en")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}{#name}"), "HelloWorld{#name}")
-		err := gfile.PutContentsAppend(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en.toml"), "\nname = \"GoFrame\"")
+		err := 文件类.X追加文本(文件类.X路径生成(gdebug.CallerDirectory(), "manifest/i18n/en.toml"), "\nname = \"GoFrame\"")
 		t.Assert(err, nil)
 		// 等待文件修改时间发生变化。
 		time.Sleep(10 * time.Millisecond)
@@ -251,8 +251,8 @@ func Test_PathInNormal(t *testing.T) {
 	})
 
 	// Add new language
-	gtest.C(t, func(t *gtest.T) {
-		err := gfile.PutContents(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en-US.toml"), "lang = \"en-US\"")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 文件类.X写入文本(文件类.X路径生成(gdebug.CallerDirectory(), "manifest/i18n/en-US.toml"), "lang = \"en-US\"")
 		t.Assert(err, nil)
 		// 等待文件修改时间发生变化。
 		time.Sleep(10 * time.Millisecond)

@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gdes 提供了用于DES加密/解密算法的有用API。
-package gdes
+package 加密DES类
 
 import (
 	"bytes"
@@ -21,16 +21,16 @@ const (
 )
 
 // EncryptECB 使用ECB模式加密`plainText`。
-func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
-	text, err := Padding(plainText, padding)
+func X加密ECB(待加密 []byte, 秘钥 []byte, 填充 int) ([]byte, error) {
+	text, err := Padding(待加密, 填充)
 	if err != nil {
 		return nil, err
 	}
 
 	cipherText := make([]byte, len(text))
-	block, err := des.NewCipher(key)
+	block, err := des.NewCipher(秘钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, 秘钥)
 		return nil, err
 	}
 
@@ -43,21 +43,21 @@ func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
 }
 
 // DecryptECB 使用ECB模式解密`cipherText`。
-func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
-	text := make([]byte, len(cipherText))
-	block, err := des.NewCipher(key)
+func X解密ECB(待解密 []byte, 秘钥 []byte, 填充 int) ([]byte, error) {
+	text := make([]byte, len(待解密))
+	block, err := des.NewCipher(秘钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, 秘钥)
 		return nil, err
 	}
 
 	blockSize := block.BlockSize()
 	for i, count := 0, len(text)/blockSize; i < count; i++ {
 		begin, end := i*blockSize, i*blockSize+blockSize
-		block.Decrypt(text[begin:end], cipherText[begin:end])
+		block.Decrypt(text[begin:end], 待解密[begin:end])
 	}
 
-	plainText, err := UnPadding(text, padding)
+	plainText, err := UnPadding(text, 填充)
 	if err != nil {
 		return nil, err
 	}
@@ -66,27 +66,27 @@ func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
 
 // EncryptECBTriple 使用TripleDES加密算法及ECB模式加密`plainText`。
 // `key`的长度应为16字节或24字节。
-func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error) {
-	if len(key) != 16 && len(key) != 24 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
+func X加密三重ECB(待加密 []byte, 秘钥 []byte, 填充 int) ([]byte, error) {
+	if len(秘钥) != 16 && len(秘钥) != 24 {
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "key length error")
 	}
 
-	text, err := Padding(plainText, padding)
+	text, err := Padding(待加密, 填充)
 	if err != nil {
 		return nil, err
 	}
 
 	var newKey []byte
-	if len(key) == 16 {
-		newKey = append([]byte{}, key...)
-		newKey = append(newKey, key[:8]...)
+	if len(秘钥) == 16 {
+		newKey = append([]byte{}, 秘钥...)
+		newKey = append(newKey, 秘钥[:8]...)
 	} else {
-		newKey = append([]byte{}, key...)
+		newKey = append([]byte{}, 秘钥...)
 	}
 
 	block, err := des.NewTripleDESCipher(newKey)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
 		return nil, err
 	}
 
@@ -101,33 +101,33 @@ func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error)
 
 // DecryptECBTriple 使用TripleDES和ECB模式解密`cipherText`。
 // `key`的长度应为16字节或24字节。
-func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error) {
-	if len(key) != 16 && len(key) != 24 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
+func X解密三重ECB(待解密 []byte, 秘钥 []byte, 填充 int) ([]byte, error) {
+	if len(秘钥) != 16 && len(秘钥) != 24 {
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "key length error")
 	}
 
 	var newKey []byte
-	if len(key) == 16 {
-		newKey = append([]byte{}, key...)
-		newKey = append(newKey, key[:8]...)
+	if len(秘钥) == 16 {
+		newKey = append([]byte{}, 秘钥...)
+		newKey = append(newKey, 秘钥[:8]...)
 	} else {
-		newKey = append([]byte{}, key...)
+		newKey = append([]byte{}, 秘钥...)
 	}
 
 	block, err := des.NewTripleDESCipher(newKey)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
 		return nil, err
 	}
 
 	blockSize := block.BlockSize()
-	text := make([]byte, len(cipherText))
+	text := make([]byte, len(待解密))
 	for i, count := 0, len(text)/blockSize; i < count; i++ {
 		begin, end := i*blockSize, i*blockSize+blockSize
-		block.Decrypt(text[begin:end], cipherText[begin:end])
+		block.Decrypt(text[begin:end], 待解密[begin:end])
 	}
 
-	plainText, err := UnPadding(text, padding)
+	plainText, err := UnPadding(text, 填充)
 	if err != nil {
 		return nil, err
 	}
@@ -135,18 +135,18 @@ func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error
 }
 
 // EncryptCBC 使用CBC模式加密`plainText`。
-func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
-	block, err := des.NewCipher(key)
+func X加密CBC(待加密 []byte, 密钥 []byte, iv []byte, 填充 int) ([]byte, error) {
+	block, err := des.NewCipher(密钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, 密钥)
 		return nil, err
 	}
 
 	if len(iv) != block.BlockSize() {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid iv length")
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid iv length")
 	}
 
-	text, err := Padding(plainText, padding)
+	text, err := Padding(待加密, 填充)
 	if err != nil {
 		return nil, err
 	}
@@ -159,22 +159,22 @@ func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, e
 }
 
 // DecryptCBC 使用CBC模式解密`cipherText`。
-func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
-	block, err := des.NewCipher(key)
+func X解密CBC(待解密 []byte, 密钥 []byte, iv []byte, 填充 int) ([]byte, error) {
+	block, err := des.NewCipher(密钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewCipher failed for key "%s"`, 密钥)
 		return nil, err
 	}
 
 	if len(iv) != block.BlockSize() {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "iv length invalid")
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "iv length invalid")
 	}
 
-	text := make([]byte, len(cipherText))
+	text := make([]byte, len(待解密))
 	decrypter := cipher.NewCBCDecrypter(block, iv)
-	decrypter.CryptBlocks(text, cipherText)
+	decrypter.CryptBlocks(text, 待解密)
 
-	plainText, err := UnPadding(text, padding)
+	plainText, err := UnPadding(text, 填充)
 	if err != nil {
 		return nil, err
 	}
@@ -183,30 +183,30 @@ func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, 
 }
 
 // EncryptCBCTriple 使用TripleDES算法和CBC模式加密`plainText`。
-func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
-	if len(key) != 16 && len(key) != 24 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")
+func X加密三重CBC(待加密 []byte, 密钥 []byte, iv []byte, 填充 int) ([]byte, error) {
+	if len(密钥) != 16 && len(密钥) != 24 {
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "key length invalid")
 	}
 
 	var newKey []byte
-	if len(key) == 16 {
-		newKey = append([]byte{}, key...)
-		newKey = append(newKey, key[:8]...)
+	if len(密钥) == 16 {
+		newKey = append([]byte{}, 密钥...)
+		newKey = append(newKey, 密钥[:8]...)
 	} else {
-		newKey = append([]byte{}, key...)
+		newKey = append([]byte{}, 密钥...)
 	}
 
 	block, err := des.NewTripleDESCipher(newKey)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
 		return nil, err
 	}
 
 	if len(iv) != block.BlockSize() {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid iv length")
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid iv length")
 	}
 
-	text, err := Padding(plainText, padding)
+	text, err := Padding(待加密, 填充)
 	if err != nil {
 		return nil, err
 	}
@@ -219,34 +219,34 @@ func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]b
 }
 
 // DecryptCBCTriple 使用3DES加密算法和CBC模式解密`cipherText`。
-func DecryptCBCTriple(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
-	if len(key) != 16 && len(key) != 24 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")
+func X解密三重CBC(待解密 []byte, 密钥 []byte, iv []byte, 填充 int) ([]byte, error) {
+	if len(密钥) != 16 && len(密钥) != 24 {
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "key length invalid")
 	}
 
 	var newKey []byte
-	if len(key) == 16 {
-		newKey = append([]byte{}, key...)
-		newKey = append(newKey, key[:8]...)
+	if len(密钥) == 16 {
+		newKey = append([]byte{}, 密钥...)
+		newKey = append(newKey, 密钥[:8]...)
 	} else {
-		newKey = append([]byte{}, key...)
+		newKey = append([]byte{}, 密钥...)
 	}
 
 	block, err := des.NewTripleDESCipher(newKey)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `des.NewTripleDESCipher failed for key "%s"`, newKey)
 		return nil, err
 	}
 
 	if len(iv) != block.BlockSize() {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid iv length")
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid iv length")
 	}
 
-	text := make([]byte, len(cipherText))
+	text := make([]byte, len(待解密))
 	decrypter := cipher.NewCBCDecrypter(block, iv)
-	decrypter.CryptBlocks(text, cipherText)
+	decrypter.CryptBlocks(text, 待解密)
 
-	plainText, err := UnPadding(text, padding)
+	plainText, err := UnPadding(text, 填充)
 	if err != nil {
 		return nil, err
 	}
@@ -270,14 +270,14 @@ func Padding(text []byte, padding int) ([]byte, error) {
 	switch padding {
 	case NOPADDING:
 		if len(text)%8 != 0 {
-			return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid text length")
+			return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid text length")
 		}
 
 	case PKCS5PADDING:
 		return PaddingPKCS5(text, 8), nil
 
 	default:
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported padding type "%d"`, padding)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `unsupported padding type "%d"`, padding)
 	}
 
 	return text, nil
@@ -287,14 +287,14 @@ func UnPadding(text []byte, padding int) ([]byte, error) {
 	switch padding {
 	case NOPADDING:
 		if len(text)%8 != 0 {
-			return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid text length")
+			return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid text length")
 		}
 
 	case PKCS5PADDING:
 		return UnPaddingPKCS5(text), nil
 
 	default:
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported padding type "%d"`, padding)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `unsupported padding type "%d"`, padding)
 	}
 	return text, nil
 }

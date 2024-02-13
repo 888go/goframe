@@ -21,7 +21,7 @@ func ExampleSet() {
 	gtag.Sets(g.MapStrStr{
 		`UserDescription`: `This is a demo struct named "User Struct"`,
 	})
-	fmt.Println(gmeta.Get(User{}, `description`))
+	fmt.Println(元数据类.Get(User{}, `description`))
 
 	// Output:
 	// This is a demo struct named "User Struct"

@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gproc
+package 进程类
 
 import (
 	"bytes"
@@ -68,7 +68,7 @@ func parseCommand(cmd string) (args []string) {
 	// 仅为Windows中的"cmd.exe"设计。
 	var argStr string
 	var firstChar, prevChar, lastChar1, lastChar2 byte
-	array := gstr.SplitAndTrim(cmd, " ")
+	array := 文本类.X分割并忽略空值(cmd, " ")
 	for _, v := range array {
 		if len(argStr) > 0 {
 			argStr += " "
@@ -107,10 +107,10 @@ func getShell() string {
 
 	default:
 		// 检查默认的二进制存储路径。
-		if gfile.Exists("/bin/bash") {
+		if 文件类.X是否存在("/bin/bash") {
 			return "/bin/bash"
 		}
-		if gfile.Exists("/bin/sh") {
+		if 文件类.X是否存在("/bin/sh") {
 			return "/bin/sh"
 		}
 		// 否则在环境变量PATH中搜索。

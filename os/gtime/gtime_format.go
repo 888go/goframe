@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtime
+package 时间类
 
 import (
 	"bytes"
@@ -67,11 +67,11 @@ var (
 )
 
 // Format 函数使用自定义的 `format` 进行格式化，并返回格式化后的结果。
-func (t *Time) Format(format string) string {
+func (t *Time) X取格式文本(格式 string) string {
 	if t == nil {
 		return ""
 	}
-	runes := []rune(format)
+	runes := []rune(格式)
 	buffer := bytes.NewBuffer(nil)
 	for i := 0; i < len(runes); {
 		switch runes[i] {
@@ -84,11 +84,11 @@ func (t *Time) Format(format string) string {
 				return buffer.String()
 			}
 		case 'W':
-			buffer.WriteString(strconv.Itoa(t.WeeksOfYear()))
+			buffer.WriteString(strconv.Itoa(t.X取全年第几星期()))
 		case 'z':
-			buffer.WriteString(strconv.Itoa(t.DayOfYear()))
+			buffer.WriteString(strconv.Itoa(t.X取全年第几天()))
 		case 't':
-			buffer.WriteString(strconv.Itoa(t.DaysInMonth()))
+			buffer.WriteString(strconv.Itoa(t.X取当前月份总天数()))
 		case 'U':
 			buffer.WriteString(strconv.FormatInt(t.Unix(), 10))
 		default:
@@ -131,36 +131,36 @@ func (t *Time) Format(format string) string {
 }
 
 // FormatNew 根据给定的自定义`format`格式化并返回一个新的Time对象。
-func (t *Time) FormatNew(format string) *Time {
+func (t *Time) X按格式取副本(格式 string) *Time {
 	if t == nil {
 		return nil
 	}
-	return NewFromStr(t.Format(format))
+	return X创建并从文本(t.X取格式文本(格式))
 }
 
 // FormatTo 根据给定的自定义 `format` 格式化 `t`。
-func (t *Time) FormatTo(format string) *Time {
+func (t *Time) X格式设置(格式 string) *Time {
 	if t == nil {
 		return nil
 	}
-	t.Time = NewFromStr(t.Format(format)).Time
+	t.Time = X创建并从文本(t.X取格式文本(格式)).Time
 	return t
 }
 
 // Layout 使用标准库的布局格式化时间，并返回格式化后的结果。
-func (t *Time) Layout(layout string) string {
+func (t *Time) X取Layout格式文本(layout格式 string) string {
 	if t == nil {
 		return ""
 	}
-	return t.Time.Format(layout)
+	return t.Time.Format(layout格式)
 }
 
 // LayoutNew 根据stdlib布局格式化时间，并返回一个新的Time对象。
-func (t *Time) LayoutNew(layout string) *Time {
+func (t *Time) X取副本并按Layout格式(layout格式 string) *Time {
 	if t == nil {
 		return nil
 	}
-	newTime, err := StrToTimeLayout(t.Layout(layout), layout)
+	newTime, err := X转换文本Layout(t.X取Layout格式文本(layout格式), layout格式)
 	if err != nil {
 		panic(err)
 	}
@@ -168,11 +168,11 @@ func (t *Time) LayoutNew(layout string) *Time {
 }
 
 // LayoutTo 根据stdlib布局格式化`t`。
-func (t *Time) LayoutTo(layout string) *Time {
+func (t *Time) X设置Layout格式(layout格式 string) *Time {
 	if t == nil {
 		return nil
 	}
-	newTime, err := StrToTimeLayout(t.Layout(layout), layout)
+	newTime, err := X转换文本Layout(t.X取Layout格式文本(layout格式), layout格式)
 	if err != nil {
 		panic(err)
 	}
@@ -181,7 +181,7 @@ func (t *Time) LayoutTo(layout string) *Time {
 }
 
 // IsLeapYear 检查给定的时间是否为闰年。
-func (t *Time) IsLeapYear() bool {
+func (t *Time) X是否为闰年() bool {
 	year := t.Year()
 	if (year%4 == 0 && year%100 != 0) || year%400 == 0 {
 		return true
@@ -190,12 +190,12 @@ func (t *Time) IsLeapYear() bool {
 }
 
 // DayOfYear 检查并返回一年中指定日期所在的天数位置。
-func (t *Time) DayOfYear() int {
+func (t *Time) X取全年第几天() int {
 	var (
 		day   = t.Day()
-		month = t.Month()
+		month = t.X取月份()
 	)
-	if t.IsLeapYear() {
+	if t.X是否为闰年() {
 		if month > 2 {
 			return dayOfMonth[month-1] + day
 		}
@@ -205,21 +205,21 @@ func (t *Time) DayOfYear() int {
 }
 
 // DaysInMonth 返回当前月份的天数。
-func (t *Time) DaysInMonth() int {
-	switch t.Month() {
+func (t *Time) X取当前月份总天数() int {
+	switch t.X取月份() {
 	case 1, 3, 5, 7, 8, 10, 12:
 		return 31
 	case 4, 6, 9, 11:
 		return 30
 	}
-	if t.IsLeapYear() {
+	if t.X是否为闰年() {
 		return 29
 	}
 	return 28
 }
 
 // WeeksOfYear 返回当前年份中的周点。
-func (t *Time) WeeksOfYear() int {
+func (t *Time) X取全年第几星期() int {
 	_, week := t.ISOWeek()
 	return week
 }
@@ -268,9 +268,9 @@ func formatToStdLayout(format string) string {
 // formatToRegexPattern 将自定义格式转换为其对应的正则表达式。
 func formatToRegexPattern(format string) string {
 	s := regexp.QuoteMeta(formatToStdLayout(format))
-	s, _ = gregex.ReplaceString(`[0-9]`, `[0-9]`, s)
-	s, _ = gregex.ReplaceString(`[A-Za-z]`, `[A-Za-z]`, s)
-	s, _ = gregex.ReplaceString(`\s+`, `\s+`, s)
+	s, _ = 正则类.X替换文本(`[0-9]`, `[0-9]`, s)
+	s, _ = 正则类.X替换文本(`[A-Za-z]`, `[A-Za-z]`, s)
+	s, _ = 正则类.X替换文本(`\s+`, `\s+`, s)
 	return s
 }
 

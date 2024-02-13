@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package grpool
+package 协程类
 
 import (
 	"context"
@@ -15,9 +15,9 @@ import (
 // Add 向任务池中添加一个新的任务。
 // 该任务将会被异步执行。
 func (p *Pool) Add(ctx context.Context, f Func) error {
-	for p.closed.Val() {
-		return gerror.NewCode(
-			gcode.CodeInvalidOperation,
+	for p.closed.X取值() {
+		return 错误类.X创建错误码(
+			错误码类.CodeInvalidOperation,
 			"goroutine defaultPool is already closed",
 		)
 	}
@@ -40,10 +40,10 @@ func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc Re
 		defer func() {
 			if exception := recover(); exception != nil {
 				if recoverFunc != nil {
-					if v, ok := exception.(error); ok && gerror.HasStack(v) {
+					if v, ok := exception.(error); ok && 错误类.X判断是否带堆栈(v) {
 						recoverFunc(ctx, v)
 					} else {
-						recoverFunc(ctx, gerror.NewCodef(gcode.CodeInternalPanic, "%+v", exception))
+						recoverFunc(ctx, 错误类.X创建错误码并格式化(错误码类.CodeInternalPanic, "%+v", exception))
 					}
 				}
 			}
@@ -61,7 +61,7 @@ func (p *Pool) Cap() int {
 
 // Size 返回当前 goroutine 池中的goroutine数量。
 func (p *Pool) Size() int {
-	return p.count.Val()
+	return p.count.X取值()
 }
 
 // Jobs 返回当前工作池中的任务数量。
@@ -72,12 +72,12 @@ func (p *Pool) Jobs() int {
 
 // IsClosed 返回 pool 是否已关闭。
 func (p *Pool) IsClosed() bool {
-	return p.closed.Val()
+	return p.closed.X取值()
 }
 
 // Close 关闭 goroutine 池，这将使所有 goroutine 退出。
 func (p *Pool) Close() {
-	p.closed.Set(true)
+	p.closed.X设置值(true)
 }
 
 // checkAndForkNewGoroutineWorker 检查并创建一个新的 goroutine 工作者。
@@ -86,7 +86,7 @@ func (p *Pool) checkAndForkNewGoroutineWorker() {
 	// 检查是否需要新建一个goroutine。
 	var n int
 	for {
-		n = p.count.Val()
+		n = p.count.X取值()
 		if p.limit != -1 && n >= p.limit {
 			// 无需创建新的goroutine。
 			return
@@ -106,7 +106,7 @@ func (p *Pool) checkAndForkNewGoroutineWorker() {
 			poolItem *localPoolItem
 		)
 		// 哈丁辛勤工作，逐个完成任务，工作永不停歇，工作者永不消亡。
-		for !p.closed.Val() {
+		for !p.closed.X取值() {
 			listItem = p.list.PopBack()
 			if listItem == nil {
 				return

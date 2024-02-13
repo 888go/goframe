@@ -23,10 +23,10 @@ import (
 
 // Database 返回指定配置组名称的数据库 ORM 对象实例。
 // 注意，如果实例创建过程中发生任何错误，它会触发 panic。
-func Database(name ...string) gdb.DB {
+func Database(name ...string) db类.DB {
 	var (
 		ctx   = context.Background()
-		group = gdb.DefaultGroupName
+		group = db类.DefaultGroupName
 	)
 
 	if len(name) > 0 && name[0] != "" {
@@ -40,29 +40,29 @@ func Database(name ...string) gdb.DB {
 			configNodeKey = consts.ConfigNodeNameDatabase
 		)
 		// 首先，它会搜索实例名称的配置。
-		if configData, _ := Config().Data(ctx); len(configData) > 0 {
-			if v, _ := gutil.MapPossibleItemByKey(configData, consts.ConfigNodeNameDatabase); v != "" {
+		if configData, _ := Config().X取Map(ctx); len(configData) > 0 {
+			if v, _ := 工具类.MapPossibleItemByKey(configData, consts.ConfigNodeNameDatabase); v != "" {
 				configNodeKey = v
 			}
 		}
-		if v, _ := Config().Get(ctx, configNodeKey); !v.IsEmpty() {
-			configMap = v.Map()
+		if v, _ := Config().X取值(ctx, configNodeKey); !v.X是否为空() {
+			configMap = v.X取Map()
 		}
 		// 未找到配置，它将格式化并引发错误。
-		if len(configMap) == 0 && !gdb.IsConfigured() {
+		if len(configMap) == 0 && !db类.X是否已配置数据库() {
 			// 文件配置对象检查。
 			var err error
-			if fileConfig, ok := Config().GetAdapter().(*gcfg.AdapterFile); ok {
+			if fileConfig, ok := Config().X取适配器().(*配置类.AdapterFile); ok {
 				if _, err = fileConfig.GetFilePath(); err != nil {
-					panic(gerror.WrapCode(gcode.CodeMissingConfiguration, err,
+					panic(错误类.X多层错误码(错误码类.CodeMissingConfiguration, err,
 						`configuration not found, did you miss the configuration file or misspell the configuration file name`,
 					))
 				}
 			}
 			// 如果在Config对象或gdb配置中未找到任何内容，则引发panic。
-			if len(configMap) == 0 && !gdb.IsConfigured() {
-				panic(gerror.NewCodef(
-					gcode.CodeMissingConfiguration,
+			if len(configMap) == 0 && !db类.X是否已配置数据库() {
+				panic(错误类.X创建错误码并格式化(
+					错误码类.CodeMissingConfiguration,
 					`database initialization failed: configuration missing for database node "%s"`,
 					consts.ConfigNodeNameDatabase,
 				))
@@ -74,7 +74,7 @@ func Database(name ...string) gdb.DB {
 		}
 		// 将`m`解析为映射切片并将其添加到gdb包的全局配置中。
 		for g, groupConfig := range configMap {
-			cg := gdb.ConfigGroup{}
+			cg := db类.ConfigGroup{}
 			switch value := groupConfig.(type) {
 			case []interface{}:
 				for _, v := range value {
@@ -88,9 +88,9 @@ func Database(name ...string) gdb.DB {
 				}
 			}
 			if len(cg) > 0 {
-				if gdb.GetConfig(group) == nil {
+				if db类.X取配置组配置(group) == nil {
 					intlog.Printf(ctx, "add configuration for group: %s, %#v", g, cg)
-					gdb.SetConfigGroup(g, cg)
+					db类.X设置组配置(g, cg)
 				} else {
 					intlog.Printf(ctx, "ignore configuration as it already exists for group: %s, %#v", g, cg)
 					intlog.Printf(ctx, "%s, %#v", g, cg)
@@ -100,43 +100,43 @@ func Database(name ...string) gdb.DB {
 // 将`m`解析为单节点配置，
 // 这是默认的组配置。
 		if node := parseDBConfigNode(configMap); node != nil {
-			cg := gdb.ConfigGroup{}
+			cg := db类.ConfigGroup{}
 			if node.Link != "" || node.Host != "" {
 				cg = append(cg, *node)
 			}
 			if len(cg) > 0 {
-				if gdb.GetConfig(group) == nil {
-					intlog.Printf(ctx, "add configuration for group: %s, %#v", gdb.DefaultGroupName, cg)
-					gdb.SetConfigGroup(gdb.DefaultGroupName, cg)
+				if db类.X取配置组配置(group) == nil {
+					intlog.Printf(ctx, "add configuration for group: %s, %#v", db类.DefaultGroupName, cg)
+					db类.X设置组配置(db类.DefaultGroupName, cg)
 				} else {
 					intlog.Printf(
 						ctx,
 						"ignore configuration as it already exists for group: %s, %#v",
-						gdb.DefaultGroupName, cg,
+						db类.DefaultGroupName, cg,
 					)
-					intlog.Printf(ctx, "%s, %#v", gdb.DefaultGroupName, cg)
+					intlog.Printf(ctx, "%s, %#v", db类.DefaultGroupName, cg)
 				}
 			}
 		}
 
 		// 使用给定的配置创建一个新的ORM对象。
-		if db, err := gdb.NewByGroup(name...); err == nil {
+		if db, err := db类.X创建DB对象并按配置组(name...); err == nil {
 			// 初始化ORM的logger（日志器）。
 			var (
 				loggerConfigMap map[string]interface{}
 				loggerNodeName  = fmt.Sprintf("%s.%s", configNodeKey, consts.ConfigNodeNameLogger)
 			)
-			if v, _ := Config().Get(ctx, loggerNodeName); !v.IsEmpty() {
-				loggerConfigMap = v.Map()
+			if v, _ := Config().X取值(ctx, loggerNodeName); !v.X是否为空() {
+				loggerConfigMap = v.X取Map()
 			}
 			if len(loggerConfigMap) == 0 {
-				if v, _ := Config().Get(ctx, configNodeKey); !v.IsEmpty() {
-					loggerConfigMap = v.Map()
+				if v, _ := Config().X取值(ctx, configNodeKey); !v.X是否为空() {
+					loggerConfigMap = v.X取Map()
 				}
 			}
 			if len(loggerConfigMap) > 0 {
-				if logger, ok := db.GetLogger().(*glog.Logger); ok {
-					if err = logger.SetConfigWithMap(loggerConfigMap); err != nil {
+				if logger, ok := db.X取日志记录器().(*日志类.Logger); ok {
+					if err = logger.X设置配置Map(loggerConfigMap); err != nil {
 						panic(err)
 					}
 				}
@@ -149,26 +149,26 @@ func Database(name ...string) gdb.DB {
 		return nil
 	})
 	if db != nil {
-		return db.(gdb.DB)
+		return db.(db类.DB)
 	}
 	return nil
 }
 
-func parseDBConfigNode(value interface{}) *gdb.ConfigNode {
+func parseDBConfigNode(value interface{}) *db类.ConfigNode {
 	nodeMap, ok := value.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 	var (
-		node = &gdb.ConfigNode{}
-		err  = gconv.Struct(nodeMap, node)
+		node = &db类.ConfigNode{}
+		err  = 转换类.Struct(nodeMap, node)
 	)
 	if err != nil {
 		panic(err)
 	}
 	// 查找可能的`Link`配置内容。
-	if _, v := gutil.MapPossibleItemByKey(nodeMap, "Link"); v != nil {
-		node.Link = gconv.String(v)
+	if _, v := 工具类.MapPossibleItemByKey(nodeMap, "Link"); v != nil {
+		node.Link = 转换类.String(v)
 	}
 	return node
 }

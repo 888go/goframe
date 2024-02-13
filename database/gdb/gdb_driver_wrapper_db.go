@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -25,19 +25,19 @@ type DriverWrapperDB struct {
 
 // Open创建并返回一个用于pgsql的底层sql.DB对象。
 // 参考文档：https://pkg.go.dev/github.com/lib/pq
-func (d *DriverWrapperDB) Open(node *ConfigNode) (db *sql.DB, err error) {
-	var ctx = d.GetCtx()
+func (d *DriverWrapperDB) Open(node *X配置项) (db *sql.DB, err error) {
+	var ctx = d.X取上下文对象()
 	intlog.PrintFunc(ctx, func() string {
-		return fmt.Sprintf(`open new connection:%s`, gjson.MustEncode(node))
+		return fmt.Sprintf(`open new connection:%s`, json类.X变量到json字节集PANI(node))
 	})
-	return d.DB.Open(node)
+	return d.DB.X底层Open(node)
 }
 
 // Tables 获取并返回当前模式的表。
 // 它主要用于cli工具链中，用于自动生成模型。
-func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
-	ctx = context.WithValue(ctx, ctxKeyInternalProducedSQL, struct{}{})
-	return d.DB.Tables(ctx, schema...)
+func (d *DriverWrapperDB) X取表名称数组(上下文 context.Context, schema ...string) (表名称数组 []string, 错误 error) {
+	上下文 = context.WithValue(上下文, ctxKeyInternalProducedSQL, struct{}{})
+	return d.DB.X取表名称数组(上下文, schema...)
 }
 
 // TableFields 获取并返回当前模式下指定表的字段信息。
@@ -47,17 +47,17 @@ func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables 
 // 注意，它返回一个包含字段名及其对应字段信息的映射。由于映射是无序的，TableField 结构体有一个 "Index" 字段用于标记其在所有字段中的顺序。
 //
 // 为了提高性能，该函数使用了缓存特性，缓存有效期直到进程重启才会过期。
-func (d *DriverWrapperDB) TableFields(
+func (d *DriverWrapperDB) X取表字段信息Map(
 	ctx context.Context, table string, schema ...string,
-) (fields map[string]*TableField, err error) {
+) (fields map[string]*X字段信息, err error) {
 	if table == "" {
 		return nil, nil
 	}
-	charL, charR := d.GetChars()
-	table = gstr.Trim(table, charL+charR)
-	if gstr.Contains(table, " ") {
-		return nil, gerror.NewCode(
-			gcode.CodeInvalidParameter,
+	charL, charR := d.X底层取数据库安全字符()
+	table = 文本类.X过滤首尾符并含空白(table, charL+charR)
+	if 文本类.X是否包含(table, " ") {
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeInvalidParameter,
 			"function TableFields supports only single table operations",
 		)
 	}
@@ -65,13 +65,13 @@ func (d *DriverWrapperDB) TableFields(
 		cacheKey = fmt.Sprintf(
 			`%s%s@%s#%s`,
 			cachePrefixTableFields,
-			d.GetGroup(),
-			gutil.GetOrDefaultStr(d.GetSchema(), schema...),
+			d.X取配置组名称(),
+			工具类.X取文本值或取默认值(d.X取默认数据库名称(), schema...),
 			table,
 		)
-		value = tableFieldsMap.GetOrSetFuncLock(cacheKey, func() interface{} {
+		value = tableFieldsMap.X取值或设置值_函数带锁(cacheKey, func() interface{} {
 			ctx = context.WithValue(ctx, ctxKeyInternalProducedSQL, struct{}{})
-			fields, err = d.DB.TableFields(ctx, table, schema...)
+			fields, err = d.DB.X取表字段信息Map(ctx, table, schema...)
 			if err != nil {
 				return nil
 			}
@@ -79,7 +79,7 @@ func (d *DriverWrapperDB) TableFields(
 		})
 	)
 	if value != nil {
-		fields = value.(map[string]*TableField)
+		fields = value.(map[string]*X字段信息)
 	}
 	return
 }
@@ -95,13 +95,13 @@ func (d *DriverWrapperDB) TableFields(
 // InsertOptionReplace：如果数据中存在唯一/主键，先从表中删除并插入新的记录；
 // InsertOptionSave：如果数据中存在唯一/主键，则更新记录，否则插入新记录；
 // InsertOptionIgnore：如果数据中存在唯一/主键，则忽略插入操作。
-func (d *DriverWrapperDB) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
+func (d *DriverWrapperDB) X底层插入(上下文 context.Context, 链接 X底层链接, 表名称 string, list Map数组, 选项 X底层输入) (结果 sql.Result, 错误 error) {
 	// 在提交给底层数据库驱动之前，转换数据类型。
 	for i, item := range list {
-		list[i], err = d.GetCore().ConvertDataForRecord(ctx, item, table)
-		if err != nil {
-			return nil, err
+		list[i], 错误 = d.X取Core对象().X底层ConvertDataForRecord(上下文, item, 表名称)
+		if 错误 != nil {
+			return nil, 错误
 		}
 	}
-	return d.DB.DoInsert(ctx, link, table, list, option)
+	return d.DB.X底层插入(上下文, 链接, 表名称, list, 选项)
 }

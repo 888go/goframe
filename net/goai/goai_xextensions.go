@@ -15,7 +15,7 @@ type XExtensions map[string]string
 
 func (oai *OpenApiV3) tagMapToXExtensions(tagMap map[string]string, extensions XExtensions) {
 	for k, v := range tagMap {
-		if gstr.HasPrefix(k, "x-") || gstr.HasPrefix(k, "X-") {
+		if 文本类.X开头判断(k, "x-") || 文本类.X开头判断(k, "X-") {
 			extensions[k] = v
 		}
 	}

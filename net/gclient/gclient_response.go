@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient
+package 网页类
 
 import (
 	"bytes"
@@ -35,13 +35,13 @@ func (r *Response) initCookie() {
 }
 
 // GetCookie 根据指定的 `key` 获取并返回 cookie 的值。
-func (r *Response) GetCookie(key string) string {
+func (r *Response) X取Cookie(名称 string) string {
 	r.initCookie()
-	return r.cookies[key]
+	return r.cookies[名称]
 }
 
 // GetCookieMap 获取并返回当前cookie值的映射副本。
-func (r *Response) GetCookieMap() map[string]string {
+func (r *Response) X取CookieMap() map[string]string {
 	r.initCookie()
 	m := make(map[string]string, len(r.cookies))
 	for k, v := range r.cookies {
@@ -51,7 +51,7 @@ func (r *Response) GetCookieMap() map[string]string {
 }
 
 // ReadAll 方法获取并返回响应内容作为 []byte 类型的切片。
-func (r *Response) ReadAll() []byte {
+func (r *Response) X取响应字节集() []byte {
 	// 响应可能为 nil。
 	if r == nil || r.Response == nil {
 		return []byte{}
@@ -65,19 +65,19 @@ func (r *Response) ReadAll() []byte {
 }
 
 // ReadAllString 获取并返回响应内容作为字符串。
-func (r *Response) ReadAllString() string {
-	return string(r.ReadAll())
+func (r *Response) X取响应文本() string {
+	return string(r.X取响应字节集())
 }
 
 // SetBodyContent 函数用于覆盖并替换响应内容为自定义内容。
-func (r *Response) SetBodyContent(content []byte) {
-	buffer := bytes.NewBuffer(content)
+func (r *Response) X覆盖响应内容(字节集 []byte) {
+	buffer := bytes.NewBuffer(字节集)
 	r.Body = io.NopCloser(buffer)
 	r.ContentLength = int64(buffer.Len())
 }
 
 // Close在响应不再需要使用时关闭该响应。
-func (r *Response) Close() error {
+func (r *Response) X关闭() error {
 	if r == nil || r.Response == nil {
 		return nil
 	}

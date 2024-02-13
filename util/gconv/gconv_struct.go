@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
@@ -85,16 +85,16 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		return nil
 	}
 	if pointer == nil {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "object pointer cannot be nil")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "object pointer cannot be nil")
 	}
 
 	defer func() {
 		// 捕获 panic，特别是反射操作引发的 panic。
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && 错误类.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception)
+				err = 错误类.X创建错误码并跳过堆栈与格式化(错误码类.CodeInternalPanic, 1, "%+v", exception)
 			}
 		}
 	}()
@@ -128,11 +128,11 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		pointerReflectValue = reflect.ValueOf(pointer)
 		pointerReflectKind = pointerReflectValue.Kind()
 		if pointerReflectKind != reflect.Ptr {
-			return gerror.NewCodef(gcode.CodeInvalidParameter, "object pointer should be type of '*struct', but got '%v'", pointerReflectKind)
+			return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, "object pointer should be type of '*struct', but got '%v'", pointerReflectKind)
 		}
 		// 对reflect.Ptr类型的变量使用IsNil方法是可行的。
 		if !pointerReflectValue.IsValid() || pointerReflectValue.IsNil() {
-			return gerror.NewCode(gcode.CodeInvalidParameter, "object pointer cannot be nil")
+			return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "object pointer cannot be nil")
 		}
 		pointerElemReflectValue = pointerReflectValue.Elem()
 	}
@@ -209,8 +209,8 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 // 在此处不要使用 MapDeep。
 	paramsMap := doMapConvert(paramsInterface, recursiveTypeAuto, true)
 	if paramsMap == nil {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`convert params from "%#v" to "map[string]interface{}" failed`,
 			params,
 		)
@@ -496,12 +496,12 @@ func bindVarToStructAttr(
 	defer func() {
 		if exception := recover(); exception != nil {
 			if err = bindVarToReflectValue(structFieldValue, value, paramKeyToAttrMap); err != nil {
-				err = gerror.Wrapf(err, `error binding value to attribute "%s"`, attrName)
+				err = 错误类.X多层错误并格式化(err, `error binding value to attribute "%s"`, attrName)
 			}
 		}
 	}()
 	// 直接转换
-	if empty.IsNil(value) {
+	if empty.X是否为Nil(value) {
 		structFieldValue.Set(reflect.Zero(structFieldValue.Type()))
 	} else {
 // 尝试调用自定义转换器。
@@ -613,7 +613,7 @@ func bindVarToReflectValueWithInterfaceCheck(reflectValue reflect.Value, value i
 		}
 	}
 	if v, ok := pointer.(iSet); ok {
-		v.Set(value)
+		v.X设置值(value)
 		return nil, ok
 	}
 	return nil, false
@@ -638,7 +638,7 @@ func bindVarToReflectValue(
 	case reflect.Slice, reflect.Array, reflect.Ptr, reflect.Interface:
 		if !structFieldValue.IsNil() {
 			if v, ok := structFieldValue.Interface().(iSet); ok {
-				v.Set(value)
+				v.X设置值(value)
 				return nil
 			}
 		}
@@ -784,8 +784,8 @@ func bindVarToReflectValue(
 	default:
 		defer func() {
 			if exception := recover(); exception != nil {
-				err = gerror.NewCodef(
-					gcode.CodeInternalPanic,
+				err = 错误类.X创建错误码并格式化(
+					错误码类.CodeInternalPanic,
 					`cannot convert value "%+v" to type "%s":%+v`,
 					value,
 					structFieldValue.Type().String(),

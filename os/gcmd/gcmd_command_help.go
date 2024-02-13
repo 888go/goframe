@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gcmd
+package cmd类
 
 import (
 	"bytes"
@@ -25,7 +25,7 @@ func (c *Command) Print() {
 // PrintTo 将帮助信息打印到自定义的 io.Writer。
 func (c *Command) PrintTo(writer io.Writer) {
 	var (
-		prefix    = gstr.Repeat(" ", 4)
+		prefix    = 文本类.X生成重复文本(" ", 4)
 		buffer    = bytes.NewBuffer(nil)
 		arguments = make([]Argument, len(c.Arguments))
 	)
@@ -74,13 +74,13 @@ func (c *Command) PrintTo(writer io.Writer) {
 		for _, cmd := range c.commands {
 			var (
 				spaceLength    = maxSpaceLength - len(cmd.Name)
-				wordwrapPrefix = gstr.Repeat(" ", len(prefix+cmd.Name)+spaceLength+4)
+				wordwrapPrefix = 文本类.X生成重复文本(" ", len(prefix+cmd.Name)+spaceLength+4)
 			)
 			c.printLineBrief(printLineBriefInput{
 				Buffer:         buffer,
 				Name:           cmd.Name,
 				Prefix:         prefix,
-				Brief:          gstr.Trim(cmd.Brief),
+				Brief:          文本类.X过滤首尾符并含空白(cmd.Brief),
 				WordwrapPrefix: wordwrapPrefix,
 				SpaceLength:    spaceLength,
 			})
@@ -108,13 +108,13 @@ func (c *Command) PrintTo(writer io.Writer) {
 			}
 			var (
 				spaceLength    = maxSpaceLength - len(arg.Name)
-				wordwrapPrefix = gstr.Repeat(" ", len(prefix+arg.Name)+spaceLength+4)
+				wordwrapPrefix = 文本类.X生成重复文本(" ", len(prefix+arg.Name)+spaceLength+4)
 			)
 			c.printLineBrief(printLineBriefInput{
 				Buffer:         buffer,
 				Name:           arg.Name,
 				Prefix:         prefix,
-				Brief:          gstr.Trim(arg.Brief),
+				Brief:          文本类.X过滤首尾符并含空白(arg.Brief),
 				WordwrapPrefix: wordwrapPrefix,
 				SpaceLength:    spaceLength,
 			})
@@ -152,9 +152,9 @@ func (c *Command) PrintTo(writer io.Writer) {
 				nameStr = fmt.Sprintf("-/--%s", arg.Name)
 			}
 			var (
-				brief          = gstr.Trim(arg.Brief)
+				brief          = 文本类.X过滤首尾符并含空白(arg.Brief)
 				spaceLength    = maxSpaceLength - len(nameStr)
-				wordwrapPrefix = gstr.Repeat(" ", len(prefix+nameStr)+spaceLength+4)
+				wordwrapPrefix = 文本类.X生成重复文本(" ", len(prefix+nameStr)+spaceLength+4)
 			)
 			c.printLineBrief(printLineBriefInput{
 				Buffer:         buffer,
@@ -171,9 +171,9 @@ func (c *Command) PrintTo(writer io.Writer) {
 	// Example.
 	if c.Examples != "" {
 		buffer.WriteString("EXAMPLE\n")
-		for _, line := range gstr.SplitAndTrim(gstr.Trim(c.Examples), "\n") {
+		for _, line := range 文本类.X分割并忽略空值(文本类.X过滤首尾符并含空白(c.Examples), "\n") {
 			buffer.WriteString(prefix)
-			buffer.WriteString(gstr.WordWrap(gstr.Trim(line), maxLineChars, "\n"+prefix))
+			buffer.WriteString(文本类.X按字符数量换行(文本类.X过滤首尾符并含空白(line), maxLineChars, "\n"+prefix))
 			buffer.WriteString("\n")
 		}
 		buffer.WriteString("\n")
@@ -182,9 +182,9 @@ func (c *Command) PrintTo(writer io.Writer) {
 	// Description.
 	if c.Description != "" {
 		buffer.WriteString("DESCRIPTION\n")
-		for _, line := range gstr.SplitAndTrim(gstr.Trim(c.Description), "\n") {
+		for _, line := range 文本类.X分割并忽略空值(文本类.X过滤首尾符并含空白(c.Description), "\n") {
 			buffer.WriteString(prefix)
-			buffer.WriteString(gstr.WordWrap(gstr.Trim(line), maxLineChars, "\n"+prefix))
+			buffer.WriteString(文本类.X按字符数量换行(文本类.X过滤首尾符并含空白(line), maxLineChars, "\n"+prefix))
 			buffer.WriteString("\n")
 		}
 		buffer.WriteString("\n")
@@ -192,12 +192,12 @@ func (c *Command) PrintTo(writer io.Writer) {
 
 	// Additional.
 	if c.Additional != "" {
-		lineStr := gstr.WordWrap(gstr.Trim(c.Additional), maxLineChars, "\n")
+		lineStr := 文本类.X按字符数量换行(文本类.X过滤首尾符并含空白(c.Additional), maxLineChars, "\n")
 		buffer.WriteString(lineStr)
 		buffer.WriteString("\n")
 	}
 	content := buffer.String()
-	content = gstr.Replace(content, "\t", "    ")
+	content = 文本类.X替换(content, "\t", "    ")
 	_, _ = writer.Write([]byte(content))
 }
 
@@ -211,7 +211,7 @@ type printLineBriefInput struct {
 }
 
 func (c *Command) printLineBrief(in printLineBriefInput) {
-	briefArray := gstr.SplitAndTrim(in.Brief, "\n")
+	briefArray := 文本类.X分割并忽略空值(in.Brief, "\n")
 	if len(briefArray) == 0 {
 		// 如果命令简介为空，则仅打印其命令名称。
 		briefArray = []string{""}
@@ -221,15 +221,15 @@ func (c *Command) printLineBrief(in printLineBriefInput) {
 		if i == 0 {
 			lineStr = fmt.Sprintf(
 				"%s%s%s%s\n",
-				in.Prefix, in.Name, gstr.Repeat(" ", in.SpaceLength+4), line,
+				in.Prefix, in.Name, 文本类.X生成重复文本(" ", in.SpaceLength+4), line,
 			)
 		} else {
 			lineStr = fmt.Sprintf(
 				"%s%s%s%s\n",
-				in.Prefix, gstr.Repeat(" ", len(in.Name)), gstr.Repeat(" ", in.SpaceLength+4), line,
+				in.Prefix, 文本类.X生成重复文本(" ", len(in.Name)), 文本类.X生成重复文本(" ", in.SpaceLength+4), line,
 			)
 		}
-		lineStr = gstr.WordWrap(lineStr, maxLineChars, "\n"+in.WordwrapPrefix)
+		lineStr = 文本类.X按字符数量换行(lineStr, maxLineChars, "\n"+in.WordwrapPrefix)
 		in.Buffer.WriteString(lineStr)
 	}
 }

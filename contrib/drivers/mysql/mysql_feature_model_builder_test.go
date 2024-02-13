@@ -19,107 +19,107 @@ func Test_Model_Builder(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 
-	gtest.C(t, func(t *gtest.T) {
-		m := db.Model(table)
-		b := m.Builder()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := db.X创建Model对象(table)
+		b := m.X创建组合条件()
 
-		all, err := m.Where(
-			b.Where("id", g.Slice{1, 2, 3}).WhereOr("id", g.Slice{4, 5, 6}),
-		).All()
+		all, err := m.X条件(
+			b.X条件("id", g.Slice别名{1, 2, 3}).X条件或("id", g.Slice别名{4, 5, 6}),
+		).X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 6)
 	})
 
 	// Where And
-	gtest.C(t, func(t *gtest.T) {
-		m := db.Model(table)
-		b := m.Builder()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := db.X创建Model对象(table)
+		b := m.X创建组合条件()
 
-		all, err := m.Where(
-			b.Where("id", g.Slice{1, 2, 3}).WhereOr("id", g.Slice{4, 5, 6}),
-		).Where(
-			b.Where("id", g.Slice{2, 3}).WhereOr("id", g.Slice{5, 6}),
-		).Where(
-			b.Where("id", g.Slice{3}).Where("id", g.Slice{1, 2, 3}),
-		).All()
+		all, err := m.X条件(
+			b.X条件("id", g.Slice别名{1, 2, 3}).X条件或("id", g.Slice别名{4, 5, 6}),
+		).X条件(
+			b.X条件("id", g.Slice别名{2, 3}).X条件或("id", g.Slice别名{5, 6}),
+		).X条件(
+			b.X条件("id", g.Slice别名{3}).X条件("id", g.Slice别名{1, 2, 3}),
+		).X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 1)
 	})
 
 	// Where Or
-	gtest.C(t, func(t *gtest.T) {
-		m := db.Model(table)
-		b := m.Builder()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := db.X创建Model对象(table)
+		b := m.X创建组合条件()
 
-		all, err := m.WhereOr(
-			b.Where("id", g.Slice{1, 2, 3}).WhereOr("id", g.Slice{4, 5, 6}),
-		).WhereOr(
-			b.Where("id", g.Slice{2, 3}).WhereOr("id", g.Slice{5, 6}),
-		).WhereOr(
-			b.Where("id", g.Slice{3}).Where("id", g.Slice{1, 2, 3}),
-		).All()
+		all, err := m.X条件或(
+			b.X条件("id", g.Slice别名{1, 2, 3}).X条件或("id", g.Slice别名{4, 5, 6}),
+		).X条件或(
+			b.X条件("id", g.Slice别名{2, 3}).X条件或("id", g.Slice别名{5, 6}),
+		).X条件或(
+			b.X条件("id", g.Slice别名{3}).X条件("id", g.Slice别名{1, 2, 3}),
+		).X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 6)
 	})
 
 	// Where 针对具有 *gtime.Time 类型字段的结构体
-	gtest.C(t, func(t *gtest.T) {
-		m := db.Model(table)
-		b := m.Builder()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := db.X创建Model对象(table)
+		b := m.X创建组合条件()
 
 		type Query struct {
 			Id       interface{}
-			Nickname *gtime.Time
+			Nickname *时间类.Time
 		}
 
-		where, args := b.Where(&Query{Id: 1}).Build()
+		where, args := b.X条件(&Query{Id: 1}).X生成条件字符串及参数()
 		t.Assert(where, "`id`=? AND `nickname` IS NULL")
 		t.Assert(args, []interface{}{1})
 	})
 
 	// Where 函数，用于处理具有字段类型为 *gjson.Json 的结构体
-	gtest.C(t, func(t *gtest.T) {
-		m := db.Model(table)
-		b := m.Builder()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := db.X创建Model对象(table)
+		b := m.X创建组合条件()
 
 		type Query struct {
 			Id       interface{}
-			Nickname *gjson.Json
+			Nickname *json类.Json
 		}
 
-		where, args := b.Where(&Query{Id: 1}).Build()
+		where, args := b.X条件(&Query{Id: 1}).X生成条件字符串及参数()
 		t.Assert(where, "`id`=? AND `nickname` IS NULL")
 		t.Assert(args, []interface{}{1})
 	})
 
 	// Where 函数配合使用具有 *gtime.Time 类型字段的结构体，该结构体由 gf cli 生成
-	gtest.C(t, func(t *gtest.T) {
-		m := db.Model(table)
-		b := m.Builder()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := db.X创建Model对象(table)
+		b := m.X创建组合条件()
 
 		type Query struct {
-			gmeta.Meta `orm:"do:true"`
+			元数据类.Meta `orm:"do:true"`
 			Id         interface{}
-			Nickname   *gtime.Time
+			Nickname   *时间类.Time
 		}
 
-		where, args := b.Where(&Query{Id: 1}).Build()
+		where, args := b.X条件(&Query{Id: 1}).X生成条件字符串及参数()
 		t.Assert(where, "`id`=?")
 		t.Assert(args, []interface{}{1})
 	})
 
 	// Where 针对由 gf cli 生成的拥有 *gjson.Json 类型字段的 do 结构体
-	gtest.C(t, func(t *gtest.T) {
-		m := db.Model(table)
-		b := m.Builder()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := db.X创建Model对象(table)
+		b := m.X创建组合条件()
 
 		type Query struct {
-			gmeta.Meta `orm:"do:true"`
+			元数据类.Meta `orm:"do:true"`
 			Id         interface{}
-			Nickname   *gjson.Json
+			Nickname   *json类.Json
 		}
 
-		where, args := b.Where(&Query{Id: 1}).Build()
+		where, args := b.X条件(&Query{Id: 1}).X生成条件字符串及参数()
 		t.Assert(where, "`id`=?")
 		t.Assert(args, []interface{}{1})
 	})
@@ -127,14 +127,14 @@ func Test_Model_Builder(t *testing.T) {
 
 func Test_Safe_Builder(t *testing.T) {
 	// 测试m.Builder()是否支持链式安全调用
-	gtest.C(t, func(t *gtest.T) {
-		b := db.Model().Builder()
-		b.Where("id", 1)
-		_, args := b.Build()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		b := db.X创建Model对象().X创建组合条件()
+		b.X条件("id", 1)
+		_, args := b.X生成条件字符串及参数()
 		t.AssertNil(args)
 
-		b = b.Where("id", 1)
-		_, args = b.Build()
-		t.Assert(args, g.Slice{1})
+		b = b.X条件("id", 1)
+		_, args = b.X生成条件字符串及参数()
+		t.Assert(args, g.Slice别名{1})
 	})
 }

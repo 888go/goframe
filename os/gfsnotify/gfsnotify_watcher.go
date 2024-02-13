@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfsnotify
+package 文件监控类
 
 import (
 	"context"
@@ -27,7 +27,7 @@ func (w *Watcher) Add(path string, callbackFunc func(event *Event), recursive ..
 //
 // 可选参数 `recursive` 指定是否递归地监控 `path`，默认情况下其值为 true。
 func (w *Watcher) AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
-	w.nameSet.AddIfNotExistFuncLock(name, func() bool {
+	w.nameSet.X加入值并跳过已存在_并发安全函数(name, func() bool {
 		// 首先将路径添加到监视器中。
 		callback, err = w.addWithCallbackFunc(name, path, callbackFunc, recursive...)
 		if err != nil {
@@ -42,7 +42,7 @@ func (w *Watcher) AddOnce(name, path string, callbackFunc func(event *Event), re
 			for _, subPath := range fileAllDirs(path) {
 				if fileIsDir(subPath) {
 					if err = w.watcher.Add(subPath); err != nil {
-						err = gerror.Wrapf(err, `add watch failed for path "%s"`, subPath)
+						err = 错误类.X多层错误并格式化(err, `add watch failed for path "%s"`, subPath)
 					} else {
 						intlog.Printf(context.TODO(), "watcher adds monitor for: %s", subPath)
 					}
@@ -62,7 +62,7 @@ func (w *Watcher) AddOnce(name, path string, callbackFunc func(event *Event), re
 func (w *Watcher) addWithCallbackFunc(name, path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	// 检查并把给定的路径转换为绝对路径。
 	if t := fileRealPath(path); t == "" {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `"%s" does not exist`, path)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `"%s" does not exist`, path)
 	} else {
 		path = t
 	}
@@ -78,30 +78,30 @@ func (w *Watcher) addWithCallbackFunc(name, path string, callbackFunc func(event
 		callback.recursive = recursive[0]
 	}
 	// 将回调函数注册到监视器中。
-	w.callbacks.LockFunc(func(m map[string]interface{}) {
-		list := (*glist.List)(nil)
+	w.callbacks.X遍历写锁定(func(m map[string]interface{}) {
+		list := (*链表类.List)(nil)
 		if v, ok := m[path]; !ok {
-			list = glist.New(true)
+			list = 链表类.New(true)
 			m[path] = list
 		} else {
-			list = v.(*glist.List)
+			list = v.(*链表类.List)
 		}
 		callback.elem = list.PushBack(callback)
 	})
 	// 将路径添加到基础监视器中。
 	if err = w.watcher.Add(path); err != nil {
-		err = gerror.Wrapf(err, `add watch failed for path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `add watch failed for path "%s"`, path)
 	} else {
 		intlog.Printf(context.TODO(), "watcher adds monitor for: %s", path)
 	}
 	// 将回调函数添加到全局回调映射中。
-	callbackIdMap.Set(callback.Id, callback)
+	callbackIdMap.X设置值(callback.Id, callback)
 	return
 }
 
 // Close 关闭监视器。
 func (w *Watcher) Close() {
-	w.events.Close()
+	w.events.X关闭()
 	if err := w.watcher.Close(); err != nil {
 		intlog.Errorf(context.TODO(), `%+v`, err)
 	}
@@ -111,11 +111,11 @@ func (w *Watcher) Close() {
 // Remove 递归地移除与`path`关联的监视器及其所有回调。
 func (w *Watcher) Remove(path string) error {
 	// 首先移除该路径的回调函数。
-	if value := w.callbacks.Remove(path); value != nil {
-		list := value.(*glist.List)
+	if value := w.callbacks.X删除(path); value != nil {
+		list := value.(*链表类.List)
 		for {
 			if item := list.PopFront(); item != nil {
-				callbackIdMap.Remove(item.(*Callback).Id)
+				callbackIdMap.X删除(item.(*Callback).Id)
 			} else {
 				break
 			}
@@ -134,7 +134,7 @@ func (w *Watcher) Remove(path string) error {
 	// 最后，从底层监视器中移除该路径的监控。
 	err := w.watcher.Remove(path)
 	if err != nil {
-		err = gerror.Wrapf(err, `remove watch failed for path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `remove watch failed for path "%s"`, path)
 	}
 	return err
 }
@@ -142,13 +142,13 @@ func (w *Watcher) Remove(path string) error {
 // checkPathCanBeRemoved 检查给定路径是否未绑定任何回调函数。
 func (w *Watcher) checkPathCanBeRemoved(path string) bool {
 	// 首先检查watcher中直接的回调函数。
-	if v := w.callbacks.Get(path); v != nil {
+	if v := w.callbacks.X取值(path); v != nil {
 		return false
 	}
 	// 第二步检查其父级是否具有回调函数。
 	dirPath := fileDir(path)
-	if v := w.callbacks.Get(dirPath); v != nil {
-		for _, c := range v.(*glist.List).FrontAll() {
+	if v := w.callbacks.X取值(dirPath); v != nil {
+		for _, c := range v.(*链表类.List).FrontAll() {
 			if c.(*Callback).recursive {
 				return false
 			}
@@ -162,8 +162,8 @@ func (w *Watcher) checkPathCanBeRemoved(path string) bool {
 		if parentDirPath == dirPath {
 			break
 		}
-		if v := w.callbacks.Get(parentDirPath); v != nil {
-			for _, c := range v.(*glist.List).FrontAll() {
+		if v := w.callbacks.X取值(parentDirPath); v != nil {
+			for _, c := range v.(*链表类.List).FrontAll() {
 				if c.(*Callback).recursive {
 					return false
 				}
@@ -178,16 +178,16 @@ func (w *Watcher) checkPathCanBeRemoved(path string) bool {
 // RemoveCallback 从 watcher 中移除具有给定回调 id 的回调函数。
 func (w *Watcher) RemoveCallback(callbackId int) {
 	callback := (*Callback)(nil)
-	if r := callbackIdMap.Get(callbackId); r != nil {
+	if r := callbackIdMap.X取值(callbackId); r != nil {
 		callback = r.(*Callback)
 	}
 	if callback != nil {
-		if r := w.callbacks.Get(callback.Path); r != nil {
-			r.(*glist.List).Remove(callback.elem)
+		if r := w.callbacks.X取值(callback.Path); r != nil {
+			r.(*链表类.List).Remove(callback.elem)
 		}
-		callbackIdMap.Remove(callbackId)
+		callbackIdMap.X删除(callbackId)
 		if callback.name != "" {
-			w.nameSet.Remove(callback.name)
+			w.nameSet.X删除(callback.name)
 		}
 	}
 }

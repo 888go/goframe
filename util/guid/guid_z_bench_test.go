@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package guid_test
+package uid类_test
 
 import (
 	"testing"
@@ -16,7 +16,7 @@ import (
 func Benchmark_S(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			guid.S()
+			uid类.X生成()
 		}
 	})
 }
@@ -24,7 +24,7 @@ func Benchmark_S(b *testing.B) {
 func Benchmark_S_Data_1(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			guid.S([]byte("123"))
+			uid类.X生成([]byte("123"))
 		}
 	})
 }
@@ -32,7 +32,7 @@ func Benchmark_S_Data_1(b *testing.B) {
 func Benchmark_S_Data_2(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			guid.S([]byte("123"), []byte("456"))
+			uid类.X生成([]byte("123"), []byte("456"))
 		}
 	})
 }

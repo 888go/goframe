@@ -18,7 +18,7 @@ import (
 )
 
 // watchedMap 存储发现对象及其被监视的服务映射。
-var watchedMap = gmap.New(true)
+var watchedMap = map类.X创建(true)
 
 // ServiceWatch 用于监视服务状态。
 type ServiceWatch func(service Service)
@@ -41,14 +41,14 @@ func GetAndWatch(ctx context.Context, name string, watch ServiceWatch) (service 
 // GetAndWatchWithDiscovery 用于在`discovery`中使用自定义的观察回调函数获取服务。
 func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name string, watch ServiceWatch) (service Service, err error) {
 	if discovery == nil {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `discovery cannot be nil`)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `discovery cannot be nil`)
 	}
 	// 通过发现对象获取服务映射。
-	watchedServiceMap := watchedMap.GetOrSetFunc(discovery, func() interface{} {
-		return gmap.NewStrAnyMap(true)
-	}).(*gmap.StrAnyMap)
+	watchedServiceMap := watchedMap.X取值或设置值_函数(discovery, func() interface{} {
+		return map类.X创建StrAny(true)
+	}).(*map类.StrAnyMap)
 	// 通过名称获取服务。
-	storedService := watchedServiceMap.GetOrSetFuncLock(name, func() interface{} {
+	storedService := watchedServiceMap.X取值或设置值_函数带锁(name, func() interface{} {
 		var (
 			services []Service
 			watcher  Watcher
@@ -60,7 +60,7 @@ func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name str
 			return nil
 		}
 		if len(services) == 0 {
-			err = gerror.NewCodef(gcode.CodeNotFound, `service not found with name "%s"`, name)
+			err = 错误类.X创建错误码并格式化(错误码类.CodeNotFound, `service not found with name "%s"`, name)
 			return nil
 		}
 
@@ -83,7 +83,7 @@ func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name str
 }
 
 // watchAndUpdateService 监视并更新服务，如果服务发生更改，则在内存中进行更新。
-func watchAndUpdateService(watchedServiceMap *gmap.StrAnyMap, watcher Watcher, service Service, watchFunc ServiceWatch) {
+func watchAndUpdateService(watchedServiceMap *map类.StrAnyMap, watcher Watcher, service Service, watchFunc ServiceWatch) {
 	var (
 		ctx      = context.Background()
 		err      error
@@ -96,9 +96,9 @@ func watchAndUpdateService(watchedServiceMap *gmap.StrAnyMap, watcher Watcher, s
 			continue
 		}
 		if len(services) > 0 {
-			watchedServiceMap.Set(service.GetName(), services[0])
+			watchedServiceMap.X设置值(service.GetName(), services[0])
 			if watchFunc != nil {
-				gutil.TryCatch(ctx, func(ctx context.Context) {
+				工具类.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 					watchFunc(services[0])
 				}, func(ctx context.Context, exception error) {
 					intlog.Errorf(ctx, `%+v`, exception)
@@ -111,7 +111,7 @@ func watchAndUpdateService(watchedServiceMap *gmap.StrAnyMap, watcher Watcher, s
 // Search 按照指定条件搜索并返回服务。
 func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 	if defaultRegistry == nil {
-		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeNotImplemented, `no Registry is registered`)
 	}
 	ctx, _ = context.WithTimeout(ctx, defaultTimeout)
 	return defaultRegistry.Search(ctx, in)
@@ -120,7 +120,7 @@ func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 // Watch 监视指定条件的变化。
 func Watch(ctx context.Context, key string) (Watcher, error) {
 	if defaultRegistry == nil {
-		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeNotImplemented, `no Registry is registered`)
 	}
 	return defaultRegistry.Watch(ctx, key)
 }

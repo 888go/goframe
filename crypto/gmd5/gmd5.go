@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包gmd5提供了MD5加密算法的实用API。
-package gmd5
+package 加密md5类
 
 import (
 	"crypto/md5"
@@ -18,15 +18,15 @@ import (
 
 // Encrypt 使用MD5算法加密任意类型的变量。
 // 它使用gconv包将`v`转换为字节类型。
-func Encrypt(data interface{}) (encrypt string, err error) {
-	return EncryptBytes(gconv.Bytes(data))
+func X加密(值 interface{}) (md5值 string, 错误 error) {
+	return X加密字节集(转换类.X取字节集(值))
 }
 
 // MustEncrypt 使用MD5算法对任意类型的变量进行加密。
 // 它使用gconv包将`v`转换为字节类型。
 // 如果发生任何错误，它会引发panic。
-func MustEncrypt(data interface{}) string {
-	result, err := Encrypt(data)
+func X加密PANI(值 interface{}) string {
+	result, err := X加密(值)
 	if err != nil {
 		panic(err)
 	}
@@ -34,19 +34,19 @@ func MustEncrypt(data interface{}) string {
 }
 
 // EncryptBytes 使用MD5算法加密`data`。
-func EncryptBytes(data []byte) (encrypt string, err error) {
+func X加密字节集(字节集 []byte) (md5值 string, 错误 error) {
 	h := md5.New()
-	if _, err = h.Write(data); err != nil {
-		err = gerror.Wrap(err, `hash.Write failed`)
-		return "", err
+	if _, 错误 = h.Write(字节集); 错误 != nil {
+		错误 = 错误类.X多层错误(错误, `hash.Write failed`)
+		return "", 错误
 	}
 	return fmt.Sprintf("%x", h.Sum(nil)), nil
 }
 
 // MustEncryptBytes 使用MD5算法加密`data`。
 // 如果出现任何错误，将会导致panic。
-func MustEncryptBytes(data []byte) string {
-	result, err := EncryptBytes(data)
+func X加密字节集PANI(字节集 []byte) string {
+	result, err := X加密字节集(字节集)
 	if err != nil {
 		panic(err)
 	}
@@ -54,14 +54,14 @@ func MustEncryptBytes(data []byte) string {
 }
 
 // EncryptString 使用MD5算法加密字符串`data`。
-func EncryptString(data string) (encrypt string, err error) {
-	return EncryptBytes([]byte(data))
+func X加密文本(值 string) (md5值 string, 错误 error) {
+	return X加密字节集([]byte(值))
 }
 
 // MustEncryptString 使用MD5算法加密字符串`data`。
 // 如果发生任何错误，它将引发panic。
-func MustEncryptString(data string) string {
-	result, err := EncryptString(data)
+func X加密文本PANI(值 string) string {
+	result, err := X加密文本(值)
 	if err != nil {
 		panic(err)
 	}
@@ -69,26 +69,26 @@ func MustEncryptString(data string) string {
 }
 
 // EncryptFile 使用MD5算法加密`path`指定文件的内容。
-func EncryptFile(path string) (encrypt string, err error) {
-	f, err := os.Open(path)
-	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for name "%s"`, path)
-		return "", err
+func X加密文件(路径 string) (md5值 string, 错误 error) {
+	f, 错误 := os.Open(路径)
+	if 错误 != nil {
+		错误 = 错误类.X多层错误并格式化(错误, `os.Open failed for name "%s"`, 路径)
+		return "", 错误
 	}
 	defer f.Close()
 	h := md5.New()
-	_, err = io.Copy(h, f)
-	if err != nil {
-		err = gerror.Wrap(err, `io.Copy failed`)
-		return "", err
+	_, 错误 = io.Copy(h, f)
+	if 错误 != nil {
+		错误 = 错误类.X多层错误(错误, `io.Copy failed`)
+		return "", 错误
 	}
 	return fmt.Sprintf("%x", h.Sum(nil)), nil
 }
 
 // MustEncryptFile 使用MD5算法加密`path`指定文件的内容。
 // 如果发生任何错误，将会导致程序panic。
-func MustEncryptFile(path string) string {
-	result, err := EncryptFile(path)
+func X加密文件PANI(路径 string) string {
+	result, err := X加密文件(路径)
 	if err != nil {
 		panic(err)
 	}

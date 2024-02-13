@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
 // 您可以在https://github.com/Agogf/gf获取一个。
 
-package gtree_test
+package 树形类_test
 
 import (
 	"fmt"
@@ -14,9 +14,9 @@ import (
 )
 
 func ExampleNewAVLTree() {
-	avlTree := gtree.NewAVLTree(gutil.ComparatorString)
+	avlTree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		avlTree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		avlTree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(avlTree)
@@ -31,12 +31,12 @@ func ExampleNewAVLTree() {
 }
 
 func ExampleNewAVLTreeFrom() {
-	avlTree := gtree.NewAVLTree(gutil.ComparatorString)
+	avlTree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		avlTree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		avlTree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
-	otherAvlTree := gtree.NewAVLTreeFrom(gutil.ComparatorString, avlTree.Map())
+	otherAvlTree := 树形类.NewAVLTreeFrom(工具类.X比较文本, avlTree.Map())
 	fmt.Println(otherAvlTree)
 
 	// May Output:
@@ -49,9 +49,9 @@ func ExampleNewAVLTreeFrom() {
 }
 
 func ExampleNewBTree() {
-	bTree := gtree.NewBTree(3, gutil.ComparatorString)
+	bTree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		bTree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		bTree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 	fmt.Println(bTree.Map())
 
@@ -60,12 +60,12 @@ func ExampleNewBTree() {
 }
 
 func ExampleNewBTreeFrom() {
-	bTree := gtree.NewBTree(3, gutil.ComparatorString)
+	bTree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		bTree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		bTree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
-	otherBTree := gtree.NewBTreeFrom(3, gutil.ComparatorString, bTree.Map())
+	otherBTree := 树形类.NewBTreeFrom(3, 工具类.X比较文本, bTree.Map())
 	fmt.Println(otherBTree.Map())
 
 	// Output:
@@ -73,9 +73,9 @@ func ExampleNewBTreeFrom() {
 }
 
 func ExampleNewRedBlackTree() {
-	rbTree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	rbTree := 树形类.NewRedBlackTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		rbTree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		rbTree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(rbTree)
@@ -90,12 +90,12 @@ func ExampleNewRedBlackTree() {
 }
 
 func ExampleNewRedBlackTreeFrom() {
-	rbTree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	rbTree := 树形类.NewRedBlackTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		rbTree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		rbTree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
-	otherRBTree := gtree.NewRedBlackTreeFrom(gutil.ComparatorString, rbTree.Map())
+	otherRBTree := 树形类.NewRedBlackTreeFrom(工具类.X比较文本, rbTree.Map())
 	fmt.Println(otherRBTree)
 
 	// May Output:

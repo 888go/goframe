@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
 // 您可以在https://github.com/Agogf/gf获取一个。
 
-package gtree_test
+package 树形类_test
 
 import (
 	"fmt"
@@ -15,9 +15,9 @@ import (
 )
 
 func ExampleBTree_Clone() {
-	b := gtree.NewBTree(3, gutil.ComparatorString)
+	b := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		b.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		b.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	tree := b.Clone()
@@ -31,9 +31,9 @@ func ExampleBTree_Clone() {
 }
 
 func ExampleBTree_Set() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -45,7 +45,7 @@ func ExampleBTree_Set() {
 }
 
 func ExampleBTree_Sets() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 
 	tree.Sets(map[interface{}]interface{}{
 		"key1": "val1",
@@ -61,9 +61,9 @@ func ExampleBTree_Sets() {
 }
 
 func ExampleBTree_Get() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Get("key1"))
@@ -75,9 +75,9 @@ func ExampleBTree_Get() {
 }
 
 func ExampleBTree_GetOrSet() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetOrSet("key1", "newVal1"))
@@ -89,9 +89,9 @@ func ExampleBTree_GetOrSet() {
 }
 
 func ExampleBTree_GetOrSetFunc() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetOrSetFunc("key1", func() interface{} {
@@ -107,9 +107,9 @@ func ExampleBTree_GetOrSetFunc() {
 }
 
 func ExampleBTree_GetOrSetFuncLock() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetOrSetFuncLock("key1", func() interface{} {
@@ -125,9 +125,9 @@ func ExampleBTree_GetOrSetFuncLock() {
 }
 
 func ExampleBTree_GetVar() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVar("key1").String())
@@ -137,9 +137,9 @@ func ExampleBTree_GetVar() {
 }
 
 func ExampleBTree_GetVarOrSet() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSet("key1", "newVal1"))
@@ -151,9 +151,9 @@ func ExampleBTree_GetVarOrSet() {
 }
 
 func ExampleBTree_GetVarOrSetFunc() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSetFunc("key1", func() interface{} {
@@ -169,9 +169,9 @@ func ExampleBTree_GetVarOrSetFunc() {
 }
 
 func ExampleBTree_GetVarOrSetFuncLock() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSetFuncLock("key1", func() interface{} {
@@ -187,9 +187,9 @@ func ExampleBTree_GetVarOrSetFuncLock() {
 }
 
 func ExampleBTree_SetIfNotExist() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExist("key1", "newVal1"))
@@ -201,9 +201,9 @@ func ExampleBTree_SetIfNotExist() {
 }
 
 func ExampleBTree_SetIfNotExistFunc() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExistFunc("key1", func() interface{} {
@@ -219,9 +219,9 @@ func ExampleBTree_SetIfNotExistFunc() {
 }
 
 func ExampleBTree_SetIfNotExistFuncLock() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExistFuncLock("key1", func() interface{} {
@@ -237,9 +237,9 @@ func ExampleBTree_SetIfNotExistFuncLock() {
 }
 
 func ExampleBTree_Contains() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Contains("key1"))
@@ -251,9 +251,9 @@ func ExampleBTree_Contains() {
 }
 
 func ExampleBTree_Remove() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Remove("key1"))
@@ -267,9 +267,9 @@ func ExampleBTree_Remove() {
 }
 
 func ExampleBTree_Removes() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	removeKeys := make([]interface{}, 2)
@@ -285,12 +285,12 @@ func ExampleBTree_Removes() {
 }
 
 func ExampleBTree_IsEmpty() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 
 	fmt.Println(tree.IsEmpty())
 
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.IsEmpty())
@@ -301,12 +301,12 @@ func ExampleBTree_IsEmpty() {
 }
 
 func ExampleBTree_Size() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 
 	fmt.Println(tree.Size())
 
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Size())
@@ -317,9 +317,9 @@ func ExampleBTree_Size() {
 }
 
 func ExampleBTree_Keys() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 6; i > 0; i-- {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Keys())
@@ -329,9 +329,9 @@ func ExampleBTree_Keys() {
 }
 
 func ExampleBTree_Values() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 6; i > 0; i-- {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Values())
@@ -341,9 +341,9 @@ func ExampleBTree_Values() {
 }
 
 func ExampleBTree_Map() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -353,21 +353,21 @@ func ExampleBTree_Map() {
 }
 
 func ExampleBTree_MapStrAny() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set(1000+i, "val"+gconv.String(i))
+		tree.X设置值(1000+i, "val"+转换类.String(i))
 	}
 
-	fmt.Println(tree.MapStrAny())
+	fmt.Println(tree.X取MapStrAny())
 
 	// Output:
 	// map[1000:val0 1001:val1 1002:val2 1003:val3 1004:val4 1005:val5]
 }
 
 func ExampleBTree_Clear() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set(1000+i, "val"+gconv.String(i))
+		tree.X设置值(1000+i, "val"+转换类.String(i))
 	}
 	fmt.Println(tree.Size())
 
@@ -380,9 +380,9 @@ func ExampleBTree_Clear() {
 }
 
 func ExampleBTree_Replace() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -403,9 +403,9 @@ func ExampleBTree_Replace() {
 }
 
 func ExampleBTree_Height() {
-	tree := gtree.NewBTree(3, gutil.ComparatorInt)
+	tree := 树形类.NewBTree(3, 工具类.X比较整数)
 	for i := 0; i < 100; i++ {
-		tree.Set(i, i)
+		tree.X设置值(i, i)
 	}
 	fmt.Println(tree.Height())
 
@@ -414,13 +414,13 @@ func ExampleBTree_Height() {
 }
 
 func ExampleBTree_Left() {
-	tree := gtree.NewBTree(3, gutil.ComparatorInt)
+	tree := 树形类.NewBTree(3, 工具类.X比较整数)
 	for i := 1; i < 100; i++ {
-		tree.Set(i, i)
+		tree.X设置值(i, i)
 	}
 	fmt.Println(tree.Left().Key, tree.Left().Value)
 
-	emptyTree := gtree.NewBTree(3, gutil.ComparatorInt)
+	emptyTree := 树形类.NewBTree(3, 工具类.X比较整数)
 	fmt.Println(emptyTree.Left())
 
 	// Output:
@@ -429,13 +429,13 @@ func ExampleBTree_Left() {
 }
 
 func ExampleBTree_Right() {
-	tree := gtree.NewBTree(3, gutil.ComparatorInt)
+	tree := 树形类.NewBTree(3, 工具类.X比较整数)
 	for i := 1; i < 100; i++ {
-		tree.Set(i, i)
+		tree.X设置值(i, i)
 	}
 	fmt.Println(tree.Right().Key, tree.Right().Value)
 
-	emptyTree := gtree.NewBTree(3, gutil.ComparatorInt)
+	emptyTree := 树形类.NewBTree(3, 工具类.X比较整数)
 	fmt.Println(emptyTree.Left())
 
 	// Output:
@@ -444,9 +444,9 @@ func ExampleBTree_Right() {
 }
 
 func ExampleBTree_String() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.String())
@@ -461,9 +461,9 @@ func ExampleBTree_String() {
 }
 
 func ExampleBTree_Search() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Search("key0"))
@@ -475,9 +475,9 @@ func ExampleBTree_Search() {
 }
 
 func ExampleBTree_Print() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	tree.Print()
@@ -492,13 +492,13 @@ func ExampleBTree_Print() {
 }
 
 func ExampleBTree_Iterator() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	var totalKey, totalValue int
-	tree.Iterator(func(key, value interface{}) bool {
+	tree.X遍历(func(key, value interface{}) bool {
 		totalKey += key.(int)
 		totalValue += value.(int)
 
@@ -518,7 +518,7 @@ func ExampleBTree_IteratorFrom() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewBTreeFrom(3, gutil.ComparatorInt, m)
+	tree := 树形类.NewBTreeFrom(3, 工具类.X比较整数, m)
 
 	tree.IteratorFrom(1, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -534,9 +534,9 @@ func ExampleBTree_IteratorFrom() {
 }
 
 func ExampleBTree_IteratorAsc() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -562,7 +562,7 @@ func ExampleBTree_IteratorAscFrom_Normal() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewBTreeFrom(3, gutil.ComparatorInt, m)
+	tree := 树形类.NewBTreeFrom(3, 工具类.X比较整数, m)
 
 	tree.IteratorAscFrom(1, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -582,7 +582,7 @@ func ExampleBTree_IteratorAscFrom_NoExistKey() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewBTreeFrom(3, gutil.ComparatorInt, m)
+	tree := 树形类.NewBTreeFrom(3, 工具类.X比较整数, m)
 
 	tree.IteratorAscFrom(0, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -597,7 +597,7 @@ func ExampleBTree_IteratorAscFrom_NoExistKeyAndMatchFalse() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewBTreeFrom(3, gutil.ComparatorInt, m)
+	tree := 树形类.NewBTreeFrom(3, 工具类.X比较整数, m)
 
 	tree.IteratorAscFrom(0, false, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -613,9 +613,9 @@ func ExampleBTree_IteratorAscFrom_NoExistKeyAndMatchFalse() {
 }
 
 func ExampleBTree_IteratorDesc() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	tree.IteratorDesc(func(key, value interface{}) bool {
@@ -641,7 +641,7 @@ func ExampleBTree_IteratorDescFrom() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewBTreeFrom(3, gutil.ComparatorInt, m)
+	tree := 树形类.NewBTreeFrom(3, 工具类.X比较整数, m)
 
 	tree.IteratorDescFrom(5, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -657,14 +657,14 @@ func ExampleBTree_IteratorDescFrom() {
 }
 
 func ExampleBTree_MarshalJSON() {
-	tree := gtree.NewBTree(3, gutil.ComparatorString)
+	tree := 树形类.NewBTree(3, 工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	bytes, err := json.Marshal(tree)
 	if err == nil {
-		fmt.Println(gconv.String(bytes))
+		fmt.Println(转换类.String(bytes))
 	}
 
 	// Output:

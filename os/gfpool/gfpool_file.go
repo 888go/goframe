@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfpool
+package 文件指针池类
 
 import (
 	"fmt"
@@ -29,7 +29,7 @@ func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *
 // if err != nil {
 //     return nil, err
 // }
-	pool := pools.GetOrSetFuncLock(
+	pool := pools.X取值或设置值_函数带锁(
 		fmt.Sprintf("%s&%d&%d&%d", path, flag, fpTTL, perm),
 		func() interface{} {
 			return New(path, flag, perm, fpTTL)
@@ -47,19 +47,19 @@ func Get(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *F
 		fpTTL = ttl[0]
 	}
 
-	f, found := pools.Search(fmt.Sprintf("%s&%d&%d&%d", path, flag, fpTTL, perm))
+	f, found := pools.X查找(fmt.Sprintf("%s&%d&%d&%d", path, flag, fpTTL, perm))
 	if !found {
 		return nil
 	}
 
-	fp, _ := f.(*Pool).pool.Get()
+	fp, _ := f.(*Pool).pool.X出栈()
 	return fp.(*File)
 }
 
 // Stat返回描述文件的FileInfo结构体。
 func (f *File) Stat() (os.FileInfo, error) {
 	if f.stat == nil {
-		return nil, gerror.New("file stat is empty")
+		return nil, 错误类.X创建("file stat is empty")
 	}
 	return f.stat, nil
 }
@@ -70,8 +70,8 @@ func (f *File) Close(close ...bool) error {
 		f.File.Close()
 	}
 
-	if f.pid == f.pool.id.Val() {
-		return f.pool.pool.Put(f)
+	if f.pid == f.pool.id.X取值() {
+		return f.pool.pool.X入栈(f)
 	}
 	return nil
 }

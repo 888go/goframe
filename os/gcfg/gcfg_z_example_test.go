@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcfg_test
+package 配置类_test
 
 import (
 	"fmt"
@@ -19,17 +19,17 @@ import (
 func ExampleConfig_GetWithEnv() {
 	var (
 		key = `ENV_TEST`
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 	)
-	v, err := g.Cfg().GetWithEnv(ctx, key)
+	v, err := g.Cfg别名().X取值并从环境变量(ctx, key)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("env:%s\n", v)
-	if err = genv.Set(key, "gf"); err != nil {
+	if err = 环境变量类.X设置值(key, "gf"); err != nil {
 		panic(err)
 	}
-	v, err = g.Cfg().GetWithEnv(ctx, key)
+	v, err = g.Cfg别名().X取值并从环境变量(ctx, key)
 	if err != nil {
 		panic(err)
 	}
@@ -43,18 +43,18 @@ func ExampleConfig_GetWithEnv() {
 func ExampleConfig_GetWithCmd() {
 	var (
 		key = `cmd.test`
-		ctx = gctx.New()
+		ctx = 上下文类.X创建()
 	)
-	v, err := g.Cfg().GetWithCmd(ctx, key)
+	v, err := g.Cfg别名().X取值并从启动命令(ctx, key)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("cmd:%s\n", v)
 	// 重新初始化自定义命令参数。
 	os.Args = append(os.Args, fmt.Sprintf(`--%s=yes`, key))
-	gcmd.Init(os.Args...)
+	cmd类.Init(os.Args...)
 	// 再次获取配置和命令选项。
-	v, err = g.Cfg().GetWithCmd(ctx, key)
+	v, err = g.Cfg别名().X取值并从启动命令(ctx, key)
 	if err != nil {
 		panic(err)
 	}
@@ -67,16 +67,16 @@ func ExampleConfig_GetWithCmd() {
 
 func Example_NewWithAdapter() {
 	var (
-		ctx          = gctx.New()
+		ctx          = 上下文类.X创建()
 		content      = `{"a":"b", "c":1}`
-		adapter, err = gcfg.NewAdapterContent(content)
+		adapter, err = 配置类.NewAdapterContent(content)
 	)
 	if err != nil {
 		panic(err)
 	}
-	config := gcfg.NewWithAdapter(adapter)
-	fmt.Println(config.MustGet(ctx, "a"))
-	fmt.Println(config.MustGet(ctx, "c"))
+	config := 配置类.X创建并按适配器(adapter)
+	fmt.Println(config.X取值PANI(ctx, "a"))
+	fmt.Println(config.X取值PANI(ctx, "c"))
 
 	// Output:
 	// b

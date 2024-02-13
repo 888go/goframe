@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
@@ -20,7 +20,7 @@ func Structs(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[s
 }
 
 // SliceStruct 是 Structs 的别名。
-func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
+func SliceStruct别名(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
 	return Structs(params, pointer, mapping...)
 }
 
@@ -52,7 +52,7 @@ func doStructs(
 		return nil
 	}
 	if pointer == nil {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "object pointer cannot be nil")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "object pointer cannot be nil")
 	}
 
 	if doStructsByDirectReflectSet(params, pointer) {
@@ -62,10 +62,10 @@ func doStructs(
 	defer func() {
 		// 捕获 panic，特别是反射操作引发的 panic。
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && 错误类.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception)
+				err = 错误类.X创建错误码并跳过堆栈与格式化(错误码类.CodeInternalPanic, 1, "%+v", exception)
 			}
 		}
 	}()
@@ -97,7 +97,7 @@ func doStructs(
 	if !ok {
 		pointerRv = reflect.ValueOf(pointer)
 		if kind := pointerRv.Kind(); kind != reflect.Ptr {
-			return gerror.NewCodef(gcode.CodeInvalidParameter, "pointer should be type of pointer, but got: %v", kind)
+			return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, "pointer should be type of pointer, but got: %v", kind)
 		}
 	}
 	// 将`params`转换为映射切片。
@@ -117,7 +117,7 @@ func doStructs(
 			paramsList[i] = paramsRv.Index(i).Interface()
 		}
 	default:
-		var paramsMaps = Maps(params)
+		var paramsMaps = X取Map数组(params)
 		paramsList = make([]interface{}, len(paramsMaps))
 		for i := 0; i < len(paramsMaps); i++ {
 			paramsList[i] = paramsMaps[i]

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -19,11 +19,11 @@ import (
 )
 
 func Test_WebSocket(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/ws", func(r *ghttp.Request) {
-		ws, err := r.WebSocket()
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/ws", func(r *http类.Request) {
+		ws, err := r.X升级为websocket请求()
 		if err != nil {
-			r.Exit()
+			r.X退出当前()
 		}
 		for {
 			msgType, msg, err := ws.ReadMessage()
@@ -36,13 +36,13 @@ func Test_WebSocket(t *testing.T) {
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		conn, _, err := websocket.DefaultDialer.Dial(fmt.Sprintf(
-			"ws://127.0.0.1:%d/ws", s.GetListenedPort(),
+			"ws://127.0.0.1:%d/ws", s.X取已监听端口(),
 		), nil)
 		t.AssertNil(err)
 		defer conn.Close()

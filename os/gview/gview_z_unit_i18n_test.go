@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview_test
+package 模板类_test
 
 import (
 	"context"
@@ -20,58 +20,58 @@ import (
 )
 
 func Test_I18n(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		content := `{{.name}} says "{#hello}{#world}!"`
 		expect1 := `john says "你好世界!"`
 		expect2 := `john says "こんにちは世界!"`
 		expect3 := `john says "{#hello}{#world}!"`
 
-		g.I18n().SetPath(gtest.DataPath("i18n"))
+		g.X多语言类().SetPath(单元测试类.DataPath("i18n"))
 
-		g.I18n().SetLanguage("zh-CN")
-		result1, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		g.X多语言类().SetLanguage("zh-CN")
+		result1, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name": "john",
 		})
 		t.AssertNil(err)
 		t.Assert(result1, expect1)
 
-		g.I18n().SetLanguage("ja")
-		result2, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		g.X多语言类().SetLanguage("ja")
+		result2, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name": "john",
 		})
 		t.AssertNil(err)
 		t.Assert(result2, expect2)
 
-		g.I18n().SetLanguage("none")
-		result3, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		g.X多语言类().SetLanguage("none")
+		result3, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name": "john",
 		})
 		t.AssertNil(err)
 		t.Assert(result3, expect3)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		content := `{{.name}} says "{#hello}{#world}!"`
 		expect1 := `john says "你好世界!"`
 		expect2 := `john says "こんにちは世界!"`
 		expect3 := `john says "{#hello}{#world}!"`
 
-		g.I18n().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
+		g.X多语言类().SetPath(gdebug.CallerDirectory() + 文件类.Separator + "testdata" + 文件类.Separator + "i18n")
 
-		result1, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		result1, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
 			"I18nLanguage": "zh-CN",
 		})
 		t.AssertNil(err)
 		t.Assert(result1, expect1)
 
-		result2, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		result2, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
 			"I18nLanguage": "ja",
 		})
 		t.AssertNil(err)
 		t.Assert(result2, expect2)
 
-		result3, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		result3, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
 			"I18nLanguage": "none",
 		})
@@ -79,13 +79,13 @@ func Test_I18n(t *testing.T) {
 		t.Assert(result3, expect3)
 	})
 	// gi18n 经理为空
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		content := `{{.name}} says "{#hello}{#world}!"`
 		expect1 := `john says "{#hello}{#world}!"`
 
-		g.I18n().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
+		g.X多语言类().SetPath(gdebug.CallerDirectory() + 文件类.Separator + "testdata" + 文件类.Separator + "i18n")
 
-		view := gview.New()
+		view := 模板类.New()
 		view.SetI18n(nil)
 		result1, err := view.ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
@@ -95,15 +95,15 @@ func Test_I18n(t *testing.T) {
 		t.Assert(result1, expect1)
 	})
 	// 在上下文中设置语言
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		content := `{{.name}} says "{#hello}{#world}!"`
 		expect1 := `john says "你好世界!"`
-		ctx := gctx.New()
-		g.I18n().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
+		ctx := 上下文类.X创建()
+		g.X多语言类().SetPath(gdebug.CallerDirectory() + 文件类.Separator + "testdata" + 文件类.Separator + "i18n")
 		ctx = gi18n.WithLanguage(ctx, "zh-CN")
 		t.Log(gi18n.LanguageFromCtx(ctx))
 
-		view := gview.New()
+		view := 模板类.New()
 
 		result1, err := view.ParseContent(ctx, content, g.Map{
 			"name": "john",

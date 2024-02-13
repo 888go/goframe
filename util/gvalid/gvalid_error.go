@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid
+package 效验类
 
 import (
 	"strings"
@@ -16,7 +16,7 @@ import (
 
 // Error 是验证结果的错误信息。
 type Error interface {
-	Code() gcode.Code
+	Code() 错误码类.Code
 	Current() error
 	Error() string
 	FirstItem() (key string, messages map[string]error)
@@ -26,12 +26,12 @@ type Error interface {
 	Map() map[string]error
 	Maps() map[string]map[string]error
 	String() string
-	Strings() (errs []string)
+	X取文本数组() (errs []string)
 }
 
 // validationError 是验证结果的验证错误。
 type validationError struct {
-	code      gcode.Code                  // Error code.
+	code      错误码类.Code                  // Error code.
 	rules     []fieldRule                 // 按照顺序排列的规则，仅用于保留错误序列。
 	errors    map[string]map[string]error // 错误映射：map[字段]map[规则]消息
 	firstKey  string                      // 第一条错误规则键（默认为空）
@@ -39,13 +39,13 @@ type validationError struct {
 }
 
 // newValidationError 创建并返回一个验证错误。
-func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap map[string]map[string]error) *validationError {
+func newValidationError(code 错误码类.Code, rules []fieldRule, fieldRuleErrorMap map[string]map[string]error) *validationError {
 	for field, ruleErrorMap := range fieldRuleErrorMap {
 		for rule, err := range ruleErrorMap {
-			if !gerror.HasStack(err) {
-				ruleErrorMap[rule] = gerror.NewWithOption(gerror.Option{
+			if !错误类.X判断是否带堆栈(err) {
+				ruleErrorMap[rule] = 错误类.NewWithOption(错误类.Option{
 					Stack: false,
-					Text:  gstr.Trim(err.Error()),
+					Text:  文本类.X过滤首尾符并含空白(err.Error()),
 					Code:  code,
 				})
 			}
@@ -53,9 +53,9 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 		fieldRuleErrorMap[field] = ruleErrorMap
 	}
 	// 过滤重复的序列规则。
-	var ruleNameSet = gset.NewStrSet()
+	var ruleNameSet = 集合类.X创建文本()
 	for i := 0; i < len(rules); {
-		if !ruleNameSet.AddIfNotExist(rules[i].Name) {
+		if !ruleNameSet.X加入值并跳过已存在(rules[i].Name) {
 			// 删除重复的规则。
 			rules = append(rules[:i], rules[i+1:]...)
 			continue
@@ -72,7 +72,7 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 // newValidationErrorByStr 通过字符串创建并返回一个验证错误。
 func newValidationErrorByStr(key string, err error) *validationError {
 	return newValidationError(
-		gcode.CodeInternalError,
+		错误码类.CodeInternalError,
 		nil,
 		map[string]map[string]error{
 			internalErrorMapKey: {
@@ -83,9 +83,9 @@ func newValidationErrorByStr(key string, err error) *validationError {
 }
 
 // Code 返回当前验证错误的错误代码。
-func (e *validationError) Code() gcode.Code {
+func (e *validationError) Code() 错误码类.Code {
 	if e == nil {
-		return gcode.CodeNil
+		return 错误码类.CodeNil
 	}
 	return e.code
 }
@@ -209,7 +209,7 @@ func (e *validationError) String() string {
 	if e == nil {
 		return ""
 	}
-	return strings.Join(e.Strings(), "; ")
+	return strings.Join(e.X取文本数组(), "; ")
 }
 
 // Error 实现了 error 接口的 Error 方法。
@@ -221,7 +221,7 @@ func (e *validationError) Error() string {
 }
 
 // Strings 将所有错误消息作为字符串数组返回。
-func (e *validationError) Strings() (errs []string) {
+func (e *validationError) X取文本数组() (errs []string) {
 	if e == nil {
 		return []string{}
 	}

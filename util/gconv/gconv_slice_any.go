@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
@@ -13,17 +13,17 @@ import (
 )
 
 // SliceAny 是 Interfaces 的别名。
-func SliceAny(any interface{}) []interface{} {
-	return Interfaces(any)
+func SliceAny别名(值 interface{}) []interface{} {
+	return X取any数组(值)
 }
 
 // Interfaces 将 `any` 类型转换为 []interface{} 类型。
-func Interfaces(any interface{}) []interface{} {
-	if any == nil {
+func X取any数组(值 interface{}) []interface{} {
+	if 值 == nil {
 		return nil
 	}
 	var array []interface{}
-	switch value := any.(type) {
+	switch value := 值.(type) {
 	case []interface{}:
 		array = value
 	case []string:
@@ -103,15 +103,15 @@ func Interfaces(any interface{}) []interface{} {
 	if array != nil {
 		return array
 	}
-	if v, ok := any.(iInterfaces); ok {
-		return v.Interfaces()
+	if v, ok := 值.(iInterfaces); ok {
+		return v.X取any数组()
 	}
 	// JSON格式字符串值转换
-	if checkJsonAndUnmarshalUseNumber(any, &array) {
+	if checkJsonAndUnmarshalUseNumber(值, &array) {
 		return array
 	}
 	// 如果不是常见类型，它将使用反射进行转换。
-	originValueAndKind := reflection.OriginValueAndKind(any)
+	originValueAndKind := reflection.OriginValueAndKind(值)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:
 		var (
@@ -124,6 +124,6 @@ func Interfaces(any interface{}) []interface{} {
 		return slice
 
 	default:
-		return []interface{}{any}
+		return []interface{}{值}
 	}
 }

@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包gproc实现了对进程的管理和通信功能。
-package gproc
+package 进程类
 
 import (
 	"os"
@@ -40,7 +40,7 @@ func PPid() int {
 	}
 	ppidValue := os.Getenv(envKeyPPid)
 	if ppidValue != "" && ppidValue != "0" {
-		return gconv.Int(ppidValue)
+		return 转换类.X取整数(ppidValue)
 	}
 	return PPidOS()
 }
@@ -62,7 +62,7 @@ func IsChild() bool {
 // SetPPid 设置当前进程的自定义父进程ID。
 func SetPPid(ppid int) error {
 	if ppid > 0 {
-		return os.Setenv(envKeyPPid, gconv.String(ppid))
+		return os.Setenv(envKeyPPid, 转换类.String(ppid))
 	} else {
 		return os.Unsetenv(envKeyPPid)
 	}
@@ -81,7 +81,7 @@ func Uptime() time.Duration {
 // SearchBinary 在当前工作目录和PATH环境变量中搜索二进制文件 `file`。
 func SearchBinary(file string) string {
 	// 检查给定路径是否为绝对路径，或者在当前工作目录中是否存在。
-	if gfile.Exists(file) {
+	if 文件类.X是否存在(file) {
 		return file
 	}
 	return SearchBinaryPath(file)
@@ -92,24 +92,24 @@ func SearchBinaryPath(file string) string {
 	array := ([]string)(nil)
 	switch runtime.GOOS {
 	case "windows":
-		envPath := genv.Get("PATH", genv.Get("Path")).String()
-		if gstr.Contains(envPath, ";") {
-			array = gstr.SplitAndTrim(envPath, ";")
-		} else if gstr.Contains(envPath, ":") {
-			array = gstr.SplitAndTrim(envPath, ":")
+		envPath := 环境变量类.X取值("PATH", 环境变量类.X取值("Path")).String()
+		if 文本类.X是否包含(envPath, ";") {
+			array = 文本类.X分割并忽略空值(envPath, ";")
+		} else if 文本类.X是否包含(envPath, ":") {
+			array = 文本类.X分割并忽略空值(envPath, ":")
 		}
-		if gfile.Ext(file) != ".exe" {
+		if 文件类.X路径取扩展名(file) != ".exe" {
 			file += ".exe"
 		}
 
 	default:
-		array = gstr.SplitAndTrim(genv.Get("PATH").String(), ":")
+		array = 文本类.X分割并忽略空值(环境变量类.X取值("PATH").String(), ":")
 	}
 	if len(array) > 0 {
 		path := ""
 		for _, v := range array {
-			path = v + gfile.Separator + file
-			if gfile.Exists(path) && gfile.IsFile(path) {
+			path = v + 文件类.Separator + file
+			if 文件类.X是否存在(path) && 文件类.X是否为文件(path) {
 				return path
 			}
 		}

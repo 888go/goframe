@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -17,56 +17,56 @@ import (
 )
 
 func Test_Router_Group_Hook1(t *testing.T) {
-	s := g.Server(guid.S())
-	group := s.Group("/api")
-	group.GET("/handler", func(r *ghttp.Request) {
-		r.Response.Write("1")
+	s := g.Http类(uid类.X生成())
+	group := s.X创建分组路由("/api")
+	group.X绑定GET("/handler", func(r *http类.Request) {
+		r.Response.X写响应缓冲区("1")
 	})
-	group.ALL("/handler", func(r *ghttp.Request) {
-		r.Response.Write("0")
-	}, ghttp.HookBeforeServe)
-	group.ALL("/handler", func(r *ghttp.Request) {
-		r.Response.Write("2")
-	}, ghttp.HookAfterServe)
+	group.X绑定所有类型("/handler", func(r *http类.Request) {
+		r.Response.X写响应缓冲区("0")
+	}, http类.HookBeforeServe)
+	group.X绑定所有类型("/handler", func(r *http类.Request) {
+		r.Response.X写响应缓冲区("2")
+	}, http类.HookAfterServe)
 
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.GetContent(ctx, "/api/handler"), "012")
-		t.Assert(client.PostContent(ctx, "/api/handler"), "02")
-		t.Assert(client.GetContent(ctx, "/api/ThisDoesNotExist"), "Not Found")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Get文本(ctx, "/api/handler"), "012")
+		t.Assert(client.Post文本(ctx, "/api/handler"), "02")
+		t.Assert(client.Get文本(ctx, "/api/ThisDoesNotExist"), "Not Found")
 	})
 }
 
 func Test_Router_Group_Hook2(t *testing.T) {
-	s := g.Server(guid.S())
-	group := s.Group("/api")
-	group.GET("/handler", func(r *ghttp.Request) {
-		r.Response.Write("1")
+	s := g.Http类(uid类.X生成())
+	group := s.X创建分组路由("/api")
+	group.X绑定GET("/handler", func(r *http类.Request) {
+		r.Response.X写响应缓冲区("1")
 	})
-	group.GET("/*", func(r *ghttp.Request) {
-		r.Response.Write("0")
-	}, ghttp.HookBeforeServe)
-	group.GET("/*", func(r *ghttp.Request) {
-		r.Response.Write("2")
-	}, ghttp.HookAfterServe)
+	group.X绑定GET("/*", func(r *http类.Request) {
+		r.Response.X写响应缓冲区("0")
+	}, http类.HookBeforeServe)
+	group.X绑定GET("/*", func(r *http类.Request) {
+		r.Response.X写响应缓冲区("2")
+	}, http类.HookAfterServe)
 
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.GetContent(ctx, "/api/handler"), "012")
-		t.Assert(client.PostContent(ctx, "/api/handler"), "Not Found")
-		t.Assert(client.GetContent(ctx, "/api/ThisDoesNotExist"), "02")
-		t.Assert(client.PostContent(ctx, "/api/ThisDoesNotExist"), "Not Found")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Get文本(ctx, "/api/handler"), "012")
+		t.Assert(client.Post文本(ctx, "/api/handler"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/api/ThisDoesNotExist"), "02")
+		t.Assert(client.Post文本(ctx, "/api/ThisDoesNotExist"), "Not Found")
 	})
 }

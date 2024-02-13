@@ -14,7 +14,7 @@ import (
 )
 
 func Test_ReadCloser(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			n    int
 			b    = make([]byte, 3)
@@ -30,7 +30,7 @@ func Test_ReadCloser(t *testing.T) {
 		n, _ = body.Read(b)
 		t.Assert(b[:n], []byte{})
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			r    []byte
 			body = utils.NewReadCloser([]byte{1, 2, 3, 4}, false)
@@ -40,7 +40,7 @@ func Test_ReadCloser(t *testing.T) {
 		r, _ = io.ReadAll(body)
 		t.Assert(r, []byte{})
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			n    int
 			r    []byte
@@ -65,7 +65,7 @@ func Test_ReadCloser(t *testing.T) {
 }
 
 func Test_RemoveSymbols(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.Assert(utils.RemoveSymbols(`-a-b._a c1!@#$%^&*()_+:";'.,'01`), `abac101`)
 		t.Assert(utils.RemoveSymbols(`-a-b我._a c1!@#$%^&*是()_+:帅";'.,哥'01`), `ab我ac1是帅哥01`)
 	})

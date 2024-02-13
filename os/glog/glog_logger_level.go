@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"strings"
@@ -64,40 +64,40 @@ var levelStringMap = map[string]int{
 // SetLevel 设置日志记录级别。
 // 注意，对于日志内容，级别 `LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA` 不能被移除，
 // 这些级别会自动添加到现有级别中。
-func (l *Logger) SetLevel(level int) {
-	l.config.Level = level | LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA
+func (l *Logger) X设置级别(级别 int) {
+	l.config.Level = 级别 | LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA
 }
 
 // GetLevel 返回日志等级值。
-func (l *Logger) GetLevel() int {
+func (l *Logger) X取级别() int {
 	return l.config.Level
 }
 
 // SetLevelStr 通过级别字符串设置日志记录级别。
-func (l *Logger) SetLevelStr(levelStr string) error {
-	if level, ok := levelStringMap[strings.ToUpper(levelStr)]; ok {
+func (l *Logger) X设置文本级别(级别 string) error {
+	if level, ok := levelStringMap[strings.ToUpper(级别)]; ok {
 		l.config.Level = level
 	} else {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid level string: %s`, levelStr)
+		return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid level string: %s`, 级别)
 	}
 	return nil
 }
 
 // SetLevelPrefix 为指定等级设置前缀字符串。
-func (l *Logger) SetLevelPrefix(level int, prefix string) {
-	l.config.LevelPrefixes[level] = prefix
+func (l *Logger) X设置级别前缀(级别 int, 前缀 string) {
+	l.config.LevelPrefixes[级别] = 前缀
 }
 
 // SetLevelPrefixes 为日志器设置级别到前缀字符串的映射。
-func (l *Logger) SetLevelPrefixes(prefixes map[int]string) {
-	for k, v := range prefixes {
+func (l *Logger) X设置级别前缀Map(前缀Map map[int]string) {
+	for k, v := range 前缀Map {
 		l.config.LevelPrefixes[k] = v
 	}
 }
 
 // GetLevelPrefix 返回指定级别的前缀字符串。
-func (l *Logger) GetLevelPrefix(level int) string {
-	return l.config.LevelPrefixes[level]
+func (l *Logger) X取级别前缀(级别 int) string {
+	return l.config.LevelPrefixes[级别]
 }
 
 // getLevelPrefixWithBrackets 根据指定级别返回带括号的前缀字符串。

@@ -24,7 +24,7 @@ func Test_Model_Embedded_Insert(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Base struct {
 			Id         int    `json:"id"`
 			Uid        int    `json:"uid"`
@@ -36,20 +36,20 @@ func Test_Model_Embedded_Insert(t *testing.T) {
 			Password string `json:"password"`
 			Nickname string `json:"nickname"`
 		}
-		result, err := db.Model(table).Data(User{
+		result, err := db.X创建Model对象(table).X设置数据(User{
 			Passport: "john-test",
 			Password: "123456",
 			Nickname: "John",
 			Base: Base{
 				Id:         100,
 				Uid:        100,
-				CreateTime: gtime.Now().String(),
+				CreateTime: 时间类.X创建并按当前时间().String(),
 			},
-		}).Insert()
+		}).X插入()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
-		value, err := db.Model(table).Fields("passport").Where("id=100").Value()
+		value, err := db.X创建Model对象(table).X字段保留过滤("passport").X条件("id=100").X查询一条值()
 		t.AssertNil(err)
 		t.Assert(value.String(), "john-test")
 	})
@@ -59,7 +59,7 @@ func Test_Model_Embedded_MapToStruct(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Ids struct {
 			Id  int `json:"id"`
 			Uid int `json:"uid"`
@@ -80,19 +80,19 @@ func Test_Model_Embedded_MapToStruct(t *testing.T) {
 			"passport":    "t1",
 			"password":    "123456",
 			"nickname":    "T1",
-			"create_time": gtime.Now().String(),
+			"create_time": 时间类.X创建并按当前时间().String(),
 		}
-		result, err := db.Model(table).Data(data).Insert()
+		result, err := db.X创建Model对象(table).X设置数据(data).X插入()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).Where("id=100").One()
+		one, err := db.X创建Model对象(table).X条件("id=100").X查询一条()
 		t.AssertNil(err)
 
 		user := new(User)
 
-		t.Assert(one.Struct(user), nil)
+		t.Assert(one.X取结构体指针(user), nil)
 		t.Assert(user.Id, data["id"])
 		t.Assert(user.Passport, data["passport"])
 		t.Assert(user.Password, data["password"])
@@ -112,29 +112,29 @@ func Test_Struct_Pointer_Attribute(t *testing.T) {
 		Nickname string
 	}
 
-	gtest.C(t, func(t *gtest.T) {
-		one, err := db.Model(table).WherePri(1).One()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		user := new(User)
-		err = one.Struct(user)
+		err = one.X取结构体指针(user)
 		t.AssertNil(err)
 		t.Assert(*user.Id, 1)
 		t.Assert(*user.Passport, "user_1")
 		t.Assert(*user.Password, "pass_1")
 		t.Assert(user.Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := new(User)
-		err := db.Model(table).Scan(user, "id=1")
+		err := db.X创建Model对象(table).X查询到结构体指针(user, "id=1")
 		t.AssertNil(err)
 		t.Assert(*user.Id, 1)
 		t.Assert(*user.Passport, "user_1")
 		t.Assert(*user.Password, "pass_1")
 		t.Assert(user.Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var user *User
-		err := db.Model(table).Scan(&user, "id=1")
+		err := db.X创建Model对象(table).X查询到结构体指针(&user, "id=1")
 		t.AssertNil(err)
 		t.Assert(*user.Id, 1)
 		t.Assert(*user.Passport, "user_1")
@@ -154,11 +154,11 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		Nickname string
 	}
 	// All
-	gtest.C(t, func(t *gtest.T) {
-		one, err := db.Model(table).All("id < 3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		one, err := db.X创建Model对象(table).X查询("id < 3")
 		t.AssertNil(err)
 		users := make([]User, 0)
-		err = one.Structs(&users)
+		err = one.X取数组结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -166,11 +166,11 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		t.Assert(*users[0].Password, "pass_1")
 		t.Assert(users[0].Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		one, err := db.Model(table).All("id < 3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		one, err := db.X创建Model对象(table).X查询("id < 3")
 		t.AssertNil(err)
 		users := make([]*User, 0)
-		err = one.Structs(&users)
+		err = one.X取数组结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -178,11 +178,11 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		t.Assert(*users[0].Password, "pass_1")
 		t.Assert(users[0].Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []User
-		one, err := db.Model(table).All("id < 3")
+		one, err := db.X创建Model对象(table).X查询("id < 3")
 		t.AssertNil(err)
-		err = one.Structs(&users)
+		err = one.X取数组结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -190,11 +190,11 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		t.Assert(*users[0].Password, "pass_1")
 		t.Assert(users[0].Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []*User
-		one, err := db.Model(table).All("id < 3")
+		one, err := db.X创建Model对象(table).X查询("id < 3")
 		t.AssertNil(err)
-		err = one.Structs(&users)
+		err = one.X取数组结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -203,9 +203,9 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		t.Assert(users[0].Nickname, "name_1")
 	})
 	// Structs
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		users := make([]User, 0)
-		err := db.Model(table).Scan(&users, "id < 3")
+		err := db.X创建Model对象(table).X查询到结构体指针(&users, "id < 3")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -213,9 +213,9 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		t.Assert(*users[0].Password, "pass_1")
 		t.Assert(users[0].Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		users := make([]*User, 0)
-		err := db.Model(table).Scan(&users, "id < 3")
+		err := db.X创建Model对象(table).X查询到结构体指针(&users, "id < 3")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -223,9 +223,9 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		t.Assert(*users[0].Password, "pass_1")
 		t.Assert(users[0].Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []User
-		err := db.Model(table).Scan(&users, "id < 3")
+		err := db.X创建Model对象(table).X查询到结构体指针(&users, "id < 3")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -233,9 +233,9 @@ func Test_Structs_Pointer_Attribute(t *testing.T) {
 		t.Assert(*users[0].Password, "pass_1")
 		t.Assert(users[0].Nickname, "name_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []*User
-		err := db.Model(table).Scan(&users, "id < 3")
+		err := db.X创建Model对象(table).X查询到结构体指针(&users, "id < 3")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(*users[0].Id, 1)
@@ -256,24 +256,24 @@ func Test_Struct_Empty(t *testing.T) {
 		Nickname string
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := new(User)
-		err := db.Model(table).Where("id=100").Scan(user)
+		err := db.X创建Model对象(table).X条件("id=100").X查询到结构体指针(user)
 		t.Assert(err, sql.ErrNoRows)
 		t.AssertNE(user, nil)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		one, err := db.Model(table).Where("id=100").One()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		one, err := db.X创建Model对象(table).X条件("id=100").X查询一条()
 		t.AssertNil(err)
 		var user *User
-		t.Assert(one.Struct(&user), nil)
+		t.Assert(one.X取结构体指针(&user), nil)
 		t.Assert(user, nil)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var user *User
-		err := db.Model(table).Where("id=100").Scan(&user)
+		err := db.X创建Model对象(table).X条件("id=100").X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user, nil)
 	})
@@ -290,47 +290,47 @@ func Test_Structs_Empty(t *testing.T) {
 		Nickname string
 	}
 
-	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(table).Where("id>100").All()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		all, err := db.X创建Model对象(table).X条件("id>100").X查询()
 		t.AssertNil(err)
 		users := make([]User, 0)
-		t.Assert(all.Structs(&users), nil)
+		t.Assert(all.X取数组结构体指针(&users), nil)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(table).Where("id>100").All()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		all, err := db.X创建Model对象(table).X条件("id>100").X查询()
 		t.AssertNil(err)
 		users := make([]User, 10)
-		t.Assert(all.Structs(&users), sql.ErrNoRows)
+		t.Assert(all.X取数组结构体指针(&users), sql.ErrNoRows)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(table).Where("id>100").All()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		all, err := db.X创建Model对象(table).X条件("id>100").X查询()
 		t.AssertNil(err)
 		var users []User
-		t.Assert(all.Structs(&users), nil)
+		t.Assert(all.X取数组结构体指针(&users), nil)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(table).Where("id>100").All()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		all, err := db.X创建Model对象(table).X条件("id>100").X查询()
 		t.AssertNil(err)
 		users := make([]*User, 0)
-		t.Assert(all.Structs(&users), nil)
+		t.Assert(all.X取数组结构体指针(&users), nil)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(table).Where("id>100").All()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		all, err := db.X创建Model对象(table).X条件("id>100").X查询()
 		t.AssertNil(err)
 		users := make([]*User, 10)
-		t.Assert(all.Structs(&users), sql.ErrNoRows)
+		t.Assert(all.X取数组结构体指针(&users), sql.ErrNoRows)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(table).Where("id>100").All()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		all, err := db.X创建Model对象(table).X条件("id>100").X查询()
 		t.AssertNil(err)
 		var users []*User
-		t.Assert(all.Structs(&users), nil)
+		t.Assert(all.X取数组结构体指针(&users), nil)
 	})
 }
 
 type MyTime struct {
-	gtime.Time
+	时间类.Time
 }
 
 type MyTimeSt struct {
@@ -338,8 +338,8 @@ type MyTimeSt struct {
 }
 
 func (st *MyTimeSt) UnmarshalValue(v interface{}) error {
-	m := gconv.Map(v)
-	t, err := gtime.StrToTime(gconv.String(m["create_time"]))
+	m := 转换类.X取Map(v)
+	t, err := 时间类.X转换文本(转换类.String(m["create_time"]))
 	if err != nil {
 		return err
 	}
@@ -350,15 +350,15 @@ func (st *MyTimeSt) UnmarshalValue(v interface{}) error {
 func Test_Model_Scan_CustomType_Time(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		st := new(MyTimeSt)
-		err := db.Model(table).Fields("create_time").Scan(st)
+		err := db.X创建Model对象(table).X字段保留过滤("create_time").X查询到结构体指针(st)
 		t.AssertNil(err)
 		t.Assert(st.CreateTime.String(), "2018-10-24 10:00:00")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var stSlice []*MyTimeSt
-		err := db.Model(table).Fields("create_time").Scan(&stSlice)
+		err := db.X创建Model对象(table).X字段保留过滤("create_time").X查询到结构体指针(&stSlice)
 		t.AssertNil(err)
 		t.Assert(len(stSlice), TableSize)
 		t.Assert(stSlice[0].CreateTime.String(), "2018-10-24 10:00:00")
@@ -375,15 +375,15 @@ func Test_Model_Scan_CustomType_String(t *testing.T) {
 
 	table := createInitTable()
 	defer dropTable(table)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		st := new(MyStringSt)
-		err := db.Model(table).Fields("Passport").WherePri(1).Scan(st)
+		err := db.X创建Model对象(table).X字段保留过滤("Passport").X条件并识别主键(1).X查询到结构体指针(st)
 		t.AssertNil(err)
 		t.Assert(st.Passport, "user_1")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var sts []MyStringSt
-		err := db.Model(table).Fields("Passport").Order("id asc").Scan(&sts)
+		err := db.X创建Model对象(table).X字段保留过滤("Passport").X排序("id asc").X查询到结构体指针(&sts)
 		t.AssertNil(err)
 		t.Assert(len(sts), TableSize)
 		t.Assert(sts[0].Passport, "user_1")
@@ -395,29 +395,29 @@ type User struct {
 	Passport   string
 	Password   string
 	Nickname   string
-	CreateTime *gtime.Time
+	CreateTime *时间类.Time
 }
 
 func (user *User) UnmarshalValue(value interface{}) error {
-	if record, ok := value.(gdb.Record); ok {
+	if record, ok := value.(db类.Record); ok {
 		*user = User{
-			Id:         record["id"].Int(),
+			Id:         record["id"].X取整数(),
 			Passport:   record["passport"].String(),
 			Password:   "",
 			Nickname:   record["nickname"].String(),
-			CreateTime: record["create_time"].GTime(),
+			CreateTime: record["create_time"].X取gtime时间类(),
 		}
 		return nil
 	}
-	return gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported value type for UnmarshalValue: %v`, reflect.TypeOf(value))
+	return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `unsupported value type for UnmarshalValue: %v`, reflect.TypeOf(value))
 }
 
 func Test_Model_Scan_UnmarshalValue(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []*User
-		err := db.Model(table).Order("id asc").Scan(&users)
+		err := db.X创建Model对象(table).X排序("id asc").X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize)
 		t.Assert(users[0].Id, 1)
@@ -438,9 +438,9 @@ func Test_Model_Scan_Map(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []*User
-		err := db.Model(table).Order("id asc").Scan(&users)
+		err := db.X创建Model对象(table).X排序("id asc").X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize)
 		t.Assert(users[0].Id, 1)
@@ -466,15 +466,15 @@ func Test_Scan_AutoFilteringByStructAttributes(t *testing.T) {
 		Passport string
 	}
 	// db.SetDebug(true)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var user *User
-		err := db.Model(table).OrderAsc("id").Scan(&user)
+		err := db.X创建Model对象(table).X排序ASC("id").X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 1)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var users []User
-		err := db.Model(table).OrderAsc("id").Scan(&users)
+		err := db.X创建Model对象(table).X排序ASC("id").X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize)
 		t.Assert(users[0].Id, 1)
@@ -549,18 +549,18 @@ func Test_Scan_JsonAttributes(t *testing.T) {
 	}
 
 	table := "jfy_gift"
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue1380.sql`), ";")
+	array := 文本类.X分割并忽略空值(单元测试类.DataContent(`issue1380.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
-			gtest.Error(err)
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
+			单元测试类.Error(err)
 		}
 	}
 	defer dropTable(table)
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			entity = new(GiftEntity)
-			err    = db.Model(table).Where("id", 17).Scan(entity)
+			err    = db.X创建Model对象(table).X条件("id", 17).X查询到结构体指针(entity)
 		)
 		t.AssertNil(err)
 		t.Assert(len(entity.Skus), 2)

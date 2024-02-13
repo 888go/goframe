@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient
+package 网页类
 
 import (
 	"context"
@@ -27,8 +27,8 @@ import (
 
 // SetBrowserMode启用客户端的浏览器模式。
 // 当浏览器模式被启用后，它会自动保存并从服务器发送、接收cookie内容。
-func (c *Client) SetBrowserMode(enabled bool) *Client {
-	if enabled {
+func (c *Client) X启用浏览器模式(启用 bool) *Client {
+	if 启用 {
 		jar, _ := cookiejar.New(nil)
 		c.Jar = jar
 	}
@@ -36,35 +36,35 @@ func (c *Client) SetBrowserMode(enabled bool) *Client {
 }
 
 // SetHeader 为客户端设置自定义HTTP头键值对。
-func (c *Client) SetHeader(key, value string) *Client {
-	c.header[key] = value
+func (c *Client) X设置协议头(名称, 值 string) *Client {
+	c.header[名称] = 值
 	return c
 }
 
 // SetHeaderMap 通过映射设置自定义HTTP头。
-func (c *Client) SetHeaderMap(m map[string]string) *Client {
-	for k, v := range m {
+func (c *Client) X设置Map协议头(map协议头 map[string]string) *Client {
+	for k, v := range map协议头 {
 		c.header[k] = v
 	}
 	return c
 }
 
 // SetAgent 设置客户端的 User-Agent 头部信息。
-func (c *Client) SetAgent(agent string) *Client {
-	c.header[httpHeaderUserAgent] = agent
+func (c *Client) X设置UA(UA值 string) *Client {
+	c.header[httpHeaderUserAgent] = UA值
 	return c
 }
 
 // SetContentType 为客户端设置HTTP内容类型。
-func (c *Client) SetContentType(contentType string) *Client {
-	c.header[httpHeaderContentType] = contentType
+func (c *Client) X设置内容类型(内容类型 string) *Client {
+	c.header[httpHeaderContentType] = 内容类型
 	return c
 }
 
 // SetHeaderRaw 通过原始字符串设置自定义HTTP头。
-func (c *Client) SetHeaderRaw(headers string) *Client {
-	for _, line := range gstr.SplitAndTrim(headers, "\n") {
-		array, _ := gregex.MatchString(httpRegexHeaderRaw, line)
+func (c *Client) X设置原始协议头(原始协议头 string) *Client {
+	for _, line := range 文本类.X分割并忽略空值(原始协议头, "\n") {
+		array, _ := 正则类.X匹配文本(httpRegexHeaderRaw, line)
 		if len(array) >= 3 {
 			c.header[array[1]] = array[2]
 		}
@@ -73,49 +73,49 @@ func (c *Client) SetHeaderRaw(headers string) *Client {
 }
 
 // SetCookie 为客户端设置一个cookie对。
-func (c *Client) SetCookie(key, value string) *Client {
-	c.cookies[key] = value
+func (c *Client) X设置cookie(名称, 值 string) *Client {
+	c.cookies[名称] = 值
 	return c
 }
 
 // SetCookieMap 通过map设置cookie项目。
-func (c *Client) SetCookieMap(m map[string]string) *Client {
-	for k, v := range m {
+func (c *Client) X设置CookieMap(MapCookie map[string]string) *Client {
+	for k, v := range MapCookie {
 		c.cookies[k] = v
 	}
 	return c
 }
 
 // SetPrefix 设置请求服务器 URL 前缀。
-func (c *Client) SetPrefix(prefix string) *Client {
-	c.prefix = prefix
+func (c *Client) X设置url前缀(前缀 string) *Client {
+	c.prefix = 前缀
 	return c
 }
 
 // SetTimeout 设置客户端的请求超时时间。
-func (c *Client) SetTimeout(t time.Duration) *Client {
-	c.Client.Timeout = t
+func (c *Client) X设置超时(时长 time.Duration) *Client {
+	c.Client.Timeout = 时长
 	return c
 }
 
 // SetBasicAuth为客户端设置HTTP基础认证信息。
-func (c *Client) SetBasicAuth(user, pass string) *Client {
-	c.authUser = user
-	c.authPass = pass
+func (c *Client) X设置账号密码(账号, 密码 string) *Client {
+	c.authUser = 账号
+	c.authPass = 密码
 	return c
 }
 
 // SetRetry 设置重试次数和间隔。
-func (c *Client) SetRetry(retryCount int, retryInterval time.Duration) *Client {
-	c.retryCount = retryCount
-	c.retryInterval = retryInterval
+func (c *Client) X设置重试与间隔(重试计数 int, 重试间隔时长 time.Duration) *Client {
+	c.retryCount = 重试计数
+	c.retryInterval = 重试间隔时长
 	return c
 }
 
 // SetRedirectLimit 限制跳转次数。
-func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
+func (c *Client) X设置重定向次数限制(次数 int) *Client {
 	c.CheckRedirect = func(req *http.Request, via []*http.Request) error {
-		if len(via) >= redirectLimit {
+		if len(via) >= 次数 {
 			return http.ErrUseLastResponse
 		}
 		return nil
@@ -124,8 +124,8 @@ func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
 }
 
 // SetNoUrlEncode 设置标记，表示在发送请求前不对参数进行URL编码。
-func (c *Client) SetNoUrlEncode(noUrlEncode bool) *Client {
-	c.noUrlEncode = noUrlEncode
+func (c *Client) X设置请求参数禁止URL编码(禁止编码 bool) *Client {
+	c.noUrlEncode = 禁止编码
 	return c
 }
 
@@ -133,11 +133,11 @@ func (c *Client) SetNoUrlEncode(noUrlEncode bool) *Client {
 // 当参数`proxyURL`为空或者格式不正确时，此函数将不做任何操作。
 // 正确的格式应如 `http://USER:PASSWORD@IP:PORT` 或 `socks5://USER:PASSWORD@IP:PORT`。
 // 目前仅支持 `http` 和 `socks5` 类型的代理。
-func (c *Client) SetProxy(proxyURL string) {
-	if strings.TrimSpace(proxyURL) == "" {
+func (c *Client) X设置代理(代理地址 string) {
+	if strings.TrimSpace(代理地址) == "" {
 		return
 	}
-	_proxy, err := url.Parse(proxyURL)
+	_proxy, err := url.Parse(代理地址)
 	if err != nil {
 		intlog.Errorf(context.TODO(), `%+v`, err)
 		return
@@ -182,26 +182,26 @@ func (c *Client) SetProxy(proxyURL string) {
 }
 
 // SetTLSKeyCrt 用于设置客户端TLS配置所需的证书和密钥文件。
-func (c *Client) SetTLSKeyCrt(crtFile, keyFile string) error {
-	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
+func (c *Client) X设置证书(crt路径, key路径 string) error {
+	tlsConfig, err := X创建TLS配置(crt路径, key路径)
 	if err != nil {
-		return gerror.Wrap(err, "LoadKeyCrt failed")
+		return 错误类.X多层错误(err, "LoadKeyCrt failed")
 	}
 	if v, ok := c.Transport.(*http.Transport); ok {
 		tlsConfig.InsecureSkipVerify = true
 		v.TLSClientConfig = tlsConfig
 		return nil
 	}
-	return gerror.New(`cannot set TLSClientConfig for custom Transport of the client`)
+	return 错误类.X创建(`cannot set TLSClientConfig for custom Transport of the client`)
 }
 
 // SetTLSConfig 设置客户端的 TLS 配置。
-func (c *Client) SetTLSConfig(tlsConfig *tls.Config) error {
+func (c *Client) X设置TLS配置(TLS配置 *tls.Config) error {
 	if v, ok := c.Transport.(*http.Transport); ok {
-		v.TLSClientConfig = tlsConfig
+		v.TLSClientConfig = TLS配置
 		return nil
 	}
-	return gerror.New(`cannot set TLSClientConfig for custom Transport of the client`)
+	return 错误类.X创建(`cannot set TLSClientConfig for custom Transport of the client`)
 }
 
 // SetBuilder 为客户端设置负载均衡器生成器。

@@ -33,15 +33,15 @@ func (r RuleBefore) Message() string {
 
 func (r RuleBefore) Run(in RunInput) error {
 	var (
-		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)
-		valueDatetime         = in.Value.Time()
-		fieldDatetime         = gconv.Time(fieldValue)
+		fieldName, fieldValue = 工具类.MapPossibleItemByKey(in.Data.X取Map(), in.RulePattern)
+		valueDatetime         = in.Value.X取时间类()
+		fieldDatetime         = 转换类.X取时间(fieldValue)
 	)
 	if valueDatetime.Before(fieldDatetime) {
 		return nil
 	}
-	return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+	return errors.New(文本类.Map替换(in.Message, map[string]string{
 		"{field1}": fieldName,
-		"{value1}": gconv.String(fieldValue),
+		"{value1}": 转换类.String(fieldValue),
 	}))
 }

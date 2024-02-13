@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"testing"
@@ -14,162 +14,162 @@ import (
 )
 
 func TestVar_IsNil(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsNil(), false)
-		t.Assert(g.NewVar(nil).IsNil(), true)
-		t.Assert(g.NewVar(g.Map{}).IsNil(), false)
-		t.Assert(g.NewVar(g.Slice{}).IsNil(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为Nil(), false)
+		t.Assert(g.X泛型类(nil).X是否为Nil(), true)
+		t.Assert(g.X泛型类(g.Map{}).X是否为Nil(), false)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为Nil(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsNil(), false)
-		t.Assert(g.NewVar(0.1).IsNil(), false)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsNil(), false)
-		t.Assert(g.NewVar(g.Slice{0}).IsNil(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为Nil(), false)
+		t.Assert(g.X泛型类(0.1).X是否为Nil(), false)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为Nil(), false)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为Nil(), false)
 	})
 }
 
 func TestVar_IsEmpty(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsEmpty(), true)
-		t.Assert(g.NewVar(nil).IsEmpty(), true)
-		t.Assert(g.NewVar(g.Map{}).IsEmpty(), true)
-		t.Assert(g.NewVar(g.Slice{}).IsEmpty(), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为空(), true)
+		t.Assert(g.X泛型类(nil).X是否为空(), true)
+		t.Assert(g.X泛型类(g.Map{}).X是否为空(), true)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为空(), true)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsEmpty(), false)
-		t.Assert(g.NewVar(0.1).IsEmpty(), false)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsEmpty(), false)
-		t.Assert(g.NewVar(g.Slice{0}).IsEmpty(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为空(), false)
+		t.Assert(g.X泛型类(0.1).X是否为空(), false)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为空(), false)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为空(), false)
 	})
 }
 
 func TestVar_IsInt(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsInt(), true)
-		t.Assert(g.NewVar(nil).IsInt(), false)
-		t.Assert(g.NewVar(g.Map{}).IsInt(), false)
-		t.Assert(g.NewVar(g.Slice{}).IsInt(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为整数(), true)
+		t.Assert(g.X泛型类(nil).X是否为整数(), false)
+		t.Assert(g.X泛型类(g.Map{}).X是否为整数(), false)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为整数(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsInt(), true)
-		t.Assert(g.NewVar(-1).IsInt(), true)
-		t.Assert(g.NewVar(0.1).IsInt(), false)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsInt(), false)
-		t.Assert(g.NewVar(g.Slice{0}).IsInt(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为整数(), true)
+		t.Assert(g.X泛型类(-1).X是否为整数(), true)
+		t.Assert(g.X泛型类(0.1).X是否为整数(), false)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为整数(), false)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为整数(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(int8(1)).IsInt(), true)
-		t.Assert(g.NewVar(uint8(1)).IsInt(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(int8(1)).X是否为整数(), true)
+		t.Assert(g.X泛型类(uint8(1)).X是否为整数(), false)
 	})
 }
 
 func TestVar_IsUint(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsUint(), false)
-		t.Assert(g.NewVar(nil).IsUint(), false)
-		t.Assert(g.NewVar(g.Map{}).IsUint(), false)
-		t.Assert(g.NewVar(g.Slice{}).IsUint(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为正整数(), false)
+		t.Assert(g.X泛型类(nil).X是否为正整数(), false)
+		t.Assert(g.X泛型类(g.Map{}).X是否为正整数(), false)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为正整数(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsUint(), false)
-		t.Assert(g.NewVar(-1).IsUint(), false)
-		t.Assert(g.NewVar(0.1).IsUint(), false)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsUint(), false)
-		t.Assert(g.NewVar(g.Slice{0}).IsUint(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为正整数(), false)
+		t.Assert(g.X泛型类(-1).X是否为正整数(), false)
+		t.Assert(g.X泛型类(0.1).X是否为正整数(), false)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为正整数(), false)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为正整数(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(int8(1)).IsUint(), false)
-		t.Assert(g.NewVar(uint8(1)).IsUint(), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(int8(1)).X是否为正整数(), false)
+		t.Assert(g.X泛型类(uint8(1)).X是否为正整数(), true)
 	})
 }
 
 func TestVar_IsFloat(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsFloat(), false)
-		t.Assert(g.NewVar(nil).IsFloat(), false)
-		t.Assert(g.NewVar(g.Map{}).IsFloat(), false)
-		t.Assert(g.NewVar(g.Slice{}).IsFloat(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为小数(), false)
+		t.Assert(g.X泛型类(nil).X是否为小数(), false)
+		t.Assert(g.X泛型类(g.Map{}).X是否为小数(), false)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为小数(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsFloat(), false)
-		t.Assert(g.NewVar(-1).IsFloat(), false)
-		t.Assert(g.NewVar(0.1).IsFloat(), true)
-		t.Assert(g.NewVar(float64(1)).IsFloat(), true)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsFloat(), false)
-		t.Assert(g.NewVar(g.Slice{0}).IsFloat(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为小数(), false)
+		t.Assert(g.X泛型类(-1).X是否为小数(), false)
+		t.Assert(g.X泛型类(0.1).X是否为小数(), true)
+		t.Assert(g.X泛型类(float64(1)).X是否为小数(), true)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为小数(), false)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为小数(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(int8(1)).IsFloat(), false)
-		t.Assert(g.NewVar(uint8(1)).IsFloat(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(int8(1)).X是否为小数(), false)
+		t.Assert(g.X泛型类(uint8(1)).X是否为小数(), false)
 	})
 }
 
 func TestVar_IsSlice(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsSlice(), false)
-		t.Assert(g.NewVar(nil).IsSlice(), false)
-		t.Assert(g.NewVar(g.Map{}).IsSlice(), false)
-		t.Assert(g.NewVar(g.Slice{}).IsSlice(), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为数组(), false)
+		t.Assert(g.X泛型类(nil).X是否为数组(), false)
+		t.Assert(g.X泛型类(g.Map{}).X是否为数组(), false)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为数组(), true)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsSlice(), false)
-		t.Assert(g.NewVar(-1).IsSlice(), false)
-		t.Assert(g.NewVar(0.1).IsSlice(), false)
-		t.Assert(g.NewVar(float64(1)).IsSlice(), false)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsSlice(), false)
-		t.Assert(g.NewVar(g.Slice{0}).IsSlice(), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为数组(), false)
+		t.Assert(g.X泛型类(-1).X是否为数组(), false)
+		t.Assert(g.X泛型类(0.1).X是否为数组(), false)
+		t.Assert(g.X泛型类(float64(1)).X是否为数组(), false)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为数组(), false)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为数组(), true)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(int8(1)).IsSlice(), false)
-		t.Assert(g.NewVar(uint8(1)).IsSlice(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(int8(1)).X是否为数组(), false)
+		t.Assert(g.X泛型类(uint8(1)).X是否为数组(), false)
 	})
 }
 
 func TestVar_IsMap(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsMap(), false)
-		t.Assert(g.NewVar(nil).IsMap(), false)
-		t.Assert(g.NewVar(g.Map{}).IsMap(), true)
-		t.Assert(g.NewVar(g.Slice{}).IsMap(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为Map(), false)
+		t.Assert(g.X泛型类(nil).X是否为Map(), false)
+		t.Assert(g.X泛型类(g.Map{}).X是否为Map(), true)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为Map(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsMap(), false)
-		t.Assert(g.NewVar(-1).IsMap(), false)
-		t.Assert(g.NewVar(0.1).IsMap(), false)
-		t.Assert(g.NewVar(float64(1)).IsMap(), false)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsMap(), true)
-		t.Assert(g.NewVar(g.Slice{0}).IsMap(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为Map(), false)
+		t.Assert(g.X泛型类(-1).X是否为Map(), false)
+		t.Assert(g.X泛型类(0.1).X是否为Map(), false)
+		t.Assert(g.X泛型类(float64(1)).X是否为Map(), false)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为Map(), true)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为Map(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(int8(1)).IsMap(), false)
-		t.Assert(g.NewVar(uint8(1)).IsMap(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(int8(1)).X是否为Map(), false)
+		t.Assert(g.X泛型类(uint8(1)).X是否为Map(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gvar.New(gvar.New("asd")).IsMap(), false)
-		t.Assert(gvar.New(&g.Map{"k": "v"}).IsMap(), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(泛型类.X创建(泛型类.X创建("asd")).X是否为Map(), false)
+		t.Assert(泛型类.X创建(&g.Map{"k": "v"}).X是否为Map(), true)
 	})
 }
 
 func TestVar_IsStruct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(0).IsStruct(), false)
-		t.Assert(g.NewVar(nil).IsStruct(), false)
-		t.Assert(g.NewVar(g.Map{}).IsStruct(), false)
-		t.Assert(g.NewVar(g.Slice{}).IsStruct(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(0).X是否为结构(), false)
+		t.Assert(g.X泛型类(nil).X是否为结构(), false)
+		t.Assert(g.X泛型类(g.Map{}).X是否为结构(), false)
+		t.Assert(g.X泛型类(g.Slice别名{}).X是否为结构(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).IsStruct(), false)
-		t.Assert(g.NewVar(-1).IsStruct(), false)
-		t.Assert(g.NewVar(0.1).IsStruct(), false)
-		t.Assert(g.NewVar(float64(1)).IsStruct(), false)
-		t.Assert(g.NewVar(g.Map{"k": "v"}).IsStruct(), false)
-		t.Assert(g.NewVar(g.Slice{0}).IsStruct(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(g.X泛型类(1).X是否为结构(), false)
+		t.Assert(g.X泛型类(-1).X是否为结构(), false)
+		t.Assert(g.X泛型类(0.1).X是否为结构(), false)
+		t.Assert(g.X泛型类(float64(1)).X是否为结构(), false)
+		t.Assert(g.X泛型类(g.Map{"k": "v"}).X是否为结构(), false)
+		t.Assert(g.X泛型类(g.Slice别名{0}).X是否为结构(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &struct {
 		}{}
-		t.Assert(g.NewVar(a).IsStruct(), true)
-		t.Assert(g.NewVar(*a).IsStruct(), true)
-		t.Assert(g.NewVar(&a).IsStruct(), true)
+		t.Assert(g.X泛型类(a).X是否为结构(), true)
+		t.Assert(g.X泛型类(*a).X是否为结构(), true)
+		t.Assert(g.X泛型类(&a).X是否为结构(), true)
 	})
 }

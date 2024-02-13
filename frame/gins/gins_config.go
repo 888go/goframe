@@ -11,6 +11,6 @@ import (
 
 // Config 返回一个使用默认设置的 View 实例。
 // 参数 `name` 是该实例的名称。
-func Config(name ...string) *gcfg.Config {
-	return gcfg.Instance(name...)
+func Config(name ...string) *配置类.Config {
+	return 配置类.X取单例对象(name...)
 }

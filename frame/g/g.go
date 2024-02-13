@@ -14,9 +14,9 @@ import (
 )
 
 type (
-	Var  = gvar.Var        // Var 是一个通用变量接口，类似于泛型。
+	Var  = 泛型类.Var        // Var 是一个通用变量接口，类似于泛型。
 	Ctx  = context.Context // Ctx 是 context.Context 类型的别名，通常会被频繁使用。
-	Meta = gmeta.Meta      // Meta 是 gmeta.Meta 这一常用类型的别名。
+	Meta = 元数据类.Meta      // Meta 是 gmeta.Meta 这一常用类型的别名。
 )
 
 type (
@@ -36,31 +36,31 @@ type (
 )
 
 type (
-	List        = []Map        // List 是 []Map 类型的别名，用于表示常用切片类型。
-	ListAnyAny  = []MapAnyAny  // ListAnyAny 是频繁使用的切片类型 []MapAnyAny 的别名。
-	ListAnyStr  = []MapAnyStr  // ListAnyStr 是对常用切片类型 []MapAnyStr 的别名。
-	ListAnyInt  = []MapAnyInt  // ListAnyInt 是 []MapAnyInt 这一常用切片类型的别名。
-	ListStrAny  = []MapStrAny  // ListStrAny 是对频繁使用的切片类型 []MapStrAny 的别名。
-	ListStrStr  = []MapStrStr  // ListStrStr 是 []MapStrStr 这种常用切片类型的别名。
-	ListStrInt  = []MapStrInt  // ListStrInt 是 []MapStrInt 这一常用切片类型的别名。
-	ListIntAny  = []MapIntAny  // ListIntAny 是频繁使用的切片类型 []MapIntAny 的别名。
-	ListIntStr  = []MapIntStr  // ListIntStr 是频繁使用的切片类型 []MapIntStr 的别名。
-	ListIntInt  = []MapIntInt  // ListIntInt 是 []MapIntInt 这种常用切片类型的别名。
-	ListAnyBool = []MapAnyBool // ListAnyBool 是 []MapAnyBool 这一常用切片类型的别名。
-	ListStrBool = []MapStrBool // ListStrBool 是 []MapStrBool 这种常用切片类型的别名。
-	ListIntBool = []MapIntBool // ListIntBool 是频繁使用的切片类型 []MapIntBool 的别名。
+	Map数组        = []Map        // List 是 []Map 类型的别名，用于表示常用切片类型。
+	MapAnyAny数组  = []MapAnyAny  // ListAnyAny 是频繁使用的切片类型 []MapAnyAny 的别名。
+	MapAnyStr数组  = []MapAnyStr  // ListAnyStr 是对常用切片类型 []MapAnyStr 的别名。
+	MapAnyInt数组  = []MapAnyInt  // ListAnyInt 是 []MapAnyInt 这一常用切片类型的别名。
+	MapStrAny数组  = []MapStrAny  // ListStrAny 是对频繁使用的切片类型 []MapStrAny 的别名。
+	MapStrStr数组  = []MapStrStr  // ListStrStr 是 []MapStrStr 这种常用切片类型的别名。
+	MapStrInt数组  = []MapStrInt  // ListStrInt 是 []MapStrInt 这一常用切片类型的别名。
+	MapIntAny数组  = []MapIntAny  // ListIntAny 是频繁使用的切片类型 []MapIntAny 的别名。
+	MapIntStr数组  = []MapIntStr  // ListIntStr 是频繁使用的切片类型 []MapIntStr 的别名。
+	MapIntInt数组  = []MapIntInt  // ListIntInt 是 []MapIntInt 这种常用切片类型的别名。
+	MapAnyBool数组 = []MapAnyBool // ListAnyBool 是 []MapAnyBool 这一常用切片类型的别名。
+	MapStrBool数组 = []MapStrBool // ListStrBool 是 []MapStrBool 这种常用切片类型的别名。
+	MapIntBool数组 = []MapIntBool // ListIntBool 是频繁使用的切片类型 []MapIntBool 的别名。
 )
 
 type (
-	Slice    = []interface{} // Slice 是 []interface{} 类型的别名，常用于表示频繁使用的切片类型。
-	SliceAny = []interface{} // SliceAny 是频繁使用的切片类型 []interface{} 的别名。
-	SliceStr = []string      // SliceStr 是对频繁使用的切片类型 []string 的别名。
-	SliceInt = []int         // SliceInt 是对常用切片类型 []int 的别名。
+	Slice别名    = []interface{} // Slice 是 []interface{} 类型的别名，常用于表示频繁使用的切片类型。
+	SliceAny别名 = []interface{} // SliceAny 是频繁使用的切片类型 []interface{} 的别名。
+	SliceStr别名 = []string      // SliceStr 是对频繁使用的切片类型 []string 的别名。
+	SliceInt别名 = []int         // SliceInt 是对常用切片类型 []int 的别名。
 )
 
 type (
-	Array    = []interface{} // Array 是 []interface{} 类型的别名，用于表示常用的切片类型。
-	ArrayAny = []interface{} // ArrayAny 是 []interface{} 这一频繁使用的切片类型的别名。
-	ArrayStr = []string      // ArrayStr 是对常用切片类型 []string 的别名。
-	ArrayInt = []int         // ArrayInt 是频繁使用的切片类型 []int 的别名。
+	X数组    = []interface{} // Array 是 []interface{} 类型的别名，用于表示常用的切片类型。
+	Any数组 = []interface{} // ArrayAny 是 []interface{} 这一频繁使用的切片类型的别名。
+	X文本数组 = []string      // ArrayStr 是对常用切片类型 []string 的别名。
+	X整数数组 = []int         // ArrayInt 是频繁使用的切片类型 []int 的别名。
 )

@@ -31,7 +31,7 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 	// 如果给定的是字符串或[]byte，直接将其转换并返回为字符串。
 	switch v := params.(type) {
 	case string, []byte:
-		return gconv.String(params)
+		return 转换类.String(params)
 	case []interface{}:
 		if len(v) > 0 {
 			params = v[0]
@@ -40,9 +40,9 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 		}
 	}
 	// Else 将其转换为 map，并执行 URL 编码。
-	m, urlEncode := gconv.Map(params), true
+	m, urlEncode := 转换类.X取Map(params), true
 	if len(m) == 0 {
-		return gconv.String(params)
+		return 转换类.String(params)
 	}
 	if len(noUrlEncode) == 1 {
 		urlEncode = !noUrlEncode[0]
@@ -50,7 +50,7 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 	// 如果存在文件上传，则忽略URL编码。
 	if urlEncode {
 		for k, v := range m {
-			if gstr.Contains(k, fileUploadingKey) || gstr.Contains(gconv.String(v), fileUploadingKey) {
+			if 文本类.X是否包含(k, fileUploadingKey) || 文本类.X是否包含(转换类.String(v), fileUploadingKey) {
 				urlEncode = false
 				break
 			}
@@ -59,18 +59,18 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 	s := ""
 	for k, v := range m {
 		// 忽略nil属性。
-		if empty.IsNil(v) {
+		if empty.X是否为Nil(v) {
 			continue
 		}
 		if len(encodedParamStr) > 0 {
 			encodedParamStr += "&"
 		}
-		s = gconv.String(v)
+		s = 转换类.String(v)
 		if urlEncode {
 			if strings.HasPrefix(s, fileUploadingKey) && len(s) > len(fileUploadingKey) {
 				// 如果上传文件，则不进行URL编码
 			} else {
-				s = gurl.Encode(s)
+				s = url类.X编码(s)
 			}
 		}
 		encodedParamStr += k + "=" + s

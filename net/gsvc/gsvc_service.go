@@ -42,10 +42,10 @@ func NewServiceWithName(name string) Service {
 func NewServiceWithKV(key, value string) (Service, error) {
 	var (
 		err   error
-		array = gstr.Split(gstr.Trim(key, DefaultSeparator), DefaultSeparator)
+		array = 文本类.X分割(文本类.X过滤首尾符并含空白(key, DefaultSeparator), DefaultSeparator)
 	)
 	if len(array) < 6 {
-		err = gerror.NewCodef(gcode.CodeInvalidParameter, `invalid service key "%s"`, key)
+		err = 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid service key "%s"`, key)
 		return nil, err
 	}
 	s := &LocalService{
@@ -59,8 +59,8 @@ func NewServiceWithKV(key, value string) (Service, error) {
 	}
 	s.autoFillDefaultAttributes()
 	if len(value) > 0 {
-		if err = gjson.Unmarshal([]byte(value), &s.Metadata); err != nil {
-			err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `invalid service value "%s"`, value)
+		if err = json类.Unmarshal别名([]byte(value), &s.Metadata); err != nil {
+			err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `invalid service value "%s"`, value)
 			return nil, err
 		}
 	}
@@ -92,7 +92,7 @@ func (s *LocalService) GetKey() string {
 // GetValue 格式化并返回服务的值。
 // 返回的结果值通常用于键值注册服务器。
 func (s *LocalService) GetValue() string {
-	b, err := gjson.Marshal(s.Metadata)
+	b, err := json类.Marshal别名(s.Metadata)
 	if err != nil {
 		intlog.Errorf(context.TODO(), `%+v`, err)
 	}
@@ -106,7 +106,7 @@ func (s *LocalService) GetValue() string {
 // `etcdctl get /services/prod/hello.svc --prefix`
 func (s *LocalService) GetPrefix() string {
 	s.autoFillDefaultAttributes()
-	return DefaultSeparator + gstr.Join(
+	return DefaultSeparator + 文本类.X连接(
 		[]string{
 			s.Head,
 			s.Deployment,
@@ -132,18 +132,18 @@ func (s *LocalService) GetEndpoints() Endpoints {
 
 func (s *LocalService) autoFillDefaultAttributes() {
 	if s.Head == "" {
-		s.Head = gcmd.GetOptWithEnv(EnvPrefix, DefaultHead).String()
+		s.Head = cmd类.GetOptWithEnv(EnvPrefix, DefaultHead).String()
 	}
 	if s.Deployment == "" {
-		s.Deployment = gcmd.GetOptWithEnv(EnvDeployment, DefaultDeployment).String()
+		s.Deployment = cmd类.GetOptWithEnv(EnvDeployment, DefaultDeployment).String()
 	}
 	if s.Namespace == "" {
-		s.Namespace = gcmd.GetOptWithEnv(EnvNamespace, DefaultNamespace).String()
+		s.Namespace = cmd类.GetOptWithEnv(EnvNamespace, DefaultNamespace).String()
 	}
 	if s.Name == "" {
-		s.Name = gcmd.GetOptWithEnv(EnvName).String()
+		s.Name = cmd类.GetOptWithEnv(EnvName).String()
 	}
 	if s.Version == "" {
-		s.Version = gcmd.GetOptWithEnv(EnvVersion, DefaultVersion).String()
+		s.Version = cmd类.GetOptWithEnv(EnvVersion, DefaultVersion).String()
 	}
 }

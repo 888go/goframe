@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gsession
+package session类
 
 import (
 	"context"
@@ -40,7 +40,7 @@ func (s *StorageBase) GetSize(ctx context.Context, sessionId string) (size int, 
 
 // Set 将键值对会话设置到存储中。
 // 参数 `ttl` 指定了会话ID的生存时间（并非针对键值对）。
-func (s *StorageBase) Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
+func (s *StorageBase) X设置值(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
 	return ErrorDisabled
 }
 
@@ -66,14 +66,14 @@ func (s *StorageBase) RemoveAll(ctx context.Context, sessionId string) error {
 // 参数 `data` 是当前存储在内存中的旧 session 数据，如果禁用了内存存储，对于某些存储方式，此参数可能为 nil。
 //
 // 当每次 session 开始时，都会调用这个函数。
-func (s *StorageBase) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
+func (s *StorageBase) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*map类.StrAnyMap, error) {
 	return nil, ErrorDisabled
 }
 
 // SetSession 更新指定会话 ID 的数据映射。
 // 在每次已标记为脏的、发生改变的会话关闭后，都会调用此函数。
 // 此函数将内存中的所有会话数据映射复制到存储中。
-func (s *StorageBase) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
+func (s *StorageBase) SetSession(ctx context.Context, sessionId string, sessionData *map类.StrAnyMap, ttl time.Duration) error {
 	return ErrorDisabled
 }
 

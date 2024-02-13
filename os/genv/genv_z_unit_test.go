@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package genv_test
+package 环境变量类_test
 
 import (
 	"os"
@@ -18,65 +18,65 @@ import (
 )
 
 func Test_GEnv_All(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(os.Environ(), genv.All())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(os.Environ(), 环境变量类.X取全部())
 	})
 }
 
 func Test_GEnv_Map(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		value := gconv.String(gtime.TimestampNano())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		value := 转换类.String(时间类.X取时间戳纳秒())
 		key := "TEST_ENV_" + value
 		err := os.Setenv(key, "TEST")
 		t.AssertNil(err)
-		t.Assert(genv.Map()[key], "TEST")
+		t.Assert(环境变量类.X取Map()[key], "TEST")
 	})
 }
 
 func Test_GEnv_Get(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		value := gconv.String(gtime.TimestampNano())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		value := 转换类.String(时间类.X取时间戳纳秒())
 		key := "TEST_ENV_" + value
 		err := os.Setenv(key, "TEST")
 		t.AssertNil(err)
-		t.AssertEQ(genv.Get(key).String(), "TEST")
+		t.AssertEQ(环境变量类.X取值(key).String(), "TEST")
 	})
 }
 
 func Test_GEnv_GetVar(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		value := gconv.String(gtime.TimestampNano())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		value := 转换类.String(时间类.X取时间戳纳秒())
 		key := "TEST_ENV_" + value
 		err := os.Setenv(key, "TEST")
 		t.AssertNil(err)
-		t.AssertEQ(genv.Get(key).String(), "TEST")
+		t.AssertEQ(环境变量类.X取值(key).String(), "TEST")
 	})
 }
 
 func Test_GEnv_Contains(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		value := gconv.String(gtime.TimestampNano())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		value := 转换类.String(时间类.X取时间戳纳秒())
 		key := "TEST_ENV_" + value
 		err := os.Setenv(key, "TEST")
 		t.AssertNil(err)
-		t.AssertEQ(genv.Contains(key), true)
-		t.AssertEQ(genv.Contains("none"), false)
+		t.AssertEQ(环境变量类.X是否存在(key), true)
+		t.AssertEQ(环境变量类.X是否存在("none"), false)
 	})
 }
 
 func Test_GEnv_Set(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		value := gconv.String(gtime.TimestampNano())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		value := 转换类.String(时间类.X取时间戳纳秒())
 		key := "TEST_ENV_" + value
-		err := genv.Set(key, "TEST")
+		err := 环境变量类.X设置值(key, "TEST")
 		t.AssertNil(err)
 		t.AssertEQ(os.Getenv(key), "TEST")
 	})
 }
 
 func Test_GEnv_SetMap(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		err := genv.SetMap(g.MapStrStr{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 环境变量类.X设置Map值(g.MapStrStr{
 			"K1": "TEST1",
 			"K2": "TEST2",
 		})
@@ -87,8 +87,8 @@ func Test_GEnv_SetMap(t *testing.T) {
 }
 
 func Test_GEnv_Build(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := genv.Build(map[string]string{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := 环境变量类.Map到数组(map[string]string{
 			"k1": "v1",
 			"k2": "v2",
 		})
@@ -98,47 +98,47 @@ func Test_GEnv_Build(t *testing.T) {
 }
 
 func Test_GEnv_Remove(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		value := gconv.String(gtime.TimestampNano())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		value := 转换类.String(时间类.X取时间戳纳秒())
 		key := "TEST_ENV_" + value
 		err := os.Setenv(key, "TEST")
 		t.AssertNil(err)
-		err = genv.Remove(key)
+		err = 环境变量类.X删除(key)
 		t.AssertNil(err)
 		t.AssertEQ(os.Getenv(key), "")
 	})
 }
 
 func Test_GetWithCmd(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		gcmd.Init("-test", "2")
-		t.Assert(genv.GetWithCmd("TEST"), 2)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		cmd类.Init("-test", "2")
+		t.Assert(环境变量类.X取值或命令行("TEST"), 2)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		genv.Set("TEST", "1")
-		defer genv.Remove("TEST")
-		gcmd.Init("-test", "2")
-		t.Assert(genv.GetWithCmd("test"), 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		环境变量类.X设置值("TEST", "1")
+		defer 环境变量类.X删除("TEST")
+		cmd类.Init("-test", "2")
+		t.Assert(环境变量类.X取值或命令行("test"), 1)
 	})
 }
 
 func Test_MapFromEnv(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		m := genv.MapFromEnv([]string{"a=1", "b=2"})
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := 环境变量类.X数组到Map([]string{"a=1", "b=2"})
 		t.Assert(m, g.Map{"a": 1, "b": 2})
 	})
 }
 
 func Test_MapToEnv(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := genv.MapToEnv(g.MapStrStr{"a": "1"})
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := 环境变量类.MapToEnv别名(g.MapStrStr{"a": "1"})
 		t.Assert(s, []string{"a=1"})
 	})
 }
 
 func Test_Filter(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := genv.Filter([]string{"a=1", "a=3"})
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := 环境变量类.X数组去重([]string{"a=1", "a=3"})
 		t.Assert(s, []string{"a=3"})
 	})
 }

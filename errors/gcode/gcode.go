@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 
 // Package gcode 提供通用错误码定义及常见错误码实现。
-package gcode
+package 错误码类
 
 // Code 是通用错误码接口的定义。
 type Code interface {

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glist
+package 链表类
 
 import (
 	"container/list"
@@ -14,7 +14,7 @@ import (
 	"github.com/888go/goframe/util/gconv"
 )
 
-func checkListLen(t *gtest.T, l *List, len int) bool {
+func checkListLen(t *单元测试类.T, l *List, len int) bool {
 	if n := l.Len(); n != len {
 		t.Errorf("l.Len() = %d, want %d", n, len)
 		return false
@@ -22,7 +22,7 @@ func checkListLen(t *gtest.T, l *List, len int) bool {
 	return true
 }
 
-func checkListPointers(t *gtest.T, l *List, es []*Element) {
+func checkListPointers(t *单元测试类.T, l *List, es []*Element) {
 	if !checkListLen(t, l, len(es)) {
 		return
 	}
@@ -115,7 +115,7 @@ func TestBasic(t *testing.T) {
 }
 
 func TestList(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		checkListPointers(t, l, []*Element{})
 
@@ -197,7 +197,7 @@ func TestList(t *testing.T) {
 	})
 }
 
-func checkList(t *gtest.T, l *List, es []interface{}) {
+func checkList(t *单元测试类.T, l *List, es []interface{}) {
 	if !checkListLen(t, l, len(es)) {
 		return
 	}
@@ -234,7 +234,7 @@ func checkList(t *gtest.T, l *List, es []interface{}) {
 }
 
 func TestExtending(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l1 := New()
 		l2 := New()
 
@@ -281,7 +281,7 @@ func TestExtending(t *testing.T) {
 }
 
 func TestRemove(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		e1 := l.PushBack(1)
 		e2 := l.PushBack(2)
@@ -341,7 +341,7 @@ func TestIssue6349(t *testing.T) {
 }
 
 func TestMove(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		e1 := l.PushBack(1)
 		e2 := l.PushBack(2)
@@ -378,7 +378,7 @@ func TestMove(t *testing.T) {
 
 // 测试未初始化的List使用PushFront、PushBack、PushFrontList和PushBackList函数
 func TestZeroList(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var l1 = New()
 		l1.PushFront(1)
 		checkList(t, l1, []interface{}{1})
@@ -399,7 +399,7 @@ func TestZeroList(t *testing.T) {
 
 // 测试当使用一个非列表l元素的标记调用InsertBefore时，列表l不会被修改。
 func TestInsertBeforeUnknownMark(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		l.PushBack(1)
 		l.PushBack(2)
@@ -411,7 +411,7 @@ func TestInsertBeforeUnknownMark(t *testing.T) {
 
 // 测试当使用一个不在列表l中的标记调用InsertAfter时，列表l不会被修改。
 func TestInsertAfterUnknownMark(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		l.PushBack(1)
 		l.PushBack(2)
@@ -423,7 +423,7 @@ func TestInsertAfterUnknownMark(t *testing.T) {
 
 // 测试当在列表l上调用MoveAfter或MoveBefore方法时，如果移动标记不是l的元素，则列表l不会被修改。
 func TestMoveUnknownMark(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l1 := New()
 		e1 := l1.PushBack(1)
 
@@ -441,7 +441,7 @@ func TestMoveUnknownMark(t *testing.T) {
 }
 
 func TestList_RemoveAll(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		l.PushBack(1)
 		l.RemoveAll()
@@ -452,7 +452,7 @@ func TestList_RemoveAll(t *testing.T) {
 }
 
 func TestList_PushFronts(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2}
 		l.PushFronts(a1)
@@ -464,7 +464,7 @@ func TestList_PushFronts(t *testing.T) {
 }
 
 func TestList_PushBacks(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2}
 		l.PushBacks(a1)
@@ -476,7 +476,7 @@ func TestList_PushBacks(t *testing.T) {
 }
 
 func TestList_PopBacks(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		a2 := []interface{}{"a", "c", "b", "e"}
@@ -491,7 +491,7 @@ func TestList_PopBacks(t *testing.T) {
 }
 
 func TestList_PopFronts(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -502,7 +502,7 @@ func TestList_PopFronts(t *testing.T) {
 }
 
 func TestList_PopBackAll(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -513,7 +513,7 @@ func TestList_PopBackAll(t *testing.T) {
 }
 
 func TestList_PopFrontAll(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -524,7 +524,7 @@ func TestList_PopFrontAll(t *testing.T) {
 }
 
 func TestList_FrontAll(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -535,7 +535,7 @@ func TestList_FrontAll(t *testing.T) {
 }
 
 func TestList_BackAll(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -546,13 +546,13 @@ func TestList_BackAll(t *testing.T) {
 }
 
 func TestList_FrontValue(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		l2 := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
 		i1 := l.FrontValue()
-		t.Assert(gconv.Int(i1), 4)
+		t.Assert(转换类.X取整数(i1), 4)
 		t.Assert(l.Len(), 4)
 
 		i1 = l2.FrontValue()
@@ -561,13 +561,13 @@ func TestList_FrontValue(t *testing.T) {
 }
 
 func TestList_BackValue(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		l2 := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
 		i1 := l.BackValue()
-		t.Assert(gconv.Int(i1), 1)
+		t.Assert(转换类.X取整数(i1), 1)
 		t.Assert(l.Len(), 4)
 
 		i1 = l2.FrontValue()
@@ -576,7 +576,7 @@ func TestList_BackValue(t *testing.T) {
 }
 
 func TestList_Back(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -587,7 +587,7 @@ func TestList_Back(t *testing.T) {
 }
 
 func TestList_Size(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -598,7 +598,7 @@ func TestList_Size(t *testing.T) {
 }
 
 func TestList_Removes(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -614,7 +614,7 @@ func TestList_Removes(t *testing.T) {
 }
 
 func TestList_Pop(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := NewFrom([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
 		t.Assert(l.PopBack(), 9)
@@ -625,7 +625,7 @@ func TestList_Pop(t *testing.T) {
 }
 
 func TestList_Clear(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
@@ -635,13 +635,13 @@ func TestList_Clear(t *testing.T) {
 }
 
 func TestList_IteratorAsc(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 5, 6, 3, 4}
 		l.PushFronts(a1)
 		e1 := l.Back()
 		fun1 := func(e *Element) bool {
-			return gconv.Int(e1.Value) > 2
+			return 转换类.X取整数(e1.Value) > 2
 		}
 		checkList(t, l, []interface{}{4, 3, 6, 5, 2, 1})
 		l.IteratorAsc(fun1)
@@ -650,13 +650,13 @@ func TestList_IteratorAsc(t *testing.T) {
 }
 
 func TestList_IteratorDesc(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
 		e1 := l.Back()
 		fun1 := func(e *Element) bool {
-			return gconv.Int(e1.Value) > 6
+			return 转换类.X取整数(e1.Value) > 6
 		}
 		l.IteratorDesc(fun1)
 		t.Assert(l.Len(), 4)
@@ -665,22 +665,22 @@ func TestList_IteratorDesc(t *testing.T) {
 }
 
 func TestList_Iterator(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := New()
 		a1 := []interface{}{"a", "b", "c", "d", "e"}
 		l.PushFronts(a1)
 		e1 := l.Back()
 		fun1 := func(e *Element) bool {
-			return gconv.String(e1.Value) > "c"
+			return 转换类.String(e1.Value) > "c"
 		}
 		checkList(t, l, []interface{}{"e", "d", "c", "b", "a"})
-		l.Iterator(fun1)
+		l.X遍历(fun1)
 		checkList(t, l, []interface{}{"e", "d", "c", "b", "a"})
 	})
 }
 
 func TestList_Join(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := NewFrom([]interface{}{1, 2, "a", `"b"`, `\c`})
 		t.Assert(l.Join(","), `1,2,a,"b",\c`)
 		t.Assert(l.Join("."), `1.2.a."b".\c`)
@@ -688,7 +688,7 @@ func TestList_Join(t *testing.T) {
 }
 
 func TestList_String(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := NewFrom([]interface{}{1, 2, "a", `"b"`, `\c`})
 		t.Assert(l.String(), `[1,2,a,"b",\c]`)
 	})
@@ -696,7 +696,7 @@ func TestList_String(t *testing.T) {
 
 func TestList_Json(t *testing.T) {
 	// Marshal
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := []interface{}{"a", "b", "c"}
 		l := New()
 		l.PushBacks(a)
@@ -706,7 +706,7 @@ func TestList_Json(t *testing.T) {
 		t.Assert(b1, b2)
 	})
 	// Unmarshal
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := []interface{}{"a", "b", "c"}
 		l := New()
 		b, err := json.Marshal(a)
@@ -716,7 +716,7 @@ func TestList_Json(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(l.FrontAll(), a)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var l List
 		a := []interface{}{"a", "b", "c"}
 		b, err := json.Marshal(a)
@@ -734,9 +734,9 @@ func TestList_UnmarshalValue(t *testing.T) {
 		List *List
 	}
 	// JSON
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var tlist *TList
-		err := gconv.Struct(map[string]interface{}{
+		err := 转换类.Struct(map[string]interface{}{
 			"name": "john",
 			"list": []byte(`[1,2,3]`),
 		}, &tlist)
@@ -745,9 +745,9 @@ func TestList_UnmarshalValue(t *testing.T) {
 		t.Assert(tlist.List.FrontAll(), []interface{}{1, 2, 3})
 	})
 	// Map
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var tlist *TList
-		err := gconv.Struct(map[string]interface{}{
+		err := 转换类.Struct(map[string]interface{}{
 			"name": "john",
 			"list": []interface{}{1, 2, 3},
 		}, &tlist)
@@ -758,7 +758,7 @@ func TestList_UnmarshalValue(t *testing.T) {
 }
 
 func TestList_DeepCopy(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		l := NewFrom([]interface{}{1, 2, "a", `"b"`, `\c`})
 		copyList := l.DeepCopy()
 		cl := copyList.(*List)

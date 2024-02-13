@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
@@ -19,7 +19,7 @@ import (
 
 // 这是GitHub上gogf/gf仓库的第1227号问题链接
 func Test_Issue1227(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type StructFromIssue1227 struct {
 			Name string `json:"n1"`
 		}
@@ -56,7 +56,7 @@ func Test_Issue1227(t *testing.T) {
 		}
 		for _, tt := range tests {
 			p := StructFromIssue1227{}
-			if err := gconv.Struct(tt.origin, &p); err != nil {
+			if err := 转换类.Struct(tt.origin, &p); err != nil {
 				t.Error(err)
 			}
 			t.Assert(p.Name, tt.want)
@@ -64,7 +64,7 @@ func Test_Issue1227(t *testing.T) {
 	})
 
 	// Chinese key.
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type StructFromIssue1227 struct {
 			Name string `json:"中文Key"`
 		}
@@ -106,7 +106,7 @@ func Test_Issue1227(t *testing.T) {
 		}
 		for _, tt := range tests {
 			p := StructFromIssue1227{}
-			if err := gconv.Struct(tt.origin, &p); err != nil {
+			if err := 转换类.Struct(tt.origin, &p); err != nil {
 				t.Error(err)
 			}
 			t.Assert(p.Name, tt.want)
@@ -115,9 +115,9 @@ func Test_Issue1227(t *testing.T) {
 }
 
 func Test_Issue1946(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
-			init *gtype.Bool
+			init *安全变量类.Bool
 			Name string
 		}
 		type A struct {
@@ -125,22 +125,22 @@ func Test_Issue1946(t *testing.T) {
 		}
 		a := &A{
 			B: &B{
-				init: gtype.NewBool(true),
+				init: 安全变量类.NewBool(true),
 			},
 		}
-		err := gconv.Struct(g.Map{
+		err := 转换类.Struct(g.Map{
 			"B": g.Map{
 				"Name": "init",
 			},
 		}, a)
 		t.AssertNil(err)
 		t.Assert(a.B.Name, "init")
-		t.Assert(a.B.init.Val(), true)
+		t.Assert(a.B.init.X取值(), true)
 	})
 	// 它无法改变私有属性。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
-			init *gtype.Bool
+			init *安全变量类.Bool
 			Name string
 		}
 		type A struct {
@@ -148,10 +148,10 @@ func Test_Issue1946(t *testing.T) {
 		}
 		a := &A{
 			B: &B{
-				init: gtype.NewBool(true),
+				init: 安全变量类.NewBool(true),
 			},
 		}
-		err := gconv.Struct(g.Map{
+		err := 转换类.Struct(g.Map{
 			"B": g.Map{
 				"init": 0,
 				"Name": "init",
@@ -159,12 +159,12 @@ func Test_Issue1946(t *testing.T) {
 		}, a)
 		t.AssertNil(err)
 		t.Assert(a.B.Name, "init")
-		t.Assert(a.B.init.Val(), true)
+		t.Assert(a.B.init.X取值(), true)
 	})
 	// 它可以改变公共属性。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type B struct {
-			Init *gtype.Bool
+			Init *安全变量类.Bool
 			Name string
 		}
 		type A struct {
@@ -172,10 +172,10 @@ func Test_Issue1946(t *testing.T) {
 		}
 		a := &A{
 			B: &B{
-				Init: gtype.NewBool(),
+				Init: 安全变量类.NewBool(),
 			},
 		}
-		err := gconv.Struct(g.Map{
+		err := 转换类.Struct(g.Map{
 			"B": g.Map{
 				"Init": 1,
 				"Name": "init",
@@ -183,7 +183,7 @@ func Test_Issue1946(t *testing.T) {
 		}, a)
 		t.AssertNil(err)
 		t.Assert(a.B.Name, "init")
-		t.Assert(a.B.Init.Val(), true)
+		t.Assert(a.B.Init.X取值(), true)
 	})
 }
 
@@ -191,12 +191,12 @@ func Test_Issue1946(t *testing.T) {
 // 中文翻译：
 // 参考GitHub上gogf/gf项目中的第2381个问题。
 func Test_Issue2381(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Inherit struct {
 			Id        int64       `json:"id"          description:"Id"`
-			Flag      *gjson.Json `json:"flag"        description:"标签"`
+			Flag      *json类.Json `json:"flag"        description:"标签"`
 			Title     string      `json:"title"       description:"标题"`
-			CreatedAt *gtime.Time `json:"createdAt"   description:"创建时间"`
+			CreatedAt *时间类.Time `json:"createdAt"   description:"创建时间"`
 		}
 		type Test1 struct {
 			Inherit
@@ -212,12 +212,12 @@ func Test_Issue2381(t *testing.T) {
 		a1 = Test1{
 			Inherit{
 				Id:        2,
-				Flag:      gjson.New("[1, 2]"),
+				Flag:      json类.X创建("[1, 2]"),
 				Title:     "测试",
-				CreatedAt: gtime.Now(),
+				CreatedAt: 时间类.X创建并按当前时间(),
 			},
 		}
-		err := gconv.Scan(a1, &a2)
+		err := 转换类.Scan(a1, &a2)
 		t.AssertNil(err)
 		t.Assert(a1.Id, a2.Id)
 		t.Assert(a1.Title, a2.Title)
@@ -228,11 +228,11 @@ func Test_Issue2381(t *testing.T) {
 
 // 这是GitHub上gogf/gf仓库的第2391个issue
 func Test_Issue2391(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Inherit struct {
 			Ids   []int
 			Ids2  []int64
-			Flag  *gjson.Json
+			Flag  *json类.Json
 			Title string
 		}
 
@@ -252,12 +252,12 @@ func Test_Issue2391(t *testing.T) {
 			Inherit{
 				Ids:   []int{1, 2, 3},
 				Ids2:  []int64{4, 5, 6},
-				Flag:  gjson.New("[\"1\", \"2\"]"),
+				Flag:  json类.X创建("[\"1\", \"2\"]"),
 				Title: "测试",
 			},
 		}
 
-		err := gconv.Scan(a1, &a2)
+		err := 转换类.Scan(a1, &a2)
 		t.AssertNil(err)
 		t.Assert(a1.Ids, a2.Ids)
 		t.Assert(a1.Ids2, a2.Ids2)
@@ -270,13 +270,13 @@ func Test_Issue2391(t *testing.T) {
 // 中文翻译：
 // 参考GitHub上gogf/gf项目的问题#2395。
 func Test_Issue2395(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Test struct {
 			Num int
 		}
 		var ()
 		obj := Test{Num: 0}
-		t.Assert(gconv.Interfaces(obj), []interface{}{obj})
+		t.Assert(转换类.X取any数组(obj), []interface{}{obj})
 	})
 }
 
@@ -284,7 +284,7 @@ func Test_Issue2395(t *testing.T) {
 // 中文翻译：
 // 参考GitHub上gogf/gf项目编号为2371的问题。
 func Test_Issue2371(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			s = struct {
 				Time time.Time `json:"time"`
@@ -292,7 +292,7 @@ func Test_Issue2371(t *testing.T) {
 			jsonMap = map[string]interface{}{"time": "2022-12-15 16:11:34"}
 		)
 
-		err := gconv.Struct(jsonMap, &s)
+		err := 转换类.Struct(jsonMap, &s)
 		t.AssertNil(err)
 		t.Assert(s.Time.UTC(), `2022-12-15 08:11:34 +0000 UTC`)
 	})

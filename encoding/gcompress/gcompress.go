@@ -4,4 +4,4 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包gcompress提供了多种压缩算法，适用于二进制/字节数据。
-package gcompress
+package 压缩类

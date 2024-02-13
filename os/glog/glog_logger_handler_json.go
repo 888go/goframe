@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"context"
@@ -26,7 +26,7 @@ type HandlerOutputJson struct {
 }
 
 // HandlerJson 是一个处理器，用于将输出的日志内容作为单个 JSON 字符串进行处理。
-func HandlerJson(ctx context.Context, in *HandlerInput) {
+func X中间件函数Json(上下文 context.Context, in *HandlerInput) {
 	output := HandlerOutputJson{
 		Time:       in.TimeFormat,
 		TraceId:    in.TraceId,
@@ -41,7 +41,7 @@ func HandlerJson(ctx context.Context, in *HandlerInput) {
 	// 将values字符串内容进行转换
 	var valueContent string
 	for _, v := range in.Values {
-		valueContent = gconv.String(v)
+		valueContent = 转换类.String(v)
 		if len(valueContent) == 0 {
 			continue
 		}
@@ -66,5 +66,5 @@ func HandlerJson(ctx context.Context, in *HandlerInput) {
 	}
 	in.Buffer.Write(jsonBytes)
 	in.Buffer.Write([]byte("\n"))
-	in.Next(ctx)
+	in.Next(上下文)
 }

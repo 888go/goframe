@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"bytes"
@@ -55,12 +55,12 @@ func doFinalPrint(ctx context.Context, in *HandlerInput) {
 }
 
 // SetDefaultHandler 设置包的默认处理器。
-func SetDefaultHandler(handler Handler) {
-	defaultHandler = handler
+func X设置默认中间件(处理函数 Handler) {
+	defaultHandler = 处理函数
 }
 
 // GetDefaultHandler 返回该包的默认处理器。
-func GetDefaultHandler() Handler {
+func X取默认中间件() Handler {
 	return defaultHandler
 }
 
@@ -123,7 +123,7 @@ func (in *HandlerInput) getDefaultBuffer(withColor bool) *bytes.Buffer {
 	// 将values字符串内容进行转换
 	var valueContent string
 	for _, v := range in.Values {
-		valueContent = gconv.String(v)
+		valueContent = 转换类.String(v)
 		if len(valueContent) == 0 {
 			continue
 		}

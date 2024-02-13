@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile
+package 文件类
 
 import (
 	"os"
@@ -11,8 +11,8 @@ import (
 )
 
 // MTime 返回给定路径 `path` 下文件的修改时间（以秒为单位）。
-func MTime(path string) time.Time {
-	s, e := os.Stat(path)
+func X取修改时间秒(路径 string) time.Time {
+	s, e := os.Stat(路径)
 	if e != nil {
 		return time.Time{}
 	}
@@ -20,8 +20,8 @@ func MTime(path string) time.Time {
 }
 
 // MTimestamp 返回给定路径 `path` 文件的修改时间（以秒为单位）。
-func MTimestamp(path string) int64 {
-	mtime := MTime(path)
+func X取修改时间戳秒(路径 string) int64 {
+	mtime := X取修改时间秒(路径)
 	if mtime.IsZero() {
 		return -1
 	}
@@ -29,8 +29,8 @@ func MTimestamp(path string) int64 {
 }
 
 // MTimestampMilli 返回给定路径 `path` 下文件的修改时间，单位为毫秒。
-func MTimestampMilli(path string) int64 {
-	mtime := MTime(path)
+func X取修改时间戳毫秒(路径 string) int64 {
+	mtime := X取修改时间秒(路径)
 	if mtime.IsZero() {
 		return -1
 	}

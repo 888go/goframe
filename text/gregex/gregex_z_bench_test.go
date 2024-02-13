@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gregex_test
+package 正则类_test
 
 import (
 	"regexp"
@@ -20,13 +20,13 @@ var src = `GF is best! -- John`
 
 func Benchmark_GF_IsMatchString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gregex.IsMatchString(pattern, src)
+		正则类.X是否匹配文本(pattern, src)
 	}
 }
 
 func Benchmark_GF_MatchString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gregex.MatchString(pattern, src)
+		正则类.X匹配文本(pattern, src)
 	}
 }
 

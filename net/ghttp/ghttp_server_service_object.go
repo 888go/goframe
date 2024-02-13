@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -20,15 +20,15 @@ import (
 //
 // 可选参数 `method` 用于指定要注册的方法，该方法支持多个方法名；
 // 多个方法之间用字符 ',' 分隔，大小写敏感。
-func (s *Server) BindObject(pattern string, object interface{}, method ...string) {
+func (s *Server) X绑定对象(路由规则 string, 处理对象 interface{}, 方法名 ...string) {
 	var bindMethod = ""
-	if len(method) > 0 {
-		bindMethod = method[0]
+	if len(方法名) > 0 {
+		bindMethod = 方法名[0]
 	}
 	s.doBindObject(context.TODO(), doBindObjectInput{
 		Prefix:     "",
-		Pattern:    pattern,
-		Object:     object,
+		Pattern:    路由规则,
+		Object:     处理对象,
 		Method:     bindMethod,
 		Middleware: nil,
 		Source:     "",
@@ -38,23 +38,23 @@ func (s *Server) BindObject(pattern string, object interface{}, method ...string
 // BindObjectMethod 将指定对象的方法注册到服务器路由中，使用给定的模式。
 //
 // 可选参数 `method` 用于指定要注册的方法，该参数不支持多个方法名，仅支持单个、大小写敏感的方法名。
-func (s *Server) BindObjectMethod(pattern string, object interface{}, method string) {
+func (s *Server) X绑定对象方法(路由规则 string, 处理对象 interface{}, 方法 string) {
 	s.doBindObjectMethod(context.TODO(), doBindObjectMethodInput{
 		Prefix:     "",
-		Pattern:    pattern,
-		Object:     object,
-		Method:     method,
+		Pattern:    路由规则,
+		Object:     处理对象,
+		Method:     方法,
 		Middleware: nil,
 		Source:     "",
 	})
 }
 
 // BindObjectRest 以指定模式将符合REST API风格的对象注册到服务器。
-func (s *Server) BindObjectRest(pattern string, object interface{}) {
+func (s *Server) X绑定RESTfulAPI对象(路由规则 string, 处理对象 interface{}) {
 	s.doBindObjectRest(context.TODO(), doBindObjectInput{
 		Prefix:     "",
-		Pattern:    pattern,
-		Object:     object,
+		Pattern:    路由规则,
+		Object:     处理对象,
 		Method:     "",
 		Middleware: nil,
 		Source:     "",
@@ -83,10 +83,10 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 // 为了方便后续语句的控制，将其移除。
 	domain, method, path, err := s.parsePattern(in.Pattern)
 	if err != nil {
-		s.Logger().Fatalf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 		return
 	}
-	if gstr.Equal(method, defaultMethod) {
+	if 文本类.X相等比较并忽略大小写(method, defaultMethod) {
 		in.Pattern = s.serveHandlerKey("", path, domain)
 	}
 	var (
@@ -118,7 +118,7 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*Request))
 	}
 	pkgPath := reflectType.Elem().PkgPath()
-	pkgName := gfile.Basename(pkgPath)
+	pkgName := 文件类.X路径取文件名(pkgPath)
 	for i := 0; i < reflectValue.NumMethod(); i++ {
 		methodName := reflectType.Method(i).Name
 		if methodMap != nil && !methodMap[methodName] {
@@ -127,14 +127,14 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		if methodName == specialMethodNameInit || methodName == specialMethodNameShut {
 			continue
 		}
-		objName := gstr.Replace(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
+		objName := 文本类.X替换(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
 		if objName[0] == '*' {
 			objName = fmt.Sprintf(`(%s)`, objName)
 		}
 
 		funcInfo, err := s.checkAndCreateFuncInfo(reflectValue.Method(i).Interface(), pkgPath, objName, methodName)
 		if err != nil {
-			s.Logger().Fatalf(ctx, `%+v`, err)
+			s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 		}
 
 		key := s.mergeBuildInNameToPattern(in.Pattern, structName, methodName, true)
@@ -153,11 +153,11 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 // 注意，如果模式中存在内置变量，则此路由不会被自动添加。
 		var (
 			isIndexMethod = strings.EqualFold(methodName, specialMethodNameIndex)
-			hasBuildInVar = gregex.IsMatchString(`\{\.\w+\}`, in.Pattern)
+			hasBuildInVar = 正则类.X是否匹配文本(`\{\.\w+\}`, in.Pattern)
 			hashTwoParams = funcInfo.Type.NumIn() == 2
 		)
 		if isIndexMethod && !hasBuildInVar && !hashTwoParams {
-			p := gstr.PosRI(key, "/index")
+			p := 文本类.X倒找并忽略大小写(key, "/index")
 			k := key[0:p] + key[p+6:]
 			if len(k) == 0 || k[0] == '@' {
 				k = "/" + k
@@ -207,7 +207,7 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 		methodValue = reflectValue.MethodByName(methodName)
 	)
 	if !methodValue.IsValid() {
-		s.Logger().Fatalf(ctx, "invalid method name: %s", methodName)
+		s.Logger别名().X输出并格式化FATA(ctx, "invalid method name: %s", methodName)
 		return
 	}
 	if reflectValue.MethodByName(specialMethodNameInit).IsValid() {
@@ -218,8 +218,8 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 	}
 	var (
 		pkgPath = reflectType.Elem().PkgPath()
-		pkgName = gfile.Basename(pkgPath)
-		objName = gstr.Replace(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
+		pkgName = 文件类.X路径取文件名(pkgPath)
+		objName = 文本类.X替换(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
 	)
 	if objName[0] == '*' {
 		objName = fmt.Sprintf(`(%s)`, objName)
@@ -227,7 +227,7 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 
 	funcInfo, err := s.checkAndCreateFuncInfo(methodValue.Interface(), pkgPath, objName, methodName)
 	if err != nil {
-		s.Logger().Fatalf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 	}
 
 	key := s.mergeBuildInNameToPattern(in.Pattern, structName, methodName, false)
@@ -273,8 +273,8 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 		if _, ok := methodsMap[strings.ToUpper(methodName)]; !ok {
 			continue
 		}
-		pkgName := gfile.Basename(pkgPath)
-		objName := gstr.Replace(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
+		pkgName := 文件类.X路径取文件名(pkgPath)
+		objName := 文本类.X替换(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
 		if objName[0] == '*' {
 			objName = fmt.Sprintf(`(%s)`, objName)
 		}
@@ -286,7 +286,7 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 			methodName,
 		)
 		if err != nil {
-			s.Logger().Fatalf(ctx, `%+v`, err)
+			s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 		}
 
 		key := s.mergeBuildInNameToPattern(methodName+":"+in.Pattern, structName, methodName, false)

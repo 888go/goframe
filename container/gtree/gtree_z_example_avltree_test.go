@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf获取一个。
 
-package gtree_test
+package 树形类_test
 
 import (
 	"fmt"
@@ -15,9 +15,9 @@ import (
 )
 
 func ExampleAVLTree_Clone() {
-	avl := gtree.NewAVLTree(gutil.ComparatorString)
+	avl := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		avl.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		avl.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	tree := avl.Clone()
@@ -31,9 +31,9 @@ func ExampleAVLTree_Clone() {
 }
 
 func ExampleAVLTree_Set() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -45,7 +45,7 @@ func ExampleAVLTree_Set() {
 }
 
 func ExampleAVLTree_Sets() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 
 	tree.Sets(map[interface{}]interface{}{
 		"key1": "val1",
@@ -61,9 +61,9 @@ func ExampleAVLTree_Sets() {
 }
 
 func ExampleAVLTree_Get() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Get("key1"))
@@ -75,9 +75,9 @@ func ExampleAVLTree_Get() {
 }
 
 func ExampleAVLTree_GetOrSet() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetOrSet("key1", "newVal1"))
@@ -89,9 +89,9 @@ func ExampleAVLTree_GetOrSet() {
 }
 
 func ExampleAVLTree_GetOrSetFunc() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetOrSetFunc("key1", func() interface{} {
@@ -107,9 +107,9 @@ func ExampleAVLTree_GetOrSetFunc() {
 }
 
 func ExampleAVLTree_GetOrSetFuncLock() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetOrSetFuncLock("key1", func() interface{} {
@@ -125,9 +125,9 @@ func ExampleAVLTree_GetOrSetFuncLock() {
 }
 
 func ExampleAVLTree_GetVar() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVar("key1").String())
@@ -137,9 +137,9 @@ func ExampleAVLTree_GetVar() {
 }
 
 func ExampleAVLTree_GetVarOrSet() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSet("key1", "newVal1"))
@@ -151,9 +151,9 @@ func ExampleAVLTree_GetVarOrSet() {
 }
 
 func ExampleAVLTree_GetVarOrSetFunc() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSetFunc("key1", func() interface{} {
@@ -169,9 +169,9 @@ func ExampleAVLTree_GetVarOrSetFunc() {
 }
 
 func ExampleAVLTree_GetVarOrSetFuncLock() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSetFuncLock("key1", func() interface{} {
@@ -187,9 +187,9 @@ func ExampleAVLTree_GetVarOrSetFuncLock() {
 }
 
 func ExampleAVLTree_SetIfNotExist() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExist("key1", "newVal1"))
@@ -201,9 +201,9 @@ func ExampleAVLTree_SetIfNotExist() {
 }
 
 func ExampleAVLTree_SetIfNotExistFunc() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExistFunc("key1", func() interface{} {
@@ -219,9 +219,9 @@ func ExampleAVLTree_SetIfNotExistFunc() {
 }
 
 func ExampleAVLTree_SetIfNotExistFuncLock() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExistFuncLock("key1", func() interface{} {
@@ -237,9 +237,9 @@ func ExampleAVLTree_SetIfNotExistFuncLock() {
 }
 
 func ExampleAVLTree_Contains() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Contains("key1"))
@@ -251,9 +251,9 @@ func ExampleAVLTree_Contains() {
 }
 
 func ExampleAVLTree_Remove() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Remove("key1"))
@@ -267,9 +267,9 @@ func ExampleAVLTree_Remove() {
 }
 
 func ExampleAVLTree_Removes() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	removeKeys := make([]interface{}, 2)
@@ -285,12 +285,12 @@ func ExampleAVLTree_Removes() {
 }
 
 func ExampleAVLTree_IsEmpty() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 
 	fmt.Println(tree.IsEmpty())
 
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.IsEmpty())
@@ -301,12 +301,12 @@ func ExampleAVLTree_IsEmpty() {
 }
 
 func ExampleAVLTree_Size() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 
 	fmt.Println(tree.Size())
 
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Size())
@@ -317,9 +317,9 @@ func ExampleAVLTree_Size() {
 }
 
 func ExampleAVLTree_Keys() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 6; i > 0; i-- {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Keys())
@@ -329,9 +329,9 @@ func ExampleAVLTree_Keys() {
 }
 
 func ExampleAVLTree_Values() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 6; i > 0; i-- {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Values())
@@ -341,9 +341,9 @@ func ExampleAVLTree_Values() {
 }
 
 func ExampleAVLTree_Map() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -353,21 +353,21 @@ func ExampleAVLTree_Map() {
 }
 
 func ExampleAVLTree_MapStrAny() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set(1000+i, "val"+gconv.String(i))
+		tree.X设置值(1000+i, "val"+转换类.String(i))
 	}
 
-	fmt.Println(tree.MapStrAny())
+	fmt.Println(tree.X取MapStrAny())
 
 	// Output:
 	// map[1000:val0 1001:val1 1002:val2 1003:val3 1004:val4 1005:val5]
 }
 
 func ExampleAVLTree_Flip() {
-	tree := gtree.NewAVLTree(gutil.ComparatorInt)
+	tree := 树形类.NewAVLTree(工具类.X比较整数)
 	for i := 1; i < 6; i++ {
-		tree.Set(i, i*10)
+		tree.X设置值(i, i*10)
 	}
 
 	fmt.Println("Before Flip", tree.Map())
@@ -382,9 +382,9 @@ func ExampleAVLTree_Flip() {
 }
 
 func ExampleAVLTree_Clear() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set(1000+i, "val"+gconv.String(i))
+		tree.X设置值(1000+i, "val"+转换类.String(i))
 	}
 	fmt.Println(tree.Size())
 
@@ -397,9 +397,9 @@ func ExampleAVLTree_Clear() {
 }
 
 func ExampleAVLTree_Replace() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -420,13 +420,13 @@ func ExampleAVLTree_Replace() {
 }
 
 func ExampleAVLTree_Left() {
-	tree := gtree.NewAVLTree(gutil.ComparatorInt)
+	tree := 树形类.NewAVLTree(工具类.X比较整数)
 	for i := 1; i < 100; i++ {
-		tree.Set(i, i)
+		tree.X设置值(i, i)
 	}
 	fmt.Println(tree.Left().Key, tree.Left().Value)
 
-	emptyTree := gtree.NewAVLTree(gutil.ComparatorInt)
+	emptyTree := 树形类.NewAVLTree(工具类.X比较整数)
 	fmt.Println(emptyTree.Left())
 
 	// Output:
@@ -435,13 +435,13 @@ func ExampleAVLTree_Left() {
 }
 
 func ExampleAVLTree_Right() {
-	tree := gtree.NewAVLTree(gutil.ComparatorInt)
+	tree := 树形类.NewAVLTree(工具类.X比较整数)
 	for i := 1; i < 100; i++ {
-		tree.Set(i, i)
+		tree.X设置值(i, i)
 	}
 	fmt.Println(tree.Right().Key, tree.Right().Value)
 
-	emptyTree := gtree.NewAVLTree(gutil.ComparatorInt)
+	emptyTree := 树形类.NewAVLTree(工具类.X比较整数)
 	fmt.Println(emptyTree.Left())
 
 	// Output:
@@ -450,10 +450,10 @@ func ExampleAVLTree_Right() {
 }
 
 func ExampleAVLTree_Floor() {
-	tree := gtree.NewAVLTree(gutil.ComparatorInt)
+	tree := 树形类.NewAVLTree(工具类.X比较整数)
 	for i := 1; i < 100; i++ {
 		if i != 50 {
-			tree.Set(i, i)
+			tree.X设置值(i, i)
 		}
 	}
 
@@ -484,10 +484,10 @@ func ExampleAVLTree_Floor() {
 }
 
 func ExampleAVLTree_Ceiling() {
-	tree := gtree.NewAVLTree(gutil.ComparatorInt)
+	tree := 树形类.NewAVLTree(工具类.X比较整数)
 	for i := 1; i < 100; i++ {
 		if i != 50 {
-			tree.Set(i, i)
+			tree.X设置值(i, i)
 		}
 	}
 
@@ -518,9 +518,9 @@ func ExampleAVLTree_Ceiling() {
 }
 
 func ExampleAVLTree_String() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.String())
@@ -535,9 +535,9 @@ func ExampleAVLTree_String() {
 }
 
 func ExampleAVLTree_Search() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	fmt.Println(tree.Search("key0"))
@@ -549,9 +549,9 @@ func ExampleAVLTree_Search() {
 }
 
 func ExampleAVLTree_Print() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	tree.Print()
@@ -566,13 +566,13 @@ func ExampleAVLTree_Print() {
 }
 
 func ExampleAVLTree_Iterator() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	var totalKey, totalValue int
-	tree.Iterator(func(key, value interface{}) bool {
+	tree.X遍历(func(key, value interface{}) bool {
 		totalKey += key.(int)
 		totalValue += value.(int)
 
@@ -592,7 +592,7 @@ func ExampleAVLTree_IteratorFrom() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewAVLTreeFrom(gutil.ComparatorInt, m)
+	tree := 树形类.NewAVLTreeFrom(工具类.X比较整数, m)
 
 	tree.IteratorFrom(1, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -608,9 +608,9 @@ func ExampleAVLTree_IteratorFrom() {
 }
 
 func ExampleAVLTree_IteratorAsc() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -636,7 +636,7 @@ func ExampleAVLTree_IteratorAscFrom_Normal() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewAVLTreeFrom(gutil.ComparatorInt, m)
+	tree := 树形类.NewAVLTreeFrom(工具类.X比较整数, m)
 
 	tree.IteratorAscFrom(1, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -656,7 +656,7 @@ func ExampleAVLTree_IteratorAscFrom_NoExistKey() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewAVLTreeFrom(gutil.ComparatorInt, m)
+	tree := 树形类.NewAVLTreeFrom(工具类.X比较整数, m)
 
 	tree.IteratorAscFrom(0, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -671,7 +671,7 @@ func ExampleAVLTree_IteratorAscFrom_NoExistKeyAndMatchFalse() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewAVLTreeFrom(gutil.ComparatorInt, m)
+	tree := 树形类.NewAVLTreeFrom(工具类.X比较整数, m)
 
 	tree.IteratorAscFrom(6, false, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -682,9 +682,9 @@ func ExampleAVLTree_IteratorAscFrom_NoExistKeyAndMatchFalse() {
 }
 
 func ExampleAVLTree_IteratorDesc() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	tree.IteratorDesc(func(key, value interface{}) bool {
@@ -710,7 +710,7 @@ func ExampleAVLTree_IteratorDescFrom() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewAVLTreeFrom(gutil.ComparatorInt, m)
+	tree := 树形类.NewAVLTreeFrom(工具类.X比较整数, m)
 
 	tree.IteratorDescFrom(5, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -726,14 +726,14 @@ func ExampleAVLTree_IteratorDescFrom() {
 }
 
 func ExampleAVLTree_MarshalJSON() {
-	tree := gtree.NewAVLTree(gutil.ComparatorString)
+	tree := 树形类.NewAVLTree(工具类.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+转换类.String(i), "val"+转换类.String(i))
 	}
 
 	bytes, err := json.Marshal(tree)
 	if err == nil {
-		fmt.Println(gconv.String(bytes))
+		fmt.Println(转换类.String(bytes))
 	}
 
 	// Output:

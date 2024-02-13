@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gyaml 提供对 YAML 内容的访问和转换功能。
-package gyaml
+package yaml类
 
 import (
 	"bytes"
@@ -21,7 +21,7 @@ import (
 // Encode 将`value`编码为YAML格式的字节内容。
 func Encode(value interface{}) (out []byte, err error) {
 	if out, err = yaml.Marshal(value); err != nil {
-		err = gerror.Wrap(err, `yaml.Marshal failed`)
+		err = 错误类.X多层错误(err, `yaml.Marshal failed`)
 	}
 	return
 }
@@ -54,17 +54,17 @@ func Decode(content []byte) (map[string]interface{}, error) {
 		err    error
 	)
 	if err = yaml.Unmarshal(content, &result); err != nil {
-		err = gerror.Wrap(err, `yaml.Unmarshal failed`)
+		err = 错误类.X多层错误(err, `yaml.Unmarshal failed`)
 		return nil, err
 	}
-	return gconv.MapDeep(result), nil
+	return 转换类.X取Map_递归(result), nil
 }
 
 // DecodeTo 将 `content` 解析到 `result` 中。
 func DecodeTo(value []byte, result interface{}) (err error) {
 	err = yaml.Unmarshal(value, result)
 	if err != nil {
-		err = gerror.Wrap(err, `yaml.Unmarshal failed`)
+		err = 错误类.X多层错误(err, `yaml.Unmarshal failed`)
 	}
 	return
 }

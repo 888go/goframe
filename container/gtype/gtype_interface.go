@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtype
+package 安全变量类
 
 import (
 	"sync/atomic"
@@ -30,30 +30,30 @@ func NewInterface(value ...interface{}) *Interface {
 
 // Clone 克隆并返回一个用于 interface{} 类型的新并发安全对象。
 func (v *Interface) Clone() *Interface {
-	return NewInterface(v.Val())
+	return NewInterface(v.X取值())
 }
 
 // Set 方法通过原子操作将`value`存储到t.value，并返回修改前的t.value的值。
 // 注意：参数`value`不能为空。
-func (v *Interface) Set(value interface{}) (old interface{}) {
-	old = v.Val()
+func (v *Interface) X设置值(value interface{}) (old interface{}) {
+	old = v.X取值()
 	v.value.Store(value)
 	return
 }
 
 // Val 原子性地加载并返回 t.value。
-func (v *Interface) Val() interface{} {
+func (v *Interface) X取值() interface{} {
 	return v.value.Load()
 }
 
 // String 实现了 String 接口以便进行字符串打印。
 func (v *Interface) String() string {
-	return gconv.String(v.Val())
+	return 转换类.String(v.X取值())
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (v Interface) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.Val())
+	return json.Marshal(v.X取值())
 }
 
 // UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
@@ -62,13 +62,13 @@ func (v *Interface) UnmarshalJSON(b []byte) error {
 	if err := json.UnmarshalUseNumber(b, &i); err != nil {
 		return err
 	}
-	v.Set(i)
+	v.X设置值(i)
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于为 `v` 设置任意类型的值。
 func (v *Interface) UnmarshalValue(value interface{}) error {
-	v.Set(value)
+	v.X设置值(value)
 	return nil
 }
 
@@ -77,5 +77,5 @@ func (v *Interface) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewInterface(deepcopy.Copy(v.Val()))
+	return NewInterface(deepcopy.Copy(v.X取值()))
 }

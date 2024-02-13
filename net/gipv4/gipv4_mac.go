@@ -4,7 +4,7 @@
 // 您可以在https://github.com/gogf/gf获取一份。
 //
 
-package gipv4
+package ipv4类
 
 import (
 	"net"
@@ -28,7 +28,7 @@ func GetMac() (mac string, err error) {
 func GetMacArray() (macs []string, err error) {
 	netInterfaces, err := net.Interfaces()
 	if err != nil {
-		err = gerror.Wrap(err, `net.Interfaces failed`)
+		err = 错误类.X多层错误(err, `net.Interfaces failed`)
 		return nil, err
 	}
 	for _, netInterface := range netInterfaces {

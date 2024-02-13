@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gsha1_test
+package 加密sha1类_test
 
 import (
 	"os"
@@ -22,19 +22,19 @@ type user struct {
 }
 
 func TestEncrypt(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := &user{
 			name:     "派大星",
 			password: "123456",
 			age:      23,
 		}
 		result := "97386736e3ee4adee5ca595c78c12129f6032cad"
-		encrypt := gsha1.Encrypt(user)
+		encrypt := 加密sha1类.X加密(user)
 		t.AssertEQ(encrypt, result)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		result := "5b4c1c2a08ca85ddd031ef8627414f4cb2620b41"
-		s := gsha1.Encrypt("pibigstar")
+		s := 加密sha1类.X加密("pibigstar")
 		t.AssertEQ(s, result)
 	})
 }
@@ -42,17 +42,17 @@ func TestEncrypt(t *testing.T) {
 func TestEncryptFile(t *testing.T) {
 	path := "test.text"
 	errPath := "err.text"
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		result := "8b05d3ba24b8d2374b8f5149d9f3fbada14ea984"
 		file, err := os.Create(path)
 		defer os.Remove(path)
 		defer file.Close()
 		t.AssertNil(err)
 		_, _ = file.Write([]byte("Hello Go Frame"))
-		encryptFile, _ := gsha1.EncryptFile(path)
+		encryptFile, _ := 加密sha1类.X加密文件(path)
 		t.AssertEQ(encryptFile, result)
 		// 当文件不存在时，encrypt将返回空字符串
-		errEncrypt, _ := gsha1.EncryptFile(errPath)
+		errEncrypt, _ := 加密sha1类.X加密文件(errPath)
 		t.AssertEQ(errEncrypt, "")
 	})
 }

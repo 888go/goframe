@@ -5,7 +5,7 @@
 
 // 静态服务测试。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -19,24 +19,24 @@ import (
 
 func TestServer_EnablePProf(t *testing.T) {
 	C(t, func(t *T) {
-		s := g.Server(guid.S())
-		s.EnablePProf("/pprof")
+		s := g.Http类(uid类.X生成())
+		s.PProf开启("/pprof")
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		r, err := client.Get(ctx, "/pprof/index")
+		r, err := client.Get响应对象(ctx, "/pprof/index")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 
-		r, err = client.Get(ctx, "/pprof/cmdline")
+		r, err = client.Get响应对象(ctx, "/pprof/cmdline")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 
 // r, err = client.Get(ctx, "/pprof/profile")
 // 翻译：使用client发起一个GET请求，获取"/pprof/profile"资源，将响应赋值给r，错误信息赋值给err
@@ -48,15 +48,15 @@ func TestServer_EnablePProf(t *testing.T) {
 // 翻译：关闭HTTP响应体r，释放相关资源
 // 在实际的Go语言项目中，通常不会有一个名为Assert的函数，这可能是一个自定义的错误检查函数。如果是在测试代码中，这可能是模拟了类似testing包中的assert.NoError或require.HTTPStatusEqual等断言行为。
 
-		r, err = client.Get(ctx, "/pprof/symbol")
+		r, err = client.Get响应对象(ctx, "/pprof/symbol")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 
-		r, err = client.Get(ctx, "/pprof/trace")
+		r, err = client.Get响应对象(ctx, "/pprof/trace")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 	})
 
 }

@@ -4,4 +4,4 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gtcp 提供了 TCP 服务器和客户端的实现。
-package gtcp
+package tcp类

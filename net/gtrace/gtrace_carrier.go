@@ -32,7 +32,7 @@ func NewCarrier(data ...map[string]interface{}) Carrier {
 //
 // Get 方法用于获取与传递的键关联的值。
 func (c Carrier) Get(k string) string {
-	return gconv.String(c[k])
+	return 转换类.String(c[k])
 }
 
 // 2024-01-14 备注,此文件方法不要翻译,  

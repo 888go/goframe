@@ -9,7 +9,7 @@
 // 它按照目录添加的顺序，内部高效地进行文件搜索。
 // 注意：
 // 如果启用了缓存功能，在添加或删除文件后，会有一个搜索延迟。
-package gspath
+package 文件搜索类
 
 import (
 	"context"
@@ -28,8 +28,8 @@ import (
 
 // SPath 管理路径搜索功能。
 type SPath struct {
-	paths *garray.StrArray // 搜索目录的数组。
-	cache *gmap.StrStrMap  // Searching cache map, it is not enabled if it's nil.
+	paths *数组类.StrArray // 搜索目录的数组。
+	cache *map类.StrStrMap  // Searching cache map, it is not enabled if it's nil.
 }
 
 // SPathCacheItem 是一个用于搜索的缓存项。
@@ -40,16 +40,16 @@ type SPathCacheItem struct {
 
 var (
 	// 对象映射的搜索路径，用于实例管理。
-	pathsMap = gmap.NewStrAnyMap(true)
+	pathsMap = map类.X创建StrAny(true)
 )
 
 // New 创建并返回一个新的路径搜索管理器。
 func New(path string, cache bool) *SPath {
 	sp := &SPath{
-		paths: garray.NewStrArray(true),
+		paths: 数组类.X创建文本(true),
 	}
 	if cache {
-		sp.cache = gmap.NewStrStrMap(true)
+		sp.cache = map类.X创建StrStr(true)
 	}
 	if len(path) > 0 {
 		if _, err := sp.Add(path); err != nil {
@@ -67,7 +67,7 @@ func Get(root string, cache bool) *SPath {
 	if root == "" {
 		root = "/"
 	}
-	return pathsMap.GetOrSetFuncLock(root, func() interface{} {
+	return pathsMap.X取值或设置值_函数带锁(root, func() interface{} {
 		return New(root, cache)
 	}).(*SPath)
 }
@@ -91,65 +91,65 @@ func SearchWithCache(root string, name string, indexFiles ...string) (filePath s
 }
 
 // Set 删除所有其他搜索目录，并为此管理器设置搜索目录。
-func (sp *SPath) Set(path string) (realPath string, err error) {
-	realPath = gfile.RealPath(path)
+func (sp *SPath) X设置值(path string) (realPath string, err error) {
+	realPath = 文件类.X取绝对路径且效验(path)
 	if realPath == "" {
 		realPath, _ = sp.Search(path)
 		if realPath == "" {
-			realPath = gfile.RealPath(gfile.Pwd() + gfile.Separator + path)
+			realPath = 文件类.X取绝对路径且效验(文件类.X取当前工作目录() + 文件类.Separator + path)
 		}
 	}
 	if realPath == "" {
-		return realPath, gerror.NewCodef(gcode.CodeInvalidParameter, `path "%s" does not exist`, path)
+		return realPath, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `path "%s" does not exist`, path)
 	}
 	// 设置的路径必须是一个目录。
-	if gfile.IsDir(realPath) {
-		realPath = strings.TrimRight(realPath, gfile.Separator)
-		if sp.paths.Search(realPath) != -1 {
-			for _, v := range sp.paths.Slice() {
+	if 文件类.X是否存在目录(realPath) {
+		realPath = strings.TrimRight(realPath, 文件类.Separator)
+		if sp.paths.X查找(realPath) != -1 {
+			for _, v := range sp.paths.X取切片() {
 				sp.removeMonitorByPath(v)
 			}
 		}
 		intlog.Print(context.TODO(), "paths clear:", sp.paths)
-		sp.paths.Clear()
+		sp.paths.X清空()
 		if sp.cache != nil {
-			sp.cache.Clear()
+			sp.cache.X清空()
 		}
-		sp.paths.Append(realPath)
+		sp.paths.Append别名(realPath)
 		sp.updateCacheByPath(realPath)
 		sp.addMonitorByPath(realPath)
 		return realPath, nil
 	} else {
-		return "", gerror.NewCode(gcode.CodeInvalidParameter, path+" should be a folder")
+		return "", 错误类.X创建错误码(错误码类.CodeInvalidParameter, path+" should be a folder")
 	}
 }
 
 // Add 向管理器添加更多搜索目录。
 // 管理器将按照添加顺序搜索文件。
 func (sp *SPath) Add(path string) (realPath string, err error) {
-	realPath = gfile.RealPath(path)
+	realPath = 文件类.X取绝对路径且效验(path)
 	if realPath == "" {
 		realPath, _ = sp.Search(path)
 		if realPath == "" {
-			realPath = gfile.RealPath(gfile.Pwd() + gfile.Separator + path)
+			realPath = 文件类.X取绝对路径且效验(文件类.X取当前工作目录() + 文件类.Separator + path)
 		}
 	}
 	if realPath == "" {
-		return realPath, gerror.NewCodef(gcode.CodeInvalidParameter, `path "%s" does not exist`, path)
+		return realPath, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `path "%s" does not exist`, path)
 	}
 	// 添加的路径必须是一个目录。
-	if gfile.IsDir(realPath) {
+	if 文件类.X是否存在目录(realPath) {
 // fmt.Println("gspath:", realPath, sp.paths.Search(realPath)) // 输出gspath:（realPath的值），以及sp.paths在realPath路径下搜索的结果
 // 同一目录不会被重复添加两次。
-		if sp.paths.Search(realPath) < 0 {
-			realPath = strings.TrimRight(realPath, gfile.Separator)
-			sp.paths.Append(realPath)
+		if sp.paths.X查找(realPath) < 0 {
+			realPath = strings.TrimRight(realPath, 文件类.Separator)
+			sp.paths.Append别名(realPath)
 			sp.updateCacheByPath(realPath)
 			sp.addMonitorByPath(realPath)
 		}
 		return realPath, nil
 	} else {
-		return "", gerror.NewCode(gcode.CodeInvalidParameter, path+" should be a folder")
+		return "", 错误类.X创建错误码(错误码类.CodeInvalidParameter, path+" should be a folder")
 	}
 }
 
@@ -161,12 +161,12 @@ func (sp *SPath) Add(path string) (realPath string, err error) {
 func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isDir bool) {
 	// No cache enabled.
 	if sp.cache == nil {
-		sp.paths.LockFunc(func(array []string) {
+		sp.paths.X遍历写锁定(func(array []string) {
 			path := ""
 			for _, v := range array {
-				path = gfile.Join(v, name)
+				path = 文件类.X路径生成(v, name)
 				if stat, err := os.Stat(path); stat != nil && !os.IsNotExist(err) {
-					path = gfile.Abs(path)
+					path = 文件类.X取绝对路径(path)
 					// 安全检查：结果文件路径必须在搜索目录下。
 					if len(path) >= len(v) && path[:len(v)] == v {
 						filePath = path
@@ -182,8 +182,8 @@ func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isD
 			}
 			path := ""
 			for _, file := range indexFiles {
-				path = filePath + gfile.Separator + file
-				if gfile.Exists(path) {
+				path = filePath + 文件类.Separator + file
+				if 文件类.X是否存在(path) {
 					filePath = path
 					isDir = false
 					break
@@ -194,14 +194,14 @@ func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isD
 	}
 	// 使用缓存功能。
 	name = sp.formatCacheName(name)
-	if v := sp.cache.Get(name); v != "" {
+	if v := sp.cache.X取值(name); v != "" {
 		filePath, isDir = sp.parseCacheValue(v)
 		if len(indexFiles) > 0 && isDir {
 			if name == "/" {
 				name = ""
 			}
 			for _, file := range indexFiles {
-				if v = sp.cache.Get(name + "/" + file); v != "" {
+				if v = sp.cache.X取值(name + "/" + file); v != "" {
 					return sp.parseCacheValue(v)
 				}
 			}
@@ -216,21 +216,21 @@ func (sp *SPath) Remove(path string) {
 	if sp.cache == nil {
 		return
 	}
-	if gfile.Exists(path) {
-		for _, v := range sp.paths.Slice() {
-			name := gstr.Replace(path, v, "")
+	if 文件类.X是否存在(path) {
+		for _, v := range sp.paths.X取切片() {
+			name := 文本类.X替换(path, v, "")
 			name = sp.formatCacheName(name)
-			sp.cache.Remove(name)
+			sp.cache.X删除(name)
 		}
 	} else {
 		name := sp.formatCacheName(path)
-		sp.cache.Remove(name)
+		sp.cache.X删除(name)
 	}
 }
 
 // Paths 返回所有搜索目录。
 func (sp *SPath) Paths() []string {
-	return sp.paths.Slice()
+	return sp.paths.X取切片()
 }
 
 // AllPaths 返回缓存在manager中的所有路径。
@@ -238,7 +238,7 @@ func (sp *SPath) AllPaths() []string {
 	if sp.cache == nil {
 		return nil
 	}
-	paths := sp.cache.Keys()
+	paths := sp.cache.X取所有名称()
 	if len(paths) > 0 {
 		sort.Strings(paths)
 	}
@@ -247,5 +247,5 @@ func (sp *SPath) AllPaths() []string {
 
 // Size 返回搜索目录的数量。
 func (sp *SPath) Size() int {
-	return sp.paths.Len()
+	return sp.paths.X取长度()
 }

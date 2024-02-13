@@ -30,7 +30,7 @@ func (r RuleNotRegex) Message() string {
 }
 
 func (r RuleNotRegex) Run(in RunInput) error {
-	if gregex.IsMatchString(in.RulePattern, in.Value.String()) {
+	if 正则类.X是否匹配文本(in.RulePattern, in.Value.String()) {
 		return errors.New(in.Message)
 	}
 	return nil

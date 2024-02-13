@@ -6,7 +6,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gpool_test
+package 对象复用类_test
 
 import (
 	"sync"
@@ -16,19 +16,19 @@ import (
 	"github.com/888go/goframe/container/gpool"
 )
 
-var pool = gpool.New(time.Hour, nil)
+var pool = 对象复用类.X创建(time.Hour, nil)
 
 var syncp = sync.Pool{}
 
 func BenchmarkGPoolPut(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		pool.Put(i)
+		pool.X入栈(i)
 	}
 }
 
 func BenchmarkGPoolGet(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		pool.Get()
+		pool.X出栈()
 	}
 }
 

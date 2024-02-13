@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gregex 提供了用于正则表达式功能的高性能 API。
-package gregex
+package 正则类
 
 import (
 	"regexp"
@@ -14,84 +14,84 @@ import (
 // 并返回处理后的副本。
 //
 // 例如：Quote(`[foo]`) 将返回 `\[foo\]`。
-func Quote(s string) string {
-	return regexp.QuoteMeta(s)
+func X转义特殊符号(文本 string) string {
+	return regexp.QuoteMeta(文本)
 }
 
 // Validate 检查给定的正则表达式模式 `pattern` 是否有效。
-func Validate(pattern string) error {
-	_, err := getRegexp(pattern)
+func X表达式验证(表达式 string) error {
+	_, err := getRegexp(表达式)
 	return err
 }
 
 // IsMatch 检查给定的字节序列 `src` 是否匹配模式 `pattern`。
-func IsMatch(pattern string, src []byte) bool {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.Match(src)
+func X是否匹配字节集(表达式 string, 字节集 []byte) bool {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.Match(字节集)
 	}
 	return false
 }
 
 // IsMatchString 检查给定的字符串 `src` 是否与 `pattern` 匹配。
-func IsMatchString(pattern string, src string) bool {
-	return IsMatch(pattern, []byte(src))
+func X是否匹配文本(表达式 string, 字节集 string) bool {
+	return X是否匹配字节集(表达式, []byte(字节集))
 }
 
 // Match 返回匹配 `pattern` 的字节切片。
-func Match(pattern string, src []byte) ([][]byte, error) {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.FindSubmatch(src), nil
+func X匹配字节集(表达式 string, 字节集 []byte) ([][]byte, error) {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.FindSubmatch(字节集), nil
 	} else {
 		return nil, err
 	}
 }
 
 // MatchString 返回匹配`pattern`的字符串。
-func MatchString(pattern string, src string) ([]string, error) {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.FindStringSubmatch(src), nil
+func X匹配文本(表达式 string, 文本 string) ([]string, error) {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.FindStringSubmatch(文本), nil
 	} else {
 		return nil, err
 	}
 }
 
 // MatchAll 返回所有匹配 `pattern` 的字节切片。
-func MatchAll(pattern string, src []byte) ([][][]byte, error) {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.FindAllSubmatch(src, -1), nil
+func X匹配全部字节集(表达式 string, 字节集 []byte) ([][][]byte, error) {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.FindAllSubmatch(字节集, -1), nil
 	} else {
 		return nil, err
 	}
 }
 
 // MatchAllString 返回所有匹配 `pattern` 的字符串。
-func MatchAllString(pattern string, src string) ([][]string, error) {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.FindAllStringSubmatch(src, -1), nil
+func X匹配全部文本(表达式 string, 文本 string) ([][]string, error) {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.FindAllStringSubmatch(文本, -1), nil
 	} else {
 		return nil, err
 	}
 }
 
 // Replace 将字节 `src` 中所有匹配到的 `pattern` 替换为字节 `replace`。
-func Replace(pattern string, replace, src []byte) ([]byte, error) {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.ReplaceAll(src, replace), nil
+func X替换字节集(表达式 string, 替换字节集, 字节集 []byte) ([]byte, error) {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.ReplaceAll(字节集, 替换字节集), nil
 	} else {
 		return nil, err
 	}
 }
 
 // ReplaceString 将字符串 `src` 中所有匹配到的 `pattern` 替换为字符串 `replace`。
-func ReplaceString(pattern, replace, src string) (string, error) {
-	r, e := Replace(pattern, []byte(replace), []byte(src))
+func X替换文本(表达式, 替换文本, 文本 string) (string, error) {
+	r, e := X替换字节集(表达式, []byte(替换文本), []byte(文本))
 	return string(r), e
 }
 
 // ReplaceFunc 将字节切片 `src` 中所有匹配到的 `pattern` 用自定义替换函数 `replaceFunc` 进行替换。
-func ReplaceFunc(pattern string, src []byte, replaceFunc func(b []byte) []byte) ([]byte, error) {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.ReplaceAllFunc(src, replaceFunc), nil
+func X替换字节集_函数(表达式 string, 字节集 []byte, 回调函数 func(b []byte) []byte) ([]byte, error) {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.ReplaceAllFunc(字节集, 回调函数), nil
 	} else {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func ReplaceFunc(pattern string, src []byte, replaceFunc func(b []byte) []byte) 
 func ReplaceFuncMatch(pattern string, src []byte, replaceFunc func(match [][]byte) []byte) ([]byte, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return r.ReplaceAllFunc(src, func(bytes []byte) []byte {
-			match, _ := Match(pattern, bytes)
+			match, _ := X匹配字节集(pattern, bytes)
 			return replaceFunc(match)
 		}), nil
 	} else {
@@ -113,9 +113,9 @@ func ReplaceFuncMatch(pattern string, src []byte, replaceFunc func(match [][]byt
 }
 
 // ReplaceStringFunc 在字符串 `src` 中使用自定义替换函数 `replaceFunc` 替换所有匹配到的 `pattern`。
-func ReplaceStringFunc(pattern string, src string, replaceFunc func(s string) string) (string, error) {
-	bytes, err := ReplaceFunc(pattern, []byte(src), func(bytes []byte) []byte {
-		return []byte(replaceFunc(string(bytes)))
+func X替换文本_函数(表达式 string, 文本 string, 回调函数 func(s string) string) (string, error) {
+	bytes, err := X替换字节集_函数(表达式, []byte(文本), func(bytes []byte) []byte {
+		return []byte(回调函数(string(bytes)))
 	})
 	return string(bytes), err
 }
@@ -125,7 +125,7 @@ func ReplaceStringFunc(pattern string, src string, replaceFunc func(s string) st
 func ReplaceStringFuncMatch(pattern string, src string, replaceFunc func(match []string) string) (string, error) {
 	if r, err := getRegexp(pattern); err == nil {
 		return string(r.ReplaceAllFunc([]byte(src), func(bytes []byte) []byte {
-			match, _ := MatchString(pattern, string(bytes))
+			match, _ := X匹配文本(pattern, string(bytes))
 			return []byte(replaceFunc(match))
 		})), nil
 	} else {
@@ -134,9 +134,9 @@ func ReplaceStringFuncMatch(pattern string, src string, replaceFunc func(match [
 }
 
 // Split 函数将 `src` 切片按照表达式进行分割，并返回由这些表达式匹配之间的子字符串构成的切片。
-func Split(pattern string, src string) []string {
-	if r, err := getRegexp(pattern); err == nil {
-		return r.Split(src, -1)
+func X分割(表达式 string, 文本 string) []string {
+	if r, err := getRegexp(表达式); err == nil {
+		return r.Split(文本, -1)
 	}
 	return nil
 }

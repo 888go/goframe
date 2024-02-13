@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
@@ -15,16 +15,16 @@ func ExampleSearch() {
 	// init
 	var (
 		fileName = "gflie_example.txt"
-		tempDir  = gfile.Temp("gfile_example_search")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = 文件类.X取临时目录("gfile_example_search")
+		tempFile = 文件类.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "goframe example content")
+	文件类.X写入文本(tempFile, "goframe example content")
 
 	// search file
-	realPath, _ := gfile.Search(fileName, tempDir)
-	fmt.Println(gfile.Basename(realPath))
+	realPath, _ := 文件类.X查找(fileName, tempDir)
+	fmt.Println(文件类.X路径取文件名(realPath))
 
 	// Output:
 	// gflie_example.txt

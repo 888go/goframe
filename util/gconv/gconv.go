@@ -6,7 +6,7 @@
 // Package gconv 提供了强大且方便的任意类型变量转换功能。
 //
 // 本包应尽量减少对其他包的依赖。
-package gconv
+package 转换类
 
 import (
 	"context"
@@ -44,19 +44,19 @@ var (
 )
 
 // Byte将`any`转换为字节。
-func Byte(any interface{}) byte {
-	if v, ok := any.(byte); ok {
+func X取字节(值 interface{}) byte {
+	if v, ok := 值.(byte); ok {
 		return v
 	}
-	return Uint8(any)
+	return X取正整数8位(值)
 }
 
 // Bytes 将 `any` 类型转换为 []byte 类型。
-func Bytes(any interface{}) []byte {
-	if any == nil {
+func X取字节集(值 interface{}) []byte {
+	if 值 == nil {
 		return nil
 	}
-	switch value := any.(type) {
+	switch value := 值.(type) {
 	case string:
 		return []byte(value)
 
@@ -65,12 +65,12 @@ func Bytes(any interface{}) []byte {
 
 	default:
 		if f, ok := value.(iBytes); ok {
-			return f.Bytes()
+			return f.X取字节集()
 		}
-		originValueAndKind := reflection.OriginValueAndKind(any)
+		originValueAndKind := reflection.OriginValueAndKind(值)
 		switch originValueAndKind.OriginKind {
 		case reflect.Map:
-			bytes, err := json.Marshal(any)
+			bytes, err := json.Marshal(值)
 			if err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
@@ -82,7 +82,7 @@ func Bytes(any interface{}) []byte {
 				bytes = make([]byte, originValueAndKind.OriginValue.Len())
 			)
 			for i := range bytes {
-				int32Value := Int32(originValueAndKind.OriginValue.Index(i).Interface())
+				int32Value := X取整数32位(originValueAndKind.OriginValue.Index(i).Interface())
 				if int32Value < 0 || int32Value > math.MaxUint8 {
 					ok = false
 					break
@@ -93,24 +93,24 @@ func Bytes(any interface{}) []byte {
 				return bytes
 			}
 		}
-		return gbinary.Encode(any)
+		return 字节集类.Encode(值)
 	}
 }
 
 // Rune将`any`转换为rune类型。
-func Rune(any interface{}) rune {
-	if v, ok := any.(rune); ok {
+func X取字符(值 interface{}) rune {
+	if v, ok := 值.(rune); ok {
 		return v
 	}
-	return Int32(any)
+	return X取整数32位(值)
 }
 
 // Runes 将 `any` 转换为 []rune 类型。
-func Runes(any interface{}) []rune {
-	if v, ok := any.([]rune); ok {
+func X取字符数组(值 interface{}) []rune {
+	if v, ok := 值.([]rune); ok {
 		return v
 	}
-	return []rune(String(any))
+	return []rune(String(值))
 }
 
 // String 将`any`转换为字符串。
@@ -160,12 +160,12 @@ func String(any interface{}) string {
 			return ""
 		}
 		return value.String()
-	case gtime.Time:
+	case 时间类.Time:
 		if value.IsZero() {
 			return ""
 		}
 		return value.String()
-	case *gtime.Time:
+	case *时间类.Time:
 		if value == nil {
 			return ""
 		}
@@ -218,11 +218,11 @@ func String(any interface{}) string {
 
 // Bool将`any`转换为布尔值。
 // 当`any`为：false、空字符串、0、"false"、"off"、"no"或空切片/映射时，返回false。
-func Bool(any interface{}) bool {
-	if any == nil {
+func X取布尔(值 interface{}) bool {
+	if 值 == nil {
 		return false
 	}
-	switch value := any.(type) {
+	switch value := 值.(type) {
 	case bool:
 		return value
 	case []byte:
@@ -237,9 +237,9 @@ func Bool(any interface{}) bool {
 		return true
 	default:
 		if f, ok := value.(iBool); ok {
-			return f.Bool()
+			return f.X取布尔()
 		}
-		rv := reflect.ValueOf(any)
+		rv := reflect.ValueOf(值)
 		switch rv.Kind() {
 		case reflect.Ptr:
 			return !rv.IsNil()
@@ -252,7 +252,7 @@ func Bool(any interface{}) bool {
 		case reflect.Struct:
 			return true
 		default:
-			s := strings.ToLower(String(any))
+			s := strings.ToLower(String(值))
 			if _, ok := emptyStringMap[s]; ok {
 				return false
 			}

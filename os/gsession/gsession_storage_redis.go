@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gsession
+package session类
 
 import (
 	"context"
@@ -20,9 +20,9 @@ import (
 // StorageRedis 使用 Redis 实现了 Session 存储接口。
 type StorageRedis struct {
 	StorageBase
-	redis         *gredis.Redis   // Redis客户端用于会话存储。
+	redis         *redis类.Redis   // Redis客户端用于会话存储。
 	prefix        string          // Redis中用于session id的键前缀。
-	updatingIdMap *gmap.StrIntMap // 更新给定会话ID的TTL集合。
+	updatingIdMap *map类.StrIntMap // 更新给定会话ID的TTL集合。
 }
 
 const (
@@ -31,20 +31,20 @@ const (
 )
 
 // NewStorageRedis 创建并返回一个用于session的redis存储对象。
-func NewStorageRedis(redis *gredis.Redis, prefix ...string) *StorageRedis {
+func NewStorageRedis(redis *redis类.Redis, prefix ...string) *StorageRedis {
 	if redis == nil {
 		panic("redis instance for storage cannot be empty")
 		return nil
 	}
 	s := &StorageRedis{
 		redis:         redis,
-		updatingIdMap: gmap.NewStrIntMap(true),
+		updatingIdMap: map类.X创建StrInt(true),
 	}
 	if len(prefix) > 0 && prefix[0] != "" {
 		s.prefix = prefix[0]
 	}
 	// 批量及时更新会话ID的TTL（生存时间）
-	gtimer.AddSingleton(context.Background(), DefaultStorageRedisLoopInterval, func(ctx context.Context) {
+	定时类.X加入单例循环任务(context.Background(), DefaultStorageRedisLoopInterval, func(ctx context.Context) {
 		intlog.Print(context.TODO(), "StorageRedis.timer start")
 		var (
 			err        error
@@ -52,7 +52,7 @@ func NewStorageRedis(redis *gredis.Redis, prefix ...string) *StorageRedis {
 			ttlSeconds int
 		)
 		for {
-			if sessionId, ttlSeconds = s.updatingIdMap.Pop(); sessionId == "" {
+			if sessionId, ttlSeconds = s.updatingIdMap.X出栈(); sessionId == "" {
 				break
 			} else {
 				if err = s.doUpdateExpireForSession(context.TODO(), sessionId, ttlSeconds); err != nil {
@@ -77,13 +77,13 @@ func (s *StorageRedis) RemoveAll(ctx context.Context, sessionId string) error {
 // 参数 `data` 是当前存储在内存中的旧 session 数据，如果禁用了内存存储，对于某些存储方式，此参数可能为 nil。
 //
 // 当每次 session 开始时，都会调用这个函数。
-func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
+func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*map类.StrAnyMap, error) {
 	intlog.Printf(ctx, "StorageRedis.GetSession: %s, %v", sessionId, ttl)
 	r, err := s.redis.Get(ctx, s.sessionIdToRedisKey(sessionId))
 	if err != nil {
 		return nil, err
 	}
-	content := r.Bytes()
+	content := r.X取字节集()
 	if len(content) == 0 {
 		return nil, nil
 	}
@@ -94,13 +94,13 @@ func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl tim
 	if m == nil {
 		return nil, nil
 	}
-	return gmap.NewStrAnyMapFrom(m, true), nil
+	return map类.X创建AnyStr并从Map(m, true), nil
 }
 
 // SetSession 更新指定会话 ID 的数据映射。
 // 在每次已标记为脏的、发生改变的会话关闭后，都会调用此函数。
 // 此函数将内存中的所有会话数据映射复制到存储中。
-func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
+func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, sessionData *map类.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.SetSession: %s, %v, %v", sessionId, sessionData, ttl)
 	content, err := json.Marshal(sessionData)
 	if err != nil {
@@ -116,7 +116,7 @@ func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, session
 func (s *StorageRedis) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageRedisLoopInterval {
-		s.updatingIdMap.Set(sessionId, int(ttl.Seconds()))
+		s.updatingIdMap.X设置值(sessionId, int(ttl.Seconds()))
 	}
 	return nil
 }

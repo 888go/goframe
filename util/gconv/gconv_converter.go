@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
@@ -28,7 +28,7 @@ var customConverters = make(map[converterInType]map[converterOutType]converterFu
 // 1. 参数 `fn` 必须定义为模式 `func(T1) (T2, error)`。
 //    它将把类型 `T1` 转换为类型 `T2`。
 // 2. `T1` 不应为指针类型，但 `T2` 应为指针类型。
-func RegisterConverter(fn interface{}) (err error) {
+func X转换器注册(fn interface{}) (错误 error) {
 	var (
 		fnReflectType = reflect.TypeOf(fn)
 		errType       = reflect.TypeOf((*error)(nil)).Elem()
@@ -36,8 +36,8 @@ func RegisterConverter(fn interface{}) (err error) {
 	if fnReflectType.Kind() != reflect.Func ||
 		fnReflectType.NumIn() != 1 || fnReflectType.NumOut() != 2 ||
 		!fnReflectType.Out(1).Implements(errType) {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		错误 = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			"parameter must be type of function and defined as pattern `func(T1) (T2, error)`, but defined as `%s`",
 			fnReflectType.String(),
 		)
@@ -50,16 +50,16 @@ func RegisterConverter(fn interface{}) (err error) {
 		outType = fnReflectType.Out(0)
 	)
 	if inType.Kind() == reflect.Pointer {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		错误 = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			"invalid input parameter type `%s`: should not be type of pointer",
 			inType.String(),
 		)
 		return
 	}
 	if outType.Kind() != reflect.Pointer {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		错误 = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			"invalid output parameter type `%s`: should be type of pointer",
 			outType.String(),
 		)
@@ -72,8 +72,8 @@ func RegisterConverter(fn interface{}) (err error) {
 		customConverters[inType] = registeredOutTypeMap
 	}
 	if _, ok = registeredOutTypeMap[outType]; ok {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidOperation,
+		错误 = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidOperation,
 			"the converter parameter type `%s` to type `%s` has already been registered",
 			inType.String(), outType.String(),
 		)

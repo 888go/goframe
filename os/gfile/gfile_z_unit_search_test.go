@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"path/filepath"
@@ -14,7 +14,7 @@ import (
 )
 
 func Test_Search(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			paths1  string = "/testfiless"
 			paths2  string = "./testfile/dirfiles_no"
@@ -29,13 +29,13 @@ func Test_Search(t *testing.T) {
 		defer delTestFiles(paths1)
 		ypaths1 = paths1
 
-		tpath, err = gfile.Search(testpath() + paths1)
+		tpath, err = 文件类.X查找(testpath() + paths1)
 		t.AssertNil(err)
 
 		tpath = filepath.ToSlash(tpath)
 
 		// 自定义优先路径
-		tpath2, err = gfile.Search(testpath() + paths1)
+		tpath2, err = 文件类.X查找(testpath() + paths1)
 		t.AssertNil(err)
 		tpath2 = filepath.ToSlash(tpath2)
 
@@ -48,7 +48,7 @@ func Test_Search(t *testing.T) {
 		t.Assert(tpath2, tpath)
 
 		// 测试给定目录
-		tpath2, err = gfile.Search(paths1, "testfiless")
+		tpath2, err = 文件类.X查找(paths1, "testfiless")
 		tpath2 = filepath.ToSlash(tpath2)
 		tempss := filepath.ToSlash(paths1)
 		t.Assert(tpath2, tempss)
@@ -62,7 +62,7 @@ func Test_Search(t *testing.T) {
 		t.Assert(tpath2, paths1)
 
 		// 测试目录不存在时
-		_, err = gfile.Search(paths2)
+		_, err = 文件类.X查找(paths2)
 		t.AssertNE(err, nil)
 
 	})

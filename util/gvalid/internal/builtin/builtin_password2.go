@@ -32,10 +32,10 @@ func (r RulePassword2) Message() string {
 
 func (r RulePassword2) Run(in RunInput) error {
 	var value = in.Value.String()
-	if gregex.IsMatchString(`^[\w\S]{6,18}$`, value) &&
-		gregex.IsMatchString(`[a-z]+`, value) &&
-		gregex.IsMatchString(`[A-Z]+`, value) &&
-		gregex.IsMatchString(`\d+`, value) {
+	if 正则类.X是否匹配文本(`^[\w\S]{6,18}$`, value) &&
+		正则类.X是否匹配文本(`[a-z]+`, value) &&
+		正则类.X是否匹配文本(`[A-Z]+`, value) &&
+		正则类.X是否匹配文本(`\d+`, value) {
 		return nil
 	}
 	return errors.New(in.Message)

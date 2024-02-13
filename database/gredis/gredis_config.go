@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gredis
+package redis类
 
 import (
 	"context"
@@ -48,7 +48,7 @@ const (
 
 var (
 	// 配置组。
-	localConfigMap = gmap.NewStrAnyMap(true)
+	localConfigMap = map类.X创建StrAny(true)
 )
 
 // SetConfig 为指定的组设置全局配置。
@@ -58,7 +58,7 @@ func SetConfig(config *Config, name ...string) {
 	if len(name) > 0 {
 		group = name[0]
 	}
-	localConfigMap.Set(group, config)
+	localConfigMap.X设置值(group, config)
 
 	intlog.Printf(context.TODO(), `SetConfig for group "%s": %+v`, group, config)
 }
@@ -74,15 +74,15 @@ func SetConfigByMap(m map[string]interface{}, name ...string) error {
 	if err != nil {
 		return err
 	}
-	localConfigMap.Set(group, config)
+	localConfigMap.X设置值(group, config)
 	return nil
 }
 
 // ConfigFromMap 从给定的 map 中解析并返回配置。
 func ConfigFromMap(m map[string]interface{}) (config *Config, err error) {
 	config = &Config{}
-	if err = gconv.Scan(m, config); err != nil {
-		err = gerror.NewCodef(gcode.CodeInvalidConfiguration, `invalid redis configuration: %#v`, m)
+	if err = 转换类.Scan(m, config); err != nil {
+		err = 错误类.X创建错误码并格式化(错误码类.CodeInvalidConfiguration, `invalid redis configuration: %#v`, m)
 	}
 	if config.DialTimeout < time.Second {
 		config.DialTimeout = config.DialTimeout * time.Second
@@ -115,7 +115,7 @@ func GetConfig(name ...string) (config *Config, ok bool) {
 	if len(name) > 0 {
 		group = name[0]
 	}
-	if v := localConfigMap.Get(group); v != nil {
+	if v := localConfigMap.X取值(group); v != nil {
 		return v.(*Config), true
 	}
 	return &Config{}, false
@@ -128,12 +128,12 @@ func RemoveConfig(name ...string) {
 	if len(name) > 0 {
 		group = name[0]
 	}
-	localConfigMap.Remove(group)
+	localConfigMap.X删除(group)
 
 	intlog.Printf(context.TODO(), `RemoveConfig: %s`, group)
 }
 
 // ClearConfig 清除所有redis配置。
 func ClearConfig() {
-	localConfigMap.Clear()
+	localConfigMap.X清空()
 }

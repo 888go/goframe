@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcache
+package 缓存类
 
 import (
 	"sync"
@@ -20,14 +20,14 @@ func newAdapterMemoryExpireTimes() *adapterMemoryExpireTimes {
 	}
 }
 
-func (d *adapterMemoryExpireTimes) Get(key interface{}) (value int64) {
+func (d *adapterMemoryExpireTimes) X取值(key interface{}) (value int64) {
 	d.mu.RLock()
 	value = d.expireTimes[key]
 	d.mu.RUnlock()
 	return
 }
 
-func (d *adapterMemoryExpireTimes) Set(key interface{}, value int64) {
+func (d *adapterMemoryExpireTimes) X设置值(key interface{}, value int64) {
 	d.mu.Lock()
 	d.expireTimes[key] = value
 	d.mu.Unlock()

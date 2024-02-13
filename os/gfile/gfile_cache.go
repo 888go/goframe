@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile
+package 文件类
 
 import (
 	"context"
@@ -27,15 +27,15 @@ var (
 	cacheDuration = getCacheDuration()
 
 	// internalCache 是内部使用的内存缓存。
-	internalCache = gcache.New()
+	internalCache = 缓存类.X创建()
 )
 
 func getCacheDuration() time.Duration {
 	cacheDurationConfigured := command.GetOptWithEnv(commandEnvKeyForCache, defaultCacheDuration)
 	d, err := time.ParseDuration(cacheDurationConfigured)
 	if err != nil {
-		panic(gerror.WrapCodef(
-			gcode.CodeInvalidConfiguration,
+		panic(错误类.X多层错误码并格式化(
+			错误码类.CodeInvalidConfiguration,
 			err,
 			`error parsing string "%s" to time duration`,
 			cacheDurationConfigured,
@@ -47,40 +47,40 @@ func getCacheDuration() time.Duration {
 // GetContentsWithCache 通过`path`从缓存返回指定文件的字符串内容。
 // 如果缓存中没有内容，则会从由`path`指定的磁盘文件中读取内容。
 // 参数`expire`指定了此文件内容在缓存中的有效期，单位为秒。
-func GetContentsWithCache(path string, duration ...time.Duration) string {
-	return string(GetBytesWithCache(path, duration...))
+func X缓存读文本(路径 string, 缓存时长 ...time.Duration) string {
+	return string(X缓存读字节集(路径, 缓存时长...))
 }
 
 // GetBytesWithCache 函数通过 `path` 从缓存中获取指定文件的 []byte 内容。
 // 如果缓存中没有内容，会从由 `path` 指定的磁盘文件中读取内容。
 // 参数 `expire` 指定了此文件内容在缓存中的有效期，单位为秒。
-func GetBytesWithCache(path string, duration ...time.Duration) []byte {
+func X缓存读字节集(路径 string, 缓存时长 ...time.Duration) []byte {
 	var (
 		ctx      = context.Background()
 		expire   = cacheDuration
-		cacheKey = commandEnvKeyForCache + path
+		cacheKey = commandEnvKeyForCache + 路径
 	)
 
-	if len(duration) > 0 {
-		expire = duration[0]
+	if len(缓存时长) > 0 {
+		expire = 缓存时长[0]
 	}
-	r, _ := internalCache.GetOrSetFuncLock(ctx, cacheKey, func(ctx context.Context) (interface{}, error) {
-		b := GetBytes(path)
+	r, _ := internalCache.X取值或设置值_并发安全函数(ctx, cacheKey, func(ctx context.Context) (interface{}, error) {
+		b := X读字节集(路径)
 		if b != nil {
 // 将此`path`添加到gfsnotify，
 // 若该文件有任何变化，将会清除其缓存。
-			_, _ = gfsnotify.Add(path, func(event *gfsnotify.Event) {
-				_, err := internalCache.Remove(ctx, cacheKey)
+			_, _ = 文件监控类.Add(路径, func(event *文件监控类.Event) {
+				_, err := internalCache.X删除并带返回值(ctx, cacheKey)
 				if err != nil {
 					intlog.Errorf(ctx, `%+v`, err)
 				}
-				gfsnotify.Exit()
+				文件监控类.Exit()
 			})
 		}
 		return b, nil
 	}, expire)
 	if r != nil {
-		return r.Bytes()
+		return r.X取字节集()
 	}
 	return nil
 }

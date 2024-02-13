@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package gcharset 提供字符集转换功能的实现。
+// Package_gcharset 提供字符集转换功能的实现。
 //
 // 支持的字符集：
 //
@@ -17,7 +17,7 @@
 //
 // 其他   : macintosh/IBM*/Windows*/ISO-*
 // 这段注释描述了一个名为 `gcharset` 的 Go 语言包，它实现了字符集转换功能，并列出了该包支持的多种字符集，包括中文、日文、韩文对应的常见编码以及 Unicode 和其他一些通用或特定平台的字符集。
-package gcharset
+package 编码字符集类
 
 import (
 	"bytes"
@@ -63,11 +63,11 @@ func Convert(dstCharset string, srcCharset string, src string) (dst string, err 
 				transform.NewReader(bytes.NewReader([]byte(src)), e.NewDecoder()),
 			)
 			if err != nil {
-				return "", gerror.Wrapf(err, `convert string "%s" to utf8 failed`, srcCharset)
+				return "", 错误类.X多层错误并格式化(err, `convert string "%s" to utf8 failed`, srcCharset)
 			}
 			src = string(tmp)
 		} else {
-			return dst, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported srcCharset "%s"`, srcCharset)
+			return dst, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `unsupported srcCharset "%s"`, srcCharset)
 		}
 	}
 	// 将UTF-8转换为`dstCharset`。
@@ -77,11 +77,11 @@ func Convert(dstCharset string, srcCharset string, src string) (dst string, err 
 				transform.NewReader(bytes.NewReader([]byte(src)), e.NewEncoder()),
 			)
 			if err != nil {
-				return "", gerror.Wrapf(err, `convert string from utf8 to "%s" failed`, dstCharset)
+				return "", 错误类.X多层错误并格式化(err, `convert string from utf8 to "%s" failed`, dstCharset)
 			}
 			dst = string(tmp)
 		} else {
-			return dst, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported dstCharset "%s"`, dstCharset)
+			return dst, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `unsupported dstCharset "%s"`, dstCharset)
 		}
 	} else {
 		dst = src

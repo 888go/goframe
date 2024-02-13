@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gbinary_test
+package 字节集类_test
 
 import (
 	"math"
@@ -49,10 +49,10 @@ var testData = map[string]interface{}{
 var testBitData = []int{0, 99, 122, 129, 222, 999, 22322}
 
 func Test_EncodeAndDecode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for k, v := range testData {
-			ve := gbinary.Encode(v)
-			ve1 := gbinary.EncodeByLength(len(ve), v)
+			ve := 字节集类.Encode(v)
+			ve1 := 字节集类.EncodeByLength(len(ve), v)
 
 			// t.Logf("%s:%v, encoded:%v\n", k, v, ve)
 // 使用t.Logf格式化输出信息，其中：
@@ -64,53 +64,53 @@ func Test_EncodeAndDecode(t *testing.T) {
 // 使用t.Logf函数打印日志，格式为：键（k）的值为（v），编码后的结果为（ve）
 			switch v.(type) {
 			case int:
-				t.Assert(gbinary.DecodeToInt(ve), v)
-				t.Assert(gbinary.DecodeToInt(ve1), v)
+				t.Assert(字节集类.DecodeToInt(ve), v)
+				t.Assert(字节集类.DecodeToInt(ve1), v)
 			case int8:
-				t.Assert(gbinary.DecodeToInt8(ve), v)
-				t.Assert(gbinary.DecodeToInt8(ve1), v)
+				t.Assert(字节集类.DecodeToInt8(ve), v)
+				t.Assert(字节集类.DecodeToInt8(ve1), v)
 			case int16:
-				t.Assert(gbinary.DecodeToInt16(ve), v)
-				t.Assert(gbinary.DecodeToInt16(ve1), v)
+				t.Assert(字节集类.DecodeToInt16(ve), v)
+				t.Assert(字节集类.DecodeToInt16(ve1), v)
 			case int32:
-				t.Assert(gbinary.DecodeToInt32(ve), v)
-				t.Assert(gbinary.DecodeToInt32(ve1), v)
+				t.Assert(字节集类.DecodeToInt32(ve), v)
+				t.Assert(字节集类.DecodeToInt32(ve1), v)
 			case int64:
-				t.Assert(gbinary.DecodeToInt64(ve), v)
-				t.Assert(gbinary.DecodeToInt64(ve1), v)
+				t.Assert(字节集类.DecodeToInt64(ve), v)
+				t.Assert(字节集类.DecodeToInt64(ve1), v)
 			case uint:
-				t.Assert(gbinary.DecodeToUint(ve), v)
-				t.Assert(gbinary.DecodeToUint(ve1), v)
+				t.Assert(字节集类.DecodeToUint(ve), v)
+				t.Assert(字节集类.DecodeToUint(ve1), v)
 			case uint8:
-				t.Assert(gbinary.DecodeToUint8(ve), v)
-				t.Assert(gbinary.DecodeToUint8(ve1), v)
+				t.Assert(字节集类.DecodeToUint8(ve), v)
+				t.Assert(字节集类.DecodeToUint8(ve1), v)
 			case uint16:
-				t.Assert(gbinary.DecodeToUint16(ve1), v)
-				t.Assert(gbinary.DecodeToUint16(ve), v)
+				t.Assert(字节集类.DecodeToUint16(ve1), v)
+				t.Assert(字节集类.DecodeToUint16(ve), v)
 			case uint32:
-				t.Assert(gbinary.DecodeToUint32(ve1), v)
-				t.Assert(gbinary.DecodeToUint32(ve), v)
+				t.Assert(字节集类.DecodeToUint32(ve1), v)
+				t.Assert(字节集类.DecodeToUint32(ve), v)
 			case uint64:
-				t.Assert(gbinary.DecodeToUint64(ve), v)
-				t.Assert(gbinary.DecodeToUint64(ve1), v)
+				t.Assert(字节集类.DecodeToUint64(ve), v)
+				t.Assert(字节集类.DecodeToUint64(ve1), v)
 			case bool:
-				t.Assert(gbinary.DecodeToBool(ve), v)
-				t.Assert(gbinary.DecodeToBool(ve1), v)
+				t.Assert(字节集类.DecodeToBool(ve), v)
+				t.Assert(字节集类.DecodeToBool(ve1), v)
 			case string:
-				t.Assert(gbinary.DecodeToString(ve), v)
-				t.Assert(gbinary.DecodeToString(ve1), v)
+				t.Assert(字节集类.DecodeToString(ve), v)
+				t.Assert(字节集类.DecodeToString(ve1), v)
 			case float32:
-				t.Assert(gbinary.DecodeToFloat32(ve), v)
-				t.Assert(gbinary.DecodeToFloat32(ve1), v)
+				t.Assert(字节集类.DecodeToFloat32(ve), v)
+				t.Assert(字节集类.DecodeToFloat32(ve1), v)
 			case float64:
-				t.Assert(gbinary.DecodeToFloat64(ve), v)
-				t.Assert(gbinary.DecodeToFloat64(ve1), v)
+				t.Assert(字节集类.DecodeToFloat64(ve), v)
+				t.Assert(字节集类.DecodeToFloat64(ve1), v)
 			default:
 				if v == nil {
 					continue
 				}
 				res := make([]byte, len(ve))
-				err := gbinary.Decode(ve, res)
+				err := 字节集类.Decode(ve, res)
 				if err != nil {
 					t.Errorf("test data: %s, %v, error:%v", k, v, err)
 				}
@@ -121,24 +121,24 @@ func Test_EncodeAndDecode(t *testing.T) {
 }
 
 func Test_EncodeStruct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		user := User{"wenzi1", 999, "www.baidu.com"}
-		ve := gbinary.Encode(user)
-		s := gbinary.DecodeToString(ve)
+		ve := 字节集类.Encode(user)
+		s := 字节集类.DecodeToString(ve)
 		t.Assert(s, s)
 	})
 }
 
 func Test_Bits(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for i := range testBitData {
-			bits := make([]gbinary.Bit, 0)
-			res := gbinary.EncodeBits(bits, testBitData[i], 64)
+			bits := make([]字节集类.Bit, 0)
+			res := 字节集类.EncodeBits(bits, testBitData[i], 64)
 
-			t.Assert(gbinary.DecodeBits(res), testBitData[i])
-			t.Assert(gbinary.DecodeBitsToUint(res), uint(testBitData[i]))
+			t.Assert(字节集类.DecodeBits(res), testBitData[i])
+			t.Assert(字节集类.DecodeBitsToUint(res), uint(testBitData[i]))
 
-			t.Assert(gbinary.DecodeBytesToBits(gbinary.EncodeBitsToBytes(res)), res)
+			t.Assert(字节集类.DecodeBytesToBits(字节集类.EncodeBitsToBytes(res)), res)
 		}
 	})
 }

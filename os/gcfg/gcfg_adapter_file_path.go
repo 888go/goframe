@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcfg
+package 配置类
 
 import (
 	"bytes"
@@ -30,17 +30,17 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 		isDir    = false
 		realPath = ""
 	)
-	if file := gres.Get(directoryPath); file != nil {
+	if file := 资源类.Get(directoryPath); file != nil {
 		realPath = directoryPath
 		isDir = file.FileInfo().IsDir()
 	} else {
 		// Absolute path.
-		realPath = gfile.RealPath(directoryPath)
+		realPath = 文件类.X取绝对路径且效验(directoryPath)
 		if realPath == "" {
 			// Relative path.
-			a.searchPaths.RLockFunc(func(array []string) {
+			a.searchPaths.X遍历读锁定(func(array []string) {
 				for _, v := range array {
-					if searchedPath, _ := gspath.Search(v, directoryPath); searchedPath != "" {
+					if searchedPath, _ := 文件搜索类.Search(v, directoryPath); searchedPath != "" {
 						realPath = searchedPath
 						break
 					}
@@ -48,18 +48,18 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 			})
 		}
 		if realPath != "" {
-			isDir = gfile.IsDir(realPath)
+			isDir = 文件类.X是否存在目录(realPath)
 		}
 	}
 	// Path not exist.
 	if realPath == "" {
 		buffer := bytes.NewBuffer(nil)
-		if a.searchPaths.Len() > 0 {
+		if a.searchPaths.X取长度() > 0 {
 			buffer.WriteString(fmt.Sprintf(
 				`SetPath failed: cannot find directory "%s" in following paths:`,
 				directoryPath,
 			))
-			a.searchPaths.RLockFunc(func(array []string) {
+			a.searchPaths.X遍历读锁定(func(array []string) {
 				for k, v := range array {
 					buffer.WriteString(fmt.Sprintf("\n%d. %s", k+1, v))
 				}
@@ -70,23 +70,23 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 				directoryPath,
 			))
 		}
-		return gerror.New(buffer.String())
+		return 错误类.X创建(buffer.String())
 	}
 	// 应该是一个目录。
 	if !isDir {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`SetPath failed: path "%s" should be directory type`,
 			directoryPath,
 		)
 	}
 	// 重复路径检查。
-	if a.searchPaths.Search(realPath) != -1 {
+	if a.searchPaths.X查找(realPath) != -1 {
 		return nil
 	}
-	a.jsonMap.Clear()
-	a.searchPaths.Clear()
-	a.searchPaths.Append(realPath)
+	a.jsonMap.X清空()
+	a.searchPaths.X清空()
+	a.searchPaths.Append别名(realPath)
 	intlog.Print(context.TODO(), "SetPath:", realPath)
 	return nil
 }
@@ -111,17 +111,17 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 	)
 // 首先检查资源管理器，
 // 然后在文件系统中检查路径。
-	if file := gres.Get(directoryPath); file != nil {
+	if file := 资源类.Get(directoryPath); file != nil {
 		realPath = directoryPath
 		isDir = file.FileInfo().IsDir()
 	} else {
 		// Absolute path.
-		realPath = gfile.RealPath(directoryPath)
+		realPath = 文件类.X取绝对路径且效验(directoryPath)
 		if realPath == "" {
 			// Relative path.
-			a.searchPaths.RLockFunc(func(array []string) {
+			a.searchPaths.X遍历读锁定(func(array []string) {
 				for _, v := range array {
-					if searchedPath, _ := gspath.Search(v, directoryPath); searchedPath != "" {
+					if searchedPath, _ := 文件搜索类.Search(v, directoryPath); searchedPath != "" {
 						realPath = searchedPath
 						break
 					}
@@ -129,17 +129,17 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 			})
 		}
 		if realPath != "" {
-			isDir = gfile.IsDir(realPath)
+			isDir = 文件类.X是否存在目录(realPath)
 		}
 	}
 	if realPath == "" {
 		buffer := bytes.NewBuffer(nil)
-		if a.searchPaths.Len() > 0 {
+		if a.searchPaths.X取长度() > 0 {
 			buffer.WriteString(fmt.Sprintf(
 				`AddPath failed: cannot find directory "%s" in following paths:`,
 				directoryPath,
 			))
-			a.searchPaths.RLockFunc(func(array []string) {
+			a.searchPaths.X遍历读锁定(func(array []string) {
 				for k, v := range array {
 					buffer.WriteString(fmt.Sprintf("\n%d. %s", k+1, v))
 				}
@@ -150,27 +150,27 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 				directoryPath,
 			))
 		}
-		return gerror.New(buffer.String())
+		return 错误类.X创建(buffer.String())
 	}
 	if !isDir {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`AddPath failed: path "%s" should be directory type`,
 			directoryPath,
 		)
 	}
 	// 重复路径检查。
-	if a.searchPaths.Search(realPath) != -1 {
+	if a.searchPaths.X查找(realPath) != -1 {
 		return nil
 	}
-	a.searchPaths.Append(realPath)
+	a.searchPaths.Append别名(realPath)
 	intlog.Print(context.TODO(), "AddPath:", realPath)
 	return nil
 }
 
 // GetPaths 返回当前配置管理器的搜索目录路径数组。
 func (a *AdapterFile) GetPaths() []string {
-	return a.searchPaths.Slice()
+	return a.searchPaths.X取切片()
 }
 
 // doGetFilePath 根据传入的文件名 `file` 返回其绝对配置文件路径。
@@ -179,14 +179,14 @@ func (a *AdapterFile) GetPaths() []string {
 func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 	var (
 		tempPath string
-		resFile  *gres.File
+		resFile  *资源类.File
 		fileInfo os.FileInfo
 	)
 	// 搜索资源管理器
-	if !gres.IsEmpty() {
+	if !资源类.IsEmpty() {
 		for _, tryFolder := range resourceTryFolders {
 			tempPath = tryFolder + fileName
-			if resFile = gres.Get(tempPath); resFile != nil {
+			if resFile = 资源类.Get(tempPath); resFile != nil {
 				fileInfo, _ = resFile.Stat()
 				if fileInfo != nil && !fileInfo.IsDir() {
 					filePath = resFile.Name()
@@ -194,11 +194,11 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 				}
 			}
 		}
-		a.searchPaths.RLockFunc(func(array []string) {
+		a.searchPaths.X遍历读锁定(func(array []string) {
 			for _, searchPath := range array {
 				for _, tryFolder := range resourceTryFolders {
 					tempPath = searchPath + tryFolder + fileName
-					if resFile = gres.Get(tempPath); resFile != nil {
+					if resFile = 资源类.Get(tempPath); resFile != nil {
 						fileInfo, _ = resFile.Stat()
 						if fileInfo != nil && !fileInfo.IsDir() {
 							filePath = resFile.Name()
@@ -215,19 +215,19 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 	// 正在搜索本地文件系统。
 	if filePath == "" {
 		// Absolute path.
-		if filePath = gfile.RealPath(fileName); filePath != "" && !gfile.IsDir(filePath) {
+		if filePath = 文件类.X取绝对路径且效验(fileName); filePath != "" && !文件类.X是否存在目录(filePath) {
 			return
 		}
-		a.searchPaths.RLockFunc(func(array []string) {
+		a.searchPaths.X遍历读锁定(func(array []string) {
 			for _, searchPath := range array {
-				searchPath = gstr.TrimRight(searchPath, `\/`)
+				searchPath = 文本类.X过滤尾字符并含空白(searchPath, `\/`)
 				for _, tryFolder := range localSystemTryFolders {
-					relativePath := gstr.TrimRight(
-						gfile.Join(tryFolder, fileName),
+					relativePath := 文本类.X过滤尾字符并含空白(
+						文件类.X路径生成(tryFolder, fileName),
 						`\/`,
 					)
-					if filePath, _ = gspath.Search(searchPath, relativePath); filePath != "" &&
-						!gfile.IsDir(filePath) {
+					if filePath, _ = 文件搜索类.Search(searchPath, relativePath); filePath != "" &&
+						!文件类.X是否存在目录(filePath) {
 						return
 					}
 				}
@@ -249,8 +249,8 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 	if len(fileName) > 0 {
 		usedFileName = fileName[0]
 	}
-	fileExtName = gfile.ExtName(usedFileName)
-	if filePath = a.doGetFilePath(usedFileName); (filePath == "" || gfile.IsDir(filePath)) && !gstr.InArray(supportedFileTypes, fileExtName) {
+	fileExtName = 文件类.X路径取扩展名且不含点号(usedFileName)
+	if filePath = a.doGetFilePath(usedFileName); (filePath == "" || 文件类.X是否存在目录(filePath)) && !文本类.X数组是否存在(supportedFileTypes, fileExtName) {
 // 如果不是使用默认配置，或者其配置文件不可用，
 // 则根据名称和所有支持的文件类型搜索可能的配置文件。
 		for _, fileType := range supportedFileTypes {
@@ -263,11 +263,11 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 	// 如果无法找到`file`的filePath，它将格式化并返回一个详细的错误。
 	if filePath == "" {
 		var buffer = bytes.NewBuffer(nil)
-		if a.searchPaths.Len() > 0 {
-			if !gstr.InArray(supportedFileTypes, fileExtName) {
+		if a.searchPaths.X取长度() > 0 {
+			if !文本类.X数组是否存在(supportedFileTypes, fileExtName) {
 				buffer.WriteString(fmt.Sprintf(
 					`possible config files "%s" or "%s" not found in resource manager or following system searching paths:`,
-					usedFileName, fmt.Sprintf(`%s.%s`, usedFileName, gstr.Join(supportedFileTypes, "/")),
+					usedFileName, fmt.Sprintf(`%s.%s`, usedFileName, 文本类.X连接(supportedFileTypes, "/")),
 				))
 			} else {
 				buffer.WriteString(fmt.Sprintf(
@@ -275,14 +275,14 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 					usedFileName,
 				))
 			}
-			a.searchPaths.RLockFunc(func(array []string) {
+			a.searchPaths.X遍历读锁定(func(array []string) {
 				index := 1
 				for _, searchPath := range array {
-					searchPath = gstr.TrimRight(searchPath, `\/`)
+					searchPath = 文本类.X过滤尾字符并含空白(searchPath, `\/`)
 					for _, tryFolder := range localSystemTryFolders {
 						buffer.WriteString(fmt.Sprintf(
 							"\n%d. %s",
-							index, gfile.Join(searchPath, tryFolder),
+							index, 文件类.X路径生成(searchPath, tryFolder),
 						))
 						index++
 					}
@@ -291,7 +291,7 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 		} else {
 			buffer.WriteString(fmt.Sprintf(`cannot find config file "%s" with no filePath configured`, usedFileName))
 		}
-		err = gerror.NewCode(gcode.CodeNotFound, buffer.String())
+		err = 错误类.X创建错误码(错误码类.CodeNotFound, buffer.String())
 	}
 	return
 }

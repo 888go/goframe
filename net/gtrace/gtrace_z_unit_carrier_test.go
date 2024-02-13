@@ -46,7 +46,7 @@ func mustSpanIDFromHex(s string) (t trace.SpanID) {
 }
 
 func TestNewCarrier(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		ctx := trace.ContextWithRemoteSpanContext(context.Background(), trace.NewSpanContext(trace.SpanContextConfig{
 			TraceID:    traceID,
 			SpanID:     spanID,

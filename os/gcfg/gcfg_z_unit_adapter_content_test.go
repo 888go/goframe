@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gcfg_test
+package 配置类_test
 
 import (
 	"testing"
@@ -16,23 +16,23 @@ import (
 )
 
 func TestAdapterContent_Available_Get_Data(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		adapter, err := gcfg.NewAdapterContent()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		adapter, err := 配置类.NewAdapterContent()
 		t.AssertNil(err)
 		t.Assert(adapter.Available(ctx), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		content := `{"a": 1, "b": 2, "c": {"d": 3}}`
-		adapter, err := gcfg.NewAdapterContent(content)
+		adapter, err := 配置类.NewAdapterContent(content)
 		t.AssertNil(err)
 
-		c := gcfg.NewWithAdapter(adapter)
-		t.Assert(c.Available(ctx), true)
-		t.Assert(c.MustGet(ctx, "a"), 1)
-		t.Assert(c.MustGet(ctx, "b"), 2)
-		t.Assert(c.MustGet(ctx, "c.d"), 3)
-		t.Assert(c.MustGet(ctx, "d"), nil)
-		t.Assert(c.MustData(ctx), g.Map{
+		c := 配置类.X创建并按适配器(adapter)
+		t.Assert(c.X是否可用(ctx), true)
+		t.Assert(c.X取值PANI(ctx, "a"), 1)
+		t.Assert(c.X取值PANI(ctx, "b"), 2)
+		t.Assert(c.X取值PANI(ctx, "c.d"), 3)
+		t.Assert(c.X取值PANI(ctx, "d"), nil)
+		t.Assert(c.X取MapPANI(ctx), g.Map{
 			"a": 1,
 			"b": 2,
 			"c": g.Map{
@@ -43,21 +43,21 @@ func TestAdapterContent_Available_Get_Data(t *testing.T) {
 }
 
 func TestAdapterContent_SetContent(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		adapter, err := gcfg.NewAdapterContent()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		adapter, err := 配置类.NewAdapterContent()
 		t.AssertNil(err)
 		t.Assert(adapter.Available(ctx), false)
 
 		content := `{"a": 1, "b": 2, "c": {"d": 3}}`
 		err = adapter.SetContent(content)
 		t.AssertNil(err)
-		c := gcfg.NewWithAdapter(adapter)
-		t.Assert(c.Available(ctx), true)
-		t.Assert(c.MustGet(ctx, "a"), 1)
-		t.Assert(c.MustGet(ctx, "b"), 2)
-		t.Assert(c.MustGet(ctx, "c.d"), 3)
-		t.Assert(c.MustGet(ctx, "d"), nil)
-		t.Assert(c.MustData(ctx), g.Map{
+		c := 配置类.X创建并按适配器(adapter)
+		t.Assert(c.X是否可用(ctx), true)
+		t.Assert(c.X取值PANI(ctx, "a"), 1)
+		t.Assert(c.X取值PANI(ctx, "b"), 2)
+		t.Assert(c.X取值PANI(ctx, "c.d"), 3)
+		t.Assert(c.X取值PANI(ctx, "d"), nil)
+		t.Assert(c.X取MapPANI(ctx), g.Map{
 			"a": 1,
 			"b": 2,
 			"c": g.Map{

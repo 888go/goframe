@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvar
+package 泛型类
 
 import (
 	"github.com/888go/goframe/util/gconv"
@@ -13,6 +13,6 @@ import (
 // 进行转换的类型包括：`*map`、`*[]map`、`*[]*map`、`*struct`、`**struct`、`*[]struct` 和 `*[]*struct`。
 //
 // 详情请参阅 gconv.Scan。
-func (v *Var) Scan(pointer interface{}, mapping ...map[string]string) error {
-	return gconv.Scan(v.Val(), pointer, mapping...)
+func (v *Var) X取结构体指针(结构体指针 interface{}, 名称映射 ...map[string]string) error {
+	return 转换类.Scan(v.X取值(), 结构体指针, 名称映射...)
 }

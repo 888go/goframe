@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -24,7 +24,7 @@ func (s *Server) doServiceRegister() {
 	s.serviceMu.Lock()
 	defer s.serviceMu.Unlock()
 	var (
-		ctx      = gctx.GetInitCtx()
+		ctx      = 上下文类.X取初始化上下文()
 		protocol = gsvc.DefaultProtocol
 		insecure = true
 		err      error
@@ -38,17 +38,17 @@ func (s *Server) doServiceRegister() {
 		gsvc.MDInsecure: insecure,
 	}
 	s.service = &gsvc.LocalService{
-		Name:      s.GetName(),
+		Name:      s.X取服务名称(),
 		Endpoints: s.calculateListenedEndpoints(ctx),
 		Metadata:  metadata,
 	}
-	s.Logger().Debugf(ctx, `service register: %+v`, s.service)
+	s.Logger别名().X输出并格式化DEBU(ctx, `service register: %+v`, s.service)
 	if len(s.service.GetEndpoints()) == 0 {
-		s.Logger().Warningf(ctx, `no endpoints found to register service, abort service registering`)
+		s.Logger别名().X输出并格式化WARN(ctx, `no endpoints found to register service, abort service registering`)
 		return
 	}
 	if s.service, err = s.registrar.Register(ctx, s.service); err != nil {
-		s.Logger().Fatalf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 	}
 }
 
@@ -62,10 +62,10 @@ func (s *Server) doServiceDeregister() {
 	if s.service == nil {
 		return
 	}
-	var ctx = gctx.GetInitCtx()
-	s.Logger().Debugf(ctx, `service deregister: %+v`, s.service)
+	var ctx = 上下文类.X取初始化上下文()
+	s.Logger别名().X输出并格式化DEBU(ctx, `service deregister: %+v`, s.service)
 	if err := s.registrar.Deregister(ctx, s.service); err != nil {
-		s.Logger().Errorf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化ERR(ctx, `%+v`, err)
 	}
 	s.service = nil
 }
@@ -80,35 +80,35 @@ func (s *Server) calculateListenedEndpoints(ctx context.Context) gsvc.Endpoints 
 		configAddr = s.config.HTTPSAddr
 	}
 	if len(addresses) == 0 {
-		addresses = gstr.SplitAndTrim(configAddr, ",")
+		addresses = 文本类.X分割并忽略空值(configAddr, ",")
 	}
 	for _, address := range addresses {
 		var (
-			addrArray     = gstr.Split(address, ":")
+			addrArray     = 文本类.X分割(address, ":")
 			listenedIps   []string
 			listenedPorts []int
 		)
 		if len(addrArray) == 1 {
-			addrArray = append(addrArray, gconv.String(defaultEndpointPort))
+			addrArray = append(addrArray, 转换类.String(defaultEndpointPort))
 		}
 		// IPs.
 		switch addrArray[0] {
 		case "127.0.0.1":
 			// Nothing to do.
 		case "0.0.0.0", "":
-			intranetIps, err := gipv4.GetIntranetIpArray()
+			intranetIps, err := ipv4类.GetIntranetIpArray()
 			if err != nil {
-				s.Logger().Errorf(ctx, `error retrieving intranet ip: %+v`, err)
+				s.Logger别名().X输出并格式化ERR(ctx, `error retrieving intranet ip: %+v`, err)
 				return nil
 			}
 // 如果没有找到内网IP，它将使用所有能够获取到的IP，这其中可能包括公网IP。
 			if len(intranetIps) == 0 {
-				allIps, err := gipv4.GetIpArray()
+				allIps, err := ipv4类.GetIpArray()
 				if err != nil {
-					s.Logger().Errorf(ctx, `error retrieving ip from current node: %+v`, err)
+					s.Logger别名().X输出并格式化ERR(ctx, `error retrieving ip from current node: %+v`, err)
 					return nil
 				}
-				s.Logger().Noticef(
+				s.Logger别名().X输出并格式化NOTI(
 					ctx,
 					`no intranet ip found, using internet ip to register service: %v`,
 					allIps,
@@ -123,9 +123,9 @@ func (s *Server) calculateListenedEndpoints(ctx context.Context) gsvc.Endpoints 
 		// Ports.
 		switch addrArray[1] {
 		case "0":
-			listenedPorts = s.GetListenedPorts()
+			listenedPorts = s.X取所有监听已端口()
 		default:
-			listenedPorts = []int{gconv.Int(addrArray[1])}
+			listenedPorts = []int{转换类.X取整数(addrArray[1])}
 		}
 		for _, ip := range listenedIps {
 			for _, port := range listenedPorts {

@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gxml 提供了对 XML 内容的访问和转换功能。
-package gxml
+package xml类
 
 import (
 	"strings"
@@ -25,7 +25,7 @@ func Decode(content []byte) (map[string]interface{}, error) {
 	}
 	m, err := mxj.NewMapXml(res)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.NewMapXml failed`)
+		err = 错误类.X多层错误并格式化(err, `mxj.NewMapXml failed`)
 	}
 	return m, err
 }
@@ -38,7 +38,7 @@ func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 	}
 	m, err := mxj.NewMapXml(res)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.NewMapXml failed`)
+		err = 错误类.X多层错误并格式化(err, `mxj.NewMapXml failed`)
 		return nil, err
 	}
 	for _, v := range m {
@@ -54,7 +54,7 @@ func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).Xml(rootTag...)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.Map.Xml failed`)
+		err = 错误类.X多层错误并格式化(err, `mxj.Map.Xml failed`)
 	}
 	return b, err
 }
@@ -64,7 +64,7 @@ func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).XmlIndent("", "\t", rootTag...)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.Map.XmlIndent failed`)
+		err = 错误类.X多层错误并格式化(err, `mxj.Map.XmlIndent failed`)
 	}
 	return b, err
 }
@@ -79,7 +79,7 @@ func ToJson(content []byte) ([]byte, error) {
 	if err == nil {
 		return mv.Json()
 	}
-	err = gerror.Wrap(err, `mxj.NewMapXml failed`)
+	err = 错误类.X多层错误(err, `mxj.NewMapXml failed`)
 	return nil, err
 }
 
@@ -87,19 +87,19 @@ func ToJson(content []byte) ([]byte, error) {
 func convert(xml []byte) (res []byte, err error) {
 	var (
 		patten      = `<\?xml.*encoding\s*=\s*['|"](.*?)['|"].*\?>`
-		matchStr, _ = gregex.MatchString(patten, string(xml))
+		matchStr, _ = 正则类.X匹配文本(patten, string(xml))
 		xmlEncode   = "UTF-8"
 	)
 	if len(matchStr) == 2 {
 		xmlEncode = matchStr[1]
 	}
 	xmlEncode = strings.ToUpper(xmlEncode)
-	res, err = gregex.Replace(patten, []byte(""), xml)
+	res, err = 正则类.X替换字节集(patten, []byte(""), xml)
 	if err != nil {
 		return nil, err
 	}
 	if xmlEncode != "UTF-8" && xmlEncode != "UTF8" {
-		dst, err := gcharset.Convert("UTF-8", xmlEncode, string(res))
+		dst, err := 编码字符集类.Convert("UTF-8", xmlEncode, string(res))
 		if err != nil {
 			return nil, err
 		}

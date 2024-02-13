@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gsession_test
+package session类_test
 
 import (
 	"context"
@@ -17,14 +17,14 @@ import (
 )
 
 func Test_StorageFile(t *testing.T) {
-	storage := gsession.NewStorageFile("", time.Second)
-	manager := gsession.New(time.Second, storage)
+	storage := session类.NewStorageFile("", time.Second)
+	manager := session类.New(time.Second, storage)
 	sessionId := ""
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		s := manager.New(context.TODO())
 		defer s.Close()
-		s.Set("k1", "v1")
-		s.Set("k2", "v2")
+		s.X设置值("k1", "v1")
+		s.X设置值("k2", "v2")
 		s.MustSet("k3", "v3")
 		s.MustSet("k4", "v4")
 		s.SetMap(g.Map{
@@ -40,7 +40,7 @@ func Test_StorageFile(t *testing.T) {
 	})
 
 	time.Sleep(500 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		s := manager.New(context.TODO(), sessionId)
 		t.Assert(s.MustGet("k1"), "v1")
 		t.Assert(s.MustGet("k2"), "v2")
@@ -73,7 +73,7 @@ func Test_StorageFile(t *testing.T) {
 	})
 
 	time.Sleep(1000 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		s := manager.New(context.TODO(), sessionId)
 		t.Assert(s.MustSize(), 0)
 		t.Assert(s.MustGet("k5"), nil)

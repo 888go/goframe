@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package grpool_test
+package 协程类_test
 
 import (
 	"context"
@@ -26,7 +26,7 @@ func increment(ctx context.Context) {
 
 func BenchmarkGrpool_1(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grpool.Add(ctx, increment)
+		协程类.Add(ctx, increment)
 	}
 }
 
@@ -39,7 +39,7 @@ func BenchmarkGoroutine_1(b *testing.B) {
 func BenchmarkGrpool2(b *testing.B) {
 	b.N = n
 	for i := 0; i < b.N; i++ {
-		grpool.Add(ctx, increment)
+		协程类.Add(ctx, increment)
 	}
 }
 

@@ -23,7 +23,7 @@ func BinVersion() string {
 	if binaryVersion == "" {
 		binaryContent, _ := os.ReadFile(selfPath)
 		binaryVersion = strconv.FormatInt(
-			int64(ghash.BKDR(binaryContent)),
+			int64(哈希类.BKDR(binaryContent)),
 			36,
 		)
 	}
@@ -43,14 +43,14 @@ func BinVersionMd5() string {
 func md5File(path string) (encrypt string, err error) {
 	f, err := os.Open(path)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for name "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `os.Open failed for name "%s"`, path)
 		return "", err
 	}
 	defer f.Close()
 	h := md5.New()
 	_, err = io.Copy(h, f)
 	if err != nil {
-		err = gerror.Wrap(err, `io.Copy failed`)
+		err = 错误类.X多层错误(err, `io.Copy failed`)
 		return "", err
 	}
 	return fmt.Sprintf("%x", h.Sum(nil)), nil

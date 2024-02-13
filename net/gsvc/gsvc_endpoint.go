@@ -24,17 +24,17 @@ type LocalEndpoint struct {
 
 // NewEndpoint 从形如 "host:port"（例如："192.168.1.100:80"）的地址字符串创建并返回一个 Endpoint 对象。
 func NewEndpoint(address string) Endpoint {
-	array := gstr.SplitAndTrim(address, EndpointHostPortDelimiter)
+	array := 文本类.X分割并忽略空值(address, EndpointHostPortDelimiter)
 	if len(array) != 2 {
-		panic(gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		panic(错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`invalid address "%s" for creating endpoint, endpoint address is like "ip:port"`,
 			address,
 		))
 	}
 	return &LocalEndpoint{
 		host: array[0],
-		port: gconv.Int(array[1]),
+		port: 转换类.X取整数(array[1]),
 	}
 }
 

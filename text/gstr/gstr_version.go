@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gstr
+package 文本类
 
 import (
 	"strings"
@@ -12,14 +12,14 @@ import (
 )
 
 // IsGNUVersion 检查并返回给定的 `version` 是否为有效的 GNU 版本字符串。
-func IsGNUVersion(version string) bool {
-	if version != "" && (version[0] == 'v' || version[0] == 'V') {
-		version = version[1:]
+func X版本号是否有效(版本号 string) bool {
+	if 版本号 != "" && (版本号[0] == 'v' || 版本号[0] == 'V') {
+		版本号 = 版本号[1:]
 	}
-	if version == "" {
+	if 版本号 == "" {
 		return false
 	}
-	var array = strings.Split(version, ".")
+	var array = strings.Split(版本号, ".")
 	if len(array) > 3 {
 		return false
 	}
@@ -27,7 +27,7 @@ func IsGNUVersion(version string) bool {
 		if v == "" {
 			return false
 		}
-		if !IsNumeric(v) {
+		if !X是否为数字(v) {
 			return false
 		}
 		if v[0] == '-' || v[0] == '+' {
@@ -53,7 +53,7 @@ func IsGNUVersion(version string) bool {
 // v2.10.8
 // 10.2.0
 // 等等。
-func CompareVersion(a, b string) int {
+func X版本号比较GNU格式(a, b string) int {
 	if a != "" && a[0] == 'v' {
 		a = a[1:]
 	}
@@ -76,8 +76,8 @@ func CompareVersion(a, b string) int {
 	v1 := 0
 	v2 := 0
 	for i := 0; i < len(array1); i++ {
-		v1 = gconv.Int(array1[i])
-		v2 = gconv.Int(array2[i])
+		v1 = 转换类.X取整数(array1[i])
+		v2 = 转换类.X取整数(array2[i])
 		if v1 > v2 {
 			return 1
 		}
@@ -107,9 +107,9 @@ func CompareVersion(a, b string) int {
 // 等等。
 //
 // 文档参考：https://go.dev/doc/modules/version-numbers
-func CompareVersionGo(a, b string) int {
-	a = Trim(a)
-	b = Trim(b)
+func X版本号比较GO格式(a, b string) int {
+	a = X过滤首尾符并含空白(a)
+	b = X过滤首尾符并含空白(b)
 	if a != "" && a[0] == 'v' {
 		a = a[1:]
 	}
@@ -120,24 +120,24 @@ func CompareVersionGo(a, b string) int {
 		rawA = a
 		rawB = b
 	)
-	if Count(a, "-") > 1 {
-		if i := PosR(a, "-"); i > 0 {
+	if X统计次数(a, "-") > 1 {
+		if i := X倒找(a, "-"); i > 0 {
 			a = a[:i]
 		}
 	}
-	if Count(b, "-") > 1 {
-		if i := PosR(b, "-"); i > 0 {
+	if X统计次数(b, "-") > 1 {
+		if i := X倒找(b, "-"); i > 0 {
 			b = b[:i]
 		}
 	}
-	if i := Pos(a, "+"); i > 0 {
+	if i := X查找(a, "+"); i > 0 {
 		a = a[:i]
 	}
-	if i := Pos(b, "+"); i > 0 {
+	if i := X查找(b, "+"); i > 0 {
 		b = b[:i]
 	}
-	a = Replace(a, "-", ".")
-	b = Replace(b, "-", ".")
+	a = X替换(a, "-", ".")
+	b = X替换(b, "-", ".")
 	var (
 		array1 = strings.Split(a, ".")
 		array2 = strings.Split(b, ".")
@@ -154,7 +154,7 @@ func CompareVersionGo(a, b string) int {
 	// 首先检查 Major.Minor.Patch
 	v1, v2 := 0, 0
 	for i := 0; i < len(array1); i++ {
-		v1, v2 = gconv.Int(array1[i]), gconv.Int(array2[i])
+		v1, v2 = 转换类.X取整数(array1[i]), 转换类.X取整数(array2[i])
 // 特别地在 Golang 中：
 // "v1.12.2-0.20200413154443-b17e3a6804fa" 小于 "v1.12.2"
 // "v1.12.3-0.20200413154443-b17e3a6804fa" 大于 "v1.12.2"
@@ -181,7 +181,7 @@ func CompareVersionGo(a, b string) int {
 // 特别在 Golang 中：
 // "v4.20.1+incompatible" < "v4.20.1"
 // 这表示包含 "+incompatible" 后缀的版本号在比较时，会被视为小于不包含此后缀的相同主版本号和次版本号的版本。这是 Go 语言处理依赖版本的一种方式，"+incompatible" 后缀通常用于标记非模块化的包或不符合语义化版本控制规范的包。
-	inA, inB := Contains(rawA, "+incompatible"), Contains(rawB, "+incompatible")
+	inA, inB := X是否包含(rawA, "+incompatible"), X是否包含(rawB, "+incompatible")
 	if inA && !inB {
 		return -1
 	}

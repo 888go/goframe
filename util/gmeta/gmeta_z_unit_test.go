@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gmeta_test
+package 元数据类_test
 
 import (
 	"testing"
@@ -17,20 +17,20 @@ import (
 
 func TestMeta_Basic(t *testing.T) {
 	type A struct {
-		gmeta.Meta `tag:"123" orm:"456"`
+		元数据类.Meta `tag:"123" orm:"456"`
 		Id         int
 		Name       string
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &A{
 			Id:   100,
 			Name: "john",
 		}
-		t.Assert(len(gmeta.Data(a)), 2)
-		t.AssertEQ(gmeta.Get(a, "tag").String(), "123")
-		t.AssertEQ(gmeta.Get(a, "orm").String(), "456")
-		t.AssertEQ(gmeta.Get(a, "none"), nil)
+		t.Assert(len(元数据类.Data(a)), 2)
+		t.AssertEQ(元数据类.Get(a, "tag").String(), "123")
+		t.AssertEQ(元数据类.Get(a, "orm").String(), "456")
+		t.AssertEQ(元数据类.Get(a, "none"), nil)
 
 		b, err := json.Marshal(a)
 		t.AssertNil(err)
@@ -40,17 +40,17 @@ func TestMeta_Basic(t *testing.T) {
 
 func TestMeta_Convert_Map(t *testing.T) {
 	type A struct {
-		gmeta.Meta `tag:"123" orm:"456"`
+		元数据类.Meta `tag:"123" orm:"456"`
 		Id         int
 		Name       string
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &A{
 			Id:   100,
 			Name: "john",
 		}
-		m := gconv.Map(a)
+		m := 转换类.X取Map(a)
 		t.Assert(len(m), 2)
 		t.Assert(m[`Meta`], nil)
 	})
@@ -58,11 +58,11 @@ func TestMeta_Convert_Map(t *testing.T) {
 
 func TestMeta_Json(t *testing.T) {
 	type A struct {
-		gmeta.Meta `tag:"123" orm:"456"`
+		元数据类.Meta `tag:"123" orm:"456"`
 		Id         int
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &A{
 			Id: 100,
 		}

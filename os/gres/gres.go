@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gres 提供了资源管理功能以及文件和字节之间的打包/解包功能。
-package gres
+package 资源类
 
 const (
 	// 目录分隔符。

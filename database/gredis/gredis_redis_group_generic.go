@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gredis
+package redis类
 
 import (
 	"context"
@@ -30,12 +30,12 @@ type IGroupGeneric interface {
 	FlushAll(ctx context.Context, option ...FlushOp) error
 	Expire(ctx context.Context, key string, seconds int64, option ...ExpireOption) (int64, error)
 	ExpireAt(ctx context.Context, key string, time time.Time, option ...ExpireOption) (int64, error)
-	ExpireTime(ctx context.Context, key string) (*gvar.Var, error)
+	ExpireTime(ctx context.Context, key string) (*泛型类.Var, error)
 	TTL(ctx context.Context, key string) (int64, error)
 	Persist(ctx context.Context, key string) (int64, error)
 	PExpire(ctx context.Context, key string, milliseconds int64, option ...ExpireOption) (int64, error)
 	PExpireAt(ctx context.Context, key string, time time.Time, option ...ExpireOption) (int64, error)
-	PExpireTime(ctx context.Context, key string) (*gvar.Var, error)
+	PExpireTime(ctx context.Context, key string) (*泛型类.Var, error)
 	PTTL(ctx context.Context, key string) (int64, error)
 }
 

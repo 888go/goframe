@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil_test
+package 工具类_test
 
 import (
 	"testing"
@@ -18,33 +18,33 @@ func Test_StructToSlice(t *testing.T) {
 		K1 int
 		K2 string
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &A{
 			K1: 1,
 			K2: "v2",
 		}
-		s := gutil.StructToSlice(a)
+		s := 工具类.X结构体到数组(a)
 		t.Assert(len(s), 4)
-		t.AssertIN(s[0], g.Slice{"K1", "K2", 1, "v2"})
-		t.AssertIN(s[1], g.Slice{"K1", "K2", 1, "v2"})
-		t.AssertIN(s[2], g.Slice{"K1", "K2", 1, "v2"})
-		t.AssertIN(s[3], g.Slice{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[0], g.Slice别名{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[1], g.Slice别名{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[2], g.Slice别名{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[3], g.Slice别名{"K1", "K2", 1, "v2"})
 	})
-	gtest.C(t, func(t *gtest.T) {
-		s := gutil.StructToSlice(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := 工具类.X结构体到数组(1)
 		t.Assert(s, nil)
 	})
 }
 
 func Test_FillStructWithDefault(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type A struct {
 			V1 int     `d:"1.01"`
 			V2 string  `d:"1.01"`
 			V3 float32 `d:"1.01"`
 		}
 		a := A{}
-		err := gutil.FillStructWithDefault(&a)
+		err := 工具类.FillStructWithDefault(&a)
 		t.AssertNil(err)
 
 		t.Assert(a.V1, `1`)

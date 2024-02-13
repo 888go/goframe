@@ -34,7 +34,7 @@ func (r RuleSize) Message() string {
 
 func (r RuleSize) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = 转换类.X取字符数组(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	size, err := strconv.Atoi(in.RulePattern)

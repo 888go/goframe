@@ -19,9 +19,9 @@ var (
 
 // Set为指定名称设置标签内容。
 // 注意，如果`name`已存在，则会引发panic。
-func Set(name, value string) {
+func X设置值(name, value string) {
 	if _, ok := data[name]; ok {
-		panic(gerror.Newf(`value for tag name "%s" already exists`, name))
+		panic(错误类.X创建并格式化(`value for tag name "%s" already exists`, name))
 	}
 	data[name] = value
 }
@@ -34,7 +34,7 @@ func SetOver(name, value string) {
 // Sets 通过映射设置多个标签内容。
 func Sets(m map[string]string) {
 	for k, v := range m {
-		Set(k, v)
+		X设置值(k, v)
 	}
 }
 

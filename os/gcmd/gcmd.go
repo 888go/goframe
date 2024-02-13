@@ -6,7 +6,7 @@
 //
 
 // Package gcmd 提供控制台操作功能，例如选项/参数读取和命令执行。
-package gcmd
+package cmd类
 
 import (
 	"os"
@@ -18,9 +18,9 @@ import (
 )
 
 const (
-	CtxKeyParser    gctx.StrKey = `CtxKeyParser`
-	CtxKeyCommand   gctx.StrKey = `CtxKeyCommand`
-	CtxKeyArguments gctx.StrKey = `CtxKeyArguments`
+	CtxKeyParser    上下文类.StrKey = `CtxKeyParser`
+	CtxKeyCommand   上下文类.StrKey = `CtxKeyCommand`
+	CtxKeyArguments 上下文类.StrKey = `CtxKeyArguments`
 )
 
 const (
@@ -38,12 +38,12 @@ func Init(args ...string) {
 }
 
 // GetOpt 函数返回名为 `name` 的选项值，类型为 gvar.Var。
-func GetOpt(name string, def ...string) *gvar.Var {
+func GetOpt(name string, def ...string) *泛型类.Var {
 	if v := command.GetOpt(name, def...); v != "" {
-		return gvar.New(v)
+		return 泛型类.X创建(v)
 	}
 	if command.ContainsOpt(name) {
-		return gvar.New("")
+		return 泛型类.X创建("")
 	}
 	return nil
 }
@@ -54,9 +54,9 @@ func GetOptAll() map[string]string {
 }
 
 // GetArg 返回位于`index`处的参数作为gvar.Var类型。
-func GetArg(index int, def ...string) *gvar.Var {
+func GetArg(index int, def ...string) *泛型类.Var {
 	if v := command.GetArg(index, def...); v != "" {
-		return gvar.New(v)
+		return 泛型类.X创建(v)
 	}
 	return nil
 }
@@ -73,17 +73,17 @@ func GetArgAll() []string {
 // Fetching Rules:
 // 1. Command line arguments are in lowercase format, eg: gf.`package name`.<variable name>;
 // 2. Environment arguments are in uppercase format, eg: GF_`package name`_<variable name>；
-func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
+func GetOptWithEnv(key string, def ...interface{}) *泛型类.Var {
 	cmdKey := utils.FormatCmdKey(key)
 	if command.ContainsOpt(cmdKey) {
-		return gvar.New(GetOpt(cmdKey))
+		return 泛型类.X创建(GetOpt(cmdKey))
 	} else {
 		envKey := utils.FormatEnvKey(key)
 		if r, ok := os.LookupEnv(envKey); ok {
-			return gvar.New(r)
+			return 泛型类.X创建(r)
 		} else {
 			if len(def) > 0 {
-				return gvar.New(def[0])
+				return 泛型类.X创建(def[0])
 			}
 		}
 	}

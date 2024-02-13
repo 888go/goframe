@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"fmt"
@@ -15,37 +15,37 @@ import (
 
 // BasicAuth 通过给定的用户名和密码启用http基本认证功能，
 // 并请求客户端进行身份验证。如果认证成功则返回 true，否则（认证失败）返回 false。
-func (r *Request) BasicAuth(user, pass string, tips ...string) bool {
+func (r *Request) X账号密码认证(账号, 密码 string, 可选提示 ...string) bool {
 	auth := r.Header.Get("Authorization")
 	if auth == "" {
-		r.setBasicAuth(tips...)
+		r.setBasicAuth(可选提示...)
 		return false
 	}
 	authArray := strings.SplitN(auth, " ", 2)
 	if len(authArray) != 2 {
-		r.Response.WriteStatus(http.StatusForbidden)
+		r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
 		return false
 	}
 	switch authArray[0] {
 	case "Basic":
-		authBytes, err := gbase64.DecodeString(authArray[1])
+		authBytes, err := 编码base64类.X文本解码到字节集(authArray[1])
 		if err != nil {
-			r.Response.WriteStatus(http.StatusForbidden, err.Error())
+			r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden, err.Error())
 			return false
 		}
 		authArray := strings.SplitN(string(authBytes), ":", 2)
 		if len(authArray) != 2 {
-			r.Response.WriteStatus(http.StatusForbidden)
+			r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
 			return false
 		}
-		if authArray[0] != user || authArray[1] != pass {
-			r.setBasicAuth(tips...)
+		if authArray[0] != 账号 || authArray[1] != 密码 {
+			r.setBasicAuth(可选提示...)
 			return false
 		}
 		return true
 
 	default:
-		r.Response.WriteStatus(http.StatusForbidden)
+		r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
 		return false
 	}
 }

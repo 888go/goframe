@@ -35,7 +35,7 @@ func (r RuleLength) Message() string {
 
 func (r RuleLength) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = 转换类.X取字符数组(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	var (
@@ -54,7 +54,7 @@ func (r RuleLength) Run(in RunInput) error {
 		}
 	}
 	if valueLen < min || valueLen > max {
-		return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+		return errors.New(文本类.Map替换(in.Message, map[string]string{
 			"{min}": strconv.Itoa(min),
 			"{max}": strconv.Itoa(max),
 		}))

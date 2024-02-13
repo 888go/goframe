@@ -99,6 +99,6 @@ func (f *Field) IsEmpty() bool {
 }
 
 // IsNil 检查并返回该 Field 的值是否为 nil。
-func (f *Field) IsNil(traceSource ...bool) bool {
-	return empty.IsNil(f.Value, traceSource...)
+func (f *Field) X是否为Nil(traceSource ...bool) bool {
+	return empty.X是否为Nil(f.Value, traceSource...)
 }

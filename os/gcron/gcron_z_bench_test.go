@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcron_test
+package 定时cron类_test
 
 import (
 	"context"
@@ -15,7 +15,7 @@ import (
 
 func Benchmark_Add(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gcron.Add(ctx, "1 1 1 1 1 1", func(ctx context.Context) {
+		定时cron类.Add(ctx, "1 1 1 1 1 1", func(ctx context.Context) {
 
 		})
 	}

@@ -36,12 +36,12 @@ func (r RuleDate) Run(in RunInput) error {
 		IsZero() bool
 	}
 	// 支持时间值，例如：gtime.Time（gtime.Time, time.Time）
-	if obj, ok := in.Value.Val().(iTime); ok {
+	if obj, ok := in.Value.X取值().(iTime); ok {
 		if obj.IsZero() {
 			return errors.New(in.Message)
 		}
 	}
-	if !gregex.IsMatchString(
+	if !正则类.X是否匹配文本(
 		`\d{4}[\.\-\_/]{0,1}\d{2}[\.\-\_/]{0,1}\d{2}`,
 		in.Value.String(),
 	) {

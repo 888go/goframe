@@ -33,7 +33,7 @@ func (r RulePhoneLoose) Message() string {
 }
 
 func (r RulePhoneLoose) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`^1(3|4|5|6|7|8|9)\d{9}$`,
 		in.Value.String(),
 	)

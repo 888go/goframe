@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv_test
+package 转换类_test
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ func Test_Scan_WithMapParameter(t *testing.T) {
 		Uid  int
 		Name string
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for i := 0; i < 100; i++ {
 			var (
 				user   = new(User)
@@ -31,7 +31,7 @@ func Test_Scan_WithMapParameter(t *testing.T) {
 					"name":   "smith",
 				}
 			)
-			err := gconv.Scan(params, user, g.MapStrStr{
+			err := 转换类.Scan(params, user, g.MapStrStr{
 				"myname": "Name",
 			})
 			t.AssertNil(err)
@@ -50,7 +50,7 @@ func Test_Scan_StructStructs(t *testing.T) {
 		Pass1 string `gconv:"password1"`
 		Pass2 string `gconv:"password2"`
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			user   = new(User)
 			params = g.Map{
@@ -60,7 +60,7 @@ func Test_Scan_StructStructs(t *testing.T) {
 				"PASS2": "456",
 			}
 		)
-		err := gconv.Scan(params, user)
+		err := 转换类.Scan(params, user)
 		t.AssertNil(err)
 		t.Assert(user, &User{
 			Uid:   1,
@@ -69,10 +69,10 @@ func Test_Scan_StructStructs(t *testing.T) {
 			Pass2: "456",
 		})
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			users  []User
-			params = g.Slice{
+			params = g.Slice别名{
 				g.Map{
 					"uid":   1,
 					"name":  "john1",
@@ -87,9 +87,9 @@ func Test_Scan_StructStructs(t *testing.T) {
 				},
 			}
 		)
-		err := gconv.Scan(params, &users)
+		err := 转换类.Scan(params, &users)
 		t.AssertNil(err)
-		t.Assert(users, g.Slice{
+		t.Assert(users, g.Slice别名{
 			&User{
 				Uid:   1,
 				Name:  "john1",
@@ -113,12 +113,12 @@ func Test_Scan_StructStr(t *testing.T) {
 		Pass1 string `gconv:"password1"`
 		Pass2 string `gconv:"password2"`
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			user   = new(User)
 			params = `{"uid":1,"name":"john", "pass1":"123","pass2":"456"}`
 		)
-		err := gconv.Scan(params, user)
+		err := 转换类.Scan(params, user)
 		t.AssertNil(err)
 		t.Assert(user, &User{
 			Uid:   1,
@@ -127,7 +127,7 @@ func Test_Scan_StructStr(t *testing.T) {
 			Pass2: "456",
 		})
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			users  []User
 			params = `[
@@ -135,9 +135,9 @@ func Test_Scan_StructStr(t *testing.T) {
 {"uid":2,"name":"john2", "pass1":"333","pass2":"444"}
 ]`
 		)
-		err := gconv.Scan(params, &users)
+		err := 转换类.Scan(params, &users)
 		t.AssertNil(err)
-		t.Assert(users, g.Slice{
+		t.Assert(users, g.Slice别名{
 			&User{
 				Uid:   1,
 				Name:  "john1",
@@ -155,31 +155,31 @@ func Test_Scan_StructStr(t *testing.T) {
 }
 
 func Test_Scan_Map(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var m map[string]string
 		data := g.Map{
 			"k1": "v1",
 			"k2": "v2",
 		}
-		err := gconv.Scan(data, &m)
+		err := 转换类.Scan(data, &m)
 		t.AssertNil(err)
 		t.Assert(data, m)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var m map[int]int
 		data := g.Map{
 			"1": "11",
 			"2": "22",
 		}
-		err := gconv.Scan(data, &m)
+		err := 转换类.Scan(data, &m)
 		t.AssertNil(err)
 		t.Assert(data, m)
 	})
 	// JSON格式字符串参数。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var m map[string]string
 		data := `{"k1":"v1","k2":"v2"}`
-		err := gconv.Scan(data, &m)
+		err := 转换类.Scan(data, &m)
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"k1": "v1",
@@ -189,9 +189,9 @@ func Test_Scan_Map(t *testing.T) {
 }
 
 func Test_Scan_Maps(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var maps []map[string]string
-		data := g.Slice{
+		data := g.Slice别名{
 			g.Map{
 				"k1": "v1",
 				"k2": "v2",
@@ -201,17 +201,17 @@ func Test_Scan_Maps(t *testing.T) {
 				"k4": "v4",
 			},
 		}
-		err := gconv.Scan(data, &maps)
+		err := 转换类.Scan(data, &maps)
 		t.AssertNil(err)
 		t.Assert(data, maps)
 	})
 	// JSON格式字符串参数。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var maps []map[string]string
 		data := `[{"k1":"v1","k2":"v2"},{"k3":"v3","k4":"v4"}]`
-		err := gconv.Scan(data, &maps)
+		err := 转换类.Scan(data, &maps)
 		t.AssertNil(err)
-		t.Assert(maps, g.Slice{
+		t.Assert(maps, g.Slice别名{
 			g.Map{
 				"k1": "v1",
 				"k2": "v2",
@@ -225,7 +225,7 @@ func Test_Scan_Maps(t *testing.T) {
 }
 
 func Test_Scan_JsonAttributes(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Sku struct {
 			GiftId      int64  `json:"gift_id"`
 			Name        string `json:"name"`
@@ -234,7 +234,7 @@ func Test_Scan_JsonAttributes(t *testing.T) {
 			CostPrice   int    `json:"cost_price"`
 			Stock       int    `json:"stock"`
 		}
-		v := gvar.New(`
+		v := 泛型类.X创建(`
 [
 {"name": "red", "stock": 10, "gift_id": 1, "cost_price": 80, "score_price": 188, "market_price": 188}, 
 {"name": "blue", "stock": 100, "gift_id": 2, "cost_price": 81, "score_price": 200, "market_price": 288}
@@ -243,7 +243,7 @@ func Test_Scan_JsonAttributes(t *testing.T) {
 			Skus []Sku
 		}
 		var p *Product
-		err := gconv.Scan(g.Map{
+		err := 转换类.Scan(g.Map{
 			"Skus": v,
 		}, &p)
 		t.AssertNil(err)
@@ -266,12 +266,12 @@ func Test_Scan_JsonAttributes(t *testing.T) {
 }
 
 func Test_Scan_JsonAttributes_StringArray(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type S struct {
 			Array []string
 		}
 		var s *S
-		err := gconv.Scan(g.Map{
+		err := 转换类.Scan(g.Map{
 			"Array": `["a", "b"]`,
 		}, &s)
 		t.AssertNil(err)
@@ -280,24 +280,24 @@ func Test_Scan_JsonAttributes_StringArray(t *testing.T) {
 		t.Assert(s.Array[1], "b")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type S struct {
 			Array []string
 		}
 		var s *S
-		err := gconv.Scan(g.Map{
+		err := 转换类.Scan(g.Map{
 			"Array": `[]`,
 		}, &s)
 		t.AssertNil(err)
 		t.Assert(len(s.Array), 0)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type S struct {
 			Array []int64
 		}
 		var s *S
-		err := gconv.Scan(g.Map{
+		err := 转换类.Scan(g.Map{
 			"Array": `[]`,
 		}, &s)
 		t.AssertNil(err)
@@ -307,7 +307,7 @@ func Test_Scan_JsonAttributes_StringArray(t *testing.T) {
 
 func Test_Scan_SameType_Just_Assign(t *testing.T) {
 	// Struct.
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type User struct {
 			Uid     int
 			Name    string
@@ -322,7 +322,7 @@ func Test_Scan_SameType_Just_Assign(t *testing.T) {
 			user2 *User
 		)
 		user1.Pointer = &int1
-		err := gconv.Scan(user1, &user2)
+		err := 转换类.Scan(user1, &user2)
 		t.AssertNil(err)
 		t.Assert(fmt.Sprintf(`%p`, user1), fmt.Sprintf(`%p`, user2))
 		t.Assert(*user1.Pointer, *user2.Pointer)
@@ -330,7 +330,7 @@ func Test_Scan_SameType_Just_Assign(t *testing.T) {
 		t.Assert(*user1.Pointer, *user2.Pointer)
 	})
 	// Map.
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			int1 = 1
 			int2 = 1
@@ -339,7 +339,7 @@ func Test_Scan_SameType_Just_Assign(t *testing.T) {
 			}
 			m2 map[string]*int
 		)
-		err := gconv.Scan(m1, &m2)
+		err := 转换类.Scan(m1, &m2)
 		t.AssertNil(err)
 		t.Assert(fmt.Sprintf(`%p`, m1), fmt.Sprintf(`%p`, m2))
 		t.Assert(*m1["int"], *m2["int"])
@@ -350,7 +350,7 @@ func Test_Scan_SameType_Just_Assign(t *testing.T) {
 
 func Test_ScanList_Basic(t *testing.T) {
 	// Struct attribute.
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type EntityUser struct {
 			Uid  int
 			Name string
@@ -391,13 +391,13 @@ func Test_ScanList_Basic(t *testing.T) {
 				{Id: 20, Uid: 2, Score: 99},
 			}
 		)
-		err = gconv.ScanList(entityUsers, &entities, "User")
+		err = 转换类.ScanList(entityUsers, &entities, "User")
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userDetails, &entities, "UserDetail", "User", "uid")
+		err = 转换类.ScanList(userDetails, &entities, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userScores, &entities, "UserScores", "User", "uid")
+		err = 转换类.ScanList(userScores, &entities, "UserScores", "User", "uid")
 		t.AssertNil(err)
 
 		t.Assert(len(entities), 3)
@@ -419,7 +419,7 @@ func Test_ScanList_Basic(t *testing.T) {
 		t.Assert(len(entities[2].UserScores), 0)
 	})
 	// 指针属性。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type EntityUser struct {
 			Uid  int
 			Name string
@@ -460,13 +460,13 @@ func Test_ScanList_Basic(t *testing.T) {
 				{Id: 20, Uid: 2, Score: 99},
 			}
 		)
-		err = gconv.ScanList(entityUsers, &entities, "User")
+		err = 转换类.ScanList(entityUsers, &entities, "User")
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userDetails, &entities, "UserDetail", "User", "uid")
+		err = 转换类.ScanList(userDetails, &entities, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userScores, &entities, "UserScores", "User", "uid")
+		err = 转换类.ScanList(userScores, &entities, "UserScores", "User", "uid")
 		t.AssertNil(err)
 
 		t.Assert(len(entities), 3)
@@ -491,7 +491,7 @@ func Test_ScanList_Basic(t *testing.T) {
 
 func Test_ScanList_Embedded(t *testing.T) {
 	// Struct attribute.
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type EntityUser struct {
 			Uid  int
 			Name string
@@ -532,13 +532,13 @@ func Test_ScanList_Embedded(t *testing.T) {
 				{Id: 20, Uid: 2, Score: 99},
 			}
 		)
-		err = gconv.Scan(entityUsers, &entities)
+		err = 转换类.Scan(entityUsers, &entities)
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userDetails, &entities, "UserDetail", "uid")
+		err = 转换类.ScanList(userDetails, &entities, "UserDetail", "uid")
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userScores, &entities, "UserScores", "uid")
+		err = 转换类.ScanList(userScores, &entities, "UserScores", "uid")
 		t.AssertNil(err)
 
 		t.Assert(len(entities), 3)
@@ -560,7 +560,7 @@ func Test_ScanList_Embedded(t *testing.T) {
 		t.Assert(len(entities[2].UserScores), 0)
 	})
 	// 指针属性。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type EntityUser struct {
 			Uid  int
 			Name string
@@ -601,13 +601,13 @@ func Test_ScanList_Embedded(t *testing.T) {
 				{Id: 20, Uid: 2, Score: 99},
 			}
 		)
-		err = gconv.Scan(entityUsers, &entities)
+		err = 转换类.Scan(entityUsers, &entities)
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userDetails, &entities, "UserDetail", "uid")
+		err = 转换类.ScanList(userDetails, &entities, "UserDetail", "uid")
 		t.AssertNil(err)
 
-		err = gconv.ScanList(userScores, &entities, "UserScores", "uid")
+		err = 转换类.ScanList(userScores, &entities, "UserScores", "uid")
 		t.AssertNil(err)
 
 		t.Assert(len(entities), 3)
@@ -641,7 +641,7 @@ func (f *Float64) UnmarshalValue(value interface{}) error {
 }
 
 func Test_Issue1607(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Demo struct {
 			B Float64
 		}
@@ -649,7 +649,7 @@ func Test_Issue1607(t *testing.T) {
 		rat.SetFloat64(1.5)
 
 		var demos = make([]Demo, 1)
-		err := gconv.Scan([]map[string]interface{}{
+		err := 转换类.Scan([]map[string]interface{}{
 			{"A": 1, "B": rat},
 		}, &demos)
 		t.AssertNil(err)

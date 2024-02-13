@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"fmt"
@@ -44,11 +44,11 @@ func (s *Server) swaggerUI(r *Request) {
 		return
 	}
 	if r.StaticFile != nil && r.StaticFile.File != nil && r.StaticFile.IsDir {
-		content := gstr.ReplaceByMap(swaggerUITemplate, map[string]string{
+		content := 文本类.Map替换(swaggerUITemplate, map[string]string{
 			swaggerUIDocURLPlaceHolder:  s.config.OpenApiPath,
-			swaggerUIDocNamePlaceHolder: gstr.TrimRight(fmt.Sprintf(`//%s%s`, r.Host, r.Server.config.SwaggerPath), "/") + "/" + swaggerUIDocName,
+			swaggerUIDocNamePlaceHolder: 文本类.X过滤尾字符并含空白(fmt.Sprintf(`//%s%s`, r.Host, r.Server.config.SwaggerPath), "/") + "/" + swaggerUIDocName,
 		})
-		r.Response.Write(content)
-		r.ExitAll()
+		r.Response.X写响应缓冲区(content)
+		r.X退出全部()
 	}
 }

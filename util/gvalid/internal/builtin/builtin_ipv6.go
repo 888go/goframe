@@ -34,7 +34,7 @@ func (r RuleIpv6) Run(in RunInput) error {
 		ok    bool
 		value = in.Value.String()
 	)
-	if ok = gipv6.Validate(value); !ok {
+	if ok = ipv6类.Validate(value); !ok {
 		return errors.New(in.Message)
 	}
 	return nil

@@ -14,14 +14,14 @@ import (
 )
 
 func Test_Client(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			c  = gins.HttpClient()
 			c1 = gins.HttpClient("c1")
 			c2 = gins.HttpClient("c2")
 		)
-		c.SetAgent("test1")
-		c.SetAgent("test2")
+		c.X设置UA("test1")
+		c.X设置UA("test2")
 		t.AssertNE(fmt.Sprintf(`%p`, c), fmt.Sprintf(`%p`, c1))
 		t.AssertNE(fmt.Sprintf(`%p`, c), fmt.Sprintf(`%p`, c2))
 		t.AssertNE(fmt.Sprintf(`%p`, c1), fmt.Sprintf(`%p`, c2))

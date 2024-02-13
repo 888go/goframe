@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv_test
+package 转换类_test
 
 import (
 	"github.com/888go/goframe/os/gtime"
@@ -26,45 +26,45 @@ func (s *stringStruct1) String() string {
 }
 
 func Test_String(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.AssertEQ(gconv.String(int(123)), "123")
-		t.AssertEQ(gconv.String(int(-123)), "-123")
-		t.AssertEQ(gconv.String(int8(123)), "123")
-		t.AssertEQ(gconv.String(int8(-123)), "-123")
-		t.AssertEQ(gconv.String(int16(123)), "123")
-		t.AssertEQ(gconv.String(int16(-123)), "-123")
-		t.AssertEQ(gconv.String(int32(123)), "123")
-		t.AssertEQ(gconv.String(int32(-123)), "-123")
-		t.AssertEQ(gconv.String(int64(123)), "123")
-		t.AssertEQ(gconv.String(int64(-123)), "-123")
-		t.AssertEQ(gconv.String(int64(1552578474888)), "1552578474888")
-		t.AssertEQ(gconv.String(int64(-1552578474888)), "-1552578474888")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.AssertEQ(转换类.String(int(123)), "123")
+		t.AssertEQ(转换类.String(int(-123)), "-123")
+		t.AssertEQ(转换类.String(int8(123)), "123")
+		t.AssertEQ(转换类.String(int8(-123)), "-123")
+		t.AssertEQ(转换类.String(int16(123)), "123")
+		t.AssertEQ(转换类.String(int16(-123)), "-123")
+		t.AssertEQ(转换类.String(int32(123)), "123")
+		t.AssertEQ(转换类.String(int32(-123)), "-123")
+		t.AssertEQ(转换类.String(int64(123)), "123")
+		t.AssertEQ(转换类.String(int64(-123)), "-123")
+		t.AssertEQ(转换类.String(int64(1552578474888)), "1552578474888")
+		t.AssertEQ(转换类.String(int64(-1552578474888)), "-1552578474888")
 
-		t.AssertEQ(gconv.String(uint(123)), "123")
-		t.AssertEQ(gconv.String(uint8(123)), "123")
-		t.AssertEQ(gconv.String(uint16(123)), "123")
-		t.AssertEQ(gconv.String(uint32(123)), "123")
-		t.AssertEQ(gconv.String(uint64(155257847488898765)), "155257847488898765")
+		t.AssertEQ(转换类.String(uint(123)), "123")
+		t.AssertEQ(转换类.String(uint8(123)), "123")
+		t.AssertEQ(转换类.String(uint16(123)), "123")
+		t.AssertEQ(转换类.String(uint32(123)), "123")
+		t.AssertEQ(转换类.String(uint64(155257847488898765)), "155257847488898765")
 
-		t.AssertEQ(gconv.String(float32(123.456)), "123.456")
-		t.AssertEQ(gconv.String(float32(-123.456)), "-123.456")
-		t.AssertEQ(gconv.String(float64(1552578474888.456)), "1552578474888.456")
-		t.AssertEQ(gconv.String(float64(-1552578474888.456)), "-1552578474888.456")
+		t.AssertEQ(转换类.String(float32(123.456)), "123.456")
+		t.AssertEQ(转换类.String(float32(-123.456)), "-123.456")
+		t.AssertEQ(转换类.String(float64(1552578474888.456)), "1552578474888.456")
+		t.AssertEQ(转换类.String(float64(-1552578474888.456)), "-1552578474888.456")
 
-		t.AssertEQ(gconv.String(true), "true")
-		t.AssertEQ(gconv.String(false), "false")
+		t.AssertEQ(转换类.String(true), "true")
+		t.AssertEQ(转换类.String(false), "false")
 
-		t.AssertEQ(gconv.String([]byte("bytes")), "bytes")
+		t.AssertEQ(转换类.String([]byte("bytes")), "bytes")
 
-		t.AssertEQ(gconv.String(stringStruct1{"john"}), `{"Name":"john"}`)
-		t.AssertEQ(gconv.String(&stringStruct1{"john"}), "john")
+		t.AssertEQ(转换类.String(stringStruct1{"john"}), `{"Name":"john"}`)
+		t.AssertEQ(转换类.String(&stringStruct1{"john"}), "john")
 
-		t.AssertEQ(gconv.String(stringStruct2{"john"}), `{"Name":"john"}`)
-		t.AssertEQ(gconv.String(&stringStruct2{"john"}), `{"Name":"john"}`)
+		t.AssertEQ(转换类.String(stringStruct2{"john"}), `{"Name":"john"}`)
+		t.AssertEQ(转换类.String(&stringStruct2{"john"}), `{"Name":"john"}`)
 
 		var nilTime *time.Time = nil
-		t.AssertEQ(gconv.String(nilTime), "")
-		var nilGTime *gtime.Time = nil
-		t.AssertEQ(gconv.String(nilGTime), "")
+		t.AssertEQ(转换类.String(nilTime), "")
+		var nilGTime *时间类.Time = nil
+		t.AssertEQ(转换类.String(nilGTime), "")
 	})
 }

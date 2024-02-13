@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gudp
+package udp类
 
 import (
 	"io"
@@ -69,7 +69,7 @@ func (c *Conn) Send(data []byte, retry ...Retry) (err error) {
 			}
 			// 即便重试后仍然失败。
 			if len(retry) == 0 || retry[0].Count == 0 {
-				err = gerror.Wrap(err, `Write data failed`)
+				err = 错误类.X多层错误(err, `Write data failed`)
 				return err
 			}
 			if len(retry) > 0 {
@@ -125,7 +125,7 @@ func (c *Conn) Recv(buffer int, retry ...Retry) ([]byte, error) {
 				time.Sleep(retry[0].Interval)
 				continue
 			}
-			err = gerror.Wrap(err, `ReadFromUDP failed`)
+			err = 错误类.X多层错误(err, `ReadFromUDP failed`)
 			break
 		}
 		break
@@ -179,7 +179,7 @@ func (c *Conn) SetDeadline(t time.Time) (err error) {
 		c.deadlineRecv = t
 		c.deadlineSend = t
 	} else {
-		err = gerror.Wrapf(err, `SetDeadline for connection failed with "%s"`, t)
+		err = 错误类.X多层错误并格式化(err, `SetDeadline for connection failed with "%s"`, t)
 	}
 	return err
 }
@@ -189,7 +189,7 @@ func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 	if err = c.SetReadDeadline(t); err == nil {
 		c.deadlineRecv = t
 	} else {
-		err = gerror.Wrapf(err, `SetDeadlineRecv for connection failed with "%s"`, t)
+		err = 错误类.X多层错误并格式化(err, `SetDeadlineRecv for connection failed with "%s"`, t)
 	}
 	return err
 }
@@ -199,7 +199,7 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 	if err = c.SetWriteDeadline(t); err == nil {
 		c.deadlineSend = t
 	} else {
-		err = gerror.Wrapf(err, `SetDeadlineSend for connection failed with "%s"`, t)
+		err = 错误类.X多层错误并格式化(err, `SetDeadlineSend for connection failed with "%s"`, t)
 	}
 	return err
 }

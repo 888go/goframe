@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient
+package 网页类
 
 import (
 	"context"
@@ -13,62 +13,62 @@ import (
 )
 
 // GetBytes 发送一个GET请求，获取并以字节形式返回结果内容。
-func (c *Client) GetBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodGet, url, data...)
+func (c *Client) Get字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodGet, url, 参数...)
 }
 
 // PutBytes 发送一个 PUT 请求，获取并以字节形式返回结果内容。
-func (c *Client) PutBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodPut, url, data...)
+func (c *Client) Put字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodPut, url, 参数...)
 }
 
 // PostBytes 发送一个POST请求，获取并以字节形式返回结果内容。
-func (c *Client) PostBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodPost, url, data...)
+func (c *Client) Post字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodPost, url, 参数...)
 }
 
 // DeleteBytes 发送一个 DELETE 请求，获取并以字节形式返回结果内容。
-func (c *Client) DeleteBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodDelete, url, data...)
+func (c *Client) Delete字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodDelete, url, 参数...)
 }
 
 // HeadBytes 发送一个 HEAD 请求，获取并以字节形式返回结果内容。
-func (c *Client) HeadBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodHead, url, data...)
+func (c *Client) Head字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodHead, url, 参数...)
 }
 
 // PatchBytes 发送一个 PATCH 请求，获取并以字节形式返回结果内容。
-func (c *Client) PatchBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodPatch, url, data...)
+func (c *Client) Patch字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodPatch, url, 参数...)
 }
 
 // ConnectBytes 发送一个 CONNECT 请求，获取并以字节形式返回结果内容。
-func (c *Client) ConnectBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodConnect, url, data...)
+func (c *Client) Connect字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodConnect, url, 参数...)
 }
 
 // OptionsBytes 发送一个 OPTIONS 请求，获取并以字节形式返回结果内容。
-func (c *Client) OptionsBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodOptions, url, data...)
+func (c *Client) Options字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodOptions, url, 参数...)
 }
 
 // TraceBytes 发送一个 TRACE 请求，获取并以字节形式返回结果内容。
-func (c *Client) TraceBytes(ctx context.Context, url string, data ...interface{}) []byte {
-	return c.RequestBytes(ctx, http.MethodTrace, url, data...)
+func (c *Client) Trace字节集(上下文 context.Context, url string, 参数 ...interface{}) []byte {
+	return c.X请求字节集(上下文, http.MethodTrace, url, 参数...)
 }
 
 // RequestBytes 使用给定的HTTP方法和数据发送请求，然后以字节形式返回结果。
 // 它会自动内部读取并关闭响应对象。
-func (c *Client) RequestBytes(ctx context.Context, method string, url string, data ...interface{}) []byte {
-	response, err := c.DoRequest(ctx, method, url, data...)
+func (c *Client) X请求字节集(上下文 context.Context, 方法 string, url string, 参数 ...interface{}) []byte {
+	response, err := c.X请求响应对象(上下文, 方法, url, 参数...)
 	if err != nil {
-		intlog.Errorf(ctx, `%+v`, err)
+		intlog.Errorf(上下文, `%+v`, err)
 		return nil
 	}
 	defer func() {
-		if err = response.Close(); err != nil {
-			intlog.Errorf(ctx, `%+v`, err)
+		if err = response.X关闭(); err != nil {
+			intlog.Errorf(上下文, `%+v`, err)
 		}
 	}()
-	return response.ReadAll()
+	return response.X取响应字节集()
 }

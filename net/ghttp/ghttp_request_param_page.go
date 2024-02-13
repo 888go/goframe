@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ import (
 
 // GetPage 根据给定的`totalSize`（总数据量）和`pageSize`（每页大小）创建并返回分页对象。
 // 注意：为了简化和方便，来自客户端的页参数名始终定义为 gpage.DefaultPageName。
-func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
+func (r *Request) X取分页类(总数据量, 每页大小 int) *分页类.Page {
 	// 它必须具有Router对象属性。
 	if r.Router == nil {
 		panic("Router object not found")
@@ -28,21 +28,21 @@ func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 	// 检查URI中的page变量。
 	if len(r.Router.RegNames) > 0 {
 		for _, name := range r.Router.RegNames {
-			if name == gpage.DefaultPageName {
+			if name == 分页类.X常量_默认页面名称 {
 				uriHasPageName = true
 				break
 			}
 		}
 		if uriHasPageName {
-			if match, err := gregex.MatchString(r.Router.RegRule, url.Path); err == nil && len(match) > 0 {
+			if match, err := 正则类.X匹配文本(r.Router.RegRule, url.Path); err == nil && len(match) > 0 {
 				if len(match) > len(r.Router.RegNames) {
 					urlTemplate = r.Router.Uri
 					for i, name := range r.Router.RegNames {
 						rule := fmt.Sprintf(`[:\*]%s|\{%s\}`, name, name)
-						if name == gpage.DefaultPageName {
-							urlTemplate, err = gregex.ReplaceString(rule, gpage.DefaultPagePlaceHolder, urlTemplate)
+						if name == 分页类.X常量_默认页面名称 {
+							urlTemplate, err = 正则类.X替换文本(rule, 分页类.X常量_默认模板占位符, urlTemplate)
 						} else {
-							urlTemplate, err = gregex.ReplaceString(rule, match[i+1], urlTemplate)
+							urlTemplate, err = 正则类.X替换文本(rule, match[i+1], urlTemplate)
 						}
 						if err != nil {
 							panic(err)
@@ -57,14 +57,14 @@ func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 	// 检查查询字符串中的page变量。
 	if !uriHasPageName {
 		values := url.Query()
-		values.Set(gpage.DefaultPageName, gpage.DefaultPagePlaceHolder)
+		values.Set(分页类.X常量_默认页面名称, 分页类.X常量_默认模板占位符)
 		url.RawQuery = values.Encode()
 		// 将编码后的“{.page}”替换为原始的“{.page}”。
-		url.RawQuery = gstr.Replace(url.RawQuery, "%7B.page%7D", "{.page}")
+		url.RawQuery = 文本类.X替换(url.RawQuery, "%7B.page%7D", "{.page}")
 	}
 	if url.RawQuery != "" {
 		urlTemplate += "?" + url.RawQuery
 	}
 
-	return gpage.New(totalSize, pageSize, r.Get(gpage.DefaultPageName).Int(), urlTemplate)
+	return 分页类.X创建(总数据量, 每页大小, r.Get别名(分页类.X常量_默认页面名称).X取整数(), urlTemplate)
 }

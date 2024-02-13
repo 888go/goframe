@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gres_test
+package 资源类_test
 
 import (
 	_ "github.com/888go/goframe/os/gres/testdata/data"
@@ -20,45 +20,45 @@ import (
 )
 
 func Test_PackFolderToGoFile(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			srcPath    = gtest.DataPath("files")
-			goFilePath = gfile.Temp(gtime.TimestampNanoStr(), "testdata.go")
+			srcPath    = 单元测试类.DataPath("files")
+			goFilePath = 文件类.X取临时目录(时间类.X取文本时间戳纳秒(), "testdata.go")
 			pkgName    = "testdata"
-			err        = gres.PackToGoFile(srcPath, goFilePath, pkgName)
+			err        = 资源类.PackToGoFile(srcPath, goFilePath, pkgName)
 		)
 		t.AssertNil(err)
-		_ = gfile.Remove(goFilePath)
+		_ = 文件类.X删除(goFilePath)
 	})
 }
 
 func Test_PackMultiFilesToGoFile(t *testing.T) {
-	gres.Dump()
-	gtest.C(t, func(t *gtest.T) {
+	资源类.Dump()
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			srcPath    = gtest.DataPath("files")
-			goFilePath = gfile.Temp(gtime.TimestampNanoStr(), "data.go")
+			srcPath    = 单元测试类.DataPath("files")
+			goFilePath = 文件类.X取临时目录(时间类.X取文本时间戳纳秒(), "data.go")
 			pkgName    = "data"
-			array, err = gfile.ScanDir(srcPath, "*", false)
+			array, err = 文件类.X枚举并含子目录名(srcPath, "*", false)
 		)
 		t.AssertNil(err)
-		err = gres.PackToGoFile(strings.Join(array, ","), goFilePath, pkgName)
+		err = 资源类.PackToGoFile(strings.Join(array, ","), goFilePath, pkgName)
 		t.AssertNil(err)
-		defer gfile.Remove(goFilePath)
+		defer 文件类.X删除(goFilePath)
 
-		t.AssertNil(gfile.CopyFile(goFilePath, gtest.DataPath("data/data.go")))
+		t.AssertNil(文件类.X复制文件(goFilePath, 单元测试类.DataPath("data/data.go")))
 	})
 }
 
 func Test_Pack(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			srcPath   = gtest.DataPath("files")
-			data, err = gres.Pack(srcPath)
+			srcPath   = 单元测试类.DataPath("files")
+			data, err = 资源类.Pack(srcPath)
 		)
 		t.AssertNil(err)
 
-		r := gres.New()
+		r := 资源类.New()
 		err = r.Add(string(data))
 		t.AssertNil(err)
 		t.Assert(r.Contains("files/"), true)
@@ -66,17 +66,17 @@ func Test_Pack(t *testing.T) {
 }
 
 func Test_PackToFile(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			srcPath = gtest.DataPath("files")
-			dstPath = gfile.Temp(gtime.TimestampNanoStr())
-			err     = gres.PackToFile(srcPath, dstPath)
+			srcPath = 单元测试类.DataPath("files")
+			dstPath = 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+			err     = 资源类.PackToFile(srcPath, dstPath)
 		)
 		t.AssertNil(err)
 
-		defer gfile.Remove(dstPath)
+		defer 文件类.X删除(dstPath)
 
-		r := gres.New()
+		r := 资源类.New()
 		err = r.Load(dstPath)
 		t.AssertNil(err)
 		t.Assert(r.Contains("files"), true)
@@ -84,36 +84,36 @@ func Test_PackToFile(t *testing.T) {
 }
 
 func Test_PackWithPrefix1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			srcPath    = gtest.DataPath("files")
-			goFilePath = gfile.Temp(gtime.TimestampNanoStr(), "testdata.go")
+			srcPath    = 单元测试类.DataPath("files")
+			goFilePath = 文件类.X取临时目录(时间类.X取文本时间戳纳秒(), "testdata.go")
 			pkgName    = "testdata"
-			err        = gres.PackToGoFile(srcPath, goFilePath, pkgName, "www/gf-site/test")
+			err        = 资源类.PackToGoFile(srcPath, goFilePath, pkgName, "www/gf-site/test")
 		)
 		t.AssertNil(err)
-		_ = gfile.Remove(goFilePath)
+		_ = 文件类.X删除(goFilePath)
 	})
 }
 
 func Test_PackWithPrefix2(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			srcPath    = gtest.DataPath("files")
-			goFilePath = gfile.Temp(gtime.TimestampNanoStr(), "testdata.go")
+			srcPath    = 单元测试类.DataPath("files")
+			goFilePath = 文件类.X取临时目录(时间类.X取文本时间戳纳秒(), "testdata.go")
 			pkgName    = "testdata"
-			err        = gres.PackToGoFile(srcPath, goFilePath, pkgName, "/var/www/gf-site/test")
+			err        = 资源类.PackToGoFile(srcPath, goFilePath, pkgName, "/var/www/gf-site/test")
 		)
 		t.AssertNil(err)
-		_ = gfile.Remove(goFilePath)
+		_ = 文件类.X删除(goFilePath)
 	})
 }
 
 func Test_Unpack(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			srcPath    = gtest.DataPath("testdata.txt")
-			files, err = gres.Unpack(srcPath)
+			srcPath    = 单元测试类.DataPath("testdata.txt")
+			files, err = 资源类.Unpack(srcPath)
 		)
 		t.AssertNil(err)
 		t.Assert(len(files), 63)
@@ -121,16 +121,16 @@ func Test_Unpack(t *testing.T) {
 }
 
 func Test_Basic(t *testing.T) {
-	gres.Dump()
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gres.Get("none"), nil)
-		t.Assert(gres.Contains("none"), false)
-		t.Assert(gres.Contains("dir1"), true)
+	资源类.Dump()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(资源类.Get("none"), nil)
+		t.Assert(资源类.Contains("none"), false)
+		t.Assert(资源类.Contains("dir1"), true)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir1/test1"
-		file := gres.Get(path)
+		file := 资源类.Get(path)
 		t.AssertNE(file, nil)
 		t.Assert(file.Name(), path)
 
@@ -152,9 +152,9 @@ func Test_Basic(t *testing.T) {
 		t.Assert(file.Content(), "test1 content")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir2"
-		file := gres.Get(path)
+		file := 资源类.Get(path)
 		t.AssertNE(file, nil)
 		t.Assert(file.Name(), path)
 
@@ -170,9 +170,9 @@ func Test_Basic(t *testing.T) {
 		t.Assert(file.Content(), nil)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir2/test2"
-		file := gres.Get(path)
+		file := 资源类.Get(path)
 		t.AssertNE(file, nil)
 		t.Assert(file.Name(), path)
 		t.Assert(file.Content(), "test2 content")
@@ -180,39 +180,39 @@ func Test_Basic(t *testing.T) {
 }
 
 func Test_Get(t *testing.T) {
-	gres.Dump()
-	gtest.C(t, func(t *gtest.T) {
-		t.AssertNE(gres.Get("dir1/test1"), nil)
+	资源类.Dump()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.AssertNE(资源类.Get("dir1/test1"), nil)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		file := gres.GetWithIndex("dir1", g.SliceStr{"test1"})
+	单元测试类.C(t, func(t *单元测试类.T) {
+		file := 资源类.GetWithIndex("dir1", g.SliceStr别名{"test1"})
 		t.AssertNE(file, nil)
 		t.Assert(file.Name(), "dir1/test1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gres.GetContent("dir1"), "")
-		t.Assert(gres.GetContent("dir1/test1"), "test1 content")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(资源类.GetContent("dir1"), "")
+		t.Assert(资源类.GetContent("dir1/test1"), "test1 content")
 	})
 }
 
 func Test_ScanDir(t *testing.T) {
-	gres.Dump()
-	gtest.C(t, func(t *gtest.T) {
+	资源类.Dump()
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir1"
-		files := gres.ScanDir(path, "*", false)
+		files := 资源类.ScanDir(path, "*", false)
 		t.AssertNE(files, nil)
 		t.Assert(len(files), 2)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir1"
-		files := gres.ScanDir(path, "*", true)
+		files := 资源类.ScanDir(path, "*", true)
 		t.AssertNE(files, nil)
 		t.Assert(len(files), 3)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir1"
-		files := gres.ScanDir(path, "*.*", true)
+		files := 资源类.ScanDir(path, "*.*", true)
 		t.AssertNE(files, nil)
 		t.Assert(len(files), 1)
 		t.Assert(files[0].Name(), "dir1/sub/sub-test1.txt")
@@ -221,23 +221,23 @@ func Test_ScanDir(t *testing.T) {
 }
 
 func Test_ScanDirFile(t *testing.T) {
-	gres.Dump()
-	gtest.C(t, func(t *gtest.T) {
+	资源类.Dump()
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir2"
-		files := gres.ScanDirFile(path, "*", false)
+		files := 资源类.ScanDirFile(path, "*", false)
 		t.AssertNE(files, nil)
 		t.Assert(len(files), 1)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir2"
-		files := gres.ScanDirFile(path, "*", true)
+		files := 资源类.ScanDirFile(path, "*", true)
 		t.AssertNE(files, nil)
 		t.Assert(len(files), 2)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		path := "dir2"
-		files := gres.ScanDirFile(path, "*.*", true)
+		files := 资源类.ScanDirFile(path, "*.*", true)
 		t.AssertNE(files, nil)
 		t.Assert(len(files), 1)
 		t.Assert(files[0].Name(), "dir2/sub/sub-test2.txt")
@@ -246,110 +246,110 @@ func Test_ScanDirFile(t *testing.T) {
 }
 
 func Test_Export(t *testing.T) {
-	gres.Dump()
-	gtest.C(t, func(t *gtest.T) {
+	资源类.Dump()
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			src = `template-res`
-			dst = gfile.Temp(gtime.TimestampNanoStr())
-			err = gres.Export(src, dst)
+			dst = 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+			err = 资源类.Export(src, dst)
 		)
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 		t.AssertNil(err)
-		files, err := gfile.ScanDir(dst, "*", true)
+		files, err := 文件类.X枚举并含子目录名(dst, "*", true)
 		t.AssertNil(err)
 		t.Assert(len(files), 14)
 
 		name := `template-res/index.html`
-		t.Assert(gfile.GetContents(gfile.Join(dst, name)), gres.GetContent(name))
+		t.Assert(文件类.X读文本(文件类.X路径生成(dst, name)), 资源类.GetContent(name))
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			src = `template-res`
-			dst = gfile.Temp(gtime.TimestampNanoStr())
-			err = gres.Export(src, dst, gres.ExportOption{
+			dst = 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+			err = 资源类.Export(src, dst, 资源类.ExportOption{
 				RemovePrefix: `template-res`,
 			})
 		)
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 		t.AssertNil(err)
-		files, err := gfile.ScanDir(dst, "*", true)
+		files, err := 文件类.X枚举并含子目录名(dst, "*", true)
 		t.AssertNil(err)
 		t.Assert(len(files), 13)
 
 		nameInRes := `template-res/index.html`
 		nameInSys := `index.html`
-		t.Assert(gfile.GetContents(gfile.Join(dst, nameInSys)), gres.GetContent(nameInRes))
+		t.Assert(文件类.X读文本(文件类.X路径生成(dst, nameInSys)), 资源类.GetContent(nameInRes))
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			src = `template-res/layout1/container.html`
-			dst = gfile.Temp(gtime.TimestampNanoStr())
-			err = gres.Export(src, dst, gres.ExportOption{
+			dst = 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+			err = 资源类.Export(src, dst, 资源类.ExportOption{
 				RemovePrefix: `template-res`,
 			})
 		)
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 		t.AssertNil(err)
-		files, err := gfile.ScanDir(dst, "*", true)
+		files, err := 文件类.X枚举并含子目录名(dst, "*", true)
 		t.AssertNil(err)
 		t.Assert(len(files), 2)
 	})
 }
 
 func Test_IsEmpty(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gres.IsEmpty(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(资源类.IsEmpty(), false)
 	})
 }
 
 func TestFile_Name(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			src = `template-res`
 		)
-		t.Assert(gres.Get(src).Name(), src)
+		t.Assert(资源类.Get(src).Name(), src)
 	})
 }
 
 func TestFile_Export(t *testing.T) {
-	gres.Dump()
-	gtest.C(t, func(t *gtest.T) {
+	资源类.Dump()
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			src = `template-res`
-			dst = gfile.Temp(gtime.TimestampNanoStr())
-			err = gres.Get(src).Export(dst)
+			dst = 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+			err = 资源类.Get(src).Export(dst)
 		)
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 		t.AssertNil(err)
-		files, err := gfile.ScanDir(dst, "*", true)
+		files, err := 文件类.X枚举并含子目录名(dst, "*", true)
 		t.AssertNil(err)
 		t.Assert(len(files), 14)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			src = `template-res`
-			dst = gfile.Temp(gtime.TimestampNanoStr())
-			err = gres.Get(src).Export(dst, gres.ExportOption{
+			dst = 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+			err = 资源类.Get(src).Export(dst, 资源类.ExportOption{
 				RemovePrefix: `template-res`,
 			})
 		)
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 		t.AssertNil(err)
-		files, err := gfile.ScanDir(dst, "*", true)
+		files, err := 文件类.X枚举并含子目录名(dst, "*", true)
 		t.AssertNil(err)
 		t.Assert(len(files), 13)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			src = `template-res/layout1/container.html`
-			dst = gfile.Temp(gtime.TimestampNanoStr())
-			err = gres.Get(src).Export(dst, gres.ExportOption{
+			dst = 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+			err = 资源类.Get(src).Export(dst, 资源类.ExportOption{
 				RemovePrefix: `template-res`,
 			})
 		)
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 		t.AssertNil(err)
-		files, err := gfile.ScanDir(dst, "*", true)
+		files, err := 文件类.X枚举并含子目录名(dst, "*", true)
 		t.AssertNil(err)
 		t.Assert(len(files), 2)
 	})

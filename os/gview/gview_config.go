@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview
+package 模板类
 
 import (
 	"context"
@@ -67,7 +67,7 @@ func (view *View) SetConfig(config Config) error {
 	view.config = config
 // 清除全局模板对象缓存。
 // 这只是缓存，不必犹豫去清除它。
-	templates.Clear()
+	templates.X清空()
 
 	intlog.Printf(context.TODO(), "SetConfig: %+v", view.config)
 	return nil
@@ -76,15 +76,15 @@ func (view *View) SetConfig(config Config) error {
 // SetConfigWithMap 使用map设置视图的相关配置。
 func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 	if len(m) == 0 {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "configuration cannot be empty")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "configuration cannot be empty")
 	}
 // 现在的m是m的一个浅拷贝。
 // 对m的任何改动都不会影响原始的那个m。
 // 有点小巧妙，不是吗？
-	m = gutil.MapCopy(m)
+	m = 工具类.MapCopy(m)
 	// 最常用的单视图路径配置支持。
-	_, v1 := gutil.MapPossibleItemByKey(m, "paths")
-	_, v2 := gutil.MapPossibleItemByKey(m, "path")
+	_, v1 := 工具类.MapPossibleItemByKey(m, "paths")
+	_, v2 := 工具类.MapPossibleItemByKey(m, "path")
 	if v1 == nil && v2 != nil {
 		switch v2.(type) {
 		case string:
@@ -93,7 +93,7 @@ func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 			m["paths"] = v2
 		}
 	}
-	err := gconv.Struct(m, &view.config)
+	err := 转换类.Struct(m, &view.config)
 	if err != nil {
 		return err
 	}
@@ -108,17 +108,17 @@ func (view *View) SetPath(path string) error {
 		isDir    = false
 		realPath = ""
 	)
-	if file := gres.Get(path); file != nil {
+	if file := 资源类.Get(path); file != nil {
 		realPath = path
 		isDir = file.FileInfo().IsDir()
 	} else {
 		// Absolute path.
-		realPath = gfile.RealPath(path)
+		realPath = 文件类.X取绝对路径且效验(path)
 		if realPath == "" {
 			// Relative path.
-			view.searchPaths.RLockFunc(func(array []string) {
+			view.searchPaths.X遍历读锁定(func(array []string) {
 				for _, v := range array {
-					if path, _ := gspath.Search(v, path); path != "" {
+					if path, _ := 文件搜索类.Search(v, path); path != "" {
 						realPath = path
 						break
 					}
@@ -126,32 +126,32 @@ func (view *View) SetPath(path string) error {
 			})
 		}
 		if realPath != "" {
-			isDir = gfile.IsDir(realPath)
+			isDir = 文件类.X是否存在目录(realPath)
 		}
 	}
 	// Path not exist.
 	if realPath == "" {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.SetPath failed: path "%s" does not exist`, path)
+		err := 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `View.SetPath failed: path "%s" does not exist`, path)
 		if errorPrint() {
-			glog.Error(ctx, err)
+			日志类.Error(ctx, err)
 		}
 		return err
 	}
 	// 应该是一个目录。
 	if !isDir {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.SetPath failed: path "%s" should be directory type`, path)
+		err := 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `View.SetPath failed: path "%s" should be directory type`, path)
 		if errorPrint() {
-			glog.Error(ctx, err)
+			日志类.Error(ctx, err)
 		}
 		return err
 	}
 	// 重复路径添加检查。
-	if view.searchPaths.Search(realPath) != -1 {
+	if view.searchPaths.X查找(realPath) != -1 {
 		return nil
 	}
-	view.searchPaths.Clear()
-	view.searchPaths.Append(realPath)
-	view.fileCacheMap.Clear()
+	view.searchPaths.X清空()
+	view.searchPaths.Append别名(realPath)
+	view.fileCacheMap.X清空()
 	return nil
 }
 
@@ -162,16 +162,16 @@ func (view *View) AddPath(path string) error {
 		isDir    = false
 		realPath = ""
 	)
-	if file := gres.Get(path); file != nil {
+	if file := 资源类.Get(path); file != nil {
 		realPath = path
 		isDir = file.FileInfo().IsDir()
 	} else {
 		// Absolute path.
-		if realPath = gfile.RealPath(path); realPath == "" {
+		if realPath = 文件类.X取绝对路径且效验(path); realPath == "" {
 			// Relative path.
-			view.searchPaths.RLockFunc(func(array []string) {
+			view.searchPaths.X遍历读锁定(func(array []string) {
 				for _, v := range array {
-					if searchedPath, _ := gspath.Search(v, path); searchedPath != "" {
+					if searchedPath, _ := 文件搜索类.Search(v, path); searchedPath != "" {
 						realPath = searchedPath
 						break
 					}
@@ -179,31 +179,31 @@ func (view *View) AddPath(path string) error {
 			})
 		}
 		if realPath != "" {
-			isDir = gfile.IsDir(realPath)
+			isDir = 文件类.X是否存在目录(realPath)
 		}
 	}
 	// Path not exist.
 	if realPath == "" {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.AddPath failed: path "%s" does not exist`, path)
+		err := 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `View.AddPath failed: path "%s" does not exist`, path)
 		if errorPrint() {
-			glog.Error(ctx, err)
+			日志类.Error(ctx, err)
 		}
 		return err
 	}
 	// realPath 应为文件夹类型。
 	if !isDir {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.AddPath failed: path "%s" should be directory type`, path)
+		err := 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `View.AddPath failed: path "%s" should be directory type`, path)
 		if errorPrint() {
-			glog.Error(ctx, err)
+			日志类.Error(ctx, err)
 		}
 		return err
 	}
 	// 重复路径添加检查。
-	if view.searchPaths.Search(realPath) != -1 {
+	if view.searchPaths.X查找(realPath) != -1 {
 		return nil
 	}
-	view.searchPaths.Append(realPath)
-	view.fileCacheMap.Clear()
+	view.searchPaths.Append别名(realPath)
+	view.fileCacheMap.X清空()
 	return nil
 }
 
@@ -248,7 +248,7 @@ func (view *View) SetAutoEncode(enable bool) {
 func (view *View) BindFunc(name string, function interface{}) {
 	view.funcMap[name] = function
 	// Clear global template object cache.
-	templates.Clear()
+	templates.X清空()
 }
 
 // BindFuncMap 通过映射注册自定义的全局模板函数到当前视图对象。
@@ -259,7 +259,7 @@ func (view *View) BindFuncMap(funcMap FuncMap) {
 		view.funcMap[k] = v
 	}
 	// Clear global template object cache.
-	templates.Clear()
+	templates.X清空()
 }
 
 // SetI18n 将 i18n 管理器绑定到当前视图引擎。

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -18,45 +18,45 @@ import (
 
 type ObjectRest2 struct{}
 
-func (o *ObjectRest2) Init(r *ghttp.Request) {
-	r.Response.Write("1")
+func (o *ObjectRest2) Init(r *http类.Request) {
+	r.Response.X写响应缓冲区("1")
 }
 
-func (o *ObjectRest2) Shut(r *ghttp.Request) {
-	r.Response.Write("2")
+func (o *ObjectRest2) Shut(r *http类.Request) {
+	r.Response.X写响应缓冲区("2")
 }
 
-func (o *ObjectRest2) Get(r *ghttp.Request) {
-	r.Response.Write("Object Get", r.Get("id"))
+func (o *ObjectRest2) Get(r *http类.Request) {
+	r.Response.X写响应缓冲区("Object Get", r.Get别名("id"))
 }
 
-func (o *ObjectRest2) Put(r *ghttp.Request) {
-	r.Response.Write("Object Put", r.Get("id"))
+func (o *ObjectRest2) Put(r *http类.Request) {
+	r.Response.X写响应缓冲区("Object Put", r.Get别名("id"))
 }
 
-func (o *ObjectRest2) Post(r *ghttp.Request) {
-	r.Response.Write("Object Post", r.Get("id"))
+func (o *ObjectRest2) Post(r *http类.Request) {
+	r.Response.X写响应缓冲区("Object Post", r.Get别名("id"))
 }
 
-func (o *ObjectRest2) Delete(r *ghttp.Request) {
-	r.Response.Write("Object Delete", r.Get("id"))
+func (o *ObjectRest2) Delete(r *http类.Request) {
+	r.Response.X写响应缓冲区("Object Delete", r.Get别名("id"))
 }
 
 func Test_Router_ObjectRest_Id(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindObjectRest("/object/:id", new(ObjectRest2))
+	s := g.Http类(uid类.X生成())
+	s.X绑定RESTfulAPI对象("/object/:id", new(ObjectRest2))
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/object/99"), "1Object Get992")
-		t.Assert(client.PutContent(ctx, "/object/99"), "1Object Put992")
-		t.Assert(client.PostContent(ctx, "/object/99"), "1Object Post992")
-		t.Assert(client.DeleteContent(ctx, "/object/99"), "1Object Delete992")
+		t.Assert(client.Get文本(ctx, "/object/99"), "1Object Get992")
+		t.Assert(client.Put文本(ctx, "/object/99"), "1Object Put992")
+		t.Assert(client.Post文本(ctx, "/object/99"), "1Object Post992")
+		t.Assert(client.Delete文本(ctx, "/object/99"), "1Object Delete992")
 	})
 }

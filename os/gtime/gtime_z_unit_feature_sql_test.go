@@ -1,4 +1,4 @@
-package gtime_test
+package 时间类_test
 
 import (
 	"testing"
@@ -8,18 +8,18 @@ import (
 )
 
 func TestTime_Scan(t1 *testing.T) {
-	gtest.C(t1, func(t *gtest.T) {
-		tt := gtime.Time{}
+	单元测试类.C(t1, func(t *单元测试类.T) {
+		tt := 时间类.Time{}
 		// test string
-		s := gtime.Now().String()
+		s := 时间类.X创建并按当前时间().String()
 		t.Assert(tt.Scan(s), nil)
 		t.Assert(tt.String(), s)
 		// test nano
-		n := gtime.TimestampNano()
+		n := 时间类.X取时间戳纳秒()
 		t.Assert(tt.Scan(n), nil)
-		t.Assert(tt.TimestampNano(), n)
+		t.Assert(tt.X取时间戳纳秒(), n)
 		// test nil
-		none := (*gtime.Time)(nil)
+		none := (*时间类.Time)(nil)
 		t.Assert(none.Scan(nil), nil)
 		t.Assert(none, nil)
 	})
@@ -27,13 +27,13 @@ func TestTime_Scan(t1 *testing.T) {
 }
 
 func TestTime_Value(t1 *testing.T) {
-	gtest.C(t1, func(t *gtest.T) {
-		tt := gtime.Now()
+	单元测试类.C(t1, func(t *单元测试类.T) {
+		tt := 时间类.X创建并按当前时间()
 		s, err := tt.Value()
 		t.AssertNil(err)
 		t.Assert(s, tt.Time)
 		// test nil
-		none := (*gtime.Time)(nil)
+		none := (*时间类.Time)(nil)
 		s, err = none.Value()
 		t.AssertNil(err)
 		t.Assert(s, nil)

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtime_test
+package 时间类_test
 
 import (
 	"testing"
@@ -15,86 +15,86 @@ import (
 )
 
 func Test_TimestampStr(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.AssertGT(len(gtime.TimestampMilliStr()), 0)
-		t.AssertGT(len(gtime.TimestampMicroStr()), 0)
-		t.AssertGT(len(gtime.TimestampNanoStr()), 0)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.AssertGT(len(时间类.X取文本时间戳毫秒()), 0)
+		t.AssertGT(len(时间类.X取文本时间戳微秒()), 0)
+		t.AssertGT(len(时间类.X取文本时间戳纳秒()), 0)
 	})
 }
 
 func Test_Nanosecond(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		nanos := gtime.TimestampNano()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		nanos := 时间类.X取时间戳纳秒()
 		timeTemp := time.Unix(0, nanos)
 		t.Assert(nanos, timeTemp.UnixNano())
 	})
 }
 
 func Test_Microsecond(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		micros := gtime.TimestampMicro()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		micros := 时间类.X取时间戳微秒()
 		timeTemp := time.Unix(0, micros*1e3)
 		t.Assert(micros, timeTemp.UnixNano()/1e3)
 	})
 }
 
 func Test_Millisecond(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		millis := gtime.TimestampMilli()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		millis := 时间类.X取时间戳毫秒()
 		timeTemp := time.Unix(0, millis*1e6)
 		t.Assert(millis, timeTemp.UnixNano()/1e6)
 	})
 }
 
 func Test_Second(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := gtime.Timestamp()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := 时间类.X取时间戳秒()
 		timeTemp := time.Unix(s, 0)
 		t.Assert(s, timeTemp.Unix())
 	})
 }
 
 func Test_Date(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gtime.Date(), time.Now().Format("2006-01-02"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(时间类.Date(), time.Now().Format("2006-01-02"))
 	})
 }
 
 func Test_Datetime(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		datetime := gtime.Datetime()
-		timeTemp, err := gtime.StrToTime(datetime, "Y-m-d H:i:s")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		datetime := 时间类.X取当前日期时间()
+		timeTemp, err := 时间类.X转换文本(datetime, "Y-m-d H:i:s")
 		if err != nil {
 			t.Error("test fail")
 		}
 		t.Assert(datetime, timeTemp.Time.Format("2006-01-02 15:04:05"))
 	})
-	gtest.C(t, func(t *gtest.T) {
-		timeTemp, err := gtime.StrToTime("")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		timeTemp, err := 时间类.X转换文本("")
 		t.Assert(err, nil)
 		t.AssertLT(timeTemp.Unix(), 0)
-		timeTemp, err = gtime.StrToTime("2006-01")
+		timeTemp, err = 时间类.X转换文本("2006-01")
 		t.AssertNE(err, nil)
 		t.Assert(timeTemp, nil)
 	})
 }
 
 func Test_ISO8601(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		iso8601 := gtime.ISO8601()
-		t.Assert(iso8601, gtime.Now().Format("c"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		iso8601 := 时间类.X取当前日期时间ISO8601()
+		t.Assert(iso8601, 时间类.X创建并按当前时间().X取格式文本("c"))
 	})
 }
 
 func Test_RFC822(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		rfc822 := gtime.RFC822()
-		t.Assert(rfc822, gtime.Now().Format("r"))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		rfc822 := 时间类.X取当前日期时间RFC822()
+		t.Assert(rfc822, 时间类.X创建并按当前时间().X取格式文本("r"))
 	})
 }
 
 func Test_StrToTime(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		// 正确的日期时间字符串。
 		var testDateTimes = []string{
 			"2006-01-02 15:04:05",
@@ -112,7 +112,7 @@ func Test_StrToTime(t *testing.T) {
 		}
 
 		for _, item := range testDateTimes {
-			timeTemp, err := gtime.StrToTime(item)
+			timeTemp, err := 时间类.X转换文本(item)
 			t.AssertNil(err)
 			t.Assert(timeTemp.Time.Format("2006-01-02 15:04:05"), "2006-01-02 15:04:05")
 		}
@@ -125,7 +125,7 @@ func Test_StrToTime(t *testing.T) {
 		}
 
 		for _, item := range testDates {
-			timeTemp, err := gtime.StrToTime(item)
+			timeTemp, err := 时间类.X转换文本(item)
 			t.AssertNil(err)
 			t.Assert(timeTemp.Time.Format("2006-01-02 15:04:05"), "2006-01-02 00:00:00")
 		}
@@ -137,7 +137,7 @@ func Test_StrToTime(t *testing.T) {
 		}
 
 		for k, v := range testTimes {
-			time1, err := gtime.StrToTime(k)
+			time1, err := 时间类.X转换文本(k)
 			t.AssertNil(err)
 			time2, err := time.ParseInLocation(v, k, time.Local)
 			t.AssertNil(err)
@@ -162,7 +162,7 @@ func Test_StrToTime(t *testing.T) {
 		}
 
 		for index, item := range testDateFormats {
-			timeTemp, err := gtime.StrToTime(testDateFormatsResult[index], item)
+			timeTemp, err := 时间类.X转换文本(testDateFormatsResult[index], item)
 			if err != nil {
 				t.Error("test fail")
 			}
@@ -176,14 +176,14 @@ func Test_StrToTime(t *testing.T) {
 		}
 
 		for _, item := range testDatesFail {
-			_, err := gtime.StrToTime(item)
+			_, err := 时间类.X转换文本(item)
 			if err == nil {
 				t.Error("test fail")
 			}
 		}
 
 		// test err
-		_, err := gtime.StrToTime("2006-01-02 15:04:05", "aabbccdd")
+		_, err := 时间类.X转换文本("2006-01-02 15:04:05", "aabbccdd")
 		if err == nil {
 			t.Error("test fail")
 		}
@@ -191,13 +191,13 @@ func Test_StrToTime(t *testing.T) {
 }
 
 func Test_ConvertZone(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		// 现行时间
 		nowUTC := time.Now().UTC()
 		testZone := "America/Los_Angeles"
 
 		// 转换为洛杉矶时间
-		t1, err := gtime.ConvertZone(nowUTC.Format("2006-01-02 15:04:05"), testZone, "")
+		t1, err := 时间类.X转换时区(nowUTC.Format("2006-01-02 15:04:05"), testZone, "")
 		if err != nil {
 			t.Error("test fail")
 		}
@@ -213,24 +213,24 @@ func Test_ConvertZone(t *testing.T) {
 	})
 
 	// test err
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		// 现行时间
 		nowUTC := time.Now().UTC()
 		// t.Log(nowUTC.Unix()) // 输出当前UTC时间的Unix时间戳（单位为秒）
 		testZone := "errZone"
 
 		// 错误时间输入
-		_, err := gtime.ConvertZone(nowUTC.Format("06..02 15:04:05"), testZone, "")
+		_, err := 时间类.X转换时区(nowUTC.Format("06..02 15:04:05"), testZone, "")
 		if err == nil {
 			t.Error("test fail")
 		}
 		// 错误时区输入
-		_, err = gtime.ConvertZone(nowUTC.Format("2006-01-02 15:04:05"), testZone, "")
+		_, err = 时间类.X转换时区(nowUTC.Format("2006-01-02 15:04:05"), testZone, "")
 		if err == nil {
 			t.Error("test fail")
 		}
 		// 错误时区输入
-		_, err = gtime.ConvertZone(nowUTC.Format("2006-01-02 15:04:05"), testZone, testZone)
+		_, err = 时间类.X转换时区(nowUTC.Format("2006-01-02 15:04:05"), testZone, testZone)
 		if err == nil {
 			t.Error("test fail")
 		}
@@ -238,61 +238,61 @@ func Test_ConvertZone(t *testing.T) {
 }
 
 func Test_ParseDuration(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		d, err := gtime.ParseDuration("1d")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		d, err := 时间类.X文本取时长("1d")
 		t.AssertNil(err)
 		t.Assert(d.String(), "24h0m0s")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		d, err := gtime.ParseDuration("1d2h3m")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		d, err := 时间类.X文本取时长("1d2h3m")
 		t.AssertNil(err)
 		t.Assert(d.String(), "26h3m0s")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		d, err := gtime.ParseDuration("-1d2h3m")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		d, err := 时间类.X文本取时长("-1d2h3m")
 		t.AssertNil(err)
 		t.Assert(d.String(), "-26h3m0s")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		d, err := gtime.ParseDuration("3m")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		d, err := 时间类.X文本取时长("3m")
 		t.AssertNil(err)
 		t.Assert(d.String(), "3m0s")
 	})
 	// error
-	gtest.C(t, func(t *gtest.T) {
-		d, err := gtime.ParseDuration("-1dd2h3m")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		d, err := 时间类.X文本取时长("-1dd2h3m")
 		t.AssertNE(err, nil)
 		t.Assert(d.String(), "0s")
 	})
 }
 
 func Test_ParseTimeFromContent(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		timeTemp := gtime.ParseTimeFromContent("我是中文2006-01-02 15:04:05我也是中文", "Y-m-d H:i:s")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		timeTemp := 时间类.X解析文本("我是中文2006-01-02 15:04:05我也是中文", "Y-m-d H:i:s")
 		t.Assert(timeTemp.Time.Format("2006-01-02 15:04:05"), "2006-01-02 15:04:05")
 
-		timeTemp1 := gtime.ParseTimeFromContent("我是中文2006-01-02 15:04:05我也是中文")
+		timeTemp1 := 时间类.X解析文本("我是中文2006-01-02 15:04:05我也是中文")
 		t.Assert(timeTemp1.Time.Format("2006-01-02 15:04:05"), "2006-01-02 15:04:05")
 
-		timeTemp2 := gtime.ParseTimeFromContent("我是中文02.jan.2006 15:04:05我也是中文")
+		timeTemp2 := 时间类.X解析文本("我是中文02.jan.2006 15:04:05我也是中文")
 		t.Assert(timeTemp2.Time.Format("2006-01-02 15:04:05"), "2006-01-02 15:04:05")
 
 		// test err
-		timeTempErr := gtime.ParseTimeFromContent("我是中文", "Y-m-d H:i:s")
+		timeTempErr := 时间类.X解析文本("我是中文", "Y-m-d H:i:s")
 		if timeTempErr != nil {
 			t.Error("test fail")
 		}
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		timeStr := "2021-1-27 9:10:24"
-		t.Assert(gtime.ParseTimeFromContent(timeStr, "Y-n-d g:i:s").String(), "2021-01-27 09:10:24")
+		t.Assert(时间类.X解析文本(timeStr, "Y-n-d g:i:s").String(), "2021-01-27 09:10:24")
 	})
 }
 
 func Test_FuncCost(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		gtime.FuncCost(func() {
+	单元测试类.C(t, func(t *单元测试类.T) {
+		时间类.X取函数执行时长(func() {
 
 		})
 	})

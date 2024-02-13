@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"bytes"
@@ -44,17 +44,17 @@ var (
 	serverActionLocker sync.Mutex
 
 	// serverActionLastTime 是上一次管理操作发生时的时间戳，单位为毫秒。
-	serverActionLastTime = gtype.NewInt64(gtime.TimestampMilli())
+	serverActionLastTime = 安全变量类.NewInt64(时间类.X取时间戳毫秒())
 
 	// serverProcessStatus 是当前进程运行操作的服务器状态。
-	serverProcessStatus = gtype.NewInt()
+	serverProcessStatus = 安全变量类.NewInt()
 )
 
 // RestartAllServer 将优雅地重启进程中的所有服务器。
 // 可选参数 `newExeFilePath` 指定了用于创建新进程的二进制文件。
-func RestartAllServer(ctx context.Context, newExeFilePath string) error {
+func X平滑重启所有服务(上下文 context.Context, 新可执行文件路径 string) error {
 	if !gracefulEnabled {
-		return gerror.NewCode(gcode.CodeInvalidOperation, "graceful reload feature is disabled")
+		return 错误类.X创建错误码(错误码类.CodeInvalidOperation, "graceful reload feature is disabled")
 	}
 	serverActionLocker.Lock()
 	defer serverActionLocker.Unlock()
@@ -64,11 +64,11 @@ func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	if err := checkActionFrequency(); err != nil {
 		return err
 	}
-	return restartWebServers(ctx, nil, newExeFilePath)
+	return restartWebServers(上下文, nil, 新可执行文件路径)
 }
 
 // ShutdownAllServer 将当前进程中的所有服务器优雅地关闭。
-func ShutdownAllServer(ctx context.Context) error {
+func X平滑关闭所有服务(上下文 context.Context) error {
 	serverActionLocker.Lock()
 	defer serverActionLocker.Unlock()
 	if err := checkProcessStatus(); err != nil {
@@ -77,20 +77,20 @@ func ShutdownAllServer(ctx context.Context) error {
 	if err := checkActionFrequency(); err != nil {
 		return err
 	}
-	shutdownWebServersGracefully(ctx, nil)
+	shutdownWebServersGracefully(上下文, nil)
 	return nil
 }
 
 // checkProcessStatus 检查当前进程的服务器状态。
 func checkProcessStatus() error {
-	status := serverProcessStatus.Val()
+	status := serverProcessStatus.X取值()
 	if status > 0 {
 		switch status {
 		case adminActionRestarting:
-			return gerror.NewCode(gcode.CodeInvalidOperation, "server is restarting")
+			return 错误类.X创建错误码(错误码类.CodeInvalidOperation, "server is restarting")
 
 		case adminActionShuttingDown:
-			return gerror.NewCode(gcode.CodeInvalidOperation, "server is shutting down")
+			return 错误类.X创建错误码(错误码类.CodeInvalidOperation, "server is shutting down")
 		}
 	}
 	return nil
@@ -99,15 +99,15 @@ func checkProcessStatus() error {
 // checkActionFrequency 检查操作频率。
 // 如果操作过于频繁，则返回错误。
 func checkActionFrequency() error {
-	interval := gtime.TimestampMilli() - serverActionLastTime.Val()
+	interval := 时间类.X取时间戳毫秒() - serverActionLastTime.X取值()
 	if interval < adminActionIntervalLimit {
-		return gerror.NewCodef(
-			gcode.CodeInvalidOperation,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidOperation,
 			"too frequent action, please retry in %d ms",
 			adminActionIntervalLimit-interval,
 		)
 	}
-	serverActionLastTime.Set(gtime.TimestampMilli())
+	serverActionLastTime.X设置值(时间类.X取时间戳毫秒())
 	return nil
 }
 
@@ -120,16 +120,16 @@ func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 		path = newExeFilePath[0]
 	}
 	var (
-		p   = gproc.NewProcess(path, os.Args, os.Environ())
+		p   = 进程类.NewProcess(path, os.Args, os.Environ())
 		sfm = getServerFdMap()
 	)
 	for name, m := range sfm {
 		for fdk, fdv := range m {
 			if len(fdv) > 0 {
 				s := ""
-				for _, item := range gstr.SplitAndTrim(fdv, ",") {
+				for _, item := range 文本类.X分割并忽略空值(fdv, ",") {
 					array := strings.Split(item, "#")
-					fd := uintptr(gconv.Uint(array[1]))
+					fd := uintptr(转换类.X取正整数(array[1]))
 					if fd > 0 {
 						s += fmt.Sprintf("%s#%d,", array[0], 3+len(p.ExtraFiles))
 						p.ExtraFiles = append(p.ExtraFiles, os.NewFile(fd, ""))
@@ -141,13 +141,13 @@ func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 			}
 		}
 	}
-	buffer, _ := gjson.Encode(sfm)
+	buffer, _ := json类.X变量到json字节集(sfm)
 	p.Env = append(p.Env, adminActionReloadEnvKey+"="+string(buffer))
 	if _, err := p.Start(ctx); err != nil {
-		glog.Errorf(
+		日志类.X输出并格式化ERR(
 			ctx,
 			"%d: fork process failed, error:%s, %s",
-			gproc.Pid(), err.Error(), string(buffer),
+			进程类.Pid(), err.Error(), string(buffer),
 		)
 		return err
 	}
@@ -167,12 +167,12 @@ func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 	}
 	env := os.Environ()
 	env = append(env, adminActionRestartEnvKey+"=1")
-	p := gproc.NewProcess(path, os.Args, env)
+	p := 进程类.NewProcess(path, os.Args, env)
 	if _, err := p.Start(ctx); err != nil {
-		glog.Errorf(
+		日志类.X输出并格式化ERR(
 			ctx,
 			`%d: fork process failed, error:%s, are you running using "go run"?`,
-			gproc.Pid(), err.Error(),
+			进程类.Pid(), err.Error(),
 		)
 		return err
 	}
@@ -182,7 +182,7 @@ func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 // getServerFdMap 返回一个映射，其中包含了所有服务器名称到文件描述符的映射关系，以map形式返回。
 func getServerFdMap() map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
-	serverMapping.RLockFunc(func(m map[string]interface{}) {
+	serverMapping.X遍历读锁定(func(m map[string]interface{}) {
 		for k, v := range m {
 			sfm[k] = v.(*Server).getListenerFdMap()
 		}
@@ -194,10 +194,10 @@ func getServerFdMap() map[string]listenerFdMap {
 func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	if len(buffer) > 0 {
-		j, _ := gjson.LoadContent(buffer)
-		for k := range j.Var().Map() {
+		j, _ := json类.X加载并自动识别格式(buffer)
+		for k := range j.X取泛型类().X取Map() {
 			m := make(map[string]string)
-			for mapKey, mapValue := range j.Get(k).MapStrStr() {
+			for mapKey, mapValue := range j.X取值(k).X取文本Map() {
 				m[mapKey] = mapValue
 			}
 			sfm[k] = m
@@ -208,7 +208,7 @@ func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 
 // 重启Web服务器 restartWebServers 函数会重启所有服务器。
 func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath string) error {
-	serverProcessStatus.Set(adminActionRestarting)
+	serverProcessStatus.X设置值(adminActionRestarting)
 	if runtime.GOOS == "windows" {
 		if signal != nil {
 			// 由信号控制。
@@ -220,7 +220,7 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 		}
 // 由网页控制。
 // 应确保响应已写入客户端，然后优雅地关闭所有服务器。
-		gtimer.SetTimeout(ctx, time.Second, func(ctx context.Context) {
+		定时类.SetTimeout别名(ctx, time.Second, func(ctx context.Context) {
 			forceCloseWebServers(ctx)
 			if err := forkRestartProcess(ctx, newExeFilePath); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
@@ -229,14 +229,14 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 		return nil
 	}
 	if err := forkReloadProcess(ctx, newExeFilePath); err != nil {
-		glog.Printf(ctx, "%d: server restarts failed", gproc.Pid())
-		serverProcessStatus.Set(adminActionNone)
+		日志类.X输出并格式化(ctx, "%d: server restarts failed", 进程类.Pid())
+		serverProcessStatus.X设置值(adminActionNone)
 		return err
 	} else {
 		if signal != nil {
-			glog.Printf(ctx, "%d: server restarting by signal: %s", gproc.Pid(), signal)
+			日志类.X输出并格式化(ctx, "%d: server restarting by signal: %s", 进程类.Pid(), signal)
 		} else {
-			glog.Printf(ctx, "%d: server restarting by web admin", gproc.Pid())
+			日志类.X输出并格式化(ctx, "%d: server restarting by web admin", 进程类.Pid())
 		}
 	}
 
@@ -245,17 +245,17 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 
 // shutdownWebServersGracefully 优雅地关闭所有服务器。
 func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
-	serverProcessStatus.Set(adminActionShuttingDown)
+	serverProcessStatus.X设置值(adminActionShuttingDown)
 	if signal != nil {
-		glog.Printf(
+		日志类.X输出并格式化(
 			ctx,
 			"%d: server gracefully shutting down by signal: %s",
-			gproc.Pid(), signal.String(),
+			进程类.Pid(), signal.String(),
 		)
 	} else {
-		glog.Printf(ctx, "%d: server gracefully shutting down by api", gproc.Pid())
+		日志类.X输出并格式化(ctx, "%d: server gracefully shutting down by api", 进程类.Pid())
 	}
-	serverMapping.RLockFunc(func(m map[string]interface{}) {
+	serverMapping.X遍历读锁定(func(m map[string]interface{}) {
 		for _, v := range m {
 			server := v.(*Server)
 			server.doServiceDeregister()
@@ -268,7 +268,7 @@ func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 
 // forceCloseWebServers 强制关闭所有服务器。
 func forceCloseWebServers(ctx context.Context) {
-	serverMapping.RLockFunc(func(m map[string]interface{}) {
+	serverMapping.X遍历读锁定(func(m map[string]interface{}) {
 		for _, v := range m {
 			for _, s := range v.(*Server).servers {
 				s.close(ctx)
@@ -284,12 +284,12 @@ func handleProcessMessage() {
 		ctx = context.TODO()
 	)
 	for {
-		if msg := gproc.Receive(adminGProcCommGroup); msg != nil {
+		if msg := 进程类.Receive(adminGProcCommGroup); msg != nil {
 			if bytes.EqualFold(msg.Data, []byte("exit")) {
-				intlog.Printf(ctx, "%d: process message: exit", gproc.Pid())
+				intlog.Printf(ctx, "%d: process message: exit", 进程类.Pid())
 				shutdownWebServersGracefully(ctx, nil)
 				allShutdownChan <- struct{}{}
-				intlog.Printf(ctx, "%d: process message: exit done", gproc.Pid())
+				intlog.Printf(ctx, "%d: process message: exit done", 进程类.Pid())
 				return
 			}
 		}

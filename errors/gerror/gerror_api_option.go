@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gerror
+package 错误类
 
 import (
 	"github.com/888go/goframe/errors/gcode"
@@ -14,7 +14,7 @@ type Option struct {
 	Error error      // 如果存在，则为包装后的错误。
 	Stack bool       // 是否将堆栈信息记录到错误中。
 	Text  string     // 错误文本，由 New* 函数创建。
-	Code  gcode.Code // 如果必要，此处为错误代码。
+	Code  错误码类.Code // 如果必要，此处为错误代码。
 }
 
 // NewWithOption 根据选项创建并返回一个自定义错误。
@@ -33,6 +33,6 @@ func NewWithOption(option Option) error {
 
 // NewOption 创建并返回一个带有 Option 的自定义错误。
 // 已弃用：请改用 NewWithOption。
-func NewOption(option Option) error {
-	return NewWithOption(option)
+func 弃用NewOption(选项 Option) error {
+	return NewWithOption(选项)
 }

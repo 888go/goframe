@@ -30,7 +30,7 @@ func (r RuleUrl) Message() string {
 }
 
 func (r RuleUrl) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`,
 		in.Value.String(),
 	)

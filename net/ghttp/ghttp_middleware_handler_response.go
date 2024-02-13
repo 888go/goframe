@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"net/http"
@@ -24,19 +24,19 @@ func MiddlewareHandlerResponse(r *Request) {
 	r.Middleware.Next()
 
 	// 如果存在自定义缓冲区内容，则退出当前处理器。
-	if r.Response.BufferLength() > 0 {
+	if r.Response.X取缓冲区长度() > 0 {
 		return
 	}
 
 	var (
 		msg  string
-		err  = r.GetError()
-		res  = r.GetHandlerResponse()
-		code = gerror.Code(err)
+		err  = r.X取错误信息()
+		res  = r.X取响应对象及错误信息()
+		code = 错误类.X取错误码(err)
 	)
 	if err != nil {
-		if code == gcode.CodeNil {
-			code = gcode.CodeInternalError
+		if code == 错误码类.CodeNil {
+			code = 错误码类.CodeInternalError
 		}
 		msg = err.Error()
 	} else {
@@ -44,21 +44,21 @@ func MiddlewareHandlerResponse(r *Request) {
 			msg = http.StatusText(r.Response.Status)
 			switch r.Response.Status {
 			case http.StatusNotFound:
-				code = gcode.CodeNotFound
+				code = 错误码类.CodeNotFound
 			case http.StatusForbidden:
-				code = gcode.CodeNotAuthorized
+				code = 错误码类.CodeNotAuthorized
 			default:
-				code = gcode.CodeUnknown
+				code = 错误码类.CodeUnknown
 			}
 			// 它创建错误，以便其他中间件可以获取该错误。
-			err = gerror.NewCode(code, msg)
-			r.SetError(err)
+			err = 错误类.X创建错误码(code, msg)
+			r.X设置错误信息(err)
 		} else {
-			code = gcode.CodeOK
+			code = 错误码类.CodeOK
 		}
 	}
 
-	r.Response.WriteJson(DefaultHandlerResponse{
+	r.Response.X写响应缓冲区JSON(DefaultHandlerResponse{
 		Code:    code.Code(),
 		Message: msg,
 		Data:    res,

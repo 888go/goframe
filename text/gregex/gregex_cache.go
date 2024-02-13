@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gregex
+package 正则类
 
 import (
 	"regexp"
@@ -44,7 +44,7 @@ func getRegexp(pattern string) (regex *regexp.Regexp, err error) {
 // 如果模式不在缓存中，
 // 则编译该模式并创建一个。
 	if regex, err = regexp.Compile(pattern); err != nil {
-		err = gerror.Wrapf(err, `regexp.Compile failed for pattern "%s"`, pattern)
+		err = 错误类.X多层错误并格式化(err, `regexp.Compile failed for pattern "%s"`, pattern)
 		return
 	}
 	// 使用写入锁缓存结果对象。

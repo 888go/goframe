@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtest_test
+package 单元测试类_test
 
 import (
 	"errors"
@@ -24,7 +24,7 @@ var (
 )
 
 func TestC(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.Assert(1, 1)
 		t.AssertNE(1, 0)
 		t.AssertEQ(float32(123.456), float32(123.456))
@@ -32,7 +32,7 @@ func TestC(t *testing.T) {
 		t.Assert(map[string]string{"1": "1"}, map[string]string{"1": "1"})
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 1 == 0")
@@ -43,7 +43,7 @@ func TestC(t *testing.T) {
 }
 
 func TestCase(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.Assert(1, 1)
 		t.AssertNE(1, 0)
 		t.AssertEQ(float32(123.456), float32(123.456))
@@ -53,7 +53,7 @@ func TestCase(t *testing.T) {
 
 func TestAssert(t *testing.T) {
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			nilChan chan struct{}
 		)
@@ -62,7 +62,7 @@ func TestAssert(t *testing.T) {
 		t.Assert(map1, map1Expect)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, `[ASSERT] EXPECT VALUE map["k2"]: == map["k2"]:v2
@@ -73,7 +73,7 @@ EXPECT: map[k2:v2]`)
 		t.Assert(map1, map2)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, `[ASSERT] EXPECT MAP LENGTH 2 == 1`)
@@ -82,7 +82,7 @@ EXPECT: map[k2:v2]`)
 		t.Assert(mapLong1, map2)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, `[ASSERT] EXPECT VALUE TO BE A MAP, BUT GIVEN "int"`)
@@ -94,7 +94,7 @@ EXPECT: map[k2:v2]`)
 
 func TestAssertEQ(t *testing.T) {
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			nilChan chan struct{}
 		)
@@ -104,7 +104,7 @@ func TestAssertEQ(t *testing.T) {
 		t.AssertEQ(mapLong1, mapLong1Expect)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 1 == 0")
@@ -113,7 +113,7 @@ func TestAssertEQ(t *testing.T) {
 		t.AssertEQ(1, 0)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT TYPE 1[int] == 1[string]")
@@ -122,7 +122,7 @@ func TestAssertEQ(t *testing.T) {
 		t.AssertEQ(1, "1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, `[ASSERT] EXPECT VALUE map["k2"]: == map["k2"]:v2
@@ -133,7 +133,7 @@ EXPECT: map[k2:v2]`)
 		t.AssertEQ(map1, map2)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, `[ASSERT] EXPECT MAP LENGTH 2 == 1`)
@@ -142,7 +142,7 @@ EXPECT: map[k2:v2]`)
 		t.AssertEQ(mapLong1, map2)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, `[ASSERT] EXPECT VALUE TO BE A MAP, BUT GIVEN "int"`)
@@ -153,7 +153,7 @@ EXPECT: map[k2:v2]`)
 }
 
 func TestAssertNE(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			c = make(chan struct{}, 1)
 		)
@@ -163,7 +163,7 @@ func TestAssertNE(t *testing.T) {
 		t.AssertNE(map1, map2)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 1 != 1")
@@ -172,7 +172,7 @@ func TestAssertNE(t *testing.T) {
 		t.AssertNE(1, 1)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, `[ASSERT] EXPECT map[k1:v1] != map[k1:v1]`)
@@ -183,12 +183,12 @@ func TestAssertNE(t *testing.T) {
 }
 
 func TestAssertNQ(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertNQ(1, "0")
 		t.AssertNQ(float32(123.456), float64(123.4567))
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 1 != 1")
@@ -197,7 +197,7 @@ func TestAssertNQ(t *testing.T) {
 		t.AssertNQ(1, "1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT TYPE 1[int] != 1[int]")
@@ -208,14 +208,14 @@ func TestAssertNQ(t *testing.T) {
 }
 
 func TestAssertGT(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertGT("b", "a")
 		t.AssertGT(1, -1)
 		t.AssertGT(uint(1), uint(0))
 		t.AssertGT(float32(123.45678), float32(123.4567))
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT -1 > 1")
@@ -226,7 +226,7 @@ func TestAssertGT(t *testing.T) {
 }
 
 func TestAssertGE(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertGE("b", "a")
 		t.AssertGE("a", "a")
 		t.AssertGE(1, -1)
@@ -237,7 +237,7 @@ func TestAssertGE(t *testing.T) {
 		t.AssertGE(float32(123.456), float32(123.456))
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT -1(int) >= 1(int)")
@@ -248,14 +248,14 @@ func TestAssertGE(t *testing.T) {
 }
 
 func TestAssertLT(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertLT("a", "b")
 		t.AssertLT(-1, 1)
 		t.AssertLT(uint(0), uint(1))
 		t.AssertLT(float32(123.456), float32(123.4567))
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 1 < -1")
@@ -266,7 +266,7 @@ func TestAssertLT(t *testing.T) {
 }
 
 func TestAssertLE(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertLE("a", "b")
 		t.AssertLE("a", "a")
 		t.AssertLE(-1, 1)
@@ -277,7 +277,7 @@ func TestAssertLE(t *testing.T) {
 		t.AssertLE(float32(123.456), float32(123.456))
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 1 <= -1")
@@ -288,12 +288,12 @@ func TestAssertLE(t *testing.T) {
 }
 
 func TestAssertIN(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertIN("a", []string{"a", "b", "c"})
 		t.AssertIN(1, []int{1, 2, 3})
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] INVALID EXPECT VALUE TYPE: int")
@@ -302,7 +302,7 @@ func TestAssertIN(t *testing.T) {
 		t.AssertIN(0, 0)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 4 IN [1 2 3]")
@@ -317,12 +317,12 @@ func TestAssertIN(t *testing.T) {
 }
 
 func TestAssertNI(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertNI("d", []string{"a", "b", "c"})
 		t.AssertNI(4, []int{1, 2, 3})
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] INVALID EXPECT VALUE TYPE: int")
@@ -331,7 +331,7 @@ func TestAssertNI(t *testing.T) {
 		t.AssertNI(0, 0)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ASSERT] EXPECT 1 NOT IN [1 2 3]")
@@ -342,7 +342,7 @@ func TestAssertNI(t *testing.T) {
 }
 
 func TestAssertNil(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			nilChan chan struct{}
 		)
@@ -351,7 +351,7 @@ func TestAssertNil(t *testing.T) {
 		t.AssertNil(err)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "error")
@@ -360,7 +360,7 @@ func TestAssertNil(t *testing.T) {
 		t.AssertNil(errors.New("error"))
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.AssertNE(err, nil)
@@ -371,7 +371,7 @@ func TestAssertNil(t *testing.T) {
 }
 
 func TestAssertError(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		defer func() {
 			if err := recover(); err != nil {
 				t.Assert(err, "[ERROR] this is an error")
@@ -382,14 +382,14 @@ func TestAssertError(t *testing.T) {
 }
 
 func TestDataPath(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(filepath.ToSlash(gtest.DataPath("testdata.txt")), `./testdata/testdata.txt`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(filepath.ToSlash(单元测试类.DataPath("testdata.txt")), `./testdata/testdata.txt`)
 	})
 }
 
 func TestDataContent(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gtest.DataContent("testdata.txt"), `hello`)
-		t.Assert(gtest.DataContent(""), "")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(单元测试类.DataContent("testdata.txt"), `hello`)
+		t.Assert(单元测试类.DataContent(""), "")
 	})
 }

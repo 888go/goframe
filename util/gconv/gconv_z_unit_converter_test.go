@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv_test
+package 转换类_test
 
 import (
 	"encoding/json"
@@ -57,20 +57,20 @@ func TestConverter_Struct(t *testing.T) {
 		Val3 map[string]json.RawMessage `json:"val3"`
 	}
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &tA{
 			Val: 1,
 		}
 		var b *tB
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.Val1, 0)
 		t.Assert(b.Val2, "")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gconv.RegisterConverter(func(a tA) (b *tB, err error) {
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 转换类.X转换器注册(func(a tA) (b *tB, err error) {
 			b = &tB{
 				Val1: int32(a.Val),
 				Val2: "abc",
@@ -80,77 +80,77 @@ func TestConverter_Struct(t *testing.T) {
 		t.AssertNil(err)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &tA{
 			Val: 1,
 		}
 		var b *tB
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.Val1, 1)
 		t.Assert(b.Val2, "abc")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &tA{
 			Val: 1,
 		}
 		var b *tB
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.Val1, 1)
 		t.Assert(b.Val2, "abc")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &tA{
 			Val: 1,
 		}
 		var b *tB
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.Val1, 1)
 		t.Assert(b.Val2, "abc")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		a := &tA{
 			Val: 1,
 		}
 		var b *tB
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.Val1, 1)
 		t.Assert(b.Val2, "abc")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		aa := &tAA{
 			ValTop: 123,
 			ValTA:  tA{Val: 234},
 		}
 		var bb *tBB
 
-		err := gconv.Scan(aa, &bb)
+		err := 转换类.Scan(aa, &bb)
 		t.AssertNil(err)
 		t.AssertNE(bb, nil)
 		t.Assert(bb.ValTop, 123)
 		t.AssertNE(bb.ValTB.Val1, 234)
 
-		err = gconv.RegisterConverter(func(a tAA) (b *tBB, err error) {
+		err = 转换类.X转换器注册(func(a tAA) (b *tBB, err error) {
 			b = &tBB{
 				ValTop: int32(a.ValTop) + 2,
 			}
-			err = gconv.Scan(a.ValTA, &b.ValTB)
+			err = 转换类.Scan(a.ValTA, &b.ValTB)
 			return
 		})
 		t.AssertNil(err)
 
-		err = gconv.Scan(aa, &bb)
+		err = 转换类.Scan(aa, &bb)
 		t.AssertNil(err)
 		t.AssertNE(bb, nil)
 		t.Assert(bb.ValTop, 125)
@@ -159,13 +159,13 @@ func TestConverter_Struct(t *testing.T) {
 
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		aa := &tAA{
 			ValTop: 123,
 			ValTA:  tA{Val: 234},
 		}
 		var cc *tCC
-		err := gconv.Scan(aa, &cc)
+		err := 转换类.Scan(aa, &cc)
 		t.AssertNil(err)
 		t.AssertNE(cc, nil)
 		t.Assert(cc.ValTop, "123")
@@ -174,14 +174,14 @@ func TestConverter_Struct(t *testing.T) {
 		t.Assert(cc.ValTa.Val2, "abc")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		aa := &tAA{
 			ValTop: 123,
 			ValTA:  tA{Val: 234},
 		}
 
 		var dd *tDD
-		err := gconv.Scan(aa, &dd)
+		err := 转换类.Scan(aa, &dd)
 		t.AssertNil(err)
 		t.AssertNE(dd, nil)
 		t.Assert(dd.ValTop, "123")
@@ -190,7 +190,7 @@ func TestConverter_Struct(t *testing.T) {
 	})
 
 	// 修复：https://github.com/gogf/gf/issues/2665
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		aa := &tEE{}
 
 		var tmp = map[string]any{
@@ -198,17 +198,17 @@ func TestConverter_Struct(t *testing.T) {
 			"val2": "2023-04-15 19:10:00 +0800 CST",
 			"val3": "2006-01-02T15:04:05Z07:00",
 		}
-		err := gconv.Struct(tmp, aa)
+		err := 转换类.Struct(tmp, aa)
 		t.AssertNil(err)
 		t.AssertNE(aa, nil)
-		t.Assert(aa.Val1.Local(), gtime.New("2023-04-15 19:10:00 +0800 CST").Local().Time)
-		t.Assert(aa.Val2.Local(), gtime.New("2023-04-15 19:10:00 +0800 CST").Local().Time)
-		t.Assert(aa.Val3.Local(), gtime.New("2006-01-02T15:04:05Z07:00").Local().Time)
+		t.Assert(aa.Val1.Local(), 时间类.X创建("2023-04-15 19:10:00 +0800 CST").X取本地时区().Time)
+		t.Assert(aa.Val2.Local(), 时间类.X创建("2023-04-15 19:10:00 +0800 CST").X取本地时区().Time)
+		t.Assert(aa.Val3.Local(), 时间类.X创建("2006-01-02T15:04:05Z07:00").X取本地时区().Time)
 	})
 
 	// 修复：https://github.com/gogf/gf/issues/3006
 // （该注释表明该代码是为了解决GitHub上gogf/gf项目中编号为3006的问题而编写的）
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		ff := &tFF{}
 		var tmp = map[string]any{
 			"val1": map[string]any{"hello": "world"},
@@ -216,7 +216,7 @@ func TestConverter_Struct(t *testing.T) {
 			"val3": map[string]map[string]string{"val3": {"hello": "world"}},
 		}
 
-		err := gconv.Struct(tmp, ff)
+		err := 转换类.Struct(tmp, ff)
 		t.AssertNil(err)
 		t.AssertNE(ff, nil)
 		t.Assert(ff.Val1, []byte(`{"hello":"world"}`))
@@ -232,18 +232,18 @@ func TestConverter_CustomBasicType_ToStruct(t *testing.T) {
 	type CustomStruct struct {
 		S string
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a CustomString = "abc"
 			b *CustomStruct
 		)
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNE(err, nil)
 		t.Assert(b, nil)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gconv.RegisterConverter(func(a CustomString) (b *CustomStruct, err error) {
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 转换类.X转换器注册(func(a CustomString) (b *CustomStruct, err error) {
 			b = &CustomStruct{
 				S: string(a),
 			}
@@ -251,22 +251,22 @@ func TestConverter_CustomBasicType_ToStruct(t *testing.T) {
 		})
 		t.AssertNil(err)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a CustomString = "abc"
 			b *CustomStruct
 		)
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.S, a)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a CustomString = "abc"
 			b *CustomStruct
 		)
-		err := gconv.Scan(&a, &b)
+		err := 转换类.Scan(&a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.S, a)
@@ -279,53 +279,53 @@ func TestConverter_CustomTimeType_ToStruct(t *testing.T) {
 		S string
 	}
 	type CustomGTime struct {
-		T *gtime.Time
+		T *时间类.Time
 	}
 	type CustomPbTime struct {
 		T *timestamppb
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a = CustomGTime{
-				T: gtime.NewFromStrFormat("2023-10-26", "Y-m-d"),
+				T: 时间类.X创建并按给定格式文本("2023-10-26", "Y-m-d"),
 			}
 			b *CustomPbTime
 		)
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.Assert(b.T.S, "")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gconv.RegisterConverter(func(in gtime.Time) (*timestamppb, error) {
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 转换类.X转换器注册(func(in 时间类.Time) (*timestamppb, error) {
 			return &timestamppb{
-				S: in.Local().Format("Y-m-d"),
+				S: in.X取本地时区().X取格式文本("Y-m-d"),
 			}, nil
 		})
 		t.AssertNil(err)
-		err = gconv.RegisterConverter(func(in timestamppb) (*gtime.Time, error) {
-			return gtime.NewFromStr(in.S), nil
+		err = 转换类.X转换器注册(func(in timestamppb) (*时间类.Time, error) {
+			return 时间类.X创建并从文本(in.S), nil
 		})
 		t.AssertNil(err)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			a = CustomGTime{
-				T: gtime.NewFromStrFormat("2023-10-26", "Y-m-d"),
+				T: 时间类.X创建并按给定格式文本("2023-10-26", "Y-m-d"),
 			}
 			b *CustomPbTime
 			c *CustomGTime
 		)
-		err := gconv.Scan(a, &b)
+		err := 转换类.Scan(a, &b)
 		t.AssertNil(err)
 		t.AssertNE(b, nil)
 		t.AssertNE(b.T, nil)
 
-		err = gconv.Scan(b, &c)
+		err = 转换类.Scan(b, &c)
 		t.AssertNil(err)
 		t.AssertNE(c, nil)
 		t.AssertNE(c.T, nil)
-		t.AssertEQ(a.T.Timestamp(), c.T.Timestamp())
+		t.AssertEQ(a.T.X取时间戳秒(), c.T.X取时间戳秒())
 	})
 }

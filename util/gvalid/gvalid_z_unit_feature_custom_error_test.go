@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
@@ -15,11 +15,11 @@ import (
 )
 
 func Test_Map(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			rule = "ipv4"
 			val  = "0.0.0"
-			err  = g.Validator().Data(val).Rules(rule).Run(context.TODO())
+			err  = g.X效验类().Data(val).Rules(rule).Run(context.TODO())
 			msg  = map[string]string{
 				"ipv4": "The value `0.0.0` is not a valid IPv4 address",
 			}
@@ -29,11 +29,11 @@ func Test_Map(t *testing.T) {
 }
 
 func Test_FirstString(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			rule = "ipv4"
 			val  = "0.0.0"
-			err  = g.Validator().Data(val).Rules(rule).Run(context.TODO())
+			err  = g.X效验类().Data(val).Rules(rule).Run(context.TODO())
 		)
 		t.Assert(err.FirstError(), "The value `0.0.0` is not a valid IPv4 address")
 	})
@@ -45,7 +45,7 @@ func Test_CustomError1(t *testing.T) {
 		"integer": "请输入一个整数",
 		"length":  "参数长度不对啊老铁",
 	}
-	e := g.Validator().Data("6.66").Rules(rule).Messages(msgs).Run(context.TODO())
+	e := g.X效验类().Data("6.66").Rules(rule).Messages(msgs).Run(context.TODO())
 	if e == nil || len(e.Map()) != 2 {
 		t.Error("规则校验失败")
 	} else {
@@ -65,7 +65,7 @@ func Test_CustomError1(t *testing.T) {
 func Test_CustomError2(t *testing.T) {
 	rule := "integer|length:6,16"
 	msgs := "请输入一个整数|参数长度不对啊老铁"
-	e := g.Validator().Data("6.66").Rules(rule).Messages(msgs).Run(context.TODO())
+	e := g.X效验类().Data("6.66").Rules(rule).Messages(msgs).Run(context.TODO())
 	if e == nil || len(e.Map()) != 2 {
 		t.Error("规则校验失败")
 	} else {

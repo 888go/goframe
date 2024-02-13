@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ func ExampleSortFiles() {
 		"/ddd",
 		"/ccc",
 	}
-	sortOut := gfile.SortFiles(files)
+	sortOut := 文件类.X排序(files)
 	fmt.Println(sortOut)
 
 	// Output:

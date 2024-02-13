@@ -17,24 +17,24 @@ import (
 )
 
 func Test_Database(t *testing.T) {
-	databaseContent := gfile.GetContents(
-		gtest.DataPath("database", "config.toml"),
+	databaseContent := 文件类.X读文本(
+		单元测试类.DataPath("database", "config.toml"),
 	)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var err error
-		dirPath := gfile.Temp(gtime.TimestampNanoStr())
-		err = gfile.Mkdir(dirPath)
+		dirPath := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+		err = 文件类.X创建目录(dirPath)
 		t.AssertNil(err)
-		defer gfile.Remove(dirPath)
+		defer 文件类.X删除(dirPath)
 
 		name := "config.toml"
-		err = gfile.PutContents(gfile.Join(dirPath, name), databaseContent)
+		err = 文件类.X写入文本(文件类.X路径生成(dirPath, name), databaseContent)
 		t.AssertNil(err)
 
-		err = gins.Config().GetAdapter().(*gcfg.AdapterFile).AddPath(dirPath)
+		err = gins.Config().X取适配器().(*配置类.AdapterFile).AddPath(dirPath)
 		t.AssertNil(err)
 
-		defer gins.Config().GetAdapter().(*gcfg.AdapterFile).Clear()
+		defer gins.Config().X取适配器().(*配置类.AdapterFile).Clear()
 
 		// 用于gfsnotify回调刷新配置文件的缓存
 		time.Sleep(500 * time.Millisecond)
@@ -47,9 +47,9 @@ func Test_Database(t *testing.T) {
 		t.AssertNE(db, nil)
 		t.AssertNE(dbDefault, nil)
 
-		t.Assert(db.PingMaster(), nil)
-		t.Assert(db.PingSlave(), nil)
-		t.Assert(dbDefault.PingMaster(), nil)
-		t.Assert(dbDefault.PingSlave(), nil)
+		t.Assert(db.X向主节点发送心跳(), nil)
+		t.Assert(db.X向从节点发送心跳(), nil)
+		t.Assert(dbDefault.X向主节点发送心跳(), nil)
+		t.Assert(dbDefault.X向从节点发送心跳(), nil)
 	})
 }

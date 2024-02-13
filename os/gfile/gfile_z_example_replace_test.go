@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
@@ -16,20 +16,20 @@ func ExampleReplaceFile() {
 	// init
 	var (
 		fileName = "gflie_example.txt"
-		tempDir  = gfile.Temp("gfile_example_replace")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = 文件类.X取临时目录("gfile_example_replace")
+		tempFile = 文件类.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "goframe example content")
+	文件类.X写入文本(tempFile, "goframe example content")
 
 	// read contents
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// 它通过文件路径直接替换内容。
-	gfile.ReplaceFile("content", "replace word", tempFile)
+	文件类.X子文本替换("content", "replace word", tempFile)
 
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// Output:
 	// goframe example content
@@ -40,24 +40,24 @@ func ExampleReplaceFileFunc() {
 	// init
 	var (
 		fileName = "gflie_example.txt"
-		tempDir  = gfile.Temp("gfile_example_replace")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = 文件类.X取临时目录("gfile_example_replace")
+		tempFile = 文件类.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "goframe example 123")
+	文件类.X写入文本(tempFile, "goframe example 123")
 
 	// read contents
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// 它通过文件路径和回调函数直接替换内容。
-	gfile.ReplaceFileFunc(func(path, content string) string {
+	文件类.X子文本替换_函数(func(path, content string) string {
 		// 用普通匹配替换
 		reg, _ := regexp.Compile(`\d{3}`)
 		return reg.ReplaceAllString(content, "[num]")
 	}, tempFile)
 
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// Output:
 	// goframe example 123
@@ -68,21 +68,21 @@ func ExampleReplaceDir() {
 	// init
 	var (
 		fileName = "gflie_example.txt"
-		tempDir  = gfile.Temp("gfile_example_replace")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = 文件类.X取临时目录("gfile_example_replace")
+		tempFile = 文件类.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "goframe example content")
+	文件类.X写入文本(tempFile, "goframe example content")
 
 	// read contents
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// 它递归地替换指定目录下所有文件的内容。
-	gfile.ReplaceDir("content", "replace word", tempDir, "gflie_example.txt", true)
+	文件类.X目录子文本替换("content", "replace word", tempDir, "gflie_example.txt", true)
 
 	// read contents
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// Output:
 	// goframe example content
@@ -93,24 +93,24 @@ func ExampleReplaceDirFunc() {
 	// init
 	var (
 		fileName = "gflie_example.txt"
-		tempDir  = gfile.Temp("gfile_example_replace")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = 文件类.X取临时目录("gfile_example_replace")
+		tempFile = 文件类.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "goframe example 123")
+	文件类.X写入文本(tempFile, "goframe example 123")
 
 	// read contents
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// 它会递归地替换指定目录下所有文件的内容，使用自定义的回调函数进行替换。
-	gfile.ReplaceDirFunc(func(path, content string) string {
+	文件类.X目录子文本替换_函数(func(path, content string) string {
 		// 用普通匹配替换
 		reg, _ := regexp.Compile(`\d{3}`)
 		return reg.ReplaceAllString(content, "[num]")
 	}, tempDir, "gflie_example.txt", true)
 
-	fmt.Println(gfile.GetContents(tempFile))
+	fmt.Println(文件类.X读文本(tempFile))
 
 	// Output:
 	// goframe example 123

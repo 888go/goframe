@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gredis
+package redis类
 
 import (
 	"context"
@@ -17,7 +17,7 @@ type Adapter interface {
 
 // 向服务器发送命令并返回接收到的回复。
 // 在将结构体、切片或映射类型值提交到redis前，它使用json.Marshal进行序列化。
-	Do(ctx context.Context, command string, args ...interface{}) (*gvar.Var, error)
+	Do(ctx context.Context, command string, args ...interface{}) (*泛型类.Var, error)
 
 // Conn 获取并返回一个用于连续操作的连接对象。
 // 注意，如果你不再使用此连接，应手动调用 Close 函数。
@@ -33,7 +33,7 @@ type Conn interface {
 
 // 向服务器发送命令并返回接收到的回复。
 // 在将结构体、切片或映射类型值提交到redis前，它使用json.Marshal进行序列化。
-	Do(ctx context.Context, command string, args ...interface{}) (result *gvar.Var, err error)
+	Do(ctx context.Context, command string, args ...interface{}) (result *泛型类.Var, err error)
 
 	// Close将连接放回连接池。
 	Close(ctx context.Context) (err error)
@@ -73,5 +73,5 @@ type ConnCommand interface {
 	ReceiveMessage(ctx context.Context) (*Message, error)
 
 	// Receive 从Redis服务器接收单个回复作为gvar.Var。
-	Receive(ctx context.Context) (result *gvar.Var, err error)
+	Receive(ctx context.Context) (result *泛型类.Var, err error)
 }

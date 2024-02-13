@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gyaml_test
+package yaml类_test
 
 import (
 	"testing"
@@ -40,8 +40,8 @@ dd = 11
 
 func Test_Encode(t *testing.T) {
 	// Map.
-	gtest.C(t, func(t *gtest.T) {
-		b, err := gyaml.Encode(g.Map{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		b, err := yaml类.Encode(g.Map{
 			"k": "v",
 		})
 		t.AssertNil(err)
@@ -49,8 +49,8 @@ func Test_Encode(t *testing.T) {
 `)
 	})
 	// Array.
-	gtest.C(t, func(t *gtest.T) {
-		b, err := gyaml.Encode([]string{"a", "b", "c"})
+	单元测试类.C(t, func(t *单元测试类.T) {
+		b, err := yaml类.Encode([]string{"a", "b", "c"})
 		t.AssertNil(err)
 		t.Assert(string(b), `- a
 - b
@@ -61,8 +61,8 @@ func Test_Encode(t *testing.T) {
 
 func Test_EncodeIndent(t *testing.T) {
 	// Array.
-	gtest.C(t, func(t *gtest.T) {
-		b, err := gyaml.EncodeIndent([]string{"a", "b", "c"}, "####")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		b, err := yaml类.EncodeIndent([]string{"a", "b", "c"}, "####")
 		t.AssertNil(err)
 		t.Assert(string(b), `####- a
 ####- b
@@ -72,13 +72,13 @@ func Test_EncodeIndent(t *testing.T) {
 }
 
 func Test_Decode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		result, err := gyaml.Decode([]byte(yamlStr))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		result, err := yaml类.Decode([]byte(yamlStr))
 		t.AssertNil(err)
 
 		t.Assert(result, map[string]interface{}{
 			"url":      "https://goframe.org",
-			"server":   g.Slice{"120.168.117.21", "120.168.117.22"},
+			"server":   g.Slice别名{"120.168.117.21", "120.168.117.22"},
 			"pi":       3.14,
 			"hasChild": true,
 			"name":     "你好YAML",
@@ -87,13 +87,13 @@ func Test_Decode(t *testing.T) {
 }
 
 func Test_DecodeTo(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		result := make(map[string]interface{})
-		err := gyaml.DecodeTo([]byte(yamlStr), &result)
+		err := yaml类.DecodeTo([]byte(yamlStr), &result)
 		t.AssertNil(err)
 		t.Assert(result, map[string]interface{}{
 			"url":      "https://goframe.org",
-			"server":   g.Slice{"120.168.117.21", "120.168.117.22"},
+			"server":   g.Slice别名{"120.168.117.21", "120.168.117.22"},
 			"pi":       3.14,
 			"hasChild": true,
 			"name":     "你好YAML",
@@ -102,23 +102,23 @@ func Test_DecodeTo(t *testing.T) {
 }
 
 func Test_DecodeError(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gyaml.Decode([]byte(yamlErr))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := yaml类.Decode([]byte(yamlErr))
 		t.AssertNE(err, nil)
 
 		result := make(map[string]interface{})
-		err = gyaml.DecodeTo([]byte(yamlErr), &result)
+		err = yaml类.DecodeTo([]byte(yamlErr), &result)
 		t.AssertNE(err, nil)
 	})
 }
 
 func Test_DecodeMapToJson(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := []byte(`
 m:
  k: v
     `)
-		v, err := gyaml.Decode(data)
+		v, err := yaml类.Decode(data)
 		t.AssertNil(err)
 		b, err := json.Marshal(v)
 		t.AssertNil(err)
@@ -127,27 +127,27 @@ m:
 }
 
 func Test_ToJson(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]string)
 		m["yaml"] = yamlStr
-		res, err := gyaml.Encode(m)
+		res, err := yaml类.Encode(m)
 		if err != nil {
 			t.Errorf("encode failed. %v", err)
 			return
 		}
 
-		jsonyaml, err := gyaml.ToJson(res)
+		jsonyaml, err := yaml类.ToJson(res)
 		if err != nil {
 			t.Errorf("ToJson failed. %v", err)
 			return
 		}
 
-		p := gjson.New(res)
+		p := json类.X创建(res)
 		if err != nil {
 			t.Errorf("parser failed. %v", err)
 			return
 		}
-		expectJson, err := p.ToJson()
+		expectJson, err := p.X取json字节集()
 		if err != nil {
 			t.Errorf("parser ToJson failed. %v", err)
 			return
@@ -155,8 +155,8 @@ func Test_ToJson(t *testing.T) {
 		t.Assert(jsonyaml, expectJson)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gyaml.ToJson([]byte(yamlErr))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := yaml类.ToJson([]byte(yamlErr))
 		if err == nil {
 			t.Errorf("ToJson failed. %v", err)
 			return

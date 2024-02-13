@@ -20,15 +20,15 @@ import (
 )
 
 var (
-	db         gdb.DB
-	dbPrefix   gdb.DB
-	dbInvalid  gdb.DB
-	configNode gdb.ConfigNode
-	dbDir      = gfile.Temp("sqlite")
-	ctx        = gctx.New()
+	db         db类.DB
+	dbPrefix   db类.DB
+	dbInvalid  db类.DB
+	configNode db类.ConfigNode
+	dbDir      = 文件类.X取临时目录("sqlite")
+	ctx        = 上下文类.X创建()
 
 	// Error
-	ErrorSave = gerror.NewCode(gcode.CodeNotSupported, `Save operation is not supported by sqlite driver`)
+	ErrorSave = 错误类.X创建错误码(错误码类.CodeNotSupported, `Save operation is not supported by sqlite driver`)
 )
 
 const (
@@ -47,14 +47,14 @@ const (
 func init() {
 	fmt.Println("init sqlite db start")
 
-	if err := gfile.Mkdir(dbDir); err != nil {
-		gtest.Error(err)
+	if err := 文件类.X创建目录(dbDir); err != nil {
+		单元测试类.Error(err)
 	}
 
 	fmt.Println("init sqlite db dir: ", dbDir)
 
-	dbFilePath := gfile.Join(dbDir, "test.db")
-	configNode = gdb.ConfigNode{
+	dbFilePath := 文件类.X路径生成(dbDir, "test.db")
+	configNode = db类.ConfigNode{
 		Type:    "sqlite",
 		Link:    fmt.Sprintf(`sqlite::@file(%s)`, dbFilePath),
 		Charset: "utf8",
@@ -64,28 +64,28 @@ func init() {
 
 	nodeInvalid := configNode
 
-	gdb.AddConfigNode(DBGroupTest, configNode)
-	gdb.AddConfigNode(DBGroupPrefix, nodePrefix)
-	gdb.AddConfigNode(DBGroupInvalid, nodeInvalid)
-	gdb.AddConfigNode(gdb.DefaultGroupName, configNode)
+	db类.X添加配置组节点(DBGroupTest, configNode)
+	db类.X添加配置组节点(DBGroupPrefix, nodePrefix)
+	db类.X添加配置组节点(DBGroupInvalid, nodeInvalid)
+	db类.X添加配置组节点(db类.DefaultGroupName, configNode)
 
 	// Default db.
-	if r, err := gdb.NewByGroup(); err != nil {
-		gtest.Error(err)
+	if r, err := db类.X创建DB对象并按配置组(); err != nil {
+		单元测试类.Error(err)
 	} else {
 		db = r
 	}
 
 	// Prefix db.
-	if r, err := gdb.NewByGroup(DBGroupPrefix); err != nil {
-		gtest.Error(err)
+	if r, err := db类.X创建DB对象并按配置组(DBGroupPrefix); err != nil {
+		单元测试类.Error(err)
 	} else {
 		dbPrefix = r
 	}
 
 	// Invalid db.
-	if r, err := gdb.NewByGroup(DBGroupInvalid); err != nil {
-		gtest.Error(err)
+	if r, err := db类.X创建DB对象并按配置组(DBGroupInvalid); err != nil {
+		单元测试类.Error(err)
 	} else {
 		dbInvalid = r
 	}
@@ -105,15 +105,15 @@ func dropTable(table string) {
 	dropTableWithDb(db, table)
 }
 
-func createTableWithDb(db gdb.DB, table ...string) (name string) {
+func createTableWithDb(db db类.DB, table ...string) (name string) {
 	if len(table) > 0 {
 		name = table[0]
 	} else {
-		name = fmt.Sprintf(`%s_%d`, TableName, gtime.TimestampNano())
+		name = fmt.Sprintf(`%s_%d`, TableName, 时间类.X取时间戳纳秒())
 	}
 	dropTableWithDb(db, name)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	CREATE TABLE %s (
 		id          INTEGER       PRIMARY KEY AUTOINCREMENT
 									UNIQUE
@@ -125,38 +125,38 @@ func createTableWithDb(db gdb.DB, table ...string) (name string) {
 		nickname    VARCHAR(45),
 		create_time DATETIME
 	);
-	`, db.GetCore().QuoteWord(name),
+	`, db.X取Core对象().X底层QuoteWord(name),
 	)); err != nil {
-		gtest.Fatal(err)
+		单元测试类.Fatal(err)
 	}
 
 	return
 }
 
-func createInitTableWithDb(db gdb.DB, table ...string) (name string) {
+func createInitTableWithDb(db db类.DB, table ...string) (name string) {
 	name = createTableWithDb(db, table...)
-	array := garray.New(true)
+	array := 数组类.X创建(true)
 	for i := 1; i <= TableSize; i++ {
-		array.Append(g.Map{
+		array.Append别名(g.Map{
 			"id":          i,
 			"passport":    fmt.Sprintf(`user_%d`, i),
 			"password":    fmt.Sprintf(`pass_%d`, i),
 			"nickname":    fmt.Sprintf(`name_%d`, i),
-			"create_time": gtime.NewFromStr(CreateTime).String(),
+			"create_time": 时间类.X创建并从文本(CreateTime).String(),
 		})
 	}
 
-	result, err := db.Insert(ctx, name, array.Slice())
-	gtest.AssertNil(err)
+	result, err := db.X插入(ctx, name, array.X取切片())
+	单元测试类.AssertNil(err)
 
 	n, e := result.RowsAffected()
-	gtest.Assert(e, nil)
-	gtest.Assert(n, TableSize)
+	单元测试类.Assert(e, nil)
+	单元测试类.Assert(n, TableSize)
 	return
 }
 
-func dropTableWithDb(db gdb.DB, table string) {
-	if _, err := db.Exec(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
-		gtest.Error(err)
+func dropTableWithDb(db db类.DB, table string) {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
+		单元测试类.Error(err)
 	}
 }

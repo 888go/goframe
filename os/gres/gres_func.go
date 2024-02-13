@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gres
+package 资源类
 
 import (
 	"archive/zip"
@@ -26,7 +26,7 @@ package %s
 import "github.com/888go/goframe/os/gres"
 
 func init() {
-	if err := gres.Add("%s"); err != nil {
+	if err := 资源类.Add("%s"); err != nil {
 		panic("add binary content to resource manager failed: " + err.Error())
 	}
 }
@@ -63,7 +63,7 @@ func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 		return nil, err
 	}
 	// 使用Gzip压缩数据字节以减少其大小。
-	return gcompress.Gzip(buffer.Bytes(), 9)
+	return 压缩类.Gzip压缩字节集(buffer.Bytes(), 9)
 }
 
 // PackToFile 将由`srcPaths`指定的路径打包到目标文件`dstPath`中。
@@ -77,7 +77,7 @@ func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 	if err != nil {
 		return err
 	}
-	return gfile.PutBytes(dstPath, data)
+	return 文件类.X写入字节集(dstPath, data)
 }
 
 // PackToFileWithOption 将由 `srcPaths` 指定的路径打包到目标文件 `dstPath`。
@@ -88,7 +88,7 @@ func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	if err != nil {
 		return err
 	}
-	return gfile.PutBytes(dstPath, data)
+	return 文件类.X写入字节集(dstPath, data)
 }
 
 // PackToGoFile 将由 `srcPaths` 指定的路径打包到目标 Go 文件 `goFilePath`，
@@ -104,9 +104,9 @@ func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) erro
 	if err != nil {
 		return err
 	}
-	return gfile.PutContents(
+	return 文件类.X写入文本(
 		goFilePath,
-		fmt.Sprintf(gstr.TrimLeft(packedGoSourceTemplate), pkgName, gbase64.EncodeToString(data)),
+		fmt.Sprintf(文本类.X过滤首字符并含空白(packedGoSourceTemplate), pkgName, 编码base64类.X字节集编码到文本(data)),
 	)
 }
 
@@ -119,19 +119,19 @@ func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) 
 	if err != nil {
 		return err
 	}
-	return gfile.PutContents(
+	return 文件类.X写入文本(
 		goFilePath,
-		fmt.Sprintf(gstr.TrimLeft(packedGoSourceTemplate), pkgName, gbase64.EncodeToString(data)),
+		fmt.Sprintf(文本类.X过滤首字符并含空白(packedGoSourceTemplate), pkgName, 编码base64类.X字节集编码到文本(data)),
 	)
 }
 
 // Unpack 将由 `path` 指定的内容解包为 []*File 类型的切片。
 func Unpack(path string) ([]*File, error) {
-	realPath, err := gfile.Search(path)
+	realPath, err := 文件类.X查找(path)
 	if err != nil {
 		return nil, err
 	}
-	return UnpackContent(gfile.GetContents(realPath))
+	return UnpackContent(文件类.X读文本(realPath))
 }
 
 // UnpackContent 解析内容到 []*File 类型的切片。
@@ -143,29 +143,29 @@ func UnpackContent(content string) ([]*File, error) {
 	if isHexStr(content) {
 // 这里保留了使用十六进制字符串进行旧版本打包字符串的兼容性。
 // TODO：未来将删除对此种支持。
-		data, err = gcompress.UnGzip(hexStrToBytes(content))
+		data, err = 压缩类.Gzip解压字节集(hexStrToBytes(content))
 		if err != nil {
 			return nil, err
 		}
 	} else if isBase64(content) {
 		// 新版本使用base64对字符串进行打包。
-		b, err := gbase64.DecodeString(content)
+		b, err := 编码base64类.X文本解码到字节集(content)
 		if err != nil {
 			return nil, err
 		}
-		data, err = gcompress.UnGzip(b)
+		data, err = 压缩类.Gzip解压字节集(b)
 		if err != nil {
 			return nil, err
 		}
 	} else {
-		data, err = gcompress.UnGzip([]byte(content))
+		data, err = 压缩类.Gzip解压字节集([]byte(content))
 		if err != nil {
 			return nil, err
 		}
 	}
 	reader, err := zip.NewReader(bytes.NewReader(data), int64(len(data)))
 	if err != nil {
-		err = gerror.Wrapf(err, `create zip reader failed`)
+		err = 错误类.X多层错误并格式化(err, `create zip reader failed`)
 		return nil, err
 	}
 	array := make([]*File, len(reader.File))

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glist_test
+package 链表类_test
 
 import (
 	"container/list"
@@ -16,7 +16,7 @@ import (
 
 func ExampleNew() {
 	n := 10
-	l := glist.New()
+	l := 链表类.New()
 	for i := 0; i < n; i++ {
 		l.PushBack(i)
 	}
@@ -44,7 +44,7 @@ func ExampleNew() {
 
 func ExampleNewFrom() {
 	n := 10
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 10, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -68,7 +68,7 @@ func ExampleNewFrom() {
 }
 
 func ExampleList_PushFront() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -86,7 +86,7 @@ func ExampleList_PushFront() {
 }
 
 func ExampleList_PushBack() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -104,12 +104,12 @@ func ExampleList_PushBack() {
 }
 
 func ExampleList_PushFronts() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
 
-	l.PushFronts(g.Slice{0, -1, -2, -3, -4})
+	l.PushFronts(g.Slice别名{0, -1, -2, -3, -4})
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -122,12 +122,12 @@ func ExampleList_PushFronts() {
 }
 
 func ExampleList_PushBacks() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
 
-	l.PushBacks(g.Slice{6, 7, 8, 9, 10})
+	l.PushBacks(g.Slice别名{6, 7, 8, 9, 10})
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -140,7 +140,7 @@ func ExampleList_PushBacks() {
 }
 
 func ExampleList_PopBack() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -157,7 +157,7 @@ func ExampleList_PopBack() {
 }
 
 func ExampleList_PopFront() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -174,7 +174,7 @@ func ExampleList_PopFront() {
 }
 
 func ExampleList_PopBacks() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -191,7 +191,7 @@ func ExampleList_PopBacks() {
 }
 
 func ExampleList_PopFronts() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -208,7 +208,7 @@ func ExampleList_PopFronts() {
 }
 
 func ExampleList_PopBackAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -223,7 +223,7 @@ func ExampleList_PopBackAll() {
 }
 
 func ExampleList_PopFrontAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -238,7 +238,7 @@ func ExampleList_PopFrontAll() {
 }
 
 func ExampleList_FrontAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.FrontAll())
@@ -249,7 +249,7 @@ func ExampleList_FrontAll() {
 }
 
 func ExampleList_BackAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.BackAll())
@@ -260,7 +260,7 @@ func ExampleList_BackAll() {
 }
 
 func ExampleList_FrontValue() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.FrontValue())
@@ -271,7 +271,7 @@ func ExampleList_FrontValue() {
 }
 
 func ExampleList_BackValue() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.BackValue())
@@ -282,7 +282,7 @@ func ExampleList_BackValue() {
 }
 
 func ExampleList_Front() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Front().Value)
 	fmt.Println(l)
@@ -300,7 +300,7 @@ func ExampleList_Front() {
 }
 
 func ExampleList_Back() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Back().Value)
 	fmt.Println(l)
@@ -318,7 +318,7 @@ func ExampleList_Back() {
 }
 
 func ExampleList_Len() {
-	l := glist.NewFrom(g.Slice{1, 2, 3, 4, 5})
+	l := 链表类.NewFrom(g.Slice别名{1, 2, 3, 4, 5})
 
 	fmt.Println(l.Len())
 
@@ -327,7 +327,7 @@ func ExampleList_Len() {
 }
 
 func ExampleList_Size() {
-	l := glist.NewFrom(g.Slice{1, 2, 3, 4, 5})
+	l := 链表类.NewFrom(g.Slice别名{1, 2, 3, 4, 5})
 
 	fmt.Println(l.Size())
 
@@ -336,7 +336,7 @@ func ExampleList_Size() {
 }
 
 func ExampleList_MoveBefore() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -352,7 +352,7 @@ func ExampleList_MoveBefore() {
 	fmt.Println(l)
 
 	// 不是 `l` 的元素
-	e = &glist.Element{Value: 7}
+	e = &链表类.Element{Value: 7}
 	l.MoveBefore(e, l.Front())
 
 	fmt.Println(l.Size())
@@ -370,7 +370,7 @@ func ExampleList_MoveBefore() {
 }
 
 func ExampleList_MoveAfter() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -386,7 +386,7 @@ func ExampleList_MoveAfter() {
 	fmt.Println(l)
 
 	// 不是 `l` 的元素
-	e = &glist.Element{Value: -1}
+	e = &链表类.Element{Value: -1}
 	l.MoveAfter(e, l.Back())
 
 	fmt.Println(l.Size())
@@ -404,7 +404,7 @@ func ExampleList_MoveAfter() {
 }
 
 func ExampleList_MoveToFront() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -416,7 +416,7 @@ func ExampleList_MoveToFront() {
 	fmt.Println(l)
 
 	// 不是 `l` 的元素
-	e := &glist.Element{Value: 6}
+	e := &链表类.Element{Value: 6}
 	l.MoveToFront(e)
 
 	fmt.Println(l.Size())
@@ -432,7 +432,7 @@ func ExampleList_MoveToFront() {
 }
 
 func ExampleList_MoveToBack() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -444,7 +444,7 @@ func ExampleList_MoveToBack() {
 	fmt.Println(l)
 
 	// 不是 `l` 的元素
-	e := &glist.Element{Value: 0}
+	e := &链表类.Element{Value: 0}
 	l.MoveToBack(e)
 
 	fmt.Println(l.Size())
@@ -460,12 +460,12 @@ func ExampleList_MoveToBack() {
 }
 
 func ExampleList_PushBackList() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	other := glist.NewFrom(g.Slice{6, 7, 8, 9, 10})
+	other := 链表类.NewFrom(g.Slice别名{6, 7, 8, 9, 10})
 
 	fmt.Println(other.Size())
 	fmt.Println(other)
@@ -485,12 +485,12 @@ func ExampleList_PushBackList() {
 }
 
 func ExampleList_PushFrontList() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	other := glist.NewFrom(g.Slice{-4, -3, -2, -1, 0})
+	other := 链表类.NewFrom(g.Slice别名{-4, -3, -2, -1, 0})
 
 	fmt.Println(other.Size())
 	fmt.Println(other)
@@ -510,7 +510,7 @@ func ExampleList_PushFrontList() {
 }
 
 func ExampleList_InsertAfter() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -529,7 +529,7 @@ func ExampleList_InsertAfter() {
 }
 
 func ExampleList_InsertBefore() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -548,7 +548,7 @@ func ExampleList_InsertBefore() {
 }
 
 func ExampleList_Remove() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -569,12 +569,12 @@ func ExampleList_Remove() {
 }
 
 func ExampleList_Removes() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
 
-	l.Removes([]*glist.Element{l.Front(), l.Back()})
+	l.Removes([]*链表类.Element{l.Front(), l.Back()})
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -587,7 +587,7 @@ func ExampleList_Removes() {
 }
 
 func ExampleList_RemoveAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -604,7 +604,7 @@ func ExampleList_RemoveAll() {
 
 func ExampleList_RLockFunc() {
 	// 并发安全列表。
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 10, 1).X取切片(), true)
 	// 从头部开始迭代读取
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
@@ -633,9 +633,9 @@ func ExampleList_RLockFunc() {
 
 func ExampleList_IteratorAsc() {
 	// 并发安全列表。
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 10, 1).X取切片(), true)
 	// 使用IteratorAsc从头部开始进行迭代读取。
-	l.IteratorAsc(func(e *glist.Element) bool {
+	l.IteratorAsc(func(e *链表类.Element) bool {
 		fmt.Print(e.Value)
 		return true
 	})
@@ -646,9 +646,9 @@ func ExampleList_IteratorAsc() {
 
 func ExampleList_IteratorDesc() {
 	// 并发安全列表。
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 10, 1).X取切片(), true)
 	// 使用IteratorDesc从尾部开始迭代读取
-	l.IteratorDesc(func(e *glist.Element) bool {
+	l.IteratorDesc(func(e *链表类.Element) bool {
 		fmt.Print(e.Value)
 		return true
 	})
@@ -658,7 +658,7 @@ func ExampleList_IteratorDesc() {
 
 func ExampleList_LockFunc() {
 	// 并发安全列表。
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := 链表类.NewFrom(数组类.X创建并按范围(1, 10, 1).X取切片(), true)
 	// 从头部开始进行迭代写入。
 	l.LockFunc(func(list *list.List) {
 		length := list.Len()
@@ -678,8 +678,8 @@ func ExampleList_LockFunc() {
 }
 
 func ExampleList_Join() {
-	var l glist.List
-	l.PushBacks(g.Slice{"a", "b", "c", "d"})
+	var l 链表类.List
+	l.PushBacks(g.Slice别名{"a", "b", "c", "d"})
 
 	fmt.Println(l.Join(","))
 

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gerror_test
+package 错误类_test
 
 import (
 	"errors"
@@ -20,72 +20,72 @@ var (
 
 func Benchmark_New(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.New("test")
+		错误类.X创建("test")
 	}
 }
 
 func Benchmark_Newf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.Newf("%s", "test")
+		错误类.X创建并格式化("%s", "test")
 	}
 }
 
 func Benchmark_Wrap(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.Wrap(baseError, "test")
+		错误类.X多层错误(baseError, "test")
 	}
 }
 
 func Benchmark_Wrapf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.Wrapf(baseError, "%s", "test")
+		错误类.X多层错误并格式化(baseError, "%s", "test")
 	}
 }
 
 func Benchmark_NewSkip(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewSkip(1, "test")
+		错误类.X创建并跳过堆栈(1, "test")
 	}
 }
 
 func Benchmark_NewSkipf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewSkipf(1, "%s", "test")
+		错误类.X创建并跳过堆栈与格式化(1, "%s", "test")
 	}
 }
 
 func Benchmark_NewCode(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCode(gcode.New(500, "", nil), "test")
+		错误类.X创建错误码(错误码类.New(500, "", nil), "test")
 	}
 }
 
 func Benchmark_NewCodef(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCodef(gcode.New(500, "", nil), "%s", "test")
+		错误类.X创建错误码并格式化(错误码类.New(500, "", nil), "%s", "test")
 	}
 }
 
 func Benchmark_NewCodeSkip(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCodeSkip(gcode.New(1, "", nil), 500, "test")
+		错误类.X创建错误码并跳过堆栈(错误码类.New(1, "", nil), 500, "test")
 	}
 }
 
 func Benchmark_NewCodeSkipf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCodeSkipf(gcode.New(1, "", nil), 500, "%s", "test")
+		错误类.X创建错误码并跳过堆栈与格式化(错误码类.New(1, "", nil), 500, "%s", "test")
 	}
 }
 
 func Benchmark_WrapCode(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.WrapCode(gcode.New(500, "", nil), baseError, "test")
+		错误类.X多层错误码(错误码类.New(500, "", nil), baseError, "test")
 	}
 }
 
 func Benchmark_WrapCodef(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.WrapCodef(gcode.New(500, "", nil), baseError, "test")
+		错误类.X多层错误码并格式化(错误码类.New(500, "", nil), baseError, "test")
 	}
 }

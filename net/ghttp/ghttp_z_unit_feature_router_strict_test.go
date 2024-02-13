@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"context"
@@ -29,33 +29,33 @@ func Test_Router_Handler_Strict_WithObject(t *testing.T) {
 		Age  int
 		Name string
 	}
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s := g.Http类(uid类.X生成())
+	s.Use别名(http类.MiddlewareHandlerResponse)
+	s.X绑定("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
 		}, nil
 	})
-	s.BindHandler("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s.X绑定("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
-		}, gerror.New("error")
+		}, 错误类.X创建("error")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
-		t.Assert(client.GetContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
+		t.Assert(client.Get文本(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
+		t.Assert(client.Get文本(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
 	})
 }
 
@@ -136,63 +136,63 @@ func (ControllerForHandlerWithObjectAndMeta2) Test4(ctx context.Context, req *Te
 }
 
 func Test_Router_Handler_Strict_WithObjectAndMeta(t *testing.T) {
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.ALL("/", new(ControllerForHandlerWithObjectAndMeta1))
+	s := g.Http类(uid类.X生成())
+	s.Use别名(http类.MiddlewareHandlerResponse)
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定所有类型("/", new(ControllerForHandlerWithObjectAndMeta1))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), `{"code":65,"message":"Not Found","data":null}`)
-		t.Assert(client.GetContent(ctx, "/custom-test1?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
-		t.Assert(client.GetContent(ctx, "/custom-test2?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
-		t.Assert(client.PostContent(ctx, "/custom-test2?age=18&name=john"), `{"code":65,"message":"Not Found","data":null}`)
+		t.Assert(client.Get文本(ctx, "/"), `{"code":65,"message":"Not Found","data":null}`)
+		t.Assert(client.Get文本(ctx, "/custom-test1?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
+		t.Assert(client.Get文本(ctx, "/custom-test2?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
+		t.Assert(client.Post文本(ctx, "/custom-test2?age=18&name=john"), `{"code":65,"message":"Not Found","data":null}`)
 	})
 }
 
 func Test_Router_Handler_Strict_Group_Bind(t *testing.T) {
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.Group("/api/v1", func(group *ghttp.RouterGroup) {
-		group.Bind(
+	s := g.Http类(uid类.X生成())
+	s.Use别名(http类.MiddlewareHandlerResponse)
+	s.X创建分组路由("/api/v1", func(group *http类.RouterGroup) {
+		group.X绑定(
 			new(ControllerForHandlerWithObjectAndMeta1),
 			new(ControllerForHandlerWithObjectAndMeta2),
 		)
 	})
-	s.Group("/api/v2", func(group *ghttp.RouterGroup) {
-		group.Bind(
+	s.X创建分组路由("/api/v2", func(group *http类.RouterGroup) {
+		group.X绑定(
 			new(ControllerForHandlerWithObjectAndMeta1),
 			new(ControllerForHandlerWithObjectAndMeta2),
 		)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), `{"code":65,"message":"Not Found","data":null}`)
-		t.Assert(client.GetContent(ctx, "/api/v1/custom-test1?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
-		t.Assert(client.GetContent(ctx, "/api/v1/custom-test2?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
-		t.Assert(client.PostContent(ctx, "/api/v1/custom-test2?age=18&name=john"), `{"code":65,"message":"Not Found","data":null}`)
+		t.Assert(client.Get文本(ctx, "/"), `{"code":65,"message":"Not Found","data":null}`)
+		t.Assert(client.Get文本(ctx, "/api/v1/custom-test1?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
+		t.Assert(client.Get文本(ctx, "/api/v1/custom-test2?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
+		t.Assert(client.Post文本(ctx, "/api/v1/custom-test2?age=18&name=john"), `{"code":65,"message":"Not Found","data":null}`)
 
-		t.Assert(client.GetContent(ctx, "/api/v1/custom-test3?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
-		t.Assert(client.GetContent(ctx, "/api/v1/custom-test4?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
+		t.Assert(client.Get文本(ctx, "/api/v1/custom-test3?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
+		t.Assert(client.Get文本(ctx, "/api/v1/custom-test4?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
 
-		t.Assert(client.GetContent(ctx, "/api/v2/custom-test1?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
-		t.Assert(client.GetContent(ctx, "/api/v2/custom-test2?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
-		t.Assert(client.GetContent(ctx, "/api/v2/custom-test3?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
-		t.Assert(client.GetContent(ctx, "/api/v2/custom-test4?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
+		t.Assert(client.Get文本(ctx, "/api/v2/custom-test1?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
+		t.Assert(client.Get文本(ctx, "/api/v2/custom-test2?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
+		t.Assert(client.Get文本(ctx, "/api/v2/custom-test3?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18}}`)
+		t.Assert(client.Get文本(ctx, "/api/v2/custom-test4?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Name":"john"}}`)
 	})
 }
 
@@ -215,9 +215,9 @@ func Test_Issue1708(t *testing.T) {
 		Test       [][]Test `json:"test"`
 	}
 
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/test", func(ctx context.Context, req *Req) (res *Res, err error) {
+	s := g.Http类(uid类.X生成())
+	s.Use别名(http类.MiddlewareHandlerResponse)
+	s.X绑定("/test", func(ctx context.Context, req *Req) (res *Res, err error) {
 		return &Res{
 			Page:       req.Page,
 			Size:       req.Size,
@@ -227,13 +227,13 @@ func Test_Issue1708(t *testing.T) {
 		}, nil
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 		content := `
 {
     "targetType":"topic",
@@ -248,7 +248,7 @@ func Test_Issue1708(t *testing.T) {
 }
 `
 		t.Assert(
-			client.PostContent(ctx, "/test", content),
+			client.Post文本(ctx, "/test", content),
 			`{"code":0,"message":"","data":{"page":0,"size":0,"targetType":"topic","targetId":10785,"test":[[{"name":"123"}]]}}`,
 		)
 	})
@@ -268,21 +268,21 @@ func Test_Custom_Slice_Type_Attribute(t *testing.T) {
 		Content string
 	}
 
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/test", func(ctx context.Context, req *Req) (res *Res, err error) {
+	s := g.Http类(uid类.X生成())
+	s.Use别名(http类.MiddlewareHandlerResponse)
+	s.X绑定("/test", func(ctx context.Context, req *Req) (res *Res, err error) {
 		return &Res{
-			Content: gjson.MustEncodeString(req),
+			Content: json类.X变量到json文本PANI(req),
 		}, nil
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 		content := `
 {
     "id":1,
@@ -292,7 +292,7 @@ func Test_Custom_Slice_Type_Attribute(t *testing.T) {
 }
 `
 		t.Assert(
-			client.PostContent(ctx, "/test", content),
+			client.Post文本(ctx, "/test", content),
 			`{"code":0,"message":"","data":{"Content":"{\"Id\":1,\"List\":{\"key\":[\"a\",\"b\",\"c\"]}}"}}`,
 		)
 	})
@@ -313,16 +313,16 @@ func Test_Router_Handler_Strict_WithGeneric(t *testing.T) {
 		Test T
 	}
 
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/test1", func(ctx context.Context, req *TestReq) (res *Test1Res, err error) {
+	s := g.Http类(uid类.X生成())
+	s.Use别名(http类.MiddlewareHandlerResponse)
+	s.X绑定("/test1", func(ctx context.Context, req *TestReq) (res *Test1Res, err error) {
 		return &Test1Res{
 			Age: TestGeneric[int]{
 				Test: req.Age,
 			},
 		}, nil
 	})
-	s.BindHandler("/test1_slice", func(ctx context.Context, req *TestReq) (res []Test1Res, err error) {
+	s.X绑定("/test1_slice", func(ctx context.Context, req *TestReq) (res []Test1Res, err error) {
 		return []Test1Res{
 			Test1Res{
 				Age: TestGeneric[int]{
@@ -331,13 +331,13 @@ func Test_Router_Handler_Strict_WithGeneric(t *testing.T) {
 			},
 		}, nil
 	})
-	s.BindHandler("/test2", func(ctx context.Context, req *TestReq) (res *Test2Res, err error) {
+	s.X绑定("/test2", func(ctx context.Context, req *TestReq) (res *Test2Res, err error) {
 		return &Test2Res{
 			Test: req.Age,
 		}, nil
 	})
 
-	s.BindHandler("/test2_slice", func(ctx context.Context, req *TestReq) (res []Test2Res, err error) {
+	s.X绑定("/test2_slice", func(ctx context.Context, req *TestReq) (res []Test2Res, err error) {
 		return []Test2Res{
 			Test2Res{
 				Test: req.Age,
@@ -345,17 +345,17 @@ func Test_Router_Handler_Strict_WithGeneric(t *testing.T) {
 		}, nil
 	})
 
-	s.BindHandler("/test3", func(ctx context.Context, req *TestReq) (res *TestGenericRes[int], err error) {
+	s.X绑定("/test3", func(ctx context.Context, req *TestReq) (res *TestGenericRes[int], err error) {
 		return &TestGenericRes[int]{
 			Test: req.Age,
 		}, nil
 	})
 
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
-	s.BindHandler("/test3_slice", func(ctx context.Context, req *TestReq) (res []TestGenericRes[int], err error) {
+	s.X绑定("/test3_slice", func(ctx context.Context, req *TestReq) (res []TestGenericRes[int], err error) {
 		return []TestGenericRes[int]{
 			TestGenericRes[int]{
 				Test: req.Age,
@@ -364,16 +364,16 @@ func Test_Router_Handler_Strict_WithGeneric(t *testing.T) {
 	})
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/test1?age=1"), `{"code":0,"message":"","data":{"Age":{"Test":1}}}`)
-		t.Assert(client.GetContent(ctx, "/test1_slice?age=1"), `{"code":0,"message":"","data":[{"Age":{"Test":1}}]}`)
-		t.Assert(client.GetContent(ctx, "/test2?age=2"), `{"code":0,"message":"","data":{"Test":2}}`)
-		t.Assert(client.GetContent(ctx, "/test2_slice?age=2"), `{"code":0,"message":"","data":[{"Test":2}]}`)
-		t.Assert(client.GetContent(ctx, "/test3?age=3"), `{"code":0,"message":"","data":{"Test":3}}`)
-		t.Assert(client.GetContent(ctx, "/test3_slice?age=3"), `{"code":0,"message":"","data":[{"Test":3}]}`)
+		t.Assert(client.Get文本(ctx, "/test1?age=1"), `{"code":0,"message":"","data":{"Age":{"Test":1}}}`)
+		t.Assert(client.Get文本(ctx, "/test1_slice?age=1"), `{"code":0,"message":"","data":[{"Age":{"Test":1}}]}`)
+		t.Assert(client.Get文本(ctx, "/test2?age=2"), `{"code":0,"message":"","data":{"Test":2}}`)
+		t.Assert(client.Get文本(ctx, "/test2_slice?age=2"), `{"code":0,"message":"","data":[{"Test":2}]}`)
+		t.Assert(client.Get文本(ctx, "/test3?age=3"), `{"code":0,"message":"","data":{"Test":3}}`)
+		t.Assert(client.Get文本(ctx, "/test3_slice?age=3"), `{"code":0,"message":"","data":[{"Test":3}]}`)
 	})
 }
 
@@ -396,23 +396,23 @@ func (c *ParameterCaseSensitiveController) Path(
 }
 
 func Test_Router_Handler_Strict_ParameterCaseSensitive(t *testing.T) {
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.Bind(&ParameterCaseSensitiveController{})
+	s := g.Http类(uid类.X生成())
+	s.Use别名(http类.MiddlewareHandlerResponse)
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定(&ParameterCaseSensitiveController{})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		for i := 0; i < 1000; i++ {
 			t.Assert(
-				client.PostContent(ctx, "/api/111", `{"Path":"222"}`),
+				client.Post文本(ctx, "/api/111", `{"Path":"222"}`),
 				`{"code":0,"message":"","data":{"Path":"222"}}`,
 			)
 		}

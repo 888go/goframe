@@ -4,7 +4,7 @@
 // 您可以在https://github.com/gogf/gf获取一份。
 //
 
-package gipv4
+package ipv4类
 
 import (
 	"net"

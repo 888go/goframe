@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包gcron实现了cron模式解析器和任务执行器。
-package gcron
+package 定时cron类
 
 import (
 	"context"
@@ -16,10 +16,10 @@ import (
 )
 
 const (
-	StatusReady   = gtimer.StatusReady
-	StatusRunning = gtimer.StatusRunning
-	StatusStopped = gtimer.StatusStopped
-	StatusClosed  = gtimer.StatusClosed
+	StatusReady   = 定时类.StatusReady
+	StatusRunning = 定时类.StatusRunning
+	StatusStopped = 定时类.StatusStopped
+	StatusClosed  = 定时类.StatusClosed
 )
 
 var (
@@ -28,12 +28,12 @@ var (
 )
 
 // SetLogger 用于设置cron的日志记录器。
-func SetLogger(logger glog.ILogger) {
+func SetLogger(logger 日志类.ILogger) {
 	defaultCron.SetLogger(logger)
 }
 
 // GetLogger 返回cron中的日志器。
-func GetLogger() glog.ILogger {
+func GetLogger() 日志类.ILogger {
 	return defaultCron.GetLogger()
 }
 

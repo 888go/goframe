@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包gaes提供了AES加密/解密算法的有用API。
-package gaes
+package 加密aes类
 
 import (
 	"bytes"
@@ -22,26 +22,26 @@ const (
 )
 
 // Encrypt 是 EncryptCBC 的别名。
-func Encrypt(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
-	return EncryptCBC(plainText, key, iv...)
+func Encrypt别名(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
+	return X加密CBC(plainText, key, iv...)
 }
 
 // Decrypt 是 DecryptCBC 的别名。
-func Decrypt(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
-	return DecryptCBC(cipherText, key, iv...)
+func Decrypt别名(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
+	return X解密CBC(cipherText, key, iv...)
 }
 
 // EncryptCBC 使用CBC模式加密`plainText`。
 // 注意，密钥必须为16/24/32位长度。
 // 参数`iv`（初始化向量）是不必要的。
-func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
-	block, err := aes.NewCipher(key)
+func X加密CBC(待加密 []byte, 秘钥 []byte, iv ...[]byte) ([]byte, error) {
+	block, err := aes.NewCipher(秘钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, 秘钥)
 		return nil, err
 	}
 	blockSize := block.BlockSize()
-	plainText = PKCS7Padding(plainText, blockSize)
+	待加密 = PKCS7Padding(待加密, blockSize)
 	ivValue := ([]byte)(nil)
 	if len(iv) > 0 {
 		ivValue = iv[0]
@@ -49,8 +49,8 @@ func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 		ivValue = []byte(IVDefaultValue)
 	}
 	blockMode := cipher.NewCBCEncrypter(block, ivValue)
-	cipherText := make([]byte, len(plainText))
-	blockMode.CryptBlocks(cipherText, plainText)
+	cipherText := make([]byte, len(待加密))
+	blockMode.CryptBlocks(cipherText, 待加密)
 
 	return cipherText, nil
 }
@@ -58,15 +58,15 @@ func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 // DecryptCBC 使用CBC模式解密`cipherText`。
 // 注意，密钥必须为16/24/32比特长度。
 // 参数`iv`初始化向量是不必要的。
-func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
-	block, err := aes.NewCipher(key)
+func X解密CBC(待解密 []byte, 秘钥 []byte, iv ...[]byte) ([]byte, error) {
+	block, err := aes.NewCipher(秘钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, 秘钥)
 		return nil, err
 	}
 	blockSize := block.BlockSize()
-	if len(cipherText) < blockSize {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "cipherText too short")
+	if len(待解密) < blockSize {
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "cipherText too short")
 	}
 	ivValue := ([]byte)(nil)
 	if len(iv) > 0 {
@@ -74,12 +74,12 @@ func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	} else {
 		ivValue = []byte(IVDefaultValue)
 	}
-	if len(cipherText)%blockSize != 0 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "cipherText is not a multiple of the block size")
+	if len(待解密)%blockSize != 0 {
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "cipherText is not a multiple of the block size")
 	}
 	blockModel := cipher.NewCBCDecrypter(block, ivValue)
-	plainText := make([]byte, len(cipherText))
-	blockModel.CryptBlocks(plainText, cipherText)
+	plainText := make([]byte, len(待解密))
+	blockModel.CryptBlocks(plainText, 待解密)
 	plainText, e := PKCS7UnPadding(plainText, blockSize)
 	if e != nil {
 		return nil, e
@@ -120,22 +120,22 @@ func PKCS7Padding(src []byte, blockSize int) []byte {
 func PKCS7UnPadding(src []byte, blockSize int) ([]byte, error) {
 	length := len(src)
 	if blockSize <= 0 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, fmt.Sprintf("invalid blockSize: %d", blockSize))
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, fmt.Sprintf("invalid blockSize: %d", blockSize))
 	}
 
 	if length%blockSize != 0 || length == 0 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid data len")
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid data len")
 	}
 
 	unpadding := int(src[length-1])
 	if unpadding > blockSize || unpadding == 0 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid unpadding")
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid unpadding")
 	}
 
 	padding := src[length-unpadding:]
 	for i := 0; i < unpadding; i++ {
 		if padding[i] != byte(unpadding) {
-			return nil, gerror.NewCode(gcode.CodeInvalidParameter, "invalid padding")
+			return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid padding")
 		}
 	}
 
@@ -145,14 +145,14 @@ func PKCS7UnPadding(src []byte, blockSize int) ([]byte, error) {
 // EncryptCFB 使用CFB模式加密`plainText`。
 // 注意，密钥必须为16/24/32比特长度。
 // 参数`iv`（初始化向量）不是必需的。
-func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byte, error) {
-	block, err := aes.NewCipher(key)
+func X加密CFB(待加密 []byte, 秘钥 []byte, padding *int, iv ...[]byte) ([]byte, error) {
+	block, err := aes.NewCipher(秘钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, 秘钥)
 		return nil, err
 	}
 	blockSize := block.BlockSize()
-	plainText, *padding = ZeroPadding(plainText, blockSize)
+	待加密, *padding = ZeroPadding(待加密, blockSize)
 	ivValue := ([]byte)(nil)
 	if len(iv) > 0 {
 		ivValue = iv[0]
@@ -160,22 +160,22 @@ func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byt
 		ivValue = []byte(IVDefaultValue)
 	}
 	stream := cipher.NewCFBEncrypter(block, ivValue)
-	cipherText := make([]byte, len(plainText))
-	stream.XORKeyStream(cipherText, plainText)
+	cipherText := make([]byte, len(待加密))
+	stream.XORKeyStream(cipherText, 待加密)
 	return cipherText, nil
 }
 
 // DecryptCFB 使用CFB模式解密`plainText`。
 // 注意，密钥必须为16/24/32位长度。
 // 参数`iv`初始化向量是不必要的。
-func DecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) ([]byte, error) {
-	block, err := aes.NewCipher(key)
+func X解密CFB(待解密 []byte, 秘钥 []byte, unPadding int, iv ...[]byte) ([]byte, error) {
+	block, err := aes.NewCipher(秘钥)
 	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, key)
+		err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `aes.NewCipher failed for key "%s"`, 秘钥)
 		return nil, err
 	}
-	if len(cipherText) < aes.BlockSize {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "cipherText too short")
+	if len(待解密) < aes.BlockSize {
+		return nil, 错误类.X创建错误码(错误码类.CodeInvalidParameter, "cipherText too short")
 	}
 	ivValue := ([]byte)(nil)
 	if len(iv) > 0 {
@@ -184,8 +184,8 @@ func DecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) ([]b
 		ivValue = []byte(IVDefaultValue)
 	}
 	stream := cipher.NewCFBDecrypter(block, ivValue)
-	plainText := make([]byte, len(cipherText))
-	stream.XORKeyStream(plainText, cipherText)
+	plainText := make([]byte, len(待解密))
+	stream.XORKeyStream(plainText, 待解密)
 	plainText = ZeroUnPadding(plainText, unPadding)
 	return plainText, nil
 }

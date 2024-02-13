@@ -19,13 +19,13 @@ type ExternalDocs struct {
 }
 
 func (ed *ExternalDocs) UnmarshalValue(value interface{}) error {
-	var valueBytes = gconv.Bytes(value)
+	var valueBytes = 转换类.X取字节集(value)
 	if json.Valid(valueBytes) {
 		return json.UnmarshalUseNumber(valueBytes, ed)
 	}
 	var (
 		valueString = string(valueBytes)
-		valueArray  = gstr.Split(valueString, "|")
+		valueArray  = 文本类.X分割(valueString, "|")
 	)
 	ed.URL = valueArray[0]
 	if len(valueArray) > 1 {

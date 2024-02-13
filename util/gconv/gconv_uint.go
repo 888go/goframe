@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"math"
@@ -13,55 +13,55 @@ import (
 )
 
 // Uint 将 `any` 类型转换为 uint 类型。
-func Uint(any interface{}) uint {
-	if any == nil {
+func X取正整数(值 interface{}) uint {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(uint); ok {
+	if v, ok := 值.(uint); ok {
 		return v
 	}
-	return uint(Uint64(any))
+	return uint(X取正整数64位(值))
 }
 
 // Uint8将`any`转换为uint8类型。
-func Uint8(any interface{}) uint8 {
-	if any == nil {
+func X取正整数8位(值 interface{}) uint8 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(uint8); ok {
+	if v, ok := 值.(uint8); ok {
 		return v
 	}
-	return uint8(Uint64(any))
+	return uint8(X取正整数64位(值))
 }
 
 // Uint16将`any`转换为uint16。
-func Uint16(any interface{}) uint16 {
-	if any == nil {
+func X取正整数16位(值 interface{}) uint16 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(uint16); ok {
+	if v, ok := 值.(uint16); ok {
 		return v
 	}
-	return uint16(Uint64(any))
+	return uint16(X取正整数64位(值))
 }
 
 // Uint32将`any`转换为uint32。
-func Uint32(any interface{}) uint32 {
-	if any == nil {
+func X取正整数32位(值 interface{}) uint32 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(uint32); ok {
+	if v, ok := 值.(uint32); ok {
 		return v
 	}
-	return uint32(Uint64(any))
+	return uint32(X取正整数64位(值))
 }
 
 // Uint64将`any`转换为uint64类型。
-func Uint64(any interface{}) uint64 {
-	if any == nil {
+func X取正整数64位(值 interface{}) uint64 {
+	if 值 == nil {
 		return 0
 	}
-	switch value := any.(type) {
+	switch value := 值.(type) {
 	case int:
 		return uint64(value)
 	case int8:
@@ -92,10 +92,10 @@ func Uint64(any interface{}) uint64 {
 		}
 		return 0
 	case []byte:
-		return gbinary.DecodeToUint64(value)
+		return 字节集类.DecodeToUint64(value)
 	default:
 		if f, ok := value.(iUint64); ok {
-			return f.Uint64()
+			return f.X取正整数64位()
 		}
 		s := String(value)
 		// Hexadecimal
@@ -109,7 +109,7 @@ func Uint64(any interface{}) uint64 {
 			return v
 		}
 		// Float64
-		if valueFloat64 := Float64(value); math.IsNaN(valueFloat64) {
+		if valueFloat64 := X取小数64位(value); math.IsNaN(valueFloat64) {
 			return 0
 		} else {
 			return uint64(valueFloat64)

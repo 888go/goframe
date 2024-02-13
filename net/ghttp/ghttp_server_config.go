@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -102,7 +102,7 @@ type ServerConfig struct {
 	ServerAgent string `json:"serverAgent"`
 
 	// View 指定了服务器的默认模板视图对象。
-	View *gview.View `json:"view"`
+	View *模板类.View `json:"view"`
 
 // ======================================================================================================
 // 静态部分。
@@ -180,7 +180,7 @@ type ServerConfig struct {
 	SessionPath string `json:"sessionPath"`
 
 	// SessionStorage 指定会话存储。
-	SessionStorage gsession.Storage `json:"sessionStorage"`
+	SessionStorage session类.Storage `json:"sessionStorage"`
 
 // SessionCookieMaxAge 指定会话 ID 的 cookie 存活时间（TTL）。
 // 如果设置为 0，表示它将随浏览器会话一同结束时失效。
@@ -193,7 +193,7 @@ type ServerConfig struct {
 // 日志记录。
 // ======================================================================================================
 
-	Logger           *glog.Logger `json:"logger"`           // Logger 指定服务器使用的日志记录器。
+	Logger           *日志类.Logger `json:"logger"`           // Logger 指定服务器使用的日志记录器。
 	LogPath          string       `json:"logPath"`          // LogPath 指定存储日志文件的目录。
 	LogLevel         string       `json:"logLevel"`         // LogLevel 指定 logger 的日志记录级别。
 	LogStdout        bool         `json:"logStdout"`        // LogStdout 指定是否将日志内容输出到标准输出（stdout）中。
@@ -264,7 +264,7 @@ type ServerConfig struct {
 // NewConfig 创建并返回一个具有默认配置的 ServerConfig 对象。
 // 注意，不要将此默认配置定义为本地包变量，因为存在一些指针属性，
 // 这些属性可能在不同的服务器中被共享。
-func NewConfig() ServerConfig {
+func X创建默认配置项() ServerConfig {
 	return ServerConfig{
 		Name:                    DefaultServerName,
 		Address:                 ":0",
@@ -286,11 +286,11 @@ func NewConfig() ServerConfig {
 		CookiePath:              "/",
 		CookieDomain:            "",
 		SessionIdName:           "gfsessionid",
-		SessionPath:             gsession.DefaultStorageFilePath,
+		SessionPath:             session类.DefaultStorageFilePath,
 		SessionMaxAge:           time.Hour * 24,
 		SessionCookieOutput:     true,
 		SessionCookieMaxAge:     time.Hour * 24,
-		Logger:                  glog.New(),
+		Logger:                  日志类.X创建(),
 		LogLevel:                "all",
 		LogStdout:               true,
 		ErrorStack:              true,
@@ -309,67 +309,67 @@ func NewConfig() ServerConfig {
 }
 
 // ConfigFromMap 根据给定的映射和默认配置对象创建并返回一个 ServerConfig 对象。
-func ConfigFromMap(m map[string]interface{}) (ServerConfig, error) {
-	config := NewConfig()
-	if err := gconv.Struct(m, &config); err != nil {
+func X创建配置对象Map(配置 map[string]interface{}) (ServerConfig, error) {
+	config := X创建默认配置项()
+	if err := 转换类.Struct(配置, &config); err != nil {
 		return config, err
 	}
 	return config, nil
 }
 
 // SetConfigWithMap 使用map设置服务器的配置
-func (s *Server) SetConfigWithMap(m map[string]interface{}) error {
+func (s *Server) X设置配置项Map(配置 map[string]interface{}) error {
 // 现在的m是m的一个浅拷贝。
 // 对m的任何改动都不会影响原始的那个m。
 // 这有点小巧妙，不是吗？
-	m = gutil.MapCopy(m)
+	配置 = 工具类.MapCopy(配置)
 // 允许使用类似“1m、100mb、512kb”等字符串形式的大小来设置尺寸配置项：
-	if k, v := gutil.MapPossibleItemByKey(m, "MaxHeaderBytes"); k != "" {
-		m[k] = gfile.StrToSize(gconv.String(v))
+	if k, v := 工具类.MapPossibleItemByKey(配置, "MaxHeaderBytes"); k != "" {
+		配置[k] = 文件类.X易读格式转字节长度(转换类.String(v))
 	}
-	if k, v := gutil.MapPossibleItemByKey(m, "ClientMaxBodySize"); k != "" {
-		m[k] = gfile.StrToSize(gconv.String(v))
+	if k, v := 工具类.MapPossibleItemByKey(配置, "ClientMaxBodySize"); k != "" {
+		配置[k] = 文件类.X易读格式转字节长度(转换类.String(v))
 	}
-	if k, v := gutil.MapPossibleItemByKey(m, "FormParsingMemory"); k != "" {
-		m[k] = gfile.StrToSize(gconv.String(v))
+	if k, v := 工具类.MapPossibleItemByKey(配置, "FormParsingMemory"); k != "" {
+		配置[k] = 文件类.X易读格式转字节长度(转换类.String(v))
 	}
 // 更新当前配置对象。
 // 仅更新已配置的键，而非整个对象。
-	if err := gconv.Struct(m, &s.config); err != nil {
+	if err := 转换类.Struct(配置, &s.config); err != nil {
 		return err
 	}
-	return s.SetConfig(s.config)
+	return s.X设置配置项(s.config)
 }
 
 // SetConfig 设置服务器的配置。
-func (s *Server) SetConfig(c ServerConfig) error {
+func (s *Server) X设置配置项(c ServerConfig) error {
 	s.config = c
 	// 如果地址中缺少':'前缀，则自动添加。
-	if s.config.Address != "" && !gstr.Contains(s.config.Address, ":") {
+	if s.config.Address != "" && !文本类.X是否包含(s.config.Address, ":") {
 		s.config.Address = ":" + s.config.Address
 	}
 	// 静态文件根目录。
 	if c.ServerRoot != "" {
-		s.SetServerRoot(c.ServerRoot)
+		s.X设置静态文件根目录(c.ServerRoot)
 	}
 	if len(c.SearchPaths) > 0 {
 		paths := c.SearchPaths
 		c.SearchPaths = []string{}
 		for _, v := range paths {
-			s.AddSearchPath(v)
+			s.X静态文件添加额外搜索目录(v)
 		}
 	}
 	// HTTPS.
 	if c.TLSConfig == nil && c.HTTPSCertPath != "" {
-		s.EnableHTTPS(c.HTTPSCertPath, c.HTTPSKeyPath)
+		s.X启用HTTPS(c.HTTPSCertPath, c.HTTPSKeyPath)
 	}
 	// Logging.
-	if s.config.LogPath != "" && s.config.LogPath != s.config.Logger.GetPath() {
-		if err := s.config.Logger.SetPath(s.config.LogPath); err != nil {
+	if s.config.LogPath != "" && s.config.LogPath != s.config.Logger.X取文件路径() {
+		if err := s.config.Logger.X设置文件路径(s.config.LogPath); err != nil {
 			return err
 		}
 	}
-	if err := s.config.Logger.SetLevelStr(s.config.LogLevel); err != nil {
+	if err := s.config.Logger.X设置文本级别(s.config.LogLevel); err != nil {
 		intlog.Errorf(context.TODO(), `%+v`, err)
 	}
 	gracefulEnabled = c.Graceful
@@ -379,16 +379,16 @@ func (s *Server) SetConfig(c ServerConfig) error {
 
 // SetAddr 设置服务器的监听地址。
 // 地址格式类似于 ':80'、'0.0.0.0:80'、'127.0.0.1:80'、'180.18.99.10:80' 等。
-func (s *Server) SetAddr(address string) {
-	s.config.Address = address
+func (s *Server) X设置监听地址(地址 string) {
+	s.config.Address = 地址
 }
 
 // SetPort 设置服务器监听端口。
 // 监听端口可以设置多个，例如：SetPort(80, 8080)。
-func (s *Server) SetPort(port ...int) {
-	if len(port) > 0 {
+func (s *Server) X设置监听端口(端口 ...int) {
+	if len(端口) > 0 {
 		s.config.Address = ""
-		for _, v := range port {
+		for _, v := range 端口 {
 			if len(s.config.Address) > 0 {
 				s.config.Address += ","
 			}
@@ -398,16 +398,16 @@ func (s *Server) SetPort(port ...int) {
 }
 
 // SetHTTPSAddr 设置服务器的 HTTPS 监听端口。
-func (s *Server) SetHTTPSAddr(address string) {
-	s.config.HTTPSAddr = address
+func (s *Server) X设置HTTPS监听地址(地址 string) {
+	s.config.HTTPSAddr = 地址
 }
 
 // SetHTTPSPort 设置服务器的 HTTPS 监听端口。
 // 可以设置多个监听端口，例如：SetHTTPSPort(443, 500)。
-func (s *Server) SetHTTPSPort(port ...int) {
-	if len(port) > 0 {
+func (s *Server) X设置HTTPS监听端口(端口 ...int) {
+	if len(端口) > 0 {
 		s.config.HTTPSAddr = ""
-		for _, v := range port {
+		for _, v := range 端口 {
 			if len(s.config.HTTPSAddr) > 0 {
 				s.config.HTTPSAddr += ","
 			}
@@ -417,111 +417,111 @@ func (s *Server) SetHTTPSPort(port ...int) {
 }
 
 // SetListener 为服务器设置自定义监听器。
-func (s *Server) SetListener(listeners ...net.Listener) error {
-	if listeners == nil {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, "SetListener failed: listener can not be nil")
+func (s *Server) X设置自定义监听器(监听器 ...net.Listener) error {
+	if 监听器 == nil {
+		return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, "SetListener failed: listener can not be nil")
 	}
-	if len(listeners) > 0 {
-		ports := make([]string, len(listeners))
-		for k, v := range listeners {
+	if len(监听器) > 0 {
+		ports := make([]string, len(监听器))
+		for k, v := range 监听器 {
 			if v == nil {
-				return gerror.NewCodef(gcode.CodeInvalidParameter, "SetListener failed: listener can not be nil")
+				return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, "SetListener failed: listener can not be nil")
 			}
 			ports[k] = fmt.Sprintf(":%d", (v.Addr().(*net.TCPAddr)).Port)
 		}
 		s.config.Address = strings.Join(ports, ",")
-		s.config.Listeners = listeners
+		s.config.Listeners = 监听器
 	}
 	return nil
 }
 
 // EnableHTTPS 通过给定的证书和密钥文件为服务器启用HTTPS。
 // 可选参数 `tlsConfig` 指定了自定义的TLS配置。
-func (s *Server) EnableHTTPS(certFile, keyFile string, tlsConfig ...*tls.Config) {
+func (s *Server) X启用HTTPS(证书路径, 密钥路径 string, tls配置 ...*tls.Config) {
 	var ctx = context.TODO()
-	certFileRealPath := gfile.RealPath(certFile)
+	certFileRealPath := 文件类.X取绝对路径且效验(证书路径)
 	if certFileRealPath == "" {
-		certFileRealPath = gfile.RealPath(gfile.Pwd() + gfile.Separator + certFile)
+		certFileRealPath = 文件类.X取绝对路径且效验(文件类.X取当前工作目录() + 文件类.Separator + 证书路径)
 		if certFileRealPath == "" {
-			certFileRealPath = gfile.RealPath(gfile.MainPkgPath() + gfile.Separator + certFile)
+			certFileRealPath = 文件类.X取绝对路径且效验(文件类.X取main路径() + 文件类.Separator + 证书路径)
 		}
 	}
 	// Resource.
-	if certFileRealPath == "" && gres.Contains(certFile) {
-		certFileRealPath = certFile
+	if certFileRealPath == "" && 资源类.Contains(证书路径) {
+		certFileRealPath = 证书路径
 	}
 	if certFileRealPath == "" {
-		s.Logger().Fatalf(ctx, `EnableHTTPS failed: certFile "%s" does not exist`, certFile)
+		s.Logger别名().X输出并格式化FATA(ctx, `EnableHTTPS failed: certFile "%s" does not exist`, 证书路径)
 	}
-	keyFileRealPath := gfile.RealPath(keyFile)
+	keyFileRealPath := 文件类.X取绝对路径且效验(密钥路径)
 	if keyFileRealPath == "" {
-		keyFileRealPath = gfile.RealPath(gfile.Pwd() + gfile.Separator + keyFile)
+		keyFileRealPath = 文件类.X取绝对路径且效验(文件类.X取当前工作目录() + 文件类.Separator + 密钥路径)
 		if keyFileRealPath == "" {
-			keyFileRealPath = gfile.RealPath(gfile.MainPkgPath() + gfile.Separator + keyFile)
+			keyFileRealPath = 文件类.X取绝对路径且效验(文件类.X取main路径() + 文件类.Separator + 密钥路径)
 		}
 	}
 	// Resource.
-	if keyFileRealPath == "" && gres.Contains(keyFile) {
-		keyFileRealPath = keyFile
+	if keyFileRealPath == "" && 资源类.Contains(密钥路径) {
+		keyFileRealPath = 密钥路径
 	}
 	if keyFileRealPath == "" {
-		s.Logger().Fatal(ctx, `EnableHTTPS failed: keyFile "%s" does not exist`, keyFile)
+		s.Logger别名().X输出FATA(ctx, `EnableHTTPS failed: keyFile "%s" does not exist`, 密钥路径)
 	}
 	s.config.HTTPSCertPath = certFileRealPath
 	s.config.HTTPSKeyPath = keyFileRealPath
-	if len(tlsConfig) > 0 {
-		s.config.TLSConfig = tlsConfig[0]
+	if len(tls配置) > 0 {
+		s.config.TLSConfig = tls配置[0]
 	}
 }
 
 // SetTLSConfig 设置自定义 TLS 配置，并为服务器启用 HTTPS 功能。
-func (s *Server) SetTLSConfig(tlsConfig *tls.Config) {
-	s.config.TLSConfig = tlsConfig
+func (s *Server) X设置TLS配置(tls配置 *tls.Config) {
+	s.config.TLSConfig = tls配置
 }
 
 // SetReadTimeout 设置服务器的读取超时时间。
-func (s *Server) SetReadTimeout(t time.Duration) {
-	s.config.ReadTimeout = t
+func (s *Server) X设置读取超时(时长 time.Duration) {
+	s.config.ReadTimeout = 时长
 }
 
 // SetWriteTimeout 为服务器设置写入超时时间。
-func (s *Server) SetWriteTimeout(t time.Duration) {
-	s.config.WriteTimeout = t
+func (s *Server) X设置写入超时(时长 time.Duration) {
+	s.config.WriteTimeout = 时长
 }
 
 // SetIdleTimeout 为服务器设置空闲超时时间。
-func (s *Server) SetIdleTimeout(t time.Duration) {
-	s.config.IdleTimeout = t
+func (s *Server) X设置长连接超时(时长 time.Duration) {
+	s.config.IdleTimeout = 时长
 }
 
 // SetMaxHeaderBytes 设置服务器的 MaxHeaderBytes 值。
-func (s *Server) SetMaxHeaderBytes(b int) {
-	s.config.MaxHeaderBytes = b
+func (s *Server) X设置协议头最大长度(最大长度 int) {
+	s.config.MaxHeaderBytes = 最大长度
 }
 
 // SetServerAgent 设置服务器的 ServerAgent。
-func (s *Server) SetServerAgent(agent string) {
-	s.config.ServerAgent = agent
+func (s *Server) X设置服务器代理标识(代理标识 string) {
+	s.config.ServerAgent = 代理标识
 }
 
 // SetKeepAlive 设置服务器的 KeepAlive 参数。
-func (s *Server) SetKeepAlive(enabled bool) {
-	s.config.KeepAlive = enabled
+func (s *Server) X设置开启长连接(开启 bool) {
+	s.config.KeepAlive = 开启
 }
 
 // SetView 设置服务器的视图。
-func (s *Server) SetView(view *gview.View) {
-	s.config.View = view
+func (s *Server) X设置默认模板对象(模板对象 *模板类.View) {
+	s.config.View = 模板对象
 }
 
 // GetName 返回服务器的名称。
-func (s *Server) GetName() string {
+func (s *Server) X取服务名称() string {
 	return s.config.Name
 }
 
 // SetName 为服务器设置名称。
-func (s *Server) SetName(name string) {
-	s.config.Name = name
+func (s *Server) X设置服务名称(名称 string) {
+	s.config.Name = 名称
 }
 
 // SetEndpoints 设置服务器的端点。
@@ -530,12 +530,12 @@ func (s *Server) SetEndpoints(endpoints []string) {
 }
 
 // SetHandler 为服务器设置请求处理器。
-func (s *Server) SetHandler(h func(w http.ResponseWriter, r *http.Request)) {
+func (s *Server) X设置请求处理器(h func(w http.ResponseWriter, r *http.Request)) {
 	s.config.Handler = h
 }
 
 // GetHandler 返回服务器的请求处理器。
-func (s *Server) GetHandler() func(w http.ResponseWriter, r *http.Request) {
+func (s *Server) X取请求处理器() func(w http.ResponseWriter, r *http.Request) {
 	if s.config.Handler == nil {
 		return s.ServeHTTP
 	}
@@ -543,11 +543,11 @@ func (s *Server) GetHandler() func(w http.ResponseWriter, r *http.Request) {
 }
 
 // SetRegistrar 设置服务器的 Registrar。
-func (s *Server) SetRegistrar(registrar gsvc.Registrar) {
-	s.registrar = registrar
+func (s *Server) X设置注册发现对象(注册发现对象 gsvc.Registrar) {
+	s.registrar = 注册发现对象
 }
 
 // GetRegistrar 返回服务器的注册器。
-func (s *Server) GetRegistrar() gsvc.Registrar {
+func (s *Server) X取注册发现对象() gsvc.Registrar {
 	return s.registrar
 }

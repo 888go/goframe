@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcode_test
+package 错误码类_test
 
 import (
 	"testing"
@@ -13,15 +13,15 @@ import (
 )
 
 func Test_Case(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gcode.CodeNil.String(), "-1")
-		t.Assert(gcode.CodeInternalError.String(), "50:Internal Error")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误码类.CodeNil.String(), "-1")
+		t.Assert(错误码类.CodeInternalError.String(), "50:Internal Error")
 	})
 }
 
 func Test_Nil(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c := gcode.New(1, "custom error", "detailed description")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c := 错误码类.New(1, "custom error", "detailed description")
 		t.Assert(c.Code(), 1)
 		t.Assert(c.Message(), "custom error")
 		t.Assert(c.Detail(), "detailed description")
@@ -29,9 +29,9 @@ func Test_Nil(t *testing.T) {
 }
 
 func Test_WithCode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c := gcode.WithCode(gcode.CodeInternalError, "CodeInternalError")
-		t.Assert(c.Code(), gcode.CodeInternalError.Code())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c := 错误码类.WithCode(错误码类.CodeInternalError, "CodeInternalError")
+		t.Assert(c.Code(), 错误码类.CodeInternalError.Code())
 		t.Assert(c.Detail(), "CodeInternalError")
 	})
 }

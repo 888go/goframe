@@ -25,7 +25,7 @@ import (
 
 // Driver 是 MySQL 数据库的驱动程序。
 type Driver struct {
-	*gdb.Core
+	*db类.Core
 }
 
 const (
@@ -36,23 +36,23 @@ func init() {
 	var (
 		err         error
 		driverObj   = New()
-		driverNames = g.SliceStr{"mysql", "mariadb", "tidb"}
+		driverNames = g.SliceStr别名{"mysql", "mariadb", "tidb"}
 	)
 	for _, driverName := range driverNames {
-		if err = gdb.Register(driverName, driverObj); err != nil {
+		if err = db类.X注册驱动(driverName, driverObj); err != nil {
 			panic(err)
 		}
 	}
 }
 
 // New 创建并返回一个实现 gdb.Driver 接口的驱动程序，该驱动程序支持针对 MySQL 的操作。
-func New() gdb.Driver {
+func New() db类.Driver {
 	return &Driver{}
 }
 
 // New 创建并返回一个用于 mysql 的数据库对象。
 // 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
-func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
+func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
@@ -60,7 +60,7 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 
 // Open 创建并返回一个用于 mysql 的底层 sql.DB 对象。
 // 注意，它默认会将 time.Time 类型参数转换为本地时区。
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "mysql"
@@ -71,34 +71,34 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 // - `[protocol[(address)]]`：指定数据库连接协议以及服务器地址，例如 `tcp(` 或 `unix(` 等，其中括号内的 `address` 为服务器地址或socket路径。
 // - `/dbname`：必填项，表示要连接的数据库名称。
 // - `[?param1=value1&...&paramN=valueN]`：可选的查询参数部分，通常用于设置额外的连接选项，如 `charset=utf8mb4`、`parseTime=true` 等，多个参数之间用 `&` 符号分隔。
-	if config.Link != "" {
+	if 配置对象.Link != "" {
 // ============================================================================
 // 从 v2.2.0 版本开始已弃用。
 // ============================================================================
-		source = config.Link
+		source = 配置对象.Link
 		// 自定义在运行时更改架构
-		if config.Name != "" {
-			source, _ = gregex.ReplaceString(`/([\w\.\-]+)+`, "/"+config.Name, source)
+		if 配置对象.Name != "" {
+			source, _ = 正则类.X替换文本(`/([\w\.\-]+)+`, "/"+配置对象.Name, source)
 		}
 	} else {
 		// TODO: 当未指定字符集时（在v2.5.0版本中），不要设置字符集
 		source = fmt.Sprintf(
 			"%s:%s@%s(%s:%s)/%s?charset=%s",
-			config.User, config.Pass, config.Protocol, config.Host, config.Port, config.Name, config.Charset,
+			配置对象.User, 配置对象.Pass, 配置对象.Protocol, 配置对象.Host, 配置对象.Port, 配置对象.Name, 配置对象.Charset,
 		)
-		if config.Timezone != "" {
-			if strings.Contains(config.Timezone, "/") {
-				config.Timezone = url.QueryEscape(config.Timezone)
+		if 配置对象.Timezone != "" {
+			if strings.Contains(配置对象.Timezone, "/") {
+				配置对象.Timezone = url.QueryEscape(配置对象.Timezone)
 			}
-			source = fmt.Sprintf("%s&loc=%s", source, config.Timezone)
+			source = fmt.Sprintf("%s&loc=%s", source, 配置对象.Timezone)
 		}
-		if config.Extra != "" {
-			source = fmt.Sprintf("%s&%s", source, config.Extra)
+		if 配置对象.Extra != "" {
+			source = fmt.Sprintf("%s&%s", source, 配置对象.Extra)
 		}
 	}
 	if db, err = sql.Open(underlyingDriverName, source); err != nil {
-		err = gerror.WrapCodef(
-			gcode.CodeDbOperationError, err,
+		err = 错误类.X多层错误码并格式化(
+			错误码类.CodeDbOperationError, err,
 			`sql.Open failed for driver "%s" by source "%s"`, underlyingDriverName, source,
 		)
 		return nil, err
@@ -107,30 +107,30 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 }
 
 // GetChars 返回此类型数据库的安全字符。
-func (d *Driver) GetChars() (charLeft string, charRight string) {
+func (d *Driver) X底层取数据库安全字符() (左字符 string, 右字符 string) {
 	return quoteChar, quoteChar
 }
 
 // DoFilter 在将 SQL 发送给数据库之前处理 SQL。
-func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
-	return d.Core.DoFilter(ctx, link, sql, args)
+func (d *Driver) X底层DoFilter(ctx context.Context, link db类.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+	return d.Core.X底层DoFilter(ctx, link, sql, args)
 }
 
 // Tables 获取并返回当前模式的表。
 // 它主要用于cli工具链中，用于自动生成模型。
-func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
-	var result gdb.Result
-	link, err := d.SlaveLink(schema...)
-	if err != nil {
-		return nil, err
+func (d *Driver) X取表名称数组(上下文 context.Context, schema ...string) (表名称数组 []string, 错误 error) {
+	var result db类.Result
+	link, 错误 := d.X底层SlaveLink(schema...)
+	if 错误 != nil {
+		return nil, 错误
 	}
-	result, err = d.DoSelect(ctx, link, `SHOW TABLES`)
-	if err != nil {
+	result, 错误 = d.X底层查询(上下文, link, `SHOW TABLES`)
+	if 错误 != nil {
 		return
 	}
 	for _, m := range result {
 		for _, v := range m {
-			tables = append(tables, v.String())
+			表名称数组 = append(表名称数组, v.String())
 		}
 	}
 	return
@@ -143,34 +143,34 @@ func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string,
 // 注意，它返回一个包含字段名及其对应字段信息的map。由于map是无序的，TableField结构体中有一个"Index"字段标记其在所有字段中的顺序。
 //
 // 为了提高性能，该方法使用了缓存功能，缓存有效期直到进程重启才会失效。
-func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
+func (d *Driver) X取表字段信息Map(上下文 context.Context, 表名称 string, schema ...string) (字段信息Map map[string]*db类.TableField, err error) {
 	var (
-		result     gdb.Result
-		link       gdb.Link
-		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
+		result     db类.Result
+		link       db类.Link
+		usedSchema = 工具类.X取文本值或取默认值(d.X取默认数据库名称(), schema...)
 	)
-	if link, err = d.SlaveLink(usedSchema); err != nil {
+	if link, err = d.X底层SlaveLink(usedSchema); err != nil {
 		return nil, err
 	}
-	result, err = d.DoSelect(
-		ctx, link,
-		fmt.Sprintf(`SHOW FULL COLUMNS FROM %s`, d.QuoteWord(table)),
+	result, err = d.X底层查询(
+		上下文, link,
+		fmt.Sprintf(`SHOW FULL COLUMNS FROM %s`, d.X底层QuoteWord(表名称)),
 	)
 	if err != nil {
 		return nil, err
 	}
-	fields = make(map[string]*gdb.TableField)
+	字段信息Map = make(map[string]*db类.TableField)
 	for i, m := range result {
-		fields[m["Field"].String()] = &gdb.TableField{
+		字段信息Map[m["Field"].String()] = &db类.TableField{
 			Index:   i,
 			Name:    m["Field"].String(),
 			Type:    m["Type"].String(),
-			Null:    m["Null"].Bool(),
+			Null:    m["Null"].X取布尔(),
 			Key:     m["Key"].String(),
-			Default: m["Default"].Val(),
+			Default: m["Default"].X取值(),
 			Extra:   m["Extra"].String(),
 			Comment: m["Comment"].String(),
 		}
 	}
-	return fields, nil
+	return 字段信息Map, nil
 }

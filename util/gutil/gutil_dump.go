@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil
+package 工具类
 
 import (
 	"bytes"
@@ -40,9 +40,9 @@ type DumpOption struct {
 }
 
 // Dump 将变量 `values` 以更易于人工阅读的方式打印到标准输出（stdout）中。
-func Dump(values ...interface{}) {
-	for _, value := range values {
-		DumpWithOption(value, DumpOption{
+func X调试输出(值s ...interface{}) {
+	for _, value := range 值s {
+		X调试输出并带选项(value, DumpOption{
 			WithType:     false,
 			ExportedOnly: false,
 		})
@@ -51,9 +51,9 @@ func Dump(values ...interface{}) {
 
 // DumpWithType 的行为类似于 Dump，但会包含类型信息。
 // 也可参考 Dump。
-func DumpWithType(values ...interface{}) {
-	for _, value := range values {
-		DumpWithOption(value, DumpOption{
+func X调试输出并带类型(值s ...interface{}) {
+	for _, value := range 值s {
+		X调试输出并带选项(value, DumpOption{
 			WithType:     true,
 			ExportedOnly: false,
 		})
@@ -61,21 +61,21 @@ func DumpWithType(values ...interface{}) {
 }
 
 // DumpWithOption 使用自定义选项返回变量 `values`，将其格式化为更易读的字符串形式。
-func DumpWithOption(value interface{}, option DumpOption) {
+func X调试输出并带选项(值 interface{}, 选项 DumpOption) {
 	buffer := bytes.NewBuffer(nil)
-	DumpTo(buffer, value, DumpOption{
-		WithType:     option.WithType,
-		ExportedOnly: option.ExportedOnly,
+	X调试输出到Writer(buffer, 值, DumpOption{
+		WithType:     选项.WithType,
+		ExportedOnly: 选项.ExportedOnly,
 	})
 	fmt.Println(buffer.String())
 }
 
 // DumpTo 将变量 `values` 转换为字符串并写入到 `writer` 中，以更易于人工阅读的方式
-func DumpTo(writer io.Writer, value interface{}, option DumpOption) {
+func X调试输出到Writer(writer io.Writer, 值 interface{}, 选项 DumpOption) {
 	buffer := bytes.NewBuffer(nil)
-	doDump(value, "", buffer, doDumpOption{
-		WithType:     option.WithType,
-		ExportedOnly: option.ExportedOnly,
+	doDump(值, "", buffer, doDumpOption{
+		WithType:     选项.WithType,
+		ExportedOnly: 选项.ExportedOnly,
 	})
 	_, _ = writer.Write(buffer.Bytes())
 }
@@ -453,7 +453,7 @@ func doDumpDefault(in doDumpInternalInput) {
 	if s == "" {
 		s = fmt.Sprintf("%v", in.Value)
 	}
-	s = gstr.Trim(s, `<>`)
+	s = 文本类.X过滤首尾符并含空白(s, `<>`)
 	if !in.Option.WithType {
 		in.Buffer.WriteString(s)
 	} else {
@@ -462,7 +462,7 @@ func doDumpDefault(in doDumpInternalInput) {
 }
 
 func addSlashesForString(s string) string {
-	return gstr.ReplaceByMap(s, map[string]string{
+	return 文本类.Map替换(s, map[string]string{
 		`"`:  `\"`,
 		"\r": `\r`,
 		"\t": `\t`,
@@ -471,10 +471,10 @@ func addSlashesForString(s string) string {
 }
 
 // DumpJson 将 JSON 内容格式化输出到标准输出（stdout）。
-func DumpJson(jsonContent string) {
+func X调试输出json(json值 string) {
 	var (
 		buffer    = bytes.NewBuffer(nil)
-		jsonBytes = []byte(jsonContent)
+		jsonBytes = []byte(json值)
 	)
 	if err := json.Indent(buffer, jsonBytes, "", "\t"); err != nil {
 		fmt.Println(err.Error())

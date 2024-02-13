@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gproc
+package 进程类
 
 import (
 	"context"
@@ -85,7 +85,7 @@ func Listen() {
 					currentHandler = handler
 					currentSig     = sig
 				)
-				gutil.TryCatch(ctx, func(ctx context.Context) {
+				工具类.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 					defer wg.Done()
 					currentHandler(currentSig)
 				}, func(ctx context.Context, exception error) {

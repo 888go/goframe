@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"math"
@@ -13,55 +13,55 @@ import (
 )
 
 // Int将`any`转换为int。
-func Int(any interface{}) int {
-	if any == nil {
+func X取整数(值 interface{}) int {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int); ok {
+	if v, ok := 值.(int); ok {
 		return v
 	}
-	return int(Int64(any))
+	return int(X取整数64位(值))
 }
 
 // Int8将`any`转换为int8类型。
-func Int8(any interface{}) int8 {
-	if any == nil {
+func X取整数8位(值 interface{}) int8 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int8); ok {
+	if v, ok := 值.(int8); ok {
 		return v
 	}
-	return int8(Int64(any))
+	return int8(X取整数64位(值))
 }
 
 // Int16将`any`转换为int16类型。
-func Int16(any interface{}) int16 {
-	if any == nil {
+func X取整数16位(值 interface{}) int16 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int16); ok {
+	if v, ok := 值.(int16); ok {
 		return v
 	}
-	return int16(Int64(any))
+	return int16(X取整数64位(值))
 }
 
 // Int32将`any`转换为int32类型。
-func Int32(any interface{}) int32 {
-	if any == nil {
+func X取整数32位(值 interface{}) int32 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int32); ok {
+	if v, ok := 值.(int32); ok {
 		return v
 	}
-	return int32(Int64(any))
+	return int32(X取整数64位(值))
 }
 
 // Int64将`any`转换为int64类型。
-func Int64(any interface{}) int64 {
-	if any == nil {
+func X取整数64位(值 interface{}) int64 {
+	if 值 == nil {
 		return 0
 	}
-	switch value := any.(type) {
+	switch value := 值.(type) {
 	case int:
 		return int64(value)
 	case int8:
@@ -92,10 +92,10 @@ func Int64(any interface{}) int64 {
 		}
 		return 0
 	case []byte:
-		return gbinary.DecodeToInt64(value)
+		return 字节集类.DecodeToInt64(value)
 	default:
 		if f, ok := value.(iInt64); ok {
-			return f.Int64()
+			return f.X取整数64位()
 		}
 		var (
 			s       = String(value)
@@ -126,7 +126,7 @@ func Int64(any interface{}) int64 {
 			return v
 		}
 		// Float64
-		if valueInt64 := Float64(value); math.IsNaN(valueInt64) {
+		if valueInt64 := X取小数64位(value); math.IsNaN(valueInt64) {
 			return 0
 		} else {
 			return int64(valueInt64)

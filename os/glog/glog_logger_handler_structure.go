@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"bytes"
@@ -137,11 +137,11 @@ var safeSet = [utf8.RuneSelf]bool{
 }
 
 // HandlerStructure 是一个处理器，用于将输出的日志内容以结构化字符串形式记录。
-func HandlerStructure(ctx context.Context, in *HandlerInput) {
+func X中间件函数文本结构化输出(上下文 context.Context, in *HandlerInput) {
 	s := newStructuredBuffer(in)
-	in.Buffer.Write(s.Bytes())
+	in.Buffer.Write(s.X取字节集())
 	in.Buffer.Write([]byte("\n"))
-	in.Next(ctx)
+	in.Next(上下文)
 }
 
 func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
@@ -151,7 +151,7 @@ func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
 	}
 }
 
-func (buf *structuredBuffer) Bytes() []byte {
+func (buf *structuredBuffer) X取字节集() []byte {
 	buf.addValue(structureKeyTime, buf.in.TimeFormat)
 	if buf.in.TraceId != "" {
 		buf.addValue(structureKeyTraceId, buf.in.TraceId)
@@ -177,7 +177,7 @@ func (buf *structuredBuffer) Bytes() []byte {
 		if buf.in.Content != "" {
 			buf.in.Content += " "
 		}
-		buf.in.Content += gconv.String(values[0])
+		buf.in.Content += 转换类.String(values[0])
 		values = values[1:]
 	}
 	if buf.in.Content != "" {
@@ -198,8 +198,8 @@ func (buf *structuredBuffer) Bytes() []byte {
 
 func (buf *structuredBuffer) addValue(k, v any) {
 	var (
-		ks = gconv.String(k)
-		vs = gconv.String(v)
+		ks = 转换类.String(k)
+		vs = 转换类.String(v)
 	)
 	if buf.buffer.Len() > 0 {
 		buf.buffer.WriteByte(' ')

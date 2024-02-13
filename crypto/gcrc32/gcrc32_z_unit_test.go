@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gcrc32_test
+package 加密crc32类_test
 
 import (
 	"testing"
@@ -16,17 +16,17 @@ import (
 )
 
 func TestEncrypt(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		s := "pibigstar"
 		result := 693191136
-		encrypt1 := gcrc32.Encrypt(s)
-		encrypt2 := gcrc32.Encrypt([]byte(s))
+		encrypt1 := 加密crc32类.X加密(s)
+		encrypt2 := 加密crc32类.X加密([]byte(s))
 		t.AssertEQ(int(encrypt1), result)
 		t.AssertEQ(int(encrypt2), result)
 
-		strmd5, _ := gmd5.Encrypt(s)
-		test1 := gcrc32.Encrypt(strmd5)
-		test2 := gcrc32.Encrypt([]byte(strmd5))
+		strmd5, _ := 加密md5类.X加密(s)
+		test1 := 加密crc32类.X加密(strmd5)
+		test2 := 加密crc32类.X加密([]byte(strmd5))
 		t.AssertEQ(test2, test1)
 	})
 }

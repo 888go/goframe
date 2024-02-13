@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"bytes"
@@ -22,15 +22,15 @@ import (
 // 注意参数 `handler` 可以是以下类型：
 // 1. func(*ghttp.Request) // 类型为接收*ghttp.Request参数的函数
 // 2. func(context.Context, BizRequest)(BizResponse, error) // 类型为接收context.Context和BizRequest参数，并返回BizResponse和error的函数
-func (s *Server) BindHandler(pattern string, handler interface{}) {
+func (s *Server) X绑定(路由规则 string, 处理函数 interface{}) {
 	var ctx = context.TODO()
-	funcInfo, err := s.checkAndCreateFuncInfo(handler, "", "", "")
+	funcInfo, err := s.checkAndCreateFuncInfo(处理函数, "", "", "")
 	if err != nil {
-		s.Logger().Fatalf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 	}
 	s.doBindHandler(ctx, doBindHandlerInput{
 		Prefix:     "",
-		Pattern:    pattern,
+		Pattern:    路由规则,
 		FuncInfo:   funcInfo,
 		Middleware: nil,
 		Source:     "",
@@ -117,7 +117,7 @@ func (s *Server) nameToUri(name string) string {
 
 	case UriTypeCamel:
 		part := bytes.NewBuffer(nil)
-		if gstr.IsLetterUpper(name[0]) {
+		if 文本类.X是否大写字符(name[0]) {
 			part.WriteByte(name[0] + 32)
 		} else {
 			part.WriteByte(name[0])
@@ -131,10 +131,10 @@ func (s *Server) nameToUri(name string) string {
 	default:
 		part := bytes.NewBuffer(nil)
 		for i := 0; i < len(name); i++ {
-			if i > 0 && gstr.IsLetterUpper(name[i]) {
+			if i > 0 && 文本类.X是否大写字符(name[i]) {
 				part.WriteByte('-')
 			}
-			if gstr.IsLetterUpper(name[i]) {
+			if 文本类.X是否大写字符(name[i]) {
 				part.WriteByte(name[i] + 32)
 			} else {
 				part.WriteByte(name[i])
@@ -163,14 +163,14 @@ func (s *Server) checkAndCreateFuncInfo(
 	)
 	if reflectType.NumIn() != 2 || reflectType.NumOut() != 2 {
 		if pkgPath != "" {
-			err = gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			err = 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				`invalid handler: %s.%s.%s defined as "%s", but "func(*ghttp.Request)" or "func(context.Context, *BizReq)(*BizRes, error)" is required`,
 				pkgPath, structName, methodName, reflectType.String(),
 			)
 		} else {
-			err = gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			err = 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				`invalid handler: defined as "%s", but "func(*ghttp.Request)" or "func(context.Context, *BizReq)(*BizRes, error)" is required`,
 				reflectType.String(),
 			)
@@ -179,8 +179,8 @@ func (s *Server) checkAndCreateFuncInfo(
 	}
 
 	if !reflectType.In(0).Implements(reflect.TypeOf((*context.Context)(nil)).Elem()) {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		err = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`invalid handler: defined as "%s", but the first input parameter should be type of "context.Context"`,
 			reflectType.String(),
 		)
@@ -188,8 +188,8 @@ func (s *Server) checkAndCreateFuncInfo(
 	}
 
 	if !reflectType.Out(1).Implements(reflect.TypeOf((*error)(nil)).Elem()) {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		err = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`invalid handler: defined as "%s", but the last output parameter should be type of "error"`,
 			reflectType.String(),
 		)
@@ -198,8 +198,8 @@ func (s *Server) checkAndCreateFuncInfo(
 
 	if reflectType.In(1).Kind() != reflect.Ptr ||
 		(reflectType.In(1).Kind() == reflect.Ptr && reflectType.In(1).Elem().Kind() != reflect.Struct) {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		err = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`invalid handler: defined as "%s", but the second input parameter should be type of pointer to struct like "*BizReq"`,
 			reflectType.String(),
 		)
@@ -221,9 +221,9 @@ func (s *Server) checkAndCreateFuncInfo(
 
 	// 请求结构体应命名为 `xxxReq`。
 	reqStructName := trimGeneric(reflectType.In(1).String())
-	if !gstr.HasSuffix(reqStructName, `Req`) {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+	if !文本类.X末尾判断(reqStructName, `Req`) {
+		err = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`invalid struct naming for request: defined as "%s", but it should be named with "Req" suffix like "XxxReq"`,
 			reqStructName,
 		)
@@ -232,9 +232,9 @@ func (s *Server) checkAndCreateFuncInfo(
 
 	// 响应结构体应当命名为 `xxxRes`。
 	resStructName := trimGeneric(reflectType.Out(0).String())
-	if !gstr.HasSuffix(resStructName, `Res`) {
-		err = gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+	if !文本类.X末尾判断(resStructName, `Res`) {
+		err = 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`invalid struct naming for response: defined as "%s", but it should be named with "Res" suffix like "XxxRes"`,
 			resStructName,
 		)
@@ -265,17 +265,17 @@ func createRouterFunc(funcInfo handlerFuncInfo) func(r *Request) {
 			ok          bool
 			err         error
 			inputValues = []reflect.Value{
-				reflect.ValueOf(r.Context()),
+				reflect.ValueOf(r.Context别名()),
 			}
 		)
 		if funcInfo.Type.NumIn() == 2 {
 			var inputObject reflect.Value
 			if funcInfo.Type.In(1).Kind() == reflect.Ptr {
 				inputObject = reflect.New(funcInfo.Type.In(1).Elem())
-				r.error = r.Parse(inputObject.Interface())
+				r.error = r.X解析参数到结构(inputObject.Interface())
 			} else {
 				inputObject = reflect.New(funcInfo.Type.In(1).Elem()).Elem()
-				r.error = r.Parse(inputObject.Addr().Interface())
+				r.error = r.X解析参数到结构(inputObject.Addr().Interface())
 			}
 			if r.error != nil {
 				return

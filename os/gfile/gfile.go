@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gfile 提供了对文件系统进行便捷操作的功能。
-package gfile
+package 文件类
 
 import (
 	"os"
@@ -35,7 +35,7 @@ const (
 var (
 // 主包的绝对文件路径。
 // 它只能被检查和设置一次。
-	mainPkgPath = gtype.NewString()
+	mainPkgPath = 安全变量类.NewString()
 
 // selfPath 是当前运行的二进制文件路径。
 // 由于它被广泛使用，因此将其定义为内部包变量。
@@ -55,45 +55,45 @@ func init() {
 
 // Mkdir 通过给定的 `path` 参数递归创建目录。
 // 建议 `path` 参数使用绝对路径而非相对路径。
-func Mkdir(path string) (err error) {
-	if err = os.MkdirAll(path, os.ModePerm); err != nil {
-		err = gerror.Wrapf(err, `os.MkdirAll failed for path "%s" with perm "%d"`, path, os.ModePerm)
-		return err
+func X创建目录(目录 string) (错误 error) {
+	if 错误 = os.MkdirAll(目录, os.ModePerm); 错误 != nil {
+		错误 = 错误类.X多层错误并格式化(错误, `os.MkdirAll failed for path "%s" with perm "%d"`, 目录, os.ModePerm)
+		return 错误
 	}
 	return nil
 }
 
 // Create 以给定的 `path` 创建文件并递归创建其所在目录。
 // 建议参数 `path` 使用绝对路径。
-func Create(path string) (*os.File, error) {
-	dir := Dir(path)
-	if !Exists(dir) {
-		if err := Mkdir(dir); err != nil {
+func X创建文件与目录(文件路径 string) (*os.File, error) {
+	dir := X路径取父目录(文件路径)
+	if !X是否存在(dir) {
+		if err := X创建目录(dir); err != nil {
 			return nil, err
 		}
 	}
-	file, err := os.Create(path)
+	file, err := os.Create(文件路径)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Create failed for name "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `os.Create failed for name "%s"`, 文件路径)
 	}
 	return file, err
 }
 
 // Open 以只读方式打开文件/目录。
-func Open(path string) (*os.File, error) {
-	file, err := os.Open(path)
+func X打开并按只读模式(路径 string) (*os.File, error) {
+	file, err := os.Open(路径)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for name "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `os.Open failed for name "%s"`, 路径)
 	}
 	return file, err
 }
 
 // OpenFile函数以自定义的`flag`和`perm`打开文件/目录。
 // 参数`flag`类似于：O_RDONLY, O_RDWR, O_RDWR|O_CREATE|O_TRUNC等。
-func OpenFile(path string, flag int, perm os.FileMode) (*os.File, error) {
-	file, err := os.OpenFile(path, flag, perm)
+func X打开(路径 string, 读写模式 int, 权限模式 os.FileMode) (*os.File, error) {
+	file, err := os.OpenFile(路径, 读写模式, 权限模式)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.OpenFile failed with name "%s", flag "%d", perm "%d"`, path, flag, perm)
+		err = 错误类.X多层错误并格式化(err, `os.OpenFile failed with name "%s", flag "%d", perm "%d"`, 路径, 读写模式, 权限模式)
 	}
 	return file, err
 }
@@ -101,8 +101,8 @@ func OpenFile(path string, flag int, perm os.FileMode) (*os.File, error) {
 // OpenWithFlag 函数以默认权限和自定义标志 `flag` 打开文件/目录。
 // 默认的 `perm` 为 0666。
 // 参数 `flag` 如：O_RDONLY, O_RDWR, O_RDWR|O_CREATE|O_TRUNC 等。
-func OpenWithFlag(path string, flag int) (*os.File, error) {
-	file, err := OpenFile(path, flag, DefaultPermOpen)
+func X打开并按默认权限(路径 string, 读写模式 int) (*os.File, error) {
+	file, err := X打开(路径, 读写模式, DefaultPermOpen)
 	if err != nil {
 		return nil, err
 	}
@@ -112,8 +112,8 @@ func OpenWithFlag(path string, flag int) (*os.File, error) {
 // OpenWithFlagPerm 使用自定义`flag`和`perm`打开文件/目录。
 // 参数`flag`类似于：O_RDONLY, O_RDWR, O_RDWR|O_CREATE|O_TRUNC等。
 // 参数`perm`类似于：0600, 0666, 0777等。
-func OpenWithFlagPerm(path string, flag int, perm os.FileMode) (*os.File, error) {
-	file, err := OpenFile(path, flag, perm)
+func OpenWithFlagPerm别名(path string, flag int, perm os.FileMode) (*os.File, error) {
+	file, err := X打开(path, flag, perm)
 	if err != nil {
 		return nil, err
 	}
@@ -121,20 +121,20 @@ func OpenWithFlagPerm(path string, flag int, perm os.FileMode) (*os.File, error)
 }
 
 // Join 使用当前系统的文件分隔符连接字符串数组paths。
-func Join(paths ...string) string {
+func X路径生成(路径s ...string) string {
 	var s string
-	for _, path := range paths {
+	for _, path := range 路径s {
 		if s != "" {
 			s += Separator
 		}
-		s += gstr.TrimRight(path, Separator)
+		s += 文本类.X过滤尾字符并含空白(path, Separator)
 	}
 	return s
 }
 
 // Exists 检查给定的 `path` 是否存在。
-func Exists(path string) bool {
-	if stat, err := os.Stat(path); stat != nil && !os.IsNotExist(err) {
+func X是否存在(路径 string) bool {
+	if stat, err := os.Stat(路径); stat != nil && !os.IsNotExist(err) {
 		return true
 	}
 	return false
@@ -142,8 +142,8 @@ func Exists(path string) bool {
 
 // IsDir 检查给定的 `path` 是否为一个目录。
 // 注意，如果 `path` 不存在，则返回 false。
-func IsDir(path string) bool {
-	s, err := os.Stat(path)
+func X是否存在目录(路径 string) bool {
+	s, err := os.Stat(路径)
 	if err != nil {
 		return false
 	}
@@ -152,7 +152,7 @@ func IsDir(path string) bool {
 
 // Pwd 返回当前工作目录的绝对路径。
 // 注意，如果获取当前工作目录失败，它将返回一个空字符串。
-func Pwd() string {
+func X取当前工作目录() string {
 	path, err := os.Getwd()
 	if err != nil {
 		return ""
@@ -162,18 +162,18 @@ func Pwd() string {
 
 // Chdir函数将当前工作目录更改为指定的目录名称。
 // 如果出现错误，其类型将会是*PathError。
-func Chdir(dir string) (err error) {
-	err = os.Chdir(dir)
-	if err != nil {
-		err = gerror.Wrapf(err, `os.Chdir failed with dir "%s"`, dir)
+func X设置当前工作目录(目录 string) (错误 error) {
+	错误 = os.Chdir(目录)
+	if 错误 != nil {
+		错误 = 错误类.X多层错误并格式化(错误, `os.Chdir failed with dir "%s"`, 目录)
 	}
 	return
 }
 
 // IsFile 检查给定的 `path` 是否为文件，也就是说它不是一个目录。
 // 注意，如果 `path` 不存在，则返回 false。
-func IsFile(path string) bool {
-	s, err := Stat(path)
+func X是否为文件(路径 string) bool {
+	s, err := X取详情(路径)
 	if err != nil {
 		return false
 	}
@@ -182,41 +182,41 @@ func IsFile(path string) bool {
 
 // Stat返回一个FileInfo，用于描述指定名称的文件。
 // 如果出现错误，其类型将会是*PathError。
-func Stat(path string) (os.FileInfo, error) {
-	info, err := os.Stat(path)
+func X取详情(路径 string) (os.FileInfo, error) {
+	info, err := os.Stat(路径)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Stat failed for file "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `os.Stat failed for file "%s"`, 路径)
 	}
 	return info, err
 }
 
 // Move 将`src`重命名为（移动到）`dst`路径。
 // 如果`dst`已存在且不是一个目录，它将会被替换。
-func Move(src string, dst string) (err error) {
-	err = os.Rename(src, dst)
-	if err != nil {
-		err = gerror.Wrapf(err, `os.Rename failed from "%s" to "%s"`, src, dst)
+func X移动(路径 string, 新路径 string) (错误 error) {
+	错误 = os.Rename(路径, 新路径)
+	if 错误 != nil {
+		错误 = 错误类.X多层错误并格式化(错误, `os.Rename failed from "%s" to "%s"`, 路径, 新路径)
 	}
 	return
 }
 
 // Rename 是 Move 的别名。
 // 请参阅 Move。
-func Rename(src string, dst string) error {
-	return Move(src, dst)
+func Rename别名(src string, dst string) error {
+	return X移动(src, dst)
 }
 
 // DirNames 返回给定目录 `path` 下的子文件名。
 // 注意，返回的名称不是绝对路径。
-func DirNames(path string) ([]string, error) {
-	f, err := Open(path)
+func X取文件列表(路径 string) ([]string, error) {
+	f, err := X打开并按只读模式(路径)
 	if err != nil {
 		return nil, err
 	}
 	list, err := f.Readdirnames(-1)
 	_ = f.Close()
 	if err != nil {
-		err = gerror.Wrapf(err, `Read dir files failed from path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `Read dir files failed from path "%s"`, 路径)
 		return nil, err
 	}
 	return list, nil
@@ -226,16 +226,16 @@ func DirNames(path string) ([]string, error) {
 // 模式可以描述层级式的文件名，例如（假设分隔符为'/'）/usr/*/bin/ed。
 //
 // Glob会忽略文件系统错误，如读取目录时的I/O错误。唯一可能返回的错误是ErrBadPattern，仅当模式格式不正确时发生。
-func Glob(pattern string, onlyNames ...bool) ([]string, error) {
-	list, err := filepath.Glob(pattern)
+func X模糊查找(路径 string, 返回绝对路径 ...bool) ([]string, error) {
+	list, err := filepath.Glob(路径)
 	if err != nil {
-		err = gerror.Wrapf(err, `filepath.Glob failed for pattern "%s"`, pattern)
+		err = 错误类.X多层错误并格式化(err, `filepath.Glob failed for pattern "%s"`, 路径)
 		return nil, err
 	}
-	if len(onlyNames) > 0 && onlyNames[0] && len(list) > 0 {
+	if len(返回绝对路径) > 0 && 返回绝对路径[0] && len(list) > 0 {
 		array := make([]string, len(list))
 		for k, v := range list {
-			array[k] = Basename(v)
+			array[k] = X路径取文件名(v)
 		}
 		return array, nil
 	}
@@ -246,21 +246,21 @@ func Glob(pattern string, onlyNames ...bool) ([]string, error) {
 // 若参数 `path` 为目录，该函数会递归地删除整个目录及其包含的所有文件和子目录。
 //
 // 如果给定的 `path` 不存在或者为空，则该函数不做任何操作。
-func Remove(path string) (err error) {
+func X删除(路径或文件夹 string) (错误 error) {
 	// 如果`path`为空，则此操作无任何效果。
-	if path == "" {
+	if 路径或文件夹 == "" {
 		return nil
 	}
-	if err = os.RemoveAll(path); err != nil {
-		err = gerror.Wrapf(err, `os.RemoveAll failed for path "%s"`, path)
+	if 错误 = os.RemoveAll(路径或文件夹); 错误 != nil {
+		错误 = 错误类.X多层错误并格式化(错误, `os.RemoveAll failed for path "%s"`, 路径或文件夹)
 	}
 	return
 }
 
 // IsReadable 检查给定的 `path` 是否可读。
-func IsReadable(path string) bool {
+func X是否可读(路径 string) bool {
 	result := true
-	file, err := os.OpenFile(path, os.O_RDONLY, DefaultPermOpen)
+	file, err := os.OpenFile(路径, os.O_RDONLY, DefaultPermOpen)
 	if err != nil {
 		result = false
 	}
@@ -271,20 +271,20 @@ func IsReadable(path string) bool {
 // IsWritable 检查给定的 `path` 是否可写。
 //
 // TODO 提高性能；使用 golang.org/x/sys 以实现跨平台
-func IsWritable(path string) bool {
+func X是否可写(路径 string) bool {
 	result := true
-	if IsDir(path) {
+	if X是否存在目录(路径) {
 		// 如果是目录，则创建一个临时文件以测试其是否可写。
-		tmpFile := strings.TrimRight(path, Separator) + Separator + gconv.String(time.Now().UnixNano())
-		if f, err := Create(tmpFile); err != nil || !Exists(tmpFile) {
+		tmpFile := strings.TrimRight(路径, Separator) + Separator + 转换类.String(time.Now().UnixNano())
+		if f, err := X创建文件与目录(tmpFile); err != nil || !X是否存在(tmpFile) {
 			result = false
 		} else {
 			_ = f.Close()
-			_ = Remove(tmpFile)
+			_ = X删除(tmpFile)
 		}
 	} else {
 		// 如果它是一个文件，检查是否可以打开它。
-		file, err := os.OpenFile(path, os.O_WRONLY, DefaultPermOpen)
+		file, err := os.OpenFile(路径, os.O_WRONLY, DefaultPermOpen)
 		if err != nil {
 			result = false
 		}
@@ -295,10 +295,10 @@ func IsWritable(path string) bool {
 
 // Chmod 是 os.Chmod 的别名。
 // 请参阅 os.Chmod。
-func Chmod(path string, mode os.FileMode) (err error) {
-	err = os.Chmod(path, mode)
-	if err != nil {
-		err = gerror.Wrapf(err, `os.Chmod failed with path "%s" and mode "%s"`, path, mode)
+func X更改权限(路径 string, 权限模式 os.FileMode) (错误 error) {
+	错误 = os.Chmod(路径, 权限模式)
+	if 错误 != nil {
+		错误 = 错误类.X多层错误并格式化(错误, `os.Chmod failed with path "%s" and mode "%s"`, 路径, 权限模式)
 	}
 	return
 }
@@ -313,38 +313,38 @@ func Chmod(path string, mode os.FileMode) (err error) {
 // 如果路径 path 不是绝对路径，该函数会将其与当前工作目录拼接，
 // 从而生成一个绝对路径。需要注意的是，即使对于同一个文件，其计算出的绝对路径也未必是唯一的。
 // Abs 函数还会对处理后的结果调用 Clean 函数进行规范化。
-func Abs(path string) string {
-	p, _ := filepath.Abs(path)
+func X取绝对路径(路径 string) string {
+	p, _ := filepath.Abs(路径)
 	return p
 }
 
 // RealPath 将给定的 `path` 转换为绝对路径
 // 并检查文件路径是否存在。
 // 如果文件不存在，则返回一个空字符串。
-func RealPath(path string) string {
-	p, err := filepath.Abs(path)
+func X取绝对路径且效验(路径 string) string {
+	p, err := filepath.Abs(路径)
 	if err != nil {
 		return ""
 	}
-	if !Exists(p) {
+	if !X是否存在(p) {
 		return ""
 	}
 	return p
 }
 
 // SelfPath 返回当前运行进程（二进制文件）的绝对文件路径。
-func SelfPath() string {
+func X取当前进程路径() string {
 	return selfPath
 }
 
 // SelfName 返回当前运行进程（二进制文件）的文件名。
-func SelfName() string {
-	return Basename(SelfPath())
+func X取当前进程名() string {
+	return X路径取文件名(X取当前进程路径())
 }
 
 // SelfDir 返回当前运行进程（二进制文件）的绝对目录路径。
-func SelfDir() string {
-	return filepath.Dir(SelfPath())
+func X取当前进程目录() string {
+	return filepath.Dir(X取当前进程路径())
 }
 
 // Basename 返回路径的最后一个元素，其中包含文件扩展名。
@@ -354,16 +354,16 @@ func SelfDir() string {
 // 示例：
 // /var/www/file.js -> file.js
 // file.js          -> file.js
-func Basename(path string) string {
-	return filepath.Base(path)
+func X路径取文件名(路径 string) string {
+	return filepath.Base(路径)
 }
 
 // Name函数返回路径中最后一个元素的文件名部分，不包括文件扩展名。
 // 示例：
 // /var/www/file.js -> file
 // file.js          -> file
-func Name(path string) string {
-	base := filepath.Base(path)
+func X路径取文件名且不含扩展名(路径 string) string {
+	base := filepath.Base(路径)
 	if i := strings.LastIndexByte(base, '.'); i != -1 {
 		return base[:i]
 	}
@@ -376,11 +376,11 @@ func Name(path string) string {
 // 如果 `path` 为".", Dir 将路径视为当前工作目录。
 // 如果 `path` 完全由分隔符组成，Dir 返回一个单独的分隔符。
 // 返回的路径除非是根目录，否则不会以分隔符结尾。
-func Dir(path string) string {
-	if path == "." {
-		return filepath.Dir(RealPath(path))
+func X路径取父目录(路径 string) string {
+	if 路径 == "." {
+		return filepath.Dir(X取绝对路径且效验(路径))
 	}
-	return filepath.Dir(path)
+	return filepath.Dir(路径)
 }
 
 // IsEmpty 检查给定的 `path` 是否为空。
@@ -388,13 +388,13 @@ func Dir(path string) string {
 // 如果 `path` 是一个文件，它会检查该文件的大小是否为零。
 //
 // 注意，如果 `path` 不存在，此函数也将返回 true。
-func IsEmpty(path string) bool {
-	stat, err := Stat(path)
+func X是否为空(路径 string) bool {
+	stat, err := X取详情(路径)
 	if err != nil {
 		return true
 	}
 	if stat.IsDir() {
-		file, err := os.Open(path)
+		file, err := os.Open(路径)
 		if err != nil {
 			return true
 		}
@@ -416,8 +416,8 @@ func IsEmpty(path string) bool {
 // 示例：
 // main.go  => .go
 // api.json => .json
-func Ext(path string) string {
-	ext := filepath.Ext(path)
+func X路径取扩展名(路径 string) string {
+	ext := filepath.Ext(路径)
 	if p := strings.IndexByte(ext, '?'); p != -1 {
 		ext = ext[0:p]
 	}
@@ -429,18 +429,18 @@ func Ext(path string) string {
 // 示例：
 // main.go  => go
 // api.json => json
-func ExtName(path string) string {
-	return strings.TrimLeft(Ext(path), ".")
+func X路径取扩展名且不含点号(路径 string) string {
+	return strings.TrimLeft(X路径取扩展名(路径), ".")
 }
 
 // Temp 函数获取并返回当前系统的临时目录路径。
 //
 // 可选参数 `names` 指定的是子文件夹或子文件名，
 // 这些名称会与当前系统的路径分隔符拼接，并将最终生成的完整路径返回。
-func Temp(names ...string) string {
+func X取临时目录(可选路径 ...string) string {
 	path := os.TempDir()
-	for _, name := range names {
-		path = Join(path, name)
+	for _, name := range 可选路径 {
+		path = X路径生成(path, name)
 	}
 	return path
 }

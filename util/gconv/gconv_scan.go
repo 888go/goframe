@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"database/sql"
@@ -37,7 +37,7 @@ func Scan(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[stri
 	}
 
 	if pointerType == nil {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "parameter pointer should not be nil")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "parameter pointer should not be nil")
 	}
 	pointerKind = pointerType.Kind()
 	if pointerKind != reflect.Ptr {
@@ -46,8 +46,8 @@ func Scan(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[stri
 			pointerType = pointerValue.Type()
 			pointerKind = pointerType.Kind()
 		} else {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				"params should be type of pointer, but got type: %v",
 				pointerType,
 			)
@@ -168,14 +168,14 @@ func doScanList(
 	structSlice interface{}, structSlicePointer interface{}, bindToAttrName, relationAttrName, relationFields string,
 ) (err error) {
 	var (
-		maps = Maps(structSlice)
+		maps = X取Map数组(structSlice)
 	)
 	if len(maps) == 0 {
 		return nil
 	}
 	// 对参数进行必要的检查。
 	if bindToAttrName == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, `bindToAttrName should not be empty`)
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, `bindToAttrName should not be empty`)
 	}
 
 	if relationAttrName == "." {
@@ -191,8 +191,8 @@ func doScanList(
 		reflectKind = reflectValue.Kind()
 	}
 	if reflectKind != reflect.Ptr {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			"structSlicePointer should be type of *[]struct/*[]*struct, but got: %v",
 			reflectKind,
 		)
@@ -200,8 +200,8 @@ func doScanList(
 	reflectValue = reflectValue.Elem()
 	reflectKind = reflectValue.Kind()
 	if reflectKind != reflect.Slice && reflectKind != reflect.Array {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			"structSlicePointer should be type of *[]struct/*[]*struct, but got: %v",
 			reflectKind,
 		)
@@ -261,8 +261,8 @@ func doScanList(
 			relationFromFieldName = array[0]
 			relationBindToFieldName = array[1]
 			if key, _ := utils.MapPossibleItemByKey(maps[0], relationFromFieldName); key == "" {
-				return gerror.NewCodef(
-					gcode.CodeInvalidParameter,
+				return 错误类.X创建错误码并格式化(
+					错误码类.CodeInvalidParameter,
 					`cannot find possible related table field name "%s" from given relation fields "%s"`,
 					relationFromFieldName,
 					relationFields,
@@ -271,8 +271,8 @@ func doScanList(
 				relationFromFieldName = key
 			}
 		} else {
-			return gerror.NewCode(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码(
+				错误码类.CodeInvalidParameter,
 				`parameter relationKV should be format of "ResultFieldName:BindToAttrName"`,
 			)
 		}
@@ -281,8 +281,8 @@ func doScanList(
 			relationDataMap = utils.ListToMapByKey(maps, relationFromFieldName)
 		}
 		if len(relationDataMap) == 0 {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				`cannot find the relation data map, maybe invalid relation fields given "%v"`,
 				relationFields,
 			)
@@ -298,16 +298,16 @@ func doScanList(
 	)
 	if arrayItemType.Kind() == reflect.Ptr {
 		if bindToAttrField, ok = arrayItemType.Elem().FieldByName(bindToAttrName); !ok {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				`invalid parameter bindToAttrName: cannot find attribute with name "%s" from slice element`,
 				bindToAttrName,
 			)
 		}
 	} else {
 		if bindToAttrField, ok = arrayItemType.FieldByName(bindToAttrName); !ok {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				`invalid parameter bindToAttrName: cannot find attribute with name "%s" from slice element`,
 				bindToAttrName,
 			)
@@ -352,7 +352,7 @@ func doScanList(
 			relationFromAttrValue = arrayElemValue
 		}
 		if len(relationDataMap) > 0 && !relationFromAttrValue.IsValid() {
-			return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
+			return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
 		}
 		// 检查并查找可能绑定到属性名称的地方。
 		if relationFields != "" && !relationBindToFieldNameChecked {
@@ -364,9 +364,9 @@ func doScanList(
 						RecursiveOption: gstructs.RecursiveOptionEmbeddedNoTag,
 					})
 				)
-				if key, _ := utils.MapPossibleItemByKey(Map(fieldMap), relationBindToFieldName); key == "" {
-					return gerror.NewCodef(
-						gcode.CodeInvalidParameter,
+				if key, _ := utils.MapPossibleItemByKey(X取Map(fieldMap), relationBindToFieldName); key == "" {
+					return 错误类.X创建错误码并格式化(
+						错误码类.CodeInvalidParameter,
 						`cannot find possible related attribute name "%s" from given relation fields "%s"`,
 						relationBindToFieldName,
 						relationFields,
@@ -385,7 +385,7 @@ func doScanList(
 					// 创建一个Result类型的切片，初始长度为0
 // results := make(Result, 0)
 					results := make([]interface{}, 0)
-					for _, v := range SliceAny(relationDataMap[String(relationFromAttrField.Interface())]) {
+					for _, v := range SliceAny别名(relationDataMap[String(relationFromAttrField.Interface())]) {
 						item := v
 						results = append(results, item)
 					}
@@ -394,11 +394,11 @@ func doScanList(
 					}
 				} else {
 					// 可能该属性尚不存在。
-					return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
+					return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
 				}
 			} else {
-				return gerror.NewCodef(
-					gcode.CodeInvalidParameter,
+				return 错误类.X创建错误码并格式化(
+					错误码类.CodeInvalidParameter,
 					`relationKey should not be empty as field "%s" is slice`,
 					bindToAttrName,
 				)
@@ -420,7 +420,7 @@ func doScanList(
 						continue
 					}
 					if utils.IsSlice(v) {
-						if err = Struct(SliceAny(v)[0], element); err != nil {
+						if err = Struct(SliceAny别名(v)[0], element); err != nil {
 							return err
 						}
 					} else {
@@ -430,7 +430,7 @@ func doScanList(
 					}
 				} else {
 					// 可能该属性尚不存在。
-					return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
+					return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
 				}
 			} else {
 				if i >= len(maps) {
@@ -458,7 +458,7 @@ func doScanList(
 						continue
 					}
 					if utils.IsSlice(relationDataItem) {
-						if err = Struct(SliceAny(relationDataItem)[0], bindToAttrValue); err != nil {
+						if err = Struct(SliceAny别名(relationDataItem)[0], bindToAttrValue); err != nil {
 							return err
 						}
 					} else {
@@ -468,7 +468,7 @@ func doScanList(
 					}
 				} else {
 					// 可能该属性尚不存在。
-					return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
+					return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid relation fields specified: "%v"`, relationFields)
 				}
 			} else {
 				if i >= len(maps) {
@@ -486,7 +486,7 @@ func doScanList(
 			}
 
 		default:
-			return gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported attribute type: %s`, bindToAttrKind.String())
+			return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `unsupported attribute type: %s`, bindToAttrKind.String())
 		}
 	}
 	reflect.ValueOf(structSlicePointer).Elem().Set(arrayValue)

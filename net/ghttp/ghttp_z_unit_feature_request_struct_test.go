@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -23,29 +23,29 @@ func Test_Params_Parse(t *testing.T) {
 		Name string
 		Map  map[string]interface{}
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/parse", func(r *ghttp.Request) {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/parse", func(r *http类.Request) {
 		var user *User
-		if err := r.Parse(&user); err != nil {
-			r.Response.WriteExit(err)
+		if err := r.X解析参数到结构(&user); err != nil {
+			r.Response.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(user.Map["id"], user.Map["score"])
+		r.Response.X写响应缓冲区并退出(user.Map["id"], user.Map["score"])
 	})
-	s.BindHandler("/parseErr", func(r *ghttp.Request) {
+	s.X绑定("/parseErr", func(r *http类.Request) {
 		var user User
-		err := r.Parse(user)
-		r.Response.WriteExit(err != nil)
+		err := r.X解析参数到结构(user)
+		r.Response.X写响应缓冲区并退出(err != nil)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.PostContent(ctx, "/parse", `{"id":1,"name":"john","map":{"id":1,"score":100}}`), `1100`)
-		t.Assert(client.PostContent(ctx, "/parseErr", `{"id":1,"name":"john","map":{"id":1,"score":100}}`), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Post文本(ctx, "/parse", `{"id":1,"name":"john","map":{"id":1,"score":100}}`), `1100`)
+		t.Assert(client.Post文本(ctx, "/parseErr", `{"id":1,"name":"john","map":{"id":1,"score":100}}`), true)
 	})
 }
 
@@ -54,26 +54,26 @@ func Test_Params_ParseQuery(t *testing.T) {
 		Id   int
 		Name string
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/parse-query", func(r *ghttp.Request) {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/parse-query", func(r *http类.Request) {
 		var user *User
-		if err := r.ParseQuery(&user); err != nil {
-			r.Response.WriteExit(err)
+		if err := r.X解析URL到结构(&user); err != nil {
+			r.Response.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(user.Id, user.Name)
+		r.Response.X写响应缓冲区并退出(user.Id, user.Name)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.GetContent(ctx, "/parse-query"), `0`)
-		t.Assert(c.GetContent(ctx, "/parse-query?id=1&name=john"), `1john`)
-		t.Assert(c.PostContent(ctx, "/parse-query"), `0`)
-		t.Assert(c.PostContent(ctx, "/parse-query", g.Map{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Get文本(ctx, "/parse-query"), `0`)
+		t.Assert(c.Get文本(ctx, "/parse-query?id=1&name=john"), `1john`)
+		t.Assert(c.Post文本(ctx, "/parse-query"), `0`)
+		t.Assert(c.Post文本(ctx, "/parse-query", g.Map{
 			"id":   1,
 			"name": "john",
 		}), `0`)
@@ -85,29 +85,29 @@ func Test_Params_ParseForm(t *testing.T) {
 		Id   int
 		Name string
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/parse-form", func(r *ghttp.Request) {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/parse-form", func(r *http类.Request) {
 		var user *User
-		if err := r.ParseForm(&user); err != nil {
-			r.Response.WriteExit(err)
+		if err := r.X解析表单到结构(&user); err != nil {
+			r.Response.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(user.Id, user.Name)
+		r.Response.X写响应缓冲区并退出(user.Id, user.Name)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.GetContent(ctx, "/parse-form"), `0`)
-		t.Assert(c.GetContent(ctx, "/parse-form", g.Map{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Get文本(ctx, "/parse-form"), `0`)
+		t.Assert(c.Get文本(ctx, "/parse-form", g.Map{
 			"id":   1,
 			"name": "john",
 		}), 0)
-		t.Assert(c.PostContent(ctx, "/parse-form"), `0`)
-		t.Assert(c.PostContent(ctx, "/parse-form", g.Map{
+		t.Assert(c.Post文本(ctx, "/parse-form"), `0`)
+		t.Assert(c.Post文本(ctx, "/parse-form", g.Map{
 			"id":   1,
 			"name": "john",
 		}), `1john`)
@@ -182,24 +182,24 @@ func Test_Params_ComplexJsonStruct(t *testing.T) {
 		ReadinessProbe ItemProbe
 	}
 
-	s := g.Server(guid.S())
-	s.BindHandler("/parse", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/parse", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			var data *SaveRequest
-			if err := r.Parse(&data); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.X解析参数到结构(&data); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			r.Response.WriteExit(data)
+			r.Response.X写响应缓冲区并退出(data)
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 		content := `
 {
     "app_id": 5,
@@ -283,7 +283,7 @@ func Test_Params_ComplexJsonStruct(t *testing.T) {
     "version_tag": "test"
 }
 `
-		t.Assert(client.PostContent(ctx, "/parse", content), `{"AppId":5,"Name":"test","Type":"test","Cluster":"test","Replicas":1,"ContainerName":"test","ContainerImage":"nginx","VersionTag":"test","Namespace":"test","Id":0,"Status":0,"Metrics":"","InitImage":"","CpuRequest":10,"CpuLimit":100,"MemRequest":100,"MemLimit":1000,"MeshEnabled":0,"ContainerPorts":[{"Port":80,"Type":"tcp","Alias":"别名","Brief":"描述"}],"Labels":[{"Key":"app","Value":"test"}],"NodeSelector":[{"Key":"group","Value":"app"}],"EnvReserve":[{"Key":"NODE_IP","Value":"status.hostIP"}],"EnvGlobal":[{"Type":"string","Key":"NUMBER","Value":"1","Brief":"数据数量"}],"EnvContainer":[{"Type":"string","Key":"NAME","Value":"john","Brief":"用户环境变量"}],"Mounts":[],"LivenessProbe":{"Type":"tcpSocket","Port":80,"Path":"","Brief":"存活探针","Period":5,"InitialDelay":10,"TimeoutSeconds":0},"ReadinessProbe":{"Type":"tcpSocket","Port":80,"Path":"","Brief":"就绪探针","Period":5,"InitialDelay":10,"TimeoutSeconds":0}}`)
+		t.Assert(client.Post文本(ctx, "/parse", content), `{"AppId":5,"Name":"test","Type":"test","Cluster":"test","Replicas":1,"ContainerName":"test","ContainerImage":"nginx","VersionTag":"test","Namespace":"test","Id":0,"Status":0,"Metrics":"","InitImage":"","CpuRequest":10,"CpuLimit":100,"MemRequest":100,"MemLimit":1000,"MeshEnabled":0,"ContainerPorts":[{"Port":80,"Type":"tcp","Alias":"别名","Brief":"描述"}],"Labels":[{"Key":"app","Value":"test"}],"NodeSelector":[{"Key":"group","Value":"app"}],"EnvReserve":[{"Key":"NODE_IP","Value":"status.hostIP"}],"EnvGlobal":[{"Type":"string","Key":"NUMBER","Value":"1","Brief":"数据数量"}],"EnvContainer":[{"Type":"string","Key":"NAME","Value":"john","Brief":"用户环境变量"}],"Mounts":[],"LivenessProbe":{"Type":"tcpSocket","Port":80,"Path":"","Brief":"存活探针","Period":5,"InitialDelay":10,"TimeoutSeconds":0},"ReadinessProbe":{"Type":"tcpSocket","Port":80,"Path":"","Brief":"就绪探针","Period":5,"InitialDelay":10,"TimeoutSeconds":0}}`)
 	})
 }
 
@@ -292,37 +292,37 @@ func Test_Params_Parse_Attr_Pointer1(t *testing.T) {
 		Id   *int
 		Name *string
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/parse1", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/parse1", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			var user *User
-			if err := r.Parse(&user); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.X解析参数到结构(&user); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			r.Response.WriteExit(user.Id, user.Name)
+			r.Response.X写响应缓冲区并退出(user.Id, user.Name)
 		}
 	})
-	s.BindHandler("/parse2", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s.X绑定("/parse2", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			var user = new(User)
-			if err := r.Parse(user); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.X解析参数到结构(user); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			r.Response.WriteExit(user.Id, user.Name)
+			r.Response.X写响应缓冲区并退出(user.Id, user.Name)
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.PostContent(ctx, "/parse1", `{"id":1,"name":"john"}`), `1john`)
-		t.Assert(client.PostContent(ctx, "/parse2", `{"id":1,"name":"john"}`), `1john`)
-		t.Assert(client.PostContent(ctx, "/parse2?id=1&name=john"), `1john`)
-		t.Assert(client.PostContent(ctx, "/parse2", `id=1&name=john`), `1john`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Post文本(ctx, "/parse1", `{"id":1,"name":"john"}`), `1john`)
+		t.Assert(client.Post文本(ctx, "/parse2", `{"id":1,"name":"john"}`), `1john`)
+		t.Assert(client.Post文本(ctx, "/parse2?id=1&name=john"), `1john`)
+		t.Assert(client.Post文本(ctx, "/parse2", `id=1&name=john`), `1john`)
 	})
 }
 
@@ -330,24 +330,24 @@ func Test_Params_Parse_Attr_Pointer2(t *testing.T) {
 	type User struct {
 		Id *int `v:"required"`
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/parse", func(r *ghttp.Request) {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/parse", func(r *http类.Request) {
 		var user *User
-		if err := r.Parse(&user); err != nil {
-			r.Response.WriteExit(err.Error())
+		if err := r.X解析参数到结构(&user); err != nil {
+			r.Response.X写响应缓冲区并退出(err.Error())
 		}
-		r.Response.WriteExit(user.Id)
+		r.Response.X写响应缓冲区并退出(user.Id)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.PostContent(ctx, "/parse"), `The Id field is required`)
-		t.Assert(client.PostContent(ctx, "/parse?id=1"), `1`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Post文本(ctx, "/parse"), `The Id field is required`)
+		t.Assert(client.Post文本(ctx, "/parse?id=1"), `1`)
 	})
 }
 
@@ -391,62 +391,62 @@ func Test_Params_Struct(t *testing.T) {
 		Pass1 string `p:"password1"`
 		Pass2 string `p:"password2" v:"password2 @required|length:2,20|password3#||密码强度不足"`
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/struct1", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/struct1", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			user := new(User)
-			if err := r.GetStruct(user); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.GetStruct别名(user); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			r.Response.WriteExit(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 		}
 	})
-	s.BindHandler("/struct2", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s.X绑定("/struct2", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			user := (*User)(nil)
-			if err := r.GetStruct(&user); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.GetStruct别名(&user); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
 			if user != nil {
-				r.Response.WriteExit(user.Id, user.Name, user.Pass1, user.Pass2)
+				r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 			}
 		}
 	})
-	s.BindHandler("/struct-valid", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s.X绑定("/struct-valid", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			user := new(User)
-			if err := r.GetStruct(user); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.GetStruct别名(user); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			if err := gvalid.New().Data(user).Run(r.Context()); err != nil {
-				r.Response.WriteExit(err)
+			if err := 效验类.New().Data(user).Run(r.Context别名()); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
 		}
 	})
-	s.BindHandler("/parse", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s.X绑定("/parse", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			var user *User
-			if err := r.Parse(&user); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.X解析参数到结构(&user); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			r.Response.WriteExit(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.GetContent(ctx, "/struct1", `id=1&name=john&password1=123&password2=456`), `1john123456`)
-		t.Assert(client.PostContent(ctx, "/struct1", `id=1&name=john&password1=123&password2=456`), `1john123456`)
-		t.Assert(client.PostContent(ctx, "/struct2", `id=1&name=john&password1=123&password2=456`), `1john123456`)
-		t.Assert(client.PostContent(ctx, "/struct2", ``), ``)
-		t.Assert(client.PostContent(ctx, "/struct-valid", `id=1&name=john&password1=123&password2=0`), "The password2 value `0` length must be between 2 and 20; 密码强度不足")
-		t.Assert(client.PostContent(ctx, "/parse", `id=1&name=john&password1=123&password2=0`), "The password2 value `0` length must be between 2 and 20")
-		t.Assert(client.PostContent(ctx, "/parse", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), `1john123Abc!@#123Abc!@#`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Get文本(ctx, "/struct1", `id=1&name=john&password1=123&password2=456`), `1john123456`)
+		t.Assert(client.Post文本(ctx, "/struct1", `id=1&name=john&password1=123&password2=456`), `1john123456`)
+		t.Assert(client.Post文本(ctx, "/struct2", `id=1&name=john&password1=123&password2=456`), `1john123456`)
+		t.Assert(client.Post文本(ctx, "/struct2", ``), ``)
+		t.Assert(client.Post文本(ctx, "/struct-valid", `id=1&name=john&password1=123&password2=0`), "The password2 value `0` length must be between 2 and 20; 密码强度不足")
+		t.Assert(client.Post文本(ctx, "/parse", `id=1&name=john&password1=123&password2=0`), "The password2 value `0` length must be between 2 and 20")
+		t.Assert(client.Post文本(ctx, "/parse", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), `1john123Abc!@#123Abc!@#`)
 	})
 }
 
@@ -458,23 +458,23 @@ func Test_Params_Structs(t *testing.T) {
 		Pass1 string `p:"password1"`
 		Pass2 string `p:"password2" v:"password2 @required|length:2,20|password3#||密码强度不足"`
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/parse1", func(r *ghttp.Request) {
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/parse1", func(r *http类.Request) {
 		var users []*User
-		if err := r.Parse(&users); err != nil {
-			r.Response.WriteExit(err)
+		if err := r.X解析参数到结构(&users); err != nil {
+			r.Response.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(users[0].Id, users[1].Id)
+		r.Response.X写响应缓冲区并退出(users[0].Id, users[1].Id)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.PostContent(ctx,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Post文本(ctx,
 			"/parse1",
 			`[{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}, {"id":2,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}]`),
 			`12`,
@@ -487,40 +487,40 @@ func Test_Params_Struct_Validation(t *testing.T) {
 		Id   int    `v:"required"`
 		Name string `v:"name@required-with:id"`
 	}
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.ALL("/", func(r *ghttp.Request) {
+	s := g.Http类(uid类.X生成())
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定所有类型("/", func(r *http类.Request) {
 			var (
 				err  error
 				user *User
 			)
-			err = r.Parse(&user)
+			err = r.X解析参数到结构(&user)
 			if err != nil {
-				r.Response.WriteExit(err)
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			r.Response.WriteExit(user.Id, user.Name)
+			r.Response.X写响应缓冲区并退出(user.Id, user.Name)
 		})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.GetContent(ctx, "/", ``), `The Id field is required`)
-		t.Assert(c.GetContent(ctx, "/", `id=1&name=john`), `1john`)
-		t.Assert(c.PostContent(ctx, "/", `id=1&name=john&password1=123&password2=456`), `1john`)
-		t.Assert(c.PostContent(ctx, "/", `id=1`), `The name field is required`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Get文本(ctx, "/", ``), `The Id field is required`)
+		t.Assert(c.Get文本(ctx, "/", `id=1&name=john`), `1john`)
+		t.Assert(c.Post文本(ctx, "/", `id=1&name=john&password1=123&password2=456`), `1john`)
+		t.Assert(c.Post文本(ctx, "/", `id=1`), `The name field is required`)
 	})
 }
 
 // 这是GitHub上gogf/gf仓库中第1488号问题的链接
 func Test_Params_Parse_Issue1488(t *testing.T) {
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.ALL("/", func(r *ghttp.Request) {
+	s := g.Http类(uid类.X生成())
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定所有类型("/", func(r *http类.Request) {
 			type Request struct {
 				Type         []int  `p:"type"`
 				Keyword      string `p:"keyword"`
@@ -532,7 +532,7 @@ func Test_Params_Parse_Issue1488(t *testing.T) {
 				CreatorID    []int
 			}
 			for i := 0; i < 10; i++ {
-				r.SetParamMap(g.Map{
+				r.X设置自定义参数Map(g.Map{
 					"type[]":           0,
 					"keyword":          "",
 					"t_start":          "",
@@ -544,19 +544,19 @@ func Test_Params_Parse_Issue1488(t *testing.T) {
 					"per_page":         6,
 				})
 				var parsed Request
-				_ = r.Parse(&parsed)
-				r.Response.Write(parsed.Page, parsed.Limit)
+				_ = r.X解析参数到结构(&parsed)
+				r.Response.X写响应缓冲区(parsed.Page, parsed.Limit)
 			}
 		})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.GetContent(ctx, "/", ``), `16161616161616161616`)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Get文本(ctx, "/", ``), `16161616161616161616`)
 	})
 }

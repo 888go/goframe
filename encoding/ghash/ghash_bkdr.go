@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghash
+package 哈希类
 
 // BKDR 实现了适用于32位的经典的BKDR哈希算法。
 func BKDR(str []byte) uint32 {

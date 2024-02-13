@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -21,13 +21,13 @@ import (
 type utilAdmin struct{}
 
 // Index显示管理页面。
-func (p *utilAdmin) Index(r *Request) {
+func (p *utilAdmin) X显示管理页面(r *Request) {
 	data := map[string]interface{}{
-		"pid":  gproc.Pid(),
-		"path": gfile.SelfPath(),
+		"pid":  进程类.Pid(),
+		"path": 文件类.X取当前进程路径(),
 		"uri":  strings.TrimRight(r.URL.Path, "/"),
 	}
-	buffer, _ := gview.ParseContent(r.Context(), `
+	buffer, _ := 模板类.ParseContent(r.Context别名(), `
             <html>
             <head>
                 <title>GoFrame Web Server Admin</title>
@@ -40,49 +40,49 @@ func (p *utilAdmin) Index(r *Request) {
             </body>
             </html>
     `, data)
-	r.Response.Write(buffer)
+	r.Response.X写响应缓冲区(buffer)
 }
 
 // 重启 restarts 各个服务器进程中的所有服务器。
-func (p *utilAdmin) Restart(r *Request) {
+func (p *utilAdmin) X重启所有服务(r *Request) {
 	var (
-		ctx = r.Context()
+		ctx = r.Context别名()
 		err error
 	)
 	// 当该进程退出时，自定义启动二进制文件路径。
-	path := r.GetQuery("newExeFilePath").String()
+	path := r.X取查询参数到泛型类("newExeFilePath").String()
 	if path == "" {
 		path = os.Args[0]
 	}
-	if err = RestartAllServer(ctx, path); err == nil {
-		r.Response.WriteExit("server restarted")
+	if err = X平滑重启所有服务(ctx, path); err == nil {
+		r.Response.X写响应缓冲区并退出("server restarted")
 	} else {
-		r.Response.WriteExit(err.Error())
+		r.Response.X写响应缓冲区并退出(err.Error())
 	}
 }
 
 // Shutdown 关闭所有服务器。
-func (p *utilAdmin) Shutdown(r *Request) {
-	gtimer.SetTimeout(r.Context(), time.Second, func(ctx context.Context) {
+func (p *utilAdmin) X关闭所有服务(r *Request) {
+	定时类.SetTimeout别名(r.Context别名(), time.Second, func(ctx context.Context) {
 // 它在1秒后关闭服务器，这不是由系统信号触发的，
 // 以确保成功向客户端发送响应。
-		_ = r.Server.Shutdown()
+		_ = r.Server.X关闭当前服务()
 	})
-	r.Response.WriteExit("server shutdown")
+	r.Response.X写响应缓冲区并退出("server shutdown")
 }
 
 // EnableAdmin 启用进程的管理功能。
 // 可选参数 `pattern` 指定管理页面的 URI。
-func (s *Server) EnableAdmin(pattern ...string) {
+func (s *Server) X平滑重启服务开启(管理页URI ...string) {
 	p := "/debug/admin"
-	if len(pattern) > 0 {
-		p = pattern[0]
+	if len(管理页URI) > 0 {
+		p = 管理页URI[0]
 	}
-	s.BindObject(p, &utilAdmin{})
+	s.X绑定对象(p, &utilAdmin{})
 }
 
 // Shutdown 关闭当前服务器。
-func (s *Server) Shutdown() error {
+func (s *Server) X关闭当前服务() error {
 	var ctx = context.TODO()
 	s.doServiceDeregister()
 // 仅关闭当前服务器。

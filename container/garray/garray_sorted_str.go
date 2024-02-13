@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package garray
+package 数组类
 
 import (
 	"bytes"
@@ -30,64 +30,64 @@ type SortedStrArray struct {
 
 // NewSortedStrArray 创建并返回一个空的已排序数组。
 // 参数`safe`用于指定是否在并发安全的情况下使用数组，默认为false。
-func NewSortedStrArray(safe ...bool) *SortedStrArray {
-	return NewSortedStrArraySize(0, safe...)
+func X创建文本排序(并发安全 ...bool) *SortedStrArray {
+	return X创建文本排序并按大小(0, 并发安全...)
 }
 
 // NewSortedStrArrayComparator 创建并返回一个根据指定比较器排序的空数组。
 // 参数`safe`用于指定是否在并发安全的情况下使用数组，默认为false。
-func NewSortedStrArrayComparator(comparator func(a, b string) int, safe ...bool) *SortedStrArray {
-	array := NewSortedStrArray(safe...)
-	array.comparator = comparator
+func X创建文本排序并带排序函数(排序函数 func(a, b string) int, 并发安全 ...bool) *SortedStrArray {
+	array := X创建文本排序(并发安全...)
+	array.comparator = 排序函数
 	return array
 }
 
 // NewSortedStrArraySize 根据给定的大小和容量创建并返回一个已排序的数组。
 // 参数 `safe` 用于指定是否在并发安全环境下使用该数组，默认为 false。
-func NewSortedStrArraySize(cap int, safe ...bool) *SortedStrArray {
+func X创建文本排序并按大小(大小 int, 并发安全 ...bool) *SortedStrArray {
 	return &SortedStrArray{
-		mu:         rwmutex.Create(safe...),
-		array:      make([]string, 0, cap),
+		mu:         rwmutex.Create(并发安全...),
+		array:      make([]string, 0, 大小),
 		comparator: defaultComparatorStr,
 	}
 }
 
 // NewSortedStrArrayFrom 通过给定的切片`array`创建并返回一个已排序的数组。
 // 参数`safe`用于指定是否在并发安全的情况下使用数组，默认为false。
-func NewSortedStrArrayFrom(array []string, safe ...bool) *SortedStrArray {
-	a := NewSortedStrArraySize(0, safe...)
-	a.array = array
+func X创建文本排序并从数组(数组 []string, 并发安全 ...bool) *SortedStrArray {
+	a := X创建文本排序并按大小(0, 并发安全...)
+	a.array = 数组
 	quickSortStr(a.array, a.getComparator())
 	return a
 }
 
 // NewSortedStrArrayFromCopy 通过复制给定切片 `array` 创建并返回一个已排序的数组。
 // 参数 `safe` 用于指定是否在并发安全的情况下使用数组，默认为 false。
-func NewSortedStrArrayFromCopy(array []string, safe ...bool) *SortedStrArray {
-	newArray := make([]string, len(array))
-	copy(newArray, array)
-	return NewSortedStrArrayFrom(newArray, safe...)
+func X创建文本排序并从数组复制(数组 []string, 并发安全 ...bool) *SortedStrArray {
+	newArray := make([]string, len(数组))
+	copy(newArray, 数组)
+	return X创建文本排序并从数组(newArray, 并发安全...)
 }
 
 // SetArray 将底层的切片数组设置为给定的 `array`。
-func (a *SortedStrArray) SetArray(array []string) *SortedStrArray {
+func (a *SortedStrArray) X设置数组(数组 []string) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	a.array = array
+	a.array = 数组
 	quickSortStr(a.array, a.getComparator())
 	return a
 }
 
 // At 通过指定的索引返回值。
 // 如果给定的 `index` 超出了数组的范围，它将返回一个空字符串。
-func (a *SortedStrArray) At(index int) (value string) {
-	value, _ = a.Get(index)
+func (a *SortedStrArray) X取值(索引 int) (值 string) {
+	值, _ = a.X取值2(索引)
 	return
 }
 
 // Sort 函数用于将数组按升序排列。
 // 参数 `reverse` 用于控制排序方式，若为 true 则按降序排列（默认为升序）。
-func (a *SortedStrArray) Sort() *SortedStrArray {
+func (a *SortedStrArray) X排序递增() *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	quickSortStr(a.array, a.getComparator())
@@ -96,18 +96,18 @@ func (a *SortedStrArray) Sort() *SortedStrArray {
 
 // Add 向有序数组中添加一个或多个值，数组始终保持有序。
 // 它是函数 Append 的别名，请参阅 Append。
-func (a *SortedStrArray) Add(values ...string) *SortedStrArray {
-	return a.Append(values...)
+func (a *SortedStrArray) X入栈右(值 ...string) *SortedStrArray {
+	return a.Append别名(值...)
 }
 
 // Append 向已排序的数组中添加一个或多个值，数组将始终保持有序。
-func (a *SortedStrArray) Append(values ...string) *SortedStrArray {
-	if len(values) == 0 {
+func (a *SortedStrArray) Append别名(值 ...string) *SortedStrArray {
+	if len(值) == 0 {
 		return a
 	}
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	for _, value := range values {
+	for _, value := range 值 {
 		index, cmp := a.binSearch(value, false)
 		if a.unique && cmp == 0 {
 			continue
@@ -128,21 +128,21 @@ func (a *SortedStrArray) Append(values ...string) *SortedStrArray {
 
 // Get 通过指定的索引返回值。
 // 如果给定的 `index` 超出了数组的范围，那么 `found` 将为 false。
-func (a *SortedStrArray) Get(index int) (value string, found bool) {
+func (a *SortedStrArray) X取值2(索引 int) (值 string, 成功 bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
-	if index < 0 || index >= len(a.array) {
+	if 索引 < 0 || 索引 >= len(a.array) {
 		return "", false
 	}
-	return a.array[index], true
+	return a.array[索引], true
 }
 
 // Remove 通过索引移除一个元素。
 // 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-func (a *SortedStrArray) Remove(index int) (value string, found bool) {
+func (a *SortedStrArray) X删除(索引 int) (值 string, 成功 bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	return a.doRemoveWithoutLock(index)
+	return a.doRemoveWithoutLock(索引)
 }
 
 // doRemoveWithoutLock 在没有加锁的情况下通过索引移除一个项。
@@ -170,10 +170,10 @@ func (a *SortedStrArray) doRemoveWithoutLock(index int) (value string, found boo
 
 // RemoveValue 通过值移除一个元素。
 // 若在数组中找到该值，则返回 true，否则（未找到时）返回 false。
-func (a *SortedStrArray) RemoveValue(value string) bool {
+func (a *SortedStrArray) X删除值(值 string) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	if i, r := a.binSearch(value, false); r == 0 {
+	if i, r := a.binSearch(值, false); r == 0 {
 		_, res := a.doRemoveWithoutLock(i)
 		return res
 	}
@@ -181,10 +181,10 @@ func (a *SortedStrArray) RemoveValue(value string) bool {
 }
 
 // RemoveValues 通过 `values` 移除项目。
-func (a *SortedStrArray) RemoveValues(values ...string) {
+func (a *SortedStrArray) X删除多个值(值 ...string) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	for _, value := range values {
+	for _, value := range 值 {
 		if i, r := a.binSearch(value, false); r == 0 {
 			a.doRemoveWithoutLock(i)
 		}
@@ -193,54 +193,54 @@ func (a *SortedStrArray) RemoveValues(values ...string) {
 
 // PopLeft 从数组开头弹出并返回一个元素。
 // 注意，如果数组为空，则 `found` 为 false。
-func (a *SortedStrArray) PopLeft() (value string, found bool) {
+func (a *SortedStrArray) X出栈左() (值 string, 成功 bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	if len(a.array) == 0 {
 		return "", false
 	}
-	value = a.array[0]
+	值 = a.array[0]
 	a.array = a.array[1:]
-	return value, true
+	return 值, true
 }
 
 // PopRight从数组的末尾弹出并返回一个元素。
 // 注意，如果数组为空，则`found`为false。
-func (a *SortedStrArray) PopRight() (value string, found bool) {
+func (a *SortedStrArray) X出栈右() (值 string, 成功 bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	index := len(a.array) - 1
 	if index < 0 {
 		return "", false
 	}
-	value = a.array[index]
+	值 = a.array[index]
 	a.array = a.array[:index]
-	return value, true
+	return 值, true
 }
 
 // PopRand 随机地从数组中弹出并返回一个元素。
 // 注意，如果数组为空，则 `found` 为 false。
-func (a *SortedStrArray) PopRand() (value string, found bool) {
+func (a *SortedStrArray) X出栈随机() (值 string, 成功 bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	return a.doRemoveWithoutLock(grand.Intn(len(a.array)))
+	return a.doRemoveWithoutLock(随机类.X整数(len(a.array)))
 }
 
 // PopRands 随机地从数组中弹出并返回 `size` 个元素。
 // 若给定的 `size` 大于数组的大小，则返回数组中的所有元素。
 // 注意，如果给定的 `size` 小于等于0或者数组为空，它将返回 nil。
-func (a *SortedStrArray) PopRands(size int) []string {
+func (a *SortedStrArray) X出栈随机多个(数量 int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	if size <= 0 || len(a.array) == 0 {
+	if 数量 <= 0 || len(a.array) == 0 {
 		return nil
 	}
-	if size >= len(a.array) {
-		size = len(a.array)
+	if 数量 >= len(a.array) {
+		数量 = len(a.array)
 	}
-	array := make([]string, size)
-	for i := 0; i < size; i++ {
-		array[i], _ = a.doRemoveWithoutLock(grand.Intn(len(a.array)))
+	array := make([]string, 数量)
+	for i := 0; i < 数量; i++ {
+		array[i], _ = a.doRemoveWithoutLock(随机类.X整数(len(a.array)))
 	}
 	return array
 }
@@ -248,32 +248,32 @@ func (a *SortedStrArray) PopRands(size int) []string {
 // PopLefts 从数组开头弹出并返回 `size` 个元素。
 // 如果给定的 `size` 大于数组的大小，则返回数组中的所有元素。
 // 注意，如果给定的 `size` 小于等于0或者数组为空，则返回nil。
-func (a *SortedStrArray) PopLefts(size int) []string {
+func (a *SortedStrArray) X出栈左多个(数量 int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	if size <= 0 || len(a.array) == 0 {
+	if 数量 <= 0 || len(a.array) == 0 {
 		return nil
 	}
-	if size >= len(a.array) {
+	if 数量 >= len(a.array) {
 		array := a.array
 		a.array = a.array[:0]
 		return array
 	}
-	value := a.array[0:size]
-	a.array = a.array[size:]
+	value := a.array[0:数量]
+	a.array = a.array[数量:]
 	return value
 }
 
 // PopRights 从数组末尾弹出并返回 `size` 个元素。
 // 若给定的 `size` 大于数组的大小，则返回数组中所有元素。
 // 注意，如果给定的 `size` 小于等于0或者数组为空，它将返回nil。
-func (a *SortedStrArray) PopRights(size int) []string {
+func (a *SortedStrArray) X出栈右多个(数量 int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	if size <= 0 || len(a.array) == 0 {
+	if 数量 <= 0 || len(a.array) == 0 {
 		return nil
 	}
-	index := len(a.array) - size
+	index := len(a.array) - 数量
 	if index <= 0 {
 		array := a.array
 		a.array = a.array[:0]
@@ -289,25 +289,25 @@ func (a *SortedStrArray) PopRights(size int) []string {
 //
 // 如果 `end` 为负数，则偏移量将从数组末尾开始计算。
 // 如果省略了 `end`，则序列将包含从 start 开始直到数组末尾的所有元素。
-func (a *SortedStrArray) Range(start int, end ...int) []string {
+func (a *SortedStrArray) X取切片并按范围(起点 int, 终点 ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	offsetEnd := len(a.array)
-	if len(end) > 0 && end[0] < offsetEnd {
-		offsetEnd = end[0]
+	if len(终点) > 0 && 终点[0] < offsetEnd {
+		offsetEnd = 终点[0]
 	}
-	if start > offsetEnd {
+	if 起点 > offsetEnd {
 		return nil
 	}
-	if start < 0 {
-		start = 0
+	if 起点 < 0 {
+		起点 = 0
 	}
 	array := ([]string)(nil)
 	if a.mu.IsSafe() {
-		array = make([]string, offsetEnd-start)
-		copy(array, a.array[start:offsetEnd])
+		array = make([]string, offsetEnd-起点)
+		copy(array, a.array[起点:offsetEnd])
 	} else {
-		array = a.array[start:offsetEnd]
+		array = a.array[起点:offsetEnd]
 	}
 	return array
 }
@@ -324,55 +324,55 @@ func (a *SortedStrArray) Range(start int, end ...int) []string {
 // 如果未提供 length，则序列包含从 offset 开始直到数组末尾的所有元素。
 //
 // 若有任何可能穿越数组左边界的情况，函数将失败。
-func (a *SortedStrArray) SubSlice(offset int, length ...int) []string {
+func (a *SortedStrArray) X取切片并按数量(起点 int, 数量 ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	size := len(a.array)
-	if len(length) > 0 {
-		size = length[0]
+	if len(数量) > 0 {
+		size = 数量[0]
 	}
-	if offset > len(a.array) {
+	if 起点 > len(a.array) {
 		return nil
 	}
-	if offset < 0 {
-		offset = len(a.array) + offset
-		if offset < 0 {
+	if 起点 < 0 {
+		起点 = len(a.array) + 起点
+		if 起点 < 0 {
 			return nil
 		}
 	}
 	if size < 0 {
-		offset += size
+		起点 += size
 		size = -size
-		if offset < 0 {
+		if 起点 < 0 {
 			return nil
 		}
 	}
-	end := offset + size
+	end := 起点 + size
 	if end > len(a.array) {
 		end = len(a.array)
-		size = len(a.array) - offset
+		size = len(a.array) - 起点
 	}
 	if a.mu.IsSafe() {
 		s := make([]string, size)
-		copy(s, a.array[offset:])
+		copy(s, a.array[起点:])
 		return s
 	} else {
-		return a.array[offset:end]
+		return a.array[起点:end]
 	}
 }
 
 // Sum 返回数组中所有值的和。
-func (a *SortedStrArray) Sum() (sum int) {
+func (a *SortedStrArray) X求和() (值 int) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	for _, v := range a.array {
-		sum += gconv.Int(v)
+		值 += 转换类.X取整数(v)
 	}
 	return
 }
 
 // Len 返回数组的长度。
-func (a *SortedStrArray) Len() int {
+func (a *SortedStrArray) X取长度() int {
 	a.mu.RLock()
 	length := len(a.array)
 	a.mu.RUnlock()
@@ -382,7 +382,7 @@ func (a *SortedStrArray) Len() int {
 // Slice 返回数组的基础数据。
 // 注意，如果它在并发安全的使用场景下，会返回基础数据的一个副本，
 // 否则，则返回指向基础数据的指针。
-func (a *SortedStrArray) Slice() []string {
+func (a *SortedStrArray) X取切片() []string {
 	array := ([]string)(nil)
 	if a.mu.IsSafe() {
 		a.mu.RLock()
@@ -396,7 +396,7 @@ func (a *SortedStrArray) Slice() []string {
 }
 
 // Interfaces 函数将当前数组转换为 []interface{} 类型并返回。
-func (a *SortedStrArray) Interfaces() []interface{} {
+func (a *SortedStrArray) X取any数组() []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	array := make([]interface{}, len(a.array))
@@ -407,20 +407,20 @@ func (a *SortedStrArray) Interfaces() []interface{} {
 }
 
 // Contains 检查某个值是否存在于数组中。
-func (a *SortedStrArray) Contains(value string) bool {
-	return a.Search(value) != -1
+func (a *SortedStrArray) X是否存在(值 string) bool {
+	return a.X查找(值) != -1
 }
 
 // ContainsI 检查一个值是否以不区分大小写的方式存在于数组中。
 // 注意，它在内部会遍历整个数组并进行不区分大小写的比较。
-func (a *SortedStrArray) ContainsI(value string) bool {
+func (a *SortedStrArray) X是否存在并忽略大小写(值 string) bool {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	if len(a.array) == 0 {
 		return false
 	}
 	for _, v := range a.array {
-		if strings.EqualFold(v, value) {
+		if strings.EqualFold(v, 值) {
 			return true
 		}
 	}
@@ -429,8 +429,8 @@ func (a *SortedStrArray) ContainsI(value string) bool {
 
 // Search 在数组中通过 `value` 进行搜索，返回 `value` 的索引，
 // 若不存在，则返回 -1。
-func (a *SortedStrArray) Search(value string) (index int) {
-	if i, r := a.binSearch(value, true); r == 0 {
+func (a *SortedStrArray) X查找(值 string) (索引 int) {
+	if i, r := a.binSearch(值, true); r == 0 {
 		return i
 	}
 	return -1
@@ -471,17 +471,17 @@ func (a *SortedStrArray) binSearch(value string, lock bool) (index int, result i
 // SetUnique 将唯一标志设置到数组中，
 // 这意味着该数组不包含任何重复的元素。
 // 同时，它还会进行唯一性检查，并移除所有重复的项。
-func (a *SortedStrArray) SetUnique(unique bool) *SortedStrArray {
+func (a *SortedStrArray) X设置去重(去重 bool) *SortedStrArray {
 	oldUnique := a.unique
-	a.unique = unique
-	if unique && oldUnique != unique {
-		a.Unique()
+	a.unique = 去重
+	if 去重 && oldUnique != 去重 {
+		a.X去重()
 	}
 	return a
 }
 
 // Unique 对数组进行去重，清除重复的元素。
-func (a *SortedStrArray) Unique() *SortedStrArray {
+func (a *SortedStrArray) X去重() *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	if len(a.array) == 0 {
@@ -502,16 +502,16 @@ func (a *SortedStrArray) Unique() *SortedStrArray {
 }
 
 // Clone 返回一个新的数组，它是当前数组的一个副本。
-func (a *SortedStrArray) Clone() (newArray *SortedStrArray) {
+func (a *SortedStrArray) X取副本() (新数组 *SortedStrArray) {
 	a.mu.RLock()
 	array := make([]string, len(a.array))
 	copy(array, a.array)
 	a.mu.RUnlock()
-	return NewSortedStrArrayFrom(array, a.mu.IsSafe())
+	return X创建文本排序并从数组(array, a.mu.IsSafe())
 }
 
 // 清空删除当前数组中的所有元素。
-func (a *SortedStrArray) Clear() *SortedStrArray {
+func (a *SortedStrArray) X清空() *SortedStrArray {
 	a.mu.Lock()
 	if len(a.array) > 0 {
 		a.array = make([]string, 0)
@@ -521,18 +521,18 @@ func (a *SortedStrArray) Clear() *SortedStrArray {
 }
 
 // LockFunc 通过回调函数`f`进行写入锁定。
-func (a *SortedStrArray) LockFunc(f func(array []string)) *SortedStrArray {
+func (a *SortedStrArray) X遍历写锁定(回调函数 func(数组 []string)) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	f(a.array)
+	回调函数(a.array)
 	return a
 }
 
 // RLockFunc 通过回调函数`f`锁定读取操作。
-func (a *SortedStrArray) RLockFunc(f func(array []string)) *SortedStrArray {
+func (a *SortedStrArray) X遍历读锁定(回调函数 func(数组 []string)) *SortedStrArray {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
-	f(a.array)
+	回调函数(a.array)
 	return a
 }
 
@@ -540,59 +540,59 @@ func (a *SortedStrArray) RLockFunc(f func(array []string)) *SortedStrArray {
 // 参数`array`可以是任何garray类型或切片类型。
 // Merge 和 Append 的区别在于，Append 仅支持特定类型的切片作为参数，
 // 而 Merge 支持更多类型的参数。
-func (a *SortedStrArray) Merge(array interface{}) *SortedStrArray {
-	return a.Add(gconv.Strings(array)...)
+func (a *SortedStrArray) X合并(数组 interface{}) *SortedStrArray {
+	return a.X入栈右(转换类.X取文本数组(数组)...)
 }
 
 // Chunk 函数将一个数组分割成多个子数组，
 // 每个子数组的大小由参数 `size` 确定。
 // 最后一个子数组可能包含少于 size 个元素。
-func (a *SortedStrArray) Chunk(size int) [][]string {
-	if size < 1 {
+func (a *SortedStrArray) X分割(数量 int) [][]string {
+	if 数量 < 1 {
 		return nil
 	}
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	length := len(a.array)
-	chunks := int(math.Ceil(float64(length) / float64(size)))
+	chunks := int(math.Ceil(float64(length) / float64(数量)))
 	var n [][]string
 	for i, end := 0, 0; chunks > 0; chunks-- {
-		end = (i + 1) * size
+		end = (i + 1) * 数量
 		if end > length {
 			end = length
 		}
-		n = append(n, a.array[i*size:end])
+		n = append(n, a.array[i*数量:end])
 		i++
 	}
 	return n
 }
 
 // Rand 随机地从数组中返回一个元素（不删除）。
-func (a *SortedStrArray) Rand() (value string, found bool) {
+func (a *SortedStrArray) X取值随机() (值 string, 成功 bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	if len(a.array) == 0 {
 		return "", false
 	}
-	return a.array[grand.Intn(len(a.array))], true
+	return a.array[随机类.X整数(len(a.array))], true
 }
 
 // Rands 随机返回数组中的 `size` 个元素（不删除）。
-func (a *SortedStrArray) Rands(size int) []string {
+func (a *SortedStrArray) X取值随机多个(数量 int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
-	if size <= 0 || len(a.array) == 0 {
+	if 数量 <= 0 || len(a.array) == 0 {
 		return nil
 	}
-	array := make([]string, size)
-	for i := 0; i < size; i++ {
-		array[i] = a.array[grand.Intn(len(a.array))]
+	array := make([]string, 数量)
+	for i := 0; i < 数量; i++ {
+		array[i] = a.array[随机类.X整数(len(a.array))]
 	}
 	return array
 }
 
 // Join 通过字符串 `glue` 连接数组元素。
-func (a *SortedStrArray) Join(glue string) string {
+func (a *SortedStrArray) X连接(连接符 string) string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	if len(a.array) == 0 {
@@ -602,14 +602,14 @@ func (a *SortedStrArray) Join(glue string) string {
 	for k, v := range a.array {
 		buffer.WriteString(v)
 		if k != len(a.array)-1 {
-			buffer.WriteString(glue)
+			buffer.WriteString(连接符)
 		}
 	}
 	return buffer.String()
 }
 
 // CountValues 计算数组中所有值出现的次数。
-func (a *SortedStrArray) CountValues() map[string]int {
+func (a *SortedStrArray) X统计() map[string]int {
 	m := make(map[string]int)
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -620,17 +620,17 @@ func (a *SortedStrArray) CountValues() map[string]int {
 }
 
 // Iterator 是 IteratorAsc 的别名。
-func (a *SortedStrArray) Iterator(f func(k int, v string) bool) {
-	a.IteratorAsc(f)
+func (a *SortedStrArray) X遍历(回调函数 func(k int, v string) bool) {
+	a.X遍历升序(回调函数)
 }
 
 // IteratorAsc 以升序遍历给定数组，并使用回调函数 `f` 进行只读操作。
 // 如果 `f` 返回 true，则继续迭代；若返回 false，则停止遍历。
-func (a *SortedStrArray) IteratorAsc(f func(k int, v string) bool) {
+func (a *SortedStrArray) X遍历升序(回调函数 func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	for k, v := range a.array {
-		if !f(k, v) {
+		if !回调函数(k, v) {
 			break
 		}
 	}
@@ -638,11 +638,11 @@ func (a *SortedStrArray) IteratorAsc(f func(k int, v string) bool) {
 
 // IteratorDesc 函数以降序遍历给定的数组，并使用指定回调函数 `f` 进行只读操作。
 // 若 `f` 返回 true，则继续迭代；若返回 false，则停止迭代。
-func (a *SortedStrArray) IteratorDesc(f func(k int, v string) bool) {
+func (a *SortedStrArray) X遍历降序(回调函数 func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	for i := len(a.array) - 1; i >= 0; i-- {
-		if !f(i, a.array[i]) {
+		if !回调函数(i, a.array[i]) {
 			break
 		}
 	}
@@ -658,7 +658,7 @@ func (a *SortedStrArray) String() string {
 	buffer := bytes.NewBuffer(nil)
 	buffer.WriteByte('[')
 	for k, v := range a.array {
-		buffer.WriteString(`"` + gstr.QuoteMeta(v, `"\`) + `"`)
+		buffer.WriteString(`"` + 文本类.X转义并按字符(v, `"\`) + `"`)
 		if k != len(a.array)-1 {
 			buffer.WriteByte(',')
 		}
@@ -701,9 +701,9 @@ func (a *SortedStrArray) UnmarshalValue(value interface{}) (err error) {
 	defer a.mu.Unlock()
 	switch value.(type) {
 	case string, []byte:
-		err = json.UnmarshalUseNumber(gconv.Bytes(value), &a.array)
+		err = json.UnmarshalUseNumber(转换类.X取字节集(value), &a.array)
 	default:
-		a.array = gconv.SliceStr(value)
+		a.array = 转换类.SliceStr别名(value)
 	}
 	if a.array != nil {
 		sort.Strings(a.array)
@@ -714,11 +714,11 @@ func (a *SortedStrArray) UnmarshalValue(value interface{}) (err error) {
 // Filter 对数组进行迭代，并通过自定义回调函数进行元素过滤。
 // 如果回调函数 `filter` 返回 true，则从数组中移除该元素；
 // 否则不做任何处理并继续迭代。
-func (a *SortedStrArray) Filter(filter func(index int, value string) bool) *SortedStrArray {
+func (a *SortedStrArray) X遍历删除(回调函数 func(索引 int, 值 string) bool) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	for i := 0; i < len(a.array); {
-		if filter(i, a.array[i]) {
+		if 回调函数(i, a.array[i]) {
 			a.array = append(a.array[:i], a.array[i+1:]...)
 		} else {
 			i++
@@ -728,7 +728,7 @@ func (a *SortedStrArray) Filter(filter func(index int, value string) bool) *Sort
 }
 
 // FilterEmpty 从数组中移除所有空字符串值。
-func (a *SortedStrArray) FilterEmpty() *SortedStrArray {
+func (a *SortedStrArray) X删除所有空值() *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	for i := 0; i < len(a.array); {
@@ -749,7 +749,7 @@ func (a *SortedStrArray) FilterEmpty() *SortedStrArray {
 }
 
 // Walk 对数组中的每一项应用用户提供的函数 `f`。
-func (a *SortedStrArray) Walk(f func(value string) string) *SortedStrArray {
+func (a *SortedStrArray) X遍历修改(回调函数 func(值 string) string) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 
@@ -757,14 +757,14 @@ func (a *SortedStrArray) Walk(f func(value string) string) *SortedStrArray {
 	defer quickSortStr(a.array, a.getComparator())
 
 	for i, v := range a.array {
-		a.array[i] = f(v)
+		a.array[i] = 回调函数(v)
 	}
 	return a
 }
 
 // IsEmpty 检查数组是否为空。
-func (a *SortedStrArray) IsEmpty() bool {
-	return a.Len() == 0
+func (a *SortedStrArray) X是否为空() bool {
+	return a.X取长度() == 0
 }
 
 // getComparator 返回之前设置的比较器，如果没有设置过，则返回一个默认的比较器。
@@ -784,5 +784,9 @@ func (a *SortedStrArray) DeepCopy() interface{} {
 	defer a.mu.RUnlock()
 	newSlice := make([]string, len(a.array))
 	copy(newSlice, a.array)
-	return NewSortedStrArrayFrom(newSlice, a.mu.IsSafe())
+	return X创建文本排序并从数组(newSlice, a.mu.IsSafe())
+}
+
+func (a *SortedStrArray) X取文本() string {
+return a.String()
 }

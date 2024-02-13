@@ -32,7 +32,7 @@ func (r RuleIn) Message() string {
 
 func (r RuleIn) Run(in RunInput) error {
 	var ok bool
-	for _, rulePattern := range gstr.SplitAndTrim(in.RulePattern, ",") {
+	for _, rulePattern := range 文本类.X分割并忽略空值(in.RulePattern, ",") {
 		if in.Option.CaseInsensitive {
 			ok = strings.EqualFold(in.Value.String(), strings.TrimSpace(rulePattern))
 		} else {

@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gcfg_test
+package 配置类_test
 
 import (
 	"testing"
@@ -16,8 +16,8 @@ import (
 )
 
 func TestAdapterFile_Dump(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("config.yml")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("config.yml")
 		t.AssertNil(err)
 
 		t.Assert(c.GetFileName(), "config.yml")
@@ -26,8 +26,8 @@ func TestAdapterFile_Dump(t *testing.T) {
 		c.Data(ctx)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("testdata/default/config.toml")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("testdata/default/config.toml")
 		t.AssertNil(err)
 
 		c.Dump()
@@ -37,16 +37,16 @@ func TestAdapterFile_Dump(t *testing.T) {
 
 }
 func TestAdapterFile_Available(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("testdata/default/config.toml")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("testdata/default/config.toml")
 		t.AssertNil(err)
 		c.Available(ctx)
 	})
 }
 
 func TestAdapterFile_SetPath(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("config.yml")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("config.yml")
 		t.AssertNil(err)
 
 		err = c.SetPath("/tmp")
@@ -71,8 +71,8 @@ func TestAdapterFile_SetPath(t *testing.T) {
 }
 
 func TestAdapterFile_AddPath(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("config.yml")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("config.yml")
 		t.AssertNil(err)
 
 		err = c.AddPath("/tmp")
@@ -97,8 +97,8 @@ func TestAdapterFile_AddPath(t *testing.T) {
 }
 
 func TestAdapterFile_SetViolenceCheck(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("config.yml")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("config.yml")
 		t.AssertNil(err)
 		c.SetViolenceCheck(true)
 		v, err := c.Get(ctx, "name")
@@ -108,8 +108,8 @@ func TestAdapterFile_SetViolenceCheck(t *testing.T) {
 }
 
 func TestAdapterFile_FilePath(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("config.yml")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("config.yml")
 		t.AssertNil(err)
 
 		path, _ := c.GetFilePath("tmp")
@@ -121,8 +121,8 @@ func TestAdapterFile_FilePath(t *testing.T) {
 }
 
 func TestAdapterFile_Content(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile()
 		t.AssertNil(err)
 
 		c.SetContent("gf", "config.yml")
@@ -136,8 +136,8 @@ func TestAdapterFile_Content(t *testing.T) {
 }
 
 func TestAdapterFile_With_UTF8_BOM(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.NewAdapterFile("test-cfg-with-utf8-bom")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		c, err := 配置类.NewAdapterFile("test-cfg-with-utf8-bom")
 		t.AssertNil(err)
 
 		t.Assert(c.SetPath("testdata"), nil)
@@ -149,19 +149,19 @@ func TestAdapterFile_With_UTF8_BOM(t *testing.T) {
 
 func TestAdapterFile_Set(t *testing.T) {
 	config := `log-path = "logs"`
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			path = gcfg.DefaultConfigFileName
-			err  = gfile.PutContents(path, config)
+			path = 配置类.X默认配置文件名称
+			err  = 文件类.X写入文本(path, config)
 		)
 		t.Assert(err, nil)
-		defer gfile.Remove(path)
+		defer 文件类.X删除(path)
 
-		c, err := gcfg.New()
-		t.Assert(c.MustGet(ctx, "log-path").String(), "logs")
+		c, err := 配置类.X创建()
+		t.Assert(c.X取值PANI(ctx, "log-path").String(), "logs")
 
-		err = c.GetAdapter().(*gcfg.AdapterFile).Set("log-path", "custom-logs")
+		err = c.X取适配器().(*配置类.AdapterFile).X设置值("log-path", "custom-logs")
 		t.Assert(err, nil)
-		t.Assert(c.MustGet(ctx, "log-path").String(), "custom-logs")
+		t.Assert(c.X取值PANI(ctx, "log-path").String(), "custom-logs")
 	})
 }

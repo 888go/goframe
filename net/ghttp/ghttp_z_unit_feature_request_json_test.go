@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -25,37 +25,37 @@ func Test_Params_Json_Request(t *testing.T) {
 		Pass1 string `p:"password1"`
 		Pass2 string `p:"password2" v:"password2@required|length:2,20|password3|same:password1#||密码强度不足|两次密码不一致"`
 	}
-	s := g.Server(guid.S())
-	s.BindHandler("/get", func(r *ghttp.Request) {
-		r.Response.WriteExit(r.Get("id"), r.Get("name"))
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/get", func(r *http类.Request) {
+		r.Response.X写响应缓冲区并退出(r.Get别名("id"), r.Get别名("name"))
 	})
-	s.BindHandler("/map", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
-			r.Response.WriteExit(m["id"], m["name"], m["password1"], m["password2"])
+	s.X绑定("/map", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
+			r.Response.X写响应缓冲区并退出(m["id"], m["name"], m["password1"], m["password2"])
 		}
 	})
-	s.BindHandler("/parse", func(r *ghttp.Request) {
-		if m := r.GetMap(); len(m) > 0 {
+	s.X绑定("/parse", func(r *http类.Request) {
+		if m := r.GetMap别名(); len(m) > 0 {
 			var user *User
-			if err := r.Parse(&user); err != nil {
-				r.Response.WriteExit(err)
+			if err := r.X解析参数到结构(&user); err != nil {
+				r.Response.X写响应缓冲区并退出(err)
 			}
-			r.Response.WriteExit(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/get", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), ``)
-		t.Assert(client.GetContent(ctx, "/map", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), ``)
-		t.Assert(client.PostContent(ctx, "/parse", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), `1john123Abc!@#123Abc!@#`)
-		t.Assert(client.PostContent(ctx, "/parse", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123"}`), `密码强度不足`)
+		t.Assert(client.Get文本(ctx, "/get", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), ``)
+		t.Assert(client.Get文本(ctx, "/map", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), ``)
+		t.Assert(client.Post文本(ctx, "/parse", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123Abc!@#"}`), `1john123Abc!@#123Abc!@#`)
+		t.Assert(client.Post文本(ctx, "/parse", `{"id":1,"name":"john","password1":"123Abc!@#","password2":"123"}`), `密码强度不足`)
 	})
 }
 
@@ -69,9 +69,9 @@ func Test_Params_Json_Response(t *testing.T) {
 		Pass2    string `json:"password2"`
 	}
 
-	s := g.Server(guid.S())
-	s.BindHandler("/json1", func(r *ghttp.Request) {
-		r.Response.WriteJson(User{
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/json1", func(r *http类.Request) {
+		r.Response.X写响应缓冲区JSON(User{
 			Uid:     100,
 			Name:    "john",
 			SiteUrl: "https://goframe.org",
@@ -79,8 +79,8 @@ func Test_Params_Json_Response(t *testing.T) {
 			Pass2:   "456",
 		})
 	})
-	s.BindHandler("/json2", func(r *ghttp.Request) {
-		r.Response.WriteJson(&User{
+	s.X绑定("/json2", func(r *http类.Request) {
+		r.Response.X写响应缓冲区JSON(&User{
 			Uid:     100,
 			Name:    "john",
 			SiteUrl: "https://goframe.org",
@@ -88,7 +88,7 @@ func Test_Params_Json_Response(t *testing.T) {
 			Pass2:   "456",
 		})
 	})
-	s.BindHandler("/json3", func(r *ghttp.Request) {
+	s.X绑定("/json3", func(r *http类.Request) {
 		type Message struct {
 			Code  int    `json:"code"`
 			Body  string `json:"body,omitempty"`
@@ -107,9 +107,9 @@ func Test_Params_Json_Response(t *testing.T) {
 			ExtData: nil,
 			Message: Message{3, "测试", "error"},
 		}
-		r.Response.WriteJson(responseJson)
+		r.Response.X写响应缓冲区JSON(responseJson)
 	})
-	s.BindHandler("/json4", func(r *ghttp.Request) {
+	s.X绑定("/json4", func(r *http类.Request) {
 		type Message struct {
 			Code  int    `json:"code"`
 			Body  string `json:"body,omitempty"`
@@ -128,19 +128,19 @@ func Test_Params_Json_Response(t *testing.T) {
 			ExtData: nil,
 			Message: &Message{3, "测试", "error"},
 		}
-		r.Response.WriteJson(responseJson)
+		r.Response.X写响应缓冲区JSON(responseJson)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		map1 := make(map[string]interface{})
-		err1 := json.UnmarshalUseNumber([]byte(client.GetContent(ctx, "/json1")), &map1)
+		err1 := json.UnmarshalUseNumber([]byte(client.Get文本(ctx, "/json1")), &map1)
 		t.Assert(err1, nil)
 		t.Assert(len(map1), 4)
 		t.Assert(map1["Name"], "john")
@@ -149,7 +149,7 @@ func Test_Params_Json_Response(t *testing.T) {
 		t.Assert(map1["password2"], "456")
 
 		map2 := make(map[string]interface{})
-		err2 := json.UnmarshalUseNumber([]byte(client.GetContent(ctx, "/json2")), &map2)
+		err2 := json.UnmarshalUseNumber([]byte(client.Get文本(ctx, "/json2")), &map2)
 		t.Assert(err2, nil)
 		t.Assert(len(map2), 4)
 		t.Assert(map2["Name"], "john")
@@ -158,14 +158,14 @@ func Test_Params_Json_Response(t *testing.T) {
 		t.Assert(map2["password2"], "456")
 
 		map3 := make(map[string]interface{})
-		err3 := json.UnmarshalUseNumber([]byte(client.GetContent(ctx, "/json3")), &map3)
+		err3 := json.UnmarshalUseNumber([]byte(client.Get文本(ctx, "/json3")), &map3)
 		t.Assert(err3, nil)
 		t.Assert(len(map3), 2)
 		t.Assert(map3["success"], "true")
 		t.Assert(map3["message"], g.Map{"body": "测试", "code": 3, "error": "error"})
 
 		map4 := make(map[string]interface{})
-		err4 := json.UnmarshalUseNumber([]byte(client.GetContent(ctx, "/json4")), &map4)
+		err4 := json.UnmarshalUseNumber([]byte(client.Get文本(ctx, "/json4")), &map4)
 		t.Assert(err4, nil)
 		t.Assert(len(map4), 2)
 		t.Assert(map4["success"], "true")

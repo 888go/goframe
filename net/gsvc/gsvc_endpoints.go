@@ -15,7 +15,7 @@ import (
 // "192.168.1.100:80,192.168.1.101:80"。
 func NewEndpoints(addresses string) Endpoints {
 	endpoints := make([]Endpoint, 0)
-	for _, address := range gstr.SplitAndTrim(addresses, EndpointsDelimiter) {
+	for _, address := range 文本类.X分割并忽略空值(addresses, EndpointsDelimiter) {
 		endpoints = append(endpoints, NewEndpoint(address))
 	}
 	return endpoints

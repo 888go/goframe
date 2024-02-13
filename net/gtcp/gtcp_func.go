@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp
+package tcp类
 
 import (
 	"crypto/rand"
@@ -38,7 +38,7 @@ func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 	}
 	conn, err := net.DialTimeout(network, address, duration)
 	if err != nil {
-		err = gerror.Wrapf(
+		err = 错误类.X多层错误并格式化(
 			err,
 			`net.DialTimeout failed with network "%s", address "%s", timeout "%s"`,
 			network, address, duration,
@@ -61,7 +61,7 @@ func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Durati
 	}
 	conn, err := tls.DialWithDialer(dialer, network, address, tlsConfig)
 	if err != nil {
-		err = gerror.Wrapf(
+		err = 错误类.X多层错误并格式化(
 			err,
 			`tls.DialWithDialer failed with network "%s", address "%s", timeout "%s", tlsConfig "%v"`,
 			network, address, dialer.Timeout, tlsConfig,
@@ -137,17 +137,17 @@ func isTimeout(err error) bool {
 
 // LoadKeyCrt 通过给定的证书和密钥文件创建并返回一个 TLS 配置对象。
 func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
-	crtPath, err := gfile.Search(crtFile)
+	crtPath, err := 文件类.X查找(crtFile)
 	if err != nil {
 		return nil, err
 	}
-	keyPath, err := gfile.Search(keyFile)
+	keyPath, err := 文件类.X查找(keyFile)
 	if err != nil {
 		return nil, err
 	}
 	crt, err := tls.LoadX509KeyPair(crtPath, keyPath)
 	if err != nil {
-		return nil, gerror.Wrapf(err,
+		return nil, 错误类.X多层错误并格式化(err,
 			`tls.LoadX509KeyPair failed for certFile "%s" and keyFile "%s"`,
 			crtPath, keyPath,
 		)
@@ -176,7 +176,7 @@ func GetFreePort() (port int, err error) {
 	)
 	resolvedAddr, err := net.ResolveTCPAddr(network, address)
 	if err != nil {
-		return 0, gerror.Wrapf(
+		return 0, 错误类.X多层错误并格式化(
 			err,
 			`net.ResolveTCPAddr failed for network "%s", address "%s"`,
 			network, address,
@@ -184,7 +184,7 @@ func GetFreePort() (port int, err error) {
 	}
 	l, err := net.ListenTCP(network, resolvedAddr)
 	if err != nil {
-		return 0, gerror.Wrapf(
+		return 0, 错误类.X多层错误并格式化(
 			err,
 			`net.ListenTCP failed for network "%s", address "%s"`,
 			network, resolvedAddr.String(),
@@ -192,7 +192,7 @@ func GetFreePort() (port int, err error) {
 	}
 	port = l.Addr().(*net.TCPAddr).Port
 	if err = l.Close(); err != nil {
-		err = gerror.Wrapf(
+		err = 错误类.X多层错误并格式化(
 			err,
 			`close listening failed for network "%s", address "%s", port "%d"`,
 			network, resolvedAddr.String(), port,
@@ -210,7 +210,7 @@ func GetFreePorts(count int) (ports []int, err error) {
 	for i := 0; i < count; i++ {
 		resolvedAddr, err := net.ResolveTCPAddr(network, address)
 		if err != nil {
-			return nil, gerror.Wrapf(
+			return nil, 错误类.X多层错误并格式化(
 				err,
 				`net.ResolveTCPAddr failed for network "%s", address "%s"`,
 				network, address,
@@ -218,7 +218,7 @@ func GetFreePorts(count int) (ports []int, err error) {
 		}
 		l, err := net.ListenTCP(network, resolvedAddr)
 		if err != nil {
-			return nil, gerror.Wrapf(
+			return nil, 错误类.X多层错误并格式化(
 				err,
 				`net.ListenTCP failed for network "%s", address "%s"`,
 				network, resolvedAddr.String(),

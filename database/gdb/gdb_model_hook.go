@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 )
 
 type (
-	HookFuncSelect func(ctx context.Context, in *HookSelectInput) (result Result, err error)
+	HookFuncSelect func(ctx context.Context, in *HookSelectInput) (result X行记录数组, err error)
 	HookFuncInsert func(ctx context.Context, in *HookInsertInput) (result sql.Result, err error)
 	HookFuncUpdate func(ctx context.Context, in *HookUpdateInput) (result sql.Result, err error)
 	HookFuncDelete func(ctx context.Context, in *HookDeleteInput) (result sql.Result, err error)
@@ -33,11 +33,11 @@ type HookHandler struct {
 // internalParamHook 管理 hook 操作的所有内部参数。
 // `internal` 显然意味着你无法在本包外部访问这些参数。
 type internalParamHook struct {
-	link               Link      // Connection 对象来自第三方 SQL 驱动程序。
+	link               X底层链接      // Connection 对象来自第三方 SQL 驱动程序。
 	handlerCalled      bool      // 简单标记用于自定义处理程序被调用的情况，以防递归调用。
 	removedWhere       bool      // 移除了带有`WHERE`前缀的条件字符串的标记
-	originalTableName  *gvar.Var // 原始表名。
-	originalSchemaName *gvar.Var // 原始模式名称。
+	originalTableName  *泛型类.Var // 原始表名。
+	originalSchemaName *泛型类.Var // 原始模式名称。
 }
 
 type internalParamHookSelect struct {
@@ -78,8 +78,8 @@ type HookInsertInput struct {
 	Model  *Model         // 当前操作模型
 	Table  string         // 将要使用的表名。更新此属性以更改目标表名。
 	Schema string         // 要使用的架构名称。更新此属性以更改目标架构名称。
-	Data   List           // 待插入/保存到表中的数据记录列表
-	Option DoInsertOption // 数据插入时的额外选项。
+	Data   Map数组           // 待插入/保存到表中的数据记录列表
+	Option X底层输入 // 数据插入时的额外选项。
 }
 
 // HookUpdateInput 用于保存更新钩子操作的参数。
@@ -108,113 +108,113 @@ const (
 )
 
 // IsTransaction 检查并返回当前操作是否在事务中进行。
-func (h *internalParamHook) IsTransaction() bool {
+func (h *internalParamHook) X是否为事务() bool {
 	return h.link.IsTransaction()
 }
 
 // Next调用下一个钩子处理器。
-func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
-	if h.originalTableName.IsNil() {
-		h.originalTableName = gvar.New(h.Table)
+func (h *HookSelectInput) Next(上下文 context.Context) (行记录数组 X行记录数组, 错误 error) {
+	if h.originalTableName.X是否为Nil() {
+		h.originalTableName = 泛型类.X创建(h.Table)
 	}
-	if h.originalSchemaName.IsNil() {
-		h.originalSchemaName = gvar.New(h.Schema)
+	if h.originalSchemaName.X是否为Nil() {
+		h.originalSchemaName = 泛型类.X创建(h.Schema)
 	}
 	// 自定义钩子处理器调用。
 	if h.handler != nil && !h.handlerCalled {
 		h.handlerCalled = true
-		return h.handler(ctx, h)
+		return h.handler(上下文, h)
 	}
 	var toBeCommittedSql = h.Sql
 	// Table change.
 	if h.Table != h.originalTableName.String() {
-		toBeCommittedSql, err = gregex.ReplaceStringFuncMatch(
+		toBeCommittedSql, 错误 = 正则类.ReplaceStringFuncMatch(
 			`(?i) FROM ([\S]+)`,
 			toBeCommittedSql,
 			func(match []string) string {
-				charL, charR := h.Model.db.GetChars()
+				charL, charR := h.Model.db.X底层取数据库安全字符()
 				return fmt.Sprintf(` FROM %s%s%s`, charL, h.Table, charR)
 			},
 		)
 	}
 	// Schema change.
 	if h.Schema != "" && h.Schema != h.originalSchemaName.String() {
-		h.link, err = h.Model.db.GetCore().SlaveLink(h.Schema)
-		if err != nil {
+		h.link, 错误 = h.Model.db.X取Core对象().X底层SlaveLink(h.Schema)
+		if 错误 != nil {
 			return
 		}
 	}
-	return h.Model.db.DoSelect(ctx, h.link, toBeCommittedSql, h.Args...)
+	return h.Model.db.X底层查询(上下文, h.link, toBeCommittedSql, h.Args...)
 }
 
 // Next调用下一个钩子处理器。
-func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err error) {
-	if h.originalTableName.IsNil() {
-		h.originalTableName = gvar.New(h.Table)
+func (h *HookInsertInput) Next(上下文 context.Context) (行记录数组 sql.Result, 错误 error) {
+	if h.originalTableName.X是否为Nil() {
+		h.originalTableName = 泛型类.X创建(h.Table)
 	}
-	if h.originalSchemaName.IsNil() {
-		h.originalSchemaName = gvar.New(h.Schema)
+	if h.originalSchemaName.X是否为Nil() {
+		h.originalSchemaName = 泛型类.X创建(h.Schema)
 	}
 
 	if h.handler != nil && !h.handlerCalled {
 		h.handlerCalled = true
-		return h.handler(ctx, h)
+		return h.handler(上下文, h)
 	}
 
 	// Schema change.
 	if h.Schema != "" && h.Schema != h.originalSchemaName.String() {
-		h.link, err = h.Model.db.GetCore().MasterLink(h.Schema)
-		if err != nil {
+		h.link, 错误 = h.Model.db.X取Core对象().X底层MasterLink(h.Schema)
+		if 错误 != nil {
 			return
 		}
 	}
-	return h.Model.db.DoInsert(ctx, h.link, h.Table, h.Data, h.Option)
+	return h.Model.db.X底层插入(上下文, h.link, h.Table, h.Data, h.Option)
 }
 
 // Next调用下一个钩子处理器。
-func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err error) {
-	if h.originalTableName.IsNil() {
-		h.originalTableName = gvar.New(h.Table)
+func (h *HookUpdateInput) Next(上下文 context.Context) (行记录数组 sql.Result, 错误 error) {
+	if h.originalTableName.X是否为Nil() {
+		h.originalTableName = 泛型类.X创建(h.Table)
 	}
-	if h.originalSchemaName.IsNil() {
-		h.originalSchemaName = gvar.New(h.Schema)
+	if h.originalSchemaName.X是否为Nil() {
+		h.originalSchemaName = 泛型类.X创建(h.Schema)
 	}
 
 	if h.handler != nil && !h.handlerCalled {
 		h.handlerCalled = true
-		if gstr.HasPrefix(h.Condition, whereKeyInCondition) {
+		if 文本类.X开头判断(h.Condition, whereKeyInCondition) {
 			h.removedWhere = true
-			h.Condition = gstr.TrimLeftStr(h.Condition, whereKeyInCondition)
+			h.Condition = 文本类.X过滤首字符(h.Condition, whereKeyInCondition)
 		}
-		return h.handler(ctx, h)
+		return h.handler(上下文, h)
 	}
 	if h.removedWhere {
 		h.Condition = whereKeyInCondition + h.Condition
 	}
 	// Schema change.
 	if h.Schema != "" && h.Schema != h.originalSchemaName.String() {
-		h.link, err = h.Model.db.GetCore().MasterLink(h.Schema)
-		if err != nil {
+		h.link, 错误 = h.Model.db.X取Core对象().X底层MasterLink(h.Schema)
+		if 错误 != nil {
 			return
 		}
 	}
-	return h.Model.db.DoUpdate(ctx, h.link, h.Table, h.Data, h.Condition, h.Args...)
+	return h.Model.db.X底层更新(上下文, h.link, h.Table, h.Data, h.Condition, h.Args...)
 }
 
 // Next调用下一个钩子处理器。
 func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err error) {
-	if h.originalTableName.IsNil() {
-		h.originalTableName = gvar.New(h.Table)
+	if h.originalTableName.X是否为Nil() {
+		h.originalTableName = 泛型类.X创建(h.Table)
 	}
-	if h.originalSchemaName.IsNil() {
-		h.originalSchemaName = gvar.New(h.Schema)
+	if h.originalSchemaName.X是否为Nil() {
+		h.originalSchemaName = 泛型类.X创建(h.Schema)
 	}
 
 	if h.handler != nil && !h.handlerCalled {
 		h.handlerCalled = true
-		if gstr.HasPrefix(h.Condition, whereKeyInCondition) {
+		if 文本类.X开头判断(h.Condition, whereKeyInCondition) {
 			h.removedWhere = true
-			h.Condition = gstr.TrimLeftStr(h.Condition, whereKeyInCondition)
+			h.Condition = 文本类.X过滤首字符(h.Condition, whereKeyInCondition)
 		}
 		return h.handler(ctx, h)
 	}
@@ -223,12 +223,12 @@ func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err erro
 	}
 	// Schema change.
 	if h.Schema != "" && h.Schema != h.originalSchemaName.String() {
-		h.link, err = h.Model.db.GetCore().MasterLink(h.Schema)
+		h.link, err = h.Model.db.X取Core对象().X底层MasterLink(h.Schema)
 		if err != nil {
 			return
 		}
 	}
-	return h.Model.db.DoDelete(ctx, h.link, h.Table, h.Condition, h.Args...)
+	return h.Model.db.X底层删除(ctx, h.link, h.Table, h.Condition, h.Args...)
 }
 
 // Hook 设置当前模型的钩子函数。

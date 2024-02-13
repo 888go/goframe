@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtimer
+package 定时类
 
 import (
 	"context"
@@ -15,41 +15,41 @@ import (
 )
 
 func TestTimer_Proceed(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		timer := New(TimerOptions{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		timer := X创建(TimerOptions{
 			Interval: time.Hour,
 		})
-		timer.Add(ctx, 10000*time.Hour, func(ctx context.Context) {
-			array.Append(1)
+		timer.X加入循环任务(ctx, 10000*time.Hour, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		timer.proceed(10001)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		timer.proceed(20001)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		timer := New(TimerOptions{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		timer := X创建(TimerOptions{
 			Interval: time.Millisecond * 100,
 		})
-		timer.Add(ctx, 10000*time.Hour, func(ctx context.Context) {
-			array.Append(1)
+		timer.X加入循环任务(ctx, 10000*time.Hour, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		ticks := int64((10000 * time.Hour) / (time.Millisecond * 100))
 		timer.proceed(ticks + 1)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		timer.proceed(2*ticks + 1)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
 func TestTimer_PriorityQueue(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		queue := newPriorityQueue()
 		queue.Push(1, 1)
 		queue.Push(4, 4)
@@ -65,14 +65,14 @@ func TestTimer_PriorityQueue(t *testing.T) {
 }
 
 func TestTimer_PriorityQueue_FirstOneInArrayIsTheLeast(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			size  = 1000000
-			array = garray.NewIntArrayRange(0, size, 1)
+			array = 数组类.X创建整数并按范围(0, size, 1)
 		)
-		array.Shuffle()
+		array.X随机排序()
 		queue := newPriorityQueue()
-		array.Iterator(func(k int, v int) bool {
+		array.X遍历(func(k int, v int) bool {
 			queue.Push(v, int64(v))
 			return true
 		})

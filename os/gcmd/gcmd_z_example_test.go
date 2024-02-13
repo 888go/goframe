@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
@@ -17,18 +17,18 @@ import (
 )
 
 func ExampleInit() {
-	gcmd.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
-	fmt.Printf(`%#v`, gcmd.GetArgAll())
+	cmd类.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
+	fmt.Printf(`%#v`, cmd类.GetArgAll())
 
 	// Output:
 	// []string{"gf", "build", "main.go"}
 }
 
 func ExampleGetArg() {
-	gcmd.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
+	cmd类.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
 	fmt.Printf(
 		`Arg[0]: "%v", Arg[1]: "%v", Arg[2]: "%v", Arg[3]: "%v"`,
-		gcmd.GetArg(0), gcmd.GetArg(1), gcmd.GetArg(2), gcmd.GetArg(3),
+		cmd类.GetArg(0), cmd类.GetArg(1), cmd类.GetArg(2), cmd类.GetArg(3),
 	)
 
 	// Output:
@@ -36,18 +36,18 @@ func ExampleGetArg() {
 }
 
 func ExampleGetArgAll() {
-	gcmd.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
-	fmt.Printf(`%#v`, gcmd.GetArgAll())
+	cmd类.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
+	fmt.Printf(`%#v`, cmd类.GetArgAll())
 
 	// Output:
 	// []string{"gf", "build", "main.go"}
 }
 
 func ExampleGetOpt() {
-	gcmd.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
+	cmd类.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
 	fmt.Printf(
 		`Opt["o"]: "%v", Opt["y"]: "%v", Opt["d"]: "%v"`,
-		gcmd.GetOpt("o"), gcmd.GetOpt("y"), gcmd.GetOpt("d", "default value"),
+		cmd类.GetOpt("o"), cmd类.GetOpt("y"), cmd类.GetOpt("d", "default value"),
 	)
 
 	// Output:
@@ -55,26 +55,26 @@ func ExampleGetOpt() {
 }
 
 func ExampleGetOpt_Def() {
-	gcmd.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
+	cmd类.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
 
-	fmt.Println(gcmd.GetOpt("s", "Def").String())
+	fmt.Println(cmd类.GetOpt("s", "Def").String())
 
 	// Output:
 	// Def
 }
 
 func ExampleGetOptAll() {
-	gcmd.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
-	fmt.Printf(`%#v`, gcmd.GetOptAll())
+	cmd类.Init("gf", "build", "main.go", "-o=gf.exe", "-y")
+	fmt.Printf(`%#v`, cmd类.GetOptAll())
 
 	// May Output:
 	// map[string]string{"o":"gf.exe", "y":""}
 }
 
 func ExampleGetOptWithEnv() {
-	fmt.Printf("Opt[gf.test]:%s\n", gcmd.GetOptWithEnv("gf.test"))
-	_ = genv.Set("GF_TEST", "YES")
-	fmt.Printf("Opt[gf.test]:%s\n", gcmd.GetOptWithEnv("gf.test"))
+	fmt.Printf("Opt[gf.test]:%s\n", cmd类.GetOptWithEnv("gf.test"))
+	_ = 环境变量类.X设置值("GF_TEST", "YES")
+	fmt.Printf("Opt[gf.test]:%s\n", cmd类.GetOptWithEnv("gf.test"))
 
 	// Output:
 	// Opt[gf.test]:
@@ -83,7 +83,7 @@ func ExampleGetOptWithEnv() {
 
 func ExampleParse() {
 	os.Args = []string{"gf", "build", "main.go", "-o=gf.exe", "-y"}
-	p, err := gcmd.Parse(g.MapStrBool{
+	p, err := cmd类.Parse(g.MapStrBool{
 		"o,output": true,
 		"y,yes":    false,
 	})
@@ -108,18 +108,18 @@ func ExampleParse() {
 
 func ExampleCommandFromCtx() {
 	var (
-		command = gcmd.Command{
+		command = cmd类.Command{
 			Name: "start",
 		}
 	)
 
-	ctx := context.WithValue(gctx.New(), gcmd.CtxKeyCommand, &command)
-	unAddCtx := context.WithValue(gctx.New(), gcmd.CtxKeyCommand, &gcmd.Command{})
-	nonKeyCtx := context.WithValue(gctx.New(), "Testkey", &gcmd.Command{})
+	ctx := context.WithValue(上下文类.X创建(), cmd类.CtxKeyCommand, &command)
+	unAddCtx := context.WithValue(上下文类.X创建(), cmd类.CtxKeyCommand, &cmd类.Command{})
+	nonKeyCtx := context.WithValue(上下文类.X创建(), "Testkey", &cmd类.Command{})
 
-	fmt.Println(gcmd.CommandFromCtx(ctx).Name)
-	fmt.Println(gcmd.CommandFromCtx(unAddCtx).Name)
-	fmt.Println(gcmd.CommandFromCtx(nonKeyCtx) == nil)
+	fmt.Println(cmd类.CommandFromCtx(ctx).Name)
+	fmt.Println(cmd类.CommandFromCtx(unAddCtx).Name)
+	fmt.Println(cmd类.CommandFromCtx(nonKeyCtx) == nil)
 
 	// Output:
 	// start
@@ -128,12 +128,12 @@ func ExampleCommandFromCtx() {
 }
 
 func ExampleCommand_AddCommand() {
-	commandRoot := &gcmd.Command{
+	commandRoot := &cmd类.Command{
 		Name: "gf",
 	}
-	commandRoot.AddCommand(&gcmd.Command{
+	commandRoot.AddCommand(&cmd类.Command{
 		Name: "start",
-	}, &gcmd.Command{})
+	}, &cmd类.Command{})
 
 	commandRoot.Print()
 
@@ -146,14 +146,14 @@ func ExampleCommand_AddCommand() {
 }
 
 func ExampleCommand_AddCommand_Repeat() {
-	commandRoot := &gcmd.Command{
+	commandRoot := &cmd类.Command{
 		Name: "gf",
 	}
-	err := commandRoot.AddCommand(&gcmd.Command{
+	err := commandRoot.AddCommand(&cmd类.Command{
 		Name: "start",
-	}, &gcmd.Command{
+	}, &cmd类.Command{
 		Name: "stop",
-	}, &gcmd.Command{
+	}, &cmd类.Command{
 		Name: "start",
 	})
 
@@ -165,7 +165,7 @@ func ExampleCommand_AddCommand_Repeat() {
 
 func ExampleCommand_AddObject() {
 	var (
-		command = gcmd.Command{
+		command = cmd类.Command{
 			Name: "start",
 		}
 	)
@@ -184,7 +184,7 @@ func ExampleCommand_AddObject() {
 
 func ExampleCommand_AddObject_Error() {
 	var (
-		command = gcmd.Command{
+		command = cmd类.Command{
 			Name: "start",
 		}
 	)
@@ -198,12 +198,12 @@ func ExampleCommand_AddObject_Error() {
 }
 
 func ExampleCommand_Print() {
-	commandRoot := &gcmd.Command{
+	commandRoot := &cmd类.Command{
 		Name: "gf",
 	}
-	commandRoot.AddCommand(&gcmd.Command{
+	commandRoot.AddCommand(&cmd类.Command{
 		Name: "start",
-	}, &gcmd.Command{})
+	}, &cmd类.Command{})
 
 	commandRoot.Print()
 
@@ -216,27 +216,27 @@ func ExampleCommand_Print() {
 }
 
 func ExampleScan() {
-	fmt.Println(gcmd.Scan("gf scan"))
+	fmt.Println(cmd类.Scan("gf scan"))
 
 	// Output:
 	// gf scan
 }
 
 func ExampleScanf() {
-	fmt.Println(gcmd.Scanf("gf %s", "scanf"))
+	fmt.Println(cmd类.Scanf("gf %s", "scanf"))
 
 	// Output:
 	// gf scanf
 }
 
 func ExampleParserFromCtx() {
-	parser, _ := gcmd.Parse(nil)
+	parser, _ := cmd类.Parse(nil)
 
-	ctx := context.WithValue(gctx.New(), gcmd.CtxKeyParser, parser)
-	nilCtx := context.WithValue(gctx.New(), "NilCtxKeyParser", parser)
+	ctx := context.WithValue(上下文类.X创建(), cmd类.CtxKeyParser, parser)
+	nilCtx := context.WithValue(上下文类.X创建(), "NilCtxKeyParser", parser)
 
-	fmt.Println(gcmd.ParserFromCtx(ctx).GetArgAll())
-	fmt.Println(gcmd.ParserFromCtx(nilCtx) == nil)
+	fmt.Println(cmd类.ParserFromCtx(ctx).GetArgAll())
+	fmt.Println(cmd类.ParserFromCtx(nilCtx) == nil)
 
 	// Output:
 	// [gf build main.go]
@@ -244,7 +244,7 @@ func ExampleParserFromCtx() {
 }
 
 func ExampleParseArgs() {
-	p, _ := gcmd.ParseArgs([]string{
+	p, _ := cmd类.ParseArgs([]string{
 		"gf", "--force", "remove", "-fq", "-p=www", "path", "-n", "root",
 	}, nil)
 
@@ -257,7 +257,7 @@ func ExampleParseArgs() {
 }
 
 func ExampleParser_GetArg() {
-	p, _ := gcmd.ParseArgs([]string{
+	p, _ := cmd类.ParseArgs([]string{
 		"gf", "--force", "remove", "-fq", "-p=www", "path", "-n", "root",
 	}, nil)
 

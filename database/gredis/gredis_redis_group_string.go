@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gredis
+package redis类
 
 import (
 	"context"
@@ -14,13 +14,13 @@ import (
 // IGroupString 管理 Redis 字符串操作。
 // 实现细节请参考 redis.GroupString。
 type IGroupString interface {
-	Set(ctx context.Context, key string, value interface{}, option ...SetOption) (*gvar.Var, error)
+	X设置值(ctx context.Context, key string, value interface{}, option ...SetOption) (*泛型类.Var, error)
 	SetNX(ctx context.Context, key string, value interface{}) (bool, error)
 	SetEX(ctx context.Context, key string, value interface{}, ttlInSeconds int64) error
-	Get(ctx context.Context, key string) (*gvar.Var, error)
-	GetDel(ctx context.Context, key string) (*gvar.Var, error)
-	GetEX(ctx context.Context, key string, option ...GetEXOption) (*gvar.Var, error)
-	GetSet(ctx context.Context, key string, value interface{}) (*gvar.Var, error)
+	Get(ctx context.Context, key string) (*泛型类.Var, error)
+	GetDel(ctx context.Context, key string) (*泛型类.Var, error)
+	GetEX(ctx context.Context, key string, option ...GetEXOption) (*泛型类.Var, error)
+	GetSet(ctx context.Context, key string, value interface{}) (*泛型类.Var, error)
 	StrLen(ctx context.Context, key string) (int64, error)
 	Append(ctx context.Context, key string, value string) (int64, error)
 	SetRange(ctx context.Context, key string, offset int64, value string) (int64, error)
@@ -32,7 +32,7 @@ type IGroupString interface {
 	DecrBy(ctx context.Context, key string, decrement int64) (int64, error)
 	MSet(ctx context.Context, keyValueMap map[string]interface{}) error
 	MSetNX(ctx context.Context, keyValueMap map[string]interface{}) (bool, error)
-	MGet(ctx context.Context, keys ...string) (map[string]*gvar.Var, error)
+	MGet(ctx context.Context, keys ...string) (map[string]*泛型类.Var, error)
 }
 
 // TTLOption 提供了与TTL相关函数的额外选项。

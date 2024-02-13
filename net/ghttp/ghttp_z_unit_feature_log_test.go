@@ -5,7 +5,7 @@
 
 // 静态服务测试。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -22,43 +22,43 @@ import (
 )
 
 func Test_Log(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		logDir := gfile.Temp(gtime.TimestampNanoStr())
-		s := g.Server(guid.S())
-		s.BindHandler("/hello", func(r *ghttp.Request) {
-			r.Response.Write("hello")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		logDir := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+		s := g.Http类(uid类.X生成())
+		s.X绑定("/hello", func(r *http类.Request) {
+			r.Response.X写响应缓冲区("hello")
 		})
-		s.BindHandler("/error", func(r *ghttp.Request) {
+		s.X绑定("/error", func(r *http类.Request) {
 			panic("custom error")
 		})
-		s.SetLogPath(logDir)
-		s.SetAccessLogEnabled(true)
-		s.SetErrorLogEnabled(true)
-		s.SetLogStdout(false)
-		s.Start()
-		defer s.Shutdown()
-		defer gfile.Remove(logDir)
+		s.X设置日志存储目录(logDir)
+		s.X设置日志开启访客记录(true)
+		s.X设置日志开启错误记录(true)
+		s.X设置日志开启输出到CMD(false)
+		s.X开始监听()
+		defer s.X关闭当前服务()
+		defer 文件类.X删除(logDir)
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/hello"), "hello")
-		t.Assert(client.GetContent(ctx, "/error"), "exception recovered: custom error")
+		t.Assert(client.Get文本(ctx, "/hello"), "hello")
+		t.Assert(client.Get文本(ctx, "/error"), "exception recovered: custom error")
 
 		var (
-			logPath1 = gfile.Join(logDir, gtime.Now().Format("Y-m-d")+".log")
-			content  = gfile.GetContents(logPath1)
+			logPath1 = 文件类.X路径生成(logDir, 时间类.X创建并按当前时间().X取格式文本("Y-m-d")+".log")
+			content  = 文件类.X读文本(logPath1)
 		)
-		t.Assert(gstr.Contains(content, "http server started listening on"), true)
-		t.Assert(gstr.Contains(content, "HANDLER"), true)
+		t.Assert(文本类.X是否包含(content, "http server started listening on"), true)
+		t.Assert(文本类.X是否包含(content, "HANDLER"), true)
 
-		logPath2 := gfile.Join(logDir, "access-"+gtime.Now().Format("Ymd")+".log")
+		logPath2 := 文件类.X路径生成(logDir, "access-"+时间类.X创建并按当前时间().X取格式文本("Ymd")+".log")
 		// 打印logPath2文件的全部内容
 // fmt.Println(gfile.GetContents(logPath2))
-		t.Assert(gstr.Contains(gfile.GetContents(logPath2), " /hello "), true)
+		t.Assert(文本类.X是否包含(文件类.X读文本(logPath2), " /hello "), true)
 
-		logPath3 := gfile.Join(logDir, "error-"+gtime.Now().Format("Ymd")+".log")
+		logPath3 := 文件类.X路径生成(logDir, "error-"+时间类.X创建并按当前时间().X取格式文本("Ymd")+".log")
 		// 打印从logPath3获取的文件内容到控制台（标准输出）
-		t.Assert(gstr.Contains(gfile.GetContents(logPath3), "custom error"), true)
+		t.Assert(文本类.X是否包含(文件类.X读文本(logPath3), "custom error"), true)
 	})
 }

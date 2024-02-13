@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -19,79 +19,79 @@ import (
 )
 
 func Test_Cookie(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/set", func(r *ghttp.Request) {
-		r.Cookie.Set(r.Get("k").String(), r.Get("v").String())
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/set", func(r *http类.Request) {
+		r.Cookie.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
-	s.BindHandler("/get", func(r *ghttp.Request) {
-		r.Response.Write(r.Cookie.Get(r.Get("k").String()))
+	s.X绑定("/get", func(r *http类.Request) {
+		r.Response.X写响应缓冲区(r.Cookie.X取值(r.Get别名("k").String()))
 	})
-	s.BindHandler("/remove", func(r *ghttp.Request) {
-		r.Cookie.Remove(r.Get("k").String())
+	s.X绑定("/remove", func(r *http类.Request) {
+		r.Cookie.X删除值(r.Get别名("k").String())
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetBrowserMode(true)
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		r1, e1 := client.Get(ctx, "/set?k=key1&v=100")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X启用浏览器模式(true)
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		r1, e1 := client.Get响应对象(ctx, "/set?k=key1&v=100")
 		if r1 != nil {
-			defer r1.Close()
+			defer r1.X关闭()
 		}
 
 		t.Assert(e1, nil)
-		t.Assert(r1.ReadAllString(), "")
+		t.Assert(r1.X取响应文本(), "")
 
-		t.Assert(client.GetContent(ctx, "/set?k=key2&v=200"), "")
+		t.Assert(client.Get文本(ctx, "/set?k=key2&v=200"), "")
 
-		t.Assert(client.GetContent(ctx, "/get?k=key1"), "100")
-		t.Assert(client.GetContent(ctx, "/get?k=key2"), "200")
-		t.Assert(client.GetContent(ctx, "/get?k=key3"), "")
-		t.Assert(client.GetContent(ctx, "/remove?k=key1"), "")
-		t.Assert(client.GetContent(ctx, "/remove?k=key3"), "")
-		t.Assert(client.GetContent(ctx, "/remove?k=key4"), "")
-		t.Assert(client.GetContent(ctx, "/get?k=key1"), "")
-		t.Assert(client.GetContent(ctx, "/get?k=key2"), "200")
+		t.Assert(client.Get文本(ctx, "/get?k=key1"), "100")
+		t.Assert(client.Get文本(ctx, "/get?k=key2"), "200")
+		t.Assert(client.Get文本(ctx, "/get?k=key3"), "")
+		t.Assert(client.Get文本(ctx, "/remove?k=key1"), "")
+		t.Assert(client.Get文本(ctx, "/remove?k=key3"), "")
+		t.Assert(client.Get文本(ctx, "/remove?k=key4"), "")
+		t.Assert(client.Get文本(ctx, "/get?k=key1"), "")
+		t.Assert(client.Get文本(ctx, "/get?k=key2"), "200")
 	})
 }
 
 func Test_SetHttpCookie(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/set", func(r *ghttp.Request) {
-		r.Cookie.SetHttpCookie(&http.Cookie{
-			Name:  r.Get("k").String(),
-			Value: r.Get("v").String(),
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/set", func(r *http类.Request) {
+		r.Cookie.X设置httpcookie(&http.Cookie{
+			Name:  r.Get别名("k").String(),
+			Value: r.Get别名("v").String(),
 		})
 	})
-	s.BindHandler("/get", func(r *ghttp.Request) {
-		r.Response.Write(r.Cookie.Get(r.Get("k").String()))
+	s.X绑定("/get", func(r *http类.Request) {
+		r.Response.X写响应缓冲区(r.Cookie.X取值(r.Get别名("k").String()))
 	})
-	s.BindHandler("/remove", func(r *ghttp.Request) {
-		r.Cookie.Remove(r.Get("k").String())
+	s.X绑定("/remove", func(r *http类.Request) {
+		r.Cookie.X删除值(r.Get别名("k").String())
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetBrowserMode(true)
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		r1, e1 := client.Get(ctx, "/set?k=key1&v=100")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X启用浏览器模式(true)
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		r1, e1 := client.Get响应对象(ctx, "/set?k=key1&v=100")
 		if r1 != nil {
-			defer r1.Close()
+			defer r1.X关闭()
 		}
 		t.Assert(e1, nil)
-		t.Assert(r1.ReadAllString(), "")
+		t.Assert(r1.X取响应文本(), "")
 
-		t.Assert(client.GetContent(ctx, "/set?k=key2&v=200"), "")
+		t.Assert(client.Get文本(ctx, "/set?k=key2&v=200"), "")
 
-		t.Assert(client.GetContent(ctx, "/get?k=key1"), "100")
+		t.Assert(client.Get文本(ctx, "/get?k=key1"), "100")
 // t.Assert(client.GetContent(ctx, "/get?k=key2"), "200")
 // 中文注释：断言通过上下文ctx，使用client获取"/get?k=key2"的请求内容，并判断其响应状态码应为"200"
 // t.Assert(client.GetContent(ctx, "/get?k=key3"), "")
@@ -111,26 +111,26 @@ func Test_SetHttpCookie(t *testing.T) {
 }
 
 func Test_CookieOptionsDefault(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/test", func(r *ghttp.Request) {
-		r.Cookie.Set(r.Get("k").String(), r.Get("v").String())
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/test", func(r *http类.Request) {
+		r.Cookie.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetBrowserMode(true)
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		r1, e1 := client.Get(ctx, "/test?k=key1&v=100")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X启用浏览器模式(true)
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		r1, e1 := client.Get响应对象(ctx, "/test?k=key1&v=100")
 		if r1 != nil {
-			defer r1.Close()
+			defer r1.X关闭()
 		}
 
 		t.Assert(e1, nil)
-		t.Assert(r1.ReadAllString(), "")
+		t.Assert(r1.X取响应文本(), "")
 
 		parts := strings.Split(r1.Header.Get("Set-Cookie"), "; ")
 
@@ -140,31 +140,31 @@ func Test_CookieOptionsDefault(t *testing.T) {
 }
 
 func Test_CookieOptions(t *testing.T) {
-	s := g.Server(guid.S())
-	s.SetConfigWithMap(g.Map{
+	s := g.Http类(uid类.X生成())
+	s.X设置配置项Map(g.Map{
 		"cookieSameSite": "lax",
 		"cookieSecure":   true,
 		"cookieHttpOnly": true,
 	})
-	s.BindHandler("/test", func(r *ghttp.Request) {
-		r.Cookie.Set(r.Get("k").String(), r.Get("v").String())
+	s.X绑定("/test", func(r *http类.Request) {
+		r.Cookie.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetBrowserMode(true)
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		r1, e1 := client.Get(ctx, "/test?k=key1&v=100")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X启用浏览器模式(true)
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		r1, e1 := client.Get响应对象(ctx, "/test?k=key1&v=100")
 		if r1 != nil {
-			defer r1.Close()
+			defer r1.X关闭()
 		}
 
 		t.Assert(e1, nil)
-		t.Assert(r1.ReadAllString(), "")
+		t.Assert(r1.X取响应文本(), "")
 
 		parts := strings.Split(r1.Header.Get("Set-Cookie"), "; ")
 

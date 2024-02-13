@@ -12,6 +12,6 @@ import (
 // SetDebug 手动启用/禁用 GoFrame 内部日志功能。
 // 注意：此函数不是并发安全的，需要注意 DATA RACE（数据竞争）问题，
 // 这意味着你应该在程序启动阶段调用此函数，而不要在运行时调用。
-func SetDebug(enabled bool) {
-	utils.SetDebugEnabled(enabled)
+func X设置debug(开启 bool) {
+	utils.SetDebugEnabled(开启)
 }

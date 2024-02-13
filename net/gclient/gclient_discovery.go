@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient
+package 网页类
 
 import (
 	"context"
@@ -30,7 +30,7 @@ func (n *discoveryNode) Address() string {
 	return n.address
 }
 
-var clientSelectorMap = gmap.New(true)
+var clientSelectorMap = map类.X创建(true)
 
 // internalMiddlewareDiscovery 是一个客户端中间件，用于为客户端启用服务发现功能。
 func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response, err error) {
@@ -43,7 +43,7 @@ func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response
 	)
 	service, err = gsvc.GetAndWatchWithDiscovery(ctx, c.discovery, r.URL.Host, func(service gsvc.Service) {
 		intlog.Printf(ctx, `http client watching service "%s" changed`, service.GetPrefix())
-		if v := clientSelectorMap.Get(service.GetPrefix()); v != nil {
+		if v := clientSelectorMap.X取值(service.GetPrefix()); v != nil {
 			if err = updateSelectorNodesByService(ctx, v.(gsel.Selector), service); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
@@ -58,7 +58,7 @@ func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response
 	// Balancer.
 	var (
 		selectorMapKey   = service.GetPrefix()
-		selectorMapValue = clientSelectorMap.GetOrSetFuncLock(selectorMapKey, func() interface{} {
+		selectorMapValue = clientSelectorMap.X取值或设置值_函数带锁(selectorMapKey, func() interface{} {
 			intlog.Printf(ctx, `http client create selector for service "%s"`, selectorMapKey)
 			selector := c.builder.Build()
 			// 更新选择器节点。

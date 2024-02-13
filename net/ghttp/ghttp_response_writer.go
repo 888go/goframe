@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package ghttp
+package http类
 
 import (
 	"bufio"

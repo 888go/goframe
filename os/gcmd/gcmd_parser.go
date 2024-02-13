@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gcmd
+package cmd类
 
 import (
 	"context"
@@ -100,7 +100,7 @@ func ParseArgs(args []string, supportedOptions map[string]bool, option ...Parser
 
 	for i := 0; i < len(args); {
 		if option := parser.parseOption(args[i]); option != "" {
-			array, _ := gregex.MatchString(`^(.+?)=(.+)$`, option)
+			array, _ := 正则类.X匹配文本(`^(.+?)=(.+)$`, option)
 			if len(array) == 3 {
 				if parser.isOptionValid(array[1]) {
 					parser.setOptionValue(array[1], array[2])
@@ -127,7 +127,7 @@ func ParseArgs(args []string, supportedOptions map[string]bool, option ...Parser
 						i++
 						continue
 					} else if parser.option.Strict {
-						return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid option '%s'`, args[i])
+						return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid option '%s'`, args[i])
 					}
 				}
 			}
@@ -159,7 +159,7 @@ func (p *Parser) parseMultiOption(option string) []string {
 }
 
 func (p *Parser) parseOption(argument string) string {
-	array, _ := gregex.MatchString(`^\-{1,2}(.+)$`, argument)
+	array, _ := 正则类.X匹配文本(`^\-{1,2}(.+)$`, argument)
 	if len(array) == 2 {
 		return array[1]
 	}
@@ -174,7 +174,7 @@ func (p *Parser) isOptionValid(name string) bool {
 	}
 	// Case-InSensitive.
 	for optionName := range p.supportedOptions {
-		if gstr.Equal(optionName, name) {
+		if 文本类.X相等比较并忽略大小写(optionName, name) {
 			return true
 		}
 	}
@@ -188,7 +188,7 @@ func (p *Parser) isOptionNeedArgument(name string) bool {
 // setOptionValue 为名称name及其别名设置选项值。
 func (p *Parser) setOptionValue(name, value string) {
 	for optionName := range p.passedOptions {
-		array := gstr.SplitAndTrim(optionName, ",")
+		array := 文本类.X分割并忽略空值(optionName, ",")
 		for _, v := range array {
 			if strings.EqualFold(v, name) {
 				for _, v := range array {
@@ -201,12 +201,12 @@ func (p *Parser) setOptionValue(name, value string) {
 }
 
 // GetOpt 函数返回名为 `name` 的选项值，类型为 gvar.Var。
-func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
+func (p *Parser) GetOpt(name string, def ...interface{}) *泛型类.Var {
 	if v, ok := p.parsedOptions[name]; ok {
-		return gvar.New(v)
+		return 泛型类.X创建(v)
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0])
+		return 泛型类.X创建(def[0])
 	}
 	return nil
 }
@@ -217,12 +217,12 @@ func (p *Parser) GetOptAll() map[string]string {
 }
 
 // GetArg 返回位于`index`处的参数作为gvar.Var类型。
-func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
+func (p *Parser) GetArg(index int, def ...string) *泛型类.Var {
 	if index >= 0 && index < len(p.parsedArgs) {
-		return gvar.New(p.parsedArgs[index])
+		return 泛型类.X创建(p.parsedArgs[index])
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0])
+		return 泛型类.X创建(def[0])
 	}
 	return nil
 }

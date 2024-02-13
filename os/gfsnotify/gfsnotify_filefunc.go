@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT协议条款。如果随此文件未分发MIT协议副本，
 // 您可以在https://github.com/gogf/gf获取一份。
 
-package gfsnotify
+package 文件监控类
 
 import (
 	"fmt"
@@ -108,13 +108,13 @@ func doFileScanDir(path string, pattern string, recursive ...bool) ([]string, er
 		file, err = os.Open(path)
 	)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `os.Open failed for path "%s"`, path)
 		return nil, err
 	}
 	defer file.Close()
 	names, err := file.Readdirnames(-1)
 	if err != nil {
-		err = gerror.Wrapf(err, `read directory files failed for path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `read directory files failed for path "%s"`, path)
 		return nil, err
 	}
 	filePath := ""

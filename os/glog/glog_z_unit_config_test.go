@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"bytes"
@@ -14,15 +14,15 @@ import (
 )
 
 func Test_SetConfigWithMap(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		l := New()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		l := X创建()
 		m := map[string]interface{}{
 			"path":     "/var/log",
 			"level":    "all",
 			"stdout":   false,
 			"StStatus": 0,
 		}
-		err := l.SetConfigWithMap(m)
+		err := l.X设置配置Map(m)
 		t.AssertNil(err)
 		t.Assert(l.config.Path, m["path"])
 		t.Assert(l.config.Level, LEVEL_ALL)
@@ -31,34 +31,34 @@ func Test_SetConfigWithMap(t *testing.T) {
 }
 
 func Test_SetConfigWithMap_LevelStr(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		buffer := bytes.NewBuffer(nil)
-		l := New()
+		l := X创建()
 		m := map[string]interface{}{
 			"level": "all",
 		}
-		err := l.SetConfigWithMap(m)
+		err := l.X设置配置Map(m)
 		t.AssertNil(err)
 
-		l.SetWriter(buffer)
+		l.X设置Writer(buffer)
 
-		l.Debug(ctx, "test")
-		l.Warning(ctx, "test")
+		l.X输出DEBU(ctx, "test")
+		l.X输出WARN(ctx, "test")
 		t.Assert(strings.Contains(buffer.String(), "DEBU"), true)
 		t.Assert(strings.Contains(buffer.String(), "WARN"), true)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		buffer := bytes.NewBuffer(nil)
-		l := New()
+		l := X创建()
 		m := map[string]interface{}{
 			"level": "warn",
 		}
-		err := l.SetConfigWithMap(m)
+		err := l.X设置配置Map(m)
 		t.AssertNil(err)
-		l.SetWriter(buffer)
-		l.Debug(ctx, "test")
-		l.Warning(ctx, "test")
+		l.X设置Writer(buffer)
+		l.X输出DEBU(ctx, "test")
+		l.X输出WARN(ctx, "test")
 		t.Assert(strings.Contains(buffer.String(), "DEBU"), false)
 		t.Assert(strings.Contains(buffer.String(), "WARN"), true)
 	})

@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview
+package 模板类
 
 import (
 	"context"
@@ -22,7 +22,7 @@ func (view *View) i18nTranslate(ctx context.Context, content string, variables P
 	if view.config.I18nManager != nil {
 		// 与旧版本兼容。
 		if language, ok := variables[i18nLanguageVariableName]; ok {
-			ctx = gi18n.WithLanguage(ctx, gconv.String(language))
+			ctx = gi18n.WithLanguage(ctx, 转换类.String(language))
 		}
 		return view.config.I18nManager.T(ctx, content)
 	}

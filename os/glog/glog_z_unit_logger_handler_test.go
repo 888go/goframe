@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog_test
+package 日志类_test
 
 import (
 	"bytes"
@@ -16,115 +16,115 @@ import (
 	"github.com/888go/goframe/text/gstr"
 )
 
-var arrayForHandlerTest1 = garray.NewStrArray()
+var arrayForHandlerTest1 = 数组类.X创建文本()
 
-func customHandler1(ctx context.Context, input *glog.HandlerInput) {
-	arrayForHandlerTest1.Append(input.String(false))
+func customHandler1(ctx context.Context, input *日志类.HandlerInput) {
+	arrayForHandlerTest1.Append别名(input.String(false))
 	input.Next(ctx)
 }
 
 func TestLogger_SetHandlers1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		w := bytes.NewBuffer(nil)
-		l := glog.NewWithWriter(w)
-		l.SetHandlers(customHandler1)
-		l.SetCtxKeys("Trace-Id", "Span-Id", "Test")
+		l := 日志类.X创建并按writer(w)
+		l.X设置中间件(customHandler1)
+		l.X设置上下文名称("Trace-Id", "Span-Id", "Test")
 		ctx := context.WithValue(context.Background(), "Trace-Id", "1234567890")
 		ctx = context.WithValue(ctx, "Span-Id", "abcdefg")
 
-		l.Print(ctx, 1, 2, 3)
-		t.Assert(gstr.Count(w.String(), "1234567890"), 1)
-		t.Assert(gstr.Count(w.String(), "abcdefg"), 1)
-		t.Assert(gstr.Count(w.String(), "1 2 3"), 1)
+		l.X输出(ctx, 1, 2, 3)
+		t.Assert(文本类.X统计次数(w.String(), "1234567890"), 1)
+		t.Assert(文本类.X统计次数(w.String(), "abcdefg"), 1)
+		t.Assert(文本类.X统计次数(w.String(), "1 2 3"), 1)
 
-		t.Assert(arrayForHandlerTest1.Len(), 1)
-		t.Assert(gstr.Count(arrayForHandlerTest1.At(0), "1234567890"), 1)
-		t.Assert(gstr.Count(arrayForHandlerTest1.At(0), "abcdefg"), 1)
-		t.Assert(gstr.Count(arrayForHandlerTest1.At(0), "1 2 3"), 1)
+		t.Assert(arrayForHandlerTest1.X取长度(), 1)
+		t.Assert(文本类.X统计次数(arrayForHandlerTest1.X取值(0), "1234567890"), 1)
+		t.Assert(文本类.X统计次数(arrayForHandlerTest1.X取值(0), "abcdefg"), 1)
+		t.Assert(文本类.X统计次数(arrayForHandlerTest1.X取值(0), "1 2 3"), 1)
 	})
 }
 
-var arrayForHandlerTest2 = garray.NewStrArray()
+var arrayForHandlerTest2 = 数组类.X创建文本()
 
-func customHandler2(ctx context.Context, input *glog.HandlerInput) {
-	arrayForHandlerTest2.Append(input.String(false))
+func customHandler2(ctx context.Context, input *日志类.HandlerInput) {
+	arrayForHandlerTest2.Append别名(input.String(false))
 }
 
 func TestLogger_SetHandlers2(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		w := bytes.NewBuffer(nil)
-		l := glog.NewWithWriter(w)
-		l.SetHandlers(customHandler2)
-		l.SetCtxKeys("Trace-Id", "Span-Id", "Test")
+		l := 日志类.X创建并按writer(w)
+		l.X设置中间件(customHandler2)
+		l.X设置上下文名称("Trace-Id", "Span-Id", "Test")
 		ctx := context.WithValue(context.Background(), "Trace-Id", "1234567890")
 		ctx = context.WithValue(ctx, "Span-Id", "abcdefg")
 
-		l.Print(ctx, 1, 2, 3)
-		t.Assert(gstr.Count(w.String(), "1234567890"), 0)
-		t.Assert(gstr.Count(w.String(), "abcdefg"), 0)
-		t.Assert(gstr.Count(w.String(), "1 2 3"), 0)
+		l.X输出(ctx, 1, 2, 3)
+		t.Assert(文本类.X统计次数(w.String(), "1234567890"), 0)
+		t.Assert(文本类.X统计次数(w.String(), "abcdefg"), 0)
+		t.Assert(文本类.X统计次数(w.String(), "1 2 3"), 0)
 
-		t.Assert(arrayForHandlerTest2.Len(), 1)
-		t.Assert(gstr.Count(arrayForHandlerTest2.At(0), "1234567890"), 1)
-		t.Assert(gstr.Count(arrayForHandlerTest2.At(0), "abcdefg"), 1)
-		t.Assert(gstr.Count(arrayForHandlerTest2.At(0), "1 2 3"), 1)
+		t.Assert(arrayForHandlerTest2.X取长度(), 1)
+		t.Assert(文本类.X统计次数(arrayForHandlerTest2.X取值(0), "1234567890"), 1)
+		t.Assert(文本类.X统计次数(arrayForHandlerTest2.X取值(0), "abcdefg"), 1)
+		t.Assert(文本类.X统计次数(arrayForHandlerTest2.X取值(0), "1 2 3"), 1)
 	})
 }
 
 func TestLogger_SetHandlers_HandlerJson(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		w := bytes.NewBuffer(nil)
-		l := glog.NewWithWriter(w)
-		l.SetHandlers(glog.HandlerJson)
-		l.SetCtxKeys("Trace-Id", "Span-Id", "Test")
+		l := 日志类.X创建并按writer(w)
+		l.X设置中间件(日志类.X中间件函数Json)
+		l.X设置上下文名称("Trace-Id", "Span-Id", "Test")
 		ctx := context.WithValue(context.Background(), "Trace-Id", "1234567890")
 		ctx = context.WithValue(ctx, "Span-Id", "abcdefg")
 
-		l.Debug(ctx, 1, 2, 3)
-		t.Assert(gstr.Count(w.String(), "1234567890"), 1)
-		t.Assert(gstr.Count(w.String(), "abcdefg"), 1)
-		t.Assert(gstr.Count(w.String(), `"1 2 3"`), 1)
-		t.Assert(gstr.Count(w.String(), `"DEBU"`), 1)
+		l.X输出DEBU(ctx, 1, 2, 3)
+		t.Assert(文本类.X统计次数(w.String(), "1234567890"), 1)
+		t.Assert(文本类.X统计次数(w.String(), "abcdefg"), 1)
+		t.Assert(文本类.X统计次数(w.String(), `"1 2 3"`), 1)
+		t.Assert(文本类.X统计次数(w.String(), `"DEBU"`), 1)
 	})
 }
 
 func TestLogger_SetHandlers_HandlerStructure(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		w := bytes.NewBuffer(nil)
-		l := glog.NewWithWriter(w)
-		l.SetHandlers(glog.HandlerStructure)
-		l.SetCtxKeys("Trace-Id", "Span-Id", "Test")
+		l := 日志类.X创建并按writer(w)
+		l.X设置中间件(日志类.X中间件函数文本结构化输出)
+		l.X设置上下文名称("Trace-Id", "Span-Id", "Test")
 		ctx := context.WithValue(context.Background(), "Trace-Id", "1234567890")
 		ctx = context.WithValue(ctx, "Span-Id", "abcdefg")
 
-		l.Debug(ctx, "debug", "uid", 1000)
-		l.Info(ctx, "info", "' '", `"\n`)
+		l.X输出DEBU(ctx, "debug", "uid", 1000)
+		l.X输出INFO(ctx, "info", "' '", `"\n`)
 
-		t.Assert(gstr.Count(w.String(), "uid=1000"), 1)
-		t.Assert(gstr.Count(w.String(), "Content=debug"), 1)
-		t.Assert(gstr.Count(w.String(), `"' '"="\"\\n"`), 1)
-		t.Assert(gstr.Count(w.String(), `CtxStr="1234567890, abcdefg"`), 2)
+		t.Assert(文本类.X统计次数(w.String(), "uid=1000"), 1)
+		t.Assert(文本类.X统计次数(w.String(), "Content=debug"), 1)
+		t.Assert(文本类.X统计次数(w.String(), `"' '"="\"\\n"`), 1)
+		t.Assert(文本类.X统计次数(w.String(), `CtxStr="1234567890, abcdefg"`), 2)
 	})
 }
 
 func Test_SetDefaultHandler(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		oldHandler := glog.GetDefaultHandler()
-		glog.SetDefaultHandler(func(ctx context.Context, in *glog.HandlerInput) {
-			glog.HandlerJson(ctx, in)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		oldHandler := 日志类.X取默认中间件()
+		日志类.X设置默认中间件(func(ctx context.Context, in *日志类.HandlerInput) {
+			日志类.X中间件函数Json(ctx, in)
 		})
-		defer glog.SetDefaultHandler(oldHandler)
+		defer 日志类.X设置默认中间件(oldHandler)
 
 		w := bytes.NewBuffer(nil)
-		l := glog.NewWithWriter(w)
-		l.SetCtxKeys("Trace-Id", "Span-Id", "Test")
+		l := 日志类.X创建并按writer(w)
+		l.X设置上下文名称("Trace-Id", "Span-Id", "Test")
 		ctx := context.WithValue(context.Background(), "Trace-Id", "1234567890")
 		ctx = context.WithValue(ctx, "Span-Id", "abcdefg")
 
-		l.Debug(ctx, 1, 2, 3)
-		t.Assert(gstr.Count(w.String(), "1234567890"), 1)
-		t.Assert(gstr.Count(w.String(), "abcdefg"), 1)
-		t.Assert(gstr.Count(w.String(), `"1 2 3"`), 1)
-		t.Assert(gstr.Count(w.String(), `"DEBU"`), 1)
+		l.X输出DEBU(ctx, 1, 2, 3)
+		t.Assert(文本类.X统计次数(w.String(), "1234567890"), 1)
+		t.Assert(文本类.X统计次数(w.String(), "abcdefg"), 1)
+		t.Assert(文本类.X统计次数(w.String(), `"1 2 3"`), 1)
+		t.Assert(文本类.X统计次数(w.String(), `"DEBU"`), 1)
 	})
 }

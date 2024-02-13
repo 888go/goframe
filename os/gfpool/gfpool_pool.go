@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfpool
+package 文件指针池类
 
 import (
 	"os"
@@ -29,25 +29,25 @@ func New(path string, flag int, perm os.FileMode, ttl ...time.Duration) *Pool {
 		fpTTL = ttl[0]
 	}
 	p := &Pool{
-		id:   gtype.NewInt(),
+		id:   安全变量类.NewInt(),
 		ttl:  fpTTL,
-		init: gtype.NewBool(),
+		init: 安全变量类.NewBool(),
 	}
 	p.pool = newFilePool(p, path, flag, perm, fpTTL)
 	return p
 }
 
 // newFilePool 根据给定的文件路径、标志和打开权限创建并返回一个文件指针池。
-func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Duration) *gpool.Pool {
-	pool := gpool.New(ttl, func() (interface{}, error) {
+func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Duration) *对象复用类.Pool {
+	pool := 对象复用类.X创建(ttl, func() (interface{}, error) {
 		file, err := os.OpenFile(path, flag, perm)
 		if err != nil {
-			err = gerror.Wrapf(err, `os.OpenFile failed for file "%s", flag "%d", perm "%s"`, path, flag, perm)
+			err = 错误类.X多层错误并格式化(err, `os.OpenFile failed for file "%s", flag "%d", perm "%s"`, path, flag, perm)
 			return nil, err
 		}
 		return &File{
 			File: file,
-			pid:  p.id.Val(),
+			pid:  p.id.X取值(),
 			pool: p,
 			flag: flag,
 			perm: perm,
@@ -62,7 +62,7 @@ func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Dura
 // File 从文件指针池中获取文件项并返回，如果文件指针池为空，则创建一个新的文件项。
 // 注意：当文件项不再使用时，应关闭它。当其被关闭时，并非真正关闭底层的文件指针，而是将其放回文件指针池中。
 func (p *Pool) File() (*File, error) {
-	if v, err := p.pool.Get(); err != nil {
+	if v, err := p.pool.X出栈(); err != nil {
 		return nil, err
 	} else {
 		f := v.(*File)
@@ -96,14 +96,14 @@ func (p *Pool) File() (*File, error) {
 			}
 		}
 		// 为了性能优化，首先使用 !p.init.Val() 进行检查。
-		if !p.init.Val() && p.init.Cas(false, true) {
-			_, _ = gfsnotify.Add(f.path, func(event *gfsnotify.Event) {
+		if !p.init.X取值() && p.init.Cas(false, true) {
+			_, _ = 文件监控类.Add(f.path, func(event *文件监控类.Event) {
 				// 如果文件被删除或重命名，通过增加pool id重新创建pool。
 				if event.IsRemove() || event.IsRename() {
 					// 它会丢弃旧的连接池。
 					p.id.Add(1)
 					// 清除池中留存的池项。
-					p.pool.Clear()
+					p.pool.X清空()
 // 它利用另一个添加操作来丢弃两个添加之间的文件项。
 // 每当池ID发生变化时，将会重新创建该池。
 					p.id.Add(1)
@@ -116,5 +116,5 @@ func (p *Pool) File() (*File, error) {
 
 // Close 关闭当前文件指针池。
 func (p *Pool) Close() {
-	p.pool.Close()
+	p.pool.X关闭()
 }

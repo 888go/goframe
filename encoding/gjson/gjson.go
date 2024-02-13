@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gjson 提供了方便的 API 用于处理 JSON/XML/INI/YAML/TOML 数据。
-package gjson
+package json类
 
 import (
 	"reflect"
@@ -55,17 +55,17 @@ type Options struct {
 
 // iInterfaces 用于对 Interfaces() 方法进行类型断言。
 type iInterfaces interface {
-	Interfaces() []interface{}
+	X取any数组() []interface{}
 }
 
 // iMapStrAny 是支持将结构体参数转换为映射的接口。
 type iMapStrAny interface {
-	MapStrAny() map[string]interface{}
+	X取MapStrAny() map[string]interface{}
 }
 
 // iVal 是用于获取底层 interface{} 的接口。
 type iVal interface {
-	Val() interface{}
+	X取值() interface{}
 }
 
 // setValue 通过 `pattern` 将 `value` 设置为 `j`。
@@ -83,7 +83,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 	}
 	// 初始化检查。
 	if *j.p == nil {
-		if gstr.IsNumeric(array[0]) {
+		if 文本类.X是否为数字(array[0]) {
 			*j.p = make([]interface{}, 0)
 		} else {
 			*j.p = make(map[string]interface{})
@@ -115,7 +115,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 						goto done
 					}
 					// 创建新的节点。
-					if gstr.IsNumeric(array[i+1]) {
+					if 文本类.X是否为数字(array[i+1]) {
 						// 创建数组节点
 						n, _ := strconv.Atoi(array[i+1])
 						var v interface{} = make([]interface{}, n+1)
@@ -135,7 +135,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 
 		case []interface{}:
 			// A string key.
-			if !gstr.IsNumeric(array[i]) {
+			if !文本类.X是否为数字(array[i]) {
 				if i == length-1 {
 					*pointer = map[string]interface{}{array[i]: value}
 				} else {
@@ -149,7 +149,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 			// Numeric index.
 			valueNum, err := strconv.Atoi(array[i])
 			if err != nil {
-				err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `strconv.Atoi failed for string "%s"`, array[i])
+				err = 错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `strconv.Atoi failed for string "%s"`, array[i])
 				return err
 			}
 
@@ -183,7 +183,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 				}
 			} else {
 				// Branch node.
-				if gstr.IsNumeric(array[i+1]) {
+				if 文本类.X是否为数字(array[i+1]) {
 					n, _ := strconv.Atoi(array[i+1])
 					pSlice := (*pointer).([]interface{})
 					if len(pSlice) > valueNum {
@@ -242,7 +242,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 			if removed && value == nil {
 				goto done
 			}
-			if gstr.IsNumeric(array[i]) {
+			if 文本类.X是否为数字(array[i]) {
 				n, _ := strconv.Atoi(array[i])
 				s := make([]interface{}, n+1)
 				if i == length-1 {
@@ -300,28 +300,28 @@ func (j *Json) convertValue(value interface{}) (convertedValue interface{}, err 
 		)
 		switch reflectInfo.OriginKind {
 		case reflect.Array:
-			return gconv.Interfaces(value), nil
+			return 转换类.X取any数组(value), nil
 
 		case reflect.Slice:
-			return gconv.Interfaces(value), nil
+			return 转换类.X取any数组(value), nil
 
 		case reflect.Map:
-			return gconv.Map(value), nil
+			return 转换类.X取Map(value), nil
 
 		case reflect.Struct:
 			if v, ok := value.(iMapStrAny); ok {
-				convertedValue = v.MapStrAny()
+				convertedValue = v.X取MapStrAny()
 			}
-			if utils.IsNil(convertedValue) {
+			if utils.X是否为Nil(convertedValue) {
 				if v, ok := value.(iInterfaces); ok {
-					convertedValue = v.Interfaces()
+					convertedValue = v.X取any数组()
 				}
 			}
-			if utils.IsNil(convertedValue) {
-				convertedValue = gconv.Map(value)
+			if utils.X是否为Nil(convertedValue) {
+				convertedValue = 转换类.X取Map(value)
 			}
-			if utils.IsNil(convertedValue) {
-				err = gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported value type "%s"`, reflect.TypeOf(value))
+			if utils.X是否为Nil(convertedValue) {
+				err = 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `unsupported value type "%s"`, reflect.TypeOf(value))
 			}
 			return
 
@@ -461,7 +461,7 @@ func (j *Json) checkPatternByPointer(key string, pointer *interface{}) *interfac
 			return &v
 		}
 	case []interface{}:
-		if gstr.IsNumeric(key) {
+		if 文本类.X是否为数字(key) {
 			n, err := strconv.Atoi(key)
 			if err == nil && len((*pointer).([]interface{})) > n {
 				return &(*pointer).([]interface{})[n]

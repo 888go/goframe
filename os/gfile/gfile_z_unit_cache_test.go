@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"os"
@@ -15,13 +15,13 @@ import (
 )
 
 func Test_GetContentsWithCache(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var f *os.File
 		var err error
 		fileName := "test"
 		strTest := "123"
 
-		if !gfile.Exists(fileName) {
+		if !文件类.X是否存在(fileName) {
 			f, err = os.CreateTemp("", fileName)
 			if err != nil {
 				t.Error("create file fail")
@@ -31,30 +31,30 @@ func Test_GetContentsWithCache(t *testing.T) {
 		defer f.Close()
 		defer os.Remove(f.Name())
 
-		if gfile.Exists(f.Name()) {
-			f, err = gfile.OpenFile(f.Name(), os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+		if 文件类.X是否存在(f.Name()) {
+			f, err = 文件类.X打开(f.Name(), os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 			if err != nil {
 				t.Error("file open fail", err)
 			}
 
-			err = gfile.PutContents(f.Name(), strTest)
+			err = 文件类.X写入文本(f.Name(), strTest)
 			if err != nil {
 				t.Error("write error", err)
 			}
 
-			cache := gfile.GetContentsWithCache(f.Name(), 1)
+			cache := 文件类.X缓存读文本(f.Name(), 1)
 			t.Assert(cache, strTest)
 		}
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 
 		var f *os.File
 		var err error
 		fileName := "test2"
 		strTest := "123"
 
-		if !gfile.Exists(fileName) {
+		if !文件类.X是否存在(fileName) {
 			f, err = os.CreateTemp("", fileName)
 			if err != nil {
 				t.Error("create file fail")
@@ -64,15 +64,15 @@ func Test_GetContentsWithCache(t *testing.T) {
 		defer f.Close()
 		defer os.Remove(f.Name())
 
-		if gfile.Exists(f.Name()) {
-			cache := gfile.GetContentsWithCache(f.Name())
+		if 文件类.X是否存在(f.Name()) {
+			cache := 文件类.X缓存读文本(f.Name())
 
-			f, err = gfile.OpenFile(f.Name(), os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+			f, err = 文件类.X打开(f.Name(), os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 			if err != nil {
 				t.Error("file open fail", err)
 			}
 
-			err = gfile.PutContents(f.Name(), strTest)
+			err = 文件类.X写入文本(f.Name(), strTest)
 			if err != nil {
 				t.Error("write error", err)
 			}

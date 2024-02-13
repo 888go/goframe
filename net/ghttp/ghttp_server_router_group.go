@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -73,19 +73,19 @@ func (s *Server) handlePreBindItems(ctx context.Context) {
 }
 
 // Group 创建并返回一个 RouterGroup 对象。
-func (s *Server) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
-	if len(prefix) > 0 && prefix[0] != '/' {
-		prefix = "/" + prefix
+func (s *Server) X创建分组路由(分组前缀 string, 分组函数 ...func(分组路由 *RouterGroup)) *RouterGroup {
+	if len(分组前缀) > 0 && 分组前缀[0] != '/' {
+		分组前缀 = "/" + 分组前缀
 	}
-	if prefix == "/" {
-		prefix = ""
+	if 分组前缀 == "/" {
+		分组前缀 = ""
 	}
 	group := &RouterGroup{
 		server: s,
-		prefix: prefix,
+		prefix: 分组前缀,
 	}
-	if len(groups) > 0 {
-		for _, v := range groups {
+	if len(分组函数) > 0 {
+		for _, v := range 分组函数 {
 			v(group)
 		}
 	}
@@ -93,20 +93,20 @@ func (s *Server) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 }
 
 // Group 创建并返回一个 RouterGroup 对象，该对象与指定的域名绑定。
-func (d *Domain) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
-	if len(prefix) > 0 && prefix[0] != '/' {
-		prefix = "/" + prefix
+func (d *Domain) X创建分组路由(分组前缀 string, 分组函数 ...func(分组路由 *RouterGroup)) *RouterGroup {
+	if len(分组前缀) > 0 && 分组前缀[0] != '/' {
+		分组前缀 = "/" + 分组前缀
 	}
-	if prefix == "/" {
-		prefix = ""
+	if 分组前缀 == "/" {
+		分组前缀 = ""
 	}
 	routerGroup := &RouterGroup{
 		domain: d,
 		server: d.server,
-		prefix: prefix,
+		prefix: 分组前缀,
 	}
-	if len(groups) > 0 {
-		for _, nestedGroup := range groups {
+	if len(分组函数) > 0 {
+		for _, nestedGroup := range 分组函数 {
 			nestedGroup(routerGroup)
 		}
 	}
@@ -114,22 +114,22 @@ func (d *Domain) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 }
 
 // Group 创建并返回当前路由组的一个子组。
-func (g *RouterGroup) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
-	if prefix == "/" {
-		prefix = ""
+func (g *RouterGroup) X创建分组路由(分组前缀 string, 分组函数 ...func(分组路由 *RouterGroup)) *RouterGroup {
+	if 分组前缀 == "/" {
+		分组前缀 = ""
 	}
 	group := &RouterGroup{
 		parent: g,
 		server: g.server,
 		domain: g.domain,
-		prefix: prefix,
+		prefix: 分组前缀,
 	}
 	if len(g.middleware) > 0 {
 		group.middleware = make([]HandlerFunc, len(g.middleware))
 		copy(group.middleware, g.middleware)
 	}
-	if len(groups) > 0 {
-		for _, v := range groups {
+	if len(分组函数) > 0 {
+		for _, v := range 分组函数 {
 			v(group)
 		}
 	}
@@ -137,7 +137,7 @@ func (g *RouterGroup) Group(prefix string, groups ...func(group *RouterGroup)) *
 }
 
 // Clone 返回一个新的路由组，它是当前组的克隆副本。
-func (g *RouterGroup) Clone() *RouterGroup {
+func (g *RouterGroup) X取副本() *RouterGroup {
 	newGroup := &RouterGroup{
 		parent:     g.parent,
 		server:     g.server,
@@ -150,12 +150,12 @@ func (g *RouterGroup) Clone() *RouterGroup {
 }
 
 // Bind 为一个路由组提供批量注册路由的功能。
-func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
+func (g *RouterGroup) X绑定(处理对象 ...interface{}) *RouterGroup {
 	var (
 		ctx   = context.TODO()
-		group = g.Clone()
+		group = g.X取副本()
 	)
-	for _, v := range handlerOrObject {
+	for _, v := range 处理对象 {
 		var (
 			item               = v
 			originValueAndKind = reflection.OriginValueAndKind(item)
@@ -170,7 +170,7 @@ func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
 			)
 
 		default:
-			g.server.Logger().Fatalf(
+			g.server.Logger别名().X输出并格式化FATA(
 				ctx, "invalid bind parameter type: %v, should be route function or struct object",
 				originValueAndKind.InputValue.Type(),
 			)
@@ -180,87 +180,87 @@ func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
 }
 
 // ALL 注册一个HTTP处理器，通过给定路由模式和所有HTTP方法。
-func (g *RouterGroup) ALL(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(
+func (g *RouterGroup) X绑定所有类型(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(
 		groupBindTypeHandler,
-		defaultMethod+":"+pattern,
-		object,
-		params...,
+		defaultMethod+":"+路由规则,
+		处理函数,
+		额外参数...,
 	)
 }
 
 // ALLMap 使用map为HTTP方法注册HTTP处理程序。
-func (g *RouterGroup) ALLMap(m map[string]interface{}) {
+func (g *RouterGroup) X绑定所有类型Map(m map[string]interface{}) {
 	for pattern, object := range m {
-		g.ALL(pattern, object)
+		g.X绑定所有类型(pattern, object)
 	}
 }
 
 // Map 通过使用映射表注册HTTP方法对应的HTTP处理器。
-func (g *RouterGroup) Map(m map[string]interface{}) {
+func (g *RouterGroup) X绑定Map(m map[string]interface{}) {
 	for pattern, object := range m {
 		g.preBindToLocalArray(groupBindTypeHandler, pattern, object)
 	}
 }
 
 // GET 注册一个 HTTP 处理器，用于给定的路由模式和 HTTP 方法：GET。
-func (g *RouterGroup) GET(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "GET:"+pattern, object, params...)
+func (g *RouterGroup) X绑定GET(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "GET:"+路由规则, 处理函数, 额外参数...)
 }
 
 // PUT 注册一个 HTTP 处理器，用于给定路由模式和 HTTP 方法：PUT。
-func (g *RouterGroup) PUT(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PUT:"+pattern, object, params...)
+func (g *RouterGroup) X绑定PUT(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "PUT:"+路由规则, 处理函数, 额外参数...)
 }
 
 // POST 注册一个 HTTP 处理器，用于给定路由模式和 HTTP 方法：POST。
-func (g *RouterGroup) POST(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "POST:"+pattern, object, params...)
+func (g *RouterGroup) X绑定POST(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "POST:"+路由规则, 处理函数, 额外参数...)
 }
 
 // DELETE 注册一个 HTTP 处理器，根据给定的路由模式和 HTTP 方法（DELETE）进行处理。
-func (g *RouterGroup) DELETE(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "DELETE:"+pattern, object, params...)
+func (g *RouterGroup) X绑定DELETE(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "DELETE:"+路由规则, 处理函数, 额外参数...)
 }
 
 // PATCH 注册一个 HTTP 处理器，用于给定的路由模式和 HTTP 方法：PATCH。
-func (g *RouterGroup) PATCH(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PATCH:"+pattern, object, params...)
+func (g *RouterGroup) X绑定PATCH(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "PATCH:"+路由规则, 处理函数, 额外参数...)
 }
 
 // HEAD 注册一个 HTTP 处理器，用于指定路由模式和 HTTP 方法：HEAD。
-func (g *RouterGroup) HEAD(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "HEAD:"+pattern, object, params...)
+func (g *RouterGroup) X绑定HEAD(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "HEAD:"+路由规则, 处理函数, 额外参数...)
 }
 
 // CONNECT 注册一个 HTTP 处理器，用于给定路由模式和 HTTP 方法：CONNECT。
-func (g *RouterGroup) CONNECT(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "CONNECT:"+pattern, object, params...)
+func (g *RouterGroup) X绑定CONNECT(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "CONNECT:"+路由规则, 处理函数, 额外参数...)
 }
 
 // OPTIONS 注册一个HTTP处理器，用于指定路由模式和HTTP方法：OPTIONS。
-func (g *RouterGroup) OPTIONS(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "OPTIONS:"+pattern, object, params...)
+func (g *RouterGroup) X绑定OPTIONS(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "OPTIONS:"+路由规则, 处理函数, 额外参数...)
 }
 
 // TRACE 注册一个 HTTP 处理器，用于提供路由模式和 HTTP 方法：TRACE。
-func (g *RouterGroup) TRACE(pattern string, object interface{}, params ...interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "TRACE:"+pattern, object, params...)
+func (g *RouterGroup) X绑定TRACE(路由规则 string, 处理函数 interface{}, 额外参数 ...interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, "TRACE:"+路由规则, 处理函数, 额外参数...)
 }
 
 // REST 根据REST规则注册一个HTTP处理器，以便给定路由模式。
-func (g *RouterGroup) REST(pattern string, object interface{}) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeRest, pattern, object)
+func (g *RouterGroup) X绑定RESTfulAPI对象(路由规则 string, 处理对象 interface{}) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeRest, 路由规则, 处理对象)
 }
 
 // Hook 将钩子注册到给定的路由模式。
-func (g *RouterGroup) Hook(pattern string, hook HookName, handler HandlerFunc) *RouterGroup {
-	return g.Clone().preBindToLocalArray(groupBindTypeHandler, pattern, handler, hook)
+func (g *RouterGroup) X绑定Hook(路由规则 string, 触发时机 HookName, 处理函数 HandlerFunc) *RouterGroup {
+	return g.X取副本().preBindToLocalArray(groupBindTypeHandler, 路由规则, 处理函数, 触发时机)
 }
 
 // Middleware 将一个或多个中间件绑定到路由组。
-func (g *RouterGroup) Middleware(handlers ...HandlerFunc) *RouterGroup {
-	g.middleware = append(g.middleware, handlers...)
+func (g *RouterGroup) X绑定中间件(处理函数 ...HandlerFunc) *RouterGroup {
+	g.middleware = append(g.middleware, 处理函数...)
 	return g
 }
 
@@ -303,7 +303,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 	if len(prefix) > 0 {
 		domain, method, path, err := g.server.parsePattern(pattern)
 		if err != nil {
-			g.server.Logger().Fatalf(ctx, "invalid route pattern: %s", pattern)
+			g.server.Logger别名().X输出并格式化FATA(ctx, "invalid route pattern: %s", pattern)
 		}
 		// 如果已经有域名，那么在模式中取消设置域名字段。
 		if g.domain != nil {
@@ -318,10 +318,10 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 		}
 	}
 	// 过滤重复的字符 '/'。
-	pattern = gstr.Replace(pattern, "//", "/")
+	pattern = 文本类.X替换(pattern, "//", "/")
 
 	// 将参数转换为字符串数组。
-	extras := gconv.Strings(params)
+	extras := 转换类.X取文本数组(params)
 
 	// 检查是否为钩子处理器。
 	if _, ok := object.(HandlerFunc); ok && len(extras) > 0 {
@@ -332,7 +332,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 		if reflect.ValueOf(object).Kind() == reflect.Func {
 			funcInfo, err := g.server.checkAndCreateFuncInfo(object, "", "", "")
 			if err != nil {
-				g.server.Logger().Fatal(ctx, err.Error())
+				g.server.Logger别名().X输出FATA(ctx, err.Error())
 				return g
 			}
 			in := doBindHandlerInput{
@@ -349,7 +349,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 			}
 		} else {
 			if len(extras) > 0 {
-				if gstr.Contains(extras[0], ",") {
+				if 文本类.X是否包含(extras[0], ",") {
 					in := doBindObjectInput{
 						Prefix:     prefix,
 						Pattern:    pattern,
@@ -426,7 +426,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 				g.server.doBindHookHandler(ctx, in)
 			}
 		} else {
-			g.server.Logger().Fatalf(ctx, "invalid hook handler for pattern: %s", pattern)
+			g.server.Logger别名().X输出并格式化FATA(ctx, "invalid hook handler for pattern: %s", pattern)
 		}
 	}
 	return g

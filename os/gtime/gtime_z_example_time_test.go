@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtime_test
+package 时间类_test
 
 import (
 	"encoding/json"
@@ -17,11 +17,11 @@ import (
 func ExampleNew_Basic() {
 	curTime := "2018-08-08 08:08:08"
 	timer, _ := time.Parse("2006-01-02 15:04:05", curTime)
-	t1 := gtime.New(&timer)
-	t2 := gtime.New(curTime)
-	t3 := gtime.New(curTime, "Y-m-d H:i:s")
-	t4 := gtime.New(curTime)
-	t5 := gtime.New(1533686888)
+	t1 := 时间类.X创建(&timer)
+	t2 := 时间类.X创建(curTime)
+	t3 := 时间类.X创建(curTime, "Y-m-d H:i:s")
+	t4 := 时间类.X创建(curTime)
+	t5 := 时间类.X创建(1533686888)
 
 	fmt.Println(t1)
 	fmt.Println(t2)
@@ -38,7 +38,7 @@ func ExampleNew_Basic() {
 }
 
 func ExampleNew_WithFormat() {
-	fmt.Println(gtime.New("20220629133225", "YmdHis").Format("Y-m-d H:i:s"))
+	fmt.Println(时间类.X创建("20220629133225", "YmdHis").X取格式文本("Y-m-d H:i:s"))
 
 	// Output:
 	// 2022-06-29 13:32:25
@@ -46,7 +46,7 @@ func ExampleNew_WithFormat() {
 
 // Now 创建并返回一个表示当前时间的时间对象。
 func ExampleNow() {
-	t := gtime.Now()
+	t := 时间类.X创建并按当前时间()
 	fmt.Println(t)
 
 	// May Output:
@@ -56,7 +56,7 @@ func ExampleNow() {
 // NewFromTime 根据给定的 time.Time 对象创建并返回一个 Time 对象。
 func ExampleNewFromTime() {
 	timer, _ := time.Parse("2006-01-02 15:04:05", "2018-08-08 08:08:08")
-	nTime := gtime.NewFromTime(timer)
+	nTime := 时间类.X创建并按Time(timer)
 
 	fmt.Println(nTime)
 
@@ -67,7 +67,7 @@ func ExampleNewFromTime() {
 // NewFromStr 通过给定的字符串创建并返回一个 Time 对象。
 // 注意，如果发生错误，它将返回 nil。
 func ExampleNewFromStr() {
-	t := gtime.NewFromStr("2018-08-08 08:08:08")
+	t := 时间类.X创建并从文本("2018-08-08 08:08:08")
 
 	fmt.Println(t)
 
@@ -78,7 +78,7 @@ func ExampleNewFromStr() {
 // NewFromStrFormat 根据给定的字符串和自定义格式（如：Y-m-d H:i:s）创建并返回一个Time对象。
 // 需要注意，如果发生错误，它将返回nil。
 func ExampleNewFromStrFormat() {
-	t := gtime.NewFromStrFormat("2018-08-08 08:08:08", "Y-m-d H:i:s")
+	t := 时间类.X创建并按给定格式文本("2018-08-08 08:08:08", "Y-m-d H:i:s")
 	fmt.Println(t)
 
 	// Output:
@@ -88,7 +88,7 @@ func ExampleNewFromStrFormat() {
 // NewFromStrLayout 根据给定的字符串和标准库布局（如：2006-01-02 15:04:05）创建并返回一个Time对象。
 // 需要注意的是，如果发生错误，它将返回nil。
 func ExampleNewFromStrLayout() {
-	t := gtime.NewFromStrLayout("2018-08-08 08:08:08", "2006-01-02 15:04:05")
+	t := 时间类.X创建并按Layout格式文本("2018-08-08 08:08:08", "2006-01-02 15:04:05")
 	fmt.Println(t)
 
 	// Output:
@@ -99,8 +99,8 @@ func ExampleNewFromStrLayout() {
 // 时间戳可以是秒级到纳秒级精度。
 // 例如：1600443866 和 1600443866199266000 都被认为是有效的时间戳数值。
 func ExampleNewFromTimeStamp() {
-	t1 := gtime.NewFromTimeStamp(1533686888)
-	t2 := gtime.NewFromTimeStamp(1533686888000)
+	t1 := 时间类.X创建并从时间戳(1533686888)
+	t2 := 时间类.X创建并从时间戳(1533686888000)
 
 	fmt.Println(t1.String() == t2.String())
 	fmt.Println(t1)
@@ -112,7 +112,7 @@ func ExampleNewFromTimeStamp() {
 
 // Timestamp 返回以秒为单位的时间戳。
 func ExampleTime_Timestamp() {
-	t := gtime.Timestamp()
+	t := 时间类.X取时间戳秒()
 
 	fmt.Println(t)
 
@@ -122,7 +122,7 @@ func ExampleTime_Timestamp() {
 
 // Timestamp 返回以毫秒为单位的时间戳。
 func ExampleTime_TimestampMilli() {
-	t := gtime.TimestampMilli()
+	t := 时间类.X取时间戳毫秒()
 
 	fmt.Println(t)
 
@@ -132,7 +132,7 @@ func ExampleTime_TimestampMilli() {
 
 // Timestamp 返回以微秒为单位的的时间戳。
 func ExampleTime_TimestampMicro() {
-	t := gtime.TimestampMicro()
+	t := 时间类.X取时间戳微秒()
 
 	fmt.Println(t)
 
@@ -142,7 +142,7 @@ func ExampleTime_TimestampMicro() {
 
 // Timestamp 返回以纳秒为单位的时间戳。
 func ExampleTime_TimestampNano() {
-	t := gtime.TimestampNano()
+	t := 时间类.X取时间戳纳秒()
 
 	fmt.Println(t)
 
@@ -152,7 +152,7 @@ func ExampleTime_TimestampNano() {
 
 // TimestampStr 是一个便捷方法，用于获取并返回以字符串形式表示的秒级时间戳。
 func ExampleTime_TimestampStr() {
-	t := gtime.TimestampStr()
+	t := 时间类.X取文本时间戳秒()
 
 	fmt.Println(reflect.TypeOf(t))
 
@@ -162,8 +162,8 @@ func ExampleTime_TimestampStr() {
 
 // Month 返回由 t 指定的年份中的月份。
 func ExampleTime_Month() {
-	gt := gtime.New("2018-08-08 08:08:08")
-	t1 := gt.Month()
+	gt := 时间类.X创建("2018-08-08 08:08:08")
+	t1 := gt.X取月份()
 
 	fmt.Println(t1)
 
@@ -174,8 +174,8 @@ func ExampleTime_Month() {
 // Second 返回给定时间 t 的分钟内第二个偏移量，
 // 范围在 [0, 59] 内。
 func ExampleTime_Second() {
-	gt := gtime.New("2018-08-08 08:08:08")
-	t1 := gt.Second()
+	gt := 时间类.X创建("2018-08-08 08:08:08")
+	t1 := gt.X取秒()
 
 	fmt.Println(t1)
 
@@ -185,7 +185,7 @@ func ExampleTime_Second() {
 
 // String 将当前时间对象转换为字符串并返回。
 func ExampleTime_String() {
-	gt := gtime.New("2018-08-08 08:08:08")
+	gt := 时间类.X创建("2018-08-08 08:08:08")
 	t1 := gt.String()
 
 	fmt.Println(t1)
@@ -198,7 +198,7 @@ func ExampleTime_String() {
 
 // IsZero 判断 t 是否代表零时间点，即公元1年1月1日 00:00:00 UTC。
 func ExampleTime_IsZero() {
-	gt := gtime.New("2018-08-08 08:08:08")
+	gt := 时间类.X创建("2018-08-08 08:08:08")
 
 	fmt.Println(gt.IsZero())
 
@@ -208,8 +208,8 @@ func ExampleTime_IsZero() {
 
 // Add 将持续时间添加到当前时间。
 func ExampleTime_Add() {
-	gt := gtime.New("2018-08-08 08:08:08")
-	gt1 := gt.Add(time.Duration(10) * time.Second)
+	gt := 时间类.X创建("2018-08-08 08:08:08")
+	gt1 := gt.X增加时长(time.Duration(10) * time.Second)
 
 	fmt.Println(gt1)
 
@@ -220,8 +220,8 @@ func ExampleTime_Add() {
 // AddStr parses the given duration as string and adds it to current time.
 // Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
 func ExampleTime_AddStr() {
-	gt := gtime.New("2018-08-08 08:08:08")
-	gt1, _ := gt.AddStr("10s")
+	gt := 时间类.X创建("2018-08-08 08:08:08")
+	gt1, _ := gt.X增加文本时长("10s")
 
 	fmt.Println(gt1)
 
@@ -236,8 +236,8 @@ func ExampleTime_AddDate() {
 		month = 2
 		day   = 3
 	)
-	gt := gtime.New("2018-08-08 08:08:08")
-	gt = gt.AddDate(year, month, day)
+	gt := 时间类.X创建("2018-08-08 08:08:08")
+	gt = gt.X增加时间(year, month, day)
 
 	fmt.Println(gt)
 
@@ -253,8 +253,8 @@ func ExampleTime_AddDate() {
 // 它并不作用在时间的表现形式上。因此，即使调用 Round(Hour)，
 // 返回的时间也可能存在非零分钟值，这取决于时间所处的 Location（时区）。
 func ExampleTime_Round() {
-	gt := gtime.New("2018-08-08 08:08:08")
-	t := gt.Round(time.Duration(10) * time.Second)
+	gt := 时间类.X创建("2018-08-08 08:08:08")
+	t := gt.X向上舍入(time.Duration(10) * time.Second)
 
 	fmt.Println(t)
 
@@ -269,8 +269,8 @@ func ExampleTime_Round() {
 // 它并不直接作用于时间的展示形式。因此，调用 Truncate(Hour) 可能会返回一个分钟不为零的时间，
 // 具体取决于该时间的位置（Location）。
 func ExampleTime_Truncate() {
-	gt := gtime.New("2018-08-08 08:08:08")
-	t := gt.Truncate(time.Duration(10) * time.Second)
+	gt := 时间类.X创建("2018-08-08 08:08:08")
+	t := gt.X向下舍入(time.Duration(10) * time.Second)
 
 	fmt.Println(t)
 
@@ -284,10 +284,10 @@ func ExampleTime_Truncate() {
 // 查看 Time 类型的文档，了解使用 == 操作符比较 Time 值时的陷阱；
 // 大多数代码应使用 Equal 方法代替。
 func ExampleTime_Equal() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
-	gt2 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
+	gt2 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.Equal(gt2))
+	fmt.Println(gt1.X是否相等(gt2))
 
 	// Output:
 	// true
@@ -295,10 +295,10 @@ func ExampleTime_Equal() {
 
 // Before 判断时间点 t 是否在时间点 u 之前。
 func ExampleTime_Before() {
-	gt1 := gtime.New("2018-08-07")
-	gt2 := gtime.New("2018-08-08")
+	gt1 := 时间类.X创建("2018-08-07")
+	gt2 := 时间类.X创建("2018-08-08")
 
-	fmt.Println(gt1.Before(gt2))
+	fmt.Println(gt1.X是否之前(gt2))
 
 	// Output:
 	// true
@@ -306,10 +306,10 @@ func ExampleTime_Before() {
 
 // After 判断时间点 t 是否在时间点 u 之后。
 func ExampleTime_After() {
-	gt1 := gtime.New("2018-08-07")
-	gt2 := gtime.New("2018-08-08")
+	gt1 := 时间类.X创建("2018-08-07")
+	gt2 := 时间类.X创建("2018-08-08")
 
-	fmt.Println(gt1.After(gt2))
+	fmt.Println(gt1.X是否之后(gt2))
 
 	// Output:
 	// false
@@ -319,10 +319,10 @@ func ExampleTime_After() {
 // 则会返回最大（或最小）的有效持续时间。
 // 若要计算 t 与一个持续时间 d 的差值（t-d），请使用 t.Add(-d)。
 func ExampleTime_Sub() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
-	gt2 := gtime.New("2018-08-08 08:08:10")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
+	gt2 := 时间类.X创建("2018-08-08 08:08:10")
 
-	fmt.Println(gt2.Sub(gt1))
+	fmt.Println(gt2.X取纳秒时长(gt1))
 
 	// Output:
 	// 2s
@@ -330,135 +330,135 @@ func ExampleTime_Sub() {
 
 // StartOfMinute 复制并返回一个新的时间，其秒数设置为0。
 func ExampleTime_StartOfMinute() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.StartOfMinute())
+	fmt.Println(gt1.X取副本忽略秒())
 
 	// Output:
 	// 2018-08-08 08:08:00
 }
 
 func ExampleTime_StartOfHour() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.StartOfHour())
+	fmt.Println(gt1.X取副本忽略分钟秒())
 
 	// Output:
 	// 2018-08-08 08:00:00
 }
 
 func ExampleTime_StartOfDay() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.StartOfDay())
+	fmt.Println(gt1.X取副本忽略小时分钟秒())
 
 	// Output:
 	// 2018-08-08 00:00:00
 }
 
 func ExampleTime_StartOfWeek() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.StartOfWeek())
+	fmt.Println(gt1.X取副本周第一天())
 
 	// Output:
 	// 2018-08-05 00:00:00
 }
 
 func ExampleTime_StartOfQuarter() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.StartOfQuarter())
+	fmt.Println(gt1.X取副本季度第一天())
 
 	// Output:
 	// 2018-07-01 00:00:00
 }
 
 func ExampleTime_StartOfHalf() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.StartOfHalf())
+	fmt.Println(gt1.X取副本半年第一天())
 
 	// Output:
 	// 2018-07-01 00:00:00
 }
 
 func ExampleTime_StartOfYear() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.StartOfYear())
+	fmt.Println(gt1.X取副本年第一天())
 
 	// Output:
 	// 2018-01-01 00:00:00
 }
 
 func ExampleTime_EndOfMinute() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfMinute())
+	fmt.Println(gt1.X取副本59秒())
 
 	// Output:
 	// 2018-08-08 08:08:59
 }
 
 func ExampleTime_EndOfHour() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfHour())
+	fmt.Println(gt1.X取副本59分59秒())
 
 	// Output:
 	// 2018-08-08 08:59:59
 }
 
 func ExampleTime_EndOfDay() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfDay())
+	fmt.Println(gt1.X取副本23点59分59秒())
 
 	// Output:
 	// 2018-08-08 23:59:59
 }
 
 func ExampleTime_EndOfWeek() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfWeek())
+	fmt.Println(gt1.X取副本周末23点59分59秒())
 
 	// Output:
 	// 2018-08-11 23:59:59
 }
 
 func ExampleTime_EndOfMonth() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfMonth())
+	fmt.Println(gt1.X取副本月末23点59分59秒())
 
 	// Output:
 	// 2018-08-31 23:59:59
 }
 
 func ExampleTime_EndOfQuarter() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfQuarter())
+	fmt.Println(gt1.X取副本季末23点59分59秒())
 
 	// Output:
 	// 2018-09-30 23:59:59
 }
 
 func ExampleTime_EndOfHalf() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfHalf())
+	fmt.Println(gt1.X取副本半年末23点59分59秒())
 
 	// Output:
 	// 2018-12-31 23:59:59
 }
 
 func ExampleTime_EndOfYear() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.EndOfYear())
+	fmt.Println(gt1.X取副本年末23点59分59秒())
 
 	// Output:
 	// 2018-12-31 23:59:59
@@ -467,11 +467,11 @@ func ExampleTime_EndOfYear() {
 func ExampleTime_MarshalJSON() {
 	type Person struct {
 		Name     string      `json:"name"`
-		Birthday *gtime.Time `json:"birthday"`
+		Birthday *时间类.Time `json:"birthday"`
 	}
 	p := new(Person)
 	p.Name = "goframe"
-	p.Birthday = gtime.New("2018-08-08 08:08:08")
+	p.Birthday = 时间类.X创建("2018-08-08 08:08:08")
 	j, _ := json.Marshal(p)
 	fmt.Println(string(j))
 
@@ -482,7 +482,7 @@ func ExampleTime_MarshalJSON() {
 func ExampleTime_UnmarshalJSON() {
 	type Person struct {
 		Name     string      `json:"name"`
-		Birthday *gtime.Time `json:"birthday"`
+		Birthday *时间类.Time `json:"birthday"`
 	}
 	p := new(Person)
 	src := `{"name":"goframe","birthday":"2018-08-08 08:08:08"}`

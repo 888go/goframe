@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gproc
+package 进程类
 
 import (
 	"io"
@@ -29,7 +29,7 @@ func Send(pid int, data []byte, group ...string) error {
 	if err != nil {
 		return err
 	}
-	var conn *gtcp.PoolConn
+	var conn *tcp类.PoolConn
 	conn, err = getConnByPid(pid)
 	if err != nil {
 		return err
@@ -37,8 +37,8 @@ func Send(pid int, data []byte, group ...string) error {
 	defer conn.Close()
 	// Do the sending.
 	var result []byte
-	result, err = conn.SendRecvPkg(msgBytes, gtcp.PkgOption{
-		Retry: gtcp.Retry{
+	result, err = conn.SendRecvPkg(msgBytes, tcp类.PkgOption{
+		Retry: tcp类.Retry{
 			Count: 3,
 		},
 	})
@@ -46,7 +46,7 @@ func Send(pid int, data []byte, group ...string) error {
 		response := new(MsgResponse)
 		if err = json.UnmarshalUseNumber(result, response); err == nil {
 			if response.Code != 1 {
-				err = gerror.New(response.Message)
+				err = 错误类.X创建(response.Message)
 			}
 		}
 	}

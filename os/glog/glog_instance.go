@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package glog
+package 日志类
 
 import (
 	"github.com/888go/goframe/container/gmap"
@@ -16,17 +16,17 @@ const (
 
 var (
 	// Instances map.
-	instances = gmap.NewStrAnyMap(true)
+	instances = map类.X创建StrAny(true)
 )
 
 // Instance 返回一个具有默认设置的 Logger 实例。
 // 参数 `name` 是该实例的名称。
-func Instance(name ...string) *Logger {
+func X取单例对象(名称 ...string) *Logger {
 	key := DefaultName
-	if len(name) > 0 && name[0] != "" {
-		key = name[0]
+	if len(名称) > 0 && 名称[0] != "" {
+		key = 名称[0]
 	}
-	return instances.GetOrSetFuncLock(key, func() interface{} {
-		return New()
+	return instances.X取值或设置值_函数带锁(key, func() interface{} {
+		return X创建()
 	}).(*Logger)
 }

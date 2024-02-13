@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gxml_test
+package xml类_test
 
 import (
 	"bytes"
@@ -35,17 +35,17 @@ func buildXml(charset string, str string) (string, string) {
 	head := `<?xml version="1.0" encoding="UTF-8"?>`
 	srcXml := strings.Replace(head, "UTF-8", charset, -1)
 
-	srcParser := gjson.New(nil)
-	srcParser.Set("name", str)
-	srcParser.Set("age", "12")
+	srcParser := json类.X创建(nil)
+	srcParser.X设置值("name", str)
+	srcParser.X设置值("age", "12")
 
-	s, err := srcParser.ToXml()
+	s, err := srcParser.X取xml字节集()
 	if err != nil {
 		return "", ""
 	}
 
 	srcXml = srcXml + string(s)
-	srcXml, err = gcharset.UTF8To(charset, srcXml)
+	srcXml, err = 编码字符集类.UTF8To(charset, srcXml)
 	if err != nil {
 		return "", ""
 	}
@@ -63,12 +63,12 @@ func Test_XmlToJson(t *testing.T) {
 			t.Errorf("build xml string error. srcEncoding:%s, src:%s, utf8:%s", v.otherEncoding, v.other, v.utf8)
 		}
 
-		srcJson, err := gxml.ToJson([]byte(srcXml))
+		srcJson, err := xml类.ToJson([]byte(srcXml))
 		if err != nil {
 			t.Errorf("gxml.ToJson error. %s", srcXml)
 		}
 
-		dstJson, err := gxml.ToJson([]byte(dstXml))
+		dstJson, err := xml类.ToJson([]byte(dstXml))
 		if err != nil {
 			t.Errorf("dstXml to json error. %s", dstXml)
 		}
@@ -87,12 +87,12 @@ func Test_Decode1(t *testing.T) {
 			t.Errorf("build xml string error. srcEncoding:%s, src:%s, utf8:%s", v.otherEncoding, v.other, v.utf8)
 		}
 
-		srcMap, err := gxml.Decode([]byte(srcXml))
+		srcMap, err := xml类.Decode([]byte(srcXml))
 		if err != nil {
 			t.Errorf("gxml.Decode error. %s", srcXml)
 		}
 
-		dstMap, err := gxml.Decode([]byte(dstXml))
+		dstMap, err := xml类.Decode([]byte(dstXml))
 		if err != nil {
 			t.Errorf("gxml decode error. %s", dstXml)
 		}
@@ -107,11 +107,11 @@ func Test_Decode1(t *testing.T) {
 }
 
 func Test_Decode2(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		content := `
 <?xml version="1.0" encoding="UTF-8"?><doc><username>johngcn</username><password1>123456</password1><password2>123456</password2></doc>
 `
-		m, err := gxml.Decode([]byte(content))
+		m, err := xml类.Decode([]byte(content))
 		t.AssertNil(err)
 		t.Assert(m["doc"].(map[string]interface{})["username"], "johngcn")
 		t.Assert(m["doc"].(map[string]interface{})["password1"], "123456")
@@ -120,11 +120,11 @@ func Test_Decode2(t *testing.T) {
 }
 
 func Test_DecodeWitoutRoot(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		content := `
 <?xml version="1.0" encoding="UTF-8"?><doc><username>johngcn</username><password1>123456</password1><password2>123456</password2></doc>
 `
-		m, err := gxml.DecodeWithoutRoot([]byte(content))
+		m, err := xml类.DecodeWithoutRoot([]byte(content))
 		t.AssertNil(err)
 		t.Assert(m["username"], "johngcn")
 		t.Assert(m["password1"], "123456")
@@ -142,7 +142,7 @@ func Test_Encode(t *testing.T) {
 	}
 	m["root"] = interface{}(v)
 
-	xmlStr, err := gxml.Encode(m)
+	xmlStr, err := xml类.Encode(m)
 	if err != nil {
 		t.Errorf("encode error.")
 	}
@@ -168,7 +168,7 @@ func Test_EncodeIndent(t *testing.T) {
 	}
 	m["root"] = interface{}(v)
 
-	_, err := gxml.EncodeWithIndent(m, "xml")
+	_, err := xml类.EncodeWithIndent(m, "xml")
 	if err != nil {
 		t.Errorf("encodeWithIndent error.")
 	}
@@ -189,7 +189,7 @@ func TestErrXml(t *testing.T) {
 		}
 
 		srcXml = strings.Replace(srcXml, "gbk", "XXX", -1)
-		_, err := gxml.ToJson([]byte(srcXml))
+		_, err := xml类.ToJson([]byte(srcXml))
 		if err == nil {
 			t.Errorf("srcXml to json should be failed. %s", srcXml)
 		}
@@ -198,17 +198,17 @@ func TestErrXml(t *testing.T) {
 }
 
 func TestErrCase(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		errXml := `<root><bool>true</bool><float>100.92</float><int>123</int><string>hello world</string>`
-		_, err := gxml.ToJson([]byte(errXml))
+		_, err := xml类.ToJson([]byte(errXml))
 		if err == nil {
 			t.Errorf("unexpected value: nil")
 		}
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		errXml := `<root><bool>true</bool><float>100.92</float><int>123</int><string>hello world</string>`
-		_, err := gxml.Decode([]byte(errXml))
+		_, err := xml类.Decode([]byte(errXml))
 		if err == nil {
 			t.Errorf("unexpected value: nil")
 		}

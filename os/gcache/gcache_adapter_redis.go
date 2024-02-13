@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一个。
 
-package gcache
+package 缓存类
 
 import (
 	"context"
@@ -17,11 +17,11 @@ import (
 
 // AdapterRedis 是使用 Redis 服务器实现的 gcache 适配器。
 type AdapterRedis struct {
-	redis *gredis.Redis
+	redis *redis类.Redis
 }
 
 // NewAdapterRedis 创建并返回一个新的内存缓存对象。
-func NewAdapterRedis(redis *gredis.Redis) Adapter {
+func NewAdapterRedis(redis *redis类.Redis) Adapter {
 	return &AdapterRedis{
 		redis: redis,
 	}
@@ -31,53 +31,53 @@ func NewAdapterRedis(redis *gredis.Redis) Adapter {
 //
 // 如果 `duration` == 0，则永不过期。
 // 如果 `duration` < 0 或提供的 `value` 为 nil，则删除 `data` 的键。
-func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (err error) {
-	redisKey := gconv.String(key)
-	if value == nil || duration < 0 {
-		_, err = c.redis.Del(ctx, redisKey)
+func (c *AdapterRedis) X设置值(上下文 context.Context, 名称 interface{}, 值 interface{}, 时长 time.Duration) (错误 error) {
+	redisKey := 转换类.String(名称)
+	if 值 == nil || 时长 < 0 {
+		_, 错误 = c.redis.Del(上下文, redisKey)
 	} else {
-		if duration == 0 {
-			_, err = c.redis.Set(ctx, redisKey, value)
+		if 时长 == 0 {
+			_, 错误 = c.redis.X设置值(上下文, redisKey, 值)
 		} else {
-			_, err = c.redis.Set(ctx, redisKey, value, gredis.SetOption{TTLOption: gredis.TTLOption{PX: gconv.PtrInt64(duration.Milliseconds())}})
+			_, 错误 = c.redis.X设置值(上下文, redisKey, 值, redis类.SetOption{TTLOption: redis类.TTLOption{PX: 转换类.X取整数64位指针(时长.Milliseconds())}})
 		}
 	}
-	return err
+	return 错误
 }
 
 // SetMap 批量设置缓存，通过 `data` 参数中的键值对进行设置，并在 `duration` 时间后过期。
 //
 // 如果 `duration` == 0，则表示永不过期。
 // 如果 `duration` < 0 或者给定的 `value` 为 nil，则会删除 `data` 中的键。
-func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error {
-	if len(data) == 0 {
+func (c *AdapterRedis) X设置Map(上下文 context.Context, 值 map[interface{}]interface{}, 时长 time.Duration) error {
+	if len(值) == 0 {
 		return nil
 	}
 	// DEL.
-	if duration < 0 {
+	if 时长 < 0 {
 		var (
 			index = 0
-			keys  = make([]string, len(data))
+			keys  = make([]string, len(值))
 		)
-		for k := range data {
-			keys[index] = gconv.String(k)
+		for k := range 值 {
+			keys[index] = 转换类.String(k)
 			index += 1
 		}
-		_, err := c.redis.Del(ctx, keys...)
+		_, err := c.redis.Del(上下文, keys...)
 		if err != nil {
 			return err
 		}
 	}
-	if duration == 0 {
-		err := c.redis.MSet(ctx, gconv.Map(data))
+	if 时长 == 0 {
+		err := c.redis.MSet(上下文, 转换类.X取Map(值))
 		if err != nil {
 			return err
 		}
 	}
-	if duration > 0 {
+	if 时长 > 0 {
 		var err error
-		for k, v := range data {
-			if err = c.Set(ctx, k, v, duration); err != nil {
+		for k, v := range 值 {
+			if err = c.X设置值(上下文, k, v, 时长); err != nil {
 				return err
 			}
 		}
@@ -90,26 +90,26 @@ func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interfac
 //
 // 如果`duration` == 0，则不会设置过期时间。
 // 如果`duration` < 0 或给定的`value`为nil，则删除`key`。
-func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (bool, error) {
+func (c *AdapterRedis) X设置值并跳过已存在(上下文 context.Context, 名称 interface{}, 值 interface{}, 时长 time.Duration) (bool, error) {
 	var (
 		err      error
-		redisKey = gconv.String(key)
+		redisKey = 转换类.String(名称)
 	)
 	// 执行函数并获取结果。
-	f, ok := value.(Func)
+	f, ok := 值.(Func)
 	if !ok {
 		// 与原始函数值兼容。
-		f, ok = value.(func(ctx context.Context) (value interface{}, err error))
+		f, ok = 值.(func(ctx context.Context) (value interface{}, err error))
 	}
 	if ok {
-		if value, err = f(ctx); err != nil {
+		if 值, err = f(上下文); err != nil {
 			return false, err
 		}
 	}
 	// DEL.
-	if duration < 0 || value == nil {
+	if 时长 < 0 || 值 == nil {
 		var delResult int64
-		delResult, err = c.redis.Del(ctx, redisKey)
+		delResult, err = c.redis.Del(上下文, redisKey)
 		if err != nil {
 			return false, err
 		}
@@ -118,13 +118,13 @@ func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value
 		}
 		return false, err
 	}
-	ok, err = c.redis.SetNX(ctx, redisKey, value)
+	ok, err = c.redis.SetNX(上下文, redisKey, 值)
 	if err != nil {
 		return ok, err
 	}
-	if ok && duration > 0 {
+	if ok && 时长 > 0 {
 		// 设置过期时间。
-		_, err = c.redis.PExpire(ctx, redisKey, duration.Milliseconds())
+		_, err = c.redis.PExpire(上下文, redisKey, 时长.Milliseconds())
 		if err != nil {
 			return ok, err
 		}
@@ -140,12 +140,12 @@ func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value
 //
 // 如果 `duration` == 0，则不设置过期时间。
 // 如果 `duration` < 0 或给定的 `value` 为 nil，则会删除 `key`。
-func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
-	value, err := f(ctx)
-	if err != nil {
-		return false, err
+func (c *AdapterRedis) X设置值并跳过已存在_函数(上下文 context.Context, 名称 interface{}, 回调函数 Func, 时长 time.Duration) (成功 bool, 错误 error) {
+	value, 错误 := 回调函数(上下文)
+	if 错误 != nil {
+		return false, 错误
 	}
-	return c.SetIfNotExist(ctx, key, value, duration)
+	return c.X设置值并跳过已存在(上下文, 名称, value, 时长)
 }
 
 // SetIfNotExistFuncLock 将通过函数 `f` 计算的结果设置为 `key` 的值，并在以下情况下返回 true：
@@ -155,18 +155,18 @@ func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f
 // 若 `duration` 小于 0 或提供的 `value` 为 nil，则删除 `key`。
 // 注意，此方法与函数 `SetIfNotExistFunc` 的不同之处在于，
 // 函数 `f` 在写入互斥锁保护下执行，以确保并发安全。
-func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
-	value, err := f(ctx)
-	if err != nil {
-		return false, err
+func (c *AdapterRedis) X设置值并跳过已存在_并发安全函数(上下文 context.Context, 名称 interface{}, 回调函数 Func, 时长 time.Duration) (成功 bool, 错误 error) {
+	value, 错误 := 回调函数(上下文)
+	if 错误 != nil {
+		return false, 错误
 	}
-	return c.SetIfNotExist(ctx, key, value, duration)
+	return c.X设置值并跳过已存在(上下文, 名称, value, 时长)
 }
 
 // Get 函数根据给定的 <key> 获取并返回其关联的值。
 // 如果该键不存在，或者其对应的值为 nil，则返回 nil。
-func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, error) {
-	return c.redis.Get(ctx, gconv.String(key))
+func (c *AdapterRedis) X取值(上下文 context.Context, 名称 interface{}) (*泛型类.Var, error) {
+	return c.redis.Get(上下文, 转换类.String(名称))
 }
 
 // GetOrSet 获取并返回键`key`的值，如果`key`在缓存中不存在，则设置`key`-`value`对并返回`value`。
@@ -174,13 +174,13 @@ func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, err
 //
 // 如果`duration` == 0，则不会过期。
 // 如果`duration` < 0 或者给定的`value`为nil，则删除`key`，但如果`value`是一个函数且函数结果为nil，则不做任何操作。
-func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error) {
-	result, err = c.Get(ctx, key)
-	if err != nil {
-		return nil, err
+func (c *AdapterRedis) X取值或设置值(上下文 context.Context, 名称 interface{}, 值 interface{}, 时长 time.Duration) (结果 *泛型类.Var, 错误 error) {
+	结果, 错误 = c.X取值(上下文, 名称)
+	if 错误 != nil {
+		return nil, 错误
 	}
-	if result.IsNil() {
-		return gvar.New(value), c.Set(ctx, key, value, duration)
+	if 结果.X是否为Nil() {
+		return 泛型类.X创建(值), c.X设置值(上下文, 名称, 值, 时长)
 	}
 	return
 }
@@ -190,20 +190,20 @@ func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value inte
 //
 // 如果 `duration` 等于 0，则表示该键值对永不过期。
 // 如果 `duration` 小于 0 或者给定的 `value` 为 nil，则会删除 `key`，但如果 `value` 是一个函数且函数结果为 nil，则不做任何操作。
-func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
-	v, err := c.Get(ctx, key)
-	if err != nil {
-		return nil, err
+func (c *AdapterRedis) X取值或设置值_函数(上下文 context.Context, 名称 interface{}, 回调函数 Func, 时长 time.Duration) (结果 *泛型类.Var, 错误 error) {
+	v, 错误 := c.X取值(上下文, 名称)
+	if 错误 != nil {
+		return nil, 错误
 	}
-	if v.IsNil() {
-		value, err := f(ctx)
+	if v.X是否为Nil() {
+		value, err := 回调函数(上下文)
 		if err != nil {
 			return nil, err
 		}
 		if value == nil {
 			return nil, nil
 		}
-		return gvar.New(value), c.Set(ctx, key, value, duration)
+		return 泛型类.X创建(value), c.X设置值(上下文, 名称, value, 时长)
 	} else {
 		return v, nil
 	}
@@ -213,13 +213,13 @@ func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func
 // 如果`duration`为0，则它不会过期。
 // 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但如果`value`是一个函数且函数结果为nil，则不做任何操作。
 // 注意，该方法与函数`GetOrSetFunc`的不同之处在于，为了保证并发安全，函数`f`在写入互斥锁内执行。
-func (c *AdapterRedis) GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
-	return c.GetOrSetFunc(ctx, key, f, duration)
+func (c *AdapterRedis) X取值或设置值_并发安全函数(上下文 context.Context, 名称 interface{}, 回调函数 Func, 时长 time.Duration) (结果 *泛型类.Var, 错误 error) {
+	return c.X取值或设置值_函数(上下文, 名称, 回调函数, 时长)
 }
 
 // Contains 检查并返回 true，如果 `key` 存在于缓存中；否则返回 false。
-func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, error) {
-	n, err := c.redis.Exists(ctx, gconv.String(key))
+func (c *AdapterRedis) X是否存在(上下文 context.Context, 名称 interface{}) (bool, error) {
+	n, err := c.redis.Exists(上下文, 转换类.String(名称))
 	if err != nil {
 		return false, err
 	}
@@ -227,63 +227,63 @@ func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, err
 }
 
 // Size 返回缓存中的项目数量。
-func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
-	n, err := c.redis.DBSize(ctx)
-	if err != nil {
-		return 0, err
+func (c *AdapterRedis) X取数量(上下文 context.Context) (数量 int, 错误 error) {
+	n, 错误 := c.redis.DBSize(上下文)
+	if 错误 != nil {
+		return 0, 错误
 	}
 	return int(n), nil
 }
 
 // Data 返回缓存中所有键值对的副本，类型为 map。注意，此函数可能会导致大量内存使用，
 // 因此请按需实现该函数。
-func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, error) {
+func (c *AdapterRedis) X取所有键值Map副本(上下文 context.Context) (map[interface{}]interface{}, error) {
 	// Keys.
-	keys, err := c.redis.Keys(ctx, "*")
+	keys, err := c.redis.Keys(上下文, "*")
 	if err != nil {
 		return nil, err
 	}
 	// Key-Value pairs.
-	var m map[string]*gvar.Var
-	m, err = c.redis.MGet(ctx, keys...)
+	var m map[string]*泛型类.Var
+	m, err = c.redis.MGet(上下文, keys...)
 	if err != nil {
 		return nil, err
 	}
 	// Type converting.
 	data := make(map[interface{}]interface{})
 	for k, v := range m {
-		data[k] = v.Val()
+		data[k] = v.X取值()
 	}
 	return data, nil
 }
 
 // Keys 返回缓存中的所有键作为切片。
-func (c *AdapterRedis) Keys(ctx context.Context) ([]interface{}, error) {
-	keys, err := c.redis.Keys(ctx, "*")
+func (c *AdapterRedis) X取所有键(上下文 context.Context) ([]interface{}, error) {
+	keys, err := c.redis.Keys(上下文, "*")
 	if err != nil {
 		return nil, err
 	}
-	return gconv.Interfaces(keys), nil
+	return 转换类.X取any数组(keys), nil
 }
 
 // Values 返回缓存中的所有值作为一个切片。
-func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
+func (c *AdapterRedis) X取所有值(上下文 context.Context) ([]interface{}, error) {
 	// Keys.
-	keys, err := c.redis.Keys(ctx, "*")
+	keys, err := c.redis.Keys(上下文, "*")
 	if err != nil {
 		return nil, err
 	}
 	// Key-Value pairs.
-	var m map[string]*gvar.Var
-	m, err = c.redis.MGet(ctx, keys...)
+	var m map[string]*泛型类.Var
+	m, err = c.redis.MGet(上下文, keys...)
 	if err != nil {
 		return nil, err
 	}
 	// Values.
 	var values []interface{}
 	for _, key := range keys {
-		if v := m[key]; !v.IsNil() {
-			values = append(values, v.Val())
+		if v := m[key]; !v.X是否为Nil() {
+			values = append(values, v.X取值())
 		}
 	}
 	return values, nil
@@ -294,15 +294,15 @@ func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 //
 // 如果给定的`value`为nil，则删除`key`。
 // 若`key`在缓存中不存在，则不做任何操作。
-func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error) {
+func (c *AdapterRedis) X更新值(上下文 context.Context, 名称 interface{}, 值 interface{}) (旧值 *泛型类.Var, 是否存在 bool, 错误 error) {
 	var (
-		v        *gvar.Var
+		v        *泛型类.Var
 		oldPTTL  int64
-		redisKey = gconv.String(key)
+		redisKey = 转换类.String(名称)
 	)
 	// TTL.
-	oldPTTL, err = c.redis.PTTL(ctx, redisKey) // 更新ttl -> pttl（毫秒）
-	if err != nil {
+	oldPTTL, 错误 = c.redis.PTTL(上下文, redisKey) // 更新ttl -> pttl（毫秒）
+	if 错误 != nil {
 		return
 	}
 	if oldPTTL == -2 || oldPTTL == 0 {
@@ -310,22 +310,22 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 		return
 	}
 	// Check existence.
-	v, err = c.redis.Get(ctx, redisKey)
-	if err != nil {
+	v, 错误 = c.redis.Get(上下文, redisKey)
+	if 错误 != nil {
 		return
 	}
-	oldValue = v
+	旧值 = v
 	// DEL.
-	if value == nil {
-		_, err = c.redis.Del(ctx, redisKey)
-		if err != nil {
+	if 值 == nil {
+		_, 错误 = c.redis.Del(上下文, redisKey)
+		if 错误 != nil {
 			return
 		}
 		return
 	}
 	// Update the value.
 	if oldPTTL == -1 {
-		_, err = c.redis.Set(ctx, redisKey, value)
+		_, 错误 = c.redis.X设置值(上下文, redisKey, 值)
 	} else {
 // 更新 SetEX -> SET PX 选项（毫秒）
 // 自 Redis 版本 2.6.12 开始：添加了 EX、PX、NX 和 XX 选项。
@@ -333,24 +333,24 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 // ```go
 // 将 SetEX 更新为使用 PX 选项（以毫秒为单位）
 // 从 Redis 版本 2.6.12 开始：新增了 EX、PX、NX 和 XX 等选项功能。
-		_, err = c.redis.Set(ctx, redisKey, value, gredis.SetOption{TTLOption: gredis.TTLOption{PX: gconv.PtrInt64(oldPTTL)}})
+		_, 错误 = c.redis.X设置值(上下文, redisKey, 值, redis类.SetOption{TTLOption: redis类.TTLOption{PX: 转换类.X取整数64位指针(oldPTTL)}})
 	}
-	return oldValue, true, err
+	return 旧值, true, 错误
 }
 
 // UpdateExpire 更新键 `key` 的过期时间，并返回旧的过期持续时长值。
 //
 // 若 `key` 不存在于缓存中，则返回 -1 并不做任何操作。
 // 若 `duration` 小于 0，则删除 `key`。
-func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error) {
+func (c *AdapterRedis) X更新过期时间(上下文 context.Context, 名称 interface{}, 时长 time.Duration) (旧过期时长 time.Duration, 错误 error) {
 	var (
-		v        *gvar.Var
+		v        *泛型类.Var
 		oldPTTL  int64
-		redisKey = gconv.String(key)
+		redisKey = 转换类.String(名称)
 	)
 	// TTL.
-	oldPTTL, err = c.redis.PTTL(ctx, redisKey)
-	if err != nil {
+	oldPTTL, 错误 = c.redis.PTTL(上下文, redisKey)
+	if 错误 != nil {
 		return
 	}
 	if oldPTTL == -2 || oldPTTL == 0 {
@@ -358,23 +358,23 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 		oldPTTL = -1
 		return
 	}
-	oldDuration = time.Duration(oldPTTL) * time.Millisecond
+	旧过期时长 = time.Duration(oldPTTL) * time.Millisecond
 	// DEL.
-	if duration < 0 {
-		_, err = c.redis.Del(ctx, redisKey)
+	if 时长 < 0 {
+		_, 错误 = c.redis.Del(上下文, redisKey)
 		return
 	}
 	// 更新过期时间
-	if duration > 0 {
-		_, err = c.redis.PExpire(ctx, redisKey, duration.Milliseconds())
+	if 时长 > 0 {
+		_, 错误 = c.redis.PExpire(上下文, redisKey, 时长.Milliseconds())
 	}
 	// No expire.
-	if duration == 0 {
-		v, err = c.redis.Get(ctx, redisKey)
-		if err != nil {
+	if 时长 == 0 {
+		v, 错误 = c.redis.Get(上下文, redisKey)
+		if 错误 != nil {
 			return
 		}
-		_, err = c.redis.Set(ctx, redisKey, v.Val())
+		_, 错误 = c.redis.X设置值(上下文, redisKey, v.X取值())
 	}
 	return
 }
@@ -384,8 +384,8 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 // 注意：
 // 如果`key`永不过期，则返回0。
 // 如果`key`在缓存中不存在，则返回-1。
-func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Duration, error) {
-	pttl, err := c.redis.PTTL(ctx, gconv.String(key))
+func (c *AdapterRedis) X取过期时间(上下文 context.Context, 名称 interface{}) (time.Duration, error) {
+	pttl, err := c.redis.PTTL(上下文, 转换类.String(名称))
 	if err != nil {
 		return 0, err
 	}
@@ -401,30 +401,30 @@ func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Dur
 
 // Remove 从缓存中删除一个或多个键，并返回其对应的值。
 // 如果提供了多个键，它将返回被删除的最后一个项目的值。
-func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error) {
-	if len(keys) == 0 {
+func (c *AdapterRedis) X删除并带返回值(上下文 context.Context, 名称s ...interface{}) (最后一个删除值 *泛型类.Var, 错误 error) {
+	if len(名称s) == 0 {
 		return nil, nil
 	}
 	// 获取最后一个键值对。
-	if lastValue, err = c.redis.Get(ctx, gconv.String(keys[len(keys)-1])); err != nil {
-		return nil, err
+	if 最后一个删除值, 错误 = c.redis.Get(上下文, 转换类.String(名称s[len(名称s)-1])); 错误 != nil {
+		return nil, 错误
 	}
 	// 删除所有给定的键。
-	_, err = c.redis.Del(ctx, gconv.Strings(keys)...)
+	_, 错误 = c.redis.Del(上下文, 转换类.X取文本数组(名称s)...)
 	return
 }
 
 // Clear 清除缓存中的所有数据。
 // 注意：此函数较为敏感，应谨慎使用。
 // 它在 Redis 服务器中使用了 `FLUSHDB` 命令，该命令可能在服务器中被禁用。
-func (c *AdapterRedis) Clear(ctx context.Context) (err error) {
+func (c *AdapterRedis) X清空(上下文 context.Context) (错误 error) {
 	// "FLUSHDB" 可能不可用。
-	err = c.redis.FlushDB(ctx)
+	错误 = c.redis.FlushDB(上下文)
 	return
 }
 
 // Close 关闭缓存。
-func (c *AdapterRedis) Close(ctx context.Context) error {
+func (c *AdapterRedis) X关闭(上下文 context.Context) error {
 	// It does nothing.
 	return nil
 }

@@ -6,7 +6,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gmode_test
+package 环境类_test
 
 import (
 	"testing"
@@ -16,46 +16,46 @@ import (
 )
 
 func Test_AutoCheckSourceCodes(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gmode.IsDevelop(), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(环境类.IsDevelop(), true)
 	})
 }
 
 func Test_Set(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		oldMode := gmode.Mode()
-		defer gmode.Set(oldMode)
-		gmode.SetDevelop()
-		t.Assert(gmode.IsDevelop(), true)
-		t.Assert(gmode.IsTesting(), false)
-		t.Assert(gmode.IsStaging(), false)
-		t.Assert(gmode.IsProduct(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		oldMode := 环境类.Mode()
+		defer 环境类.X设置值(oldMode)
+		环境类.SetDevelop()
+		t.Assert(环境类.IsDevelop(), true)
+		t.Assert(环境类.IsTesting(), false)
+		t.Assert(环境类.IsStaging(), false)
+		t.Assert(环境类.IsProduct(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		oldMode := gmode.Mode()
-		defer gmode.Set(oldMode)
-		gmode.SetTesting()
-		t.Assert(gmode.IsDevelop(), false)
-		t.Assert(gmode.IsTesting(), true)
-		t.Assert(gmode.IsStaging(), false)
-		t.Assert(gmode.IsProduct(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		oldMode := 环境类.Mode()
+		defer 环境类.X设置值(oldMode)
+		环境类.SetTesting()
+		t.Assert(环境类.IsDevelop(), false)
+		t.Assert(环境类.IsTesting(), true)
+		t.Assert(环境类.IsStaging(), false)
+		t.Assert(环境类.IsProduct(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		oldMode := gmode.Mode()
-		defer gmode.Set(oldMode)
-		gmode.SetStaging()
-		t.Assert(gmode.IsDevelop(), false)
-		t.Assert(gmode.IsTesting(), false)
-		t.Assert(gmode.IsStaging(), true)
-		t.Assert(gmode.IsProduct(), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		oldMode := 环境类.Mode()
+		defer 环境类.X设置值(oldMode)
+		环境类.SetStaging()
+		t.Assert(环境类.IsDevelop(), false)
+		t.Assert(环境类.IsTesting(), false)
+		t.Assert(环境类.IsStaging(), true)
+		t.Assert(环境类.IsProduct(), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		oldMode := gmode.Mode()
-		defer gmode.Set(oldMode)
-		gmode.SetProduct()
-		t.Assert(gmode.IsDevelop(), false)
-		t.Assert(gmode.IsTesting(), false)
-		t.Assert(gmode.IsStaging(), false)
-		t.Assert(gmode.IsProduct(), true)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		oldMode := 环境类.Mode()
+		defer 环境类.X设置值(oldMode)
+		环境类.SetProduct()
+		t.Assert(环境类.IsDevelop(), false)
+		t.Assert(环境类.IsTesting(), false)
+		t.Assert(环境类.IsStaging(), false)
+		t.Assert(环境类.IsProduct(), true)
 	})
 }

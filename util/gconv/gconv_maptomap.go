@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
@@ -71,7 +71,7 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 		paramsKind = paramsRv.Kind()
 	}
 	if paramsKind != reflect.Map {
-		return doMapToMap(Map(params), pointer, mapping...)
+		return doMapToMap(X取Map(params), pointer, mapping...)
 	}
 	// 空参数映射，无需继续。
 	if paramsRv.Len() == 0 {
@@ -89,15 +89,15 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 		pointerKind = pointerRv.Kind()
 	}
 	if pointerKind != reflect.Map {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, "pointer should be type of *map, but got:%s", pointerKind)
+		return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, "pointer should be type of *map, but got:%s", pointerKind)
 	}
 	defer func() {
 		// 捕获 panic，特别是反射操作引发的 panic。
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && 错误类.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception)
+				err = 错误类.X创建错误码并跳过堆栈与格式化(错误码类.CodeInternalPanic, 1, "%+v", exception)
 			}
 		}
 	}()

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtype
+package 安全变量类
 
 import (
 	"bytes"
@@ -29,18 +29,18 @@ func NewString(value ...string) *String {
 
 // Clone 克隆并返回一个用于字符串类型的新并发安全对象。
 func (v *String) Clone() *String {
-	return NewString(v.Val())
+	return NewString(v.X取值())
 }
 
 // Set 方法通过原子操作将`value`存储到t.value中，并返回修改前的t.value的值。
-func (v *String) Set(value string) (old string) {
-	old = v.Val()
+func (v *String) X设置值(value string) (old string) {
+	old = v.X取值()
 	v.value.Store(value)
 	return
 }
 
 // Val 原子性地加载并返回 t.value。
-func (v *String) Val() string {
+func (v *String) X取值() string {
 	s := v.value.Load()
 	if s != nil {
 		return s.(string)
@@ -50,23 +50,23 @@ func (v *String) Val() string {
 
 // String 实现了 String 接口以便进行字符串打印。
 func (v *String) String() string {
-	return v.Val()
+	return v.X取值()
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (v String) MarshalJSON() ([]byte, error) {
-	return []byte(`"` + v.Val() + `"`), nil
+	return []byte(`"` + v.X取值() + `"`), nil
 }
 
 // UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
 func (v *String) UnmarshalJSON(b []byte) error {
-	v.Set(string(bytes.Trim(b, `"`)))
+	v.X设置值(string(bytes.Trim(b, `"`)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于为 `v` 设置任意类型的值。
 func (v *String) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.String(value))
+	v.X设置值(转换类.String(value))
 	return nil
 }
 
@@ -75,5 +75,5 @@ func (v *String) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewString(v.Val())
+	return NewString(v.X取值())
 }

@@ -29,7 +29,7 @@ func (r RuleRequired) Message() string {
 }
 
 func (r RuleRequired) Run(in RunInput) error {
-	if isRequiredEmpty(in.Value.Val()) {
+	if isRequiredEmpty(in.Value.X取值()) {
 		return errors.New(in.Message)
 	}
 	return nil
@@ -44,5 +44,5 @@ func isRequiredEmpty(value interface{}) bool {
 	case reflect.String, reflect.Map, reflect.Array, reflect.Slice:
 		return reflectValue.Len() == 0
 	}
-	return gconv.String(value) == ""
+	return 转换类.String(value) == ""
 }

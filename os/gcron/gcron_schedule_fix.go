@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcron
+package 定时cron类
 
 import (
 	"context"
@@ -17,7 +17,7 @@ import (
 func (s *cronSchedule) getAndUpdateLastTimestamp(ctx context.Context, t time.Time) int64 {
 	var (
 		currentTimestamp = t.Unix()
-		lastTimestamp    = s.lastTimestamp.Val()
+		lastTimestamp    = s.lastTimestamp.X取值()
 	)
 	switch {
 	case
@@ -42,6 +42,6 @@ func (s *cronSchedule) getAndUpdateLastTimestamp(ctx context.Context, t time.Tim
 		)
 		lastTimestamp = currentTimestamp
 	}
-	s.lastTimestamp.Set(lastTimestamp)
+	s.lastTimestamp.X设置值(lastTimestamp)
 	return lastTimestamp
 }

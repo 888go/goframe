@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp_test
+package tcp类_test
 
 import (
 	"fmt"
@@ -12,14 +12,14 @@ import (
 )
 
 func ExampleGetFreePort() {
-	fmt.Println(gtcp.GetFreePort())
+	fmt.Println(tcp类.GetFreePort())
 
 	// May Output:
 	// 57429 <nil>
 }
 
 func ExampleGetFreePorts() {
-	fmt.Println(gtcp.GetFreePorts(2))
+	fmt.Println(tcp类.GetFreePorts(2))
 
 	// May Output:
 	// [57743 57744] <nil>

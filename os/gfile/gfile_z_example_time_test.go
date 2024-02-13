@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 )
 
 func ExampleMTime() {
-	t := gfile.MTime(gfile.Temp())
+	t := 文件类.X取修改时间秒(文件类.X取临时目录())
 	fmt.Println(t)
 
 	// May Output:
@@ -20,7 +20,7 @@ func ExampleMTime() {
 }
 
 func ExampleMTimestamp() {
-	t := gfile.MTimestamp(gfile.Temp())
+	t := 文件类.X取修改时间戳秒(文件类.X取临时目录())
 	fmt.Println(t)
 
 	// May Output:
@@ -28,7 +28,7 @@ func ExampleMTimestamp() {
 }
 
 func ExampleMTimestampMilli() {
-	t := gfile.MTimestampMilli(gfile.Temp())
+	t := 文件类.X取修改时间戳毫秒(文件类.X取临时目录())
 	fmt.Println(t)
 
 	// May Output:

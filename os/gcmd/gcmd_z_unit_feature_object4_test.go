@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
@@ -36,9 +36,9 @@ func (c *TestNoNameTagCase) TEST(ctx context.Context, in TestNoNameTagCaseRootIn
 }
 
 func Test_Command_NoNameTagCase(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		var ctx = gctx.New()
-		cmd, err := gcmd.NewFromObject(TestNoNameTagCase{})
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var ctx = 上下文类.X创建()
+		cmd, err := cmd类.NewFromObject(TestNoNameTagCase{})
 		t.AssertNil(err)
 
 		os.Args = []string{"root", "TEST", "-name=john"}

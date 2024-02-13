@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // gring包提供了一种并发安全/不安全的循环链表（环形列表）。
-package gring
+package 循环链表类
 
 import (
 	"container/ring"
@@ -18,9 +18,9 @@ import (
 type Ring struct {
 	mu    *rwmutex.RWMutex
 	ring  *ring.Ring  // Underlying ring.
-	len   *gtype.Int  // 长度（已使用大小）
-	cap   *gtype.Int  // Capability(>=len) 表示能力（或功能）至少为 len。
-	dirty *gtype.Bool // Dirty, which means the len and cap should be recalculated. It's marked dirty when the size of ring changes.
+	len   *安全变量类.Int  // 长度（已使用大小）
+	cap   *安全变量类.Int  // Capability(>=len) 表示能力（或功能）至少为 len。
+	dirty *安全变量类.Bool // Dirty, which means the len and cap should be recalculated. It's marked dirty when the size of ring changes.
 }
 
 // internalRingItem 存储环形元素的值。
@@ -34,14 +34,14 @@ func New(cap int, safe ...bool) *Ring {
 	return &Ring{
 		mu:    rwmutex.New(safe...),
 		ring:  ring.New(cap),
-		len:   gtype.NewInt(),
-		cap:   gtype.NewInt(cap),
-		dirty: gtype.NewBool(),
+		len:   安全变量类.NewInt(),
+		cap:   安全变量类.NewInt(cap),
+		dirty: 安全变量类.NewBool(),
 	}
 }
 
 // Val 返回当前位置项的值。
-func (r *Ring) Val() interface{} {
+func (r *Ring) X取值() interface{} {
 	var value interface{}
 	r.mu.RLock()
 	if r.ring.Value != nil {
@@ -54,18 +54,18 @@ func (r *Ring) Val() interface{} {
 // Len 返回环形结构的大小。
 func (r *Ring) Len() int {
 	r.checkAndUpdateLenAndCap()
-	return r.len.Val()
+	return r.len.X取值()
 }
 
 // Cap 返回环形缓冲区的容量。
 func (r *Ring) Cap() int {
 	r.checkAndUpdateLenAndCap()
-	return r.cap.Val()
+	return r.cap.X取值()
 }
 
 // 当ring脏时，检查并更新ring的长度(len)和容量(cap)。
 func (r *Ring) checkAndUpdateLenAndCap() {
-	if !r.dirty.Val() {
+	if !r.dirty.X取值() {
 		return
 	}
 	r.mu.RLock()
@@ -84,13 +84,13 @@ func (r *Ring) checkAndUpdateLenAndCap() {
 			totalLen++
 		}
 	}
-	r.cap.Set(totalLen)
-	r.len.Set(totalLen - emptyLen)
-	r.dirty.Set(false)
+	r.cap.X设置值(totalLen)
+	r.len.X设置值(totalLen - emptyLen)
+	r.dirty.X设置值(false)
 }
 
 // Set 将值设置为当前位置的项。
-func (r *Ring) Set(value interface{}) *Ring {
+func (r *Ring) X设置值(value interface{}) *Ring {
 	r.mu.Lock()
 	if r.ring.Value == nil {
 		r.len.Add(1)
@@ -149,8 +149,8 @@ func (r *Ring) Link(s *Ring) *Ring {
 	r.ring.Link(s.ring)
 	s.mu.Unlock()
 	r.mu.Unlock()
-	r.dirty.Set(true)
-	s.dirty.Set(true)
+	r.dirty.X设置值(true)
+	s.dirty.X设置值(true)
 	return r
 }
 
@@ -160,11 +160,11 @@ func (r *Ring) Link(s *Ring) *Ring {
 func (r *Ring) Unlink(n int) *Ring {
 	r.mu.Lock()
 	resultRing := r.ring.Unlink(n)
-	r.dirty.Set(true)
+	r.dirty.X设置值(true)
 	r.mu.Unlock()
 	resultGRing := New(resultRing.Len())
 	resultGRing.ring = resultRing
-	resultGRing.dirty.Set(true)
+	resultGRing.dirty.X设置值(true)
 	return resultGRing
 }
 

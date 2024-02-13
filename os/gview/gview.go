@@ -14,7 +14,7 @@
 //
 // 已保留的模板变量名称：
 // I18nLanguage：将该变量进行赋值，以便在每个页面上定义国际化的（i18n）语言设置。
-package gview
+package 模板类
 
 import (
 	"context"
@@ -30,10 +30,10 @@ import (
 
 // 模板引擎的视图对象。
 type View struct {
-	searchPaths  *garray.StrArray       // 为了性能考虑，以下代码在数组中搜索路径，但并不保证并发安全。
+	searchPaths  *数组类.StrArray       // 为了性能考虑，以下代码在数组中搜索路径，但并不保证并发安全。
 	data         map[string]interface{} // 全局模板变量。
 	funcMap      map[string]interface{} // 全局模板函数映射。
-	fileCacheMap *gmap.StrAnyMap        // File cache map.
+	fileCacheMap *map类.StrAnyMap        // File cache map.
 	config       Config                 // 额外的视图配置
 }
 
@@ -73,10 +73,10 @@ func New(path ...string) *View {
 		ctx = context.TODO()
 	)
 	view := &View{
-		searchPaths:  garray.NewStrArray(),
+		searchPaths:  数组类.X创建文本(),
 		data:         make(map[string]interface{}),
 		funcMap:      make(map[string]interface{}),
-		fileCacheMap: gmap.NewStrAnyMap(true),
+		fileCacheMap: map类.X创建StrAny(true),
 		config:       DefaultConfig(),
 	}
 	if len(path) > 0 && len(path[0]) > 0 {
@@ -85,29 +85,29 @@ func New(path ...string) *View {
 		}
 	} else {
 		// 从环境变量/命令行自定义目录路径。
-		if envPath := gcmd.GetOptWithEnv(commandEnvKeyForPath).String(); envPath != "" {
-			if gfile.Exists(envPath) {
+		if envPath := cmd类.GetOptWithEnv(commandEnvKeyForPath).String(); envPath != "" {
+			if 文件类.X是否存在(envPath) {
 				if err := view.SetPath(envPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}
 			} else {
 				if errorPrint() {
-					glog.Errorf(ctx, "Template directory path does not exist: %s", envPath)
+					日志类.X输出并格式化ERR(ctx, "Template directory path does not exist: %s", envPath)
 				}
 			}
 		} else {
 			// Dir：工作目录的路径。
-			if err := view.SetPath(gfile.Pwd()); err != nil {
+			if err := view.SetPath(文件类.X取当前工作目录()); err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
 			// Dir 二进制文件的路径。
-			if selfPath := gfile.SelfDir(); selfPath != "" && gfile.Exists(selfPath) {
+			if selfPath := 文件类.X取当前进程目录(); selfPath != "" && 文件类.X是否存在(selfPath) {
 				if err := view.AddPath(selfPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}
 			}
 			// Dir：主包的路径。
-			if mainPath := gfile.MainPkgPath(); mainPath != "" && gfile.Exists(mainPath) {
+			if mainPath := 文件类.X取main路径(); mainPath != "" && 文件类.X是否存在(mainPath) {
 				if err := view.AddPath(mainPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}

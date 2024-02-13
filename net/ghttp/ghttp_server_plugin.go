@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 // Plugin 是服务器插件的接口。
 type Plugin interface {
@@ -16,6 +16,6 @@ type Plugin interface {
 }
 
 // Plugin 向服务器添加插件。
-func (s *Server) Plugin(plugin ...Plugin) {
-	s.plugins = append(s.plugins, plugin...)
+func (s *Server) X插件添加(插件 ...Plugin) {
+	s.plugins = append(s.plugins, 插件...)
 }

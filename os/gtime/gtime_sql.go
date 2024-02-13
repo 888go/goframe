@@ -1,4 +1,4 @@
-package gtime
+package 时间类
 
 import (
 	"database/sql/driver"
@@ -9,7 +9,7 @@ func (t *Time) Scan(value interface{}) error {
 	if t == nil {
 		return nil
 	}
-	newTime := New(value)
+	newTime := X创建(value)
 	*t = *newTime
 	return nil
 }

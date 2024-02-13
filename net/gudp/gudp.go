@@ -5,4 +5,4 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // gudp包提供了UDP服务器和客户端的实现。
-package gudp
+package udp类

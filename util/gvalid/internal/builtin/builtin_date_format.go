@@ -36,13 +36,13 @@ func (r RuleDateFormat) Run(in RunInput) error {
 		IsZero() bool
 	}
 	// 支持时间值，例如：gtime.Time（gtime.Time, time.Time）
-	if obj, ok := in.Value.Val().(iTime); ok {
+	if obj, ok := in.Value.X取值().(iTime); ok {
 		if obj.IsZero() {
 			return errors.New(in.Message)
 		}
 		return nil
 	}
-	if _, err := gtime.StrToTimeFormat(in.Value.String(), in.RulePattern); err != nil {
+	if _, err := 时间类.StrToTimeFormat别名(in.Value.String(), in.RulePattern); err != nil {
 		return errors.New(in.Message)
 	}
 	return nil

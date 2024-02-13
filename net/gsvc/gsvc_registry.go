@@ -16,7 +16,7 @@ import (
 // Register 将`service`注册到默认注册中心。
 func Register(ctx context.Context, service Service) (Service, error) {
 	if defaultRegistry == nil {
-		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeNotImplemented, `no Registry is registered`)
 	}
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout)
 	defer cancel()
@@ -27,7 +27,7 @@ func Register(ctx context.Context, service Service) (Service, error) {
 // Deregister 从默认注册表中移除`service`。
 func Deregister(ctx context.Context, service Service) error {
 	if defaultRegistry == nil {
-		return gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
+		return 错误类.X创建错误码并格式化(错误码类.CodeNotImplemented, `no Registry is registered`)
 	}
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout)
 	defer cancel()

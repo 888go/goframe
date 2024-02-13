@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf获取一个。
 
-package gmap_test
+package map类_test
 
 import (
 	"testing"
@@ -17,10 +17,10 @@ import (
 )
 
 func Test_TreeMap_Var(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		var m gmap.TreeMap
-		m.SetComparator(gutil.ComparatorString)
-		m.Set("key1", "val1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var m map类.TreeMap
+		m.SetComparator(工具类.X比较文本)
+		m.X设置值("key1", "val1")
 		t.Assert(m.Keys(), []interface{}{"key1"})
 
 		t.Assert(m.Get("key1"), "val1")
@@ -50,9 +50,9 @@ func Test_TreeMap_Var(t *testing.T) {
 }
 
 func Test_TreeMap_Basic(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
-		m.Set("key1", "val1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := map类.X创建红黑树Map(工具类.X比较文本)
+		m.X设置值("key1", "val1")
 		t.Assert(m.Keys(), []interface{}{"key1"})
 
 		t.Assert(m.Get("key1"), "val1")
@@ -79,14 +79,14 @@ func Test_TreeMap_Basic(t *testing.T) {
 		t.Assert(m.Size(), 0)
 		t.Assert(m.IsEmpty(), true)
 
-		m2 := gmap.NewTreeMapFrom(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m2 := map类.X创建红黑树Map并从Map(工具类.X比较文本, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		t.Assert(m2.Map(), map[interface{}]interface{}{1: 1, "key1": "val1"})
 	})
 }
 
 func Test_TreeMap_Set_Fun(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := map类.X创建红黑树Map(工具类.X比较文本)
 		m.GetOrSetFunc("fun", getValue)
 		m.GetOrSetFuncLock("funlock", getValue)
 		t.Assert(m.Get("funlock"), 3)
@@ -98,8 +98,8 @@ func Test_TreeMap_Set_Fun(t *testing.T) {
 }
 
 func Test_TreeMap_Batch(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		m := map类.X创建红黑树Map(工具类.X比较文本)
 		m.Sets(map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		t.Assert(m.Map(), map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		m.Removes([]interface{}{"key1", 1})
@@ -108,21 +108,21 @@ func Test_TreeMap_Batch(t *testing.T) {
 }
 
 func Test_TreeMap_Iterator(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		expect := map[interface{}]interface{}{1: 1, "key1": "val1"}
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, expect)
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m := map类.X创建红黑树Map并从Map(工具类.X比较文本, expect)
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			t.Assert(expect[k], v)
 			return true
 		})
 		// 断言返回值对遍历控制
 		i := 0
 		j := 0
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			i++
 			return true
 		})
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			j++
 			return false
 		})
@@ -130,9 +130,9 @@ func Test_TreeMap_Iterator(t *testing.T) {
 		t.Assert(j, 1)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		expect := map[interface{}]interface{}{1: 1, "key1": "val1"}
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, expect)
+		m := map类.X创建红黑树Map并从Map(工具类.X比较文本, expect)
 		for i := 0; i < 10; i++ {
 			m.IteratorAsc(func(k interface{}, v interface{}) bool {
 				t.Assert(expect[k], v)
@@ -151,9 +151,9 @@ func Test_TreeMap_Iterator(t *testing.T) {
 }
 
 func Test_TreeMap_Clone(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		// clone 方法是深克隆
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m := map类.X创建红黑树Map并从Map(工具类.X比较文本, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		m_clone := m.Clone()
 		m.Remove(1)
 		// 修改原 map,clone 后的 map 不影响
@@ -167,41 +167,41 @@ func Test_TreeMap_Clone(t *testing.T) {
 
 func Test_TreeMap_Json(t *testing.T) {
 	// Marshal
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := g.MapAnyAny{
 			"k1": "v1",
 			"k2": "v2",
 		}
-		m1 := gmap.NewTreeMapFrom(gutil.ComparatorString, data)
+		m1 := map类.X创建红黑树Map并从Map(工具类.X比较文本, data)
 		b1, err1 := json.Marshal(m1)
-		b2, err2 := json.Marshal(gconv.Map(data))
+		b2, err2 := json.Marshal(转换类.X取Map(data))
 		t.Assert(err1, err2)
 		t.Assert(b1, b2)
 	})
 	// Unmarshal
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := g.MapAnyAny{
 			"k1": "v1",
 			"k2": "v2",
 		}
-		b, err := json.Marshal(gconv.Map(data))
+		b, err := json.Marshal(转换类.X取Map(data))
 		t.AssertNil(err)
 
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := map类.X创建红黑树Map(工具类.X比较文本)
 		err = json.UnmarshalUseNumber(b, m)
 		t.AssertNil(err)
 		t.Assert(m.Get("k1"), data["k1"])
 		t.Assert(m.Get("k2"), data["k2"])
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		data := g.MapAnyAny{
 			"k1": "v1",
 			"k2": "v2",
 		}
-		b, err := json.Marshal(gconv.Map(data))
+		b, err := json.Marshal(转换类.X取Map(data))
 		t.AssertNil(err)
 
-		var m gmap.TreeMap
+		var m map类.TreeMap
 		err = json.UnmarshalUseNumber(b, &m)
 		t.AssertNil(err)
 		t.Assert(m.Get("k1"), data["k1"])
@@ -212,12 +212,12 @@ func Test_TreeMap_Json(t *testing.T) {
 func TestTreeMap_UnmarshalValue(t *testing.T) {
 	type V struct {
 		Name string
-		Map  *gmap.TreeMap
+		Map  *map类.TreeMap
 	}
 	// JSON
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var v *V
-		err := gconv.Struct(map[string]interface{}{
+		err := 转换类.Struct(map[string]interface{}{
 			"name": "john",
 			"map":  []byte(`{"k1":"v1","k2":"v2"}`),
 		}, &v)
@@ -228,9 +228,9 @@ func TestTreeMap_UnmarshalValue(t *testing.T) {
 		t.Assert(v.Map.Get("k2"), "v2")
 	})
 	// Map
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var v *V
-		err := gconv.Struct(map[string]interface{}{
+		err := 转换类.Struct(map[string]interface{}{
 			"name": "john",
 			"map": g.Map{
 				"k1": "v1",

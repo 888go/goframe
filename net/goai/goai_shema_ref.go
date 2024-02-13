@@ -34,7 +34,7 @@ type SchemaRef struct {
 // 在 `A` 中的 `B` 被称为 `嵌入式结构体定义`。
 func (oai *OpenApiV3) isEmbeddedStructDefinition(golangType reflect.Type) bool {
 	s := golangType.String()
-	return gstr.Contains(s, `struct {`)
+	return 文本类.X是否包含(s, `struct {`)
 }
 
 // newSchemaRefWithGolangType 根据 Go 语言类型创建一个新的 Schema，并返回其对应的 SchemaRef。
@@ -80,35 +80,35 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 	// Nothing to do.
 	case TypeInteger:
 		if schemaRef.Value.Default != nil {
-			schemaRef.Value.Default = gconv.Int64(schemaRef.Value.Default)
+			schemaRef.Value.Default = 转换类.X取整数64位(schemaRef.Value.Default)
 		}
 		// 保留默认值为 nil。
 
 		// 示例值需要像默认值一样进行转换
 		if schemaRef.Value.Example != nil {
-			schemaRef.Value.Example = gconv.Int64(schemaRef.Value.Example)
+			schemaRef.Value.Example = 转换类.X取整数64位(schemaRef.Value.Example)
 		}
 		// 保留示例值为nil。
 	case TypeNumber:
 		if schemaRef.Value.Default != nil {
-			schemaRef.Value.Default = gconv.Float64(schemaRef.Value.Default)
+			schemaRef.Value.Default = 转换类.X取小数64位(schemaRef.Value.Default)
 		}
 		// 保留默认值为 nil。
 
 		// 示例值需要像默认值一样进行转换
 		if schemaRef.Value.Example != nil {
-			schemaRef.Value.Example = gconv.Float64(schemaRef.Value.Example)
+			schemaRef.Value.Example = 转换类.X取小数64位(schemaRef.Value.Example)
 		}
 		// 保留示例值为nil。
 	case TypeBoolean:
 		if schemaRef.Value.Default != nil {
-			schemaRef.Value.Default = gconv.Bool(schemaRef.Value.Default)
+			schemaRef.Value.Default = 转换类.X取布尔(schemaRef.Value.Default)
 		}
 		// 保留默认值为 nil。
 
 		// 示例值需要像默认值一样进行转换
 		if schemaRef.Value.Example != nil {
-			schemaRef.Value.Example = gconv.Bool(schemaRef.Value.Example)
+			schemaRef.Value.Example = 转换类.X取布尔(schemaRef.Value.Example)
 		}
 		// 保留示例值为nil。
 	case

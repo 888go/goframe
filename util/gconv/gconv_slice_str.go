@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
@@ -13,12 +13,12 @@ import (
 )
 
 // SliceStr 是 Strings 的别名。
-func SliceStr(any interface{}) []string {
-	return Strings(any)
+func SliceStr别名(any interface{}) []string {
+	return X取文本数组(any)
 }
 
 // Strings 将 `any` 转换为 []string 类型。
-func Strings(any interface{}) []string {
+func X取文本数组(any interface{}) []string {
 	if any == nil {
 		return nil
 	}
@@ -112,10 +112,10 @@ func Strings(any interface{}) []string {
 		return array
 	}
 	if v, ok := any.(iStrings); ok {
-		return v.Strings()
+		return v.X取文本数组()
 	}
 	if v, ok := any.(iInterfaces); ok {
-		return Strings(v.Interfaces())
+		return X取文本数组(v.X取any数组())
 	}
 	// JSON格式字符串值转换
 	if checkJsonAndUnmarshalUseNumber(any, &array) {

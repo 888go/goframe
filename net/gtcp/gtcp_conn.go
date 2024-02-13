@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp
+package tcp类
 
 import (
 	"bufio"
@@ -78,7 +78,7 @@ func (c *Conn) Send(data []byte, retry ...Retry) error {
 			}
 			// 即使重试后仍然失败。
 			if len(retry) == 0 || retry[0].Count == 0 {
-				err = gerror.Wrap(err, `Write data failed`)
+				err = 错误类.X多层错误(err, `Write data failed`)
 				return err
 			}
 			if len(retry) > 0 {
@@ -119,7 +119,7 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 		if length < 0 && index > 0 {
 			bufferWait = true
 			if err = c.SetReadDeadline(time.Now().Add(c.bufferWaitRecv)); err != nil {
-				err = gerror.Wrap(err, `SetReadDeadline for connection failed`)
+				err = 错误类.X多层错误(err, `SetReadDeadline for connection failed`)
 				return nil, err
 			}
 		}
@@ -151,7 +151,7 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 			// 在读取数据时重新设置超时时间。
 			if bufferWait && isTimeout(err) {
 				if err = c.SetReadDeadline(c.deadlineRecv); err != nil {
-					err = gerror.Wrap(err, `SetReadDeadline for connection failed`)
+					err = 错误类.X多层错误(err, `SetReadDeadline for connection failed`)
 					return nil, err
 				}
 				err = nil
@@ -282,7 +282,7 @@ func (c *Conn) SetDeadline(t time.Time) (err error) {
 		c.deadlineSend = t
 	}
 	if err != nil {
-		err = gerror.Wrapf(err, `SetDeadline for connection failed with "%s"`, t)
+		err = 错误类.X多层错误并格式化(err, `SetDeadline for connection failed with "%s"`, t)
 	}
 	return err
 }
@@ -293,7 +293,7 @@ func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 		c.deadlineRecv = t
 	}
 	if err != nil {
-		err = gerror.Wrapf(err, `SetDeadlineRecv for connection failed with "%s"`, t)
+		err = 错误类.X多层错误并格式化(err, `SetDeadlineRecv for connection failed with "%s"`, t)
 	}
 	return err
 }
@@ -304,7 +304,7 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 		c.deadlineSend = t
 	}
 	if err != nil {
-		err = gerror.Wrapf(err, `SetDeadlineSend for connection failed with "%s"`, t)
+		err = 错误类.X多层错误并格式化(err, `SetDeadlineSend for connection failed with "%s"`, t)
 	}
 	return err
 }

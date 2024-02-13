@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -17,7 +17,7 @@ type internalCtxData struct {
 	DB DB
 
 	// 当前操作中使用的配置节点。
-	ConfigNode *ConfigNode
+	ConfigNode *X配置项
 
 // 此处为从数据库服务器获取的结果响应中的第一列。
 // 该属性用于值/计数选择语句的目的，
@@ -27,16 +27,16 @@ type internalCtxData struct {
 }
 
 const (
-	internalCtxDataKeyInCtx gctx.StrKey = "InternalCtxData"
+	internalCtxDataKeyInCtx 上下文类.StrKey = "InternalCtxData"
 
 // `ignoreResultKeyInCtx` 是一个标志，用于某些不支持 `RowsAffected` 函数的数据库驱动程序，
 // 例如：`clickhouse`。ClickHouse 在执行插入/更新操作时不支持获取结果，
 // 而是在调用 `RowsAffected` 时返回错误。在这里忽略对 `RowsAffected` 的调用，
 // 以避免触发错误，而不是在错误触发后忽略它们。
-	ignoreResultKeyInCtx gctx.StrKey = "IgnoreResult"
+	ignoreResultKeyInCtx 上下文类.StrKey = "IgnoreResult"
 )
 
-func (c *Core) InjectInternalCtxData(ctx context.Context) context.Context {
+func (c *Core) 底层_InjectInternalCtxData(ctx context.Context) context.Context {
 	// 如果内部数据已经注入，则不做任何操作。
 	if ctx.Value(internalCtxDataKeyInCtx) != nil {
 		return ctx
@@ -47,20 +47,20 @@ func (c *Core) InjectInternalCtxData(ctx context.Context) context.Context {
 	})
 }
 
-func (c *Core) GetInternalCtxDataFromCtx(ctx context.Context) *internalCtxData {
+func (c *Core) 底层_GetInternalCtxDataFromCtx(ctx context.Context) *internalCtxData {
 	if v := ctx.Value(internalCtxDataKeyInCtx); v != nil {
 		return v.(*internalCtxData)
 	}
 	return nil
 }
 
-func (c *Core) InjectIgnoreResult(ctx context.Context) context.Context {
+func (c *Core) 底层_InjectIgnoreResult(ctx context.Context) context.Context {
 	if ctx.Value(ignoreResultKeyInCtx) != nil {
 		return ctx
 	}
 	return context.WithValue(ctx, ignoreResultKeyInCtx, true)
 }
 
-func (c *Core) GetIgnoreResultFromCtx(ctx context.Context) bool {
+func (c *Core) 底层_GetIgnoreResultFromCtx(ctx context.Context) bool {
 	return ctx.Value(ignoreResultKeyInCtx) != nil
 }

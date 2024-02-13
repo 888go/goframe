@@ -39,7 +39,7 @@ func (s *selectorRandom) Pick(ctx context.Context) (node Node, done DoneFunc, er
 	if len(s.nodes) == 0 {
 		return nil, nil, nil
 	}
-	node = s.nodes[grand.Intn(len(s.nodes))]
+	node = s.nodes[随机类.X整数(len(s.nodes))]
 	intlog.Printf(ctx, `Picked node: %s`, node.Address())
 	return node, nil, nil
 }

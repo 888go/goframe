@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
@@ -20,68 +20,68 @@ func Test_MapToMap1(t *testing.T) {
 // ```go
 // 将整数到整数的映射（map[int]int）转换为字符串到字符串的映射（map[string]string）
 // 初始化一个空的原生映射
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m1 := g.MapIntInt{}
 		m2 := g.MapStrStr{}
-		t.Assert(gconv.MapToMap(m1, &m2), nil)
+		t.Assert(转换类.MapToMap(m1, &m2), nil)
 		t.Assert(len(m1), len(m2))
 	})
 	// map[int]int -> map[string]string
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m1 := g.MapIntInt{
 			1: 100,
 			2: 200,
 		}
 		m2 := g.MapStrStr{}
-		t.Assert(gconv.MapToMap(m1, &m2), nil)
+		t.Assert(转换类.MapToMap(m1, &m2), nil)
 		t.Assert(m2["1"], m1[1])
 		t.Assert(m2["2"], m1[2])
 	})
 	// 将 map[string]interface{} 类型转换为 map[string]string 类型
 // 这段注释表明了代码的功能是将一个键为字符串、值为接口类型的映射（map）转换为键同样为字符串但值为字符串类型的映射。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m1 := g.Map{
 			"k1": "v1",
 			"k2": "v2",
 		}
 		m2 := g.MapStrStr{}
-		t.Assert(gconv.MapToMap(m1, &m2), nil)
+		t.Assert(转换类.MapToMap(m1, &m2), nil)
 		t.Assert(m2["k1"], m1["k1"])
 		t.Assert(m2["k2"], m1["k2"])
 	})
 	// 将字符串到字符串的映射转换为字符串到接口的映射
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m1 := g.MapStrStr{
 			"k1": "v1",
 			"k2": "v2",
 		}
 		m2 := g.Map{}
-		t.Assert(gconv.MapToMap(m1, &m2), nil)
+		t.Assert(转换类.MapToMap(m1, &m2), nil)
 		t.Assert(m2["k1"], m1["k1"])
 		t.Assert(m2["k2"], m1["k2"])
 	})
 	// 将 map[string]interface{} 转换为 map[interface{}]interface{}
 // 这段注释表明，该代码片段的功能是将键类型为字符串、值类型为接口的映射（map）转换为键和值类型都为接口的映射。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m1 := g.MapStrStr{
 			"k1": "v1",
 			"k2": "v2",
 		}
 		m2 := g.MapAnyAny{}
-		t.Assert(gconv.MapToMap(m1, &m2), nil)
+		t.Assert(转换类.MapToMap(m1, &m2), nil)
 		t.Assert(m2["k1"], m1["k1"])
 		t.Assert(m2["k2"], m1["k2"])
 	})
 	// 将字符串转换为 map[string]interface{}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		jsonStr := `{"id":100, "name":"john"}`
 
 		m1 := g.MapStrAny{}
-		t.Assert(gconv.MapToMap(jsonStr, &m1), nil)
+		t.Assert(转换类.MapToMap(jsonStr, &m1), nil)
 		t.Assert(m1["id"], 100)
 
 		m2 := g.MapStrAny{}
-		t.Assert(gconv.MapToMap([]byte(jsonStr), &m2), nil)
+		t.Assert(转换类.MapToMap([]byte(jsonStr), &m2), nil)
 		t.Assert(m2["id"], 100)
 	})
 }
@@ -97,33 +97,33 @@ func Test_MapToMap2(t *testing.T) {
 			"name": "john",
 		},
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]User)
-		err := gconv.MapToMap(params, &m)
+		err := 转换类.MapToMap(params, &m)
 		t.AssertNil(err)
 		t.Assert(len(m), 1)
 		t.Assert(m["key"].Id, 1)
 		t.Assert(m["key"].Name, "john")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := (map[string]User)(nil)
-		err := gconv.MapToMap(params, &m)
+		err := 转换类.MapToMap(params, &m)
 		t.AssertNil(err)
 		t.Assert(len(m), 1)
 		t.Assert(m["key"].Id, 1)
 		t.Assert(m["key"].Name, "john")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]*User)
-		err := gconv.MapToMap(params, &m)
+		err := 转换类.MapToMap(params, &m)
 		t.AssertNil(err)
 		t.Assert(len(m), 1)
 		t.Assert(m["key"].Id, 1)
 		t.Assert(m["key"].Name, "john")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := (map[string]*User)(nil)
-		err := gconv.MapToMap(params, &m)
+		err := 转换类.MapToMap(params, &m)
 		t.AssertNil(err)
 		t.Assert(len(m), 1)
 		t.Assert(m["key"].Id, 1)
@@ -150,9 +150,9 @@ func Test_MapToMapDeep(t *testing.T) {
 			"name": "john",
 		},
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := (map[string]*User)(nil)
-		err := gconv.MapToMap(params, &m)
+		err := 转换类.MapToMap(params, &m)
 		t.AssertNil(err)
 		t.Assert(len(m), 1)
 		t.Assert(m["key"].Id, 1)
@@ -161,33 +161,33 @@ func Test_MapToMapDeep(t *testing.T) {
 }
 
 func Test_MapToMaps(t *testing.T) {
-	params := g.Slice{
+	params := g.Slice别名{
 		g.Map{"id": 1, "name": "john"},
 		g.Map{"id": 2, "name": "smith"},
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s []g.Map
-		err := gconv.MapToMaps(params, &s)
+		err := 转换类.MapToMaps(params, &s)
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 		t.Assert(s, params)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s []*g.Map
-		err := gconv.MapToMaps(params, &s)
+		err := 转换类.MapToMaps(params, &s)
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 		t.Assert(s, params)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		jsonStr := `[{"id":100, "name":"john"},{"id":200, "name":"smith"}]`
 
 		var m1 []g.Map
-		t.Assert(gconv.MapToMaps(jsonStr, &m1), nil)
+		t.Assert(转换类.MapToMaps(jsonStr, &m1), nil)
 		t.Assert(m1[0]["id"], 100)
 		t.Assert(m1[1]["id"], 200)
 
-		t.Assert(gconv.MapToMaps([]byte(jsonStr), &m1), nil)
+		t.Assert(转换类.MapToMaps([]byte(jsonStr), &m1), nil)
 		t.Assert(m1[0]["id"], 100)
 		t.Assert(m1[1]["id"], 200)
 	})
@@ -198,19 +198,19 @@ func Test_MapToMaps_StructParams(t *testing.T) {
 		Id   int
 		Name string
 	}
-	params := g.Slice{
+	params := g.Slice别名{
 		User{1, "name1"},
 		User{2, "name2"},
 	}
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s []g.Map
-		err := gconv.MapToMaps(params, &s)
+		err := 转换类.MapToMaps(params, &s)
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s []*g.Map
-		err := gconv.MapToMaps(params, &s)
+		err := 转换类.MapToMaps(params, &s)
 		t.AssertNil(err)
 		t.Assert(len(s), 2)
 	})

@@ -6,4 +6,4 @@
 // Package gtree 提供了并发安全/非安全的树型容器。
 //
 // 部分实现来源于：https://github.com/emirpasic/gods
-package gtree
+package 树形类

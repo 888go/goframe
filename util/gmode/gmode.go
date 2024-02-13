@@ -7,7 +7,7 @@
 // Package gmode 为项目提供发布模式管理功能。
 //
 // 它使用字符串而非整数来标记模式，这种方式对于配置更为方便。
-package gmode
+package 环境类
 
 import (
 	"github.com/888go/goframe/debug/gdebug"
@@ -30,28 +30,28 @@ var (
 )
 
 // Set 设置当前应用程序的模式。
-func Set(mode string) {
+func X设置值(mode string) {
 	currentMode = mode
 }
 
 // SetDevelop 将当前应用程序的当前模式设置为 DEVELOP 模式。
 func SetDevelop() {
-	Set(DEVELOP)
+	X设置值(DEVELOP)
 }
 
 // SetTesting 设置当前应用程序的当前模式为 TESTING。
 func SetTesting() {
-	Set(TESTING)
+	X设置值(TESTING)
 }
 
 // SetStaging 将当前应用的当前模式设置为 STAGING。
 func SetStaging() {
-	Set(STAGING)
+	X设置值(STAGING)
 }
 
 // SetProduct 将当前应用的模式设置为PRODUCT模式。
 func SetProduct() {
-	Set(PRODUCT)
+	X设置值(PRODUCT)
 }
 
 // Mode 返回当前设置的应用程序模式。
@@ -63,7 +63,7 @@ func Mode() string {
 			currentMode = v
 		} else {
 			// 如果找到了源代码，那么处于开发模式；否则，处于产品模式。
-			if gfile.Exists(gdebug.CallerFilePath()) {
+			if 文件类.X是否存在(gdebug.CallerFilePath()) {
 				currentMode = DEVELOP
 			} else {
 				currentMode = PRODUCT

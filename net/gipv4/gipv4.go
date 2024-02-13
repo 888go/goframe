@@ -5,7 +5,7 @@
 //
 
 // Package gipv4 提供了用于处理 IPv4 地址的有用 API。
-package gipv4
+package ipv4类
 
 import (
 	"encoding/binary"
@@ -34,13 +34,13 @@ func Long2ip(long uint32) string {
 
 // Validate用于检查给定的`ip`是否为有效的IPv4地址。
 func Validate(ip string) bool {
-	return gregex.IsMatchString(`^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$`, ip)
+	return 正则类.X是否匹配文本(`^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$`, ip)
 }
 
 // ParseAddress 将 `address` 解析为其 IP 地址和端口号。
 // 例如：192.168.1.1:80 -> 192.168.1.1, 80
 func ParseAddress(address string) (string, int) {
-	match, err := gregex.MatchString(`^(.+):(\d+)$`, address)
+	match, err := 正则类.X匹配文本(`^(.+):(\d+)$`, address)
 	if err == nil {
 		i, _ := strconv.Atoi(match[2])
 		return match[1], i
@@ -50,7 +50,7 @@ func ParseAddress(address string) (string, int) {
 
 // GetSegment 返回给定IP地址的段。例如：192.168.2.102 -> 192.168.2
 func GetSegment(ip string) string {
-	match, err := gregex.MatchString(`^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$`, ip)
+	match, err := 正则类.X匹配文本(`^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$`, ip)
 	if err != nil || len(match) < 4 {
 		return ""
 	}

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gerror
+package 错误类
 
 import (
 	"errors"
@@ -19,7 +19,7 @@ type Error struct {
 	error error      // Wrapped error.
 	stack stack      // Stack 数组，用于记录当此错误创建或被包裹时的堆栈信息。
 	text  string     // 当 Error 被创建时的自定义错误文本，如果其代码不为空，则可能为空。
-	code  gcode.Code // 如果必要，此处为错误代码。
+	code  错误码类.Code // 如果必要，此处为错误代码。
 }
 
 const (
@@ -115,7 +115,7 @@ func (err *Error) Equal(target error) bool {
 	}
 // 代码应当保持一致。
 // 注意，如果两个错误的code都是`nil`，则认为它们也是相等的。
-	if err.code != Code(target) {
+	if err.code != X取错误码(target) {
 		return false
 	}
 	// 文本内容应该保持一致。
@@ -128,14 +128,14 @@ func (err *Error) Equal(target error) bool {
 // Is 报告当前错误 `err` 在其链式错误中是否包含错误 `target`。
 // 这只是为了实现从 Go 1.17 版本开始的stdlib errors.Is功能。
 func (err *Error) Is(target error) bool {
-	if Equal(err, target) {
+	if X是否相等(err, target) {
 		return true
 	}
 	nextErr := err.Unwrap()
 	if nextErr == nil {
 		return false
 	}
-	if Equal(nextErr, target) {
+	if X是否相等(nextErr, target) {
 		return true
 	}
 	if e, ok := nextErr.(IIs); ok {

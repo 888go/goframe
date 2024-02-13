@@ -10,7 +10,7 @@
 // Redis 官方命令参考: https://redis.io/commands
 //
 // Redis 中文文档: http://redisdoc.com/
-package gredis
+package redis类
 
 import (
 	"github.com/888go/goframe/errors/gcode"
@@ -44,14 +44,14 @@ func New(config ...*Config) (*Redis, error) {
 		usedAdapter = defaultAdapterFunc(configFromGlobal)
 	}
 	if usedConfig == nil {
-		return nil, gerror.NewCode(
-			gcode.CodeInvalidConfiguration,
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeInvalidConfiguration,
 			`no configuration found for creating Redis client`,
 		)
 	}
 	if usedAdapter == nil {
-		return nil, gerror.NewCode(
-			gcode.CodeNecessaryPackageNotImport,
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeNecessaryPackageNotImport,
 			errorNilAdapter,
 		)
 	}
@@ -65,7 +65,7 @@ func New(config ...*Config) (*Redis, error) {
 // NewWithAdapter 根据给定的适配器创建并返回一个redis客户端。
 func NewWithAdapter(adapter Adapter) (*Redis, error) {
 	if adapter == nil {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `adapter cannot be nil`)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `adapter cannot be nil`)
 	}
 	redis := &Redis{localAdapter: adapter}
 	return redis.initGroup(), nil

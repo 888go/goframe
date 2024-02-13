@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 // LockUpdate 为当前操作设置更新锁。
 //
@@ -15,7 +15,7 @@ package gdb
 // g.Model("users").Ctx(ctx).Where("votes>?", 100).LockUpdate().All();
 // 上面这个查询等价于下面这条 SQL 语句：
 // SELECT * FROM `users` WHERE `votes` > 100 FOR UPDATE
-func (m *Model) LockUpdate() *Model {
+func (m *Model) X锁读写() *Model {
 	model := m.getModel()
 	model.lockInfo = "FOR UPDATE"
 	return model
@@ -31,7 +31,7 @@ func (m *Model) LockUpdate() *Model {
 // g.Model("users").Ctx(ctx).Where("votes>?", 100).LockShared().All();
 // 上面这个查询等价于下面这条 SQL 语句：
 // SELECT * FROM `users` WHERE `votes` > 100 LOCK IN SHARE MODE
-func (m *Model) LockShared() *Model {
+func (m *Model) X锁写入() *Model {
 	model := m.getModel()
 	model.lockInfo = "LOCK IN SHARE MODE"
 	return model

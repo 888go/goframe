@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview
+package 模板类
 
 import (
 	"bytes"
@@ -44,7 +44,7 @@ type fileCacheItem struct {
 var (
 // 模板文件夹的模板缓存映射。
 // 注意，此映射没有设置过期逻辑。
-	templates = gmap.NewStrAnyMap(true)
+	templates = map类.X创建StrAny(true)
 
 	// 尝试在以下文件夹中搜索资源模板文件。
 	resourceTryFolders = []string{
@@ -113,15 +113,15 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		return view.doParseContent(ctx, option.Content, option.Params)
 	}
 	if option.File == "" {
-		return "", gerror.New(`template file cannot be empty`)
+		return "", 错误类.X创建(`template file cannot be empty`)
 	}
 	// 它缓存文件、文件夹及其内容以提高性能。
-	r := view.fileCacheMap.GetOrSetFuncLock(option.File, func() interface{} {
+	r := view.fileCacheMap.X取值或设置值_函数带锁(option.File, func() interface{} {
 		var (
 			path     string
 			folder   string
 			content  string
-			resource *gres.File
+			resource *资源类.File
 		)
 		// 搜索`file`的绝对文件路径。
 		path, folder, resource, err = view.searchFile(ctx, option.File)
@@ -131,15 +131,15 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		if resource != nil {
 			content = string(resource.Content())
 		} else {
-			content = gfile.GetContentsWithCache(path)
+			content = 文件类.X缓存读文本(path)
 		}
 		// 使用fsnotify异步监控模板文件的变更。
 		if resource == nil {
-			if _, err = gfsnotify.AddOnce("gview.Parse:"+folder, folder, func(event *gfsnotify.Event) {
+			if _, err = 文件监控类.AddOnce("gview.Parse:"+folder, folder, func(event *文件监控类.Event) {
 				// CLEAR THEM ALL.
-				view.fileCacheMap.Clear()
-				templates.Clear()
-				gfsnotify.Exit()
+				view.fileCacheMap.X清空()
+				templates.X清空()
+				文件监控类.Exit()
 			}); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
@@ -164,19 +164,19 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	}
 	// 获取`folder`对应的模板对象实例。
 	var tpl interface{}
-	tpl, err = view.getTemplate(item.path, item.folder, fmt.Sprintf(`*%s`, gfile.Ext(item.path)))
+	tpl, err = view.getTemplate(item.path, item.folder, fmt.Sprintf(`*%s`, 文件类.X路径取扩展名(item.path)))
 	if err != nil {
 		return "", err
 	}
 	// 使用内存锁以确保模板解析过程中的并发安全性。
-	gmlock.LockFunc("gview.Parse:"+item.path, func() {
+	内存锁类.X写锁定_函数("gview.Parse:"+item.path, func() {
 		if view.config.AutoEncode {
 			tpl, err = tpl.(*htmltpl.Template).Parse(item.content)
 		} else {
 			tpl, err = tpl.(*texttpl.Template).Parse(item.content)
 		}
 		if err != nil && item.path != "" {
-			err = gerror.Wrap(err, item.path)
+			err = 错误类.X多层错误(err, item.path)
 		}
 	})
 	if err != nil {
@@ -184,9 +184,9 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	}
 // 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
 // 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
-	variables := gutil.MapMergeCopy(option.Params)
+	variables := 工具类.MapMergeCopy(option.Params)
 	if len(view.data) > 0 {
-		gutil.MapMerge(variables, view.data)
+		工具类.MapMerge(variables, view.data)
 	}
 	view.setI18nLanguageFromCtx(ctx, variables)
 
@@ -206,7 +206,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	}
 
 	// TODO 是否有优雅的方案来替换 "<无值>"？
-	result = gstr.Replace(buffer.String(), "<no value>", "")
+	result = 文本类.X替换(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
 }
@@ -221,7 +221,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 	var (
 		err error
 		key = fmt.Sprintf("%s_%v_%v", templateNameForContentParsing, view.config.Delimiters, view.config.AutoEncode)
-		tpl = templates.GetOrSetFuncLock(key, func() interface{} {
+		tpl = templates.X取值或设置值_函数带锁(key, func() interface{} {
 			if view.config.AutoEncode {
 				return htmltpl.New(templateNameForContentParsing).Delims(
 					view.config.Delimiters[0],
@@ -235,8 +235,8 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		})
 	)
 	// 使用内存锁以确保内容解析的并发安全。
-	hash := strconv.FormatUint(ghash.DJB64([]byte(content)), 10)
-	gmlock.LockFunc("gview.ParseContent:"+hash, func() {
+	hash := strconv.FormatUint(哈希类.DJB64([]byte(content)), 10)
+	内存锁类.X写锁定_函数("gview.ParseContent:"+hash, func() {
 		if view.config.AutoEncode {
 			tpl, err = tpl.(*htmltpl.Template).Parse(content)
 		} else {
@@ -244,14 +244,14 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		}
 	})
 	if err != nil {
-		err = gerror.Wrapf(err, `template parsing failed`)
+		err = 错误类.X多层错误并格式化(err, `template parsing failed`)
 		return "", err
 	}
 // 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
 // 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
-	variables := gutil.MapMergeCopy(params)
+	variables := 工具类.MapMergeCopy(params)
 	if len(view.data) > 0 {
-		gutil.MapMerge(variables, view.data)
+		工具类.MapMerge(variables, view.data)
 	}
 	view.setI18nLanguageFromCtx(ctx, variables)
 
@@ -260,21 +260,21 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		var newTpl *htmltpl.Template
 		newTpl, err = tpl.(*htmltpl.Template).Clone()
 		if err != nil {
-			err = gerror.Wrapf(err, `template clone failed`)
+			err = 错误类.X多层错误并格式化(err, `template clone failed`)
 			return "", err
 		}
 		if err = newTpl.Execute(buffer, variables); err != nil {
-			err = gerror.Wrapf(err, `template parsing failed`)
+			err = 错误类.X多层错误并格式化(err, `template parsing failed`)
 			return "", err
 		}
 	} else {
 		if err = tpl.(*texttpl.Template).Execute(buffer, variables); err != nil {
-			err = gerror.Wrapf(err, `template parsing failed`)
+			err = 错误类.X多层错误并格式化(err, `template parsing failed`)
 			return "", err
 		}
 	}
 	// TODO 是否有优雅的方案来替换 "<无值>"？
-	result := gstr.Replace(buffer.String(), "<no value>", "")
+	result := 文本类.X替换(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
 }
@@ -304,8 +304,8 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 				).Funcs(view.funcMap)
 			}
 			// 首先检查资源管理器。
-			if !gres.IsEmpty() {
-				if files := gres.ScanDirFile(folderPath, pattern, true); len(files) > 0 {
+			if !资源类.IsEmpty() {
+				if files := 资源类.ScanDirFile(folderPath, pattern, true); len(files) > 0 {
 					if view.config.AutoEncode {
 						var t = tpl.(*htmltpl.Template)
 						for _, v := range files {
@@ -332,14 +332,14 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 // 其次检查文件系统，
 // 然后递归地自动解析其所有子文件。
 			var files []string
-			files, err = gfile.ScanDir(folderPath, pattern, true)
+			files, err = 文件类.X枚举并含子目录名(folderPath, pattern, true)
 			if err != nil {
 				return nil
 			}
 			if view.config.AutoEncode {
 				t := tpl.(*htmltpl.Template)
 				for _, file := range files {
-					if _, err = t.Parse(gfile.GetContents(file)); err != nil {
+					if _, err = t.Parse(文件类.X读文本(file)); err != nil {
 						err = view.formatTemplateObjectCreatingError(file, tplName, err)
 						return nil
 					}
@@ -347,7 +347,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 			} else {
 				t := tpl.(*texttpl.Template)
 				for _, file := range files {
-					if _, err = t.Parse(gfile.GetContents(file)); err != nil {
+					if _, err = t.Parse(文件类.X读文本(file)); err != nil {
 						err = view.formatTemplateObjectCreatingError(file, tplName, err)
 						return nil
 					}
@@ -356,7 +356,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 			return tpl
 		}
 	)
-	result := templates.GetOrSetFuncLock(mapKey, mapFunc)
+	result := templates.X取值或设置值_函数带锁(mapKey, mapFunc)
 	if result != nil {
 		return result, nil
 	}
@@ -366,32 +366,32 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 // formatTemplateObjectCreatingError 格式化创建模板对象时产生的错误信息。
 func (view *View) formatTemplateObjectCreatingError(filePath, tplName string, err error) error {
 	if err != nil {
-		return gerror.NewSkip(1, gstr.Replace(err.Error(), tplName, filePath))
+		return 错误类.X创建并跳过堆栈(1, 文本类.X替换(err.Error(), tplName, filePath))
 	}
 	return nil
 }
 
 // searchFile 函数返回文件 `file` 找到的绝对路径及其对应的模板文件夹路径。
 // 注意，返回的 `folder` 是模板文件夹路径，并不是返回的模板文件 `path` 的所在文件夹路径。
-func (view *View) searchFile(ctx context.Context, file string) (path string, folder string, resource *gres.File, err error) {
+func (view *View) searchFile(ctx context.Context, file string) (path string, folder string, resource *资源类.File, err error) {
 	var tempPath string
 	// 首先检查资源管理器。
-	if !gres.IsEmpty() {
+	if !资源类.IsEmpty() {
 		// Try folders.
 		for _, tryFolder := range resourceTryFolders {
 			tempPath = tryFolder + file
-			if resource = gres.Get(tempPath); resource != nil {
+			if resource = 资源类.Get(tempPath); resource != nil {
 				path = resource.Name()
 				folder = tryFolder
 				return
 			}
 		}
 		// Search folders.
-		view.searchPaths.RLockFunc(func(array []string) {
+		view.searchPaths.X遍历读锁定(func(array []string) {
 			for _, searchPath := range array {
 				for _, tryFolder := range resourceTryFolders {
 					tempPath = searchPath + tryFolder + file
-					if resFile := gres.Get(tempPath); resFile != nil {
+					if resFile := 资源类.Get(tempPath); resFile != nil {
 						path = resFile.Name()
 						folder = searchPath + tryFolder
 						return
@@ -404,22 +404,22 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 	// 第二步检查文件系统。
 	if path == "" {
 		// Absolute path.
-		path = gfile.RealPath(file)
+		path = 文件类.X取绝对路径且效验(file)
 		if path != "" {
-			folder = gfile.Dir(path)
+			folder = 文件类.X路径取父目录(path)
 			return
 		}
 		// In search paths.
-		view.searchPaths.RLockFunc(func(array []string) {
+		view.searchPaths.X遍历读锁定(func(array []string) {
 			for _, searchPath := range array {
-				searchPath = gstr.TrimRight(searchPath, `\/`)
+				searchPath = 文本类.X过滤尾字符并含空白(searchPath, `\/`)
 				for _, tryFolder := range localSystemTryFolders {
-					relativePath := gstr.TrimRight(
-						gfile.Join(tryFolder, file),
+					relativePath := 文本类.X过滤尾字符并含空白(
+						文件类.X路径生成(tryFolder, file),
 						`\/`,
 					)
-					if path, _ = gspath.Search(searchPath, relativePath); path != "" {
-						folder = gfile.Join(searchPath, tryFolder)
+					if path, _ = 文件搜索类.Search(searchPath, relativePath); path != "" {
+						folder = 文件类.X路径生成(searchPath, tryFolder)
 						return
 					}
 				}
@@ -430,16 +430,16 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 	// Error checking.
 	if path == "" {
 		buffer := bytes.NewBuffer(nil)
-		if view.searchPaths.Len() > 0 {
+		if view.searchPaths.X取长度() > 0 {
 			buffer.WriteString(fmt.Sprintf("cannot find template file \"%s\" in following paths:", file))
-			view.searchPaths.RLockFunc(func(array []string) {
+			view.searchPaths.X遍历读锁定(func(array []string) {
 				index := 1
 				for _, searchPath := range array {
-					searchPath = gstr.TrimRight(searchPath, `\/`)
+					searchPath = 文本类.X过滤尾字符并含空白(searchPath, `\/`)
 					for _, tryFolder := range localSystemTryFolders {
 						buffer.WriteString(fmt.Sprintf(
 							"\n%d. %s",
-							index, gfile.Join(searchPath, tryFolder),
+							index, 文件类.X路径生成(searchPath, tryFolder),
 						))
 						index++
 					}
@@ -449,9 +449,9 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 			buffer.WriteString(fmt.Sprintf("cannot find template file \"%s\" with no path set/add", file))
 		}
 		if errorPrint() {
-			glog.Error(ctx, buffer.String())
+			日志类.Error(ctx, buffer.String())
 		}
-		err = gerror.NewCodef(gcode.CodeInvalidParameter, `template file "%s" not found`, file)
+		err = 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `template file "%s" not found`, file)
 	}
 	return
 }

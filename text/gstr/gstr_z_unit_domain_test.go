@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gstr_test
+package 文本类_test
 
 import (
 	"testing"
@@ -15,62 +15,62 @@ import (
 )
 
 func Test_IsSubDomain(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		main := "goframe.org"
-		t.Assert(gstr.IsSubDomain("goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org:8080", main), true)
-		t.Assert(gstr.IsSubDomain("johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org:8080", main), true)
+		t.Assert(文本类.X是否为子域名("johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.s.johng.cn", main), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		main := "*.goframe.org"
-		t.Assert(gstr.IsSubDomain("goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.goframe.org:80", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org", main), false)
-		t.Assert(gstr.IsSubDomain("johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.goframe.org:80", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org", main), false)
+		t.Assert(文本类.X是否为子域名("johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.s.johng.cn", main), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		main := "*.*.goframe.org"
-		t.Assert(gstr.IsSubDomain("goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org:8000", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.s.goframe.org", main), false)
-		t.Assert(gstr.IsSubDomain("johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org:8000", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.s.goframe.org", main), false)
+		t.Assert(文本类.X是否为子域名("johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.s.johng.cn", main), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		main := "*.*.goframe.org:8080"
-		t.Assert(gstr.IsSubDomain("goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org:8000", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.s.goframe.org", main), false)
-		t.Assert(gstr.IsSubDomain("johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org:8000", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.s.goframe.org", main), false)
+		t.Assert(文本类.X是否为子域名("johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.s.johng.cn", main), false)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		main := "*.*.goframe.org:8080"
-		t.Assert(gstr.IsSubDomain("goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.goframe.org:8000", main), true)
-		t.Assert(gstr.IsSubDomain("s.s.s.goframe.org", main), false)
-		t.Assert(gstr.IsSubDomain("johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.johng.cn", main), false)
-		t.Assert(gstr.IsSubDomain("s.s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.goframe.org:8000", main), true)
+		t.Assert(文本类.X是否为子域名("s.s.s.goframe.org", main), false)
+		t.Assert(文本类.X是否为子域名("johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.johng.cn", main), false)
+		t.Assert(文本类.X是否为子域名("s.s.johng.cn", main), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		main := "s.goframe.org"
-		t.Assert(gstr.IsSubDomain("goframe.org", main), false)
+		t.Assert(文本类.X是否为子域名("goframe.org", main), false)
 	})
 }

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -21,9 +21,9 @@ import (
 )
 
 // Batch 设置模型的批量操作数量。
-func (m *Model) Batch(batch int) *Model {
+func (m *Model) X设置批量操作行数(数量 int) *Model {
 	model := m.getModel()
-	model.batch = batch
+	model.batch = 数量
 	return model
 }
 
@@ -36,36 +36,36 @@ func (m *Model) Batch(batch int) *Model {
 // Data("uid=? AND name=?", 10000, "john")
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"}})
-func (m *Model) Data(data ...interface{}) *Model {
+func (m *Model) X设置数据(值 ...interface{}) *Model {
 	var model = m.getModel()
-	if len(data) > 1 {
-		if s := gconv.String(data[0]); gstr.Contains(s, "?") {
+	if len(值) > 1 {
+		if s := 转换类.String(值[0]); 文本类.X是否包含(s, "?") {
 			model.data = s
-			model.extraArgs = data[1:]
+			model.extraArgs = 值[1:]
 		} else {
 			m := make(map[string]interface{})
-			for i := 0; i < len(data); i += 2 {
-				m[gconv.String(data[i])] = data[i+1]
+			for i := 0; i < len(值); i += 2 {
+				m[转换类.String(值[i])] = 值[i+1]
 			}
 			model.data = m
 		}
-	} else if len(data) == 1 {
-		switch value := data[0].(type) {
-		case Result:
-			model.data = value.List()
+	} else if len(值) == 1 {
+		switch value := 值[0].(type) {
+		case X行记录数组:
+			model.data = value.X取Map数组()
 
-		case Record:
-			model.data = value.Map()
+		case X行记录:
+			model.data = value.X取Map()
 
-		case List:
-			list := make(List, len(value))
+		case Map数组:
+			list := make(Map数组, len(value))
 			for k, v := range value {
-				list[k] = gutil.MapCopy(v)
+				list[k] = 工具类.MapCopy(v)
 			}
 			model.data = list
 
 		case Map:
-			model.data = gutil.MapCopy(value)
+			model.data = 工具类.MapCopy(value)
 
 		default:
 			reflectInfo := reflection.OriginValueAndKind(value)
@@ -76,11 +76,11 @@ func (m *Model) Data(data ...interface{}) *Model {
 // 则为此条件添加`OmitNilData`选项，
 // 这将会过滤掉`data`中所有为nil的参数。
 					if isDoStruct(reflectInfo.OriginValue.Index(0).Interface()) {
-						model = model.OmitNilData()
+						model = model.X过滤Nil数据()
 						model.option |= optionOmitNilDataInternal
 					}
 				}
-				list := make(List, reflectInfo.OriginValue.Len())
+				list := make(Map数组, reflectInfo.OriginValue.Len())
 				for i := 0; i < reflectInfo.OriginValue.Len(); i++ {
 					list[i] = anyValueToMapBeforeToRecord(reflectInfo.OriginValue.Index(i).Interface())
 				}
@@ -91,26 +91,26 @@ func (m *Model) Data(data ...interface{}) *Model {
 // 则为此条件添加`OmitNilData`选项，
 // 这将会过滤掉`data`中所有的nil参数。
 				if isDoStruct(value) {
-					model = model.OmitNilData()
+					model = model.X过滤Nil数据()
 				}
-				if v, ok := data[0].(iInterfaces); ok {
+				if v, ok := 值[0].(iInterfaces); ok {
 					var (
-						array = v.Interfaces()
-						list  = make(List, len(array))
+						array = v.X取any数组()
+						list  = make(Map数组, len(array))
 					)
 					for i := 0; i < len(array); i++ {
 						list[i] = anyValueToMapBeforeToRecord(array[i])
 					}
 					model.data = list
 				} else {
-					model.data = anyValueToMapBeforeToRecord(data[0])
+					model.data = anyValueToMapBeforeToRecord(值[0])
 				}
 
 			case reflect.Map:
-				model.data = anyValueToMapBeforeToRecord(data[0])
+				model.data = anyValueToMapBeforeToRecord(值[0])
 
 			default:
-				model.data = data[0]
+				model.data = 值[0]
 			}
 		}
 	}
@@ -132,15 +132,15 @@ func (m *Model) Data(data ...interface{}) *Model {
 //	OnDuplicate(g.Map{
 //		  "nickname": "passport", // 当主键重复时，将nickname字段的值设置为passport字段的值
 //	}).
-func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
-	if len(onDuplicate) == 0 {
+func (m *Model) X设置插入冲突更新字段(字段名称 ...interface{}) *Model {
+	if len(字段名称) == 0 {
 		return m
 	}
 	model := m.getModel()
-	if len(onDuplicate) > 1 {
-		model.onDuplicate = onDuplicate
-	} else if len(onDuplicate) == 1 {
-		model.onDuplicate = onDuplicate[0]
+	if len(字段名称) > 1 {
+		model.onDuplicate = 字段名称
+	} else if len(字段名称) == 1 {
+		model.onDuplicate = 字段名称[0]
 	}
 	return model
 }
@@ -157,15 +157,15 @@ func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
 //		  "passport": "",
 //		  "password": "",
 //	}) // 通过映射传入选定列名和其对应的更新值（此处为空字符串）
-func (m *Model) OnDuplicateEx(onDuplicateEx ...interface{}) *Model {
-	if len(onDuplicateEx) == 0 {
+func (m *Model) X设置插入冲突不更新字段(字段名称 ...interface{}) *Model {
+	if len(字段名称) == 0 {
 		return m
 	}
 	model := m.getModel()
-	if len(onDuplicateEx) > 1 {
-		model.onDuplicateEx = onDuplicateEx
-	} else if len(onDuplicateEx) == 1 {
-		model.onDuplicateEx = onDuplicateEx[0]
+	if len(字段名称) > 1 {
+		model.onDuplicateEx = 字段名称
+	} else if len(字段名称) == 1 {
+		model.onDuplicateEx = 字段名称[0]
 	}
 	return model
 }
@@ -173,23 +173,23 @@ func (m *Model) OnDuplicateEx(onDuplicateEx ...interface{}) *Model {
 // Insert 执行针对模型的 "INSERT INTO ..." 语句。
 // 可选参数 `data` 与 Model.Data 函数的参数相同，
 // 请参考 Model.Data。
-func (m *Model) Insert(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).Insert()
+func (m *Model) X插入(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionDefault)
 }
 
 // InsertAndGetId 执行插入操作，并返回自动生成的最后一个插入ID。
-func (m *Model) InsertAndGetId(data ...interface{}) (lastInsertId int64, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).InsertAndGetId()
+func (m *Model) X插入并取ID(值 ...interface{}) (最后插入ID int64, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并取ID()
 	}
-	result, err := m.doInsertWithOption(ctx, InsertOptionDefault)
-	if err != nil {
-		return 0, err
+	result, 错误 := m.doInsertWithOption(ctx, InsertOptionDefault)
+	if 错误 != nil {
+		return 0, 错误
 	}
 	return result.LastInsertId()
 }
@@ -197,10 +197,10 @@ func (m *Model) InsertAndGetId(data ...interface{}) (lastInsertId int64, err err
 // InsertIgnore 执行针对模型的 "INSERT IGNORE INTO ..." 语句。
 // 可选参数 `data` 与 Model.Data 函数的参数相同，
 // 请参阅 Model.Data。
-func (m *Model) InsertIgnore(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).InsertIgnore()
+func (m *Model) X插入并跳过已存在(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并跳过已存在()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionIgnore)
 }
@@ -208,10 +208,10 @@ func (m *Model) InsertIgnore(data ...interface{}) (result sql.Result, err error)
 // Replace 执行针对模型的 "REPLACE INTO ..." 语句。
 // 可选参数 `data` 与 Model.Data 函数的参数相同，
 // 详情请参阅 Model.Data。
-func (m *Model) Replace(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).Replace()
+func (m *Model) X插入并替换已存在(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并替换已存在()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionReplace)
 }
@@ -222,27 +222,27 @@ func (m *Model) Replace(data ...interface{}) (result sql.Result, err error) {
 //
 // 如果保存的数据中存在主键或唯一索引，则更新记录，
 // 否则会在表中插入一条新记录。
-func (m *Model) Save(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).Save()
+func (m *Model) X插入并更新已存在(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并更新已存在()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionSave)
 }
 
 // doInsertWithOption 使用选项参数插入数据。
-func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOption) (result sql.Result, err error) {
+func (m *Model) doInsertWithOption(ctx context.Context, insertOption X插入选项) (result sql.Result, err error) {
 	defer func() {
 		if err == nil {
 			m.checkAndRemoveSelectCache(ctx)
 		}
 	}()
 	if m.data == nil {
-		return nil, gerror.NewCode(gcode.CodeMissingParameter, "inserting into table with empty data")
+		return nil, 错误类.X创建错误码(错误码类.CodeMissingParameter, "inserting into table with empty data")
 	}
 	var (
-		list            List
-		now             = gtime.Now()
+		list            Map数组
+		now             = 时间类.X创建并按当前时间()
 		fieldNameCreate = m.getSoftFieldNameCreated("", m.tablesInit)
 		fieldNameUpdate = m.getSoftFieldNameUpdated("", m.tablesInit)
 	)
@@ -252,17 +252,17 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOptio
 	}
 	// 它将任何数据转换为 List 类型以便插入。
 	switch value := newData.(type) {
-	case Result:
-		list = value.List()
+	case X行记录数组:
+		list = value.X取Map数组()
 
-	case Record:
-		list = List{value.Map()}
+	case X行记录:
+		list = Map数组{value.X取Map()}
 
-	case List:
+	case Map数组:
 		list = value
 
 	case Map:
-		list = List{value}
+		list = Map数组{value}
 
 	default:
 // 这里使用gconv.Map简化从interface{}到map[string]interface{}的类型转换，
@@ -271,28 +271,28 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOptio
 		switch reflectInfo.OriginKind {
 		// 如果它是切片类型，那么将其转换为 List 类型。
 		case reflect.Slice, reflect.Array:
-			list = make(List, reflectInfo.OriginValue.Len())
+			list = make(Map数组, reflectInfo.OriginValue.Len())
 			for i := 0; i < reflectInfo.OriginValue.Len(); i++ {
 				list[i] = anyValueToMapBeforeToRecord(reflectInfo.OriginValue.Index(i).Interface())
 			}
 
 		case reflect.Map:
-			list = List{anyValueToMapBeforeToRecord(value)}
+			list = Map数组{anyValueToMapBeforeToRecord(value)}
 
 		case reflect.Struct:
 			if v, ok := value.(iInterfaces); ok {
-				array := v.Interfaces()
-				list = make(List, len(array))
+				array := v.X取any数组()
+				list = make(Map数组, len(array))
 				for i := 0; i < len(array); i++ {
 					list[i] = anyValueToMapBeforeToRecord(array[i])
 				}
 			} else {
-				list = List{anyValueToMapBeforeToRecord(value)}
+				list = Map数组{anyValueToMapBeforeToRecord(value)}
 			}
 
 		default:
-			return result, gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return result, 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				"unsupported data list type: %v",
 				reflectInfo.InputValue.Type(),
 			)
@@ -300,7 +300,7 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOptio
 	}
 
 	if len(list) < 1 {
-		return result, gerror.NewCode(gcode.CodeMissingParameter, "data list cannot be empty")
+		return result, 错误类.X创建错误码(错误码类.CodeMissingParameter, "data list cannot be empty")
 	}
 
 	// 自动处理创建/更新时间。
@@ -340,8 +340,8 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOptio
 	return in.Next(ctx)
 }
 
-func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []string) (option DoInsertOption, err error) {
-	option = DoInsertOption{
+func (m *Model) formatDoInsertOption(insertOption X插入选项, columnNames []string) (option X底层输入, err error) {
+	option = X底层输入{
 		InsertOption: insertOption,
 		BatchCount:   m.getBatch(),
 	}
@@ -350,19 +350,19 @@ func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []st
 		if err != nil {
 			return option, err
 		}
-		onDuplicateExKeySet := gset.NewStrSetFrom(onDuplicateExKeys)
+		onDuplicateExKeySet := 集合类.X创建文本并按值(onDuplicateExKeys)
 		if m.onDuplicate != nil {
 			switch m.onDuplicate.(type) {
-			case Raw, *Raw:
-				option.OnDuplicateStr = gconv.String(m.onDuplicate)
+			case X原生sql, *X原生sql:
+				option.OnDuplicateStr = 转换类.String(m.onDuplicate)
 
 			default:
 				reflectInfo := reflection.OriginValueAndKind(m.onDuplicate)
 				switch reflectInfo.OriginKind {
 				case reflect.String:
 					option.OnDuplicateMap = make(map[string]interface{})
-					for _, v := range gstr.SplitAndTrim(reflectInfo.OriginValue.String(), ",") {
-						if onDuplicateExKeySet.Contains(v) {
+					for _, v := range 文本类.X分割并忽略空值(reflectInfo.OriginValue.String(), ",") {
+						if onDuplicateExKeySet.X是否存在(v) {
 							continue
 						}
 						option.OnDuplicateMap[v] = v
@@ -370,8 +370,8 @@ func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []st
 
 				case reflect.Map:
 					option.OnDuplicateMap = make(map[string]interface{})
-					for k, v := range gconv.Map(m.onDuplicate) {
-						if onDuplicateExKeySet.Contains(k) {
+					for k, v := range 转换类.X取Map(m.onDuplicate) {
+						if onDuplicateExKeySet.X是否存在(k) {
 							continue
 						}
 						option.OnDuplicateMap[k] = v
@@ -379,25 +379,25 @@ func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []st
 
 				case reflect.Slice, reflect.Array:
 					option.OnDuplicateMap = make(map[string]interface{})
-					for _, v := range gconv.Strings(m.onDuplicate) {
-						if onDuplicateExKeySet.Contains(v) {
+					for _, v := range 转换类.X取文本数组(m.onDuplicate) {
+						if onDuplicateExKeySet.X是否存在(v) {
 							continue
 						}
 						option.OnDuplicateMap[v] = v
 					}
 
 				default:
-					return option, gerror.NewCodef(
-						gcode.CodeInvalidParameter,
+					return option, 错误类.X创建错误码并格式化(
+						错误码类.CodeInvalidParameter,
 						`unsupported OnDuplicate parameter type "%s"`,
 						reflect.TypeOf(m.onDuplicate),
 					)
 				}
 			}
-		} else if onDuplicateExKeySet.Size() > 0 {
+		} else if onDuplicateExKeySet.X取数量() > 0 {
 			option.OnDuplicateMap = make(map[string]interface{})
 			for _, v := range columnNames {
-				if onDuplicateExKeySet.Contains(v) {
+				if onDuplicateExKeySet.X是否存在(v) {
 					continue
 				}
 				option.OnDuplicateMap[v] = v
@@ -415,17 +415,17 @@ func (m *Model) formatOnDuplicateExKeys(onDuplicateEx interface{}) ([]string, er
 	reflectInfo := reflection.OriginValueAndKind(onDuplicateEx)
 	switch reflectInfo.OriginKind {
 	case reflect.String:
-		return gstr.SplitAndTrim(reflectInfo.OriginValue.String(), ","), nil
+		return 文本类.X分割并忽略空值(reflectInfo.OriginValue.String(), ","), nil
 
 	case reflect.Map:
-		return gutil.Keys(onDuplicateEx), nil
+		return 工具类.X取所有名称(onDuplicateEx), nil
 
 	case reflect.Slice, reflect.Array:
-		return gconv.Strings(onDuplicateEx), nil
+		return 转换类.X取文本数组(onDuplicateEx), nil
 
 	default:
-		return nil, gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return nil, 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`unsupported OnDuplicateEx parameter type "%s"`,
 			reflect.TypeOf(onDuplicateEx),
 		)

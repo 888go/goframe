@@ -34,12 +34,12 @@ func (r RuleMinLength) Message() string {
 
 func (r RuleMinLength) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = 转换类.X取字符数组(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	min, err := strconv.Atoi(in.RulePattern)
 	if valueLen < min || err != nil {
-		return errors.New(gstr.Replace(in.Message, "{min}", strconv.Itoa(min)))
+		return errors.New(文本类.X替换(in.Message, "{min}", strconv.Itoa(min)))
 	}
 	return nil
 }

@@ -37,18 +37,18 @@ func (r RuleSame) Run(in RunInput) error {
 		ok    bool
 		value = in.Value.String()
 	)
-	fieldName, fieldValue := gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)
+	fieldName, fieldValue := 工具类.MapPossibleItemByKey(in.Data.X取Map(), in.RulePattern)
 	if fieldValue != nil {
 		if in.Option.CaseInsensitive {
-			ok = strings.EqualFold(value, gconv.String(fieldValue))
+			ok = strings.EqualFold(value, 转换类.String(fieldValue))
 		} else {
-			ok = strings.Compare(value, gconv.String(fieldValue)) == 0
+			ok = strings.Compare(value, 转换类.String(fieldValue)) == 0
 		}
 	}
 	if !ok {
-		return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+		return errors.New(文本类.Map替换(in.Message, map[string]string{
 			"{field1}": fieldName,
-			"{value1}": gconv.String(fieldValue),
+			"{value1}": 转换类.String(fieldValue),
 		}))
 	}
 	return nil

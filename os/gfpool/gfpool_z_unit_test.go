@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfpool_test
+package 文件指针池类_test
 
 import (
 	"context"
@@ -24,12 +24,12 @@ import (
 func TestOpen(t *testing.T) {
 	testFile := start("TestOpen.txt")
 
-	gtest.C(t, func(t *gtest.T) {
-		f, err := gfpool.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		f, err := 文件指针池类.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertEQ(err, nil)
 		f.Close()
 
-		f2, err1 := gfpool.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+		f2, err1 := 文件指针池类.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertEQ(err1, nil)
 		t.AssertEQ(f, f2)
 		f2.Close()
@@ -40,14 +40,14 @@ func TestOpen(t *testing.T) {
 
 // TestOpenErr 测试打开文件错误
 func TestOpenErr(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		testErrFile := "errorPath"
-		_, err := gfpool.Open(testErrFile, os.O_RDWR, 0666)
+		_, err := 文件指针池类.Open(testErrFile, os.O_RDWR, 0666)
 		t.AssertNE(err, nil)
 
 		// delete file error
 		testFile := start("TestOpenDeleteErr.txt")
-		pool := gfpool.New(testFile, os.O_RDWR, 0666)
+		pool := 文件指针池类.New(testFile, os.O_RDWR, 0666)
 		_, err1 := pool.File()
 		t.AssertEQ(err1, nil)
 		stop(testFile)
@@ -56,7 +56,7 @@ func TestOpenErr(t *testing.T) {
 
 		// 如果文件存在则以追加模式删除并重新创建
 		testFile = start("TestOpenCreateErr.txt")
-		pool = gfpool.New(testFile, os.O_CREATE, 0666)
+		pool = 文件指针池类.New(testFile, os.O_CREATE, 0666)
 		_, err1 = pool.File()
 		t.AssertEQ(err1, nil)
 		stop(testFile)
@@ -65,7 +65,7 @@ func TestOpenErr(t *testing.T) {
 
 		// append mode delete file error
 		testFile = start("TestOpenAppendErr.txt")
-		pool = gfpool.New(testFile, os.O_APPEND, 0666)
+		pool = 文件指针池类.New(testFile, os.O_APPEND, 0666)
 		_, err1 = pool.File()
 		t.AssertEQ(err1, nil)
 		stop(testFile)
@@ -74,7 +74,7 @@ func TestOpenErr(t *testing.T) {
 
 		// "trunc"模式下删除文件错误
 		testFile = start("TestOpenTruncErr.txt")
-		pool = gfpool.New(testFile, os.O_TRUNC, 0666)
+		pool = 文件指针池类.New(testFile, os.O_TRUNC, 0666)
 		_, err1 = pool.File()
 		t.AssertEQ(err1, nil)
 		stop(testFile)
@@ -87,13 +87,13 @@ func TestOpenErr(t *testing.T) {
 func TestOpenExpire(t *testing.T) {
 	testFile := start("TestOpenExpire.txt")
 
-	gtest.C(t, func(t *gtest.T) {
-		f, err := gfpool.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666, 100*time.Millisecond)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		f, err := 文件指针池类.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666, 100*time.Millisecond)
 		t.AssertEQ(err, nil)
 		f.Close()
 
 		time.Sleep(150 * time.Millisecond)
-		f2, err1 := gfpool.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666, 100*time.Millisecond)
+		f2, err1 := 文件指针池类.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666, 100*time.Millisecond)
 		t.AssertEQ(err1, nil)
 		//t.AssertNE(f, f2)
 		f2.Close()
@@ -106,12 +106,12 @@ func TestOpenExpire(t *testing.T) {
 func TestNewPool(t *testing.T) {
 	testFile := start("TestNewPool.txt")
 
-	gtest.C(t, func(t *gtest.T) {
-		f, err := gfpool.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		f, err := 文件指针池类.Open(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertEQ(err, nil)
 		f.Close()
 
-		pool := gfpool.New(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+		pool := 文件指针池类.New(testFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		f2, err1 := pool.File()
 		// pool not equal
 		t.AssertEQ(err1, nil)
@@ -127,28 +127,28 @@ func TestNewPool(t *testing.T) {
 // test before
 func start(name string) string {
 	testFile := os.TempDir() + string(os.PathSeparator) + name
-	if gfile.Exists(testFile) {
-		gfile.Remove(testFile)
+	if 文件类.X是否存在(testFile) {
+		文件类.X删除(testFile)
 	}
 	content := "123"
-	gfile.PutContents(testFile, content)
+	文件类.X写入文本(testFile, content)
 	return testFile
 }
 
 // test after
 func stop(testFile string) {
-	if gfile.Exists(testFile) {
-		err := gfile.Remove(testFile)
+	if 文件类.X是否存在(testFile) {
+		err := 文件类.X删除(testFile)
 		if err != nil {
-			glog.Error(context.TODO(), err)
+			日志类.Error(context.TODO(), err)
 		}
 	}
 }
 
 func Test_ConcurrentOS(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		path := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+		defer 文件类.X删除(path)
 		f1, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
@@ -174,12 +174,12 @@ func Test_ConcurrentOS(t *testing.T) {
 			_, err = f2.Write([]byte("@1234567890#"))
 			t.AssertNil(err)
 		}
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2200)
+		t.Assert(文本类.X统计次数(文件类.X读文本(path), "@1234567890#"), 2200)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		path := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+		defer 文件类.X删除(path)
 		f1, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
@@ -196,11 +196,11 @@ func Test_ConcurrentOS(t *testing.T) {
 			_, err = f2.Write([]byte("@1234567890#"))
 			t.AssertNil(err)
 		}
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2000)
+		t.Assert(文本类.X统计次数(文件类.X读文本(path), "@1234567890#"), 2000)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		path := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+		defer 文件类.X删除(path)
 		f1, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
@@ -223,7 +223,7 @@ func Test_ConcurrentOS(t *testing.T) {
 		_, err = f2.Write([]byte(s2))
 		t.AssertNil(err)
 
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2000)
+		t.Assert(文本类.X统计次数(文件类.X读文本(path), "@1234567890#"), 2000)
 	})
 // 数据竞争
 // gtest.C(t, func(t *gtest.T) {
@@ -270,14 +270,14 @@ func Test_ConcurrentOS(t *testing.T) {
 }
 
 func Test_ConcurrentGFPool(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
-		f1, err := gfpool.Open(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		path := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
+		defer 文件类.X删除(path)
+		f1, err := 文件指针池类.Open(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
 
-		f2, err := gfpool.Open(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+		f2, err := 文件指针池类.Open(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f2.Close()
 
@@ -289,7 +289,7 @@ func Test_ConcurrentGFPool(t *testing.T) {
 			_, err = f2.Write([]byte("@1234567890#"))
 			t.AssertNil(err)
 		}
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2000)
+		t.Assert(文本类.X统计次数(文件类.X读文本(path), "@1234567890#"), 2000)
 	})
 // 数据竞争
 // gtest.C(t, func(t *gtest.T) {

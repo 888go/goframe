@@ -241,7 +241,7 @@ func StructType(object interface{}) (*Type, error) {
 
 exitLoop:
 	if reflectKind != reflect.Struct {
-		return nil, gerror.Newf(
+		return nil, 错误类.X创建并格式化(
 			`invalid object kind "%s", kind of "struct" is required`,
 			reflectKind,
 		)

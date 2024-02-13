@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包gclient提供了便捷的HTTP客户端功能。
-package gclient
+package 网页类
 
 import (
 	"crypto/rand"
@@ -32,7 +32,7 @@ type Client struct {
 	retryCount        int               // 当请求失败时重试次数。
 	noUrlEncode       bool              // 对请求参数不进行URL编码。
 	retryInterval     time.Duration     // 当请求失败时的重试间隔。
-	middlewareHandler []HandlerFunc     // 拦截器处理器
+	middlewareHandler []X中间件函数     // 拦截器处理器
 	discovery         gsvc.Discovery    // 服务发现功能
 	builder           gsel.Builder      // 请求余额的构建器
 }
@@ -57,7 +57,7 @@ var (
 )
 
 // New 创建并返回一个新的HTTP客户端对象。
-func New() *Client {
+func X创建() *Client {
 	c := &Client{
 		Client: http.Client{
 			Transport: &http.Transport{
@@ -75,13 +75,13 @@ func New() *Client {
 	}
 	c.header[httpHeaderUserAgent] = defaultClientAgent
 	// 它默认为客户端启用 OpenTelemetry。
-	c.Use(internalMiddlewareTracing, internalMiddlewareDiscovery)
+	c.X中间件(internalMiddlewareTracing, internalMiddlewareDiscovery)
 	return c
 }
 
 // Clone 深度克隆当前客户端并返回一个新的客户端。
-func (c *Client) Clone() *Client {
-	newClient := New()
+func (c *Client) X取副本() *Client {
+	newClient := X创建()
 	*newClient = *c
 	if len(c.header) > 0 {
 		newClient.header = make(map[string]string)
@@ -99,18 +99,18 @@ func (c *Client) Clone() *Client {
 }
 
 // LoadKeyCrt 通过给定的证书和密钥文件创建并返回一个 TLS 配置对象。
-func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
-	crtPath, err := gfile.Search(crtFile)
+func X创建TLS配置(crt路径, key路径 string) (*tls.Config, error) {
+	crtPath, err := 文件类.X查找(crt路径)
 	if err != nil {
 		return nil, err
 	}
-	keyPath, err := gfile.Search(keyFile)
+	keyPath, err := 文件类.X查找(key路径)
 	if err != nil {
 		return nil, err
 	}
 	crt, err := tls.LoadX509KeyPair(crtPath, keyPath)
 	if err != nil {
-		err = gerror.Wrapf(err, `tls.LoadX509KeyPair failed for certFile "%s", keyFile "%s"`, crtPath, keyPath)
+		err = 错误类.X多层错误并格式化(err, `tls.LoadX509KeyPair failed for certFile "%s", keyFile "%s"`, crtPath, keyPath)
 		return nil, err
 	}
 	tlsConfig := &tls.Config{}

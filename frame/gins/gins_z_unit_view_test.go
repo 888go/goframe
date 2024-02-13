@@ -18,28 +18,28 @@ import (
 )
 
 func Test_View(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.AssertNE(View(), nil)
 		b, e := View().ParseContent(context.TODO(), `{{"我是中国人" | substr 2 -1}}`, nil)
 		t.Assert(e, nil)
 		t.Assert(b, "中国")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		tpl := "t.tpl"
-		err := gfile.PutContents(tpl, `{{"我是中国人" | substr 2 -1}}`)
+		err := 文件类.X写入文本(tpl, `{{"我是中国人" | substr 2 -1}}`)
 		t.AssertNil(err)
-		defer gfile.Remove(tpl)
+		defer 文件类.X删除(tpl)
 
 		b, e := View().Parse(context.TODO(), "t.tpl", nil)
 		t.Assert(e, nil)
 		t.Assert(b, "中国")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		path := fmt.Sprintf(`%s/%d`, gfile.Temp(), gtime.TimestampNano())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		path := fmt.Sprintf(`%s/%d`, 文件类.X取临时目录(), 时间类.X取时间戳纳秒())
 		tpl := fmt.Sprintf(`%s/%s`, path, "t.tpl")
-		err := gfile.PutContents(tpl, `{{"我是中国人" | substr 2 -1}}`)
+		err := 文件类.X写入文本(tpl, `{{"我是中国人" | substr 2 -1}}`)
 		t.AssertNil(err)
-		defer gfile.Remove(tpl)
+		defer 文件类.X删除(tpl)
 		err = View().AddPath(path)
 		t.AssertNil(err)
 
@@ -52,10 +52,10 @@ func Test_View(t *testing.T) {
 func Test_View_Config(t *testing.T) {
 	var ctx = context.TODO()
 	// view1 test1
-	gtest.C(t, func(t *gtest.T) {
-		dirPath := gtest.DataPath("view1")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		dirPath := 单元测试类.DataPath("view1")
+		Config().X取适配器().(*配置类.AdapterFile).SetContent(文件类.X读文本(文件类.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*配置类.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View("test1")
@@ -74,10 +74,10 @@ func Test_View_Config(t *testing.T) {
 		t.Assert(result, "test1:test1")
 	})
 	// view1 test2
-	gtest.C(t, func(t *gtest.T) {
-		dirPath := gtest.DataPath("view1")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		dirPath := 单元测试类.DataPath("view1")
+		Config().X取适配器().(*配置类.AdapterFile).SetContent(文件类.X读文本(文件类.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*配置类.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View("test2")
@@ -96,10 +96,10 @@ func Test_View_Config(t *testing.T) {
 		t.Assert(result, "test2:test2")
 	})
 	// view2
-	gtest.C(t, func(t *gtest.T) {
-		dirPath := gtest.DataPath("view2")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		dirPath := 单元测试类.DataPath("view2")
+		Config().X取适配器().(*配置类.AdapterFile).SetContent(文件类.X读文本(文件类.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*配置类.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View()
@@ -118,10 +118,10 @@ func Test_View_Config(t *testing.T) {
 		t.Assert(result, "test:test")
 	})
 	// view2
-	gtest.C(t, func(t *gtest.T) {
-		dirPath := gtest.DataPath("view2")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		dirPath := 单元测试类.DataPath("view2")
+		Config().X取适配器().(*配置类.AdapterFile).SetContent(文件类.X读文本(文件类.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*配置类.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View("test100")

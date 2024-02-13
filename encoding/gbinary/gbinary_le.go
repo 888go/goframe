@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gbinary
+package 字节集类
 
 import (
 	"bytes"
@@ -86,7 +86,7 @@ func LeDecode(b []byte, values ...interface{}) error {
 	)
 	for i := 0; i < len(values); i++ {
 		if err = binary.Read(buf, binary.LittleEndian, values[i]); err != nil {
-			err = gerror.Wrap(err, `binary.Read failed`)
+			err = 错误类.X多层错误(err, `binary.Read failed`)
 			return err
 		}
 	}

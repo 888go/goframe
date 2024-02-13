@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"net/http"
@@ -42,24 +42,24 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	request := newRequest(s, r, w)
 
 	// 在用户处理器之前获取sessionId
-	sessionId := request.GetSessionId()
+	sessionId := request.X取SessionId()
 
 	defer func() {
-		request.LeaveTime = gtime.TimestampMilli()
+		request.LeaveTime = 时间类.X取时间戳毫秒()
 		// 错误日志处理。
 		if request.error != nil {
 			s.handleErrorLog(request.error, request)
 		} else {
 			if exception := recover(); exception != nil {
-				request.Response.WriteStatus(http.StatusInternalServerError)
+				request.Response.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError)
 				if v, ok := exception.(error); ok {
-					if code := gerror.Code(v); code != gcode.CodeNil {
+					if code := 错误类.X取错误码(v); code != 错误码类.CodeNil {
 						s.handleErrorLog(v, request)
 					} else {
-						s.handleErrorLog(gerror.WrapCodeSkip(gcode.CodeInternalPanic, 1, v, ""), request)
+						s.handleErrorLog(错误类.X多层错误码并跳过堆栈(错误码类.CodeInternalPanic, 1, v, ""), request)
 					}
 				} else {
-					s.handleErrorLog(gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception), request)
+					s.handleErrorLog(错误类.X创建错误码并跳过堆栈与格式化(错误码类.CodeInternalPanic, 1, "%+v", exception), request)
 				}
 			}
 		}
@@ -67,19 +67,19 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.handleAccessLog(request)
 // 关闭会话，如果会话存在，会自动更新其TTL（生存时间）
 		if err := request.Session.Close(); err != nil {
-			intlog.Errorf(request.Context(), `%+v`, err)
+			intlog.Errorf(request.Context别名(), `%+v`, err)
 		}
 
 // 关闭请求和响应体
 // 以便及时释放文件描述符。
 		err := request.Request.Body.Close()
 		if err != nil {
-			intlog.Errorf(request.Context(), `%+v`, err)
+			intlog.Errorf(request.Context别名(), `%+v`, err)
 		}
 		if request.Request.Response != nil {
 			err = request.Request.Response.Body.Close()
 			if err != nil {
-				intlog.Errorf(request.Context(), `%+v`, err)
+				intlog.Errorf(request.Context别名(), `%+v`, err)
 			}
 		}
 	}()
@@ -112,7 +112,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	s.callHookHandler(HookBeforeServe, request)
 
 	// 核心服务处理。
-	if !request.IsExited() {
+	if !request.X是否已退出() {
 		if request.isFileRequest {
 			// 静态文件服务。
 			s.serveFile(request, request.StaticFile)
@@ -127,7 +127,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				} else {
 					if len(request.Response.Header()) == 0 &&
 						request.Response.Status == 0 &&
-						request.Response.BufferLength() == 0 {
+						request.Response.X取缓冲区长度() == 0 {
 						request.Response.WriteHeader(http.StatusNotFound)
 					}
 				}
@@ -136,12 +136,12 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// HOOK - AfterServe
-	if !request.IsExited() {
+	if !request.X是否已退出() {
 		s.callHookHandler(HookAfterServe, request)
 	}
 
 	// HOOK - 输出之前
-	if !request.IsExited() {
+	if !request.X是否已退出() {
 		s.callHookHandler(HookBeforeOutput, request)
 	}
 
@@ -149,9 +149,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if request.Response.Status == 0 {
 		if request.StaticFile != nil || request.Middleware.served || request.Response.buffer.Len() > 0 {
 			request.Response.WriteHeader(http.StatusOK)
-		} else if err := request.GetError(); err != nil {
-			if request.Response.BufferLength() == 0 {
-				request.Response.Write(err.Error())
+		} else if err := request.X取错误信息(); err != nil {
+			if request.Response.X取缓冲区长度() == 0 {
+				request.Response.X写响应缓冲区(err.Error())
 			}
 			request.Response.WriteHeader(http.StatusInternalServerError)
 		} else {
@@ -166,7 +166,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			niceCallFunc(func() {
 				f(request)
 			})
-			if request.IsExited() {
+			if request.X是否已退出() {
 				break
 			}
 		}
@@ -176,21 +176,21 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if s.config.SessionCookieOutput && request.Session.IsDirty() {
 // 在初始化session之前，可以通过r.Session.SetId("")来改变
 // 也可以通过r.Cookie.SetSessionId("")来改变
-		sidFromSession, sidFromRequest := request.Session.MustId(), request.GetSessionId()
+		sidFromSession, sidFromRequest := request.Session.MustId(), request.X取SessionId()
 		if sidFromSession != sidFromRequest {
 			if sidFromSession != sessionId {
-				request.Cookie.SetSessionId(sidFromSession)
+				request.Cookie.X设置SessionId到Cookie(sidFromSession)
 			} else {
-				request.Cookie.SetSessionId(sidFromRequest)
+				request.Cookie.X设置SessionId到Cookie(sidFromRequest)
 			}
 		}
 	}
 	// 将cookie内容输出到客户端。
-	request.Cookie.Flush()
+	request.Cookie.X输出()
 	// 将缓冲区内容输出到客户端。
-	request.Response.Flush()
+	request.Response.X输出缓存区()
 	// HOOK - 输出后
-	if !request.IsExited() {
+	if !request.X是否已退出() {
 		s.callHookHandler(HookAfterOutput, request)
 	}
 }
@@ -199,7 +199,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // 它返回一个文件结构体，该结构体指定了文件信息。
 func (s *Server) searchStaticFile(uri string) *staticFile {
 	var (
-		file *gres.File
+		file *资源类.File
 		path string
 		dir  bool
 	)
@@ -211,14 +211,14 @@ func (s *Server) searchStaticFile(uri string) *staticFile {
 				if len(uri) > len(item.Prefix) && uri[len(item.Prefix)] != '/' {
 					continue
 				}
-				file = gres.GetWithIndex(item.Path+uri[len(item.Prefix):], s.config.IndexFiles)
+				file = 资源类.GetWithIndex(item.Path+uri[len(item.Prefix):], s.config.IndexFiles)
 				if file != nil {
 					return &staticFile{
 						File:  file,
 						IsDir: file.FileInfo().IsDir(),
 					}
 				}
-				path, dir = gspath.Search(item.Path, uri[len(item.Prefix):], s.config.IndexFiles...)
+				path, dir = 文件搜索类.Search(item.Path, uri[len(item.Prefix):], s.config.IndexFiles...)
 				if path != "" {
 					return &staticFile{
 						Path:  path,
@@ -231,14 +231,14 @@ func (s *Server) searchStaticFile(uri string) *staticFile {
 	// 其次，搜索根目录和搜索路径。
 	if len(s.config.SearchPaths) > 0 {
 		for _, p := range s.config.SearchPaths {
-			file = gres.GetWithIndex(p+uri, s.config.IndexFiles)
+			file = 资源类.GetWithIndex(p+uri, s.config.IndexFiles)
 			if file != nil {
 				return &staticFile{
 					File:  file,
 					IsDir: file.FileInfo().IsDir(),
 				}
 			}
-			if path, dir = gspath.Search(p, uri, s.config.IndexFiles...); path != "" {
+			if path, dir = 文件搜索类.Search(p, uri, s.config.IndexFiles...); path != "" {
 				return &staticFile{
 					Path:  path,
 					IsDir: dir,
@@ -248,7 +248,7 @@ func (s *Server) searchStaticFile(uri string) *staticFile {
 	}
 	// 最后在资源管理器中进行搜索。
 	if len(s.config.StaticPaths) == 0 && len(s.config.SearchPaths) == 0 {
-		if file = gres.GetWithIndex(uri, s.config.IndexFiles); file != nil {
+		if file = 资源类.GetWithIndex(uri, s.config.IndexFiles); file != nil {
 			return &staticFile{
 				File:  file,
 				IsDir: file.FileInfo().IsDir(),
@@ -267,7 +267,7 @@ func (s *Server) serveFile(r *Request, f *staticFile, allowIndex ...bool) {
 			if s.config.IndexFolder || (len(allowIndex) > 0 && allowIndex[0]) {
 				s.listDir(r, f.File)
 			} else {
-				r.Response.WriteStatus(http.StatusForbidden)
+				r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
 			}
 		} else {
 			info := f.File.FileInfo()
@@ -278,21 +278,21 @@ func (s *Server) serveFile(r *Request, f *staticFile, allowIndex ...bool) {
 	// 使用来自dist目录的文件。
 	file, err := os.Open(f.Path)
 	if err != nil {
-		r.Response.WriteStatus(http.StatusForbidden)
+		r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
 		return
 	}
 	defer file.Close()
 
 // 在文件服务之前清空响应缓冲区。
 // 它会忽略所有自定义缓冲区内容，并使用文件内容。
-	r.Response.ClearBuffer()
+	r.Response.X清空缓冲区()
 
 	info, _ := file.Stat()
 	if info.IsDir() {
 		if s.config.IndexFolder || (len(allowIndex) > 0 && allowIndex[0]) {
 			s.listDir(r, file)
 		} else {
-			r.Response.WriteStatus(http.StatusForbidden)
+			r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
 		}
 	} else {
 		r.Response.ServeContent(info.Name(), info.ModTime(), file)
@@ -303,7 +303,7 @@ func (s *Server) serveFile(r *Request, f *staticFile, allowIndex ...bool) {
 func (s *Server) listDir(r *Request, f http.File) {
 	files, err := f.Readdir(-1)
 	if err != nil {
-		r.Response.WriteStatus(http.StatusInternalServerError, "Error reading directory")
+		r.Response.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, "Error reading directory")
 		return
 	}
 	// 文件夹类型比文件类型具有更高的优先级。
@@ -319,38 +319,38 @@ func (s *Server) listDir(r *Request, f http.File) {
 	if r.Response.Header().Get("Content-Type") == "" {
 		r.Response.Header().Set("Content-Type", "text/html; charset=utf-8")
 	}
-	r.Response.Write(`<html>`)
-	r.Response.Write(`<head>`)
-	r.Response.Write(`<style>`)
-	r.Response.Write(`body {font-family:Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;}`)
-	r.Response.Write(`</style>`)
-	r.Response.Write(`</head>`)
-	r.Response.Write(`<body>`)
-	r.Response.Writef(`<h1>Index of %s</h1>`, r.URL.Path)
-	r.Response.Writef(`<hr />`)
-	r.Response.Write(`<table>`)
+	r.Response.X写响应缓冲区(`<html>`)
+	r.Response.X写响应缓冲区(`<head>`)
+	r.Response.X写响应缓冲区(`<style>`)
+	r.Response.X写响应缓冲区(`body {font-family:Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;}`)
+	r.Response.X写响应缓冲区(`</style>`)
+	r.Response.X写响应缓冲区(`</head>`)
+	r.Response.X写响应缓冲区(`<body>`)
+	r.Response.X写响应缓冲区并格式化(`<h1>Index of %s</h1>`, r.URL.Path)
+	r.Response.X写响应缓冲区并格式化(`<hr />`)
+	r.Response.X写响应缓冲区(`<table>`)
 	if r.URL.Path != "/" {
-		r.Response.Write(`<tr>`)
-		r.Response.Writef(`<td><a href="%s">..</a></td>`, gfile.Dir(r.URL.Path))
-		r.Response.Write(`</tr>`)
+		r.Response.X写响应缓冲区(`<tr>`)
+		r.Response.X写响应缓冲区并格式化(`<td><a href="%s">..</a></td>`, 文件类.X路径取父目录(r.URL.Path))
+		r.Response.X写响应缓冲区(`</tr>`)
 	}
 	name := ""
 	size := ""
-	prefix := gstr.TrimRight(r.URL.Path, "/")
+	prefix := 文本类.X过滤尾字符并含空白(r.URL.Path, "/")
 	for _, file := range files {
 		name = file.Name()
-		size = gfile.FormatSize(file.Size())
+		size = 文件类.X字节长度转易读格式(file.Size())
 		if file.IsDir() {
 			name += "/"
 			size = "-"
 		}
-		r.Response.Write(`<tr>`)
-		r.Response.Writef(`<td><a href="%s/%s">%s</a></td>`, prefix, name, ghtml.SpecialChars(name))
-		r.Response.Writef(`<td style="width:300px;text-align:center;">%s</td>`, gtime.New(file.ModTime()).ISO8601())
-		r.Response.Writef(`<td style="width:80px;text-align:right;">%s</td>`, size)
-		r.Response.Write(`</tr>`)
+		r.Response.X写响应缓冲区(`<tr>`)
+		r.Response.X写响应缓冲区并格式化(`<td><a href="%s/%s">%s</a></td>`, prefix, name, html类.X编码特殊字符(name))
+		r.Response.X写响应缓冲区并格式化(`<td style="width:300px;text-align:center;">%s</td>`, 时间类.X创建(file.ModTime()).X取文本时间ISO8601())
+		r.Response.X写响应缓冲区并格式化(`<td style="width:80px;text-align:right;">%s</td>`, size)
+		r.Response.X写响应缓冲区(`</tr>`)
 	}
-	r.Response.Write(`</table>`)
-	r.Response.Write(`</body>`)
-	r.Response.Write(`</html>`)
+	r.Response.X写响应缓冲区(`</table>`)
+	r.Response.X写响应缓冲区(`</body>`)
+	r.Response.X写响应缓冲区(`</html>`)
 }

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gclient
+package 网页类
 
 import (
 	"fmt"
@@ -34,7 +34,7 @@ func getResponseBody(res *http.Response) string {
 }
 
 // RawRequest 返回请求的原始内容。
-func (r *Response) RawRequest() string {
+func (r *Response) X取请求原始文本() string {
 	// 响应可以为 nil。
 	if r == nil || r.request == nil {
 		return ""
@@ -54,7 +54,7 @@ func (r *Response) RawRequest() string {
 }
 
 // RawResponse 返回响应的原始内容。
-func (r *Response) RawResponse() string {
+func (r *Response) X取响应原始文本() string {
 	// 响应可能为 nil。
 	if r == nil || r.Response == nil {
 		return ""
@@ -74,11 +74,11 @@ func (r *Response) RawResponse() string {
 }
 
 // Raw 返回请求和响应的原始文本。
-func (r *Response) Raw() string {
-	return fmt.Sprintf("%s\n%s", r.RawRequest(), r.RawResponse())
+func (r *Response) X取请求和响应原始文本() string {
+	return fmt.Sprintf("%s\n%s", r.X取请求原始文本(), r.X取响应原始文本())
 }
 
 // RawDump 将请求和响应的原始文本输出到标准输出（stdout）。
-func (r *Response) RawDump() {
-	fmt.Println(r.Raw())
+func (r *Response) X请求和响应输出终端() {
+	fmt.Println(r.X取请求和响应原始文本())
 }

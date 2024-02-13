@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gtype_test
+package 安全变量类_test
 
 import (
 	"strconv"
@@ -17,28 +17,28 @@ import (
 )
 
 var (
-	it     = gtype.NewInt()
-	it32   = gtype.NewInt32()
-	it64   = gtype.NewInt64()
-	uit    = gtype.NewUint()
-	uit32  = gtype.NewUint32()
-	uit64  = gtype.NewUint64()
-	bl     = gtype.NewBool()
-	vbytes = gtype.NewBytes()
-	str    = gtype.NewString()
-	inf    = gtype.NewInterface()
+	it     = 安全变量类.NewInt()
+	it32   = 安全变量类.NewInt32()
+	it64   = 安全变量类.NewInt64()
+	uit    = 安全变量类.NewUint()
+	uit32  = 安全变量类.NewUint32()
+	uit64  = 安全变量类.NewUint64()
+	bl     = 安全变量类.NewBool()
+	vbytes = 安全变量类.NewBytes()
+	str    = 安全变量类.NewString()
+	inf    = 安全变量类.NewInterface()
 	at     = atomic.Value{}
 )
 
 func BenchmarkInt_Set(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		it.Set(i)
+		it.X设置值(i)
 	}
 }
 
 func BenchmarkInt_Val(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		it.Val()
+		it.X取值()
 	}
 }
 
@@ -56,13 +56,13 @@ func BenchmarkInt_Cas(b *testing.B) {
 
 func BenchmarkInt32_Set(b *testing.B) {
 	for i := int32(0); i < int32(b.N); i++ {
-		it32.Set(i)
+		it32.X设置值(i)
 	}
 }
 
 func BenchmarkInt32_Val(b *testing.B) {
 	for i := int32(0); i < int32(b.N); i++ {
-		it32.Val()
+		it32.X取值()
 	}
 }
 
@@ -74,13 +74,13 @@ func BenchmarkInt32_Add(b *testing.B) {
 
 func BenchmarkInt64_Set(b *testing.B) {
 	for i := int64(0); i < int64(b.N); i++ {
-		it64.Set(i)
+		it64.X设置值(i)
 	}
 }
 
 func BenchmarkInt64_Val(b *testing.B) {
 	for i := int64(0); i < int64(b.N); i++ {
-		it64.Val()
+		it64.X取值()
 	}
 }
 
@@ -92,13 +92,13 @@ func BenchmarkInt64_Add(b *testing.B) {
 
 func BenchmarkUint_Set(b *testing.B) {
 	for i := uint(0); i < uint(b.N); i++ {
-		uit.Set(i)
+		uit.X设置值(i)
 	}
 }
 
 func BenchmarkUint_Val(b *testing.B) {
 	for i := uint(0); i < uint(b.N); i++ {
-		uit.Val()
+		uit.X取值()
 	}
 }
 
@@ -110,13 +110,13 @@ func BenchmarkUint_Add(b *testing.B) {
 
 func BenchmarkUint32_Set(b *testing.B) {
 	for i := uint32(0); i < uint32(b.N); i++ {
-		uit32.Set(i)
+		uit32.X设置值(i)
 	}
 }
 
 func BenchmarkUint32_Val(b *testing.B) {
 	for i := uint32(0); i < uint32(b.N); i++ {
-		uit32.Val()
+		uit32.X取值()
 	}
 }
 
@@ -128,13 +128,13 @@ func BenchmarkUint32_Add(b *testing.B) {
 
 func BenchmarkUint64_Set(b *testing.B) {
 	for i := uint64(0); i < uint64(b.N); i++ {
-		uit64.Set(i)
+		uit64.X设置值(i)
 	}
 }
 
 func BenchmarkUint64_Val(b *testing.B) {
 	for i := uint64(0); i < uint64(b.N); i++ {
-		uit64.Val()
+		uit64.X取值()
 	}
 }
 
@@ -146,13 +146,13 @@ func BenchmarkUint64_Add(b *testing.B) {
 
 func BenchmarkBool_Set(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		bl.Set(true)
+		bl.X设置值(true)
 	}
 }
 
 func BenchmarkBool_Val(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		bl.Val()
+		bl.X取值()
 	}
 }
 
@@ -164,37 +164,37 @@ func BenchmarkBool_Cas(b *testing.B) {
 
 func BenchmarkString_Set(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		str.Set(strconv.Itoa(i))
+		str.X设置值(strconv.Itoa(i))
 	}
 }
 
 func BenchmarkString_Val(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		str.Val()
+		str.X取值()
 	}
 }
 
 func BenchmarkBytes_Set(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		vbytes.Set(gbinary.EncodeInt(i))
+		vbytes.X设置值(字节集类.EncodeInt(i))
 	}
 }
 
 func BenchmarkBytes_Val(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		vbytes.Val()
+		vbytes.X取值()
 	}
 }
 
 func BenchmarkInterface_Set(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		inf.Set(i)
+		inf.X设置值(i)
 	}
 }
 
 func BenchmarkInterface_Val(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		inf.Val()
+		inf.X取值()
 	}
 }
 

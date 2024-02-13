@@ -49,7 +49,7 @@ func (r RuleBetween) Run(in RunInput) error {
 	}
 	valueF, err := strconv.ParseFloat(in.Value.String(), 10)
 	if valueF < min || valueF > max || err != nil {
-		return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+		return errors.New(文本类.Map替换(in.Message, map[string]string{
 			"{min}": strconv.FormatFloat(min, 'f', -1, 64),
 			"{max}": strconv.FormatFloat(max, 'f', -1, 64),
 		}))

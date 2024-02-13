@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"testing"
@@ -13,7 +13,7 @@ import (
 )
 
 func Test_CheckStruct_Recursive_Struct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Pass struct {
 			Pass1 string `v:"required|same:Pass2"`
 			Pass2 string `v:"required|same:Pass1"`
@@ -30,7 +30,7 @@ func Test_CheckStruct_Recursive_Struct(t *testing.T) {
 				Pass2: "2",
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
+		err := g.X效验类().Data(user).Run(ctx)
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `1` must be the same as field Pass2 value `2`"})
@@ -39,7 +39,7 @@ func Test_CheckStruct_Recursive_Struct(t *testing.T) {
 }
 
 func Test_CheckStruct_Recursive_Struct_WithData(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Pass struct {
 			Pass1 string `v:"required|same:Pass2"`
 			Pass2 string `v:"required|same:Pass1"`
@@ -57,7 +57,7 @@ func Test_CheckStruct_Recursive_Struct_WithData(t *testing.T) {
 				"Pass2": 200,
 			},
 		}
-		err := g.Validator().Data(user).Assoc(data).Run(ctx)
+		err := g.X效验类().Data(user).Assoc(data).Run(ctx)
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], nil)
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `100` must be the same as field Pass2 value `200`"})
@@ -66,7 +66,7 @@ func Test_CheckStruct_Recursive_Struct_WithData(t *testing.T) {
 }
 
 func Test_CheckStruct_Recursive_SliceStruct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Pass struct {
 			Pass1 string `v:"required|same:Pass2"`
 			Pass2 string `v:"required|same:Pass1"`
@@ -89,8 +89,8 @@ func Test_CheckStruct_Recursive_SliceStruct(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `3` must be the same as field Pass2 value `4`"})
@@ -99,7 +99,7 @@ func Test_CheckStruct_Recursive_SliceStruct(t *testing.T) {
 }
 
 func Test_CheckStruct_Recursive_SliceStruct_Bail(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Pass struct {
 			Pass1 string `v:"required|same:Pass2"`
 			Pass2 string `v:"required|same:Pass1"`
@@ -122,8 +122,8 @@ func Test_CheckStruct_Recursive_SliceStruct_Bail(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Bail().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Bail().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], nil)
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `1` must be the same as field Pass2 value `2`"})
@@ -132,7 +132,7 @@ func Test_CheckStruct_Recursive_SliceStruct_Bail(t *testing.T) {
 }
 
 func Test_CheckStruct_Recursive_SliceStruct_Required(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Pass struct {
 			Pass1 string `v:"required|same:Pass2"`
 			Pass2 string `v:"required|same:Pass1"`
@@ -143,8 +143,8 @@ func Test_CheckStruct_Recursive_SliceStruct_Required(t *testing.T) {
 			Passes []Pass
 		}
 		user := &User{}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.Assert(err.Maps()["Pass1"], nil)
@@ -153,7 +153,7 @@ func Test_CheckStruct_Recursive_SliceStruct_Required(t *testing.T) {
 }
 
 func Test_CheckStruct_Recursive_MapStruct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Pass struct {
 			Pass1 string `v:"required|same:Pass2"`
 			Pass2 string `v:"required|same:Pass1"`
@@ -176,8 +176,8 @@ func Test_CheckStruct_Recursive_MapStruct(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.AssertNE(err.Maps()["Pass1"], nil)
@@ -186,7 +186,7 @@ func Test_CheckStruct_Recursive_MapStruct(t *testing.T) {
 }
 
 func Test_CheckMap_Recursive_SliceStruct(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Pass struct {
 			Pass1 string `v:"required|same:Pass2"`
 			Pass2 string `v:"required|same:Pass1"`
@@ -204,8 +204,8 @@ func Test_CheckMap_Recursive_SliceStruct(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], nil)
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `3` must be the same as field Pass2 value `4`"})
@@ -214,7 +214,7 @@ func Test_CheckMap_Recursive_SliceStruct(t *testing.T) {
 }
 
 func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required#Student Name is required"`
 			Age  int    `v:"required"`
@@ -230,11 +230,11 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"students": `[]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Students field is required`)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required#Student Name is required"`
 			Age  int    `v:"required"`
@@ -249,11 +249,11 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"name": "john",
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, ``)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required#Student Name is required"`
 			Age  int    `v:"required"`
@@ -269,12 +269,12 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"students": `[{"age":2}, {"name":"jack", "age":4}]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `Student Name is required`)
 	})
 
 	// 这是Go语言代码的GitHub issues链接，指向gogf/gf仓库下的第1864号问题。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required"`
 			Age  int
@@ -290,13 +290,13 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"students": `[{"age":2},{"name":"jack", "age":4}]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
 }
 
 func Test_CheckStruct_Recursively_SliceAttribute_WithTypeAlias(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type ParamsItemBase struct {
 			Component string `v:"required" dc:"组件名称"`
 			Params    string `v:"required" dc:"配置参数(一般是JSON)"`
@@ -314,13 +314,13 @@ func Test_CheckStruct_Recursively_SliceAttribute_WithTypeAlias(t *testing.T) {
 				"BizParams": `[{}]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(req).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(req).Run(ctx)
 		t.Assert(err, `The Component field is required; The Params field is required; The Version field is required`)
 	})
 }
 
 func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required#Student Name is required"`
 			Age  int    `v:"required"`
@@ -336,7 +336,7 @@ func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
 				"students": `{"john":{"age":18}}`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `Student Name is required`)
 	})
 }
@@ -346,7 +346,7 @@ func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
 // 参考GitHub上gf项目中的第1983号问题。
 func Test_Issue1983(t *testing.T) {
 	// 错误：因为在Teacher结构体中的属性Student是一个已初始化的结构体，它具有默认值。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required"`
 			Age  int
@@ -360,11 +360,11 @@ func Test_Issue1983(t *testing.T) {
 				"students": nil,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
 	// 与upper相同，它不受关联值的影响。
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required"`
 			Age  int
@@ -379,10 +379,10 @@ func Test_Issue1983(t *testing.T) {
 				"students": nil,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required"`
 			Age  int
@@ -396,14 +396,14 @@ func Test_Issue1983(t *testing.T) {
 				"students": nil,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.AssertNil(err)
 	})
 }
 
 // 这是Go语言代码的URL注释，指向GitHub上gogf/gf仓库的第1921号问题。
 func Test_Issue1921(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type SearchOption struct {
 			Size int `v:"max:100"`
 		}
@@ -418,7 +418,7 @@ func Test_Issue1921(t *testing.T) {
 				},
 			}
 		)
-		err := g.Validator().Data(req).Run(ctx)
+		err := g.X效验类().Data(req).Run(ctx)
 		t.Assert(err, "The Size value `10000` must be equal or lesser than 100")
 	})
 }
@@ -426,7 +426,7 @@ func Test_Issue1921(t *testing.T) {
 // 这是Go语言代码中的一行注释，其内容为一个GitHub网址链接，指向gogf/gf项目下的第2011号问题。 
 // 翻译：// 参见GitHub上gogf/gf项目中的第2011号问题：https://github.com/gogf/gf/issues/2011
 func Test_Issue2011(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		type Student struct {
 			Name string `v:"required|min-length:6"`
 			Age  int
@@ -442,7 +442,7 @@ func Test_Issue2011(t *testing.T) {
 				},
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, "The Name value `john` length must be equal or greater than 6")
 	})
 }

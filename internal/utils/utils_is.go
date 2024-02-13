@@ -12,8 +12,8 @@ import (
 )
 
 // IsNil 检查 `value` 是否为 nil，特别是针对 interface{} 类型的值。
-func IsNil(value interface{}) bool {
-	return empty.IsNil(value)
+func X是否为Nil(value interface{}) bool {
+	return empty.X是否为Nil(value)
 }
 
 // IsEmpty 检查 `value` 是否为空。

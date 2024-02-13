@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -26,7 +26,7 @@ import (
 
 var (
 	// handlerIdGenerator 是处理器项 ID 生成器。
-	handlerIdGenerator = gtype.NewInt()
+	handlerIdGenerator = 安全变量类.NewInt()
 )
 
 // routerMapKey 根据给定的参数创建并返回一个唯一的路由键。
@@ -40,20 +40,20 @@ func (s *Server) parsePattern(pattern string) (domain, method, path string, err 
 	path = strings.TrimSpace(pattern)
 	domain = DefaultDomainName
 	method = defaultMethod
-	if array, err := gregex.MatchString(`([a-zA-Z]+):(.+)`, pattern); len(array) > 1 && err == nil {
+	if array, err := 正则类.X匹配文本(`([a-zA-Z]+):(.+)`, pattern); len(array) > 1 && err == nil {
 		path = strings.TrimSpace(array[2])
 		if v := strings.TrimSpace(array[1]); v != "" {
 			method = v
 		}
 	}
-	if array, err := gregex.MatchString(`(.+)@([\w\.\-]+)`, path); len(array) > 1 && err == nil {
+	if array, err := 正则类.X匹配文本(`(.+)@([\w\.\-]+)`, path); len(array) > 1 && err == nil {
 		path = strings.TrimSpace(array[1])
 		if v := strings.TrimSpace(array[2]); v != "" {
 			domain = v
 		}
 	}
 	if path == "" {
-		err = gerror.NewCode(gcode.CodeInvalidParameter, "invalid pattern: URI should not be empty")
+		err = 错误类.X创建错误码(错误码类.CodeInvalidParameter, "invalid pattern: URI should not be empty")
 	}
 	if path != "/" {
 		path = strings.TrimRight(path, "/")
@@ -86,7 +86,7 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 	}
 	domain, method, uri, err := s.parsePattern(pattern)
 	if err != nil {
-		s.Logger().Fatalf(ctx, `invalid pattern "%s", %+v`, pattern, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `invalid pattern "%s", %+v`, pattern, err)
 		return
 	}
 // ====================================================================================
@@ -95,18 +95,18 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 // ====================================================================================
 	if handler.Info.Type != nil && handler.Info.Type.NumIn() == 2 {
 		var objectReq = reflect.New(handler.Info.Type.In(1))
-		if v := gmeta.Get(objectReq, gtag.Path); !v.IsEmpty() {
+		if v := 元数据类.Get(objectReq, gtag.Path); !v.X是否为空() {
 			uri = v.String()
 		}
-		if v := gmeta.Get(objectReq, gtag.Domain); !v.IsEmpty() {
+		if v := 元数据类.Get(objectReq, gtag.Domain); !v.X是否为空() {
 			domain = v.String()
 		}
-		if v := gmeta.Get(objectReq, gtag.Method); !v.IsEmpty() {
+		if v := 元数据类.Get(objectReq, gtag.Method); !v.X是否为空() {
 			method = v.String()
 		}
 		// 多个方法注册，使用字符 `,` 连接。
-		if gstr.Contains(method, ",") {
-			methods := gstr.SplitAndTrim(method, ",")
+		if 文本类.X是否包含(method, ",") {
+			methods := 文本类.X分割并忽略空值(method, ",")
 			for _, v := range methods {
 				// 每个方法都有自己的处理程序。
 				clonedHandler := *handler
@@ -115,7 +115,7 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 			return
 		}
 		// 将`all`转换为`ALL`。
-		if gstr.Equal(method, defaultMethod) {
+		if 文本类.X相等比较并忽略大小写(method, defaultMethod) {
 			method = defaultMethod
 		}
 	}
@@ -127,7 +127,7 @@ func (s *Server) doSetHandler(
 	prefix, uri, pattern, method, domain string,
 ) {
 	if !s.isValidMethod(method) {
-		s.Logger().Fatalf(
+		s.Logger别名().X输出并格式化FATA(
 			ctx,
 			`invalid method value "%s", should be in "%s" or "%s"`,
 			method, supportedHttpMethods, defaultMethod,
@@ -143,7 +143,7 @@ func (s *Server) doSetHandler(
 	}
 
 	if len(uri) == 0 || uri[0] != '/' {
-		s.Logger().Fatalf(ctx, `invalid pattern "%s", URI should lead with '/'`, pattern)
+		s.Logger别名().X输出并格式化FATA(ctx, `invalid pattern "%s", URI should lead with '/'`, pattern)
 	}
 
 	// 重复路由检查，可以通过服务器配置禁用此功能。
@@ -163,7 +163,7 @@ func (s *Server) doSetHandler(
 					}
 				}
 				if duplicatedHandler != nil {
-					s.Logger().Fatalf(
+					s.Logger别名().X输出并格式化FATA(
 						ctx,
 						`duplicated route registry "%s" at %s , already registered at %s`,
 						pattern, handler.Source, duplicatedHandler.Source,
@@ -190,7 +190,7 @@ func (s *Server) doSetHandler(
 // 从根节点到叶子节点搜索过程中，可能会有多个列表添加到此数组中。
 	var (
 		array []string
-		lists = make([]*glist.List, 0)
+		lists = make([]*链表类.List, 0)
 	)
 	if strings.EqualFold("/", uri) {
 		array = []string{"/"}
@@ -210,16 +210,16 @@ func (s *Server) doSetHandler(
 			continue
 		}
 		// 检查是否为模糊节点。
-		if gregex.IsMatchString(`^[:\*]|\{[\w\.\-]+\}|\*`, part) {
+		if 正则类.X是否匹配文本(`^[:\*]|\{[\w\.\-]+\}|\*`, part) {
 			part = "*fuzz"
 // 如果这是一个模糊节点，它会在哈希映射中创建一个“*list”项——这是一个列表。
 // 从此模糊节点派生的所有子路由项也将被添加到其“*list”项中。
 			if v, ok := p.(map[string]interface{})["*list"]; !ok {
-				newListForFuzzy := glist.New()
+				newListForFuzzy := 链表类.New()
 				p.(map[string]interface{})["*list"] = newListForFuzzy
 				lists = append(lists, newListForFuzzy)
 			} else {
-				lists = append(lists, v.(*glist.List))
+				lists = append(lists, v.(*链表类.List))
 			}
 		}
 		// 为当前节点新建一个桶。
@@ -233,11 +233,11 @@ func (s *Server) doSetHandler(
 // 注意，由于在之前的模糊检查中可能已添加了列表，所以需要进行 `v != "*fuzz"` 的比较。
 		if i == len(array)-1 && part != "*fuzz" {
 			if v, ok := p.(map[string]interface{})["*list"]; !ok {
-				leafList := glist.New()
+				leafList := 链表类.New()
 				p.(map[string]interface{})["*list"] = leafList
 				lists = append(lists, leafList)
 			} else {
-				lists = append(lists, v.(*glist.List))
+				lists = append(lists, v.(*链表类.List))
 			}
 		}
 	}
@@ -271,7 +271,7 @@ func (s *Server) doSetHandler(
 }
 
 func (s *Server) isValidMethod(method string) bool {
-	if gstr.Equal(method, defaultMethod) {
+	if 文本类.X相等比较并忽略大小写(method, defaultMethod) {
 		return true
 	}
 	_, ok := methodsMap[strings.ToUpper(method)]
@@ -311,12 +311,12 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 // 第一条规则表示将 "/admin-goods-任意页码" 重写为 "/admin-任意页码"，其中 {page} 是一个占位符，代表任何数字页码。
 // 第二条规则表示将 "/任意哈希值.任意类型" 重写为 "/任意哈希值"，其中 {hash} 和 {type} 分别是占位符，代表任何哈希值和文件类型。
 	var uriNew, uriOld string
-	uriNew, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", newItem.Router.Uri)
-	uriOld, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", oldItem.Router.Uri)
-	uriNew, _ = gregex.ReplaceString(`:[^/]+?`, "", uriNew)
-	uriOld, _ = gregex.ReplaceString(`:[^/]+?`, "", uriOld)
-	uriNew, _ = gregex.ReplaceString(`\*[^/]*`, "", uriNew) // 将 "/*" 和 "/*any" 进行替换。
-	uriOld, _ = gregex.ReplaceString(`\*[^/]*`, "", uriOld) // 将 "/*" 和 "/*any" 进行替换。
+	uriNew, _ = 正则类.X替换文本(`\{[^/]+?\}`, "", newItem.Router.Uri)
+	uriOld, _ = 正则类.X替换文本(`\{[^/]+?\}`, "", oldItem.Router.Uri)
+	uriNew, _ = 正则类.X替换文本(`:[^/]+?`, "", uriNew)
+	uriOld, _ = 正则类.X替换文本(`:[^/]+?`, "", uriOld)
+	uriNew, _ = 正则类.X替换文本(`\*[^/]*`, "", uriNew) // 将 "/*" 和 "/*any" 进行替换。
+	uriOld, _ = 正则类.X替换文本(`\*[^/]*`, "", uriOld) // 将 "/*" 和 "/*any" 进行替换。
 	if len(uriNew) > len(uriOld) {
 		return true
 	}
@@ -433,12 +433,12 @@ func (s *Server) patternToRegular(rule string) (regular string, names []string) 
 			}
 		default:
 			// 特殊字符替换。
-			v = gstr.ReplaceByMap(v, map[string]string{
+			v = 文本类.Map替换(v, map[string]string{
 				`.`: `\.`,
 				`+`: `\+`,
 				`*`: `.*`,
 			})
-			s, _ := gregex.ReplaceStringFunc(`\{[\w\.\-]+\}`, v, func(s string) string {
+			s, _ := 正则类.X替换文本_函数(`\{[\w\.\-]+\}`, v, func(s string) string {
 				names = append(names, s[1:len(s)-1])
 				return `([^/]+)`
 			})

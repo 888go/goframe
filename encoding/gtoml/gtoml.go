@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gtoml 提供了对TOML内容的访问和转换功能。
-package gtoml
+package toml类
 
 import (
 	"bytes"
@@ -19,7 +19,7 @@ import (
 func Encode(v interface{}) ([]byte, error) {
 	buffer := bytes.NewBuffer(nil)
 	if err := toml.NewEncoder(buffer).Encode(v); err != nil {
-		err = gerror.Wrap(err, `toml.Encoder.Encode failed`)
+		err = 错误类.X多层错误(err, `toml.Encoder.Encode failed`)
 		return nil, err
 	}
 	return buffer.Bytes(), nil
@@ -28,7 +28,7 @@ func Encode(v interface{}) ([]byte, error) {
 func Decode(v []byte) (interface{}, error) {
 	var result interface{}
 	if err := toml.Unmarshal(v, &result); err != nil {
-		err = gerror.Wrap(err, `toml.Unmarshal failed`)
+		err = 错误类.X多层错误(err, `toml.Unmarshal failed`)
 		return nil, err
 	}
 	return result, nil
@@ -37,7 +37,7 @@ func Decode(v []byte) (interface{}, error) {
 func DecodeTo(v []byte, result interface{}) (err error) {
 	err = toml.Unmarshal(v, result)
 	if err != nil {
-		err = gerror.Wrap(err, `toml.Unmarshal failed`)
+		err = 错误类.X多层错误(err, `toml.Unmarshal failed`)
 	}
 	return err
 }

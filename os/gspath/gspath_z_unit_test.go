@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gspath_test
+package 文件搜索类_test
 
 import (
 	"testing"
@@ -15,42 +15,42 @@ import (
 )
 
 func TestSPath_Api(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		pwd := gfile.Pwd()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		pwd := 文件类.X取当前工作目录()
 		root := pwd
-		gfile.Create(gfile.Join(root, "gf_tmp", "gf.txt"))
-		defer gfile.Remove(gfile.Join(root, "gf_tmp"))
-		fp, isDir := gspath.Search(root, "gf_tmp")
-		t.Assert(fp, gfile.Join(root, "gf_tmp"))
+		文件类.X创建文件与目录(文件类.X路径生成(root, "gf_tmp", "gf.txt"))
+		defer 文件类.X删除(文件类.X路径生成(root, "gf_tmp"))
+		fp, isDir := 文件搜索类.Search(root, "gf_tmp")
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp"))
 		t.Assert(isDir, true)
-		fp, isDir = gspath.Search(root, "gf_tmp", "gf.txt")
-		t.Assert(fp, gfile.Join(root, "gf_tmp", "gf.txt"))
+		fp, isDir = 文件搜索类.Search(root, "gf_tmp", "gf.txt")
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp", "gf.txt"))
 		t.Assert(isDir, false)
 
-		fp, isDir = gspath.SearchWithCache(root, "gf_tmp")
-		t.Assert(fp, gfile.Join(root, "gf_tmp"))
+		fp, isDir = 文件搜索类.SearchWithCache(root, "gf_tmp")
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp"))
 		t.Assert(isDir, true)
-		fp, isDir = gspath.SearchWithCache(root, "gf_tmp", "gf.txt")
-		t.Assert(fp, gfile.Join(root, "gf_tmp", "gf.txt"))
+		fp, isDir = 文件搜索类.SearchWithCache(root, "gf_tmp", "gf.txt")
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp", "gf.txt"))
 		t.Assert(isDir, false)
 	})
 }
 
 func TestSPath_Basic(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		pwd := gfile.Pwd()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		pwd := 文件类.X取当前工作目录()
 		root := pwd
 
-		gfile.Create(gfile.Join(root, "gf_tmp", "gf.txt"))
-		defer gfile.Remove(gfile.Join(root, "gf_tmp"))
-		gsp := gspath.New(root, false)
-		realPath, err := gsp.Add(gfile.Join(root, "gf_tmp"))
+		文件类.X创建文件与目录(文件类.X路径生成(root, "gf_tmp", "gf.txt"))
+		defer 文件类.X删除(文件类.X路径生成(root, "gf_tmp"))
+		gsp := 文件搜索类.New(root, false)
+		realPath, err := gsp.Add(文件类.X路径生成(root, "gf_tmp"))
 		t.AssertNil(err)
-		t.Assert(realPath, gfile.Join(root, "gf_tmp"))
+		t.Assert(realPath, 文件类.X路径生成(root, "gf_tmp"))
 		realPath, err = gsp.Add("gf_tmp1")
 		t.Assert(err != nil, true)
 		t.Assert(realPath, "")
-		realPath, err = gsp.Add(gfile.Join(root, "gf_tmp", "gf.txt"))
+		realPath, err = gsp.Add(文件类.X路径生成(root, "gf_tmp", "gf.txt"))
 		t.Assert(err != nil, true)
 		t.Assert(realPath, "")
 
@@ -59,58 +59,58 @@ func TestSPath_Basic(t *testing.T) {
 		t.Assert(gsp.Size(), 2)
 		t.Assert(len(gsp.Paths()), 2)
 		t.Assert(len(gsp.AllPaths()), 0)
-		realPath, err = gsp.Set(gfile.Join(root, "gf_tmp1"))
+		realPath, err = gsp.X设置值(文件类.X路径生成(root, "gf_tmp1"))
 		t.Assert(err != nil, true)
 		t.Assert(realPath, "")
-		realPath, err = gsp.Set(gfile.Join(root, "gf_tmp", "gf.txt"))
+		realPath, err = gsp.X设置值(文件类.X路径生成(root, "gf_tmp", "gf.txt"))
 		t.AssertNE(err, nil)
 		t.Assert(realPath, "")
 
-		realPath, err = gsp.Set(root)
+		realPath, err = gsp.X设置值(root)
 		t.AssertNil(err)
 		t.Assert(realPath, root)
 
 		fp, isDir := gsp.Search("gf_tmp")
-		t.Assert(fp, gfile.Join(root, "gf_tmp"))
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp"))
 		t.Assert(isDir, true)
 		fp, isDir = gsp.Search("gf_tmp", "gf.txt")
-		t.Assert(fp, gfile.Join(root, "gf_tmp", "gf.txt"))
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp", "gf.txt"))
 		t.Assert(isDir, false)
 		fp, isDir = gsp.Search("/", "gf.txt")
 		t.Assert(fp, root)
 		t.Assert(isDir, true)
 
-		gsp = gspath.New(root, true)
-		realPath, err = gsp.Add(gfile.Join(root, "gf_tmp"))
+		gsp = 文件搜索类.New(root, true)
+		realPath, err = gsp.Add(文件类.X路径生成(root, "gf_tmp"))
 		t.AssertNil(err)
-		t.Assert(realPath, gfile.Join(root, "gf_tmp"))
+		t.Assert(realPath, 文件类.X路径生成(root, "gf_tmp"))
 
-		gfile.Mkdir(gfile.Join(root, "gf_tmp1"))
-		gfile.Rename(gfile.Join(root, "gf_tmp1"), gfile.Join(root, "gf_tmp2"))
-		gfile.Rename(gfile.Join(root, "gf_tmp2"), gfile.Join(root, "gf_tmp1"))
-		defer gfile.Remove(gfile.Join(root, "gf_tmp1"))
+		文件类.X创建目录(文件类.X路径生成(root, "gf_tmp1"))
+		文件类.Rename别名(文件类.X路径生成(root, "gf_tmp1"), 文件类.X路径生成(root, "gf_tmp2"))
+		文件类.Rename别名(文件类.X路径生成(root, "gf_tmp2"), 文件类.X路径生成(root, "gf_tmp1"))
+		defer 文件类.X删除(文件类.X路径生成(root, "gf_tmp1"))
 		realPath, err = gsp.Add("gf_tmp1")
 		t.Assert(err != nil, false)
-		t.Assert(realPath, gfile.Join(root, "gf_tmp1"))
+		t.Assert(realPath, 文件类.X路径生成(root, "gf_tmp1"))
 
 		realPath, err = gsp.Add("gf_tmp3")
 		t.Assert(err != nil, true)
 		t.Assert(realPath, "")
 
-		gsp.Remove(gfile.Join(root, "gf_tmp"))
-		gsp.Remove(gfile.Join(root, "gf_tmp1"))
-		gsp.Remove(gfile.Join(root, "gf_tmp3"))
+		gsp.Remove(文件类.X路径生成(root, "gf_tmp"))
+		gsp.Remove(文件类.X路径生成(root, "gf_tmp1"))
+		gsp.Remove(文件类.X路径生成(root, "gf_tmp3"))
 		t.Assert(gsp.Size(), 3)
 		t.Assert(len(gsp.Paths()), 3)
 
 		gsp.AllPaths()
-		gsp.Set(root)
+		gsp.X设置值(root)
 		fp, isDir = gsp.Search("gf_tmp")
-		t.Assert(fp, gfile.Join(root, "gf_tmp"))
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp"))
 		t.Assert(isDir, true)
 
 		fp, isDir = gsp.Search("gf_tmp", "gf.txt")
-		t.Assert(fp, gfile.Join(root, "gf_tmp", "gf.txt"))
+		t.Assert(fp, 文件类.X路径生成(root, "gf_tmp", "gf.txt"))
 		t.Assert(isDir, false)
 	})
 }

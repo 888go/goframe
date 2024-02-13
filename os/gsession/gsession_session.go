@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gsession
+package session类
 
 import (
 	"context"
@@ -22,7 +22,7 @@ import (
 type Session struct {
 	id      string          // 会话ID。如果自定义指定了id，它将获取该会话。
 	ctx     context.Context // 当前会话的上下文。请注意，会话与上下文共存。
-	data    *gmap.StrAnyMap // 当前会话数据，从Storage中获取。
+	data    *map类.StrAnyMap // 当前会话数据，从Storage中获取。
 	dirty   bool            // 用于标记会话已被修改。
 	start   bool            // 用于标记会话已开始。
 	manager *Manager        // 父级会话管理器。
@@ -69,7 +69,7 @@ func (s *Session) init() error {
 		}
 	}
 	if s.data == nil {
-		s.data = gmap.NewStrAnyMap(true)
+		s.data = map类.X创建StrAny(true)
 	}
 	s.start = true
 	return nil
@@ -84,7 +84,7 @@ func (s *Session) Close() error {
 		return nil
 	}
 	if s.start && s.id != "" {
-		size := s.data.Size()
+		size := s.data.X取数量()
 		if s.dirty {
 			err := s.manager.storage.SetSession(s.ctx, s.id, s.data, s.manager.ttl)
 			if err != nil && err != ErrorDisabled {
@@ -101,13 +101,13 @@ func (s *Session) Close() error {
 }
 
 // Set 将键值对设置到此会话中。
-func (s *Session) Set(key string, value interface{}) (err error) {
+func (s *Session) X设置值(key string, value interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
 	}
-	if err = s.manager.storage.Set(s.ctx, s.id, key, value, s.manager.ttl); err != nil {
+	if err = s.manager.storage.X设置值(s.ctx, s.id, key, value, s.manager.ttl); err != nil {
 		if err == ErrorDisabled {
-			s.data.Set(key, value)
+			s.data.X设置值(key, value)
 		} else {
 			return err
 		}
@@ -123,7 +123,7 @@ func (s *Session) SetMap(data map[string]interface{}) (err error) {
 	}
 	if err = s.manager.storage.SetMap(s.ctx, s.id, data, s.manager.ttl); err != nil {
 		if err == ErrorDisabled {
-			s.data.Sets(data)
+			s.data.X设置值Map(data)
 		} else {
 			return err
 		}
@@ -143,7 +143,7 @@ func (s *Session) Remove(keys ...string) (err error) {
 	for _, key := range keys {
 		if err = s.manager.storage.Remove(s.ctx, s.id, key); err != nil {
 			if err == ErrorDisabled {
-				s.data.Remove(key)
+				s.data.X删除(key)
 			} else {
 				return err
 			}
@@ -168,7 +168,7 @@ func (s *Session) RemoveAll() (err error) {
 	}
 	// 从内存中移除数据。
 	if s.data != nil {
-		s.data.Clear()
+		s.data.X清空()
 	}
 	s.dirty = true
 	return nil
@@ -187,7 +187,7 @@ func (s *Session) Id() (id string, err error) {
 // 如果在会话开始后调用，将返回错误。
 func (s *Session) SetId(id string) error {
 	if s.start {
-		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
+		return 错误类.X创建错误码(错误码类.CodeInvalidOperation, "session already started")
 	}
 	s.id = id
 	return nil
@@ -197,7 +197,7 @@ func (s *Session) SetId(id string) error {
 // 如果在会话开始后调用，将返回错误。
 func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 	if s.start {
-		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
+		return 错误类.X创建错误码(错误码类.CodeInvalidOperation, "session already started")
 	}
 	s.idFunc = f
 	return nil
@@ -219,7 +219,7 @@ func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 	if sessionData != nil {
 		return sessionData, nil
 	}
-	return s.data.Map(), nil
+	return s.data.X取Map(), nil
 }
 
 // Size 返回会话的大小。
@@ -237,7 +237,7 @@ func (s *Session) Size() (size int, err error) {
 	if size > 0 {
 		return size, nil
 	}
-	return s.data.Size(), nil
+	return s.data.X取数量(), nil
 }
 
 // Contains 检查键是否存在于会话中。
@@ -252,7 +252,7 @@ func (s *Session) Contains(key string) (ok bool, err error) {
 	if err != nil {
 		return false, err
 	}
-	return !v.IsNil(), nil
+	return !v.X是否为Nil(), nil
 }
 
 // IsDirty 检查会话中是否存在任何数据更改。
@@ -263,7 +263,7 @@ func (s *Session) IsDirty() bool {
 // Get 通过给定的键从会话中检索值。
 // 如果提供了 `def`，当键在会话中不存在时，它将返回 `def`，
 // 否则返回 nil。
-func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err error) {
+func (s *Session) Get(key string, def ...interface{}) (value *泛型类.Var, err error) {
 	if s.id == "" {
 		return nil, nil
 	}
@@ -276,13 +276,13 @@ func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err erro
 		return nil, err
 	}
 	if v != nil {
-		return gvar.New(v), nil
+		return 泛型类.X创建(v), nil
 	}
-	if v = s.data.Get(key); v != nil {
-		return gvar.New(v), nil
+	if v = s.data.X取值(key); v != nil {
+		return 泛型类.X创建(v), nil
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0]), nil
+		return 泛型类.X创建(def[0]), nil
 	}
 	return nil, nil
 }
@@ -297,7 +297,7 @@ func (s *Session) MustId() string {
 }
 
 // MustGet 函数表现如同 Get 函数，但当发生任何错误时，它会触发panic。
-func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
+func (s *Session) MustGet(key string, def ...interface{}) *泛型类.Var {
 	v, err := s.Get(key, def...)
 	if err != nil {
 		panic(err)
@@ -307,7 +307,7 @@ func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 
 // MustSet 函数表现如同 Set 函数，但是当发生任何错误时它会引发panic。
 func (s *Session) MustSet(key string, value interface{}) {
-	err := s.Set(key, value)
+	err := s.X设置值(key, value)
 	if err != nil {
 		panic(err)
 	}

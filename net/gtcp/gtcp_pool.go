@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp
+package tcp类
 
 import (
 	"time"
@@ -16,7 +16,7 @@ import (
 // 注意，它不是一个连接池或连接管理器，它仅仅是一个 TCP 连接对象。
 type PoolConn struct {
 	*Conn              // 基础连接对象。
-	pool   *gpool.Pool // 连接池，虽然并非真正的连接池，但实现了连接复用的功能。
+	pool   *对象复用类.Pool // 连接池，虽然并非真正的连接池，但实现了连接复用的功能。
 	status int         // 当前连接的状态，用于标记此连接是否可用。
 }
 
@@ -30,14 +30,14 @@ const (
 
 var (
 	// addressPoolMap 是一个映射，用于将地址与其对应的池对象关联。
-	addressPoolMap = gmap.NewStrAnyMap(true)
+	addressPoolMap = map类.X创建StrAny(true)
 )
 
 // NewPoolConn 创建并返回一个具有连接池功能的连接。
 func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
-	v := addressPoolMap.GetOrSetFuncLock(addr, func() interface{} {
-		var pool *gpool.Pool
-		pool = gpool.New(defaultPoolExpire, func() (interface{}, error) {
+	v := addressPoolMap.X取值或设置值_函数带锁(addr, func() interface{} {
+		var pool *对象复用类.Pool
+		pool = 对象复用类.X创建(defaultPoolExpire, func() (interface{}, error) {
 			if conn, err := NewConn(addr, timeout...); err == nil {
 				return &PoolConn{conn, pool, connStatusActive}, nil
 			} else {
@@ -46,7 +46,7 @@ func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
 		})
 		return pool
 	})
-	value, err := v.(*gpool.Pool).Get()
+	value, err := v.(*对象复用类.Pool).X出栈()
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
 func (c *PoolConn) Close() error {
 	if c.pool != nil && c.status == connStatusActive {
 		c.status = connStatusUnknown
-		return c.pool.Put(c)
+		return c.pool.X入栈(c)
 	}
 	return c.Conn.Close()
 }
@@ -68,7 +68,7 @@ func (c *PoolConn) Close() error {
 func (c *PoolConn) Send(data []byte, retry ...Retry) error {
 	err := c.Conn.Send(data, retry...)
 	if err != nil && c.status == connStatusUnknown {
-		if v, e := c.pool.Get(); e == nil {
+		if v, e := c.pool.X出栈(); e == nil {
 			c.Conn = v.(*PoolConn).Conn
 			err = c.Send(data, retry...)
 		} else {

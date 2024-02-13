@@ -17,7 +17,7 @@ const (
 var (
 // instances 是用于管理的实例映射，
 // 通过名称来管理多个 i18n 实例。
-	instances = gmap.NewStrAnyMap(true)
+	instances = map类.X创建StrAny(true)
 )
 
 // Instance 返回一个 Resource 类型的实例。
@@ -27,7 +27,7 @@ func Instance(name ...string) *Manager {
 	if len(name) > 0 && name[0] != "" {
 		key = name[0]
 	}
-	return instances.GetOrSetFuncLock(key, func() interface{} {
+	return instances.X取值或设置值_函数带锁(key, func() interface{} {
 		return New()
 	}).(*Manager)
 }

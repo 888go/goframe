@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gredis
+package redis类
 
 import (
 	"context"
@@ -14,13 +14,13 @@ import (
 // IGroupSortedSet 管理 Redis 有序集合操作。
 // 实现参考 redis.GroupSortedSet。
 type IGroupSortedSet interface {
-	ZAdd(ctx context.Context, key string, option *ZAddOption, member ZAddMember, members ...ZAddMember) (*gvar.Var, error)
+	ZAdd(ctx context.Context, key string, option *ZAddOption, member ZAddMember, members ...ZAddMember) (*泛型类.Var, error)
 	ZScore(ctx context.Context, key string, member interface{}) (float64, error)
 	ZIncrBy(ctx context.Context, key string, increment float64, member interface{}) (float64, error)
 	ZCard(ctx context.Context, key string) (int64, error)
 	ZCount(ctx context.Context, key string, min, max string) (int64, error)
-	ZRange(ctx context.Context, key string, start, stop int64, option ...ZRangeOption) (gvar.Vars, error)
-	ZRevRange(ctx context.Context, key string, start, stop int64, option ...ZRevRangeOption) (*gvar.Var, error)
+	ZRange(ctx context.Context, key string, start, stop int64, option ...ZRangeOption) (泛型类.Vars, error)
+	ZRevRange(ctx context.Context, key string, start, stop int64, option ...ZRevRangeOption) (*泛型类.Var, error)
 	ZRank(ctx context.Context, key string, member interface{}) (int64, error)
 	ZRevRank(ctx context.Context, key string, member interface{}) (int64, error)
 	ZRem(ctx context.Context, key string, member interface{}, members ...interface{}) (int64, error)

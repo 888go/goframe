@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid
+package 效验类
 
 import (
 	"context"
@@ -71,7 +71,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 			})
 		}
 	}
-	inputParamMap := gconv.Map(params)
+	inputParamMap := 转换类.X取Map(params)
 	if inputParamMap == nil {
 		return newValidationErrorByStr(
 			internalParamsErrRuleName,
@@ -114,7 +114,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 		}
 	}
 	if v.bail && len(errorMaps) > 0 {
-		return newValidationError(gcode.CodeValidationFailed, nil, errorMaps)
+		return newValidationError(错误码类.CodeValidationFailed, nil, errorMaps)
 	}
 
 	// 下面的逻辑与 CheckStruct 的部分功能相同，但不支持顺序检查。
@@ -142,7 +142,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 // 如果值为nil或空字符串且没有required*规则，
 // 它将清除错误消息。
 // ===========================================================
-			if gconv.String(value) == "" {
+			if 转换类.String(value) == "" {
 				required := false
 				// rule => error
 				for ruleKey := range errorItem {
@@ -166,7 +166,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 		}
 	}
 	if len(errorMaps) > 0 {
-		return newValidationError(gcode.CodeValidationFailed, checkRules, errorMaps)
+		return newValidationError(错误码类.CodeValidationFailed, checkRules, errorMaps)
 	}
 	return nil
 }

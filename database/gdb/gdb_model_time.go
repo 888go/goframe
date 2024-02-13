@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ var (
 )
 
 // Unscoped 禁用在插入、更新和删除选项时自动更新时间的特性。
-func (m *Model) Unscoped() *Model {
+func (m *Model) X禁用时间自动更新特性() *Model {
 	model := m.getModel()
 	model.unscoped = true
 	return model
@@ -33,7 +33,7 @@ func (m *Model) Unscoped() *Model {
 // 它会检查包含或不包含大小写、字符 '-'/'_'/'.'/' ' 的键。
 func (m *Model) getSoftFieldNameCreated(schema string, table string) string {
 	// 它用于检查该特性是否已禁用。
-	if m.db.GetConfig().TimeMaintainDisabled {
+	if m.db.X取当前节点配置().X禁用时间自动更新特性 {
 		return ""
 	}
 	tableName := ""
@@ -42,9 +42,9 @@ func (m *Model) getSoftFieldNameCreated(schema string, table string) string {
 	} else {
 		tableName = m.tablesInit
 	}
-	config := m.db.GetConfig()
-	if config.CreatedAt != "" {
-		return m.getSoftFieldName(schema, tableName, []string{config.CreatedAt})
+	config := m.db.X取当前节点配置()
+	if config.X创建时间字段名 != "" {
+		return m.getSoftFieldName(schema, tableName, []string{config.X创建时间字段名})
 	}
 	return m.getSoftFieldName(schema, tableName, createdFieldNames)
 }
@@ -54,7 +54,7 @@ func (m *Model) getSoftFieldNameCreated(schema string, table string) string {
 // 它会检查包含或不包含大小写字符、'-'、'_'、'.'/' '等字符的关键字。
 func (m *Model) getSoftFieldNameUpdated(schema string, table string) (field string) {
 	// 它用于检查该特性是否已禁用。
-	if m.db.GetConfig().TimeMaintainDisabled {
+	if m.db.X取当前节点配置().X禁用时间自动更新特性 {
 		return ""
 	}
 	tableName := ""
@@ -63,9 +63,9 @@ func (m *Model) getSoftFieldNameUpdated(schema string, table string) (field stri
 	} else {
 		tableName = m.tablesInit
 	}
-	config := m.db.GetConfig()
-	if config.UpdatedAt != "" {
-		return m.getSoftFieldName(schema, tableName, []string{config.UpdatedAt})
+	config := m.db.X取当前节点配置()
+	if config.X更新时间字段名 != "" {
+		return m.getSoftFieldName(schema, tableName, []string{config.X更新时间字段名})
 	}
 	return m.getSoftFieldName(schema, tableName, updatedFieldNames)
 }
@@ -75,7 +75,7 @@ func (m *Model) getSoftFieldNameUpdated(schema string, table string) (field stri
 // 它会检查包含或不包含大小写、字符 '-'/'_'/'.'/' ' 的键。
 func (m *Model) getSoftFieldNameDeleted(schema string, table string) (field string) {
 	// 它用于检查该特性是否已禁用。
-	if m.db.GetConfig().TimeMaintainDisabled {
+	if m.db.X取当前节点配置().X禁用时间自动更新特性 {
 		return ""
 	}
 	tableName := ""
@@ -84,9 +84,9 @@ func (m *Model) getSoftFieldNameDeleted(schema string, table string) (field stri
 	} else {
 		tableName = m.tablesInit
 	}
-	config := m.db.GetConfig()
-	if config.DeletedAt != "" {
-		return m.getSoftFieldName(schema, tableName, []string{config.DeletedAt})
+	config := m.db.X取当前节点配置()
+	if config.X软删除时间字段名 != "" {
+		return m.getSoftFieldName(schema, tableName, []string{config.X软删除时间字段名})
 	}
 	return m.getSoftFieldName(schema, tableName, deletedFieldNames)
 }
@@ -94,11 +94,11 @@ func (m *Model) getSoftFieldNameDeleted(schema string, table string) (field stri
 // getSoftFieldName 获取并返回表中可能键的字段名称。
 func (m *Model) getSoftFieldName(schema string, table string, keys []string) (field string) {
 	// 忽略 TableFields 函数返回的错误。
-	fieldsMap, _ := m.TableFields(table, schema)
+	fieldsMap, _ := m.X取表字段信息Map(table, schema)
 	if len(fieldsMap) > 0 {
 		for _, key := range keys {
-			field, _ = gutil.MapPossibleItemByKey(
-				gconv.Map(fieldsMap), key,
+			field, _ = 工具类.MapPossibleItemByKey(
+				转换类.X取Map(fieldsMap), key,
 			)
 			if field != "" {
 				return
@@ -119,30 +119,30 @@ func (m *Model) getConditionForSoftDeleting() string {
 	if m.unscoped {
 		return ""
 	}
-	conditionArray := garray.NewStrArray()
-	if gstr.Contains(m.tables, " JOIN ") {
+	conditionArray := 数组类.X创建文本()
+	if 文本类.X是否包含(m.tables, " JOIN ") {
 		// Base table.
-		match, _ := gregex.MatchString(`(.+?) [A-Z]+ JOIN`, m.tables)
-		conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(match[1]))
+		match, _ := 正则类.X匹配文本(`(.+?) [A-Z]+ JOIN`, m.tables)
+		conditionArray.Append别名(m.getConditionOfTableStringForSoftDeleting(match[1]))
 		// 多表连接，排除包含 '(' 和 ')' 字符的子查询SQL语句。
-		matches, _ := gregex.MatchAllString(`JOIN ([^()]+?) ON`, m.tables)
+		matches, _ := 正则类.X匹配全部文本(`JOIN ([^()]+?) ON`, m.tables)
 		for _, match := range matches {
-			conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(match[1]))
+			conditionArray.Append别名(m.getConditionOfTableStringForSoftDeleting(match[1]))
 		}
 	}
-	if conditionArray.Len() == 0 && gstr.Contains(m.tables, ",") {
+	if conditionArray.X取长度() == 0 && 文本类.X是否包含(m.tables, ",") {
 		// 多个基础表。
-		for _, s := range gstr.SplitAndTrim(m.tables, ",") {
-			conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(s))
+		for _, s := range 文本类.X分割并忽略空值(m.tables, ",") {
+			conditionArray.Append别名(m.getConditionOfTableStringForSoftDeleting(s))
 		}
 	}
-	conditionArray.FilterEmpty()
-	if conditionArray.Len() > 0 {
-		return conditionArray.Join(" AND ")
+	conditionArray.X删除所有空值()
+	if conditionArray.X取长度() > 0 {
+		return conditionArray.X连接(" AND ")
 	}
 	// Only one table.
 	if fieldName := m.getSoftFieldNameDeleted("", m.tablesInit); fieldName != "" {
-		return fmt.Sprintf(`%s IS NULL`, m.db.GetCore().QuoteWord(fieldName))
+		return fmt.Sprintf(`%s IS NULL`, m.db.X取Core对象().X底层QuoteWord(fieldName))
 	}
 	return ""
 }
@@ -158,8 +158,8 @@ func (m *Model) getConditionOfTableStringForSoftDeleting(s string) string {
 		field  string
 		table  string
 		schema string
-		array1 = gstr.SplitAndTrim(s, " ")
-		array2 = gstr.SplitAndTrim(array1[0], ".")
+		array1 = 文本类.X分割并忽略空值(s, " ")
+		array2 = 文本类.X分割并忽略空值(array1[0], ".")
 	)
 	if len(array2) >= 2 {
 		table = array2[1]
@@ -172,10 +172,10 @@ func (m *Model) getConditionOfTableStringForSoftDeleting(s string) string {
 		return ""
 	}
 	if len(array1) >= 3 {
-		return fmt.Sprintf(`%s.%s IS NULL`, m.db.GetCore().QuoteWord(array1[2]), m.db.GetCore().QuoteWord(field))
+		return fmt.Sprintf(`%s.%s IS NULL`, m.db.X取Core对象().X底层QuoteWord(array1[2]), m.db.X取Core对象().X底层QuoteWord(field))
 	}
 	if len(array1) >= 2 {
-		return fmt.Sprintf(`%s.%s IS NULL`, m.db.GetCore().QuoteWord(array1[1]), m.db.GetCore().QuoteWord(field))
+		return fmt.Sprintf(`%s.%s IS NULL`, m.db.X取Core对象().X底层QuoteWord(array1[1]), m.db.X取Core对象().X底层QuoteWord(field))
 	}
-	return fmt.Sprintf(`%s.%s IS NULL`, m.db.GetCore().QuoteWord(table), m.db.GetCore().QuoteWord(field))
+	return fmt.Sprintf(`%s.%s IS NULL`, m.db.X取Core对象().X底层QuoteWord(table), m.db.X取Core对象().X底层QuoteWord(field))
 }

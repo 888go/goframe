@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gres
+package 资源类
 
 import (
 	"bytes"
@@ -46,7 +46,7 @@ func (f *File) Read(b []byte) (n int, err error) {
 		return 0, err
 	}
 	if n, err = reader.Read(b); err != nil {
-		err = gerror.Wrapf(err, `read content failed`)
+		err = 错误类.X多层错误并格式化(err, `read content failed`)
 	}
 	return
 }
@@ -58,7 +58,7 @@ func (f *File) Seek(offset int64, whence int) (n int64, err error) {
 		return 0, err
 	}
 	if n, err = reader.Seek(offset, whence); err != nil {
-		err = gerror.Wrapf(err, `seek failed for offset %d, whence %d`, offset, whence)
+		err = 错误类.X多层错误并格式化(err, `seek failed for offset %d, whence %d`, offset, whence)
 	}
 	return
 }

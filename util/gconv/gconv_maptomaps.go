@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
@@ -75,7 +75,7 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		paramsKind = paramsRv.Kind()
 	}
 	if paramsKind != reflect.Array && paramsKind != reflect.Slice {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "params should be type of slice, eg: []map/[]*map/[]struct/[]*struct")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "params should be type of slice, eg: []map/[]*map/[]struct/[]*struct")
 	}
 	var (
 		paramsElem     = paramsRv.Type().Elem()
@@ -86,7 +86,7 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		paramsElemKind = paramsElem.Kind()
 	}
 	if paramsElemKind != reflect.Map && paramsElemKind != reflect.Struct && paramsElemKind != reflect.Interface {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, "params element should be type of map/*map/struct/*struct, but got: %s", paramsElemKind)
+		return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, "params element should be type of map/*map/struct/*struct, but got: %s", paramsElemKind)
 	}
 	// 空切片，无需继续。
 	if paramsRv.Len() == 0 {
@@ -102,7 +102,7 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		pointerKind = pointerRv.Kind()
 	}
 	if pointerKind != reflect.Array && pointerKind != reflect.Slice {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "pointer should be type of *[]map/*[]*map")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "pointer should be type of *[]map/*[]*map")
 	}
 	var (
 		pointerElemType = pointerRv.Type().Elem()
@@ -112,15 +112,15 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		pointerElemKind = pointerElemType.Elem().Kind()
 	}
 	if pointerElemKind != reflect.Map {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "pointer element should be type of map/*map")
+		return 错误类.X创建错误码(错误码类.CodeInvalidParameter, "pointer element should be type of map/*map")
 	}
 	defer func() {
 		// 捕获 panic，特别是反射操作引发的 panic。
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && 错误类.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception)
+				err = 错误类.X创建错误码并跳过堆栈与格式化(错误码类.CodeInternalPanic, 1, "%+v", exception)
 			}
 		}
 	}()

@@ -6,7 +6,7 @@
 //go:build windows
 // +build windows
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -18,9 +18,9 @@ import (
 // handleProcessSignal 以阻塞方式处理来自系统的所有信号。
 func handleProcessSignal() {
 	var ctx = context.TODO()
-	gproc.AddSigHandlerShutdown(func(sig os.Signal) {
+	进程类.AddSigHandlerShutdown(func(sig os.Signal) {
 		shutdownWebServersGracefully(ctx, sig)
 	})
 
-	gproc.Listen()
+	进程类.Listen()
 }

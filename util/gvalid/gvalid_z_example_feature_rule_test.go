@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
@@ -24,7 +24,7 @@ func ExampleRule_Required() {
 			ID: 1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -48,7 +48,7 @@ func ExampleRule_RequiredIf() {
 			Gender: 1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -72,7 +72,7 @@ func ExampleRule_RequiredUnless() {
 			Gender: 1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -97,7 +97,7 @@ func ExampleRule_RequiredWith() {
 			WifeName: "Ann",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -122,7 +122,7 @@ func ExampleRule_RequiredWithAll() {
 			WifeName: "Ann",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -146,7 +146,7 @@ func ExampleRule_RequiredWithout() {
 			Gender: 1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -169,7 +169,7 @@ func ExampleRule_RequiredWithoutAll() {
 			Gender: 1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -193,7 +193,7 @@ func ExampleRule_Bail() {
 			Password2: "goframe.org",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -215,7 +215,7 @@ func ExampleRule_CaseInsensitive() {
 			Password2: "goframe.org",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -241,8 +241,8 @@ func ExampleRule_Date() {
 			Date5: "2021/Oct/31",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -268,8 +268,8 @@ func ExampleRule_Datetime() {
 			Date4: "2021/Dec/01 23:00:00", // error
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -295,8 +295,8 @@ func ExampleRule_DateFormat() {
 			Date4: "2021-11-01 23:00", // error
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -321,8 +321,8 @@ func ExampleRule_Email() {
 			MailAddr4: "gf#goframe.org", // error
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -350,8 +350,8 @@ func ExampleRule_Enums() {
 			Status: Status("Pending"),
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// May Output:
@@ -375,8 +375,8 @@ func ExampleRule_Phone() {
 			PhoneNumber4: "1357891234",  // 错误：长度必须为11
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -402,8 +402,8 @@ func ExampleRule_PhoneLoose() {
 			PhoneNumber4: "1357891234", // 错误：长度必须为11
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -428,8 +428,8 @@ func ExampleRule_Telephone() {
 			Telephone4: "775421451",   // 错误：长度必须为7或8
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -454,8 +454,8 @@ func ExampleRule_Passport() {
 			Passport4: "gf",       // 错误信息长度应在6到18个字符之间
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -477,7 +477,7 @@ func ExampleRule_Password() {
 			Password2: "gofra", // 错误信息长度应在6到18个字符之间
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -502,8 +502,8 @@ func ExampleRule_Password2() {
 			Password4: "goframe123", // 错误信息必须包含大小写字母和数字。
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -527,8 +527,8 @@ func ExampleRule_Password3() {
 			Password3: "Goframe123", // 错误信息必须包含小写字母、大写字母、数字和特殊字符。
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -551,8 +551,8 @@ func ExampleRule_Postcode() {
 			Postcode3: "1000000", // 错误：长度必须为6
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -571,7 +571,7 @@ func ExampleRule_ResidentId() {
 			ResidentID1: "320107199506285482",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -590,7 +590,7 @@ func ExampleRule_BankCard() {
 			BankCard1: "6225760079930218",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -613,8 +613,8 @@ func ExampleRule_QQ() {
 			QQ3: "514258412a", // error all number
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -639,8 +639,8 @@ func ExampleRule_IP() {
 			IP4: "ze80::812b:1158:1f43:f0d1",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -661,7 +661,7 @@ func ExampleRule_IPV4() {
 			IP2: "520.255.255.255",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -682,7 +682,7 @@ func ExampleRule_IPV6() {
 			IP2: "ze80::812b:1158:1f43:f0d1",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -703,7 +703,7 @@ func ExampleRule_Mac() {
 			Mac2: "Z0-CC-6A-D6-B1-1A",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -726,7 +726,7 @@ func ExampleRule_Url() {
 			URL3: "ws://goframe.org",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -751,8 +751,8 @@ func ExampleRule_Domain() {
 			Domain4: "1a.2b",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -773,7 +773,7 @@ func ExampleRule_Size() {
 			Size2: "goframe",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -794,7 +794,7 @@ func ExampleRule_Length() {
 			Length2: "goframe",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -815,7 +815,7 @@ func ExampleRule_MinLength() {
 			MinLength2: "goframe",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -836,7 +836,7 @@ func ExampleRule_MaxLength() {
 			MaxLength2: "goframe",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -861,8 +861,8 @@ func ExampleRule_Between() {
 			Score2: -0.5,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -887,8 +887,8 @@ func ExampleRule_Min() {
 			Score2: 10.1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -913,8 +913,8 @@ func ExampleRule_Max() {
 			Score2: 10.1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -935,7 +935,7 @@ func ExampleRule_Json() {
 			JSON2: "{\"name\":\"goframe\",\"author\":\"郭强\",\"test\"}",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -958,8 +958,8 @@ func ExampleRule_Integer() {
 			Str:     "goframe",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -982,7 +982,7 @@ func ExampleRule_Float() {
 			Str:     "goframe",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -1011,8 +1011,8 @@ func ExampleRule_Boolean() {
 			Str3:    "goframe",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -1034,7 +1034,7 @@ func ExampleRule_Same() {
 			Password2: "goframe.net",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -1056,7 +1056,7 @@ func ExampleRule_Different() {
 			OtherMailAddr: "gf@goframe.org",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -1078,7 +1078,7 @@ func ExampleRule_In() {
 			Gender: 3,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -1100,7 +1100,7 @@ func ExampleRule_NotIn() {
 			InvalidIndex: 1,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -1122,8 +1122,8 @@ func ExampleRule_Regex() {
 			Regex3: "10000",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -1143,8 +1143,8 @@ func ExampleRule_NotRegex() {
 			Regex2: "1234",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -1165,7 +1165,7 @@ func ExampleRule_After() {
 			Time3: "2022-09-02",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err.String())
 	}
 
@@ -1187,8 +1187,8 @@ func ExampleRule_AfterEqual() {
 			Time3: "2022-09-02",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -1209,7 +1209,7 @@ func ExampleRule_Before() {
 			Time3: "2022-09-03",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err.String())
 	}
 
@@ -1231,8 +1231,8 @@ func ExampleRule_BeforeEqual() {
 			Time3: "2022-09-01",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -1255,8 +1255,8 @@ func ExampleRule_Array() {
 			Value4: []string{},
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
-		fmt.Print(gstr.Join(err.Strings(), "\n"))
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
+		fmt.Print(文本类.X连接(err.X取文本数组(), "\n"))
 	}
 
 	// Output:
@@ -1277,7 +1277,7 @@ func ExampleRule_EQ() {
 			Password2: "goframe.net",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -1299,7 +1299,7 @@ func ExampleRule_NotEQ() {
 			OtherMailAddr: "gf@goframe.org",
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -1321,7 +1321,7 @@ func ExampleRule_GT() {
 			Value3: 2,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err.String())
 	}
 
@@ -1343,7 +1343,7 @@ func ExampleRule_GTE() {
 			Value3: 2,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err.String())
 	}
 
@@ -1365,7 +1365,7 @@ func ExampleRule_LT() {
 			Value3: 2,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err.String())
 	}
 
@@ -1387,7 +1387,7 @@ func ExampleRule_LTE() {
 			Value3: 2,
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println(err.String())
 	}
 
@@ -1407,7 +1407,7 @@ func ExampleRule_Foreach() {
 			Value2: []int{3, 4, 5},
 		}
 	)
-	if err := g.Validator().Bail().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Bail().Data(req).Run(ctx); err != nil {
 		fmt.Println(err.String())
 	}
 

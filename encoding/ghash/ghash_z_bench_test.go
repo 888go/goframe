@@ -6,7 +6,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package ghash_test
+package 哈希类_test
 
 import (
 	"testing"
@@ -20,96 +20,96 @@ var (
 
 func Benchmark_BKDR(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.BKDR(str)
+		哈希类.BKDR(str)
 	}
 }
 
 func Benchmark_BKDR64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.BKDR64(str)
+		哈希类.BKDR64(str)
 	}
 }
 
 func Benchmark_SDBM(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.SDBM(str)
+		哈希类.SDBM(str)
 	}
 }
 
 func Benchmark_SDBM64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.SDBM64(str)
+		哈希类.SDBM64(str)
 	}
 }
 
 func Benchmark_RS(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.RS(str)
+		哈希类.RS(str)
 	}
 }
 
 func Benchmark_RS64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.RS64(str)
+		哈希类.RS64(str)
 	}
 }
 
 func Benchmark_JS(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.JS(str)
+		哈希类.JS(str)
 	}
 }
 
 func Benchmark_JS64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.JS64(str)
+		哈希类.JS64(str)
 	}
 }
 
 func Benchmark_PJW(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.PJW(str)
+		哈希类.PJW(str)
 	}
 }
 
 func Benchmark_PJW64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.PJW64(str)
+		哈希类.PJW64(str)
 	}
 }
 
 func Benchmark_ELF(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.ELF(str)
+		哈希类.ELF(str)
 	}
 }
 
 func Benchmark_ELF64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.ELF64(str)
+		哈希类.ELF64(str)
 	}
 }
 
 func Benchmark_DJB(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.DJB(str)
+		哈希类.DJB(str)
 	}
 }
 
 func Benchmark_DJB64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.DJB64(str)
+		哈希类.DJB64(str)
 	}
 }
 
 func Benchmark_AP(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.AP(str)
+		哈希类.AP(str)
 	}
 }
 
 func Benchmark_AP64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ghash.AP64(str)
+		哈希类.AP64(str)
 	}
 }

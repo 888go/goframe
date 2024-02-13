@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp_test
+package tcp类_test
 
 import (
 	"fmt"
@@ -18,7 +18,7 @@ import (
 )
 
 func Test_Package_Basic(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
 		for {
 			data, err := conn.RecvPkg()
@@ -32,22 +32,22 @@ func Test_Package_Basic(t *testing.T) {
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
 	// SendPkg
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		for i := 0; i < 100; i++ {
-			err := conn.SendPkg([]byte(gconv.String(i)))
+			err := conn.SendPkg([]byte(转换类.String(i)))
 			t.AssertNil(err)
 		}
 		for i := 0; i < 100; i++ {
-			err := conn.SendPkgWithTimeout([]byte(gconv.String(i)), time.Second)
+			err := conn.SendPkgWithTimeout([]byte(转换类.String(i)), time.Second)
 			t.AssertNil(err)
 		}
 	})
 	// SendPkg 传输大数据 - 失败
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 65536)
@@ -55,26 +55,26 @@ func Test_Package_Basic(t *testing.T) {
 		t.AssertNE(err, nil)
 	})
 	// SendRecvPkg
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		for i := 100; i < 200; i++ {
-			data := []byte(gconv.String(i))
+			data := []byte(转换类.String(i))
 			result, err := conn.SendRecvPkg(data)
 			t.AssertNil(err)
 			t.Assert(result, data)
 		}
 		for i := 100; i < 200; i++ {
-			data := []byte(gconv.String(i))
+			data := []byte(转换类.String(i))
 			result, err := conn.SendRecvPkgWithTimeout(data, time.Second)
 			t.AssertNil(err)
 			t.Assert(result, data)
 		}
 	})
 	// SendRecvPkg 在大数据量下的发送与接收 - 失败情况
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 65536)
@@ -83,8 +83,8 @@ func Test_Package_Basic(t *testing.T) {
 		t.Assert(result, nil)
 	})
 	// SendRecvPkg 处理大数据 - 成功。
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 65500)
@@ -97,10 +97,10 @@ func Test_Package_Basic(t *testing.T) {
 }
 
 func Test_Package_Basic_HeaderSize1(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
 		for {
-			data, err := conn.RecvPkg(gtcp.PkgOption{HeaderSize: 1})
+			data, err := conn.RecvPkg(tcp类.PkgOption{HeaderSize: 1})
 			if err != nil {
 				break
 			}
@@ -112,8 +112,8 @@ func Test_Package_Basic_HeaderSize1(t *testing.T) {
 	time.Sleep(100 * time.Millisecond)
 
 	// SendRecvPkg 用于发送和接收空数据。
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 0)
@@ -124,7 +124,7 @@ func Test_Package_Basic_HeaderSize1(t *testing.T) {
 }
 
 func Test_Package_Timeout(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
 		for {
 			data, err := conn.RecvPkg()
@@ -132,14 +132,14 @@ func Test_Package_Timeout(t *testing.T) {
 				break
 			}
 			time.Sleep(time.Second)
-			gtest.Assert(conn.SendPkg(data), nil)
+			单元测试类.Assert(conn.SendPkg(data), nil)
 		}
 	})
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("10000")
@@ -147,8 +147,8 @@ func Test_Package_Timeout(t *testing.T) {
 		t.AssertNE(err, nil)
 		t.Assert(result, nil)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("10000")
@@ -156,130 +156,130 @@ func Test_Package_Timeout(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result, data)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := []byte("10000")
-		result, err := conn.SendRecvPkgWithTimeout(data, time.Second*2, gtcp.PkgOption{HeaderSize: 5})
+		result, err := conn.SendRecvPkgWithTimeout(data, time.Second*2, tcp类.PkgOption{HeaderSize: 5})
 		t.AssertNE(err, nil)
 		t.AssertNil(result)
 	})
 }
 
 func Test_Package_Option(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
-		option := gtcp.PkgOption{HeaderSize: 1}
+		option := tcp类.PkgOption{HeaderSize: 1}
 		for {
 			data, err := conn.RecvPkg(option)
 			if err != nil {
 				break
 			}
-			gtest.Assert(conn.SendPkg(data, option), nil)
+			单元测试类.Assert(conn.SendPkg(data, option), nil)
 		}
 	})
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
 	// SendRecvPkg 在大数据量下的发送与接收 - 失败情况
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 0xFF+1)
-		result, err := conn.SendRecvPkg(data, gtcp.PkgOption{HeaderSize: 1})
+		result, err := conn.SendRecvPkg(data, tcp类.PkgOption{HeaderSize: 1})
 		t.AssertNE(err, nil)
 		t.Assert(result, nil)
 	})
 	// SendRecvPkg 处理大数据 - 成功。
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 0xFF)
 		data[100] = byte(65)
 		data[200] = byte(85)
-		result, err := conn.SendRecvPkg(data, gtcp.PkgOption{HeaderSize: 1})
+		result, err := conn.SendRecvPkg(data, tcp类.PkgOption{HeaderSize: 1})
 		t.AssertNil(err)
 		t.Assert(result, data)
 	})
 }
 
 func Test_Package_Option_HeadSize3(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
-		option := gtcp.PkgOption{HeaderSize: 3}
+		option := tcp类.PkgOption{HeaderSize: 3}
 		for {
 			data, err := conn.RecvPkg(option)
 			if err != nil {
 				break
 			}
-			gtest.Assert(conn.SendPkg(data, option), nil)
+			单元测试类.Assert(conn.SendPkg(data, option), nil)
 		}
 	})
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
 
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 0xFF)
 		data[100] = byte(65)
 		data[200] = byte(85)
-		result, err := conn.SendRecvPkg(data, gtcp.PkgOption{HeaderSize: 3})
+		result, err := conn.SendRecvPkg(data, tcp类.PkgOption{HeaderSize: 3})
 		t.AssertNil(err)
 		t.Assert(result, data)
 	})
 }
 
 func Test_Package_Option_HeadSize4(t *testing.T) {
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
-		option := gtcp.PkgOption{HeaderSize: 4}
+		option := tcp类.PkgOption{HeaderSize: 4}
 		for {
 			data, err := conn.RecvPkg(option)
 			if err != nil {
 				break
 			}
-			gtest.Assert(conn.SendPkg(data, option), nil)
+			单元测试类.Assert(conn.SendPkg(data, option), nil)
 		}
 	})
 	go s.Run()
 	defer s.Close()
 	time.Sleep(100 * time.Millisecond)
 	// SendRecvPkg 在大数据量下的发送与接收 - 失败情况
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 0xFFFF+1)
-		_, err = conn.SendRecvPkg(data, gtcp.PkgOption{HeaderSize: 4})
+		_, err = conn.SendRecvPkg(data, tcp类.PkgOption{HeaderSize: 4})
 		t.Assert(err, nil)
 	})
 	// SendRecvPkg 处理大数据 - 成功。
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 0xFF)
 		data[100] = byte(65)
 		data[200] = byte(85)
-		result, err := conn.SendRecvPkg(data, gtcp.PkgOption{HeaderSize: 4})
+		result, err := conn.SendRecvPkg(data, tcp类.PkgOption{HeaderSize: 4})
 		t.AssertNil(err)
 		t.Assert(result, data)
 	})
 	// pkgOption.HeaderSize 超出了限制
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 0xFF)
 		data[100] = byte(65)
 		data[200] = byte(85)
-		_, err = conn.SendRecvPkg(data, gtcp.PkgOption{HeaderSize: 5})
+		_, err = conn.SendRecvPkg(data, tcp类.PkgOption{HeaderSize: 5})
 		t.AssertNE(err, nil)
 	})
 }
@@ -288,34 +288,34 @@ func Test_Server_NewServerKeyCrt(t *testing.T) {
 	var (
 		noCrtFile = "noCrtFile"
 		noKeyFile = "noKeyFile"
-		crtFile   = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/crtFile"
-		keyFile   = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/keyFile"
+		crtFile   = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/crtFile"
+		keyFile   = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/keyFile"
 	)
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		addr := "127.0.0.1:%d"
-		freePort, _ := gtcp.GetFreePort()
+		freePort, _ := tcp类.GetFreePort()
 		addr = fmt.Sprintf(addr, freePort)
-		s, err := gtcp.NewServerKeyCrt(addr, noCrtFile, noKeyFile, func(conn *gtcp.Conn) {
+		s, err := tcp类.NewServerKeyCrt(addr, noCrtFile, noKeyFile, func(conn *tcp类.Conn) {
 		})
 		if err != nil {
 			t.AssertNil(s)
 		}
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		addr := "127.0.0.1:%d"
-		freePort, _ := gtcp.GetFreePort()
+		freePort, _ := tcp类.GetFreePort()
 		addr = fmt.Sprintf(addr, freePort)
-		s, err := gtcp.NewServerKeyCrt(addr, crtFile, noKeyFile, func(conn *gtcp.Conn) {
+		s, err := tcp类.NewServerKeyCrt(addr, crtFile, noKeyFile, func(conn *tcp类.Conn) {
 		})
 		if err != nil {
 			t.AssertNil(s)
 		}
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		addr := "127.0.0.1:%d"
-		freePort, _ := gtcp.GetFreePort()
+		freePort, _ := tcp类.GetFreePort()
 		addr = fmt.Sprintf(addr, freePort)
-		s, err := gtcp.NewServerKeyCrt(addr, crtFile, keyFile, func(conn *gtcp.Conn) {
+		s, err := tcp类.NewServerKeyCrt(addr, crtFile, keyFile, func(conn *tcp类.Conn) {
 		})
 		if err != nil {
 			t.AssertNil(s)
@@ -325,9 +325,9 @@ func Test_Server_NewServerKeyCrt(t *testing.T) {
 
 func Test_Conn_RecvPkgError(t *testing.T) {
 
-	s := gtcp.NewServer(gtcp.FreePortAddress, func(conn *gtcp.Conn) {
+	s := tcp类.NewServer(tcp类.FreePortAddress, func(conn *tcp类.Conn) {
 		defer conn.Close()
-		option := gtcp.PkgOption{HeaderSize: 5}
+		option := tcp类.PkgOption{HeaderSize: 5}
 		for {
 			_, err := conn.RecvPkg(option)
 			if err != nil {
@@ -340,8 +340,8 @@ func Test_Conn_RecvPkgError(t *testing.T) {
 
 	time.Sleep(100 * time.Millisecond)
 
-	gtest.C(t, func(t *gtest.T) {
-		conn, err := gtcp.NewConn(s.GetListenedAddress())
+	单元测试类.C(t, func(t *单元测试类.T) {
+		conn, err := tcp类.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)
 		defer conn.Close()
 		data := make([]byte, 65536)

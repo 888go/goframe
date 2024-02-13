@@ -11,6 +11,6 @@ import (
 
 // Resource 返回一个 Resource 实例。
 // 参数 `name` 是该实例的名称。
-func Resource(name ...string) *gres.Resource {
-	return gres.Instance(name...)
+func Resource(name ...string) *资源类.Resource {
+	return 资源类.Instance(name...)
 }

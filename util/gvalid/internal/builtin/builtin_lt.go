@@ -35,15 +35,15 @@ func (r RuleLT) Message() string {
 
 func (r RuleLT) Run(in RunInput) error {
 	var (
-		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)
-		fieldValueN, err1     = strconv.ParseFloat(gconv.String(fieldValue), 10)
+		fieldName, fieldValue = 工具类.MapPossibleItemByKey(in.Data.X取Map(), in.RulePattern)
+		fieldValueN, err1     = strconv.ParseFloat(转换类.String(fieldValue), 10)
 		valueN, err2          = strconv.ParseFloat(in.Value.String(), 10)
 	)
 
 	if valueN >= fieldValueN || err1 != nil || err2 != nil {
-		return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+		return errors.New(文本类.Map替换(in.Message, map[string]string{
 			"{field1}": fieldName,
-			"{value1}": gconv.String(fieldValue),
+			"{value1}": 转换类.String(fieldValue),
 		}))
 	}
 	return nil

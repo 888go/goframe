@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid
+package 效验类
 
 import (
 	"context"
@@ -77,10 +77,10 @@ func (v *Validator) Run(ctx context.Context) Error {
 		Name:      "",
 		Value:     v.data,
 		ValueType: reflect.TypeOf(v.data),
-		Rule:      gconv.String(v.rules),
+		Rule:      转换类.String(v.rules),
 		Messages:  v.messages,
 		DataRaw:   v.assoc,
-		DataMap:   gconv.Map(v.assoc),
+		DataMap:   转换类.X取Map(v.assoc),
 	})
 }
 
@@ -203,7 +203,7 @@ func (v *Validator) getCustomRuleFunc(rule string) RuleFunc {
 // checkRuleRequired 检查并返回给定的 `rule` 是否为必需，即使它是 nil 或为空。
 func (v *Validator) checkRuleRequired(rule string) bool {
 	// 默认必需的规则。
-	if gstr.HasPrefix(rule, requiredRulesPrefix) {
+	if 文本类.X开头判断(rule, requiredRulesPrefix) {
 		return true
 	}
 	// 所有自定义验证规则均为必填规则。

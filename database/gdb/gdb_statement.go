@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -20,38 +20,38 @@ import (
 type Stmt struct {
 	*sql.Stmt
 	core *Core
-	link Link
+	link X底层链接
 	sql  string
 }
 
 // ExecContext 在给定参数的情况下执行预编译的语句，并返回一个Result，该Result总结了该语句的效果。
 func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result, error) {
-	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
+	out, err := s.core.db.X底层DoCommit(ctx, X输入{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
 		Args:          args,
-		Type:          SqlTypeStmtExecContext,
+		X类型:          SqlTypeStmtExecContext,
 		IsTransaction: s.link.IsTransaction(),
 	})
-	return out.Result, err
+	return out.X原生sql行记录, err
 }
 
 // QueryContext 执行带有给定参数的预编译查询语句，并将查询结果以 *Rows 类型返回。
 func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows, error) {
-	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
+	out, err := s.core.db.X底层DoCommit(ctx, X输入{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
 		Args:          args,
-		Type:          SqlTypeStmtQueryContext,
+		X类型:          SqlTypeStmtQueryContext,
 		IsTransaction: s.link.IsTransaction(),
 	})
 	if err != nil {
 		return nil, err
 	}
-	if out.RawResult != nil {
-		return out.RawResult.(*sql.Rows), err
+	if out.X底层结果 != nil {
+		return out.X底层结果.(*sql.Rows), err
 	}
 	return nil, nil
 }
@@ -61,31 +61,31 @@ func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows
 // 若查询未选择任何行，则 *Row 的 Scan 将返回 ErrNoRows 错误。
 // 否则，*Row 的 Scan 会扫描第一条被选择的行，并丢弃其余行。
 func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Row {
-	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
+	out, err := s.core.db.X底层DoCommit(ctx, X输入{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
 		Args:          args,
-		Type:          SqlTypeStmtQueryContext,
+		X类型:          SqlTypeStmtQueryContext,
 		IsTransaction: s.link.IsTransaction(),
 	})
 	if err != nil {
 		panic(err)
 	}
-	if out.RawResult != nil {
-		return out.RawResult.(*sql.Row)
+	if out.X底层结果 != nil {
+		return out.X底层结果.(*sql.Row)
 	}
 	return nil
 }
 
 // Exec 执行已准备好的语句，使用给定的参数，并返回一个 Result 对象，该对象总结了该语句的效果。
-func (s *Stmt) Exec(args ...interface{}) (sql.Result, error) {
-	return s.ExecContext(context.Background(), args...)
+func (s *Stmt) X执行(参数 ...interface{}) (sql.Result, error) {
+	return s.ExecContext(context.Background(), 参数...)
 }
 
 // Query函数通过给定的参数执行预编译查询语句，并将查询结果以*Rows的形式返回。
-func (s *Stmt) Query(args ...interface{}) (*sql.Rows, error) {
-	return s.QueryContext(context.Background(), args...)
+func (s *Stmt) X查询(参数 ...interface{}) (*sql.Rows, error) {
+	return s.QueryContext(context.Background(), 参数...)
 }
 
 // QueryRow 执行一个预编译的查询语句，同时传入给定的参数。

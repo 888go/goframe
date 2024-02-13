@@ -31,29 +31,29 @@ import (
 
 // Driver 是用于 PostgreSQL 数据库的驱动。
 type Driver struct {
-	*gdb.Core
+	*db类.Core
 }
 
 const (
-	internalPrimaryKeyInCtx gctx.StrKey = "primary_key"
+	internalPrimaryKeyInCtx 上下文类.StrKey = "primary_key"
 	defaultSchema           string      = "public"
 	quoteChar               string      = `"`
 )
 
 func init() {
-	if err := gdb.Register(`pgsql`, New()); err != nil {
+	if err := db类.X注册驱动(`pgsql`, New()); err != nil {
 		panic(err)
 	}
 }
 
 // New 创建并返回一个实现了 gdb.Driver 的驱动程序，该驱动程序支持针对 PostgreSql 的操作。
-func New() gdb.Driver {
+func New() db类.Driver {
 	return &Driver{}
 }
 
 // New 创建并返回一个用于 PostgreSQL 的数据库对象。
 // 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
-func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
+func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
@@ -61,44 +61,44 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 
 // Open 创建并返回一个用于pgsql的底层sql.DB对象。
 // 参考文档：https://pkg.go.dev/github.com/lib/pq
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "postgres"
 	)
-	if config.Link != "" {
+	if 配置对象.Link != "" {
 // ============================================================================
 // 从 v2.2.0 版本开始已弃用。
 // ============================================================================
-		source = config.Link
+		source = 配置对象.Link
 		// 在运行时自定义更改架构
-		if config.Name != "" {
-			source, _ = gregex.ReplaceString(`dbname=([\w\.\-]+)+`, "dbname="+config.Name, source)
+		if 配置对象.Name != "" {
+			source, _ = 正则类.X替换文本(`dbname=([\w\.\-]+)+`, "dbname="+配置对象.Name, source)
 		}
 	} else {
-		if config.Name != "" {
+		if 配置对象.Name != "" {
 			source = fmt.Sprintf(
 				"user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
-				config.User, config.Pass, config.Host, config.Port, config.Name,
+				配置对象.User, 配置对象.Pass, 配置对象.Host, 配置对象.Port, 配置对象.Name,
 			)
 		} else {
 			source = fmt.Sprintf(
 				"user=%s password=%s host=%s port=%s sslmode=disable",
-				config.User, config.Pass, config.Host, config.Port,
+				配置对象.User, 配置对象.Pass, 配置对象.Host, 配置对象.Port,
 			)
 		}
 
-		if config.Namespace != "" {
-			source = fmt.Sprintf("%s search_path=%s", source, config.Namespace)
+		if 配置对象.Namespace != "" {
+			source = fmt.Sprintf("%s search_path=%s", source, 配置对象.Namespace)
 		}
 
-		if config.Timezone != "" {
-			source = fmt.Sprintf("%s timezone=%s", source, config.Timezone)
+		if 配置对象.Timezone != "" {
+			source = fmt.Sprintf("%s timezone=%s", source, 配置对象.Timezone)
 		}
 
-		if config.Extra != "" {
+		if 配置对象.Extra != "" {
 			var extraMap map[string]interface{}
-			if extraMap, err = gstr.Parse(config.Extra); err != nil {
+			if extraMap, err = 文本类.X参数解析(配置对象.Extra); err != nil {
 				return nil, err
 			}
 			for k, v := range extraMap {
@@ -108,8 +108,8 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	}
 
 	if db, err = sql.Open(underlyingDriverName, source); err != nil {
-		err = gerror.WrapCodef(
-			gcode.CodeDbOperationError, err,
+		err = 错误类.X多层错误码并格式化(
+			错误码类.CodeDbOperationError, err,
 			`sql.Open failed for driver "%s" by source "%s"`, underlyingDriverName, source,
 		)
 		return nil, err
@@ -118,16 +118,16 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 }
 
 // GetChars 返回该类型数据库的安全字符。
-func (d *Driver) GetChars() (charLeft string, charRight string) {
+func (d *Driver) X底层取数据库安全字符() (左字符 string, 右字符 string) {
 	return quoteChar, quoteChar
 }
 
 // CheckLocalTypeForField 检查并返回给定数据库类型对应的本地 Go 语言类型。
-func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (gdb.LocalType, error) {
+func (d *Driver) X底层CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (db类.LocalType, error) {
 	var typeName string
-	match, _ := gregex.MatchString(`(.+?)\((.+)\)`, fieldType)
+	match, _ := 正则类.X匹配文本(`(.+?)\((.+)\)`, fieldType)
 	if len(match) == 3 {
-		typeName = gstr.Trim(match[1])
+		typeName = 文本类.X过滤首尾符并含空白(match[1])
 	} else {
 		typeName = fieldType
 	}
@@ -138,47 +138,47 @@ func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, f
 		"int2",
 		// 对于pgsql，int4等于integer（整数类型）
 		"int4":
-		return gdb.LocalTypeInt, nil
+		return db类.LocalTypeInt, nil
 
 	case
 		// 对于pgsql，int8 等同于 bigint
 		"int8":
-		return gdb.LocalTypeInt64, nil
+		return db类.LocalTypeInt64, nil
 
 	case
 		"_int2",
 		"_int4":
-		return gdb.LocalTypeIntSlice, nil
+		return db类.LocalTypeIntSlice, nil
 
 	case
 		"_int8":
-		return gdb.LocalTypeInt64Slice, nil
+		return db类.LocalTypeInt64Slice, nil
 
 	default:
-		return d.Core.CheckLocalTypeForField(ctx, fieldType, fieldValue)
+		return d.Core.X底层CheckLocalTypeForField(ctx, fieldType, fieldValue)
 	}
 }
 
 // ConvertValueForLocal 将值根据数据库中的字段类型名称转换为本地 Go 语言类型的值。
 // 参数 `fieldType` 为小写形式，例如：
 // `float(5,2)`, `unsigned double(5,2)`, `decimal(10,2)`, `char(45)`, `varchar(100)` 等。
-func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
-	typeName, _ := gregex.ReplaceString(`\(.+\)`, "", fieldType)
+func (d *Driver) X底层ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
+	typeName, _ := 正则类.X替换文本(`\(.+\)`, "", fieldType)
 	typeName = strings.ToLower(typeName)
 	switch typeName {
 	// 对于pgsql，int2代表smallint，而int4代表integer。
 	case "int2", "int4":
-		return gconv.Int(gconv.String(fieldValue)), nil
+		return 转换类.X取整数(转换类.String(fieldValue)), nil
 
 	// 对于pgsql，int8 等同于 bigint.
 	case "int8":
-		return gconv.Int64(gconv.String(fieldValue)), nil
+		return 转换类.X取整数64位(转换类.String(fieldValue)), nil
 
 	// Int32 slice.
 	case
 		"_int2", "_int4":
-		return gconv.Ints(
-			gstr.ReplaceByMap(gconv.String(fieldValue),
+		return 转换类.X取整数数组(
+			文本类.Map替换(转换类.String(fieldValue),
 				map[string]string{
 					"{": "[",
 					"}": "]",
@@ -189,8 +189,8 @@ func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fie
 	// Int64 slice.
 	case
 		"_int8":
-		return gconv.Int64s(
-			gstr.ReplaceByMap(gconv.String(fieldValue),
+		return 转换类.X取整数64位数组(
+			文本类.Map替换(转换类.String(fieldValue),
 				map[string]string{
 					"{": "[",
 					"}": "]",
@@ -199,15 +199,15 @@ func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fie
 		), nil
 
 	default:
-		return d.Core.ConvertValueForLocal(ctx, fieldType, fieldValue)
+		return d.Core.X底层ConvertValueForLocal(ctx, fieldType, fieldValue)
 	}
 }
 
 // DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前，对其进行处理。
-func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+func (d *Driver) X底层DoFilter(ctx context.Context, link db类.Link, sql string, 参数 []interface{}) (newSql string, newArgs []interface{}, err error) {
 	var index int
 	// 将占位符字符 '?' 转换为字符串 "$x"。
-	newSql, _ = gregex.ReplaceStringFunc(`\?`, sql, func(s string) string {
+	newSql, _ = 正则类.X替换文本_函数(`\?`, sql, func(s string) string {
 		index++
 		return fmt.Sprintf(`$%d`, index)
 	})
@@ -220,31 +220,31 @@ func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args [
 // 参考文档：
 // GitHub上gf框架的issue #1537
 // PostgreSQL官方文档中关于12版本的JSON函数介绍
-	newSql, _ = gregex.ReplaceStringFuncMatch(`(::jsonb([^\w\d]*)\$\d)`, newSql, func(match []string) string {
+	newSql, _ = 正则类.ReplaceStringFuncMatch(`(::jsonb([^\w\d]*)\$\d)`, newSql, func(match []string) string {
 		return fmt.Sprintf(`::jsonb%s?`, match[2])
 	})
-	newSql, _ = gregex.ReplaceString(` LIMIT (\d+),\s*(\d+)`, ` LIMIT $2 OFFSET $1`, newSql)
-	return d.Core.DoFilter(ctx, link, newSql, args)
+	newSql, _ = 正则类.X替换文本(` LIMIT (\d+),\s*(\d+)`, ` LIMIT $2 OFFSET $1`, newSql)
+	return d.Core.X底层DoFilter(ctx, link, newSql, 参数)
 }
 
 // Tables 获取并返回当前模式的表格。
 // 它主要用于cli工具链中，用于自动生成模型。
-func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
+func (d *Driver) X取表名称数组(上下文 context.Context, schema ...string) (表名称数组 []string, 错误 error) {
 	var (
-		result     gdb.Result
-		usedSchema = gutil.GetOrDefaultStr(d.GetConfig().Namespace, schema...)
+		result     db类.Result
+		usedSchema = 工具类.X取文本值或取默认值(d.X取当前节点配置().Namespace, schema...)
 	)
 	if usedSchema == "" {
 		usedSchema = defaultSchema
 	}
 	// **请勿**将 `usedSchema` 作为参数传递给函数 `SlaveLink`。
-	link, err := d.SlaveLink(schema...)
-	if err != nil {
-		return nil, err
+	link, 错误 := d.X底层SlaveLink(schema...)
+	if 错误 != nil {
+		return nil, 错误
 	}
 
 	useRelpartbound := ""
-	if gstr.CompareVersion(d.version(ctx, link), "10") >= 0 {
+	if 文本类.X版本号比较GNU格式(d.version(上下文, link), "10") >= 0 {
 		useRelpartbound = "AND c.relpartbound IS NULL"
 	}
 
@@ -265,22 +265,22 @@ ORDER BY
 		useRelpartbound,
 	)
 
-	query, _ = gregex.ReplaceString(`[\n\r\s]+`, " ", gstr.Trim(query))
-	result, err = d.DoSelect(ctx, link, query)
-	if err != nil {
+	query, _ = 正则类.X替换文本(`[\n\r\s]+`, " ", 文本类.X过滤首尾符并含空白(query))
+	result, 错误 = d.X底层查询(上下文, link, query)
+	if 错误 != nil {
 		return
 	}
 	for _, m := range result {
 		for _, v := range m {
-			tables = append(tables, v.String())
+			表名称数组 = append(表名称数组, v.String())
 		}
 	}
 	return
 }
 
 // version 检查并返回数据库版本。
-func (d *Driver) version(ctx context.Context, link gdb.Link) string {
-	result, err := d.DoSelect(ctx, link, "SELECT version();")
+func (d *Driver) version(ctx context.Context, link db类.Link) string {
+	result, err := d.X底层查询(ctx, link, "SELECT version();")
 	if err != nil {
 		return ""
 	}
@@ -296,11 +296,11 @@ func (d *Driver) version(ctx context.Context, link gdb.Link) string {
 }
 
 // TableFields 获取并返回当前模式下指定表的字段信息。
-func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
+func (d *Driver) X取表字段信息Map(上下文 context.Context, 表名称 string, schema ...string) (字段信息Map map[string]*db类.TableField, err error) {
 	var (
-		result     gdb.Result
-		link       gdb.Link
-		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
+		result     db类.Result
+		link       db类.Link
+		usedSchema = 工具类.X取文本值或取默认值(d.X取默认数据库名称(), schema...)
 		// TODO 是否存在重复的`id`结果？
 		structureSql = fmt.Sprintf(`
 SELECT a.attname AS field, t.typname AS type,a.attnotnull as null,
@@ -316,18 +316,18 @@ FROM pg_attribute a
          left join information_schema.columns ic on ic.column_name = a.attname and ic.table_name = c.relname
 WHERE c.relname = '%s' and a.attisdropped is false and a.attnum > 0
 ORDER BY a.attnum`,
-			table,
+			表名称,
 		)
 	)
-	if link, err = d.SlaveLink(usedSchema); err != nil {
+	if link, err = d.X底层SlaveLink(usedSchema); err != nil {
 		return nil, err
 	}
-	structureSql, _ = gregex.ReplaceString(`[\n\r\s]+`, " ", gstr.Trim(structureSql))
-	result, err = d.DoSelect(ctx, link, structureSql)
+	structureSql, _ = 正则类.X替换文本(`[\n\r\s]+`, " ", 文本类.X过滤首尾符并含空白(structureSql))
+	result, err = d.X底层查询(上下文, link, structureSql)
 	if err != nil {
 		return nil, err
 	}
-	fields = make(map[string]*gdb.TableField)
+	字段信息Map = make(map[string]*db类.TableField)
 	var (
 		index = 0
 		name  string
@@ -336,87 +336,87 @@ ORDER BY a.attnum`,
 	for _, m := range result {
 		name = m["field"].String()
 		// 过滤重复字段。
-		if _, ok = fields[name]; ok {
+		if _, ok = 字段信息Map[name]; ok {
 			continue
 		}
-		fields[name] = &gdb.TableField{
+		字段信息Map[name] = &db类.TableField{
 			Index:   index,
 			Name:    name,
 			Type:    m["type"].String(),
-			Null:    !m["null"].Bool(),
+			Null:    !m["null"].X取布尔(),
 			Key:     m["key"].String(),
-			Default: m["default_value"].Val(),
+			Default: m["default_value"].X取值(),
 			Comment: m["comment"].String(),
 		}
 		index++
 	}
-	return fields, nil
+	return 字段信息Map, nil
 }
 
 // DoInsert 对给定表执行插入或更新数据操作。
-func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
-	switch option.InsertOption {
-	case gdb.InsertOptionSave:
-		return nil, gerror.NewCode(
-			gcode.CodeNotSupported,
+func (d *Driver) X底层插入(上下文 context.Context, 链接 db类.Link, 表名称 string, list db类.Map数组, 选项 db类.DoInsertOption) (结果 sql.Result, 错误 error) {
+	switch 选项.InsertOption {
+	case db类.InsertOptionSave:
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeNotSupported,
 			`Save operation is not supported by pgsql driver`,
 		)
 
-	case gdb.InsertOptionReplace:
-		return nil, gerror.NewCode(
-			gcode.CodeNotSupported,
+	case db类.InsertOptionReplace:
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeNotSupported,
 			`Replace operation is not supported by pgsql driver`,
 		)
 
-	case gdb.InsertOptionIgnore:
-		return nil, gerror.NewCode(
-			gcode.CodeNotSupported,
+	case db类.InsertOptionIgnore:
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeNotSupported,
 			`Insert ignore operation is not supported by pgsql driver`,
 		)
 
-	case gdb.InsertOptionDefault:
-		tableFields, err := d.GetCore().GetDB().TableFields(ctx, table)
+	case db类.InsertOptionDefault:
+		tableFields, err := d.X取Core对象().X取DB对象().X取表字段信息Map(上下文, 表名称)
 		if err == nil {
 			for _, field := range tableFields {
 				if field.Key == "pri" {
 					pkField := *field
-					ctx = context.WithValue(ctx, internalPrimaryKeyInCtx, pkField)
+					上下文 = context.WithValue(上下文, internalPrimaryKeyInCtx, pkField)
 					break
 				}
 			}
 		}
 	}
-	return d.Core.DoInsert(ctx, link, table, list, option)
+	return d.Core.X底层插入(上下文, 链接, 表名称, list, 选项)
 }
 
 // DoExec 通过给定的link对象，将sql字符串及其参数提交到底层驱动，并返回执行结果。
-func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...interface{}) (result sql.Result, err error) {
+func (d *Driver) X底层原生SQL执行(上下文 context.Context, 链接 db类.Link, sql string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
 	var (
 		isUseCoreDoExec bool   = false // 检查是否需要使用默认方法
 		primaryKey      string = ""
-		pkField         gdb.TableField
+		pkField         db类.TableField
 	)
 
 	// 事务检查。
-	if link == nil {
-		if tx := gdb.TXFromCtx(ctx, d.GetGroup()); tx != nil {
+	if 链接 == nil {
+		if tx := db类.X事务从上下文取对象(上下文, d.X取配置组名称()); tx != nil {
 			// 首先，从上下文检查并检索事务链接。
-			link = tx
-		} else if link, err = d.MasterLink(); err != nil {
+			链接 = tx
+		} else if 链接, 错误 = d.X底层MasterLink(); 错误 != nil {
 			// 或者从主节点创建一个。
-			return nil, err
+			return nil, 错误
 		}
-	} else if !link.IsTransaction() {
+	} else if !链接.IsTransaction() {
 		// 如果当前链接不是事务链接，则检查并从上下文中检索事务。
-		if tx := gdb.TXFromCtx(ctx, d.GetGroup()); tx != nil {
-			link = tx
+		if tx := db类.X事务从上下文取对象(上下文, d.X取配置组名称()); tx != nil {
+			链接 = tx
 		}
 	}
 
 	// 检查是否为主键插入操作。
-	if value := ctx.Value(internalPrimaryKeyInCtx); value != nil {
+	if value := 上下文.Value(internalPrimaryKeyInCtx); value != nil {
 		var ok bool
-		pkField, ok = value.(gdb.TableField)
+		pkField, ok = value.(db类.TableField)
 		if !ok {
 			isUseCoreDoExec = true
 		}
@@ -430,37 +430,37 @@ func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...
 		sql += " RETURNING " + primaryKey
 	} else {
 		// 使用默认的DoExec
-		return d.Core.DoExec(ctx, link, sql, args...)
+		return d.Core.X底层原生SQL执行(上下文, 链接, sql, 参数...)
 	}
 
 	// 仅当使用主键执行插入操作时，才能执行以下代码
 
-	if d.GetConfig().ExecTimeout > 0 {
+	if d.X取当前节点配置().ExecTimeout > 0 {
 		var cancelFunc context.CancelFunc
-		ctx, cancelFunc = context.WithTimeout(ctx, d.GetConfig().ExecTimeout)
+		上下文, cancelFunc = context.WithTimeout(上下文, d.X取当前节点配置().ExecTimeout)
 		defer cancelFunc()
 	}
 
 	// Sql filtering.
-	sql, args = d.FormatSqlBeforeExecuting(sql, args)
-	sql, args, err = d.DoFilter(ctx, link, sql, args)
-	if err != nil {
-		return nil, err
+	sql, 参数 = d.X格式化Sql(sql, 参数)
+	sql, 参数, 错误 = d.X底层DoFilter(上下文, 链接, sql, 参数)
+	if 错误 != nil {
+		return nil, 错误
 	}
 
 	// Link execution.
-	var out gdb.DoCommitOutput
-	out, err = d.DoCommit(ctx, gdb.DoCommitInput{
-		Link:          link,
+	var out db类.DoCommitOutput
+	out, 错误 = d.X底层DoCommit(上下文, db类.DoCommitInput{
+		Link:          链接,
 		Sql:           sql,
-		Args:          args,
+		Args:          参数,
 		Stmt:          nil,
-		Type:          gdb.SqlTypeQueryContext,
-		IsTransaction: link.IsTransaction(),
+		Type:          db类.SqlTypeQueryContext,
+		IsTransaction: 链接.IsTransaction(),
 	})
 
-	if err != nil {
-		return nil, err
+	if 错误 != nil {
+		return nil, 错误
 	}
 	affected := len(out.Records)
 	if affected > 0 {
@@ -468,14 +468,14 @@ func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...
 			return Result{
 				affected:     int64(affected),
 				lastInsertId: 0,
-				lastInsertIdError: gerror.NewCodef(
-					gcode.CodeNotSupported,
+				lastInsertIdError: 错误类.X创建错误码并格式化(
+					错误码类.CodeNotSupported,
 					"LastInsertId is not supported by primary key type: %s", pkField.Type),
 			}, nil
 		}
 
 		if out.Records[affected-1][primaryKey] != nil {
-			lastInsertId := out.Records[affected-1][primaryKey].Int64()
+			lastInsertId := out.Records[affected-1][primaryKey].X取整数64位()
 			return Result{
 				affected:     int64(affected),
 				lastInsertId: lastInsertId,

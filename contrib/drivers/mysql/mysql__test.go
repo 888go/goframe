@@ -30,76 +30,76 @@ const (
 )
 
 var (
-	db        gdb.DB
-	db2       gdb.DB
-	db3       gdb.DB
-	dbPrefix  gdb.DB
-	dbInvalid gdb.DB
+	db        db类.DB
+	db2       db类.DB
+	db3       db类.DB
+	dbPrefix  db类.DB
+	dbInvalid db类.DB
 	ctx       = context.TODO()
 )
 
 func init() {
-	nodeDefault := gdb.ConfigNode{
+	nodeDefault := db类.ConfigNode{
 		Link: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3306)/?loc=Local&parseTime=true", TestDbPass),
 	}
-	partitionDefault := gdb.ConfigNode{
+	partitionDefault := db类.ConfigNode{
 		Link:  fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3307)/?loc=Local&parseTime=true", TestDbPass),
 		Debug: true,
 	}
-	nodePrefix := gdb.ConfigNode{
+	nodePrefix := db类.ConfigNode{
 		Link: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3306)/?loc=Local&parseTime=true", TestDbPass),
 	}
 	nodePrefix.Prefix = TableNamePrefix1
 
-	nodeInvalid := gdb.ConfigNode{
+	nodeInvalid := db类.ConfigNode{
 		Link: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3307)/?loc=Local&parseTime=true", TestDbPass),
 	}
-	gdb.AddConfigNode("test", nodeDefault)
-	gdb.AddConfigNode("prefix", nodePrefix)
-	gdb.AddConfigNode("nodeinvalid", nodeInvalid)
-	gdb.AddConfigNode("partition", partitionDefault)
-	gdb.AddConfigNode(gdb.DefaultGroupName, nodeDefault)
+	db类.X添加配置组节点("test", nodeDefault)
+	db类.X添加配置组节点("prefix", nodePrefix)
+	db类.X添加配置组节点("nodeinvalid", nodeInvalid)
+	db类.X添加配置组节点("partition", partitionDefault)
+	db类.X添加配置组节点(db类.DefaultGroupName, nodeDefault)
 
 	// Default db.
-	if r, err := gdb.NewByGroup(); err != nil {
-		gtest.Error(err)
+	if r, err := db类.X创建DB对象并按配置组(); err != nil {
+		单元测试类.Error(err)
 	} else {
 		db = r
 	}
 	schemaTemplate := "CREATE DATABASE IF NOT EXISTS `%s` CHARACTER SET UTF8"
-	if _, err := db.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
-		gtest.Error(err)
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
+		单元测试类.Error(err)
 	}
-	if _, err := db.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
-		gtest.Error(err)
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
+		单元测试类.Error(err)
 	}
-	if _, err := db.Exec(ctx, fmt.Sprintf(schemaTemplate, TestPartitionDB)); err != nil {
-		gtest.Error(err)
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestPartitionDB)); err != nil {
+		单元测试类.Error(err)
 	}
-	db = db.Schema(TestSchema1)
-	db2 = db.Schema(TestSchema2)
-	db3 = db.Schema(TestPartitionDB)
+	db = db.X切换数据库(TestSchema1)
+	db2 = db.X切换数据库(TestSchema2)
+	db3 = db.X切换数据库(TestPartitionDB)
 	// Prefix db.
-	if r, err := gdb.NewByGroup("prefix"); err != nil {
-		gtest.Error(err)
+	if r, err := db类.X创建DB对象并按配置组("prefix"); err != nil {
+		单元测试类.Error(err)
 	} else {
 		dbPrefix = r
 	}
-	if _, err := dbPrefix.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
-		gtest.Error(err)
+	if _, err := dbPrefix.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
+		单元测试类.Error(err)
 	}
-	if _, err := dbPrefix.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
-		gtest.Error(err)
+	if _, err := dbPrefix.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
+		单元测试类.Error(err)
 	}
-	dbPrefix = dbPrefix.Schema(TestSchema1)
+	dbPrefix = dbPrefix.X切换数据库(TestSchema1)
 
 	// Invalid db.
-	if r, err := gdb.NewByGroup("nodeinvalid"); err != nil {
-		gtest.Error(err)
+	if r, err := db类.X创建DB对象并按配置组("nodeinvalid"); err != nil {
+		单元测试类.Error(err)
 	} else {
 		dbInvalid = r
 	}
-	dbInvalid = dbInvalid.Schema(TestSchema1)
+	dbInvalid = dbInvalid.X切换数据库(TestSchema1)
 }
 
 func createTable(table ...string) string {
@@ -114,14 +114,14 @@ func dropTable(table string) {
 	dropTableWithDb(db, table)
 }
 
-func createTableWithDb(db gdb.DB, table ...string) (name string) {
+func createTableWithDb(db db类.DB, table ...string) (name string) {
 	if len(table) > 0 {
 		name = table[0]
 	} else {
-		name = fmt.Sprintf(`%s_%d`, TableName, gtime.TimestampNano())
+		name = fmt.Sprintf(`%s_%d`, TableName, 时间类.X取时间戳纳秒())
 	}
 	dropTableWithDb(db, name)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	    CREATE TABLE %s (
 	        id          int(10) unsigned NOT NULL AUTO_INCREMENT,
 	        passport    varchar(45) NULL,
@@ -132,36 +132,36 @@ func createTableWithDb(db gdb.DB, table ...string) (name string) {
 	    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 	    `, name,
 	)); err != nil {
-		gtest.Fatal(err)
+		单元测试类.Fatal(err)
 	}
 	return name
 }
 
-func createInitTableWithDb(db gdb.DB, table ...string) (name string) {
+func createInitTableWithDb(db db类.DB, table ...string) (name string) {
 	name = createTableWithDb(db, table...)
-	array := garray.New(true)
+	array := 数组类.X创建(true)
 	for i := 1; i <= TableSize; i++ {
-		array.Append(g.Map{
+		array.Append别名(g.Map{
 			"id":          i,
 			"passport":    fmt.Sprintf(`user_%d`, i),
 			"password":    fmt.Sprintf(`pass_%d`, i),
 			"nickname":    fmt.Sprintf(`name_%d`, i),
-			"create_time": gtime.NewFromStr(CreateTime).String(),
+			"create_time": 时间类.X创建并从文本(CreateTime).String(),
 		})
 	}
 
-	result, err := db.Insert(ctx, name, array.Slice())
-	gtest.AssertNil(err)
+	result, err := db.X插入(ctx, name, array.X取切片())
+	单元测试类.AssertNil(err)
 
 	n, e := result.RowsAffected()
-	gtest.Assert(e, nil)
-	gtest.Assert(n, TableSize)
+	单元测试类.Assert(e, nil)
+	单元测试类.Assert(n, TableSize)
 	return
 }
 
-func dropTableWithDb(db gdb.DB, table string) {
-	if _, err := db.Exec(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
-		gtest.Error(err)
+func dropTableWithDb(db db类.DB, table string) {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
+		单元测试类.Error(err)
 	}
 }
 
@@ -171,12 +171,12 @@ func Test_PartitionTable(t *testing.T) {
 	insertShopDBData()
 
 	// 延迟执行 dropShopDBTable() 函数
-	gtest.C(t, func(t *gtest.T) {
-		data, err := db3.Ctx(ctx).Model("dbx_order").Partition("p3", "p4").All()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		data, err := db3.X设置上下文并取副本(ctx).X创建Model对象("dbx_order").X设置分区名称("p3", "p4").X查询()
 		t.AssertNil(err)
 		dataLen := len(data)
 		t.Assert(dataLen, 5)
-		data, err = db3.Ctx(ctx).Model("dbx_order").Partition("p3").All()
+		data, err = db3.X设置上下文并取副本(ctx).X创建Model对象("dbx_order").X设置分区名称("p3").X查询()
 		t.AssertNil(err)
 		dataLen = len(data)
 		t.Assert(dataLen, 5)
@@ -193,13 +193,13 @@ PARTITION BY RANGE (YEAR(sales_date))
  PARTITION p2 VALUES LESS THAN (2021) ENGINE = InnoDB,
  PARTITION p3 VALUES LESS THAN (2022) ENGINE = InnoDB,
  PARTITION p4 VALUES LESS THAN MAXVALUE ENGINE = InnoDB);`
-	_, err := db3.Exec(ctx, sql)
+	_, err := db3.X原生SQL执行(ctx, sql)
 	if err != nil {
-		gtest.Fatal(err.Error())
+		单元测试类.Fatal(err.Error())
 	}
 }
 func insertShopDBData() {
-	data := g.Slice{}
+	data := g.Slice别名{}
 	year := 2020
 	for i := 1; i <= 5; i++ {
 		year++
@@ -209,13 +209,13 @@ func insertShopDBData() {
 			"amount":     fmt.Sprintf("1%d.21", i),
 		})
 	}
-	_, err := db3.Model("dbx_order").Ctx(ctx).Data(data).Insert()
+	_, err := db3.X创建Model对象("dbx_order").X设置上下文并取副本(ctx).X设置数据(data).X插入()
 	if err != nil {
-		gtest.Error(err)
+		单元测试类.Error(err)
 	}
 }
 func dropShopDBTable() {
-	if _, err := db3.Exec(ctx, "DROP TABLE IF EXISTS `dbx_order`"); err != nil {
-		gtest.Error(err)
+	if _, err := db3.X原生SQL执行(ctx, "DROP TABLE IF EXISTS `dbx_order`"); err != nil {
+		单元测试类.Error(err)
 	}
 }

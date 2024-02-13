@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -17,25 +17,25 @@ import (
 )
 
 func Test_Context(t *testing.T) {
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.Middleware(func(r *ghttp.Request) {
-			r.SetCtxVar("traceid", 123)
+	s := g.Http类(uid类.X生成())
+	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X绑定中间件(func(r *http类.Request) {
+			r.X设置上下文对象值("traceid", 123)
 			r.Middleware.Next()
 		})
-		group.GET("/", func(r *ghttp.Request) {
-			r.Response.Write(r.GetCtxVar("traceid"))
+		group.X绑定GET("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区(r.X取上下文对象值("traceid"))
 		})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), `123`)
+		t.Assert(client.Get文本(ctx, "/"), `123`)
 	})
 }

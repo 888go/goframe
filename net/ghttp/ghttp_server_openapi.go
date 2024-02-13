@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -22,15 +22,15 @@ func (s *Server) initOpenApi() {
 		err     error
 		methods []string
 	)
-	for _, item := range s.GetRoutes() {
+	for _, item := range s.X取路由数组() {
 		switch item.Type {
 		case HandlerTypeMiddleware, HandlerTypeHook:
 			continue
 		}
 		if item.Handler.Info.IsStrictRoute {
 			methods = []string{item.Method}
-			if gstr.Equal(item.Method, defaultMethod) {
-				methods = SupportedMethods()
+			if 文本类.X相等比较并忽略大小写(item.Method, defaultMethod) {
+				methods = X取所支持的HTTP方法()
 			}
 			for _, method := range methods {
 				err = s.openapi.Add(goai.AddInput{
@@ -39,7 +39,7 @@ func (s *Server) initOpenApi() {
 					Object: item.Handler.Info.Value.Interface(),
 				})
 				if err != nil {
-					s.Logger().Fatalf(ctx, `%+v`, err)
+					s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 				}
 			}
 		}
@@ -49,8 +49,8 @@ func (s *Server) initOpenApi() {
 // openapiSpec 是一个内置处理器，用于自动生成 openapi 规范的 JSON 文件。
 func (s *Server) openapiSpec(r *Request) {
 	if s.config.OpenApiPath == "" {
-		r.Response.Write(`OpenApi specification file producing is disabled`)
+		r.Response.X写响应缓冲区(`OpenApi specification file producing is disabled`)
 	} else {
-		r.Response.WriteJson(s.openapi)
+		r.Response.X写响应缓冲区JSON(s.openapi)
 	}
 }

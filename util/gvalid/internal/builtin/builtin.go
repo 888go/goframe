@@ -32,8 +32,8 @@ type RunInput struct {
 	RulePattern string       // RulePattern 类似于规则 "max:6" 中的 "6"
 	Field       string       // Value的字段名称。
 	ValueType   reflect.Type // ValueType 指定了值的类型，该值可能为 nil。
-	Value       *gvar.Var    // Value 指定此规则验证的值。
-	Data        *gvar.Var    // Data 指定传递给 Validator 的 `data`。
+	Value       *泛型类.Var    // Value 指定此规则验证的值。
+	Data        *泛型类.Var    // Data 指定传递给 Validator 的 `data`。
 	Message     string       // Message 指定了该规则的自定义错误消息或配置好的国际化（i18n）消息。
 	Option      RunOption    // Option 提供了验证规则的额外配置选项。
 }

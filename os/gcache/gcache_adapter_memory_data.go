@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcache
+package 缓存类
 
 import (
 	"context"
@@ -29,12 +29,12 @@ func newAdapterMemoryData() *adapterMemoryData {
 //
 // 如果给定的`value`为nil，则删除`key`。
 // 若`key`在缓存中不存在，则不做任何操作。
-func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue interface{}, exist bool, err error) {
+func (d *adapterMemoryData) X更新值(名称 interface{}, 值 interface{}) (旧值 interface{}, 是否已存在 bool, 错误 error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
-	if item, ok := d.data[key]; ok {
-		d.data[key] = adapterMemoryItem{
-			v: value,
+	if item, ok := d.data[名称]; ok {
+		d.data[名称] = adapterMemoryItem{
+			v: 值,
 			e: item.e,
 		}
 		return item.v, true, nil
@@ -46,38 +46,38 @@ func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue
 //
 // 若 `key` 不存在于缓存中，则返回 -1 并不做任何操作。
 // 若 `duration` 小于 0，则删除 `key`。
-func (d *adapterMemoryData) UpdateExpire(key interface{}, expireTime int64) (oldDuration time.Duration, err error) {
+func (d *adapterMemoryData) X更新过期时间(名称 interface{}, 时长 int64) (旧过期时长 time.Duration, 错误 error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
-	if item, ok := d.data[key]; ok {
-		d.data[key] = adapterMemoryItem{
+	if item, ok := d.data[名称]; ok {
+		d.data[名称] = adapterMemoryItem{
 			v: item.v,
-			e: expireTime,
+			e: 时长,
 		}
-		return time.Duration(item.e-gtime.TimestampMilli()) * time.Millisecond, nil
+		return time.Duration(item.e-时间类.X取时间戳毫秒()) * time.Millisecond, nil
 	}
 	return -1, nil
 }
 
 // Remove 从缓存中删除一个或多个键，并返回其对应的值。
 // 如果提供了多个键，它将返回被删除的最后一个项目的值。
-func (d *adapterMemoryData) Remove(keys ...interface{}) (removedKeys []interface{}, value interface{}, err error) {
+func (d *adapterMemoryData) X删除并带返回值(名称 ...interface{}) (被删除名称 []interface{}, 值 interface{}, 错误 error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
-	removedKeys = make([]interface{}, 0)
-	for _, key := range keys {
+	被删除名称 = make([]interface{}, 0)
+	for _, key := range 名称 {
 		item, ok := d.data[key]
 		if ok {
-			value = item.v
+			值 = item.v
 			delete(d.data, key)
-			removedKeys = append(removedKeys, key)
+			被删除名称 = append(被删除名称, key)
 		}
 	}
-	return removedKeys, value, nil
+	return 被删除名称, 值, nil
 }
 
 // Data 返回缓存中所有键值对的副本，类型为 map。
-func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
+func (d *adapterMemoryData) X取所有键值Map副本() (map[interface{}]interface{}, error) {
 	d.mu.RLock()
 	m := make(map[interface{}]interface{}, len(d.data))
 	for k, v := range d.data {
@@ -90,7 +90,7 @@ func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
 }
 
 // Keys 返回缓存中的所有键作为切片。
-func (d *adapterMemoryData) Keys() ([]interface{}, error) {
+func (d *adapterMemoryData) X取所有键() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
 		index = 0
@@ -107,7 +107,7 @@ func (d *adapterMemoryData) Keys() ([]interface{}, error) {
 }
 
 // Values 返回缓存中的所有值作为一个切片。
-func (d *adapterMemoryData) Values() ([]interface{}, error) {
+func (d *adapterMemoryData) X取所有值() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
 		index  = 0
@@ -124,32 +124,32 @@ func (d *adapterMemoryData) Values() ([]interface{}, error) {
 }
 
 // Size 返回缓存的大小。
-func (d *adapterMemoryData) Size() (size int, err error) {
+func (d *adapterMemoryData) X取数量() (数量 int, 错误 error) {
 	d.mu.RLock()
-	size = len(d.data)
+	数量 = len(d.data)
 	d.mu.RUnlock()
-	return size, nil
+	return 数量, nil
 }
 
 // Clear 清除缓存中的所有数据。
 // 注意：此函数较为敏感，应谨慎使用。
-func (d *adapterMemoryData) Clear() error {
+func (d *adapterMemoryData) X清空() error {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 	d.data = make(map[interface{}]adapterMemoryItem)
 	return nil
 }
 
-func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok bool) {
+func (d *adapterMemoryData) X取值(名称 interface{}) (item adapterMemoryItem, 成功 bool) {
 	d.mu.RLock()
-	item, ok = d.data[key]
+	item, 成功 = d.data[名称]
 	d.mu.RUnlock()
 	return
 }
 
-func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {
+func (d *adapterMemoryData) X设置值(名称 interface{}, 值 adapterMemoryItem) {
 	d.mu.Lock()
-	d.data[key] = value
+	d.data[名称] = 值
 	d.mu.Unlock()
 }
 
@@ -157,12 +157,12 @@ func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {
 //
 // 如果 `duration` == 0，则表示永不过期。
 // 若 `duration` < 0 或提供的 `value` 为 nil，则删除 `data` 中的键。
-func (d *adapterMemoryData) SetMap(data map[interface{}]interface{}, expireTime int64) error {
+func (d *adapterMemoryData) X设置Map(map值 map[interface{}]interface{}, 时长 int64) error {
 	d.mu.Lock()
-	for k, v := range data {
+	for k, v := range map值 {
 		d.data[k] = adapterMemoryItem{
 			v: v,
-			e: expireTime,
+			e: 时长,
 		}
 	}
 	d.mu.Unlock()

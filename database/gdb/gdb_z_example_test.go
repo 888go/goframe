@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb_test
+package db类_test
 
 import (
 	"context"
@@ -13,9 +13,9 @@ import (
 )
 
 func ExampleTransaction() {
-	g.DB().Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
+	g.DB类().X事务(context.TODO(), func(ctx context.Context, tx db类.X事务) error {
 		// user
-		result, err := tx.Insert("user", g.Map{
+		result, err := tx.X插入("user", g.Map{
 			"passport": "john",
 			"password": "12345678",
 			"nickname": "JohnGuo",
@@ -28,7 +28,7 @@ func ExampleTransaction() {
 		if err != nil {
 			return err
 		}
-		_, err = tx.Insert("user_detail", g.Map{
+		_, err = tx.X插入("user_detail", g.Map{
 			"uid":       id,
 			"site":      "https://johng.cn",
 			"true_name": "GuoQiang",

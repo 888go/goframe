@@ -62,7 +62,7 @@ func ParseTag(tag string) map[string]string {
 		tag = tag[i+1:]
 		value, err := strconv.Unquote(quotedValue)
 		if err != nil {
-			panic(gerror.WrapCodef(gcode.CodeInvalidParameter, err, `error parsing tag "%s"`, tag))
+			panic(错误类.X多层错误码并格式化(错误码类.CodeInvalidParameter, err, `error parsing tag "%s"`, tag))
 		}
 		data[key] = gtag.Parse(value)
 	}
@@ -156,8 +156,8 @@ exitLoop:
 		reflectKind = reflectValue.Kind()
 	}
 	if reflectKind != reflect.Struct {
-		return nil, gerror.NewCode(
-			gcode.CodeInvalidParameter,
+		return nil, 错误类.X创建错误码(
+			错误码类.CodeInvalidParameter,
 			"given value should be either type of struct/*struct/[]struct/[]*struct",
 		)
 	}

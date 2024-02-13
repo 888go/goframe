@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -29,7 +29,7 @@ func (m *middleware) Next() {
 	var loop = true
 	for loop {
 		// 检查请求是否已激发。
-		if m.request.IsExited() || m.handlerIndex >= len(m.request.handlers) {
+		if m.request.X是否已退出() || m.handlerIndex >= len(m.request.handlers) {
 			break
 		}
 		item = m.request.handlers[m.handlerIndex]
@@ -44,8 +44,8 @@ func (m *middleware) Next() {
 		// 路由值切换。
 		m.request.routerMap = item.Values
 
-		var ctx = m.request.Context()
-		gutil.TryCatch(ctx, func(ctx context.Context) {
+		var ctx = m.request.Context别名()
+		工具类.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 			// 如果item的绑定中间件数组不为空，则执行该数组中的中间件。
 			if m.handlerMDIndex < len(item.Handler.Middleware) {
 				md := item.Handler.Middleware[m.handlerMDIndex]
@@ -62,7 +62,7 @@ func (m *middleware) Next() {
 			// Service object.
 			case HandlerTypeObject:
 				m.served = true
-				if m.request.IsExited() {
+				if m.request.X是否已退出() {
 					break
 				}
 				if item.Handler.InitFunc != nil {
@@ -70,10 +70,10 @@ func (m *middleware) Next() {
 						item.Handler.InitFunc(m.request)
 					})
 				}
-				if !m.request.IsExited() {
+				if !m.request.X是否已退出() {
 					m.callHandlerFunc(item.Handler.Info)
 				}
-				if !m.request.IsExited() && item.Handler.ShutFunc != nil {
+				if !m.request.X是否已退出() && item.Handler.ShutFunc != nil {
 					niceCallFunc(func() {
 						item.Handler.ShutFunc(m.request)
 					})
@@ -82,7 +82,7 @@ func (m *middleware) Next() {
 			// Service handler.
 			case HandlerTypeHandler:
 				m.served = true
-				if m.request.IsExited() {
+				if m.request.X是否已退出() {
 					break
 				}
 				niceCallFunc(func() {
@@ -99,20 +99,20 @@ func (m *middleware) Next() {
 				loop = false
 			}
 		}, func(ctx context.Context, exception error) {
-			if gerror.HasStack(exception) {
+			if 错误类.X判断是否带堆栈(exception) {
 				// 这已经是一个带有堆栈信息的错误。
 				m.request.error = exception
 			} else {
 // 创建一个包含堆栈信息的新错误。
 // 注意，这里有一个skip参数用于指向实际错误点的堆栈跟踪起始位置。
-				m.request.error = gerror.WrapCodeSkip(gcode.CodeInternalError, 1, exception, "")
+				m.request.error = 错误类.X多层错误码并跳过堆栈(错误码类.CodeInternalError, 1, exception, "")
 			}
-			m.request.Response.WriteStatus(http.StatusInternalServerError, exception)
+			m.request.Response.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, exception)
 			loop = false
 		})
 	}
 	// 在所有处理器和中间件执行完毕后，检查HTTP状态码。
-	if m.request.IsExited() || m.handlerIndex >= len(m.request.handlers) {
+	if m.request.X是否已退出() || m.handlerIndex >= len(m.request.handlers) {
 		if m.request.Response.Status == 0 {
 			if m.request.Middleware.served {
 				m.request.Response.WriteHeader(http.StatusOK)

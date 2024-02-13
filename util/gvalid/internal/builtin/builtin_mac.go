@@ -30,7 +30,7 @@ func (r RuleMac) Message() string {
 }
 
 func (r RuleMac) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`^([0-9A-Fa-f]{2}[\-:]){5}[0-9A-Fa-f]{2}$`,
 		in.Value.String(),
 	)

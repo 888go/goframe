@@ -30,7 +30,7 @@ func (r RuleDomain) Message() string {
 }
 
 func (r RuleDomain) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := 正则类.X是否匹配文本(
 		`^([0-9a-zA-Z][0-9a-zA-Z\-]{0,62}\.)+([a-zA-Z]{0,62})$`,
 		in.Value.String(),
 	)

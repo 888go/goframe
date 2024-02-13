@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -20,12 +20,12 @@ var (
 )
 
 func Test_HookSelect_Regex(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			err              error
 			toBeCommittedSql = `select * from "user" where 1=1`
 		)
-		toBeCommittedSql, err = gregex.ReplaceStringFuncMatch(
+		toBeCommittedSql, err = 正则类.ReplaceStringFuncMatch(
 			`(?i) FROM ([\S]+)`,
 			toBeCommittedSql,
 			func(match []string) string {
@@ -36,12 +36,12 @@ func Test_HookSelect_Regex(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(toBeCommittedSql, `select * FROM "user_1" where 1=1`)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
 			err              error
 			toBeCommittedSql = `select * from user`
 		)
-		toBeCommittedSql, err = gregex.ReplaceStringFuncMatch(
+		toBeCommittedSql, err = 正则类.ReplaceStringFuncMatch(
 			`(?i) FROM ([\S]+)`,
 			toBeCommittedSql,
 			func(match []string) string {
@@ -54,193 +54,193 @@ func Test_HookSelect_Regex(t *testing.T) {
 }
 
 func Test_parseConfigNodeLink_WithType(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/khaos_oss?loc=Local&parseTime=true&charset=latin`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/khaos_oss?loc=Local&parseTime=true&charset=latin`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, `khaos_oss`)
-		t.Assert(newNode.Extra, `loc=Local&parseTime=true&charset=latin`)
-		t.Assert(newNode.Charset, `latin`)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, `khaos_oss`)
+		t.Assert(newNode.X额外, `loc=Local&parseTime=true&charset=latin`)
+		t.Assert(newNode.X字符集, `latin`)
+		t.Assert(newNode.X协议, `tcp`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/khaos_oss?`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/khaos_oss?`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, `khaos_oss`)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, `khaos_oss`)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `tcp`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/khaos_oss`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/khaos_oss`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, `khaos_oss`)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, `khaos_oss`)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `tcp`)
 	})
 	// 空数据库预选择。
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/?loc=Local&parseTime=true&charset=latin`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/?loc=Local&parseTime=true&charset=latin`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, ``)
-		t.Assert(newNode.Extra, `loc=Local&parseTime=true&charset=latin`)
-		t.Assert(newNode.Charset, `latin`)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, ``)
+		t.Assert(newNode.X额外, `loc=Local&parseTime=true&charset=latin`)
+		t.Assert(newNode.X字符集, `latin`)
+		t.Assert(newNode.X协议, `tcp`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)?loc=Local&parseTime=true&charset=latin`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)?loc=Local&parseTime=true&charset=latin`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, ``)
-		t.Assert(newNode.Extra, `loc=Local&parseTime=true&charset=latin`)
-		t.Assert(newNode.Charset, `latin`)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, ``)
+		t.Assert(newNode.X额外, `loc=Local&parseTime=true&charset=latin`)
+		t.Assert(newNode.X字符集, `latin`)
+		t.Assert(newNode.X协议, `tcp`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, ``)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, ``)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `tcp`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, ``)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, ``)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `tcp`)
 	})
 	// udp.
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `mysql:root:CxzhD*624:27jh@udp(9.135.69.119:3306)`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `mysql:root:CxzhD*624:27jh@udp(9.135.69.119:3306)`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `mysql`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, `9.135.69.119`)
-		t.Assert(newNode.Port, `3306`)
-		t.Assert(newNode.Name, ``)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `udp`)
+		t.Assert(newNode.X类型, `mysql`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, `9.135.69.119`)
+		t.Assert(newNode.X端口, `3306`)
+		t.Assert(newNode.X名称, ``)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `udp`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `sqlite:root:CxzhD*624:27jh@file(/var/data/db.sqlite3)?local=Local&parseTime=true`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `sqlite:root:CxzhD*624:27jh@file(/var/data/db.sqlite3)?local=Local&parseTime=true`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `sqlite`)
-		t.Assert(newNode.User, `root`)
-		t.Assert(newNode.Pass, `CxzhD*624:27jh`)
-		t.Assert(newNode.Host, ``)
-		t.Assert(newNode.Port, ``)
-		t.Assert(newNode.Name, `/var/data/db.sqlite3`)
-		t.Assert(newNode.Extra, `local=Local&parseTime=true`)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `file`)
+		t.Assert(newNode.X类型, `sqlite`)
+		t.Assert(newNode.X账号, `root`)
+		t.Assert(newNode.X密码, `CxzhD*624:27jh`)
+		t.Assert(newNode.X地址, ``)
+		t.Assert(newNode.X端口, ``)
+		t.Assert(newNode.X名称, `/var/data/db.sqlite3`)
+		t.Assert(newNode.X额外, `local=Local&parseTime=true`)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `file`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `sqlite::CxzhD*624:2@7jh@file(/var/data/db.sqlite3)`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `sqlite::CxzhD*624:2@7jh@file(/var/data/db.sqlite3)`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `sqlite`)
-		t.Assert(newNode.User, ``)
-		t.Assert(newNode.Pass, `CxzhD*624:2@7jh`)
-		t.Assert(newNode.Host, ``)
-		t.Assert(newNode.Port, ``)
-		t.Assert(newNode.Name, `/var/data/db.sqlite3`)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `file`)
+		t.Assert(newNode.X类型, `sqlite`)
+		t.Assert(newNode.X账号, ``)
+		t.Assert(newNode.X密码, `CxzhD*624:2@7jh`)
+		t.Assert(newNode.X地址, ``)
+		t.Assert(newNode.X端口, ``)
+		t.Assert(newNode.X名称, `/var/data/db.sqlite3`)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `file`)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `sqlite::@file(/var/data/db.sqlite3)`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `sqlite::@file(/var/data/db.sqlite3)`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `sqlite`)
-		t.Assert(newNode.User, ``)
-		t.Assert(newNode.Pass, ``)
-		t.Assert(newNode.Host, ``)
-		t.Assert(newNode.Port, ``)
-		t.Assert(newNode.Name, `/var/data/db.sqlite3`)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `file`)
+		t.Assert(newNode.X类型, `sqlite`)
+		t.Assert(newNode.X账号, ``)
+		t.Assert(newNode.X密码, ``)
+		t.Assert(newNode.X地址, ``)
+		t.Assert(newNode.X端口, ``)
+		t.Assert(newNode.X名称, `/var/data/db.sqlite3`)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `file`)
 	})
 	// #3146
-	gtest.C(t, func(t *gtest.T) {
-		node := &ConfigNode{
-			Link: `pgsql:BASIC$xxxx:123456@tcp(xxxx.hologres.aliyuncs.com:80)/xxx`,
+	单元测试类.C(t, func(t *单元测试类.T) {
+		node := &X配置项{
+			X自定义链接信息: `pgsql:BASIC$xxxx:123456@tcp(xxxx.hologres.aliyuncs.com:80)/xxx`,
 		}
 		newNode := parseConfigNodeLink(node)
-		t.Assert(newNode.Type, `pgsql`)
-		t.Assert(newNode.User, `BASIC$xxxx`)
-		t.Assert(newNode.Pass, `123456`)
-		t.Assert(newNode.Host, `xxxx.hologres.aliyuncs.com`)
-		t.Assert(newNode.Port, `80`)
-		t.Assert(newNode.Name, `xxx`)
-		t.Assert(newNode.Extra, ``)
-		t.Assert(newNode.Charset, defaultCharset)
-		t.Assert(newNode.Protocol, `tcp`)
+		t.Assert(newNode.X类型, `pgsql`)
+		t.Assert(newNode.X账号, `BASIC$xxxx`)
+		t.Assert(newNode.X密码, `123456`)
+		t.Assert(newNode.X地址, `xxxx.hologres.aliyuncs.com`)
+		t.Assert(newNode.X端口, `80`)
+		t.Assert(newNode.X名称, `xxx`)
+		t.Assert(newNode.X额外, ``)
+		t.Assert(newNode.X字符集, defaultCharset)
+		t.Assert(newNode.X协议, `tcp`)
 	})
 }
 
 func Test_Func_doQuoteWord(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		array := map[string]string{
 			"user":                   "`user`",
 			"user u":                 "user u",
@@ -257,7 +257,7 @@ func Test_Func_doQuoteWord(t *testing.T) {
 }
 
 func Test_Func_doQuoteString(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		array := map[string]string{
 			"user":                             "`user`",
 			"user u":                           "`user` u",
@@ -277,7 +277,7 @@ func Test_Func_doQuoteString(t *testing.T) {
 }
 
 func Test_Func_addTablePrefix(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		prefix := ""
 		array := map[string]string{
 			"user":                         "`user`",
@@ -296,7 +296,7 @@ func Test_Func_addTablePrefix(t *testing.T) {
 			t.Assert(doQuoteTableName(k, prefix, "`", "`"), v)
 		}
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		prefix := "gf_"
 		array := map[string]string{
 			"user":                         "`gf_user`",
@@ -318,7 +318,7 @@ func Test_Func_addTablePrefix(t *testing.T) {
 }
 
 func Test_isSubQuery(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		t.Assert(isSubQuery("user"), false)
 		t.Assert(isSubQuery("user.uid"), false)
 		t.Assert(isSubQuery("u, user.uid"), false)

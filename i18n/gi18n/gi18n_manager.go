@@ -45,7 +45,7 @@ type Options struct {
 	Path       string         // 国际化文件存储路径。
 	Language   string         // 默认本地语言。
 	Delimiters []string       // 变量解析的分隔符。
-	Resource   *gres.Resource // i18n文件资源。
+	Resource   *资源类.Resource // i18n文件资源。
 }
 
 var (
@@ -78,7 +78,7 @@ func New(options ...Options) *Manager {
 		}
 		if opts.Path != "" {
 			// 为避免引用GoFrame的源路径：github.com/gogf/i18n/gi18n
-			if gfile.Exists(opts.Path + gfile.Separator + "gi18n") {
+			if 文件类.X是否存在(opts.Path + 文件类.Separator + "gi18n") {
 				opts.Path = ""
 				pathType = pathTypeNone
 			}
@@ -94,8 +94,8 @@ func New(options ...Options) *Manager {
 		options: opts,
 		pattern: fmt.Sprintf(
 			`%s(.+?)%s`,
-			gregex.Quote(opts.Delimiters[0]),
-			gregex.Quote(opts.Delimiters[1]),
+			正则类.X转义特殊符号(opts.Delimiters[0]),
+			正则类.X转义特殊符号(opts.Delimiters[1]),
 		),
 		pathType: pathType,
 	}
@@ -110,7 +110,7 @@ func (o *Options) checkPathType(dirPath string) pathType {
 	}
 
 	if o.Resource == nil {
-		o.Resource = gres.Instance()
+		o.Resource = 资源类.Instance()
 	}
 
 	if o.Resource.Contains(dirPath) {
@@ -118,7 +118,7 @@ func (o *Options) checkPathType(dirPath string) pathType {
 		return pathTypeGres
 	}
 
-	realPath, _ := gfile.Search(dirPath)
+	realPath, _ := 文件类.X查找(dirPath)
 	if realPath != "" {
 		o.Path = realPath
 		return pathTypeNormal
@@ -131,7 +131,7 @@ func (o *Options) checkPathType(dirPath string) pathType {
 func (m *Manager) SetPath(path string) error {
 	pathType := m.options.checkPathType(path)
 	if pathType == pathTypeNone {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, `%s does not exist`, path)
+		return 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `%s does not exist`, path)
 	}
 
 	m.pathType = pathType
@@ -149,7 +149,7 @@ func (m *Manager) SetLanguage(language string) {
 
 // SetDelimiters 设置翻译器的分隔符。
 func (m *Manager) SetDelimiters(left, right string) {
-	m.pattern = fmt.Sprintf(`%s(.+?)%s`, gregex.Quote(left), gregex.Quote(right))
+	m.pattern = fmt.Sprintf(`%s(.+?)%s`, 正则类.X转义特殊符号(left), 正则类.X转义特殊符号(right))
 	intlog.Printf(context.TODO(), `SetDelimiters: %v`, m.pattern)
 }
 
@@ -186,7 +186,7 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 		return v
 	}
 	// 将内容解析为变量容器。
-	result, _ := gregex.ReplaceStringFuncMatch(
+	result, _ := 正则类.ReplaceStringFuncMatch(
 		m.pattern, content,
 		func(match []string) string {
 			if v, ok := data[match[1]]; ok {
@@ -260,14 +260,14 @@ func (m *Manager) init(ctx context.Context) {
 				if len(array) > 1 {
 					lang = array[0]
 				} else if len(array) == 1 {
-					lang = gfile.Name(array[0])
+					lang = 文件类.X路径取文件名且不含扩展名(array[0])
 				}
 				if m.data[lang] == nil {
 					m.data[lang] = make(map[string]string)
 				}
-				if j, err := gjson.LoadContent(file.Content()); err == nil {
-					for k, v := range j.Var().Map() {
-						m.data[lang][k] = gconv.String(v)
+				if j, err := json类.X加载并自动识别格式(file.Content()); err == nil {
+					for k, v := range j.X取泛型类().X取Map() {
+						m.data[lang][k] = 转换类.String(v)
 					}
 				} else {
 					intlog.Errorf(ctx, "load i18n file '%s' failed: %+v", name, err)
@@ -275,7 +275,7 @@ func (m *Manager) init(ctx context.Context) {
 			}
 		}
 	case pathTypeNormal:
-		files, _ := gfile.ScanDirFile(m.options.Path, "*.*", true)
+		files, _ := 文件类.X枚举(m.options.Path, "*.*", true)
 		if len(files) == 0 {
 			return
 		}
@@ -287,18 +287,18 @@ func (m *Manager) init(ctx context.Context) {
 		m.data = make(map[string]map[string]string)
 		for _, file := range files {
 			path = file[len(m.options.Path)+1:]
-			array = strings.Split(path, gfile.Separator)
+			array = strings.Split(path, 文件类.Separator)
 			if len(array) > 1 {
 				lang = array[0]
 			} else if len(array) == 1 {
-				lang = gfile.Name(array[0])
+				lang = 文件类.X路径取文件名且不含扩展名(array[0])
 			}
 			if m.data[lang] == nil {
 				m.data[lang] = make(map[string]string)
 			}
-			if j, err := gjson.LoadContent(gfile.GetBytes(file)); err == nil {
-				for k, v := range j.Var().Map() {
-					m.data[lang][k] = gconv.String(v)
+			if j, err := json类.X加载并自动识别格式(文件类.X读字节集(file)); err == nil {
+				for k, v := range j.X取泛型类().X取Map() {
+					m.data[lang][k] = 转换类.String(v)
 				}
 			} else {
 				intlog.Errorf(ctx, "load i18n file '%s' failed: %+v", file, err)
@@ -306,11 +306,11 @@ func (m *Manager) init(ctx context.Context) {
 		}
 		intlog.Printf(ctx, "i18n files loaded in path: %s", m.options.Path)
 		// 监控i18n文件的更改以实现热重载功能。
-		_, _ = gfsnotify.Add(m.options.Path, func(event *gfsnotify.Event) {
+		_, _ = 文件监控类.Add(m.options.Path, func(event *文件监控类.Event) {
 			intlog.Printf(ctx, `i18n file changed: %s`, event.Path)
 			// 如果i18n文件有任何更改，清空数据。
 			m.reset()
-			gfsnotify.Exit()
+			文件监控类.Exit()
 		})
 	}
 }

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -14,12 +14,12 @@ import (
 )
 
 // BindHookHandler 为指定的钩子注册处理器。
-func (s *Server) BindHookHandler(pattern string, hook HookName, handler HandlerFunc) {
+func (s *Server) X绑定Hook(路由规则 string, 触发时机 HookName, 处理函数 HandlerFunc) {
 	s.doBindHookHandler(context.TODO(), doBindHookHandlerInput{
 		Prefix:   "",
-		Pattern:  pattern,
-		HookName: hook,
-		Handler:  handler,
+		Pattern:  路由规则,
+		HookName: 触发时机,
+		Handler:  处理函数,
 		Source:   "",
 	})
 }
@@ -55,9 +55,9 @@ func (s *Server) doBindHookHandler(ctx context.Context, in doBindHookHandlerInpu
 }
 
 // BindHookHandlerByMap 为指定的钩子注册处理器。
-func (s *Server) BindHookHandlerByMap(pattern string, hookMap map[HookName]HandlerFunc) {
-	for k, v := range hookMap {
-		s.BindHookHandler(pattern, k, v)
+func (s *Server) X绑定HookMap(路由规则 string, HookMap map[HookName]HandlerFunc) {
+	for k, v := range HookMap {
+		s.X绑定Hook(路由规则, k, v)
 	}
 }
 
@@ -84,7 +84,7 @@ func (s *Server) callHookHandler(hook HookName, r *Request) {
 				case exceptionExitHook:
 					return
 				default:
-					r.Response.WriteStatus(http.StatusInternalServerError, err)
+					r.Response.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, err)
 					panic(err)
 				}
 			}

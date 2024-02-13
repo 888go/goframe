@@ -30,7 +30,7 @@ func (r RuleJson) Message() string {
 }
 
 func (r RuleJson) Run(in RunInput) error {
-	if json.Valid(in.Value.Bytes()) {
+	if json.Valid(in.Value.X取字节集()) {
 		return nil
 	}
 	return errors.New(in.Message)

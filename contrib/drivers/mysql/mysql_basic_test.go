@@ -14,15 +14,15 @@ import (
 )
 
 func Test_Instance(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gdb.Instance("none")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := db类.X取单例对象("none")
 		t.AssertNE(err, nil)
 
-		db, err := gdb.Instance()
+		db, err := db类.X取单例对象()
 		t.AssertNil(err)
 
-		err1 := db.PingMaster()
-		err2 := db.PingSlave()
+		err1 := db.X向主节点发送心跳()
+		err2 := db.X向从节点发送心跳()
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 	})
@@ -30,35 +30,35 @@ func Test_Instance(t *testing.T) {
 
 func Test_Func_FormatSqlWithArgs(t *testing.T) {
 	// mysql
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s string
-		s = gdb.FormatSqlWithArgs("select * from table where id>=? and sex=?", []interface{}{100, 1})
+		s = db类.X格式化Sql("select * from table where id>=? and sex=?", []interface{}{100, 1})
 		t.Assert(s, "select * from table where id>=100 and sex=1")
 	})
 	// mssql
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s string
-		s = gdb.FormatSqlWithArgs("select * from table where id>=@p1 and sex=@p2", []interface{}{100, 1})
+		s = db类.X格式化Sql("select * from table where id>=@p1 and sex=@p2", []interface{}{100, 1})
 		t.Assert(s, "select * from table where id>=100 and sex=1")
 	})
 	// pgsql
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s string
-		s = gdb.FormatSqlWithArgs("select * from table where id>=$1 and sex=$2", []interface{}{100, 1})
+		s = db类.X格式化Sql("select * from table where id>=$1 and sex=$2", []interface{}{100, 1})
 		t.Assert(s, "select * from table where id>=100 and sex=1")
 	})
 	// oracle
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var s string
-		s = gdb.FormatSqlWithArgs("select * from table where id>=:v1 and sex=:v2", []interface{}{100, 1})
+		s = db类.X格式化Sql("select * from table where id>=:v1 and sex=:v2", []interface{}{100, 1})
 		t.Assert(s, "select * from table where id>=100 and sex=1")
 	})
 }
 
 func Test_Func_ToSQL(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		sql, err := gdb.ToSQL(ctx, func(ctx context.Context) error {
-			value, err := db.Ctx(ctx).Model(TableName).Fields("nickname").Where("id", 1).Value()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		sql, err := db类.X捕捉最后一条SQL语句(ctx, func(ctx context.Context) error {
+			value, err := db.X设置上下文并取副本(ctx).X创建Model对象(TableName).X字段保留过滤("nickname").X条件("id", 1).X查询一条值()
 			t.Assert(value, nil)
 			return err
 		})
@@ -70,9 +70,9 @@ func Test_Func_ToSQL(t *testing.T) {
 func Test_Func_CatchSQL(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	gtest.C(t, func(t *gtest.T) {
-		array, err := gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			value, err := db.Ctx(ctx).Model(table).Fields("nickname").Where("id", 1).Value()
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array, err := db类.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			value, err := db.X设置上下文并取副本(ctx).X创建Model对象(table).X字段保留过滤("nickname").X条件("id", 1).X查询一条值()
 			t.Assert(value, "name_1")
 			return err
 		})

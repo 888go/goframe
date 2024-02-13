@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp
+package tcp类
 
 import (
 	"crypto/tls"
@@ -37,7 +37,7 @@ type Server struct {
 }
 
 // 用于单例目的，映射名称到服务器的Map。
-var serverMapping = gmap.NewStrAnyMap(true)
+var serverMapping = map类.X创建StrAny(true)
 
 // GetServer 函数返回指定名称 `name` 的 TCP 服务器，
 // 如果该服务器不存在，则返回一个新的普通 TCP 服务器并命名为 `name`。
@@ -45,9 +45,9 @@ var serverMapping = gmap.NewStrAnyMap(true)
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
-		serverName = gconv.String(name[0])
+		serverName = 转换类.String(name[0])
 	}
-	return serverMapping.GetOrSetFuncLock(serverName, func() interface{} {
+	return serverMapping.X取值或设置值_函数带锁(serverName, func() interface{} {
 		return NewServer("", nil)
 	}).(*Server)
 }
@@ -60,7 +60,7 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 		handler: handler,
 	}
 	if len(name) > 0 && name[0] != "" {
-		serverMapping.Set(name[0], s)
+		serverMapping.X设置值(name[0], s)
 	}
 	return s
 }
@@ -126,7 +126,7 @@ func (s *Server) Close() error {
 // Run 开始运行 TCP 服务器。
 func (s *Server) Run() (err error) {
 	if s.handler == nil {
-		err = gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
+		err = 错误类.X创建错误码(错误码类.CodeMissingConfiguration, "start running failed: socket handler not defined")
 		return
 	}
 	if s.tlsConfig != nil {
@@ -135,21 +135,21 @@ func (s *Server) Run() (err error) {
 		s.listen, err = tls.Listen("tcp", s.address, s.tlsConfig)
 		s.mu.Unlock()
 		if err != nil {
-			err = gerror.Wrapf(err, `tls.Listen failed for address "%s"`, s.address)
+			err = 错误类.X多层错误并格式化(err, `tls.Listen failed for address "%s"`, s.address)
 			return
 		}
 	} else {
 		// Normal Server
 		var tcpAddr *net.TCPAddr
 		if tcpAddr, err = net.ResolveTCPAddr("tcp", s.address); err != nil {
-			err = gerror.Wrapf(err, `net.ResolveTCPAddr failed for address "%s"`, s.address)
+			err = 错误类.X多层错误并格式化(err, `net.ResolveTCPAddr failed for address "%s"`, s.address)
 			return err
 		}
 		s.mu.Lock()
 		s.listen, err = net.ListenTCP("tcp", tcpAddr)
 		s.mu.Unlock()
 		if err != nil {
-			err = gerror.Wrapf(err, `net.ListenTCP failed for address "%s"`, s.address)
+			err = 错误类.X多层错误并格式化(err, `net.ListenTCP failed for address "%s"`, s.address)
 			return err
 		}
 	}
@@ -157,7 +157,7 @@ func (s *Server) Run() (err error) {
 	for {
 		var conn net.Conn
 		if conn, err = s.listen.Accept(); err != nil {
-			err = gerror.Wrapf(err, `Listener.Accept failed`)
+			err = 错误类.X多层错误并格式化(err, `Listener.Accept failed`)
 			return err
 		} else if conn != nil {
 			go s.handler(NewConnByNetConn(conn))
@@ -167,14 +167,14 @@ func (s *Server) Run() (err error) {
 
 // GetListenedAddress 获取并返回当前服务器监听的地址字符串。
 func (s *Server) GetListenedAddress() string {
-	if !gstr.Contains(s.address, FreePortAddress) {
+	if !文本类.X是否包含(s.address, FreePortAddress) {
 		return s.address
 	}
 	var (
 		address      = s.address
 		listenedPort = s.GetListenedPort()
 	)
-	address = gstr.Replace(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
+	address = 文本类.X替换(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
 	return address
 }
 

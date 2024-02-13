@@ -6,7 +6,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gring_test
+package 循环链表类_test
 
 import (
 	"testing"
@@ -16,7 +16,7 @@ import (
 
 var length = 10000
 
-var ringObject = gring.New(length, true)
+var ringObject = 循环链表类.New(length, true)
 
 func BenchmarkRing_Put(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
@@ -42,7 +42,7 @@ func BenchmarkRing_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			ringObject.Set(i)
+			ringObject.X设置值(i)
 			i++
 		}
 	})

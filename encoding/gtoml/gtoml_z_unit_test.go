@@ -3,7 +3,7 @@
 // 本源代码形式受 MIT 许可协议条款约束。
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
-package gtoml_test
+package toml类_test
 
 import (
 	"testing"
@@ -34,20 +34,20 @@ dd = 11
 `
 
 func TestEncode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]string)
 		m["toml"] = tomlStr
-		res, err := gtoml.Encode(m)
+		res, err := toml类.Encode(m)
 		if err != nil {
 			t.Errorf("encode failed. %v", err)
 			return
 		}
 
-		t.Assert(gjson.New(res).Get("toml").String(), tomlStr)
+		t.Assert(json类.X创建(res).X取值("toml").String(), tomlStr)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gtoml.Encode(tomlErr)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := toml类.Encode(tomlErr)
 		if err == nil {
 			t.Errorf("encode should be failed. %v", err)
 			return
@@ -56,16 +56,16 @@ func TestEncode(t *testing.T) {
 }
 
 func TestDecode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]string)
 		m["toml"] = tomlStr
-		res, err := gtoml.Encode(m)
+		res, err := toml类.Encode(m)
 		if err != nil {
 			t.Errorf("encode failed. %v", err)
 			return
 		}
 
-		decodeStr, err := gtoml.Decode(res)
+		decodeStr, err := toml类.Decode(res)
 		if err != nil {
 			t.Errorf("decode failed. %v", err)
 			return
@@ -74,7 +74,7 @@ func TestDecode(t *testing.T) {
 		t.Assert(decodeStr.(map[string]interface{})["toml"], tomlStr)
 
 		decodeStr1 := make(map[string]interface{})
-		err = gtoml.DecodeTo(res, &decodeStr1)
+		err = toml类.DecodeTo(res, &decodeStr1)
 		if err != nil {
 			t.Errorf("decodeTo failed. %v", err)
 			return
@@ -82,15 +82,15 @@ func TestDecode(t *testing.T) {
 		t.Assert(decodeStr1["toml"], tomlStr)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gtoml.Decode([]byte(tomlErr))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := toml类.Decode([]byte(tomlErr))
 		if err == nil {
 			t.Errorf("decode failed. %v", err)
 			return
 		}
 
 		decodeStr1 := make(map[string]interface{})
-		err = gtoml.DecodeTo([]byte(tomlErr), &decodeStr1)
+		err = toml类.DecodeTo([]byte(tomlErr), &decodeStr1)
 		if err == nil {
 			t.Errorf("decodeTo failed. %v", err)
 			return
@@ -99,23 +99,23 @@ func TestDecode(t *testing.T) {
 }
 
 func TestToJson(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		m := make(map[string]string)
 		m["toml"] = tomlStr
-		res, err := gtoml.Encode(m)
+		res, err := toml类.Encode(m)
 		if err != nil {
 			t.Errorf("encode failed. %v", err)
 			return
 		}
 
-		jsonToml, err := gtoml.ToJson(res)
+		jsonToml, err := toml类.ToJson(res)
 		if err != nil {
 			t.Errorf("ToJson failed. %v", err)
 			return
 		}
 
-		p := gjson.New(res)
-		expectJson, err := p.ToJson()
+		p := json类.X创建(res)
+		expectJson, err := p.X取json字节集()
 		if err != nil {
 			t.Errorf("parser ToJson failed. %v", err)
 			return
@@ -123,8 +123,8 @@ func TestToJson(t *testing.T) {
 		t.Assert(jsonToml, expectJson)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		_, err := gtoml.ToJson([]byte(tomlErr))
+	单元测试类.C(t, func(t *单元测试类.T) {
+		_, err := toml类.ToJson([]byte(tomlErr))
 		if err == nil {
 			t.Errorf("ToJson failed. %v", err)
 			return

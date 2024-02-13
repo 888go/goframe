@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtcp
+package tcp类
 
 import (
 	"encoding/binary"
@@ -46,8 +46,8 @@ func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	}
 	length := len(data)
 	if length > pkgOption.MaxDataSize {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`data too long, data size %d exceeds allowed max data size %d`,
 			length, pkgOption.MaxDataSize,
 		)
@@ -121,7 +121,7 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 // 在这里，它验证包的大小。
 // 如果验证失败，它会立即清除缓冲区并返回错误。
 	if length < 0 || length > pkgOption.MaxDataSize {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid package size %d`, length)
+		return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid package size %d`, length)
 	}
 	// Empty package.
 	if length == 0 {
@@ -154,8 +154,8 @@ func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 		pkgOption.HeaderSize = pkgHeaderSizeDefault
 	}
 	if pkgOption.HeaderSize > pkgHeaderSizeMax {
-		return nil, gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return nil, 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`package header size %d definition exceeds max header size %d`,
 			pkgOption.HeaderSize, pkgHeaderSizeMax,
 		)
@@ -175,8 +175,8 @@ func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 		}
 	}
 	if pkgOption.MaxDataSize > 0x7FFFFFFF {
-		return nil, gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return nil, 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`package data size %d definition exceeds allowed max data size %d`,
 			pkgOption.MaxDataSize, 0x7FFFFFFF,
 		)

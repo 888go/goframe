@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gres
+package 资源类
 
 import (
 	"archive/zip"
@@ -48,12 +48,12 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 	if len(option) > 0 {
 		usedOption = option[0]
 	}
-	absolutePath, err = gfile.Search(srcPath)
+	absolutePath, err = 文件类.X查找(srcPath)
 	if err != nil {
 		return err
 	}
-	if gfile.IsDir(absolutePath) {
-		files, err = gfile.ScanDir(absolutePath, "*", true)
+	if 文件类.X是否存在目录(absolutePath) {
+		files, err = 文件类.X枚举并含子目录名(absolutePath, "*", true)
 		if err != nil {
 			return err
 		}
@@ -61,7 +61,7 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 		files = []string{absolutePath}
 	}
 	headerPrefix := strings.TrimRight(usedOption.Prefix, `\/`)
-	if headerPrefix != "" && gfile.IsDir(absolutePath) {
+	if headerPrefix != "" && 文件类.X是否存在目录(absolutePath) {
 		headerPrefix += "/"
 	}
 
@@ -71,7 +71,7 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 // 通常对于相对路径有意义，但对于绝对路径意义不大。
 			headerPrefix = srcPath
 		} else {
-			headerPrefix = gfile.Basename(absolutePath)
+			headerPrefix = 文件类.X路径取文件名(absolutePath)
 		}
 	}
 	headerPrefix = strings.ReplaceAll(headerPrefix, `//`, `/`)
@@ -86,7 +86,7 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 		// 正常处理：从文件中移除`absolutePath`(源目录路径)。
 		subFilePath = file[len(absolutePath):]
 		if subFilePath != "" {
-			subFilePath = gfile.Dir(subFilePath)
+			subFilePath = 文件类.X路径取父目录(subFilePath)
 		}
 		if err = zipFile(file, headerPrefix+subFilePath, zipWriter); err != nil {
 			return err
@@ -99,7 +99,7 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 			tmpPath = headerPrefix
 		)
 		for {
-			name = strings.ReplaceAll(gfile.Basename(tmpPath), `\`, `/`)
+			name = strings.ReplaceAll(文件类.X路径取文件名(tmpPath), `\`, `/`)
 			err = zipFileVirtual(fileinfo.New(name, 0, os.ModeDir|os.ModePerm, time.Now()), tmpPath, zipWriter)
 			if err != nil {
 				return err
@@ -107,7 +107,7 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 			if tmpPath == `/` || !strings.Contains(tmpPath, `/`) {
 				break
 			}
-			tmpPath = gfile.Dir(tmpPath)
+			tmpPath = 文件类.X路径取父目录(tmpPath)
 		}
 	}
 	return nil
@@ -119,14 +119,14 @@ func zipFile(path string, prefix string, zw *zip.Writer) error {
 	prefix = strings.ReplaceAll(prefix, `//`, `/`)
 	file, err := os.Open(path)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `os.Open failed for path "%s"`, path)
 		return nil
 	}
 	defer file.Close()
 
 	info, err := file.Stat()
 	if err != nil {
-		err = gerror.Wrapf(err, `read file stat failed for path "%s"`, path)
+		err = 错误类.X多层错误并格式化(err, `read file stat failed for path "%s"`, path)
 		return err
 	}
 
@@ -141,12 +141,12 @@ func zipFile(path string, prefix string, zw *zip.Writer) error {
 	// Zip头包含zip文件的信息。
 	writer, err := zw.CreateHeader(header)
 	if err != nil {
-		err = gerror.Wrapf(err, `create zip header failed for %#v`, header)
+		err = 错误类.X多层错误并格式化(err, `create zip header failed for %#v`, header)
 		return err
 	}
 	if !info.IsDir() {
 		if _, err = io.Copy(writer, file); err != nil {
-			err = gerror.Wrapf(err, `io.Copy failed for file "%s"`, path)
+			err = 错误类.X多层错误并格式化(err, `io.Copy failed for file "%s"`, path)
 			return err
 		}
 	}
@@ -160,7 +160,7 @@ func zipFileVirtual(info os.FileInfo, path string, zw *zip.Writer) error {
 	}
 	header.Name = path
 	if _, err = zw.CreateHeader(header); err != nil {
-		err = gerror.Wrapf(err, `create zip header failed for %#v`, header)
+		err = 错误类.X多层错误并格式化(err, `create zip header failed for %#v`, header)
 		return err
 	}
 	return nil
@@ -169,13 +169,13 @@ func zipFileVirtual(info os.FileInfo, path string, zw *zip.Writer) error {
 func createFileHeader(info os.FileInfo, prefix string) (*zip.FileHeader, error) {
 	header, err := zip.FileInfoHeader(info)
 	if err != nil {
-		err = gerror.Wrapf(err, `create file header failed for name "%s"`, info.Name())
+		err = 错误类.X多层错误并格式化(err, `create file header failed for name "%s"`, info.Name())
 		return nil, err
 	}
 	if len(prefix) > 0 {
 		header.Name = prefix + `/` + header.Name
 		header.Name = strings.ReplaceAll(header.Name, `\`, `/`)
-		header.Name, _ = gregex.ReplaceString(`/{2,}`, `/`, header.Name)
+		header.Name, _ = 正则类.X替换文本(`/{2,}`, `/`, header.Name)
 	}
 	return header, nil
 }

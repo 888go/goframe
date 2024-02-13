@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gerror_test
+package 错误类_test
 
 import (
 	"errors"
@@ -21,193 +21,193 @@ func nilError() error {
 }
 
 func Test_Nil(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.New(""), nil)
-		t.Assert(gerror.Wrap(nilError(), "test"), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X创建(""), nil)
+		t.Assert(错误类.X多层错误(nilError(), "test"), nil)
 	})
 }
 
 func Test_New(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.Newf("%d", 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建并格式化("%d", 1)
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.NewSkip(1, "1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建并跳过堆栈(1, "1")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.NewSkipf(1, "%d", 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建并跳过堆栈与格式化(1, "%d", 1)
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
 }
 
 func Test_Wrap(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrap(err, "")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误(err, "")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
 }
 
 func Test_Wrapf(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err := errors.New("1")
-		err = gerror.Wrapf(err, "%d", 2)
-		err = gerror.Wrapf(err, "%d", 3)
+		err = 错误类.X多层错误并格式化(err, "%d", 2)
+		err = 错误类.X多层错误并格式化(err, "%d", 3)
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrapf(err, "%d", 2)
-		err = gerror.Wrapf(err, "%d", 3)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误并格式化(err, "%d", 2)
+		err = 错误类.X多层错误并格式化(err, "%d", 3)
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrapf(err, "")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误并格式化(err, "")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.Wrapf(nil, ""), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X多层错误并格式化(nil, ""), nil)
 	})
 }
 
 func Test_WrapSkip(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.WrapSkip(1, nil, "2"), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X多层错误并跳过堆栈(1, nil, "2"), nil)
 		err := errors.New("1")
-		err = gerror.WrapSkip(1, err, "2")
-		err = gerror.WrapSkip(1, err, "3")
+		err = 错误类.X多层错误并跳过堆栈(1, err, "2")
+		err = 错误类.X多层错误并跳过堆栈(1, err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.WrapSkip(1, err, "2")
-		err = gerror.WrapSkip(1, err, "3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误并跳过堆栈(1, err, "2")
+		err = 错误类.X多层错误并跳过堆栈(1, err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.WrapSkip(1, err, "")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误并跳过堆栈(1, err, "")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
 }
 
 func Test_WrapSkipf(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.WrapSkipf(1, nil, "2"), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X多层错误并跳过堆栈与格式化(1, nil, "2"), nil)
 		err := errors.New("1")
-		err = gerror.WrapSkipf(1, err, "2")
-		err = gerror.WrapSkipf(1, err, "3")
+		err = 错误类.X多层错误并跳过堆栈与格式化(1, err, "2")
+		err = 错误类.X多层错误并跳过堆栈与格式化(1, err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.WrapSkipf(1, err, "2")
-		err = gerror.WrapSkipf(1, err, "3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误并跳过堆栈与格式化(1, err, "2")
+		err = 错误类.X多层错误并跳过堆栈与格式化(1, err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.WrapSkipf(1, err, "")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误并跳过堆栈与格式化(1, err, "")
 		t.AssertNE(err, nil)
 		t.Assert(err.Error(), "1")
 	})
 }
 
 func Test_Cause(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.Cause(nil), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X取根错误(nil), nil)
 		err := errors.New("1")
-		t.Assert(gerror.Cause(err), err)
+		t.Assert(错误类.X取根错误(err), err)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
-		t.Assert(gerror.Cause(err), "1")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
+		t.Assert(错误类.X取根错误(err), "1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		t.Assert(gerror.Cause(err), "1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		t.Assert(错误类.X取根错误(err), "1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
-		t.Assert(gerror.Cause(err), "1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
+		t.Assert(错误类.X取根错误(err), "1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.Stack(nil), "")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X取文本(nil), "")
 		err := errors.New("1")
-		t.Assert(gerror.Stack(err), err)
+		t.Assert(错误类.X取文本(err), err)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		var e *gerror.Error = nil
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var e *错误类.Error = nil
 		t.Assert(e.Cause(), nil)
 	})
 }
 
 func Test_Format(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(fmt.Sprintf("%s", err), "3: 2: 1")
 		t.Assert(fmt.Sprintf("%v", err), "3: 2: 1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(fmt.Sprintf("%s", err), "3: 2: 1")
 		t.Assert(fmt.Sprintf("%v", err), "3: 2: 1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.AssertNE(err, nil)
 		t.Assert(fmt.Sprintf("%-s", err), "3")
 		t.Assert(fmt.Sprintf("%-v", err), "3")
@@ -215,165 +215,165 @@ func Test_Format(t *testing.T) {
 }
 
 func Test_Stack(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err := errors.New("1")
 		t.Assert(fmt.Sprintf("%+v", err), "1")
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.AssertNE(err, nil)
 		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
 		t.AssertNE(fmt.Sprintf("%+v", err), "1")
 		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
 	})
 
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("1")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.AssertNE(err, nil)
 		// 使用 %+v 格式化输出错误信息，会包含错误类型和详细堆栈信息
 	})
 }
 
 func Test_Current(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.Current(nil), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X取当前错误(nil), nil)
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.Assert(err.Error(), "3: 2: 1")
-		t.Assert(gerror.Current(err).Error(), "3")
+		t.Assert(错误类.X取当前错误(err).Error(), "3")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		var e *gerror.Error = nil
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var e *错误类.Error = nil
 		t.Assert(e.Current(), nil)
 	})
 }
 
 func Test_Unwrap(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.Unwrap(nil), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X取下一层错误(nil), nil)
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.Wrap(err, "3")
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误(err, "3")
 		t.Assert(err.Error(), "3: 2: 1")
 
-		err = gerror.Unwrap(err)
+		err = 错误类.X取下一层错误(err)
 		t.Assert(err.Error(), "2: 1")
 
-		err = gerror.Unwrap(err)
+		err = 错误类.X取下一层错误(err)
 		t.Assert(err.Error(), "1")
 
-		err = gerror.Unwrap(err)
+		err = 错误类.X取下一层错误(err)
 		t.AssertNil(err)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		var e *gerror.Error = nil
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var e *错误类.Error = nil
 		t.Assert(e.Unwrap(), nil)
 	})
 }
 
 func Test_Code(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err := errors.New("123")
-		t.Assert(gerror.Code(err), -1)
+		t.Assert(错误类.X取错误码(err), -1)
 		t.Assert(err.Error(), "123")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.NewCode(gcode.CodeUnknown, "123")
-		t.Assert(gerror.Code(err), gcode.CodeUnknown)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建错误码(错误码类.CodeUnknown, "123")
+		t.Assert(错误类.X取错误码(err), 错误码类.CodeUnknown)
 		t.Assert(err.Error(), "123")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.NewCodef(gcode.New(1, "", nil), "%s", "123")
-		t.Assert(gerror.Code(err).Code(), 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建错误码并格式化(错误码类.New(1, "", nil), "%s", "123")
+		t.Assert(错误类.X取错误码(err).Code(), 1)
 		t.Assert(err.Error(), "123")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.NewCodeSkip(gcode.New(1, "", nil), 0, "123")
-		t.Assert(gerror.Code(err).Code(), 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建错误码并跳过堆栈(错误码类.New(1, "", nil), 0, "123")
+		t.Assert(错误类.X取错误码(err).Code(), 1)
 		t.Assert(err.Error(), "123")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.NewCodeSkipf(gcode.New(1, "", nil), 0, "%s", "123")
-		t.Assert(gerror.Code(err).Code(), 1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建错误码并跳过堆栈与格式化(错误码类.New(1, "", nil), 0, "%s", "123")
+		t.Assert(错误类.X取错误码(err).Code(), 1)
 		t.Assert(err.Error(), "123")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.WrapCode(gcode.New(1, "", nil), nil, "3"), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X多层错误码(错误码类.New(1, "", nil), nil, "3"), nil)
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.WrapCode(gcode.New(1, "", nil), err, "3")
-		t.Assert(gerror.Code(err).Code(), 1)
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误码(错误码类.New(1, "", nil), err, "3")
+		t.Assert(错误类.X取错误码(err).Code(), 1)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.WrapCodef(gcode.New(1, "", nil), nil, "%s", "3"), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X多层错误码并格式化(错误码类.New(1, "", nil), nil, "%s", "3"), nil)
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.WrapCodef(gcode.New(1, "", nil), err, "%s", "3")
-		t.Assert(gerror.Code(err).Code(), 1)
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误码并格式化(错误码类.New(1, "", nil), err, "%s", "3")
+		t.Assert(错误类.X取错误码(err).Code(), 1)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.WrapCodeSkip(gcode.New(1, "", nil), 100, nil, "3"), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X多层错误码并跳过堆栈(错误码类.New(1, "", nil), 100, nil, "3"), nil)
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.WrapCodeSkip(gcode.New(1, "", nil), 100, err, "3")
-		t.Assert(gerror.Code(err).Code(), 1)
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误码并跳过堆栈(错误码类.New(1, "", nil), 100, err, "3")
+		t.Assert(错误类.X取错误码(err).Code(), 1)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.WrapCodeSkipf(gcode.New(1, "", nil), 100, nil, "%s", "3"), nil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X多层错误码并跳过堆栈与格式化(错误码类.New(1, "", nil), 100, nil, "%s", "3"), nil)
 		err := errors.New("1")
-		err = gerror.Wrap(err, "2")
-		err = gerror.WrapCodeSkipf(gcode.New(1, "", nil), 100, err, "%s", "3")
-		t.Assert(gerror.Code(err).Code(), 1)
+		err = 错误类.X多层错误(err, "2")
+		err = 错误类.X多层错误码并跳过堆栈与格式化(错误码类.New(1, "", nil), 100, err, "%s", "3")
+		t.Assert(错误类.X取错误码(err).Code(), 1)
 		t.Assert(err.Error(), "3: 2: 1")
 	})
 }
 
 func TestError_Error(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		var e *gerror.Error = nil
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var e *错误类.Error = nil
 		t.Assert(e.Error(), nil)
 	})
 }
 
 func TestError_Code(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		var e *gerror.Error = nil
-		t.Assert(e.Code(), gcode.CodeNil)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var e *错误类.Error = nil
+		t.Assert(e.Code(), 错误码类.CodeNil)
 	})
 }
 
 func Test_SetCode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.New("123")
-		t.Assert(gerror.Code(err), -1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X创建("123")
+		t.Assert(错误类.X取错误码(err), -1)
 		t.Assert(err.Error(), "123")
 
-		err.(*gerror.Error).SetCode(gcode.CodeValidationFailed)
-		t.Assert(gerror.Code(err), gcode.CodeValidationFailed)
+		err.(*错误类.Error).SetCode(错误码类.CodeValidationFailed)
+		t.Assert(错误类.X取错误码(err), 错误码类.CodeValidationFailed)
 		t.Assert(err.Error(), "123")
 	})
-	gtest.C(t, func(t *gtest.T) {
-		var err *gerror.Error = nil
-		err.SetCode(gcode.CodeValidationFailed)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var err *错误类.Error = nil
+		err.SetCode(错误码类.CodeValidationFailed)
 	})
 }
 
 func Test_Json(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		err := gerror.Wrap(gerror.New("1"), "2")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := 错误类.X多层错误(错误类.X创建("1"), "2")
 		b, e := json.Marshal(err)
 		t.Assert(e, nil)
 		t.Assert(string(b), `"2: 1"`)
@@ -381,71 +381,71 @@ func Test_Json(t *testing.T) {
 }
 
 func Test_HasStack(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err1 := errors.New("1")
-		err2 := gerror.New("1")
-		t.Assert(gerror.HasStack(err1), false)
-		t.Assert(gerror.HasStack(err2), true)
+		err2 := 错误类.X创建("1")
+		t.Assert(错误类.X判断是否带堆栈(err1), false)
+		t.Assert(错误类.X判断是否带堆栈(err2), true)
 	})
 }
 
 func Test_Equal(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err1 := errors.New("1")
 		err2 := errors.New("1")
-		err3 := gerror.New("1")
-		err4 := gerror.New("4")
-		t.Assert(gerror.Equal(err1, err2), false)
-		t.Assert(gerror.Equal(err1, err3), true)
-		t.Assert(gerror.Equal(err2, err3), true)
-		t.Assert(gerror.Equal(err3, err4), false)
-		t.Assert(gerror.Equal(err1, err4), false)
+		err3 := 错误类.X创建("1")
+		err4 := 错误类.X创建("4")
+		t.Assert(错误类.X是否相等(err1, err2), false)
+		t.Assert(错误类.X是否相等(err1, err3), true)
+		t.Assert(错误类.X是否相等(err2, err3), true)
+		t.Assert(错误类.X是否相等(err3, err4), false)
+		t.Assert(错误类.X是否相等(err1, err4), false)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		var e = new(gerror.Error)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var e = new(错误类.Error)
 		t.Assert(e.Equal(e), true)
 	})
 }
 
 func Test_Is(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err1 := errors.New("1")
-		err2 := gerror.Wrap(err1, "2")
-		err2 = gerror.Wrap(err2, "3")
-		t.Assert(gerror.Is(err2, err1), true)
+		err2 := 错误类.X多层错误(err1, "2")
+		err2 = 错误类.X多层错误(err2, "3")
+		t.Assert(错误类.X是否包含(err2, err1), true)
 	})
 }
 
 func Test_HashError(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		err1 := errors.New("1")
-		err2 := gerror.Wrap(err1, "2")
-		err2 = gerror.Wrap(err2, "3")
-		t.Assert(gerror.HasError(err2, err1), true)
+		err2 := 错误类.X多层错误(err1, "2")
+		err2 = 错误类.X多层错误(err2, "3")
+		t.Assert(错误类.HasError别名(err2, err1), true)
 	})
 }
 
 func Test_HashCode(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gerror.HasCode(nil, gcode.CodeNotAuthorized), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(错误类.X是否包含错误码(nil, 错误码类.CodeNotAuthorized), false)
 		err1 := errors.New("1")
-		err2 := gerror.WrapCode(gcode.CodeNotAuthorized, err1, "2")
-		err3 := gerror.Wrap(err2, "3")
-		err4 := gerror.Wrap(err3, "4")
-		t.Assert(gerror.HasCode(err1, gcode.CodeNotAuthorized), false)
-		t.Assert(gerror.HasCode(err2, gcode.CodeNotAuthorized), true)
-		t.Assert(gerror.HasCode(err3, gcode.CodeNotAuthorized), true)
-		t.Assert(gerror.HasCode(err4, gcode.CodeNotAuthorized), true)
+		err2 := 错误类.X多层错误码(错误码类.CodeNotAuthorized, err1, "2")
+		err3 := 错误类.X多层错误(err2, "3")
+		err4 := 错误类.X多层错误(err3, "4")
+		t.Assert(错误类.X是否包含错误码(err1, 错误码类.CodeNotAuthorized), false)
+		t.Assert(错误类.X是否包含错误码(err2, 错误码类.CodeNotAuthorized), true)
+		t.Assert(错误类.X是否包含错误码(err3, 错误码类.CodeNotAuthorized), true)
+		t.Assert(错误类.X是否包含错误码(err4, 错误码类.CodeNotAuthorized), true)
 	})
 }
 
 func Test_NewOption(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.AssertNE(gerror.NewWithOption(gerror.Option{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.AssertNE(错误类.NewWithOption(错误类.Option{
 			Error: errors.New("NewOptionError"),
 			Stack: true,
 			Text:  "Text",
-			Code:  gcode.CodeNotAuthorized,
-		}), gerror.New("NewOptionError"))
+			Code:  错误码类.CodeNotAuthorized,
+		}), 错误类.X创建("NewOptionError"))
 	})
 }

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtree
+package 树形类
 
 import (
 	"bytes"
@@ -87,7 +87,7 @@ func (tree *RedBlackTree) Clone() *RedBlackTree {
 }
 
 // Set 将键值对项插入到树中。
-func (tree *RedBlackTree) Set(key interface{}, value interface{}) {
+func (tree *RedBlackTree) X设置值(key interface{}, value interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
 	tree.doSet(key, value)
@@ -207,26 +207,26 @@ func (tree *RedBlackTree) GetOrSetFuncLock(key interface{}, f func() interface{}
 
 // GetVar 通过给定的 `key` 返回一个包含其值的 gvar.Var。
 // 返回的 gvar.Var 对象不支持并发安全。
-func (tree *RedBlackTree) GetVar(key interface{}) *gvar.Var {
-	return gvar.New(tree.Get(key))
+func (tree *RedBlackTree) GetVar(key interface{}) *泛型类.Var {
+	return 泛型类.X创建(tree.Get(key))
 }
 
 // GetVarOrSet 返回一个从 GetVarOrSet 获取结果的 gvar.Var。
 // 返回的 gvar.Var 不是线程安全的。
-func (tree *RedBlackTree) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
-	return gvar.New(tree.GetOrSet(key, value))
+func (tree *RedBlackTree) GetVarOrSet(key interface{}, value interface{}) *泛型类.Var {
+	return 泛型类.X创建(tree.GetOrSet(key, value))
 }
 
 // GetVarOrSetFunc 返回一个 gvar.Var，其结果来自 GetOrSetFunc。
 // 返回的 gvar.Var 不是线程安全的。
-func (tree *RedBlackTree) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
-	return gvar.New(tree.GetOrSetFunc(key, f))
+func (tree *RedBlackTree) GetVarOrSetFunc(key interface{}, f func() interface{}) *泛型类.Var {
+	return 泛型类.X创建(tree.GetOrSetFunc(key, f))
 }
 
 // GetVarOrSetFuncLock 返回一个 gvar.Var，其结果来自 GetOrSetFuncLock。
 // 返回的 gvar.Var 并未实现并发安全。
-func (tree *RedBlackTree) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
-	return gvar.New(tree.GetOrSetFuncLock(key, f))
+func (tree *RedBlackTree) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *泛型类.Var {
+	return 泛型类.X创建(tree.GetOrSetFuncLock(key, f))
 }
 
 // SetIfNotExist 如果`key`不存在，则将`value`设置到map中，并返回true。
@@ -368,10 +368,10 @@ func (tree *RedBlackTree) Map() map[interface{}]interface{} {
 }
 
 // MapStrAny 返回所有键值对项作为 map[string]interface{} 类型。
-func (tree *RedBlackTree) MapStrAny() map[string]interface{} {
+func (tree *RedBlackTree) X取MapStrAny() map[string]interface{} {
 	m := make(map[string]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
-		m[gconv.String(key)] = value
+		m[转换类.String(key)] = value
 		return true
 	})
 	return m
@@ -482,7 +482,7 @@ func (tree *RedBlackTree) Ceiling(key interface{}) (ceiling *RedBlackTreeNode, f
 }
 
 // Iterator 是 IteratorAsc 的别名。
-func (tree *RedBlackTree) Iterator(f func(key, value interface{}) bool) {
+func (tree *RedBlackTree) X遍历(f func(key, value interface{}) bool) {
 	tree.IteratorAsc(f)
 }
 
@@ -926,7 +926,7 @@ func (tree RedBlackTree) MarshalJSON() (jsonBytes []byte, err error) {
 	}
 	buffer := bytes.NewBuffer(nil)
 	buffer.WriteByte('{')
-	tree.Iterator(func(key, value interface{}) bool {
+	tree.X遍历(func(key, value interface{}) bool {
 		valueBytes, valueJsonErr := json.Marshal(value)
 		if valueJsonErr != nil {
 			err = valueJsonErr
@@ -947,7 +947,7 @@ func (tree *RedBlackTree) UnmarshalJSON(b []byte) error {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
 	if tree.comparator == nil {
-		tree.comparator = gutil.ComparatorString
+		tree.comparator = 工具类.X比较文本
 	}
 	var data map[string]interface{}
 	if err := json.UnmarshalUseNumber(b, &data); err != nil {
@@ -964,9 +964,9 @@ func (tree *RedBlackTree) UnmarshalValue(value interface{}) (err error) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
 	if tree.comparator == nil {
-		tree.comparator = gutil.ComparatorString
+		tree.comparator = 工具类.X比较文本
 	}
-	for k, v := range gconv.Map(value) {
+	for k, v := range 转换类.X取Map(value) {
 		tree.doSet(k, v)
 	}
 	return

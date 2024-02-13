@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gstr
+package 文本类
 
 import (
 	"net/url"
@@ -24,12 +24,12 @@ import (
 // v=m&v[a]=n          -> 报错
 // a .[[b=c            -> 解析得到的映射：map[a___[b:c]]
 // 注意，上述代码注释描述了一个将查询字符串形式的数据解析成 Go 语言中的 map 的功能。在处理嵌套结构时，它会根据键名包含的中括号 `[]` 和方括号 `[]` 来构建嵌套的 map 或 slice。不过需要注意的是，对于 "v[][]=m&v[][]=n" 这种情况，当前实现并不支持嵌套的 slice 结构。
-func Parse(s string) (result map[string]interface{}, err error) {
-	if s == "" {
+func X参数解析(文本 string) (map结果 map[string]interface{}, 错误 error) {
+	if 文本 == "" {
 		return nil, nil
 	}
-	result = make(map[string]interface{})
-	parts := strings.Split(s, "&")
+	map结果 = make(map[string]interface{})
+	parts := strings.Split(文本, "&")
 	for _, part := range parts {
 		pos := strings.Index(part, "=")
 		if pos <= 0 {
@@ -37,7 +37,7 @@ func Parse(s string) (result map[string]interface{}, err error) {
 		}
 		key, err := url.QueryUnescape(part[:pos])
 		if err != nil {
-			err = gerror.Wrapf(err, `url.QueryUnescape failed for string "%s"`, part[:pos])
+			err = 错误类.X多层错误并格式化(err, `url.QueryUnescape failed for string "%s"`, part[:pos])
 			return nil, err
 		}
 
@@ -50,7 +50,7 @@ func Parse(s string) (result map[string]interface{}, err error) {
 		}
 		value, err := url.QueryUnescape(part[pos+1:])
 		if err != nil {
-			err = gerror.Wrapf(err, `url.QueryUnescape failed for string "%s"`, part[pos+1:])
+			err = 错误类.X多层错误并格式化(err, `url.QueryUnescape failed for string "%s"`, part[pos+1:])
 			return nil, err
 		}
 		// 将其拆分为多个键
@@ -91,11 +91,11 @@ func Parse(s string) (result map[string]interface{}, err error) {
 		keys[0] = first
 
 		// build nested map
-		if err = build(result, keys, value); err != nil {
+		if err = build(map结果, keys, value); err != nil {
 			return nil, err
 		}
 	}
-	return result, nil
+	return map结果, nil
 }
 
 // build nested map.
@@ -122,8 +122,8 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 		}
 		children, ok := val.([]interface{})
 		if !ok {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				"expected type '[]interface{}' for key '%s', but got '%T'",
 				key, val,
 			)
@@ -140,8 +140,8 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 		}
 		children, ok := val.([]interface{})
 		if !ok {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				"expected type '[]interface{}' for key '%s', but got '%T'",
 				key, val,
 			)
@@ -168,8 +168,8 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 	}
 	children, ok := val.(map[string]interface{})
 	if !ok {
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			"expected type 'map[string]interface{}' for key '%s', but got '%T'",
 			key, val,
 		)

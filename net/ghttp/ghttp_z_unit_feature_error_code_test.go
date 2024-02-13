@@ -5,7 +5,7 @@
 
 // 静态服务测试。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -21,25 +21,25 @@ import (
 )
 
 func Test_Error_Code(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
-		s.Group("/", func(group *ghttp.RouterGroup) {
-			group.Middleware(func(r *ghttp.Request) {
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s := g.Http类(uid类.X生成())
+		s.X创建分组路由("/", func(group *http类.RouterGroup) {
+			group.X绑定中间件(func(r *http类.Request) {
 				r.Middleware.Next()
-				r.Response.ClearBuffer()
-				r.Response.Write(gerror.Code(r.GetError()))
+				r.Response.X清空缓冲区()
+				r.Response.X写响应缓冲区(错误类.X取错误码(r.X取错误信息()))
 			})
-			group.ALL("/", func(r *ghttp.Request) {
-				panic(gerror.NewCode(gcode.New(10000, "", nil), "test error"))
+			group.X绑定所有类型("/", func(r *http类.Request) {
+				panic(错误类.X创建错误码(错误码类.New(10000, "", nil), "test error"))
 			})
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(c.GetContent(ctx, "/"), "10000")
+		t.Assert(c.Get文本(ctx, "/"), "10000")
 	})
 }

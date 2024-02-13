@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp
+package http类
 
 import (
 	"net/http"
@@ -36,7 +36,7 @@ type cookieItem struct {
 // GetCookie 函数通过给定的请求创建或检索一个 cookie 对象。
 // 若已存在与给定请求相关的 cookie，则检索并返回该存在的 cookie 对象。
 // 若不存在与给定请求相关的 cookie，则创建并返回一个新的 cookie 对象。
-func GetCookie(r *Request) *Cookie {
+func X取cookie对象(r *Request) *Cookie {
 	if r.Cookie != nil {
 		return r.Cookie
 	}
@@ -65,7 +65,7 @@ func (c *Cookie) init() {
 }
 
 // Map 将 cookie 项以 map[string]string 的形式返回。
-func (c *Cookie) Map() map[string]string {
+func (c *Cookie) X取Map() map[string]string {
 	c.init()
 	m := make(map[string]string)
 	for k, v := range c.data {
@@ -75,9 +75,9 @@ func (c *Cookie) Map() map[string]string {
 }
 
 // Contains 检查给定的键是否存在且在 cookie 中未过期。
-func (c *Cookie) Contains(key string) bool {
+func (c *Cookie) X是否已过期(名称 string) bool {
 	c.init()
-	if r, ok := c.data[key]; ok {
+	if r, ok := c.data[名称]; ok {
 		if r.Expires.IsZero() || r.Expires.After(time.Now()) {
 			return true
 		}
@@ -86,48 +86,48 @@ func (c *Cookie) Contains(key string) bool {
 }
 
 // Set 使用默认的域名、路径和过期时间设置cookie项。
-func (c *Cookie) Set(key, value string) {
-	c.SetCookie(
-		key,
-		value,
-		c.request.Server.GetCookieDomain(),
-		c.request.Server.GetCookiePath(),
-		c.request.Server.GetCookieMaxAge(),
+func (c *Cookie) X设置值(名称, 值 string) {
+	c.X设置cookie(
+		名称,
+		值,
+		c.request.Server.X取Cookie域名(),
+		c.request.Server.X取Cookie路径(),
+		c.request.Server.X取Cookie最大存活时长(),
 		CookieOptions{
-			SameSite: c.request.Server.GetCookieSameSite(),
-			Secure:   c.request.Server.GetCookieSecure(),
-			HttpOnly: c.request.Server.GetCookieHttpOnly(),
+			SameSite: c.request.Server.X取CookieSameSite(),
+			Secure:   c.request.Server.X取Cookie安全(),
+			HttpOnly: c.request.Server.X取CookieHttpOnly(),
 		},
 	)
 }
 
 // SetCookie 用于给指定的域名、路径设置cookie项，并设置其过期时间。
 // 可选参数 `options` 指定了额外的安全配置，通常为空。
-func (c *Cookie) SetCookie(key, value, domain, path string, maxAge time.Duration, options ...CookieOptions) {
+func (c *Cookie) X设置cookie(名称, 值, 域名, 路径 string, 最大存活时长 time.Duration, 安全配置项 ...CookieOptions) {
 	c.init()
 	config := CookieOptions{}
-	if len(options) > 0 {
-		config = options[0]
+	if len(安全配置项) > 0 {
+		config = 安全配置项[0]
 	}
 	httpCookie := &http.Cookie{
-		Name:     key,
-		Value:    value,
-		Path:     path,
-		Domain:   domain,
+		Name:     名称,
+		Value:    值,
+		Path:     路径,
+		Domain:   域名,
 		HttpOnly: config.HttpOnly,
 		SameSite: config.SameSite,
 		Secure:   config.Secure,
 	}
-	if maxAge != 0 {
-		httpCookie.Expires = time.Now().Add(maxAge)
+	if 最大存活时长 != 0 {
+		httpCookie.Expires = time.Now().Add(最大存活时长)
 	}
-	c.data[key] = &cookieItem{
+	c.data[名称] = &cookieItem{
 		Cookie: httpCookie,
 	}
 }
 
 // SetHttpCookie 通过 *http.Cookie 设置 cookie。
-func (c *Cookie) SetHttpCookie(httpCookie *http.Cookie) {
+func (c *Cookie) X设置httpcookie(httpCookie *http.Cookie) {
 	c.init()
 	c.data[httpCookie.Name] = &cookieItem{
 		Cookie: httpCookie,
@@ -135,61 +135,61 @@ func (c *Cookie) SetHttpCookie(httpCookie *http.Cookie) {
 }
 
 // GetSessionId 从cookie中获取并返回会话id。
-func (c *Cookie) GetSessionId() string {
-	return c.Get(c.server.GetSessionIdName()).String()
+func (c *Cookie) X取SessionId() string {
+	return c.X取值(c.server.X取SessionID名称()).String()
 }
 
 // SetSessionId 将会话ID设置到cookie中。
-func (c *Cookie) SetSessionId(id string) {
-	c.SetCookie(
-		c.server.GetSessionIdName(),
+func (c *Cookie) X设置SessionId到Cookie(id string) {
+	c.X设置cookie(
+		c.server.X取SessionID名称(),
 		id,
-		c.request.Server.GetCookieDomain(),
-		c.request.Server.GetCookiePath(),
-		c.server.GetSessionCookieMaxAge(),
+		c.request.Server.X取Cookie域名(),
+		c.request.Server.X取Cookie路径(),
+		c.server.X取SessionCookie存活时长(),
 		CookieOptions{
-			SameSite: c.request.Server.GetCookieSameSite(),
-			Secure:   c.request.Server.GetCookieSecure(),
-			HttpOnly: c.request.Server.GetCookieHttpOnly(),
+			SameSite: c.request.Server.X取CookieSameSite(),
+			Secure:   c.request.Server.X取Cookie安全(),
+			HttpOnly: c.request.Server.X取CookieHttpOnly(),
 		},
 	)
 }
 
 // Get 方法用于获取并返回指定键的值。
 // 如果指定的键不存在且提供了默认值 `def`，则返回 `def`。
-func (c *Cookie) Get(key string, def ...string) *gvar.Var {
+func (c *Cookie) X取值(名称 string, 默认值 ...string) *泛型类.Var {
 	c.init()
-	if r, ok := c.data[key]; ok {
+	if r, ok := c.data[名称]; ok {
 		if r.Expires.IsZero() || r.Expires.After(time.Now()) {
-			return gvar.New(r.Value)
+			return 泛型类.X创建(r.Value)
 		}
 	}
-	if len(def) > 0 {
-		return gvar.New(def[0])
+	if len(默认值) > 0 {
+		return 泛型类.X创建(默认值[0])
 	}
 	return nil
 }
 
 // Remove 函数通过使用默认的域名和路径，从cookie中删除指定的键及其对应的值。
 // 实质上，它告知http客户端该cookie已过期，下次不要将其发送到服务器。
-func (c *Cookie) Remove(key string) {
-	c.SetCookie(
-		key,
+func (c *Cookie) X删除值(名称 string) {
+	c.X设置cookie(
+		名称,
 		"",
-		c.request.Server.GetCookieDomain(),
-		c.request.Server.GetCookiePath(),
+		c.request.Server.X取Cookie域名(),
+		c.request.Server.X取Cookie路径(),
 		-24*time.Hour,
 	)
 }
 
 // RemoveCookie 通过给定的域名和路径，从cookie中删除指定的键及其对应的值。
 // 实际上，它会告知http客户端该cookie已过期，下次不要将其发送到服务器。
-func (c *Cookie) RemoveCookie(key, domain, path string) {
-	c.SetCookie(key, "", domain, path, -24*time.Hour)
+func (c *Cookie) X删除cookie(名称, 域名, 路径 string) {
+	c.X设置cookie(名称, "", 域名, 路径, -24*time.Hour)
 }
 
 // Flush 将cookie项输出到客户端。
-func (c *Cookie) Flush() {
+func (c *Cookie) X输出() {
 	if len(c.data) == 0 {
 		return
 	}

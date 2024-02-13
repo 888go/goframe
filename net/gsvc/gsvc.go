@@ -138,7 +138,7 @@ var defaultRegistry Registry
 // SetRegistry 设置默认的注册中心为自定义实现的接口。
 func SetRegistry(registry Registry) {
 	if registry == nil {
-		panic(gerror.New(`invalid Registry value "nil" given`))
+		panic(错误类.X创建(`invalid Registry value "nil" given`))
 	}
 	defaultRegistry = registry
 }

@@ -20,31 +20,31 @@ import (
 )
 
 func Test_Server(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			path                = gcfg.DefaultConfigFileName
-			serverConfigContent = gtest.DataContent("server", "config.yaml")
-			err                 = gfile.PutContents(path, serverConfigContent)
+			path                = 配置类.X默认配置文件名称
+			serverConfigContent = 单元测试类.DataContent("server", "config.yaml")
+			err                 = 文件类.X写入文本(path, serverConfigContent)
 		)
 		t.AssertNil(err)
-		defer gfile.Remove(path)
+		defer 文件类.X删除(path)
 
 		instance.Clear()
 		defer instance.Clear()
 
 		s := gins.Server("tempByInstanceName")
-		s.BindHandler("/", func(r *ghttp.Request) {
-			r.Response.Write("hello")
+		s.X绑定("/", func(r *http类.Request) {
+			r.Response.X写响应缓冲区("hello")
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 
 		time.Sleep(100 * time.Millisecond)
 
-		prefix := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
+		prefix := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
 		client := gins.HttpClient()
-		client.SetPrefix(prefix)
-		t.Assert(client.GetContent(gctx.New(), "/"), "hello")
+		client.X设置url前缀(prefix)
+		t.Assert(client.Get文本(上下文类.X创建(), "/"), "hello")
 	})
 }

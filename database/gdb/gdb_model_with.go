@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"database/sql"
@@ -35,11 +35,11 @@ import (
 // db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
 // 或者：
 // db.With(UserDetail{}, UserScores{}).Scan(xxx)
-func (m *Model) With(objects ...interface{}) *Model {
+func (m *Model) X关联对象(关联结构体 ...interface{}) *Model {
 	model := m.getModel()
-	for _, object := range objects {
+	for _, object := range 关联结构体 {
 		if m.tables == "" {
-			m.tablesInit = m.db.GetCore().QuotePrefixTableName(
+			m.tablesInit = m.db.X取Core对象().X底层添加前缀字符和引用字符(
 				getTableNameFromOrmTag(object),
 			)
 			m.tables = m.tablesInit
@@ -52,7 +52,7 @@ func (m *Model) With(objects ...interface{}) *Model {
 
 // WithAll 开启在所有具有"struct"标签中包含"with"标签的对象上的模型关联操作。
 // 常考"模型关联-静态关联"文档:https://goframe.org/pages/viewpage.action?pageId=7297190
-func (m *Model) WithAll() *Model {
+func (m *Model) X关联全部对象() *Model {
 	model := m.getModel()
 	model.withAll = true
 	return model
@@ -81,11 +81,11 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 					return err
 				}
 				var (
-					fieldTypeStr                = gstr.TrimAll(field.Type().String(), "*[]")
-					withItemReflectValueTypeStr = gstr.TrimAll(withItemReflectValueType.String(), "*[]")
+					fieldTypeStr                = 文本类.X过滤所有字符并含空白(field.Type().String(), "*[]")
+					withItemReflectValueTypeStr = 文本类.X过滤所有字符并含空白(withItemReflectValueType.String(), "*[]")
 				)
 				// 如果字段类型在指定的“with”类型数组中，则进行选择操作。
-				if gstr.Compare(fieldTypeStr, withItemReflectValueTypeStr) == 0 {
+				if 文本类.X顺序比较(fieldTypeStr, withItemReflectValueTypeStr) == 0 {
 					allowedTypeStrArray = append(allowedTypeStrArray, fieldTypeStr)
 				}
 			}
@@ -93,17 +93,17 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 	}
 	for _, field := range currentStructFieldMap {
 		var (
-			fieldTypeStr    = gstr.TrimAll(field.Type().String(), "*[]")
+			fieldTypeStr    = 文本类.X过滤所有字符并含空白(field.Type().String(), "*[]")
 			parsedTagOutput = m.parseWithTagInFieldStruct(field)
 		)
 		if parsedTagOutput.With == "" {
 			continue
 		}
 		// 它仅处理“with”类型属性的结构体，因此会忽略其他类型的结构体。
-		if !m.withAll && !gstr.InArray(allowedTypeStrArray, fieldTypeStr) {
+		if !m.withAll && !文本类.X数组是否存在(allowedTypeStrArray, fieldTypeStr) {
 			continue
 		}
-		array := gstr.SplitAndTrim(parsedTagOutput.With, "=")
+		array := 文本类.X分割并忽略空值(parsedTagOutput.With, "=")
 		if len(array) == 1 {
 // 它还支持仅使用一个列名
 // 如果两个表关联时使用相同的列名。
@@ -124,8 +124,8 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 			}
 		}
 		if relatedTargetValue == nil {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				`cannot find the target related value of name "%s" in with tag "%s" for attribute "%s.%s"`,
 				relatedTargetName, parsedTagOutput.With, reflect.TypeOf(pointer).Elem(), field.Name(),
 			)
@@ -143,25 +143,25 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 		}
 
 		// 递归并进行特性检查
-		model = m.db.With(field.Value).Hook(m.hookHandler)
+		model = m.db.X关联对象(field.Value).Hook(m.hookHandler)
 		if m.withAll {
-			model = model.WithAll()
+			model = model.X关联全部对象()
 		} else {
-			model = model.With(m.withArray...)
+			model = model.X关联对象(m.withArray...)
 		}
 		if parsedTagOutput.Where != "" {
-			model = model.Where(parsedTagOutput.Where)
+			model = model.X条件(parsedTagOutput.Where)
 		}
 		if parsedTagOutput.Order != "" {
-			model = model.Order(parsedTagOutput.Order)
+			model = model.X排序(parsedTagOutput.Order)
 		}
 		// 带有缓存功能。
-		if m.cacheEnabled && m.cacheOption.Name == "" {
-			model = model.Cache(m.cacheOption)
+		if m.cacheEnabled && m.cacheOption.X名称 == "" {
+			model = model.X缓存(m.cacheOption)
 		}
-		err = model.Fields(fieldKeys).
-			Where(relatedSourceName, relatedTargetValue).
-			Scan(bindToReflectValue)
+		err = model.X字段保留过滤(fieldKeys).
+			X条件(relatedSourceName, relatedTargetValue).
+			X查询到结构体指针(bindToReflectValue)
 		// 它在特性中忽略 sql.ErrNoRows 错误。
 		if err != nil && err != sql.ErrNoRows {
 			return err
@@ -198,11 +198,11 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 					return err
 				}
 				var (
-					fieldTypeStr                = gstr.TrimAll(field.Type().String(), "*[]")
-					withItemReflectValueTypeStr = gstr.TrimAll(withItemReflectValueType.String(), "*[]")
+					fieldTypeStr                = 文本类.X过滤所有字符并含空白(field.Type().String(), "*[]")
+					withItemReflectValueTypeStr = 文本类.X过滤所有字符并含空白(withItemReflectValueType.String(), "*[]")
 				)
 				// 如果字段类型在指定的类型数组中，它将执行选择操作。
-				if gstr.Compare(fieldTypeStr, withItemReflectValueTypeStr) == 0 {
+				if 文本类.X顺序比较(fieldTypeStr, withItemReflectValueTypeStr) == 0 {
 					allowedTypeStrArray = append(allowedTypeStrArray, fieldTypeStr)
 				}
 			}
@@ -211,16 +211,16 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 
 	for fieldName, field := range currentStructFieldMap {
 		var (
-			fieldTypeStr    = gstr.TrimAll(field.Type().String(), "*[]")
+			fieldTypeStr    = 文本类.X过滤所有字符并含空白(field.Type().String(), "*[]")
 			parsedTagOutput = m.parseWithTagInFieldStruct(field)
 		)
 		if parsedTagOutput.With == "" {
 			continue
 		}
-		if !m.withAll && !gstr.InArray(allowedTypeStrArray, fieldTypeStr) {
+		if !m.withAll && !文本类.X数组是否存在(allowedTypeStrArray, fieldTypeStr) {
 			continue
 		}
-		array := gstr.SplitAndTrim(parsedTagOutput.With, "=")
+		array := 文本类.X分割并忽略空值(parsedTagOutput.With, "=")
 		if len(array) == 1 {
 // 如果两个表使用相同的列名关联，则它支持仅使用一个列名。
 			array = append(array, parsedTagOutput.With)
@@ -235,19 +235,19 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 		// 从`pointer`中找到相关属性的值切片。
 		for attributeName := range currentStructFieldMap {
 			if utils.EqualFoldWithoutChars(attributeName, relatedTargetName) {
-				relatedTargetValue = ListItemValuesUnique(pointer, attributeName)
+				relatedTargetValue = X取结构体数组或Map数组值并去重(pointer, attributeName)
 				break
 			}
 		}
 		if relatedTargetValue == nil {
-			return gerror.NewCodef(
-				gcode.CodeInvalidParameter,
+			return 错误类.X创建错误码并格式化(
+				错误码类.CodeInvalidParameter,
 				`cannot find the related value for attribute name "%s" of with tag "%s"`,
 				relatedTargetName, parsedTagOutput.With,
 			)
 		}
 		// 如果相关值为空，则此函数不做任何操作，仅返回。
-		if gutil.IsEmpty(relatedTargetValue) {
+		if 工具类.X是否为空(relatedTargetValue) {
 			return nil
 		}
 		// 它会自动从当前属性结构体/切片中检索结构体字段名称。
@@ -257,25 +257,25 @@ func (m *Model) doWithScanStructs(pointer interface{}) error {
 			fieldKeys = structType.FieldKeys()
 		}
 		// 递归并进行特性检查
-		model = m.db.With(field.Value).Hook(m.hookHandler)
+		model = m.db.X关联对象(field.Value).Hook(m.hookHandler)
 		if m.withAll {
-			model = model.WithAll()
+			model = model.X关联全部对象()
 		} else {
-			model = model.With(m.withArray...)
+			model = model.X关联对象(m.withArray...)
 		}
 		if parsedTagOutput.Where != "" {
-			model = model.Where(parsedTagOutput.Where)
+			model = model.X条件(parsedTagOutput.Where)
 		}
 		if parsedTagOutput.Order != "" {
-			model = model.Order(parsedTagOutput.Order)
+			model = model.X排序(parsedTagOutput.Order)
 		}
 		// 带有缓存功能。
-		if m.cacheEnabled && m.cacheOption.Name == "" {
-			model = model.Cache(m.cacheOption)
+		if m.cacheEnabled && m.cacheOption.X名称 == "" {
+			model = model.X缓存(m.cacheOption)
 		}
-		err = model.Fields(fieldKeys).
-			Where(relatedSourceName, relatedTargetValue).
-			ScanList(pointer, fieldName, parsedTagOutput.With)
+		err = model.X字段保留过滤(fieldKeys).
+			X条件(relatedSourceName, relatedTargetValue).
+			X查询到指针列表(pointer, fieldName, parsedTagOutput.With)
 		// 它在特性中忽略 sql.ErrNoRows 错误。
 		if err != nil && err != sql.ErrNoRows {
 			return err
@@ -297,17 +297,17 @@ func (m *Model) parseWithTagInFieldStruct(field gstructs.Field) (output parseWit
 		array  []string
 		key    string
 	)
-	for _, v := range gstr.SplitAndTrim(ormTag, " ") {
-		array = gstr.Split(v, ":")
+	for _, v := range 文本类.X分割并忽略空值(ormTag, " ") {
+		array = 文本类.X分割(v, ":")
 		if len(array) == 2 {
 			key = array[0]
-			data[key] = gstr.Trim(array[1])
+			data[key] = 文本类.X过滤首尾符并含空白(array[1])
 		} else {
-			data[key] += " " + gstr.Trim(v)
+			data[key] += " " + 文本类.X过滤首尾符并含空白(v)
 		}
 	}
 	for k, v := range data {
-		data[k] = gstr.TrimRight(v, ",")
+		data[k] = 文本类.X过滤尾字符并含空白(v, ",")
 	}
 	output.With = data[OrmTagForWith]
 	output.Where = data[OrmTagForWithWhere]

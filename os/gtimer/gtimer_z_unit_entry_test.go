@@ -5,7 +5,7 @@
 
 // Job Operations
 
-package gtimer_test
+package 定时类_test
 
 import (
 	"context"
@@ -18,90 +18,90 @@ import (
 )
 
 func TestJob_Start_Stop_Close(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		timer := gtimer.New()
-		array := garray.New(true)
-		job := timer.Add(ctx, 200*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		timer := 定时类.X创建()
+		array := 数组类.X创建(true)
+		job := timer.X加入循环任务(ctx, 200*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 1)
-		job.Stop()
+		t.Assert(array.X取长度(), 1)
+		job.X暂停工作()
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 1)
-		job.Start()
+		t.Assert(array.X取长度(), 1)
+		job.X开始工作()
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 2)
-		job.Close()
+		t.Assert(array.X取长度(), 2)
+		job.X关闭任务()
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 
-		t.Assert(job.Status(), gtimer.StatusClosed)
+		t.Assert(job.X取任务状态(), 定时类.StatusClosed)
 	})
 }
 
 func TestJob_Singleton(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		timer := gtimer.New()
-		array := garray.New(true)
-		job := timer.Add(ctx, 200*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		timer := 定时类.X创建()
+		array := 数组类.X创建(true)
+		job := timer.X加入循环任务(ctx, 200*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 			time.Sleep(10 * time.Second)
 		})
-		t.Assert(job.IsSingleton(), false)
-		job.SetSingleton(true)
-		t.Assert(job.IsSingleton(), true)
+		t.Assert(job.X是否单例模式(), false)
+		job.X设置单例模式(true)
+		t.Assert(job.X是否单例模式(), true)
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }
 
 func TestJob_SingletonQuick(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		timer := gtimer.New(gtimer.TimerOptions{
+	单元测试类.C(t, func(t *单元测试类.T) {
+		timer := 定时类.X创建(定时类.TimerOptions{
 			Quick: true,
 		})
-		array := garray.New(true)
-		job := timer.Add(ctx, 5*time.Second, func(ctx context.Context) {
-			array.Append(1)
+		array := 数组类.X创建(true)
+		job := timer.X加入循环任务(ctx, 5*time.Second, func(ctx context.Context) {
+			array.Append别名(1)
 			time.Sleep(10 * time.Second)
 		})
-		t.Assert(job.IsSingleton(), false)
-		job.SetSingleton(true)
-		t.Assert(job.IsSingleton(), true)
+		t.Assert(job.X是否单例模式(), false)
+		job.X设置单例模式(true)
+		t.Assert(job.X是否单例模式(), true)
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 
 		time.Sleep(250 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }
 
 func TestJob_SetTimes(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		timer := gtimer.New()
-		array := garray.New(true)
-		job := timer.Add(ctx, 200*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		timer := 定时类.X创建()
+		array := 数组类.X创建(true)
+		job := timer.X加入循环任务(ctx, 200*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 		})
-		job.SetTimes(2)
+		job.X设置任务次数(2)
 		//job.IsSingleton()
 		time.Sleep(1200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
 func TestJob_Run(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		timer := gtimer.New()
-		array := garray.New(true)
-		job := timer.Add(ctx, 1000*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		timer := 定时类.X创建()
+		array := 数组类.X创建(true)
+		job := timer.X加入循环任务(ctx, 1000*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 		})
-		job.Job()(ctx)
-		t.Assert(array.Len(), 1)
+		job.X取任务函数()(ctx)
+		t.Assert(array.X取长度(), 1)
 	})
 }

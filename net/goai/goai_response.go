@@ -23,8 +23,8 @@ type Response struct {
 
 func (oai *OpenApiV3) tagMapToResponse(tagMap map[string]string, response *Response) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
-	if err := gconv.Struct(mergedTagMap, response); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Response failed`)
+	if err := 转换类.Struct(mergedTagMap, response); err != nil {
+		return 错误类.X多层错误(err, `mapping struct tags to Response failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, response.XExtensions)
 	return nil

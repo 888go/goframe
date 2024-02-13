@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gmap_test
+package map类_test
 
 import (
 	"testing"
@@ -14,17 +14,17 @@ import (
 	"github.com/888go/goframe/util/gutil"
 )
 
-var hashMap = gmap.New(true)
+var hashMap = map类.X创建(true)
 
-var listMap = gmap.NewListMap(true)
+var listMap = map类.X创建链表mp(true)
 
-var treeMap = gmap.NewTreeMap(gutil.ComparatorInt, true)
+var treeMap = map类.X创建红黑树Map(工具类.X比较整数, true)
 
 func Benchmark_HashMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			hashMap.Set(i, i)
+			hashMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -34,7 +34,7 @@ func Benchmark_ListMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			listMap.Set(i, i)
+			listMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -44,7 +44,7 @@ func Benchmark_TreeMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			treeMap.Set(i, i)
+			treeMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -54,7 +54,7 @@ func Benchmark_HashMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			hashMap.Get(i)
+			hashMap.X取值(i)
 			i++
 		}
 	})
@@ -64,7 +64,7 @@ func Benchmark_ListMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			listMap.Get(i)
+			listMap.X取值(i)
 			i++
 		}
 	})

@@ -12,10 +12,10 @@ import (
 
 func ExampleServer() {
 	// 一个简单的“你好，世界”示例。
-	s := g.Server()
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write("hello world")
+	s := g.Http类()
+	s.X绑定("/", func(r *http类.Request) {
+		r.Response.X写响应缓冲区("hello world")
 	})
-	s.SetPort(8999)
-	s.Run()
+	s.X设置监听端口(8999)
+	s.X启动服务()
 }

@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
@@ -52,10 +52,10 @@ func (TestCmdObject) Test(ctx context.Context, in TestCmdObjectTestInput) (out *
 }
 
 func Test_Command_NewFromObject_Help(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx      = gctx.New()
-			cmd, err = gcmd.NewFromObject(&TestCmdObject{})
+			ctx      = 上下文类.X创建()
+			cmd, err = cmd类.NewFromObject(&TestCmdObject{})
 		)
 		t.AssertNil(err)
 		t.Assert(cmd.Name, "root")
@@ -68,10 +68,10 @@ func Test_Command_NewFromObject_Help(t *testing.T) {
 }
 
 func Test_Command_NewFromObject_Run(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx      = gctx.New()
-			cmd, err = gcmd.NewFromObject(&TestCmdObject{})
+			ctx      = 上下文类.X创建()
+			cmd, err = cmd类.NewFromObject(&TestCmdObject{})
 		)
 		t.AssertNil(err)
 		t.Assert(cmd.Name, "root")
@@ -83,10 +83,10 @@ func Test_Command_NewFromObject_Run(t *testing.T) {
 }
 
 func Test_Command_NewFromObject_RunWithValue(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx      = gctx.New()
-			cmd, err = gcmd.NewFromObject(&TestCmdObject{})
+			ctx      = 上下文类.X创建()
+			cmd, err = cmd类.NewFromObject(&TestCmdObject{})
 		)
 		t.AssertNil(err)
 		t.Assert(cmd.Name, "root")
@@ -118,10 +118,10 @@ func Test_Command_NewFromObject_RunWithValue(t *testing.T) {
 }
 
 func Test_Command_AddObject(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx     = gctx.New()
-			command = gcmd.Command{
+			ctx     = 上下文类.X创建()
+			command = cmd类.Command{
 				Name: "start",
 			}
 		)
@@ -166,11 +166,11 @@ func (TestObjectForRootTag) Root(ctx context.Context, in TestObjectForRootTagTes
 }
 
 func Test_Command_RootTag(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 		)
-		cmd, err := gcmd.NewFromObject(TestObjectForRootTag{})
+		cmd, err := cmd类.NewFromObject(TestObjectForRootTag{})
 		t.AssertNil(err)
 
 		os.Args = []string{"root", "-n=john"}
@@ -179,11 +179,11 @@ func Test_Command_RootTag(t *testing.T) {
 		t.Assert(value, `{"Content":"john"}`)
 	})
 	// Pointer.
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 		)
-		cmd, err := gcmd.NewFromObject(&TestObjectForRootTag{})
+		cmd, err := cmd类.NewFromObject(&TestObjectForRootTag{})
 		t.AssertNil(err)
 
 		os.Args = []string{"root", "-n=john"}
@@ -226,11 +226,11 @@ func (TestObjectForNeedArgs) Test(ctx context.Context, in TestObjectForNeedArgsT
 }
 
 func Test_Command_NeedArgs(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 		)
-		cmd, err := gcmd.NewFromObject(TestObjectForNeedArgs{})
+		cmd, err := cmd类.NewFromObject(TestObjectForNeedArgs{})
 		t.AssertNil(err)
 
 // 将当前命令行参数设置为: ["root", "test", "a", "b", "c", "-h"]
@@ -278,11 +278,11 @@ func (c *TestObjectPointerTag) Root(ctx context.Context, in TestObjectPointerTag
 }
 
 func Test_Command_Pointer(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 		)
-		cmd, err := gcmd.NewFromObject(TestObjectPointerTag{})
+		cmd, err := cmd类.NewFromObject(TestObjectPointerTag{})
 		t.AssertNil(err)
 
 		os.Args = []string{"root", "-n=john"}
@@ -291,11 +291,11 @@ func Test_Command_Pointer(t *testing.T) {
 		t.Assert(value, `{"Content":"john"}`)
 	})
 
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var (
-			ctx = gctx.New()
+			ctx = 上下文类.X创建()
 		)
-		cmd, err := gcmd.NewFromObject(&TestObjectPointerTag{})
+		cmd, err := cmd类.NewFromObject(&TestObjectPointerTag{})
 		t.AssertNil(err)
 
 		os.Args = []string{"root", "-n=john"}
@@ -332,9 +332,9 @@ func (c *TestCommandOrphan) Index(ctx context.Context, in TestCommandOrphanIndex
 }
 
 func Test_Command_Orphan_Parameter(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		var ctx = gctx.New()
-		cmd, err := gcmd.NewFromObject(TestCommandOrphan{})
+	单元测试类.C(t, func(t *单元测试类.T) {
+		var ctx = 上下文类.X创建()
+		cmd, err := cmd类.NewFromObject(TestCommandOrphan{})
 		t.AssertNil(err)
 
 		os.Args = []string{"root", "index", "-n1", "-n2=0", "-n3=1"}

@@ -114,7 +114,7 @@ func (oai *OpenApiV3) addSchema(object ...interface{}) error {
 
 func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 	if oai.Components.Schemas.refs == nil {
-		oai.Components.Schemas.refs = gmap.NewListMap()
+		oai.Components.Schemas.refs = map类.X创建链表mp()
 	}
 
 	var (
@@ -127,14 +127,14 @@ func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 		return nil
 	}
 	// 首先获取持有者。
-	oai.Components.Schemas.Set(structTypeName, SchemaRef{})
+	oai.Components.Schemas.X设置值(structTypeName, SchemaRef{})
 
 	schema, err := oai.structToSchema(object)
 	if err != nil {
 		return err
 	}
 
-	oai.Components.Schemas.Set(structTypeName, SchemaRef{
+	oai.Components.Schemas.X设置值(structTypeName, SchemaRef{
 		Ref:   "",
 		Value: schema,
 	})
@@ -144,7 +144,7 @@ func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 // structToSchema将给定的结构体对象转换并返回为Schema。
 func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 	var (
-		tagMap = gmeta.Data(object)
+		tagMap = 元数据类.Data(object)
 		schema = &Schema{
 			Properties:  createSchemas(),
 			XExtensions: make(XExtensions),
@@ -180,17 +180,17 @@ func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 	})
 	schema.Type = TypeObject
 	for _, structField := range structFields {
-		if !gstr.IsLetterUpper(structField.Name()[0]) {
+		if !文本类.X是否大写字符(structField.Name()[0]) {
 			continue
 		}
 		var fieldName = structField.Name()
-		for _, tagName := range gconv.StructTagPriority {
+		for _, tagName := range 转换类.StructTagPriority {
 			if tagValue := structField.Tag(tagName); tagValue != "" {
 				fieldName = tagValue
 				break
 			}
 		}
-		fieldName = gstr.Split(gstr.Trim(fieldName), ",")[0]
+		fieldName = 文本类.X分割(文本类.X过滤首尾符并含空白(fieldName), ",")[0]
 		if fieldName == "" {
 			fieldName = structField.Name()
 		}
@@ -201,13 +201,13 @@ func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 		if err != nil {
 			return nil, err
 		}
-		schema.Properties.Set(fieldName, *schemaRef)
+		schema.Properties.X设置值(fieldName, *schemaRef)
 	}
 
-	schema.Properties.Iterator(func(key string, ref SchemaRef) bool {
+	schema.Properties.X遍历(func(key string, ref SchemaRef) bool {
 		if ref.Value != nil && ref.Value.ValidationRules != "" {
-			validationRuleSet := gset.NewStrSetFrom(gstr.Split(ref.Value.ValidationRules, "|"))
-			if validationRuleSet.Contains(validationRuleKeyForRequired) {
+			validationRuleSet := 集合类.X创建文本并按值(文本类.X分割(ref.Value.ValidationRules, "|"))
+			if validationRuleSet.X是否存在(validationRuleKeyForRequired) {
 				schema.Required = append(schema.Required, key)
 			}
 		}
@@ -226,33 +226,33 @@ func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 
 func (oai *OpenApiV3) tagMapToSchema(tagMap map[string]string, schema *Schema) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
-	if err := gconv.Struct(mergedTagMap, schema); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Schema failed`)
+	if err := 转换类.Struct(mergedTagMap, schema); err != nil {
+		return 错误类.X多层错误(err, `mapping struct tags to Schema failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, schema.XExtensions)
 	// 将验证信息转换为OpenAPI模式规范
-	for _, tag := range gvalid.GetTags() {
+	for _, tag := range 效验类.GetTags() {
 		if validationTagValue, ok := tagMap[tag]; ok {
-			_, validationRules, _ := gvalid.ParseTagValue(validationTagValue)
+			_, validationRules, _ := 效验类.ParseTagValue(validationTagValue)
 			schema.ValidationRules = validationRules
 			// Enum checks.
 			if len(schema.Enum) == 0 {
-				for _, rule := range gstr.SplitAndTrim(validationRules, "|") {
-					if gstr.HasPrefix(rule, validationRuleKeyForIn) {
+				for _, rule := range 文本类.X分割并忽略空值(validationRules, "|") {
+					if 文本类.X开头判断(rule, validationRuleKeyForIn) {
 						var (
 							isAllEnumNumber = true
-							enumArray       = gstr.SplitAndTrim(rule[len(validationRuleKeyForIn):], ",")
+							enumArray       = 文本类.X分割并忽略空值(rule[len(validationRuleKeyForIn):], ",")
 						)
 						for _, enum := range enumArray {
-							if !gstr.IsNumeric(enum) {
+							if !文本类.X是否为数字(enum) {
 								isAllEnumNumber = false
 								break
 							}
 						}
 						if isAllEnumNumber {
-							schema.Enum = gconv.Interfaces(gconv.Int64s(enumArray))
+							schema.Enum = 转换类.X取any数组(转换类.X取整数64位数组(enumArray))
 						} else {
-							schema.Enum = gconv.Interfaces(enumArray)
+							schema.Enum = 转换类.X取any数组(enumArray)
 						}
 					}
 				}

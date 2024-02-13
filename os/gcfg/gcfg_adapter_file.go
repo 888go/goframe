@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcfg
+package 配置类
 
 import (
 	"context"
@@ -25,8 +25,8 @@ import (
 // AdapterFile实现了使用文件的Adapter接口。
 type AdapterFile struct {
 	defaultName   string           // 默认配置文件名称。
-	searchPaths   *garray.StrArray // 搜索路径数组
-	jsonMap       *gmap.StrAnyMap  // 这是用于配置文件的解析后的JSON对象。
+	searchPaths   *数组类.StrArray // 搜索路径数组
+	jsonMap       *map类.StrAnyMap  // 这是用于配置文件的解析后的JSON对象。
 	violenceCheck bool             // 是否在值索引搜索时进行暴力检查。当设置为true（默认为false）时，会影响性能。
 }
 
@@ -37,8 +37,8 @@ const (
 
 var (
 	supportedFileTypes     = []string{"toml", "yaml", "yml", "json", "ini", "xml", "properties"} // 所有支持的文件类型后缀。
-	localInstances         = gmap.NewStrAnyMap(true)                                             // Instances：包含配置实例的映射（map）。
-	customConfigContentMap = gmap.NewStrStrMap(true)                                             // 自定义配置内容
+	localInstances         = map类.X创建StrAny(true)                                             // Instances：包含配置实例的映射（map）。
+	customConfigContentMap = map类.X创建StrStr(true)                                             // 自定义配置内容
 
 	// 前缀数组，用于在资源管理器中尝试搜索。
 	resourceTryFolders = []string{
@@ -55,7 +55,7 @@ var (
 func NewAdapterFile(file ...string) (*AdapterFile, error) {
 	var (
 		err  error
-		name = DefaultConfigFileName
+		name = X默认配置文件名称
 	)
 	if len(file) > 0 {
 		name = file[0]
@@ -67,17 +67,17 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 	}
 	config := &AdapterFile{
 		defaultName: name,
-		searchPaths: garray.NewStrArray(true),
-		jsonMap:     gmap.NewStrAnyMap(true),
+		searchPaths: 数组类.X创建文本(true),
+		jsonMap:     map类.X创建StrAny(true),
 	}
 	// 从环境变量/命令行自定义目录路径。
 	if customPath := command.GetOptWithEnv(commandEnvKeyForPath); customPath != "" {
-		if gfile.Exists(customPath) {
+		if 文件类.X是否存在(customPath) {
 			if err = config.SetPath(customPath); err != nil {
 				return nil, err
 			}
 		} else {
-			return nil, gerror.Newf(`configuration directory path "%s" does not exist`, customPath)
+			return nil, 错误类.X创建并格式化(`configuration directory path "%s" does not exist`, customPath)
 		}
 	} else {
 // ================================================================================
@@ -86,19 +86,19 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 // ================================================================================
 
 		// Dir：工作目录的路径。
-		if err = config.AddPath(gfile.Pwd()); err != nil {
+		if err = config.AddPath(文件类.X取当前工作目录()); err != nil {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
 
 		// Dir：主包的路径。
-		if mainPath := gfile.MainPkgPath(); mainPath != "" && gfile.Exists(mainPath) {
+		if mainPath := 文件类.X取main路径(); mainPath != "" && 文件类.X是否存在(mainPath) {
 			if err = config.AddPath(mainPath); err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
 		}
 
 		// Dir 二进制文件的路径。
-		if selfPath := gfile.SelfDir(); selfPath != "" && gfile.Exists(selfPath) {
+		if selfPath := 文件类.X取当前进程目录(); selfPath != "" && 文件类.X是否存在(selfPath) {
 			if err = config.AddPath(selfPath); err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
@@ -140,7 +140,7 @@ func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{
 		return nil, err
 	}
 	if j != nil {
-		return j.Get(pattern).Val(), nil
+		return j.X取值(pattern).X取值(), nil
 	}
 	return nil, nil
 }
@@ -150,13 +150,13 @@ func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{
 // 通常用于在运行时更新特定配置值。
 // 注意，不建议在运行时使用`Set`方法来配置，因为如果底层配置文件发生更改，
 // 配置将会自动刷新。因此，直接运行时设置可能不会持久生效。
-func (a *AdapterFile) Set(pattern string, value interface{}) error {
+func (a *AdapterFile) X设置值(pattern string, value interface{}) error {
 	j, err := a.getJson()
 	if err != nil {
 		return err
 	}
 	if j != nil {
-		return j.Set(pattern, value)
+		return j.X设置值(pattern, value)
 	}
 	return nil
 }
@@ -168,36 +168,36 @@ func (a *AdapterFile) Data(ctx context.Context) (data map[string]interface{}, er
 		return nil, err
 	}
 	if j != nil {
-		return j.Var().Map(), nil
+		return j.X取泛型类().X取Map(), nil
 	}
 	return nil, nil
 }
 
 // MustGet 行为类似于函数 Get，但在发生错误时会触发 panic。
-func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
+func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *泛型类.Var {
 	v, err := a.Get(ctx, pattern)
 	if err != nil {
 		panic(err)
 	}
-	return gvar.New(v)
+	return 泛型类.X创建(v)
 }
 
 // 清除所有已解析的配置文件内容缓存，
 // 这将强制从文件重新加载配置内容。
 func (a *AdapterFile) Clear() {
-	a.jsonMap.Clear()
+	a.jsonMap.X清空()
 }
 
 // Dump 打印当前Json对象，使其更易于人工阅读。
 func (a *AdapterFile) Dump() {
 	if j, _ := a.getJson(); j != nil {
-		j.Dump()
+		j.X调试输出()
 	}
 }
 
 // Available 检查并返回给定 `file` 配置是否可用。
 func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
-	checkFileName := gutil.GetOrDefaultStr(a.defaultName, fileName...)
+	checkFileName := 工具类.X取文本值或取默认值(a.defaultName, fileName...)
 	// 自定义配置内容存在。
 	if a.GetContent(checkFileName) != "" {
 		return true
@@ -212,11 +212,11 @@ func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
 // autoCheckAndAddMainPkgPathToSearchPaths 自动检测并添加 main 包的目录路径到搜索路径列表中，
 // 如果当前处于开发环境的话。
 func (a *AdapterFile) autoCheckAndAddMainPkgPathToSearchPaths() {
-	if gmode.IsDevelop() {
-		mainPkgPath := gfile.MainPkgPath()
+	if 环境类.IsDevelop() {
+		mainPkgPath := 文件类.X取main路径()
 		if mainPkgPath != "" {
-			if !a.searchPaths.Contains(mainPkgPath) {
-				a.searchPaths.Append(mainPkgPath)
+			if !a.searchPaths.X是否存在(mainPkgPath) {
+				a.searchPaths.Append别名(mainPkgPath)
 			}
 		}
 	}
@@ -224,7 +224,7 @@ func (a *AdapterFile) autoCheckAndAddMainPkgPathToSearchPaths() {
 
 // getJson 函数返回指定 `file` 内容对应的 *gjson.Json 对象。
 // 如果文件读取失败，会打印错误信息。若发生任何错误，将返回 nil。
-func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err error) {
+func (a *AdapterFile) getJson(fileName ...string) (configJson *json类.Json, err error) {
 	var (
 		usedFileName = a.defaultName
 	)
@@ -234,7 +234,7 @@ func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err e
 		usedFileName = a.defaultName
 	}
 	// 它使用json映射来缓存指定配置文件的内容。
-	result := a.jsonMap.GetOrSetFuncLock(usedFileName, func() interface{} {
+	result := a.jsonMap.X取值或设置值_函数带锁(usedFileName, func() interface{} {
 		var (
 			content  string
 			filePath string
@@ -250,33 +250,33 @@ func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err e
 			if filePath == "" {
 				return nil
 			}
-			if file := gres.Get(filePath); file != nil {
+			if file := 资源类.Get(filePath); file != nil {
 				content = string(file.Content())
 			} else {
-				content = gfile.GetContents(filePath)
+				content = 文件类.X读文本(filePath)
 			}
 		}
 		// 注意，底层的配置json对象操作是线程安全的。
-		dataType := gjson.ContentType(gfile.ExtName(filePath))
-		if gjson.IsValidDataType(dataType) && !isFromConfigContent {
-			configJson, err = gjson.LoadContentType(dataType, content, true)
+		dataType := json类.ContentType(文件类.X路径取扩展名且不含点号(filePath))
+		if json类.X检查类型(dataType) && !isFromConfigContent {
+			configJson, err = json类.X加载并按格式(dataType, content, true)
 		} else {
-			configJson, err = gjson.LoadContent(content, true)
+			configJson, err = json类.X加载并自动识别格式(content, true)
 		}
 		if err != nil {
 			if filePath != "" {
-				err = gerror.Wrapf(err, `load config file "%s" failed`, filePath)
+				err = 错误类.X多层错误并格式化(err, `load config file "%s" failed`, filePath)
 			} else {
-				err = gerror.Wrap(err, `load configuration failed`)
+				err = 错误类.X多层错误(err, `load configuration failed`)
 			}
 			return nil
 		}
-		configJson.SetViolenceCheck(a.violenceCheck)
+		configJson.X设置分层冲突检查(a.violenceCheck)
 // 添加对这个配置文件的监控，
 // 当该文件有任何变化时，都会在Config对象中刷新其缓存。
-		if filePath != "" && !gres.Contains(filePath) {
-			_, err = gfsnotify.Add(filePath, func(event *gfsnotify.Event) {
-				a.jsonMap.Remove(usedFileName)
+		if filePath != "" && !资源类.Contains(filePath) {
+			_, err = 文件监控类.Add(filePath, func(event *文件监控类.Event) {
+				a.jsonMap.X删除(usedFileName)
 			})
 			if err != nil {
 				return nil
@@ -285,7 +285,7 @@ func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err e
 		return configJson
 	})
 	if result != nil {
-		return result.(*gjson.Json), err
+		return result.(*json类.Json), err
 	}
 	return
 }

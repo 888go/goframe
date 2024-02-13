@@ -121,8 +121,8 @@ func (oai *OpenApiV3) Add(in AddInput) error {
 		})
 
 	default:
-		return gerror.NewCodef(
-			gcode.CodeInvalidParameter,
+		return 错误类.X创建错误码并格式化(
+			错误码类.CodeInvalidParameter,
 			`unsupported parameter type "%s", only struct/function type is supported`,
 			reflect.TypeOf(in.Object).String(),
 		)
@@ -183,7 +183,7 @@ func (oai *OpenApiV3) golangTypeToOAIType(t reflect.Type) string {
 // 注意，它不会返回标准的OpenAPI参数格式，而是返回Golang类型的自定义格式。
 func (oai *OpenApiV3) golangTypeToOAIFormat(t reflect.Type) string {
 	format := t.String()
-	switch gstr.TrimLeft(format, "*") {
+	switch 文本类.X过滤首字符并含空白(format, "*") {
 	case `[]uint8`:
 		return FormatBinary
 
@@ -198,7 +198,7 @@ func (oai *OpenApiV3) golangTypeToOAIFormat(t reflect.Type) string {
 func (oai *OpenApiV3) golangTypeToSchemaName(t reflect.Type) string {
 	var (
 		pkgPath    string
-		schemaName = gstr.TrimLeft(t.String(), "*")
+		schemaName = 文本类.X过滤首字符并含空白(t.String(), "*")
 	)
 	// 指针类型没有 PkgPath。
 	for t.Kind() == reflect.Ptr {
@@ -206,10 +206,10 @@ func (oai *OpenApiV3) golangTypeToSchemaName(t reflect.Type) string {
 	}
 	if pkgPath = t.PkgPath(); pkgPath != "" && pkgPath != "." {
 		if !oai.Config.IgnorePkgPath {
-			schemaName = gstr.Replace(pkgPath, `/`, `.`) + gstr.SubStrFrom(schemaName, ".")
+			schemaName = 文本类.X替换(pkgPath, `/`, `.`) + 文本类.SubStrFrom别名(schemaName, ".")
 		}
 	}
-	schemaName = gstr.ReplaceByMap(schemaName, map[string]string{
+	schemaName = 文本类.Map替换(schemaName, map[string]string{
 		` `: ``,
 		`{`: ``,
 		`}`: ``,

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -21,24 +21,24 @@ func Test_OTEL_TraceID(t *testing.T) {
 	var (
 		traceId string
 	)
-	s := g.Server(guid.S())
-	s.BindHandler("/", func(r *ghttp.Request) {
-		traceId = gtrace.GetTraceID(r.Context())
-		r.Response.Write(r.GetUrl())
+	s := g.Http类(uid类.X生成())
+	s.X绑定("/", func(r *http类.Request) {
+		traceId = gtrace.GetTraceID(r.Context别名())
+		r.Response.X写响应缓冲区(r.X取URL())
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
-	gtest.C(t, func(t *gtest.T) {
-		prefix := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		client := g.Client()
-		client.SetBrowserMode(true)
-		client.SetPrefix(prefix)
-		res, err := client.Get(ctx, "/")
+	单元测试类.C(t, func(t *单元测试类.T) {
+		prefix := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
+		client := g.X网页类()
+		client.X启用浏览器模式(true)
+		client.X设置url前缀(prefix)
+		res, err := client.Get响应对象(ctx, "/")
 		t.AssertNil(err)
-		defer res.Close()
+		defer res.X关闭()
 
 		t.Assert(res.Header.Get("Trace-Id"), traceId)
 	})

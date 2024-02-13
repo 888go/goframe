@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
@@ -20,7 +20,7 @@ import (
 )
 
 func ExampleNew() {
-	if err := g.Validator().Data(16).Rules("min:18").Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(16).Rules("min:18").Run(context.Background()); err != nil {
 		fmt.Println(err)
 	}
 
@@ -30,7 +30,7 @@ func ExampleNew() {
 
 func ExampleValidator_Run() {
 	// check value mode
-	if err := g.Validator().Data(16).Rules("min:18").Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(16).Rules("min:18").Run(context.Background()); err != nil {
 		fmt.Println("check value err:", err)
 	}
 	// check map mode
@@ -44,7 +44,7 @@ func ExampleValidator_Run() {
 		"password":  "required|length:6,16|same:password2",
 		"password2": "required|length:6,16",
 	}
-	if err := g.Validator().Data(data).Rules(rules).Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(data).Rules(rules).Run(context.Background()); err != nil {
 		fmt.Println("check map err:", err)
 	}
 	// check struct mode
@@ -62,7 +62,7 @@ func ExampleValidator_Run() {
 		Page: 0,
 		Size: 101,
 	}
-	if err := g.Validator().Data(obj).Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(obj).Run(context.Background()); err != nil {
 		fmt.Println("check struct err:", err)
 	}
 
@@ -73,11 +73,11 @@ func ExampleValidator_Run() {
 }
 
 func ExampleValidator_Clone() {
-	if err := g.Validator().Data(16).Rules("min:18").Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(16).Rules("min:18").Run(context.Background()); err != nil {
 		fmt.Println(err)
 	}
 
-	if err := g.Validator().Clone().Data(20).Run(context.Background()); err != nil {
+	if err := g.X效验类().Clone().Data(20).Run(context.Background()); err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Println("Check Success!")
@@ -90,9 +90,9 @@ func ExampleValidator_Clone() {
 
 func ExampleValidator_I18n() {
 	var (
-		i18nManager = gi18n.New(gi18n.Options{Path: gtest.DataPath("i18n")})
+		i18nManager = gi18n.New(gi18n.Options{Path: 单元测试类.DataPath("i18n")})
 		ctxCn       = gi18n.WithLanguage(context.Background(), "cn")
-		validator   = gvalid.New()
+		validator   = 效验类.New()
 	)
 
 	validator = validator.Data(16).Rules("min:18")
@@ -127,11 +127,11 @@ func ExampleValidator_Bail() {
 		}
 	)
 
-	if err := g.Validator().Bail().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Bail().Data(req).Run(ctx); err != nil {
 		fmt.Println("Use Bail Error:", err)
 	}
 
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println("Not Use Bail Error:", err)
 	}
 
@@ -155,11 +155,11 @@ func ExampleValidator_Ci() {
 		}
 	)
 
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Println("Not Use CI Error:", err)
 	}
 
-	if err := g.Validator().Ci().Data(req).Run(ctx); err == nil {
+	if err := g.X效验类().Ci().Data(req).Run(ctx); err == nil {
 		fmt.Println("Use CI Passed!")
 	}
 
@@ -181,7 +181,7 @@ func ExampleValidator_Data() {
 			Password2: "gofra", // 错误信息长度应在6到18个字符之间
 		}
 	)
-	if err := g.Validator().Data(req).Run(ctx); err != nil {
+	if err := g.X效验类().Data(req).Run(ctx); err != nil {
 		fmt.Print(err)
 	}
 
@@ -190,9 +190,9 @@ func ExampleValidator_Data() {
 }
 
 func ExampleValidator_Data_Value() {
-	err := g.Validator().Rules("min:18").
+	err := g.X效验类().Rules("min:18").
 		Messages("未成年人不允许注册哟").
-		Data(16).Run(gctx.New())
+		Data(16).Run(上下文类.X创建())
 	fmt.Println(err.String())
 
 	// Output:
@@ -210,7 +210,7 @@ func ExampleValidator_Data_Map1() {
 		"password@required|length:6,16|same{password}2#密码不能为空|密码长度应当在{min}到{max}之间|两次密码输入不相等",
 		"password2@required|length:6,16#",
 	}
-	if e := g.Validator().Data(params).Rules(rules).Run(gctx.New()); e != nil {
+	if e := g.X效验类().Data(params).Rules(rules).Run(上下文类.X创建()); e != nil {
 		fmt.Println(e.Map())
 		fmt.Println(e.FirstItem())
 		fmt.Println(e.FirstError())
@@ -232,7 +232,7 @@ func ExampleValidator_Data_Map2() {
 		"password@required|length:6,16|same:password2#密码不能为空|密码长度应当在{min}到{max}之间|两次密码输入不相等",
 		"password2@required|length:6,16#",
 	}
-	if e := g.Validator().Data(params).Rules(rules).Run(gctx.New()); e != nil {
+	if e := g.X效验类().Data(params).Rules(rules).Run(上下文类.X创建()); e != nil {
 		fmt.Println(e.Map())
 		fmt.Println(e.FirstItem())
 		fmt.Println(e.FirstError())
@@ -261,12 +261,12 @@ func ExampleValidator_Data_Map3() {
 			"same":     "两次密码输入不相等",
 		},
 	}
-	err := g.Validator().
+	err := g.X效验类().
 		Messages(messages).
 		Rules(rules).
-		Data(params).Run(gctx.New())
+		Data(params).Run(上下文类.X创建())
 	if err != nil {
-		g.Dump(err.Maps())
+		g.X调试输出(err.Maps())
 	}
 
 	// May Output:
@@ -292,7 +292,7 @@ func ExampleValidator_Data_Struct1() {
 		Page: 1,
 		Size: 10,
 	}
-	err := g.Validator().Data(obj).Run(gctx.New())
+	err := g.X效验类().Data(obj).Run(上下文类.X创建())
 	fmt.Println(err == nil)
 	// Output:
 	// true
@@ -303,13 +303,13 @@ func ExampleValidator_Data_Struct2() {
 	type Params struct {
 		Page      int       `v:"required|min:1         # page is required"`
 		Size      int       `v:"required|between:1,100 # size is required"`
-		ProjectId *gvar.Var `v:"between:1,10000        # project id must between {min}, {max}"`
+		ProjectId *泛型类.Var `v:"between:1,10000        # project id must between {min}, {max}"`
 	}
 	obj := &Params{
 		Page: 1,
 		Size: 10,
 	}
-	err := g.Validator().Data(obj).Run(gctx.New())
+	err := g.X效验类().Data(obj).Run(上下文类.X创建())
 	fmt.Println(err == nil)
 	// Output:
 	// true
@@ -326,7 +326,7 @@ func ExampleValidator_Data_Struct3() {
 		Page: 1,
 		Size: 10,
 	}
-	err := g.Validator().Data(obj).Run(gctx.New())
+	err := g.X效验类().Data(obj).Run(上下文类.X创建())
 	fmt.Println(err)
 	// Output:
 	// project id must between 1, 10000
@@ -341,10 +341,10 @@ func ExampleValidator_Data_Struct4() {
 		"name": "john",
 	}
 	user := User{}
-	if err := gconv.Scan(data, &user); err != nil {
+	if err := 转换类.Scan(data, &user); err != nil {
 		panic(err)
 	}
-	err := g.Validator().Data(user).Assoc(data).Run(gctx.New())
+	err := g.X效验类().Data(user).Assoc(data).Run(上下文类.X创建())
 	if err != nil {
 		fmt.Println(err.Items())
 	}
@@ -363,11 +363,11 @@ func ExampleValidator_Assoc() {
 	}
 	user := User{}
 
-	if err := gconv.Scan(data, &user); err != nil {
+	if err := 转换类.Scan(data, &user); err != nil {
 		panic(err)
 	}
 
-	if err := g.Validator().Data(user).Assoc(data).Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(user).Assoc(data).Run(context.Background()); err != nil {
 		fmt.Print(err)
 	}
 
@@ -376,7 +376,7 @@ func ExampleValidator_Assoc() {
 }
 
 func ExampleValidator_Rules() {
-	if err := g.Validator().Data(16).Rules("min:18").Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(16).Rules("min:18").Run(context.Background()); err != nil {
 		fmt.Println(err)
 	}
 
@@ -385,7 +385,7 @@ func ExampleValidator_Rules() {
 }
 
 func ExampleValidator_Messages() {
-	if err := g.Validator().Data(16).Rules("min:18").Messages("Can not regist, Age is less then 18!").Run(context.Background()); err != nil {
+	if err := g.X效验类().Data(16).Rules("min:18").Messages("Can not regist, Age is less then 18!").Run(context.Background()); err != nil {
 		fmt.Println(err)
 	}
 
@@ -398,16 +398,16 @@ func ExampleValidator_RuleFunc() {
 		ctx             = context.Background()
 		lenErrRuleName  = "LenErr"
 		passErrRuleName = "PassErr"
-		lenErrRuleFunc  = func(ctx context.Context, in gvalid.RuleFuncInput) error {
+		lenErrRuleFunc  = func(ctx context.Context, in 效验类.RuleFuncInput) error {
 			pass := in.Value.String()
 			if len(pass) != 6 {
 				return errors.New(in.Message)
 			}
 			return nil
 		}
-		passErrRuleFunc = func(ctx context.Context, in gvalid.RuleFuncInput) error {
+		passErrRuleFunc = func(ctx context.Context, in 效验类.RuleFuncInput) error {
 			pass := in.Value.String()
-			if m := in.Data.Map(); m["data"] != pass {
+			if m := in.Data.X取Map(); m["data"] != pass {
 				return errors.New(in.Message)
 			}
 			return nil
@@ -424,7 +424,7 @@ func ExampleValidator_RuleFunc() {
 		Data:  "123456",
 	}
 	// 单个错误示例
-	if err := g.Validator().RuleFunc(lenErrRuleName, lenErrRuleFunc).Data(st).Run(ctx); err != nil {
+	if err := g.X效验类().RuleFunc(lenErrRuleName, lenErrRuleFunc).Data(st).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -438,7 +438,7 @@ func ExampleValidator_RuleFunc() {
 		Data:  "123456",
 	}
 	// 多错误示例
-	if err := g.Validator().RuleFunc(lenErrRuleName, lenErrRuleFunc).RuleFunc(passErrRuleName, passErrRuleFunc).Data(multi).Run(ctx); err != nil {
+	if err := g.X效验类().RuleFunc(lenErrRuleName, lenErrRuleFunc).RuleFunc(passErrRuleName, passErrRuleFunc).Data(multi).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -452,21 +452,21 @@ func ExampleValidator_RuleFuncMap() {
 		ctx             = context.Background()
 		lenErrRuleName  = "LenErr"
 		passErrRuleName = "PassErr"
-		lenErrRuleFunc  = func(ctx context.Context, in gvalid.RuleFuncInput) error {
+		lenErrRuleFunc  = func(ctx context.Context, in 效验类.RuleFuncInput) error {
 			pass := in.Value.String()
 			if len(pass) != 6 {
 				return errors.New(in.Message)
 			}
 			return nil
 		}
-		passErrRuleFunc = func(ctx context.Context, in gvalid.RuleFuncInput) error {
+		passErrRuleFunc = func(ctx context.Context, in 效验类.RuleFuncInput) error {
 			pass := in.Value.String()
-			if m := in.Data.Map(); m["data"] != pass {
+			if m := in.Data.X取Map(); m["data"] != pass {
 				return errors.New(in.Message)
 			}
 			return nil
 		}
-		ruleMap = map[string]gvalid.RuleFunc{
+		ruleMap = map[string]效验类.RuleFunc{
 			lenErrRuleName:  lenErrRuleFunc,
 			passErrRuleName: passErrRuleFunc,
 		}
@@ -482,7 +482,7 @@ func ExampleValidator_RuleFuncMap() {
 		Data:  "123456",
 	}
 
-	if err := g.Validator().RuleFuncMap(ruleMap).Data(multi).Run(ctx); err != nil {
+	if err := g.X效验类().RuleFuncMap(ruleMap).Data(multi).Run(ctx); err != nil {
 		fmt.Println(err)
 	}
 
@@ -503,12 +503,12 @@ func ExampleValidator_RegisterRule() {
 	}
 
 	rule := "unique-name"
-	gvalid.RegisterRule(rule, func(ctx context.Context, in gvalid.RuleFuncInput) error {
+	效验类.RegisterRule(rule, func(ctx context.Context, in 效验类.RuleFuncInput) error {
 		var (
-			id   = in.Data.Val().(*User).Id
-			name = gconv.String(in.Value)
+			id   = in.Data.X取值().(*User).Id
+			name = 转换类.String(in.Value)
 		)
-		n, err := g.Model("user").Where("id != ? and name = ?", id, name).Count()
+		n, err := g.DB类Model("user").X条件("id != ? and name = ?", id, name).X查询行数()
 		if err != nil {
 			return err
 		}
@@ -517,7 +517,7 @@ func ExampleValidator_RegisterRule() {
 		}
 		return nil
 	})
-	err := g.Validator().Data(user).Run(gctx.New())
+	err := g.X效验类().Data(user).Run(上下文类.X创建())
 	fmt.Println(err.Error())
 	// May Output:
 	// 用户名称已被占用

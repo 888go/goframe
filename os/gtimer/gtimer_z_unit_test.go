@@ -5,7 +5,7 @@
 
 // Package functions
 
-package gtimer_test
+package 定时类_test
 
 import (
 	"context"
@@ -22,123 +22,123 @@ var (
 )
 
 func TestSetTimeout(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.SetTimeout(ctx, 200*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.SetTimeout别名(ctx, 200*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }
 
 func TestSetInterval(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.SetInterval(ctx, 300*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.SetInterval别名(ctx, 300*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 	})
 }
 
 func TestAddEntry(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.AddEntry(ctx, 200*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
-		}, false, 2, gtimer.StatusReady)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X加入详细循环任务(ctx, 200*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
+		}, false, 2, 定时类.StatusReady)
 		time.Sleep(1100 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
 func TestAddSingleton(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.AddSingleton(ctx, 200*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X加入单例循环任务(ctx, 200*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 			time.Sleep(10000 * time.Millisecond)
 		})
 		time.Sleep(1100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }
 
 func TestAddTimes(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.AddTimes(ctx, 200*time.Millisecond, 2, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X加入指定次数任务(ctx, 200*time.Millisecond, 2, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
 func TestDelayAdd(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.DelayAdd(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X延时加入循环任务(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		time.Sleep(600 * time.Millisecond)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 		time.Sleep(600 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }
 
 func TestDelayAddEntry(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.DelayAddEntry(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
-		}, false, 2, gtimer.StatusReady)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X延时加入详细循环任务(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
+		}, false, 2, 定时类.StatusReady)
 		time.Sleep(500 * time.Millisecond)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 		time.Sleep(2000 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
 func TestDelayAddSingleton(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.DelayAddSingleton(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X延时加入单例循环任务(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 			time.Sleep(10000 * time.Millisecond)
 		})
 		time.Sleep(300 * time.Millisecond)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }
 
 func TestDelayAddOnce(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.DelayAddOnce(ctx, 1000*time.Millisecond, 2000*time.Millisecond, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X延时加入单次任务(ctx, 1000*time.Millisecond, 2000*time.Millisecond, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		time.Sleep(2000 * time.Millisecond)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 		time.Sleep(2000 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }
 
 func TestDelayAddTimes(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		gtimer.DelayAddTimes(ctx, 500*time.Millisecond, 500*time.Millisecond, 2, func(ctx context.Context) {
-			array.Append(1)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		array := 数组类.X创建(true)
+		定时类.X延时加入指定次数任务(ctx, 500*time.Millisecond, 500*time.Millisecond, 2, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		time.Sleep(300 * time.Millisecond)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 		time.Sleep(1500 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }

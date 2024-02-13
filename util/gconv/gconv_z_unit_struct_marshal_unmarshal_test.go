@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
@@ -27,8 +27,8 @@ type MyTimeSt struct {
 }
 
 func (st *MyTimeSt) UnmarshalValue(v interface{}) error {
-	m := gconv.Map(v)
-	t, err := gtime.StrToTime(gconv.String(m["ServiceDate"]))
+	m := 转换类.X取Map(v)
+	t, err := 时间类.X转换文本(转换类.String(m["ServiceDate"]))
 	if err != nil {
 		return err
 	}
@@ -37,21 +37,21 @@ func (st *MyTimeSt) UnmarshalValue(v interface{}) error {
 }
 
 func Test_Struct_UnmarshalValue1(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		st := &MyTimeSt{}
-		err := gconv.Struct(g.Map{"ServiceDate": "2020-10-10 12:00:01"}, st)
+		err := 转换类.Struct(g.Map{"ServiceDate": "2020-10-10 12:00:01"}, st)
 		t.AssertNil(err)
 		t.Assert(st.ServiceDate.Time.Format("2006-01-02 15:04:05"), "2020-10-10 12:00:01")
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		st := &MyTimeSt{}
-		err := gconv.Struct(g.Map{"ServiceDate": nil}, st)
+		err := 转换类.Struct(g.Map{"ServiceDate": nil}, st)
 		t.AssertNil(err)
 		t.Assert(st.ServiceDate.Time.IsZero(), true)
 	})
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		st := &MyTimeSt{}
-		err := gconv.Struct(g.Map{"ServiceDate": "error"}, st)
+		err := 转换类.Struct(g.Map{"ServiceDate": "error"}, st)
 		t.AssertNE(err, nil)
 	})
 }
@@ -66,7 +66,7 @@ type Pkg struct {
 func NewPkg(data []byte) *Pkg {
 	return &Pkg{
 		Length: uint16(len(data) + 6),
-		Crc32:  gcrc32.Encrypt(data),
+		Crc32:  加密crc32类.X加密(data),
 		Data:   data,
 	}
 }
@@ -74,35 +74,35 @@ func NewPkg(data []byte) *Pkg {
 // Marshal 将协议结构体编码为字节流。
 func (p *Pkg) Marshal() []byte {
 	b := make([]byte, 6+len(p.Data))
-	copy(b, gbinary.EncodeUint16(p.Length))
-	copy(b[2:], gbinary.EncodeUint32(p.Crc32))
+	copy(b, 字节集类.EncodeUint16(p.Length))
+	copy(b[2:], 字节集类.EncodeUint32(p.Crc32))
 	copy(b[6:], p.Data)
 	return b
 }
 
 // UnmarshalValue 将字节解码为协议结构体。
 func (p *Pkg) UnmarshalValue(v interface{}) error {
-	b := gconv.Bytes(v)
+	b := 转换类.X取字节集(v)
 	if len(b) < 6 {
-		return gerror.New("invalid package length")
+		return 错误类.X创建("invalid package length")
 	}
-	p.Length = gbinary.DecodeToUint16(b[:2])
+	p.Length = 字节集类.DecodeToUint16(b[:2])
 	if len(b) < int(p.Length) {
-		return gerror.New("invalid data length")
+		return 错误类.X创建("invalid data length")
 	}
-	p.Crc32 = gbinary.DecodeToUint32(b[2:6])
+	p.Crc32 = 字节集类.DecodeToUint32(b[2:6])
 	p.Data = b[6:]
-	if gcrc32.Encrypt(p.Data) != p.Crc32 {
-		return gerror.New("crc32 validation failed")
+	if 加密crc32类.X加密(p.Data) != p.Crc32 {
+		return 错误类.X创建("crc32 validation failed")
 	}
 	return nil
 }
 
 func Test_Struct_UnmarshalValue2(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		var p1, p2 *Pkg
 		p1 = NewPkg([]byte("123"))
-		err := gconv.Struct(p1.Marshal(), &p2)
+		err := 转换类.Struct(p1.Marshal(), &p2)
 		t.AssertNil(err)
 		t.Assert(p1, p2)
 	})

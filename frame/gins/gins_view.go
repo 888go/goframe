@@ -19,43 +19,43 @@ import (
 // View 返回一个使用默认设置的 View 实例。
 // 参数 `name` 是该实例的名称。
 // 注意：如果在创建实例过程中发生任何错误，将会导致程序 panic。
-func View(name ...string) *gview.View {
-	instanceName := gview.DefaultName
+func View(name ...string) *模板类.View {
+	instanceName := 模板类.DefaultName
 	if len(name) > 0 && name[0] != "" {
 		instanceName = name[0]
 	}
 	instanceKey := fmt.Sprintf("%s.%s", frameCoreComponentNameViewer, instanceName)
 	return instance.GetOrSetFuncLock(instanceKey, func() interface{} {
 		return getViewInstance(instanceName)
-	}).(*gview.View)
+	}).(*模板类.View)
 }
 
-func getViewInstance(name ...string) *gview.View {
+func getViewInstance(name ...string) *模板类.View {
 	var (
 		err          error
 		ctx          = context.Background()
-		instanceName = gview.DefaultName
+		instanceName = 模板类.DefaultName
 	)
 	if len(name) > 0 && name[0] != "" {
 		instanceName = name[0]
 	}
-	view := gview.Instance(instanceName)
-	if Config().Available(ctx) {
+	view := 模板类.Instance(instanceName)
+	if Config().X是否可用(ctx) {
 		var (
 			configMap      map[string]interface{}
 			configNodeName = consts.ConfigNodeNameViewer
 		)
-		if configMap, err = Config().Data(ctx); err != nil {
+		if configMap, err = Config().X取Map(ctx); err != nil {
 			intlog.Errorf(ctx, `retrieve config data map failed: %+v`, err)
 		}
 		if len(configMap) > 0 {
-			if v, _ := gutil.MapPossibleItemByKey(configMap, consts.ConfigNodeNameViewer); v != "" {
+			if v, _ := 工具类.MapPossibleItemByKey(configMap, consts.ConfigNodeNameViewer); v != "" {
 				configNodeName = v
 			}
 		}
-		configMap = Config().MustGet(ctx, fmt.Sprintf(`%s.%s`, configNodeName, instanceName)).Map()
+		configMap = Config().X取值PANI(ctx, fmt.Sprintf(`%s.%s`, configNodeName, instanceName)).X取Map()
 		if len(configMap) == 0 {
-			configMap = Config().MustGet(ctx, configNodeName).Map()
+			configMap = Config().X取值PANI(ctx, configNodeName).X取Map()
 		}
 		if len(configMap) > 0 {
 			if err = view.SetConfigWithMap(configMap); err != nil {

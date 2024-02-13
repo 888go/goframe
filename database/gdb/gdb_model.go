@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -17,7 +17,7 @@ import (
 // Model 是核心结构体，实现了 ORM 的 DAO（数据访问对象）。
 type Model struct {
 	db            DB                // 基础数据库接口。
-	tx            TX                // 基础的TX接口。
+	tx            X事务                // 基础的TX接口。
 	rawSql        string            // rawSql 是原始SQL字符串，用于标记基于原始SQL的模型，而非基于表的模型。
 	schema        string            // 自定义数据库模式
 	linkType      int               // 标记用于在主服务器或从服务器上执行操作。
@@ -28,7 +28,7 @@ type Model struct {
 	withArray     []interface{}     // With功能的参数。
 	withAll       bool              // 在结构体中具有"with"标签的所有对象上启用模型关联操作。
 	extraArgs     []interface{}     // 在SQL提交给底层驱动之前，额外自定义的SQL参数，这些参数将被追加到原有参数之前。
-	whereBuilder  *WhereBuilder     // 条件构造器，用于where操作。
+	whereBuilder  *X组合条件     // 条件构造器，用于where操作。
 	groupBy       string            // 用于“group by”语句。
 	orderBy       string            // 用于 "order by" 语句。
 	having        []interface{}     // 用于 "having..." 语句。
@@ -43,7 +43,7 @@ type Model struct {
 	distinct      string            // 强制查询只返回不重复的结果。
 	lockInfo      string            // 加锁以便进行更新或共享锁操作。
 	cacheEnabled  bool              // 启用SQL结果缓存功能，主要用于指示缓存持续时间（尤其是0）的使用情况。
-	cacheOption   CacheOption       // 查询语句的缓存选项。
+	cacheOption   X缓存选项       // 查询语句的缓存选项。
 	hookHandler   HookHandler       // 钩子函数，用于模型钩子功能。
 	unscoped      bool              // 禁用在选择/删除操作时的软删除功能。
 	safe          bool              // 如果为true，则在操作完成后克隆并返回一个新的模型对象；否则，它会改变当前模型的属性。
@@ -57,7 +57,7 @@ type ModelHandler func(m *Model) *Model
 
 // ChunkHandler 是一个在 Chunk 函数中使用的函数，用于处理给定的 Result 和错误。
 // 如果希望继续分块处理，则返回 true；否则返回 false 以停止分块处理。
-type ChunkHandler func(result Result, err error) bool
+type ChunkHandler func(result X行记录数组, err error) bool
 
 const (
 	linkTypeMaster           = 1
@@ -82,20 +82,20 @@ const (
 //     db.Model("user", "u")         // 表名和对应的别名
 // 3. 使用子查询作为表名的示例：
 //     db.Model("? AS a, ? AS b", subQuery1, subQuery2) // 使用子查询表达式作为模型，并为子查询结果设置别名
-func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
+func (c *Core) X创建Model对象(表名或结构体 ...interface{}) *Model {
 	var (
-		ctx       = c.db.GetCtx()
+		ctx       = c.db.X取上下文对象()
 		tableStr  string
 		tableName string
 		extraArgs []interface{}
 	)
 	// 使用子查询创建模型
-	if len(tableNameQueryOrStruct) > 1 {
-		conditionStr := gconv.String(tableNameQueryOrStruct[0])
-		if gstr.Contains(conditionStr, "?") {
+	if len(表名或结构体) > 1 {
+		conditionStr := 转换类.String(表名或结构体[0])
+		if 文本类.X是否包含(conditionStr, "?") {
 			whereHolder := WhereHolder{
 				Where: conditionStr,
-				Args:  tableNameQueryOrStruct[1:],
+				Args:  表名或结构体[1:],
 			}
 			tableStr, extraArgs = formatWhereHolder(ctx, c.db, formatWhereHolderInput{
 				WhereHolder: whereHolder,
@@ -108,8 +108,8 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	}
 	// 正常模型创建。
 	if tableStr == "" {
-		tableNames := make([]string, len(tableNameQueryOrStruct))
-		for k, v := range tableNameQueryOrStruct {
+		tableNames := make([]string, len(表名或结构体))
+		for k, v := range 表名或结构体 {
 			if s, ok := v.(string); ok {
 				tableNames[k] = s
 			} else if tableName = getTableNameFromOrmTag(v); tableName != "" {
@@ -118,10 +118,10 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 		}
 		if len(tableNames) > 1 {
 			tableStr = fmt.Sprintf(
-				`%s AS %s`, c.QuotePrefixTableName(tableNames[0]), c.QuoteWord(tableNames[1]),
+				`%s AS %s`, c.X底层添加前缀字符和引用字符(tableNames[0]), c.X底层QuoteWord(tableNames[1]),
 			)
 		} else if len(tableNames) == 1 {
-			tableStr = c.QuotePrefixTableName(tableNames[0])
+			tableStr = c.X底层添加前缀字符和引用字符(tableNames[0])
 		}
 	}
 	m := &Model{
@@ -136,7 +136,7 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 		extraArgs:     extraArgs,
 		tableAliasMap: make(map[string]string),
 	}
-	m.whereBuilder = m.Builder()
+	m.whereBuilder = m.X创建组合条件()
 	if defaultModelSafe {
 		m.safe = true
 	}
@@ -151,10 +151,10 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 // 也可以直接直接执行原始sql,示例：
 // db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
 // 上述代码表示，通过执行原始SQL语句（根据"name"为"john"的条件查询user表中所有列），并使用Scan方法将查询结果绑定到result变量中。
-func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
-	model := c.Model()
-	model.rawSql = rawSql
-	model.extraArgs = args
+func (c *Core) X原生SQL(原生Sql string, 参数 ...interface{}) *Model {
+	model := c.X创建Model对象()
+	model.rawSql = 原生Sql
+	model.extraArgs = 参数
 	return model
 }
 
@@ -166,15 +166,15 @@ func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 // 也可以直接直接执行原始sql,示例:
 // db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
 // 请参阅Core.Raw。
-func (m *Model) Raw(rawSql string, args ...interface{}) *Model {
-	model := m.db.Raw(rawSql, args...)
+func (m *Model) X原生SQL(原生Sql string, 参数 ...interface{}) *Model {
+	model := m.db.X原生SQL(原生Sql, 参数...)
 	model.db = m.db
 	model.tx = m.tx
 	return model
 }
 
-func (tx *TXCore) Raw(rawSql string, args ...interface{}) *Model {
-	return tx.Model().Raw(rawSql, args...)
+func (tx *X基础事务) X原生SQL(原生Sql string, 参数 ...interface{}) *Model {
+	return tx.X创建Model对象().X原生SQL(原生Sql, 参数...)
 }
 
 // With 根据给定对象的元数据创建并返回一个ORM模型。
@@ -198,23 +198,23 @@ func (tx *TXCore) Raw(rawSql string, args ...interface{}) *Model {
 // db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
 // 或者：
 // db.With(UserDetail{}, UserScores{}).Scan(xxx)
-func (c *Core) With(objects ...interface{}) *Model {
-	return c.db.Model().With(objects...)
+func (c *Core) X关联对象(关联结构体 ...interface{}) *Model {
+	return c.db.X创建Model对象().X关联对象(关联结构体...)
 }
 
 // Partition sets Partition name.
 // Example:
 // dao.User.Ctx(ctx).Partition（"p1","p2","p3").All()
-func (m *Model) Partition(partitions ...string) *Model {
+func (m *Model) X设置分区名称(分区名称 ...string) *Model {
 	model := m.getModel()
-	model.partition = gstr.Join(partitions, ",")
+	model.partition = 文本类.X连接(分区名称, ",")
 	return model
 }
 
 // Model 类似于 Core.Model，但其在事务上进行操作。
 // 请参阅 Core.Model。
-func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
-	model := tx.db.Model(tableNameQueryOrStruct...)
+func (tx *X基础事务) X创建Model对象(表名或结构体 ...interface{}) *Model {
+	model := tx.db.X创建Model对象(表名或结构体...)
 	model.db = tx.db
 	model.tx = tx
 	return model
@@ -241,45 +241,45 @@ func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 // db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
 // 或者：
 // db.With(UserDetail{}, UserScores{}).Scan(xxx)
-func (tx *TXCore) With(object interface{}) *Model {
-	return tx.Model().With(object)
+func (tx *X基础事务) X关联对象(关联结构体 interface{}) *Model {
+	return tx.X创建Model对象().X关联对象(关联结构体)
 }
 
 // Ctx 设置当前操作的上下文。
-func (m *Model) Ctx(ctx context.Context) *Model {
-	if ctx == nil {
+func (m *Model) X设置上下文并取副本(上下文 context.Context) *Model {
+	if 上下文 == nil {
 		return m
 	}
 	model := m.getModel()
-	model.db = model.db.Ctx(ctx)
+	model.db = model.db.X设置上下文并取副本(上下文)
 	if m.tx != nil {
-		model.tx = model.tx.Ctx(ctx)
+		model.tx = model.tx.X设置上下文并取副本(上下文)
 	}
 	return model
 }
 
 // GetCtx 返回当前 Model 的上下文。
 // 若此前未设置过上下文，则返回 `context.Background()`。
-func (m *Model) GetCtx() context.Context {
-	if m.tx != nil && m.tx.GetCtx() != nil {
-		return m.tx.GetCtx()
+func (m *Model) X取上下文对象() context.Context {
+	if m.tx != nil && m.tx.X取上下文对象() != nil {
+		return m.tx.X取上下文对象()
 	}
-	return m.db.GetCtx()
+	return m.db.X取上下文对象()
 }
 
 // As 为当前表设置别名名称。
-func (m *Model) As(as string) *Model {
+func (m *Model) X设置表别名(别名 string) *Model {
 	if m.tables != "" {
 		model := m.getModel()
 		split := " JOIN "
-		if gstr.ContainsI(model.tables, split) {
+		if 文本类.X是否包含并忽略大小写(model.tables, split) {
 			// For join table.
-			array := gstr.Split(model.tables, split)
-			array[len(array)-1], _ = gregex.ReplaceString(`(.+) ON`, fmt.Sprintf(`$1 AS %s ON`, as), array[len(array)-1])
-			model.tables = gstr.Join(array, split)
+			array := 文本类.X分割(model.tables, split)
+			array[len(array)-1], _ = 正则类.X替换文本(`(.+) ON`, fmt.Sprintf(`$1 AS %s ON`, 别名), array[len(array)-1])
+			model.tables = 文本类.X连接(array, split)
 		} else {
 			// For base table.
-			model.tables = gstr.TrimRight(model.tables) + " AS " + as
+			model.tables = 文本类.X过滤尾字符并含空白(model.tables) + " AS " + 别名
 		}
 		return model
 	}
@@ -287,40 +287,40 @@ func (m *Model) As(as string) *Model {
 }
 
 // DB 设置/更改当前操作的数据库对象。
-func (m *Model) DB(db DB) *Model {
+func (m *Model) X设置DB对象(DB对象 DB) *Model {
 	model := m.getModel()
-	model.db = db
+	model.db = DB对象
 	return model
 }
 
 // TX 设置/更改当前操作的事务。
-func (m *Model) TX(tx TX) *Model {
+func (m *Model) X设置事务对象(事务对象 X事务) *Model {
 	model := m.getModel()
-	model.db = tx.GetDB()
-	model.tx = tx
+	model.db = 事务对象.X取DB对象()
+	model.tx = 事务对象
 	return model
 }
 
 // 设置当前操作的模式。
-func (m *Model) Schema(schema string) *Model {
+func (m *Model) X切换数据库(数据库名 string) *Model {
 	model := m.getModel()
-	model.schema = schema
+	model.schema = 数据库名
 	return model
 }
 
 // Clone 创建并返回一个新的模型，该模型是当前模型的克隆版本。
 // 注意，它使用深度复制进行克隆。
-func (m *Model) Clone() *Model {
+func (m *Model) X取副本() *Model {
 	newModel := (*Model)(nil)
 	if m.tx != nil {
-		newModel = m.tx.Model(m.tablesInit)
+		newModel = m.tx.X创建Model对象(m.tablesInit)
 	} else {
-		newModel = m.db.Model(m.tablesInit)
+		newModel = m.db.X创建Model对象(m.tablesInit)
 	}
 	// 基础属性复制
 	*newModel = *m
 	// WhereBuilder 复制，注意属性指针。
-	newModel.whereBuilder = m.whereBuilder.Clone()
+	newModel.whereBuilder = m.whereBuilder.X取副本()
 	newModel.whereBuilder.model = newModel
 	// 浅复制切片属性。
 	if n := len(m.extraArgs); n > 0 {
@@ -335,7 +335,7 @@ func (m *Model) Clone() *Model {
 }
 
 // Master 标识以下操作将在主节点上执行。
-func (m *Model) Master() *Model {
+func (m *Model) X取主节点对象() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeMaster
 	return model
@@ -343,16 +343,16 @@ func (m *Model) Master() *Model {
 
 // Slave 标记在从属节点上执行的后续操作。
 // 注意，只有在配置了从属节点时才有意义。
-func (m *Model) Slave() *Model {
+func (m *Model) X取从节点对象() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeSlave
 	return model
 }
 
 // Safe 用于标记该模型为安全或不安全。如果 safe 为 true，则在每次操作完成后都会克隆并返回一个新的模型对象；否则，它会改变当前模型的属性。
-func (m *Model) Safe(safe ...bool) *Model {
-	if len(safe) > 0 {
-		m.safe = safe[0]
+func (m *Model) X链式安全(开启 ...bool) *Model {
+	if len(开启) > 0 {
+		m.safe = 开启[0]
 	} else {
 		m.safe = true
 	}
@@ -360,17 +360,17 @@ func (m *Model) Safe(safe ...bool) *Model {
 }
 
 // Args 设置模型操作的自定义参数。
-func (m *Model) Args(args ...interface{}) *Model {
+func (m *Model) 底层Args(参数 ...interface{}) *Model {
 	model := m.getModel()
-	model.extraArgs = append(model.extraArgs, args)
+	model.extraArgs = append(model.extraArgs, 参数)
 	return model
 }
 
 // Handler calls each of `handlers` on current Model and returns a new Model.
 // ModelHandler 是一个函数，用于处理给定的 Model，并返回一个经过自定义修改的新 Model。
-func (m *Model) Handler(handlers ...ModelHandler) *Model {
+func (m *Model) X处理函数(处理函数 ...ModelHandler) *Model {
 	model := m.getModel()
-	for _, handler := range handlers {
+	for _, handler := range 处理函数 {
 		model = handler(model)
 	}
 	return model

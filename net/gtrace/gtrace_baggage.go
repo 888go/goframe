@@ -39,7 +39,7 @@ func (b *Baggage) Ctx() context.Context {
 // SetValue 是一个方便的函数，用于向 baggage 中添加一对键值对。
 // 注意，它使用 attribute.Any 来设置键值对。
 func (b *Baggage) SetValue(key string, value interface{}) context.Context {
-	member, _ := baggage.NewMember(key, gconv.String(value))
+	member, _ := baggage.NewMember(key, 转换类.String(value))
 	bag, _ := baggage.New(member)
 	b.ctx = baggage.ContextWithBaggage(b.ctx, bag)
 	return b.ctx
@@ -50,7 +50,7 @@ func (b *Baggage) SetValue(key string, value interface{}) context.Context {
 func (b *Baggage) SetMap(data map[string]interface{}) context.Context {
 	members := make([]baggage.Member, 0)
 	for k, v := range data {
-		member, _ := baggage.NewMember(k, gconv.String(v))
+		member, _ := baggage.NewMember(k, 转换类.String(v))
 		members = append(members, member)
 	}
 	bag, _ := baggage.New(members...)
@@ -59,17 +59,17 @@ func (b *Baggage) SetMap(data map[string]interface{}) context.Context {
 }
 
 // GetMap 获取并以map形式返回 baggage 的值。
-func (b *Baggage) GetMap() *gmap.StrAnyMap {
-	m := gmap.NewStrAnyMap()
+func (b *Baggage) GetMap() *map类.StrAnyMap {
+	m := map类.X创建StrAny()
 	members := baggage.FromContext(b.ctx).Members()
 	for i := range members {
-		m.Set(members[i].Key(), members[i].Value())
+		m.X设置值(members[i].Key(), members[i].Value())
 	}
 	return m
 }
 
 // GetVar 从 baggage 中根据指定的键获取值，并返回一个指向该值的*gvar.Var指针。
-func (b *Baggage) GetVar(key string) *gvar.Var {
+func (b *Baggage) GetVar(key string) *泛型类.Var {
 	value := baggage.FromContext(b.ctx).Member(key).Value()
-	return gvar.New(value)
+	return 泛型类.X创建(value)
 }

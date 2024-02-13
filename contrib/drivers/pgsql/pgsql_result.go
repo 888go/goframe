@@ -17,10 +17,10 @@ type Result struct {
 	lastInsertIdError error
 }
 
-func (pgr Result) RowsAffected() (int64, error) {
+func (pgr Result) X取影响行数() (int64, error) {
 	return pgr.affected, nil
 }
 
-func (pgr Result) LastInsertId() (int64, error) {
+func (pgr Result) X取最后插入id() (int64, error) {
 	return pgr.lastInsertId, pgr.lastInsertIdError
 }

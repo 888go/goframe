@@ -7,7 +7,7 @@
 // Package gbinary 提供了处理二进制/字节数据的有用 API。
 //
 // 注意，gbinary 包默认使用 LittleEndian 编码方式对数据进行编码。
-package gbinary
+package 字节集类
 
 func Encode(values ...interface{}) []byte {
 	return LeEncode(values...)

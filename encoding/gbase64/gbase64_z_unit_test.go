@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gbase64_test
+package 编码base64类_test
 
 import (
 	"testing"
@@ -43,36 +43,36 @@ var pairs = []testPair{
 }
 
 func Test_Basic(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		for k := range pairs {
 			// Encode
-			t.Assert(gbase64.Encode([]byte(pairs[k].decoded)), []byte(pairs[k].encoded))
-			t.Assert(gbase64.EncodeToString([]byte(pairs[k].decoded)), pairs[k].encoded)
-			t.Assert(gbase64.EncodeString(pairs[k].decoded), pairs[k].encoded)
+			t.Assert(编码base64类.X字节集编码([]byte(pairs[k].decoded)), []byte(pairs[k].encoded))
+			t.Assert(编码base64类.X字节集编码到文本([]byte(pairs[k].decoded)), pairs[k].encoded)
+			t.Assert(编码base64类.X文本编码(pairs[k].decoded), pairs[k].encoded)
 
 			// Decode
-			r1, _ := gbase64.Decode([]byte(pairs[k].encoded))
+			r1, _ := 编码base64类.X字节集解码([]byte(pairs[k].encoded))
 			t.Assert(r1, []byte(pairs[k].decoded))
 
-			r2, _ := gbase64.DecodeString(pairs[k].encoded)
+			r2, _ := 编码base64类.X文本解码到字节集(pairs[k].encoded)
 			t.Assert(r2, []byte(pairs[k].decoded))
 
-			r3, _ := gbase64.DecodeToString(pairs[k].encoded)
+			r3, _ := 编码base64类.X文本解码(pairs[k].encoded)
 			t.Assert(r3, pairs[k].decoded)
 		}
 	})
 }
 
 func Test_File(t *testing.T) {
-	path := gtest.DataPath("test")
+	path := 单元测试类.DataPath("test")
 	expect := "dGVzdA=="
-	gtest.C(t, func(t *gtest.T) {
-		b, err := gbase64.EncodeFile(path)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		b, err := 编码base64类.X文件编码到字节集(path)
 		t.AssertNil(err)
 		t.Assert(string(b), expect)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		s, err := gbase64.EncodeFileToString(path)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s, err := 编码base64类.X文件编码到文本(path)
 		t.AssertNil(err)
 		t.Assert(s, expect)
 	})
@@ -81,13 +81,13 @@ func Test_File(t *testing.T) {
 func Test_File_Error(t *testing.T) {
 	path := "none-exist-file"
 	expect := ""
-	gtest.C(t, func(t *gtest.T) {
-		b, err := gbase64.EncodeFile(path)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		b, err := 编码base64类.X文件编码到字节集(path)
 		t.AssertNE(err, nil)
 		t.Assert(string(b), expect)
 	})
-	gtest.C(t, func(t *gtest.T) {
-		s, err := gbase64.EncodeFileToString(path)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		s, err := 编码base64类.X文件编码到文本(path)
 		t.AssertNE(err, nil)
 		t.Assert(s, expect)
 	})

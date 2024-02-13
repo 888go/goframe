@@ -5,4 +5,4 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gtest 提供了方便的测试工具集，用于进行单元测试。
-package gtest
+package 单元测试类

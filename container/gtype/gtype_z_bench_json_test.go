@@ -11,7 +11,7 @@
 // `-bench=".+\_Json"` 参数表示仅执行那些基准测试函数名称中包含"_Json"的基准测试
 // `-benchmem` 参数表示在输出的基准测试结果中，包含内存分配统计信息
 
-package gtype_test
+package 安全变量类_test
 
 import (
 	"testing"
@@ -21,19 +21,19 @@ import (
 )
 
 var (
-	vBool      = gtype.NewBool()
-	vByte      = gtype.NewByte()
-	vBytes     = gtype.NewBytes()
-	vFloat32   = gtype.NewFloat32()
-	vFloat64   = gtype.NewFloat64()
-	vInt       = gtype.NewInt()
-	vInt32     = gtype.NewInt32()
-	vInt64     = gtype.NewInt64()
-	vInterface = gtype.NewInterface()
-	vString    = gtype.NewString()
-	vUint      = gtype.NewUint()
-	vUint32    = gtype.NewUint32()
-	vUint64    = gtype.NewUint64()
+	vBool      = 安全变量类.NewBool()
+	vByte      = 安全变量类.NewByte()
+	vBytes     = 安全变量类.NewBytes()
+	vFloat32   = 安全变量类.NewFloat32()
+	vFloat64   = 安全变量类.NewFloat64()
+	vInt       = 安全变量类.NewInt()
+	vInt32     = 安全变量类.NewInt32()
+	vInt64     = 安全变量类.NewInt64()
+	vInterface = 安全变量类.NewInterface()
+	vString    = 安全变量类.NewString()
+	vUint      = 安全变量类.NewUint()
+	vUint32    = 安全变量类.NewUint32()
+	vUint64    = 安全变量类.NewUint64()
 )
 
 func Benchmark_Bool_Json(b *testing.B) {

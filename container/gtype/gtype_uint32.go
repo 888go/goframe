@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtype
+package 安全变量类
 
 import (
 	"strconv"
@@ -30,16 +30,16 @@ func NewUint32(value ...uint32) *Uint32 {
 
 // Clone 克隆并返回一个用于 uint32 类型的新并发安全对象。
 func (v *Uint32) Clone() *Uint32 {
-	return NewUint32(v.Val())
+	return NewUint32(v.X取值())
 }
 
 // Set 方法通过原子操作将`value`存储到t.value中，并返回修改前的t.value的值。
-func (v *Uint32) Set(value uint32) (old uint32) {
+func (v *Uint32) X设置值(value uint32) (old uint32) {
 	return atomic.SwapUint32(&v.value, value)
 }
 
 // Val 原子性地加载并返回 t.value。
-func (v *Uint32) Val() uint32 {
+func (v *Uint32) X取值() uint32 {
 	return atomic.LoadUint32(&v.value)
 }
 
@@ -55,23 +55,23 @@ func (v *Uint32) Cas(old, new uint32) (swapped bool) {
 
 // String 实现了 String 接口以便进行字符串打印。
 func (v *Uint32) String() string {
-	return strconv.FormatUint(uint64(v.Val()), 10)
+	return strconv.FormatUint(uint64(v.X取值()), 10)
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (v Uint32) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatUint(uint64(v.Val()), 10)), nil
+	return []byte(strconv.FormatUint(uint64(v.X取值()), 10)), nil
 }
 
 // UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
 func (v *Uint32) UnmarshalJSON(b []byte) error {
-	v.Set(gconv.Uint32(string(b)))
+	v.X设置值(转换类.X取正整数32位(string(b)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于为 `v` 设置任意类型的值。
 func (v *Uint32) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Uint32(value))
+	v.X设置值(转换类.X取正整数32位(value))
 	return nil
 }
 
@@ -80,5 +80,5 @@ func (v *Uint32) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewUint32(v.Val())
+	return NewUint32(v.X取值())
 }

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gcmd
+package cmd类
 
 import (
 	"bufio"
@@ -31,6 +31,6 @@ func readline() string {
 	var s string
 	reader := bufio.NewReader(os.Stdin)
 	s, _ = reader.ReadString('\n')
-	s = gstr.Trim(s)
+	s = 文本类.X过滤首尾符并含空白(s)
 	return s
 }

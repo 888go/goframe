@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -28,132 +28,132 @@ import (
 
 // Query 将一个查询SQL语句提交给底层驱动并返回执行结果。
 // 这个方法最常用于数据查询。
-func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
-	return c.db.DoQuery(ctx, nil, sql, args...)
+func (c *Core) X原生SQL查询(上下文 context.Context, sql string, 参数 ...interface{}) (结果 X行记录数组, 错误 error) {
+	return c.db.X底层原生SQL查询(上下文, nil, sql, 参数...)
 }
 
 // DoQuery 通过给定的link对象，将sql字符串及其参数提交到底层驱动，并返回执行结果。
-func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
+func (c *Core) X底层原生SQL查询(上下文 context.Context, 链接 X底层链接, sql string, 参数 ...interface{}) (结果 X行记录数组, 错误 error) {
 	// 事务检查。
-	if link == nil {
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
+	if 链接 == nil {
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
 			// 首先，从上下文检查并检索交易链接。
-			link = &txLink{tx.GetSqlTX()}
-		} else if link, err = c.SlaveLink(); err != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
+		} else if 链接, 错误 = c.X底层SlaveLink(); 错误 != nil {
 			// 或者从主节点创建一个
-			return nil, err
+			return nil, 错误
 		}
-	} else if !link.IsTransaction() {
+	} else if !链接.IsTransaction() {
 		// 如果当前链接不是事务链接，它会检查并从上下文中获取事务。
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			link = &txLink{tx.GetSqlTX()}
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
 		}
 	}
 
-	if c.db.GetConfig().QueryTimeout > 0 {
-		ctx, _ = context.WithTimeout(ctx, c.db.GetConfig().QueryTimeout)
+	if c.db.X取当前节点配置().X查询超时时长 > 0 {
+		上下文, _ = context.WithTimeout(上下文, c.db.X取当前节点配置().X查询超时时长)
 	}
 
 	// Sql filtering.
-	sql, args = c.FormatSqlBeforeExecuting(sql, args)
-	sql, args, err = c.db.DoFilter(ctx, link, sql, args)
-	if err != nil {
-		return nil, err
+	sql, 参数 = c.X格式化Sql(sql, 参数)
+	sql, 参数, 错误 = c.db.X底层DoFilter(上下文, 链接, sql, 参数)
+	if 错误 != nil {
+		return nil, 错误
 	}
 	// SQL格式化并检索
-	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
+	if v := 上下文.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
-			formattedSql = FormatSqlWithArgs(sql, args)
+			formattedSql = X格式化Sql(sql, 参数)
 		)
-		manager.SQLArray.Append(formattedSql)
-		if !manager.DoCommit && ctx.Value(ctxKeyInternalProducedSQL) == nil {
+		manager.SQLArray.Append别名(formattedSql)
+		if !manager.DoCommit && 上下文.Value(ctxKeyInternalProducedSQL) == nil {
 			return nil, nil
 		}
 	}
 	// Link execution.
-	var out DoCommitOutput
-	out, err = c.db.DoCommit(ctx, DoCommitInput{
-		Link:          link,
+	var out X输出
+	out, 错误 = c.db.X底层DoCommit(上下文, X输入{
+		Link:          链接,
 		Sql:           sql,
-		Args:          args,
+		Args:          参数,
 		Stmt:          nil,
-		Type:          SqlTypeQueryContext,
-		IsTransaction: link.IsTransaction(),
+		X类型:          SqlTypeQueryContext,
+		IsTransaction: 链接.IsTransaction(),
 	})
-	return out.Records, err
+	return out.X行记录数组, 错误
 }
 
 // Exec方法将一个SQL查询语句提交给底层驱动执行并返回执行结果。
 // 该方法主要用于数据的插入和更新操作。
-func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {
-	return c.db.DoExec(ctx, nil, sql, args...)
+func (c *Core) X原生SQL执行(上下文 context.Context, sql string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
+	return c.db.X底层原生SQL执行(上下文, nil, sql, 参数...)
 }
 
 // DoExec通过给定的link对象，将SQL字符串及其参数提交给底层驱动，并返回执行结果。
-func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {
+func (c *Core) X底层原生SQL执行(上下文 context.Context, 链接 X底层链接, sql string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
 	// 事务检查。
-	if link == nil {
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
+	if 链接 == nil {
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
 			// 首先，从上下文检查并检索交易链接。
-			link = &txLink{tx.GetSqlTX()}
-		} else if link, err = c.MasterLink(); err != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
+		} else if 链接, 错误 = c.X底层MasterLink(); 错误 != nil {
 			// 或者从主节点创建一个
-			return nil, err
+			return nil, 错误
 		}
-	} else if !link.IsTransaction() {
+	} else if !链接.IsTransaction() {
 		// 如果当前链接不是事务链接，它会检查并从上下文中获取事务。
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			link = &txLink{tx.GetSqlTX()}
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
 		}
 	}
 
-	if c.db.GetConfig().ExecTimeout > 0 {
+	if c.db.X取当前节点配置().X执行超时时长 > 0 {
 		var cancelFunc context.CancelFunc
-		ctx, cancelFunc = context.WithTimeout(ctx, c.db.GetConfig().ExecTimeout)
+		上下文, cancelFunc = context.WithTimeout(上下文, c.db.X取当前节点配置().X执行超时时长)
 		defer cancelFunc()
 	}
 
 	// SQL filtering.
-	sql, args = c.FormatSqlBeforeExecuting(sql, args)
-	sql, args, err = c.db.DoFilter(ctx, link, sql, args)
-	if err != nil {
-		return nil, err
+	sql, 参数 = c.X格式化Sql(sql, 参数)
+	sql, 参数, 错误 = c.db.X底层DoFilter(上下文, 链接, sql, 参数)
+	if 错误 != nil {
+		return nil, 错误
 	}
 	// SQL格式化并检索
-	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
+	if v := 上下文.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
-			formattedSql = FormatSqlWithArgs(sql, args)
+			formattedSql = X格式化Sql(sql, 参数)
 		)
-		manager.SQLArray.Append(formattedSql)
-		if !manager.DoCommit && ctx.Value(ctxKeyInternalProducedSQL) == nil {
-			return new(SqlResult), nil
+		manager.SQLArray.Append别名(formattedSql)
+		if !manager.DoCommit && 上下文.Value(ctxKeyInternalProducedSQL) == nil {
+			return new(Sql执行结果), nil
 		}
 	}
 	// Link execution.
-	var out DoCommitOutput
-	out, err = c.db.DoCommit(ctx, DoCommitInput{
-		Link:          link,
+	var out X输出
+	out, 错误 = c.db.X底层DoCommit(上下文, X输入{
+		Link:          链接,
 		Sql:           sql,
-		Args:          args,
+		Args:          参数,
 		Stmt:          nil,
-		Type:          SqlTypeExecContext,
-		IsTransaction: link.IsTransaction(),
+		X类型:          SqlTypeExecContext,
+		IsTransaction: 链接.IsTransaction(),
 	})
-	return out.Result, err
+	return out.X原生sql行记录, 错误
 }
 
 // DoFilter 是一个钩子函数，在 SQL 语句及其参数提交给底层驱动程序之前对其进行过滤。
 // 参数 `link` 指定了当前数据库连接操作对象。您可以在 SQL 字符串 `sql` 和其参数 `args` 提交给驱动程序之前，根据需要自由修改它们。
-func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+func (c *Core) X底层DoFilter(ctx context.Context, link X底层链接, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
 
 // DoCommit 将当前SQL语句及其参数提交给底层SQL驱动执行。
-func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error) {
+func (c *Core) X底层DoCommit(ctx context.Context, in X输入) (out X输出, err error) {
 	// 将内部数据注入到ctx中，特别是用于创建事务。
-	ctx = c.InjectInternalCtxData(ctx)
+	ctx = c.底层_InjectInternalCtxData(ctx)
 
 	var (
 		sqlTx                *sql.Tx
@@ -164,29 +164,29 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 		stmtSqlRow           *sql.Row
 		rowsAffected         int64
 		cancelFuncForTimeout context.CancelFunc
-		formattedSql         = FormatSqlWithArgs(in.Sql, in.Args)
-		timestampMilli1      = gtime.TimestampMilli()
+		formattedSql         = X格式化Sql(in.Sql, in.Args)
+		timestampMilli1      = 时间类.X取时间戳毫秒()
 	)
 
 	// Trace span start.
 	tr := otel.GetTracerProvider().Tracer(traceInstrumentName, trace.WithInstrumentationVersion(gf.VERSION))
-	ctx, span := tr.Start(ctx, in.Type, trace.WithSpanKind(trace.SpanKindInternal))
+	ctx, span := tr.Start(ctx, in.X类型, trace.WithSpanKind(trace.SpanKindInternal))
 	defer span.End()
 
 	// 根据类型执行。
-	switch in.Type {
+	switch in.X类型 {
 	case SqlTypeBegin:
 		if sqlTx, err = in.Db.Begin(); err == nil {
-			out.Tx = &TXCore{
+			out.Tx = &X基础事务{
 				db:            c.db,
 				tx:            sqlTx,
 				ctx:           context.WithValue(ctx, transactionIdForLoggerCtx, transactionIdGenerator.Add(1)),
 				master:        in.Db,
-				transactionId: guid.S(),
+				transactionId: uid类.X生成(),
 			}
-			ctx = out.Tx.GetCtx()
+			ctx = out.Tx.X取上下文对象()
 		}
-		out.RawResult = sqlTx
+		out.X底层结果 = sqlTx
 
 	case SqlTypeTXCommit:
 		err = in.Tx.Commit()
@@ -195,58 +195,58 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 		err = in.Tx.Rollback()
 
 	case SqlTypeExecContext:
-		if c.db.GetDryRun() {
-			sqlResult = new(SqlResult)
+		if c.db.X取空跑特性() {
+			sqlResult = new(Sql执行结果)
 		} else {
 			sqlResult, err = in.Link.ExecContext(ctx, in.Sql, in.Args...)
 		}
-		out.RawResult = sqlResult
+		out.X底层结果 = sqlResult
 
 	case SqlTypeQueryContext:
 		sqlRows, err = in.Link.QueryContext(ctx, in.Sql, in.Args...)
-		out.RawResult = sqlRows
+		out.X底层结果 = sqlRows
 
 	case SqlTypePrepareContext:
 		sqlStmt, err = in.Link.PrepareContext(ctx, in.Sql)
-		out.RawResult = sqlStmt
+		out.X底层结果 = sqlStmt
 
 	case SqlTypeStmtExecContext:
-		ctx, cancelFuncForTimeout = c.GetCtxTimeout(ctx, ctxTimeoutTypeExec)
+		ctx, cancelFuncForTimeout = c.X取超时上下文对象(ctx, ctxTimeoutTypeExec)
 		defer cancelFuncForTimeout()
-		if c.db.GetDryRun() {
-			sqlResult = new(SqlResult)
+		if c.db.X取空跑特性() {
+			sqlResult = new(Sql执行结果)
 		} else {
 			sqlResult, err = in.Stmt.ExecContext(ctx, in.Args...)
 		}
-		out.RawResult = sqlResult
+		out.X底层结果 = sqlResult
 
 	case SqlTypeStmtQueryContext:
-		ctx, cancelFuncForTimeout = c.GetCtxTimeout(ctx, ctxTimeoutTypeQuery)
+		ctx, cancelFuncForTimeout = c.X取超时上下文对象(ctx, ctxTimeoutTypeQuery)
 		defer cancelFuncForTimeout()
 		stmtSqlRows, err = in.Stmt.QueryContext(ctx, in.Args...)
-		out.RawResult = stmtSqlRows
+		out.X底层结果 = stmtSqlRows
 
 	case SqlTypeStmtQueryRowContext:
-		ctx, cancelFuncForTimeout = c.GetCtxTimeout(ctx, ctxTimeoutTypeQuery)
+		ctx, cancelFuncForTimeout = c.X取超时上下文对象(ctx, ctxTimeoutTypeQuery)
 		defer cancelFuncForTimeout()
 		stmtSqlRow = in.Stmt.QueryRowContext(ctx, in.Args...)
-		out.RawResult = stmtSqlRow
+		out.X底层结果 = stmtSqlRow
 
 	default:
-		panic(gerror.NewCodef(gcode.CodeInvalidParameter, `invalid SqlType "%s"`, in.Type))
+		panic(错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid SqlType "%s"`, in.X类型))
 	}
 	// Result handling.
 	switch {
-	case sqlResult != nil && !c.GetIgnoreResultFromCtx(ctx):
+	case sqlResult != nil && !c.底层_GetIgnoreResultFromCtx(ctx):
 		rowsAffected, err = sqlResult.RowsAffected()
-		out.Result = sqlResult
+		out.X原生sql行记录 = sqlResult
 
 	case sqlRows != nil:
-		out.Records, err = c.RowsToResult(ctx, sqlRows)
-		rowsAffected = int64(len(out.Records))
+		out.X行记录数组, err = c.X原生sql记录到行记录数组对象(ctx, sqlRows)
+		rowsAffected = int64(len(out.X行记录数组))
 
 	case sqlStmt != nil:
-		out.Stmt = &Stmt{
+		out.X参数预处理 = &Stmt{
 			Stmt: sqlStmt,
 			core: c,
 			link: in.Link,
@@ -254,19 +254,19 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 		}
 	}
 	var (
-		timestampMilli2 = gtime.TimestampMilli()
+		timestampMilli2 = 时间类.X取时间戳毫秒()
 		sqlObj          = &Sql{
-			Sql:           in.Sql,
-			Type:          in.Type,
-			Args:          in.Args,
-			Format:        formattedSql,
-			Error:         err,
-			Start:         timestampMilli1,
-			End:           timestampMilli2,
-			Group:         c.db.GetGroup(),
-			Schema:        c.db.GetSchema(),
-			RowsAffected:  rowsAffected,
-			IsTransaction: in.IsTransaction,
+			SQL字符串:           in.Sql,
+			X类型:          in.X类型,
+			SQL参数:          in.Args,
+			SQL格式化后:        formattedSql,
+			X执行错误:         err,
+			X开始时间戳:         timestampMilli1,
+			X结束时间戳:           timestampMilli2,
+			X配置组名称:         c.db.X取配置组名称(),
+			X架构名称:        c.db.X取默认数据库名称(),
+			X影响行数:  rowsAffected,
+			X是否为事务: in.IsTransaction,
 		}
 	)
 
@@ -274,14 +274,14 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 	c.traceSpanEnd(ctx, span, sqlObj)
 
 	// Logging.
-	if c.db.GetDebug() {
+	if c.db.X取调试模式() {
 		c.writeSqlToLogger(ctx, sqlObj)
 	}
 	if err != nil && err != sql.ErrNoRows {
-		err = gerror.WrapCode(
-			gcode.CodeDbOperationError,
+		err = 错误类.X多层错误码(
+			错误码类.CodeDbOperationError,
 			err,
-			FormatSqlWithArgs(in.Sql, in.Args),
+			X格式化Sql(in.Sql, in.Args),
 		)
 	}
 	return out, err
@@ -293,97 +293,97 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 //
 // 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从模式，
 // 则此参数为 false 时将在从节点上执行 SQL。
-func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {
+func (c *Core) X原生sql取参数预处理对象(上下文 context.Context, sql string, 是否主节点执行 ...bool) (*Stmt, error) {
 	var (
 		err  error
-		link Link
+		link X底层链接
 	)
-	if len(execOnMaster) > 0 && execOnMaster[0] {
-		if link, err = c.MasterLink(); err != nil {
+	if len(是否主节点执行) > 0 && 是否主节点执行[0] {
+		if link, err = c.X底层MasterLink(); err != nil {
 			return nil, err
 		}
 	} else {
-		if link, err = c.SlaveLink(); err != nil {
+		if link, err = c.X底层SlaveLink(); err != nil {
 			return nil, err
 		}
 	}
-	return c.db.DoPrepare(ctx, link, sql)
+	return c.db.X底层原生sql参数预处理对象(上下文, link, sql)
 }
 
 // DoPrepare在给定的link对象上调用prepare函数，并返回statement对象。
-func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt, err error) {
+func (c *Core) X底层原生sql参数预处理对象(上下文 context.Context, 链接 X底层链接, sql string) (参数预处理 *Stmt, 错误 error) {
 	// 事务检查。
-	if link == nil {
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
+	if 链接 == nil {
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
 			// 首先，从上下文检查并检索交易链接。
-			link = &txLink{tx.GetSqlTX()}
+			链接 = &txLink{tx.X底层取事务对象()}
 		} else {
 			// 或者从主节点创建一个
 			var err error
-			if link, err = c.MasterLink(); err != nil {
+			if 链接, err = c.X底层MasterLink(); err != nil {
 				return nil, err
 			}
 		}
-	} else if !link.IsTransaction() {
+	} else if !链接.IsTransaction() {
 		// 如果当前链接不是事务链接，它会检查并从上下文中获取事务。
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			link = &txLink{tx.GetSqlTX()}
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
 		}
 	}
 
-	if c.db.GetConfig().PrepareTimeout > 0 {
+	if c.db.X取当前节点配置().X预准备SQL超时时长 > 0 {
 		// **请勿在预处理语句中使用取消函数。**
-		ctx, _ = context.WithTimeout(ctx, c.db.GetConfig().PrepareTimeout)
+		上下文, _ = context.WithTimeout(上下文, c.db.X取当前节点配置().X预准备SQL超时时长)
 	}
 
 	// Link execution.
-	var out DoCommitOutput
-	out, err = c.db.DoCommit(ctx, DoCommitInput{
-		Link:          link,
+	var out X输出
+	out, 错误 = c.db.X底层DoCommit(上下文, X输入{
+		Link:          链接,
 		Sql:           sql,
-		Type:          SqlTypePrepareContext,
-		IsTransaction: link.IsTransaction(),
+		X类型:          SqlTypePrepareContext,
+		IsTransaction: 链接.IsTransaction(),
 	})
-	return out.Stmt, err
+	return out.X参数预处理, 错误
 }
 
 // RowsToResult 将底层数据记录类型 sql.Rows 转换为 Result 类型。
-func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error) {
-	if rows == nil {
+func (c *Core) X原生sql记录到行记录数组对象(上下文 context.Context, 底层数据记录 *sql.Rows) (X行记录数组, error) {
+	if 底层数据记录 == nil {
 		return nil, nil
 	}
 	defer func() {
-		if err := rows.Close(); err != nil {
-			intlog.Errorf(ctx, `%+v`, err)
+		if err := 底层数据记录.Close(); err != nil {
+			intlog.Errorf(上下文, `%+v`, err)
 		}
 	}()
-	if !rows.Next() {
+	if !底层数据记录.Next() {
 		return nil, nil
 	}
 	// 列名和类型。
-	columnTypes, err := rows.ColumnTypes()
+	columnTypes, err := 底层数据记录.ColumnTypes()
 	if err != nil {
 		return nil, err
 	}
 
 	if len(columnTypes) > 0 {
-		if internalData := c.GetInternalCtxDataFromCtx(ctx); internalData != nil {
+		if internalData := c.底层_GetInternalCtxDataFromCtx(上下文); internalData != nil {
 			internalData.FirstResultColumn = columnTypes[0].Name()
 		}
 	}
 	var (
 		values   = make([]interface{}, len(columnTypes))
-		result   = make(Result, 0)
+		result   = make(X行记录数组, 0)
 		scanArgs = make([]interface{}, len(values))
 	)
 	for i := range values {
 		scanArgs[i] = &values[i]
 	}
 	for {
-		if err = rows.Scan(scanArgs...); err != nil {
+		if err = 底层数据记录.Scan(scanArgs...); err != nil {
 			return result, err
 		}
-		record := Record{}
+		record := X行记录{}
 		for i, value := range values {
 			if value == nil {
 // **注意**：在此处不要使用 `gvar.New(nil)`，因为它会创建一个已初始化的对象，
@@ -391,14 +391,14 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 				record[columnTypes[i].Name()] = nil
 			} else {
 				var convertedValue interface{}
-				if convertedValue, err = c.columnValueToLocalValue(ctx, value, columnTypes[i]); err != nil {
+				if convertedValue, err = c.columnValueToLocalValue(上下文, value, columnTypes[i]); err != nil {
 					return nil, err
 				}
-				record[columnTypes[i].Name()] = gvar.New(convertedValue)
+				record[columnTypes[i].Name()] = 泛型类.X创建(convertedValue)
 			}
 		}
 		result = append(result, record)
-		if !rows.Next() {
+		if !底层数据记录.Next() {
 			break
 		}
 	}
@@ -415,12 +415,12 @@ func (c *Core) columnValueToLocalValue(ctx context.Context, value interface{}, c
 			reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
 			reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
 			reflect.Float32, reflect.Float64:
-			return gconv.Convert(
-				gconv.String(value),
+			return 转换类.X按名称转换(
+				转换类.String(value),
 				columnType.ScanType().String(),
 			), nil
 		}
 	}
 	// 其他复杂类型，特别是自定义类型。
-	return c.db.ConvertValueForLocal(ctx, columnType.DatabaseTypeName(), value)
+	return c.db.X底层ConvertValueForLocal(ctx, columnType.DatabaseTypeName(), value)
 }

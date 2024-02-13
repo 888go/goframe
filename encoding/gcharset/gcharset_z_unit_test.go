@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcharset_test
+package 编码字符集类_test
 
 import (
 	"testing"
@@ -67,7 +67,7 @@ var testData = []struct {
 func TestDecode(t *testing.T) {
 	for _, data := range testData {
 		str := ""
-		str, err := gcharset.Convert("UTF-8", data.otherEncoding, data.other)
+		str, err := 编码字符集类.Convert("UTF-8", data.otherEncoding, data.other)
 		if err != nil {
 			t.Errorf("Could not create decoder for %v", err)
 			continue
@@ -82,7 +82,7 @@ func TestDecode(t *testing.T) {
 func TestUTF8To(t *testing.T) {
 	for _, data := range testData {
 		str := ""
-		str, err := gcharset.UTF8To(data.otherEncoding, data.utf8)
+		str, err := 编码字符集类.UTF8To(data.otherEncoding, data.utf8)
 		if err != nil {
 			t.Errorf("Could not create decoder for %v", err)
 			continue
@@ -97,7 +97,7 @@ func TestUTF8To(t *testing.T) {
 func TestToUTF8(t *testing.T) {
 	for _, data := range testData {
 		str := ""
-		str, err := gcharset.ToUTF8(data.otherEncoding, data.other)
+		str, err := 编码字符集类.ToUTF8(data.otherEncoding, data.other)
 		if err != nil {
 			t.Errorf("Could not create decoder for %v", err)
 			continue
@@ -112,7 +112,7 @@ func TestToUTF8(t *testing.T) {
 func TestEncode(t *testing.T) {
 	for _, data := range testData {
 		str := ""
-		str, err := gcharset.Convert(data.otherEncoding, "UTF-8", data.utf8)
+		str, err := 编码字符集类.Convert(data.otherEncoding, "UTF-8", data.utf8)
 		if err != nil {
 			t.Errorf("Could not create decoder for %v", err)
 			continue
@@ -130,7 +130,7 @@ func TestConvert(t *testing.T) {
 	dstCharset := "gbk"
 	dst := "Hello \xb3\xa3\xd3\xc3\x87\xf8\xd7\xd6\x98\xcb\x9c\xca\xd7\xd6\xf3\x77\xb1\xed"
 
-	str, err := gcharset.Convert(dstCharset, srcCharset, src)
+	str, err := 编码字符集类.Convert(dstCharset, srcCharset, src)
 	if err != nil {
 		t.Errorf("convert error. %v", err)
 		return
@@ -142,28 +142,28 @@ func TestConvert(t *testing.T) {
 }
 
 func TestConvertErr(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
+	单元测试类.C(t, func(t *单元测试类.T) {
 		srcCharset := "big5"
 		dstCharset := "gbk"
 		src := "Hello \xb1`\xa5\u03b0\xea\xa6r\xbc\u0437\u01e6r\xc5\xe9\xaa\xed"
 
-		s1, e1 := gcharset.Convert(srcCharset, srcCharset, src)
+		s1, e1 := 编码字符集类.Convert(srcCharset, srcCharset, src)
 		t.Assert(e1, nil)
 		t.Assert(s1, src)
 
-		s2, e2 := gcharset.Convert(dstCharset, "no this charset", src)
+		s2, e2 := 编码字符集类.Convert(dstCharset, "no this charset", src)
 		t.AssertNE(e2, nil)
 		t.Assert(s2, src)
 
-		s3, e3 := gcharset.Convert("no this charset", srcCharset, src)
+		s3, e3 := 编码字符集类.Convert("no this charset", srcCharset, src)
 		t.AssertNE(e3, nil)
 		t.Assert(s3, src)
 	})
 }
 
 func TestSupported(t *testing.T) {
-	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gcharset.Supported("UTF-8"), true)
-		t.Assert(gcharset.Supported("UTF-80"), false)
+	单元测试类.C(t, func(t *单元测试类.T) {
+		t.Assert(编码字符集类.Supported("UTF-8"), true)
+		t.Assert(编码字符集类.Supported("UTF-80"), false)
 	})
 }

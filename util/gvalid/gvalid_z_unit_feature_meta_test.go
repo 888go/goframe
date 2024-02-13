@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
@@ -21,12 +21,12 @@ type UserCreateReq struct {
 	Pass   string
 }
 
-func RuleUserCreateReq(ctx context.Context, in gvalid.RuleFuncInput) error {
+func RuleUserCreateReq(ctx context.Context, in 效验类.RuleFuncInput) error {
 	var req *UserCreateReq
-	if err := in.Data.Scan(&req); err != nil {
-		return gerror.Wrap(err, `Scan data to UserCreateReq failed`)
+	if err := in.Data.X取结构体指针(&req); err != nil {
+		return 错误类.X多层错误(err, `Scan data to UserCreateReq failed`)
 	}
-	return gerror.Newf(`The name "%s" is already token by others`, req.Name)
+	return 错误类.X创建并格式化(`The name "%s" is already token by others`, req.Name)
 }
 
 func Test_Meta(t *testing.T) {
@@ -35,8 +35,8 @@ func Test_Meta(t *testing.T) {
 		Pass: "123456",
 	}
 
-	gtest.C(t, func(t *gtest.T) {
-		err := g.Validator().RuleFunc("UserCreateReq", RuleUserCreateReq).
+	单元测试类.C(t, func(t *单元测试类.T) {
+		err := g.X效验类().RuleFunc("UserCreateReq", RuleUserCreateReq).
 			Data(user).
 			Assoc(g.Map{
 				"Name": "john smith",

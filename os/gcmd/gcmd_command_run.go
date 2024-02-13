@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf 获取一份。
 //
 
-package gcmd
+package cmd类
 
 import (
 	"bytes"
@@ -41,12 +41,12 @@ func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 	value, err := c.RunWithValueError(ctx)
 	if err != nil {
 		var (
-			code   = gerror.Code(err)
+			code   = 错误类.X取错误码(err)
 			detail = code.Detail()
 			buffer = bytes.NewBuffer(nil)
 		)
-		if code.Code() == gcode.CodeNotFound.Code() {
-			buffer.WriteString(fmt.Sprintf("ERROR: %s\n", gstr.Trim(err.Error())))
+		if code.Code() == 错误码类.CodeNotFound.Code() {
+			buffer.WriteString(fmt.Sprintf("ERROR: %s\n", 文本类.X过滤首尾符并含空白(err.Error())))
 			if lastCmd, ok := detail.(*Command); ok {
 				lastCmd.PrintTo(buffer)
 			} else {
@@ -59,7 +59,7 @@ func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 			fmt.Println(buffer.String())
 			os.Exit(1)
 		}
-		glog.Stack(false).Fatal(ctx, buffer.String())
+		日志类.X堆栈选项(false).X输出FATA(ctx, buffer.String())
 	}
 	return value
 }
@@ -92,12 +92,12 @@ func (c *Command) RunWithValueError(ctx context.Context) (value interface{}, err
 	}
 
 	// 如果未找到命令，则打印错误信息和帮助命令。
-	err = gerror.NewCodef(
-		gcode.WithCode(gcode.CodeNotFound, lastCmd),
+	err = 错误类.X创建错误码并格式化(
+		错误码类.WithCode(错误码类.CodeNotFound, lastCmd),
 		`command "%s" not found for command "%s", command line: %s`,
-		gstr.Join(args, " "),
+		文本类.X连接(args, " "),
 		c.Name,
-		gstr.Join(os.Args, " "),
+		文本类.X连接(os.Args, " "),
 	)
 	return
 }
@@ -105,10 +105,10 @@ func (c *Command) RunWithValueError(ctx context.Context) (value interface{}, err
 func (c *Command) doRun(ctx context.Context, parser *Parser) (value interface{}, err error) {
 	defer func() {
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && 错误类.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodef(gcode.CodeInternalPanic, "exception recovered: %+v", exception)
+				err = 错误类.X创建错误码并格式化(错误码类.CodeInternalPanic, "exception recovered: %+v", exception)
 			}
 		}
 	}()
@@ -132,9 +132,9 @@ func (c *Command) doRun(ctx context.Context, parser *Parser) (value interface{},
 	ctx, span = tr.Start(
 		otel.GetTextMapPropagator().Extract(
 			ctx,
-			propagation.MapCarrier(genv.Map()),
+			propagation.MapCarrier(环境变量类.X取Map()),
 		),
-		gstr.Join(os.Args, " "),
+		文本类.X连接(os.Args, " "),
 		trace.WithSpanKind(trace.SpanKindServer),
 	)
 	defer span.End()
@@ -186,21 +186,21 @@ func (c *Command) reParse(ctx context.Context, parser *Parser) (*Parser, error) 
 		return nil, err
 	}
 	// 如果配置组件带有"config"标签，则从该组件中获取选项值。
-	if c.Config != "" && gcfg.Instance().Available(ctx) {
-		value, err := gcfg.Instance().Get(ctx, c.Config)
+	if c.Config != "" && 配置类.X取单例对象().X是否可用(ctx) {
+		value, err := 配置类.X取单例对象().X取值(ctx, c.Config)
 		if err != nil {
 			return nil, err
 		}
-		configMap := value.Map()
+		configMap := value.X取Map()
 		for optionName := range parser.supportedOptions {
 			// 命令行参数具有高优先级
 			if parser.GetOpt(optionName) != nil {
 				continue
 			}
 			// 将配置值合并到解析器中。
-			foundKey, foundValue := gutil.MapPossibleItemByKey(configMap, optionName)
+			foundKey, foundValue := 工具类.MapPossibleItemByKey(configMap, optionName)
 			if foundKey != "" {
-				parser.parsedOptions[optionName] = gconv.String(foundValue)
+				parser.parsedOptions[optionName] = 转换类.String(foundValue)
 			}
 		}
 	}

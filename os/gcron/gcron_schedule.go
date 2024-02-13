@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcron
+package 定时cron类
 
 import (
 	"context"
@@ -30,7 +30,7 @@ type cronSchedule struct {
 	dayMap          map[int]struct{} // Job可以在这些天数中运行。
 	weekMap         map[int]struct{} // Job可以在这些周数中运行。
 	monthMap        map[int]struct{} // Job 可以在以下月份数字中运行。
-	lastTimestamp   *gtype.Int64     // 上次时间戳编号，用于修正某些延迟情况下的时间戳。
+	lastTimestamp   *安全变量类.Int64     // 上次时间戳编号，用于修正某些延迟情况下的时间戳。
 }
 
 const (
@@ -108,12 +108,12 @@ var (
 func newSchedule(pattern string) (*cronSchedule, error) {
 	var currentTimestamp = time.Now().Unix()
 	// 检查预定义的模式是否存在
-	if match, _ := gregex.MatchString(`(@\w+)\s*(\w*)\s*`, pattern); len(match) > 0 {
+	if match, _ := 正则类.X匹配文本(`(@\w+)\s*(\w*)\s*`, pattern); len(match) > 0 {
 		key := strings.ToLower(match[1])
 		if v, ok := predefinedPatternMap[key]; ok {
 			pattern = v
 		} else if strings.Compare(key, "@every") == 0 {
-			d, err := gtime.ParseDuration(match[2])
+			d, err := 时间类.X文本取时长(match[2])
 			if err != nil {
 				return nil, err
 			}
@@ -121,10 +121,10 @@ func newSchedule(pattern string) (*cronSchedule, error) {
 				createTimestamp: currentTimestamp,
 				everySeconds:    int64(d.Seconds()),
 				pattern:         pattern,
-				lastTimestamp:   gtype.NewInt64(currentTimestamp),
+				lastTimestamp:   安全变量类.NewInt64(currentTimestamp),
 			}, nil
 		} else {
-			return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
+			return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
 		}
 	}
 // 处理常见的cron模式，例如：
@@ -134,12 +134,12 @@ func newSchedule(pattern string) (*cronSchedule, error) {
 // 其格式为：分 时 天(月) 月 星期 周
 // 示例 "0 0 0 1 1 2" 的含义是：
 // 在每月的第一天（1号）的第一个星期二（2）的凌晨0点0分执行定时任务。
-	if match, _ := gregex.MatchString(regexForCron, pattern); len(match) == 7 {
+	if match, _ := 正则类.X匹配文本(regexForCron, pattern); len(match) == 7 {
 		schedule := &cronSchedule{
 			createTimestamp: currentTimestamp,
 			everySeconds:    0,
 			pattern:         pattern,
-			lastTimestamp:   gtype.NewInt64(currentTimestamp),
+			lastTimestamp:   安全变量类.NewInt64(currentTimestamp),
 		}
 		// Second.
 		if m, err := parsePatternItem(match[1], 0, 59, false); err != nil {
@@ -179,7 +179,7 @@ func newSchedule(pattern string) (*cronSchedule, error) {
 		}
 		return schedule, nil
 	}
-	return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
+	return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
 }
 
 // parsePatternItem 解析模式中的每一项，并将结果以映射形式返回，该映射用于索引。
@@ -199,7 +199,7 @@ func parsePatternItem(item string, min int, max int, allowQuestionMark bool) (ma
 		)
 		if len(intervalArray) == 2 {
 			if number, err := strconv.Atoi(intervalArray[1]); err != nil {
-				return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem)
+				return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem)
 			} else {
 				interval = number
 			}
@@ -222,7 +222,7 @@ func parsePatternItem(item string, min int, max int, allowQuestionMark bool) (ma
 		// Eg: */5
 		if rangeArray[0] != "*" {
 			if number, err := parsePatternItemValue(rangeArray[0], itemType); err != nil {
-				return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem)
+				return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem)
 			} else {
 				rangeMin = number
 				if len(intervalArray) == 1 {
@@ -232,7 +232,7 @@ func parsePatternItem(item string, min int, max int, allowQuestionMark bool) (ma
 		}
 		if len(rangeArray) == 2 {
 			if number, err := parsePatternItemValue(rangeArray[1], itemType); err != nil {
-				return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem)
+				return nil, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem)
 			} else {
 				rangeMax = number
 			}
@@ -246,7 +246,7 @@ func parsePatternItem(item string, min int, max int, allowQuestionMark bool) (ma
 
 // parsePatternItemValue 根据字段类型将字段值解析为数字。
 func parsePatternItemValue(value string, itemType int) (int, error) {
-	if gregex.IsMatchString(`^\d+$`, value) {
+	if 正则类.X是否匹配文本(`^\d+$`, value) {
 		// 这是一个纯数字。
 		if number, err := strconv.Atoi(value); err == nil {
 			return number, nil
@@ -271,19 +271,19 @@ func parsePatternItemValue(value string, itemType int) (int, error) {
 			}
 		}
 	}
-	return 0, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern value: "%s"`, value)
+	return 0, 错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid pattern value: "%s"`, value)
 }
 
 // checkMeetAndUpdateLastSeconds 检查给定的时间 `t` 是否满足作业的可执行时间点，并更新最后执行秒数。
 func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, t time.Time) bool {
 	var (
 		lastTimestamp = s.getAndUpdateLastTimestamp(ctx, t)
-		lastTime      = gtime.NewFromTimeStamp(lastTimestamp)
+		lastTime      = 时间类.X创建并从时间戳(lastTimestamp)
 	)
 
 	if s.everySeconds != 0 {
 		// 它使用间隔进行检查。
-		secondsAfterCreated := lastTime.Timestamp() - s.createTimestamp
+		secondsAfterCreated := lastTime.X取时间戳秒() - s.createTimestamp
 		if secondsAfterCreated > 0 {
 			return secondsAfterCreated%s.everySeconds == 0
 		}
@@ -291,7 +291,7 @@ func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, t time
 	}
 
 	// 它使用标准cron模式进行检查。
-	if _, ok := s.secondMap[lastTime.Second()]; !ok {
+	if _, ok := s.secondMap[lastTime.X取秒()]; !ok {
 		return false
 	}
 	if _, ok := s.minuteMap[lastTime.Minute()]; !ok {
@@ -303,7 +303,7 @@ func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, t time
 	if _, ok := s.dayMap[lastTime.Day()]; !ok {
 		return false
 	}
-	if _, ok := s.monthMap[lastTime.Month()]; !ok {
+	if _, ok := s.monthMap[lastTime.X取月份()]; !ok {
 		return false
 	}
 	if _, ok := s.weekMap[int(lastTime.Weekday())]; !ok {
