@@ -22,11 +22,11 @@ func Test_StatusHandler(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
 		s.X绑定状态码中间件Map(map[int]http类.HandlerFunc{
-			404: func(r *http类.Request) { r.Response.X写覆盖响应缓冲区("404") },
-			502: func(r *http类.Request) { r.Response.X写覆盖响应缓冲区("502") },
+			404: func(r *http类.X请求) { r.X响应.X写覆盖响应缓冲区("404") },
+			502: func(r *http类.X请求) { r.X响应.X写覆盖响应缓冲区("502") },
 		})
-		s.X绑定("/502", func(r *http类.Request) {
-			r.Response.X写响应缓冲区与HTTP状态码并退出(502)
+		s.X绑定("/502", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区与HTTP状态码并退出(502)
 		})
 		s.SetDumpRouterMap(false)
 		s.X开始监听()
@@ -43,14 +43,14 @@ func Test_StatusHandler(t *testing.T) {
 func Test_StatusHandler_Multi(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X绑定状态码中间件(502, func(r *http类.Request) {
-			r.Response.X写覆盖响应缓冲区("1")
+		s.X绑定状态码中间件(502, func(r *http类.X请求) {
+			r.X响应.X写覆盖响应缓冲区("1")
 		})
-		s.X绑定状态码中间件(502, func(r *http类.Request) {
-			r.Response.X写响应缓冲区("2")
+		s.X绑定状态码中间件(502, func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("2")
 		})
-		s.X绑定("/502", func(r *http类.Request) {
-			r.Response.X写响应缓冲区与HTTP状态码并退出(502)
+		s.X绑定("/502", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区与HTTP状态码并退出(502)
 		})
 		s.SetDumpRouterMap(false)
 		s.X开始监听()

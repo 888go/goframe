@@ -13,8 +13,8 @@ import (
 func ExampleServer() {
 	// 一个简单的“你好，世界”示例。
 	s := g.Http类()
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello world")
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello world")
 	})
 	s.X设置监听端口(8999)
 	s.X启动服务()

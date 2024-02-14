@@ -18,40 +18,40 @@ import (
 
 func Test_Router_Group_Group(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/api.v2", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
-			r.Middleware.Next()
-			r.Response.X写响应缓冲区("2")
+	s.X创建分组路由("/api.v2", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
+			r.X中间件管理器.Next()
+			r.X响应.X写响应缓冲区("2")
 		})
-		group.X绑定GET("/test", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("test")
+		group.X绑定GET("/test", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("test")
 		})
-		group.X创建分组路由("/order", func(group *http类.RouterGroup) {
-			group.X绑定GET("/list", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("list")
+		group.X创建分组路由("/order", func(group *http类.X分组路由) {
+			group.X绑定GET("/list", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("list")
 			})
-			group.X绑定PUT("/update", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("update")
-			})
-		})
-		group.X创建分组路由("/user", func(group *http类.RouterGroup) {
-			group.X绑定GET("/info", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("info")
-			})
-			group.X绑定POST("/edit", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("edit")
-			})
-			group.X绑定DELETE("/drop", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("drop")
+			group.X绑定PUT("/update", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("update")
 			})
 		})
-		group.X创建分组路由("/hook", func(group *http类.RouterGroup) {
-			group.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.Request) {
-				r.Response.X写响应缓冲区("hook any")
+		group.X创建分组路由("/user", func(group *http类.X分组路由) {
+			group.X绑定GET("/info", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("info")
 			})
-			group.X绑定Hook("/:name", http类.HookBeforeServe, func(r *http类.Request) {
-				r.Response.X写响应缓冲区("hook name")
+			group.X绑定POST("/edit", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("edit")
+			})
+			group.X绑定DELETE("/drop", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("drop")
+			})
+		})
+		group.X创建分组路由("/hook", func(group *http类.X分组路由) {
+			group.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("hook any")
+			})
+			group.X绑定Hook("/:name", http类.HookBeforeServe, func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("hook name")
 			})
 		})
 	})

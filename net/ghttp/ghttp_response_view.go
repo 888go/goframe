@@ -17,7 +17,7 @@ import (
 
 // WriteTpl 解析并响应给定的模板文件。
 // 参数 `params` 指定了用于解析的模板变量。
-func (r *Response) X输出到模板文件(模板文件路径 string, 模板变量 ...模板类.Params) error {
+func (r *X响应) X输出到模板文件(模板文件路径 string, 模板变量 ...模板类.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.X解析模板文件(模板文件路径, 模板变量...)
 	if err != nil {
@@ -32,7 +32,7 @@ func (r *Response) X输出到模板文件(模板文件路径 string, 模板变�
 
 // WriteTplDefault 解析并响应默认模板文件。
 // 参数`params`用于指定模板解析所需的变量。
-func (r *Response) X输出到默认模板文件(模板变量 ...模板类.Params) error {
+func (r *X响应) X输出到默认模板文件(模板变量 ...模板类.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.X解析默认模板文件(模板变量...)
 	if err != nil {
@@ -47,7 +47,7 @@ func (r *Response) X输出到默认模板文件(模板变量 ...模板类.Params
 
 // WriteTplContent 解析并响应模板内容。
 // 参数 `params` 指定了用于解析的模板变量。
-func (r *Response) X输出文本模板(文本模板 string, 模板变量 ...模板类.Params) error {
+func (r *X响应) X输出文本模板(文本模板 string, 模板变量 ...模板类.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.X解析文本模板(文本模板, 模板变量...)
 	if err != nil {
@@ -62,24 +62,24 @@ func (r *Response) X输出文本模板(文本模板 string, 模板变量 ...模�
 
 // ParseTpl 将给定的模板文件 `tpl` 与给定的模板变量 `params` 进行解析，
 // 并返回解析后的模板内容。
-func (r *Response) X解析模板文件(模板文件路径 string, 模板变量 ...模板类.Params) (string, error) {
+func (r *X响应) X解析模板文件(模板文件路径 string, 模板变量 ...模板类.Params) (string, error) {
 	return r.Request.X取模板对象().Parse(r.Request.Context别名(), 模板文件路径, r.buildInVars(模板变量...))
 }
 
 // ParseTplDefault 使用参数解析默认模板文件。
-func (r *Response) X解析默认模板文件(模板变量 ...模板类.Params) (string, error) {
+func (r *X响应) X解析默认模板文件(模板变量 ...模板类.Params) (string, error) {
 	return r.Request.X取模板对象().ParseDefault(r.Request.Context别名(), r.buildInVars(模板变量...))
 }
 
 // ParseTplContent 函数用于解析给定的模板文件 `file`，并使用给定的模板参数 `params` 进行解析，
 // 然后返回解析后的模板内容。
-func (r *Response) X解析文本模板(文本模板 string, 模板变量 ...模板类.Params) (string, error) {
+func (r *X响应) X解析文本模板(文本模板 string, 模板变量 ...模板类.Params) (string, error) {
 	return r.Request.X取模板对象().ParseContent(r.Request.Context别名(), 文本模板, r.buildInVars(模板变量...))
 }
 
 // buildInVars 将内置变量合并到 `params` 中，并返回新的模板变量。
 // TODO：提升性能。
-func (r *Response) buildInVars(params ...map[string]interface{}) map[string]interface{} {
+func (r *X响应) buildInVars(params ...map[string]interface{}) map[string]interface{} {
 	m := 工具类.MapMergeCopy(r.Request.viewParams)
 	if len(params) > 0 {
 		工具类.MapMerge(m, params[0])

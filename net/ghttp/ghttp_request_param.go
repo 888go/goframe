@@ -49,22 +49,22 @@ var (
 // 2. 多个结构体，POST 内容如：[{"id":1, "name":"john"}, {"id":, "name":"smith"}]
 //
 // TODO: 通过减少在不同包中对同一变量重复使用 reflect 来提高性能。
-func (r *Request) X解析参数到结构(结构指针 interface{}) error {
+func (r *X请求) X解析参数到结构(结构指针 interface{}) error {
 	return r.doParse(结构指针, parseTypeRequest)
 }
 
 // ParseQuery 类似于函数 Parse，但它只解析查询参数。
-func (r *Request) X解析URL到结构(结构指针 interface{}) error {
+func (r *X请求) X解析URL到结构(结构指针 interface{}) error {
 	return r.doParse(结构指针, parseTypeQuery)
 }
 
 // ParseForm执行类似于函数Parse的功能，但只解析表单参数或主体内容。
-func (r *Request) X解析表单到结构(结构指针 interface{}) error {
+func (r *X请求) X解析表单到结构(结构指针 interface{}) error {
 	return r.doParse(结构指针, parseTypeForm)
 }
 
 // doParse 根据请求类型将请求数据解析到结构体/结构体数组中。
-func (r *Request) doParse(pointer interface{}, requestType int) error {
+func (r *X请求) doParse(pointer interface{}, requestType int) error {
 	var (
 		reflectVal1  = reflect.ValueOf(pointer)
 		reflectKind1 = reflectVal1.Kind()
@@ -142,13 +142,13 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 
 // Get 是 GetRequest 的别名，它是用于获取参数的最常用函数之一。
 // 请参阅 r.GetRequest。
-func (r *Request) Get别名(名称 string, 默认值 ...interface{}) *泛型类.Var {
+func (r *X请求) Get别名(名称 string, 默认值 ...interface{}) *泛型类.Var {
 	return r.X取参数(名称, 默认值...)
 }
 
 // GetBody 用于检索并返回请求正文内容作为字节。
 // 它可以被多次调用，获取相同正文内容。
-func (r *Request) X取请求体字节集() []byte {
+func (r *X请求) X取请求体字节集() []byte {
 	if r.bodyContent == nil {
 		r.bodyContent = r.MakeBodyRepeatableRead(true)
 	}
@@ -157,7 +157,7 @@ func (r *Request) X取请求体字节集() []byte {
 
 // MakeBodyRepeatableRead 标记请求体是否可以被重复读取。
 // 同时，它还会返回当前请求体的内容。
-func (r *Request) MakeBodyRepeatableRead(repeatableRead bool) []byte {
+func (r *X请求) MakeBodyRepeatableRead(repeatableRead bool) []byte {
 	if r.bodyContent == nil {
 		var err error
 		if r.bodyContent, err = io.ReadAll(r.Body); err != nil {
@@ -174,13 +174,13 @@ func (r *Request) MakeBodyRepeatableRead(repeatableRead bool) []byte {
 
 // GetBodyString 用于获取并返回请求体内容作为字符串。
 // 它可以被多次调用，以获取相同的请求体内容。
-func (r *Request) X取请求体文本() string {
+func (r *X请求) X取请求体文本() string {
 	return string(r.X取请求体字节集())
 }
 
 // GetJson 将当前请求内容解析为JSON格式，并返回JSON对象。
 // 注意：请求内容是从request BODY中读取，而不是从FORM的任何字段中读取。
-func (r *Request) X取请求体到json类() (*json类.Json, error) {
+func (r *X请求) X取请求体到json类() (*json类.Json, error) {
 	return json类.X加载并按选项(r.X取请求体字节集(), json类.Options{
 		Type:      json类.ContentTypeJson,
 		StrNumber: true,
@@ -189,24 +189,24 @@ func (r *Request) X取请求体到json类() (*json类.Json, error) {
 
 // GetMap 是一个别名，也是一个方便获取请求映射的函数。
 // 请参阅 GetRequestMap。
-func (r *Request) GetMap别名(默认值 ...map[string]interface{}) map[string]interface{} {
+func (r *X请求) GetMap别名(默认值 ...map[string]interface{}) map[string]interface{} {
 	return r.X取参数到Map(默认值...)
 }
 
 // GetMapStrStr 是 GetRequestMapStrStr 的别名和便捷函数。
 // 请参阅 GetRequestMapStrStr。
-func (r *Request) GetMapStrStr别名(默认值 ...map[string]interface{}) map[string]string {
+func (r *X请求) GetMapStrStr别名(默认值 ...map[string]interface{}) map[string]string {
 	return r.X取参数到MapStrStr(默认值...)
 }
 
 // GetStruct 是 GetRequestStruct 的别名和便捷函数。
 // 请参阅 GetRequestStruct。
-func (r *Request) GetStruct别名(结构指针 interface{}, mapping ...map[string]string) error {
+func (r *X请求) GetStruct别名(结构指针 interface{}, mapping ...map[string]string) error {
 	return r.X取参数到结构体(结构指针, mapping...)
 }
 
 // parseQuery 将查询字符串解析到 r.queryMap 中。
-func (r *Request) parseQuery() {
+func (r *X请求) parseQuery() {
 	if r.parsedQuery {
 		return
 	}
@@ -222,7 +222,7 @@ func (r *Request) parseQuery() {
 
 // parseBody 将请求原始数据解析到 r.rawMap 中。
 // 注意，它还支持从客户端请求的 JSON 数据。
-func (r *Request) parseBody() {
+func (r *X请求) parseBody() {
 	if r.parsedBody {
 		return
 	}
@@ -256,7 +256,7 @@ func (r *Request) parseBody() {
 // 表单数据将被解析并存储到r.formMap中。
 //
 // 注意：如果表单首先被解析，请求体将会被清空，变成空内容。
-func (r *Request) parseForm() {
+func (r *X请求) parseForm() {
 	if r.parsedForm {
 		return
 	}
@@ -270,7 +270,7 @@ func (r *Request) parseForm() {
 		if 文本类.X是否包含(contentType, "multipart/") {
 			// multipart/form-data：这是一种HTTP内容类型，用于编码同一条请求中包含多种不同类型数据（如文本、文件等）的表单数据。在上传文件时尤为常见。
 // multipart/mixed：这也是一种HTTP内容类型，用于表示消息体包含多个独立的部分，各个部分可以是不同的数据类型，且每个部分都有自己的Content-Type和边界标识符。它通常用于混合多部分消息，比如在一个HTTP请求中同时发送文本信息和附件。
-			if err = r.ParseMultipartForm(r.Server.config.FormParsingMemory); err != nil {
+			if err = r.ParseMultipartForm(r.X服务.config.X表单解析最大缓冲区长度); err != nil {
 				panic(错误类.X多层错误码(错误码类.CodeInvalidRequest, err, "r.ParseMultipartForm failed"))
 			}
 		} else if 文本类.X是否包含(contentType, "form") {
@@ -340,14 +340,14 @@ func (r *Request) parseForm() {
 }
 
 // GetMultipartForm 解析并返回表单为多部分表单形式。
-func (r *Request) X取multipart表单对象() *multipart.Form {
+func (r *X请求) X取multipart表单对象() *multipart.Form {
 	r.parseForm()
 	return r.MultipartForm
 }
 
 // GetMultipartFiles 解析并返回 POST 请求中的文件数组。
 // 注意，请求表单的类型应当为 multipart。
-func (r *Request) X取multipart表单文件数组对象(名称 string) []*multipart.FileHeader {
+func (r *X请求) X取multipart表单文件数组对象(名称 string) []*multipart.FileHeader {
 	form := r.X取multipart表单对象()
 	if form == nil {
 		return nil

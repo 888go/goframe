@@ -18,14 +18,14 @@ import (
 
 func Test_Router_Hook_Basic(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定HookMap("/*", map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeServe:  func(r *http类.Request) { r.Response.X写响应缓冲区("1") },
-		http类.HookAfterServe:   func(r *http类.Request) { r.Response.X写响应缓冲区("2") },
-		http类.HookBeforeOutput: func(r *http类.Request) { r.Response.X写响应缓冲区("3") },
-		http类.HookAfterOutput:  func(r *http类.Request) { r.Response.X写响应缓冲区("4") },
+	s.X绑定HookMap("/*", map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeServe:  func(r *http类.X请求) { r.X响应.X写响应缓冲区("1") },
+		http类.HookAfterServe:   func(r *http类.X请求) { r.X响应.X写响应缓冲区("2") },
+		http类.HookBeforeOutput: func(r *http类.X请求) { r.X响应.X写响应缓冲区("3") },
+		http类.HookAfterOutput:  func(r *http类.X请求) { r.X响应.X写响应缓冲区("4") },
 	})
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -45,26 +45,26 @@ func Test_Router_Hook_Fuzzy_Router(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	i := 1000
 	pattern1 := "/:name/info"
-	s.X绑定HookMap(pattern1, map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeServe: func(r *http类.Request) {
+	s.X绑定HookMap(pattern1, map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeServe: func(r *http类.X请求) {
 			r.X设置自定义参数("uid", i)
 			i++
 		},
 	})
-	s.X绑定(pattern1, func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("uid"))
+	s.X绑定(pattern1, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("uid"))
 	})
 
 	pattern2 := "/{object}/list/{page}.java"
-	s.X绑定HookMap(pattern2, map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeOutput: func(r *http类.Request) {
-			r.Response.X设置缓冲区字节集([]byte(
+	s.X绑定HookMap(pattern2, map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeOutput: func(r *http类.X请求) {
+			r.X响应.X设置缓冲区字节集([]byte(
 				fmt.Sprint(r.Get别名("object"), "&", r.Get别名("page"), "&", i),
 			))
 		},
 	})
-	s.X绑定(pattern2, func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Router.Uri)
+	s.X绑定(pattern2, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X路由.Uri)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -85,23 +85,23 @@ func Test_Router_Hook_Fuzzy_Router(t *testing.T) {
 
 func Test_Router_Hook_Priority(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/priority/show", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("show")
+	s.X绑定("/priority/show", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("show")
 	})
 
-	s.X绑定HookMap("/priority/:name", map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeServe: func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
+	s.X绑定HookMap("/priority/:name", map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeServe: func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
 		},
 	})
-	s.X绑定HookMap("/priority/*any", map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeServe: func(r *http类.Request) {
-			r.Response.X写响应缓冲区("2")
+	s.X绑定HookMap("/priority/*any", map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeServe: func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("2")
 		},
 	})
-	s.X绑定HookMap("/priority/show", map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeServe: func(r *http类.Request) {
-			r.Response.X写响应缓冲区("3")
+	s.X绑定HookMap("/priority/show", map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeServe: func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("3")
 		},
 	})
 	s.SetDumpRouterMap(false)
@@ -122,18 +122,18 @@ func Test_Router_Hook_Priority(t *testing.T) {
 
 func Test_Router_Hook_Multi(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/multi-hook", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("show")
+	s.X绑定("/multi-hook", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("show")
 	})
 
-	s.X绑定HookMap("/multi-hook", map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeServe: func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
+	s.X绑定HookMap("/multi-hook", map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeServe: func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
 		},
 	})
-	s.X绑定HookMap("/multi-hook", map[http类.HookName]http类.HandlerFunc{
-		http类.HookBeforeServe: func(r *http类.Request) {
-			r.Response.X写响应缓冲区("2")
+	s.X绑定HookMap("/multi-hook", map[http类.Hook名称]http类.HandlerFunc{
+		http类.HookBeforeServe: func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("2")
 		},
 	})
 	s.SetDumpRouterMap(false)
@@ -152,21 +152,21 @@ func Test_Router_Hook_Multi(t *testing.T) {
 
 func Test_Router_Hook_ExitAll(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X创建分组路由("/hook", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
-			r.Middleware.Next()
+	s.X创建分组路由("/hook", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
+			r.X中间件管理器.Next()
 		})
-		group.X绑定所有类型("/test", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("2")
+		group.X绑定所有类型("/test", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("2")
 		})
 	})
 
-	s.X绑定Hook("/hook/*", http类.HookBeforeServe, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hook")
+	s.X绑定Hook("/hook/*", http类.HookBeforeServe, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hook")
 		r.X退出全部()
 	})
 	s.SetDumpRouterMap(false)

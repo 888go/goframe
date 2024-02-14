@@ -86,22 +86,22 @@ func serverProcessInit() {
 // GetServer 根据给定名称和默认配置创建并返回一个服务器实例。
 // 注意，参数`name`对于不同服务器应保持唯一。如果给定的`name`已在服务器映射中存在，
 // 则它将返回一个已存在的服务器实例。
-func X取服务对象(名称 ...interface{}) *Server {
+func X取服务对象(名称 ...interface{}) *X服务 {
 	serverName := DefaultServerName
 	if len(名称) > 0 && 名称[0] != "" {
 		serverName = 转换类.String(名称[0])
 	}
 	v := serverMapping.X取值或设置值_函数带锁(serverName, func() interface{} {
-		s := &Server{
+		s := &X服务{
 			instance:         serverName,
-			plugins:          make([]Plugin, 0),
+			plugins:          make([]X插件配置项, 0),
 			servers:          make([]*gracefulServer, 0),
 			closeChan:        make(chan struct{}, 10000),
 			serverCount:      安全变量类.NewInt(),
 			statusHandlerMap: make(map[string][]HandlerFunc),
 			serveTree:        make(map[string]interface{}),
 			serveCache:       缓存类.X创建(),
-			routesMap:        make(map[string][]*HandlerItem),
+			routesMap:        make(map[string][]*X路由处理函数),
 			openapi:          goai.New(),
 			registrar:        gsvc.GetRegistry(),
 		}
@@ -113,24 +113,24 @@ func X取服务对象(名称 ...interface{}) *Server {
 		s.Use别名(internalMiddlewareServerTracing)
 		return s
 	})
-	return v.(*Server)
+	return v.(*X服务)
 }
 
 // Start 开始监听配置好的端口。
 // 该函数不会阻塞进程，你可以使用函数 Wait 来阻塞进程。
-func (s *Server) X开始监听() error {
+func (s *X服务) X开始监听() error {
 	var ctx = 上下文类.X取初始化上下文()
 
 	// Swagger UI.
-	if s.config.SwaggerPath != "" {
+	if s.config.APISwaggerUI路径 != "" {
 		swaggerui.Init()
-		s.X静态文件添加目录映射(s.config.SwaggerPath, swaggerUIPackedPath)
-		s.X绑定Hook(s.config.SwaggerPath+"/*", HookBeforeServe, s.swaggerUI)
+		s.X静态文件添加目录映射(s.config.APISwaggerUI路径, swaggerUIPackedPath)
+		s.X绑定Hook(s.config.APISwaggerUI路径+"/*", HookBeforeServe, s.swaggerUI)
 	}
 
 	// OpenApi规范JSON生成处理器。
-	if s.config.OpenApiPath != "" {
-		s.X绑定(s.config.OpenApiPath, s.openapiSpec)
+	if s.config.APIOpenApiUI路径 != "" {
+		s.X绑定(s.config.APIOpenApiUI路径, s.openapiSpec)
 	}
 
 	// 注册群组路由。
@@ -145,33 +145,33 @@ func (s *Server) X开始监听() error {
 	}
 
 	// 日志路径设置检查
-	if s.config.LogPath != "" && s.config.LogPath != s.config.Logger.X取文件路径() {
-		if err := s.config.Logger.X设置文件路径(s.config.LogPath); err != nil {
+	if s.config.X日志存储目录 != "" && s.config.X日志存储目录 != s.config.X日志记录器.X取文件路径() {
+		if err := s.config.X日志记录器.X设置文件路径(s.config.X日志存储目录); err != nil {
 			return err
 		}
 	}
 	// 默认的会话存储。
-	if s.config.SessionStorage == nil {
+	if s.config.Session存储 == nil {
 		sessionStoragePath := ""
-		if s.config.SessionPath != "" {
-			sessionStoragePath = 文件类.X路径生成(s.config.SessionPath, s.config.Name)
+		if s.config.Session存储目录路径 != "" {
+			sessionStoragePath = 文件类.X路径生成(s.config.Session存储目录路径, s.config.X服务名称)
 			if !文件类.X是否存在(sessionStoragePath) {
 				if err := 文件类.X创建目录(sessionStoragePath); err != nil {
 					return 错误类.X多层错误并格式化(err, `mkdir failed for "%s"`, sessionStoragePath)
 				}
 			}
 		}
-		s.config.SessionStorage = session类.NewStorageFile(sessionStoragePath, s.config.SessionMaxAge)
+		s.config.Session存储 = session类.NewStorageFile(sessionStoragePath, s.config.Session最大存活时长)
 	}
 	// 在程序启动运行时初始化会话管理器。
 	s.sessionManager = session类.New(
-		s.config.SessionMaxAge,
-		s.config.SessionStorage,
+		s.config.Session最大存活时长,
+		s.config.Session存储,
 	)
 
 	// PProf feature.
-	if s.config.PProfEnabled {
-		s.PProf开启(s.config.PProfPattern)
+	if s.config.PProf开启 {
+		s.PProf开启(s.config.PProf模式)
 	}
 
 	// 默认HTTP处理器
@@ -190,7 +190,7 @@ func (s *Server) X开始监听() error {
 
 // 如果没有注册路由且未启用静态服务，
 // 则返回服务器使用无效的错误。
-	if len(s.routesMap) == 0 && !s.config.FileServerEnabled {
+	if len(s.routesMap) == 0 && !s.config.X静态文件是否开启 {
 		return 错误类.X创建错误码(
 			错误码类.CodeInvalidOperation,
 			`there's no route set or static feature enabled, did you forget import the router?`,
@@ -203,7 +203,7 @@ func (s *Server) X开始监听() error {
 	fdMapStr := 环境变量类.X取值(adminActionReloadEnvKey).String()
 	if len(fdMapStr) > 0 {
 		sfm := bufferToServerFdMap([]byte(fdMapStr))
-		if v, ok := sfm[s.config.Name]; ok {
+		if v, ok := sfm[s.config.X服务名称]; ok {
 			s.startServer(v)
 			reloaded = true
 		}
@@ -213,24 +213,24 @@ func (s *Server) X开始监听() error {
 	}
 
 	// Swagger UI info.
-	if s.config.SwaggerPath != "" {
+	if s.config.APISwaggerUI路径 != "" {
 		s.Logger别名().X输出并格式化INFO(
 			ctx,
 			`swagger ui is serving at address: %s%s/`,
 			s.getLocalListenedAddress(),
-			s.config.SwaggerPath,
+			s.config.APISwaggerUI路径,
 		)
 	}
 	// OpenApi规范信息
-	if s.config.OpenApiPath != "" {
+	if s.config.APIOpenApiUI路径 != "" {
 		s.Logger别名().X输出并格式化INFO(
 			ctx,
 			`openapi specification is serving at address: %s%s`,
 			s.getLocalListenedAddress(),
-			s.config.OpenApiPath,
+			s.config.APIOpenApiUI路径,
 		)
 	} else {
-		if s.config.SwaggerPath != "" {
+		if s.config.APISwaggerUI路径 != "" {
 			s.Logger别名().X输出WARN(
 				ctx,
 				`openapi specification is disabled but swagger ui is serving, which might make no sense`,
@@ -258,12 +258,12 @@ func (s *Server) X开始监听() error {
 	return nil
 }
 
-func (s *Server) getLocalListenedAddress() string {
+func (s *X服务) getLocalListenedAddress() string {
 	return fmt.Sprintf(`http://127.0.0.1:%d`, s.X取已监听端口())
 }
 
 // doRouterMapDump 检查并把路由映射表转储到日志中。
-func (s *Server) doRouterMapDump() {
+func (s *X服务) doRouterMapDump() {
 	if !s.config.DumpRouterMap {
 		return
 	}
@@ -277,7 +277,7 @@ func (s *Server) doRouterMapDump() {
 		}
 	)
 	for _, item := range routes {
-		if item.Server != DefaultServerName || item.Domain != DefaultDomainName {
+		if item.X服务器名称 != DefaultServerName || item.Domain != DefaultDomainName {
 			isJustDefaultServerAndDomain = false
 			break
 		}
@@ -296,58 +296,58 @@ func (s *Server) doRouterMapDump() {
 		for _, item := range routes {
 			var (
 				data        = make([]string, 0)
-				handlerName = 文本类.X过滤尾字符(item.Handler.Name, "-fm")
-				middlewares = 文本类.X分割并忽略空值(item.Middleware, ",")
+				handlerName = 文本类.X过滤尾字符(item.Handler.X处理器名称, "-fm")
+				middlewares = 文本类.X分割并忽略空值(item.X中间件名称, ",")
 			)
 			for k, v := range middlewares {
 				middlewares[k] = 文本类.X过滤尾字符(v, "-fm")
 			}
-			item.Middleware = 文本类.X连接(middlewares, "\n")
+			item.X中间件名称 = 文本类.X连接(middlewares, "\n")
 			if isJustDefaultServerAndDomain {
 				data = append(
 					data,
-					item.Address,
+					item.X监听地址,
 					item.Method,
-					item.Route,
+					item.X路由URI,
 					handlerName,
-					item.Middleware,
+					item.X中间件名称,
 				)
 			} else {
 				data = append(
 					data,
-					item.Server,
+					item.X服务器名称,
 					item.Domain,
-					item.Address,
+					item.X监听地址,
 					item.Method,
-					item.Route,
+					item.X路由URI,
 					handlerName,
-					item.Middleware,
+					item.X中间件名称,
 				)
 			}
 			table.Append(data)
 		}
 		table.Render()
-		s.config.Logger.X是否输出头信息(false).X输出并格式化(ctx, "\n%s", buffer.String())
+		s.config.X日志记录器.X是否输出头信息(false).X输出并格式化(ctx, "\n%s", buffer.String())
 	}
 }
 
 // GetOpenApi 返回当前服务器的OpenApi规范管理对象。
-func (s *Server) X取OpenApi对象() *goai.OpenApiV3 {
+func (s *X服务) X取OpenApi对象() *goai.OpenApiV3 {
 	return s.openapi
 }
 
 // GetRoutes 获取并返回路由数组。
-func (s *Server) X取路由数组() []RouterItem {
+func (s *X服务) X取路由数组() []RouterItem {
 	var (
 		m              = make(map[string]*数组类.SortedArray)
 		routeFilterSet = 集合类.X创建文本()
 		address        = s.X取已监听地址()
 	)
-	if s.config.HTTPSAddr != "" {
+	if s.config.HTTPS监听地址 != "" {
 		if len(address) > 0 {
 			address += ","
 		}
-		address += "tls" + s.config.HTTPSAddr
+		address += "tls" + s.config.HTTPS监听地址
 	}
 	for k, handlerItems := range s.routesMap {
 		array, _ := 正则类.X匹配文本(`(.*?)%([A-Z]+):(.+)@(.+)`, k)
@@ -355,38 +355,38 @@ func (s *Server) X取路由数组() []RouterItem {
 			var (
 				handlerItem = handlerItems[index]
 				item        = RouterItem{
-					Server:     s.config.Name,
-					Address:    address,
+					X服务器名称:     s.config.X服务名称,
+					X监听地址:    address,
 					Domain:     array[4],
 					Type:       handlerItem.Type,
-					Middleware: array[1],
+					X中间件名称: array[1],
 					Method:     array[2],
-					Route:      array[3],
+					X路由URI:      array[3],
 					Priority:   index,
 					Handler:    handlerItem,
 				}
 			)
 			switch item.Handler.Type {
 			case HandlerTypeObject, HandlerTypeHandler:
-				item.IsServiceHandler = true
+				item.X是否为服务处理器 = true
 
 			case HandlerTypeMiddleware:
-				item.Middleware = "GLOBAL MIDDLEWARE"
+				item.X中间件名称 = "GLOBAL MIDDLEWARE"
 			}
 			// 重复路径过滤以供转储
 			var setKey = fmt.Sprintf(
 				`%s|%s|%s|%s`,
-				item.Method, item.Route, item.Domain, item.Type,
+				item.Method, item.X路由URI, item.Domain, item.Type,
 			)
 			if !routeFilterSet.X加入值并跳过已存在(setKey) {
 				continue
 			}
-			if len(item.Handler.Middleware) > 0 {
-				for _, v := range item.Handler.Middleware {
-					if item.Middleware != "" {
-						item.Middleware += ","
+			if len(item.Handler.X中间件数组) > 0 {
+				for _, v := range item.Handler.X中间件数组 {
+					if item.X中间件名称 != "" {
+						item.X中间件名称 += ","
 					}
-					item.Middleware += gdebug.FuncName(v)
+					item.X中间件名称 += gdebug.FuncName(v)
 				}
 			}
 // 如果域名不存在于dump映射中，则创建该映射。
@@ -398,13 +398,13 @@ func (s *Server) X取路由数组() []RouterItem {
 					item2 := v2.(RouterItem)
 					r := 0
 					if r = strings.Compare(item1.Domain, item2.Domain); r == 0 {
-						if r = strings.Compare(item1.Route, item2.Route); r == 0 {
+						if r = strings.Compare(item1.X路由URI, item2.X路由URI); r == 0 {
 							if r = strings.Compare(item1.Method, item2.Method); r == 0 {
 								if item1.Handler.Type == HandlerTypeMiddleware && item2.Handler.Type != HandlerTypeMiddleware {
 									return -1
 								} else if item1.Handler.Type == HandlerTypeMiddleware && item2.Handler.Type == HandlerTypeMiddleware {
 									return 1
-								} else if r = strings.Compare(item1.Middleware, item2.Middleware); r == 0 {
+								} else if r = strings.Compare(item1.X中间件名称, item2.X中间件名称); r == 0 {
 									r = item2.Priority - item1.Priority
 								}
 							}
@@ -428,7 +428,7 @@ func (s *Server) X取路由数组() []RouterItem {
 
 // Run 启动服务器并以阻塞方式监听。
 // 该方法通常用于单服务器场景。
-func (s *Server) X启动服务() {
+func (s *X服务) X启动服务() {
 	var ctx = context.TODO()
 
 	if err := s.X开始监听(); err != nil {
@@ -443,7 +443,7 @@ func (s *Server) X启动服务() {
 	// Remove plugins.
 	if len(s.plugins) > 0 {
 		for _, p := range s.plugins {
-			intlog.Printf(ctx, `remove plugin: %s`, p.Name())
+			intlog.Printf(ctx, `remove plugin: %s`, p.X名称())
 			if err := p.Remove(); err != nil {
 				intlog.Errorf(ctx, "%+v", err)
 			}
@@ -465,10 +465,10 @@ func X等待所有服务完成() {
 
 	// Remove plugins.
 	serverMapping.X遍历(func(k string, v interface{}) bool {
-		s := v.(*Server)
+		s := v.(*X服务)
 		if len(s.plugins) > 0 {
 			for _, p := range s.plugins {
-				intlog.Printf(ctx, `remove plugin: %s`, p.Name())
+				intlog.Printf(ctx, `remove plugin: %s`, p.X名称())
 				if err := p.Remove(); err != nil {
 					intlog.Errorf(ctx, `%+v`, err)
 				}
@@ -480,27 +480,27 @@ func X等待所有服务完成() {
 }
 
 // startServer 启动底层服务器并开始监听。
-func (s *Server) startServer(fdMap listenerFdMap) {
+func (s *X服务) startServer(fdMap listenerFdMap) {
 	var (
 		ctx          = context.TODO()
 		httpsEnabled bool
 	)
 	// HTTPS
-	if s.config.TLSConfig != nil || (s.config.HTTPSCertPath != "" && s.config.HTTPSKeyPath != "") {
-		if len(s.config.HTTPSAddr) == 0 {
-			if len(s.config.Address) > 0 {
-				s.config.HTTPSAddr = s.config.Address
-				s.config.Address = ""
+	if s.config.TLS配置 != nil || (s.config.HTTPS证书路径 != "" && s.config.HTTPS密钥路径 != "") {
+		if len(s.config.HTTPS监听地址) == 0 {
+			if len(s.config.X监听地址) > 0 {
+				s.config.HTTPS监听地址 = s.config.X监听地址
+				s.config.X监听地址 = ""
 			} else {
-				s.config.HTTPSAddr = defaultHttpsAddr
+				s.config.HTTPS监听地址 = defaultHttpsAddr
 			}
 		}
-		httpsEnabled = len(s.config.HTTPSAddr) > 0
+		httpsEnabled = len(s.config.HTTPS监听地址) > 0
 		var array []string
 		if v, ok := fdMap["https"]; ok && len(v) > 0 {
 			array = strings.Split(v, ",")
 		} else {
-			array = strings.Split(s.config.HTTPSAddr, ",")
+			array = strings.Split(s.config.HTTPS监听地址, ",")
 		}
 		for _, v := range array {
 			if len(v) == 0 {
@@ -527,14 +527,14 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 		}
 	}
 	// HTTP
-	if !httpsEnabled && len(s.config.Address) == 0 {
-		s.config.Address = defaultHttpAddr
+	if !httpsEnabled && len(s.config.X监听地址) == 0 {
+		s.config.X监听地址 = defaultHttpAddr
 	}
 	var array []string
 	if v, ok := fdMap["http"]; ok && len(v) > 0 {
 		array = 文本类.X分割并忽略空值(v, ",")
 	} else {
-		array = 文本类.X分割并忽略空值(s.config.Address, ",")
+		array = 文本类.X分割并忽略空值(s.config.X监听地址, ",")
 	}
 	for _, v := range array {
 		if len(v) == 0 {
@@ -569,7 +569,7 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 			// Create listener.
 			if server.isHttps {
 				err = server.CreateListenerTLS(
-					s.config.HTTPSCertPath, s.config.HTTPSKeyPath, s.config.TLSConfig,
+					s.config.HTTPS证书路径, s.config.HTTPS密钥路径, s.config.TLS配置,
 				)
 			} else {
 				err = server.CreateListener()
@@ -598,7 +598,7 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 }
 
 // Status 获取并返回服务器状态。
-func (s *Server) X取服务状态() ServerStatus {
+func (s *X服务) X取服务状态() X服务状态 {
 	if serverRunning.X取值() == 0 {
 		return ServerStatusStopped
 	}
@@ -613,7 +613,7 @@ func (s *Server) X取服务状态() ServerStatus {
 
 // getListenerFdMap 获取并返回套接字文件描述符的映射。
 // 返回映射中的键为 "http" 和 "https"。
-func (s *Server) getListenerFdMap() map[string]string {
+func (s *X服务) getListenerFdMap() map[string]string {
 	m := map[string]string{
 		"https": "",
 		"http":  "",
@@ -636,7 +636,7 @@ func (s *Server) getListenerFdMap() map[string]string {
 }
 
 // GetListenedPort 获取并返回当前服务器正在监听的一个端口。
-func (s *Server) X取已监听端口() int {
+func (s *X服务) X取已监听端口() int {
 	ports := s.X取所有监听已端口()
 	if len(ports) > 0 {
 		return ports[0]
@@ -645,7 +645,7 @@ func (s *Server) X取已监听端口() int {
 }
 
 // GetListenedPorts 获取并返回当前服务器正在监听的所有端口。
-func (s *Server) X取所有监听已端口() []int {
+func (s *X服务) X取所有监听已端口() []int {
 	ports := make([]int, 0)
 	for _, server := range s.servers {
 		ports = append(ports, server.GetListenedPort())
@@ -654,16 +654,16 @@ func (s *Server) X取所有监听已端口() []int {
 }
 
 // GetListenedAddress 获取并返回当前服务器监听的地址字符串。
-func (s *Server) X取已监听地址() string {
-	if !文本类.X是否包含(s.config.Address, FreePortAddress) {
-		return s.config.Address
+func (s *X服务) X取已监听地址() string {
+	if !文本类.X是否包含(s.config.X监听地址, X空闲端口地址) {
+		return s.config.X监听地址
 	}
 	var (
-		address       = s.config.Address
+		address       = s.config.X监听地址
 		listenedPorts = s.X取所有监听已端口()
 	)
 	for _, listenedPort := range listenedPorts {
-		address = 文本类.X替换(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort), 1)
+		address = 文本类.X替换(address, X空闲端口地址, fmt.Sprintf(`:%d`, listenedPort), 1)
 	}
 	return address
 }

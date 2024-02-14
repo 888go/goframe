@@ -20,7 +20,7 @@ import (
 //
 // 可选参数 `method` 用于指定要注册的方法，该方法支持多个方法名；
 // 多个方法之间用字符 ',' 分隔，大小写敏感。
-func (s *Server) X绑定对象(路由规则 string, 处理对象 interface{}, 方法名 ...string) {
+func (s *X服务) X绑定对象(路由规则 string, 处理对象 interface{}, 方法名 ...string) {
 	var bindMethod = ""
 	if len(方法名) > 0 {
 		bindMethod = 方法名[0]
@@ -38,7 +38,7 @@ func (s *Server) X绑定对象(路由规则 string, 处理对象 interface{}, �
 // BindObjectMethod 将指定对象的方法注册到服务器路由中，使用给定的模式。
 //
 // 可选参数 `method` 用于指定要注册的方法，该参数不支持多个方法名，仅支持单个、大小写敏感的方法名。
-func (s *Server) X绑定对象方法(路由规则 string, 处理对象 interface{}, 方法 string) {
+func (s *X服务) X绑定对象方法(路由规则 string, 处理对象 interface{}, 方法 string) {
 	s.doBindObjectMethod(context.TODO(), doBindObjectMethodInput{
 		Prefix:     "",
 		Pattern:    路由规则,
@@ -50,7 +50,7 @@ func (s *Server) X绑定对象方法(路由规则 string, 处理对象 interface
 }
 
 // BindObjectRest 以指定模式将符合REST API风格的对象注册到服务器。
-func (s *Server) X绑定RESTfulAPI对象(路由规则 string, 处理对象 interface{}) {
+func (s *X服务) X绑定RESTfulAPI对象(路由规则 string, 处理对象 interface{}) {
 	s.doBindObjectRest(context.TODO(), doBindObjectInput{
 		Prefix:     "",
 		Pattern:    路由规则,
@@ -70,7 +70,7 @@ type doBindObjectInput struct {
 	Source     string
 }
 
-func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
+func (s *X服务) doBindObject(ctx context.Context, in doBindObjectInput) {
 	// 将输入方法转换为映射以便于实现高效检索
 	var methodMap map[string]bool
 	if len(in.Method) > 0 {
@@ -90,11 +90,11 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		in.Pattern = s.serveHandlerKey("", path, domain)
 	}
 	var (
-		handlerMap   = make(map[string]*HandlerItem)
+		handlerMap   = make(map[string]*X路由处理函数)
 		reflectValue = reflect.ValueOf(in.Object)
 		reflectType  = reflectValue.Type()
-		initFunc     func(*Request)
-		shutFunc     func(*Request)
+		initFunc     func(*X请求)
+		shutFunc     func(*X请求)
 	)
 // 如果给定的`object`不是指针，它会创建一个临时指针，
 // 其指向值为`reflectValue`。
@@ -112,10 +112,10 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 	}
 	structName := reflectType.Elem().Name()
 	if reflectValue.MethodByName(specialMethodNameInit).IsValid() {
-		initFunc = reflectValue.MethodByName(specialMethodNameInit).Interface().(func(*Request))
+		initFunc = reflectValue.MethodByName(specialMethodNameInit).Interface().(func(*X请求))
 	}
 	if reflectValue.MethodByName(specialMethodNameShut).IsValid() {
-		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*Request))
+		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*X请求))
 	}
 	pkgPath := reflectType.Elem().PkgPath()
 	pkgName := 文件类.X路径取文件名(pkgPath)
@@ -138,14 +138,14 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		}
 
 		key := s.mergeBuildInNameToPattern(in.Pattern, structName, methodName, true)
-		handlerMap[key] = &HandlerItem{
-			Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+		handlerMap[key] = &X路由处理函数{
+			X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 			Type:       HandlerTypeObject,
-			Info:       funcInfo,
-			InitFunc:   initFunc,
-			ShutFunc:   shutFunc,
-			Middleware: in.Middleware,
-			Source:     in.Source,
+			X处理器函数信息:       funcInfo,
+			X初始化回调函数:   initFunc,
+			X关闭回调函数:   shutFunc,
+			X中间件数组: in.Middleware,
+			X注册来源:     in.Source,
 		}
 // 如果存在"Index"方法，则会自动添加一个附加路由以匹配主URI，例如：
 // 如果模式是"/user"，那么"/user"和"/user/index"都会被自动注册。
@@ -162,14 +162,14 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 			if len(k) == 0 || k[0] == '@' {
 				k = "/" + k
 			}
-			handlerMap[k] = &HandlerItem{
-				Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+			handlerMap[k] = &X路由处理函数{
+				X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 				Type:       HandlerTypeObject,
-				Info:       funcInfo,
-				InitFunc:   initFunc,
-				ShutFunc:   shutFunc,
-				Middleware: in.Middleware,
-				Source:     in.Source,
+				X处理器函数信息:       funcInfo,
+				X初始化回调函数:   initFunc,
+				X关闭回调函数:   shutFunc,
+				X中间件数组: in.Middleware,
+				X注册来源:     in.Source,
 			}
 		}
 	}
@@ -185,13 +185,13 @@ type doBindObjectMethodInput struct {
 	Source     string
 }
 
-func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodInput) {
+func (s *X服务) doBindObjectMethod(ctx context.Context, in doBindObjectMethodInput) {
 	var (
-		handlerMap   = make(map[string]*HandlerItem)
+		handlerMap   = make(map[string]*X路由处理函数)
 		reflectValue = reflect.ValueOf(in.Object)
 		reflectType  = reflectValue.Type()
-		initFunc     func(*Request)
-		shutFunc     func(*Request)
+		initFunc     func(*X请求)
+		shutFunc     func(*X请求)
 	)
 // 如果给定的`object`不是指针，则创建一个临时指针，
 // 其值为`v`。
@@ -211,10 +211,10 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 		return
 	}
 	if reflectValue.MethodByName(specialMethodNameInit).IsValid() {
-		initFunc = reflectValue.MethodByName(specialMethodNameInit).Interface().(func(*Request))
+		initFunc = reflectValue.MethodByName(specialMethodNameInit).Interface().(func(*X请求))
 	}
 	if reflectValue.MethodByName(specialMethodNameShut).IsValid() {
-		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*Request))
+		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*X请求))
 	}
 	var (
 		pkgPath = reflectType.Elem().PkgPath()
@@ -231,26 +231,26 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 	}
 
 	key := s.mergeBuildInNameToPattern(in.Pattern, structName, methodName, false)
-	handlerMap[key] = &HandlerItem{
-		Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+	handlerMap[key] = &X路由处理函数{
+		X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 		Type:       HandlerTypeObject,
-		Info:       funcInfo,
-		InitFunc:   initFunc,
-		ShutFunc:   shutFunc,
-		Middleware: in.Middleware,
-		Source:     in.Source,
+		X处理器函数信息:       funcInfo,
+		X初始化回调函数:   initFunc,
+		X关闭回调函数:   shutFunc,
+		X中间件数组: in.Middleware,
+		X注册来源:     in.Source,
 	}
 
 	s.bindHandlerByMap(ctx, in.Prefix, handlerMap)
 }
 
-func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
+func (s *X服务) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 	var (
-		handlerMap   = make(map[string]*HandlerItem)
+		handlerMap   = make(map[string]*X路由处理函数)
 		reflectValue = reflect.ValueOf(in.Object)
 		reflectType  = reflectValue.Type()
-		initFunc     func(*Request)
-		shutFunc     func(*Request)
+		initFunc     func(*X请求)
+		shutFunc     func(*X请求)
 	)
 // 如果给定的`object`不是指针，则创建一个临时指针，
 // 其值为`v`。
@@ -262,10 +262,10 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 	}
 	structName := reflectType.Elem().Name()
 	if reflectValue.MethodByName(specialMethodNameInit).IsValid() {
-		initFunc = reflectValue.MethodByName(specialMethodNameInit).Interface().(func(*Request))
+		initFunc = reflectValue.MethodByName(specialMethodNameInit).Interface().(func(*X请求))
 	}
 	if reflectValue.MethodByName(specialMethodNameShut).IsValid() {
-		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*Request))
+		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*X请求))
 	}
 	pkgPath := reflectType.Elem().PkgPath()
 	for i := 0; i < reflectValue.NumMethod(); i++ {
@@ -290,14 +290,14 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 		}
 
 		key := s.mergeBuildInNameToPattern(methodName+":"+in.Pattern, structName, methodName, false)
-		handlerMap[key] = &HandlerItem{
-			Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+		handlerMap[key] = &X路由处理函数{
+			X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 			Type:       HandlerTypeObject,
-			Info:       funcInfo,
-			InitFunc:   initFunc,
-			ShutFunc:   shutFunc,
-			Middleware: in.Middleware,
-			Source:     in.Source,
+			X处理器函数信息:       funcInfo,
+			X初始化回调函数:   initFunc,
+			X关闭回调函数:   shutFunc,
+			X中间件数组: in.Middleware,
+			X注册来源:     in.Source,
 		}
 	}
 	s.bindHandlerByMap(ctx, in.Prefix, handlerMap)

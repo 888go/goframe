@@ -12,41 +12,41 @@ import (
 )
 
 // SetSessionMaxAge 设置服务器的 SessionMaxAge。
-func (s *Server) X设置Session最大存活时长(时长 time.Duration) {
-	s.config.SessionMaxAge = 时长
+func (s *X服务) X设置Session最大存活时长(时长 time.Duration) {
+	s.config.Session最大存活时长 = 时长
 }
 
 // SetSessionIdName 为服务器设置 SessionIdName。
-func (s *Server) X设置SessionID名称(名称 string) {
-	s.config.SessionIdName = 名称
+func (s *X服务) X设置SessionID名称(名称 string) {
+	s.config.SessionID名称 = 名称
 }
 
 // SetSessionStorage 为服务器设置 SessionStorage。
-func (s *Server) X设置Session存储对象(Session存储对象 session类.Storage) {
-	s.config.SessionStorage = Session存储对象
+func (s *X服务) X设置Session存储对象(Session存储对象 session类.Storage) {
+	s.config.Session存储 = Session存储对象
 }
 
 // SetSessionCookieOutput设置服务器的SetSessionCookieOutput。
-func (s *Server) X设置SessionID输出到Cookie(开启 bool) {
-	s.config.SessionCookieOutput = 开启
+func (s *X服务) X设置SessionID输出到Cookie(开启 bool) {
+	s.config.SessionID输出到Cookie = 开启
 }
 
 // SetSessionCookieMaxAge 为服务器设置 SessionCookieMaxAge。
-func (s *Server) X设置SessionCookie存活时长(最大时长 time.Duration) {
-	s.config.SessionCookieMaxAge = 最大时长
+func (s *X服务) X设置SessionCookie存活时长(最大时长 time.Duration) {
+	s.config.SessionCookie存活时长 = 最大时长
 }
 
 // GetSessionMaxAge 返回服务器的 SessionMaxAge 值。
-func (s *Server) X取Session最大存活时长() time.Duration {
-	return s.config.SessionMaxAge
+func (s *X服务) X取Session最大存活时长() time.Duration {
+	return s.config.Session最大存活时长
 }
 
 // GetSessionIdName 返回服务器的 SessionIdName。
-func (s *Server) X取SessionID名称() string {
-	return s.config.SessionIdName
+func (s *X服务) X取SessionID名称() string {
+	return s.config.SessionID名称
 }
 
 // GetSessionCookieMaxAge 返回服务器的 SessionCookieMaxAge 值。
-func (s *Server) X取SessionCookie存活时长() time.Duration {
-	return s.config.SessionCookieMaxAge
+func (s *X服务) X取SessionCookie存活时长() time.Duration {
+	return s.config.SessionCookie存活时长
 }

@@ -13,8 +13,8 @@ import (
 
 func ExampleServer_Run() {
 	s := g.Http类()
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello world")
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello world")
 	})
 	s.X设置监听端口(8999)
 	s.X启动服务()
@@ -23,19 +23,19 @@ func ExampleServer_Run() {
 // 自定义保存文件名。
 func ExampleUploadFile_Save() {
 	s := g.Http类()
-	s.X绑定("/upload", func(r *http类.Request) {
+	s.X绑定("/upload", func(r *http类.X请求) {
 		file := r.X取上传文件对象("TestFile")
 		if file == nil {
-			r.Response.X写响应缓冲区("empty file")
+			r.X响应.X写响应缓冲区("empty file")
 			return
 		}
 		file.Filename = "MyCustomFileName.txt"
 		fileName, err := file.X保存(文件类.X取临时目录())
 		if err != nil {
-			r.Response.X写响应缓冲区(err)
+			r.X响应.X写响应缓冲区(err)
 			return
 		}
-		r.Response.X写响应缓冲区(fileName)
+		r.X响应.X写响应缓冲区(fileName)
 	})
 	s.X设置监听端口(8999)
 	s.X启动服务()

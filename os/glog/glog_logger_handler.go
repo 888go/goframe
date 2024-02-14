@@ -20,21 +20,21 @@ type Handler func(ctx context.Context, in *HandlerInput)
 type HandlerInput struct {
 	internalHandlerInfo
 	Logger      *Logger       // 当前日志器对象。
-	Buffer      *bytes.Buffer // Buffer，用于日志内容输出。
-	Time        time.Time     // 日志时间，即触发日志记录的时间。
-	TimeFormat  string        // 格式化的时间字符串，如 "2016-01-09 12:00:00"。
-	Color       int           // 使用颜色，如COLOR_RED、COLOR_BLUE等。例如：34
-	Level       int           // 使用级别，如 LEVEL_INFO, LEVEL_ERRO 等。例如：256
-	LevelFormat string        // 格式化的级别字符串，如 "DEBU", "ERRO" 等。例如：ERRO
-	CallerFunc  string        // 如果设置了F_CALLER_FN，该变量记录调用日志函数的源函数名。
-	CallerPath  string        // 调用日志记录的源文件路径及其行号，仅在设置了 F_FILE_SHORT 或 F_FILE_LONG 时可用。
-	CtxStr      string        // 从context中获取的字符串类型的上下文值，但只有在配置了Config.CtxKeys时才可用。
-	TraceId     string        // 跟踪ID，仅在启用OpenTelemetry时可用。
-	Prefix      string        // 自定义日志内容前缀字符串。
-	Content     string        // Content 是由 logger 生成的、不包含错误堆栈信息的主要日志内容。
-	Values      []any         // 传递给 logger 的未格式化的值数组。
+	X缓冲区      *bytes.Buffer // Buffer，用于日志内容输出。
+	X时间        time.Time     // 日志时间，即触发日志记录的时间。
+	X格式化时间  string        // 格式化的时间字符串，如 "2016-01-09 12:00:00"。
+	X颜色       int           // 使用颜色，如COLOR_RED、COLOR_BLUE等。例如：34
+	X级别       int           // 使用级别，如 LEVEL_INFO, LEVEL_ERRO 等。例如：256
+	X文本级别 string        // 格式化的级别字符串，如 "DEBU", "ERRO" 等。例如：ERRO
+	X源文件函数名  string        // 如果设置了F_CALLER_FN，该变量记录调用日志函数的源函数名。
+	X源文件路径与行号  string        // 调用日志记录的源文件路径及其行号，仅在设置了 F_FILE_SHORT 或 F_FILE_LONG 时可用。
+	X上下文值      string        // 从context中获取的字符串类型的上下文值，但只有在配置了Config.CtxKeys时才可用。
+	X链路跟踪ID     string        // 跟踪ID，仅在启用OpenTelemetry时可用。
+	X前缀      string        // 自定义日志内容前缀字符串。
+	X日志内容     string        // Content 是由 logger 生成的、不包含错误堆栈信息的主要日志内容。
+	X未格式化数组      []any         // 传递给 logger 的未格式化的值数组。
 	Stack       string        // Stack 字符串由 logger 生成，仅在配置了 Config.StStatus 时可用。
-	IsAsync     bool          // IsAsync 标记它处于异步日志记录状态。
+	X是否为异步     bool          // IsAsync 标记它处于异步日志记录状态。
 }
 
 type internalHandlerInfo struct {
@@ -49,8 +49,8 @@ var defaultHandler Handler
 // 如果其中任意一项被配置，此处理器会将日志内容输出到文件、标准输出(stdout)或写入指定位置。
 func doFinalPrint(ctx context.Context, in *HandlerInput) {
 	buffer := in.Logger.doFinalPrint(ctx, in)
-	if in.Buffer.Len() == 0 {
-		in.Buffer = buffer
+	if in.X缓冲区.Len() == 0 {
+		in.X缓冲区 = buffer
 	}
 }
 
@@ -83,46 +83,46 @@ func (in *HandlerInput) String(withColor ...bool) string {
 
 func (in *HandlerInput) getDefaultBuffer(withColor bool) *bytes.Buffer {
 	buffer := bytes.NewBuffer(nil)
-	if in.Logger.config.HeaderPrint {
-		if in.TimeFormat != "" {
-			buffer.WriteString(in.TimeFormat)
+	if in.Logger.config.X是否输出头信息 {
+		if in.X格式化时间 != "" {
+			buffer.WriteString(in.X格式化时间)
 		}
-		if in.Logger.config.LevelPrint && in.LevelFormat != "" {
-			var levelStr = "[" + in.LevelFormat + "]"
+		if in.Logger.config.X是否输出级别 && in.X文本级别 != "" {
+			var levelStr = "[" + in.X文本级别 + "]"
 			if withColor {
 				in.addStringToBuffer(buffer, in.Logger.getColoredStr(
-					in.Logger.getColorByLevel(in.Level), levelStr,
+					in.Logger.getColorByLevel(in.X级别), levelStr,
 				))
 			} else {
 				in.addStringToBuffer(buffer, levelStr)
 			}
 		}
 	}
-	if in.TraceId != "" {
-		in.addStringToBuffer(buffer, "{"+in.TraceId+"}")
+	if in.X链路跟踪ID != "" {
+		in.addStringToBuffer(buffer, "{"+in.X链路跟踪ID+"}")
 	}
-	if in.CtxStr != "" {
-		in.addStringToBuffer(buffer, "{"+in.CtxStr+"}")
+	if in.X上下文值 != "" {
+		in.addStringToBuffer(buffer, "{"+in.X上下文值+"}")
 	}
-	if in.Logger.config.HeaderPrint {
-		if in.Prefix != "" {
-			in.addStringToBuffer(buffer, in.Prefix)
+	if in.Logger.config.X是否输出头信息 {
+		if in.X前缀 != "" {
+			in.addStringToBuffer(buffer, in.X前缀)
 		}
-		if in.CallerFunc != "" {
-			in.addStringToBuffer(buffer, in.CallerFunc)
+		if in.X源文件函数名 != "" {
+			in.addStringToBuffer(buffer, in.X源文件函数名)
 		}
-		if in.CallerPath != "" {
-			in.addStringToBuffer(buffer, in.CallerPath)
+		if in.X源文件路径与行号 != "" {
+			in.addStringToBuffer(buffer, in.X源文件路径与行号)
 		}
 	}
 
-	if in.Content != "" {
-		in.addStringToBuffer(buffer, in.Content)
+	if in.X日志内容 != "" {
+		in.addStringToBuffer(buffer, in.X日志内容)
 	}
 
 	// 将values字符串内容进行转换
 	var valueContent string
-	for _, v := range in.Values {
+	for _, v := range in.X未格式化数组 {
 		valueContent = 转换类.String(v)
 		if len(valueContent) == 0 {
 			continue
@@ -151,8 +151,8 @@ func (in *HandlerInput) getDefaultBuffer(withColor bool) *bytes.Buffer {
 }
 
 func (in *HandlerInput) getRealBuffer(withColor bool) *bytes.Buffer {
-	if in.Buffer.Len() > 0 {
-		return in.Buffer
+	if in.X缓冲区.Len() > 0 {
+		return in.X缓冲区
 	}
 	return in.getDefaultBuffer(withColor)
 }

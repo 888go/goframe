@@ -46,7 +46,7 @@ func init() {
 
 // DefaultCORSOptions 返回默认的 CORS 选项，
 // 这些选项允许任何跨域请求。
-func (r *Response) X取跨域默认选项() CORSOptions {
+func (r *X响应) X取跨域默认选项() CORSOptions {
 	options := CORSOptions{
 		AllowOrigin:      "*",
 		AllowMethods:     supportedHttpMethods,
@@ -78,7 +78,7 @@ func (r *Response) X取跨域默认选项() CORSOptions {
 
 // CORS 设置自定义 CORS 选项。
 // 参见 https://www.w3.org/TR/cors/ 。
-func (r *Response) X跨域请求设置(跨域选项 CORSOptions) {
+func (r *X响应) X跨域请求设置(跨域选项 CORSOptions) {
 	if r.X是否允许跨域(跨域选项) {
 		r.Header().Set("Access-Control-Allow-Origin", 跨域选项.AllowOrigin)
 	}
@@ -110,7 +110,7 @@ func (r *Response) X跨域请求设置(跨域选项 CORSOptions) {
 }
 
 // CORSAllowedOrigin CORSAllowedOrigin函数检查当前请求的来源是否允许跨域。
-func (r *Response) X是否允许跨域(跨域选项 CORSOptions) bool {
+func (r *X响应) X是否允许跨域(跨域选项 CORSOptions) bool {
 	if 跨域选项.AllowDomain == nil {
 		return true
 	}
@@ -132,6 +132,6 @@ func (r *Response) X是否允许跨域(跨域选项 CORSOptions) bool {
 
 // CORSDefault 使用默认CORS选项设置CORS，
 // 这将允许任何跨域请求。
-func (r *Response) X跨域请求全允许() {
+func (r *X响应) X跨域请求全允许() {
 	r.X跨域请求设置(r.X取跨域默认选项())
 }

@@ -27,13 +27,13 @@ import (
 func (c *Core) X取字段类型(上下文 context.Context, 字段名称, 表名称, 数据库名称 string) string {
 	field := c.X取字段信息对象(上下文, 字段名称, 表名称, 数据库名称)
 	if field != nil {
-		return field.X类型
+		return field.Type
 	}
 	return ""
 }
 
 // GetFieldType通过名称获取并返回特定字段的字段类型对象。
-func (c *Core) X取字段信息对象(上下文 context.Context, 字段名称, 表名称, 数据库名称 string) *X字段信息 {
+func (c *Core) X取字段信息对象(上下文 context.Context, 字段名称, 表名称, 数据库名称 string) *TableField {
 	fieldsMap, err := c.db.X取表字段信息Map(上下文, 表名称, 数据库名称)
 	if err != nil {
 		intlog.Errorf(

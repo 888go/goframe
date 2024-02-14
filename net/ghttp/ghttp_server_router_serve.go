@@ -21,14 +21,14 @@ import (
 
 // handlerCacheItem 是一个仅用于内部路由器搜索缓存的项目。
 type handlerCacheItem struct {
-	parsedItems []*HandlerItemParsed
-	serveItem   *HandlerItemParsed
+	parsedItems []*X路由解析
+	serveItem   *X路由解析
 	hasHook     bool
 	hasServe    bool
 }
 
 // serveHandlerKey 为路由器创建并返回一个处理程序键。
-func (s *Server) serveHandlerKey(method, path, domain string) string {
+func (s *X服务) serveHandlerKey(method, path, domain string) string {
 	if len(domain) > 0 {
 		domain = "@" + domain
 	}
@@ -39,7 +39,7 @@ func (s *Server) serveHandlerKey(method, path, domain string) string {
 }
 
 // getHandlersWithCache 根据给定的请求，搜索具有缓存功能的路由器项。
-func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemParsed, serveItem *HandlerItemParsed, hasHook, hasServe bool) {
+func (s *X服务) getHandlersWithCache(r *X请求) (parsedItems []*X路由解析, serveItem *X路由解析, hasHook, hasServe bool) {
 	var (
 		ctx    = r.Context别名()
 		method = r.Method
@@ -94,7 +94,7 @@ func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemPar
 
 // searchHandlers 函数根据给定的参数获取并返回路由器。
 // 注意，返回的路由器中包含了服务处理程序、中间件处理程序以及钩子处理程序。
-func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*HandlerItemParsed, serveItem *HandlerItemParsed, hasHook, hasServe bool) {
+func (s *X服务) searchHandlers(method, path, domain string) (parsedItems []*X路由解析, serveItem *X路由解析, hasHook, hasServe bool) {
 	if len(path) == 0 {
 		return nil, nil, false, false
 	}
@@ -177,7 +177,7 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 // 因此从尾部到头部遍历列表数组。
 		for i := len(lists) - 1; i >= 0; i-- {
 			for e := lists[i].Front(); e != nil; e = e.Next() {
-				item := e.Value.(*HandlerItem)
+				item := e.Value.(*X路由处理函数)
 // 过滤重复的处理器项，特别是中间件和钩子处理器。
 // 这是必要的，请不要移除这个检查逻辑，除非你确实了解其必要性。
 //
@@ -202,18 +202,18 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 						continue
 					}
 				}
-				if item.Router.Method == defaultMethod || item.Router.Method == method {
+				if item.X路由.Method == defaultMethod || item.X路由.Method == method {
 					// 注意这个规则：没有模糊规则时，匹配项的长度为1
-					if match, err := 正则类.X匹配文本(item.Router.RegRule, path); err == nil && len(match) > 0 {
-						parsedItem := &HandlerItemParsed{item, nil}
+					if match, err := 正则类.X匹配文本(item.X路由.X正则路由规则, path); err == nil && len(match) > 0 {
+						parsedItem := &X路由解析{item, nil}
 // 如果规则中包含模糊名称，
 // 则需要解析URL以获取这些名称的值。
-						if len(item.Router.RegNames) > 0 {
-							if len(match) > len(item.Router.RegNames) {
-								parsedItem.Values = make(map[string]string)
+						if len(item.X路由.X路由参数名称) > 0 {
+							if len(match) > len(item.X路由.X路由参数名称) {
+								parsedItem.X路由值 = make(map[string]string)
 								// 如果存在重复的名字，它只会覆盖相同的那个。
-								for i, name := range item.Router.RegNames {
-									parsedItem.Values[name], _ = url类.X解码(match[i+1])
+								for i, name := range item.X路由.X路由参数名称 {
+									parsedItem.X路由值[name], _ = url类.X解码(match[i+1])
 								}
 							}
 						}
@@ -255,9 +255,9 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 	}
 	if parsedItemList.Len() > 0 {
 		var index = 0
-		parsedItems = make([]*HandlerItemParsed, parsedItemList.Len())
+		parsedItems = make([]*X路由解析, parsedItemList.Len())
 		for e := parsedItemList.Front(); e != nil; e = e.Next() {
-			parsedItems[index] = e.Value.(*HandlerItemParsed)
+			parsedItems[index] = e.Value.(*X路由解析)
 			index++
 		}
 	}
@@ -265,40 +265,40 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
-func (item HandlerItem) MarshalJSON() ([]byte, error) {
+func (item X路由处理函数) MarshalJSON() ([]byte, error) {
 	switch item.Type {
 	case HandlerTypeHook:
 		return json.Marshal(
 			fmt.Sprintf(
 				`%s %s:%s (%s)`,
-				item.Router.Uri,
-				item.Router.Domain,
-				item.Router.Method,
-				item.HookName,
+				item.X路由.Uri,
+				item.X路由.Domain,
+				item.X路由.Method,
+				item.Hook名称,
 			),
 		)
 	case HandlerTypeMiddleware:
 		return json.Marshal(
 			fmt.Sprintf(
 				`%s %s:%s (MIDDLEWARE)`,
-				item.Router.Uri,
-				item.Router.Domain,
-				item.Router.Method,
+				item.X路由.Uri,
+				item.X路由.Domain,
+				item.X路由.Method,
 			),
 		)
 	default:
 		return json.Marshal(
 			fmt.Sprintf(
 				`%s %s:%s`,
-				item.Router.Uri,
-				item.Router.Domain,
-				item.Router.Method,
+				item.X路由.Uri,
+				item.X路由.Domain,
+				item.X路由.Method,
 			),
 		)
 	}
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
-func (item HandlerItemParsed) MarshalJSON() ([]byte, error) {
+func (item X路由解析) MarshalJSON() ([]byte, error) {
 	return json.Marshal(item.Handler)
 }

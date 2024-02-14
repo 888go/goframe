@@ -51,10 +51,10 @@ func (m *Model) X设置数据(值 ...interface{}) *Model {
 		}
 	} else if len(值) == 1 {
 		switch value := 值[0].(type) {
-		case X行记录数组:
+		case Result:
 			model.data = value.X取Map数组()
 
-		case X行记录:
+		case Record:
 			model.data = value.X取Map()
 
 		case Map数组:
@@ -231,7 +231,7 @@ func (m *Model) X插入并更新已存在(值 ...interface{}) (结果 sql.Result
 }
 
 // doInsertWithOption 使用选项参数插入数据。
-func (m *Model) doInsertWithOption(ctx context.Context, insertOption X插入选项) (result sql.Result, err error) {
+func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOption) (result sql.Result, err error) {
 	defer func() {
 		if err == nil {
 			m.checkAndRemoveSelectCache(ctx)
@@ -252,10 +252,10 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption X插入选�
 	}
 	// 它将任何数据转换为 List 类型以便插入。
 	switch value := newData.(type) {
-	case X行记录数组:
+	case Result:
 		list = value.X取Map数组()
 
-	case X行记录:
+	case Record:
 		list = Map数组{value.X取Map()}
 
 	case Map数组:
@@ -340,8 +340,8 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption X插入选�
 	return in.Next(ctx)
 }
 
-func (m *Model) formatDoInsertOption(insertOption X插入选项, columnNames []string) (option X底层输入, err error) {
-	option = X底层输入{
+func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []string) (option DoInsertOption, err error) {
+	option = DoInsertOption{
 		InsertOption: insertOption,
 		BatchCount:   m.getBatch(),
 	}
@@ -353,7 +353,7 @@ func (m *Model) formatDoInsertOption(insertOption X插入选项, columnNames []s
 		onDuplicateExKeySet := 集合类.X创建文本并按值(onDuplicateExKeys)
 		if m.onDuplicate != nil {
 			switch m.onDuplicate.(type) {
-			case X原生sql, *X原生sql:
+			case Raw, *Raw:
 				option.OnDuplicateStr = 转换类.String(m.onDuplicate)
 
 			default:

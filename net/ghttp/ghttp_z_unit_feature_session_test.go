@@ -18,16 +18,16 @@ import (
 
 func Test_Session_Cookie(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/set", func(r *http类.Request) {
+	s.X绑定("/set", func(r *http类.X请求) {
 		r.Session.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
-	s.X绑定("/get", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Session.Get(r.Get别名("k").String()))
+	s.X绑定("/get", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Session.Get(r.Get别名("k").String()))
 	})
-	s.X绑定("/remove", func(r *http类.Request) {
+	s.X绑定("/remove", func(r *http类.X请求) {
 		r.Session.Remove(r.Get别名("k").String())
 	})
-	s.X绑定("/clear", func(r *http类.Request) {
+	s.X绑定("/clear", func(r *http类.X请求) {
 		r.Session.RemoveAll()
 	})
 	s.SetDumpRouterMap(false)
@@ -63,16 +63,16 @@ func Test_Session_Cookie(t *testing.T) {
 
 func Test_Session_Header(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/set", func(r *http类.Request) {
+	s.X绑定("/set", func(r *http类.X请求) {
 		r.Session.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
-	s.X绑定("/get", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Session.Get(r.Get别名("k").String()))
+	s.X绑定("/get", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Session.Get(r.Get别名("k").String()))
 	})
-	s.X绑定("/remove", func(r *http类.Request) {
+	s.X绑定("/remove", func(r *http类.X请求) {
 		r.Session.Remove(r.Get别名("k").String())
 	})
-	s.X绑定("/clear", func(r *http类.Request) {
+	s.X绑定("/clear", func(r *http类.X请求) {
 		r.Session.RemoveAll()
 	})
 	s.SetDumpRouterMap(false)
@@ -112,12 +112,12 @@ func Test_Session_Header(t *testing.T) {
 func Test_Session_StorageFile(t *testing.T) {
 	sessionId := ""
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/set", func(r *http类.Request) {
+	s.X绑定("/set", func(r *http类.X请求) {
 		r.Session.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
-		r.Response.X写响应缓冲区(r.Get别名("k").String(), "=", r.Get别名("v").String())
+		r.X响应.X写响应缓冲区(r.Get别名("k").String(), "=", r.Get别名("v").String())
 	})
-	s.X绑定("/get", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Session.Get(r.Get别名("k").String()))
+	s.X绑定("/get", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Session.Get(r.Get别名("k").String()))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -154,17 +154,17 @@ func Test_Session_Custom_Id(t *testing.T) {
 		value     = "value"
 		s         = g.Http类(uid类.X生成())
 	)
-	s.X绑定("/id", func(r *http类.Request) {
+	s.X绑定("/id", func(r *http类.X请求) {
 		if err := r.Session.SetId(sessionId); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
 		if err := r.Session.X设置值(key, value); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
-		r.Response.X写响应缓冲区并退出(r.Session.Id())
+		r.X响应.X写响应缓冲区并退出(r.Session.Id())
 	})
-	s.X绑定("/value", func(r *http类.Request) {
-		r.Response.X写响应缓冲区并退出(r.Session.Get(key))
+	s.X绑定("/value", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区并退出(r.Session.Get(key))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -198,40 +198,40 @@ func Test_Session_New_Id(t *testing.T) {
 		value         = "value"
 		s             = g.Http类(uid类.X生成())
 	)
-	s.X绑定("/id", func(r *http类.Request) {
+	s.X绑定("/id", func(r *http类.X请求) {
 		if err := r.Session.SetId(sessionId); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
 		if err := r.Session.X设置值(key, value); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
-		r.Response.X写响应缓冲区并退出(r.Session.Id())
+		r.X响应.X写响应缓冲区并退出(r.Session.Id())
 	})
 
-	s.X绑定("/newIdBySession", func(r *http类.Request) {
+	s.X绑定("/newIdBySession", func(r *http类.X请求) {
 		// 在会话初始化之前使用
 		if err := r.Session.SetId(newSessionId); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
 		if err := r.Session.X设置值(key, value); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
-		r.Response.X写响应缓冲区并退出(r.Session.Id())
+		r.X响应.X写响应缓冲区并退出(r.Session.Id())
 	})
 
-	s.X绑定("/newIdByCookie", func(r *http类.Request) {
+	s.X绑定("/newIdByCookie", func(r *http类.X请求) {
 		if err := r.Session.Remove("someKey"); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
 
 		r.Cookie.X设置SessionId到Cookie(newSessionId2)
 // r.Response.WriteExit(r.Session.Id()) // 只修改cookie中的内容
 
-		r.Response.X写响应缓冲区并退出(newSessionId2)
+		r.X响应.X写响应缓冲区并退出(newSessionId2)
 	})
 
-	s.X绑定("/value", func(r *http类.Request) {
-		r.Response.X写响应缓冲区并退出(r.Session.Get(key))
+	s.X绑定("/value", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区并退出(r.Session.Get(key))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()

@@ -53,7 +53,7 @@ func New() db类.Driver {
 
 // New 创建并返回一个用于 PostgreSQL 的数据库对象。
 // 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
-func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error) {
+func (d *Driver) New(core *db类.Core, node *db类.X配置项) (db类.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
@@ -61,44 +61,44 @@ func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error)
 
 // Open 创建并返回一个用于pgsql的底层sql.DB对象。
 // 参考文档：https://pkg.go.dev/github.com/lib/pq
-func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(配置对象 *db类.X配置项) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "postgres"
 	)
-	if 配置对象.Link != "" {
+	if 配置对象.X自定义链接信息 != "" {
 // ============================================================================
 // 从 v2.2.0 版本开始已弃用。
 // ============================================================================
-		source = 配置对象.Link
+		source = 配置对象.X自定义链接信息
 		// 在运行时自定义更改架构
-		if 配置对象.Name != "" {
-			source, _ = 正则类.X替换文本(`dbname=([\w\.\-]+)+`, "dbname="+配置对象.Name, source)
+		if 配置对象.X名称 != "" {
+			source, _ = 正则类.X替换文本(`dbname=([\w\.\-]+)+`, "dbname="+配置对象.X名称, source)
 		}
 	} else {
-		if 配置对象.Name != "" {
+		if 配置对象.X名称 != "" {
 			source = fmt.Sprintf(
 				"user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
-				配置对象.User, 配置对象.Pass, 配置对象.Host, 配置对象.Port, 配置对象.Name,
+				配置对象.X账号, 配置对象.X密码, 配置对象.X地址, 配置对象.X端口, 配置对象.X名称,
 			)
 		} else {
 			source = fmt.Sprintf(
 				"user=%s password=%s host=%s port=%s sslmode=disable",
-				配置对象.User, 配置对象.Pass, 配置对象.Host, 配置对象.Port,
+				配置对象.X账号, 配置对象.X密码, 配置对象.X地址, 配置对象.X端口,
 			)
 		}
 
-		if 配置对象.Namespace != "" {
-			source = fmt.Sprintf("%s search_path=%s", source, 配置对象.Namespace)
+		if 配置对象.X命名空间 != "" {
+			source = fmt.Sprintf("%s search_path=%s", source, 配置对象.X命名空间)
 		}
 
-		if 配置对象.Timezone != "" {
-			source = fmt.Sprintf("%s timezone=%s", source, 配置对象.Timezone)
+		if 配置对象.X时区 != "" {
+			source = fmt.Sprintf("%s timezone=%s", source, 配置对象.X时区)
 		}
 
-		if 配置对象.Extra != "" {
+		if 配置对象.X额外 != "" {
 			var extraMap map[string]interface{}
-			if extraMap, err = 文本类.X参数解析(配置对象.Extra); err != nil {
+			if extraMap, err = 文本类.X参数解析(配置对象.X额外); err != nil {
 				return nil, err
 			}
 			for k, v := range extraMap {
@@ -232,7 +232,7 @@ func (d *Driver) X底层DoFilter(ctx context.Context, link db类.Link, sql strin
 func (d *Driver) X取表名称数组(上下文 context.Context, schema ...string) (表名称数组 []string, 错误 error) {
 	var (
 		result     db类.Result
-		usedSchema = 工具类.X取文本值或取默认值(d.X取当前节点配置().Namespace, schema...)
+		usedSchema = 工具类.X取文本值或取默认值(d.X取当前节点配置().X命名空间, schema...)
 	)
 	if usedSchema == "" {
 		usedSchema = defaultSchema
@@ -341,8 +341,8 @@ ORDER BY a.attnum`,
 		}
 		字段信息Map[name] = &db类.TableField{
 			Index:   index,
-			Name:    name,
-			Type:    m["type"].String(),
+			X名称:    name,
+			X类型:    m["type"].String(),
 			Null:    !m["null"].X取布尔(),
 			Key:     m["key"].String(),
 			Default: m["default_value"].X取值(),
@@ -425,8 +425,8 @@ func (d *Driver) X底层原生SQL执行(上下文 context.Context, 链接 db类.
 	}
 
 	// 检查是否为插入操作。
-	if !isUseCoreDoExec && pkField.Name != "" && strings.Contains(sql, "INSERT INTO") {
-		primaryKey = pkField.Name
+	if !isUseCoreDoExec && pkField.X名称 != "" && strings.Contains(sql, "INSERT INTO") {
+		primaryKey = pkField.X名称
 		sql += " RETURNING " + primaryKey
 	} else {
 		// 使用默认的DoExec
@@ -435,9 +435,9 @@ func (d *Driver) X底层原生SQL执行(上下文 context.Context, 链接 db类.
 
 	// 仅当使用主键执行插入操作时，才能执行以下代码
 
-	if d.X取当前节点配置().ExecTimeout > 0 {
+	if d.X取当前节点配置().X执行超时时长 > 0 {
 		var cancelFunc context.CancelFunc
-		上下文, cancelFunc = context.WithTimeout(上下文, d.X取当前节点配置().ExecTimeout)
+		上下文, cancelFunc = context.WithTimeout(上下文, d.X取当前节点配置().X执行超时时长)
 		defer cancelFunc()
 	}
 
@@ -449,33 +449,33 @@ func (d *Driver) X底层原生SQL执行(上下文 context.Context, 链接 db类.
 	}
 
 	// Link execution.
-	var out db类.DoCommitOutput
+	var out db类.X输出
 	out, 错误 = d.X底层DoCommit(上下文, db类.DoCommitInput{
 		Link:          链接,
 		Sql:           sql,
 		Args:          参数,
 		Stmt:          nil,
-		Type:          db类.SqlTypeQueryContext,
+		X类型:          db类.SqlTypeQueryContext,
 		IsTransaction: 链接.IsTransaction(),
 	})
 
 	if 错误 != nil {
 		return nil, 错误
 	}
-	affected := len(out.Records)
+	affected := len(out.X行记录数组)
 	if affected > 0 {
-		if !strings.Contains(pkField.Type, "int") {
+		if !strings.Contains(pkField.X类型, "int") {
 			return Result{
 				affected:     int64(affected),
 				lastInsertId: 0,
 				lastInsertIdError: 错误类.X创建错误码并格式化(
 					错误码类.CodeNotSupported,
-					"LastInsertId is not supported by primary key type: %s", pkField.Type),
+					"LastInsertId is not supported by primary key type: %s", pkField.X类型),
 			}, nil
 		}
 
-		if out.Records[affected-1][primaryKey] != nil {
-			lastInsertId := out.Records[affected-1][primaryKey].X取整数64位()
+		if out.X行记录数组[affected-1][primaryKey] != nil {
+			lastInsertId := out.X行记录数组[affected-1][primaryKey].X取整数64位()
 			return Result{
 				affected:     int64(affected),
 				lastInsertId: lastInsertId,

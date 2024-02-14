@@ -17,7 +17,7 @@ import (
 // Model 是核心结构体，实现了 ORM 的 DAO（数据访问对象）。
 type Model struct {
 	db            DB                // 基础数据库接口。
-	tx            X事务                // 基础的TX接口。
+	tx            TX                // 基础的TX接口。
 	rawSql        string            // rawSql 是原始SQL字符串，用于标记基于原始SQL的模型，而非基于表的模型。
 	schema        string            // 自定义数据库模式
 	linkType      int               // 标记用于在主服务器或从服务器上执行操作。
@@ -57,7 +57,7 @@ type ModelHandler func(m *Model) *Model
 
 // ChunkHandler 是一个在 Chunk 函数中使用的函数，用于处理给定的 Result 和错误。
 // 如果希望继续分块处理，则返回 true；否则返回 false 以停止分块处理。
-type ChunkHandler func(result X行记录数组, err error) bool
+type ChunkHandler func(result Result, err error) bool
 
 const (
 	linkTypeMaster           = 1
@@ -294,7 +294,7 @@ func (m *Model) X设置DB对象(DB对象 DB) *Model {
 }
 
 // TX 设置/更改当前操作的事务。
-func (m *Model) X设置事务对象(事务对象 X事务) *Model {
+func (m *Model) X设置事务对象(事务对象 TX) *Model {
 	model := m.getModel()
 	model.db = 事务对象.X取DB对象()
 	model.tx = 事务对象

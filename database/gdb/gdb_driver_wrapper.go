@@ -7,7 +7,7 @@ package db类
 
 // DriverWrapper 是一个驱动程序包装器，用于通过嵌入式驱动扩展功能。
 type DriverWrapper struct {
-	driver X驱动
+	driver Driver
 }
 
 // New 创建并返回一个用于 mysql 的数据库对象。
@@ -23,7 +23,7 @@ func (d *DriverWrapper) New(core *Core, node *X配置项) (DB, error) {
 }
 
 // newDriverWrapper 创建并返回一个驱动程序包装器。
-func newDriverWrapper(driver X驱动) X驱动 {
+func newDriverWrapper(driver Driver) Driver {
 	return &DriverWrapper{
 		driver: driver,
 	}

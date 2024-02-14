@@ -48,7 +48,7 @@ func New() db类.Driver {
 
 // New 创建并返回一个用于 sqlite 的数据库对象。
 // 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
-func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error) {
+func (d *Driver) New(core *db类.Core, node *db类.X配置项) (db类.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
@@ -56,18 +56,18 @@ func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error)
 
 // Open创建并返回一个用于sqlite的底层sql.DB对象。
 // 参考链接：https://github.com/glebarez/go-sqlite
-func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(配置对象 *db类.X配置项) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlite"
 	)
-	if 配置对象.Link != "" {
+	if 配置对象.X自定义链接信息 != "" {
 // ============================================================================
 // 从 v2.2.0 版本开始已弃用。
 // ============================================================================
-		source = 配置对象.Link
+		source = 配置对象.X自定义链接信息
 	} else {
-		source = 配置对象.Name
+		source = 配置对象.X名称
 	}
 	// 它在源文件中搜索以定位其绝对路径。
 	if absolutePath, _ := 文件类.X查找(source); absolutePath != "" {
@@ -80,12 +80,12 @@ func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, err er
 // 可以通过以下方式同时指定多个PRAGMA参数：
 // path/to/some.db?_pragma=busy_timeout(5000)&_pragma=journal_mode(WAL)
 // 其中，"busy_timeout"设置为5000毫秒，"journal_mode"设置为WAL模式。
-	if 配置对象.Extra != "" {
+	if 配置对象.X额外 != "" {
 		var (
 			options  string
 			extraMap map[string]interface{}
 		)
-		if extraMap, err = 文本类.X参数解析(配置对象.Extra); err != nil {
+		if extraMap, err = 文本类.X参数解析(配置对象.X额外); err != nil {
 			return nil, err
 		}
 		for k, v := range extraMap {
@@ -184,8 +184,8 @@ func (d *Driver) X取表字段信息Map(上下文 context.Context, 表名称 str
 		}
 		字段信息Map[m["name"].String()] = &db类.TableField{
 			Index:   i,
-			Name:    m["name"].String(),
-			Type:    m["type"].String(),
+			X名称:    m["name"].String(),
+			X类型:    m["type"].String(),
 			Key:     mKey,
 			Default: m["dflt_value"].X取值(),
 			Null:    !m["notnull"].X取布尔(),

@@ -22,24 +22,24 @@ import (
 )
 
 // Request 是一个请求的上下文对象。
-type Request struct {
+type X请求 struct {
 	*http.Request
-	Server     *Server           // Server.
+	X服务     *X服务           // Server.
 	Cookie     *Cookie           // Cookie.
 	Session    *session类.Session // Session.
-	Response   *Response         // 此请求对应的响应。
-	Router     *Router           // Matched Router for this request. Note that it's not available in HOOK handler.
-	EnterTime  int64             // 请求开始时间（毫秒）
-	LeaveTime  int64             // 请求结束时的时间（毫秒）。
-	Middleware *middleware       // 中间件管理器。
+	X响应   *X响应         // 此请求对应的响应。
+	X路由     *X路由           // Matched Router for this request. Note that it's not available in HOOK handler.
+	X开始时间  int64             // 请求开始时间（毫秒）
+	X结束时间  int64             // 请求结束时的时间（毫秒）。
+	X中间件管理器 *middleware       // 中间件管理器。
 	StaticFile *staticFile       // 静态文件对象，用于静态文件服务。
 
 // =================================================================================================================
 // 用于内部使用的私有属性。
 // =================================================================================================================
 
-	handlers        []*HandlerItemParsed   // 此请求所匹配的所有包含处理器、钩子和中间件的处理程序集合。
-	serveHandler    *HandlerItemParsed     // 此请求的实际处理程序，非钩子或中间件。
+	handlers        []*X路由解析   // 此请求所匹配的所有包含处理器、钩子和中间件的处理程序集合。
+	serveHandler    *X路由解析     // 此请求的实际处理程序，非钩子或中间件。
 	handlerResponse interface{}            // Handler响应对象，用于Request/Response处理器。
 	hasHookHandler  bool                   // A bool marking whether there's hook handler in the handlers for performance purpose.
 	hasServeHandler bool                   // A bool marking whether there's serving handler in the handlers for performance purpose.
@@ -70,12 +70,12 @@ type staticFile struct {
 }
 
 // newRequest 创建并返回一个新的请求对象。
-func newRequest(s *Server, r *http.Request, w http.ResponseWriter) *Request {
-	request := &Request{
-		Server:        s,
+func newRequest(s *X服务, r *http.Request, w http.ResponseWriter) *X请求 {
+	request := &X请求{
+		X服务:        s,
 		Request:       r,
-		Response:      newResponse(s, w),
-		EnterTime:     时间类.X取时间戳毫秒(),
+		X响应:      newResponse(s, w),
+		X开始时间:     时间类.X取时间戳毫秒(),
 		originUrlPath: r.URL.Path,
 	}
 	request.Cookie = X取cookie对象(request)
@@ -83,8 +83,8 @@ func newRequest(s *Server, r *http.Request, w http.ResponseWriter) *Request {
 		r.Context(),
 		request.X取SessionId(),
 	)
-	request.Response.Request = request
-	request.Middleware = &middleware{
+	request.X响应.Request = request
+	request.X中间件管理器 = &middleware{
 		request: request,
 	}
 	// 自定义会话ID生成函数。
@@ -116,8 +116,8 @@ func newRequest(s *Server, r *http.Request, w http.ResponseWriter) *Request {
 // WebSocket将当前请求升级为websocket请求。
 // 如果升级成功，返回一个新的WebSocket对象；如果失败，则返回错误信息。
 // 注意，该请求必须是websocket请求，否则升级必定会失败。
-func (r *Request) X升级为websocket请求() (*WebSocket, error) {
-	if conn, err := wsUpGrader.Upgrade(r.Response.Writer, r.Request, nil); err == nil {
+func (r *X请求) X升级为websocket请求() (*WebSocket, error) {
+	if conn, err := wsUpGrader.Upgrade(r.X响应.Writer, r.Request, nil); err == nil {
 		return &WebSocket{
 			conn,
 		}, nil
@@ -127,33 +127,33 @@ func (r *Request) X升级为websocket请求() (*WebSocket, error) {
 }
 
 // Exit 中断当前HTTP处理器的执行。
-func (r *Request) X退出当前() {
+func (r *X请求) X退出当前() {
 	panic(exceptionExit)
 }
 
 // ExitAll 退出当前及后续HTTP处理器的执行。
-func (r *Request) X退出全部() {
+func (r *X请求) X退出全部() {
 	r.exitAll = true
 	panic(exceptionExitAll)
 }
 
 // ExitHook 结束当前及后续 HTTP HOOK 处理器的执行。
-func (r *Request) X退出Hook() {
+func (r *X请求) X退出Hook() {
 	panic(exceptionExitHook)
 }
 
 // IsExited 检查并返回当前请求是否已退出。
-func (r *Request) X是否已退出() bool {
+func (r *X请求) X是否已退出() bool {
 	return r.exitAll
 }
 
 // GetHeader根据给定的`key`检索并返回头部值。
-func (r *Request) X取协议头值(名称 string) string {
+func (r *X请求) X取协议头值(名称 string) string {
 	return r.Header.Get(名称)
 }
 
 // GetHost 返回当前请求的主机名，该主机名可能是域名或不带端口号的IP地址。
-func (r *Request) X取主机名() string {
+func (r *X请求) X取主机名() string {
 	if len(r.parsedHost) == 0 {
 		array, _ := 正则类.X匹配文本(`(.+):(\d+)`, r.Host)
 		if len(array) > 1 {
@@ -166,18 +166,18 @@ func (r *Request) X取主机名() string {
 }
 
 // IsFileRequest 检查并返回当前请求是否正在提供文件服务。
-func (r *Request) X是否为文件请求() bool {
+func (r *X请求) X是否为文件请求() bool {
 	return r.isFileRequest
 }
 
 // IsAjaxRequest 检查并返回当前请求是否为 AJAX 请求。
-func (r *Request) X是否为AJAX请求() bool {
+func (r *X请求) X是否为AJAX请求() bool {
 	return strings.EqualFold(r.Header.Get("X-Requested-With"), "XMLHttpRequest")
 }
 
 // GetClientIp 返回该请求的客户端IP地址，不包含端口号。
 // 注意：此IP地址可能已被客户端头部信息修改。
-func (r *Request) X取客户端IP地址() string {
+func (r *X请求) X取客户端IP地址() string {
 	if r.clientIp != "" {
 		return r.clientIp
 	}
@@ -208,7 +208,7 @@ func (r *Request) X取客户端IP地址() string {
 }
 
 // GetRemoteIp 从 RemoteAddr 返回 IP 地址。
-func (r *Request) X取远程IP地址() string {
+func (r *X请求) X取远程IP地址() string {
 	array, _ := 正则类.X匹配文本(`(.+):(\d+)`, r.RemoteAddr)
 	if len(array) > 1 {
 		return strings.Trim(array[1], "[]")
@@ -217,7 +217,7 @@ func (r *Request) X取远程IP地址() string {
 }
 
 // GetUrl 返回当前请求的URL。
-func (r *Request) X取URL() string {
+func (r *X请求) X取URL() string {
 	var (
 		scheme = "http"
 		proto  = r.Header.Get("X-Forwarded-Proto")
@@ -230,34 +230,34 @@ func (r *Request) X取URL() string {
 }
 
 // GetSessionId 从cookie或header中检索并返回会话ID。
-func (r *Request) X取SessionId() string {
+func (r *X请求) X取SessionId() string {
 	id := r.Cookie.X取SessionId()
 	if id == "" {
-		id = r.Header.Get(r.Server.X取SessionID名称())
+		id = r.Header.Get(r.X服务.X取SessionID名称())
 	}
 	return id
 }
 
 // GetReferer 返回该请求的引用来源。
-func (r *Request) X取引用来源URL() string {
+func (r *X请求) X取引用来源URL() string {
 	return r.Header.Get("Referer")
 }
 
 // GetError 返回在请求过程中发生的错误。
 // 如果没有错误，它将返回 nil。
-func (r *Request) X取错误信息() error {
+func (r *X请求) X取错误信息() error {
 	return r.error
 }
 
 // SetError为当前请求设置自定义错误。
-func (r *Request) X设置错误信息(错误 error) {
+func (r *X请求) X设置错误信息(错误 error) {
 	r.error = 错误
 }
 
 // ReloadParam 用于修改请求参数。
 // 有时，我们希望通过中间件来修改请求参数，但直接修改 Request.Body 是无效的，
 // 所以它会清除 Request 中已解析标志，以使参数重新解析。
-func (r *Request) X重载请求参数() {
+func (r *X请求) X重载请求参数() {
 	r.parsedBody = false
 	r.parsedForm = false
 	r.parsedQuery = false
@@ -265,11 +265,11 @@ func (r *Request) X重载请求参数() {
 }
 
 // GetHandlerResponse 获取并返回处理器响应对象及其错误信息。
-func (r *Request) X取响应对象及错误信息() interface{} {
+func (r *X请求) X取响应对象及错误信息() interface{} {
 	return r.handlerResponse
 }
 
 // GetServeHandler 获取并返回用户自定义的用于处理当前请求的处理器。
-func (r *Request) X取路由解析对象() *HandlerItemParsed {
+func (r *X请求) X取路由解析对象() *X路由解析 {
 	return r.serveHandler
 }

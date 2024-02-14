@@ -27,7 +27,7 @@ func (c *Core) X取DB对象() DB {
 
 // GetLink 创建并返回底层的数据库连接对象，同时进行事务检查。
 // 参数 `master` 指定在主从配置的情况下是否使用主节点。
-func (c *Core) X取数据库链接对象(上下文 context.Context, 主节点 bool, schema string) (X底层链接, error) {
+func (c *Core) X取数据库链接对象(上下文 context.Context, 主节点 bool, schema string) (Link, error) {
 	tx := X事务从上下文取对象(上下文, c.db.X取配置组名称())
 	if tx != nil {
 		return &txLink{tx.X底层取事务对象()}, nil
@@ -48,7 +48,7 @@ func (c *Core) X取数据库链接对象(上下文 context.Context, 主节点 bo
 
 // MasterLink 表现得像函数 Master，但额外添加了一个 `schema` 参数用于指定连接的模式。它被定义为内部使用。
 // 有关更多信息，请参阅 Master。
-func (c *Core) X底层MasterLink(schema ...string) (X底层链接, error) {
+func (c *Core) X底层MasterLink(schema ...string) (Link, error) {
 	db, err := c.db.X取主节点对象(schema...)
 	if err != nil {
 		return nil, err
@@ -61,7 +61,7 @@ func (c *Core) X底层MasterLink(schema ...string) (X底层链接, error) {
 
 // SlaveLink 表现得像函数 Slave，但额外添加了一个 `schema` 参数用于指定连接的模式。它被定义为内部使用。
 // 有关更多信息，请参阅 Slave。
-func (c *Core) X底层SlaveLink(schema ...string) (X底层链接, error) {
+func (c *Core) X底层SlaveLink(schema ...string) (Link, error) {
 	db, err := c.db.X取从节点对象(schema...)
 	if err != nil {
 		return nil, err
@@ -129,7 +129,7 @@ func (c *Core) X取表名称数组(上下文 context.Context, schema ...string) 
 // 注意，它返回一个包含字段名及其对应字段信息的映射。由于映射是无序的，TableField 结构体有一个 "Index" 字段用于标记其在所有字段中的顺序。
 //
 // 为了提高性能，该函数使用了缓存特性，缓存有效期直到进程重启才会过期。
-func (c *Core) X取表字段信息Map(上下文 context.Context, 表名称 string, schema ...string) (字段信息Map map[string]*X字段信息, 错误 error) {
+func (c *Core) X取表字段信息Map(上下文 context.Context, 表名称 string, schema ...string) (字段信息Map map[string]*TableField, 错误 error) {
 	return
 }
 
@@ -201,7 +201,7 @@ func (c *Core) X是否存在字段(上下文 context.Context, 表名称, 字段�
 	}
 	fieldsArray := make([]string, len(tableFields))
 	for k, v := range tableFields {
-		fieldsArray[v.X排序] = k
+		fieldsArray[v.Index] = k
 	}
 	charLeft, charRight := c.db.X底层取数据库安全字符()
 	字段名称 = 文本类.X过滤首尾符并含空白(字段名称, charLeft+charRight)

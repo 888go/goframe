@@ -100,10 +100,10 @@ func (l *Logger) X取副本() *Logger {
 // 日志文件名必须包含 ".log" 扩展名。
 func (l *Logger) getFilePath(now time.Time) string {
 	// 文件名中包含 "{}" 的内容将使用 gtime 进行格式化。
-	file, _ := 正则类.X替换文本_函数(`{.+?}`, l.config.File, func(s string) string {
+	file, _ := 正则类.X替换文本_函数(`{.+?}`, l.config.X文件名格式, func(s string) string {
 		return 时间类.X创建(now).X取格式文本(strings.Trim(s, "{}"))
 	})
-	file = 文件类.X路径生成(l.config.Path, file)
+	file = 文件类.X路径生成(l.config.X文件路径, file)
 	return file
 }
 
@@ -113,10 +113,10 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 // 使用原子读取操作以提升性能检查的效率。
 // 这里使用了CAP以保证性能和并发安全性。
 // 对于每个日志器，仅初始化一次。
-	if l.config.RotateSize > 0 || l.config.RotateExpire > 0 {
+	if l.config.X文件分割大小 > 0 || l.config.X文件分割周期 > 0 {
 		if !l.config.rotatedHandlerInitialized.X取值() && l.config.rotatedHandlerInitialized.Cas(false, true) {
 			l.rotateChecksTimely(ctx)
-			intlog.Printf(ctx, "logger rotation initialized: every %s", l.config.RotateCheckInterval.String())
+			intlog.Printf(ctx, "logger rotation initialized: every %s", l.config.X文件分割检查间隔.String())
 		}
 	}
 
@@ -127,18 +127,18 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 				index: -1,
 			},
 			Logger: l,
-			Buffer: bytes.NewBuffer(nil),
-			Time:   now,
-			Color:  defaultLevelColor[level],
-			Level:  level,
+			X缓冲区: bytes.NewBuffer(nil),
+			X时间:   now,
+			X颜色:  defaultLevelColor[level],
+			X级别:  level,
 			Stack:  stack,
-			Values: values,
+			X未格式化数组: values,
 		}
 	)
 
 	// Logging handlers.
-	if len(l.config.Handlers) > 0 {
-		input.handlers = append(input.handlers, l.config.Handlers...)
+	if len(l.config.X中间件) > 0 {
+		input.handlers = append(input.handlers, l.config.X中间件...)
 	} else if defaultHandler != nil {
 		input.handlers = []Handler{defaultHandler}
 	}
@@ -146,19 +146,19 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 
 	// Time.
 	timeFormat := ""
-	if l.config.TimeFormat != "" {
-		timeFormat = l.config.TimeFormat
+	if l.config.X时间格式 != "" {
+		timeFormat = l.config.X时间格式
 	} else {
-		if l.config.Flags&F_TIME_DATE > 0 {
+		if l.config.X日志标识&F_TIME_DATE > 0 {
 			timeFormat += "2006-01-02"
 		}
-		if l.config.Flags&F_TIME_TIME > 0 {
+		if l.config.X日志标识&F_TIME_TIME > 0 {
 			if timeFormat != "" {
 				timeFormat += " "
 			}
 			timeFormat += "15:04:05"
 		}
-		if l.config.Flags&F_TIME_MILLI > 0 {
+		if l.config.X日志标识&F_TIME_MILLI > 0 {
 			if timeFormat != "" {
 				timeFormat += " "
 			}
@@ -167,35 +167,35 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 	}
 
 	if len(timeFormat) > 0 {
-		input.TimeFormat = now.Format(timeFormat)
+		input.X格式化时间 = now.Format(timeFormat)
 	}
 
 	// Level string.
-	input.LevelFormat = l.X取级别前缀(level)
+	input.X文本级别 = l.X取级别前缀(level)
 
 	// 调用路径和函数名称。
-	if l.config.Flags&(F_FILE_LONG|F_FILE_SHORT|F_CALLER_FN) > 0 {
+	if l.config.X日志标识&(F_FILE_LONG|F_FILE_SHORT|F_CALLER_FN) > 0 {
 		callerFnName, path, line := gdebug.CallerWithFilter(
 			[]string{consts.StackFilterKeyForGoFrame},
-			l.config.StSkip,
+			l.config.X堆栈偏移量,
 		)
-		if l.config.Flags&F_CALLER_FN > 0 {
+		if l.config.X日志标识&F_CALLER_FN > 0 {
 			if len(callerFnName) > 2 {
-				input.CallerFunc = fmt.Sprintf(`[%s]`, callerFnName)
+				input.X源文件函数名 = fmt.Sprintf(`[%s]`, callerFnName)
 			}
 		}
 		if line >= 0 && len(path) > 1 {
-			if l.config.Flags&F_FILE_LONG > 0 {
-				input.CallerPath = fmt.Sprintf(`%s:%d:`, path, line)
+			if l.config.X日志标识&F_FILE_LONG > 0 {
+				input.X源文件路径与行号 = fmt.Sprintf(`%s:%d:`, path, line)
 			}
-			if l.config.Flags&F_FILE_SHORT > 0 {
-				input.CallerPath = fmt.Sprintf(`%s:%d:`, 文件类.X路径取文件名(path), line)
+			if l.config.X日志标识&F_FILE_SHORT > 0 {
+				input.X源文件路径与行号 = fmt.Sprintf(`%s:%d:`, 文件类.X路径取文件名(path), line)
 			}
 		}
 	}
 	// Prefix.
-	if len(l.config.Prefix) > 0 {
-		input.Prefix = l.config.Prefix
+	if len(l.config.X前缀) > 0 {
+		input.X前缀 = l.config.X前缀
 	}
 
 	// 将值转换为字符串。
@@ -203,26 +203,26 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 		// Tracing values.
 		spanCtx := trace.SpanContextFromContext(ctx)
 		if traceId := spanCtx.TraceID(); traceId.IsValid() {
-			input.TraceId = traceId.String()
+			input.X链路跟踪ID = traceId.String()
 		}
 		// Context values.
-		if len(l.config.CtxKeys) > 0 {
-			for _, ctxKey := range l.config.CtxKeys {
+		if len(l.config.X上下文名称) > 0 {
+			for _, ctxKey := range l.config.X上下文名称 {
 				var ctxValue interface{}
 				if ctxValue = ctx.Value(ctxKey); ctxValue == nil {
 					ctxValue = ctx.Value(上下文类.StrKey(转换类.String(ctxKey)))
 				}
 				if ctxValue != nil {
-					if input.CtxStr != "" {
-						input.CtxStr += ", "
+					if input.X上下文值 != "" {
+						input.X上下文值 += ", "
 					}
-					input.CtxStr += 转换类.String(ctxValue)
+					input.X上下文值 += 转换类.String(ctxValue)
 				}
 			}
 		}
 	}
-	if l.config.Flags&F_ASYNC > 0 {
-		input.IsAsync = true
+	if l.config.X日志标识&F_ASYNC > 0 {
+		input.X是否为异步 = true
 		err := asyncPool.Add(ctx, func(ctx context.Context) {
 			input.Next(ctx)
 		})
@@ -238,15 +238,15 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 func (l *Logger) doFinalPrint(ctx context.Context, input *HandlerInput) *bytes.Buffer {
 	var buffer *bytes.Buffer
 	// 是否允许输出到标准输出（stdout）？
-	if l.config.StdoutPrint {
+	if l.config.X是否同时输出到终端 {
 		if buf := l.printToStdout(ctx, input); buf != nil {
 			buffer = buf
 		}
 	}
 
 	// 将内容输出到磁盘文件。
-	if l.config.Path != "" {
-		if buf := l.printToFile(ctx, input.Time, input); buf != nil {
+	if l.config.X文件路径 != "" {
+		if buf := l.printToFile(ctx, input.X时间, input); buf != nil {
 			buffer = buf
 		}
 	}
@@ -264,7 +264,7 @@ func (l *Logger) doFinalPrint(ctx context.Context, input *HandlerInput) *bytes.B
 // printToWriter 将缓冲区内容写入到writer中。
 func (l *Logger) printToWriter(ctx context.Context, input *HandlerInput) *bytes.Buffer {
 	if l.config.Writer != nil {
-		var buffer = input.getRealBuffer(l.config.WriterColorEnable)
+		var buffer = input.getRealBuffer(l.config.X文件是否输出颜色)
 		if _, err := l.config.Writer.Write(buffer.Bytes()); err != nil {
 			intlog.Errorf(ctx, `%+v`, err)
 		}
@@ -275,10 +275,10 @@ func (l *Logger) printToWriter(ctx context.Context, input *HandlerInput) *bytes.
 
 // printToStdout 将日志内容输出到 stdout（标准输出）。
 func (l *Logger) printToStdout(ctx context.Context, input *HandlerInput) *bytes.Buffer {
-	if l.config.StdoutPrint {
+	if l.config.X是否同时输出到终端 {
 		var (
 			err    error
-			buffer = input.getRealBuffer(!l.config.StdoutColorDisabled)
+			buffer = input.getRealBuffer(!l.config.X关闭终端颜色输出)
 		)
 // 这将在Windows操作系统中丢失颜色。请勿使用。
 // 如果 _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); 出现错误err，则不为nil {
@@ -295,7 +295,7 @@ func (l *Logger) printToStdout(ctx context.Context, input *HandlerInput) *bytes.
 // printToFile 将日志内容输出到磁盘文件。
 func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput) *bytes.Buffer {
 	var (
-		buffer        = in.getRealBuffer(l.config.WriterColorEnable)
+		buffer        = in.getRealBuffer(l.config.X文件是否输出颜色)
 		logFilePath   = l.getFilePath(t)
 		memoryLockKey = memoryLockPrefixForPrintingToFile + logFilePath
 	)
@@ -303,7 +303,7 @@ func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput)
 	defer 内存锁类.X退出写锁定(memoryLockKey)
 
 	// 旋转文件大小检查。
-	if l.config.RotateSize > 0 && 文件类.X取大小(logFilePath) > l.config.RotateSize {
+	if l.config.X文件分割大小 > 0 && 文件类.X取大小(logFilePath) > l.config.X文件分割大小 {
 		if runtime.GOOS == "windows" {
 			file := l.createFpInPool(ctx, logFilePath)
 			if file == nil {
@@ -376,7 +376,7 @@ func (l *Logger) printStd(ctx context.Context, level int, values ...interface{})
 // printStd 在进行堆栈检查的情况下打印内容`s`。
 func (l *Logger) printErr(ctx context.Context, level int, values ...interface{}) {
 	var stack string
-	if l.config.StStatus == 1 {
+	if l.config.X堆栈状态 == 1 {
 		stack = l.X取堆栈信息()
 	}
 	// 在顺序输出方面，此处不要使用 stderr，而应使用相同的 stdout。
@@ -401,13 +401,13 @@ func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 // GetStack 返回调用堆栈的内容，
 // 可选参数 `skip` 指定了从终点开始跳过的堆栈偏移量。
 func (l *Logger) X取堆栈信息(偏移量 ...int) string {
-	stackSkip := l.config.StSkip
+	stackSkip := l.config.X堆栈偏移量
 	if len(偏移量) > 0 {
 		stackSkip += 偏移量[0]
 	}
 	filters := []string{pathFilterKey}
-	if l.config.StFilter != "" {
-		filters = append(filters, l.config.StFilter)
+	if l.config.X堆栈过滤 != "" {
+		filters = append(filters, l.config.X堆栈过滤)
 	}
 	// 是否过滤框架错误堆栈。
 	if errors.IsStackModeBrief() {

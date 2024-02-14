@@ -24,10 +24,10 @@ import (
 
 func Test_New(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
-		node := db类.ConfigNode{
-			Type:    "sqlite",
-			Link:    文件类.X路径生成(dbDir, "test.db"),
-			Charset: "utf8",
+		node := db类.X配置项{
+			X类型:    "sqlite",
+			X自定义链接信息:    文件类.X路径生成(dbDir, "test.db"),
+			X字符集: "utf8",
 		}
 		newDb, err := db类.X创建DB对象(node)
 		t.AssertNil(err)
@@ -45,10 +45,10 @@ func Test_New_Path_With_Colon(t *testing.T) {
 		if err := 文件类.X创建目录(dbFilePathWithColon); err != nil {
 			单元测试类.Error(err)
 		}
-		node := db类.ConfigNode{
-			Type:    "sqlite",
-			Link:    fmt.Sprintf(`sqlite::@file(%s)`, 文件类.X路径生成(dbFilePathWithColon, "test.db")),
-			Charset: "utf8",
+		node := db类.X配置项{
+			X类型:    "sqlite",
+			X自定义链接信息:    fmt.Sprintf(`sqlite::@file(%s)`, 文件类.X路径生成(dbFilePathWithColon, "test.db")),
+			X字符集: "utf8",
 		}
 		newDb, err := db类.X创建DB对象(node)
 		t.AssertNil(err)
@@ -1395,9 +1395,9 @@ func Test_DB_UpdateCounter(t *testing.T) {
 	})
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		gdbCounter := &db类.Counter{
-			Field: "id",
-			Value: 1,
+		gdbCounter := &db类.X增减{
+			X字段名称: "id",
+			X增减值: 1,
 		}
 		updateData := g.Map{
 			"views": gdbCounter,
@@ -1413,9 +1413,9 @@ func Test_DB_UpdateCounter(t *testing.T) {
 	})
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		gdbCounter := &db类.Counter{
-			Field: "views",
-			Value: -1,
+		gdbCounter := &db类.X增减{
+			X字段名称: "views",
+			X增减值: -1,
 		}
 		updateData := g.Map{
 			"views":        gdbCounter,
@@ -1554,12 +1554,12 @@ func Test_TableFields(t *testing.T) {
 		for k, v := range expect {
 			_, ok := res[k]
 			单元测试类.AssertEQ(ok, true)
-			单元测试类.AssertEQ(res[k].Name, k)
-			单元测试类.AssertEQ(res[k].Type, v[0])
+			单元测试类.AssertEQ(res[k].X名称, k)
+			单元测试类.AssertEQ(res[k].X类型, v[0])
 			单元测试类.AssertEQ(res[k].Null, v[1])
 			单元测试类.AssertEQ(res[k].Key, v[2])
 			单元测试类.AssertEQ(res[k].Default, v[3])
-			单元测试类.AssertEQ(res[k].Extra, v[4])
+			单元测试类.AssertEQ(res[k].X额外, v[4])
 			单元测试类.AssertEQ(res[k].Comment, v[5])
 		}
 

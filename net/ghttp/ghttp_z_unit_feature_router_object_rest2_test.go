@@ -18,28 +18,28 @@ import (
 
 type ObjectRest2 struct{}
 
-func (o *ObjectRest2) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("1")
+func (o *ObjectRest2) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("1")
 }
 
-func (o *ObjectRest2) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("2")
+func (o *ObjectRest2) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("2")
 }
 
-func (o *ObjectRest2) Get(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Get", r.Get别名("id"))
+func (o *ObjectRest2) Get(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Get", r.Get别名("id"))
 }
 
-func (o *ObjectRest2) Put(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Put", r.Get别名("id"))
+func (o *ObjectRest2) Put(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Put", r.Get别名("id"))
 }
 
-func (o *ObjectRest2) Post(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Post", r.Get别名("id"))
+func (o *ObjectRest2) Post(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Post", r.Get别名("id"))
 }
 
-func (o *ObjectRest2) Delete(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Delete", r.Get别名("id"))
+func (o *ObjectRest2) Delete(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Delete", r.Get别名("id"))
 }
 
 func Test_Router_ObjectRest_Id(t *testing.T) {

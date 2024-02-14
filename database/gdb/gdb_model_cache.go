@@ -33,7 +33,7 @@ type X缓存选项 struct {
 
 // selectCacheItem 是用于 SELECT 语句结果的缓存项。
 type selectCacheItem struct {
-	Result            X行记录数组 // Sql result of SELECT statement. （SQL语句中SELECT查询的结果。）
+	Result            Result // Sql result of SELECT statement. （SQL语句中SELECT查询的结果。）
 	FirstResultColumn string // 结果中的第一列名称，用于Value/Count函数。
 }
 
@@ -59,7 +59,7 @@ func (m *Model) checkAndRemoveSelectCache(ctx context.Context) {
 	}
 }
 
-func (m *Model) getSelectResultFromCache(ctx context.Context, sql string, args ...interface{}) (result X行记录数组, err error) {
+func (m *Model) getSelectResultFromCache(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
 	if !m.cacheEnabled || m.tx != nil {
 		return
 	}
@@ -93,7 +93,7 @@ func (m *Model) getSelectResultFromCache(ctx context.Context, sql string, args .
 }
 
 func (m *Model) saveSelectResultToCache(
-	ctx context.Context, queryType queryType, result X行记录数组, sql string, args ...interface{},
+	ctx context.Context, queryType queryType, result Result, sql string, args ...interface{},
 ) (err error) {
 	if !m.cacheEnabled || m.tx != nil {
 		return
@@ -123,7 +123,7 @@ func (m *Model) saveSelectResultToCache(
 	// 在发生缓存穿透的情况下。
 	if result.X是否为空() {
 		if m.cacheOption.X强制缓存 {
-			result = X行记录数组{}
+			result = Result{}
 		} else {
 			result = nil
 		}

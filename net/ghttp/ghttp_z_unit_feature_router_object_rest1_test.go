@@ -18,40 +18,40 @@ import (
 
 type ObjectRest struct{}
 
-func (o *ObjectRest) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("1")
+func (o *ObjectRest) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("1")
 }
 
-func (o *ObjectRest) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("2")
+func (o *ObjectRest) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("2")
 }
 
-func (o *ObjectRest) Get(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Get")
+func (o *ObjectRest) Get(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Get")
 }
 
-func (o *ObjectRest) Put(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Put")
+func (o *ObjectRest) Put(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Put")
 }
 
-func (o *ObjectRest) Post(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Post")
+func (o *ObjectRest) Post(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Post")
 }
 
-func (o *ObjectRest) Delete(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Delete")
+func (o *ObjectRest) Delete(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Delete")
 }
 
-func (o *ObjectRest) Patch(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Patch")
+func (o *ObjectRest) Patch(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Patch")
 }
 
-func (o *ObjectRest) Options(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Options")
+func (o *ObjectRest) Options(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Options")
 }
 
-func (o *ObjectRest) Head(r *http类.Request) {
-	r.Response.Header().Set("head-ok", "1")
+func (o *ObjectRest) Head(r *http类.X请求) {
+	r.X响应.Header().Set("head-ok", "1")
 }
 
 func Test_Router_ObjectRest(t *testing.T) {

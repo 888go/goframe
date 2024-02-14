@@ -10,13 +10,13 @@ import (
 )
 
 // MiddlewareJsonBody 验证并返回请求体是否为 JSON 格式。
-func X中间件函数_验证JSON格式请求体(r *Request) {
+func X中间件函数_验证JSON格式请求体(r *X请求) {
 	requestBody := r.X取请求体字节集()
 	if len(requestBody) > 0 {
 		if !json.Valid(requestBody) {
-			r.X设置错误信息(ErrNeedJsonBody)
+			r.X设置错误信息(ERR请求体必须json格式)
 			return
 		}
 	}
-	r.Middleware.Next()
+	r.X中间件管理器.Next()
 }

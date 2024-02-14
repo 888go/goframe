@@ -273,8 +273,8 @@ func Test_Instance(t *testing.T) {
 func Test_GetConfig(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		config := 日志类.X取默认日志类().X取配置项()
-		t.Assert(config.Path, "")
-		t.Assert(config.StdoutPrint, true)
+		t.Assert(config.X文件路径, "")
+		t.Assert(config.X是否同时输出到终端, true)
 	})
 }
 

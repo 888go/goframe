@@ -144,5 +144,5 @@ func (l *Logger) X输出并格式化CRIT(上下文 context.Context, 格式 strin
 
 // checkLevel 检查给定的 `level` 是否可以输出。
 func (l *Logger) checkLevel(level int) bool {
-	return l.config.Level&level > 0
+	return l.config.X级别&level > 0
 }

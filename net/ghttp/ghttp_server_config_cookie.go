@@ -11,37 +11,37 @@ import (
 )
 
 // SetCookieMaxAge 设置服务器的 CookieMaxAge。
-func (s *Server) X设置Cookie最大存活时长(时长 time.Duration) {
-	s.config.CookieMaxAge = 时长
+func (s *X服务) X设置Cookie最大存活时长(时长 time.Duration) {
+	s.config.Cookie最大存活时长 = 时长
 }
 
 // SetCookiePath 为服务器设置 CookiePath。
-func (s *Server) X设置Cookie路径(路径 string) {
-	s.config.CookiePath = 路径
+func (s *X服务) X设置Cookie路径(路径 string) {
+	s.config.Cookie路径 = 路径
 }
 
 // SetCookieDomain 为服务器设置 CookieDomain。
-func (s *Server) X设置Cookie域名(域名 string) {
-	s.config.CookieDomain = 域名
+func (s *X服务) X设置Cookie域名(域名 string) {
+	s.config.Cookie域名 = 域名
 }
 
 // GetCookieMaxAge 返回服务器的 CookieMaxAge 值。
-func (s *Server) X取Cookie最大存活时长() time.Duration {
-	return s.config.CookieMaxAge
+func (s *X服务) X取Cookie最大存活时长() time.Duration {
+	return s.config.Cookie最大存活时长
 }
 
 // GetCookiePath 返回服务器的 CookiePath。
-func (s *Server) X取Cookie路径() string {
-	return s.config.CookiePath
+func (s *X服务) X取Cookie路径() string {
+	return s.config.Cookie路径
 }
 
 // GetCookieDomain 返回服务器的 CookieDomain。
-func (s *Server) X取Cookie域名() string {
-	return s.config.CookieDomain
+func (s *X服务) X取Cookie域名() string {
+	return s.config.Cookie域名
 }
 
 // GetCookieSameSite 返回服务器的 CookieSameSite 值。
-func (s *Server) X取CookieSameSite() http.SameSite {
+func (s *X服务) X取CookieSameSite() http.SameSite {
 	switch s.config.CookieSameSite {
 	case "lax":
 		return http.SameSiteLaxMode
@@ -54,10 +54,10 @@ func (s *Server) X取CookieSameSite() http.SameSite {
 	}
 }
 
-func (s *Server) X取Cookie安全() bool {
-	return s.config.CookieSecure
+func (s *X服务) X取Cookie安全() bool {
+	return s.config.Cookie安全
 }
 
-func (s *Server) X取CookieHttpOnly() bool {
-	return s.config.CookieHttpOnly
+func (s *X服务) X取CookieHttpOnly() bool {
+	return s.config.Cookie跨站访问控制
 }

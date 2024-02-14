@@ -20,20 +20,20 @@ import (
 func Test_Router_DomainBasic(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	d := s.X创建域名路由("localhost, local")
-	d.X绑定("/:name", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("/:name")
+	d.X绑定("/:name", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("/:name")
 	})
-	d.X绑定("/:name/update", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("name"))
+	d.X绑定("/:name/update", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("name"))
 	})
-	d.X绑定("/:name/:action", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("action"))
+	d.X绑定("/:name/:action", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("action"))
 	})
-	d.X绑定("/:name/*any", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("any"))
+	d.X绑定("/:name/*any", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("any"))
 	})
-	d.X绑定("/user/list/{field}.html", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("field"))
+	d.X绑定("/user/list/{field}.html", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("field"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -69,10 +69,10 @@ func Test_Router_DomainBasic(t *testing.T) {
 func Test_Router_DomainMethod(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	d := s.X创建域名路由("localhost, local")
-	d.X绑定("GET:/get", func(r *http类.Request) {
+	d.X绑定("GET:/get", func(r *http类.X请求) {
 
 	})
-	d.X绑定("POST:/post", func(r *http类.Request) {
+	d.X绑定("POST:/post", func(r *http类.X请求) {
 
 	})
 	s.SetDumpRouterMap(false)
@@ -159,17 +159,17 @@ func Test_Router_DomainMethod(t *testing.T) {
 func Test_Router_DomainStatus(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	d := s.X创建域名路由("localhost, local")
-	d.X绑定("/200", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(200)
+	d.X绑定("/200", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(200)
 	})
-	d.X绑定("/300", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(300)
+	d.X绑定("/300", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(300)
 	})
-	d.X绑定("/400", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(400)
+	d.X绑定("/400", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(400)
 	})
-	d.X绑定("/500", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(500)
+	d.X绑定("/500", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(500)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -253,11 +253,11 @@ func Test_Router_DomainStatus(t *testing.T) {
 func Test_Router_DomainCustomStatusHandler(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	d := s.X创建域名路由("localhost, local")
-	d.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello")
+	d.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello")
 	})
-	d.X绑定状态码中间件(404, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("404 page")
+	d.X绑定状态码中间件(404, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("404 page")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -290,8 +290,8 @@ func Test_Router_DomainCustomStatusHandler(t *testing.T) {
 func Test_Router_Domain404(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	d := s.X创建域名路由("localhost, local")
-	d.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello")
+	d.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -321,19 +321,19 @@ func Test_Router_Domain404(t *testing.T) {
 func Test_Router_DomainGroup(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	d := s.X创建域名路由("localhost, local")
-	d.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X创建分组路由("/app", func(group *http类.RouterGroup) {
-			group.X绑定GET("/{table}/list/{page}.html", func(r *http类.Request) {
+	d.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X创建分组路由("/app", func(group *http类.X分组路由) {
+			group.X绑定GET("/{table}/list/{page}.html", func(r *http类.X请求) {
 				intlog.Print(r.Context别名(), "/{table}/list/{page}.html")
-				r.Response.X写响应缓冲区(r.Get别名("table"), "&", r.Get别名("page"))
+				r.X响应.X写响应缓冲区(r.Get别名("table"), "&", r.Get别名("page"))
 			})
-			group.X绑定GET("/order/info/{order_id}", func(r *http类.Request) {
+			group.X绑定GET("/order/info/{order_id}", func(r *http类.X请求) {
 				intlog.Print(r.Context别名(), "/order/info/{order_id}")
-				r.Response.X写响应缓冲区(r.Get别名("order_id"))
+				r.X响应.X写响应缓冲区(r.Get别名("order_id"))
 			})
-			group.X绑定DELETE("/comment/{id}", func(r *http类.Request) {
+			group.X绑定DELETE("/comment/{id}", func(r *http类.X请求) {
 				intlog.Print(r.Context别名(), "/comment/{id}")
-				r.Response.X写响应缓冲区(r.Get别名("id"))
+				r.X响应.X写响应缓冲区(r.Get别名("id"))
 			})
 		})
 	})

@@ -19,7 +19,7 @@ import (
 
 // Server 返回指定名称的 http 服务器实例。
 // 注意，如果在创建实例期间发生任何错误，它会引发panic。
-func Server(name ...interface{}) *http类.Server {
+func Server(name ...interface{}) *http类.X服务 {
 	var (
 		err          error
 		ctx          = context.Background()
@@ -95,5 +95,5 @@ func Server(name ...interface{}) *http类.Server {
 // 因此它也会初始化视图实例。
 		_ = getViewInstance()
 		return server
-	}).(*http类.Server)
+	}).(*http类.X服务)
 }

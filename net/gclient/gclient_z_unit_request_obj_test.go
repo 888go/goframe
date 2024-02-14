@@ -34,12 +34,12 @@ func Test_Client_DoRequestObj(t *testing.T) {
 		Name string
 	}
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/user", func(group *http类.RouterGroup) {
-		group.X绑定GET("/{id}", func(r *http类.Request) {
-			r.Response.X写响应缓冲区JSON(g.Map{"id": r.Get别名("id").X取整数(), "name": "john"})
+	s.X创建分组路由("/user", func(group *http类.X分组路由) {
+		group.X绑定GET("/{id}", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区JSON(g.Map{"id": r.Get别名("id").X取整数(), "name": "john"})
 		})
-		group.X绑定POST("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区JSON(g.Map{"id": r.Get别名("Id")})
+		group.X绑定POST("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区JSON(g.Map{"id": r.Get别名("Id")})
 		})
 	})
 	s.SetDumpRouterMap(false)

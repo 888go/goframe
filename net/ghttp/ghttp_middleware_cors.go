@@ -6,7 +6,7 @@
 package http类
 
 // MiddlewareCORS 是一个用于 CORS（跨源资源共享）的中间件处理器，采用默认选项。
-func X中间件跨域函数(r *Request) {
-	r.Response.X跨域请求全允许()
-	r.Middleware.Next()
+func X中间件跨域函数(r *X请求) {
+	r.X响应.X跨域请求全允许()
+	r.X中间件管理器.Next()
 }

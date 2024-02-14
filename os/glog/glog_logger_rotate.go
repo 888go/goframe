@@ -27,7 +27,7 @@ const (
 
 // rotateFileBySize 根据配置的旋转大小来旋转当前的日志文件。
 func (l *Logger) rotateFileBySize(ctx context.Context, now time.Time) {
-	if l.config.RotateSize <= 0 {
+	if l.config.X文件分割大小 <= 0 {
 		return
 	}
 	if err := l.doRotateFile(ctx, l.getFilePath(now)); err != nil {
@@ -52,14 +52,14 @@ func (l *Logger) doRotateFile(ctx context.Context, filePath string) error {
 	})
 
 	// 不进行备份，直接删除当前的日志文件。
-	if l.config.RotateBackupLimit == 0 {
+	if l.config.X文件分割保留数量 == 0 {
 		if err := 文件类.X删除(filePath); err != nil {
 			return err
 		}
 		intlog.Printf(
 			ctx,
 			`%d size exceeds, no backups set, remove original logging file: %s`,
-			l.config.RotateSize, filePath,
+			l.config.X文件分割大小, filePath,
 		)
 		return nil
 	}
@@ -108,20 +108,20 @@ func (l *Logger) doRotateFile(ctx context.Context, filePath string) error {
 
 // rotateChecksTimely 定时检查备份的过期情况和压缩状态
 func (l *Logger) rotateChecksTimely(ctx context.Context) {
-	defer 定时类.X加入单次任务(ctx, l.config.RotateCheckInterval, l.rotateChecksTimely)
+	defer 定时类.X加入单次任务(ctx, l.config.X文件分割检查间隔, l.rotateChecksTimely)
 
 	// 检查文件旋转是否未启用。
-	if l.config.RotateSize <= 0 && l.config.RotateExpire == 0 {
+	if l.config.X文件分割大小 <= 0 && l.config.X文件分割周期 == 0 {
 		intlog.Printf(
 			ctx,
 			"logging rotation ignore checks: RotateSize: %d, RotateExpire: %s",
-			l.config.RotateSize, l.config.RotateExpire.String(),
+			l.config.X文件分割大小, l.config.X文件分割周期.String(),
 		)
 		return
 	}
 
 	// 这里使用内存锁来保证并发安全性。
-	memoryLockKey := memoryLockPrefixForRotating + l.config.Path
+	memoryLockKey := memoryLockPrefixForRotating + l.config.X文件路径
 	if !内存锁类.X非阻塞写锁定(memoryLockKey) {
 		return
 	}
@@ -130,7 +130,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 	var (
 		now        = time.Now()
 		pattern    = "*.log, *.gz"
-		files, err = 文件类.X枚举(l.config.Path, pattern, true)
+		files, err = 文件类.X枚举(l.config.X文件路径, pattern, true)
 	)
 	if err != nil {
 		intlog.Errorf(ctx, `%+v`, err)
@@ -142,13 +142,13 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 // 首先将大括号替换为美元符号($)，但在正则表达式中有特殊含义，因此需要转义为'\$'
 // 然后将日期部分转换为一个可以匹配任何字符序列的非贪婪模式组".+?"
 // 最终得到的正则表达式 "access-(.+?)-test\.log" 可以匹配类似于 "access-2022-01-01-test.log" 这样的文件名
-	fileNameRegexPattern, _ := 正则类.X替换文本(`{.+?}`, "$", l.config.File)
+	fileNameRegexPattern, _ := 正则类.X替换文本(`{.+?}`, "$", l.config.X文件名格式)
 	fileNameRegexPattern = 正则类.X转义特殊符号(fileNameRegexPattern)
 	fileNameRegexPattern = strings.ReplaceAll(fileNameRegexPattern, "\\$", "(.+?)")
 // =============================================================
 // 过期文件检查的轮转机制。
 // =============================================================
-	if l.config.RotateExpire > 0 {
+	if l.config.X文件分割周期 > 0 {
 		var (
 			mtime         time.Time
 			subDuration   time.Duration
@@ -165,7 +165,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 			}
 			mtime = 文件类.X取修改时间秒(file)
 			subDuration = now.Sub(mtime)
-			if subDuration > l.config.RotateExpire {
+			if subDuration > l.config.X文件分割周期 {
 				func() {
 					memoryLockFileKey := memoryLockPrefixForPrintingToFile + file
 					if !内存锁类.X非阻塞写锁定(memoryLockFileKey) {
@@ -176,7 +176,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 					intlog.Printf(
 						ctx,
 						`%v - %v = %v > %v, rotation expire logging file: %s`,
-						now, mtime, subDuration, l.config.RotateExpire, file,
+						now, mtime, subDuration, l.config.X文件分割周期, file,
 					)
 					if err = l.doRotateFile(ctx, file); err != nil {
 						intlog.Errorf(ctx, `%+v`, err)
@@ -186,7 +186,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 		}
 		if expireRotated {
 			// 更新文件数组。
-			files, err = 文件类.X枚举(l.config.Path, pattern, true)
+			files, err = 文件类.X枚举(l.config.X文件路径, pattern, true)
 			if err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
@@ -198,7 +198,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 // =============================================================
 // 这段注释表明该段Go语言代码是用于实现“旋转文件压缩”功能的。在日志处理、数据备份等场景中，当文件达到一定大小或满足特定条件时，会创建新的文件并将旧文件进行压缩，这个过程通常称为“文件旋转”（File Rotation）。本代码块可能涉及对已旋转的文件进行压缩操作。
 	needCompressFileArray := 数组类.X创建文本()
-	if l.config.RotateBackupCompress > 0 {
+	if l.config.X文件压缩级别 > 0 {
 		for _, file := range files {
 			// 示例：access.20200326101301899002.log.gz
 // 这段Go语言代码注释的中文翻译如下：
@@ -235,7 +235,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 				return true
 			})
 			// 更新文件数组。
-			files, err = 文件类.X枚举(l.config.Path, pattern, true)
+			files, err = 文件类.X枚举(l.config.X文件路径, pattern, true)
 			if err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
@@ -258,7 +258,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 		}
 		return 1
 	})
-	if l.config.RotateBackupLimit > 0 || l.config.RotateBackupExpire > 0 {
+	if l.config.X文件分割保留数量 > 0 || l.config.X文件分割过期时间 > 0 {
 		for _, file := range files {
 			// 忽略不匹配的文件
 			originalLoggingFilePath, _ := 正则类.X替换文本(`\.\d{20}`, "", file)
@@ -270,7 +270,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 			}
 		}
 		intlog.Printf(ctx, `calculated backup files array: %+v`, backupFiles)
-		diff := backupFiles.X取长度() - l.config.RotateBackupLimit
+		diff := backupFiles.X取长度() - l.config.X文件分割保留数量
 		for i := 0; i < diff; i++ {
 			path, _ := backupFiles.X出栈左()
 			intlog.Printf(ctx, `remove exceeded backup limit file: %s`, path)
@@ -279,7 +279,7 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 			}
 		}
 		// 备份过期检查
-		if l.config.RotateBackupExpire > 0 {
+		if l.config.X文件分割过期时间 > 0 {
 			var (
 				mtime       time.Time
 				subDuration time.Duration
@@ -288,11 +288,11 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 				path := v.(string)
 				mtime = 文件类.X取修改时间秒(path)
 				subDuration = now.Sub(mtime)
-				if subDuration > l.config.RotateBackupExpire {
+				if subDuration > l.config.X文件分割过期时间 {
 					intlog.Printf(
 						ctx,
 						`%v - %v = %v > %v, remove expired backup file: %s`,
-						now, mtime, subDuration, l.config.RotateBackupExpire, path,
+						now, mtime, subDuration, l.config.X文件分割过期时间, path,
 					)
 					if err := 文件类.X删除(path); err != nil {
 						intlog.Errorf(ctx, `%+v`, err)

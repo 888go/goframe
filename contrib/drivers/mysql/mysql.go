@@ -52,7 +52,7 @@ func New() db类.Driver {
 
 // New 创建并返回一个用于 mysql 的数据库对象。
 // 它实现了 gdb.Driver 接口，以便进行额外的数据库驱动安装。
-func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error) {
+func (d *Driver) New(core *db类.Core, node *db类.X配置项) (db类.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
@@ -60,7 +60,7 @@ func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error)
 
 // Open 创建并返回一个用于 mysql 的底层 sql.DB 对象。
 // 注意，它默认会将 time.Time 类型参数转换为本地时区。
-func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(配置对象 *db类.X配置项) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "mysql"
@@ -71,29 +71,29 @@ func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, err er
 // - `[protocol[(address)]]`：指定数据库连接协议以及服务器地址，例如 `tcp(` 或 `unix(` 等，其中括号内的 `address` 为服务器地址或socket路径。
 // - `/dbname`：必填项，表示要连接的数据库名称。
 // - `[?param1=value1&...&paramN=valueN]`：可选的查询参数部分，通常用于设置额外的连接选项，如 `charset=utf8mb4`、`parseTime=true` 等，多个参数之间用 `&` 符号分隔。
-	if 配置对象.Link != "" {
+	if 配置对象.X自定义链接信息 != "" {
 // ============================================================================
 // 从 v2.2.0 版本开始已弃用。
 // ============================================================================
-		source = 配置对象.Link
+		source = 配置对象.X自定义链接信息
 		// 自定义在运行时更改架构
-		if 配置对象.Name != "" {
-			source, _ = 正则类.X替换文本(`/([\w\.\-]+)+`, "/"+配置对象.Name, source)
+		if 配置对象.X名称 != "" {
+			source, _ = 正则类.X替换文本(`/([\w\.\-]+)+`, "/"+配置对象.X名称, source)
 		}
 	} else {
 		// TODO: 当未指定字符集时（在v2.5.0版本中），不要设置字符集
 		source = fmt.Sprintf(
 			"%s:%s@%s(%s:%s)/%s?charset=%s",
-			配置对象.User, 配置对象.Pass, 配置对象.Protocol, 配置对象.Host, 配置对象.Port, 配置对象.Name, 配置对象.Charset,
+			配置对象.X账号, 配置对象.X密码, 配置对象.X协议, 配置对象.X地址, 配置对象.X端口, 配置对象.X名称, 配置对象.X字符集,
 		)
-		if 配置对象.Timezone != "" {
-			if strings.Contains(配置对象.Timezone, "/") {
-				配置对象.Timezone = url.QueryEscape(配置对象.Timezone)
+		if 配置对象.X时区 != "" {
+			if strings.Contains(配置对象.X时区, "/") {
+				配置对象.X时区 = url.QueryEscape(配置对象.X时区)
 			}
-			source = fmt.Sprintf("%s&loc=%s", source, 配置对象.Timezone)
+			source = fmt.Sprintf("%s&loc=%s", source, 配置对象.X时区)
 		}
-		if 配置对象.Extra != "" {
-			source = fmt.Sprintf("%s&%s", source, 配置对象.Extra)
+		if 配置对象.X额外 != "" {
+			source = fmt.Sprintf("%s&%s", source, 配置对象.X额外)
 		}
 	}
 	if db, err = sql.Open(underlyingDriverName, source); err != nil {
@@ -163,12 +163,12 @@ func (d *Driver) X取表字段信息Map(上下文 context.Context, 表名称 str
 	for i, m := range result {
 		字段信息Map[m["Field"].String()] = &db类.TableField{
 			Index:   i,
-			Name:    m["Field"].String(),
-			Type:    m["Type"].String(),
+			X名称:    m["Field"].String(),
+			X类型:    m["Type"].String(),
 			Null:    m["Null"].X取布尔(),
 			Key:     m["Key"].String(),
 			Default: m["Default"].X取值(),
-			Extra:   m["Extra"].String(),
+			X额外:   m["Extra"].String(),
 			Comment: m["Comment"].String(),
 		}
 	}

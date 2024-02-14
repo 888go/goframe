@@ -23,10 +23,10 @@ func Test_Client_Server_Tracing(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		p := 8888
 		s := g.Http类(p)
-		s.X绑定("/", func(r *http类.Request) {
+		s.X绑定("/", func(r *http类.X请求) {
 			ctx := r.Context别名()
 			g.X日志类().X输出(ctx, "GetTraceID:", gtrace.GetTraceID(ctx))
-			r.Response.X写响应缓冲区(gtrace.GetTraceID(ctx))
+			r.X响应.X写响应缓冲区(gtrace.GetTraceID(ctx))
 		})
 		s.X设置监听端口(p)
 		s.SetDumpRouterMap(false)
@@ -50,9 +50,9 @@ func Test_WithTraceID(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		p := 8889
 		s := g.Http类(p)
-		s.X绑定("/", func(r *http类.Request) {
+		s.X绑定("/", func(r *http类.X请求) {
 			ctx := r.Context别名()
-			r.Response.X写响应缓冲区(gtrace.GetTraceID(ctx))
+			r.X响应.X写响应缓冲区(gtrace.GetTraceID(ctx))
 		})
 		s.X设置监听端口(p)
 		s.SetDumpRouterMap(false)

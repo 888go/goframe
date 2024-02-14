@@ -13,18 +13,18 @@ import (
 )
 
 // DefaultHandlerResponse 是 HandlerResponse 接口的默认实现。
-type DefaultHandlerResponse struct {
+type X默认处理器响应 struct {
 	Code    int         `json:"code"    dc:"Error code"`
 	Message string      `json:"message" dc:"Error message"`
 	Data    interface{} `json:"data"    dc:"Result data for certain request according API definition"`
 }
 
 // MiddlewareHandlerResponse 是默认中间件处理处理器响应对象及其错误的接口。
-func MiddlewareHandlerResponse(r *Request) {
-	r.Middleware.Next()
+func MiddlewareHandlerResponse(r *X请求) {
+	r.X中间件管理器.Next()
 
 	// 如果存在自定义缓冲区内容，则退出当前处理器。
-	if r.Response.X取缓冲区长度() > 0 {
+	if r.X响应.X取缓冲区长度() > 0 {
 		return
 	}
 
@@ -40,9 +40,9 @@ func MiddlewareHandlerResponse(r *Request) {
 		}
 		msg = err.Error()
 	} else {
-		if r.Response.Status > 0 && r.Response.Status != http.StatusOK {
-			msg = http.StatusText(r.Response.Status)
-			switch r.Response.Status {
+		if r.X响应.Status > 0 && r.X响应.Status != http.StatusOK {
+			msg = http.StatusText(r.X响应.Status)
+			switch r.X响应.Status {
 			case http.StatusNotFound:
 				code = 错误码类.CodeNotFound
 			case http.StatusForbidden:
@@ -58,7 +58,7 @@ func MiddlewareHandlerResponse(r *Request) {
 		}
 	}
 
-	r.Response.X写响应缓冲区JSON(DefaultHandlerResponse{
+	r.X响应.X写响应缓冲区JSON(X默认处理器响应{
 		Code:    code.Code(),
 		Message: msg,
 		Data:    res,

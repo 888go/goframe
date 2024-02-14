@@ -18,14 +18,14 @@ import (
 
 func Test_Params_Page(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定GET("/list", func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定GET("/list", func(r *http类.X请求) {
 			page := r.X取分页类(5, 2)
-			r.Response.X写响应缓冲区(page.X取预定义模式html(4))
+			r.X响应.X写响应缓冲区(page.X取预定义模式html(4))
 		})
-		group.X绑定GET("/list/{page}.html", func(r *http类.Request) {
+		group.X绑定GET("/list/{page}.html", func(r *http类.X请求) {
 			page := r.X取分页类(5, 2)
-			r.Response.X写响应缓冲区(page.X取预定义模式html(4))
+			r.X响应.X写响应缓冲区(page.X取预定义模式html(4))
 		})
 	})
 	s.SetDumpRouterMap(false)

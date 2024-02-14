@@ -19,35 +19,35 @@ import (
 )
 
 // staticPathItem 是静态路径配置项的结构体。
-type staticPathItem struct {
+type 静态文件配置项 struct {
 	Prefix string // The router URI.
 	Path   string // The static path.
 }
 
 // SetIndexFiles 设置服务器的索引文件。
-func (s *Server) X设置静态文件索引(索引 []string) {
-	s.config.IndexFiles = 索引
+func (s *X服务) X设置静态文件索引(索引 []string) {
+	s.config.X静态文件索引 = 索引
 }
 
 // GetIndexFiles 从服务器获取并返回索引文件。
-func (s *Server) X取静态文件索引() []string {
-	return s.config.IndexFiles
+func (s *X服务) X取静态文件索引() []string {
+	return s.config.X静态文件索引
 }
 
 // SetIndexFolder 设置启用或禁用在请求目录时列出子文件。
-func (s *Server) X设置静态文件是否列出子文件(是否 bool) {
-	s.config.IndexFolder = 是否
+func (s *X服务) X设置静态文件是否列出子文件(是否 bool) {
+	s.config.X静态文件是否列出子文件 = 是否
 }
 
 // SetFileServerEnabled 用于启用/禁用静态文件服务。
 // 这是静态文件服务的主要开关。当调用如 SetServerRoot、AddSearchPath 和 AddStaticPath 等静态文件服务配置函数时，
 // 此配置会自动启用。
-func (s *Server) X设置静态文件是否开启(开启 bool) {
-	s.config.FileServerEnabled = 开启
+func (s *X服务) X设置静态文件是否开启(开启 bool) {
+	s.config.X静态文件是否开启 = 开启
 }
 
 // SetServerRoot 设置静态服务的文档根目录。
-func (s *Server) X设置静态文件根目录(根目录 string) {
+func (s *X服务) X设置静态文件根目录(根目录 string) {
 	var (
 		ctx      = context.TODO()
 		realPath = 根目录
@@ -60,12 +60,12 @@ func (s *Server) X设置静态文件根目录(根目录 string) {
 		}
 	}
 	s.Logger别名().X输出DEBU(ctx, "SetServerRoot path:", realPath)
-	s.config.SearchPaths = []string{strings.TrimRight(realPath, 文件类.Separator)}
-	s.config.FileServerEnabled = true
+	s.config.X静态文件额外搜索目录 = []string{strings.TrimRight(realPath, 文件类.Separator)}
+	s.config.X静态文件是否开启 = true
 }
 
 // AddSearchPath 添加静态文件服务的搜索目录路径。
-func (s *Server) X静态文件添加额外搜索目录(目录 string) {
+func (s *X服务) X静态文件添加额外搜索目录(目录 string) {
 	var (
 		ctx      = context.TODO()
 		realPath = 目录
@@ -77,12 +77,12 @@ func (s *Server) X静态文件添加额外搜索目录(目录 string) {
 			realPath = p
 		}
 	}
-	s.config.SearchPaths = append(s.config.SearchPaths, realPath)
-	s.config.FileServerEnabled = true
+	s.config.X静态文件额外搜索目录 = append(s.config.X静态文件额外搜索目录, realPath)
+	s.config.X静态文件是否开启 = true
 }
 
 // AddStaticPath 设置静态文件服务的URI到静态目录路径映射。
-func (s *Server) X静态文件添加目录映射(旧路径 string, 新路径 string) {
+func (s *X服务) X静态文件添加目录映射(旧路径 string, 新路径 string) {
 	var (
 		ctx      = context.TODO()
 		realPath = 新路径
@@ -94,12 +94,12 @@ func (s *Server) X静态文件添加目录映射(旧路径 string, 新路径 str
 			realPath = p
 		}
 	}
-	addItem := staticPathItem{
+	addItem := 静态文件配置项{
 		Prefix: 旧路径,
 		Path:   realPath,
 	}
-	if len(s.config.StaticPaths) > 0 {
-		s.config.StaticPaths = append(s.config.StaticPaths, addItem)
+	if len(s.config.X静态文件目录映射) > 0 {
+		s.config.X静态文件目录映射 = append(s.config.X静态文件目录映射, addItem)
 		// 按前缀长度从短到长对数组进行排序。
 		array := 数组类.X创建排序(func(v1, v2 interface{}) int {
 			s1 := 转换类.String(v1)
@@ -110,22 +110,22 @@ func (s *Server) X静态文件添加目录映射(旧路径 string, 新路径 str
 			}
 			return r
 		})
-		for _, v := range s.config.StaticPaths {
+		for _, v := range s.config.X静态文件目录映射 {
 			array.X入栈右(v.Prefix)
 		}
 		// 根据先前已排序的切片，将项目添加到paths中。
-		paths := make([]staticPathItem, 0)
+		paths := make([]静态文件配置项, 0)
 		for _, v := range array.X取切片() {
-			for _, item := range s.config.StaticPaths {
+			for _, item := range s.config.X静态文件目录映射 {
 				if strings.EqualFold(转换类.String(v), item.Prefix) {
 					paths = append(paths, item)
 					break
 				}
 			}
 		}
-		s.config.StaticPaths = paths
+		s.config.X静态文件目录映射 = paths
 	} else {
-		s.config.StaticPaths = []staticPathItem{addItem}
+		s.config.X静态文件目录映射 = []静态文件配置项{addItem}
 	}
-	s.config.FileServerEnabled = true
+	s.config.X静态文件是否开启 = true
 }

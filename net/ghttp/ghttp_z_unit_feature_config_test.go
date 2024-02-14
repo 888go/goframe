@@ -38,14 +38,14 @@ func Test_ConfigFromMap(t *testing.T) {
 		t.AssertNil(err)
 		d1, _ := time.ParseDuration(转换类.String(m["readTimeout"]))
 		d2, _ := time.ParseDuration(转换类.String(m["cookieMaxAge"]))
-		t.Assert(config.Address, m["address"])
-		t.Assert(config.ReadTimeout, d1)
-		t.Assert(config.CookieMaxAge, d2)
-		t.Assert(config.IndexFiles, m["indexFiles"])
-		t.Assert(config.ErrorLogEnabled, m["errorLogEnabled"])
+		t.Assert(config.X监听地址, m["address"])
+		t.Assert(config.X读取超时, d1)
+		t.Assert(config.Cookie最大存活时长, d2)
+		t.Assert(config.X静态文件索引, m["indexFiles"])
+		t.Assert(config.X日志开启错误记录, m["errorLogEnabled"])
 		t.Assert(config.CookieSameSite, m["cookieSameSite"])
-		t.Assert(config.CookieSecure, m["cookieSecure"])
-		t.Assert(config.CookieHttpOnly, m["cookieHttpOnly"])
+		t.Assert(config.Cookie安全, m["cookieSecure"])
+		t.Assert(config.Cookie跨站访问控制, m["cookieHttpOnly"])
 	})
 }
 
@@ -74,9 +74,9 @@ func Test_SetConfigWithMap(t *testing.T) {
 
 func Test_ClientMaxBodySize(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定POST("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.X取请求体文本())
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定POST("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.X取请求体文本())
 		})
 	})
 	m := g.Map{
@@ -106,10 +106,10 @@ func Test_ClientMaxBodySize(t *testing.T) {
 
 func Test_ClientMaxBodySize_File(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定POST("/", func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定POST("/", func(r *http类.X请求) {
 			r.X取上传文件对象("file")
-			r.Response.X写响应缓冲区("ok")
+			r.X响应.X写响应缓冲区("ok")
 		})
 	})
 	m := g.Map{

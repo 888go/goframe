@@ -184,7 +184,7 @@ func getServerFdMap() map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	serverMapping.X遍历读锁定(func(m map[string]interface{}) {
 		for k, v := range m {
-			sfm[k] = v.(*Server).getListenerFdMap()
+			sfm[k] = v.(*X服务).getListenerFdMap()
 		}
 	})
 	return sfm
@@ -257,7 +257,7 @@ func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 	}
 	serverMapping.X遍历读锁定(func(m map[string]interface{}) {
 		for _, v := range m {
-			server := v.(*Server)
+			server := v.(*X服务)
 			server.doServiceDeregister()
 			for _, s := range server.servers {
 				s.shutdown(ctx)
@@ -270,7 +270,7 @@ func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 func forceCloseWebServers(ctx context.Context) {
 	serverMapping.X遍历读锁定(func(m map[string]interface{}) {
 		for _, v := range m {
-			for _, s := range v.(*Server).servers {
+			for _, s := range v.(*X服务).servers {
 				s.close(ctx)
 			}
 		}

@@ -139,8 +139,8 @@ var safeSet = [utf8.RuneSelf]bool{
 // HandlerStructure 是一个处理器，用于将输出的日志内容以结构化字符串形式记录。
 func X中间件函数文本结构化输出(上下文 context.Context, in *HandlerInput) {
 	s := newStructuredBuffer(in)
-	in.Buffer.Write(s.X取字节集())
-	in.Buffer.Write([]byte("\n"))
+	in.X缓冲区.Write(s.X取字节集())
+	in.X缓冲区.Write([]byte("\n"))
 	in.Next(上下文)
 }
 
@@ -152,36 +152,36 @@ func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
 }
 
 func (buf *structuredBuffer) X取字节集() []byte {
-	buf.addValue(structureKeyTime, buf.in.TimeFormat)
-	if buf.in.TraceId != "" {
-		buf.addValue(structureKeyTraceId, buf.in.TraceId)
+	buf.addValue(structureKeyTime, buf.in.X格式化时间)
+	if buf.in.X链路跟踪ID != "" {
+		buf.addValue(structureKeyTraceId, buf.in.X链路跟踪ID)
 	}
-	if buf.in.CtxStr != "" {
-		buf.addValue(structureKeyCtxStr, buf.in.CtxStr)
+	if buf.in.X上下文值 != "" {
+		buf.addValue(structureKeyCtxStr, buf.in.X上下文值)
 	}
-	if buf.in.LevelFormat != "" {
-		buf.addValue(structureKeyLevel, buf.in.LevelFormat)
+	if buf.in.X文本级别 != "" {
+		buf.addValue(structureKeyLevel, buf.in.X文本级别)
 	}
-	if buf.in.CallerPath != "" {
-		buf.addValue(structureKeyCallerPath, buf.in.CallerPath)
+	if buf.in.X源文件路径与行号 != "" {
+		buf.addValue(structureKeyCallerPath, buf.in.X源文件路径与行号)
 	}
-	if buf.in.CallerFunc != "" {
-		buf.addValue(structureKeyCallerFunc, buf.in.CallerFunc)
+	if buf.in.X源文件函数名 != "" {
+		buf.addValue(structureKeyCallerFunc, buf.in.X源文件函数名)
 	}
-	if buf.in.Prefix != "" {
-		buf.addValue(structureKeyPrefix, buf.in.Prefix)
+	if buf.in.X前缀 != "" {
+		buf.addValue(structureKeyPrefix, buf.in.X前缀)
 	}
 	// 如果这些值不能构成一对，则将第一个值移动到content中。
-	values := buf.in.Values
+	values := buf.in.X未格式化数组
 	if len(values)%2 != 0 {
-		if buf.in.Content != "" {
-			buf.in.Content += " "
+		if buf.in.X日志内容 != "" {
+			buf.in.X日志内容 += " "
 		}
-		buf.in.Content += 转换类.String(values[0])
+		buf.in.X日志内容 += 转换类.String(values[0])
 		values = values[1:]
 	}
-	if buf.in.Content != "" {
-		buf.addValue(structureKeyContent, buf.in.Content)
+	if buf.in.X日志内容 != "" {
+		buf.addValue(structureKeyContent, buf.in.X日志内容)
 	}
 	// Values pairs.
 	for i := 0; i < len(values); i += 2 {

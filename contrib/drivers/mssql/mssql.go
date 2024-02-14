@@ -57,35 +57,35 @@ func New() db类.Driver {
 
 // New 创建并返回一个用于SQL服务器的数据库对象。
 // 它实现了gdb.Driver接口，以便支持额外的数据库驱动安装。
-func (d *Driver) New(core *db类.Core, node *db类.ConfigNode) (db类.DB, error) {
+func (d *Driver) New(core *db类.Core, node *db类.X配置项) (db类.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
 }
 
 // Open 创建并返回一个用于mssql的底层sql.DB对象。
-func (d *Driver) X底层Open(配置对象 *db类.ConfigNode) (db *sql.DB, 错误 error) {
+func (d *Driver) X底层Open(配置对象 *db类.X配置项) (db *sql.DB, 错误 error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlserver"
 	)
-	if 配置对象.Link != "" {
+	if 配置对象.X自定义链接信息 != "" {
 // ============================================================================
 // 从 v2.2.0 版本开始已弃用。
 // ============================================================================
-		source = 配置对象.Link
+		source = 配置对象.X自定义链接信息
 		// 在运行时自定义更改架构
-		if 配置对象.Name != "" {
-			source, _ = 正则类.X替换文本(`database=([\w\.\-]+)+`, "database="+配置对象.Name, source)
+		if 配置对象.X名称 != "" {
+			source, _ = 正则类.X替换文本(`database=([\w\.\-]+)+`, "database="+配置对象.X名称, source)
 		}
 	} else {
 		source = fmt.Sprintf(
 			"user id=%s;password=%s;server=%s;port=%s;database=%s;encrypt=disable",
-			配置对象.User, 配置对象.Pass, 配置对象.Host, 配置对象.Port, 配置对象.Name,
+			配置对象.X账号, 配置对象.X密码, 配置对象.X地址, 配置对象.X端口, 配置对象.X名称,
 		)
-		if 配置对象.Extra != "" {
+		if 配置对象.X额外 != "" {
 			var extraMap map[string]interface{}
-			if extraMap, 错误 = 文本类.X参数解析(配置对象.Extra); 错误 != nil {
+			if extraMap, 错误 = 文本类.X参数解析(配置对象.X额外); 错误 != nil {
 				return nil, 错误
 			}
 			for k, v := range extraMap {
@@ -291,12 +291,12 @@ ORDER BY a.id,a.colorder`,
 	for i, m := range result {
 		字段信息Map[m["Field"].String()] = &db类.TableField{
 			Index:   i,
-			Name:    m["Field"].String(),
-			Type:    m["Type"].String(),
+			X名称:    m["Field"].String(),
+			X类型:    m["Type"].String(),
 			Null:    m["Null"].X取布尔(),
 			Key:     m["Key"].String(),
 			Default: m["Default"].X取值(),
-			Extra:   m["Extra"].String(),
+			X额外:   m["Extra"].String(),
 			Comment: m["Comment"].String(),
 		}
 	}

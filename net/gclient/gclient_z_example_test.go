@@ -32,65 +32,65 @@ func init() {
 	p := 8999
 	s := g.Http类(p)
 	// HTTP方法处理器。
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定GET("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定GET("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"GET: query: %d, %s",
 				r.X取查询参数到泛型类("id").X取整数(),
 				r.X取查询参数到泛型类("name").String(),
 			)
 		})
-		group.X绑定PUT("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定PUT("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"PUT: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.X绑定POST("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定POST("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"POST: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.X绑定DELETE("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定DELETE("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"DELETE: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.X绑定HEAD("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定HEAD("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"HEAD: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.X绑定PATCH("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定PATCH("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"PATCH: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.X绑定CONNECT("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定CONNECT("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"CONNECT: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.X绑定OPTIONS("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定OPTIONS("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"OPTIONS: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
 			)
 		})
-		group.X绑定TRACE("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定TRACE("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"TRACE: form: %d, %s",
 				r.X取表单值到泛型类("id").X取整数(),
 				r.X取表单值到泛型类("name").String(),
@@ -98,22 +98,22 @@ func init() {
 		})
 	})
 	// 客户端链式操作处理程序。
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定所有类型("/header", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定所有类型("/header", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"Span-Id: %s, Trace-Id: %s",
 				r.Header.Get("Span-Id"),
 				r.Header.Get("Trace-Id"),
 			)
 		})
-		group.X绑定所有类型("/cookie", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定所有类型("/cookie", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"SessionId: %s",
 				r.Cookie.X取值("SessionId"),
 			)
 		})
-		group.X绑定所有类型("/json", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并格式化(
+		group.X绑定所有类型("/json", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并格式化(
 				"Content-Type: %s, id: %d",
 				r.Header.Get("Content-Type"),
 				r.Get别名("id").X取整数(),
@@ -121,12 +121,12 @@ func init() {
 		})
 	})
 	// 其他测试处理程序。
-	s.X创建分组路由("/var", func(group *http类.RouterGroup) {
-		group.X绑定所有类型("/json", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(`{"id":1,"name":"john"}`)
+	s.X创建分组路由("/var", func(group *http类.X分组路由) {
+		group.X绑定所有类型("/json", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(`{"id":1,"name":"john"}`)
 		})
-		group.X绑定所有类型("/jsons", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(`[{"id":1,"name":"john"}, {"id":2,"name":"smith"}]`)
+		group.X绑定所有类型("/jsons", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(`[{"id":1,"name":"john"}, {"id":2,"name":"smith"}]`)
 		})
 	})
 	s.X设置日志开启访客记录(false)
@@ -638,12 +638,12 @@ func ExampleClient_Prefix() {
 
 	s := g.Http类(uid类.X生成())
 	// HTTP方法处理器。
-	s.X创建分组路由("/api", func(group *http类.RouterGroup) {
-		group.X绑定GET("/v1/prefix", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("this is v1 prefix")
+	s.X创建分组路由("/api", func(group *http类.X分组路由) {
+		group.X绑定GET("/v1/prefix", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("this is v1 prefix")
 		})
-		group.X绑定GET("/v1/hello", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("this is v1 hello")
+		group.X绑定GET("/v1/hello", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("this is v1 hello")
 		})
 	})
 	s.X设置日志开启访客记录(false)
@@ -733,11 +733,11 @@ func ExampleClient_SetHeader() {
 func ExampleClient_SetRedirectLimit() {
 	go func() {
 		s := g.Http类()
-		s.X绑定("/hello", func(r *http类.Request) {
-			r.Response.X写响应缓冲区并换行("hello world")
+		s.X绑定("/hello", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区并换行("hello world")
 		})
-		s.X绑定("/back", func(r *http类.Request) {
-			r.Response.X重定向到来源页面()
+		s.X绑定("/back", func(r *http类.X请求) {
+			r.X响应.X重定向到来源页面()
 		})
 		s.SetDumpRouterMap(false)
 		s.X设置监听端口(8199)

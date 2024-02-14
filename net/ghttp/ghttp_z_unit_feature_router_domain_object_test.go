@@ -18,24 +18,24 @@ import (
 
 type DomainObject struct{}
 
-func (o *DomainObject) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("1")
+func (o *DomainObject) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("1")
 }
 
-func (o *DomainObject) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("2")
+func (o *DomainObject) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("2")
 }
 
-func (o *DomainObject) Index(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Index")
+func (o *DomainObject) Index(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Index")
 }
 
-func (o *DomainObject) Show(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Show")
+func (o *DomainObject) Show(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Show")
 }
 
-func (o *DomainObject) Info(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Info")
+func (o *DomainObject) Info(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Info")
 }
 
 func Test_Router_DomainObject1(t *testing.T) {

@@ -18,40 +18,40 @@ import (
 
 type DomainObjectRest struct{}
 
-func (o *DomainObjectRest) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("1")
+func (o *DomainObjectRest) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("1")
 }
 
-func (o *DomainObjectRest) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("2")
+func (o *DomainObjectRest) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("2")
 }
 
-func (o *DomainObjectRest) Get(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Get")
+func (o *DomainObjectRest) Get(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Get")
 }
 
-func (o *DomainObjectRest) Put(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Put")
+func (o *DomainObjectRest) Put(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Put")
 }
 
-func (o *DomainObjectRest) Post(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Post")
+func (o *DomainObjectRest) Post(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Post")
 }
 
-func (o *DomainObjectRest) Delete(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Delete")
+func (o *DomainObjectRest) Delete(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Delete")
 }
 
-func (o *DomainObjectRest) Patch(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Patch")
+func (o *DomainObjectRest) Patch(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Patch")
 }
 
-func (o *DomainObjectRest) Options(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Options")
+func (o *DomainObjectRest) Options(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Options")
 }
 
-func (o *DomainObjectRest) Head(r *http类.Request) {
-	r.Response.Header().Set("head-ok", "1")
+func (o *DomainObjectRest) Head(r *http类.X请求) {
+	r.X响应.Header().Set("head-ok", "1")
 }
 
 func Test_Router_DomainObjectRest(t *testing.T) {

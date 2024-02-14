@@ -34,7 +34,7 @@ func Test_Server_Wrap_Handler(t *testing.T) {
 		s := g.Http类(uid类.X生成())
 		str1 := "hello"
 		str2 := "hello again"
-		s.X创建分组路由("/api", func(group *http类.RouterGroup) {
+		s.X创建分组路由("/api", func(group *http类.X分组路由) {
 			group.X绑定GET("/wrapf", http类.WrapF(func(w http.ResponseWriter, req *http.Request) {
 				t.Assert(req.Method, "GET")
 				t.Assert(req.URL.Path, "/api/wrapf")

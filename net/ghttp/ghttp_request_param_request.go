@@ -19,7 +19,7 @@ import (
 // GetRequest 是用于检索参数的最常用函数之一。
 //
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) X取参数(名称 string, 默认 ...interface{}) *泛型类.Var {
+func (r *X请求) X取参数(名称 string, 默认 ...interface{}) *泛型类.Var {
 	value := r.X取自定义参数到泛型类(名称)
 	if value.X是否为Nil() {
 		value = r.X取表单值到泛型类(名称)
@@ -52,7 +52,7 @@ func (r *Request) X取参数(名称 string, 默认 ...interface{}) *泛型类.Va
 // GetRequestMap 是用于检索参数的最常用函数之一。
 //
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) X取参数到Map(kvMap ...map[string]interface{}) map[string]interface{} {
+func (r *X请求) X取参数到Map(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	r.parseForm()
 	r.parseBody()
@@ -127,7 +127,7 @@ func (r *Request) X取参数到Map(kvMap ...map[string]interface{}) map[string]i
 // GetRequestMapStrStr 从客户端获取并返回所有传递的参数以及自定义参数，无论客户端使用何种HTTP方法。
 // 参数`kvMap`指定了从客户端参数中检索的键，如果客户端未传递，则关联的值是默认值。返回类型为map[string]string。
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) X取参数到MapStrStr(kvMap ...map[string]interface{}) map[string]string {
+func (r *X请求) X取参数到MapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	requestMap := r.X取参数到Map(kvMap...)
 	if len(requestMap) > 0 {
 		m := make(map[string]string, len(requestMap))
@@ -143,7 +143,7 @@ func (r *Request) X取参数到MapStrStr(kvMap ...map[string]interface{}) map[st
 // 并以map[string]*gvar.Var的形式返回。参数`kvMap`指定了从客户端参数中获取的键，
 // 相关联的值是当客户端未传递时的默认值。
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) X取参数到Map泛型类(kvMap ...map[string]interface{}) map[string]*泛型类.Var {
+func (r *X请求) X取参数到Map泛型类(kvMap ...map[string]interface{}) map[string]*泛型类.Var {
 	requestMap := r.X取参数到Map(kvMap...)
 	if len(requestMap) > 0 {
 		m := make(map[string]*泛型类.Var, len(requestMap))
@@ -159,12 +159,12 @@ func (r *Request) X取参数到Map泛型类(kvMap ...map[string]interface{}) map
 // 并将它们转换为给定的结构体对象。注意，参数`pointer`是指向结构体对象的指针。
 // 可选参数`mapping`用于指定键到属性的映射关系。
 // 注意，可获取客户端提交的所有参数，不区分提交方式。如果有多个同名参数，按照以下优先级顺序获取并覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
-func (r *Request) X取参数到结构体(结构体指针 interface{}, 名称映射 ...map[string]string) error {
+func (r *X请求) X取参数到结构体(结构体指针 interface{}, 名称映射 ...map[string]string) error {
 	_, err := r.doGetRequestStruct(结构体指针, 名称映射...)
 	return err
 }
 
-func (r *Request) doGetRequestStruct(pointer interface{}, mapping ...map[string]string) (data map[string]interface{}, err error) {
+func (r *X请求) doGetRequestStruct(pointer interface{}, mapping ...map[string]string) (data map[string]interface{}, err error) {
 	data = r.X取参数到Map()
 	if data == nil {
 		data = map[string]interface{}{}
@@ -181,8 +181,8 @@ func (r *Request) doGetRequestStruct(pointer interface{}, mapping ...map[string]
 }
 
 // mergeDefaultStructValue 将请求参数与来自结构体标签定义的默认值进行合并。
-func (r *Request) mergeDefaultStructValue(data map[string]interface{}, pointer interface{}) error {
-	fields := r.serveHandler.Handler.Info.ReqStructFields
+func (r *X请求) mergeDefaultStructValue(data map[string]interface{}, pointer interface{}) error {
+	fields := r.serveHandler.Handler.X处理器函数信息.ReqStructFields
 	if len(fields) > 0 {
 		var (
 			foundKey   string
@@ -229,8 +229,8 @@ func (r *Request) mergeDefaultStructValue(data map[string]interface{}, pointer i
 }
 
 // mergeInTagStructValue 将请求参数与来自 `in` 标签定义的结构体中的头部或cookie值进行合并。
-func (r *Request) mergeInTagStructValue(data map[string]interface{}, pointer interface{}) error {
-	fields := r.serveHandler.Handler.Info.ReqStructFields
+func (r *X请求) mergeInTagStructValue(data map[string]interface{}, pointer interface{}) error {
+	fields := r.serveHandler.Handler.X处理器函数信息.ReqStructFields
 	if len(fields) > 0 {
 		var (
 			foundKey   string

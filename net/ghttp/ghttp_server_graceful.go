@@ -27,7 +27,7 @@ import (
 
 // gracefulServer 将 net/http.Server 包装起来，为其提供优雅的重新加载/重启功能。
 type gracefulServer struct {
-	server      *Server      // Belonged server.
+	server      *X服务      // Belonged server.
 	fd          uintptr      // 用于在优雅重启时传递给子进程的文件描述符。
 	address     string       // 监听地址格式如":80"、":8080"。
 	httpServer  *http.Server // 底层的 http.Server.
@@ -40,7 +40,7 @@ type gracefulServer struct {
 
 // newGracefulServer 根据给定的地址创建并返回一个优雅的 HTTP 服务器。
 // 可选参数 `fd` 指定了从父服务器传递过来的文件描述符。
-func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
+func (s *X服务) newGracefulServer(address string, fd ...int) *gracefulServer {
 	// 将端口更改为地址形式，例如：80 -> :80
 	if 文本类.X是否为数字(address) {
 		address = ":" + address
@@ -54,11 +54,11 @@ func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
 	if len(fd) > 0 && fd[0] > 0 {
 		gs.fd = uintptr(fd[0])
 	}
-	if s.config.Listeners != nil {
+	if s.config.X自定义监听器 != nil {
 		addrArray := 文本类.X分割并忽略空值(address, ":")
 		addrPort, err := strconv.Atoi(addrArray[len(addrArray)-1])
 		if err == nil {
-			for _, v := range s.config.Listeners {
+			for _, v := range s.config.X自定义监听器 {
 				if listenerPort := (v.Addr().(*net.TCPAddr)).Port; listenerPort == addrPort {
 					gs.rawListener = v
 					break
@@ -70,17 +70,17 @@ func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
 }
 
 // newHttpServer 根据给定的地址创建并返回一个底层的 http.Server。
-func (s *Server) newHttpServer(address string) *http.Server {
+func (s *X服务) newHttpServer(address string) *http.Server {
 	server := &http.Server{
 		Addr:           address,
 		Handler:        http.HandlerFunc(s.config.Handler),
-		ReadTimeout:    s.config.ReadTimeout,
-		WriteTimeout:   s.config.WriteTimeout,
-		IdleTimeout:    s.config.IdleTimeout,
-		MaxHeaderBytes: s.config.MaxHeaderBytes,
-		ErrorLog:       log.New(&errorLogger{logger: s.config.Logger}, "", 0),
+		ReadTimeout:    s.config.X读取超时,
+		WriteTimeout:   s.config.X写入超时,
+		IdleTimeout:    s.config.X长连接超时,
+		MaxHeaderBytes: s.config.X最大协议头长度,
+		ErrorLog:       log.New(&errorLogger{logger: s.config.X日志记录器}, "", 0),
 	}
-	server.SetKeepAlivesEnabled(s.config.KeepAlive)
+	server.SetKeepAlivesEnabled(s.config.X启用长连接)
 	return server
 }
 
@@ -170,14 +170,14 @@ func (s *gracefulServer) Serve(ctx context.Context) error {
 
 // GetListenedAddress 获取并返回当前服务器监听的地址字符串。
 func (s *gracefulServer) GetListenedAddress() string {
-	if !文本类.X是否包含(s.address, FreePortAddress) {
+	if !文本类.X是否包含(s.address, X空闲端口地址) {
 		return s.address
 	}
 	var (
 		address      = s.address
 		listenedPort = s.GetListenedPort()
 	)
-	address = 文本类.X替换(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
+	address = 文本类.X替换(address, X空闲端口地址, fmt.Sprintf(`:%d`, listenedPort))
 	return address
 }
 

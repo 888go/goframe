@@ -178,7 +178,7 @@ func (m *Model) X取所有字段名称(字段前缀 ...string) string {
 	}
 	fieldsArray := make([]string, len(tableFields))
 	for k, v := range tableFields {
-		fieldsArray[v.X排序] = k
+		fieldsArray[v.Index] = k
 	}
 	newFields := ""
 	for _, k := range fieldsArray {
@@ -209,7 +209,7 @@ func (m *Model) X取所有字段名称并排除(需要排除字段 string, 字�
 	fieldsExSet := 集合类.X创建文本并按值(文本类.X分割并忽略空值(需要排除字段, ","))
 	fieldsArray := make([]string, len(tableFields))
 	for k, v := range tableFields {
-		fieldsArray[v.X排序] = k
+		fieldsArray[v.Index] = k
 	}
 	newFields := ""
 	for _, k := range fieldsArray {
@@ -253,7 +253,7 @@ func (m *Model) getFieldsFrom(table string, fieldNamesOrMapStruct ...interface{}
 		case []string:
 			return m.mappingAndFilterToTableFields(table, r, true)
 
-		case X原生sql, *X原生sql:
+		case Raw, *Raw:
 			return []string{转换类.String(structOrMap)}
 
 		default:

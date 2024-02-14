@@ -34,11 +34,11 @@ var (
 
 func Test_Client_Basic(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/hello", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello")
+	s.X绑定("/hello", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello")
 	})
-	s.X绑定("/postForm", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("key1"))
+	s.X绑定("/postForm", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("key1"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -67,11 +67,11 @@ func Test_Client_Basic(t *testing.T) {
 
 func Test_Client_BasicAuth(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/auth", func(r *http类.Request) {
+	s.X绑定("/auth", func(r *http类.X请求) {
 		if r.X账号密码认证("admin", "admin") {
-			r.Response.X写响应缓冲区("1")
+			r.X响应.X写响应缓冲区("1")
 		} else {
-			r.Response.X写响应缓冲区("0")
+			r.X响应.X写响应缓冲区("0")
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -89,8 +89,8 @@ func Test_Client_BasicAuth(t *testing.T) {
 
 func Test_Client_Cookie(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/cookie", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Cookie.X取值("test"))
+	s.X绑定("/cookie", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Cookie.X取值("test"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -108,8 +108,8 @@ func Test_Client_Cookie(t *testing.T) {
 
 func Test_Client_MapParam(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/map", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("test"))
+	s.X绑定("/map", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("test"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -126,10 +126,10 @@ func Test_Client_MapParam(t *testing.T) {
 
 func Test_Client_Cookies(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/cookie", func(r *http类.Request) {
+	s.X绑定("/cookie", func(r *http类.X请求) {
 		r.Cookie.X设置值("test1", "1")
 		r.Cookie.X设置值("test2", "2")
-		r.Response.X写响应缓冲区("ok")
+		r.X响应.X写响应缓冲区("ok")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -157,11 +157,11 @@ func Test_Client_Cookies(t *testing.T) {
 
 func Test_Client_Chain_Header(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/header1", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Header.Get("test1"))
+	s.X绑定("/header1", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Header.Get("test1"))
 	})
-	s.X绑定("/header2", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Header.Get("test2"))
+	s.X绑定("/header2", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Header.Get("test2"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -180,9 +180,9 @@ func Test_Client_Chain_Header(t *testing.T) {
 
 func Test_Client_Chain_Context(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/context", func(r *http类.Request) {
+	s.X绑定("/context", func(r *http类.X请求) {
 		time.Sleep(1 * time.Second)
-		r.Response.X写响应缓冲区("ok")
+		r.X响应.X写响应缓冲区("ok")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -203,9 +203,9 @@ func Test_Client_Chain_Context(t *testing.T) {
 
 func Test_Client_Chain_Timeout(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/timeout", func(r *http类.Request) {
+	s.X绑定("/timeout", func(r *http类.X请求) {
 		time.Sleep(1 * time.Second)
-		r.Response.X写响应缓冲区("ok")
+		r.X响应.X写响应缓冲区("ok")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -222,8 +222,8 @@ func Test_Client_Chain_Timeout(t *testing.T) {
 
 func Test_Client_Chain_ContentJson(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/json", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("name"), r.Get别名("score"))
+	s.X绑定("/json", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("name"), r.Get别名("score"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -249,8 +249,8 @@ func Test_Client_Chain_ContentJson(t *testing.T) {
 
 func Test_Client_Chain_ContentXml(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/xml", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("name"), r.Get别名("score"))
+	s.X绑定("/xml", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("name"), r.Get别名("score"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -276,8 +276,8 @@ func Test_Client_Chain_ContentXml(t *testing.T) {
 
 func Test_Client_Param_Containing_Special_Char(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("k1=", r.Get别名("k1"), "&k2=", r.Get别名("k2"))
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("k1=", r.Get别名("k1"), "&k2=", r.Get别名("k2"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -299,7 +299,7 @@ func Test_Client_Param_Containing_Special_Char(t *testing.T) {
 // 它不会对参数进行URL编码。
 func Test_Client_File_And_Param(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
+	s.X绑定("/", func(r *http类.X请求) {
 		tmpPath := 文件类.X取临时目录(uid类.X生成())
 		err := 文件类.X创建目录(tmpPath)
 		单元测试类.AssertNil(err)
@@ -308,7 +308,7 @@ func Test_Client_File_And_Param(t *testing.T) {
 		file := r.X取上传文件对象("file")
 		_, err = file.X保存(tmpPath)
 		单元测试类.AssertNil(err)
-		r.Response.X写响应缓冲区(
+		r.X响应.X写响应缓冲区(
 			r.Get别名("json"),
 			文件类.X读文本(文件类.X路径生成(tmpPath, 文件类.X路径取文件名(file.Filename))),
 		)
@@ -334,7 +334,7 @@ func Test_Client_File_And_Param(t *testing.T) {
 func Test_Client_Middleware(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	isServerHandler := false
-	s.X绑定("/", func(r *http类.Request) {
+	s.X绑定("/", func(r *http类.X请求) {
 		isServerHandler = true
 	})
 	s.SetDumpRouterMap(false)
@@ -415,8 +415,8 @@ func Test_Client_Middleware(t *testing.T) {
 
 func Test_Client_Agent(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.UserAgent())
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.UserAgent())
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -433,13 +433,13 @@ func Test_Client_Agent(t *testing.T) {
 
 func Test_Client_Request_13_Dump(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/hello", func(r *http类.Request) {
-		r.Response.WriteHeader(200)
-		r.Response.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
+	s.X绑定("/hello", func(r *http类.X请求) {
+		r.X响应.WriteHeader(200)
+		r.X响应.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
 	})
-	s.X绑定("/hello2", func(r *http类.Request) {
-		r.Response.WriteHeader(200)
-		r.Response.X写响应缓冲区并换行(g.Map{"field": "test_for_response_body"})
+	s.X绑定("/hello2", func(r *http类.X请求) {
+		r.X响应.WriteHeader(200)
+		r.X响应.X写响应缓冲区并换行(g.Map{"field": "test_for_response_body"})
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -491,7 +491,7 @@ func Test_Client_Request_13_Dump(t *testing.T) {
 
 func Test_WebSocketClient(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/ws", func(r *http类.Request) {
+	s.X绑定("/ws", func(r *http类.X请求) {
 		ws, err := r.X升级为websocket请求()
 		if err != nil {
 			r.X退出当前()
@@ -557,9 +557,9 @@ func TestLoadKeyCrt(t *testing.T) {
 
 func TestClient_DoRequest(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/hello", func(r *http类.Request) {
-		r.Response.WriteHeader(200)
-		r.Response.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
+	s.X绑定("/hello", func(r *http类.X请求) {
+		r.X响应.WriteHeader(200)
+		r.X响应.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -614,8 +614,8 @@ func TestClient_RequestVar(t *testing.T) {
 
 func TestClient_SetBodyContent(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello")
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -636,8 +636,8 @@ func TestClient_SetBodyContent(t *testing.T) {
 
 func TestClient_SetNoUrlEncode(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.URL.RawQuery)
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.URL.RawQuery)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -663,8 +663,8 @@ func TestClient_SetNoUrlEncode(t *testing.T) {
 
 func TestClient_NoUrlEncode(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.URL.RawQuery)
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.URL.RawQuery)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()

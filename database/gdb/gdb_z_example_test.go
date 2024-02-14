@@ -13,7 +13,7 @@ import (
 )
 
 func ExampleTransaction() {
-	g.DB类().X事务(context.TODO(), func(ctx context.Context, tx db类.X事务) error {
+	g.DB类().X事务(context.TODO(), func(ctx context.Context, tx db类.TX) error {
 		// user
 		result, err := tx.X插入("user", g.Map{
 			"passport": "john",

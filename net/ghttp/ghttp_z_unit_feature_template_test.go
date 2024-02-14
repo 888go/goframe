@@ -25,8 +25,8 @@ func Test_Template_Basic(t *testing.T) {
 		v := 模板类.New(单元测试类.DataPath("template", "basic"))
 		s := g.Http类(uid类.X生成())
 		s.X设置默认模板对象(v)
-		s.X绑定("/", func(r *http类.Request) {
-			err := r.Response.X输出到模板文件("index.html", g.Map{
+		s.X绑定("/", func(r *http类.X请求) {
+			err := r.X响应.X输出到模板文件("index.html", g.Map{
 				"name": "john",
 			})
 			t.AssertNil(err)
@@ -49,8 +49,8 @@ func Test_Template_Encode(t *testing.T) {
 		v.SetAutoEncode(true)
 		s := g.Http类(uid类.X生成())
 		s.X设置默认模板对象(v)
-		s.X绑定("/", func(r *http类.Request) {
-			err := r.Response.X输出到模板文件("index.html", g.Map{
+		s.X绑定("/", func(r *http类.X请求) {
+			err := r.X响应.X输出到模板文件("index.html", g.Map{
 				"name": "john",
 			})
 			t.AssertNil(err)
@@ -72,14 +72,14 @@ func Test_Template_Layout1(t *testing.T) {
 		v := 模板类.New(单元测试类.DataPath("template", "layout1"))
 		s := g.Http类(uid类.X生成())
 		s.X设置默认模板对象(v)
-		s.X绑定("/layout", func(r *http类.Request) {
-			err := r.Response.X输出到模板文件("layout.html", g.Map{
+		s.X绑定("/layout", func(r *http类.X请求) {
+			err := r.X响应.X输出到模板文件("layout.html", g.Map{
 				"mainTpl": "main/main1.html",
 			})
 			t.AssertNil(err)
 		})
-		s.X绑定("/nil", func(r *http类.Request) {
-			err := r.Response.X输出到模板文件("layout.html", nil)
+		s.X绑定("/nil", func(r *http类.X请求) {
+			err := r.X响应.X输出到模板文件("layout.html", nil)
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
@@ -100,20 +100,20 @@ func Test_Template_Layout2(t *testing.T) {
 		v := 模板类.New(单元测试类.DataPath("template", "layout2"))
 		s := g.Http类(uid类.X生成())
 		s.X设置默认模板对象(v)
-		s.X绑定("/main1", func(r *http类.Request) {
-			err := r.Response.X输出到模板文件("layout.html", g.Map{
+		s.X绑定("/main1", func(r *http类.X请求) {
+			err := r.X响应.X输出到模板文件("layout.html", g.Map{
 				"mainTpl": "main/main1.html",
 			})
 			t.AssertNil(err)
 		})
-		s.X绑定("/main2", func(r *http类.Request) {
-			err := r.Response.X输出到模板文件("layout.html", g.Map{
+		s.X绑定("/main2", func(r *http类.X请求) {
+			err := r.X响应.X输出到模板文件("layout.html", g.Map{
 				"mainTpl": "main/main2.html",
 			})
 			t.AssertNil(err)
 		})
-		s.X绑定("/nil", func(r *http类.Request) {
-			err := r.Response.X输出到模板文件("layout.html", nil)
+		s.X绑定("/nil", func(r *http类.X请求) {
+			err := r.X响应.X输出到模板文件("layout.html", nil)
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
@@ -133,8 +133,8 @@ func Test_Template_Layout2(t *testing.T) {
 func Test_Template_BuildInVarRequest(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X绑定("/:table/test", func(r *http类.Request) {
-			err := r.Response.X输出文本模板("{{.Request.table}}")
+		s.X绑定("/:table/test", func(r *http类.X请求) {
+			err := r.X响应.X输出文本模板("{{.Request.table}}")
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
@@ -156,8 +156,8 @@ func Test_Template_XSS(t *testing.T) {
 		c := "<br>"
 		s := g.Http类(uid类.X生成())
 		s.X设置默认模板对象(v)
-		s.X绑定("/", func(r *http类.Request) {
-			err := r.Response.X输出文本模板("{{if eq 1 1}}{{.v}}{{end}}", g.Map{
+		s.X绑定("/", func(r *http类.X请求) {
+			err := r.X响应.X输出文本模板("{{if eq 1 1}}{{.v}}{{end}}", g.Map{
 				"v": c,
 			})
 			t.AssertNil(err)

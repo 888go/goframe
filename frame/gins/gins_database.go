@@ -74,7 +74,7 @@ func Database(name ...string) db类.DB {
 		}
 		// 将`m`解析为映射切片并将其添加到gdb包的全局配置中。
 		for g, groupConfig := range configMap {
-			cg := db类.ConfigGroup{}
+			cg := db类.X配置组{}
 			switch value := groupConfig.(type) {
 			case []interface{}:
 				for _, v := range value {
@@ -100,8 +100,8 @@ func Database(name ...string) db类.DB {
 // 将`m`解析为单节点配置，
 // 这是默认的组配置。
 		if node := parseDBConfigNode(configMap); node != nil {
-			cg := db类.ConfigGroup{}
-			if node.Link != "" || node.Host != "" {
+			cg := db类.X配置组{}
+			if node.X自定义链接信息 != "" || node.X地址 != "" {
 				cg = append(cg, *node)
 			}
 			if len(cg) > 0 {
@@ -154,13 +154,13 @@ func Database(name ...string) db类.DB {
 	return nil
 }
 
-func parseDBConfigNode(value interface{}) *db类.ConfigNode {
+func parseDBConfigNode(value interface{}) *db类.X配置项 {
 	nodeMap, ok := value.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 	var (
-		node = &db类.ConfigNode{}
+		node = &db类.X配置项{}
 		err  = 转换类.Struct(nodeMap, node)
 	)
 	if err != nil {
@@ -168,7 +168,7 @@ func parseDBConfigNode(value interface{}) *db类.ConfigNode {
 	}
 	// 查找可能的`Link`配置内容。
 	if _, v := 工具类.MapPossibleItemByKey(nodeMap, "Link"); v != nil {
-		node.Link = 转换类.String(v)
+		node.X自定义链接信息 = 转换类.String(v)
 	}
 	return node
 }

@@ -34,9 +34,9 @@ func Test_SetSingleCustomListener(t *testing.T) {
 		}
 	}
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定GET("/test", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("test")
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定GET("/test", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
 	err := s.X设置自定义监听器(ln1)
@@ -79,9 +79,9 @@ func Test_SetMultipleCustomListeners(t *testing.T) {
 		}
 	}
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定GET("/test", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("test")
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定GET("/test", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
 
@@ -114,9 +114,9 @@ func Test_SetMultipleCustomListeners(t *testing.T) {
 func Test_SetWrongCustomListeners(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定GET("/test", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("test")
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定GET("/test", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("test")
 			})
 		})
 		err := s.X设置自定义监听器(nil)

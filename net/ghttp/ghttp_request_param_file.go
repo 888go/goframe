@@ -22,25 +22,25 @@ import (
 )
 
 // UploadFile 通过提供更多的便捷功能，对使用multipart方式上传文件进行了封装。
-type UploadFile struct {
+type X上传文件 struct {
 	*multipart.FileHeader `json:"-"`
 	ctx                   context.Context
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
-func (f UploadFile) MarshalJSON() ([]byte, error) {
+func (f X上传文件) MarshalJSON() ([]byte, error) {
 	return json.Marshal(f.FileHeader)
 }
 
 // UploadFiles 是 *UploadFile 类型的数组。
-type UploadFiles []*UploadFile
+type X上传文件数组 []*X上传文件
 
 // Save 保存单个上传的文件到指定目录路径，并返回已保存的文件名。
 //
 // 参数`dirPath`应为一个目录路径，否则将返回错误。
 //
 // 注意：如果目标位置已经存在同名文件，则会直接覆盖该文件。
-func (f *UploadFile) X保存(目录路径 string, 随机重命名 ...bool) (文件名 string, 错误 error) {
+func (f *X上传文件) X保存(目录路径 string, 随机重命名 ...bool) (文件名 string, 错误 error) {
 	if f == nil {
 		return "", 错误类.X创建错误码(
 			错误码类.CodeMissingParameter,
@@ -93,7 +93,7 @@ func (f *UploadFile) X保存(目录路径 string, 随机重命名 ...bool) (文�
 // 参数 `dirPath` 表示目标保存目录的路径，如果该路径不是一个有效的目录，则函数会返回错误信息。
 //
 // 参数 `randomlyRename` 是一个布尔值，用来指定是否对所有上传的文件进行随机重命名操作。如果设为 true，则在保存文件时将会生成随机文件名；否则，文件将以原有文件名进行保存。
-func (fs UploadFiles) X保存(目录路径 string, 随机重命名 ...bool) (文件名数组 []string, 错误 error) {
+func (fs X上传文件数组) X保存(目录路径 string, 随机重命名 ...bool) (文件名数组 []string, 错误 error) {
 	if len(fs) == 0 {
 		return nil, 错误类.X创建错误码(
 			错误码类.CodeMissingParameter,
@@ -116,7 +116,7 @@ func (fs UploadFiles) X保存(目录路径 string, 随机重命名 ...bool) (文
 // 如果检索失败或没有提交给定名称的表单文件，则返回 nil。
 //
 // 注意，`name` 是客户端多部分表单中文件字段的名称。
-func (r *Request) X取上传文件对象(名称 string) *UploadFile {
+func (r *X请求) X取上传文件对象(名称 string) *X上传文件 {
 	uploadFiles := r.X取上传文件数组对象(名称)
 	if len(uploadFiles) > 0 {
 		return uploadFiles[0]
@@ -130,12 +130,12 @@ func (r *Request) X取上传文件对象(名称 string) *UploadFile {
 // 如果检索失败或没有接收到客户端通过给定名称上传的表单文件，将返回 nil。
 //
 // 注意，`name` 是客户端 multipart 表单中文件字段的名称。
-func (r *Request) X取上传文件数组对象(名称 string) UploadFiles {
+func (r *X请求) X取上传文件数组对象(名称 string) X上传文件数组 {
 	multipartFiles := r.X取multipart表单文件数组对象(名称)
 	if len(multipartFiles) > 0 {
-		uploadFiles := make(UploadFiles, len(multipartFiles))
+		uploadFiles := make(X上传文件数组, len(multipartFiles))
 		for k, v := range multipartFiles {
-			uploadFiles[k] = &UploadFile{
+			uploadFiles[k] = &X上传文件{
 				ctx:        r.Context别名(),
 				FileHeader: v,
 			}

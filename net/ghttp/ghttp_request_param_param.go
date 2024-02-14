@@ -10,7 +10,7 @@ import (
 )
 
 // SetParam 设置自定义参数，使用键值对。
-func (r *Request) X设置自定义参数(名称 string, 值 interface{}) {
+func (r *X请求) X设置自定义参数(名称 string, 值 interface{}) {
 	if r.paramsMap == nil {
 		r.paramsMap = make(map[string]interface{})
 	}
@@ -18,7 +18,7 @@ func (r *Request) X设置自定义参数(名称 string, 值 interface{}) {
 }
 
 // SetParamMap 用于设置自定义参数，采用键值对形式的映射。
-func (r *Request) X设置自定义参数Map(参数 map[string]interface{}) {
+func (r *X请求) X设置自定义参数Map(参数 map[string]interface{}) {
 	if r.paramsMap == nil {
 		r.paramsMap = make(map[string]interface{})
 	}
@@ -30,7 +30,7 @@ func (r *Request) X设置自定义参数Map(参数 map[string]interface{}) {
 // GetParam 函数用于获取自定义参数，通过给定的名称 `key`。
 // 若 `key` 不存在，则返回 `def`。
 // 若未提供 `def`，则返回 nil。
-func (r *Request) X取自定义参数到泛型类(名称 string, 默认值 ...interface{}) *泛型类.Var {
+func (r *X请求) X取自定义参数到泛型类(名称 string, 默认值 ...interface{}) *泛型类.Var {
 	if len(r.paramsMap) > 0 {
 		if value, ok := r.paramsMap[名称]; ok {
 			return 泛型类.X创建(value)

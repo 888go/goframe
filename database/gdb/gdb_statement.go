@@ -20,18 +20,18 @@ import (
 type Stmt struct {
 	*sql.Stmt
 	core *Core
-	link X底层链接
+	link Link
 	sql  string
 }
 
 // ExecContext 在给定参数的情况下执行预编译的语句，并返回一个Result，该Result总结了该语句的效果。
 func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result, error) {
-	out, err := s.core.db.X底层DoCommit(ctx, X输入{
+	out, err := s.core.db.X底层DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
 		Args:          args,
-		X类型:          SqlTypeStmtExecContext,
+		Type:          SqlTypeStmtExecContext,
 		IsTransaction: s.link.IsTransaction(),
 	})
 	return out.X原生sql行记录, err
@@ -39,12 +39,12 @@ func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result
 
 // QueryContext 执行带有给定参数的预编译查询语句，并将查询结果以 *Rows 类型返回。
 func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows, error) {
-	out, err := s.core.db.X底层DoCommit(ctx, X输入{
+	out, err := s.core.db.X底层DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
 		Args:          args,
-		X类型:          SqlTypeStmtQueryContext,
+		Type:          SqlTypeStmtQueryContext,
 		IsTransaction: s.link.IsTransaction(),
 	})
 	if err != nil {
@@ -61,12 +61,12 @@ func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows
 // 若查询未选择任何行，则 *Row 的 Scan 将返回 ErrNoRows 错误。
 // 否则，*Row 的 Scan 会扫描第一条被选择的行，并丢弃其余行。
 func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Row {
-	out, err := s.core.db.X底层DoCommit(ctx, X输入{
+	out, err := s.core.db.X底层DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
 		Args:          args,
-		X类型:          SqlTypeStmtQueryContext,
+		Type:          SqlTypeStmtQueryContext,
 		IsTransaction: s.link.IsTransaction(),
 	})
 	if err != nil {

@@ -27,8 +27,8 @@ import (
 func Test_Issue1609(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	group := s.X创建分组路由("/api/get")
-	group.X绑定GET("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("get")
+	group.X绑定GET("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("get")
 	})
 	s.SetDumpRouterMap(false)
 	单元测试类.Assert(s.X开始监听(), nil)
@@ -50,8 +50,8 @@ func Test_Issue1611(t *testing.T) {
 	content := "This is header"
 	单元测试类.AssertNil(v.SetPath(单元测试类.DataPath("issue1611")))
 	s.X设置默认模板对象(v)
-	s.X绑定("/", func(r *http类.Request) {
-		单元测试类.AssertNil(r.Response.X输出到模板文件("index/layout.html", g.Map{
+	s.X绑定("/", func(r *http类.X请求) {
+		单元测试类.AssertNil(r.X响应.X输出到模板文件("index/layout.html", g.Map{
 			"header": content,
 		}))
 	})
@@ -81,11 +81,11 @@ func Test_Issue1626(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(
 		http类.MiddlewareHandlerResponse,
-		func(r *http类.Request) {
-			r.Middleware.Next()
+		func(r *http类.X请求) {
+			r.X中间件管理器.Next()
 			if err := r.X取错误信息(); err != nil {
-				r.Response.X清空缓冲区()
-				r.Response.X写响应缓冲区(err.Error())
+				r.X响应.X清空缓冲区()
+				r.X响应.X写响应缓冲区(err.Error())
 			}
 		},
 	)
@@ -133,7 +133,7 @@ func (r cIssue1653Foo) PostTest(ctx context.Context, req *Issue1653TestReq) (*Is
 func Test_Issue1653(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(http类.MiddlewareHandlerResponse)
-	s.X创建分组路由("/boot", func(grp *http类.RouterGroup) {
+	s.X创建分组路由("/boot", func(grp *http类.X分组路由) {
 		grp.X绑定(Issue1653Foo)
 	})
 	s.SetDumpRouterMap(false)
@@ -210,7 +210,7 @@ func (r cFoo1) PostTest1(ctx context.Context, req *TemplateCreateReq) (res *Temp
 func Test_Issue662(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(http类.MiddlewareHandlerResponse)
-	s.X创建分组路由("/boot", func(grp *http类.RouterGroup) {
+	s.X创建分组路由("/boot", func(grp *http类.X分组路由) {
 		grp.X绑定(Foo1)
 	})
 	s.SetDumpRouterMap(false)
@@ -255,7 +255,7 @@ var api = Api{}
 func Test_Issue2172(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(http类.MiddlewareHandlerResponse)
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定(api)
 	})
 	s.SetDumpRouterMap(false)
@@ -316,7 +316,7 @@ func (c *OrderController) CreateOrder(ctx context.Context, req *CreateOrderReq) 
 // 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf仓库下的第2482号问题。
 func Test_Issue2482(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/api/v2", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api/v2", func(group *http类.X分组路由) {
 		group.X绑定中间件(http类.MiddlewareHandlerResponse)
 		group.X绑定(OrderController{})
 	})
@@ -394,7 +394,7 @@ type Issue2890Res struct{}
 type Issue2890Controller struct{}
 
 func (c *Issue2890Controller) Post(ctx context.Context, req *Issue2890Req) (res *Issue2890Res, err error) {
-	g.Http类上下文取请求对象(ctx).Response.X写响应缓冲区(req.Enums)
+	g.Http类上下文取请求对象(ctx).X响应.X写响应缓冲区(req.Enums)
 	return
 }
 
@@ -409,7 +409,7 @@ func Test_Issue2890(t *testing.T) {
 		t.AssertNil(err)
 
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/api/v2", func(group *http类.RouterGroup) {
+		s.X创建分组路由("/api/v2", func(group *http类.X分组路由) {
 			group.X绑定中间件(http类.MiddlewareHandlerResponse)
 			group.X绑定(Issue2890Controller{})
 		})
@@ -463,7 +463,7 @@ type Issue3077Res struct {
 type Issue3077V1 struct{}
 
 func (c *Issue3077V1) Hello(ctx context.Context, req *Issue3077Req) (res *Issue3077Res, err error) {
-	g.Http类上下文取请求对象(ctx).Response.X写响应缓冲区(fmt.Sprintf("%v", req))
+	g.Http类上下文取请求对象(ctx).X响应.X写响应缓冲区(fmt.Sprintf("%v", req))
 	return
 }
 
@@ -473,7 +473,7 @@ func (c *Issue3077V1) Hello(ctx context.Context, req *Issue3077Req) (res *Issue3
 func Test_Issue3077(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
 			group.X绑定(Issue3077V1{})
 		})
 		s.SetDumpRouterMap(false)

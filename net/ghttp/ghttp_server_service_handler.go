@@ -22,7 +22,7 @@ import (
 // 注意参数 `handler` 可以是以下类型：
 // 1. func(*ghttp.Request) // 类型为接收*ghttp.Request参数的函数
 // 2. func(context.Context, BizRequest)(BizResponse, error) // 类型为接收context.Context和BizRequest参数，并返回BizResponse和error的函数
-func (s *Server) X绑定(路由规则 string, 处理函数 interface{}) {
+func (s *X服务) X绑定(路由规则 string, 处理函数 interface{}) {
 	var ctx = context.TODO()
 	funcInfo, err := s.checkAndCreateFuncInfo(处理函数, "", "", "")
 	if err != nil {
@@ -50,21 +50,21 @@ type doBindHandlerInput struct {
 // 参数 `pattern` 形如：
 // /user/list, put:/user, delete:/user, post:/user@goframe.org
 // 其中，这些模式用于定义HTTP请求的方法（如GET、PUT、DELETE等）以及对应的路由路径。
-func (s *Server) doBindHandler(ctx context.Context, in doBindHandlerInput) {
+func (s *X服务) doBindHandler(ctx context.Context, in doBindHandlerInput) {
 	s.setHandler(ctx, setHandlerInput{
 		Prefix:  in.Prefix,
 		Pattern: in.Pattern,
-		HandlerItem: &HandlerItem{
+		HandlerItem: &X路由处理函数{
 			Type:       HandlerTypeHandler,
-			Info:       in.FuncInfo,
-			Middleware: in.Middleware,
-			Source:     in.Source,
+			X处理器函数信息:       in.FuncInfo,
+			X中间件数组: in.Middleware,
+			X注册来源:     in.Source,
 		},
 	})
 }
 
 // bindHandlerByMap 使用map将处理器注册到服务器。
-func (s *Server) bindHandlerByMap(ctx context.Context, prefix string, m map[string]*HandlerItem) {
+func (s *X服务) bindHandlerByMap(ctx context.Context, prefix string, m map[string]*X路由处理函数) {
 	for pattern, handler := range m {
 		s.setHandler(ctx, setHandlerInput{
 			Prefix:      prefix,
@@ -80,7 +80,7 @@ func (s *Server) bindHandlerByMap(ctx context.Context, prefix string, m map[stri
 // 规则3：如果未满足规则1，则将方法名称直接追加到模式中URI的末尾；
 //
 // 参数 `allowAppend` 指定是否允许将方法名称追加到模式末尾。
-func (s *Server) mergeBuildInNameToPattern(pattern string, structName, methodName string, allowAppend bool) string {
+func (s *X服务) mergeBuildInNameToPattern(pattern string, structName, methodName string, allowAppend bool) string {
 	structName = s.nameToUri(structName)
 	methodName = s.nameToUri(methodName)
 	pattern = strings.ReplaceAll(pattern, "{.struct}", structName)
@@ -107,7 +107,7 @@ func (s *Server) mergeBuildInNameToPattern(pattern string, structName, methodNam
 // 规则1：不转换方法名，使用原始方法名构建URI。
 // 规则2：将所有方法名转为小写，单词间无连接符号。
 // 规则3：使用驼峰命名法。
-func (s *Server) nameToUri(name string) string {
+func (s *X服务) nameToUri(name string) string {
 	switch s.config.NameToUriType {
 	case UriTypeFullName:
 		return name
@@ -144,7 +144,7 @@ func (s *Server) nameToUri(name string) string {
 	}
 }
 
-func (s *Server) checkAndCreateFuncInfo(
+func (s *X服务) checkAndCreateFuncInfo(
 	f interface{}, pkgPath, structName, methodName string,
 ) (funcInfo handlerFuncInfo, err error) {
 	funcInfo = handlerFuncInfo{
@@ -259,8 +259,8 @@ func (s *Server) checkAndCreateFuncInfo(
 	return
 }
 
-func createRouterFunc(funcInfo handlerFuncInfo) func(r *Request) {
-	return func(r *Request) {
+func createRouterFunc(funcInfo handlerFuncInfo) func(r *X请求) {
+	return func(r *X请求) {
 		var (
 			ok          bool
 			err         error

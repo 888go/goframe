@@ -28,12 +28,12 @@ import (
 
 // Query 将一个查询SQL语句提交给底层驱动并返回执行结果。
 // 这个方法最常用于数据查询。
-func (c *Core) X原生SQL查询(上下文 context.Context, sql string, 参数 ...interface{}) (结果 X行记录数组, 错误 error) {
+func (c *Core) X原生SQL查询(上下文 context.Context, sql string, 参数 ...interface{}) (结果 Result, 错误 error) {
 	return c.db.X底层原生SQL查询(上下文, nil, sql, 参数...)
 }
 
 // DoQuery 通过给定的link对象，将sql字符串及其参数提交到底层驱动，并返回执行结果。
-func (c *Core) X底层原生SQL查询(上下文 context.Context, 链接 X底层链接, sql string, 参数 ...interface{}) (结果 X行记录数组, 错误 error) {
+func (c *Core) X底层原生SQL查询(上下文 context.Context, 链接 Link, sql string, 参数 ...interface{}) (结果 Result, 错误 error) {
 	// 事务检查。
 	if 链接 == nil {
 		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
@@ -73,12 +73,12 @@ func (c *Core) X底层原生SQL查询(上下文 context.Context, 链接 X底层�
 	}
 	// Link execution.
 	var out X输出
-	out, 错误 = c.db.X底层DoCommit(上下文, X输入{
+	out, 错误 = c.db.X底层DoCommit(上下文, DoCommitInput{
 		Link:          链接,
 		Sql:           sql,
 		Args:          参数,
 		Stmt:          nil,
-		X类型:          SqlTypeQueryContext,
+		Type:          SqlTypeQueryContext,
 		IsTransaction: 链接.IsTransaction(),
 	})
 	return out.X行记录数组, 错误
@@ -91,7 +91,7 @@ func (c *Core) X原生SQL执行(上下文 context.Context, sql string, 参数 ..
 }
 
 // DoExec通过给定的link对象，将SQL字符串及其参数提交给底层驱动，并返回执行结果。
-func (c *Core) X底层原生SQL执行(上下文 context.Context, 链接 X底层链接, sql string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
+func (c *Core) X底层原生SQL执行(上下文 context.Context, 链接 Link, sql string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
 	// 事务检查。
 	if 链接 == nil {
 		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
@@ -133,12 +133,12 @@ func (c *Core) X底层原生SQL执行(上下文 context.Context, 链接 X底层�
 	}
 	// Link execution.
 	var out X输出
-	out, 错误 = c.db.X底层DoCommit(上下文, X输入{
+	out, 错误 = c.db.X底层DoCommit(上下文, DoCommitInput{
 		Link:          链接,
 		Sql:           sql,
 		Args:          参数,
 		Stmt:          nil,
-		X类型:          SqlTypeExecContext,
+		Type:          SqlTypeExecContext,
 		IsTransaction: 链接.IsTransaction(),
 	})
 	return out.X原生sql行记录, 错误
@@ -146,12 +146,12 @@ func (c *Core) X底层原生SQL执行(上下文 context.Context, 链接 X底层�
 
 // DoFilter 是一个钩子函数，在 SQL 语句及其参数提交给底层驱动程序之前对其进行过滤。
 // 参数 `link` 指定了当前数据库连接操作对象。您可以在 SQL 字符串 `sql` 和其参数 `args` 提交给驱动程序之前，根据需要自由修改它们。
-func (c *Core) X底层DoFilter(ctx context.Context, link X底层链接, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+func (c *Core) X底层DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
 
 // DoCommit 将当前SQL语句及其参数提交给底层SQL驱动执行。
-func (c *Core) X底层DoCommit(ctx context.Context, in X输入) (out X输出, err error) {
+func (c *Core) X底层DoCommit(ctx context.Context, in DoCommitInput) (out X输出, err error) {
 	// 将内部数据注入到ctx中，特别是用于创建事务。
 	ctx = c.底层_InjectInternalCtxData(ctx)
 
@@ -170,11 +170,11 @@ func (c *Core) X底层DoCommit(ctx context.Context, in X输入) (out X输出, er
 
 	// Trace span start.
 	tr := otel.GetTracerProvider().Tracer(traceInstrumentName, trace.WithInstrumentationVersion(gf.VERSION))
-	ctx, span := tr.Start(ctx, in.X类型, trace.WithSpanKind(trace.SpanKindInternal))
+	ctx, span := tr.Start(ctx, in.Type, trace.WithSpanKind(trace.SpanKindInternal))
 	defer span.End()
 
 	// 根据类型执行。
-	switch in.X类型 {
+	switch in.Type {
 	case SqlTypeBegin:
 		if sqlTx, err = in.Db.Begin(); err == nil {
 			out.Tx = &X基础事务{
@@ -233,7 +233,7 @@ func (c *Core) X底层DoCommit(ctx context.Context, in X输入) (out X输出, er
 		out.X底层结果 = stmtSqlRow
 
 	default:
-		panic(错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid SqlType "%s"`, in.X类型))
+		panic(错误类.X创建错误码并格式化(错误码类.CodeInvalidParameter, `invalid SqlType "%s"`, in.Type))
 	}
 	// Result handling.
 	switch {
@@ -256,17 +256,17 @@ func (c *Core) X底层DoCommit(ctx context.Context, in X输入) (out X输出, er
 	var (
 		timestampMilli2 = 时间类.X取时间戳毫秒()
 		sqlObj          = &Sql{
-			SQL字符串:           in.Sql,
-			X类型:          in.X类型,
-			SQL参数:          in.Args,
-			SQL格式化后:        formattedSql,
-			X执行错误:         err,
-			X开始时间戳:         timestampMilli1,
-			X结束时间戳:           timestampMilli2,
-			X配置组名称:         c.db.X取配置组名称(),
-			X架构名称:        c.db.X取默认数据库名称(),
-			X影响行数:  rowsAffected,
-			X是否为事务: in.IsTransaction,
+			Sql:           in.Sql,
+			Type:          in.Type,
+			Args:          in.Args,
+			Format:        formattedSql,
+			Error:         err,
+			Start:         timestampMilli1,
+			End:           timestampMilli2,
+			Group:         c.db.X取配置组名称(),
+			Schema:        c.db.X取默认数据库名称(),
+			RowsAffected:  rowsAffected,
+			IsTransaction: in.IsTransaction,
 		}
 	)
 
@@ -296,7 +296,7 @@ func (c *Core) X底层DoCommit(ctx context.Context, in X输入) (out X输出, er
 func (c *Core) X原生sql取参数预处理对象(上下文 context.Context, sql string, 是否主节点执行 ...bool) (*Stmt, error) {
 	var (
 		err  error
-		link X底层链接
+		link Link
 	)
 	if len(是否主节点执行) > 0 && 是否主节点执行[0] {
 		if link, err = c.X底层MasterLink(); err != nil {
@@ -311,7 +311,7 @@ func (c *Core) X原生sql取参数预处理对象(上下文 context.Context, sql
 }
 
 // DoPrepare在给定的link对象上调用prepare函数，并返回statement对象。
-func (c *Core) X底层原生sql参数预处理对象(上下文 context.Context, 链接 X底层链接, sql string) (参数预处理 *Stmt, 错误 error) {
+func (c *Core) X底层原生sql参数预处理对象(上下文 context.Context, 链接 Link, sql string) (参数预处理 *Stmt, 错误 error) {
 	// 事务检查。
 	if 链接 == nil {
 		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
@@ -338,17 +338,17 @@ func (c *Core) X底层原生sql参数预处理对象(上下文 context.Context, 
 
 	// Link execution.
 	var out X输出
-	out, 错误 = c.db.X底层DoCommit(上下文, X输入{
+	out, 错误 = c.db.X底层DoCommit(上下文, DoCommitInput{
 		Link:          链接,
 		Sql:           sql,
-		X类型:          SqlTypePrepareContext,
+		Type:          SqlTypePrepareContext,
 		IsTransaction: 链接.IsTransaction(),
 	})
 	return out.X参数预处理, 错误
 }
 
 // RowsToResult 将底层数据记录类型 sql.Rows 转换为 Result 类型。
-func (c *Core) X原生sql记录到行记录数组对象(上下文 context.Context, 底层数据记录 *sql.Rows) (X行记录数组, error) {
+func (c *Core) X原生sql记录到行记录数组对象(上下文 context.Context, 底层数据记录 *sql.Rows) (Result, error) {
 	if 底层数据记录 == nil {
 		return nil, nil
 	}
@@ -373,7 +373,7 @@ func (c *Core) X原生sql记录到行记录数组对象(上下文 context.Contex
 	}
 	var (
 		values   = make([]interface{}, len(columnTypes))
-		result   = make(X行记录数组, 0)
+		result   = make(Result, 0)
 		scanArgs = make([]interface{}, len(values))
 	)
 	for i := range values {
@@ -383,7 +383,7 @@ func (c *Core) X原生sql记录到行记录数组对象(上下文 context.Contex
 		if err = 底层数据记录.Scan(scanArgs...); err != nil {
 			return result, err
 		}
-		record := X行记录{}
+		record := Record{}
 		for i, value := range values {
 			if value == nil {
 // **注意**：在此处不要使用 `gvar.New(nil)`，因为它会创建一个已初始化的对象，

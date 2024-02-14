@@ -22,9 +22,9 @@ import (
 func Test_Request_IsFileRequest(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定所有类型("/", func(r *http类.Request) {
-				r.Response.X写响应缓冲区(r.X是否为文件请求())
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定所有类型("/", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区(r.X是否为文件请求())
 			})
 		})
 		s.SetDumpRouterMap(false)
@@ -43,9 +43,9 @@ func Test_Request_IsFileRequest(t *testing.T) {
 func Test_Request_IsAjaxRequest(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定所有类型("/", func(r *http类.Request) {
-				r.Response.X写响应缓冲区(r.X是否为AJAX请求())
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定所有类型("/", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区(r.X是否为AJAX请求())
 			})
 		})
 		s.SetDumpRouterMap(false)
@@ -64,9 +64,9 @@ func Test_Request_IsAjaxRequest(t *testing.T) {
 func Test_Request_GetClientIp(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定所有类型("/", func(r *http类.Request) {
-				r.Response.X写响应缓冲区(r.X取客户端IP地址())
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定所有类型("/", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区(r.X取客户端IP地址())
 			})
 		})
 		s.SetDumpRouterMap(false)
@@ -86,9 +86,9 @@ func Test_Request_GetClientIp(t *testing.T) {
 func Test_Request_GetUrl(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定所有类型("/", func(r *http类.Request) {
-				r.Response.X写响应缓冲区(r.X取URL())
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定所有类型("/", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区(r.X取URL())
 			})
 		})
 		s.SetDumpRouterMap(false)
@@ -108,9 +108,9 @@ func Test_Request_GetUrl(t *testing.T) {
 func Test_Request_GetReferer(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定所有类型("/", func(r *http类.Request) {
-				r.Response.X写响应缓冲区(r.X取引用来源URL())
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定所有类型("/", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区(r.X取引用来源URL())
 			})
 		})
 		s.SetDumpRouterMap(false)
@@ -130,9 +130,9 @@ func Test_Request_GetReferer(t *testing.T) {
 func Test_Request_GetServeHandler(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定所有类型("/", func(r *http类.Request) {
-				r.Response.X写响应缓冲区(r.X取路由解析对象() != nil)
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定所有类型("/", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区(r.X取路由解析对象() != nil)
 			})
 		})
 		s.SetDumpRouterMap(false)
@@ -157,11 +157,11 @@ func Test_Request_BasicAuth(t *testing.T) {
 	)
 
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定所有类型("/auth1", func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定所有类型("/auth1", func(r *http类.X请求) {
 			r.X账号密码认证(user, pass, "tips")
 		})
-		group.X绑定所有类型("/auth2", func(r *http类.Request) {
+		group.X绑定所有类型("/auth2", func(r *http类.X请求) {
 			r.X账号密码认证(user, pass)
 		})
 	})
@@ -215,14 +215,14 @@ func Test_Request_SetCtx(t *testing.T) {
 	type ctxKey string
 	const testkey ctxKey = "test"
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
 			ctx := context.WithValue(r.Context别名(), testkey, 1)
 			r.X设置上下文对象(ctx)
-			r.Middleware.Next()
+			r.X中间件管理器.Next()
 		})
-		group.X绑定所有类型("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.Context别名().Value(testkey))
+		group.X绑定所有类型("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.Context别名().Value(testkey))
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -242,14 +242,14 @@ func Test_Request_GetCtx(t *testing.T) {
 	type ctxKey string
 	const testkey ctxKey = "test"
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
 			ctx := context.WithValue(r.X取上下文对象(), testkey, 1)
 			r.X设置上下文对象(ctx)
-			r.Middleware.Next()
+			r.X中间件管理器.Next()
 		})
-		group.X绑定所有类型("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.Context别名().Value(testkey))
+		group.X绑定所有类型("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.Context别名().Value(testkey))
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -267,12 +267,12 @@ func Test_Request_GetCtx(t *testing.T) {
 
 func Test_Request_GetCtxVar(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Middleware.Next()
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X中间件管理器.Next()
 		})
-		group.X绑定GET("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.X取上下文对象值("key", "val"))
+		group.X绑定GET("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.X取上下文对象值("key", "val"))
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -294,31 +294,31 @@ func Test_Request_Form(t *testing.T) {
 		Name string
 	}
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定所有类型("/", func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定所有类型("/", func(r *http类.X请求) {
 			r.X设置表单值("key", "val")
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("key"))
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("key"))
 		})
-		group.X绑定所有类型("/useDef", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("key", "defVal"))
+		group.X绑定所有类型("/useDef", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("key", "defVal"))
 		})
-		group.X绑定所有类型("/GetFormMap", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.X取表单值到Map(map[string]interface{}{"key": "val"}))
+		group.X绑定所有类型("/GetFormMap", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.X取表单值到Map(map[string]interface{}{"key": "val"}))
 		})
-		group.X绑定所有类型("/GetFormMap1", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.X取表单值到Map(map[string]interface{}{"array": "val"}))
+		group.X绑定所有类型("/GetFormMap1", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.X取表单值到Map(map[string]interface{}{"array": "val"}))
 		})
-		group.X绑定所有类型("/GetFormMapStrVar", func(r *http类.Request) {
+		group.X绑定所有类型("/GetFormMapStrVar", func(r *http类.X请求) {
 			if r.Get别名("a") != nil {
-				r.Response.X写响应缓冲区(r.X取表单值到Map泛型类()["a"])
+				r.X响应.X写响应缓冲区(r.X取表单值到Map泛型类()["a"])
 			}
 		})
-		group.X绑定所有类型("/GetFormStruct", func(r *http类.Request) {
+		group.X绑定所有类型("/GetFormStruct", func(r *http类.X请求) {
 			var user User
 			if err := r.X取表单值到结构(&user); err != nil {
-				r.Response.X写响应缓冲区(err.Error())
+				r.X响应.X写响应缓冲区(err.Error())
 			} else {
-				r.Response.X写响应缓冲区(user.Name)
+				r.X响应.X写响应缓冲区(user.Name)
 			}
 		})
 	})

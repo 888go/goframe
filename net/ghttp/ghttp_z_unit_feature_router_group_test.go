@@ -23,28 +23,28 @@ import (
 // 执行对象
 type GroupObject struct{}
 
-func (o *GroupObject) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("1")
+func (o *GroupObject) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("1")
 }
 
-func (o *GroupObject) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("2")
+func (o *GroupObject) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("2")
 }
 
-func (o *GroupObject) Index(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Index")
+func (o *GroupObject) Index(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Index")
 }
 
-func (o *GroupObject) Show(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Show")
+func (o *GroupObject) Show(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Show")
 }
 
-func (o *GroupObject) Delete(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Delete")
+func (o *GroupObject) Delete(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Delete")
 }
 
-func Handler(r *http类.Request) {
-	r.Response.X写响应缓冲区("Handler")
+func Handler(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Handler")
 }
 
 func Test_Router_GroupBasic1(t *testing.T) {
@@ -125,14 +125,14 @@ func Test_Router_Group_Methods(t *testing.T) {
 func Test_Router_Group_MultiServer(t *testing.T) {
 	s1 := g.Http类(uid类.X生成())
 	s2 := g.Http类(uid类.X生成())
-	s1.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定POST("/post", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("post1")
+	s1.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定POST("/post", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("post1")
 		})
 	})
-	s2.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定POST("/post", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("post2")
+	s2.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定POST("/post", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("post2")
 		})
 	})
 	s1.SetDumpRouterMap(false)
@@ -154,14 +154,14 @@ func Test_Router_Group_MultiServer(t *testing.T) {
 }
 
 func Test_Router_Group_Map(t *testing.T) {
-	testFuncGet := func(r *http类.Request) {
-		r.Response.X写响应缓冲区("get")
+	testFuncGet := func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("get")
 	}
-	testFuncPost := func(r *http类.Request) {
-		r.Response.X写响应缓冲区("post")
+	testFuncPost := func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("post")
 	}
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定Map(map[string]interface{}{
 			"Get: /test": testFuncGet,
 			"Post:/test": testFuncPost,
@@ -211,7 +211,7 @@ func Test_Router_OverWritten(t *testing.T) {
 	logger.X设置是否同时输出到终端(false)
 	s.X设置日志记录器(logger)
 	s.X设置路由允许覆盖(true)
-	s.X创建分组路由("/api", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api", func(group *http类.X分组路由) {
 		group.X绑定所有类型Map(g.Map{
 			"/obj": obj,
 		})

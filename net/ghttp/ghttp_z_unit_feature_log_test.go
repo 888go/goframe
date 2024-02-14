@@ -25,10 +25,10 @@ func Test_Log(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		logDir := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
 		s := g.Http类(uid类.X生成())
-		s.X绑定("/hello", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("hello")
+		s.X绑定("/hello", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("hello")
 		})
-		s.X绑定("/error", func(r *http类.Request) {
+		s.X绑定("/error", func(r *http类.X请求) {
 			panic("custom error")
 		})
 		s.X设置日志存储目录(logDir)

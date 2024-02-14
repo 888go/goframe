@@ -23,13 +23,13 @@ import (
 func Test_Error_Code(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定中间件(func(r *http类.Request) {
-				r.Middleware.Next()
-				r.Response.X清空缓冲区()
-				r.Response.X写响应缓冲区(错误类.X取错误码(r.X取错误信息()))
+		s.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定中间件(func(r *http类.X请求) {
+				r.X中间件管理器.Next()
+				r.X响应.X清空缓冲区()
+				r.X响应.X写响应缓冲区(错误类.X取错误码(r.X取错误信息()))
 			})
-			group.X绑定所有类型("/", func(r *http类.Request) {
+			group.X绑定所有类型("/", func(r *http类.X请求) {
 				panic(错误类.X创建错误码(错误码类.New(10000, "", nil), "test error"))
 			})
 		})

@@ -6,18 +6,18 @@
 package http类
 
 // SetRewrite 为服务器设置静态URI的重写规则。
-func (s *Server) X设置路由URI重写规则(URI string, 新URI string) {
-	s.config.Rewrites[URI] = 新URI
+func (s *X服务) X设置路由URI重写规则(URI string, 新URI string) {
+	s.config.X路由URI重写规则Map[URI] = 新URI
 }
 
 // SetRewriteMap 为服务器设置重写映射。
-func (s *Server) X设置路由URI重写规则Map(重写规则Map map[string]string) {
+func (s *X服务) X设置路由URI重写规则Map(重写规则Map map[string]string) {
 	for k, v := range 重写规则Map {
-		s.config.Rewrites[k] = v
+		s.config.X路由URI重写规则Map[k] = v
 	}
 }
 
 // SetRouteOverWrite 为服务器设置 RouteOverWrite。
-func (s *Server) X设置路由允许覆盖(开启 bool) {
-	s.config.RouteOverWrite = 开启
+func (s *X服务) X设置路由允许覆盖(开启 bool) {
+	s.config.X路由允许覆盖 = 开启
 }

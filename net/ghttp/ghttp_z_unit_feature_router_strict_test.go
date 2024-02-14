@@ -138,7 +138,7 @@ func (ControllerForHandlerWithObjectAndMeta2) Test4(ctx context.Context, req *Te
 func Test_Router_Handler_Strict_WithObjectAndMeta(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(http类.MiddlewareHandlerResponse)
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定所有类型("/", new(ControllerForHandlerWithObjectAndMeta1))
 	})
 	s.SetDumpRouterMap(false)
@@ -160,13 +160,13 @@ func Test_Router_Handler_Strict_WithObjectAndMeta(t *testing.T) {
 func Test_Router_Handler_Strict_Group_Bind(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(http类.MiddlewareHandlerResponse)
-	s.X创建分组路由("/api/v1", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api/v1", func(group *http类.X分组路由) {
 		group.X绑定(
 			new(ControllerForHandlerWithObjectAndMeta1),
 			new(ControllerForHandlerWithObjectAndMeta2),
 		)
 	})
-	s.X创建分组路由("/api/v2", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api/v2", func(group *http类.X分组路由) {
 		group.X绑定(
 			new(ControllerForHandlerWithObjectAndMeta1),
 			new(ControllerForHandlerWithObjectAndMeta2),
@@ -398,7 +398,7 @@ func (c *ParameterCaseSensitiveController) Path(
 func Test_Router_Handler_Strict_ParameterCaseSensitive(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(http类.MiddlewareHandlerResponse)
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定(&ParameterCaseSensitiveController{})
 	})
 	s.SetDumpRouterMap(false)

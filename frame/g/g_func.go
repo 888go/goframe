@@ -110,6 +110,6 @@ func X是否为空(值 interface{}, 追踪到源变量 ...bool) bool {
 }
 
 // RequestFromCtx 从 context 中检索并返回 Request 对象。
-func Http类上下文取请求对象(上下文 context.Context) *http类.Request {
+func Http类上下文取请求对象(上下文 context.Context) *http类.X请求 {
 	return http类.X从上下文取请求对象(上下文)
 }

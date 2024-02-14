@@ -23,7 +23,7 @@ var (
 	db         db类.DB
 	dbPrefix   db类.DB
 	dbInvalid  db类.DB
-	configNode db类.ConfigNode
+	configNode db类.X配置项
 	dbDir      = 文件类.X取临时目录("sqlite")
 	ctx        = 上下文类.X创建()
 
@@ -54,13 +54,13 @@ func init() {
 	fmt.Println("init sqlite db dir: ", dbDir)
 
 	dbFilePath := 文件类.X路径生成(dbDir, "test.db")
-	configNode = db类.ConfigNode{
-		Type:    "sqlite",
-		Link:    fmt.Sprintf(`sqlite::@file(%s)`, dbFilePath),
-		Charset: "utf8",
+	configNode = db类.X配置项{
+		X类型:    "sqlite",
+		X自定义链接信息:    fmt.Sprintf(`sqlite::@file(%s)`, dbFilePath),
+		X字符集: "utf8",
 	}
 	nodePrefix := configNode
-	nodePrefix.Prefix = TableNamePrefix
+	nodePrefix.X表前缀 = TableNamePrefix
 
 	nodeInvalid := configNode
 

@@ -86,7 +86,7 @@ type DB interface {
 // ===========================================================================
 // 这里对代码段进行了概括性注释，表明该部分包含查询相关的API（应用程序接口）功能。
 
-	X原生SQL查询(ctx context.Context, sql string, args ...interface{}) (X行记录数组, error)    // See Core.Query.
+	X原生SQL查询(ctx context.Context, sql string, args ...interface{}) (Result, error)    // See Core.Query.
 	X原生SQL执行(ctx context.Context, sql string, args ...interface{}) (sql.Result, error) // See Core.Exec.
 	X原生sql取参数预处理对象(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error)  // See Core.Prepare.
 
@@ -110,27 +110,27 @@ type DB interface {
 // 内部CURD API，可以被自定义的CURD实现覆盖。
 // ===========================================================================
 
-	X底层查询(ctx context.Context, link X底层链接, sql string, args ...interface{}) (result X行记录数组, err error)                                           // 参见 Core.DoSelect。
-	X底层插入(ctx context.Context, link X底层链接, table string, data Map数组, option X底层输入) (result sql.Result, err error)                        // 参见 Core.DoInsert。
-	X底层更新(ctx context.Context, link X底层链接, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) // 参见 Core.DoUpdate.
-	X底层删除(ctx context.Context, link X底层链接, table string, condition string, args ...interface{}) (result sql.Result, err error)                   // 参见 Core.DoDelete。
+	X底层查询(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)                                           // 参见 Core.DoSelect。
+	X底层插入(ctx context.Context, link Link, table string, data Map数组, option DoInsertOption) (result sql.Result, err error)                        // 参见 Core.DoInsert。
+	X底层更新(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) // 参见 Core.DoUpdate.
+	X底层删除(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error)                   // 参见 Core.DoDelete。
 
-	X底层原生SQL查询(ctx context.Context, link X底层链接, sql string, args ...interface{}) (result X行记录数组, err error)    // See Core.DoQuery.
-	X底层原生SQL执行(ctx context.Context, link X底层链接, sql string, args ...interface{}) (result sql.Result, err error) // See Core.DoExec.
+	X底层原生SQL查询(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)    // See Core.DoQuery.
+	X底层原生SQL执行(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) // See Core.DoExec.
 
-	X底层DoFilter(ctx context.Context, link X底层链接, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) // 参见 Core.DoFilter。
-	X底层DoCommit(ctx context.Context, in X输入) (out X输出, err error)                                            // 参见 Core.DoCommit。
+	X底层DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) // 参见 Core.DoFilter。
+	X底层DoCommit(ctx context.Context, in DoCommitInput) (out X输出, err error)                                            // 参见 Core.DoCommit。
 
-	X底层原生sql参数预处理对象(ctx context.Context, link X底层链接, sql string) (*Stmt, error) // 参见 Core.DoPrepare。
+	X底层原生sql参数预处理对象(ctx context.Context, link Link, sql string) (*Stmt, error) // 参见 Core.DoPrepare。
 
 // ===========================================================================
 // 为了方便起见，提供的查询APIs。
 // ===========================================================================
 
-	GetAll别名(ctx context.Context, sql string, args ...interface{}) (X行记录数组, error)                // See Core.GetAll.
-	X原生SQL查询单条记录(ctx context.Context, sql string, args ...interface{}) (X行记录, error)                // See Core.GetOne.
-	X原生SQL查询字段值(ctx context.Context, sql string, args ...interface{}) (X字段值, error)               // 参见 Core.GetValue。
-	X原生SQL查询数组(ctx context.Context, sql string, args ...interface{}) ([]X字段值, error)             // 参见 Core.GetArray.
+	GetAll别名(ctx context.Context, sql string, args ...interface{}) (Result, error)                // See Core.GetAll.
+	X原生SQL查询单条记录(ctx context.Context, sql string, args ...interface{}) (Record, error)                // See Core.GetOne.
+	X原生SQL查询字段值(ctx context.Context, sql string, args ...interface{}) (Value, error)               // 参见 Core.GetValue。
+	X原生SQL查询数组(ctx context.Context, sql string, args ...interface{}) ([]Value, error)             // 参见 Core.GetArray.
 	X原生SQL查询字段计数(ctx context.Context, sql string, args ...interface{}) (int, error)                 // 参见 Core.GetCount。
 	X原生SQL查询到结构体指针(ctx context.Context, objPointer interface{}, sql string, args ...interface{}) error // See Core.GetScan.
 	X多表去重查询(unions ...*Model) *Model                                                              // See Core.Union.
@@ -156,8 +156,8 @@ type DB interface {
 // 事务。
 // ===========================================================================
 
-	X事务开启(ctx context.Context) (X事务, error)                                           // See Core.Begin.
-	X事务(ctx context.Context, f func(ctx context.Context, tx X事务) error) error // 参见Core.Transaction.
+	X事务开启(ctx context.Context) (TX, error)                                           // See Core.Begin.
+	X事务(ctx context.Context, f func(ctx context.Context, tx TX) error) error // 参见Core.Transaction.
 
 // ===========================================================================
 // 配置方法。
@@ -192,17 +192,17 @@ type DB interface {
 	X取Core对象() *Core                                                                                          // See Core.GetCore
 	X底层取数据库安全字符() (charLeft string, charRight string)                                                           // 参见 Core.GetChars。
 	X取表名称数组(ctx context.Context, schema ...string) (tables []string, err error)                               // 查看Core.Tables。驱动程序必须实现这个函数。
-	X取表字段信息Map(ctx context.Context, table string, schema ...string) (map[string]*X字段信息, error)         // 查看 Core.TableFields。驱动程序必须实现此函数。
+	X取表字段信息Map(ctx context.Context, table string, schema ...string) (map[string]*TableField, error)         // 查看 Core.TableFields。驱动程序必须实现此函数。
 	X底层ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 查看 Core.ConvertValueForField
 	X底层ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 参见 Core.ConvertValueForLocal
 	X底层CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) // 查看 Core.CheckLocalTypeForField
 }
 
 // TX 定义了用于ORM事务操作的接口。
-type X事务 interface {
-	X底层链接
+type TX interface {
+	Link
 
-	X设置上下文并取副本(ctx context.Context) X事务
+	X设置上下文并取副本(ctx context.Context) TX
 	X原生SQL(rawSql string, args ...interface{}) *Model
 	X创建Model对象(tableNameQueryOrStruct ...interface{}) *Model
 	X关联对象(object interface{}) *Model
@@ -214,7 +214,7 @@ type X事务 interface {
 	X事务开启() error
 	X事务提交() error
 	X事务回滚() error
-	X事务(ctx context.Context, f func(ctx context.Context, tx X事务) error) (err error)
+	X事务(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)
 
 // ===========================================================================
 // 核心方法
@@ -226,7 +226,7 @@ type X事务 interface {
 // ===========================================================================
 // 这个注释是对接下来要定义或实现的 Go 语言代码段的描述，表示这部分代码是整个程序或模块的核心功能方法。
 
-	X原生SQL查询(sql string, args ...interface{}) (result X行记录数组, err error)
+	X原生SQL查询(sql string, args ...interface{}) (result Result, err error)
 	X原生SQL执行(sql string, args ...interface{}) (sql.Result, error)
 	X原生sql取参数预处理对象(sql string) (*Stmt, error)
 
@@ -234,12 +234,12 @@ type X事务 interface {
 // 查询。
 // ===========================================================================
 
-	GetAll别名(sql string, args ...interface{}) (X行记录数组, error)
-	X原生SQL查询单条记录(sql string, args ...interface{}) (X行记录, error)
+	GetAll别名(sql string, args ...interface{}) (Result, error)
+	X原生SQL查询单条记录(sql string, args ...interface{}) (Record, error)
 	X原生SQL查询单条到结构体指针(obj interface{}, sql string, args ...interface{}) error
 	X原生SQL查询到结构体数组指针(objPointerSlice interface{}, sql string, args ...interface{}) error
 	X原生SQL查询到结构体指针(pointer interface{}, sql string, args ...interface{}) error
-	X原生SQL查询字段值(sql string, args ...interface{}) (X字段值, error)
+	X原生SQL查询字段值(sql string, args ...interface{}) (Value, error)
 	X原生SQL查询字段计数(sql string, args ...interface{}) (int64, error)
 
 // ===========================================================================
@@ -297,35 +297,35 @@ type dynamicConfig struct {
 }
 
 // DoCommitInput 是函数 DoCommit 的输入参数。
-type X输入 struct {
+type DoCommitInput struct {
 	Db            *sql.DB
 	Tx            *sql.Tx
 	Stmt          *sql.Stmt
-	Link          X底层链接
+	Link          Link
 	Sql           string
 	Args          []interface{}
-	X类型          string
+	Type          string
 	IsTransaction bool
 }
 
 // DoCommitOutput 是函数 DoCommit 的输出参数。
 type X输出 struct {
 	X原生sql行记录    sql.Result  // Result 是执行语句的结果。
-	X行记录数组   []X行记录    // Records 是查询语句的结果。
+	X行记录数组   []Record    // Records 是查询语句的结果。
 	X参数预处理      *Stmt       // Stmt是Prepare方法执行后返回的Statement对象结果。
-	Tx        X事务          // Tx是Begin方法返回的事务对象。
+	Tx        TX          // Tx是Begin方法返回的事务对象。
 	X底层结果 interface{} // RawResult 是底层结果，它可能是 sql.Result、*sql.Rows 或 *sql.Row。
 }
 
 // Driver 是用于将 SQL 驱动程序集成到 gdb 包的接口。
-type X驱动 interface {
+type Driver interface {
 	// New 创建并返回指定数据库服务器的数据库对象。
 	New(core *Core, node *X配置项) (DB, error)
 }
 
 // Link 是一个通用的数据库函数包装器接口。
 // 注意，使用 `Link` 进行的任何操作将不会有 SQL 日志记录。
-type X底层链接 interface {
+type Link interface {
 	QueryContext(ctx context.Context, sql string, args ...interface{}) (*sql.Rows, error)
 	ExecContext(ctx context.Context, sql string, args ...interface{}) (sql.Result, error)
 	PrepareContext(ctx context.Context, sql string) (*sql.Stmt, error)
@@ -335,38 +335,38 @@ type X底层链接 interface {
 
 // Sql 是用于记录 SQL 的结构体。
 type Sql struct {
-	SQL字符串           string        // SQL 字符串（可能包含保留字符 '?'）。
-	X类型          string        // SQL操作类型。
-	SQL参数          []interface{} // 此SQL的参数。
-	SQL格式化后        string        // 格式化后的SQL，其中包含在SQL中的参数。
-	X执行错误         error         // Execution result.
-	X开始时间戳         int64         // 开始执行的时间戳（毫秒）。
-	X结束时间戳           int64         // 结束执行的时间戳（毫秒）。
-	X配置组名称         string        // Group 是执行 SQL 时所使用的配置组名称。
-	X架构名称        string        // Schema 是执行 SQL 的配置的架构名称。
-	X是否为事务 bool          // IsTransaction 标记了这个SQL语句是否在事务中执行。
-	X影响行数  int64         // RowsAffected 标记了当前SQL语句执行后获取或影响的行数。
+	Sql           string        // SQL 字符串（可能包含保留字符 '?'）。
+	Type          string        // SQL操作类型。
+	Args          []interface{} // 此SQL的参数。
+	Format        string        // 格式化后的SQL，其中包含在SQL中的参数。
+	Error         error         // Execution result.
+	Start         int64         // 开始执行的时间戳（毫秒）。
+	End           int64         // 结束执行的时间戳（毫秒）。
+	Group         string        // Group 是执行 SQL 时所使用的配置组名称。
+	Schema        string        // Schema 是执行 SQL 的配置的架构名称。
+	IsTransaction bool          // IsTransaction 标记了这个SQL语句是否在事务中执行。
+	RowsAffected  int64         // RowsAffected 标记了当前SQL语句执行后获取或影响的行数。
 }
 
 // DoInsertOption 是函数 DoInsert 的输入结构体。
-type X底层输入 struct {
+type DoInsertOption struct {
 	OnDuplicateStr string                 // 自定义用于`on duplicated`语句的字符串。
 	OnDuplicateMap map[string]interface{} // `OnDuplicateEx`函数为`on duplicated`语句提供的自定义键值对映射
-	InsertOption   X插入选项           // 在常数值中执行插入操作。
+	InsertOption   InsertOption           // 在常数值中执行插入操作。
 	BatchCount     int                    // 批量插入的批次数量
 }
 
 // TableField 是用于表示表格字段的结构体。
-type X字段信息 struct {
-	X排序   int         // 用于排序目的，因为映射（map）是无序的。
-	X名称    string      // Field name.
-	X类型    string      // 字段类型。例如：'int(10) unsigned', 'varchar(64)'。
+type TableField struct {
+	Index   int         // 用于排序目的，因为映射（map）是无序的。
+	Name    string      // Field name.
+	Type    string      // 字段类型。例如：'int(10) unsigned', 'varchar(64)'。
 // 这段注释是对Go语言代码中某个表示字段类型的变量或常量的解释，该字段在数据库表结构设计中使用，比如MySQL等关系型数据库。'int(10) unsigned' 表示一个无符号整数类型，长度为10位；'varchar(64)' 则表示变长字符串类型，最大长度为64个字符。
-	X是否为null    bool        // 字段可以为空或非空
-	X索引信息     string      // The index information(empty if it's not an index). Eg: PRI, MUL.
-	X字段默认值 interface{} // 字段的默认值。
-	X额外   string      // 额外信息。例如：自动增长。
-	X字段注释 string      // Field comment.
+	Null    bool        // 字段可以为空或非空
+	Key     string      // The index information(empty if it's not an index). Eg: PRI, MUL.
+	Default interface{} // 字段的默认值。
+	Extra   string      // 额外信息。例如：自动增长。
+	Comment string      // Field comment.
 }
 
 // Counter 是用于更新计数的类型。
@@ -376,13 +376,13 @@ type X增减 struct {
 }
 
 type (
-	X原生sql    string                   // Raw 是一个原始SQL语句，它不会被视为参数处理，而是直接作为SQL部分。
+	Raw    string                   // Raw 是一个原始SQL语句，它不会被视为参数处理，而是直接作为SQL部分。
 // 通常用于嵌入原始sql语句,如:
 // g.Model("user").WhereLT("created_at", gdb.Raw("now()")).All()  // SELECT * FROM `user` WHERE `created_at`<now()
 // 参考文档:https://goframe.org/pages/viewpage.action?pageId=111911590&showComments=true
-	X字段值  = *泛型类.Var              // Value 是字段值类型。
-	X行记录 map[string]X字段值         // Record 是表格的行记录。
-	X行记录数组 []X行记录                 // Result 是行记录数组。
+	Value  = *泛型类.Var              // Value 是字段值类型。
+	Record map[string]Value         // Record 是表格的行记录。
+	Result []Record                 // Result 是行记录数组。
 	Map    = map[string]interface{} // Map 是 map[string]interface{} 的别名，这是最常用的映射类型。
 	Map数组   = []Map                  // List 是映射数组的类型。
 )
@@ -442,13 +442,13 @@ const (
 	joinOperatorInner joinOperator = "INNER"
 )
 
-type X插入选项 int
+type InsertOption int
 
 const (
-	InsertOptionDefault        X插入选项 = 0
-	InsertOptionReplace        X插入选项 = 1
-	InsertOptionSave           X插入选项 = 2
-	InsertOptionIgnore         X插入选项 = 3
+	InsertOptionDefault        InsertOption = 0
+	InsertOptionReplace        InsertOption = 1
+	InsertOptionSave           InsertOption = 2
+	InsertOptionIgnore         InsertOption = 3
 	InsertOperationInsert                   = "INSERT"
 	InsertOperationReplace                  = "REPLACE"
 	InsertOperationIgnore                   = "INSERT IGNORE"
@@ -529,7 +529,7 @@ var (
 	instances = map类.X创建StrAny(true)
 
 	// driverMap 管理所有已注册的自定义驱动。
-	driverMap = map[string]X驱动{}
+	driverMap = map[string]Driver{}
 
 // lastOperatorRegPattern 是正则表达式模式，用于表示字符串尾部包含操作符的字符串。
 	lastOperatorRegPattern = `[<>=]+\s*$`
@@ -555,7 +555,7 @@ func init() {
 }
 
 // Register 注册自定义数据库驱动到 gdb。
-func X注册驱动(名称 string, 驱动 X驱动) error {
+func X注册驱动(名称 string, 驱动 Driver) error {
 	driverMap[名称] = newDriverWrapper(驱动)
 	return nil
 }

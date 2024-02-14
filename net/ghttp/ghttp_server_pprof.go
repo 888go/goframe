@@ -31,12 +31,12 @@ func PProf服务端创建(监听端口 int, 作废参数 ...string) {
 }
 
 // EnablePProf 启用服务器的 PProf 功能。
-func (s *Server) PProf开启(路由地址 ...string) {
+func (s *X服务) PProf开启(路由地址 ...string) {
 	s.X创建域名路由(DefaultDomainName).PProf开启(路由地址...)
 }
 
 // EnablePProf 启用指定域名服务器的 PProf 功能。
-func (d *Domain) PProf开启(路由地址 ...string) {
+func (d *X域名路由) PProf开启(路由地址 ...string) {
 	p := defaultPProfPattern
 	if len(路由地址) > 0 && 路由地址[0] != "" {
 		p = 路由地址[0]
@@ -44,7 +44,7 @@ func (d *Domain) PProf开启(路由地址 ...string) {
 	up := &utilPProf{}
 	_, _, uri, _ := d.server.parsePattern(p)
 	uri = strings.TrimRight(uri, "/")
-	d.X创建分组路由(uri, func(group *RouterGroup) {
+	d.X创建分组路由(uri, func(group *X分组路由) {
 		group.X绑定所有类型("/*action", up.X显示页面)
 		group.X绑定所有类型("/cmdline", up.Cmdline)
 		group.X绑定所有类型("/profile", up.Profile)
@@ -54,7 +54,7 @@ func (d *Domain) PProf开启(路由地址 ...string) {
 }
 
 // Index 显示 PProf 索引页面。
-func (p *utilPProf) X显示页面(r *Request) {
+func (p *utilPProf) X显示页面(r *X请求) {
 	var (
 		ctx      = r.Context别名()
 		profiles = runpprof.Profiles()
@@ -85,12 +85,12 @@ func (p *utilPProf) X显示页面(r *Request) {
             </body>
             </html>
             `, data)
-		r.Response.X写响应缓冲区(buffer)
+		r.X响应.X写响应缓冲区(buffer)
 		return
 	}
 	for _, p := range profiles {
 		if p.Name() == action {
-			if err := p.WriteTo(r.Response.Writer, r.X取参数("debug").X取整数()); err != nil {
+			if err := p.WriteTo(r.X响应.Writer, r.X取参数("debug").X取整数()); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
 			}
 			break
@@ -100,27 +100,27 @@ func (p *utilPProf) X显示页面(r *Request) {
 
 // Cmdline 函数响应运行程序的命令行参数，其中各个参数由 NUL 字节分隔。
 // 包初始化时会将其注册为 /debug/pprof/cmdline 路径。
-func (p *utilPProf) Cmdline(r *Request) {
-	netpprof.Cmdline(r.Response.Writer, r.Request)
+func (p *utilPProf) Cmdline(r *X请求) {
+	netpprof.Cmdline(r.X响应.Writer, r.Request)
 }
 
 // Profile 函数响应 pprof 格式的 CPU 分析报告。
 // 分析的持续时间由 GET 参数中指定的秒数决定，如果未指定，则默认为 30 秒。
 // 包初始化时会将其注册为 /debug/pprof/profile 路径。
-func (p *utilPProf) Profile(r *Request) {
-	netpprof.Profile(r.Response.Writer, r.Request)
+func (p *utilPProf) Profile(r *X请求) {
+	netpprof.Profile(r.X响应.Writer, r.Request)
 }
 
 // Symbol 函数通过查询请求中列出的程序计数器，
 // 并以程序计数器到函数名称的映射表作为响应。
 // 包初始化时将其注册为 /debug/pprof/symbol 路径。
-func (p *utilPProf) Symbol(r *Request) {
-	netpprof.Symbol(r.Response.Writer, r.Request)
+func (p *utilPProf) Symbol(r *X请求) {
+	netpprof.Symbol(r.X响应.Writer, r.Request)
 }
 
 // Trace 以二进制形式响应执行跟踪。
 // 跟踪持续时间由GET参数中指定的秒数决定，如果未指定，则持续1秒。
 // 包初始化时将其注册为/debug/pprof/trace。
-func (p *utilPProf) Trace(r *Request) {
-	netpprof.Trace(r.Response.Writer, r.Request)
+func (p *utilPProf) Trace(r *X请求) {
+	netpprof.Trace(r.X响应.Writer, r.Request)
 }

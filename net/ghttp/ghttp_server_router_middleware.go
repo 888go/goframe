@@ -20,7 +20,7 @@ const (
 // BindMiddleware 注册一个或多个全局中间件到服务器。
 // 全局中间件可以在没有服务处理器的情况下独立使用，它会在服务处理器执行前或执行后拦截所有的动态请求。
 // 参数 `pattern` 指定了中间件要拦截的路由模式，通常是一个“模糊”模式，如 "/:name"、"/*any" 或 "/{field}"。
-func (s *Server) X绑定全局中间件(路由规则 string, 处理函数 ...HandlerFunc) {
+func (s *X服务) X绑定全局中间件(路由规则 string, 处理函数 ...HandlerFunc) {
 	var (
 		ctx = context.TODO()
 	)
@@ -28,10 +28,10 @@ func (s *Server) X绑定全局中间件(路由规则 string, 处理函数 ...Han
 		s.setHandler(ctx, setHandlerInput{
 			Prefix:  "",
 			Pattern: 路由规则,
-			HandlerItem: &HandlerItem{
+			HandlerItem: &X路由处理函数{
 				Type: HandlerTypeMiddleware,
-				Name: gdebug.FuncPath(handler),
-				Info: handlerFuncInfo{
+				X处理器名称: gdebug.FuncPath(handler),
+				X处理器函数信息: handlerFuncInfo{
 					Func: handler,
 					Type: reflect.TypeOf(handler),
 				},
@@ -42,7 +42,7 @@ func (s *Server) X绑定全局中间件(路由规则 string, 处理函数 ...Han
 
 // BindMiddlewareDefault 使用默认模式"/*"将一个或多个全局中间件注册到服务器。
 // 全局中间件可以在没有服务处理器的情况下独立使用，它会在服务处理器处理所有动态请求之前或之后进行拦截。
-func (s *Server) X绑定全局默认中间件(处理函数 ...HandlerFunc) {
+func (s *X服务) X绑定全局默认中间件(处理函数 ...HandlerFunc) {
 	var (
 		ctx = context.TODO()
 	)
@@ -50,10 +50,10 @@ func (s *Server) X绑定全局默认中间件(处理函数 ...HandlerFunc) {
 		s.setHandler(ctx, setHandlerInput{
 			Prefix:  "",
 			Pattern: defaultMiddlewarePattern,
-			HandlerItem: &HandlerItem{
+			HandlerItem: &X路由处理函数{
 				Type: HandlerTypeMiddleware,
-				Name: gdebug.FuncPath(handler),
-				Info: handlerFuncInfo{
+				X处理器名称: gdebug.FuncPath(handler),
+				X处理器函数信息: handlerFuncInfo{
 					Func: handler,
 					Type: reflect.TypeOf(handler),
 				},
@@ -64,6 +64,6 @@ func (s *Server) X绑定全局默认中间件(处理函数 ...HandlerFunc) {
 
 // Use 是 BindMiddlewareDefault 的别名。
 // 请参阅 BindMiddlewareDefault。
-func (s *Server) Use别名(处理函数 ...HandlerFunc) {
+func (s *X服务) Use别名(处理函数 ...HandlerFunc) {
 	s.X绑定全局默认中间件(处理函数...)
 }

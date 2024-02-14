@@ -23,16 +23,16 @@ import (
 
 // Response 是HTTP响应管理器。
 // 请注意，它实现了带有缓冲功能的http.ResponseWriter接口。
-type Response struct {
+type X响应 struct {
 	*ResponseWriter                 // 基础的 ResponseWriter。
-	Server          *Server         // Parent server.
+	Server          *X服务         // Parent server.
 	Writer          *ResponseWriter // ResponseWriter的别名。
-	Request         *Request        // 根据请求。
+	Request         *X请求        // 根据请求。
 }
 
 // newResponse 创建并返回一个新的 Response 对象。
-func newResponse(s *Server, w http.ResponseWriter) *Response {
-	r := &Response{
+func newResponse(s *X服务, w http.ResponseWriter) *X响应 {
+	r := &X响应{
 		Server: s,
 		ResponseWriter: &ResponseWriter{
 			writer: response.NewWriter(w),
@@ -46,7 +46,7 @@ func newResponse(s *Server, w http.ResponseWriter) *Response {
 // ServeFile 将文件发送至响应。
 // 会自动识别文件格式，如果是目录或者文本内容将会直接展示文件内容。
 // 如果path参数为目录，那么第二个参数allowIndex控制是否可以展示目录下的文件列表。
-func (r *Response) X发送文件(文件路径 string, 是否展示目录文件列表 ...bool) {
+func (r *X响应) X发送文件(文件路径 string, 是否展示目录文件列表 ...bool) {
 	var (
 		serveFile *staticFile
 	)
@@ -78,7 +78,7 @@ func (r *Response) X发送文件(文件路径 string, 是否展示目录文件�
 // 	s.SetPort(8999)
 // 	s.Run()
 // }
-func (r *Response) X下载文件(路径 string, 文件名 ...string) {
+func (r *X响应) X下载文件(路径 string, 文件名 ...string) {
 	var (
 		serveFile    *staticFile
 		downloadName = ""
@@ -115,7 +115,7 @@ func (r *Response) X下载文件(路径 string, 文件名 ...string) {
 // RedirectTo 重定向客户端到另一个位置。
 // 可选参数 `code` 指定了用于重定向的 HTTP 状态码，
 // 通常可以是 301 或 302，默认为 302。
-func (r *Response) X重定向(url地址 string, 重定向状态码 ...int) {
+func (r *X响应) X重定向(url地址 string, 重定向状态码 ...int) {
 	r.Header().Set("Location", url地址)
 	if len(重定向状态码) > 0 {
 		r.WriteHeader(重定向状态码[0])
@@ -127,48 +127,48 @@ func (r *Response) X重定向(url地址 string, 重定向状态码 ...int) {
 
 // RedirectBack 重定向客户端返回到referer页面。
 // 可选参数 `code` 指定用于重定向的http状态码，通常可以是301或302，默认为302。
-func (r *Response) X重定向到来源页面(重定向状态码 ...int) {
+func (r *X响应) X重定向到来源页面(重定向状态码 ...int) {
 	r.X重定向(r.Request.X取引用来源URL(), 重定向状态码...)
 }
 
 // Buffer返回缓冲区中的内容作为[]byte。
-func (r *Response) X取缓冲区字节集() []byte {
+func (r *X响应) X取缓冲区字节集() []byte {
 	return r.buffer.Bytes()
 }
 
 // BufferString 返回缓冲区中的内容作为字符串。
-func (r *Response) X取缓冲区文本() string {
+func (r *X响应) X取缓冲区文本() string {
 	return r.buffer.String()
 }
 
 // BufferLength 返回缓冲区内容的长度。
-func (r *Response) X取缓冲区长度() int {
+func (r *X响应) X取缓冲区长度() int {
 	return r.buffer.Len()
 }
 
 // SetBuffer 将`data`覆盖写入缓冲区。
-func (r *Response) X设置缓冲区字节集(字节集值 []byte) {
+func (r *X响应) X设置缓冲区字节集(字节集值 []byte) {
 	r.buffer.Reset()
 	r.buffer.Write(字节集值)
 }
 
 // 清空缓冲区 ClearBuffer 用于清空响应缓冲区。
-func (r *Response) X清空缓冲区() {
+func (r *X响应) X清空缓冲区() {
 	r.buffer.Reset()
 }
 
 // ServeContent 函数通过提供的 ReadSeeker 中的内容回复请求。与 io.Copy 相比，ServeContent 的主要优点在于它能妥善处理 Range 请求，设置 MIME 类型，并正确处理 If-Match, If-Unmodified-Since, If-None-Match, If-Modified-Since 以及 If-Range 等请求。
 //
 // 参见 http.ServeContent
-func (r *Response) ServeContent(name string, modTime time.Time, content io.ReadSeeker) {
+func (r *X响应) ServeContent(name string, modTime time.Time, content io.ReadSeeker) {
 	http.ServeContent(r.Writer.RawWriter(), r.Request.Request, name, modTime, content)
 }
 
 // Flush 将缓冲区内容输出到客户端并清空缓冲区。
-func (r *Response) X输出缓存区() {
+func (r *X响应) X输出缓存区() {
 	r.Header().Set(responseHeaderTraceID, gtrace.GetTraceID(r.Request.Context别名()))
-	if r.Server.config.ServerAgent != "" {
-		r.Header().Set("Server", r.Server.config.ServerAgent)
+	if r.Server.config.X服务器代理 != "" {
+		r.Header().Set("Server", r.Server.config.X服务器代理)
 	}
 	r.Writer.Flush()
 }

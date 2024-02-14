@@ -35,13 +35,13 @@ var (
 type cUser struct{}
 
 func (c *cUser) User(ctx context.Context, req *UserReq) (res *UserRes, err error) {
-	g.Http类上下文取请求对象(ctx).Response.X写响应缓冲区JSON(req)
+	g.Http类上下文取请求对象(ctx).X响应.X写响应缓冲区JSON(req)
 	return
 }
 
 func Test_Params_Tag(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定中间件(http类.MiddlewareHandlerResponse)
 		group.X绑定(User)
 	})
@@ -67,7 +67,7 @@ func Benchmark_ParamTag(b *testing.B) {
 	b.StopTimer()
 
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定中间件(http类.MiddlewareHandlerResponse)
 		group.X绑定(User)
 	})

@@ -33,8 +33,8 @@ func Test_Server(t *testing.T) {
 		defer instance.Clear()
 
 		s := gins.Server("tempByInstanceName")
-		s.X绑定("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("hello")
+		s.X绑定("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("hello")
 		})
 		s.SetDumpRouterMap(false)
 		s.X开始监听()

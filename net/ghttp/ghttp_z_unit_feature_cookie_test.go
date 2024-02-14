@@ -20,13 +20,13 @@ import (
 
 func Test_Cookie(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/set", func(r *http类.Request) {
+	s.X绑定("/set", func(r *http类.X请求) {
 		r.Cookie.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
-	s.X绑定("/get", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Cookie.X取值(r.Get别名("k").String()))
+	s.X绑定("/get", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Cookie.X取值(r.Get别名("k").String()))
 	})
-	s.X绑定("/remove", func(r *http类.Request) {
+	s.X绑定("/remove", func(r *http类.X请求) {
 		r.Cookie.X删除值(r.Get别名("k").String())
 	})
 	s.SetDumpRouterMap(false)
@@ -61,16 +61,16 @@ func Test_Cookie(t *testing.T) {
 
 func Test_SetHttpCookie(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/set", func(r *http类.Request) {
+	s.X绑定("/set", func(r *http类.X请求) {
 		r.Cookie.X设置httpcookie(&http.Cookie{
 			Name:  r.Get别名("k").String(),
 			Value: r.Get别名("v").String(),
 		})
 	})
-	s.X绑定("/get", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Cookie.X取值(r.Get别名("k").String()))
+	s.X绑定("/get", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Cookie.X取值(r.Get别名("k").String()))
 	})
-	s.X绑定("/remove", func(r *http类.Request) {
+	s.X绑定("/remove", func(r *http类.X请求) {
 		r.Cookie.X删除值(r.Get别名("k").String())
 	})
 	s.SetDumpRouterMap(false)
@@ -112,7 +112,7 @@ func Test_SetHttpCookie(t *testing.T) {
 
 func Test_CookieOptionsDefault(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test", func(r *http类.Request) {
+	s.X绑定("/test", func(r *http类.X请求) {
 		r.Cookie.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
 	s.SetDumpRouterMap(false)
@@ -146,7 +146,7 @@ func Test_CookieOptions(t *testing.T) {
 		"cookieSecure":   true,
 		"cookieHttpOnly": true,
 	})
-	s.X绑定("/test", func(r *http类.Request) {
+	s.X绑定("/test", func(r *http类.X请求) {
 		r.Cookie.X设置值(r.Get别名("k").String(), r.Get别名("v").String())
 	})
 	s.SetDumpRouterMap(false)

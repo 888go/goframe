@@ -18,24 +18,24 @@ import (
 
 type Object struct{}
 
-func (o *Object) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("1")
+func (o *Object) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("1")
 }
 
-func (o *Object) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("2")
+func (o *Object) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("2")
 }
 
-func (o *Object) Index(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Index")
+func (o *Object) Index(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Index")
 }
 
-func (o *Object) Show(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Show")
+func (o *Object) Show(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Show")
 }
 
-func (o *Object) Info(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Info")
+func (o *Object) Info(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Info")
 }
 
 func Test_Router_Object1(t *testing.T) {

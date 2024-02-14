@@ -21,8 +21,8 @@ import (
 func TestRequest_GetRemoteIp(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
 		s := g.Http类(uid类.X生成())
-		s.X绑定("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.X取远程IP地址())
+		s.X绑定("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.X取远程IP地址())
 		})
 		s.SetDumpRouterMap(false)
 		s.X开始监听()

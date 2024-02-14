@@ -27,16 +27,16 @@ import (
 func Test_Params_File_Single(t *testing.T) {
 	dstDirPath := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/upload/single", func(r *http类.Request) {
+	s.X绑定("/upload/single", func(r *http类.X请求) {
 		file := r.X取上传文件对象("file")
 		if file == nil {
-			r.Response.X写响应缓冲区并退出("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 
 		if name, err := file.X保存(dstDirPath, r.Get别名("randomlyRename").X取布尔()); err == nil {
-			r.Response.X写响应缓冲区并退出(name)
+			r.X响应.X写响应缓冲区并退出(name)
 		}
-		r.Response.X写响应缓冲区并退出("upload failed")
+		r.X响应.X写响应缓冲区并退出("upload failed")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -79,16 +79,16 @@ func Test_Params_File_Single(t *testing.T) {
 func Test_Params_File_CustomName(t *testing.T) {
 	dstDirPath := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/upload/single", func(r *http类.Request) {
+	s.X绑定("/upload/single", func(r *http类.X请求) {
 		file := r.X取上传文件对象("file")
 		if file == nil {
-			r.Response.X写响应缓冲区并退出("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 		file.Filename = "my.txt"
 		if name, err := file.X保存(dstDirPath, r.Get别名("randomlyRename").X取布尔()); err == nil {
-			r.Response.X写响应缓冲区并退出(name)
+			r.X响应.X写响应缓冲区并退出(name)
 		}
-		r.Response.X写响应缓冲区并退出("upload failed")
+		r.X响应.X写响应缓冲区并退出("upload failed")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -114,15 +114,15 @@ func Test_Params_File_CustomName(t *testing.T) {
 func Test_Params_File_Batch(t *testing.T) {
 	dstDirPath := 文件类.X取临时目录(时间类.X取文本时间戳纳秒())
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/upload/batch", func(r *http类.Request) {
+	s.X绑定("/upload/batch", func(r *http类.X请求) {
 		files := r.X取上传文件数组对象("file")
 		if files == nil {
-			r.Response.X写响应缓冲区并退出("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 		if names, err := files.X保存(dstDirPath, r.Get别名("randomlyRename").X取布尔()); err == nil {
-			r.Response.X写响应缓冲区并退出(文本类.X连接(names, ","))
+			r.X响应.X写响应缓冲区并退出(文本类.X连接(names, ","))
 		}
-		r.Response.X写响应缓冲区并退出("upload failed")
+		r.X响应.X写响应缓冲区并退出("upload failed")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -176,7 +176,7 @@ func Test_Params_File_Batch(t *testing.T) {
 func Test_Params_Strict_Route_File_Single_Ptr_Attrr(t *testing.T) {
 	type Req struct {
 		元数据类.Meta `method:"post" mime:"multipart/form-data"`
-		File       *http类.UploadFile `type:"file"`
+		File       *http类.X上传文件 `type:"file"`
 	}
 	type Res struct{}
 
@@ -188,13 +188,13 @@ func Test_Params_Strict_Route_File_Single_Ptr_Attrr(t *testing.T) {
 			file = req.File
 		)
 		if file == nil {
-			r.Response.X写响应缓冲区并退出("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 		name, err := file.X保存(dstDirPath)
 		if err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(name)
+		r.X响应.X写响应缓冲区并退出(name)
 		return
 	})
 	s.SetDumpRouterMap(false)
@@ -222,7 +222,7 @@ func Test_Params_Strict_Route_File_Single_Ptr_Attrr(t *testing.T) {
 func Test_Params_Strict_Route_File_Single_Struct_Attr(t *testing.T) {
 	type Req struct {
 		元数据类.Meta `method:"post" mime:"multipart/form-data"`
-		File       http类.UploadFile `type:"file"`
+		File       http类.X上传文件 `type:"file"`
 	}
 	type Res struct{}
 
@@ -235,9 +235,9 @@ func Test_Params_Strict_Route_File_Single_Struct_Attr(t *testing.T) {
 		)
 		name, err := file.X保存(dstDirPath)
 		if err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(name)
+		r.X响应.X写响应缓冲区并退出(name)
 		return
 	})
 	s.SetDumpRouterMap(false)
@@ -264,7 +264,7 @@ func Test_Params_Strict_Route_File_Single_Struct_Attr(t *testing.T) {
 func Test_Params_File_Upload_Required(t *testing.T) {
 	type Req struct {
 		元数据类.Meta `method:"post" mime:"multipart/form-data"`
-		File       *http类.UploadFile `type:"file" v:"required#upload file is required"`
+		File       *http类.X上传文件 `type:"file" v:"required#upload file is required"`
 	}
 	type Res struct{}
 
@@ -288,16 +288,16 @@ func Test_Params_File_Upload_Required(t *testing.T) {
 
 func Test_Params_File_MarshalJSON(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/upload/single", func(r *http类.Request) {
+	s.X绑定("/upload/single", func(r *http类.X请求) {
 		file := r.X取上传文件对象("file")
 		if file == nil {
-			r.Response.X写响应缓冲区并退出("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 
 		if bytes, err := json.Marshal(file); err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		} else {
-			r.Response.X写响应缓冲区并退出(bytes)
+			r.X响应.X写响应缓冲区并退出(bytes)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -321,7 +321,7 @@ func Test_Params_File_MarshalJSON(t *testing.T) {
 func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 	type Req struct {
 		元数据类.Meta `method:"post" mime:"multipart/form-data"`
-		Files      http类.UploadFiles `type:"file"`
+		Files      http类.X上传文件数组 `type:"file"`
 	}
 	type Res struct{}
 
@@ -333,13 +333,13 @@ func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 			files = req.Files
 		)
 		if len(files) == 0 {
-			r.Response.X写响应缓冲区并退出("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 		names, err := files.X保存(dstDirPath)
 		if err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(文本类.X连接(names, ","))
+		r.X响应.X写响应缓冲区并退出(文本类.X连接(names, ","))
 		return
 	})
 	s.SetDumpRouterMap(false)
@@ -368,7 +368,7 @@ func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 func Test_Params_Strict_Route_File_Batch_Up_Multiple(t *testing.T) {
 	type Req struct {
 		元数据类.Meta `method:"post" mime:"multipart/form-data"`
-		Files      http类.UploadFiles `type:"file"`
+		Files      http类.X上传文件数组 `type:"file"`
 	}
 	type Res struct{}
 
@@ -380,13 +380,13 @@ func Test_Params_Strict_Route_File_Batch_Up_Multiple(t *testing.T) {
 			files = req.Files
 		)
 		if len(files) == 0 {
-			r.Response.X写响应缓冲区并退出("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 		names, err := files.X保存(dstDirPath)
 		if err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(文本类.X连接(names, ","))
+		r.X响应.X写响应缓冲区并退出(文本类.X连接(names, ","))
 		return
 	})
 	s.SetDumpRouterMap(false)

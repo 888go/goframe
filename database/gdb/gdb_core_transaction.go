@@ -40,20 +40,20 @@ var transactionIdGenerator = 安全变量类.NewUint64()
 // Begin 开始并返回事务对象。
 // 如果不再使用该事务，你应该调用事务对象的 Commit 或 Rollback 函数。
 // Commit 或 Rollback 函数也会自动关闭事务。
-func (c *Core) X事务开启(上下文 context.Context) (事务对象 X事务, 错误 error) {
+func (c *Core) X事务开启(上下文 context.Context) (事务对象 TX, 错误 error) {
 	return c.doBeginCtx(上下文)
 }
 
-func (c *Core) doBeginCtx(ctx context.Context) (X事务, error) {
+func (c *Core) doBeginCtx(ctx context.Context) (TX, error) {
 	master, err := c.db.X取主节点对象()
 	if err != nil {
 		return nil, err
 	}
 	var out X输出
-	out, err = c.db.X底层DoCommit(ctx, X输入{
+	out, err = c.db.X底层DoCommit(ctx, DoCommitInput{
 		Db:            master,
 		Sql:           "BEGIN",
-		X类型:          SqlTypeBegin,
+		Type:          SqlTypeBegin,
 		IsTransaction: true,
 	})
 	return out.Tx, err
@@ -61,13 +61,13 @@ func (c *Core) doBeginCtx(ctx context.Context) (X事务, error) {
 
 // Transaction 通过函数 `f` 包装事务逻辑。如果函数 `f` 返回非空错误，它将回滚事务并返回该错误。若函数 `f` 返回空（nil）错误，它将提交事务并返回空。
 // 注意：在函数 `f` 中不应手动调用 Commit 或 Rollback 方法处理事务，因为这些操作在此函数中已自动完成。
-func (c *Core) X事务(上下文 context.Context, 回调函数 func(上下文 context.Context, 事务对象 X事务) error) (错误 error) {
+func (c *Core) X事务(上下文 context.Context, 回调函数 func(上下文 context.Context, 事务对象 TX) error) (错误 error) {
 	if 上下文 == nil {
 		上下文 = c.db.X取上下文对象()
 	}
 	上下文 = c.底层_InjectInternalCtxData(上下文)
 	// 从上下文中检查交易对象。
-	var tx X事务
+	var tx TX
 	tx = X事务从上下文取对象(上下文, c.db.X取配置组名称())
 	if tx != nil {
 		return tx.X事务(上下文, 回调函数)
@@ -103,7 +103,7 @@ func (c *Core) X事务(上下文 context.Context, 回调函数 func(上下文 co
 }
 
 // WithTX 将给定的事务对象注入到上下文中并返回一个新的上下文。
-func 底层WithTX(上下文 context.Context, 事务对象 X事务) context.Context {
+func 底层WithTX(上下文 context.Context, 事务对象 TX) context.Context {
 	if 事务对象 == nil {
 		return 上下文
 	}
@@ -123,13 +123,13 @@ func 底层WithTX(上下文 context.Context, 事务对象 X事务) context.Conte
 
 // TXFromCtx 从上下文中检索并返回事务对象。
 // 通常用于嵌套事务功能，如果没有先前设置，则返回nil。
-func X事务从上下文取对象(上下文 context.Context, group string) X事务 {
+func X事务从上下文取对象(上下文 context.Context, group string) TX {
 	if 上下文 == nil {
 		return nil
 	}
 	v := 上下文.Value(transactionKeyForContext(group))
 	if v != nil {
-		tx := v.(X事务)
+		tx := v.(TX)
 		if tx.X是否已关闭() {
 			return nil
 		}
@@ -150,7 +150,7 @@ func (tx *X基础事务) transactionKeyForNestedPoint() string {
 }
 
 // Ctx 设置当前事务的上下文。
-func (tx *X基础事务) X设置上下文并取副本(上下文 context.Context) X事务 {
+func (tx *X基础事务) X设置上下文并取副本(上下文 context.Context) TX {
 	tx.ctx = 上下文
 	if tx.ctx != nil {
 		tx.ctx = tx.db.X取Core对象().底层_InjectInternalCtxData(tx.ctx)
@@ -182,10 +182,10 @@ func (tx *X基础事务) X事务提交() error {
 		_, err := tx.X原生SQL执行("RELEASE SAVEPOINT " + tx.transactionKeyForNestedPoint())
 		return err
 	}
-	_, err := tx.db.X底层DoCommit(tx.ctx, X输入{
+	_, err := tx.db.X底层DoCommit(tx.ctx, DoCommitInput{
 		Tx:            tx.tx,
 		Sql:           "COMMIT",
-		X类型:          SqlTypeTXCommit,
+		Type:          SqlTypeTXCommit,
 		IsTransaction: true,
 	})
 	if err == nil {
@@ -203,10 +203,10 @@ func (tx *X基础事务) X事务回滚() error {
 		_, err := tx.X原生SQL执行("ROLLBACK TO SAVEPOINT " + tx.transactionKeyForNestedPoint())
 		return err
 	}
-	_, err := tx.db.X底层DoCommit(tx.ctx, X输入{
+	_, err := tx.db.X底层DoCommit(tx.ctx, DoCommitInput{
 		Tx:            tx.tx,
 		Sql:           "ROLLBACK",
-		X类型:          SqlTypeTXRollback,
+		Type:          SqlTypeTXRollback,
 		IsTransaction: true,
 	})
 	if err == nil {
@@ -246,7 +246,7 @@ func (tx *X基础事务) X回滚事务点(事务点名称 string) error {
 
 // Transaction 通过函数 `f` 包装事务逻辑。如果函数 `f` 返回非空错误，它将回滚事务并返回该错误。若函数 `f` 返回空（nil）错误，它将提交事务并返回空。
 // 注意：在函数 `f` 中不应手动调用 Commit 或 Rollback 方法处理事务，因为这些操作在此函数中已自动完成。
-func (tx *X基础事务) X事务(上下文 context.Context, 回调函数 func(上下文 context.Context, 事务对象 X事务) error) (错误 error) {
+func (tx *X基础事务) X事务(上下文 context.Context, 回调函数 func(上下文 context.Context, 事务对象 TX) error) (错误 error) {
 	if 上下文 != nil {
 		tx.ctx = 上下文
 	}
@@ -285,7 +285,7 @@ func (tx *X基础事务) X事务(上下文 context.Context, 回调函数 func(�
 
 // Query 在事务上执行查询操作。
 // 参见 Core.Query.
-func (tx *X基础事务) X原生SQL查询(sql string, 参数 ...interface{}) (结果 X行记录数组, 错误 error) {
+func (tx *X基础事务) X原生SQL查询(sql string, 参数 ...interface{}) (结果 Result, 错误 error) {
 	return tx.db.X底层原生SQL查询(tx.ctx, &txLink{tx.tx}, sql, 参数...)
 }
 
@@ -304,12 +304,12 @@ func (tx *X基础事务) X原生sql取参数预处理对象(sql string) (*Stmt, 
 
 // GetAll 从数据库查询并返回数据记录。
 // 2024-01-09 改成别名,功能与tx.Query()重复
-func (tx *X基础事务) GetAll别名(sql string, 参数 ...interface{}) (X行记录数组, error) {
+func (tx *X基础事务) GetAll别名(sql string, 参数 ...interface{}) (Result, error) {
 	return tx.X原生SQL查询(sql, 参数...)
 }
 
 // GetOne 从数据库查询并返回一条记录。
-func (tx *X基础事务) X原生SQL查询单条记录(sql string, 参数 ...interface{}) (X行记录, error) {
+func (tx *X基础事务) X原生SQL查询单条记录(sql string, 参数 ...interface{}) (Record, error) {
 	list, err := tx.GetAll别名(sql, 参数...)
 	if err != nil {
 		return nil, err
@@ -368,7 +368,7 @@ func (tx *X基础事务) X原生SQL查询到结构体指针(结构体指针 inte
 
 // GetValue 从数据库查询并返回字段值。
 // SQL语句应当只查询数据库中的一个字段，否则它将仅返回结果中的一个字段。
-func (tx *X基础事务) X原生SQL查询字段值(sql string, 参数 ...interface{}) (X字段值, error) {
+func (tx *X基础事务) X原生SQL查询字段值(sql string, 参数 ...interface{}) (Value, error) {
 	one, err := tx.X原生SQL查询单条记录(sql, 参数...)
 	if err != nil {
 		return nil, err

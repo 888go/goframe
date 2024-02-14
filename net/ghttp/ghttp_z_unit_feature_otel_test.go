@@ -22,9 +22,9 @@ func Test_OTEL_TraceID(t *testing.T) {
 		traceId string
 	)
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
+	s.X绑定("/", func(r *http类.X请求) {
 		traceId = gtrace.GetTraceID(r.Context别名())
-		r.Response.X写响应缓冲区(r.X取URL())
+		r.X响应.X写响应缓冲区(r.X取URL())
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()

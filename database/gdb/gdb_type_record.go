@@ -15,19 +15,19 @@ import (
 )
 
 // Json 将 `r` 转换为 JSON 格式的内容。
-func (r X行记录) X取json() string {
+func (r Record) X取json() string {
 	content, _ := json类.X创建(r.X取Map()).X取json文本()
 	return content
 }
 
 // Xml 将`r`转换为XML格式的内容。
-func (r X行记录) X取xml(根标记 ...string) string {
+func (r Record) X取xml(根标记 ...string) string {
 	content, _ := json类.X创建(r.X取Map()).X取xml文本(根标记...)
 	return content
 }
 
 // Map 将 `r` 转换为 map[string]interface{} 类型。
-func (r X行记录) X取Map() Map {
+func (r Record) X取Map() Map {
 	m := make(map[string]interface{})
 	for k, v := range r {
 		m[k] = v.X取值()
@@ -36,7 +36,7 @@ func (r X行记录) X取Map() Map {
 }
 
 // GMap 将 `r` 转换为一个 gmap。
-func (r X行记录) X取Map类() *map类.StrAnyMap {
+func (r Record) X取Map类() *map类.StrAnyMap {
 	return map类.X创建AnyStr并从Map(r.X取Map())
 }
 
@@ -44,7 +44,7 @@ func (r X行记录) X取Map类() *map类.StrAnyMap {
 // 注意，参数 `pointer` 应为 *struct 或 **struct 类型。
 //
 // 注意，如果 `r` 为空，则返回 sql.ErrNoRows 错误。
-func (r X行记录) X取结构体指针(结构体指针 interface{}) error {
+func (r Record) X取结构体指针(结构体指针 interface{}) error {
 	// 如果记录为空，则返回错误。
 	if r.X是否为空() {
 		if !empty.X是否为Nil(结构体指针, true) {
@@ -56,6 +56,6 @@ func (r X行记录) X取结构体指针(结构体指针 interface{}) error {
 }
 
 // IsEmpty 检查并返回 `r` 是否为空。
-func (r X行记录) X是否为空() bool {
+func (r Record) X是否为空() bool {
 	return len(r) == 0
 }

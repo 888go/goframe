@@ -29,16 +29,16 @@ import (
 
 type (
 	// Server 包装了 http.Server，并提供了更多丰富的功能。
-	Server struct {
+	X服务 struct {
 		instance         string                    // 当前HTTP服务器的实例名称。
-		config           ServerConfig              // 服务器配置
-		plugins          []Plugin                  // 插件数组，用于扩展服务器功能。
+		config           X服务配置项              // 服务器配置
+		plugins          []X插件配置项                  // 插件数组，用于扩展服务器功能。
 		servers          []*gracefulServer         // 底层 http.Server 数组
 		serverCount      *安全变量类.Int                // 用于内部使用的底层http.Server数字。
 		closeChan        chan struct{}             // 用于底层服务器关闭事件的通知。
 		serveTree        map[string]interface{}    // 路由映射树
 		serveCache       *缓存类.Cache             // Server内部使用的缓存。
-		routesMap        map[string][]*HandlerItem // 路由映射表主要用于路由转储和重复路由检查。
+		routesMap        map[string][]*X路由处理函数 // 路由映射表主要用于路由转储和重复路由检查。
 		statusHandlerMap map[string][]HandlerFunc  // 自定义状态处理映射。
 		sessionManager   *session类.Manager         // Session manager.
 		openapi          *goai.OpenApiV3           // OpenApi规范管理对象。
@@ -48,31 +48,31 @@ type (
 	}
 
 	// Router object.
-	Router struct {
+	X路由 struct {
 		Uri      string   // URI.
 		Method   string   // HTTP method
 		Domain   string   // Bound domain.
-		RegRule  string   // 解析后的用于路由匹配的正则表达式。
-		RegNames []string // 解析后的路由参数名称。
+		X正则路由规则  string   // 解析后的用于路由匹配的正则表达式。
+		X路由参数名称 []string // 解析后的路由参数名称。
 		Priority int      // 仅供参考
 	}
 
 	// RouterItem 仅用于路由转储。
 	RouterItem struct {
-		Handler          *HandlerItem // The handler.
-		Server           string       // Server name.
-		Address          string       // 监听地址。
+		Handler          *X路由处理函数 // The handler.
+		X服务器名称           string       // Server name.
+		X监听地址          string       // 监听地址。
 		Domain           string       // Bound domain.
-		Type             HandlerType  // 路由处理器类型。
-		Middleware       string       // Bound middleware.
+		Type             X路由处理器类型  // 路由处理器类型。
+		X中间件名称       string       // Bound middleware.
 		Method           string       // 处理器方法名称。
-		Route            string       // Route URI.
+		X路由URI            string       // Route URI.
 		Priority         int          // 仅供参考
-		IsServiceHandler bool         // 是否为服务处理器
+		X是否为服务处理器 bool         // 是否为服务处理器
 	}
 
 	// HandlerFunc 是请求处理函数。
-	HandlerFunc = func(r *Request)
+	HandlerFunc = func(r *X请求)
 
 	// handlerFuncInfo 包含 HandlerFunc 的地址及其反射类型。
 	handlerFuncInfo struct {
@@ -85,36 +85,36 @@ type (
 
 // HandlerItem 是注册的路由处理程序，
 // 包括中间件和钩子函数。
-	HandlerItem struct {
+	X路由处理函数 struct {
 // 唯一处理器项标识符标记。
 // 注意，处理器函数可能会以不同的处理器项身份注册多次，
 // 这些处理器项具有不同的处理器项标识符。
 		Id         int
-		Name       string          // 处理器名称，在注册时会自动从运行时堆栈中获取。
-		Type       HandlerType     // 处理器类型：对象/处理器/中间件/钩子。
-		Info       handlerFuncInfo // 处理函数信息
-		InitFunc   HandlerFunc     // 初始化函数：当请求进入对象时调用（仅适用于对象注册类型）。
-		ShutFunc   HandlerFunc     // Shutdown 函数在请求离开对象时调用（仅适用于对象注册类型）。
-		Middleware []HandlerFunc   // 绑定中间件数组。
-		HookName   HookName        // Hook类型名称，仅适用于Hook类型。
-		Router     *Router         // Router object.
-		Source     string          // 注册源文件 `路径:行数`。
+		X处理器名称       string          // 处理器名称，在注册时会自动从运行时堆栈中获取。
+		Type       X路由处理器类型     // 处理器类型：对象/处理器/中间件/钩子。
+		X处理器函数信息       handlerFuncInfo // 处理函数信息
+		X初始化回调函数   HandlerFunc     // 初始化函数：当请求进入对象时调用（仅适用于对象注册类型）。
+		X关闭回调函数   HandlerFunc     // Shutdown 函数在请求离开对象时调用（仅适用于对象注册类型）。
+		X中间件数组 []HandlerFunc   // 绑定中间件数组。
+		Hook名称   Hook名称        // Hook类型名称，仅适用于Hook类型。
+		X路由     *X路由         // Router object.
+		X注册来源     string          // 注册源文件 `路径:行数`。
 	}
 
 	// HandlerItemParsed是从URL.Path中解析出的项目。
-	HandlerItemParsed struct {
-		Handler *HandlerItem      // 处理器信息。
-		Values  map[string]string // Router values 从 URL.Path 解析得到。
+	X路由解析 struct {
+		Handler *X路由处理函数      // 处理器信息。
+		X路由值  map[string]string // Router values 从 URL.Path 解析得到。
 	}
 
 	// ServerStatus 是服务器状态枚举类型。
-	ServerStatus = int
+	X服务状态 = int
 
 	// HookName 是路由钩子名称的枚举类型。
-	HookName string
+	Hook名称 string
 
 	// HandlerType 是路由处理器的枚举类型。
-	HandlerType string
+	X路由处理器类型 string
 
 // 监听文件描述符映射。
 // 键是 "http" 或 "https"，其对应的值为相应的文件描述符（FD）。
@@ -126,23 +126,23 @@ type (
 
 const (
 	// FreePortAddress 表示服务器使用随机空闲端口进行监听。
-	FreePortAddress = ":0"
+	X空闲端口地址 = ":0"
 )
 
 const (
 	HeaderXUrlPath                     = "x-url-path"         // 用于自定义路由处理器，在此情况下，URL.Path 不会发生变化。
-	HookBeforeServe       HookName     = "HOOK_BEFORE_SERVE"  // 在路由处理器/文件服务之前执行的钩子处理器。
-	HookAfterServe        HookName     = "HOOK_AFTER_SERVE"   // 在路由处理器/文件服务之后的钩子处理器。
-	HookBeforeOutput      HookName     = "HOOK_BEFORE_OUTPUT" // 在响应输出前的钩子处理器
-	HookAfterOutput       HookName     = "HOOK_AFTER_OUTPUT"  // Hook处理器在响应输出之后。
-	ServerStatusStopped   ServerStatus = 0
-	ServerStatusRunning   ServerStatus = 1
+	HookBeforeServe       Hook名称     = "HOOK_BEFORE_SERVE"  // 在路由处理器/文件服务之前执行的钩子处理器。
+	HookAfterServe        Hook名称     = "HOOK_AFTER_SERVE"   // 在路由处理器/文件服务之后的钩子处理器。
+	HookBeforeOutput      Hook名称     = "HOOK_BEFORE_OUTPUT" // 在响应输出前的钩子处理器
+	HookAfterOutput       Hook名称     = "HOOK_AFTER_OUTPUT"  // Hook处理器在响应输出之后。
+	ServerStatusStopped   X服务状态 = 0
+	ServerStatusRunning   X服务状态 = 1
 	DefaultServerName                  = "default"
 	DefaultDomainName                  = "default"
-	HandlerTypeHandler    HandlerType  = "handler"
-	HandlerTypeObject     HandlerType  = "object"
-	HandlerTypeMiddleware HandlerType  = "middleware"
-	HandlerTypeHook       HandlerType  = "hook"
+	HandlerTypeHandler    X路由处理器类型  = "handler"
+	HandlerTypeObject     X路由处理器类型  = "object"
+	HandlerTypeMiddleware X路由处理器类型  = "middleware"
+	HandlerTypeHook       X路由处理器类型  = "hook"
 )
 
 const (
@@ -204,7 +204,7 @@ var (
 )
 
 var (
-	ErrNeedJsonBody = 错误类.NewWithOption(错误类.Option{
+	ERR请求体必须json格式 = 错误类.NewWithOption(错误类.Option{
 		Text: "the request body content should be JSON format",
 		Code: 错误码类.CodeInvalidRequest,
 	})

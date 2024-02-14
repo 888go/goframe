@@ -196,7 +196,7 @@ func X取结构体数组或Map数组值并去重(结构体数组或Map数组 int
 }
 
 // GetInsertOperationByOption 根据给定的参数 `option` 返回合适的插入选项。
-func 底层GetInsertOperationByOption(选项 X插入选项) string {
+func 底层GetInsertOperationByOption(选项 InsertOption) string {
 	var operator string
 	switch 选项 {
 	case InsertOptionReplace:
@@ -680,7 +680,7 @@ func formatWhereInterfaces(db DB, where []interface{}, buffer *bytes.Buffer, new
 		} else {
 			buffer.WriteString(db.X取Core对象().X底层QuoteWord(str) + "=?")
 		}
-		if s, ok := where[i+1].(X原生sql); ok {
+		if s, ok := where[i+1].(Raw); ok {
 			buffer.WriteString(转换类.String(s))
 		} else {
 			newArgs = append(newArgs, where[i+1])
@@ -776,7 +776,7 @@ func formatWhereKeyValue(in formatWhereKeyValueInput) (newArgs []interface{}) {
 			} else {
 				in.Buffer.WriteString(quotedKey)
 			}
-			if s, ok := in.Value.(X原生sql); ok {
+			if s, ok := in.Value.(Raw); ok {
 				in.Buffer.WriteString(转换类.String(s))
 			} else {
 				in.Args = append(in.Args, in.Value)
@@ -896,7 +896,7 @@ func X格式化Sql(sql string, 参数数组 []interface{}) string {
 					return "null"
 				}
 				// 类型为Raw的参数不需要进行特殊处理
-				if v, ok := 参数数组[index].(X原生sql); ok {
+				if v, ok := 参数数组[index].(Raw); ok {
 					return 转换类.String(v)
 				}
 				reflectInfo := reflection.OriginValueAndKind(参数数组[index])

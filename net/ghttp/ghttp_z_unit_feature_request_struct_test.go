@@ -24,17 +24,17 @@ func Test_Params_Parse(t *testing.T) {
 		Map  map[string]interface{}
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		var user *User
 		if err := r.X解析参数到结构(&user); err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(user.Map["id"], user.Map["score"])
+		r.X响应.X写响应缓冲区并退出(user.Map["id"], user.Map["score"])
 	})
-	s.X绑定("/parseErr", func(r *http类.Request) {
+	s.X绑定("/parseErr", func(r *http类.X请求) {
 		var user User
 		err := r.X解析参数到结构(user)
-		r.Response.X写响应缓冲区并退出(err != nil)
+		r.X响应.X写响应缓冲区并退出(err != nil)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -55,12 +55,12 @@ func Test_Params_ParseQuery(t *testing.T) {
 		Name string
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse-query", func(r *http类.Request) {
+	s.X绑定("/parse-query", func(r *http类.X请求) {
 		var user *User
 		if err := r.X解析URL到结构(&user); err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(user.Id, user.Name)
+		r.X响应.X写响应缓冲区并退出(user.Id, user.Name)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -86,12 +86,12 @@ func Test_Params_ParseForm(t *testing.T) {
 		Name string
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse-form", func(r *http类.Request) {
+	s.X绑定("/parse-form", func(r *http类.X请求) {
 		var user *User
 		if err := r.X解析表单到结构(&user); err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(user.Id, user.Name)
+		r.X响应.X写响应缓冲区并退出(user.Id, user.Name)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -183,13 +183,13 @@ func Test_Params_ComplexJsonStruct(t *testing.T) {
 	}
 
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			var data *SaveRequest
 			if err := r.X解析参数到结构(&data); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
-			r.Response.X写响应缓冲区并退出(data)
+			r.X响应.X写响应缓冲区并退出(data)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -293,22 +293,22 @@ func Test_Params_Parse_Attr_Pointer1(t *testing.T) {
 		Name *string
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse1", func(r *http类.Request) {
+	s.X绑定("/parse1", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			var user *User
 			if err := r.X解析参数到结构(&user); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
-			r.Response.X写响应缓冲区并退出(user.Id, user.Name)
+			r.X响应.X写响应缓冲区并退出(user.Id, user.Name)
 		}
 	})
-	s.X绑定("/parse2", func(r *http类.Request) {
+	s.X绑定("/parse2", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			var user = new(User)
 			if err := r.X解析参数到结构(user); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
-			r.Response.X写响应缓冲区并退出(user.Id, user.Name)
+			r.X响应.X写响应缓冲区并退出(user.Id, user.Name)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -331,12 +331,12 @@ func Test_Params_Parse_Attr_Pointer2(t *testing.T) {
 		Id *int `v:"required"`
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		var user *User
 		if err := r.X解析参数到结构(&user); err != nil {
-			r.Response.X写响应缓冲区并退出(err.Error())
+			r.X响应.X写响应缓冲区并退出(err.Error())
 		}
-		r.Response.X写响应缓冲区并退出(user.Id)
+		r.X响应.X写响应缓冲区并退出(user.Id)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -392,44 +392,44 @@ func Test_Params_Struct(t *testing.T) {
 		Pass2 string `p:"password2" v:"password2 @required|length:2,20|password3#||密码强度不足"`
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/struct1", func(r *http类.Request) {
+	s.X绑定("/struct1", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			user := new(User)
 			if err := r.GetStruct别名(user); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
-			r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.X响应.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 		}
 	})
-	s.X绑定("/struct2", func(r *http类.Request) {
+	s.X绑定("/struct2", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			user := (*User)(nil)
 			if err := r.GetStruct别名(&user); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
 			if user != nil {
-				r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
+				r.X响应.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 			}
 		}
 	})
-	s.X绑定("/struct-valid", func(r *http类.Request) {
+	s.X绑定("/struct-valid", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			user := new(User)
 			if err := r.GetStruct别名(user); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
 			if err := 效验类.New().Data(user).Run(r.Context别名()); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
 		}
 	})
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			var user *User
 			if err := r.X解析参数到结构(&user); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
-			r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.X响应.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -459,12 +459,12 @@ func Test_Params_Structs(t *testing.T) {
 		Pass2 string `p:"password2" v:"password2 @required|length:2,20|password3#||密码强度不足"`
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse1", func(r *http类.Request) {
+	s.X绑定("/parse1", func(r *http类.X请求) {
 		var users []*User
 		if err := r.X解析参数到结构(&users); err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(users[0].Id, users[1].Id)
+		r.X响应.X写响应缓冲区并退出(users[0].Id, users[1].Id)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -488,17 +488,17 @@ func Test_Params_Struct_Validation(t *testing.T) {
 		Name string `v:"name@required-with:id"`
 	}
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定所有类型("/", func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定所有类型("/", func(r *http类.X请求) {
 			var (
 				err  error
 				user *User
 			)
 			err = r.X解析参数到结构(&user)
 			if err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
-			r.Response.X写响应缓冲区并退出(user.Id, user.Name)
+			r.X响应.X写响应缓冲区并退出(user.Id, user.Name)
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -519,8 +519,8 @@ func Test_Params_Struct_Validation(t *testing.T) {
 // 这是GitHub上gogf/gf仓库中第1488号问题的链接
 func Test_Params_Parse_Issue1488(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定所有类型("/", func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定所有类型("/", func(r *http类.X请求) {
 			type Request struct {
 				Type         []int  `p:"type"`
 				Keyword      string `p:"keyword"`
@@ -545,7 +545,7 @@ func Test_Params_Parse_Issue1488(t *testing.T) {
 				})
 				var parsed Request
 				_ = r.X解析参数到结构(&parsed)
-				r.Response.X写响应缓冲区(parsed.Page, parsed.Limit)
+				r.X响应.X写响应缓冲区(parsed.Page, parsed.Limit)
 			}
 		})
 	})

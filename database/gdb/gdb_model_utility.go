@@ -29,7 +29,7 @@ func (m *Model) 底层QuoteWord(s string) string {
 // TableFields 获取并返回当前模式下指定表的字段信息。
 //
 // 另请参阅 DriverMysql.TableFields。
-func (m *Model) X取表字段信息Map(表名称 string, schema ...string) (字段信息Map map[string]*X字段信息, 错误 error) {
+func (m *Model) X取表字段信息Map(表名称 string, schema ...string) (字段信息Map map[string]*TableField, 错误 error) {
 	var (
 		table      = m.db.X取Core对象().guessPrimaryTableName(表名称)
 		usedSchema = 工具类.X取文本值或取默认值(m.schema, schema...)
@@ -201,7 +201,7 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 
 // getLink 返回配置了 `linkType` 属性的基础数据库连接对象。
 // 参数 `master` 指定在主从配置时是否使用主节点。
-func (m *Model) getLink(master bool) X底层链接 {
+func (m *Model) getLink(master bool) Link {
 	if m.tx != nil {
 		return &txLink{m.tx.X底层取事务对象()}
 	}
@@ -240,7 +240,7 @@ func (m *Model) getPrimaryKey() string {
 		return ""
 	}
 	for name, field := range tableFields {
-		if 文本类.X是否包含并忽略大小写(field.X索引信息, "pri") {
+		if 文本类.X是否包含并忽略大小写(field.Key, "pri") {
 			return name
 		}
 	}

@@ -31,12 +31,12 @@ var (
 
 // routerMapKey 根据给定的参数创建并返回一个唯一的路由键。
 // 此键用于 Server.routerMap 属性，主要用于检查重复的路由注册情况。
-func (s *Server) routerMapKey(hook HookName, method, path, domain string) string {
+func (s *X服务) routerMapKey(hook Hook名称, method, path, domain string) string {
 	return string(hook) + "%" + s.serveHandlerKey(method, path, domain)
 }
 
 // parsePattern 将给定的模式解析为域名、方法和路径变量。
-func (s *Server) parsePattern(pattern string) (domain, method, path string, err error) {
+func (s *X服务) parsePattern(pattern string) (domain, method, path string, err error) {
 	path = strings.TrimSpace(pattern)
 	domain = DefaultDomainName
 	method = defaultMethod
@@ -64,25 +64,25 @@ func (s *Server) parsePattern(pattern string) (domain, method, path string, err 
 type setHandlerInput struct {
 	Prefix      string
 	Pattern     string
-	HandlerItem *HandlerItem
+	HandlerItem *X路由处理函数
 }
 
 // setHandler 根据给定的处理器和模式创建路由项，并将处理器注册到路由树中。
 // 路由树可以被视为一个多层哈希表，请参考下文中的注释。
 // 此函数在服务器启动时调用，对性能要求不高。真正重要的是
 // 当请求处于服务状态时，用于路由搜索的良好设计的路由存储结构。
-func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
+func (s *X服务) setHandler(ctx context.Context, in setHandlerInput) {
 	var (
 		prefix  = in.Prefix
 		pattern = in.Pattern
 		handler = in.HandlerItem
 	)
-	if handler.Name == "" {
-		handler.Name = runtime.FuncForPC(handler.Info.Value.Pointer()).Name()
+	if handler.X处理器名称 == "" {
+		handler.X处理器名称 = runtime.FuncForPC(handler.X处理器函数信息.Value.Pointer()).Name()
 	}
-	if handler.Source == "" {
+	if handler.X注册来源 == "" {
 		_, file, line := gdebug.CallerWithFilter([]string{consts.StackFilterKeyForGoFrame})
-		handler.Source = fmt.Sprintf(`%s:%d`, file, line)
+		handler.X注册来源 = fmt.Sprintf(`%s:%d`, file, line)
 	}
 	domain, method, uri, err := s.parsePattern(pattern)
 	if err != nil {
@@ -93,8 +93,8 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 // 根据请求结构中的元信息更改已注册的路由。
 // 它支持使用逗号 `,` 连接的多种方法。
 // ====================================================================================
-	if handler.Info.Type != nil && handler.Info.Type.NumIn() == 2 {
-		var objectReq = reflect.New(handler.Info.Type.In(1))
+	if handler.X处理器函数信息.Type != nil && handler.X处理器函数信息.Type.NumIn() == 2 {
+		var objectReq = reflect.New(handler.X处理器函数信息.Type.In(1))
 		if v := 元数据类.Get(objectReq, gtag.Path); !v.X是否为空() {
 			uri = v.String()
 		}
@@ -122,8 +122,8 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 	s.doSetHandler(ctx, handler, prefix, uri, pattern, method, domain)
 }
 
-func (s *Server) doSetHandler(
-	ctx context.Context, handler *HandlerItem,
+func (s *X服务) doSetHandler(
+	ctx context.Context, handler *X路由处理函数,
 	prefix, uri, pattern, method, domain string,
 ) {
 	if !s.isValidMethod(method) {
@@ -147,12 +147,12 @@ func (s *Server) doSetHandler(
 	}
 
 	// 重复路由检查，可以通过服务器配置禁用此功能。
-	var routerKey = s.routerMapKey(handler.HookName, method, uri, domain)
-	if !s.config.RouteOverWrite {
+	var routerKey = s.routerMapKey(handler.Hook名称, method, uri, domain)
+	if !s.config.X路由允许覆盖 {
 		switch handler.Type {
 		case HandlerTypeHandler, HandlerTypeObject:
 			if items, ok := s.routesMap[routerKey]; ok {
-				var duplicatedHandler *HandlerItem
+				var duplicatedHandler *X路由处理函数
 				for i, item := range items {
 					switch item.Type {
 					case HandlerTypeHandler, HandlerTypeObject:
@@ -166,7 +166,7 @@ func (s *Server) doSetHandler(
 					s.Logger别名().X输出并格式化FATA(
 						ctx,
 						`duplicated route registry "%s" at %s , already registered at %s`,
-						pattern, handler.Source, duplicatedHandler.Source,
+						pattern, handler.X注册来源, duplicatedHandler.X注册来源,
 					)
 				}
 			}
@@ -175,13 +175,13 @@ func (s *Server) doSetHandler(
 	// 每个处理器的唯一标识 ID
 	handler.Id = handlerIdGenerator.Add(1)
 	// 根据给定参数创建一个新的路由器。
-	handler.Router = &Router{
+	handler.X路由 = &X路由{
 		Uri:      uri,
 		Domain:   domain,
 		Method:   strings.ToUpper(method),
 		Priority: strings.Count(uri[1:], "/"),
 	}
-	handler.Router.RegRule, handler.Router.RegNames = s.patternToRegular(uri)
+	handler.X路由.X正则路由规则, handler.X路由.X路由参数名称 = s.patternToRegular(uri)
 
 	if _, ok := s.serveTree[domain]; !ok {
 		s.serveTree[domain] = make(map[string]interface{})
@@ -242,11 +242,11 @@ func (s *Server) doSetHandler(
 		}
 	}
 // 它遍历`lists`列表数组，比较优先级并将新的路由项插入到每个列表中的适当位置。列表的优先级从高到低排序。
-	var item *HandlerItem
+	var item *X路由处理函数
 	for _, l := range lists {
 		pushed := false
 		for e := l.Front(); e != nil; e = e.Next() {
-			item = e.Value.(*HandlerItem)
+			item = e.Value.(*X路由处理函数)
 // 检查优先级，是否在当前项之前插入路由项，
 // 这意味着它具有更高的优先级。
 			if s.compareRouterPriority(handler, item) {
@@ -263,14 +263,14 @@ func (s *Server) doSetHandler(
 	}
 	// 初始化路由映射项。
 	if _, ok := s.routesMap[routerKey]; !ok {
-		s.routesMap[routerKey] = make([]*HandlerItem, 0)
+		s.routesMap[routerKey] = make([]*X路由处理函数, 0)
 	}
 
 	// Append the route.
 	s.routesMap[routerKey] = append(s.routesMap[routerKey], handler)
 }
 
-func (s *Server) isValidMethod(method string) bool {
+func (s *X服务) isValidMethod(method string) bool {
 	if 文本类.X相等比较并忽略大小写(method, defaultMethod) {
 		return true
 	}
@@ -284,7 +284,7 @@ func (s *Server) isValidMethod(method string) bool {
 // 1. 中间件具有最高的优先级。
 // 2. URI：路径越深，优先级越高（简单地检查 URI 中字符 '/' 的数量）。
 // 3. 路由类型：{xxx} > :xxx > *xxx。
-func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerItem) bool {
+func (s *X服务) compareRouterPriority(newItem *X路由处理函数, oldItem *X路由处理函数) bool {
 	// 如果它们都是中间件类型，则优先级根据其注册顺序决定。
 	if newItem.Type == HandlerTypeMiddleware && oldItem.Type == HandlerTypeMiddleware {
 		return false
@@ -294,10 +294,10 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return true
 	}
 	// URI：URI中'/'字符出现次数越多，级别越高。
-	if newItem.Router.Priority > oldItem.Router.Priority {
+	if newItem.X路由.Priority > oldItem.X路由.Priority {
 		return true
 	}
-	if newItem.Router.Priority < oldItem.Router.Priority {
+	if newItem.X路由.Priority < oldItem.X路由.Priority {
 		return false
 	}
 
@@ -311,8 +311,8 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 // 第一条规则表示将 "/admin-goods-任意页码" 重写为 "/admin-任意页码"，其中 {page} 是一个占位符，代表任何数字页码。
 // 第二条规则表示将 "/任意哈希值.任意类型" 重写为 "/任意哈希值"，其中 {hash} 和 {type} 分别是占位符，代表任何哈希值和文件类型。
 	var uriNew, uriOld string
-	uriNew, _ = 正则类.X替换文本(`\{[^/]+?\}`, "", newItem.Router.Uri)
-	uriOld, _ = 正则类.X替换文本(`\{[^/]+?\}`, "", oldItem.Router.Uri)
+	uriNew, _ = 正则类.X替换文本(`\{[^/]+?\}`, "", newItem.X路由.Uri)
+	uriOld, _ = 正则类.X替换文本(`\{[^/]+?\}`, "", oldItem.X路由.Uri)
 	uriNew, _ = 正则类.X替换文本(`:[^/]+?`, "", uriNew)
 	uriOld, _ = 正则类.X替换文本(`:[^/]+?`, "", uriOld)
 	uriNew, _ = 正则类.X替换文本(`\*[^/]*`, "", uriNew) // 将 "/*" 和 "/*any" 进行替换。
@@ -338,7 +338,7 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		fuzzyCountTotalNew int
 		fuzzyCountTotalOld int
 	)
-	for _, v := range newItem.Router.Uri {
+	for _, v := range newItem.X路由.Uri {
 		switch v {
 		case '{':
 			fuzzyCountFieldNew++
@@ -348,7 +348,7 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 			fuzzyCountAnyNew++
 		}
 	}
-	for _, v := range oldItem.Router.Uri {
+	for _, v := range oldItem.X路由.Uri {
 		switch v {
 		case '{':
 			fuzzyCountFieldOld++
@@ -387,10 +387,10 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 
 // 然后比较它们的HTTP方法的准确性，
 // 越准确则优先级越高。
-	if newItem.Router.Method != defaultMethod {
+	if newItem.X路由.Method != defaultMethod {
 		return true
 	}
-	if oldItem.Router.Method != defaultMethod {
+	if oldItem.X路由.Method != defaultMethod {
 		return true
 	}
 
@@ -406,7 +406,7 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 }
 
 // patternToRegular 将路由规则转换为相应的正则表达式。
-func (s *Server) patternToRegular(rule string) (regular string, names []string) {
+func (s *X服务) patternToRegular(rule string) (regular string, names []string) {
 	if len(rule) < 2 {
 		return rule, nil
 	}

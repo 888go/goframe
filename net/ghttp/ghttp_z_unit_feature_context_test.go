@@ -18,13 +18,13 @@ import (
 
 func Test_Context(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
 			r.X设置上下文对象值("traceid", 123)
-			r.Middleware.Next()
+			r.X中间件管理器.Next()
 		})
-		group.X绑定GET("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.X取上下文对象值("traceid"))
+		group.X绑定GET("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.X取上下文对象值("traceid"))
 		})
 	})
 	s.SetDumpRouterMap(false)

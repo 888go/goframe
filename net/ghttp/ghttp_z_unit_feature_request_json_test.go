@@ -26,21 +26,21 @@ func Test_Params_Json_Request(t *testing.T) {
 		Pass2 string `p:"password2" v:"password2@required|length:2,20|password3|same:password1#||密码强度不足|两次密码不一致"`
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/get", func(r *http类.Request) {
-		r.Response.X写响应缓冲区并退出(r.Get别名("id"), r.Get别名("name"))
+	s.X绑定("/get", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区并退出(r.Get别名("id"), r.Get别名("name"))
 	})
-	s.X绑定("/map", func(r *http类.Request) {
+	s.X绑定("/map", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
-			r.Response.X写响应缓冲区并退出(m["id"], m["name"], m["password1"], m["password2"])
+			r.X响应.X写响应缓冲区并退出(m["id"], m["name"], m["password1"], m["password2"])
 		}
 	})
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		if m := r.GetMap别名(); len(m) > 0 {
 			var user *User
 			if err := r.X解析参数到结构(&user); err != nil {
-				r.Response.X写响应缓冲区并退出(err)
+				r.X响应.X写响应缓冲区并退出(err)
 			}
-			r.Response.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.X响应.X写响应缓冲区并退出(user.Id, user.Name, user.Pass1, user.Pass2)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -70,8 +70,8 @@ func Test_Params_Json_Response(t *testing.T) {
 	}
 
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/json1", func(r *http类.Request) {
-		r.Response.X写响应缓冲区JSON(User{
+	s.X绑定("/json1", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区JSON(User{
 			Uid:     100,
 			Name:    "john",
 			SiteUrl: "https://goframe.org",
@@ -79,8 +79,8 @@ func Test_Params_Json_Response(t *testing.T) {
 			Pass2:   "456",
 		})
 	})
-	s.X绑定("/json2", func(r *http类.Request) {
-		r.Response.X写响应缓冲区JSON(&User{
+	s.X绑定("/json2", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区JSON(&User{
 			Uid:     100,
 			Name:    "john",
 			SiteUrl: "https://goframe.org",
@@ -88,7 +88,7 @@ func Test_Params_Json_Response(t *testing.T) {
 			Pass2:   "456",
 		})
 	})
-	s.X绑定("/json3", func(r *http类.Request) {
+	s.X绑定("/json3", func(r *http类.X请求) {
 		type Message struct {
 			Code  int    `json:"code"`
 			Body  string `json:"body,omitempty"`
@@ -107,9 +107,9 @@ func Test_Params_Json_Response(t *testing.T) {
 			ExtData: nil,
 			Message: Message{3, "测试", "error"},
 		}
-		r.Response.X写响应缓冲区JSON(responseJson)
+		r.X响应.X写响应缓冲区JSON(responseJson)
 	})
-	s.X绑定("/json4", func(r *http类.Request) {
+	s.X绑定("/json4", func(r *http类.X请求) {
 		type Message struct {
 			Code  int    `json:"code"`
 			Body  string `json:"body,omitempty"`
@@ -128,7 +128,7 @@ func Test_Params_Json_Response(t *testing.T) {
 			ExtData: nil,
 			Message: &Message{3, "测试", "error"},
 		}
-		r.Response.X写响应缓冲区JSON(responseJson)
+		r.X响应.X写响应缓冲区JSON(responseJson)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()

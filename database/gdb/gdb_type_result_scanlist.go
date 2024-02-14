@@ -87,7 +87,7 @@ import (
 // 示例代码中的 "uid" 是结果表字段名，而 "Uid" 是关联结构体属性名——而不是目标绑定的属性名。在示例中，它是实体 "Entity" 中 "User" 的属性名 "Uid"。它会根据给定的 `relation` 参数自动计算 HasOne/HasMany 关系。
 //
 // 为了清晰理解此函数，请参考示例或单元测试用例。
-func (r X行记录数组) X取指针列表(结构体切片指针 interface{}, 绑定到结构体属性名称 string, 结构体属性关联 ...string) (错误 error) {
+func (r Result) X取指针列表(结构体切片指针 interface{}, 绑定到结构体属性名称 string, 结构体属性关联 ...string) (错误 error) {
 	out, 错误 := checkGetSliceElementInfoForScanList(结构体切片指针, 绑定到结构体属性名称)
 	if 错误 != nil {
 		return 错误
@@ -189,7 +189,7 @@ func checkGetSliceElementInfoForScanList(structSlicePointer interface{}, bindToA
 
 type doScanListInput struct {
 	Model              *Model
-	Result             X行记录数组
+	Result             Result
 	StructSlicePointer interface{}
 	StructSliceValue   reflect.Value
 	BindToAttrName     string
@@ -238,7 +238,7 @@ func doScanList(in doScanListInput) (err error) {
 
 	// 关系变量。
 	var (
-		relationDataMap         map[string]X字段值
+		relationDataMap         map[string]Value
 		relationFromFieldName   string // 示例：relationKV: id:uid -> id
 // 这个注释表明了一个键值对的示例，其中关系（relationKV）的键是"id:uid"，对应的值为"id"。在实际应用中，这可能表示一个映射关系，通过用户ID(uid)可以找到对应的ID(id)。
 		relationBindToFieldName string // 示例：relationKV: id:uid  -> uid
@@ -383,9 +383,9 @@ func doScanList(in doScanListInput) (err error) {
 			if len(relationDataMap) > 0 {
 				relationFromAttrField = relationFromAttrValue.FieldByName(relationBindToFieldName)
 				if relationFromAttrField.IsValid() {
-					results := make(X行记录数组, 0)
+					results := make(Result, 0)
 					for _, v := range relationDataMap[转换类.String(relationFromAttrField.Interface())].Slice别名() {
-						results = append(results, v.(X行记录))
+						results = append(results, v.(Record))
 					}
 					if err = results.X取数组结构体指针(bindToAttrValue.Addr()); err != nil {
 						return err
@@ -424,11 +424,11 @@ func doScanList(in doScanListInput) (err error) {
 						continue
 					}
 					if v.X是否为数组() {
-						if err = v.Slice别名()[0].(X行记录).X取结构体指针(element); err != nil {
+						if err = v.Slice别名()[0].(Record).X取结构体指针(element); err != nil {
 							return err
 						}
 					} else {
-						if err = v.X取值().(X行记录).X取结构体指针(element); err != nil {
+						if err = v.X取值().(Record).X取结构体指针(element); err != nil {
 							return err
 						}
 					}
@@ -468,11 +468,11 @@ func doScanList(in doScanListInput) (err error) {
 						continue
 					}
 					if relationDataItem.X是否为数组() {
-						if err = relationDataItem.Slice别名()[0].(X行记录).X取结构体指针(bindToAttrValue); err != nil {
+						if err = relationDataItem.Slice别名()[0].(Record).X取结构体指针(bindToAttrValue); err != nil {
 							return err
 						}
 					} else {
-						if err = relationDataItem.X取值().(X行记录).X取结构体指针(bindToAttrValue); err != nil {
+						if err = relationDataItem.X取值().(Record).X取结构体指针(bindToAttrValue); err != nil {
 							return err
 						}
 					}

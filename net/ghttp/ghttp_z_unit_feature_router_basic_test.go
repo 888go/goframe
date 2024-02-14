@@ -18,20 +18,20 @@ import (
 
 func Test_Router_Basic1(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/:name", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("/:name")
+	s.X绑定("/:name", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("/:name")
 	})
-	s.X绑定("/:name/update", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("name"))
+	s.X绑定("/:name/update", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("name"))
 	})
-	s.X绑定("/:name/:action", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("action"))
+	s.X绑定("/:name/:action", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("action"))
 	})
-	s.X绑定("/:name/*any", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("any"))
+	s.X绑定("/:name/*any", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("any"))
 	})
-	s.X绑定("/user/list/{field}.html", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("field"))
+	s.X绑定("/user/list/{field}.html", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("field"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -50,11 +50,11 @@ func Test_Router_Basic1(t *testing.T) {
 
 func Test_Router_Basic2(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/{hash}", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("hash"))
+	s.X绑定("/{hash}", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("hash"))
 	})
-	s.X绑定("/{hash}.{type}", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("type"))
+	s.X绑定("/{hash}.{type}", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("type"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -71,20 +71,20 @@ func Test_Router_Basic2(t *testing.T) {
 
 func Test_Router_Value(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取路由器Map副本()["hash"])
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取路由器Map副本()["hash"])
 	})
-	s.X绑定("/GetRouter", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取路由器值到泛型类("name", "john").String())
+	s.X绑定("/GetRouter", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取路由器值到泛型类("name", "john").String())
 	})
-	s.X绑定("/{hash}", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取路由器值到泛型类("hash").String())
+	s.X绑定("/{hash}", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取路由器值到泛型类("hash").String())
 	})
-	s.X绑定("/{hash}.{type}", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取路由器值到泛型类("type").String())
+	s.X绑定("/{hash}.{type}", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取路由器值到泛型类("type").String())
 	})
-	s.X绑定("/{hash}.{type}.map", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取路由器Map副本()["type"])
+	s.X绑定("/{hash}.{type}.map", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取路由器Map副本()["type"])
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -105,10 +105,10 @@ func Test_Router_Value(t *testing.T) {
 // HTTP方法注册。
 func Test_Router_Method(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("GET:/get", func(r *http类.Request) {
+	s.X绑定("GET:/get", func(r *http类.X请求) {
 
 	})
-	s.X绑定("POST:/post", func(r *http类.Request) {
+	s.X绑定("POST:/post", func(r *http类.X请求) {
 
 	})
 	s.SetDumpRouterMap(false)
@@ -145,9 +145,9 @@ func Test_Router_Method(t *testing.T) {
 // 路由器的额外字符 '/'
 func Test_Router_ExtraChar(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/api", func(group *http类.RouterGroup) {
-		group.X绑定GET("/test", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("test")
+	s.X创建分组路由("/api", func(group *http类.X分组路由) {
+		group.X绑定GET("/test", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -171,17 +171,17 @@ func Test_Router_ExtraChar(t *testing.T) {
 // 自定义状态处理器
 func Test_Router_Status(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/200", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(200)
+	s.X绑定("/200", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(200)
 	})
-	s.X绑定("/300", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(300)
+	s.X绑定("/300", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(300)
 	})
-	s.X绑定("/400", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(400)
+	s.X绑定("/400", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(400)
 	})
-	s.X绑定("/500", func(r *http类.Request) {
-		r.Response.X写响应缓冲区与HTTP状态码(500)
+	s.X绑定("/500", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区与HTTP状态码(500)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -221,11 +221,11 @@ func Test_Router_Status(t *testing.T) {
 
 func Test_Router_CustomStatusHandler(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello")
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello")
 	})
-	s.X绑定状态码中间件(404, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("404 page")
+	s.X绑定状态码中间件(404, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("404 page")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -248,8 +248,8 @@ func Test_Router_CustomStatusHandler(t *testing.T) {
 // 404未找到路由。
 func Test_Router_404(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello")
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -270,17 +270,17 @@ func Test_Router_404(t *testing.T) {
 
 func Test_Router_Priority(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/admin", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("admin")
+	s.X绑定("/admin", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("admin")
 	})
-	s.X绑定("/admin-{page}", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("admin-{page}")
+	s.X绑定("/admin-{page}", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("admin-{page}")
 	})
-	s.X绑定("/admin-goods", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("admin-goods")
+	s.X绑定("/admin-goods", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("admin-goods")
 	})
-	s.X绑定("/admin-goods-{page}", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("admin-goods-{page}")
+	s.X绑定("/admin-goods-{page}", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("admin-goods-{page}")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()

@@ -139,17 +139,17 @@ func (c *Core) X取从节点对象(数据库名称 ...string) (*sql.DB, error) {
 }
 
 // GetAll 从数据库查询并返回数据记录。
-func (c *Core) GetAll别名(上下文 context.Context, sql string, 参数 ...interface{}) (X行记录数组, error) {
+func (c *Core) GetAll别名(上下文 context.Context, sql string, 参数 ...interface{}) (Result, error) {
 	return c.db.X底层查询(上下文, nil, sql, 参数...)
 }
 
 // DoSelect 从数据库查询并返回数据记录。
-func (c *Core) X底层查询(上下文 context.Context, 链接 X底层链接, sql string, 参数 ...interface{}) (结果 X行记录数组, 错误 error) {
+func (c *Core) X底层查询(上下文 context.Context, 链接 Link, sql string, 参数 ...interface{}) (结果 Result, 错误 error) {
 	return c.db.X底层原生SQL查询(上下文, 链接, sql, 参数...)
 }
 
 // GetOne 从数据库查询并返回一条记录。
-func (c *Core) X原生SQL查询单条记录(上下文 context.Context, sql string, 参数 ...interface{}) (X行记录, error) {
+func (c *Core) X原生SQL查询单条记录(上下文 context.Context, sql string, 参数 ...interface{}) (Record, error) {
 	list, err := c.db.GetAll别名(上下文, sql, 参数...)
 	if err != nil {
 		return nil, err
@@ -162,7 +162,7 @@ func (c *Core) X原生SQL查询单条记录(上下文 context.Context, sql strin
 
 // GetArray 从数据库查询并返回数据值作为切片。
 // 注意，如果结果中有多个列，则它会随机返回其中一列的值。
-func (c *Core) X原生SQL查询数组(上下文 context.Context, sql string, 参数 ...interface{}) ([]X字段值, error) {
+func (c *Core) X原生SQL查询数组(上下文 context.Context, sql string, 参数 ...interface{}) ([]Value, error) {
 	all, err := c.db.X底层查询(上下文, nil, sql, 参数...)
 	if err != nil {
 		return nil, err
@@ -218,7 +218,7 @@ func (c *Core) X原生SQL查询到结构体指针(上下文 context.Context, 结
 
 // GetValue 从数据库查询并返回字段值。
 // SQL语句应当只查询数据库中的一个字段，否则它将仅返回结果中的一个字段。
-func (c *Core) X原生SQL查询字段值(上下文 context.Context, sql string, 参数 ...interface{}) (X字段值, error) {
+func (c *Core) X原生SQL查询字段值(上下文 context.Context, sql string, 参数 ...interface{}) (Value, error) {
 	one, err := c.db.X原生SQL查询单条记录(上下文, sql, 参数...)
 	if err != nil {
 		return 泛型类.X创建(nil), err
@@ -392,7 +392,7 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 	// 按照顺序对字段进行排序。
 	var fieldsOfTableInSequence = make([]string, len(tableFields))
 	for _, field := range tableFields {
-		fieldsOfTableInSequence[field.X排序] = field.X名称
+		fieldsOfTableInSequence[field.Index] = field.Name
 	}
 	// 对输入字段进行排序。
 	for _, fieldName := range fieldsOfTableInSequence {
@@ -414,7 +414,7 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 // InsertOptionReplace：如果数据中存在唯一/主键，先从表中删除，再插入新的数据；
 // InsertOptionSave：如果数据中存在唯一/主键，则更新该记录，否则插入新记录；
 // InsertOptionIgnore：如果数据中存在唯一/主键，则忽略插入操作。
-func (c *Core) X底层插入(上下文 context.Context, 链接 X底层链接, 表名称 string, list Map数组, option X底层输入) (result sql.Result, err error) {
+func (c *Core) X底层插入(上下文 context.Context, 链接 Link, 表名称 string, list Map数组, option DoInsertOption) (result sql.Result, err error) {
 	var (
 		keys           []string      // Field names.
 		values         []string      // 值持有者字符串数组，例如：(?,?,?)
@@ -487,7 +487,7 @@ func (c *Core) X底层插入(上下文 context.Context, 链接 X底层链接, �
 // 请注意，map类型是无序的，
 // 所以应当使用切片+键来获取值。
 		for _, k := range keys {
-			if s, ok := list[i][k].(X原生sql); ok {
+			if s, ok := list[i][k].(Raw); ok {
 				values = append(values, 转换类.String(s))
 			} else {
 				values = append(values, "?")
@@ -524,7 +524,7 @@ func (c *Core) X底层插入(上下文 context.Context, 链接 X底层链接, �
 	return batchResult, nil
 }
 
-func (c *Core) formatOnDuplicate(columns []string, option X底层输入) string {
+func (c *Core) formatOnDuplicate(columns []string, option DoInsertOption) string {
 	var onDuplicateStr string
 	if option.OnDuplicateStr != "" {
 		onDuplicateStr = option.OnDuplicateStr
@@ -534,7 +534,7 @@ func (c *Core) formatOnDuplicate(columns []string, option X底层输入) string 
 				onDuplicateStr += ","
 			}
 			switch v.(type) {
-			case X原生sql, *X原生sql:
+			case Raw, *Raw:
 				onDuplicateStr += fmt.Sprintf(
 					"%s=%s",
 					c.X底层QuoteWord(k),
@@ -587,7 +587,7 @@ func (c *Core) X更新(上下文 context.Context, 表名称 string, 数据 inter
 
 // DoUpdate 执行针对该表的 "UPDATE ... " 语句。
 // 该函数通常用于自定义接口定义，您无需手动调用它。
-func (c *Core) X底层更新(上下文 context.Context, 链接 X底层链接, 表名称 string, 值 interface{}, 条件 string, 参数 ...interface{}) (result sql.Result, err error) {
+func (c *Core) X底层更新(上下文 context.Context, 链接 Link, 表名称 string, 值 interface{}, 条件 string, 参数 ...interface{}) (result sql.Result, err error) {
 	表名称 = c.X底层添加前缀字符和引用字符(表名称)
 	var (
 		rv   = reflect.ValueOf(值)
@@ -649,7 +649,7 @@ func (c *Core) X底层更新(上下文 context.Context, 链接 X底层链接, �
 				counterHandler(k, value)
 
 			default:
-				if s, ok := v.(X原生sql); ok {
+				if s, ok := v.(Raw); ok {
 					fields = append(fields, c.X底层QuoteWord(k)+"="+转换类.String(s))
 				} else {
 					fields = append(fields, c.X底层QuoteWord(k)+"=?")
@@ -709,7 +709,7 @@ func (c *Core) X删除(上下文 context.Context, 表名称 string, 条件 inter
 
 // DoDelete 执行针对表的 "DELETE FROM ..." 语句。
 // 该函数通常用于自定义接口定义，无需手动调用。
-func (c *Core) X底层删除(上下文 context.Context, 链接 X底层链接, 表名称 string, 条件 string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
+func (c *Core) X底层删除(上下文 context.Context, 链接 Link, 表名称 string, 条件 string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
 	if 链接 == nil {
 		if 链接, 错误 = c.X底层MasterLink(); 错误 != nil {
 			return nil, 错误
@@ -739,17 +739,17 @@ func (c Core) MarshalJSON() ([]byte, error) {
 // 仅当配置项 "debug" 为 true 时，此功能才被启用。
 func (c *Core) writeSqlToLogger(ctx context.Context, sql *Sql) {
 	var transactionIdStr string
-	if sql.X是否为事务 {
+	if sql.IsTransaction {
 		if v := ctx.Value(transactionIdForLoggerCtx); v != nil {
 			transactionIdStr = fmt.Sprintf(`[txid:%d] `, v.(uint64))
 		}
 	}
 	s := fmt.Sprintf(
 		"[%3d ms] [%s] [%s] [rows:%-3d] %s%s",
-		sql.X结束时间戳-sql.X开始时间戳, sql.X配置组名称, sql.X架构名称, sql.X影响行数, transactionIdStr, sql.SQL格式化后,
+		sql.End-sql.Start, sql.Group, sql.Schema, sql.RowsAffected, transactionIdStr, sql.Format,
 	)
-	if sql.X执行错误 != nil {
-		s += "\nError: " + sql.X执行错误.Error()
+	if sql.Error != nil {
+		s += "\nError: " + sql.Error.Error()
 		c.logger.Error(ctx, s)
 	} else {
 		c.logger.X输出DEBU(ctx, s)

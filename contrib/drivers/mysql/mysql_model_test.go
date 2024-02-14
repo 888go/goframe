@@ -706,10 +706,10 @@ func Test_Model_Count(t *testing.T) {
 	// 带缓存计数，检查内部ctx数据特性。
 	单元测试类.C(t, func(t *单元测试类.T) {
 		for i := 0; i < 10; i++ {
-			count, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-				Duration: time.Second * 10,
-				Name:     uid类.X生成(),
-				Force:    false,
+			count, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+				X时长: time.Second * 10,
+				X名称:     uid类.X生成(),
+				X强制缓存:    false,
 			}).X查询行数()
 			t.AssertNil(err)
 			t.Assert(count, int64(TableSize))
@@ -738,9 +738,9 @@ func Test_Model_Value_WithCache(t *testing.T) {
 	defer dropTable(table)
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		value, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		value, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询一条值()
 		t.AssertNil(err)
 		t.Assert(value.X取整数(), 0)
@@ -757,9 +757,9 @@ func Test_Model_Value_WithCache(t *testing.T) {
 		t.Assert(n, 1)
 	})
 	单元测试类.C(t, func(t *单元测试类.T) {
-		value, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		value, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询一条值()
 		t.AssertNil(err)
 		t.Assert(value.X取整数(), 1)
@@ -771,9 +771,9 @@ func Test_Model_Count_WithCache(t *testing.T) {
 	defer dropTable(table)
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, int64(0))
@@ -790,9 +790,9 @@ func Test_Model_Count_WithCache(t *testing.T) {
 		t.Assert(n, 1)
 	})
 	单元测试类.C(t, func(t *单元测试类.T) {
-		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, int64(1))
@@ -804,9 +804,9 @@ func Test_Model_Count_All_WithCache(t *testing.T) {
 	defer dropTable(table)
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		count, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		count, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, int64(0))
@@ -823,9 +823,9 @@ func Test_Model_Count_All_WithCache(t *testing.T) {
 		t.Assert(n, 1)
 	})
 	单元测试类.C(t, func(t *单元测试类.T) {
-		count, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		count, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, int64(1))
@@ -842,9 +842,9 @@ func Test_Model_Count_All_WithCache(t *testing.T) {
 		t.Assert(n, 1)
 	})
 	单元测试类.C(t, func(t *单元测试类.T) {
-		count, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		count, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, int64(1))
@@ -856,9 +856,9 @@ func Test_Model_CountColumn_WithCache(t *testing.T) {
 	defer dropTable(table)
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询字段行数("id")
 		t.AssertNil(err)
 		t.Assert(count, int64(0))
@@ -875,9 +875,9 @@ func Test_Model_CountColumn_WithCache(t *testing.T) {
 		t.Assert(n, 1)
 	})
 	单元测试类.C(t, func(t *单元测试类.T) {
-		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.CacheOption{
-			Duration: time.Second * 10,
-			Force:    false,
+		count, err := db.X创建Model对象(table).X条件("id", 1).X缓存(db类.X缓存选项{
+			X时长: time.Second * 10,
+			X强制缓存:    false,
 		}).X查询字段行数("id")
 		t.AssertNil(err)
 		t.Assert(count, int64(1))
@@ -2700,10 +2700,10 @@ func Test_Model_Cache(t *testing.T) {
 	defer dropTable(table)
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		one, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test1",
-			Force:    false,
+		one, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test1",
+			X强制缓存:    false,
 		}).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_1")
@@ -2714,47 +2714,47 @@ func Test_Model_Cache(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(n, 1)
 
-		one, err = db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test1",
-			Force:    false,
+		one, err = db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test1",
+			X强制缓存:    false,
 		}).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_1")
 
 		time.Sleep(time.Second * 2)
 
-		one, err = db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test1",
-			Force:    false,
+		one, err = db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test1",
+			X强制缓存:    false,
 		}).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_100")
 	})
 	单元测试类.C(t, func(t *单元测试类.T) {
-		one, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test2",
-			Force:    false,
+		one, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test2",
+			X强制缓存:    false,
 		}).X条件并识别主键(2).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_2")
 
-		r, err := db.X创建Model对象(table).X设置数据("passport", "user_200").X缓存(db类.CacheOption{
-			Duration: -1,
-			Name:     "test2",
-			Force:    false,
+		r, err := db.X创建Model对象(table).X设置数据("passport", "user_200").X缓存(db类.X缓存选项{
+			X时长: -1,
+			X名称:     "test2",
+			X强制缓存:    false,
 		}).X条件并识别主键(2).X更新()
 		t.AssertNil(err)
 		n, err := r.RowsAffected()
 		t.AssertNil(err)
 		t.Assert(n, 1)
 
-		one, err = db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test2",
-			Force:    false,
+		one, err = db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test2",
+			X强制缓存:    false,
 		}).X条件并识别主键(2).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_200")
@@ -2762,18 +2762,18 @@ func Test_Model_Cache(t *testing.T) {
 	// transaction.
 	单元测试类.C(t, func(t *单元测试类.T) {
 		// 为id 3创建缓存
-		one, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test3",
-			Force:    false,
+		one, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test3",
+			X强制缓存:    false,
 		}).X条件并识别主键(3).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_3")
 
-		r, err := db.X创建Model对象(table).X设置数据("passport", "user_300").X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test3",
-			Force:    false,
+		r, err := db.X创建Model对象(table).X设置数据("passport", "user_300").X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test3",
+			X强制缓存:    false,
 		}).X条件并识别主键(3).X更新()
 		t.AssertNil(err)
 		n, err := r.RowsAffected()
@@ -2781,10 +2781,10 @@ func Test_Model_Cache(t *testing.T) {
 		t.Assert(n, 1)
 
 		err = db.X事务(context.TODO(), func(ctx context.Context, tx db类.TX) error {
-			one, err := tx.X创建Model对象(table).X缓存(db类.CacheOption{
-				Duration: time.Second,
-				Name:     "test3",
-				Force:    false,
+			one, err := tx.X创建Model对象(table).X缓存(db类.X缓存选项{
+				X时长: time.Second,
+				X名称:     "test3",
+				X强制缓存:    false,
 			}).X条件并识别主键(3).X查询一条()
 			t.AssertNil(err)
 			t.Assert(one["passport"], "user_300")
@@ -2792,28 +2792,28 @@ func Test_Model_Cache(t *testing.T) {
 		})
 		t.AssertNil(err)
 
-		one, err = db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test3",
-			Force:    false,
+		one, err = db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test3",
+			X强制缓存:    false,
 		}).X条件并识别主键(3).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_3")
 	})
 	单元测试类.C(t, func(t *单元测试类.T) {
 		// 为id 4创建缓存
-		one, err := db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test4",
-			Force:    false,
+		one, err := db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test4",
+			X强制缓存:    false,
 		}).X条件并识别主键(4).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_4")
 
-		r, err := db.X创建Model对象(table).X设置数据("passport", "user_400").X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test3",
-			Force:    false,
+		r, err := db.X创建Model对象(table).X设置数据("passport", "user_400").X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test3",
+			X强制缓存:    false,
 		}).X条件并识别主键(4).X更新()
 		t.AssertNil(err)
 		n, err := r.RowsAffected()
@@ -2822,19 +2822,19 @@ func Test_Model_Cache(t *testing.T) {
 
 		err = db.X事务(context.TODO(), func(ctx context.Context, tx db类.TX) error {
 			// 缓存功能已禁用。
-			one, err := tx.X创建Model对象(table).X缓存(db类.CacheOption{
-				Duration: time.Second,
-				Name:     "test4",
-				Force:    false,
+			one, err := tx.X创建Model对象(table).X缓存(db类.X缓存选项{
+				X时长: time.Second,
+				X名称:     "test4",
+				X强制缓存:    false,
 			}).X条件并识别主键(4).X查询一条()
 			t.AssertNil(err)
 			t.Assert(one["passport"], "user_400")
 			// Update the cache.
 			r, err := tx.X创建Model对象(table).X设置数据("passport", "user_4000").
-				X缓存(db类.CacheOption{
-					Duration: -1,
-					Name:     "test4",
-					Force:    false,
+				X缓存(db类.X缓存选项{
+					X时长: -1,
+					X名称:     "test4",
+					X强制缓存:    false,
 				}).X条件并识别主键(4).X更新()
 			t.AssertNil(err)
 			n, err := r.RowsAffected()
@@ -2844,10 +2844,10 @@ func Test_Model_Cache(t *testing.T) {
 		})
 		t.AssertNil(err)
 		// Read from db.
-		one, err = db.X创建Model对象(table).X缓存(db类.CacheOption{
-			Duration: time.Second,
-			Name:     "test4",
-			Force:    false,
+		one, err = db.X创建Model对象(table).X缓存(db类.X缓存选项{
+			X时长: time.Second,
+			X名称:     "test4",
+			X强制缓存:    false,
 		}).X条件并识别主键(4).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], "user_4000")

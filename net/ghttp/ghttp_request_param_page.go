@@ -15,9 +15,9 @@ import (
 
 // GetPage 根据给定的`totalSize`（总数据量）和`pageSize`（每页大小）创建并返回分页对象。
 // 注意：为了简化和方便，来自客户端的页参数名始终定义为 gpage.DefaultPageName。
-func (r *Request) X取分页类(总数据量, 每页大小 int) *分页类.Page {
+func (r *X请求) X取分页类(总数据量, 每页大小 int) *分页类.Page {
 	// 它必须具有Router对象属性。
-	if r.Router == nil {
+	if r.X路由 == nil {
 		panic("Router object not found")
 	}
 	var (
@@ -26,18 +26,18 @@ func (r *Request) X取分页类(总数据量, 每页大小 int) *分页类.Page 
 		uriHasPageName = false
 	)
 	// 检查URI中的page变量。
-	if len(r.Router.RegNames) > 0 {
-		for _, name := range r.Router.RegNames {
+	if len(r.X路由.X路由参数名称) > 0 {
+		for _, name := range r.X路由.X路由参数名称 {
 			if name == 分页类.X常量_默认页面名称 {
 				uriHasPageName = true
 				break
 			}
 		}
 		if uriHasPageName {
-			if match, err := 正则类.X匹配文本(r.Router.RegRule, url.Path); err == nil && len(match) > 0 {
-				if len(match) > len(r.Router.RegNames) {
-					urlTemplate = r.Router.Uri
-					for i, name := range r.Router.RegNames {
+			if match, err := 正则类.X匹配文本(r.X路由.X正则路由规则, url.Path); err == nil && len(match) > 0 {
+				if len(match) > len(r.X路由.X路由参数名称) {
+					urlTemplate = r.X路由.Uri
+					for i, name := range r.X路由.X路由参数名称 {
 						rule := fmt.Sprintf(`[:\*]%s|\{%s\}`, name, name)
 						if name == 分页类.X常量_默认页面名称 {
 							urlTemplate, err = 正则类.X替换文本(rule, 分页类.X常量_默认模板占位符, urlTemplate)

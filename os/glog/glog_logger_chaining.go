@@ -53,8 +53,8 @@ func (l *Logger) X文件分类(类名称 string) *Logger {
 	} else {
 		logger = l
 	}
-	if logger.config.Path != "" {
-		if err := logger.X设置文件路径(文件类.X路径生成(logger.config.Path, 类名称)); err != nil {
+	if logger.config.X文件路径 != "" {
+		if err := logger.X设置文件路径(文件类.X路径生成(logger.config.X文件路径, 类名称)); err != nil {
 			panic(err)
 		}
 	}
@@ -158,9 +158,9 @@ func (l *Logger) X是否同时输出到终端(开启 ...bool) *Logger {
 	}
 	// 如果未传递 `enabled`，则启用标准输出打印。
 	if len(开启) > 0 && !开启[0] {
-		logger.config.StdoutPrint = false
+		logger.config.X是否同时输出到终端 = false
 	} else {
-		logger.config.StdoutPrint = true
+		logger.config.X是否同时输出到终端 = true
 	}
 	return logger
 }
@@ -196,9 +196,9 @@ func (l *Logger) X是否输出源文件路径与行号(开启 ...bool) *Logger {
 		logger = l
 	}
 	if len(开启) > 0 && 开启[0] {
-		logger.config.Flags |= F_FILE_LONG
+		logger.config.X日志标识 |= F_FILE_LONG
 	} else {
-		logger.config.Flags |= F_FILE_SHORT
+		logger.config.X日志标识 |= F_FILE_SHORT
 	}
 	return logger
 }

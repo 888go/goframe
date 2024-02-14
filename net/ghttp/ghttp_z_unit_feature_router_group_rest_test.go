@@ -18,40 +18,40 @@ import (
 
 type GroupObjRest struct{}
 
-func (o *GroupObjRest) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("1")
+func (o *GroupObjRest) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("1")
 }
 
-func (o *GroupObjRest) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("2")
+func (o *GroupObjRest) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("2")
 }
 
-func (o *GroupObjRest) Get(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Get")
+func (o *GroupObjRest) Get(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Get")
 }
 
-func (o *GroupObjRest) Put(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Put")
+func (o *GroupObjRest) Put(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Put")
 }
 
-func (o *GroupObjRest) Post(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Post")
+func (o *GroupObjRest) Post(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Post")
 }
 
-func (o *GroupObjRest) Delete(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Delete")
+func (o *GroupObjRest) Delete(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Delete")
 }
 
-func (o *GroupObjRest) Patch(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Patch")
+func (o *GroupObjRest) Patch(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Patch")
 }
 
-func (o *GroupObjRest) Options(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Options")
+func (o *GroupObjRest) Options(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Options")
 }
 
-func (o *GroupObjRest) Head(r *http类.Request) {
-	r.Response.Header().Set("head-ok", "1")
+func (o *GroupObjRest) Head(r *http类.X请求) {
+	r.X响应.Header().Set("head-ok", "1")
 }
 
 func Test_Router_GroupRest1(t *testing.T) {
@@ -100,7 +100,7 @@ func Test_Router_GroupRest1(t *testing.T) {
 
 func Test_Router_GroupRest2(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/api", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api", func(group *http类.X分组路由) {
 		obj := new(GroupObjRest)
 		group.X绑定RESTfulAPI对象("/obj", obj)
 		group.X绑定RESTfulAPI对象("/{.struct}/{.method}", obj)

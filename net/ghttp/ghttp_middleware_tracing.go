@@ -43,14 +43,14 @@ const (
 )
 
 // internalMiddlewareServerTracing 是一个服务器中间件，它利用 OpenTelemetry 的标准启用追踪功能。
-func internalMiddlewareServerTracing(r *Request) {
+func internalMiddlewareServerTracing(r *X请求) {
 	var (
 		ctx = r.Context别名()
 	)
 // 标记该请求已被服务器追踪中间件处理，
 // 以避免被同一中间件重复处理。
 	if ctx.Value(tracingMiddlewareHandled) != nil {
-		r.Middleware.Next()
+		r.X中间件管理器.Next()
 		return
 	}
 
@@ -79,7 +79,7 @@ func internalMiddlewareServerTracing(r *Request) {
 
 	// 如果当前正在使用默认的追踪提供者，则不执行复杂的追踪任务。
 	if gtrace.IsUsingDefaultProvider() {
-		r.Middleware.Next()
+		r.X中间件管理器.Next()
 		return
 	}
 
@@ -104,16 +104,16 @@ func internalMiddlewareServerTracing(r *Request) {
 	))
 
 	// 继续执行。
-	r.Middleware.Next()
+	r.X中间件管理器.Next()
 
 	// Error logging.
 	if err = r.X取错误信息(); err != nil {
 		span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, err))
 	}
 	// 响应内容日志记录。
-	var resBodyContent = 文本类.X按长度取左边并带前缀(r.Response.X取缓冲区文本(), gtrace.MaxContentLogSize(), "...")
-	if gzipAccepted(r.Response.Header()) {
-		reader, err := gzip.NewReader(strings.NewReader(r.Response.X取缓冲区文本()))
+	var resBodyContent = 文本类.X按长度取左边并带前缀(r.X响应.X取缓冲区文本(), gtrace.MaxContentLogSize(), "...")
+	if gzipAccepted(r.X响应.Header()) {
+		reader, err := gzip.NewReader(strings.NewReader(r.X响应.X取缓冲区文本()))
 		if err != nil {
 			span.SetStatus(codes.Error, fmt.Sprintf(`read gzip response err:%+v`, err))
 		}
@@ -126,7 +126,7 @@ func internalMiddlewareServerTracing(r *Request) {
 	}
 
 	span.AddEvent(tracingEventHttpResponse, trace.WithAttributes(
-		attribute.String(tracingEventHttpResponseHeaders, 转换类.String(httputil.HeaderToMap(r.Response.Header()))),
+		attribute.String(tracingEventHttpResponseHeaders, 转换类.String(httputil.HeaderToMap(r.X响应.Header()))),
 		attribute.String(tracingEventHttpResponseBody, resBodyContent),
 	))
 }

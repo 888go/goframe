@@ -39,20 +39,20 @@ var (
 )
 
 func init() {
-	nodeDefault := db类.ConfigNode{
-		Link: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3306)/?loc=Local&parseTime=true", TestDbPass),
+	nodeDefault := db类.X配置项{
+		X自定义链接信息: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3306)/?loc=Local&parseTime=true", TestDbPass),
 	}
-	partitionDefault := db类.ConfigNode{
-		Link:  fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3307)/?loc=Local&parseTime=true", TestDbPass),
-		Debug: true,
+	partitionDefault := db类.X配置项{
+		X自定义链接信息:  fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3307)/?loc=Local&parseTime=true", TestDbPass),
+		X调试模式: true,
 	}
-	nodePrefix := db类.ConfigNode{
-		Link: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3306)/?loc=Local&parseTime=true", TestDbPass),
+	nodePrefix := db类.X配置项{
+		X自定义链接信息: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3306)/?loc=Local&parseTime=true", TestDbPass),
 	}
-	nodePrefix.Prefix = TableNamePrefix1
+	nodePrefix.X表前缀 = TableNamePrefix1
 
-	nodeInvalid := db类.ConfigNode{
-		Link: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3307)/?loc=Local&parseTime=true", TestDbPass),
+	nodeInvalid := db类.X配置项{
+		X自定义链接信息: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3307)/?loc=Local&parseTime=true", TestDbPass),
 	}
 	db类.X添加配置组节点("test", nodeDefault)
 	db类.X添加配置组节点("prefix", nodePrefix)

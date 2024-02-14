@@ -24,12 +24,12 @@ import (
 
 func Test_New(t *testing.T) {
 	单元测试类.C(t, func(t *单元测试类.T) {
-		node := db类.ConfigNode{
-			Host: "127.0.0.1",
-			Port: "3306",
-			User: TestDbUser,
-			Pass: TestDbPass,
-			Type: "mysql",
+		node := db类.X配置项{
+			X地址: "127.0.0.1",
+			X端口: "3306",
+			X账号: TestDbUser,
+			X密码: TestDbPass,
+			X类型: "mysql",
 		}
 		newDb, err := db类.X创建DB对象(node)
 		t.AssertNil(err)
@@ -1498,9 +1498,9 @@ func Test_DB_UpdateCounter(t *testing.T) {
 	})
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		gdbCounter := &db类.Counter{
-			Field: "id",
-			Value: 1,
+		gdbCounter := &db类.X增减{
+			X字段名称: "id",
+			X增减值: 1,
 		}
 		updateData := g.Map{
 			"views": gdbCounter,
@@ -1516,9 +1516,9 @@ func Test_DB_UpdateCounter(t *testing.T) {
 	})
 
 	单元测试类.C(t, func(t *单元测试类.T) {
-		gdbCounter := &db类.Counter{
-			Field: "views",
-			Value: -1,
+		gdbCounter := &db类.X增减{
+			X字段名称: "views",
+			X增减值: -1,
 		}
 		updateData := g.Map{
 			"views":        gdbCounter,

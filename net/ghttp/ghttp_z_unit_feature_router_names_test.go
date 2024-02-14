@@ -18,8 +18,8 @@ import (
 
 type NamesObject struct{}
 
-func (o *NamesObject) ShowName(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Show Name")
+func (o *NamesObject) ShowName(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Show Name")
 }
 
 func Test_NameToUri_FullName(t *testing.T) {

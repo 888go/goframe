@@ -24,7 +24,7 @@ import (
 //
 // 可选参数 `where` 与 Model.Where 函数的参数相同，
 // 请参阅 Model.Where。
-func (m *Model) X查询(查询条件 ...interface{}) (X行记录数组, error) {
+func (m *Model) X查询(查询条件 ...interface{}) (Result, error) {
 	var ctx = m.X取上下文对象()
 	return m.doGetAll(ctx, false, 查询条件...)
 }
@@ -46,7 +46,7 @@ func (m *Model) X查询(查询条件 ...interface{}) (X行记录数组, error) {
 //// 处理错误
 //	}
 //	fmt.Println(result, count) // 输出查询结果和记录总数
-func (m *Model) X查询与行数(是否用字段计数 bool) (结果 X行记录数组, 行数 int, 错误 error) {
+func (m *Model) X查询与行数(是否用字段计数 bool) (结果 Result, 行数 int, 错误 error) {
 	// 对模型进行克隆以进行计数
 	countModel := m.X取副本()
 
@@ -104,7 +104,7 @@ func (m *Model) X分割(数量 int, 处理函数 ChunkHandler) {
 //
 // 可选参数`where`与Model.Where函数的参数相同，
 // 请参阅Model.Where。
-func (m *Model) X查询一条(条件 ...interface{}) (X行记录, error) {
+func (m *Model) X查询一条(条件 ...interface{}) (Record, error) {
 	var ctx = m.X取上下文对象()
 	if len(条件) > 0 {
 		return m.X条件(条件[0], 条件[1:]...).X查询一条()
@@ -125,7 +125,7 @@ func (m *Model) X查询一条(条件 ...interface{}) (X行记录, error) {
 // 如果提供可选参数`fieldsAndWhere`，则fieldsAndWhere[0]表示选定的字段，
 // 而fieldsAndWhere[1:]被视为where条件字段。
 // 同时参阅Model.Fields和Model.Where函数。
-func (m *Model) X查询数组(条件 ...interface{}) ([]X字段值, error) {
+func (m *Model) X查询数组(条件 ...interface{}) ([]Value, error) {
 	if len(条件) > 0 {
 		if len(条件) > 2 {
 			return m.X字段保留过滤(转换类.String(条件[0])).X条件(条件[1], 条件[2:]...).X查询数组()
@@ -330,7 +330,7 @@ func (m *Model) X查询与行数到指针(数据指针 interface{}, 行数指针
 //
 // 参见 Result.ScanList。
 func (m *Model) X查询到指针列表(结构体切片指针 interface{}, 绑定到结构体属性名称 string, 结构体属性关联 ...string) (错误 error) {
-	var result X行记录数组
+	var result Result
 	out, 错误 := checkGetSliceElementInfoForScanList(结构体切片指针, 绑定到结构体属性名称)
 	if 错误 != nil {
 		return 错误
@@ -373,7 +373,7 @@ func (m *Model) X查询到指针列表(结构体切片指针 interface{}, 绑定
 // 如果提供了可选参数 `fieldsAndWhere`，则 fieldsAndWhere[0] 表示选择的字段，
 // 而 fieldsAndWhere[1:] 将被视为 where 条件字段。
 // 请参阅 Model.Fields 和 Model.Where 函数。
-func (m *Model) X查询一条值(字段和条件 ...interface{}) (X字段值, error) {
+func (m *Model) X查询一条值(字段和条件 ...interface{}) (Value, error) {
 	var ctx = m.X取上下文对象()
 	if len(字段和条件) > 0 {
 		if len(字段和条件) > 2 {
@@ -563,7 +563,7 @@ func (m *Model) X设置分组条件(条件 interface{}, 参数 ...interface{}) *
 // 参数 `limit1` 指定在 m.limit 未设置时是否限制仅查询一条记录。
 // 可选参数 `where` 与 Model.Where 函数的参数相同，
 // 请参阅 Model.Where。
-func (m *Model) doGetAll(ctx context.Context, limit1 bool, where ...interface{}) (X行记录数组, error) {
+func (m *Model) doGetAll(ctx context.Context, limit1 bool, where ...interface{}) (Result, error) {
 	if len(where) > 0 {
 		return m.X条件(where[0], where[1:]...).X查询()
 	}
@@ -572,7 +572,7 @@ func (m *Model) doGetAll(ctx context.Context, limit1 bool, where ...interface{})
 }
 
 // doGetAllBySql 对数据库执行 select 语句。
-func (m *Model) doGetAllBySql(ctx context.Context, queryType queryType, sql string, args ...interface{}) (result X行记录数组, err error) {
+func (m *Model) doGetAllBySql(ctx context.Context, queryType queryType, sql string, args ...interface{}) (result Result, err error) {
 	if result, err = m.getSelectResultFromCache(ctx, sql, args...); err != nil || result != nil {
 		return
 	}
@@ -696,7 +696,7 @@ func (m *Model) getFieldsFiltered() string {
 		}
 		fieldsArray = make([]string, len(tableFields))
 		for k, v := range tableFields {
-			fieldsArray[v.X排序] = k
+			fieldsArray[v.Index] = k
 		}
 	}
 	newFields := ""

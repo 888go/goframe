@@ -24,26 +24,26 @@ import (
 
 func Test_BindMiddleware_Basic1(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局中间件("/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
-	}, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("3")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("4")
+	s.X绑定全局中间件("/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
+	}, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("3")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("4")
 	})
-	s.X绑定全局中间件("/test/:name", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("5")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("6")
-	}, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("7")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("8")
+	s.X绑定全局中间件("/test/:name", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("5")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("6")
+	}, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("7")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("8")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -62,13 +62,13 @@ func Test_BindMiddleware_Basic1(t *testing.T) {
 
 func Test_BindMiddleware_Basic2(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局中间件("/*", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
+	s.X绑定全局中间件("/*", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -87,26 +87,26 @@ func Test_BindMiddleware_Basic2(t *testing.T) {
 
 func Test_BindMiddleware_Basic3(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局中间件("PUT:/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
-	}, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("3")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("4")
+	s.X绑定全局中间件("PUT:/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
+	}, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("3")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("4")
 	})
-	s.X绑定全局中间件("POST:/test/:name", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("5")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("6")
-	}, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("7")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("8")
+	s.X绑定全局中间件("POST:/test/:name", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("5")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("6")
+	}, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("7")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("8")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -129,17 +129,17 @@ func Test_BindMiddleware_Basic3(t *testing.T) {
 
 func Test_BindMiddleware_Basic4(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
-			r.Middleware.Next()
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
+			r.X中间件管理器.Next()
 		})
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Middleware.Next()
-			r.Response.X写响应缓冲区("2")
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X中间件管理器.Next()
+			r.X响应.X写响应缓冲区("2")
 		})
-		group.X绑定所有类型("/test", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("test")
+		group.X绑定所有类型("/test", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -159,14 +159,14 @@ func Test_BindMiddleware_Basic4(t *testing.T) {
 
 func Test_Middleware_With_Static(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
-			r.Middleware.Next()
-			r.Response.X写响应缓冲区("2")
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
+			r.X中间件管理器.Next()
+			r.X响应.X写响应缓冲区("2")
 		})
-		group.X绑定所有类型("/user/list", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("list")
+		group.X绑定所有类型("/user/list", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("list")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -187,13 +187,13 @@ func Test_Middleware_With_Static(t *testing.T) {
 
 func Test_Middleware_Status(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Middleware.Next()
-			r.Response.X写覆盖响应缓冲区(r.Response.Status)
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X中间件管理器.Next()
+			r.X响应.X写覆盖响应缓冲区(r.X响应.Status)
 		})
-		group.X绑定所有类型("/user/list", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("list")
+		group.X绑定所有类型("/user/list", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("list")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -217,24 +217,24 @@ func Test_Middleware_Status(t *testing.T) {
 func Test_Middleware_Hook_With_Static(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	a := 数组类.X创建(true)
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.X请求) {
 			a.Append别名(1)
 			fmt.Println("HookBeforeServe")
-			r.Response.X写响应缓冲区("a")
+			r.X响应.X写响应缓冲区("a")
 		})
-		group.X绑定Hook("/*", http类.HookAfterServe, func(r *http类.Request) {
+		group.X绑定Hook("/*", http类.HookAfterServe, func(r *http类.X请求) {
 			a.Append别名(1)
 			fmt.Println("HookAfterServe")
-			r.Response.X写响应缓冲区("b")
+			r.X响应.X写响应缓冲区("b")
 		})
-		group.X绑定中间件(func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
-			r.Middleware.Next()
-			r.Response.X写响应缓冲区("2")
+		group.X绑定中间件(func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
+			r.X中间件管理器.Next()
+			r.X响应.X写响应缓冲区("2")
 		})
-		group.X绑定所有类型("/user/list", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("list")
+		group.X绑定所有类型("/user/list", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("list")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -268,11 +268,11 @@ func Test_Middleware_Hook_With_Static(t *testing.T) {
 
 func Test_BindMiddleware_Status(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局中间件("/test/*any", func(r *http类.Request) {
-		r.Middleware.Next()
+	s.X绑定全局中间件("/test/*any", func(r *http类.X请求) {
+		r.X中间件管理器.Next()
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -292,18 +292,18 @@ func Test_BindMiddleware_Status(t *testing.T) {
 
 func Test_BindMiddlewareDefault_Basic1(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("3")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("4")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("3")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("4")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -321,18 +321,18 @@ func Test_BindMiddlewareDefault_Basic1(t *testing.T) {
 
 func Test_BindMiddlewareDefault_Basic2(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("PUT:/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("PUT:/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("3")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("4")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("3")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("4")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -352,16 +352,16 @@ func Test_BindMiddlewareDefault_Basic2(t *testing.T) {
 
 func Test_BindMiddlewareDefault_Basic3(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -379,16 +379,16 @@ func Test_BindMiddlewareDefault_Basic3(t *testing.T) {
 
 func Test_BindMiddlewareDefault_Basic4(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("1")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("1")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("2")
-		r.Middleware.Next()
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("2")
+		r.X中间件管理器.Next()
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -406,16 +406,16 @@ func Test_BindMiddlewareDefault_Basic4(t *testing.T) {
 
 func Test_BindMiddlewareDefault_Basic5(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("2")
-		r.Middleware.Next()
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("2")
+		r.X中间件管理器.Next()
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -433,11 +433,11 @@ func Test_BindMiddlewareDefault_Basic5(t *testing.T) {
 
 func Test_BindMiddlewareDefault_Status(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Middleware.Next()
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X中间件管理器.Next()
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -455,38 +455,38 @@ func Test_BindMiddlewareDefault_Status(t *testing.T) {
 
 type ObjectMiddleware struct{}
 
-func (o *ObjectMiddleware) Init(r *http类.Request) {
-	r.Response.X写响应缓冲区("100")
+func (o *ObjectMiddleware) Init(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("100")
 }
 
-func (o *ObjectMiddleware) Shut(r *http类.Request) {
-	r.Response.X写响应缓冲区("200")
+func (o *ObjectMiddleware) Shut(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("200")
 }
 
-func (o *ObjectMiddleware) Index(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Index")
+func (o *ObjectMiddleware) Index(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Index")
 }
 
-func (o *ObjectMiddleware) Show(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Show")
+func (o *ObjectMiddleware) Show(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Show")
 }
 
-func (o *ObjectMiddleware) Info(r *http类.Request) {
-	r.Response.X写响应缓冲区("Object Info")
+func (o *ObjectMiddleware) Info(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("Object Info")
 }
 
 func Test_BindMiddlewareDefault_Basic6(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.X绑定对象("/", new(ObjectMiddleware))
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("3")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("4")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("3")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("4")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -508,30 +508,30 @@ func Test_BindMiddlewareDefault_Basic6(t *testing.T) {
 
 func Test_Hook_Middleware_Basic1(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test/test", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("test")
+	s.X绑定("/test/test", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("test")
 	})
-	s.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("a")
+	s.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("a")
 	})
-	s.X绑定Hook("/*", http类.HookAfterServe, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("b")
+	s.X绑定Hook("/*", http类.HookAfterServe, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("b")
 	})
-	s.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("c")
+	s.X绑定Hook("/*", http类.HookBeforeServe, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("c")
 	})
-	s.X绑定Hook("/*", http类.HookAfterServe, func(r *http类.Request) {
-		r.Response.X写响应缓冲区("d")
+	s.X绑定Hook("/*", http类.HookAfterServe, func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("d")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("2")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("2")
 	})
-	s.X绑定全局默认中间件(func(r *http类.Request) {
-		r.Response.X写响应缓冲区("3")
-		r.Middleware.Next()
-		r.Response.X写响应缓冲区("4")
+	s.X绑定全局默认中间件(func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("3")
+		r.X中间件管理器.Next()
+		r.X响应.X写响应缓冲区("4")
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -547,27 +547,27 @@ func Test_Hook_Middleware_Basic1(t *testing.T) {
 	})
 }
 
-func MiddlewareAuth(r *http类.Request) {
+func MiddlewareAuth(r *http类.X请求) {
 	token := r.Get别名("token").String()
 	if token == "123456" {
-		r.Middleware.Next()
+		r.X中间件管理器.Next()
 	} else {
-		r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
+		r.X响应.X写响应缓冲区与HTTP状态码(http.StatusForbidden)
 	}
 }
 
-func MiddlewareCORS(r *http类.Request) {
-	r.Response.X跨域请求全允许()
-	r.Middleware.Next()
+func MiddlewareCORS(r *http类.X请求) {
+	r.X响应.X跨域请求全允许()
+	r.X中间件管理器.Next()
 }
 
 func Test_Middleware_CORSAndAuth(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	s.Use别名(MiddlewareCORS)
-	s.X创建分组路由("/api.v2", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api.v2", func(group *http类.X分组路由) {
 		group.X绑定中间件(MiddlewareAuth)
-		group.X绑定POST("/user/list", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("list")
+		group.X绑定POST("/user/list", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("list")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -606,41 +606,41 @@ func Test_Middleware_CORSAndAuth(t *testing.T) {
 	})
 }
 
-func MiddlewareScope1(r *http类.Request) {
-	r.Response.X写响应缓冲区("a")
-	r.Middleware.Next()
-	r.Response.X写响应缓冲区("b")
+func MiddlewareScope1(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("a")
+	r.X中间件管理器.Next()
+	r.X响应.X写响应缓冲区("b")
 }
 
-func MiddlewareScope2(r *http类.Request) {
-	r.Response.X写响应缓冲区("c")
-	r.Middleware.Next()
-	r.Response.X写响应缓冲区("d")
+func MiddlewareScope2(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("c")
+	r.X中间件管理器.Next()
+	r.X响应.X写响应缓冲区("d")
 }
 
-func MiddlewareScope3(r *http类.Request) {
-	r.Response.X写响应缓冲区("e")
-	r.Middleware.Next()
-	r.Response.X写响应缓冲区("f")
+func MiddlewareScope3(r *http类.X请求) {
+	r.X响应.X写响应缓冲区("e")
+	r.X中间件管理器.Next()
+	r.X响应.X写响应缓冲区("f")
 }
 
 func Test_Middleware_Scope(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定中间件(MiddlewareScope1)
-		group.X绑定所有类型("/scope1", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("1")
+		group.X绑定所有类型("/scope1", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("1")
 		})
-		group.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X创建分组路由("/", func(group *http类.X分组路由) {
 			group.X绑定中间件(MiddlewareScope2)
-			group.X绑定所有类型("/scope2", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("2")
+			group.X绑定所有类型("/scope2", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("2")
 			})
 		})
-		group.X创建分组路由("/", func(group *http类.RouterGroup) {
+		group.X创建分组路由("/", func(group *http类.X分组路由) {
 			group.X绑定中间件(MiddlewareScope3)
-			group.X绑定所有类型("/scope3", func(r *http类.Request) {
-				r.Response.X写响应缓冲区("3")
+			group.X绑定所有类型("/scope3", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区("3")
 			})
 		})
 	})
@@ -662,18 +662,18 @@ func Test_Middleware_Scope(t *testing.T) {
 func Test_Middleware_Panic(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	i := 0
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X创建分组路由("/", func(group *http类.RouterGroup) {
-			group.X绑定中间件(func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X创建分组路由("/", func(group *http类.X分组路由) {
+			group.X绑定中间件(func(r *http类.X请求) {
 				i++
 				panic("error")
 				// r.Middleware.Next() 表示调用下一个中间件。
-			}, func(r *http类.Request) {
+			}, func(r *http类.X请求) {
 				i++
-				r.Middleware.Next()
+				r.X中间件管理器.Next()
 			})
-			group.X绑定所有类型("/", func(r *http类.Request) {
-				r.Response.X写响应缓冲区(i)
+			group.X绑定所有类型("/", func(r *http类.X请求) {
+				r.X响应.X写响应缓冲区(i)
 			})
 		})
 	})
@@ -691,10 +691,10 @@ func Test_Middleware_Panic(t *testing.T) {
 
 func Test_Middleware_JsonBody(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定中间件(http类.X中间件函数_验证JSON格式请求体)
-		group.X绑定所有类型("/", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("hello")
+		group.X绑定所有类型("/", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("hello")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -714,13 +714,13 @@ func Test_Middleware_JsonBody(t *testing.T) {
 
 func Test_MiddlewareHandlerResponse(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
 		group.X绑定中间件(http类.MiddlewareHandlerResponse)
-		group.X绑定GET("/403", func(r *http类.Request) {
-			r.Response.X写响应缓冲区与HTTP状态码(http.StatusForbidden, "")
+		group.X绑定GET("/403", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区与HTTP状态码(http.StatusForbidden, "")
 		})
-		group.X绑定GET("/default", func(r *http类.Request) {
-			r.Response.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, "")
+		group.X绑定GET("/default", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, "")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -744,18 +744,18 @@ func Test_MiddlewareHandlerGzipResponse(t *testing.T) {
 	tp := testTracerProvider{}
 	otel.SetTracerProvider(&tp)
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/", func(group *http类.RouterGroup) {
-		group.X绑定GET("/default", func(r *http类.Request) {
+	s.X创建分组路由("/", func(group *http类.X分组路由) {
+		group.X绑定GET("/default", func(r *http类.X请求) {
 			var buffer strings.Builder
 			gzipWriter := gzip.NewWriter(&buffer)
 			defer gzipWriter.Close()
 			_, _ = gzipWriter.Write([]byte("hello"))
 			// 设置响应头，表明内容使用 gzip 压缩
-			r.Response.Header().Set("Content-Encoding", "gzip")
-			r.Response.Header().Set("Content-Type", "text/plain")
-			r.Response.Header().Set("Content-Length", fmt.Sprint(buffer.Len()))
+			r.X响应.Header().Set("Content-Encoding", "gzip")
+			r.X响应.Header().Set("Content-Type", "text/plain")
+			r.X响应.Header().Set("Content-Length", fmt.Sprint(buffer.Len()))
 			// 写入压缩后的内容
-			r.Response.X写响应缓冲区(buffer.String())
+			r.X响应.X写响应缓冲区(buffer.String())
 		})
 	})
 	s.SetDumpRouterMap(false)

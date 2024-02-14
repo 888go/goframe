@@ -18,10 +18,10 @@ import (
 
 func Test_Middleware_CORS1(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/api.v2", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api.v2", func(group *http类.X分组路由) {
 		group.X绑定中间件(MiddlewareCORS)
-		group.X绑定POST("/user/list", func(r *http类.Request) {
-			r.Response.X写响应缓冲区("list")
+		group.X绑定POST("/user/list", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区("list")
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -79,10 +79,10 @@ func Test_Middleware_CORS1(t *testing.T) {
 
 func Test_Middleware_CORS2(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/api.v2", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api.v2", func(group *http类.X分组路由) {
 		group.X绑定中间件(MiddlewareCORS)
-		group.X绑定GET("/user/list/{type}", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.Get别名("type"))
+		group.X绑定GET("/user/list/{type}", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.Get别名("type"))
 		})
 	})
 	s.SetDumpRouterMap(false)
@@ -143,10 +143,10 @@ func Test_Middleware_CORS2(t *testing.T) {
 
 func Test_Middleware_CORS3(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X创建分组路由("/api.v2", func(group *http类.RouterGroup) {
+	s.X创建分组路由("/api.v2", func(group *http类.X分组路由) {
 		group.X绑定中间件(http类.X中间件跨域函数)
-		group.X绑定GET("/user/list/{type}", func(r *http类.Request) {
-			r.Response.X写响应缓冲区(r.Get别名("type"))
+		group.X绑定GET("/user/list/{type}", func(r *http类.X请求) {
+			r.X响应.X写响应缓冲区(r.Get别名("type"))
 		})
 	})
 	s.SetDumpRouterMap(false)

@@ -32,28 +32,28 @@ func Test_Master_Slave(t *testing.T) {
 	}()
 	var (
 		configKey   = uid类.X生成()
-		configGroup = db类.ConfigGroup{
-			db类.ConfigNode{
-				Host:   "127.0.0.1",
-				Port:   "3306",
-				User:   "root",
-				Pass:   "12345678",
-				Name:   "master",
-				Type:   "mysql",
-				Role:   "master",
-				Debug:  true,
-				Weight: 100,
+		configGroup = db类.X配置组{
+			db类.X配置项{
+				X地址:   "127.0.0.1",
+				X端口:   "3306",
+				X账号:   "root",
+				X密码:   "12345678",
+				X名称:   "master",
+				X类型:   "mysql",
+				X节点角色:   "master",
+				X调试模式:  true,
+				X负载均衡权重: 100,
 			},
-			db类.ConfigNode{
-				Host:   "127.0.0.1",
-				Port:   "3306",
-				User:   "root",
-				Pass:   "12345678",
-				Name:   "slave",
-				Type:   "mysql",
-				Role:   "slave",
-				Debug:  true,
-				Weight: 100,
+			db类.X配置项{
+				X地址:   "127.0.0.1",
+				X端口:   "3306",
+				X账号:   "root",
+				X密码:   "12345678",
+				X名称:   "slave",
+				X类型:   "mysql",
+				X节点角色:   "slave",
+				X调试模式:  true,
+				X负载均衡权重: 100,
 			},
 		}
 	)

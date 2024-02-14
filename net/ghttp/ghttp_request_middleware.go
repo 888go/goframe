@@ -17,7 +17,7 @@ import (
 // middleware 是用于请求工作流程管理的插件。
 type middleware struct {
 	served         bool     // Is the request served 是用于检查响应状态404的，即该请求是否已成功处理。
-	request        *Request // 请求对象指针。
+	request        *X请求 // 请求对象指针。
 	handlerIndex   int      // Index 号用于执行顺序目的，针对处理项。
 	handlerMDIndex int      // Index 数值用于执行顺序的目的，用于处理器项绑定的中间件。
 }
@@ -25,7 +25,7 @@ type middleware struct {
 // Next调用下一个工作流处理器。
 // 这是一个重要的函数，用于控制服务器请求执行的工作流程。
 func (m *middleware) Next() {
-	var item *HandlerItemParsed
+	var item *X路由解析
 	var loop = true
 	for loop {
 		// 检查请求是否已激发。
@@ -39,16 +39,16 @@ func (m *middleware) Next() {
 			continue
 		}
 		// 当前路由器切换中。
-		m.request.Router = item.Handler.Router
+		m.request.X路由 = item.Handler.X路由
 
 		// 路由值切换。
-		m.request.routerMap = item.Values
+		m.request.routerMap = item.X路由值
 
 		var ctx = m.request.Context别名()
 		工具类.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 			// 如果item的绑定中间件数组不为空，则执行该数组中的中间件。
-			if m.handlerMDIndex < len(item.Handler.Middleware) {
-				md := item.Handler.Middleware[m.handlerMDIndex]
+			if m.handlerMDIndex < len(item.Handler.X中间件数组) {
+				md := item.Handler.X中间件数组[m.handlerMDIndex]
 				m.handlerMDIndex++
 				niceCallFunc(func() {
 					md(m.request)
@@ -65,17 +65,17 @@ func (m *middleware) Next() {
 				if m.request.X是否已退出() {
 					break
 				}
-				if item.Handler.InitFunc != nil {
+				if item.Handler.X初始化回调函数 != nil {
 					niceCallFunc(func() {
-						item.Handler.InitFunc(m.request)
+						item.Handler.X初始化回调函数(m.request)
 					})
 				}
 				if !m.request.X是否已退出() {
-					m.callHandlerFunc(item.Handler.Info)
+					m.callHandlerFunc(item.Handler.X处理器函数信息)
 				}
-				if !m.request.X是否已退出() && item.Handler.ShutFunc != nil {
+				if !m.request.X是否已退出() && item.Handler.X关闭回调函数 != nil {
 					niceCallFunc(func() {
-						item.Handler.ShutFunc(m.request)
+						item.Handler.X关闭回调函数(m.request)
 					})
 				}
 
@@ -86,13 +86,13 @@ func (m *middleware) Next() {
 					break
 				}
 				niceCallFunc(func() {
-					m.callHandlerFunc(item.Handler.Info)
+					m.callHandlerFunc(item.Handler.X处理器函数信息)
 				})
 
 			// 全局中间件数组。
 			case HandlerTypeMiddleware:
 				niceCallFunc(func() {
-					item.Handler.Info.Func(m.request)
+					item.Handler.X处理器函数信息.Func(m.request)
 				})
 // 当某个中间件执行完毕后，它不会继续调用下一个中间件。
 // 若要管理工作流程，应在中间件中调用“Next”函数。
@@ -107,17 +107,17 @@ func (m *middleware) Next() {
 // 注意，这里有一个skip参数用于指向实际错误点的堆栈跟踪起始位置。
 				m.request.error = 错误类.X多层错误码并跳过堆栈(错误码类.CodeInternalError, 1, exception, "")
 			}
-			m.request.Response.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, exception)
+			m.request.X响应.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, exception)
 			loop = false
 		})
 	}
 	// 在所有处理器和中间件执行完毕后，检查HTTP状态码。
 	if m.request.X是否已退出() || m.handlerIndex >= len(m.request.handlers) {
-		if m.request.Response.Status == 0 {
-			if m.request.Middleware.served {
-				m.request.Response.WriteHeader(http.StatusOK)
+		if m.request.X响应.Status == 0 {
+			if m.request.X中间件管理器.served {
+				m.request.X响应.WriteHeader(http.StatusOK)
 			} else {
-				m.request.Response.WriteHeader(http.StatusNotFound)
+				m.request.X响应.WriteHeader(http.StatusNotFound)
 			}
 		}
 	}

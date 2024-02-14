@@ -21,7 +21,7 @@ import (
 type utilAdmin struct{}
 
 // Index显示管理页面。
-func (p *utilAdmin) X显示管理页面(r *Request) {
+func (p *utilAdmin) X显示管理页面(r *X请求) {
 	data := map[string]interface{}{
 		"pid":  进程类.Pid(),
 		"path": 文件类.X取当前进程路径(),
@@ -40,11 +40,11 @@ func (p *utilAdmin) X显示管理页面(r *Request) {
             </body>
             </html>
     `, data)
-	r.Response.X写响应缓冲区(buffer)
+	r.X响应.X写响应缓冲区(buffer)
 }
 
 // 重启 restarts 各个服务器进程中的所有服务器。
-func (p *utilAdmin) X重启所有服务(r *Request) {
+func (p *utilAdmin) X重启所有服务(r *X请求) {
 	var (
 		ctx = r.Context别名()
 		err error
@@ -55,25 +55,25 @@ func (p *utilAdmin) X重启所有服务(r *Request) {
 		path = os.Args[0]
 	}
 	if err = X平滑重启所有服务(ctx, path); err == nil {
-		r.Response.X写响应缓冲区并退出("server restarted")
+		r.X响应.X写响应缓冲区并退出("server restarted")
 	} else {
-		r.Response.X写响应缓冲区并退出(err.Error())
+		r.X响应.X写响应缓冲区并退出(err.Error())
 	}
 }
 
 // Shutdown 关闭所有服务器。
-func (p *utilAdmin) X关闭所有服务(r *Request) {
+func (p *utilAdmin) X关闭所有服务(r *X请求) {
 	定时类.SetTimeout别名(r.Context别名(), time.Second, func(ctx context.Context) {
 // 它在1秒后关闭服务器，这不是由系统信号触发的，
 // 以确保成功向客户端发送响应。
-		_ = r.Server.X关闭当前服务()
+		_ = r.X服务.X关闭当前服务()
 	})
-	r.Response.X写响应缓冲区并退出("server shutdown")
+	r.X响应.X写响应缓冲区并退出("server shutdown")
 }
 
 // EnableAdmin 启用进程的管理功能。
 // 可选参数 `pattern` 指定管理页面的 URI。
-func (s *Server) X平滑重启服务开启(管理页URI ...string) {
+func (s *X服务) X平滑重启服务开启(管理页URI ...string) {
 	p := "/debug/admin"
 	if len(管理页URI) > 0 {
 		p = 管理页URI[0]
@@ -82,7 +82,7 @@ func (s *Server) X平滑重启服务开启(管理页URI ...string) {
 }
 
 // Shutdown 关闭当前服务器。
-func (s *Server) X关闭当前服务() error {
+func (s *X服务) X关闭当前服务() error {
 	var ctx = context.TODO()
 	s.doServiceDeregister()
 // 仅关闭当前服务器。

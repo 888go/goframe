@@ -10,15 +10,15 @@ import (
 )
 
 // SetView 设置模板视图引擎对象，用于当前请求。
-func (r *Request) X设置模板对象(模板对象 *模板类.View) {
+func (r *X请求) X设置模板对象(模板对象 *模板类.View) {
 	r.viewObject = 模板对象
 }
 
 // GetView 返回当前请求的模板视图引擎对象。
-func (r *Request) X取模板对象() *模板类.View {
+func (r *X请求) X取模板对象() *模板类.View {
 	view := r.viewObject
 	if view == nil {
-		view = r.Server.config.View
+		view = r.X服务.config.X模板默认
 	}
 	if view == nil {
 		view = 模板类.Instance()
@@ -27,7 +27,7 @@ func (r *Request) X取模板对象() *模板类.View {
 }
 
 // Assigns 将多个模板变量绑定到当前请求。
-func (r *Request) X绑定模板变量Map(Map值 模板类.Params) {
+func (r *X请求) X绑定模板变量Map(Map值 模板类.Params) {
 	if r.viewParams == nil {
 		r.viewParams = make(模板类.Params, len(Map值))
 	}
@@ -37,7 +37,7 @@ func (r *Request) X绑定模板变量Map(Map值 模板类.Params) {
 }
 
 // Assign 将模板变量绑定到当前请求。
-func (r *Request) X绑定模板变量(名称 string, 值 interface{}) {
+func (r *X请求) X绑定模板变量(名称 string, 值 interface{}) {
 	if r.viewParams == nil {
 		r.viewParams = make(模板类.Params)
 	}

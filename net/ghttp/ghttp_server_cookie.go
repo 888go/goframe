@@ -15,13 +15,13 @@ import (
 // Cookie 用于 HTTP COOKIE 管理。
 type Cookie struct {
 	data     map[string]*cookieItem // 基础的cookie项。
-	server   *Server                // 所属HTTP服务器
-	request  *Request               // 属于HTTP请求。
-	response *Response              // 属于HTTP响应。
+	server   *X服务                // 所属HTTP服务器
+	request  *X请求               // 属于HTTP请求。
+	response *X响应              // 属于HTTP响应。
 }
 
 // CookieOptions 提供了用于 cookies 的安全配置选项
-type CookieOptions struct {
+type Cookie安全配置项 struct {
 	SameSite http.SameSite // cookie 的 SameSite 属性
 	Secure   bool          // cookie Secure 属性
 	HttpOnly bool          // cookie HttpOnly 属性
@@ -36,13 +36,13 @@ type cookieItem struct {
 // GetCookie 函数通过给定的请求创建或检索一个 cookie 对象。
 // 若已存在与给定请求相关的 cookie，则检索并返回该存在的 cookie 对象。
 // 若不存在与给定请求相关的 cookie，则创建并返回一个新的 cookie 对象。
-func X取cookie对象(r *Request) *Cookie {
+func X取cookie对象(r *X请求) *Cookie {
 	if r.Cookie != nil {
 		return r.Cookie
 	}
 	return &Cookie{
 		request: r,
-		server:  r.Server,
+		server:  r.X服务,
 	}
 }
 
@@ -52,7 +52,7 @@ func (c *Cookie) init() {
 		return
 	}
 	c.data = make(map[string]*cookieItem)
-	c.response = c.request.Response
+	c.response = c.request.X响应
 // **请勿添加任何默认的Cookie域！**
 // 如果 c.request.Server.GetCookieDomain() 为空，即返回值为""，则执行以下操作：
 // 将 c.request.Server.GetCookieDomain() 的值设置为 c.request.GetHost() 的返回值。
@@ -90,22 +90,22 @@ func (c *Cookie) X设置值(名称, 值 string) {
 	c.X设置cookie(
 		名称,
 		值,
-		c.request.Server.X取Cookie域名(),
-		c.request.Server.X取Cookie路径(),
-		c.request.Server.X取Cookie最大存活时长(),
-		CookieOptions{
-			SameSite: c.request.Server.X取CookieSameSite(),
-			Secure:   c.request.Server.X取Cookie安全(),
-			HttpOnly: c.request.Server.X取CookieHttpOnly(),
+		c.request.X服务.X取Cookie域名(),
+		c.request.X服务.X取Cookie路径(),
+		c.request.X服务.X取Cookie最大存活时长(),
+		Cookie安全配置项{
+			SameSite: c.request.X服务.X取CookieSameSite(),
+			Secure:   c.request.X服务.X取Cookie安全(),
+			HttpOnly: c.request.X服务.X取CookieHttpOnly(),
 		},
 	)
 }
 
 // SetCookie 用于给指定的域名、路径设置cookie项，并设置其过期时间。
 // 可选参数 `options` 指定了额外的安全配置，通常为空。
-func (c *Cookie) X设置cookie(名称, 值, 域名, 路径 string, 最大存活时长 time.Duration, 安全配置项 ...CookieOptions) {
+func (c *Cookie) X设置cookie(名称, 值, 域名, 路径 string, 最大存活时长 time.Duration, 安全配置项 ...Cookie安全配置项) {
 	c.init()
-	config := CookieOptions{}
+	config := Cookie安全配置项{}
 	if len(安全配置项) > 0 {
 		config = 安全配置项[0]
 	}
@@ -144,13 +144,13 @@ func (c *Cookie) X设置SessionId到Cookie(id string) {
 	c.X设置cookie(
 		c.server.X取SessionID名称(),
 		id,
-		c.request.Server.X取Cookie域名(),
-		c.request.Server.X取Cookie路径(),
+		c.request.X服务.X取Cookie域名(),
+		c.request.X服务.X取Cookie路径(),
 		c.server.X取SessionCookie存活时长(),
-		CookieOptions{
-			SameSite: c.request.Server.X取CookieSameSite(),
-			Secure:   c.request.Server.X取Cookie安全(),
-			HttpOnly: c.request.Server.X取CookieHttpOnly(),
+		Cookie安全配置项{
+			SameSite: c.request.X服务.X取CookieSameSite(),
+			Secure:   c.request.X服务.X取Cookie安全(),
+			HttpOnly: c.request.X服务.X取CookieHttpOnly(),
 		},
 	)
 }
@@ -176,8 +176,8 @@ func (c *Cookie) X删除值(名称 string) {
 	c.X设置cookie(
 		名称,
 		"",
-		c.request.Server.X取Cookie域名(),
-		c.request.Server.X取Cookie路径(),
+		c.request.X服务.X取Cookie域名(),
+		c.request.X服务.X取Cookie路径(),
 		-24*time.Hour,
 	)
 }

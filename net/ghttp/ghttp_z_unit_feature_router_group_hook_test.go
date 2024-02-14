@@ -19,14 +19,14 @@ import (
 func Test_Router_Group_Hook1(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	group := s.X创建分组路由("/api")
-	group.X绑定GET("/handler", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
+	group.X绑定GET("/handler", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
 	})
-	group.X绑定所有类型("/handler", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("0")
+	group.X绑定所有类型("/handler", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("0")
 	}, http类.HookBeforeServe)
-	group.X绑定所有类型("/handler", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("2")
+	group.X绑定所有类型("/handler", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("2")
 	}, http类.HookAfterServe)
 
 	s.SetDumpRouterMap(false)
@@ -46,14 +46,14 @@ func Test_Router_Group_Hook1(t *testing.T) {
 func Test_Router_Group_Hook2(t *testing.T) {
 	s := g.Http类(uid类.X生成())
 	group := s.X创建分组路由("/api")
-	group.X绑定GET("/handler", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("1")
+	group.X绑定GET("/handler", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("1")
 	})
-	group.X绑定GET("/*", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("0")
+	group.X绑定GET("/*", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("0")
 	}, http类.HookBeforeServe)
-	group.X绑定GET("/*", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("2")
+	group.X绑定GET("/*", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("2")
 	}, http类.HookAfterServe)
 
 	s.SetDumpRouterMap(false)

@@ -39,16 +39,16 @@ const (
 
 // swaggerUI 是一个内置钩子处理器，用于将默认的Swagger JSON URL替换为本地OpenAPI JSON文件路径。
 // 只有在启用了OpenAPI规范自动生成功能的配置时，此处理器才有意义。
-func (s *Server) swaggerUI(r *Request) {
-	if s.config.OpenApiPath == "" {
+func (s *X服务) swaggerUI(r *X请求) {
+	if s.config.APIOpenApiUI路径 == "" {
 		return
 	}
 	if r.StaticFile != nil && r.StaticFile.File != nil && r.StaticFile.IsDir {
 		content := 文本类.Map替换(swaggerUITemplate, map[string]string{
-			swaggerUIDocURLPlaceHolder:  s.config.OpenApiPath,
-			swaggerUIDocNamePlaceHolder: 文本类.X过滤尾字符并含空白(fmt.Sprintf(`//%s%s`, r.Host, r.Server.config.SwaggerPath), "/") + "/" + swaggerUIDocName,
+			swaggerUIDocURLPlaceHolder:  s.config.APIOpenApiUI路径,
+			swaggerUIDocNamePlaceHolder: 文本类.X过滤尾字符并含空白(fmt.Sprintf(`//%s%s`, r.Host, r.X服务.config.APISwaggerUI路径), "/") + "/" + swaggerUIDocName,
 		})
-		r.Response.X写响应缓冲区(content)
+		r.X响应.X写响应缓冲区(content)
 		r.X退出全部()
 	}
 }

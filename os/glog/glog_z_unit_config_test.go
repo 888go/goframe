@@ -24,9 +24,9 @@ func Test_SetConfigWithMap(t *testing.T) {
 		}
 		err := l.X设置配置Map(m)
 		t.AssertNil(err)
-		t.Assert(l.config.Path, m["path"])
-		t.Assert(l.config.Level, LEVEL_ALL)
-		t.Assert(l.config.StdoutPrint, m["stdout"])
+		t.Assert(l.config.X文件路径, m["path"])
+		t.Assert(l.config.X级别, LEVEL_ALL)
+		t.Assert(l.config.X是否同时输出到终端, m["stdout"])
 	})
 }
 

@@ -17,7 +17,7 @@ import (
 )
 
 // doServiceRegister 将当前服务注册到注册中心。
-func (s *Server) doServiceRegister() {
+func (s *X服务) doServiceRegister() {
 	if s.registrar == nil {
 		return
 	}
@@ -29,7 +29,7 @@ func (s *Server) doServiceRegister() {
 		insecure = true
 		err      error
 	)
-	if s.config.TLSConfig != nil {
+	if s.config.TLS配置 != nil {
 		protocol = `https`
 		insecure = false
 	}
@@ -53,7 +53,7 @@ func (s *Server) doServiceRegister() {
 }
 
 // doServiceDeregister 从注册中心注销当前服务。
-func (s *Server) doServiceDeregister() {
+func (s *X服务) doServiceDeregister() {
 	if s.registrar == nil {
 		return
 	}
@@ -70,14 +70,14 @@ func (s *Server) doServiceDeregister() {
 	s.service = nil
 }
 
-func (s *Server) calculateListenedEndpoints(ctx context.Context) gsvc.Endpoints {
+func (s *X服务) calculateListenedEndpoints(ctx context.Context) gsvc.Endpoints {
 	var (
-		configAddr = s.config.Address
+		configAddr = s.config.X监听地址
 		endpoints  = make(gsvc.Endpoints, 0)
 		addresses  = s.config.Endpoints
 	)
 	if configAddr == "" {
-		configAddr = s.config.HTTPSAddr
+		configAddr = s.config.HTTPS监听地址
 	}
 	if len(addresses) == 0 {
 		addresses = 文本类.X分割并忽略空值(configAddr, ",")

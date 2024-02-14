@@ -28,212 +28,212 @@ func Test_Params_Basic(t *testing.T) {
 	}
 	s := g.Http类(uid类.X生成())
 	// GET
-	s.X绑定("/get", func(r *http类.Request) {
+	s.X绑定("/get", func(r *http类.X请求) {
 		if r.X取查询参数到泛型类("array") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("array"))
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("array"))
 		}
 		if r.X取查询参数到泛型类("slice") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("slice"))
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("slice"))
 		}
 		if r.X取查询参数到泛型类("bool") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("bool").X取布尔())
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("bool").X取布尔())
 		}
 		if r.X取查询参数到泛型类("float32") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("float32").X取小数32位())
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("float32").X取小数32位())
 		}
 		if r.X取查询参数到泛型类("float64") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("float64").X取小数64位())
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("float64").X取小数64位())
 		}
 		if r.X取查询参数到泛型类("int") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("int").X取整数())
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("int").X取整数())
 		}
 		if r.X取查询参数到泛型类("uint") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("uint").X取正整数())
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("uint").X取正整数())
 		}
 		if r.X取查询参数到泛型类("string") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到泛型类("string").String())
+			r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("string").String())
 		}
 		if r.X取查询参数到泛型类("map") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到Map()["map"].(map[string]interface{})["b"])
+			r.X响应.X写响应缓冲区(r.X取查询参数到Map()["map"].(map[string]interface{})["b"])
 		}
 		if r.X取查询参数到泛型类("a") != nil {
-			r.Response.X写响应缓冲区(r.X取查询参数到MapStrStr()["a"])
+			r.X响应.X写响应缓冲区(r.X取查询参数到MapStrStr()["a"])
 		}
 	})
 	// PUT
-	s.X绑定("/put", func(r *http类.Request) {
+	s.X绑定("/put", func(r *http类.X请求) {
 		if r.Get别名("array") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("array"))
+			r.X响应.X写响应缓冲区(r.Get别名("array"))
 		}
 		if r.Get别名("slice") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("slice"))
+			r.X响应.X写响应缓冲区(r.Get别名("slice"))
 		}
 		if r.Get别名("bool") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("bool").X取布尔())
+			r.X响应.X写响应缓冲区(r.Get别名("bool").X取布尔())
 		}
 		if r.Get别名("float32") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("float32").X取小数32位())
+			r.X响应.X写响应缓冲区(r.Get别名("float32").X取小数32位())
 		}
 		if r.Get别名("float64") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("float64").X取小数64位())
+			r.X响应.X写响应缓冲区(r.Get别名("float64").X取小数64位())
 		}
 		if r.Get别名("int") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("int").X取整数())
+			r.X响应.X写响应缓冲区(r.Get别名("int").X取整数())
 		}
 		if r.Get别名("uint") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("uint").X取正整数())
+			r.X响应.X写响应缓冲区(r.Get别名("uint").X取正整数())
 		}
 		if r.Get别名("string") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("string").String())
+			r.X响应.X写响应缓冲区(r.Get别名("string").String())
 		}
 		if r.Get别名("map") != nil {
-			r.Response.X写响应缓冲区(r.GetMap别名()["map"].(map[string]interface{})["b"])
+			r.X响应.X写响应缓冲区(r.GetMap别名()["map"].(map[string]interface{})["b"])
 		}
 		if r.Get别名("a") != nil {
-			r.Response.X写响应缓冲区(r.GetMapStrStr别名()["a"])
+			r.X响应.X写响应缓冲区(r.GetMapStrStr别名()["a"])
 		}
 	})
 
 	// DELETE
-	s.X绑定("/delete", func(r *http类.Request) {
+	s.X绑定("/delete", func(r *http类.X请求) {
 		if r.Get别名("array") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("array"))
+			r.X响应.X写响应缓冲区(r.Get别名("array"))
 		}
 		if r.Get别名("slice") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("slice"))
+			r.X响应.X写响应缓冲区(r.Get别名("slice"))
 		}
 		if r.Get别名("bool") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("bool").X取布尔())
+			r.X响应.X写响应缓冲区(r.Get别名("bool").X取布尔())
 		}
 		if r.Get别名("float32") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("float32").X取小数32位())
+			r.X响应.X写响应缓冲区(r.Get别名("float32").X取小数32位())
 		}
 		if r.Get别名("float64") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("float64").X取小数64位())
+			r.X响应.X写响应缓冲区(r.Get别名("float64").X取小数64位())
 		}
 		if r.Get别名("int") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("int").X取整数())
+			r.X响应.X写响应缓冲区(r.Get别名("int").X取整数())
 		}
 		if r.Get别名("uint") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("uint").X取正整数())
+			r.X响应.X写响应缓冲区(r.Get别名("uint").X取正整数())
 		}
 		if r.Get别名("string") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("string").String())
+			r.X响应.X写响应缓冲区(r.Get别名("string").String())
 		}
 		if r.Get别名("map") != nil {
-			r.Response.X写响应缓冲区(r.GetMap别名()["map"].(map[string]interface{})["b"])
+			r.X响应.X写响应缓冲区(r.GetMap别名()["map"].(map[string]interface{})["b"])
 		}
 		if r.Get别名("a") != nil {
-			r.Response.X写响应缓冲区(r.GetMapStrStr别名()["a"])
+			r.X响应.X写响应缓冲区(r.GetMapStrStr别名()["a"])
 		}
 	})
 	// PATCH
-	s.X绑定("/patch", func(r *http类.Request) {
+	s.X绑定("/patch", func(r *http类.X请求) {
 		if r.Get别名("array") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("array"))
+			r.X响应.X写响应缓冲区(r.Get别名("array"))
 		}
 		if r.Get别名("slice") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("slice"))
+			r.X响应.X写响应缓冲区(r.Get别名("slice"))
 		}
 		if r.Get别名("bool") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("bool").X取布尔())
+			r.X响应.X写响应缓冲区(r.Get别名("bool").X取布尔())
 		}
 		if r.Get别名("float32") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("float32").X取小数32位())
+			r.X响应.X写响应缓冲区(r.Get别名("float32").X取小数32位())
 		}
 		if r.Get别名("float64") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("float64").X取小数64位())
+			r.X响应.X写响应缓冲区(r.Get别名("float64").X取小数64位())
 		}
 		if r.Get别名("int") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("int").X取整数())
+			r.X响应.X写响应缓冲区(r.Get别名("int").X取整数())
 		}
 		if r.Get别名("uint") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("uint").X取正整数())
+			r.X响应.X写响应缓冲区(r.Get别名("uint").X取正整数())
 		}
 		if r.Get别名("string") != nil {
-			r.Response.X写响应缓冲区(r.Get别名("string").String())
+			r.X响应.X写响应缓冲区(r.Get别名("string").String())
 		}
 		if r.Get别名("map") != nil {
-			r.Response.X写响应缓冲区(r.GetMap别名()["map"].(map[string]interface{})["b"])
+			r.X响应.X写响应缓冲区(r.GetMap别名()["map"].(map[string]interface{})["b"])
 		}
 		if r.Get别名("a") != nil {
-			r.Response.X写响应缓冲区(r.GetMapStrStr别名()["a"])
+			r.X响应.X写响应缓冲区(r.GetMapStrStr别名()["a"])
 		}
 	})
 	// Form
-	s.X绑定("/form", func(r *http类.Request) {
+	s.X绑定("/form", func(r *http类.X请求) {
 		if r.Get别名("array") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("array"))
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("array"))
 		}
 		if r.Get别名("slice") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("slice"))
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("slice"))
 		}
 		if r.Get别名("bool") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("bool").X取布尔())
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("bool").X取布尔())
 		}
 		if r.Get别名("float32") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("float32").X取小数32位())
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("float32").X取小数32位())
 		}
 		if r.Get别名("float64") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("float64").X取小数64位())
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("float64").X取小数64位())
 		}
 		if r.Get别名("int") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("int").X取整数())
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("int").X取整数())
 		}
 		if r.Get别名("uint") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("uint").X取正整数())
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("uint").X取正整数())
 		}
 		if r.Get别名("string") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到泛型类("string").String())
+			r.X响应.X写响应缓冲区(r.X取表单值到泛型类("string").String())
 		}
 		if r.Get别名("map") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到Map()["map"].(map[string]interface{})["b"])
+			r.X响应.X写响应缓冲区(r.X取表单值到Map()["map"].(map[string]interface{})["b"])
 		}
 		if r.Get别名("a") != nil {
-			r.Response.X写响应缓冲区(r.X取表单值到MapStrStr()["a"])
+			r.X响应.X写响应缓冲区(r.X取表单值到MapStrStr()["a"])
 		}
 	})
-	s.X绑定("/map", func(r *http类.Request) {
+	s.X绑定("/map", func(r *http类.X请求) {
 		if m := r.X取查询参数到Map(); len(m) > 0 {
-			r.Response.X写响应缓冲区(m["name"])
+			r.X响应.X写响应缓冲区(m["name"])
 			return
 		}
 		if m := r.GetMap别名(); len(m) > 0 {
-			r.Response.X写响应缓冲区(m["name"])
+			r.X响应.X写响应缓冲区(m["name"])
 			return
 		}
 	})
-	s.X绑定("/raw", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取请求体字节集())
+	s.X绑定("/raw", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取请求体字节集())
 	})
-	s.X绑定("/json", func(r *http类.Request) {
+	s.X绑定("/json", func(r *http类.X请求) {
 		j, err := r.X取请求体到json类()
 		if err != nil {
-			r.Response.X写响应缓冲区(err)
+			r.X响应.X写响应缓冲区(err)
 			return
 		}
-		r.Response.X写响应缓冲区(j.X取值("name"))
+		r.X响应.X写响应缓冲区(j.X取值("name"))
 	})
-	s.X绑定("/struct", func(r *http类.Request) {
+	s.X绑定("/struct", func(r *http类.X请求) {
 		if m := r.X取查询参数到Map(); len(m) > 0 {
 			user := new(User)
 			r.X取查询参数到结构体(user)
-			r.Response.X写响应缓冲区(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.X响应.X写响应缓冲区(user.Id, user.Name, user.Pass1, user.Pass2)
 			return
 		}
 		if m := r.GetMap别名(); len(m) > 0 {
 			user := new(User)
 			r.GetStruct别名(user)
-			r.Response.X写响应缓冲区(user.Id, user.Name, user.Pass1, user.Pass2)
+			r.X响应.X写响应缓冲区(user.Id, user.Name, user.Pass1, user.Pass2)
 			return
 		}
 	})
-	s.X绑定("/struct-with-nil", func(r *http类.Request) {
+	s.X绑定("/struct-with-nil", func(r *http类.X请求) {
 		user := (*User)(nil)
 		err := r.GetStruct别名(&user)
-		r.Response.X写响应缓冲区(err)
+		r.X响应.X写响应缓冲区(err)
 	})
-	s.X绑定("/struct-with-base", func(r *http类.Request) {
+	s.X绑定("/struct-with-base", func(r *http类.X请求) {
 		type Base struct {
 			Pass1 string `p:"password1"`
 			Pass2 string `p:"password2"`
@@ -253,8 +253,8 @@ func Test_Params_Basic(t *testing.T) {
 			user2 := new(UserWithBase2)
 			r.GetStruct别名(user1)
 			r.GetStruct别名(user2)
-			r.Response.X写响应缓冲区(user1.Id, user1.Name, user1.Pass1, user1.Pass2)
-			r.Response.X写响应缓冲区(user2.Id, user2.Name, user2.Pass.Pass1, user2.Pass.Pass2)
+			r.X响应.X写响应缓冲区(user1.Id, user1.Name, user1.Pass1, user1.Pass2)
+			r.X响应.X写响应缓冲区(user2.Id, user2.Name, user2.Pass.Pass1, user2.Pass.Pass2)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -360,8 +360,8 @@ func Test_Params_Basic(t *testing.T) {
 
 func Test_Params_Header(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/header", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取协议头值("test"))
+	s.X绑定("/header", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取协议头值("test"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -379,11 +379,11 @@ func Test_Params_Header(t *testing.T) {
 
 func Test_Params_SupportChars(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/form-value", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取表单值到泛型类("test-value"))
+	s.X绑定("/form-value", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取表单值到泛型类("test-value"))
 	})
-	s.X绑定("/form-array", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取表单值到泛型类("test-array"))
+	s.X绑定("/form-array", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取表单值到泛型类("test-array"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -400,17 +400,17 @@ func Test_Params_SupportChars(t *testing.T) {
 
 func Test_Params_Priority(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/query", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取查询参数到泛型类("a"))
+	s.X绑定("/query", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("a"))
 	})
-	s.X绑定("/form", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取表单值到泛型类("a"))
+	s.X绑定("/form", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取表单值到泛型类("a"))
 	})
-	s.X绑定("/request", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("a"))
+	s.X绑定("/request", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("a"))
 	})
-	s.X绑定("/request-map", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.GetMap别名(g.Map{
+	s.X绑定("/request-map", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.GetMap别名(g.Map{
 			"a": 1,
 			"b": 2,
 		}))
@@ -435,21 +435,21 @@ func Test_Params_Priority(t *testing.T) {
 
 func Test_Params_GetRequestMap(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/map", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取参数到Map())
+	s.X绑定("/map", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取参数到Map())
 	})
-	s.X绑定("/withKVMap", func(r *http类.Request) {
+	s.X绑定("/withKVMap", func(r *http类.X请求) {
 		m := r.X取参数到Map(map[string]interface{}{"id": 2})
-		r.Response.X写响应缓冲区(m["id"])
+		r.X响应.X写响应缓冲区(m["id"])
 	})
-	s.X绑定("/paramsMapWithKVMap", func(r *http类.Request) {
+	s.X绑定("/paramsMapWithKVMap", func(r *http类.X请求) {
 		r.X设置自定义参数("name", "john")
 		m := r.X取参数到Map(map[string]interface{}{"id": 2})
-		r.Response.X写响应缓冲区(m["id"])
+		r.X响应.X写响应缓冲区(m["id"])
 	})
-	s.X绑定("/{name}.map", func(r *http类.Request) {
+	s.X绑定("/{name}.map", func(r *http类.X请求) {
 		m := r.X取参数到Map(map[string]interface{}{"id": 2})
-		r.Response.X写响应缓冲区(m["id"])
+		r.X响应.X写响应缓冲区(m["id"])
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -482,17 +482,17 @@ func Test_Params_GetRequestMap(t *testing.T) {
 
 func Test_Params_Modify(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/param/modify", func(r *http类.Request) {
+	s.X绑定("/param/modify", func(r *http类.X请求) {
 		param := r.GetMap别名()
 		param["id"] = 2
 		paramBytes, err := json类.X变量到json字节集(param)
 		if err != nil {
-			r.Response.X写响应缓冲区(err)
+			r.X响应.X写响应缓冲区(err)
 			return
 		}
 		r.Request.Body = io.NopCloser(bytes.NewReader(paramBytes))
 		r.X重载请求参数()
-		r.Response.X写响应缓冲区(r.GetMap别名())
+		r.X响应.X写响应缓冲区(r.GetMap别名())
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -520,12 +520,12 @@ func Test_Params_Parse_DefaultValueTag(t *testing.T) {
 		Score float32 `d:"60"`
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		var t *T
 		if err := r.X解析参数到结构(&t); err != nil {
-			r.Response.X写响应缓冲区并退出(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.X写响应缓冲区并退出(t)
+		r.X响应.X写响应缓冲区并退出(t)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -551,12 +551,12 @@ func Test_Params_Parse_Validation(t *testing.T) {
 	}
 
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		var req *RegisterReq
 		if err := r.X解析参数到结构(&req); err != nil {
-			r.Response.X写响应缓冲区(err)
+			r.X响应.X写响应缓冲区(err)
 		} else {
-			r.Response.X写响应缓冲区("ok")
+			r.X响应.X写响应缓冲区("ok")
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -595,12 +595,12 @@ func Test_Params_Parse_EmbeddedWithAliasName1(t *testing.T) {
 	}
 
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		var req *ContentGetListReq
 		if err := r.X解析参数到结构(&req); err != nil {
-			r.Response.X写响应缓冲区(err)
+			r.X响应.X写响应缓冲区(err)
 		} else {
-			r.Response.X写响应缓冲区(req.ContentGetListInput)
+			r.X响应.X写响应缓冲区(req.ContentGetListInput)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -636,12 +636,12 @@ func Test_Params_Parse_EmbeddedWithAliasName2(t *testing.T) {
 	}
 
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/parse", func(r *http类.Request) {
+	s.X绑定("/parse", func(r *http类.X请求) {
 		var req *ContentGetListReq
 		if err := r.X解析参数到结构(&req); err != nil {
-			r.Response.X写响应缓冲区(err)
+			r.X响应.X写响应缓冲区(err)
 		} else {
-			r.Response.X写响应缓冲区(req.ContentGetListInput)
+			r.X响应.X写响应缓冲区(req.ContentGetListInput)
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -660,8 +660,8 @@ func Test_Params_Parse_EmbeddedWithAliasName2(t *testing.T) {
 
 func Test_Params_GetParam(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取自定义参数到泛型类("key", "val"))
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取自定义参数到泛型类("key", "val"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -679,9 +679,9 @@ func Test_Params_GetParam(t *testing.T) {
 
 func Test_Params_SetQuery(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/SetQuery", func(r *http类.Request) {
+	s.X绑定("/SetQuery", func(r *http类.X请求) {
 		r.X设置查询参数("a", 100)
-		r.Response.X写响应缓冲区(r.X取查询参数到泛型类("a"))
+		r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("a"))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -700,8 +700,8 @@ func Test_Params_SetQuery(t *testing.T) {
 
 func Test_Params_GetQuery(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/GetQuery", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取查询参数到泛型类("a", 200))
+	s.X绑定("/GetQuery", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取查询参数到泛型类("a", 200))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -720,14 +720,14 @@ func Test_Params_GetQuery(t *testing.T) {
 
 func Test_Params_GetQueryMap(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/GetQueryMap", func(r *http类.Request) {
+	s.X绑定("/GetQueryMap", func(r *http类.X请求) {
 		if m := r.X取查询参数到Map(); len(m) > 0 {
-			r.Response.X写响应缓冲区(m["name"])
+			r.X响应.X写响应缓冲区(m["name"])
 		}
 	})
-	s.X绑定("/GetQueryMapWithKVMap", func(r *http类.Request) {
+	s.X绑定("/GetQueryMapWithKVMap", func(r *http类.X请求) {
 		if m := r.X取查询参数到Map(map[string]interface{}{"id": 1}); len(m) > 0 {
-			r.Response.X写响应缓冲区(m["id"])
+			r.X响应.X写响应缓冲区(m["id"])
 		}
 	})
 	s.SetDumpRouterMap(false)
@@ -758,8 +758,8 @@ func Test_Params_GetQueryMap(t *testing.T) {
 
 func Test_Params_GetQueryMapStrStr(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/GetQueryMapStrStr", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取查询参数到MapStrStr())
+	s.X绑定("/GetQueryMapStrStr", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取查询参数到MapStrStr())
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -777,9 +777,9 @@ func Test_Params_GetQueryMapStrStr(t *testing.T) {
 
 func Test_Params_GetQueryMapStrVar(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/GetQueryMapStrVar", func(r *http类.Request) {
+	s.X绑定("/GetQueryMapStrVar", func(r *http类.X请求) {
 		m := r.X取查询参数到Map泛型类数组()
-		r.Response.X写响应缓冲区(m["id"])
+		r.X响应.X写响应缓冲区(m["id"])
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -798,11 +798,11 @@ func Test_Params_GetQueryMapStrVar(t *testing.T) {
 
 func Test_Params_GetRequest(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/GetRequest", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取参数("id"))
+	s.X绑定("/GetRequest", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取参数("id"))
 	})
-	s.X绑定("/GetRequestWithDef", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取参数("id", 2))
+	s.X绑定("/GetRequestWithDef", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取参数("id", 2))
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -823,8 +823,8 @@ func Test_Params_GetRequest(t *testing.T) {
 
 func Test_Params_GetRequestMapStrStr(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/GetRequestMapStrStr", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取参数到MapStrStr())
+	s.X绑定("/GetRequestMapStrStr", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取参数到MapStrStr())
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -842,9 +842,9 @@ func Test_Params_GetRequestMapStrStr(t *testing.T) {
 
 func Test_Params_GetRequestMapStrVar(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/GetRequestMapStrVar", func(r *http类.Request) {
+	s.X绑定("/GetRequestMapStrVar", func(r *http类.X请求) {
 		m := r.X取参数到Map泛型类()
-		r.Response.X写响应缓冲区(m["id"])
+		r.X响应.X写响应缓冲区(m["id"])
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()

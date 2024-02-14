@@ -20,7 +20,7 @@ import (
 
 func Test_WebSocket(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/ws", func(r *http类.Request) {
+	s.X绑定("/ws", func(r *http类.X请求) {
 		ws, err := r.X升级为websocket请求()
 		if err != nil {
 			r.X退出当前()

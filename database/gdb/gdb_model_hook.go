@@ -16,7 +16,7 @@ import (
 )
 
 type (
-	HookFuncSelect func(ctx context.Context, in *HookSelectInput) (result X行记录数组, err error)
+	HookFuncSelect func(ctx context.Context, in *HookSelectInput) (result Result, err error)
 	HookFuncInsert func(ctx context.Context, in *HookInsertInput) (result sql.Result, err error)
 	HookFuncUpdate func(ctx context.Context, in *HookUpdateInput) (result sql.Result, err error)
 	HookFuncDelete func(ctx context.Context, in *HookDeleteInput) (result sql.Result, err error)
@@ -33,7 +33,7 @@ type HookHandler struct {
 // internalParamHook 管理 hook 操作的所有内部参数。
 // `internal` 显然意味着你无法在本包外部访问这些参数。
 type internalParamHook struct {
-	link               X底层链接      // Connection 对象来自第三方 SQL 驱动程序。
+	link               Link      // Connection 对象来自第三方 SQL 驱动程序。
 	handlerCalled      bool      // 简单标记用于自定义处理程序被调用的情况，以防递归调用。
 	removedWhere       bool      // 移除了带有`WHERE`前缀的条件字符串的标记
 	originalTableName  *泛型类.Var // 原始表名。
@@ -79,7 +79,7 @@ type HookInsertInput struct {
 	Table  string         // 将要使用的表名。更新此属性以更改目标表名。
 	Schema string         // 要使用的架构名称。更新此属性以更改目标架构名称。
 	Data   Map数组           // 待插入/保存到表中的数据记录列表
-	Option X底层输入 // 数据插入时的额外选项。
+	Option DoInsertOption // 数据插入时的额外选项。
 }
 
 // HookUpdateInput 用于保存更新钩子操作的参数。
@@ -113,7 +113,7 @@ func (h *internalParamHook) X是否为事务() bool {
 }
 
 // Next调用下一个钩子处理器。
-func (h *HookSelectInput) Next(上下文 context.Context) (行记录数组 X行记录数组, 错误 error) {
+func (h *HookSelectInput) Next(上下文 context.Context) (行记录数组 Result, 错误 error) {
 	if h.originalTableName.X是否为Nil() {
 		h.originalTableName = 泛型类.X创建(h.Table)
 	}

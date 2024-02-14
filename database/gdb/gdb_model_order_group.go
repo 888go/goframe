@@ -30,7 +30,7 @@ func (m *Model) X排序(字段名与排序方式 ...interface{}) *Model {
 	}
 	for _, v := range 字段名与排序方式 {
 		switch v.(type) {
-		case X原生sql, *X原生sql:
+		case Raw, *Raw:
 			model.orderBy += 转换类.String(v)
 			return model
 		}

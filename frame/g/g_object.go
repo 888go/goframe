@@ -27,7 +27,7 @@ func X网页类() *网页类.Client {
 }
 
 // Server 返回一个具有指定名称的 http 服务器实例。
-func Http类(名称 ...interface{}) *http类.Server {
+func Http类(名称 ...interface{}) *http类.X服务 {
 	return gins.Server(名称...)
 }
 

@@ -56,9 +56,9 @@ func TestClient_CustomProvider(t *testing.T) {
 	otel.SetTracerProvider(NewCustomProvider())
 
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/hello", func(r *http类.Request) {
-		r.Response.WriteHeader(200)
-		r.Response.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
+	s.X绑定("/hello", func(r *http类.X请求) {
+		r.X响应.WriteHeader(200)
+		r.X响应.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()

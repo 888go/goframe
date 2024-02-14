@@ -33,8 +33,8 @@ func init() {
 
 func Test_GetUrl(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/url", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.X取URL())
+	s.X绑定("/url", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.X取URL())
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -53,11 +53,11 @@ func Test_GetUrl(t *testing.T) {
 
 func Test_XUrlPath(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/test1", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(`test1`)
+	s.X绑定("/test1", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(`test1`)
 	})
-	s.X绑定("/test2", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(`test2`)
+	s.X绑定("/test2", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(`test2`)
 	})
 	s.X设置请求处理器(func(w http.ResponseWriter, r *http.Request) {
 		r.Header.Set(http类.HeaderXUrlPath, "/test2")
@@ -80,8 +80,8 @@ func Test_XUrlPath(t *testing.T) {
 
 func Test_GetListenedAddress(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(`test`)
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(`test`)
 	})
 	s.SetDumpRouterMap(false)
 	s.X开始监听()
@@ -100,8 +100,8 @@ func Test_GetListenedAddress(t *testing.T) {
 
 func Test_GetListenedAddressWithHost(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(`test`)
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(`test`)
 	})
 	s.X设置监听地址("127.0.0.1:0")
 	s.SetDumpRouterMap(false)
@@ -121,8 +121,8 @@ func Test_GetListenedAddressWithHost(t *testing.T) {
 
 func Test_RoutePathParams(t *testing.T) {
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/:param", func(r *http类.Request) {
-		r.Response.X写响应缓冲区(r.Get别名("param"), ",", r.Get别名("c"))
+	s.X绑定("/:param", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区(r.Get别名("param"), ",", r.Get别名("c"))
 	})
 	s.X设置监听地址("127.0.0.1:0")
 	s.SetDumpRouterMap(false)
@@ -175,8 +175,8 @@ func Test_ServerSignal(t *testing.T) {
 		return
 	}
 	s := g.Http类(uid类.X生成())
-	s.X绑定("/", func(r *http类.Request) {
-		r.Response.X写响应缓冲区("hello world")
+	s.X绑定("/", func(r *http类.X请求) {
+		r.X响应.X写响应缓冲区("hello world")
 	})
 	单元测试类.Assert(s.X开始监听(), nil)
 	g.Http类等待所有服务完成()

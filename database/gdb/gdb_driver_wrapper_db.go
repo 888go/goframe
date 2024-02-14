@@ -49,7 +49,7 @@ func (d *DriverWrapperDB) X取表名称数组(上下文 context.Context, schema 
 // 为了提高性能，该函数使用了缓存特性，缓存有效期直到进程重启才会过期。
 func (d *DriverWrapperDB) X取表字段信息Map(
 	ctx context.Context, table string, schema ...string,
-) (fields map[string]*X字段信息, err error) {
+) (fields map[string]*TableField, err error) {
 	if table == "" {
 		return nil, nil
 	}
@@ -79,7 +79,7 @@ func (d *DriverWrapperDB) X取表字段信息Map(
 		})
 	)
 	if value != nil {
-		fields = value.(map[string]*X字段信息)
+		fields = value.(map[string]*TableField)
 	}
 	return
 }
@@ -95,7 +95,7 @@ func (d *DriverWrapperDB) X取表字段信息Map(
 // InsertOptionReplace：如果数据中存在唯一/主键，先从表中删除并插入新的记录；
 // InsertOptionSave：如果数据中存在唯一/主键，则更新记录，否则插入新记录；
 // InsertOptionIgnore：如果数据中存在唯一/主键，则忽略插入操作。
-func (d *DriverWrapperDB) X底层插入(上下文 context.Context, 链接 X底层链接, 表名称 string, list Map数组, 选项 X底层输入) (结果 sql.Result, 错误 error) {
+func (d *DriverWrapperDB) X底层插入(上下文 context.Context, 链接 Link, 表名称 string, list Map数组, 选项 DoInsertOption) (结果 sql.Result, 错误 error) {
 	// 在提交给底层数据库驱动之前，转换数据类型。
 	for i, item := range list {
 		list[i], 错误 = d.X取Core对象().X底层ConvertDataForRecord(上下文, item, 表名称)
