@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/garray" title="数组类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+           backgroundColor=""/>
+ 
+     <tree path="/gmap" title="map类"/>
+     <tree path="/gpool" title="对象复用类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+           backgroundColor=""/>
+     <tree path="/gqueue" title="队列类"/>
+    <tree path="/gqueue/gqueue.go" title="方法"/>
+
+     <tree path="/gset" title="集合类"/>
+ 
+     <tree path="/gtype" title="安全变量类"/>
+     <tree path="/gvar" title="泛型类"/>
+    <tree path="/gvar/gvar.go" title="方法"/>
+    <tree path="/gvar/gvar_is.go" title="判断"/>
+    <tree path="/gvar/gvar_list.go" title="列表"/>
+    <tree path="/gvar/gvar_map.go" title="Map"/>
+    <tree path="/gvar/gvar_slice.go" title="数组"/>
+    <tree path="/gvar/gvar_struct.go" title="结构"/>
+    
+    
+ 
+    <tree path="/gaes" title="加密aes类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/gcrc32" title="加密crc32类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/gdes" title="加密des类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/gdes/gdes.go" title="方法"/>
+
+    <tree path="/gmd5" title="加密md5类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/gmd5/gmd5.go" title="方法"/>
+    <tree path="/gsha1" title="加密sha1类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="" title="加密解密" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/> 
+    
+    
+ 
+    <tree path="/gbase64" title="编码base64类"/>
+    <tree path="/gcharset" title="编码字符集类"/>
+    <tree path="/gcompress" title="压缩类"/>
+    <tree path="/ghtml" title="html类"/>
+    <tree path="/gini" title="ini类"/>
+    <tree path="/gjson" title="json类"/>
+    <tree path="/gjson/gjson_api_config.go" title="配置"/>
+    <tree path="/gjson/gjson_api_encoding.go" title="编码"/>
+    <tree path="/gjson/gjson_api_new_load.go" title="创建"/>
+    <tree path="/gjson/gjson_implements.go" title="接口"/>
+    <tree path="/gjson/gjson_stdlib_json_util.go" title="实用方法"/>
+    <tree path="/gjson/gjson_api.go" title="方法"/>
+    <tree path="/gjson/gjson.go" title="内部"/>
+    
+    <tree path="/gurl" title="url类"/>
+    <tree path="/gurl/url.go" title="方法"/>
+
+ 
+    <tree path="/gclient" title="网页类"/>
+    <tree path="/gclient/gclient.go" title="创建"/>
+    <tree path="/gclient/gclient_bytes.go" title="字节集"/>
+    <tree path="/gclient/gclient_var.go" title="泛型类"/>
+    <tree path="/gclient/gclient_chain.go" title="链式方法" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gclient/gclient_config.go" title="配置"/>
+    <tree path="/gclient/gclient_content.go" title="文本"/>
+    <tree path="/gclient/gclient_discovery.go" title="内部"/>
+    <tree path="/gclient/gclient_dump.go" title="响应"/>
+    <tree path="/gclient/gclient_middleware.go" title="中间件"/>
+    <tree path="/gclient/gclient_request.go" title="请求"/>
+    <tree path="/gclient/gclient_request_obj.go" title="请求"/>
+    <tree path="/gclient/gclient_response.go" title="响应"/>
+    <tree path="/gclient/gclient_tracing.go" title="内部"/>
+    <tree path="/gclient/gclient_tracing_tracer.go" title="内部"/>
+    
+     
+    
+    <tree path="/gcache" title="缓存类"/>
+    <tree path="/gcache/gcache_adapter_memory.go" title="内存适配器"/>
+    <tree path="/gcache/gcache_adapter.go" title="适配器"/>
+    <tree path="/gcache/gcache_adapter_memory_data.go" title="内存适配器"/>
+    <tree path="/gcache/gcache_adapter_memory_expire_sets.go" title="内存适配器"/>
+    <tree path="/gcache/gcache_adapter_memory_expire_times.go" title="内存适配器"/>
+    <tree path="/gcache/gcache_adapter_memory_item.go" title="内存适配器"/>
+    <tree path="/gcache/gcache_adapter_memory_lru.go" title="内存适配器"/>
+    <tree path="/gcache/gcache_adapter_redis.go" title="Redis缓存方法" extension="" presentableText=""
+          tooltipTitle="" icon="" textColor="" backgroundColor=""/>
+    <tree path="/gcache/gcache.go" title="单例方法"/>
+    <tree path="/gcache/gcache_cache.go" title="方法"/>
+    <tree path="/gcache/gcache_cache_must.go" title="方法"/>
+    
+    <tree path="/gcfg" title="配置类"/>
+    <tree path="/gcfg/gcfg.go" title="方法" />
+    <tree path="/gcfg/gcfg_adapter_file_path.go" title="适配器"/>
+    <tree path="/gcfg/gcfg_adapter_file_content.go" title="适配器"/>
+    <tree path="/gcfg/gcfg_adapter_file.go" title="适配器"/>
+    <tree path="/gcfg/gcfg_adaper.go" title="适配器"/>
+    <tree path="/gcfg/gcfg_adapter_content.go" title="适配器"/>
+    <tree path="/gcmd" title="cmd类"/>
+    <tree path="/gctx" title="上下文类"/>
+    <tree path="/genv" title="环境变量类"/>
+    <tree path="/genv/genv_must.go" title="方法"/>
+    <tree path="/genv/genv.go" title="方法"/>
+    
+    <tree path="/gfile" title="文件类"/>
+    <tree path="/gfile/gfile.go" title="方法"/>
+    <tree path="/gfile/gfile_cache.go" title="缓存"/>
+    <tree path="/gfile/gfile_contents.go" title="读写"/>
+    <tree path="/gfile/gfile_copy.go" title="复制"/>
+    <tree path="/gfile/gfile_home.go" title="用户目录"/>
+    <tree path="/gfile/gfile_replace.go" title="替换"/>
+    <tree path="/gfile/gfile_scan.go" title="枚举"/>
+    <tree path="/gfile/gfile_search.go" title="查找"/>
+    <tree path="/gfile/gfile_size.go" title="大小"/>
+    <tree path="/gfile/gfile_sort.go" title="排序"/>
+    <tree path="/gfile/gfile_time.go" title="时间"/>
+    
+    
+ 
+    <tree path="/glog" title="日志类"/>
+    <tree path="/glog/glog_api.go" title="全局对象方法"/>
+    <tree path="/glog/glog_chaining.go" title="全局链式方法"/>
+    <tree path="/glog/glog_config.go" title="全局对象配置"/>
+    <tree path="/glog/glog_instance.go" title="单例对象"/>
+    <tree path="/glog/glog_logger.go" title="创建" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/glog/glog_logger_api.go" title="方法" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/glog/glog_logger_chaining.go" title="方法" extension="" presentableText="" tooltipTitle=""
+          icon="" textColor="" backgroundColor=""/>
+    <tree path="/glog/glog_logger_color.go" title="内部"/>
+    <tree path="/glog/glog_logger_config.go" title="配置" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/glog/glog_logger_handler.go" title="中间件"/>
+    <tree path="/glog/glog_logger_handler_json.go" title="中间件"/>
+    <tree path="/glog/glog_logger_handler_structure.go" title="中间件"/>
+    <tree path="/glog/glog_logger_level.go" title="输出方法" extension="" presentableText="" tooltipTitle=""
+          icon="" textColor="" backgroundColor=""/>
+    <tree path="/glog/glog_logger_rotate.go" title="文件分割"/>
+    <tree path="/glog/glog_logger_writer.go" title="Writer接口"/>
+    
+    
+    <tree path="/gmlock" title="内存锁类"/>
+    <tree path="/gmlock/gmlock.go" title="单例方法"/>
+    <tree path="/gmlock/gmlock_locker.go" title="方法"/>
+    
+    <tree path="/gmutex" title="互斥锁类"/>
+ 
+    <tree path="/gtime" title="时间类"/>
+    <tree path="/gtime/gtime.go" title="方法"/>
+    <tree path="/gtime/gtime_format.go" title="格式化"/>
+    <tree path="/gtime/gtime_time.go" title="方法"/>
+    <tree path="/gtime/gtime_sql.go" title="方法"/>
+    <tree path="/gtime/gtime_time_zone.go" title="时区"/>
+    <tree path="/gtime/gtime_time_wrapper.go" title="方法包装"/>
+
+    <tree path="/gtimer/gtimer.go" title="单例方法" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gtimer/gtimer_entry.go" title="任务"/>
+    <tree path="/gtimer/gtimer_exit.go" title="任务"/>
+    <tree path="/gtimer/gtimer_queue.go" title="内部"/>
+    <tree path="/gtimer/gtimer_queue_heap.go" title="内部"/>
+    <tree path="/gtimer/gtimer_timer.go" title="方法" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gtimer/gtimer_timer_loop.go" title="内部"/>
+    
+    
+    <tree path="/gtimer" title="定时类"/>
+    <tree path="/gview" title="模板类"/>
+    <tree path="/gregex" title="正则类"/>
+    <tree path="/gregex/gregex_cache.go" title="内部"/>
+    <tree path="/gregex/gregex.go" title="方法"/>
+
+
+    <tree path="/gstr" title="文本类"/>
+    <tree path="/gstr/gstr.go" title="内部"/>
+    <tree path="/gstr/gstr_case.go" title="命名"/>
+    <tree path="/gstr/gstr_similar.go" title="比较"/>
+    <tree path="/gstr/gstr_array.go" title="数组"/>
+    <tree path="/gstr/gstr_compare.go" title="比较"/>
+    <tree path="/gstr/gstr_contain.go" title="是否包含"/>
+    <tree path="/gstr/gstr_convert.go" title="转换"/>
+    <tree path="/gstr/gstr_count.go" title="统计"/>
+    <tree path="/gstr/gstr_domain.go" title="域名"/>
+    <tree path="/gstr/gstr_is.go" title="判断"/>
+    <tree path="/gstr/gstr_length.go" title="长度"/>
+    <tree path="/gstr/gstr_parse.go" title="参数解析"/>
+    <tree path="/gstr/gstr_pos.go" title="查找"/>
+    <tree path="/gstr/gstr_replace.go" title="替换"/>
+    <tree path="/gstr/gstr_slashes.go" title="转义"/>
+    <tree path="/gstr/gstr_split_join.go" title="分割连接"/>
+    <tree path="/gstr/gstr_sub.go" title="子文本截取"/>
+    <tree path="/gstr/gstr_trim.go" title="过滤"/>
+    <tree path="/gstr/gstr_upper_lower.go" title="大小写转换"/>
+    <tree path="/gstr/gstr_version.go" title="版本号"/>
+    <tree path="/gstr/gstr_create.go" title="生成文本"/>
+    <tree path="/gstr/gstr_list.go" title="分割"/>
+    
+    <tree path="/gconv" title="转换类"/>
+    <tree path="/gconv/gconv.go" title="基础类型转换" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_convert.go" title="底层方法" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_converter.go" title="自定义转换器"/>
+    <tree path="/gconv/gconv_float.go" title="小数"/>
+    <tree path="/gconv/gconv_int.go" title="整数"/>
+    <tree path="/gconv/gconv_map.go" title="Map"/>
+    <tree path="/gconv/gconv_maps.go" title="Map数组"/>
+    <tree path="/gconv/gconv_ptr.go" title="指针"/>
+    <tree path="/gconv/gconv_slice_any.go" title="数组"/>
+    <tree path="/gconv/gconv_slice_float.go" title="小数数组" extension="" presentableText="" tooltipTitle=""
+          icon="" textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_slice_int.go" title="整数数组" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_slice_str.go" title="文本数组" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_slice_uint.go" title="无符号整数数组" extension="" presentableText="" tooltipTitle=""
+          icon="" textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_time.go" title="时间" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_uint.go" title="无符号整数"/>
+    <tree path="/gconv/gconv_interface.go" title="内部" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/gconv/gconv_unsafe.go" title="非安全转换"/>
+    
+    
+ 
+    <tree path="/grand" title="随机类"/>
+    <tree path="/grand/grand.go" title="方法"/>
+    <tree path="/grand/grand_buffer.go" title="内部"/>
+    
+    
+    <tree path="/guid" title="uid类"/>
+    <tree path="/guid/guid.go" title="方法"/>
+
+
+    <tree path="/gutil" title="工具类"/>
+ 
+    <tree path="" title="数据结构"/>
+   <tree path="/database" title="数据管理" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+         backgroundColor=""/>
+   <tree path="/debug" title="功能调试" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+         backgroundColor=""/>
+   <tree path="" title="系统相关"/>
+   <tree path="" title="文本处理"/>
+   <tree path="" title="编码解码"/>
+   <tree path="" title="实用工具"/>
+   <tree path="/test" title="单元测试"/>
+   <tree path="/errors" title="错误管理"/>
+   <tree path="" title="网络服务"/>
+   <tree path="/contrib" title="第三方模块"/>
+   <tree path="/internal" title="内部包"/>
+ 
+ 
+   <tree path="/gvar" title="泛型类"/>
+ 
+ 
+   <tree path="/gcron" title="定时cron类"/>
+
+
+   <tree path="/grand" title="随机类"/>
+    <tree path="/gutil/gutil.go" title="取值或名称"/>
+   <tree path="/gutil/gutil_comparator.go" title="比较"/>
+    <tree path="/gutil/gutil_copy.go" title="深拷贝"/>
+    <tree path="/gutil/gutil_default.go" title="取值或取默认值" extension="" presentableText="" tooltipTitle=""
+          icon="" textColor="" backgroundColor=""/>
+   <tree path="/gutil/gutil_dump.go" title="调试输出"/>
+    <tree path="/gutil/gutil_goroutine.go" title="协程"/>
+    <tree path="/gutil/gutil_list.go" title="结构体数组或Map数组"/>
+    <tree path="/gutil/gutil_try_catch.go" title="异常捕捉"/>
+   <tree path="/gutil/gutil_struct.go" title="结构体" extension="" presentableText="" tooltipTitle="" icon=""
+         textColor="" backgroundColor=""/>
+   <tree path="/gutil/gutil_slice.go" title="数组"/>
+   <tree path="/gutil/gutil_map.go" title="map"/>
+
+
+</trees>
