@@ -1,10 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// go test *.go -bench=".*"
+// 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
 package gmd5_test
 
@@ -18,7 +17,7 @@ import (
 
 var (
 	s = "pibigstar"
-	// online generated MD5 value
+	// 在线生成的MD5值
 	result = "d175a1ff66aedde64344785f7f7a3df8"
 )
 
@@ -69,7 +68,7 @@ func TestEncryptFile(t *testing.T) {
 		_, _ = file.Write([]byte("Hello Go Frame"))
 		encryptFile, _ := gmd5.EncryptFile(path)
 		t.AssertEQ(encryptFile, result)
-		// when the file is not exist,encrypt will return empty string
+		// 当文件不存在时，encrypt将返回空字符串
 		errEncrypt, _ := gmd5.EncryptFile(errorPath)
 		t.AssertEQ(errEncrypt, "")
 	})

@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gcompress
 
@@ -15,11 +14,11 @@ import (
 	"github.com/gogf/gf/v2/os/gfile"
 )
 
-// Gzip compresses `data` using gzip algorithm.
-// The optional parameter `level` specifies the compression level from
-// 1 to 9 which means from none to the best compression.
+// Gzip 使用gzip算法压缩`data`。
+// 可选参数`level`指定压缩级别，范围从1到9，
+// 这意味着从无压缩到最佳压缩。
 //
-// Note that it returns error if given `level` is invalid.
+// 注意，如果给定的`level`无效，将会返回错误。
 func Gzip(data []byte, level ...int) ([]byte, error) {
 	var (
 		writer *gzip.Writer
@@ -46,7 +45,7 @@ func Gzip(data []byte, level ...int) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// GzipFile compresses the file `src` to `dst` using gzip algorithm.
+// GzipFile 使用gzip算法将文件`src`压缩到`dst`。
 func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
 	dstFile, err := gfile.Create(dstFilePath)
 	if err != nil {
@@ -57,9 +56,9 @@ func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
 	return GzipPathWriter(srcFilePath, dstFile, level...)
 }
 
-// GzipPathWriter compresses `filePath` to `writer` using gzip compressing algorithm.
+// GzipPathWriter 使用gzip压缩算法将`filePath`压缩并写入到`writer`。
 //
-// Note that the parameter `path` can be either a directory or a file.
+// 注意，参数`path`可以是一个目录或一个文件。
 func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 	var (
 		gzipWriter *gzip.Writer
@@ -88,7 +87,7 @@ func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 	return nil
 }
 
-// UnGzip decompresses `data` with gzip algorithm.
+// UnGzip 使用gzip算法对`data`进行解压缩
 func UnGzip(data []byte) ([]byte, error) {
 	var buf bytes.Buffer
 	reader, err := gzip.NewReader(bytes.NewReader(data))
@@ -107,7 +106,7 @@ func UnGzip(data []byte) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// UnGzipFile decompresses srcFilePath `src` to `dst` using gzip algorithm.
+// UnGzipFile 使用gzip算法将源文件路径`src`解压缩到`dst`。
 func UnGzipFile(srcFilePath, dstFilePath string) error {
 	srcFile, err := gfile.Open(srcFilePath)
 	if err != nil {

@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv
 
@@ -13,9 +12,9 @@ import (
 	"github.com/gogf/gf/v2/os/gtime"
 )
 
-// Time converts `any` to time.Time.
+// Time将`any`转换为time.Time类型。
 func Time(any interface{}, format ...string) time.Time {
-	// It's already this type.
+	// 它已经是这种类型了。
 	if len(format) == 0 {
 		if v, ok := any.(time.Time); ok {
 			return v
@@ -27,11 +26,11 @@ func Time(any interface{}, format ...string) time.Time {
 	return time.Time{}
 }
 
-// Duration converts `any` to time.Duration.
-// If `any` is string, then it uses time.ParseDuration to convert it.
-// If `any` is numeric, then it converts `any` as nanoseconds.
+// Duration 将 `any` 转换为 time.Duration 类型。
+// 如果 `any` 是字符串，那么它会使用 time.ParseDuration 来进行转换。
+// 如果 `any` 是数字类型，则将 `any` 视为纳秒进行转换。
 func Duration(any interface{}) time.Duration {
-	// It's already this type.
+	// 它已经是这种类型了。
 	if v, ok := any.(time.Duration); ok {
 		return v
 	}
@@ -43,11 +42,11 @@ func Duration(any interface{}) time.Duration {
 	return time.Duration(Int64(any))
 }
 
-// GTime converts `any` to *gtime.Time.
-// The parameter `format` can be used to specify the format of `any`.
-// It returns the converted value that matched the first format of the formats slice.
-// If no `format` given, it converts `any` using gtime.NewFromTimeStamp if `any` is numeric,
-// or using gtime.StrToTime if `any` is string.
+// GTime 将 `any` 类型转换为 *gtime.Time 类型。
+// 参数 `format` 可用于指定 `any` 的格式。
+// 它将返回与 formats 切片中第一个格式匹配的转换后的值。
+// 如果未提供 `format`，当 `any` 为数值类型时，使用 gtime.NewFromTimeStamp 进行转换；
+// 当 `any` 为字符串类型时，则使用 gtime.StrToTime 进行转换。
 func GTime(any interface{}, format ...string) *gtime.Time {
 	if any == nil {
 		return nil
@@ -55,7 +54,7 @@ func GTime(any interface{}, format ...string) *gtime.Time {
 	if v, ok := any.(iGTime); ok {
 		return v.GTime(format...)
 	}
-	// It's already this type.
+	// 它已经是这种类型了。
 	if len(format) == 0 {
 		if v, ok := any.(*gtime.Time); ok {
 			return v
@@ -71,7 +70,7 @@ func GTime(any interface{}, format ...string) *gtime.Time {
 	if len(s) == 0 {
 		return gtime.New()
 	}
-	// Priority conversion using given format.
+	// 使用给定格式进行优先级转换。
 	if len(format) > 0 {
 		for _, item := range format {
 			t, err := gtime.StrToTimeFormat(s, item)

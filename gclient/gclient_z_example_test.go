@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gclient_test
 
@@ -29,10 +28,10 @@ var (
 )
 
 func init() {
-	// Default server for client.
+	// 默认的客户端服务器。
 	p := 8999
 	s := g.Server(p)
-	// HTTP method handlers.
+	// HTTP方法处理器。
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.GET("/", func(r *ghttp.Request) {
 			r.Response.Writef(
@@ -98,7 +97,7 @@ func init() {
 			)
 		})
 	})
-	// Client chaining operations handlers.
+	// 客户端链式操作处理程序。
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.ALL("/header", func(r *ghttp.Request) {
 			r.Response.Writef(
@@ -121,7 +120,7 @@ func init() {
 			)
 		})
 	})
-	// Other testing handlers.
+	// 其他测试处理程序。
 	s.Group("/var", func(group *ghttp.RouterGroup) {
 		group.ALL("/json", func(r *ghttp.Request) {
 			r.Response.Write(`{"id":1,"name":"john"}`)
@@ -188,7 +187,7 @@ func ExampleNew_MultiConn_Recommend() {
 		client = g.Client()
 	)
 
-	// controls the maximum idle(keep-alive) connections to keep per-host
+	// 控制每个主机保持的最大空闲(keep-alive)连接数
 	client.Transport.(*http.Transport).MaxIdleConnsPerHost = 5
 
 	for i := 0; i < 5; i++ {
@@ -271,9 +270,9 @@ func ExampleClient_ContentJson() {
 			"name": "john",
 		}
 	)
-	// Post using JSON string.
+	// 使用JSON字符串进行POST请求。
 	fmt.Println(g.Client().ContentJson().PostContent(ctx, url, jsonStr))
-	// Post using JSON map.
+	// 使用JSON映射进行POST请求。
 	fmt.Println(g.Client().ContentJson().PostContent(ctx, url, jsonMap))
 
 	// Output:
@@ -283,7 +282,7 @@ func ExampleClient_ContentJson() {
 
 func ExampleClient_Post() {
 	url := "http://127.0.0.1:8999"
-	// Send with string parameter in request body.
+	// 使用字符串参数作为请求体发送。
 	r1, err := g.Client().Post(ctx, url, "id=10000&name=john")
 	if err != nil {
 		panic(err)
@@ -291,7 +290,7 @@ func ExampleClient_Post() {
 	defer r1.Close()
 	fmt.Println(r1.ReadAllString())
 
-	// Send with map parameter.
+	// 使用map参数发送。
 	r2, err := g.Client().Post(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
@@ -419,7 +418,7 @@ func ExampleClient_Get() {
 		url = "http://127.0.0.1:8999"
 	)
 
-	// Send with string parameter along with URL.
+	// 使用字符串参数并通过URL发送。
 	r1, err := g.Client().Get(ctx, url+"?id=10000&name=john")
 	if err != nil {
 		panic(err)
@@ -427,7 +426,7 @@ func ExampleClient_Get() {
 	defer r1.Close()
 	fmt.Println(r1.ReadAllString())
 
-	// Send with string parameter in request body.
+	// 使用字符串参数作为请求体发送。
 	r2, err := g.Client().Get(ctx, url, "id=10000&name=john")
 	if err != nil {
 		panic(err)
@@ -435,7 +434,7 @@ func ExampleClient_Get() {
 	defer r2.Close()
 	fmt.Println(r2.ReadAllString())
 
-	// Send with map parameter.
+	// 使用map参数发送。
 	r3, err := g.Client().Get(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
@@ -524,52 +523,70 @@ func ExampleClient_GetVar() {
 	// &{1 john}
 }
 
-// ExampleClient_SetProxy an example for `gclient.Client.SetProxy` method.
-// please prepare two proxy server before running this example.
-// http proxy server listening on `127.0.0.1:1081`
-// socks5 proxy server listening on `127.0.0.1:1080`
+// ExampleClient_SetProxy 是 `gclient.Client.SetProxy` 方法的示例。
+// 请在运行此示例前准备好两个代理服务器。
+// HTTP 代理服务器监听 `127.0.0.1:1081`
+// SOCKS5 代理服务器监听 `127.0.0.1:1080`
 func ExampleClient_SetProxy() {
-	// connect to an http proxy server
+	// 连接到一个HTTP代理服务器
 	client := g.Client()
 	client.SetProxy("http://127.0.0.1:1081")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err := client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": proxyconnect tcp: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当你的代理服务器无法访问时，err将不为nil。
+// 例如：尝试获取"http://127.0.0.1:8999"时，出现如下错误：
+//       通过代理连接tcp：拨号tcp到127.0.0.1:1087时出错：连接被拒绝
+// （注：原文中的 "proxyconnect tcp: dial tcp" 是golang中通过代理连接远程地址时可能出现的错误信息，意指在建立TCP连接至代理服务器的过程中出现了问题，具体表现为连接被拒绝。）
 	}
 	fmt.Println(err != nil)
 	resp.Close()
 
-	// connect to an http proxy server which needs auth
+	// 连接到一个HTTP代理服务器 which needs auth
 	client.SetProxy("http://user:password:127.0.0.1:1081")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": proxyconnect tcp: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当你的代理服务器无法访问时，err将不为nil。
+// 例如：尝试获取"http://127.0.0.1:8999"时，出现如下错误：
+//       通过代理连接tcp：拨号tcp到127.0.0.1:1087时出错：连接被拒绝
+// （注：原文中的 "proxyconnect tcp: dial tcp" 是golang中通过代理连接远程地址时可能出现的错误信息，意指在建立TCP连接至代理服务器的过程中出现了问题，具体表现为连接被拒绝。）
 	}
 	fmt.Println(err != nil)
 	resp.Close()
 
-	// connect to a socks5 proxy server
+	// 连接到一个SOCKS5代理服务器
 	client.SetProxy("socks5://127.0.0.1:1080")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": socks connect tcp 127.0.0.1:1087->api.ip.sb:443: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当您的代理服务器不可用时，err将不为nil。
+// 例如：获取"http://127.0.0.1:8999"时出错，错误信息为：
+// "socks连接tcp 127.0.0.1:1087->api.ip.sb:443时发生错误：拨号tcp 127.0.0.1:1087失败，原因：连接被拒绝"
+// 这段Go语言代码的注释翻译成中文是：
+// ```go
+// 如果您的代理服务器宕机，err将不会是nil（即会返回一个非空错误）。
+// 比如：尝试获取"http://127.0.0.1:8999"时，
+// 出现如下错误："通过SOCKS协议连接到tcp 127.0.0.1:1087并试图转发到api.ip.sb:443的过程中发生错误，
+// 具体原因为：尝试连接到tcp 127.0.0.1:1087时被拒绝，连接无法建立。"
 	}
 	fmt.Println(err != nil)
 	resp.Close()
 
-	// connect to a socks5 proxy server which needs auth
+	// 连接到一个SOCKS5代理服务器 which needs auth
 	client.SetProxy("socks5://user:password@127.0.0.1:1080")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": socks connect tcp 127.0.0.1:1087->api.ip.sb:443: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当您的代理服务器不可用时，err将不为nil。
+// 例如：获取"http://127.0.0.1:8999"时出错，错误信息为：
+// "socks连接tcp 127.0.0.1:1087->api.ip.sb:443时发生错误：拨号tcp 127.0.0.1:1087失败，原因：连接被拒绝"
+// 这段Go语言代码的注释翻译成中文是：
+// ```go
+// 如果您的代理服务器宕机，err将不会是nil（即会返回一个非空错误）。
+// 比如：尝试获取"http://127.0.0.1:8999"时，
+// 出现如下错误："通过SOCKS协议连接到tcp 127.0.0.1:1087并试图转发到api.ip.sb:443的过程中发生错误，
+// 具体原因为：尝试连接到tcp 127.0.0.1:1087时被拒绝，连接无法建立。"
 	}
 	fmt.Println(err != nil)
 	resp.Close()
@@ -581,11 +598,11 @@ func ExampleClient_SetProxy() {
 	// true
 }
 
-// ExampleClientChain_Proxy a chain version of example for `gclient.Client.Proxy` method.
-// please prepare two proxy server before running this example.
-// http proxy server listening on `127.0.0.1:1081`
-// socks5 proxy server listening on `127.0.0.1:1080`
-// for more details, please refer to ExampleClient_SetProxy
+// ExampleClientChain_Proxy 是 `gclient.Client.Proxy` 方法的链式版本示例。
+// 在运行此示例前，请确保已准备好两个代理服务器。
+// HTTP 代理服务器监听地址为 `127.0.0.1:1081`
+// SOCKS5 代理服务器监听地址为 `127.0.0.1:1080`
+// 更多详情，请参考 ExampleClient_SetProxy 示例。
 func ExampleClient_Proxy() {
 	var (
 		ctx = context.Background()
@@ -620,7 +637,7 @@ func ExampleClient_Prefix() {
 	)
 
 	s := g.Server(guid.S())
-	// HTTP method handlers.
+	// HTTP方法处理器。
 	s.Group("/api", func(group *ghttp.RouterGroup) {
 		group.GET("/v1/prefix", func(r *ghttp.Request) {
 			r.Response.Write("this is v1 prefix")
@@ -634,7 +651,7 @@ func ExampleClient_Prefix() {
 	s.Start()
 	time.Sleep(time.Millisecond * 100)
 
-	// Add Client URI Prefix
+	// 添加客户端URI前缀
 	client := g.Client().Prefix(fmt.Sprintf(
 		"http://127.0.0.1:%d/api/v1/", s.GetListenedPort(),
 	))

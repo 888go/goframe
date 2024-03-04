@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gtime_test
 
@@ -13,7 +12,9 @@ import (
 	"github.com/gogf/gf/v2/test/gtest"
 )
 
-// https://github.com/gogf/gf/issues/1681
+// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题链接：https://github.com/gogf/gf/issues/1681
+// 翻译为：
+// 参考gogf/gf项目在GitHub上的第1681号问题：https://github.com/gogf/gf/issues/1681
 func Test_Issue1681(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(gtime.New("2022-03-08T03:01:14-07:00").Local().Time, gtime.New("2022-03-08T10:01:14Z").Local().Time)
@@ -23,7 +24,7 @@ func Test_Issue1681(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/2803
+// 这是GitHub上gogf/gf仓库的第2803个issue的链接
 func Test_Issue2803(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		newTime := gtime.New("2023-07-26").LayoutTo("2006-01")

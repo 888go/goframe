@@ -1,10 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// Package guid provides simple and high performance unique id generation functionality.
+// Package guid 提供了简单且高性能的唯一标识符生成功能。
 package guid
 
 import (
@@ -21,19 +20,19 @@ import (
 )
 
 const (
-	sequenceMax   = uint32(46655)                          // Sequence max("zzz").
-	randomStrBase = "0123456789abcdefghijklmnopqrstuvwxyz" // Random chars string(36 bytes).
+	sequenceMax   = uint32(46655)                          // 获取序列中最大值，示例为"zzz"。
+	randomStrBase = "0123456789abcdefghijklmnopqrstuvwxyz" // 随机字符字符串（36字节）
 )
 
 var (
-	sequence     gtype.Uint32 // Sequence for unique purpose of current process.
-	macAddrStr   = "0000000"  // MAC addresses hash result in 7 bytes.
-	processIdStr = "0000"     // Process id in 4 bytes.
+	sequence     gtype.Uint32 // 用于当前进程唯一目的的序列号
+	macAddrStr   = "0000000"  // MAC地址哈希结果为7字节。
+	processIdStr = "0000"     // 4字节表示的进程ID
 )
 
-// init initializes several fixed local variable.
+// init 初始化几个固定的局部变量。
 func init() {
-	// MAC addresses hash result in 7 bytes.
+	// MAC地址哈希结果为7字节。
 	macs, _ := gipv4.GetMacArray()
 	if len(macs) > 0 {
 		var macAddrBytes []byte
@@ -45,7 +44,7 @@ func init() {
 		copy(b, s)
 		macAddrStr = string(b)
 	}
-	// Process id in 4 bytes.
+	// 4字节表示的进程ID
 	{
 		b := []byte{'0', '0', '0', '0'}
 		s := strconv.FormatInt(int64(os.Getpid()), 36)
@@ -85,7 +84,7 @@ func S(data ...[]byte) string {
 	} else if len(data) <= 2 {
 		n := 0
 		for i, v := range data {
-			// Ignore empty data item bytes.
+			// 忽略空数据项字节。
 			if len(v) > 0 {
 				copy(b[i*7:], getDataHashStr(v))
 				n += 7
@@ -103,8 +102,8 @@ func S(data ...[]byte) string {
 	return string(b)
 }
 
-// getSequence increases and returns the sequence string in 3 bytes.
-// The sequence is less than "zzz"(46655).
+// getSequence 以3字节的方式递增并返回序列字符串。
+// 序列小于"zzz"(46655)。
 func getSequence() []byte {
 	b := []byte{'0', '0', '0'}
 	s := strconv.FormatUint(uint64(sequence.Add(1)%sequenceMax), 36)
@@ -112,7 +111,7 @@ func getSequence() []byte {
 	return b
 }
 
-// getRandomStr randomly picks and returns `n` count of chars from randomStrBase.
+// getRandomStr 随机地从 randomStrBase 中选取并返回 `n` 个字符。
 func getRandomStr(n int) []byte {
 	if n <= 0 {
 		return []byte{}
@@ -127,7 +126,7 @@ func getRandomStr(n int) []byte {
 	return b
 }
 
-// getDataHashStr creates and returns hash bytes in 7 bytes with given data bytes.
+// getDataHashStr 根据给定的数据字节创建并返回7字节的哈希值。
 func getDataHashStr(data []byte) []byte {
 	b := []byte{'0', '0', '0', '0', '0', '0', '0'}
 	s := strconv.FormatUint(uint64(ghash.SDBM(data)), 36)

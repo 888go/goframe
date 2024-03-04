@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gclient
 
@@ -46,11 +45,11 @@ const (
 	tracingMiddlewareHandled        gctx.StrKey = `MiddlewareClientTracingHandled`
 )
 
-// internalMiddlewareTracing is a client middleware that enables tracing feature using standards of OpenTelemetry.
+// internalMiddlewareTracing 是一个客户端中间件，它利用 OpenTelemetry 的标准启用追踪功能。
 func internalMiddlewareTracing(c *Client, r *http.Request) (response *Response, err error) {
 	var ctx = r.Context()
-	// Mark this request is handled by server tracing middleware,
-	// to avoid repeated handling by the same middleware.
+// 标记该请求已被服务器追踪中间件处理，
+// 以避免被同一中间件重复处理。
 	if ctx.Value(tracingMiddlewareHandled) != nil {
 		return c.Next(r)
 	}
@@ -65,16 +64,16 @@ func internalMiddlewareTracing(c *Client, r *http.Request) (response *Response, 
 
 	span.SetAttributes(gtrace.CommonLabels()...)
 
-	// Inject tracing content into http header.
+	// 向HTTP头中注入追踪内容
 	otel.GetTextMapPropagator().Inject(ctx, propagation.HeaderCarrier(r.Header))
 
-	// If it is now using default trace provider, it then does no complex tracing jobs.
+	// 如果当前正在使用默认的追踪提供者，则不执行任何复杂的追踪任务。
 	if gtrace.IsUsingDefaultProvider() {
 		response, err = c.Next(r)
 		return
 	}
 
-	// Continue client handler executing.
+	// 继续执行客户端处理器。
 	response, err = c.Next(
 		r.WithContext(
 			httptrace.WithClientTrace(

@@ -1,10 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// go test *.go -bench=".*" -benchmem
+// 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
 package gcfg
 
@@ -56,7 +55,7 @@ func Test_Instance_AutoLocateConfigFile(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(Instance("gf") != nil, true)
 	})
-	// Automatically locate the configuration file with supported file extensions.
+	// 自动定位并找到支持的文件扩展名的配置文件。
 	gtest.C(t, func(t *gtest.T) {
 		pwd := gfile.Pwd()
 		t.AssertNil(gfile.Chdir(gtest.DataPath()))
@@ -65,14 +64,14 @@ func Test_Instance_AutoLocateConfigFile(t *testing.T) {
 		t.Assert(Instance("c1").MustGet(ctx, "my-config"), "1")
 		t.Assert(Instance("folder1/c1").MustGet(ctx, "my-config"), "2")
 	})
-	// Automatically locate the configuration file with supported file extensions.
+	// 自动定位并找到支持的文件扩展名的配置文件。
 	gtest.C(t, func(t *gtest.T) {
 		pwd := gfile.Pwd()
 		t.AssertNil(gfile.Chdir(gtest.DataPath("folder1")))
 		defer gfile.Chdir(pwd)
 		t.Assert(Instance("c2").MustGet(ctx, "my-config"), 2)
 	})
-	// Default configuration file.
+	// 默认配置文件
 	gtest.C(t, func(t *gtest.T) {
 		localInstances.Clear()
 		pwd := gfile.Pwd()

@@ -1,10 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
-// go test *.go -bench=".*" -benchmem
+// 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
 package gset_test
 
@@ -87,7 +86,7 @@ func Benchmark_AnySet_Remove(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrSet_Add(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -98,7 +97,7 @@ func Benchmark_StrSet_Add(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrSet_Contains(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -109,7 +108,7 @@ func Benchmark_StrSet_Contains(b *testing.B) {
 	})
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_StrSet_Remove(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -156,21 +155,21 @@ func Benchmark_Unsafe_AnySet_Remove(b *testing.B) {
 	}
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_Unsafe_StrSet_Add(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Add(strconv.Itoa(i))
 	}
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_Unsafe_StrSet_Contains(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Contains(strconv.Itoa(i))
 	}
 }
 
-// Note that there's additional performance cost for string conversion.
+// 注意，字符串转换会带来额外的性能开销。
 func Benchmark_Unsafe_StrSet_Remove(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Remove(strconv.Itoa(i))

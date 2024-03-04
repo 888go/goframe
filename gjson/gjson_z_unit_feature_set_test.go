@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gjson_test
 
@@ -278,7 +277,7 @@ func Test_Set17(t *testing.T) {
 
 		t.Assert(j.Set("0.k1", "v1"), nil)
 		t.Assert(j.Set("1.k2", "v2"), nil)
-		// overwrite the previous slice.
+		// 覆盖之前切片的内容
 		t.Assert(j.Set("k", "v"), nil)
 
 		s, err := j.ToJsonString()

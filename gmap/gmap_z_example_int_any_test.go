@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf获取一个。
 
 package gmap_test
 
@@ -52,7 +51,7 @@ func ExampleIntAnyMap_Clone() {
 }
 
 func ExampleIntAnyMap_Map() {
-	// non concurrent-safety, a pointer to the underlying data
+	// 非并发安全，指向底层数据的指针
 	m1 := gmap.NewIntAnyMap()
 	m1.Set(1, "val1")
 	fmt.Println("m1:", m1)
@@ -62,7 +61,7 @@ func ExampleIntAnyMap_Map() {
 	m1.Set(1, "val2")
 	fmt.Println("after n1:", n1)
 
-	// concurrent-safety, copy of underlying data
+	// 并发安全，复制底层数据
 	m2 := gmap.New(true)
 	m2.Set(1, "val1")
 	fmt.Println("m2:", m2)

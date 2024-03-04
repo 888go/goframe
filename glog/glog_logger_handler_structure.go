@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package glog
 
@@ -33,14 +32,11 @@ const (
 	structureKeyStack      = "Stack"
 )
 
-// Copied from encoding/json/tables.go.
+// 从encoding/json/tables.go复制而来。
 //
-// safeSet holds the value true if the ASCII character with the given array
-// position can be represented inside a JSON string without any further
-// escaping.
+// safeSet 记录了如果ASCII字符在给定数组位置的值能在JSON字符串中无须额外转义即可表示，则其值为真（true）。
 //
-// All values are true except for the ASCII control characters (0-31), the
-// double quote ("), and the backslash character ("\").
+// 除了ASCII控制字符（0-31）、双引号（"）和反斜杠字符（\）之外，其余所有字符的值都为真。
 var safeSet = [utf8.RuneSelf]bool{
 	' ':      true,
 	'!':      true,
@@ -140,7 +136,7 @@ var safeSet = [utf8.RuneSelf]bool{
 	'\u007f': true,
 }
 
-// HandlerStructure is a handler for output logging content as a structured string.
+// HandlerStructure 是一个处理器，用于将输出的日志内容以结构化字符串形式记录。
 func HandlerStructure(ctx context.Context, in *HandlerInput) {
 	s := newStructuredBuffer(in)
 	in.Buffer.Write(s.Bytes())
@@ -175,7 +171,7 @@ func (buf *structuredBuffer) Bytes() []byte {
 	if buf.in.Prefix != "" {
 		buf.addValue(structureKeyPrefix, buf.in.Prefix)
 	}
-	// If the values cannot be the pair, move the first one to content.
+	// 如果这些值不能构成一对，则将第一个值移动到content中。
 	values := buf.in.Values
 	if len(values)%2 != 0 {
 		if buf.in.Content != "" {
@@ -227,8 +223,7 @@ func (buf *structuredBuffer) needsQuoting(s string) bool {
 	for i := 0; i < len(s); {
 		b := s[i]
 		if b < utf8.RuneSelf {
-			// Quote anything except a backslash that would need quoting in a
-			// JSON string, as well as space and '='
+// 将JSON字符串中需要转义的除反斜杠以外的任何字符，以及空格和'='进行引用
 			if b != '\\' && (b == ' ' || b == '=' || !safeSet[b]) {
 				return true
 			}

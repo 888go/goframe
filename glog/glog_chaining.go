@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package glog
 
@@ -10,89 +9,90 @@ import (
 	"io"
 )
 
-// Expose returns the default logger of package glog.
+// Expose 返回 glog 包的默认日志器。
+// DefaultLogger()  方法的别名
 func Expose() *Logger {
 	return defaultLogger
 }
 
-// To is a chaining function,
-// which redirects current logging content output to the sepecified `writer`.
+// To 是一个链式函数，
+// 它将当前日志内容输出重定向到指定的 `writer`。
 func To(writer io.Writer) *Logger {
 	return defaultLogger.To(writer)
 }
 
-// Path is a chaining function,
-// which sets the directory path to `path` for current logging content output.
+// Path 是一个链式函数，
+// 它用于将当前日志内容输出的目标目录路径设置为 `path`。
 func Path(path string) *Logger {
 	return defaultLogger.Path(path)
 }
 
-// Cat is a chaining function,
-// which sets the category to `category` for current logging content output.
+// Cat 是一个链式函数，
+// 它用于将当前日志内容输出的类别设置为 `category`。
 func Cat(category string) *Logger {
 	return defaultLogger.Cat(category)
 }
 
-// File is a chaining function,
-// which sets file name `pattern` for the current logging content output.
+// File 是一个链式函数，
+// 用于设置当前日志内容输出的文件名模式。
 func File(pattern string) *Logger {
 	return defaultLogger.File(pattern)
 }
 
-// Level is a chaining function,
-// which sets logging level for the current logging content output.
+// Level 是一个链式函数，
+// 用于设置当前日志内容输出的记录级别。
 func Level(level int) *Logger {
 	return defaultLogger.Level(level)
 }
 
-// LevelStr is a chaining function,
-// which sets logging level for the current logging content output using level string.
+// LevelStr 是一个链式函数，
+// 通过级别字符串设置当前日志内容输出的记录级别。
 func LevelStr(levelStr string) *Logger {
 	return defaultLogger.LevelStr(levelStr)
 }
 
-// Skip is a chaining function,
-// which sets stack skip for the current logging content output.
-// It also affects the caller file path checks when line number printing enabled.
+// Skip 是一个链式函数，
+// 用于设置当前日志内容输出时的堆栈跳过级别。
+// 当启用行号打印时，它也会影响调用文件路径的检查。
 func Skip(skip int) *Logger {
 	return defaultLogger.Skip(skip)
 }
 
-// Stack is a chaining function,
-// which sets stack options for the current logging content output .
+// Stack 是一个链式函数，
+// 用于为当前日志内容输出设置堆栈选项。
 func Stack(enabled bool, skip ...int) *Logger {
 	return defaultLogger.Stack(enabled, skip...)
 }
 
-// StackWithFilter is a chaining function,
-// which sets stack filter for the current logging content output .
+// StackWithFilter 是一个链式函数，
+// 用于为当前日志内容输出设置堆栈过滤器。
 func StackWithFilter(filter string) *Logger {
 	return defaultLogger.StackWithFilter(filter)
 }
 
-// Stdout is a chaining function,
-// which enables/disables stdout for the current logging content output.
-// It's enabled in default.
+// Stdout 是一个链式函数，
+// 用于启用/禁用当前日志内容输出到标准输出（stdout）。
+// 默认情况下它是启用的。
 func Stdout(enabled ...bool) *Logger {
 	return defaultLogger.Stdout(enabled...)
 }
 
-// Header is a chaining function,
-// which enables/disables log header for the current logging content output.
-// It's enabled in default.
+// Header 是一个链式函数，
+// 用于启用/禁用当前日志内容输出的头部信息。
+// 默认情况下它是启用的。
 func Header(enabled ...bool) *Logger {
 	return defaultLogger.Header(enabled...)
 }
 
-// Line is a chaining function,
-// which enables/disables printing its caller file along with its line number.
-// The parameter `long` specified whether print the long absolute file path, eg: /a/b/c/d.go:23.
+// Line 是一个链式函数，
+// 它用于启用/禁用在输出时附带调用者文件及其行号。
+// 参数 `long` 指定是否打印完整的绝对文件路径，例如：/a/b/c/d.go:23。
 func Line(long ...bool) *Logger {
 	return defaultLogger.Line(long...)
 }
 
-// Async is a chaining function,
-// which enables/disables async logging output feature.
+// Async 是一个链式函数，
+// 用于启用/禁用异步日志输出功能。
 func Async(enabled ...bool) *Logger {
 	return defaultLogger.Async(enabled...)
 }

@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受 MIT 许可协议条款约束。
+// 如果随此文件未分发 MIT 许可协议副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gview
 
@@ -30,11 +30,11 @@ import (
 )
 
 const (
-	// Template name for content parsing.
+	// 模板名称，用于内容解析。
 	templateNameForContentParsing = "TemplateContent"
 )
 
-// fileCacheItem is the cache item for template file.
+// fileCacheItem 是用于模板文件的缓存项。
 type fileCacheItem struct {
 	path    string
 	folder  string
@@ -42,22 +42,22 @@ type fileCacheItem struct {
 }
 
 var (
-	// Templates cache map for template folder.
-	// Note that there's no expiring logic for this map.
+// 模板文件夹的模板缓存映射。
+// 注意，此映射没有设置过期逻辑。
 	templates = gmap.NewStrAnyMap(true)
 
-	// Try-folders for resource template file searching.
+	// 尝试在以下文件夹中搜索资源模板文件。
 	resourceTryFolders = []string{
 		"template/", "template", "/template", "/template/",
 		"resource/template/", "resource/template", "/resource/template", "/resource/template/",
 	}
 
-	// Prefix array for trying searching in local system.
+	// 前缀数组，用于尝试在本地系统中进行搜索。
 	localSystemTryFolders = []string{"", "template/", "resource/template"}
 )
 
-// Parse parses given template file `file` with given template variables `params`
-// and returns the parsed template content.
+// Parse函数用于解析给定的模板文件`file`，并使用给定的模板变量`params`进行解析，
+// 然后返回解析后的模板内容。
 func (view *View) Parse(ctx context.Context, file string, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -71,7 +71,7 @@ func (view *View) Parse(ctx context.Context, file string, params ...Params) (res
 	})
 }
 
-// ParseDefault parses the default template file with params.
+// ParseDefault 通过给定的参数解析默认模板文件。
 func (view *View) ParseDefault(ctx context.Context, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -85,8 +85,8 @@ func (view *View) ParseDefault(ctx context.Context, params ...Params) (result st
 	})
 }
 
-// ParseContent parses given template content `content`  with template variables `params`
-// and returns the parsed content in []byte.
+// ParseContent 函数用于解析给定的模板内容 `content`，同时使用模板变量 `params` 进行替换，
+// 并将解析后的内容以 []byte 类型返回。
 func (view *View) ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -99,15 +99,15 @@ func (view *View) ParseContent(ctx context.Context, content string, params ...Pa
 	})
 }
 
-// Option for template parsing.
+// 模板解析的选项。
 type Option struct {
-	File    string // Template file path in absolute or relative to searching paths.
-	Content string // Template content, it ignores `File` if `Content` is given.
-	Orphan  bool   // If true, the `File` is considered as a single file parsing without files recursively parsing from its folder.
-	Params  Params // Template parameters map.
+	File    string // 模板文件路径，可以是绝对路径，也可以相对于搜索路径。
+	Content string // 模板内容，如果提供了`Content`，则会忽略`File`。
+	Orphan  bool   // 如果为true，那么`File`被视为单个文件解析，不递归地从其所在文件夹中解析其他文件。
+	Params  Params // 模板参数映射。
 }
 
-// ParseOption implements template parsing using Option.
+// ParseOption 实现了通过 Option 进行模板解析的功能。
 func (view *View) ParseOption(ctx context.Context, option Option) (result string, err error) {
 	if option.Content != "" {
 		return view.doParseContent(ctx, option.Content, option.Params)
@@ -115,7 +115,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	if option.File == "" {
 		return "", gerror.New(`template file cannot be empty`)
 	}
-	// It caches the file, folder and content to enhance performance.
+	// 它缓存文件、文件夹及其内容以提高性能。
 	r := view.fileCacheMap.GetOrSetFuncLock(option.File, func() interface{} {
 		var (
 			path     string
@@ -123,7 +123,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 			content  string
 			resource *gres.File
 		)
-		// Searching the absolute file path for `file`.
+		// 搜索`file`的绝对文件路径。
 		path, folder, resource, err = view.searchFile(ctx, option.File)
 		if err != nil {
 			return nil
@@ -133,7 +133,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		} else {
 			content = gfile.GetContentsWithCache(path)
 		}
-		// Monitor template files changes using fsnotify asynchronously.
+		// 使用fsnotify异步监控模板文件的变更。
 		if resource == nil {
 			if _, err = gfsnotify.AddOnce("gview.Parse:"+folder, folder, func(event *gfsnotify.Event) {
 				// CLEAR THEM ALL.
@@ -154,21 +154,21 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		return
 	}
 	item := r.(*fileCacheItem)
-	// It's not necessary continuing parsing if template content is empty.
+	// 如果模板内容为空，则没有必要继续解析。
 	if item.content == "" {
 		return "", nil
 	}
-	// If it's Orphan option, it just parses the single file by ParseContent.
+	// 如果是Orphan选项，它仅通过ParseContent解析单个文件。
 	if option.Orphan {
 		return view.doParseContent(ctx, item.content, option.Params)
 	}
-	// Get the template object instance for `folder`.
+	// 获取`folder`对应的模板对象实例。
 	var tpl interface{}
 	tpl, err = view.getTemplate(item.path, item.folder, fmt.Sprintf(`*%s`, gfile.Ext(item.path)))
 	if err != nil {
 		return "", err
 	}
-	// Using memory lock to ensure concurrent safety for template parsing.
+	// 使用内存锁以确保模板解析过程中的并发安全性。
 	gmlock.LockFunc("gview.Parse:"+item.path, func() {
 		if view.config.AutoEncode {
 			tpl, err = tpl.(*htmltpl.Template).Parse(item.content)
@@ -182,9 +182,8 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	if err != nil {
 		return "", err
 	}
-	// Note that the template variable assignment cannot change the value
-	// of the existing `params` or view.data because both variables are pointers.
-	// It needs to merge the values of the two maps into a new map.
+// 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
+// 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
 	variables := gutil.MapMergeCopy(option.Params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -206,16 +205,16 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		}
 	}
 
-	// TODO any graceful plan to replace "<no value>"?
+	// TODO 是否有优雅的方案来替换 "<无值>"？
 	result = gstr.Replace(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
 }
 
-// doParseContent parses given template content `content`  with template variables `params`
-// and returns the parsed content in []byte.
+// doParseContent 函数用于解析给定的模板内容 `content`，并使用模板变量 `params` 进行替换，
+// 然后返回已解析内容的 []byte 类型数据。
 func (view *View) doParseContent(ctx context.Context, content string, params Params) (string, error) {
-	// It's not necessary continuing parsing if template content is empty.
+	// 如果模板内容为空，则没有必要继续解析。
 	if content == "" {
 		return "", nil
 	}
@@ -235,7 +234,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 			).Funcs(view.funcMap)
 		})
 	)
-	// Using memory lock to ensure concurrent safety for content parsing.
+	// 使用内存锁以确保内容解析的并发安全。
 	hash := strconv.FormatUint(ghash.DJB64([]byte(content)), 10)
 	gmlock.LockFunc("gview.ParseContent:"+hash, func() {
 		if view.config.AutoEncode {
@@ -248,9 +247,8 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		err = gerror.Wrapf(err, `template parsing failed`)
 		return "", err
 	}
-	// Note that the template variable assignment cannot change the value
-	// of the existing `params` or view.data because both variables are pointers.
-	// It needs to merge the values of the two maps into a new map.
+// 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
+// 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
 	variables := gutil.MapMergeCopy(params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -275,16 +273,20 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 			return "", err
 		}
 	}
-	// TODO any graceful plan to replace "<no value>"?
+	// TODO 是否有优雅的方案来替换 "<无值>"？
 	result := gstr.Replace(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
 }
 
-// getTemplate returns the template object associated with given template file `path`.
-// It uses template cache to enhance performance, that is, it will return the same template object
-// with the same given `path`. It will also automatically refresh the template cache
-// if the template files under `path` changes (recursively).
+// getTemplate 返回与给定模板文件`path`关联的模板对象。
+// 它利用模板缓存来提升性能，即对于相同的给定`path`，它将返回相同的模板对象。
+// 同时，如果`path`路径下的模板文件发生变化（递归检测），它会自动刷新模板缓存。
+// 这段代码注释翻译成中文为：
+// ```go
+// getTemplate 函数用于获取与指定模板文件 `path` 相关联的模板对象。
+// 为了提高性能，它使用了模板缓存技术。这意味着当传入相同的 `path` 时，它会返回同一模板对象。
+// 另外，该函数会自动监测并更新缓存：一旦发现 `path` 路径下（包括子目录）的模板文件发生变动，就会自动刷新模板缓存。
 func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interface{}, err error) {
 	var (
 		mapKey  = fmt.Sprintf("%s_%v", filePath, view.config.Delimiters)
@@ -301,7 +303,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 					view.config.Delimiters[1],
 				).Funcs(view.funcMap)
 			}
-			// Firstly checking the resource manager.
+			// 首先检查资源管理器。
 			if !gres.IsEmpty() {
 				if files := gres.ScanDirFile(folderPath, pattern, true); len(files) > 0 {
 					if view.config.AutoEncode {
@@ -327,8 +329,8 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 				}
 			}
 
-			// Secondly checking the file system,
-			// and then automatically parsing all its sub-files recursively.
+// 其次检查文件系统，
+// 然后递归地自动解析其所有子文件。
 			var files []string
 			files, err = gfile.ScanDir(folderPath, pattern, true)
 			if err != nil {
@@ -361,7 +363,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 	return
 }
 
-// formatTemplateObjectCreatingError formats the error that created from creating template object.
+// formatTemplateObjectCreatingError 格式化创建模板对象时产生的错误信息。
 func (view *View) formatTemplateObjectCreatingError(filePath, tplName string, err error) error {
 	if err != nil {
 		return gerror.NewSkip(1, gstr.Replace(err.Error(), tplName, filePath))
@@ -369,12 +371,11 @@ func (view *View) formatTemplateObjectCreatingError(filePath, tplName string, er
 	return nil
 }
 
-// searchFile returns the found absolute path for `file` and its template folder path.
-// Note that, the returned `folder` is the template folder path, but not the folder of
-// the returned template file `path`.
+// searchFile 函数返回文件 `file` 找到的绝对路径及其对应的模板文件夹路径。
+// 注意，返回的 `folder` 是模板文件夹路径，并不是返回的模板文件 `path` 的所在文件夹路径。
 func (view *View) searchFile(ctx context.Context, file string) (path string, folder string, resource *gres.File, err error) {
 	var tempPath string
-	// Firstly checking the resource manager.
+	// 首先检查资源管理器。
 	if !gres.IsEmpty() {
 		// Try folders.
 		for _, tryFolder := range resourceTryFolders {
@@ -400,7 +401,7 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 		})
 	}
 
-	// Secondly checking the file system.
+	// 第二步检查文件系统。
 	if path == "" {
 		// Absolute path.
 		path = gfile.RealPath(file)

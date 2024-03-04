@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gcache
 
@@ -13,8 +12,8 @@ import (
 )
 
 type adapterMemoryExpireSets struct {
-	mu         sync.RWMutex        // expireSetMu ensures the concurrent safety of expireSets map.
-	expireSets map[int64]*gset.Set // expireSets is the expiring timestamp to its key set mapping, which is used for quick indexing and deleting.
+	mu         sync.RWMutex        // expireSetMu 用于确保 expireSets 这个映射（map）在并发环境下的安全性。
+	expireSets map[int64]*gset.Set // expireSets 是一个映射表，用于存储即将过期的时间戳及其对应的键集合。这个映射表用于快速索引和删除操作。
 }
 
 func newAdapterMemoryExpireSets() *adapterMemoryExpireSets {

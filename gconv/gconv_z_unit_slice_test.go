@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv_test
 
@@ -317,7 +316,9 @@ func Test_Strings(t *testing.T) {
 		t.AssertEQ(gconv.Strings([]uint8(`["1","2"]`)), []string{"1", "2"})
 		t.AssertEQ(gconv.Strings([][]byte{{byte(0)}, {byte(1)}}), []string{"\u0000", "\u0001"})
 	})
-	// https://github.com/gogf/gf/issues/1750
+	// 这是Go语言代码中的一行注释，其内容引用了GitHub上gogf/gf项目的一个问题：#1750
+// 对应中文注释：
+// 参考GitHub上gogf/gf项目编号为1750的问题
 	gtest.C(t, func(t *gtest.T) {
 		t.AssertEQ(gconv.Strings("123"), []string{"123"})
 	})

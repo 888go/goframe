@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gclient
 
@@ -27,7 +26,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// clientTracer is used for implementing httptrace.ClientTrace.
+// clientTracer 用于实现 httptrace.ClientTrace。
 type clientTracer struct {
 	context.Context
 	span        trace.Span
@@ -37,7 +36,7 @@ type clientTracer struct {
 	mtx         sync.Mutex
 }
 
-// newClientTrace creates and returns object of newClientTrace.
+// newClientTrace创建并返回一个newClientTrace对象。
 func newClientTrace(ctx context.Context, span trace.Span, request *http.Request) *httptrace.ClientTrace {
 	ct := &clientTracer{
 		Context: ctx,

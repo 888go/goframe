@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gfile_test
 
@@ -24,14 +23,13 @@ func ExampleGetContentsWithCache() {
 	// write contents
 	gfile.PutContents(tempFile, "goframe example content")
 
-	// It reads the file content with cache duration of one minute,
-	// which means it reads from cache after then without any IO operations within on minute.
+// 它以一分钟的缓存时长读取文件内容，这意味着在一分钟内如果没有任何IO操作，它将从缓存中读取而不是实际读取文件。
 	fmt.Println(gfile.GetContentsWithCache(tempFile, time.Minute))
 
-	// write new contents will clear its cache
+	// 写入新内容将会清除其缓存
 	gfile.PutContents(tempFile, "new goframe example content")
 
-	// There's some delay for cache clearing after file content change.
+	// 在文件内容更改后，缓存清除会有一些延迟。
 	time.Sleep(time.Second * 1)
 
 	// read contents

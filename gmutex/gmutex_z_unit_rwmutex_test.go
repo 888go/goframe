@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gmutex_test
 
@@ -204,7 +203,7 @@ func Test_RWMutex_TryRLockFunc(t *testing.T) {
 			mu    = gmutex.RWMutex{}
 			array = garray.New(true)
 		)
-		// First writing lock
+		// 首次写入锁
 		go func() {
 			mu.LockFunc(func() {
 				array.Append(1)
@@ -212,7 +211,7 @@ func Test_RWMutex_TryRLockFunc(t *testing.T) {
 				time.Sleep(2000 * time.Millisecond)
 			})
 		}()
-		// This goroutine never gets the lock.
+		// 这个goroutine永远不会获取到锁。
 		go func() {
 			time.Sleep(1000 * time.Millisecond)
 			mu.TryRLockFunc(func() {

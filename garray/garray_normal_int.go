@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package garray
 
@@ -20,24 +19,21 @@ import (
 	"github.com/gogf/gf/v2/util/grand"
 )
 
-// IntArray is a golang int array with rich features.
-// It contains a concurrent-safe/unsafe switch, which should be set
-// when its initialization and cannot be changed then.
+// IntArray 是一个具有丰富功能的 Go 语言整数数组。
+// 它包含一个并发安全/不安全切换开关，应在初始化时设置，并且此后不可更改。
 type IntArray struct {
 	mu    rwmutex.RWMutex
 	array []int
 }
 
-// NewIntArray creates and returns an empty array.
-// The parameter `safe` is used to specify whether using array in concurrent-safety,
-// which is false in default.
+// NewIntArray 创建并返回一个空数组。
+// 参数 `safe` 用于指定是否在并发安全的情况下使用数组，默认为 false。
 func NewIntArray(safe ...bool) *IntArray {
 	return NewIntArraySize(0, 0, safe...)
 }
 
-// NewIntArraySize create and returns an array with given size and cap.
-// The parameter `safe` is used to specify whether using array in concurrent-safety,
-// which is false in default.
+// NewIntArraySize 根据给定的大小和容量创建并返回一个数组。
+// 参数`safe`用于指定是否在并发安全的情况下使用数组，默认为false。
 func NewIntArraySize(size int, cap int, safe ...bool) *IntArray {
 	return &IntArray{
 		mu:    rwmutex.Create(safe...),
@@ -45,8 +41,7 @@ func NewIntArraySize(size int, cap int, safe ...bool) *IntArray {
 	}
 }
 
-// NewIntArrayRange creates and returns an array by a range from `start` to `end`
-// with step value `step`.
+// NewIntArrayRange 根据指定范围从 `start` 到 `end` 以步长值 `step` 创建并返回一个整数数组。
 func NewIntArrayRange(start, end, step int, safe ...bool) *IntArray {
 	if step == 0 {
 		panic(fmt.Sprintf(`invalid step value: %d`, step))
@@ -60,9 +55,8 @@ func NewIntArrayRange(start, end, step int, safe ...bool) *IntArray {
 	return NewIntArrayFrom(slice, safe...)
 }
 
-// NewIntArrayFrom creates and returns an array with given slice `array`.
-// The parameter `safe` is used to specify whether using array in concurrent-safety,
-// which is false in default.
+// NewIntArrayFrom 根据给定的切片 `array` 创建并返回一个数组。
+// 参数 `safe` 用于指定是否在并发安全的情况下使用数组，默认为 false。
 func NewIntArrayFrom(array []int, safe ...bool) *IntArray {
 	return &IntArray{
 		mu:    rwmutex.Create(safe...),
@@ -70,9 +64,8 @@ func NewIntArrayFrom(array []int, safe ...bool) *IntArray {
 	}
 }
 
-// NewIntArrayFromCopy creates and returns an array from a copy of given slice `array`.
-// The parameter `safe` is used to specify whether using array in concurrent-safety,
-// which is false in default.
+// NewIntArrayFromCopy 通过复制给定切片 `array` 创建并返回一个数组。
+// 参数 `safe` 用于指定是否在并发安全的情况下使用数组，默认为 false。
 func NewIntArrayFromCopy(array []int, safe ...bool) *IntArray {
 	newArray := make([]int, len(array))
 	copy(newArray, array)
@@ -82,15 +75,15 @@ func NewIntArrayFromCopy(array []int, safe ...bool) *IntArray {
 	}
 }
 
-// At returns the value by the specified index.
-// If the given `index` is out of range of the array, it returns `0`.
+// At通过指定的索引返回值。
+// 如果给定的`index`超出数组范围，它将返回`0`。
 func (a *IntArray) At(index int) (value int) {
 	value, _ = a.Get(index)
 	return
 }
 
-// Get returns the value by the specified index.
-// If the given `index` is out of range of the array, the `found` is false.
+// Get 通过指定的索引返回值。
+// 如果给定的 `index` 超出了数组的范围，那么 `found` 将为 false。
 func (a *IntArray) Get(index int) (value int, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -100,7 +93,7 @@ func (a *IntArray) Get(index int) (value int, found bool) {
 	return a.array[index], true
 }
 
-// Set sets value to specified index.
+// Set将值设置到指定的索引位置。
 func (a *IntArray) Set(index int, value int) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -111,7 +104,7 @@ func (a *IntArray) Set(index int, value int) error {
 	return nil
 }
 
-// SetArray sets the underlying slice array with the given `array`.
+// SetArray 将底层的切片数组设置为给定的 `array`。
 func (a *IntArray) SetArray(array []int) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -119,7 +112,7 @@ func (a *IntArray) SetArray(array []int) *IntArray {
 	return a
 }
 
-// Replace replaces the array items by given `array` from the beginning of array.
+// Replace 从数组起始位置开始，使用给定的`array`替换原有数组元素。
 func (a *IntArray) Replace(array []int) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -133,7 +126,7 @@ func (a *IntArray) Replace(array []int) *IntArray {
 	return a
 }
 
-// Sum returns the sum of values in an array.
+// Sum 返回数组中所有值的和。
 func (a *IntArray) Sum() (sum int) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -143,8 +136,8 @@ func (a *IntArray) Sum() (sum int) {
 	return
 }
 
-// Sort sorts the array in increasing order.
-// The parameter `reverse` controls whether sort in increasing order(default) or decreasing order.
+// Sort 函数用于将数组按升序排序。
+// 参数 `reverse` 用于控制是否按升序（默认）或降序进行排序。
 func (a *IntArray) Sort(reverse ...bool) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -158,7 +151,7 @@ func (a *IntArray) Sort(reverse ...bool) *IntArray {
 	return a
 }
 
-// SortFunc sorts the array by custom function `less`.
+// SortFunc 通过自定义函数 `less` 对数组进行排序。
 func (a *IntArray) SortFunc(less func(v1, v2 int) bool) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -168,7 +161,7 @@ func (a *IntArray) SortFunc(less func(v1, v2 int) bool) *IntArray {
 	return a
 }
 
-// InsertBefore inserts the `values` to the front of `index`.
+// InsertBefore 将 `values` 插入到 `index` 之前的位置。
 func (a *IntArray) InsertBefore(index int, values ...int) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -181,7 +174,7 @@ func (a *IntArray) InsertBefore(index int, values ...int) error {
 	return nil
 }
 
-// InsertAfter inserts the `value` to the back of `index`.
+// InsertAfter 在`index`之后插入`value`。
 func (a *IntArray) InsertAfter(index int, values ...int) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -194,20 +187,20 @@ func (a *IntArray) InsertAfter(index int, values ...int) error {
 	return nil
 }
 
-// Remove removes an item by index.
-// If the given `index` is out of range of the array, the `found` is false.
+// Remove 通过索引移除一个元素。
+// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
 func (a *IntArray) Remove(index int) (value int, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	return a.doRemoveWithoutLock(index)
 }
 
-// doRemoveWithoutLock removes an item by index without lock.
+// doRemoveWithoutLock 在没有加锁的情况下通过索引移除一个项。
 func (a *IntArray) doRemoveWithoutLock(index int) (value int, found bool) {
 	if index < 0 || index >= len(a.array) {
 		return 0, false
 	}
-	// Determine array boundaries when deleting to improve deletion efficiency.
+	// 确定删除时的数组边界以提高删除效率
 	if index == 0 {
 		value := a.array[0]
 		a.array = a.array[1:]
@@ -217,16 +210,16 @@ func (a *IntArray) doRemoveWithoutLock(index int) (value int, found bool) {
 		a.array = a.array[:index]
 		return value, true
 	}
-	// If it is a non-boundary delete,
-	// it will involve the creation of an array,
-	// then the deletion is less efficient.
+// 如果这是一个非边界删除，
+// 那么它将涉及创建一个数组，
+// 因此，删除操作效率较低。
 	value = a.array[index]
 	a.array = append(a.array[:index], a.array[index+1:]...)
 	return value, true
 }
 
-// RemoveValue removes an item by value.
-// It returns true if value is found in the array, or else false if not found.
+// RemoveValue 通过值移除一个元素。
+// 若在数组中找到该值，则返回 true，否则（未找到时）返回 false。
 func (a *IntArray) RemoveValue(value int) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -237,7 +230,7 @@ func (a *IntArray) RemoveValue(value int) bool {
 	return false
 }
 
-// RemoveValues removes multiple items by `values`.
+// RemoveValues 通过 `values` 移除多个项目。
 func (a *IntArray) RemoveValues(values ...int) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -248,7 +241,7 @@ func (a *IntArray) RemoveValues(values ...int) {
 	}
 }
 
-// PushLeft pushes one or multiple items to the beginning of array.
+// PushLeft 将一个或多个元素推送到数组的起始位置。
 func (a *IntArray) PushLeft(value ...int) *IntArray {
 	a.mu.Lock()
 	a.array = append(value, a.array...)
@@ -256,8 +249,8 @@ func (a *IntArray) PushLeft(value ...int) *IntArray {
 	return a
 }
 
-// PushRight pushes one or multiple items to the end of array.
-// It equals to Append.
+// PushRight将一个或多个元素推送到数组的末尾。
+// 它等同于Append。
 func (a *IntArray) PushRight(value ...int) *IntArray {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -265,8 +258,8 @@ func (a *IntArray) PushRight(value ...int) *IntArray {
 	return a
 }
 
-// PopLeft pops and returns an item from the beginning of array.
-// Note that if the array is empty, the `found` is false.
+// PopLeft 从数组开头弹出并返回一个元素。
+// 注意，如果数组为空，则 `found` 为 false。
 func (a *IntArray) PopLeft() (value int, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -278,8 +271,8 @@ func (a *IntArray) PopLeft() (value int, found bool) {
 	return value, true
 }
 
-// PopRight pops and returns an item from the end of array.
-// Note that if the array is empty, the `found` is false.
+// PopRight从数组的末尾弹出并返回一个元素。
+// 注意，如果数组为空，则`found`为false。
 func (a *IntArray) PopRight() (value int, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -292,17 +285,17 @@ func (a *IntArray) PopRight() (value int, found bool) {
 	return value, true
 }
 
-// PopRand randomly pops and return an item out of array.
-// Note that if the array is empty, the `found` is false.
+// PopRand 随机地从数组中弹出并返回一个元素。
+// 注意，如果数组为空，则 `found` 为 false。
 func (a *IntArray) PopRand() (value int, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	return a.doRemoveWithoutLock(grand.Intn(len(a.array)))
 }
 
-// PopRands randomly pops and returns `size` items out of array.
-// If the given `size` is greater than size of the array, it returns all elements of the array.
-// Note that if given `size` <= 0 or the array is empty, it returns nil.
+// PopRands 随机地从数组中弹出并返回 `size` 个元素。
+// 若给定的 `size` 大于数组的大小，则返回数组中的所有元素。
+// 注意，如果给定的 `size` 小于等于0或者数组为空，它将返回 nil。
 func (a *IntArray) PopRands(size int) []int {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -319,9 +312,9 @@ func (a *IntArray) PopRands(size int) []int {
 	return array
 }
 
-// PopLefts pops and returns `size` items from the beginning of array.
-// If the given `size` is greater than size of the array, it returns all elements of the array.
-// Note that if given `size` <= 0 or the array is empty, it returns nil.
+// PopLefts 从数组开头弹出并返回 `size` 个元素。
+// 如果给定的 `size` 大于数组的大小，则返回数组中的所有元素。
+// 注意，如果给定的 `size` 小于等于0或者数组为空，则返回nil。
 func (a *IntArray) PopLefts(size int) []int {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -338,9 +331,9 @@ func (a *IntArray) PopLefts(size int) []int {
 	return value
 }
 
-// PopRights pops and returns `size` items from the end of array.
-// If the given `size` is greater than size of the array, it returns all elements of the array.
-// Note that if given `size` <= 0 or the array is empty, it returns nil.
+// PopRights 从数组末尾弹出并返回 `size` 个元素。
+// 若给定的 `size` 大于数组的大小，则返回数组中所有元素。
+// 注意，如果给定的 `size` 小于等于0或者数组为空，它将返回nil。
 func (a *IntArray) PopRights(size int) []int {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -358,13 +351,11 @@ func (a *IntArray) PopRights(size int) []int {
 	return value
 }
 
-// Range picks and returns items by range, like array[start:end].
-// Notice, if in concurrent-safe usage, it returns a copy of slice;
-// else a pointer to the underlying data.
+// Range 函数通过范围选择并返回数组中的元素，类似于 array[start:end]。
+// 注意：在并发安全的使用场景下，它会返回一个原数据的副本；否则，返回的是底层数据的指针。
 //
-// If `end` is negative, then the offset will start from the end of array.
-// If `end` is omitted, then the sequence will have everything from start up
-// until the end of the array.
+// 如果 `end` 为负数，则偏移量将从数组末尾开始计算。
+// 如果省略了 `end`，则序列将包含从 start 开始直到数组末尾的所有元素。
 func (a *IntArray) Range(start int, end ...int) []int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -388,19 +379,18 @@ func (a *IntArray) Range(start int, end ...int) []int {
 	return array
 }
 
-// SubSlice returns a slice of elements from the array as specified
-// by the `offset` and `size` parameters.
-// If in concurrent safe usage, it returns a copy of the slice; else a pointer.
+// SubSlice 返回数组中由 `offset` 和 `size` 参数指定的元素子序列，并将其作为切片。
+// 若在并发安全场景下使用，返回该切片的副本；否则返回指向切片的指针。
 //
-// If offset is non-negative, the sequence will start at that offset in the array.
-// If offset is negative, the sequence will start that far from the end of the array.
+// 如果 offset 非负，则序列从数组该偏移位置开始。
+// 如果 offset 为负，则序列从数组末尾向前偏移该距离的位置开始。
 //
-// If length is given and is positive, then the sequence will have up to that many elements in it.
-// If the array is shorter than the length, then only the available array elements will be present.
-// If length is given and is negative then the sequence will stop that many elements from the end of the array.
-// If it is omitted, then the sequence will have everything from offset up until the end of the array.
+// 如果提供了 length 并且为正数，则序列将包含最多该数量的元素。
+// 若数组长度小于 length，则序列仅包含数组中可获得的元素。
+// 如果 length 为负数，则序列将在数组末尾向前停在该距离的位置。
+// 如果未提供 length，则序列包含从 offset 开始直到数组末尾的所有元素。
 //
-// Any possibility crossing the left border of array, it will fail.
+// 若有任何可能穿越数组左边界的情况，函数将失败。
 func (a *IntArray) SubSlice(offset int, length ...int) []int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -438,7 +428,7 @@ func (a *IntArray) SubSlice(offset int, length ...int) []int {
 	}
 }
 
-// Append is alias of PushRight,please See PushRight.
+// Append 是 PushRight 的别名，请参阅 PushRight。
 func (a *IntArray) Append(value ...int) *IntArray {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -446,7 +436,7 @@ func (a *IntArray) Append(value ...int) *IntArray {
 	return a
 }
 
-// Len returns the length of array.
+// Len 返回数组的长度。
 func (a *IntArray) Len() int {
 	a.mu.RLock()
 	length := len(a.array)
@@ -454,9 +444,9 @@ func (a *IntArray) Len() int {
 	return length
 }
 
-// Slice returns the underlying data of array.
-// Note that, if it's in concurrent-safe usage, it returns a copy of underlying data,
-// or else a pointer to the underlying data.
+// Slice 返回数组的基础数据。
+// 注意，如果它在并发安全的使用场景下，会返回基础数据的一个副本，
+// 否则，则返回指向基础数据的指针。
 func (a *IntArray) Slice() []int {
 	array := ([]int)(nil)
 	if a.mu.IsSafe() {
@@ -470,7 +460,7 @@ func (a *IntArray) Slice() []int {
 	return array
 }
 
-// Interfaces returns current array as []interface{}.
+// Interfaces 函数将当前数组转换为 []interface{} 类型并返回。
 func (a *IntArray) Interfaces() []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -481,7 +471,7 @@ func (a *IntArray) Interfaces() []interface{} {
 	return array
 }
 
-// Clone returns a new array, which is a copy of current array.
+// Clone 返回一个新的数组，它是当前数组的一个副本。
 func (a *IntArray) Clone() (newArray *IntArray) {
 	a.mu.RLock()
 	array := make([]int, len(a.array))
@@ -490,7 +480,7 @@ func (a *IntArray) Clone() (newArray *IntArray) {
 	return NewIntArrayFrom(array, a.mu.IsSafe())
 }
 
-// Clear deletes all items of current array.
+// 清空删除当前数组中的所有元素。
 func (a *IntArray) Clear() *IntArray {
 	a.mu.Lock()
 	if len(a.array) > 0 {
@@ -500,13 +490,13 @@ func (a *IntArray) Clear() *IntArray {
 	return a
 }
 
-// Contains checks whether a value exists in the array.
+// Contains 检查某个值是否存在于数组中。
 func (a *IntArray) Contains(value int) bool {
 	return a.Search(value) != -1
 }
 
-// Search searches array by `value`, returns the index of `value`,
-// or returns -1 if not exists.
+// Search 在数组中通过 `value` 进行搜索，返回 `value` 的索引，
+// 若不存在，则返回 -1。
 func (a *IntArray) Search(value int) int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -527,8 +517,8 @@ func (a *IntArray) doSearchWithoutLock(value int) int {
 	return result
 }
 
-// Unique uniques the array, clear repeated items.
-// Example: [1,1,2,3,2] -> [1,2,3]
+// Unique 函数用于对数组去重，清除重复的元素。
+// 示例：[1,1,2,3,2] -> [1,2,3]
 func (a *IntArray) Unique() *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -553,7 +543,7 @@ func (a *IntArray) Unique() *IntArray {
 	return a
 }
 
-// LockFunc locks writing by callback function `f`.
+// LockFunc 通过回调函数`f`进行写入锁定。
 func (a *IntArray) LockFunc(f func(array []int)) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -561,7 +551,7 @@ func (a *IntArray) LockFunc(f func(array []int)) *IntArray {
 	return a
 }
 
-// RLockFunc locks reading by callback function `f`.
+// RLockFunc 通过回调函数`f`锁定读取操作。
 func (a *IntArray) RLockFunc(f func(array []int)) *IntArray {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -569,16 +559,16 @@ func (a *IntArray) RLockFunc(f func(array []int)) *IntArray {
 	return a
 }
 
-// Merge merges `array` into current array.
-// The parameter `array` can be any garray or slice type.
-// The difference between Merge and Append is Append supports only specified slice type,
-// but Merge supports more parameter types.
+// Merge 将`array`合并到当前数组中。
+// 参数`array`可以是任何garray类型或切片类型。
+// Merge 和 Append 的区别在于，Append 仅支持特定类型的切片作为参数，
+// 而 Merge 支持更多类型的参数。
 func (a *IntArray) Merge(array interface{}) *IntArray {
 	return a.Append(gconv.Ints(array)...)
 }
 
-// Fill fills an array with num entries of the value `value`,
-// keys starting at the `startIndex` parameter.
+// Fill 用 `value` 值填充数组，填充 num 个条目，
+// 键（索引）从 `startIndex` 参数开始。
 func (a *IntArray) Fill(startIndex int, num int, value int) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -595,9 +585,9 @@ func (a *IntArray) Fill(startIndex int, num int, value int) error {
 	return nil
 }
 
-// Chunk splits an array into multiple arrays,
-// the size of each array is determined by `size`.
-// The last chunk may contain less than size elements.
+// Chunk 函数将一个数组分割成多个子数组，
+// 每个子数组的大小由参数 `size` 确定。
+// 最后一个子数组可能包含少于 size 个元素。
 func (a *IntArray) Chunk(size int) [][]int {
 	if size < 1 {
 		return nil
@@ -618,10 +608,9 @@ func (a *IntArray) Chunk(size int) [][]int {
 	return n
 }
 
-// Pad pads array to the specified length with `value`.
-// If size is positive then the array is padded on the right, or negative on the left.
-// If the absolute value of `size` is less than or equal to the length of the array
-// then no padding takes place.
+// Pad 通过 `value` 值对数组进行填充，以达到指定长度。
+// 如果 size 为正数，则在数组右侧进行填充；若为负数，则在左侧填充。
+// 若 `size` 的绝对值小于或等于数组的长度，则不进行填充操作。
 func (a *IntArray) Pad(size int, value int) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -645,7 +634,7 @@ func (a *IntArray) Pad(size int, value int) *IntArray {
 	return a
 }
 
-// Rand randomly returns one item from array(no deleting).
+// Rand 随机地从数组中返回一个元素（不删除）。
 func (a *IntArray) Rand() (value int, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -655,7 +644,7 @@ func (a *IntArray) Rand() (value int, found bool) {
 	return a.array[grand.Intn(len(a.array))], true
 }
 
-// Rands randomly returns `size` items from array(no deleting).
+// Rands 随机返回数组中的 `size` 个元素（不删除）。
 func (a *IntArray) Rands(size int) []int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -669,7 +658,7 @@ func (a *IntArray) Rands(size int) []int {
 	return array
 }
 
-// Shuffle randomly shuffles the array.
+// Shuffle 随机地对数组进行洗牌。
 func (a *IntArray) Shuffle() *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -679,7 +668,7 @@ func (a *IntArray) Shuffle() *IntArray {
 	return a
 }
 
-// Reverse makes array with elements in reverse order.
+// Reverse 将数组元素按逆序排列生成新数组。
 func (a *IntArray) Reverse() *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -689,7 +678,7 @@ func (a *IntArray) Reverse() *IntArray {
 	return a
 }
 
-// Join joins array elements with a string `glue`.
+// Join 通过字符串 `glue` 连接数组元素。
 func (a *IntArray) Join(glue string) string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -706,7 +695,7 @@ func (a *IntArray) Join(glue string) string {
 	return buffer.String()
 }
 
-// CountValues counts the number of occurrences of all values in the array.
+// CountValues 计算数组中所有值出现的次数。
 func (a *IntArray) CountValues() map[int]int {
 	m := make(map[int]int)
 	a.mu.RLock()
@@ -717,13 +706,13 @@ func (a *IntArray) CountValues() map[int]int {
 	return m
 }
 
-// Iterator is alias of IteratorAsc.
+// Iterator 是 IteratorAsc 的别名。
 func (a *IntArray) Iterator(f func(k int, v int) bool) {
 	a.IteratorAsc(f)
 }
 
-// IteratorAsc iterates the array readonly in ascending order with given callback function `f`.
-// If `f` returns true, then it continues iterating; or false to stop.
+// IteratorAsc 以升序遍历给定数组，并使用回调函数 `f` 进行只读操作。
+// 如果 `f` 返回 true，则继续迭代；若返回 false，则停止遍历。
 func (a *IntArray) IteratorAsc(f func(k int, v int) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -734,8 +723,8 @@ func (a *IntArray) IteratorAsc(f func(k int, v int) bool) {
 	}
 }
 
-// IteratorDesc iterates the array readonly in descending order with given callback function `f`.
-// If `f` returns true, then it continues iterating; or false to stop.
+// IteratorDesc 函数以降序遍历给定的数组，并使用指定回调函数 `f` 进行只读操作。
+// 若 `f` 返回 true，则继续迭代；若返回 false，则停止迭代。
 func (a *IntArray) IteratorDesc(f func(k int, v int) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -746,7 +735,7 @@ func (a *IntArray) IteratorDesc(f func(k int, v int) bool) {
 	}
 }
 
-// String returns current array as a string, which implements like json.Marshal does.
+// String 方法将当前数组以字符串形式返回，其实现方式类似于 json.Marshal。
 func (a *IntArray) String() string {
 	if a == nil {
 		return ""
@@ -754,15 +743,15 @@ func (a *IntArray) String() string {
 	return "[" + a.Join(",") + "]"
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// Note that do not use pointer as its receiver here.
+// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
+// 注意：此处接收者不使用指针。
 func (a IntArray) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	return json.Marshal(a.array)
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
 func (a *IntArray) UnmarshalJSON(b []byte) error {
 	if a.array == nil {
 		a.array = make([]int, 0)
@@ -775,7 +764,7 @@ func (a *IntArray) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue is an interface implement which sets any type of value for array.
+// UnmarshalValue 实现了一个接口，该接口用于为数组设置任意类型的值。
 func (a *IntArray) UnmarshalValue(value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -788,9 +777,9 @@ func (a *IntArray) UnmarshalValue(value interface{}) error {
 	return nil
 }
 
-// Filter iterates array and filters elements using custom callback function.
-// It removes the element from array if callback function `filter` returns true,
-// it or else does nothing and continues iterating.
+// Filter 对数组进行迭代，并通过自定义回调函数进行元素过滤。
+// 如果回调函数 `filter` 返回 true，则从数组中移除该元素；
+// 否则不做任何处理并继续迭代。
 func (a *IntArray) Filter(filter func(index int, value int) bool) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -804,7 +793,7 @@ func (a *IntArray) Filter(filter func(index int, value int) bool) *IntArray {
 	return a
 }
 
-// FilterEmpty removes all zero value of the array.
+// FilterEmpty 移除数组中的所有零值。
 func (a *IntArray) FilterEmpty() *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -818,7 +807,7 @@ func (a *IntArray) FilterEmpty() *IntArray {
 	return a
 }
 
-// Walk applies a user supplied function `f` to every item of array.
+// Walk 对数组中的每一项应用用户提供的函数 `f`。
 func (a *IntArray) Walk(f func(value int) int) *IntArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -828,12 +817,12 @@ func (a *IntArray) Walk(f func(value int) int) *IntArray {
 	return a
 }
 
-// IsEmpty checks whether the array is empty.
+// IsEmpty 检查数组是否为空。
 func (a *IntArray) IsEmpty() bool {
 	return a.Len() == 0
 }
 
-// DeepCopy implements interface for deep copy of current type.
+// DeepCopy 实现接口，用于当前类型的深度复制。
 func (a *IntArray) DeepCopy() interface{} {
 	if a == nil {
 		return nil

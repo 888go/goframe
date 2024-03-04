@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv
 
@@ -18,31 +17,26 @@ import (
 	"github.com/gogf/gf/v2/os/gstructs"
 )
 
-// Struct maps the params key-value pairs to the corresponding struct object's attributes.
-// The third parameter `mapping` is unnecessary, indicating the mapping rules between the
-// custom key name and the attribute name(case-sensitive).
-//
-// Note:
-//  1. The `params` can be any type of map/struct, usually a map.
-//  2. The `pointer` should be type of *struct/**struct, which is a pointer to struct object
-//     or struct pointer.
-//  3. Only the public attributes of struct object can be mapped.
-//  4. If `params` is a map, the key of the map `params` can be lowercase.
-//     It will automatically convert the first letter of the key to uppercase
-//     in mapping procedure to do the matching.
-//     It ignores the map key, if it does not match.
+// Struct 将参数键值对映射到相应结构体对象的属性上。
+// 第三个参数 `mapping` 是可选的，表示自定义键名与属性名（大小写敏感）之间的映射规则。
+// 注意：
+// 1. `params` 可以是任何类型的 map 或 struct，通常为 map 类型。
+// 2. `pointer` 应为 *struct/**struct 类型，即指向结构体对象或结构体指针的指针。
+// 3. 只有结构体对象的公共属性可以被映射。
+// 4. 如果 `params` 是一个 map，map 的键可以是小写的。
+//    在映射过程中，会自动将键的首字母转换为大写进行匹配。
+//    如果不匹配，则忽略该 map 键。
 func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
 
-// StructTag acts as Struct but also with support for priority tag feature, which retrieves the
-// specified tags for `params` key-value items to struct attribute names mapping.
-// The parameter `priorityTag` supports multiple tags that can be joined with char ','.
+// StructTag 结构体在 Struct 的基础上增加了支持优先级标签功能，该功能用于获取 `params` 键值对中指定的标签，并映射到结构体属性名称。  
+// 参数 `priorityTag` 支持多个标签，多个标签之间可以通过字符 ',' 连接。
 func StructTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStruct(params, pointer, nil, priorityTag)
 }
 
-// doStructWithJsonCheck checks if given `params` is JSON, it then uses json.Unmarshal doing the converting.
+// doStructWithJsonCheck 检查给定的 `params` 是否为 JSON 格式，如果是，则使用 json.Unmarshal 进行转换。
 func doStructWithJsonCheck(params interface{}, pointer interface{}) (err error, ok bool) {
 	switch r := params.(type) {
 	case []byte:
@@ -76,7 +70,7 @@ func doStructWithJsonCheck(params interface{}, pointer interface{}) (err error, 
 			}
 		}
 	default:
-		// The `params` might be struct that implements interface function Interface, eg: gvar.Var.
+		// `params` 可能是一个实现了 Interface 接口函数的结构体，例如：gvar.Var。
 		if v, ok := params.(iInterface); ok {
 			return doStructWithJsonCheck(v.Interface(), pointer)
 		}
@@ -84,10 +78,10 @@ func doStructWithJsonCheck(params interface{}, pointer interface{}) (err error, 
 	return nil, false
 }
 
-// doStruct is the core internal converting function for any data to struct.
+// doStruct 是用于将任何数据转换为结构体的核心内部函数。
 func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[string]string, priorityTag string) (err error) {
 	if params == nil {
-		// If `params` is nil, no conversion.
+		// 如果`params`为nil，则不进行转换。
 		return nil
 	}
 	if pointer == nil {
@@ -95,7 +89,7 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 	}
 
 	defer func() {
-		// Catch the panic, especially the reflection operation panics.
+		// 捕获 panic，特别是反射操作引发的 panic。
 		if exception := recover(); exception != nil {
 			if v, ok := exception.(error); ok && gerror.HasStack(v) {
 				err = v
@@ -105,7 +99,7 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		}
 	}()
 
-	// JSON content converting.
+	// JSON内容转换
 	err, ok := doStructWithJsonCheck(params, pointer)
 	if err != nil {
 		return err
@@ -116,10 +110,10 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 
 	var (
 		paramsReflectValue      reflect.Value
-		paramsInterface         interface{} // DO NOT use `params` directly as it might be type `reflect.Value`
+		paramsInterface         interface{} // **请勿**直接使用 `params`，因为它可能为 `reflect.Value` 类型
 		pointerReflectValue     reflect.Value
 		pointerReflectKind      reflect.Kind
-		pointerElemReflectValue reflect.Value // The pointed element.
+		pointerElemReflectValue reflect.Value // 指向的元素。
 	)
 	if v, ok := params.(reflect.Value); ok {
 		paramsReflectValue = v
@@ -136,38 +130,41 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		if pointerReflectKind != reflect.Ptr {
 			return gerror.NewCodef(gcode.CodeInvalidParameter, "object pointer should be type of '*struct', but got '%v'", pointerReflectKind)
 		}
-		// Using IsNil on reflect.Ptr variable is OK.
+		// 对reflect.Ptr类型的变量使用IsNil方法是可行的。
 		if !pointerReflectValue.IsValid() || pointerReflectValue.IsNil() {
 			return gerror.NewCode(gcode.CodeInvalidParameter, "object pointer cannot be nil")
 		}
 		pointerElemReflectValue = pointerReflectValue.Elem()
 	}
 
-	// custom convert try first
+	// 首先尝试自定义转换
 	if ok, err = callCustomConverter(paramsReflectValue, pointerReflectValue); ok {
 		return err
 	}
 
-	// If `params` and `pointer` are the same type, the do directly assignment.
-	// For performance enhancement purpose.
+// 如果`params`和`pointer`是相同类型，则直接进行赋值操作。
+// 为了提升性能。
 	if pointerElemReflectValue.IsValid() {
 		switch {
-		// Eg:
-		// UploadFile  => UploadFile
-		// *UploadFile => *UploadFile
+// 例如：
+// UploadFile  => 上传文件
+// *UploadFile => 指向UploadFile的指针
 		case pointerElemReflectValue.Type() == paramsReflectValue.Type():
 			pointerElemReflectValue.Set(paramsReflectValue)
 			return nil
 
-		// Eg:
-		// UploadFile  => *UploadFile
+// 例如：
+// UploadFile  => *UploadFile
+// （此代码注释翻译为：）
+// 示例：
+// UploadFile  => 指向UploadFile类型的指针
 		case pointerElemReflectValue.Kind() == reflect.Ptr && pointerElemReflectValue.Elem().IsValid() &&
 			pointerElemReflectValue.Elem().Type() == paramsReflectValue.Type():
 			pointerElemReflectValue.Elem().Set(paramsReflectValue)
 			return nil
 
-		// Eg:
-		// *UploadFile  => UploadFile
+// 示例：
+// *UploadFile  => 上传文件
 		case paramsReflectValue.Kind() == reflect.Ptr && paramsReflectValue.Elem().IsValid() &&
 			pointerElemReflectValue.Type() == paramsReflectValue.Elem().Type():
 			pointerElemReflectValue.Set(paramsReflectValue.Elem())
@@ -175,37 +172,41 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		}
 	}
 
-	// Normal unmarshalling interfaces checks.
+	// 正常的接口解码检查。
 	if err, ok = bindVarToReflectValueWithInterfaceCheck(pointerReflectValue, paramsInterface); ok {
 		return err
 	}
 
-	// It automatically creates struct object if necessary.
-	// For example, if `pointer` is **User, then `elem` is *User, which is a pointer to User.
+// 如果有必要，它会自动创建结构体对象。
+// 例如，如果 `pointer` 是 **User 类型，那么 `elem` 就是 *User 类型，即指向 User 的指针。
 	if pointerElemReflectValue.Kind() == reflect.Ptr {
 		if !pointerElemReflectValue.IsValid() || pointerElemReflectValue.IsNil() {
 			e := reflect.New(pointerElemReflectValue.Type().Elem())
 			pointerElemReflectValue.Set(e)
 			defer func() {
 				if err != nil {
-					// If it is converted failed, it reset the `pointer` to nil.
+					// 如果转换失败，则将`pointer`重置为nil。
 					pointerReflectValue.Elem().Set(reflect.Zero(pointerReflectValue.Type().Elem()))
 				}
 			}()
 		}
-		// if v, ok := pointerElemReflectValue.Interface().(iUnmarshalValue); ok {
-		//	return v.UnmarshalValue(params)
-		// }
-		// Note that it's `pointerElemReflectValue` here not `pointerReflectValue`.
+// 如果v, ok := 将pointerElemReflectValue.Interface().(iUnmarshalValue)进行类型断言并赋值；如果ok为真（即转换成功），
+// 则返回v.UnmarshalValue(params)的结果
+// 注意：这里使用的是`pointerElemReflectValue`而非`pointerReflectValue`
+// 这段代码的中文注释翻译如下：
+// ```go
+// 若能将pointerElemReflectValue.Interface()转换为iUnmarshalValue类型，并将转换结果赋值给v和ok，且ok为真，
+// 则调用v的UnmarshalValue方法处理params并返回其结果。
+// 需要注意的是，此处使用的是`pointerElemReflectValue`变量，而不是`pointerReflectValue`变量。
 		if err, ok = bindVarToReflectValueWithInterfaceCheck(pointerElemReflectValue, paramsInterface); ok {
 			return err
 		}
-		// Retrieve its element, may be struct at last.
+		// 获取其元素，最后可能是一个结构体。
 		pointerElemReflectValue = pointerElemReflectValue.Elem()
 	}
 
-	// paramsMap is the map[string]interface{} type variable for params.
-	// DO NOT use MapDeep here.
+// paramsMap 是用于参数的 map[string]interface{} 类型变量。
+// 在此处不要使用 MapDeep。
 	paramsMap := doMapConvert(paramsInterface, recursiveTypeAuto, true)
 	if paramsMap == nil {
 		return gerror.NewCodef(
@@ -215,37 +216,36 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		)
 	}
 
-	// Nothing to be done as the parameters are empty.
+	// 由于参数为空，无需执行任何操作。
 	if len(paramsMap) == 0 {
 		return nil
 	}
 
-	// It only performs one converting to the same attribute.
-	// doneMap is used to check repeated converting, its key is the real attribute name
-	// of the struct.
+// 它只执行同一属性的一次转换。
+// doneMap 用于检查重复转换，其键是结构体的实际属性名称。
 	doneMap := make(map[string]struct{})
 
-	// The key of the attrMap is the attribute name of the struct,
-	// and the value is its replaced name for later comparison to improve performance.
+// attrMap 的键是结构体的属性名，
+// 值是用于后续比较时的替换名称，目的是为了提升性能。
 	var (
 		tempName       string
 		elemFieldType  reflect.StructField
 		elemFieldValue reflect.Value
 		elemType       = pointerElemReflectValue.Type()
-		// Attribute name to its symbols-removed name,
-		// in order to quick index and comparison in following logic.
+// 将属性名称映射到去除符号后的名称，
+// 以便在后续逻辑中快速索引和比较。
 		attrToCheckNameMap = make(map[string]string)
 	)
 	for i := 0; i < pointerElemReflectValue.NumField(); i++ {
 		elemFieldType = elemType.Field(i)
-		// Only do converting to public attributes.
+		// 只对公开属性进行转换
 		if !utils.IsLetterUpper(elemFieldType.Name[0]) {
 			continue
 		}
-		// Maybe it's struct/*struct embedded.
+		// 可能这是一个结构体 /* 或是结构体嵌入.
 		if elemFieldType.Anonymous {
 			elemFieldValue = pointerElemReflectValue.Field(i)
-			// Ignore the interface attribute if it's nil.
+			// 如果接口属性为nil，则忽略它。
 			if elemFieldValue.Kind() == reflect.Interface {
 				elemFieldValue = elemFieldValue.Elem()
 				if !elemFieldValue.IsValid() {
@@ -264,8 +264,8 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		return nil
 	}
 
-	// The key of the `attrToTagCheckNameMap` is the attribute name of the struct,
-	// and the value is its replaced tag name for later comparison to improve performance.
+// `attrToTagCheckNameMap` 的键是结构体的属性名称，
+// 而值则是用于后续比较时替换的标签名称，目的是为了提高性能。
 	var (
 		attrToTagCheckNameMap = make(map[string]string)
 		priorityTagArray      []string
@@ -280,20 +280,20 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 		return err
 	}
 	for tagName, attributeName := range tagToAttrNameMap {
-		// If there's something else in the tag string,
-		// it uses the first part which is split using char ','.
-		// Eg:
-		// orm:"id, priority"
-		// orm:"name, with:uid=id"
+// 如果标签字符串中还有其他内容，
+// 它会使用通过逗号（,）分割得到的第一部分。
+// 例如：
+// orm:"id, priority" // 使用id和priority
+// orm:"name, with:uid=id" // 使用name和with:uid=id中的name部分
 		attrToTagCheckNameMap[attributeName] = utils.RemoveSymbols(strings.Split(tagName, ",")[0])
-		// If tag and attribute values both exist in `paramsMap`,
-		// it then uses the tag value overwriting the attribute value in `paramsMap`.
+// 如果tag和attribute值同时存在于`paramsMap`中，
+// 则优先使用tag值，并在`paramsMap`中覆盖原有的attribute值。
 		if paramsMap[tagName] != nil && paramsMap[attributeName] != nil {
 			paramsMap[attributeName] = paramsMap[tagName]
 		}
 	}
 
-	// To convert value base on custom parameter key to attribute name map.
+	// 根据自定义参数键到属性名映射来转换值。
 	err = doStructBaseOnParamKeyToAttrMap(
 		pointerElemReflectValue,
 		paramsMap,
@@ -303,12 +303,12 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 	if err != nil {
 		return err
 	}
-	// Already done all attributes value assignment nothing to do next.
+	// 已经完成了所有属性值的赋值，接下来无事可做。
 	if len(doneMap) == len(attrToCheckNameMap) {
 		return nil
 	}
 
-	// To convert value base on precise attribute name.
+	// 根据精确属性名称转换值。
 	err = doStructBaseOnAttribute(
 		pointerElemReflectValue,
 		paramsMap,
@@ -319,12 +319,12 @@ func doStruct(params interface{}, pointer interface{}, paramKeyToAttrMap map[str
 	if err != nil {
 		return err
 	}
-	// Already done all attributes value assignment nothing to do next.
+	// 已经完成了所有属性值的赋值，接下来无事可做。
 	if len(doneMap) == len(attrToCheckNameMap) {
 		return nil
 	}
 
-	// To convert value base on parameter map.
+	// 根据参数映射转换值。
 	err = doStructBaseOnParamMap(
 		pointerElemReflectValue,
 		paramsMap,
@@ -354,7 +354,7 @@ func doStructBaseOnParamKeyToAttrMap(
 		if !ok {
 			continue
 		}
-		// If the attribute name is already checked converting, then skip it.
+		// 如果属性名称已经经过转换检查，那么跳过它。
 		if _, ok = doneAttrMap[attrName]; ok {
 			continue
 		}
@@ -378,7 +378,7 @@ func doStructBaseOnAttribute(
 ) error {
 	var customMappingAttrMap = make(map[string]struct{})
 	if len(paramKeyToAttrMap) > 0 {
-		// It ignores the attribute names if it is specified in the `paramKeyToAttrMap`.
+		// 如果属性名在`paramKeyToAttrMap`中指定，它将忽略这些属性名。
 		for paramName := range paramsMap {
 			if passedAttrKey, ok := paramKeyToAttrMap[paramName]; ok {
 				customMappingAttrMap[passedAttrKey] = struct{}{}
@@ -386,16 +386,16 @@ func doStructBaseOnAttribute(
 		}
 	}
 	for attrName := range attrToCheckNameMap {
-		// The value by precise attribute name.
+		// 通过精确属性名称获取的值。
 		paramValue, ok := paramsMap[attrName]
 		if !ok {
 			continue
 		}
-		// If the attribute name is in custom paramKeyToAttrMap, it then ignores this converting.
+		// 如果属性名存在于自定义的paramKeyToAttrMap中，则忽略该转换操作。
 		if _, ok = customMappingAttrMap[attrName]; ok {
 			continue
 		}
-		// If the attribute name is already checked converting, then skip it.
+		// 如果属性名称已经经过转换检查，那么跳过它。
 		if _, ok = doneAttrMap[attrName]; ok {
 			continue
 		}
@@ -424,16 +424,15 @@ func doStructBaseOnParamMap(
 		checkName string
 	)
 	for paramName, paramValue := range paramsMap {
-		// It firstly considers `paramName` as accurate tag name,
-		// and retrieve attribute name from `tagToAttrNameMap` .
+// 它首先将`paramName`视为准确的标签名称，
+// 然后从`tagToAttrNameMap`中检索属性名称。
 		attrName = tagToAttrNameMap[paramName]
 		if attrName == "" {
 			checkName = utils.RemoveSymbols(paramName)
-			// Loop to find the matched attribute name with or without
-			// string cases and chars like '-'/'_'/'.'/' '.
+// 循环查找匹配的属性名，支持大小写不敏感以及包含'-'/'_'/'.'/' '等字符的情况
 
-			// Matching the parameters to struct tag names.
-			// The `attrKey` is the attribute name of the struct.
+// 将参数与结构体标签名称进行匹配。
+// `attrKey` 是该结构体的属性名称。
 			for attrKey, cmpKey := range attrToTagCheckNameMap {
 				if strings.EqualFold(checkName, cmpKey) {
 					attrName = attrKey
@@ -442,14 +441,19 @@ func doStructBaseOnParamMap(
 			}
 		}
 
-		// Matching the parameters to struct attributes.
+		// 将参数与结构体属性进行匹配。
 		if attrName == "" {
 			for attrKey, cmpKey := range attrToCheckNameMap {
-				// Eg:
-				// UserName  eq user_name
-				// User-Name eq username
-				// username  eq userName
-				// etc.
+// 示例：
+// UserName 等价于 user_name
+// User-Name 等价于 username
+// username 等价于 userName
+// 等等。
+// 这段Go代码注释描述了不同形式的字符串表示，它们在某种上下文中被视为等价：
+// - `UserName` 和 `user_name` 是等价的；
+// - `User-Name` 和 `username` 也是等价的；
+// - `username` 和 `userName` 同样视为等价。
+// 这通常出现在将驼峰命名（camelCase）和下划线命名（snake_case）互相转换的场景中。
 				if strings.EqualFold(checkName, cmpKey) {
 					attrName = attrKey
 					break
@@ -457,11 +461,11 @@ func doStructBaseOnParamMap(
 			}
 		}
 
-		// No matching, it gives up this attribute converting.
+		// 没有找到匹配项，放弃该属性的转换。
 		if attrName == "" {
 			continue
 		}
-		// If the attribute name is already checked converting, then skip it.
+		// 如果属性名称已经经过转换检查，那么跳过它。
 		if _, ok := doneAttrMap[attrName]; ok {
 			continue
 		}
@@ -476,7 +480,7 @@ func doStructBaseOnParamMap(
 	return nil
 }
 
-// bindVarToStructAttr sets value to struct object attribute by name.
+// bindVarToStructAttr 通过名称将值设置到结构体对象的属性中。
 func bindVarToStructAttr(
 	structReflectValue reflect.Value,
 	attrName string, value interface{}, paramKeyToAttrMap map[string]string,
@@ -485,7 +489,7 @@ func bindVarToStructAttr(
 	if !structFieldValue.IsValid() {
 		return nil
 	}
-	// CanSet checks whether attribute is public accessible.
+	// CanSet 检查属性是否可公开访问。
 	if !structFieldValue.CanSet() {
 		return nil
 	}
@@ -496,12 +500,12 @@ func bindVarToStructAttr(
 			}
 		}
 	}()
-	// Directly converting.
+	// 直接转换
 	if empty.IsNil(value) {
 		structFieldValue.Set(reflect.Zero(structFieldValue.Type()))
 	} else {
-		// Try to call custom converter.
-		// Issue: https://github.com/gogf/gf/issues/3099
+// 尝试调用自定义转换器。
+// 问题：https://github.com/gogf/gf/issues/3099
 		var (
 			customConverterInput reflect.Value
 			ok                   bool
@@ -514,8 +518,8 @@ func bindVarToStructAttr(
 			return
 		}
 
-		// Special handling for certain types:
-		// - Overwrite the default type converting logic of stdlib for time.Time/*time.Time.
+// 特殊处理某些类型：
+// - 覆盖标准库中time.Time类型的默认转换逻辑。
 		var structFieldTypeName = structFieldValue.Type().String()
 		switch structFieldTypeName {
 		case "time.Time", "*time.Time":
@@ -525,8 +529,8 @@ func bindVarToStructAttr(
 				ReferValue: structFieldValue,
 			})
 			return
-		// Hold the time zone consistent in recursive
-		// Issue: https://github.com/gogf/gf/issues/2980
+// 在递归中保持时区的一致性
+// 问题：https://github.com/gogf/gf/issues/2980
 		case "*gtime.Time", "gtime.Time":
 			doConvertWithReflectValueSet(structFieldValue, doConvertInput{
 				FromValue:  value,
@@ -536,12 +540,12 @@ func bindVarToStructAttr(
 			return
 		}
 
-		// Common interface check.
+		// 常用接口检查。
 		if err, ok = bindVarToReflectValueWithInterfaceCheck(structFieldValue, value); ok {
 			return err
 		}
 
-		// Default converting.
+		// 默认转换。
 		doConvertWithReflectValueSet(structFieldValue, doConvertInput{
 			FromValue:  value,
 			ToTypeName: structFieldTypeName,
@@ -551,7 +555,7 @@ func bindVarToStructAttr(
 	return nil
 }
 
-// bindVarToReflectValueWithInterfaceCheck does bind using common interfaces checks.
+// bindVarToReflectValueWithInterfaceCheck 通过通用接口检查进行绑定。
 func bindVarToReflectValueWithInterfaceCheck(reflectValue reflect.Value, value interface{}) (error, bool) {
 	var pointer interface{}
 	if reflectValue.Kind() != reflect.Ptr && reflectValue.CanAddr() {
@@ -559,7 +563,7 @@ func bindVarToReflectValueWithInterfaceCheck(reflectValue reflect.Value, value i
 		if reflectValueAddr.IsNil() || !reflectValueAddr.IsValid() {
 			return nil, false
 		}
-		// Not a pointer, but can token address, that makes it can be unmarshalled.
+		// 不是指针类型，但可以获取其地址，因此它可以被反序列化。
 		pointer = reflectValue.Addr().Interface()
 	} else {
 		if reflectValue.IsNil() || !reflectValue.IsValid() {
@@ -597,7 +601,7 @@ func bindVarToReflectValueWithInterfaceCheck(reflectValue reflect.Value, value i
 		}
 
 		if len(valueBytes) > 0 {
-			// If it is not a valid JSON string, it then adds char `"` on its both sides to make it is.
+			// 如果这不是一个有效的JSON字符串，那么会在其两边添加字符`"`以使其成为有效的JSON字符串。
 			if !json.Valid(valueBytes) {
 				newValueBytes := make([]byte, len(valueBytes)+2)
 				newValueBytes[0] = '"'
@@ -615,11 +619,11 @@ func bindVarToReflectValueWithInterfaceCheck(reflectValue reflect.Value, value i
 	return nil, false
 }
 
-// bindVarToReflectValue sets `value` to reflect value object `structFieldValue`.
+// bindVarToReflectValue 将 `value` 绑定到反射值对象 `structFieldValue`。
 func bindVarToReflectValue(
 	structFieldValue reflect.Value, value interface{}, paramKeyToAttrMap map[string]string,
 ) (err error) {
-	// JSON content converting.
+	// JSON内容转换
 	err, ok := doStructWithJsonCheck(value, structFieldValue)
 	if err != nil {
 		return err
@@ -629,7 +633,7 @@ func bindVarToReflectValue(
 	}
 
 	kind := structFieldValue.Kind()
-	// Converting using `Set` interface implements, for some types.
+	// 通过实现`Set`接口进行转换，针对某些类型。
 	switch kind {
 	case reflect.Slice, reflect.Array, reflect.Ptr, reflect.Interface:
 		if !structFieldValue.IsNil() {
@@ -640,20 +644,20 @@ func bindVarToReflectValue(
 		}
 	}
 
-	// Converting using reflection by kind.
+	// 通过 kind 使用反射进行转换。
 	switch kind {
 	case reflect.Map:
 		return doMapToMap(value, structFieldValue, paramKeyToAttrMap)
 
 	case reflect.Struct:
-		// Recursively converting for struct attribute.
+		// 递归地转换结构体属性。
 		if err = doStruct(value, structFieldValue, nil, ""); err != nil {
-			// Note there's reflect conversion mechanism here.
+			// 注意这里存在反射转换机制。
 			structFieldValue.Set(reflect.ValueOf(value).Convert(structFieldValue.Type()))
 		}
 
-	// Note that the slice element might be type of struct,
-	// so it uses Struct function doing the converting internally.
+// 注意，切片元素可能为结构体类型，
+// 因此内部使用Struct函数进行转换。
 	case reflect.Slice, reflect.Array:
 		var (
 			reflectArray reflect.Value
@@ -692,7 +696,7 @@ func bindVarToReflectValue(
 						})
 					}
 					if elemType.Kind() == reflect.Ptr {
-						// Before it sets the `elem` to array, do pointer converting if necessary.
+						// 在将`elem`设置到数组之前，如有必要，进行指针转换。
 						elem = elem.Addr()
 					}
 					reflectArray.Index(i).Set(elem)
@@ -707,16 +711,16 @@ func bindVarToReflectValue(
 			)
 			switch reflectValue.Kind() {
 			case reflect.String:
-				// Value is empty string.
+				// Value为空字符串。
 				if reflectValue.IsZero() {
 					var elemKind = elemType.Kind()
-					// Try to find the original type kind of the slice element.
+					// 尝试查找切片元素的原始类型种类。
 					if elemKind == reflect.Ptr {
 						elemKind = elemType.Elem().Kind()
 					}
 					switch elemKind {
 					case reflect.String:
-						// Empty string cannot be assigned to string slice.
+						// 空字符串不能被赋值给字符串切片。
 						return nil
 					}
 				}
@@ -742,7 +746,7 @@ func bindVarToReflectValue(
 				})
 			}
 			if elemType.Kind() == reflect.Ptr {
-				// Before it sets the `elem` to array, do pointer converting if necessary.
+				// 在将`elem`设置到数组之前，如有必要，进行指针转换。
 				elem = elem.Addr()
 			}
 			reflectArray = reflect.MakeSlice(structFieldValue.Type(), 1, 1)
@@ -752,7 +756,7 @@ func bindVarToReflectValue(
 
 	case reflect.Ptr:
 		if structFieldValue.IsNil() || structFieldValue.IsZero() {
-			// Nil or empty pointer, it creates a new one.
+			// 如果是空指针或为空，它会创建一个新的。
 			item := reflect.New(structFieldValue.Type().Elem())
 			if err, ok = bindVarToReflectValueWithInterfaceCheck(item, value); ok {
 				structFieldValue.Set(item)
@@ -763,17 +767,17 @@ func bindVarToReflectValue(
 				structFieldValue.Set(elem.Addr())
 			}
 		} else {
-			// Not empty pointer, it assigns values to it.
+			// 非空指针，用于给它赋值。
 			return bindVarToReflectValue(structFieldValue.Elem(), value, paramKeyToAttrMap)
 		}
 
-	// It mainly and specially handles the interface of nil value.
+	// 它主要用于并特别处理接口的 nil 值情况。
 	case reflect.Interface:
 		if value == nil {
 			// Specially.
 			structFieldValue.Set(reflect.ValueOf((*interface{})(nil)))
 		} else {
-			// Note there's reflect conversion mechanism here.
+			// 注意这里存在反射转换机制。
 			structFieldValue.Set(reflect.ValueOf(value).Convert(structFieldValue.Type()))
 		}
 
@@ -789,9 +793,7 @@ func bindVarToReflectValue(
 				)
 			}
 		}()
-		// It here uses reflect converting `value` to type of the attribute and assigns
-		// the result value to the attribute. It might fail and panic if the usual Go
-		// conversion rules do not allow conversion.
+// 这里使用 reflect 将 `value` 转换为属性的类型，并将转换后的结果值赋给该属性。如果按照 Go 语言通常的转换规则无法进行转换，则可能会导致失败并引发 panic。
 		structFieldValue.Set(reflect.ValueOf(value).Convert(structFieldValue.Type()))
 	}
 	return nil

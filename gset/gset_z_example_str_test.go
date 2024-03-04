@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf获取一个。
 
 package gset_test
 
@@ -14,9 +13,9 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 )
 
-// NewStrSet create and returns a new set, which contains un-repeated items.
-// The parameter `safe` is used to specify whether using set in concurrent-safety,
-// which is false in default.
+// NewStrSet 创建并返回一个新的不包含重复项的集合。
+// 参数`safe`用于指定是否在并发安全的情况下使用集合，默认为false。
+// 这里，NewStrSet函数用于创建一个字符串集合，并确保其中的元素互不重复。该函数接受一个可选参数`safe`，它是一个布尔值，表示是否需要保证在并发环境下的安全性。如果不特别指定，那么默认情况下这个集合是不保证并发安全的。
 func ExampleNewStrSet() {
 	strSet := gset.NewStrSet(true)
 	strSet.Add([]string{"str1", "str2", "str3"}...)
@@ -26,7 +25,7 @@ func ExampleNewStrSet() {
 	// [str3 str1 str2]
 }
 
-// NewStrSetFrom returns a new set from `items`.
+// NewStrSetFrom 从 `items` 中创建并返回一个新的集合。
 func ExampleNewStrSetFrom() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	fmt.Println(strSet.Slice())
@@ -35,7 +34,7 @@ func ExampleNewStrSetFrom() {
 	// [str1 str2 str3]
 }
 
-// Add adds one or multiple items to the set.
+// Add 向集合中添加一个或多个项目。
 func ExampleStrSet_Add() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	strSet.Add("str")
@@ -47,9 +46,9 @@ func ExampleStrSet_Add() {
 	// false
 }
 
-// AddIfNotExist checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set,
-// or else it does nothing and returns false.
+// AddIfNotExist 检查项是否已存在于集合中，
+// 如果该项不在集合中，则将其添加到集合中并返回 true；
+// 否则，不进行任何操作并返回 false。
 func ExampleStrSet_AddIfNotExist() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	strSet.Add("str")
@@ -61,10 +60,10 @@ func ExampleStrSet_AddIfNotExist() {
 	// false
 }
 
-// AddIfNotExistFunc checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set and function `f` returns true,
-// or else it does nothing and returns false.
-// Note that, the function `f` is executed without writing lock.
+// AddIfNotExistFunc 检查项是否存在集合中，
+// 如果该项不存在于集合中，并且函数 `f` 返回 true，则将该项添加到集合中并返回 true，
+// 否则不做任何操作并返回 false。
+// 注意，函数 `f` 在无写入锁的情况下执行。
 func ExampleStrSet_AddIfNotExistFunc() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	strSet.Add("str")
@@ -78,10 +77,10 @@ func ExampleStrSet_AddIfNotExistFunc() {
 	// true
 }
 
-// AddIfNotExistFunc checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set and function `f` returns true,
-// or else it does nothing and returns false.
-// Note that, the function `f` is executed without writing lock.
+// AddIfNotExistFunc 检查项是否存在集合中，
+// 如果该项不存在于集合中，并且函数 `f` 返回 true，则将该项添加到集合中并返回 true，
+// 否则不做任何操作并返回 false。
+// 注意，函数 `f` 在无写入锁的情况下执行。
 func ExampleStrSet_AddIfNotExistFuncLock() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	strSet.Add("str")
@@ -95,7 +94,7 @@ func ExampleStrSet_AddIfNotExistFuncLock() {
 	// true
 }
 
-// Clear deletes all items of the set.
+// 清除删除集合中的所有项。
 func ExampleStrSet_Clear() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	fmt.Println(strSet.Size())
@@ -107,9 +106,9 @@ func ExampleStrSet_Clear() {
 	// 0
 }
 
-// Complement returns a new set which is the complement from `set` to `full`.
-// Which means, all the items in `newSet` are in `full` and not in `set`.
-// It returns the difference between `full` and `set` if the given set `full` is not the full set of `set`.
+// Complement 返回一个新的集合，它是从 `set` 到 `full` 的补集。
+// 这意味着，新集合`newSet`中的所有元素都在`full`中但不在`set`中。
+// 如果给定的集合 `full` 不是 `set` 的全集，则返回 `full` 和 `set` 之间的差集。
 func ExampleStrSet_Complement() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3", "str4", "str5"}, true)
 	s := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
@@ -119,7 +118,7 @@ func ExampleStrSet_Complement() {
 	// [str4 str5]
 }
 
-// Contains checks whether the set contains `item`.
+// Contains 检查集合中是否包含 `item`。
 func ExampleStrSet_Contains() {
 	var set gset.StrSet
 	set.Add("a")
@@ -131,8 +130,8 @@ func ExampleStrSet_Contains() {
 	// false
 }
 
-// ContainsI checks whether a value exists in the set with case-insensitively.
-// Note that it internally iterates the whole set to do the comparison with case-insensitively.
+// ContainsI 检查某个值是否以不区分大小写的方式存在于集合中。
+// 注意：它内部会遍历整个集合，以不区分大小写的方式进行比较。
 func ExampleStrSet_ContainsI() {
 	var set gset.StrSet
 	set.Add("a")
@@ -144,8 +143,8 @@ func ExampleStrSet_ContainsI() {
 	// true
 }
 
-// Diff returns a new set which is the difference set from `set` to `other`.
-// Which means, all the items in `newSet` are in `set` but not in `other`.
+// Diff 返回一个新的集合，这个集合是 `set` 与 `other` 的差集。
+// 这意味着，新集合 `newSet` 中的所有元素都在 `set` 中，但不在 `other` 中。
 func ExampleStrSet_Diff() {
 	s1 := gset.NewStrSetFrom([]string{"a", "b", "c"}, true)
 	s2 := gset.NewStrSetFrom([]string{"a", "b", "c", "d"}, true)
@@ -155,7 +154,7 @@ func ExampleStrSet_Diff() {
 	// [d]
 }
 
-// Equal checks whether the two sets equal.
+// Equal 检查两个集合是否相等。
 func ExampleStrSet_Equal() {
 	s1 := gset.NewStrSetFrom([]string{"a", "b", "c"}, true)
 	s2 := gset.NewStrSetFrom([]string{"a", "b", "c", "d"}, true)
@@ -170,8 +169,8 @@ func ExampleStrSet_Equal() {
 	// true
 }
 
-// Intersect returns a new set which is the intersection from `set` to `other`.
-// Which means, all the items in `newSet` are in `set` and also in `other`.
+// Intersect 返回一个新的集合，它是从 `set` 到 `other` 的交集。
+// 这意味着，`newSet` 中的所有元素都在 `set` 中，并且也在 `other` 中。
 func ExampleStrSet_Intersect() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c"}...)
@@ -183,7 +182,7 @@ func ExampleStrSet_Intersect() {
 	// [c a b]
 }
 
-// IsSubsetOf checks whether the current set is a sub-set of `other`
+// IsSubsetOf 检查当前集合是否为 `other` 的子集
 func ExampleStrSet_IsSubsetOf() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -195,8 +194,8 @@ func ExampleStrSet_IsSubsetOf() {
 	// true
 }
 
-// Iterator iterates the set readonly with given callback function `f`,
-// if `f` returns true then continue iterating; or false to stop.
+// Iterator 使用给定的回调函数`f`对集合进行只读遍历，
+// 如果`f`返回true，则继续遍历；若返回false，则停止遍历。
 func ExampleStrSet_Iterator() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -212,7 +211,7 @@ func ExampleStrSet_Iterator() {
 	// Iterator d
 }
 
-// Join joins items with a string `glue`.
+// Join通过字符串`glue`连接items。
 func ExampleStrSet_Join() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -222,7 +221,7 @@ func ExampleStrSet_Join() {
 	// b,c,d,a
 }
 
-// LockFunc locks writing with callback function `f`.
+// LockFunc 使用回调函数`f`进行写入锁定。
 func ExampleStrSet_LockFunc() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"1", "2"}...)
@@ -231,12 +230,12 @@ func ExampleStrSet_LockFunc() {
 	})
 	fmt.Println(s1.Slice())
 
-	// May Output
-	// [2 3 1]
+// 可能的输出
+// [2 3 1]
 
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func ExampleStrSet_MarshalJSON() {
 	type Student struct {
 		Id     int
@@ -255,7 +254,7 @@ func ExampleStrSet_MarshalJSON() {
 	// {"Id":1,"Name":"john","Scores":["100","99","98"]}
 }
 
-// Merge adds items from `others` sets into `set`.
+// Merge 将 `others` 中的元素合并到 `set` 中。
 func ExampleStrSet_Merge() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -267,7 +266,7 @@ func ExampleStrSet_Merge() {
 	// [d a b c]
 }
 
-// Pops randomly pops an item from set.
+// Pops 随机地从集合中弹出一个元素。
 func ExampleStrSet_Pop() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -278,8 +277,8 @@ func ExampleStrSet_Pop() {
 	// a
 }
 
-// Pops randomly pops `size` items from set.
-// It returns all items if size == -1.
+// Pops 随机地从集合中弹出 `size` 个元素。
+// 如果 size == -1，则返回所有元素。
 func ExampleStrSet_Pops() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -292,7 +291,7 @@ func ExampleStrSet_Pops() {
 	// b
 }
 
-// RLockFunc locks reading with callback function `f`.
+// RLockFunc 通过回调函数 `f` 对读取进行加锁。
 func ExampleStrSet_RLockFunc() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -304,7 +303,7 @@ func ExampleStrSet_RLockFunc() {
 	// map[a:{} b:{} c:{} d:{}]
 }
 
-// Remove deletes `item` from set.
+// Remove 从集合中删除`item`。
 func ExampleStrSet_Remove() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -315,7 +314,7 @@ func ExampleStrSet_Remove() {
 	// [b c d]
 }
 
-// Size returns the size of the set.
+// Size 返回集合的大小。
 func ExampleStrSet_Size() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -325,7 +324,7 @@ func ExampleStrSet_Size() {
 	// 4
 }
 
-// Slice returns the an of items of the set as slice.
+// Slice 返回集合中项目的切片形式。
 func ExampleStrSet_Slice() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -335,7 +334,7 @@ func ExampleStrSet_Slice() {
 	// [a,b,c,d]
 }
 
-// String returns items as a string, which implements like json.Marshal does.
+// String 返回 items 作为字符串，其实现方式类似于 json.Marshal。
 func ExampleStrSet_String() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -345,8 +344,8 @@ func ExampleStrSet_String() {
 	// "a","b","c","d"
 }
 
-// Sum sums items. Note: The items should be converted to int type,
-// or you'd get a result that you unexpected.
+// Sum 计算项目总和。注意：项目应转换为 int 类型，
+// 否则你可能会得到一个意想不到的结果。
 func ExampleStrSet_Sum() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"1", "2", "3", "4"}...)
@@ -356,8 +355,8 @@ func ExampleStrSet_Sum() {
 	// 10
 }
 
-// Union returns a new set which is the union of `set` and `other`.
-// Which means, all the items in `newSet` are in `set` or in `other`.
+// Union 返回一个新的集合，该集合是 `set` 和 `other` 的并集。
+// 这意味着，`newSet` 中的所有元素都在 `set` 或者 `other` 中。
 func ExampleStrSet_Union() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -369,7 +368,7 @@ func ExampleStrSet_Union() {
 	// [a b c d]
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
 func ExampleStrSet_UnmarshalJSON() {
 	b := []byte(`{"Id":1,"Name":"john","Scores":["100","99","98"]}`)
 	type Student struct {
@@ -385,7 +384,7 @@ func ExampleStrSet_UnmarshalJSON() {
 	// {1 john "99","98","100"}
 }
 
-// UnmarshalValue is an interface implement which sets any type of value for set.
+// UnmarshalValue 是一个接口实现，用于为 set 设置任意类型的值。
 func ExampleStrSet_UnmarshalValue() {
 	b := []byte(`{"Id":1,"Name":"john","Scores":["100","99","98"]}`)
 	type Student struct {
@@ -401,7 +400,7 @@ func ExampleStrSet_UnmarshalValue() {
 	// {1 john "99","98","100"}
 }
 
-// Walk applies a user supplied function `f` to every item of set.
+// Walk 对集合中的每一个元素应用用户提供的函数 `f`。
 func ExampleStrSet_Walk() {
 	var (
 		set    gset.StrSet
@@ -409,7 +408,7 @@ func ExampleStrSet_Walk() {
 		prefix = "gf_"
 	)
 	set.Add(names...)
-	// Add prefix for given table names.
+	// 为给定的表名添加前缀
 	set.Walk(func(item string) string {
 		return prefix + item
 	})

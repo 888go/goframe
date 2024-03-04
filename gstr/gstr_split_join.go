@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gstr
 
@@ -13,49 +12,46 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Split splits string `str` by a string `delimiter`, to an array.
+// Split 函数通过一个分隔符字符串 `delimiter` 将字符串 `str` 分割成一个数组。
 func Split(str, delimiter string) []string {
 	return strings.Split(str, delimiter)
 }
 
-// SplitAndTrim splits string `str` by a string `delimiter` to an array,
-// and calls Trim to every element of this array. It ignores the elements
-// which are empty after Trim.
+// SplitAndTrim通过字符串`delimiter`将字符串`str`分割成一个数组，
+// 然后对数组中的每个元素调用Trim方法。它会忽略经过Trim处理后为空的元素。
 func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
 	return utils.SplitAndTrim(str, delimiter, characterMask...)
 }
 
-// Join concatenates the elements of `array` to create a single string. The separator string
-// `sep` is placed between elements in the resulting string.
+// Join 函数将 `array` 中的元素连接起来生成一个单一的字符串。在生成的字符串中，分隔符字符串 `sep` 会被放置在各个元素之间。
 func Join(array []string, sep string) string {
 	return strings.Join(array, sep)
 }
 
-// JoinAny concatenates the elements of `array` to create a single string. The separator string
-// `sep` is placed between elements in the resulting string.
+// JoinAny 通过连接 `array` 中的元素来创建一个单一字符串。分隔符字符串
+// `sep` 将会被放置在结果字符串中各元素之间。
 //
-// The parameter `array` can be any type of slice, which be converted to string array.
+// 参数 `array` 可以是任意类型的切片，只要它可以转换为字符串数组。
 func JoinAny(array interface{}, sep string) string {
 	return strings.Join(gconv.Strings(array), sep)
 }
 
-// Explode splits string `str` by a string `delimiter`, to an array.
-// See http://php.net/manual/en/function.explode.php.
+// Explode 将字符串 `str` 通过指定的分隔符 `delimiter` 进行拆分，结果存入数组中。
+// 参考：http://php.net/manual/en/function.explode.php.
 func Explode(delimiter, str string) []string {
 	return Split(str, delimiter)
 }
 
-// Implode joins array elements `pieces` with a string `glue`.
-// http://php.net/manual/en/function.implode.php
+// Implode 函数通过字符串 `glue` 连接数组元素 `pieces`。
+// 参考：http://php.net/manual/en/function.implode.php
 func Implode(glue string, pieces []string) string {
 	return strings.Join(pieces, glue)
 }
 
-// ChunkSplit splits a string into smaller chunks.
-// Can be used to split a string into smaller chunks which is useful for
-// e.g. converting BASE64 string output to match RFC 2045 semantics.
-// It inserts end every chunkLen characters.
-// It considers parameter `body` and `end` as unicode string.
+// ChunkSplit 将一个字符串分割成更小的块。
+// 可用于将字符串分割成较小的块，这对于例如将 BASE64 字符串输出转换为匹配 RFC 2045 语义非常有用。
+// 它会在每 chunkLen 个字符后插入 end。
+// 它将参数 `body` 和 `end` 视为 unicode 字符串。
 func ChunkSplit(body string, chunkLen int, end string) string {
 	if end == "" {
 		end = "\r\n"
@@ -77,7 +73,7 @@ func ChunkSplit(body string, chunkLen int, end string) string {
 	return string(ns)
 }
 
-// Fields returns the words used in a string as slice.
+// Fields返回字符串中使用的单词作为一个切片。
 func Fields(str string) []string {
 	return strings.Fields(str)
 }

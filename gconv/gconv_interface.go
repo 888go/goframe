@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gconv
 
@@ -10,110 +9,114 @@ import (
 	"github.com/gogf/gf/v2/os/gtime"
 )
 
-// iVal is used for type assert api for String().
+// iVal 用于在进行类型断言时作为 String() 方法的 API。
 type iVal interface {
 	Val() interface{}
 }
 
-// iString is used for type assert api for String().
+// iString 用于在进行类型断言时，配合 String() 方法使用。
 type iString interface {
 	String() string
 }
 
-// iBool is used for type assert api for Bool().
+// iBool 用于 Bool() 函数的类型断言API。
 type iBool interface {
 	Bool() bool
 }
 
-// iInt64 is used for type assert api for Int64().
+// iInt64 用于在类型断言 API 中对 Int64() 方法进行操作。
 type iInt64 interface {
 	Int64() int64
 }
 
-// iUint64 is used for type assert api for Uint64().
+// iUint64 用于对 Uint64() 方法进行类型断言。
 type iUint64 interface {
 	Uint64() uint64
 }
 
-// iFloat32 is used for type assert api for Float32().
+// iFloat32 用于进行类型断言，以调用 Float32() 函数。
 type iFloat32 interface {
 	Float32() float32
 }
 
-// iFloat64 is used for type assert api for Float64().
+// iFloat64 用于进行类型断言，以支持 Float64() 方法的调用。
 type iFloat64 interface {
 	Float64() float64
 }
 
-// iError is used for type assert api for Error().
+// iError 用于对 Error() 方法进行类型断言。
 type iError interface {
 	Error() string
 }
 
-// iBytes is used for type assert api for Bytes().
+// iBytes 用于对 Bytes() 方法进行类型断言。
 type iBytes interface {
 	Bytes() []byte
 }
 
-// iInterface is used for type assert api for Interface().
+// iInterface 用于 Interface() 方法的类型断言接口。
 type iInterface interface {
 	Interface() interface{}
 }
 
-// iInterfaces is used for type assert api for Interfaces().
+// iInterfaces 用于对 Interfaces() 方法进行类型断言。
 type iInterfaces interface {
 	Interfaces() []interface{}
 }
 
-// iFloats is used for type assert api for Floats().
+// iFloats 用于进行类型断言，以配合 Floats() API 使用。
 type iFloats interface {
 	Floats() []float64
 }
 
-// iInts is used for type assert api for Ints().
+// iInts 用于 Ints() 方法的类型断言API。
 type iInts interface {
 	Ints() []int
 }
 
-// iStrings is used for type assert api for Strings().
+// iStrings 用于对 Strings() 方法进行类型断言。
 type iStrings interface {
 	Strings() []string
 }
 
-// iUints is used for type assert api for Uints().
+// iUints 用于 Uints() 函数的类型断言接口。
 type iUints interface {
 	Uints() []uint
 }
 
-// iMapStrAny is the interface support for converting struct parameter to map.
+// iMapStrAny 是支持将结构体参数转换为映射的接口。
 type iMapStrAny interface {
 	MapStrAny() map[string]interface{}
 }
 
-// iUnmarshalValue is the interface for custom defined types customizing value assignment.
-// Note that only pointer can implement interface iUnmarshalValue.
+// iUnmarshalValue 是一个接口，用于为自定义类型定制值赋值功能。
+// 注意，只有指针类型可以实现 iUnmarshalValue 接口。
 type iUnmarshalValue interface {
 	UnmarshalValue(interface{}) error
 }
 
-// iUnmarshalText is the interface for custom defined types customizing value assignment.
-// Note that only pointer can implement interface iUnmarshalText.
+// iUnmarshalText 是为自定义类型定制值赋值的接口。
+// 注意，只有指针类型可以实现 iUnmarshalText 接口。
+// 这段Go语言代码注释翻译成中文如下：
+// ```go
+// iUnmarshalText 是一个用于自定义类型以个性化实现值赋值的接口。
+// 需要注意的是，只有指针类型才能实现 iUnmarshalText 接口。
 type iUnmarshalText interface {
 	UnmarshalText(text []byte) error
 }
 
-// iUnmarshalText is the interface for custom defined types customizing value assignment.
-// Note that only pointer can implement interface iUnmarshalJSON.
+// iUnmarshalText 是用于自定义类型定制值赋值的接口。
+// 注意，只有指针类型才能实现 iUnmarshalJSON 接口。
 type iUnmarshalJSON interface {
 	UnmarshalJSON(b []byte) error
 }
 
-// iSet is the interface for custom value assignment.
+// iSet 是用于自定义值赋值的接口。
 type iSet interface {
 	Set(value interface{}) (old interface{})
 }
 
-// iGTime is the interface for gtime.Time converting.
+// iGTime是用于gtime.Time转换的接口。
 type iGTime interface {
 	GTime(format ...string) *gtime.Time
 }

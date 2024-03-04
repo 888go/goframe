@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有，GoFrame作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循MIT许可证条款。
+// 如果随此文件未分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf 获取一份。
 //
 
 package gcmd
@@ -15,13 +15,13 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// Scan prints `info` to stdout, reads and returns user input, which stops by '\n'.
+// Scan 将 `info` 输出到标准输出（stdout），然后读取并返回用户输入，直到遇到换行符('\n')时停止。
 func Scan(info ...interface{}) string {
 	fmt.Print(info...)
 	return readline()
 }
 
-// Scanf prints `info` to stdout with `format`, reads and returns user input, which stops by '\n'.
+// Scanf 函数将按照 `format` 格式打印 `info` 到标准输出（stdout），然后读取用户输入，直到遇到换行符 '\n' 为止，并返回所读取的用户输入内容。
 func Scanf(format string, info ...interface{}) string {
 	fmt.Printf(format, info...)
 	return readline()

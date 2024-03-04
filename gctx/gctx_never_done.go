@@ -1,8 +1,7 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
+// 您可以在 https://github.com/gogf/gf 获取一份。
 
 package gctx
 
@@ -11,28 +10,28 @@ import (
 	"time"
 )
 
-// neverDoneCtx never done.
+// neverDoneCtx 永不结束
 type neverDoneCtx struct {
 	context.Context
 }
 
-// Done forbids the context done from parent context.
+// Done 从父上下文中禁止使用已完成的上下文。
 func (*neverDoneCtx) Done() <-chan struct{} {
 	return nil
 }
 
-// Deadline forbids the context deadline from parent context.
+// Deadline 禁止从父上下文中继承截止时间（deadline），即设置当前上下文不具有来自父上下文的截止时间。
 func (*neverDoneCtx) Deadline() (deadline time.Time, ok bool) {
 	return time.Time{}, false
 }
 
-// Err forbids the context done from parent context.
+// Err用于禁止从父上下文中获取完成信号。
 func (c *neverDoneCtx) Err() error {
 	return nil
 }
 
-// NeverDone wraps and returns a new context object that will be never done,
-// which forbids the context manually done, to make the context can be propagated to asynchronous goroutines.
+// NeverDone 包装并返回一个新的上下文对象，该对象将永不完成，
+// 这样可以禁止手动完成上下文，以使上下文能够传播到异步goroutine中。
 func NeverDone(ctx context.Context) context.Context {
 	return &neverDoneCtx{ctx}
 }
