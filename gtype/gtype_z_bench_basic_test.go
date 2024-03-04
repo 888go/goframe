@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"sync/atomic"
 	"testing"
-
-	"github.com/gogf/gf/v2/container/gtype"
+	
+	"github.com/888go/goframe/gtype"
 	"github.com/gogf/gf/v2/encoding/gbinary"
 )
 

@@ -13,8 +13,8 @@ import (
 	"io"
 	"reflect"
 	"strings"
-
-	"github.com/gogf/gf/v2/internal/reflection"
+	
+	"github.com/888go/goframe/gutil/internal/reflection"
 	"github.com/gogf/gf/v2/os/gstructs"
 	"github.com/gogf/gf/v2/text/gstr"
 )

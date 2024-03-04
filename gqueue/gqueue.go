@@ -19,7 +19,7 @@ package gqueue
 
 import (
 	"math"
-
+	
 	"github.com/gogf/gf/v2/container/glist"
 	"github.com/gogf/gf/v2/container/gtype"
 )

@@ -6,7 +6,9 @@
 
 package gmutex
 
-import "sync"
+import (
+	"sync"
+)
 
 // Mutex is a high level Mutex, which implements more rich features for mutex.
 type Mutex struct {

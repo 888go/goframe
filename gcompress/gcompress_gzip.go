@@ -10,7 +10,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"io"
-
+	
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/os/gfile"
 )

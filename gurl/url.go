@@ -10,7 +10,7 @@ package gurl
 import (
 	"net/url"
 	"strings"
-
+	
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 

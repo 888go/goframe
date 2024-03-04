@@ -8,8 +8,8 @@ package gfile_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/os/gfile"
+	
+	"github.com/888go/goframe/gfile"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"
 )

@@ -9,14 +9,14 @@ package gconv_test
 import (
 	"testing"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/gconv/internal/json"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/gconv"
 )
 
 func Test_Struct_Basic1(t *testing.T) {

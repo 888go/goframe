@@ -15,14 +15,14 @@ import (
 	"runtime"
 	"strings"
 	"time"
-
+	
 	"github.com/fatih/color"
 	"go.opentelemetry.io/otel/trace"
-
+	
 	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/errors"
-	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/888go/goframe/glog/internal/consts"
+	"github.com/888go/goframe/glog/internal/errors"
+	"github.com/888go/goframe/glog/internal/intlog"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/gfpool"

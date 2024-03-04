@@ -11,8 +11,8 @@ package gsha1_test
 import (
 	"os"
 	"testing"
-
-	"github.com/gogf/gf/v2/crypto/gsha1"
+	
+	"github.com/888go/goframe/gsha1"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

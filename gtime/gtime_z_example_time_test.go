@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"reflect"
 	"time"
-
-	"github.com/gogf/gf/v2/os/gtime"
+	
+	"github.com/888go/goframe/gtime"
 )
 
 func ExampleNew_Basic() {

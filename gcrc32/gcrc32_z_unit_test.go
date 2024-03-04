@@ -10,8 +10,8 @@ package gcrc32_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/crypto/gcrc32"
+	
+	"github.com/888go/goframe/gcrc32"
 	"github.com/gogf/gf/v2/crypto/gmd5"
 	"github.com/gogf/gf/v2/test/gtest"
 )

@@ -7,7 +7,7 @@
 package utils
 
 import (
-	"github.com/gogf/gf/v2/internal/command"
+	"github.com/888go/goframe/gcfg/internal/command"
 )
 
 const (

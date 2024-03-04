@@ -6,7 +6,9 @@
 
 package utils
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // ListToMapByKey converts `list` to a map[string]interface{} of which key is specified by `key`.
 // Note that the item value may be type of slice.

@@ -11,8 +11,8 @@ package gcfg_test
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/888go/goframe/gcfg"
+	"github.com/888go/goframe/gcmd"
 	"github.com/gogf/gf/v2/os/genv"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/gtime"

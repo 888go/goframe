@@ -8,8 +8,10 @@ package gutil_test
 
 import (
 	"bytes"
+	gutil2 "github.com/gogf/gf/v2/util/gutil"
 	"testing"
 
+	"github.com/888go/goframe/gutil"
 	"github.com/gogf/gf/v2/container/gtype"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -17,7 +19,6 @@ import (
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Dump(t *testing.T) {
@@ -284,7 +285,7 @@ func Test_Dump_Cycle_Attribute(t *testing.T) {
 	abc.cd = &abc
 	gtest.C(t, func(t *gtest.T) {
 		buffer := bytes.NewBuffer(nil)
-		g.DumpTo(buffer, abc, gutil.DumpOption{})
+		g.DumpTo(buffer, abc, gutil2.DumpOption(gutil.DumpOption{}))
 		t.Assert(gstr.Contains(buffer.String(), "cycle"), true)
 	})
 }

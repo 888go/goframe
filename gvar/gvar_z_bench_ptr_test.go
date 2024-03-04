@@ -8,7 +8,9 @@
 
 package gvar
 
-import "testing"
+import (
+	"testing"
+)
 
 var varPtr = New(nil)
 

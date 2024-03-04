@@ -8,10 +8,10 @@ package utils_test
 
 import (
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/gview/internal/utils"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
 )

@@ -8,8 +8,8 @@ package rwmutex_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/internal/rwmutex"
+	
+	"github.com/888go/goframe/gclient/internal/rwmutex"
 )
 
 var (

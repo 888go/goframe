@@ -8,10 +8,10 @@ package gtime_test
 
 import (
 	"testing"
-
+	
+	"github.com/888go/goframe/gtime"
+	"github.com/888go/goframe/gtime/internal/json"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

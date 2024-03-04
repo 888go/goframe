@@ -8,8 +8,8 @@ package gjson_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/encoding/gjson"
+	
+	"github.com/888go/goframe/gjson"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

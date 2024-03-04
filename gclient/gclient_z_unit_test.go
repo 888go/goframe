@@ -15,13 +15,13 @@ import (
 	"net/http"
 	"testing"
 	"time"
-
+	
 	"github.com/gorilla/websocket"
-
+	
+	"github.com/888go/goframe/gclient"
 	"github.com/gogf/gf/v2/debug/gdebug"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/gclient"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/test/gtest"
@@ -51,15 +51,15 @@ func Test_Client_Basic(t *testing.T) {
 		client := g.Client()
 		client.SetPrefix(url)
 
-		t.Assert(g.Client().GetContent(ctx, ""), ``)
+		t.Assert(gclient.New().GetContent(ctx, ""), ``)
 		t.Assert(client.GetContent(ctx, "/hello"), `hello`)
 
-		_, err := g.Client().Post(ctx, "")
+		_, err := gclient.New().Post(ctx, "")
 		t.AssertNE(err, nil)
 
-		_, err = g.Client().PostForm(ctx, "/postForm", nil)
+		_, err = gclient.New().PostForm(ctx, "/postForm", nil)
 		t.AssertNE(err, nil)
-		data, _ := g.Client().PostForm(ctx, url+"/postForm", map[string]string{
+		data, _ := gclient.New().PostForm(ctx, url+"/postForm", map[string]string{
 			"key1": "value1",
 		})
 		t.Assert(data.ReadAllString(), "value1")
@@ -349,7 +349,7 @@ func Test_Client_Middleware(t *testing.T) {
 			str1 = ""
 			str2 = "resp body"
 		)
-		c := g.Client().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := gclient.New().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
 		c.Use(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
 			str1 += "a"
 			resp, err = c.Next(r)
@@ -390,7 +390,7 @@ func Test_Client_Middleware(t *testing.T) {
 			abortStr = "abort request"
 		)
 
-		c = g.Client().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c = gclient.New().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
 		c.Use(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
 			str3 += "a"
 			resp, err = c.Next(r)
@@ -426,7 +426,7 @@ func Test_Client_Agent(t *testing.T) {
 	time.Sleep(100 * time.Millisecond)
 
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := gclient.New().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
 		c.SetAgent("test")
 		t.Assert(c.GetContent(ctx, "/"), "test")
 	})
@@ -449,7 +449,7 @@ func Test_Client_Request_13_Dump(t *testing.T) {
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
 		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		client := g.Client().SetPrefix(url).ContentJson()
+		client := gclient.New().SetPrefix(url).ContentJson()
 		r, err := client.Post(ctx, "/hello", g.Map{"field": "test_for_request_body"})
 		t.AssertNil(err)
 		dumpedText := r.RawRequest()
@@ -458,7 +458,7 @@ func Test_Client_Request_13_Dump(t *testing.T) {
 		fmt.Println(dumpedText2)
 		t.Assert(gstr.Contains(dumpedText2, "test_for_response_body"), true)
 
-		client2 := g.Client().SetPrefix(url).ContentType("text/html")
+		client2 := gclient.New().SetPrefix(url).ContentType("text/html")
 		r2, err := client2.Post(ctx, "/hello2", g.Map{"field": "test_for_request_body"})
 		t.AssertNil(err)
 		dumpedText3 := r2.RawRequest()
@@ -471,7 +471,7 @@ func Test_Client_Request_13_Dump(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		response, _ := g.Client().Get(ctx, url, g.Map{
+		response, _ := gclient.New().Get(ctx, url, g.Map{
 			"id":   10000,
 			"name": "john",
 		})
@@ -481,7 +481,7 @@ func Test_Client_Request_13_Dump(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		response, _ := g.Client().Get(ctx, url, g.Map{
+		response, _ := gclient.New().Get(ctx, url, g.Map{
 			"id":   10000,
 			"name": "john",
 		})
@@ -596,7 +596,7 @@ func TestClient_RequestVar(t *testing.T) {
 		var (
 			url = "http://127.0.0.1:99999/var/jsons"
 		)
-		varValue := g.Client().RequestVar(ctx, http.MethodGet, url)
+		varValue := gclient.New().RequestVar(ctx, http.MethodGet, url)
 		t.AssertNil(varValue)
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -608,7 +608,7 @@ func TestClient_RequestVar(t *testing.T) {
 			users []User
 			url   = "http://127.0.0.1:8999/var/jsons"
 		)
-		err := g.Client().RequestVar(ctx, http.MethodGet, url).Scan(&users)
+		err := gclient.New().RequestVar(ctx, http.MethodGet, url).Scan(&users)
 		t.AssertNil(err)
 		t.AssertNE(users, nil)
 	})

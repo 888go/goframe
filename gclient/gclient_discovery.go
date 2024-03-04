@@ -9,9 +9,9 @@ package gclient
 import (
 	"context"
 	"net/http"
-
+	
 	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/888go/goframe/gclient/internal/intlog"
 	"github.com/gogf/gf/v2/net/gsel"
 	"github.com/gogf/gf/v2/net/gsvc"
 )

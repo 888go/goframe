@@ -8,9 +8,9 @@ package gtype
 
 import (
 	"sync/atomic"
-
-	"github.com/gogf/gf/v2/internal/deepcopy"
-	"github.com/gogf/gf/v2/internal/json"
+	
+	"github.com/888go/goframe/gtype/internal/deepcopy"
+	"github.com/888go/goframe/gtype/internal/json"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 

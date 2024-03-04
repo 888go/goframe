@@ -12,9 +12,9 @@ import (
 	"context"
 	"testing"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/888go/goframe/gtimer"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

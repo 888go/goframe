@@ -12,13 +12,13 @@ import (
 	"net/http"
 	"testing"
 	"time"
-
+	
 	"go.opentelemetry.io/otel"
 	sdkTrace "go.opentelemetry.io/otel/sdk/trace"
 	"go.opentelemetry.io/otel/trace"
-
+	
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/tracing"
+	"github.com/888go/goframe/gclient/internal/tracing"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/guid"

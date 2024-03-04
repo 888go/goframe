@@ -9,9 +9,9 @@ package gmutex_test
 import (
 	"testing"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gmutex"
+	"github.com/888go/goframe/gmutex"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

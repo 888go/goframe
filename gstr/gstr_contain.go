@@ -6,7 +6,9 @@
 
 package gstr
 
-import "strings"
+import (
+	"strings"
+)
 
 // Contains reports whether `substr` is within `str`, case-sensitively.
 func Contains(str, substr string) bool {

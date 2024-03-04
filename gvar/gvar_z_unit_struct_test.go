@@ -8,8 +8,8 @@ package gvar_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/container/gvar"
+	
+	"github.com/888go/goframe/gvar"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"

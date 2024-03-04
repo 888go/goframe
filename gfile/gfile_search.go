@@ -9,7 +9,7 @@ package gfile
 import (
 	"bytes"
 	"fmt"
-
+	
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/errors/gerror"
 )

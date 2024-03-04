@@ -6,7 +6,9 @@
 
 package garray
 
-import "strings"
+import (
+	"strings"
+)
 
 // defaultComparatorInt for int comparison.
 func defaultComparatorInt(a, b int) int {

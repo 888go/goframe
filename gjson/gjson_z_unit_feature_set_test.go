@@ -9,9 +9,9 @@ package gjson_test
 import (
 	"bytes"
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/888go/goframe/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/text/gstr"

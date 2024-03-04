@@ -9,14 +9,14 @@ package gconv_test
 import (
 	"testing"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/crypto/gcrc32"
 	"github.com/gogf/gf/v2/encoding/gbinary"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/gconv"
 )
 
 type MyTime struct {

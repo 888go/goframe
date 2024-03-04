@@ -9,7 +9,7 @@ package gtype
 import (
 	"strconv"
 	"sync/atomic"
-
+	
 	"github.com/gogf/gf/v2/util/gconv"
 )
 

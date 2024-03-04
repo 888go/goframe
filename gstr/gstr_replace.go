@@ -8,8 +8,8 @@ package gstr
 
 import (
 	"strings"
-
-	"github.com/gogf/gf/v2/internal/utils"
+	
+	"github.com/888go/goframe/gstr/internal/utils"
 )
 
 // Replace returns a copy of the string `origin`

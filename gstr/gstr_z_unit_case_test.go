@@ -8,9 +8,9 @@ package gstr_test
 
 import (
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/gstr"
 )
 
 func Test_CaseCamel(t *testing.T) {

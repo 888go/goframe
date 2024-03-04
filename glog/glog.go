@@ -9,8 +9,8 @@ package glog
 
 import (
 	"context"
-
-	"github.com/gogf/gf/v2/internal/command"
+	
+	"github.com/888go/goframe/glog/internal/command"
 	"github.com/gogf/gf/v2/os/grpool"
 	"github.com/gogf/gf/v2/util/gconv"
 )

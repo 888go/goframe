@@ -10,7 +10,7 @@ package gbase64
 import (
 	"encoding/base64"
 	"os"
-
+	
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 

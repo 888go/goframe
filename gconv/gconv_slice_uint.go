@@ -9,10 +9,10 @@ package gconv
 import (
 	"reflect"
 	"strings"
-
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/utils"
+	
+	"github.com/888go/goframe/gconv/internal/json"
+	"github.com/888go/goframe/gconv/internal/reflection"
+	"github.com/888go/goframe/gconv/internal/utils"
 )
 
 // SliceUint is alias of Uints.

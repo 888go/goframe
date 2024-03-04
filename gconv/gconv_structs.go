@@ -8,10 +8,10 @@ package gconv
 
 import (
 	"reflect"
-
+	
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/gconv/internal/json"
 )
 
 // Structs converts any slice to given struct slice.

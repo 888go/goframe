@@ -10,8 +10,8 @@ import (
 	"context"
 	"fmt"
 	"time"
-
-	"github.com/gogf/gf/v2/container/gqueue"
+	
+	"github.com/888go/goframe/gqueue"
 	"github.com/gogf/gf/v2/os/gtimer"
 )
 

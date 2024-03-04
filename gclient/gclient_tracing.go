@@ -12,16 +12,16 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptrace"
-
+	
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
-
+	
 	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/internal/httputil"
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/gclient/internal/httputil"
+	"github.com/888go/goframe/gclient/internal/utils"
 	"github.com/gogf/gf/v2/net/gtrace"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/text/gstr"

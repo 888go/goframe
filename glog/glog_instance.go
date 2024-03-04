@@ -6,7 +6,9 @@
 
 package glog
 
-import "github.com/gogf/gf/v2/container/gmap"
+import (
+	"github.com/gogf/gf/v2/container/gmap"
+)
 
 const (
 	// DefaultName is the default group name for instance usage.

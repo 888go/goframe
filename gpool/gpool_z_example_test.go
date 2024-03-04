@@ -10,8 +10,8 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
-
-	"github.com/gogf/gf/v2/container/gpool"
+	
+	"github.com/888go/goframe/gpool"
 )
 
 func ExampleNew() {

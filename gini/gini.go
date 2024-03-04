@@ -13,10 +13,10 @@ import (
 	"fmt"
 	"io"
 	"strings"
-
+	
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/gini/internal/json"
 )
 
 // Decode converts INI format to map.

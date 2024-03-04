@@ -14,9 +14,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
+	
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/888go/goframe/gcompress/internal/intlog"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/text/gstr"
 )

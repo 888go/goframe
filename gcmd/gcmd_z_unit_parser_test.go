@@ -11,8 +11,8 @@ package gcmd_test
 import (
 	"os"
 	"testing"
-
-	"github.com/gogf/gf/v2/os/gcmd"
+	
+	"github.com/888go/goframe/gcmd"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

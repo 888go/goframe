@@ -9,8 +9,8 @@ package reflection_test
 import (
 	"reflect"
 	"testing"
-
-	"github.com/gogf/gf/v2/internal/reflection"
+	
+	"github.com/888go/goframe/gvar/internal/reflection"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

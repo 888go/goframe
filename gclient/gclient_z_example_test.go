@@ -13,10 +13,10 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/debug/gdebug"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/gclient"
+	"github.com/888go/goframe/gclient"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/os/gfile"

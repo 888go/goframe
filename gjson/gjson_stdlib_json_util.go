@@ -8,9 +8,9 @@ package gjson
 
 import (
 	"bytes"
-
+	
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/gjson/internal/json"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 

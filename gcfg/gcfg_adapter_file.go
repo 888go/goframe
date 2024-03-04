@@ -9,13 +9,13 @@ package gcfg
 import (
 	"context"
 
+	"github.com/888go/goframe/gcfg/internal/command"
+	"github.com/888go/goframe/gcfg/internal/intlog"
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/intlog"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/gfsnotify"
 	"github.com/gogf/gf/v2/os/gres"

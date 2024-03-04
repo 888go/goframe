@@ -6,7 +6,9 @@
 
 package gmutex
 
-import "sync"
+import (
+	"sync"
+)
 
 // RWMutex is a high level RWMutex, which implements more rich features for mutex.
 type RWMutex struct {

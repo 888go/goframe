@@ -9,10 +9,10 @@ package gjson_test
 import (
 	"fmt"
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/888go/goframe/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"

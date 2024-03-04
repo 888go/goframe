@@ -11,8 +11,8 @@ package gcache_test
 import (
 	"context"
 	"testing"
-
-	"github.com/gogf/gf/v2/os/gcache"
+	
+	"github.com/888go/goframe/gcache"
 )
 
 var (

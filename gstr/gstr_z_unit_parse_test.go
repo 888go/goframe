@@ -11,10 +11,10 @@ package gstr_test
 import (
 	"net/url"
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/gstr"
 )
 
 func Test_Parse(t *testing.T) {

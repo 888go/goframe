@@ -10,9 +10,9 @@ package gset
 import (
 	"bytes"
 	"strings"
-
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/rwmutex"
+	
+	"github.com/888go/goframe/gset/internal/json"
+	"github.com/888go/goframe/gset/internal/rwmutex"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 )

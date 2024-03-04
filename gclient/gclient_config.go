@@ -15,11 +15,11 @@ import (
 	"net/url"
 	"strings"
 	"time"
-
+	
 	"golang.org/x/net/proxy"
-
+	
+	"github.com/888go/goframe/gclient/internal/intlog"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
 	"github.com/gogf/gf/v2/net/gsel"
 	"github.com/gogf/gf/v2/net/gsvc"
 	"github.com/gogf/gf/v2/text/gregex"

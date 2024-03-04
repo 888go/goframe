@@ -9,7 +9,7 @@ package gtype
 import (
 	"bytes"
 	"sync/atomic"
-
+	
 	"github.com/gogf/gf/v2/util/gconv"
 )
 

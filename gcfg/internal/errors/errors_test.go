@@ -8,8 +8,8 @@ package errors_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/internal/errors"
+	
+	"github.com/888go/goframe/gcfg/internal/errors"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

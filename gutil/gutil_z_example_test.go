@@ -9,7 +9,7 @@ package gutil_test
 import (
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/gutil"
 )
 
 func ExampleSliceInsertBefore() {

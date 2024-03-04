@@ -8,8 +8,8 @@ package gmlock_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/os/gmlock"
+	
+	"github.com/888go/goframe/gmlock"
 )
 
 var (

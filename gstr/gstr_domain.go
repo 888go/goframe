@@ -6,7 +6,9 @@
 
 package gstr
 
-import "strings"
+import (
+	"strings"
+)
 
 // IsSubDomain checks whether `subDomain` is sub-domain of mainDomain.
 // It supports '*' in `mainDomain`.

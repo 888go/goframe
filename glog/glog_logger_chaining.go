@@ -8,7 +8,7 @@ package glog
 
 import (
 	"io"
-
+	
 	"github.com/gogf/gf/v2/os/gfile"
 )
 

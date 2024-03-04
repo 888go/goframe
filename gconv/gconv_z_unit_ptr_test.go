@@ -8,9 +8,9 @@ package gconv_test
 
 import (
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/gconv"
 )
 
 func Test_Ptr_Functions(t *testing.T) {

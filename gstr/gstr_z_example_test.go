@@ -8,8 +8,8 @@ package gstr_test
 
 import (
 	"fmt"
-
-	"github.com/gogf/gf/v2/text/gstr"
+	
+	"github.com/888go/goframe/gstr"
 )
 
 func ExampleCount() {

@@ -12,7 +12,7 @@ import (
 	"github.com/gogf/gf/v2/encoding/gtoml"
 	"github.com/gogf/gf/v2/encoding/gxml"
 	"github.com/gogf/gf/v2/encoding/gyaml"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/gjson/internal/json"
 )
 
 // ========================================================================

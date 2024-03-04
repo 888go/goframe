@@ -10,9 +10,9 @@ import (
 	"sync"
 	"testing"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gmlock"
+	"github.com/888go/goframe/gmlock"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

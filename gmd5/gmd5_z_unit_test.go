@@ -11,8 +11,8 @@ package gmd5_test
 import (
 	"os"
 	"testing"
-
-	"github.com/gogf/gf/v2/crypto/gmd5"
+	
+	"github.com/888go/goframe/gmd5"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

@@ -10,9 +10,9 @@ package gcfg_test
 
 import (
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/888go/goframe/gcfg"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

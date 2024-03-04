@@ -9,10 +9,10 @@ package gvar
 
 import (
 	"time"
-
+	
 	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/internal/deepcopy"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/gvar/internal/deepcopy"
+	"github.com/888go/goframe/gvar/internal/json"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/gogf/gf/v2/util/gutil"

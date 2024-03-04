@@ -9,10 +9,10 @@ package genv_test
 import (
 	"os"
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/genv"
+	"github.com/888go/goframe/genv"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"

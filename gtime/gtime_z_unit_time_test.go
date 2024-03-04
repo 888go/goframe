@@ -10,9 +10,9 @@ import (
 	"fmt"
 	"testing"
 	"time"
-
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gtime"
+	
+	"github.com/888go/goframe/gtime"
+	"github.com/888go/goframe/gtime/internal/json"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gutil"
 )

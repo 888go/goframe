@@ -10,12 +10,12 @@ package gcfg
 import (
 	"context"
 
+	"github.com/888go/goframe/gcfg/internal/command"
+	"github.com/888go/goframe/gcfg/internal/intlog"
+	"github.com/888go/goframe/gcfg/internal/utils"
 	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/utils"
 	"github.com/gogf/gf/v2/os/genv"
 )
 

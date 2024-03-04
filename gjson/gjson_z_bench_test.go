@@ -9,8 +9,8 @@ package gjson_test
 import (
 	json2 "encoding/json"
 	"testing"
-
-	"github.com/gogf/gf/v2/encoding/gjson"
+	
+	"github.com/888go/goframe/gjson"
 )
 
 var (

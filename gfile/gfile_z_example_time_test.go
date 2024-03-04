@@ -8,8 +8,8 @@ package gfile_test
 
 import (
 	"fmt"
-
-	"github.com/gogf/gf/v2/os/gfile"
+	
+	"github.com/888go/goframe/gfile"
 )
 
 func ExampleMTime() {

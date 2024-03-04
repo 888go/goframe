@@ -6,7 +6,9 @@
 
 package gtimer
 
-import "time"
+import (
+	"time"
+)
 
 // loop starts the ticker using a standalone goroutine.
 func (t *Timer) loop() {

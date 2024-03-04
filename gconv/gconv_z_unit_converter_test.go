@@ -10,10 +10,10 @@ import (
 	"encoding/json"
 	"testing"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/gconv"
 )
 
 func TestConverter_Struct(t *testing.T) {

@@ -8,8 +8,8 @@ package instance_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/internal/instance"
+	
+	"github.com/888go/goframe/gcompress/internal/instance"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

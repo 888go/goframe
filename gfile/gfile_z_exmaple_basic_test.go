@@ -9,8 +9,8 @@ package gfile_test
 import (
 	"fmt"
 	"os"
-
-	"github.com/gogf/gf/v2/os/gfile"
+	
+	"github.com/888go/goframe/gfile"
 )
 
 func ExampleMkdir() {

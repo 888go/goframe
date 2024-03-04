@@ -8,8 +8,8 @@ package gurl_test
 import (
 	"net/url"
 	"testing"
-
-	"github.com/gogf/gf/v2/encoding/gurl"
+	
+	"github.com/888go/goframe/gurl"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

@@ -10,10 +10,10 @@ import (
 	"context"
 	"testing"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gmutex"
+	"github.com/888go/goframe/gmutex"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

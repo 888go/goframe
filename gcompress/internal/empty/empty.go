@@ -10,8 +10,8 @@ package empty
 import (
 	"reflect"
 	"time"
-
-	"github.com/gogf/gf/v2/internal/reflection"
+	
+	"github.com/888go/goframe/gcompress/internal/reflection"
 )
 
 // iString is used for type assert api for String().

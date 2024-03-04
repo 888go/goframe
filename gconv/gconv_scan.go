@@ -9,10 +9,10 @@ package gconv
 import (
 	"database/sql"
 	"reflect"
-
+	
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/gconv/internal/utils"
 	"github.com/gogf/gf/v2/os/gstructs"
 )
 

@@ -9,9 +9,9 @@ package gvar_test
 import (
 	"math"
 	"testing"
-
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/json"
+	
+	"github.com/888go/goframe/gvar"
+	"github.com/888go/goframe/gvar/internal/json"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

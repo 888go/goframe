@@ -9,10 +9,10 @@ package gmap
 
 import (
 	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/deepcopy"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/888go/goframe/gmap/internal/deepcopy"
+	"github.com/888go/goframe/gmap/internal/empty"
+	"github.com/888go/goframe/gmap/internal/json"
+	"github.com/888go/goframe/gmap/internal/rwmutex"
 	"github.com/gogf/gf/v2/util/gconv"
 	"reflect"
 )

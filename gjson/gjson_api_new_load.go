@@ -9,7 +9,7 @@ package gjson
 import (
 	"bytes"
 	"reflect"
-
+	
 	"github.com/gogf/gf/v2/encoding/gini"
 	"github.com/gogf/gf/v2/encoding/gproperties"
 	"github.com/gogf/gf/v2/encoding/gtoml"
@@ -17,9 +17,9 @@ import (
 	"github.com/gogf/gf/v2/encoding/gyaml"
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/888go/goframe/gjson/internal/json"
+	"github.com/888go/goframe/gjson/internal/reflection"
+	"github.com/888go/goframe/gjson/internal/rwmutex"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/text/gregex"
 	"github.com/gogf/gf/v2/text/gstr"

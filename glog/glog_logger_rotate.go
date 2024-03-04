@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"strings"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/encoding/gcompress"
-	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/888go/goframe/glog/internal/intlog"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/gmlock"
 	"github.com/gogf/gf/v2/os/gtime"

@@ -13,8 +13,8 @@ import (
 	"encoding/binary"
 	mathRand "math/rand"
 	"testing"
-
-	"github.com/gogf/gf/v2/util/grand"
+	
+	"github.com/888go/goframe/grand"
 )
 
 var (

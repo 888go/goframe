@@ -11,11 +11,11 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
+	
+	"github.com/888go/goframe/genv/internal/command"
+	"github.com/888go/goframe/genv/internal/utils"
 	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // All returns a copy of strings representing the environment,

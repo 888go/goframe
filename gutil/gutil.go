@@ -9,8 +9,8 @@ package gutil
 
 import (
 	"reflect"
-
-	"github.com/gogf/gf/v2/internal/empty"
+	
+	"github.com/888go/goframe/gutil/internal/empty"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 

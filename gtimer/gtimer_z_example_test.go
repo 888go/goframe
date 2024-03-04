@@ -10,8 +10,8 @@ import (
 	"context"
 	"fmt"
 	"time"
-
-	"github.com/gogf/gf/v2/os/gtimer"
+	
+	"github.com/888go/goframe/gtimer"
 )
 
 func ExampleAdd() {

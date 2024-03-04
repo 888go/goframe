@@ -8,8 +8,8 @@ package gcfg
 
 import (
 	"context"
-
-	"github.com/gogf/gf/v2/internal/intlog"
+	
+	"github.com/888go/goframe/gcfg/internal/intlog"
 )
 
 // SetContent sets customized configuration content for specified `file`.

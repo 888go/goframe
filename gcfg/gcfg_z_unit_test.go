@@ -8,7 +8,9 @@
 
 package gcfg_test
 
-import "context"
+import (
+	"context"
+)
 
 var (
 	ctx = context.TODO()

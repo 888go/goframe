@@ -9,7 +9,7 @@ package gregex
 import (
 	"regexp"
 	"sync"
-
+	
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 

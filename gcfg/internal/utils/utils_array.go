@@ -6,7 +6,9 @@
 
 package utils
 
-import "reflect"
+import (
+	"reflect"
+)
 
 // IsArray checks whether given value is array/slice.
 // Note that it uses reflect internally implementing this feature.

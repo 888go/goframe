@@ -9,11 +9,11 @@ package gfile
 import (
 	"context"
 	"time"
-
+	
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/888go/goframe/gfile/internal/command"
+	"github.com/888go/goframe/gfile/internal/intlog"
 	"github.com/gogf/gf/v2/os/gcache"
 	"github.com/gogf/gf/v2/os/gfsnotify"
 )

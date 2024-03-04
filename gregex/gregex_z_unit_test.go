@@ -11,9 +11,9 @@ package gregex_test
 import (
 	"strings"
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/888go/goframe/gregex"
 )
 
 var (

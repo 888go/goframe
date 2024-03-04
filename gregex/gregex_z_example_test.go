@@ -9,9 +9,9 @@ import (
 	"bytes"
 	"fmt"
 	"strings"
-
+	
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/888go/goframe/gregex"
 )
 
 func ExampleIsMatch() {

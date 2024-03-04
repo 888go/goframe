@@ -9,7 +9,7 @@ package gconv_test
 import (
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/gconv"
 	"testing"
 	"time"
 )

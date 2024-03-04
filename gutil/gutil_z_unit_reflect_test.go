@@ -9,9 +9,9 @@ package gutil_test
 import (
 	"reflect"
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/gutil"
 )
 
 func Test_OriginValueAndKind(t *testing.T) {

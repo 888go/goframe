@@ -8,8 +8,8 @@ package ghtml_test
 
 import (
 	"testing"
-
-	"github.com/gogf/gf/v2/encoding/ghtml"
+	
+	"github.com/888go/goframe/ghtml"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
 )

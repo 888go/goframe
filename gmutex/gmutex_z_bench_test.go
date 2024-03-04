@@ -9,8 +9,8 @@ package gmutex_test
 import (
 	"sync"
 	"testing"
-
-	"github.com/gogf/gf/v2/os/gmutex"
+	
+	"github.com/888go/goframe/gmutex"
 )
 
 var (

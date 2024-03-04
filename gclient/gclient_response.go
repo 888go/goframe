@@ -10,8 +10,8 @@ import (
 	"bytes"
 	"io"
 	"net/http"
-
-	"github.com/gogf/gf/v2/internal/intlog"
+	
+	"github.com/888go/goframe/gclient/internal/intlog"
 )
 
 // Response is the struct for client request response.

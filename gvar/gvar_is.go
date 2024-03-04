@@ -7,7 +7,7 @@
 package gvar
 
 import (
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/gvar/internal/utils"
 )
 
 // IsNil checks whether `v` is nil.

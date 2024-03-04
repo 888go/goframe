@@ -9,8 +9,8 @@ package utils_test
 import (
 	"io"
 	"testing"
-
-	"github.com/gogf/gf/v2/internal/utils"
+	
+	"github.com/888go/goframe/gtimer/internal/utils"
 	"github.com/gogf/gf/v2/test/gtest"
 )
 

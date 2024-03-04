@@ -8,9 +8,9 @@ package empty_test
 
 import (
 	"testing"
-
+	
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/888go/goframe/gview/internal/empty"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"
 )
