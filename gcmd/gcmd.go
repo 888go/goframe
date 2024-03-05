@@ -10,10 +10,10 @@ package gcmd
 
 import (
 	"os"
-
+	
+	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/888go/goframe/gcmd/internal/command"
 	"github.com/888go/goframe/gcmd/internal/utils"
-	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/os/gctx"
 )
 
@@ -27,7 +27,7 @@ const (
 	helpOptionName        = "help"
 	helpOptionNameShort   = "h"
 	maxLineChars          = 120
-	tracingInstrumentName = "github.com/888go/goframe/gcmd.Command"
+	tracingInstrumentName = "github.com/gogf/gf/v2/os/gcmd.Command"
 	tagNameName           = "name"
 	tagNameShort          = "short"
 )
