@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdbfa3a1-a971-447c-8231-bccb5bc7c74c" name="更改" comment="2024-03-05" />
+    <list default="true" id="fdbfa3a1-a971-447c-8231-bccb5bc7c74c" name="更改" comment="2024-03-05">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gcmd/gcmd.go" beforeDir="false" afterPath="$PROJECT_DIR$/gcmd/gcmd.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genv/genv_z_unit_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/genv/genv_z_unit_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/goframe.rar" beforeDir="false" afterPath="$PROJECT_DIR$/goframe.rar" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,24 +39,53 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "E:/SVN/GO/code/goframe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/goframe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Go 测试.go test gtime">
+}</component>
+  <component name="RunManager" selected="Go 测试.github.com/888go/goframe/genv 中的 Test_GetWithCmd">
+    <configuration name="github.com/888go/goframe/genv 中的 Test_GetWithCmd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="goframe" />
+      <working_directory value="$PROJECT_DIR$/genv" />
+      <kind value="PACKAGE" />
+      <package value="github.com/888go/goframe/genv" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTest_GetWithCmd\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test gcmd" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="goframe" />
+      <working_directory value="$PROJECT_DIR$/gcmd" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/gcmd" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test genv" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="goframe" />
+      <working_directory value="$PROJECT_DIR$/genv" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/genv" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
     <configuration name="go test gtime" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="goframe" />
       <working_directory value="$PROJECT_DIR$/gtime" />
@@ -70,40 +104,13 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
-    <configuration name="go test gutil" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="goframe" />
-      <working_directory value="$PROJECT_DIR$/gutil" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$/gutil" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go test gvar" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="goframe" />
-      <working_directory value="$PROJECT_DIR$/gvar" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$/gvar" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go test gview" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="goframe" />
-      <working_directory value="$PROJECT_DIR$/gview" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$/gview" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.github.com/888go/goframe/genv 中的 Test_GetWithCmd" />
+        <item itemvalue="Go 测试.go test genv" />
+        <item itemvalue="Go 测试.go test gcmd" />
         <item itemvalue="Go 测试.go test gtime" />
         <item itemvalue="Go 测试.go test gtype" />
-        <item itemvalue="Go 测试.go test gview" />
-        <item itemvalue="Go 测试.go test gvar" />
-        <item itemvalue="Go 测试.go test gutil" />
       </list>
     </recent_temporary>
   </component>
@@ -144,6 +151,21 @@
           <line>16</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/genv/genv.go</url>
+          <line>93</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/genv/genv.go</url>
+          <line>96</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/genv/genv.go</url>
+          <line>98</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -158,15 +180,15 @@
     <SUITE FILE_PATH="coverage/goframe$go_test_gstr.out" NAME="go test gstr 覆盖结果" MODIFIED="1709578651759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gcache.out" NAME="go test gcache 覆盖结果" MODIFIED="1709577253716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_glog.out" NAME="go test glog 覆盖结果" MODIFIED="1709578236265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gtype.out" NAME="go test gtype 覆盖结果" MODIFIED="1709578660180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gcmd.out" NAME="go test gcmd 覆盖结果" MODIFIED="1709577790404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/goframe$go_test_gtype.out" NAME="go test gtype 覆盖结果" MODIFIED="1709578804301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gmlock.out" NAME="go test gmlock 覆盖结果" MODIFIED="1709578525369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/goframe$go_test_gcmd.out" NAME="go test gcmd 覆盖结果" MODIFIED="1709606073896" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gctx.out" NAME="go test gctx 覆盖结果" MODIFIED="1709577897479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_goframe.out" NAME="go test goframe 覆盖结果" MODIFIED="1709577197484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gini.out" NAME="go test gini 覆盖结果" MODIFIED="1709578095731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gset.out" NAME="go test gset 覆盖结果" MODIFIED="1709578623785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gpool.out" NAME="go test gpool 覆盖结果" MODIFIED="1709578541667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gtime.out" NAME="go test gtime 覆盖结果" MODIFIED="1709578654339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/goframe$go_test_gtime.out" NAME="go test gtime 覆盖结果" MODIFIED="1709578810179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gconv.out" NAME="go test gconv 覆盖结果" MODIFIED="1709577865993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gcfg.out" NAME="go test gcfg 覆盖结果" MODIFIED="1709577975263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gjson.out" NAME="go test gjson 覆盖结果" MODIFIED="1709578114074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
@@ -176,7 +198,7 @@
     <SUITE FILE_PATH="coverage/goframe$go_test_gfile.out" NAME="go test gfile 覆盖结果" MODIFIED="1709578041518" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_guid.out" NAME="go test guid 覆盖结果" MODIFIED="1709578662544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gmd5.out" NAME="go test gmd5 覆盖结果" MODIFIED="1709578518754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_genv.out" NAME="go test genv 覆盖结果" MODIFIED="1709577907579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/goframe$go_test_genv.out" NAME="go test genv 覆盖结果" MODIFIED="1709606127213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gview.out" NAME="go test gview 覆盖结果" MODIFIED="1709578677447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gaes.out" NAME="go test gaes 覆盖结果" MODIFIED="1709577120192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/goframe$go_test_gcompress.out" NAME="go test gcompress 覆盖结果" MODIFIED="1709577843550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
