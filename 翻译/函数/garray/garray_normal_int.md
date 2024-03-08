@@ -644,3 +644,9 @@ func (a *IntArray) X取文本() string {
 return a.String()
 }
 # <追加函数结束>
+
+# <追加函数开始>
+func (a *IntArray) X取any数组() []interface{} {
+return a.Interfaces()
+}
+# <追加函数结束>

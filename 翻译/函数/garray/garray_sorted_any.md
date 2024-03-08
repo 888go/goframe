@@ -574,3 +574,9 @@ func (a *SortedArray) X取文本() string {
 return a.String()
 }
 # <追加函数结束>
+
+# <追加函数开始>
+func (a *SortedArray) X取any数组() []interface{} {
+return a.Interfaces()
+}
+# <追加函数结束>
