@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtimer
+package 定时类
 
 import (
 	"context"
@@ -13,30 +13,30 @@ import (
 )
 
 // New 创建并返回一个 Timer。
-func New(options ...TimerOptions) *Timer {
+func X创建(选项 ...TimerOptions) *Timer {
 	t := &Timer{
 		queue:  newPriorityQueue(),
 		status: gtype.NewInt(StatusRunning),
 		ticks:  gtype.NewInt64(),
 	}
-	if len(options) > 0 {
-		t.options = options[0]
+	if len(选项) > 0 {
+		t.options = 选项[0]
 		if t.options.Interval == 0 {
 			t.options.Interval = defaultInterval
 		}
 	} else {
-		t.options = DefaultOptions()
+		t.options = X取单例对象()
 	}
 	go t.loop()
 	return t
 }
 
 // Add 向定时器添加一个计时任务，该任务以 `interval` 为间隔运行。
-func (t *Timer) Add(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
+func (t *Timer) X加入循环任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
-		Ctx:         ctx,
-		Interval:    interval,
-		Job:         job,
+		Ctx:         上下文,
+		Interval:    间隔时长,
+		Job:         任务函数,
 		IsSingleton: false,
 		Times:       -1,
 		Status:      StatusReady,
@@ -52,23 +52,23 @@ func (t *Timer) Add(ctx context.Context, interval time.Duration, job JobFunc) *E
 // 参数 `times` 指定了任务运行次数的限制，意味着当任务运行次数超过 `times` 时，该任务将结束运行。
 //
 // 参数 `status` 指定了任务首次添加到定时器时的状态。
-func (t *Timer) AddEntry(ctx context.Context, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) *Entry {
+func (t *Timer) X加入详细循环任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc, 是否单例模式 bool, 次数 int, 任务状态 int) *Entry {
 	return t.createEntry(createEntryInput{
-		Ctx:         ctx,
-		Interval:    interval,
-		Job:         job,
-		IsSingleton: isSingleton,
-		Times:       times,
-		Status:      status,
+		Ctx:         上下文,
+		Interval:    间隔时长,
+		Job:         任务函数,
+		IsSingleton: 是否单例模式,
+		Times:       次数,
+		Status:      任务状态,
 	})
 }
 
 // AddSingleton 是一个用于添加单例模式任务的便捷函数。
-func (t *Timer) AddSingleton(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
+func (t *Timer) X加入单例循环任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
-		Ctx:         ctx,
-		Interval:    interval,
-		Job:         job,
+		Ctx:         上下文,
+		Interval:    间隔时长,
+		Job:         任务函数,
 		IsSingleton: true,
 		Times:       -1,
 		Status:      StatusReady,
@@ -76,11 +76,11 @@ func (t *Timer) AddSingleton(ctx context.Context, interval time.Duration, job Jo
 }
 
 // AddOnce 是一个便捷函数，用于添加一个仅运行一次然后退出的任务。
-func (t *Timer) AddOnce(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
+func (t *Timer) X加入单次任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
-		Ctx:         ctx,
-		Interval:    interval,
-		Job:         job,
+		Ctx:         上下文,
+		Interval:    间隔时长,
+		Job:         任务函数,
 		IsSingleton: true,
 		Times:       1,
 		Status:      StatusReady,
@@ -88,69 +88,69 @@ func (t *Timer) AddOnce(ctx context.Context, interval time.Duration, job JobFunc
 }
 
 // AddTimes 是一个便捷函数，用于添加有一定运行次数限制的任务。
-func (t *Timer) AddTimes(ctx context.Context, interval time.Duration, times int, job JobFunc) *Entry {
+func (t *Timer) X加入指定次数任务(上下文 context.Context, 间隔时长 time.Duration, 次数 int, 任务函数 JobFunc) *Entry {
 	return t.createEntry(createEntryInput{
-		Ctx:         ctx,
-		Interval:    interval,
-		Job:         job,
+		Ctx:         上下文,
+		Interval:    间隔时长,
+		Job:         任务函数,
 		IsSingleton: true,
-		Times:       times,
+		Times:       次数,
 		Status:      StatusReady,
 	})
 }
 
 // DelayAdd 在 `delay` 延迟时间后添加一个定时任务。
 // 也可参考 Add。
-func (t *Timer) DelayAdd(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
-	t.AddOnce(ctx, delay, func(ctx context.Context) {
-		t.Add(ctx, interval, job)
+func (t *Timer) X延时加入循环任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc) {
+	t.X加入单次任务(上下文, 延时加入, func(ctx context.Context) {
+		t.X加入循环任务(ctx, 间隔时长, 任务函数)
 	})
 }
 
 // DelayAddEntry 在`delay`延迟时间后添加一个定时任务。
 // 也可参考 AddEntry。
-func (t *Timer) DelayAddEntry(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) {
-	t.AddOnce(ctx, delay, func(ctx context.Context) {
-		t.AddEntry(ctx, interval, job, isSingleton, times, status)
+func (t *Timer) X延时加入详细循环任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc, 是否单例模式 bool, 次数 int, 任务状态 int) {
+	t.X加入单次任务(上下文, 延时加入, func(ctx context.Context) {
+		t.X加入详细循环任务(ctx, 间隔时长, 任务函数, 是否单例模式, 次数, 任务状态)
 	})
 }
 
 // DelayAddSingleton在`delay`延迟时间后添加一个定时任务。
 // 也请参阅AddSingleton。
-func (t *Timer) DelayAddSingleton(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
-	t.AddOnce(ctx, delay, func(ctx context.Context) {
-		t.AddSingleton(ctx, interval, job)
+func (t *Timer) X延时加入单例循环任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc) {
+	t.X加入单次任务(上下文, 延时加入, func(ctx context.Context) {
+		t.X加入单例循环任务(ctx, 间隔时长, 任务函数)
 	})
 }
 
 // DelayAddOnce在`delay`延迟时间之后添加一个定时任务。
 // 另请参阅AddOnce。
-func (t *Timer) DelayAddOnce(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
-	t.AddOnce(ctx, delay, func(ctx context.Context) {
-		t.AddOnce(ctx, interval, job)
+func (t *Timer) X延时加入单次任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc) {
+	t.X加入单次任务(上下文, 延时加入, func(ctx context.Context) {
+		t.X加入单次任务(ctx, 间隔时长, 任务函数)
 	})
 }
 
 // DelayAddTimes 在`delay`延迟时间后添加一个定时任务。
 // 另请参阅 AddTimes。
-func (t *Timer) DelayAddTimes(ctx context.Context, delay time.Duration, interval time.Duration, times int, job JobFunc) {
-	t.AddOnce(ctx, delay, func(ctx context.Context) {
-		t.AddTimes(ctx, interval, times, job)
+func (t *Timer) X延时加入指定次数任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 次数 int, 任务函数 JobFunc) {
+	t.X加入单次任务(上下文, 延时加入, func(ctx context.Context) {
+		t.X加入指定次数任务(ctx, 间隔时长, 次数, 任务函数)
 	})
 }
 
 // Start 开始计时器。
-func (t *Timer) Start() {
+func (t *Timer) X开始工作() {
 	t.status.Set(StatusRunning)
 }
 
 // Stop 停止定时器。
-func (t *Timer) Stop() {
+func (t *Timer) X暂停工作() {
 	t.status.Set(StatusStopped)
 }
 
 // Close 关闭计时器。
-func (t *Timer) Close() {
+func (t *Timer) X关闭任务() {
 	t.status.Set(StatusClosed)
 }
 

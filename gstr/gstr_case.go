@@ -19,7 +19,7 @@
 // 2024-01-23 
 // 这些方法用于英文变量与方法命名, 基本都用不上. 
 
-package gstr
+package 文本类
 
 import (
 	"regexp"
@@ -48,7 +48,7 @@ var (
 )
 
 // CaseTypeMatch 从字符串中匹配案例类型。
-func CaseTypeMatch(caseStr string) CaseType {
+func X命名方式判断(待判断名称 string) CaseType {
 	caseTypes := []CaseType{
 		Camel,
 		CamelLower,
@@ -61,119 +61,119 @@ func CaseTypeMatch(caseStr string) CaseType {
 	}
 
 	for _, caseType := range caseTypes {
-		if Equal(caseStr, string(caseType)) {
+		if X相等比较并忽略大小写(待判断名称, string(caseType)) {
 			return caseType
 		}
 	}
 
-	return CaseType(caseStr)
+	return CaseType(待判断名称)
 }
 
 // CaseConvert 将字符串转换为指定的命名约定。
 // 使用 CaseTypeMatch 从字符串中匹配案例类型。
-func CaseConvert(s string, caseType CaseType) string {
-	if s == "" || caseType == "" {
-		return s
+func X命名转换(待转换文本 string, 类型 CaseType) string {
+	if 待转换文本 == "" || 类型 == "" {
+		return 待转换文本
 	}
 
-	switch caseType {
+	switch 类型 {
 	case Camel:
-		return CaseCamel(s)
+		return X命名转换到首字母大写驼峰(待转换文本)
 
 	case CamelLower:
-		return CaseCamelLower(s)
+		return X命名转换到首字母小写驼峰(待转换文本)
 
 	case Kebab:
-		return CaseKebab(s)
+		return X命名转换到小写短横线(待转换文本)
 
 	case KebabScreaming:
-		return CaseKebabScreaming(s)
+		return X命名转换到大写驼峰短横线(待转换文本)
 
 	case Snake:
-		return CaseSnake(s)
+		return X命名转换到全小写蛇形(待转换文本)
 
 	case SnakeFirstUpper:
-		return CaseSnakeFirstUpper(s)
+		return X命名转换到全小写蛇形2(待转换文本)
 
 	case SnakeScreaming:
-		return CaseSnakeScreaming(s)
+		return X命名转换到大写蛇形(待转换文本)
 
 	case Lower:
-		return ToLower(s)
+		return X到小写(待转换文本)
 
 	default:
-		return s
+		return 待转换文本
 	}
 }
 
 // CaseCamel将字符串转换为大驼峰形式(首字母大写)。
 // 如: hello world-->HelloWorld
-func CaseCamel(s string) string {
-	return toCamelInitCase(s, true)
+func X命名转换到首字母大写驼峰(待转换文本 string) string {
+	return toCamelInitCase(待转换文本, true)
 }
 
 // CaseCamelLowe将字符串转换为小驼峰形式(首字母小写)。
 // 如: hello world-->helloWorld
-func CaseCamelLower(s string) string {
-	if s == "" {
-		return s
+func X命名转换到首字母小写驼峰(待转换文本 string) string {
+	if 待转换文本 == "" {
+		return 待转换文本
 	}
-	if r := rune(s[0]); r >= 'A' && r <= 'Z' {
-		s = strings.ToLower(string(r)) + s[1:]
+	if r := rune(待转换文本[0]); r >= 'A' && r <= 'Z' {
+		待转换文本 = strings.ToLower(string(r)) + 待转换文本[1:]
 	}
-	return toCamelInitCase(s, false)
+	return toCamelInitCase(待转换文本, false)
 }
 
 // CaseSnake将字符串转换中的符号(下划线,空格,点,中横线)用下划线( _ )替换,并全部转换为小写字母。
 // 如: hello world-->hello_world
-func CaseSnake(s string) string {
-	return CaseDelimited(s, '_')
+func X命名转换到全小写蛇形(待转换文本 string) string {
+	return X命名转换按符号(待转换文本, '_')
 }
 
 // CaseSnakeScreaming把字符串中的符号(下划线,空格,点,中横线),全部替换为下划线'_',并将所有英文字母转为大写。
 // 如: hello world--> HELLO_WORLD
-func CaseSnakeScreaming(s string) string {
-	return CaseDelimitedScreaming(s, '_', true)
+func X命名转换到大写蛇形(待转换文本 string) string {
+	return X命名转换按符号与大小写(待转换文本, '_', true)
 }
 
 // CaseSnakeFirstUpper将字符串中的字母为大写时,将大写字母转换为小写字母并在其前面增加一个下划线'_',首字母大写时,只转换为小写,前面不增加下划线'_'
 // 如:  RGBCodeMd5-->rgb_code_md5
-func CaseSnakeFirstUpper(word string, underscore ...string) string {
+func X命名转换到全小写蛇形2(待转换文本 string, 可选连接符 ...string) string {
 	replace := "_"
-	if len(underscore) > 0 {
-		replace = underscore[0]
+	if len(可选连接符) > 0 {
+		replace = 可选连接符[0]
 	}
 
-	m := firstCamelCaseEnd.FindAllStringSubmatch(word, 1)
+	m := firstCamelCaseEnd.FindAllStringSubmatch(待转换文本, 1)
 	if len(m) > 0 {
-		word = m[0][1] + replace + TrimLeft(ToLower(m[0][2]), replace)
+		待转换文本 = m[0][1] + replace + X过滤首字符并含空白(X到小写(m[0][2]), replace)
 	}
 
 	for {
-		m = firstCamelCaseStart.FindAllStringSubmatch(word, 1)
+		m = firstCamelCaseStart.FindAllStringSubmatch(待转换文本, 1)
 		if len(m) > 0 && m[0][1] != "" {
 			w := strings.ToLower(m[0][1])
 			w = w[:len(w)-1] + replace + string(w[len(w)-1])
 
-			word = strings.Replace(word, m[0][1], w, 1)
+			待转换文本 = strings.Replace(待转换文本, m[0][1], w, 1)
 		} else {
 			break
 		}
 	}
 
-	return TrimLeft(word, replace)
+	return X过滤首字符并含空白(待转换文本, replace)
 }
 
 // CaseKebab将字符串转换中的符号(下划线,空格,点,)用中横线'-'替换,并全部转换为小写字母。
 // 如:  hello world-->hello-world
-func CaseKebab(s string) string {
-	return CaseDelimited(s, '-')
+func X命名转换到小写短横线(待转换文本 string) string {
+	return X命名转换按符号(待转换文本, '-')
 }
 
 // CaseKebabScreaming将字符串转换中的符号(下划线,空格,点,中横线)用中横线'-'替换,并全部转换为大写字母。
 // 如:  hello world-->HELLO-WORLD
-func CaseKebabScreaming(s string) string {
-	return CaseDelimitedScreaming(s, '-', true)
+func X命名转换到大写驼峰短横线(待转换文本 string) string {
+	return X命名转换按符号与大小写(待转换文本, '-', true)
 }
 
 // CaseDelimited将字符串转换中的符号进行替换。
@@ -184,8 +184,8 @@ func CaseKebabScreaming(s string) string {
 // result = gstr.CaseDelimited(str, del)
 // )
 // fmt.Println(result) // hello-world
-func CaseDelimited(s string, del byte) string {
-	return CaseDelimitedScreaming(s, del, false)
+func X命名转换按符号(待转换文本 string, 连接符号 byte) string {
+	return X命名转换按符号与大小写(待转换文本, 连接符号, false)
 }
 
 // CaseDelimitedScreaming将字符串中的符号(空格,下划线,点,中横线)用第二个参数进行替换,
@@ -211,36 +211,36 @@ func CaseDelimited(s string, del byte) string {
 // 	}
 // }
 
-func CaseDelimitedScreaming(s string, del uint8, screaming bool) string {
-	s = addWordBoundariesToNumbers(s)
-	s = strings.Trim(s, " ")
+func X命名转换按符号与大小写(待转换文本 string, 连接符号 uint8, 是否全大写 bool) string {
+	待转换文本 = addWordBoundariesToNumbers(待转换文本)
+	待转换文本 = strings.Trim(待转换文本, " ")
 	n := ""
-	for i, v := range s {
+	for i, v := range 待转换文本 {
 		// 将缩写视为单词处理，例如对于 JSONData，JSON 视为一个完整的单词
 		nextCaseIsChanged := false
-		if i+1 < len(s) {
-			next := s[i+1]
+		if i+1 < len(待转换文本) {
+			next := 待转换文本[i+1]
 			if (v >= 'A' && v <= 'Z' && next >= 'a' && next <= 'z') || (v >= 'a' && v <= 'z' && next >= 'A' && next <= 'Z') {
 				nextCaseIsChanged = true
 			}
 		}
 
-		if i > 0 && n[len(n)-1] != del && nextCaseIsChanged {
+		if i > 0 && n[len(n)-1] != 连接符号 && nextCaseIsChanged {
 			// 如果下一个字母的大小写类型发生变化，则添加下划线
 			if v >= 'A' && v <= 'Z' {
-				n += string(del) + string(v)
+				n += string(连接符号) + string(v)
 			} else if v >= 'a' && v <= 'z' {
-				n += string(v) + string(del)
+				n += string(v) + string(连接符号)
 			}
 		} else if v == ' ' || v == '_' || v == '-' || v == '.' {
 			// 将空格和下划线替换为分隔符
-			n += string(del)
+			n += string(连接符号)
 		} else {
 			n = n + string(v)
 		}
 	}
 
-	if screaming {
+	if 是否全大写 {
 		n = strings.ToUpper(n)
 	} else {
 		n = strings.ToLower(n)

@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview_test
+package 模板类_test
 
 import (
 	"context"
@@ -85,7 +85,7 @@ func Test_I18n(t *testing.T) {
 
 		g.I18n().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
 
-		view := gview.New()
+		view := 模板类.New()
 		view.SetI18n(nil)
 		result1, err := view.ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
@@ -103,7 +103,7 @@ func Test_I18n(t *testing.T) {
 		ctx = gi18n.WithLanguage(ctx, "zh-CN")
 		t.Log(gi18n.LanguageFromCtx(ctx))
 
-		view := gview.New()
+		view := 模板类.New()
 
 		result1, err := view.ParseContent(ctx, content, g.Map{
 			"name": "john",

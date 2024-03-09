@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf获取一个。
 
-package gmap_test
+package map类_test
 
 import (
 	"fmt"
@@ -15,13 +15,13 @@ import (
 )
 
 func ExampleAnyAnyMap_Iterator() {
-	m := gmap.New()
+	m := map类.X创建()
 	for i := 0; i < 10; i++ {
-		m.Set(i, i*2)
+		m.X设置值(i, i*2)
 	}
 
 	var totalKey, totalValue int
-	m.Iterator(func(k interface{}, v interface{}) bool {
+	m.X遍历(func(k interface{}, v interface{}) bool {
 		totalKey += k.(int)
 		totalValue += v.(int)
 
@@ -37,12 +37,12 @@ func ExampleAnyAnyMap_Iterator() {
 }
 
 func ExampleAnyAnyMap_Clone() {
-	m := gmap.New()
+	m := map类.X创建()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
-	n := m.Clone()
+	n := m.X取副本()
 	fmt.Println(n)
 
 	// Output:
@@ -52,23 +52,23 @@ func ExampleAnyAnyMap_Clone() {
 
 func ExampleAnyAnyMap_Map() {
 	// 非并发安全，指向底层数据的指针
-	m1 := gmap.New()
-	m1.Set("key1", "val1")
+	m1 := map类.X创建()
+	m1.X设置值("key1", "val1")
 	fmt.Println("m1:", m1)
 
-	n1 := m1.Map()
+	n1 := m1.X取Map()
 	fmt.Println("before n1:", n1)
-	m1.Set("key1", "val2")
+	m1.X设置值("key1", "val2")
 	fmt.Println("after n1:", n1)
 
 	// 并发安全，复制底层数据
-	m2 := gmap.New(true)
-	m2.Set("key1", "val1")
+	m2 := map类.X创建(true)
+	m2.X设置值("key1", "val1")
 	fmt.Println("m2:", m2)
 
-	n2 := m2.Map()
+	n2 := m2.X取Map()
 	fmt.Println("before n2:", n2)
-	m2.Set("key1", "val2")
+	m2.X设置值("key1", "val2")
 	fmt.Println("after n2:", n2)
 
 	// Output:
@@ -81,13 +81,13 @@ func ExampleAnyAnyMap_Map() {
 }
 
 func ExampleAnyAnyMap_MapCopy() {
-	m := gmap.New()
+	m := map类.X创建()
 
-	m.Set("key1", "val1")
-	m.Set("key2", "val2")
+	m.X设置值("key1", "val1")
+	m.X设置值("key2", "val2")
 	fmt.Println(m)
 
-	n := m.MapCopy()
+	n := m.X浅拷贝()
 	fmt.Println(n)
 
 	// Output:
@@ -96,11 +96,11 @@ func ExampleAnyAnyMap_MapCopy() {
 }
 
 func ExampleAnyAnyMap_MapStrAny() {
-	m := gmap.New()
-	m.Set(1001, "val1")
-	m.Set(1002, "val2")
+	m := map类.X创建()
+	m.X设置值(1001, "val1")
+	m.X设置值(1002, "val2")
 
-	n := m.MapStrAny()
+	n := m.X取MapStrAny()
 	fmt.Printf("%#v", n)
 
 	// Output:
@@ -108,37 +108,37 @@ func ExampleAnyAnyMap_MapStrAny() {
 }
 
 func ExampleAnyAnyMap_FilterEmpty() {
-	m := gmap.NewFrom(g.MapAnyAny{
+	m := map类.X创建并从Map(g.MapAnyAny{
 		"k1": "",
 		"k2": nil,
 		"k3": 0,
 		"k4": 1,
 	})
-	m.FilterEmpty()
-	fmt.Println(m.Map())
+	m.X删除所有空值()
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[k4:1]
 }
 
 func ExampleAnyAnyMap_FilterNil() {
-	m := gmap.NewFrom(g.MapAnyAny{
+	m := map类.X创建并从Map(g.MapAnyAny{
 		"k1": "",
 		"k2": nil,
 		"k3": 0,
 		"k4": 1,
 	})
-	m.FilterNil()
-	fmt.Printf("%#v", m.Map())
+	m.X删除所有nil值()
+	fmt.Printf("%#v", m.X取Map())
 
 	// Output:
 	// map[interface {}]interface {}{"k1":"", "k3":0, "k4":1}
 }
 
 func ExampleAnyAnyMap_Set() {
-	m := gmap.New()
+	m := map类.X创建()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
 	// Output:
@@ -146,14 +146,14 @@ func ExampleAnyAnyMap_Set() {
 }
 
 func ExampleAnyAnyMap_Sets() {
-	m := gmap.New()
+	m := map类.X创建()
 
 	addMap := make(map[interface{}]interface{})
 	addMap["key1"] = "val1"
 	addMap["key2"] = "val2"
 	addMap["key3"] = "val3"
 
-	m.Sets(addMap)
+	m.X设置值Map(addMap)
 	fmt.Println(m)
 
 	// Output:
@@ -161,16 +161,16 @@ func ExampleAnyAnyMap_Sets() {
 }
 
 func ExampleAnyAnyMap_Search() {
-	m := gmap.New()
+	m := map类.X创建()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 
-	value, found := m.Search("key1")
+	value, found := m.X查找("key1")
 	if found {
 		fmt.Println("find key1 value:", value)
 	}
 
-	value, found = m.Search("key2")
+	value, found = m.X查找("key2")
 	if !found {
 		fmt.Println("key2 not find")
 	}
@@ -181,12 +181,12 @@ func ExampleAnyAnyMap_Search() {
 }
 
 func ExampleAnyAnyMap_Get() {
-	m := gmap.New()
+	m := map类.X创建()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 
-	fmt.Println("key1 value:", m.Get("key1"))
-	fmt.Println("key2 value:", m.Get("key2"))
+	fmt.Println("key1 value:", m.X取值("key1"))
+	fmt.Println("key2 value:", m.X取值("key2"))
 
 	// Output:
 	// key1 value: val1
@@ -194,39 +194,39 @@ func ExampleAnyAnyMap_Get() {
 }
 
 func ExampleAnyAnyMap_Pop() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	fmt.Println(m.Pop())
+	fmt.Println(m.X出栈())
 
 	// May Output:
 	// k1 v1
 }
 
 func ExampleAnyAnyMap_Pops() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Pops(-1))
-	fmt.Println("size:", m.Size())
+	fmt.Println(m.X出栈多个(-1))
+	fmt.Println("size:", m.X取数量())
 
-	m.Sets(g.MapAnyAny{
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Pops(2))
-	fmt.Println("size:", m.Size())
+	fmt.Println(m.X出栈多个(2))
+	fmt.Println("size:", m.X取数量())
 
 	// May Output:
 	// map[k1:v1 k2:v2 k3:v3 k4:v4]
@@ -236,11 +236,11 @@ func ExampleAnyAnyMap_Pops() {
 }
 
 func ExampleAnyAnyMap_GetOrSet() {
-	m := gmap.New()
-	m.Set("key1", "val1")
+	m := map类.X创建()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetOrSet("key1", "NotExistValue"))
-	fmt.Println(m.GetOrSet("key2", "val2"))
+	fmt.Println(m.X取值或设置值("key1", "NotExistValue"))
+	fmt.Println(m.X取值或设置值("key2", "val2"))
 
 	// Output:
 	// val1
@@ -248,13 +248,13 @@ func ExampleAnyAnyMap_GetOrSet() {
 }
 
 func ExampleAnyAnyMap_GetOrSetFunc() {
-	m := gmap.New()
-	m.Set("key1", "val1")
+	m := map类.X创建()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetOrSetFunc("key1", func() interface{} {
+	fmt.Println(m.X取值或设置值_函数("key1", func() interface{} {
 		return "NotExistValue"
 	}))
-	fmt.Println(m.GetOrSetFunc("key2", func() interface{} {
+	fmt.Println(m.X取值或设置值_函数("key2", func() interface{} {
 		return "NotExistValue"
 	}))
 
@@ -264,13 +264,13 @@ func ExampleAnyAnyMap_GetOrSetFunc() {
 }
 
 func ExampleAnyAnyMap_GetOrSetFuncLock() {
-	m := gmap.New()
-	m.Set("key1", "val1")
+	m := map类.X创建()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetOrSetFuncLock("key1", func() interface{} {
+	fmt.Println(m.X取值或设置值_函数带锁("key1", func() interface{} {
 		return "NotExistValue"
 	}))
-	fmt.Println(m.GetOrSetFuncLock("key2", func() interface{} {
+	fmt.Println(m.X取值或设置值_函数带锁("key2", func() interface{} {
 		return "NotExistValue"
 	}))
 
@@ -280,11 +280,11 @@ func ExampleAnyAnyMap_GetOrSetFuncLock() {
 }
 
 func ExampleAnyAnyMap_GetVar() {
-	m := gmap.New()
-	m.Set("key1", "val1")
+	m := map类.X创建()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetVar("key1"))
-	fmt.Println(m.GetVar("key2").IsNil())
+	fmt.Println(m.X取值泛型类("key1"))
+	fmt.Println(m.X取值泛型类("key2").IsNil())
 
 	// Output:
 	// val1
@@ -292,11 +292,11 @@ func ExampleAnyAnyMap_GetVar() {
 }
 
 func ExampleAnyAnyMap_GetVarOrSet() {
-	m := gmap.New()
-	m.Set("key1", "val1")
+	m := map类.X创建()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetVarOrSet("key1", "NotExistValue"))
-	fmt.Println(m.GetVarOrSet("key2", "val2"))
+	fmt.Println(m.X取值或设置值泛型类("key1", "NotExistValue"))
+	fmt.Println(m.X取值或设置值泛型类("key2", "val2"))
 
 	// Output:
 	// val1
@@ -304,13 +304,13 @@ func ExampleAnyAnyMap_GetVarOrSet() {
 }
 
 func ExampleAnyAnyMap_GetVarOrSetFunc() {
-	m := gmap.New()
-	m.Set("key1", "val1")
+	m := map类.X创建()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetVarOrSetFunc("key1", func() interface{} {
+	fmt.Println(m.X取值或设置值泛型类_函数("key1", func() interface{} {
 		return "NotExistValue"
 	}))
-	fmt.Println(m.GetVarOrSetFunc("key2", func() interface{} {
+	fmt.Println(m.X取值或设置值泛型类_函数("key2", func() interface{} {
 		return "NotExistValue"
 	}))
 
@@ -320,13 +320,13 @@ func ExampleAnyAnyMap_GetVarOrSetFunc() {
 }
 
 func ExampleAnyAnyMap_GetVarOrSetFuncLock() {
-	m := gmap.New()
-	m.Set("key1", "val1")
+	m := map类.X创建()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetVarOrSetFuncLock("key1", func() interface{} {
+	fmt.Println(m.X取值或设置值泛型类_函数带锁("key1", func() interface{} {
 		return "NotExistValue"
 	}))
-	fmt.Println(m.GetVarOrSetFuncLock("key2", func() interface{} {
+	fmt.Println(m.X取值或设置值泛型类_函数带锁("key2", func() interface{} {
 		return "NotExistValue"
 	}))
 
@@ -336,10 +336,10 @@ func ExampleAnyAnyMap_GetVarOrSetFuncLock() {
 }
 
 func ExampleAnyAnyMap_SetIfNotExist() {
-	var m gmap.Map
-	fmt.Println(m.SetIfNotExist("k1", "v1"))
-	fmt.Println(m.SetIfNotExist("k1", "v2"))
-	fmt.Println(m.Map())
+	var m map类.Map
+	fmt.Println(m.X设置值并跳过已存在("k1", "v1"))
+	fmt.Println(m.X设置值并跳过已存在("k1", "v2"))
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -348,14 +348,14 @@ func ExampleAnyAnyMap_SetIfNotExist() {
 }
 
 func ExampleAnyAnyMap_SetIfNotExistFunc() {
-	var m gmap.Map
-	fmt.Println(m.SetIfNotExistFunc("k1", func() interface{} {
+	var m map类.Map
+	fmt.Println(m.X设置值并跳过已存在_函数("k1", func() interface{} {
 		return "v1"
 	}))
-	fmt.Println(m.SetIfNotExistFunc("k1", func() interface{} {
+	fmt.Println(m.X设置值并跳过已存在_函数("k1", func() interface{} {
 		return "v2"
 	}))
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -364,14 +364,14 @@ func ExampleAnyAnyMap_SetIfNotExistFunc() {
 }
 
 func ExampleAnyAnyMap_SetIfNotExistFuncLock() {
-	var m gmap.Map
-	fmt.Println(m.SetIfNotExistFuncLock("k1", func() interface{} {
+	var m map类.Map
+	fmt.Println(m.X设置值并跳过已存在_函数带锁("k1", func() interface{} {
 		return "v1"
 	}))
-	fmt.Println(m.SetIfNotExistFuncLock("k1", func() interface{} {
+	fmt.Println(m.X设置值并跳过已存在_函数带锁("k1", func() interface{} {
 		return "v2"
 	}))
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -380,12 +380,12 @@ func ExampleAnyAnyMap_SetIfNotExistFuncLock() {
 }
 
 func ExampleAnyAnyMap_Remove() {
-	var m gmap.Map
-	m.Set("k1", "v1")
+	var m map类.Map
+	m.X设置值("k1", "v1")
 
-	fmt.Println(m.Remove("k1"))
-	fmt.Println(m.Remove("k2"))
-	fmt.Println(m.Size())
+	fmt.Println(m.X删除("k1"))
+	fmt.Println(m.X删除("k2"))
+	fmt.Println(m.X取数量())
 
 	// Output:
 	// v1
@@ -394,8 +394,8 @@ func ExampleAnyAnyMap_Remove() {
 }
 
 func ExampleAnyAnyMap_Removes() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
@@ -406,53 +406,53 @@ func ExampleAnyAnyMap_Removes() {
 	removeList = append(removeList, "k1")
 	removeList = append(removeList, "k2")
 
-	m.Removes(removeList)
+	m.X删除多个值(removeList)
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[k3:v3 k4:v4]
 }
 
 func ExampleAnyAnyMap_Keys() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Keys())
+	fmt.Println(m.X取所有名称())
 
 	// May Output:
 	// [k1 k2 k3 k4]
 }
 
 func ExampleAnyAnyMap_Values() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Values())
+	fmt.Println(m.X取所有值())
 
 	// May Output:
 	// [v1 v2 v3 v4]
 }
 
 func ExampleAnyAnyMap_Contains() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	fmt.Println(m.Contains("k1"))
-	fmt.Println(m.Contains("k5"))
+	fmt.Println(m.X是否存在("k1"))
+	fmt.Println(m.X是否存在("k5"))
 
 	// Output:
 	// true
@@ -460,26 +460,26 @@ func ExampleAnyAnyMap_Contains() {
 }
 
 func ExampleAnyAnyMap_Size() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	fmt.Println(m.Size())
+	fmt.Println(m.X取数量())
 
 	// Output:
 	// 4
 }
 
 func ExampleAnyAnyMap_IsEmpty() {
-	var m gmap.Map
-	fmt.Println(m.IsEmpty())
+	var m map类.Map
+	fmt.Println(m.X是否为空())
 
-	m.Set("k1", "v1")
-	fmt.Println(m.IsEmpty())
+	m.X设置值("k1", "v1")
+	fmt.Println(m.X是否为空())
 
 	// Output:
 	// true
@@ -487,40 +487,40 @@ func ExampleAnyAnyMap_IsEmpty() {
 }
 
 func ExampleAnyAnyMap_Clear() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	m.Clear()
+	m.X清空()
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[]
 }
 
 func ExampleAnyAnyMap_Replace() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 	})
 
-	var n gmap.Map
-	n.Sets(g.MapAnyAny{
+	var n map类.Map
+	n.X设置值Map(g.MapAnyAny{
 		"k2": "v2",
 	})
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
-	m.Replace(n.Map())
-	fmt.Println(m.Map())
+	m.X替换(n.X取Map())
+	fmt.Println(m.X取Map())
 
-	n.Set("k2", "v1")
-	fmt.Println(m.Map())
+	n.X设置值("k2", "v1")
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[k1:v1]
@@ -529,15 +529,15 @@ func ExampleAnyAnyMap_Replace() {
 }
 
 func ExampleAnyAnyMap_LockFunc() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": 1,
 		"k2": 2,
 		"k3": 3,
 		"k4": 4,
 	})
 
-	m.LockFunc(func(m map[interface{}]interface{}) {
+	m.X遍历写锁定(func(m map[interface{}]interface{}) {
 		totalValue := 0
 		for _, v := range m {
 			totalValue += v.(int)
@@ -550,15 +550,15 @@ func ExampleAnyAnyMap_LockFunc() {
 }
 
 func ExampleAnyAnyMap_RLockFunc() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": 1,
 		"k2": 2,
 		"k3": 3,
 		"k4": 4,
 	})
 
-	m.RLockFunc(func(m map[interface{}]interface{}) {
+	m.X遍历读锁定(func(m map[interface{}]interface{}) {
 		totalValue := 0
 		for _, v := range m {
 			totalValue += v.(int)
@@ -571,37 +571,37 @@ func ExampleAnyAnyMap_RLockFunc() {
 }
 
 func ExampleAnyAnyMap_Flip() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 	})
-	m.Flip()
-	fmt.Println(m.Map())
+	m.X名称值交换()
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[v1:k1]
 }
 
 func ExampleAnyAnyMap_Merge() {
-	var m1, m2 gmap.Map
-	m1.Set("key1", "val1")
-	m2.Set("key2", "val2")
-	m1.Merge(&m2)
-	fmt.Println(m1.Map())
+	var m1, m2 map类.Map
+	m1.X设置值("key1", "val1")
+	m2.X设置值("key2", "val2")
+	m1.X合并(&m2)
+	fmt.Println(m1.X取Map())
 
 	// May Output:
 	// map[key1:val1 key2:val2]
 }
 
 func ExampleAnyAnyMap_String() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 	})
 
 	fmt.Println(m.String())
 
-	var m1 *gmap.Map = nil
+	var m1 *map类.Map = nil
 	fmt.Println(len(m1.String()))
 
 	// Output:
@@ -610,8 +610,8 @@ func ExampleAnyAnyMap_String() {
 }
 
 func ExampleAnyAnyMap_MarshalJSON() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
@@ -628,19 +628,19 @@ func ExampleAnyAnyMap_MarshalJSON() {
 }
 
 func ExampleAnyAnyMap_UnmarshalJSON() {
-	var m gmap.Map
-	m.Sets(g.MapAnyAny{
+	var m map类.Map
+	m.X设置值Map(g.MapAnyAny{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	var n gmap.Map
+	var n map类.Map
 
 	err := json.Unmarshal(gconv.Bytes(m.String()), &n)
 	if err == nil {
-		fmt.Println(n.Map())
+		fmt.Println(n.X取Map())
 	}
 
 	// Output:
@@ -656,7 +656,7 @@ func ExampleAnyAnyMap_UnmarshalValue() {
 	}
 
 	var (
-		m    gmap.AnyAnyMap
+		m    map类.AnyAnyMap
 		user = User{
 			Uid:   1,
 			Name:  "john",
@@ -665,7 +665,7 @@ func ExampleAnyAnyMap_UnmarshalValue() {
 		}
 	)
 	if err := gconv.Scan(user, &m); err == nil {
-		fmt.Printf("%#v", m.Map())
+		fmt.Printf("%#v", m.X取Map())
 	}
 
 	// Output:

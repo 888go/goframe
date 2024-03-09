@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtimer
+package 定时类
 
 // Len 实现了 sort.Interface 接口中的方法。
 // （译注：在 Go 语言中，sort.Interface 是一个接口类型，其中包含三个需要实现的方法：Len()、Swap(i, j int) 和 Less(i, j int) bool，用于对任意数据结构进行排序。此处的 Len 方法就是返回待排序序列的长度。）

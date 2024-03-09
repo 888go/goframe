@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gstr_test
+package 文本类_test
 
 import (
 	"testing"
@@ -28,7 +28,7 @@ func Test_CaseCamel(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseCamel(in)
+		result := 文本类.X命名转换到首字母大写驼峰(in)
 		if result != out {
 			t.Error("'" + result + "' != '" + out + "'")
 		}
@@ -45,7 +45,7 @@ func Test_CaseCamelLower(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseCamelLower(in)
+		result := 文本类.X命名转换到首字母小写驼峰(in)
 		if result != out {
 			t.Error("'" + result + "' != '" + out + "'")
 		}
@@ -75,7 +75,7 @@ func Test_CaseSnake(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseSnake(in)
+		result := 文本类.X命名转换到全小写蛇形(in)
 		if result != out {
 			t.Error("'" + in + "'('" + result + "' != '" + out + "')")
 		}
@@ -106,7 +106,7 @@ func Test_CaseDelimited(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseDelimited(in, '@')
+		result := 文本类.X命名转换按符号(in, '@')
 		if result != out {
 			t.Error("'" + in + "' ('" + result + "' != '" + out + "')")
 		}
@@ -120,7 +120,7 @@ func Test_CaseSnakeScreaming(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseSnakeScreaming(in)
+		result := 文本类.X命名转换到大写蛇形(in)
 		if result != out {
 			t.Error("'" + result + "' != '" + out + "'")
 		}
@@ -135,7 +135,7 @@ func Test_CaseKebab(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseKebab(in)
+		result := 文本类.X命名转换到小写短横线(in)
 		if result != out {
 			t.Error("'" + result + "' != '" + out + "'")
 		}
@@ -149,7 +149,7 @@ func Test_CaseKebabScreaming(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseKebabScreaming(in)
+		result := 文本类.X命名转换到大写驼峰短横线(in)
 		if result != out {
 			t.Error("'" + result + "' != '" + out + "'")
 		}
@@ -163,7 +163,7 @@ func Test_CaseDelimitedScreaming(t *testing.T) {
 	for _, i := range cases {
 		in := i[0]
 		out := i[1]
-		result := gstr.CaseDelimitedScreaming(in, '.', true)
+		result := 文本类.X命名转换按符号与大小写(in, '.', true)
 		if result != out {
 			t.Error("'" + result + "' != '" + out + "'")
 		}
@@ -186,23 +186,23 @@ func Test_CaseSnakeFirstUpper(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		for _, item := range cases {
-			t.Assert(gstr.CaseSnakeFirstUpper(item[0]), item[1])
+			t.Assert(文本类.X命名转换到全小写蛇形2(item[0]), item[1])
 		}
 
-		t.Assert(gstr.CaseSnakeFirstUpper("RGBCodeMd5", "."), "rgb.code.md5")
+		t.Assert(文本类.X命名转换到全小写蛇形2("RGBCodeMd5", "."), "rgb.code.md5")
 	})
 
 }
 func Test_CaseTypeMatch(t *testing.T) {
-	caseTypes := []gstr.CaseType{
-		gstr.Camel,
-		gstr.CamelLower,
-		gstr.Snake,
-		gstr.SnakeFirstUpper,
-		gstr.SnakeScreaming,
-		gstr.Kebab,
-		gstr.KebabScreaming,
-		gstr.Lower,
+	caseTypes := []文本类.CaseType{
+		文本类.Camel,
+		文本类.CamelLower,
+		文本类.Snake,
+		文本类.SnakeFirstUpper,
+		文本类.SnakeScreaming,
+		文本类.Kebab,
+		文本类.KebabScreaming,
+		文本类.Lower,
 		"test", // invalid case type
 	}
 	testCaseTypes := []string{
@@ -218,21 +218,21 @@ func Test_CaseTypeMatch(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < len(caseTypes); i++ {
-			t.Assert(gstr.CaseTypeMatch(testCaseTypes[i]), caseTypes[i])
+			t.Assert(文本类.X命名方式判断(testCaseTypes[i]), caseTypes[i])
 		}
 	})
 }
 
 func Test_CaseConvert(t *testing.T) {
-	caseTypes := []gstr.CaseType{
-		gstr.Camel,
-		gstr.CamelLower,
-		gstr.Snake,
-		gstr.SnakeFirstUpper,
-		gstr.SnakeScreaming,
-		gstr.Kebab,
-		gstr.KebabScreaming,
-		gstr.Lower,
+	caseTypes := []文本类.CaseType{
+		文本类.Camel,
+		文本类.CamelLower,
+		文本类.Snake,
+		文本类.SnakeFirstUpper,
+		文本类.SnakeScreaming,
+		文本类.Kebab,
+		文本类.KebabScreaming,
+		文本类.Lower,
 		"test", // invalid case type
 		"",     // invalid case type
 	}
@@ -250,7 +250,7 @@ func Test_CaseConvert(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < len(caseTypes); i++ {
-			t.Assert(gstr.CaseConvert("any_kind_of_string", caseTypes[i]), testCaseTypes[i])
+			t.Assert(文本类.X命名转换("any_kind_of_string", caseTypes[i]), testCaseTypes[i])
 			t.Logf("test case: %s success", caseTypes[i])
 		}
 	})

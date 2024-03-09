@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcompress_test
+package 压缩类_test
 
 import (
 	"testing"
@@ -31,13 +31,13 @@ func Test_Gzip_UnGzip(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		arr := []byte(src)
-		data, _ := gcompress.Gzip(arr)
+		data, _ := 压缩类.Gzip压缩字节集(arr)
 		t.Assert(data, gzip)
 
-		data, _ = gcompress.UnGzip(gzip)
+		data, _ = 压缩类.Gzip解压字节集(gzip)
 		t.Assert(data, arr)
 
-		data, _ = gcompress.UnGzip(gzip[1:])
+		data, _ = 压缩类.Gzip解压字节集(gzip[1:])
 		t.Assert(data, nil)
 	})
 }
@@ -51,13 +51,13 @@ func Test_Gzip_UnGzip_File(t *testing.T) {
 
 	// Compress.
 	gtest.C(t, func(t *gtest.T) {
-		err := gcompress.GzipFile(srcPath, dstPath1, 9)
+		err := 压缩类.Gzip压缩文件(srcPath, dstPath1, 9)
 		t.AssertNil(err)
 		defer gfile.Remove(dstPath1)
 		t.Assert(gfile.Exists(dstPath1), true)
 
 		// Decompress.
-		err = gcompress.UnGzipFile(dstPath1, dstPath2)
+		err = 压缩类.Gzip解压文件(dstPath1, dstPath2)
 		t.AssertNil(err)
 		defer gfile.Remove(dstPath2)
 		t.Assert(gfile.Exists(dstPath2), true)

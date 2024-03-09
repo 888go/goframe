@@ -3,7 +3,7 @@
 // 本源代码形式遵循MIT许可协议条款。如果随gm文件未分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf获取一个。
 
-package gmap_test
+package map类_test
 
 import (
 	"testing"
@@ -18,7 +18,7 @@ import (
 
 func Test_TreeMap_Var(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		var m gmap.TreeMap
+		var m map类.TreeMap
 		m.SetComparator(gutil.ComparatorString)
 		m.Set("key1", "val1")
 		t.Assert(m.Keys(), []interface{}{"key1"})
@@ -51,7 +51,7 @@ func Test_TreeMap_Var(t *testing.T) {
 
 func Test_TreeMap_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := map类.X创建红黑树Map(gutil.ComparatorString)
 		m.Set("key1", "val1")
 		t.Assert(m.Keys(), []interface{}{"key1"})
 
@@ -79,14 +79,14 @@ func Test_TreeMap_Basic(t *testing.T) {
 		t.Assert(m.Size(), 0)
 		t.Assert(m.IsEmpty(), true)
 
-		m2 := gmap.NewTreeMapFrom(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m2 := map类.X创建红黑树Map并从Map(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		t.Assert(m2.Map(), map[interface{}]interface{}{1: 1, "key1": "val1"})
 	})
 }
 
 func Test_TreeMap_Set_Fun(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := map类.X创建红黑树Map(gutil.ComparatorString)
 		m.GetOrSetFunc("fun", getValue)
 		m.GetOrSetFuncLock("funlock", getValue)
 		t.Assert(m.Get("funlock"), 3)
@@ -99,7 +99,7 @@ func Test_TreeMap_Set_Fun(t *testing.T) {
 
 func Test_TreeMap_Batch(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := map类.X创建红黑树Map(gutil.ComparatorString)
 		m.Sets(map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		t.Assert(m.Map(), map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		m.Removes([]interface{}{"key1", 1})
@@ -110,7 +110,7 @@ func Test_TreeMap_Batch(t *testing.T) {
 func Test_TreeMap_Iterator(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := map[interface{}]interface{}{1: 1, "key1": "val1"}
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, expect)
+		m := map类.X创建红黑树Map并从Map(gutil.ComparatorString, expect)
 		m.Iterator(func(k interface{}, v interface{}) bool {
 			t.Assert(expect[k], v)
 			return true
@@ -132,7 +132,7 @@ func Test_TreeMap_Iterator(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		expect := map[interface{}]interface{}{1: 1, "key1": "val1"}
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, expect)
+		m := map类.X创建红黑树Map并从Map(gutil.ComparatorString, expect)
 		for i := 0; i < 10; i++ {
 			m.IteratorAsc(func(k interface{}, v interface{}) bool {
 				t.Assert(expect[k], v)
@@ -153,7 +153,7 @@ func Test_TreeMap_Iterator(t *testing.T) {
 func Test_TreeMap_Clone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// clone 方法是深克隆
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m := map类.X创建红黑树Map并从Map(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		m_clone := m.Clone()
 		m.Remove(1)
 		// 修改原 map,clone 后的 map 不影响
@@ -172,7 +172,7 @@ func Test_TreeMap_Json(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		m1 := gmap.NewTreeMapFrom(gutil.ComparatorString, data)
+		m1 := map类.X创建红黑树Map并从Map(gutil.ComparatorString, data)
 		b1, err1 := json.Marshal(m1)
 		b2, err2 := json.Marshal(gconv.Map(data))
 		t.Assert(err1, err2)
@@ -187,7 +187,7 @@ func Test_TreeMap_Json(t *testing.T) {
 		b, err := json.Marshal(gconv.Map(data))
 		t.AssertNil(err)
 
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := map类.X创建红黑树Map(gutil.ComparatorString)
 		err = json.UnmarshalUseNumber(b, m)
 		t.AssertNil(err)
 		t.Assert(m.Get("k1"), data["k1"])
@@ -201,7 +201,7 @@ func Test_TreeMap_Json(t *testing.T) {
 		b, err := json.Marshal(gconv.Map(data))
 		t.AssertNil(err)
 
-		var m gmap.TreeMap
+		var m map类.TreeMap
 		err = json.UnmarshalUseNumber(b, &m)
 		t.AssertNil(err)
 		t.Assert(m.Get("k1"), data["k1"])
@@ -212,7 +212,7 @@ func Test_TreeMap_Json(t *testing.T) {
 func TestTreeMap_UnmarshalValue(t *testing.T) {
 	type V struct {
 		Name string
-		Map  *gmap.TreeMap
+		Map  *map类.TreeMap
 	}
 	// JSON
 	gtest.C(t, func(t *gtest.T) {

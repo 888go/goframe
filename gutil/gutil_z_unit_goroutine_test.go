@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil_test
+package 工具类_test
 
 import (
 	"context"
@@ -22,7 +22,7 @@ func Test_Go(t *testing.T) {
 			array = garray.NewArray(true)
 		)
 		wg.Add(1)
-		gutil.Go(ctx, func(ctx context.Context) {
+		工具类.Go(ctx, func(ctx context.Context) {
 			defer wg.Done()
 			array.Append(1)
 		}, nil)
@@ -36,7 +36,7 @@ func Test_Go(t *testing.T) {
 			array = garray.NewArray(true)
 		)
 		wg.Add(1)
-		gutil.Go(ctx, func(ctx context.Context) {
+		工具类.Go(ctx, func(ctx context.Context) {
 			defer wg.Done()
 			panic("error")
 			array.Append(1)
@@ -50,7 +50,7 @@ func Test_Go(t *testing.T) {
 			array = garray.NewArray(true)
 		)
 		wg.Add(1)
-		gutil.Go(ctx, func(ctx context.Context) {
+		工具类.Go(ctx, func(ctx context.Context) {
 			panic("error")
 		}, func(ctx context.Context, exception error) {
 			defer wg.Done()

@@ -127,7 +127,7 @@ func TestVar_IsSlice(t *testing.T) {
 		t.Assert(utils.IsSlice(uint8(1)), false)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(utils.IsSlice(gvar.New(gtime.Now()).IsSlice()), false)
+		t.Assert(utils.IsSlice(泛型类.X创建(gtime.Now()).X是否为数组()), false)
 	})
 }
 

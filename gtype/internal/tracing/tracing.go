@@ -20,7 +20,7 @@ import (
 
 var (
 	randomInitSequence = int32(grand.Intn(math.MaxInt32))
-	sequence           = gtype.NewInt32(randomInitSequence)
+	sequence           = 安全变量类.NewInt32(randomInitSequence)
 )
 
 // NewIDs creates and returns a new trace and span ID.

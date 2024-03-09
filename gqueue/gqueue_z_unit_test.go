@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gqueue_test
+package 队列类_test
 
 import (
 	"testing"
@@ -22,12 +22,12 @@ func TestQueue_Len(t *testing.T) {
 			maxTries = 100
 		)
 		for n := 10; n < maxTries; n++ {
-			q1 := gqueue.New(maxNum)
+			q1 := 队列类.X创建(maxNum)
 			for i := 0; i < maxNum; i++ {
-				q1.Push(i)
+				q1.X入栈(i)
 			}
-			t.Assert(q1.Len(), maxNum)
-			t.Assert(q1.Size(), maxNum)
+			t.Assert(q1.X取长度(), maxNum)
+			t.Assert(q1.Size弃用(), maxNum)
 		}
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -36,70 +36,70 @@ func TestQueue_Len(t *testing.T) {
 			maxTries = 100
 		)
 		for n := 10; n < maxTries; n++ {
-			q1 := gqueue.New()
+			q1 := 队列类.X创建()
 			for i := 0; i < maxNum; i++ {
-				q1.Push(i)
+				q1.X入栈(i)
 			}
-			t.AssertLE(q1.Len(), maxNum)
-			t.AssertLE(q1.Size(), maxNum)
+			t.AssertLE(q1.X取长度(), maxNum)
+			t.AssertLE(q1.Size弃用(), maxNum)
 		}
 	})
 }
 
 func TestQueue_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q := gqueue.New()
+		q := 队列类.X创建()
 		for i := 0; i < 100; i++ {
-			q.Push(i)
+			q.X入栈(i)
 		}
-		t.Assert(q.Pop(), 0)
-		t.Assert(q.Pop(), 1)
+		t.Assert(q.X出栈(), 0)
+		t.Assert(q.X出栈(), 1)
 	})
 }
 
 func TestQueue_Pop(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q1 := gqueue.New()
-		q1.Push(1)
-		q1.Push(2)
-		q1.Push(3)
-		q1.Push(4)
-		i1 := q1.Pop()
+		q1 := 队列类.X创建()
+		q1.X入栈(1)
+		q1.X入栈(2)
+		q1.X入栈(3)
+		q1.X入栈(4)
+		i1 := q1.X出栈()
 		t.Assert(i1, 1)
 	})
 }
 
 func TestQueue_Close(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q1 := gqueue.New()
-		q1.Push(1)
-		q1.Push(2)
+		q1 := 队列类.X创建()
+		q1.X入栈(1)
+		q1.X入栈(2)
 		time.Sleep(time.Millisecond)
-		t.Assert(q1.Len(), 2)
-		q1.Close()
+		t.Assert(q1.X取长度(), 2)
+		q1.X关闭()
 	})
 	gtest.C(t, func(t *gtest.T) {
-		q1 := gqueue.New(2)
-		q1.Push(1)
-		q1.Push(2)
+		q1 := 队列类.X创建(2)
+		q1.X入栈(1)
+		q1.X入栈(2)
 		time.Sleep(time.Millisecond)
-		t.Assert(q1.Len(), 2)
-		q1.Close()
+		t.Assert(q1.X取长度(), 2)
+		q1.X关闭()
 	})
 }
 
 func Test_Issue2509(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q := gqueue.New()
-		q.Push(1)
-		q.Push(2)
-		q.Push(3)
-		t.AssertLE(q.Len(), 3)
+		q := 队列类.X创建()
+		q.X入栈(1)
+		q.X入栈(2)
+		q.X入栈(3)
+		t.AssertLE(q.X取长度(), 3)
 		t.Assert(<-q.C, 1)
-		t.AssertLE(q.Len(), 2)
+		t.AssertLE(q.X取长度(), 2)
 		t.Assert(<-q.C, 2)
-		t.AssertLE(q.Len(), 1)
+		t.AssertLE(q.X取长度(), 1)
 		t.Assert(<-q.C, 3)
-		t.Assert(q.Len(), 0)
+		t.Assert(q.X取长度(), 0)
 	})
 }

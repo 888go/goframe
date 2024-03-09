@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil_test
+package 工具类_test
 
 import (
 	"testing"
@@ -15,17 +15,17 @@ import (
 
 func Test_Copy(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gutil.Copy(0), 0)
-		t.Assert(gutil.Copy(1), 1)
-		t.Assert(gutil.Copy("a"), "a")
-		t.Assert(gutil.Copy(nil), nil)
+		t.Assert(工具类.X深拷贝(0), 0)
+		t.Assert(工具类.X深拷贝(1), 1)
+		t.Assert(工具类.X深拷贝("a"), "a")
+		t.Assert(工具类.X深拷贝(nil), nil)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		src := g.Map{
 			"k1": "v1",
 			"k2": "v2",
 		}
-		dst := gutil.Copy(src)
+		dst := 工具类.X深拷贝(src)
 		t.Assert(dst, src)
 
 		dst.(g.Map)["k3"] = "v3"

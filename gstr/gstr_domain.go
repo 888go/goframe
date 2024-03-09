@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gstr
+package 文本类
 
 import (
 	"strings"
@@ -11,16 +11,16 @@ import (
 
 // IsSubDomain 检查 `subDomain` 是否为 `mainDomain` 的子域名。
 // 它支持在 `mainDomain` 中使用 '*'。
-func IsSubDomain(subDomain string, mainDomain string) bool {
-	if p := strings.IndexByte(subDomain, ':'); p != -1 {
-		subDomain = subDomain[0:p]
+func X是否为子域名(子域名 string, 主域名 string) bool {
+	if p := strings.IndexByte(子域名, ':'); p != -1 {
+		子域名 = 子域名[0:p]
 	}
-	if p := strings.IndexByte(mainDomain, ':'); p != -1 {
-		mainDomain = mainDomain[0:p]
+	if p := strings.IndexByte(主域名, ':'); p != -1 {
+		主域名 = 主域名[0:p]
 	}
 	var (
-		subArray   = strings.Split(subDomain, ".")
-		mainArray  = strings.Split(mainDomain, ".")
+		subArray   = strings.Split(子域名, ".")
+		mainArray  = strings.Split(主域名, ".")
 		subLength  = len(subArray)
 		mainLength = len(mainArray)
 	)

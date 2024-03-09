@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"testing"
@@ -25,7 +25,7 @@ func TestVar_Struct(t *testing.T) {
 
 		testObj := &StTest{}
 
-		objOne := gvar.New(Kv, true)
+		objOne := 泛型类.X创建(Kv, true)
 
 		objOne.Struct(testObj)
 
@@ -36,7 +36,7 @@ func TestVar_Struct(t *testing.T) {
 			Test int8
 		}
 		o := &StTest{}
-		v := gvar.New(g.Slice{"Test", "-25"})
+		v := 泛型类.X创建(g.Slice{"Test", "-25"})
 		v.Struct(o)
 		t.Assert(o.Test, -25)
 	})
@@ -51,8 +51,8 @@ func TestVar_Var_Attribute_Struct(t *testing.T) {
 		user := new(User)
 		err := gconv.Struct(
 			g.Map{
-				"uid":  gvar.New(1),
-				"name": gvar.New("john"),
+				"uid":  泛型类.X创建(1),
+				"name": 泛型类.X创建("john"),
 			}, user)
 		t.AssertNil(err)
 		t.Assert(user.Uid, 1)
@@ -66,8 +66,8 @@ func TestVar_Var_Attribute_Struct(t *testing.T) {
 		var user *User
 		err := gconv.Struct(
 			g.Map{
-				"uid":  gvar.New(1),
-				"name": gvar.New("john"),
+				"uid":  泛型类.X创建(1),
+				"name": 泛型类.X创建("john"),
 			}, &user)
 		t.AssertNil(err)
 		t.Assert(user.Uid, 1)

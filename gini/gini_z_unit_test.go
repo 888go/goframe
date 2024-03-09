@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gini_test
+package ini类_test
 
 import (
 	"testing"
@@ -35,7 +35,7 @@ command=/bin/echo "gf=GoFrame"
 
 func TestDecode(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		res, err := gini.Decode([]byte(iniContent))
+		res, err := ini类.X取Map([]byte(iniContent))
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -51,7 +51,7 @@ func TestDecode(t *testing.T) {
 		errContent := `
 		a = b
 `
-		_, err := gini.Decode([]byte(errContent))
+		_, err := ini类.X取Map([]byte(errContent))
 		if err == nil {
 			gtest.Fatal(err)
 		}
@@ -60,17 +60,17 @@ func TestDecode(t *testing.T) {
 
 func TestEncode(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		iniMap, err := gini.Decode([]byte(iniContent))
+		iniMap, err := ini类.X取Map([]byte(iniContent))
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		iniStr, err := gini.Encode(iniMap)
+		iniStr, err := ini类.Map到ini(iniMap)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		res, err := gini.Decode(iniStr)
+		res, err := ini类.X取Map(iniStr)
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -85,7 +85,7 @@ func TestEncode(t *testing.T) {
 
 func TestToJson(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		jsonStr, err := gini.ToJson([]byte(iniContent))
+		jsonStr, err := ini类.X取json([]byte(iniContent))
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -95,7 +95,7 @@ func TestToJson(t *testing.T) {
 			gtest.Fatal(err)
 		}
 
-		iniMap, err := gini.Decode([]byte(iniContent))
+		iniMap, err := ini类.X取Map([]byte(iniContent))
 		t.AssertNil(err)
 
 		t.Assert(iniMap["addr"].(map[string]interface{})["ip"], json.Get("addr.ip").String())

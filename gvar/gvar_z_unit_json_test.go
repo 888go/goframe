@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"math"
@@ -18,7 +18,7 @@ func TestVar_Json(t *testing.T) {
 	// Marshal
 	gtest.C(t, func(t *gtest.T) {
 		s := "i love gf"
-		v := gvar.New(s)
+		v := 泛型类.X创建(s)
 		b1, err1 := json.Marshal(v)
 		b2, err2 := json.Marshal(s)
 		t.Assert(err1, err2)
@@ -27,7 +27,7 @@ func TestVar_Json(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		s := int64(math.MaxInt64)
-		v := gvar.New(s)
+		v := 泛型类.X创建(s)
 		b1, err1 := json.Marshal(v)
 		b2, err2 := json.Marshal(s)
 		t.Assert(err1, err2)
@@ -37,7 +37,7 @@ func TestVar_Json(t *testing.T) {
 	// Unmarshal
 	gtest.C(t, func(t *gtest.T) {
 		s := "i love gf"
-		v := gvar.New(nil)
+		v := 泛型类.X创建(nil)
 		b, err := json.Marshal(s)
 		t.AssertNil(err)
 
@@ -47,7 +47,7 @@ func TestVar_Json(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		var v gvar.Var
+		var v 泛型类.Var
 		s := "i love gf"
 		b, err := json.Marshal(s)
 		t.AssertNil(err)

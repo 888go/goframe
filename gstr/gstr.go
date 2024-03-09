@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gstr 提供了用于处理字符串的函数。
-package gstr
+package 文本类
 
 const (
 	// NotFoundIndex 是在搜索函数中未找到字符串时的位置索引。

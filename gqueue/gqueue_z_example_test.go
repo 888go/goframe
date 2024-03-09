@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gqueue_test
+package 队列类_test
 
 import (
 	"context"
@@ -16,16 +16,16 @@ import (
 
 func ExampleNew() {
 	n := 10
-	q := gqueue.New()
+	q := 队列类.X创建()
 
 	// Producer
 	for i := 0; i < n; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
 	// 在三秒钟后关闭队列。
 	gtimer.SetTimeout(context.Background(), time.Second*3, func(ctx context.Context) {
-		q.Close()
+		q.X关闭()
 	})
 
 // 消费者持续读取队列中的数据。
@@ -44,7 +44,7 @@ func ExampleNew() {
 //     }
 // }
 	for {
-		if v := q.Pop(); v != nil {
+		if v := q.X出栈(); v != nil {
 			fmt.Print(v)
 		} else {
 			break
@@ -56,15 +56,15 @@ func ExampleNew() {
 }
 
 func ExampleQueue_Push() {
-	q := gqueue.New()
+	q := 队列类.X创建()
 
 	for i := 0; i < 10; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
-	fmt.Println(q.Pop())
-	fmt.Println(q.Pop())
-	fmt.Println(q.Pop())
+	fmt.Println(q.X出栈())
+	fmt.Println(q.X出栈())
+	fmt.Println(q.X出栈())
 
 	// Output:
 	// 0
@@ -73,15 +73,15 @@ func ExampleQueue_Push() {
 }
 
 func ExampleQueue_Pop() {
-	q := gqueue.New()
+	q := 队列类.X创建()
 
 	for i := 0; i < 10; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
-	fmt.Println(q.Pop())
-	q.Close()
-	fmt.Println(q.Pop())
+	fmt.Println(q.X出栈())
+	q.X关闭()
+	fmt.Println(q.X出栈())
 
 	// Output:
 	// 0
@@ -89,17 +89,17 @@ func ExampleQueue_Pop() {
 }
 
 func ExampleQueue_Close() {
-	q := gqueue.New()
+	q := 队列类.X创建()
 
 	for i := 0; i < 10; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
 	time.Sleep(time.Millisecond)
-	q.Close()
+	q.X关闭()
 
-	fmt.Println(q.Len())
-	fmt.Println(q.Pop())
+	fmt.Println(q.X取长度())
+	fmt.Println(q.X出栈())
 
 	// May Output:
 	// 0
@@ -107,25 +107,25 @@ func ExampleQueue_Close() {
 }
 
 func ExampleQueue_Len() {
-	q := gqueue.New()
+	q := 队列类.X创建()
 
-	q.Push(1)
-	q.Push(2)
+	q.X入栈(1)
+	q.X入栈(2)
 
-	fmt.Println(q.Len())
+	fmt.Println(q.X取长度())
 
 	// May Output:
 	// 2
 }
 
 func ExampleQueue_Size() {
-	q := gqueue.New()
+	q := 队列类.X创建()
 
-	q.Push(1)
-	q.Push(2)
+	q.X入栈(1)
+	q.X入栈(2)
 
 	// Size 是 Len 的别名。
-	fmt.Println(q.Size())
+	fmt.Println(q.Size弃用())
 
 	// May Output:
 	// 2

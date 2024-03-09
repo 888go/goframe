@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtype_test
+package 安全变量类_test
 
 import (
 	"testing"
@@ -16,45 +16,45 @@ import (
 
 func Test_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		i := gtype.NewString("abc")
+		i := 安全变量类.NewString("abc")
 		iClone := i.Clone()
-		t.AssertEQ(iClone.Set("123"), "abc")
-		t.AssertEQ(iClone.Val(), "123")
+		t.AssertEQ(iClone.X设置值("123"), "abc")
+		t.AssertEQ(iClone.X取值(), "123")
 		t.AssertEQ(iClone.String(), "123")
 		//
 		copyVal := iClone.DeepCopy()
-		iClone.Set("124")
-		t.AssertNE(copyVal, iClone.Val())
+		iClone.X设置值("124")
+		t.AssertNE(copyVal, iClone.X取值())
 		iClone = nil
 		copyVal = iClone.DeepCopy()
 		t.AssertNil(copyVal)
 		// empty param test
-		i1 := gtype.NewString()
-		t.AssertEQ(i1.Val(), "")
+		i1 := 安全变量类.NewString()
+		t.AssertEQ(i1.X取值(), "")
 	})
 }
 
 func Test_String_JSON(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := "i love gf"
-		i1 := gtype.NewString(s)
+		i1 := 安全变量类.NewString(s)
 		b1, err1 := json.Marshal(i1)
-		b2, err2 := json.Marshal(i1.Val())
+		b2, err2 := json.Marshal(i1.X取值())
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 		t.Assert(b1, b2)
 
-		i2 := gtype.NewString()
+		i2 := 安全变量类.NewString()
 		err := json.UnmarshalUseNumber(b2, &i2)
 		t.AssertNil(err)
-		t.Assert(i2.Val(), s)
+		t.Assert(i2.X取值(), s)
 	})
 }
 
 func Test_String_UnmarshalValue(t *testing.T) {
 	type V struct {
 		Name string
-		Var  *gtype.String
+		Var  *安全变量类.String
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var v *V
@@ -64,6 +64,6 @@ func Test_String_UnmarshalValue(t *testing.T) {
 		}, &v)
 		t.AssertNil(err)
 		t.Assert(v.Name, "john")
-		t.Assert(v.Var.Val(), "123")
+		t.Assert(v.Var.X取值(), "123")
 	})
 }

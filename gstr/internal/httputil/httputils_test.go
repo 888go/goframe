@@ -22,8 +22,8 @@ func TestBuildParams(t *testing.T) {
 			"b": "2",
 		}
 		params := httputil.BuildParams(data)
-		t.Assert(gstr.Contains(params, "a=1"), true)
-		t.Assert(gstr.Contains(params, "b=2"), true)
+		t.Assert(文本类.X是否包含(params, "a=1"), true)
+		t.Assert(文本类.X是否包含(params, "b=2"), true)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		data := g.Map{
@@ -31,8 +31,8 @@ func TestBuildParams(t *testing.T) {
 			"b": nil,
 		}
 		params := httputil.BuildParams(data)
-		t.Assert(gstr.Contains(params, "a=1"), true)
-		t.Assert(gstr.Contains(params, "b="), false)
-		t.Assert(gstr.Contains(params, "b"), false)
+		t.Assert(文本类.X是否包含(params, "a=1"), true)
+		t.Assert(文本类.X是否包含(params, "b="), false)
+		t.Assert(文本类.X是否包含(params, "b"), false)
 	})
 }

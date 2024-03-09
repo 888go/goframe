@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gjson
+package json类
 
 import (
 	"github.com/gogf/gf/v2/encoding/gini"
@@ -23,50 +23,50 @@ import (
 // ============================================================================
 // （这里表示该段代码与 JSON 相关，可能是用于处理、解析或生成 JSON 的功能模块）
 
-func (j *Json) ToJson() ([]byte, error) {
+func (j *Json) X取json字节集() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
-	return Encode(*(j.p))
+	return X变量到json字节集(*(j.p))
 }
 
-func (j *Json) ToJsonString() (string, error) {
-	b, e := j.ToJson()
+func (j *Json) X取json文本() (string, error) {
+	b, e := j.X取json字节集()
 	return string(b), e
 }
 
-func (j *Json) ToJsonIndent() ([]byte, error) {
+func (j *Json) X取json字节集并格式化() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return json.MarshalIndent(*(j.p), "", "\t")
 }
 
-func (j *Json) ToJsonIndentString() (string, error) {
-	b, e := j.ToJsonIndent()
+func (j *Json) X取json文本并格式化() (string, error) {
+	b, e := j.X取json字节集并格式化()
 	return string(b), e
 }
 
-func (j *Json) MustToJson() []byte {
-	result, err := j.ToJson()
+func (j *Json) X取json字节集PANI() []byte {
+	result, err := j.X取json字节集()
 	if err != nil {
 		panic(err)
 	}
 	return result
 }
 
-func (j *Json) MustToJsonString() string {
-	return string(j.MustToJson())
+func (j *Json) X取json文本PANI() string {
+	return string(j.X取json字节集PANI())
 }
 
-func (j *Json) MustToJsonIndent() []byte {
-	result, err := j.ToJsonIndent()
+func (j *Json) X取json字节集并格式化PANI() []byte {
+	result, err := j.X取json字节集并格式化()
 	if err != nil {
 		panic(err)
 	}
 	return result
 }
 
-func (j *Json) MustToJsonIndentString() string {
-	return string(j.MustToJsonIndent())
+func (j *Json) X取json文本并格式化PANI() string {
+	return string(j.X取json字节集并格式化PANI())
 }
 
 // ========================================================================
@@ -76,46 +76,46 @@ func (j *Json) MustToJsonIndentString() string {
 // 此部分代码与XML相关功能实现
 // ========================================================================
 
-func (j *Json) ToXml(rootTag ...string) ([]byte, error) {
-	return gxml.Encode(j.Var().Map(), rootTag...)
+func (j *Json) X取xml字节集(rootTag ...string) ([]byte, error) {
+	return gxml.Encode(j.X取泛型类().Map(), rootTag...)
 }
 
-func (j *Json) ToXmlString(rootTag ...string) (string, error) {
-	b, e := j.ToXml(rootTag...)
+func (j *Json) X取xml文本(rootTag ...string) (string, error) {
+	b, e := j.X取xml字节集(rootTag...)
 	return string(b), e
 }
 
-func (j *Json) ToXmlIndent(rootTag ...string) ([]byte, error) {
-	return gxml.EncodeWithIndent(j.Var().Map(), rootTag...)
+func (j *Json) X取xml字节集并格式化(rootTag ...string) ([]byte, error) {
+	return gxml.EncodeWithIndent(j.X取泛型类().Map(), rootTag...)
 }
 
-func (j *Json) ToXmlIndentString(rootTag ...string) (string, error) {
-	b, e := j.ToXmlIndent(rootTag...)
+func (j *Json) X取xml文本并格式化(rootTag ...string) (string, error) {
+	b, e := j.X取xml字节集并格式化(rootTag...)
 	return string(b), e
 }
 
-func (j *Json) MustToXml(rootTag ...string) []byte {
-	result, err := j.ToXml(rootTag...)
+func (j *Json) X取xml字节集PANI(rootTag ...string) []byte {
+	result, err := j.X取xml字节集(rootTag...)
 	if err != nil {
 		panic(err)
 	}
 	return result
 }
 
-func (j *Json) MustToXmlString(rootTag ...string) string {
-	return string(j.MustToXml(rootTag...))
+func (j *Json) X取xml文本PANI(rootTag ...string) string {
+	return string(j.X取xml字节集PANI(rootTag...))
 }
 
-func (j *Json) MustToXmlIndent(rootTag ...string) []byte {
-	result, err := j.ToXmlIndent(rootTag...)
+func (j *Json) X取xml字节集并格式化PANI(rootTag ...string) []byte {
+	result, err := j.X取xml字节集并格式化(rootTag...)
 	if err != nil {
 		panic(err)
 	}
 	return result
 }
 
-func (j *Json) MustToXmlIndentString(rootTag ...string) string {
-	return string(j.MustToXmlIndent(rootTag...))
+func (j *Json) X取xml文本并格式化PANI(rootTag ...string) string {
+	return string(j.X取xml字节集并格式化PANI(rootTag...))
 }
 
 // ==========================================================================
@@ -127,33 +127,33 @@ func (j *Json) MustToXmlIndentString(rootTag ...string) string {
 // YAML
 // 这行注释表示这部分代码与YAML（一种数据序列化格式）有关
 
-func (j *Json) ToYaml() ([]byte, error) {
+func (j *Json) X取YAML字节集() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return gyaml.Encode(*(j.p))
 }
 
-func (j *Json) ToYamlIndent(indent string) ([]byte, error) {
+func (j *Json) X取YAML字节集并格式化(缩进 string) ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
-	return gyaml.EncodeIndent(*(j.p), indent)
+	return gyaml.EncodeIndent(*(j.p), 缩进)
 }
 
-func (j *Json) ToYamlString() (string, error) {
-	b, e := j.ToYaml()
+func (j *Json) X取YAML文本() (string, error) {
+	b, e := j.X取YAML字节集()
 	return string(b), e
 }
 
-func (j *Json) MustToYaml() []byte {
-	result, err := j.ToYaml()
+func (j *Json) X取YAML字节集PANI() []byte {
+	result, err := j.X取YAML字节集()
 	if err != nil {
 		panic(err)
 	}
 	return result
 }
 
-func (j *Json) MustToYamlString() string {
-	return string(j.MustToYaml())
+func (j *Json) X取YAML文本PANI() string {
+	return string(j.X取YAML字节集PANI())
 }
 
 // ===========================================================================
@@ -165,27 +165,27 @@ func (j *Json) MustToYamlString() string {
 // ============================================================================
 // 这段代码的注释表明了该部分与TOML相关。TOML是一种配置文件格式，因此这部分可能是用于解析、生成或操作TOML格式数据的Go语言代码段。此处的“//”表示单行注释，中文翻译后含义不变，仅将原有的英文内容转换为中文展示。
 
-func (j *Json) ToToml() ([]byte, error) {
+func (j *Json) X取TOML字节集() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return gtoml.Encode(*(j.p))
 }
 
-func (j *Json) ToTomlString() (string, error) {
-	b, e := j.ToToml()
+func (j *Json) X取TOML文本() (string, error) {
+	b, e := j.X取TOML字节集()
 	return string(b), e
 }
 
-func (j *Json) MustToToml() []byte {
-	result, err := j.ToToml()
+func (j *Json) X取TOML字节集PANI() []byte {
+	result, err := j.X取TOML字节集()
 	if err != nil {
 		panic(err)
 	}
 	return result
 }
 
-func (j *Json) MustToTomlString() string {
-	return string(j.MustToToml())
+func (j *Json) X取TOML文本PANI() string {
+	return string(j.X取TOML字节集PANI())
 }
 
 // ===========================================================================
@@ -197,18 +197,18 @@ func (j *Json) MustToTomlString() string {
 // ===========================================================================
 
 // ToIni json to ini
-func (j *Json) ToIni() ([]byte, error) {
-	return gini.Encode(j.Map())
+func (j *Json) X取ini字节集() ([]byte, error) {
+	return gini.Encode(j.X取Map())
 }
 
 // ToIniString 将ini转换为字符串
-func (j *Json) ToIniString() (string, error) {
-	b, e := j.ToIni()
+func (j *Json) X取ini文本() (string, error) {
+	b, e := j.X取ini字节集()
 	return string(b), e
 }
 
-func (j *Json) MustToIni() []byte {
-	result, err := j.ToIni()
+func (j *Json) X取ini字节集PANI() []byte {
+	result, err := j.X取ini字节集()
 	if err != nil {
 		panic(err)
 	}
@@ -216,26 +216,26 @@ func (j *Json) MustToIni() []byte {
 }
 
 // MustToIniString .
-func (j *Json) MustToIniString() string {
-	return string(j.MustToIni())
+func (j *Json) X取ini文本PANI() string {
+	return string(j.X取ini字节集PANI())
 }
 
 // ==========================================================================
 // 属性
 // ==========================================================================
 // 将JSON转换为属性
-func (j *Json) ToProperties() ([]byte, error) {
-	return gproperties.Encode(j.Map())
+func (j *Json) X取properties字节集() ([]byte, error) {
+	return gproperties.Encode(j.X取Map())
 }
 
 // TopropertiesString 将属性转换为字符串
-func (j *Json) ToPropertiesString() (string, error) {
-	b, e := j.ToProperties()
+func (j *Json) X取properties文本() (string, error) {
+	b, e := j.X取properties字节集()
 	return string(b), e
 }
 
-func (j *Json) MustToProperties() []byte {
-	result, err := j.ToProperties()
+func (j *Json) X取properties字节集PANI() []byte {
+	result, err := j.X取properties字节集()
 	if err != nil {
 		panic(err)
 	}
@@ -243,6 +243,6 @@ func (j *Json) MustToProperties() []byte {
 }
 
 // MustToPropertiesString
-func (j *Json) MustToPropertiesString() string {
-	return string(j.MustToProperties())
+func (j *Json) X取properties文本PANI() string {
+	return string(j.X取properties字节集PANI())
 }

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtime_test
+package 时间类_test
 
 import (
 	"testing"
@@ -14,41 +14,41 @@ import (
 
 func Test_Format(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		timeTemp, err := gtime.StrToTime("2006-01-11 15:04:05", "Y-m-d H:i:s")
-		timeTemp.ToZone("Asia/Shanghai")
+		timeTemp, err := 时间类.X转换文本("2006-01-11 15:04:05", "Y-m-d H:i:s")
+		timeTemp.X转换时区("Asia/Shanghai")
 		if err != nil {
 			t.Error("test fail")
 		}
-		t.Assert(timeTemp.Format("\\T\\i\\m\\e中文Y-m-j G:i:s.u\\"), "Time中文2006-01-11 15:04:05.000")
+		t.Assert(timeTemp.X取格式文本("\\T\\i\\m\\e中文Y-m-j G:i:s.u\\"), "Time中文2006-01-11 15:04:05.000")
 
-		t.Assert(timeTemp.Format("d D j l"), "11 Wed 11 Wednesday")
+		t.Assert(timeTemp.X取格式文本("d D j l"), "11 Wed 11 Wednesday")
 
-		t.Assert(timeTemp.Format("F m M n"), "January 01 Jan 1")
+		t.Assert(timeTemp.X取格式文本("F m M n"), "January 01 Jan 1")
 
-		t.Assert(timeTemp.Format("Y y"), "2006 06")
+		t.Assert(timeTemp.X取格式文本("Y y"), "2006 06")
 
-		t.Assert(timeTemp.Format("a A g G h H i s u .u"), "pm PM 3 15 03 15 04 05 000 .000")
+		t.Assert(timeTemp.X取格式文本("a A g G h H i s u .u"), "pm PM 3 15 03 15 04 05 000 .000")
 
-		t.Assert(timeTemp.Format("O P T"), "+0800 +08:00 CST")
+		t.Assert(timeTemp.X取格式文本("O P T"), "+0800 +08:00 CST")
 
-		t.Assert(timeTemp.Format("r"), "Wed, 11 Jan 06 15:04 CST")
+		t.Assert(timeTemp.X取格式文本("r"), "Wed, 11 Jan 06 15:04 CST")
 
-		t.Assert(timeTemp.Format("c"), "2006-01-11T15:04:05+08:00")
+		t.Assert(timeTemp.X取格式文本("c"), "2006-01-11T15:04:05+08:00")
 
 		//补零
-		timeTemp1, err := gtime.StrToTime("2006-01-02 03:04:05", "Y-m-d H:i:s")
+		timeTemp1, err := 时间类.X转换文本("2006-01-02 03:04:05", "Y-m-d H:i:s")
 		if err != nil {
 			t.Error("test fail")
 		}
-		t.Assert(timeTemp1.Format("Y-m-d h:i:s"), "2006-01-02 03:04:05")
+		t.Assert(timeTemp1.X取格式文本("Y-m-d h:i:s"), "2006-01-02 03:04:05")
 		//不补零
-		timeTemp2, err := gtime.StrToTime("2006-01-02 03:04:05", "Y-m-d H:i:s")
+		timeTemp2, err := 时间类.X转换文本("2006-01-02 03:04:05", "Y-m-d H:i:s")
 		if err != nil {
 			t.Error("test fail")
 		}
-		t.Assert(timeTemp2.Format("Y-n-j G:i:s"), "2006-1-2 3:04:05")
+		t.Assert(timeTemp2.X取格式文本("Y-n-j G:i:s"), "2006-1-2 3:04:05")
 
-		t.Assert(timeTemp2.Format("U"), "1136142245")
+		t.Assert(timeTemp2.X取格式文本("U"), "1136142245")
 
 		// 测试数字型的星期
 		times := []map[string]string{
@@ -85,26 +85,26 @@ func Test_Format(t *testing.T) {
 		}
 
 		for _, v := range times {
-			t1, err1 := gtime.StrToTime(v["k"], "Y-m-d")
+			t1, err1 := 时间类.X转换文本(v["k"], "Y-m-d")
 			t.Assert(err1, nil)
-			t.Assert(t1.Format(v["f"]), v["r"])
+			t.Assert(t1.X取格式文本(v["f"]), v["r"])
 		}
 
 	})
 	gtest.C(t, func(t *gtest.T) {
-		var ti *gtime.Time = nil
-		t.Assert(ti.Format("Y-m-d h:i:s"), "")
-		t.Assert(ti.FormatNew("Y-m-d h:i:s"), nil)
-		t.Assert(ti.FormatTo("Y-m-d h:i:s"), nil)
-		t.Assert(ti.Layout("Y-m-d h:i:s"), "")
-		t.Assert(ti.LayoutNew("Y-m-d h:i:s"), nil)
-		t.Assert(ti.LayoutTo("Y-m-d h:i:s"), nil)
+		var ti *时间类.Time = nil
+		t.Assert(ti.X取格式文本("Y-m-d h:i:s"), "")
+		t.Assert(ti.X按格式取副本("Y-m-d h:i:s"), nil)
+		t.Assert(ti.X格式设置("Y-m-d h:i:s"), nil)
+		t.Assert(ti.X取Layout格式文本("Y-m-d h:i:s"), "")
+		t.Assert(ti.X取副本并按Layout格式("Y-m-d h:i:s"), nil)
+		t.Assert(ti.X设置Layout格式("Y-m-d h:i:s"), nil)
 	})
 }
 
 func Test_Format_ZeroString(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		timeTemp, err := gtime.StrToTime("0000-00-00 00:00:00")
+		timeTemp, err := 时间类.X转换文本("0000-00-00 00:00:00")
 		t.AssertNE(err, nil)
 		t.Assert(timeTemp.String(), "")
 	})
@@ -112,21 +112,21 @@ func Test_Format_ZeroString(t *testing.T) {
 
 func Test_FormatTo(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		timeTemp := gtime.Now()
-		t.Assert(timeTemp.FormatTo("Y-m-01 00:00:01"), timeTemp.Time.Format("2006-01")+"-01 00:00:01")
+		timeTemp := 时间类.X创建并按当前时间()
+		t.Assert(timeTemp.X格式设置("Y-m-01 00:00:01"), timeTemp.Time.Format("2006-01")+"-01 00:00:01")
 	})
 }
 
 func Test_Layout(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		timeTemp := gtime.Now()
-		t.Assert(timeTemp.Layout("2006-01-02 15:04:05"), timeTemp.Time.Format("2006-01-02 15:04:05"))
+		timeTemp := 时间类.X创建并按当前时间()
+		t.Assert(timeTemp.X取Layout格式文本("2006-01-02 15:04:05"), timeTemp.Time.Format("2006-01-02 15:04:05"))
 	})
 }
 
 func Test_LayoutTo(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		timeTemp := gtime.Now()
-		t.Assert(timeTemp.LayoutTo("2006-01-02 00:00:00"), timeTemp.Time.Format("2006-01-02 00:00:00"))
+		timeTemp := 时间类.X创建并按当前时间()
+		t.Assert(timeTemp.X设置Layout格式("2006-01-02 00:00:00"), timeTemp.Time.Format("2006-01-02 00:00:00"))
 	})
 }

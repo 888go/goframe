@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile
+package 文件类
 
 import (
 	"fmt"
@@ -13,8 +13,8 @@ import (
 )
 
 // Size 返回指定路径 `path` 文件的大小，单位为字节。
-func Size(path string) int64 {
-	s, e := os.Stat(path)
+func X取大小(路径 string) int64 {
+	s, e := os.Stat(路径)
 	if e != nil {
 		return 0
 	}
@@ -22,28 +22,28 @@ func Size(path string) int64 {
 }
 
 // SizeFormat 返回指定路径 `path` 下文件的大小，格式化为字符串。
-func SizeFormat(path string) string {
-	return FormatSize(Size(path))
+func X取大小并易读格式(路径 string) string {
+	return X字节长度转易读格式(X取大小(路径))
 }
 
 // ReadableSize 格式化给定路径 `path` 的文件大小，使其更易于人类阅读。
-func ReadableSize(path string) string {
-	return FormatSize(Size(path))
+func ReadableSize别名(路径 string) string {
+	return X字节长度转易读格式(X取大小(路径))
 }
 
 // StrToSize 将格式化的大小字符串转换为其字节表示的大小。
-func StrToSize(sizeStr string) int64 {
+func X易读格式转字节长度(大小文本 string) int64 {
 	i := 0
-	for ; i < len(sizeStr); i++ {
-		if sizeStr[i] == '.' || (sizeStr[i] >= '0' && sizeStr[i] <= '9') {
+	for ; i < len(大小文本); i++ {
+		if 大小文本[i] == '.' || (大小文本[i] >= '0' && 大小文本[i] <= '9') {
 			continue
 		} else {
 			break
 		}
 	}
 	var (
-		unit      = sizeStr[i:]
-		number, _ = strconv.ParseFloat(sizeStr[:i], 64)
+		unit      = 大小文本[i:]
+		number, _ = strconv.ParseFloat(大小文本[:i], 64)
 	)
 	if unit == "" {
 		return int64(number)
@@ -74,8 +74,8 @@ func StrToSize(sizeStr string) int64 {
 }
 
 // FormatSize 将大小 `raw` 格式化为更便于人工阅读的形式。
-func FormatSize(raw int64) string {
-	var r float64 = float64(raw)
+func X字节长度转易读格式(文件大小 int64) string {
+	var r float64 = float64(文件大小)
 	var t float64 = 1024
 	var d float64 = 1
 	if r < t {

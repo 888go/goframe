@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile
+package 文件类
 
 import (
 	"bytes"
@@ -19,12 +19,12 @@ import (
 // Home 返回当前用户主目录的绝对路径。
 // 可选参数 `names` 指定了子文件夹或子文件，
 // 这些名称将与当前系统分隔符连接，并与路径一起返回。
-func Home(names ...string) (string, error) {
+func X取用户目录(可选子目录或子文件 ...string) (string, error) {
 	path, err := getHomePath()
 	if err != nil {
 		return "", err
 	}
-	for _, name := range names {
+	for _, name := range 可选子目录或子文件 {
 		path += Separator + name
 	}
 	return path, nil

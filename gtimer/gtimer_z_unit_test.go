@@ -5,7 +5,7 @@
 
 // Package functions
 
-package gtimer_test
+package 定时类_test
 
 import (
 	"context"
@@ -24,7 +24,7 @@ var (
 func TestSetTimeout(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.SetTimeout(ctx, 200*time.Millisecond, func(ctx context.Context) {
+		定时类.SetTimeout别名(ctx, 200*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
 		})
 		time.Sleep(1000 * time.Millisecond)
@@ -35,7 +35,7 @@ func TestSetTimeout(t *testing.T) {
 func TestSetInterval(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.SetInterval(ctx, 300*time.Millisecond, func(ctx context.Context) {
+		定时类.SetInterval别名(ctx, 300*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
 		})
 		time.Sleep(1000 * time.Millisecond)
@@ -46,9 +46,9 @@ func TestSetInterval(t *testing.T) {
 func TestAddEntry(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.AddEntry(ctx, 200*time.Millisecond, func(ctx context.Context) {
+		定时类.X加入详细循环任务(ctx, 200*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
-		}, false, 2, gtimer.StatusReady)
+		}, false, 2, 定时类.StatusReady)
 		time.Sleep(1100 * time.Millisecond)
 		t.Assert(array.Len(), 2)
 	})
@@ -57,7 +57,7 @@ func TestAddEntry(t *testing.T) {
 func TestAddSingleton(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.AddSingleton(ctx, 200*time.Millisecond, func(ctx context.Context) {
+		定时类.X加入单例循环任务(ctx, 200*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
 			time.Sleep(10000 * time.Millisecond)
 		})
@@ -69,7 +69,7 @@ func TestAddSingleton(t *testing.T) {
 func TestAddTimes(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.AddTimes(ctx, 200*time.Millisecond, 2, func(ctx context.Context) {
+		定时类.X加入指定次数任务(ctx, 200*time.Millisecond, 2, func(ctx context.Context) {
 			array.Append(1)
 		})
 		time.Sleep(1000 * time.Millisecond)
@@ -80,7 +80,7 @@ func TestAddTimes(t *testing.T) {
 func TestDelayAdd(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.DelayAdd(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
+		定时类.X延时加入循环任务(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
 		})
 		time.Sleep(600 * time.Millisecond)
@@ -93,9 +93,9 @@ func TestDelayAdd(t *testing.T) {
 func TestDelayAddEntry(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.DelayAddEntry(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
+		定时类.X延时加入详细循环任务(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
-		}, false, 2, gtimer.StatusReady)
+		}, false, 2, 定时类.StatusReady)
 		time.Sleep(500 * time.Millisecond)
 		t.Assert(array.Len(), 0)
 		time.Sleep(2000 * time.Millisecond)
@@ -106,7 +106,7 @@ func TestDelayAddEntry(t *testing.T) {
 func TestDelayAddSingleton(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.DelayAddSingleton(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
+		定时类.X延时加入单例循环任务(ctx, 500*time.Millisecond, 500*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
 			time.Sleep(10000 * time.Millisecond)
 		})
@@ -120,7 +120,7 @@ func TestDelayAddSingleton(t *testing.T) {
 func TestDelayAddOnce(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.DelayAddOnce(ctx, 1000*time.Millisecond, 2000*time.Millisecond, func(ctx context.Context) {
+		定时类.X延时加入单次任务(ctx, 1000*time.Millisecond, 2000*time.Millisecond, func(ctx context.Context) {
 			array.Append(1)
 		})
 		time.Sleep(2000 * time.Millisecond)
@@ -133,7 +133,7 @@ func TestDelayAddOnce(t *testing.T) {
 func TestDelayAddTimes(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		gtimer.DelayAddTimes(ctx, 500*time.Millisecond, 500*time.Millisecond, 2, func(ctx context.Context) {
+		定时类.X延时加入指定次数任务(ctx, 500*time.Millisecond, 500*time.Millisecond, 2, func(ctx context.Context) {
 			array.Append(1)
 		})
 		time.Sleep(300 * time.Millisecond)

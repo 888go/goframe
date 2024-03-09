@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtype
+package 安全变量类
 
 import (
 	"bytes"
@@ -31,19 +31,19 @@ func NewBytes(value ...[]byte) *Bytes {
 
 // Clone 克隆并返回一个新的 []byte 类型的浅复制对象。
 func (v *Bytes) Clone() *Bytes {
-	return NewBytes(v.Val())
+	return NewBytes(v.X取值())
 }
 
 // Set 方法通过原子操作将`value`存储到t.value，并返回修改前的t.value的值。
 // 注意：参数`value`不能为空。
-func (v *Bytes) Set(value []byte) (old []byte) {
-	old = v.Val()
+func (v *Bytes) X设置值(value []byte) (old []byte) {
+	old = v.X取值()
 	v.value.Store(value)
 	return
 }
 
 // Val 原子性地加载并返回 t.value。
-func (v *Bytes) Val() []byte {
+func (v *Bytes) X取值() []byte {
 	if s := v.value.Load(); s != nil {
 		return s.([]byte)
 	}
@@ -52,12 +52,12 @@ func (v *Bytes) Val() []byte {
 
 // String 实现了 String 接口以便进行字符串打印。
 func (v *Bytes) String() string {
-	return string(v.Val())
+	return string(v.X取值())
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (v Bytes) MarshalJSON() ([]byte, error) {
-	val := v.Val()
+	val := v.X取值()
 	dst := make([]byte, base64.StdEncoding.EncodedLen(len(val)))
 	base64.StdEncoding.Encode(dst, val)
 	return []byte(`"` + string(dst) + `"`), nil
@@ -73,13 +73,13 @@ func (v *Bytes) UnmarshalJSON(b []byte) error {
 		err = gerror.Wrap(err, `base64.StdEncoding.Decode failed`)
 		return err
 	}
-	v.Set(src[:n])
+	v.X设置值(src[:n])
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于为 `v` 设置任意类型的值。
 func (v *Bytes) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Bytes(value))
+	v.X设置值(gconv.Bytes(value))
 	return nil
 }
 
@@ -88,7 +88,7 @@ func (v *Bytes) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	oldBytes := v.Val()
+	oldBytes := v.X取值()
 	newBytes := make([]byte, len(oldBytes))
 	copy(newBytes, oldBytes)
 	return NewBytes(newBytes)

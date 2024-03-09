@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtimer
+package 定时类
 
 import (
 	"context"
@@ -30,12 +30,12 @@ type Entry struct {
 type JobFunc = func(ctx context.Context)
 
 // Status 返回作业的状态。
-func (entry *Entry) Status() int {
+func (entry *Entry) X取任务状态() int {
 	return entry.status.Val()
 }
 
 // Run 启动计时器任务并异步执行。
-func (entry *Entry) Run() {
+func (entry *Entry) X异步运行() {
 	if !entry.infinite.Val() {
 		leftRunningTimes := entry.times.Add(-1)
 		// 它检查运行时间是否超过限制。
@@ -54,12 +54,12 @@ func (entry *Entry) Run() {
 						panic(gerror.NewCodef(gcode.CodeInternalPanic, "exception recovered: %+v", exception))
 					}
 				} else {
-					entry.Close()
+					entry.X关闭任务()
 					return
 				}
 			}
-			if entry.Status() == StatusRunning {
-				entry.SetStatus(StatusReady)
+			if entry.X取任务状态() == StatusRunning {
+				entry.X设置任务状态(StatusReady)
 			}
 		}()
 		entry.job(entry.ctx)
@@ -78,7 +78,7 @@ func (entry *Entry) doCheckAndRunByTicks(currentTimerTicks int64) {
 	// 执行任务检查。
 	switch entry.status.Val() {
 	case StatusRunning:
-		if entry.IsSingleton() {
+		if entry.X是否单例模式() {
 			return
 		}
 	case StatusReady:
@@ -91,56 +91,56 @@ func (entry *Entry) doCheckAndRunByTicks(currentTimerTicks int64) {
 		return
 	}
 	// 执行任务运行。
-	entry.Run()
+	entry.X异步运行()
 }
 
 // SetStatus 自定义设置任务的状态。
-func (entry *Entry) SetStatus(status int) int {
-	return entry.status.Set(status)
+func (entry *Entry) X设置任务状态(状态 int) int {
+	return entry.status.Set(状态)
 }
 
 // Start 启动任务。
-func (entry *Entry) Start() {
+func (entry *Entry) X开始工作() {
 	entry.status.Set(StatusReady)
 }
 
 // Stop 停止作业。
-func (entry *Entry) Stop() {
+func (entry *Entry) X暂停工作() {
 	entry.status.Set(StatusStopped)
 }
 
 // Close 关闭作业，随后该作业将从计时器中移除。
-func (entry *Entry) Close() {
+func (entry *Entry) X关闭任务() {
 	entry.status.Set(StatusClosed)
 }
 
 // Reset 重置作业，这将重置其下一次运行的滴答次数。
-func (entry *Entry) Reset() {
+func (entry *Entry) X重置任务() {
 	entry.nextTicks.Set(entry.timer.ticks.Val() + entry.ticks)
 }
 
 // IsSingleton 检查并返回该任务是否处于单例模式。
-func (entry *Entry) IsSingleton() bool {
+func (entry *Entry) X是否单例模式() bool {
 	return entry.isSingleton.Val()
 }
 
 // SetSingleton 设置作业单例模式。
-func (entry *Entry) SetSingleton(enabled bool) {
-	entry.isSingleton.Set(enabled)
+func (entry *Entry) X设置单例模式(单例模式 bool) {
+	entry.isSingleton.Set(单例模式)
 }
 
 // Job 返回此任务的工作函数。
-func (entry *Entry) Job() JobFunc {
+func (entry *Entry) X取任务函数() JobFunc {
 	return entry.job
 }
 
 // Ctx 返回此任务初始化后的上下文。
-func (entry *Entry) Ctx() context.Context {
+func (entry *Entry) X取任务上下文() context.Context {
 	return entry.ctx
 }
 
 // SetTimes 设置作业的最大运行次数。
-func (entry *Entry) SetTimes(times int) {
-	entry.times.Set(times)
+func (entry *Entry) X设置任务次数(次数 int) {
+	entry.times.Set(次数)
 	entry.infinite.Set(false)
 }

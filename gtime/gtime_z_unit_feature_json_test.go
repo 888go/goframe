@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtime_test
+package 时间类_test
 
 import (
 	"testing"
@@ -18,24 +18,24 @@ func Test_Json_Pointer(t *testing.T) {
 	// Marshal
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
-			MyTime *gtime.Time
+			MyTime *时间类.Time
 		}
 		b, err := json.Marshal(MyTime{
-			MyTime: gtime.NewFromStr("2006-01-02 15:04:05"),
+			MyTime: 时间类.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		b, err := json.Marshal(g.Map{
-			"MyTime": gtime.NewFromStr("2006-01-02 15:04:05"),
+			"MyTime": 时间类.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		b, err := json.Marshal(g.Map{
-			"MyTime": *gtime.NewFromStr("2006-01-02 15:04:05"),
+			"MyTime": *时间类.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
@@ -43,7 +43,7 @@ func Test_Json_Pointer(t *testing.T) {
 	// Marshal nil
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
-			MyTime *gtime.Time
+			MyTime *时间类.Time
 		}
 		b, err := json.Marshal(&MyTime{})
 		t.AssertNil(err)
@@ -52,7 +52,7 @@ func Test_Json_Pointer(t *testing.T) {
 	// 使用json标签omitempty对nil进行序列化
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
-			MyTime *gtime.Time `json:"time,omitempty"`
+			MyTime *时间类.Time `json:"time,omitempty"`
 		}
 		b, err := json.Marshal(&MyTime{})
 		t.AssertNil(err)
@@ -61,7 +61,7 @@ func Test_Json_Pointer(t *testing.T) {
 	// Unmarshal
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			myTime gtime.Time
+			myTime 时间类.Time
 			err    = json.UnmarshalUseNumber([]byte(`"2006-01-02 15:04:05"`), &myTime)
 		)
 		t.AssertNil(err)
@@ -73,10 +73,10 @@ func Test_Json_Struct(t *testing.T) {
 	// Marshal struct.
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
-			MyTime gtime.Time
+			MyTime 时间类.Time
 		}
 		b, err := json.Marshal(MyTime{
-			MyTime: *gtime.NewFromStr("2006-01-02 15:04:05"),
+			MyTime: *时间类.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
@@ -84,10 +84,10 @@ func Test_Json_Struct(t *testing.T) {
 	// Marshal pointer.
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
-			MyTime gtime.Time
+			MyTime 时间类.Time
 		}
 		b, err := json.Marshal(&MyTime{
-			MyTime: *gtime.NewFromStr("2006-01-02 15:04:05"),
+			MyTime: *时间类.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
@@ -95,7 +95,7 @@ func Test_Json_Struct(t *testing.T) {
 	// Marshal nil
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
-			MyTime gtime.Time
+			MyTime 时间类.Time
 		}
 		b, err := json.Marshal(MyTime{})
 		t.AssertNil(err)
@@ -104,7 +104,7 @@ func Test_Json_Struct(t *testing.T) {
 	// 对空值进行序列化时忽略（omitempty）
 	gtest.C(t, func(t *gtest.T) {
 		type MyTime struct {
-			MyTime gtime.Time `json:"time,omitempty"`
+			MyTime 时间类.Time `json:"time,omitempty"`
 		}
 		b, err := json.Marshal(MyTime{})
 		t.AssertNil(err)

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtime_test
+package 时间类_test
 
 import (
 	"fmt"
@@ -14,77 +14,77 @@ import (
 // New 函数根据给定的参数创建并返回一个 Time 对象。
 // 可选参数可以是以下类型：time.Time、*time.Time、字符串或整数。
 func ExampleSetTimeZone() {
-	gtime.SetTimeZone("Asia/Shanghai")
-	fmt.Println(gtime.Datetime())
+	时间类.X设置时区("Asia/Shanghai")
+	fmt.Println(时间类.X取当前日期时间())
 	// May Output:
 	// 2018-08-08 08:08:08
 }
 
 func ExampleTimestamp() {
-	fmt.Println(gtime.Timestamp())
+	fmt.Println(时间类.X取时间戳秒())
 
 	// May Output:
 	// 1636359252
 }
 
 func ExampleTimestampMilli() {
-	fmt.Println(gtime.TimestampMilli())
+	fmt.Println(时间类.X取时间戳毫秒())
 
 	// May Output:
 	// 1636359252000
 }
 
 func ExampleTimestampMicro() {
-	fmt.Println(gtime.TimestampMicro())
+	fmt.Println(时间类.X取时间戳微秒())
 
 	// May Output:
 	// 1636359252000000
 }
 
 func ExampleTimestampNano() {
-	fmt.Println(gtime.TimestampNano())
+	fmt.Println(时间类.X取时间戳纳秒())
 
 	// May Output:
 	// 1636359252000000000
 }
 
 func ExampleTimestampStr() {
-	fmt.Println(gtime.TimestampStr())
+	fmt.Println(时间类.X取文本时间戳秒())
 
 	// May Output:
 	// 1636359252
 }
 
 func ExampleDate() {
-	fmt.Println(gtime.Date())
+	fmt.Println(时间类.Date())
 
 	// May Output:
 	// 2006-01-02
 }
 
 func ExampleDatetime() {
-	fmt.Println(gtime.Datetime())
+	fmt.Println(时间类.X取当前日期时间())
 
 	// May Output:
 	// 2006-01-02 15:04:05
 }
 
 func ExampleISO8601() {
-	fmt.Println(gtime.ISO8601())
+	fmt.Println(时间类.X取当前日期时间ISO8601())
 
 	// May Output:
 	// 2006-01-02T15:04:05-07:00
 }
 
 func ExampleRFC822() {
-	fmt.Println(gtime.RFC822())
+	fmt.Println(时间类.X取当前日期时间RFC822())
 
 	// May Output:
 	// Mon, 02 Jan 06 15:04 MST
 }
 
 func ExampleStrToTime() {
-	res, _ := gtime.StrToTime("2006-01-02T15:04:05-07:00", "Y-m-d H:i:s")
+	res, _ := 时间类.X转换文本("2006-01-02T15:04:05-07:00", "Y-m-d H:i:s")
 	fmt.Println(res)
 
 	// May Output:
@@ -92,7 +92,7 @@ func ExampleStrToTime() {
 }
 
 func ExampleConvertZone() {
-	res, _ := gtime.ConvertZone("2006-01-02 15:04:05", "Asia/Tokyo", "Asia/Shanghai")
+	res, _ := 时间类.X转换时区("2006-01-02 15:04:05", "Asia/Tokyo", "Asia/Shanghai")
 	fmt.Println(res)
 
 	// Output:
@@ -100,7 +100,7 @@ func ExampleConvertZone() {
 }
 
 func ExampleStrToTimeFormat() {
-	res, _ := gtime.StrToTimeFormat("2006-01-02 15:04:05", "Y-m-d H:i:s")
+	res, _ := 时间类.StrToTimeFormat别名("2006-01-02 15:04:05", "Y-m-d H:i:s")
 	fmt.Println(res)
 
 	// Output:
@@ -108,7 +108,7 @@ func ExampleStrToTimeFormat() {
 }
 
 func ExampleStrToTimeLayout() {
-	res, _ := gtime.StrToTimeLayout("2018-08-08", "2006-01-02")
+	res, _ := 时间类.X转换文本Layout("2018-08-08", "2006-01-02")
 	fmt.Println(res)
 
 	// Output:
@@ -123,7 +123,7 @@ func ExampleStrToTimeLayout() {
 //
 // Very note that it supports unit "d" more than function time.ParseDuration.
 func ExampleParseDuration() {
-	res, _ := gtime.ParseDuration("+10h")
+	res, _ := 时间类.X文本取时长("+10h")
 	fmt.Println(res)
 
 	// Output:
@@ -131,14 +131,14 @@ func ExampleParseDuration() {
 }
 
 func ExampleTime_Format() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.Format("Y-m-d"))
-	fmt.Println(gt1.Format("l"))
-	fmt.Println(gt1.Format("F j, Y, g:i a"))
-	fmt.Println(gt1.Format("j, n, Y"))
-	fmt.Println(gt1.Format("h-i-s, j-m-y, it is w Day z"))
-	fmt.Println(gt1.Format("D M j G:i:s T Y"))
+	fmt.Println(gt1.X取格式文本("Y-m-d"))
+	fmt.Println(gt1.X取格式文本("l"))
+	fmt.Println(gt1.X取格式文本("F j, Y, g:i a"))
+	fmt.Println(gt1.X取格式文本("j, n, Y"))
+	fmt.Println(gt1.X取格式文本("h-i-s, j-m-y, it is w Day z"))
+	fmt.Println(gt1.X取格式文本("D M j G:i:s T Y"))
 
 	// Output:
 	// 2018-08-08
@@ -150,10 +150,10 @@ func ExampleTime_Format() {
 }
 
 func ExampleTime_FormatNew() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.FormatNew("Y-m-d"))
-	fmt.Println(gt1.FormatNew("Y-m-d H:i"))
+	fmt.Println(gt1.X按格式取副本("Y-m-d"))
+	fmt.Println(gt1.X按格式取副本("Y-m-d H:i"))
 
 	// Output:
 	// 2018-08-08 00:00:00
@@ -161,54 +161,54 @@ func ExampleTime_FormatNew() {
 }
 
 func ExampleTime_FormatTo() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.FormatTo("Y-m-d"))
+	fmt.Println(gt1.X格式设置("Y-m-d"))
 
 	// Output:
 	// 2018-08-08 00:00:00
 }
 
 func ExampleTime_Layout() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.Layout("2006-01-02"))
+	fmt.Println(gt1.X取Layout格式文本("2006-01-02"))
 
 	// Output:
 	// 2018-08-08
 }
 
 func ExampleTime_LayoutNew() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.LayoutNew("2006-01-02"))
+	fmt.Println(gt1.X取副本并按Layout格式("2006-01-02"))
 
 	// Output:
 	// 2018-08-08 00:00:00
 }
 
 func ExampleTime_LayoutTo() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.LayoutTo("2006-01-02"))
+	fmt.Println(gt1.X设置Layout格式("2006-01-02"))
 
 	// Output:
 	// 2018-08-08 00:00:00
 }
 
 func ExampleTime_IsLeapYear() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.IsLeapYear())
+	fmt.Println(gt1.X是否为闰年())
 
 	// Output:
 	// false
 }
 
 func ExampleTime_DayOfYear() {
-	gt1 := gtime.New("2018-01-08 08:08:08")
+	gt1 := 时间类.X创建("2018-01-08 08:08:08")
 
-	fmt.Println(gt1.DayOfYear())
+	fmt.Println(gt1.X取全年第几天())
 
 	// Output:
 	// 7
@@ -216,9 +216,9 @@ func ExampleTime_DayOfYear() {
 
 // DaysInMonth 返回当前月份的天数。
 func ExampleTime_DaysInMonth() {
-	gt1 := gtime.New("2018-08-08 08:08:08")
+	gt1 := 时间类.X创建("2018-08-08 08:08:08")
 
-	fmt.Println(gt1.DaysInMonth())
+	fmt.Println(gt1.X取当前月份总天数())
 
 	// Output:
 	// 31
@@ -226,18 +226,18 @@ func ExampleTime_DaysInMonth() {
 
 // WeeksOfYear 返回当前年份中的周点。
 func ExampleTime_WeeksOfYear() {
-	gt1 := gtime.New("2018-01-08 08:08:08")
+	gt1 := 时间类.X创建("2018-01-08 08:08:08")
 
-	fmt.Println(gt1.WeeksOfYear())
+	fmt.Println(gt1.X取全年第几星期())
 
 	// Output:
 	// 2
 }
 
 func ExampleTime_ToZone() {
-	gt1 := gtime.Now()
-	gt2, _ := gt1.ToZone("Asia/Shanghai")
-	gt3, _ := gt1.ToZone("Asia/Tokyo")
+	gt1 := 时间类.X创建并按当前时间()
+	gt2, _ := gt1.X转换时区("Asia/Shanghai")
+	gt3, _ := gt1.X转换时区("Asia/Tokyo")
 
 	fmt.Println(gt2)
 	fmt.Println(gt3)

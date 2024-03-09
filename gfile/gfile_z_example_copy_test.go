@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
@@ -15,33 +15,33 @@ func ExampleCopy() {
 	// init
 	var (
 		srcFileName = "gflie_example.txt"
-		srcTempDir  = gfile.Temp("gfile_example_copy_src")
-		srcTempFile = gfile.Join(srcTempDir, srcFileName)
+		srcTempDir  = 文件类.X取临时目录("gfile_example_copy_src")
+		srcTempFile = 文件类.X路径生成(srcTempDir, srcFileName)
 
 		// copy file
 		dstFileName = "gflie_example_copy.txt"
-		dstTempFile = gfile.Join(srcTempDir, dstFileName)
+		dstTempFile = 文件类.X路径生成(srcTempDir, dstFileName)
 
 		// copy dir
-		dstTempDir = gfile.Temp("gfile_example_copy_dst")
+		dstTempDir = 文件类.X取临时目录("gfile_example_copy_dst")
 	)
 
 	// write contents
-	gfile.PutContents(srcTempFile, "goframe example copy")
+	文件类.X写入文本(srcTempFile, "goframe example copy")
 
 	// copy file
-	gfile.Copy(srcTempFile, dstTempFile)
+	文件类.X复制(srcTempFile, dstTempFile)
 
 	// 在复制文件后读取内容
-	fmt.Println(gfile.GetContents(dstTempFile))
+	fmt.Println(文件类.X读文本(dstTempFile))
 
 	// copy dir
-	gfile.Copy(srcTempDir, dstTempDir)
+	文件类.X复制(srcTempDir, dstTempDir)
 
 	// 列表复制目录文件
-	fList, _ := gfile.ScanDir(dstTempDir, "*", false)
+	fList, _ := 文件类.X枚举并含子目录名(dstTempDir, "*", false)
 	for _, v := range fList {
-		fmt.Println(gfile.Basename(v))
+		fmt.Println(文件类.X路径取文件名(v))
 	}
 
 	// Output:

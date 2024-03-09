@@ -4,7 +4,7 @@
 // 您可以在https://github.com/gogf/gf获取一份。
 //
 
-package gmap
+package map类
 
 import (
 	"github.com/gogf/gf/v2/container/gvar"
@@ -25,9 +25,9 @@ type IntAnyMap struct {
 
 // NewIntAnyMap 返回一个空的 IntAnyMap 对象。
 // 参数 `safe` 用于指定是否使用线程安全的 map，其默认值为 false。
-func NewIntAnyMap(safe ...bool) *IntAnyMap {
+func X创建IntAny(并发安全 ...bool) *IntAnyMap {
 	return &IntAnyMap{
-		mu:   rwmutex.Create(safe...),
+		mu:   rwmutex.Create(并发安全...),
 		data: make(map[int]interface{}),
 	}
 }
@@ -35,34 +35,34 @@ func NewIntAnyMap(safe ...bool) *IntAnyMap {
 // NewIntAnyMapFrom 通过给定的 `data` 创建并返回一个哈希映射。
 // 注意，参数 `data` 中的映射将被设置为底层数据映射（非深度复制），
 // 因此在外部修改该映射时可能会存在一些并发安全问题。
-func NewIntAnyMapFrom(data map[int]interface{}, safe ...bool) *IntAnyMap {
+func X创建IntAny并从Map(map值 map[int]interface{}, 并发安全 ...bool) *IntAnyMap {
 	return &IntAnyMap{
-		mu:   rwmutex.Create(safe...),
-		data: data,
+		mu:   rwmutex.Create(并发安全...),
+		data: map值,
 	}
 }
 
 // Iterator 使用自定义回调函数 `f` 以只读方式迭代哈希表。
 // 如果 `f` 返回 true，则继续迭代；如果返回 false，则停止迭代。
-func (m *IntAnyMap) Iterator(f func(k int, v interface{}) bool) {
+func (m *IntAnyMap) X遍历(回调函数 func(k int, v interface{}) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	for k, v := range m.data {
-		if !f(k, v) {
+		if !回调函数(k, v) {
 			break
 		}
 	}
 }
 
 // Clone 返回一个新的哈希映射，其中包含当前映射数据的副本。
-func (m *IntAnyMap) Clone() *IntAnyMap {
-	return NewIntAnyMapFrom(m.MapCopy(), m.mu.IsSafe())
+func (m *IntAnyMap) X取副本() *IntAnyMap {
+	return X创建IntAny并从Map(m.X浅拷贝(), m.mu.IsSafe())
 }
 
 // Map 返回底层数据映射。
 // 注意，如果它在并发安全的使用场景下，将会返回底层数据的一个副本，
 // 否则将返回指向底层数据的指针。
-func (m *IntAnyMap) Map() map[int]interface{} {
+func (m *IntAnyMap) X取Map() map[int]interface{} {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	if !m.mu.IsSafe() {
@@ -76,7 +76,7 @@ func (m *IntAnyMap) Map() map[int]interface{} {
 }
 
 // MapStrAny 返回该映射底层数据的一个副本，类型为 map[string]interface{}。
-func (m *IntAnyMap) MapStrAny() map[string]interface{} {
+func (m *IntAnyMap) X取MapStrAny() map[string]interface{} {
 	m.mu.RLock()
 	data := make(map[string]interface{}, len(m.data))
 	for k, v := range m.data {
@@ -87,7 +87,7 @@ func (m *IntAnyMap) MapStrAny() map[string]interface{} {
 }
 
 // MapCopy 返回哈希映射底层数据的一个副本。
-func (m *IntAnyMap) MapCopy() map[int]interface{} {
+func (m *IntAnyMap) X浅拷贝() map[int]interface{} {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	data := make(map[int]interface{}, len(m.data))
@@ -99,7 +99,7 @@ func (m *IntAnyMap) MapCopy() map[int]interface{} {
 
 // FilterEmpty 删除所有值为空的键值对。
 // 以下类型的值被视为空：0, nil, false, "", 切片/映射/通道长度为0。
-func (m *IntAnyMap) FilterEmpty() {
+func (m *IntAnyMap) X删除所有空值() {
 	m.mu.Lock()
 	for k, v := range m.data {
 		if empty.IsEmpty(v) {
@@ -110,7 +110,7 @@ func (m *IntAnyMap) FilterEmpty() {
 }
 
 // FilterNil 删除所有值为nil的键值对。
-func (m *IntAnyMap) FilterNil() {
+func (m *IntAnyMap) X删除所有nil值() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	for k, v := range m.data {
@@ -121,22 +121,22 @@ func (m *IntAnyMap) FilterNil() {
 }
 
 // Set 将键值对设置到哈希映射中。
-func (m *IntAnyMap) Set(key int, val interface{}) {
+func (m *IntAnyMap) X设置值(名称 int, 值 interface{}) {
 	m.mu.Lock()
 	if m.data == nil {
 		m.data = make(map[int]interface{})
 	}
-	m.data[key] = val
+	m.data[名称] = 值
 	m.mu.Unlock()
 }
 
 // Sets批量设置键值对到哈希映射中。
-func (m *IntAnyMap) Sets(data map[int]interface{}) {
+func (m *IntAnyMap) X设置值Map(map值 map[int]interface{}) {
 	m.mu.Lock()
 	if m.data == nil {
-		m.data = data
+		m.data = map值
 	} else {
-		for k, v := range data {
+		for k, v := range map值 {
 			m.data[k] = v
 		}
 	}
@@ -145,31 +145,31 @@ func (m *IntAnyMap) Sets(data map[int]interface{}) {
 
 // Search 通过给定的 `key` 在映射中搜索。
 // 第二个返回参数 `found` 如果找到了 key，则为 true，否则为 false。
-func (m *IntAnyMap) Search(key int) (value interface{}, found bool) {
+func (m *IntAnyMap) X查找(名称 int) (值 interface{}, 成功 bool) {
 	m.mu.RLock()
 	if m.data != nil {
-		value, found = m.data[key]
+		值, 成功 = m.data[名称]
 	}
 	m.mu.RUnlock()
 	return
 }
 
 // Get 通过给定的 `key` 返回对应的值。
-func (m *IntAnyMap) Get(key int) (value interface{}) {
+func (m *IntAnyMap) X取值(名称 int) (值 interface{}) {
 	m.mu.RLock()
 	if m.data != nil {
-		value = m.data[key]
+		值 = m.data[名称]
 	}
 	m.mu.RUnlock()
 	return
 }
 
 // Pop 从映射中检索并删除一个项目。
-func (m *IntAnyMap) Pop() (key int, value interface{}) {
+func (m *IntAnyMap) X出栈() (名称 int, 值 interface{}) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	for key, value = range m.data {
-		delete(m.data, key)
+	for 名称, 值 = range m.data {
+		delete(m.data, 名称)
 		return
 	}
 	return
@@ -177,24 +177,24 @@ func (m *IntAnyMap) Pop() (key int, value interface{}) {
 
 // Pops 从映射中获取并删除 `size` 个元素。
 // 当 size == -1 时，它返回所有元素。
-func (m *IntAnyMap) Pops(size int) map[int]interface{} {
+func (m *IntAnyMap) X出栈多个(数量 int) map[int]interface{} {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	if size > len(m.data) || size == -1 {
-		size = len(m.data)
+	if 数量 > len(m.data) || 数量 == -1 {
+		数量 = len(m.data)
 	}
-	if size == 0 {
+	if 数量 == 0 {
 		return nil
 	}
 	var (
 		index  = 0
-		newMap = make(map[int]interface{}, size)
+		newMap = make(map[int]interface{}, 数量)
 	)
 	for k, v := range m.data {
 		delete(m.data, k)
 		newMap[k] = v
 		index++
-		if index == size {
+		if index == 数量 {
 			break
 		}
 	}
@@ -230,18 +230,18 @@ func (m *IntAnyMap) doSetWithLockCheck(key int, value interface{}) interface{} {
 
 // GetOrSet 函数通过 key 返回对应的 value，
 // 若该 key 不存在，则使用给定的 `value` 设置并返回这个设置后的值。
-func (m *IntAnyMap) GetOrSet(key int, value interface{}) interface{} {
-	if v, ok := m.Search(key); !ok {
-		return m.doSetWithLockCheck(key, value)
+func (m *IntAnyMap) X取值或设置值(名称 int, 值 interface{}) interface{} {
+	if v, ok := m.X查找(名称); !ok {
+		return m.doSetWithLockCheck(名称, 值)
 	} else {
 		return v
 	}
 }
 
 // GetOrSetFunc 通过键返回值，如果该键不存在，则使用回调函数 `f` 返回的值设置并返回这个值。
-func (m *IntAnyMap) GetOrSetFunc(key int, f func() interface{}) interface{} {
-	if v, ok := m.Search(key); !ok {
-		return m.doSetWithLockCheck(key, f())
+func (m *IntAnyMap) X取值或设置值_函数(名称 int, 回调函数 func() interface{}) interface{} {
+	if v, ok := m.X查找(名称); !ok {
+		return m.doSetWithLockCheck(名称, 回调函数())
 	} else {
 		return v
 	}
@@ -250,9 +250,9 @@ func (m *IntAnyMap) GetOrSetFunc(key int, f func() interface{}) interface{} {
 // GetOrSetFuncLock 通过键返回值，如果不存在，则使用回调函数 `f` 返回的值进行设置并返回这个新值。
 //
 // GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在哈希映射的 mutex.Lock 保护下执行函数 `f`。
-func (m *IntAnyMap) GetOrSetFuncLock(key int, f func() interface{}) interface{} {
-	if v, ok := m.Search(key); !ok {
-		return m.doSetWithLockCheck(key, f)
+func (m *IntAnyMap) X取值或设置值_函数带锁(名称 int, 回调函数 func() interface{}) interface{} {
+	if v, ok := m.X查找(名称); !ok {
+		return m.doSetWithLockCheck(名称, 回调函数)
 	} else {
 		return v
 	}
@@ -260,33 +260,33 @@ func (m *IntAnyMap) GetOrSetFuncLock(key int, f func() interface{}) interface{} 
 
 // GetVar 通过给定的 `key` 返回一个具有相应值的 Var。
 // 返回的 Var 不是线程安全的。
-func (m *IntAnyMap) GetVar(key int) *gvar.Var {
-	return gvar.New(m.Get(key))
+func (m *IntAnyMap) X取值泛型类(名称 int) *gvar.Var {
+	return gvar.New(m.X取值(名称))
 }
 
 // GetVarOrSet 返回一个从 GetVarOrSet 获取结果的 Var。
 // 返回的 Var 对象不保证线程安全。
-func (m *IntAnyMap) GetVarOrSet(key int, value interface{}) *gvar.Var {
-	return gvar.New(m.GetOrSet(key, value))
+func (m *IntAnyMap) X取值或设置值泛型类(名称 int, 值 interface{}) *gvar.Var {
+	return gvar.New(m.X取值或设置值(名称, 值))
 }
 
 // GetVarOrSetFunc 返回一个 Var，其结果来自 GetOrSetFunc 的调用。
 // 返回的 Var 不具备并发安全特性。
-func (m *IntAnyMap) GetVarOrSetFunc(key int, f func() interface{}) *gvar.Var {
-	return gvar.New(m.GetOrSetFunc(key, f))
+func (m *IntAnyMap) X取值或设置值泛型类_函数(名称 int, 回调函数 func() interface{}) *gvar.Var {
+	return gvar.New(m.X取值或设置值_函数(名称, 回调函数))
 }
 
 // GetVarOrSetFuncLock 返回一个 Var，其结果来自 GetOrSetFuncLock。
 // 返回的 Var 不是并发安全的。
-func (m *IntAnyMap) GetVarOrSetFuncLock(key int, f func() interface{}) *gvar.Var {
-	return gvar.New(m.GetOrSetFuncLock(key, f))
+func (m *IntAnyMap) X取值或设置值泛型类_函数带锁(名称 int, 回调函数 func() interface{}) *gvar.Var {
+	return gvar.New(m.X取值或设置值_函数带锁(名称, 回调函数))
 }
 
 // SetIfNotExist 如果`key`不存在，则将`value`设置到map中，并返回true。
 // 若`key`已存在，则返回false，同时`value`将被忽略。
-func (m *IntAnyMap) SetIfNotExist(key int, value interface{}) bool {
-	if !m.Contains(key) {
-		m.doSetWithLockCheck(key, value)
+func (m *IntAnyMap) X设置值并跳过已存在(名称 int, 值 interface{}) bool {
+	if !m.X是否存在(名称) {
+		m.doSetWithLockCheck(名称, 值)
 		return true
 	}
 	return false
@@ -294,9 +294,9 @@ func (m *IntAnyMap) SetIfNotExist(key int, value interface{}) bool {
 
 // SetIfNotExistFunc 使用回调函数`f`的返回值设置键值，并返回true。
 // 若`key`已存在，则返回false，同时`value`将被忽略。
-func (m *IntAnyMap) SetIfNotExistFunc(key int, f func() interface{}) bool {
-	if !m.Contains(key) {
-		m.doSetWithLockCheck(key, f())
+func (m *IntAnyMap) X设置值并跳过已存在_函数(名称 int, 回调函数 func() interface{}) bool {
+	if !m.X是否存在(名称) {
+		m.doSetWithLockCheck(名称, 回调函数())
 		return true
 	}
 	return false
@@ -307,19 +307,19 @@ func (m *IntAnyMap) SetIfNotExistFunc(key int, f func() interface{}) bool {
 //
 // SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
 // 它在执行回调函数 `f` 时会锁定哈希表的 mutex 锁。
-func (m *IntAnyMap) SetIfNotExistFuncLock(key int, f func() interface{}) bool {
-	if !m.Contains(key) {
-		m.doSetWithLockCheck(key, f)
+func (m *IntAnyMap) X设置值并跳过已存在_函数带锁(名称 int, 回调函数 func() interface{}) bool {
+	if !m.X是否存在(名称) {
+		m.doSetWithLockCheck(名称, 回调函数)
 		return true
 	}
 	return false
 }
 
 // 删除map中通过keys指定的所有值，进行批量删除。
-func (m *IntAnyMap) Removes(keys []int) {
+func (m *IntAnyMap) X删除多个值(名称 []int) {
 	m.mu.Lock()
 	if m.data != nil {
-		for _, key := range keys {
+		for _, key := range 名称 {
 			delete(m.data, key)
 		}
 	}
@@ -327,12 +327,12 @@ func (m *IntAnyMap) Removes(keys []int) {
 }
 
 // Remove通过给定的`key`从map中删除值，并返回这个被删除的值。
-func (m *IntAnyMap) Remove(key int) (value interface{}) {
+func (m *IntAnyMap) X删除(名称 int) (值 interface{}) {
 	m.mu.Lock()
 	if m.data != nil {
 		var ok bool
-		if value, ok = m.data[key]; ok {
-			delete(m.data, key)
+		if 值, ok = m.data[名称]; ok {
+			delete(m.data, 名称)
 		}
 	}
 	m.mu.Unlock()
@@ -340,7 +340,7 @@ func (m *IntAnyMap) Remove(key int) (value interface{}) {
 }
 
 // Keys 返回该映射的所有键作为一个切片。
-func (m *IntAnyMap) Keys() []int {
+func (m *IntAnyMap) X取所有名称() []int {
 	m.mu.RLock()
 	var (
 		keys  = make([]int, len(m.data))
@@ -355,7 +355,7 @@ func (m *IntAnyMap) Keys() []int {
 }
 
 // Values 返回该映射的所有值作为一个切片。
-func (m *IntAnyMap) Values() []interface{} {
+func (m *IntAnyMap) X取所有值() []interface{} {
 	m.mu.RLock()
 	var (
 		values = make([]interface{}, len(m.data))
@@ -371,18 +371,18 @@ func (m *IntAnyMap) Values() []interface{} {
 
 // Contains 检查键是否存在。
 // 如果 `key` 存在，则返回 true，否则返回 false。
-func (m *IntAnyMap) Contains(key int) bool {
+func (m *IntAnyMap) X是否存在(名称 int) bool {
 	var ok bool
 	m.mu.RLock()
 	if m.data != nil {
-		_, ok = m.data[key]
+		_, ok = m.data[名称]
 	}
 	m.mu.RUnlock()
 	return ok
 }
 
 // Size 返回映射的大小。
-func (m *IntAnyMap) Size() int {
+func (m *IntAnyMap) X取数量() int {
 	m.mu.RLock()
 	length := len(m.data)
 	m.mu.RUnlock()
@@ -391,40 +391,40 @@ func (m *IntAnyMap) Size() int {
 
 // IsEmpty 检查该映射是否为空。
 // 如果映射为空，则返回 true，否则返回 false。
-func (m *IntAnyMap) IsEmpty() bool {
-	return m.Size() == 0
+func (m *IntAnyMap) X是否为空() bool {
+	return m.X取数量() == 0
 }
 
 // 清空删除映射中的所有数据，它会重新创建一个新的底层数据映射。
-func (m *IntAnyMap) Clear() {
+func (m *IntAnyMap) X清空() {
 	m.mu.Lock()
 	m.data = make(map[int]interface{})
 	m.mu.Unlock()
 }
 
 // 用给定的`data`替换map中的数据。
-func (m *IntAnyMap) Replace(data map[int]interface{}) {
+func (m *IntAnyMap) X替换(map值 map[int]interface{}) {
 	m.mu.Lock()
-	m.data = data
+	m.data = map值
 	m.mu.Unlock()
 }
 
 // LockFunc 使用给定的回调函数 `f` 在 RWMutex.Lock 内锁定写入操作。
-func (m *IntAnyMap) LockFunc(f func(m map[int]interface{})) {
+func (m *IntAnyMap) X遍历写锁定(回调函数 func(m map[int]interface{})) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	f(m.data)
+	回调函数(m.data)
 }
 
 // RLockFunc 在 RWMutex.RLock 内使用给定的回调函数 `f` 进行读取锁定。
-func (m *IntAnyMap) RLockFunc(f func(m map[int]interface{})) {
+func (m *IntAnyMap) X遍历读锁定(回调函数 func(m map[int]interface{})) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	f(m.data)
+	回调函数(m.data)
 }
 
 // Flip 将映射中的键值对进行交换，即把键变成值，值变成键。
-func (m *IntAnyMap) Flip() {
+func (m *IntAnyMap) X名称值交换() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	n := make(map[int]interface{}, len(m.data))
@@ -436,18 +436,18 @@ func (m *IntAnyMap) Flip() {
 
 // Merge 合并两个哈希映射。
 // `other` 映射将会被合并到映射 `m` 中。
-func (m *IntAnyMap) Merge(other *IntAnyMap) {
+func (m *IntAnyMap) X合并(map值 *IntAnyMap) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	if m.data == nil {
-		m.data = other.MapCopy()
+		m.data = map值.X浅拷贝()
 		return
 	}
-	if other != m {
-		other.mu.RLock()
-		defer other.mu.RUnlock()
+	if map值 != m {
+		map值.mu.RLock()
+		defer map值.mu.RUnlock()
 	}
-	for k, v := range other.data {
+	for k, v := range map值.data {
 		m.data[k] = v
 	}
 }
@@ -510,20 +510,20 @@ func (m *IntAnyMap) DeepCopy() interface{} {
 	for k, v := range m.data {
 		data[k] = deepcopy.Copy(v)
 	}
-	return NewIntAnyMapFrom(data, m.mu.IsSafe())
+	return X创建IntAny并从Map(data, m.mu.IsSafe())
 }
 
 // IsSubOf 检查当前 map 是否为 `other` 的子集。
-func (m *IntAnyMap) IsSubOf(other *IntAnyMap) bool {
-	if m == other {
+func (m *IntAnyMap) X是否为子集(父集Map *IntAnyMap) bool {
+	if m == 父集Map {
 		return true
 	}
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	other.mu.RLock()
-	defer other.mu.RUnlock()
+	父集Map.mu.RLock()
+	defer 父集Map.mu.RUnlock()
 	for key, value := range m.data {
-		otherValue, ok := other.data[key]
+		otherValue, ok := 父集Map.data[key]
 		if !ok {
 			return false
 		}
@@ -538,22 +538,22 @@ func (m *IntAnyMap) IsSubOf(other *IntAnyMap) bool {
 // 返回的 `addedKeys` 是存在于映射 `m` 中但不在映射 `other` 中的键。
 // 返回的 `removedKeys` 是存在于映射 `other` 中但不在映射 `m` 中的键。
 // 返回的 `updatedKeys` 是同时存在于映射 `m` 和 `other` 中，但其对应值不相等（`!=`）的键。
-func (m *IntAnyMap) Diff(other *IntAnyMap) (addedKeys, removedKeys, updatedKeys []int) {
+func (m *IntAnyMap) X比较(map值 *IntAnyMap) (增加的名称, 删除的名称, 更新数据的名称 []int) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	other.mu.RLock()
-	defer other.mu.RUnlock()
+	map值.mu.RLock()
+	defer map值.mu.RUnlock()
 
 	for key := range m.data {
-		if _, ok := other.data[key]; !ok {
-			removedKeys = append(removedKeys, key)
-		} else if !reflect.DeepEqual(m.data[key], other.data[key]) {
-			updatedKeys = append(updatedKeys, key)
+		if _, ok := map值.data[key]; !ok {
+			删除的名称 = append(删除的名称, key)
+		} else if !reflect.DeepEqual(m.data[key], map值.data[key]) {
+			更新数据的名称 = append(更新数据的名称, key)
 		}
 	}
-	for key := range other.data {
+	for key := range map值.data {
 		if _, ok := m.data[key]; !ok {
-			addedKeys = append(addedKeys, key)
+			增加的名称 = append(增加的名称, key)
 		}
 	}
 	return

@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gcrc32 提供了用于 CRC32 加密算法的有用 API。
-package gcrc32
+package 加密crc32类
 
 import (
 	"hash/crc32"
@@ -14,6 +14,6 @@ import (
 
 // Encrypt 使用CRC32算法对任意类型的变量进行加密。
 // 它使用gconv包将`v`转换为字节类型。
-func Encrypt(v interface{}) uint32 {
-	return crc32.ChecksumIEEE(gconv.Bytes(v))
+func X加密(待加密值 interface{}) uint32 {
+	return crc32.ChecksumIEEE(gconv.Bytes(待加密值))
 }

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"testing"
@@ -145,8 +145,8 @@ func TestVar_IsMap(t *testing.T) {
 		t.Assert(g.NewVar(uint8(1)).IsMap(), false)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gvar.New(gvar.New("asd")).IsMap(), false)
-		t.Assert(gvar.New(&g.Map{"k": "v"}).IsMap(), true)
+		t.Assert(泛型类.X创建(泛型类.X创建("asd")).X是否为Map(), false)
+		t.Assert(泛型类.X创建(&g.Map{"k": "v"}).X是否为Map(), true)
 	})
 }
 

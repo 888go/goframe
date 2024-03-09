@@ -6,7 +6,7 @@
 // Package gtime 提供了用于测量和展示时间的功能。
 //
 // 本包应尽量减少与其他包的依赖关系。
-package gtime
+package 时间类
 
 import (
 	"context"
@@ -109,43 +109,43 @@ var (
 )
 
 // Timestamp 获取并返回以秒为单位的时间戳。
-func Timestamp() int64 {
-	return Now().Timestamp()
+func X取时间戳秒() int64 {
+	return X创建并按当前时间().X取时间戳秒()
 }
 
 // TimestampMilli 获取并返回毫秒级的时间戳。
-func TimestampMilli() int64 {
-	return Now().TimestampMilli()
+func X取时间戳毫秒() int64 {
+	return X创建并按当前时间().X取时间戳毫秒()
 }
 
 // TimestampMicro 获取并返回微秒级的时间戳。
-func TimestampMicro() int64 {
-	return Now().TimestampMicro()
+func X取时间戳微秒() int64 {
+	return X创建并按当前时间().X取时间戳微秒()
 }
 
 // TimestampNano 获取并返回纳秒级别的时间戳。
-func TimestampNano() int64 {
-	return Now().TimestampNano()
+func X取时间戳纳秒() int64 {
+	return X创建并按当前时间().X取时间戳纳秒()
 }
 
 // TimestampStr 是一个便捷方法，用于获取并返回以字符串形式表示的秒级时间戳。
-func TimestampStr() string {
-	return Now().TimestampStr()
+func X取文本时间戳秒() string {
+	return X创建并按当前时间().X取文本时间戳秒()
 }
 
 // TimestampMilliStr 是一个便捷方法，用于获取并返回以字符串形式表示的毫秒级时间戳。
-func TimestampMilliStr() string {
-	return Now().TimestampMilliStr()
+func X取文本时间戳毫秒() string {
+	return X创建并按当前时间().X取文本时间戳毫秒()
 }
 
 // TimestampMicroStr 是一个便捷方法，用于获取并返回微秒级的时间戳字符串。
-func TimestampMicroStr() string {
-	return Now().TimestampMicroStr()
+func X取文本时间戳微秒() string {
+	return X创建并按当前时间().X取文本时间戳微秒()
 }
 
 // TimestampNanoStr 是一个便捷方法，用于获取并返回纳秒级时间戳的字符串表示。
-func TimestampNanoStr() string {
-	return Now().TimestampNanoStr()
+func X取文本时间戳纳秒() string {
+	return X创建并按当前时间().X取文本时间戳纳秒()
 }
 
 // Date 返回当前日期的字符串，格式如 "2006-01-02"。
@@ -154,17 +154,17 @@ func Date() string {
 }
 
 // Datetime 返回当前日期时间的字符串，格式如 "2006-01-02 15:04:05"。
-func Datetime() string {
+func X取当前日期时间() string {
 	return time.Now().Format("2006-01-02 15:04:05")
 }
 
 // ISO8601 返回当前日期时间，格式为符合ISO 8601标准的字符串，如 "2006-01-02T15:04:05-07:00"。
-func ISO8601() string {
+func X取当前日期时间ISO8601() string {
 	return time.Now().Format("2006-01-02T15:04:05-07:00")
 }
 
 // RFC822 返回当前日期时间的 RFC822 格式，例如 "Mon, 02 Jan 06 15:04 MST"。
-func RFC822() string {
+func X取当前日期时间RFC822() string {
 	return time.Now().Format("Mon, 02 Jan 06 15:04 MST")
 }
 
@@ -203,16 +203,16 @@ func parseDateStr(s string) (year, month, day int) {
 // 如果提供了 `format`，它的行为与函数 StrToTimeFormat 相同。
 // 如果未提供 `format`，它将字符串按“标准”日期时间格式进行转换。
 // 注意，如果 `str` 中不包含日期字符串，则转换失败并返回错误。
-func StrToTime(str string, format ...string) (*Time, error) {
-	if str == "" {
+func X转换文本(文本时间 string, 格式 ...string) (*Time, error) {
+	if 文本时间 == "" {
 		return &Time{wrapper{time.Time{}}}, nil
 	}
-	if len(format) > 0 {
-		return StrToTimeFormat(str, format[0])
+	if len(格式) > 0 {
+		return StrToTimeFormat别名(文本时间, 格式[0])
 	}
-	if isTimestampStr(str) {
-		timestamp, _ := strconv.ParseInt(str, 10, 64)
-		return NewFromTimeStamp(timestamp), nil
+	if isTimestampStr(文本时间) {
+		timestamp, _ := strconv.ParseInt(文本时间, 10, 64)
+		return X创建并从时间戳(timestamp), nil
 	}
 	var (
 		year, month, day     int
@@ -220,11 +220,11 @@ func StrToTime(str string, format ...string) (*Time, error) {
 		match                []string
 		local                = time.Local
 	)
-	if match = timeRegex1.FindStringSubmatch(str); len(match) > 0 && match[1] != "" {
+	if match = timeRegex1.FindStringSubmatch(文本时间); len(match) > 0 && match[1] != "" {
 		year, month, day = parseDateStr(match[1])
-	} else if match = timeRegex2.FindStringSubmatch(str); len(match) > 0 && match[1] != "" {
+	} else if match = timeRegex2.FindStringSubmatch(文本时间); len(match) > 0 && match[1] != "" {
 		year, month, day = parseDateStr(match[1])
-	} else if match = timeRegex3.FindStringSubmatch(str); len(match) > 0 && match[1] != "" {
+	} else if match = timeRegex3.FindStringSubmatch(文本时间); len(match) > 0 && match[1] != "" {
 		s := strings.ReplaceAll(match[2], ":", "")
 		if len(s) < 6 {
 			s += strings.Repeat("0", 6-len(s))
@@ -236,9 +236,9 @@ func StrToTime(str string, format ...string) (*Time, error) {
 		for i := 0; i < 9-len(match[4]); i++ {
 			nsec *= 10
 		}
-		return NewFromTime(time.Date(0, time.Month(1), 1, hour, min, sec, nsec, local)), nil
+		return X创建并按Time(time.Date(0, time.Month(1), 1, hour, min, sec, nsec, local)), nil
 	} else {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported time converting for string "%s"`, str)
+		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported time converting for string "%s"`, 文本时间)
 	}
 
 	// Time
@@ -314,51 +314,51 @@ func StrToTime(str string, format ...string) (*Time, error) {
 		}
 	}
 	if month <= 0 || day <= 0 {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid time string "%s"`, str)
+		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid time string "%s"`, 文本时间)
 	}
-	return NewFromTime(time.Date(year, time.Month(month), day, hour, min, sec, nsec, local)), nil
+	return X创建并按Time(time.Date(year, time.Month(month), day, hour, min, sec, nsec, local)), nil
 }
 
 // ConvertZone 将字符串 `strTime` 中的时间从 `fromZone` 转换为 `toZone`。
 // 参数 `fromZone` 在默认情况下是不必要的，它表示当前时区。
-func ConvertZone(strTime string, toZone string, fromZone ...string) (*Time, error) {
-	t, err := StrToTime(strTime)
+func X转换时区(文本时间 string, 新时区 string, 旧时区 ...string) (*Time, error) {
+	t, err := X转换文本(文本时间)
 	if err != nil {
 		return nil, err
 	}
 	var l *time.Location
-	if len(fromZone) > 0 {
-		if l, err = time.LoadLocation(fromZone[0]); err != nil {
-			err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.LoadLocation failed for name "%s"`, fromZone[0])
+	if len(旧时区) > 0 {
+		if l, err = time.LoadLocation(旧时区[0]); err != nil {
+			err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.LoadLocation failed for name "%s"`, 旧时区[0])
 			return nil, err
 		} else {
-			t.Time = time.Date(t.Year(), time.Month(t.Month()), t.Day(), t.Hour(), t.Minute(), t.Time.Second(), t.Time.Nanosecond(), l)
+			t.Time = time.Date(t.Year(), time.Month(t.X取月份()), t.Day(), t.Hour(), t.Minute(), t.Time.Second(), t.Time.Nanosecond(), l)
 		}
 	}
-	if l, err = time.LoadLocation(toZone); err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.LoadLocation failed for name "%s"`, toZone)
+	if l, err = time.LoadLocation(新时区); err != nil {
+		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.LoadLocation failed for name "%s"`, 新时区)
 		return nil, err
 	} else {
-		return t.ToLocation(l), nil
+		return t.X转换时区Location(l), nil
 	}
 }
 
 // StrToTimeFormat将字符串`str`按照给定的格式`format`解析为*time.Time对象。
 // 参数`format`如"Y-m-d H:i:s"。
-func StrToTimeFormat(str string, format string) (*Time, error) {
-	return StrToTimeLayout(str, formatToStdLayout(format))
+func StrToTimeFormat别名(str string, format string) (*Time, error) {
+	return X转换文本Layout(str, formatToStdLayout(format))
 }
 
 // StrToTimeLayout将字符串`str`按照给定的格式`layout`解析为*time.Time对象。
 // 参数`layout`遵循标准库格式，如"2006-01-02 15:04:05"。
-func StrToTimeLayout(str string, layout string) (*Time, error) {
-	if t, err := time.ParseInLocation(layout, str, time.Local); err == nil {
-		return NewFromTime(t), nil
+func X转换文本Layout(文本时间 string, 格式 string) (*Time, error) {
+	if t, err := time.ParseInLocation(格式, 文本时间, time.Local); err == nil {
+		return X创建并按Time(t), nil
 	} else {
 		return nil, gerror.WrapCodef(
 			gcode.CodeInvalidParameter, err,
 			`time.ParseInLocation failed for layout "%s" and value "%s"`,
-			layout, str,
+			格式, 文本时间,
 		)
 	}
 }
@@ -366,28 +366,28 @@ func StrToTimeLayout(str string, layout string) (*Time, error) {
 // ParseTimeFromContent 从内容字符串中检索时间信息，然后将其解析并作为 *Time 对象返回。
 // 如果内容中存在多个时间字符串，则返回第一个时间信息。
 // 如果传递了匹配的 `format` 参数，那么它将只检索并解析与第一个匹配格式对应的时间信息。
-func ParseTimeFromContent(content string, format ...string) *Time {
+func X解析文本(文本 string, 格式 ...string) *Time {
 	var (
 		err   error
 		match []string
 	)
-	if len(format) > 0 {
-		for _, item := range format {
-			match, err = gregex.MatchString(formatToRegexPattern(item), content)
+	if len(格式) > 0 {
+		for _, item := range 格式 {
+			match, err = gregex.MatchString(formatToRegexPattern(item), 文本)
 			if err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
 			if len(match) > 0 {
-				return NewFromStrFormat(match[0], item)
+				return X创建并按给定格式文本(match[0], item)
 			}
 		}
 	} else {
-		if match = timeRegex1.FindStringSubmatch(content); len(match) >= 1 {
-			return NewFromStr(strings.Trim(match[0], "./_- \n\r"))
-		} else if match = timeRegex2.FindStringSubmatch(content); len(match) >= 1 {
-			return NewFromStr(strings.Trim(match[0], "./_- \n\r"))
-		} else if match = timeRegex3.FindStringSubmatch(content); len(match) >= 1 {
-			return NewFromStr(strings.Trim(match[0], "./_- \n\r"))
+		if match = timeRegex1.FindStringSubmatch(文本); len(match) >= 1 {
+			return X创建并从文本(strings.Trim(match[0], "./_- \n\r"))
+		} else if match = timeRegex2.FindStringSubmatch(文本); len(match) >= 1 {
+			return X创建并从文本(strings.Trim(match[0], "./_- \n\r"))
+		} else if match = timeRegex3.FindStringSubmatch(文本); len(match) >= 1 {
+			return X创建并从文本(strings.Trim(match[0], "./_- \n\r"))
 		}
 	}
 	return nil
@@ -400,44 +400,44 @@ func ParseTimeFromContent(content string, format ...string) *Time {
 // Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h", "d".
 //
 // Very note that it supports unit "d" more than function time.ParseDuration.
-func ParseDuration(s string) (duration time.Duration, err error) {
+func X文本取时长(文本 string) (纳秒 time.Duration, 错误 error) {
 	var (
 		num int64
 	)
-	if utils.IsNumeric(s) {
-		num, err = strconv.ParseInt(s, 10, 64)
-		if err != nil {
-			err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `strconv.ParseInt failed for string "%s"`, s)
-			return 0, err
+	if utils.IsNumeric(文本) {
+		num, 错误 = strconv.ParseInt(文本, 10, 64)
+		if 错误 != nil {
+			错误 = gerror.WrapCodef(gcode.CodeInvalidParameter, 错误, `strconv.ParseInt failed for string "%s"`, 文本)
+			return 0, 错误
 		}
 		return time.Duration(num), nil
 	}
-	match, err := gregex.MatchString(`^([\-\d]+)[dD](.*)$`, s)
-	if err != nil {
-		return 0, err
+	match, 错误 := gregex.MatchString(`^([\-\d]+)[dD](.*)$`, 文本)
+	if 错误 != nil {
+		return 0, 错误
 	}
 	if len(match) == 3 {
-		num, err = strconv.ParseInt(match[1], 10, 64)
-		if err != nil {
-			err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `strconv.ParseInt failed for string "%s"`, match[1])
-			return 0, err
+		num, 错误 = strconv.ParseInt(match[1], 10, 64)
+		if 错误 != nil {
+			错误 = gerror.WrapCodef(gcode.CodeInvalidParameter, 错误, `strconv.ParseInt failed for string "%s"`, match[1])
+			return 0, 错误
 		}
-		s = fmt.Sprintf(`%dh%s`, num*24, match[2])
-		duration, err = time.ParseDuration(s)
-		if err != nil {
-			err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.ParseDuration failed for string "%s"`, s)
+		文本 = fmt.Sprintf(`%dh%s`, num*24, match[2])
+		纳秒, 错误 = time.ParseDuration(文本)
+		if 错误 != nil {
+			错误 = gerror.WrapCodef(gcode.CodeInvalidParameter, 错误, `time.ParseDuration failed for string "%s"`, 文本)
 		}
 		return
 	}
-	duration, err = time.ParseDuration(s)
-	err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.ParseDuration failed for string "%s"`, s)
+	纳秒, 错误 = time.ParseDuration(文本)
+	错误 = gerror.WrapCodef(gcode.CodeInvalidParameter, 错误, `time.ParseDuration failed for string "%s"`, 文本)
 	return
 }
 
 // FuncCost 计算函数 `f` 的执行耗时，单位为纳秒。
-func FuncCost(f func()) time.Duration {
+func X取函数执行时长(执行函数 func()) time.Duration {
 	t := time.Now()
-	f()
+	执行函数()
 	return time.Since(t)
 }
 

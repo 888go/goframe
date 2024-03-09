@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package guid 提供了简单且高性能的唯一标识符生成功能。
-package guid
+package uid类
 
 import (
 	"os"
@@ -70,20 +70,20 @@ func init() {
 //  1. The returned length is fixed to 32 bytes for performance purpose.
 //  2. The custom parameter `data` composed should have unique attribute in your
 //     business scenario.
-func S(data ...[]byte) string {
+func X生成(参数 ...[]byte) string {
 	var (
 		b       = make([]byte, 32)
 		nanoStr = strconv.FormatInt(time.Now().UnixNano(), 36)
 	)
-	if len(data) == 0 {
+	if len(参数) == 0 {
 		copy(b, macAddrStr)
 		copy(b[7:], processIdStr)
 		copy(b[11:], nanoStr)
 		copy(b[23:], getSequence())
 		copy(b[26:], getRandomStr(6))
-	} else if len(data) <= 2 {
+	} else if len(参数) <= 2 {
 		n := 0
-		for i, v := range data {
+		for i, v := range 参数 {
 			// 忽略空数据项字节。
 			if len(v) > 0 {
 				copy(b[i*7:], getDataHashStr(v))

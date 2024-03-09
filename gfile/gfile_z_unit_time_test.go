@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"os"
@@ -28,8 +28,8 @@ func Test_MTime(t *testing.T) {
 		fileobj, err = os.Stat(testpath() + file1)
 		t.AssertNil(err)
 
-		t.Assert(gfile.MTime(testpath()+file1), fileobj.ModTime())
-		t.Assert(gfile.MTime(""), "")
+		t.Assert(文件类.X取修改时间秒(testpath()+file1), fileobj.ModTime())
+		t.Assert(文件类.X取修改时间秒(""), "")
 	})
 }
 
@@ -48,9 +48,9 @@ func Test_MTimeMillisecond(t *testing.T) {
 
 		time.Sleep(time.Millisecond * 100)
 		t.AssertGE(
-			gfile.MTimestampMilli(testpath()+file1),
+			文件类.X取修改时间戳毫秒(testpath()+file1),
 			fileobj.ModTime().UnixNano()/1000000,
 		)
-		t.Assert(gfile.MTimestampMilli(""), -1)
+		t.Assert(文件类.X取修改时间戳毫秒(""), -1)
 	})
 }

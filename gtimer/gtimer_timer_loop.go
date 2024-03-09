@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtimer
+package 定时类
 
 import (
 	"time"
@@ -60,7 +60,7 @@ func (t *Timer) proceed(currentTimerTicks int64) {
 		// 它检查作业运行需求，然后进行异步运行。
 		entry.doCheckAndRunByTicks(currentTimerTicks)
 		// 状态检查：将其推回或忽略。
-		if entry.Status() != StatusClosed {
+		if entry.X取任务状态() != StatusClosed {
 			// 它将任务推回到队列中以便下次运行。
 			t.queue.Push(entry, entry.nextTicks.Val())
 		}

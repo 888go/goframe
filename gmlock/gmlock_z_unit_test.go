@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gmlock_test
+package 内存锁类_test
 
 import (
 	"sync"
@@ -20,16 +20,16 @@ func Test_Locker_Lock(t *testing.T) {
 		key := "testLock"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(300 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
 		t.Assert(array.Len(), 1)
@@ -37,24 +37,24 @@ func Test_Locker_Lock(t *testing.T) {
 		t.Assert(array.Len(), 1)
 		time.Sleep(200 * time.Millisecond)
 		t.Assert(array.Len(), 2)
-		gmlock.Remove(key)
+		内存锁类.X删除锁(key)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLock"
 		array := garray.New(true)
-		lock := gmlock.New()
+		lock := 内存锁类.X创建()
 		go func() {
-			lock.Lock(key)
+			lock.X写锁定(key)
 			array.Append(1)
 			time.Sleep(300 * time.Millisecond)
-			lock.Unlock(key)
+			lock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			lock.Lock(key)
+			lock.X写锁定(key)
 			array.Append(1)
-			lock.Unlock(key)
+			lock.X退出写锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
 		t.Assert(array.Len(), 1)
@@ -62,7 +62,7 @@ func Test_Locker_Lock(t *testing.T) {
 		t.Assert(array.Len(), 1)
 		time.Sleep(200 * time.Millisecond)
 		t.Assert(array.Len(), 2)
-		lock.Clear()
+		lock.X移除所有锁()
 	})
 
 }
@@ -72,23 +72,23 @@ func Test_Locker_TryLock(t *testing.T) {
 		key := "testTryLock"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(300 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(150 * time.Millisecond)
-			if gmlock.TryLock(key) {
+			if 内存锁类.X非阻塞写锁定(key) {
 				array.Append(1)
-				gmlock.Unlock(key)
+				内存锁类.X退出写锁定(key)
 			}
 		}()
 		go func() {
 			time.Sleep(400 * time.Millisecond)
-			if gmlock.TryLock(key) {
+			if 内存锁类.X非阻塞写锁定(key) {
 				array.Append(1)
-				gmlock.Unlock(key)
+				内存锁类.X退出写锁定(key)
 			}
 		}()
 		time.Sleep(100 * time.Millisecond)
@@ -107,14 +107,14 @@ func Test_Locker_LockFunc(t *testing.T) {
 		key := "testLockFunc"
 		array := garray.New(true)
 		go func() {
-			gmlock.LockFunc(key, func() {
+			内存锁类.X写锁定_函数(key, func() {
 				array.Append(1)
 				time.Sleep(300 * time.Millisecond)
 			}) //
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.LockFunc(key, func() {
+			内存锁类.X写锁定_函数(key, func() {
 				array.Append(1)
 			})
 		}()
@@ -133,20 +133,20 @@ func Test_Locker_TryLockFunc(t *testing.T) {
 		key := "testTryLockFunc"
 		array := garray.New(true)
 		go func() {
-			gmlock.TryLockFunc(key, func() {
+			内存锁类.X非阻塞写锁定_函数(key, func() {
 				array.Append(1)
 				time.Sleep(200 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.TryLockFunc(key, func() {
+			内存锁类.X非阻塞写锁定_函数(key, func() {
 				array.Append(1)
 			})
 		}()
 		go func() {
 			time.Sleep(300 * time.Millisecond)
-			gmlock.TryLockFunc(key, func() {
+			内存锁类.X非阻塞写锁定_函数(key, func() {
 				array.Append(1)
 			})
 		}()
@@ -167,8 +167,8 @@ func Test_Multiple_Goroutine(t *testing.T) {
 			go func() {
 				defer wait.Done()
 				<-ch
-				gmlock.Lock("test")
-				defer gmlock.Unlock("test")
+				内存锁类.X写锁定("test")
+				defer 内存锁类.X退出写锁定("test")
 				time.Sleep(time.Millisecond)
 			}()
 		}
@@ -185,8 +185,8 @@ func Test_Multiple_Goroutine(t *testing.T) {
 			go func() {
 				defer wait.Done()
 				<-ch
-				gmlock.Lock("test")
-				defer gmlock.Unlock("test")
+				内存锁类.X写锁定("test")
+				defer 内存锁类.X退出写锁定("test")
 				time.Sleep(time.Millisecond)
 			}()
 		}
@@ -194,8 +194,8 @@ func Test_Multiple_Goroutine(t *testing.T) {
 			go func() {
 				defer wait.Done()
 				<-ch
-				gmlock.RLock("test")
-				defer gmlock.RUnlock("test")
+				内存锁类.X读锁定("test")
+				defer 内存锁类.X退出读锁定("test")
 				time.Sleep(time.Millisecond)
 			}()
 		}
@@ -210,16 +210,16 @@ func Test_Locker_RLock(t *testing.T) {
 		key := "testRLockBeforeLock"
 		array := garray.New(true)
 		go func() {
-			gmlock.RLock(key)
+			内存锁类.X读锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.RUnlock(key)
+			内存锁类.X退出读锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
 		t.Assert(array.Len(), 1)
@@ -232,16 +232,16 @@ func Test_Locker_RLock(t *testing.T) {
 		key := "testLockBeforeRLock"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLock(key)
+			内存锁类.X读锁定(key)
 			array.Append(1)
-			gmlock.RUnlock(key)
+			内存锁类.X退出读锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
 		t.Assert(array.Len(), 1)
@@ -254,24 +254,24 @@ func Test_Locker_RLock(t *testing.T) {
 		key := "testLockBeforeRLocks"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(300 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLock(key)
+			内存锁类.X读锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.RUnlock(key)
+			内存锁类.X退出读锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLock(key)
+			内存锁类.X读锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.RUnlock(key)
+			内存锁类.X退出读锁定(key)
 		}()
 		time.Sleep(200 * time.Millisecond)
 		t.Assert(array.Len(), 1)
@@ -286,16 +286,16 @@ func Test_Locker_TryRLock(t *testing.T) {
 		key := "testLockBeforeTryRLock"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			if gmlock.TryRLock(key) {
+			if 内存锁类.X非阻塞读锁定(key) {
 				array.Append(1)
-				gmlock.RUnlock(key)
+				内存锁类.X退出读锁定(key)
 			}
 		}()
 		time.Sleep(150 * time.Millisecond)
@@ -309,23 +309,23 @@ func Test_Locker_TryRLock(t *testing.T) {
 		key := "testLockBeforeTryRLocks"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			if gmlock.TryRLock(key) {
+			if 内存锁类.X非阻塞读锁定(key) {
 				array.Append(1)
-				gmlock.RUnlock(key)
+				内存锁类.X退出读锁定(key)
 			}
 		}()
 		go func() {
 			time.Sleep(300 * time.Millisecond)
-			if gmlock.TryRLock(key) {
+			if 内存锁类.X非阻塞读锁定(key) {
 				array.Append(1)
-				gmlock.RUnlock(key)
+				内存锁类.X退出读锁定(key)
 			}
 		}()
 		time.Sleep(150 * time.Millisecond)
@@ -341,16 +341,16 @@ func Test_Locker_RLockFunc(t *testing.T) {
 		key := "testRLockFuncBeforeLock"
 		array := garray.New(true)
 		go func() {
-			gmlock.RLockFunc(key, func() {
+			内存锁类.X读锁定_函数(key, func() {
 				array.Append(1)
 				time.Sleep(200 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		time.Sleep(150 * time.Millisecond)
 		t.Assert(array.Len(), 1)
@@ -363,14 +363,14 @@ func Test_Locker_RLockFunc(t *testing.T) {
 		key := "testLockBeforeRLockFunc"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLockFunc(key, func() {
+			内存锁类.X读锁定_函数(key, func() {
 				array.Append(1)
 			})
 		}()
@@ -385,21 +385,21 @@ func Test_Locker_RLockFunc(t *testing.T) {
 		key := "testLockBeforeRLockFuncs"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLockFunc(key, func() {
+			内存锁类.X读锁定_函数(key, func() {
 				array.Append(1)
 				time.Sleep(200 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLockFunc(key, func() {
+			内存锁类.X读锁定_函数(key, func() {
 				array.Append(1)
 				time.Sleep(200 * time.Millisecond)
 			})
@@ -417,14 +417,14 @@ func Test_Locker_TryRLockFunc(t *testing.T) {
 		key := "testLockBeforeTryRLockFunc"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.TryRLockFunc(key, func() {
+			内存锁类.X非阻塞读锁定_函数(key, func() {
 				array.Append(1)
 			})
 		}()
@@ -439,20 +439,20 @@ func Test_Locker_TryRLockFunc(t *testing.T) {
 		key := "testLockBeforeTryRLockFuncs"
 		array := garray.New(true)
 		go func() {
-			gmlock.Lock(key)
+			内存锁类.X写锁定(key)
 			array.Append(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			内存锁类.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.TryRLockFunc(key, func() {
+			内存锁类.X非阻塞读锁定_函数(key, func() {
 				array.Append(1)
 			})
 		}()
 		go func() {
 			time.Sleep(300 * time.Millisecond)
-			gmlock.TryRLockFunc(key, func() {
+			内存锁类.X非阻塞读锁定_函数(key, func() {
 				array.Append(1)
 			})
 		}()

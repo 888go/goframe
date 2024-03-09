@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gjson
+package json类
 
 import (
 	"bytes"
@@ -28,8 +28,8 @@ import (
 // New 函数通过任意类型的 `data` 创建一个 Json 对象，但 `data` 应为 map 或 slice 类型以保证数据可访问性，否则创建此对象将无实际意义。
 //
 // 参数 `safe` 指定是否在并发安全的上下文中使用此 Json 对象，默认情况下 `safe` 为 false。
-func New(data interface{}, safe ...bool) *Json {
-	return NewWithTag(data, string(ContentTypeJson), safe...)
+func X创建(值 interface{}, 并发安全 ...bool) *Json {
+	return X创建并按类型标签(值, string(ContentTypeJson), 并发安全...)
 }
 
 // NewWithTag 创建一个Json对象，其数据类型可以是任意的 `data`，但为了方便数据访问，`data` 应该是一个 map 或 slice，否则将失去意义。
@@ -37,26 +37,26 @@ func New(data interface{}, safe ...bool) *Json {
 // 参数 `tags` 指定了在结构体转为 map 时使用的优先级标签，多个标签使用字符 ',' 连接。
 //
 // 参数 `safe` 指定了是否在并发安全的上下文中使用此 Json 对象，默认情况下为 false。
-func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
+func X创建并按类型标签(值 interface{}, 类型标签 string, 并发安全 ...bool) *Json {
 	option := Options{
-		Tags: tags,
+		Tags: 类型标签,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return NewWithOptions(data, option)
+	return X创建并按选项(值, option)
 }
 
 // NewWithOptions 创建一个Json对象，其变量类型可以是 `data` 的任意类型，但为了能够访问数据，`data` 应该是一个 map 或 slice，否则将毫无意义。
-func NewWithOptions(data interface{}, options Options) *Json {
+func X创建并按选项(值 interface{}, 选项 Options) *Json {
 	var j *Json
-	switch data.(type) {
+	switch 值.(type) {
 	case string, []byte:
-		if r, err := loadContentWithOptions(data, options); err == nil {
+		if r, err := loadContentWithOptions(值, 选项); err == nil {
 			j = r
 		} else {
 			j = &Json{
-				p:  &data,
+				p:  &值,
 				c:  byte(defaultSplitChar),
 				vc: false,
 			}
@@ -64,23 +64,23 @@ func NewWithOptions(data interface{}, options Options) *Json {
 	default:
 		var (
 			pointedData interface{}
-			reflectInfo = reflection.OriginValueAndKind(data)
+			reflectInfo = reflection.OriginValueAndKind(值)
 		)
 		switch reflectInfo.OriginKind {
 		case reflect.Slice, reflect.Array:
-			pointedData = gconv.Interfaces(data)
+			pointedData = gconv.Interfaces(值)
 
 		case reflect.Map:
-			pointedData = gconv.MapDeep(data, options.Tags)
+			pointedData = gconv.MapDeep(值, 选项.Tags)
 
 		case reflect.Struct:
-			if v, ok := data.(iVal); ok {
-				return NewWithOptions(v.Val(), options)
+			if v, ok := 值.(iVal); ok {
+				return X创建并按选项(v.Val(), 选项)
 			}
-			pointedData = gconv.MapDeep(data, options.Tags)
+			pointedData = gconv.MapDeep(值, 选项.Tags)
 
 		default:
-			pointedData = data
+			pointedData = 值
 		}
 		j = &Json{
 			p:  &pointedData,
@@ -88,139 +88,139 @@ func NewWithOptions(data interface{}, options Options) *Json {
 			vc: false,
 		}
 	}
-	j.mu = rwmutex.Create(options.Safe)
+	j.mu = rwmutex.Create(选项.Safe)
 	return j
 }
 
 // Load 从指定的文件路径`path`加载内容，并根据其内容创建一个Json对象。
-func Load(path string, safe ...bool) (*Json, error) {
-	if p, err := gfile.Search(path); err != nil {
+func X加载文件(路径 string, 并发安全 ...bool) (*Json, error) {
+	if p, err := gfile.Search(路径); err != nil {
 		return nil, err
 	} else {
-		path = p
+		路径 = p
 	}
 	options := Options{
-		Type: ContentType(gfile.Ext(path)),
+		Type: ContentType(gfile.Ext(路径)),
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		options.Safe = true
 	}
-	return doLoadContentWithOptions(gfile.GetBytesWithCache(path), options)
+	return doLoadContentWithOptions(gfile.GetBytesWithCache(路径), options)
 }
 
 // LoadWithOptions 根据给定的JSON格式内容和选项，创建一个Json对象。
-func LoadWithOptions(data interface{}, options Options) (*Json, error) {
-	return doLoadContentWithOptions(gconv.Bytes(data), options)
+func X加载并按选项(值 interface{}, 选项 Options) (*Json, error) {
+	return doLoadContentWithOptions(gconv.Bytes(值), 选项)
 }
 
 // LoadJson 从给定的 JSON 格式内容创建一个 Json 对象。
-func LoadJson(data interface{}, safe ...bool) (*Json, error) {
+func X加载json(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeJson,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.Bytes(值), option)
 }
 
 // LoadXml 从给定的 XML 格式内容创建一个 Json 对象。
-func LoadXml(data interface{}, safe ...bool) (*Json, error) {
+func X加载xml(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeXml,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.Bytes(值), option)
 }
 
 // LoadIni 从给定的 INI 格式内容创建一个 Json 对象。
-func LoadIni(data interface{}, safe ...bool) (*Json, error) {
+func X加载ini(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeIni,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.Bytes(值), option)
 }
 
 // LoadYaml 从给定的YAML格式内容创建一个Json对象。
-func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
+func X加载Yaml(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeYaml,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.Bytes(值), option)
 }
 
 // LoadToml 从给定的TOML格式内容创建一个Json对象。
-func LoadToml(data interface{}, safe ...bool) (*Json, error) {
+func X加载Toml(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeToml,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.Bytes(值), option)
 }
 
 // LoadProperties 从给定的TOML格式内容创建一个Json对象。
-func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
+func X加载Properties(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeProperties,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.Bytes(值), option)
 }
 
 // LoadContent 从给定的内容创建一个 Json 对象，它会自动检查 `content` 的数据类型，
 // 支持以下数据内容类型：
 // JSON、XML、INI、YAML 和 TOML。
-func LoadContent(data interface{}, safe ...bool) (*Json, error) {
-	content := gconv.Bytes(data)
+func X加载并自动识别格式(值 interface{}, 并发安全 ...bool) (*Json, error) {
+	content := gconv.Bytes(值)
 	if len(content) == 0 {
-		return New(nil, safe...), nil
+		return X创建(nil, 并发安全...), nil
 	}
-	return LoadContentType(checkDataType(content), content, safe...)
+	return X加载并按格式(checkDataType(content), content, 并发安全...)
 }
 
 // LoadContentType 从给定的类型和内容创建一个 Json 对象，
 // 支持以下数据内容类型：
 // JSON、XML、INI、YAML 和 TOML。
-func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Json, error) {
-	content := gconv.Bytes(data)
+func X加载并按格式(类型标签 ContentType, 值 interface{}, 并发安全 ...bool) (*Json, error) {
+	content := gconv.Bytes(值)
 	if len(content) == 0 {
-		return New(nil, safe...), nil
+		return X创建(nil, 并发安全...), nil
 	}
 	// ignore UTF8-BOM
 	if content[0] == 0xEF && content[1] == 0xBB && content[2] == 0xBF {
 		content = content[3:]
 	}
 	options := Options{
-		Type:      dataType,
+		Type:      类型标签,
 		StrNumber: true,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		options.Safe = true
 	}
 	return doLoadContentWithOptions(content, options)
 }
 
 // IsValidDataType 检查并返回给定的 `dataType` 是否为有效载入数据类型。
-func IsValidDataType(dataType ContentType) bool {
-	if dataType == "" {
+func X检查类型(待判断值 ContentType) bool {
+	if 待判断值 == "" {
 		return false
 	}
-	if dataType[0] == '.' {
-		dataType = dataType[1:]
+	if 待判断值[0] == '.' {
+		待判断值 = 待判断值[1:]
 	}
-	switch dataType {
+	switch 待判断值 {
 	case
 		ContentTypeJson,
 		ContentTypeJs,
@@ -238,7 +238,7 @@ func IsValidDataType(dataType ContentType) bool {
 func loadContentWithOptions(data interface{}, options Options) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
-		return NewWithOptions(nil, options), nil
+		return X创建并按选项(nil, options), nil
 	}
 	if options.Type == "" {
 		options.Type = checkDataType(content)
@@ -249,7 +249,7 @@ func loadContentWithOptions(data interface{}, options Options) (*Json, error) {
 func loadContentTypeWithOptions(data interface{}, options Options) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
-		return NewWithOptions(nil, options), nil
+		return X创建并按选项(nil, options), nil
 	}
 	// ignore UTF8-BOM
 	if content[0] == 0xEF && content[1] == 0xBB && content[2] == 0xBF {
@@ -267,7 +267,7 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 		result interface{}
 	)
 	if len(data) == 0 {
-		return NewWithOptions(nil, options), nil
+		return X创建并按选项(nil, options), nil
 	}
 	if options.Type == "" {
 		options.Type = checkDataType(data)
@@ -323,7 +323,7 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 	case string, []byte:
 		return nil, gerror.Newf(`json decoding failed for content: %s`, data)
 	}
-	return NewWithOptions(result, options), nil
+	return X创建并按选项(result, options), nil
 }
 
 // checkDataType 自动检查并返回 `content` 的数据类型。

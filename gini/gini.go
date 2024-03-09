@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gini 提供了对 INI 内容的访问和转换功能。
-package gini
+package ini类
 
 import (
 	"bufio"
@@ -19,11 +19,11 @@ import (
 )
 
 // Decode将INI格式转换为map。
-func Decode(data []byte) (res map[string]interface{}, err error) {
-	res = make(map[string]interface{})
+func X取Map(字节集 []byte) (map值 map[string]interface{}, 错误 error) {
+	map值 = make(map[string]interface{})
 	var (
 		fieldMap    = make(map[string]interface{})
-		bytesReader = bytes.NewReader(data)
+		bytesReader = bytes.NewReader(字节集)
 		bufioReader = bufio.NewReader(bytesReader)
 		section     string
 		lastSection string
@@ -32,13 +32,13 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 	)
 
 	for {
-		line, err = bufioReader.ReadString('\n')
-		if err != nil {
-			if err == io.EOF {
+		line, 错误 = bufioReader.ReadString('\n')
+		if 错误 != nil {
+			if 错误 == io.EOF {
 				break
 			}
-			err = gerror.Wrapf(err, `bufioReader.ReadString failed`)
-			return nil, err
+			错误 = gerror.Wrapf(错误, `bufioReader.ReadString failed`)
+			return nil, 错误
 		}
 		if line = strings.TrimSpace(line); len(line) == 0 {
 			continue
@@ -67,58 +67,58 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 		if strings.Contains(line, "=") && haveSection {
 			values := strings.Split(line, "=")
 			fieldMap[strings.TrimSpace(values[0])] = strings.TrimSpace(strings.Join(values[1:], "="))
-			res[section] = fieldMap
+			map值[section] = fieldMap
 		}
 	}
 
 	if !haveSection {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "failed to parse INI file, section not found")
 	}
-	return res, nil
+	return map值, nil
 }
 
 // Encode 将 map 转换为 INI 格式。
-func Encode(data map[string]interface{}) (res []byte, err error) {
+func Map到ini(map值 map[string]interface{}) (字节集 []byte, 错误 error) {
 	var (
 		n  int
 		w  = new(bytes.Buffer)
 		m  map[string]interface{}
 		ok bool
 	)
-	for section, item := range data {
+	for section, item := range map值 {
 		// 配置项键值对。
 		if m, ok = item.(map[string]interface{}); ok {
-			n, err = w.WriteString(fmt.Sprintf("[%s]\n", section))
-			if err != nil || n == 0 {
-				return nil, gerror.Wrapf(err, "w.WriteString failed")
+			n, 错误 = w.WriteString(fmt.Sprintf("[%s]\n", section))
+			if 错误 != nil || n == 0 {
+				return nil, gerror.Wrapf(错误, "w.WriteString failed")
 			}
 			for k, v := range m {
-				if n, err = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); err != nil || n == 0 {
-					return nil, gerror.Wrapf(err, "w.WriteString failed")
+				if n, 错误 = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); 错误 != nil || n == 0 {
+					return nil, gerror.Wrapf(错误, "w.WriteString failed")
 				}
 			}
 			continue
 		}
 		// 简单的键值对。
-		for k, v := range data {
-			if n, err = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); err != nil || n == 0 {
-				return nil, gerror.Wrapf(err, "w.WriteString failed")
+		for k, v := range map值 {
+			if n, 错误 = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); 错误 != nil || n == 0 {
+				return nil, gerror.Wrapf(错误, "w.WriteString failed")
 			}
 		}
 		break
 	}
-	res = make([]byte, w.Len())
-	if n, err = w.Read(res); err != nil || n == 0 {
-		return nil, gerror.Wrapf(err, "w.Read failed")
+	字节集 = make([]byte, w.Len())
+	if n, 错误 = w.Read(字节集); 错误 != nil || n == 0 {
+		return nil, gerror.Wrapf(错误, "w.Read failed")
 	}
-	return res, nil
+	return 字节集, nil
 }
 
 // ToJson 将 INI 格式转换为 JSON。
-func ToJson(data []byte) (res []byte, err error) {
-	iniMap, err := Decode(data)
-	if err != nil {
-		return nil, err
+func X取json(字节集 []byte) (json字节集 []byte, 错误 error) {
+	iniMap, 错误 := X取Map(字节集)
+	if 错误 != nil {
+		return nil, 错误
 	}
 	return json.Marshal(iniMap)
 }

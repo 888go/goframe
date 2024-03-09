@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"os"
@@ -61,8 +61,8 @@ func Test_GetContents(t *testing.T) {
 		createTestFile(filepaths, "my name is jroam")
 		defer delTestFiles(filepaths)
 
-		t.Assert(gfile.GetContents(testpath()+filepaths), "my name is jroam")
-		t.Assert(gfile.GetContents(""), "")
+		t.Assert(文件类.X读文本(testpath()+filepaths), "my name is jroam")
+		t.Assert(文件类.X读文本(""), "")
 
 	})
 }
@@ -77,13 +77,13 @@ func Test_GetBinContents(t *testing.T) {
 		)
 		createTestFile(filepaths1, str1)
 		defer delTestFiles(filepaths1)
-		readcontent = gfile.GetBytes(testpath() + filepaths1)
+		readcontent = 文件类.X读字节集(testpath() + filepaths1)
 		t.Assert(readcontent, []byte(str1))
 
-		readcontent = gfile.GetBytes(filepaths2)
+		readcontent = 文件类.X读字节集(filepaths2)
 		t.Assert(string(readcontent), "")
 
-		t.Assert(string(gfile.GetBytes(filepaths2)), "")
+		t.Assert(string(文件类.X读字节集(filepaths2)), "")
 
 	})
 }
@@ -97,7 +97,7 @@ func Test_Truncate(t *testing.T) {
 		)
 		createTestFile(filepaths1, "abcdefghijkmln")
 		defer delTestFiles(filepaths1)
-		err = gfile.Truncate(testpath()+filepaths1, 10)
+		err = 文件类.X截断(testpath()+filepaths1, 10)
 		t.AssertNil(err)
 
 		files, err = os.Open(testpath() + filepaths1)
@@ -107,7 +107,7 @@ func Test_Truncate(t *testing.T) {
 		t.Assert(err2, nil)
 		t.Assert(fileinfo.Size(), 10)
 
-		err = gfile.Truncate("", 10)
+		err = 文件类.X截断("", 10)
 		t.AssertNE(err, nil)
 
 	})
@@ -123,14 +123,14 @@ func Test_PutContents(t *testing.T) {
 		createTestFile(filepaths, "a")
 		defer delTestFiles(filepaths)
 
-		err = gfile.PutContents(testpath()+filepaths, "test!")
+		err = 文件类.X写入文本(testpath()+filepaths, "test!")
 		t.AssertNil(err)
 
 		readcontent, err = os.ReadFile(testpath() + filepaths)
 		t.AssertNil(err)
 		t.Assert(string(readcontent), "test!")
 
-		err = gfile.PutContents("", "test!")
+		err = 文件类.X写入文本("", "test!")
 		t.AssertNE(err, nil)
 
 	})
@@ -146,14 +146,14 @@ func Test_PutContentsAppend(t *testing.T) {
 
 		createTestFile(filepaths, "a")
 		defer delTestFiles(filepaths)
-		err = gfile.PutContentsAppend(testpath()+filepaths, "hello")
+		err = 文件类.X追加文本(testpath()+filepaths, "hello")
 		t.AssertNil(err)
 
 		readcontent, err = os.ReadFile(testpath() + filepaths)
 		t.AssertNil(err)
 		t.Assert(string(readcontent), "ahello")
 
-		err = gfile.PutContentsAppend("", "hello")
+		err = 文件类.X追加文本("", "hello")
 		t.AssertNE(err, nil)
 
 	})
@@ -170,14 +170,14 @@ func Test_PutBinContents(t *testing.T) {
 		createTestFile(filepaths, "a")
 		defer delTestFiles(filepaths)
 
-		err = gfile.PutBytes(testpath()+filepaths, []byte("test!!"))
+		err = 文件类.X写入字节集(testpath()+filepaths, []byte("test!!"))
 		t.AssertNil(err)
 
 		readcontent, err = os.ReadFile(testpath() + filepaths)
 		t.AssertNil(err)
 		t.Assert(string(readcontent), "test!!")
 
-		err = gfile.PutBytes("", []byte("test!!"))
+		err = 文件类.X写入字节集("", []byte("test!!"))
 		t.AssertNE(err, nil)
 
 	})
@@ -192,14 +192,14 @@ func Test_PutBinContentsAppend(t *testing.T) {
 		)
 		createTestFile(filepaths, "test!!")
 		defer delTestFiles(filepaths)
-		err = gfile.PutBytesAppend(testpath()+filepaths, []byte("word"))
+		err = 文件类.X追加字节集(testpath()+filepaths, []byte("word"))
 		t.AssertNil(err)
 
 		readcontent, err = os.ReadFile(testpath() + filepaths)
 		t.AssertNil(err)
 		t.Assert(string(readcontent), "test!!word")
 
-		err = gfile.PutBytesAppend("", []byte("word"))
+		err = 文件类.X追加字节集("", []byte("word"))
 		t.AssertNE(err, nil)
 
 	})
@@ -214,11 +214,11 @@ func Test_GetBinContentsByTwoOffsetsByPath(t *testing.T) {
 
 		createTestFile(filepaths, "abcdefghijk")
 		defer delTestFiles(filepaths)
-		readcontent = gfile.GetBytesByTwoOffsetsByPath(testpath()+filepaths, 2, 5)
+		readcontent = 文件类.X取文件字节集按范围(testpath()+filepaths, 2, 5)
 
 		t.Assert(string(readcontent), "cde")
 
-		readcontent = gfile.GetBytesByTwoOffsetsByPath("", 2, 5)
+		readcontent = 文件类.X取文件字节集按范围("", 2, 5)
 		t.Assert(len(readcontent), 0)
 
 	})
@@ -233,10 +233,10 @@ func Test_GetNextCharOffsetByPath(t *testing.T) {
 		)
 		createTestFile(filepaths, "abcdefghijk")
 		defer delTestFiles(filepaths)
-		localindex = gfile.GetNextCharOffsetByPath(testpath()+filepaths, 'd', 1)
+		localindex = 文件类.X取文件字符偏移位置(testpath()+filepaths, 'd', 1)
 		t.Assert(localindex, 3)
 
-		localindex = gfile.GetNextCharOffsetByPath("", 'd', 1)
+		localindex = 文件类.X取文件字符偏移位置("", 'd', 1)
 		t.Assert(localindex, -1)
 
 	})
@@ -249,10 +249,10 @@ func Test_GetNextCharOffset(t *testing.T) {
 		)
 		reader := strings.NewReader("helloword")
 
-		localindex = gfile.GetNextCharOffset(reader, 'w', 1)
+		localindex = 文件类.X取字符偏移位置(reader, 'w', 1)
 		t.Assert(localindex, 5)
 
-		localindex = gfile.GetNextCharOffset(reader, 'j', 1)
+		localindex = 文件类.X取字符偏移位置(reader, 'j', 1)
 		t.Assert(localindex, -1)
 
 	})
@@ -265,10 +265,10 @@ func Test_GetBinContentsByTwoOffsets(t *testing.T) {
 		)
 		reader := strings.NewReader("helloword")
 
-		reads = gfile.GetBytesByTwoOffsets(reader, 1, 3)
+		reads = 文件类.X取字节集按范围(reader, 1, 3)
 		t.Assert(string(reads), "el")
 
-		reads = gfile.GetBytesByTwoOffsets(reader, 10, 30)
+		reads = 文件类.X取字节集按范围(reader, 10, 30)
 		t.Assert(string(reads), "")
 
 	})
@@ -282,10 +282,10 @@ func Test_GetBinContentsTilChar(t *testing.T) {
 		)
 		reader := strings.NewReader("helloword")
 
-		reads, _ = gfile.GetBytesTilChar(reader, 'w', 2)
+		reads, _ = 文件类.X取字节集按字符位置(reader, 'w', 2)
 		t.Assert(string(reads), "llow")
 
-		_, indexs = gfile.GetBytesTilChar(reader, 'w', 20)
+		_, indexs = 文件类.X取字节集按字符位置(reader, 'w', 20)
 		t.Assert(indexs, -1)
 
 	})
@@ -302,13 +302,13 @@ func Test_GetBinContentsTilCharByPath(t *testing.T) {
 		createTestFile(filepaths, "abcdefghijklmn")
 		defer delTestFiles(filepaths)
 
-		reads, _ = gfile.GetBytesTilCharByPath(testpath()+filepaths, 'c', 2)
+		reads, _ = 文件类.X取文件字节集按字符位置(testpath()+filepaths, 'c', 2)
 		t.Assert(string(reads), "c")
 
-		reads, _ = gfile.GetBytesTilCharByPath(testpath()+filepaths, 'y', 1)
+		reads, _ = 文件类.X取文件字节集按字符位置(testpath()+filepaths, 'y', 1)
 		t.Assert(string(reads), "")
 
-		_, indexs = gfile.GetBytesTilCharByPath(testpath()+filepaths, 'x', 1)
+		_, indexs = 文件类.X取文件字节集按字符位置(testpath()+filepaths, 'x', 1)
 		t.Assert(indexs, -1)
 
 	})
@@ -321,7 +321,7 @@ func Test_Home(t *testing.T) {
 			err   error
 		)
 
-		reads, err = gfile.Home("a", "b")
+		reads, err = 文件类.X取用户目录("a", "b")
 		t.AssertNil(err)
 		t.AssertNE(reads, "")
 	})
@@ -329,11 +329,11 @@ func Test_Home(t *testing.T) {
 
 func Test_NotFound(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		teatFile := gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/readline/error.log"
+		teatFile := 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/readline/error.log"
 		callback := func(line string) error {
 			return nil
 		}
-		err := gfile.ReadLines(teatFile, callback)
+		err := 文件类.X逐行读文本_函数(teatFile, callback)
 		t.AssertNE(err, nil)
 	})
 }
@@ -347,9 +347,9 @@ func Test_ReadLines(t *testing.T) {
 				getList = append(getList, line)
 				return nil
 			}
-			teatFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/readline/file.log"
+			teatFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/readline/file.log"
 		)
-		err := gfile.ReadLines(teatFile, callback)
+		err := 文件类.X逐行读文本_函数(teatFile, callback)
 		t.AssertEQ(getList, expectList)
 		t.AssertEQ(err, nil)
 	})
@@ -361,9 +361,9 @@ func Test_ReadLines_Error(t *testing.T) {
 			callback = func(line string) error {
 				return gerror.New("custom error")
 			}
-			teatFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/readline/file.log"
+			teatFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/readline/file.log"
 		)
-		err := gfile.ReadLines(teatFile, callback)
+		err := 文件类.X逐行读文本_函数(teatFile, callback)
 		t.AssertEQ(err.Error(), "custom error")
 	})
 }
@@ -377,9 +377,9 @@ func Test_ReadLinesBytes(t *testing.T) {
 				getList = append(getList, line)
 				return nil
 			}
-			teatFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/readline/file.log"
+			teatFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/readline/file.log"
 		)
-		err := gfile.ReadLinesBytes(teatFile, callback)
+		err := 文件类.X逐行读字节集_函数(teatFile, callback)
 		t.AssertEQ(getList, expectList)
 		t.AssertEQ(err, nil)
 	})
@@ -391,9 +391,9 @@ func Test_ReadLinesBytes_Error(t *testing.T) {
 			callback = func(line []byte) error {
 				return gerror.New("custom error")
 			}
-			teatFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/readline/file.log"
+			teatFile = 文件类.X路径取父目录(gdebug.CallerFilePath()) + 文件类.Separator + "testdata/readline/file.log"
 		)
-		err := gfile.ReadLinesBytes(teatFile, callback)
+		err := 文件类.X逐行读字节集_函数(teatFile, callback)
 		t.AssertEQ(err.Error(), "custom error")
 	})
 }

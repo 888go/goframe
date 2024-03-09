@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gjson 提供了方便的 API 用于处理 JSON/XML/INI/YAML/TOML 数据。
-package gjson
+package json类
 
 import (
 	"reflect"

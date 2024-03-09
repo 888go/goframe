@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcompress_test
+package 压缩类_test
 
 import (
 	"bytes"
@@ -22,14 +22,14 @@ func Test_ZipPath(t *testing.T) {
 		dstPath := gtest.DataPath("zip", "zip.zip")
 
 		t.Assert(gfile.Exists(dstPath), false)
-		t.Assert(gcompress.ZipPath(srcPath, dstPath), nil)
+		t.Assert(压缩类.Zip压缩文件(srcPath, dstPath), nil)
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
 
 		// 解压缩到临时目录。
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
-		t.Assert(gcompress.UnZipFile(dstPath, tempDirPath), nil)
+		t.Assert(压缩类.Zip解压文件(dstPath, tempDirPath), nil)
 		defer gfile.Remove(tempDirPath)
 
 		t.Assert(
@@ -49,7 +49,7 @@ func Test_ZipPath(t *testing.T) {
 		}
 
 		t.Assert(gfile.Exists(dstPath), false)
-		err := gcompress.ZipPath(srcPath1+","+srcPath2, dstPath)
+		err := 压缩类.Zip压缩文件(srcPath1+","+srcPath2, dstPath)
 		t.AssertNil(err)
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
@@ -57,7 +57,7 @@ func Test_ZipPath(t *testing.T) {
 		// 将文件解压缩到另一个临时目录。
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
-		err = gcompress.UnZipFile(dstPath, tempDirPath)
+		err = 压缩类.Zip解压文件(dstPath, tempDirPath)
 		t.AssertNil(err)
 		defer gfile.Remove(tempDirPath)
 
@@ -82,7 +82,7 @@ func Test_ZipPath(t *testing.T) {
 		}
 
 		t.Assert(gfile.Exists(dstPath), false)
-		err := gcompress.ZipPath(srcPath1+","+srcPath2, dstPath)
+		err := 压缩类.Zip压缩文件(srcPath1+","+srcPath2, dstPath)
 		t.AssertNil(err)
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
@@ -90,7 +90,7 @@ func Test_ZipPath(t *testing.T) {
 		// 将文件解压缩到另一个临时目录。
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
-		err = gcompress.UnZipFile(dstPath, tempDirPath)
+		err = 压缩类.Zip解压文件(dstPath, tempDirPath)
 		t.AssertNil(err)
 		defer gfile.Remove(tempDirPath)
 
@@ -114,7 +114,7 @@ func Test_ZipPath(t *testing.T) {
 		t.AssertNil(err)
 
 		t.Assert(gfile.Exists(dstPath), false)
-		err = gcompress.ZipPath(srcPath, dstPath)
+		err = 压缩类.Zip压缩文件(srcPath, dstPath)
 		t.AssertNil(err)
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
@@ -123,7 +123,7 @@ func Test_ZipPath(t *testing.T) {
 		err = gfile.Mkdir(tempDirPath)
 		t.AssertNil(err)
 
-		err = gcompress.UnZipFile(dstPath, tempDirPath)
+		err = 压缩类.Zip解压文件(dstPath, tempDirPath)
 		t.AssertNil(err)
 		defer gfile.Remove(tempDirPath)
 
@@ -150,7 +150,7 @@ func Test_ZipPath(t *testing.T) {
 		t.AssertNil(err)
 
 		t.Assert(gfile.Exists(dstPath), false)
-		err = gcompress.ZipPath(srcPath1+", "+srcPath2, dstPath)
+		err = 压缩类.Zip压缩文件(srcPath1+", "+srcPath2, dstPath)
 		t.AssertNil(err)
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
@@ -161,7 +161,7 @@ func Test_ZipPath(t *testing.T) {
 
 		zipContent := gfile.GetBytes(dstPath)
 		t.AssertGT(len(zipContent), 0)
-		err = gcompress.UnZipContent(zipContent, tempDirPath)
+		err = 压缩类.Zip解压字节集(zipContent, tempDirPath)
 		t.AssertNil(err)
 		defer gfile.Remove(tempDirPath)
 
@@ -190,7 +190,7 @@ func Test_ZipPathWriter(t *testing.T) {
 
 		writer := bytes.NewBuffer(nil)
 		t.Assert(writer.Len(), 0)
-		err = gcompress.ZipPathWriter(srcPath1+", "+srcPath2, writer)
+		err = 压缩类.Zip压缩文件到Writer(srcPath1+", "+srcPath2, writer)
 		t.AssertNil(err)
 		t.AssertGT(writer.Len(), 0)
 
@@ -200,7 +200,7 @@ func Test_ZipPathWriter(t *testing.T) {
 
 		zipContent := writer.Bytes()
 		t.AssertGT(len(zipContent), 0)
-		err = gcompress.UnZipContent(zipContent, tempDirPath)
+		err = 压缩类.Zip解压字节集(zipContent, tempDirPath)
 		t.AssertNil(err)
 		defer gfile.Remove(tempDirPath)
 
@@ -231,9 +231,9 @@ func Test_ZipPathContent(t *testing.T) {
 		err = gfile.Mkdir(tempDirPath)
 		t.AssertNil(err)
 
-		zipContent, err := gcompress.ZipPathContent(srcPath1 + ", " + srcPath2)
+		zipContent, err := 压缩类.Zip压缩文件到字节集(srcPath1 + ", " + srcPath2)
 		t.AssertGT(len(zipContent), 0)
-		err = gcompress.UnZipContent(zipContent, tempDirPath)
+		err = 压缩类.Zip解压字节集(zipContent, tempDirPath)
 		t.AssertNil(err)
 		defer gfile.Remove(tempDirPath)
 

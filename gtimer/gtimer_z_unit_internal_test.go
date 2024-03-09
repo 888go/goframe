@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtimer
+package 定时类
 
 import (
 	"context"
@@ -17,10 +17,10 @@ import (
 func TestTimer_Proceed(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		timer := New(TimerOptions{
+		timer := X创建(TimerOptions{
 			Interval: time.Hour,
 		})
-		timer.Add(ctx, 10000*time.Hour, func(ctx context.Context) {
+		timer.X加入循环任务(ctx, 10000*time.Hour, func(ctx context.Context) {
 			array.Append(1)
 		})
 		timer.proceed(10001)
@@ -32,10 +32,10 @@ func TestTimer_Proceed(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		array := garray.New(true)
-		timer := New(TimerOptions{
+		timer := X创建(TimerOptions{
 			Interval: time.Millisecond * 100,
 		})
-		timer.Add(ctx, 10000*time.Hour, func(ctx context.Context) {
+		timer.X加入循环任务(ctx, 10000*time.Hour, func(ctx context.Context) {
 			array.Append(1)
 		})
 		ticks := int64((10000 * time.Hour) / (time.Millisecond * 100))

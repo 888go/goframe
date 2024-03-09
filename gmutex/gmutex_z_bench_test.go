@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gmutex_test
+package 互斥锁类_test
 
 import (
 	"sync"
@@ -15,7 +15,7 @@ import (
 var (
 	mu   = sync.Mutex{}
 	rwmu = sync.RWMutex{}
-	gmu  = gmutex.New()
+	gmu  = 互斥锁类.X创建()
 )
 
 func Benchmark_Mutex_LockUnlock(b *testing.B) {

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcompress
+package 压缩类
 
 import (
 	"bytes"
@@ -19,22 +19,22 @@ import (
 // 这意味着从无压缩到最佳压缩。
 //
 // 注意，如果给定的`level`无效，将会返回错误。
-func Gzip(data []byte, level ...int) ([]byte, error) {
+func Gzip压缩字节集(字节集 []byte, 可选压缩级别 ...int) ([]byte, error) {
 	var (
 		writer *gzip.Writer
 		buf    bytes.Buffer
 		err    error
 	)
-	if len(level) > 0 {
-		writer, err = gzip.NewWriterLevel(&buf, level[0])
+	if len(可选压缩级别) > 0 {
+		writer, err = gzip.NewWriterLevel(&buf, 可选压缩级别[0])
 		if err != nil {
-			err = gerror.Wrapf(err, `gzip.NewWriterLevel failed for level "%d"`, level[0])
+			err = gerror.Wrapf(err, `gzip.NewWriterLevel failed for level "%d"`, 可选压缩级别[0])
 			return nil, err
 		}
 	} else {
 		writer = gzip.NewWriter(&buf)
 	}
-	if _, err = writer.Write(data); err != nil {
+	if _, err = writer.Write(字节集); err != nil {
 		err = gerror.Wrap(err, `writer.Write failed`)
 		return nil, err
 	}
@@ -46,32 +46,32 @@ func Gzip(data []byte, level ...int) ([]byte, error) {
 }
 
 // GzipFile 使用gzip算法将文件`src`压缩到`dst`。
-func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
-	dstFile, err := gfile.Create(dstFilePath)
-	if err != nil {
-		return err
+func Gzip压缩文件(文件路径, 压缩文件路径 string, 可选压缩级别 ...int) (错误 error) {
+	dstFile, 错误 := gfile.Create(压缩文件路径)
+	if 错误 != nil {
+		return 错误
 	}
 	defer dstFile.Close()
 
-	return GzipPathWriter(srcFilePath, dstFile, level...)
+	return Gzip压缩文件到Writer(文件路径, dstFile, 可选压缩级别...)
 }
 
 // GzipPathWriter 使用gzip压缩算法将`filePath`压缩并写入到`writer`。
 //
 // 注意，参数`path`可以是一个目录或一个文件。
-func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
+func Gzip压缩文件到Writer(文件路径 string, writer io.Writer, 可选压缩级别 ...int) error {
 	var (
 		gzipWriter *gzip.Writer
 		err        error
 	)
-	srcFile, err := gfile.Open(filePath)
+	srcFile, err := gfile.Open(文件路径)
 	if err != nil {
 		return err
 	}
 	defer srcFile.Close()
 
-	if len(level) > 0 {
-		gzipWriter, err = gzip.NewWriterLevel(writer, level[0])
+	if len(可选压缩级别) > 0 {
+		gzipWriter, err = gzip.NewWriterLevel(writer, 可选压缩级别[0])
 		if err != nil {
 			return gerror.Wrap(err, `gzip.NewWriterLevel failed`)
 		}
@@ -88,9 +88,9 @@ func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 }
 
 // UnGzip 使用gzip算法对`data`进行解压缩
-func UnGzip(data []byte) ([]byte, error) {
+func Gzip解压字节集(gzip字节集 []byte) ([]byte, error) {
 	var buf bytes.Buffer
-	reader, err := gzip.NewReader(bytes.NewReader(data))
+	reader, err := gzip.NewReader(bytes.NewReader(gzip字节集))
 	if err != nil {
 		err = gerror.Wrap(err, `gzip.NewReader failed`)
 		return nil, err
@@ -107,13 +107,13 @@ func UnGzip(data []byte) ([]byte, error) {
 }
 
 // UnGzipFile 使用gzip算法将源文件路径`src`解压缩到`dst`。
-func UnGzipFile(srcFilePath, dstFilePath string) error {
-	srcFile, err := gfile.Open(srcFilePath)
+func Gzip解压文件(gzip文件路径, 文件路径 string) error {
+	srcFile, err := gfile.Open(gzip文件路径)
 	if err != nil {
 		return err
 	}
 	defer srcFile.Close()
-	dstFile, err := gfile.Create(dstFilePath)
+	dstFile, err := gfile.Create(文件路径)
 	if err != nil {
 		return err
 	}

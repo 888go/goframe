@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gsha1 提供了用于SHA1加密算法的有用API。
-package gsha1
+package 加密sha1类
 
 import (
 	"crypto/sha1"
@@ -18,32 +18,32 @@ import (
 
 // Encrypt 使用SHA1算法对任意类型的变量进行加密。
 // 它使用gconv包将`v`转换为字节类型。
-func Encrypt(v interface{}) string {
-	r := sha1.Sum(gconv.Bytes(v))
+func X加密(值 interface{}) string {
+	r := sha1.Sum(gconv.Bytes(值))
 	return hex.EncodeToString(r[:])
 }
 
 // EncryptFile 使用SHA1算法加密`path`指定文件的内容。
-func EncryptFile(path string) (encrypt string, err error) {
-	f, err := os.Open(path)
-	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for name "%s"`, path)
-		return "", err
+func X加密文件(路径 string) (sha1值 string, 错误 error) {
+	f, 错误 := os.Open(路径)
+	if 错误 != nil {
+		错误 = gerror.Wrapf(错误, `os.Open failed for name "%s"`, 路径)
+		return "", 错误
 	}
 	defer f.Close()
 	h := sha1.New()
-	_, err = io.Copy(h, f)
-	if err != nil {
-		err = gerror.Wrap(err, `io.Copy failed`)
-		return "", err
+	_, 错误 = io.Copy(h, f)
+	if 错误 != nil {
+		错误 = gerror.Wrap(错误, `io.Copy failed`)
+		return "", 错误
 	}
 	return hex.EncodeToString(h.Sum(nil)), nil
 }
 
 // MustEncryptFile 使用SHA1算法加密`path`指定文件的内容。
 // 如果出现任何错误，将会触发panic。
-func MustEncryptFile(path string) string {
-	result, err := EncryptFile(path)
+func X加密文件PANI(路径 string) string {
+	result, err := X加密文件(路径)
 	if err != nil {
 		panic(err)
 	}

@@ -4,7 +4,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // Package gtype 提供高性能且并发安全的基本变量类型。
-package gtype
+package 安全变量类
 
 // New 是 NewInterface 的别名。
 // 请参阅 NewInterface。

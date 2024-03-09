@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试所有.go文件，并执行基准测试（-bench=".*"），同时显示内存使用情况统计（-benchmem）
 
-package gmap_test
+package map类_test
 
 import (
 	"sync"
@@ -14,7 +14,7 @@ import (
 	"github.com/888go/goframe/gmap"
 )
 
-var gm = gmap.NewIntIntMap(true)
+var gm = map类.X创建IntInt(true)
 
 var sm = sync.Map{}
 
@@ -22,7 +22,7 @@ func Benchmark_GMapSet(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			gm.Set(i, i)
+			gm.X设置值(i, i)
 			i++
 		}
 	})
@@ -42,7 +42,7 @@ func Benchmark_GMapGet(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			gm.Get(i)
+			gm.X取值(i)
 			i++
 		}
 	})
@@ -62,7 +62,7 @@ func Benchmark_GMapRemove(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			gm.Remove(i)
+			gm.X删除(i)
 			i++
 		}
 	})

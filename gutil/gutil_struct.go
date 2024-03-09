@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil
+package 工具类
 
 import (
 	"reflect"
@@ -16,9 +16,9 @@ import (
 
 // StructToSlice 将结构体转换为键值对构成的切片。
 // 例如：{"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
-func StructToSlice(data interface{}) []interface{} {
+func X结构体到数组(结构体指针 interface{}) []interface{} {
 	var (
-		reflectValue = reflect.ValueOf(data)
+		reflectValue = reflect.ValueOf(结构体指针)
 		reflectKind  = reflectValue.Kind()
 	)
 	for reflectKind == reflect.Ptr {

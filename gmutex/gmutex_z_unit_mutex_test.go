@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gmutex_test
+package 互斥锁类_test
 
 import (
 	"testing"
@@ -16,23 +16,23 @@ import (
 
 func Test_Mutex_Unlock(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		mu := gmutex.Mutex{}
+		mu := 互斥锁类.X互斥锁{}
 		array := garray.New(true)
 		go func() {
-			mu.LockFunc(func() {
+			mu.X锁定_函数(func() {
 				array.Append(1)
 				time.Sleep(300 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			mu.LockFunc(func() {
+			mu.X锁定_函数(func() {
 				array.Append(1)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			mu.LockFunc(func() {
+			mu.X锁定_函数(func() {
 				array.Append(1)
 			})
 		}()
@@ -46,17 +46,17 @@ func Test_Mutex_Unlock(t *testing.T) {
 
 func Test_Mutex_LockFunc(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		mu := gmutex.Mutex{}
+		mu := 互斥锁类.X互斥锁{}
 		array := garray.New(true)
 		go func() {
-			mu.LockFunc(func() {
+			mu.X锁定_函数(func() {
 				array.Append(1)
 				time.Sleep(300 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			mu.LockFunc(func() {
+			mu.X锁定_函数(func() {
 				array.Append(1)
 			})
 		}()
@@ -71,23 +71,23 @@ func Test_Mutex_LockFunc(t *testing.T) {
 
 func Test_Mutex_TryLockFunc(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		mu := gmutex.Mutex{}
+		mu := 互斥锁类.X互斥锁{}
 		array := garray.New(true)
 		go func() {
-			mu.LockFunc(func() {
+			mu.X锁定_函数(func() {
 				array.Append(1)
 				time.Sleep(300 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			mu.TryLockFunc(func() {
+			mu.X非阻塞锁定_函数(func() {
 				array.Append(1)
 			})
 		}()
 		go func() {
 			time.Sleep(400 * time.Millisecond)
-			mu.TryLockFunc(func() {
+			mu.X非阻塞锁定_函数(func() {
 				array.Append(1)
 			})
 		}()

@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package guid_test
+package uid类_test
 
 import (
 	"testing"
@@ -19,7 +19,7 @@ func Test_S(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		set := gset.NewStrSet()
 		for i := 0; i < 1000000; i++ {
-			s := guid.S()
+			s := uid类.X生成()
 			t.Assert(set.AddIfNotExist(s), true)
 			t.Assert(len(s), 32)
 		}
@@ -28,6 +28,6 @@ func Test_S(t *testing.T) {
 
 func Test_S_Data(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(len(guid.S([]byte("123"))), 32)
+		t.Assert(len(uid类.X生成([]byte("123"))), 32)
 	})
 }

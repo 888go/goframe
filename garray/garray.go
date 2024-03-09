@@ -4,4 +4,4 @@
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
 // 包garray提供了最常用的数组容器，同时支持并发安全/不安全切换功能。
-package garray
+package 数组类

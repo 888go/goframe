@@ -48,7 +48,7 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 	// If there's file uploading, it ignores the url encoding.
 	if urlEncode {
 		for k, v := range m {
-			if gstr.Contains(k, fileUploadingKey) || gstr.Contains(gconv.String(v), fileUploadingKey) {
+			if 文本类.X是否包含(k, fileUploadingKey) || 文本类.X是否包含(gconv.String(v), fileUploadingKey) {
 				urlEncode = false
 				break
 			}

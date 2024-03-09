@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil
+package 工具类
 
 import (
 	"reflect"
@@ -83,7 +83,7 @@ func MapOmitEmpty(data map[string]interface{}) {
 		return
 	}
 	for k, v := range data {
-		if IsEmpty(v) {
+		if X是否为空(v) {
 			delete(data, k)
 		}
 	}

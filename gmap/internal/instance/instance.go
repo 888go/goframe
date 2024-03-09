@@ -19,40 +19,40 @@ const (
 )
 
 var (
-	groups = make([]*gmap.StrAnyMap, groupNumber)
+	groups = make([]*map类.StrAnyMap, groupNumber)
 )
 
 func init() {
 	for i := 0; i < groupNumber; i++ {
-		groups[i] = gmap.NewStrAnyMap(true)
+		groups[i] = map类.X创建StrAny(true)
 	}
 }
 
-func getGroup(key string) *gmap.StrAnyMap {
+func getGroup(key string) *map类.StrAnyMap {
 	return groups[int(ghash.DJB([]byte(key))%groupNumber)]
 }
 
 // Get returns the instance by given name.
 func Get(name string) interface{} {
-	return getGroup(name).Get(name)
+	return getGroup(name).X取值(name)
 }
 
 // Set sets an instance to the instance manager with given name.
 func Set(name string, instance interface{}) {
-	getGroup(name).Set(name, instance)
+	getGroup(name).X设置值(name, instance)
 }
 
 // GetOrSet returns the instance by name,
 // or set instance to the instance manager if it does not exist and returns this instance.
 func GetOrSet(name string, instance interface{}) interface{} {
-	return getGroup(name).GetOrSet(name, instance)
+	return getGroup(name).X取值或设置值(name, instance)
 }
 
 // GetOrSetFunc returns the instance by name,
 // or sets instance with returned value of callback function `f` if it does not exist
 // and then returns this instance.
 func GetOrSetFunc(name string, f func() interface{}) interface{} {
-	return getGroup(name).GetOrSetFunc(name, f)
+	return getGroup(name).X取值或设置值_函数(name, f)
 }
 
 // GetOrSetFuncLock returns the instance by name,
@@ -62,18 +62,18 @@ func GetOrSetFunc(name string, f func() interface{}) interface{} {
 // GetOrSetFuncLock differs with GetOrSetFunc function is that it executes function `f`
 // with mutex.Lock of the hash map.
 func GetOrSetFuncLock(name string, f func() interface{}) interface{} {
-	return getGroup(name).GetOrSetFuncLock(name, f)
+	return getGroup(name).X取值或设置值_函数带锁(name, f)
 }
 
 // SetIfNotExist sets `instance` to the map if the `name` does not exist, then returns true.
 // It returns false if `name` exists, and `instance` would be ignored.
 func SetIfNotExist(name string, instance interface{}) bool {
-	return getGroup(name).SetIfNotExist(name, instance)
+	return getGroup(name).X设置值并跳过已存在(name, instance)
 }
 
 // Clear deletes all instances stored.
 func Clear() {
 	for i := 0; i < groupNumber; i++ {
-		groups[i].Clear()
+		groups[i].X清空()
 	}
 }

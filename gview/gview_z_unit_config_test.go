@@ -4,7 +4,7 @@
 // 如果随此文件未分发 MIT 许可协议副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gview_test
+package 模板类_test
 
 import (
 	"context"
@@ -21,7 +21,7 @@ func Test_Config(t *testing.T) {
 	// show error print
 	command.Init("-gf.gview.errorprint=true")
 	gtest.C(t, func(t *gtest.T) {
-		config := gview.Config{
+		config := 模板类.Config{
 			Paths: []string{gtest.DataPath("config")},
 			Data: g.Map{
 				"name": "gf",
@@ -30,7 +30,7 @@ func Test_Config(t *testing.T) {
 			Delimiters:  []string{"${", "}"},
 		}
 
-		view := gview.New()
+		view := 模板类.New()
 		err := view.SetConfig(config)
 		t.AssertNil(err)
 
@@ -50,7 +50,7 @@ func Test_Config(t *testing.T) {
 	})
 	// 设置配置文件路径失败：notexist
 	gtest.C(t, func(t *gtest.T) {
-		config := gview.Config{
+		config := 模板类.Config{
 			Paths: []string{"notexist", gtest.DataPath("config/test.html")},
 			Data: g.Map{
 				"name": "gf",
@@ -59,13 +59,13 @@ func Test_Config(t *testing.T) {
 			Delimiters:  []string{"${", "}"},
 		}
 
-		view := gview.New()
+		view := 模板类.New()
 		err := view.SetConfig(config)
 		t.AssertNE(err, nil)
 	})
 	// SetConfig 设置配置文件路径失败：设置文件路径
 	gtest.C(t, func(t *gtest.T) {
-		config := gview.Config{
+		config := 模板类.Config{
 			Paths: []string{gtest.DataPath("config/test.html")},
 			Data: g.Map{
 				"name": "gf",
@@ -74,7 +74,7 @@ func Test_Config(t *testing.T) {
 			Delimiters:  []string{"${", "}"},
 		}
 
-		view := gview.New()
+		view := 模板类.New()
 		err := view.SetConfig(config)
 		t.AssertNE(err, nil)
 	})
@@ -82,7 +82,7 @@ func Test_Config(t *testing.T) {
 
 func Test_ConfigWithMap(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		view := gview.New()
+		view := 模板类.New()
 		err := view.SetConfigWithMap(g.Map{
 			"Paths":       []string{gtest.DataPath("config")},
 			"DefaultFile": "test.html",
@@ -105,7 +105,7 @@ func Test_ConfigWithMap(t *testing.T) {
 	})
 	// path as paths
 	gtest.C(t, func(t *gtest.T) {
-		view := gview.New()
+		view := 模板类.New()
 		err := view.SetConfigWithMap(g.Map{
 			"Path":        gtest.DataPath("config"),
 			"DefaultFile": "test.html",
@@ -128,7 +128,7 @@ func Test_ConfigWithMap(t *testing.T) {
 	})
 	// path as paths
 	gtest.C(t, func(t *gtest.T) {
-		view := gview.New()
+		view := 模板类.New()
 		err := view.SetConfigWithMap(g.Map{
 			"Path":        []string{gtest.DataPath("config")},
 			"DefaultFile": "test.html",
@@ -151,7 +151,7 @@ func Test_ConfigWithMap(t *testing.T) {
 	})
 	// map is nil
 	gtest.C(t, func(t *gtest.T) {
-		view := gview.New()
+		view := 模板类.New()
 		err := view.SetConfigWithMap(nil)
 		t.AssertNE(err, nil)
 	})

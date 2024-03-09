@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtype_test
+package 安全变量类_test
 
 import (
 	"math"
@@ -17,24 +17,24 @@ import (
 
 func Test_Float32(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		i := gtype.NewFloat32(0)
+		i := 安全变量类.NewFloat32(0)
 		iClone := i.Clone()
-		t.AssertEQ(iClone.Set(0.1), float32(0))
-		t.AssertEQ(iClone.Val(), float32(0.1))
+		t.AssertEQ(iClone.X设置值(0.1), float32(0))
+		t.AssertEQ(iClone.X取值(), float32(0.1))
 
 		// empty param test
-		i1 := gtype.NewFloat32()
-		t.AssertEQ(i1.Val(), float32(0))
+		i1 := 安全变量类.NewFloat32()
+		t.AssertEQ(i1.X取值(), float32(0))
 
-		i2 := gtype.NewFloat32(1.23)
+		i2 := 安全变量类.NewFloat32(1.23)
 		t.AssertEQ(i2.Add(3.21), float32(4.44))
 		t.AssertEQ(i2.Cas(4.45, 5.55), false)
 		t.AssertEQ(i2.Cas(4.44, 5.55), true)
 		t.AssertEQ(i2.String(), "5.55")
 
 		copyVal := i2.DeepCopy()
-		i2.Set(float32(6.66))
-		t.AssertNE(copyVal, iClone.Val())
+		i2.X设置值(float32(6.66))
+		t.AssertNE(copyVal, iClone.X取值())
 		i2 = nil
 		copyVal = i2.DeepCopy()
 		t.AssertNil(copyVal)
@@ -44,25 +44,25 @@ func Test_Float32(t *testing.T) {
 func Test_Float32_JSON(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := float32(math.MaxFloat32)
-		i := gtype.NewFloat32(v)
+		i := 安全变量类.NewFloat32(v)
 		b1, err1 := json.Marshal(i)
-		b2, err2 := json.Marshal(i.Val())
+		b2, err2 := json.Marshal(i.X取值())
 
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 		t.Assert(b1, b2)
 
-		i2 := gtype.NewFloat32()
+		i2 := 安全变量类.NewFloat32()
 		err := json.UnmarshalUseNumber(b2, &i2)
 		t.AssertNil(err)
-		t.Assert(i2.Val(), v)
+		t.Assert(i2.X取值(), v)
 	})
 }
 
 func Test_Float32_UnmarshalValue(t *testing.T) {
 	type V struct {
 		Name string
-		Var  *gtype.Float32
+		Var  *安全变量类.Float32
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var v *V
@@ -72,6 +72,6 @@ func Test_Float32_UnmarshalValue(t *testing.T) {
 		}, &v)
 		t.AssertNil(err)
 		t.Assert(v.Name, "john")
-		t.Assert(v.Var.Val(), "123.456")
+		t.Assert(v.Var.X取值(), "123.456")
 	})
 }

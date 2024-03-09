@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gcompress
+package 压缩类
 
 import (
 	"archive/zip"
@@ -24,18 +24,18 @@ import (
 //
 // 参数`paths`可以是目录或文件，支持使用','连接的多个路径。
 // 可选参数`prefix`表示zip文件中的路径前缀。
-func ZipPath(fileOrFolderPaths, dstFilePath string, prefix ...string) error {
-	writer, err := os.Create(dstFilePath)
+func Zip压缩文件(目录或文件, 压缩文件路径 string, 可选路径前缀 ...string) error {
+	writer, err := os.Create(压缩文件路径)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Create failed for name "%s"`, dstFilePath)
+		err = gerror.Wrapf(err, `os.Create failed for name "%s"`, 压缩文件路径)
 		return err
 	}
 	defer writer.Close()
 	zipWriter := zip.NewWriter(writer)
 	defer zipWriter.Close()
-	for _, path := range strings.Split(fileOrFolderPaths, ",") {
+	for _, path := range strings.Split(目录或文件, ",") {
 		path = strings.TrimSpace(path)
-		if err = doZipPathWriter(path, gfile.RealPath(dstFilePath), zipWriter, prefix...); err != nil {
+		if err = doZipPathWriter(path, gfile.RealPath(压缩文件路径), zipWriter, 可选路径前缀...); err != nil {
 			return err
 		}
 	}
@@ -46,12 +46,12 @@ func ZipPath(fileOrFolderPaths, dstFilePath string, prefix ...string) error {
 //
 // 注意参数`fileOrFolderPaths`可以是目录或文件，支持使用','连接的多个路径。
 // 可选参数`prefix`表示zip文件中的路径前缀。
-func ZipPathWriter(fileOrFolderPaths string, writer io.Writer, prefix ...string) error {
+func Zip压缩文件到Writer(目录或文件 string, writer io.Writer, 可选路径前缀 ...string) error {
 	zipWriter := zip.NewWriter(writer)
 	defer zipWriter.Close()
-	for _, path := range strings.Split(fileOrFolderPaths, ",") {
+	for _, path := range strings.Split(目录或文件, ",") {
 		path = strings.TrimSpace(path)
-		if err := doZipPathWriter(path, "", zipWriter, prefix...); err != nil {
+		if err := doZipPathWriter(path, "", zipWriter, 可选路径前缀...); err != nil {
 			return err
 		}
 	}
@@ -62,12 +62,12 @@ func ZipPathWriter(fileOrFolderPaths string, writer io.Writer, prefix ...string)
 //
 // 注意，参数`fileOrFolderPaths`可以是目录或文件，支持使用','连接多个路径。
 // 可选参数`prefix`表示zip文件中的路径前缀。
-func ZipPathContent(fileOrFolderPaths string, prefix ...string) ([]byte, error) {
+func Zip压缩文件到字节集(目录或文件 string, 可选路径前缀 ...string) ([]byte, error) {
 	var (
 		err    error
 		buffer = bytes.NewBuffer(nil)
 	)
-	if err = ZipPathWriter(fileOrFolderPaths, buffer, prefix...); err != nil {
+	if err = Zip压缩文件到Writer(目录或文件, buffer, 可选路径前缀...); err != nil {
 		return nil, err
 	}
 	return buffer.Bytes(), nil
@@ -129,14 +129,14 @@ func doZipPathWriter(fileOrFolderPath string, exclude string, zipWriter *zip.Wri
 // 参数`dstFolderPath`应为一个目录。
 // 可选参数`zippedPrefix`用于指定`zippedFilePath`解压后的路径前缀，
 // 该参数可用于指定只解压归档文件中的部分内容。
-func UnZipFile(zippedFilePath, dstFolderPath string, zippedPrefix ...string) error {
-	readerCloser, err := zip.OpenReader(zippedFilePath)
+func Zip解压文件(压缩包路径, 解压目录 string, 可选路径前缀 ...string) error {
+	readerCloser, err := zip.OpenReader(压缩包路径)
 	if err != nil {
-		err = gerror.Wrapf(err, `zip.OpenReader failed for name "%s"`, dstFolderPath)
+		err = gerror.Wrapf(err, `zip.OpenReader failed for name "%s"`, 解压目录)
 		return err
 	}
 	defer readerCloser.Close()
-	return unZipFileWithReader(&readerCloser.Reader, dstFolderPath, zippedPrefix...)
+	return unZipFileWithReader(&readerCloser.Reader, 解压目录, 可选路径前缀...)
 }
 
 // UnZipContent 使用zip压缩算法将`zippedContent`解压到`dstFolderPath`。
@@ -151,13 +151,13 @@ func UnZipFile(zippedFilePath, dstFolderPath string, zippedPrefix ...string) err
 // 参数 `dstFolderPath` 必须是一个存在的目录，解压后的文件将存放在此目录下。
 // 参数 `zippedPrefix` 指定 `zippedContent` 中待解压内容的相对路径前缀，
 // 通过此参数可以选择性地解压归档文件中的特定部分。
-func UnZipContent(zippedContent []byte, dstFolderPath string, zippedPrefix ...string) error {
-	reader, err := zip.NewReader(bytes.NewReader(zippedContent), int64(len(zippedContent)))
+func Zip解压字节集(zip字节集 []byte, 解压目录 string, 可选路径前缀 ...string) error {
+	reader, err := zip.NewReader(bytes.NewReader(zip字节集), int64(len(zip字节集)))
 	if err != nil {
 		err = gerror.Wrapf(err, `zip.NewReader failed`)
 		return err
 	}
-	return unZipFileWithReader(reader, dstFolderPath, zippedPrefix...)
+	return unZipFileWithReader(reader, 解压目录, 可选路径前缀...)
 }
 
 func unZipFileWithReader(reader *zip.Reader, dstFolderPath string, zippedPrefix ...string) error {

@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtime
+package 时间类
 
 import (
 	"os"
@@ -29,10 +29,10 @@ var (
 // 1. 此函数应在导入 "time" 包之前调用。
 // 2. 此函数应仅调用一次。
 // 3. 参考相关问题：https://github.com/golang/go/issues/34814
-func SetTimeZone(zone string) (err error) {
+func X设置时区(时区 string) (错误 error) {
 	setTimeZoneMu.Lock()
 	defer setTimeZoneMu.Unlock()
-	if setTimeZoneName != "" && !strings.EqualFold(zone, setTimeZoneName) {
+	if setTimeZoneName != "" && !strings.EqualFold(时区, setTimeZoneName) {
 		return gerror.NewCodef(
 			gcode.CodeInvalidOperation,
 			`process timezone already set using "%s"`,
@@ -40,21 +40,21 @@ func SetTimeZone(zone string) (err error) {
 		)
 	}
 	defer func() {
-		if err == nil {
-			setTimeZoneName = zone
+		if 错误 == nil {
+			setTimeZoneName = 时区
 		}
 	}()
 
 	// 它已经被设置为 time.Local。
-	if strings.EqualFold(zone, time.Local.String()) {
+	if strings.EqualFold(时区, time.Local.String()) {
 		return
 	}
 
 	// 从指定名称加载时区信息。
-	location, err := time.LoadLocation(zone)
-	if err != nil {
-		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.LoadLocation failed for zone "%s"`, zone)
-		return err
+	location, 错误 := time.LoadLocation(时区)
+	if 错误 != nil {
+		错误 = gerror.WrapCodef(gcode.CodeInvalidParameter, 错误, `time.LoadLocation failed for zone "%s"`, 时区)
+		return 错误
 	}
 
 	// 更新一次 time.Local。
@@ -65,10 +65,10 @@ func SetTimeZone(zone string) (err error) {
 		envKey   = "TZ"
 		envValue = location.String()
 	)
-	if err = os.Setenv(envKey, envValue); err != nil {
-		err = gerror.WrapCodef(
+	if 错误 = os.Setenv(envKey, envValue); 错误 != nil {
+		错误 = gerror.WrapCodef(
 			gcode.CodeUnknown,
-			err,
+			错误,
 			`set environment failed with key "%s", value "%s"`,
 			envKey, envValue,
 		)
@@ -77,16 +77,16 @@ func SetTimeZone(zone string) (err error) {
 }
 
 // ToLocation将当前时间转换为指定时区的时间。
-func (t *Time) ToLocation(location *time.Location) *Time {
-	newTime := t.Clone()
-	newTime.Time = newTime.Time.In(location)
+func (t *Time) X转换时区Location(时区 *time.Location) *Time {
+	newTime := t.X取副本()
+	newTime.Time = newTime.Time.In(时区)
 	return newTime
 }
 
 // ToZone 将当前时间转换为指定时区，如：Asia/Shanghai。
-func (t *Time) ToZone(zone string) (*Time, error) {
-	if location, err := t.getLocationByZoneName(zone); err == nil {
-		return t.ToLocation(location), nil
+func (t *Time) X转换时区(时区 string) (*Time, error) {
+	if location, err := t.getLocationByZoneName(时区); err == nil {
+		return t.X转换时区Location(location), nil
 	} else {
 		return nil, err
 	}
@@ -111,8 +111,8 @@ func (t *Time) getLocationByZoneName(name string) (location *time.Location, err 
 }
 
 // Local将时间转换为本地时区。
-func (t *Time) Local() *Time {
-	newTime := t.Clone()
+func (t *Time) X取本地时区() *Time {
+	newTime := t.X取副本()
 	newTime.Time = newTime.Time.Local()
 	return newTime
 }

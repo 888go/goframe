@@ -14,7 +14,7 @@
 //
 // 已保留的模板变量名称：
 // I18nLanguage：将该变量进行赋值，以便在每个页面上定义国际化的（i18n）语言设置。
-package gview
+package 模板类
 
 import (
 	"context"

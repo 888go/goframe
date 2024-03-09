@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ import (
 
 // New
 func ExampleVarNew() {
-	v := gvar.New(400)
+	v := 泛型类.X创建(400)
 	fmt.Println(v)
 
 	// Output:
@@ -25,19 +25,19 @@ func ExampleVarNew() {
 // Clone
 func ExampleVar_Clone() {
 	tmp := "fisrt hello"
-	v := gvar.New(tmp)
-	g.DumpWithType(v.Clone())
-	fmt.Println(v == v.Clone())
+	v := 泛型类.X创建(tmp)
+	g.DumpWithType(v.X浅拷贝())
+	fmt.Println(v == v.X浅拷贝())
 
 	// Output:
-	// *gvar.Var(11) "fisrt hello"
+	// *泛型类.Var(11) "fisrt hello"
 	// false
 }
 
 // Set
 func ExampleVar_Set() {
-	var v = gvar.New(100.00)
-	g.Dump(v.Set(200.00))
+	var v = 泛型类.X创建(100.00)
+	g.Dump(v.X设置值(200.00))
 	g.Dump(v)
 
 	// Output:
@@ -47,8 +47,8 @@ func ExampleVar_Set() {
 
 // Val
 func ExampleVar_Val() {
-	var v = gvar.New(100.00)
-	g.DumpWithType(v.Val())
+	var v = 泛型类.X创建(100.00)
+	g.DumpWithType(v.X取值())
 
 	// Output:
 	// float64(100)
@@ -56,7 +56,7 @@ func ExampleVar_Val() {
 
 // Interface
 func ExampleVar_Interface() {
-	var v = gvar.New(100.00)
+	var v = 泛型类.X创建(100.00)
 	g.DumpWithType(v.Interface())
 
 	// Output:
@@ -65,8 +65,8 @@ func ExampleVar_Interface() {
 
 // Bytes
 func ExampleVar_Bytes() {
-	var v = gvar.New("GoFrame")
-	g.DumpWithType(v.Bytes())
+	var v = 泛型类.X创建("GoFrame")
+	g.DumpWithType(v.X取字节集())
 
 	// Output:
 	// []byte(7) "GoFrame"
@@ -74,7 +74,7 @@ func ExampleVar_Bytes() {
 
 // String
 func ExampleVar_String() {
-	var v = gvar.New("GoFrame")
+	var v = 泛型类.X创建("GoFrame")
 	g.DumpWithType(v.String())
 
 	// Output:
@@ -83,8 +83,8 @@ func ExampleVar_String() {
 
 // Bool
 func ExampleVar_Bool() {
-	var v = gvar.New(true)
-	g.DumpWithType(v.Bool())
+	var v = 泛型类.X创建(true)
+	g.DumpWithType(v.X取布尔())
 
 	// Output:
 	// bool(true)
@@ -92,8 +92,8 @@ func ExampleVar_Bool() {
 
 // Int
 func ExampleVar_Int() {
-	var v = gvar.New(-1000)
-	g.DumpWithType(v.Int())
+	var v = 泛型类.X创建(-1000)
+	g.DumpWithType(v.X取整数())
 
 	// Output:
 	// int(-1000)
@@ -101,8 +101,8 @@ func ExampleVar_Int() {
 
 // Uint
 func ExampleVar_Uint() {
-	var v = gvar.New(1000)
-	g.DumpWithType(v.Uint())
+	var v = 泛型类.X创建(1000)
+	g.DumpWithType(v.X取正整数())
 
 	// Output:
 	// uint(1000)
@@ -110,8 +110,8 @@ func ExampleVar_Uint() {
 
 // Float32
 func ExampleVar_Float32() {
-	var price = gvar.New(100.00)
-	g.DumpWithType(price.Float32())
+	var price = 泛型类.X创建(100.00)
+	g.DumpWithType(price.X取小数32位())
 
 	// Output:
 	// float32(100)
@@ -119,8 +119,8 @@ func ExampleVar_Float32() {
 
 // Time
 func ExampleVar_Time() {
-	var v = gvar.New("2021-11-11 00:00:00")
-	g.DumpWithType(v.Time())
+	var v = 泛型类.X创建("2021-11-11 00:00:00")
+	g.DumpWithType(v.X取时间类())
 
 	// Output:
 	// time.Time(29) "2021-11-11 00:00:00 +0800 CST"
@@ -128,8 +128,8 @@ func ExampleVar_Time() {
 
 // GTime
 func ExampleVar_GTime() {
-	var v = gvar.New("2021-11-11 00:00:00")
-	g.DumpWithType(v.GTime())
+	var v = 泛型类.X创建("2021-11-11 00:00:00")
+	g.DumpWithType(v.X取gtime时间类())
 
 	// Output:
 	// *gtime.Time(19) "2021-11-11 00:00:00"
@@ -137,8 +137,8 @@ func ExampleVar_GTime() {
 
 // Duration
 func ExampleVar_Duration() {
-	var v = gvar.New("300s")
-	g.DumpWithType(v.Duration())
+	var v = 泛型类.X创建("300s")
+	g.DumpWithType(v.X取时长())
 
 	// Output:
 	// time.Duration(4) "5m0s"
@@ -152,7 +152,7 @@ func ExampleVar_MarshalJSON() {
 		"count": 10,
 	}
 
-	var v = gvar.New(testMap)
+	var v = 泛型类.X创建(testMap)
 	res, err := json.Marshal(&v)
 	if err != nil {
 		panic(err)
@@ -172,7 +172,7 @@ func ExampleVar_UnmarshalJSON() {
 	     "Price":         300,
 	     "OnSale":        true
 	}`)
-	var v = gvar.New(map[string]interface{}{})
+	var v = 泛型类.X创建(map[string]interface{}{})
 	if err := json.Unmarshal(tmp, &v); err != nil {
 		panic(err)
 	}
@@ -192,7 +192,7 @@ func ExampleVar_UnmarshalValue() {
 		"sale":  true,
 	}
 
-	var v = gvar.New(map[string]interface{}{})
+	var v = 泛型类.X创建(map[string]interface{}{})
 	if err := v.UnmarshalValue(tmp); err != nil {
 		panic(err)
 	}
@@ -204,11 +204,11 @@ func ExampleVar_UnmarshalValue() {
 
 // IsNil
 func ExampleVar_IsNil() {
-	g.Dump(gvar.New(0).IsNil())
-	g.Dump(gvar.New(0.1).IsNil())
+	g.Dump(泛型类.X创建(0).X是否为Nil())
+	g.Dump(泛型类.X创建(0.1).X是否为Nil())
 	// true
-	g.Dump(gvar.New(nil).IsNil())
-	g.Dump(gvar.New("").IsNil())
+	g.Dump(泛型类.X创建(nil).X是否为Nil())
+	g.Dump(泛型类.X创建("").X是否为Nil())
 
 	// Output:
 	// false
@@ -219,10 +219,10 @@ func ExampleVar_IsNil() {
 
 // IsEmpty
 func ExampleVar_IsEmpty() {
-	g.Dump(gvar.New(0).IsEmpty())
-	g.Dump(gvar.New(nil).IsEmpty())
-	g.Dump(gvar.New("").IsEmpty())
-	g.Dump(gvar.New(g.Map{"k": "v"}).IsEmpty())
+	g.Dump(泛型类.X创建(0).X是否为空())
+	g.Dump(泛型类.X创建(nil).X是否为空())
+	g.Dump(泛型类.X创建("").X是否为空())
+	g.Dump(泛型类.X创建(g.Map{"k": "v"}).X是否为空())
 
 	// Output:
 	// true
@@ -233,10 +233,10 @@ func ExampleVar_IsEmpty() {
 
 // IsInt
 func ExampleVar_IsInt() {
-	g.Dump(gvar.New(0).IsInt())
-	g.Dump(gvar.New(0.1).IsInt())
-	g.Dump(gvar.New(nil).IsInt())
-	g.Dump(gvar.New("").IsInt())
+	g.Dump(泛型类.X创建(0).X是否为整数())
+	g.Dump(泛型类.X创建(0.1).X是否为整数())
+	g.Dump(泛型类.X创建(nil).X是否为整数())
+	g.Dump(泛型类.X创建("").X是否为整数())
 
 	// Output:
 	// true
@@ -247,9 +247,9 @@ func ExampleVar_IsInt() {
 
 // IsUint
 func ExampleVar_IsUint() {
-	g.Dump(gvar.New(0).IsUint())
-	g.Dump(gvar.New(uint8(8)).IsUint())
-	g.Dump(gvar.New(nil).IsUint())
+	g.Dump(泛型类.X创建(0).X是否为正整数())
+	g.Dump(泛型类.X创建(uint8(8)).X是否为正整数())
+	g.Dump(泛型类.X创建(nil).X是否为正整数())
 
 	// Output:
 	// false
@@ -314,9 +314,9 @@ func ExampleVar_ListItemValues() {
 		g.Map{"id": 2, "price": 0},
 		g.Map{"id": 3, "price": nil},
 	}
-	var v = gvar.New(goods1)
-	fmt.Println(v.ListItemValues("id"))
-	fmt.Println(v.ListItemValues("price"))
+	var v = 泛型类.X创建(goods1)
+	fmt.Println(v.X取结构数组或Map数组值("id"))
+	fmt.Println(v.X取结构数组或Map数组值("price"))
 
 	// Output:
 	// [1 2 3]
@@ -331,11 +331,11 @@ func ExampleVar_ListItemValuesUnique() {
 			g.Map{"id": 2, "price": 100.00},
 			g.Map{"id": 3, "price": nil},
 		}
-		v = gvar.New(goods1)
+		v = 泛型类.X创建(goods1)
 	)
 
-	fmt.Println(v.ListItemValuesUnique("id"))
-	fmt.Println(v.ListItemValuesUnique("price"))
+	fmt.Println(v.X取结构数组或Map数组值并去重("id"))
+	fmt.Println(v.X取结构数组或Map数组值并去重("price"))
 
 	// Output:
 	// [1 2 3]
@@ -347,7 +347,7 @@ func ExampleVar_Struct() {
 		"uid":  1,
 		"Name": "john",
 	}
-	v := gvar.New(params1)
+	v := 泛型类.X创建(params1)
 	type tartget struct {
 		Uid  int
 		Name string
@@ -377,7 +377,7 @@ func ExampleVar_Structs() {
 	}
 
 	paramsArray = append(paramsArray, params1, params2)
-	v := gvar.New(paramsArray)
+	v := 泛型类.X创建(paramsArray)
 	type tartget struct {
 		Uid  int
 		Name string
@@ -389,12 +389,12 @@ func ExampleVar_Structs() {
 	g.DumpWithType(t)
 
 	// Output:
-	// []gvar_test.tartget(2) [
-	//     gvar_test.tartget(2) {
+	// []泛型类_test.tartget(2) [
+	//     泛型类_test.tartget(2) {
 	//         Uid:  int(1),
 	//         Name: string(6) "golang",
 	//     },
-	//     gvar_test.tartget(2) {
+	//     泛型类_test.tartget(2) {
 	//         Uid:  int(2),
 	//         Name: string(4) "java",
 	//     },
@@ -405,10 +405,10 @@ func ExampleVar_Structs() {
 func ExampleVar_Ints() {
 	var (
 		arr = []int{1, 2, 3, 4, 5}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Ints())
+	fmt.Println(obj.X取整数数组())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -418,10 +418,10 @@ func ExampleVar_Ints() {
 func ExampleVar_Int64s() {
 	var (
 		arr = []int64{1, 2, 3, 4, 5}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Int64s())
+	fmt.Println(obj.X取整数64位数组())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -431,9 +431,9 @@ func ExampleVar_Int64s() {
 func ExampleVar_Uints() {
 	var (
 		arr = []uint{1, 2, 3, 4, 5}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
-	fmt.Println(obj.Uints())
+	fmt.Println(obj.X取正整数数组())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -443,10 +443,10 @@ func ExampleVar_Uints() {
 func ExampleVar_Uint64s() {
 	var (
 		arr = []uint64{1, 2, 3, 4, 5}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Uint64s())
+	fmt.Println(obj.X取正整数64位数组())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -456,10 +456,10 @@ func ExampleVar_Uint64s() {
 func ExampleVar_Floats() {
 	var (
 		arr = []float64{1, 2, 3, 4, 5}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Floats())
+	fmt.Println(obj.X取小数数组())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -469,10 +469,10 @@ func ExampleVar_Floats() {
 func ExampleVar_Float32s() {
 	var (
 		arr = []float32{1, 2, 3, 4, 5}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Float32s())
+	fmt.Println(obj.X取小数32位数组())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -482,10 +482,10 @@ func ExampleVar_Float32s() {
 func ExampleVar_Float64s() {
 	var (
 		arr = []float64{1, 2, 3, 4, 5}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Float64s())
+	fmt.Println(obj.X取小数64位数组())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -495,9 +495,9 @@ func ExampleVar_Float64s() {
 func ExampleVar_Strings() {
 	var (
 		arr = []string{"GoFrame", "Golang"}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
-	fmt.Println(obj.Strings())
+	fmt.Println(obj.X取文本数组())
 
 	// Output:
 	// [GoFrame Golang]
@@ -507,10 +507,10 @@ func ExampleVar_Strings() {
 func ExampleVar_Interfaces() {
 	var (
 		arr = []string{"GoFrame", "Golang"}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Interfaces())
+	fmt.Println(obj.X取any数组())
 
 	// Output:
 	// [GoFrame Golang]
@@ -520,10 +520,10 @@ func ExampleVar_Interfaces() {
 func ExampleVar_Slice() {
 	var (
 		arr = []string{"GoFrame", "Golang"}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Slice())
+	fmt.Println(obj.Slice别名())
 
 	// Output:
 	// [GoFrame Golang]
@@ -533,9 +533,9 @@ func ExampleVar_Slice() {
 func ExampleVar_Array() {
 	var (
 		arr = []string{"GoFrame", "Golang"}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
-	fmt.Println(obj.Array())
+	fmt.Println(obj.Array别名())
 
 	// Output:
 	// [GoFrame Golang]
@@ -545,10 +545,10 @@ func ExampleVar_Array() {
 func ExampleVar_Vars() {
 	var (
 		arr = []string{"GoFrame", "Golang"}
-		obj = gvar.New(arr)
+		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.Vars())
+	fmt.Println(obj.X取泛型类数组())
 
 	// Output:
 	// [GoFrame Golang]
@@ -558,8 +558,8 @@ func ExampleVar_Vars() {
 func ExampleVar_Map() {
 	var (
 		m   = g.Map{"id": 1, "price": 100.00}
-		v   = gvar.New(m)
-		res = v.Map()
+		v   = 泛型类.X创建(m)
+		res = v.X取Map()
 	)
 
 	fmt.Println(res["id"], res["price"])
@@ -572,8 +572,8 @@ func ExampleVar_Map() {
 func ExampleVar_MapStrAny() {
 	var (
 		m1 = g.Map{"id": 1, "price": 100}
-		v  = gvar.New(m1)
-		v2 = v.MapStrAny()
+		v  = 泛型类.X创建(m1)
+		v2 = v.X取MapStrAny()
 	)
 
 	fmt.Println(v2["price"], v2["id"])
@@ -586,8 +586,8 @@ func ExampleVar_MapStrAny() {
 func ExampleVar_MapStrStr() {
 	var (
 		m1 = g.Map{"id": 1, "price": 100}
-		v  = gvar.New(m1)
-		v2 = v.MapStrStr()
+		v  = 泛型类.X创建(m1)
+		v2 = v.X取文本Map()
 	)
 
 	fmt.Println(v2["price"] + "$")
@@ -600,11 +600,11 @@ func ExampleVar_MapStrStr() {
 func ExampleVar_MapStrVar() {
 	var (
 		m1 = g.Map{"id": 1, "price": 100}
-		v  = gvar.New(m1)
-		v2 = v.MapStrVar()
+		v  = 泛型类.X创建(m1)
+		v2 = v.X取泛型类Map()
 	)
 
-	fmt.Println(v2["price"].Float64() * 100)
+	fmt.Println(v2["price"].X取小数64位() * 100)
 
 	// Output:
 	// 10000
@@ -615,8 +615,8 @@ func ExampleVar_MapDeep() {
 	var (
 		m1 = g.Map{"id": 1, "price": 100}
 		m2 = g.Map{"product": m1}
-		v  = gvar.New(m2)
-		v2 = v.MapDeep()
+		v  = 泛型类.X创建(m2)
+		v2 = v.MapDeep弃用()
 	)
 
 	fmt.Println(v2["product"])
@@ -630,8 +630,8 @@ func ExampleVar_MapStrStrDeep() {
 	var (
 		m1 = g.Map{"id": 1, "price": 100}
 		m2 = g.Map{"product": m1}
-		v  = gvar.New(m2)
-		v2 = v.MapStrStrDeep()
+		v  = 泛型类.X创建(m2)
+		v2 = v.MapStrStrDeep弃用()
 	)
 
 	fmt.Println(v2["product"])
@@ -646,9 +646,9 @@ func ExampleVar_MapStrVarDeep() {
 		m1 = g.Map{"id": 1, "price": 100}
 		m2 = g.Map{"product": m1}
 		m3 = g.Map{}
-		v  = gvar.New(m2)
-		v2 = v.MapStrVarDeep()
-		v3 = gvar.New(m3).MapStrVarDeep()
+		v  = 泛型类.X创建(m2)
+		v2 = v.X取泛型类Map_递归()
+		v3 = 泛型类.X创建(m3).X取泛型类Map_递归()
 	)
 
 	fmt.Println(v2["product"])
@@ -661,8 +661,8 @@ func ExampleVar_MapStrVarDeep() {
 
 // Maps
 func ExampleVar_Maps() {
-	var m = gvar.New(g.ListIntInt{g.MapIntInt{0: 100, 1: 200}, g.MapIntInt{0: 300, 1: 400}})
-	fmt.Printf("%#v", m.Maps())
+	var m = 泛型类.X创建(g.ListIntInt{g.MapIntInt{0: 100, 1: 200}, g.MapIntInt{0: 300, 1: 400}})
+	fmt.Printf("%#v", m.X取Map数组())
 
 	// Output:
 	// []map[string]interface {}{map[string]interface {}{"0":100, "1":200}, map[string]interface {}{"0":300, "1":400}}
@@ -673,8 +673,8 @@ func ExampleVar_MapsDeep() {
 	var (
 		p1 = g.MapStrAny{"product": g.Map{"id": 1, "price": 100}}
 		p2 = g.MapStrAny{"product": g.Map{"id": 2, "price": 200}}
-		v  = gvar.New(g.ListStrAny{p1, p2})
-		v2 = v.MapsDeep()
+		v  = 泛型类.X创建(g.ListStrAny{p1, p2})
+		v2 = v.MapsDeep弃用()
 	)
 
 	fmt.Printf("%#v", v2)
@@ -686,7 +686,7 @@ func ExampleVar_MapsDeep() {
 // MapToMap
 func ExampleVar_MapToMap() {
 	var (
-		m1 = gvar.New(g.MapIntInt{0: 100, 1: 200})
+		m1 = 泛型类.X创建(g.MapIntInt{0: 100, 1: 200})
 		m2 = g.MapStrStr{}
 	)
 
@@ -706,7 +706,7 @@ func ExampleVar_MapToMaps() {
 	var (
 		p1 = g.MapStrAny{"product": g.Map{"id": 1, "price": 100}}
 		p2 = g.MapStrAny{"product": g.Map{"id": 2, "price": 200}}
-		v  = gvar.New(g.ListStrAny{p1, p2})
+		v  = 泛型类.X创建(g.ListStrAny{p1, p2})
 		v2 []g.MapStrStr
 	)
 
@@ -725,7 +725,7 @@ func ExampleVar_MapToMapsDeep() {
 	var (
 		p1 = g.MapStrAny{"product": g.Map{"id": 1, "price": 100}}
 		p2 = g.MapStrAny{"product": g.Map{"id": 2, "price": 200}}
-		v  = gvar.New(g.ListStrAny{p1, p2})
+		v  = 泛型类.X创建(g.ListStrAny{p1, p2})
 		v2 []g.MapStrStr
 	)
 
@@ -754,13 +754,13 @@ func ExampleVar_Scan() {
 			"Scores": []int{100, 99, 98},
 		}
 	)
-	v := gvar.New(m)
-	if err := v.Scan(&s); err == nil {
+	v := 泛型类.X创建(m)
+	if err := v.X取结构体指针(&s); err == nil {
 		g.DumpWithType(s)
 	}
 
 	// Output:
-	// gvar_test.Student(3) {
+	// 泛型类_test.Student(3) {
 	//     Id:     *gvar.Var(1) "1",
 	//     Name:   *gvar.Var(4) "john",
 	//     Scores: *gvar.Var(11) "[100,99,98]",

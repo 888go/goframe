@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gtype
+package 安全变量类
 
 import (
 	"math"
@@ -31,16 +31,16 @@ func NewFloat32(value ...float32) *Float32 {
 
 // Clone 克隆并返回一个用于 float32 类型的新并发安全对象。
 func (v *Float32) Clone() *Float32 {
-	return NewFloat32(v.Val())
+	return NewFloat32(v.X取值())
 }
 
 // Set 方法通过原子操作将`value`存储到t.value中，并返回修改前的t.value的值。
-func (v *Float32) Set(value float32) (old float32) {
+func (v *Float32) X设置值(value float32) (old float32) {
 	return math.Float32frombits(atomic.SwapUint32(&v.value, math.Float32bits(value)))
 }
 
 // Val 原子性地加载并返回 t.value。
-func (v *Float32) Val() float32 {
+func (v *Float32) X取值() float32 {
 	return math.Float32frombits(atomic.LoadUint32(&v.value))
 }
 
@@ -67,23 +67,23 @@ func (v *Float32) Cas(old, new float32) (swapped bool) {
 
 // String 实现了 String 接口以便进行字符串打印。
 func (v *Float32) String() string {
-	return strconv.FormatFloat(float64(v.Val()), 'g', -1, 32)
+	return strconv.FormatFloat(float64(v.X取值()), 'g', -1, 32)
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (v Float32) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatFloat(float64(v.Val()), 'g', -1, 32)), nil
+	return []byte(strconv.FormatFloat(float64(v.X取值()), 'g', -1, 32)), nil
 }
 
 // UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。
 func (v *Float32) UnmarshalJSON(b []byte) error {
-	v.Set(gconv.Float32(string(b)))
+	v.X设置值(gconv.Float32(string(b)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于为 `v` 设置任意类型的值。
 func (v *Float32) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Float32(value))
+	v.X设置值(gconv.Float32(value))
 	return nil
 }
 
@@ -92,5 +92,5 @@ func (v *Float32) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewFloat32(v.Val())
+	return NewFloat32(v.X取值())
 }

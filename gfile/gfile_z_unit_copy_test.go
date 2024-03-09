@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gfile_test
+package 文件类_test
 
 import (
 	"os"
@@ -25,12 +25,12 @@ func Test_Copy(t *testing.T) {
 		createTestFile(paths, "")
 		defer delTestFiles(paths)
 
-		t.Assert(gfile.Copy(testpath()+paths, testpath()+topath), nil)
+		t.Assert(文件类.X复制(testpath()+paths, testpath()+topath), nil)
 		defer delTestFiles(topath)
 
-		t.Assert(gfile.IsFile(testpath()+topath), true)
-		t.AssertNE(gfile.Copy(paths, ""), nil)
-		t.AssertNE(gfile.Copy("", topath), nil)
+		t.Assert(文件类.X是否为文件(testpath()+topath), true)
+		t.AssertNE(文件类.X复制(paths, ""), nil)
+		t.AssertNE(文件类.X复制("", topath), nil)
 	})
 }
 
@@ -38,17 +38,17 @@ func Test_Copy_File_To_Dir(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			src = gtest.DataPath("dir1", "file1")
-			dst = gfile.Temp(guid.S(), "dir2")
+			dst = 文件类.X取临时目录(guid.S(), "dir2")
 		)
-		err := gfile.Mkdir(dst)
+		err := 文件类.X创建目录(dst)
 		t.AssertNil(err)
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 
-		err = gfile.Copy(src, dst)
+		err = 文件类.X复制(src, dst)
 		t.AssertNil(err)
 
-		expectPath := gfile.Join(dst, "file1")
-		t.Assert(gfile.GetContents(expectPath), gfile.GetContents(src))
+		expectPath := 文件类.X路径生成(dst, "file1")
+		t.Assert(文件类.X读文本(expectPath), 文件类.X读文本(src))
 	})
 }
 
@@ -56,14 +56,14 @@ func Test_Copy_Dir_To_File(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			src = gtest.DataPath("dir1")
-			dst = gfile.Temp(guid.S(), "file2")
+			dst = 文件类.X取临时目录(guid.S(), "file2")
 		)
-		f, err := gfile.Create(dst)
+		f, err := 文件类.X创建文件与目录(dst)
 		t.AssertNil(err)
 		defer f.Close()
-		defer gfile.Remove(dst)
+		defer 文件类.X删除(dst)
 
-		err = gfile.Copy(src, dst)
+		err = 文件类.X复制(src, dst)
 		t.AssertNE(err, nil)
 	})
 }
@@ -78,27 +78,27 @@ func Test_CopyFile(t *testing.T) {
 		createTestFile(paths, "")
 		defer delTestFiles(paths)
 
-		t.Assert(gfile.CopyFile(testpath()+paths, testpath()+topath), nil)
+		t.Assert(文件类.X复制文件(testpath()+paths, testpath()+topath), nil)
 		defer delTestFiles(topath)
 
-		t.Assert(gfile.IsFile(testpath()+topath), true)
-		t.AssertNE(gfile.CopyFile(paths, ""), nil)
-		t.AssertNE(gfile.CopyFile("", topath), nil)
+		t.Assert(文件类.X是否为文件(testpath()+topath), true)
+		t.AssertNE(文件类.X复制文件(paths, ""), nil)
+		t.AssertNE(文件类.X复制文件("", topath), nil)
 	})
 	// 内容替换
 	gtest.C(t, func(t *gtest.T) {
-		src := gfile.Temp(gtime.TimestampNanoStr())
-		dst := gfile.Temp(gtime.TimestampNanoStr())
+		src := 文件类.X取临时目录(gtime.TimestampNanoStr())
+		dst := 文件类.X取临时目录(gtime.TimestampNanoStr())
 		srcContent := "1"
 		dstContent := "1"
-		t.Assert(gfile.PutContents(src, srcContent), nil)
-		t.Assert(gfile.PutContents(dst, dstContent), nil)
-		t.Assert(gfile.GetContents(src), srcContent)
-		t.Assert(gfile.GetContents(dst), dstContent)
+		t.Assert(文件类.X写入文本(src, srcContent), nil)
+		t.Assert(文件类.X写入文本(dst, dstContent), nil)
+		t.Assert(文件类.X读文本(src), srcContent)
+		t.Assert(文件类.X读文本(dst), dstContent)
 
-		t.Assert(gfile.CopyFile(src, dst), nil)
-		t.Assert(gfile.GetContents(src), srcContent)
-		t.Assert(gfile.GetContents(dst), srcContent)
+		t.Assert(文件类.X复制文件(src, dst), nil)
+		t.Assert(文件类.X读文本(src), srcContent)
+		t.Assert(文件类.X读文本(dst), srcContent)
 	})
 	// Set mode
 	gtest.C(t, func(t *gtest.T) {
@@ -110,10 +110,10 @@ func Test_CopyFile(t *testing.T) {
 		t.AssertNil(createTestFile(src, ""))
 		defer delTestFiles(src)
 
-		t.Assert(gfile.CopyFile(testpath()+src, testpath()+dst, gfile.CopyOption{Mode: dstMode}), nil)
+		t.Assert(文件类.X复制文件(testpath()+src, testpath()+dst, 文件类.CopyOption{Mode: dstMode}), nil)
 		defer delTestFiles(dst)
 
-		dstStat, err := gfile.Stat(testpath() + dst)
+		dstStat, err := 文件类.X取详情(testpath() + dst)
 		t.AssertNil(err)
 		t.Assert(dstStat.Mode().Perm(), dstMode)
 	})
@@ -126,12 +126,12 @@ func Test_CopyFile(t *testing.T) {
 		t.AssertNil(createTestFile(src, ""))
 		defer delTestFiles(src)
 
-		t.Assert(gfile.CopyFile(testpath()+src, testpath()+dst, gfile.CopyOption{PreserveMode: true}), nil)
+		t.Assert(文件类.X复制文件(testpath()+src, testpath()+dst, 文件类.CopyOption{PreserveMode: true}), nil)
 		defer delTestFiles(dst)
 
-		srcStat, err := gfile.Stat(testpath() + src)
+		srcStat, err := 文件类.X取详情(testpath() + src)
 		t.AssertNil(err)
-		dstStat, err := gfile.Stat(testpath() + dst)
+		dstStat, err := 文件类.X取详情(testpath() + dst)
 		t.AssertNil(err)
 		t.Assert(srcStat.Mode().Perm(), dstStat.Mode().Perm())
 	})
@@ -158,50 +158,50 @@ func Test_CopyDir(t *testing.T) {
 			tofolder = testpath() + dirPath2
 		)
 
-		if gfile.IsDir(tofolder) {
-			t.Assert(gfile.Remove(tofolder), nil)
-			t.Assert(gfile.Remove(""), nil)
+		if 文件类.X是否存在目录(tofolder) {
+			t.Assert(文件类.X删除(tofolder), nil)
+			t.Assert(文件类.X删除(""), nil)
 		}
 
-		t.Assert(gfile.CopyDir(yfolder, tofolder), nil)
+		t.Assert(文件类.X复制目录(yfolder, tofolder), nil)
 		defer delTestFiles(tofolder)
 
-		t.Assert(gfile.IsDir(yfolder), true)
+		t.Assert(文件类.X是否存在目录(yfolder), true)
 
 		for _, v := range haveList {
-			t.Assert(gfile.IsFile(yfolder+"/"+v), true)
+			t.Assert(文件类.X是否为文件(yfolder+"/"+v), true)
 		}
 
-		t.Assert(gfile.IsDir(tofolder), true)
+		t.Assert(文件类.X是否存在目录(tofolder), true)
 
 		for _, v := range haveList {
-			t.Assert(gfile.IsFile(tofolder+"/"+v), true)
+			t.Assert(文件类.X是否为文件(tofolder+"/"+v), true)
 		}
 
-		t.Assert(gfile.Remove(tofolder), nil)
-		t.Assert(gfile.Remove(""), nil)
+		t.Assert(文件类.X删除(tofolder), nil)
+		t.Assert(文件类.X删除(""), nil)
 	})
 	// 内容替换
 	gtest.C(t, func(t *gtest.T) {
-		src := gfile.Temp(gtime.TimestampNanoStr(), gtime.TimestampNanoStr())
-		dst := gfile.Temp(gtime.TimestampNanoStr(), gtime.TimestampNanoStr())
+		src := 文件类.X取临时目录(gtime.TimestampNanoStr(), gtime.TimestampNanoStr())
+		dst := 文件类.X取临时目录(gtime.TimestampNanoStr(), gtime.TimestampNanoStr())
 		defer func() {
-			gfile.Remove(src)
-			gfile.Remove(dst)
+			文件类.X删除(src)
+			文件类.X删除(dst)
 		}()
 		srcContent := "1"
 		dstContent := "1"
-		t.Assert(gfile.PutContents(src, srcContent), nil)
-		t.Assert(gfile.PutContents(dst, dstContent), nil)
-		t.Assert(gfile.GetContents(src), srcContent)
-		t.Assert(gfile.GetContents(dst), dstContent)
+		t.Assert(文件类.X写入文本(src, srcContent), nil)
+		t.Assert(文件类.X写入文本(dst, dstContent), nil)
+		t.Assert(文件类.X读文本(src), srcContent)
+		t.Assert(文件类.X读文本(dst), dstContent)
 
-		err := gfile.CopyDir(gfile.Dir(src), gfile.Dir(dst))
+		err := 文件类.X复制目录(文件类.X路径取父目录(src), 文件类.X路径取父目录(dst))
 		t.AssertNil(err)
-		t.Assert(gfile.GetContents(src), srcContent)
-		t.Assert(gfile.GetContents(dst), srcContent)
+		t.Assert(文件类.X读文本(src), srcContent)
+		t.Assert(文件类.X读文本(dst), srcContent)
 
-		t.AssertNE(gfile.CopyDir(gfile.Dir(src), ""), nil)
-		t.AssertNE(gfile.CopyDir("", gfile.Dir(dst)), nil)
+		t.AssertNE(文件类.X复制目录(文件类.X路径取父目录(src), ""), nil)
+		t.AssertNE(文件类.X复制目录("", 文件类.X路径取父目录(dst)), nil)
 	})
 }

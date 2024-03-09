@@ -3,7 +3,7 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package gutil
+package 工具类
 
 import (
 	"context"
@@ -17,11 +17,11 @@ import (
 // 但是请注意，如果 `recoverFunc` 也抛出了 panic，这样的 panic 将会被抛给父级 goroutine。
 func Go(
 	ctx context.Context,
-	goroutineFunc func(ctx context.Context),
-	recoverFunc func(ctx context.Context, exception error),
+	协程函数 func(上下文 context.Context),
+	异常处理函数 func(上下文 context.Context, 错误 error),
 ) {
-	if goroutineFunc == nil {
+	if 协程函数 == nil {
 		return
 	}
-	go TryCatch(ctx, goroutineFunc, recoverFunc)
+	go X异常捕捉并带异常处理(ctx, 协程函数, 异常处理函数)
 }

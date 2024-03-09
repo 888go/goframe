@@ -5,7 +5,7 @@
 
 // 运行go test命令，测试当前目录下所有.go文件，并执行所有benchmark测试
 
-package gmd5_test
+package 加密md5类_test
 
 import (
 	"os"
@@ -29,11 +29,11 @@ type user struct {
 
 func TestEncrypt(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		encryptString, _ := gmd5.Encrypt(s)
+		encryptString, _ := 加密md5类.X加密(s)
 		t.Assert(encryptString, result)
 
 		result := "1427562bb29f88a1161590b76398ab72"
-		encrypt, _ := gmd5.Encrypt(123456)
+		encrypt, _ := 加密md5类.X加密(123456)
 		t.AssertEQ(encrypt, result)
 	})
 
@@ -44,14 +44,14 @@ func TestEncrypt(t *testing.T) {
 			age:      23,
 		}
 		result := "70917ebce8bd2f78c736cda63870fb39"
-		encrypt, _ := gmd5.Encrypt(user)
+		encrypt, _ := 加密md5类.X加密(user)
 		t.AssertEQ(encrypt, result)
 	})
 }
 
 func TestEncryptString(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		encryptString, _ := gmd5.EncryptString(s)
+		encryptString, _ := 加密md5类.X加密文本(s)
 		t.Assert(encryptString, result)
 	})
 }
@@ -66,10 +66,10 @@ func TestEncryptFile(t *testing.T) {
 		defer file.Close()
 		t.AssertNil(err)
 		_, _ = file.Write([]byte("Hello Go Frame"))
-		encryptFile, _ := gmd5.EncryptFile(path)
+		encryptFile, _ := 加密md5类.X加密文件(path)
 		t.AssertEQ(encryptFile, result)
 		// 当文件不存在时，encrypt将返回空字符串
-		errEncrypt, _ := gmd5.EncryptFile(errorPath)
+		errEncrypt, _ := 加密md5类.X加密文件(errorPath)
 		t.AssertEQ(errEncrypt, "")
 	})
 
