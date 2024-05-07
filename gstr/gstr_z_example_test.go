@@ -7,7 +7,7 @@ package 文本类_test
 
 import (
 	"fmt"
-	
+
 	"github.com/888go/goframe/gstr"
 )
 
@@ -484,7 +484,7 @@ func ExampleSearchArray() {
 	var (
 		array  = []string{"goframe", "is", "very", "nice"}
 		str    = `goframe`
-		result = 文本类.X数组查找(array, str)
+		result = 文本类.X切片查找(array, str)
 	)
 	fmt.Println(result)
 
@@ -496,7 +496,7 @@ func ExampleInArray() {
 	var (
 		a      = []string{"goframe", "is", "very", "easy", "to", "use"}
 		s      = "goframe"
-		result = 文本类.X数组是否存在(a, s)
+		result = 文本类.X切片是否存在(a, s)
 	)
 	fmt.Println(result)
 
@@ -509,7 +509,7 @@ func ExamplePrefixArray() {
 		strArray = []string{"tom", "lily", "john"}
 	)
 
-	文本类.X数组加前缀(strArray, "classA_")
+	文本类.X切片加前缀(strArray, "classA_")
 
 	fmt.Println(strArray)
 
@@ -944,7 +944,7 @@ func ExampleReplaceByArray() {
 		var (
 			origin = `golang is very nice`
 			array  = []string{"lang", "frame"}
-			result = 文本类.X数组替换(origin, array)
+			result = 文本类.X切片替换(origin, array)
 		)
 		fmt.Println(result)
 	}
@@ -952,7 +952,7 @@ func ExampleReplaceByArray() {
 		var (
 			origin = `golang is very good`
 			array  = []string{"golang", "goframe", "good", "nice"}
-			result = 文本类.X数组替换(origin, array)
+			result = 文本类.X切片替换(origin, array)
 		)
 		fmt.Println(result)
 	}
@@ -966,7 +966,7 @@ func ExampleReplaceIByArray() {
 	var (
 		origin = `golang is very Good`
 		array  = []string{"Golang", "goframe", "GOOD", "nice"}
-		result = 文本类.X数组替换并忽略大小写(origin, array)
+		result = 文本类.X切片替换并忽略大小写(origin, array)
 	)
 
 	fmt.Println(result)

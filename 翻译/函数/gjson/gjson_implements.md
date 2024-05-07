@@ -8,7 +8,7 @@ func (j *Json) X取文本() string {
 
 # <追加函数开始>
 // 追加函数
-func (j *Json) X取any数组() []interface{} {
+func (j *Json) X取any切片() []interface{} {
 return j.Interfaces()
 }
 # <追加函数结束>

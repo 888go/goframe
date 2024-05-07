@@ -7,10 +7,10 @@ package 工具类_test
 
 import (
 	"testing"
-	
+
+	"github.com/888go/goframe/gutil"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/888go/goframe/gutil"
 )
 
 func Test_StructToSlice(t *testing.T) {
@@ -23,7 +23,7 @@ func Test_StructToSlice(t *testing.T) {
 			K1: 1,
 			K2: "v2",
 		}
-		s := 工具类.X结构体到数组(a)
+		s := 工具类.X结构体到切片(a)
 		t.Assert(len(s), 4)
 		t.AssertIN(s[0], g.Slice{"K1", "K2", 1, "v2"})
 		t.AssertIN(s[1], g.Slice{"K1", "K2", 1, "v2"})
@@ -31,7 +31,7 @@ func Test_StructToSlice(t *testing.T) {
 		t.AssertIN(s[3], g.Slice{"K1", "K2", 1, "v2"})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		s := 工具类.X结构体到数组(1)
+		s := 工具类.X结构体到切片(1)
 		t.Assert(s, nil)
 	})
 }

@@ -9,7 +9,7 @@ package 集合类
 
 import (
 	"bytes"
-	
+
 	"github.com/888go/goframe/gset/internal/json"
 	"github.com/888go/goframe/gset/internal/rwmutex"
 	"github.com/gogf/gf/v2/util/gconv"
@@ -30,9 +30,9 @@ func X创建整数(并发安全 ...bool) *IntSet {
 }
 
 // NewIntSetFrom 从 `items` 返回一个新的集合。
-func X创建整数并按值(整数数组 []int, 并发安全 ...bool) *IntSet {
+func X创建整数并按值(整数切片 []int, 并发安全 ...bool) *IntSet {
 	m := make(map[int]struct{})
-	for _, v := range 整数数组 {
+	for _, v := range 整数切片 {
 		m[v] = struct{}{}
 	}
 	return &IntSet{
@@ -165,7 +165,7 @@ func (set *IntSet) X清空() {
 }
 
 // Slice 返回集合中项目的切片形式。
-func (set *IntSet) X取集合数组() []int {
+func (set *IntSet) X取集合切片() []int {
 	set.mu.RLock()
 	var (
 		i   = 0
@@ -428,7 +428,7 @@ func (set *IntSet) X遍历修改(f func(值 int) int) *IntSet {
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (set IntSet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(set.X取集合数组())
+	return json.Marshal(set.X取集合切片())
 }
 
 // UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。

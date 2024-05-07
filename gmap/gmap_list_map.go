@@ -8,13 +8,13 @@ package map类
 import (
 	"bytes"
 	"fmt"
-	
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/container/gvar"
+
 	"github.com/888go/goframe/gmap/internal/deepcopy"
 	"github.com/888go/goframe/gmap/internal/empty"
 	"github.com/888go/goframe/gmap/internal/json"
 	"github.com/888go/goframe/gmap/internal/rwmutex"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
@@ -24,7 +24,7 @@ import (
 //
 // 该结构不保证线程安全。
 //
-// 参考文献：http://en.wikipedia.org/wiki/关联数组
+// 参考文献：http://en.wikipedia.org/wiki/关联切片
 type ListMap struct {
 	mu   rwmutex.RWMutex
 	data map[interface{}]*glist.Element
@@ -44,7 +44,7 @@ type gListMapNode struct {
 // NewListMap 函数用于创建并返回一个新的、空的链式映射结构体实例。
 // 这个 ListMap 结构体内部结合了哈希表和双向链表两种数据结构：
 // 哈希表用于高效地存储和查找键值对，而双向链表则用于记录键值对的插入顺序。
-// 
+//
 // 参数 `safe` 表示是否需要保证该链式映射在并发环境中的安全性（即线程安全），
 // 如果设置为 true，则在多 goroutine 并发访问时会进行相应的同步控制；
 // 若不特别指定，其默认值为 false，此时不提供并发安全保证。

@@ -10,62 +10,62 @@ import (
 )
 
 // Ints 将 `v` 转换并返回为 []int 类型的切片。
-func (v *Var) X取整数数组() []int {
+func (v *Var) X取整数切片() []int {
 	return gconv.Ints(v.X取值())
 }
 
 // Int64s 将 `v` 转换并返回为 []int64 类型的切片。
-func (v *Var) X取整数64位数组() []int64 {
+func (v *Var) X取整数64位切片() []int64 {
 	return gconv.Int64s(v.X取值())
 }
 
 // Uints 将 `v` 转换并返回为 []uint 类型。
-func (v *Var) X取正整数数组() []uint {
+func (v *Var) X取正整数切片() []uint {
 	return gconv.Uints(v.X取值())
 }
 
 // Uint64s将`v`转换并返回为[]uint64类型。
-func (v *Var) X取正整数64位数组() []uint64 {
+func (v *Var) X取正整数64位切片() []uint64 {
 	return gconv.Uint64s(v.X取值())
 }
 
 // Floats 是 Float64s 的别名。
-func (v *Var) X取小数数组() []float64 {
+func (v *Var) X取小数切片() []float64 {
 	return gconv.Floats(v.X取值())
 }
 
 // Float32s 将 `v` 转换并返回为 []float32 类型的切片。
-func (v *Var) X取小数32位数组() []float32 {
+func (v *Var) X取小数32位切片() []float32 {
 	return gconv.Float32s(v.X取值())
 }
 
 // Float64s将`v`转换并返回为[]float64类型。
-func (v *Var) X取小数64位数组() []float64 {
+func (v *Var) X取小数64位切片() []float64 {
 	return gconv.Float64s(v.X取值())
 }
 
 // Strings 将 `v` 转换并返回为 []string 类型。
-func (v *Var) X取文本数组() []string {
+func (v *Var) X取文本切片() []string {
 	return gconv.Strings(v.X取值())
 }
 
 // Interfaces 将 `v` 转换并返回为 []interfaces{} 类型的切片。
-func (v *Var) X取any数组() []interface{} {
+func (v *Var) X取any切片() []interface{} {
 	return gconv.Interfaces(v.X取值())
 }
 
 // Slice 是 Interfaces 的别名。
 func (v *Var) Slice别名() []interface{} {
-	return v.X取any数组()
+	return v.X取any切片()
 }
 
 // Array 是 Interfaces 的别名。
 func (v *Var) Array别名() []interface{} {
-	return v.X取any数组()
+	return v.X取any切片()
 }
 
 // Vars 将 `v` 转换并返回为 []Var 类型的切片。
-func (v *Var) X取泛型类数组() []*Var {
+func (v *Var) X取泛型类切片() []*Var {
 	array := gconv.Interfaces(v.X取值())
 	if len(array) == 0 {
 		return nil

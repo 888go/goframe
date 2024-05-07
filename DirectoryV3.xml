@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> 
  <trees>
-     <tree path="/garray" title="数组类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+     <tree path="/garray" title="切片类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
            backgroundColor=""/>
  
      <tree path="/gmap" title="map类"/>
@@ -17,7 +17,7 @@
     <tree path="/gvar/gvar_is.go" title="判断"/>
     <tree path="/gvar/gvar_list.go" title="列表"/>
     <tree path="/gvar/gvar_map.go" title="Map"/>
-    <tree path="/gvar/gvar_slice.go" title="数组"/>
+    <tree path="/gvar/gvar_slice.go" title="切片"/>
     <tree path="/gvar/gvar_struct.go" title="结构"/>
     
     
@@ -178,7 +178,7 @@
     <tree path="/gstr/gstr.go" title="内部"/>
     <tree path="/gstr/gstr_case.go" title="命名"/>
     <tree path="/gstr/gstr_similar.go" title="比较"/>
-    <tree path="/gstr/gstr_array.go" title="数组"/>
+    <tree path="/gstr/gstr_array.go" title="切片"/>
     <tree path="/gstr/gstr_compare.go" title="比较"/>
     <tree path="/gstr/gstr_contain.go" title="是否包含"/>
     <tree path="/gstr/gstr_convert.go" title="转换"/>
@@ -207,16 +207,16 @@
     <tree path="/gconv/gconv_float.go" title="小数"/>
     <tree path="/gconv/gconv_int.go" title="整数"/>
     <tree path="/gconv/gconv_map.go" title="Map"/>
-    <tree path="/gconv/gconv_maps.go" title="Map数组"/>
+    <tree path="/gconv/gconv_maps.go" title="Map切片"/>
     <tree path="/gconv/gconv_ptr.go" title="指针"/>
-    <tree path="/gconv/gconv_slice_any.go" title="数组"/>
-    <tree path="/gconv/gconv_slice_float.go" title="小数数组" extension="" presentableText="" tooltipTitle=""
+    <tree path="/gconv/gconv_slice_any.go" title="切片"/>
+    <tree path="/gconv/gconv_slice_float.go" title="小数切片" extension="" presentableText="" tooltipTitle=""
           icon="" textColor="" backgroundColor=""/>
-    <tree path="/gconv/gconv_slice_int.go" title="整数数组" extension="" presentableText="" tooltipTitle="" icon=""
+    <tree path="/gconv/gconv_slice_int.go" title="整数切片" extension="" presentableText="" tooltipTitle="" icon=""
           textColor="" backgroundColor=""/>
-    <tree path="/gconv/gconv_slice_str.go" title="文本数组" extension="" presentableText="" tooltipTitle="" icon=""
+    <tree path="/gconv/gconv_slice_str.go" title="文本切片" extension="" presentableText="" tooltipTitle="" icon=""
           textColor="" backgroundColor=""/>
-    <tree path="/gconv/gconv_slice_uint.go" title="无符号整数数组" extension="" presentableText="" tooltipTitle=""
+    <tree path="/gconv/gconv_slice_uint.go" title="无符号整数切片" extension="" presentableText="" tooltipTitle=""
           icon="" textColor="" backgroundColor=""/>
     <tree path="/gconv/gconv_time.go" title="时间" extension="" presentableText="" tooltipTitle="" icon=""
           textColor="" backgroundColor=""/>
@@ -268,11 +268,11 @@
           icon="" textColor="" backgroundColor=""/>
    <tree path="/gutil/gutil_dump.go" title="调试输出"/>
     <tree path="/gutil/gutil_goroutine.go" title="协程"/>
-    <tree path="/gutil/gutil_list.go" title="结构体数组或Map数组"/>
+    <tree path="/gutil/gutil_list.go" title="结构体切片或Map切片"/>
     <tree path="/gutil/gutil_try_catch.go" title="异常捕捉"/>
    <tree path="/gutil/gutil_struct.go" title="结构体" extension="" presentableText="" tooltipTitle="" icon=""
          textColor="" backgroundColor=""/>
-   <tree path="/gutil/gutil_slice.go" title="数组"/>
+   <tree path="/gutil/gutil_slice.go" title="切片"/>
    <tree path="/gutil/gutil_map.go" title="map"/>
 
 

@@ -8,10 +8,10 @@ package utils_test
 
 import (
 	"testing"
-	
+
 	"github.com/888go/goframe/gvar"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/888go/goframe/gvar/internal/utils"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
 )
@@ -127,7 +127,7 @@ func TestVar_IsSlice(t *testing.T) {
 		t.Assert(utils.IsSlice(uint8(1)), false)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(utils.IsSlice(泛型类.X创建(gtime.Now()).X是否为数组()), false)
+		t.Assert(utils.IsSlice(泛型类.X创建(gtime.Now()).X是否为切片()), false)
 	})
 }
 

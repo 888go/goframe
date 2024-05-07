@@ -47,7 +47,7 @@ func (j *Json) Interfaces() []interface{} {
 	if j == nil {
 		return nil
 	}
-	return j.X取数组()
+	return j.X取切片()
 }
 
 // String 将当前Json对象以字符串形式返回。
@@ -64,11 +64,11 @@ func (j *Json) X取文本() string {
 }
 
 // 追加函数
-func (j *Json) X取any数组() []interface{} {
-return j.Interfaces()
+func (j *Json) X取any切片() []interface{} {
+	return j.Interfaces()
 }
 
 // 追加函数
 func (j *Json) X取MapStrAny() map[string]interface{} {
-return j.MapStrAny()
+	return j.MapStrAny()
 }

@@ -5,12 +5,12 @@
 
 // 包gset提供了多种并发安全/不安全的集合（sets）。
 // 集合，即不可重复的一组元素，元素项可以为任意类型。
-// 同时，gset支持可选的并发安全参数选项，支持并发安全的场景。 
+// 同时，gset支持可选的并发安全参数选项，支持并发安全的场景。
 package 集合类
 
 import (
 	"bytes"
-	
+
 	"github.com/888go/goframe/gset/internal/json"
 	"github.com/888go/goframe/gset/internal/rwmutex"
 	"github.com/gogf/gf/v2/text/gstr"
@@ -185,7 +185,7 @@ func (set *Set) X清空() {
 }
 
 // Slice 返回集合中所有项作为一个切片。
-func (set *Set) X取集合数组() []interface{} {
+func (set *Set) X取集合切片() []interface{} {
 	set.mu.RLock()
 	var (
 		i   = 0
@@ -470,7 +470,7 @@ func (set *Set) X遍历修改(f func(值 interface{}) interface{}) *Set {
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (set Set) MarshalJSON() ([]byte, error) {
-	return json.Marshal(set.X取集合数组())
+	return json.Marshal(set.X取集合切片())
 }
 
 // UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。

@@ -10,12 +10,12 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
-	
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+
 	"github.com/888go/goframe/gjson/internal/reflection"
 	"github.com/888go/goframe/gjson/internal/rwmutex"
 	"github.com/888go/goframe/gjson/internal/utils"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -116,7 +116,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 					}
 					// 创建新的节点。
 					if gstr.IsNumeric(array[i+1]) {
-						// 创建数组节点
+						// 创建切片节点
 						n, _ := strconv.Atoi(array[i+1])
 						var v interface{} = make([]interface{}, n+1)
 						pparent = j.setPointerWithValue(pointer, array[i], v)
@@ -235,9 +235,9 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 				}
 			}
 
-// 如果通过`pointer`指向的变量不是引用类型，
-// 那么它将通过其父级（即：pparent）来修改该变量。
-// 在Go语言中，这段注释描述了如果给定的指针`pointer`不指向一个引用类型，那么对变量的修改会通过其上级父级指针`pparent`间接完成。
+			// 如果通过`pointer`指向的变量不是引用类型，
+			// 那么它将通过其父级（即：pparent）来修改该变量。
+			// 在Go语言中，这段注释描述了如果给定的指针`pointer`不指向一个引用类型，那么对变量的修改会通过其上级父级指针`pparent`间接完成。
 		default:
 			if removed && value == nil {
 				goto done

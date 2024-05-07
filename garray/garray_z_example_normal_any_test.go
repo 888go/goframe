@@ -3,30 +3,30 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package 数组类_test
+package 切片类_test
 
 import (
 	"fmt"
-	
+
 	"github.com/888go/goframe/garray/internal/empty"
-	
+
 	"github.com/888go/goframe/garray"
 	"github.com/gogf/gf/v2/frame/g"
 )
 
 func ExampleNew() {
 	// A normal array.
-	a := 数组类.X创建()
+	a := 切片类.X创建()
 
 	// Adding items.
 	for i := 0; i < 10; i++ {
 		a.Append别名(i)
 	}
 
-	// 打印数组长度。
+	// 打印切片长度。
 	fmt.Println(a.X取长度())
 
-	// 打印数组元素。
+	// 打印切片元素。
 	fmt.Println(a.X取切片())
 
 	// 通过索引获取项。
@@ -56,7 +56,7 @@ func ExampleNew() {
 	a.X删除(0)
 	fmt.Println(a.X取切片())
 
-	// 清空数组，移除其所有元素。
+	// 清空切片，移除其所有元素。
 	fmt.Println(a.X取切片())
 	a.X清空()
 	fmt.Println(a.X取切片())
@@ -77,20 +77,20 @@ func ExampleNew() {
 }
 
 func ExampleArray_Iterator() {
-	array := 数组类.X创建并从数组(g.Slice{"a", "b", "c"})
-// Iterator 是 IteratorAsc 的别名，用于以升序方式对数组进行只读遍历，
-// 同时调用给定的回调函数 `f`。
-// 若 `f` 返回 true，则继续遍历；若返回 false，则停止遍历。
+	array := 切片类.X创建并从切片(g.Slice{"a", "b", "c"})
+	// Iterator 是 IteratorAsc 的别名，用于以升序方式对切片进行只读遍历，
+	// 同时调用给定的回调函数 `f`。
+	// 若 `f` 返回 true，则继续遍历；若返回 false，则停止遍历。
 	array.X遍历(func(k int, v interface{}) bool {
 		fmt.Println(k, v)
 		return true
 	})
-// IteratorDesc 以降序方式遍历给定回调函数 `f` 的只读数组。
-// 如果 `f` 返回 true，则继续迭代；若返回 false，则停止遍历。
-// 这段Go语言代码注释翻译成中文注释如下：
-// ```go
-// IteratorDesc 函数以降序顺序对给定的只读数组进行迭代，并使用指定的回调函数 `f` 进行处理。
-// 若回调函数 `f` 返回值为 true，则会继续进行迭代；若返回值为 false，则停止迭代过程。
+	// IteratorDesc 以降序方式遍历给定回调函数 `f` 的只读切片。
+	// 如果 `f` 返回 true，则继续迭代；若返回 false，则停止遍历。
+	// 这段Go语言代码注释翻译成中文注释如下：
+	// ```go
+	// IteratorDesc 函数以降序顺序对给定的只读切片进行迭代，并使用指定的回调函数 `f` 进行处理。
+	// 若回调函数 `f` 返回值为 true，则会继续进行迭代；若返回值为 false，则停止迭代过程。
 	array.X遍历降序(func(k int, v interface{}) bool {
 		fmt.Println(k, v)
 		return true
@@ -106,9 +106,9 @@ func ExampleArray_Iterator() {
 }
 
 func ExampleArray_Reverse() {
-	array := 数组类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// Reverse将数组元素按逆序排列。
+	// Reverse将切片元素按逆序排列。
 	fmt.Println(array.X倒排序().X取切片())
 
 	// Output:
@@ -116,38 +116,38 @@ func ExampleArray_Reverse() {
 }
 
 func ExampleArray_Shuffle() {
-	array := 数组类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// Shuffle 随机地对数组进行洗牌。
+	// Shuffle 随机地对切片进行洗牌。
 	fmt.Println(array.X随机排序().X取切片())
 }
 
 func ExampleArray_Rands() {
-	array := 数组类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// 随机从数组中获取并返回 2 个元素。
-// 不会从数组中删除这些元素。
+	// 随机从切片中获取并返回 2 个元素。
+	// 不会从切片中删除这些元素。
 	fmt.Println(array.X取值随机多个(2))
 
-// 从数组中随机选取并返回一个元素。
-// 它会从数组中删除已选取的元素。
+	// 从切片中随机选取并返回一个元素。
+	// 它会从切片中删除已选取的元素。
 	fmt.Println(array.X出栈随机())
 }
 
 func ExampleArray_PopRand() {
-	array := 数组类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// 随机从数组中获取并返回 2 个元素。
-// 不会从数组中删除这些元素。
+	// 随机从切片中获取并返回 2 个元素。
+	// 不会从切片中删除这些元素。
 	fmt.Println(array.X取值随机多个(2))
 
-// 从数组中随机选取并返回一个元素。
-// 它会从数组中删除已选取的元素。
+	// 从切片中随机选取并返回一个元素。
+	// 它会从切片中删除已选取的元素。
 	fmt.Println(array.X出栈随机())
 }
 
 func ExampleArray_Join() {
-	array := 数组类.NewFrom别名(g.Slice{"a", "b", "c", "d"})
+	array := 切片类.NewFrom别名(g.Slice{"a", "b", "c", "d"})
 	fmt.Println(array.X连接(","))
 
 	// Output:
@@ -155,11 +155,11 @@ func ExampleArray_Join() {
 }
 
 func ExampleArray_Chunk() {
-	array := 数组类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// Chunk 函数将一个数组分割成多个子数组，
-// 每个子数组的大小由参数 `size` 确定。
-// 最后一个子数组可能包含少于 size 个元素。
+	// Chunk 函数将一个切片分割成多个子切片，
+	// 每个子切片的大小由参数 `size` 确定。
+	// 最后一个子切片可能包含少于 size 个元素。
 	fmt.Println(array.X分割(2))
 
 	// Output:
@@ -167,9 +167,9 @@ func ExampleArray_Chunk() {
 }
 
 func ExampleArray_PopLeft() {
-	array := 数组类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// 任何 Pop* 函数都会从切片中挑选、删除并返回一个元素。
 
 	fmt.Println(array.X出栈左())
 	fmt.Println(array.X出栈左多个(2))
@@ -184,9 +184,9 @@ func ExampleArray_PopLeft() {
 }
 
 func ExampleArray_PopLefts() {
-	array := 数组类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// 任何 Pop* 函数都会从切片中挑选、删除并返回一个元素。
 
 	fmt.Println(array.X出栈左())
 	fmt.Println(array.X出栈左多个(2))
@@ -201,9 +201,9 @@ func ExampleArray_PopLefts() {
 }
 
 func ExampleArray_PopRight() {
-	array := 数组类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// 任何 Pop* 函数都会从切片中挑选、删除并返回一个元素。
 
 	fmt.Println(array.X出栈左())
 	fmt.Println(array.X出栈左多个(2))
@@ -218,9 +218,9 @@ func ExampleArray_PopRight() {
 }
 
 func ExampleArray_PopRights() {
-	array := 数组类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	array := 切片类.NewFrom别名([]interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-	// 任何 Pop* 函数都会从数组中挑选、删除并返回一个元素。
+	// 任何 Pop* 函数都会从切片中挑选、删除并返回一个元素。
 
 	fmt.Println(array.X出栈左())
 	fmt.Println(array.X出栈左多个(2))
@@ -235,7 +235,7 @@ func ExampleArray_PopRights() {
 }
 
 func ExampleArray_Contains() {
-	var array 数组类.StrArray
+	var array 切片类.StrArray
 	array.Append别名("a")
 	fmt.Println(array.X是否存在("a"))
 	fmt.Println(array.X是否存在("A"))
@@ -248,8 +248,8 @@ func ExampleArray_Contains() {
 }
 
 func ExampleArray_Merge() {
-	array1 := 数组类.NewFrom别名(g.Slice{1, 2})
-	array2 := 数组类.NewFrom别名(g.Slice{3, 4})
+	array1 := 切片类.NewFrom别名(g.Slice{1, 2})
+	array2 := 切片类.NewFrom别名(g.Slice{3, 4})
 	slice1 := g.Slice{5, 6}
 	slice2 := []int{7, 8}
 	slice3 := []string{"9", "0"}
@@ -267,8 +267,8 @@ func ExampleArray_Merge() {
 }
 
 func ExampleArray_Filter() {
-	array1 := 数组类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
-	array2 := 数组类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
+	array1 := 切片类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
+	array2 := 切片类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
 	fmt.Printf("%#v\n", array1.X遍历删除(func(index int, value interface{}) bool {
 		return empty.IsNil(value)
 	}).X取切片())
@@ -282,8 +282,8 @@ func ExampleArray_Filter() {
 }
 
 func ExampleArray_FilterEmpty() {
-	array1 := 数组类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
-	array2 := 数组类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
+	array1 := 切片类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
+	array2 := 切片类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
 	fmt.Printf("%#v\n", array1.X删除所有nil().X取切片())
 	fmt.Printf("%#v\n", array2.X删除所有空值().X取切片())
 
@@ -293,8 +293,8 @@ func ExampleArray_FilterEmpty() {
 }
 
 func ExampleArray_FilterNil() {
-	array1 := 数组类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
-	array2 := 数组类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
+	array1 := 切片类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
+	array2 := 切片类.NewFrom别名(g.Slice{0, 1, 2, nil, "", g.Slice{}, "john"})
 	fmt.Printf("%#v\n", array1.X删除所有nil().X取切片())
 	fmt.Printf("%#v\n", array2.X删除所有空值().X取切片())
 

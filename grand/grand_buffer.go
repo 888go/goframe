@@ -7,7 +7,7 @@ package 随机类
 
 import (
 	"crypto/rand"
-	
+
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
 )
@@ -18,8 +18,8 @@ const (
 )
 
 var (
-// bufferChan 是用于存储随机字节的缓冲通道，
-// 每个元素存储 4 字节。
+	// bufferChan 是用于存储随机字节的缓冲通道，
+	// 每个元素存储 4 字节。
 	bufferChan = make(chan []byte, bufferChanSize)
 )
 
@@ -36,10 +36,10 @@ func asyncProducingRandomBufferBytesLoop() {
 		if n, err := rand.Read(buffer); err != nil {
 			panic(gerror.WrapCode(gcode.CodeInternalError, err, `error reading random buffer from system`))
 		} else {
-// 系统提供的随机缓冲区代价非常高昂，
-// 因此，通过改变步进值（使用不同的数字）来充分复用随机缓冲区，
-// 可以显著提升性能。
-// 对以下整数数组进行遍历：[4, 5, 6, 7] {
+			// 系统提供的随机缓冲区代价非常高昂，
+			// 因此，通过改变步进值（使用不同的数字）来充分复用随机缓冲区，
+			// 可以显著提升性能。
+			// 对以下整数切片进行遍历：[4, 5, 6, 7] {
 			for _, step = range []int{4} {
 				for i := 0; i <= n-4; i += step {
 					bufferChan <- buffer[i : i+4]

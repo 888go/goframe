@@ -12,11 +12,11 @@ import (
 	"sync"
 	"testing"
 	"time"
-	
-	"github.com/gogf/gf/v2/container/garray"
+
 	"github.com/888go/goframe/gset"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/888go/goframe/gset/internal/json"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -27,11 +27,11 @@ func TestIntSet_Var(t *testing.T) {
 		s.X加入(1, 1, 2)
 		s.X加入([]int{3, 4}...)
 		t.Assert(s.X取数量(), 4)
-		t.AssertIN(1, s.X取集合数组())
-		t.AssertIN(2, s.X取集合数组())
-		t.AssertIN(3, s.X取集合数组())
-		t.AssertIN(4, s.X取集合数组())
-		t.AssertNI(0, s.X取集合数组())
+		t.AssertIN(1, s.X取集合切片())
+		t.AssertIN(2, s.X取集合切片())
+		t.AssertIN(3, s.X取集合切片())
+		t.AssertIN(4, s.X取集合切片())
+		t.AssertNI(0, s.X取集合切片())
 		t.Assert(s.X是否存在(4), true)
 		t.Assert(s.X是否存在(5), false)
 		s.X删除(1)
@@ -47,11 +47,11 @@ func TestIntSet_Basic(t *testing.T) {
 		s.X加入(1, 1, 2)
 		s.X加入([]int{3, 4}...)
 		t.Assert(s.X取数量(), 4)
-		t.AssertIN(1, s.X取集合数组())
-		t.AssertIN(2, s.X取集合数组())
-		t.AssertIN(3, s.X取集合数组())
-		t.AssertIN(4, s.X取集合数组())
-		t.AssertNI(0, s.X取集合数组())
+		t.AssertIN(1, s.X取集合切片())
+		t.AssertIN(2, s.X取集合切片())
+		t.AssertIN(3, s.X取集合切片())
+		t.AssertIN(4, s.X取集合切片())
+		t.AssertNI(0, s.X取集合切片())
 		t.Assert(s.X是否存在(4), true)
 		t.Assert(s.X是否存在(5), false)
 		s.X删除(1)

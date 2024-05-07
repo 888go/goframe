@@ -7,10 +7,10 @@ package 泛型类_test
 
 import (
 	"fmt"
-	
+
 	"github.com/888go/goframe/gvar"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/888go/goframe/gvar/internal/json"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 // New
@@ -315,8 +315,8 @@ func ExampleVar_ListItemValues() {
 		g.Map{"id": 3, "price": nil},
 	}
 	var v = 泛型类.X创建(goods1)
-	fmt.Println(v.X取结构数组或Map数组值("id"))
-	fmt.Println(v.X取结构数组或Map数组值("price"))
+	fmt.Println(v.X取结构切片或Map切片值("id"))
+	fmt.Println(v.X取结构切片或Map切片值("price"))
 
 	// Output:
 	// [1 2 3]
@@ -334,8 +334,8 @@ func ExampleVar_ListItemValuesUnique() {
 		v = 泛型类.X创建(goods1)
 	)
 
-	fmt.Println(v.X取结构数组或Map数组值并去重("id"))
-	fmt.Println(v.X取结构数组或Map数组值并去重("price"))
+	fmt.Println(v.X取结构切片或Map切片值并去重("id"))
+	fmt.Println(v.X取结构切片或Map切片值并去重("price"))
 
 	// Output:
 	// [1 2 3]
@@ -408,7 +408,7 @@ func ExampleVar_Ints() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取整数数组())
+	fmt.Println(obj.X取整数切片())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -421,7 +421,7 @@ func ExampleVar_Int64s() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取整数64位数组())
+	fmt.Println(obj.X取整数64位切片())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -433,7 +433,7 @@ func ExampleVar_Uints() {
 		arr = []uint{1, 2, 3, 4, 5}
 		obj = 泛型类.X创建(arr)
 	)
-	fmt.Println(obj.X取正整数数组())
+	fmt.Println(obj.X取正整数切片())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -446,7 +446,7 @@ func ExampleVar_Uint64s() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取正整数64位数组())
+	fmt.Println(obj.X取正整数64位切片())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -459,7 +459,7 @@ func ExampleVar_Floats() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取小数数组())
+	fmt.Println(obj.X取小数切片())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -472,7 +472,7 @@ func ExampleVar_Float32s() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取小数32位数组())
+	fmt.Println(obj.X取小数32位切片())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -485,7 +485,7 @@ func ExampleVar_Float64s() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取小数64位数组())
+	fmt.Println(obj.X取小数64位切片())
 
 	// Output:
 	// [1 2 3 4 5]
@@ -497,7 +497,7 @@ func ExampleVar_Strings() {
 		arr = []string{"GoFrame", "Golang"}
 		obj = 泛型类.X创建(arr)
 	)
-	fmt.Println(obj.X取文本数组())
+	fmt.Println(obj.X取文本切片())
 
 	// Output:
 	// [GoFrame Golang]
@@ -510,7 +510,7 @@ func ExampleVar_Interfaces() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取any数组())
+	fmt.Println(obj.X取any切片())
 
 	// Output:
 	// [GoFrame Golang]
@@ -548,7 +548,7 @@ func ExampleVar_Vars() {
 		obj = 泛型类.X创建(arr)
 	)
 
-	fmt.Println(obj.X取泛型类数组())
+	fmt.Println(obj.X取泛型类切片())
 
 	// Output:
 	// [GoFrame Golang]
@@ -662,7 +662,7 @@ func ExampleVar_MapStrVarDeep() {
 // Maps
 func ExampleVar_Maps() {
 	var m = 泛型类.X创建(g.ListIntInt{g.MapIntInt{0: 100, 1: 200}, g.MapIntInt{0: 300, 1: 400}})
-	fmt.Printf("%#v", m.X取Map数组())
+	fmt.Printf("%#v", m.X取Map切片())
 
 	// Output:
 	// []map[string]interface {}{map[string]interface {}{"0":100, "1":200}, map[string]interface {}{"0":300, "1":400}}

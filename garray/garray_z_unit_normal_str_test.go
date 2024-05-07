@@ -5,18 +5,18 @@
 
 // go test *.go
 
-package 数组类_test
+package 切片类_test
 
 import (
 	"strings"
 	"testing"
 	"time"
-	
+
 	"github.com/888go/goframe/garray/internal/empty"
-	
+
 	"github.com/888go/goframe/garray"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/888go/goframe/garray/internal/json"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -24,9 +24,9 @@ import (
 func Test_StrArray_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := []string{"0", "1", "2", "3"}
-		array := 数组类.X创建文本并从数组(expect)
-		array2 := 数组类.X创建文本并从数组(expect, true)
-		array3 := 数组类.X创建文本并从数组([]string{})
+		array := 切片类.X创建文本并从切片(expect)
+		array2 := 切片类.X创建文本并从切片(expect, true)
+		array3 := 切片类.X创建文本并从切片([]string{})
 		t.Assert(array.X取切片(), expect)
 		t.Assert(array.Interfaces(), expect)
 		array.X设置值(0, "100")
@@ -74,9 +74,9 @@ func Test_StrArray_Basic(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组([]string{"0", "1", "2", "3"})
+		array := 切片类.X创建文本并从切片([]string{"0", "1", "2", "3"})
 
-		copyArray := array.DeepCopy().(*数组类.StrArray)
+		copyArray := array.DeepCopy().(*切片类.StrArray)
 		copyArray.X设置值(0, "1")
 		cval, _ := copyArray.X取值2(0)
 		val, _ := array.X取值2(0)
@@ -86,7 +86,7 @@ func Test_StrArray_Basic(t *testing.T) {
 
 func TestStrArray_ContainsI(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := 数组类.X创建文本()
+		s := 切片类.X创建文本()
 		t.Assert(s.X是否存在("A"), false)
 		s.Append别名("a", "b", "C")
 		t.Assert(s.X是否存在("A"), false)
@@ -99,7 +99,7 @@ func TestStrArray_Sort(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect1 := []string{"0", "1", "2", "3"}
 		expect2 := []string{"3", "2", "1", "0"}
-		array := 数组类.X创建文本()
+		array := 切片类.X创建文本()
 		for i := 3; i >= 0; i-- {
 			array.Append别名(gconv.String(i))
 		}
@@ -113,9 +113,9 @@ func TestStrArray_Sort(t *testing.T) {
 func TestStrArray_Unique(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := []string{"1", "1", "2", "2", "3", "3", "2", "2"}
-		array := 数组类.X创建文本并从数组(expect)
+		array := 切片类.X创建文本并从切片(expect)
 		t.Assert(array.X去重().X取切片(), []string{"1", "2", "3"})
-		array1 := 数组类.X创建文本并从数组([]string{})
+		array1 := 切片类.X创建文本并从切片([]string{})
 		t.Assert(array1.X去重().X取切片(), []string{})
 	})
 }
@@ -123,7 +123,7 @@ func TestStrArray_Unique(t *testing.T) {
 func TestStrArray_PushAndPop(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := []string{"0", "1", "2", "3"}
-		array := 数组类.X创建文本并从数组(expect)
+		array := 切片类.X创建文本并从切片(expect)
 		t.Assert(array.X取切片(), expect)
 
 		v, ok := array.X出栈左()
@@ -154,7 +154,7 @@ func TestStrArray_PushAndPop(t *testing.T) {
 
 func TestStrArray_PopLeft(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"1", "2", "3"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"1", "2", "3"})
 		v, ok := array.X出栈左()
 		t.Assert(v, 1)
 		t.Assert(ok, true)
@@ -172,7 +172,7 @@ func TestStrArray_PopLeft(t *testing.T) {
 
 func TestStrArray_PopRight(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"1", "2", "3"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"1", "2", "3"})
 
 		v, ok := array.X出栈右()
 		t.Assert(v, 3)
@@ -193,7 +193,7 @@ func TestStrArray_PopRight(t *testing.T) {
 
 func TestStrArray_PopLefts(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"1", "2", "3"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"1", "2", "3"})
 		t.Assert(array.X出栈左多个(2), g.Slice{"1", "2"})
 		t.Assert(array.X取长度(), 1)
 		t.Assert(array.X出栈左多个(2), g.Slice{"3"})
@@ -203,7 +203,7 @@ func TestStrArray_PopLefts(t *testing.T) {
 
 func TestStrArray_PopRights(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"1", "2", "3"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"1", "2", "3"})
 		t.Assert(array.X出栈右多个(2), g.Slice{"2", "3"})
 		t.Assert(array.X取长度(), 1)
 		t.Assert(array.X出栈左多个(2), g.Slice{"1"})
@@ -213,7 +213,7 @@ func TestStrArray_PopRights(t *testing.T) {
 
 func TestStrArray_PopLeftsAndPopRights(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本()
+		array := 切片类.X创建文本()
 		v, ok := array.X出栈左()
 		t.Assert(v, "")
 		t.Assert(ok, false)
@@ -233,8 +233,8 @@ func TestStrArray_PopLeftsAndPopRights(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		value1 := []string{"0", "1", "2", "3", "4", "5", "6"}
 		value2 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(value1)
-		array2 := 数组类.X创建文本并从数组(value2)
+		array1 := 切片类.X创建文本并从切片(value1)
+		array2 := 切片类.X创建文本并从切片(value2)
 		t.Assert(array1.X出栈左多个(2), []interface{}{"0", "1"})
 		t.Assert(array1.X取切片(), []interface{}{"2", "3", "4", "5", "6"})
 		t.Assert(array1.X出栈右多个(2), []interface{}{"5", "6"})
@@ -249,8 +249,8 @@ func TestStrArray_PopLeftsAndPopRights(t *testing.T) {
 func TestString_Range(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		value1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(value1)
-		array2 := 数组类.X创建文本并从数组(value1, true)
+		array1 := 切片类.X创建文本并从切片(value1)
+		array2 := 切片类.X创建文本并从切片(value1, true)
 		t.Assert(array1.X取切片并按范围(0, 1), []interface{}{"0"})
 		t.Assert(array1.X取切片并按范围(1, 2), []interface{}{"1"})
 		t.Assert(array1.X取切片并按范围(0, 2), []interface{}{"0", "1"})
@@ -264,8 +264,8 @@ func TestStrArray_Merge(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a11 := []string{"0", "1", "2", "3"}
 		a21 := []string{"4", "5", "6", "7"}
-		array1 := 数组类.X创建文本并从数组(a11)
-		array2 := 数组类.X创建文本并从数组(a21)
+		array1 := 切片类.X创建文本并从切片(a11)
+		array2 := 切片类.X创建文本并从切片(a21)
 		t.Assert(array1.X合并(array2).X取切片(), []string{"0", "1", "2", "3", "4", "5", "6", "7"})
 
 		func1 := func(v1, v2 interface{}) int {
@@ -277,13 +277,13 @@ func TestStrArray_Merge(t *testing.T) {
 
 		s1 := []string{"a", "b", "c", "d"}
 		s2 := []string{"e", "f"}
-		i1 := 数组类.X创建整数并从数组([]int{1, 2, 3})
-		i2 := 数组类.X创建并从数组([]interface{}{3})
-		s3 := 数组类.X创建文本并从数组([]string{"g", "h"})
-		s4 := 数组类.X创建排序并从数组([]interface{}{4, 5}, func1)
-		s5 := 数组类.X创建文本排序并从数组(s2)
-		s6 := 数组类.X创建整数排序并从数组([]int{1, 2, 3})
-		a1 := 数组类.X创建文本并从数组(s1)
+		i1 := 切片类.X创建整数并从切片([]int{1, 2, 3})
+		i2 := 切片类.X创建并从切片([]interface{}{3})
+		s3 := 切片类.X创建文本并从切片([]string{"g", "h"})
+		s4 := 切片类.X创建排序并从切片([]interface{}{4, 5}, func1)
+		s5 := 切片类.X创建文本排序并从切片(s2)
+		s6 := 切片类.X创建整数排序并从切片([]int{1, 2, 3})
+		a1 := 切片类.X创建文本并从切片(s1)
 
 		t.Assert(a1.X合并(s2).X取长度(), 6)
 		t.Assert(a1.X合并(i1).X取长度(), 9)
@@ -299,8 +299,8 @@ func TestStrArray_Fill(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0"}
 		a2 := []string{"0"}
-		array1 := 数组类.X创建文本并从数组(a1)
-		array2 := 数组类.X创建文本并从数组(a2)
+		array1 := 切片类.X创建文本并从切片(a1)
+		array2 := 切片类.X创建文本并从切片(a2)
 		t.Assert(array1.X填充(1, 2, "100"), nil)
 		t.Assert(array1.X取切片(), []string{"0", "100", "100"})
 		t.Assert(array2.X填充(0, 2, "100"), nil)
@@ -313,7 +313,7 @@ func TestStrArray_Fill(t *testing.T) {
 func TestStrArray_Chunk(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"1", "2", "3", "4", "5"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		chunks := array1.X分割(2)
 		t.Assert(len(chunks), 3)
 		t.Assert(chunks[0], []string{"1", "2"})
@@ -323,7 +323,7 @@ func TestStrArray_Chunk(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"1", "2", "3", "4", "5"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		chunks := array1.X分割(3)
 		t.Assert(len(chunks), 2)
 		t.Assert(chunks[0], []string{"1", "2", "3"})
@@ -332,7 +332,7 @@ func TestStrArray_Chunk(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		chunks := array1.X分割(2)
 		t.Assert(len(chunks), 3)
 		t.Assert(chunks[0], []string{"1", "2"})
@@ -342,7 +342,7 @@ func TestStrArray_Chunk(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		chunks := array1.X分割(3)
 		t.Assert(len(chunks), 2)
 		t.Assert(chunks[0], []string{"1", "2", "3"})
@@ -354,7 +354,7 @@ func TestStrArray_Chunk(t *testing.T) {
 func TestStrArray_Pad(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X填满(3, "1").X取切片(), []string{"0", "1", "1"})
 		t.Assert(array1.X填满(-4, "1").X取切片(), []string{"1", "0", "1", "1"})
 		t.Assert(array1.X填满(3, "1").X取切片(), []string{"1", "0", "1", "1"})
@@ -364,8 +364,8 @@ func TestStrArray_Pad(t *testing.T) {
 func TestStrArray_SubSlice(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
-		array2 := 数组类.X创建文本并从数组(a1, true)
+		array1 := 切片类.X创建文本并从切片(a1)
+		array2 := 切片类.X创建文本并从切片(a1, true)
 		t.Assert(array1.X取切片并按数量(0, 2), []string{"0", "1"})
 		t.Assert(array1.X取切片并按数量(2, 2), []string{"2", "3"})
 		t.Assert(array1.X取切片并按数量(5, 8), []string{"5", "6"})
@@ -380,7 +380,7 @@ func TestStrArray_SubSlice(t *testing.T) {
 func TestStrArray_Rand(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(len(array1.X取值随机多个(2)), "2")
 		t.Assert(len(array1.X取值随机多个(10)), 10)
 		t.AssertIN(array1.X取值随机多个(1)[0], a1)
@@ -388,7 +388,7 @@ func TestStrArray_Rand(t *testing.T) {
 		t.Assert(ok, true)
 		t.AssertIN(v, a1)
 
-		array2 := 数组类.X创建文本并从数组([]string{})
+		array2 := 切片类.X创建文本并从切片([]string{})
 		v, ok = array2.X取值随机()
 		t.Assert(ok, false)
 		t.Assert(v, "")
@@ -400,7 +400,7 @@ func TestStrArray_Rand(t *testing.T) {
 func TestStrArray_PopRands(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"a", "b", "c", "d", "e", "f", "g"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.AssertIN(array1.X出栈随机多个(1), []string{"a", "b", "c", "d", "e", "f", "g"})
 		t.AssertIN(array1.X出栈随机多个(1), []string{"a", "b", "c", "d", "e", "f", "g"})
 		t.AssertNI(array1.X出栈随机多个(1), array1.X取切片())
@@ -412,7 +412,7 @@ func TestStrArray_PopRands(t *testing.T) {
 func TestStrArray_Shuffle(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X随机排序().X取长度(), 7)
 	})
 }
@@ -420,7 +420,7 @@ func TestStrArray_Shuffle(t *testing.T) {
 func TestStrArray_Reverse(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X倒排序().X取切片(), []string{"6", "5", "4", "3", "2", "1", "0"})
 	})
 }
@@ -428,17 +428,17 @@ func TestStrArray_Reverse(t *testing.T) {
 func TestStrArray_Join(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X连接("."), `0.1.2.3.4.5.6`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", `"a"`, `\a`}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X连接("."), `0.1."a".\a`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X连接("."), "")
 	})
 }
@@ -446,7 +446,7 @@ func TestStrArray_Join(t *testing.T) {
 func TestStrArray_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.String(), `["0","1","2","3","4","5","6"]`)
 
 		array1 = nil
@@ -457,8 +457,8 @@ func TestStrArray_String(t *testing.T) {
 func TestNewStrArrayFromCopy(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		a2 := 数组类.X创建文本并从数组复制(a1)
-		a3 := 数组类.X创建文本并从数组复制(a1, true)
+		a2 := 切片类.X创建文本并从切片复制(a1)
+		a3 := 切片类.X创建文本并从切片复制(a1, true)
 		t.Assert(a2.X是否存在("1"), true)
 		t.Assert(a2.X取长度(), 7)
 		t.Assert(a2, a3)
@@ -469,11 +469,11 @@ func TestStrArray_SetArray(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
 		a2 := []string{"a", "b", "c", "d"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X是否存在("2"), true)
 		t.Assert(array1.X取长度(), 7)
 
-		array1 = array1.X设置数组(a2)
+		array1 = array1.X设置切片(a2)
 		t.Assert(array1.X是否存在("2"), false)
 		t.Assert(array1.X是否存在("c"), true)
 		t.Assert(array1.X取长度(), 4)
@@ -485,7 +485,7 @@ func TestStrArray_Replace(t *testing.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
 		a2 := []string{"a", "b", "c", "d"}
 		a3 := []string{"o", "p", "q", "x", "y", "z", "w", "r", "v"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		t.Assert(array1.X是否存在("2"), true)
 		t.Assert(array1.X取长度(), 7)
 
@@ -510,8 +510,8 @@ func TestStrArray_Sum(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
 		a2 := []string{"0", "a", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
-		array2 := 数组类.X创建文本并从数组(a2)
+		array1 := 切片类.X创建文本并从切片(a1)
+		array2 := 切片类.X创建文本并从切片(a2)
 		t.Assert(array1.X求和(), 21)
 		t.Assert(array2.X求和(), 18)
 	})
@@ -520,7 +520,7 @@ func TestStrArray_Sum(t *testing.T) {
 func TestStrArray_PopRand(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		str1, ok := array1.X出栈随机()
 		t.Assert(strings.Contains("0,1,2,3,4,5,6", str1), true)
 		t.Assert(array1.X取长度(), 6)
@@ -531,7 +531,7 @@ func TestStrArray_PopRand(t *testing.T) {
 func TestStrArray_Clone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "5", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		array2 := array1.X取副本()
 		t.Assert(array2, array1)
 		t.Assert(array2.X取长度(), 7)
@@ -541,7 +541,7 @@ func TestStrArray_Clone(t *testing.T) {
 func TestStrArray_CountValues(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"0", "1", "2", "3", "4", "4", "6"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 
 		m1 := array1.X统计()
 		t.Assert(len(m1), 6)
@@ -553,7 +553,7 @@ func TestStrArray_CountValues(t *testing.T) {
 func TestStrArray_Remove(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []string{"e", "a", "d", "a", "c"}
-		array1 := 数组类.X创建文本并从数组(a1)
+		array1 := 切片类.X创建文本并从切片(a1)
 		s1, ok := array1.X删除(1)
 		t.Assert(s1, "a")
 		t.Assert(ok, true)
@@ -568,7 +568,7 @@ func TestStrArray_Remove(t *testing.T) {
 func TestStrArray_RLockFunc(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []string{"a", "b", "c", "d"}
-		a1 := 数组类.X创建文本并从数组(s1, true)
+		a1 := 切片类.X创建文本并从切片(s1, true)
 
 		ch1 := make(chan int64, 3)
 		ch2 := make(chan int64, 1)
@@ -600,7 +600,7 @@ func TestStrArray_RLockFunc(t *testing.T) {
 func TestStrArray_SortFunc(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []string{"a", "d", "c", "b"}
-		a1 := 数组类.X创建文本并从数组(s1)
+		a1 := 切片类.X创建文本并从切片(s1)
 		func1 := func(v1, v2 string) bool {
 			return v1 < v2
 		}
@@ -612,7 +612,7 @@ func TestStrArray_SortFunc(t *testing.T) {
 func TestStrArray_LockFunc(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []string{"a", "b", "c", "d"}
-		a1 := 数组类.X创建文本并从数组(s1, true)
+		a1 := 切片类.X创建文本并从切片(s1, true)
 
 		ch1 := make(chan int64, 3)
 		ch2 := make(chan int64, 3)
@@ -645,18 +645,18 @@ func TestStrArray_Json(t *testing.T) {
 	// array pointer
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []string{"a", "b", "d", "c"}
-		a1 := 数组类.X创建文本并从数组(s1)
+		a1 := 切片类.X创建文本并从切片(s1)
 		b1, err1 := json.Marshal(a1)
 		b2, err2 := json.Marshal(s1)
 		t.Assert(b1, b2)
 		t.Assert(err1, err2)
 
-		a2 := 数组类.X创建文本()
+		a2 := 切片类.X创建文本()
 		err1 = json.UnmarshalUseNumber(b2, &a2)
 		t.AssertNil(err1)
 		t.Assert(a2.X取切片(), s1)
 
-		var a3 数组类.StrArray
+		var a3 切片类.StrArray
 		err := json.UnmarshalUseNumber(b2, &a3)
 		t.AssertNil(err)
 		t.Assert(a3.X取切片(), s1)
@@ -664,18 +664,18 @@ func TestStrArray_Json(t *testing.T) {
 	// array value
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []string{"a", "b", "d", "c"}
-		a1 := *数组类.X创建文本并从数组(s1)
+		a1 := *切片类.X创建文本并从切片(s1)
 		b1, err1 := json.Marshal(a1)
 		b2, err2 := json.Marshal(s1)
 		t.Assert(b1, b2)
 		t.Assert(err1, err2)
 
-		a2 := 数组类.X创建文本()
+		a2 := 切片类.X创建文本()
 		err1 = json.UnmarshalUseNumber(b2, &a2)
 		t.AssertNil(err1)
 		t.Assert(a2.X取切片(), s1)
 
-		var a3 数组类.StrArray
+		var a3 切片类.StrArray
 		err := json.UnmarshalUseNumber(b2, &a3)
 		t.AssertNil(err)
 		t.Assert(a3.X取切片(), s1)
@@ -684,7 +684,7 @@ func TestStrArray_Json(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Name   string
-			Scores *数组类.StrArray
+			Scores *切片类.StrArray
 		}
 		data := g.Map{
 			"Name":   "john",
@@ -703,7 +703,7 @@ func TestStrArray_Json(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Name   string
-			Scores 数组类.StrArray
+			Scores 切片类.StrArray
 		}
 		data := g.Map{
 			"Name":   "john",
@@ -722,7 +722,7 @@ func TestStrArray_Json(t *testing.T) {
 
 func TestStrArray_Iterator(t *testing.T) {
 	slice := g.SliceStr{"a", "b", "d", "c"}
-	array := 数组类.X创建文本并从数组(slice)
+	array := 切片类.X创建文本并从切片(slice)
 	gtest.C(t, func(t *gtest.T) {
 		array.X遍历(func(k int, v string) bool {
 			t.Assert(v, slice[k])
@@ -769,7 +769,7 @@ func TestStrArray_Iterator(t *testing.T) {
 
 func TestStrArray_RemoveValue(t *testing.T) {
 	slice := g.SliceStr{"a", "b", "d", "c"}
-	array := 数组类.X创建文本并从数组(slice)
+	array := 切片类.X创建文本并从切片(slice)
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(array.X删除值("e"), false)
 		t.Assert(array.X删除值("b"), true)
@@ -781,7 +781,7 @@ func TestStrArray_RemoveValue(t *testing.T) {
 
 func TestStrArray_RemoveValues(t *testing.T) {
 	slice := g.SliceStr{"a", "b", "d", "c"}
-	array := 数组类.X创建文本并从数组(slice)
+	array := 切片类.X创建文本并从切片(slice)
 	gtest.C(t, func(t *gtest.T) {
 		array.X删除多个值("a", "b", "c")
 		t.Assert(array.X取切片(), g.SliceStr{"d"})
@@ -791,7 +791,7 @@ func TestStrArray_RemoveValues(t *testing.T) {
 func TestStrArray_UnmarshalValue(t *testing.T) {
 	type V struct {
 		Name  string
-		Array *数组类.StrArray
+		Array *切片类.StrArray
 	}
 	// JSON
 	gtest.C(t, func(t *gtest.T) {
@@ -818,13 +818,13 @@ func TestStrArray_UnmarshalValue(t *testing.T) {
 }
 func TestStrArray_Filter(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"", "1", "2", "0"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"", "1", "2", "0"})
 		t.Assert(array.X遍历删除(func(index int, value string) bool {
 			return empty.IsEmpty(value)
 		}), g.SliceStr{"1", "2", "0"})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"1", "2"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"1", "2"})
 		t.Assert(array.X遍历删除(func(index int, value string) bool {
 			return empty.IsEmpty(value)
 		}), g.SliceStr{"1", "2"})
@@ -833,18 +833,18 @@ func TestStrArray_Filter(t *testing.T) {
 
 func TestStrArray_FilterEmpty(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"", "1", "2", "0"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"", "1", "2", "0"})
 		t.Assert(array.X删除所有空值(), g.SliceStr{"1", "2", "0"})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"1", "2"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"1", "2"})
 		t.Assert(array.X删除所有空值(), g.SliceStr{"1", "2"})
 	})
 }
 
 func TestStrArray_Walk(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建文本并从数组(g.SliceStr{"1", "2"})
+		array := 切片类.X创建文本并从切片(g.SliceStr{"1", "2"})
 		t.Assert(array.X遍历修改(func(value string) string {
 			return "key-" + value
 		}), g.Slice{"key-1", "key-2"})

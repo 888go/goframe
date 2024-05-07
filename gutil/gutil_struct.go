@@ -7,7 +7,7 @@ package 工具类
 
 import (
 	"reflect"
-	
+
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/os/gstructs"
@@ -16,7 +16,7 @@ import (
 
 // StructToSlice 将结构体转换为键值对构成的切片。
 // 例如：{"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
-func X结构体到数组(结构体指针 interface{}) []interface{} {
+func X结构体到切片(结构体指针 interface{}) []interface{} {
 	var (
 		reflectValue = reflect.ValueOf(结构体指针)
 		reflectKind  = reflectValue.Kind()
@@ -28,7 +28,7 @@ func X结构体到数组(结构体指针 interface{}) []interface{} {
 	switch reflectKind {
 	case reflect.Struct:
 		array := make([]interface{}, 0)
-// 注意，如果在结构体属性中找到gconv标签，则它使用gconv标签名称而非属性名称。
+		// 注意，如果在结构体属性中找到gconv标签，则它使用gconv标签名称而非属性名称。
 		for k, v := range gconv.Map(reflectValue) {
 			array = append(array, k)
 			array = append(array, v)

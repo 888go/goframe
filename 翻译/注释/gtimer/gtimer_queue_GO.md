@@ -52,7 +52,7 @@
 <原文结束>
 
 # <翻译开始>
-// priorityQueueHeap 是一个堆管理器，其底层的 `array` 是一个实现了堆结构的数组。
+// priorityQueueHeap 是一个堆管理器，其底层的 `array` 是一个实现了堆结构的切片。
 # <翻译结束>
 
 

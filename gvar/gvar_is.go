@@ -35,7 +35,7 @@ func (v *Var) X是否为小数() bool {
 }
 
 // IsSlice 检查 `v` 是否为切片类型。
-func (v *Var) X是否为数组() bool {
+func (v *Var) X是否为切片() bool {
 	return utils.IsSlice(v.X取值())
 }
 

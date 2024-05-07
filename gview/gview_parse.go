@@ -13,12 +13,12 @@ import (
 	htmltpl "html/template"
 	"strconv"
 	texttpl "text/template"
-	
+
+	"github.com/888go/goframe/gview/internal/intlog"
 	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/gogf/gf/v2/encoding/ghash"
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/888go/goframe/gview/internal/intlog"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/gfsnotify"
 	"github.com/gogf/gf/v2/os/glog"
@@ -42,8 +42,8 @@ type fileCacheItem struct {
 }
 
 var (
-// 模板文件夹的模板缓存映射。
-// 注意，此映射没有设置过期逻辑。
+	// 模板文件夹的模板缓存映射。
+	// 注意，此映射没有设置过期逻辑。
 	templates = gmap.NewStrAnyMap(true)
 
 	// 尝试在以下文件夹中搜索资源模板文件。
@@ -52,7 +52,7 @@ var (
 		"resource/template/", "resource/template", "/resource/template", "/resource/template/",
 	}
 
-	// 前缀数组，用于尝试在本地系统中进行搜索。
+	// 前缀切片，用于尝试在本地系统中进行搜索。
 	localSystemTryFolders = []string{"", "template/", "resource/template"}
 )
 
@@ -182,8 +182,8 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	if err != nil {
 		return "", err
 	}
-// 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
-// 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
+	// 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
+	// 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
 	variables := gutil.MapMergeCopy(option.Params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -247,8 +247,8 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		err = gerror.Wrapf(err, `template parsing failed`)
 		return "", err
 	}
-// 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
-// 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
+	// 注意，模板变量赋值无法改变已存在的`params`或view.data的值，
+	// 因为两者都是指针变量。它需要将两个映射的值合并到一个新的映射中。
 	variables := gutil.MapMergeCopy(params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -329,8 +329,8 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 				}
 			}
 
-// 其次检查文件系统，
-// 然后递归地自动解析其所有子文件。
+			// 其次检查文件系统，
+			// 然后递归地自动解析其所有子文件。
 			var files []string
 			files, err = gfile.ScanDir(folderPath, pattern, true)
 			if err != nil {

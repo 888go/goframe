@@ -9,7 +9,7 @@ package mutex_test
 import (
 	"testing"
 	"time"
-	
+
 	"github.com/888go/goframe/garray"
 	"github.com/888go/goframe/garray/internal/mutex"
 	"github.com/gogf/gf/v2/test/gtest"
@@ -40,7 +40,7 @@ func TestMutexIsSafe(t *testing.T) {
 func TestSafeMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		safeLock := mutex.New(true)
-		array := 数组类.X创建(true)
+		array := 切片类.X创建(true)
 
 		go func() {
 			safeLock.Lock()
@@ -72,7 +72,7 @@ func TestUnsafeMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			unsafeLock = mutex.New()
-			array      = 数组类.X创建(true)
+			array      = 切片类.X创建(true)
 		)
 
 		go func() {

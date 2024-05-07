@@ -11,10 +11,10 @@ import (
 	"strings"
 	"testing"
 	"time"
-	
+
+	"github.com/888go/goframe/grand"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/888go/goframe/grand"
 )
 
 func Test_Intn(t *testing.T) {
@@ -221,7 +221,7 @@ func Test_RandLetters(t *testing.T) {
 func Test_Perm(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 100; i++ {
-			t.AssertIN(随机类.X整数数组(5), []int{0, 1, 2, 3, 4})
+			t.AssertIN(随机类.X整数切片(5), []int{0, 1, 2, 3, 4})
 		}
 	})
 }

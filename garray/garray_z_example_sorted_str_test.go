@@ -3,21 +3,21 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package 数组类_test
+package 切片类_test
 
 import (
 	"fmt"
-	
+
 	"github.com/888go/goframe/garray/internal/empty"
-	
+
 	"github.com/888go/goframe/garray"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/888go/goframe/garray/internal/json"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func ExampleSortedStrArray_Walk() {
-	var array 数组类.SortedStrArray
+	var array 切片类.SortedStrArray
 	tables := g.SliceStr{"user", "user_detail"}
 	prefix := "gf_"
 	array.Append别名(tables...)
@@ -32,7 +32,7 @@ func ExampleSortedStrArray_Walk() {
 }
 
 func ExampleNewSortedStrArray() {
-	s := 数组类.X创建文本排序()
+	s := 切片类.X创建文本排序()
 	s.Append别名("b")
 	s.Append别名("d")
 	s.Append别名("c")
@@ -44,8 +44,8 @@ func ExampleNewSortedStrArray() {
 }
 
 func ExampleNewSortedStrArraySize() {
-	s := 数组类.X创建文本排序并按大小(3)
-	s.X设置数组([]string{"b", "d", "a", "c"})
+	s := 切片类.X创建文本排序并按大小(3)
+	s.X设置切片([]string{"b", "d", "a", "c"})
 	fmt.Println(s.X取切片(), s.X取长度(), cap(s.X取切片()))
 
 	// Output:
@@ -53,7 +53,7 @@ func ExampleNewSortedStrArraySize() {
 }
 
 func ExampleNewStrArrayFromCopy() {
-	s := 数组类.X创建文本排序并从数组复制(g.SliceStr{"b", "d", "c", "a"})
+	s := 切片类.X创建文本排序并从切片复制(g.SliceStr{"b", "d", "c", "a"})
 	fmt.Println(s.X取切片())
 
 	// Output:
@@ -61,7 +61,7 @@ func ExampleNewStrArrayFromCopy() {
 }
 
 func ExampleSortedStrArray_At() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "d", "c", "a"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "d", "c", "a"})
 	sAt := s.X取值(2)
 	fmt.Println(s)
 	fmt.Println(sAt)
@@ -73,7 +73,7 @@ func ExampleSortedStrArray_At() {
 }
 
 func ExampleSortedStrArray_Get() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "d", "c", "a", "e"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "d", "c", "a", "e"})
 	sGet, sBool := s.X取值2(3)
 	fmt.Println(s)
 	fmt.Println(sGet, sBool)
@@ -84,8 +84,8 @@ func ExampleSortedStrArray_Get() {
 }
 
 func ExampleSortedStrArray_SetArray() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组([]string{"b", "d", "a", "c"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片([]string{"b", "d", "a", "c"})
 	fmt.Println(s.X取切片())
 
 	// Output:
@@ -93,8 +93,8 @@ func ExampleSortedStrArray_SetArray() {
 }
 
 func ExampleSortedStrArray_SetUnique() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组([]string{"b", "d", "a", "c", "c", "a"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片([]string{"b", "d", "a", "c", "c", "a"})
 	fmt.Println(s.X设置去重(true))
 
 	// Output:
@@ -102,8 +102,8 @@ func ExampleSortedStrArray_SetUnique() {
 }
 
 func ExampleSortedStrArray_Sum() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组([]string{"5", "3", "2"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片([]string{"5", "3", "2"})
 	fmt.Println(s)
 	a := s.X求和()
 	fmt.Println(a)
@@ -114,8 +114,8 @@ func ExampleSortedStrArray_Sum() {
 }
 
 func ExampleSortedStrArray_Sort() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"b", "d", "a", "c"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"b", "d", "a", "c"})
 	fmt.Println(s)
 	a := s.X排序递增()
 	fmt.Println(a)
@@ -126,8 +126,8 @@ func ExampleSortedStrArray_Sort() {
 }
 
 func ExampleSortedStrArray_Remove() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"b", "d", "c", "a"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"b", "d", "c", "a"})
 	fmt.Println(s.X取切片())
 	s.X删除(1)
 	fmt.Println(s.X取切片())
@@ -138,8 +138,8 @@ func ExampleSortedStrArray_Remove() {
 }
 
 func ExampleSortedStrArray_RemoveValue() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"b", "d", "c", "a"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"b", "d", "c", "a"})
 	fmt.Println(s.X取切片())
 	s.X删除值("b")
 	fmt.Println(s.X取切片())
@@ -150,8 +150,8 @@ func ExampleSortedStrArray_RemoveValue() {
 }
 
 func ExampleSortedStrArray_PopLeft() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"b", "d", "c", "a"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"b", "d", "c", "a"})
 	r, _ := s.X出栈左()
 	fmt.Println(r)
 	fmt.Println(s.X取切片())
@@ -162,8 +162,8 @@ func ExampleSortedStrArray_PopLeft() {
 }
 
 func ExampleSortedStrArray_PopRight() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"b", "d", "c", "a"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"b", "d", "c", "a"})
 	fmt.Println(s.X取切片())
 	r, _ := s.X出栈右()
 	fmt.Println(r)
@@ -176,8 +176,8 @@ func ExampleSortedStrArray_PopRight() {
 }
 
 func ExampleSortedStrArray_PopRights() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.X出栈右多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
@@ -188,8 +188,8 @@ func ExampleSortedStrArray_PopRights() {
 }
 
 func ExampleSortedStrArray_Rand() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r, _ := s.X出栈随机()
 	fmt.Println(r)
 	fmt.Println(s)
@@ -200,8 +200,8 @@ func ExampleSortedStrArray_Rand() {
 }
 
 func ExampleSortedStrArray_PopRands() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.X出栈随机多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
@@ -212,8 +212,8 @@ func ExampleSortedStrArray_PopRands() {
 }
 
 func ExampleSortedStrArray_PopLefts() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.X出栈左多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
@@ -224,8 +224,8 @@ func ExampleSortedStrArray_PopLefts() {
 }
 
 func ExampleSortedStrArray_Range() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.X取切片并按范围(2, 5)
 	fmt.Println(r)
 
@@ -234,8 +234,8 @@ func ExampleSortedStrArray_Range() {
 }
 
 func ExampleSortedStrArray_SubSlice() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.X取切片并按数量(3, 4)
 	fmt.Println(s.X取切片())
 	fmt.Println(r)
@@ -246,7 +246,7 @@ func ExampleSortedStrArray_SubSlice() {
 }
 
 func ExampleSortedStrArray_Add() {
-	s := 数组类.X创建文本排序()
+	s := 切片类.X创建文本排序()
 	s.X入栈右("b", "d", "c", "a")
 	fmt.Println(s)
 
@@ -255,8 +255,8 @@ func ExampleSortedStrArray_Add() {
 }
 
 func ExampleSortedStrArray_Append() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"b", "d", "c", "a"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"b", "d", "c", "a"})
 	fmt.Println(s)
 	s.Append别名("f", "e", "g")
 	fmt.Println(s)
@@ -267,8 +267,8 @@ func ExampleSortedStrArray_Append() {
 }
 
 func ExampleSortedStrArray_Len() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
 	fmt.Println(s.X取长度())
 
@@ -278,8 +278,8 @@ func ExampleSortedStrArray_Len() {
 }
 
 func ExampleSortedStrArray_Slice() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s.X取切片())
 
 	// Output:
@@ -287,8 +287,8 @@ func ExampleSortedStrArray_Slice() {
 }
 
 func ExampleSortedStrArray_Interfaces() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.Interfaces()
 	fmt.Println(r)
 
@@ -297,8 +297,8 @@ func ExampleSortedStrArray_Interfaces() {
 }
 
 func ExampleSortedStrArray_Clone() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.X取副本()
 	fmt.Println(r)
 	fmt.Println(s)
@@ -309,8 +309,8 @@ func ExampleSortedStrArray_Clone() {
 }
 
 func ExampleSortedStrArray_Clear() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
 	fmt.Println(s.X清空())
 	fmt.Println(s)
@@ -322,8 +322,8 @@ func ExampleSortedStrArray_Clear() {
 }
 
 func ExampleSortedStrArray_Contains() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s.X是否存在("e"))
 	fmt.Println(s.X是否存在("E"))
 	fmt.Println(s.X是否存在("z"))
@@ -335,8 +335,8 @@ func ExampleSortedStrArray_Contains() {
 }
 
 func ExampleSortedStrArray_ContainsI() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
 	fmt.Println(s.X是否存在并忽略大小写("E"))
 	fmt.Println(s.X是否存在并忽略大小写("z"))
@@ -348,8 +348,8 @@ func ExampleSortedStrArray_ContainsI() {
 }
 
 func ExampleSortedStrArray_Search() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
 	fmt.Println(s.X查找("e"))
 	fmt.Println(s.X查找("E"))
@@ -363,8 +363,8 @@ func ExampleSortedStrArray_Search() {
 }
 
 func ExampleSortedStrArray_Unique() {
-	s := 数组类.X创建文本排序()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
+	s := 切片类.X创建文本排序()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
 	fmt.Println(s)
 	fmt.Println(s.X去重())
 
@@ -374,7 +374,7 @@ func ExampleSortedStrArray_Unique() {
 }
 
 func ExampleSortedStrArray_LockFunc() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "c", "a"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "c", "a"})
 	s.X遍历写锁定(func(array []string) {
 		array[len(array)-1] = "GF fans"
 	})
@@ -385,7 +385,7 @@ func ExampleSortedStrArray_LockFunc() {
 }
 
 func ExampleSortedStrArray_RLockFunc() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "c", "a"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "c", "a"})
 	s.X遍历读锁定(func(array []string) {
 		array[len(array)-1] = "GF fans"
 		fmt.Println(array[len(array)-1])
@@ -398,10 +398,10 @@ func ExampleSortedStrArray_RLockFunc() {
 }
 
 func ExampleSortedStrArray_Merge() {
-	s1 := 数组类.X创建文本排序()
-	s2 := 数组类.X创建文本排序()
-	s1.X设置数组(g.SliceStr{"b", "c", "a"})
-	s2.X设置数组(g.SliceStr{"e", "d", "f"})
+	s1 := 切片类.X创建文本排序()
+	s2 := 切片类.X创建文本排序()
+	s1.X设置切片(g.SliceStr{"b", "c", "a"})
+	s2.X设置切片(g.SliceStr{"e", "d", "f"})
 	fmt.Println(s1)
 	fmt.Println(s2)
 	s1.X合并(s2)
@@ -414,7 +414,7 @@ func ExampleSortedStrArray_Merge() {
 }
 
 func ExampleSortedStrArray_Chunk() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	r := s.X分割(3)
 	fmt.Println(r)
 
@@ -423,7 +423,7 @@ func ExampleSortedStrArray_Chunk() {
 }
 
 func ExampleSortedStrArray_Rands() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
 	fmt.Println(s.X取值随机多个(3))
 
@@ -433,7 +433,7 @@ func ExampleSortedStrArray_Rands() {
 }
 
 func ExampleSortedStrArray_Join() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s.X连接(","))
 
 	// Output:
@@ -441,7 +441,7 @@ func ExampleSortedStrArray_Join() {
 }
 
 func ExampleSortedStrArray_CountValues() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
 	fmt.Println(s.X统计())
 
 	// Output:
@@ -449,7 +449,7 @@ func ExampleSortedStrArray_CountValues() {
 }
 
 func ExampleSortedStrArray_Iterator() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "c", "a"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "c", "a"})
 	s.X遍历(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
@@ -462,7 +462,7 @@ func ExampleSortedStrArray_Iterator() {
 }
 
 func ExampleSortedStrArray_IteratorAsc() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "c", "a"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "c", "a"})
 	s.X遍历升序(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
@@ -475,7 +475,7 @@ func ExampleSortedStrArray_IteratorAsc() {
 }
 
 func ExampleSortedStrArray_IteratorDesc() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "c", "a"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "c", "a"})
 	s.X遍历降序(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
@@ -488,7 +488,7 @@ func ExampleSortedStrArray_IteratorDesc() {
 }
 
 func ExampleSortedStrArray_String() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "c", "a"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "c", "a"})
 	fmt.Println(s.String())
 
 	// Output:
@@ -499,9 +499,9 @@ func ExampleSortedStrArray_MarshalJSON() {
 	type Student struct {
 		ID     int
 		Name   string
-		Levels 数组类.SortedStrArray
+		Levels 切片类.SortedStrArray
 	}
-	r := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "c", "a"})
+	r := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "c", "a"})
 	s := Student{
 		ID:     1,
 		Name:   "john",
@@ -519,7 +519,7 @@ func ExampleSortedStrArray_UnmarshalJSON() {
 	type Student struct {
 		Id      int
 		Name    string
-		Lessons *数组类.StrArray
+		Lessons *切片类.StrArray
 	}
 	s := Student{}
 	json.Unmarshal(b, &s)
@@ -532,7 +532,7 @@ func ExampleSortedStrArray_UnmarshalJSON() {
 func ExampleSortedStrArray_UnmarshalValue() {
 	type Student struct {
 		Name    string
-		Lessons *数组类.StrArray
+		Lessons *切片类.StrArray
 	}
 	var s *Student
 	gconv.Struct(g.Map{
@@ -554,7 +554,7 @@ func ExampleSortedStrArray_UnmarshalValue() {
 }
 
 func ExampleSortedStrArray_Filter() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "a", "", "c", "", "", "d"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "a", "", "c", "", "", "d"})
 	fmt.Println(s)
 	fmt.Println(s.X遍历删除(func(index int, value string) bool {
 		return empty.IsEmpty(value)
@@ -566,7 +566,7 @@ func ExampleSortedStrArray_Filter() {
 }
 
 func ExampleSortedStrArray_FilterEmpty() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "a", "", "c", "", "", "d"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "a", "", "c", "", "", "d"})
 	fmt.Println(s)
 	fmt.Println(s.X删除所有空值())
 
@@ -576,9 +576,9 @@ func ExampleSortedStrArray_FilterEmpty() {
 }
 
 func ExampleSortedStrArray_IsEmpty() {
-	s := 数组类.X创建文本排序并从数组(g.SliceStr{"b", "a", "", "c", "", "", "d"})
+	s := 切片类.X创建文本排序并从切片(g.SliceStr{"b", "a", "", "c", "", "", "d"})
 	fmt.Println(s.X是否为空())
-	s1 := 数组类.X创建文本排序()
+	s1 := 切片类.X创建文本排序()
 	fmt.Println(s1.X是否为空())
 
 	// Output:

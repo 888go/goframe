@@ -18,11 +18,11 @@ package 模板类
 
 import (
 	"context"
-	
+
+	"github.com/888go/goframe/gview/internal/intlog"
 	"github.com/gogf/gf/v2"
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/888go/goframe/gview/internal/intlog"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/glog"
@@ -30,7 +30,7 @@ import (
 
 // 模板引擎的视图对象。
 type View struct {
-	searchPaths  *garray.StrArray       // 为了性能考虑，以下代码在数组中搜索路径，但并不保证并发安全。
+	searchPaths  *garray.StrArray       // 为了性能考虑，以下代码在切片中搜索路径，但并不保证并发安全。
 	data         map[string]interface{} // 全局模板变量。
 	funcMap      map[string]interface{} // 全局模板函数映射。
 	fileCacheMap *gmap.StrAnyMap        // File cache map.

@@ -9,7 +9,7 @@ package rwmutex_test
 import (
 	"testing"
 	"time"
-	
+
 	"github.com/888go/goframe/garray"
 	"github.com/888go/goframe/garray/internal/rwmutex"
 	"github.com/gogf/gf/v2/test/gtest"
@@ -41,7 +41,7 @@ func TestSafeRWMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			localSafeLock = rwmutex.New(true)
-			array         = 数组类.X创建(true)
+			array         = 切片类.X创建(true)
 		)
 
 		go func() {
@@ -74,7 +74,7 @@ func TestSafeReaderRWMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			localSafeLock = rwmutex.New(true)
-			array         = 数组类.X创建(true)
+			array         = 切片类.X创建(true)
 		)
 		go func() {
 			localSafeLock.RLock()
@@ -114,7 +114,7 @@ func TestUnsafeRWMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			localUnsafeLock = rwmutex.New()
-			array           = 数组类.X创建(true)
+			array           = 切片类.X创建(true)
 		)
 		go func() {
 			localUnsafeLock.Lock()

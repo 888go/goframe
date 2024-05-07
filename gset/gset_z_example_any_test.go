@@ -7,7 +7,7 @@ package 集合类_test
 
 import (
 	"fmt"
-	
+
 	"github.com/888go/goframe/gset"
 	"github.com/gogf/gf/v2/frame/g"
 )
@@ -17,10 +17,10 @@ func ExampleSet_Intersect() {
 	s2 := 集合类.X创建并按值(g.Slice{4, 5, 6})
 	s3 := 集合类.X创建并按值(g.Slice{1, 2, 3, 4, 5, 6, 7})
 
-	fmt.Println(s3.X取交集(s1).X取集合数组())
-	fmt.Println(s3.X取差集(s1).X取集合数组())
-	fmt.Println(s1.X取并集(s2).X取集合数组())
-	fmt.Println(s1.X取补集(s3).X取集合数组())
+	fmt.Println(s3.X取交集(s1).X取集合切片())
+	fmt.Println(s3.X取差集(s1).X取集合切片())
+	fmt.Println(s1.X取并集(s2).X取集合切片())
+	fmt.Println(s1.X取补集(s3).X取集合切片())
 
 	// May Output:
 	// [2 3 1]
@@ -34,10 +34,10 @@ func ExampleSet_Diff() {
 	s2 := 集合类.X创建并按值(g.Slice{4, 5, 6})
 	s3 := 集合类.X创建并按值(g.Slice{1, 2, 3, 4, 5, 6, 7})
 
-	fmt.Println(s3.X取交集(s1).X取集合数组())
-	fmt.Println(s3.X取差集(s1).X取集合数组())
-	fmt.Println(s1.X取并集(s2).X取集合数组())
-	fmt.Println(s1.X取补集(s3).X取集合数组())
+	fmt.Println(s3.X取交集(s1).X取集合切片())
+	fmt.Println(s3.X取差集(s1).X取集合切片())
+	fmt.Println(s1.X取并集(s2).X取集合切片())
+	fmt.Println(s1.X取补集(s3).X取集合切片())
 
 	// May Output:
 	// [2 3 1]
@@ -51,10 +51,10 @@ func ExampleSet_Union() {
 	s2 := 集合类.X创建并按值(g.Slice{4, 5, 6})
 	s3 := 集合类.X创建并按值(g.Slice{1, 2, 3, 4, 5, 6, 7})
 
-	fmt.Println(s3.X取交集(s1).X取集合数组())
-	fmt.Println(s3.X取差集(s1).X取集合数组())
-	fmt.Println(s1.X取并集(s2).X取集合数组())
-	fmt.Println(s1.X取补集(s3).X取集合数组())
+	fmt.Println(s3.X取交集(s1).X取集合切片())
+	fmt.Println(s3.X取差集(s1).X取集合切片())
+	fmt.Println(s1.X取并集(s2).X取集合切片())
+	fmt.Println(s1.X取补集(s3).X取集合切片())
 
 	// May Output:
 	// [2 3 1]
@@ -68,10 +68,10 @@ func ExampleSet_Complement() {
 	s2 := 集合类.X创建并按值(g.Slice{4, 5, 6})
 	s3 := 集合类.X创建并按值(g.Slice{1, 2, 3, 4, 5, 6, 7})
 
-	fmt.Println(s3.X取交集(s1).X取集合数组())
-	fmt.Println(s3.X取差集(s1).X取集合数组())
-	fmt.Println(s1.X取并集(s2).X取集合数组())
-	fmt.Println(s1.X取补集(s3).X取集合数组())
+	fmt.Println(s3.X取交集(s1).X取集合切片())
+	fmt.Println(s3.X取差集(s1).X取集合切片())
+	fmt.Println(s1.X取并集(s2).X取集合切片())
+	fmt.Println(s1.X取补集(s3).X取集合切片())
 
 	// May Output:
 	// [2 3 1]
@@ -96,7 +96,7 @@ func ExampleSet_AddIfNotExist() {
 	var set 集合类.Set
 	fmt.Println(set.X加入值并跳过已存在(1))
 	fmt.Println(set.X加入值并跳过已存在(1))
-	fmt.Println(set.X取集合数组())
+	fmt.Println(set.X取集合切片())
 
 	// Output:
 	// true

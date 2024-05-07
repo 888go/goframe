@@ -8,7 +8,7 @@ package 文件类
 import (
 	"bytes"
 	"fmt"
-	
+
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/errors/gerror"
 )
@@ -22,7 +22,7 @@ func X查找(文件名 string, 优先级查找路径 ...string) (路径 string, 
 	if 路径 != "" {
 		return
 	}
-	// 搜索路径数组。
+	// 搜索路径切片。
 	array := garray.NewStrArray()
 	array.Append(优先级查找路径...)
 	array.Append(X取当前工作目录(), X取当前进程目录())

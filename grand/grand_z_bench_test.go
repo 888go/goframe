@@ -12,7 +12,7 @@ import (
 	"encoding/binary"
 	mathRand "math/rand"
 	"testing"
-	
+
 	"github.com/888go/goframe/grand"
 )
 
@@ -49,13 +49,13 @@ func Benchmark_GRand_Intn(b *testing.B) {
 
 func Benchmark_Perm10(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		随机类.X整数数组(10)
+		随机类.X整数切片(10)
 	}
 }
 
 func Benchmark_Perm100(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		随机类.X整数数组(100)
+		随机类.X整数切片(100)
 	}
 }
 

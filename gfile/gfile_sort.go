@@ -7,12 +7,12 @@ package 文件类
 
 import (
 	"strings"
-	
+
 	"github.com/gogf/gf/v2/container/garray"
 )
 
 // fileSortFunc 是用于文件的比较函数。
-// 它按以下顺序对数组进行排序：目录 -> 文件。
+// 它按以下顺序对切片进行排序：目录 -> 文件。
 // 如果 `path1` 和 `path2` 是相同类型，则按照字符串顺序对它们进行排序。
 func fileSortFunc(path1, path2 string) int {
 	isDirPath1 := X是否存在目录(path1)
@@ -32,8 +32,8 @@ func fileSortFunc(path1, path2 string) int {
 
 // SortFiles 将 `files` 按照以下顺序进行排序：目录 -> 文件。
 // 注意，`files` 中的项应当是绝对路径。
-func X排序(文件数组 []string) []string {
+func X排序(文件切片 []string) []string {
 	array := garray.NewSortedStrArrayComparator(fileSortFunc)
-	array.Add(文件数组...)
+	array.Add(文件切片...)
 	return array.Slice()
 }

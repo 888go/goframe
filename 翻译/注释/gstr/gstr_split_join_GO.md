@@ -20,7 +20,7 @@
 <原文结束>
 
 # <翻译开始>
-// Split 函数通过一个分隔符字符串 `delimiter` 将字符串 `str` 分割成一个数组。
+// Split 函数通过一个分隔符字符串 `delimiter` 将字符串 `str` 分割成一个切片。
 # <翻译结束>
 
 
@@ -31,8 +31,8 @@
 <原文结束>
 
 # <翻译开始>
-// SplitAndTrim通过字符串`delimiter`将字符串`str`分割成一个数组，
-// 然后对数组中的每个元素调用Trim方法。它会忽略经过Trim处理后为空的元素。
+// SplitAndTrim通过字符串`delimiter`将字符串`str`分割成一个切片，
+// 然后对切片中的每个元素调用Trim方法。它会忽略经过Trim处理后为空的元素。
 # <翻译结束>
 
 
@@ -57,7 +57,7 @@
 // JoinAny 通过连接 `array` 中的元素来创建一个单一字符串。分隔符字符串
 // `sep` 将会被放置在结果字符串中各元素之间。
 //
-// 参数 `array` 可以是任意类型的切片，只要它可以转换为字符串数组。
+// 参数 `array` 可以是任意类型的切片，只要它可以转换为字符串切片。
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// Explode 将字符串 `str` 通过指定的分隔符 `delimiter` 进行拆分，结果存入数组中。
+// Explode 将字符串 `str` 通过指定的分隔符 `delimiter` 进行拆分，结果存入切片中。
 // 参考：http://php.net/manual/en/function.explode.php.
 # <翻译结束>
 
@@ -78,7 +78,7 @@
 <原文结束>
 
 # <翻译开始>
-// Implode 函数通过字符串 `glue` 连接数组元素 `pieces`。
+// Implode 函数通过字符串 `glue` 连接切片元素 `pieces`。
 // 参考：http://php.net/manual/en/function.implode.php
 # <翻译结束>
 

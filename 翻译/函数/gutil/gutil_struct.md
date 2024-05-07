@@ -6,5 +6,5 @@ func StructToSlice(data
 
 # <翻译开始>
 func StructToSlice
-X结构体到数组
+X结构体到切片
 # <翻译结束>

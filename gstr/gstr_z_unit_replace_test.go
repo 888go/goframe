@@ -9,10 +9,10 @@ package 文本类_test
 
 import (
 	"testing"
-	
+
+	"github.com/888go/goframe/gstr"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/888go/goframe/gstr"
 )
 
 func Test_Replace(t *testing.T) {
@@ -22,7 +22,7 @@ func Test_Replace(t *testing.T) {
 		t.Assert(文本类.X替换(s1, "EF", "ef"), "abcdefG乱入的中文abcdefg")
 		t.Assert(文本类.X替换(s1, "MN", "mn"), s1)
 
-		t.Assert(文本类.X数组替换(s1, g.ArrayStr{
+		t.Assert(文本类.X切片替换(s1, g.ArrayStr{
 			"a", "A",
 			"A", "-",
 			"a",
@@ -52,7 +52,7 @@ func Test_ReplaceI_1(t *testing.T) {
 		t.Assert(文本类.X替换并忽略大小写(s2, "A", "-"), "-")
 		t.Assert(文本类.X替换并忽略大小写(s2, "a", "-"), "-")
 
-		t.Assert(文本类.X数组替换并忽略大小写(s1, g.ArrayStr{
+		t.Assert(文本类.X切片替换并忽略大小写(s1, g.ArrayStr{
 			"abcd乱入的", "-",
 			"-", "=",
 			"a",

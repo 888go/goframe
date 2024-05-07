@@ -7,7 +7,7 @@ package 工具类
 
 import (
 	"reflect"
-	
+
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
@@ -48,15 +48,15 @@ func SliceDelete(slice []interface{}, index int) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
 	}
-	// 确定删除时的数组边界以提高删除效率
+	// 确定删除时的切片边界以提高删除效率
 	if index == 0 {
 		return slice[1:]
 	} else if index == len(slice)-1 {
 		return slice[:index]
 	}
-// 如果这是一个非边界删除，
-// 那么它将涉及创建一个数组，
-// 因此，删除操作效率较低。
+	// 如果这是一个非边界删除，
+	// 那么它将涉及创建一个切片，
+	// 因此，删除操作效率较低。
 	return append(slice[:index], slice[index+1:]...)
 }
 

@@ -7,7 +7,7 @@ package json类
 
 import (
 	"fmt"
-	
+
 	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
@@ -80,7 +80,7 @@ func (j *Json) X取对象(表达式 string, 默认值 ...interface{}) *Json {
 
 // GetJsons 通过指定的 `pattern` 获取值，
 // 并将其转换为一个非并发安全的 Json 对象切片。
-func (j *Json) X取对象数组(表达式 string, 默认值 ...interface{}) []*Json {
+func (j *Json) X取对象切片(表达式 string, 默认值 ...interface{}) []*Json {
 	array := j.X取值(表达式, 默认值...).Array()
 	if len(array) > 0 {
 		jsonSlice := make([]*Json, len(array))
@@ -190,7 +190,7 @@ func (j *Json) X取Map() map[string]interface{} {
 
 // Array 将当前Json对象转换为 []interface{} 类型的切片。
 // 如果转换失败，则返回nil。
-func (j *Json) X取数组() []interface{} {
+func (j *Json) X取切片() []interface{} {
 	return j.X取泛型类().Array()
 }
 

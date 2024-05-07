@@ -8,10 +8,10 @@ package json类_test
 import (
 	"fmt"
 	"testing"
-	
+
+	"github.com/888go/goframe/gjson"
 	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/888go/goframe/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
@@ -27,14 +27,14 @@ func Test_New(t *testing.T) {
 		t.Assert(j.X取值("m").Map(), g.Map{"k": "v"})
 		t.Assert(j.X取值("a").Array(), g.Slice{1, 2, 3})
 	})
-	// 使用json数组映射创建新的（对象）
+	// 使用json切片映射创建新的（对象）
 	gtest.C(t, func(t *gtest.T) {
 		j := json类.X创建(`[{"a":1},{"b":2},{"c":3}]`)
 		t.Assert(j.X取值(".").String(), `[{"a":1},{"b":2},{"c":3}]`)
 		t.Assert(j.X取值("2.c").String(), `3`)
 	})
-// 使用gvar新建。
-// 参考文档：https://github.com/gogf/gf/issues/1571
+	// 使用gvar新建。
+	// 参考文档：https://github.com/gogf/gf/issues/1571
 	gtest.C(t, func(t *gtest.T) {
 		v := gvar.New(`[{"a":1},{"b":2},{"c":3}]`)
 		j := json类.X创建(v)
@@ -317,7 +317,7 @@ func TestJson_Default(t *testing.T) {
 		t.AssertEQ(j.X取值("no", g.Map{"k": "v"}).Map(), g.Map{"k": "v"})
 		t.AssertEQ(j.X取值("no", 123.456).Float64(), float64(123.456))
 		t.AssertEQ(j.X取对象("no", g.Map{"k": "v"}).X取值("k").String(), "v")
-		t.AssertEQ(j.X取对象数组("no", g.Slice{
+		t.AssertEQ(j.X取对象切片("no", g.Slice{
 			g.Map{"k1": "v1"},
 			g.Map{"k2": "v2"},
 			g.Map{"k3": "v3"},
@@ -377,7 +377,7 @@ func Test_Convert2(t *testing.T) {
 		t.Assert(j.Interface().(g.Map)["name"], "gf")
 		t.Assert(j.X取值("name1").Map(), nil)
 		t.Assert(j.X取对象("name1"), nil)
-		t.Assert(j.X取对象数组("name1"), nil)
+		t.Assert(j.X取对象切片("name1"), nil)
 		t.Assert(j.X取对象Map("name1"), nil)
 		t.Assert(j.X是否存在("name1"), false)
 		t.Assert(j.X取值("name1").IsNil(), true)

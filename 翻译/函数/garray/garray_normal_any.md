@@ -71,7 +71,7 @@ func NewFrom(array []interface{}, safe
 
 # <翻译开始>
 func NewFrom(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -86,7 +86,7 @@ func NewFromCopy(array []interface{}, safe
 
 # <翻译开始>
 func NewFromCopy(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -101,12 +101,12 @@ func NewArrayFrom(array []interface{}, safe
 
 # <翻译开始>
 func NewArrayFrom(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 func NewArrayFrom
-X创建并从数组
+X创建并从切片
 # <翻译结束>
 
 # <翻译开始>
@@ -116,12 +116,12 @@ func NewArrayFromCopy(array []interface{}, safe
 
 # <翻译开始>
 func NewArrayFromCopy(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 func NewArrayFromCopy
-X创建并从数组复制
+X创建并从切片复制
 # <翻译结束>
 
 # <翻译开始>
@@ -171,17 +171,17 @@ X设置值(index
 
 # <翻译开始>
 SetArray(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 ) SetArray
-X设置数组
+X设置切片
 # <翻译结束>
 
 # <翻译开始>
 Replace(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -426,7 +426,7 @@ X取切片
 
 # <翻译开始>
 ) Clone() (newArray
-新数组
+新切片
 # <翻译结束>
 
 # <翻译开始>
@@ -466,7 +466,7 @@ X去重
 
 # <翻译开始>
 ) LockFunc(f func(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -481,7 +481,7 @@ X遍历并写锁定
 
 # <翻译开始>
 ) RLockFunc(f func(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -496,7 +496,7 @@ X遍历并读锁定
 
 # <翻译开始>
 ) Merge(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -681,7 +681,7 @@ func (a *Array) X取文本() string {
 # <追加函数结束>
 
 # <追加函数开始>
-func (a *Array) X取any数组() []interface{} {
+func (a *Array) X取any切片() []interface{} {
 return a.Interfaces()
 }
 # <追加函数结束>

@@ -11,7 +11,7 @@
 
 # <翻译开始>
 ) ListItemValues
-X取结构数组或Map数组值
+X取结构切片或Map切片值
 # <翻译结束>
 
 # <翻译开始>
@@ -21,5 +21,5 @@ X取结构数组或Map数组值
 
 # <翻译开始>
 ) ListItemValuesUnique
-X取结构数组或Map数组值并去重
+X取结构切片或Map切片值并去重
 # <翻译结束>

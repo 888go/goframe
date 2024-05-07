@@ -8,11 +8,11 @@ package 模板类
 
 import (
 	"context"
-	
+
+	"github.com/888go/goframe/gview/internal/intlog"
 	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/i18n/gi18n"
-	"github.com/888go/goframe/gview/internal/intlog"
 	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/glog"
 	"github.com/gogf/gf/v2/os/gres"
@@ -23,7 +23,7 @@ import (
 
 // Config 是用于模板引擎的配置对象。
 type Config struct {
-	Paths       []string               `json:"paths"`       // 为了性能考虑，以下代码在数组中搜索路径，但并不保证并发安全。
+	Paths       []string               `json:"paths"`       // 为了性能考虑，以下代码在切片中搜索路径，但并不保证并发安全。
 	Data        map[string]interface{} `json:"data"`        // 全局模板变量，包括配置信息。
 	DefaultFile string                 `json:"defaultFile"` // 默认用于解析的模板文件。
 	Delimiters  []string               `json:"delimiters"`  // 自定义模板分隔符。
@@ -65,8 +65,8 @@ func (view *View) SetConfig(config Config) error {
 		view.SetDelimiters(config.Delimiters[0], config.Delimiters[1])
 	}
 	view.config = config
-// 清除全局模板对象缓存。
-// 这只是缓存，不必犹豫去清除它。
+	// 清除全局模板对象缓存。
+	// 这只是缓存，不必犹豫去清除它。
 	templates.Clear()
 
 	intlog.Printf(context.TODO(), "SetConfig: %+v", view.config)
@@ -78,9 +78,9 @@ func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 	if len(m) == 0 {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "configuration cannot be empty")
 	}
-// 现在的m是m的一个浅拷贝。
-// 对m的任何改动都不会影响原始的那个m。
-// 有点小巧妙，不是吗？
+	// 现在的m是m的一个浅拷贝。
+	// 对m的任何改动都不会影响原始的那个m。
+	// 有点小巧妙，不是吗？
 	m = gutil.MapCopy(m)
 	// 最常用的单视图路径配置支持。
 	_, v1 := gutil.MapPossibleItemByKey(m, "paths")

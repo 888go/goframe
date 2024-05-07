@@ -2,7 +2,7 @@ package json类_test
 
 import (
 	"fmt"
-	
+
 	"github.com/888go/goframe/gjson"
 )
 
@@ -933,7 +933,7 @@ func ExampleJson_GetJson() {
 
 	j, _ := json类.X加载并自动识别格式(data)
 
-	fmt.Println(j.X取对象("users.array").X取数组())
+	fmt.Println(j.X取对象("users.array").X取切片())
 
 	// Output:
 	// [John Ming]
@@ -950,7 +950,7 @@ func ExampleJson_GetJsons() {
 
 	j, _ := json类.X加载并自动识别格式(data)
 
-	jsons := j.X取对象数组("users.array")
+	jsons := j.X取对象切片("users.array")
 	for _, json := range jsons {
 		fmt.Println(json.Interface())
 	}

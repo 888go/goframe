@@ -8,7 +8,7 @@ package 工具类
 
 import (
 	"reflect"
-	
+
 	"github.com/888go/goframe/gutil/internal/empty"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -75,11 +75,11 @@ func X取所有名称(map或Struct interface{}) (键或属性 []string) {
 }
 
 // Values 从给定的 map 或 struct 中获取并返回其值。
-func X取所有值(map或Struct interface{}) (值数组 []interface{}) {
-	值数组 = make([]interface{}, 0)
+func X取所有值(map或Struct interface{}) (值切片 []interface{}) {
+	值切片 = make([]interface{}, 0)
 	if m, ok := map或Struct.(map[string]interface{}); ok {
 		for _, v := range m {
-			值数组 = append(值数组, v)
+			值切片 = append(值切片, v)
 		}
 		return
 	}
@@ -100,7 +100,7 @@ func X取所有值(map或Struct interface{}) (值数组 []interface{}) {
 	switch reflectKind {
 	case reflect.Map:
 		for _, k := range reflectValue.MapKeys() {
-			值数组 = append(值数组, reflectValue.MapIndex(k).Interface())
+			值切片 = append(值切片, reflectValue.MapIndex(k).Interface())
 		}
 	case reflect.Struct:
 		var (
@@ -110,9 +110,9 @@ func X取所有值(map或Struct interface{}) (值数组 []interface{}) {
 		for i := 0; i < reflectValue.NumField(); i++ {
 			fieldType = reflectType.Field(i)
 			if fieldType.Anonymous {
-				值数组 = append(值数组, X取所有值(reflectValue.Field(i))...)
+				值切片 = append(值切片, X取所有值(reflectValue.Field(i))...)
 			} else {
-				值数组 = append(值数组, reflectValue.Field(i).Interface())
+				值切片 = append(值切片, reflectValue.Field(i).Interface())
 			}
 		}
 	}

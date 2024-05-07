@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-	
+
 	"github.com/gogf/gf/v2/container/gtype"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/text/gstr"
@@ -20,9 +20,9 @@ import (
 )
 
 const (
-// 文件系统的分隔符
-// 这里将分隔符定义为变量
-// 以便在必要时允许开发者进行修改
+	// 文件系统的分隔符
+	// 这里将分隔符定义为变量
+	// 以便在必要时允许开发者进行修改
 	Separator = string(filepath.Separator)
 
 	// DefaultPermOpen 是文件打开时的默认权限。
@@ -33,12 +33,12 @@ const (
 )
 
 var (
-// 主包的绝对文件路径。
-// 它只能被检查和设置一次。
+	// 主包的绝对文件路径。
+	// 它只能被检查和设置一次。
 	mainPkgPath = gtype.NewString()
 
-// selfPath 是当前运行的二进制文件路径。
-// 由于它被广泛使用，因此将其定义为内部包变量。
+	// selfPath 是当前运行的二进制文件路径。
+	// 由于它被广泛使用，因此将其定义为内部包变量。
 	selfPath = ""
 )
 
@@ -120,7 +120,7 @@ func OpenWithFlagPerm别名(path string, flag int, perm os.FileMode) (*os.File, 
 	return file, nil
 }
 
-// Join 使用当前系统的文件分隔符连接字符串数组paths。
+// Join 使用当前系统的文件分隔符连接字符串切片paths。
 func X路径生成(路径s ...string) string {
 	var s string
 	for _, path := range 路径s {

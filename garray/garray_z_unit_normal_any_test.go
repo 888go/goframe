@@ -5,17 +5,17 @@
 
 // go test *.go
 
-package 数组类_test
+package 切片类_test
 
 import (
 	"testing"
 	"time"
-	
+
 	"github.com/888go/goframe/garray/internal/empty"
-	
+
 	"github.com/888go/goframe/garray"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/888go/goframe/garray/internal/json"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -23,10 +23,10 @@ import (
 func Test_Array_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := []interface{}{0, 1, 2, 3}
-		array := 数组类.X创建并从数组(expect)
-		array2 := 数组类.X创建并从数组(expect)
-		array3 := 数组类.X创建并从数组([]interface{}{})
-		array4 := 数组类.X创建并按范围(1, 5, 1)
+		array := 切片类.X创建并从切片(expect)
+		array2 := 切片类.X创建并从切片(expect)
+		array3 := 切片类.X创建并从切片([]interface{}{})
+		array4 := 切片类.X创建并按范围(1, 5, 1)
 
 		t.Assert(array.X取切片(), expect)
 		t.Assert(array.Interfaces(), expect)
@@ -39,7 +39,7 @@ func Test_Array_Basic(t *testing.T) {
 		t.Assert(array.X是否为空(), false)
 
 		copyArray := array.DeepCopy()
-		ca := copyArray.(*数组类.Array)
+		ca := copyArray.(*切片类.Array)
 		ca.X设置值(0, 1)
 		cval, _ := ca.X取值2(0)
 		val, _ := array.X取值2(0)
@@ -104,7 +104,7 @@ func TestArray_Sort(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect1 := []interface{}{0, 1, 2, 3}
 		expect2 := []interface{}{3, 2, 1, 0}
-		array := 数组类.NewArray别名()
+		array := 切片类.NewArray别名()
 		for i := 3; i >= 0; i-- {
 			array.Append别名(i)
 		}
@@ -122,12 +122,12 @@ func TestArray_Sort(t *testing.T) {
 func TestArray_Unique(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := []interface{}{1, 2, 3, 4, 5, 3, 2, 2, 3, 5, 5}
-		array := 数组类.X创建并从数组(expect)
+		array := 切片类.X创建并从切片(expect)
 		t.Assert(array.X去重().X取切片(), []interface{}{1, 2, 3, 4, 5})
 	})
 	gtest.C(t, func(t *gtest.T) {
 		expect := []interface{}{}
-		array := 数组类.X创建并从数组(expect)
+		array := 切片类.X创建并从切片(expect)
 		t.Assert(array.X去重().X取切片(), []interface{}{})
 	})
 }
@@ -135,7 +135,7 @@ func TestArray_Unique(t *testing.T) {
 func TestArray_PushAndPop(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := []interface{}{0, 1, 2, 3}
-		array := 数组类.X创建并从数组(expect)
+		array := 切片类.X创建并从切片(expect)
 		t.Assert(array.X取切片(), expect)
 
 		v, ok := array.X出栈左()
@@ -163,14 +163,14 @@ func TestArray_PushAndPop(t *testing.T) {
 func TestArray_PopRands(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{100, 200, 300, 400, 500, 600}
-		array := 数组类.NewFromCopy别名(a1)
+		array := 切片类.NewFromCopy别名(a1)
 		t.AssertIN(array.X出栈随机多个(2), []interface{}{100, 200, 300, 400, 500, 600})
 	})
 }
 
 func TestArray_PopLeft(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.NewFrom别名(g.Slice{1, 2, 3})
+		array := 切片类.NewFrom别名(g.Slice{1, 2, 3})
 		v, ok := array.X出栈左()
 		t.Assert(v, 1)
 		t.Assert(ok, true)
@@ -188,7 +188,7 @@ func TestArray_PopLeft(t *testing.T) {
 
 func TestArray_PopRight(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.NewFrom别名(g.Slice{1, 2, 3})
+		array := 切片类.NewFrom别名(g.Slice{1, 2, 3})
 
 		v, ok := array.X出栈右()
 		t.Assert(v, 3)
@@ -209,7 +209,7 @@ func TestArray_PopRight(t *testing.T) {
 
 func TestArray_PopLefts(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.NewFrom别名(g.Slice{1, 2, 3})
+		array := 切片类.NewFrom别名(g.Slice{1, 2, 3})
 		t.Assert(array.X出栈左多个(2), g.Slice{1, 2})
 		t.Assert(array.X取长度(), 1)
 		t.Assert(array.X出栈左多个(2), g.Slice{3})
@@ -219,7 +219,7 @@ func TestArray_PopLefts(t *testing.T) {
 
 func TestArray_PopRights(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.NewFrom别名(g.Slice{1, 2, 3})
+		array := 切片类.NewFrom别名(g.Slice{1, 2, 3})
 		t.Assert(array.X出栈右多个(2), g.Slice{2, 3})
 		t.Assert(array.X取长度(), 1)
 		t.Assert(array.X出栈左多个(2), g.Slice{1})
@@ -229,7 +229,7 @@ func TestArray_PopRights(t *testing.T) {
 
 func TestArray_PopLeftsAndPopRights(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建()
+		array := 切片类.X创建()
 		v, ok := array.X出栈左()
 		t.Assert(v, nil)
 		t.Assert(ok, false)
@@ -249,8 +249,8 @@ func TestArray_PopLeftsAndPopRights(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		value1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
 		value2 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(value1)
-		array2 := 数组类.X创建并从数组(value2)
+		array1 := 切片类.X创建并从切片(value1)
+		array2 := 切片类.X创建并从切片(value2)
 		t.Assert(array1.X出栈左多个(2), []interface{}{0, 1})
 		t.Assert(array1.X取切片(), []interface{}{2, 3, 4, 5, 6})
 		t.Assert(array1.X出栈右多个(2), []interface{}{5, 6})
@@ -265,8 +265,8 @@ func TestArray_PopLeftsAndPopRights(t *testing.T) {
 func TestArray_Range(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		value1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(value1)
-		array2 := 数组类.X创建并从数组(value1, true)
+		array1 := 切片类.X创建并从切片(value1)
+		array2 := 切片类.X创建并从切片(value1, true)
 		t.Assert(array1.X取切片并按范围(0, 1), []interface{}{0})
 		t.Assert(array1.X取切片并按范围(1, 2), []interface{}{1})
 		t.Assert(array1.X取切片并按范围(0, 2), []interface{}{0, 1})
@@ -287,20 +287,20 @@ func TestArray_Merge(t *testing.T) {
 
 		i1 := []interface{}{0, 1, 2, 3}
 		i2 := []interface{}{4, 5, 6, 7}
-		array1 := 数组类.X创建并从数组(i1)
-		array2 := 数组类.X创建并从数组(i2)
+		array1 := 切片类.X创建并从切片(i1)
+		array2 := 切片类.X创建并从切片(i2)
 		t.Assert(array1.X合并(array2).X取切片(), []interface{}{0, 1, 2, 3, 4, 5, 6, 7})
 
 		// 声明并初始化一个字符串切片s1，其中包含了四个元素："a", "b", "c", "d"
-// s1 := []string{"a", "b", "c", "d"}
+		// s1 := []string{"a", "b", "c", "d"}
 		s2 := []string{"e", "f"}
-		i3 := 数组类.X创建整数并从数组([]int{1, 2, 3})
-		i4 := 数组类.X创建并从数组([]interface{}{3})
-		s3 := 数组类.X创建文本并从数组([]string{"g", "h"})
-		s4 := 数组类.X创建排序并从数组([]interface{}{4, 5}, func1)
-		s5 := 数组类.X创建文本排序并从数组(s2)
-		s6 := 数组类.X创建整数排序并从数组([]int{1, 2, 3})
-		a1 := 数组类.X创建并从数组(i1)
+		i3 := 切片类.X创建整数并从切片([]int{1, 2, 3})
+		i4 := 切片类.X创建并从切片([]interface{}{3})
+		s3 := 切片类.X创建文本并从切片([]string{"g", "h"})
+		s4 := 切片类.X创建排序并从切片([]interface{}{4, 5}, func1)
+		s5 := 切片类.X创建文本排序并从切片(s2)
+		s6 := 切片类.X创建整数排序并从切片([]int{1, 2, 3})
+		a1 := 切片类.X创建并从切片(i1)
 
 		t.Assert(a1.X合并(s2).X取长度(), 6)
 		t.Assert(a1.X合并(i3).X取长度(), 9)
@@ -316,8 +316,8 @@ func TestArray_Fill(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0}
 		a2 := []interface{}{0}
-		array1 := 数组类.X创建并从数组(a1)
-		array2 := 数组类.X创建并从数组(a2, true)
+		array1 := 切片类.X创建并从切片(a1)
+		array2 := 切片类.X创建并从切片(a2, true)
 
 		t.Assert(array1.X填充(1, 2, 100), nil)
 		t.Assert(array1.X取切片(), []interface{}{0, 100, 100})
@@ -333,7 +333,7 @@ func TestArray_Fill(t *testing.T) {
 func TestArray_Chunk(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{1, 2, 3, 4, 5}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		chunks := array1.X分割(2)
 		t.Assert(len(chunks), 3)
 		t.Assert(chunks[0], []interface{}{1, 2})
@@ -343,7 +343,7 @@ func TestArray_Chunk(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{1, 2, 3, 4, 5}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		chunks := array1.X分割(3)
 		t.Assert(len(chunks), 2)
 		t.Assert(chunks[0], []interface{}{1, 2, 3})
@@ -352,7 +352,7 @@ func TestArray_Chunk(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		chunks := array1.X分割(2)
 		t.Assert(len(chunks), 3)
 		t.Assert(chunks[0], []interface{}{1, 2})
@@ -362,7 +362,7 @@ func TestArray_Chunk(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		chunks := array1.X分割(3)
 		t.Assert(len(chunks), 2)
 		t.Assert(chunks[0], []interface{}{1, 2, 3})
@@ -374,7 +374,7 @@ func TestArray_Chunk(t *testing.T) {
 func TestArray_Pad(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(array1.X填满(3, 1).X取切片(), []interface{}{0, 1, 1})
 		t.Assert(array1.X填满(-4, 1).X取切片(), []interface{}{1, 0, 1, 1})
 		t.Assert(array1.X填满(3, 1).X取切片(), []interface{}{1, 0, 1, 1})
@@ -384,8 +384,8 @@ func TestArray_Pad(t *testing.T) {
 func TestArray_SubSlice(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
-		array2 := 数组类.X创建并从数组(a1, true)
+		array1 := 切片类.X创建并从切片(a1)
+		array2 := 切片类.X创建并从切片(a1, true)
 		t.Assert(array1.X取切片并按数量(0, 2), []interface{}{0, 1})
 		t.Assert(array1.X取切片并按数量(2, 2), []interface{}{2, 3})
 		t.Assert(array1.X取切片并按数量(5, 8), []interface{}{5, 6})
@@ -400,7 +400,7 @@ func TestArray_SubSlice(t *testing.T) {
 func TestArray_Rand(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(len(array1.X取值随机多个(2)), 2)
 		t.Assert(len(array1.X取值随机多个(10)), 10)
 		t.AssertIN(array1.X取值随机多个(1)[0], a1)
@@ -408,7 +408,7 @@ func TestArray_Rand(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []interface{}{"a", "b", "c", "d"}
-		a1 := 数组类.X创建并从数组(s1)
+		a1 := 切片类.X创建并从切片(s1)
 		i1, ok := a1.X取值随机()
 		t.Assert(ok, true)
 		t.Assert(a1.X是否存在(i1), true)
@@ -417,7 +417,7 @@ func TestArray_Rand(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		rand, found := array1.X取值随机()
 		t.AssertNil(rand)
 		t.Assert(found, false)
@@ -425,7 +425,7 @@ func TestArray_Rand(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		rand := array1.X取值随机多个(1)
 		t.AssertNil(rand)
 	})
@@ -434,7 +434,7 @@ func TestArray_Rand(t *testing.T) {
 func TestArray_Shuffle(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(array1.X随机排序().X取长度(), 7)
 	})
 }
@@ -442,7 +442,7 @@ func TestArray_Shuffle(t *testing.T) {
 func TestArray_Reverse(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(array1.X倒排序().X取切片(), []interface{}{6, 5, 4, 3, 2, 1, 0})
 	})
 }
@@ -450,19 +450,19 @@ func TestArray_Reverse(t *testing.T) {
 func TestArray_Join(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(array1.X连接("."), `0.1.2.3.4.5.6`)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, `"a"`, `\a`}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(array1.X连接("."), `0.1."a".\a`)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(len(array1.X连接(".")), 0)
 	})
 }
@@ -470,7 +470,7 @@ func TestArray_Join(t *testing.T) {
 func TestArray_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		t.Assert(array1.String(), `[0,1,2,3,4,5,6]`)
 		array1 = nil
 		t.Assert(array1.String(), "")
@@ -482,7 +482,7 @@ func TestArray_Replace(t *testing.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
 		a2 := []interface{}{"a", "b", "c"}
 		a3 := []interface{}{"m", "n", "p", "z", "x", "y", "d", "u"}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		array2 := array1.X替换(a2)
 		t.Assert(array2.X取长度(), 7)
 		t.Assert(array2.X是否存在("b"), true)
@@ -501,8 +501,8 @@ func TestArray_SetArray(t *testing.T) {
 		a1 := []interface{}{0, 1, 2, 3, 4, 5, 6}
 		a2 := []interface{}{"a", "b", "c"}
 
-		array1 := 数组类.X创建并从数组(a1)
-		array1 = array1.X设置数组(a2)
+		array1 := 切片类.X创建并从切片(a1)
+		array1 = array1.X设置切片(a2)
 		t.Assert(array1.X取长度(), 3)
 		t.Assert(array1.X是否存在("b"), true)
 		t.Assert(array1.X是否存在("5"), false)
@@ -515,9 +515,9 @@ func TestArray_Sum(t *testing.T) {
 		a2 := []interface{}{"a", "b", "c"}
 		a3 := []interface{}{"a", "1", "2"}
 
-		array1 := 数组类.X创建并从数组(a1)
-		array2 := 数组类.X创建并从数组(a2)
-		array3 := 数组类.X创建并从数组(a3)
+		array1 := 切片类.X创建并从切片(a1)
+		array2 := 切片类.X创建并从切片(a2)
+		array3 := 切片类.X创建并从切片(a3)
 
 		t.Assert(array1.X求和(), 6)
 		t.Assert(array2.X求和(), 0)
@@ -529,7 +529,7 @@ func TestArray_Sum(t *testing.T) {
 func TestArray_Clone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{0, 1, 2, 3}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		array2 := array1.X取副本()
 
 		t.Assert(array1.X取长度(), 4)
@@ -542,7 +542,7 @@ func TestArray_Clone(t *testing.T) {
 func TestArray_CountValues(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		a1 := []interface{}{"a", "b", "c", "d", "e", "d"}
-		array1 := 数组类.X创建并从数组(a1)
+		array1 := 切片类.X创建并从切片(a1)
 		array2 := array1.X统计()
 		t.Assert(len(array2), 5)
 		t.Assert(array2["b"], 1)
@@ -553,7 +553,7 @@ func TestArray_CountValues(t *testing.T) {
 func TestArray_LockFunc(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []interface{}{"a", "b", "c", "d"}
-		a1 := 数组类.X创建并从数组(s1, true)
+		a1 := 切片类.X创建并从切片(s1, true)
 
 		ch1 := make(chan int64, 3)
 		ch2 := make(chan int64, 3)
@@ -585,7 +585,7 @@ func TestArray_LockFunc(t *testing.T) {
 func TestArray_RLockFunc(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []interface{}{"a", "b", "c", "d"}
-		a1 := 数组类.X创建并从数组(s1, true)
+		a1 := 切片类.X创建并从切片(s1, true)
 
 		ch1 := make(chan int64, 3)
 		ch2 := make(chan int64, 1)
@@ -618,18 +618,18 @@ func TestArray_Json(t *testing.T) {
 	// pointer
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []interface{}{"a", "b", "d", "c"}
-		a1 := 数组类.X创建并从数组(s1)
+		a1 := 切片类.X创建并从切片(s1)
 		b1, err1 := json.Marshal(a1)
 		b2, err2 := json.Marshal(s1)
 		t.Assert(b1, b2)
 		t.Assert(err1, err2)
 
-		a2 := 数组类.X创建()
+		a2 := 切片类.X创建()
 		err2 = json.UnmarshalUseNumber(b2, &a2)
 		t.Assert(err2, nil)
 		t.Assert(a2.X取切片(), s1)
 
-		var a3 数组类.Array
+		var a3 切片类.Array
 		err := json.UnmarshalUseNumber(b2, &a3)
 		t.AssertNil(err)
 		t.Assert(a3.X取切片(), s1)
@@ -637,18 +637,18 @@ func TestArray_Json(t *testing.T) {
 	// value.
 	gtest.C(t, func(t *gtest.T) {
 		s1 := []interface{}{"a", "b", "d", "c"}
-		a1 := *数组类.X创建并从数组(s1)
+		a1 := *切片类.X创建并从切片(s1)
 		b1, err1 := json.Marshal(a1)
 		b2, err2 := json.Marshal(s1)
 		t.Assert(b1, b2)
 		t.Assert(err1, err2)
 
-		a2 := 数组类.X创建()
+		a2 := 切片类.X创建()
 		err2 = json.UnmarshalUseNumber(b2, &a2)
 		t.Assert(err2, nil)
 		t.Assert(a2.X取切片(), s1)
 
-		var a3 数组类.Array
+		var a3 切片类.Array
 		err := json.UnmarshalUseNumber(b2, &a3)
 		t.AssertNil(err)
 		t.Assert(a3.X取切片(), s1)
@@ -657,7 +657,7 @@ func TestArray_Json(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Name   string
-			Scores *数组类.Array
+			Scores *切片类.Array
 		}
 		data := g.Map{
 			"Name":   "john",
@@ -676,7 +676,7 @@ func TestArray_Json(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Name   string
-			Scores 数组类.Array
+			Scores 切片类.Array
 		}
 		data := g.Map{
 			"Name":   "john",
@@ -695,7 +695,7 @@ func TestArray_Json(t *testing.T) {
 
 func TestArray_Iterator(t *testing.T) {
 	slice := g.Slice{"a", "b", "d", "c"}
-	array := 数组类.X创建并从数组(slice)
+	array := 切片类.X创建并从切片(slice)
 	gtest.C(t, func(t *gtest.T) {
 		array.X遍历(func(k int, v interface{}) bool {
 			t.Assert(v, slice[k])
@@ -742,7 +742,7 @@ func TestArray_Iterator(t *testing.T) {
 
 func TestArray_RemoveValue(t *testing.T) {
 	slice := g.Slice{"a", "b", "d", "c"}
-	array := 数组类.X创建并从数组(slice)
+	array := 切片类.X创建并从切片(slice)
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(array.X删除值("e"), false)
 		t.Assert(array.X删除值("b"), true)
@@ -754,7 +754,7 @@ func TestArray_RemoveValue(t *testing.T) {
 
 func TestArray_RemoveValues(t *testing.T) {
 	slice := g.Slice{"a", "b", "d", "c"}
-	array := 数组类.X创建并从数组(slice)
+	array := 切片类.X创建并从切片(slice)
 	gtest.C(t, func(t *gtest.T) {
 		array.X删除多个值("a", "b", "c")
 		t.Assert(array.X取切片(), g.Slice{"d"})
@@ -764,7 +764,7 @@ func TestArray_RemoveValues(t *testing.T) {
 func TestArray_UnmarshalValue(t *testing.T) {
 	type V struct {
 		Name  string
-		Array *数组类.Array
+		Array *切片类.Array
 	}
 	// JSON
 	gtest.C(t, func(t *gtest.T) {
@@ -793,11 +793,11 @@ func TestArray_UnmarshalValue(t *testing.T) {
 func TestArray_FilterNil(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		values := g.Slice{0, 1, 2, 3, 4, "", g.Slice{}}
-		array := 数组类.X创建并从数组复制(values)
+		array := 切片类.X创建并从切片复制(values)
 		t.Assert(array.X删除所有nil().X取切片(), values)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建并从数组复制(g.Slice{nil, 1, 2, 3, 4, nil})
+		array := 切片类.X创建并从切片复制(g.Slice{nil, 1, 2, 3, 4, nil})
 		t.Assert(array.X删除所有nil(), g.Slice{1, 2, 3, 4})
 	})
 }
@@ -805,26 +805,26 @@ func TestArray_FilterNil(t *testing.T) {
 func TestArray_Filter(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		values := g.Slice{0, 1, 2, 3, 4, "", g.Slice{}}
-		array := 数组类.X创建并从数组复制(values)
+		array := 切片类.X创建并从切片复制(values)
 		t.Assert(array.X遍历删除(func(index int, value interface{}) bool {
 			return empty.IsNil(value)
 		}).X取切片(), values)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建并从数组复制(g.Slice{nil, 1, 2, 3, 4, nil})
+		array := 切片类.X创建并从切片复制(g.Slice{nil, 1, 2, 3, 4, nil})
 		t.Assert(array.X遍历删除(func(index int, value interface{}) bool {
 			return empty.IsNil(value)
 		}), g.Slice{1, 2, 3, 4})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建并从数组(g.Slice{0, 1, 2, 3, 4, "", g.Slice{}})
+		array := 切片类.X创建并从切片(g.Slice{0, 1, 2, 3, 4, "", g.Slice{}})
 
 		t.Assert(array.X遍历删除(func(index int, value interface{}) bool {
 			return empty.IsEmpty(value)
 		}), g.Slice{1, 2, 3, 4})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建并从数组(g.Slice{1, 2, 3, 4})
+		array := 切片类.X创建并从切片(g.Slice{1, 2, 3, 4})
 
 		t.Assert(array.X遍历删除(func(index int, value interface{}) bool {
 			return empty.IsEmpty(value)
@@ -834,18 +834,18 @@ func TestArray_Filter(t *testing.T) {
 
 func TestArray_FilterEmpty(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建并从数组(g.Slice{0, 1, 2, 3, 4, "", g.Slice{}})
+		array := 切片类.X创建并从切片(g.Slice{0, 1, 2, 3, 4, "", g.Slice{}})
 		t.Assert(array.X删除所有空值(), g.Slice{1, 2, 3, 4})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建并从数组(g.Slice{1, 2, 3, 4})
+		array := 切片类.X创建并从切片(g.Slice{1, 2, 3, 4})
 		t.Assert(array.X删除所有空值(), g.Slice{1, 2, 3, 4})
 	})
 }
 
 func TestArray_Walk(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := 数组类.X创建并从数组(g.Slice{"1", "2"})
+		array := 切片类.X创建并从切片(g.Slice{"1", "2"})
 		t.Assert(array.X遍历修改(func(value interface{}) interface{} {
 			return "key-" + gconv.String(value)
 		}), g.Slice{"key-1", "key-2"})

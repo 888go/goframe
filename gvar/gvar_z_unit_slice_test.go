@@ -7,7 +7,7 @@ package 泛型类_test
 
 import (
 	"testing"
-	
+
 	"github.com/888go/goframe/gvar"
 	"github.com/gogf/gf/v2/test/gtest"
 )
@@ -16,7 +16,7 @@ func TestVar_Ints(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []int{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.Assert(objOne.X取整数数组()[0], arr[0])
+		t.Assert(objOne.X取整数切片()[0], arr[0])
 	})
 }
 
@@ -24,7 +24,7 @@ func TestVar_Uints(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []int{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.Assert(objOne.X取正整数数组()[0], arr[0])
+		t.Assert(objOne.X取正整数切片()[0], arr[0])
 	})
 }
 
@@ -32,7 +32,7 @@ func TestVar_Int64s(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []int{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.Assert(objOne.X取整数64位数组()[0], arr[0])
+		t.Assert(objOne.X取整数64位切片()[0], arr[0])
 	})
 }
 
@@ -40,7 +40,7 @@ func TestVar_Uint64s(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []int{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.Assert(objOne.X取正整数64位数组()[0], arr[0])
+		t.Assert(objOne.X取正整数64位切片()[0], arr[0])
 	})
 }
 
@@ -48,7 +48,7 @@ func TestVar_Floats(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []float64{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.Assert(objOne.X取小数数组()[0], arr[0])
+		t.Assert(objOne.X取小数切片()[0], arr[0])
 	})
 }
 
@@ -56,7 +56,7 @@ func TestVar_Float32s(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []float32{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.AssertEQ(objOne.X取小数32位数组(), arr)
+		t.AssertEQ(objOne.X取小数32位切片(), arr)
 	})
 }
 
@@ -64,7 +64,7 @@ func TestVar_Float64s(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []float64{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.AssertEQ(objOne.X取小数64位数组(), arr)
+		t.AssertEQ(objOne.X取小数64位切片(), arr)
 	})
 }
 
@@ -72,7 +72,7 @@ func TestVar_Strings(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []string{"hello", "world"}
 		objOne := 泛型类.X创建(arr, true)
-		t.Assert(objOne.X取文本数组()[0], arr[0])
+		t.Assert(objOne.X取文本切片()[0], arr[0])
 	})
 }
 
@@ -80,7 +80,7 @@ func TestVar_Interfaces(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []int{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, true)
-		t.Assert(objOne.X取any数组(), arr)
+		t.Assert(objOne.X取any切片(), arr)
 	})
 }
 
@@ -104,11 +104,11 @@ func TestVar_Vars(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var arr = []int{1, 2, 3, 4, 5}
 		objOne := 泛型类.X创建(arr, false)
-		t.Assert(len(objOne.X取泛型类数组()), 5)
-		t.Assert(objOne.X取泛型类数组()[0].X取整数(), 1)
-		t.Assert(objOne.X取泛型类数组()[4].X取整数(), 5)
+		t.Assert(len(objOne.X取泛型类切片()), 5)
+		t.Assert(objOne.X取泛型类切片()[0].X取整数(), 1)
+		t.Assert(objOne.X取泛型类切片()[4].X取整数(), 5)
 
 		objEmpty := 泛型类.X创建([]int{})
-		t.Assert(objEmpty.X取泛型类数组(), nil)
+		t.Assert(objEmpty.X取泛型类切片(), nil)
 	})
 }

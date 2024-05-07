@@ -8,7 +8,7 @@ package 集合类_test
 import (
 	"encoding/json"
 	"fmt"
-	
+
 	"github.com/888go/goframe/gset"
 	"github.com/gogf/gf/v2/frame/g"
 )
@@ -18,7 +18,7 @@ import (
 func ExampleNewIntSet() {
 	intSet := 集合类.X创建整数()
 	intSet.X加入([]int{1, 2, 3}...)
-	fmt.Println(intSet.X取集合数组())
+	fmt.Println(intSet.X取集合切片())
 
 	// May Output:
 	// [2 1 3]
@@ -27,7 +27,7 @@ func ExampleNewIntSet() {
 // NewIntSetFrom 返回一个从`items`创建的新集合。
 func ExampleNewFrom() {
 	intSet := 集合类.X创建整数并按值([]int{1, 2, 3})
-	fmt.Println(intSet.X取集合数组())
+	fmt.Println(intSet.X取集合切片())
 
 	// May Output:
 	// [2 1 3]
@@ -37,7 +37,7 @@ func ExampleNewFrom() {
 func ExampleIntSet_Add() {
 	intSet := 集合类.X创建整数并按值([]int{1, 2, 3})
 	intSet.X加入(1)
-	fmt.Println(intSet.X取集合数组())
+	fmt.Println(intSet.X取集合切片())
 	fmt.Println(intSet.X加入值并跳过已存在(1))
 
 	// Mya Output:
@@ -51,7 +51,7 @@ func ExampleIntSet_Add() {
 func ExampleIntSet_AddIfNotExist() {
 	intSet := 集合类.X创建整数并按值([]int{1, 2, 3})
 	intSet.X加入(1)
-	fmt.Println(intSet.X取集合数组())
+	fmt.Println(intSet.X取集合切片())
 	fmt.Println(intSet.X加入值并跳过已存在(1))
 
 	// Mya Output:
@@ -66,7 +66,7 @@ func ExampleIntSet_AddIfNotExist() {
 func ExampleIntSet_AddIfNotExistFunc() {
 	intSet := 集合类.X创建整数并按值([]int{1, 2, 3})
 	intSet.X加入(1)
-	fmt.Println(intSet.X取集合数组())
+	fmt.Println(intSet.X取集合切片())
 	fmt.Println(intSet.X加入值并跳过已存在_函数(5, func() bool {
 		return true
 	}))
@@ -83,7 +83,7 @@ func ExampleIntSet_AddIfNotExistFunc() {
 func ExampleIntSet_AddIfNotExistFuncLock() {
 	intSet := 集合类.X创建整数并按值([]int{1, 2, 3})
 	intSet.X加入(1)
-	fmt.Println(intSet.X取集合数组())
+	fmt.Println(intSet.X取集合切片())
 	fmt.Println(intSet.X加入值并跳过已存在_并发安全函数(4, func() bool {
 		return true
 	}))
@@ -111,7 +111,7 @@ func ExampleIntSet_Clear() {
 func ExampleIntSet_Complement() {
 	intSet := 集合类.X创建整数并按值([]int{1, 2, 3, 4, 5})
 	s := 集合类.X创建整数并按值([]int{1, 2, 3})
-	fmt.Println(s.X取补集(intSet).X取集合数组())
+	fmt.Println(s.X取补集(intSet).X取集合切片())
 
 	// May Output:
 	// [4 5]
@@ -137,7 +137,7 @@ func ExampleIntSet_Contains() {
 func ExampleIntSet_Diff() {
 	s1 := 集合类.X创建整数并按值([]int{1, 2, 3})
 	s2 := 集合类.X创建整数并按值([]int{1, 2, 3, 4})
-	fmt.Println(s2.X取差集(s1).X取集合数组())
+	fmt.Println(s2.X取差集(s1).X取集合切片())
 
 	// Output:
 	// [4]
@@ -165,7 +165,7 @@ func ExampleIntSet_Intersect() {
 	s1.X加入([]int{1, 2, 3}...)
 	var s2 集合类.IntSet
 	s2.X加入([]int{1, 2, 3, 4}...)
-	fmt.Println(s2.X取交集(s1).X取集合数组())
+	fmt.Println(s2.X取交集(s1).X取集合切片())
 
 	// May Output:
 	// [1 2 3]
@@ -216,10 +216,10 @@ func ExampleIntSet_LockFunc() {
 	s1.X写锁定_函数(func(m map[int]struct{}) {
 		m[3] = struct{}{}
 	})
-	fmt.Println(s1.X取集合数组())
+	fmt.Println(s1.X取集合切片())
 
-// 可能的输出
-// [2 3 1]
+	// 可能的输出
+	// [2 3 1]
 }
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
@@ -247,7 +247,7 @@ func ExampleIntSet_Merge() {
 	s1.X加入([]int{1, 2, 3, 4}...)
 
 	s2 := 集合类.X创建整数()
-	fmt.Println(s1.X合并(s2).X取集合数组())
+	fmt.Println(s1.X合并(s2).X取集合切片())
 
 	// May Output:
 	// [1 2 3 4]
@@ -295,7 +295,7 @@ func ExampleIntSet_Remove() {
 	s1 := 集合类.X创建整数()
 	s1.X加入([]int{1, 2, 3, 4}...)
 	s1.X删除(1)
-	fmt.Println(s1.X取集合数组())
+	fmt.Println(s1.X取集合切片())
 
 	// May Output:
 	// [3 4 2]
@@ -315,7 +315,7 @@ func ExampleIntSet_Size() {
 func ExampleIntSet_Slice() {
 	s1 := 集合类.X创建整数()
 	s1.X加入([]int{1, 2, 3, 4}...)
-	fmt.Println(s1.X取集合数组())
+	fmt.Println(s1.X取集合切片())
 
 	// May Output:
 	// [1, 2, 3, 4]
@@ -349,7 +349,7 @@ func ExampleIntSet_Union() {
 	s1.X加入([]int{1, 2, 3, 4}...)
 	s2 := 集合类.X创建整数()
 	s2.X加入([]int{1, 2, 4}...)
-	fmt.Println(s1.X取并集(s2).X取集合数组())
+	fmt.Println(s1.X取并集(s2).X取集合切片())
 
 	// May Output:
 	// [3 4 1 2]
@@ -399,7 +399,7 @@ func ExampleIntSet_Walk() {
 	set.X遍历修改(func(item int) int {
 		return delta + item
 	})
-	fmt.Println(set.X取集合数组())
+	fmt.Println(set.X取集合切片())
 
 	// May Output:
 	// [12 60]

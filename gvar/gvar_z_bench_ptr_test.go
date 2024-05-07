@@ -123,24 +123,24 @@ func Benchmark_Ptr_Float64(b *testing.B) {
 
 func Benchmark_Ptr_Ints(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.X取整数数组()
+		varPtr.X取整数切片()
 	}
 }
 
 func Benchmark_Ptr_Strings(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.X取文本数组()
+		varPtr.X取文本切片()
 	}
 }
 
 func Benchmark_Ptr_Floats(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.X取小数数组()
+		varPtr.X取小数切片()
 	}
 }
 
 func Benchmark_Ptr_Interfaces(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		varPtr.X取any数组()
+		varPtr.X取any切片()
 	}
 }

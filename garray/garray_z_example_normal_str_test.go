@@ -3,23 +3,23 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package 数组类_test
+package 切片类_test
 
 import (
 	"fmt"
 	"strings"
-	
+
 	"github.com/888go/goframe/garray/internal/empty"
-	
+
 	"github.com/888go/goframe/garray"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/888go/goframe/garray/internal/json"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func ExampleStrArray_Walk() {
-	var array 数组类.StrArray
+	var array 切片类.StrArray
 	tables := g.SliceStr{"user", "user_detail"}
 	prefix := "gf_"
 	array.Append别名(tables...)
@@ -34,7 +34,7 @@ func ExampleStrArray_Walk() {
 }
 
 func ExampleNewStrArray() {
-	s := 数组类.X创建文本()
+	s := 切片类.X创建文本()
 	s.Append别名("We")
 	s.Append别名("are")
 	s.Append别名("GF")
@@ -46,7 +46,7 @@ func ExampleNewStrArray() {
 }
 
 func ExampleNewStrArraySize() {
-	s := 数组类.X创建文本并按大小(3, 5)
+	s := 切片类.X创建文本并按大小(3, 5)
 	s.X设置值(0, "We")
 	s.X设置值(1, "are")
 	s.X设置值(2, "GF")
@@ -58,7 +58,7 @@ func ExampleNewStrArraySize() {
 }
 
 func ExampleNewStrArrayFrom() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"We", "are", "GF", "fans", "!"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"We", "are", "GF", "fans", "!"})
 	fmt.Println(s.X取切片(), s.X取长度(), cap(s.X取切片()))
 
 	// Output:
@@ -66,7 +66,7 @@ func ExampleNewStrArrayFrom() {
 }
 
 func ExampleStrArray_At() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"We", "are", "GF", "fans", "!"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"We", "are", "GF", "fans", "!"})
 	sAt := s.X取值(2)
 	fmt.Println(sAt)
 
@@ -75,7 +75,7 @@ func ExampleStrArray_At() {
 }
 
 func ExampleStrArray_Get() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"We", "are", "GF", "fans", "!"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"We", "are", "GF", "fans", "!"})
 	sGet, sBool := s.X取值2(3)
 	fmt.Println(sGet, sBool)
 
@@ -84,7 +84,7 @@ func ExampleStrArray_Get() {
 }
 
 func ExampleStrArray_Set() {
-	s := 数组类.X创建文本并按大小(3, 5)
+	s := 切片类.X创建文本并按大小(3, 5)
 	s.X设置值(0, "We")
 	s.X设置值(1, "are")
 	s.X设置值(2, "GF")
@@ -96,8 +96,8 @@ func ExampleStrArray_Set() {
 }
 
 func ExampleStrArray_SetArray() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"We", "are", "GF", "fans", "!"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"We", "are", "GF", "fans", "!"})
 	fmt.Println(s.X取切片())
 
 	// Output:
@@ -105,8 +105,8 @@ func ExampleStrArray_SetArray() {
 }
 
 func ExampleStrArray_Replace() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"We", "are", "GF", "fans", "!"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"We", "are", "GF", "fans", "!"})
 	fmt.Println(s.X取切片())
 	s.X替换(g.SliceStr{"Happy", "coding"})
 	fmt.Println(s.X取切片())
@@ -117,8 +117,8 @@ func ExampleStrArray_Replace() {
 }
 
 func ExampleStrArray_Sum() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"3", "5", "10"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"3", "5", "10"})
 	a := s.X求和()
 	fmt.Println(a)
 
@@ -127,8 +127,8 @@ func ExampleStrArray_Sum() {
 }
 
 func ExampleStrArray_Sort() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"b", "d", "a", "c"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"b", "d", "a", "c"})
 	a := s.X排序递增()
 	fmt.Println(a)
 
@@ -137,7 +137,7 @@ func ExampleStrArray_Sort() {
 }
 
 func ExampleStrArray_SortFunc() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"b", "c", "a"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"b", "c", "a"})
 	fmt.Println(s)
 	s.X排序函数(func(v1, v2 string) bool {
 		return gstr.Compare(v1, v2) > 0
@@ -155,8 +155,8 @@ func ExampleStrArray_SortFunc() {
 }
 
 func ExampleStrArray_InsertBefore() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X插入前面(1, "here")
 	fmt.Println(s.X取切片())
 
@@ -165,8 +165,8 @@ func ExampleStrArray_InsertBefore() {
 }
 
 func ExampleStrArray_InsertAfter() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X插入后面(1, "here")
 	fmt.Println(s.X取切片())
 
@@ -175,8 +175,8 @@ func ExampleStrArray_InsertAfter() {
 }
 
 func ExampleStrArray_Remove() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X删除(1)
 	fmt.Println(s.X取切片())
 
@@ -185,8 +185,8 @@ func ExampleStrArray_Remove() {
 }
 
 func ExampleStrArray_RemoveValue() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X删除值("b")
 	fmt.Println(s.X取切片())
 
@@ -195,8 +195,8 @@ func ExampleStrArray_RemoveValue() {
 }
 
 func ExampleStrArray_PushLeft() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X入栈左("We", "are", "GF", "fans")
 	fmt.Println(s.X取切片())
 
@@ -205,8 +205,8 @@ func ExampleStrArray_PushLeft() {
 }
 
 func ExampleStrArray_PushRight() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X入栈右("We", "are", "GF", "fans")
 	fmt.Println(s.X取切片())
 
@@ -215,8 +215,8 @@ func ExampleStrArray_PushRight() {
 }
 
 func ExampleStrArray_PopLeft() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X出栈左()
 	fmt.Println(s.X取切片())
 
@@ -225,8 +225,8 @@ func ExampleStrArray_PopLeft() {
 }
 
 func ExampleStrArray_PopRight() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d"})
 	s.X出栈右()
 	fmt.Println(s.X取切片())
 
@@ -235,8 +235,8 @@ func ExampleStrArray_PopRight() {
 }
 
 func ExampleStrArray_PopRand() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r, _ := s.X出栈随机()
 	fmt.Println(r)
 
@@ -245,8 +245,8 @@ func ExampleStrArray_PopRand() {
 }
 
 func ExampleStrArray_PopRands() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.X出栈随机多个(2)
 	fmt.Println(r)
 
@@ -255,8 +255,8 @@ func ExampleStrArray_PopRands() {
 }
 
 func ExampleStrArray_PopLefts() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.X出栈左多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
@@ -267,8 +267,8 @@ func ExampleStrArray_PopLefts() {
 }
 
 func ExampleStrArray_PopRights() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.X出栈右多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
@@ -279,8 +279,8 @@ func ExampleStrArray_PopRights() {
 }
 
 func ExampleStrArray_Range() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.X取切片并按范围(2, 5)
 	fmt.Println(r)
 
@@ -289,8 +289,8 @@ func ExampleStrArray_Range() {
 }
 
 func ExampleStrArray_SubSlice() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.X取切片并按数量(3, 4)
 	fmt.Println(r)
 
@@ -299,8 +299,8 @@ func ExampleStrArray_SubSlice() {
 }
 
 func ExampleStrArray_Append() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"We", "are", "GF", "fans"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"We", "are", "GF", "fans"})
 	s.Append别名("a", "b", "c")
 	fmt.Println(s)
 
@@ -309,8 +309,8 @@ func ExampleStrArray_Append() {
 }
 
 func ExampleStrArray_Len() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X取长度())
 
 	// Output:
@@ -318,8 +318,8 @@ func ExampleStrArray_Len() {
 }
 
 func ExampleStrArray_Slice() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X取切片())
 
 	// Output:
@@ -327,8 +327,8 @@ func ExampleStrArray_Slice() {
 }
 
 func ExampleStrArray_Interfaces() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.Interfaces()
 	fmt.Println(r)
 
@@ -337,8 +337,8 @@ func ExampleStrArray_Interfaces() {
 }
 
 func ExampleStrArray_Clone() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.X取副本()
 	fmt.Println(r)
 	fmt.Println(s)
@@ -349,8 +349,8 @@ func ExampleStrArray_Clone() {
 }
 
 func ExampleStrArray_Clear() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s)
 	fmt.Println(s.X清空())
 	fmt.Println(s)
@@ -362,8 +362,8 @@ func ExampleStrArray_Clear() {
 }
 
 func ExampleStrArray_Contains() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X是否存在("e"))
 	fmt.Println(s.X是否存在("z"))
 
@@ -373,8 +373,8 @@ func ExampleStrArray_Contains() {
 }
 
 func ExampleStrArray_ContainsI() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X是否存在并忽略大小写("E"))
 	fmt.Println(s.X是否存在并忽略大小写("z"))
 
@@ -384,8 +384,8 @@ func ExampleStrArray_ContainsI() {
 }
 
 func ExampleStrArray_Search() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X查找("e"))
 	fmt.Println(s.X查找("z"))
 
@@ -395,8 +395,8 @@ func ExampleStrArray_Search() {
 }
 
 func ExampleStrArray_Unique() {
-	s := 数组类.X创建文本()
-	s.X设置数组(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
+	s := 切片类.X创建文本()
+	s.X设置切片(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
 	fmt.Println(s.X去重())
 
 	// Output:
@@ -404,7 +404,7 @@ func ExampleStrArray_Unique() {
 }
 
 func ExampleStrArray_LockFunc() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c"})
 	s.X遍历写锁定(func(array []string) {
 		array[len(array)-1] = "GF fans"
 	})
@@ -415,7 +415,7 @@ func ExampleStrArray_LockFunc() {
 }
 
 func ExampleStrArray_RLockFunc() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "d", "e"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "d", "e"})
 	s.X遍历读锁定(func(array []string) {
 		for i := 0; i < len(array); i++ {
 			fmt.Println(array[i])
@@ -431,10 +431,10 @@ func ExampleStrArray_RLockFunc() {
 }
 
 func ExampleStrArray_Merge() {
-	s1 := 数组类.X创建文本()
-	s2 := 数组类.X创建文本()
-	s1.X设置数组(g.SliceStr{"a", "b", "c"})
-	s2.X设置数组(g.SliceStr{"d", "e", "f"})
+	s1 := 切片类.X创建文本()
+	s2 := 切片类.X创建文本()
+	s1.X设置切片(g.SliceStr{"a", "b", "c"})
+	s2.X设置切片(g.SliceStr{"d", "e", "f"})
 	s1.X合并(s2)
 	fmt.Println(s1)
 
@@ -443,7 +443,7 @@ func ExampleStrArray_Merge() {
 }
 
 func ExampleStrArray_Fill() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	s.X填充(2, 3, "here")
 	fmt.Println(s)
 
@@ -452,7 +452,7 @@ func ExampleStrArray_Fill() {
 }
 
 func ExampleStrArray_Chunk() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	r := s.X分割(3)
 	fmt.Println(r)
 
@@ -461,7 +461,7 @@ func ExampleStrArray_Chunk() {
 }
 
 func ExampleStrArray_Pad() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c"})
 	s.X填满(7, "here")
 	fmt.Println(s)
 	s.X填满(-10, "there")
@@ -473,7 +473,7 @@ func ExampleStrArray_Pad() {
 }
 
 func ExampleStrArray_Rand() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X取值随机())
 
 	// May Output:
@@ -481,7 +481,7 @@ func ExampleStrArray_Rand() {
 }
 
 func ExampleStrArray_Rands() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X取值随机多个(3))
 
 	// May Output:
@@ -489,7 +489,7 @@ func ExampleStrArray_Rands() {
 }
 
 func ExampleStrArray_Shuffle() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X随机排序())
 
 	// May Output:
@@ -497,7 +497,7 @@ func ExampleStrArray_Shuffle() {
 }
 
 func ExampleStrArray_Reverse() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "d", "e", "f", "g", "h"})
 	fmt.Println(s.X倒排序())
 
 	// Output:
@@ -505,7 +505,7 @@ func ExampleStrArray_Reverse() {
 }
 
 func ExampleStrArray_Join() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c"})
 	fmt.Println(s.X连接(","))
 
 	// Output:
@@ -513,7 +513,7 @@ func ExampleStrArray_Join() {
 }
 
 func ExampleStrArray_CountValues() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
 	fmt.Println(s.X统计())
 
 	// Output:
@@ -521,7 +521,7 @@ func ExampleStrArray_CountValues() {
 }
 
 func ExampleStrArray_Iterator() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c"})
 	s.X遍历(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
@@ -534,7 +534,7 @@ func ExampleStrArray_Iterator() {
 }
 
 func ExampleStrArray_IteratorAsc() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c"})
 	s.X遍历升序(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
@@ -547,7 +547,7 @@ func ExampleStrArray_IteratorAsc() {
 }
 
 func ExampleStrArray_IteratorDesc() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c"})
 	s.X遍历降序(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
@@ -560,7 +560,7 @@ func ExampleStrArray_IteratorDesc() {
 }
 
 func ExampleStrArray_String() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "c"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "c"})
 	fmt.Println(s.String())
 
 	// Output:
@@ -590,7 +590,7 @@ func ExampleStrArray_UnmarshalJSON() {
 	type Student struct {
 		Id      int
 		Name    string
-		Lessons *数组类.StrArray
+		Lessons *切片类.StrArray
 	}
 	s := Student{}
 	json.Unmarshal(b, &s)
@@ -603,7 +603,7 @@ func ExampleStrArray_UnmarshalJSON() {
 func ExampleStrArray_UnmarshalValue() {
 	type Student struct {
 		Name    string
-		Lessons *数组类.StrArray
+		Lessons *切片类.StrArray
 	}
 	var s *Student
 	gconv.Struct(g.Map{
@@ -625,8 +625,8 @@ func ExampleStrArray_UnmarshalValue() {
 }
 
 func ExampleStrArray_Filter() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"Math", "English", "Sport"})
-	s1 := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "", "c", "", "", "d"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"Math", "English", "Sport"})
+	s1 := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "", "c", "", "", "d"})
 	fmt.Println(s1.X遍历删除(func(index int, value string) bool {
 		return empty.IsEmpty(value)
 	}))
@@ -641,7 +641,7 @@ func ExampleStrArray_Filter() {
 }
 
 func ExampleStrArray_FilterEmpty() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "", "c", "", "", "d"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "", "c", "", "", "d"})
 	fmt.Println(s.X删除所有空值())
 
 	// Output:
@@ -649,9 +649,9 @@ func ExampleStrArray_FilterEmpty() {
 }
 
 func ExampleStrArray_IsEmpty() {
-	s := 数组类.X创建文本并从数组(g.SliceStr{"a", "b", "", "c", "", "", "d"})
+	s := 切片类.X创建文本并从切片(g.SliceStr{"a", "b", "", "c", "", "", "d"})
 	fmt.Println(s.X是否为空())
-	s1 := 数组类.X创建文本()
+	s1 := 切片类.X创建文本()
 	fmt.Println(s1.X是否为空())
 
 	// Output:

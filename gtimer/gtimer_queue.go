@@ -9,7 +9,7 @@ import (
 	"container/heap"
 	"math"
 	"sync"
-	
+
 	"github.com/gogf/gf/v2/container/gtype"
 )
 
@@ -22,7 +22,7 @@ type priorityQueue struct {
 	nextPriority *gtype.Int64       // nextPriority 存储堆（heap）的下一个优先级值，该值用于通过 Timer 检查是否有必要调用堆的 Pop 方法。
 }
 
-// priorityQueueHeap 是一个堆管理器，其底层的 `array` 是一个实现了堆结构的数组。
+// priorityQueueHeap 是一个堆管理器，其底层的 `array` 是一个实现了堆结构的切片。
 type priorityQueueHeap struct {
 	array []priorityQueueItem
 }

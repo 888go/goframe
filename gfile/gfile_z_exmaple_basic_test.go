@@ -8,7 +8,7 @@ package 文件类_test
 import (
 	"fmt"
 	"os"
-	
+
 	"github.com/888go/goframe/gfile"
 )
 
@@ -87,8 +87,8 @@ func ExampleOpenFile() {
 		path     = 文件类.X路径生成(文件类.X取临时目录("gfile_example_basic_dir"), "file1")
 		dataByte = make([]byte, 4096)
 	)
-// 通过自定义的`flag`和`perm`打开文件/目录
-// 如果文件不存在，则创建，创建时默认为可读写模式，权限为0777
+	// 通过自定义的`flag`和`perm`打开文件/目录
+	// 如果文件不存在，则创建，创建时默认为可读写模式，权限为0777
 	openFile, _ := 文件类.X打开(path, os.O_CREATE|os.O_RDWR, 文件类.DefaultPermCopy)
 	defer openFile.Close()
 
@@ -114,8 +114,8 @@ func ExampleOpenWithFlag() {
 		dataByte = make([]byte, 4096)
 	)
 
-// 使用自定义`flag`打开文件/目录
-// 如果文件不存在，则创建，以默认权限`perm`为0666的可读写模式创建
+	// 使用自定义`flag`打开文件/目录
+	// 如果文件不存在，则创建，以默认权限`perm`为0666的可读写模式创建
 	openFile, _ := 文件类.X打开并按默认权限(path, os.O_CREATE|os.O_RDWR)
 	defer openFile.Close()
 
@@ -141,7 +141,7 @@ func ExampleJoin() {
 		filePath = "file1"
 	)
 
-	// 使用当前系统的文件分隔符连接字符串数组路径。
+	// 使用当前系统的文件分隔符连接字符串切片路径。
 	joinString := 文件类.X路径生成(dirPath, filePath)
 
 	fmt.Println(joinString)
@@ -253,8 +253,8 @@ func ExampleMove() {
 	// Check is file
 	fmt.Println(文件类.X是否为文件(dstPath))
 
-// 将`src`移动到`dst`路径。
-// 如果`dst`已存在且不是一个目录，它将会被替换。
+	// 将`src`移动到`dst`路径。
+	// 如果`dst`已存在且不是一个目录，它将会被替换。
 	文件类.X移动(srcPath, dstPath)
 
 	fmt.Println(文件类.X是否为文件(srcPath))
@@ -275,8 +275,8 @@ func ExampleRename() {
 	// Check is file
 	fmt.Println(文件类.X是否为文件(dstPath))
 
-// 将`src`重命名为（移动到）`dst`路径。
-// 如果`dst`已存在且不是一个目录，则会被替换。
+	// 将`src`重命名为（移动到）`dst`路径。
+	// 如果`dst`已存在且不是一个目录，则会被替换。
 	文件类.Rename别名(srcPath, dstPath)
 
 	fmt.Println(文件类.X是否为文件(srcPath))

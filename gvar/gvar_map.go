@@ -68,7 +68,7 @@ func (v *Var) X取泛型类Map_递归(值类型标签 ...string) map[string]*Var
 
 // Maps 将 `v` 转换并以 map[string]string 类型返回。
 // 参见 gconv.Maps。
-func (v *Var) X取Map数组(选项 ...MapOption) []map[string]interface{} {
+func (v *Var) X取Map切片(选项 ...MapOption) []map[string]interface{} {
 	return gconv.Maps(v.X取值(), 选项...)
 }
 

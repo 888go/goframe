@@ -13,118 +13,118 @@ import (
 type Vars []*Var
 
 // Strings 将 `vs` 转换并返回为 []string 类型的切片。
-func (vs Vars) X取文本数组() (数组 []string) {
+func (vs Vars) X取文本切片() (切片 []string) {
 	for _, v := range vs {
-		数组 = append(数组, v.String())
+		切片 = append(切片, v.String())
 	}
-	return 数组
+	return 切片
 }
 
 // Interfaces将`vs`转换并返回为[]interface{}类型。
-func (vs Vars) X取any数组() (数组 []interface{}) {
+func (vs Vars) X取any切片() (切片 []interface{}) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取值())
+		切片 = append(切片, v.X取值())
 	}
-	return 数组
+	return 切片
 }
 
 // Float32s将`vs`转换并返回为[]float32类型。
-func (vs Vars) X取小数32位数组() (数组 []float32) {
+func (vs Vars) X取小数32位切片() (切片 []float32) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取小数32位())
+		切片 = append(切片, v.X取小数32位())
 	}
-	return 数组
+	return 切片
 }
 
 // Float64s 将 `vs` 转换并返回为 []float64 类型的切片。
-func (vs Vars) X取小数64位数组() (数组 []float64) {
+func (vs Vars) X取小数64位切片() (切片 []float64) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取小数64位())
+		切片 = append(切片, v.X取小数64位())
 	}
-	return 数组
+	return 切片
 }
 
 // Ints将`vs`转换并返回为[]Int类型。
-func (vs Vars) X取整数数组() (数组 []int) {
+func (vs Vars) X取整数切片() (切片 []int) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取整数())
+		切片 = append(切片, v.X取整数())
 	}
-	return 数组
+	return 切片
 }
 
 // Int8s将`vs`转换并返回为[]int8类型。
-func (vs Vars) X取整数8位数组() (数组 []int8) {
+func (vs Vars) X取整数8位切片() (切片 []int8) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取整数8位())
+		切片 = append(切片, v.X取整数8位())
 	}
-	return 数组
+	return 切片
 }
 
 // Int16s将`vs`转换并返回为[]int16类型。
-func (vs Vars) X取整数16位数组() (数组 []int16) {
+func (vs Vars) X取整数16位切片() (切片 []int16) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取整数16位())
+		切片 = append(切片, v.X取整数16位())
 	}
-	return 数组
+	return 切片
 }
 
 // Int32s 将 `vs` 转换并返回为 []int32 类型的切片。
-func (vs Vars) X取整数32位数组() (数组 []int32) {
+func (vs Vars) X取整数32位切片() (切片 []int32) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取整数32位())
+		切片 = append(切片, v.X取整数32位())
 	}
-	return 数组
+	return 切片
 }
 
 // Int64s将`vs`转换并返回为[]int64类型。
-func (vs Vars) X取整数64位数组() (数组 []int64) {
+func (vs Vars) X取整数64位切片() (切片 []int64) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取整数64位())
+		切片 = append(切片, v.X取整数64位())
 	}
-	return 数组
+	return 切片
 }
 
 // Uints 将 `vs` 转换并返回为 []uint 类型的切片。
-func (vs Vars) X取正整数数组() (数组 []uint) {
+func (vs Vars) X取正整数切片() (切片 []uint) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取正整数())
+		切片 = append(切片, v.X取正整数())
 	}
-	return 数组
+	return 切片
 }
 
 // Uint8s将`vs`转换并返回为[]uint8类型。
-func (vs Vars) X取正整数8位数组() (数组 []uint8) {
+func (vs Vars) X取正整数8位切片() (切片 []uint8) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取正整数8位())
+		切片 = append(切片, v.X取正整数8位())
 	}
-	return 数组
+	return 切片
 }
 
 // Uint16s 将 `vs` 转换并返回为 []uint16 类型的切片。
-func (vs Vars) X取正整数16位数组() (数组 []uint16) {
+func (vs Vars) X取正整数16位切片() (切片 []uint16) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取正整数16位())
+		切片 = append(切片, v.X取正整数16位())
 	}
-	return 数组
+	return 切片
 }
 
 // Uint32s 将 `vs` 转换并返回为 []uint32 类型的切片。
-func (vs Vars) X取正整数32位数组() (数组 []uint32) {
+func (vs Vars) X取正整数32位切片() (切片 []uint32) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取正整数32位())
+		切片 = append(切片, v.X取正整数32位())
 	}
-	return 数组
+	return 切片
 }
 
 // Uint64s 将 `vs` 转换并返回为 []uint64 类型的切片。
-func (vs Vars) X取正整数64位数组() (数组 []uint64) {
+func (vs Vars) X取正整数64位切片() (切片 []uint64) {
 	for _, v := range vs {
-		数组 = append(数组, v.X取正整数64位())
+		切片 = append(切片, v.X取正整数64位())
 	}
-	return 数组
+	return 切片
 }
 
 // Scan 将 `vs` 转换为 []struct 或 []*struct 类型的切片。
 func (vs Vars) X取结构体指针(结构体指针 interface{}, 名称映射 ...map[string]string) error {
-	return gconv.Structs(vs.X取any数组(), 结构体指针, 名称映射...)
+	return gconv.Structs(vs.X取any切片(), 结构体指针, 名称映射...)
 }

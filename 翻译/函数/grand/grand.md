@@ -116,5 +116,5 @@ func Perm(n
 
 # <翻译开始>
 func Perm
-X整数数组
+X整数切片
 # <翻译结束>

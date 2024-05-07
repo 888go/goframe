@@ -3,11 +3,11 @@
 // 本源代码形式遵循 MIT 许可协议条款。如果随此文件未分发 MIT 许可副本，
 // 您可以在 https://github.com/gogf/gf 获取一份。
 
-package 数组类_test
+package 切片类_test
 
 import (
 	"testing"
-	
+
 	"github.com/888go/goframe/garray"
 )
 
@@ -17,8 +17,8 @@ type anySortedArrayItem struct {
 }
 
 var (
-	anyArray       = 数组类.NewArray别名()
-	anySortedArray = 数组类.X创建排序(func(a, b interface{}) int {
+	anyArray       = 切片类.NewArray别名()
+	anySortedArray = 切片类.X创建排序(func(a, b interface{}) int {
 		return int(a.(anySortedArrayItem).priority - b.(anySortedArrayItem).priority)
 	})
 )

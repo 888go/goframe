@@ -7,7 +7,7 @@ package 泛型类_test
 
 import (
 	"testing"
-	
+
 	"github.com/888go/goframe/gvar"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/test/gtest"
@@ -20,20 +20,20 @@ func TestVars(t *testing.T) {
 			泛型类.X创建(2),
 			泛型类.X创建(3),
 		}
-		t.AssertEQ(vs.X取文本数组(), []string{"1", "2", "3"})
-		t.AssertEQ(vs.X取any数组(), []interface{}{1, 2, 3})
-		t.AssertEQ(vs.X取小数32位数组(), []float32{1, 2, 3})
-		t.AssertEQ(vs.X取小数64位数组(), []float64{1, 2, 3})
-		t.AssertEQ(vs.X取整数数组(), []int{1, 2, 3})
-		t.AssertEQ(vs.X取整数8位数组(), []int8{1, 2, 3})
-		t.AssertEQ(vs.X取整数16位数组(), []int16{1, 2, 3})
-		t.AssertEQ(vs.X取整数32位数组(), []int32{1, 2, 3})
-		t.AssertEQ(vs.X取整数64位数组(), []int64{1, 2, 3})
-		t.AssertEQ(vs.X取正整数数组(), []uint{1, 2, 3})
-		t.AssertEQ(vs.X取正整数8位数组(), []uint8{1, 2, 3})
-		t.AssertEQ(vs.X取正整数16位数组(), []uint16{1, 2, 3})
-		t.AssertEQ(vs.X取正整数32位数组(), []uint32{1, 2, 3})
-		t.AssertEQ(vs.X取正整数64位数组(), []uint64{1, 2, 3})
+		t.AssertEQ(vs.X取文本切片(), []string{"1", "2", "3"})
+		t.AssertEQ(vs.X取any切片(), []interface{}{1, 2, 3})
+		t.AssertEQ(vs.X取小数32位切片(), []float32{1, 2, 3})
+		t.AssertEQ(vs.X取小数64位切片(), []float64{1, 2, 3})
+		t.AssertEQ(vs.X取整数切片(), []int{1, 2, 3})
+		t.AssertEQ(vs.X取整数8位切片(), []int8{1, 2, 3})
+		t.AssertEQ(vs.X取整数16位切片(), []int16{1, 2, 3})
+		t.AssertEQ(vs.X取整数32位切片(), []int32{1, 2, 3})
+		t.AssertEQ(vs.X取整数64位切片(), []int64{1, 2, 3})
+		t.AssertEQ(vs.X取正整数切片(), []uint{1, 2, 3})
+		t.AssertEQ(vs.X取正整数8位切片(), []uint8{1, 2, 3})
+		t.AssertEQ(vs.X取正整数16位切片(), []uint16{1, 2, 3})
+		t.AssertEQ(vs.X取正整数32位切片(), []uint32{1, 2, 3})
+		t.AssertEQ(vs.X取正整数64位切片(), []uint64{1, 2, 3})
 	})
 }
 

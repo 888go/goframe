@@ -10,7 +10,7 @@ package 集合类
 import (
 	"bytes"
 	"strings"
-	
+
 	"github.com/888go/goframe/gset/internal/json"
 	"github.com/888go/goframe/gset/internal/rwmutex"
 	"github.com/gogf/gf/v2/text/gstr"
@@ -179,7 +179,7 @@ func (set *StrSet) X清空() {
 }
 
 // Slice 返回集合中项目的切片形式。
-func (set *StrSet) X取集合数组() []string {
+func (set *StrSet) X取集合切片() []string {
 	set.mu.RLock()
 	var (
 		i   = 0
@@ -459,7 +459,7 @@ func (set *StrSet) X遍历修改(f func(值 string) string) *StrSet {
 
 // MarshalJSON 实现了 json.Marshal 接口所需的 MarshalJSON 方法。
 func (set StrSet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(set.X取集合数组())
+	return json.Marshal(set.X取集合切片())
 }
 
 // UnmarshalJSON 实现了 json.Unmarshal 接口的 UnmarshalJSON 方法。

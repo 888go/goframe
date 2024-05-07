@@ -7,7 +7,7 @@ package 文本类
 
 import (
 	"strings"
-	
+
 	"github.com/888go/goframe/gstr/internal/utils"
 )
 
@@ -55,24 +55,24 @@ func X替换并忽略大小写(文本, 替换文本, 用作替换文本 string, 
 
 // ReplaceByArray 返回 `origin` 的副本，
 // 其中内容会按照顺序被切片中的元素替换，并且是区分大小写的。
-func X数组替换(文本 string, 数组 []string) string {
-	for i := 0; i < len(数组); i += 2 {
-		if i+1 >= len(数组) {
+func X切片替换(文本 string, 切片 []string) string {
+	for i := 0; i < len(切片); i += 2 {
+		if i+1 >= len(切片) {
 			break
 		}
-		文本 = X替换(文本, 数组[i], 数组[i+1])
+		文本 = X替换(文本, 切片[i], 切片[i+1])
 	}
 	return 文本
 }
 
 // ReplaceIByArray 返回 `origin` 的副本，
 // 其中内容按照顺序被切片替换，并且不区分大小写。
-func X数组替换并忽略大小写(文本 string, 数组 []string) string {
-	for i := 0; i < len(数组); i += 2 {
-		if i+1 >= len(数组) {
+func X切片替换并忽略大小写(文本 string, 切片 []string) string {
+	for i := 0; i < len(切片); i += 2 {
+		if i+1 >= len(切片) {
 			break
 		}
-		文本 = X替换并忽略大小写(文本, 数组[i], 数组[i+1])
+		文本 = X替换并忽略大小写(文本, 切片[i], 切片[i+1])
 	}
 	return 文本
 }
@@ -85,8 +85,8 @@ func Map替换(文本 string, 用作替换的Map map[string]string) string {
 
 // ReplaceIByMap 返回 `origin` 的副本，
 // 其中内容将以无序方式、不区分大小写地通过一个映射表进行替换。
-func Map替换并忽略大小写(文本 string, map数组 map[string]string) string {
-	for k, v := range map数组 {
+func Map替换并忽略大小写(文本 string, map切片 map[string]string) string {
+	for k, v := range map切片 {
 		文本 = X替换并忽略大小写(文本, k, v)
 	}
 	return 文本

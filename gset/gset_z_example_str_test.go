@@ -8,7 +8,7 @@ package 集合类_test
 import (
 	"encoding/json"
 	"fmt"
-	
+
 	"github.com/888go/goframe/gset"
 	"github.com/gogf/gf/v2/frame/g"
 )
@@ -19,7 +19,7 @@ import (
 func ExampleNewStrSet() {
 	strSet := 集合类.X创建文本(true)
 	strSet.X加入([]string{"str1", "str2", "str3"}...)
-	fmt.Println(strSet.X取集合数组())
+	fmt.Println(strSet.X取集合切片())
 
 	// May Output:
 	// [str3 str1 str2]
@@ -28,7 +28,7 @@ func ExampleNewStrSet() {
 // NewStrSetFrom 从 `items` 中创建并返回一个新的集合。
 func ExampleNewStrSetFrom() {
 	strSet := 集合类.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
-	fmt.Println(strSet.X取集合数组())
+	fmt.Println(strSet.X取集合切片())
 
 	// May Output:
 	// [str1 str2 str3]
@@ -38,7 +38,7 @@ func ExampleNewStrSetFrom() {
 func ExampleStrSet_Add() {
 	strSet := 集合类.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
 	strSet.X加入("str")
-	fmt.Println(strSet.X取集合数组())
+	fmt.Println(strSet.X取集合切片())
 	fmt.Println(strSet.X加入值并跳过已存在("str"))
 
 	// Mya Output:
@@ -52,7 +52,7 @@ func ExampleStrSet_Add() {
 func ExampleStrSet_AddIfNotExist() {
 	strSet := 集合类.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
 	strSet.X加入("str")
-	fmt.Println(strSet.X取集合数组())
+	fmt.Println(strSet.X取集合切片())
 	fmt.Println(strSet.X加入值并跳过已存在("str"))
 
 	// Mya Output:
@@ -67,7 +67,7 @@ func ExampleStrSet_AddIfNotExist() {
 func ExampleStrSet_AddIfNotExistFunc() {
 	strSet := 集合类.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
 	strSet.X加入("str")
-	fmt.Println(strSet.X取集合数组())
+	fmt.Println(strSet.X取集合切片())
 	fmt.Println(strSet.X加入值并跳过已存在_函数("str5", func() bool {
 		return true
 	}))
@@ -84,7 +84,7 @@ func ExampleStrSet_AddIfNotExistFunc() {
 func ExampleStrSet_AddIfNotExistFuncLock() {
 	strSet := 集合类.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
 	strSet.X加入("str")
-	fmt.Println(strSet.X取集合数组())
+	fmt.Println(strSet.X取集合切片())
 	fmt.Println(strSet.X加入值并跳过已存在_并发安全函数("str4", func() bool {
 		return true
 	}))
@@ -112,7 +112,7 @@ func ExampleStrSet_Clear() {
 func ExampleStrSet_Complement() {
 	strSet := 集合类.X创建文本并按值([]string{"str1", "str2", "str3", "str4", "str5"}, true)
 	s := 集合类.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
-	fmt.Println(s.X取补集(strSet).X取集合数组())
+	fmt.Println(s.X取补集(strSet).X取集合切片())
 
 	// May Output:
 	// [str4 str5]
@@ -148,7 +148,7 @@ func ExampleStrSet_ContainsI() {
 func ExampleStrSet_Diff() {
 	s1 := 集合类.X创建文本并按值([]string{"a", "b", "c"}, true)
 	s2 := 集合类.X创建文本并按值([]string{"a", "b", "c", "d"}, true)
-	fmt.Println(s2.X取差集(s1).X取集合数组())
+	fmt.Println(s2.X取差集(s1).X取集合切片())
 
 	// Output:
 	// [d]
@@ -176,7 +176,7 @@ func ExampleStrSet_Intersect() {
 	s1.X加入([]string{"a", "b", "c"}...)
 	var s2 集合类.StrSet
 	s2.X加入([]string{"a", "b", "c", "d"}...)
-	fmt.Println(s2.X取交集(s1).X取集合数组())
+	fmt.Println(s2.X取交集(s1).X取集合切片())
 
 	// May Output:
 	// [c a b]
@@ -228,10 +228,10 @@ func ExampleStrSet_LockFunc() {
 	s1.X写锁定_函数(func(m map[string]struct{}) {
 		m["3"] = struct{}{}
 	})
-	fmt.Println(s1.X取集合数组())
+	fmt.Println(s1.X取集合切片())
 
-// 可能的输出
-// [2 3 1]
+	// 可能的输出
+	// [2 3 1]
 
 }
 
@@ -260,7 +260,7 @@ func ExampleStrSet_Merge() {
 	s1.X加入([]string{"a", "b", "c", "d"}...)
 
 	s2 := 集合类.X创建文本(true)
-	fmt.Println(s1.X合并(s2).X取集合数组())
+	fmt.Println(s1.X合并(s2).X取集合切片())
 
 	// May Output:
 	// [d a b c]
@@ -308,7 +308,7 @@ func ExampleStrSet_Remove() {
 	s1 := 集合类.X创建文本(true)
 	s1.X加入([]string{"a", "b", "c", "d"}...)
 	s1.X删除("a")
-	fmt.Println(s1.X取集合数组())
+	fmt.Println(s1.X取集合切片())
 
 	// May Output:
 	// [b c d]
@@ -328,7 +328,7 @@ func ExampleStrSet_Size() {
 func ExampleStrSet_Slice() {
 	s1 := 集合类.X创建文本(true)
 	s1.X加入([]string{"a", "b", "c", "d"}...)
-	fmt.Println(s1.X取集合数组())
+	fmt.Println(s1.X取集合切片())
 
 	// May Output:
 	// [a,b,c,d]
@@ -362,7 +362,7 @@ func ExampleStrSet_Union() {
 	s1.X加入([]string{"a", "b", "c", "d"}...)
 	s2 := 集合类.X创建文本(true)
 	s2.X加入([]string{"a", "b", "d"}...)
-	fmt.Println(s1.X取并集(s2).X取集合数组())
+	fmt.Println(s1.X取并集(s2).X取集合切片())
 
 	// May Output:
 	// [a b c d]
@@ -412,7 +412,7 @@ func ExampleStrSet_Walk() {
 	set.X遍历修改(func(item string) string {
 		return prefix + item
 	})
-	fmt.Println(set.X取集合数组())
+	fmt.Println(set.X取集合切片())
 
 	// May Output:
 	// [gf_user gf_user_detail]

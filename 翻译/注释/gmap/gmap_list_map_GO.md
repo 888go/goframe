@@ -32,7 +32,7 @@
 //
 // 该结构不保证线程安全。
 //
-// 参考文献：http://en.wikipedia.org/wiki/关联数组
+// 参考文献：http://en.wikipedia.org/wiki/关联切片
 # <翻译结束>
 
 
