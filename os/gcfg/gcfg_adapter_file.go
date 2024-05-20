@@ -1,0 +1,296 @@
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+//
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
+
+package gcfg
+
+import (
+	"context"
+
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/util/gmode"
+	"github.com/gogf/gf/v2/util/gutil"
+)
+
+// AdapterFile 实现了使用文件的 Adapter 接口。. md5:c0f0e0b1d4b217fd
+type AdapterFile struct {
+	defaultName   string           // 默认配置文件名。. md5:30af4aed147cf623
+	searchPaths   *garray.StrArray // Searching path array.
+	jsonMap       *gmap.StrAnyMap  // 配置文件中使用的简化JSON对象。. md5:dc2b385b92cd7edc
+	violenceCheck bool             // 是否在值索引搜索中进行暴力检查。设置为true（默认为false）会影响性能。. md5:b2ea5ca1ded97be3
+}
+
+const (
+	commandEnvKeyForFile = "gf.gcfg.file" // commandEnvKeyForFile是用于命令参数或环境配置文件名的配置键。. md5:32e2ea36b81b5269
+	commandEnvKeyForPath = "gf.gcfg.path" // commandEnvKeyForPath 是用于命令参数或配置目录路径的配置键。. md5:0e1e71d5290a8c3c
+)
+
+var (
+	supportedFileTypes     = []string{"toml", "yaml", "yml", "json", "ini", "xml", "properties"} // 所支持的文件类型后缀。. md5:3609c8928b780170
+	localInstances         = gmap.NewStrAnyMap(true)                                             // Instances映射，其中包含配置实例。. md5:df7e552f8e970f97
+	customConfigContentMap = gmap.NewStrStrMap(true)                                             // 定制化配置内容。. md5:e408d212ab61e310
+
+	// 用于在资源管理器中尝试搜索的前缀数组。. md5:f69485b110ee7be3
+	resourceTryFolders = []string{
+		"", "/", "config/", "config", "/config", "/config/",
+		"manifest/config/", "manifest/config", "/manifest/config", "/manifest/config/",
+	}
+
+	// 前缀数组，用于在本地系统中尝试搜索。. md5:51a8f1255f95f3fc
+	localSystemTryFolders = []string{"", "config/", "manifest/config"}
+)
+
+// NewAdapterFile 返回一个新的配置管理对象。
+// 参数 `file` 指定了默认的配置文件读取名称。
+// md5:52ab633a98562ceb
+func NewAdapterFile(file ...string) (*AdapterFile, error) {
+	var (
+		err  error
+		name = DefaultConfigFileName
+	)
+	if len(file) > 0 {
+		name = file[0]
+	} else {
+		// 从命令行或环境变量中获取自定义的默认配置文件名。. md5:d43279fee761ac4d
+		if customFile := command.GetOptWithEnv(commandEnvKeyForFile); customFile != "" {
+			name = customFile
+		}
+	}
+	config := &AdapterFile{
+		defaultName: name,
+		searchPaths: garray.NewStrArray(true),
+		jsonMap:     gmap.NewStrAnyMap(true),
+	}
+	// 从环境变量或命令行自定义的目录路径。. md5:8cfcbca968e23c5b
+	if customPath := command.GetOptWithEnv(commandEnvKeyForPath); customPath != "" {
+		if gfile.Exists(customPath) {
+			if err = config.SetPath(customPath); err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, gerror.Newf(`configuration directory path "%s" does not exist`, customPath)
+		}
+	} else {
+// =================================================================================
+// 自动搜索目录。
+// 如果这些目录不存在，不影响适配器对象的创建。
+// =================================================================================
+// md5:08a226598ce0311e
+
+		// Dir 是工作目录的路径。. md5:0fba211853ea97a0
+		if err = config.AddPath(gfile.Pwd()); err != nil {
+			intlog.Errorf(context.TODO(), `%+v`, err)
+		}
+
+		// 主包的目录路径。. md5:a4d2802779172abe
+		if mainPath := gfile.MainPkgPath(); mainPath != "" && gfile.Exists(mainPath) {
+			if err = config.AddPath(mainPath); err != nil {
+				intlog.Errorf(context.TODO(), `%+v`, err)
+			}
+		}
+
+		// Dir path of binary.
+		if selfPath := gfile.SelfDir(); selfPath != "" && gfile.Exists(selfPath) {
+			if err = config.AddPath(selfPath); err != nil {
+				intlog.Errorf(context.TODO(), `%+v`, err)
+			}
+		}
+	}
+	return config, nil
+}
+
+// SetViolenceCheck 设置是否执行层次冲突检查。
+// 当键名中包含级别符号时，需要启用此功能。默认情况下禁用。
+// 
+// 注意，开启此功能的开销较大，并不建议在键名中使用分隔符。最好在应用层面上避免这种情况。
+// md5:5009f694ccd4efc0
+func (a *AdapterFile) SetViolenceCheck(check bool) {
+	a.violenceCheck = check
+	a.Clear()
+}
+
+// SetFileName 设置默认的配置文件名。. md5:b540171ead70ddf8
+func (a *AdapterFile) SetFileName(name string) {
+	a.defaultName = name
+}
+
+// GetFileName 返回默认的配置文件名。. md5:d13e3bd27526f03d
+func (a *AdapterFile) GetFileName() string {
+	return a.defaultName
+}
+
+// Get通过指定的`pattern`获取并返回值。如果`pattern`为空或为"."，则返回当前Json对象的所有值。如果没有找到匹配`pattern`的值，它将返回nil。
+// 
+// 我们也可以通过在`pattern`中使用索引来访问切片项，例如："list.10"，"array.0.name"，"array.0.1.id"。
+// 
+// 如果没有找到与`pattern`匹配的值，它将返回由`def`指定的默认值。
+// md5:8a88d01912ac6218
+func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{}, err error) {
+	j, err := a.getJson()
+	if err != nil {
+		return nil, err
+	}
+	if j != nil {
+		return j.Get(pattern).Val(), nil
+	}
+	return nil, nil
+}
+
+// Set 使用指定的 `pattern` 设置值。
+// 它支持通过字符分隔符（默认为`.`）进行层次数据访问。
+// 这通常用于在运行时更新特定配置值。
+// 请注意，不建议在运行时使用 `Set` 配置，因为如果底层配置文件更改，配置会自动刷新。
+// md5:65992c2815af747e
+func (a *AdapterFile) Set(pattern string, value interface{}) error {
+	j, err := a.getJson()
+	if err != nil {
+		return err
+	}
+	if j != nil {
+		return j.Set(pattern, value)
+	}
+	return nil
+}
+
+// Data 获取并以映射类型返回所有配置数据。. md5:2a92e8bbe7388f01
+func (a *AdapterFile) Data(ctx context.Context) (data map[string]interface{}, err error) {
+	j, err := a.getJson()
+	if err != nil {
+		return nil, err
+	}
+	if j != nil {
+		return j.Var().Map(), nil
+	}
+	return nil, nil
+}
+
+// MustGet 行为类似于函数 Get，但如果发生错误时会引发 panic。. md5:b1d3af83a52fd248
+func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
+	v, err := a.Get(ctx, pattern)
+	if err != nil {
+		panic(err)
+	}
+	return gvar.New(v)
+}
+
+// Clear 清除所有解析的配置文件内容缓存，这将强制重新从文件加载配置内容。
+// md5:5868c636ce62cb14
+func (a *AdapterFile) Clear() {
+	a.jsonMap.Clear()
+}
+
+// Dump 打印当前的Json对象，使其更便于人工阅读。. md5:c8c6bbdb40fa6383
+func (a *AdapterFile) Dump() {
+	if j, _ := a.getJson(); j != nil {
+		j.Dump()
+	}
+}
+
+// 可用检查并返回给定`file`的配置是否可用。. md5:d915d3cb575cbd5b
+func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
+	checkFileName := gutil.GetOrDefaultStr(a.defaultName, fileName...)
+	// 存在自定义配置内容。. md5:50d226a12b07427d
+	if a.GetContent(checkFileName) != "" {
+		return true
+	}
+	// 配置文件存在于系统路径中。. md5:a32283fd4eff7ddf
+	if path, _ := a.GetFilePath(checkFileName); path != "" {
+		return true
+	}
+	return false
+}
+
+// autoCheckAndAddMainPkgPathToSearchPaths 自动检查并添加当前开发环境中的"main"包目录路径到搜索路径列表中。
+// md5:4a1366fa2d1d98ab
+func (a *AdapterFile) autoCheckAndAddMainPkgPathToSearchPaths() {
+	if gmode.IsDevelop() {
+		mainPkgPath := gfile.MainPkgPath()
+		if mainPkgPath != "" {
+			if !a.searchPaths.Contains(mainPkgPath) {
+				a.searchPaths.Append(mainPkgPath)
+			}
+		}
+	}
+}
+
+// getJson 为指定的`file`内容返回一个*gjson.Json*对象。
+// 如果文件读取失败，它会打印错误。如果发生任何错误，它将返回nil。
+// md5:ffbc3e1a6ff12753
+func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err error) {
+	var (
+		usedFileName = a.defaultName
+	)
+	if len(fileName) > 0 && fileName[0] != "" {
+		usedFileName = fileName[0]
+	} else {
+		usedFileName = a.defaultName
+	}
+	// 它使用json映射来缓存指定的配置文件内容。. md5:70b9eac1f3ac38b4
+	result := a.jsonMap.GetOrSetFuncLock(usedFileName, func() interface{} {
+		var (
+			content  string
+			filePath string
+		)
+		// 配置的内容可以是与其文件类型不同的任何数据类型。. md5:11fb8ecd6511ef10
+		isFromConfigContent := true
+		if content = a.GetContent(usedFileName); content == "" {
+			isFromConfigContent = false
+			filePath, err = a.GetFilePath(usedFileName)
+			if err != nil {
+				return nil
+			}
+			if filePath == "" {
+				return nil
+			}
+			if file := gres.Get(filePath); file != nil {
+				content = string(file.Content())
+			} else {
+				content = gfile.GetContents(filePath)
+			}
+		}
+		// 注意，底层的配置json对象操作是并发安全的。. md5:2cd371ca691286f9
+		dataType := gjson.ContentType(gfile.ExtName(filePath))
+		if gjson.IsValidDataType(dataType) && !isFromConfigContent {
+			configJson, err = gjson.LoadContentType(dataType, content, true)
+		} else {
+			configJson, err = gjson.LoadContent(content, true)
+		}
+		if err != nil {
+			if filePath != "" {
+				err = gerror.Wrapf(err, `load config file "%s" failed`, filePath)
+			} else {
+				err = gerror.Wrap(err, `load configuration failed`)
+			}
+			return nil
+		}
+		configJson.SetViolenceCheck(a.violenceCheck)
+// 为这个配置文件添加监控，
+// 该文件的任何更改都会刷新Config对象中的缓存。
+// md5:8520fe419f2d8cc1
+		if filePath != "" && !gres.Contains(filePath) {
+			_, err = gfsnotify.Add(filePath, func(event *gfsnotify.Event) {
+				a.jsonMap.Remove(usedFileName)
+			})
+			if err != nil {
+				return nil
+			}
+		}
+		return configJson
+	})
+	if result != nil {
+		return result.(*gjson.Json), err
+	}
+	return
+}
