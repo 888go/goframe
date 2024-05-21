@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtime
 
@@ -24,14 +23,18 @@ var (
 	zoneMu          sync.RWMutex
 )
 
-// SetTimeZone 设置当前整个进程的时间区域。
-// 参数 `zone` 是一个指定对应时区的区域字符串，例如：Asia/Shanghai。
-// 
-// 请注意：
-// 1. 应在导入 "time" 包之前调用此函数。
-// 2. 此函数仅需调用一次。
-// 3. 请参阅问题：https://github.com/golang/go/issues/34814
-// md5:4d2c0d7e82a0e0f8
+// SetTimeZone sets the time zone for current whole process.
+// The parameter `zone` is an area string specifying corresponding time zone,
+// eg: Asia/Shanghai.
+//
+// PLEASE VERY NOTE THAT:
+// 1. This should be called before package "time" import.
+// 2. This function should be called once.
+// 3. Please refer to issue: https://github.com/golang/go/issues/34814
+
+// ff:设置时区
+// err:错误
+// zone:时区
 func SetTimeZone(zone string) (err error) {
 	setTimeZoneMu.Lock()
 	defer setTimeZoneMu.Unlock()
@@ -48,22 +51,22 @@ func SetTimeZone(zone string) (err error) {
 		}
 	}()
 
-	// 它已经被设置为time.Local。. md5:1fa5641c118746d6
+	// It is already set to time.Local.
 	if strings.EqualFold(zone, time.Local.String()) {
 		return
 	}
 
-	// 从指定的名称加载区域信息。. md5:dada678d8dfb8df3
+	// Load zone info from specified name.
 	location, err := time.LoadLocation(zone)
 	if err != nil {
 		err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `time.LoadLocation failed for zone "%s"`, zone)
 		return err
 	}
 
-	// 为了保险起见，更新一次time.Local。. md5:b8b9f7daf1488924
+	// Update the time.Local for once.
 	time.Local = location
 
-	// 更新*nix系统中的时区环境。. md5:e9774c5a2d209c8d
+	// Update the timezone environment for *nix systems.
 	var (
 		envKey   = "TZ"
 		envValue = location.String()
@@ -79,14 +82,20 @@ func SetTimeZone(zone string) (err error) {
 	return
 }
 
-// ToLocation 将当前时间转换为指定时区的时间。. md5:ee4fd7d4de93340a
+// ToLocation converts current time to specified location.
+
+// ff:转换时区Location
+// location:时区
 func (t *Time) ToLocation(location *time.Location) *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.In(location)
 	return newTime
 }
 
-// ToZone 将当前时间转换为指定的时区，如 Asia/Shanghai。. md5:1226213d40f57eb2
+// ToZone converts current time to specified zone like: Asia/Shanghai.
+
+// ff:转换时区
+// zone:时区
 func (t *Time) ToZone(zone string) (*Time, error) {
 	if location, err := t.getLocationByZoneName(zone); err == nil {
 		return t.ToLocation(location), nil
@@ -113,7 +122,9 @@ func (t *Time) getLocationByZoneName(name string) (location *time.Location, err 
 	return
 }
 
-// Local将时间转换为本地时区。. md5:8eaacff0234ddea5
+// Local converts the time to local timezone.
+
+// ff:取本地时区
 func (t *Time) Local() *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.Local()

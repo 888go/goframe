@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package goai
 
@@ -19,7 +18,7 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// Parameters 是由 OpenAPI/Swagger 3.0 标准指定的。. md5:40f2fa7f283687bf
+// Parameters is specified by OpenAPI/Swagger 3.0 standard.
 type Parameters []ParameterRef
 
 type ParameterRef struct {
@@ -46,11 +45,11 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 		}
 	}
 	if parameter.In == "" {
-		// 自动检测其"in"属性。. md5:681a19858c274871
+		// Automatically detect its "in" attribute.
 		if gstr.ContainsI(path, fmt.Sprintf(`{%s}`, parameter.Name)) {
 			parameter.In = ParameterInPath
 		} else {
-			// 如果方法为"GET/DELETE"，则将参数输入默认设置为"query"。. md5:e11ada17c61b4191
+			// Default the parameter input to "query" if method is "GET/DELETE".
 			switch gstr.ToUpper(method) {
 			case http.MethodGet, http.MethodDelete:
 				parameter.In = ParameterInQuery
@@ -63,7 +62,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 
 	switch parameter.In {
 	case ParameterInPath:
-		// 路径参数所需的。. md5:55007a5c2ee8b9f3
+		// Required for path parameter.
 		parameter.Required = true
 
 	case ParameterInCookie, ParameterInHeader, ParameterInQuery:
@@ -71,7 +70,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	default:
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid tag value "%s" for In`, parameter.In)
 	}
-	// 必要的模式或内容。. md5:35319ee51590f5ad
+	// Necessary schema or content.
 	schemaRef, err := oai.newSchemaRefWithGolangType(field.Type().Type, tagMap)
 	if err != nil {
 		return nil, err
@@ -97,6 +96,8 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	}, nil
 }
 
+
+// ff:
 func (r ParameterRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

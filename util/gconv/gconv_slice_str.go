@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
 
@@ -14,12 +13,18 @@ import (
 	"github.com/gogf/gf/v2/internal/reflection"
 )
 
-// SliceStr是Strings的别名。. md5:dacb4ebc45c023cf
+// SliceStr is alias of Strings.
+
+// ff:SliceStr别名
+// any:
 func SliceStr(any interface{}) []string {
 	return Strings(any)
 }
 
-// Strings 将 `any` 转换为 []string。. md5:cbac28ee26158116
+// Strings converts `any` to []string.
+
+// ff:取文本数组
+// any:
 func Strings(any interface{}) []string {
 	if any == nil {
 		return nil
@@ -78,9 +83,8 @@ func Strings(any interface{}) []string {
 			if value == "" {
 				return []string{}
 			}
-// 防止字符串为null
-// 查看问题3465以获取详细信息
-// md5:7177702384700ffb
+			// Prevent strings from being null
+			// See Issue 3465 for details
 			return []string{value}
 		}
 	case []uint16:
@@ -135,11 +139,11 @@ func Strings(any interface{}) []string {
 	if v, ok := any.(iInterfaces); ok {
 		return Strings(v.Interfaces())
 	}
-	// 将JSON格式的字符串值转换。. md5:60b4567e3f65e08a
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 并非常见类型，因此它使用反射来进行转换。. md5:a4126e9dfe7a56bd
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:

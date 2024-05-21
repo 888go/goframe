@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
 
@@ -16,26 +15,32 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// RuleLTE 实现了 `lte` 规则：
-// 小于或等于 `field`。
-// 它支持整数和浮点数。
+// RuleLTE implements `lte` rule:
+// Lesser than or equal to `field`.
+// It supports both integer and float.
 //
-// 格式：lte:field
-// md5:07792ee845b732fb
+// Format: lte:field
 type RuleLTE struct{}
 
 func init() {
 	Register(RuleLTE{})
 }
 
+
+// ff:
 func (r RuleLTE) Name() string {
 	return "lte"
 }
 
+
+// ff:
 func (r RuleLTE) Message() string {
 	return "The {field} value `{value}` must be lesser than or equal to field {field1} value `{value1}`"
 }
 
+
+// ff:
+// in:
 func (r RuleLTE) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

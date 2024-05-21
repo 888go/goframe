@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
 
@@ -23,26 +22,33 @@ import (
 	"github.com/gogf/gf/v2/util/grand"
 )
 
-// UploadFile 包装了multipart上传文件，提供了更多和更方便的功能。. md5:a7173285d087c4aa
+// UploadFile wraps the multipart uploading file with more and convenient features.
 type UploadFile struct {
 	*multipart.FileHeader `json:"-"`
 	ctx                   context.Context
 }
 
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。. md5:43c3b36e60a18f9a
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (f UploadFile) MarshalJSON() ([]byte, error) {
 	return json.Marshal(f.FileHeader)
 }
 
-// UploadFiles 是 *UploadFile 的数组类型。. md5:94b6aef81609f12b
+// UploadFiles is an array type of *UploadFile.
 type UploadFiles []*UploadFile
 
-// Save 将单个上传的文件保存到指定的目录路径，并返回保存的文件名。
+// Save saves the single uploading file to directory path and returns the saved file name.
 //
-// 参数 `dirPath` 应为一个目录路径，否则会返回错误。
+// The parameter `dirPath` should be a directory path, or it returns error.
 //
-// 注意：如果目标位置已经存在同名文件，该函数将覆盖原有的文件。
-// md5:ffe3d8f90d14185a
+// Note that it will OVERWRITE the target file if there's already a same name file exist.
+
+// ff:X保存
+// err:错误
+// filename:文件名
+// randomlyRename:随机重命名
+// dirPath:目录路径
 func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename string, err error) {
 	if f == nil {
 		return "", gerror.NewCode(
@@ -84,12 +90,17 @@ func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename stri
 	return gfile.Basename(filePath), nil
 }
 
-// Save 将所有上传的文件保存到指定的目录路径，并返回保存的文件名。
+// Save saves all uploading files to specified directory path and returns the saved file names.
 //
-// 参数 `dirPath` 应该是一个目录路径，否则会返回错误。
+// The parameter `dirPath` should be a directory path or it returns error.
 //
-// 参数 `randomlyRename` 指定是否为所有文件名随机重命名。
-// md5:de2b45ea5a89ccad
+// The parameter `randomlyRename` specifies whether randomly renames all the file names.
+
+// ff:X保存
+// err:错误
+// filenames:文件名数组
+// randomlyRename:随机重命名
+// dirPath:目录路径
 func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []string, err error) {
 	if len(fs) == 0 {
 		return nil, gerror.NewCode(
@@ -107,13 +118,16 @@ func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []
 	return
 }
 
-// GetUploadFile 通过指定的表单名称检索并返回上传中的文件。
-// 此函数用于检索使用multipart/form-data内容类型上传的单个文件对象。
+// GetUploadFile retrieves and returns the uploading file with specified form name.
+// This function is used for retrieving single uploading file object, which is
+// uploaded using multipart form content type.
 //
-// 如果检索失败或没有给定名称的表单文件被上传，它将返回nil。
+// It returns nil if retrieving failed or no form file with given name posted.
 //
-// 注意，`name` 是客户端multipart表单中文件字段的名称。
-// md5:a49268bd7e014ab6
+// Note that the `name` is the file field name of the multipart form from client.
+
+// ff:取上传文件对象
+// name:名称
 func (r *Request) GetUploadFile(name string) *UploadFile {
 	uploadFiles := r.GetUploadFiles(name)
 	if len(uploadFiles) > 0 {
@@ -122,13 +136,16 @@ func (r *Request) GetUploadFile(name string) *UploadFile {
 	return nil
 }
 
-// GetUploadFiles 用于检索并返回具有指定表单名称的多个上传文件。
-// 此函数用于获取多个上传文件对象，这些对象是使用多部分表单内容类型上传的。
+// GetUploadFiles retrieves and returns multiple uploading files with specified form name.
+// This function is used for retrieving multiple uploading file objects, which are
+// uploaded using multipart form content type.
 //
-// 如果检索失败或没有给定名称的表单文件被上传，则返回nil。
+// It returns nil if retrieving failed or no form file with given name posted.
 //
-// 注意，`name` 是来自客户端的多部分表单中的文件字段名称。
-// md5:cbbf4db398137505
+// Note that the `name` is the file field name of the multipart form from client.
+
+// ff:取上传文件数组对象
+// name:名称
 func (r *Request) GetUploadFiles(name string) UploadFiles {
 	multipartFiles := r.GetMultipartFiles(name)
 	if len(multipartFiles) > 0 {

@@ -1,9 +1,9 @@
-// 版权所有 GoFrame 作者(https://goframe.org)。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 此源代码形式受 MIT 许可证的条款约束。
-// 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
+//
 
 package gipv4
 
@@ -15,7 +15,11 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// GetIpArray 获取并返回当前主机的所有IP地址。. md5:6828d92b1a684cd2
+// GetIpArray retrieves and returns all the ip of current host.
+
+// ff:
+// err:
+// ips:
 func GetIpArray() (ips []string, err error) {
 	interfaceAddr, err := net.InterfaceAddrs()
 	if err != nil {
@@ -33,7 +37,9 @@ func GetIpArray() (ips []string, err error) {
 	return ips, nil
 }
 
-// MustGetIntranetIp 执行与 GetIntranetIp 相同的操作，但如果发生任何错误，它将引发恐慌。. md5:f08d856493c3c333
+// MustGetIntranetIp performs as GetIntranetIp, but it panics if any error occurs.
+
+// ff:
 func MustGetIntranetIp() string {
 	ip, err := GetIntranetIp()
 	if err != nil {
@@ -42,7 +48,11 @@ func MustGetIntranetIp() string {
 	return ip
 }
 
-// GetIntranetIp 获取并返回当前机器的第一个内网IP。. md5:2e53e5f6a86c1f3c
+// GetIntranetIp retrieves and returns the first intranet ip of current machine.
+
+// ff:
+// err:
+// ip:
 func GetIntranetIp() (ip string, err error) {
 	ips, err := GetIntranetIpArray()
 	if err != nil {
@@ -54,7 +64,11 @@ func GetIntranetIp() (ip string, err error) {
 	return ips[0], nil
 }
 
-// GetIntranetIpArray 获取并返回当前机器的内网IP列表。. md5:48fe9964790750ba
+// GetIntranetIpArray retrieves and returns the intranet ip list of current machine.
+
+// ff:
+// err:
+// ips:
 func GetIntranetIpArray() (ips []string, err error) {
 	var (
 		addresses  []net.Addr
@@ -109,12 +123,15 @@ func GetIntranetIpArray() (ips []string, err error) {
 	return ips, nil
 }
 
-// IsIntranet 检查并返回给定IP地址是否为内部网络IP。
-// 当地：127.0.0.1
-// A类：10.0.0.0--10.255.255.255
-// B类：172.16.0.0--172.31.255.255
-// C类：192.168.0.0--192.168.255.255
-// md5:1f4c3df8068af016
+// IsIntranet checks and returns whether given ip an intranet ip.
+//
+// Local: 127.0.0.1
+// A: 10.0.0.0--10.255.255.255
+// B: 172.16.0.0--172.31.255.255
+// C: 192.168.0.0--192.168.255.255
+
+// ff:
+// ip:
 func IsIntranet(ip string) bool {
 	if ip == "127.0.0.1" {
 		return true

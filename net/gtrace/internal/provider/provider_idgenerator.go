@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package provider
 
@@ -15,20 +14,32 @@ import (
 	"github.com/gogf/gf/v2/internal/tracing"
 )
 
-// IDGenerator 是一个追踪ID生成器。. md5:72df652f0bf82307
+// IDGenerator is a trace ID generator.
 type IDGenerator struct{}
 
-// NewIDGenerator 返回一个新的 IDGenerator。. md5:f4445c039fa564db
+// NewIDGenerator returns a new IDGenerator.
+
+// ff:
 func NewIDGenerator() *IDGenerator {
 	return &IDGenerator{}
 }
 
-// NewIDs 生成并返回一个新的 trace 和 span ID。. md5:1b5d0dc93c6f38ff
+// NewIDs creates and returns a new trace and span ID.
+
+// ff:
+// spanID:
+// traceID:
+// ctx:
 func (id *IDGenerator) NewIDs(ctx context.Context) (traceID trace.TraceID, spanID trace.SpanID) {
 	return tracing.NewIDs()
 }
 
-// NewSpanID 返回一个新的span在trace中的ID，带有traceID。. md5:1fd29c38ad04372b
+// NewSpanID returns an ID for a new span in the trace with traceID.
+
+// ff:
+// spanID:
+// traceID:
+// ctx:
 func (id *IDGenerator) NewSpanID(ctx context.Context, traceID trace.TraceID) (spanID trace.SpanID) {
 	return tracing.NewSpanID()
 }

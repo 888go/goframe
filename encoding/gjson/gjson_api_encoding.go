@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gjson
 
@@ -19,31 +18,39 @@ import (
 // ========================================================================
 // JSON
 // ========================================================================
-// 这段注释是关于JSON的，可能表示下面的代码与JSON（JavaScript Object Notation）处理有关，JSON是一种轻量级的数据交换格式。
-// md5:9f636a538977ae4f
 
+
+// ff:取json字节集
 func (j *Json) ToJson() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return Encode(*(j.p))
 }
 
+
+// ff:取json文本
 func (j *Json) ToJsonString() (string, error) {
 	b, e := j.ToJson()
 	return string(b), e
 }
 
+
+// ff:取json字节集并格式化
 func (j *Json) ToJsonIndent() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return json.MarshalIndent(*(j.p), "", "\t")
 }
 
+
+// ff:取json文本并格式化
 func (j *Json) ToJsonIndentString() (string, error) {
 	b, e := j.ToJsonIndent()
 	return string(b), e
 }
 
+
+// ff:取json字节集PANI
 func (j *Json) MustToJson() []byte {
 	result, err := j.ToJson()
 	if err != nil {
@@ -52,10 +59,14 @@ func (j *Json) MustToJson() []byte {
 	return result
 }
 
+
+// ff:取json文本PANI
 func (j *Json) MustToJsonString() string {
 	return string(j.MustToJson())
 }
 
+
+// ff:取json字节集并格式化PANI
 func (j *Json) MustToJsonIndent() []byte {
 	result, err := j.ToJsonIndent()
 	if err != nil {
@@ -64,6 +75,8 @@ func (j *Json) MustToJsonIndent() []byte {
 	return result
 }
 
+
+// ff:取json文本并格式化PANI
 func (j *Json) MustToJsonIndentString() string {
 	return string(j.MustToJsonIndent())
 }
@@ -71,32 +84,40 @@ func (j *Json) MustToJsonIndentString() string {
 // ========================================================================
 // XML
 // ========================================================================
-// 这段代码的注释翻译成中文是：
-// 
-// ========================================================================
-// XML
-// ========================================================================
-// 这是对XML部分的注释，表示接下来的内容与XML（可扩展标记语言）相关。
-// md5:931c367389ad5867
 
+
+// ff:取xml字节集
+// rootTag:
 func (j *Json) ToXml(rootTag ...string) ([]byte, error) {
 	return gxml.Encode(j.Var().Map(), rootTag...)
 }
 
+
+// ff:取xml文本
+// rootTag:
 func (j *Json) ToXmlString(rootTag ...string) (string, error) {
 	b, e := j.ToXml(rootTag...)
 	return string(b), e
 }
 
+
+// ff:取xml字节集并格式化
+// rootTag:
 func (j *Json) ToXmlIndent(rootTag ...string) ([]byte, error) {
 	return gxml.EncodeWithIndent(j.Var().Map(), rootTag...)
 }
 
+
+// ff:取xml文本并格式化
+// rootTag:
 func (j *Json) ToXmlIndentString(rootTag ...string) (string, error) {
 	b, e := j.ToXmlIndent(rootTag...)
 	return string(b), e
 }
 
+
+// ff:取xml字节集PANI
+// rootTag:
 func (j *Json) MustToXml(rootTag ...string) []byte {
 	result, err := j.ToXml(rootTag...)
 	if err != nil {
@@ -105,10 +126,16 @@ func (j *Json) MustToXml(rootTag ...string) []byte {
 	return result
 }
 
+
+// ff:取xml文本PANI
+// rootTag:
 func (j *Json) MustToXmlString(rootTag ...string) string {
 	return string(j.MustToXml(rootTag...))
 }
 
+
+// ff:取xml字节集并格式化PANI
+// rootTag:
 func (j *Json) MustToXmlIndent(rootTag ...string) []byte {
 	result, err := j.ToXmlIndent(rootTag...)
 	if err != nil {
@@ -117,6 +144,9 @@ func (j *Json) MustToXmlIndent(rootTag ...string) []byte {
 	return result
 }
 
+
+// ff:取xml文本并格式化PANI
+// rootTag:
 func (j *Json) MustToXmlIndentString(rootTag ...string) string {
 	return string(j.MustToXmlIndent(rootTag...))
 }
@@ -124,31 +154,33 @@ func (j *Json) MustToXmlIndentString(rootTag ...string) string {
 // ========================================================================
 // YAML
 // ========================================================================
-// 这段Go代码的注释翻译成中文是：
-// 
-// ========================================================================
-// YAML
-// ========================================================================
-// 这表示该部分代码与YAML（一种人类可读的数据序列化格式）相关。YAML在Go语言中常用于配置文件和数据交换。
-// md5:86131a4a0253d702
 
+
+// ff:取YAML字节集
 func (j *Json) ToYaml() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return gyaml.Encode(*(j.p))
 }
 
+
+// ff:取YAML字节集并格式化
+// indent:缩进
 func (j *Json) ToYamlIndent(indent string) ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return gyaml.EncodeIndent(*(j.p), indent)
 }
 
+
+// ff:取YAML文本
 func (j *Json) ToYamlString() (string, error) {
 	b, e := j.ToYaml()
 	return string(b), e
 }
 
+
+// ff:取YAML字节集PANI
 func (j *Json) MustToYaml() []byte {
 	result, err := j.ToYaml()
 	if err != nil {
@@ -157,26 +189,33 @@ func (j *Json) MustToYaml() []byte {
 	return result
 }
 
+
+// ff:取YAML文本PANI
 func (j *Json) MustToYamlString() string {
 	return string(j.MustToYaml())
 }
 
 // ========================================================================
-// TOML 配置文件格式
+// TOML
 // ========================================================================
-// md5:2a6d07eba917d4f3
 
+
+// ff:取TOML字节集
 func (j *Json) ToToml() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 	return gtoml.Encode(*(j.p))
 }
 
+
+// ff:取TOML文本
 func (j *Json) ToTomlString() (string, error) {
 	b, e := j.ToToml()
 	return string(b), e
 }
 
+
+// ff:取TOML字节集PANI
 func (j *Json) MustToToml() []byte {
 	result, err := j.ToToml()
 	if err != nil {
@@ -185,6 +224,8 @@ func (j *Json) MustToToml() []byte {
 	return result
 }
 
+
+// ff:取TOML文本PANI
 func (j *Json) MustToTomlString() string {
 	return string(j.MustToToml())
 }
@@ -192,20 +233,24 @@ func (j *Json) MustToTomlString() string {
 // ========================================================================
 // INI
 // ========================================================================
-// 这里是关于INI文件处理的相关代码或函数的注释。
-// md5:a7d46faaad75eec6
 
 // ToIni json to ini
+
+// ff:取ini字节集
 func (j *Json) ToIni() ([]byte, error) {
 	return gini.Encode(j.Map())
 }
 
-// ToIniString 将ini格式转换为字符串. md5:954c17725442fbb6
+// ToIniString ini to string
+
+// ff:取ini文本
 func (j *Json) ToIniString() (string, error) {
 	b, e := j.ToIni()
 	return string(b), e
 }
 
+
+// ff:取ini字节集PANI
 func (j *Json) MustToIni() []byte {
 	result, err := j.ToIni()
 	if err != nil {
@@ -215,25 +260,32 @@ func (j *Json) MustToIni() []byte {
 }
 
 // MustToIniString .
+
+// ff:取ini文本PANI
 func (j *Json) MustToIniString() string {
 	return string(j.MustToIni())
 }
 
 // ========================================================================
-// 属性
+// properties
 // ========================================================================
-// 将json格式的属性转换为properties格式
-// md5:83a506c62c95394b
+// Toproperties json to properties
+
+// ff:取properties字节集
 func (j *Json) ToProperties() ([]byte, error) {
 	return gproperties.Encode(j.Map())
 }
 
-// TopropertiesString 将属性转换为字符串. md5:4e7ae41f91f6945a
+// TopropertiesString properties to string
+
+// ff:取properties文本
 func (j *Json) ToPropertiesString() (string, error) {
 	b, e := j.ToProperties()
 	return string(b), e
 }
 
+
+// ff:取properties字节集PANI
 func (j *Json) MustToProperties() []byte {
 	result, err := j.ToProperties()
 	if err != nil {
@@ -243,6 +295,8 @@ func (j *Json) MustToProperties() []byte {
 }
 
 // MustTopropertiesString
+
+// ff:取properties文本PANI
 func (j *Json) MustToPropertiesString() string {
 	return string(j.MustToProperties())
 }

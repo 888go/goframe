@@ -1,9 +1,3 @@
-# # 服务注册与发现
+# Service registrar and discovery
 
-请参考特定子文件夹。
-
-# 服务注册与发现
-
-请参考特定子文件夹。
-
-// md5:8aac4ddffc6318ba
+Please refer to certain sub folder.

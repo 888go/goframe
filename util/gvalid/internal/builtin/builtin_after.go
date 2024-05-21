@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
 
@@ -15,25 +14,31 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// RuleAfter 实现了`after`规则：
-// 日期时间值应该大于字段`field`的值。
+// RuleAfter implements `after` rule:
+// The datetime value should be after the value of field `field`.
 //
-// 格式：after:field
-// md5:7bbbedf5ca280678
+// Format: after:field
 type RuleAfter struct{}
 
 func init() {
 	Register(RuleAfter{})
 }
 
+
+// ff:
 func (r RuleAfter) Name() string {
 	return "after"
 }
 
+
+// ff:
 func (r RuleAfter) Message() string {
 	return "The {field} value `{value}` must be after field {field1} value `{value1}`"
 }
 
+
+// ff:
+// in:
 func (r RuleAfter) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

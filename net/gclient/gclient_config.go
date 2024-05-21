@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gclient
 
@@ -27,9 +26,12 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// SetBrowserMode 启用客户端的浏览器模式。
-// 当浏览器模式启用时，它会自动保存并从客户端向服务器发送cookie内容以及从服务器接收cookie内容。
-// md5:00d8775b045e9c09
+// SetBrowserMode enables browser mode of the client.
+// When browser mode is enabled, it automatically saves and sends cookie content
+// from and to server.
+
+// ff:启用浏览器模式
+// enabled:启用
 func (c *Client) SetBrowserMode(enabled bool) *Client {
 	if enabled {
 		jar, _ := cookiejar.New(nil)
@@ -38,13 +40,20 @@ func (c *Client) SetBrowserMode(enabled bool) *Client {
 	return c
 }
 
-// SetHeader 为客户端设置自定义的 HTTP 头部对。. md5:adc9509c3dab54ca
+// SetHeader sets a custom HTTP header pair for the client.
+
+// ff:设置协议头
+// value:值
+// key:名称
 func (c *Client) SetHeader(key, value string) *Client {
 	c.header[key] = value
 	return c
 }
 
-// SetHeaderMap 使用映射设置自定义HTTP头。. md5:466373137e3ccd66
+// SetHeaderMap sets custom HTTP headers with map.
+
+// ff:设置Map协议头
+// m:map协议头
 func (c *Client) SetHeaderMap(m map[string]string) *Client {
 	for k, v := range m {
 		c.header[k] = v
@@ -52,19 +61,28 @@ func (c *Client) SetHeaderMap(m map[string]string) *Client {
 	return c
 }
 
-// SetAgent 设置客户端的 User-Agent 头部。. md5:1ec87db52b5537ba
+// SetAgent sets the User-Agent header for client.
+
+// ff:设置UA
+// agent:UA值
 func (c *Client) SetAgent(agent string) *Client {
 	c.header[httpHeaderUserAgent] = agent
 	return c
 }
 
-// SetContentType 为客户端设置HTTP内容类型。. md5:063d3cafd0626b0a
+// SetContentType sets HTTP content type for the client.
+
+// ff:设置内容类型
+// contentType:内容类型
 func (c *Client) SetContentType(contentType string) *Client {
 	c.header[httpHeaderContentType] = contentType
 	return c
 }
 
-// SetHeaderRaw 使用原始字符串设置自定义HTTP头。. md5:e15c66308baf6cd5
+// SetHeaderRaw sets custom HTTP header using raw string.
+
+// ff:设置原始协议头
+// headers:原始协议头
 func (c *Client) SetHeaderRaw(headers string) *Client {
 	for _, line := range gstr.SplitAndTrim(headers, "\n") {
 		array, _ := gregex.MatchString(httpRegexHeaderRaw, line)
@@ -75,13 +93,20 @@ func (c *Client) SetHeaderRaw(headers string) *Client {
 	return c
 }
 
-// SetCookie 为客户端设置一个 cookie 对。. md5:656700fcca56fb72
+// SetCookie sets a cookie pair for the client.
+
+// ff:设置cookie
+// value:值
+// key:名称
 func (c *Client) SetCookie(key, value string) *Client {
 	c.cookies[key] = value
 	return c
 }
 
-// SetCookieMap 使用映射设置Cookie项。. md5:3abd18bc89684efb
+// SetCookieMap sets cookie items with map.
+
+// ff:设置CookieMap
+// m:MapCookie
 func (c *Client) SetCookieMap(m map[string]string) *Client {
 	for k, v := range m {
 		c.cookies[k] = v
@@ -89,35 +114,51 @@ func (c *Client) SetCookieMap(m map[string]string) *Client {
 	return c
 }
 
-// SetPrefix 设置请求服务器的URL前缀。. md5:945a0fd6f4acac16
+// SetPrefix sets the request server URL prefix.
+
+// ff:设置url前缀
+// prefix:前缀
 func (c *Client) SetPrefix(prefix string) *Client {
 	c.prefix = prefix
 	return c
 }
 
-// SetTimeout 设置客户端的请求超时时间。. md5:ce4f874cd14c1c2d
+// SetTimeout sets the request timeout for the client.
+
+// ff:设置超时
+// t:时长
 func (c *Client) SetTimeout(t time.Duration) *Client {
 	c.Client.Timeout = t
 	return c
 }
 
-// SetBasicAuth 为客户端设置HTTP基本认证信息。. md5:22c36a5363199cd0
+// SetBasicAuth sets HTTP basic authentication information for the client.
+
+// ff:设置账号密码
+// pass:密码
+// user:账号
 func (c *Client) SetBasicAuth(user, pass string) *Client {
 	c.authUser = user
 	c.authPass = pass
 	return c
 }
 
-// SetRetry 设置重试次数和间隔。
-// TODO：移除。
-// md5:1089293b9f9371f0
+// SetRetry sets retry count and interval.
+// TODO removed.
+
+// ff:设置重试与间隔
+// retryInterval:重试间隔时长
+// retryCount:重试计数
 func (c *Client) SetRetry(retryCount int, retryInterval time.Duration) *Client {
 	c.retryCount = retryCount
 	c.retryInterval = retryInterval
 	return c
 }
 
-// SetRedirectLimit 限制跳转次数。. md5:14e010f8e3d003b5
+// SetRedirectLimit limits the number of jumps.
+
+// ff:设置重定向次数限制
+// redirectLimit:次数
 func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
 	c.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 		if len(via) >= redirectLimit {
@@ -128,17 +169,22 @@ func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
 	return c
 }
 
-// SetNoUrlEncode 设置标记，表示在发送请求之前不编码参数。. md5:6dd55f5543918206
+// SetNoUrlEncode sets the mark that do not encode the parameters before sending request.
+
+// ff:设置请求参数禁止URL编码
+// noUrlEncode:禁止编码
 func (c *Client) SetNoUrlEncode(noUrlEncode bool) *Client {
 	c.noUrlEncode = noUrlEncode
 	return c
 }
 
-// SetProxy 为客户端设置代理。
-// 当参数 `proxyURL` 为空或格式不正确时，此函数将不会执行任何操作。
-// 正确的格式应为 `http://用户名:密码@IP:端口` 或 `socks5://用户名:密码@IP:端口`。
-// 目前仅支持 `http` 和 `socks5` 类型的代理。
-// md5:aa3f2b21308c7bec
+// SetProxy set proxy for the client.
+// This func will do nothing when the parameter `proxyURL` is empty or in wrong pattern.
+// The correct pattern is like `http://USER:PASSWORD@IP:PORT` or `socks5://USER:PASSWORD@IP:PORT`.
+// Only `http` and `socks5` proxies are supported currently.
+
+// ff:设置代理
+// proxyURL:代理地址
 func (c *Client) SetProxy(proxyURL string) {
 	if strings.TrimSpace(proxyURL) == "" {
 		return
@@ -164,7 +210,7 @@ func (c *Client) SetProxy(proxyURL string) {
 		} else {
 			auth = nil
 		}
-		// 参考源代码，错误始终为nil. md5:43df5b2c264029cb
+		// refer to the source code, error is always nil
 		dialer, err := proxy.SOCKS5(
 			"tcp",
 			_proxy.Host,
@@ -183,11 +229,15 @@ func (c *Client) SetProxy(proxyURL string) {
 				return dialer.Dial(network, addr)
 			}
 		}
-		// c.SetTimeout(10 * time.Second) // 设置超时时间为10秒. md5:ee88d389b4a64b4a
+		// c.SetTimeout(10*time.Second)
 	}
 }
 
-// SetTLSKeyCrt 设置客户端TLS配置的证书和密钥文件。. md5:48b3322243e8e691
+// SetTLSKeyCrt sets the certificate and key file for TLS configuration of client.
+
+// ff:设置证书
+// keyFile:key路径
+// crtFile:crt路径
 func (c *Client) SetTLSKeyCrt(crtFile, keyFile string) error {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -201,7 +251,10 @@ func (c *Client) SetTLSKeyCrt(crtFile, keyFile string) error {
 	return gerror.New(`cannot set TLSClientConfig for custom Transport of the client`)
 }
 
-// SetTLSConfig 设置客户端的TLS配置。. md5:f1882ff235302c92
+// SetTLSConfig sets the TLS configuration of client.
+
+// ff:设置TLS配置
+// tlsConfig:TLS配置
 func (c *Client) SetTLSConfig(tlsConfig *tls.Config) error {
 	if v, ok := c.Transport.(*http.Transport); ok {
 		v.TLSClientConfig = tlsConfig
@@ -210,12 +263,18 @@ func (c *Client) SetTLSConfig(tlsConfig *tls.Config) error {
 	return gerror.New(`cannot set TLSClientConfig for custom Transport of the client`)
 }
 
-// SetBuilder 设置客户端的负载均衡构建器。. md5:1f374a9a600309bb
+// SetBuilder sets the load balance builder for client.
+
+// ff:
+// builder:
 func (c *Client) SetBuilder(builder gsel.Builder) {
 	c.builder = builder
 }
 
-// SetDiscovery 为客户端设置负载均衡构建器。. md5:0ea9a7eaf5c235e7
+// SetDiscovery sets the load balance builder for client.
+
+// ff:
+// discovery:
 func (c *Client) SetDiscovery(discovery gsvc.Discovery) {
 	c.discovery = discovery
 }

@@ -1,17 +1,18 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
 
 import "github.com/gogf/gf/v2/os/glog"
 
-// SetLogPath 设置服务器的日志路径。
-// 只有当设置了日志路径时，才会将内容写入文件。
-// md5:a5143c3c45534bef
+// SetLogPath sets the log path for server.
+// It logs content to file only if the log path is set.
+
+// ff:设置日志存储目录
+// path:目录
 func (s *Server) SetLogPath(path string) error {
 	if len(path) == 0 {
 		return nil
@@ -27,54 +28,79 @@ func (s *Server) SetLogPath(path string) error {
 	return nil
 }
 
-// SetLogger 用于设置负责日志记录的logger。
-// 注意，由于可能存在并发安全问题，因此无法在运行时进行设置。
-// md5:560d266f79fb0915
+// SetLogger sets the logger for logging responsibility.
+// Note that it cannot be set in runtime as there may be concurrent safety issue.
+
+// ff:设置日志记录器
+// logger:日志记录器
 func (s *Server) SetLogger(logger *glog.Logger) {
 	s.config.Logger = logger
 }
 
-// Logger 是 GetLogger 的别名。. md5:56065d1ce5cca4c9
+// Logger is alias of GetLogger.
+
+// ff:Logger别名
 func (s *Server) Logger() *glog.Logger {
 	return s.config.Logger
 }
 
-// SetLogLevel 通过level字符串设置日志级别。. md5:c479bcdf03ab0fa2
+// SetLogLevel sets logging level by level string.
+
+// ff:设置日志开启记录等级
+// level:等级
 func (s *Server) SetLogLevel(level string) {
 	s.config.LogLevel = level
 }
 
-// SetLogStdout 设置是否将日志内容输出到stdout。. md5:c93557220e40f70b
+// SetLogStdout sets whether output the logging content to stdout.
+
+// ff:设置日志开启输出到CMD
+// enabled:开启
 func (s *Server) SetLogStdout(enabled bool) {
 	s.config.LogStdout = enabled
 }
 
-// SetAccessLogEnabled 用于启用或禁用访问日志。. md5:a353da90e0c3de0d
+// SetAccessLogEnabled enables/disables the access log.
+
+// ff:设置日志开启访客记录
+// enabled:开启
 func (s *Server) SetAccessLogEnabled(enabled bool) {
 	s.config.AccessLogEnabled = enabled
 }
 
-// SetErrorLogEnabled 开启或关闭错误日志。. md5:38a0655c0083b6d0
+// SetErrorLogEnabled enables/disables the error log.
+
+// ff:设置日志开启错误记录
+// enabled:开启
 func (s *Server) SetErrorLogEnabled(enabled bool) {
 	s.config.ErrorLogEnabled = enabled
 }
 
-// SetErrorStack 启用/禁用错误堆栈功能。. md5:6c411a957b96e186
+// SetErrorStack enables/disables the error stack feature.
+
+// ff:设置日志开启错误堆栈记录
+// enabled:开启
 func (s *Server) SetErrorStack(enabled bool) {
 	s.config.ErrorStack = enabled
 }
 
-// GetLogPath 返回日志路径。. md5:0fe087f2f9b0a123
+// GetLogPath returns the log path.
+
+// ff:取日志存储目录
 func (s *Server) GetLogPath() string {
 	return s.config.LogPath
 }
 
-// IsAccessLogEnabled 检查访问日志是否已启用。. md5:b076cc230602118d
+// IsAccessLogEnabled checks whether the access log enabled.
+
+// ff:日志访客记录是否已开启
 func (s *Server) IsAccessLogEnabled() bool {
 	return s.config.AccessLogEnabled
 }
 
-// IsErrorLogEnabled 检查错误日志是否启用。. md5:2231c72f34764e99
+// IsErrorLogEnabled checks whether the error log enabled.
+
+// ff:日志错误记录是否已开启
 func (s *Server) IsErrorLogEnabled() bool {
 	return s.config.ErrorLogEnabled
 }

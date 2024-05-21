@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
 
@@ -13,26 +12,32 @@ import (
 	"github.com/gogf/gf/v2/text/gregex"
 )
 
-// RulePassword 实现了 `password` 规则：
-// 全局密码格式规则1：
-// 包含任何可见字符，长度在6到18之间。
+// RulePassword implements `password` rule:
+// Universal password format rule1:
+// Containing any visible chars, length between 6 and 18.
 //
-// 格式：password
-// md5:174006e615e50650
+// Format: password
 type RulePassword struct{}
 
 func init() {
 	Register(RulePassword{})
 }
 
+
+// ff:
 func (r RulePassword) Name() string {
 	return "password"
 }
 
+
+// ff:
 func (r RulePassword) Message() string {
 	return "The {field} value `{value}` is not a valid password format"
 }
 
+
+// ff:
+// in:
 func (r RulePassword) Run(in RunInput) error {
 	if !gregex.IsMatchString(`^[\w\S]{6,18}$`, in.Value.String()) {
 		return errors.New(in.Message)

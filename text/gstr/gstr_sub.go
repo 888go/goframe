@@ -1,21 +1,25 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
 
 import "strings"
 
-// Str 函数返回从 `haystack` 字符串开始，包括第一个出现的 `needle` 到 `haystack` 结尾的部分。
+// Str returns part of `haystack` string starting from and including
+// the first occurrence of `needle` to the end of `haystack`.
 //
-// 这个函数的行为与 SubStr 函数完全相同，但是为了实现与 PHP 相同的功能：http://php.net/manual/en/function.strstr.php。
+// This function performs exactly as function SubStr, but to implement the same function
+// as PHP: http://php.net/manual/en/function.strstr.php.
 //
-// 示例：
+// Example:
 // Str("av.mp4", ".") -> ".mp4"
-// md5:35b0375920cdf357
+
+// ff:取右边并含关键字
+// needle:欲寻找的文本
+// haystack:文本
 func Str(haystack string, needle string) string {
 	if needle == "" {
 		return ""
@@ -27,13 +31,18 @@ func Str(haystack string, needle string) string {
 	return haystack[pos+len([]byte(needle))-1:]
 }
 
-// StrEx 从`haystack`字符串中返回从第一个出现的`needle`开始到`haystack`末尾的部分。
+// StrEx returns part of `haystack` string starting from and excluding
+// the first occurrence of `needle` to the end of `haystack`.
 //
-// 这个函数的行为与SubStrEx函数完全相同，但实现了与PHP相同的函数：http://php.net/manual/en/function.strstr.php。
+// This function performs exactly as function SubStrEx, but to implement the same function
+// as PHP: http://php.net/manual/en/function.strstr.php.
 //
-// 示例：
+// Example:
 // StrEx("av.mp4", ".") -> "mp4"
-// md5:1f6c13b098caa33a
+
+// ff:取右边
+// needle:欲寻找的文本
+// haystack:文本
 func StrEx(haystack string, needle string) string {
 	if s := Str(haystack, needle); s != "" {
 		return s[1:]
@@ -41,11 +50,15 @@ func StrEx(haystack string, needle string) string {
 	return ""
 }
 
-// StrTill 返回 `haystack` 字符串中从开头到（包括）第一个 `needle` 出现的部分。
+// StrTill returns part of `haystack` string ending to and including
+// the first occurrence of `needle` from the start of `haystack`.
 //
-// 示例：
+// Example:
 // StrTill("av.mp4", ".") -> "av."
-// md5:f914c156abb95437
+
+// ff:取左边并含关键字
+// needle:欲寻找的文本
+// haystack:文本
 func StrTill(haystack string, needle string) string {
 	pos := strings.Index(haystack, needle)
 	if pos == NotFoundIndex || pos == 0 {
@@ -54,11 +67,15 @@ func StrTill(haystack string, needle string) string {
 	return haystack[:pos+1]
 }
 
-// StrTillEx 函数返回 `haystack` 字符串中从开始到（但不包括）第一次出现 `needle` 的部分。
+// StrTillEx returns part of `haystack` string ending to and excluding
+// the first occurrence of `needle` from the start of `haystack`.
 //
-// 示例：
+// Example:
 // StrTillEx("av.mp4", ".") -> "av"
-// md5:c0848291d8036d82
+
+// ff:取左边
+// needle:欲寻找的文本
+// haystack:文本
 func StrTillEx(haystack string, needle string) string {
 	pos := strings.Index(haystack, needle)
 	if pos == NotFoundIndex || pos == 0 {
@@ -67,11 +84,17 @@ func StrTillEx(haystack string, needle string) string {
 	return haystack[:pos]
 }
 
-// SubStr 函数返回字符串 `str` 中由 `start` 和 `length` 参数指定的部分。参数 `length` 是可选的，如果未提供，则默认使用 `str` 的长度。
-// 
-// 示例：
+// SubStr returns a portion of string `str` specified by the `start` and `length` parameters.
+// The parameter `length` is optional, it uses the length of `str` in default.
+//
+// Example:
 // SubStr("123456", 1, 2) -> "23"
-// md5:b6da71b3534fdbbc
+
+// ff:按长度取文本
+// substr:返回
+// length:长度
+// start:起始位置
+// str:文本
 func SubStr(str string, start int, length ...int) (substr string) {
 	strLength := len(str)
 	if start < 0 {
@@ -113,8 +136,14 @@ func SubStr(str string, start int, length ...int) (substr string) {
 //
 // Example:
 // SubStrRune("一起学习吧！", 2, 2) -> "学习"
+
+// ff:按长度取文本Unicode
+// substr:返回
+// length:长度
+// start:起始位置
+// str:文本
 func SubStrRune(str string, start int, length ...int) (substr string) {
-	// 转换为[]rune以支持Unicode。. md5:459540c13f4e5603
+	// Converting to []rune to support unicode.
 	var (
 		runes       = []rune(str)
 		runesLength = len(runes)
@@ -152,12 +181,17 @@ func SubStrRune(str string, start int, length ...int) (substr string) {
 	return string(runes[start:end])
 }
 
-// StrLimit 函数返回字符串 `str` 中由 `length` 参数指定长度的部分。如果 `str` 的长度大于 `length`，则 `suffix` 将被添加到结果字符串的末尾。
+// StrLimit returns a portion of string `str` specified by `length` parameters, if the length
+// of `str` is greater than `length`, then the `suffix` will be appended to the result string.
 //
-// 示例：
+// Example:
 // StrLimit("123456", 3)      -> "123..."
 // StrLimit("123456", 3, "~") -> "123~"
-// md5:bd8f96405a5594b5
+
+// ff:按长度取左边并带前缀
+// suffix:后缀
+// length:长度
+// str:文本
 func StrLimit(str string, length int, suffix ...string) string {
 	if len(str) < length {
 		return str
@@ -176,6 +210,11 @@ func StrLimit(str string, length int, suffix ...string) string {
 // Example:
 // StrLimitRune("一起学习吧！", 2)      -> "一起..."
 // StrLimitRune("一起学习吧！", 2, "~") -> "一起~"
+
+// ff:按长度取左边并带前缀Unicode
+// suffix:后缀
+// length:长度
+// str:文本
 func StrLimitRune(str string, length int, suffix ...string) string {
 	runes := []rune(str)
 	if len(runes) < length {
@@ -188,11 +227,16 @@ func StrLimitRune(str string, length int, suffix ...string) string {
 	return string(runes[0:length]) + suffixStr
 }
 
-// SubStrFrom 从字符串 `str` 中从第一次出现 `need` 的位置开始，包括 `need` 到字符串末尾的部分。
+// SubStrFrom returns a portion of string `str` starting from first occurrence of and including `need`
+// to the end of `str`.
 //
-// 示例：
+// Example:
 // SubStrFrom("av.mp4", ".") -> ".mp4"
-// md5:f4bff02c473abeff
+
+// ff:SubStrFrom别名
+// substr:
+// need:
+// str:
 func SubStrFrom(str string, need string) (substr string) {
 	pos := Pos(str, need)
 	if pos < 0 {
@@ -201,11 +245,16 @@ func SubStrFrom(str string, need string) (substr string) {
 	return str[pos:]
 }
 
-// SubStrFromEx 从字符串 `str` 中返回从首次出现 `need` 到 `str` 结尾的部分（不包括 `need`）。
+// SubStrFromEx returns a portion of string `str` starting from first occurrence of and excluding `need`
+// to the end of `str`.
 //
-// 示例：
+// Example:
 // SubStrFromEx("av.mp4", ".") -> "mp4"
-// md5:88a817f03fc77455
+
+// ff:SubStrFromEx别名
+// substr:
+// need:
+// str:
 func SubStrFromEx(str string, need string) (substr string) {
 	pos := Pos(str, need)
 	if pos < 0 {
@@ -214,10 +263,16 @@ func SubStrFromEx(str string, need string) (substr string) {
 	return str[pos+len(need):]
 }
 
-// SubStrFromR 从字符串 `str` 的最后一个出现的 `need` 开始并包括在内，返回一个子串。
-// 示例：
+// SubStrFromR returns a portion of string `str` starting from last occurrence of and including `need`
+// to the end of `str`.
+//
+// Example:
 // SubStrFromR("/dev/vda", "/") -> "/vda"
-// md5:8f70ecc84d0338f8
+
+// ff:取右边并倒找与含关键字
+// substr:文本结果
+// need:欲寻找的文本
+// str:文本
 func SubStrFromR(str string, need string) (substr string) {
 	pos := PosR(str, need)
 	if pos < 0 {
@@ -226,11 +281,16 @@ func SubStrFromR(str string, need string) (substr string) {
 	return str[pos:]
 }
 
-// SubStrFromREx 从字符串 `str` 中最后一个出现的 `need` 子串之后的字符开始，直到 `str` 的末尾，返回这一部分子串。
+// SubStrFromREx returns a portion of string `str` starting from last occurrence of and excluding `need`
+// to the end of `str`.
 //
-// 示例：
+// Example:
 // SubStrFromREx("/dev/vda", "/") -> "vda"
-// md5:3de495ad97b12196
+
+// ff:取右边并倒找
+// substr:文本结果
+// need:欲寻找的文本
+// str:文本
 func SubStrFromREx(str string, need string) (substr string) {
 	pos := PosR(str, need)
 	if pos < 0 {

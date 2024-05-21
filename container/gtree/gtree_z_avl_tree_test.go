@@ -1,8 +1,8 @@
-// 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。
-// md5:1d281c30cdc3423b
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with gm file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtree_test
 
@@ -58,7 +58,7 @@ func Test_AVLTree_Basic(t *testing.T) {
 }
 
 func Test_AVLTree_Set_Fun(t *testing.T) {
-	// GetOrSetFunc 用于锁定或解锁. md5:0ebd30e2c667f970
+	//GetOrSetFunc lock or unlock
 	gtest.C(t, func(t *gtest.T) {
 		m := gtree.NewAVLTree(gutil.ComparatorString)
 		t.Assert(m.GetOrSetFunc("fun", getValue), 3)
@@ -68,7 +68,7 @@ func Test_AVLTree_Set_Fun(t *testing.T) {
 		t.Assert(m.Get("funlock"), 3)
 		t.Assert(m.Get("fun"), 3)
 	})
-	//如果不存在则设置函数：锁或解锁. md5:e3586809aed38993
+	//SetIfNotExistFunc lock or unlock
 	gtest.C(t, func(t *gtest.T) {
 		m := gtree.NewAVLTree(gutil.ComparatorString)
 		t.Assert(m.SetIfNotExistFunc("fun", getValue), true)

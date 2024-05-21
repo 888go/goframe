@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package response
 
@@ -13,24 +12,29 @@ import (
 	"net/http"
 )
 
-// Writer 在 http.ResponseWriter 上添加了额外功能。. md5:204ac8c0cb436351
+// Writer wraps http.ResponseWriter for extra features.
 type Writer struct {
-	http.ResponseWriter       // 基础的ResponseWriter。. md5:1678e6fb48b792ff
-	hijacked            bool  // 标记此请求是否已被劫持。. md5:80adeb664fa8ae97
-	wroteHeader         bool  // 是否已经写入了响应头，避免出现错误：多余的或多个response.WriteHeader调用。. md5:59bda0050b534efa
-	bytesWritten        int64 // 写入响应的字节数。. md5:cc5fa1ce145684ed
+	http.ResponseWriter       // The underlying ResponseWriter.
+	hijacked            bool  // Mark this request is hijacked or not.
+	wroteHeader         bool  // Is header wrote or not, avoiding error: superfluous/multiple response.WriteHeader call.
+	bytesWritten        int64 // Bytes written to response.
 }
 
-// NewWriter 创建并返回一个新的 Writer。. md5:6fad96ecb42a0036
+// NewWriter creates and returns a new Writer.
+
+// ff:
+// writer:
 func NewWriter(writer http.ResponseWriter) *Writer {
 	return &Writer{
 		ResponseWriter: writer,
 	}
 }
 
-// WriteHeader 实现了 http.ResponseWriter.WriteHeader 接口的方法。
-// 注意，底层的 `WriteHeader` 方法在一个http响应中只能被调用一次。
-// md5:7158450c7ec7fc1a
+// WriteHeader implements the interface of http.ResponseWriter.WriteHeader.
+// Note that the underlying `WriteHeader` can only be called once in a http response.
+
+// ff:
+// status:
 func (w *Writer) WriteHeader(status int) {
 	if w.wroteHeader {
 		return
@@ -39,12 +43,17 @@ func (w *Writer) WriteHeader(status int) {
 	w.wroteHeader = true
 }
 
-// BytesWritten 返回写入响应的长度。. md5:2bc5d732217ae6e4
+// BytesWritten returns the length that was written to response.
+
+// ff:
 func (w *Writer) BytesWritten() int64 {
 	return w.bytesWritten
 }
 
-// Write实现了http.ResponseWriter.Write接口函数。. md5:7078e0a4eee107f7
+// Write implements the interface function of http.ResponseWriter.Write.
+
+// ff:
+// data:
 func (w *Writer) Write(data []byte) (int, error) {
 	n, err := w.ResponseWriter.Write(data)
 	w.bytesWritten += int64(n)
@@ -52,24 +61,35 @@ func (w *Writer) Write(data []byte) (int, error) {
 	return n, err
 }
 
-// Hijack 实现了 http.Hijacker.Hijack 接口函数。. md5:7ef9ff81765b052e
+// Hijack implements the interface function of http.Hijacker.Hijack.
+
+// ff:
+// err:
+// writer:
+// conn:
 func (w *Writer) Hijack() (conn net.Conn, writer *bufio.ReadWriter, err error) {
 	conn, writer, err = w.ResponseWriter.(http.Hijacker).Hijack()
 	w.hijacked = true
 	return
 }
 
-// IsHeaderWrote 返回头部状态是否已写入。. md5:7785f14e4d061fc9
+// IsHeaderWrote returns if the header status is written.
+
+// ff:
 func (w *Writer) IsHeaderWrote() bool {
 	return w.wroteHeader
 }
 
-// IsHijacked 返回连接是否已被劫持。. md5:11468dbc47bf2400
+// IsHijacked returns if the connection is hijacked.
+
+// ff:
 func (w *Writer) IsHijacked() bool {
 	return w.hijacked
 }
 
-// Flush 将缓冲区中的任何数据发送到客户端。. md5:38eb50b527a1bfc5
+// Flush sends any buffered data to the client.
+
+// ff:
 func (w *Writer) Flush() {
 	flusher, ok := w.ResponseWriter.(http.Flusher)
 	if ok {

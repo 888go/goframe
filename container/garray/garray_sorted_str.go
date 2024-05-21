@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package garray
 
@@ -20,37 +19,49 @@ import (
 	"github.com/gogf/gf/v2/util/grand"
 )
 
-// SortedStrArray 是一个具有丰富功能的 Go 语言排序字符串数组。
-// 默认情况下，它使用递增顺序，可以通过设置自定义比较器来改变。
-// 它包含一个并发安全/非安全开关，应在初始化时设置并且不能更改。
-// md5:5738650138eb500e
+// SortedStrArray is a golang sorted string array with rich features.
+// It is using increasing order in default, which can be changed by
+// setting it a custom comparator.
+// It contains a concurrent-safe/unsafe switch, which should be set
+// when its initialization and cannot be changed then.
 type SortedStrArray struct {
 	mu         rwmutex.RWMutex
 	array      []string
-	unique     bool                  // 是否启用唯一功能（false）. md5:e1a1e6b26151e91d
-	comparator func(a, b string) int // 比较函数（返回值：-1 表示 a < b；0 表示 a == b；1 表示 a > b）. md5:2be44acd57b55d6a
+	unique     bool                  // Whether enable unique feature(false)
+	comparator func(a, b string) int // Comparison function(it returns -1: a < b; 0: a == b; 1: a > b)
 }
 
-// NewSortedStrArray 创建并返回一个空的有序数组。
-// 参数 `safe` 用于指定是否使用并发安全的数组，
-// 默认情况下为 false。
-// md5:99d40d03c8301a35
+// NewSortedStrArray creates and returns an empty sorted array.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+
+// ff:创建文本排序
+// safe:并发安全
 func NewSortedStrArray(safe ...bool) *SortedStrArray {
 	return NewSortedStrArraySize(0, safe...)
 }
 
-// NewSortedStrArrayComparator 创建并返回一个使用指定比较器的空排序数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:94666fc48998c3d3
+// NewSortedStrArrayComparator creates and returns an empty sorted array with specified comparator.
+// The parameter `safe` is used to specify whether using array in concurrent-safety which is false in default.
+
+// ff:创建文本排序并带排序函数
+// safe:并发安全
+// comparator:排序函数
+// b:
+// a:
 func NewSortedStrArrayComparator(comparator func(a, b string) int, safe ...bool) *SortedStrArray {
 	array := NewSortedStrArray(safe...)
 	array.comparator = comparator
 	return array
 }
 
-// NewSortedStrArraySize 创建并返回一个已排序的数组，给定大小和容量。
-// 参数 `safe` 用于指定是否使用并发安全的数组，默认为 false。
-// md5:dd1a2b286a0cce79
+// NewSortedStrArraySize create and returns an sorted array with given size and cap.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+
+// ff:创建文本排序并按大小
+// safe:并发安全
+// cap:大小
 func NewSortedStrArraySize(cap int, safe ...bool) *SortedStrArray {
 	return &SortedStrArray{
 		mu:         rwmutex.Create(safe...),
@@ -59,9 +70,13 @@ func NewSortedStrArraySize(cap int, safe ...bool) *SortedStrArray {
 	}
 }
 
-// NewSortedStrArrayFrom 创建并返回一个已排序的数组，使用给定的切片 `array`。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:992cfc5cad0e6f7a
+// NewSortedStrArrayFrom creates and returns an sorted array with given slice `array`.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+
+// ff:创建文本排序并从数组
+// safe:并发安全
+// array:数组
 func NewSortedStrArrayFrom(array []string, safe ...bool) *SortedStrArray {
 	a := NewSortedStrArraySize(0, safe...)
 	a.array = array
@@ -69,16 +84,23 @@ func NewSortedStrArrayFrom(array []string, safe ...bool) *SortedStrArray {
 	return a
 }
 
-// NewSortedStrArrayFromCopy 根据给定的切片`array`的副本创建并返回一个排序后的数组。
-// 参数`safe`用于指定是否使用并发安全的数组，默认为false。
-// md5:e8cbae9d3604f7fc
+// NewSortedStrArrayFromCopy creates and returns an sorted array from a copy of given slice `array`.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+
+// ff:创建文本排序并从数组复制
+// safe:并发安全
+// array:数组
 func NewSortedStrArrayFromCopy(array []string, safe ...bool) *SortedStrArray {
 	newArray := make([]string, len(array))
 	copy(newArray, array)
 	return NewSortedStrArrayFrom(newArray, safe...)
 }
 
-// SetArray 使用给定的 `array` 设置底层切片数组。. md5:160b43a5c0ec752c
+// SetArray sets the underlying slice array with the given `array`.
+
+// ff:设置数组
+// array:数组
 func (a *SortedStrArray) SetArray(array []string) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -87,17 +109,22 @@ func (a *SortedStrArray) SetArray(array []string) *SortedStrArray {
 	return a
 }
 
-// At通过指定的索引返回值。
-// 如果给定的`index`超出了数组的范围，它将返回一个空字符串。
-// md5:2465f6b1e3ac2863
+// At returns the value by the specified index.
+// If the given `index` is out of range of the array, it returns an empty string.
+
+// ff:取值
+// value:值
+// index:索引
 func (a *SortedStrArray) At(index int) (value string) {
 	value, _ = a.Get(index)
 	return
 }
 
-// Sort 按照递增顺序对数组进行排序。
-// 参数 `reverse` 控制排序方式，如果为真，则按递减顺序排序（默认为递增排序）。
-// md5:13939809cd029411
+// Sort sorts the array in increasing order.
+// The parameter `reverse` controls whether sort
+// in increasing order(default) or decreasing order.
+
+// ff:排序递增
 func (a *SortedStrArray) Sort() *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -105,13 +132,19 @@ func (a *SortedStrArray) Sort() *SortedStrArray {
 	return a
 }
 
-// Add 将一个或多个值添加到已排序的数组中，数组始终保持排序。它是Append函数的别名，请参阅Append。
-// md5:34facedfc7e1b731
+// Add adds one or multiple values to sorted array, the array always keeps sorted.
+// It's alias of function Append, see Append.
+
+// ff:入栈右
+// values:值
 func (a *SortedStrArray) Add(values ...string) *SortedStrArray {
 	return a.Append(values...)
 }
 
-// Append 向已排序的数组中添加一个或多个值，数组将始终保持排序状态。. md5:f839b377c2c77f6b
+// Append adds one or multiple values to sorted array, the array always keeps sorted.
+
+// ff:Append别名
+// values:值
 func (a *SortedStrArray) Append(values ...string) *SortedStrArray {
 	if len(values) == 0 {
 		return a
@@ -137,9 +170,13 @@ func (a *SortedStrArray) Append(values ...string) *SortedStrArray {
 	return a
 }
 
-// Get 函数通过指定的索引返回值。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:ab300cfc0d6dd8ee
+// Get returns the value by the specified index.
+// If the given `index` is out of range of the array, the `found` is false.
+
+// ff:取值2
+// found:成功
+// value:值
+// index:索引
 func (a *SortedStrArray) Get(index int) (value string, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -149,21 +186,25 @@ func (a *SortedStrArray) Get(index int) (value string, found bool) {
 	return a.array[index], true
 }
 
-// Remove 函数通过索引移除一个元素。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:feaf958654838c25
+// Remove removes an item by index.
+// If the given `index` is out of range of the array, the `found` is false.
+
+// ff:删除
+// found:成功
+// value:值
+// index:索引
 func (a *SortedStrArray) Remove(index int) (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	return a.doRemoveWithoutLock(index)
 }
 
-// doRemoveWithoutLock 不使用锁移除一个项目。. md5:a6a1746903fd131c
+// doRemoveWithoutLock removes an item by index without lock.
 func (a *SortedStrArray) doRemoveWithoutLock(index int) (value string, found bool) {
 	if index < 0 || index >= len(a.array) {
 		return "", false
 	}
-	// 在删除时确定数组边界，以提高删除效率。. md5:bc969ee880edf699
+	// Determine array boundaries when deleting to improve deletion efficiency.
 	if index == 0 {
 		value := a.array[0]
 		a.array = a.array[1:]
@@ -173,18 +214,19 @@ func (a *SortedStrArray) doRemoveWithoutLock(index int) (value string, found boo
 		a.array = a.array[:index]
 		return value, true
 	}
-// 如果是一个非边界删除，
-// 它将涉及创建一个数组，
-// 那么删除操作效率较低。
-// md5:6a664196d66bc968
+	// If it is a non-boundary delete,
+	// it will involve the creation of an array,
+	// then the deletion is less efficient.
 	value = a.array[index]
 	a.array = append(a.array[:index], a.array[index+1:]...)
 	return value, true
 }
 
-// RemoveValue 函数根据值删除一个元素。
-// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。
-// md5:c49c7706ce703d00
+// RemoveValue removes an item by value.
+// It returns true if value is found in the array, or else false if not found.
+
+// ff:删除值
+// value:值
 func (a *SortedStrArray) RemoveValue(value string) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -195,7 +237,10 @@ func (a *SortedStrArray) RemoveValue(value string) bool {
 	return false
 }
 
-// RemoveValues 通过 `values` 删除一个项目。. md5:05e01eb00e998269
+// RemoveValues removes an item by `values`.
+
+// ff:删除多个值
+// values:值
 func (a *SortedStrArray) RemoveValues(values ...string) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -206,9 +251,12 @@ func (a *SortedStrArray) RemoveValues(values ...string) {
 	}
 }
 
-// PopLeft 从数组的开头弹出并返回一个项目。
-// 注意，如果数组为空，`found` 为 false。
-// md5:68f14002d84594a4
+// PopLeft pops and returns an item from the beginning of array.
+// Note that if the array is empty, the `found` is false.
+
+// ff:出栈左
+// found:成功
+// value:值
 func (a *SortedStrArray) PopLeft() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -220,9 +268,12 @@ func (a *SortedStrArray) PopLeft() (value string, found bool) {
 	return value, true
 }
 
-// PopRight 从数组的末尾弹出并返回一个元素。
-// 注意，如果数组为空，则 `found` 为 false。
-// md5:207fa7c7c4a04a10
+// PopRight pops and returns an item from the end of array.
+// Note that if the array is empty, the `found` is false.
+
+// ff:出栈右
+// found:成功
+// value:值
 func (a *SortedStrArray) PopRight() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -235,19 +286,24 @@ func (a *SortedStrArray) PopRight() (value string, found bool) {
 	return value, true
 }
 
-// PopRand 从数组中随机弹出并返回一个元素。
-// 注意，如果数组为空，`found` 将为 false。
-// md5:29338267db400401
+// PopRand randomly pops and return an item out of array.
+// Note that if the array is empty, the `found` is false.
+
+// ff:出栈随机
+// found:成功
+// value:值
 func (a *SortedStrArray) PopRand() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	return a.doRemoveWithoutLock(grand.Intn(len(a.array)))
 }
 
-// PopRands 随机地从数组中弹出并返回 `size` 个元素。
-// 如果给定的 `size` 大于数组的大小，它将返回数组的所有元素。
-// 注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。
-// md5:9fd270d3d3021d32
+// PopRands randomly pops and returns `size` items out of array.
+// If the given `size` is greater than size of the array, it returns all elements of the array.
+// Note that if given `size` <= 0 or the array is empty, it returns nil.
+
+// ff:出栈随机多个
+// size:数量
 func (a *SortedStrArray) PopRands(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -264,10 +320,12 @@ func (a *SortedStrArray) PopRands(size int) []string {
 	return array
 }
 
-// PopLefts 从数组开始处弹出并返回 `size` 个元素。
-// 如果给定的 `size` 大于数组的长度，它将返回数组中的所有元素。
-// 请注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。
-// md5:3ecbe066336a9849
+// PopLefts pops and returns `size` items from the beginning of array.
+// If the given `size` is greater than size of the array, it returns all elements of the array.
+// Note that if given `size` <= 0 or the array is empty, it returns nil.
+
+// ff:出栈左多个
+// size:数量
 func (a *SortedStrArray) PopLefts(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -284,10 +342,12 @@ func (a *SortedStrArray) PopLefts(size int) []string {
 	return value
 }
 
-// PopRights 从数组末尾弹出并返回 `size` 个元素。
-// 如果给定的 `size` 大于数组的大小，它将返回数组中的所有元素。
-// 注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。
-// md5:4f44f32fbb68fb50
+// PopRights pops and returns `size` items from the end of array.
+// If the given `size` is greater than size of the array, it returns all elements of the array.
+// Note that if given `size` <= 0 or the array is empty, it returns nil.
+
+// ff:出栈右多个
+// size:数量
 func (a *SortedStrArray) PopRights(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -305,12 +365,17 @@ func (a *SortedStrArray) PopRights(size int) []string {
 	return value
 }
 
-// Range通过范围选择并返回项目，就像数组[start:end]一样。
-// 请注意，如果在并发安全使用中，它将返回切片的副本；否则返回底层数据的指针。
-// 
-// 如果`end`为负数，则偏移量将从数组末尾开始。
-// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。
-// md5:8b71690536bb9ec5
+// Range picks and returns items by range, like array[start:end].
+// Notice, if in concurrent-safe usage, it returns a copy of slice;
+// else a pointer to the underlying data.
+//
+// If `end` is negative, then the offset will start from the end of array.
+// If `end` is omitted, then the sequence will have everything from start up
+// until the end of the array.
+
+// ff:取切片并按范围
+// end:终点
+// start:起点
 func (a *SortedStrArray) Range(start int, end ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -334,19 +399,23 @@ func (a *SortedStrArray) Range(start int, end ...int) []string {
 	return array
 }
 
-// SubSlice 返回数组中指定的一段元素切片。
-// 如果在并发安全的使用场景下，它将返回切片的一个副本；否则返回切片的指针。
+// SubSlice returns a slice of elements from the array as specified
+// by the `offset` and `size` parameters.
+// If in concurrent safe usage, it returns a copy of the slice; else a pointer.
 //
-// 如果偏移量（offset）为非负数，序列将从数组的该位置开始。
-// 如果偏移量为负数，序列将从数组末尾向前该距离的位置开始。
+// If offset is non-negative, the sequence will start at that offset in the array.
+// If offset is negative, the sequence will start that far from the end of the array.
 //
-// 如果提供了长度（size）且为正数，那么序列将包含最多这么多元素。
-// 如果数组比指定的长度短，则序列只包含可用的数组元素。
-// 如果长度为负数，则序列将在距离数组末尾该数量的元素处停止。
-// 如果省略长度参数，那么序列将从偏移量开始直到数组末尾的所有元素。
+// If length is given and is positive, then the sequence will have up to that many elements in it.
+// If the array is shorter than the length, then only the available array elements will be present.
+// If length is given and is negative then the sequence will stop that many elements from the end of the array.
+// If it is omitted, then the sequence will have everything from offset up until the end of the array.
 //
-// 如果切片范围的起始位置超出数组左侧边界，操作将失败。
-// md5:f87ecd35d1dd7ac8
+// Any possibility crossing the left border of array, it will fail.
+
+// ff:取切片并按数量
+// length:数量
+// offset:起点
 func (a *SortedStrArray) SubSlice(offset int, length ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -384,7 +453,10 @@ func (a *SortedStrArray) SubSlice(offset int, length ...int) []string {
 	}
 }
 
-// Sum 返回数组中所有值的和。. md5:b2148175a749b162
+// Sum returns the sum of values in an array.
+
+// ff:求和
+// sum:值
 func (a *SortedStrArray) Sum() (sum int) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -394,7 +466,9 @@ func (a *SortedStrArray) Sum() (sum int) {
 	return
 }
 
-// Len 返回数组的长度。. md5:593b37501e98da95
+// Len returns the length of array.
+
+// ff:取长度
 func (a *SortedStrArray) Len() int {
 	a.mu.RLock()
 	length := len(a.array)
@@ -402,9 +476,11 @@ func (a *SortedStrArray) Len() int {
 	return length
 }
 
-// Slice 返回数组的底层数据。
-// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。
-// md5:111cbee45795a58b
+// Slice returns the underlying data of array.
+// Note that, if it's in concurrent-safe usage, it returns a copy of underlying data,
+// or else a pointer to the underlying data.
+
+// ff:取切片
 func (a *SortedStrArray) Slice() []string {
 	array := ([]string)(nil)
 	if a.mu.IsSafe() {
@@ -418,7 +494,9 @@ func (a *SortedStrArray) Slice() []string {
 	return array
 }
 
-// Interfaces 将当前数组作为 []interface{} 返回。. md5:f7a2e3459e185314
+// Interfaces returns current array as []interface{}.
+
+// ff:取any数组
 func (a *SortedStrArray) Interfaces() []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -429,14 +507,19 @@ func (a *SortedStrArray) Interfaces() []interface{} {
 	return array
 }
 
-// Contains 检查值是否存在于数组中。. md5:f209e1f30dd53cb2
+// Contains checks whether a value exists in the array.
+
+// ff:是否存在
+// value:值
 func (a *SortedStrArray) Contains(value string) bool {
 	return a.Search(value) != -1
 }
 
-// ContainsI 检查数组中是否存在某个值（忽略大小写）。
-// 注意，它内部会遍历整个数组以进行不区分大小写的比较。
-// md5:faf76a65365aa0ac
+// ContainsI checks whether a value exists in the array with case-insensitively.
+// Note that it internally iterates the whole array to do the comparison with case-insensitively.
+
+// ff:是否存在并忽略大小写
+// value:值
 func (a *SortedStrArray) ContainsI(value string) bool {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -451,9 +534,12 @@ func (a *SortedStrArray) ContainsI(value string) bool {
 	return false
 }
 
-// Search 在数组中搜索 `value`，返回 `value` 的索引，
-// 如果不存在则返回 -1。
-// md5:787617bfeade8f93
+// Search searches array by `value`, returns the index of `value`,
+// or returns -1 if not exists.
+
+// ff:查找
+// index:索引
+// value:值
 func (a *SortedStrArray) Search(value string) (index int) {
 	if i, r := a.binSearch(value, true); r == 0 {
 		return i
@@ -461,12 +547,11 @@ func (a *SortedStrArray) Search(value string) (index int) {
 	return -1
 }
 
-// 二分查找。
-// 它返回最后比较的索引和结果。
-// 如果 `result` 等于 0，表示索引处的值等于 `value`。
-// 如果 `result` 小于 0，表示索引处的值小于 `value`。
-// 如果 `result` 大于 0，表示索引处的值大于 `value`。
-// md5:869c6a1ccba79c7a
+// Binary search.
+// It returns the last compared index and the result.
+// If `result` equals to 0, it means the value at `index` is equals to `value`.
+// If `result` lesser than 0, it means the value at `index` is lesser than `value`.
+// If `result` greater than 0, it means the value at `index` is greater than `value`.
 func (a *SortedStrArray) binSearch(value string, lock bool) (index int, result int) {
 	if lock {
 		a.mu.RLock()
@@ -494,10 +579,12 @@ func (a *SortedStrArray) binSearch(value string, lock bool) (index int, result i
 	return mid, cmp
 }
 
-// SetUnique 将唯一标记设置到数组中，
-// 表示数组不包含任何重复的元素。
-// 它还执行唯一性检查，移除所有重复的项。
-// md5:52bf11e8153b2459
+// SetUnique sets unique mark to the array,
+// which means it does not contain any repeated items.
+// It also do unique check, remove all repeated items.
+
+// ff:设置去重
+// unique:去重
 func (a *SortedStrArray) SetUnique(unique bool) *SortedStrArray {
 	oldUnique := a.unique
 	a.unique = unique
@@ -507,7 +594,9 @@ func (a *SortedStrArray) SetUnique(unique bool) *SortedStrArray {
 	return a
 }
 
-// Unique 函数用于清除非唯一元素，确保数组中的每个元素都是唯一的。. md5:6dfd767cdbb67ed2
+// Unique uniques the array, clear repeated items.
+
+// ff:去重
 func (a *SortedStrArray) Unique() *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -528,7 +617,10 @@ func (a *SortedStrArray) Unique() *SortedStrArray {
 	return a
 }
 
-// Clone 返回一个新的数组，它是当前数组的副本。. md5:52ada4030c562295
+// Clone returns a new array, which is a copy of current array.
+
+// ff:取副本
+// newArray:新数组
 func (a *SortedStrArray) Clone() (newArray *SortedStrArray) {
 	a.mu.RLock()
 	array := make([]string, len(a.array))
@@ -537,7 +629,9 @@ func (a *SortedStrArray) Clone() (newArray *SortedStrArray) {
 	return NewSortedStrArrayFrom(array, a.mu.IsSafe())
 }
 
-// Clear 删除当前数组中的所有项目。. md5:3d9c6d68a5719979
+// Clear deletes all items of current array.
+
+// ff:清空
 func (a *SortedStrArray) Clear() *SortedStrArray {
 	a.mu.Lock()
 	if len(a.array) > 0 {
@@ -547,7 +641,11 @@ func (a *SortedStrArray) Clear() *SortedStrArray {
 	return a
 }
 
-// LockFunc 通过回调函数 `f` 实现写入锁定。. md5:d45a130fa9aa0af2
+// LockFunc locks writing by callback function `f`.
+
+// ff:遍历写锁定
+// f:回调函数
+// array:
 func (a *SortedStrArray) LockFunc(f func(array []string)) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -555,7 +653,11 @@ func (a *SortedStrArray) LockFunc(f func(array []string)) *SortedStrArray {
 	return a
 }
 
-// RLockFunc 通过回调函数 `f` 实现读取锁定。. md5:a45deee1e6f17c88
+// RLockFunc locks reading by callback function `f`.
+
+// ff:遍历读锁定
+// f:回调函数
+// array:
 func (a *SortedStrArray) RLockFunc(f func(array []string)) *SortedStrArray {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -563,17 +665,23 @@ func (a *SortedStrArray) RLockFunc(f func(array []string)) *SortedStrArray {
 	return a
 }
 
-// Merge 将 `array` 合并到当前数组中。
-// 参数 `array` 可以是任何 garray 或切片类型。
-// Merge 和 Append 的区别在于，Append 只支持特定的切片类型，
-// 而 Merge 支持更多种类的参数类型。
-// md5:465caccda38e84f8
+// Merge merges `array` into current array.
+// The parameter `array` can be any garray or slice type.
+// The difference between Merge and Append is Append supports only specified slice type,
+// but Merge supports more parameter types.
+
+// ff:合并
+// array:数组
 func (a *SortedStrArray) Merge(array interface{}) *SortedStrArray {
 	return a.Add(gconv.Strings(array)...)
 }
 
-// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。
-// md5:0f1f74ff34633d24
+// Chunk splits an array into multiple arrays,
+// the size of each array is determined by `size`.
+// The last chunk may contain less than size elements.
+
+// ff:分割
+// size:数量
 func (a *SortedStrArray) Chunk(size int) [][]string {
 	if size < 1 {
 		return nil
@@ -594,7 +702,11 @@ func (a *SortedStrArray) Chunk(size int) [][]string {
 	return n
 }
 
-// Rand 随机从数组中返回一个元素（不进行删除）。. md5:e152d2c5bc15ecd7
+// Rand randomly returns one item from array(no deleting).
+
+// ff:取值随机
+// found:成功
+// value:值
 func (a *SortedStrArray) Rand() (value string, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -604,7 +716,10 @@ func (a *SortedStrArray) Rand() (value string, found bool) {
 	return a.array[grand.Intn(len(a.array))], true
 }
 
-// Rands 随机从数组中返回 `size` 个元素（不删除）。. md5:09ad7802f8190e3c
+// Rands randomly returns `size` items from array(no deleting).
+
+// ff:取值随机多个
+// size:数量
 func (a *SortedStrArray) Rands(size int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -618,7 +733,10 @@ func (a *SortedStrArray) Rands(size int) []string {
 	return array
 }
 
-// Join 使用字符串 `glue` 连接数组元素。. md5:ec3894b049af1251
+// Join joins array elements with a string `glue`.
+
+// ff:连接
+// glue:连接符
 func (a *SortedStrArray) Join(glue string) string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -635,7 +753,9 @@ func (a *SortedStrArray) Join(glue string) string {
 	return buffer.String()
 }
 
-// CountValues 计算数组中所有值出现的次数。. md5:95b4772dcb002365
+// CountValues counts the number of occurrences of all values in the array.
+
+// ff:统计
 func (a *SortedStrArray) CountValues() map[string]int {
 	m := make(map[string]int)
 	a.mu.RLock()
@@ -646,13 +766,23 @@ func (a *SortedStrArray) CountValues() map[string]int {
 	return m
 }
 
-// Iterator 是 IteratorAsc 的别名。. md5:1bfdea306db62845
+// Iterator is alias of IteratorAsc.
+
+// ff:X遍历
+// f:
+// v:
+// k:
 func (a *SortedStrArray) Iterator(f func(k int, v string) bool) {
 	a.IteratorAsc(f)
 }
 
-// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:8a125e2dd8982d48
+// IteratorAsc iterates the array readonly in ascending order with given callback function `f`.
+// If `f` returns true, then it continues iterating; or false to stop.
+
+// ff:遍历升序
+// f:回调函数
+// v:
+// k:
 func (a *SortedStrArray) IteratorAsc(f func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -663,9 +793,13 @@ func (a *SortedStrArray) IteratorAsc(f func(k int, v string) bool) {
 	}
 }
 
-// IteratorDesc 以降序遍历数组，并使用给定的回调函数`f`进行只读迭代。
-// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。
-// md5:ea0a3805bccce0f7
+// IteratorDesc iterates the array readonly in descending order with given callback function `f`.
+// If `f` returns true, then it continues iterating; or false to stop.
+
+// ff:遍历降序
+// f:回调函数
+// v:
+// k:
 func (a *SortedStrArray) IteratorDesc(f func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -676,7 +810,9 @@ func (a *SortedStrArray) IteratorDesc(f func(k int, v string) bool) {
 	}
 }
 
-// String 将当前数组转换为字符串，其实现方式类似于 json.Marshal。. md5:feda8f29233cde8d
+// String returns current array as a string, which implements like json.Marshal does.
+
+// ff:
 func (a *SortedStrArray) String() string {
 	if a == nil {
 		return ""
@@ -695,16 +831,20 @@ func (a *SortedStrArray) String() string {
 	return buffer.String()
 }
 
-// MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
-// 注意，这里不要使用指针作为接收者。
-// md5:b4f76062b07a5263
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// Note that do not use pointer as its receiver here.
+
+// ff:
 func (a SortedStrArray) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	return json.Marshal(a.array)
 }
 
-// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。. md5:f6766b88cf3d63c2
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+
+// ff:
+// b:
 func (a *SortedStrArray) UnmarshalJSON(b []byte) error {
 	if a.comparator == nil {
 		a.array = make([]string, 0)
@@ -721,7 +861,11 @@ func (a *SortedStrArray) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于为数组设置任何类型的数据值。. md5:35211e747ab939ab
+// UnmarshalValue is an interface implement which sets any type of value for array.
+
+// ff:
+// err:
+// value:
 func (a *SortedStrArray) UnmarshalValue(value interface{}) (err error) {
 	if a.comparator == nil {
 		a.comparator = defaultComparatorStr
@@ -740,9 +884,14 @@ func (a *SortedStrArray) UnmarshalValue(value interface{}) (err error) {
 	return err
 }
 
-// Filter 遍历数组，并使用自定义回调函数过滤元素。
-// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。
-// md5:d33873cfb9f1bb38
+// Filter iterates array and filters elements using custom callback function.
+// It removes the element from array if callback function `filter` returns true,
+// it or else does nothing and continues iterating.
+
+// ff:遍历删除
+// filter:回调函数
+// value:值
+// index:索引
 func (a *SortedStrArray) Filter(filter func(index int, value string) bool) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -756,7 +905,9 @@ func (a *SortedStrArray) Filter(filter func(index int, value string) bool) *Sort
 	return a
 }
 
-// FilterEmpty 函数移除数组中的所有空字符串值。. md5:2b2e8cd6c844936a
+// FilterEmpty removes all empty string value of the array.
+
+// ff:删除所有空值
 func (a *SortedStrArray) FilterEmpty() *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -777,12 +928,16 @@ func (a *SortedStrArray) FilterEmpty() *SortedStrArray {
 	return a
 }
 
-// Walk 将用户提供的函数 `f` 应用到数组的每个元素上。. md5:51e35ea7c2c6525c
+// Walk applies a user supplied function `f` to every item of array.
+
+// ff:遍历修改
+// f:回调函数
+// value:
 func (a *SortedStrArray) Walk(f func(value string) string) *SortedStrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 
-	// 保持数组始终排序。. md5:b2ef189f10478e96
+	// Keep the array always sorted.
 	defer quickSortStr(a.array, a.getComparator())
 
 	for i, v := range a.array {
@@ -791,14 +946,15 @@ func (a *SortedStrArray) Walk(f func(value string) string) *SortedStrArray {
 	return a
 }
 
-// IsEmpty 检查数组是否为空。. md5:fb6684351506a02d
+// IsEmpty checks whether the array is empty.
+
+// ff:是否为空
 func (a *SortedStrArray) IsEmpty() bool {
 	return a.Len() == 0
 }
 
-// getComparator 如果之前已经设置过比较器，则返回它，
-// 否则返回一个默认的比较器。
-// md5:8f22547cd8cea6eb
+// getComparator returns the comparator if it's previously set,
+// or else it returns a default comparator.
 func (a *SortedStrArray) getComparator() func(a, b string) int {
 	if a.comparator == nil {
 		return defaultComparatorStr
@@ -806,7 +962,9 @@ func (a *SortedStrArray) getComparator() func(a, b string) int {
 	return a.comparator
 }
 
-// DeepCopy实现当前类型的深拷贝接口。. md5:9cfbcb08109f6ce1
+// DeepCopy implements interface for deep copy of current type.
+
+// ff:
 func (a *SortedStrArray) DeepCopy() interface{} {
 	if a == nil {
 		return nil

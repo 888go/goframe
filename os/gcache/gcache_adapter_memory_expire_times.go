@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcache
 
@@ -12,8 +11,8 @@ import (
 )
 
 type adapterMemoryExpireTimes struct {
-	mu          sync.RWMutex          // expireTimeMu 确保expireTimes映射的并发安全性。. md5:9e827eb46489b4b8
-	expireTimes map[interface{}]int64 // expireTimes是过期键到其时间戳的映射，用于快速索引和删除。. md5:5e7fa0cd3e17ed6c
+	mu          sync.RWMutex          // expireTimeMu ensures the concurrent safety of expireTimes map.
+	expireTimes map[interface{}]int64 // expireTimes is the expiring key to its timestamp mapping, which is used for quick indexing and deleting.
 }
 
 func newAdapterMemoryExpireTimes() *adapterMemoryExpireTimes {
@@ -22,6 +21,10 @@ func newAdapterMemoryExpireTimes() *adapterMemoryExpireTimes {
 	}
 }
 
+
+// ff:取值
+// value:
+// key:
 func (d *adapterMemoryExpireTimes) Get(key interface{}) (value int64) {
 	d.mu.RLock()
 	value = d.expireTimes[key]
@@ -29,12 +32,19 @@ func (d *adapterMemoryExpireTimes) Get(key interface{}) (value int64) {
 	return
 }
 
+
+// ff:设置值
+// value:
+// key:
 func (d *adapterMemoryExpireTimes) Set(key interface{}, value int64) {
 	d.mu.Lock()
 	d.expireTimes[key] = value
 	d.mu.Unlock()
 }
 
+
+// ff:
+// key:
 func (d *adapterMemoryExpireTimes) Delete(key interface{}) {
 	d.mu.Lock()
 	delete(d.expireTimes, key)

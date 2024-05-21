@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
 
@@ -13,25 +12,31 @@ import (
 	"github.com/gogf/gf/v2/text/gregex"
 )
 
-// RuleEmail 实现了 `email` 规则：
-// 邮箱地址。
+// RuleEmail implements `email` rule:
+// Email address.
 //
-// 格式：email
-// md5:238fc353e79c531a
+// Format: email
 type RuleEmail struct{}
 
 func init() {
 	Register(RuleEmail{})
 }
 
+
+// ff:
 func (r RuleEmail) Name() string {
 	return "email"
 }
 
+
+// ff:
 func (r RuleEmail) Message() string {
 	return "The {field} value `{value}` is not a valid email address"
 }
 
+
+// ff:
+// in:
 func (r RuleEmail) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)+$`,

@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gdes提供了DES加密/解密算法的有用API。. md5:c8b6785595a2b6ed
+// Package gdes provides useful API for DES encryption/decryption algorithms.
 package gdes
 
 import (
@@ -22,7 +21,12 @@ const (
 	PKCS5PADDING
 )
 
-// ECB加密使用ECB模式对`plainText`进行加密。. md5:393855a628599a31
+// EncryptECB encrypts `plainText` using ECB mode.
+
+// ff:加密ECB
+// padding:填充
+// key:秘钥
+// plainText:待加密
 func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
 	text, err := Padding(plainText, padding)
 	if err != nil {
@@ -44,7 +48,12 @@ func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
 	return cipherText, nil
 }
 
-// 使用ECB模式解密`cipherText`。. md5:de6e332e6c59244e
+// DecryptECB decrypts `cipherText` using ECB mode.
+
+// ff:解密ECB
+// padding:填充
+// key:秘钥
+// cipherText:待解密
 func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	text := make([]byte, len(cipherText))
 	block, err := des.NewCipher(key)
@@ -66,9 +75,13 @@ func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	return plainText, nil
 }
 
-// EncryptECBTriple 使用TripleDES和ECB模式加密`plainText`。
-// `key`的长度应为16或24字节。
-// md5:925f2b0f96f4bc56
+// EncryptECBTriple encrypts `plainText` using TripleDES and ECB mode.
+// The length of the `key` should be either 16 or 24 bytes.
+
+// ff:加密三重ECB
+// padding:填充
+// key:秘钥
+// plainText:待加密
 func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
@@ -102,9 +115,13 @@ func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error)
 	return cipherText, nil
 }
 
-// DecryptECBTriple 使用三重DES和ECB模式解密`cipherText`。
-// `key`的长度应该是16或24字节。
-// md5:c1bf1a1ac477aa6e
+// DecryptECBTriple decrypts `cipherText` using TripleDES and ECB mode.
+// The length of the `key` should be either 16 or 24 bytes.
+
+// ff:解密三重ECB
+// padding:填充
+// key:秘钥
+// cipherText:待解密
 func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
@@ -138,7 +155,13 @@ func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error
 	return plainText, nil
 }
 
-// EncryptCBC 使用CBC模式对`plainText`进行加密。. md5:f3a1f35b734799c4
+// EncryptCBC encrypts `plainText` using CBC mode.
+
+// ff:加密CBC
+// padding:填充
+// iv:
+// key:密钥
+// plainText:待加密
 func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	block, err := des.NewCipher(key)
 	if err != nil {
@@ -162,7 +185,13 @@ func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, e
 	return cipherText, nil
 }
 
-// 使用CBC模式解密`cipherText`。. md5:232eecbdd9458374
+// DecryptCBC decrypts `cipherText` using CBC mode.
+
+// ff:解密CBC
+// padding:填充
+// iv:
+// key:密钥
+// cipherText:待解密
 func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	block, err := des.NewCipher(key)
 	if err != nil {
@@ -186,7 +215,13 @@ func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, 
 	return plainText, nil
 }
 
-// EncryptCBCTriple 使用TripleDES和CBC模式加密`plainText`。. md5:8fb88673fa27c4a0
+// EncryptCBCTriple encrypts `plainText` using TripleDES and CBC mode.
+
+// ff:加密三重CBC
+// padding:填充
+// iv:
+// key:密钥
+// plainText:待加密
 func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")
@@ -222,7 +257,13 @@ func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]b
 	return cipherText, nil
 }
 
-// DecryptCBCTriple 使用三重DES和CBC模式解密`cipherText`。. md5:53d3127b0b4fcbb0
+// DecryptCBCTriple decrypts `cipherText` using TripleDES and CBC mode.
+
+// ff:解密三重CBC
+// padding:填充
+// iv:
+// key:密钥
+// cipherText:待解密
 func DecryptCBCTriple(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")
@@ -258,18 +299,29 @@ func DecryptCBCTriple(cipherText []byte, key []byte, iv []byte, padding int) ([]
 	return plainText, nil
 }
 
+
+// ff:
+// blockSize:
+// text:
 func PaddingPKCS5(text []byte, blockSize int) []byte {
 	padding := blockSize - len(text)%blockSize
 	padText := bytes.Repeat([]byte{byte(padding)}, padding)
 	return append(text, padText...)
 }
 
+
+// ff:
+// text:
 func UnPaddingPKCS5(text []byte) []byte {
 	length := len(text)
 	padText := int(text[length-1])
 	return text[:(length - padText)]
 }
 
+
+// ff:
+// padding:
+// text:
 func Padding(text []byte, padding int) ([]byte, error) {
 	switch padding {
 	case NOPADDING:
@@ -287,6 +339,10 @@ func Padding(text []byte, padding int) ([]byte, error) {
 	return text, nil
 }
 
+
+// ff:
+// padding:
+// text:
 func UnPadding(text []byte, padding int) ([]byte, error) {
 	switch padding {
 	case NOPADDING:

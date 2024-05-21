@@ -1,0 +1,90 @@
+# 备注开始
+# **_方法.md 文件备注:
+# ff= 方法,重命名方法名称
+# 如:
+# //ff:取文本
+
+# **_package.md 文件备注:
+# bm= 包名,更换新的包名称 
+# 如: 
+# package gin //bm:gin类
+
+# **_其他.md 文件备注:
+# qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
+# hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
+# cz= 查找,配合前面/后面使用,
+# 如:
+# type Regexp struct {//qm:正则 cz:Regexp struct
+#
+# th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
+# type Regexp struct {//th:type Regexp222 struct
+#
+# cf= 重复,用于重命名多次,
+# 如: 
+# 一个文档内有2个"One(result interface{}) error"需要重命名.
+# 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
+
+# **_追加.md 文件备注:
+# 在代码内追加代码,如:
+# //zj:
+# func (re *Regexp) X取文本() string { 
+#    re.F.String()
+# }
+# //zj:
+# 备注结束
+
+[func (m *Model) Fields(fieldNamesOrMapStruct ...interface{}) *Model {]
+ff=字段保留过滤
+fieldNamesOrMapStruct=字段名或Map结构体
+
+[func (m *Model) FieldsPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...interface{}) *Model {]
+ff=字段保留过滤并带前缀
+fieldNamesOrMapStruct=字段名或Map结构体
+prefixOrAlias=前缀或别名
+
+[func (m *Model) FieldsEx(fieldNamesOrMapStruct ...interface{}) *Model {]
+ff=字段排除过滤
+fieldNamesOrMapStruct=字段名或Map结构体
+
+[func (m *Model) FieldsExPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...interface{}) *Model {]
+ff=字段排除过滤并带前缀
+fieldNamesOrMapStruct=字段名或Map结构体
+prefixOrAlias=前缀或别名
+
+[func (m *Model) FieldCount(column string, as ...string) *Model {]
+ff=字段追加计数
+as=新字段别名
+column=需要计数的字段名称
+
+[func (m *Model) FieldSum(column string, as ...string) *Model {]
+ff=字段追加求和
+as=新字段别名
+column=需要求和的字段名称
+
+[func (m *Model) FieldMin(column string, as ...string) *Model {]
+ff=字段追加最小值
+as=新字段别名
+column=最小值字段名称
+
+[func (m *Model) FieldMax(column string, as ...string) *Model {]
+ff=字段追加最大值
+as=新字段别名
+column=最大值字段名称
+
+[func (m *Model) FieldAvg(column string, as ...string) *Model {]
+ff=字段追加平均值
+as=新字段别名
+column=求平均值字段名称
+
+[func (m *Model) GetFieldsStr(prefix ...string) string {]
+ff=取所有字段名称
+prefix=字段前缀
+
+[func (m *Model) GetFieldsExStr(fields string, prefix ...string) string {]
+ff=取所有字段名称并排除
+prefix=字段前缀
+fields=需要排除字段
+
+[func (m *Model) HasField(field string) (bool, error) {]
+ff=是否存在字段
+field=字段名称

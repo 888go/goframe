@@ -1,9 +1,9 @@
-// 版权所有 GoFrame 作者(https://goframe.org)。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 此源代码形式受 MIT 许可证的条款约束。
-// 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
+//
 
 package gcmd
 
@@ -17,21 +17,26 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// Print 将当前命令的帮助信息打印到标准输出（stdout）。. md5:f96bdfd3fe6f19a6
+// Print prints help info to stdout for current command.
+
+// ff:
 func (c *Command) Print() {
 	c.PrintTo(os.Stdout)
 }
 
-// PrintTo 将帮助信息打印到自定义的io.Writer。. md5:bd4a5ae4f69d2d7d
+// PrintTo prints help info to custom io.Writer.
+
+// ff:
+// writer:
 func (c *Command) PrintTo(writer io.Writer) {
 	var (
 		prefix    = gstr.Repeat(" ", 4)
 		buffer    = bytes.NewBuffer(nil)
 		arguments = make([]Argument, len(c.Arguments))
 	)
-	// 复制打印选项。. md5:e1c3b9f9f9585d88
+	// Copy options for printing.
 	copy(arguments, c.Arguments)
-	// 添加内置帮助选项，仅用于信息用途。. md5:7ddb319e073cbc2c
+	// Add built-in help option, just for info only.
 	arguments = append(arguments, defaultHelpOption)
 
 	// Usage.
@@ -213,7 +218,7 @@ type printLineBriefInput struct {
 func (c *Command) printLineBrief(in printLineBriefInput) {
 	briefArray := gstr.SplitAndTrim(in.Brief, "\n")
 	if len(briefArray) == 0 {
-		// 如果命令摘要为空，它只打印其命令名。. md5:07ab5664d0594d07
+		// If command brief is empty, it just prints its command name.
 		briefArray = []string{""}
 	}
 	for i, line := range briefArray {
@@ -235,7 +240,7 @@ func (c *Command) printLineBrief(in printLineBriefInput) {
 }
 
 func (c *Command) defaultHelpFunc(ctx context.Context, parser *Parser) error {
-	// 将命令帮助信息打印到标准输出（stdout）。. md5:0971e4539e0f02f6
+	// Print command help info to stdout.
 	c.Print()
 	return nil
 }

@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -21,10 +20,16 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Update 为模型执行"UPDATE ... "语句。
-// 
-// 如果提供了可选参数 `dataAndWhere`，则 dataAndWhere[0] 是更新的数据字段，dataAndWhere[1:] 被视为 WHERE 条件字段。同时参考 Model.Data 和 Model.Where 函数。
-// md5:06a16ce16f9da0c0
+// Update does "UPDATE ... " statement for the model.
+//
+// If the optional parameter `dataAndWhere` is given, the dataAndWhere[0] is the updated data field,
+// and dataAndWhere[1:] is treated as where condition fields.
+// Also see Model.Data and Model.Where functions.
+
+// ff:更新
+// err:错误
+// result:结果
+// dataAndWhere:数据或条件
 func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(dataAndWhere) > 0 {
@@ -61,7 +66,7 @@ func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err erro
 	switch reflectInfo.OriginKind {
 	case reflect.Map, reflect.Struct:
 		var dataMap = anyValueToMapBeforeToRecord(m.data)
-		// 自动更新记录的更新时间。. md5:cf60b195a97c5bfa
+		// Automatically update the record updating time.
 		if fieldNameUpdate != "" {
 			dataValue := stm.GetValueByFieldTypeForCreateOrUpdate(ctx, fieldTypeUpdate, false)
 			dataMap[fieldNameUpdate] = dataValue
@@ -70,7 +75,7 @@ func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err erro
 
 	default:
 		updates := gconv.String(m.data)
-		// 自动更新记录的更新时间。. md5:cf60b195a97c5bfa
+		// Automatically update the record updating time.
 		if fieldNameUpdate != "" {
 			dataValue := stm.GetValueByFieldTypeForCreateOrUpdate(ctx, fieldTypeUpdate, false)
 			if fieldNameUpdate != "" && !gstr.Contains(updates, fieldNameUpdate) {
@@ -113,7 +118,12 @@ func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err erro
 	return in.Next(ctx)
 }
 
-// UpdateAndGetAffected 执行更新语句并返回受影响的行数。. md5:2f9b42bc238e70a4
+// UpdateAndGetAffected performs update statement and returns the affected rows number.
+
+// ff:更新并取影响行数
+// err:错误
+// affected:影响行数
+// dataAndWhere:数据或条件
 func (m *Model) UpdateAndGetAffected(dataAndWhere ...interface{}) (affected int64, err error) {
 	result, err := m.Update(dataAndWhere...)
 	if err != nil {
@@ -122,9 +132,12 @@ func (m *Model) UpdateAndGetAffected(dataAndWhere ...interface{}) (affected int6
 	return result.RowsAffected()
 }
 
-// Increment 函数通过给定的数量增加某列的值。
-// 参数 `amount` 可以是浮点数或整数类型。
-// md5:31e7e26d28456940
+// Increment increments a column's value by a given amount.
+// The parameter `amount` can be type of float or integer.
+
+// ff:更新增量
+// amount:增量值
+// column:字段名称
 func (m *Model) Increment(column string, amount interface{}) (sql.Result, error) {
 	return m.getModel().Data(column, &Counter{
 		Field: column,
@@ -132,9 +145,12 @@ func (m *Model) Increment(column string, amount interface{}) (sql.Result, error)
 	}).Update()
 }
 
-// Decrement 函数通过给定的数量减小某一列的值。
-// 参数 `amount` 可以是浮点数或整数类型。
-// md5:e9b9ca17fcd1d042
+// Decrement decrements a column's value by a given amount.
+// The parameter `amount` can be type of float or integer.
+
+// ff:更新减量
+// amount:减量值
+// column:字段名称
 func (m *Model) Decrement(column string, amount interface{}) (sql.Result, error) {
 	return m.getModel().Data(column, &Counter{
 		Field: column,

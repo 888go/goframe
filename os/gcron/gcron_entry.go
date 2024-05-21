@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcron
 
@@ -22,15 +21,15 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// JobFunc 是在cron中定时被调用的作业函数。. md5:476072dbc1ca96ff
+// JobFunc is the timing called job function in cron.
 type JobFunc = gtimer.JobFunc
 
-// Entry 是定时任务的入口。. md5:ebc0ffec0c819fa5
+// Entry is timing task entry.
 type Entry struct {
-	cron         *Cron         // 属于的Cron对象。. md5:b0d31cd3bc86924f
-	timerEntry   *gtimer.Entry // 相关的定时器条目。. md5:cc0c92f42e2f28c0
+	cron         *Cron         // Cron object belonged to.
+	timerEntry   *gtimer.Entry // Associated timer Entry.
 	schedule     *cronSchedule // Timed schedule object.
-	jobName      string        // 回调函数名称（地址信息）。. md5:7f130ad66e787420
+	jobName      string        // Callback function name(address info).
 	times        *gtype.Int    // Running times limit.
 	infinite     *gtype.Bool   // No times limit.
 	Name         string        // Entry name.
@@ -39,16 +38,16 @@ type Entry struct {
 }
 
 type doAddEntryInput struct {
-	Name        string          // Name 为手动控制此条目提供名称。. md5:ab6add69f0d6cead
-	Job         JobFunc         // Job是定时任务执行的回调函数。. md5:7faad71757692791
-	Ctx         context.Context // 作业的上下文。. md5:505a832c1cca7c0e
-	Times       int             // Times 指定了条目的运行限制次数。. md5:bb45eebc85ac5fcc
-	Pattern     string          // Pattern 是用于调度的 crontab 风格的字符串。. md5:2076c5de0b0a0288
-	IsSingleton bool            // Singleton 指定是否以单例模式执行定时任务。. md5:f98d6fb605fc538f
-	Infinite    bool            // Infinite表示此条目是否无限运行，不受时间限制。. md5:14267dbbffb84b38
+	Name        string          // Name names this entry for manual control.
+	Job         JobFunc         // Job is the callback function for timed task execution.
+	Ctx         context.Context // The context for the job.
+	Times       int             // Times specifies the running limit times for the entry.
+	Pattern     string          // Pattern is the crontab style string for scheduler.
+	IsSingleton bool            // Singleton specifies whether timed task executing in singleton mode.
+	Infinite    bool            // Infinite specifies whether this entry is running with no times limit.
 }
 
-// doAddEntry 创建并返回一个新的 Entry 对象。. md5:c29537f522377c29
+// doAddEntry creates and returns a new Entry object.
 func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	if in.Name != "" {
 		if c.Search(in.Name) != nil {
@@ -63,7 +62,7 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	if err != nil {
 		return nil, err
 	}
-	// 对于`times`没有限制，用于每秒检查调度的计时器。. md5:dce371ba28b68c21
+	// No limit for `times`, for timer checking scheduling every second.
 	entry := &Entry{
 		cron:         c,
 		schedule:     schedule,
@@ -78,10 +77,10 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	} else {
 		entry.Name = "cron-" + gconv.String(c.idGen.Add(1))
 	}
-// 当你添加一个定时任务时，不能让它立即运行。
-// 它在添加到计时器时不能开始执行。
-// 应该在将条目添加到Cron条目映射后开始运行，以防止在添加过程中（此时条目信息可能不完整）任务运行，从而可能导致恐慌。
-// md5:e2b503aef8166c84
+	// When you add a scheduled task, you cannot allow it to run.
+	// It cannot start running when added to timer.
+	// It should start running after the entry is added to the Cron entries map, to avoid the task
+	// from running during adding where the entries do not have the entry information, which might cause panic.
 	entry.timerEntry = gtimer.AddEntry(
 		in.Ctx,
 		time.Second,
@@ -95,51 +94,69 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	return entry, nil
 }
 
-// IsSingleton 判断这个条目是否是定时单例任务。. md5:171967c731b60f88
+// IsSingleton return whether this entry is a singleton timed task.
+
+// ff:
 func (e *Entry) IsSingleton() bool {
 	return e.timerEntry.IsSingleton()
 }
 
-// SetSingleton 设置以单例模式运行的条目。. md5:6c81a3a09d0ef0b1
+// SetSingleton sets the entry running in singleton mode.
+
+// ff:
+// enabled:
 func (e *Entry) SetSingleton(enabled bool) {
 	e.timerEntry.SetSingleton(enabled)
 }
 
-// SetTimes 设置条目可以运行的时间。. md5:663af054d5aab5e9
+// SetTimes sets the times which the entry can run.
+
+// ff:
+// times:
 func (e *Entry) SetTimes(times int) {
 	e.times.Set(times)
 	e.infinite.Set(false)
 }
 
-// Status 返回条目的状态。. md5:6a9d3438dc575881
+// Status returns the status of entry.
+
+// ff:
 func (e *Entry) Status() int {
 	return e.timerEntry.Status()
 }
 
-// SetStatus 设置条目的状态。. md5:ea0ecb4171f3f017
+// SetStatus sets the status of the entry.
+
+// ff:
+// status:
 func (e *Entry) SetStatus(status int) int {
 	return e.timerEntry.SetStatus(status)
 }
 
-// Start 开始运行入口函数。. md5:aa729d73eb626ca1
+// Start starts running the entry.
+
+// ff:
 func (e *Entry) Start() {
 	e.timerEntry.Start()
 }
 
-// Stop 停止运行条目。. md5:06d53148d6536ce9
+// Stop stops running the entry.
+
+// ff:
 func (e *Entry) Stop() {
 	e.timerEntry.Stop()
 }
 
-// Close 停止并从 cron 中移除条目。. md5:a2a5eee9228cd918
+// Close stops and removes the entry from cron.
+
+// ff:
 func (e *Entry) Close() {
 	e.cron.entries.Remove(e.Name)
 	e.timerEntry.Close()
 }
 
-// checkAndRun是核心定时任务检查逻辑。
-// 这个函数每秒被调用一次。
-// md5:e4a94345d01fd7df
+// checkAndRun is the core timing task check logic.
+// This function is called every second.
 func (e *Entry) checkAndRun(ctx context.Context) {
 	currentTime := time.Now()
 	if !e.schedule.checkMeetAndUpdateLastSeconds(ctx, currentTime) {
@@ -156,7 +173,7 @@ func (e *Entry) checkAndRun(ctx context.Context) {
 	case StatusReady, StatusRunning:
 		defer func() {
 			if exception := recover(); exception != nil {
-				// 捕获到异常，默认行为是将错误内容记录到日志中。. md5:9af43ee64f5795bf
+				// Exception caught, it logs the error content to logger in default behavior.
 				e.logErrorf(ctx,
 					`cron job "%s(%s)" end with error: %+v`,
 					e.jobName, e.schedule.pattern, exception,

@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
 
@@ -15,25 +14,31 @@ import (
 	"github.com/gogf/gf/v2/text/gregex"
 )
 
-// RuleResidentId 实现了 `resident-id` 规则：
-// 居民身份证号。
+// RuleResidentId implements `resident-id` rule:
+// Resident id number.
 //
-// 格式：resident-id
-// md5:f5c8c84eb6b02680
+// Format: resident-id
 type RuleResidentId struct{}
 
 func init() {
 	Register(RuleResidentId{})
 }
 
+
+// ff:
 func (r RuleResidentId) Name() string {
 	return "resident-id"
 }
 
+
+// ff:
 func (r RuleResidentId) Message() string {
 	return "The {field} value `{value}` is not a valid resident id number"
 }
 
+
+// ff:
+// in:
 func (r RuleResidentId) Run(in RunInput) error {
 	if r.checkResidentId(in.Value.String()) {
 		return nil

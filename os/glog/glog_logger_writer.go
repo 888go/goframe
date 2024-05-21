@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package glog
 
@@ -12,9 +11,13 @@ import (
 	"context"
 )
 
-// Write 实现了 io.Writer 接口。
-// 它只是使用 Print 函数打印内容。
-// md5:da123f9fe994f171
+// Write implements the io.Writer interface.
+// It just prints the content using Print.
+
+// ff:
+// err:
+// n:
+// p:
 func (l *Logger) Write(p []byte) (n int, err error) {
 	l.Header(false).Print(context.TODO(), string(bytes.TrimRight(p, "\r\n")))
 	return len(p), nil

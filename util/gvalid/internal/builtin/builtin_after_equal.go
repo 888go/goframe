@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
 
@@ -15,25 +14,31 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// RuleAfterEqual 实现了 `after-equal` 规则：
-// 日期时间值应该在字段 `field` 的值之后或等于该值。
+// RuleAfterEqual implements `after-equal` rule:
+// The datetime value should be after or equal to the value of field `field`.
 //
-// 格式：after-equal:field
-// md5:b4f07a240c382495
+// Format: after-equal:field
 type RuleAfterEqual struct{}
 
 func init() {
 	Register(RuleAfterEqual{})
 }
 
+
+// ff:
 func (r RuleAfterEqual) Name() string {
 	return "after-equal"
 }
 
+
+// ff:
 func (r RuleAfterEqual) Message() string {
 	return "The {field} value `{value}` must be after or equal to field {field1} value `{value1}`"
 }
 
+
+// ff:
+// in:
 func (r RuleAfterEqual) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

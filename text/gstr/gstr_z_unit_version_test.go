@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
+// go test *.go -bench=".*"
 
 package gstr_test
 
@@ -60,11 +59,9 @@ func Test_CompareVersionGo(t *testing.T) {
 		t.AssertEQ(gstr.CompareVersionGo("v0.0.0-20190626092158-b2ccc519800e", "0.0.0-20190626092158"), 0)
 		t.AssertEQ(gstr.CompareVersionGo("v0.0.0-20190626092159-b2ccc519800e", "0.0.0-20190626092158"), 1)
 
-// 特别是在Go语言中：
-// 特别是：
-// "v1.12.2-0.20200413154443-b17e3a6804fa" < "v1.12.2" // 表示 v1.12.2-0.20200413154443-b17e3a6804fa 版本早于 v1.12.2
-// "v1.12.3-0.20200413154443-b17e3a6804fa" > "v1.12.2" // 表示 v1.12.3-0.20200413154443-b17e3a6804fa 版本晚于 v1.12.2
-// md5:685fe05f97473463
+		// Specially in Golang:
+		// "v1.12.2-0.20200413154443-b17e3a6804fa" < "v1.12.2"
+		// "v1.12.3-0.20200413154443-b17e3a6804fa" > "v1.12.2"
 		t.AssertEQ(gstr.CompareVersionGo("v1.12.2-0.20200413154443-b17e3a6804fa", "v1.12.2"), -1)
 		t.AssertEQ(gstr.CompareVersionGo("v1.12.2", "v1.12.2-0.20200413154443-b17e3a6804fa"), 1)
 		t.AssertEQ(gstr.CompareVersionGo("v1.12.3-0.20200413154443-b17e3a6804fa", "v1.12.2"), 1)
@@ -72,9 +69,8 @@ func Test_CompareVersionGo(t *testing.T) {
 		t.AssertEQ(gstr.CompareVersionGo("v1.12.2-0.20200413154443-b17e3a6804fa", "v0.0.0-20190626092158-b2ccc519800e"), 1)
 		t.AssertEQ(gstr.CompareVersionGo("v1.12.2-0.20200413154443-b17e3a6804fa", "v1.12.2-0.20200413154444-b2ccc519800e"), -1)
 
-// 特别是在 Go 语言中：
-// 特别是在 v4.20.1+incompatible < v4.20.1 的情况下
-// md5:dc6d93f041f6a414
+		// Specially in Golang:
+		// "v4.20.1+incompatible" < "v4.20.1"
 		t.AssertEQ(gstr.CompareVersionGo("v4.20.0+incompatible", "4.20.0"), -1)
 		t.AssertEQ(gstr.CompareVersionGo("4.20.0", "v4.20.0+incompatible"), 1)
 		t.AssertEQ(gstr.CompareVersionGo("v4.20.0+incompatible", "4.20.1"), -1)
