@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 //
 
-package gset
+package gset//bm:集合类
 
 import (
 	"bytes"

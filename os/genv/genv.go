@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package genv provides operations for environment variables of system.
-package genv
+package genv//bm:环境变量类
 
 import (
 	"fmt"

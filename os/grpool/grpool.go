@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package grpool implements a goroutine reusable pool.
-package grpool
+package grpool//bm:协程类
 
 import (
 	"context"

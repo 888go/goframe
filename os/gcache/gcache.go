@@ -7,7 +7,7 @@
 // Package gcache provides kinds of cache management for process.
 //
 // It provides a concurrent-safe in-memory cache adapter for process in default.
-package gcache
+package gcache//bm:缓存类
 
 import (
 	"context"

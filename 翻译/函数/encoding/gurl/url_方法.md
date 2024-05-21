@@ -35,6 +35,7 @@
 
 [func Encode(str string) string {]
 str=文本
+ff=编码
 
 [func Decode(str string) (string, error) {]
 ff=解码

@@ -35,6 +35,7 @@
 
 [Interfaces() #左中括号##右中括号#interface{}]
 cz=Interfaces() []interface{}
+qm=取any数组
 
 [MapStrAny() map#左中括号#string#右中括号#interface{}]
 qm=取MapStrAny

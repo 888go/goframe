@@ -5,4 +5,4 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package ghash provides some classic hash functions(uint32/uint64) in go.
-package ghash
+package ghash//bm:哈希类

@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package genv_test
+package genv_test//bm:环境变量类_test
 
 import (
 	"os"

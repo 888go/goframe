@@ -35,6 +35,7 @@
 
 [func New(safe ...bool) *Set {]
 safe=并发安全
+ff=创建
 
 [func NewSet(safe ...bool) *Set {]
 ff=NewSet别名

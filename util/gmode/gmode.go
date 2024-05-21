@@ -7,7 +7,7 @@
 // Package gmode provides release mode management for project.
 //
 // It uses string to mark the mode instead of integer, which is convenient for configuration.
-package gmode
+package gmode//bm:环境类
 
 import (
 	"github.com/gogf/gf/v2/debug/gdebug"

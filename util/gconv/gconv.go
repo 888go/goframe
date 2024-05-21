@@ -7,7 +7,7 @@
 // Package gconv implements powerful and convenient converting functionality for any types of variables.
 //
 // This package should keep much less dependencies with other packages.
-package gconv
+package gconv//bm:转换类
 
 import (
 	"context"

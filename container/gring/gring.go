@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gring provides a concurrent-safe/unsafe ring(circular lists).
-package gring
+package gring//bm:循环链表类
 
 import (
 	"container/ring"

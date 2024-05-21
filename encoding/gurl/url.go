@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gurl provides useful API for URL handling.
-package gurl
+package gurl//bm:url类
 
 import (
 	"net/url"

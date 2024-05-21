@@ -35,6 +35,7 @@
 
 [func New(limit ...int) *Queue {]
 limit=队列长度
+ff=创建
 
 [func (q *Queue) Push(v interface{}) {]
 ff=入栈

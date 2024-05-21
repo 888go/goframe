@@ -35,6 +35,7 @@
 
 [func Quote(s string) string {]
 s=文本
+ff=转义特殊符号
 
 [func Validate(pattern string) error {]
 ff=表达式验证

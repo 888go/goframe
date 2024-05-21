@@ -36,6 +36,7 @@
 [func Register(name string, driver Driver) error {]
 driver=驱动
 name=名称
+ff=注册驱动
 
 [func New(node ConfigNode) (db DB, err error) {]
 ff=创建DB对象

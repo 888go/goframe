@@ -7,7 +7,7 @@
 // Package gtime provides functionality for measuring and displaying time.
 //
 // This package should keep much less dependencies with other packages.
-package gtime
+package gtime//bm:时间类
 
 import (
 	"context"

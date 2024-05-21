@@ -26,7 +26,7 @@ package %s
 import "github.com/gogf/gf/v2/os/gres"
 
 func init() {
-	if err := gres.Add("%s"); err != nil {
+	if err := gres.//bm:if err := 资源类.Add("%s"); err != nil {
 		panic("add binary content to resource manager failed: " + err.Error())
 	}
 }

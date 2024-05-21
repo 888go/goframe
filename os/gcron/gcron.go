@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gcron implements a cron pattern parser and job runner.
-package gcron
+package gcron//bm:定时cron类
 
 import (
 	"context"

@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with gm file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gset_test
+package gset_test//bm:集合类_test
 
 import (
 	"fmt"

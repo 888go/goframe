@@ -111,3 +111,6 @@ times=次数
 interval=间隔时长
 delay=延时加入
 ctx=上下文
+
+[func DefaultOptions() TimerOptions {]
+ff=取单例对象

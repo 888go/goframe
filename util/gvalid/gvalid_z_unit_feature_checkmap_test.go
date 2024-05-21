@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gvalid_test
+package gvalid_test//bm:效验类_test
 
 import (
 	"context"

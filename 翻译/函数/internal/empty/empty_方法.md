@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func IsNil(value interface{}, traceSource ...bool) bool {]
+ff=是否为Nil

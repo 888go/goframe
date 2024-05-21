@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gmd5 provides useful API for MD5 encryption algorithms.
-package gmd5
+package gmd5//bm:加密md5类
 
 import (
 	"crypto/md5"

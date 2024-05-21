@@ -38,6 +38,7 @@ urlTemplate=url模板
 currentPage=当前页
 pageSize=分页大小
 totalSize=总数量
+ff=创建
 
 [func (p *Page) NextPage() string {]
 ff=取下一页html

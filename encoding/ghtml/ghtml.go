@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package ghtml provides useful API for HTML content handling.
-package ghtml
+package ghtml//bm:html类
 
 import (
 	"html"

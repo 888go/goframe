@@ -6,7 +6,7 @@
 //
 
 // Package glist provides most commonly used doubly linked list container which also supports concurrent-safe/unsafe switch feature.
-package glist
+package glist//bm:链表类
 
 import (
 	"bytes"

@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gmlock implements a concurrent-safe memory-based locker.
-package gmlock
+package gmlock//bm:内存锁类
 
 var (
 	// Default locker.

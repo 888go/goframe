@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gsession implements manager and storage features for sessions.
-package gsession
+package gsession//bm:session类
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"

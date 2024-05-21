@@ -35,6 +35,7 @@
 
 [Server struct {]
 cz=Server struct {
+qm=服务
 
 [Router struct {]
 qm=路由

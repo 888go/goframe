@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtree
+package gtree//bm:树形类
 
 import (
 	"bytes"

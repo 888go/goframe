@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gpage provides useful paging functionality for web pages.
-package gpage
+package gpage//bm:分页类
 
 import (
 	"fmt"

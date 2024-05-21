@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func (m Metadata) Set(key string, value interface{}) {]
+ff=设置值

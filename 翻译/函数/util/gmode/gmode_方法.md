@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func Set(mode string) {]
+ff=设置值

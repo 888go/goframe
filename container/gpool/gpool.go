@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gpool provides object-reusable concurrent-safe pool.
-package gpool
+package gpool//bm:对象复用类
 
 import (
 	"context"

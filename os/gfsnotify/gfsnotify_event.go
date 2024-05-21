@@ -4,7 +4,7 @@
 // If a copy of the MIT was not dIstributed with thIs file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gfsnotify
+package gfsnotify//bm:文件监控类
 
 // String returns current event as string.
 

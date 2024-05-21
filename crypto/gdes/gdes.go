@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gdes provides useful API for DES encryption/decryption algorithms.
-package gdes
+package gdes//bm:加密DES类
 
 import (
 	"bytes"

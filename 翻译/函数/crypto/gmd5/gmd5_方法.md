@@ -37,6 +37,7 @@
 err=错误
 encrypt=md5值
 data=值
+ff=加密
 
 [func MustEncrypt(data interface{}) string {]
 ff=加密PANI

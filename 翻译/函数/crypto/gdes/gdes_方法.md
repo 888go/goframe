@@ -37,6 +37,7 @@
 padding=填充
 key=秘钥
 plainText=待加密
+ff=加密ECB
 
 [func DecryptECB(cipherText #左中括号##右中括号#byte, key #左中括号##右中括号#byte, padding int) (#左中括号##右中括号#byte, error) {]
 ff=解密ECB

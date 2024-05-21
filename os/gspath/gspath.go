@@ -9,7 +9,7 @@
 // It searches file internally with high performance in order by the directory adding sequence.
 // Note that:
 // If caching feature enabled, there would be a searching delay after adding/deleting files.
-package gspath
+package gspath//bm:文件搜索类
 
 import (
 	"context"

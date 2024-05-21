@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gres provides resource management and packing/unpacking feature between files and bytes.
-package gres
+package gres//bm:资源类
 
 const (
 	// Separator for directories.

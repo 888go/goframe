@@ -250,7 +250,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		} else {
 			return *gtime.New()
 		}
-	case "*gtime.Time":
+	case "*gtime.Time"://bm:case "*gtime.Time", "*时间类.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return v

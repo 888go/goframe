@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func (sp *SPath) Set(path string) (realPath string, err error) {]
+ff=设置值

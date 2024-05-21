@@ -35,6 +35,7 @@
 
 [func Intn(max int) int {]
 max=最大值
+ff=整数
 
 [func B(n int) #左中括号##右中括号#byte {]
 ff=字节集

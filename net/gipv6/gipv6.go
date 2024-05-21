@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gipv6 provides useful API for IPv6 address handling.
-package gipv6
+package gipv6//bm:ipv6类
 
 import "github.com/gogf/gf/v2/text/gregex"
 

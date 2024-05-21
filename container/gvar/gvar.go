@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gvar provides an universal variable type, like generics.
-package gvar
+package gvar//bm:泛型类
 
 import (
 	"time"

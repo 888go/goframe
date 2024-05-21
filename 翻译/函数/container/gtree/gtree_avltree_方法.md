@@ -38,3 +38,6 @@ ff=取MapStrAny
 
 [func (tree *AVLTree) Iterator(f func(key, value interface{}) bool) {]
 ff=X遍历
+
+[func (tree *AVLTree) Set(key interface{}, value interface{}) {]
+ff=设置值

@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 //
 
-package gcmd
+package gcmd//bm:cmd类
 
 import (
 	"context"

@@ -36,6 +36,7 @@
 [func Gzip(data #左中括号##右中括号#byte, level ...int) (#左中括号##右中括号#byte, error) {]
 level=可选压缩级别
 data=字节集
+ff=Gzip压缩字节集
 
 [func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {]
 ff=Gzip压缩文件

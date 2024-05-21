@@ -36,6 +36,7 @@
 [func Mkdir(path string) (err error) {]
 err=错误
 path=目录
+ff=创建目录
 
 [func Create(path string) (*os.File, error) {]
 ff=创建文件与目录

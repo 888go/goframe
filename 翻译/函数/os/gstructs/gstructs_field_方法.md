@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func (f *Field) IsNil(traceSource ...bool) bool {]
+ff=是否为Nil

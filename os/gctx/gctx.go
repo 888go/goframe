@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gctx wraps context.Context and provides extra context features.
-package gctx
+package gctx//bm:上下文类
 
 import (
 	"context"

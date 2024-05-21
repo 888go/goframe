@@ -36,6 +36,7 @@
 [func Keys(mapOrStruct interface{}) (keysOrAttrs #左中括号##右中括号#string) {]
 keysOrAttrs=键或属性
 mapOrStruct=map或Struct
+ff=取所有名称
 
 [func Values(mapOrStruct interface{}) (values #左中括号##右中括号#interface{}) {]
 ff=取所有值

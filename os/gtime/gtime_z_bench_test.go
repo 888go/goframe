@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtime_test
+package gtime_test//bm:时间类_test
 
 import (
 	"testing"

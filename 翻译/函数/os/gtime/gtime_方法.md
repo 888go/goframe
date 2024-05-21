@@ -96,3 +96,6 @@ s=文本
 [func FuncCost(f func()) time.Duration {]
 ff=取函数执行时长
 f=执行函数
+
+[func Timestamp() int64 {]
+ff=取时间戳秒

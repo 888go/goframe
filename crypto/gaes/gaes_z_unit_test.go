@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gaes_test
+package gaes_test//bm:加密aes类_test
 
 import (
 	"testing"

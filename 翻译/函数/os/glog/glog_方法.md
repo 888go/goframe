@@ -35,3 +35,6 @@
 
 [func SetDefaultLogger(l *Logger) {]
 ff=设置默认日志类
+
+[func DefaultLogger() *Logger {]
+ff=取默认日志类

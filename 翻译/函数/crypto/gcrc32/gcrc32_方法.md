@@ -35,3 +35,4 @@
 
 [func Encrypt(v interface{}) uint32 {]
 v=待加密值
+ff=加密

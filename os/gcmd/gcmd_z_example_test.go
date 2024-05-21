@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gcmd_test
+package gcmd_test//bm:cmd类_test
 
 import (
 	"context"

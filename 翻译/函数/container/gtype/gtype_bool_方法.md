@@ -35,3 +35,6 @@
 
 [func (v *Bool) Val() bool {]
 ff=取值
+
+[func (v *Bool) Set(value bool) (old bool) {]
+ff=设置值

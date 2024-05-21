@@ -35,3 +35,4 @@
 
 [func S(data ...#左中括号##右中括号#byte) string {]
 data=参数
+ff=生成

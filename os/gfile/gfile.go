@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gfile provides easy-to-use operations for file system.
-package gfile
+package gfile//bm:文件类
 
 import (
 	"os"

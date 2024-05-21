@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gclient provides convenient http client functionalities.
-package gclient
+package gclient//bm:网页类
 
 import (
 	"crypto/rand"

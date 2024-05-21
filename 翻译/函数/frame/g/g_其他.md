@@ -35,6 +35,7 @@
 
 [List        = #左中括号##右中括号#Map]
 cz=List #等号# []Map
+qm=Map数组
 
 [ListAnyAny  = #左中括号##右中括号#MapAnyAny]
 qm=MapAnyAny数组

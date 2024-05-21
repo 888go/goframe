@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gbuild manages the build-in variables from "gf build".
-package gbuild
+package gbuild//bm:构建信息类
 
 import (
 	"context"

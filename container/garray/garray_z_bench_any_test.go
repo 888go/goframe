@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package garray_test
+package garray_test//bm:数组类_test
 
 import (
 	"testing"

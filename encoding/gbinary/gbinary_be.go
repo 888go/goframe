@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gbinary
+package gbinary//bm:字节集类
 
 import (
 	"bytes"

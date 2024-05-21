@@ -11,7 +11,7 @@
 // Redis Commands Official: https://redis.io/commands
 //
 // Redis Chinese Documentation: http://redisdoc.com/
-package gredis
+package gredis//bm:redis类
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"

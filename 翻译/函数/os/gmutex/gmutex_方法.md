@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func New() *RWMutex {]
+ff=创建

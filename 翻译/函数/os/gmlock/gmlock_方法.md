@@ -35,6 +35,7 @@
 
 [func Lock(key string) {]
 key=名称
+ff=写锁定
 
 [func TryLock(key string) bool {]
 ff=非阻塞写锁定

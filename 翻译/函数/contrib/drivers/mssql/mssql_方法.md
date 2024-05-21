@@ -36,3 +36,4 @@
 [func (d *Driver) GetChars() (charLeft string, charRight string) {]
 charRight=右字符
 charLeft=左字符
+ff=底层取数据库安全字符

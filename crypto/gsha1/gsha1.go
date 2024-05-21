@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gsha1 provides useful API for SHA1 encryption algorithms.
-package gsha1
+package gsha1//bm:加密sha1类
 
 import (
 	"crypto/sha1"

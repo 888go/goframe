@@ -35,6 +35,7 @@
 
 [func Encrypt(v interface{}) string {]
 v=值
+ff=加密
 
 [func EncryptFile(path string) (encrypt string, err error) {]
 ff=加密文件

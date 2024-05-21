@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gdes_test
+package gdes_test//bm:加密DES类_test
 
 import (
 	"encoding/hex"

@@ -37,6 +37,7 @@
 err=错误
 res=map值
 data=字节集
+ff=取Map
 
 [func Encode(data map#左中括号#string#右中括号#interface{}) (res #左中括号##右中括号#byte, err error) {]
 ff=Map到ini

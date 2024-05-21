@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-// Package gcharset implements character-set conversion functionality.
+// Package gcharset//bm:// Package_gcharset implements character-set conversion functionality.
 //
 // Supported Character Set:
 //

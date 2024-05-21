@@ -47,3 +47,6 @@ ctx=上下文
 
 [func GetInitCtx() context.Context {]
 ff=取初始化上下文
+
+[func New() context.Context {]
+ff=创建

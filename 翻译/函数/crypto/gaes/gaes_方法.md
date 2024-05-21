@@ -55,3 +55,6 @@ plainText=待加密
 ff=解密CFB
 key=秘钥
 cipherText=待解密
+
+[func Encrypt(plainText #左中括号##右中括号#byte, key #左中括号##右中括号#byte, iv ...#左中括号##右中括号#byte) (#左中括号##右中括号#byte, error) {]
+ff=Encrypt别名

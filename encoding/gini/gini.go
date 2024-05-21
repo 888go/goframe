@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gini provides accessing and converting for INI content.
-package gini
+package gini//bm:ini类
 
 import (
 	"bufio"

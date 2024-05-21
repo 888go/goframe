@@ -36,6 +36,7 @@
 [func New(value interface{}, safe ...bool) *Var {]
 safe=并发安全
 value=值
+ff=创建
 
 [func (v *Var) Copy() *Var {]
 ff=深拷贝

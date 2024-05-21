@@ -33,13 +33,5 @@
 # //zj:
 # 备注结束
 
-[func (c *Client) Clone() *Client {]
-ff=取副本
-
-[func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {]
-ff=创建TLS配置
-keyFile=key路径
-crtFile=crt路径
-
-[func New() *Client {]
-ff=创建
+[package garray]
+bm=数组类

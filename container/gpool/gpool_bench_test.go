@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gpool_test
+package gpool_test//bm:对象复用类_test
 
 import (
 	"sync"

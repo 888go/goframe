@@ -15,7 +15,7 @@
 // 3. Support dynamic queue size(unlimited queue size);
 //
 // 4. Blocking when reading data from queue;
-package gqueue
+package gqueue//bm:队列类
 
 import (
 	"math"

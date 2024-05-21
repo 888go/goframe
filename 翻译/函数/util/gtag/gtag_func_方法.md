@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func Set(name, value string) {]
+ff=设置值

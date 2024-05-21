@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package grand provides high performance random bytes/number/string generation functionality.
-package grand
+package grand//bm:随机类
 
 import (
 	"encoding/binary"

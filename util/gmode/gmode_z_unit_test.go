@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gmode_test
+package gmode_test//bm:环境类_test
 
 import (
 	"testing"

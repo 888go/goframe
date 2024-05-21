@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func (s *Session) Set(key string, value interface{}) (err error) {]
+ff=设置值

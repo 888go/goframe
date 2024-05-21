@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gyaml provides accessing and converting for YAML content.
-package gyaml
+package gyaml//bm:yaml类
 
 import (
 	"bytes"

@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func (l *List) Iterator(f func(e *Element) bool) {]
+ff=X遍历

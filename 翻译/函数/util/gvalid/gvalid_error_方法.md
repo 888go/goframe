@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[func (e *validationError) Strings() (errs #左中括号##右中括号#string)]
+ff=取文本数组

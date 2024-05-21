@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gproc implements management and communication for processes.
-package gproc
+package gproc//bm:进程类
 
 import (
 	"os"

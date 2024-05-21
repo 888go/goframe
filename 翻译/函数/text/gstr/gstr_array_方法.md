@@ -36,6 +36,7 @@
 [func SearchArray(a #左中括号##右中括号#string, s string) int {]
 s=待查找值
 a=数组
+ff=数组查找
 
 [func InArray(a #左中括号##右中括号#string, s string) bool {]
 ff=数组是否存在

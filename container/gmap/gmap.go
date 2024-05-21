@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gmap provides most commonly used map container which also support concurrent-safe/unsafe switch feature.
-package gmap
+package gmap//bm:map类
 
 type (
 	Map     = AnyAnyMap // Map is alias of AnyAnyMap.

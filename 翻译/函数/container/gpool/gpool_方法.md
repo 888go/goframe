@@ -37,6 +37,7 @@
 expireFunc=过期销毁回调函数
 newFunc=新创建回调函数
 ttl=过期时长
+ff=创建
 
 [func (p *Pool) Put(value interface{}) error {]
 ff=入栈

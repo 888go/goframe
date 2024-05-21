@@ -75,3 +75,6 @@ ff=MapToEnv别名
 [func Filter(envs #左中括号##右中括号#string) #左中括号##右中括号#string {]
 ff=数组去重
 envs=数组
+
+[func All() #左中括号##右中括号#string {]
+ff=取全部

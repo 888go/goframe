@@ -17,7 +17,7 @@ type Meta struct{}
 
 const (
 	metaAttributeName = "Meta"       // metaAttributeName is the attribute name of metadata in struct.
-	metaTypeName      = "gmeta.Meta" // metaTypeName is for type string comparison.
+	metaTypeName      = "gmeta.Meta"//bm:= "元数据类.Meta" // metaTypeName is for type string comparison.
 )
 
 // Data retrieves and returns all metadata from `object`.

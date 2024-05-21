@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 //
 
-package gdb
+package gdb//bm:db类
 
 import (
 	"context"

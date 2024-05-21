@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gcrc32 provides useful API for CRC32 encryption algorithms.
-package gcrc32
+package gcrc32//bm:加密crc32类
 
 import (
 	"hash/crc32"

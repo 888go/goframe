@@ -98,3 +98,6 @@ ctx=上下文
 [func (c *Config) MustData(ctx context.Context) map#左中括号#string#右中括号#interface{} {]
 ff=取MapPANI
 ctx=上下文
+
+[func New() (*Config, error) {]
+ff=创建

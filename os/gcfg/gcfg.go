@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gcfg provides reading, caching and managing for configuration.
-package gcfg
+package gcfg//bm:配置类
 
 import (
 	"context"

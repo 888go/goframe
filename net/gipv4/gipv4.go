@@ -6,7 +6,7 @@
 //
 
 // Package gipv4 provides useful API for IPv4 address handling.
-package gipv4
+package gipv4//bm:ipv4类
 
 import (
 	"encoding/binary"

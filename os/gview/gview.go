@@ -8,7 +8,7 @@
 //
 // Reserved template variable names:
 // I18nLanguage: Assign this variable to define i18n language for each page.
-package gview
+package gview//bm:模板类
 
 import (
 	"context"

@@ -35,6 +35,7 @@
 
 [func Encode(src #左中括号##右中括号#byte) #左中括号##右中括号#byte {]
 src=字节集
+ff=字节集编码
 
 [func EncodeString(src string) string {]
 ff=文本编码

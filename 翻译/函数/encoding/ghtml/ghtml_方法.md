@@ -35,6 +35,7 @@
 
 [func StripTags(s string) string {]
 s=html文本
+ff=删除HTML标记
 
 [func Entities(s string) string {]
 ff=编码

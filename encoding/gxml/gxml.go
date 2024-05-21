@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gxml provides accessing and converting for XML content.
-package gxml
+package gxml//bm:xml类
 
 import (
 	"strings"

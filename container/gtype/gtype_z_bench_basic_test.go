@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*" -benchmem
 
-package gtype_test
+package gtype_test//bm:安全变量类_test
 
 import (
 	"strconv"

@@ -35,6 +35,7 @@
 
 [func New(safe ...bool) *Map {]
 safe=并发安全
+ff=创建
 
 [func NewFrom(data map#左中括号#interface{}#右中括号#interface{}, safe ...bool) *Map {]
 ff=创建并从Map

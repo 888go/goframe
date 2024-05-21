@@ -35,6 +35,7 @@
 
 [func Byte(any interface{}) byte {]
 any=值
+ff=取字节
 
 [func Bytes(any interface{}) #左中括号##右中括号#byte {]
 ff=取字节集

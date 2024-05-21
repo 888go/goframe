@@ -35,6 +35,7 @@
 
 [func New(safe ...bool) *Array {]
 safe=并发安全
+ff=创建
 
 [func NewArray(safe ...bool) *Array {]
 ff=NewArray别名

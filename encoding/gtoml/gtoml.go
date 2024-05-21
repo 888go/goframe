@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gtoml provides accessing and converting for TOML content.
-package gtoml
+package gtoml//bm:toml类
 
 import (
 	"bytes"

@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gbase64 provides useful API for BASE64 encoding/decoding algorithm.
-package gbase64
+package gbase64//bm:编码base64类
 
 import (
 	"encoding/base64"

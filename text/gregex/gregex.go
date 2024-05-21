@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gregex provides high performance API for regular expression functionality.
-package gregex
+package gregex//bm:正则类
 
 import (
 	"regexp"
