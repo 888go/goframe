@@ -35,6 +35,8 @@
 
 [func (v *Byte) Set(value byte) (old byte) {]
 ff=设置值
+yx=true
 
 [func (v *Byte) Val() byte {]
 ff=取值
+yx=true

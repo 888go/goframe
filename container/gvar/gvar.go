@@ -60,6 +60,7 @@ func (v *Var) Clone() *Var {
 // Set sets `value` to `v`, and returns the old value.
 
 // ff:设置值
+// yx:true
 // old:
 // value:
 func (v *Var) Set(value interface{}) (old interface{}) {
@@ -77,6 +78,7 @@ func (v *Var) Set(value interface{}) (old interface{}) {
 // Val returns the current value of `v`.
 
 // ff:取值
+// yx:true
 func (v *Var) Val() interface{} {
 	if v == nil {
 		return nil
@@ -99,6 +101,7 @@ func (v *Var) Interface() interface{} {
 // Bytes converts and returns `v` as []byte.
 
 // ff:取字节集
+// yx:true
 func (v *Var) Bytes() []byte {
 	return gconv.Bytes(v.Val())
 }
@@ -113,6 +116,7 @@ func (v *Var) String() string {
 // Bool converts and returns `v` as bool.
 
 // ff:取布尔
+// yx:true
 func (v *Var) Bool() bool {
 	return gconv.Bool(v.Val())
 }
@@ -148,6 +152,7 @@ func (v *Var) Int32() int32 {
 // Int64 converts and returns `v` as int64.
 
 // ff:取整数64位
+// yx:true
 func (v *Var) Int64() int64 {
 	return gconv.Int64(v.Val())
 }
@@ -183,6 +188,7 @@ func (v *Var) Uint32() uint32 {
 // Uint64 converts and returns `v` as uint64.
 
 // ff:取正整数64位
+// yx:true
 func (v *Var) Uint64() uint64 {
 	return gconv.Uint64(v.Val())
 }
@@ -190,6 +196,7 @@ func (v *Var) Uint64() uint64 {
 // Float32 converts and returns `v` as float32.
 
 // ff:取小数32位
+// yx:true
 func (v *Var) Float32() float32 {
 	return gconv.Float32(v.Val())
 }
@@ -197,6 +204,7 @@ func (v *Var) Float32() float32 {
 // Float64 converts and returns `v` as float64.
 
 // ff:取小数64位
+// yx:true
 func (v *Var) Float64() float64 {
 	return gconv.Float64(v.Val())
 }
@@ -224,6 +232,7 @@ func (v *Var) Duration() time.Duration {
 // eg: Y-m-d H:i:s.
 
 // ff:取gtime时间类
+// yx:true
 // format:
 func (v *Var) GTime(format ...string) *gtime.Time {
 	return gconv.GTime(v.Val(), format...)

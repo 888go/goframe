@@ -35,9 +35,11 @@
 
 [func (vs Vars) Strings() (s #左中括号##右中括号#string) {]
 ff=取文本数组
+yx=true
 
 [func (vs Vars) Interfaces() (s #左中括号##右中括号#interface{}) {]
 ff=取any数组
+yx=true
 
 [func (vs Vars) Float32s() (s #左中括号##右中括号#float32) {]
 ff=取小数32位数组
@@ -49,6 +51,7 @@ s=数组
 
 [func (vs Vars) Ints() (s #左中括号##右中括号#int) {]
 ff=取整数数组
+yx=true
 
 [func (vs Vars) Int8s() (s #左中括号##右中括号#int8) {]
 ff=取整数8位数组
@@ -68,6 +71,7 @@ s=数组
 
 [func (vs Vars) Uints() (s #左中括号##右中括号#uint) {]
 ff=取正整数数组
+yx=true
 
 [func (vs Vars) Uint8s() (s #左中括号##右中括号#uint8) {]
 ff=取正整数8位数组

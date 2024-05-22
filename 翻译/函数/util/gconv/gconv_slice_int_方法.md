@@ -44,6 +44,7 @@ ff=SliceInt64别名
 
 [func Ints(any interface{}) #左中括号##右中括号#int {]
 ff=取整数数组
+yx=true
 
 [func Int32s(any interface{}) #左中括号##右中括号#int32 {]
 ff=取整数32位数组

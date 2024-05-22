@@ -56,6 +56,7 @@ func Byte(any interface{}) byte {
 // Bytes converts `any` to []byte.
 
 // ff:取字节集
+// yx:true
 // any:
 func Bytes(any interface{}) []byte {
 	if any == nil {
@@ -234,6 +235,7 @@ func String(any interface{}) string {
 // It returns false if `any` is: false, "", 0, "false", "off", "no", empty slice/map.
 
 // ff:取布尔
+// yx:true
 // any:
 func Bool(any interface{}) bool {
 	if any == nil {

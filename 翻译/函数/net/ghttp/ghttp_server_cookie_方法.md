@@ -45,6 +45,7 @@ key=名称
 
 [func (c *Cookie) Set(key, value string) {]
 ff=设置值
+yx=true
 
 [func (c *Cookie) SetCookie(key, value, domain, path string, maxAge time.Duration, options ...CookieOptions) {]
 ff=设置cookie

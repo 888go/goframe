@@ -24,6 +24,7 @@ func SliceStr(any interface{}) []string {
 // Strings converts `any` to []string.
 
 // ff:取文本数组
+// yx:true
 // any:
 func Strings(any interface{}) []string {
 	if any == nil {

@@ -42,6 +42,7 @@ func (v *Int32) Clone() *Int32 {
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
 
 // ff:设置值
+// yx:true
 // old:
 // value:
 func (v *Int32) Set(value int32) (old int32) {
@@ -51,6 +52,7 @@ func (v *Int32) Set(value int32) (old int32) {
 // Val atomically loads and returns t.value.
 
 // ff:取值
+// yx:true
 func (v *Int32) Val() int32 {
 	return atomic.LoadInt32(&v.value)
 }

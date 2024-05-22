@@ -35,9 +35,12 @@
 
 [func (tree *RedBlackTree) Set(key interface{}, value interface{}) {]
 ff=设置值
+yx=true
 
 [func (tree *RedBlackTree) MapStrAny() map#左中括号#string#右中括号#interface{} {]
 ff=取MapStrAny
+yx=true
 
 [func (tree *RedBlackTree) Iterator(f func(key, value interface{}) bool) {]
 ff=X遍历
+yx=true

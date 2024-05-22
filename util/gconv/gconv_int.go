@@ -72,6 +72,7 @@ func Int32(any interface{}) int32 {
 // Int64 converts `any` to int64.
 
 // ff:取整数64位
+// yx:true
 // any:
 func Int64(any interface{}) int64 {
 	if any == nil {

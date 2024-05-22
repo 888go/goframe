@@ -35,3 +35,4 @@
 
 [func (s *StorageBase) Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {]
 ff=设置值
+yx=true

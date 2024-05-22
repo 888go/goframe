@@ -517,6 +517,7 @@ func (a *SortedIntArray) Slice() []int {
 // Interfaces returns current array as []interface{}.
 
 // ff:取any数组
+// yx:true
 func (a *SortedIntArray) Interfaces() []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -770,6 +771,7 @@ func (a *SortedIntArray) CountValues() map[int]int {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 // v:
 // k:

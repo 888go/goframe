@@ -68,6 +68,7 @@ func NewListMapFrom(data map[interface{}]interface{}, safe ...bool) *ListMap {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 func (m *ListMap) Iterator(f func(key, value interface{}) bool) {
 	m.IteratorAsc(f)
@@ -165,6 +166,7 @@ func (m *ListMap) Map() map[interface{}]interface{} {
 // MapStrAny returns a copy of the underlying data of the map as map[string]interface{}.
 
 // ff:取MapStrAny
+// yx:true
 func (m *ListMap) MapStrAny() map[string]interface{} {
 	m.mu.RLock()
 	var node *gListMapNode
@@ -213,6 +215,7 @@ func (m *ListMap) FilterEmpty() {
 // Set sets key-value to the map.
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (m *ListMap) Set(key interface{}, value interface{}) {

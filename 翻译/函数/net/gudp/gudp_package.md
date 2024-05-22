@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[package gudp]
+bm=udp类

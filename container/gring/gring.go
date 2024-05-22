@@ -48,6 +48,7 @@ func New(cap int, safe ...bool) *Ring {
 // Val returns the item's value of current position.
 
 // ff:取值
+// yx:true
 func (r *Ring) Val() interface{} {
 	var value interface{}
 	r.mu.RLock()
@@ -103,6 +104,7 @@ func (r *Ring) checkAndUpdateLenAndCap() {
 // Set sets value to the item of current position.
 
 // ff:设置值
+// yx:true
 // value:
 func (r *Ring) Set(value interface{}) *Ring {
 	r.mu.Lock()

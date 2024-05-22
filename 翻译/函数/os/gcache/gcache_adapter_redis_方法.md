@@ -35,6 +35,7 @@
 
 [func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (err error) {]
 ff=设置值
+yx=true
 
 [func (c *AdapterRedis) SetMap(ctx context.Context, data map#左中括号#interface{}#右中括号#interface{}, duration time.Duration) error {]
 ff=设置Map

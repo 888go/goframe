@@ -539,6 +539,7 @@ func (a *SortedArray) Slice() []interface{} {
 // Interfaces returns current array as []interface{}.
 
 // ff:取any数组
+// yx:true
 func (a *SortedArray) Interfaces() []interface{} {
 	return a.Slice()
 }
@@ -790,6 +791,7 @@ func (a *SortedArray) CountValues() map[interface{}]int {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 func (a *SortedArray) Iterator(f func(k int, v interface{}) bool) {
 	a.IteratorAsc(f)

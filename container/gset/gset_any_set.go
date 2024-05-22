@@ -64,6 +64,7 @@ func NewFrom(items interface{}, safe ...bool) *Set {
 // if `f` returns true then continue iterating; or false to stop.
 
 // ff:X遍历
+// yx:true
 // f:
 func (set *Set) Iterator(f func(v interface{}) bool) {
 	set.mu.RLock()

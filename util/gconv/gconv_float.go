@@ -15,6 +15,7 @@ import (
 // Float32 converts `any` to float32.
 
 // ff:取小数32位
+// yx:true
 // any:
 func Float32(any interface{}) float32 {
 	if any == nil {
@@ -39,6 +40,7 @@ func Float32(any interface{}) float32 {
 // Float64 converts `any` to float64.
 
 // ff:取小数64位
+// yx:true
 // any:
 func Float64(any interface{}) float64 {
 	if any == nil {

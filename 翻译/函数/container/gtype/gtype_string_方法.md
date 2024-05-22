@@ -35,6 +35,8 @@
 
 [func (v *String) Set(value string) (old string) {]
 ff=设置值
+yx=true
 
 [func (v *String) Val() string {]
 ff=取值
+yx=true

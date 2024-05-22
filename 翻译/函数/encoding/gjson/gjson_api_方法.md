@@ -38,6 +38,7 @@ ff=取泛型类
 
 [func (j *Json) IsNil() bool {]
 ff=是否为Nil
+yx=true
 
 [func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {]
 ff=取值
@@ -61,6 +62,7 @@ pattern=表达式
 
 [func (j *Json) Set(pattern string, value interface{}) error {]
 ff=设置值
+yx=true
 
 [func (j *Json) MustSet(pattern string, value interface{}) {]
 ff=设置值PANI

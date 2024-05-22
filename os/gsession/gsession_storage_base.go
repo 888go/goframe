@@ -67,6 +67,7 @@ func (s *StorageBase) GetSize(ctx context.Context, sessionId string) (size int, 
 // The parameter `ttl` specifies the TTL for the session id (not for the key-value pair).
 
 // ff:设置值
+// yx:true
 // ttl:
 // value:
 // key:

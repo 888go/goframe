@@ -27,7 +27,7 @@ type Error interface {
 	Map() map[string]error
 	Maps() map[string]map[string]error
 	String() string
-	Strings() (errs []string) //qm:取文本数组 cz:Strings() (errs []string)     
+	Strings() (errs []string) //qm:取文本数组 cz:Strings() (errs []string) yx:true     
 }
 
 // validationError is the validation error for validation result.
@@ -250,8 +250,9 @@ func (e *validationError) Error() string {
 // Strings returns all error messages as string array.
 
 // ff:取文本数组
+// yx:true
 // errs:
-func (e *validationError) Strings() (errs []string) //qm:取文本数组 cz:Strings() (errs []string)      {
+func (e *validationError) Strings() (errs []string) //qm:取文本数组 cz:Strings() (errs []string) yx:true      {
 	if e == nil {
 		return []string{}
 	}

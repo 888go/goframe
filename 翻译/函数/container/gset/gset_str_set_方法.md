@@ -44,6 +44,7 @@ items=值
 
 [func (set *StrSet) Iterator(f func(v string) bool) {]
 ff=X遍历
+yx=true
 
 [func (set *StrSet) Add(item ...string) {]
 ff=加入

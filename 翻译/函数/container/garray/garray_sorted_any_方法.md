@@ -157,6 +157,7 @@ ff=取切片
 
 [func (a *SortedArray) Interfaces() #左中括号##右中括号#interface{} {]
 ff=取any数组
+yx=true
 
 [func (a *SortedArray) Contains(value interface{}) bool {]
 ff=是否存在
@@ -215,6 +216,7 @@ ff=统计
 
 [func (a *SortedArray) Iterator(f func(k int, v interface{}) bool) {]
 ff=X遍历
+yx=true
 
 [func (a *SortedArray) IteratorAsc(f func(k int, v interface{}) bool) {]
 ff=遍历升序

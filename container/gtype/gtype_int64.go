@@ -42,6 +42,7 @@ func (v *Int64) Clone() *Int64 {
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
 
 // ff:设置值
+// yx:true
 // old:
 // value:
 func (v *Int64) Set(value int64) (old int64) {
@@ -51,6 +52,7 @@ func (v *Int64) Set(value int64) (old int64) {
 // Val atomically loads and returns t.value.
 
 // ff:取值
+// yx:true
 func (v *Int64) Val() int64 {
 	return atomic.LoadInt64(&v.value)
 }

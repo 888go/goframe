@@ -33,6 +33,10 @@
 # //zj:
 # 备注结束
 
+[func Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error {]
+yx=true
+ff=设置值
+
 [func SetMap(ctx context.Context, data map#左中括号#interface{}#右中括号#interface{}, duration time.Duration) error {]
 ff=设置Map
 duration=时长
@@ -197,6 +201,3 @@ ctx=上下文
 [func MustValues(ctx context.Context) #左中括号##右中括号#interface{} {]
 ff=取所有值PANI
 ctx=上下文
-
-[func Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error {]
-ff=设置值

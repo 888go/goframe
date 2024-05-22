@@ -39,3 +39,4 @@ ctx=上下文
 
 [func (buf *structuredBuffer) Bytes() #左中括号##右中括号#byte {]
 ff=取字节集
+yx=true

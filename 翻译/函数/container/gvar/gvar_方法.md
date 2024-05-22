@@ -46,15 +46,19 @@ ff=浅拷贝
 
 [func (v *Var) Set(value interface{}) (old interface{}) {]
 ff=设置值
+yx=true
 
 [func (v *Var) Val() interface{} {]
 ff=取值
+yx=true
 
 [func (v *Var) Bytes() #左中括号##右中括号#byte {]
 ff=取字节集
+yx=true
 
 [func (v *Var) Bool() bool {]
 ff=取布尔
+yx=true
 
 [func (v *Var) Int() int {]
 ff=取整数
@@ -70,6 +74,7 @@ ff=取整数32位
 
 [func (v *Var) Int64() int64 {]
 ff=取整数64位
+yx=true
 
 [func (v *Var) Uint() uint {]
 ff=取正整数
@@ -85,12 +90,15 @@ ff=取正整数32位
 
 [func (v *Var) Uint64() uint64 {]
 ff=取正整数64位
+yx=true
 
 [func (v *Var) Float32() float32 {]
 ff=取小数32位
+yx=true
 
 [func (v *Var) Float64() float64 {]
 ff=取小数64位
+yx=true
 
 [func (v *Var) Time(format ...string) time.Time {]
 ff=取时间类
@@ -101,3 +109,4 @@ ff=取时长
 
 [func (v *Var) GTime(format ...string) *gtime.Time {]
 ff=取gtime时间类
+yx=true

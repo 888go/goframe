@@ -15,6 +15,7 @@ import (
 // IsNil checks whether `value` is nil, especially for interface{} type value.
 
 // ff:是否为Nil
+// yx:true
 // value:
 func IsNil(value interface{}) bool {
 	return empty.IsNil(value)

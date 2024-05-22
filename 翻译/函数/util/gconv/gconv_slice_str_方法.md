@@ -38,3 +38,4 @@ ff=SliceStr别名
 
 [func Strings(any interface{}) #左中括号##右中括号#string {]
 ff=取文本数组
+yx=true

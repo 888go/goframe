@@ -35,4 +35,4 @@
 
 [Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error]
 qm=设置值
-cz=Set(
+cz=Set( yx:true

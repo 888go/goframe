@@ -13,6 +13,7 @@ import (
 // Set sets key-value pair into metadata.
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (m Metadata) Set(key string, value interface{}) {

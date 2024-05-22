@@ -35,6 +35,8 @@
 
 [func (j *Json) MapStrAny() map#左中括号#string#右中括号#interface{} {]
 ff=取MapStrAny
+yx=true
 
 [func (j *Json) Interfaces() #左中括号##右中括号#interface{} {]
 ff=取any数组
+yx=true

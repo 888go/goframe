@@ -55,6 +55,7 @@ func NewStrSetFrom(items []string, safe ...bool) *StrSet {
 // if `f` returns true then continue iterating; or false to stop.
 
 // ff:X遍历
+// yx:true
 // f:
 // v:
 func (set *StrSet) Iterator(f func(v string) bool) {

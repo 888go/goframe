@@ -34,4 +34,5 @@
 # 备注结束
 
 [func IsNil(value interface{}) bool {]
+yx=true
 ff=是否为Nil

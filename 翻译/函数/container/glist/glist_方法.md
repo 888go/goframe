@@ -34,4 +34,5 @@
 # 备注结束
 
 [func (l *List) Iterator(f func(e *Element) bool) {]
+yx=true
 ff=X遍历

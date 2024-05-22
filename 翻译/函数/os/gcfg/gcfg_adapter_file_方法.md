@@ -35,3 +35,4 @@
 
 [func (a *AdapterFile) Set(pattern string, value interface{}) error {]
 ff=设置值
+yx=true

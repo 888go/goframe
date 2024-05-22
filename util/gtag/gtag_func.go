@@ -21,6 +21,7 @@ var (
 // Note that it panics if `name` already exists.
 
 // ff:设置值
+// yx:true
 // value:
 // name:
 func Set(name, value string) {

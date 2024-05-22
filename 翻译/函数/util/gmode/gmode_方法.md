@@ -34,4 +34,5 @@
 # 备注结束
 
 [func Set(mode string) {]
+yx=true
 ff=设置值

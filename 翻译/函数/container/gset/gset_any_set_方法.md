@@ -47,6 +47,7 @@ items=值
 
 [func (set *Set) Iterator(f func(v interface{}) bool) {]
 ff=X遍历
+yx=true
 
 [func (set *Set) Add(items ...interface{}) {]
 ff=加入

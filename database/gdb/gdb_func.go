@@ -39,17 +39,17 @@ type iString interface {
 
 // iIterator is the type assert api for Iterator.
 type iIterator interface {
-	Iterator(f func(key, value interface{}) bool) //qm:X遍历 cz:Iterator(f func(key, value interface{}) bool)     
+	Iterator(f func(key, value interface{}) bool) //qm:X遍历 cz:Iterator(f func(key, value interface{}) bool) yx:true     
 }
 
 // iInterfaces is the type assert api for Interfaces.
 type iInterfaces interface {
-	Interfaces() []interface{} //qm:取any数组 cz:Interfaces() []interface{}     
+	Interfaces() []interface{} //qm:取any数组 cz:Interfaces() []interface{} yx:true     
 }
 
 // iNil if the type assert api for IsNil.
 type iNil interface {
-	IsNil() bool //qm:是否为Nil cz:IsNil() bool     
+	IsNil() bool //qm:是否为Nil cz:IsNil() bool yx:true     
 }
 
 // iTableName is the interface for retrieving table name for struct.

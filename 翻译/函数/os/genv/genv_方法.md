@@ -43,6 +43,7 @@ key=名称
 
 [func Set(key, value string) (err error) {]
 ff=设置值
+yx=true
 
 [func SetMap(m map#左中括号#string#右中括号#string) (err error) {]
 ff=设置Map值

@@ -34,6 +34,7 @@ func (d *adapterMemoryExpireTimes) Get(key interface{}) (value int64) {
 
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (d *adapterMemoryExpireTimes) Set(key interface{}, value int64) {

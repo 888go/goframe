@@ -35,18 +35,21 @@
 
 [func (v *Var) Ints() #左中括号##右中括号#int {]
 ff=取整数数组
+yx=true
 
 [func (v *Var) Int64s() #左中括号##右中括号#int64 {]
 ff=取整数64位数组
 
 [func (v *Var) Uints() #左中括号##右中括号#uint {]
 ff=取正整数数组
+yx=true
 
 [func (v *Var) Uint64s() #左中括号##右中括号#uint64 {]
 ff=取正整数64位数组
 
 [func (v *Var) Floats() #左中括号##右中括号#float64 {]
 ff=取小数数组
+yx=true
 
 [func (v *Var) Float32s() #左中括号##右中括号#float32 {]
 ff=取小数32位数组
@@ -56,9 +59,11 @@ ff=取小数64位数组
 
 [func (v *Var) Strings() #左中括号##右中括号#string {]
 ff=取文本数组
+yx=true
 
 [func (v *Var) Interfaces() #左中括号##右中括号#interface{} {]
 ff=取any数组
+yx=true
 
 [func (v *Var) Slice() #左中括号##右中括号#interface{} {]
 ff=Slice别名

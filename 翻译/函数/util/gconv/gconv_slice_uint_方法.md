@@ -44,6 +44,7 @@ ff=SliceUint64别名
 
 [func Uints(any interface{}) #左中括号##右中括号#uint {]
 ff=取正整数数组
+yx=true
 
 [func Uint32s(any interface{}) #左中括号##右中括号#uint32 {]
 ff=取正整数32位数组

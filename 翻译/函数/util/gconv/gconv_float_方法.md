@@ -35,6 +35,8 @@
 
 [func Float32(any interface{}) float32 {]
 ff=取小数32位
+yx=true
 
 [func Float64(any interface{}) float64 {]
 ff=取小数64位
+yx=true

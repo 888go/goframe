@@ -55,6 +55,7 @@ func NewStrAnyMapFrom(data map[string]interface{}, safe ...bool) *StrAnyMap {
 // If `f` returns true, then it continues iterating; or false to stop.
 
 // ff:X遍历
+// yx:true
 // f:
 func (m *StrAnyMap) Iterator(f func(k string, v interface{}) bool) {
 	m.mu.RLock()
@@ -94,6 +95,7 @@ func (m *StrAnyMap) Map() map[string]interface{} {
 // MapStrAny returns a copy of the underlying data of the map as map[string]interface{}.
 
 // ff:取MapStrAny
+// yx:true
 func (m *StrAnyMap) MapStrAny() map[string]interface{} {
 	return m.Map()
 }
@@ -141,6 +143,7 @@ func (m *StrAnyMap) FilterNil() {
 // Set sets key-value to the hash map.
 
 // ff:设置值
+// yx:true
 // val:
 // key:
 func (m *StrAnyMap) Set(key string, val interface{}) {

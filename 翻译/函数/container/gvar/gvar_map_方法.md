@@ -39,6 +39,7 @@ option=选项
 
 [func (v *Var) MapStrAny(option ...MapOption) map#左中括号#string#右中括号#interface{} {]
 ff=取MapStrAny
+yx=true
 
 [func (v *Var) MapStrStr(option ...MapOption) map#左中括号#string#右中括号#string {]
 ff=取文本Map

@@ -40,6 +40,7 @@ func SliceInt64(any interface{}) []int64 {
 // Ints converts `any` to []int.
 
 // ff:取整数数组
+// yx:true
 // any:
 func Ints(any interface{}) []int {
 	if any == nil {

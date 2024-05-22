@@ -33,11 +33,14 @@
 # //zj:
 # 备注结束
 
+[func (tree *AVLTree) Set(key interface{}, value interface{}) {]
+yx=true
+ff=设置值
+
 [func (tree *AVLTree) MapStrAny() map#左中括号#string#右中括号#interface{} {]
 ff=取MapStrAny
+yx=true
 
 [func (tree *AVLTree) Iterator(f func(key, value interface{}) bool) {]
 ff=X遍历
-
-[func (tree *AVLTree) Set(key interface{}, value interface{}) {]
-ff=设置值
+yx=true

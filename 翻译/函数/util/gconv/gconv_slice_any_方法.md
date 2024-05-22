@@ -39,3 +39,4 @@ any=值
 
 [func Interfaces(any interface{}) #左中括号##右中括号#interface{} {]
 ff=取any数组
+yx=true

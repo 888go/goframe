@@ -107,6 +107,7 @@ func (s *Session) Close() error {
 // Set sets key-value pair to this session.
 
 // ff:设置值
+// yx:true
 // err:
 // value:
 // key:

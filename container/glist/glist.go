@@ -554,6 +554,7 @@ func (l *List) LockFunc(f func(list *list.List)) {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 // e:
 func (l *List) Iterator(f func(e *Element) bool) {

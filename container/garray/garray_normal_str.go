@@ -114,6 +114,7 @@ func (a *StrArray) Get(index int) (value string, found bool) {
 // Set sets value to specified index.
 
 // ff:设置值
+// yx:true
 // value:
 // index:
 func (a *StrArray) Set(index int, value string) error {
@@ -564,6 +565,7 @@ func (a *StrArray) Slice() []string {
 // Interfaces returns current array as []interface{}.
 
 // ff:取any数组
+// yx:true
 func (a *StrArray) Interfaces() []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -884,6 +886,7 @@ func (a *StrArray) CountValues() map[string]int {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 // v:
 // k:

@@ -11,6 +11,7 @@ import "github.com/gogf/gf/v2/util/gconv"
 // Ints converts and returns `v` as []int.
 
 // ff:取整数数组
+// yx:true
 func (v *Var) Ints() []int {
 	return gconv.Ints(v.Val())
 }
@@ -25,6 +26,7 @@ func (v *Var) Int64s() []int64 {
 // Uints converts and returns `v` as []uint.
 
 // ff:取正整数数组
+// yx:true
 func (v *Var) Uints() []uint {
 	return gconv.Uints(v.Val())
 }
@@ -39,6 +41,7 @@ func (v *Var) Uint64s() []uint64 {
 // Floats is alias of Float64s.
 
 // ff:取小数数组
+// yx:true
 func (v *Var) Floats() []float64 {
 	return gconv.Floats(v.Val())
 }
@@ -60,6 +63,7 @@ func (v *Var) Float64s() []float64 {
 // Strings converts and returns `v` as []string.
 
 // ff:取文本数组
+// yx:true
 func (v *Var) Strings() []string {
 	return gconv.Strings(v.Val())
 }
@@ -67,6 +71,7 @@ func (v *Var) Strings() []string {
 // Interfaces converts and returns `v` as []interfaces{}.
 
 // ff:取any数组
+// yx:true
 func (v *Var) Interfaces() []interface{} {
 	return gconv.Interfaces(v.Val())
 }

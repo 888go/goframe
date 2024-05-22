@@ -24,6 +24,7 @@ func SliceAny(any interface{}) []interface{} {
 // Interfaces converts `any` to []interface{}.
 
 // ff:取any数组
+// yx:true
 // any:
 func Interfaces(any interface{}) []interface{} {
 	if any == nil {

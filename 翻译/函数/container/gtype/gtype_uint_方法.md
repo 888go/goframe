@@ -35,6 +35,8 @@
 
 [func (v *Uint) Set(value uint) (old uint) {]
 ff=设置值
+yx=true
 
 [func (v *Uint) Val() uint {]
 ff=取值
+yx=true

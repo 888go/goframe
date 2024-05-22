@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[package gipv6]
+bm=ipv6类

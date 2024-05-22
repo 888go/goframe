@@ -35,6 +35,8 @@
 
 [func (v *Uint64) Set(value uint64) (old uint64) {]
 ff=设置值
+yx=true
 
 [func (v *Uint64) Val() uint64 {]
 ff=取值
+yx=true

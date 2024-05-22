@@ -35,6 +35,8 @@
 
 [func (v *Float64) Set(value float64) (old float64) {]
 ff=设置值
+yx=true
 
 [func (v *Float64) Val() float64 {]
 ff=取值
+yx=true

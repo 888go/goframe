@@ -98,6 +98,7 @@ func (c *Cookie) Contains(key string) bool {
 // Set sets cookie item with default domain, path and expiration age.
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (c *Cookie) Set(key, value string) {

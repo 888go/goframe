@@ -43,6 +43,7 @@ func Get(name string) interface{} {
 // Set sets an instance to the instance manager with given name.
 
 // ff:设置值
+// yx:true
 // instance:
 // name:
 func Set(name string, instance interface{}) {

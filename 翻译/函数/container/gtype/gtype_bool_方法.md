@@ -33,8 +33,10 @@
 # //zj:
 # 备注结束
 
+[func (v *Bool) Set(value bool) (old bool) {]
+yx=true
+ff=设置值
+
 [func (v *Bool) Val() bool {]
 ff=取值
-
-[func (v *Bool) Set(value bool) (old bool) {]
-ff=设置值
+yx=true

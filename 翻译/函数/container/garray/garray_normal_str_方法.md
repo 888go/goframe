@@ -66,6 +66,7 @@ index=索引
 
 [func (a *StrArray) Set(index int, value string) error {]
 ff=设置值
+yx=true
 
 [func (a *StrArray) SetArray(array #左中括号##右中括号#string) *StrArray {]
 ff=设置数组
@@ -168,6 +169,7 @@ ff=取切片
 
 [func (a *StrArray) Interfaces() #左中括号##右中括号#interface{} {]
 ff=取any数组
+yx=true
 
 [func (a *StrArray) Clone() (newArray *StrArray) {]
 ff=取副本
@@ -242,6 +244,7 @@ ff=统计
 
 [func (a *StrArray) Iterator(f func(k int, v string) bool) {]
 ff=X遍历
+yx=true
 
 [func (a *StrArray) IteratorAsc(f func(k int, v string) bool) {]
 ff=遍历升序

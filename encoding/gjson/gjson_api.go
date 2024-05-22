@@ -40,6 +40,7 @@ func (j *Json) Var() *gvar.Var {
 // IsNil checks whether the value pointed by `j` is nil.
 
 // ff:是否为Nil
+// yx:true
 func (j *Json) IsNil() bool {
 	if j == nil {
 		return true
@@ -133,6 +134,7 @@ func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 // It supports hierarchical data access by char separator, which is '.' in default.
 
 // ff:设置值
+// yx:true
 // value:
 // pattern:
 func (j *Json) Set(pattern string, value interface{}) error {

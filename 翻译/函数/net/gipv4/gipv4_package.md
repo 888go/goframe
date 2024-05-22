@@ -33,3 +33,5 @@
 # //zj:
 # 备注结束
 
+[package gipv4]
+bm=ipv4类

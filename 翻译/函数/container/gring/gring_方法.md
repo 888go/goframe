@@ -33,8 +33,10 @@
 # //zj:
 # 备注结束
 
+[func (r *Ring) Val() interface{} {]
+yx=true
+ff=取值
+
 [func (r *Ring) Set(value interface{}) *Ring {]
 ff=设置值
-
-[func (r *Ring) Val() interface{} {]
-ff=取值
+yx=true

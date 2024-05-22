@@ -81,6 +81,7 @@ try=处理函数
 
 [func IsNil(value interface{}, traceSource ...bool) bool {]
 ff=是否为Nil
+yx=true
 
 [func IsEmpty(value interface{}, traceSource ...bool) bool {]
 ff=是否为空

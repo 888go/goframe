@@ -56,17 +56,17 @@ type Options struct {
 
 // iInterfaces is used for type assert api for Interfaces().
 type iInterfaces interface {
-	Interfaces() []interface{} //qm:取any数组 cz:Interfaces() []interface{}     
+	Interfaces() []interface{} //qm:取any数组 cz:Interfaces() []interface{} yx:true     
 }
 
 // iMapStrAny is the interface support for converting struct parameter to map.
 type iMapStrAny interface {
-	MapStrAny() map[string]interface{} //qm:取MapStrAny cz:MapStrAny() map[string]interface{}     
+	MapStrAny() map[string]interface{} //qm:取MapStrAny cz:MapStrAny() map[string]interface{} yx:true     
 }
 
 // iVal is the interface for underlying interface{} retrieving.
 type iVal interface {
-	Val() interface{} //qm:取值 cz:Val() interface{}     
+	Val() interface{} //qm:取值 cz:Val() interface{} yx:true     
 }
 
 // setValue sets `value` to `j` by `pattern`.

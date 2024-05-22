@@ -57,6 +57,7 @@ func Duration(any interface{}) time.Duration {
 // or using gtime.StrToTime if `any` is string.
 
 // ff:取gtime时间类
+// yx:true
 // format:
 // any:
 func GTime(any interface{}, format ...string) *gtime.Time {

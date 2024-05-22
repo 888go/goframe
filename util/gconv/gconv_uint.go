@@ -72,6 +72,7 @@ func Uint32(any interface{}) uint32 {
 // Uint64 converts `any` to uint64.
 
 // ff:取正整数64位
+// yx:true
 // any:
 func Uint64(any interface{}) uint64 {
 	if any == nil {

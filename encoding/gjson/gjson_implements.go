@@ -46,6 +46,7 @@ func (j *Json) UnmarshalValue(value interface{}) error {
 // MapStrAny implements interface function MapStrAny().
 
 // ff:取MapStrAny
+// yx:true
 func (j *Json) MapStrAny() map[string]interface{} {
 	if j == nil {
 		return nil
@@ -56,6 +57,7 @@ func (j *Json) MapStrAny() map[string]interface{} {
 // Interfaces implements interface function Interfaces().
 
 // ff:取any数组
+// yx:true
 func (j *Json) Interfaces() []interface{} {
 	if j == nil {
 		return nil

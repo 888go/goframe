@@ -35,6 +35,7 @@
 
 [func (v *Var) IsNil() bool {]
 ff=是否为Nil
+yx=true
 
 [func (v *Var) IsEmpty() bool {]
 ff=是否为空

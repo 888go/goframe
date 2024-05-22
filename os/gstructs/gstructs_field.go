@@ -148,6 +148,7 @@ func (f *Field) IsEmpty() bool {
 // IsNil checks and returns whether the value of this Field is nil.
 
 // ff:是否为Nil
+// yx:true
 // traceSource:
 func (f *Field) IsNil(traceSource ...bool) bool {
 	return empty.IsNil(f.Value, traceSource...)

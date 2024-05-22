@@ -39,6 +39,7 @@ ff=取字节
 
 [func Bytes(any interface{}) #左中括号##右中括号#byte {]
 ff=取字节集
+yx=true
 
 [func Rune(any interface{}) rune {]
 ff=取字符
@@ -50,3 +51,4 @@ any=值
 
 [func Bool(any interface{}) bool {]
 ff=取布尔
+yx=true

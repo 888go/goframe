@@ -186,6 +186,7 @@ func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok boo
 
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {

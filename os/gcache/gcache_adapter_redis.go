@@ -36,6 +36,7 @@ func NewAdapterRedis(redis *gredis.Redis) Adapter {
 // It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
 
 // ff:设置值
+// yx:true
 // err:
 // duration:
 // value:

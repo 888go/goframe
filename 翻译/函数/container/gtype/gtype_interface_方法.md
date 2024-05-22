@@ -35,6 +35,8 @@
 
 [func (v *Interface) Set(value interface{}) (old interface{}) {]
 ff=设置值
+yx=true
 
 [func (v *Interface) Val() interface{} {]
 ff=取值
+yx=true

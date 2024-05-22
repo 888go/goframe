@@ -35,4 +35,4 @@
 
 [Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error]
 qm=设置值
-cz=Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration)
+cz=Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) yx:true

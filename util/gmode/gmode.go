@@ -32,6 +32,7 @@ var (
 // Set sets the mode for current application.
 
 // ff:设置值
+// yx:true
 // mode:
 func Set(mode string) {
 	currentMode = mode

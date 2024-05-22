@@ -49,6 +49,7 @@ func (s *Schemas) Get(name string) *SchemaRef {
 
 
 // ff:设置值
+// yx:true
 // ref:
 // name:
 func (s *Schemas) Set(name string, ref SchemaRef) {
@@ -78,6 +79,7 @@ func (s *Schemas) Map() map[string]SchemaRef {
 
 
 // ff:X遍历
+// yx:true
 // f:
 func (s *Schemas) Iterator(f func(key string, ref SchemaRef) bool) {
 	s.init()

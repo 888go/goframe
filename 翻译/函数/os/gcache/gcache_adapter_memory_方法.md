@@ -39,6 +39,7 @@ lruCap=淘汰数量
 
 [func (c *AdapterMemory) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error {]
 ff=设置值
+yx=true
 
 [func (c *AdapterMemory) SetMap(ctx context.Context, data map#左中括号#interface{}#右中括号#interface{}, duration time.Duration) error {]
 ff=设置Map

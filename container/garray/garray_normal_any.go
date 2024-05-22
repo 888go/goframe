@@ -165,6 +165,7 @@ func (a *Array) Get(index int) (value interface{}, found bool) {
 // Set sets value to specified index.
 
 // ff:设置值
+// yx:true
 // value:
 // index:
 func (a *Array) Set(index int, value interface{}) error {
@@ -590,6 +591,7 @@ func (a *Array) Slice() []interface{} {
 // Interfaces returns current array as []interface{}.
 
 // ff:取any数组
+// yx:true
 func (a *Array) Interfaces() []interface{} {
 	return a.Slice()
 }
@@ -883,6 +885,7 @@ func (a *Array) CountValues() map[interface{}]int {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 func (a *Array) Iterator(f func(k int, v interface{}) bool) {
 	a.IteratorAsc(f)

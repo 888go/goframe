@@ -112,6 +112,7 @@ func (tree *RedBlackTree) Clone() *RedBlackTree {
 // Set inserts key-value item into the tree.
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (tree *RedBlackTree) Set(key interface{}, value interface{}) {
@@ -467,6 +468,7 @@ func (tree *RedBlackTree) Map() map[interface{}]interface{} {
 // MapStrAny returns all key-value items as map[string]interface{}.
 
 // ff:取MapStrAny
+// yx:true
 func (tree *RedBlackTree) MapStrAny() map[string]interface{} {
 	m := make(map[string]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -599,6 +601,7 @@ func (tree *RedBlackTree) Ceiling(key interface{}) (ceiling *RedBlackTreeNode, f
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 func (tree *RedBlackTree) Iterator(f func(key, value interface{}) bool) {
 	tree.IteratorAsc(f)

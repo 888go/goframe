@@ -44,6 +44,7 @@ items=整数数组
 
 [func (set *IntSet) Iterator(f func(v int) bool) {]
 ff=X遍历
+yx=true
 
 [func (set *IntSet) Add(item ...int) {]
 ff=加入

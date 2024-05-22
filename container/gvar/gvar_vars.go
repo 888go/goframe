@@ -16,6 +16,7 @@ type Vars []*Var
 // Strings converts and returns `vs` as []string.
 
 // ff:取文本数组
+// yx:true
 // s:
 func (vs Vars) Strings() (s []string) {
 	for _, v := range vs {
@@ -27,6 +28,7 @@ func (vs Vars) Strings() (s []string) {
 // Interfaces converts and returns `vs` as []interface{}.
 
 // ff:取any数组
+// yx:true
 // s:
 func (vs Vars) Interfaces() (s []interface{}) {
 	for _, v := range vs {
@@ -60,6 +62,7 @@ func (vs Vars) Float64s() (s []float64) {
 // Ints converts and returns `vs` as []Int.
 
 // ff:取整数数组
+// yx:true
 // s:
 func (vs Vars) Ints() (s []int) {
 	for _, v := range vs {
@@ -115,6 +118,7 @@ func (vs Vars) Int64s() (s []int64) {
 // Uints converts and returns `vs` as []uint.
 
 // ff:取正整数数组
+// yx:true
 // s:
 func (vs Vars) Uints() (s []uint) {
 	for _, v := range vs {

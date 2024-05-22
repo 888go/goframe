@@ -22,6 +22,7 @@ func (v *Var) Map(option ...MapOption) map[string]interface{} {
 // MapStrAny is like function Map, but implements the interface of MapStrAny.
 
 // ff:取MapStrAny
+// yx:true
 // option:
 func (v *Var) MapStrAny(option ...MapOption) map[string]interface{} {
 	return v.Map(option...)

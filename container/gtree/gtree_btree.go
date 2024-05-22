@@ -94,6 +94,7 @@ func (tree *BTree) Clone() *BTree {
 // Set inserts key-value item into the tree.
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (tree *BTree) Set(key interface{}, value interface{}) {
@@ -397,6 +398,7 @@ func (tree *BTree) Map() map[interface{}]interface{} {
 // MapStrAny returns all key-value items as map[string]interface{}.
 
 // ff:取MapStrAny
+// yx:true
 func (tree *BTree) MapStrAny() map[string]interface{} {
 	m := make(map[string]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -518,6 +520,7 @@ func (tree *BTree) Print() {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 func (tree *BTree) Iterator(f func(key, value interface{}) bool) {
 	tree.IteratorAsc(f)

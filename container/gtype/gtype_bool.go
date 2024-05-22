@@ -50,6 +50,7 @@ func (v *Bool) Clone() *Bool {
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
 
 // ff:设置值
+// yx:true
 // old:
 // value:
 func (v *Bool) Set(value bool) (old bool) {
@@ -64,6 +65,7 @@ func (v *Bool) Set(value bool) (old bool) {
 // Val atomically loads and returns t.value.
 
 // ff:取值
+// yx:true
 func (v *Bool) Val() bool {
 	return atomic.LoadInt32(&v.value) > 0
 }

@@ -35,6 +35,8 @@
 
 [func (v *Int) Set(value int) (old int) {]
 ff=设置值
+yx=true
 
 [func (v *Int) Val() int {]
 ff=取值
+yx=true

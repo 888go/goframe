@@ -34,8 +34,8 @@
 # 备注结束
 
 [func New(text string) error {]
-text=错误文本
 ff=创建
+text=错误文本
 
 [func Newf(format string, args ...interface{}) error {]
 ff=创建并格式化

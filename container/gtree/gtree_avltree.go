@@ -79,6 +79,7 @@ func (tree *AVLTree) Clone() *AVLTree {
 // Set inserts node into the tree.
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (tree *AVLTree) Set(key interface{}, value interface{}) {
@@ -542,6 +543,7 @@ func (tree *AVLTree) Map() map[interface{}]interface{} {
 // MapStrAny returns all key-value items as map[string]interface{}.
 
 // ff:取MapStrAny
+// yx:true
 func (tree *AVLTree) MapStrAny() map[string]interface{} {
 	m := make(map[string]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -581,6 +583,7 @@ func (tree *AVLTree) Flip(comparator ...func(v1, v2 interface{}) int) {
 // Iterator is alias of IteratorAsc.
 
 // ff:X遍历
+// yx:true
 // f:
 func (tree *AVLTree) Iterator(f func(key, value interface{}) bool) {
 	tree.IteratorAsc(f)

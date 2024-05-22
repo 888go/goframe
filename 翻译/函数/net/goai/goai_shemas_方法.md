@@ -33,8 +33,10 @@
 # //zj:
 # 备注结束
 
+[func (s *Schemas) Set(name string, ref SchemaRef) {]
+yx=true
+ff=设置值
+
 [func (s *Schemas) Iterator(f func(key string, ref SchemaRef) bool) {]
 ff=X遍历
-
-[func (s *Schemas) Set(name string, ref SchemaRef) {]
-ff=设置值
+yx=true

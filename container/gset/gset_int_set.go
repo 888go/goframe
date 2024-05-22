@@ -53,6 +53,7 @@ func NewIntSetFrom(items []int, safe ...bool) *IntSet {
 // if `f` returns true then continue iterating; or false to stop.
 
 // ff:X遍历
+// yx:true
 // f:
 // v:
 func (set *IntSet) Iterator(f func(v int) bool) {

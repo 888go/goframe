@@ -119,6 +119,7 @@ func SearchWithCache(root string, name string, indexFiles ...string) (filePath s
 // Set deletes all other searching directories and sets the searching directory for this manager.
 
 // ff:设置值
+// yx:true
 // err:
 // realPath:
 // path:

@@ -43,6 +43,7 @@ func (v *Float32) Clone() *Float32 {
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
 
 // ff:设置值
+// yx:true
 // old:
 // value:
 func (v *Float32) Set(value float32) (old float32) {
@@ -52,6 +53,7 @@ func (v *Float32) Set(value float32) (old float32) {
 // Val atomically loads and returns t.value.
 
 // ff:取值
+// yx:true
 func (v *Float32) Val() float32 {
 	return math.Float32frombits(atomic.LoadUint32(&v.value))
 }

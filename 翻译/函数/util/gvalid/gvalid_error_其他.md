@@ -35,8 +35,8 @@
 
 [Strings() (errs #左中括号##右中括号#string)]
 qm=取文本数组
-cz=Strings() (errs []string)
+cz=Strings() (errs []string) yx:true
 
 [func (e *validationError) Strings() (errs #左中括号##右中括号#string)]
 qm=取文本数组
-cz=Strings() (errs []string)      {
+cz=Strings() (errs []string) yx:true      {

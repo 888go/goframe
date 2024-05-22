@@ -35,6 +35,8 @@
 
 [func (v *Int32) Set(value int32) (old int32) {]
 ff=设置值
+yx=true
 
 [func (v *Int32) Val() int32 {]
 ff=取值
+yx=true

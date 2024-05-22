@@ -43,3 +43,4 @@ any=值
 
 [func GTime(any interface{}, format ...string) *gtime.Time {]
 ff=取gtime时间类
+yx=true

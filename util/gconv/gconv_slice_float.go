@@ -40,6 +40,7 @@ func SliceFloat64(any interface{}) []float64 {
 // Floats converts `any` to []float64.
 
 // ff:取小数数组
+// yx:true
 // any:
 func Floats(any interface{}) []float64 {
 	return Float64s(any)

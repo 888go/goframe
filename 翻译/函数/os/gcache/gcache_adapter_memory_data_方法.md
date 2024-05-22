@@ -79,6 +79,7 @@ key=名称
 
 [func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {]
 ff=设置值
+yx=true
 
 [func (d *adapterMemoryData) SetMap(data map#左中括号#interface{}#右中括号#interface{}, expireTime int64) error {]
 ff=设置Map

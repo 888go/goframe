@@ -147,6 +147,7 @@ func TryCatch(ctx context.Context, try func(ctx context.Context), catch func(ctx
 // Note that it might use reflect feature which affects performance a little.
 
 // ff:是否为Nil
+// yx:true
 // traceSource:
 // value:
 func IsNil(value interface{}, traceSource ...bool) bool {

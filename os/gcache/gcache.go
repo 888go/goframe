@@ -32,6 +32,7 @@ var defaultCache = New()
 // It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
 
 // ff:设置值
+// yx:true
 // duration:
 // value:
 // key:

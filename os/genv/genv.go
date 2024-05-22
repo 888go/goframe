@@ -55,6 +55,7 @@ func Get(key string, def ...interface{}) *gvar.Var {
 // It returns an error, if any.
 
 // ff:设置值
+// yx:true
 // err:
 // value:
 // key:

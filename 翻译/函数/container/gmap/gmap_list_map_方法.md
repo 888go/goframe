@@ -44,6 +44,7 @@ data=map值
 
 [func (m *ListMap) Iterator(f func(key, value interface{}) bool) {]
 ff=X遍历
+yx=true
 
 [func (m *ListMap) IteratorAsc(f func(key interface{}, value interface{}) bool) {]
 ff=遍历升序
@@ -69,12 +70,14 @@ ff=取Map
 
 [func (m *ListMap) MapStrAny() map#左中括号#string#右中括号#interface{} {]
 ff=取MapStrAny
+yx=true
 
 [func (m *ListMap) FilterEmpty() {]
 ff=删除所有空值
 
 [func (m *ListMap) Set(key interface{}, value interface{}) {]
 ff=设置值
+yx=true
 
 [func (m *ListMap) Sets(data map#左中括号#interface{}#右中括号#interface{}) {]
 ff=设置值Map

@@ -35,12 +35,12 @@
 
 [Iterator(f func(key, value interface{}) bool)]
 qm=X遍历
-cz=Iterator(f func(key, value interface{}) bool)
+cz=Iterator(f func(key, value interface{}) bool) yx:true
 
 [Interfaces() #左中括号##右中括号#interface{}]
 qm=取any数组
-cz=Interfaces() []interface{}
+cz=Interfaces() []interface{} yx:true
 
 [IsNil() bool]
 qm=是否为Nil
-cz=IsNil() bool
+cz=IsNil() bool yx:true

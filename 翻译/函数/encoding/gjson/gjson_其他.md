@@ -34,13 +34,13 @@
 # 备注结束
 
 [Interfaces() #左中括号##右中括号#interface{}]
-cz=Interfaces() []interface{}
+cz=Interfaces() []interface{} yx:true
 qm=取any数组
 
 [MapStrAny() map#左中括号#string#右中括号#interface{}]
 qm=取MapStrAny
-cz=MapStrAny() map[string]interface{}
+cz=MapStrAny() map[string]interface{} yx:true
 
 [Val() interface{}]
 qm=取值
-cz=Val() interface{}
+cz=Val() interface{} yx:true

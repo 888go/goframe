@@ -34,8 +34,8 @@
 # 备注结束
 
 [func New(safe ...bool) *Array {]
-safe=并发安全
 ff=创建
+safe=并发安全
 
 [func NewArray(safe ...bool) *Array {]
 ff=NewArray别名
@@ -87,6 +87,7 @@ index=索引
 
 [func (a *Array) Set(index int, value interface{}) error {]
 ff=设置值
+yx=true
 
 [func (a *Array) SetArray(array #左中括号##右中括号#interface{}) *Array {]
 ff=设置数组
@@ -185,6 +186,7 @@ ff=取切片
 
 [func (a *Array) Interfaces() #左中括号##右中括号#interface{} {]
 ff=取any数组
+yx=true
 
 [func (a *Array) Clone() (newArray *Array) {]
 ff=取副本
@@ -255,6 +257,7 @@ ff=统计
 
 [func (a *Array) Iterator(f func(k int, v interface{}) bool) {]
 ff=X遍历
+yx=true
 
 [func (a *Array) IteratorAsc(f func(k int, v interface{}) bool) {]
 ff=遍历升序

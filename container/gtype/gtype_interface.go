@@ -43,6 +43,7 @@ func (v *Interface) Clone() *Interface {
 // Note: The parameter `value` cannot be nil.
 
 // ff:设置值
+// yx:true
 // old:
 // value:
 func (v *Interface) Set(value interface{}) (old interface{}) {
@@ -54,6 +55,7 @@ func (v *Interface) Set(value interface{}) (old interface{}) {
 // Val atomically loads and returns t.value.
 
 // ff:取值
+// yx:true
 func (v *Interface) Val() interface{} {
 	return v.value.Load()
 }

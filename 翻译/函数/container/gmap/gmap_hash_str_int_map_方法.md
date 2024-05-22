@@ -44,6 +44,7 @@ data=map值
 
 [func (m *StrIntMap) Iterator(f func(k string, v int) bool) {]
 ff=X遍历
+yx=true
 
 [func (m *StrIntMap) Clone() *StrIntMap {]
 ff=取副本
@@ -53,6 +54,7 @@ ff=取Map
 
 [func (m *StrIntMap) MapStrAny() map#左中括号#string#右中括号#interface{} {]
 ff=取MapStrAny
+yx=true
 
 [func (m *StrIntMap) MapCopy() map#左中括号#string#右中括号#int {]
 ff=浅拷贝
@@ -62,6 +64,7 @@ ff=删除所有空值
 
 [func (m *StrIntMap) Set(key string, val int) {]
 ff=设置值
+yx=true
 
 [func (m *StrIntMap) Sets(data map#左中括号#string#右中括号#int) {]
 ff=设置值Map

@@ -161,6 +161,7 @@ func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
 
 
 // ff:取字节集
+// yx:true
 func (buf *structuredBuffer) Bytes() []byte {
 	buf.addValue(structureKeyTime, buf.in.TimeFormat)
 	if buf.in.TraceId != "" {

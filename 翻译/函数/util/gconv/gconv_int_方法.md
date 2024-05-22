@@ -51,3 +51,4 @@ any=值
 
 [func Int64(any interface{}) int64 {]
 ff=取整数64位
+yx=true

@@ -42,6 +42,7 @@ func SliceUint64(any interface{}) []uint64 {
 // Uints converts `any` to []uint.
 
 // ff:取正整数数组
+// yx:true
 // any:
 func Uints(any interface{}) []uint {
 	if any == nil {

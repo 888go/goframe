@@ -53,6 +53,7 @@ func NewAnyAnyMapFrom(data map[interface{}]interface{}, safe ...bool) *AnyAnyMap
 // If `f` returns true, then it continues iterating; or false to stop.
 
 // ff:X遍历
+// yx:true
 // f:
 func (m *AnyAnyMap) Iterator(f func(k interface{}, v interface{}) bool) {
 	m.mu.RLock()
@@ -106,6 +107,7 @@ func (m *AnyAnyMap) MapCopy() map[interface{}]interface{} {
 // MapStrAny returns a copy of the underlying data of the map as map[string]interface{}.
 
 // ff:取MapStrAny
+// yx:true
 func (m *AnyAnyMap) MapStrAny() map[string]interface{} {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -146,6 +148,7 @@ func (m *AnyAnyMap) FilterNil() {
 // Set sets key-value to the hash map.
 
 // ff:设置值
+// yx:true
 // value:
 // key:
 func (m *AnyAnyMap) Set(key interface{}, value interface{}) {

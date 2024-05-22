@@ -13,6 +13,7 @@ import (
 // IsNil checks whether `v` is nil.
 
 // ff:是否为Nil
+// yx:true
 func (v *Var) IsNil() bool {
 	return utils.IsNil(v.Val())
 }

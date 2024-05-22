@@ -35,3 +35,4 @@
 
 [func (s *Session) Set(key string, value interface{}) (err error) {]
 ff=设置值
+yx=true

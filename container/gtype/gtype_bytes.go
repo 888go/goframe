@@ -44,6 +44,7 @@ func (v *Bytes) Clone() *Bytes {
 // Note: The parameter `value` cannot be nil.
 
 // ff:设置值
+// yx:true
 // old:
 // value:
 func (v *Bytes) Set(value []byte) (old []byte) {
@@ -55,6 +56,7 @@ func (v *Bytes) Set(value []byte) (old []byte) {
 // Val atomically loads and returns t.value.
 
 // ff:取值
+// yx:true
 func (v *Bytes) Val() []byte {
 	if s := v.value.Load(); s != nil {
 		return s.([]byte)

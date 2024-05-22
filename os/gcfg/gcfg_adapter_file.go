@@ -172,6 +172,7 @@ func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{
 // automatically refreshed if underlying configuration file changed.
 
 // ff:设置值
+// yx:true
 // value:
 // pattern:
 func (a *AdapterFile) Set(pattern string, value interface{}) error {

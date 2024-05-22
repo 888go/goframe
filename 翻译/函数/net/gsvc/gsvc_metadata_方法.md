@@ -34,4 +34,5 @@
 # 备注结束
 
 [func (m Metadata) Set(key string, value interface{}) {]
+yx=true
 ff=设置值
