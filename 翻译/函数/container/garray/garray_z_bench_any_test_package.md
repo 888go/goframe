@@ -38,4 +38,4 @@
 # 备注结束
 
 [package garray_test]
-bm=数组类_test
+bm=切片类_test

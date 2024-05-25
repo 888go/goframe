@@ -84,7 +84,7 @@ args=参数
 ctx=上下文
 
 [func (c *Core) GetArray(ctx context.Context, sql string, args ...interface{}) (#左中括号##右中括号#Value, error) {]
-ff=原生SQL查询数组
+ff=原生SQL查询切片
 args=参数
 ctx=上下文
 
@@ -207,6 +207,6 @@ ff=取表名称缓存
 
 [func (c *Core) FormatSqlBeforeExecuting(sql string, args #左中括号##右中括号#interface{}) (newSql string, newArgs #左中括号##右中括号#interface{}) {]
 ff=格式化Sql
-newArgs=新参数数组
+newArgs=新参数切片
 newSql=新sql
-args=参数数组
+args=参数切片

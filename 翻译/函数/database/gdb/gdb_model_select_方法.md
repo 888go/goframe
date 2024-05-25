@@ -58,7 +58,7 @@ ff=查询一条
 where=条件
 
 [func (m *Model) Array(fieldsAndWhere ...interface{}) (#左中括号##右中括号#Value, error) {]
-ff=查询数组
+ff=查询切片
 fieldsAndWhere=条件
 
 [func (m *Model) Scan(pointer interface{}, where ...interface{}) error {]

@@ -50,7 +50,7 @@ ff=取字符
 any=值
 
 [func Runes(any interface{}) #左中括号##右中括号#rune {]
-ff=取字符数组
+ff=取字符切片
 any=值
 
 [func Bool(any interface{}) bool {]

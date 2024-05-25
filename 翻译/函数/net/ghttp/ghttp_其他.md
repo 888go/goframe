@@ -94,7 +94,7 @@ qm=关闭回调函数
 cz=ShutFunc HandlerFunc
 
 [Middleware #左中括号##右中括号#HandlerFunc]
-qm=中间件数组
+qm=中间件切片
 cz=Middleware []HandlerFunc
 
 [HookName   HookName]

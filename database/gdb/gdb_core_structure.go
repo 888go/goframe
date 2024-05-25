@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -25,7 +24,7 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// GetFieldTypeStr 通过名称检索并返回指定字段的字段类型字符串。. md5:aeb8d310c854c45a
+// GetFieldTypeStr retrieves and returns the field type string for certain field by name.
 func (c *Core) GetFieldTypeStr(ctx context.Context, fieldName, table, schema string) string {
 	field := c.GetFieldType(ctx, fieldName, table, schema)
 	if field != nil {
@@ -34,7 +33,7 @@ func (c *Core) GetFieldTypeStr(ctx context.Context, fieldName, table, schema str
 	return ""
 }
 
-// GetFieldType 通过字段名获取并返回该字段的类型对象。. md5:eeebff59dbaf1064
+// GetFieldType retrieves and returns the field type object for certain field by name.
 func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string) *TableField {
 	fieldsMap, err := c.db.TableFields(ctx, table, schema)
 	if err != nil {
@@ -53,12 +52,11 @@ func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string
 	return nil
 }
 
-// ConvertDataForRecord 是一个非常重要的函数，用于将任何数据转换为
-// 以便将其作为记录插入到表或集合中。
+// ConvertDataForRecord is a very important function, which does converting for any data that
+// will be inserted into table/collection as a record.
 //
-// 参数 `value` 应为 *map/map/*struct/struct 类型。
-// 对于结构体，它支持嵌入式结构体定义。
-// md5:27b867ec3a1c3c1d
+// The parameter `value` should be type of *map/map/*struct/struct.
+// It supports embedded struct definition for struct.
 func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, table string) (map[string]interface{}, error) {
 	var (
 		err  error
@@ -77,16 +75,15 @@ func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, tabl
 	return data, nil
 }
 
-// ConvertValueForField 将值转换为记录字段的类型。
-// 参数 `fieldType` 是目标记录字段。
-// 参数 `fieldValue` 是要写入记录字段的值。
-// md5:196c02c9f6cf3380
+// ConvertValueForField converts value to the type of the record field.
+// The parameter `fieldType` is the target record field.
+// The parameter `fieldValue` is the value that to be committed to record field.
 func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	var (
 		err            error
 		convertedValue = fieldValue
 	)
-	// 如果`value`实现了`driver.Valuer`接口，那么它会使用该接口进行值的转换。. md5:ba72a317b79988a2
+	// If `value` implements interface `driver.Valuer`, it then uses the interface for value converting.
 	if valuer, ok := fieldValue.(driver.Valuer); ok {
 		if convertedValue, err = valuer.Value(); err != nil {
 			if err != nil {
@@ -95,7 +92,7 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 		}
 		return convertedValue, nil
 	}
-	// 默认值转换。. md5:99c30401ccc62832
+	// Default value converting.
 	var (
 		rvValue = reflect.ValueOf(fieldValue)
 		rvKind  = rvValue.Kind()
@@ -106,9 +103,9 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 	}
 	switch rvKind {
 	case reflect.Slice, reflect.Array, reflect.Map:
-		// 它应该忽略字节类型。. md5:48e040f1decb1a5e
+		// It should ignore the bytes type.
 		if _, ok := fieldValue.([]byte); !ok {
-			// 将值转换为JSON。. md5:f4977a0ae972c910
+			// Convert the value to JSON.
 			convertedValue, err = json.Marshal(fieldValue)
 			if err != nil {
 				return nil, err
@@ -117,9 +114,8 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 
 	case reflect.Struct:
 		switch r := fieldValue.(type) {
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// If the time is zero, it then updates it to nil,
+		// which will insert/update the value to database as "null".
 		case time.Time:
 			if r.IsZero() {
 				convertedValue = nil
@@ -146,17 +142,16 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 			// Nothing to do.
 
 		default:
-// 如果`value`实现了iNil接口，
-// 检查其IsNil()函数，如果返回true，
-// 将把该值插入/更新到数据库中作为"null"。
-// md5:b2415061d93829e6
+			// If `value` implements interface iNil,
+			// check its IsNil() function, if got ture,
+			// which will insert/update the value to database as "null".
 			if v, ok := fieldValue.(iNil); ok && v.IsNil() {
 				convertedValue = nil
 			} else if s, ok := fieldValue.(iString); ok {
-				// 默认使用字符串转换。. md5:36cba4c54f848f87
+				// Use string conversion in default.
 				convertedValue = s.String()
 			} else {
-				// 将值转换为JSON。. md5:f4977a0ae972c910
+				// Convert the value to JSON.
 				convertedValue, err = json.Marshal(fieldValue)
 				if err != nil {
 					return nil, err
@@ -167,7 +162,7 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 	return convertedValue, nil
 }
 
-// CheckLocalTypeForField 检查并返回与给定数据库类型相对应的本地类型。. md5:d3191e6393b7e531
+// CheckLocalTypeForField checks and returns corresponding type for given db type.
 func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) {
 	var (
 		typeName    string
@@ -232,12 +227,12 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 
 	case
 		fieldTypeBit:
-		// 建议使用 bit(1) 作为布尔值。. md5:5be00c9e8395ea93
+		// It is suggested using bit(1) as boolean.
 		if typePattern == "1" {
 			return LocalTypeBool, nil
 		}
 		s := gconv.String(fieldValue)
-		// mssql 是一个true|false类型的字符串。. md5:6d4dbdb95d9adfa1
+		// mssql is true|false string.
 		if strings.EqualFold(s, "true") || strings.EqualFold(s, "false") {
 			return LocalTypeBool, nil
 		}
@@ -269,7 +264,7 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 		return LocalTypeJsonb, nil
 
 	default:
-		// 自动检测字段类型，通过键匹配。. md5:138e4aeac8d26d8a
+		// Auto-detect field type, using key match.
 		switch {
 		case strings.Contains(typeName, "text") || strings.Contains(typeName, "char") || strings.Contains(typeName, "character"):
 			return LocalTypeString, nil
@@ -301,16 +296,14 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 	}
 }
 
-// ConvertValueForLocal 根据从数据库中获取的字段类型名称，将值转换为Go语言中的本地类型。
-// 参数 `fieldType` 为小写格式，例如：
-// `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。
-// md5:7e1ede2b68158e31
+// ConvertValueForLocal converts value to local Golang type of value according field type name from database.
+// The parameter `fieldType` is in lower case, like:
+// `float(5,2)`, `unsigned double(5,2)`, `decimal(10,2)`, `char(45)`, `varchar(100)`, etc.
 func (c *Core) ConvertValueForLocal(
 	ctx context.Context, fieldType string, fieldValue interface{},
 ) (interface{}, error) {
-// 如果没有获取到类型，则直接返回`fieldValue`，
-// 利用其原始数据类型，因为`fieldValue`是`interface{}`类型的。
-// md5:62cf4d391c9da4f2
+	// If there's no type retrieved, it returns the `fieldValue` directly
+	// to use its original data type, as `fieldValue` is type of interface{}.
 	if fieldType == "" {
 		return fieldValue, nil
 	}
@@ -352,7 +345,7 @@ func (c *Core) ConvertValueForLocal(
 
 	case LocalTypeBool:
 		s := gconv.String(fieldValue)
-		// mssql 是一个true|false类型的字符串。. md5:6d4dbdb95d9adfa1
+		// mssql is true|false string.
 		if strings.EqualFold(s, "true") {
 			return 1, nil
 		}
@@ -381,8 +374,8 @@ func (c *Core) ConvertValueForLocal(
 	}
 }
 
-// mappingAndFilterData 自动将映射键映射到表格字段，并删除所有不是给定表格字段的键值对。
-// md5:27fc8e27d4d4a389
+// mappingAndFilterData automatically mappings the map key to table field and removes
+// all key-value pairs that are not the field of given table.
 func (c *Core) mappingAndFilterData(ctx context.Context, schema, table string, data map[string]interface{}, filter bool) (map[string]interface{}, error) {
 	fieldsMap, err := c.db.TableFields(ctx, c.guessPrimaryTableName(table), schema)
 	if err != nil {
@@ -392,7 +385,7 @@ func (c *Core) mappingAndFilterData(ctx context.Context, schema, table string, d
 	for k := range fieldsMap {
 		fieldsKeyMap[k] = nil
 	}
-	// 自动将数据键映射到表格字段名。. md5:bdc9aa8a688bb975
+	// Automatic data key to table field name mapping.
 	var foundKey string
 	for dataKey, dataValue := range data {
 		if _, ok := fieldsKeyMap[dataKey]; !ok {
@@ -405,9 +398,8 @@ func (c *Core) mappingAndFilterData(ctx context.Context, schema, table string, d
 			}
 		}
 	}
-// 数据过滤。
-// 它会删除所有具有错误字段名的键值对。
-// md5:24aafcb1699db80c
+	// Data filtering.
+	// It deletes all key-value pairs that has incorrect field name.
 	if filter {
 		for dataKey := range data {
 			if _, ok := fieldsMap[dataKey]; !ok {

@@ -45,11 +45,11 @@ any=值
 ff=SliceMapDeep别名
 
 [func Maps(value interface{}, option ...MapOption) #左中括号##右中括号#map#左中括号#string#右中括号#interface{} {]
-ff=取Map数组
+ff=取Map切片
 option=选项
 value=值
 
 [func MapsDeep(value interface{}, tags ...string) #左中括号##右中括号#map#左中括号#string#右中括号#interface{} {]
-ff=取Map数组_递归
+ff=取Map切片_递归
 tags=值标签
 value=值

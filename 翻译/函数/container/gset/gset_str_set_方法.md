@@ -85,7 +85,7 @@ ff=取数量
 ff=清空
 
 [func (set *StrSet) Slice() #左中括号##右中括号#string {]
-ff=取集合数组
+ff=取集合切片
 
 [func (set *StrSet) Join(glue string) string {]
 ff=取集合文本

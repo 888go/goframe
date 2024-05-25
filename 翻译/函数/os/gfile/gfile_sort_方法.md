@@ -39,4 +39,4 @@
 
 [func SortFiles(files #左中括号##右中括号#string) #左中括号##右中括号#string {]
 ff=排序
-files=文件数组
+files=文件切片

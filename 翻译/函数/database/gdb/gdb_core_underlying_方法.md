@@ -86,6 +86,6 @@ link=链接
 ctx=上下文
 
 [func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error) {]
-ff=原生sql记录到行记录数组对象
+ff=原生sql记录到行记录切片对象
 rows=底层数据记录
 ctx=上下文

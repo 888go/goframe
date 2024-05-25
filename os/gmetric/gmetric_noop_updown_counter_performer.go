@@ -1,26 +1,26 @@
-// 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
+// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gmetric
 
 import "context"
 
-// noopUpDownCounterPerformer 是一个实现了 CounterPerformer 接口但没有实际操作的实现者。. md5:072081413ac6be4f
+// noopUpDownCounterPerformer is an implementer for interface CounterPerformer with no truly operations.
 type noopUpDownCounterPerformer struct{}
 
-// newNoopUpDownCounterPerformer 创建并返回一个没有真正操作的CounterPerformer。. md5:e7e1846c3b34c796
+// newNoopUpDownCounterPerformer creates and returns a CounterPerformer with no truly operations.
 func newNoopUpDownCounterPerformer() UpDownCounterPerformer {
 	return noopUpDownCounterPerformer{}
 }
 
-// Inc 将计数器增加1。. md5:81a1f6bd9f2e53ca
+// Inc increments the counter by 1.
 func (noopUpDownCounterPerformer) Inc(ctx context.Context, option ...Option) {}
 
-// Dec 将计数器减1。. md5:a57e133a130dce44
+// Dec decrements the counter by 1.
 func (noopUpDownCounterPerformer) Dec(ctx context.Context, option ...Option) {}
 
-// Add 将给定的值添加到计数器中。. md5:52aba4021b7f61b2
+// Add adds the given value to the counter.
 func (noopUpDownCounterPerformer) Add(ctx context.Context, increment float64, option ...Option) {}

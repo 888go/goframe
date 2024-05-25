@@ -47,13 +47,13 @@ ff=SliceUint32别名
 ff=SliceUint64别名
 
 [func Uints(any interface{}) #左中括号##右中括号#uint {]
-ff=取正整数数组
+ff=取正整数切片
 yx=true
 
 [func Uint32s(any interface{}) #左中括号##右中括号#uint32 {]
-ff=取正整数32位数组
+ff=取正整数32位切片
 any=值
 
 [func Uint64s(any interface{}) #左中括号##右中括号#uint64 {]
-ff=取正整数64位数组
+ff=取正整数64位切片
 any=值

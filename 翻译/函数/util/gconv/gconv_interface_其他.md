@@ -66,23 +66,23 @@ qm=取字节集
 cz=Bytes() []byte yx:true
 
 [Interfaces() #左中括号##右中括号#interface{}]
-qm=取any数组
+qm=取any切片
 cz=Interfaces() []interface{} yx:true
 
 [Floats() #左中括号##右中括号#float64]
-qm=取小数数组
+qm=取小数切片
 cz=Floats() []float64 yx:true
 
 [Ints() #左中括号##右中括号#int]
-qm=取整数数组
+qm=取整数切片
 cz=Ints() []int yx:true
 
 [Strings() #左中括号##右中括号#string]
-qm=取文本数组
+qm=取文本切片
 cz=Strings() []string yx:true
 
 [Uints() #左中括号##右中括号#uint]
-qm=取正整数数组
+qm=取正整数切片
 cz=Uints() []uint yx:true
 
 [MapStrAny() map#左中括号#string#右中括号#interface{}]

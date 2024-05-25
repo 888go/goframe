@@ -1,54 +1,52 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package gi18n 实现国际化和本地化。. md5:c7d7e3f7580f80a2
+// Package gi18n implements internationalization and localization.
 package gi18n
 
 import "context"
 
-// SetPath 设置存储i18n文件的目录路径。. md5:b39e1d244949dcf8
+// SetPath sets the directory path storing i18n files.
 func SetPath(path string) error {
 	return Instance().SetPath(path)
 }
 
-// SetLanguage 设置翻译器的语言。. md5:50b09b0bb0944dc1
+// SetLanguage sets the language for translator.
 func SetLanguage(language string) {
 	Instance().SetLanguage(language)
 }
 
-// SetDelimiters 为翻译器设置分隔符。. md5:f84b046b11204dc7
+// SetDelimiters sets the delimiters for translator.
 func SetDelimiters(left, right string) {
 	Instance().SetDelimiters(left, right)
 }
 
-// T 是为了方便而对 Translate 的别名。. md5:c07a6fa99a429eb3
+// T is alias of Translate for convenience.
 func T(ctx context.Context, content string) string {
 	return Instance().T(ctx, content)
 }
 
-// Tf是TranslateFormat的别名，为了方便起见。. md5:bdb209b24c669f5a
+// Tf is alias of TranslateFormat for convenience.
 func Tf(ctx context.Context, format string, values ...interface{}) string {
 	return Instance().TranslateFormat(ctx, format, values...)
 }
 
-// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
-// md5:2806a81d6db86c7f
+// TranslateFormat translates, formats and returns the `format` with configured language
+// and given `values`.
 func TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return Instance().TranslateFormat(ctx, format, values...)
 }
 
-// Translate 使用配置的语言翻译`content`并返回翻译后的内容。. md5:a39ef8b5e28189db
+// Translate translates `content` with configured language and returns the translated content.
 func Translate(ctx context.Context, content string) string {
 	return Instance().Translate(ctx, content)
 }
 
-// GetContent 获取并返回给定键和指定语言的配置内容。
-// 如果未找到，将返回一个空字符串。
-// md5:c64a3a803ac07e38
+// GetContent retrieves and returns the configured content for given key and specified language.
+// It returns an empty string if not found.
 func GetContent(ctx context.Context, key string) string {
 	return Instance().GetContent(ctx, key)
 }

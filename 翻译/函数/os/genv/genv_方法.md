@@ -71,15 +71,15 @@ def=默认值
 key=名称
 
 [func Build(m map#左中括号#string#右中括号#string) #左中括号##右中括号#string {]
-ff=Map到数组
+ff=Map到切片
 
 [func MapFromEnv(envs #左中括号##右中括号#string) map#左中括号#string#右中括号#string {]
-ff=数组到Map
-envs=数组
+ff=切片到Map
+envs=切片
 
 [func MapToEnv(m map#左中括号#string#右中括号#string) #左中括号##右中括号#string {]
 ff=MapToEnv别名
 
 [func Filter(envs #左中括号##右中括号#string) #左中括号##右中括号#string {]
-ff=数组去重
-envs=数组
+ff=切片去重
+envs=切片

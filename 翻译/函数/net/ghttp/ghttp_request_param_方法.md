@@ -79,5 +79,5 @@ pointer=结构指针
 ff=取multipart表单对象
 
 [func (r *Request) GetMultipartFiles(name string) #左中括号##右中括号#*multipart.FileHeader {]
-ff=取multipart表单文件数组对象
+ff=取multipart表单文件切片对象
 name=名称

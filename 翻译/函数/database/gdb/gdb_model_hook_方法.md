@@ -42,15 +42,15 @@ ff=是否为事务
 
 [func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {]
 err=错误
-result=行记录数组
+result=行记录切片
 ctx=上下文
 
 [func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err error) {]
 err=错误
-result=行记录数组
+result=行记录切片
 ctx=上下文
 
 [func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err error) {]
 err=错误
-result=行记录数组
+result=行记录切片
 ctx=上下文

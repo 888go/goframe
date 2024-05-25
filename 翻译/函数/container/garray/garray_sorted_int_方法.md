@@ -59,14 +59,14 @@ end=终点
 start=起点
 
 [func NewSortedIntArrayFrom(array #左中括号##右中括号#int, safe ...bool) *SortedIntArray {]
-ff=创建整数排序并从数组
+ff=创建整数排序并从切片
 safe=并发安全
-array=数组
+array=切片
 
 [func NewSortedIntArrayFromCopy(array #左中括号##右中括号#int, safe ...bool) *SortedIntArray {]
-ff=创建整数排序并从数组复制
+ff=创建整数排序并从切片复制
 safe=并发安全
-array=数组
+array=切片
 
 [func (a *SortedIntArray) At(index int) (value int) {]
 ff=取值
@@ -74,8 +74,8 @@ value=值
 index=索引
 
 [func (a *SortedIntArray) SetArray(array #左中括号##右中括号#int) *SortedIntArray {]
-ff=设置数组
-array=数组
+ff=设置切片
+array=切片
 
 [func (a *SortedIntArray) Sort() *SortedIntArray {]
 ff=排序递增
@@ -156,7 +156,7 @@ sum=值
 ff=取切片
 
 [func (a *SortedIntArray) Interfaces() #左中括号##右中括号#interface{} {]
-ff=取any数组
+ff=取any切片
 yx=true
 
 [func (a *SortedIntArray) Contains(value int) bool {]
@@ -177,7 +177,7 @@ ff=去重
 
 [func (a *SortedIntArray) Clone() (newArray *SortedIntArray) {]
 ff=取副本
-newArray=新数组
+newArray=新切片
 
 [func (a *SortedIntArray) Clear() *SortedIntArray {]
 ff=清空
@@ -192,7 +192,7 @@ f=回调函数
 
 [func (a *SortedIntArray) Merge(array interface{}) *SortedIntArray {]
 ff=合并
-array=数组
+array=切片
 
 [func (a *SortedIntArray) Chunk(size int) #左中括号##右中括号##左中括号##右中括号#int {]
 ff=分割

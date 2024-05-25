@@ -47,13 +47,13 @@ ff=SliceFloat32别名
 ff=SliceFloat64别名
 
 [func Floats(any interface{}) #左中括号##右中括号#float64 {]
-ff=取小数数组
+ff=取小数切片
 yx=true
 
 [func Float32s(any interface{}) #左中括号##右中括号#float32 {]
-ff=取小数32位数组
+ff=取小数32位切片
 any=值
 
 [func Float64s(any interface{}) #左中括号##右中括号#float64 {]
-ff=取小数64位数组
+ff=取小数64位切片
 any=值

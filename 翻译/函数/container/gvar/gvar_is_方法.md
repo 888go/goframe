@@ -54,7 +54,7 @@ ff=是否为正整数
 ff=是否为小数
 
 [func (v *Var) IsSlice() bool {]
-ff=是否为数组
+ff=是否为切片
 
 [func (v *Var) IsMap() bool {]
 ff=是否为Map

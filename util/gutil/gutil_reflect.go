@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gutil
 
@@ -16,12 +15,12 @@ type (
 	OriginTypeAndKindOutput  = reflection.OriginTypeAndKindOutput
 )
 
-// OriginValueAndKind 获取并返回原始的反射值和类型。. md5:e2cdf5d39aa2b981
+// OriginValueAndKind retrieves and returns the original reflect value and kind.
 func OriginValueAndKind(value interface{}) (out OriginValueAndKindOutput) {
 	return reflection.OriginValueAndKind(value)
 }
 
-// OriginTypeAndKind 获取并返回原始反射类型和种类。. md5:ee62836f1445e493
+// OriginTypeAndKind retrieves and returns the original reflect type and kind.
 func OriginTypeAndKind(value interface{}) (out OriginTypeAndKindOutput) {
 	return reflection.OriginTypeAndKind(value)
 }

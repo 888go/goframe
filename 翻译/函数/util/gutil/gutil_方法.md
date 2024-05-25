@@ -44,5 +44,5 @@ mapOrStruct=map或Struct
 
 [func Values(mapOrStruct interface{}) (values #左中括号##右中括号#interface{}) {]
 ff=取所有值
-values=值数组
+values=值切片
 mapOrStruct=map或Struct

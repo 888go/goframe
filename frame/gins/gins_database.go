@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gins
 
@@ -23,9 +22,8 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// Database 返回一个根据指定配置组名实例化的数据库ORM对象。
-// 注意，如果在实例创建过程中发生任何错误，它将会直接 panic。
-// md5:c8c0e8142b2f24af
+// Database returns an instance of database ORM object with specified configuration group name.
+// Note that it panics if any error occurs duration instance creating.
 func Database(name ...string) gdb.DB {
 	var (
 		ctx   = context.Background()
@@ -37,12 +35,12 @@ func Database(name ...string) gdb.DB {
 	}
 	instanceKey := fmt.Sprintf("%s.%s", frameCoreComponentNameDatabase, group)
 	db := instance.GetOrSetFuncLock(instanceKey, func() interface{} {
-		// 忽略返回的错误，以避免在不需要时出现“文件未找到”错误。. md5:47e693921809cd8c
+		// It ignores returned error to avoid file no found error while it's not necessary.
 		var (
 			configMap     map[string]interface{}
 			configNodeKey = consts.ConfigNodeNameDatabase
 		)
-		// 它首先搜索实例名称的配置。. md5:0b825658b318a2f7
+		// It firstly searches the configuration of the instance name.
 		if configData, _ := Config().Data(ctx); len(configData) > 0 {
 			if v, _ := gutil.MapPossibleItemByKey(configData, consts.ConfigNodeNameDatabase); v != "" {
 				configNodeKey = v
@@ -51,9 +49,9 @@ func Database(name ...string) gdb.DB {
 		if v, _ := Config().Get(ctx, configNodeKey); !v.IsEmpty() {
 			configMap = v.Map()
 		}
-		// 没有找到配置，它会格式化并引发 panic 错误。. md5:8716646cceaee999
+		// No configuration found, it formats and panics error.
 		if len(configMap) == 0 && !gdb.IsConfigured() {
-			// 文件配置对象检查。. md5:fdae1c62b2593d55
+			// File configuration object checks.
 			var err error
 			if fileConfig, ok := Config().GetAdapter().(*gcfg.AdapterFile); ok {
 				if _, err = fileConfig.GetFilePath(); err != nil {
@@ -62,7 +60,7 @@ func Database(name ...string) gdb.DB {
 					))
 				}
 			}
-			// 如果在Config对象或gdb配置中找不到任何内容，则引发恐慌。. md5:2c3aa642bbae15da
+			// Panic if nothing found in Config object or in gdb configuration.
 			if len(configMap) == 0 && !gdb.IsConfigured() {
 				panic(gerror.NewCodef(
 					gcode.CodeMissingConfiguration,
@@ -75,7 +73,7 @@ func Database(name ...string) gdb.DB {
 		if len(configMap) == 0 {
 			configMap = make(map[string]interface{})
 		}
-		// 将 `m` 解析为映射切片，并将其添加到gdb包的全局配置中。. md5:8970d506724c2880
+		// Parse `m` as map-slice and adds it to global configurations for package gdb.
 		for g, groupConfig := range configMap {
 			cg := gdb.ConfigGroup{}
 			switch value := groupConfig.(type) {
@@ -100,9 +98,8 @@ func Database(name ...string) gdb.DB {
 				}
 			}
 		}
-// 将 `m` 解析为单个节点配置，
-// 这是默认的组配置。
-// md5:8f62d1ad0b43783e
+		// Parse `m` as a single node configuration,
+		// which is the default group configuration.
 		if node := parseDBConfigNode(configMap); node != nil {
 			cg := gdb.ConfigGroup{}
 			if node.Link != "" || node.Host != "" {
@@ -123,9 +120,9 @@ func Database(name ...string) gdb.DB {
 			}
 		}
 
-		// 使用给定的配置创建一个新的ORM对象。. md5:8114aaedeed4c350
+		// Create a new ORM object with given configurations.
 		if db, err := gdb.NewByGroup(name...); err == nil {
-			// 初始化ORM的日志记录器。. md5:5fbf0eb7ce9402d0
+			// Initialize logger for ORM.
 			var (
 				loggerConfigMap map[string]interface{}
 				loggerNodeName  = fmt.Sprintf("%s.%s", configNodeKey, consts.ConfigNodeNameLogger)
@@ -147,7 +144,7 @@ func Database(name ...string) gdb.DB {
 			}
 			return db
 		} else {
-			// 如果出现恐慌，通常是由于它没有找到给定组的配置。. md5:461786d647ecc99d
+			// If panics, often because it does not find its configuration for given group.
 			panic(err)
 		}
 		return nil
@@ -170,7 +167,7 @@ func parseDBConfigNode(value interface{}) *gdb.ConfigNode {
 	if err != nil {
 		panic(err)
 	}
-	// 查找可能的 `Link` 配置内容。. md5:c3acedff678206f1
+	// Find possible `Link` configuration content.
 	if _, v := gutil.MapPossibleItemByKey(nodeMap, "Link"); v != nil {
 		node.Link = gconv.String(v)
 	}

@@ -55,7 +55,7 @@ def=默认值
 pattern=表达式
 
 [func (j *Json) GetJsons(pattern string, def ...interface{}) #左中括号##右中括号#*Json {]
-ff=取对象数组
+ff=取对象切片
 def=默认值
 pattern=表达式
 
@@ -103,7 +103,7 @@ pattern=表达式
 ff=取Map
 
 [func (j *Json) Array() #左中括号##右中括号#interface{} {]
-ff=取数组
+ff=取切片
 
 [func (j *Json) Scan(pointer interface{}, mapping ...map#左中括号#string#右中括号#string) error {]
 ff=取结构体指针

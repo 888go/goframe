@@ -50,12 +50,12 @@ str=文本
 [func Join(array #左中括号##右中括号#string, sep string) string {]
 ff=连接
 sep=连接符
-array=数组
+array=切片
 
 [func JoinAny(array interface{}, sep string) string {]
 ff=连接Any
 sep=连接符
-array=数组
+array=切片
 
 [func Explode(delimiter, str string) #左中括号##右中括号#string {]
 ff=Explode别名

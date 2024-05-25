@@ -86,7 +86,7 @@ qm=日志内容
 cz=Content string
 
 [Values #左中括号##右中括号#any]
-qm=未格式化数组
+qm=未格式化切片
 cz=Values []any
 
 [IsAsync bool]

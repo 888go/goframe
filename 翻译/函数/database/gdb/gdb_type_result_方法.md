@@ -58,10 +58,10 @@ ff=取xml
 rootTag=根标记
 
 [func (r Result) List() List {]
-ff=取Map数组
+ff=取Map切片
 
 [func (r Result) Array(field ...string) #左中括号##右中括号#Value {]
-ff=取字段数组
+ff=取字段切片
 field=字段名称
 
 [func (r Result) MapKeyValue(key string) map#左中括号#string#右中括号#Value {]
@@ -81,6 +81,6 @@ ff=取字段MapUint
 key=字段名称
 
 [func (r Result) Structs(pointer interface{}) (err error) {]
-ff=取数组结构体指针
+ff=取切片结构体指针
 err=错误
 pointer=结构体指针

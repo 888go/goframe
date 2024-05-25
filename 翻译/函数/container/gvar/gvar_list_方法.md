@@ -38,10 +38,10 @@
 # 备注结束
 
 [func (v *Var) ListItemValues(key interface{}) (values #左中括号##右中括号#interface{}) {]
-ff=取结构数组或Map数组值
+ff=取结构切片或Map切片值
 values=值s
 key=名称
 
 [func (v *Var) ListItemValuesUnique(key string) #左中括号##右中括号#interface{} {]
-ff=取结构数组或Map数组值并去重
+ff=取结构切片或Map切片值并去重
 key=名称

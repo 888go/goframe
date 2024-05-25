@@ -42,5 +42,5 @@ ff=SliceAny别名
 any=值
 
 [func Interfaces(any interface{}) #左中括号##右中括号#interface{} {]
-ff=取any数组
+ff=取any切片
 yx=true

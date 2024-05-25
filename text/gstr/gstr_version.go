@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
 
@@ -13,7 +12,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// IsGNUVersion 检查并返回给定的 `version` 是否为有效的 GNU 版本字符串。. md5:6400dc6a399e4aa3
+// IsGNUVersion checks and returns whether given `version` is valid GNU version string.
 func IsGNUVersion(version string) bool {
 	if version != "" && (version[0] == 'v' || version[0] == 'V') {
 		version = version[1:]
@@ -39,23 +38,22 @@ func IsGNUVersion(version string) bool {
 	return true
 }
 
-// CompareVersion 按照GNU版本标准比较 `a` 和 `b`。
+// CompareVersion compares `a` and `b` as standard GNU version.
 //
-// 如果 `a` 大于 `b`，返回 1。
+// It returns  1 if `a` > `b`.
 //
-// 如果 `a` 小于 `b`，返回 -1。
+// It returns -1 if `a` < `b`.
 //
-// 如果 `a` 等于 `b`，返回 0。
+// It returns  0 if `a` = `b`.
 //
-// GNU版本标准格式例如：
+// GNU standard version is like:
 // v1.0
 // 1
 // 1.0.0
 // v1.0.1
 // v2.10.8
 // 10.2.0
-// 等等。
-// md5:2716e579b3f9ba4d
+// etc.
 func CompareVersion(a, b string) int {
 	if a != "" && a[0] == 'v' {
 		a = a[1:]
@@ -91,15 +89,15 @@ func CompareVersion(a, b string) int {
 	return 0
 }
 
-// CompareVersionGo 将 `a` 和 `b` 当作标准的 Go 语言版本进行比较。
+// CompareVersionGo compares `a` and `b` as standard Golang version.
 //
-// 如果 `a` 大于 `b`，返回 1。
+// It returns  1 if `a` > `b`.
 //
-// 如果 `a` 小于 `b`，返回 -1。
+// It returns -1 if `a` < `b`.
 //
-// 如果 `a` 等于 `b`，返回 0。
+// It returns  0 if `a` = `b`.
 //
-// 标准的 Go 语言版本格式如下：
+// Golang standard version is like:
 // 1.0.0
 // v1.0.1
 // v2.10.8
@@ -107,10 +105,9 @@ func CompareVersion(a, b string) int {
 // v0.0.0-20190626092158-b2ccc519800e
 // v1.12.2-0.20200413154443-b17e3a6804fa
 // v4.20.0+incompatible
-// 等等。
+// etc.
 //
-// 文档：https://go.dev/doc/modules/version-numbers
-// md5:27f202ad306995b3
+// Docs: https://go.dev/doc/modules/version-numbers
 func CompareVersionGo(a, b string) int {
 	a = Trim(a)
 	b = Trim(b)
@@ -155,15 +152,13 @@ func CompareVersionGo(a, b string) int {
 		array2 = append(array2, "0")
 	}
 
-	// 首先检查Major.Minor.Patch. md5:098a0c10a68fabae
+	// check Major.Minor.Patch first
 	v1, v2 := 0, 0
 	for i := 0; i < len(array1); i++ {
 		v1, v2 = gconv.Int(array1[i]), gconv.Int(array2[i])
-// 特别是在Go语言中：
-// 特别是：
-// "v1.12.2-0.20200413154443-b17e3a6804fa" < "v1.12.2" // 表示 v1.12.2-0.20200413154443-b17e3a6804fa 版本早于 v1.12.2
-// "v1.12.3-0.20200413154443-b17e3a6804fa" > "v1.12.2" // 表示 v1.12.3-0.20200413154443-b17e3a6804fa 版本晚于 v1.12.2
-// md5:685fe05f97473463
+		// Specially in Golang:
+		// "v1.12.2-0.20200413154443-b17e3a6804fa" < "v1.12.2"
+		// "v1.12.3-0.20200413154443-b17e3a6804fa" > "v1.12.2"
 		if i == 4 && v1 != v2 && (v1 == 0 || v2 == 0) {
 			if v1 > v2 {
 				return -1
@@ -180,9 +175,8 @@ func CompareVersionGo(a, b string) int {
 		}
 	}
 
-// 特别是在 Golang 中：
-// "v4.20.1+incompatible" 小于 "v4.20.1"
-// md5:a292bd03375fd35c
+	// Specially in Golang:
+	// "v4.20.1+incompatible" < "v4.20.1"
 	inA, inB := Contains(rawA, "+incompatible"), Contains(rawB, "+incompatible")
 	if inA && !inB {
 		return -1

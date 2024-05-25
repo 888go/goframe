@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package oracle
 
@@ -22,7 +21,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// DoInsert 为给定的表插入或更新数据。. md5:2a62d01f344269b8
+// DoInsert inserts or updates data for given table.
 func (d *Driver) DoInsert(
 	ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption,
 ) (result sql.Result, err error) {
@@ -41,7 +40,7 @@ func (d *Driver) DoInsert(
 		values []string
 		params []interface{}
 	)
-	// 获取表字段和长度。. md5:d3d13ee5d6edab01
+	// Retrieve the table fields and length.
 	var (
 		listLength  = len(list)
 		valueHolder = make([]string, 0)
@@ -56,7 +55,7 @@ func (d *Driver) DoInsert(
 		keyStr         = charL + strings.Join(keys, charL+","+charR) + charR
 		valueHolderStr = strings.Join(valueHolder, ",")
 	)
-	// 格式化 "INSERT...INTO..." 语句。. md5:bc835784d4de298b
+	// Format "INSERT...INTO..." statement.
 	intoStrArray := make([]string, 0)
 	for i := 0; i < len(list); i++ {
 		for _, k := range keys {
@@ -95,7 +94,7 @@ func (d *Driver) DoInsert(
 	return batchResult, nil
 }
 
-// doSave 支持Oracle的upsert操作. md5:29379eec8ad5635d
+// doSave support upsert for Oracle
 func (d *Driver) doSave(ctx context.Context,
 	link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption,
 ) (result sql.Result, err error) {
@@ -119,12 +118,11 @@ func (d *Driver) doSave(ctx context.Context,
 		conflictKeys   = option.OnConflict
 		conflictKeySet = gset.New(false)
 
-// queryHolders：处理需要插入或更新的Holder数据
-// queryValues：处理需要插入或更新的值
-// insertKeys：处理需要插入的有效键
-// insertValues：处理需要插入的值
-// updateValues：处理需要更新的值
-// md5:7779ec7103105a5e
+		// queryHolders:	Handle data with Holder that need to be upsert
+		// queryValues:		Handle data that need to be upsert
+		// insertKeys:		Handle valid keys that need to be inserted
+		// insertValues:	Handle values that need to be inserted
+		// updateValues:	Handle values that need to be updated
 		queryHolders = make([]string, oneLen)
 		queryValues  = make([]interface{}, oneLen)
 		insertKeys   = make([]string, oneLen)
@@ -132,7 +130,7 @@ func (d *Driver) doSave(ctx context.Context,
 		updateValues []string
 	)
 
-	// 将conflictKeys切片类型转换为集合（set）类型. md5:bec4a3b4ed209948
+	// conflictKeys slice type conv to set type
 	for _, conflictKey := range conflictKeys {
 		conflictKeySet.Add(gstr.ToUpper(conflictKey))
 	}
@@ -145,9 +143,8 @@ func (d *Driver) doSave(ctx context.Context,
 		insertKeys[index] = keyWithChar
 		insertValues[index] = fmt.Sprintf("T2.%s", keyWithChar)
 
-// 过滤掉更新值中的冲突键。
-// 并且该键不是软创建字段。
-// md5:7882adbf4107a87d
+		// filter conflict keys in updateValues.
+		// And the key is not a soft created field.
 		if !(conflictKeySet.Contains(key) || d.Core.IsSoftCreatedFieldName(key)) {
 			updateValues = append(
 				updateValues,
@@ -174,13 +171,12 @@ func (d *Driver) doSave(ctx context.Context,
 
 // parseSqlForUpsert
 // MERGE INTO {{table}} T1
-// 使用 ( SELECT {{queryHolders}} FROM DUAL T2
+// USING ( SELECT {{queryHolders}} FROM DUAL T2
 // ON (T1.{{duplicateKey}} = T2.{{duplicateKey}} AND ...)
-// 当未找到匹配时
+// WHEN NOT MATCHED THEN
 // INSERT {{insertKeys}} VALUES {{insertValues}}
-// 当找到匹配时
+// WHEN MATCHED THEN
 // UPDATE SET {{updateValues}}
-// md5:7a233cb2881f0359
 func parseSqlForUpsert(table string,
 	queryHolders, insertKeys, insertValues, updateValues, duplicateKey []string,
 ) (sqlStr string) {

@@ -38,60 +38,60 @@
 # 备注结束
 
 [func (vs Vars) Strings() (s #左中括号##右中括号#string) {]
-ff=取文本数组
+ff=取文本切片
 yx=true
 
 [func (vs Vars) Interfaces() (s #左中括号##右中括号#interface{}) {]
-ff=取any数组
+ff=取any切片
 yx=true
 
 [func (vs Vars) Float32s() (s #左中括号##右中括号#float32) {]
-ff=取小数32位数组
-s=数组
+ff=取小数32位切片
+s=切片
 
 [func (vs Vars) Float64s() (s #左中括号##右中括号#float64) {]
-ff=取小数64位数组
-s=数组
+ff=取小数64位切片
+s=切片
 
 [func (vs Vars) Ints() (s #左中括号##右中括号#int) {]
-ff=取整数数组
+ff=取整数切片
 yx=true
 
 [func (vs Vars) Int8s() (s #左中括号##右中括号#int8) {]
-ff=取整数8位数组
-s=数组
+ff=取整数8位切片
+s=切片
 
 [func (vs Vars) Int16s() (s #左中括号##右中括号#int16) {]
-ff=取整数16位数组
-s=数组
+ff=取整数16位切片
+s=切片
 
 [func (vs Vars) Int32s() (s #左中括号##右中括号#int32) {]
-ff=取整数32位数组
-s=数组
+ff=取整数32位切片
+s=切片
 
 [func (vs Vars) Int64s() (s #左中括号##右中括号#int64) {]
-ff=取整数64位数组
-s=数组
+ff=取整数64位切片
+s=切片
 
 [func (vs Vars) Uints() (s #左中括号##右中括号#uint) {]
-ff=取正整数数组
+ff=取正整数切片
 yx=true
 
 [func (vs Vars) Uint8s() (s #左中括号##右中括号#uint8) {]
-ff=取正整数8位数组
-s=数组
+ff=取正整数8位切片
+s=切片
 
 [func (vs Vars) Uint16s() (s #左中括号##右中括号#uint16) {]
-ff=取正整数16位数组
-s=数组
+ff=取正整数16位切片
+s=切片
 
 [func (vs Vars) Uint32s() (s #左中括号##右中括号#uint32) {]
-ff=取正整数32位数组
-s=数组
+ff=取正整数32位切片
+s=切片
 
 [func (vs Vars) Uint64s() (s #左中括号##右中括号#uint64) {]
-ff=取正整数64位数组
-s=数组
+ff=取正整数64位切片
+s=切片
 
 [func (vs Vars) Scan(pointer interface{}, mapping ...map#左中括号#string#右中括号#string) error {]
 ff=取结构体指针

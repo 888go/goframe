@@ -44,7 +44,7 @@ safe=并发安全
 [func NewIntSetFrom(items #左中括号##右中括号#int, safe ...bool) *IntSet {]
 ff=创建整数并按值
 safe=并发安全
-items=整数数组
+items=整数切片
 
 [func (set *IntSet) Iterator(f func(v int) bool) {]
 ff=X遍历
@@ -81,7 +81,7 @@ ff=取数量
 ff=清空
 
 [func (set *IntSet) Slice() #左中括号##右中括号#int {]
-ff=取集合数组
+ff=取集合切片
 
 [func (set *IntSet) Join(glue string) string {]
 ff=取集合文本

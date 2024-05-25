@@ -38,5 +38,5 @@
 # 备注结束
 
 [func StructToSlice(data interface{}) #左中括号##右中括号#interface{} {]
-ff=结构体到数组
+ff=结构体到切片
 data=结构体指针

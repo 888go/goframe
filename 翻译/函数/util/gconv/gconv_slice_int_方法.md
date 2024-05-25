@@ -47,13 +47,13 @@ ff=SliceIet32别名
 ff=SliceInt64别名
 
 [func Ints(any interface{}) #左中括号##右中括号#int {]
-ff=取整数数组
+ff=取整数切片
 yx=true
 
 [func Int32s(any interface{}) #左中括号##右中括号#int32 {]
-ff=取整数32位数组
+ff=取整数32位切片
 any=值
 
 [func Int64s(any interface{}) #左中括号##右中括号#int64 {]
-ff=取整数64位数组
+ff=取整数64位切片
 any=值

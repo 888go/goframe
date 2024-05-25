@@ -38,16 +38,16 @@
 # 备注结束
 
 [func SearchArray(a #左中括号##右中括号#string, s string) int {]
-ff=数组查找
+ff=切片查找
 s=待查找值
-a=数组
+a=切片
 
 [func InArray(a #左中括号##右中括号#string, s string) bool {]
-ff=数组是否存在
+ff=切片是否存在
 s=待查找值
-a=数组
+a=切片
 
 [func PrefixArray(array #左中括号##右中括号#string, prefix string) {]
-ff=数组加前缀
+ff=切片加前缀
 prefix=前缀
-array=数组
+array=切片

@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gclient
 
@@ -14,14 +13,13 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// WebSocketClient 封装了底层的websocket客户端连接，
-// 并提供了便捷的功能方法。
-// md5:82e7259d43b0aaee
+// WebSocketClient wraps the underlying websocket client connection
+// and provides convenient functions.
 type WebSocketClient struct {
 	*websocket.Dialer
 }
 
-// NewWebSocket 创建并返回一个新的WebSocket客户端对象。. md5:03f6812fa459ed81
+// NewWebSocket creates and returns a new WebSocketClient object.
 func NewWebSocket() *WebSocketClient {
 	return &WebSocketClient{
 		&websocket.Dialer{

@@ -155,7 +155,7 @@ qm=原生SQL查询字段值
 cz=GetValue(ctx context.Context, sql string, args ...interface{})
 
 [GetArray(ctx context.Context, sql string, args ...interface{}) (#左中括号##右中括号#Value, error)]
-qm=原生SQL查询数组
+qm=原生SQL查询切片
 cz=GetArray(ctx context.Context, sql string, args ...interface{})
 
 [GetCount(ctx context.Context, sql string, args ...interface{}) (int, error)]
@@ -267,7 +267,7 @@ qm=底层取数据库安全字符
 cz=GetChars() (charLeft string, charRight string)
 
 [Tables(ctx context.Context, schema ...string) (tables #左中括号##右中括号#string, err error)]
-qm=取表名称数组
+qm=取表名称切片
 cz=Tables(ctx context.Context, schema ...string)
 
 [TableFields(ctx context.Context, table string, schema ...string) (map#左中括号#string#右中括号#*TableField, error)]
@@ -331,7 +331,7 @@ qm=原生SQL查询单条到结构体指针
 cz=GetStruct(obj interface{}, sql string, args ...interface{})
 
 [GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error]
-qm=原生SQL查询到结构体数组指针
+qm=原生SQL查询到结构体切片指针
 cz=GetStructs(objPointerSlice interface{}, sql string, args ...interface{})
 
 [GetScan(pointer interface{}, sql string, args ...interface{}) error]
@@ -395,7 +395,7 @@ qm=回滚事务点
 cz=RollbackTo(point string) error
 
 [Records   #左中括号##右中括号#Record]
-qm=行记录数组
+qm=行记录切片
 cz=Records   []
 
 [Stmt      *Stmt]
@@ -415,5 +415,5 @@ qm=增减值
 cz=Value float64
 
 [List   = #左中括号##右中括号#Map]
-qm=Map数组
+qm=Map切片
 cz=List #等号# []Map

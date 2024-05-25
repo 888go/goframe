@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package sqlite
 
@@ -17,9 +16,8 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// FormatUpsert 返回用于SQLite的UPSERT类型的SQL子句。
-// 例如：ON CONFLICT (id) DO UPDATE SET ...
-// md5:49f955d5c160f808
+// FormatUpsert returns SQL clause of type upsert for SQLite.
+// For example: ON CONFLICT (id) DO UPDATE SET ...
 func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInsertOption) (string, error) {
 	if len(option.OnConflict) == 0 {
 		return "", gerror.NewCode(
@@ -52,7 +50,7 @@ func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInse
 		}
 	} else {
 		for _, column := range columns {
-			// 如果是SAVE操作，不要自动更新创建时间。. md5:409c9c162d30afae
+			// If it's SAVE operation, do not automatically update the creating time.
 			if d.Core.IsSoftCreatedFieldName(column) {
 				continue
 			}

@@ -55,14 +55,14 @@ end=终点
 start=起点
 
 [func NewIntArrayFrom(array #左中括号##右中括号#int, safe ...bool) *IntArray {]
-ff=创建整数并从数组
+ff=创建整数并从切片
 safe=并发安全
-array=数组
+array=切片
 
 [func NewIntArrayFromCopy(array #左中括号##右中括号#int, safe ...bool) *IntArray {]
-ff=创建整数并从数组复制
+ff=创建整数并从切片复制
 safe=并发安全
-array=数组
+array=切片
 
 [func (a *IntArray) At(index int) (value int) {]
 ff=取值
@@ -80,12 +80,12 @@ ff=设置值
 yx=true
 
 [func (a *IntArray) SetArray(array #左中括号##右中括号#int) *IntArray {]
-ff=设置数组
-array=数组
+ff=设置切片
+array=切片
 
 [func (a *IntArray) Replace(array #左中括号##右中括号#int) *IntArray {]
 ff=替换
-array=数组
+array=切片
 
 [func (a *IntArray) Sum() (sum int) {]
 ff=求和
@@ -178,12 +178,12 @@ ff=取长度
 ff=取切片
 
 [func (a *IntArray) Interfaces() #左中括号##右中括号#interface{} {]
-ff=取any数组
+ff=取any切片
 yx=true
 
 [func (a *IntArray) Clone() (newArray *IntArray) {]
 ff=取副本
-newArray=新数组
+newArray=新切片
 
 [func (a *IntArray) Clear() *IntArray {]
 ff=清空
@@ -209,7 +209,7 @@ f=回调函数
 
 [func (a *IntArray) Merge(array interface{}) *IntArray {]
 ff=合并
-array=数组
+array=切片
 
 [func (a *IntArray) Fill(startIndex int, num int, value int) error {]
 ff=填充

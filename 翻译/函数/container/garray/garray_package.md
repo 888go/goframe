@@ -38,4 +38,4 @@
 # 备注结束
 
 [package garray]
-bm=数组类
+bm=切片类

@@ -66,7 +66,7 @@ ff=取泛型类Map_递归
 tags=值类型标签
 
 [func (v *Var) Maps(option ...MapOption) #左中括号##右中括号#map#左中括号#string#右中括号#interface{} {]
-ff=取Map数组
+ff=取Map切片
 option=选项
 
 [func (v *Var) MapsDeep(tags ...string) #左中括号##右中括号#map#左中括号#string#右中括号#interface{} {]

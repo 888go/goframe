@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> 
  <trees>
-     <tree path="/container/garray" title="数组类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+     <tree path="/container/garray" title="切片类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
            backgroundColor=""/>
      <tree path="/container/glist" title="链表类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
            backgroundColor=""/>

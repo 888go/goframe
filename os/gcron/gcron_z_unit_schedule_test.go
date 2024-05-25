@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gcron
 
@@ -68,13 +67,13 @@ func TestNext(t *testing.T) {
 		{"Mon Jul 9 23:35 2012", "0 0 0 * Feb Mon", "Mon Feb 4 00:00 2013"},
 		{"Mon Jul 9 23:35 2012", "0 0 0 * Feb Mon/2", "Fri Feb 1 00:00 2013"},
 
-		// 对分钟、小时、天、月和年进行循环. md5:5e7fbfff239d3004
+		// Wrap around minute, hour, day, month, and year
 		{"Mon Dec 31 23:59:45 2012", "0 * * * * *", "Tue Jan 1 00:00:00 2013"},
 
 		// Leap year
 		{"Mon Jul 9 23:35 2012", "0 0 0 29 Feb ?", "Mon Feb 29 00:00 2016"},
 
-		// 预定义的模式映射。. md5:dc23a289b509e3b6
+		// Predefined pattern map.
 		{"Mon Jul 9 23:35 2012", "@yearly", "Sun Jan 1 00:00:00 2013"},
 		{"Mon Jul 9 23:35 2012", "@annually", "Sun Jan 1 00:00:00 2013"},
 		{"Mon Jul 9 23:35 2012", "@monthly", "Mon Aug 1 00:00:00 2012"},
@@ -94,7 +93,7 @@ func TestNext(t *testing.T) {
 			t.Error(err)
 			continue
 		}
-		// 使用fmt.Printf函数打印sched的值，其中"%+v"是一个格式化字符串，表示输出 sched 的值，并且包括其类型信息。. md5:00923f8d723abc44
+		// fmt.Printf("%+v", sched)
 		actual := s.Next(getTime(c.time))
 		expected := getTime(c.expected)
 		if !(actual.Unix() == expected.Unix()) {

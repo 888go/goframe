@@ -67,9 +67,9 @@ charRight=右字符
 charLeft=左字符
 
 [func (c *Core) Tables(ctx context.Context, schema ...string) (tables #左中括号##右中括号#string, err error) {]
-ff=取表名称数组
+ff=取表名称切片
 err=错误
-tables=表名称数组
+tables=表名称切片
 ctx=上下文
 
 [func (c *Core) TableFields(ctx context.Context, table string, schema ...string) (fields map#左中括号#string#右中括号#*TableField, err error) {]

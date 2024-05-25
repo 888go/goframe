@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtcp
 
@@ -17,34 +16,32 @@ import (
 
 const (
 	_                    = iota << 1
-	pkgHeaderSizeDefault // 简单包协议的头部大小。. md5:6e3294120717ff1f
-	pkgHeaderSizeMax     // 简单包协议的最大头部大小。. md5:b1e4f447dc182fa5
+	pkgHeaderSizeDefault // Header size for simple package protocol.
+	pkgHeaderSizeMax     // Max header size for simple package protocol.
 )
 
-// PkgOption是简单协议的包选项。. md5:f49ee7556a39be3e
+// PkgOption is package option for simple protocol.
 type PkgOption struct {
-// HeaderSize 用于标记接下来接收数据的长度。
-// 它默认为2字节，最大为4字节，代表数据的最大长度可以从65535字节到4294967295字节。
-// md5:cc02a98c94fddd76
+	// HeaderSize is used to mark the data length for next data receiving.
+	// It's 2 bytes in default, 4 bytes max, which stands for the max data length
+	// from 65535 to 4294967295 bytes.
 	HeaderSize int
 
-// MaxDataSize 是数据字段的字节大小，用于数据长度验证。
-// 如果未手动设置，它将根据HeaderSize自动相应设置。
-// md5:a47982162ce5ef01
+	// MaxDataSize is the data field size in bytes for data length validation.
+	// If it's not manually set, it'll automatically be set correspondingly with the HeaderSize.
 	MaxDataSize int
 
-	// 操作失败时的重试策略。. md5:cd672b1b96adbbdd
+	// Retry policy when operation fails.
 	Retry Retry
 }
 
-// SendPkg 使用简单包协议发送数据。
+// SendPkg send data using simple package protocol.
 //
-// 简单包协议：DataLength(24位)|DataField(variant)。
+// Simple package protocol: DataLength(24bit)|DataField(variant)。
 //
-// 注意，
-// 1. DataLength 是 DataField 的长度，不包含头大小。
-// 2. 包的整数字节使用大端序编码。
-// md5:daa39f4e32227d79
+// Note that,
+// 1. The DataLength is the length of DataField, which does not contain the header size.
+// 2. The integer bytes of the package are encoded using BigEndian order.
 func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	pkgOption, err := getPkgOption(option...)
 	if err != nil {
@@ -68,7 +65,7 @@ func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	return c.Send(buffer[offset:])
 }
 
-// 使用简单包协议带超时时间地向连接发送数据。. md5:3f89f6011aed63bc
+// SendPkgWithTimeout writes data to connection with timeout using simple package protocol.
 func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) (err error) {
 	if err := c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -80,7 +77,7 @@ func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...
 	return
 }
 
-// SendRecvPkg 使用简单的包协议将数据写入连接，并阻塞读取响应。. md5:c157760431f11896
+// SendRecvPkg writes data to connection and blocks reading response using simple package protocol.
 func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkg(option...)
@@ -89,7 +86,7 @@ func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	}
 }
 
-// SendRecvPkgWithTimeout 使用简单包协议向连接写入数据，并在超时后读取响应。. md5:6da9109d534f7729
+// SendRecvPkgWithTimeout writes data to connection and reads response with timeout using simple package protocol.
 func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkgWithTimeout(timeout, option...)
@@ -98,7 +95,7 @@ func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option
 	}
 }
 
-// RecvPkg 使用简单包协议从连接接收数据。. md5:cf1329c5df27539a
+// RecvPkg receives data from connection using simple package protocol.
 func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	var (
 		buffer []byte
@@ -115,7 +112,7 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	}
 	switch pkgOption.HeaderSize {
 	case 1:
-		// 如果头部大小小于4字节（uint32），则用零填充。. md5:5e9e147401796703
+		// It fills with zero if the header size is lesser than 4 bytes (uint32).
 		length = int(binary.BigEndian.Uint32([]byte{0, 0, 0, buffer[0]}))
 	case 2:
 		length = int(binary.BigEndian.Uint32([]byte{0, 0, buffer[0], buffer[1]}))
@@ -124,9 +121,8 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	default:
 		length = int(binary.BigEndian.Uint32([]byte{buffer[0], buffer[1], buffer[2], buffer[3]}))
 	}
-// 此处校验包的大小。
-// 如果校验失败，会立即清空缓冲区并返回错误。
-// md5:0871405b30986628
+	// It here validates the size of the package.
+	// It clears the buffer and returns error immediately if it validates failed.
 	if length < 0 || length > pkgOption.MaxDataSize {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid package size %d`, length)
 	}
@@ -138,7 +134,7 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	return c.Recv(length, pkgOption.Retry)
 }
 
-// RecvPkgWithTimeout 使用简单包协议，从连接中读取数据，同时设置超时。. md5:5e1d4882f4476862
+// RecvPkgWithTimeout reads data from connection with timeout using simple package protocol.
 func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (data []byte, err error) {
 	if err = c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -150,9 +146,8 @@ func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (d
 	return
 }
 
-// getPkgOption 包装并返回 PkgOption。
-// 如果没有提供选项，则返回一个具有默认值的新选项。
-// md5:752809cff379479d
+// getPkgOption wraps and returns the PkgOption.
+// If no option given, it returns a new option with default value.
 func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 	pkgOption := PkgOption{}
 	if len(option) > 0 {
@@ -177,7 +172,7 @@ func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 		case 3:
 			pkgOption.MaxDataSize = 0xFFFFFF
 		case 4:
-			// math.MaxInt32 而不是 math.MaxUint32. md5:11ed9a0830ca2d39
+			// math.MaxInt32 not math.MaxUint32
 			pkgOption.MaxDataSize = 0x7FFFFFFF
 		}
 	}

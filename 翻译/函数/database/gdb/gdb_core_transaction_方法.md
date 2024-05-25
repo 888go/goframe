@@ -124,7 +124,7 @@ args=参数
 obj=结构体指针
 
 [func (tx *TXCore) GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error {]
-ff=原生SQL查询到结构体数组指针
+ff=原生SQL查询到结构体切片指针
 args=参数
 objPointerSlice=结构体指针
 

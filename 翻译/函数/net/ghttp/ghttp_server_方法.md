@@ -48,7 +48,7 @@ ff=开始监听
 ff=取OpenApi对象
 
 [func (s *Server) GetRoutes() #左中括号##右中括号#RouterItem {]
-ff=取路由数组
+ff=取路由切片
 
 [func (s *Server) Run() {]
 ff=启动服务

@@ -61,22 +61,22 @@ start=起点
 [func NewFrom(array #左中括号##右中括号#interface{}, safe ...bool) *Array {]
 ff=NewFrom别名
 safe=并发安全
-array=数组
+array=切片
 
 [func NewFromCopy(array #左中括号##右中括号#interface{}, safe ...bool) *Array {]
 ff=NewFromCopy别名
 safe=并发安全
-array=数组
+array=切片
 
 [func NewArrayFrom(array #左中括号##右中括号#interface{}, safe ...bool) *Array {]
-ff=创建并从数组
+ff=创建并从切片
 safe=并发安全
-array=数组
+array=切片
 
 [func NewArrayFromCopy(array #左中括号##右中括号#interface{}, safe ...bool) *Array {]
-ff=创建并从数组复制
+ff=创建并从切片复制
 safe=并发安全
-array=数组
+array=切片
 
 [func (a *Array) At(index int) (value interface{}) {]
 ff=取值
@@ -94,12 +94,12 @@ ff=设置值
 yx=true
 
 [func (a *Array) SetArray(array #左中括号##右中括号#interface{}) *Array {]
-ff=设置数组
-array=数组
+ff=设置切片
+array=切片
 
 [func (a *Array) Replace(array #左中括号##右中括号#interface{}) *Array {]
 ff=替换
-array=数组
+array=切片
 
 [func (a *Array) Sum() (sum int) {]
 ff=求和
@@ -189,12 +189,12 @@ ff=取长度
 ff=取切片
 
 [func (a *Array) Interfaces() #左中括号##右中括号#interface{} {]
-ff=取any数组
+ff=取any切片
 yx=true
 
 [func (a *Array) Clone() (newArray *Array) {]
 ff=取副本
-newArray=新数组
+newArray=新切片
 
 [func (a *Array) Clear() *Array {]
 ff=清空
@@ -220,7 +220,7 @@ f=回调函数
 
 [func (a *Array) Merge(array interface{}) *Array {]
 ff=合并
-array=数组
+array=切片
 
 [func (a *Array) Fill(startIndex int, num int, value interface{}) error {]
 ff=填充

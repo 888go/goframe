@@ -54,7 +54,7 @@ ff=取查询参数到Map
 ff=取查询参数到MapStrStr
 
 [func (r *Request) GetQueryMapStrVar(kvMap ...map#左中括号#string#右中括号#interface{}) map#左中括号#string#右中括号#*gvar.Var {]
-ff=取查询参数到Map泛型类数组
+ff=取查询参数到Map泛型类切片
 
 [func (r *Request) GetQueryStruct(pointer interface{}, mapping ...map#左中括号#string#右中括号#string) error {]
 ff=取查询参数到结构体

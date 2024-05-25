@@ -52,13 +52,13 @@ search=替换文本
 origin=文本
 
 [func ReplaceByArray(origin string, array #左中括号##右中括号#string) string {]
-ff=数组替换
-array=数组
+ff=切片替换
+array=切片
 origin=文本
 
 [func ReplaceIByArray(origin string, array #左中括号##右中括号#string) string {]
-ff=数组替换并忽略大小写
-array=数组
+ff=切片替换并忽略大小写
+array=切片
 origin=文本
 
 [func ReplaceByMap(origin string, replaces map#左中括号#string#右中括号#string) string {]
@@ -68,5 +68,5 @@ origin=文本
 
 [func ReplaceIByMap(origin string, replaces map#左中括号#string#右中括号#string) string {]
 ff=Map替换并忽略大小写
-replaces=map数组
+replaces=map切片
 origin=文本
