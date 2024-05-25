@@ -98,6 +98,58 @@ func NewHashMap(safe ...bool) *Map {
 // 在外部修改映射时可能会存在并发安全问题。
 // 参数 `safe` 用于指定是否在并发安全中使用树，其默认值为 false。
 // md5:0e21655091039f16
+// 翻译提示:func 新建HashMap从数据(data map[interface{}]interface{}) *HashMap {
+//     hm := newHashMap()
+//     for k, v := range data {
+//         hm.Put(k, v)
+//     }
+//     return hm
+// }
+// 
+// func (m *HashMap) Put(key interface{}, value interface{}) {
+//     m.lock.Lock()
+//     defer m.lock.Unlock()
+//     m.data[key] = value
+// }
+// 
+// func (m *HashMap) Get(key interface{}) (value interface{}, exists bool) {
+//     m.lock.RLock()
+//     defer m.lock.RUnlock()
+//     value, exists = m.data[key]
+//     return
+// }
+// 
+// func (m *HashMap) Delete(key interface{}) {
+//     m.lock.Lock()
+//     defer m.lock.Unlock()
+//     delete(m.data, key)
+// }
+// 
+// func (m *HashMap) Size() int {
+//     m.lock.RLock()
+//     defer m.lock.RUnlock()
+//     return len(m.data)
+// }
+// 
+// func (m *HashMap) Keys() []interface{} {
+//     m.lock.RLock()
+//     defer m.lock.RUnlock()
+//     keys := make([]interface{}, 0, len(m.data))
+//     for key := range m.data {
+//         keys = append(keys, key)
+//     }
+//     return keys
+// }
+// 
+// func (m *HashMap) Values() []interface{} {
+//     m.lock.RLock()
+//     defer m.lock.RUnlock()
+//     values := make([]interface{}, 0, len(m.data))
+//     for _, value := range m.data {
+//         values = append(values, value)
+//     }
+//     return values
+// }
 func NewHashMapFrom(data map[interface{}]interface{}, safe ...bool) *Map {
 	return NewAnyAnyMapFrom(data, safe...)
 }
