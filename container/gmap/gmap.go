@@ -15,6 +15,7 @@ type (
 // New 创建并返回一个空的哈希映射。
 // 参数 `safe` 用于指定是否在并发安全模式下使用映射，默认为 false。
 // md5:fca522578c694911
+// 翻译提示:func 新建(safe ...bool) *Map {}
 func New(safe ...bool) *Map {
 	return NewAnyAnyMap(safe...)
 }
@@ -24,6 +25,62 @@ func New(safe ...bool) *Map {
 // 因此，在外部修改该映射时可能会存在并发安全问题。
 // 参数 `safe` 用于指定是否使用并发安全的树结构，默认为 false。
 // md5:f596b726a77cdf08
+// 翻译提示:func 新建MapFrom(数据 map[interface{}]interface{}) *Map {
+//     return &Map{data}
+// }
+// 
+// func (m *Map) Set(key interface{}, value interface{}) {
+//     m.data[key] = value
+// }
+// 
+// func (m *Map) Get(key interface{}) (value interface{}, 存在 bool) {
+//     value, exists := m.data[key]
+//     return value, exists
+// }
+// 
+// func (m *Map) Delete(key interface{}) {
+//     delete(m.data, key)
+// }
+// 
+// func (m *Map) Keys() []interface{} {
+//     keys := make([]interface{}, 0, len(m.data))
+//     for key := range m.data {
+//         keys = append(keys, key)
+//     }
+//     return keys
+// }
+// 
+// func (m *Map) Values() []interface{} {
+//     values := make([]interface{}, 0, len(m.data))
+//     for _, value := range m.data {
+//         values = append(values, value)
+//     }
+//     return values
+// }
+// 
+// func (m *Map) Len() int {
+//     return len(m.data)
+// }
+// 
+// func (m *Map) Swap(i, j int) {
+//     m.data[m.Keys()[i]], m.data[m.Keys()[j]] = m.data[m.Keys()[j]], m.data[m.Keys()[i]]
+// }
+// 
+// func (m *Map) Less(i, j int) bool {
+//     return m.data[m.Keys()[i]].(Comparable).Compare(m.data[m.Keys()[j]]) < 0
+// }
+// 
+// func (m *Map) Sort(comparator Comparator) {
+//     keys := m.Keys()
+//     sort.Slice(keys, func(i, j int) bool {
+//         return m.Less(i, j)
+//     })
+//     for i, key := range keys {
+//         m.data[key], m.data[keys[i]] = m.data[keys[i]], m.data[key]
+//     }
+// }
+// 
+// type Comparator func(a, b interface{}) int
 func NewFrom(data map[interface{}]interface{}, safe ...bool) *Map {
 	return NewAnyAnyMapFrom(data, safe...)
 }
@@ -31,6 +88,7 @@ func NewFrom(data map[interface{}]interface{}, safe ...bool) *Map {
 // NewHashMap 创建并返回一个空的哈希映射。
 // 参数 `safe` 用于指定是否在并发安全环境下使用映射，默认值为 false。
 // md5:3d312812ffecae59
+// 翻译提示:func 新建HashMap(安全 ...bool) *Map {}
 func NewHashMap(safe ...bool) *Map {
 	return NewAnyAnyMap(safe...)
 }
