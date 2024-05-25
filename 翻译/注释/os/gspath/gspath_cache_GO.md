@@ -33,7 +33,7 @@
 <原文结束>
 
 # <翻译开始>
-// updateCacheByPath 递归地在`path`下添加所有文件。. md5:ef869f8f30af135a
+// updateCacheByPath 递归地在`path`下添加所有文件。 md5:ef869f8f30af135a
 # <翻译结束>
 
 
@@ -56,7 +56,7 @@
 <原文结束>
 
 # <翻译开始>
-// nameFromPath 将 `filePath` 转换为缓存名称。. md5:5e0f623421b9d54d
+// nameFromPath 将 `filePath` 转换为缓存名称。 md5:5e0f623421b9d54d
 # <翻译结束>
 
 
@@ -65,7 +65,7 @@
 <原文结束>
 
 # <翻译开始>
-// makeCacheValue 将 `filePath` 格式化为缓存值。. md5:ac703cee872ac9d4
+// makeCacheValue 将 `filePath` 格式化为缓存值。 md5:ac703cee872ac9d4
 # <翻译结束>
 
 
@@ -74,7 +74,7 @@
 <原文结束>
 
 # <翻译开始>
-// parseCacheValue 解析缓存值为文件路径和类型。. md5:c7d4d6cc498a746f
+// parseCacheValue 解析缓存值为文件路径和类型。 md5:c7d4d6cc498a746f
 # <翻译结束>
 
 
@@ -96,7 +96,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果是一个目录，它会添加其下所有的子文件和子目录。. md5:d133c73c85e80b5b
+// 如果是一个目录，它会添加其下所有的子文件和子目录。 md5:d133c73c85e80b5b
 # <翻译结束>
 
 
@@ -132,7 +132,7 @@
 # <翻译开始>
 // glog.Debug(event.String()) 
 // 
-// 这个Go语言注释的中文翻译是：使用glog库的Debug级别记录event的字符串表示。. md5:9b7b21454414b499
+// 这个Go语言注释的中文翻译是：使用glog库的Debug级别记录event的字符串表示。 md5:9b7b21454414b499
 # <翻译结束>
 
 
@@ -141,6 +141,6 @@
 <原文结束>
 
 # <翻译开始>
-// removeMonitorByPath 递归地移除对 `path` 的 gfsnotify 监控。. md5:8401f0941bb9504c
+// removeMonitorByPath 递归地移除对 `path` 的 gfsnotify 监控。 md5:8401f0941bb9504c
 # <翻译结束>
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gcfg提供了配置的读取、缓存和管理功能。. md5:5ae504d1379cd99a
+// 包gcfg提供了配置的读取、缓存和管理功能。 md5:5ae504d1379cd99a
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Config 是配置管理对象。. md5:1ef57338c678e400
+// Config 是配置管理对象。 md5:1ef57338c678e400
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// DefaultName 是实例使用的默认实例名称。. md5:4736f3b4285b6846
+// DefaultName 是实例使用的默认实例名称。 md5:4736f3b4285b6846
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// DefaultConfigFile 是默认的配置文件名。. md5:b558e9c92a774f9a
+// DefaultConfigFile 是默认的配置文件名。 md5:b558e9c92a774f9a
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// New 创建并返回一个 Config 对象，其默认适配器为 AdapterFile。. md5:52cd678118524272
+// New 创建并返回一个 Config 对象，其默认适配器为 AdapterFile。 md5:52cd678118524272
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewWithAdapter使用给定的适配器创建并返回一个Config对象。. md5:9ddaae0ddb0e0297
+// NewWithAdapter使用给定的适配器创建并返回一个Config对象。 md5:9ddaae0ddb0e0297
 # <翻译结束>
 
 
@@ -91,7 +91,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetAdapter 设置当前 Config 对象的适配器。. md5:8d00d377baafeb01
+// SetAdapter 设置当前 Config 对象的适配器。 md5:8d00d377baafeb01
 # <翻译结束>
 
 
@@ -100,7 +100,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetAdapter 返回当前Config对象的适配器。. md5:46c003ab367518d8
+// GetAdapter 返回当前Config对象的适配器。 md5:46c003ab367518d8
 # <翻译结束>
 
 
@@ -181,7 +181,7 @@
 <原文结束>
 
 # <翻译开始>
-// Data 获取并以映射类型返回所有配置数据。. md5:2a92e8bbe7388f01
+// Data 获取并以映射类型返回所有配置数据。 md5:2a92e8bbe7388f01
 # <翻译结束>
 
 
@@ -190,7 +190,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGet 行为类似于函数 Get，但如果发生错误时会引发 panic。. md5:b1d3af83a52fd248
+// MustGet 行为类似于函数 Get，但如果发生错误时会引发 panic。 md5:b1d3af83a52fd248
 # <翻译结束>
 
 
@@ -199,7 +199,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetWithEnv 作为 GetWithEnv 函数的行为，但如果发生错误，它会引发恐慌。. md5:9f816c41440b51cf
+// MustGetWithEnv 作为 GetWithEnv 函数的行为，但如果发生错误，它会引发恐慌。 md5:9f816c41440b51cf
 # <翻译结束>
 
 
@@ -208,7 +208,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetWithCmd 的行为类似于 GetWithCmd 函数，但如果发生错误，它会直接 panic。. md5:683d24a1f4aceb7b
+// MustGetWithCmd 的行为类似于 GetWithCmd 函数，但如果发生错误，它会直接 panic。 md5:683d24a1f4aceb7b
 # <翻译结束>
 
 
@@ -217,6 +217,6 @@
 <原文结束>
 
 # <翻译开始>
-// MustData 行为类似于函数 Data，但如果发生错误则会引发恐慌。. md5:eb72c1ce036d70b6
+// MustData 行为类似于函数 Data，但如果发生错误则会引发恐慌。 md5:eb72c1ce036d70b6
 # <翻译结束>
 

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gi18n_test
 
@@ -139,7 +140,7 @@ func Test_Instance(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(g.I18n().T(context.Background(), "{#hello}{#world}"), "你好世界")
 	})
-	// Default language is: en
+	// 默认语言为：英语. md5:bf8699f46eeb3a91
 	gtest.C(t, func(t *gtest.T) {
 		m := gi18n.Instance(gconv.String(gtime.TimestampNano()))
 		m.SetPath(gtest.DataPath("i18n-dir"))
@@ -221,9 +222,9 @@ func Test_PathInResource(t *testing.T) {
 }
 
 func Test_PathInNormal(t *testing.T) {
-	// Copy i18n files to current directory.
+	// 将i18n文件复制到当前目录。. md5:6b07de86887858fd
 	gfile.CopyDir(gtest.DataPath("i18n"), gfile.Join(gdebug.CallerDirectory(), "manifest/i18n"))
-	// Remove copied files after testing.
+	// 测试后移除复制的文件。. md5:fb4a6779ee5f0ae8
 	defer gfile.Remove(gfile.Join(gdebug.CallerDirectory(), "manifest"))
 
 	i18n := gi18n.New()
@@ -240,13 +241,13 @@ func Test_PathInNormal(t *testing.T) {
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}"), "こんにちは世界")
 	})
 
-	// Change language file content.
+	// 更改语言文件内容。. md5:6f79007da1b4a8b2
 	gtest.C(t, func(t *gtest.T) {
 		i18n.SetLanguage("en")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}{#name}"), "HelloWorld{#name}")
 		err := gfile.PutContentsAppend(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en.toml"), "\nname = \"GoFrame\"")
 		t.AssertNil(err)
-		// Wait for the file modification time to change.
+		// 等待文件的修改时间发生改变。. md5:b4e969d5b430a521
 		time.Sleep(10 * time.Millisecond)
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}{#name}"), "HelloWorldGoFrame")
 	})
@@ -255,7 +256,7 @@ func Test_PathInNormal(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		err := gfile.PutContents(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en-US.toml"), "lang = \"en-US\"")
 		t.AssertNil(err)
-		// Wait for the file modification time to change.
+		// 等待文件的修改时间发生改变。. md5:b4e969d5b430a521
 		time.Sleep(10 * time.Millisecond)
 		i18n.SetLanguage("en-US")
 		t.Assert(i18n.T(context.Background(), "{#lang}"), "en-US")

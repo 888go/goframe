@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// Link 是由OpenAPI/Swagger标准版本3.0定义的。. md5:7e7a4f467c0cd7ed
+// Link 是由OpenAPI/Swagger标准版本3.0定义的。 md5:7e7a4f467c0cd7ed
 # <翻译结束>
 

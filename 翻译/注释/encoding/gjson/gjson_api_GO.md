@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Interface 返回 json 值。. md5:63120da1c18a889c
+// Interface 返回 json 值。 md5:63120da1c18a889c
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Var将json值作为*gvar.Var返回。. md5:fcfd99090165a7b5
+// Var将json值作为*gvar.Var返回。 md5:fcfd99090165a7b5
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsNil 检查指针 `j` 所指向的值是否为 nil。. md5:669f952cb58d64ce
+// IsNil 检查指针 `j` 所指向的值是否为 nil。 md5:669f952cb58d64ce
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果pattern为空，它将返回nil。. md5:8e2a6f56affd353a
+// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
 # <翻译结束>
 
 
@@ -128,7 +128,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustSet 执行与 Set 相同的操作，但如果发生任何错误，它将引发恐慌。. md5:89753cb5f56f60cc
+// MustSet 执行与 Set 相同的操作，但如果发生任何错误，它将引发恐慌。 md5:89753cb5f56f60cc
 # <翻译结束>
 
 
@@ -148,7 +148,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustRemove 的行为与 Remove 相同，但如果发生任何错误，它会直接 panic。. md5:ad4ac7324486398a
+// MustRemove 的行为与 Remove 相同，但如果发生任何错误，它会直接 panic。 md5:ad4ac7324486398a
 # <翻译结束>
 
 
@@ -157,7 +157,7 @@
 <原文结束>
 
 # <翻译开始>
-// Contains 检查是否存在指定的 `pattern` 值。. md5:4f248b6aebb74d05
+// Contains 检查是否存在指定的 `pattern` 值。 md5:4f248b6aebb74d05
 # <翻译结束>
 
 
@@ -189,7 +189,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustAppend 的行为与 Append 相同，但如果发生任何错误，它会直接 panic。. md5:3a0acd5a244f264f
+// MustAppend 的行为与 Append 相同，但如果发生任何错误，它会直接 panic。 md5:3a0acd5a244f264f
 # <翻译结束>
 
 
@@ -232,6 +232,6 @@
 <原文结束>
 
 # <翻译开始>
-// Dump 打印当前的Json对象，使其更便于人工阅读。. md5:c8c6bbdb40fa6383
+// Dump 打印当前的Json对象，使其更便于人工阅读。 md5:c8c6bbdb40fa6383
 # <翻译结束>
 

@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// Package empty 提供检查空/空指针变量的函数。. md5:4be7b468c813f750
+// Package empty 提供检查空/空指针变量的函数。 md5:4be7b468c813f750
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// iString 用于类型断言API，用于String()。. md5:8ec0af717c4f530e
+// iString 用于类型断言API，用于String()。 md5:8ec0af717c4f530e
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// iInterfaces 用于接口类型的断言API。. md5:9162512bdb64ee64
+// iInterfaces 用于接口类型的断言API。 md5:9162512bdb64ee64
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// iMapStrAny 是一个接口，支持将结构体参数转换为映射。. md5:cfd4642c77fca6ec
+// iMapStrAny 是一个接口，支持将结构体参数转换为映射。 md5:cfd4642c77fca6ec
 # <翻译结束>
 
 
@@ -90,7 +90,7 @@
 <原文结束>
 
 # <翻译开始>
-// 最后，使用反射。. md5:e4ce8ad5b39b80cd
+// 最后，使用反射。 md5:e4ce8ad5b39b80cd
 # <翻译结束>
 
 

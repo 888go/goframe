@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOr 向 WHERE 语句中添加“OR”条件。. md5:753c32f428b02541
+// WhereOr 向 WHERE 语句中添加“OR”条件。 md5:753c32f428b02541
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrf 使用fmt.Sprintf和参数构建`OR`条件字符串。. md5:aa04236f081a2885
+// WhereOrf 使用fmt.Sprintf和参数构建`OR`条件字符串。 md5:aa04236f081a2885
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrNot在`OR`条件下构建`column != value`语句。. md5:adc6d63e61bf279f
+// WhereOrNot在`OR`条件下构建`column != value`语句。 md5:adc6d63e61bf279f
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrLT 在 `OR` 条件下构建 `column < value` 的语句。. md5:5517b3812e2c8e8b
+// WhereOrLT 在 `OR` 条件下构建 `column < value` 的语句。 md5:5517b3812e2c8e8b
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrLTE 在 OR 条件中构建 `column <= value` 语句。. md5:3b0287bd1f8030ce
+// WhereOrLTE 在 OR 条件中构建 `column <= value` 语句。 md5:3b0287bd1f8030ce
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrGT在`OR`条件下构建`column > value`语句。. md5:2289d39bb82e521f
+// WhereOrGT在`OR`条件下构建`column > value`语句。 md5:2289d39bb82e521f
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrGTE在`OR`条件下构建`column >= value`语句。. md5:e178dd8cfc5661e5
+// WhereOrGTE在`OR`条件下构建`column >= value`语句。 md5:e178dd8cfc5661e5
 # <翻译结束>
 
 
@@ -103,7 +103,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrBetween 用于构建 `column BETWEEN min AND max` 语句，并在 `OR` 条件下使用。. md5:90f98622a1fd5981
+// WhereOrBetween 用于构建 `column BETWEEN min AND max` 语句，并在 `OR` 条件下使用。 md5:90f98622a1fd5981
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrLike 在 `OR` 条件中构建 `column LIKE 'like'` 语句。. md5:7a2d37411752fb51
+// WhereOrLike 在 `OR` 条件中构建 `column LIKE 'like'` 语句。 md5:7a2d37411752fb51
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrIn 在`OR`条件下构建`column IN (in)`语句。. md5:4bb93b5ae9a5e887
+// WhereOrIn 在`OR`条件下构建`column IN (in)`语句。 md5:4bb93b5ae9a5e887
 # <翻译结束>
 
 
@@ -130,7 +130,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrNull 在 `OR` 条件下构建 `columns[0] IS NULL OR columns[1] IS NULL ...` 语句。. md5:08d38a60dc594441
+// WhereOrNull 在 `OR` 条件下构建 `columns[0] IS NULL OR columns[1] IS NULL ...` 语句。 md5:08d38a60dc594441
 # <翻译结束>
 
 
@@ -139,7 +139,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrNotBetween 用于构建在 `OR` 条件下的 `column NOT BETWEEN min AND max` 语句。. md5:f20408e0126bbbab
+// WhereOrNotBetween 用于构建在 `OR` 条件下的 `column NOT BETWEEN min AND max` 语句。 md5:f20408e0126bbbab
 # <翻译结束>
 
 
@@ -148,7 +148,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrNotLike 在 OR 条件中构建 `column NOT LIKE like` 语句。. md5:751e840816119632
+// WhereOrNotLike 在 OR 条件中构建 `column NOT LIKE like` 语句。 md5:751e840816119632
 # <翻译结束>
 
 
@@ -157,7 +157,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrNotIn构建`column NOT IN (in)`语句。. md5:433fd8a0f224fc24
+// WhereOrNotIn构建`column NOT IN (in)`语句。 md5:433fd8a0f224fc24
 # <翻译结束>
 
 
@@ -166,6 +166,6 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrNotNull 构建 `columns[0] IS NOT NULL OR columns[1] IS NOT NULL ...` 的 `OR` 条件语句。. md5:e122f662846a4ba4
+// WhereOrNotNull 构建 `columns[0] IS NOT NULL OR columns[1] IS NOT NULL ...` 的 `OR` 条件语句。 md5:e122f662846a4ba4
 # <翻译结束>
 

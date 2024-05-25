@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// Example 是由 OpenAPI/Swagger 3.0 标准指定的。. md5:fcd88edc2f1e687d
+// Example 是由 OpenAPI/Swagger 3.0 标准指定的。 md5:fcd88edc2f1e687d
 # <翻译结束>
 

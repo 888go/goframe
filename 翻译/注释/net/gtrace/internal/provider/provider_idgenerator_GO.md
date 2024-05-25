@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// IDGenerator 是一个追踪ID生成器。. md5:72df652f0bf82307
+// IDGenerator 是一个追踪ID生成器。 md5:72df652f0bf82307
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewIDGenerator 返回一个新的 IDGenerator。. md5:f4445c039fa564db
+// NewIDGenerator 返回一个新的 IDGenerator。 md5:f4445c039fa564db
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewIDs 生成并返回一个新的 trace 和 span ID。. md5:1b5d0dc93c6f38ff
+// NewIDs 生成并返回一个新的 trace 和 span ID。 md5:1b5d0dc93c6f38ff
 # <翻译结束>
 
 
@@ -49,6 +49,6 @@
 <原文结束>
 
 # <翻译开始>
-// NewSpanID 返回一个新的span在trace中的ID，带有traceID。. md5:1fd29c38ad04372b
+// NewSpanID 返回一个新的span在trace中的ID，带有traceID。 md5:1fd29c38ad04372b
 # <翻译结束>
 

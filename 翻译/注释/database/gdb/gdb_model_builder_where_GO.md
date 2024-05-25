@@ -111,7 +111,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereLT构建`column < value`语句。. md5:438e43e951037408
+// WhereLT构建`column < value`语句。 md5:438e43e951037408
 # <翻译结束>
 
 
@@ -120,7 +120,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereLTE 构建 `column <= value` 的语句。. md5:149d7bc478d211fd
+// WhereLTE 构建 `column <= value` 的语句。 md5:149d7bc478d211fd
 # <翻译结束>
 
 
@@ -129,7 +129,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereGT 构建 `column > value` 语句。. md5:41527fa039c8a299
+// WhereGT 构建 `column > value` 语句。 md5:41527fa039c8a299
 # <翻译结束>
 
 
@@ -138,7 +138,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereGTE构建`column >= value`语句。. md5:fff159ae64237621
+// WhereGTE构建`column >= value`语句。 md5:fff159ae64237621
 # <翻译结束>
 
 
@@ -147,7 +147,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereBetween构建`column BETWEEN min AND max`语句。. md5:cdb9b4a2942f3b60
+// WhereBetween构建`column BETWEEN min AND max`语句。 md5:cdb9b4a2942f3b60
 # <翻译结束>
 
 
@@ -156,7 +156,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereLike 构建 `column LIKE like` 语句。. md5:5cf0790f9754307f
+// WhereLike 构建 `column LIKE like` 语句。 md5:5cf0790f9754307f
 # <翻译结束>
 
 
@@ -165,7 +165,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereIn 构建 `column IN (in)` 语句。. md5:08648a50bb84e2ee
+// WhereIn 构建 `column IN (in)` 语句。 md5:08648a50bb84e2ee
 # <翻译结束>
 
 
@@ -174,7 +174,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereNull 构建 `columns[0] IS NULL AND columns[1] IS NULL ...` 语句。. md5:9341218ae0c32357
+// WhereNull 构建 `columns[0] IS NULL AND columns[1] IS NULL ...` 语句。 md5:9341218ae0c32357
 # <翻译结束>
 
 
@@ -183,7 +183,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereNotBetween构建`column NOT BETWEEN min AND max`语句。. md5:ac5d20d314a9fa0c
+// WhereNotBetween构建`column NOT BETWEEN min AND max`语句。 md5:ac5d20d314a9fa0c
 # <翻译结束>
 
 
@@ -192,7 +192,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereNotLike 构建 `column NOT LIKE like` 的 SQL 语句。. md5:683105cb42e27e3b
+// WhereNotLike 构建 `column NOT LIKE like` 的 SQL 语句。 md5:683105cb42e27e3b
 # <翻译结束>
 
 
@@ -201,7 +201,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereNot 构建 `column != value` 语句。. md5:d409867c3e8a9641
+// WhereNot 构建 `column != value` 语句。 md5:d409867c3e8a9641
 # <翻译结束>
 
 
@@ -210,7 +210,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereNotIn构建`column NOT IN (in)`语句。. md5:658ffbae4d294fa4
+// WhereNotIn构建`column NOT IN (in)`语句。 md5:658ffbae4d294fa4
 # <翻译结束>
 
 
@@ -219,6 +219,6 @@
 <原文结束>
 
 # <翻译开始>
-// WhereNotNull 构建 `columns[0] IS NOT NULL AND columns[1] IS NOT NULL ...` 语句。. md5:2444d6e2f6bcbf2d
+// WhereNotNull 构建 `columns[0] IS NOT NULL AND columns[1] IS NOT NULL ...` 语句。 md5:2444d6e2f6bcbf2d
 # <翻译结束>
 

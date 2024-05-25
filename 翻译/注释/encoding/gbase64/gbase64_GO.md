@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// gbase64 包提供了对 BASE64 编码/解码算法的有用API。. md5:0524d2c59dedacdf
+// gbase64 包提供了对 BASE64 编码/解码算法的有用API。 md5:0524d2c59dedacdf
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Encode 使用BASE64算法对字节进行编码。. md5:9148f0cc83085b94
+// Encode 使用BASE64算法对字节进行编码。 md5:9148f0cc83085b94
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncodeString 使用BASE64算法对字符串进行编码。. md5:3fd8a2a5fa2a8981
+// EncodeString 使用BASE64算法对字符串进行编码。 md5:3fd8a2a5fa2a8981
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncodeToString 使用BASE64算法将字节编码为字符串。. md5:53ccd7caaa813781
+// EncodeToString 使用BASE64算法将字节编码为字符串。 md5:53ccd7caaa813781
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncodeFile 使用BASE64算法对路径`path`指向的文件内容进行编码。. md5:66b77bf9fafafe1f
+// EncodeFile 使用BASE64算法对路径`path`指向的文件内容进行编码。 md5:66b77bf9fafafe1f
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncodeFileToString 使用BASE64算法将`path`路径下的文件内容编码为字符串。. md5:06aa514a3aa28d74
+// EncodeFileToString 使用BASE64算法将`path`路径下的文件内容编码为字符串。 md5:06aa514a3aa28d74
 # <翻译结束>
 
 
@@ -99,7 +99,7 @@
 <原文结束>
 
 # <翻译开始>
-// Decode 使用BASE64算法对字节进行解码。. md5:dc5d8eec3a1bfb59
+// Decode 使用BASE64算法对字节进行解码。 md5:dc5d8eec3a1bfb59
 # <翻译结束>
 
 
@@ -120,7 +120,7 @@
 <原文结束>
 
 # <翻译开始>
-// DecodeString 使用BASE64算法解码字符串。. md5:8d6d8625cd51a554
+// DecodeString 使用BASE64算法解码字符串。 md5:8d6d8625cd51a554
 # <翻译结束>
 
 
@@ -141,7 +141,7 @@
 <原文结束>
 
 # <翻译开始>
-// DecodeToString 使用BASE64算法对字符串进行解码。. md5:3cff6b7395c38704
+// DecodeToString 使用BASE64算法对字符串进行解码。 md5:3cff6b7395c38704
 # <翻译结束>
 
 

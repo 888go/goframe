@@ -44,6 +44,6 @@
 <原文结束>
 
 # <翻译开始>
-// gzipAccepted 返回客户端是否接受gzip编码的内容。. md5:19ef5390dbb76f53
+// gzipAccepted 返回客户端是否接受gzip编码的内容。 md5:19ef5390dbb76f53
 # <翻译结束>
 

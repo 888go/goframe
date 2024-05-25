@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Throw 抛出一个异常，这个异常可以被 TryCatch 结构或 recover 语句捕获。. md5:44e69b1d2fded57f
+// Throw 抛出一个异常，这个异常可以被 TryCatch 结构或 recover 语句捕获。 md5:44e69b1d2fded57f
 # <翻译结束>
 
 

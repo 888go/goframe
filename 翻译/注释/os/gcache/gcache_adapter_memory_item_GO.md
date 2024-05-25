@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsExpired 检查 `item` 是否已过期。. md5:9e46a52b25ea5be9
+// IsExpired 检查 `item` 是否已过期。 md5:9e46a52b25ea5be9
 # <翻译结束>
 
 

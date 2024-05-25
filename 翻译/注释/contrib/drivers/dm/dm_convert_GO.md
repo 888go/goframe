@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// ConvertValueForField 将值转换为记录字段的类型。. md5:8da3e2d9dc99c3ab
+// ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// dm 不支持 time.Time 类型，所以这里将其转换为它支持的时间字符串。. md5:afbc1f9b897fc589
+// dm 不支持 time.Time 类型，所以这里将其转换为它支持的时间字符串。 md5:afbc1f9b897fc589
 # <翻译结束>
 
 

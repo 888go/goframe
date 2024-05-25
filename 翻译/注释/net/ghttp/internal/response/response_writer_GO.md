@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Writer 在 http.ResponseWriter 上添加了额外功能。. md5:204ac8c0cb436351
+// Writer 在 http.ResponseWriter 上添加了额外功能。 md5:204ac8c0cb436351
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 基础的ResponseWriter。. md5:1678e6fb48b792ff
+// 基础的ResponseWriter。 md5:1678e6fb48b792ff
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 标记此请求是否已被劫持。. md5:80adeb664fa8ae97
+// 标记此请求是否已被劫持。 md5:80adeb664fa8ae97
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// 是否已经写入了响应头，避免出现错误：多余的或多个response.WriteHeader调用。. md5:59bda0050b534efa
+// 是否已经写入了响应头，避免出现错误：多余的或多个response.WriteHeader调用。 md5:59bda0050b534efa
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 写入响应的字节数。. md5:cc5fa1ce145684ed
+// 写入响应的字节数。 md5:cc5fa1ce145684ed
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewWriter 创建并返回一个新的 Writer。. md5:6fad96ecb42a0036
+// NewWriter 创建并返回一个新的 Writer。 md5:6fad96ecb42a0036
 # <翻译结束>
 
 
@@ -88,7 +88,7 @@
 <原文结束>
 
 # <翻译开始>
-// BytesWritten 返回写入响应的长度。. md5:2bc5d732217ae6e4
+// BytesWritten 返回写入响应的长度。 md5:2bc5d732217ae6e4
 # <翻译结束>
 
 
@@ -97,7 +97,7 @@
 <原文结束>
 
 # <翻译开始>
-// Write实现了http.ResponseWriter.Write接口函数。. md5:7078e0a4eee107f7
+// Write实现了http.ResponseWriter.Write接口函数。 md5:7078e0a4eee107f7
 # <翻译结束>
 
 
@@ -106,7 +106,7 @@
 <原文结束>
 
 # <翻译开始>
-// Hijack 实现了 http.Hijacker.Hijack 接口函数。. md5:7ef9ff81765b052e
+// Hijack 实现了 http.Hijacker.Hijack 接口函数。 md5:7ef9ff81765b052e
 # <翻译结束>
 
 
@@ -115,7 +115,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsHeaderWrote 返回头部状态是否已写入。. md5:7785f14e4d061fc9
+// IsHeaderWrote 返回头部状态是否已写入。 md5:7785f14e4d061fc9
 # <翻译结束>
 
 
@@ -124,7 +124,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsHijacked 返回连接是否已被劫持。. md5:11468dbc47bf2400
+// IsHijacked 返回连接是否已被劫持。 md5:11468dbc47bf2400
 # <翻译结束>
 
 
@@ -133,6 +133,6 @@
 <原文结束>
 
 # <翻译开始>
-// Flush 将缓冲区中的任何数据发送到客户端。. md5:38eb50b527a1bfc5
+// Flush 将缓冲区中的任何数据发送到客户端。 md5:38eb50b527a1bfc5
 # <翻译结束>
 

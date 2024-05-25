@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// MiddlewareCORS 是一个使用默认选项的CORS中间件处理器。. md5:522ca96c4772b84d
+// MiddlewareCORS 是一个使用默认选项的CORS中间件处理器。 md5:522ca96c4772b84d
 # <翻译结束>
 

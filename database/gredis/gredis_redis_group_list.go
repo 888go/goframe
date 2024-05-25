@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gredis
 
@@ -12,8 +13,9 @@ import (
 	"github.com/gogf/gf/v2/container/gvar"
 )
 
-// IGroupList manages redis list operations.
-// Implements see redis.GroupList.
+// IGroupList 管理Redis列表操作。
+// 实现了redis.GroupList接口。
+// md5:25ae44de5ae09921
 type IGroupList interface {
 	LPush(ctx context.Context, key string, values ...interface{}) (int64, error)
 	LPushX(ctx context.Context, key string, element interface{}, elements ...interface{}) (int64, error)
@@ -34,7 +36,7 @@ type IGroupList interface {
 	BRPopLPush(ctx context.Context, source, destination string, timeout int64) (*gvar.Var, error)
 }
 
-// LInsertOp defines the operation name for function LInsert.
+// LInsertOp 定义了 LInsert 函数的操作名称。. md5:c91fe5287aa13a21
 type LInsertOp string
 
 const (

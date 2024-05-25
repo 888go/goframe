@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package builtin
 
@@ -12,31 +13,25 @@ import (
 	"github.com/gogf/gf/v2/text/gregex"
 )
 
-// RuleDomain implements `domain` rule:
-// Domain.
+// RuleDomain 实现了 `domain` 规则：
+// 域名。
 //
-// Format: domain
+// 格式：domain
+// md5:c411d3a07b620a12
 type RuleDomain struct{}
 
 func init() {
 	Register(RuleDomain{})
 }
 
-
-// ff:
 func (r RuleDomain) Name() string {
 	return "domain"
 }
 
-
-// ff:
 func (r RuleDomain) Message() string {
 	return "The {field} value `{value}` is not a valid domain format"
 }
 
-
-// ff:
-// in:
 func (r RuleDomain) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^([0-9a-zA-Z][0-9a-zA-Z\-]{0,62}\.)+([a-zA-Z]{0,62})$`,

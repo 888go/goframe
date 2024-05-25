@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// MiddlewareJsonBody 验证并返回请求体是否为JSON格式。. md5:861efc2736ae2e13
+// MiddlewareJsonBody 验证并返回请求体是否为JSON格式。 md5:861efc2736ae2e13
 # <翻译结束>
 

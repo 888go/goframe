@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// ConvertValueForField 将值转换为记录字段的类型。. md5:8da3e2d9dc99c3ab
+// ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
 # <翻译结束>
 
 

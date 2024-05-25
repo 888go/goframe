@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Package clickhouse 实现了 gdb.Driver，它支持 ClickHouse 数据库的操作。. md5:8c421a92a767ff72
+// Package clickhouse 实现了 gdb.Driver，它支持 ClickHouse 数据库的操作。 md5:8c421a92a767ff72
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Driver 是用于 postgresql 数据库的驱动程序。. md5:4abf0752f49a3cfc
+// Driver 是用于 postgresql 数据库的驱动程序。 md5:4abf0752f49a3cfc
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// New 创建并返回一个实现了gdb.Driver接口的驱动器，该驱动器支持对Clickhouse的操作。. md5:e191d797c82bf046
+// New 创建并返回一个实现了gdb.Driver接口的驱动器，该驱动器支持对Clickhouse的操作。 md5:e191d797c82bf046
 # <翻译结束>
 
 

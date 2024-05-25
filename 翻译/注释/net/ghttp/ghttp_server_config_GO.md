@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// HTTP的默认监听端口。. md5:d368f1a97ab395c2
+// HTTP的默认监听端口。 md5:d368f1a97ab395c2
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// HTTPS的默认监听端口。. md5:72d4583ff29fdc86
+// HTTPS的默认监听端口。 md5:72d4583ff29fdc86
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将方法名称转换为URI的类型，该类型将名称转换为小写，并使用字符'-'连接单词。. md5:1fc3cb97052e806f
+// 将方法名称转换为URI的类型，该类型将名称转换为小写，并使用字符'-'连接单词。 md5:1fc3cb97052e806f
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将方法名称转换为URI转换类型，但不将其转换为方法名称。. md5:75ab2b02cd49ae6b
+// 将方法名称转换为URI转换类型，但不将其转换为方法名称。 md5:75ab2b02cd49ae6b
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 转换方法名称为URI的类型，将名称转换为小写。. md5:ed7460ac07fbb91a
+// 转换方法名称为URI的类型，将名称转换为小写。 md5:ed7460ac07fbb91a
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将方法名称转换为URI的类型，该类型将名称转换为驼峰式命名。. md5:2e028fc00d70d9bf
+// 将方法名称转换为URI的类型，该类型将名称转换为驼峰式命名。 md5:2e028fc00d70d9bf
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// ServerConfig 是HTTP服务器的配置管理器。. md5:a2c6c214e9d64d54
+// ServerConfig 是HTTP服务器的配置管理器。 md5:a2c6c214e9d64d54
 # <翻译结束>
 
 
@@ -99,7 +99,7 @@
 <原文结束>
 
 # <翻译开始>
-// 服务名称，用于服务注册和发现。. md5:a0d782209905145d
+// 服务名称，用于服务注册和发现。 md5:a0d782209905145d
 # <翻译结束>
 
 
@@ -119,7 +119,7 @@
 <原文结束>
 
 # <翻译开始>
-// HTTPSAddr 指定了HTTPS地址，多个地址使用逗号','连接。. md5:c776678a9eac5a90
+// HTTPSAddr 指定了HTTPS地址，多个地址使用逗号','连接。 md5:c776678a9eac5a90
 # <翻译结束>
 
 
@@ -128,7 +128,7 @@
 <原文结束>
 
 # <翻译开始>
-// Listeners 指定了自定义的监听器。. md5:3b866f27e7903dac
+// Listeners 指定了自定义的监听器。 md5:3b866f27e7903dac
 # <翻译结束>
 
 
@@ -137,7 +137,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果为空，Endpoints 是服务注册的自定义端点，它使用 Address。. md5:57f627d789f1ea89
+// 如果为空，Endpoints 是服务注册的自定义端点，它使用 Address。 md5:57f627d789f1ea89
 # <翻译结束>
 
 
@@ -146,7 +146,7 @@
 <原文结束>
 
 # <翻译开始>
-// HTTPSCertPath 指定HTTPS服务的证书文件路径。. md5:3613bb98322987e7
+// HTTPSCertPath 指定HTTPS服务的证书文件路径。 md5:3613bb98322987e7
 # <翻译结束>
 
 
@@ -155,7 +155,7 @@
 <原文结束>
 
 # <翻译开始>
-// HTTPSKeyPath 指定了HTTPS服务的密钥文件路径。. md5:2a9c1b2c382d01b8
+// HTTPSKeyPath 指定了HTTPS服务的密钥文件路径。 md5:2a9c1b2c382d01b8
 # <翻译结束>
 
 
@@ -181,7 +181,7 @@
 <原文结束>
 
 # <翻译开始>
-// 处理HTTP请求的处理器。. md5:bd278835c47f74d4
+// 处理HTTP请求的处理器。 md5:bd278835c47f74d4
 # <翻译结束>
 
 
@@ -252,7 +252,7 @@
 <原文结束>
 
 # <翻译开始>
-// EnableHTTPKeepAlive 启用 HTTP 保持活动。. md5:316ccd3dea9e6e4e
+// EnableHTTPKeepAlive 启用 HTTP 保持活动。 md5:316ccd3dea9e6e4e
 # <翻译结束>
 
 
@@ -272,7 +272,7 @@
 <原文结束>
 
 # <翻译开始>
-// View 指定了服务器的默认模板视图对象。. md5:1d7f3415e9af9116
+// View 指定了服务器的默认模板视图对象。 md5:1d7f3415e9af9116
 # <翻译结束>
 
 
@@ -295,7 +295,7 @@
 <原文结束>
 
 # <翻译开始>
-// Rewrites 指定了URI重写规则映射。. md5:177b674dcc27b406
+// Rewrites 指定了URI重写规则映射。 md5:177b674dcc27b406
 # <翻译结束>
 
 
@@ -304,7 +304,7 @@
 <原文结束>
 
 # <翻译开始>
-// IndexFiles 指定了静态文件夹的索引文件。. md5:2beaa7ae62753536
+// IndexFiles 指定了静态文件夹的索引文件。 md5:2beaa7ae62753536
 # <翻译结束>
 
 
@@ -325,7 +325,7 @@
 <原文结束>
 
 # <翻译开始>
-// ServerRoot 指定静态服务的根目录。. md5:19d6dd74ec61bd29
+// ServerRoot 指定静态服务的根目录。 md5:19d6dd74ec61bd29
 # <翻译结束>
 
 
@@ -334,7 +334,7 @@
 <原文结束>
 
 # <翻译开始>
-// SearchPaths 指定静态服务的额外搜索目录。. md5:bd172212e30738c5
+// SearchPaths 指定静态服务的额外搜索目录。 md5:bd172212e30738c5
 # <翻译结束>
 
 
@@ -343,7 +343,7 @@
 <原文结束>
 
 # <翻译开始>
-// StaticPaths 指定了URI到目录的映射数组。. md5:ea14f728a07fbd14
+// StaticPaths 指定了URI到目录的映射数组。 md5:ea14f728a07fbd14
 # <翻译结束>
 
 
@@ -378,7 +378,7 @@
 <原文结束>
 
 # <翻译开始>
-// CookieMaxAge 指定 cookie 项的最大过期时间（TTL）。. md5:c6712f43beedeb7d
+// CookieMaxAge 指定 cookie 项的最大过期时间（TTL）。 md5:c6712f43beedeb7d
 # <翻译结束>
 
 
@@ -460,7 +460,7 @@
 <原文结束>
 
 # <翻译开始>
-// SessionIdName 指定会话ID的名称。. md5:18c5a80d34f75272
+// SessionIdName 指定会话ID的名称。 md5:18c5a80d34f75272
 # <翻译结束>
 
 
@@ -469,7 +469,7 @@
 <原文结束>
 
 # <翻译开始>
-// SessionMaxAge 指定会话项的最大超时时间（TTL）。. md5:cc78683f7c70c955
+// SessionMaxAge 指定会话项的最大超时时间（TTL）。 md5:cc78683f7c70c955
 # <翻译结束>
 
 
@@ -490,7 +490,7 @@
 <原文结束>
 
 # <翻译开始>
-// SessionStorage 指定会话存储。. md5:678a55a9e339a25c
+// SessionStorage 指定会话存储。 md5:678a55a9e339a25c
 # <翻译结束>
 
 
@@ -510,7 +510,7 @@
 <原文结束>
 
 # <翻译开始>
-// SessionCookieOutput 指定是否自动将会话ID输出到cookie。. md5:040824f71a38e446
+// SessionCookieOutput 指定是否自动将会话ID输出到cookie。 md5:040824f71a38e446
 # <翻译结束>
 
 
@@ -533,7 +533,7 @@
 <原文结束>
 
 # <翻译开始>
-// Logger 指定服务器使用的日志记录器。. md5:004b9e605f068eec
+// Logger 指定服务器使用的日志记录器。 md5:004b9e605f068eec
 # <翻译结束>
 
 
@@ -542,7 +542,7 @@
 <原文结束>
 
 # <翻译开始>
-// LogPath 指定日志文件的存储目录。. md5:de94cd356ae22e8a
+// LogPath 指定日志文件的存储目录。 md5:de94cd356ae22e8a
 # <翻译结束>
 
 
@@ -551,7 +551,7 @@
 <原文结束>
 
 # <翻译开始>
-// LogLevel 指定了logger的日志级别。. md5:87d747e517ace64c
+// LogLevel 指定了logger的日志级别。 md5:87d747e517ace64c
 # <翻译结束>
 
 
@@ -560,7 +560,7 @@
 <原文结束>
 
 # <翻译开始>
-// LogStdout 指定是否将日志内容打印到标准输出（stdout）。. md5:f591098f0447f3f8
+// LogStdout 指定是否将日志内容打印到标准输出（stdout）。 md5:f591098f0447f3f8
 # <翻译结束>
 
 
@@ -569,7 +569,7 @@
 <原文结束>
 
 # <翻译开始>
-// ErrorStack 指定在发生错误时是否记录堆栈信息。. md5:5cfe84f341788adc
+// ErrorStack 指定在发生错误时是否记录堆栈信息。 md5:5cfe84f341788adc
 # <翻译结束>
 
 
@@ -578,7 +578,7 @@
 <原文结束>
 
 # <翻译开始>
-// ErrorLogEnabled 启用将错误日志内容写入文件。. md5:9065ef46c6d983d0
+// ErrorLogEnabled 启用将错误日志内容写入文件。 md5:9065ef46c6d983d0
 # <翻译结束>
 
 
@@ -596,7 +596,7 @@
 <原文结束>
 
 # <翻译开始>
-// AccessLogEnabled 启用将访问日志内容记录到文件中。. md5:6867f80f6ec7fb95
+// AccessLogEnabled 启用将访问日志内容记录到文件中。 md5:6867f80f6ec7fb95
 # <翻译结束>
 
 
@@ -634,7 +634,7 @@
 <原文结束>
 
 # <翻译开始>
-// PProfEnabled 启用 PProf 功能。. md5:4847ea23da60be23
+// PProfEnabled 启用 PProf 功能。 md5:4847ea23da60be23
 # <翻译结束>
 
 
@@ -643,7 +643,7 @@
 <原文结束>
 
 # <翻译开始>
-// PProfPattern 为路由器指定 PProf 服务的模式。. md5:ddf66608babb16a1
+// PProfPattern 为路由器指定 PProf 服务的模式。 md5:ddf66608babb16a1
 # <翻译结束>
 
 
@@ -666,7 +666,7 @@
 <原文结束>
 
 # <翻译开始>
-// OpenApiPath 指定OpenApi规范文件的路径。. md5:a99446ffbab82145
+// OpenApiPath 指定OpenApi规范文件的路径。 md5:a99446ffbab82145
 # <翻译结束>
 
 
@@ -675,7 +675,7 @@
 <原文结束>
 
 # <翻译开始>
-// SwaggerPath 定义路由注册的Swagger UI路径。. md5:abc9988ac6d860c6
+// SwaggerPath 定义路由注册的Swagger UI路径。 md5:abc9988ac6d860c6
 # <翻译结束>
 
 
@@ -743,7 +743,7 @@
 <原文结束>
 
 # <翻译开始>
-// RouteOverWrite 允许覆盖重复的路由。. md5:11e5811ec1ba25ca
+// RouteOverWrite 允许覆盖重复的路由。 md5:11e5811ec1ba25ca
 # <翻译结束>
 
 
@@ -752,7 +752,7 @@
 <原文结束>
 
 # <翻译开始>
-// DumpRouterMap 指定服务器启动时是否自动dump路由器映射。. md5:5c37a6000e9858ab
+// DumpRouterMap 指定服务器启动时是否自动dump路由器映射。 md5:5c37a6000e9858ab
 # <翻译结束>
 
 
@@ -761,7 +761,7 @@
 <原文结束>
 
 # <翻译开始>
-// Graceful启用进程所有服务器的优雅重启功能。. md5:e4f67dc7d507232e
+// Graceful启用进程所有服务器的优雅重启功能。 md5:e4f67dc7d507232e
 # <翻译结束>
 
 
@@ -770,7 +770,7 @@
 <原文结束>
 
 # <翻译开始>
-// GracefulTimeout 设置父进程的最大生存时间（秒）。. md5:09d4293175059ede
+// GracefulTimeout 设置父进程的最大生存时间（秒）。 md5:09d4293175059ede
 # <翻译结束>
 
 
@@ -779,7 +779,7 @@
 <原文结束>
 
 # <翻译开始>
-// GracefulShutdownTimeout 设置在停止服务器之前，允许服务器最大存活的时间（秒数）。. md5:b220917a3a4e4ebf
+// GracefulShutdownTimeout 设置在停止服务器之前，允许服务器最大存活的时间（秒数）。 md5:b220917a3a4e4ebf
 # <翻译结束>
 
 
@@ -812,7 +812,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetConfigWithMap 使用映射(map)设置服务器的配置。. md5:896223070f4171c3
+// SetConfigWithMap 使用映射(map)设置服务器的配置。 md5:896223070f4171c3
 # <翻译结束>
 
 
@@ -858,7 +858,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetConfig 为服务器设置配置。. md5:cf09327be418468a
+// SetConfig 为服务器设置配置。 md5:cf09327be418468a
 # <翻译结束>
 
 
@@ -867,7 +867,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果地址缺少':'前缀，自动添加。. md5:7493e54c133e3353
+// 如果地址缺少':'前缀，自动添加。 md5:7493e54c133e3353
 # <翻译结束>
 
 
@@ -900,7 +900,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetHTTPSAddr 设置服务器的HTTPS监听端口。. md5:2cfcb725865474b8
+// SetHTTPSAddr 设置服务器的HTTPS监听端口。 md5:2cfcb725865474b8
 # <翻译结束>
 
 
@@ -921,7 +921,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetListener 设置服务器的自定义监听器。. md5:5ce2e30da0c2811f
+// SetListener 设置服务器的自定义监听器。 md5:5ce2e30da0c2811f
 # <翻译结束>
 
 
@@ -941,7 +941,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetTLSConfig 设置自定义的TLS配置，并为服务器启用HTTPS功能。. md5:e8fae606e7c9daa6
+// SetTLSConfig 设置自定义的TLS配置，并为服务器启用HTTPS功能。 md5:e8fae606e7c9daa6
 # <翻译结束>
 
 
@@ -950,7 +950,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetReadTimeout 设置服务器的读取超时时间。. md5:731a0457ad074a1e
+// SetReadTimeout 设置服务器的读取超时时间。 md5:731a0457ad074a1e
 # <翻译结束>
 
 
@@ -959,7 +959,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetWriteTimeout 设置服务器的写超时。. md5:60f9efbd1b42a85a
+// SetWriteTimeout 设置服务器的写超时。 md5:60f9efbd1b42a85a
 # <翻译结束>
 
 
@@ -968,7 +968,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetIdleTimeout 设置服务器的空闲超时时间。. md5:f18e89634fa33c02
+// SetIdleTimeout 设置服务器的空闲超时时间。 md5:f18e89634fa33c02
 # <翻译结束>
 
 
@@ -977,7 +977,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetMaxHeaderBytes 为服务器设置 MaxHeaderBytes。. md5:2e7198560eedacbb
+// SetMaxHeaderBytes 为服务器设置 MaxHeaderBytes。 md5:2e7198560eedacbb
 # <翻译结束>
 
 
@@ -986,7 +986,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetServerAgent 设置服务器的ServerAgent。. md5:ac1c65804355cc50
+// SetServerAgent 设置服务器的ServerAgent。 md5:ac1c65804355cc50
 # <翻译结束>
 
 
@@ -995,7 +995,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetKeepAlive 设置服务器的KeepAlive。. md5:54c342f49d9fa171
+// SetKeepAlive 设置服务器的KeepAlive。 md5:54c342f49d9fa171
 # <翻译结束>
 
 
@@ -1004,7 +1004,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetView 设置服务器的视图。. md5:ec7bba6db1e3a9cf
+// SetView 设置服务器的视图。 md5:ec7bba6db1e3a9cf
 # <翻译结束>
 
 
@@ -1013,7 +1013,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetName 返回服务器的名称。. md5:1662443760c53efe
+// GetName 返回服务器的名称。 md5:1662443760c53efe
 # <翻译结束>
 
 
@@ -1022,7 +1022,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetName 设置服务器的名称。. md5:242f311a4c185514
+// SetName 设置服务器的名称。 md5:242f311a4c185514
 # <翻译结束>
 
 
@@ -1031,7 +1031,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetEndpoints 设置服务器的端点。. md5:b75987e400904902
+// SetEndpoints 设置服务器的端点。 md5:b75987e400904902
 # <翻译结束>
 
 
@@ -1040,7 +1040,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetHandler 设置服务器的请求处理器。. md5:c2ce7c70be19e1d5
+// SetHandler 设置服务器的请求处理器。 md5:c2ce7c70be19e1d5
 # <翻译结束>
 
 
@@ -1049,7 +1049,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetHandler 返回服务器的请求处理程序。. md5:97d22a3db48dd77d
+// GetHandler 返回服务器的请求处理程序。 md5:97d22a3db48dd77d
 # <翻译结束>
 
 
@@ -1058,7 +1058,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetRegistrar 设置服务器的注册器。. md5:59baf7cae4845598
+// SetRegistrar 设置服务器的注册器。 md5:59baf7cae4845598
 # <翻译结束>
 
 
@@ -1067,6 +1067,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetRegistrar 返回服务器的注册商。. md5:d5a67dbd4e6ac976
+// GetRegistrar 返回服务器的注册商。 md5:d5a67dbd4e6ac976
 # <翻译结束>
 

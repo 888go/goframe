@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// localUpDownCounter 是 UpDownCounter 接口的本地实现。. md5:12f0deffd8bcf0dc
+// localUpDownCounter 是 UpDownCounter 接口的本地实现。 md5:12f0deffd8bcf0dc
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查是否实现了MetricInitializer接口。. md5:87bf7f014f5d05df
+// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查对于接口PerformerExporter的实现。. md5:7bc09f325273ded9
+// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-//UpDownCounter 创建并返回一个新的Counter。. md5:0fd05c1ce07af34f
+//UpDownCounter 创建并返回一个新的Counter。 md5:0fd05c1ce07af34f
 # <翻译结束>
 
 
@@ -69,7 +69,7 @@
 <原文结束>
 
 # <翻译开始>
-// Init 在创建Provider时初始化Metric。. md5:a46b2bb4d31aa7d0
+// Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
 # <翻译结束>
 
 

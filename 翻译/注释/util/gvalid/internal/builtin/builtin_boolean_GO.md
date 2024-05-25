@@ -38,6 +38,6 @@
 <原文结束>
 
 # <翻译开始>
-// boolMap 定义布尔值。. md5:daf0be92a3ad3752
+// boolMap 定义布尔值。 md5:daf0be92a3ad3752
 # <翻译结束>
 

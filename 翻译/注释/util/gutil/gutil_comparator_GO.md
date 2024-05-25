@@ -44,7 +44,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorString 提供了一个快速的字符串比较功能。. md5:d0e6023eaf1cf6f5
+// ComparatorString 提供了一个快速的字符串比较功能。 md5:d0e6023eaf1cf6f5
 # <翻译结束>
 
 
@@ -53,7 +53,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorInt 在int类型上提供基本的比较功能。. md5:c8660a6b9a98a8f5
+// ComparatorInt 在int类型上提供基本的比较功能。 md5:c8660a6b9a98a8f5
 # <翻译结束>
 
 
@@ -62,7 +62,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorInt8 提供了对int8的基本比较操作。. md5:b727bd550fef2616
+// ComparatorInt8 提供了对int8的基本比较操作。 md5:b727bd550fef2616
 # <翻译结束>
 
 
@@ -71,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorInt16 提供对 int16 的基本比较。. md5:9cf435a64f01ae86
+// ComparatorInt16 提供对 int16 的基本比较。 md5:9cf435a64f01ae86
 # <翻译结束>
 
 
@@ -80,7 +80,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorInt32 提供对 int32 的基本比较。. md5:b491ec4c9c46cfde
+// ComparatorInt32 提供对 int32 的基本比较。 md5:b491ec4c9c46cfde
 # <翻译结束>
 
 
@@ -89,7 +89,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorInt64 提供了对int64类型的基本比较功能。. md5:0a827d5d4781dc3b
+// ComparatorInt64 提供了对int64类型的基本比较功能。 md5:0a827d5d4781dc3b
 # <翻译结束>
 
 
@@ -98,7 +98,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorUint 提供了一个基础的无符号整数比较功能。. md5:a11699413547d752
+// ComparatorUint 提供了一个基础的无符号整数比较功能。 md5:a11699413547d752
 # <翻译结束>
 
 
@@ -107,7 +107,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorUint8 提供uint8的基本比较。. md5:5f83ec701ceeb5c2
+// ComparatorUint8 提供uint8的基本比较。 md5:5f83ec701ceeb5c2
 # <翻译结束>
 
 
@@ -116,7 +116,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorUint16 提供对 uint16 的基本比较。. md5:74670078ce1de876
+// ComparatorUint16 提供对 uint16 的基本比较。 md5:74670078ce1de876
 # <翻译结束>
 
 
@@ -125,7 +125,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorUint32 在uint32类型上提供基本的比较功能。. md5:f08e9a1b63d90f06
+// ComparatorUint32 在uint32类型上提供基本的比较功能。 md5:f08e9a1b63d90f06
 # <翻译结束>
 
 
@@ -134,7 +134,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorUint64 提供了对 uint64 类型的基本比较功能。. md5:e08126378b4b83b9
+// ComparatorUint64 提供了对 uint64 类型的基本比较功能。 md5:e08126378b4b83b9
 # <翻译结束>
 
 
@@ -143,7 +143,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorFloat32 提供对float32的基本比较。. md5:5f3a1a46408ed33d
+// ComparatorFloat32 提供对float32的基本比较。 md5:5f3a1a46408ed33d
 # <翻译结束>
 
 
@@ -152,7 +152,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorFloat64 提供对float64的基本比较。. md5:15afd5d88c222774
+// ComparatorFloat64 提供对float64的基本比较。 md5:15afd5d88c222774
 # <翻译结束>
 
 
@@ -161,7 +161,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorByte 在字节上提供基本的比较功能。. md5:74dad260972241f7
+// ComparatorByte 在字节上提供基本的比较功能。 md5:74dad260972241f7
 # <翻译结束>
 
 
@@ -170,7 +170,7 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorRune 提供了一个基本的 rune 对比功能。. md5:e30baf0412d73c95
+// ComparatorRune 提供了一个基本的 rune 对比功能。 md5:e30baf0412d73c95
 # <翻译结束>
 
 
@@ -179,6 +179,6 @@
 <原文结束>
 
 # <翻译开始>
-// ComparatorTime 提供了对time.Time的基本比较。. md5:58d0e4c6e29cff00
+// ComparatorTime 提供了对time.Time的基本比较。 md5:58d0e4c6e29cff00
 # <翻译结束>
 

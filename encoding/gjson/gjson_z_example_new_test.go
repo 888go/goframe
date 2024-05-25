@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gjson_test
 
@@ -93,7 +94,7 @@ func ExampleNewWithOptions_UTF8BOM() {
 func ExampleNew_Xml() {
 	jsonContent := `<?xml version="1.0" encoding="UTF-8"?><doc><name>john</name><score>100</score></doc>`
 	j := gjson.New(jsonContent)
-	// Note that there's root node in the XML content.
+	// 注意XML内容中存在根节点。. md5:8fff88d0927f7c85
 	fmt.Println(j.Get("doc.name"))
 	fmt.Println(j.Get("doc.score"))
 	// Output:

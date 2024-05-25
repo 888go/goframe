@@ -23,7 +23,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetHostByName 返回给定互联网主机名对应的 IPv4 地址。. md5:b6dcb532a1a7dd84
+// GetHostByName 返回给定互联网主机名对应的 IPv4 地址。 md5:b6dcb532a1a7dd84
 # <翻译结束>
 
 
@@ -43,6 +43,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetNameByAddr 根据给定的IP地址返回对应的互联网主机名。. md5:9abc34f304140e79
+// GetNameByAddr 根据给定的IP地址返回对应的互联网主机名。 md5:9abc34f304140e79
 # <翻译结束>
 

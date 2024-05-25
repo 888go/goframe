@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// gaes 包提供了对AES加密/解密算法有用的API。. md5:a8dd4c4d404f7193
+// gaes 包提供了对AES加密/解密算法有用的API。 md5:a8dd4c4d404f7193
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// IVDefaultValue 是初始向量(IV)的默认值。. md5:4a6e2194de451335
+// IVDefaultValue 是初始向量(IV)的默认值。 md5:4a6e2194de451335
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Encrypt 是 EncryptCBC 的别名。. md5:d1191baf4cd313b4
+// Encrypt 是 EncryptCBC 的别名。 md5:d1191baf4cd313b4
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// Decrypt 是DecryptCBC的别名。. md5:8cf4ecbfea3f2867
+// Decrypt 是DecryptCBC的别名。 md5:8cf4ecbfea3f2867
 # <翻译结束>
 
 
@@ -114,7 +114,7 @@
 <原文结束>
 
 # <翻译开始>
-// PKCS7Padding 对源字节切片应用PKCS#7填充，以匹配给定的块大小。. md5:c93d69357ddcf364
+// PKCS7Padding 对源字节切片应用PKCS#7填充，以匹配给定的块大小。 md5:c93d69357ddcf364
 # <翻译结束>
 
 
@@ -123,7 +123,7 @@
 <原文结束>
 
 # <翻译开始>
-// PKCS7UnPadding 根据给定的块大小从源字节切片中移除PKCS#7填充。. md5:405becc32a6915c2
+// PKCS7UnPadding 根据给定的块大小从源字节切片中移除PKCS#7填充。 md5:405becc32a6915c2
 # <翻译结束>
 
 

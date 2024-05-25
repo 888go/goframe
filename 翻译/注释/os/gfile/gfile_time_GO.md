@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// MTime 返回由`path`指定的文件的修改时间（以秒为单位）。. md5:66dbc182c71f7ffb
+// MTime 返回由`path`指定的文件的修改时间（以秒为单位）。 md5:66dbc182c71f7ffb
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// MTimestamp 返回给定路径`path`的文件修改时间，以秒为单位。. md5:bb848f3c89f3cb71
+// MTimestamp 返回给定路径`path`的文件修改时间，以秒为单位。 md5:bb848f3c89f3cb71
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// MTimestampMilli 返回由 `path` 指定的文件的修改时间（以毫秒为单位）。. md5:2def39248c3bde9b
+// MTimestampMilli 返回由 `path` 指定的文件的修改时间（以毫秒为单位）。 md5:2def39248c3bde9b
 # <翻译结束>
 

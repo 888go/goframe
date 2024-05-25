@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// noopHistogramPerformer 是一个实现了HistogramPerformer接口但没有任何实际操作的实现者。. md5:7c57c6cdb0ed19f2
+// noopHistogramPerformer 是一个实现了HistogramPerformer接口但没有任何实际操作的实现者。 md5:7c57c6cdb0ed19f2
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// newNoopHistogramPerformer 创建并返回一个没有真正操作的 HistogramPerformer。. md5:77291cead93f5830
+// newNoopHistogramPerformer 创建并返回一个没有真正操作的 HistogramPerformer。 md5:77291cead93f5830
 # <翻译结束>
 
 
@@ -39,6 +39,6 @@
 <原文结束>
 
 # <翻译开始>
-// Record 向直方图中添加一个值。该值通常为正数或零。. md5:9623642cd5abf1d5
+// Record 向直方图中添加一个值。该值通常为正数或零。 md5:9623642cd5abf1d5
 # <翻译结束>
 

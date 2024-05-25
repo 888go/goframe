@@ -34,7 +34,7 @@
 <原文结束>
 
 # <翻译开始>
-// Marshal 是 Encode 函数的别名，目的是为了适应 json.Marshal/Unmarshal 函数的习惯用法。. md5:ff4e462ef9c849f2
+// Marshal 是 Encode 函数的别名，目的是为了适应 json.Marshal/Unmarshal 函数的习惯用法。 md5:ff4e462ef9c849f2
 # <翻译结束>
 
 
@@ -43,7 +43,7 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalIndent 是 json.MarshalIndent 的别名，以适应使用 json.MarshalIndent 函数的习惯。. md5:285efc00996caf06
+// MarshalIndent 是 json.MarshalIndent 的别名，以适应使用 json.MarshalIndent 函数的习惯。 md5:285efc00996caf06
 # <翻译结束>
 
 
@@ -52,7 +52,7 @@
 <原文结束>
 
 # <翻译开始>
-// Unmarshal是DecodeTo的别名，以适应json.Marshal/Unmarshal函数的习惯。. md5:dcb4ee0dfccdb10a
+// Unmarshal是DecodeTo的别名，以适应json.Marshal/Unmarshal函数的习惯。 md5:dcb4ee0dfccdb10a
 # <翻译结束>
 
 
@@ -61,7 +61,7 @@
 <原文结束>
 
 # <翻译开始>
-// Encode 将任何 Go 语言变量 `value` 编码为 JSON 字节。. md5:25418d619ec52d3a
+// Encode 将任何 Go 语言变量 `value` 编码为 JSON 字节。 md5:25418d619ec52d3a
 # <翻译结束>
 
 
@@ -70,7 +70,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustEncode 的行为与 Encode 相同，但如果发生任何错误，它会直接 panic。. md5:baf6676afd45559a
+// MustEncode 的行为与 Encode 相同，但如果发生任何错误，它会直接 panic。 md5:baf6676afd45559a
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncodeString 将任何 Go 语言变量 `value` 编码为 JSON 字符串。. md5:b54e604cb403b55a
+// EncodeString 将任何 Go 语言变量 `value` 编码为 JSON 字符串。 md5:b54e604cb403b55a
 # <翻译结束>
 
 

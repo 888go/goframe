@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// getResponseBody 返回响应体的文本。. md5:9b98c6205b0cfba9
+// getResponseBody 返回响应体的文本。 md5:9b98c6205b0cfba9
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// RawRequest 返回请求的原始内容。. md5:75945739a746b6fa
+// RawRequest 返回请求的原始内容。 md5:75945739a746b6fa
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// DumpRequestOut 与 DumpRequest 相比，会写出更多的请求头信息，比如 User-Agent。. md5:acf8e2e8787c2534
+// DumpRequestOut 与 DumpRequest 相比，会写出更多的请求头信息，比如 User-Agent。 md5:acf8e2e8787c2534
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// RawResponse 返回响应的原始内容。. md5:a3d4faef4d056f70
+// RawResponse 返回响应的原始内容。 md5:a3d4faef4d056f70
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// Raw返回请求和响应的原始文本。. md5:68a1f59b34b9e33a
+// Raw返回请求和响应的原始文本。 md5:68a1f59b34b9e33a
 # <翻译结束>
 
 
@@ -76,6 +76,6 @@
 <原文结束>
 
 # <翻译开始>
-// RawDump 将请求和响应的原始文本输出到stdout。. md5:aa9a7a2cc5e60970
+// RawDump 将请求和响应的原始文本输出到stdout。 md5:aa9a7a2cc5e60970
 # <翻译结束>
 

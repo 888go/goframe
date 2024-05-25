@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// localInstances 用于管理redis客户端的实例。. md5:3e8c8ec6661fd69a
+// localInstances 用于管理redis客户端的实例。 md5:3e8c8ec6661fd69a
 # <翻译结束>
 
 

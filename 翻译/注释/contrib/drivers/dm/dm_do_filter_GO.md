@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。. md5:f9ff7431f1478cfb
+// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
 # <翻译结束>
 
 

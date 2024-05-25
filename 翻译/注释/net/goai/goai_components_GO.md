@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// Components是根据OpenAPI/Swagger标准版本3.0指定的。. md5:ac796372f37158be
+// Components是根据OpenAPI/Swagger标准版本3.0指定的。 md5:ac796372f37158be
 # <翻译结束>
 

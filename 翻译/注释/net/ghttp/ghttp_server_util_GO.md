@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// WrapF 是一个辅助函数，用于包装http.HandlerFunc并返回一个ghttp.HandlerFunc。. md5:f1b5a37e2bddfd19
+// WrapF 是一个辅助函数，用于包装http.HandlerFunc并返回一个ghttp.HandlerFunc。 md5:f1b5a37e2bddfd19
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// WrapH 是一个辅助函数，用于包装 http.Handler，并返回一个 ghttp.HandlerFunc。. md5:0d35a772811803c8
+// WrapH 是一个辅助函数，用于包装 http.Handler，并返回一个 ghttp.HandlerFunc。 md5:0d35a772811803c8
 # <翻译结束>
 

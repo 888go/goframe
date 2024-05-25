@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalText 将文本解析为持续时间。. md5:1e2a68aed8e2fc35
+// UnmarshalText 将文本解析为持续时间。 md5:1e2a68aed8e2fc35
 # <翻译结束>
 

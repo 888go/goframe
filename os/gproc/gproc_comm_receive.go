@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gproc
 
@@ -22,17 +23,15 @@ import (
 )
 
 var (
-	// tcpListened marks whether the receiving listening service started.
+	// tcpListened 标记接收监听服务是否已启动。. md5:3e322f46ef5e3873
 	tcpListened = gtype.NewBool()
 )
 
-// Receive blocks and receives message from other process using local TCP listening.
-// Note that, it only enables the TCP listening service when this function called.
-
-// ff:
-// group:
+// Receive 函数通过本地TCP监听来阻塞并接收来自其他进程的消息。
+// 注意，只有当调用此函数时，才会启用TCP监听服务。
+// md5:dbf5481b7dcc4222
 func Receive(group ...string) *MsgRequest {
-	// Use atomic operations to guarantee only one receiver goroutine listening.
+	// 使用原子操作来保证只有一个接收者goroutine在监听。. md5:3ddf24c1b343c721
 	if tcpListened.Cas(false, true) {
 		go receiveTcpListening()
 	}
@@ -53,7 +52,7 @@ func Receive(group ...string) *MsgRequest {
 	return nil
 }
 
-// receiveTcpListening scans local for available port and starts listening.
+// receiveTcpListening 在本地扫描可用端口并开始监听。. md5:797539e564e3129a
 func receiveTcpListening() {
 	var (
 		listen  *net.TCPListener
@@ -69,7 +68,7 @@ func receiveTcpListening() {
 	if err != nil {
 		panic(gerror.Wrapf(err, `net.ListenTCP failed for address "%s"`, address))
 	}
-	// Save the port to the pid file.
+	// 将端口保存到pid文件中。. md5:d6040683bfc292d5
 	if err = gfile.PutContents(getCommFilePath(Pid()), gconv.String(port)); err != nil {
 		panic(err)
 	}
@@ -83,7 +82,7 @@ func receiveTcpListening() {
 	}
 }
 
-// receiveTcpHandler is the connection handler for receiving data.
+// receiveTcpHandler 是用于接收数据的连接处理器。. md5:41801f5c109ca561
 func receiveTcpHandler(conn *gtcp.Conn) {
 	var (
 		ctx      = context.TODO()
@@ -128,7 +127,7 @@ func receiveTcpHandler(conn *gtcp.Conn) {
 				glog.Error(ctx, err)
 			}
 		} else {
-			// Just close the connection if any error occurs.
+			// 如果发生任何错误，只需关闭连接。. md5:23e98bee4057f221
 			if err = conn.Close(); err != nil {
 				glog.Error(ctx, err)
 			}

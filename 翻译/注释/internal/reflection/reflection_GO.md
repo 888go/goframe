@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包 reflection 提供了一些内部使用的反射功能。. md5:7756a0414576baff
+// 包 reflection 提供了一些内部使用的反射功能。 md5:7756a0414576baff
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// OriginValueAndKind 获取并返回原始的反射值和类型。. md5:e2cdf5d39aa2b981
+// OriginValueAndKind 获取并返回原始的反射值和类型。 md5:e2cdf5d39aa2b981
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// OriginTypeAndKind 获取并返回原始反射类型和种类。. md5:ee62836f1445e493
+// OriginTypeAndKind 获取并返回原始反射类型和种类。 md5:ee62836f1445e493
 # <翻译结束>
 
 
@@ -49,6 +49,6 @@
 <原文结束>
 
 # <翻译开始>
-// ValueToInterface 将反射值转换为其接口类型。. md5:a59b428949b9dde2
+// ValueToInterface 将反射值转换为其接口类型。 md5:a59b428949b9dde2
 # <翻译结束>
 

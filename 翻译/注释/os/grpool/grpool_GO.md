@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包grpool实现了可重用的goroutine池。. md5:8908f4659795e87e
+// 包grpool实现了可重用的goroutine池。 md5:8908f4659795e87e
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Func 是包含上下文参数的池函数。. md5:6974cc4f941bf840
+// Func 是包含上下文参数的池函数。 md5:6974cc4f941bf840
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// RecoverFunc 是一个带有上下文参数的池运行时panic恢复函数。. md5:745651d2d0aad841
+// RecoverFunc 是一个带有上下文参数的池运行时panic恢复函数。 md5:745651d2d0aad841
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// Pool 使用池管理goroutine。. md5:b07df489dc176e1c
+// Pool 使用池管理goroutine。 md5:b07df489dc176e1c
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 最大goroutine计数限制。. md5:d8f9a54c9665e042
+// 最大goroutine计数限制。 md5:d8f9a54c9665e042
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// 当前正在运行的goroutine数量。. md5:ab841a9a1dadf1a0
+// 当前正在运行的goroutine数量。 md5:ab841a9a1dadf1a0
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于异步添加任务的列表。. md5:65d48b67f1f6833d
+// 用于异步添加任务的列表。 md5:65d48b67f1f6833d
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// localPoolItem是存储在作业列表中的作业项。. md5:2b97e4fa0813a9cc
+// localPoolItem是存储在作业列表中的作业项。 md5:2b97e4fa0813a9cc
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认的goroutine池。. md5:a834f6aca53d4225
+// 默认的goroutine池。 md5:a834f6aca53d4225
 # <翻译结束>
 
 
@@ -145,7 +145,7 @@
 <原文结束>
 
 # <翻译开始>
-// Size 返回默认goroutine池中的当前goroutine数量。. md5:f66351deb380810c
+// Size 返回默认goroutine池中的当前goroutine数量。 md5:f66351deb380810c
 # <翻译结束>
 
 
@@ -154,6 +154,6 @@
 <原文结束>
 
 # <翻译开始>
-// Jobs 返回默认goroutine池当前的任务数量。. md5:d9b300d28d86f6c3
+// Jobs 返回默认goroutine池当前的任务数量。 md5:d9b300d28d86f6c3
 # <翻译结束>
 

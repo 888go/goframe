@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package fileinfo provides virtual os.FileInfo for given information.
+// package fileinfo 提供给定信息的虚拟os.FileInfo。. md5:cbdfc1b24e190cd9
 package fileinfo
 
 import (
@@ -19,12 +20,6 @@ type Info struct {
 	modTime time.Time
 }
 
-
-// ff:
-// modTime:
-// mode:
-// size:
-// name:
 func New(name string, size int64, mode os.FileMode, modTime time.Time) *Info {
 	return &Info{
 		name:    name,
@@ -34,38 +29,26 @@ func New(name string, size int64, mode os.FileMode, modTime time.Time) *Info {
 	}
 }
 
-
-// ff:
 func (i *Info) Name() string {
 	return i.name
 }
 
-
-// ff:
 func (i *Info) Size() int64 {
 	return i.size
 }
 
-
-// ff:
 func (i *Info) IsDir() bool {
 	return i.mode.IsDir()
 }
 
-
-// ff:
 func (i *Info) Mode() os.FileMode {
 	return i.mode
 }
 
-
-// ff:
 func (i *Info) ModTime() time.Time {
 	return i.modTime
 }
 
-
-// ff:
 func (i *Info) Sys() interface{} {
 	return nil
 }

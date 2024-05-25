@@ -131,6 +131,6 @@
 <原文结束>
 
 # <翻译开始>
-// Close关闭语句。. md5:73ebf594ef1ccf7c
+// Close关闭语句。 md5:73ebf594ef1ccf7c
 # <翻译结束>
 

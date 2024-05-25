@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包ghtml提供了处理HTML内容的有用API。. md5:218d4666a789e8d7
+// 包ghtml提供了处理HTML内容的有用API。 md5:218d4666a789e8d7
 # <翻译结束>
 
 
@@ -94,6 +94,6 @@
 <原文结束>
 
 # <翻译开始>
-// SpecialCharsMapOrStruct 会自动对映射/结构体中的字符串值/属性进行编码。. md5:a26c73e35955b542
+// SpecialCharsMapOrStruct 会自动对映射/结构体中的字符串值/属性进行编码。 md5:a26c73e35955b542
 # <翻译结束>
 

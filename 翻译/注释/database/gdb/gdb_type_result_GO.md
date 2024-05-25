@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsEmpty 检查 `r` 是否为空，然后返回结果。. md5:4ee28a47e769cceb
+// IsEmpty 检查 `r` 是否为空，然后返回结果。 md5:4ee28a47e769cceb
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Len 返回结果列表的长度。. md5:9abccfc01a850f4f
+// Len 返回结果列表的长度。 md5:9abccfc01a850f4f
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Size 是函数 Len 的别名。. md5:4cfc93cb64eff9b5
+// Size 是函数 Len 的别名。 md5:4cfc93cb64eff9b5
 # <翻译结束>
 
 
@@ -63,7 +63,7 @@
 <原文结束>
 
 # <翻译开始>
-// Json 将 `r` 转换为JSON格式的内容。. md5:60a0626b0a333d14
+// Json 将 `r` 转换为JSON格式的内容。 md5:60a0626b0a333d14
 # <翻译结束>
 
 
@@ -72,7 +72,7 @@
 <原文结束>
 
 # <翻译开始>
-// Xml 将 `r` 转换为 XML 格式的内容。. md5:31a335fedb874d26
+// Xml 将 `r` 转换为 XML 格式的内容。 md5:31a335fedb874d26
 # <翻译结束>
 
 
@@ -81,7 +81,7 @@
 <原文结束>
 
 # <翻译开始>
-// List 将 `r` 转换为一个 List。. md5:ee79a42f10af264e
+// List 将 `r` 转换为一个 List。 md5:ee79a42f10af264e
 # <翻译结束>
 
 
@@ -115,7 +115,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapKeyStr 将 `r` 转换为一个键为指定字符串的 map[string]Map。. md5:43bb233c139ab262
+// MapKeyStr 将 `r` 转换为一个键为指定字符串的 map[string]Map。 md5:43bb233c139ab262
 # <翻译结束>
 
 
@@ -124,7 +124,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapKeyInt 将 `r` 转换为一个 map[int]Map，其中的键由 `key` 指定。. md5:2c63f4f80e8a0e1b
+// MapKeyInt 将 `r` 转换为一个 map[int]Map，其中的键由 `key` 指定。 md5:2c63f4f80e8a0e1b
 # <翻译结束>
 
 
@@ -133,7 +133,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapKeyUint 将 `r` 转换为一个 map，其中的键是通过 `key` 指定的 uint 类型。. md5:0597073b149b7e00
+// MapKeyUint 将 `r` 转换为一个 map，其中的键是通过 `key` 指定的 uint 类型。 md5:0597073b149b7e00
 # <翻译结束>
 
 
@@ -142,7 +142,7 @@
 <原文结束>
 
 # <翻译开始>
-// RecordKeyStr 将 `r` 转换为一个 map[string]Record，其中的键由 `key` 指定。. md5:6eaa1193e5507d8a
+// RecordKeyStr 将 `r` 转换为一个 map[string]Record，其中的键由 `key` 指定。 md5:6eaa1193e5507d8a
 # <翻译结束>
 
 
@@ -151,7 +151,7 @@
 <原文结束>
 
 # <翻译开始>
-// RecordKeyInt 将 `r` 转换为一个映射[int]Record，其中键由 `key` 指定。. md5:0ebe0554d495cbae
+// RecordKeyInt 将 `r` 转换为一个映射[int]Record，其中键由 `key` 指定。 md5:0ebe0554d495cbae
 # <翻译结束>
 
 
@@ -160,7 +160,7 @@
 <原文结束>
 
 # <翻译开始>
-// RecordKeyUint 将 `r` 转换为一个以指定的 `key` 作为键的 [uint]Record 映射。. md5:26ce469215f5d9c2
+// RecordKeyUint 将 `r` 转换为一个以指定的 `key` 作为键的 [uint]Record 映射。 md5:26ce469215f5d9c2
 # <翻译结束>
 
 
@@ -181,6 +181,6 @@
 <原文结束>
 
 # <翻译开始>
-// 如果结果为空且目标指针不为空，则返回错误。. md5:74dffcb96270ed89
+// 如果结果为空且目标指针不为空，则返回错误。 md5:74dffcb96270ed89
 # <翻译结束>
 

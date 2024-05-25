@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// doServiceRegister 将当前服务注册到Registry。. md5:fbfe784fd5718e65
+// doServiceRegister 将当前服务注册到Registry。 md5:fbfe784fd5718e65
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// doServiceDeregister 从注册表中注销当前服务。. md5:bc984d9e06c1ce87
+// doServiceDeregister 从注册表中注销当前服务。 md5:bc984d9e06c1ce87
 # <翻译结束>
 
 

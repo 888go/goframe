@@ -72,7 +72,7 @@
 <原文结束>
 
 # <翻译开始>
-// Unlock 解锁对`key`的写入锁。. md5:b54a3ae386cfa500
+// Unlock 解锁对`key`的写入锁。 md5:b54a3ae386cfa500
 # <翻译结束>
 
 
@@ -105,7 +105,7 @@
 <原文结束>
 
 # <翻译开始>
-// RUnlock 释放对 `key` 的读取锁。. md5:d4f823abaa858783
+// RUnlock 释放对 `key` 的读取锁。 md5:d4f823abaa858783
 # <翻译结束>
 
 
@@ -181,7 +181,7 @@
 <原文结束>
 
 # <翻译开始>
-// Remove 根据给定的 `key` 从 locker 中移除互斥锁。. md5:e557087320b6a672
+// Remove 根据给定的 `key` 从 locker 中移除互斥锁。 md5:e557087320b6a672
 # <翻译结束>
 
 
@@ -190,7 +190,7 @@
 <原文结束>
 
 # <翻译开始>
-// Clear 从 locker 中移除所有互斥锁。. md5:6e7b8ead4ad69f9d
+// Clear 从 locker 中移除所有互斥锁。 md5:6e7b8ead4ad69f9d
 # <翻译结束>
 
 

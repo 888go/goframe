@@ -71,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// Load 从指定的文件`path`加载内容，并根据其内容创建一个Json对象。. md5:fc26d8aa3d537173
+// Load 从指定的文件`path`加载内容，并根据其内容创建一个Json对象。 md5:fc26d8aa3d537173
 # <翻译结束>
 
 
@@ -80,7 +80,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadWithOptions 根据给定的 JSON 格式内容和选项创建一个 Json 对象。. md5:77290b5f994f3ff1
+// LoadWithOptions 根据给定的 JSON 格式内容和选项创建一个 Json 对象。 md5:77290b5f994f3ff1
 # <翻译结束>
 
 
@@ -89,7 +89,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadJson 从给定的JSON格式内容创建一个Json对象。. md5:1f41cbc0a35bd390
+// LoadJson 从给定的JSON格式内容创建一个Json对象。 md5:1f41cbc0a35bd390
 # <翻译结束>
 
 
@@ -98,7 +98,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadXml 从给定的XML格式内容创建一个Json对象。. md5:a170d56aa371a2bb
+// LoadXml 从给定的XML格式内容创建一个Json对象。 md5:a170d56aa371a2bb
 # <翻译结束>
 
 
@@ -107,7 +107,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadIni 从给定的INI格式内容创建一个Json对象。. md5:bf3225da0be4c26b
+// LoadIni 从给定的INI格式内容创建一个Json对象。 md5:bf3225da0be4c26b
 # <翻译结束>
 
 
@@ -116,7 +116,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadYaml 根据给定的 YAML 格式内容创建一个 Json 对象。. md5:d810aac213716b5a
+// LoadYaml 根据给定的 YAML 格式内容创建一个 Json 对象。 md5:d810aac213716b5a
 # <翻译结束>
 
 
@@ -125,7 +125,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadToml 从给定的TOML格式内容创建一个Json对象。. md5:a27ac84d2a7e5a70
+// LoadToml 从给定的TOML格式内容创建一个Json对象。 md5:a27ac84d2a7e5a70
 # <翻译结束>
 
 
@@ -134,7 +134,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadProperties 从给定的TOML格式内容创建一个Json对象。. md5:aacff07e57605d82
+// LoadProperties 从给定的TOML格式内容创建一个Json对象。 md5:aacff07e57605d82
 # <翻译结束>
 
 
@@ -170,7 +170,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsValidDataType 检查并返回给定的 `dataType` 是否是用于加载的有效数据类型。. md5:3cc6cab5a2631a3e
+// IsValidDataType 检查并返回给定的 `dataType` 是否是用于加载的有效数据类型。 md5:3cc6cab5a2631a3e
 # <翻译结束>
 
 
@@ -207,6 +207,6 @@
 <原文结束>
 
 # <翻译开始>
-// 必须包含"xxx"部分。. md5:6dc6d0a6d417b6a6
+// 必须包含"xxx"部分。 md5:6dc6d0a6d417b6a6
 # <翻译结束>
 

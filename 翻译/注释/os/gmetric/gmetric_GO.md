@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gmetric提供了指标功能的接口定义和简单API。. md5:077853b1642a75e8
+// 包gmetric提供了指标功能的接口定义和简单API。 md5:077853b1642a75e8
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// MetricType是指标的类型。. md5:12c2b0ec2071549b
+// MetricType是指标的类型。 md5:12c2b0ec2071549b
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 可观察的上/下计数器。. md5:d5bb673623b35d30
+// 可观察的上/下计数器。 md5:d5bb673623b35d30
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// MetricNamePattern 是用于验证指标名称的正则表达式模式。. md5:740e4cb3a2c2c55f
+// MetricNamePattern 是用于验证指标名称的正则表达式模式。 md5:740e4cb3a2c2c55f
 # <翻译结束>
 
 
@@ -81,7 +81,7 @@
 <原文结束>
 
 # <翻译开始>
-// MeterPerformer 创建并返回一个MeterPerformer，它可以生成各种类型的度量表演者。. md5:bb1b20c9299cdfc0
+// MeterPerformer 创建并返回一个MeterPerformer，它可以生成各种类型的度量表演者。 md5:bb1b20c9299cdfc0
 # <翻译结束>
 
 
@@ -117,7 +117,7 @@
 <原文结束>
 
 # <翻译开始>
-// MeterPerformer 管理所有指标表演者创建。. md5:5a71d1ffbf1a7a87
+// MeterPerformer 管理所有指标表演者创建。 md5:5a71d1ffbf1a7a87
 # <翻译结束>
 
 
@@ -207,7 +207,7 @@
 <原文结束>
 
 # <翻译开始>
-// MetricOption用于创建度量的基本选项。. md5:51fa64763a3de0e2
+// MetricOption用于创建度量的基本选项。 md5:51fa64763a3de0e2
 # <翻译结束>
 
 
@@ -277,7 +277,7 @@
 <原文结束>
 
 # <翻译开始>
-// Metric 表示一个带有其元数据的单个样本值，用于导出。. md5:9886e1ff863b8aaa
+// Metric 表示一个带有其元数据的单个样本值，用于导出。 md5:9886e1ff863b8aaa
 # <翻译结束>
 
 
@@ -286,7 +286,7 @@
 <原文结束>
 
 # <翻译开始>
-// Info 返回一个Metric的基本信息。. md5:d521e5fdeb6e591f
+// Info 返回一个Metric的基本信息。 md5:d521e5fdeb6e591f
 # <翻译结束>
 
 
@@ -295,7 +295,7 @@
 <原文结束>
 
 # <翻译开始>
-// MetricInfo 导出Metric的信息。. md5:757372004c377817
+// MetricInfo 导出Metric的信息。 md5:757372004c377817
 # <翻译结束>
 
 
@@ -304,7 +304,7 @@
 <原文结束>
 
 # <翻译开始>
-// Key 返回指标的唯一字符串键。. md5:944b693fe2dee89f
+// Key 返回指标的唯一字符串键。 md5:944b693fe2dee89f
 # <翻译结束>
 
 
@@ -313,7 +313,7 @@
 <原文结束>
 
 # <翻译开始>
-// Name 返回度量指标的名称。. md5:d3300c9b003bf9e9
+// Name 返回度量指标的名称。 md5:d3300c9b003bf9e9
 # <翻译结束>
 
 
@@ -322,7 +322,7 @@
 <原文结束>
 
 # <翻译开始>
-// Help 返回度量指标的帮助描述。. md5:af48acbd53473872
+// Help 返回度量指标的帮助描述。 md5:af48acbd53473872
 # <翻译结束>
 
 
@@ -331,7 +331,7 @@
 <原文结束>
 
 # <翻译开始>
-// Unit 返回度量的单位名称。. md5:985c39bd14c3f833
+// Unit 返回度量的单位名称。 md5:985c39bd14c3f833
 # <翻译结束>
 
 
@@ -340,7 +340,7 @@
 <原文结束>
 
 # <翻译开始>
-// Type返回度量的类型。. md5:5ceeadaee6d55192
+// Type返回度量的类型。 md5:5ceeadaee6d55192
 # <翻译结束>
 
 
@@ -349,7 +349,7 @@
 <原文结束>
 
 # <翻译开始>
-// Attributes 返回度量指标的常量属性切片。. md5:ca84de54457cab11
+// Attributes 返回度量指标的常量属性切片。 md5:ca84de54457cab11
 # <翻译结束>
 
 
@@ -358,7 +358,7 @@
 <原文结束>
 
 # <翻译开始>
-// InstrumentInfo 返回指标的仪表盘信息。. md5:674bd5d4b4646fe0
+// InstrumentInfo 返回指标的仪表盘信息。 md5:674bd5d4b4646fe0
 # <翻译结束>
 
 
@@ -367,7 +367,7 @@
 <原文结束>
 
 # <翻译开始>
-// InstrumentInfo导出指标的仪器信息。. md5:4789d30f855066d1
+// InstrumentInfo导出指标的仪器信息。 md5:4789d30f855066d1
 # <翻译结束>
 
 
@@ -376,7 +376,7 @@
 <原文结束>
 
 # <翻译开始>
-// Name返回度量的仪器名称。. md5:a45a5bfd2d0859c1
+// Name返回度量的仪器名称。 md5:a45a5bfd2d0859c1
 # <翻译结束>
 
 
@@ -385,7 +385,7 @@
 <原文结束>
 
 # <翻译开始>
-// Version 返回指标的仪器版本。. md5:de1a566af4fc0f5a
+// Version 返回指标的仪器版本。 md5:de1a566af4fc0f5a
 # <翻译结束>
 
 
@@ -405,7 +405,7 @@
 <原文结束>
 
 # <翻译开始>
-// CounterPerformer 为 Counter 指标执行操作。. md5:6dbc874005efa26f
+// CounterPerformer 为 Counter 指标执行操作。 md5:6dbc874005efa26f
 # <翻译结束>
 
 
@@ -425,7 +425,7 @@
 <原文结束>
 
 # <翻译开始>
-// Add将给定的值添加到计数器中。如果值小于0，则会引发恐慌。. md5:d0e547634cd9c23f
+// Add将给定的值添加到计数器中。如果值小于0，则会引发恐慌。 md5:d0e547634cd9c23f
 # <翻译结束>
 
 
@@ -445,7 +445,7 @@
 <原文结束>
 
 # <翻译开始>
-//UpDownCounterPerformer为UpDownCounter指标执行操作。. md5:84129079abbaa297
+//UpDownCounterPerformer为UpDownCounter指标执行操作。 md5:84129079abbaa297
 # <翻译结束>
 
 
@@ -454,7 +454,7 @@
 <原文结束>
 
 # <翻译开始>
-// Dec 减少标度器的值 by 1。使用 Sub 函数可以减少任意数值。. md5:b095db72185faf82
+// Dec 减少标度器的值 by 1。使用 Sub 函数可以减少任意数值。 md5:b095db72185faf82
 # <翻译结束>
 
 
@@ -476,7 +476,7 @@
 <原文结束>
 
 # <翻译开始>
-// Buckets 返回Histogram的桶数组。. md5:b0cdc9def1273944
+// Buckets 返回Histogram的桶数组。 md5:b0cdc9def1273944
 # <翻译结束>
 
 
@@ -485,7 +485,7 @@
 <原文结束>
 
 # <翻译开始>
-// HistogramPerformer 为 Histogram 指标执行操作。. md5:ff12684d951e55fc
+// HistogramPerformer 为 Histogram 指标执行操作。 md5:ff12684d951e55fc
 # <翻译结束>
 
 
@@ -543,7 +543,7 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableCounterPerformer 是可观察计数器的表演者。. md5:5bd18cf71c0c3331
+// ObservableCounterPerformer 是可观察计数器的表演者。 md5:5bd18cf71c0c3331
 # <翻译结束>
 
 
@@ -552,7 +552,7 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableUpDownCounterPerformer 是可观测的 ObservableUpDownCounter 的执行者。. md5:4bf423dbe75e51b8
+// ObservableUpDownCounterPerformer 是可观测的 ObservableUpDownCounter 的执行者。 md5:4bf423dbe75e51b8
 # <翻译结束>
 
 
@@ -561,7 +561,7 @@
 <原文结束>
 
 # <翻译开始>
-// `ObservableGaugePerformer` 是用于可观察 `ObservableGauge` 的执行者。. md5:c3b3497dd317d711
+// `ObservableGaugePerformer` 是用于可观察 `ObservableGauge` 的执行者。 md5:c3b3497dd317d711
 # <翻译结束>
 
 
@@ -629,7 +629,7 @@
 <原文结束>
 
 # <翻译开始>
-// MetricCallback在metric reader开始读取指标值时自动调用。. md5:fbdeeeecfd4a085e
+// MetricCallback在metric reader开始读取指标值时自动调用。 md5:fbdeeeecfd4a085e
 # <翻译结束>
 
 
@@ -651,7 +651,7 @@
 <原文结束>
 
 # <翻译开始>
-// Observer 为特定初始化的 Metric 设置值。. md5:6cd07eda38c4e418
+// Observer 为特定初始化的 Metric 设置值。 md5:6cd07eda38c4e418
 # <翻译结束>
 
 
@@ -672,7 +672,7 @@
 <原文结束>
 
 # <翻译开始>
-// MetricObserver 设置绑定Metric的值。. md5:9a9b8c76fa6b893c
+// MetricObserver 设置绑定Metric的值。 md5:9a9b8c76fa6b893c
 # <翻译结束>
 
 
@@ -681,7 +681,7 @@
 <原文结束>
 
 # <翻译开始>
-// metrics 存储了当前包创建的所有 Metric。. md5:f312f8edd5130178
+// metrics 存储了当前包创建的所有 Metric。 md5:f312f8edd5130178
 # <翻译结束>
 
 
@@ -690,7 +690,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsEnabled 返回指标功能是否启用。. md5:0e3e632a639d3774
+// IsEnabled 返回指标功能是否启用。 md5:0e3e632a639d3774
 # <翻译结束>
 
 
@@ -699,6 +699,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetAllMetrics 返回当前包创建的所有指标。. md5:bcdcca5acd76b678
+// GetAllMetrics 返回当前包创建的所有指标。 md5:bcdcca5acd76b678
 # <翻译结束>
 

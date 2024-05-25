@@ -1,11 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package gyaml provides accessing and converting for YAML content.
-package gyaml//bm:yaml类
+// 包gyaml提供了访问和转换YAML内容的功能。. md5:f1323f1f471201c0
+package gyaml
 
 import (
 	"bytes"
@@ -18,12 +19,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Encode encodes `value` to an YAML format content as bytes.
-
-// ff:
-// err:
-// out:
-// value:
+// Encode 将 `value` 编码为字节形式的 YAML 格式内容。. md5:df5adae4088970d4
 func Encode(value interface{}) (out []byte, err error) {
 	if out, err = yaml.Marshal(value); err != nil {
 		err = gerror.Wrap(err, `yaml.Marshal failed`)
@@ -31,13 +27,7 @@ func Encode(value interface{}) (out []byte, err error) {
 	return
 }
 
-// EncodeIndent encodes `value` to an YAML format content with indent as bytes.
-
-// ff:
-// err:
-// out:
-// indent:
-// value:
+// EncodeIndent 将 `value` 编码为带有缩进的 YAML 格式内容，返回字节切片。. md5:08a35501baf3e352
 func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 	out, err = Encode(value)
 	if err != nil {
@@ -58,10 +48,7 @@ func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 	return
 }
 
-// Decode parses `content` into and returns as map.
-
-// ff:
-// content:
+// Decode将`content`解析为映射并返回。. md5:09afa737da32e1d3
 func Decode(content []byte) (map[string]interface{}, error) {
 	var (
 		result map[string]interface{}
@@ -74,12 +61,7 @@ func Decode(content []byte) (map[string]interface{}, error) {
 	return gconv.MapDeep(result), nil
 }
 
-// DecodeTo parses `content` into `result`.
-
-// ff:
-// err:
-// result:
-// value:
+// DecodeTo 将 content 解析到 result 中。. md5:39ca50eceb6c38b3
 func DecodeTo(value []byte, result interface{}) (err error) {
 	err = yaml.Unmarshal(value, result)
 	if err != nil {
@@ -88,12 +70,7 @@ func DecodeTo(value []byte, result interface{}) (err error) {
 	return
 }
 
-// ToJson converts `content` to JSON format content.
-
-// ff:
-// err:
-// out:
-// content:
+// ToJson 将 `content` 转换为 JSON 格式的内容。. md5:8ea19c8cff7962ab
 func ToJson(content []byte) (out []byte, err error) {
 	var (
 		result interface{}

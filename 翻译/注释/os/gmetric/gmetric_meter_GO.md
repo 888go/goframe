@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// localMeter 是实现Meter接口的本地版本。. md5:e59e8a96222d14c4
+// localMeter 是实现Meter接口的本地版本。 md5:e59e8a96222d14c4
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// MeterOption 是用于创建Meter的创建选项。. md5:aeec4cb6c20611f7
+// MeterOption 是用于创建Meter的创建选项。 md5:aeec4cb6c20611f7
 # <翻译结束>
 
 
@@ -74,7 +74,7 @@
 <原文结束>
 
 # <翻译开始>
-// newMeter 创建并返回一个实现了Meter接口的对象。. md5:f52639f31640714f
+// newMeter 创建并返回一个实现了Meter接口的对象。 md5:f52639f31640714f
 # <翻译结束>
 
 
@@ -83,6 +83,6 @@
 <原文结束>
 
 # <翻译开始>
-// Performer 为 Meter 创建并返回表演者。. md5:78f41b5ebd242dd8
+// Performer 为 Meter 创建并返回表演者。 md5:78f41b5ebd242dd8
 # <翻译结束>
 

@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-package gstr_test//bm:文本类_test
+package gstr_test
 
 import (
 	"fmt"
@@ -392,7 +393,7 @@ func ExampleChr() {
 	// A
 }
 
-// '103' is the 'g' in ASCII
+// '103' 在ASCII码中代表字母 'g'. md5:e664c0cbb63cb67e
 func ExampleOrd() {
 	var (
 		str    = `goframe`
@@ -751,7 +752,7 @@ func ExampleParse() {
 		fmt.Println(result)
 	}
 	{
-		// The form of nested Slice is not yet supported.
+		// 遍历嵌套切片的格式尚未得到支持。. md5:4ba6b8e024a1bae0
 		var str = `v[][]=m&v[][]=n`
 		result, err := gstr.Parse(str)
 		if err != nil {
@@ -760,7 +761,7 @@ func ExampleParse() {
 		fmt.Println(result)
 	}
 	{
-		// This will produce an error.
+		// 这将产生一个错误。. md5:a04ca00c0d3445fa
 		var str = `v=m&v[a]=n`
 		result, err := gstr.Parse(str)
 		if err != nil {
@@ -1250,7 +1251,9 @@ func ExampleTrimLeftStr() {
 func ExampleTrimRight() {
 	var (
 		str           = `**Hello World**`
-		characterMask = "*def" // []byte{"*", "d", "e", "f"}
+		characterMask = "*def" // `[]byte{"*", "d", "e", "f"}` 的中文翻译为：
+// 
+// 一个字节切片，包含以下元素：星号（`*`），字母 d，字母 e，和字母 f。. md5:c33233e03897a326
 		result        = gstr.TrimRight(str, characterMask)
 	)
 	fmt.Println(result)

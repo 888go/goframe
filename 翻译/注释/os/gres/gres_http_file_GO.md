@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Close 实现了 http.File 接口。. md5:ed68e1aedf92d678
+// Close 实现了 http.File 接口。 md5:ed68e1aedf92d678
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Readdir 实现了 http.File 接口的 Readdir 方法。. md5:d47ea30bb07047c4
+// Readdir 实现了 http.File 接口的 Readdir 方法。 md5:d47ea30bb07047c4
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Stat 实现了 http.File 接口中的 Stat 方法。. md5:f25fb28810e2d18b
+// Stat 实现了 http.File 接口中的 Stat 方法。 md5:f25fb28810e2d18b
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// Read implements the io.Reader接口。. md5:ef2823b98664212a
+// Read implements the io.Reader接口。 md5:ef2823b98664212a
 # <翻译结束>
 
 
@@ -58,6 +58,6 @@
 <原文结束>
 
 # <翻译开始>
-// Seek 实现了 io.Seeker 接口。. md5:891a8f7e89e80191
+// Seek 实现了 io.Seeker 接口。 md5:891a8f7e89e80191
 # <翻译结束>
 

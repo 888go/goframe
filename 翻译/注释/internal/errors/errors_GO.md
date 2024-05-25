@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包 errors 为内部使用提供处理错误的功能。. md5:5ebd576fdf2856b2
+// 包 errors 为内部使用提供处理错误的功能。 md5:5ebd576fdf2856b2
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// StackMode是在StackModeBrief或StackModeDetail模式下打印堆栈信息的模式。. md5:2ad08dc7990f413c
+// StackMode是在StackModeBrief或StackModeDetail模式下打印堆栈信息的模式。 md5:2ad08dc7990f413c
 # <翻译结束>
 
 
@@ -51,7 +51,7 @@
 <原文结束>
 
 # <翻译开始>
-// commandEnvKeyForStackMode 是用于切换简短错误堆栈的命令环境名称。. md5:23f1a1bc661e992f
+// commandEnvKeyForStackMode 是用于切换简短错误堆栈的命令环境名称。 md5:23f1a1bc661e992f
 # <翻译结束>
 
 
@@ -60,7 +60,7 @@
 <原文结束>
 
 # <翻译开始>
-// StackModeBrief 指定只打印所有错误堆栈，不打印框架错误堆栈。. md5:b592fb9cad302a5a
+// StackModeBrief 指定只打印所有错误堆栈，不打印框架错误堆栈。 md5:b592fb9cad302a5a
 # <翻译结束>
 
 
@@ -69,7 +69,7 @@
 <原文结束>
 
 # <翻译开始>
-// StackModeDetail 指定打印详细错误堆栈，包括框架堆栈。. md5:fab5a35426363d26
+// StackModeDetail 指定打印详细错误堆栈，包括框架堆栈。 md5:fab5a35426363d26
 # <翻译结束>
 
 
@@ -90,7 +90,7 @@
 <原文结束>
 
 # <翻译开始>
-// 错误堆栈模式通过命令行参数或环境变量进行配置。. md5:a6032170fbced764
+// 错误堆栈模式通过命令行参数或环境变量进行配置。 md5:a6032170fbced764
 # <翻译结束>
 
 
@@ -99,6 +99,6 @@
 <原文结束>
 
 # <翻译开始>
-// IsStackModeBrief 返回当前错误堆栈模式是否为简洁模式。. md5:5cccc95d12155d45
+// IsStackModeBrief 返回当前错误堆栈模式是否为简洁模式。 md5:5cccc95d12155d45
 # <翻译结束>
 

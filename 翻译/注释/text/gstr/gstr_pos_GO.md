@@ -35,7 +35,7 @@
 <原文结束>
 
 # <翻译开始>
-// PosRune 行为类似于函数 Pos，但将 `haystack` 和 `needle` 视为Unicode字符串。. md5:8b42bd50a9b68293
+// PosRune 行为类似于函数 Pos，但将 `haystack` 和 `needle` 视为Unicode字符串。 md5:8b42bd50a9b68293
 # <翻译结束>
 
 
@@ -57,7 +57,7 @@
 <原文结束>
 
 # <翻译开始>
-// PosIRune函数的行为类似于PosI函数，但它将`haystack`和`needle`视为Unicode字符串。. md5:23449f37c0061789
+// PosIRune函数的行为类似于PosI函数，但它将`haystack`和`needle`视为Unicode字符串。 md5:23449f37c0061789
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// PosRRune 行为类似于函数 PosR，但它将`haystack`和`needle`视为Unicode字符串。. md5:ef6eb08c3f0bdfdf
+// PosRRune 行为类似于函数 PosR，但它将`haystack`和`needle`视为Unicode字符串。 md5:ef6eb08c3f0bdfdf
 # <翻译结束>
 
 
@@ -101,6 +101,6 @@
 <原文结束>
 
 # <翻译开始>
-// PosRIRune 行为类似于 PosRI 函数，但它将 `haystack` 和 `needle` 视为 Unicode 字符串。. md5:5dc327c84c5271a6
+// PosRIRune 行为类似于 PosRI 函数，但它将 `haystack` 和 `needle` 视为 Unicode 字符串。 md5:5dc327c84c5271a6
 # <翻译结束>
 

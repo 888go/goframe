@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// internalMiddlewareObservability 是一个客户端中间件，用于启用可观测性特性。. md5:3e8ca5815bee6c43
+// internalMiddlewareObservability 是一个客户端中间件，用于启用可观测性特性。 md5:3e8ca5815bee6c43
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将跟踪内容注入到HTTP头中。. md5:1e1cdfd3fa2c105a
+// 将跟踪内容注入到HTTP头中。 md5:1e1cdfd3fa2c105a
 # <翻译结束>
 
 
@@ -51,7 +51,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将ClientTrace注入到HTTP请求的上下文中。. md5:2eb24a7227c63b0f
+// 将ClientTrace注入到HTTP请求的上下文中。 md5:2eb24a7227c63b0f
 # <翻译结束>
 
 
@@ -60,6 +60,6 @@
 <原文结束>
 
 # <翻译开始>
-// 如果当前正在使用默认的跟踪提供程序，那么它将不执行复杂的跟踪任务。. md5:27e9b5e1b834aa5d
+// 如果当前正在使用默认的跟踪提供程序，那么它将不执行复杂的跟踪任务。 md5:27e9b5e1b834aa5d
 # <翻译结束>
 

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid_test
 
@@ -151,7 +152,7 @@ func ExampleValidator_Ci() {
 		ctx = context.Background()
 		req = BizReq{
 			Account:   "gf",
-			Password:  "Goframe.org", // Diff from Password2, but because of "ci", rule check passed
+			Password:  "Goframe.org", // 与 Password2 的差异，但由于 "ci"，规则检查通过了. md5:1ea4cafc6ed3b9d0
 			Password2: "goframe.org",
 		}
 	)
@@ -179,7 +180,7 @@ func ExampleValidator_Data() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "goframe",
-			Password2: "gofra", // error length between 6 and 18
+			Password2: "gofra", // 错误长度应在6到18之间. md5:73fe6ad826054b75
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -282,7 +283,7 @@ func ExampleValidator_Data_Map3() {
 	// }
 }
 
-// Empty string attribute.
+// 空字符串属性。. md5:9e7d153e103c0afd
 func ExampleValidator_Data_Struct1() {
 	type Params struct {
 		Page      int    `v:"required|min:1         # page is required"`
@@ -299,7 +300,7 @@ func ExampleValidator_Data_Struct1() {
 	// true
 }
 
-// Empty pointer attribute.
+// 空指针属性。. md5:44ad28079daec680
 func ExampleValidator_Data_Struct2() {
 	type Params struct {
 		Page      int       `v:"required|min:1         # page is required"`
@@ -316,7 +317,7 @@ func ExampleValidator_Data_Struct2() {
 	// true
 }
 
-// Empty integer attribute.
+// 空整数属性。. md5:99930c57c75cb7c6
 func ExampleValidator_Data_Struct3() {
 	type Params struct {
 		Page      int `v:"required|min:1         # page is required"`

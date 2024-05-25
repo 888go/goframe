@@ -33,7 +33,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapContains 检查映射数据 `data` 是否包含键 `key`。. md5:be6a3dd5c1d28037
+// MapContains 检查映射数据 `data` 是否包含键 `key`。 md5:be6a3dd5c1d28037
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapDelete 从 map `data` 中删除所有 `keys`。. md5:3e89d2fe52825284
+// MapDelete 从 map `data` 中删除所有 `keys`。 md5:3e89d2fe52825284
 # <翻译结束>
 
 
@@ -51,7 +51,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapMerge 将源（src）映射中的所有映射合并到目标（dst）映射中。. md5:aa4647e55af49733
+// MapMerge 将源（src）映射中的所有映射合并到目标（dst）映射中。 md5:aa4647e55af49733
 # <翻译结束>
 
 
@@ -60,7 +60,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapMergeCopy 创建并返回一个新地图，该地图合并了来自 `src` 的所有地图。. md5:b880aa85a1899404
+// MapMergeCopy 创建并返回一个新地图，该地图合并了来自 `src` 的所有地图。 md5:b880aa85a1899404
 # <翻译结束>
 
 
@@ -99,7 +99,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapOmitEmpty 从给定的映射中删除所有空值。. md5:9e670086c7ddbc0e
+// MapOmitEmpty 从给定的映射中删除所有空值。 md5:9e670086c7ddbc0e
 # <翻译结束>
 
 

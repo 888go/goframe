@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 允许在服务器启动后经过此毫秒间隔执行管理命令。. md5:0a7e1d2b4fe2af39
+// 允许在服务器启动后经过此毫秒间隔执行管理命令。 md5:0a7e1d2b4fe2af39
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// serverActionLocker 是用于服务器管理操作的锁。. md5:3de592f90d7f4ae4
+// serverActionLocker 是用于服务器管理操作的锁。 md5:3de592f90d7f4ae4
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// serverActionLastTime 是上一次管理操作的时间戳（以毫秒为单位）。. md5:df445bcc172577e2
+// serverActionLastTime 是上一次管理操作的时间戳（以毫秒为单位）。 md5:df445bcc172577e2
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// serverProcessStatus是当前进程运行时的服务器状态。. md5:3d55829242522190
+// serverProcessStatus是当前进程运行时的服务器状态。 md5:3d55829242522190
 # <翻译结束>
 
 
@@ -70,7 +70,7 @@
 <原文结束>
 
 # <翻译开始>
-// ShutdownAllServer 优雅地关闭当前进程中的所有服务器。. md5:1eb1bf001c79c66c
+// ShutdownAllServer 优雅地关闭当前进程中的所有服务器。 md5:1eb1bf001c79c66c
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// checkProcessStatus 检查当前进程的服务器状态。. md5:f49e9c4fdac4de86
+// checkProcessStatus 检查当前进程的服务器状态。 md5:f49e9c4fdac4de86
 # <翻译结束>
 
 
@@ -100,7 +100,7 @@
 <原文结束>
 
 # <翻译开始>
-// forkReloadProcess 创建一个新的子进程，并将文件描述符复制到子进程中。. md5:5de49cf62f76603e
+// forkReloadProcess 创建一个新的子进程，并将文件描述符复制到子进程中。 md5:5de49cf62f76603e
 # <翻译结束>
 
 
@@ -109,7 +109,7 @@
 <原文结束>
 
 # <翻译开始>
-// forkRestartProcess 创建一个新的服务器进程。. md5:f786ce6758d0d9ed
+// forkRestartProcess 创建一个新的服务器进程。 md5:f786ce6758d0d9ed
 # <翻译结束>
 
 
@@ -118,7 +118,7 @@
 <原文结束>
 
 # <翻译开始>
-// getServerFdMap 返回所有服务器名称到文件描述符映射的map。. md5:dd5b6c5b0372c1b6
+// getServerFdMap 返回所有服务器名称到文件描述符映射的map。 md5:dd5b6c5b0372c1b6
 # <翻译结束>
 
 
@@ -127,7 +127,7 @@
 <原文结束>
 
 # <翻译开始>
-// bufferToServerFdMap 将二进制内容转换为fd映射。. md5:f02ae7f98f43f216
+// bufferToServerFdMap 将二进制内容转换为fd映射。 md5:f02ae7f98f43f216
 # <翻译结束>
 
 
@@ -136,7 +136,7 @@
 <原文结束>
 
 # <翻译开始>
-// restartWebServers 重启所有服务器。. md5:cad06ab5309d1725
+// restartWebServers 重启所有服务器。 md5:cad06ab5309d1725
 # <翻译结束>
 
 
@@ -157,7 +157,7 @@
 <原文结束>
 
 # <翻译开始>
-// shutdownWebServersGracefully 延长关闭所有服务器。. md5:032a0ea9c1919f82
+// shutdownWebServersGracefully 延长关闭所有服务器。 md5:032a0ea9c1919f82
 # <翻译结束>
 
 
@@ -166,7 +166,7 @@
 <原文结束>
 
 # <翻译开始>
-// forceCloseWebServers 强制关闭所有服务器。. md5:e7c5bd88a9acbd9e
+// forceCloseWebServers 强制关闭所有服务器。 md5:e7c5bd88a9acbd9e
 # <翻译结束>
 
 

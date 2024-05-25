@@ -44,7 +44,7 @@
 <原文结束>
 
 # <翻译开始>
-// Access-Control-Allow-Origin 是一个HTTP响应头字段，用于指定浏览器在进行跨域请求时可以访问资源的源（Origin）。. md5:64b1bac364c85a72
+// Access-Control-Allow-Origin 是一个HTTP响应头字段，用于指定浏览器在进行跨域请求时可以访问资源的源（Origin）。 md5:64b1bac364c85a72
 # <翻译结束>
 
 
@@ -62,7 +62,7 @@
 <原文结束>
 
 # <翻译开始>
-// Access-Control-Expose-Headers：这是HTTP响应头的一部分，用于指定哪些响应头可以被CORS（跨源资源共享）策略允许从服务器传递到客户端。. md5:edb32baedc37800f
+// Access-Control-Expose-Headers：这是HTTP响应头的一部分，用于指定哪些响应头可以被CORS（跨源资源共享）策略允许从服务器传递到客户端。 md5:edb32baedc37800f
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认允许客户端的所有自定义头部。. md5:5aa0a6d974ed81b6
+// 默认允许客户端的所有自定义头部。 md5:5aa0a6d974ed81b6
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认允许所有来源的访问。. md5:bd5e36856694e82f
+// 默认允许所有来源的访问。 md5:bd5e36856694e82f
 # <翻译结束>
 
 
@@ -156,7 +156,7 @@
 <原文结束>
 
 # <翻译开始>
-// CORSAllowedOrigin CORSAllowed 检查当前请求的来源是否被允许进行跨域。. md5:599a140b617c5c1c
+// CORSAllowedOrigin CORSAllowed 检查当前请求的来源是否被允许进行跨域。 md5:599a140b617c5c1c
 # <翻译结束>
 
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// PrintStack 将运行时堆栈跟踪信息输出到标准错误。. md5:91aa0db11ba5ad2a
+// PrintStack 将运行时堆栈跟踪信息输出到标准错误。 md5:91aa0db11ba5ad2a
 # <翻译结束>
 
 

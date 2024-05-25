@@ -32,7 +32,7 @@
 <原文结束>
 
 # <翻译开始>
-// Meter 使用MeterOption创建并返回Meter。. md5:d1e5c4bca1f6e03c
+// Meter 使用MeterOption创建并返回Meter。 md5:d1e5c4bca1f6e03c
 # <翻译结束>
 
 
@@ -41,7 +41,7 @@
 <原文结束>
 
 # <翻译开始>
-// Meter 存放了创建各种指标功能的函数。. md5:ecfd04354d47531f
+// Meter 存放了创建各种指标功能的函数。 md5:ecfd04354d47531f
 # <翻译结束>
 
 
@@ -77,7 +77,7 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableCounter 创建并返回一个新的 ObservableCounter。. md5:1fb1055edede2f1e
+// ObservableCounter 创建并返回一个新的 ObservableCounter。 md5:1fb1055edede2f1e
 # <翻译结束>
 
 
@@ -86,7 +86,7 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableUpDownCounter 创建并返回一个新的ObservableUpDownCounter。. md5:a7f48b253e6c2099
+// ObservableUpDownCounter 创建并返回一个新的ObservableUpDownCounter。 md5:a7f48b253e6c2099
 # <翻译结束>
 
 
@@ -95,7 +95,7 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableGauge 创建并返回一个新的可观察计量表。. md5:406f093f6a405dd4
+// ObservableGauge 创建并返回一个新的可观察计量表。 md5:406f093f6a405dd4
 # <翻译结束>
 
 
@@ -189,7 +189,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustRegisterCallback 类似于 RegisterCallback，但是如果发生任何错误，它会直接 panic。. md5:41b35f310c8c461d
+// MustRegisterCallback 类似于 RegisterCallback，但是如果发生任何错误，它会直接 panic。 md5:41b35f310c8c461d
 # <翻译结束>
 
 
@@ -198,7 +198,7 @@
 <原文结束>
 
 # <翻译开始>
-// globalProvider 是用于全局使用的提供者。. md5:6345c47ee4cbbaf6
+// globalProvider 是用于全局使用的提供者。 md5:6345c47ee4cbbaf6
 # <翻译结束>
 
 
@@ -207,7 +207,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetGlobalProvider 获取GetGlobalProvider实例。. md5:88505f26db856ed4
+// GetGlobalProvider 获取GetGlobalProvider实例。 md5:88505f26db856ed4
 # <翻译结束>
 
 

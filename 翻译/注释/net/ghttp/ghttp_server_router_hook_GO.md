@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindHookHandler 为指定的钩子注册处理程序。. md5:325d65ceb75f1b33
+// BindHookHandler 为指定的钩子注册处理程序。 md5:325d65ceb75f1b33
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// doBindHookHandlerInput是BindHookHandler的输入参数。. md5:1a2c964079a2227c
+// doBindHookHandlerInput是BindHookHandler的输入参数。 md5:1a2c964079a2227c
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// doBindHookHandler是BindHookHandler的内部处理程序。. md5:5393ffad5084d597
+// doBindHookHandler是BindHookHandler的内部处理程序。 md5:5393ffad5084d597
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindHookHandlerByMap 为指定的钩子注册处理器。. md5:38d4b79317ac1b3f
+// BindHookHandlerByMap 为指定的钩子注册处理器。 md5:38d4b79317ac1b3f
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// callHookHandler 按照注册的顺序调用钩子处理器。. md5:4e1a8b2998b73ddb
+// callHookHandler 按照注册的顺序调用钩子处理器。 md5:4e1a8b2998b73ddb
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// 备份旧的路由器变量映射。. md5:4a1427ee4ccef0a6
+// 备份旧的路由器变量映射。 md5:4a1427ee4ccef0a6
 # <翻译结束>
 
 
@@ -90,7 +90,7 @@
 <原文结束>
 
 # <翻译开始>
-// 恢复旧的路由器变量映射。. md5:6ae23d30567bb237
+// 恢复旧的路由器变量映射。 md5:6ae23d30567bb237
 # <翻译结束>
 
 
@@ -99,7 +99,7 @@
 <原文结束>
 
 # <翻译开始>
-// getHookHandlers 获取并返回指定钩子的处理函数。. md5:f19f77b15aa76d7a
+// getHookHandlers 获取并返回指定钩子的处理函数。 md5:f19f77b15aa76d7a
 # <翻译结束>
 
 

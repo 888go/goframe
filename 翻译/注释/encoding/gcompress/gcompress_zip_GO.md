@@ -123,7 +123,7 @@
 <原文结束>
 
 # <翻译开始>
-// 文件读取器在函数doCopyForUnZipFileWithReader中被关闭。. md5:bdbed60d16aa0ca2
+// 文件读取器在函数doCopyForUnZipFileWithReader中被关闭。 md5:bdbed60d16aa0ca2
 # <翻译结束>
 
 

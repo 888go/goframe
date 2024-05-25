@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// localMetricInstrument 实现了 MetricInstrument 接口。. md5:36ddf74b71077f27
+// localMetricInstrument 实现了 MetricInstrument 接口。 md5:36ddf74b71077f27
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// newInstrumentInfo 创建并返回一个 MetricInstrument。. md5:6fedce2350c59b80
+// newInstrumentInfo 创建并返回一个 MetricInstrument。 md5:6fedce2350c59b80
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// Name返回度量的仪器名称。. md5:a45a5bfd2d0859c1
+// Name返回度量的仪器名称。 md5:a45a5bfd2d0859c1
 # <翻译结束>
 
 
@@ -48,6 +48,6 @@
 <原文结束>
 
 # <翻译开始>
-// Version 返回指标的仪器版本。. md5:de1a566af4fc0f5a
+// Version 返回指标的仪器版本。 md5:de1a566af4fc0f5a
 # <翻译结束>
 

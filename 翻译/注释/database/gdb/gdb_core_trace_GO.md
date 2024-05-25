@@ -23,6 +23,6 @@
 <原文结束>
 
 # <翻译开始>
-// addSqlToTracing 如果启用追踪，则将SQL信息添加到追踪器中。. md5:a591b35a0635d132
+// addSqlToTracing 如果启用追踪，则将SQL信息添加到追踪器中。 md5:a591b35a0635d132
 # <翻译结束>
 

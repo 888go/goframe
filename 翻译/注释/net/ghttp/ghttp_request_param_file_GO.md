@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// UploadFile 包装了multipart上传文件，提供了更多和更方便的功能。. md5:a7173285d087c4aa
+// UploadFile 包装了multipart上传文件，提供了更多和更方便的功能。 md5:a7173285d087c4aa
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。. md5:43c3b36e60a18f9a
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// UploadFiles 是 *UploadFile 的数组类型。. md5:94b6aef81609f12b
+// UploadFiles 是 *UploadFile 的数组类型。 md5:94b6aef81609f12b
 # <翻译结束>
 
 

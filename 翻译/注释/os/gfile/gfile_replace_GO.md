@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// ReplaceFile 替换文件 `path` 的内容。. md5:70e99046a619416c
+// ReplaceFile 替换文件 `path` 的内容。 md5:70e99046a619416c
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// ReplaceFileFunc 使用回调函数 `f` 替换文件 `path` 中的内容。. md5:033d4157195d29fc
+// ReplaceFileFunc 使用回调函数 `f` 替换文件 `path` 中的内容。 md5:033d4157195d29fc
 # <翻译结束>
 
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// localAdapter 是 Adapter 的别名，仅用于嵌入属性的目的。. md5:be3fc375883fa166
+// localAdapter 是 Adapter 的别名，仅用于嵌入属性的目的。 md5:be3fc375883fa166
 # <翻译结束>
 
 
@@ -43,7 +43,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewWithAdapter 使用给定的实现了Adapter接口的适配器创建并返回一个Cache对象。. md5:0c92c6f9af030ccb
+// NewWithAdapter 使用给定的实现了Adapter接口的适配器创建并返回一个Cache对象。 md5:0c92c6f9af030ccb
 # <翻译结束>
 
 
@@ -65,7 +65,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetAdapter 返回当前缓存中设置的适配器。. md5:e93da9e47a8b0c21
+// GetAdapter 返回当前缓存中设置的适配器。 md5:e93da9e47a8b0c21
 # <翻译结束>
 
 
@@ -74,7 +74,7 @@
 <原文结束>
 
 # <翻译开始>
-// 从缓存中删除`keys`。. md5:370028bf9f2e1d24
+// 从缓存中删除`keys`。 md5:370028bf9f2e1d24
 # <翻译结束>
 
 
@@ -83,6 +83,6 @@
 <原文结束>
 
 # <翻译开始>
-// KeyStrings返回缓存中的所有键作为字符串切片。. md5:3b0126221389825e
+// KeyStrings返回缓存中的所有键作为字符串切片。 md5:3b0126221389825e
 # <翻译结束>
 

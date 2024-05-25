@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Info是根据OpenAPI/Swagger标准版本3.0定义的。. md5:5426a3817852daba
+// Info是根据OpenAPI/Swagger标准版本3.0定义的。 md5:5426a3817852daba
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Contact 是根据 OpenAPI/Swagger 标准版本3.0规定的。. md5:604c32a512535948
+// Contact 是根据 OpenAPI/Swagger 标准版本3.0规定的。 md5:604c32a512535948
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// License 是由OpenAPI/Swagger标准版本3.0指定的。. md5:6b613c07133dcaa7
+// License 是由OpenAPI/Swagger标准版本3.0指定的。 md5:6b613c07133dcaa7
 # <翻译结束>
 

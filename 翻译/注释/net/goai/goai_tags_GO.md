@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Tags是根据OpenAPI/Swagger 3.0标准指定的。. md5:dfa5f209aa36f9b2
+// Tags是根据OpenAPI/Swagger 3.0标准指定的。 md5:dfa5f209aa36f9b2
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// Tag由OpenAPI/Swagger 3.0标准指定。. md5:94223e7c6dcb7c0f
+// Tag由OpenAPI/Swagger 3.0标准指定。 md5:94223e7c6dcb7c0f
 # <翻译结束>
 

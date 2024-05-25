@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// Byte将`any`转换为byte。. md5:aeef919e3fba4f95
+// Byte将`any`转换为byte。 md5:aeef919e3fba4f95
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// Bytes 将 `any` 转换为 []byte。. md5:06125d6ba5f449a5
+// Bytes 将 `any` 转换为 []byte。 md5:06125d6ba5f449a5
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// Rune 将 `any` 转换为 rune。. md5:3459f7528861cc23
+// Rune 将 `any` 转换为 rune。 md5:3459f7528861cc23
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// Runes将`any`转换为[]rune。. md5:25552cd961d1d6bb
+// Runes将`any`转换为[]rune。 md5:25552cd961d1d6bb
 # <翻译结束>
 
 
@@ -120,7 +120,7 @@
 <原文结束>
 
 # <翻译开始>
-// 最后，我们使用json.Marshal进行转换。. md5:57829b67798bbc93
+// 最后，我们使用json.Marshal进行转换。 md5:57829b67798bbc93
 # <翻译结束>
 
 
@@ -141,6 +141,6 @@
 <原文结束>
 
 # <翻译开始>
-// checkJsonAndUnmarshalUseNumber 检查给定的 `any` 是否为 JSON 格式的字符串值，并使用 `json.UnmarshalUseNumber` 进行转换。. md5:ce3edf33e8eea76c
+// checkJsonAndUnmarshalUseNumber 检查给定的 `any` 是否为 JSON 格式的字符串值，并使用 `json.UnmarshalUseNumber` 进行转换。 md5:ce3edf33e8eea76c
 # <翻译结束>
 

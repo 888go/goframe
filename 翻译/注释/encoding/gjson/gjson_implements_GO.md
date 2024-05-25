@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。. md5:43c3b36e60a18f9a
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。. md5:f6766b88cf3d63c2
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 Json。. md5:4cedac254443f4c3
+// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 Json。 md5:4cedac254443f4c3
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrAny 实现了接口函数 MapStrAny()。. md5:e07c56a48f2ed248
+// MapStrAny 实现了接口函数 MapStrAny()。 md5:e07c56a48f2ed248
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// Interfaces 实现了接口函数 Interfaces()。. md5:b4dff925202b8b35
+// Interfaces 实现了接口函数 Interfaces()。 md5:b4dff925202b8b35
 # <翻译结束>
 
 
@@ -67,6 +67,6 @@
 <原文结束>
 
 # <翻译开始>
-// String 返回当前Json对象作为字符串。. md5:741610441066450a
+// String 返回当前Json对象作为字符串。 md5:741610441066450a
 # <翻译结束>
 

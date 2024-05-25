@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcache
 
@@ -15,8 +16,8 @@ import (
 )
 
 type adapterMemoryData struct {
-	mu   sync.RWMutex                      // dataMu ensures the concurrent safety of underlying data map.
-	data map[interface{}]adapterMemoryItem // data is the underlying cache data which is stored in a hash table.
+	mu   sync.RWMutex                      // dataMu 确保底层数据映射的并发安全性。. md5:ddcd414a151f3cf2
+	data map[interface{}]adapterMemoryItem // data 是底层的缓存数据，它存储在一个哈希表中。. md5:7cfaf636328aa0e7
 }
 
 func newAdapterMemoryData() *adapterMemoryData {
@@ -25,18 +26,12 @@ func newAdapterMemoryData() *adapterMemoryData {
 	}
 }
 
-// Update updates the value of `key` without changing its expiration and returns the old value.
-// The returned value `exist` is false if the `key` does not exist in the cache.
+// Update 更新`key`的值，不改变其过期时间，并返回旧的值。
+// 如果`key`在缓存中不存在，返回的值`exist`为false。
 //
-// It deletes the `key` if given `value` is nil.
-// It does nothing if `key` does not exist in the cache.
-
-// ff:更新值
-// err:错误
-// exist:是否已存在
-// oldValue:旧值
-// value:值
-// key:名称
+// 如果给定的`value`为nil，它会删除`key`。
+// 如果`key`不在缓存中，它不会做任何操作。
+// md5:6d92816db5b1d3bd
 func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue interface{}, exist bool, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -50,16 +45,10 @@ func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue
 	return nil, false, nil
 }
 
-// UpdateExpire updates the expiration of `key` and returns the old expiration duration value.
+// UpdateExpire 更新键`key`的过期时间，并返回旧的过期持续时间值。
 //
-// It returns -1 and does nothing if the `key` does not exist in the cache.
-// It deletes the `key` if `duration` < 0.
-
-// ff:更新过期时间
-// err:错误
-// oldDuration:旧过期时长
-// expireTime:时长
-// key:名称
+// 如果`key`在缓存中不存在，它将返回-1并什么都不做。如果`duration`小于0，它会删除`key`。
+// md5:b974907dd46b44be
 func (d *adapterMemoryData) UpdateExpire(key interface{}, expireTime int64) (oldDuration time.Duration, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -73,14 +62,9 @@ func (d *adapterMemoryData) UpdateExpire(key interface{}, expireTime int64) (old
 	return -1, nil
 }
 
-// Remove deletes the one or more keys from cache, and returns its value.
-// If multiple keys are given, it returns the value of the deleted last item.
-
-// ff:删除并带返回值
-// err:错误
-// value:值
-// removedKeys:被删除名称
-// keys:名称
+// Remove 从缓存中删除一个或多个键，并返回其值。
+// 如果给出了多个键，它将返回最后删除项的值。
+// md5:b3f23906b769df08
 func (d *adapterMemoryData) Remove(keys ...interface{}) (removedKeys []interface{}, value interface{}, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -96,9 +80,7 @@ func (d *adapterMemoryData) Remove(keys ...interface{}) (removedKeys []interface
 	return removedKeys, value, nil
 }
 
-// Data returns a copy of all key-value pairs in the cache as map type.
-
-// ff:取所有键值Map副本
+// Data 返回一个缓存中所有键值对的副本，以映射类型表示。. md5:d88afdf7cfc66604
 func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
 	d.mu.RLock()
 	m := make(map[interface{}]interface{}, len(d.data))
@@ -111,9 +93,7 @@ func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
 	return m, nil
 }
 
-// Keys returns all keys in the cache as slice.
-
-// ff:取所有键
+// Keys 返回缓存中所有键的切片。. md5:7ebd9dba01282dc2
 func (d *adapterMemoryData) Keys() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
@@ -130,9 +110,7 @@ func (d *adapterMemoryData) Keys() ([]interface{}, error) {
 	return keys, nil
 }
 
-// Values returns all values in the cache as slice.
-
-// ff:取所有值
+// Values 返回缓存中所有的值作为切片。. md5:dc00b32eb8913e9b
 func (d *adapterMemoryData) Values() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
@@ -149,11 +127,7 @@ func (d *adapterMemoryData) Values() ([]interface{}, error) {
 	return values, nil
 }
 
-// Size returns the size of the cache.
-
-// ff:取数量
-// err:错误
-// size:数量
+// Size 返回缓存的大小。. md5:c939a4ed87cd79ce
 func (d *adapterMemoryData) Size() (size int, err error) {
 	d.mu.RLock()
 	size = len(d.data)
@@ -161,10 +135,9 @@ func (d *adapterMemoryData) Size() (size int, err error) {
 	return size, nil
 }
 
-// Clear clears all data of the cache.
-// Note that this function is sensitive and should be carefully used.
-
-// ff:清空
+// Clear 清空缓存中的所有数据。
+// 注意，此函数涉及敏感操作，应谨慎使用。
+// md5:9212cab88870d3df
 func (d *adapterMemoryData) Clear() error {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -172,11 +145,6 @@ func (d *adapterMemoryData) Clear() error {
 	return nil
 }
 
-
-// ff:取值
-// ok:成功
-// item:
-// key:名称
 func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok bool) {
 	d.mu.RLock()
 	item, ok = d.data[key]
@@ -184,25 +152,17 @@ func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok boo
 	return
 }
 
-
-// ff:设置值
-// yx:true
-// value:
-// key:
 func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {
 	d.mu.Lock()
 	d.data[key] = value
 	d.mu.Unlock()
 }
 
-// SetMap batch sets cache with key-value pairs by `data`, which is expired after `duration`.
+// SetMap 通过 `data` 批量设置缓存键值对，这些缓存在 `duration` 时间后过期。
 //
-// It does not expire if `duration` == 0.
-// It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
-
-// ff:设置Map
-// expireTime:
-// data:
+// 如果 `duration` == 0，则不设置过期时间。
+// 如果 `duration` < 0 或者给定的 `value` 为 nil，则删除 `data` 中的键。
+// md5:cc6156a6df071b21
 func (d *adapterMemoryData) SetMap(data map[interface{}]interface{}, expireTime int64) error {
 	d.mu.Lock()
 	for k, v := range data {
@@ -215,12 +175,6 @@ func (d *adapterMemoryData) SetMap(data map[interface{}]interface{}, expireTime 
 	return nil
 }
 
-
-// ff:
-// expireTimestamp:
-// value:
-// key:
-// ctx:
 func (d *adapterMemoryData) SetWithLock(ctx context.Context, key interface{}, value interface{}, expireTimestamp int64) (interface{}, error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -232,7 +186,7 @@ func (d *adapterMemoryData) SetWithLock(ctx context.Context, key interface{}, va
 	}
 	f, ok := value.(Func)
 	if !ok {
-		// Compatible with raw function value.
+		// 与原始函数值兼容。. md5:b6980bd817389e7f
 		f, ok = value.(func(ctx context.Context) (value interface{}, err error))
 	}
 	if ok {
@@ -247,13 +201,9 @@ func (d *adapterMemoryData) SetWithLock(ctx context.Context, key interface{}, va
 	return value, nil
 }
 
-
-// ff:
-// force:
-// key:
 func (d *adapterMemoryData) DeleteWithDoubleCheck(key interface{}, force ...bool) {
 	d.mu.Lock()
-	// Doubly check before really deleting it from cache.
+	// 在从缓存中真正删除之前，再双检查一次。. md5:53767fc86cbfbf5e
 	if item, ok := d.data[key]; (ok && item.IsExpired()) || (len(force) > 0 && force[0]) {
 		delete(d.data, key)
 	}

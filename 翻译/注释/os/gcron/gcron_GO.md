@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// gcron 包实现了cron模式解析器和任务运行器。. md5:56d461ee2c75e1f7
+// gcron 包实现了cron模式解析器和任务运行器。 md5:56d461ee2c75e1f7
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetLogger 设置 cron 的全局日志记录器。. md5:b0a9c7514a8c8b29
+// SetLogger 设置 cron 的全局日志记录器。 md5:b0a9c7514a8c8b29
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetLogger 返回 cron 中的全局日志记录器。. md5:908af8c408f25d3d
+// GetLogger 返回 cron 中的全局日志记录器。 md5:908af8c408f25d3d
 # <翻译结束>
 
 
@@ -105,7 +105,7 @@
 <原文结束>
 
 # <翻译开始>
-// DelayAdd 在延迟'delay'时间后，向默认的cron对象添加一个定时任务。. md5:7c28aadbf64d1362
+// DelayAdd 在延迟'delay'时间后，向默认的cron对象添加一个定时任务。 md5:7c28aadbf64d1362
 # <翻译结束>
 
 
@@ -114,7 +114,7 @@
 <原文结束>
 
 # <翻译开始>
-// DelayAddSingleton 在默认的cron对象中延迟`delay`时间后添加一个单例定时任务。. md5:d6c26c1edc16c19a
+// DelayAddSingleton 在默认的cron对象中延迟`delay`时间后添加一个单例定时任务。 md5:d6c26c1edc16c19a
 # <翻译结束>
 
 
@@ -158,7 +158,7 @@
 <原文结束>
 
 # <翻译开始>
-// Remove 删除名为`name`的计划任务。. md5:bc96b6bdb0bac57b
+// Remove 删除名为`name`的计划任务。 md5:bc96b6bdb0bac57b
 # <翻译结束>
 
 
@@ -167,7 +167,7 @@
 <原文结束>
 
 # <翻译开始>
-// Size 返回默认cron中定时任务的数量。. md5:e87d680e31031739
+// Size 返回默认cron中定时任务的数量。 md5:e87d680e31031739
 # <翻译结束>
 
 
@@ -176,7 +176,7 @@
 <原文结束>
 
 # <翻译开始>
-// Entries 返回所有定时任务作为切片。. md5:16823f1ebafbd9cc
+// Entries 返回所有定时任务作为切片。 md5:16823f1ebafbd9cc
 # <翻译结束>
 
 

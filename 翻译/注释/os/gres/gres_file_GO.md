@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Name返回文件的名称。. md5:a3ea90169ca420db
+// Name返回文件的名称。 md5:a3ea90169ca420db
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// Content 返回文件的内容。. md5:66d562dea01e0ea1
+// Content 返回文件的内容。 md5:66d562dea01e0ea1
 # <翻译结束>
 
 
@@ -51,7 +51,7 @@
 <原文结束>
 
 # <翻译开始>
-// FileInfo 返回一个表示FileHeader的os.FileInfo。. md5:da797c4560c42771
+// FileInfo 返回一个表示FileHeader的os.FileInfo。 md5:da797c4560c42771
 # <翻译结束>
 
 
@@ -60,7 +60,7 @@
 <原文结束>
 
 # <翻译开始>
-// Export 将所有子文件递归地导出并保存到指定的系统路径 `dst`。. md5:e85b8976b49230e6
+// Export 将所有子文件递归地导出并保存到指定的系统路径 `dst`。 md5:e85b8976b49230e6
 # <翻译结束>
 
 
@@ -69,6 +69,6 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。. md5:43c3b36e60a18f9a
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 # <翻译结束>
 

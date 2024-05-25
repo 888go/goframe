@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// LockUpdate 为当前操作设置更新锁。. md5:ecffaffee1e7b1df
+// LockUpdate 为当前操作设置更新锁。 md5:ecffaffee1e7b1df
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// LockShared 将当前操作的锁设置为共享模式。. md5:d3afc426055403b9
+// LockShared 将当前操作的锁设置为共享模式。 md5:d3afc426055403b9
 # <翻译结束>
 

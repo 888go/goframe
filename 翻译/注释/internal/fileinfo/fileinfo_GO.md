@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// package fileinfo 提供给定信息的虚拟os.FileInfo。. md5:cbdfc1b24e190cd9
+// package fileinfo 提供给定信息的虚拟os.FileInfo。 md5:cbdfc1b24e190cd9
 # <翻译结束>
 

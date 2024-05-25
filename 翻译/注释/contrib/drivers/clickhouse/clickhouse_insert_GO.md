@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// InsertIgnore 不支持用于修改数据部分的其他查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。. md5:ac3efdb87c360d83
+// InsertIgnore 不支持用于修改数据部分的其他查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:ac3efdb87c360d83
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// InsertAndGetId 不支持其他用于修改数据部分的查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。. md5:9d4693bead6866d9
+// InsertAndGetId 不支持其他用于修改数据部分的查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:9d4693bead6866d9
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// 不支持用于修改数据部分的其他查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。. md5:d0b1de268614fdfa
+// 不支持用于修改数据部分的其他查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:d0b1de268614fdfa
 # <翻译结束>
 

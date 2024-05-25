@@ -34,7 +34,7 @@
 <原文结束>
 
 # <翻译开始>
-// ScriptFlushOption 是 ScriptFlush 函数的选项。. md5:dc79d8420cb1e3bb
+// ScriptFlushOption 是 ScriptFlush 函数的选项。 md5:dc79d8420cb1e3bb
 # <翻译结束>
 
 
@@ -43,7 +43,7 @@
 <原文结束>
 
 # <翻译开始>
-// SYNC 将缓存同步刷新。. md5:199c25e221e4fff0
+// SYNC 将缓存同步刷新。 md5:199c25e221e4fff0
 # <翻译结束>
 
 
@@ -52,6 +52,6 @@
 <原文结束>
 
 # <翻译开始>
-// ASYNC 异步刷新缓存。. md5:cc79b38230559523
+// ASYNC 异步刷新缓存。 md5:cc79b38230559523
 # <翻译结束>
 

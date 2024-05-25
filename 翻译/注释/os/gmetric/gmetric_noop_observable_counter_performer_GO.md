@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// noopObservableCounterPerformer 是一个实现了 ObservableCounterPerformer 接口的实现者，但其中没有任何实际操作。. md5:a91562bcf10391c7
+// noopObservableCounterPerformer 是一个实现了 ObservableCounterPerformer 接口的实现者，但其中没有任何实际操作。 md5:a91562bcf10391c7
 # <翻译结束>
 
 
@@ -30,6 +30,6 @@
 <原文结束>
 
 # <翻译开始>
-// newNoopObservableCounterPerformer 创建并返回一个没有实际操作的 ObservableCounterPerformer。. md5:4076ea9366a1a5e7
+// newNoopObservableCounterPerformer 创建并返回一个没有实际操作的 ObservableCounterPerformer。 md5:4076ea9366a1a5e7
 # <翻译结束>
 

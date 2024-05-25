@@ -1,13 +1,15 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package gtime provides functionality for measuring and displaying time.
-//
-// This package should keep much less dependencies with other packages.
-package gtime//bm:时间类
+// Package gtime 提供了测量和显示时间的功能。
+// 
+// 本包应该尽量减少与其他包的依赖。
+// md5:34aae194a36b5e34
+package gtime
 
 import (
 	"context"
@@ -25,7 +27,7 @@ import (
 )
 
 const (
-	// Short writes for common usage durations.
+	// 为常见的使用时长进行简短写入。. md5:368ca473af5d327a
 
 	D  = 24 * time.Hour
 	H  = time.Hour
@@ -35,44 +37,47 @@ const (
 	US = time.Microsecond
 	NS = time.Nanosecond
 
-	// Regular expression1(datetime separator supports '-', '/', '.').
-	// Eg:
-	// "2017-12-14 04:51:34 +0805 LMT",
-	// "2017-12-14 04:51:34 +0805 LMT",
-	// "2006-01-02T15:04:05Z07:00",
-	// "2014-01-17T01:19:15+08:00",
-	// "2018-02-09T20:46:17.897Z",
-	// "2018-02-09 20:46:17.897",
-	// "2018-02-09T20:46:17Z",
-	// "2018-02-09 20:46:17",
-	// "2018/10/31 - 16:38:46"
-	// "2018-02-09",
-	// "2018.02.09",
+// 正则表达式1（日期时间分隔符支持'-', '/' 和 '.'）。
+// 例如：
+// "2017-12-14 04:51:34 +0805 LMT",
+// "2017/12/14 04:51:34 +0805 LMT",
+// "2006-01-02T15:04:05Z07:00",
+// "2014-01-17T01:19:15+08:00",
+// "2018-02-09T20:46:17.897Z",
+// "2018-02-09 20:46:17.897",
+// "2018-02-09T20:46:17Z",
+// "2018-02-09 20:46:17",
+// "2018/10/31 - 16:38:46"
+// "2018-02-09",
+// "2018.02.09",
+// md5:2b97a95934c21f54
 	timeRegexPattern1 = `(\d{4}[-/\.]\d{1,2}[-/\.]\d{1,2})[:\sT-]*(\d{0,2}:{0,1}\d{0,2}:{0,1}\d{0,2}){0,1}\.{0,1}(\d{0,9})([\sZ]{0,1})([\+-]{0,1})([:\d]*)`
 
-	// Regular expression2(datetime separator supports '-', '/', '.').
-	// Eg:
-	// 01-Nov-2018 11:50:28
-	// 01/Nov/2018 11:50:28
-	// 01.Nov.2018 11:50:28
-	// 01.Nov.2018:11:50:28
+// 正则表达式（日期时间分隔符支持'-'、'/'和'.'）。
+// 例如：
+// 01-Nov-2018 11:50:28
+// 01/Nov/2018 11:50:28
+// 01.Nov.2018 11:50:28
+// 01.Nov.2018:11:50:28
+// md5:1f5fc72c5b6eb4f8
 	timeRegexPattern2 = `(\d{1,2}[-/\.][A-Za-z]{3,}[-/\.]\d{4})[:\sT-]*(\d{0,2}:{0,1}\d{0,2}:{0,1}\d{0,2}){0,1}\.{0,1}(\d{0,9})([\sZ]{0,1})([\+-]{0,1})([:\d]*)`
 
-	// Regular expression3(time).
-	// Eg:
-	// 11:50:28
-	// 11:50:28.897
+// 正则表达式3（时间）。
+// 例如：
+// 11:50:28
+// 11:50:28.897
+// md5:99204487b527a8dc
 	timeRegexPattern3 = `(\d{2}):(\d{2}):(\d{2})\.{0,1}(\d{0,9})`
 )
 
 var (
-	// It's more high performance using regular expression
-	// than time.ParseInLocation to parse the datetime string.
+// 使用正则表达式解析日期时间字符串比time.ParseInLocation更高效。
+// md5:08fb8b42e551caf6
 	timeRegex1 = regexp.MustCompile(timeRegexPattern1)
 	timeRegex2 = regexp.MustCompile(timeRegexPattern2)
 	timeRegex3 = regexp.MustCompile(timeRegexPattern3)
 
-	// Month words to arabic numerals mapping.
+	// 月份英文到阿拉伯数字的映射。. md5:7730d474ee8e496c
 	monthMap = map[string]int{
 		"jan":       1,
 		"feb":       2,
@@ -101,95 +106,71 @@ var (
 	}
 )
 
-// Timestamp retrieves and returns the timestamp in seconds.
-
-// ff:取时间戳秒
+// Timestamp 获取并返回秒为单位的时间戳。. md5:f859aadcb9d86dfc
 func Timestamp() int64 {
 	return Now().Timestamp()
 }
 
-// TimestampMilli retrieves and returns the timestamp in milliseconds.
-
-// ff:取时间戳毫秒
+// TimestampMilli 获取并返回毫秒级的时间戳。. md5:59f90b1b1bf0bd83
 func TimestampMilli() int64 {
 	return Now().TimestampMilli()
 }
 
-// TimestampMicro retrieves and returns the timestamp in microseconds.
-
-// ff:取时间戳微秒
+// TimestampMicro 获取并返回以微秒为单位的时间戳。. md5:f773c1913603fb89
 func TimestampMicro() int64 {
 	return Now().TimestampMicro()
 }
 
-// TimestampNano retrieves and returns the timestamp in nanoseconds.
-
-// ff:取时间戳纳秒
+// TimestampNano 获取并以纳秒为单位返回时间戳。. md5:8b782ae92acea8e7
 func TimestampNano() int64 {
 	return Now().TimestampNano()
 }
 
-// TimestampStr is a convenience method which retrieves and returns
-// the timestamp in seconds as string.
-
-// ff:取文本时间戳秒
+// TimestampStr 是一个方便的方法，它获取并返回时间戳（以秒为单位）的字符串形式。
+// md5:f638769b91eb1dd5
 func TimestampStr() string {
 	return Now().TimestampStr()
 }
 
-// TimestampMilliStr is a convenience method which retrieves and returns
-// the timestamp in milliseconds as string.
-
-// ff:取文本时间戳毫秒
+// TimestampMilliStr是一个方便的方法，它获取并返回毫秒级的时间戳作为字符串。
+// md5:cf293e6d5c9383d0
 func TimestampMilliStr() string {
 	return Now().TimestampMilliStr()
 }
 
-// TimestampMicroStr is a convenience method which retrieves and returns
-// the timestamp in microseconds as string.
-
-// ff:取文本时间戳微秒
+// TimestampMicroStr是一个方便的方法，它获取并返回微秒级别的时间戳作为字符串。
+// md5:2930c4dc2c5feaae
 func TimestampMicroStr() string {
 	return Now().TimestampMicroStr()
 }
 
-// TimestampNanoStr is a convenience method which retrieves and returns
-// the timestamp in nanoseconds as string.
-
-// ff:取文本时间戳纳秒
+// TimestampNanoStr 是一个便捷方法，用于获取并以字符串形式返回纳秒级的时间戳。
+// md5:ff842fbe274c5052
 func TimestampNanoStr() string {
 	return Now().TimestampNanoStr()
 }
 
-// Date returns current date in string like "2006-01-02".
-
-// ff:
+// Date 返回当前日期的字符串，格式为 "2006-01-02"。. md5:e4ebaf573ffc4bd6
 func Date() string {
 	return time.Now().Format("2006-01-02")
 }
 
-// Datetime returns current datetime in string like "2006-01-02 15:04:05".
-
-// ff:取当前日期时间
+// Datetime 返回当前日期时间的字符串格式，例如 "2006-01-02 15:04:05"。. md5:a1afd811808be0ca
 func Datetime() string {
 	return time.Now().Format("2006-01-02 15:04:05")
 }
 
-// ISO8601 returns current datetime in ISO8601 format like "2006-01-02T15:04:05-07:00".
-
-// ff:取当前日期时间ISO8601
+// ISO8601 返回当前日期时间，格式为 "2006-01-02T15:04:05-07:00"。. md5:ab2ef4b60100081e
 func ISO8601() string {
 	return time.Now().Format("2006-01-02T15:04:05-07:00")
 }
 
-// RFC822 returns current datetime in RFC822 format like "Mon, 02 Jan 06 15:04 MST".
-
-// ff:取当前日期时间RFC822
+// RFC822 返回当前日期时间的 RFC822 格式，例如 "Mon, 02 Jan 06 15:04 MST"。. md5:a6362395180caeda
 func RFC822() string {
 	return time.Now().Format("Mon, 02 Jan 06 15:04 MST")
 }
 
-// parseDateStr parses the string to year, month and day numbers.
+// parseDateStr 将字符串解析为年份、月份和日期数字。. md5:697ca0661d5cecd9
 func parseDateStr(s string) (year, month, day int) {
 	array := strings.Split(s, "-")
 	if len(array) < 3 {
@@ -202,7 +183,7 @@ func parseDateStr(s string) (year, month, day int) {
 	if len(array) < 3 {
 		return
 	}
-	// Checking the year in head or tail.
+	// 检查年份在头部还是尾部。. md5:33266655c259b475
 	if utils.IsNumeric(array[1]) {
 		year, _ = strconv.Atoi(array[0])
 		month, _ = strconv.Atoi(array[1])
@@ -219,15 +200,12 @@ func parseDateStr(s string) (year, month, day int) {
 	return
 }
 
-// StrToTime converts string to *Time object. It also supports timestamp string.
-// The parameter `format` is unnecessary, which specifies the format for converting like "Y-m-d H:i:s".
-// If `format` is given, it acts as same as function StrToTimeFormat.
-// If `format` is not given, it converts string as a "standard" datetime string.
-// Note that, it fails and returns error if there's no date string in `str`.
-
-// ff:转换文本
-// format:格式
-// str:文本时间
+// StrToTime 将字符串转换为 *Time 对象。它也支持时间戳字符串。
+// 参数 `format` 是不必要的，用于指定转换格式，如 "Y-m-d H:i:s"。
+// 如果提供了 `format`，它的行为与 StrToTimeFormat 函数相同。
+// 如果没有提供 `format`，它将把字符串作为 "标准" 日期时间字符串进行转换。
+// 注意，如果 `str` 中没有日期字符串，它将失败并返回错误。
+// md5:5e4dd2ec67cb758d
 func StrToTime(str string, format ...string) (*Time, error) {
 	if str == "" {
 		return &Time{wrapper{time.Time{}}}, nil
@@ -276,19 +254,20 @@ func StrToTime(str string, format ...string) (*Time, error) {
 		min, _ = strconv.Atoi(s[2:4])
 		sec, _ = strconv.Atoi(s[4:6])
 	}
-	// Nanoseconds, check and perform bits filling
+	// 纳秒，检查并执行位填充. md5:c54cea495b82ade6
 	if len(match[3]) > 0 {
 		nsec, _ = strconv.Atoi(match[3])
 		for i := 0; i < 9-len(match[3]); i++ {
 			nsec *= 10
 		}
 	}
-	// If there's zone information in the string,
-	// it then performs time zone conversion, which converts the time zone to UTC.
+// 如果字符串中包含时区信息，
+// 然后进行时区转换，将时区转换为UTC。
+// md5:57a54806130bc3f5
 	if match[4] != "" && match[6] == "" {
 		match[6] = "000000"
 	}
-	// If there's offset in the string, it then firstly processes the offset.
+	// 如果字符串中有偏移量，那么它会首先处理这个偏移量。. md5:5a183f25f01ee951
 	if match[6] != "" {
 		zone := strings.ReplaceAll(match[6], ":", "")
 		zone = strings.TrimLeft(zone, "+-")
@@ -304,7 +283,7 @@ func StrToTime(str string, format ...string) (*Time, error) {
 			if operation != "+" && operation != "-" {
 				operation = "-"
 			}
-			// Comparing the given time zone whether equals to current time zone,
+			// 比较给定的时区是否等于当前时区，. md5:7b9947fc7651a35e
 			_, localOffset := time.Now().Zone()
 			zoneOffset := h*3600 + m*60 + s
 			if operation == "-" {
@@ -322,13 +301,9 @@ func StrToTime(str string, format ...string) (*Time, error) {
 	return NewFromTime(time.Date(year, time.Month(month), day, hour, min, sec, nsec, local)), nil
 }
 
-// ConvertZone converts time in string `strTime` from `fromZone` to `toZone`.
-// The parameter `fromZone` is unnecessary, it is current time zone in default.
-
-// ff:转换时区
-// fromZone:旧时区
-// toZone:新时区
-// strTime:文本时间
+// ConvertZone 将字符串格式的时间`strTime`从`fromZone`时区转换为`toZone`时区。
+// 参数`fromZone`是可选的，默认情况下它代表当前所在的时区。
+// md5:9c73950cf06cb368
 func ConvertZone(strTime string, toZone string, fromZone ...string) (*Time, error) {
 	t, err := StrToTime(strTime)
 	if err != nil {
@@ -351,22 +326,15 @@ func ConvertZone(strTime string, toZone string, fromZone ...string) (*Time, erro
 	}
 }
 
-// StrToTimeFormat parses string `str` to *Time object with given format `format`.
-// The parameter `format` is like "Y-m-d H:i:s".
-
-// ff:StrToTimeFormat别名
-// format:
-// str:
+// StrToTimeFormat 函数将字符串 `str` 根据给定的格式 `format` 解析为 *Time 对象。
+// 参数 `format` 的格式类似于 "Y-m-d H:i:s"。
+// md5:0eb1a22261a21da1
 func StrToTimeFormat(str string, format string) (*Time, error) {
 	return StrToTimeLayout(str, formatToStdLayout(format))
 }
 
-// StrToTimeLayout parses string `str` to *Time object with given format `layout`.
-// The parameter `layout` is in stdlib format like "2006-01-02 15:04:05".
-
-// ff:转换文本Layout
-// layout:格式
-// str:文本时间
+// StrToTimeLayout 将字符串 `str` 解析为具有给定格式 `layout` 的 *Time 对象。参数 `layout` 应使用标准库中的格式，如 "2006-01-02 15:04:05"。
+// md5:54702732831e3f2e
 func StrToTimeLayout(str string, layout string) (*Time, error) {
 	if t, err := time.ParseInLocation(layout, str, time.Local); err == nil {
 		return NewFromTime(t), nil
@@ -379,14 +347,10 @@ func StrToTimeLayout(str string, layout string) (*Time, error) {
 	}
 }
 
-// ParseTimeFromContent retrieves time information for content string, it then parses and returns it
-// as *Time object.
-// It returns the first time information if there are more than one time string in the content.
-// It only retrieves and parses the time information with given first matched `format` if it's passed.
-
-// ff:解析文本
-// format:格式
-// content:文本
+// ParseTimeFromContent 从内容字符串中提取时间信息，然后解析并返回一个 *Time 类型的对象。
+// 如果内容中有多个时间字符串，它将返回第一个时间信息。
+// 如果提供了 `format`，它只会检索并解析与之匹配的第一个时间信息。
+// md5:37e6a9bec5011038
 func ParseTimeFromContent(content string, format ...string) *Time {
 	var (
 		err   error
@@ -421,11 +385,6 @@ func ParseTimeFromContent(content string, format ...string) *Time {
 // Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h", "d".
 //
 // Very note that it supports unit "d" more than function time.ParseDuration.
-
-// ff:文本取时长
-// err:错误
-// duration:纳秒
-// s:文本
 func ParseDuration(s string) (duration time.Duration, err error) {
 	var (
 		num int64
@@ -460,17 +419,14 @@ func ParseDuration(s string) (duration time.Duration, err error) {
 	return
 }
 
-// FuncCost calculates the cost time of function `f` in nanoseconds.
-
-// ff:取函数执行时长
-// f:执行函数
+// FuncCost 计算函数 `f` 的执行时间成本，以纳秒为单位。. md5:f6d4e0146ba246f1
 func FuncCost(f func()) time.Duration {
 	t := time.Now()
 	f()
 	return time.Since(t)
 }
 
-// isTimestampStr checks and returns whether given string a timestamp string.
+// isTimestampStr 检查并返回给定的字符串是否为时间戳字符串。. md5:cb1a63922b0758a1
 func isTimestampStr(s string) bool {
 	length := len(s)
 	if length == 0 {

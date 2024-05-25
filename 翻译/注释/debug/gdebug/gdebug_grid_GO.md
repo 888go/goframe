@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// gridRegex 是用于从堆栈信息中解析goroutine ID的正则表达式对象。. md5:682403f05aacc855
+// gridRegex 是用于从堆栈信息中解析goroutine ID的正则表达式对象。 md5:682403f05aacc855
 # <翻译结束>
 
 

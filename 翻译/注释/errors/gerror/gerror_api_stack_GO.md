@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// stack 表示一个程序计数器栈。. md5:974ffc07f2ddbe11
+// stack 表示一个程序计数器栈。 md5:974ffc07f2ddbe11
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// maxStackDepth 标记错误回溯的最大堆栈深度。. md5:e4020e5e182a92f7
+// maxStackDepth 标记错误回溯的最大堆栈深度。 md5:e4020e5e182a92f7
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Cause 返回 `err` 的根本原因错误。. md5:3719c97ae5cd6a94
+// Cause 返回 `err` 的根本原因错误。 md5:3719c97ae5cd6a94
 # <翻译结束>
 
 
@@ -84,7 +84,7 @@
 <原文结束>
 
 # <翻译开始>
-// HasStack 检查并报告 `err` 是否实现了接口 `gerror.IStack`。. md5:f8ab57042234eea7
+// HasStack 检查并报告 `err` 是否实现了接口 `gerror.IStack`。 md5:f8ab57042234eea7
 # <翻译结束>
 
 
@@ -117,7 +117,7 @@
 <原文结束>
 
 # <翻译开始>
-// HasError是Is的别名，它更易于理解语义。. md5:d84dea05563aadb6
+// HasError是Is的别名，它更易于理解语义。 md5:d84dea05563aadb6
 # <翻译结束>
 
 

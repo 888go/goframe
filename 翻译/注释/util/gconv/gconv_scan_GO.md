@@ -38,7 +38,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果`srcValue`为nil，不进行转换。. md5:72ad5bbbd6b824ce
+// 如果`srcValue`为nil，不进行转换。 md5:72ad5bbbd6b824ce
 # <翻译结束>
 
 
@@ -47,7 +47,7 @@
 <原文结束>
 
 # <翻译开始>
-// 不要使用dstPointerReflectValue.Type()，因为dstPointerReflectValue可能为零。. md5:8930f50c4dd8479c
+// 不要使用dstPointerReflectValue.Type()，因为dstPointerReflectValue可能为零。 md5:8930f50c4dd8479c
 # <翻译结束>
 
 
@@ -56,7 +56,7 @@
 <原文结束>
 
 # <翻译开始>
-// 指针类型验证。. md5:4a9fffd5103820ed
+// 指针类型验证。 md5:4a9fffd5103820ed
 # <翻译结束>
 
 
@@ -178,6 +178,6 @@
 <原文结束>
 
 # <翻译开始>
-// `params`可能是一个实现了接口函数Interface的结构体，例如：gvar.Var。. md5:c02e870a76bafdaa
+// `params`可能是一个实现了接口函数Interface的结构体，例如：gvar.Var。 md5:c02e870a76bafdaa
 # <翻译结束>
 

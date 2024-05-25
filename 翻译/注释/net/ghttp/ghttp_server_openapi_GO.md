@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// initOpenApi 使用OpenApiV3协议生成API规范。. md5:99e2f65c4ca9221a
+// initOpenApi 使用OpenApiV3协议生成API规范。 md5:99e2f65c4ca9221a
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// openapiSpec 是一个内置处理器，用于自动生成 OpenAPI 规范的 JSON 文件。. md5:6f3f66a4ccde5784
+// openapiSpec 是一个内置处理器，用于自动生成 OpenAPI 规范的 JSON 文件。 md5:6f3f66a4ccde5784
 # <翻译结束>
 

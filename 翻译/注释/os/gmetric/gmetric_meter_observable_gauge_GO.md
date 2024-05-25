@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// localObservableGauge是ObservableGauge接口的本地实现。. md5:7efef87b9cf8f215
+// localObservableGauge是ObservableGauge接口的本地实现。 md5:7efef87b9cf8f215
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查是否实现了MetricInitializer接口。. md5:87bf7f014f5d05df
+// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查对于接口PerformerExporter的实现。. md5:7bc09f325273ded9
+// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableGauge 创建并返回一个新的可观察计量表。. md5:406f093f6a405dd4
+// ObservableGauge 创建并返回一个新的可观察计量表。 md5:406f093f6a405dd4
 # <翻译结束>
 
 
@@ -69,7 +69,7 @@
 <原文结束>
 
 # <翻译开始>
-// Init 在创建Provider时初始化Metric。. md5:a46b2bb4d31aa7d0
+// Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
 # <翻译结束>
 
 

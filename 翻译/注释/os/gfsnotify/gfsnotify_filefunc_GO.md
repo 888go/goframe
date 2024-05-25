@@ -53,7 +53,7 @@
 <原文结束>
 
 # <翻译开始>
-// fileExists 检查给定的 `path` 是否存在。. md5:88ff2b38709b04ab
+// fileExists 检查给定的 `path` 是否存在。 md5:88ff2b38709b04ab
 # <翻译结束>
 
 
@@ -62,7 +62,7 @@
 <原文结束>
 
 # <翻译开始>
-// fileIsDir 检查给定的 `path` 是否为目录。. md5:e16eca80a5a42f13
+// fileIsDir 检查给定的 `path` 是否为目录。 md5:e16eca80a5a42f13
 # <翻译结束>
 
 
@@ -71,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// fileAllDirs递归地返回给定`path`的所有子文件夹，包括自身。. md5:b6638d72b44fee31
+// fileAllDirs递归地返回给定`path`的所有子文件夹，包括自身。 md5:b6638d72b44fee31
 # <翻译结束>
 
 

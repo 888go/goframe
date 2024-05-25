@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustShell 行为与 Shell 相同，但如果发生任何错误则会引发 panic。. md5:8ffd357cf1ea4dbc
+// MustShell 行为与 Shell 相同，但如果发生任何错误则会引发 panic。 md5:8ffd357cf1ea4dbc
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustShellRun 执行与 ShellRun 相同的操作，但如果发生任何错误，则会引发恐慌。. md5:b0e6d628208193e7
+// MustShellRun 执行与 ShellRun 相同的操作，但如果发生任何错误，则会引发恐慌。 md5:b0e6d628208193e7
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// MustShellExec 执行类似于 ShellExec，但如果发生任何错误，它将引发恐慌。. md5:9754cecde7636273
+// MustShellExec 执行类似于 ShellExec，但如果发生任何错误，它将引发恐慌。 md5:9754cecde7636273
 # <翻译结束>
 

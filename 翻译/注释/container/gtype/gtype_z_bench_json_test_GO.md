@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// 使用`go test`命令对所有`.go`文件进行测试，但仅针对包含`_Json`的基准测试（Benchmark）并记录内存使用情况（-benchmem选项）。. md5:306be2fba8e8f7ba
+// 使用`go test`命令对所有`.go`文件进行测试，但仅针对包含`_Json`的基准测试（Benchmark）并记录内存使用情况（-benchmem选项）。 md5:306be2fba8e8f7ba
 # <翻译结束>
 

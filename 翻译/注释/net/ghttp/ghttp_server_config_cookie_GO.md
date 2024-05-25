@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetCookieMaxAge 设置服务器的CookieMaxAge。. md5:1bd691f49b3f7d7e
+// SetCookieMaxAge 设置服务器的CookieMaxAge。 md5:1bd691f49b3f7d7e
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetCookiePath 为服务器设置Cookie路径。. md5:427faaa8ad8633d8
+// SetCookiePath 为服务器设置Cookie路径。 md5:427faaa8ad8633d8
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetCookieDomain 设置服务器的Cookie域。. md5:0337df246d313fe6
+// SetCookieDomain 设置服务器的Cookie域。 md5:0337df246d313fe6
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetCookieMaxAge 返回服务器的 CookieMaxAge。. md5:515f434ef606a7c5
+// GetCookieMaxAge 返回服务器的 CookieMaxAge。 md5:515f434ef606a7c5
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetCookiePath 返回服务器的CookiePath。. md5:5879f664e379d096
+// GetCookiePath 返回服务器的CookiePath。 md5:5879f664e379d096
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetCookieDomain 返回服务器的Cookie域名。. md5:f44dbe67d6622660
+// GetCookieDomain 返回服务器的Cookie域名。 md5:f44dbe67d6622660
 # <翻译结束>
 
 
@@ -76,6 +76,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetCookieSameSite 返回服务器的CookieSameSite设置。. md5:e015f6293556b8a8
+// GetCookieSameSite 返回服务器的CookieSameSite设置。 md5:e015f6293556b8a8
 # <翻译结束>
 

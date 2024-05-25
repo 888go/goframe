@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Span 是为了兼容性和扩展性而包装 trace.Span。. md5:4d80699ca0a21c89
+// Span 是为了兼容性和扩展性而包装 trace.Span。 md5:4d80699ca0a21c89
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// NewSpan 使用默认追踪器创建一个span。. md5:0b09fd499d941eba
+// NewSpan 使用默认追踪器创建一个span。 md5:0b09fd499d941eba
 # <翻译结束>
 

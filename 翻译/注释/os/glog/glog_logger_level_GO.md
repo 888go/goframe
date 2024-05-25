@@ -33,7 +33,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultLevelPrefixes 定义了默认的日志级别及其对应的前缀字符串。. md5:9e3d8d403bb7bbce
+// defaultLevelPrefixes 定义了默认的日志级别及其对应的前缀字符串。 md5:9e3d8d403bb7bbce
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// levelStringMap 定义了日志级别字符串名称到其级别的映射。. md5:d9c861b2e6837843
+// levelStringMap 定义了日志级别字符串名称到其级别的映射。 md5:d9c861b2e6837843
 # <翻译结束>
 
 
@@ -64,7 +64,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetLevel 返回日志级别值。. md5:8b5b1f26924bf360
+// GetLevel 返回日志级别值。 md5:8b5b1f26924bf360
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetLevelStr 通过级别字符串设置日志级别。. md5:53cbbdf23584340e
+// SetLevelStr 通过级别字符串设置日志级别。 md5:53cbbdf23584340e
 # <翻译结束>
 
 
@@ -82,7 +82,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetLevelPrefix 为指定的日志级别设置前缀字符串。. md5:a2b7a43af150bcb7
+// SetLevelPrefix 为指定的日志级别设置前缀字符串。 md5:a2b7a43af150bcb7
 # <翻译结束>
 
 
@@ -91,7 +91,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetLevelPrefixes 为记录器设置级别与前缀字符串的映射关系。. md5:a80f5e3de3c222ff
+// SetLevelPrefixes 为记录器设置级别与前缀字符串的映射关系。 md5:a80f5e3de3c222ff
 # <翻译结束>
 
 
@@ -100,7 +100,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetLevelPrefix 返回指定级别的前缀字符串。. md5:339b86b4f84d6049
+// GetLevelPrefix 返回指定级别的前缀字符串。 md5:339b86b4f84d6049
 # <翻译结束>
 
 
@@ -109,6 +109,6 @@
 <原文结束>
 
 # <翻译开始>
-// getLevelPrefixWithBrackets 返回指定级别的带有括号的前缀字符串。. md5:a323f3c9d4c0ab4c
+// getLevelPrefixWithBrackets 返回指定级别的带有括号的前缀字符串。 md5:a323f3c9d4c0ab4c
 # <翻译结束>
 

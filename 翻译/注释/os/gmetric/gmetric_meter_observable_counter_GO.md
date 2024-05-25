@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// localObservableCounter 是接口 ObservableCounter 的本地实现。. md5:49a0950ea1c362dc
+// localObservableCounter 是接口 ObservableCounter 的本地实现。 md5:49a0950ea1c362dc
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查是否实现了MetricInitializer接口。. md5:87bf7f014f5d05df
+// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查对于接口PerformerExporter的实现。. md5:7bc09f325273ded9
+// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableCounter 创建并返回一个新的 ObservableCounter。. md5:1fb1055edede2f1e
+// ObservableCounter 创建并返回一个新的 ObservableCounter。 md5:1fb1055edede2f1e
 # <翻译结束>
 
 
@@ -69,7 +69,7 @@
 <原文结束>
 
 # <翻译开始>
-// Init 在创建Provider时初始化Metric。. md5:a46b2bb4d31aa7d0
+// Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
 # <翻译结束>
 
 

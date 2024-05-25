@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// GzipFile 使用gzip算法将文件`src`压缩到`dst`。. md5:886a1c3d1f47c22f
+// GzipFile 使用gzip算法将文件`src`压缩到`dst`。 md5:886a1c3d1f47c22f
 # <翻译结束>
 
 
@@ -62,7 +62,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnGzip 使用gzip算法对`data`进行解压缩。. md5:65410de81354eedd
+// UnGzip 使用gzip算法对`data`进行解压缩。 md5:65410de81354eedd
 # <翻译结束>
 
 
@@ -71,6 +71,6 @@
 <原文结束>
 
 # <翻译开始>
-// UnGzipFile 使用gzip算法将源文件路径`src`解压缩到`dst`。. md5:d8b51242e54f12db
+// UnGzipFile 使用gzip算法将源文件路径`src`解压缩到`dst`。 md5:d8b51242e54f12db
 # <翻译结束>
 

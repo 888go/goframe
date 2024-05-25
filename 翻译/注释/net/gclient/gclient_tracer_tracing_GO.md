@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// clientTracerTracing 用于实现 httptrace.ClientTrace。. md5:06ba597d73062dd5
+// clientTracerTracing 用于实现 httptrace.ClientTrace。 md5:06ba597d73062dd5
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// newClientTracerTracing 创建并返回一个 httptrace.ClientTrace 对象。. md5:3b73f25116451d66
+// newClientTracerTracing 创建并返回一个 httptrace.ClientTrace 对象。 md5:3b73f25116451d66
 # <翻译结束>
 
 
@@ -123,7 +123,7 @@
 <原文结束>
 
 # <翻译开始>
-// DNSStart 在开始进行DNS查询时被调用。. md5:83ac5e2521d4c870
+// DNSStart 在开始进行DNS查询时被调用。 md5:83ac5e2521d4c870
 # <翻译结束>
 
 
@@ -132,7 +132,7 @@
 <原文结束>
 
 # <翻译开始>
-// DNSDone 在DNS查询结束时被调用。. md5:89b2144439dd0bf7
+// DNSDone 在DNS查询结束时被调用。 md5:89b2144439dd0bf7
 # <翻译结束>
 
 

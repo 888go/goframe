@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// Attributes 是一个 Attribute 类型的切片。. md5:5e8ed6feb0b054bf
+// Attributes 是一个 Attribute 类型的切片。 md5:5e8ed6feb0b054bf
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// Attribute是Metric的键值对项。. md5:d998f30eea2094b2
+// Attribute是Metric的键值对项。 md5:d998f30eea2094b2
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 这个属性的键。. md5:0ddb614f69d6d447
+// 这个属性的键。 md5:0ddb614f69d6d447
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// 此属性的值。. md5:855798b766242495
+// 此属性的值。 md5:855798b766242495
 # <翻译结束>
 
 
@@ -57,7 +57,7 @@
 <原文结束>
 
 # <翻译开始>
-// AttributeKey 是属性键。. md5:9221fc74fb7697dc
+// AttributeKey 是属性键。 md5:9221fc74fb7697dc
 # <翻译结束>
 
 
@@ -66,7 +66,7 @@
 <原文结束>
 
 # <翻译开始>
-// Option包含执行度量操作的选项。. md5:1a7865b57252c62c
+// Option包含执行度量操作的选项。 md5:1a7865b57252c62c
 # <翻译结束>
 
 
@@ -75,7 +75,7 @@
 <原文结束>
 
 # <翻译开始>
-// Attributes保存动态的键值对元数据。. md5:837d5c5300f22ee1
+// Attributes保存动态的键值对元数据。 md5:837d5c5300f22ee1
 # <翻译结束>
 
 
@@ -84,7 +84,7 @@
 <原文结束>
 
 # <翻译开始>
-// localAttribute 实现了 Attribute 接口。. md5:f861eb05ab05e971
+// localAttribute 实现了 Attribute 接口。 md5:f861eb05ab05e971
 # <翻译结束>
 
 
@@ -93,7 +93,7 @@
 <原文结束>
 
 # <翻译开始>
-// CommonAttributes 返回乐器常用的属性。. md5:a3240e3fe755b09a
+// CommonAttributes 返回乐器常用的属性。 md5:a3240e3fe755b09a
 # <翻译结束>
 
 
@@ -102,7 +102,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewAttribute通过给定的`key`和`value`创建并返回一个Attribute。. md5:dc10aeeb3e9da0df
+// NewAttribute通过给定的`key`和`value`创建并返回一个Attribute。 md5:dc10aeeb3e9da0df
 # <翻译结束>
 
 
@@ -111,7 +111,7 @@
 <原文结束>
 
 # <翻译开始>
-// Key 返回属性的键。. md5:27fe16d7c522fc43
+// Key 返回属性的键。 md5:27fe16d7c522fc43
 # <翻译结束>
 
 
@@ -120,7 +120,7 @@
 <原文结束>
 
 # <翻译开始>
-// Value 返回属性的值。. md5:7b8a05d03d68be89
+// Value 返回属性的值。 md5:7b8a05d03d68be89
 # <翻译结束>
 
 
@@ -129,6 +129,6 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。. md5:43c3b36e60a18f9a
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 # <翻译结束>
 

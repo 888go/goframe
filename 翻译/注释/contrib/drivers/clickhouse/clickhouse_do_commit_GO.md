@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// DoCommit 将当前SQL和参数提交给底层SQL驱动程序。. md5:7cf9b1f6f4d9d2cb
+// DoCommit 将当前SQL和参数提交给底层SQL驱动程序。 md5:7cf9b1f6f4d9d2cb
 # <翻译结束>
 

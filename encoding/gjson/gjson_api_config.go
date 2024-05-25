@@ -1,25 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gjson
 
-// SetSplitChar sets the separator char for hierarchical data access.
-
-// ff:设置参数分隔符
-// char:分隔符
+// SetSplitChar 设置用于层次数据访问的分隔符字符。. md5:99655266409bea6a
 func (j *Json) SetSplitChar(char byte) {
 	j.mu.Lock()
 	j.c = char
 	j.mu.Unlock()
 }
 
-// SetViolenceCheck enables/disables violence check for hierarchical data access.
-
-// ff:设置分层冲突检查
-// enabled:启用
+// SetViolenceCheck 用于启用或禁用层次数据访问时的暴力检查。. md5:b2fa0bb88e62957d
 func (j *Json) SetViolenceCheck(enabled bool) {
 	j.mu.Lock()
 	j.vc = enabled

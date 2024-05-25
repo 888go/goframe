@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 断言内容(content)中"Stack"出现的次数为1次。. md5:a246e53abdc8cb5e
+// 断言内容(content)中"Stack"出现的次数为1次。 md5:a246e53abdc8cb5e
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用t.Assert断言gstr在content中"Stack"的计数为0。. md5:b6a4aff04f1a4b28
+// 使用t.Assert断言gstr在content中"Stack"的计数为0。 md5:b6a4aff04f1a4b28
 # <翻译结束>
 
 

@@ -38,7 +38,7 @@
 <原文结束>
 
 # <翻译开始>
-// 标记内容可以被重复读取。. md5:795fd563924f3c07
+// 标记内容可以被重复读取。 md5:795fd563924f3c07
 # <翻译结束>
 
 
@@ -47,7 +47,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewReadCloser 创建并返回一个 RepeatReadCloser 对象。. md5:5b08470c05886c6e
+// NewReadCloser 创建并返回一个 RepeatReadCloser 对象。 md5:5b08470c05886c6e
 # <翻译结束>
 
 
@@ -56,7 +56,7 @@
 <原文结束>
 
 # <翻译开始>
-// Read implements the io.ReadCloser接口。. md5:a139bded6161151f
+// Read implements the io.ReadCloser接口。 md5:a139bded6161151f
 # <翻译结束>
 
 
@@ -65,7 +65,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使其可重复读取。. md5:51c43c26e5e5404d
+// 使其可重复读取。 md5:51c43c26e5e5404d
 # <翻译结束>
 
 
@@ -74,6 +74,6 @@
 <原文结束>
 
 # <翻译开始>
-// Close 实现了 io.ReadCloser 接口。. md5:597e2e893ae16680
+// Close 实现了 io.ReadCloser 接口。 md5:597e2e893ae16680
 # <翻译结束>
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gjson提供了处理JSON/XML/INI/YAML/TOML数据的便捷API。. md5:ddbf6ad5d309a49c
+// 包gjson提供了处理JSON/XML/INI/YAML/TOML数据的便捷API。 md5:ddbf6ad5d309a49c
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于层次数据访问的分隔符字符。. md5:3020966f087a4732
+// 用于层次数据访问的分隔符字符。 md5:3020966f087a4732
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Json 是自定义的JSON结构体。. md5:764b883e7cf79da7
+// Json 是自定义的JSON结构体。 md5:764b883e7cf79da7
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// 字符分隔符（默认为'.'）。. md5:15307025b7ed9ae7
+// 字符分隔符（默认为'.'）。 md5:15307025b7ed9ae7
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 暴力检查（默认为false），用于在层次数据键包含分隔符字符时访问数据。. md5:465e099ccbdc4ca3
+// 暴力检查（默认为false），用于在层次数据键包含分隔符字符时访问数据。 md5:465e099ccbdc4ca3
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// 创建/加载Json对象的选项。. md5:d8614ea5dc358e89
+// 创建/加载Json对象的选项。 md5:d8614ea5dc358e89
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// 标记此对象适用于并发安全使用。这尤其适用于 Json 对象的创建。. md5:59d439559fecdc34
+// 标记此对象适用于并发安全使用。这尤其适用于 Json 对象的创建。 md5:59d439559fecdc34
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// 自定义解码优先级标签，例如："json,yaml,MyTag"。这主要用于将结构体解析为Json对象。. md5:486cf257ddd06463
+// 自定义解码优先级标签，例如："json,yaml,MyTag"。这主要用于将结构体解析为Json对象。 md5:486cf257ddd06463
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// 类型指定了数据内容类型，例如：json、xml、yaml、toml、ini等。. md5:afbae78560edde30
+// 类型指定了数据内容类型，例如：json、xml、yaml、toml、ini等。 md5:afbae78560edde30
 # <翻译结束>
 
 
@@ -103,7 +103,7 @@
 <原文结束>
 
 # <翻译开始>
-// StrNumber 使得 Decoder 将数字解码为 interface{}` 作为字符串，而不是 float64。. md5:32e44e32c3cc37cc
+// StrNumber 使得 Decoder 将数字解码为 interface{}` 作为字符串，而不是 float64。 md5:32e44e32c3cc37cc
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// iInterfaces 用于类型断言接口，用于 Interfaces() 方法。. md5:711dc755f9cd4979
+// iInterfaces 用于类型断言接口，用于 Interfaces() 方法。 md5:711dc755f9cd4979
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// iMapStrAny 是一个接口，支持将结构体参数转换为映射。. md5:cfd4642c77fca6ec
+// iMapStrAny 是一个接口，支持将结构体参数转换为映射。 md5:cfd4642c77fca6ec
 # <翻译结束>
 
 
@@ -130,7 +130,7 @@
 <原文结束>
 
 # <翻译开始>
-// iVal是用于获取底层interface{}的接口。. md5:2915e3bd3d7e4f43
+// iVal是用于获取底层interface{}的接口。 md5:2915e3bd3d7e4f43
 # <翻译结束>
 
 
@@ -155,7 +155,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果键在映射中不存在。. md5:ba2af475e1347525
+// 如果键在映射中不存在。 md5:ba2af475e1347525
 # <翻译结束>
 
 
@@ -164,7 +164,7 @@
 <原文结束>
 
 # <翻译开始>
-// 它不是根节点。. md5:b90762478c5a92c6
+// 它不是根节点。 md5:b90762478c5a92c6
 # <翻译结束>
 
 
@@ -207,7 +207,7 @@
 <原文结束>
 
 # <翻译开始>
-// getPointerByPattern 根据指定的 `pattern` 返回值的指针。. md5:e5422879dc2c9285
+// getPointerByPattern 根据指定的 `pattern` 返回值的指针。 md5:e5422879dc2c9285
 # <翻译结束>
 
 
@@ -216,7 +216,7 @@
 <原文结束>
 
 # <翻译开始>
-// getPointerByPatternWithViolenceCheck 通过暴力检查返回指定`pattern`的值的指针。. md5:4ac204b4633753dc
+// getPointerByPatternWithViolenceCheck 通过暴力检查返回指定`pattern`的值的指针。 md5:4ac204b4633753dc
 # <翻译结束>
 
 
@@ -225,7 +225,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果pattern为空，它将返回nil。. md5:8e2a6f56affd353a
+// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
 # <翻译结束>
 
 
@@ -234,7 +234,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果pattern是"."，则返回所有。. md5:1f0d65d517f332bd
+// 如果pattern是"."，则返回所有。 md5:1f0d65d517f332bd
 # <翻译结束>
 
 
@@ -243,7 +243,7 @@
 <原文结束>
 
 # <翻译开始>
-// 获取下一个分隔符字符的位置。. md5:7268bb1b6598460b
+// 获取下一个分隔符字符的位置。 md5:7268bb1b6598460b
 # <翻译结束>
 
 
@@ -252,7 +252,7 @@
 <原文结束>
 
 # <翻译开始>
-// getPointerByPatternWithoutViolenceCheck 返回指定`pattern`值的指针，不进行暴力检查。. md5:fd58f2cfd08f8751
+// getPointerByPatternWithoutViolenceCheck 返回指定`pattern`值的指针，不进行暴力检查。 md5:fd58f2cfd08f8751
 # <翻译结束>
 
 

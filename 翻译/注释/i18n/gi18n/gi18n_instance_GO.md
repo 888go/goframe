@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// DefaultName是实例使用的默认组名。. md5:ca8d8295a8c531f4
+// DefaultName是实例使用的默认组名。 md5:ca8d8295a8c531f4
 # <翻译结束>
 
 

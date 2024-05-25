@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Interface 是一个结构体，用于实现类型 interface{} 的并发安全操作。. md5:5655f929d7777a3d
+// Interface 是一个结构体，用于实现类型 interface{} 的并发安全操作。 md5:5655f929d7777a3d
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// Clone 为接口类型创建并返回一个新的并发安全的对象。. md5:ea3e89ab199c1ad7
+// Clone 为接口类型创建并返回一个新的并发安全的对象。 md5:ea3e89ab199c1ad7
 # <翻译结束>
 
 
@@ -63,7 +63,7 @@
 <原文结束>
 
 # <翻译开始>
-// Val原子性地加载并返回t.value。. md5:429a11b89436cc12
+// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
 # <翻译结束>
 
 
@@ -72,7 +72,7 @@
 <原文结束>
 
 # <翻译开始>
-// String 实现了 String 接口，用于字符串打印。. md5:9f0b8c0bcf2362d3
+// String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
 # <翻译结束>
 
 
@@ -81,7 +81,7 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。. md5:43c3b36e60a18f9a
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 # <翻译结束>
 
 
@@ -90,7 +90,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。. md5:f6766b88cf3d63c2
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 # <翻译结束>
 
 
@@ -99,7 +99,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。. md5:f1b49be4502b95a4
+// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
 # <翻译结束>
 
 
@@ -108,6 +108,6 @@
 <原文结束>
 
 # <翻译开始>
-// DeepCopy实现当前类型的深拷贝接口。. md5:9cfbcb08109f6ce1
+// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
 # <翻译结束>
 

@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultLevelColor 定义了默认级别及其前缀字符串。. md5:c6a4c65e46485929
+// defaultLevelColor 定义了默认级别及其前缀字符串。 md5:c6a4c65e46485929
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// getColoredStr 返回一个使用给定颜色着色的字符串。. md5:accfa5b8ad258119
+// getColoredStr 返回一个使用给定颜色着色的字符串。 md5:accfa5b8ad258119
 # <翻译结束>
 

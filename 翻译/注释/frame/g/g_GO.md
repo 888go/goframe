@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包g提供了常用类型/函数的定义及耦合调用，以便创建常用的对象。. md5:ef4a19ad9323813a
+// 包g提供了常用类型/函数的定义及耦合调用，以便创建常用的对象。 md5:ef4a19ad9323813a
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Var 是一个通用变量接口，类似于泛型。. md5:2d8d391465845592
+// Var 是一个通用变量接口，类似于泛型。 md5:2d8d391465845592
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Ctx是常用类型context.Context的别名。. md5:b60c4b141eb5549c
+// Ctx是常用类型context.Context的别名。 md5:b60c4b141eb5549c
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// Meta 是常用类型 gmeta.Meta 的别名。. md5:5a38da34ec0eacb2
+// Meta 是常用类型 gmeta.Meta 的别名。 md5:5a38da34ec0eacb2
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// Map 是常用映射类型 map[string]interface{} 的别名。. md5:8b62aec3a70d17d1
+// Map 是常用映射类型 map[string]interface{} 的别名。 md5:8b62aec3a70d17d1
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapAnyAny 是常用 map 类型 map[interface{}]interface{} 的别名。. md5:9a81681bf8ebfc85
+// MapAnyAny 是常用 map 类型 map[interface{}]interface{} 的别名。 md5:9a81681bf8ebfc85
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapAnyStr是常用map类型map[interface{}]string的别名。. md5:30d02524cd1788b7
+// MapAnyStr是常用map类型map[interface{}]string的别名。 md5:30d02524cd1788b7
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapAnyInt 是一个常用的映射类型，键为interface{}，值为int的别名。. md5:decce2b63961b555
+// MapAnyInt 是一个常用的映射类型，键为interface{}，值为int的别名。 md5:decce2b63961b555
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrAny 是常用映射类型 map[string]interface{} 的别名。. md5:cc0e9426f8d44672
+// MapStrAny 是常用映射类型 map[string]interface{} 的别名。 md5:cc0e9426f8d44672
 # <翻译结束>
 
 
@@ -103,7 +103,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrStr 是常用 map 类型 map[string]string 的别名。. md5:93033a49680d75b9
+// MapStrStr 是常用 map 类型 map[string]string 的别名。 md5:93033a49680d75b9
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrInt是常用map类型map[string]int的别名。. md5:90201f6646f5919e
+// MapStrInt是常用map类型map[string]int的别名。 md5:90201f6646f5919e
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapIntAny是常用的map类型map[int]interface{}的别名。. md5:ce4daf18697d3f31
+// MapIntAny是常用的map类型map[int]interface{}的别名。 md5:ce4daf18697d3f31
 # <翻译结束>
 
 
@@ -130,7 +130,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapIntStr 是常用映射类型 map[int]string 的别名。. md5:9f579e30a314d76f
+// MapIntStr 是常用映射类型 map[int]string 的别名。 md5:9f579e30a314d76f
 # <翻译结束>
 
 
@@ -139,7 +139,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapIntInt 是常用 map 类型 map[int]int 的别名。. md5:1624c134c49d8be9
+// MapIntInt 是常用 map 类型 map[int]int 的别名。 md5:1624c134c49d8be9
 # <翻译结束>
 
 
@@ -148,7 +148,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapAnyBool 是一个常用的映射类型，键为interface{}，值为bool的别名。. md5:d7ade515deebc839
+// MapAnyBool 是一个常用的映射类型，键为interface{}，值为bool的别名。 md5:d7ade515deebc839
 # <翻译结束>
 
 
@@ -157,7 +157,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrBool是常用的map类型map[string]bool的别名。. md5:9b58348f2bdc3832
+// MapStrBool是常用的map类型map[string]bool的别名。 md5:9b58348f2bdc3832
 # <翻译结束>
 
 
@@ -166,7 +166,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapIntBool 是常用映射类型 map[int]bool 的别名。. md5:fae965f49030c4f0
+// MapIntBool 是常用映射类型 map[int]bool 的别名。 md5:fae965f49030c4f0
 # <翻译结束>
 
 
@@ -175,7 +175,7 @@
 <原文结束>
 
 # <翻译开始>
-// List 是常用切片类型 []Map 的别名。. md5:ff03e40655e3f35f
+// List 是常用切片类型 []Map 的别名。 md5:ff03e40655e3f35f
 # <翻译结束>
 
 
@@ -184,7 +184,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListAnyAny是常用切片类型[]MapAnyAny的别名。. md5:f6b168f11392abb0
+// ListAnyAny是常用切片类型[]MapAnyAny的别名。 md5:f6b168f11392abb0
 # <翻译结束>
 
 
@@ -193,7 +193,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListAnyStr 是常用的切片类型 []MapAnyStr 的别名。. md5:d7812e32db355aa6
+// ListAnyStr 是常用的切片类型 []MapAnyStr 的别名。 md5:d7812e32db355aa6
 # <翻译结束>
 
 
@@ -202,7 +202,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListAnyInt 是常用切片类型 []MapAnyInt 的别名。. md5:8562af0324cd1e5a
+// ListAnyInt 是常用切片类型 []MapAnyInt 的别名。 md5:8562af0324cd1e5a
 # <翻译结束>
 
 
@@ -211,7 +211,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListStrAny 是常用切片类型 []MapStrAny 的别名。. md5:144077caa161cdf6
+// ListStrAny 是常用切片类型 []MapStrAny 的别名。 md5:144077caa161cdf6
 # <翻译结束>
 
 
@@ -220,7 +220,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListStrStr是常用的切片类型[]MapStrStr的别名。. md5:2045a3a5bab66ff3
+// ListStrStr是常用的切片类型[]MapStrStr的别名。 md5:2045a3a5bab66ff3
 # <翻译结束>
 
 
@@ -229,7 +229,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListStrInt 是一个常用的切片类型 []MapStrInt 的别名。. md5:31e1179a1af9c57e
+// ListStrInt 是一个常用的切片类型 []MapStrInt 的别名。 md5:31e1179a1af9c57e
 # <翻译结束>
 
 
@@ -238,7 +238,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListIntAny 是常用切片类型 []MapIntAny 的别名。. md5:5683714d5eda3cde
+// ListIntAny 是常用切片类型 []MapIntAny 的别名。 md5:5683714d5eda3cde
 # <翻译结束>
 
 
@@ -247,7 +247,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListIntStr 是常用切片类型 []MapIntStr 的别名。. md5:383a98d6f17d278d
+// ListIntStr 是常用切片类型 []MapIntStr 的别名。 md5:383a98d6f17d278d
 # <翻译结束>
 
 
@@ -256,7 +256,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListIntInt 是一个常用的切片类型 []MapIntInt 的别名。. md5:9fd8565ffb13d5b2
+// ListIntInt 是一个常用的切片类型 []MapIntInt 的别名。 md5:9fd8565ffb13d5b2
 # <翻译结束>
 
 
@@ -265,7 +265,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListAnyBool 是一个常用的切片类型 []MapAnyBool 的别名。. md5:8dcdb92f2ce053c8
+// ListAnyBool 是一个常用的切片类型 []MapAnyBool 的别名。 md5:8dcdb92f2ce053c8
 # <翻译结束>
 
 
@@ -274,7 +274,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListStrBool 是常用切片类型 []MapStrBool 的别名。. md5:de56ef83a16ba4a2
+// ListStrBool 是常用切片类型 []MapStrBool 的别名。 md5:de56ef83a16ba4a2
 # <翻译结束>
 
 
@@ -283,7 +283,7 @@
 <原文结束>
 
 # <翻译开始>
-// ListIntBool 是常用切片类型 []MapIntBool 的别名。. md5:44e8bb52de3fc953
+// ListIntBool 是常用切片类型 []MapIntBool 的别名。 md5:44e8bb52de3fc953
 # <翻译结束>
 
 
@@ -292,7 +292,7 @@
 <原文结束>
 
 # <翻译开始>
-// Slice 是对常用切片类型 []interface{} 的别名。. md5:9a6ecfa92fac8f3a
+// Slice 是对常用切片类型 []interface{} 的别名。 md5:9a6ecfa92fac8f3a
 # <翻译结束>
 
 
@@ -301,7 +301,7 @@
 <原文结束>
 
 # <翻译开始>
-// SliceAny 是一个别名，用于频繁使用的切片类型 []interface{}。. md5:0b565fb84a9bac93
+// SliceAny 是一个别名，用于频繁使用的切片类型 []interface{}。 md5:0b565fb84a9bac93
 # <翻译结束>
 
 
@@ -310,7 +310,7 @@
 <原文结束>
 
 # <翻译开始>
-// SliceStr 是经常使用的切片类型 []string 的别名。. md5:19d8a28bce60c7d8
+// SliceStr 是经常使用的切片类型 []string 的别名。 md5:19d8a28bce60c7d8
 # <翻译结束>
 
 
@@ -319,7 +319,7 @@
 <原文结束>
 
 # <翻译开始>
-// SliceInt 是常用切片类型 []int 的别名。. md5:2923a4699e7e68da
+// SliceInt 是常用切片类型 []int 的别名。 md5:2923a4699e7e68da
 # <翻译结束>
 
 
@@ -328,7 +328,7 @@
 <原文结束>
 
 # <翻译开始>
-// Array 是一个常用的切片类型 []interface{} 的别名。. md5:83e56770b618f21f
+// Array 是一个常用的切片类型 []interface{} 的别名。 md5:83e56770b618f21f
 # <翻译结束>
 
 
@@ -337,7 +337,7 @@
 <原文结束>
 
 # <翻译开始>
-// ArrayAny是常用的切片类型[]interface{}的别名。. md5:6dfa6ee832fcc9f4
+// ArrayAny是常用的切片类型[]interface{}的别名。 md5:6dfa6ee832fcc9f4
 # <翻译结束>
 
 
@@ -346,7 +346,7 @@
 <原文结束>
 
 # <翻译开始>
-// ArrayStr 是经常使用的切片类型 []string 的别名。. md5:55e2175bd1bb667d
+// ArrayStr 是经常使用的切片类型 []string 的别名。 md5:55e2175bd1bb667d
 # <翻译结束>
 
 
@@ -355,6 +355,6 @@
 <原文结束>
 
 # <翻译开始>
-// ArrayInt 是常用切片类型 []int 的别名。. md5:f524bf88e64fcf6e
+// ArrayInt 是常用切片类型 []int 的别名。 md5:f524bf88e64fcf6e
 # <翻译结束>
 

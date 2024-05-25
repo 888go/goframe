@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// dbLink用于实现DB接口的Link。. md5:70a34111ff15fefa
+// dbLink用于实现DB接口的Link。 md5:70a34111ff15fefa
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// isOnMaster 标记当前链接是否在主节点上运行。. md5:451060dcca211e1a
+// isOnMaster 标记当前链接是否在主节点上运行。 md5:451060dcca211e1a
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// txLink 用于为 TX 实现接口 Link。. md5:1c367f806a5592fd
+// txLink 用于为 TX 实现接口 Link。 md5:1c367f806a5592fd
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsTransaction 返回当前Link是否为交易。. md5:83b57bf1eb9cb599
+// IsTransaction 返回当前Link是否为交易。 md5:83b57bf1eb9cb599
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsOnMaster 检查并返回当前链接是否在主节点上运行。. md5:ec0eef810e78c3f2
+// IsOnMaster 检查并返回当前链接是否在主节点上运行。 md5:ec0eef810e78c3f2
 # <翻译结束>
 
 

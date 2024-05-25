@@ -46,7 +46,7 @@
 <原文结束>
 
 # <翻译开始>
-// OrderAsc 设置模型的“ORDER BY xxx ASC”语句。. md5:be417beb10c6b9c1
+// OrderAsc 设置模型的“ORDER BY xxx ASC”语句。 md5:be417beb10c6b9c1
 # <翻译结束>
 
 
@@ -55,7 +55,7 @@
 <原文结束>
 
 # <翻译开始>
-// OrderDesc 为模型设置 "ORDER BY xxx DESC" 语句。. md5:ae573bad83990472
+// OrderDesc 为模型设置 "ORDER BY xxx DESC" 语句。 md5:ae573bad83990472
 # <翻译结束>
 
 
@@ -64,7 +64,7 @@
 <原文结束>
 
 # <翻译开始>
-// OrderRandom 为模型设置 "ORDER BY RANDOM()" 语句。. md5:e0a71e8f00c3d926
+// OrderRandom 为模型设置 "ORDER BY RANDOM()" 语句。 md5:e0a71e8f00c3d926
 # <翻译结束>
 
 
@@ -73,6 +73,6 @@
 <原文结束>
 
 # <翻译开始>
-// Group 设置模型的“GROUP BY”语句。. md5:51d1d1d81a2ab77a
+// Group 设置模型的“GROUP BY”语句。 md5:51d1d1d81a2ab77a
 # <翻译结束>
 

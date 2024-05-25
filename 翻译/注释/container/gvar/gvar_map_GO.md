@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapOption 定义了映射转换的选项。. md5:8dc53d6fdc486bf8
+// MapOption 定义了映射转换的选项。 md5:8dc53d6fdc486bf8
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Map 将 `v` 转换为 map[string]interface{} 并返回。. md5:88b2687bddef8ca6
+// Map 将 `v` 转换为 map[string]interface{} 并返回。 md5:88b2687bddef8ca6
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrAny 类似于 Map 函数，但它实现了 MapStrAny 接口。. md5:f7cf0af70c8cbee9
+// MapStrAny 类似于 Map 函数，但它实现了 MapStrAny 接口。 md5:f7cf0af70c8cbee9
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrStr 将 `v` 转换并返回为 map[string]string 类型。. md5:b5af3d144d89aad9
+// MapStrStr 将 `v` 转换并返回为 map[string]string 类型。 md5:b5af3d144d89aad9
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// MapStrVar将`v`转换为map[string]Var并返回。. md5:18642fac7292b37a
+// MapStrVar将`v`转换为map[string]Var并返回。 md5:18642fac7292b37a
 # <翻译结束>
 
 

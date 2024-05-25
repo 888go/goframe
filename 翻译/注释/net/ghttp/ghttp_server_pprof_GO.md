@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// utilPProf是实现PProf接口的结构。. md5:61c1485646c2e81a
+// utilPProf是实现PProf接口的结构。 md5:61c1485646c2e81a
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// StartPProfServer 启动并运行一个新的pprof服务器。. md5:4c0c47dfda03a84b
+// StartPProfServer 启动并运行一个新的pprof服务器。 md5:4c0c47dfda03a84b
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// EnablePProf 启用服务器的PProf功能。. md5:5603a60f147574d1
+// EnablePProf 启用服务器的PProf功能。 md5:5603a60f147574d1
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// EnablePProf 为指定域名的服务器启用 PProf 功能。. md5:46c19e5f1d55beb1
+// EnablePProf 为指定域名的服务器启用 PProf 功能。 md5:46c19e5f1d55beb1
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// Index 显示 PProf 的索引页面。. md5:606e9224f8418b6e
+// Index 显示 PProf 的索引页面。 md5:606e9224f8418b6e
 # <翻译结束>
 
 

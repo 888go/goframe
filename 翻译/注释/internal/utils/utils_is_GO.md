@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsNil 检查 `value` 是否为 nil，特别是对于 interface{} 类型的值。. md5:7789b39820de4e0c
+// IsNil 检查 `value` 是否为 nil，特别是对于 interface{} 类型的值。 md5:7789b39820de4e0c
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsEmpty 检查 `value` 是否为空。. md5:b2015a35f4930a22
+// IsEmpty 检查 `value` 是否为空。 md5:b2015a35f4930a22
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsInt 检查 `value` 是否为 int 类型。. md5:f996dc2da0e38f8d
+// IsInt 检查 `value` 是否为 int 类型。 md5:f996dc2da0e38f8d
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsUint 检查 `value` 是否为 uint 类型。. md5:cc17b6c670e71ccd
+// IsUint 检查 `value` 是否为 uint 类型。 md5:cc17b6c670e71ccd
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsFloat检查`value`是否为浮点类型。. md5:11f3d9e95720de15
+// IsFloat检查`value`是否为浮点类型。 md5:11f3d9e95720de15
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsSlice 检查 `value` 是否为切片类型。. md5:7ea6cb09ee3f9841
+// IsSlice 检查 `value` 是否为切片类型。 md5:7ea6cb09ee3f9841
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsMap 检查 `value` 是否为映射类型。. md5:a3bcf5df99373e2a
+// IsMap 检查 `value` 是否为映射类型。 md5:a3bcf5df99373e2a
 # <翻译结束>
 
 
@@ -85,6 +85,6 @@
 <原文结束>
 
 # <翻译开始>
-// IsStruct 检查 `value` 是否为结构体类型。. md5:3be94afb9f9b40ea
+// IsStruct 检查 `value` 是否为结构体类型。 md5:3be94afb9f9b40ea
 # <翻译结束>
 

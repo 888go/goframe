@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetNameToUriType 为服务器设置NameToUriType。. md5:aa74886d065469f2
+// SetNameToUriType 为服务器设置NameToUriType。 md5:aa74886d065469f2
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetClientMaxBodySize 为服务器设置客户端最大请求体大小。. md5:5aa4d07a0684f2f7
+// SetClientMaxBodySize 为服务器设置客户端最大请求体大小。 md5:5aa4d07a0684f2f7
 # <翻译结束>
 
 
@@ -51,7 +51,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetFormParsingMemory 设置服务器的表单解析内存大小。. md5:fad9dd48cd138769
+// SetFormParsingMemory 设置服务器的表单解析内存大小。 md5:fad9dd48cd138769
 # <翻译结束>
 
 
@@ -60,7 +60,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSwaggerPath 设置服务器的SwaggerPath。. md5:08e17ed1ebc823b0
+// SetSwaggerPath 设置服务器的SwaggerPath。 md5:08e17ed1ebc823b0
 # <翻译结束>
 
 
@@ -69,7 +69,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSwaggerUITemplate 设置服务器的Swagger模板。. md5:c49e80113f25e335
+// SetSwaggerUITemplate 设置服务器的Swagger模板。 md5:c49e80113f25e335
 # <翻译结束>
 
 
@@ -78,6 +78,6 @@
 <原文结束>
 
 # <翻译开始>
-// SetOpenApiPath 为服务器设置OpenApiPath。. md5:c6ced131768ea48a
+// SetOpenApiPath 为服务器设置OpenApiPath。 md5:c6ced131768ea48a
 # <翻译结束>
 

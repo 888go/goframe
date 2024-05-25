@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gregex提供了正则表达式功能的高性能API。. md5:5d43833868579329
+// 包gregex提供了正则表达式功能的高性能API。 md5:5d43833868579329
 # <翻译结束>
 
 
@@ -47,7 +47,7 @@
 <原文结束>
 
 # <翻译开始>
-// Validate 检查给定的正则表达式模式 `pattern` 是否有效。. md5:39fda51666585abe
+// Validate 检查给定的正则表达式模式 `pattern` 是否有效。 md5:39fda51666585abe
 # <翻译结束>
 
 
@@ -56,7 +56,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsMatch 检查给定的字节`src`是否匹配`pattern`。. md5:7f26688fb33d288d
+// IsMatch 检查给定的字节`src`是否匹配`pattern`。 md5:7f26688fb33d288d
 # <翻译结束>
 
 
@@ -65,7 +65,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsMatchString 检查给定的字符串 `src` 是否与 `pattern` 匹配。. md5:b4afd86a0688ae19
+// IsMatchString 检查给定的字符串 `src` 是否与 `pattern` 匹配。 md5:b4afd86a0688ae19
 # <翻译结束>
 
 
@@ -74,7 +74,7 @@
 <原文结束>
 
 # <翻译开始>
-// Match 返回匹配`pattern`的字节切片。. md5:7f3dd939e61e4db8
+// Match 返回匹配`pattern`的字节切片。 md5:7f3dd939e61e4db8
 # <翻译结束>
 
 
@@ -83,7 +83,7 @@
 <原文结束>
 
 # <翻译开始>
-// MatchString 返回与`pattern`匹配的字符串。. md5:d4d623eec4e1f3ec
+// MatchString 返回与`pattern`匹配的字符串。 md5:d4d623eec4e1f3ec
 # <翻译结束>
 
 
@@ -92,7 +92,7 @@
 <原文结束>
 
 # <翻译开始>
-// MatchAll 返回所有匹配`pattern`的字节切片。. md5:64871f15e4916377
+// MatchAll 返回所有匹配`pattern`的字节切片。 md5:64871f15e4916377
 # <翻译结束>
 
 
@@ -101,7 +101,7 @@
 <原文结束>
 
 # <翻译开始>
-// MatchAllString 返回所有与`pattern`匹配的字符串。. md5:ec34b1802db69c97
+// MatchAllString 返回所有与`pattern`匹配的字符串。 md5:ec34b1802db69c97
 # <翻译结束>
 
 
@@ -110,7 +110,7 @@
 <原文结束>
 
 # <翻译开始>
-// Replace 将 `src` 字节中的所有匹配 `pattern` 的部分替换为 `replace` 字节。. md5:5d5c7ad162f72858
+// Replace 将 `src` 字节中的所有匹配 `pattern` 的部分替换为 `replace` 字节。 md5:5d5c7ad162f72858
 # <翻译结束>
 
 
@@ -119,7 +119,7 @@
 <原文结束>
 
 # <翻译开始>
-// ReplaceString 将字符串 `src` 中所有匹配的 `pattern` 替换为字符串 `replace`。. md5:1e7fdbe12a62e763
+// ReplaceString 将字符串 `src` 中所有匹配的 `pattern` 替换为字符串 `replace`。 md5:1e7fdbe12a62e763
 # <翻译结束>
 
 

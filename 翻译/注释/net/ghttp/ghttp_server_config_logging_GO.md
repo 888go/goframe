@@ -46,7 +46,7 @@
 <原文结束>
 
 # <翻译开始>
-// Logger 是 GetLogger 的别名。. md5:56065d1ce5cca4c9
+// Logger 是 GetLogger 的别名。 md5:56065d1ce5cca4c9
 # <翻译结束>
 
 
@@ -55,7 +55,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetLogLevel 通过level字符串设置日志级别。. md5:c479bcdf03ab0fa2
+// SetLogLevel 通过level字符串设置日志级别。 md5:c479bcdf03ab0fa2
 # <翻译结束>
 
 
@@ -64,7 +64,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetLogStdout 设置是否将日志内容输出到stdout。. md5:c93557220e40f70b
+// SetLogStdout 设置是否将日志内容输出到stdout。 md5:c93557220e40f70b
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetAccessLogEnabled 用于启用或禁用访问日志。. md5:a353da90e0c3de0d
+// SetAccessLogEnabled 用于启用或禁用访问日志。 md5:a353da90e0c3de0d
 # <翻译结束>
 
 
@@ -82,7 +82,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetErrorLogEnabled 开启或关闭错误日志。. md5:38a0655c0083b6d0
+// SetErrorLogEnabled 开启或关闭错误日志。 md5:38a0655c0083b6d0
 # <翻译结束>
 
 
@@ -91,7 +91,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetErrorStack 启用/禁用错误堆栈功能。. md5:6c411a957b96e186
+// SetErrorStack 启用/禁用错误堆栈功能。 md5:6c411a957b96e186
 # <翻译结束>
 
 
@@ -100,7 +100,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetLogPath 返回日志路径。. md5:0fe087f2f9b0a123
+// GetLogPath 返回日志路径。 md5:0fe087f2f9b0a123
 # <翻译结束>
 
 
@@ -109,7 +109,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsAccessLogEnabled 检查访问日志是否已启用。. md5:b076cc230602118d
+// IsAccessLogEnabled 检查访问日志是否已启用。 md5:b076cc230602118d
 # <翻译结束>
 
 
@@ -118,6 +118,6 @@
 <原文结束>
 
 # <翻译开始>
-// IsErrorLogEnabled 检查错误日志是否启用。. md5:2231c72f34764e99
+// IsErrorLogEnabled 检查错误日志是否启用。 md5:2231c72f34764e99
 # <翻译结束>
 

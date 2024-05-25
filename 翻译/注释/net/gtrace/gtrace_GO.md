@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gtrace提供了使用OpenTelemetry进行跟踪功能的便利封装。. md5:4c5ceb4a418df579
+// 包gtrace提供了使用OpenTelemetry进行跟踪功能的便利封装。 md5:4c5ceb4a418df579
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 为了避免跟踪内容过大。. md5:27b6d53e3e6ced7d
+// 为了避免跟踪内容过大。 md5:27b6d53e3e6ced7d
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于详细控制跟踪内容。. md5:b871fd18f633cc43
+// 用于详细控制跟踪内容。 md5:b871fd18f633cc43
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// tracingInternal 为内部类型跨度启用跟踪。. md5:f333cf108af1f2e4
+// tracingInternal 为内部类型跨度启用跟踪。 md5:f333cf108af1f2e4
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 请求和响应体的最大日志大小，特别是针对HTTP/RPC请求。. md5:329c69958d9e285c
+// 请求和响应体的最大日志大小，特别是针对HTTP/RPC请求。 md5:329c69958d9e285c
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultTextMapPropagator是用于在对等之间进行context传播的默认传播器。. md5:48e8537b612e7062
+// defaultTextMapPropagator是用于在对等之间进行context传播的默认传播器。 md5:48e8537b612e7062
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认的追踪提供者。. md5:61744e697ee81d00
+// 默认的追踪提供者。 md5:61744e697ee81d00
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsUsingDefaultProvider 检查并返回当前是否正在使用默认的跟踪提供程序。. md5:dd9a8bbd104a14cf
+// IsUsingDefaultProvider 检查并返回当前是否正在使用默认的跟踪提供程序。 md5:dd9a8bbd104a14cf
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsTracingInternal 返回是否正在追踪内部组件的跨度。. md5:4439b167674c69e6
+// IsTracingInternal 返回是否正在追踪内部组件的跨度。 md5:4439b167674c69e6
 # <翻译结束>
 
 
@@ -103,7 +103,7 @@
 <原文结束>
 
 # <翻译开始>
-// MaxContentLogSize 返回请求和响应体的最大日志大小，特别是对于HTTP/RPC请求。. md5:762f425039c664ca
+// MaxContentLogSize 返回请求和响应体的最大日志大小，特别是对于HTTP/RPC请求。 md5:762f425039c664ca
 # <翻译结束>
 
 
@@ -124,7 +124,7 @@
 <原文结束>
 
 # <翻译开始>
-// CheckSetDefaultTextMapPropagator 如果之前未设置，默认情况下会设置文本映射传播器。. md5:586855119e290f63
+// CheckSetDefaultTextMapPropagator 如果之前未设置，默认情况下会设置文本映射传播器。 md5:586855119e290f63
 # <翻译结束>
 
 
@@ -133,7 +133,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetDefaultTextMapPropagator 返回用于在对等体之间传播上下文的默认 propagator。. md5:c053466fb206297d
+// GetDefaultTextMapPropagator 返回用于在对等体之间传播上下文的默认 propagator。 md5:c053466fb206297d
 # <翻译结束>
 
 
@@ -188,7 +188,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetBaggageMap 获取并返回行李（baggage）的值作为map。. md5:c2fd062493b49cd1
+// GetBaggageMap 获取并返回行李（baggage）的值作为map。 md5:c2fd062493b49cd1
 # <翻译结束>
 
 
@@ -197,7 +197,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetBaggageVar 从 baggage 中检索值，并为指定的键返回一个 *gvar.Var。. md5:b7635ba9a07703cf
+// GetBaggageVar 从 baggage 中检索值，并为指定的键返回一个 *gvar.Var。 md5:b7635ba9a07703cf
 # <翻译结束>
 
 
@@ -206,7 +206,7 @@
 <原文结束>
 
 # <翻译开始>
-// WithUUID 向上下文注入自定义的基于UUID的追踪ID以进行传播。. md5:b75be6e561eacb0c
+// WithUUID 向上下文注入自定义的基于UUID的追踪ID以进行传播。 md5:b75be6e561eacb0c
 # <翻译结束>
 
 
@@ -215,6 +215,6 @@
 <原文结束>
 
 # <翻译开始>
-// WithTraceID 将自定义的跟踪ID注入上下文以进行传播。. md5:74657c53cd9aeefb
+// WithTraceID 将自定义的跟踪ID注入上下文以进行传播。 md5:74657c53cd9aeefb
 # <翻译结束>
 

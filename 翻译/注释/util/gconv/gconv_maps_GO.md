@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// SliceMap 是 Maps 的别名。. md5:af436f87335633ac
+// SliceMap 是 Maps 的别名。 md5:af436f87335633ac
 # <翻译结束>
 
 

@@ -120,7 +120,7 @@
 <原文结束>
 
 # <翻译开始>
-// Chunk 使用给定的 `size` 和 `handler` 函数来分块迭代查询结果。. md5:4c5d0d282b8e1fe4
+// Chunk 使用给定的 `size` 和 `handler` 函数来分块迭代查询结果。 md5:4c5d0d282b8e1fe4
 # <翻译结束>
 
 
@@ -205,7 +205,7 @@
 <原文结束>
 
 # <翻译开始>
-// 自动通过结构体属性选择字段。. md5:25f031330d67c88b
+// 自动通过结构体属性选择字段。 md5:25f031330d67c88b
 # <翻译结束>
 
 
@@ -388,7 +388,7 @@
 <原文结束>
 
 # <翻译开始>
-// 有自定义字段。. md5:57eb1cc07145128c
+// 有自定义字段。 md5:57eb1cc07145128c
 # <翻译结束>
 
 
@@ -397,7 +397,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用反射创建的临时结构体过滤字段。. md5:6873597e9de7f128
+// 使用反射创建的临时结构体过滤字段。 md5:6873597e9de7f128
 # <翻译结束>
 
 
@@ -439,7 +439,7 @@
 <原文结束>
 
 # <翻译开始>
-// CountColumn 执行对模型的 "SELECT COUNT(x) FROM ..." 语句。. md5:150abf4737c4588c
+// CountColumn 执行对模型的 "SELECT COUNT(x) FROM ..." 语句。 md5:150abf4737c4588c
 # <翻译结束>
 
 
@@ -448,7 +448,7 @@
 <原文结束>
 
 # <翻译开始>
-// Min 为模型执行 "SELECT MIN(x) FROM ..." 语句。. md5:e2fc098c542503d1
+// Min 为模型执行 "SELECT MIN(x) FROM ..." 语句。 md5:e2fc098c542503d1
 # <翻译结束>
 
 
@@ -457,7 +457,7 @@
 <原文结束>
 
 # <翻译开始>
-// Max 对模型执行 "SELECT MAX(x) FROM ..." 语句。. md5:bb6b4d0dc51fbfaf
+// Max 对模型执行 "SELECT MAX(x) FROM ..." 语句。 md5:bb6b4d0dc51fbfaf
 # <翻译结束>
 
 
@@ -466,7 +466,7 @@
 <原文结束>
 
 # <翻译开始>
-// Avg 对于该模型执行"SELECT AVG(x) FROM ..." 语句。. md5:9b360a11d26d6fca
+// Avg 对于该模型执行"SELECT AVG(x) FROM ..." 语句。 md5:9b360a11d26d6fca
 # <翻译结束>
 
 
@@ -475,7 +475,7 @@
 <原文结束>
 
 # <翻译开始>
-// Sum 对于该模型执行 "SELECT SUM(x) FROM ..." 语句。. md5:bcbe9e29cd168603
+// Sum 对于该模型执行 "SELECT SUM(x) FROM ..." 语句。 md5:bcbe9e29cd168603
 # <翻译结束>
 
 
@@ -484,7 +484,7 @@
 <原文结束>
 
 # <翻译开始>
-// Union 为模型执行 "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." 语句。. md5:97431dccd533414e
+// Union 为模型执行 "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." 语句。 md5:97431dccd533414e
 # <翻译结束>
 
 
@@ -493,7 +493,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnionAll 对模型执行 "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." 语句。. md5:d112aec0d1929661
+// UnionAll 对模型执行 "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." 语句。 md5:d112aec0d1929661
 # <翻译结束>
 
 
@@ -527,7 +527,7 @@
 <原文结束>
 
 # <翻译开始>
-// Distinct 强制查询仅返回不重复的结果。. md5:ead62c0e4b4795ab
+// Distinct 强制查询仅返回不重复的结果。 md5:ead62c0e4b4795ab
 # <翻译结束>
 
 
@@ -584,7 +584,7 @@
 <原文结束>
 
 # <翻译开始>
-// doGetAllBySql 在数据库上执行选择语句。. md5:b9498c08926ceb6a
+// doGetAllBySql 在数据库上执行选择语句。 md5:b9498c08926ceb6a
 # <翻译结束>
 
 
@@ -605,7 +605,7 @@
 <原文结束>
 
 # <翻译开始>
-// 原生SQL模型，特别适用于包含UNION/UNION ALL特性的SQL。. md5:03942fe59d08c0b4
+// 原生SQL模型，特别适用于包含UNION/UNION ALL特性的SQL。 md5:03942fe59d08c0b4
 # <翻译结束>
 
 
@@ -638,7 +638,7 @@
 <原文结束>
 
 # <翻译开始>
-// 没有过滤，包含特殊字符。. md5:f2ccc24dfd015b85
+// 没有过滤，包含特殊字符。 md5:f2ccc24dfd015b85
 # <翻译结束>
 
 
@@ -647,7 +647,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用fieldEx过滤自定义字段。. md5:edee7113e1c2daf9
+// 使用fieldEx过滤自定义字段。 md5:edee7113e1c2daf9
 # <翻译结束>
 
 
@@ -656,7 +656,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用fieldEx过滤表格字段。. md5:e15e7d68ef0a3c54
+// 使用fieldEx过滤表格字段。 md5:e15e7d68ef0a3c54
 # <翻译结束>
 
 

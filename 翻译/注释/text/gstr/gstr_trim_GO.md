@@ -46,7 +46,7 @@
 <原文结束>
 
 # <翻译开始>
-// TrimLeft 从字符串的开头移除空格（或其他字符）。. md5:648a4eb609597439
+// TrimLeft 从字符串的开头移除空格（或其他字符）。 md5:648a4eb609597439
 # <翻译结束>
 
 
@@ -66,7 +66,7 @@
 <原文结束>
 
 # <翻译开始>
-// TrimRight 从字符串的末尾移除空白符（或其他字符）。. md5:c252aae10c16cd5a
+// TrimRight 从字符串的末尾移除空白符（或其他字符）。 md5:c252aae10c16cd5a
 # <翻译结束>
 
 
@@ -87,7 +87,7 @@
 <原文结束>
 
 # <翻译开始>
-// TrimAll 函数会删除字符串 `str` 中的所有字符。. md5:2d770fefafe6bda4
+// TrimAll 函数会删除字符串 `str` 中的所有字符。 md5:2d770fefafe6bda4
 # <翻译结束>
 
 
@@ -96,7 +96,7 @@
 <原文结束>
 
 # <翻译开始>
-// HasPrefix 测试字符串 s 是否以 prefix 开头。. md5:8b4cd90bff10b28a
+// HasPrefix 测试字符串 s 是否以 prefix 开头。 md5:8b4cd90bff10b28a
 # <翻译结束>
 
 
@@ -105,6 +105,6 @@
 <原文结束>
 
 # <翻译开始>
-// HasSuffix 检测字符串 s 是否以 suffix 结尾。. md5:964d208ab1e843e1
+// HasSuffix 检测字符串 s 是否以 suffix 结尾。 md5:964d208ab1e843e1
 # <翻译结束>
 

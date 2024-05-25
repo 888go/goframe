@@ -38,6 +38,6 @@
 <原文结束>
 
 # <翻译开始>
-// 支持时间值，例如：gtime.Time/*gtime.Time, time.Time/*time.Time。. md5:fc74717f7b27de8d
+// 支持时间值，例如：gtime.Time/*gtime.Time, time.Time/*time.Time。 md5:fc74717f7b27de8d
 # <翻译结束>
 

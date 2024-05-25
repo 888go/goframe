@@ -18,7 +18,7 @@ type UserReq struct {
 	Id     int    `v:"required" d:"1"`
 	Name   string `v:"required" in:"cookie"`
 	Age    string `v:"required" in:"header"`
-	// header,query,cookie,form
+	// 请求头,查询参数,cookie,表单字段. md5:6dbe508b6d52a710
 }
 
 type UserRes struct {

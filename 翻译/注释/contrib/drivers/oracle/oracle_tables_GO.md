@@ -36,6 +36,6 @@
 <原文结束>
 
 # <翻译开始>
-// 不要将`usedSchema`作为`SlaveLink`函数的参数。. md5:283541defa4ac558
+// 不要将`usedSchema`作为`SlaveLink`函数的参数。 md5:283541defa4ac558
 # <翻译结束>
 

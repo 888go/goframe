@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// DoDelete 为表执行 "DELETE FROM ... " 语句。. md5:48e885baa804ab97
+// DoDelete 为表执行 "DELETE FROM ... " 语句。 md5:48e885baa804ab97
 # <翻译结束>
 

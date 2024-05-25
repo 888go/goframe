@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gxml提供了访问和转换XML内容的功能。. md5:7f72b127efb49044
+// 包gxml提供了访问和转换XML内容的功能。 md5:7f72b127efb49044
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Decode将`content`解析为映射并返回。. md5:09afa737da32e1d3
+// Decode将`content`解析为映射并返回。 md5:09afa737da32e1d3
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// DecodeWithoutRoot 将 `content` 解析为一个映射，然后返回不包含根级别的映射。. md5:3210d3b75da05efb
+// DecodeWithoutRoot 将 `content` 解析为一个映射，然后返回不包含根级别的映射。 md5:3210d3b75da05efb
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// ToJson 将 `content` 作为 XML 格式转换为 JSON 格式的字节。. md5:ba7a69746da22ea8
+// ToJson 将 `content` 作为 XML 格式转换为 JSON 格式的字节。 md5:ba7a69746da22ea8
 # <翻译结束>
 
 
@@ -82,6 +82,6 @@
 <原文结束>
 
 # <翻译开始>
-// convert 将给定XML内容的编码从XML根标签转换为UTF-8编码内容。. md5:c37aa75d79ed6c1b
+// convert 将给定XML内容的编码从XML根标签转换为UTF-8编码内容。 md5:c37aa75d79ed6c1b
 # <翻译结束>
 

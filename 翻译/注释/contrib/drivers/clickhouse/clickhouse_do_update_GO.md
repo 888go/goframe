@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// DoUpdate 对该表执行 "UPDATE ... " 语句。. md5:d99c5c0beb2de28e
+// DoUpdate 对该表执行 "UPDATE ... " 语句。 md5:d99c5c0beb2de28e
 # <翻译结束>
 

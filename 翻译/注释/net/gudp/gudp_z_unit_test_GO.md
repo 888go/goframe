@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用t.Assert断言result转换为字符串后，应该大于指定的整数i，并格式化输出`> %d`。. md5:a472ffa3da0404c5
+// 使用t.Assert断言result转换为字符串后，应该大于指定的整数i，并格式化输出`> %d`。 md5:a472ffa3da0404c5
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// gudp.Conn.SendRecvWithTimeout 是一个方法，用于在连接上同时发送和接收数据，并带有超时设置。. md5:61b16b2e37fcaedb
+// gudp.Conn.SendRecvWithTimeout 是一个方法，用于在连接上同时发送和接收数据，并带有超时设置。 md5:61b16b2e37fcaedb
 # <翻译结束>
 
 

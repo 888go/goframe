@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// DefaultReadBuffer 是用于读取文件内容的缓冲区大小。. md5:ff60c55c31212953
+// DefaultReadBuffer 是用于读取文件内容的缓冲区大小。 md5:ff60c55c31212953
 # <翻译结束>
 
 
@@ -55,7 +55,7 @@
 <原文结束>
 
 # <翻译开始>
-// putContents 将二进制内容写入文件`path`。. md5:bd53892836016a1c
+// putContents 将二进制内容写入文件`path`。 md5:bd53892836016a1c
 # <翻译结束>
 
 
@@ -64,7 +64,7 @@
 <原文结束>
 
 # <翻译开始>
-// 它支持递归地创建`path`指定的文件。. md5:4ca8118123f2e629
+// 它支持递归地创建`path`指定的文件。 md5:4ca8118123f2e629
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用给定的`flag`和`perm`打开文件。. md5:dcef8b2678320fb5
+// 使用给定的`flag`和`perm`打开文件。 md5:dcef8b2678320fb5
 # <翻译结束>
 
 
@@ -82,7 +82,7 @@
 <原文结束>
 
 # <翻译开始>
-// Truncate 将路径为`path`的文件截取到给定的大小`size`。. md5:fc49c34fbdada146
+// Truncate 将路径为`path`的文件截取到给定的大小`size`。 md5:fc49c34fbdada146
 # <翻译结束>
 
 
@@ -139,7 +139,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetNextCharOffset 返回从`start`开始的给定`char`的文件偏移量。. md5:fd9885f76bb1a398
+// GetNextCharOffset 返回从`start`开始的给定`char`的文件偏移量。 md5:fd9885f76bb1a398
 # <翻译结束>
 
 

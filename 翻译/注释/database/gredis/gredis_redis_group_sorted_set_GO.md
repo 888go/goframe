@@ -34,7 +34,7 @@
 <原文结束>
 
 # <翻译开始>
-// ZAddOption 为 ZAdd 函数提供选项。. md5:b3e234b14d4a1ca8
+// ZAddOption 为 ZAdd 函数提供选项。 md5:b3e234b14d4a1ca8
 # <翻译结束>
 
 
@@ -82,7 +82,7 @@
 <原文结束>
 
 # <翻译开始>
-// 当指定了此选项时，ZAdd 命令的行为类似于 ZIncrBy。在这种模式下，只能指定一个分数-元素对。. md5:bb002fb3eec4eb13
+// 当指定了此选项时，ZAdd 命令的行为类似于 ZIncrBy。在这种模式下，只能指定一个分数-元素对。 md5:bb002fb3eec4eb13
 # <翻译结束>
 
 
@@ -91,7 +91,7 @@
 <原文结束>
 
 # <翻译开始>
-// ZAddMember 是集合（set）中的元素结构体。. md5:eb7d172c444324d7
+// ZAddMember 是集合（set）中的元素结构体。 md5:eb7d172c444324d7
 # <翻译结束>
 
 
@@ -100,7 +100,7 @@
 <原文结束>
 
 # <翻译开始>
-// ZRangeOption为ZRange函数提供额外选项。. md5:61532d16fe5a1260
+// ZRangeOption为ZRange函数提供额外选项。 md5:61532d16fe5a1260
 # <翻译结束>
 
 
@@ -120,7 +120,7 @@
 <原文结束>
 
 # <翻译开始>
-// 可选的 WithScores 参数会在命令回复中补充返回元素的分数。. md5:26db0341550d511b
+// 可选的 WithScores 参数会在命令回复中补充返回元素的分数。 md5:26db0341550d511b
 # <翻译结束>
 
 
@@ -142,6 +142,6 @@
 <原文结束>
 
 # <翻译开始>
-// ZRevRangeOption为ZRevRange函数提供了选项。. md5:cd0b627793d48f50
+// ZRevRangeOption为ZRevRange函数提供了选项。 md5:cd0b627793d48f50
 # <翻译结束>
 

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gjson_test
 
@@ -28,14 +29,15 @@ func Test_New(t *testing.T) {
 		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
 		t.Assert(j.Get("a").Array(), g.Slice{1, 2, 3})
 	})
-	// New with json array map.
+	// 使用json数组映射创建新的。. md5:0f642e2d9a82f660
 	gtest.C(t, func(t *gtest.T) {
 		j := gjson.New(`[{"a":1},{"b":2},{"c":3}]`)
 		t.Assert(j.Get(".").String(), `[{"a":1},{"b":2},{"c":3}]`)
 		t.Assert(j.Get("2.c").String(), `3`)
 	})
-	// New with gvar.
-	// https://github.com/gogf/gf/issues/1571
+// 使用gvar的新建方法。
+// https://github.com/gogf/gf/issues/1571
+// md5:489c7f12ac3a473f
 	gtest.C(t, func(t *gtest.T) {
 		v := gvar.New(`[{"a":1},{"b":2},{"c":3}]`)
 		j := gjson.New(v)
@@ -54,6 +56,8 @@ func Test_New(t *testing.T) {
 		t.Assert(j.Get("k3"), nil)
 	})
 	// https://github.com/gogf/gf/issues/3253
+// 
+// 这段注释是指向GitHub上一个名为gf的项目中的问题号3253的链接。在Go语言中，这种注释用于提供外部资源的引用或相关问题的追踪。. md5:f4927fbc7539374d
 	gtest.C(t, func(t *gtest.T) {
 		type TestStruct struct {
 			Result []map[string]string `json:"result"`
@@ -453,7 +457,7 @@ func Test_Basic(t *testing.T) {
 		t.Assert(len(j.Var().Array()), 2)
 
 		j = gjson.New(`[1,2,3]`)
-		// If index 0 is delete, its next item will be at index 0.
+		// 如果索引 0 被删除，其下一个项目将位于索引 0。. md5:935e43cb97250f0e
 		t.Assert(j.Remove("0"), nil)
 		t.Assert(j.Remove("0"), nil)
 		t.Assert(j.Remove("0"), nil)
@@ -571,6 +575,8 @@ func TestJson_Options(t *testing.T) {
 }
 
 // https://github.com/gogf/gf/issues/1617
+// 
+// 这段注释引用的是一个GitHub问题的链接，来自gogf（一个Go语言的优秀库）项目。"gf"是"Golang Foundation"的缩写，它表示这是一个关于gogf库的问题编号为1617的讨论或报告。具体的内容需要查看链接以获取详细信息。. md5:b2aec94e8fc5f5be
 func Test_Issue1617(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type MyJsonName struct {
@@ -594,7 +600,7 @@ func Test_Issue1617(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1747
+// 关于 issue #1747 的讨论，请访问：https://github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
 func Test_Issue1747(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var j *gjson.Json
@@ -605,6 +611,14 @@ func Test_Issue1747(t *testing.T) {
 }
 
 // https://github.com/gogf/gf/issues/2520
+// 
+// 这段注释是链接到一个GitHub问题的，原始内容是英文的，它指向了GoGF框架（gf）中的一个特定问题编号2520。在中文中，这个注释可以翻译为：
+// 
+// https://github.com/gogf/gf/issues/2520
+// 
+// 这段注释是链接到一个GitHub问题的，原始内容是英文的，它指向了GoGF框架（gf）中的一个特定问题编号2520。在中文中，这个注释可以翻译为：
+// 
+// https://github.com/gogf/gf/issues/2520  // 指向GoGF框架问题2520. md5:ed6150ec52dbee88
 func Test_Issue2520(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type test struct {

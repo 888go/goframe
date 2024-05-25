@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Package tracing 提供了一些用于追踪功能的实用函数。. md5:e35e84e99377e9ae
+// Package tracing 提供了一些用于追踪功能的实用函数。 md5:e35e84e99377e9ae
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewIDs 生成并返回一个新的 trace 和 span ID。. md5:1b5d0dc93c6f38ff
+// NewIDs 生成并返回一个新的 trace 和 span ID。 md5:1b5d0dc93c6f38ff
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewTraceID 创建并返回一个追踪ID。. md5:6832c150aaff566d
+// NewTraceID 创建并返回一个追踪ID。 md5:6832c150aaff566d
 # <翻译结束>
 
 
@@ -49,6 +49,6 @@
 <原文结束>
 
 # <翻译开始>
-// NewSpanID 创建并返回一个新的span ID。. md5:02d4095273219037
+// NewSpanID 创建并返回一个新的span ID。 md5:02d4095273219037
 # <翻译结束>
 

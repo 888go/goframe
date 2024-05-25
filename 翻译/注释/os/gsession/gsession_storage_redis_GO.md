@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// StorageRedis 使用Redis实现会话存储接口。. md5:df4e47711869aaf9
+// StorageRedis 使用Redis实现会话存储接口。 md5:df4e47711869aaf9
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于session存储的Redis客户端。. md5:6ab8fcce48bcdda4
+// 用于session存储的Redis客户端。 md5:6ab8fcce48bcdda4
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 会话ID的Redis键前缀。. md5:c0a31dd348ccaac3
+// 会话ID的Redis键前缀。 md5:c0a31dd348ccaac3
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// 更新会话ID的TTL集合。. md5:5eacf4393666b98f
+// 更新会话ID的TTL集合。 md5:5eacf4393666b98f
 # <翻译结束>
 
 
@@ -69,7 +69,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewStorageRedis 创建并返回一个用于session的redis存储对象。. md5:58528aab48b7daea
+// NewStorageRedis 创建并返回一个用于session的redis存储对象。 md5:58528aab48b7daea
 # <翻译结束>
 
 
@@ -78,7 +78,7 @@
 <原文结束>
 
 # <翻译开始>
-// 定期批量更新会话ID的TTL（时间到 live，生存时间）。. md5:81e845800fad5861
+// 定期批量更新会话ID的TTL（时间到 live，生存时间）。 md5:81e845800fad5861
 # <翻译结束>
 
 
@@ -87,7 +87,7 @@
 <原文结束>
 
 # <翻译开始>
-// RemoveAll 删除存储中的所有键值对。. md5:8b06607595d19a73
+// RemoveAll 删除存储中的所有键值对。 md5:8b06607595d19a73
 # <翻译结束>
 
 
@@ -144,7 +144,7 @@
 <原文结束>
 
 # <翻译开始>
-// doUpdateExpireForSession 更新会话ID的过期时间。. md5:6a4d0561227fb192
+// doUpdateExpireForSession 更新会话ID的过期时间。 md5:6a4d0561227fb192
 # <翻译结束>
 
 
@@ -153,6 +153,6 @@
 <原文结束>
 
 # <翻译开始>
-// sessionIdToRedisKey 将给定的会话ID转换并返回对应的Redis键。. md5:e18b9b593a10a025
+// sessionIdToRedisKey 将给定的会话ID转换并返回对应的Redis键。 md5:e18b9b593a10a025
 # <翻译结束>
 

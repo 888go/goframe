@@ -35,7 +35,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetHeader 为客户端设置自定义的 HTTP 头部对。. md5:adc9509c3dab54ca
+// SetHeader 为客户端设置自定义的 HTTP 头部对。 md5:adc9509c3dab54ca
 # <翻译结束>
 
 
@@ -44,7 +44,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetHeaderMap 使用映射设置自定义HTTP头。. md5:466373137e3ccd66
+// SetHeaderMap 使用映射设置自定义HTTP头。 md5:466373137e3ccd66
 # <翻译结束>
 
 
@@ -53,7 +53,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetAgent 设置客户端的 User-Agent 头部。. md5:1ec87db52b5537ba
+// SetAgent 设置客户端的 User-Agent 头部。 md5:1ec87db52b5537ba
 # <翻译结束>
 
 
@@ -62,7 +62,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetContentType 为客户端设置HTTP内容类型。. md5:063d3cafd0626b0a
+// SetContentType 为客户端设置HTTP内容类型。 md5:063d3cafd0626b0a
 # <翻译结束>
 
 
@@ -71,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetHeaderRaw 使用原始字符串设置自定义HTTP头。. md5:e15c66308baf6cd5
+// SetHeaderRaw 使用原始字符串设置自定义HTTP头。 md5:e15c66308baf6cd5
 # <翻译结束>
 
 
@@ -80,7 +80,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetCookie 为客户端设置一个 cookie 对。. md5:656700fcca56fb72
+// SetCookie 为客户端设置一个 cookie 对。 md5:656700fcca56fb72
 # <翻译结束>
 
 
@@ -89,7 +89,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetCookieMap 使用映射设置Cookie项。. md5:3abd18bc89684efb
+// SetCookieMap 使用映射设置Cookie项。 md5:3abd18bc89684efb
 # <翻译结束>
 
 
@@ -98,7 +98,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetPrefix 设置请求服务器的URL前缀。. md5:945a0fd6f4acac16
+// SetPrefix 设置请求服务器的URL前缀。 md5:945a0fd6f4acac16
 # <翻译结束>
 
 
@@ -107,7 +107,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetTimeout 设置客户端的请求超时时间。. md5:ce4f874cd14c1c2d
+// SetTimeout 设置客户端的请求超时时间。 md5:ce4f874cd14c1c2d
 # <翻译结束>
 
 
@@ -116,7 +116,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetBasicAuth 为客户端设置HTTP基本认证信息。. md5:22c36a5363199cd0
+// SetBasicAuth 为客户端设置HTTP基本认证信息。 md5:22c36a5363199cd0
 # <翻译结束>
 
 
@@ -137,7 +137,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetRedirectLimit 限制跳转次数。. md5:14e010f8e3d003b5
+// SetRedirectLimit 限制跳转次数。 md5:14e010f8e3d003b5
 # <翻译结束>
 
 
@@ -146,7 +146,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetNoUrlEncode 设置标记，表示在发送请求之前不编码参数。. md5:6dd55f5543918206
+// SetNoUrlEncode 设置标记，表示在发送请求之前不编码参数。 md5:6dd55f5543918206
 # <翻译结束>
 
 
@@ -189,7 +189,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetTLSKeyCrt 设置客户端TLS配置的证书和密钥文件。. md5:48b3322243e8e691
+// SetTLSKeyCrt 设置客户端TLS配置的证书和密钥文件。 md5:48b3322243e8e691
 # <翻译结束>
 
 
@@ -198,7 +198,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetTLSConfig 设置客户端的TLS配置。. md5:f1882ff235302c92
+// SetTLSConfig 设置客户端的TLS配置。 md5:f1882ff235302c92
 # <翻译结束>
 
 
@@ -207,7 +207,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetBuilder 设置客户端的负载均衡构建器。. md5:1f374a9a600309bb
+// SetBuilder 设置客户端的负载均衡构建器。 md5:1f374a9a600309bb
 # <翻译结束>
 
 
@@ -216,6 +216,6 @@
 <原文结束>
 
 # <翻译开始>
-// SetDiscovery 为客户端设置负载均衡构建器。. md5:0ea9a7eaf5c235e7
+// SetDiscovery 为客户端设置负载均衡构建器。 md5:0ea9a7eaf5c235e7
 # <翻译结束>
 

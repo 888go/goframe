@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认的连接超时时间。. md5:f32319a8522e8f90
+// 默认的连接超时时间。 md5:f32319a8522e8f90
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认重试间隔。. md5:d53e6b260a9e594d
+// 默认重试间隔。 md5:d53e6b260a9e594d
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 读取的字节缓冲区大小。. md5:3bb21d80469c9916
+// 读取的字节缓冲区大小。 md5:3bb21d80469c9916
 # <翻译结束>
 
 
@@ -118,7 +118,7 @@
 <原文结束>
 
 # <翻译开始>
-// SendWithTimeout 在发送逻辑中添加了写入超时的限制。. md5:3ede704cb632bc5e
+// SendWithTimeout 在发送逻辑中添加了写入超时的限制。 md5:3ede704cb632bc5e
 # <翻译结束>
 
 
@@ -127,7 +127,7 @@
 <原文结束>
 
 # <翻译开始>
-// SendRecvWithTimeout 在限制读取超时的情况下执行SendRecv逻辑。. md5:a0b595ec27ab2abf
+// SendRecvWithTimeout 在限制读取超时的情况下执行SendRecv逻辑。 md5:a0b595ec27ab2abf
 # <翻译结束>
 
 
@@ -136,7 +136,7 @@
 <原文结束>
 
 # <翻译开始>
-// isTimeout 检查给定的 `err` 是否是超时错误。. md5:c277cc8323b1a413
+// isTimeout 检查给定的 `err` 是否是超时错误。 md5:c277cc8323b1a413
 # <翻译结束>
 
 
@@ -145,7 +145,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadKeyCrt 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。. md5:e31385756c06b0a4
+// LoadKeyCrt 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。 md5:e31385756c06b0a4
 # <翻译结束>
 
 
@@ -154,7 +154,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetFreePort 的行为与 GetFreePort 相同，但如果发生任何错误，它会直接 panic。. md5:a1ae43bc1faffe59
+// MustGetFreePort 的行为与 GetFreePort 相同，但如果发生任何错误，它会直接 panic。 md5:a1ae43bc1faffe59
 # <翻译结束>
 
 
@@ -163,7 +163,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetFreePort 获取并返回一个空闲的端口号。. md5:52dbf7a2d6e71da6
+// GetFreePort 获取并返回一个空闲的端口号。 md5:52dbf7a2d6e71da6
 # <翻译结束>
 
 
@@ -172,6 +172,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetFreePorts 获取并返回指定数量的空闲端口。. md5:ea99fb15b5bbc0fb
+// GetFreePorts 获取并返回指定数量的空闲端口。 md5:ea99fb15b5bbc0fb
 # <翻译结束>
 

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -15,7 +16,7 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// handleAccessLog handles the access logging for server.
+// handleAccessLog 处理服务器的访问日志。. md5:37f533b1207682a1
 func (s *Server) handleAccessLog(r *Request) {
 	if !s.IsAccessLogEnabled() {
 		return
@@ -40,9 +41,9 @@ func (s *Server) handleAccessLog(r *Request) {
 	logger.Print(r.Context(), content)
 }
 
-// handleErrorLog handles the error logging for server.
+// handleErrorLog 处理服务器的错误日志。. md5:f4ba08c94e4f5e6f
 func (s *Server) handleErrorLog(err error, r *Request) {
-	// It does nothing if error logging is custom disabled.
+	// 如果错误日志记录被特别禁用，则什么也不做。. md5:f40ab65302593bd7
 	if !s.IsErrorLogEnabled() {
 		return
 	}

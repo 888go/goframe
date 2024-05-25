@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// handleProcessSignal 以阻塞方式处理来自系统的所有信号。. md5:822a0f0abd5d924a
+// handleProcessSignal 以阻塞方式处理来自系统的所有信号。 md5:822a0f0abd5d924a
 # <翻译结束>
 

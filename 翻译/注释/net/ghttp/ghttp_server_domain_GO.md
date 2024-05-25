@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Domain 用于域名的路由注册。. md5:c83832d3612fc101
+// Domain 用于域名的路由注册。 md5:c83832d3612fc101
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 支持多个域名。. md5:8ddb7825d8136c0d
+// 支持多个域名。 md5:8ddb7825d8136c0d
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Domain 为一个或多个域创建并返回用于管理的域对象。. md5:613c2d9b16e14c56
+// Domain 为一个或多个域创建并返回用于管理的域对象。 md5:613c2d9b16e14c56
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindHandler 为指定的模式绑定处理器。. md5:91d1c2e239074063
+// BindHandler 为指定的模式绑定处理器。 md5:91d1c2e239074063
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindObject 将对象绑定到指定的模式。. md5:3beffc65c22e5098
+// BindObject 将对象绑定到指定的模式。 md5:3beffc65c22e5098
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindObjectMethod 为指定的模式绑定方法。. md5:44230959de888ace
+// BindObjectMethod 为指定的模式绑定方法。 md5:44230959de888ace
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindObjectRest 为指定模式绑定RESTful API。. md5:c63a87d6bb5ebd6c
+// BindObjectRest 为指定模式绑定RESTful API。 md5:c63a87d6bb5ebd6c
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindHookHandler 为指定的模式绑定钩子处理器。. md5:c2455777873cd92a
+// BindHookHandler 为指定的模式绑定钩子处理器。 md5:c2455777873cd92a
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindHookHandlerByMap 为指定的模式绑定钩子处理程序。. md5:39439ccca98ce817
+// BindHookHandlerByMap 为指定的模式绑定钩子处理程序。 md5:39439ccca98ce817
 # <翻译结束>
 
 
@@ -103,7 +103,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindStatusHandler 为指定的模式绑定状态处理器。. md5:5cb032dd618649e2
+// BindStatusHandler 为指定的模式绑定状态处理器。 md5:5cb032dd618649e2
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindStatusHandlerByMap 为指定的模式绑定状态处理器。. md5:04388d53c4410f82
+// BindStatusHandlerByMap 为指定的模式绑定状态处理器。 md5:04388d53c4410f82
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindMiddleware 为指定的模式绑定中间件。. md5:40c97b890ebb105a
+// BindMiddleware 为指定的模式绑定中间件。 md5:40c97b890ebb105a
 # <翻译结束>
 
 
@@ -130,7 +130,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindMiddlewareDefault 为指定的模式绑定默认中间件。. md5:792e7f694ab5eeb3
+// BindMiddlewareDefault 为指定的模式绑定默认中间件。 md5:792e7f694ab5eeb3
 # <翻译结束>
 
 
@@ -139,6 +139,6 @@
 <原文结束>
 
 # <翻译开始>
-// Use向域添加中间件。. md5:4aeb37c314d609f3
+// Use向域添加中间件。 md5:4aeb37c314d609f3
 # <翻译结束>
 

@@ -46,7 +46,7 @@
 <原文结束>
 
 # <翻译开始>
-// FieldsPrefix 作为 Fields 函数，但为每个字段添加额外的前缀。. md5:8a672048e8753526
+// FieldsPrefix 作为 Fields 函数，但为每个字段添加额外的前缀。 md5:8a672048e8753526
 # <翻译结束>
 
 
@@ -75,7 +75,7 @@
 <原文结束>
 
 # <翻译开始>
-// FieldsExPrefix 函数与 FieldsEx 功能相似，但在每个字段前添加额外的前缀。. md5:66ba7040b83e6e81
+// FieldsExPrefix 函数与 FieldsEx 功能相似，但在每个字段前添加额外的前缀。 md5:66ba7040b83e6e81
 # <翻译结束>
 
 
@@ -84,7 +84,7 @@
 <原文结束>
 
 # <翻译开始>
-// FieldCount 将常用字段 `COUNT(column)` 格式化并添加到模型的 select 字段中。. md5:99439830c058a91f
+// FieldCount 将常用字段 `COUNT(column)` 格式化并添加到模型的 select 字段中。 md5:99439830c058a91f
 # <翻译结束>
 
 
@@ -93,7 +93,7 @@
 <原文结束>
 
 # <翻译开始>
-// FieldSum 将常用字段 `SUM(column)` 格式化后添加到模型的 select 字段中。. md5:938249bb2923fa1f
+// FieldSum 将常用字段 `SUM(column)` 格式化后添加到模型的 select 字段中。 md5:938249bb2923fa1f
 # <翻译结束>
 
 
@@ -102,7 +102,7 @@
 <原文结束>
 
 # <翻译开始>
-// FieldMin 格式化并追加常用的字段 `MIN(column)` 到模型的选择字段中。. md5:fd1204ad66608451
+// FieldMin 格式化并追加常用的字段 `MIN(column)` 到模型的选择字段中。 md5:fd1204ad66608451
 # <翻译结束>
 
 
@@ -111,7 +111,7 @@
 <原文结束>
 
 # <翻译开始>
-// FieldMax 格式化并追加常用的字段 `MAX(column)` 到模型的选择字段中。. md5:77150e433b0d44c4
+// FieldMax 格式化并追加常用的字段 `MAX(column)` 到模型的选择字段中。 md5:77150e433b0d44c4
 # <翻译结束>
 
 
@@ -120,7 +120,7 @@
 <原文结束>
 
 # <翻译开始>
-// FieldAvg 将常用字段 `AVG(column)` 格式化并添加到模型的 select 字段中。. md5:0b09ffae1b0cbabe
+// FieldAvg 将常用字段 `AVG(column)` 格式化并添加到模型的 select 字段中。 md5:0b09ffae1b0cbabe
 # <翻译结束>
 
 
@@ -156,7 +156,7 @@
 <原文结束>
 
 # <翻译开始>
-// HasField 用于判断该字段是否存在于表中。. md5:e26ad0ecb292096b
+// HasField 用于判断该字段是否存在于表中。 md5:e26ad0ecb292096b
 # <翻译结束>
 
 
@@ -165,7 +165,7 @@
 <原文结束>
 
 # <翻译开始>
-// getFieldsFrom 从表格`table`中获取、过滤并返回字段名。. md5:9a2c6dffbdfe3d24
+// getFieldsFrom 从表格`table`中获取、过滤并返回字段名。 md5:9a2c6dffbdfe3d24
 # <翻译结束>
 
 
@@ -174,6 +174,6 @@
 <原文结束>
 
 # <翻译开始>
-// 需要类型断言。. md5:ec336d143828f70d
+// 需要类型断言。 md5:ec336d143828f70d
 # <翻译结束>
 

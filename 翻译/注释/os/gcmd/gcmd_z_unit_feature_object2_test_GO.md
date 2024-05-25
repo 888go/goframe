@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。. md5:81db3d7bd1ed4da8
+// 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// configFileNodeName 是配置文件中编译器配置的节点名称。. md5:3f5ccccd42d1daca
+// configFileNodeName 是配置文件中编译器配置的节点名称。 md5:3f5ccccd42d1daca
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// packedGoFileName 用于指定将公共文件夹打包成单个 Go 文件时的文件名。. md5:ecbe7ef3574629cf
+// packedGoFileName 用于指定将公共文件夹打包成单个 Go 文件时的文件名。 md5:ecbe7ef3574629cf
 # <翻译结束>
 
 

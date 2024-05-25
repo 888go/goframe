@@ -34,6 +34,6 @@
 <原文结束>
 
 # <翻译开始>
-// String 方法重写了 time.Time 类型的 String 函数。. md5:c519f17d90f0ddcb
+// String 方法重写了 time.Time 类型的 String 函数。 md5:c519f17d90f0ddcb
 # <翻译结束>
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于HTTP_COOKIE管理的Cookie。. md5:5990685f9449a6df
+// 用于HTTP_COOKIE管理的Cookie。 md5:5990685f9449a6df
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 底层cookie项。. md5:b89c165cdb180382
+// 底层cookie项。 md5:b89c165cdb180382
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 属于的HTTP响应。. md5:7081ed19a38e6318
+// 属于的HTTP响应。 md5:7081ed19a38e6318
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// cookieItem 是存储在 Cookie 中的项。. md5:70e35f7ab478a99b
+// cookieItem 是存储在 Cookie 中的项。 md5:70e35f7ab478a99b
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// 标记从客户端接收的此Cookie。. md5:fa3cc5dd0aefa33c
+// 标记从客户端接收的此Cookie。 md5:fa3cc5dd0aefa33c
 # <翻译结束>
 
 
@@ -108,7 +108,7 @@
 <原文结束>
 
 # <翻译开始>
-// init 函数对cookie对象进行惰性初始化。. md5:6a771fc762ea2458
+// init 函数对cookie对象进行惰性初始化。 md5:6a771fc762ea2458
 # <翻译结束>
 
 
@@ -133,7 +133,7 @@
 <原文结束>
 
 # <翻译开始>
-// Map将Cookie项作为map[string]string返回。. md5:6d265855ff6356fa
+// Map将Cookie项作为map[string]string返回。 md5:6d265855ff6356fa
 # <翻译结束>
 
 
@@ -142,7 +142,7 @@
 <原文结束>
 
 # <翻译开始>
-// Contains 检查给定的键是否存在于cookie中且未过期。. md5:acb79130bbbf78e6
+// Contains 检查给定的键是否存在于cookie中且未过期。 md5:acb79130bbbf78e6
 # <翻译结束>
 
 
@@ -151,7 +151,7 @@
 <原文结束>
 
 # <翻译开始>
-// Set 使用默认域名、路径和过期时间来设置cookie项。. md5:66be80c8c6c07dc1
+// Set 使用默认域名、路径和过期时间来设置cookie项。 md5:66be80c8c6c07dc1
 # <翻译结束>
 
 
@@ -173,7 +173,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetHttpCookie 使用*http.Cookie设置cookie。. md5:de525635cedd10e4
+// SetHttpCookie 使用*http.Cookie设置cookie。 md5:de525635cedd10e4
 # <翻译结束>
 
 
@@ -182,7 +182,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetSessionId 从cookie中检索并返回session ID。. md5:4b41d62448c6f135
+// GetSessionId 从cookie中检索并返回session ID。 md5:4b41d62448c6f135
 # <翻译结束>
 
 
@@ -191,7 +191,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSessionId 在cookie中设置会话ID。. md5:56899c22c78f2267
+// SetSessionId 在cookie中设置会话ID。 md5:56899c22c78f2267
 # <翻译结束>
 
 
@@ -234,6 +234,6 @@
 <原文结束>
 
 # <翻译开始>
-// Flush 将cookie项输出到客户端。. md5:77b1f132a9910559
+// Flush 将cookie项输出到客户端。 md5:77b1f132a9910559
 # <翻译结束>
 

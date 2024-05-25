@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// 基于红黑树的TreeMap，是RedBlackTree的别名。. md5:9f16a90eb8bdf4c1
+// 基于红黑树的TreeMap，是RedBlackTree的别名。 md5:9f16a90eb8bdf4c1
 # <翻译结束>
 
 

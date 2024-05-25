@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// 包 response 提供了对 http 响应的包装器。. md5:bb922247b1767cad
+// 包 response 提供了对 http 响应的包装器。 md5:bb922247b1767cad
 # <翻译结束>
 

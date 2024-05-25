@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// StorageRedisHashTable 是使用 Redis 哈希表实现的会话存储接口。. md5:4479b82640ee5fc6
+// StorageRedisHashTable 是使用 Redis 哈希表实现的会话存储接口。 md5:4479b82640ee5fc6
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于session存储的Redis客户端。. md5:6ab8fcce48bcdda4
+// 用于session存储的Redis客户端。 md5:6ab8fcce48bcdda4
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 会话ID的Redis键前缀。. md5:c0a31dd348ccaac3
+// 会话ID的Redis键前缀。 md5:c0a31dd348ccaac3
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewStorageRedisHashTable 创建并返回一个用于会话的redis哈希表存储对象。. md5:7d5ec78a44d3be11
+// NewStorageRedisHashTable 创建并返回一个用于会话的redis哈希表存储对象。 md5:7d5ec78a44d3be11
 # <翻译结束>
 
 
@@ -70,7 +70,7 @@
 <原文结束>
 
 # <翻译开始>
-// Data 从存储中获取所有的键值对并将其作为映射返回。. md5:7160c6695dcc211b
+// Data 从存储中获取所有的键值对并将其作为映射返回。 md5:7160c6695dcc211b
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetSize 从存储中检索键值对的大小。. md5:9dcc1d87ddc0a989
+// GetSize 从存储中检索键值对的大小。 md5:9dcc1d87ddc0a989
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// Remove 删除存储中键及其对应的值。. md5:95ea150955b88994
+// Remove 删除存储中键及其对应的值。 md5:95ea150955b88994
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// RemoveAll 删除存储中的所有键值对。. md5:8b06607595d19a73
+// RemoveAll 删除存储中的所有键值对。 md5:8b06607595d19a73
 # <翻译结束>
 
 
@@ -190,6 +190,6 @@
 <原文结束>
 
 # <翻译开始>
-// sessionIdToRedisKey 将给定的会话ID转换并返回对应的Redis键。. md5:e18b9b593a10a025
+// sessionIdToRedisKey 将给定的会话ID转换并返回对应的Redis键。 md5:e18b9b593a10a025
 # <翻译结束>
 

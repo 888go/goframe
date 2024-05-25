@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagJsonName 返回字段的`json`标签名称字符串。. md5:5c012e1a7ddc21a4
+// TagJsonName 返回字段的`json`标签名称字符串。 md5:5c012e1a7ddc21a4
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagDefault 返回字段最常用的标签 `default/d` 值。. md5:05a366c7274145a7
+// TagDefault 返回字段最常用的标签 `default/d` 值。 md5:05a366c7274145a7
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagParam 返回字段最常见的标签 `param/p` 的值。. md5:4a9896d7eafb2571
+// TagParam 返回字段最常见的标签 `param/p` 的值。 md5:4a9896d7eafb2571
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagValid 返回字段最常用的标签 `valid/v` 的值。. md5:94454fb9da424ab5
+// TagValid 返回字段最常用的标签 `valid/v` 的值。 md5:94454fb9da424ab5
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagDescription 返回字段最常用的标签 `description/des/dc` 的值。. md5:d9c639d81519a9e6
+// TagDescription 返回字段最常用的标签 `description/des/dc` 的值。 md5:d9c639d81519a9e6
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagSummary 返回字段最常使用的标签 `summary/sum/sm` 的值。. md5:73fda199beee8e03
+// TagSummary 返回字段最常使用的标签 `summary/sum/sm` 的值。 md5:73fda199beee8e03
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagAdditional 返回字段最常见的附加标签`additional/ad`的值。. md5:5fa6809b09e574f9
+// TagAdditional 返回字段最常见的附加标签`additional/ad`的值。 md5:5fa6809b09e574f9
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagExample 返回字段中最常用的标签 `example/eg` 的值。. md5:db6ca440d0e1c869
+// TagExample 返回字段中最常用的标签 `example/eg` 的值。 md5:db6ca440d0e1c869
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagIn 函数返回字段中最常用的标签`in`值。. md5:422dfe5b89aad3c4
+// TagIn 函数返回字段中最常用的标签`in`值。 md5:422dfe5b89aad3c4
 # <翻译结束>
 
 

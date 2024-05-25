@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Carrier是TextMapPropagator使用的存储介质。. md5:8d62ccc64614a0c7
+// Carrier是TextMapPropagator使用的存储介质。 md5:8d62ccc64614a0c7
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewCarrier 创建并返回一个 Carrier。. md5:e8b512c41d0c9bd7
+// NewCarrier 创建并返回一个 Carrier。 md5:e8b512c41d0c9bd7
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Get 返回与传入键关联的值。. md5:d20be4af58bc2fa7
+// Get 返回与传入键关联的值。 md5:d20be4af58bc2fa7
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// Set 存储键值对。. md5:797de4e363035487
+// Set 存储键值对。 md5:797de4e363035487
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// Keys 列出了存储在该载体中的键。. md5:8dca78c8668c962f
+// Keys 列出了存储在该载体中的键。 md5:8dca78c8668c962f
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// String 将当前Carrier转换并以字符串形式返回。. md5:9a30611e4d817539
+// String 将当前Carrier转换并以字符串形式返回。 md5:9a30611e4d817539
 # <翻译结束>
 
 
@@ -85,6 +85,6 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalJSON 实现了 json 包中的 UnmarshalJSON 接口。. md5:6a50aca077e136ff
+// UnmarshalJSON 实现了 json 包中的 UnmarshalJSON 接口。 md5:6a50aca077e136ff
 # <翻译结束>
 

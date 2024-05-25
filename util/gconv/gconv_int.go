@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv
 
@@ -13,10 +14,7 @@ import (
 	"github.com/gogf/gf/v2/encoding/gbinary"
 )
 
-// Int converts `any` to int.
-
-// ff:取整数
-// any:值
+// Int 将 `any` 转换为整数。. md5:7d14e0d4caedf28f
 func Int(any interface{}) int {
 	if any == nil {
 		return 0
@@ -27,10 +25,7 @@ func Int(any interface{}) int {
 	return int(Int64(any))
 }
 
-// Int8 converts `any` to int8.
-
-// ff:取整数8位
-// any:值
+// Int8 将 `any` 类型转换为 int8。. md5:3a0a5e4022ab71df
 func Int8(any interface{}) int8 {
 	if any == nil {
 		return 0
@@ -41,10 +36,7 @@ func Int8(any interface{}) int8 {
 	return int8(Int64(any))
 }
 
-// Int16 converts `any` to int16.
-
-// ff:取整数16位
-// any:值
+// Int16 将 `any` 转换为 int16。. md5:5acb21515934f62d
 func Int16(any interface{}) int16 {
 	if any == nil {
 		return 0
@@ -55,10 +47,7 @@ func Int16(any interface{}) int16 {
 	return int16(Int64(any))
 }
 
-// Int32 converts `any` to int32.
-
-// ff:取整数32位
-// any:值
+// Int32 将 `any` 转换为 int32 类型。. md5:87b6a70499ffaf8a
 func Int32(any interface{}) int32 {
 	if any == nil {
 		return 0
@@ -69,11 +58,7 @@ func Int32(any interface{}) int32 {
 	return int32(Int64(any))
 }
 
-// Int64 converts `any` to int64.
-
-// ff:取整数64位
-// yx:true
-// any:
+// Int64 将 `any` 转换为 int64 类型。. md5:e95a0233b73ea496
 func Int64(any interface{}) int64 {
 	if any == nil {
 		return 0

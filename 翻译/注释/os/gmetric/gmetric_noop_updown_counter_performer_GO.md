@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// noopUpDownCounterPerformer 是一个实现了 CounterPerformer 接口但没有实际操作的实现者。. md5:072081413ac6be4f
+// noopUpDownCounterPerformer 是一个实现了 CounterPerformer 接口但没有实际操作的实现者。 md5:072081413ac6be4f
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// newNoopUpDownCounterPerformer 创建并返回一个没有真正操作的CounterPerformer。. md5:e7e1846c3b34c796
+// newNoopUpDownCounterPerformer 创建并返回一个没有真正操作的CounterPerformer。 md5:e7e1846c3b34c796
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// Inc 将计数器增加1。. md5:81a1f6bd9f2e53ca
+// Inc 将计数器增加1。 md5:81a1f6bd9f2e53ca
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// Dec 将计数器减1。. md5:a57e133a130dce44
+// Dec 将计数器减1。 md5:a57e133a130dce44
 # <翻译结束>
 
 
@@ -57,6 +57,6 @@
 <原文结束>
 
 # <翻译开始>
-// Add 将给定的值添加到计数器中。. md5:52aba4021b7f61b2
+// Add 将给定的值添加到计数器中。 md5:52aba4021b7f61b2
 # <翻译结束>
 

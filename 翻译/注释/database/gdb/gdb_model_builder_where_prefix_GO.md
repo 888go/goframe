@@ -45,7 +45,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixLT 构建 `prefix.column < value` 语句。. md5:de5cb5259ef84499
+// WherePrefixLT 构建 `prefix.column < value` 语句。 md5:de5cb5259ef84499
 # <翻译结束>
 
 
@@ -54,7 +54,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixLTE构建`prefix.column <= value`语句。. md5:1c5d93f173a39b03
+// WherePrefixLTE构建`prefix.column <= value`语句。 md5:1c5d93f173a39b03
 # <翻译结束>
 
 
@@ -63,7 +63,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixGT构建`prefix.column > value`语句。. md5:61d5cbbb9f5422fd
+// WherePrefixGT构建`prefix.column > value`语句。 md5:61d5cbbb9f5422fd
 # <翻译结束>
 
 
@@ -72,7 +72,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixGTE 生成 `prefix.column >= value` 的语句。. md5:1b581ea600e215e7
+// WherePrefixGTE 生成 `prefix.column >= value` 的语句。 md5:1b581ea600e215e7
 # <翻译结束>
 
 
@@ -81,7 +81,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixBetween 构建 `prefix.column BETWEEN min AND max` 语句。. md5:e6176c55b8a31575
+// WherePrefixBetween 构建 `prefix.column BETWEEN min AND max` 语句。 md5:e6176c55b8a31575
 # <翻译结束>
 
 
@@ -90,7 +90,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixLike构建`prefix.column LIKE like`语句。. md5:baf08eac5c7dc2aa
+// WherePrefixLike构建`prefix.column LIKE like`语句。 md5:baf08eac5c7dc2aa
 # <翻译结束>
 
 
@@ -99,7 +99,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixIn 构建 `prefix.column IN (in)` 语句。. md5:fd691f634711ba7f
+// WherePrefixIn 构建 `prefix.column IN (in)` 语句。 md5:fd691f634711ba7f
 # <翻译结束>
 
 
@@ -108,7 +108,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixNull 构建 `prefix.columns[0] IS NULL AND prefix.columns[1] IS NULL ...` 语句。. md5:ac08bde96048fdce
+// WherePrefixNull 构建 `prefix.columns[0] IS NULL AND prefix.columns[1] IS NULL ...` 语句。 md5:ac08bde96048fdce
 # <翻译结束>
 
 
@@ -117,7 +117,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixNotBetween 构建 `prefix.column NOT BETWEEN min AND max` 语句。. md5:a16703b511af05c3
+// WherePrefixNotBetween 构建 `prefix.column NOT BETWEEN min AND max` 语句。 md5:a16703b511af05c3
 # <翻译结束>
 
 
@@ -126,7 +126,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixNotLike构建`prefix.column NOT LIKE like`语句。. md5:083bd1d45c368a83
+// WherePrefixNotLike构建`prefix.column NOT LIKE like`语句。 md5:083bd1d45c368a83
 # <翻译结束>
 
 
@@ -135,7 +135,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixNot构建`prefix.column != value`语句。. md5:c1366e00cd0da49e
+// WherePrefixNot构建`prefix.column != value`语句。 md5:c1366e00cd0da49e
 # <翻译结束>
 
 
@@ -144,7 +144,7 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixNotIn 用于构建 `prefix.column NOT IN (in)` 的SQL语句。. md5:3b790678c07a51fd
+// WherePrefixNotIn 用于构建 `prefix.column NOT IN (in)` 的SQL语句。 md5:3b790678c07a51fd
 # <翻译结束>
 
 
@@ -153,6 +153,6 @@
 <原文结束>
 
 # <翻译开始>
-// WherePrefixNotNull 构建 `prefix.columns[0] IS NOT NULL AND prefix.columns[1] IS NOT NULL ...` 语句。. md5:d5a307a7c3004dda
+// WherePrefixNotNull 构建 `prefix.columns[0] IS NOT NULL AND prefix.columns[1] IS NOT NULL ...` 语句。 md5:d5a307a7c3004dda
 # <翻译结束>
 

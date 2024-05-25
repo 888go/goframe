@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Driver 是用于 postgresql 数据库的驱动程序。. md5:4abf0752f49a3cfc
+// Driver 是用于 postgresql 数据库的驱动程序。 md5:4abf0752f49a3cfc
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// New 创建并返回一个实现了gdb.Driver的驱动器，该驱动器支持PostgreSQL操作。. md5:183551a5c197dfc4
+// New 创建并返回一个实现了gdb.Driver的驱动器，该驱动器支持PostgreSQL操作。 md5:183551a5c197dfc4
 # <翻译结束>
 
 
@@ -70,6 +70,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetChars 返回这种类型的数据库的安全字符。. md5:8a01432c4ed14729
+// GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
 # <翻译结束>
 

@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// go test *.go -bench=".*"
+// 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
 package gregex_test
 
@@ -315,7 +316,7 @@ func Test_Split(t *testing.T) {
 		item1 := "dd"
 		s := item0 + matched + item1
 		t.Assert(gregex.IsMatchString(re, matched), true)
-		items := gregex.Split(re, s) //split string with matched
+		items := gregex.Split(re, s) //使用匹配的分隔字符串. md5:984d724db85ac97b
 		if items[0] != item0 {
 			t.Fatalf("regex:%s,Split(%q) want %q", re, s, item0)
 		}
@@ -331,7 +332,7 @@ func Test_Split(t *testing.T) {
 		item1 := "dd"
 		s := item0 + notmatched + item1
 		t.Assert(gregex.IsMatchString(re, notmatched), false)
-		items := gregex.Split(re, s) //split string with notmatched then nosplitting
+		items := gregex.Split(re, s) //使用未匹配的分隔符分割字符串，然后不进行进一步的分割. md5:57f95f5e42957010
 		if items[0] != s {
 			t.Fatalf("regex:%s,Split(%q) want %q", re, s, item0)
 		}

@@ -34,6 +34,6 @@
 <原文结束>
 
 # <翻译开始>
-// setBasicAuth 设置HTTP基本认证信息。. md5:7bb0db8710e057f8
+// setBasicAuth 设置HTTP基本认证信息。 md5:7bb0db8710e057f8
 # <翻译结束>
 

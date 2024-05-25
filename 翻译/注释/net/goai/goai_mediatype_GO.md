@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// MediaType 是由 OpenAPI/Swagger 3.0 标准定义的。. md5:1bb86450c61271e0
+// MediaType 是由 OpenAPI/Swagger 3.0 标准定义的。 md5:1bb86450c61271e0
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 内容遵循 OpenAPI/Swagger 3.0 规范定义。. md5:c70257c0a9cf1576
+// 内容遵循 OpenAPI/Swagger 3.0 规范定义。 md5:c70257c0a9cf1576
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// Encoding 按照 OpenAPI/Swagger 3.0 标准指定。. md5:f20471879db70e3a
+// Encoding 按照 OpenAPI/Swagger 3.0 标准指定。 md5:f20471879db70e3a
 # <翻译结束>
 

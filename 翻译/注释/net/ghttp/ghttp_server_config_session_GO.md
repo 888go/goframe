@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSessionMaxAge 用于设置服务器的会话最大存活时间。. md5:b9197f93d7981d91
+// SetSessionMaxAge 用于设置服务器的会话最大存活时间。 md5:b9197f93d7981d91
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSessionIdName 为服务器设置 SessionIdName。. md5:d2b73f9cc3d5d247
+// SetSessionIdName 为服务器设置 SessionIdName。 md5:d2b73f9cc3d5d247
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSessionStorage 为服务器设置SessionStorage。. md5:92b3b7fbc295084e
+// SetSessionStorage 为服务器设置SessionStorage。 md5:92b3b7fbc295084e
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSessionCookieOutput 设置服务器的SetSessionCookieOutput。. md5:a75d67eb511dd5ab
+// SetSessionCookieOutput 设置服务器的SetSessionCookieOutput。 md5:a75d67eb511dd5ab
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSessionCookieMaxAge 为服务器设置 SessionCookieMaxAge。. md5:977671b06e3e5674
+// SetSessionCookieMaxAge 为服务器设置 SessionCookieMaxAge。 md5:977671b06e3e5674
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetSessionMaxAge 返回服务器的会话最大存活时间。. md5:3019bd154cdbe978
+// GetSessionMaxAge 返回服务器的会话最大存活时间。 md5:3019bd154cdbe978
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetSessionIdName 返回服务器的SessionIdName。. md5:b0dffea716eef695
+// GetSessionIdName 返回服务器的SessionIdName。 md5:b0dffea716eef695
 # <翻译结束>
 
 
@@ -85,6 +85,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetSessionCookieMaxAge 返回服务器的 SessionCookieMaxAge。. md5:37a1e72edd958c1f
+// GetSessionCookieMaxAge 返回服务器的 SessionCookieMaxAge。 md5:37a1e72edd958c1f
 # <翻译结束>
 

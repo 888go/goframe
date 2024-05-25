@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// errorLogger是底层net/http.Server的错误日志记录器。. md5:6405822f309730c2
+// errorLogger是底层net/http.Server的错误日志记录器。 md5:6405822f309730c2
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// Write 实现了 io.Writer 接口。. md5:6464c47cfa35b955
+// Write 实现了 io.Writer 接口。 md5:6464c47cfa35b955
 # <翻译结束>
 

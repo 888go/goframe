@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixNot 在 OR 条件中构建 `prefix.column != value` 语句。. md5:385a9f9fb58b8fc3
+// WhereOrPrefixNot 在 OR 条件中构建 `prefix.column != value` 语句。 md5:385a9f9fb58b8fc3
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixLT在"OR"条件下构建`prefix.column < value`语句。. md5:c1a6baf94f553043
+// WhereOrPrefixLT在"OR"条件下构建`prefix.column < value`语句。 md5:c1a6baf94f553043
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixLTE 在“OR”条件下构建 `prefix.column <= value` 语句。. md5:77072877b38f04a8
+// WhereOrPrefixLTE 在“OR”条件下构建 `prefix.column <= value` 语句。 md5:77072877b38f04a8
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixGT 在 `OR` 条件下构建 `prefix.column > value` 的语句。. md5:d34b5bdc0e6b2fa8
+// WhereOrPrefixGT 在 `OR` 条件下构建 `prefix.column > value` 的语句。 md5:d34b5bdc0e6b2fa8
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixGTE 在 OR 条件中构建 `prefix.column >= value` 语句。. md5:d652ca0304ac835e
+// WhereOrPrefixGTE 在 OR 条件中构建 `prefix.column >= value` 语句。 md5:d652ca0304ac835e
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixBetween在`OR`条件下构建`prefix.column BETWEEN min AND max`语句。. md5:d7adaf273fa5681b
+// WhereOrPrefixBetween在`OR`条件下构建`prefix.column BETWEEN min AND max`语句。 md5:d7adaf273fa5681b
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixLike在`OR`条件下构建`prefix.column LIKE 'like'`语句。. md5:c975b47e3a5cc2c1
+// WhereOrPrefixLike在`OR`条件下构建`prefix.column LIKE 'like'`语句。 md5:c975b47e3a5cc2c1
 # <翻译结束>
 
 
@@ -103,7 +103,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixIn 用于构建 `prefix.column IN (in)` 形式的 SQL 语句，在 `OR` 条件下。. md5:18e0cf5cc971267d
+// WhereOrPrefixIn 用于构建 `prefix.column IN (in)` 形式的 SQL 语句，在 `OR` 条件下。 md5:18e0cf5cc971267d
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixNull 在"OR"条件中构建`prefix.columns[0] IS NULL OR prefix.columns[1] IS NULL ...`语句。. md5:facf88eb72f3d299
+// WhereOrPrefixNull 在"OR"条件中构建`prefix.columns[0] IS NULL OR prefix.columns[1] IS NULL ...`语句。 md5:facf88eb72f3d299
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixNotBetween在`OR`条件下构建`prefix.column NOT BETWEEN min AND max`语句。. md5:15259f135308893b
+// WhereOrPrefixNotBetween在`OR`条件下构建`prefix.column NOT BETWEEN min AND max`语句。 md5:15259f135308893b
 # <翻译结束>
 
 
@@ -130,7 +130,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixNotLike 在 `OR` 条件下构建 `prefix.column NOT LIKE 'like'` 语句。. md5:2785cbc79e811104
+// WhereOrPrefixNotLike 在 `OR` 条件下构建 `prefix.column NOT LIKE 'like'` 语句。 md5:2785cbc79e811104
 # <翻译结束>
 
 
@@ -139,7 +139,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixNotIn 用于构建 `prefix.column NOT IN (in)` 的SQL语句。. md5:bd296110bb5635a1
+// WhereOrPrefixNotIn 用于构建 `prefix.column NOT IN (in)` 的SQL语句。 md5:bd296110bb5635a1
 # <翻译结束>
 
 
@@ -148,6 +148,6 @@
 <原文结束>
 
 # <翻译开始>
-// WhereOrPrefixNotNull 在`OR`条件中构建`prefix.columns[0] IS NOT NULL OR prefix.columns[1] IS NOT NULL ...`语句。. md5:9ecd3bffabf47cb7
+// WhereOrPrefixNotNull 在`OR`条件中构建`prefix.columns[0] IS NOT NULL OR prefix.columns[1] IS NOT NULL ...`语句。 md5:9ecd3bffabf47cb7
 # <翻译结束>
 

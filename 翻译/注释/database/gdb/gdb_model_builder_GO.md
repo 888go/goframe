@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereBuilder 在一个分组中持有多个where条件。. md5:184a682305e36f1a
+// WhereBuilder 在一个分组中持有多个where条件。 md5:184a682305e36f1a
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereBuilder 应该绑定到特定的模型上。. md5:b2939842d84a957f
+// WhereBuilder 应该绑定到特定的模型上。 md5:b2939842d84a957f
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 条件字符串，用于where操作。. md5:081bfa2bf97e01c3
+// 条件字符串，用于where操作。 md5:081bfa2bf97e01c3
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// WhereHolder是用于准备where条件的持有者。. md5:be3c4766444c1f3c
+// WhereHolder是用于准备where条件的持有者。 md5:be3c4766444c1f3c
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 该持有者的运算符。. md5:52eab23e6ea6fbdb
+// 该持有者的运算符。 md5:52eab23e6ea6fbdb
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// Where 参数，通常可以是字符串、映射或结构体类型。. md5:dc1254ec6b4f31fa
+// Where 参数，通常可以是字符串、映射或结构体类型。 md5:dc1254ec6b4f31fa
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// where参数的arguments。. md5:3ae3eaf7373aa4ff
+// where参数的arguments。 md5:3ae3eaf7373aa4ff
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// 字段前缀，例如："user."，"order."。. md5:1fc1d00029c03395
+// 字段前缀，例如："user."，"order."。 md5:1fc1d00029c03395
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// Builder 创建并返回一个 WhereBuilder。请注意，Builder 是线程安全的。. md5:d2708a694ae36dfa
+// Builder 创建并返回一个 WhereBuilder。请注意，Builder 是线程安全的。 md5:d2708a694ae36dfa
 # <翻译结束>
 
 
@@ -112,7 +112,7 @@
 <原文结束>
 
 # <翻译开始>
-// Clone 克隆并返回一个与当前 WhereBuilder 相同的副本。. md5:d6ddf2152377c7f0
+// Clone 克隆并返回一个与当前 WhereBuilder 相同的副本。 md5:d6ddf2152377c7f0
 # <翻译结束>
 
 
@@ -121,7 +121,7 @@
 <原文结束>
 
 # <翻译开始>
-// Build构建当前的WhereBuilder，并返回条件字符串和参数。. md5:08aa1af8cbe06d71
+// Build构建当前的WhereBuilder，并返回条件字符串和参数。 md5:08aa1af8cbe06d71
 # <翻译结束>
 
 
@@ -130,6 +130,6 @@
 <原文结束>
 
 # <翻译开始>
-// convertWhereBuilder 将参数 `where` 转换为条件字符串和参数，如果 `where` 也是一个 WhereBuilder。. md5:a6141391e787f1ad
+// convertWhereBuilder 将参数 `where` 转换为条件字符串和参数，如果 `where` 也是一个 WhereBuilder。 md5:a6141391e787f1ad
 # <翻译结束>
 

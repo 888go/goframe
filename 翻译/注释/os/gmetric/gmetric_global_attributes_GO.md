@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetGlobalAttributesOption 将全局属性绑定到特定的仪表。. md5:5cba96bea01d2134
+// SetGlobalAttributesOption 将全局属性绑定到特定的仪表。 md5:5cba96bea01d2134
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// Instrument 指定乐器名称。. md5:9d3f75d7c5acf5ce
+// Instrument 指定乐器名称。 md5:9d3f75d7c5acf5ce
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// Instrument 指定仪器版本。. md5:08f1ad86326ce5c0
+// Instrument 指定仪器版本。 md5:08f1ad86326ce5c0
 # <翻译结束>
 
 
@@ -64,7 +64,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetGlobalAttributesOption 将全局属性绑定到特定的仪表。. md5:b534095d7e4c28c6
+// GetGlobalAttributesOption 将全局属性绑定到特定的仪表。 md5:b534095d7e4c28c6
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// globalAttributes 将全局属性存储到一个映射中。. md5:e8b73fe60d039913
+// globalAttributes 将全局属性存储到一个映射中。 md5:e8b73fe60d039913
 # <翻译结束>
 
 

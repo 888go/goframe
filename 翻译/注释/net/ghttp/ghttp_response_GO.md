@@ -35,7 +35,7 @@
 <原文结束>
 
 # <翻译开始>
-// 基础的 ResponseWriter。. md5:edecebd8a0d4cf02
+// 基础的 ResponseWriter。 md5:edecebd8a0d4cf02
 # <翻译结束>
 
 
@@ -44,7 +44,7 @@
 <原文结束>
 
 # <翻译开始>
-// newResponse 创建并返回一个新的 Response 对象。. md5:b2d8b0e3f410571c
+// newResponse 创建并返回一个新的 Response 对象。 md5:b2d8b0e3f410571c
 # <翻译结束>
 
 
@@ -53,7 +53,7 @@
 <原文结束>
 
 # <翻译开始>
-// ServeFile 向响应中发送文件。. md5:e5a83a4dd0cadaf6
+// ServeFile 向响应中发送文件。 md5:e5a83a4dd0cadaf6
 # <翻译结束>
 
 
@@ -62,7 +62,7 @@
 <原文结束>
 
 # <翻译开始>
-// ServeFileDownload 用于将文件下载服务响应到请求。. md5:b5e9e8b76f0afca0
+// ServeFileDownload 用于将文件下载服务响应到请求。 md5:b5e9e8b76f0afca0
 # <翻译结束>
 
 
@@ -116,6 +116,6 @@
 <原文结束>
 
 # <翻译开始>
-// Flush 将缓冲区的内容输出到客户端并清空缓冲区。. md5:16e9c330d696be4e
+// Flush 将缓冲区的内容输出到客户端并清空缓冲区。 md5:16e9c330d696be4e
 # <翻译结束>
 

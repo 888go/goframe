@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// CheckLocalTypeForField 检查并返回给定数据库类型对应的本地Go语言类型。. md5:f8aef7c5b09aa9c8
+// CheckLocalTypeForField 检查并返回给定数据库类型对应的本地Go语言类型。 md5:f8aef7c5b09aa9c8
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对于pgsql，int2等于smallint。. md5:5d75ff3e1cf74f36
+// 对于pgsql，int2等于smallint。 md5:5d75ff3e1cf74f36
 # <翻译结束>
 
 
@@ -72,7 +72,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对于pgsql，int2等于smallint，int4等于integer。. md5:9a03a0c9b626da62
+// 对于pgsql，int2等于smallint，int4等于integer。 md5:9a03a0c9b626da62
 # <翻译结束>
 
 
@@ -81,6 +81,6 @@
 <原文结束>
 
 # <翻译开始>
-// 对于 PostgreSQL，int8 等同于 bigint。. md5:7d366d086aa037e5
+// 对于 PostgreSQL，int8 等同于 bigint。 md5:7d366d086aa037e5
 # <翻译结束>
 

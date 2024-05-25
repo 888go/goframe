@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gsession
 
@@ -17,24 +18,23 @@ import (
 	"github.com/gogf/gf/v2/internal/intlog"
 )
 
-// Session struct for storing single session data, which is bound to a single request.
-// The Session struct is the interface with user, but the Storage is the underlying adapter designed interface
-// for functionality implements.
+// Session 结构体，用于存储单个会话数据，它与单个请求绑定。Session 结构体是与用户交互的接口，但 Storage 是底层适配器设计的接口，用于实现特定功能。
+// md5:1d1b86dcb53a276e
 type Session struct {
-	id      string          // Session id. It retrieves the session if id is custom specified.
-	ctx     context.Context // Context for current session. Please note that, session lives along with context.
-	data    *gmap.StrAnyMap // Current Session data, which is retrieved from Storage.
-	dirty   bool            // Used to mark session is modified.
-	start   bool            // Used to mark session is started.
-	manager *Manager        // Parent session Manager.
+	id      string          // 会话ID。如果指定了自定义的id，则用于获取会话。. md5:7fec8def5a7d635f
+	ctx     context.Context // 当前会话的上下文。请注意，会话与上下文一起存在。. md5:c61c2b0f3688fce4
+	data    *gmap.StrAnyMap // 当前会话数据，从存储中获取。. md5:00861bf25945ffcd
+	dirty   bool            // 用于标记会话已修改。. md5:6d1cc43a943b4c84
+	start   bool            // 用于标记会话已开始。. md5:213288ad3376abfc
+	manager *Manager        // 父级会话管理器。. md5:6b920db9951d3f89
 
-	// idFunc is a callback function used for creating custom session id.
-	// This is called if session id is empty ever when session starts.
+// idFunc是一个用于创建自定义会话ID的回调函数。当会话开始时，如果会话ID为空，就会调用这个函数。
+// md5:83b853b0118605bd
 	idFunc func(ttl time.Duration) (id string)
 }
 
-// init does the lazy initialization for session, which retrieves the session if session id is specified,
-// or else it creates a new empty session.
+// init函数进行懒惰初始化session，如果指定了session ID，则获取session，否则创建一个新的空session。
+// md5:60a85a2954d0a427
 func (s *Session) init() error {
 	if s.start {
 		return nil
@@ -42,7 +42,7 @@ func (s *Session) init() error {
 	var err error
 	// Session retrieving.
 	if s.id != "" {
-		// Retrieve stored session data from storage.
+		// 从存储中检索存储的会话数据。. md5:e6c3f2bdc143f93c
 		if s.manager.storage != nil {
 			s.data, err = s.manager.storage.GetSession(s.ctx, s.id, s.manager.GetTTL())
 			if err != nil && err != ErrorDisabled {
@@ -54,17 +54,17 @@ func (s *Session) init() error {
 	// Session id creation.
 	if s.id == "" {
 		if s.idFunc != nil {
-			// Use custom session id creating function.
+			// 使用自定义的会话ID创建函数。. md5:4c1e5f997d31f1b3
 			s.id = s.idFunc(s.manager.ttl)
 		} else {
-			// Use default session id creating function of storage.
+			// 使用存储的默认会话ID创建函数。. md5:11db3a1576d0231f
 			s.id, err = s.manager.storage.New(s.ctx, s.manager.ttl)
 			if err != nil && err != ErrorDisabled {
 				intlog.Errorf(s.ctx, "create session id failed: %+v", err)
 				return err
 			}
-			// If session storage does not implements id generating functionality,
-			// it then uses default session id creating function.
+// 如果会话存储不实现ID生成功能，那么它将使用默认的会话ID创建函数。
+// md5:4f2bd0ddc795fde4
 			if s.id == "" {
 				s.id = NewSessionId()
 			}
@@ -77,12 +77,11 @@ func (s *Session) init() error {
 	return nil
 }
 
-// Close closes current session and updates its ttl in the session manager.
-// If this session is dirty, it also exports it to storage.
+// Close 方法关闭当前会话并在会话管理器中更新其TTL（生存时间）。
+// 如果此会话已被修改（脏会话），它还会将该会话导出到存储中。
 //
-// NOTE that this function must be called ever after a session request done.
-
-// ff:
+// 注意：此功能必须在每次会话请求完成后调用。
+// md5:f68a83f493f4727a
 func (s *Session) Close() error {
 	if s.manager.storage == nil {
 		return nil
@@ -104,13 +103,7 @@ func (s *Session) Close() error {
 	return nil
 }
 
-// Set sets key-value pair to this session.
-
-// ff:设置值
-// yx:true
-// err:
-// value:
-// key:
+// Set 将键值对设置到这个会话中。. md5:09e1539c4a50fcfd
 func (s *Session) Set(key string, value interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
@@ -126,11 +119,7 @@ func (s *Session) Set(key string, value interface{}) (err error) {
 	return nil
 }
 
-// SetMap batch sets the session using map.
-
-// ff:
-// err:
-// data:
+// SetMap 批量使用映射设置会话。. md5:f55c78b98e85ba61
 func (s *Session) SetMap(data map[string]interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
@@ -146,11 +135,7 @@ func (s *Session) SetMap(data map[string]interface{}) (err error) {
 	return nil
 }
 
-// Remove removes key along with its value from this session.
-
-// ff:
-// err:
-// keys:
+// Remove 从本次会话中移除指定的键及其对应的值。. md5:3dc440da200c0834
 func (s *Session) Remove(keys ...string) (err error) {
 	if s.id == "" {
 		return nil
@@ -171,10 +156,7 @@ func (s *Session) Remove(keys ...string) (err error) {
 	return nil
 }
 
-// RemoveAll deletes all key-value pairs from this session.
-
-// ff:
-// err:
+// RemoveAll 从该会话中删除所有键值对。. md5:6ca756339a9f18b5
 func (s *Session) RemoveAll() (err error) {
 	if s.id == "" {
 		return nil
@@ -187,7 +169,7 @@ func (s *Session) RemoveAll() (err error) {
 			return err
 		}
 	}
-	// Remove data from memory.
+	// 从内存中移除数据。. md5:47322b1cdcaf7596
 	if s.data != nil {
 		s.data.Clear()
 	}
@@ -195,12 +177,9 @@ func (s *Session) RemoveAll() (err error) {
 	return nil
 }
 
-// Id returns the session id for this session.
-// It creates and returns a new session id if the session id is not passed in initialization.
-
-// ff:
-// err:
-// id:
+// Id 返回此会话的会话标识符。
+// 如果在初始化时未传递会话标识符，则创建并返回新的会话标识符。
+// md5:c1a4c6b98633e656
 func (s *Session) Id() (id string, err error) {
 	if err = s.init(); err != nil {
 		return "", err
@@ -208,11 +187,8 @@ func (s *Session) Id() (id string, err error) {
 	return s.id, nil
 }
 
-// SetId sets custom session before session starts.
-// It returns error if it is called after session starts.
-
-// ff:
-// id:
+// SetId 在会话开始前设置自定义会话。如果在会话已经开始后调用，将返回错误。
+// md5:cf8fd98a6cd07079
 func (s *Session) SetId(id string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -221,12 +197,9 @@ func (s *Session) SetId(id string) error {
 	return nil
 }
 
-// SetIdFunc sets custom session id creating function before session starts.
-// It returns error if it is called after session starts.
-
-// ff:
-// f:
-// ttl:
+// SetIdFunc 在会话开始前设置自定义会话ID生成函数。
+// 如果在会话已经开始后调用它，将返回错误。
+// md5:07c5962c3c68bf37
 func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -235,12 +208,9 @@ func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 	return nil
 }
 
-// Data returns all data as map.
-// Note that it's using value copy internally for concurrent-safe purpose.
-
-// ff:
-// err:
-// sessionData:
+// Data 将所有数据作为映射返回。
+// 请注意，为了并发安全，它内部使用了值拷贝。
+// md5:a37827aba4dd5df4
 func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 	if s.id == "" {
 		return map[string]interface{}{}, nil
@@ -258,11 +228,7 @@ func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 	return s.data.Map(), nil
 }
 
-// Size returns the size of the session.
-
-// ff:
-// err:
-// size:
+// Size返回会话的大小。. md5:072795e87a3938d1
 func (s *Session) Size() (size int, err error) {
 	if s.id == "" {
 		return 0, nil
@@ -280,12 +246,7 @@ func (s *Session) Size() (size int, err error) {
 	return s.data.Size(), nil
 }
 
-// Contains checks whether key exist in the session.
-
-// ff:
-// err:
-// ok:
-// key:
+// Contains 检查键是否存在于会话中。. md5:7a03d1ea75cda393
 func (s *Session) Contains(key string) (ok bool, err error) {
 	if s.id == "" {
 		return false, nil
@@ -300,22 +261,15 @@ func (s *Session) Contains(key string) (ok bool, err error) {
 	return !v.IsNil(), nil
 }
 
-// IsDirty checks whether there's any data changes in the session.
-
-// ff:
+// IsDirty 检查会话中是否有数据变更。. md5:2a726ce013b067fe
 func (s *Session) IsDirty() bool {
 	return s.dirty
 }
 
-// Get retrieves session value with given key.
-// It returns `def` if the key does not exist in the session if `def` is given,
-// or else it returns nil.
-
-// ff:
-// err:
-// value:
-// def:
-// key:
+// Get 通过给定的键获取 session 值。
+// 如果键在 session 中不存在且提供了 `def`，则返回 `def`，
+// 否则返回 nil。
+// md5:893a612d87b25ee2
 func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err error) {
 	if s.id == "" {
 		return nil, nil
@@ -340,9 +294,7 @@ func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err erro
 	return nil, nil
 }
 
-// MustId performs as function Id, but it panics if any error occurs.
-
-// ff:
+// MustId 行为就像Id函数一样，但如果发生任何错误，它会引发恐慌。. md5:a51e8673adaf6727
 func (s *Session) MustId() string {
 	id, err := s.Id()
 	if err != nil {
@@ -351,11 +303,7 @@ func (s *Session) MustId() string {
 	return id
 }
 
-// MustGet performs as function Get, but it panics if any error occurs.
-
-// ff:
-// def:
-// key:
+// MustGet执行与Get相同的功能，但如果发生任何错误，它将引发恐慌。. md5:bdc72a85510733d5
 func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 	v, err := s.Get(key, def...)
 	if err != nil {
@@ -364,11 +312,7 @@ func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 	return v
 }
 
-// MustSet performs as function Set, but it panics if any error occurs.
-
-// ff:
-// value:
-// key:
+// MustSet 的功能与 Set 函数相同，但如果发生任何错误，它会直接 panic。. md5:06fa308e1636bcfa
 func (s *Session) MustSet(key string, value interface{}) {
 	err := s.Set(key, value)
 	if err != nil {
@@ -376,10 +320,7 @@ func (s *Session) MustSet(key string, value interface{}) {
 	}
 }
 
-// MustSetMap performs as function SetMap, but it panics if any error occurs.
-
-// ff:
-// data:
+// MustSetMap 行为类似于函数 SetMap，但如果发生任何错误则会引发 panic。. md5:3d54948e22292bcf
 func (s *Session) MustSetMap(data map[string]interface{}) {
 	err := s.SetMap(data)
 	if err != nil {
@@ -387,10 +328,7 @@ func (s *Session) MustSetMap(data map[string]interface{}) {
 	}
 }
 
-// MustContains performs as function Contains, but it panics if any error occurs.
-
-// ff:
-// key:
+// MustContains执行Contains函数的功能，但如果发生任何错误，它将引发恐慌。. md5:b9f29f0374157bc5
 func (s *Session) MustContains(key string) bool {
 	b, err := s.Contains(key)
 	if err != nil {
@@ -399,9 +337,7 @@ func (s *Session) MustContains(key string) bool {
 	return b
 }
 
-// MustData performs as function Data, but it panics if any error occurs.
-
-// ff:
+// MustData 执行与函数 Data 相同的操作，但如果发生任何错误，它将引发恐慌。. md5:ae01e79f6f27c9fe
 func (s *Session) MustData() map[string]interface{} {
 	m, err := s.Data()
 	if err != nil {
@@ -410,9 +346,7 @@ func (s *Session) MustData() map[string]interface{} {
 	return m
 }
 
-// MustSize performs as function Size, but it panics if any error occurs.
-
-// ff:
+// MustSize 的行为与 Size 函数相同，但如果发生任何错误，它会直接 panic。. md5:d9d8c4724cdd0db4
 func (s *Session) MustSize() int {
 	size, err := s.Size()
 	if err != nil {
@@ -421,10 +355,7 @@ func (s *Session) MustSize() int {
 	return size
 }
 
-// MustRemove performs as function Remove, but it panics if any error occurs.
-
-// ff:
-// keys:
+// MustRemove 行为与函数 Remove 相同，但如果发生任何错误则会引发恐慌。. md5:76bd8c9cb1e6223b
 func (s *Session) MustRemove(keys ...string) {
 	err := s.Remove(keys...)
 	if err != nil {

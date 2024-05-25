@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultComparatorInt 用于整数比较。. md5:c6fa54bf179ad1f1
+// defaultComparatorInt 用于整数比较。 md5:c6fa54bf179ad1f1
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultComparatorStr 用于字符串比较。. md5:031e6c286f826685
+// defaultComparatorStr 用于字符串比较。 md5:031e6c286f826685
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// quickSortInt 是为整型数据实现的快速排序算法。. md5:f172b33dc88c6a22
+// quickSortInt 是为整型数据实现的快速排序算法。 md5:f172b33dc88c6a22
 # <翻译结束>
 
 
@@ -49,6 +49,6 @@
 <原文结束>
 
 # <翻译开始>
-// quickSortStr 是用于字符串的快速排序算法实现。. md5:7df719bfdb420cc1
+// quickSortStr 是用于字符串的快速排序算法实现。 md5:7df719bfdb420cc1
 # <翻译结束>
 

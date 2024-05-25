@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Server由OpenAPI/Swagger标准版本3.0定义。. md5:e48b24980b097496
+// Server由OpenAPI/Swagger标准版本3.0定义。 md5:e48b24980b097496
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// ServerVariable 是由OpenAPI/Swagger标准版本3.0定义的。. md5:7cbb925477ff19bd
+// ServerVariable 是由OpenAPI/Swagger标准版本3.0定义的。 md5:7cbb925477ff19bd
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// Servers 是由 OpenAPI/Swagger 标准版本3.0规定的。. md5:8a433e291e8eabb8
+// Servers 是由 OpenAPI/Swagger 标准版本3.0规定的。 md5:8a433e291e8eabb8
 # <翻译结束>
 

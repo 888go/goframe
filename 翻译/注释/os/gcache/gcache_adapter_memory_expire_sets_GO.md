@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// expireSetMu 保证expireSets映射的并发安全性。. md5:1a74d61573e21f7e
+// expireSetMu 保证expireSets映射的并发安全性。 md5:1a74d61573e21f7e
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// expireSets 是过期时间戳到其键集合的映射，用于快速索引和删除。. md5:d2c25eb345e1ea19
+// expireSets 是过期时间戳到其键集合的映射，用于快速索引和删除。 md5:d2c25eb345e1ea19
 # <翻译结束>
 

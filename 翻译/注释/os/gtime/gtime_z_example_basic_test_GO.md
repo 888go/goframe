@@ -133,7 +133,7 @@
 <原文结束>
 
 # <翻译开始>
-// DaysInMonth 返回当前月份的天数。. md5:0cd1f14a8bb1f8fc
+// DaysInMonth 返回当前月份的天数。 md5:0cd1f14a8bb1f8fc
 # <翻译结束>
 
 
@@ -142,7 +142,7 @@
 <原文结束>
 
 # <翻译开始>
-// WeeksOfYear 返回当前年份中的当前周数。. md5:a51898ffdc6f00df
+// WeeksOfYear 返回当前年份中的当前周数。 md5:a51898ffdc6f00df
 # <翻译结束>
 
 

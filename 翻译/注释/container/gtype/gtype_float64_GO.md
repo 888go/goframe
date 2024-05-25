@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Float64 是一个用于并发安全操作 float64 类型的结构体。. md5:9134cad59fd8776a
+// Float64 是一个用于并发安全操作 float64 类型的结构体。 md5:9134cad59fd8776a
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// Clone 克隆并返回一个新的针对 float64 类型的并发安全对象。. md5:5e22df1240b19bf5
+// Clone 克隆并返回一个新的针对 float64 类型的并发安全对象。 md5:5e22df1240b19bf5
 # <翻译结束>
 
 
@@ -51,7 +51,7 @@
 <原文结束>
 
 # <翻译开始>
-// Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。. md5:2ce98b05d0290b37
+// Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
 # <翻译结束>
 
 
@@ -60,7 +60,7 @@
 <原文结束>
 
 # <翻译开始>
-// Val原子性地加载并返回t.value。. md5:429a11b89436cc12
+// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
 # <翻译结束>
 
 
@@ -69,7 +69,7 @@
 <原文结束>
 
 # <翻译开始>
-// Atomically 将 `delta` 增加到 t.value 中，并返回新的值。. md5:73547274aea5fe91
+// Atomically 将 `delta` 增加到 t.value 中，并返回新的值。 md5:73547274aea5fe91
 # <翻译结束>
 
 
@@ -78,7 +78,7 @@
 <原文结束>
 
 # <翻译开始>
-// Cas 执行针对值的比较并交换操作。. md5:4c2d06b4167bee48
+// Cas 执行针对值的比较并交换操作。 md5:4c2d06b4167bee48
 # <翻译结束>
 
 
@@ -87,7 +87,7 @@
 <原文结束>
 
 # <翻译开始>
-// String 实现了 String 接口，用于字符串打印。. md5:9f0b8c0bcf2362d3
+// String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
 # <翻译结束>
 
 
@@ -96,7 +96,7 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。. md5:43c3b36e60a18f9a
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 # <翻译结束>
 
 
@@ -105,7 +105,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。. md5:f6766b88cf3d63c2
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 # <翻译结束>
 
 
@@ -114,7 +114,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。. md5:f1b49be4502b95a4
+// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
 # <翻译结束>
 
 
@@ -123,6 +123,6 @@
 <原文结束>
 
 # <翻译开始>
-// DeepCopy实现当前类型的深拷贝接口。. md5:9cfbcb08109f6ce1
+// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
 # <翻译结束>
 

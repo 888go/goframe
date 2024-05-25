@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewNetConn 创建并返回一个具有给定地址的 *net.UDPConn。. md5:7327f361f04568ff
+// NewNetConn 创建并返回一个具有给定地址的 *net.UDPConn。 md5:7327f361f04568ff
 # <翻译结束>
 
 
@@ -55,7 +55,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetFreePort 的行为与 GetFreePort 相似，但如果发生任何错误，则会引发恐慌。. md5:20b57c89fd162890
+// MustGetFreePort 的行为与 GetFreePort 相似，但如果发生任何错误，则会引发恐慌。 md5:20b57c89fd162890
 # <翻译结束>
 
 
@@ -64,7 +64,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetFreePort 获取并返回一个空闲的端口号。. md5:52dbf7a2d6e71da6
+// GetFreePort 获取并返回一个空闲的端口号。 md5:52dbf7a2d6e71da6
 # <翻译结束>
 
 
@@ -73,6 +73,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetFreePorts 获取并返回指定数量的空闲端口。. md5:ea99fb15b5bbc0fb
+// GetFreePorts 获取并返回指定数量的空闲端口。 md5:ea99fb15b5bbc0fb
 # <翻译结束>
 

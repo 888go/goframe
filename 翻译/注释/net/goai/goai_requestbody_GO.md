@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// requestBody 是由 OpenAPI/Swagger 3.0 标准定义的。. md5:c7f34291e4ca763f
+// requestBody 是由 OpenAPI/Swagger 3.0 标准定义的。 md5:c7f34291e4ca763f
 # <翻译结束>
 

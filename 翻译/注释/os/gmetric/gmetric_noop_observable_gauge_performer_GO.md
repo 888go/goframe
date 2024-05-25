@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// noopObservableGaugePerformer是一个实现了ObservableGaugePerformer接口的实现者，但没有实际的操作。. md5:91261d11120ce302
+// noopObservableGaugePerformer是一个实现了ObservableGaugePerformer接口的实现者，但没有实际的操作。 md5:91261d11120ce302
 # <翻译结束>
 
 
@@ -30,6 +30,6 @@
 <原文结束>
 
 # <翻译开始>
-// newNoopObservableGaugePerformer 创建并返回一个没有真正操作的ObservableGaugePerformer。. md5:bb41e3baf0049746
+// newNoopObservableGaugePerformer 创建并返回一个没有真正操作的ObservableGaugePerformer。 md5:bb41e3baf0049746
 # <翻译结束>
 

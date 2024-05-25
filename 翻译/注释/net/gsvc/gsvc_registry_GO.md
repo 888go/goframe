@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Register 将 `服务` 注册到默认注册表中。. md5:07ed2154ce52f6df
+// Register 将 `服务` 注册到默认注册表中。 md5:07ed2154ce52f6df
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// Deregister 将 `service` 从默认注册表中移除。. md5:21de7624550ef4ed
+// Deregister 将 `service` 从默认注册表中移除。 md5:21de7624550ef4ed
 # <翻译结束>
 

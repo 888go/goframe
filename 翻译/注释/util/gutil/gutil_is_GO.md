@@ -36,6 +36,6 @@
 <原文结束>
 
 # <翻译开始>
-// IsTypeOf 检查"value"和"valueInExpectType"的类型是否相等，并返回结果。. md5:e1d0bdccffd973a1
+// IsTypeOf 检查"value"和"valueInExpectType"的类型是否相等，并返回结果。 md5:e1d0bdccffd973a1
 # <翻译结束>
 

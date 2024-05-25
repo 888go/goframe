@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultBuilder 是全局使用的默认构建器。. md5:d52d961d6f061a1b
+// defaultBuilder 是全局使用的默认构建器。 md5:d52d961d6f061a1b
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetBuilder 设置全局使用的默认构建器。. md5:c9730a1fbeb24fc6
+// SetBuilder 设置全局使用的默认构建器。 md5:c9730a1fbeb24fc6
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetBuilder 返回全局使用的默认构建器。. md5:34c08237f2d0e6f4
+// GetBuilder 返回全局使用的默认构建器。 md5:34c08237f2d0e6f4
 # <翻译结束>
 

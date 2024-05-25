@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// SupportedMethods 返回所有支持的HTTP方法。. md5:1fc8637928ce346f
+// SupportedMethods 返回所有支持的HTTP方法。 md5:1fc8637928ce346f
 # <翻译结束>
 
 
@@ -47,7 +47,7 @@
 <原文结束>
 
 # <翻译开始>
-// niceCallFunc 使用异常捕获逻辑调用函数 `f`。. md5:cd4c356f9e76fa6e
+// niceCallFunc 使用异常捕获逻辑调用函数 `f`。 md5:cd4c356f9e76fa6e
 # <翻译结束>
 
 
@@ -56,7 +56,7 @@
 <原文结束>
 
 # <翻译开始>
-// 它已经是一个带有堆栈信息的错误。. md5:ec045ebe21bca18d
+// 它已经是一个带有堆栈信息的错误。 md5:ec045ebe21bca18d
 # <翻译结束>
 
 

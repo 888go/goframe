@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// getStatusHandler 获取并返回给定状态码的处理器。. md5:d572ff16b68347d0
+// getStatusHandler 获取并返回给定状态码的处理器。 md5:d572ff16b68347d0
 # <翻译结束>
 
 
@@ -43,7 +43,7 @@
 <原文结束>
 
 # <翻译开始>
-// statusHandlerKey 根据给定的状态和域名创建并返回一个键。. md5:1a4aa99d2a1f13c7
+// statusHandlerKey 根据给定的状态和域名创建并返回一个键。 md5:1a4aa99d2a1f13c7
 # <翻译结束>
 
 
@@ -52,7 +52,7 @@
 <原文结束>
 
 # <翻译开始>
-// BindStatusHandler 为给定的状态码注册处理器。. md5:c94c3dd2e5b4197e
+// BindStatusHandler 为给定的状态码注册处理器。 md5:c94c3dd2e5b4197e
 # <翻译结束>
 
 
@@ -61,6 +61,6 @@
 <原文结束>
 
 # <翻译开始>
-// BindStatusHandlerByMap 使用映射为给定的状态码注册处理器。. md5:a9ee1be3cd8089de
+// BindStatusHandlerByMap 使用映射为给定的状态码注册处理器。 md5:a9ee1be3cd8089de
 # <翻译结束>
 

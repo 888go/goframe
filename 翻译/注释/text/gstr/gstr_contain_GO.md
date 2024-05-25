@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Contains报告`substr`是否在`str`中（区分大小写）。. md5:23e258f54d1c33e6
+// Contains报告`substr`是否在`str`中（区分大小写）。 md5:23e258f54d1c33e6
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// ContainsI 报告 substr 是否在 str 中，不区分大小写。. md5:1dee4dc6bff3de90
+// ContainsI 报告 substr 是否在 str 中，不区分大小写。 md5:1dee4dc6bff3de90
 # <翻译结束>
 
 
@@ -40,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// ContainsAny 报告 `s` 中是否包含 `chars` 里的任何Unicode字符。. md5:68982aa112f62c02
+// ContainsAny 报告 `s` 中是否包含 `chars` 里的任何Unicode字符。 md5:68982aa112f62c02
 # <翻译结束>
 

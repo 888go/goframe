@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gdes提供了DES加密/解密算法的有用API。. md5:c8b6785595a2b6ed
+// 包gdes提供了DES加密/解密算法的有用API。 md5:c8b6785595a2b6ed
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// ECB加密使用ECB模式对`plainText`进行加密。. md5:393855a628599a31
+// ECB加密使用ECB模式对`plainText`进行加密。 md5:393855a628599a31
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用ECB模式解密`cipherText`。. md5:de6e332e6c59244e
+// 使用ECB模式解密`cipherText`。 md5:de6e332e6c59244e
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncryptCBC 使用CBC模式对`plainText`进行加密。. md5:f3a1f35b734799c4
+// EncryptCBC 使用CBC模式对`plainText`进行加密。 md5:f3a1f35b734799c4
 # <翻译结束>
 
 
@@ -82,7 +82,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用CBC模式解密`cipherText`。. md5:232eecbdd9458374
+// 使用CBC模式解密`cipherText`。 md5:232eecbdd9458374
 # <翻译结束>
 
 
@@ -91,7 +91,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncryptCBCTriple 使用TripleDES和CBC模式加密`plainText`。. md5:8fb88673fa27c4a0
+// EncryptCBCTriple 使用TripleDES和CBC模式加密`plainText`。 md5:8fb88673fa27c4a0
 # <翻译结束>
 
 
@@ -100,6 +100,6 @@
 <原文结束>
 
 # <翻译开始>
-// DecryptCBCTriple 使用三重DES和CBC模式解密`cipherText`。. md5:53d3127b0b4fcbb0
+// DecryptCBCTriple 使用三重DES和CBC模式解密`cipherText`。 md5:53d3127b0b4fcbb0
 # <翻译结束>
 

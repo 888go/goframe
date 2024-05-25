@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Tracer 为了兼容性和扩展性对 trace.Tracer 进行了封装。. md5:0b2682d6e466cbd6
+// Tracer 为了兼容性和扩展性对 trace.Tracer 进行了封装。 md5:0b2682d6e466cbd6
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// NewTracer 是一个简短的函数，用于获取Tracer。. md5:188ccb7ad71b192b
+// NewTracer 是一个简短的函数，用于获取Tracer。 md5:188ccb7ad71b192b
 # <翻译结束>
 

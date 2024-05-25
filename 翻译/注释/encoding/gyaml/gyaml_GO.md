@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gyaml提供了访问和转换YAML内容的功能。. md5:f1323f1f471201c0
+// 包gyaml提供了访问和转换YAML内容的功能。 md5:f1323f1f471201c0
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Encode 将 `value` 编码为字节形式的 YAML 格式内容。. md5:df5adae4088970d4
+// Encode 将 `value` 编码为字节形式的 YAML 格式内容。 md5:df5adae4088970d4
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncodeIndent 将 `value` 编码为带有缩进的 YAML 格式内容，返回字节切片。. md5:08a35501baf3e352
+// EncodeIndent 将 `value` 编码为带有缩进的 YAML 格式内容，返回字节切片。 md5:08a35501baf3e352
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// Decode将`content`解析为映射并返回。. md5:09afa737da32e1d3
+// Decode将`content`解析为映射并返回。 md5:09afa737da32e1d3
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// DecodeTo 将 content 解析到 result 中。. md5:39ca50eceb6c38b3
+// DecodeTo 将 content 解析到 result 中。 md5:39ca50eceb6c38b3
 # <翻译结束>
 
 
@@ -67,6 +67,6 @@
 <原文结束>
 
 # <翻译开始>
-// ToJson 将 `content` 转换为 JSON 格式的内容。. md5:8ea19c8cff7962ab
+// ToJson 将 `content` 转换为 JSON 格式的内容。 md5:8ea19c8cff7962ab
 # <翻译结束>
 

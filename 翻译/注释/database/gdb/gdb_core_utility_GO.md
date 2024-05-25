@@ -23,7 +23,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetDB 返回底层的DB。. md5:5ebeb6e695bd2a8a
+// GetDB 返回底层的DB。 md5:5ebeb6e695bd2a8a
 # <翻译结束>
 
 
@@ -179,7 +179,7 @@
 <原文结束>
 
 # <翻译开始>
-// ClearTableFields 清除当前配置组中特定的缓存表字段。. md5:061271b8a4f298a0
+// ClearTableFields 清除当前配置组中特定的缓存表字段。 md5:061271b8a4f298a0
 # <翻译结束>
 
 
@@ -188,7 +188,7 @@
 <原文结束>
 
 # <翻译开始>
-// ClearTableFieldsAll 删除当前配置组中所有缓存的表字段。. md5:2b2f2ebba86cfda6
+// ClearTableFieldsAll 删除当前配置组中所有缓存的表字段。 md5:2b2f2ebba86cfda6
 # <翻译结束>
 
 
@@ -197,7 +197,7 @@
 <原文结束>
 
 # <翻译开始>
-// ClearCache 删除特定表的缓存SQL结果。. md5:5849435c2385500b
+// ClearCache 删除特定表的缓存SQL结果。 md5:5849435c2385500b
 # <翻译结束>
 
 
@@ -215,7 +215,7 @@
 <原文结束>
 
 # <翻译开始>
-// HasField 用于判断该字段是否存在于表中。. md5:e26ad0ecb292096b
+// HasField 用于判断该字段是否存在于表中。 md5:e26ad0ecb292096b
 # <翻译结束>
 
 
@@ -224,6 +224,6 @@
 <原文结束>
 
 # <翻译开始>
-// guessPrimaryTableName 解析并返回主表名称。. md5:d6aaf3f09d0afaaa
+// guessPrimaryTableName 解析并返回主表名称。 md5:d6aaf3f09d0afaaa
 # <翻译结束>
 

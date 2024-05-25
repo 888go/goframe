@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// MiddlewareNeverDoneCtx为当前进程设置永不完成的上下文。. md5:82de09cee1c428a4
+// MiddlewareNeverDoneCtx为当前进程设置永不完成的上下文。 md5:82de09cee1c428a4
 # <翻译结束>
 

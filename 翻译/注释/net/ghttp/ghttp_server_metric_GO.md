@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// metricManager是用于HTTP服务器指标的。. md5:c022dc479dce1fbb
+// metricManager是用于HTTP服务器指标的。 md5:c022dc479dce1fbb
 # <翻译结束>
 

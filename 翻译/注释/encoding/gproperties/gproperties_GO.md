@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 包gproperties提供了对.properties内容的访问和转换。. md5:d7f77f0eb45bfdad
+// 包gproperties提供了对.properties内容的访问和转换。 md5:d7f77f0eb45bfdad
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Decode将属性格式转换为映射。. md5:022b98c96d23f910
+// Decode将属性格式转换为映射。 md5:022b98c96d23f910
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// Encode 将映射转换为属性格式。. md5:d1876189b2478c4b
+// Encode 将映射转换为属性格式。 md5:d1876189b2478c4b
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// ToJson 将.properties格式转换为JSON。. md5:1575bc15c05b514f
+// ToJson 将.properties格式转换为JSON。 md5:1575bc15c05b514f
 # <翻译结束>
 
 

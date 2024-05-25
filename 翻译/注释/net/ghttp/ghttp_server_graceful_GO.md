@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// gracefulServer 是一个包装了 net/http.Server 的结构，添加了优雅的重新加载/重启功能。. md5:8d812c91a33cd2a2
+// gracefulServer 是一个包装了 net/http.Server 的结构，添加了优雅的重新加载/重启功能。 md5:8d812c91a33cd2a2
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于在优雅重启时传递给子进程的文件描述符。. md5:72ea9b448b106b41
+// 用于在优雅重启时传递给子进程的文件描述符。 md5:72ea9b448b106b41
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 监听地址，例如":80"，":8080"。. md5:c746ec22043cf3e0
+// 监听地址，例如":80"，":8080"。 md5:c746ec22043cf3e0
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// 底层的http.Server。. md5:3b44f2da7272f7f3
+// 底层的http.Server。 md5:3b44f2da7272f7f3
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 底层的net.Listener。. md5:95d2f6c4d9084a5b
+// 底层的net.Listener。 md5:95d2f6c4d9084a5b
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// 为`rawListener`提供并发安全的互斥锁。. md5:7b358a2cf029baae
+// 为`rawListener`提供并发安全的互斥锁。 md5:7b358a2cf029baae
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// 当前服务器的状态。使用 `gtype` 确保并发安全。. md5:d11344d5afa40f3a
+// 当前服务器的状态。使用 `gtype` 确保并发安全。 md5:d11344d5afa40f3a
 # <翻译结束>
 
 
@@ -106,7 +106,7 @@
 <原文结束>
 
 # <翻译开始>
-// newHttpServer 创建并返回一个带有给定地址的底层 http.Server。. md5:12a45a5b95a4e7c3
+// newHttpServer 创建并返回一个带有给定地址的底层 http.Server。 md5:12a45a5b95a4e7c3
 # <翻译结束>
 
 
@@ -126,7 +126,7 @@
 <原文结束>
 
 # <翻译开始>
-// CreateListener 在配置的地址上创建监听器。. md5:89f8795cf6b796f9
+// CreateListener 在配置的地址上创建监听器。 md5:89f8795cf6b796f9
 # <翻译结束>
 
 
@@ -149,7 +149,7 @@
 <原文结束>
 
 # <翻译开始>
-// Serve以阻塞方式启动服务。. md5:230e5731ffa3d482
+// Serve以阻塞方式启动服务。 md5:230e5731ffa3d482
 # <翻译结束>
 
 
@@ -158,7 +158,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetListenedAddress 获取并返回当前服务器所监听的地址字符串。. md5:51d352ffec9dc329
+// GetListenedAddress 获取并返回当前服务器所监听的地址字符串。 md5:51d352ffec9dc329
 # <翻译结束>
 
 
@@ -179,7 +179,7 @@
 <原文结束>
 
 # <翻译开始>
-// getProto 获取并返回当前服务器的proto字符串。. md5:7860227f594f2ca9
+// getProto 获取并返回当前服务器的proto字符串。 md5:7860227f594f2ca9
 # <翻译结束>
 
 
@@ -188,7 +188,7 @@
 <原文结束>
 
 # <翻译开始>
-// getNetListener 获取并返回包装的net.Listener。. md5:36d0b8cf9a591408
+// getNetListener 获取并返回包装的net.Listener。 md5:36d0b8cf9a591408
 # <翻译结束>
 
 
@@ -197,7 +197,7 @@
 <原文结束>
 
 # <翻译开始>
-// shutdown 停止服务器，优雅地关闭。. md5:6befce727da40eb9
+// shutdown 停止服务器，优雅地关闭。 md5:6befce727da40eb9
 # <翻译结束>
 
 
@@ -206,7 +206,7 @@
 <原文结束>
 
 # <翻译开始>
-// 设置RawListener，将给定的net.Listener设置为`rawListener`。. md5:0fe9b7938ed0a876
+// 设置RawListener，将给定的net.Listener设置为`rawListener`。 md5:0fe9b7938ed0a876
 # <翻译结束>
 
 
@@ -215,7 +215,7 @@
 <原文结束>
 
 # <翻译开始>
-// setRawListener 返回当前服务器的 `rawListener`。. md5:e7b9cd54708d26f8
+// setRawListener 返回当前服务器的 `rawListener`。 md5:e7b9cd54708d26f8
 # <翻译结束>
 
 
@@ -224,6 +224,6 @@
 <原文结束>
 
 # <翻译开始>
-// close 强制关闭服务器。. md5:46634188c0dbdf78
+// close 强制关闭服务器。 md5:46634188c0dbdf78
 # <翻译结束>
 

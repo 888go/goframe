@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// Driver 是用于 Oracle 数据库的驱动程序。. md5:dc4dd4c6d7cda96f
+// Driver 是用于 Oracle 数据库的驱动程序。 md5:dc4dd4c6d7cda96f
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// New 创建并返回一个实现了gdb.Driver接口的驱动器，该驱动器支持对Oracle数据库的操作。. md5:c6dcda5e6735bff7
+// New 创建并返回一个实现了gdb.Driver接口的驱动器，该驱动器支持对Oracle数据库的操作。 md5:c6dcda5e6735bff7
 # <翻译结束>
 
 
@@ -69,6 +69,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetChars 返回这种类型的数据库的安全字符。. md5:8a01432c4ed14729
+// GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
 # <翻译结束>
 

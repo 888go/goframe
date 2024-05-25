@@ -44,7 +44,7 @@
 <原文结束>
 
 # <翻译开始>
-// AdapterFunc 是创建 Redis 适配器的函数。. md5:806d31217d679afd
+// AdapterFunc 是创建 Redis 适配器的函数。 md5:806d31217d679afd
 # <翻译结束>
 
 
@@ -53,7 +53,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultAdapterFunc 是默认的适配器函数，用于创建 Redis 适配器。. md5:e518e287cdac2bb2
+// defaultAdapterFunc 是默认的适配器函数，用于创建 Redis 适配器。 md5:e518e287cdac2bb2
 # <翻译结束>
 
 
@@ -74,7 +74,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用Go Redis实现的Redis客户端，根据给定配置进行适配。. md5:3df311ce390d85c6
+// 使用Go Redis实现的Redis客户端，根据给定配置进行适配。 md5:3df311ce390d85c6
 # <翻译结束>
 
 
@@ -83,7 +83,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用Go Redis实现的Redis客户端，它实现了包配置中的适配器。. md5:91dc0454a671c4de
+// 使用Go Redis实现的Redis客户端，它实现了包配置中的适配器。 md5:91dc0454a671c4de
 # <翻译结束>
 
 
@@ -92,7 +92,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewWithAdapter 使用给定的适配器创建并返回一个Redis客户端。. md5:ab7dc6695935087f
+// NewWithAdapter 使用给定的适配器创建并返回一个Redis客户端。 md5:ab7dc6695935087f
 # <翻译结束>
 
 
@@ -101,6 +101,6 @@
 <原文结束>
 
 # <翻译开始>
-// RegisterAdapterFunc 注册创建默认 Redis 适配器的函数。. md5:2390765dfc7002cb
+// RegisterAdapterFunc 注册创建默认 Redis 适配器的函数。 md5:2390765dfc7002cb
 # <翻译结束>
 

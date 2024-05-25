@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// T 是测试用例管理对象。. md5:48ef1adf72668d4b
+// T 是测试用例管理对象。 md5:48ef1adf72668d4b
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// Assert 检查 `value` 和 `expect` 是否相等。. md5:eaeea7c4fe0d764e
+// Assert 检查 `value` 和 `expect` 是否相等。 md5:eaeea7c4fe0d764e
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// AssertEQ 检查 `value` 和 `expect` 是否相等，包括它们的类型。. md5:31097fa6b823a25a
+// AssertEQ 检查 `value` 和 `expect` 是否相等，包括它们的类型。 md5:31097fa6b823a25a
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// AssertNE 检查 `value` 和 `expect` 是否不相等。. md5:418e91b330bc944f
+// AssertNE 检查 `value` 和 `expect` 是否不相等。 md5:418e91b330bc944f
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// AssertNQ 检查 `value` 和 `expect` 是否不相等，包括它们的类型。. md5:bb13af00897290db
+// AssertNQ 检查 `value` 和 `expect` 是否不相等，包括它们的类型。 md5:bb13af00897290db
 # <翻译结束>
 
 
@@ -148,7 +148,7 @@
 <原文结束>
 
 # <翻译开始>
-// AssertNil 断言 `value` 为 nil。. md5:94a00206ff503e10
+// AssertNil 断言 `value` 为 nil。 md5:94a00206ff503e10
 # <翻译结束>
 
 
@@ -157,7 +157,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用给定的`message`引发错误恐慌。. md5:6ddb84d91c681d1f
+// 使用给定的`message`引发错误恐慌。 md5:6ddb84d91c681d1f
 # <翻译结束>
 
 
@@ -166,6 +166,6 @@
 <原文结束>
 
 # <翻译开始>
-// Fatal 将 `message` 打印到 stderr 并退出进程。. md5:15e177961f66ebe7
+// Fatal 将 `message` 打印到 stderr 并退出进程。 md5:15e177961f66ebe7
 # <翻译结束>
 

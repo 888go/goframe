@@ -34,7 +34,7 @@
 <原文结束>
 
 # <翻译开始>
-// CopyOption 为 Copy 函数提供选项。. md5:985df0dc4c62e896
+// CopyOption 为 Copy 函数提供选项。 md5:985df0dc4c62e896
 # <翻译结束>
 
 
@@ -43,7 +43,7 @@
 <原文结束>
 
 # <翻译开始>
-// DB 选项允许为目的地键指定一个替代的逻辑数据库索引。. md5:f7752ecd2c09888e
+// DB 选项允许为目的地键指定一个替代的逻辑数据库索引。 md5:f7752ecd2c09888e
 # <翻译结束>
 
 
@@ -52,7 +52,7 @@
 <原文结束>
 
 # <翻译开始>
-// REPLACE选项在将值复制到目标键之前删除目标键。. md5:7d1daa6e1cf324ab
+// REPLACE选项在将值复制到目标键之前删除目标键。 md5:7d1daa6e1cf324ab
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// ExpireOption 提供了 Expire 函数的选项。. md5:fe605b48792fd395
+// ExpireOption 提供了 Expire 函数的选项。 md5:fe605b48792fd395
 # <翻译结束>
 
 
@@ -124,7 +124,7 @@
 <原文结束>
 
 # <翻译开始>
-// ScanOption为Scan函数提供了选项。. md5:32efa528c8a65e49
+// ScanOption为Scan函数提供了选项。 md5:32efa528c8a65e49
 # <翻译结束>
 
 
@@ -133,7 +133,7 @@
 <原文结束>
 
 # <翻译开始>
-// Match - 定义用于筛选键的通配符风格模式。. md5:8a1fe0030e22d0f9
+// Match - 定义用于筛选键的通配符风格模式。 md5:8a1fe0030e22d0f9
 # <翻译结束>
 
 
@@ -142,7 +142,7 @@
 <原文结束>
 
 # <翻译开始>
-// Count -- 建议每次扫描返回的键的数量。. md5:9090884e4078ad30
+// Count -- 建议每次扫描返回的键的数量。 md5:9090884e4078ad30
 # <翻译结束>
 
 
@@ -151,7 +151,7 @@
 <原文结束>
 
 # <翻译开始>
-// Type -- 根据键的数据类型过滤。有效的类型包括 "string"、"list"、"set"、"zset"、"hash" 和 "stream"。. md5:e1661eb01e6db304
+// Type -- 根据键的数据类型过滤。有效的类型包括 "string"、"list"、"set"、"zset"、"hash" 和 "stream"。 md5:e1661eb01e6db304
 # <翻译结束>
 
 
@@ -160,7 +160,7 @@
 <原文结束>
 
 # <翻译开始>
-// doScanOption是ScanOption的内部表示。. md5:3846dba237546aef
+// doScanOption是ScanOption的内部表示。 md5:3846dba237546aef
 # <翻译结束>
 
 
@@ -169,6 +169,6 @@
 <原文结束>
 
 # <翻译开始>
-// ToUsedOption 将ScanOption中的零值字段转换为nil。只有具有值的字段才会被保留。. md5:42a6307a3e94db33
+// ToUsedOption 将ScanOption中的零值字段转换为nil。只有具有值的字段才会被保留。 md5:42a6307a3e94db33
 # <翻译结束>
 

@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用model的Where方法，传入一个SQL条件："account_name"字段包含"%list%"字符串。. md5:008bda1d9a70b4f2
+// 使用model的Where方法，传入一个SQL条件："account_name"字段包含"%list%"字符串。 md5:008bda1d9a70b4f2
 # <翻译结束>
 
 
@@ -59,7 +59,7 @@
 
 # <翻译开始>
 // _, err := db.Schema(TestDBName).Model(table).Data(data).Insert()
-// 使用TestDBName数据库的模式，根据table模型和data数据执行插入操作，返回一个表示是否成功的空值和错误信息。. md5:665c442bb4e1be49
+// 使用TestDBName数据库的模式，根据table模型和data数据执行插入操作，返回一个表示是否成功的空值和错误信息。 md5:665c442bb4e1be49
 # <翻译结束>
 
 

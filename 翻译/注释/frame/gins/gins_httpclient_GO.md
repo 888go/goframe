@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// HttpClient 返回指定名称的 http 客户端实例。. md5:4ad3009bae654769
+// HttpClient 返回指定名称的 http 客户端实例。 md5:4ad3009bae654769
 # <翻译结束>
 

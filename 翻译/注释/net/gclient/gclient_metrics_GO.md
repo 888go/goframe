@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-//.metricManager是用于HTTP客户端指标的。. md5:3339f3eb00daad23
+//.metricManager是用于HTTP客户端指标的。 md5:3339f3eb00daad23
 # <翻译结束>
 

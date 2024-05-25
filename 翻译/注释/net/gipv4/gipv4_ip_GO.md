@@ -23,7 +23,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetIpArray 获取并返回当前主机的所有IP地址。. md5:6828d92b1a684cd2
+// GetIpArray 获取并返回当前主机的所有IP地址。 md5:6828d92b1a684cd2
 # <翻译结束>
 
 
@@ -32,7 +32,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetIntranetIp 执行与 GetIntranetIp 相同的操作，但如果发生任何错误，它将引发恐慌。. md5:f08d856493c3c333
+// MustGetIntranetIp 执行与 GetIntranetIp 相同的操作，但如果发生任何错误，它将引发恐慌。 md5:f08d856493c3c333
 # <翻译结束>
 
 
@@ -41,7 +41,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetIntranetIp 获取并返回当前机器的第一个内网IP。. md5:2e53e5f6a86c1f3c
+// GetIntranetIp 获取并返回当前机器的第一个内网IP。 md5:2e53e5f6a86c1f3c
 # <翻译结束>
 
 
@@ -50,7 +50,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetIntranetIpArray 获取并返回当前机器的内网IP列表。. md5:48fe9964790750ba
+// GetIntranetIpArray 获取并返回当前机器的内网IP列表。 md5:48fe9964790750ba
 # <翻译结束>
 
 

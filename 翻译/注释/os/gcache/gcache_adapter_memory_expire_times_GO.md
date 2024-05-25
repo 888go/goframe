@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// expireTimeMu 确保expireTimes映射的并发安全性。. md5:9e827eb46489b4b8
+// expireTimeMu 确保expireTimes映射的并发安全性。 md5:9e827eb46489b4b8
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// expireTimes是过期键到其时间戳的映射，用于快速索引和删除。. md5:5e7fa0cd3e17ed6c
+// expireTimes是过期键到其时间戳的映射，用于快速索引和删除。 md5:5e7fa0cd3e17ed6c
 # <翻译结束>
 

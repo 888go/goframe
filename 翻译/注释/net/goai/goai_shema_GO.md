@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Schema 按照 OpenAPI/Swagger 3.0 标准指定。. md5:6f1f02d1c3d44b09
+// Schema 按照 OpenAPI/Swagger 3.0 标准指定。 md5:6f1f02d1c3d44b09
 # <翻译结束>
 
 
@@ -43,7 +43,7 @@
 <原文结束>
 
 # <翻译开始>
-// 为了防止JSON序列化时的递归错误。. md5:add9f5a47e638cc5
+// 为了防止JSON序列化时的递归错误。 md5:add9f5a47e638cc5
 # <翻译结束>
 
 
@@ -52,7 +52,7 @@
 <原文结束>
 
 # <翻译开始>
-// Discriminator是根据OpenAPI/Swagger标准版本3.0指定的。. md5:7587308535782993
+// Discriminator是根据OpenAPI/Swagger标准版本3.0指定的。 md5:7587308535782993
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// structToSchema 将给定的结构体对象转换并返回为Schema。. md5:c3023fab7f0fbf3b
+// structToSchema 将给定的结构体对象转换并返回为Schema。 md5:c3023fab7f0fbf3b
 # <翻译结束>
 
 
@@ -82,6 +82,6 @@
 <原文结束>
 
 # <翻译开始>
-// 验证信息到OpenAPI规范模式。. md5:8caca50de8e752c8
+// 验证信息到OpenAPI规范模式。 md5:8caca50de8e752c8
 # <翻译结束>
 

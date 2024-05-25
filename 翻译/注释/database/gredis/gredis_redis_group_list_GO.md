@@ -34,6 +34,6 @@
 <原文结束>
 
 # <翻译开始>
-// LInsertOp 定义了 LInsert 函数的操作名称。. md5:c91fe5287aa13a21
+// LInsertOp 定义了 LInsert 函数的操作名称。 md5:c91fe5287aa13a21
 # <翻译结束>
 

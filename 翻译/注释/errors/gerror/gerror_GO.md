@@ -37,7 +37,7 @@
 <原文结束>
 
 # <翻译开始>
-// IIs 是 Is 特性接口。. md5:c4d4591e57d60306
+// IIs 是 Is 特性接口。 md5:c4d4591e57d60306
 # <翻译结束>
 
 
@@ -46,7 +46,7 @@
 <原文结束>
 
 # <翻译开始>
-// IEqual 是实现相等特性（Equal feature）的接口。. md5:734ec9a0f4399a8f
+// IEqual 是实现相等特性（Equal feature）的接口。 md5:734ec9a0f4399a8f
 # <翻译结束>
 
 
@@ -55,7 +55,7 @@
 <原文结束>
 
 # <翻译开始>
-// ICode是代码功能的接口。. md5:97b69f390ed9b25c
+// ICode是代码功能的接口。 md5:97b69f390ed9b25c
 # <翻译结束>
 
 
@@ -64,7 +64,7 @@
 <原文结束>
 
 # <翻译开始>
-// IStack是栈功能的接口。. md5:bdce0c99c1f4dfb1
+// IStack是栈功能的接口。 md5:bdce0c99c1f4dfb1
 # <翻译结束>
 
 
@@ -73,7 +73,7 @@
 <原文结束>
 
 # <翻译开始>
-// ICause 是Cause特性的接口。. md5:f98814a45dc166a2
+// ICause 是Cause特性的接口。 md5:f98814a45dc166a2
 # <翻译结束>
 
 
@@ -82,7 +82,7 @@
 <原文结束>
 
 # <翻译开始>
-// ICurrent 是表示 Current 功能的接口。. md5:df6566b1d7d711b5
+// ICurrent 是表示 Current 功能的接口。 md5:df6566b1d7d711b5
 # <翻译结束>
 
 
@@ -91,7 +91,7 @@
 <原文结束>
 
 # <翻译开始>
-// IUnwrap是Unwrap功能的接口。. md5:71a8ef0c90103c1e
+// IUnwrap是Unwrap功能的接口。 md5:71a8ef0c90103c1e
 # <翻译结束>
 
 
@@ -100,6 +100,6 @@
 <原文结束>
 
 # <翻译开始>
-// commaSeparatorSpace 是带有空格的逗号分隔符。. md5:ef2597553e27a102
+// commaSeparatorSpace 是带有空格的逗号分隔符。 md5:ef2597553e27a102
 # <翻译结束>
 

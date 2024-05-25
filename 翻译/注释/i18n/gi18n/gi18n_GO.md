@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Package gi18n 实现国际化和本地化。. md5:c7d7e3f7580f80a2
+// Package gi18n 实现国际化和本地化。 md5:c7d7e3f7580f80a2
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetPath 设置存储i18n文件的目录路径。. md5:b39e1d244949dcf8
+// SetPath 设置存储i18n文件的目录路径。 md5:b39e1d244949dcf8
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetLanguage 设置翻译器的语言。. md5:50b09b0bb0944dc1
+// SetLanguage 设置翻译器的语言。 md5:50b09b0bb0944dc1
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetDelimiters 为翻译器设置分隔符。. md5:f84b046b11204dc7
+// SetDelimiters 为翻译器设置分隔符。 md5:f84b046b11204dc7
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// T 是为了方便而对 Translate 的别名。. md5:c07a6fa99a429eb3
+// T 是为了方便而对 Translate 的别名。 md5:c07a6fa99a429eb3
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// Tf是TranslateFormat的别名，为了方便起见。. md5:bdb209b24c669f5a
+// Tf是TranslateFormat的别名，为了方便起见。 md5:bdb209b24c669f5a
 # <翻译结束>
 
 
@@ -87,7 +87,7 @@
 <原文结束>
 
 # <翻译开始>
-// Translate 使用配置的语言翻译`content`并返回翻译后的内容。. md5:a39ef8b5e28189db
+// Translate 使用配置的语言翻译`content`并返回翻译后的内容。 md5:a39ef8b5e28189db
 # <翻译结束>
 
 

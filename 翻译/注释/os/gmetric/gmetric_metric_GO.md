@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// localMetric 实现了 Metric 接口。. md5:1d7e92821badcf91
+// localMetric 实现了 Metric 接口。 md5:1d7e92821badcf91
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// newMetric 创建并返回一个实现Metric接口的对象。. md5:566502ff9b514701
+// newMetric 创建并返回一个实现Metric接口的对象。 md5:566502ff9b514701
 # <翻译结束>
 
 
@@ -39,6 +39,6 @@
 <原文结束>
 
 # <翻译开始>
-// Info 返回一个Metric的基本信息。. md5:d521e5fdeb6e591f
+// Info 返回一个Metric的基本信息。 md5:d521e5fdeb6e591f
 # <翻译结束>
 

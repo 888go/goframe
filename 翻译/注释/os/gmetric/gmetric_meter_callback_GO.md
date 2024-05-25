@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// CallbackItem 是已注册的全局回调项。. md5:afee0a9b376754c0
+// CallbackItem 是已注册的全局回调项。 md5:afee0a9b376754c0
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// 在特定指标上回调。. md5:1b8f919fb6f66516
+// 在特定指标上回调。 md5:1b8f919fb6f66516
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// MeterOption 是度量器所持有的选项。. md5:7cbdb72b93713b5d
+// MeterOption 是度量器所持有的选项。 md5:7cbdb72b93713b5d
 # <翻译结束>
 
 
@@ -48,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// Provider 是回调项绑定到的 Provider。. md5:5ad4c5696a74f008
+// Provider 是回调项绑定到的 Provider。 md5:5ad4c5696a74f008
 # <翻译结束>
 
 
@@ -71,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustRegisterCallback 类似于 RegisterCallback，但是如果发生任何错误，它会直接 panic。. md5:41b35f310c8c461d
+// MustRegisterCallback 类似于 RegisterCallback，但是如果发生任何错误，它会直接 panic。 md5:41b35f310c8c461d
 # <翻译结束>
 
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// Float32 将 `any` 转换为 float32 类型。. md5:ae355a911909e343
+// Float32 将 `any` 转换为 float32 类型。 md5:ae355a911909e343
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// Float64 将 `any` 转换为 float64 类型。. md5:c0bd7cb237571bff
+// Float64 将 `any` 转换为 float64 类型。 md5:c0bd7cb237571bff
 # <翻译结束>
 

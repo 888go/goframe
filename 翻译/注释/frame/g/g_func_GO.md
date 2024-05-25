@@ -43,7 +43,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewVar返回一个gvar.Var。. md5:384cbf5dc86048e6
+// NewVar返回一个gvar.Var。 md5:384cbf5dc86048e6
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// Dump 将变量以更易读的格式输出到标准输出。. md5:e19cf0b857ffd1c6
+// Dump 将变量以更易读的格式输出到标准输出。 md5:e19cf0b857ffd1c6
 # <翻译结束>
 
 
@@ -105,7 +105,7 @@
 <原文结束>
 
 # <翻译开始>
-// DumpWithOption 函数将变量 `values` 以更易于人工阅读的字符串形式返回。. md5:99fec3f0f209dcf7
+// DumpWithOption 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
 # <翻译结束>
 
 
@@ -114,7 +114,7 @@
 <原文结束>
 
 # <翻译开始>
-// DumpJson 将 JSON 内容以美化的方式输出到标准输出。. md5:9f4c95e099395360
+// DumpJson 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
 # <翻译结束>
 
 
@@ -123,7 +123,7 @@
 <原文结束>
 
 # <翻译开始>
-// Throw抛出一个异常，可以被TryCatch函数捕获。. md5:ade0a15f9238635b
+// Throw抛出一个异常，可以被TryCatch函数捕获。 md5:ade0a15f9238635b
 # <翻译结束>
 
 
@@ -196,6 +196,6 @@
 <原文结束>
 
 # <翻译开始>
-// RequestFromCtx 从上下文中检索并返回Request对象。. md5:c247eac3d031fb2b
+// RequestFromCtx 从上下文中检索并返回Request对象。 md5:c247eac3d031fb2b
 # <翻译结束>
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGet 的行为就像 Get 一样，但如果发生任何错误，它会引发 panic。. md5:9004545d221e9637
+// MustGet 的行为就像 Get 一样，但如果发生任何错误，它会引发 panic。 md5:9004545d221e9637
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetOrSet 的行为类似于 GetOrSet，但是如果发生任何错误，它会直接 panic。. md5:684c6b06451a2f6f
+// MustGetOrSet 的行为类似于 GetOrSet，但是如果发生任何错误，它会直接 panic。 md5:684c6b06451a2f6f
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetOrSetFunc 行为类似于 GetOrSetFunc，但如果发生任何错误，则会引发 panic。. md5:07fd1ef2dbfce0b4
+// MustGetOrSetFunc 行为类似于 GetOrSetFunc，但如果发生任何错误，则会引发 panic。 md5:07fd1ef2dbfce0b4
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetOrSetFuncLock 行为与 GetOrSetFuncLock 类似，但如果发生任何错误，它将引发恐慌。. md5:7f84f54a71da5305
+// MustGetOrSetFuncLock 行为与 GetOrSetFuncLock 类似，但如果发生任何错误，它将引发恐慌。 md5:7f84f54a71da5305
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustContains 的行为就像 Contains，但如果发生任何错误，它将引发恐慌。. md5:63cc1bbb0025d8b1
+// MustContains 的行为就像 Contains，但如果发生任何错误，它将引发恐慌。 md5:63cc1bbb0025d8b1
 # <翻译结束>
 
 
@@ -67,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustGetExpire 的行为类似于 GetExpire，但如果发生任何错误，它会直接 panic。. md5:c97fa5941bbc47a3
+// MustGetExpire 的行为类似于 GetExpire，但如果发生任何错误，它会直接 panic。 md5:c97fa5941bbc47a3
 # <翻译结束>
 
 
@@ -76,7 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustSize 行为类似于 Size，但在发生错误时会引发 panic。. md5:cee955b74cc42d5c
+// MustSize 行为类似于 Size，但在发生错误时会引发 panic。 md5:cee955b74cc42d5c
 # <翻译结束>
 
 
@@ -85,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustData的行为就像Data一样，但如果发生任何错误，它会引发恐慌。. md5:b53b751e2003cd20
+// MustData的行为就像Data一样，但如果发生任何错误，它会引发恐慌。 md5:b53b751e2003cd20
 # <翻译结束>
 
 
@@ -94,7 +94,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustKeys 行为与 Keys 类似，但如果发生任何错误，它将引发 panic。. md5:7f7801d0cd170166
+// MustKeys 行为与 Keys 类似，但如果发生任何错误，它将引发 panic。 md5:7f7801d0cd170166
 # <翻译结束>
 
 
@@ -103,7 +103,7 @@
 <原文结束>
 
 # <翻译开始>
-// MustKeyStrings 的行为类似于 KeyStrings，但如果发生任何错误，它会直接 panic。. md5:3efe93008da2eb0f
+// MustKeyStrings 的行为类似于 KeyStrings，但如果发生任何错误，它会直接 panic。 md5:3efe93008da2eb0f
 # <翻译结束>
 
 
@@ -112,6 +112,6 @@
 <原文结束>
 
 # <翻译开始>
-// MustValues 行为类似于 Values，但如果发生任何错误则会引发 panic。. md5:859aff610512a748
+// MustValues 行为类似于 Values，但如果发生任何错误则会引发 panic。 md5:859aff610512a748
 # <翻译结束>
 

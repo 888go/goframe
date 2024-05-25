@@ -34,6 +34,6 @@
 <原文结束>
 
 # <翻译开始>
-// NewWebSocket 创建并返回一个新的WebSocket客户端对象。. md5:03f6812fa459ed81
+// NewWebSocket 创建并返回一个新的WebSocket客户端对象。 md5:03f6812fa459ed81
 # <翻译结束>
 

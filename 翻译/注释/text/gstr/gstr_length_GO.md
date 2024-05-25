@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// LenRune返回Unicode字符串的长度。. md5:153854e98ec30abe
+// LenRune返回Unicode字符串的长度。 md5:153854e98ec30abe
 # <翻译结束>
 

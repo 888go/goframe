@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient
 
@@ -14,123 +15,82 @@ import (
 	"github.com/gogf/gf/v2/internal/intlog"
 )
 
-// GetVar sends a GET request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Get泛型类
-// data:参数
-// url:
-// ctx:上下文
+// GetVar 发送一个GET请求，获取并转换结果内容为*gvar.Var。
+// 客户端会自动内部读取并关闭响应对象。
+// 结果*gvar.Var可以方便地转换为你想要的任何类型。
+// md5:47d99fdd051eb344
 func (c *Client) GetVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodGet, url, data...)
 }
 
-// PutVar sends a PUT request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Put泛型类
-// data:参数
-// url:
-// ctx:上下文
+// PutVar 发送一个PUT请求，获取并转换结果内容为*gvar.Var类型。
+// 客户端会自动内部读取并关闭响应对象。
+// 结果*gvar.Var可以方便地转换为你想要的任何类型。
+// md5:cb882faeaad7615d
 func (c *Client) PutVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodPut, url, data...)
 }
 
-// PostVar sends a POST request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Post泛型类
-// data:参数
-// url:
-// ctx:上下文
+// PostVar 发送一个POST请求，获取并转换结果内容为*gvar.Var。
+// 客户端内部会自动读取并关闭响应对象。
+// 返回的*gvar.Var可以方便地转换为你想要的任何类型。
+// md5:51e0af70f2e10306
 func (c *Client) PostVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodPost, url, data...)
 }
 
-// DeleteVar sends a DELETE request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Delete泛型类
-// data:参数
-// url:
-// ctx:上下文
+// DeleteVar 发送一个 DELETE 请求，获取并把结果内容转换为 *gvar.Var。
+// 客户端会自动内部读取并关闭响应对象。
+// 结果 *gvar.Var 可以方便地转换为你需要的任何类型。
+// md5:1954cc9f6686cac5
 func (c *Client) DeleteVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodDelete, url, data...)
 }
 
-// HeadVar sends a HEAD request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Head泛型类
-// data:参数
-// url:
-// ctx:上下文
+// HeadVar 发送一个HEAD请求，获取并转换结果内容为*gvar.Var。
+// 客户端会自动内部读取并关闭响应对象。
+// 结果*gvar.Var可以方便地转换为你想要的任何类型。
+// md5:d4338600d66a6acf
 func (c *Client) HeadVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodHead, url, data...)
 }
 
-// PatchVar sends a PATCH request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Patch泛型类
-// data:参数
-// url:
-// ctx:上下文
+// PatchVar 发送一个PATCH请求，获取并转换结果内容为*gvar.Var类型。
+// 客户端会自动内部读取并关闭响应对象。
+// 结果*gvar.Var可以方便地转换为你想要的任何类型。
+// md5:9786881ed5fc525d
 func (c *Client) PatchVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodPatch, url, data...)
 }
 
-// ConnectVar sends a CONNECT request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Connect泛型类
-// data:参数
-// url:
-// ctx:上下文
+// ConnectVar 发送一个 CONNECT 请求，获取并转换结果内容为 *gvar.Var。
+// 客户端会自动内部读取并关闭响应对象。
+// 得到的 *gvar.Var 可以方便地转换为你想要的任何类型。
+// md5:152bf738c9672ae0
 func (c *Client) ConnectVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodConnect, url, data...)
 }
 
-// OptionsVar sends an OPTIONS request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Options泛型类
-// data:参数
-// url:
-// ctx:上下文
+// OptionsVar 发送一个 OPTIONS 请求，获取并转换结果内容为 *gvar.Var。
+// 客户端会自动读取并关闭响应对象。
+// 结果 *gvar.Var 可以方便地转换为你需要的任何类型。
+// md5:9ab65dcef0e9422e
 func (c *Client) OptionsVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodOptions, url, data...)
 }
 
-// TraceVar sends a TRACE request, retrieves and converts the result content to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:Trace泛型类
-// data:参数
-// url:
-// ctx:上下文
+// TraceVar 发送一个 TRACE 请求，获取并转换结果内容为 *gvar.Var 类型。
+// 客户端会自动内部读取并关闭响应对象。
+// 结果的 *gvar.Var 可以方便地转换为你想要的任何类型。
+// md5:560c30dddc223d10
 func (c *Client) TraceVar(ctx context.Context, url string, data ...interface{}) *gvar.Var {
 	return c.RequestVar(ctx, http.MethodTrace, url, data...)
 }
 
-// RequestVar sends request using given HTTP method and data, retrieves converts the result to *gvar.Var.
-// The client reads and closes the response object internally automatically.
-// The result *gvar.Var can be conveniently converted to any type you want.
-
-// ff:请求泛型类
-// data:参数
-// url:
-// method:方法
-// ctx:上下文
+// RequestVar 使用给定的HTTP方法和数据发送请求，然后将结果转换为*gvar.Var类型。
+// 客户端会自动内部读取并关闭响应对象。
+// 结果*gvar.Var可以方便地转换为你想要的任何类型。
+// md5:4f9fa2909af65cbb
 func (c *Client) RequestVar(ctx context.Context, method string, url string, data ...interface{}) *gvar.Var {
 	response, err := c.DoRequest(ctx, method, url, data...)
 	if err != nil {

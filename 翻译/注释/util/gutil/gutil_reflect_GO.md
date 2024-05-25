@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// OriginValueAndKind 获取并返回原始的反射值和类型。. md5:e2cdf5d39aa2b981
+// OriginValueAndKind 获取并返回原始的反射值和类型。 md5:e2cdf5d39aa2b981
 # <翻译结束>
 
 
@@ -31,6 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// OriginTypeAndKind 获取并返回原始反射类型和种类。. md5:ee62836f1445e493
+// OriginTypeAndKind 获取并返回原始反射类型和种类。 md5:ee62836f1445e493
 # <翻译结束>
 

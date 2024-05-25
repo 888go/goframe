@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package builtin
 
@@ -12,31 +13,25 @@ import (
 	"github.com/gogf/gf/v2/net/gipv4"
 )
 
-// RuleIpv4 implements `ipv4` rule:
-// IPv4.
+// RuleIpv4 实现了 `ipv4` 规则：
+// 用于检查IPv4地址。
 //
-// Format: ipv4
+// 格式：ipv4
+// md5:db9512ff7267d5cd
 type RuleIpv4 struct{}
 
 func init() {
 	Register(RuleIpv4{})
 }
 
-
-// ff:
 func (r RuleIpv4) Name() string {
 	return "ipv4"
 }
 
-
-// ff:
 func (r RuleIpv4) Message() string {
 	return "The {field} value `{value}` is not a valid IPv4 address"
 }
 
-
-// ff:
-// in:
 func (r RuleIpv4) Run(in RunInput) error {
 	var (
 		ok    bool

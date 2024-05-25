@@ -21,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// noopCounterPerformer 是一个实现了 CounterPerformer 接口但没有实际操作的实现者。. md5:6266c86e4f91ce59
+// noopCounterPerformer 是一个实现了 CounterPerformer 接口但没有实际操作的实现者。 md5:6266c86e4f91ce59
 # <翻译结束>
 
 
@@ -30,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// newNoopCounterPerformer 创建并返回一个没有真正操作的CounterPerformer。. md5:1aa76ee5b4d4985d
+// newNoopCounterPerformer 创建并返回一个没有真正操作的CounterPerformer。 md5:1aa76ee5b4d4985d
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// Inc 将计数器增加1。. md5:81a1f6bd9f2e53ca
+// Inc 将计数器增加1。 md5:81a1f6bd9f2e53ca
 # <翻译结束>
 
 
@@ -48,6 +48,6 @@
 <原文结束>
 
 # <翻译开始>
-// Add将给定的值添加到计数器中。如果值小于0，则会引发恐慌。. md5:d0e547634cd9c23f
+// Add将给定的值添加到计数器中。如果值小于0，则会引发恐慌。 md5:d0e547634cd9c23f
 # <翻译结束>
 

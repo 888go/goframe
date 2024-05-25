@@ -33,7 +33,7 @@
 <原文结束>
 
 # <翻译开始>
-// SliceInsertBefore 将 `values` 插入到 `index` 位置的前面，并返回一个新的切片。. md5:d1cbe1d61df82fb6
+// SliceInsertBefore 将 `values` 插入到 `index` 位置的前面，并返回一个新的切片。 md5:d1cbe1d61df82fb6
 # <翻译结束>
 
 
@@ -42,7 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// SliceInsertAfter 在 `index` 后方插入 `values`，并返回一个新的切片。. md5:bb561266d0b2b921
+// SliceInsertAfter 在 `index` 后方插入 `values`，并返回一个新的切片。 md5:bb561266d0b2b921
 # <翻译结束>
 
 
@@ -62,7 +62,7 @@
 <原文结束>
 
 # <翻译开始>
-// 在删除时确定数组边界，以提高删除效率。. md5:bc969ee880edf699
+// 在删除时确定数组边界，以提高删除效率。 md5:bc969ee880edf699
 # <翻译结束>
 
 

@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// gmd5包提供了对MD5加密算法的实用API。. md5:637f00f8697c325b
+// gmd5包提供了对MD5加密算法的实用API。 md5:637f00f8697c325b
 # <翻译结束>
 
 
@@ -57,7 +57,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncryptBytes 使用MD5算法对`data`进行加密。. md5:28a4ffde44149352
+// EncryptBytes 使用MD5算法对`data`进行加密。 md5:28a4ffde44149352
 # <翻译结束>
 
 
@@ -78,7 +78,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncryptString 使用MD5算法对字符串`data`进行加密。. md5:c2472c71dca7f578
+// EncryptString 使用MD5算法对字符串`data`进行加密。 md5:c2472c71dca7f578
 # <翻译结束>
 
 
@@ -98,7 +98,7 @@
 <原文结束>
 
 # <翻译开始>
-// EncryptFile 使用MD5算法对`path`指定文件的内容进行加密。. md5:169266aa4496a2b4
+// EncryptFile 使用MD5算法对`path`指定文件的内容进行加密。 md5:169266aa4496a2b4
 # <翻译结束>
 
 

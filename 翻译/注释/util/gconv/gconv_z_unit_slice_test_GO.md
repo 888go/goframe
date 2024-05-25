@@ -33,6 +33,6 @@
 # <翻译开始>
 // https://github.com/gogf/gf/issues/3465
 // 
-// 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。3465号issue可能是指该框架中的某个问题或讨论的编号。具体的内容需要查看相关链接才能了解详情。. md5:53810ebfb659d15e
+// 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。3465号issue可能是指该框架中的某个问题或讨论的编号。具体的内容需要查看相关链接才能了解详情。 md5:53810ebfb659d15e
 # <翻译结束>
 

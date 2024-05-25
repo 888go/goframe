@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// json包提供了对json操作的封装，忽略了标准库或第三方库的json。. md5:8c700638d650aacd
+// json包提供了对json操作的封装，忽略了标准库或第三方库的json。 md5:8c700638d650aacd
 # <翻译结束>
 
 
@@ -59,7 +59,7 @@
 <原文结束>
 
 # <翻译开始>
-// MarshalIndent 和 json.MarshalIndent 功能相同。. md5:1c3ee8bca0354fac
+// MarshalIndent 和 json.MarshalIndent 功能相同。 md5:1c3ee8bca0354fac
 # <翻译结束>
 
 
@@ -84,7 +84,7 @@
 <原文结束>
 
 # <翻译开始>
-// UnmarshalUseNumber 使用数字选项将json数据字节解码到目标接口。. md5:b04f82165b9c9933
+// UnmarshalUseNumber 使用数字选项将json数据字节解码到目标接口。 md5:b04f82165b9c9933
 # <翻译结束>
 
 
@@ -121,6 +121,6 @@
 <原文结束>
 
 # <翻译开始>
-// Valid 报告数据是否为有效的JSON编码。. md5:db76d6317d6c0b76
+// Valid 报告数据是否为有效的JSON编码。 md5:db76d6317d6c0b76
 # <翻译结束>
 

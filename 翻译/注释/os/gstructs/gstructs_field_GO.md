@@ -57,7 +57,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagStr 返回字段的标签字符串。. md5:d608cb4dcc85989d
+// TagStr 返回字段的标签字符串。 md5:d608cb4dcc85989d
 # <翻译结束>
 
 
@@ -66,7 +66,7 @@
 <原文结束>
 
 # <翻译开始>
-// TagMap 返回字段的所有标签及其对应的值字符串作为映射。. md5:80b1670604d9eef4
+// TagMap 返回字段的所有标签及其对应的值字符串作为映射。 md5:80b1670604d9eef4
 # <翻译结束>
 
 
@@ -75,7 +75,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsExported 返回给定字段是否被导出。. md5:b863b7d714c969fc
+// IsExported 返回给定字段是否被导出。 md5:b863b7d714c969fc
 # <翻译结束>
 
 
@@ -84,7 +84,7 @@
 <原文结束>
 
 # <翻译开始>
-// Name 返回给定字段的名称。. md5:bfd1563575d622f5
+// Name 返回给定字段的名称。 md5:bfd1563575d622f5
 # <翻译结束>
 
 
@@ -105,7 +105,7 @@
 <原文结束>
 
 # <翻译开始>
-// Kind返回Field `f`的Value对应的reflect.Kind。. md5:6c3599f3dff91746
+// Kind返回Field `f`的Value对应的reflect.Kind。 md5:6c3599f3dff91746
 # <翻译结束>
 
 
@@ -114,7 +114,7 @@
 <原文结束>
 
 # <翻译开始>
-// OriginalKind 获取并返回字段 `f` 的Value对应的原始reflect.Kind。. md5:62d8a3604e2114ec
+// OriginalKind 获取并返回字段 `f` 的Value对应的原始reflect.Kind。 md5:62d8a3604e2114ec
 # <翻译结束>
 
 
@@ -123,7 +123,7 @@
 <原文结束>
 
 # <翻译开始>
-// OriginalValue 获取并返回字段`f`的原始reflect.Value。. md5:0f37794c6e9ea990
+// OriginalValue 获取并返回字段`f`的原始reflect.Value。 md5:0f37794c6e9ea990
 # <翻译结束>
 
 
@@ -132,7 +132,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsEmpty 检查并返回这个字段的值是否为空。. md5:125094bfbb4cc317
+// IsEmpty 检查并返回这个字段的值是否为空。 md5:125094bfbb4cc317
 # <翻译结束>
 
 
@@ -141,6 +141,6 @@
 <原文结束>
 
 # <翻译开始>
-// IsNil 检查并返回此Field的值是否为nil。. md5:6637754b5d35923d
+// IsNil 检查并返回此Field的值是否为nil。 md5:6637754b5d35923d
 # <翻译结束>
 

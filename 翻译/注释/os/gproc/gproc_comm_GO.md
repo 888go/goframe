@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// MsgRequest是进程间通信的请求结构体。. md5:aa294ed7aef773f3
+// MsgRequest是进程间通信的请求结构体。 md5:aa294ed7aef773f3
 # <翻译结束>
 
 
@@ -31,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// MsgResponse 是进程通信中的响应结构体。. md5:a2e9e35f8a32b58e
+// MsgResponse 是进程通信中的响应结构体。 md5:a2e9e35f8a32b58e
 # <翻译结束>
 
 
@@ -40,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认的保存pid到端口映射文件的文件夹名称。. md5:64d7a3cc62fc8b3c
+// 默认的保存pid到端口映射文件的文件夹名称。 md5:64d7a3cc62fc8b3c
 # <翻译结束>
 
 
@@ -49,7 +49,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于接收者监听的起始端口号。. md5:57cde4f483b095cf
+// 用于接收者监听的起始端口号。 md5:57cde4f483b095cf
 # <翻译结束>
 
 
@@ -58,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// 集群中每个消息队列的最大大小。. md5:64e3f3ac37111858
+// 集群中每个消息队列的最大大小。 md5:64e3f3ac37111858
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// commPidFolderPath 指定了存储 PID 到端口映射文件的文件夹路径。. md5:bc9b0e25bfe8ea53
+// commPidFolderPath 指定了存储 PID 到端口映射文件的文件夹路径。 md5:bc9b0e25bfe8ea53
 # <翻译结束>
 
 
@@ -88,7 +88,7 @@
 <原文结束>
 
 # <翻译开始>
-// commPidFolderPathOnce用于惰性计算`commPidFolderPath`，只有在必要时才进行。. md5:669e811a3607b61c
+// commPidFolderPathOnce用于惰性计算`commPidFolderPath`，只有在必要时才进行。 md5:669e811a3607b61c
 # <翻译结束>
 
 
@@ -97,7 +97,7 @@
 <原文结束>
 
 # <翻译开始>
-// getConnByPid 为指定的 pid 创建并返回一个 TCP 连接。. md5:19b60bfdf9f18aa2
+// getConnByPid 为指定的 pid 创建并返回一个 TCP 连接。 md5:19b60bfdf9f18aa2
 # <翻译结束>
 
 
@@ -118,7 +118,7 @@
 <原文结束>
 
 # <翻译开始>
-// getCommFilePath 返回给定pid的进程到端口映射文件路径。. md5:6b8e5776476edbb5
+// getCommFilePath 返回给定pid的进程到端口映射文件路径。 md5:6b8e5776476edbb5
 # <翻译结束>
 
 
@@ -127,6 +127,6 @@
 <原文结束>
 
 # <翻译开始>
-// getCommPidFolderPath 获取并返回用于存储进程映射文件的可用目录。. md5:d871e38ee1ac7054
+// getCommPidFolderPath 获取并返回用于存储进程映射文件的可用目录。 md5:d871e38ee1ac7054
 # <翻译结束>
 

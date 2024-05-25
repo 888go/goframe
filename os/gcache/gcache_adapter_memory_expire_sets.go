@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcache
 
@@ -13,8 +14,8 @@ import (
 )
 
 type adapterMemoryExpireSets struct {
-	mu         sync.RWMutex        // expireSetMu ensures the concurrent safety of expireSets map.
-	expireSets map[int64]*gset.Set // expireSets is the expiring timestamp to its key set mapping, which is used for quick indexing and deleting.
+	mu         sync.RWMutex        // expireSetMu 保证expireSets映射的并发安全性。. md5:1a74d61573e21f7e
+	expireSets map[int64]*gset.Set // expireSets 是过期时间戳到其键集合的映射，用于快速索引和删除。. md5:d2c25eb345e1ea19
 }
 
 func newAdapterMemoryExpireSets() *adapterMemoryExpireSets {
@@ -23,10 +24,6 @@ func newAdapterMemoryExpireSets() *adapterMemoryExpireSets {
 	}
 }
 
-
-// ff:取值
-// result:
-// key:
 func (d *adapterMemoryExpireSets) Get(key int64) (result *gset.Set) {
 	d.mu.RLock()
 	result = d.expireSets[key]
@@ -34,10 +31,6 @@ func (d *adapterMemoryExpireSets) Get(key int64) (result *gset.Set) {
 	return
 }
 
-
-// ff:
-// result:
-// key:
 func (d *adapterMemoryExpireSets) GetOrNew(key int64) (result *gset.Set) {
 	if result = d.Get(key); result != nil {
 		return
@@ -53,9 +46,6 @@ func (d *adapterMemoryExpireSets) GetOrNew(key int64) (result *gset.Set) {
 	return
 }
 
-
-// ff:
-// key:
 func (d *adapterMemoryExpireSets) Delete(key int64) {
 	d.mu.Lock()
 	delete(d.expireSets, key)

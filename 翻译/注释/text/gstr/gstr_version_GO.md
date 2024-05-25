@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsGNUVersion 检查并返回给定的 `version` 是否为有效的 GNU 版本字符串。. md5:6400dc6a399e4aa3
+// IsGNUVersion 检查并返回给定的 `version` 是否为有效的 GNU 版本字符串。 md5:6400dc6a399e4aa3
 # <翻译结束>
 
 

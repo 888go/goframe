@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// Callback 是由 OpenAPI/Swagger 标准版本 3.0 定义的。. md5:af37b49b06e0c2b0
+// Callback 是由 OpenAPI/Swagger 标准版本 3.0 定义的。 md5:af37b49b06e0c2b0
 # <翻译结束>
 
