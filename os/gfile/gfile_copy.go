@@ -42,6 +42,11 @@ type CopyOption struct {
 // Copy("/tmp/dir1",  "/tmp/dir2")  => /tmp/dir1  copied to /tmp/dir2
 // Copy("/tmp/file1", "/tmp/dir2")  => /tmp/file1 copied to /tmp/dir2/file1
 // Copy("/tmp/dir1",  "/tmp/file2") => error
+
+// ff:复制
+// option:选项
+// dst:复制到
+// src:文件或目录路径
 func Copy(src string, dst string, option ...CopyOption) error {
 	if src == "" {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "source path cannot be empty")
@@ -99,6 +104,12 @@ func Copy(src string, dst string, option ...CopyOption) error {
 // of the source file. The file mode will be copied from the source and
 // the copied data is synced/flushed to stable storage.
 // Thanks: https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04
+
+// ff:复制文件
+// err:错误
+// option:选项
+// dst:复制到
+// src:路径
 func CopyFile(src, dst string, option ...CopyOption) (err error) {
 	var usedOption = getCopyOption(option...)
 	if src == "" {
@@ -182,6 +193,12 @@ func CopyFile(src, dst string, option ...CopyOption) (err error) {
 // CopyDir recursively copies a directory tree, attempting to preserve permissions.
 //
 // Note that, the Source directory must exist and symlinks are ignored and skipped.
+
+// ff:复制目录
+// err:错误
+// option:选项
+// dst:复制到
+// src:目录路径
 func CopyDir(src string, dst string, option ...CopyOption) (err error) {
 	var usedOption = getCopyOption(option...)
 	if src == "" {

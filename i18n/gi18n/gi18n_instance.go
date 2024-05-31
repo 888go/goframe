@@ -21,6 +21,9 @@ var (
 
 // Instance returns an instance of Resource.
 // The parameter `name` is the name for the instance.
+
+// ff:
+// name:
 func Instance(name ...string) *Manager {
 	key := DefaultName
 	if len(name) > 0 && name[0] != "" {

@@ -26,6 +26,11 @@ import (
 // The parameter `paths` can be either a directory or a file, which
 // supports multiple paths join with ','.
 // The unnecessary parameter `prefix` indicates the path prefix for zip file.
+
+// ff:Zip压缩文件
+// prefix:可选路径前缀
+// dstFilePath:压缩文件路径
+// fileOrFolderPaths:目录或文件
 func ZipPath(fileOrFolderPaths, dstFilePath string, prefix ...string) error {
 	writer, err := os.Create(dstFilePath)
 	if err != nil {
@@ -49,6 +54,11 @@ func ZipPath(fileOrFolderPaths, dstFilePath string, prefix ...string) error {
 // Note that the parameter `fileOrFolderPaths` can be either a directory or a file, which
 // supports multiple paths join with ','.
 // The unnecessary parameter `prefix` indicates the path prefix for zip file.
+
+// ff:Zip压缩文件到Writer
+// prefix:可选路径前缀
+// writer:
+// fileOrFolderPaths:目录或文件
 func ZipPathWriter(fileOrFolderPaths string, writer io.Writer, prefix ...string) error {
 	zipWriter := zip.NewWriter(writer)
 	defer zipWriter.Close()
@@ -66,6 +76,10 @@ func ZipPathWriter(fileOrFolderPaths string, writer io.Writer, prefix ...string)
 // Note that the parameter `fileOrFolderPaths` can be either a directory or a file, which
 // supports multiple paths join with ','.
 // The unnecessary parameter `prefix` indicates the path prefix for zip file.
+
+// ff:Zip压缩文件到字节集
+// prefix:可选路径前缀
+// fileOrFolderPaths:目录或文件
 func ZipPathContent(fileOrFolderPaths string, prefix ...string) ([]byte, error) {
 	var (
 		err    error
@@ -134,6 +148,11 @@ func doZipPathWriter(fileOrFolderPath string, exclude string, zipWriter *zip.Wri
 // The parameter `dstFolderPath` should be a directory.
 // The optional parameter `zippedPrefix` specifies the unzipped path of `zippedFilePath`,
 // which can be used to specify part of the archive file to unzip.
+
+// ff:Zip解压文件
+// zippedPrefix:可选路径前缀
+// dstFolderPath:解压目录
+// zippedFilePath:压缩包路径
 func UnZipFile(zippedFilePath, dstFolderPath string, zippedPrefix ...string) error {
 	readerCloser, err := zip.OpenReader(zippedFilePath)
 	if err != nil {
@@ -149,6 +168,11 @@ func UnZipFile(zippedFilePath, dstFolderPath string, zippedPrefix ...string) err
 // The parameter `dstFolderPath` should be a directory.
 // The parameter `zippedPrefix` specifies the unzipped path of `zippedContent`,
 // which can be used to specify part of the archive file to unzip.
+
+// ff:Zip解压字节集
+// zippedPrefix:可选路径前缀
+// dstFolderPath:解压目录
+// zippedContent:zip字节集
 func UnZipContent(zippedContent []byte, dstFolderPath string, zippedPrefix ...string) error {
 	reader, err := zip.NewReader(bytes.NewReader(zippedContent), int64(len(zippedContent)))
 	if err != nil {

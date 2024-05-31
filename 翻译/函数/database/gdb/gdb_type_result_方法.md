@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -58,10 +55,10 @@ ff=取xml
 rootTag=根标记
 
 [func (r Result) List() List {]
-ff=取Map切片
+ff=取Map数组
 
 [func (r Result) Array(field ...string) #左中括号##右中括号#Value {]
-ff=取字段切片
+ff=取字段数组
 field=字段名称
 
 [func (r Result) MapKeyValue(key string) map#左中括号#string#右中括号#Value {]
@@ -81,6 +78,6 @@ ff=取字段MapUint
 key=字段名称
 
 [func (r Result) Structs(pointer interface{}) (err error) {]
-ff=取切片结构体指针
+ff=取数组结构体指针
 err=错误
 pointer=结构体指针

@@ -14,6 +14,9 @@ import (
 )
 
 // Uint converts `any` to uint.
+
+// ff:取正整数
+// any:值
 func Uint(any interface{}) uint {
 	if any == nil {
 		return 0
@@ -25,6 +28,9 @@ func Uint(any interface{}) uint {
 }
 
 // Uint8 converts `any` to uint8.
+
+// ff:取正整数8位
+// any:值
 func Uint8(any interface{}) uint8 {
 	if any == nil {
 		return 0
@@ -36,6 +42,9 @@ func Uint8(any interface{}) uint8 {
 }
 
 // Uint16 converts `any` to uint16.
+
+// ff:取正整数16位
+// any:值
 func Uint16(any interface{}) uint16 {
 	if any == nil {
 		return 0
@@ -47,6 +56,9 @@ func Uint16(any interface{}) uint16 {
 }
 
 // Uint32 converts `any` to uint32.
+
+// ff:取正整数32位
+// any:值
 func Uint32(any interface{}) uint32 {
 	if any == nil {
 		return 0
@@ -58,6 +70,10 @@ func Uint32(any interface{}) uint32 {
 }
 
 // Uint64 converts `any` to uint64.
+
+// ff:取正整数64位
+// yx:true
+// any:
 func Uint64(any interface{}) uint64 {
 	if any == nil {
 		return 0

@@ -137,6 +137,9 @@ const (
 var defaultRegistry Registry
 
 // SetRegistry sets the default Registry implements as your own implemented interface.
+
+// ff:
+// registry:
 func SetRegistry(registry Registry) {
 	if registry == nil {
 		panic(gerror.New(`invalid Registry value "nil" given`))
@@ -146,6 +149,8 @@ func SetRegistry(registry Registry) {
 
 // GetRegistry returns the default Registry that is previously set.
 // It returns nil if no Registry is set.
+
+// ff:
 func GetRegistry() Registry {
 	return defaultRegistry
 }

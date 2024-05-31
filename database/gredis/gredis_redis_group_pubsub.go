@@ -35,6 +35,8 @@ type Subscription struct {
 }
 
 // String converts current object to a readable string.
+
+// ff:
 func (m *Subscription) String() string {
 	return fmt.Sprintf("%s: %s", m.Kind, m.Channel)
 }

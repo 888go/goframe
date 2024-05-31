@@ -14,6 +14,9 @@ import (
 )
 
 // Int converts `any` to int.
+
+// ff:取整数
+// any:值
 func Int(any interface{}) int {
 	if any == nil {
 		return 0
@@ -25,6 +28,9 @@ func Int(any interface{}) int {
 }
 
 // Int8 converts `any` to int8.
+
+// ff:取整数8位
+// any:值
 func Int8(any interface{}) int8 {
 	if any == nil {
 		return 0
@@ -36,6 +42,9 @@ func Int8(any interface{}) int8 {
 }
 
 // Int16 converts `any` to int16.
+
+// ff:取整数16位
+// any:值
 func Int16(any interface{}) int16 {
 	if any == nil {
 		return 0
@@ -47,6 +56,9 @@ func Int16(any interface{}) int16 {
 }
 
 // Int32 converts `any` to int32.
+
+// ff:取整数32位
+// any:值
 func Int32(any interface{}) int32 {
 	if any == nil {
 		return 0
@@ -58,6 +70,10 @@ func Int32(any interface{}) int32 {
 }
 
 // Int64 converts `any` to int64.
+
+// ff:取整数64位
+// yx:true
+// any:
 func Int64(any interface{}) int64 {
 	if any == nil {
 		return 0

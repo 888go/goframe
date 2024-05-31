@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -55,14 +52,14 @@ end=终点
 start=起点
 
 [func NewIntArrayFrom(array #左中括号##右中括号#int, safe ...bool) *IntArray {]
-ff=创建整数并从切片
+ff=创建整数并从数组
 safe=并发安全
-array=切片
+array=数组
 
 [func NewIntArrayFromCopy(array #左中括号##右中括号#int, safe ...bool) *IntArray {]
-ff=创建整数并从切片复制
+ff=创建整数并从数组复制
 safe=并发安全
-array=切片
+array=数组
 
 [func (a *IntArray) At(index int) (value int) {]
 ff=取值
@@ -80,12 +77,12 @@ ff=设置值
 yx=true
 
 [func (a *IntArray) SetArray(array #左中括号##右中括号#int) *IntArray {]
-ff=设置切片
-array=切片
+ff=设置数组
+array=数组
 
 [func (a *IntArray) Replace(array #左中括号##右中括号#int) *IntArray {]
 ff=替换
-array=切片
+array=数组
 
 [func (a *IntArray) Sum() (sum int) {]
 ff=求和
@@ -178,12 +175,12 @@ ff=取长度
 ff=取切片
 
 [func (a *IntArray) Interfaces() #左中括号##右中括号#interface{} {]
-ff=取any切片
+ff=取any数组
 yx=true
 
 [func (a *IntArray) Clone() (newArray *IntArray) {]
 ff=取副本
-newArray=新切片
+newArray=新数组
 
 [func (a *IntArray) Clear() *IntArray {]
 ff=清空
@@ -209,7 +206,7 @@ f=回调函数
 
 [func (a *IntArray) Merge(array interface{}) *IntArray {]
 ff=合并
-array=切片
+array=数组
 
 [func (a *IntArray) Fill(startIndex int, num int, value int) error {]
 ff=填充

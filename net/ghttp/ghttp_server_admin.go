@@ -22,6 +22,9 @@ import (
 type utilAdmin struct{}
 
 // Index shows the administration page.
+
+// ff:显示管理页面
+// r:
 func (p *utilAdmin) Index(r *Request) {
 	data := map[string]interface{}{
 		"pid":  gproc.Pid(),
@@ -45,6 +48,9 @@ func (p *utilAdmin) Index(r *Request) {
 }
 
 // Restart restarts all the servers in the process.
+
+// ff:重启所有服务
+// r:
 func (p *utilAdmin) Restart(r *Request) {
 	var (
 		ctx = r.Context()
@@ -63,6 +69,9 @@ func (p *utilAdmin) Restart(r *Request) {
 }
 
 // Shutdown shuts down all the servers.
+
+// ff:关闭所有服务
+// r:
 func (p *utilAdmin) Shutdown(r *Request) {
 	gtimer.SetTimeout(r.Context(), time.Second, func(ctx context.Context) {
 		// It shuts down the server after 1 second, which is not triggered by system signal,
@@ -74,6 +83,9 @@ func (p *utilAdmin) Shutdown(r *Request) {
 
 // EnableAdmin enables the administration feature for the process.
 // The optional parameter `pattern` specifies the URI for the administration page.
+
+// ff:平滑重启服务开启
+// pattern:管理页URI
 func (s *Server) EnableAdmin(pattern ...string) {
 	p := "/debug/admin"
 	if len(pattern) > 0 {
@@ -83,6 +95,8 @@ func (s *Server) EnableAdmin(pattern ...string) {
 }
 
 // Shutdown shuts down current server.
+
+// ff:关闭当前服务
 func (s *Server) Shutdown() error {
 	var ctx = context.TODO()
 	s.doServiceDeregister()

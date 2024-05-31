@@ -38,6 +38,9 @@ type Parser struct {
 }
 
 // ParserFromCtx retrieves and returns Parser from context.
+
+// ff:
+// ctx:
 func ParserFromCtx(ctx context.Context) *Parser {
 	if v := ctx.Value(CtxKeyParser); v != nil {
 		if p, ok := v.(*Parser); ok {
@@ -53,6 +56,10 @@ func ParserFromCtx(ctx context.Context) *Parser {
 // the value item of `supportedOptions` indicates whether corresponding option name needs argument or not.
 //
 // The optional parameter `strict` specifies whether stops parsing and returns error if invalid option passed.
+
+// ff:
+// option:
+// supportedOptions:
 func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(os.Args...)
@@ -70,6 +77,11 @@ func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, e
 // the value item of `supportedOptions` indicates whether corresponding option name needs argument or not.
 //
 // The optional parameter `strict` specifies whether stops parsing and returns error if invalid option passed.
+
+// ff:
+// option:
+// supportedOptions:
+// args:
 func ParseArgs(args []string, supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(args...)
@@ -212,6 +224,10 @@ func (p *Parser) setOptionValue(name, value string) {
 }
 
 // GetOpt returns the option value named `name` as gvar.Var.
+
+// ff:
+// def:
+// name:
 func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
 	if p == nil {
 		return nil
@@ -226,6 +242,8 @@ func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
 }
 
 // GetOptAll returns all parsed options.
+
+// ff:
 func (p *Parser) GetOptAll() map[string]string {
 	if p == nil {
 		return nil
@@ -234,6 +252,10 @@ func (p *Parser) GetOptAll() map[string]string {
 }
 
 // GetArg returns the argument at `index` as gvar.Var.
+
+// ff:
+// def:
+// index:
 func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
 	if p == nil {
 		return nil
@@ -248,6 +270,8 @@ func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
 }
 
 // GetArgAll returns all parsed arguments.
+
+// ff:
 func (p *Parser) GetArgAll() []string {
 	if p == nil {
 		return nil
@@ -256,6 +280,8 @@ func (p *Parser) GetArgAll() []string {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (p Parser) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
 		"parsedArgs":       p.parsedArgs,

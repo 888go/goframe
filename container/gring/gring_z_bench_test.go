@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gring_test
+package gring_test//bm:循环链表类_test
 
 import (
 	"testing"

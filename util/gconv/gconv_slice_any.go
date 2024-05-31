@@ -14,11 +14,18 @@ import (
 )
 
 // SliceAny is alias of Interfaces.
+
+// ff:SliceAny别名
+// any:值
 func SliceAny(any interface{}) []interface{} {
 	return Interfaces(any)
 }
 
 // Interfaces converts `any` to []interface{}.
+
+// ff:取any数组
+// yx:true
+// any:
 func Interfaces(any interface{}) []interface{} {
 	if any == nil {
 		return nil

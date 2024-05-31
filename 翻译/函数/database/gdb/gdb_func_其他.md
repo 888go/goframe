@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,24 +25,26 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
 
 [Iterator(f func(key, value interface{}) bool)]
 qm=X遍历
-cz=Iterator(f func(key, value interface{}) bool) yx:true
+cz=Iterator(f func(key, value interface{}) bool)
+yx=true
 
 [Interfaces() #左中括号##右中括号#interface{}]
-qm=取any切片
-cz=Interfaces() []interface{} yx:true
+qm=取any数组
+cz=Interfaces() []interface{}
+yx=true
 
 [IsNil() bool]
 qm=是否为Nil
-cz=IsNil() bool yx:true
+cz=IsNil() bool
+yx=true

@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gjson
+package gjson//bm:json类
 
 import (
 	"fmt"
@@ -16,6 +16,8 @@ import (
 )
 
 // Interface returns the json value.
+
+// ff:
 func (j *Json) Interface() interface{} {
 	if j == nil {
 		return nil
@@ -29,11 +31,16 @@ func (j *Json) Interface() interface{} {
 }
 
 // Var returns the json value as *gvar.Var.
+
+// ff:取泛型类
 func (j *Json) Var() *gvar.Var {
 	return gvar.New(j.Interface())
 }
 
 // IsNil checks whether the value pointed by `j` is nil.
+
+// ff:是否为Nil
+// yx:true
 func (j *Json) IsNil() bool {
 	if j == nil {
 		return true
@@ -51,6 +58,10 @@ func (j *Json) IsNil() bool {
 // "list.10", "array.0.name", "array.0.1.id".
 //
 // It returns a default value specified by `def` if value for `pattern` is not found.
+
+// ff:取值
+// def:默认值
+// pattern:表达式
 func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	if j == nil {
 		return nil
@@ -75,12 +86,20 @@ func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 
 // GetJson gets the value by specified `pattern`,
 // and converts it to an un-concurrent-safe Json object.
+
+// ff:取对象
+// def:默认值
+// pattern:表达式
 func (j *Json) GetJson(pattern string, def ...interface{}) *Json {
 	return New(j.Get(pattern, def...).Val())
 }
 
 // GetJsons gets the value by specified `pattern`,
 // and converts it to a slice of un-concurrent-safe Json object.
+
+// ff:取对象数组
+// def:默认值
+// pattern:表达式
 func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 	array := j.Get(pattern, def...).Array()
 	if len(array) > 0 {
@@ -95,6 +114,10 @@ func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 
 // GetJsonMap gets the value by specified `pattern`,
 // and converts it to a map of un-concurrent-safe Json object.
+
+// ff:取对象Map
+// def:默认值
+// pattern:表达式
 func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 	m := j.Get(pattern, def...).Map()
 	if len(m) > 0 {
@@ -109,11 +132,20 @@ func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 
 // Set sets value with specified `pattern`.
 // It supports hierarchical data access by char separator, which is '.' in default.
+
+// ff:设置值
+// yx:true
+// value:
+// pattern:
 func (j *Json) Set(pattern string, value interface{}) error {
 	return j.setValue(pattern, value, false)
 }
 
 // MustSet performs as Set, but it panics if any error occurs.
+
+// ff:设置值PANI
+// value:值
+// pattern:表达式
 func (j *Json) MustSet(pattern string, value interface{}) {
 	if err := j.Set(pattern, value); err != nil {
 		panic(err)
@@ -122,11 +154,17 @@ func (j *Json) MustSet(pattern string, value interface{}) {
 
 // Remove deletes value with specified `pattern`.
 // It supports hierarchical data access by char separator, which is '.' in default.
+
+// ff:删除
+// pattern:表达式
 func (j *Json) Remove(pattern string) error {
 	return j.setValue(pattern, nil, true)
 }
 
 // MustRemove performs as Remove, but it panics if any error occurs.
+
+// ff:删除PANI
+// pattern:表达式
 func (j *Json) MustRemove(pattern string) {
 	if err := j.Remove(pattern); err != nil {
 		panic(err)
@@ -134,6 +172,9 @@ func (j *Json) MustRemove(pattern string) {
 }
 
 // Contains checks whether the value by specified `pattern` exist.
+
+// ff:是否存在
+// pattern:表达式
 func (j *Json) Contains(pattern string) bool {
 	return j.Get(pattern) != nil
 }
@@ -141,6 +182,9 @@ func (j *Json) Contains(pattern string) bool {
 // Len returns the length/size of the value by specified `pattern`.
 // The target value by `pattern` should be type of slice or map.
 // It returns -1 if the target value is not found, or its type is invalid.
+
+// ff:取长度
+// pattern:表达式
 func (j *Json) Len(pattern string) int {
 	p := j.getPointerByPattern(pattern)
 	if p != nil {
@@ -158,6 +202,10 @@ func (j *Json) Len(pattern string) int {
 
 // Append appends value to the value by specified `pattern`.
 // The target value by `pattern` should be type of slice.
+
+// ff:加入
+// value:值
+// pattern:表达式
 func (j *Json) Append(pattern string, value interface{}) error {
 	p := j.getPointerByPattern(pattern)
 	if p == nil || *p == nil {
@@ -177,6 +225,10 @@ func (j *Json) Append(pattern string, value interface{}) error {
 }
 
 // MustAppend performs as Append, but it panics if any error occurs.
+
+// ff:加入PANI
+// value:值
+// pattern:表达式
 func (j *Json) MustAppend(pattern string, value interface{}) {
 	if err := j.Append(pattern, value); err != nil {
 		panic(err)
@@ -185,23 +237,33 @@ func (j *Json) MustAppend(pattern string, value interface{}) {
 
 // Map converts current Json object to map[string]interface{}.
 // It returns nil if fails.
+
+// ff:取Map
 func (j *Json) Map() map[string]interface{} {
 	return j.Var().Map()
 }
 
 // Array converts current Json object to []interface{}.
 // It returns nil if fails.
+
+// ff:取数组
 func (j *Json) Array() []interface{} {
 	return j.Var().Array()
 }
 
 // Scan automatically calls Struct or Structs function according to the type of parameter
 // `pointer` to implement the converting.
+
+// ff:取结构体指针
+// mapping:名称映射
+// pointer:结构体指针
 func (j *Json) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return j.Var().Scan(pointer, mapping...)
 }
 
 // Dump prints current Json object with more manually readable.
+
+// ff:调试输出
 func (j *Json) Dump() {
 	if j == nil {
 		return

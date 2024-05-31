@@ -18,6 +18,10 @@ const (
 )
 
 // Keys retrieves and returns the keys from given map or struct.
+
+// ff:取所有名称
+// keysOrAttrs:键或属性
+// mapOrStruct:map或Struct
 func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
 	keysOrAttrs = make([]string, 0)
 	if m, ok := mapOrStruct.(map[string]interface{}); ok {
@@ -68,6 +72,10 @@ func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
 }
 
 // Values retrieves and returns the values from given map or struct.
+
+// ff:取所有值
+// values:值数组
+// mapOrStruct:map或Struct
 func Values(mapOrStruct interface{}) (values []interface{}) {
 	values = make([]interface{}, 0)
 	if m, ok := mapOrStruct.(map[string]interface{}); ok {

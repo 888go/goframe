@@ -24,14 +24,21 @@ func init() {
 	Register(RuleAfter{})
 }
 
+
+// ff:
 func (r RuleAfter) Name() string {
 	return "after"
 }
 
+
+// ff:
 func (r RuleAfter) Message() string {
 	return "The {field} value `{value}` must be after field {field1} value `{value1}`"
 }
 
+
+// ff:
+// in:
 func (r RuleAfter) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

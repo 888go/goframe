@@ -18,6 +18,11 @@ import (
 // Delete does "DELETE FROM ... " statement for the model.
 // The optional parameter `where` is the same as the parameter of Model.Where function,
 // see Model.Where.
+
+// ff:删除
+// err:错误
+// result:结果
+// where:条件
 func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(where) > 0 {

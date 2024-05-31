@@ -32,6 +32,9 @@ type StrArray struct {
 // NewStrArray creates and returns an empty array.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
+
+// ff:创建文本
+// safe:并发安全
 func NewStrArray(safe ...bool) *StrArray {
 	return NewStrArraySize(0, 0, safe...)
 }
@@ -39,6 +42,11 @@ func NewStrArray(safe ...bool) *StrArray {
 // NewStrArraySize create and returns an array with given size and cap.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
+
+// ff:创建文本并按大小
+// safe:并发安全
+// cap:上限
+// size:大小
 func NewStrArraySize(size int, cap int, safe ...bool) *StrArray {
 	return &StrArray{
 		mu:    rwmutex.Create(safe...),
@@ -49,6 +57,10 @@ func NewStrArraySize(size int, cap int, safe ...bool) *StrArray {
 // NewStrArrayFrom creates and returns an array with given slice `array`.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
+
+// ff:创建文本并从数组
+// safe:并发安全
+// array:数组
 func NewStrArrayFrom(array []string, safe ...bool) *StrArray {
 	return &StrArray{
 		mu:    rwmutex.Create(safe...),
@@ -59,6 +71,10 @@ func NewStrArrayFrom(array []string, safe ...bool) *StrArray {
 // NewStrArrayFromCopy creates and returns an array from a copy of given slice `array`.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
+
+// ff:创建文本并从数组复制
+// safe:并发安全
+// array:数组
 func NewStrArrayFromCopy(array []string, safe ...bool) *StrArray {
 	newArray := make([]string, len(array))
 	copy(newArray, array)
@@ -70,6 +86,10 @@ func NewStrArrayFromCopy(array []string, safe ...bool) *StrArray {
 
 // At returns the value by the specified index.
 // If the given `index` is out of range of the array, it returns an empty string.
+
+// ff:取值
+// value:值
+// index:索引
 func (a *StrArray) At(index int) (value string) {
 	value, _ = a.Get(index)
 	return
@@ -77,6 +97,11 @@ func (a *StrArray) At(index int) (value string) {
 
 // Get returns the value by the specified index.
 // If the given `index` is out of range of the array, the `found` is false.
+
+// ff:取值2
+// found:成功
+// value:值
+// index:索引
 func (a *StrArray) Get(index int) (value string, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -87,6 +112,11 @@ func (a *StrArray) Get(index int) (value string, found bool) {
 }
 
 // Set sets value to specified index.
+
+// ff:设置值
+// yx:true
+// value:
+// index:
 func (a *StrArray) Set(index int, value string) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -98,6 +128,9 @@ func (a *StrArray) Set(index int, value string) error {
 }
 
 // SetArray sets the underlying slice array with the given `array`.
+
+// ff:设置数组
+// array:数组
 func (a *StrArray) SetArray(array []string) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -106,6 +139,9 @@ func (a *StrArray) SetArray(array []string) *StrArray {
 }
 
 // Replace replaces the array items by given `array` from the beginning of array.
+
+// ff:替换
+// array:数组
 func (a *StrArray) Replace(array []string) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -120,6 +156,9 @@ func (a *StrArray) Replace(array []string) *StrArray {
 }
 
 // Sum returns the sum of values in an array.
+
+// ff:求和
+// sum:值
 func (a *StrArray) Sum() (sum int) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -132,6 +171,9 @@ func (a *StrArray) Sum() (sum int) {
 // Sort sorts the array in increasing order.
 // The parameter `reverse` controls whether sort
 // in increasing order(default) or decreasing order
+
+// ff:排序递增
+// reverse:降序
 func (a *StrArray) Sort(reverse ...bool) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -146,6 +188,11 @@ func (a *StrArray) Sort(reverse ...bool) *StrArray {
 }
 
 // SortFunc sorts the array by custom function `less`.
+
+// ff:排序函数
+// less:回调函数
+// v2:
+// v1:
 func (a *StrArray) SortFunc(less func(v1, v2 string) bool) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -156,6 +203,10 @@ func (a *StrArray) SortFunc(less func(v1, v2 string) bool) *StrArray {
 }
 
 // InsertBefore inserts the `values` to the front of `index`.
+
+// ff:插入前面
+// values:值
+// index:索引
 func (a *StrArray) InsertBefore(index int, values ...string) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -169,6 +220,10 @@ func (a *StrArray) InsertBefore(index int, values ...string) error {
 }
 
 // InsertAfter inserts the `values` to the back of `index`.
+
+// ff:插入后面
+// values:值
+// index:索引
 func (a *StrArray) InsertAfter(index int, values ...string) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -183,6 +238,11 @@ func (a *StrArray) InsertAfter(index int, values ...string) error {
 
 // Remove removes an item by index.
 // If the given `index` is out of range of the array, the `found` is false.
+
+// ff:删除
+// found:成功
+// value:值
+// index:索引
 func (a *StrArray) Remove(index int) (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -214,6 +274,9 @@ func (a *StrArray) doRemoveWithoutLock(index int) (value string, found bool) {
 
 // RemoveValue removes an item by value.
 // It returns true if value is found in the array, or else false if not found.
+
+// ff:删除值
+// value:值
 func (a *StrArray) RemoveValue(value string) bool {
 	if i := a.Search(value); i != -1 {
 		_, found := a.Remove(i)
@@ -223,6 +286,9 @@ func (a *StrArray) RemoveValue(value string) bool {
 }
 
 // RemoveValues removes multiple items by `values`.
+
+// ff:删除多个值
+// values:值
 func (a *StrArray) RemoveValues(values ...string) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -234,6 +300,9 @@ func (a *StrArray) RemoveValues(values ...string) {
 }
 
 // PushLeft pushes one or multiple items to the beginning of array.
+
+// ff:入栈左
+// value:值
 func (a *StrArray) PushLeft(value ...string) *StrArray {
 	a.mu.Lock()
 	a.array = append(value, a.array...)
@@ -243,6 +312,9 @@ func (a *StrArray) PushLeft(value ...string) *StrArray {
 
 // PushRight pushes one or multiple items to the end of array.
 // It equals to Append.
+
+// ff:入栈右
+// value:值
 func (a *StrArray) PushRight(value ...string) *StrArray {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -252,6 +324,10 @@ func (a *StrArray) PushRight(value ...string) *StrArray {
 
 // PopLeft pops and returns an item from the beginning of array.
 // Note that if the array is empty, the `found` is false.
+
+// ff:出栈左
+// found:成功
+// value:值
 func (a *StrArray) PopLeft() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -265,6 +341,10 @@ func (a *StrArray) PopLeft() (value string, found bool) {
 
 // PopRight pops and returns an item from the end of array.
 // Note that if the array is empty, the `found` is false.
+
+// ff:出栈右
+// found:成功
+// value:值
 func (a *StrArray) PopRight() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -279,6 +359,10 @@ func (a *StrArray) PopRight() (value string, found bool) {
 
 // PopRand randomly pops and return an item out of array.
 // Note that if the array is empty, the `found` is false.
+
+// ff:出栈随机
+// found:成功
+// value:值
 func (a *StrArray) PopRand() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -288,6 +372,9 @@ func (a *StrArray) PopRand() (value string, found bool) {
 // PopRands randomly pops and returns `size` items out of array.
 // If the given `size` is greater than size of the array, it returns all elements of the array.
 // Note that if given `size` <= 0 or the array is empty, it returns nil.
+
+// ff:出栈随机多个
+// size:数量
 func (a *StrArray) PopRands(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -307,6 +394,9 @@ func (a *StrArray) PopRands(size int) []string {
 // PopLefts pops and returns `size` items from the beginning of array.
 // If the given `size` is greater than size of the array, it returns all elements of the array.
 // Note that if given `size` <= 0 or the array is empty, it returns nil.
+
+// ff:出栈左多个
+// size:数量
 func (a *StrArray) PopLefts(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -326,6 +416,9 @@ func (a *StrArray) PopLefts(size int) []string {
 // PopRights pops and returns `size` items from the end of array.
 // If the given `size` is greater than size of the array, it returns all elements of the array.
 // Note that if given `size` <= 0 or the array is empty, it returns nil.
+
+// ff:出栈右多个
+// size:数量
 func (a *StrArray) PopRights(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -350,6 +443,10 @@ func (a *StrArray) PopRights(size int) []string {
 // If `end` is negative, then the offset will start from the end of array.
 // If `end` is omitted, then the sequence will have everything from start up
 // until the end of the array.
+
+// ff:取切片并按范围
+// end:终点
+// start:起点
 func (a *StrArray) Range(start int, end ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -386,6 +483,10 @@ func (a *StrArray) Range(start int, end ...int) []string {
 // If it is omitted, then the sequence will have everything from offset up until the end of the array.
 //
 // Any possibility crossing the left border of array, it will fail.
+
+// ff:取切片并按数量
+// length:数量
+// offset:起点
 func (a *StrArray) SubSlice(offset int, length ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -423,6 +524,9 @@ func (a *StrArray) SubSlice(offset int, length ...int) []string {
 }
 
 // Append is alias of PushRight,please See PushRight.
+
+// ff:Append别名
+// value:值
 func (a *StrArray) Append(value ...string) *StrArray {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -431,6 +535,8 @@ func (a *StrArray) Append(value ...string) *StrArray {
 }
 
 // Len returns the length of array.
+
+// ff:取长度
 func (a *StrArray) Len() int {
 	a.mu.RLock()
 	length := len(a.array)
@@ -441,6 +547,8 @@ func (a *StrArray) Len() int {
 // Slice returns the underlying data of array.
 // Note that, if it's in concurrent-safe usage, it returns a copy of underlying data,
 // or else a pointer to the underlying data.
+
+// ff:取切片
 func (a *StrArray) Slice() []string {
 	array := ([]string)(nil)
 	if a.mu.IsSafe() {
@@ -455,6 +563,9 @@ func (a *StrArray) Slice() []string {
 }
 
 // Interfaces returns current array as []interface{}.
+
+// ff:取any数组
+// yx:true
 func (a *StrArray) Interfaces() []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -466,6 +577,9 @@ func (a *StrArray) Interfaces() []interface{} {
 }
 
 // Clone returns a new array, which is a copy of current array.
+
+// ff:取副本
+// newArray:新数组
 func (a *StrArray) Clone() (newArray *StrArray) {
 	a.mu.RLock()
 	array := make([]string, len(a.array))
@@ -475,6 +589,8 @@ func (a *StrArray) Clone() (newArray *StrArray) {
 }
 
 // Clear deletes all items of current array.
+
+// ff:清空
 func (a *StrArray) Clear() *StrArray {
 	a.mu.Lock()
 	if len(a.array) > 0 {
@@ -485,12 +601,18 @@ func (a *StrArray) Clear() *StrArray {
 }
 
 // Contains checks whether a value exists in the array.
+
+// ff:是否存在
+// value:值
 func (a *StrArray) Contains(value string) bool {
 	return a.Search(value) != -1
 }
 
 // ContainsI checks whether a value exists in the array with case-insensitively.
 // Note that it internally iterates the whole array to do the comparison with case-insensitively.
+
+// ff:是否存在并忽略大小写
+// value:值
 func (a *StrArray) ContainsI(value string) bool {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -507,6 +629,9 @@ func (a *StrArray) ContainsI(value string) bool {
 
 // Search searches array by `value`, returns the index of `value`,
 // or returns -1 if not exists.
+
+// ff:查找
+// value:值
 func (a *StrArray) Search(value string) int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -529,6 +654,8 @@ func (a *StrArray) doSearchWithoutLock(value string) int {
 
 // Unique uniques the array, clear repeated items.
 // Example: [1,1,2,3,2] -> [1,2,3]
+
+// ff:去重
 func (a *StrArray) Unique() *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -554,6 +681,10 @@ func (a *StrArray) Unique() *StrArray {
 }
 
 // LockFunc locks writing by callback function `f`.
+
+// ff:遍历写锁定
+// f:回调函数
+// array:
 func (a *StrArray) LockFunc(f func(array []string)) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -562,6 +693,10 @@ func (a *StrArray) LockFunc(f func(array []string)) *StrArray {
 }
 
 // RLockFunc locks reading by callback function `f`.
+
+// ff:遍历读锁定
+// f:回调函数
+// array:
 func (a *StrArray) RLockFunc(f func(array []string)) *StrArray {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -573,12 +708,20 @@ func (a *StrArray) RLockFunc(f func(array []string)) *StrArray {
 // The parameter `array` can be any garray or slice type.
 // The difference between Merge and Append is Append supports only specified slice type,
 // but Merge supports more parameter types.
+
+// ff:合并
+// array:数组
 func (a *StrArray) Merge(array interface{}) *StrArray {
 	return a.Append(gconv.Strings(array)...)
 }
 
 // Fill fills an array with num entries of the value `value`,
 // keys starting at the `startIndex` parameter.
+
+// ff:填充
+// value:值
+// num:填充数量
+// startIndex:起点
 func (a *StrArray) Fill(startIndex int, num int, value string) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -598,6 +741,9 @@ func (a *StrArray) Fill(startIndex int, num int, value string) error {
 // Chunk splits an array into multiple arrays,
 // the size of each array is determined by `size`.
 // The last chunk may contain less than size elements.
+
+// ff:分割
+// size:数量
 func (a *StrArray) Chunk(size int) [][]string {
 	if size < 1 {
 		return nil
@@ -622,6 +768,10 @@ func (a *StrArray) Chunk(size int) [][]string {
 // If size is positive then the array is padded on the right, or negative on the left.
 // If the absolute value of `size` is less than or equal to the length of the array
 // then no padding takes place.
+
+// ff:填满
+// value:值
+// size:总数量
 func (a *StrArray) Pad(size int, value string) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -646,6 +796,10 @@ func (a *StrArray) Pad(size int, value string) *StrArray {
 }
 
 // Rand randomly returns one item from array(no deleting).
+
+// ff:取值随机
+// found:成功
+// value:值
 func (a *StrArray) Rand() (value string, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -656,6 +810,9 @@ func (a *StrArray) Rand() (value string, found bool) {
 }
 
 // Rands randomly returns `size` items from array(no deleting).
+
+// ff:取值随机多个
+// size:数量
 func (a *StrArray) Rands(size int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -670,6 +827,8 @@ func (a *StrArray) Rands(size int) []string {
 }
 
 // Shuffle randomly shuffles the array.
+
+// ff:随机排序
 func (a *StrArray) Shuffle() *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -680,6 +839,8 @@ func (a *StrArray) Shuffle() *StrArray {
 }
 
 // Reverse makes array with elements in reverse order.
+
+// ff:倒排序
 func (a *StrArray) Reverse() *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -690,6 +851,9 @@ func (a *StrArray) Reverse() *StrArray {
 }
 
 // Join joins array elements with a string `glue`.
+
+// ff:连接
+// glue:连接符
 func (a *StrArray) Join(glue string) string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -707,6 +871,8 @@ func (a *StrArray) Join(glue string) string {
 }
 
 // CountValues counts the number of occurrences of all values in the array.
+
+// ff:统计
 func (a *StrArray) CountValues() map[string]int {
 	m := make(map[string]int)
 	a.mu.RLock()
@@ -718,12 +884,23 @@ func (a *StrArray) CountValues() map[string]int {
 }
 
 // Iterator is alias of IteratorAsc.
+
+// ff:X遍历
+// yx:true
+// f:
+// v:
+// k:
 func (a *StrArray) Iterator(f func(k int, v string) bool) {
 	a.IteratorAsc(f)
 }
 
 // IteratorAsc iterates the array readonly in ascending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
+
+// ff:遍历升序
+// f:回调函数
+// v:
+// k:
 func (a *StrArray) IteratorAsc(f func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -736,6 +913,11 @@ func (a *StrArray) IteratorAsc(f func(k int, v string) bool) {
 
 // IteratorDesc iterates the array readonly in descending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
+
+// ff:遍历降序
+// f:回调函数
+// v:
+// k:
 func (a *StrArray) IteratorDesc(f func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -747,6 +929,8 @@ func (a *StrArray) IteratorDesc(f func(k int, v string) bool) {
 }
 
 // String returns current array as a string, which implements like json.Marshal does.
+
+// ff:
 func (a *StrArray) String() string {
 	if a == nil {
 		return ""
@@ -767,6 +951,8 @@ func (a *StrArray) String() string {
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
 // Note that do not use pointer as its receiver here.
+
+// ff:
 func (a StrArray) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -774,6 +960,9 @@ func (a StrArray) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+
+// ff:
+// b:
 func (a *StrArray) UnmarshalJSON(b []byte) error {
 	if a.array == nil {
 		a.array = make([]string, 0)
@@ -787,6 +976,9 @@ func (a *StrArray) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for array.
+
+// ff:
+// value:
 func (a *StrArray) UnmarshalValue(value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -802,6 +994,11 @@ func (a *StrArray) UnmarshalValue(value interface{}) error {
 // Filter iterates array and filters elements using custom callback function.
 // It removes the element from array if callback function `filter` returns true,
 // it or else does nothing and continues iterating.
+
+// ff:遍历删除
+// filter:回调函数
+// value:值
+// index:索引
 func (a *StrArray) Filter(filter func(index int, value string) bool) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -816,6 +1013,8 @@ func (a *StrArray) Filter(filter func(index int, value string) bool) *StrArray {
 }
 
 // FilterEmpty removes all empty string value of the array.
+
+// ff:删除所有空值
 func (a *StrArray) FilterEmpty() *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -830,6 +1029,10 @@ func (a *StrArray) FilterEmpty() *StrArray {
 }
 
 // Walk applies a user supplied function `f` to every item of array.
+
+// ff:遍历修改
+// f:回调函数
+// value:
 func (a *StrArray) Walk(f func(value string) string) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -840,11 +1043,15 @@ func (a *StrArray) Walk(f func(value string) string) *StrArray {
 }
 
 // IsEmpty checks whether the array is empty.
+
+// ff:是否为空
 func (a *StrArray) IsEmpty() bool {
 	return a.Len() == 0
 }
 
 // DeepCopy implements interface for deep copy of current type.
+
+// ff:
 func (a *StrArray) DeepCopy() interface{} {
 	if a == nil {
 		return nil

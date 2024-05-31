@@ -21,6 +21,8 @@ type Locker struct {
 
 // New creates and returns a new memory locker.
 // A memory locker can lock/unlock with dynamic string key.
+
+// ff:创建
 func New() *Locker {
 	return &Locker{
 		m: gmap.NewStrAnyMap(true),
@@ -30,17 +32,26 @@ func New() *Locker {
 // Lock locks the `key` with writing lock.
 // If there's a write/reading lock the `key`,
 // it will block until the lock is released.
+
+// ff:写锁定
+// key:名称
 func (l *Locker) Lock(key string) {
 	l.getOrNewMutex(key).Lock()
 }
 
 // TryLock tries locking the `key` with writing lock,
 // it returns true if success, or it returns false if there's a writing/reading lock the `key`.
+
+// ff:非阻塞写锁定
+// key:名称
 func (l *Locker) TryLock(key string) bool {
 	return l.getOrNewMutex(key).TryLock()
 }
 
 // Unlock unlocks the writing lock of the `key`.
+
+// ff:退出写锁定
+// key:名称
 func (l *Locker) Unlock(key string) {
 	if v := l.m.Get(key); v != nil {
 		v.(*sync.RWMutex).Unlock()
@@ -50,17 +61,26 @@ func (l *Locker) Unlock(key string) {
 // RLock locks the `key` with reading lock.
 // If there's a writing lock on `key`,
 // it will blocks until the writing lock is released.
+
+// ff:读锁定
+// key:名称
 func (l *Locker) RLock(key string) {
 	l.getOrNewMutex(key).RLock()
 }
 
 // TryRLock tries locking the `key` with reading lock.
 // It returns true if success, or if there's a writing lock on `key`, it returns false.
+
+// ff:非阻塞读锁定
+// key:名称
 func (l *Locker) TryRLock(key string) bool {
 	return l.getOrNewMutex(key).TryRLock()
 }
 
 // RUnlock unlocks the reading lock of the `key`.
+
+// ff:退出读锁定
+// key:名称
 func (l *Locker) RUnlock(key string) {
 	if v := l.m.Get(key); v != nil {
 		v.(*sync.RWMutex).RUnlock()
@@ -72,6 +92,10 @@ func (l *Locker) RUnlock(key string) {
 // it will block until the lock is released.
 //
 // It releases the lock after `f` is executed.
+
+// ff:写锁定_函数
+// f:回调函数
+// key:名称
 func (l *Locker) LockFunc(key string, f func()) {
 	l.Lock(key)
 	defer l.Unlock(key)
@@ -83,6 +107,10 @@ func (l *Locker) LockFunc(key string, f func()) {
 // it will block until the lock is released.
 //
 // It releases the lock after `f` is executed.
+
+// ff:读锁定_函数
+// f:回调函数
+// key:名称
 func (l *Locker) RLockFunc(key string, f func()) {
 	l.RLock(key)
 	defer l.RUnlock(key)
@@ -93,6 +121,10 @@ func (l *Locker) RLockFunc(key string, f func()) {
 // It returns true if success, or else if there's a write/reading lock the `key`, it return false.
 //
 // It releases the lock after `f` is executed.
+
+// ff:非阻塞写锁定_函数
+// f:回调函数
+// key:名称
 func (l *Locker) TryLockFunc(key string, f func()) bool {
 	if l.TryLock(key) {
 		defer l.Unlock(key)
@@ -106,6 +138,10 @@ func (l *Locker) TryLockFunc(key string, f func()) bool {
 // It returns true if success, or else if there's a writing lock the `key`, it returns false.
 //
 // It releases the lock after `f` is executed.
+
+// ff:非阻塞读锁定_函数
+// f:回调函数
+// key:名称
 func (l *Locker) TryRLockFunc(key string, f func()) bool {
 	if l.TryRLock(key) {
 		defer l.RUnlock(key)
@@ -116,11 +152,16 @@ func (l *Locker) TryRLockFunc(key string, f func()) bool {
 }
 
 // Remove removes mutex with given `key` from locker.
+
+// ff:删除锁
+// key:名称
 func (l *Locker) Remove(key string) {
 	l.m.Remove(key)
 }
 
 // Clear removes all mutexes from locker.
+
+// ff:移除所有锁
 func (l *Locker) Clear() {
 	l.m.Clear()
 }

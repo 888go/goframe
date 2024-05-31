@@ -22,17 +22,23 @@ type File struct {
 }
 
 // Name returns the name of the file.
+
+// ff:
 func (f *File) Name() string {
 	return f.file.Name
 }
 
 // Open returns a ReadCloser that provides access to the File's contents.
 // Multiple files may be read concurrently.
+
+// ff:
 func (f *File) Open() (io.ReadCloser, error) {
 	return f.file.Open()
 }
 
 // Content returns the content of the file.
+
+// ff:
 func (f *File) Content() []byte {
 	reader, err := f.Open()
 	if err != nil {
@@ -47,16 +53,24 @@ func (f *File) Content() []byte {
 }
 
 // FileInfo returns an os.FileInfo for the FileHeader.
+
+// ff:
 func (f *File) FileInfo() os.FileInfo {
 	return f.file.FileInfo()
 }
 
 // Export exports and saves all its sub files to specified system path `dst` recursively.
+
+// ff:
+// option:
+// dst:
 func (f *File) Export(dst string, option ...ExportOption) error {
 	return f.resource.Export(f.Name(), dst, option...)
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (f File) MarshalJSON() ([]byte, error) {
 	info := f.FileInfo()
 	return json.Marshal(map[string]interface{}{

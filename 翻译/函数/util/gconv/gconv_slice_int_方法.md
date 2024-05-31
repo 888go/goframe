@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -47,13 +44,13 @@ ff=SliceIet32别名
 ff=SliceInt64别名
 
 [func Ints(any interface{}) #左中括号##右中括号#int {]
-ff=取整数切片
+ff=取整数数组
 yx=true
 
 [func Int32s(any interface{}) #左中括号##右中括号#int32 {]
-ff=取整数32位切片
+ff=取整数32位数组
 any=值
 
 [func Int64s(any interface{}) #左中括号##右中括号#int64 {]
-ff=取整数64位切片
+ff=取整数64位数组
 any=值

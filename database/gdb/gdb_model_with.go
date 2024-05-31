@@ -43,6 +43,9 @@ import (
 // Or:
 //
 //	db.With(UserDetail{}, UserScores{}).Scan(xxx)
+
+// ff:关联对象
+// objects:关联结构体
 func (m *Model) With(objects ...interface{}) *Model {
 	model := m.getModel()
 	for _, object := range objects {
@@ -59,6 +62,8 @@ func (m *Model) With(objects ...interface{}) *Model {
 }
 
 // WithAll enables model association operations on all objects that have "with" tag in the struct.
+
+// ff:关联全部对象
 func (m *Model) WithAll() *Model {
 	model := m.getModel()
 	model.withAll = true

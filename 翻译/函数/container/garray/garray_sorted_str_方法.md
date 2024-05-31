@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -52,18 +49,18 @@ safe=并发安全
 cap=大小
 
 [func NewSortedStrArrayFrom(array #左中括号##右中括号#string, safe ...bool) *SortedStrArray {]
-ff=创建文本排序并从切片
+ff=创建文本排序并从数组
 safe=并发安全
-array=切片
+array=数组
 
 [func NewSortedStrArrayFromCopy(array #左中括号##右中括号#string, safe ...bool) *SortedStrArray {]
-ff=创建文本排序并从切片复制
+ff=创建文本排序并从数组复制
 safe=并发安全
-array=切片
+array=数组
 
 [func (a *SortedStrArray) SetArray(array #左中括号##右中括号#string) *SortedStrArray {]
-ff=设置切片
-array=切片
+ff=设置数组
+array=数组
 
 [func (a *SortedStrArray) At(index int) (value string) {]
 ff=取值
@@ -149,7 +146,7 @@ ff=取长度
 ff=取切片
 
 [func (a *SortedStrArray) Interfaces() #左中括号##右中括号#interface{} {]
-ff=取any切片
+ff=取any数组
 yx=true
 
 [func (a *SortedStrArray) Contains(value string) bool {]
@@ -174,7 +171,7 @@ ff=去重
 
 [func (a *SortedStrArray) Clone() (newArray *SortedStrArray) {]
 ff=取副本
-newArray=新切片
+newArray=新数组
 
 [func (a *SortedStrArray) Clear() *SortedStrArray {]
 ff=清空
@@ -189,7 +186,7 @@ f=回调函数
 
 [func (a *SortedStrArray) Merge(array interface{}) *SortedStrArray {]
 ff=合并
-array=切片
+array=数组
 
 [func (a *SortedStrArray) Chunk(size int) #左中括号##右中括号##左中括号##右中括号#string {]
 ff=分割

@@ -12,6 +12,9 @@ import (
 
 // Config returns an instance of View with default settings.
 // The parameter `name` is the name for the instance.
+
+// ff:
+// name:
 func Config(name ...string) *gcfg.Config {
 	return gcfg.Instance(name...)
 }

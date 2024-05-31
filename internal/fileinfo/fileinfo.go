@@ -19,6 +19,12 @@ type Info struct {
 	modTime time.Time
 }
 
+
+// ff:
+// modTime:
+// mode:
+// size:
+// name:
 func New(name string, size int64, mode os.FileMode, modTime time.Time) *Info {
 	return &Info{
 		name:    name,
@@ -28,26 +34,38 @@ func New(name string, size int64, mode os.FileMode, modTime time.Time) *Info {
 	}
 }
 
+
+// ff:
 func (i *Info) Name() string {
 	return i.name
 }
 
+
+// ff:
 func (i *Info) Size() int64 {
 	return i.size
 }
 
+
+// ff:
 func (i *Info) IsDir() bool {
 	return i.mode.IsDir()
 }
 
+
+// ff:
 func (i *Info) Mode() os.FileMode {
 	return i.mode
 }
 
+
+// ff:
 func (i *Info) ModTime() time.Time {
 	return i.modTime
 }
 
+
+// ff:
 func (i *Info) Sys() interface{} {
 	return nil
 }

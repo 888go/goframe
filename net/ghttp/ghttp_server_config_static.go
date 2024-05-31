@@ -25,16 +25,24 @@ type staticPathItem struct {
 }
 
 // SetIndexFiles sets the index files for server.
+
+// ff:设置静态文件索引
+// indexFiles:索引
 func (s *Server) SetIndexFiles(indexFiles []string) {
 	s.config.IndexFiles = indexFiles
 }
 
 // GetIndexFiles retrieves and returns the index files from the server.
+
+// ff:取静态文件索引
 func (s *Server) GetIndexFiles() []string {
 	return s.config.IndexFiles
 }
 
 // SetIndexFolder enables/disables listing the sub-files if requesting a directory.
+
+// ff:设置静态文件是否列出子文件
+// enabled:是否
 func (s *Server) SetIndexFolder(enabled bool) {
 	s.config.IndexFolder = enabled
 }
@@ -43,11 +51,17 @@ func (s *Server) SetIndexFolder(enabled bool) {
 // It's the main switch for the static file service. When static file service configuration
 // functions like SetServerRoot, AddSearchPath and AddStaticPath are called, this configuration
 // is automatically enabled.
+
+// ff:设置静态文件是否开启
+// enabled:开启
 func (s *Server) SetFileServerEnabled(enabled bool) {
 	s.config.FileServerEnabled = enabled
 }
 
 // SetServerRoot sets the document root for static service.
+
+// ff:设置静态文件根目录
+// root:根目录
 func (s *Server) SetServerRoot(root string) {
 	var (
 		ctx      = context.TODO()
@@ -66,6 +80,9 @@ func (s *Server) SetServerRoot(root string) {
 }
 
 // AddSearchPath add searching directory path for static file service.
+
+// ff:静态文件添加额外搜索目录
+// path:目录
 func (s *Server) AddSearchPath(path string) {
 	var (
 		ctx      = context.TODO()
@@ -83,6 +100,10 @@ func (s *Server) AddSearchPath(path string) {
 }
 
 // AddStaticPath sets the uri to static directory path mapping for static file service.
+
+// ff:静态文件添加目录映射
+// path:新路径
+// prefix:旧路径
 func (s *Server) AddStaticPath(prefix string, path string) {
 	var (
 		ctx      = context.TODO()

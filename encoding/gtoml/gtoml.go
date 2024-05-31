@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gtoml provides accessing and converting for TOML content.
-package gtoml
+package gtoml//bm:toml类
 
 import (
 	"bytes"
@@ -16,6 +16,9 @@ import (
 	"github.com/gogf/gf/v2/internal/json"
 )
 
+
+// ff:
+// v:
 func Encode(v interface{}) ([]byte, error) {
 	buffer := bytes.NewBuffer(nil)
 	if err := toml.NewEncoder(buffer).Encode(v); err != nil {
@@ -25,6 +28,9 @@ func Encode(v interface{}) ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
+
+// ff:
+// v:
 func Decode(v []byte) (interface{}, error) {
 	var result interface{}
 	if err := toml.Unmarshal(v, &result); err != nil {
@@ -34,6 +40,11 @@ func Decode(v []byte) (interface{}, error) {
 	return result, nil
 }
 
+
+// ff:
+// err:
+// result:
+// v:
 func DecodeTo(v []byte, result interface{}) (err error) {
 	err = toml.Unmarshal(v, result)
 	if err != nil {
@@ -42,6 +53,9 @@ func DecodeTo(v []byte, result interface{}) (err error) {
 	return err
 }
 
+
+// ff:
+// v:
 func ToJson(v []byte) ([]byte, error) {
 	if r, err := Decode(v); err != nil {
 		return nil, err

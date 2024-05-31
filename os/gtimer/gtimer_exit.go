@@ -10,6 +10,8 @@ package gtimer
 // The timing job will be automatically removed from timer later. It uses "panic-recover"
 // mechanism internally implementing this feature, which is designed for simplification
 // and convenience.
+
+// ff:退出
 func Exit() {
 	panic(panicExit)
 }

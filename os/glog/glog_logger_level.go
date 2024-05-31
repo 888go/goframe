@@ -65,16 +65,24 @@ var levelStringMap = map[string]int{
 // SetLevel sets the logging level.
 // Note that levels ` LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA ` cannot be removed for logging content,
 // which are automatically added to levels.
+
+// ff:设置级别
+// level:级别
 func (l *Logger) SetLevel(level int) {
 	l.config.Level = level | LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA
 }
 
 // GetLevel returns the logging level value.
+
+// ff:取级别
 func (l *Logger) GetLevel() int {
 	return l.config.Level
 }
 
 // SetLevelStr sets the logging level by level string.
+
+// ff:设置文本级别
+// levelStr:级别
 func (l *Logger) SetLevelStr(levelStr string) error {
 	if level, ok := levelStringMap[strings.ToUpper(levelStr)]; ok {
 		l.config.Level = level
@@ -85,11 +93,18 @@ func (l *Logger) SetLevelStr(levelStr string) error {
 }
 
 // SetLevelPrefix sets the prefix string for specified level.
+
+// ff:设置级别前缀
+// prefix:前缀
+// level:级别
 func (l *Logger) SetLevelPrefix(level int, prefix string) {
 	l.config.LevelPrefixes[level] = prefix
 }
 
 // SetLevelPrefixes sets the level to prefix string mapping for the logger.
+
+// ff:设置级别前缀Map
+// prefixes:前缀Map
 func (l *Logger) SetLevelPrefixes(prefixes map[int]string) {
 	for k, v := range prefixes {
 		l.config.LevelPrefixes[k] = v
@@ -97,6 +112,9 @@ func (l *Logger) SetLevelPrefixes(prefixes map[int]string) {
 }
 
 // GetLevelPrefix returns the prefix string for specified level.
+
+// ff:取级别前缀
+// level:级别
 func (l *Logger) GetLevelPrefix(level int) string {
 	return l.config.LevelPrefixes[level]
 }

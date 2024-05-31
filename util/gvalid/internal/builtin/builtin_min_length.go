@@ -25,14 +25,21 @@ func init() {
 	Register(RuleMinLength{})
 }
 
+
+// ff:
 func (r RuleMinLength) Name() string {
 	return "min-length"
 }
 
+
+// ff:
 func (r RuleMinLength) Message() string {
 	return "The {field} value `{value}` length must be equal or greater than {min}"
 }
 
+
+// ff:
+// in:
 func (r RuleMinLength) Run(in RunInput) error {
 	var (
 		valueRunes = gconv.Runes(in.Value.String())

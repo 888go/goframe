@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -42,15 +39,15 @@ ff=是否为事务
 
 [func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {]
 err=错误
-result=行记录切片
+result=行记录数组
 ctx=上下文
 
 [func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err error) {]
 err=错误
-result=行记录切片
+result=行记录数组
 ctx=上下文
 
 [func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err error) {]
 err=错误
-result=行记录切片
+result=行记录数组
 ctx=上下文

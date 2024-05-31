@@ -19,12 +19,18 @@ type selectorRandom struct {
 	nodes Nodes
 }
 
+
+// ff:
 func NewSelectorRandom() Selector {
 	return &selectorRandom{
 		nodes: make([]Node, 0),
 	}
 }
 
+
+// ff:
+// nodes:
+// ctx:
 func (s *selectorRandom) Update(ctx context.Context, nodes Nodes) error {
 	intlog.Printf(ctx, `Update nodes: %s`, nodes.String())
 	s.mu.Lock()
@@ -33,6 +39,12 @@ func (s *selectorRandom) Update(ctx context.Context, nodes Nodes) error {
 	return nil
 }
 
+
+// ff:
+// err:
+// done:
+// node:
+// ctx:
 func (s *selectorRandom) Pick(ctx context.Context) (node Node, done DoneFunc, err error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()

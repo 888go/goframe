@@ -17,6 +17,10 @@ import (
 
 // WriteTpl parses and responses given template file.
 // The parameter `params` specifies the template variables for parsing.
+
+// ff:输出到模板文件
+// params:模板变量
+// tpl:模板文件路径
 func (r *Response) WriteTpl(tpl string, params ...gview.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.ParseTpl(tpl, params...)
@@ -32,6 +36,9 @@ func (r *Response) WriteTpl(tpl string, params ...gview.Params) error {
 
 // WriteTplDefault parses and responses the default template file.
 // The parameter `params` specifies the template variables for parsing.
+
+// ff:输出到默认模板文件
+// params:模板变量
 func (r *Response) WriteTplDefault(params ...gview.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.ParseTplDefault(params...)
@@ -47,6 +54,10 @@ func (r *Response) WriteTplDefault(params ...gview.Params) error {
 
 // WriteTplContent parses and responses the template content.
 // The parameter `params` specifies the template variables for parsing.
+
+// ff:输出文本模板
+// params:模板变量
+// content:文本模板
 func (r *Response) WriteTplContent(content string, params ...gview.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.ParseTplContent(content, params...)
@@ -62,17 +73,28 @@ func (r *Response) WriteTplContent(content string, params ...gview.Params) error
 
 // ParseTpl parses given template file `tpl` with given template variables `params`
 // and returns the parsed template content.
+
+// ff:解析模板文件
+// params:模板变量
+// tpl:模板文件路径
 func (r *Response) ParseTpl(tpl string, params ...gview.Params) (string, error) {
 	return r.Request.GetView().Parse(r.Request.Context(), tpl, r.buildInVars(params...))
 }
 
 // ParseTplDefault parses the default template file with params.
+
+// ff:解析默认模板文件
+// params:模板变量
 func (r *Response) ParseTplDefault(params ...gview.Params) (string, error) {
 	return r.Request.GetView().ParseDefault(r.Request.Context(), r.buildInVars(params...))
 }
 
 // ParseTplContent parses given template file `file` with given template parameters `params`
 // and returns the parsed template content.
+
+// ff:解析文本模板
+// params:模板变量
+// content:文本模板
 func (r *Response) ParseTplContent(content string, params ...gview.Params) (string, error) {
 	return r.Request.GetView().ParseContent(r.Request.Context(), content, r.buildInVars(params...))
 }

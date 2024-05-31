@@ -36,11 +36,18 @@ func (s *Server) statusHandlerKey(status int, domain string) string {
 }
 
 // BindStatusHandler registers handler for given status code.
+
+// ff:绑定状态码中间件
+// handler:处理函数
+// status:状态码
 func (s *Server) BindStatusHandler(status int, handler HandlerFunc) {
 	s.addStatusHandler(s.statusHandlerKey(status, DefaultDomainName), handler)
 }
 
 // BindStatusHandlerByMap registers handler for given status code using map.
+
+// ff:绑定状态码中间件Map
+// handlerMap:中间件Map
 func (s *Server) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc) {
 	for k, v := range handlerMap {
 		s.BindStatusHandler(k, v)

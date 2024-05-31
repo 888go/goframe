@@ -20,6 +20,9 @@ type Int struct {
 
 // NewInt creates and returns a concurrent-safe object for int type,
 // with given initial value `value`.
+
+// ff:
+// value:
 func NewInt(value ...int) *Int {
 	if len(value) > 0 {
 		return &Int{
@@ -30,53 +33,84 @@ func NewInt(value ...int) *Int {
 }
 
 // Clone clones and returns a new concurrent-safe object for int type.
+
+// ff:
 func (v *Int) Clone() *Int {
 	return NewInt(v.Val())
 }
 
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
+
+// ff:设置值
+// yx:true
+// old:
+// value:
 func (v *Int) Set(value int) (old int) {
 	return int(atomic.SwapInt64(&v.value, int64(value)))
 }
 
 // Val atomically loads and returns t.value.
+
+// ff:取值
+// yx:true
 func (v *Int) Val() int {
 	return int(atomic.LoadInt64(&v.value))
 }
 
 // Add atomically adds `delta` to t.value and returns the new value.
+
+// ff:
+// new:
+// delta:
 func (v *Int) Add(delta int) (new int) {
 	return int(atomic.AddInt64(&v.value, int64(delta)))
 }
 
 // Cas executes the compare-and-swap operation for value.
+
+// ff:
+// swapped:
+// new:
+// old:
 func (v *Int) Cas(old, new int) (swapped bool) {
 	return atomic.CompareAndSwapInt64(&v.value, int64(old), int64(new))
 }
 
 // String implements String interface for string printing.
+
+// ff:
 func (v *Int) String() string {
 	return strconv.Itoa(v.Val())
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (v Int) MarshalJSON() ([]byte, error) {
 	return []byte(strconv.Itoa(v.Val())), nil
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+
+// ff:
+// b:
 func (v *Int) UnmarshalJSON(b []byte) error {
 	v.Set(gconv.Int(string(b)))
 	return nil
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for `v`.
+
+// ff:
+// value:
 func (v *Int) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Int(value))
 	return nil
 }
 
 // DeepCopy implements interface for deep copy of current type.
+
+// ff:
 func (v *Int) DeepCopy() interface{} {
 	if v == nil {
 		return nil

@@ -56,6 +56,10 @@ var (
 
 // SetConfig sets the global configuration for specified group.
 // If `name` is not passed, it sets configuration for the default group name.
+
+// ff:
+// name:
+// config:
 func SetConfig(config *Config, name ...string) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -68,6 +72,10 @@ func SetConfig(config *Config, name ...string) {
 
 // SetConfigByMap sets the global configuration for specified group with map.
 // If `name` is not passed, it sets configuration for the default group name.
+
+// ff:
+// name:
+// m:
 func SetConfigByMap(m map[string]interface{}, name ...string) error {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -82,6 +90,11 @@ func SetConfigByMap(m map[string]interface{}, name ...string) error {
 }
 
 // ConfigFromMap parses and returns config from given map.
+
+// ff:
+// err:
+// config:
+// m:
 func ConfigFromMap(m map[string]interface{}) (config *Config, err error) {
 	config = &Config{}
 	if err = gconv.Scan(m, config); err != nil {
@@ -113,6 +126,11 @@ func ConfigFromMap(m map[string]interface{}) (config *Config, err error) {
 
 // GetConfig returns the global configuration with specified group name.
 // If `name` is not passed, it returns configuration of the default group name.
+
+// ff:
+// ok:
+// config:
+// name:
 func GetConfig(name ...string) (config *Config, ok bool) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -126,6 +144,9 @@ func GetConfig(name ...string) (config *Config, ok bool) {
 
 // RemoveConfig removes the global configuration with specified group.
 // If `name` is not passed, it removes configuration of the default group name.
+
+// ff:
+// name:
 func RemoveConfig(name ...string) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -137,6 +158,8 @@ func RemoveConfig(name ...string) {
 }
 
 // ClearConfig removes all configurations of redis.
+
+// ff:
 func ClearConfig() {
 	localConfigMap.Clear()
 }

@@ -26,7 +26,7 @@ package %s
 import "github.com/gogf/gf/v2/os/gres"
 
 func init() {
-	if err := gres.Add("%s"); err != nil {
+	if err := gres.//bm:if err := 资源类.Add("%s"); err != nil {
 		panic("add binary content to resource manager failed: " + err.Error())
 	}
 }
@@ -46,6 +46,10 @@ type Option struct {
 // Note that parameter `srcPaths` supports multiple paths join with ','.
 //
 // Deprecated: use PackWithOption instead.
+
+// ff:
+// keyPrefix:
+// srcPaths:
 func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 	option := Option{}
 	if len(keyPrefix) > 0 && keyPrefix[0] != "" {
@@ -57,6 +61,10 @@ func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 // PackWithOption packs the path specified by `srcPaths` into bytes.
 //
 // Note that parameter `srcPaths` supports multiple paths join with ','.
+
+// ff:
+// option:
+// srcPaths:
 func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 	var buffer = bytes.NewBuffer(nil)
 	err := zipPathWriter(srcPaths, buffer, option)
@@ -74,6 +82,11 @@ func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 // Note that parameter `srcPaths` supports multiple paths join with ','.
 //
 // Deprecated: use PackToFileWithOption instead.
+
+// ff:
+// keyPrefix:
+// dstPath:
+// srcPaths:
 func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 	data, err := Pack(srcPaths, keyPrefix...)
 	if err != nil {
@@ -85,6 +98,11 @@ func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 // PackToFileWithOption packs the path specified by `srcPaths` to target file `dstPath`.
 //
 // Note that parameter `srcPaths` supports multiple paths join with ','.
+
+// ff:
+// option:
+// dstPath:
+// srcPaths:
 func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	data, err := PackWithOption(srcPaths, option)
 	if err != nil {
@@ -102,6 +120,12 @@ func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 // Note that parameter `srcPaths` supports multiple paths join with ','.
 //
 // Deprecated: use PackToGoFileWithOption instead.
+
+// ff:
+// keyPrefix:
+// pkgName:
+// goFilePath:
+// srcPath:
 func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) error {
 	data, err := Pack(srcPath, keyPrefix...)
 	if err != nil {
@@ -117,6 +141,12 @@ func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) erro
 // with given package name `pkgName`.
 //
 // Note that parameter `srcPaths` supports multiple paths join with ','.
+
+// ff:
+// option:
+// pkgName:
+// goFilePath:
+// srcPath:
 func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) error {
 	data, err := PackWithOption(srcPath, option)
 	if err != nil {
@@ -129,6 +159,9 @@ func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) 
 }
 
 // Unpack unpacks the content specified by `path` to []*File.
+
+// ff:
+// path:
 func Unpack(path string) ([]*File, error) {
 	realPath, err := gfile.Search(path)
 	if err != nil {
@@ -138,6 +171,9 @@ func Unpack(path string) ([]*File, error) {
 }
 
 // UnpackContent unpacks the content to []*File.
+
+// ff:
+// content:
 func UnpackContent(content string) ([]*File, error) {
 	var (
 		err  error

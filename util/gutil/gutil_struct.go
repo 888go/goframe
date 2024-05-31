@@ -17,6 +17,9 @@ import (
 
 // StructToSlice converts struct to slice of which all keys and values are its items.
 // Eg: {"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
+
+// ff:结构体到数组
+// data:结构体指针
 func StructToSlice(data interface{}) []interface{} {
 	var (
 		reflectValue = reflect.ValueOf(data)
@@ -42,6 +45,9 @@ func StructToSlice(data interface{}) []interface{} {
 
 // FillStructWithDefault fills  attributes of pointed struct with tag value from `default/d` tag .
 // The parameter `structPtr` should be either type of *struct/[]*struct.
+
+// ff:
+// structPtr:
 func FillStructWithDefault(structPtr interface{}) error {
 	var (
 		reflectValue reflect.Value

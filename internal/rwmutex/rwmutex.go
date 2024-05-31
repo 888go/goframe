@@ -22,6 +22,9 @@ type RWMutex struct {
 // New creates and returns a new *RWMutex.
 // The parameter `safe` is used to specify whether using this mutex in concurrent safety,
 // which is false in default.
+
+// ff:
+// safe:
 func New(safe ...bool) *RWMutex {
 	mu := Create(safe...)
 	return &mu
@@ -30,6 +33,9 @@ func New(safe ...bool) *RWMutex {
 // Create creates and returns a new RWMutex object.
 // The parameter `safe` is used to specify whether using this mutex in concurrent safety,
 // which is false in default.
+
+// ff:
+// safe:
 func Create(safe ...bool) RWMutex {
 	if len(safe) > 0 && safe[0] {
 		return RWMutex{
@@ -40,12 +46,16 @@ func Create(safe ...bool) RWMutex {
 }
 
 // IsSafe checks and returns whether current mutex is in concurrent-safe usage.
+
+// ff:
 func (mu *RWMutex) IsSafe() bool {
 	return mu.mutex != nil
 }
 
 // Lock locks mutex for writing.
 // It does nothing if it is not in concurrent-safe usage.
+
+// ff:
 func (mu *RWMutex) Lock() {
 	if mu.mutex != nil {
 		mu.mutex.Lock()
@@ -54,6 +64,8 @@ func (mu *RWMutex) Lock() {
 
 // Unlock unlocks mutex for writing.
 // It does nothing if it is not in concurrent-safe usage.
+
+// ff:
 func (mu *RWMutex) Unlock() {
 	if mu.mutex != nil {
 		mu.mutex.Unlock()
@@ -62,6 +74,8 @@ func (mu *RWMutex) Unlock() {
 
 // RLock locks mutex for reading.
 // It does nothing if it is not in concurrent-safe usage.
+
+// ff:
 func (mu *RWMutex) RLock() {
 	if mu.mutex != nil {
 		mu.mutex.RLock()
@@ -70,6 +84,8 @@ func (mu *RWMutex) RLock() {
 
 // RUnlock unlocks mutex for reading.
 // It does nothing if it is not in concurrent-safe usage.
+
+// ff:
 func (mu *RWMutex) RUnlock() {
 	if mu.mutex != nil {
 		mu.mutex.RUnlock()

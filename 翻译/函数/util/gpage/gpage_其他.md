@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,61 +25,60 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
 
-[TotalSize      int]
+[TotalSize int]
 qm=总数量
 cz=TotalSize int
 
-[TotalPage      int]
+[TotalPage int]
 qm=总页数
 cz=TotalPage int
 
-[CurrentPage    int]
+[CurrentPage int]
 qm=当前页码
 cz=CurrentPage int
 
-[UrlTemplate    string]
+[UrlTemplate string]
 qm=自定义URL模板
 cz=UrlTemplate string
 
-[LinkStyle      string]
+[LinkStyle string]
 qm=链接标签css名称
 cz=LinkStyle string
 
-[SpanStyle      string]
+[SpanStyle string]
 qm=Span标签css名称
 cz=SpanStyle string
 
-[SelectStyle    string]
+[SelectStyle string]
 qm=选择标签css名称
 cz=SelectStyle string
 
-[NextPageTag    string]
+[NextPageTag string]
 qm=到下一页标签名称
 cz=NextPageTag string
 
-[PrevPageTag    string]
+[PrevPageTag string]
 qm=到前一页标签名称
 cz=PrevPageTag string
 
-[FirstPageTag   string]
+[FirstPageTag string]
 qm=到第一页标签名称
 cz=FirstPageTag string
 
-[LastPageTag    string]
+[LastPageTag string]
 qm=到最后一页标签名称
 cz=LastPageTag string
 
-[PageBarNum     int]
+[PageBarNum int]
 qm=分页栏显示页码
 cz=PageBarNum int
 
@@ -89,7 +86,7 @@ cz=PageBarNum int
 qm=Ajax函数名称
 cz=AjaxActionName string
 
-[DefaultPageName        = "page"]
+[DefaultPageName = "page"]
 qm=常量_默认页面名称
 cz=DefaultPageName #等号# "page"
 

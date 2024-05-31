@@ -43,6 +43,10 @@ func init() {
 }
 
 // AddSigHandler adds custom signal handler for custom one or more signals.
+
+// ff:
+// signals:
+// handler:
 func AddSigHandler(handler SigHandler, signals ...os.Signal) {
 	signalHandlerMu.Lock()
 	defer signalHandlerMu.Unlock()
@@ -58,6 +62,9 @@ func AddSigHandler(handler SigHandler, signals ...os.Signal) {
 // syscall.SIGKILL,
 // syscall.SIGTERM,
 // syscall.SIGABRT.
+
+// ff:
+// handler:
 func AddSigHandlerShutdown(handler ...SigHandler) {
 	signalHandlerMu.Lock()
 	defer signalHandlerMu.Unlock()
@@ -70,6 +77,8 @@ func AddSigHandlerShutdown(handler ...SigHandler) {
 }
 
 // Listen blocks and does signal listening and handling.
+
+// ff:
 func Listen() {
 	listenOnce.Do(func() {
 		go listen()

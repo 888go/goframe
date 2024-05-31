@@ -29,6 +29,10 @@ type Retry struct {
 
 // NewNetConn creates and returns a net.Conn with given address like "127.0.0.1:80".
 // The optional parameter `timeout` specifies the timeout for dialing connection.
+
+// ff:
+// timeout:
+// address:
 func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network  = `tcp`
@@ -50,6 +54,11 @@ func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 
 // NewNetConnTLS creates and returns a TLS net.Conn with given address like "127.0.0.1:80".
 // The optional parameter `timeout` specifies the timeout for dialing connection.
+
+// ff:
+// timeout:
+// tlsConfig:
+// address:
 func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network = `tcp`
@@ -74,6 +83,12 @@ func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Durati
 // NewNetConnKeyCrt creates and returns a TLS net.Conn with given TLS certificate and key files
 // and address like "127.0.0.1:80". The optional parameter `timeout` specifies the timeout for
 // dialing connection.
+
+// ff:
+// timeout:
+// keyFile:
+// crtFile:
+// addr:
 func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (net.Conn, error) {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -84,6 +99,11 @@ func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (
 
 // Send creates connection to `address`, writes `data` to the connection and then closes the connection.
 // The optional parameter `retry` specifies the retry policy when fails in writing data.
+
+// ff:
+// retry:
+// data:
+// address:
 func Send(address string, data []byte, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -100,6 +120,12 @@ func Send(address string, data []byte, retry ...Retry) error {
 // and returns if `length` is -1.
 //
 // The optional parameter `retry` specifies the retry policy when fails in writing data.
+
+// ff:
+// retry:
+// length:
+// data:
+// address:
 func SendRecv(address string, data []byte, length int, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -110,6 +136,12 @@ func SendRecv(address string, data []byte, length int, retry ...Retry) ([]byte, 
 }
 
 // SendWithTimeout does Send logic with writing timeout limitation.
+
+// ff:
+// retry:
+// timeout:
+// data:
+// address:
 func SendWithTimeout(address string, data []byte, timeout time.Duration, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -120,6 +152,13 @@ func SendWithTimeout(address string, data []byte, timeout time.Duration, retry .
 }
 
 // SendRecvWithTimeout does SendRecv logic with reading timeout limitation.
+
+// ff:
+// retry:
+// timeout:
+// receive:
+// data:
+// address:
 func SendRecvWithTimeout(address string, data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -141,6 +180,10 @@ func isTimeout(err error) bool {
 }
 
 // LoadKeyCrt creates and returns a TLS configuration object with given certificate and key files.
+
+// ff:
+// keyFile:
+// crtFile:
 func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 	crtPath, err := gfile.Search(crtFile)
 	if err != nil {
@@ -165,6 +208,8 @@ func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 }
 
 // MustGetFreePort performs as GetFreePort, but it panics is any error occurs.
+
+// ff:
 func MustGetFreePort() int {
 	port, err := GetFreePort()
 	if err != nil {
@@ -174,6 +219,10 @@ func MustGetFreePort() int {
 }
 
 // GetFreePort retrieves and returns a port that is free.
+
+// ff:
+// err:
+// port:
 func GetFreePort() (port int, err error) {
 	var (
 		network = `tcp`
@@ -207,6 +256,11 @@ func GetFreePort() (port int, err error) {
 }
 
 // GetFreePorts retrieves and returns specified number of ports that are free.
+
+// ff:
+// err:
+// ports:
+// count:
 func GetFreePorts(count int) (ports []int, err error) {
 	var (
 		network = `tcp`

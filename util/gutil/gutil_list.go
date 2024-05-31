@@ -22,6 +22,12 @@ import (
 // []struct
 // []struct:sub-struct
 // Note that the sub-map/sub-struct makes sense only if the optional parameter `subKey` is given.
+
+// ff:
+// values:
+// subKey:
+// key:
+// list:
 func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (values []interface{}) {
 	var reflectValue reflect.Value
 	if v, ok := list.(reflect.Value); ok {
@@ -62,6 +68,12 @@ func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (v
 
 // ItemValue retrieves and returns its value of which name/attribute specified by `key`.
 // The parameter `item` can be type of map/*map/struct/*struct.
+
+// ff:
+// found:
+// value:
+// key:
+// item:
 func ItemValue(item interface{}, key interface{}) (value interface{}, found bool) {
 	var reflectValue reflect.Value
 	if v, ok := item.(reflect.Value); ok {
@@ -114,6 +126,11 @@ func ItemValue(item interface{}, key interface{}) (value interface{}, found bool
 // ListItemValuesUnique retrieves and returns the unique elements of all struct/map with key `key`.
 // Note that the parameter `list` should be type of slice which contains elements of map or struct,
 // or else it returns an empty slice.
+
+// ff:
+// subKey:
+// key:
+// list:
 func ListItemValuesUnique(list interface{}, key string, subKey ...interface{}) []interface{} {
 	values := ListItemValues(list, key, subKey...)
 	if len(values) > 0 {
@@ -140,6 +157,10 @@ func ListItemValuesUnique(list interface{}, key string, subKey ...interface{}) [
 
 // ListToMapByKey converts `list` to a map[string]interface{} of which key is specified by `key`.
 // Note that the item value may be type of slice.
+
+// ff:
+// key:
+// list:
 func ListToMapByKey(list []map[string]interface{}, key string) map[string]interface{} {
 	return utils.ListToMapByKey(list, key)
 }

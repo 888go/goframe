@@ -20,14 +20,21 @@ func init() {
 	Register(RuleBankCard{})
 }
 
+
+// ff:
 func (r RuleBankCard) Name() string {
 	return "bank-card"
 }
 
+
+// ff:
 func (r RuleBankCard) Message() string {
 	return "The {field} value `{value}` is not a valid bank card number"
 }
 
+
+// ff:
+// in:
 func (r RuleBankCard) Run(in RunInput) error {
 	if r.checkLuHn(in.Value.String()) {
 		return nil

@@ -23,14 +23,21 @@ func init() {
 	Register(RuleDate{})
 }
 
+
+// ff:
 func (r RuleDate) Name() string {
 	return "date"
 }
 
+
+// ff:
 func (r RuleDate) Message() string {
 	return "The {field} value `{value}` is not a valid date"
 }
 
+
+// ff:
+// in:
 func (r RuleDate) Run(in RunInput) error {
 	type iTime interface {
 		Date() (year int, month time.Month, day int)

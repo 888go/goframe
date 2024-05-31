@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gmutex_test
+package gmutex_test//bm:互斥锁类_test
 
 import (
 	"testing"

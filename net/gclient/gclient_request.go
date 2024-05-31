@@ -31,54 +31,99 @@ import (
 
 // Get send GET request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Get响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Get(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodGet, url, data...)
 }
 
 // Put send PUT request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Put响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Put(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPut, url, data...)
 }
 
 // Post sends request using HTTP method POST and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Post响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Post(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPost, url, data...)
 }
 
 // Delete send DELETE request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Delete响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Delete(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodDelete, url, data...)
 }
 
 // Head send HEAD request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Head响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Head(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodHead, url, data...)
 }
 
 // Patch send PATCH request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Patch响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Patch(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPatch, url, data...)
 }
 
 // Connect send CONNECT request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Connect响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Connect(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodConnect, url, data...)
 }
 
 // Options send OPTIONS request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Options响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Options(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodOptions, url, data...)
 }
 
 // Trace send TRACE request and returns the response object.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Trace响应对象
+// data:参数
+// url:
+// ctx:上下文
 func (c *Client) Trace(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodTrace, url, data...)
 }
@@ -99,6 +144,13 @@ func (c *Client) Trace(ctx context.Context, url string, data ...interface{}) (*R
 //
 // It's used for sending form data.
 // Note that the response object MUST be closed if it'll never be used.
+
+// ff:Post表单响应对象
+// err:错误
+// resp:响应
+// data:Map参数
+// url:
+// ctx:上下文
 func (c *Client) PostForm(ctx context.Context, url string, data map[string]string) (resp *Response, err error) {
 	body := new(bytes.Buffer)
 	w := multipart.NewWriter(body)
@@ -122,6 +174,8 @@ func (c *Client) PostForm(ctx context.Context, url string, data map[string]strin
 // else it uses "application/x-www-form-urlencoded". It also automatically detects the post
 // content for JSON format, and for that it automatically sets the Content-Type as
 // "application/json".
+
+// ff:请求响应对象
 func (c *Client) DoRequest(
 	ctx context.Context, method, url string, data ...interface{},
 ) (resp *Response, err error) {

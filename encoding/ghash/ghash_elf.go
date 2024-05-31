@@ -7,6 +7,9 @@
 package ghash
 
 // ELF implements the classic ELF hash algorithm for 32 bits.
+
+// ff:
+// str:
 func ELF(str []byte) uint32 {
 	var (
 		hash uint32
@@ -23,6 +26,9 @@ func ELF(str []byte) uint32 {
 }
 
 // ELF64 implements the classic ELF hash algorithm for 64 bits.
+
+// ff:
+// str:
 func ELF64(str []byte) uint64 {
 	var (
 		hash uint64

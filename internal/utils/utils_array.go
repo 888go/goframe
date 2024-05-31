@@ -10,6 +10,9 @@ import "reflect"
 
 // IsArray checks whether given value is array/slice.
 // Note that it uses reflect internally implementing this feature.
+
+// ff:
+// value:
 func IsArray(value interface{}) bool {
 	rv := reflect.ValueOf(value)
 	kind := rv.Kind()

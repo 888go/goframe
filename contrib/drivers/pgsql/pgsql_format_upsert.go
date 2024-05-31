@@ -18,6 +18,11 @@ import (
 
 // FormatUpsert returns SQL clause of type upsert for PgSQL.
 // For example: ON CONFLICT (id) DO UPDATE SET ...
+
+// ff:
+// option:
+// list:
+// columns:
 func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInsertOption) (string, error) {
 	if len(option.OnConflict) == 0 {
 		return "", gerror.NewCode(

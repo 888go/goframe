@@ -22,14 +22,21 @@ func init() {
 	Register(RuleRegex{})
 }
 
+
+// ff:
 func (r RuleRegex) Name() string {
 	return "regex"
 }
 
+
+// ff:
 func (r RuleRegex) Message() string {
 	return "The {field} value `{value}` must be in regex of: {pattern}"
 }
 
+
+// ff:
+// in:
 func (r RuleRegex) Run(in RunInput) error {
 	if !gregex.IsMatchString(in.RulePattern, in.Value.String()) {
 		return errors.New(in.Message)

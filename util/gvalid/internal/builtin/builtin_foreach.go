@@ -16,14 +16,21 @@ func init() {
 	Register(RuleForeach{})
 }
 
+
+// ff:
 func (r RuleForeach) Name() string {
 	return "foreach"
 }
 
+
+// ff:
 func (r RuleForeach) Message() string {
 	return ""
 }
 
+
+// ff:
+// in:
 func (r RuleForeach) Run(in RunInput) error {
 	return nil
 }

@@ -22,6 +22,9 @@ type Baggage struct {
 }
 
 // NewBaggage creates and returns a new Baggage object from given tracing context.
+
+// ff:
+// ctx:
 func NewBaggage(ctx context.Context) *Baggage {
 	if ctx == nil {
 		ctx = context.Background()
@@ -32,12 +35,18 @@ func NewBaggage(ctx context.Context) *Baggage {
 }
 
 // Ctx returns the context that Baggage holds.
+
+// ff:
 func (b *Baggage) Ctx() context.Context {
 	return b.ctx
 }
 
 // SetValue is a convenient function for adding one key-value pair to baggage.
 // Note that it uses attribute.Any to set the key-value pair.
+
+// ff:
+// value:
+// key:
 func (b *Baggage) SetValue(key string, value interface{}) context.Context {
 	member, _ := baggage.NewMember(key, gconv.String(value))
 	bag, _ := baggage.New(member)
@@ -47,6 +56,9 @@ func (b *Baggage) SetValue(key string, value interface{}) context.Context {
 
 // SetMap is a convenient function for adding map key-value pairs to baggage.
 // Note that it uses attribute.Any to set the key-value pair.
+
+// ff:
+// data:
 func (b *Baggage) SetMap(data map[string]interface{}) context.Context {
 	members := make([]baggage.Member, 0)
 	for k, v := range data {
@@ -59,6 +71,8 @@ func (b *Baggage) SetMap(data map[string]interface{}) context.Context {
 }
 
 // GetMap retrieves and returns the baggage values as map.
+
+// ff:
 func (b *Baggage) GetMap() *gmap.StrAnyMap {
 	m := gmap.NewStrAnyMap()
 	members := baggage.FromContext(b.ctx).Members()
@@ -69,6 +83,9 @@ func (b *Baggage) GetMap() *gmap.StrAnyMap {
 }
 
 // GetVar retrieves value and returns a *gvar.Var for specified key from baggage.
+
+// ff:
+// key:
 func (b *Baggage) GetVar(key string) *gvar.Var {
 	value := baggage.FromContext(b.ctx).Member(key).Value()
 	return gvar.New(value)

@@ -15,11 +15,13 @@ import (
 // SqlResult is execution result for sql operations.
 // It also supports batch operation result for rowsAffected.
 type SqlResult struct {
-	Result   sql.Result
-	Affected int64
+	Result   sql.Result //qm:原生sql行记录 cz:Result sql.Result     
+	Affected int64 //qm:影响行数 cz:Affected int64     
 }
 
 // MustGetAffected returns the affected rows count, if any error occurs, it panics.
+
+// ff:取影响行数PANI
 func (r *SqlResult) MustGetAffected() int64 {
 	rows, err := r.RowsAffected()
 	if err != nil {
@@ -30,6 +32,8 @@ func (r *SqlResult) MustGetAffected() int64 {
 }
 
 // MustGetInsertId returns the last insert id, if any error occurs, it panics.
+
+// ff:取最后插入IdPANI
 func (r *SqlResult) MustGetInsertId() int64 {
 	id, err := r.LastInsertId()
 	if err != nil {
@@ -43,6 +47,8 @@ func (r *SqlResult) MustGetInsertId() int64 {
 // update, insert, or delete. Not every database or database
 // driver may support this.
 // Also, See sql.Result.
+
+// ff:
 func (r *SqlResult) RowsAffected() (int64, error) {
 	if r.Affected > 0 {
 		return r.Affected, nil
@@ -59,6 +65,8 @@ func (r *SqlResult) RowsAffected() (int64, error) {
 // databases support this feature, and the syntax of such
 // statements varies.
 // Also, See sql.Result.
+
+// ff:
 func (r *SqlResult) LastInsertId() (int64, error) {
 	if r.Result == nil {
 		return 0, nil

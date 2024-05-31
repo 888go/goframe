@@ -43,6 +43,8 @@ func init() {
 
 // DefaultCORSOptions returns the default CORS options,
 // which allows any cross-domain request.
+
+// ff:取跨域默认选项
 func (r *Response) DefaultCORSOptions() CORSOptions {
 	options := CORSOptions{
 		AllowOrigin:      "*",
@@ -75,6 +77,9 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 
 // CORS sets custom CORS options.
 // See https://www.w3.org/TR/cors/ .
+
+// ff:跨域请求设置
+// options:跨域选项
 func (r *Response) CORS(options CORSOptions) {
 	if r.CORSAllowedOrigin(options) {
 		r.Header().Set("Access-Control-Allow-Origin", options.AllowOrigin)
@@ -107,6 +112,9 @@ func (r *Response) CORS(options CORSOptions) {
 }
 
 // CORSAllowedOrigin CORSAllowed checks whether the current request origin is allowed cross-domain.
+
+// ff:是否允许跨域
+// options:跨域选项
 func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
 	if options.AllowDomain == nil {
 		return true
@@ -129,6 +137,8 @@ func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
 
 // CORSDefault sets CORS with default CORS options,
 // which allows any cross-domain request.
+
+// ff:跨域请求全允许
 func (r *Response) CORSDefault() {
 	r.CORS(r.DefaultCORSOptions())
 }

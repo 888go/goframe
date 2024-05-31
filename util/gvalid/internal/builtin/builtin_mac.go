@@ -22,14 +22,21 @@ func init() {
 	Register(RuleMac{})
 }
 
+
+// ff:
 func (r RuleMac) Name() string {
 	return "mac"
 }
 
+
+// ff:
 func (r RuleMac) Message() string {
 	return "The {field} value `{value}` is not a valid MAC address"
 }
 
+
+// ff:
+// in:
 func (r RuleMac) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^([0-9A-Fa-f]{2}[\-:]){5}[0-9A-Fa-f]{2}$`,

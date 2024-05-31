@@ -18,6 +18,11 @@ import (
 )
 
 // Open creates and returns an underlying sql.DB object for mssql.
+
+// ff:
+// err:
+// db:
+// config:
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string

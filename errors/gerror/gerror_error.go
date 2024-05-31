@@ -40,6 +40,8 @@ func init() {
 }
 
 // Error implements the interface of Error, it returns all the error as string.
+
+// ff:
 func (err *Error) Error() string {
 	if err == nil {
 		return ""
@@ -58,6 +60,8 @@ func (err *Error) Error() string {
 }
 
 // Cause returns the root cause error.
+
+// ff:
 func (err *Error) Cause() error {
 	if err == nil {
 		return nil
@@ -86,6 +90,8 @@ func (err *Error) Cause() error {
 
 // Current creates and returns the current level error.
 // It returns nil if current level error is nil.
+
+// ff:
 func (err *Error) Current() error {
 	if err == nil {
 		return nil
@@ -100,6 +106,8 @@ func (err *Error) Current() error {
 
 // Unwrap is alias of function `Next`.
 // It is just for implements for stdlib errors.Unwrap from Go version 1.17.
+
+// ff:
 func (err *Error) Unwrap() error {
 	if err == nil {
 		return nil
@@ -110,6 +118,9 @@ func (err *Error) Unwrap() error {
 // Equal reports whether current error `err` equals to error `target`.
 // Please note that, in default comparison for `Error`,
 // the errors are considered the same if both the `code` and `text` of them are the same.
+
+// ff:
+// target:
 func (err *Error) Equal(target error) bool {
 	if err == target {
 		return true
@@ -128,6 +139,9 @@ func (err *Error) Equal(target error) bool {
 
 // Is reports whether current error `err` has error `target` in its chaining errors.
 // It is just for implements for stdlib errors.Is from Go version 1.17.
+
+// ff:
+// target:
 func (err *Error) Is(target error) bool {
 	if Equal(err, target) {
 		return true

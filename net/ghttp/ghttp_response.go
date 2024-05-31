@@ -38,6 +38,10 @@ func newResponse(s *Server, w http.ResponseWriter) *Response {
 }
 
 // ServeFile serves the file to the response.
+
+// ff:发送文件
+// allowIndex:是否展示目录文件列表
+// path:文件路径
 func (r *Response) ServeFile(path string, allowIndex ...bool) {
 	var (
 		serveFile *staticFile
@@ -59,6 +63,10 @@ func (r *Response) ServeFile(path string, allowIndex ...bool) {
 }
 
 // ServeFileDownload serves file downloading to the response.
+
+// ff:下载文件
+// name:文件名
+// path:路径
 func (r *Response) ServeFileDownload(path string, name ...string) {
 	var (
 		serveFile    *staticFile
@@ -97,6 +105,10 @@ func (r *Response) ServeFileDownload(path string, name ...string) {
 // RedirectTo redirects the client to another location.
 // The optional parameter `code` specifies the http status code for redirecting,
 // which commonly can be 301 or 302. It's 302 in default.
+
+// ff:重定向
+// code:重定向状态码
+// location:url地址
 func (r *Response) RedirectTo(location string, code ...int) {
 	r.Header().Set("Location", location)
 	if len(code) > 0 {
@@ -110,6 +122,9 @@ func (r *Response) RedirectTo(location string, code ...int) {
 // RedirectBack redirects the client back to referer.
 // The optional parameter `code` specifies the http status code for redirecting,
 // which commonly can be 301 or 302. It's 302 in default.
+
+// ff:重定向到来源页面
+// code:重定向状态码
 func (r *Response) RedirectBack(code ...int) {
 	r.RedirectTo(r.Request.GetReferer(), code...)
 }
@@ -121,11 +136,18 @@ func (r *Response) RedirectBack(code ...int) {
 // and If-Range requests.
 //
 // See http.ServeContent
+
+// ff:
+// content:
+// modTime:
+// name:
 func (r *Response) ServeContent(name string, modTime time.Time, content io.ReadSeeker) {
 	http.ServeContent(r.RawWriter(), r.Request.Request, name, modTime, content)
 }
 
 // Flush outputs the buffer content to the client and clears the buffer.
+
+// ff:输出缓存区
 func (r *Response) Flush() {
 	r.Header().Set(responseHeaderTraceID, gtrace.GetTraceID(r.Request.Context()))
 	if r.Server.config.ServerAgent != "" {

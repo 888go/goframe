@@ -17,10 +17,12 @@ import (
 // throw to parent goroutine.
 //
 // But, note that, if `recoverFunc` also throws panic, such panic will be thrown to parent goroutine.
+
+// ff:
 func Go(
 	ctx context.Context,
-	goroutineFunc func(ctx context.Context),
-	recoverFunc func(ctx context.Context, exception error),
+	goroutineFunc func(ctx context.Context), //qm:协程函数 cz:goroutineFunc func(     
+	recoverFunc func(ctx context.Context, exception error), //qm:异常处理函数 cz:recoverFunc func(     
 ) {
 	if goroutineFunc == nil {
 		return

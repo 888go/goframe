@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -44,7 +41,7 @@ safe=并发安全
 [func NewIntSetFrom(items #左中括号##右中括号#int, safe ...bool) *IntSet {]
 ff=创建整数并按值
 safe=并发安全
-items=整数切片
+items=整数数组
 
 [func (set *IntSet) Iterator(f func(v int) bool) {]
 ff=X遍历
@@ -81,7 +78,7 @@ ff=取数量
 ff=清空
 
 [func (set *IntSet) Slice() #左中括号##右中括号#int {]
-ff=取集合切片
+ff=取集合数组
 
 [func (set *IntSet) Join(glue string) string {]
 ff=取集合文本

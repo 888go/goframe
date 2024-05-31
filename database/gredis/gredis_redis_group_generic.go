@@ -77,6 +77,8 @@ type doScanOption struct {
 }
 
 // ToUsedOption converts fields in ScanOption with zero values to nil. Only fields with values are retained.
+
+// ff:
 func (scanOpt *ScanOption) ToUsedOption() doScanOption {
 	var usedOption doScanOption
 

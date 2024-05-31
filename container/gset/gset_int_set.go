@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 //
 
-package gset
+package gset//bm:集合类
 
 import (
 	"bytes"
@@ -23,6 +23,9 @@ type IntSet struct {
 // NewIntSet create and returns a new set, which contains un-repeated items.
 // The parameter `safe` is used to specify whether using set in concurrent-safety,
 // which is false in default.
+
+// ff:创建整数
+// safe:并发安全
 func NewIntSet(safe ...bool) *IntSet {
 	return &IntSet{
 		mu:   rwmutex.Create(safe...),
@@ -31,6 +34,10 @@ func NewIntSet(safe ...bool) *IntSet {
 }
 
 // NewIntSetFrom returns a new set from `items`.
+
+// ff:创建整数并按值
+// safe:并发安全
+// items:整数数组
 func NewIntSetFrom(items []int, safe ...bool) *IntSet {
 	m := make(map[int]struct{})
 	for _, v := range items {
@@ -44,6 +51,11 @@ func NewIntSetFrom(items []int, safe ...bool) *IntSet {
 
 // Iterator iterates the set readonly with given callback function `f`,
 // if `f` returns true then continue iterating; or false to stop.
+
+// ff:X遍历
+// yx:true
+// f:
+// v:
 func (set *IntSet) Iterator(f func(v int) bool) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -55,6 +67,9 @@ func (set *IntSet) Iterator(f func(v int) bool) {
 }
 
 // Add adds one or multiple items to the set.
+
+// ff:加入
+// item:值s
 func (set *IntSet) Add(item ...int) {
 	set.mu.Lock()
 	if set.data == nil {
@@ -71,6 +86,9 @@ func (set *IntSet) Add(item ...int) {
 // or else it does nothing and returns false.
 //
 // Note that, if `item` is nil, it does nothing and returns false.
+
+// ff:加入值并跳过已存在
+// item:值
 func (set *IntSet) AddIfNotExist(item int) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -91,6 +109,10 @@ func (set *IntSet) AddIfNotExist(item int) bool {
 // function `f` returns true, or else it does nothing and returns false.
 //
 // Note that, the function `f` is executed without writing lock.
+
+// ff:加入值并跳过已存在_函数
+// f:
+// item:值
 func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 	if !set.Contains(item) {
 		if f() {
@@ -113,6 +135,10 @@ func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 // function `f` returns true, or else it does nothing and returns false.
 //
 // Note that, the function `f` is executed without writing lock.
+
+// ff:加入值并跳过已存在_并发安全函数
+// f:
+// item:值
 func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -131,6 +157,9 @@ func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
 }
 
 // Contains checks whether the set contains `item`.
+
+// ff:是否存在
+// item:值
 func (set *IntSet) Contains(item int) bool {
 	var ok bool
 	set.mu.RLock()
@@ -142,6 +171,9 @@ func (set *IntSet) Contains(item int) bool {
 }
 
 // Remove deletes `item` from set.
+
+// ff:删除
+// item:值
 func (set *IntSet) Remove(item int) {
 	set.mu.Lock()
 	if set.data != nil {
@@ -151,6 +183,8 @@ func (set *IntSet) Remove(item int) {
 }
 
 // Size returns the size of the set.
+
+// ff:取数量
 func (set *IntSet) Size() int {
 	set.mu.RLock()
 	l := len(set.data)
@@ -159,6 +193,8 @@ func (set *IntSet) Size() int {
 }
 
 // Clear deletes all items of the set.
+
+// ff:清空
 func (set *IntSet) Clear() {
 	set.mu.Lock()
 	set.data = make(map[int]struct{})
@@ -166,6 +202,8 @@ func (set *IntSet) Clear() {
 }
 
 // Slice returns the an of items of the set as slice.
+
+// ff:取集合数组
 func (set *IntSet) Slice() []int {
 	set.mu.RLock()
 	var (
@@ -181,6 +219,9 @@ func (set *IntSet) Slice() []int {
 }
 
 // Join joins items with a string `glue`.
+
+// ff:取集合文本
+// glue:连接符
 func (set *IntSet) Join(glue string) string {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -203,6 +244,8 @@ func (set *IntSet) Join(glue string) string {
 }
 
 // String returns items as a string, which implements like json.Marshal does.
+
+// ff:
 func (set *IntSet) String() string {
 	if set == nil {
 		return ""
@@ -211,6 +254,10 @@ func (set *IntSet) String() string {
 }
 
 // LockFunc locks writing with callback function `f`.
+
+// ff:写锁定_函数
+// f:
+// m:
 func (set *IntSet) LockFunc(f func(m map[int]struct{})) {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -218,6 +265,10 @@ func (set *IntSet) LockFunc(f func(m map[int]struct{})) {
 }
 
 // RLockFunc locks reading with callback function `f`.
+
+// ff:读锁定_函数
+// f:
+// m:
 func (set *IntSet) RLockFunc(f func(m map[int]struct{})) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -225,6 +276,9 @@ func (set *IntSet) RLockFunc(f func(m map[int]struct{})) {
 }
 
 // Equal checks whether the two sets equal.
+
+// ff:是否相等
+// other:待比较集合
 func (set *IntSet) Equal(other *IntSet) bool {
 	if set == other {
 		return true
@@ -245,6 +299,9 @@ func (set *IntSet) Equal(other *IntSet) bool {
 }
 
 // IsSubsetOf checks whether the current set is a sub-set of `other`.
+
+// ff:是否为子集
+// other:父集
 func (set *IntSet) IsSubsetOf(other *IntSet) bool {
 	if set == other {
 		return true
@@ -263,6 +320,10 @@ func (set *IntSet) IsSubsetOf(other *IntSet) bool {
 
 // Union returns a new set which is the union of `set` and `other`.
 // Which means, all the items in `newSet` are in `set` or in `other`.
+
+// ff:取并集
+// newSet:新集合
+// others:集合
 func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -289,6 +350,10 @@ func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 
 // Diff returns a new set which is the difference set from `set` to `other`.
 // Which means, all the items in `newSet` are in `set` but not in `other`.
+
+// ff:取差集
+// newSet:新集合
+// others:集合
 func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -310,6 +375,10 @@ func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 
 // Intersect returns a new set which is the intersection from `set` to `other`.
 // Which means, all the items in `newSet` are in `set` and also in `other`.
+
+// ff:取交集
+// newSet:新集合
+// others:集合
 func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -335,6 +404,10 @@ func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 //
 // It returns the difference between `full` and `set`
 // if the given set `full` is not the full set of `set`.
+
+// ff:取补集
+// newSet:新集合
+// full:集合
 func (set *IntSet) Complement(full *IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -352,6 +425,9 @@ func (set *IntSet) Complement(full *IntSet) (newSet *IntSet) {
 }
 
 // Merge adds items from `others` sets into `set`.
+
+// ff:合并
+// others:集合s
 func (set *IntSet) Merge(others ...*IntSet) *IntSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -372,6 +448,9 @@ func (set *IntSet) Merge(others ...*IntSet) *IntSet {
 // Sum sums items.
 // Note: The items should be converted to int type,
 // or you'd get a result that you unexpected.
+
+// ff:求和
+// sum:总和
 func (set *IntSet) Sum() (sum int) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -382,6 +461,8 @@ func (set *IntSet) Sum() (sum int) {
 }
 
 // Pop randomly pops an item from set.
+
+// ff:出栈
 func (set *IntSet) Pop() int {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -394,6 +475,9 @@ func (set *IntSet) Pop() int {
 
 // Pops randomly pops `size` items from set.
 // It returns all items if size == -1.
+
+// ff:出栈多个
+// size:数量
 func (set *IntSet) Pops(size int) []int {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -417,6 +501,10 @@ func (set *IntSet) Pops(size int) []int {
 }
 
 // Walk applies a user supplied function `f` to every item of set.
+
+// ff:遍历修改
+// f:
+// item:
 func (set *IntSet) Walk(f func(item int) int) *IntSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -429,11 +517,16 @@ func (set *IntSet) Walk(f func(item int) int) *IntSet {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (set IntSet) MarshalJSON() ([]byte, error) {
 	return json.Marshal(set.Slice())
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+
+// ff:
+// b:
 func (set *IntSet) UnmarshalJSON(b []byte) error {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -451,6 +544,10 @@ func (set *IntSet) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for set.
+
+// ff:
+// err:
+// value:
 func (set *IntSet) UnmarshalValue(value interface{}) (err error) {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -471,6 +568,8 @@ func (set *IntSet) UnmarshalValue(value interface{}) (err error) {
 }
 
 // DeepCopy implements interface for deep copy of current type.
+
+// ff:
 func (set *IntSet) DeepCopy() interface{} {
 	if set == nil {
 		return nil

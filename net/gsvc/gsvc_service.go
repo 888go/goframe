@@ -29,6 +29,9 @@ type LocalService struct {
 }
 
 // NewServiceWithName creates and returns a default implements for interface Service by service name.
+
+// ff:
+// name:
 func NewServiceWithName(name string) Service {
 	s := &LocalService{
 		Name:     name,
@@ -39,6 +42,11 @@ func NewServiceWithName(name string) Service {
 }
 
 // NewServiceWithKV creates and returns a default implements for interface Service by key-value pair string.
+
+// ff:
+// Service:
+// value:
+// key:
 func NewServiceWithKV(key, value string) (Service, error) {
 	var (
 		err   error
@@ -69,6 +77,8 @@ func NewServiceWithKV(key, value string) (Service, error) {
 
 // GetName returns the name of the service.
 // The name is necessary for a service, and should be unique among services.
+
+// ff:
 func (s *LocalService) GetName() string {
 	return s.Name
 }
@@ -77,12 +87,16 @@ func (s *LocalService) GetName() string {
 // It is suggested using GNU version naming like: v1.0.0, v2.0.1, v2.1.0-rc.
 // A service can have multiple versions deployed at once.
 // If no version set in service, the default version of service is "latest".
+
+// ff:
 func (s *LocalService) GetVersion() string {
 	return s.Version
 }
 
 // GetKey formats and returns a unique key string for service.
 // The result key is commonly used for key-value registrar server.
+
+// ff:
 func (s *LocalService) GetKey() string {
 	serviceNameUnique := s.GetPrefix()
 	serviceNameUnique += DefaultSeparator + s.Endpoints.String()
@@ -91,6 +105,8 @@ func (s *LocalService) GetKey() string {
 
 // GetValue formats and returns the value of the service.
 // The result value is commonly used for key-value registrar server.
+
+// ff:
 func (s *LocalService) GetValue() string {
 	b, err := gjson.Marshal(s.Metadata)
 	if err != nil {
@@ -105,6 +121,8 @@ func (s *LocalService) GetValue() string {
 //
 // Take etcd server for example, the prefix string is used like:
 // `etcdctl get /services/prod/hello.svc --prefix`
+
+// ff:
 func (s *LocalService) GetPrefix() string {
 	s.autoFillDefaultAttributes()
 	return DefaultSeparator + gstr.Join(
@@ -121,12 +139,16 @@ func (s *LocalService) GetPrefix() string {
 
 // GetMetadata returns the Metadata map of service.
 // The Metadata is key-value pair map specifying extra attributes of a service.
+
+// ff:
 func (s *LocalService) GetMetadata() Metadata {
 	return s.Metadata
 }
 
 // GetEndpoints returns the Endpoints of service.
 // The Endpoints contain multiple host/port information of service.
+
+// ff:
 func (s *LocalService) GetEndpoints() Endpoints {
 	return s.Endpoints
 }

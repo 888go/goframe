@@ -22,14 +22,21 @@ func init() {
 	Register(RuleQQ{})
 }
 
+
+// ff:
 func (r RuleQQ) Name() string {
 	return "qq"
 }
 
+
+// ff:
 func (r RuleQQ) Message() string {
 	return "The {field} value `{value}` is not a valid QQ number"
 }
 
+
+// ff:
+// in:
 func (r RuleQQ) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^[1-9][0-9]{4,}$`,

@@ -21,7 +21,7 @@ type Adapter interface {
 	//
 	// It does not expire if `duration` == 0.
 	// It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
-	Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error
+	Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error //qm:设置值 cz:Set( yx:true     
 
 	// SetMap batch sets cache with key-value pairs by `data` map, which is expired after `duration`.
 	//

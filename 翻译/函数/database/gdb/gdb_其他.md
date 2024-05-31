@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -40,11 +37,6 @@
 [Model(tableNameOrStruct ...interface{}) *Model]
 qm=创建Model对象
 cz=Model(tableNameOrStruct ...interface{})
-
-[Raw(rawSql string, args ...interface{}) *Model]
-qm=原生SQL
-cz=Raw(rawSql string, args ...interface{})
-cf=2
 
 [Schema(schema string) *Schema]
 qm=切换数据库
@@ -111,7 +103,7 @@ qm=底层查询
 cz=DoSelect(ctx context.Context, link Link, sql string, args ...interface{})
 
 [DoInsert(ctx context.Context, link Link, table string, data List, option DoInsertOption) (result sql.Result, err error)]
-qm=原生sql行记录
+qm=底层插入
 cz=DoInsert(ctx context.Context, link Link, table string, data List, option DoInsertOption)
 
 [DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error)]
@@ -155,7 +147,7 @@ qm=原生SQL查询字段值
 cz=GetValue(ctx context.Context, sql string, args ...interface{})
 
 [GetArray(ctx context.Context, sql string, args ...interface{}) (#左中括号##右中括号#Value, error)]
-qm=原生SQL查询切片
+qm=原生SQL查询数组
 cz=GetArray(ctx context.Context, sql string, args ...interface{})
 
 [GetCount(ctx context.Context, sql string, args ...interface{}) (int, error)]
@@ -267,7 +259,7 @@ qm=底层取数据库安全字符
 cz=GetChars() (charLeft string, charRight string)
 
 [Tables(ctx context.Context, schema ...string) (tables #左中括号##右中括号#string, err error)]
-qm=取表名称切片
+qm=取表名称数组
 cz=Tables(ctx context.Context, schema ...string)
 
 [TableFields(ctx context.Context, table string, schema ...string) (map#左中括号#string#右中括号#*TableField, error)]
@@ -285,6 +277,11 @@ cz=ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interf
 [CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error)]
 qm=底层CheckLocalTypeForField
 cz=CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{})
+
+[Raw(rawSql string, args ...interface{}) *Model]
+qm=原生SQL
+cz=Raw(rawSql string, args ...interface{})
+cf=2
 
 [Model(tableNameQueryOrStruct ...interface{}) *Model]
 qm=创建Model对象
@@ -331,7 +328,7 @@ qm=原生SQL查询单条到结构体指针
 cz=GetStruct(obj interface{}, sql string, args ...interface{})
 
 [GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error]
-qm=原生SQL查询到结构体切片指针
+qm=原生SQL查询到结构体数组指针
 cz=GetStructs(objPointerSlice interface{}, sql string, args ...interface{})
 
 [GetScan(pointer interface{}, sql string, args ...interface{}) error]
@@ -394,13 +391,13 @@ cz=SavePoint(point string) error
 qm=回滚事务点
 cz=RollbackTo(point string) error
 
-[Records   #左中括号##右中括号#Record]
-qm=行记录切片
-cz=Records   []
+[Records #左中括号##右中括号#Record]
+qm=行记录数组
+cz=Records []
 
-[Stmt      *Stmt]
+[Stmt *Stmt]
 qm=参数预处理
-cz=Stmt      *Stmt
+cz=Stmt *Stmt
 
 [RawResult interface{}]
 qm=底层结果
@@ -414,6 +411,6 @@ cz=Field string
 qm=增减值
 cz=Value float64
 
-[List   = #左中括号##右中括号#Map]
-qm=Map切片
+[List = #左中括号##右中括号#Map]
+qm=Map数组
 cz=List #等号# []Map

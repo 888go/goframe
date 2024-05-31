@@ -7,7 +7,7 @@
 // Package gmode provides release mode management for project.
 //
 // It uses string to mark the mode instead of integer, which is convenient for configuration.
-package gmode
+package gmode//bm:环境类
 
 import (
 	"github.com/gogf/gf/v2/debug/gdebug"
@@ -30,31 +30,45 @@ var (
 )
 
 // Set sets the mode for current application.
+
+// ff:设置值
+// yx:true
+// mode:
 func Set(mode string) {
 	currentMode = mode
 }
 
 // SetDevelop sets current mode DEVELOP for current application.
+
+// ff:
 func SetDevelop() {
 	Set(DEVELOP)
 }
 
 // SetTesting sets current mode TESTING for current application.
+
+// ff:
 func SetTesting() {
 	Set(TESTING)
 }
 
 // SetStaging sets current mode STAGING for current application.
+
+// ff:
 func SetStaging() {
 	Set(STAGING)
 }
 
 // SetProduct sets current mode PRODUCT for current application.
+
+// ff:
 func SetProduct() {
 	Set(PRODUCT)
 }
 
 // Mode returns current application mode set.
+
+// ff:
 func Mode() string {
 	// If current mode is not set, do this auto check.
 	if currentMode == NOT_SET {
@@ -74,21 +88,29 @@ func Mode() string {
 }
 
 // IsDevelop checks and returns whether current application is running in DEVELOP mode.
+
+// ff:
 func IsDevelop() bool {
 	return Mode() == DEVELOP
 }
 
 // IsTesting checks and returns whether current application is running in TESTING mode.
+
+// ff:
 func IsTesting() bool {
 	return Mode() == TESTING
 }
 
 // IsStaging checks and returns whether current application is running in STAGING mode.
+
+// ff:
 func IsStaging() bool {
 	return Mode() == STAGING
 }
 
 // IsProduct checks and returns whether current application is running in PRODUCT mode.
+
+// ff:
 func IsProduct() bool {
 	return Mode() == PRODUCT
 }

@@ -26,6 +26,11 @@ type DriverWrapperDB struct {
 
 // Open creates and returns an underlying sql.DB object for pgsql.
 // https://pkg.go.dev/github.com/lib/pq
+
+// ff:
+// err:
+// db:
+// node:
 func (d *DriverWrapperDB) Open(node *ConfigNode) (db *sql.DB, err error) {
 	var ctx = d.GetCtx()
 	intlog.PrintFunc(ctx, func() string {
@@ -36,6 +41,12 @@ func (d *DriverWrapperDB) Open(node *ConfigNode) (db *sql.DB, err error) {
 
 // Tables retrieves and returns the tables of current schema.
 // It's mainly used in cli tool chain for automatically generating the models.
+
+// ff:取表名称数组
+// err:错误
+// tables:表名称数组
+// schema:
+// ctx:上下文
 func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	ctx = context.WithValue(ctx, ctxKeyInternalProducedSQL, struct{}{})
 	return d.DB.Tables(ctx, schema...)
@@ -53,6 +64,8 @@ func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables 
 //
 // It's using cache feature to enhance the performance, which is never expired util the
 // process restarts.
+
+// ff:取表字段信息Map
 func (d *DriverWrapperDB) TableFields(
 	ctx context.Context, table string, schema ...string,
 ) (fields map[string]*TableField, err error) {
@@ -103,6 +116,15 @@ func (d *DriverWrapperDB) TableFields(
 // InsertOptionReplace: if there's unique/primary key in the data, it deletes it from table and inserts a new one;
 // InsertOptionSave:    if there's unique/primary key in the data, it updates it or else inserts a new one;
 // InsertOptionIgnore:  if there's unique/primary key in the data, it ignores the inserting;
+
+// ff:底层插入
+// err:
+// result:
+// option:
+// list:
+// table:表名称
+// link:链接
+// ctx:上下文
 func (d *DriverWrapperDB) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
 	// Convert data type before commit it to underlying db driver.
 	for i, item := range list {

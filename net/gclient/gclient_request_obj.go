@@ -41,6 +41,11 @@ import (
 // )
 //
 // err := DoRequestObj(ctx, req, &res)
+
+// ff:
+// res:
+// req:
+// ctx:
 func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 	var (
 		method = gmeta.Get(req, gtag.Method).String()

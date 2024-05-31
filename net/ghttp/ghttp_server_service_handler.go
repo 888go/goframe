@@ -23,6 +23,10 @@ import (
 // Note that the parameter `handler` can be type of:
 // 1. func(*ghttp.Request)
 // 2. func(context.Context, BizRequest)(BizResponse, error)
+
+// ff:X绑定
+// handler:处理函数
+// pattern:路由规则
 func (s *Server) BindHandler(pattern string, handler interface{}) {
 	var ctx = context.TODO()
 	funcInfo, err := s.checkAndCreateFuncInfo(handler, "", "", "")

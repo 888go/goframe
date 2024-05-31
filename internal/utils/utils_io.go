@@ -21,6 +21,10 @@ type ReadCloser struct {
 }
 
 // NewReadCloser creates and returns a RepeatReadCloser object.
+
+// ff:
+// repeatable:
+// content:
 func NewReadCloser(content []byte, repeatable bool) io.ReadCloser {
 	return &ReadCloser{
 		content:    content,
@@ -29,6 +33,11 @@ func NewReadCloser(content []byte, repeatable bool) io.ReadCloser {
 }
 
 // Read implements the io.ReadCloser interface.
+
+// ff:
+// err:
+// n:
+// p:
 func (b *ReadCloser) Read(p []byte) (n int, err error) {
 	// Make it repeatable reading.
 	if b.index >= len(b.content) && b.repeatable {
@@ -43,6 +52,8 @@ func (b *ReadCloser) Read(p []byte) (n int, err error) {
 }
 
 // Close implements the io.ReadCloser interface.
+
+// ff:
 func (b *ReadCloser) Close() error {
 	return nil
 }

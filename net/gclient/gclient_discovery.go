@@ -25,11 +25,15 @@ type discoveryNode struct {
 }
 
 // Service is the client discovery service.
+
+// ff:
 func (n *discoveryNode) Service() gsvc.Service {
 	return n.service
 }
 
 // Address returns the address of the node.
+
+// ff:
 func (n *discoveryNode) Address() string {
 	return n.address
 }

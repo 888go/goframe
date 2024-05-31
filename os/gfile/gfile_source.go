@@ -36,6 +36,8 @@ func init() {
 //
 // Note2: When the method is called for the first time, if it is in an asynchronous goroutine,
 // the method may not get the main package path.
+
+// ff:取main路径
 func MainPkgPath() string {
 	// It is only for source development environments.
 	if goRootForFilter == "" {

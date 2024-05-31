@@ -7,10 +7,12 @@
 // Package gmutex inherits and extends sync.Mutex and sync.RWMutex with more futures.
 //
 // Note that, it is refracted using stdlib mutex of package sync from GoFrame version v2.5.2.
-package gmutex
+package gmutex//bm:互斥锁类
 
 // New creates and returns a new mutex.
 // Deprecated: use Mutex or RWMutex instead.
+
+// ff:创建
 func New() *RWMutex {
 	return &RWMutex{}
 }

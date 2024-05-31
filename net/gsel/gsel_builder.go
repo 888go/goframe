@@ -10,11 +10,16 @@ package gsel
 var defaultBuilder = NewBuilderRoundRobin()
 
 // SetBuilder sets the default builder for globally used purpose.
+
+// ff:
+// builder:
 func SetBuilder(builder Builder) {
 	defaultBuilder = builder
 }
 
 // GetBuilder returns the default builder for globally used purpose.
+
+// ff:
 func GetBuilder() Builder {
 	return defaultBuilder
 }

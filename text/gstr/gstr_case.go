@@ -45,6 +45,9 @@ var (
 )
 
 // CaseTypeMatch matches the case type from string.
+
+// ff:命名方式判断
+// caseStr:待判断名称
 func CaseTypeMatch(caseStr string) CaseType {
 	caseTypes := []CaseType{
 		Camel,
@@ -68,6 +71,10 @@ func CaseTypeMatch(caseStr string) CaseType {
 
 // CaseConvert converts a string to the specified naming convention.
 // Use CaseTypeMatch to match the case type from string.
+
+// ff:命名转换
+// caseType:类型
+// s:待转换文本
 func CaseConvert(s string, caseType CaseType) string {
 	if s == "" || caseType == "" {
 		return s
@@ -107,6 +114,9 @@ func CaseConvert(s string, caseType CaseType) string {
 //
 // Example:
 // CaseCamel("any_kind_of_string") -> AnyKindOfString
+
+// ff:命名转换到首字母大写驼峰
+// s:待转换文本
 func CaseCamel(s string) string {
 	return toCamelInitCase(s, true)
 }
@@ -115,6 +125,9 @@ func CaseCamel(s string) string {
 //
 // Example:
 // CaseCamelLower("any_kind_of_string") -> anyKindOfString
+
+// ff:命名转换到首字母小写驼峰
+// s:待转换文本
 func CaseCamelLower(s string) string {
 	if s == "" {
 		return s
@@ -129,6 +142,9 @@ func CaseCamelLower(s string) string {
 //
 // Example:
 // CaseSnake("AnyKindOfString") -> any_kind_of_string
+
+// ff:命名转换到全小写蛇形
+// s:待转换文本
 func CaseSnake(s string) string {
 	return CaseDelimited(s, '_')
 }
@@ -137,6 +153,9 @@ func CaseSnake(s string) string {
 //
 // Example:
 // CaseSnakeScreaming("AnyKindOfString") -> ANY_KIND_OF_STRING
+
+// ff:命名转换到大写蛇形
+// s:待转换文本
 func CaseSnakeScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '_', true)
 }
@@ -146,6 +165,10 @@ func CaseSnakeScreaming(s string) string {
 //
 // Example:
 // CaseSnakeFirstUpper("RGBCodeMd5") -> rgb_code_md5
+
+// ff:命名转换到全小写蛇形2
+// underscore:可选连接符
+// word:待转换文本
 func CaseSnakeFirstUpper(word string, underscore ...string) string {
 	replace := "_"
 	if len(underscore) > 0 {
@@ -176,6 +199,9 @@ func CaseSnakeFirstUpper(word string, underscore ...string) string {
 //
 // Example:
 // CaseKebab("AnyKindOfString") -> any-kind-of-string
+
+// ff:命名转换到小写短横线
+// s:待转换文本
 func CaseKebab(s string) string {
 	return CaseDelimited(s, '-')
 }
@@ -184,6 +210,9 @@ func CaseKebab(s string) string {
 //
 // Example:
 // CaseKebab("AnyKindOfString") -> ANY-KIND-OF-STRING
+
+// ff:命名转换到大写驼峰短横线
+// s:待转换文本
 func CaseKebabScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '-', true)
 }
@@ -192,6 +221,10 @@ func CaseKebabScreaming(s string) string {
 //
 // Example:
 // CaseDelimited("AnyKindOfString", '.') -> any.kind.of.string
+
+// ff:命名转换按符号
+// del:连接符号
+// s:待转换文本
 func CaseDelimited(s string, del byte) string {
 	return CaseDelimitedScreaming(s, del, false)
 }
@@ -200,6 +233,11 @@ func CaseDelimited(s string, del byte) string {
 //
 // Example:
 // CaseDelimitedScreaming("AnyKindOfString", '.') -> ANY.KIND.OF.STRING
+
+// ff:命名转换按符号与大小写
+// screaming:是否全大写
+// del:连接符号
+// s:待转换文本
 func CaseDelimitedScreaming(s string, del uint8, screaming bool) string {
 	s = addWordBoundariesToNumbers(s)
 	s = strings.Trim(s, " ")

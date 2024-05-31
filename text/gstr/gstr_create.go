@@ -12,6 +12,10 @@ import "strings"
 //
 // Example:
 // Repeat("a", 3) -> "aaa"
+
+// ff:生成重复文本
+// multiplier:重复次数
+// input:文本
 func Repeat(input string, multiplier int) string {
 	return strings.Repeat(input, multiplier)
 }

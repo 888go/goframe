@@ -22,6 +22,9 @@ type IntStrMap struct {
 // NewIntStrMap returns an empty IntStrMap object.
 // The parameter `safe` is used to specify whether using map in concurrent-safety,
 // which is false in default.
+
+// ff:创建IntStr
+// safe:并发安全
 func NewIntStrMap(safe ...bool) *IntStrMap {
 	return &IntStrMap{
 		mu:   rwmutex.Create(safe...),
@@ -32,6 +35,10 @@ func NewIntStrMap(safe ...bool) *IntStrMap {
 // NewIntStrMapFrom creates and returns a hash map from given map `data`.
 // Note that, the param `data` map will be set as the underlying data map(no deep copy),
 // there might be some concurrent-safe issues when changing the map outside.
+
+// ff:创建IntStr并从Map
+// safe:并发安全
+// data:map值
 func NewIntStrMapFrom(data map[int]string, safe ...bool) *IntStrMap {
 	return &IntStrMap{
 		mu:   rwmutex.Create(safe...),
@@ -41,6 +48,12 @@ func NewIntStrMapFrom(data map[int]string, safe ...bool) *IntStrMap {
 
 // Iterator iterates the hash map readonly with custom callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
+
+// ff:X遍历
+// yx:true
+// f:
+// v:
+// k:
 func (m *IntStrMap) Iterator(f func(k int, v string) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -52,6 +65,8 @@ func (m *IntStrMap) Iterator(f func(k int, v string) bool) {
 }
 
 // Clone returns a new hash map with copy of current map data.
+
+// ff:取副本
 func (m *IntStrMap) Clone() *IntStrMap {
 	return NewIntStrMapFrom(m.MapCopy(), m.mu.IsSafe())
 }
@@ -59,6 +74,8 @@ func (m *IntStrMap) Clone() *IntStrMap {
 // Map returns the underlying data map.
 // Note that, if it's in concurrent-safe usage, it returns a copy of underlying data,
 // or else a pointer to the underlying data.
+
+// ff:取Map
 func (m *IntStrMap) Map() map[int]string {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -73,6 +90,9 @@ func (m *IntStrMap) Map() map[int]string {
 }
 
 // MapStrAny returns a copy of the underlying data of the map as map[string]interface{}.
+
+// ff:取MapStrAny
+// yx:true
 func (m *IntStrMap) MapStrAny() map[string]interface{} {
 	m.mu.RLock()
 	data := make(map[string]interface{}, len(m.data))
@@ -84,6 +104,8 @@ func (m *IntStrMap) MapStrAny() map[string]interface{} {
 }
 
 // MapCopy returns a copy of the underlying data of the hash map.
+
+// ff:浅拷贝
 func (m *IntStrMap) MapCopy() map[int]string {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -96,6 +118,8 @@ func (m *IntStrMap) MapCopy() map[int]string {
 
 // FilterEmpty deletes all key-value pair of which the value is empty.
 // Values like: 0, nil, false, "", len(slice/map/chan) == 0 are considered empty.
+
+// ff:删除所有空值
 func (m *IntStrMap) FilterEmpty() {
 	m.mu.Lock()
 	for k, v := range m.data {
@@ -107,6 +131,11 @@ func (m *IntStrMap) FilterEmpty() {
 }
 
 // Set sets key-value to the hash map.
+
+// ff:设置值
+// yx:true
+// val:
+// key:
 func (m *IntStrMap) Set(key int, val string) {
 	m.mu.Lock()
 	if m.data == nil {
@@ -117,6 +146,9 @@ func (m *IntStrMap) Set(key int, val string) {
 }
 
 // Sets batch sets key-values to the hash map.
+
+// ff:设置值Map
+// data:map值
 func (m *IntStrMap) Sets(data map[int]string) {
 	m.mu.Lock()
 	if m.data == nil {
@@ -131,6 +163,11 @@ func (m *IntStrMap) Sets(data map[int]string) {
 
 // Search searches the map with given `key`.
 // Second return parameter `found` is true if key was found, otherwise false.
+
+// ff:查找
+// found:
+// value:
+// key:名称
 func (m *IntStrMap) Search(key int) (value string, found bool) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -141,6 +178,10 @@ func (m *IntStrMap) Search(key int) (value string, found bool) {
 }
 
 // Get returns the value by given `key`.
+
+// ff:取值
+// value:
+// key:名称
 func (m *IntStrMap) Get(key int) (value string) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -151,6 +192,10 @@ func (m *IntStrMap) Get(key int) (value string) {
 }
 
 // Pop retrieves and deletes an item from the map.
+
+// ff:出栈
+// value:
+// key:名称
 func (m *IntStrMap) Pop() (key int, value string) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -163,6 +208,9 @@ func (m *IntStrMap) Pop() (key int, value string) {
 
 // Pops retrieves and deletes `size` items from the map.
 // It returns all items if size == -1.
+
+// ff:出栈多个
+// size:数量
 func (m *IntStrMap) Pops(size int) map[int]string {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -207,6 +255,10 @@ func (m *IntStrMap) doSetWithLockCheck(key int, value string) string {
 
 // GetOrSet returns the value by key,
 // or sets value with given `value` if it does not exist and then returns this value.
+
+// ff:取值或设置值
+// value:
+// key:名称
 func (m *IntStrMap) GetOrSet(key int, value string) string {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, value)
@@ -217,6 +269,10 @@ func (m *IntStrMap) GetOrSet(key int, value string) string {
 
 // GetOrSetFunc returns the value by key,
 // or sets value with returned value of callback function `f` if it does not exist and returns this value.
+
+// ff:取值或设置值_函数
+// f:
+// key:名称
 func (m *IntStrMap) GetOrSetFunc(key int, f func() string) string {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f())
@@ -230,6 +286,10 @@ func (m *IntStrMap) GetOrSetFunc(key int, f func() string) string {
 //
 // GetOrSetFuncLock differs with GetOrSetFunc function is that it executes function `f`
 // with mutex.Lock of the hash map.
+
+// ff:取值或设置值_函数带锁
+// f:
+// key:名称
 func (m *IntStrMap) GetOrSetFuncLock(key int, f func() string) string {
 	if v, ok := m.Search(key); !ok {
 		m.mu.Lock()
@@ -250,6 +310,10 @@ func (m *IntStrMap) GetOrSetFuncLock(key int, f func() string) string {
 
 // SetIfNotExist sets `value` to the map if the `key` does not exist, and then returns true.
 // It returns false if `key` exists, and `value` would be ignored.
+
+// ff:设置值并跳过已存在
+// value:
+// key:名称
 func (m *IntStrMap) SetIfNotExist(key int, value string) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, value)
@@ -260,6 +324,10 @@ func (m *IntStrMap) SetIfNotExist(key int, value string) bool {
 
 // SetIfNotExistFunc sets value with return value of callback function `f`, and then returns true.
 // It returns false if `key` exists, and `value` would be ignored.
+
+// ff:设置值并跳过已存在_函数
+// f:
+// key:名称
 func (m *IntStrMap) SetIfNotExistFunc(key int, f func() string) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f())
@@ -273,6 +341,10 @@ func (m *IntStrMap) SetIfNotExistFunc(key int, f func() string) bool {
 //
 // SetIfNotExistFuncLock differs with SetIfNotExistFunc function is that
 // it executes function `f` with mutex.Lock of the hash map.
+
+// ff:设置值并跳过已存在_函数带锁
+// f:
+// key:名称
 func (m *IntStrMap) SetIfNotExistFuncLock(key int, f func() string) bool {
 	if !m.Contains(key) {
 		m.mu.Lock()
@@ -289,6 +361,9 @@ func (m *IntStrMap) SetIfNotExistFuncLock(key int, f func() string) bool {
 }
 
 // Removes batch deletes values of the map by keys.
+
+// ff:删除多个值
+// keys:名称
 func (m *IntStrMap) Removes(keys []int) {
 	m.mu.Lock()
 	if m.data != nil {
@@ -300,6 +375,10 @@ func (m *IntStrMap) Removes(keys []int) {
 }
 
 // Remove deletes value from map by given `key`, and return this deleted value.
+
+// ff:删除
+// value:
+// key:名称
 func (m *IntStrMap) Remove(key int) (value string) {
 	m.mu.Lock()
 	if m.data != nil {
@@ -313,6 +392,8 @@ func (m *IntStrMap) Remove(key int) (value string) {
 }
 
 // Keys returns all keys of the map as a slice.
+
+// ff:取所有名称
 func (m *IntStrMap) Keys() []int {
 	m.mu.RLock()
 	var (
@@ -328,6 +409,8 @@ func (m *IntStrMap) Keys() []int {
 }
 
 // Values returns all values of the map as a slice.
+
+// ff:取所有值
 func (m *IntStrMap) Values() []string {
 	m.mu.RLock()
 	var (
@@ -344,6 +427,9 @@ func (m *IntStrMap) Values() []string {
 
 // Contains checks whether a key exists.
 // It returns true if the `key` exists, or else false.
+
+// ff:是否存在
+// key:名称
 func (m *IntStrMap) Contains(key int) bool {
 	var ok bool
 	m.mu.RLock()
@@ -355,6 +441,8 @@ func (m *IntStrMap) Contains(key int) bool {
 }
 
 // Size returns the size of the map.
+
+// ff:取数量
 func (m *IntStrMap) Size() int {
 	m.mu.RLock()
 	length := len(m.data)
@@ -364,11 +452,15 @@ func (m *IntStrMap) Size() int {
 
 // IsEmpty checks whether the map is empty.
 // It returns true if map is empty, or else false.
+
+// ff:是否为空
 func (m *IntStrMap) IsEmpty() bool {
 	return m.Size() == 0
 }
 
 // Clear deletes all data of the map, it will remake a new underlying data map.
+
+// ff:清空
 func (m *IntStrMap) Clear() {
 	m.mu.Lock()
 	m.data = make(map[int]string)
@@ -376,6 +468,9 @@ func (m *IntStrMap) Clear() {
 }
 
 // Replace the data of the map with given `data`.
+
+// ff:替换
+// data:map值
 func (m *IntStrMap) Replace(data map[int]string) {
 	m.mu.Lock()
 	m.data = data
@@ -383,6 +478,10 @@ func (m *IntStrMap) Replace(data map[int]string) {
 }
 
 // LockFunc locks writing with given callback function `f` within RWMutex.Lock.
+
+// ff:遍历写锁定
+// f:回调函数
+// m:
 func (m *IntStrMap) LockFunc(f func(m map[int]string)) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -390,6 +489,10 @@ func (m *IntStrMap) LockFunc(f func(m map[int]string)) {
 }
 
 // RLockFunc locks reading with given callback function `f` within RWMutex.RLock.
+
+// ff:遍历读锁定
+// f:回调函数
+// m:
 func (m *IntStrMap) RLockFunc(f func(m map[int]string)) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -397,6 +500,8 @@ func (m *IntStrMap) RLockFunc(f func(m map[int]string)) {
 }
 
 // Flip exchanges key-value of the map to value-key.
+
+// ff:名称值交换
 func (m *IntStrMap) Flip() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -409,6 +514,9 @@ func (m *IntStrMap) Flip() {
 
 // Merge merges two hash maps.
 // The `other` map will be merged into the map `m`.
+
+// ff:合并
+// other:map值
 func (m *IntStrMap) Merge(other *IntStrMap) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -426,6 +534,8 @@ func (m *IntStrMap) Merge(other *IntStrMap) {
 }
 
 // String returns the map as a string.
+
+// ff:
 func (m *IntStrMap) String() string {
 	if m == nil {
 		return ""
@@ -435,6 +545,8 @@ func (m *IntStrMap) String() string {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (m IntStrMap) MarshalJSON() ([]byte, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -442,6 +554,9 @@ func (m IntStrMap) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+
+// ff:
+// b:
 func (m *IntStrMap) UnmarshalJSON(b []byte) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -455,6 +570,10 @@ func (m *IntStrMap) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for map.
+
+// ff:
+// err:
+// value:
 func (m *IntStrMap) UnmarshalValue(value interface{}) (err error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -473,6 +592,8 @@ func (m *IntStrMap) UnmarshalValue(value interface{}) (err error) {
 }
 
 // DeepCopy implements interface for deep copy of current type.
+
+// ff:
 func (m *IntStrMap) DeepCopy() interface{} {
 	if m == nil {
 		return nil
@@ -487,6 +608,9 @@ func (m *IntStrMap) DeepCopy() interface{} {
 }
 
 // IsSubOf checks whether the current map is a sub-map of `other`.
+
+// ff:是否为子集
+// other:父集Map
 func (m *IntStrMap) IsSubOf(other *IntStrMap) bool {
 	if m == other {
 		return true
@@ -511,6 +635,12 @@ func (m *IntStrMap) IsSubOf(other *IntStrMap) bool {
 // The returned `addedKeys` are the keys that are in map `m` but not in map `other`.
 // The returned `removedKeys` are the keys that are in map `other` but not in map `m`.
 // The returned `updatedKeys` are the keys that are both in map `m` and `other` but their values and not equal (`!=`).
+
+// ff:比较
+// updatedKeys:
+// removedKeys:
+// addedKeys:
+// other:map值
 func (m *IntStrMap) Diff(other *IntStrMap) (addedKeys, removedKeys, updatedKeys []int) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()

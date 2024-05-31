@@ -26,12 +26,17 @@ func (s *Schemas) init() {
 	}
 }
 
+
+// ff:
 func (s *Schemas) Clone() Schemas {
 	newSchemas := createSchemas()
 	newSchemas.refs = s.refs.Clone()
 	return newSchemas
 }
 
+
+// ff:
+// name:
 func (s *Schemas) Get(name string) *SchemaRef {
 	s.init()
 	value := s.refs.Get(name)
@@ -42,16 +47,26 @@ func (s *Schemas) Get(name string) *SchemaRef {
 	return nil
 }
 
+
+// ff:设置值
+// yx:true
+// ref:
+// name:
 func (s *Schemas) Set(name string, ref SchemaRef) {
 	s.init()
 	s.refs.Set(name, ref)
 }
 
+
+// ff:
+// names:
 func (s *Schemas) Removes(names []interface{}) {
 	s.init()
 	s.refs.Removes(names)
 }
 
+
+// ff:
 func (s *Schemas) Map() map[string]SchemaRef {
 	s.init()
 	m := make(map[string]SchemaRef)
@@ -62,6 +77,10 @@ func (s *Schemas) Map() map[string]SchemaRef {
 	return m
 }
 
+
+// ff:X遍历
+// yx:true
+// f:
 func (s *Schemas) Iterator(f func(key string, ref SchemaRef) bool) {
 	s.init()
 	s.refs.Iterator(func(key, value interface{}) bool {
@@ -69,6 +88,8 @@ func (s *Schemas) Iterator(f func(key string, ref SchemaRef) bool) {
 	})
 }
 
+
+// ff:
 func (s Schemas) MarshalJSON() ([]byte, error) {
 	s.init()
 	return s.refs.MarshalJSON()

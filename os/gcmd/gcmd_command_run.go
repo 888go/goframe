@@ -31,12 +31,19 @@ import (
 
 // Run calls custom function in os.Args that bound to this command.
 // It exits this process with exit code 1 if any error occurs.
+
+// ff:
+// ctx:
 func (c *Command) Run(ctx context.Context) {
 	_ = c.RunWithValue(ctx)
 }
 
 // RunWithValue calls custom function in os.Args that bound to this command with value output.
 // It exits this process with exit code 1 if any error occurs.
+
+// ff:
+// value:
+// ctx:
 func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 	value, err := c.RunWithValueError(ctx)
 	if err != nil {
@@ -65,17 +72,32 @@ func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 }
 
 // RunWithError calls custom function in os.Args that bound to this command with error output.
+
+// ff:
+// err:
+// ctx:
 func (c *Command) RunWithError(ctx context.Context) (err error) {
 	_, err = c.RunWithValueError(ctx)
 	return
 }
 
 // RunWithValueError calls custom function in os.Args that bound to this command with value and error output.
+
+// ff:
+// err:
+// value:
+// ctx:
 func (c *Command) RunWithValueError(ctx context.Context) (value interface{}, err error) {
 	return c.RunWithSpecificArgs(ctx, os.Args)
 }
 
 // RunWithSpecificArgs calls custom function in specific args that bound to this command with value and error output.
+
+// ff:
+// err:
+// value:
+// args:
+// ctx:
 func (c *Command) RunWithSpecificArgs(ctx context.Context, args []string) (value interface{}, err error) {
 	if len(args) == 0 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "args can not be empty!")

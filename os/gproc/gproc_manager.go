@@ -19,6 +19,8 @@ type Manager struct {
 }
 
 // NewManager creates and returns a new process manager.
+
+// ff:
 func NewManager() *Manager {
 	return &Manager{
 		processes: gmap.NewIntAnyMap(true),
@@ -26,6 +28,11 @@ func NewManager() *Manager {
 }
 
 // NewProcess creates and returns a Process object.
+
+// ff:
+// environment:
+// args:
+// path:
 func (m *Manager) NewProcess(path string, args []string, environment []string) *Process {
 	p := NewProcess(path, args, environment)
 	p.Manager = m
@@ -34,6 +41,9 @@ func (m *Manager) NewProcess(path string, args []string, environment []string) *
 
 // GetProcess retrieves and returns a Process object.
 // It returns nil if it does not find the process with given `pid`.
+
+// ff:
+// pid:
 func (m *Manager) GetProcess(pid int) *Process {
 	if v := m.processes.Get(pid); v != nil {
 		return v.(*Process)
@@ -43,6 +53,9 @@ func (m *Manager) GetProcess(pid int) *Process {
 
 // AddProcess adds a process to current manager.
 // It does nothing if the process with given `pid` does not exist.
+
+// ff:
+// pid:
 func (m *Manager) AddProcess(pid int) {
 	if m.processes.Get(pid) == nil {
 		if process, err := os.FindProcess(pid); err == nil {
@@ -54,11 +67,16 @@ func (m *Manager) AddProcess(pid int) {
 }
 
 // RemoveProcess removes a process from current manager.
+
+// ff:
+// pid:
 func (m *Manager) RemoveProcess(pid int) {
 	m.processes.Remove(pid)
 }
 
 // Processes retrieves and returns all processes in current manager.
+
+// ff:
 func (m *Manager) Processes() []*Process {
 	processes := make([]*Process, 0)
 	m.processes.RLockFunc(func(m map[int]interface{}) {
@@ -70,11 +88,15 @@ func (m *Manager) Processes() []*Process {
 }
 
 // Pids retrieves and returns all process id array in current manager.
+
+// ff:
 func (m *Manager) Pids() []int {
 	return m.processes.Keys()
 }
 
 // WaitAll waits until all process exit.
+
+// ff:
 func (m *Manager) WaitAll() {
 	processes := m.Processes()
 	if len(processes) > 0 {
@@ -85,6 +107,8 @@ func (m *Manager) WaitAll() {
 }
 
 // KillAll kills all processes in current manager.
+
+// ff:
 func (m *Manager) KillAll() error {
 	for _, p := range m.Processes() {
 		if err := p.Kill(); err != nil {
@@ -95,6 +119,9 @@ func (m *Manager) KillAll() error {
 }
 
 // SignalAll sends a signal `sig` to all processes in current manager.
+
+// ff:
+// sig:
 func (m *Manager) SignalAll(sig os.Signal) error {
 	for _, p := range m.Processes() {
 		if err := p.Signal(sig); err != nil {
@@ -106,6 +133,9 @@ func (m *Manager) SignalAll(sig os.Signal) error {
 }
 
 // Send sends data bytes to all processes in current manager.
+
+// ff:
+// data:
 func (m *Manager) Send(data []byte) {
 	for _, p := range m.Processes() {
 		_ = p.Send(data)
@@ -113,16 +143,24 @@ func (m *Manager) Send(data []byte) {
 }
 
 // SendTo sneds data bytes to specified processe in current manager.
+
+// ff:
+// data:
+// pid:
 func (m *Manager) SendTo(pid int, data []byte) error {
 	return Send(pid, data)
 }
 
 // Clear removes all processes in current manager.
+
+// ff:
 func (m *Manager) Clear() {
 	m.processes.Clear()
 }
 
 // Size returns the size of processes in current manager.
+
+// ff:
 func (m *Manager) Size() int {
 	return m.processes.Size()
 }

@@ -27,6 +27,9 @@ var (
 )
 
 // IsLetterUpper checks whether the given byte b is in upper case.
+
+// ff:
+// b:
 func IsLetterUpper(b byte) bool {
 	if b >= byte('A') && b <= byte('Z') {
 		return true
@@ -35,6 +38,9 @@ func IsLetterUpper(b byte) bool {
 }
 
 // IsLetterLower checks whether the given byte b is in lower case.
+
+// ff:
+// b:
 func IsLetterLower(b byte) bool {
 	if b >= byte('a') && b <= byte('z') {
 		return true
@@ -43,12 +49,18 @@ func IsLetterLower(b byte) bool {
 }
 
 // IsLetter checks whether the given byte b is a letter.
+
+// ff:
+// b:
 func IsLetter(b byte) bool {
 	return IsLetterUpper(b) || IsLetterLower(b)
 }
 
 // IsNumeric checks whether the given string s is numeric.
 // Note that float string like "123.456" is also numeric.
+
+// ff:
+// s:
 func IsNumeric(s string) bool {
 	var (
 		dotCount = 0
@@ -77,6 +89,9 @@ func IsNumeric(s string) bool {
 }
 
 // UcFirst returns a copy of the string s with the first letter mapped to its upper case.
+
+// ff:
+// s:
 func UcFirst(s string) string {
 	if len(s) == 0 {
 		return s
@@ -89,6 +104,10 @@ func UcFirst(s string) string {
 
 // ReplaceByMap returns a copy of `origin`,
 // which is replaced by a map in unordered way, case-sensitively.
+
+// ff:
+// replaces:
+// origin:
 func ReplaceByMap(origin string, replaces map[string]string) string {
 	for k, v := range replaces {
 		origin = strings.ReplaceAll(origin, k, v)
@@ -97,6 +116,9 @@ func ReplaceByMap(origin string, replaces map[string]string) string {
 }
 
 // RemoveSymbols removes all symbols from string and lefts only numbers and letters.
+
+// ff:
+// s:
 func RemoveSymbols(s string) string {
 	var b = make([]rune, 0, len(s))
 	for _, c := range s {
@@ -111,6 +133,10 @@ func RemoveSymbols(s string) string {
 
 // EqualFoldWithoutChars checks string `s1` and `s2` equal case-insensitively,
 // with/without chars '-'/'_'/'.'/' '.
+
+// ff:
+// s2:
+// s1:
 func EqualFoldWithoutChars(s1, s2 string) bool {
 	return strings.EqualFold(RemoveSymbols(s1), RemoveSymbols(s2))
 }
@@ -118,6 +144,11 @@ func EqualFoldWithoutChars(s1, s2 string) bool {
 // SplitAndTrim splits string `str` by a string `delimiter` to an array,
 // and calls Trim to every element of this array. It ignores the elements
 // which are empty after Trim.
+
+// ff:
+// characterMask:
+// delimiter:
+// str:
 func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
 	array := make([]string, 0)
 	for _, v := range strings.Split(str, delimiter) {
@@ -131,6 +162,10 @@ func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
 
 // Trim strips whitespace (or other characters) from the beginning and end of a string.
 // The optional parameter `characterMask` specifies the additional stripped characters.
+
+// ff:
+// characterMask:
+// str:
 func Trim(str string, characterMask ...string) string {
 	trimChars := DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -140,16 +175,25 @@ func Trim(str string, characterMask ...string) string {
 }
 
 // FormatCmdKey formats string `s` as command key using uniformed format.
+
+// ff:
+// s:
 func FormatCmdKey(s string) string {
 	return strings.ToLower(strings.ReplaceAll(s, "_", "."))
 }
 
 // FormatEnvKey formats string `s` as environment key using uniformed format.
+
+// ff:
+// s:
 func FormatEnvKey(s string) string {
 	return strings.ToUpper(strings.ReplaceAll(s, ".", "_"))
 }
 
 // StripSlashes un-quotes a quoted string by AddSlashes.
+
+// ff:
+// str:
 func StripSlashes(str string) string {
 	var buf bytes.Buffer
 	l, skip := len(str), false

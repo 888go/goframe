@@ -42,6 +42,10 @@ type PkgOption struct {
 // Note that,
 // 1. The DataLength is the length of DataField, which does not contain the header size.
 // 2. The integer bytes of the package are encoded using BigEndian order.
+
+// ff:
+// option:
+// data:
 func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	pkgOption, err := getPkgOption(option...)
 	if err != nil {
@@ -66,6 +70,12 @@ func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 }
 
 // SendPkgWithTimeout writes data to connection with timeout using simple package protocol.
+
+// ff:
+// err:
+// option:
+// timeout:
+// data:
 func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) (err error) {
 	if err := c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -78,6 +88,10 @@ func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...
 }
 
 // SendRecvPkg writes data to connection and blocks reading response using simple package protocol.
+
+// ff:
+// option:
+// data:
 func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkg(option...)
@@ -87,6 +101,11 @@ func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 }
 
 // SendRecvPkgWithTimeout writes data to connection and reads response with timeout using simple package protocol.
+
+// ff:
+// option:
+// timeout:
+// data:
 func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkgWithTimeout(timeout, option...)
@@ -96,6 +115,11 @@ func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option
 }
 
 // RecvPkg receives data from connection using simple package protocol.
+
+// ff:
+// err:
+// result:
+// option:
 func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	var (
 		buffer []byte
@@ -135,6 +159,12 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 }
 
 // RecvPkgWithTimeout reads data from connection with timeout using simple package protocol.
+
+// ff:
+// err:
+// data:
+// option:
+// timeout:
 func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (data []byte, err error) {
 	if err = c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err

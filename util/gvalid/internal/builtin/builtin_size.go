@@ -25,14 +25,21 @@ func init() {
 	Register(RuleSize{})
 }
 
+
+// ff:
 func (r RuleSize) Name() string {
 	return "size"
 }
 
+
+// ff:
 func (r RuleSize) Message() string {
 	return "The {field} value `{value}` length must be {size}"
 }
 
+
+// ff:
+// in:
 func (r RuleSize) Run(in RunInput) error {
 	var (
 		valueRunes = gconv.Runes(in.Value.String())

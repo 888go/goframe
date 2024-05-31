@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gcrc32 provides useful API for CRC32 encryption algorithms.
-package gcrc32
+package gcrc32//bm:加密crc32类
 
 import (
 	"hash/crc32"
@@ -15,6 +15,9 @@ import (
 
 // Encrypt encrypts any type of variable using CRC32 algorithms.
 // It uses gconv package to convert `v` to its bytes type.
+
+// ff:加密
+// v:待加密值
 func Encrypt(v interface{}) uint32 {
 	return crc32.ChecksumIEEE(gconv.Bytes(v))
 }

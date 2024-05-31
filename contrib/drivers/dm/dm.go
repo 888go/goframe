@@ -36,11 +36,17 @@ func init() {
 }
 
 // New create and returns a driver that implements gdb.Driver, which supports operations for dm.
+
+// ff:
 func New() gdb.Driver {
 	return &Driver{}
 }
 
 // New creates and returns a database object for dm.
+
+// ff:
+// node:
+// core:
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
@@ -48,6 +54,10 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 }
 
 // GetChars returns the security char for this type of database.
+
+// ff:
+// charRight:
+// charLeft:
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

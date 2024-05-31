@@ -12,12 +12,22 @@ package gbinary
 type Bit int8
 
 // EncodeBits does encode bits return bits Default coding
+
+// ff:
+// l:
+// i:
+// bits:
 func EncodeBits(bits []Bit, i int, l int) []Bit {
 	return EncodeBitsWithUint(bits, uint(i), l)
 }
 
 // EncodeBitsWithUint . Merge ui bitwise into the bits array and occupy the length bits
 // (Note: binary 0 | 1 digits are stored in the uis array)
+
+// ff:
+// l:
+// ui:
+// bits:
 func EncodeBitsWithUint(bits []Bit, ui uint, l int) []Bit {
 	a := make([]Bit, l)
 	for i := l - 1; i >= 0; i-- {
@@ -32,6 +42,9 @@ func EncodeBitsWithUint(bits []Bit, ui uint, l int) []Bit {
 
 // EncodeBitsToBytes . does encode bits to bytes
 // Convert bits to [] byte, encode from left to right, and add less than 1 byte from 0 to the end.
+
+// ff:
+// bits:
 func EncodeBitsToBytes(bits []Bit) []byte {
 	if len(bits)%8 != 0 {
 		for i := 0; i < len(bits)%8; i++ {
@@ -47,6 +60,9 @@ func EncodeBitsToBytes(bits []Bit) []byte {
 
 // DecodeBits .does decode bits to int
 // Resolve to int
+
+// ff:
+// bits:
 func DecodeBits(bits []Bit) int {
 	v := 0
 	for _, i := range bits {
@@ -56,6 +72,9 @@ func DecodeBits(bits []Bit) int {
 }
 
 // DecodeBitsToUint .Resolve to uint
+
+// ff:
+// bits:
 func DecodeBitsToUint(bits []Bit) uint {
 	v := uint(0)
 	for _, i := range bits {
@@ -65,6 +84,9 @@ func DecodeBitsToUint(bits []Bit) uint {
 }
 
 // DecodeBytesToBits .Parsing [] byte into character array [] uint8
+
+// ff:
+// bs:
 func DecodeBytesToBits(bs []byte) []Bit {
 	bits := make([]Bit, 0)
 	for _, b := range bs {

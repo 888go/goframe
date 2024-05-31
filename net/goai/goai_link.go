@@ -27,6 +27,8 @@ type LinkRef struct {
 	Value *Link
 }
 
+
+// ff:
 func (r LinkRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

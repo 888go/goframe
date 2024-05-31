@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*" -benchmem
 
-package gqueue_test
+package gqueue_test//bm:队列类_test
 
 import (
 	"testing"

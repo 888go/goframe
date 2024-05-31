@@ -16,6 +16,8 @@ import (
 )
 
 // DoFilter handles the sql before posts it to database.
+
+// ff:
 func (d *Driver) DoFilter(
 	ctx context.Context, link gdb.Link, originSql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {

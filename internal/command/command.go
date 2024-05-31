@@ -21,6 +21,9 @@ var (
 )
 
 // Init does custom initialization.
+
+// ff:
+// args:
 func Init(args ...string) {
 	if len(args) == 0 {
 		if len(defaultParsedArgs) == 0 && len(defaultParsedOptions) == 0 {
@@ -37,6 +40,11 @@ func Init(args ...string) {
 }
 
 // ParseUsingDefaultAlgorithm parses arguments using default algorithm.
+
+// ff:
+// parsedOptions:
+// parsedArgs:
+// args:
 func ParseUsingDefaultAlgorithm(args ...string) (parsedArgs []string, parsedOptions map[string]string) {
 	parsedArgs = make([]string, 0)
 	parsedOptions = make(map[string]string)
@@ -68,6 +76,10 @@ func ParseUsingDefaultAlgorithm(args ...string) (parsedArgs []string, parsedOpti
 }
 
 // GetOpt returns the option value named `name`.
+
+// ff:
+// def:
+// name:
 func GetOpt(name string, def ...string) string {
 	Init()
 	if v, ok := defaultParsedOptions[name]; ok {
@@ -80,12 +92,17 @@ func GetOpt(name string, def ...string) string {
 }
 
 // GetOptAll returns all parsed options.
+
+// ff:
 func GetOptAll() map[string]string {
 	Init()
 	return defaultParsedOptions
 }
 
 // ContainsOpt checks whether option named `name` exist in the arguments.
+
+// ff:
+// name:
 func ContainsOpt(name string) bool {
 	Init()
 	_, ok := defaultParsedOptions[name]
@@ -93,6 +110,10 @@ func ContainsOpt(name string) bool {
 }
 
 // GetArg returns the argument at `index`.
+
+// ff:
+// def:
+// index:
 func GetArg(index int, def ...string) string {
 	Init()
 	if index < len(defaultParsedArgs) {
@@ -105,6 +126,8 @@ func GetArg(index int, def ...string) string {
 }
 
 // GetArgAll returns all parsed arguments.
+
+// ff:
 func GetArgAll() []string {
 	Init()
 	return defaultParsedArgs
@@ -117,6 +140,10 @@ func GetArgAll() []string {
 // Fetching Rules:
 // 1. Command line arguments are in lowercase format, eg: gf.package.variable;
 // 2. Environment arguments are in uppercase format, eg: GF_PACKAGE_VARIABLE；
+
+// ff:
+// def:
+// key:
 func GetOptWithEnv(key string, def ...string) string {
 	cmdKey := strings.ToLower(strings.ReplaceAll(key, "_", "."))
 	if ContainsOpt(cmdKey) {

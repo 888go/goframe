@@ -87,6 +87,8 @@ func (s *Server) newHttpServer(address string) *http.Server {
 
 // Fd retrieves and returns the file descriptor of the current server.
 // It is available ony in *nix like operating systems like linux, unix, darwin.
+
+// ff:
 func (s *gracefulServer) Fd() uintptr {
 	if ln := s.getRawListener(); ln != nil {
 		file, err := ln.(*net.TCPListener).File()
@@ -98,6 +100,8 @@ func (s *gracefulServer) Fd() uintptr {
 }
 
 // CreateListener creates listener on configured address.
+
+// ff:
 func (s *gracefulServer) CreateListener() error {
 	ln, err := s.getNetListener()
 	if err != nil {
@@ -111,6 +115,11 @@ func (s *gracefulServer) CreateListener() error {
 // CreateListenerTLS creates listener on configured address with HTTPS.
 // The parameter `certFile` and `keyFile` specify the necessary certification and key files for HTTPS.
 // The optional parameter `tlsConfig` specifies the custom TLS configuration.
+
+// ff:
+// tlsConfig:
+// keyFile:
+// certFile:
 func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig ...*tls.Config) error {
 	var config *tls.Config
 	if len(tlsConfig) > 0 && tlsConfig[0] != nil {
@@ -149,6 +158,9 @@ func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig .
 }
 
 // Serve starts the serving with blocking way.
+
+// ff:
+// ctx:
 func (s *gracefulServer) Serve(ctx context.Context) error {
 	if s.rawListener == nil {
 		return gerror.NewCode(gcode.CodeInvalidOperation, `call CreateListener/CreateListenerTLS before Serve`)
@@ -170,6 +182,8 @@ func (s *gracefulServer) Serve(ctx context.Context) error {
 }
 
 // GetListenedAddress retrieves and returns the address string which are listened by current server.
+
+// ff:
 func (s *gracefulServer) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -184,6 +198,8 @@ func (s *gracefulServer) GetListenedAddress() string {
 
 // GetListenedPort retrieves and returns one port which is listened to by current server.
 // Note that this method is only available if the server is listening on one port.
+
+// ff:
 func (s *gracefulServer) GetListenedPort() int {
 	if ln := s.getRawListener(); ln != nil {
 		return ln.Addr().(*net.TCPAddr).Port

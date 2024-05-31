@@ -36,12 +36,17 @@ func (r *Response) initCookie() {
 }
 
 // GetCookie retrieves and returns the cookie value of specified `key`.
+
+// ff:取Cookie
+// key:名称
 func (r *Response) GetCookie(key string) string {
 	r.initCookie()
 	return r.cookies[key]
 }
 
 // GetCookieMap retrieves and returns a copy of current cookie values map.
+
+// ff:取CookieMap
 func (r *Response) GetCookieMap() map[string]string {
 	r.initCookie()
 	m := make(map[string]string, len(r.cookies))
@@ -52,6 +57,8 @@ func (r *Response) GetCookieMap() map[string]string {
 }
 
 // ReadAll retrieves and returns the response content as []byte.
+
+// ff:取响应字节集
 func (r *Response) ReadAll() []byte {
 	// Response might be nil.
 	if r == nil || r.Response == nil {
@@ -66,11 +73,16 @@ func (r *Response) ReadAll() []byte {
 }
 
 // ReadAllString retrieves and returns the response content as string.
+
+// ff:取响应文本
 func (r *Response) ReadAllString() string {
 	return string(r.ReadAll())
 }
 
 // SetBodyContent overwrites response content with custom one.
+
+// ff:覆盖响应内容
+// content:字节集
 func (r *Response) SetBodyContent(content []byte) {
 	buffer := bytes.NewBuffer(content)
 	r.Body = io.NopCloser(buffer)
@@ -78,6 +90,8 @@ func (r *Response) SetBodyContent(content []byte) {
 }
 
 // Close closes the response when it will never be used.
+
+// ff:关闭
 func (r *Response) Close() error {
 	if r == nil || r.Response == nil {
 		return nil

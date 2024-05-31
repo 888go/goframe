@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -45,7 +42,7 @@ cz=Server struct {
 qm=路由
 cz=Router struct {
 
-[RegRule  string]
+[RegRule string]
 qm=正则路由规则
 cz=RegRule string
 
@@ -53,19 +50,19 @@ cz=RegRule string
 qm=路由参数名称
 cz=RegNames []string
 
-[Server           string]
+[Server string]
 qm=服务器名称
 cz=Server string
 
-[Address          string]
+[Address string]
 qm=监听地址
 cz=Address string
 
-[Middleware       string]
+[Middleware string]
 qm=中间件名称
 cz=Middleware string
 
-[Route            string]
+[Route string]
 qm=路由URI
 cz=Route string
 
@@ -77,35 +74,35 @@ cz=IsServiceHandler bool
 qm=路由处理函数
 cz=HandlerItem struct {
 
-[Name       string]
+[Name string]
 qm=处理器名称
 cz=Name string
 
-[Info       handlerFuncInfo]
+[Info handlerFuncInfo]
 qm=处理器函数信息
 cz=Info handlerFuncInfo
 
-[InitFunc   HandlerFunc]
+[InitFunc HandlerFunc]
 qm=初始化回调函数
 cz=InitFunc HandlerFunc
 
-[ShutFunc   HandlerFunc]
+[ShutFunc HandlerFunc]
 qm=关闭回调函数
 cz=ShutFunc HandlerFunc
 
 [Middleware #左中括号##右中括号#HandlerFunc]
-qm=中间件切片
+qm=中间件数组
 cz=Middleware []HandlerFunc
 
-[HookName   HookName]
+[HookName HookName]
 qm=Hook名称
 cz=HookName HookName
 
-[Router     *Router]
+[Router *Router]
 qm=路由
 cz=Router *
 
-[Source     string]
+[Source string]
 qm=注册来源
 cz=Source string
 
@@ -113,7 +110,7 @@ cz=Source string
 qm=路由解析
 cz=HandlerItemParsed struct {
 
-[Values  map#左中括号#string#右中括号#string]
+[Values map#左中括号#string#右中括号#string]
 qm=路由值
 cz=Values map[string]string
 

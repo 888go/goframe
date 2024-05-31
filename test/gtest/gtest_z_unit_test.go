@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtest_test
+package gtest_test//bm:单元测试类_test
 
 import (
 	"errors"

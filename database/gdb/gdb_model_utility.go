@@ -22,6 +22,9 @@ import (
 // and returns the quoted string; or else it returns `s` without any change.
 //
 // The meaning of a `word` can be considered as a column name.
+
+// ff:底层QuoteWord
+// s:
 func (m *Model) QuoteWord(s string) string {
 	return m.db.GetCore().QuoteWord(s)
 }
@@ -30,6 +33,12 @@ func (m *Model) QuoteWord(s string) string {
 // schema.
 //
 // Also see DriverMysql.TableFields.
+
+// ff:取表字段信息Map
+// err:错误
+// fields:字段信息Map
+// schema:
+// tableStr:表名称
 func (m *Model) TableFields(tableStr string, schema ...string) (fields map[string]*TableField, err error) {
 	var (
 		table      = m.db.GetCore().guessPrimaryTableName(tableStr)

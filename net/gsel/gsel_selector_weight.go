@@ -20,12 +20,18 @@ type selectorWeight struct {
 	nodes Nodes
 }
 
+
+// ff:
 func NewSelectorWeight() Selector {
 	return &selectorWeight{
 		nodes: make(Nodes, 0),
 	}
 }
 
+
+// ff:
+// nodes:
+// ctx:
 func (s *selectorWeight) Update(ctx context.Context, nodes Nodes) error {
 	intlog.Printf(ctx, `Update nodes: %s`, nodes.String())
 	var newNodes []Node
@@ -41,6 +47,12 @@ func (s *selectorWeight) Update(ctx context.Context, nodes Nodes) error {
 	return nil
 }
 
+
+// ff:
+// err:
+// done:
+// node:
+// ctx:
 func (s *selectorWeight) Pick(ctx context.Context) (node Node, done DoneFunc, err error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()

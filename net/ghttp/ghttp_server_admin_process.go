@@ -53,6 +53,10 @@ var (
 
 // RestartAllServer restarts all the servers of the process gracefully.
 // The optional parameter `newExeFilePath` specifies the new binary file for creating process.
+
+// ff:平滑重启所有服务
+// newExeFilePath:新可执行文件路径
+// ctx:上下文
 func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	if !gracefulEnabled {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "graceful reload feature is disabled")
@@ -69,6 +73,9 @@ func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 }
 
 // ShutdownAllServer shuts down all servers of current process gracefully.
+
+// ff:平滑关闭所有服务
+// ctx:上下文
 func ShutdownAllServer(ctx context.Context) error {
 	serverActionLocker.Lock()
 	defer serverActionLocker.Unlock()

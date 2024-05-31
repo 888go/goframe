@@ -25,14 +25,21 @@ func init() {
 	Register(RuleMaxLength{})
 }
 
+
+// ff:
 func (r RuleMaxLength) Name() string {
 	return "max-length"
 }
 
+
+// ff:
 func (r RuleMaxLength) Message() string {
 	return "The {field} value `{value}` length must be equal or lesser than {max}"
 }
 
+
+// ff:
+// in:
 func (r RuleMaxLength) Run(in RunInput) error {
 	var (
 		valueRunes = gconv.Runes(in.Value.String())

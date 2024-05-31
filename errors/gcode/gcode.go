@@ -52,6 +52,11 @@ var (
 
 // New creates and returns an error code.
 // Note that it returns an interface object of Code.
+
+// ff:
+// detail:
+// message:
+// code:
 func New(code int, message string, detail interface{}) Code {
 	return localCode{
 		code:    code,
@@ -62,6 +67,10 @@ func New(code int, message string, detail interface{}) Code {
 
 // WithCode creates and returns a new error code based on given Code.
 // The code and message is from given `code`, but the detail if from given `detail`.
+
+// ff:
+// detail:
+// code:
 func WithCode(code Code, detail interface{}) Code {
 	return localCode{
 		code:    code.Code(),

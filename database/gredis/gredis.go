@@ -11,7 +11,7 @@
 // Redis Commands Official: https://redis.io/commands
 //
 // Redis Chinese Documentation: http://redisdoc.com/
-package gredis
+package gredis//bm:redis类
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"
@@ -30,6 +30,9 @@ var (
 
 // New creates and returns a redis client.
 // It creates a default redis adapter of go-redis.
+
+// ff:
+// config:
 func New(config ...*Config) (*Redis, error) {
 	var (
 		usedConfig  *Config
@@ -64,6 +67,9 @@ func New(config ...*Config) (*Redis, error) {
 }
 
 // NewWithAdapter creates and returns a redis client with given adapter.
+
+// ff:
+// adapter:
 func NewWithAdapter(adapter Adapter) (*Redis, error) {
 	if adapter == nil {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `adapter cannot be nil`)
@@ -73,6 +79,9 @@ func NewWithAdapter(adapter Adapter) (*Redis, error) {
 }
 
 // RegisterAdapterFunc registers default function creating redis adapter.
+
+// ff:
+// adapterFunc:
 func RegisterAdapterFunc(adapterFunc AdapterFunc) {
 	defaultAdapterFunc = adapterFunc
 }

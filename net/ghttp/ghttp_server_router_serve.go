@@ -252,6 +252,8 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (item HandlerItem) MarshalJSON() ([]byte, error) {
 	switch item.Type {
 	case HandlerTypeHook:
@@ -286,6 +288,8 @@ func (item HandlerItem) MarshalJSON() ([]byte, error) {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (item HandlerItemParsed) MarshalJSON() ([]byte, error) {
 	return json.Marshal(item.Handler)
 }

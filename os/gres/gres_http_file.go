@@ -14,11 +14,16 @@ import (
 )
 
 // Close implements interface of http.File.
+
+// ff:
 func (f *File) Close() error {
 	return nil
 }
 
 // Readdir implements Readdir interface of http.File.
+
+// ff:
+// count:
 func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	files := f.resource.ScanDir(f.Name(), "*", false)
 	if len(files) > 0 {
@@ -35,11 +40,18 @@ func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 }
 
 // Stat implements Stat interface of http.File.
+
+// ff:
 func (f *File) Stat() (os.FileInfo, error) {
 	return f.FileInfo(), nil
 }
 
 // Read implements the io.Reader interface.
+
+// ff:
+// err:
+// n:
+// b:
 func (f *File) Read(b []byte) (n int, err error) {
 	reader, err := f.getReader()
 	if err != nil {
@@ -52,6 +64,12 @@ func (f *File) Read(b []byte) (n int, err error) {
 }
 
 // Seek implements the io.Seeker interface.
+
+// ff:
+// err:
+// n:
+// whence:
+// offset:
 func (f *File) Seek(offset int64, whence int) (n int64, err error) {
 	reader, err := f.getReader()
 	if err != nil {

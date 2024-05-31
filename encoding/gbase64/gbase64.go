@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gbase64 provides useful API for BASE64 encoding/decoding algorithm.
-package gbase64
+package gbase64//bm:编码base64类
 
 import (
 	"encoding/base64"
@@ -15,6 +15,9 @@ import (
 )
 
 // Encode encodes bytes with BASE64 algorithm.
+
+// ff:字节集编码
+// src:字节集
 func Encode(src []byte) []byte {
 	dst := make([]byte, base64.StdEncoding.EncodedLen(len(src)))
 	base64.StdEncoding.Encode(dst, src)
@@ -22,16 +25,25 @@ func Encode(src []byte) []byte {
 }
 
 // EncodeString encodes string with BASE64 algorithm.
+
+// ff:文本编码
+// src:文本
 func EncodeString(src string) string {
 	return EncodeToString([]byte(src))
 }
 
 // EncodeToString encodes bytes to string with BASE64 algorithm.
+
+// ff:字节集编码到文本
+// src:字节集
 func EncodeToString(src []byte) string {
 	return string(Encode(src))
 }
 
 // EncodeFile encodes file content of `path` using BASE64 algorithms.
+
+// ff:文件编码到字节集
+// path:文件路径
 func EncodeFile(path string) ([]byte, error) {
 	content, err := os.ReadFile(path)
 	if err != nil {
@@ -43,6 +55,9 @@ func EncodeFile(path string) ([]byte, error) {
 
 // MustEncodeFile encodes file content of `path` using BASE64 algorithms.
 // It panics if any error occurs.
+
+// ff:文件编码到字节集PANI
+// path:文件路径
 func MustEncodeFile(path string) []byte {
 	result, err := EncodeFile(path)
 	if err != nil {
@@ -52,6 +67,9 @@ func MustEncodeFile(path string) []byte {
 }
 
 // EncodeFileToString encodes file content of `path` to string using BASE64 algorithms.
+
+// ff:文件编码到文本
+// path:文件路径
 func EncodeFileToString(path string) (string, error) {
 	content, err := EncodeFile(path)
 	if err != nil {
@@ -62,6 +80,9 @@ func EncodeFileToString(path string) (string, error) {
 
 // MustEncodeFileToString encodes file content of `path` to string using BASE64 algorithms.
 // It panics if any error occurs.
+
+// ff:文件编码到文本PANI
+// path:文件路径
 func MustEncodeFileToString(path string) string {
 	result, err := EncodeFileToString(path)
 	if err != nil {
@@ -71,6 +92,9 @@ func MustEncodeFileToString(path string) string {
 }
 
 // Decode decodes bytes with BASE64 algorithm.
+
+// ff:字节集解码
+// data:字节集
 func Decode(data []byte) ([]byte, error) {
 	var (
 		src    = make([]byte, base64.StdEncoding.DecodedLen(len(data)))
@@ -84,6 +108,9 @@ func Decode(data []byte) ([]byte, error) {
 
 // MustDecode decodes bytes with BASE64 algorithm.
 // It panics if any error occurs.
+
+// ff:字节集解码PANI
+// data:字节集
 func MustDecode(data []byte) []byte {
 	result, err := Decode(data)
 	if err != nil {
@@ -93,12 +120,18 @@ func MustDecode(data []byte) []byte {
 }
 
 // DecodeString decodes string with BASE64 algorithm.
+
+// ff:文本解码到字节集
+// data:文本
 func DecodeString(data string) ([]byte, error) {
 	return Decode([]byte(data))
 }
 
 // MustDecodeString decodes string with BASE64 algorithm.
 // It panics if any error occurs.
+
+// ff:文本解码到字节集PANI
+// data:文本
 func MustDecodeString(data string) []byte {
 	result, err := DecodeString(data)
 	if err != nil {
@@ -108,6 +141,9 @@ func MustDecodeString(data string) []byte {
 }
 
 // DecodeToString decodes string with BASE64 algorithm.
+
+// ff:文本解码
+// data:文本
 func DecodeToString(data string) (string, error) {
 	b, err := DecodeString(data)
 	return string(b), err
@@ -115,6 +151,9 @@ func DecodeToString(data string) (string, error) {
 
 // MustDecodeToString decodes string with BASE64 algorithm.
 // It panics if any error occurs.
+
+// ff:文本解码PANI
+// data:文本
 func MustDecodeToString(data string) string {
 	result, err := DecodeToString(data)
 	if err != nil {

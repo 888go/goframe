@@ -21,14 +21,21 @@ func init() {
 	Register(RuleFloat{})
 }
 
+
+// ff:
 func (r RuleFloat) Name() string {
 	return "float"
 }
 
+
+// ff:
 func (r RuleFloat) Message() string {
 	return "The {field} value `{value}` is not of valid float type"
 }
 
+
+// ff:
+// in:
 func (r RuleFloat) Run(in RunInput) error {
 	if _, err := strconv.ParseFloat(in.Value.String(), 10); err == nil {
 		return nil

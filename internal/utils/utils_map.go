@@ -9,6 +9,12 @@ package utils
 // MapPossibleItemByKey tries to find the possible key-value pair for given key ignoring cases and symbols.
 //
 // Note that this function might be of low performance.
+
+// ff:
+// foundValue:
+// foundKey:
+// key:
+// data:
 func MapPossibleItemByKey(data map[string]interface{}, key string) (foundKey string, foundValue interface{}) {
 	if len(data) == 0 {
 		return
@@ -29,6 +35,10 @@ func MapPossibleItemByKey(data map[string]interface{}, key string) (foundKey str
 // It checks the key ignoring cases and symbols.
 //
 // Note that this function might be of low performance.
+
+// ff:
+// key:
+// data:
 func MapContainsPossibleKey(data map[string]interface{}, key string) bool {
 	if k, _ := MapPossibleItemByKey(data, key); k != "" {
 		return true

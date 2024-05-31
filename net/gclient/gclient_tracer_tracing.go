@@ -77,12 +77,18 @@ func newClientTracerTracing(
 // retrieved from an idle pool. The hostPort is the
 // "host:port" of the target or proxy. GetConn is called even
 // if there's already an idle cached connection available.
+
+// ff:
+// host:
 func (ct *clientTracerTracing) GetConn(host string) {}
 
 // GotConn is called after a successful connection is
 // obtained. There is no hook for failure to obtain a
 // connection; instead, use the error from
 // Transport.RoundTrip.
+
+// ff:
+// info:
 func (ct *clientTracerTracing) GotConn(info httptrace.GotConnInfo) {
 	remoteAddr := ""
 	if info.Conn.RemoteAddr() != nil {
@@ -106,6 +112,9 @@ func (ct *clientTracerTracing) GotConn(info httptrace.GotConnInfo) {
 // PutIdleConn is called before the caller's Response.Body.Close
 // call returns.
 // For HTTP/2, this hook is not currently used.
+
+// ff:
+// err:
 func (ct *clientTracerTracing) PutIdleConn(err error) {
 	if err != nil {
 		ct.span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, err))
@@ -114,21 +123,32 @@ func (ct *clientTracerTracing) PutIdleConn(err error) {
 
 // GotFirstResponseByte is called when the first byte of the response
 // headers is available.
+
+// ff:
 func (ct *clientTracerTracing) GotFirstResponseByte() {}
 
 // Got100Continue is called if the server replies with a "100
 // Continue" response.
+
+// ff:
 func (ct *clientTracerTracing) Got100Continue() {}
 
 // Got1xxResponse is called for each 1xx informational response header
 // returned before the final non-1xx response. Got1xxResponse is called
 // for "100 Continue" responses, even if Got100Continue is also defined.
 // If it returns an error, the client request is aborted with that error value.
+
+// ff:
+// header:
+// code:
 func (ct *clientTracerTracing) Got1xxResponse(code int, header textproto.MIMEHeader) error {
 	return nil
 }
 
 // DNSStart is called when a DNS lookup begins.
+
+// ff:
+// info:
 func (ct *clientTracerTracing) DNSStart(info httptrace.DNSStartInfo) {
 	ct.span.SetAttributes(
 		attribute.String(tracingAttrHttpDnsStart, info.Host),
@@ -136,6 +156,9 @@ func (ct *clientTracerTracing) DNSStart(info httptrace.DNSStartInfo) {
 }
 
 // DNSDone is called when a DNS lookup ends.
+
+// ff:
+// info:
 func (ct *clientTracerTracing) DNSDone(info httptrace.DNSDoneInfo) {
 	var buffer strings.Builder
 	for _, v := range info.Addrs {
@@ -155,6 +178,10 @@ func (ct *clientTracerTracing) DNSDone(info httptrace.DNSDoneInfo) {
 // ConnectStart is called when a new connection's Dial begins.
 // If net.Dialer.DualStack (IPv6 "Happy Eyeballs") support is
 // enabled, this may be called multiple times.
+
+// ff:
+// addr:
+// network:
 func (ct *clientTracerTracing) ConnectStart(network, addr string) {
 	ct.span.SetAttributes(
 		attribute.String(tracingAttrHttpConnectStart, network+"@"+addr),
@@ -166,6 +193,11 @@ func (ct *clientTracerTracing) ConnectStart(network, addr string) {
 // connection completed successfully.
 // If net.Dialer.DualStack ("Happy Eyeballs") support is
 // enabled, this may be called multiple times.
+
+// ff:
+// err:
+// addr:
+// network:
 func (ct *clientTracerTracing) ConnectDone(network, addr string, err error) {
 	if err != nil {
 		ct.span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, err))
@@ -178,11 +210,17 @@ func (ct *clientTracerTracing) ConnectDone(network, addr string, err error) {
 // TLSHandshakeStart is called when the TLS handshake is started. When
 // connecting to an HTTPS site via an HTTP proxy, the handshake happens
 // after the CONNECT request is processed by the proxy.
+
+// ff:
 func (ct *clientTracerTracing) TLSHandshakeStart() {}
 
 // TLSHandshakeDone is called after the TLS handshake with either the
 // successful handshake's connection state, or a non-nil error on handshake
 // failure.
+
+// ff:
+// err:
+// _:
 func (ct *clientTracerTracing) TLSHandshakeDone(_ tls.ConnectionState, err error) {
 	if err != nil {
 		ct.span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, err))
@@ -192,6 +230,10 @@ func (ct *clientTracerTracing) TLSHandshakeDone(_ tls.ConnectionState, err error
 // WroteHeaderField is called after the Transport has written
 // each request header. At the time of this call the values
 // might be buffered and not yet written to the network.
+
+// ff:
+// v:
+// k:
 func (ct *clientTracerTracing) WroteHeaderField(k string, v []string) {
 	if len(v) > 1 {
 		ct.headers[k] = v
@@ -202,17 +244,24 @@ func (ct *clientTracerTracing) WroteHeaderField(k string, v []string) {
 
 // WroteHeaders is called after the Transport has written
 // all request headers.
+
+// ff:
 func (ct *clientTracerTracing) WroteHeaders() {}
 
 // Wait100Continue is called if the Request specified
 // "Expect: 100-continue" and the Transport has written the
 // request headers but is waiting for "100 Continue" from the
 // server before writing the request body.
+
+// ff:
 func (ct *clientTracerTracing) Wait100Continue() {}
 
 // WroteRequest is called with the result of writing the
 // request and any body. It may be called multiple times
 // in the case of retried requests.
+
+// ff:
+// info:
 func (ct *clientTracerTracing) WroteRequest(info httptrace.WroteRequestInfo) {
 	if info.Err != nil {
 		ct.span.SetStatus(codes.Error, fmt.Sprintf(`%+v`, info.Err))

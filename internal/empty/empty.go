@@ -41,6 +41,10 @@ type iTime interface {
 // The parameter `traceSource` is used for tracing to the source variable if given `value` is type of pointer
 // that also points to a pointer. It returns true if the source is empty when `traceSource` is true.
 // Note that it might use reflect feature which affects performance a little.
+
+// ff:
+// traceSource:
+// value:
 func IsEmpty(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true
@@ -202,6 +206,11 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 // Parameter `traceSource` is used for tracing to the source variable if given `value` is type of pointer
 // that also points to a pointer. It returns nil if the source is nil when `traceSource` is true.
 // Note that it might use reflect feature which affects performance a little.
+
+// ff:是否为Nil
+// yx:true
+// traceSource:
+// value:
 func IsNil(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true

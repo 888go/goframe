@@ -18,6 +18,12 @@ import (
 // It supports `pointer` in type of `*map/*[]map/*[]*map/*struct/**struct/*[]struct/*[]*struct` for converting.
 //
 // TODO change `paramKeyToAttrMap` to `ScanOption` to be more scalable; add `DeepCopy` option for `ScanOption`.
+
+// ff:
+// err:
+// paramKeyToAttrMap:
+// dstPointer:
+// srcValue:
 func Scan(srcValue interface{}, dstPointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	if srcValue == nil {
 		// If `srcValue` is nil, no conversion.

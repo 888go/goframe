@@ -95,42 +95,61 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 }
 
 // IsSingleton return whether this entry is a singleton timed task.
+
+// ff:
 func (e *Entry) IsSingleton() bool {
 	return e.timerEntry.IsSingleton()
 }
 
 // SetSingleton sets the entry running in singleton mode.
+
+// ff:
+// enabled:
 func (e *Entry) SetSingleton(enabled bool) {
 	e.timerEntry.SetSingleton(enabled)
 }
 
 // SetTimes sets the times which the entry can run.
+
+// ff:
+// times:
 func (e *Entry) SetTimes(times int) {
 	e.times.Set(times)
 	e.infinite.Set(false)
 }
 
 // Status returns the status of entry.
+
+// ff:
 func (e *Entry) Status() int {
 	return e.timerEntry.Status()
 }
 
 // SetStatus sets the status of the entry.
+
+// ff:
+// status:
 func (e *Entry) SetStatus(status int) int {
 	return e.timerEntry.SetStatus(status)
 }
 
 // Start starts running the entry.
+
+// ff:
 func (e *Entry) Start() {
 	e.timerEntry.Start()
 }
 
 // Stop stops running the entry.
+
+// ff:
 func (e *Entry) Stop() {
 	e.timerEntry.Stop()
 }
 
 // Close stops and removes the entry from cron.
+
+// ff:
 func (e *Entry) Close() {
 	e.cron.entries.Remove(e.Name)
 	e.timerEntry.Close()

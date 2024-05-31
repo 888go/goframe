@@ -27,6 +27,9 @@ var (
 //
 // Example:
 // Chr(65) -> "A"
+
+// ff:整数到ascii
+// ascii:整数
 func Chr(ascii int) string {
 	return string([]byte{byte(ascii % 256)})
 }
@@ -35,6 +38,9 @@ func Chr(ascii int) string {
 //
 // Example:
 // Chr("A") -> 65
+
+// ff:
+// char:
 func Ord(char string) int {
 	return int(char[0])
 }
@@ -44,6 +50,9 @@ func Ord(char string) int {
 //
 // Example:
 // OctStr("\346\200\241") -> 怡
+
+// ff:八进制到文本
+// str:文本
 func OctStr(str string) string {
 	return octReg.ReplaceAllStringFunc(
 		str,
@@ -58,6 +67,9 @@ func OctStr(str string) string {
 //
 // Example:
 // Reverse("123456") -> "654321"
+
+// ff:反转字符
+// str:文本
 func Reverse(str string) string {
 	runes := []rune(str)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
@@ -75,6 +87,12 @@ func Reverse(str string) string {
 // Example:
 // NumberFormat(1234.56, 2, ".", "")  -> 1234,56
 // NumberFormat(1234.56, 2, ",", " ") -> 1 234,56
+
+// ff:格式化数值
+// thousandsSep:千位分隔符
+// decPoint:小数点分隔符
+// decimals:小数点个数
+// number:数值
 func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) string {
 	neg := false
 	if number < 0 {
@@ -123,6 +141,9 @@ func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) s
 // Shuffle("123456") -> "325164"
 // Shuffle("123456") -> "231546"
 // ...
+
+// ff:随机打散字符
+// str:文本
 func Shuffle(str string) string {
 	runes := []rune(str)
 	s := make([]rune, len(runes))
@@ -134,6 +155,11 @@ func Shuffle(str string) string {
 
 // HideStr replaces part of the string `str` to `hide` by `percentage` from the `middle`.
 // It considers parameter `str` as unicode string.
+
+// ff:替换中间字符
+// hide:替换符
+// percent:替换百分比
+// str:文本
 func HideStr(str string, percent int, hide string) string {
 	array := strings.Split(str, "@")
 	if len(array) > 1 {
@@ -164,6 +190,10 @@ func HideStr(str string, percent int, hide string) string {
 // Nl2Br inserts HTML line breaks(`br`|<br />) before all newlines in a string:
 // \n\r, \r\n, \r, \n.
 // It considers parameter `str` as unicode string.
+
+// ff:替换换行符
+// isXhtml:是否html
+// str:文本
 func Nl2Br(str string, isXhtml ...bool) string {
 	r, n, runes := '\r', '\n', []rune(str)
 	var br []byte
@@ -198,6 +228,11 @@ func Nl2Br(str string, isXhtml ...bool) string {
 // WordWrap wraps a string to a given number of characters.
 // This function supports cut parameters of both english and chinese punctuations.
 // TODO: Enable custom cut parameter, see http://php.net/manual/en/function.wordwrap.php.
+
+// ff:按字符数量换行
+// br:换行符
+// width:字符数
+// str:文本
 func WordWrap(str string, width int, br string) string {
 	if br == "" {
 		br = "\n"

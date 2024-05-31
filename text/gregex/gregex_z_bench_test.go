@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gregex_test
+package gregex_test//bm:正则类_test
 
 import (
 	"regexp"

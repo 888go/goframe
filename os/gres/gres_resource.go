@@ -29,6 +29,8 @@ const (
 )
 
 // New creates and returns a new resource object.
+
+// ff:
 func New() *Resource {
 	return &Resource{
 		tree: gtree.NewBTree(defaultTreeM, func(v1, v2 interface{}) int {
@@ -40,6 +42,10 @@ func New() *Resource {
 // Add unpacks and adds the `content` into current resource object.
 // The unnecessary parameter `prefix` indicates the prefix
 // for each file storing into current resource object.
+
+// ff:
+// prefix:
+// content:
 func (r *Resource) Add(content string, prefix ...string) error {
 	files, err := UnpackContent(content)
 	if err != nil {
@@ -61,6 +67,10 @@ func (r *Resource) Add(content string, prefix ...string) error {
 // Load loads, unpacks and adds the data from `path` into current resource object.
 // The unnecessary parameter `prefix` indicates the prefix
 // for each file storing into current resource object.
+
+// ff:
+// prefix:
+// path:
 func (r *Resource) Load(path string, prefix ...string) error {
 	realPath, err := gfile.Search(path)
 	if err != nil {
@@ -70,6 +80,9 @@ func (r *Resource) Load(path string, prefix ...string) error {
 }
 
 // Get returns the file with given path.
+
+// ff:
+// path:
 func (r *Resource) Get(path string) *File {
 	if path == "" {
 		return nil
@@ -92,6 +105,10 @@ func (r *Resource) Get(path string) *File {
 // it then does index files searching under this directory.
 //
 // GetWithIndex is usually used for http static file service.
+
+// ff:
+// indexFiles:
+// path:
 func (r *Resource) GetWithIndex(path string, indexFiles []string) *File {
 	// Necessary for double char '/' replacement in prefix.
 	path = strings.ReplaceAll(path, "\\", "/")
@@ -116,6 +133,9 @@ func (r *Resource) GetWithIndex(path string, indexFiles []string) *File {
 }
 
 // GetContent directly returns the content of `path`.
+
+// ff:
+// path:
 func (r *Resource) GetContent(path string) []byte {
 	file := r.Get(path)
 	if file != nil {
@@ -125,11 +145,16 @@ func (r *Resource) GetContent(path string) []byte {
 }
 
 // Contains checks whether the `path` exists in current resource object.
+
+// ff:
+// path:
 func (r *Resource) Contains(path string) bool {
 	return r.Get(path) != nil
 }
 
 // IsEmpty checks and returns whether the resource manager is empty.
+
+// ff:
 func (r *Resource) IsEmpty() bool {
 	return r.tree.IsEmpty()
 }
@@ -142,6 +167,11 @@ func (r *Resource) IsEmpty() bool {
 // It scans directory recursively if given parameter `recursive` is true.
 //
 // Note that the returned files does not contain given parameter `path`.
+
+// ff:
+// recursive:
+// pattern:
+// path:
 func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -154,6 +184,11 @@ func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*Fi
 // It scans directory recursively if given parameter `recursive` is true.
 //
 // Note that it returns only files, exclusive of directories.
+
+// ff:
+// recursive:
+// pattern:
+// path:
 func (r *Resource) ScanDirFile(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -231,6 +266,11 @@ type ExportOption struct {
 }
 
 // Export exports and saves specified path `srcPath` and all its sub files to specified system path `dstPath` recursively.
+
+// ff:
+// option:
+// dst:
+// src:
 func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 	var (
 		err          error
@@ -272,6 +312,8 @@ func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 }
 
 // Dump prints the files of current resource object.
+
+// ff:
 func (r *Resource) Dump() {
 	var info os.FileInfo
 	r.tree.Iterator(func(key, value interface{}) bool {

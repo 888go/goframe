@@ -19,6 +19,9 @@ type BufferWriter struct {
 	buffer  *bytes.Buffer // The output buffer.
 }
 
+
+// ff:
+// writer:
 func NewBufferWriter(writer http.ResponseWriter) *BufferWriter {
 	return &BufferWriter{
 		Writer: NewWriter(writer),
@@ -27,52 +30,76 @@ func NewBufferWriter(writer http.ResponseWriter) *BufferWriter {
 }
 
 // RawWriter returns the underlying BufferWriter.
+
+// ff:
 func (w *BufferWriter) RawWriter() http.ResponseWriter {
 	return w.Writer
 }
 
 // Write implements the interface function of http.BufferWriter.Write.
+
+// ff:
+// data:
 func (w *BufferWriter) Write(data []byte) (int, error) {
 	return w.buffer.Write(data)
 }
 
 // WriteString writes string content to internal buffer.
+
+// ff:
+// data:
 func (w *BufferWriter) WriteString(data string) (int, error) {
 	return w.buffer.WriteString(data)
 }
 
 // Buffer returns the buffered content as []byte.
+
+// ff:
 func (w *BufferWriter) Buffer() []byte {
 	return w.buffer.Bytes()
 }
 
 // BufferString returns the buffered content as string.
+
+// ff:
 func (w *BufferWriter) BufferString() string {
 	return w.buffer.String()
 }
 
 // BufferLength returns the length of the buffered content.
+
+// ff:
 func (w *BufferWriter) BufferLength() int {
 	return w.buffer.Len()
 }
 
 // SetBuffer overwrites the buffer with `data`.
+
+// ff:
+// data:
 func (w *BufferWriter) SetBuffer(data []byte) {
 	w.buffer.Reset()
 	w.buffer.Write(data)
 }
 
 // ClearBuffer clears the response buffer.
+
+// ff:
 func (w *BufferWriter) ClearBuffer() {
 	w.buffer.Reset()
 }
 
 // WriteHeader implements the interface of http.BufferWriter.WriteHeader.
+
+// ff:
+// status:
 func (w *BufferWriter) WriteHeader(status int) {
 	w.Status = status
 }
 
 // Flush outputs the buffer to clients and clears the buffer.
+
+// ff:
 func (w *BufferWriter) Flush() {
 	if w.Writer.IsHijacked() {
 		return

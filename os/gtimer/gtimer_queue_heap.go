@@ -7,17 +7,27 @@
 package gtimer
 
 // Len is used to implement the interface of sort.Interface.
+
+// ff:
 func (h *priorityQueueHeap) Len() int {
 	return len(h.array)
 }
 
 // Less is used to implement the interface of sort.Interface.
 // The least one is placed to the top of the heap.
+
+// ff:
+// j:
+// i:
 func (h *priorityQueueHeap) Less(i, j int) bool {
 	return h.array[i].priority < h.array[j].priority
 }
 
 // Swap is used to implement the interface of sort.Interface.
+
+// ff:
+// j:
+// i:
 func (h *priorityQueueHeap) Swap(i, j int) {
 	if len(h.array) == 0 {
 		return
@@ -26,11 +36,16 @@ func (h *priorityQueueHeap) Swap(i, j int) {
 }
 
 // Push pushes an item to the heap.
+
+// ff:
+// x:
 func (h *priorityQueueHeap) Push(x interface{}) {
 	h.array = append(h.array, x.(priorityQueueItem))
 }
 
 // Pop retrieves, removes and returns the most high priority item from the heap.
+
+// ff:
 func (h *priorityQueueHeap) Pop() interface{} {
 	length := len(h.array)
 	if length == 0 {

@@ -47,6 +47,10 @@ var (
 // SetGlobalAttributes appends global attributes according `SetGlobalAttributesOption`.
 // It appends global attributes to all metrics if given `SetGlobalAttributesOption` is empty.
 // It appends global attributes to certain instrument by given `SetGlobalAttributesOption`.
+
+// ff:
+// option:
+// attrs:
 func SetGlobalAttributes(attrs Attributes, option SetGlobalAttributesOption) {
 	globalAttributesMu.Lock()
 	defer globalAttributesMu.Unlock()
@@ -61,6 +65,9 @@ func SetGlobalAttributes(attrs Attributes, option SetGlobalAttributesOption) {
 // GetGlobalAttributes retrieves and returns the global attributes by `GetGlobalAttributesOption`.
 // It returns the global attributes if given `GetGlobalAttributesOption` is empty.
 // It returns global attributes of certain instrument if `GetGlobalAttributesOption` is not empty.
+
+// ff:
+// option:
 func GetGlobalAttributes(option GetGlobalAttributesOption) Attributes {
 	globalAttributesMu.Lock()
 	defer globalAttributesMu.Unlock()

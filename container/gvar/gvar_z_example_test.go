@@ -133,7 +133,7 @@ func ExampleVar_GTime() {
 	g.DumpWithType(v.GTime())
 
 	// Output:
-	// *gtime.Time(19) "2021-11-11 00:00:00"
+	// *gtime.Time(19) "2021-11-11 00:00:00"//bm:// *时间类.Time(19) "2021-11-11 00:00:00"
 }
 
 // Duration

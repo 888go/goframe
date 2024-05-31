@@ -21,6 +21,8 @@ const (
 )
 
 // TableFields retrieves and returns the fields' information of specified table of current schema.
+
+// ff:
 func (d *Driver) TableFields(
 	ctx context.Context, table string, schema ...string,
 ) (fields map[string]*gdb.TableField, err error) {

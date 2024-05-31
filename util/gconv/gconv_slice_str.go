@@ -14,11 +14,18 @@ import (
 )
 
 // SliceStr is alias of Strings.
+
+// ff:SliceStr别名
+// any:
 func SliceStr(any interface{}) []string {
 	return Strings(any)
 }
 
 // Strings converts `any` to []string.
+
+// ff:取文本数组
+// yx:true
+// any:
 func Strings(any interface{}) []string {
 	if any == nil {
 		return nil

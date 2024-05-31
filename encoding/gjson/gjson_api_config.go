@@ -7,6 +7,9 @@
 package gjson
 
 // SetSplitChar sets the separator char for hierarchical data access.
+
+// ff:设置参数分隔符
+// char:分隔符
 func (j *Json) SetSplitChar(char byte) {
 	j.mu.Lock()
 	j.c = char
@@ -14,6 +17,9 @@ func (j *Json) SetSplitChar(char byte) {
 }
 
 // SetViolenceCheck enables/disables violence check for hierarchical data access.
+
+// ff:设置分层冲突检查
+// enabled:启用
 func (j *Json) SetViolenceCheck(enabled bool) {
 	j.mu.Lock()
 	j.vc = enabled

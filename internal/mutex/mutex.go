@@ -20,6 +20,9 @@ type Mutex struct {
 // New creates and returns a new *Mutex.
 // The parameter `safe` is used to specify whether using this mutex in concurrent safety,
 // which is false in default.
+
+// ff:
+// safe:
 func New(safe ...bool) *Mutex {
 	mu := Create(safe...)
 	return &mu
@@ -28,6 +31,9 @@ func New(safe ...bool) *Mutex {
 // Create creates and returns a new Mutex object.
 // The parameter `safe` is used to specify whether using this mutex in concurrent safety,
 // which is false in default.
+
+// ff:
+// safe:
 func Create(safe ...bool) Mutex {
 	if len(safe) > 0 && safe[0] {
 		return Mutex{
@@ -38,12 +44,16 @@ func Create(safe ...bool) Mutex {
 }
 
 // IsSafe checks and returns whether current mutex is in concurrent-safe usage.
+
+// ff:
 func (mu *Mutex) IsSafe() bool {
 	return mu.mutex != nil
 }
 
 // Lock locks mutex for writing.
 // It does nothing if it is not in concurrent-safe usage.
+
+// ff:
 func (mu *Mutex) Lock() {
 	if mu.mutex != nil {
 		mu.mutex.Lock()
@@ -52,6 +62,8 @@ func (mu *Mutex) Lock() {
 
 // Unlock unlocks mutex for writing.
 // It does nothing if it is not in concurrent-safe usage.
+
+// ff:
 func (mu *Mutex) Unlock() {
 	if mu.mutex != nil {
 		mu.mutex.Unlock()

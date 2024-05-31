@@ -32,6 +32,10 @@ const (
 )
 
 // NewStorageRedis creates and returns a redis storage object for session.
+
+// ff:
+// prefix:
+// redis:
 func NewStorageRedis(redis *gredis.Redis, prefix ...string) *StorageRedis {
 	if redis == nil {
 		panic("redis instance for storage cannot be empty")
@@ -67,6 +71,10 @@ func NewStorageRedis(redis *gredis.Redis, prefix ...string) *StorageRedis {
 }
 
 // RemoveAll deletes all key-value pairs from storage.
+
+// ff:
+// sessionId:
+// ctx:
 func (s *StorageRedis) RemoveAll(ctx context.Context, sessionId string) error {
 	_, err := s.redis.Del(ctx, s.sessionIdToRedisKey(sessionId))
 	return err
@@ -79,6 +87,11 @@ func (s *StorageRedis) RemoveAll(ctx context.Context, sessionId string) error {
 // and for some storage it might be nil if memory storage is disabled.
 //
 // This function is called ever when session starts.
+
+// ff:
+// ttl:
+// sessionId:
+// ctx:
 func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
 	intlog.Printf(ctx, "StorageRedis.GetSession: %s, %v", sessionId, ttl)
 	r, err := s.redis.Get(ctx, s.sessionIdToRedisKey(sessionId))
@@ -102,6 +115,12 @@ func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl tim
 // SetSession updates the data map for specified session id.
 // This function is called ever after session, which is changed dirty, is closed.
 // This copy all session data map from memory to storage.
+
+// ff:
+// ttl:
+// sessionData:
+// sessionId:
+// ctx:
 func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.SetSession: %s, %v, %v", sessionId, sessionData, ttl)
 	content, err := json.Marshal(sessionData)
@@ -115,6 +134,11 @@ func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, session
 // UpdateTTL updates the TTL for specified session id.
 // This function is called ever after session, which is not dirty, is closed.
 // It just adds the session id to the async handling queue.
+
+// ff:
+// ttl:
+// sessionId:
+// ctx:
 func (s *StorageRedis) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageRedisLoopInterval {

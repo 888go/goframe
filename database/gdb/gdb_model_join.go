@@ -20,6 +20,9 @@ import (
 // Model("user").LeftJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").LeftJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").LeftJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid").
+
+// ff:左连接
+// tableOrSubQueryAndJoinConditions:表或子查询和连接条件
 func (m *Model) LeftJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 	return m.doJoin(joinOperatorLeft, tableOrSubQueryAndJoinConditions...)
 }
@@ -32,6 +35,9 @@ func (m *Model) LeftJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // Model("user").RightJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").RightJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").RightJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid").
+
+// ff:右连接
+// tableOrSubQueryAndJoinConditions:表或子查询和连接条件
 func (m *Model) RightJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 	return m.doJoin(joinOperatorRight, tableOrSubQueryAndJoinConditions...)
 }
@@ -44,6 +50,9 @@ func (m *Model) RightJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // Model("user").InnerJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").InnerJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").InnerJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid").
+
+// ff:内连接
+// tableOrSubQueryAndJoinConditions:表或子查询和连接条件
 func (m *Model) InnerJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 	return m.doJoin(joinOperatorInner, tableOrSubQueryAndJoinConditions...)
 }
@@ -53,6 +62,10 @@ func (m *Model) InnerJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // Eg:
 // Model("order").LeftJoinOnField("user", "user_id")
 // Model("order").LeftJoinOnField("product", "product_id").
+
+// ff:左连接相同字段
+// field:相同字段名
+// table:表名
 func (m *Model) LeftJoinOnField(table, field string) *Model {
 	return m.doJoin(joinOperatorLeft, table, fmt.Sprintf(
 		`%s.%s=%s.%s`,
@@ -68,6 +81,10 @@ func (m *Model) LeftJoinOnField(table, field string) *Model {
 // Eg:
 // Model("order").InnerJoinOnField("user", "user_id")
 // Model("order").InnerJoinOnField("product", "product_id").
+
+// ff:右连接相同字段
+// field:相同字段名
+// table:表名
 func (m *Model) RightJoinOnField(table, field string) *Model {
 	return m.doJoin(joinOperatorRight, table, fmt.Sprintf(
 		`%s.%s=%s.%s`,
@@ -83,6 +100,10 @@ func (m *Model) RightJoinOnField(table, field string) *Model {
 // Eg:
 // Model("order").InnerJoinOnField("user", "user_id")
 // Model("order").InnerJoinOnField("product", "product_id").
+
+// ff:内连接相同字段
+// field:相同字段名
+// table:表名
 func (m *Model) InnerJoinOnField(table, field string) *Model {
 	return m.doJoin(joinOperatorInner, table, fmt.Sprintf(
 		`%s.%s=%s.%s`,
@@ -99,6 +120,12 @@ func (m *Model) InnerJoinOnField(table, field string) *Model {
 // Model("user").LeftJoinOnFields("order", "id", "=", "user_id")
 // Model("user").LeftJoinOnFields("order", "id", ">", "user_id")
 // Model("user").LeftJoinOnFields("order", "id", "<", "user_id")
+
+// ff:左连接带比较运算符
+// secondField:第二个字段
+// operator:比较运算符
+// firstField:第一个字段
+// table:表名
 func (m *Model) LeftJoinOnFields(table, firstField, operator, secondField string) *Model {
 	return m.doJoin(joinOperatorLeft, table, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
@@ -116,6 +143,12 @@ func (m *Model) LeftJoinOnFields(table, firstField, operator, secondField string
 // Model("user").RightJoinOnFields("order", "id", "=", "user_id")
 // Model("user").RightJoinOnFields("order", "id", ">", "user_id")
 // Model("user").RightJoinOnFields("order", "id", "<", "user_id")
+
+// ff:右连接带比较运算符
+// secondField:第二个字段
+// operator:比较运算符
+// firstField:第一个字段
+// table:表名
 func (m *Model) RightJoinOnFields(table, firstField, operator, secondField string) *Model {
 	return m.doJoin(joinOperatorRight, table, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
@@ -133,6 +166,12 @@ func (m *Model) RightJoinOnFields(table, firstField, operator, secondField strin
 // Model("user").InnerJoinOnFields("order", "id", "=", "user_id")
 // Model("user").InnerJoinOnFields("order", "id", ">", "user_id")
 // Model("user").InnerJoinOnFields("order", "id", "<", "user_id")
+
+// ff:内连接带比较运算符
+// secondField:第二个字段
+// operator:比较运算符
+// firstField:第一个字段
+// table:表名
 func (m *Model) InnerJoinOnFields(table, firstField, operator, secondField string) *Model {
 	return m.doJoin(joinOperatorInner, table, fmt.Sprintf(
 		`%s.%s %s %s.%s`,

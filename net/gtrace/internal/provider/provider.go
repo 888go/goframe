@@ -24,6 +24,8 @@ type TracerProvider struct {
 //
 // The passed opts are used to override these default values and configure the
 // returned TracerProvider appropriately.
+
+// ff:
 func New() *TracerProvider {
 	return &TracerProvider{
 		TracerProvider: sdkTrace.NewTracerProvider(

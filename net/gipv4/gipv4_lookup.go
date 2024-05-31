@@ -13,6 +13,9 @@ import (
 )
 
 // GetHostByName returns the IPv4 address corresponding to a given Internet host name.
+
+// ff:
+// hostname:
 func GetHostByName(hostname string) (string, error) {
 	ips, err := net.LookupIP(hostname)
 	if ips != nil {
@@ -28,6 +31,9 @@ func GetHostByName(hostname string) (string, error) {
 
 // GetHostsByName returns a list of IPv4 addresses corresponding to a given Internet
 // host name.
+
+// ff:
+// hostname:
 func GetHostsByName(hostname string) ([]string, error) {
 	ips, err := net.LookupIP(hostname)
 	if ips != nil {
@@ -43,6 +49,9 @@ func GetHostsByName(hostname string) ([]string, error) {
 }
 
 // GetNameByAddr returns the Internet host name corresponding to a given IP address.
+
+// ff:
+// ipAddress:
 func GetNameByAddr(ipAddress string) (string, error) {
 	names, err := net.LookupAddr(ipAddress)
 	if names != nil {

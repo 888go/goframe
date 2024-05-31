@@ -23,6 +23,10 @@ type StorageRedisHashTable struct {
 }
 
 // NewStorageRedisHashTable creates and returns a redis hash table storage object for session.
+
+// ff:
+// prefix:
+// redis:
 func NewStorageRedisHashTable(redis *gredis.Redis, prefix ...string) *StorageRedisHashTable {
 	if redis == nil {
 		panic("redis instance for storage cannot be empty")
@@ -39,6 +43,13 @@ func NewStorageRedisHashTable(redis *gredis.Redis, prefix ...string) *StorageRed
 
 // Get retrieves session value with given key.
 // It returns nil if the key does not exist in the session.
+
+// ff:
+// err:
+// value:
+// key:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) Get(ctx context.Context, sessionId string, key string) (value interface{}, err error) {
 	v, err := s.redis.HGet(ctx, s.sessionIdToRedisKey(sessionId), key)
 	if err != nil {
@@ -51,6 +62,12 @@ func (s *StorageRedisHashTable) Get(ctx context.Context, sessionId string, key s
 }
 
 // Data retrieves all key-value pairs as map from storage.
+
+// ff:
+// err:
+// data:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) Data(ctx context.Context, sessionId string) (data map[string]interface{}, err error) {
 	m, err := s.redis.HGetAll(ctx, s.sessionIdToRedisKey(sessionId))
 	if err != nil {
@@ -60,6 +77,12 @@ func (s *StorageRedisHashTable) Data(ctx context.Context, sessionId string) (dat
 }
 
 // GetSize retrieves the size of key-value pairs from storage.
+
+// ff:
+// err:
+// size:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) GetSize(ctx context.Context, sessionId string) (size int, err error) {
 	v, err := s.redis.HLen(ctx, s.sessionIdToRedisKey(sessionId))
 	return int(v), err
@@ -67,6 +90,14 @@ func (s *StorageRedisHashTable) GetSize(ctx context.Context, sessionId string) (
 
 // Set sets key-value session pair to the storage.
 // The parameter `ttl` specifies the TTL for the session id (not for the key-value pair).
+
+// ff:设置值
+// yx:true
+// ttl:
+// value:
+// key:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
 	_, err := s.redis.HSet(ctx, s.sessionIdToRedisKey(sessionId), map[string]interface{}{
 		key: value,
@@ -76,18 +107,33 @@ func (s *StorageRedisHashTable) Set(ctx context.Context, sessionId string, key s
 
 // SetMap batch sets key-value session pairs with map to the storage.
 // The parameter `ttl` specifies the TTL for the session id(not for the key-value pair).
+
+// ff:
+// ttl:
+// data:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) SetMap(ctx context.Context, sessionId string, data map[string]interface{}, ttl time.Duration) error {
 	err := s.redis.HMSet(ctx, s.sessionIdToRedisKey(sessionId), data)
 	return err
 }
 
 // Remove deletes key with its value from storage.
+
+// ff:
+// key:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) Remove(ctx context.Context, sessionId string, key string) error {
 	_, err := s.redis.HDel(ctx, s.sessionIdToRedisKey(sessionId), key)
 	return err
 }
 
 // RemoveAll deletes all key-value pairs from storage.
+
+// ff:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) RemoveAll(ctx context.Context, sessionId string) error {
 	_, err := s.redis.Del(ctx, s.sessionIdToRedisKey(sessionId))
 	return err
@@ -100,6 +146,11 @@ func (s *StorageRedisHashTable) RemoveAll(ctx context.Context, sessionId string)
 // and for some storage it might be nil if memory storage is disabled.
 //
 // This function is called ever when session starts.
+
+// ff:
+// ttl:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
 	intlog.Printf(ctx, "StorageRedisHashTable.GetSession: %s, %v", sessionId, ttl)
 	v, err := s.redis.Exists(ctx, s.sessionIdToRedisKey(sessionId))
@@ -117,6 +168,12 @@ func (s *StorageRedisHashTable) GetSession(ctx context.Context, sessionId string
 // SetSession updates the data map for specified session id.
 // This function is called ever after session, which is changed dirty, is closed.
 // This copy all session data map from memory to storage.
+
+// ff:
+// ttl:
+// sessionData:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedisHashTable.SetSession: %s, %v", sessionId, ttl)
 	_, err := s.redis.Expire(ctx, s.sessionIdToRedisKey(sessionId), int64(ttl.Seconds()))
@@ -126,6 +183,11 @@ func (s *StorageRedisHashTable) SetSession(ctx context.Context, sessionId string
 // UpdateTTL updates the TTL for specified session id.
 // This function is called ever after session, which is not dirty, is closed.
 // It just adds the session id to the async handling queue.
+
+// ff:
+// ttl:
+// sessionId:
+// ctx:
 func (s *StorageRedisHashTable) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedisHashTable.UpdateTTL: %s, %v", sessionId, ttl)
 	_, err := s.redis.Expire(ctx, s.sessionIdToRedisKey(sessionId), int64(ttl.Seconds()))

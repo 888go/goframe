@@ -22,14 +22,21 @@ func init() {
 	Register(RuleDomain{})
 }
 
+
+// ff:
 func (r RuleDomain) Name() string {
 	return "domain"
 }
 
+
+// ff:
 func (r RuleDomain) Message() string {
 	return "The {field} value `{value}` is not a valid domain format"
 }
 
+
+// ff:
+// in:
 func (r RuleDomain) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^([0-9a-zA-Z][0-9a-zA-Z\-]{0,62}\.)+([a-zA-Z]{0,62})$`,

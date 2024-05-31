@@ -50,6 +50,8 @@ func init() {
 }
 
 // CommonAttributes returns the common used attributes for an instrument.
+
+// ff:
 func CommonAttributes() Attributes {
 	return Attributes{
 		NewAttribute(`os.host.name`, hostname),
@@ -58,6 +60,10 @@ func CommonAttributes() Attributes {
 }
 
 // NewAttribute creates and returns an Attribute by given `key` and `value`.
+
+// ff:
+// value:
+// key:
 func NewAttribute(key string, value any) Attribute {
 	return &localAttribute{
 		key:   key,
@@ -66,27 +72,37 @@ func NewAttribute(key string, value any) Attribute {
 }
 
 // Key returns the key of the attribute.
+
+// ff:
 func (l *localAttribute) Key() string {
 	return l.key
 }
 
 // Value returns the value of the attribute.
+
+// ff:
 func (l *localAttribute) Value() any {
 	return l.value
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (l *localAttribute) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`{"%s":%#v}`, l.key, l.value)), nil
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (attrs Attributes) String() string {
 	bs, _ := attrs.MarshalJSON()
 	return string(bs)
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
+
+// ff:
 func (attrs Attributes) MarshalJSON() ([]byte, error) {
 	var (
 		bs     []byte

@@ -9,11 +9,16 @@ package ghttp
 import "github.com/gogf/gf/v2/os/gview"
 
 // SetView sets template view engine object for this request.
+
+// ff:设置模板对象
+// view:模板对象
 func (r *Request) SetView(view *gview.View) {
 	r.viewObject = view
 }
 
 // GetView returns the template view engine object for this request.
+
+// ff:取模板对象
 func (r *Request) GetView() *gview.View {
 	view := r.viewObject
 	if view == nil {
@@ -26,6 +31,9 @@ func (r *Request) GetView() *gview.View {
 }
 
 // Assigns binds multiple template variables to current request.
+
+// ff:绑定模板变量Map
+// data:Map值
 func (r *Request) Assigns(data gview.Params) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params, len(data))
@@ -36,6 +44,10 @@ func (r *Request) Assigns(data gview.Params) {
 }
 
 // Assign binds a template variable to current request.
+
+// ff:绑定模板变量
+// value:值
+// key:名称
 func (r *Request) Assign(key string, value interface{}) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params)

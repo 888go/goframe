@@ -21,11 +21,15 @@ func (meter *localMeter) newInstrumentInfo() InstrumentInfo {
 }
 
 // Name returns the instrument name of the metric.
+
+// ff:
 func (l *localInstrumentInfo) Name() string {
 	return l.name
 }
 
 // Version returns the instrument version of the metric.
+
+// ff:
 func (l *localInstrumentInfo) Version() string {
 	return l.version
 }

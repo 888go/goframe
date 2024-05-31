@@ -15,4 +15,8 @@ func newNoopHistogramPerformer() HistogramPerformer {
 }
 
 // Record adds a single value to the histogram. The value is usually positive or zero.
+
+// ff:
+// option:
+// increment:
 func (noopHistogramPerformer) Record(increment float64, option ...Option) {}

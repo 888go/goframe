@@ -26,6 +26,10 @@ const (
 
 // Print prints `v` with newline using fmt.Println.
 // The parameter `v` can be multiple variables.
+
+// ff:
+// v:
+// ctx:
 func Print(ctx context.Context, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -35,6 +39,11 @@ func Print(ctx context.Context, v ...interface{}) {
 
 // Printf prints `v` with format `format` using fmt.Printf.
 // The parameter `v` can be multiple variables.
+
+// ff:
+// v:
+// format:
+// ctx:
 func Printf(ctx context.Context, format string, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -44,6 +53,10 @@ func Printf(ctx context.Context, format string, v ...interface{}) {
 
 // Error prints `v` with newline using fmt.Println.
 // The parameter `v` can be multiple variables.
+
+// ff:
+// v:
+// ctx:
 func Error(ctx context.Context, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -52,6 +65,11 @@ func Error(ctx context.Context, v ...interface{}) {
 }
 
 // Errorf prints `v` with format `format` using fmt.Printf.
+
+// ff:
+// v:
+// format:
+// ctx:
 func Errorf(ctx context.Context, format string, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -61,6 +79,10 @@ func Errorf(ctx context.Context, format string, v ...interface{}) {
 
 // PrintFunc prints the output from function `f`.
 // It only calls function `f` if debug mode is enabled.
+
+// ff:
+// f:
+// ctx:
 func PrintFunc(ctx context.Context, f func() string) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -74,6 +96,10 @@ func PrintFunc(ctx context.Context, f func() string) {
 
 // ErrorFunc prints the output from function `f`.
 // It only calls function `f` if debug mode is enabled.
+
+// ff:
+// f:
+// ctx:
 func ErrorFunc(ctx context.Context, f func() string) {
 	if !utils.IsDebugEnabled() {
 		return

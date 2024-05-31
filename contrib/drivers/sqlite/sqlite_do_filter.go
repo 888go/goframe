@@ -14,6 +14,15 @@ import (
 )
 
 // DoFilter deals with the sql string before commits it to underlying sql driver.
+
+// ff:
+// err:
+// newArgs:
+// newSql:
+// args:
+// sql:
+// link:
+// ctx:
 func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	// Special insert/ignore operation for sqlite.
 	switch {

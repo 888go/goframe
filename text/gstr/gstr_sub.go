@@ -16,6 +16,10 @@ import "strings"
 //
 // Example:
 // Str("av.mp4", ".") -> ".mp4"
+
+// ff:取右边并含关键字
+// needle:欲寻找的文本
+// haystack:文本
 func Str(haystack string, needle string) string {
 	if needle == "" {
 		return ""
@@ -35,6 +39,10 @@ func Str(haystack string, needle string) string {
 //
 // Example:
 // StrEx("av.mp4", ".") -> "mp4"
+
+// ff:取右边
+// needle:欲寻找的文本
+// haystack:文本
 func StrEx(haystack string, needle string) string {
 	if s := Str(haystack, needle); s != "" {
 		return s[1:]
@@ -47,6 +55,10 @@ func StrEx(haystack string, needle string) string {
 //
 // Example:
 // StrTill("av.mp4", ".") -> "av."
+
+// ff:取左边并含关键字
+// needle:欲寻找的文本
+// haystack:文本
 func StrTill(haystack string, needle string) string {
 	pos := strings.Index(haystack, needle)
 	if pos == NotFoundIndex || pos == 0 {
@@ -60,6 +72,10 @@ func StrTill(haystack string, needle string) string {
 //
 // Example:
 // StrTillEx("av.mp4", ".") -> "av"
+
+// ff:取左边
+// needle:欲寻找的文本
+// haystack:文本
 func StrTillEx(haystack string, needle string) string {
 	pos := strings.Index(haystack, needle)
 	if pos == NotFoundIndex || pos == 0 {
@@ -73,6 +89,12 @@ func StrTillEx(haystack string, needle string) string {
 //
 // Example:
 // SubStr("123456", 1, 2) -> "23"
+
+// ff:按长度取文本
+// substr:返回
+// length:长度
+// start:起始位置
+// str:文本
 func SubStr(str string, start int, length ...int) (substr string) {
 	strLength := len(str)
 	if start < 0 {
@@ -114,6 +136,12 @@ func SubStr(str string, start int, length ...int) (substr string) {
 //
 // Example:
 // SubStrRune("一起学习吧！", 2, 2) -> "学习"
+
+// ff:按长度取文本Unicode
+// substr:返回
+// length:长度
+// start:起始位置
+// str:文本
 func SubStrRune(str string, start int, length ...int) (substr string) {
 	// Converting to []rune to support unicode.
 	var (
@@ -159,6 +187,11 @@ func SubStrRune(str string, start int, length ...int) (substr string) {
 // Example:
 // StrLimit("123456", 3)      -> "123..."
 // StrLimit("123456", 3, "~") -> "123~"
+
+// ff:按长度取左边并带前缀
+// suffix:后缀
+// length:长度
+// str:文本
 func StrLimit(str string, length int, suffix ...string) string {
 	if len(str) < length {
 		return str
@@ -177,6 +210,11 @@ func StrLimit(str string, length int, suffix ...string) string {
 // Example:
 // StrLimitRune("一起学习吧！", 2)      -> "一起..."
 // StrLimitRune("一起学习吧！", 2, "~") -> "一起~"
+
+// ff:按长度取左边并带前缀Unicode
+// suffix:后缀
+// length:长度
+// str:文本
 func StrLimitRune(str string, length int, suffix ...string) string {
 	runes := []rune(str)
 	if len(runes) < length {
@@ -194,6 +232,11 @@ func StrLimitRune(str string, length int, suffix ...string) string {
 //
 // Example:
 // SubStrFrom("av.mp4", ".") -> ".mp4"
+
+// ff:SubStrFrom别名
+// substr:
+// need:
+// str:
 func SubStrFrom(str string, need string) (substr string) {
 	pos := Pos(str, need)
 	if pos < 0 {
@@ -207,6 +250,11 @@ func SubStrFrom(str string, need string) (substr string) {
 //
 // Example:
 // SubStrFromEx("av.mp4", ".") -> "mp4"
+
+// ff:SubStrFromEx别名
+// substr:
+// need:
+// str:
 func SubStrFromEx(str string, need string) (substr string) {
 	pos := Pos(str, need)
 	if pos < 0 {
@@ -220,6 +268,11 @@ func SubStrFromEx(str string, need string) (substr string) {
 //
 // Example:
 // SubStrFromR("/dev/vda", "/") -> "/vda"
+
+// ff:取右边并倒找与含关键字
+// substr:文本结果
+// need:欲寻找的文本
+// str:文本
 func SubStrFromR(str string, need string) (substr string) {
 	pos := PosR(str, need)
 	if pos < 0 {
@@ -233,6 +286,11 @@ func SubStrFromR(str string, need string) (substr string) {
 //
 // Example:
 // SubStrFromREx("/dev/vda", "/") -> "vda"
+
+// ff:取右边并倒找
+// substr:文本结果
+// need:欲寻找的文本
+// str:文本
 func SubStrFromREx(str string, need string) (substr string) {
 	pos := PosR(str, need)
 	if pos < 0 {

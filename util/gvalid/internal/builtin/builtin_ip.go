@@ -23,14 +23,21 @@ func init() {
 	Register(RuleIp{})
 }
 
+
+// ff:
 func (r RuleIp) Name() string {
 	return "ip"
 }
 
+
+// ff:
 func (r RuleIp) Message() string {
 	return "The {field} value `{value}` is not a valid IP address"
 }
 
+
+// ff:
+// in:
 func (r RuleIp) Run(in RunInput) error {
 	var (
 		ok    bool

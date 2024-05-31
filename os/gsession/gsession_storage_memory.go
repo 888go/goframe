@@ -27,6 +27,8 @@ type StorageMemory struct {
 }
 
 // NewStorageMemory creates and returns a file storage object for session.
+
+// ff:
 func NewStorageMemory() *StorageMemory {
 	return &StorageMemory{
 		cache: gcache.New(),
@@ -34,6 +36,10 @@ func NewStorageMemory() *StorageMemory {
 }
 
 // RemoveAll deletes session from storage.
+
+// ff:
+// sessionId:
+// ctx:
 func (s *StorageMemory) RemoveAll(ctx context.Context, sessionId string) error {
 	_, err := s.cache.Remove(ctx, sessionId)
 	return err
@@ -46,6 +52,11 @@ func (s *StorageMemory) RemoveAll(ctx context.Context, sessionId string) error {
 // and for some storage it might be nil if memory storage is disabled.
 //
 // This function is called ever when session starts.
+
+// ff:
+// ttl:
+// sessionId:
+// ctx:
 func (s *StorageMemory) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
 	// Retrieve memory session data from manager.
 	var (
@@ -65,6 +76,12 @@ func (s *StorageMemory) GetSession(ctx context.Context, sessionId string, ttl ti
 // SetSession updates the data map for specified session id.
 // This function is called ever after session, which is changed dirty, is closed.
 // This copy all session data map from memory to storage.
+
+// ff:
+// ttl:
+// sessionData:
+// sessionId:
+// ctx:
 func (s *StorageMemory) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	return s.cache.Set(ctx, sessionId, sessionData, ttl)
 }
@@ -72,6 +89,11 @@ func (s *StorageMemory) SetSession(ctx context.Context, sessionId string, sessio
 // UpdateTTL updates the TTL for specified session id.
 // This function is called ever after session, which is not dirty, is closed.
 // It just adds the session id to the async handling queue.
+
+// ff:
+// ttl:
+// sessionId:
+// ctx:
 func (s *StorageMemory) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	_, err := s.cache.UpdateExpire(ctx, sessionId, ttl)
 	return err

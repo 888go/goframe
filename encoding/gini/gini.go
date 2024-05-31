@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gini provides accessing and converting for INI content.
-package gini
+package gini//bm:ini类
 
 import (
 	"bufio"
@@ -20,6 +20,11 @@ import (
 )
 
 // Decode converts INI format to map.
+
+// ff:取Map
+// err:错误
+// res:map值
+// data:字节集
 func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	var (
@@ -79,6 +84,11 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 }
 
 // Encode converts map to INI format.
+
+// ff:Map到ini
+// err:错误
+// res:字节集
+// data:map值
 func Encode(data map[string]interface{}) (res []byte, err error) {
 	var (
 		n  int
@@ -116,6 +126,11 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 }
 
 // ToJson convert INI format to JSON.
+
+// ff:取json
+// err:错误
+// res:json字节集
+// data:字节集
 func ToJson(data []byte) (res []byte, err error) {
 	iniMap, err := Decode(data)
 	if err != nil {

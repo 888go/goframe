@@ -11,6 +11,9 @@ import (
 )
 
 // MiddlewareJsonBody validates and returns request body whether JSON format.
+
+// ff:中间件函数_验证JSON格式请求体
+// r:
 func MiddlewareJsonBody(r *Request) {
 	requestBody := r.GetBody()
 	if len(requestBody) > 0 {

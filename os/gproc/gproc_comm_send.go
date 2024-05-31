@@ -15,6 +15,11 @@ import (
 )
 
 // Send sends data to specified process of given pid.
+
+// ff:
+// group:
+// data:
+// pid:
 func Send(pid int, data []byte, group ...string) error {
 	msg := MsgRequest{
 		SenderPid:   Pid(),

@@ -18,16 +18,23 @@ type localStatsItem struct {
 }
 
 // Node returns the configuration node info.
+
+// ff:
 func (item *localStatsItem) Node() ConfigNode {
 	return *item.node
 }
 
 // Stats returns the connection stat for current node.
+
+// ff:
 func (item *localStatsItem) Stats() sql.DBStats {
 	return item.stats
 }
 
 // Stats retrieves and returns the pool stat for all nodes that have been established.
+
+// ff:
+// ctx:
 func (c *Core) Stats(ctx context.Context) []StatsItem {
 	var items = make([]StatsItem, 0)
 	c.links.Iterator(func(k, v any) bool {

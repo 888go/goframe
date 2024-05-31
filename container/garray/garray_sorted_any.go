@@ -40,6 +40,12 @@ type SortedArray struct {
 // if it returns value < 0, means `a` < `b`; the `a` will be inserted before `b`;
 // if it returns value = 0, means `a` = `b`; the `a` will be replaced by     `b`;
 // if it returns value > 0, means `a` > `b`; the `a` will be inserted after  `b`;
+
+// ff:创建排序
+// safe:并发安全
+// comparator:排序函数
+// b:
+// a:
 func NewSortedArray(comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	return NewSortedArraySize(0, comparator, safe...)
 }
@@ -47,6 +53,13 @@ func NewSortedArray(comparator func(a, b interface{}) int, safe ...bool) *Sorted
 // NewSortedArraySize create and returns an sorted array with given size and cap.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
+
+// ff:创建排序并按大小
+// safe:并发安全
+// comparator:排序函数
+// b:
+// a:
+// cap:大小
 func NewSortedArraySize(cap int, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	return &SortedArray{
 		mu:         rwmutex.Create(safe...),
@@ -57,6 +70,15 @@ func NewSortedArraySize(cap int, comparator func(a, b interface{}) int, safe ...
 
 // NewSortedArrayRange creates and returns an array by a range from `start` to `end`
 // with step value `step`.
+
+// ff:创建排序并按范围
+// safe:并发安全
+// comparator:排序函数
+// b:
+// a:
+// step:步长
+// end:终点
+// start:起点
 func NewSortedArrayRange(start, end, step int, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	if step == 0 {
 		panic(fmt.Sprintf(`invalid step value: %d`, step))
@@ -73,6 +95,13 @@ func NewSortedArrayRange(start, end, step int, comparator func(a, b interface{})
 // NewSortedArrayFrom creates and returns an sorted array with given slice `array`.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
+
+// ff:创建排序并从数组
+// safe:并发安全
+// comparator:排序函数
+// b:
+// a:
+// array:数组
 func NewSortedArrayFrom(array []interface{}, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	a := NewSortedArraySize(0, comparator, safe...)
 	a.array = array
@@ -85,6 +114,13 @@ func NewSortedArrayFrom(array []interface{}, comparator func(a, b interface{}) i
 // NewSortedArrayFromCopy creates and returns an sorted array from a copy of given slice `array`.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
+
+// ff:创建排序并从数组复制
+// safe:并发安全
+// comparator:排序函数
+// b:
+// a:
+// array:数组
 func NewSortedArrayFromCopy(array []interface{}, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	newArray := make([]interface{}, len(array))
 	copy(newArray, array)
@@ -93,12 +129,19 @@ func NewSortedArrayFromCopy(array []interface{}, comparator func(a, b interface{
 
 // At returns the value by the specified index.
 // If the given `index` is out of range of the array, it returns `nil`.
+
+// ff:取值
+// value:值
+// index:索引
 func (a *SortedArray) At(index int) (value interface{}) {
 	value, _ = a.Get(index)
 	return
 }
 
 // SetArray sets the underlying slice array with the given `array`.
+
+// ff:设置数组
+// array:数组
 func (a *SortedArray) SetArray(array []interface{}) *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -111,6 +154,11 @@ func (a *SortedArray) SetArray(array []interface{}) *SortedArray {
 
 // SetComparator sets/changes the comparator for sorting.
 // It resorts the array as the comparator is changed.
+
+// ff:设置排序函数
+// comparator:排序函数
+// b:
+// a:
 func (a *SortedArray) SetComparator(comparator func(a, b interface{}) int) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -123,6 +171,8 @@ func (a *SortedArray) SetComparator(comparator func(a, b interface{}) int) {
 // Sort sorts the array in increasing order.
 // The parameter `reverse` controls whether sort
 // in increasing order(default) or decreasing order
+
+// ff:排序递增
 func (a *SortedArray) Sort() *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -134,11 +184,17 @@ func (a *SortedArray) Sort() *SortedArray {
 
 // Add adds one or multiple values to sorted array, the array always keeps sorted.
 // It's alias of function Append, see Append.
+
+// ff:入栈右
+// values:值
 func (a *SortedArray) Add(values ...interface{}) *SortedArray {
 	return a.Append(values...)
 }
 
 // Append adds one or multiple values to sorted array, the array always keeps sorted.
+
+// ff:Append别名
+// values:值
 func (a *SortedArray) Append(values ...interface{}) *SortedArray {
 	if len(values) == 0 {
 		return a
@@ -164,6 +220,11 @@ func (a *SortedArray) Append(values ...interface{}) *SortedArray {
 
 // Get returns the value by the specified index.
 // If the given `index` is out of range of the array, the `found` is false.
+
+// ff:取值2
+// found:成功
+// value:值
+// index:索引
 func (a *SortedArray) Get(index int) (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -175,6 +236,11 @@ func (a *SortedArray) Get(index int) (value interface{}, found bool) {
 
 // Remove removes an item by index.
 // If the given `index` is out of range of the array, the `found` is false.
+
+// ff:删除
+// found:成功
+// value:值
+// index:索引
 func (a *SortedArray) Remove(index int) (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -206,6 +272,9 @@ func (a *SortedArray) doRemoveWithoutLock(index int) (value interface{}, found b
 
 // RemoveValue removes an item by value.
 // It returns true if value is found in the array, or else false if not found.
+
+// ff:删除值
+// value:值
 func (a *SortedArray) RemoveValue(value interface{}) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -217,6 +286,9 @@ func (a *SortedArray) RemoveValue(value interface{}) bool {
 }
 
 // RemoveValues removes an item by `values`.
+
+// ff:删除多个值
+// values:值
 func (a *SortedArray) RemoveValues(values ...interface{}) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -229,6 +301,10 @@ func (a *SortedArray) RemoveValues(values ...interface{}) {
 
 // PopLeft pops and returns an item from the beginning of array.
 // Note that if the array is empty, the `found` is false.
+
+// ff:出栈左
+// found:成功
+// value:值
 func (a *SortedArray) PopLeft() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -242,6 +318,10 @@ func (a *SortedArray) PopLeft() (value interface{}, found bool) {
 
 // PopRight pops and returns an item from the end of array.
 // Note that if the array is empty, the `found` is false.
+
+// ff:出栈右
+// found:成功
+// value:值
 func (a *SortedArray) PopRight() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -256,6 +336,10 @@ func (a *SortedArray) PopRight() (value interface{}, found bool) {
 
 // PopRand randomly pops and return an item out of array.
 // Note that if the array is empty, the `found` is false.
+
+// ff:出栈随机
+// found:成功
+// value:值
 func (a *SortedArray) PopRand() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -263,6 +347,9 @@ func (a *SortedArray) PopRand() (value interface{}, found bool) {
 }
 
 // PopRands randomly pops and returns `size` items out of array.
+
+// ff:出栈随机多个
+// size:数量
 func (a *SortedArray) PopRands(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -280,6 +367,9 @@ func (a *SortedArray) PopRands(size int) []interface{} {
 }
 
 // PopLefts pops and returns `size` items from the beginning of array.
+
+// ff:出栈左多个
+// size:数量
 func (a *SortedArray) PopLefts(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -297,6 +387,9 @@ func (a *SortedArray) PopLefts(size int) []interface{} {
 }
 
 // PopRights pops and returns `size` items from the end of array.
+
+// ff:出栈右多个
+// size:数量
 func (a *SortedArray) PopRights(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -321,6 +414,10 @@ func (a *SortedArray) PopRights(size int) []interface{} {
 // If `end` is negative, then the offset will start from the end of array.
 // If `end` is omitted, then the sequence will have everything from start up
 // until the end of the array.
+
+// ff:取切片并按范围
+// end:终点
+// start:起点
 func (a *SortedArray) Range(start int, end ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -357,6 +454,10 @@ func (a *SortedArray) Range(start int, end ...int) []interface{} {
 // If it is omitted, then the sequence will have everything from offset up until the end of the array.
 //
 // Any possibility crossing the left border of array, it will fail.
+
+// ff:取切片并按数量
+// length:数量
+// offset:起点
 func (a *SortedArray) SubSlice(offset int, length ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -395,6 +496,9 @@ func (a *SortedArray) SubSlice(offset int, length ...int) []interface{} {
 }
 
 // Sum returns the sum of values in an array.
+
+// ff:求和
+// sum:值
 func (a *SortedArray) Sum() (sum int) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -405,6 +509,8 @@ func (a *SortedArray) Sum() (sum int) {
 }
 
 // Len returns the length of array.
+
+// ff:取长度
 func (a *SortedArray) Len() int {
 	a.mu.RLock()
 	length := len(a.array)
@@ -415,6 +521,8 @@ func (a *SortedArray) Len() int {
 // Slice returns the underlying data of array.
 // Note that, if it's in concurrent-safe usage, it returns a copy of underlying data,
 // or else a pointer to the underlying data.
+
+// ff:取切片
 func (a *SortedArray) Slice() []interface{} {
 	var array []interface{}
 	if a.mu.IsSafe() {
@@ -429,17 +537,27 @@ func (a *SortedArray) Slice() []interface{} {
 }
 
 // Interfaces returns current array as []interface{}.
+
+// ff:取any数组
+// yx:true
 func (a *SortedArray) Interfaces() []interface{} {
 	return a.Slice()
 }
 
 // Contains checks whether a value exists in the array.
+
+// ff:是否存在
+// value:值
 func (a *SortedArray) Contains(value interface{}) bool {
 	return a.Search(value) != -1
 }
 
 // Search searches array by `value`, returns the index of `value`,
 // or returns -1 if not exists.
+
+// ff:查找
+// index:索引
+// value:值
 func (a *SortedArray) Search(value interface{}) (index int) {
 	if i, r := a.binSearch(value, true); r == 0 {
 		return i
@@ -482,6 +600,9 @@ func (a *SortedArray) binSearch(value interface{}, lock bool) (index int, result
 // SetUnique sets unique mark to the array,
 // which means it does not contain any repeated items.
 // It also does unique check, remove all repeated items.
+
+// ff:设置去重
+// unique:去重
 func (a *SortedArray) SetUnique(unique bool) *SortedArray {
 	oldUnique := a.unique
 	a.unique = unique
@@ -492,6 +613,8 @@ func (a *SortedArray) SetUnique(unique bool) *SortedArray {
 }
 
 // Unique uniques the array, clear repeated items.
+
+// ff:去重
 func (a *SortedArray) Unique() *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -513,6 +636,9 @@ func (a *SortedArray) Unique() *SortedArray {
 }
 
 // Clone returns a new array, which is a copy of current array.
+
+// ff:取副本
+// newArray:新数组
 func (a *SortedArray) Clone() (newArray *SortedArray) {
 	a.mu.RLock()
 	array := make([]interface{}, len(a.array))
@@ -522,6 +648,8 @@ func (a *SortedArray) Clone() (newArray *SortedArray) {
 }
 
 // Clear deletes all items of current array.
+
+// ff:清空
 func (a *SortedArray) Clear() *SortedArray {
 	a.mu.Lock()
 	if len(a.array) > 0 {
@@ -532,6 +660,9 @@ func (a *SortedArray) Clear() *SortedArray {
 }
 
 // LockFunc locks writing by callback function `f`.
+
+// ff:遍历写锁定
+// f:回调函数
 func (a *SortedArray) LockFunc(f func(array []interface{})) *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -546,6 +677,9 @@ func (a *SortedArray) LockFunc(f func(array []interface{})) *SortedArray {
 }
 
 // RLockFunc locks reading by callback function `f`.
+
+// ff:遍历读锁定
+// f:回调函数
 func (a *SortedArray) RLockFunc(f func(array []interface{})) *SortedArray {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -557,6 +691,9 @@ func (a *SortedArray) RLockFunc(f func(array []interface{})) *SortedArray {
 // The parameter `array` can be any garray or slice type.
 // The difference between Merge and Append is Append supports only specified slice type,
 // but Merge supports more parameter types.
+
+// ff:合并
+// array:数组
 func (a *SortedArray) Merge(array interface{}) *SortedArray {
 	return a.Add(gconv.Interfaces(array)...)
 }
@@ -564,6 +701,9 @@ func (a *SortedArray) Merge(array interface{}) *SortedArray {
 // Chunk splits an array into multiple arrays,
 // the size of each array is determined by `size`.
 // The last chunk may contain less than size elements.
+
+// ff:分割
+// size:数量
 func (a *SortedArray) Chunk(size int) [][]interface{} {
 	if size < 1 {
 		return nil
@@ -585,6 +725,10 @@ func (a *SortedArray) Chunk(size int) [][]interface{} {
 }
 
 // Rand randomly returns one item from array(no deleting).
+
+// ff:取值随机
+// found:成功
+// value:值
 func (a *SortedArray) Rand() (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -595,6 +739,9 @@ func (a *SortedArray) Rand() (value interface{}, found bool) {
 }
 
 // Rands randomly returns `size` items from array(no deleting).
+
+// ff:取值随机多个
+// size:数量
 func (a *SortedArray) Rands(size int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -609,6 +756,9 @@ func (a *SortedArray) Rands(size int) []interface{} {
 }
 
 // Join joins array elements with a string `glue`.
+
+// ff:连接
+// glue:连接符
 func (a *SortedArray) Join(glue string) string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -626,6 +776,8 @@ func (a *SortedArray) Join(glue string) string {
 }
 
 // CountValues counts the number of occurrences of all values in the array.
+
+// ff:统计
 func (a *SortedArray) CountValues() map[interface{}]int {
 	m := make(map[interface{}]int)
 	a.mu.RLock()
@@ -637,12 +789,19 @@ func (a *SortedArray) CountValues() map[interface{}]int {
 }
 
 // Iterator is alias of IteratorAsc.
+
+// ff:X遍历
+// yx:true
+// f:
 func (a *SortedArray) Iterator(f func(k int, v interface{}) bool) {
 	a.IteratorAsc(f)
 }
 
 // IteratorAsc iterates the array readonly in ascending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
+
+// ff:遍历升序
+// f:回调函数
 func (a *SortedArray) IteratorAsc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -655,6 +814,9 @@ func (a *SortedArray) IteratorAsc(f func(k int, v interface{}) bool) {
 
 // IteratorDesc iterates the array readonly in descending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
+
+// ff:遍历降序
+// f:回调函数
 func (a *SortedArray) IteratorDesc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -666,6 +828,8 @@ func (a *SortedArray) IteratorDesc(f func(k int, v interface{}) bool) {
 }
 
 // String returns current array as a string, which implements like json.Marshal does.
+
+// ff:
 func (a *SortedArray) String() string {
 	if a == nil {
 		return ""
@@ -692,6 +856,8 @@ func (a *SortedArray) String() string {
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
 // Note that do not use pointer as its receiver here.
+
+// ff:
 func (a SortedArray) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -700,6 +866,9 @@ func (a SortedArray) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 // Note that the comparator is set as string comparator in default.
+
+// ff:
+// b:
 func (a *SortedArray) UnmarshalJSON(b []byte) error {
 	if a.comparator == nil {
 		a.array = make([]interface{}, 0)
@@ -720,6 +889,10 @@ func (a *SortedArray) UnmarshalJSON(b []byte) error {
 
 // UnmarshalValue is an interface implement which sets any type of value for array.
 // Note that the comparator is set as string comparator in default.
+
+// ff:
+// err:
+// value:
 func (a *SortedArray) UnmarshalValue(value interface{}) (err error) {
 	if a.comparator == nil {
 		a.comparator = gutil.ComparatorString
@@ -741,6 +914,8 @@ func (a *SortedArray) UnmarshalValue(value interface{}) (err error) {
 }
 
 // FilterNil removes all nil value of the array.
+
+// ff:删除所有nil
 func (a *SortedArray) FilterNil() *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -764,6 +939,11 @@ func (a *SortedArray) FilterNil() *SortedArray {
 // Filter iterates array and filters elements using custom callback function.
 // It removes the element from array if callback function `filter` returns true,
 // it or else does nothing and continues iterating.
+
+// ff:遍历删除
+// filter:回调函数
+// value:值
+// index:索引
 func (a *SortedArray) Filter(filter func(index int, value interface{}) bool) *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -779,6 +959,8 @@ func (a *SortedArray) Filter(filter func(index int, value interface{}) bool) *So
 
 // FilterEmpty removes all empty value of the array.
 // Values like: 0, nil, false, "", len(slice/map/chan) == 0 are considered empty.
+
+// ff:删除所有空值
 func (a *SortedArray) FilterEmpty() *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -800,6 +982,9 @@ func (a *SortedArray) FilterEmpty() *SortedArray {
 }
 
 // Walk applies a user supplied function `f` to every item of array.
+
+// ff:遍历修改
+// f:回调函数
 func (a *SortedArray) Walk(f func(value interface{}) interface{}) *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -814,6 +999,8 @@ func (a *SortedArray) Walk(f func(value interface{}) interface{}) *SortedArray {
 }
 
 // IsEmpty checks whether the array is empty.
+
+// ff:是否为空
 func (a *SortedArray) IsEmpty() bool {
 	return a.Len() == 0
 }
@@ -828,6 +1015,8 @@ func (a *SortedArray) getComparator() func(a, b interface{}) int {
 }
 
 // DeepCopy implements interface for deep copy of current type.
+
+// ff:
 func (a *SortedArray) DeepCopy() interface{} {
 	if a == nil {
 		return nil

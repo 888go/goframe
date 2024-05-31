@@ -31,6 +31,12 @@ import (
 //     It will automatically convert the first letter of the key to uppercase
 //     in mapping procedure to do the matching.
 //     It ignores the map key, if it does not match.
+
+// ff:
+// err:
+// paramKeyToAttrMap:
+// pointer:
+// params:
 func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
@@ -38,6 +44,12 @@ func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[st
 // StructTag acts as Struct but also with support for priority tag feature, which retrieves the
 // specified tags for `params` key-value items to struct attribute names mapping.
 // The parameter `priorityTag` supports multiple tags that can be joined with char ','.
+
+// ff:
+// err:
+// priorityTag:
+// pointer:
+// params:
 func StructTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStruct(params, pointer, nil, priorityTag)
 }

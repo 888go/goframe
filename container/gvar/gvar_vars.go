@@ -14,6 +14,10 @@ import (
 type Vars []*Var
 
 // Strings converts and returns `vs` as []string.
+
+// ff:取文本数组
+// yx:true
+// s:
 func (vs Vars) Strings() (s []string) {
 	for _, v := range vs {
 		s = append(s, v.String())
@@ -22,6 +26,10 @@ func (vs Vars) Strings() (s []string) {
 }
 
 // Interfaces converts and returns `vs` as []interface{}.
+
+// ff:取any数组
+// yx:true
+// s:
 func (vs Vars) Interfaces() (s []interface{}) {
 	for _, v := range vs {
 		s = append(s, v.Val())
@@ -30,6 +38,9 @@ func (vs Vars) Interfaces() (s []interface{}) {
 }
 
 // Float32s converts and returns `vs` as []float32.
+
+// ff:取小数32位数组
+// s:数组
 func (vs Vars) Float32s() (s []float32) {
 	for _, v := range vs {
 		s = append(s, v.Float32())
@@ -38,6 +49,9 @@ func (vs Vars) Float32s() (s []float32) {
 }
 
 // Float64s converts and returns `vs` as []float64.
+
+// ff:取小数64位数组
+// s:数组
 func (vs Vars) Float64s() (s []float64) {
 	for _, v := range vs {
 		s = append(s, v.Float64())
@@ -46,6 +60,10 @@ func (vs Vars) Float64s() (s []float64) {
 }
 
 // Ints converts and returns `vs` as []Int.
+
+// ff:取整数数组
+// yx:true
+// s:
 func (vs Vars) Ints() (s []int) {
 	for _, v := range vs {
 		s = append(s, v.Int())
@@ -54,6 +72,9 @@ func (vs Vars) Ints() (s []int) {
 }
 
 // Int8s converts and returns `vs` as []int8.
+
+// ff:取整数8位数组
+// s:数组
 func (vs Vars) Int8s() (s []int8) {
 	for _, v := range vs {
 		s = append(s, v.Int8())
@@ -62,6 +83,9 @@ func (vs Vars) Int8s() (s []int8) {
 }
 
 // Int16s converts and returns `vs` as []int16.
+
+// ff:取整数16位数组
+// s:数组
 func (vs Vars) Int16s() (s []int16) {
 	for _, v := range vs {
 		s = append(s, v.Int16())
@@ -70,6 +94,9 @@ func (vs Vars) Int16s() (s []int16) {
 }
 
 // Int32s converts and returns `vs` as []int32.
+
+// ff:取整数32位数组
+// s:数组
 func (vs Vars) Int32s() (s []int32) {
 	for _, v := range vs {
 		s = append(s, v.Int32())
@@ -78,6 +105,9 @@ func (vs Vars) Int32s() (s []int32) {
 }
 
 // Int64s converts and returns `vs` as []int64.
+
+// ff:取整数64位数组
+// s:数组
 func (vs Vars) Int64s() (s []int64) {
 	for _, v := range vs {
 		s = append(s, v.Int64())
@@ -86,6 +116,10 @@ func (vs Vars) Int64s() (s []int64) {
 }
 
 // Uints converts and returns `vs` as []uint.
+
+// ff:取正整数数组
+// yx:true
+// s:
 func (vs Vars) Uints() (s []uint) {
 	for _, v := range vs {
 		s = append(s, v.Uint())
@@ -94,6 +128,9 @@ func (vs Vars) Uints() (s []uint) {
 }
 
 // Uint8s converts and returns `vs` as []uint8.
+
+// ff:取正整数8位数组
+// s:数组
 func (vs Vars) Uint8s() (s []uint8) {
 	for _, v := range vs {
 		s = append(s, v.Uint8())
@@ -102,6 +139,9 @@ func (vs Vars) Uint8s() (s []uint8) {
 }
 
 // Uint16s converts and returns `vs` as []uint16.
+
+// ff:取正整数16位数组
+// s:数组
 func (vs Vars) Uint16s() (s []uint16) {
 	for _, v := range vs {
 		s = append(s, v.Uint16())
@@ -110,6 +150,9 @@ func (vs Vars) Uint16s() (s []uint16) {
 }
 
 // Uint32s converts and returns `vs` as []uint32.
+
+// ff:取正整数32位数组
+// s:数组
 func (vs Vars) Uint32s() (s []uint32) {
 	for _, v := range vs {
 		s = append(s, v.Uint32())
@@ -118,6 +161,9 @@ func (vs Vars) Uint32s() (s []uint32) {
 }
 
 // Uint64s converts and returns `vs` as []uint64.
+
+// ff:取正整数64位数组
+// s:数组
 func (vs Vars) Uint64s() (s []uint64) {
 	for _, v := range vs {
 		s = append(s, v.Uint64())
@@ -126,6 +172,10 @@ func (vs Vars) Uint64s() (s []uint64) {
 }
 
 // Scan converts `vs` to []struct/[]*struct.
+
+// ff:取结构体指针
+// mapping:名称映射
+// pointer:结构体指针
 func (vs Vars) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return gconv.Structs(vs.Interfaces(), pointer, mapping...)
 }

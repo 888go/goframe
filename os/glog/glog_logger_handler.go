@@ -31,56 +31,56 @@ type HandlerInput struct {
 	Logger *Logger
 
 	// Buffer for logging content outputs.
-	Buffer *bytes.Buffer
+	Buffer *bytes.Buffer //qm:缓冲区 cz:Buffer *bytes.Buffer     
 
 	// (ReadOnly) Logging time, which is the time that logging triggers.
-	Time time.Time
+	Time time.Time //qm:时间 cz:Time time.Time     
 
 	// Formatted time string for output, like "2016-01-09 12:00:00".
-	TimeFormat string
+	TimeFormat string //qm:格式化时间 cz:TimeFormat string     
 
 	// (ReadOnly) Using color constant value, like COLOR_RED, COLOR_BLUE, etc.
 	// Example: 34
-	Color int
+	Color int //qm:颜色 cz:Color int     
 
 	// (ReadOnly) Using level, like LEVEL_INFO, LEVEL_ERRO, etc.
 	// Example: 256
-	Level int
+	Level int //qm:级别 cz:Level int     
 
 	// Formatted level string for output, like "DEBU", "ERRO", etc.
 	// Example: ERRO
-	LevelFormat string
+	LevelFormat string //qm:文本级别 cz:LevelFormat string     
 
 	// The source function name that calls logging, only available if F_CALLER_FN set.
-	CallerFunc string
+	CallerFunc string //qm:源文件函数名 cz:CallerFunc string     
 
 	// The source file path and its line number that calls logging,
 	// only available if F_FILE_SHORT or F_FILE_LONG set.
-	CallerPath string
+	CallerPath string //qm:源文件路径与行号 cz:CallerPath string     
 
 	// The retrieved context value string from context, only available if Config.CtxKeys configured.
 	// It's empty if no Config.CtxKeys configured.
-	CtxStr string
+	CtxStr string //qm:上下文值 cz:CtxStr string     
 
 	// Trace id, only available if OpenTelemetry is enabled, or else it's an empty string.
-	TraceId string
+	TraceId string //qm:链路跟踪ID cz:TraceId string     
 
-	// Custom prefix string in logging content header part.
+	// Custom prefix string in logging content header part. //qm:前缀 cz:Prefix string     
 	// Note that, it takes no effect if HeaderPrint is disabled.
 	Prefix string
 
 	// Custom logging content for logging.
-	Content string
+	Content string //qm:日志内容 cz:Content string     
 
 	// The passed un-formatted values array to logger.
-	Values []any
+	Values []any //qm:未格式化数组 cz:Values []any     
 
 	// Stack string produced by logger, only available if Config.StStatus configured.
 	// Note that there are usually multiple lines in stack content.
 	Stack string
 
 	// IsAsync marks it is in asynchronous logging.
-	IsAsync bool
+	IsAsync bool //qm:是否为异步 cz:IsAsync bool     
 }
 
 type internalHandlerInfo struct {
@@ -101,16 +101,24 @@ func doFinalPrint(ctx context.Context, in *HandlerInput) {
 }
 
 // SetDefaultHandler sets default handler for package.
+
+// ff:设置默认中间件
+// handler:处理函数
 func SetDefaultHandler(handler Handler) {
 	defaultHandler = handler
 }
 
 // GetDefaultHandler returns the default handler of package.
+
+// ff:取默认中间件
 func GetDefaultHandler() Handler {
 	return defaultHandler
 }
 
 // Next calls the next logging handler in middleware way.
+
+// ff:
+// ctx:
 func (in *HandlerInput) Next(ctx context.Context) {
 	in.index++
 	if in.index < len(in.handlers) {
@@ -119,6 +127,9 @@ func (in *HandlerInput) Next(ctx context.Context) {
 }
 
 // String returns the logging content formatted by default logging handler.
+
+// ff:
+// withColor:
 func (in *HandlerInput) String(withColor ...bool) string {
 	formatWithColor := false
 	if len(withColor) > 0 {
@@ -128,10 +139,12 @@ func (in *HandlerInput) String(withColor ...bool) string {
 }
 
 // ValuesContent converts and returns values as string content.
+
+// ff:
 func (in *HandlerInput) ValuesContent() string {
 	var (
 		buffer       = bytes.NewBuffer(nil)
-		valueContent string
+		valueContent string //qm:日志内容 cz:Content string     
 	)
 	for _, v := range in.Values {
 		valueContent = gconv.String(v)

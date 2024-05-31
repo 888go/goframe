@@ -23,14 +23,21 @@ func init() {
 	Register(RuleMax{})
 }
 
+
+// ff:
 func (r RuleMax) Name() string {
 	return "max"
 }
 
+
+// ff:
 func (r RuleMax) Message() string {
 	return "The {field} value `{value}` must be equal or lesser than {max}"
 }
 
+
+// ff:
+// in:
 func (r RuleMax) Run(in RunInput) error {
 	var (
 		max, err1    = strconv.ParseFloat(in.RulePattern, 10)

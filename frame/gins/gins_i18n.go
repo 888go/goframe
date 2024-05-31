@@ -12,6 +12,9 @@ import (
 
 // I18n returns an instance of gi18n.Manager.
 // The parameter `name` is the name for the instance.
+
+// ff:
+// name:
 func I18n(name ...string) *gi18n.Manager {
 	return gi18n.Instance(name...)
 }

@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gcrc32_test
+package gcrc32_test//bm:加密crc32类_test
 
 import (
 	"testing"

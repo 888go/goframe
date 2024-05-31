@@ -17,10 +17,13 @@ type Meta struct{}
 
 const (
 	metaAttributeName = "Meta"       // metaAttributeName is the attribute name of metadata in struct.
-	metaTypeName      = "gmeta.Meta" // metaTypeName is for type string comparison.
+	metaTypeName      = "gmeta.Meta"//bm:= "元数据类.Meta" // metaTypeName is for type string comparison.
 )
 
 // Data retrieves and returns all metadata from `object`.
+
+// ff:
+// object:
 func Data(object interface{}) map[string]string {
 	reflectType, err := gstructs.StructType(object)
 	if err != nil {
@@ -35,6 +38,10 @@ func Data(object interface{}) map[string]string {
 }
 
 // Get retrieves and returns specified metadata by `key` from `object`.
+
+// ff:
+// key:
+// object:
 func Get(object interface{}, key string) *gvar.Var {
 	v, ok := Data(object)[key]
 	if !ok {

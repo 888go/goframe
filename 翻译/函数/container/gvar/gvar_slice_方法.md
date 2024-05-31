@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,46 +25,45 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
 
 [func (v *Var) Ints() #左中括号##右中括号#int {]
-ff=取整数切片
+ff=取整数数组
 yx=true
 
 [func (v *Var) Int64s() #左中括号##右中括号#int64 {]
-ff=取整数64位切片
+ff=取整数64位数组
 
 [func (v *Var) Uints() #左中括号##右中括号#uint {]
-ff=取正整数切片
+ff=取正整数数组
 yx=true
 
 [func (v *Var) Uint64s() #左中括号##右中括号#uint64 {]
-ff=取正整数64位切片
+ff=取正整数64位数组
 
 [func (v *Var) Floats() #左中括号##右中括号#float64 {]
-ff=取小数切片
+ff=取小数数组
 yx=true
 
 [func (v *Var) Float32s() #左中括号##右中括号#float32 {]
-ff=取小数32位切片
+ff=取小数32位数组
 
 [func (v *Var) Float64s() #左中括号##右中括号#float64 {]
-ff=取小数64位切片
+ff=取小数64位数组
 
 [func (v *Var) Strings() #左中括号##右中括号#string {]
-ff=取文本切片
+ff=取文本数组
 yx=true
 
 [func (v *Var) Interfaces() #左中括号##右中括号#interface{} {]
-ff=取any切片
+ff=取any数组
 yx=true
 
 [func (v *Var) Slice() #左中括号##右中括号#interface{} {]
@@ -74,6 +71,5 @@ ff=Slice别名
 
 [func (v *Var) Array() #左中括号##右中括号#interface{} {]
 ff=Array别名
-
 [func (v *Var) Vars() #左中括号##右中括号#*Var {]
-ff=取泛型类切片
+ff=取泛型类数组

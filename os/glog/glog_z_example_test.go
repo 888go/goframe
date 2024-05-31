@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package glog_test
+package glog_test//bm:日志类_test
 
 import (
 	"context"

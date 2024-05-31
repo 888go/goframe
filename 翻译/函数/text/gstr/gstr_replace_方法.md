@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -52,13 +49,13 @@ search=替换文本
 origin=文本
 
 [func ReplaceByArray(origin string, array #左中括号##右中括号#string) string {]
-ff=切片替换
-array=切片
+ff=数组替换
+array=数组
 origin=文本
 
 [func ReplaceIByArray(origin string, array #左中括号##右中括号#string) string {]
-ff=切片替换并忽略大小写
-array=切片
+ff=数组替换并忽略大小写
+array=数组
 origin=文本
 
 [func ReplaceByMap(origin string, replaces map#左中括号#string#右中括号#string) string {]
@@ -68,5 +65,5 @@ origin=文本
 
 [func ReplaceIByMap(origin string, replaces map#左中括号#string#右中括号#string) string {]
 ff=Map替换并忽略大小写
-replaces=map切片
+replaces=map数组
 origin=文本

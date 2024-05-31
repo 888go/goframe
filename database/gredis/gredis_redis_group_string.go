@@ -15,7 +15,7 @@ import (
 // IGroupString manages redis string operations.
 // Implements see redis.GroupString.
 type IGroupString interface {
-	Set(ctx context.Context, key string, value interface{}, option ...SetOption) (*gvar.Var, error)
+	Set(ctx context.Context, key string, value interface{}, option ...SetOption) (*gvar.Var, error) //qm:设置值 cz:Set( yx:true     
 	SetNX(ctx context.Context, key string, value interface{}) (bool, error)
 	SetEX(ctx context.Context, key string, value interface{}, ttlInSeconds int64) error
 	Get(ctx context.Context, key string) (*gvar.Var, error)

@@ -88,6 +88,9 @@ func serverProcessInit() {
 // GetServer creates and returns a server instance using given name and default configurations.
 // Note that the parameter `name` should be unique for different servers. It returns an existing
 // server instance if given `name` is already existing in the server mapping.
+
+// ff:取服务对象
+// name:名称
 func GetServer(name ...interface{}) *Server {
 	serverName := DefaultServerName
 	if len(name) > 0 && name[0] != "" {
@@ -120,6 +123,8 @@ func GetServer(name ...interface{}) *Server {
 
 // Start starts listening on configured port.
 // This function does not block the process, you can use function Wait blocking the process.
+
+// ff:开始监听
 func (s *Server) Start() error {
 	var ctx = gctx.GetInitCtx()
 
@@ -339,11 +344,15 @@ func (s *Server) doRouterMapDump() {
 }
 
 // GetOpenApi returns the OpenApi specification management object of current server.
+
+// ff:取OpenApi对象
 func (s *Server) GetOpenApi() *goai.OpenApiV3 {
 	return s.openapi
 }
 
 // GetRoutes retrieves and returns the router array.
+
+// ff:取路由数组
 func (s *Server) GetRoutes() []RouterItem {
 	var (
 		m              = make(map[string]*garray.SortedArray)
@@ -435,6 +444,8 @@ func (s *Server) GetRoutes() []RouterItem {
 
 // Run starts server listening in blocking way.
 // It's commonly used for single server situation.
+
+// ff:启动服务
 func (s *Server) Run() {
 	var ctx = context.TODO()
 
@@ -462,6 +473,8 @@ func (s *Server) Run() {
 
 // Wait blocks to wait for all servers done.
 // It's commonly used in multiple server situation.
+
+// ff:等待所有服务完成
 func Wait() {
 	var ctx = context.TODO()
 
@@ -607,6 +620,8 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 }
 
 // Status retrieves and returns the server status.
+
+// ff:取服务状态
 func (s *Server) Status() ServerStatus {
 	if serverRunning.Val() == 0 {
 		return ServerStatusStopped
@@ -645,6 +660,8 @@ func (s *Server) getListenerFdMap() map[string]string {
 }
 
 // GetListenedPort retrieves and returns one port which is listened by current server.
+
+// ff:取已监听端口
 func (s *Server) GetListenedPort() int {
 	ports := s.GetListenedPorts()
 	if len(ports) > 0 {
@@ -654,6 +671,8 @@ func (s *Server) GetListenedPort() int {
 }
 
 // GetListenedPorts retrieves and returns the ports which are listened by current server.
+
+// ff:取所有监听已端口
 func (s *Server) GetListenedPorts() []int {
 	ports := make([]int, 0)
 	for _, server := range s.servers {
@@ -663,6 +682,8 @@ func (s *Server) GetListenedPorts() []int {
 }
 
 // GetListenedAddress retrieves and returns the address string which are listened by current server.
+
+// ff:取已监听地址
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.config.Address, FreePortAddress) {
 		return s.config.Address

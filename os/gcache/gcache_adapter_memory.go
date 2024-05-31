@@ -54,6 +54,9 @@ const (
 )
 
 // NewAdapterMemory creates and returns a new memory cache object.
+
+// ff:创建内存适配器
+// lruCap:淘汰数量
 func NewAdapterMemory(lruCap ...int) Adapter {
 	c := &AdapterMemory{
 		data:        newAdapterMemoryData(),
@@ -77,6 +80,13 @@ func NewAdapterMemory(lruCap ...int) Adapter {
 //
 // It does not expire if `duration` == 0.
 // It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
+
+// ff:设置值
+// yx:true
+// duration:
+// value:
+// key:
+// ctx:
 func (c *AdapterMemory) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error {
 	expireTime := c.getInternalExpire(duration)
 	c.data.Set(key, adapterMemoryItem{
@@ -94,6 +104,11 @@ func (c *AdapterMemory) Set(ctx context.Context, key interface{}, value interfac
 //
 // It does not expire if `duration` == 0.
 // It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
+
+// ff:设置Map
+// duration:时长
+// data:值
+// ctx:上下文
 func (c *AdapterMemory) SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error {
 	var (
 		expireTime = c.getInternalExpire(duration)
@@ -117,6 +132,12 @@ func (c *AdapterMemory) SetMap(ctx context.Context, data map[interface{}]interfa
 //
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil.
+
+// ff:设置值并跳过已存在
+// duration:时长
+// value:值
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (bool, error) {
 	isContained, err := c.Contains(ctx, key)
 	if err != nil {
@@ -139,6 +160,12 @@ func (c *AdapterMemory) SetIfNotExist(ctx context.Context, key interface{}, valu
 //
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil.
+
+// ff:设置值并跳过已存在_函数
+// duration:时长
+// f:回调函数
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (bool, error) {
 	isContained, err := c.Contains(ctx, key)
 	if err != nil {
@@ -165,6 +192,12 @@ func (c *AdapterMemory) SetIfNotExistFunc(ctx context.Context, key interface{}, 
 //
 // Note that it differs from function `SetIfNotExistFunc` is that the function `f` is executed within
 // writing mutex lock for concurrent safety purpose.
+
+// ff:设置值并跳过已存在_并发安全函数
+// duration:时长
+// f:回调函数
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (bool, error) {
 	isContained, err := c.Contains(ctx, key)
 	if err != nil {
@@ -182,6 +215,10 @@ func (c *AdapterMemory) SetIfNotExistFuncLock(ctx context.Context, key interface
 // Get retrieves and returns the associated value of given `key`.
 // It returns nil if it does not exist, or its value is nil, or it's expired.
 // If you would like to check if the `key` exists in the cache, it's better using function Contains.
+
+// ff:取值
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) Get(ctx context.Context, key interface{}) (*gvar.Var, error) {
 	item, ok := c.data.Get(key)
 	if ok && !item.IsExpired() {
@@ -201,6 +238,12 @@ func (c *AdapterMemory) Get(ctx context.Context, key interface{}) (*gvar.Var, er
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil, but it does nothing
 // if `value` is a function and the function result is nil.
+
+// ff:取值或设置值
+// duration:时长
+// value:值
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (*gvar.Var, error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -219,6 +262,12 @@ func (c *AdapterMemory) GetOrSet(ctx context.Context, key interface{}, value int
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil, but it does nothing
 // if `value` is a function and the function result is nil.
+
+// ff:取值或设置值_函数
+// duration:时长
+// f:回调函数
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (*gvar.Var, error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -247,6 +296,12 @@ func (c *AdapterMemory) GetOrSetFunc(ctx context.Context, key interface{}, f Fun
 //
 // Note that it differs from function `GetOrSetFunc` is that the function `f` is executed within
 // writing mutex lock for concurrent safety purpose.
+
+// ff:取值或设置值_并发安全函数
+// duration:时长
+// f:回调函数
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (*gvar.Var, error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -259,6 +314,10 @@ func (c *AdapterMemory) GetOrSetFuncLock(ctx context.Context, key interface{}, f
 }
 
 // Contains checks and returns true if `key` exists in the cache, or else returns false.
+
+// ff:是否存在
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) Contains(ctx context.Context, key interface{}) (bool, error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -272,6 +331,10 @@ func (c *AdapterMemory) Contains(ctx context.Context, key interface{}) (bool, er
 // Note that,
 // It returns 0 if the `key` does not expire.
 // It returns -1 if the `key` does not exist in the cache.
+
+// ff:取过期时间
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) GetExpire(ctx context.Context, key interface{}) (time.Duration, error) {
 	if item, ok := c.data.Get(key); ok {
 		return time.Duration(item.e-gtime.TimestampMilli()) * time.Millisecond, nil
@@ -281,6 +344,10 @@ func (c *AdapterMemory) GetExpire(ctx context.Context, key interface{}) (time.Du
 
 // Remove deletes one or more keys from cache, and returns its value.
 // If multiple keys are given, it returns the value of the last deleted item.
+
+// ff:删除并带返回值
+// keys:名称s
+// ctx:上下文
 func (c *AdapterMemory) Remove(ctx context.Context, keys ...interface{}) (*gvar.Var, error) {
 	var removedKeys []interface{}
 	removedKeys, value, err := c.data.Remove(keys...)
@@ -301,6 +368,14 @@ func (c *AdapterMemory) Remove(ctx context.Context, keys ...interface{}) (*gvar.
 //
 // It deletes the `key` if given `value` is nil.
 // It does nothing if `key` does not exist in the cache.
+
+// ff:更新值
+// err:
+// exist:
+// oldValue:旧值
+// value:值
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error) {
 	v, exist, err := c.data.Update(key, value)
 	return gvar.New(v), exist, err
@@ -310,6 +385,13 @@ func (c *AdapterMemory) Update(ctx context.Context, key interface{}, value inter
 //
 // It returns -1 and does nothing if the `key` does not exist in the cache.
 // It deletes the `key` if `duration` < 0.
+
+// ff:更新过期时间
+// err:错误
+// oldDuration:旧过期时长
+// duration:时长
+// key:名称
+// ctx:上下文
 func (c *AdapterMemory) UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error) {
 	newExpireTime := c.getInternalExpire(duration)
 	oldDuration, err = c.data.UpdateExpire(key, newExpireTime)
@@ -326,32 +408,52 @@ func (c *AdapterMemory) UpdateExpire(ctx context.Context, key interface{}, durat
 }
 
 // Size returns the size of the cache.
+
+// ff:取数量
+// err:错误
+// size:数量
+// ctx:上下文
 func (c *AdapterMemory) Size(ctx context.Context) (size int, err error) {
 	return c.data.Size()
 }
 
 // Data returns a copy of all key-value pairs in the cache as map type.
+
+// ff:取所有键值Map副本
+// ctx:上下文
 func (c *AdapterMemory) Data(ctx context.Context) (map[interface{}]interface{}, error) {
 	return c.data.Data()
 }
 
 // Keys returns all keys in the cache as slice.
+
+// ff:取所有键
+// ctx:上下文
 func (c *AdapterMemory) Keys(ctx context.Context) ([]interface{}, error) {
 	return c.data.Keys()
 }
 
 // Values returns all values in the cache as slice.
+
+// ff:取所有值
+// ctx:上下文
 func (c *AdapterMemory) Values(ctx context.Context) ([]interface{}, error) {
 	return c.data.Values()
 }
 
 // Clear clears all data of the cache.
 // Note that this function is sensitive and should be carefully used.
+
+// ff:清空
+// ctx:
 func (c *AdapterMemory) Clear(ctx context.Context) error {
 	return c.data.Clear()
 }
 
 // Close closes the cache.
+
+// ff:关闭
+// ctx:
 func (c *AdapterMemory) Close(ctx context.Context) error {
 	if c.cap > 0 {
 		c.lru.Close()

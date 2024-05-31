@@ -32,11 +32,16 @@ func init() {
 
 // IsDebugEnabled checks and returns whether debug mode is enabled.
 // The debug mode is enabled when command argument "gf.debug" or environment "GF_DEBUG" is passed.
+
+// ff:
 func IsDebugEnabled() bool {
 	return isDebugEnabled
 }
 
 // SetDebugEnabled enables/disables the internal debug info.
+
+// ff:
+// enabled:
 func SetDebugEnabled(enabled bool) {
 	isDebugEnabled = enabled
 }

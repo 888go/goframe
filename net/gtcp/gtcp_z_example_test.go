@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtcp_test
+package gtcp_test//bm:tcp类_test
 
 import (
 	"fmt"

@@ -13,6 +13,10 @@ import (
 )
 
 // NewNetConn creates and returns a *net.UDPConn with given addresses.
+
+// ff:
+// localAddress:
+// remoteAddress:
 func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, error) {
 	var (
 		err        error
@@ -51,6 +55,11 @@ func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, err
 
 // Send writes data to `address` using UDP connection and then closes the connection.
 // Note that it is used for short connection usage.
+
+// ff:
+// retry:
+// data:
+// address:
 func Send(address string, data []byte, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -62,6 +71,12 @@ func Send(address string, data []byte, retry ...Retry) error {
 
 // SendRecv writes data to `address` using UDP connection, reads response and then closes the connection.
 // Note that it is used for short connection usage.
+
+// ff:
+// retry:
+// receive:
+// data:
+// address:
 func SendRecv(address string, data []byte, receive int, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -72,6 +87,9 @@ func SendRecv(address string, data []byte, receive int, retry ...Retry) ([]byte,
 }
 
 // MustGetFreePort performs as GetFreePort, but it panics if any error occurs.
+
+// ff:
+// port:
 func MustGetFreePort() (port int) {
 	port, err := GetFreePort()
 	if err != nil {
@@ -81,6 +99,10 @@ func MustGetFreePort() (port int) {
 }
 
 // GetFreePort retrieves and returns a port that is free.
+
+// ff:
+// err:
+// port:
 func GetFreePort() (port int, err error) {
 	var (
 		network = `udp`
@@ -108,6 +130,11 @@ func GetFreePort() (port int, err error) {
 }
 
 // GetFreePorts retrieves and returns specified number of ports that are free.
+
+// ff:
+// err:
+// ports:
+// count:
 func GetFreePorts(count int) (ports []int, err error) {
 	var (
 		network = `udp`

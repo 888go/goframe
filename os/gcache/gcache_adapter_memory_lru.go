@@ -38,11 +38,16 @@ func newMemCacheLru(cache *AdapterMemory) *adapterMemoryLru {
 }
 
 // Close closes the LRU object.
+
+// ff:
 func (lru *adapterMemoryLru) Close() {
 	lru.closed.Set(true)
 }
 
 // Remove deletes the `key` FROM `lru`.
+
+// ff:删除并带返回值
+// key:
 func (lru *adapterMemoryLru) Remove(key interface{}) {
 	if v := lru.data.Get(key); v != nil {
 		lru.data.Remove(key)
@@ -51,16 +56,23 @@ func (lru *adapterMemoryLru) Remove(key interface{}) {
 }
 
 // Size returns the size of `lru`.
+
+// ff:取数量
 func (lru *adapterMemoryLru) Size() int {
 	return lru.data.Size()
 }
 
 // Push pushes `key` to the tail of `lru`.
+
+// ff:
+// key:
 func (lru *adapterMemoryLru) Push(key interface{}) {
 	lru.rawList.PushBack(key)
 }
 
 // Pop deletes and returns the key from tail of `lru`.
+
+// ff:
 func (lru *adapterMemoryLru) Pop() interface{} {
 	if v := lru.list.PopBack(); v != nil {
 		lru.data.Remove(v)
@@ -71,6 +83,9 @@ func (lru *adapterMemoryLru) Pop() interface{} {
 
 // SyncAndClear synchronizes the keys from `rawList` to `list` and `data`
 // using Least Recently Used algorithm.
+
+// ff:
+// ctx:
 func (lru *adapterMemoryLru) SyncAndClear(ctx context.Context) {
 	if lru.closed.Val() {
 		gtimer.Exit()

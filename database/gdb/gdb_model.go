@@ -85,6 +85,9 @@ const (
 //     db.Model("user", "u")
 //  3. Model name with sub-query:
 //     db.Model("? AS a, ? AS b", subQuery1, subQuery2)
+
+// ff:创建Model对象
+// tableNameQueryOrStruct:表名或结构体
 func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	var (
 		ctx       = c.db.GetCtx()
@@ -150,6 +153,10 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 // Example:
 //
 //	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
+
+// ff:原生SQL
+// args:参数
+// rawSql:原生Sql
 func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 	model := c.Model()
 	model.rawSql = rawSql
@@ -163,6 +170,10 @@ func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 //	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
 //
 // See Core.Raw.
+
+// ff:原生SQL
+// args:参数
+// rawSql:原生Sql
 func (m *Model) Raw(rawSql string, args ...interface{}) *Model {
 	model := m.db.Raw(rawSql, args...)
 	model.db = m.db
@@ -170,11 +181,18 @@ func (m *Model) Raw(rawSql string, args ...interface{}) *Model {
 	return model
 }
 
+
+// ff:原生SQL
+// args:参数
+// rawSql:原生Sql
 func (tx *TXCore) Raw(rawSql string, args ...interface{}) *Model {
 	return tx.Model().Raw(rawSql, args...)
 }
 
 // With creates and returns an ORM model based on metadata of given object.
+
+// ff:关联对象
+// objects:关联结构体
 func (c *Core) With(objects ...interface{}) *Model {
 	return c.db.Model().With(objects...)
 }
@@ -182,6 +200,9 @@ func (c *Core) With(objects ...interface{}) *Model {
 // Partition sets Partition name.
 // Example:
 // dao.User.Ctx(ctx).Partition（"p1","p2","p3").All()
+
+// ff:设置分区名称
+// partitions:分区名称
 func (m *Model) Partition(partitions ...string) *Model {
 	model := m.getModel()
 	model.partition = gstr.Join(partitions, ",")
@@ -190,6 +211,9 @@ func (m *Model) Partition(partitions ...string) *Model {
 
 // Model acts like Core.Model except it operates on transaction.
 // See Core.Model.
+
+// ff:创建Model对象
+// tableNameQueryOrStruct:表名或结构体
 func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	model := tx.db.Model(tableNameQueryOrStruct...)
 	model.db = tx.db
@@ -199,11 +223,17 @@ func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 
 // With acts like Core.With except it operates on transaction.
 // See Core.With.
+
+// ff:关联对象
+// object:关联结构体
 func (tx *TXCore) With(object interface{}) *Model {
 	return tx.Model().With(object)
 }
 
 // Ctx sets the context for current operation.
+
+// ff:设置上下文并取副本
+// ctx:上下文
 func (m *Model) Ctx(ctx context.Context) *Model {
 	if ctx == nil {
 		return m
@@ -218,6 +248,8 @@ func (m *Model) Ctx(ctx context.Context) *Model {
 
 // GetCtx returns the context for current Model.
 // It returns `context.Background()` is there's no context previously set.
+
+// ff:取上下文对象
 func (m *Model) GetCtx() context.Context {
 	if m.tx != nil && m.tx.GetCtx() != nil {
 		return m.tx.GetCtx()
@@ -226,6 +258,9 @@ func (m *Model) GetCtx() context.Context {
 }
 
 // As sets an alias name for current table.
+
+// ff:设置表别名
+// as:别名
 func (m *Model) As(as string) *Model {
 	if m.tables != "" {
 		model := m.getModel()
@@ -245,6 +280,9 @@ func (m *Model) As(as string) *Model {
 }
 
 // DB sets/changes the db object for current operation.
+
+// ff:设置DB对象
+// db:DB对象
 func (m *Model) DB(db DB) *Model {
 	model := m.getModel()
 	model.db = db
@@ -252,6 +290,9 @@ func (m *Model) DB(db DB) *Model {
 }
 
 // TX sets/changes the transaction for current operation.
+
+// ff:设置事务对象
+// tx:事务对象
 func (m *Model) TX(tx TX) *Model {
 	model := m.getModel()
 	model.db = tx.GetDB()
@@ -260,6 +301,9 @@ func (m *Model) TX(tx TX) *Model {
 }
 
 // Schema sets the schema for current operation.
+
+// ff:切换数据库
+// schema:数据库名
 func (m *Model) Schema(schema string) *Model {
 	model := m.getModel()
 	model.schema = schema
@@ -268,6 +312,8 @@ func (m *Model) Schema(schema string) *Model {
 
 // Clone creates and returns a new model which is a Clone of current model.
 // Note that it uses deep-copy for the Clone.
+
+// ff:取副本
 func (m *Model) Clone() *Model {
 	newModel := (*Model)(nil)
 	if m.tx != nil {
@@ -293,6 +339,8 @@ func (m *Model) Clone() *Model {
 }
 
 // Master marks the following operation on master node.
+
+// ff:取主节点对象
 func (m *Model) Master() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeMaster
@@ -301,6 +349,8 @@ func (m *Model) Master() *Model {
 
 // Slave marks the following operation on slave node.
 // Note that it makes sense only if there's any slave node configured.
+
+// ff:取从节点对象
 func (m *Model) Slave() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeSlave
@@ -309,6 +359,9 @@ func (m *Model) Slave() *Model {
 
 // Safe marks this model safe or unsafe. If safe is true, it clones and returns a new model object
 // whenever the operation done, or else it changes the attribute of current model.
+
+// ff:链式安全
+// safe:开启
 func (m *Model) Safe(safe ...bool) *Model {
 	if len(safe) > 0 {
 		m.safe = safe[0]
@@ -319,6 +372,9 @@ func (m *Model) Safe(safe ...bool) *Model {
 }
 
 // Args sets custom arguments for model operation.
+
+// ff:底层Args
+// args:参数
 func (m *Model) Args(args ...interface{}) *Model {
 	model := m.getModel()
 	model.extraArgs = append(model.extraArgs, args)
@@ -327,6 +383,9 @@ func (m *Model) Args(args ...interface{}) *Model {
 
 // Handler calls each of `handlers` on current Model and returns a new Model.
 // ModelHandler is a function that handles given Model and returns a new Model that is custom modified.
+
+// ff:处理函数
+// handlers:处理函数
 func (m *Model) Handler(handlers ...ModelHandler) *Model {
 	model := m.getModel()
 	for _, handler := range handlers {

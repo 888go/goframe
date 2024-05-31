@@ -83,6 +83,8 @@ var (
 )
 
 // New creates and returns an OpenApiV3 implements object.
+
+// ff:
 func New() *OpenApiV3 {
 	oai := &OpenApiV3{}
 	oai.fillWithDefaultValue()
@@ -98,6 +100,9 @@ type AddInput struct {
 }
 
 // Add adds an instance of struct or a route function to OpenApiV3 definition implements.
+
+// ff:
+// in:
 func (oai *OpenApiV3) Add(in AddInput) error {
 	var (
 		reflectValue = reflect.ValueOf(in.Object)
@@ -126,6 +131,8 @@ func (oai *OpenApiV3) Add(in AddInput) error {
 	}
 }
 
+
+// ff:
 func (oai OpenApiV3) String() string {
 	b, err := json.Marshal(oai)
 	if err != nil {

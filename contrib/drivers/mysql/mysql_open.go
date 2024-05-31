@@ -21,6 +21,11 @@ import (
 
 // Open creates and returns an underlying sql.DB object for mysql.
 // Note that it converts time.Time argument to local timezone in default.
+
+// ff:
+// err:
+// db:
+// config:
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string

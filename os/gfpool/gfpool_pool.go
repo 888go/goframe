@@ -23,6 +23,12 @@ import (
 // ttl < 0 : immediate expired after use;
 // ttl > 0 : timeout expired;
 // It is not expired in default.
+
+// ff:
+// ttl:
+// perm:
+// flag:
+// path:
 func New(path string, flag int, perm os.FileMode, ttl ...time.Duration) *Pool {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -63,6 +69,8 @@ func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Dura
 // the file pointer pool is empty.
 // Note that it should be closed when it will never be used. When it's closed, it is not
 // really closed the underlying file pointer but put back to the file pointer pool.
+
+// ff:
 func (p *Pool) File() (*File, error) {
 	if v, err := p.pool.Get(); err != nil {
 		return nil, err
@@ -117,6 +125,8 @@ func (p *Pool) File() (*File, error) {
 }
 
 // Close closes current file pointer pool.
+
+// ff:
 func (p *Pool) Close() {
 	p.pool.Close()
 }

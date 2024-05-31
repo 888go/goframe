@@ -8,14 +8,20 @@ package gsel
 
 type builderWeight struct{}
 
+
+// ff:
 func NewBuilderWeight() Builder {
 	return &builderWeight{}
 }
 
+
+// ff:
 func (*builderWeight) Name() string {
 	return "BalancerWeight"
 }
 
+
+// ff:
 func (*builderWeight) Build() Selector {
 	return NewSelectorWeight()
 }

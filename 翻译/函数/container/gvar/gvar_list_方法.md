@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,21 +25,20 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
 
 [func (v *Var) ListItemValues(key interface{}) (values #左中括号##右中括号#interface{}) {]
-ff=取结构切片或Map切片值
+ff=取结构数组或Map数组值
 values=值s
 key=名称
 
 [func (v *Var) ListItemValuesUnique(key string) #左中括号##右中括号#interface{} {]
-ff=取结构切片或Map切片值并去重
+ff=取结构数组或Map数组值并去重
 key=名称

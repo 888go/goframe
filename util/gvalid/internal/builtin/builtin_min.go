@@ -23,14 +23,21 @@ func init() {
 	Register(RuleMin{})
 }
 
+
+// ff:
 func (r RuleMin) Name() string {
 	return "min"
 }
 
+
+// ff:
 func (r RuleMin) Message() string {
 	return "The {field} value `{value}` must be equal or greater than {min}"
 }
 
+
+// ff:
+// in:
 func (r RuleMin) Run(in RunInput) error {
 	var (
 		min, err1    = strconv.ParseFloat(in.RulePattern, 10)

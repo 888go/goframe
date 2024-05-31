@@ -24,21 +24,49 @@ var watchedMap = gmap.New(true)
 type ServiceWatch func(service Service)
 
 // Get retrieves and returns the service by service name.
+
+// ff:
+// err:
+// service:
+// name:
+// ctx:
 func Get(ctx context.Context, name string) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, defaultRegistry, name, nil)
 }
 
 // GetWithDiscovery retrieves and returns the service by service name in `discovery`.
+
+// ff:
+// err:
+// service:
+// name:
+// discovery:
+// ctx:
 func GetWithDiscovery(ctx context.Context, discovery Discovery, name string) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, discovery, name, nil)
 }
 
 // GetAndWatch is used to getting the service with custom watch callback function.
+
+// ff:
+// err:
+// service:
+// watch:
+// name:
+// ctx:
 func GetAndWatch(ctx context.Context, name string, watch ServiceWatch) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, defaultRegistry, name, watch)
 }
 
 // GetAndWatchWithDiscovery is used to getting the service with custom watch callback function in `discovery`.
+
+// ff:
+// err:
+// service:
+// watch:
+// name:
+// discovery:
+// ctx:
 func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name string, watch ServiceWatch) (service Service, err error) {
 	if discovery == nil {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `discovery cannot be nil`)
@@ -109,6 +137,10 @@ func watchAndUpdateService(watchedServiceMap *gmap.StrAnyMap, watcher Watcher, s
 }
 
 // Search searches and returns services with specified condition.
+
+// ff:
+// in:
+// ctx:
 func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 	if defaultRegistry == nil {
 		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
@@ -118,6 +150,11 @@ func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 }
 
 // Watch watches specified condition changes.
+
+// ff:
+// Watcher:
+// key:
+// ctx:
 func Watch(ctx context.Context, key string) (Watcher, error) {
 	if defaultRegistry == nil {
 		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)

@@ -15,6 +15,10 @@ import (
 // Copy is unable to copy unexported fields in a struct (lowercase field names).
 // Unexported fields can't be reflected by the Go runtime and therefore
 // they can't perform any data copies.
+
+// ff:深拷贝
+// dst:新拷贝值
+// src:变量
 func Copy(src interface{}) (dst interface{}) {
 	return deepcopy.Copy(src)
 }

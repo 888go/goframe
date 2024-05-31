@@ -11,6 +11,13 @@ package gstr
 // costRep: Defines the cost of replacement.
 // costDel: Defines the cost of deletion.
 // See http://php.net/manual/en/function.levenshtein.php.
+
+// ff:
+// costDel:
+// costRep:
+// costIns:
+// str2:
+// str1:
 func Levenshtein(str1, str2 string, costIns, costRep, costDel int) int {
 	var maxLen = 255
 	l1 := len(str1)
@@ -62,6 +69,11 @@ func Levenshtein(str1, str2 string, costIns, costRep, costDel int) int {
 
 // SimilarText calculates the similarity between two strings.
 // See http://php.net/manual/en/function.similar-text.php.
+
+// ff:取相似度
+// percent:百分比
+// second:文本2
+// first:文本1
 func SimilarText(first, second string, percent *float64) int {
 	var similarText func(string, string, int, int) int
 	similarText = func(str1, str2 string, len1, len2 int) int {
@@ -108,6 +120,9 @@ func SimilarText(first, second string, percent *float64) int {
 
 // Soundex calculates the soundex key of a string.
 // See http://php.net/manual/en/function.soundex.php.
+
+// ff:取soundex码
+// str:文本
 func Soundex(str string) string {
 	if str == "" {
 		panic("str: cannot be an empty string")

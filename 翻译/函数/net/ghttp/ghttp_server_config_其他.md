@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -161,43 +158,43 @@ cz=SessionCookieMaxAge time.Duration
 qm=SessionID输出到Cookie
 cz=SessionCookieOutput bool
 
-[Logger           *glog.Logger `json:"logger"`]
+[Logger *glog.Logger `json:"logger"`]
 qm=日志记录器
-cz=Logger           *
+cz=Logger *
 
-[LogPath          string       `json:"logPath"`]
+[LogPath string `json:"logPath"`]
 qm=日志存储目录
-cz=LogPath          string
+cz=LogPath string
 
-[LogLevel         string       `json:"logLevel"`]
+[LogLevel string `json:"logLevel"`]
 qm=日志记录等级
-cz=LogLevel         string
+cz=LogLevel string
 
-[LogStdout        bool         `json:"logStdout"`]
+[LogStdout bool `json:"logStdout"`]
 qm=日志开启输出到CMD
-cz=LogStdout        bool
+cz=LogStdout bool
 
-[ErrorStack       bool         `json:"errorStack"`]
+[ErrorStack bool `json:"errorStack"`]
 qm=日志开启错误堆栈记录
-cz=ErrorStack       bool
+cz=ErrorStack bool
 
-[ErrorLogEnabled  bool         `json:"errorLogEnabled"`]
+[ErrorLogEnabled bool `json:"errorLogEnabled"`]
 qm=日志开启错误记录
-cz=ErrorLogEnabled  bool
+cz=ErrorLogEnabled bool
 
-[ErrorLogPattern  string       `json:"errorLogPattern"`]
+[ErrorLogPattern string `json:"errorLogPattern"`]
 qm=日志错误文件命名模式
-cz=ErrorLogPattern  string
+cz=ErrorLogPattern string
 
-[AccessLogEnabled bool         `json:"accessLogEnabled"`]
+[AccessLogEnabled bool `json:"accessLogEnabled"`]
 qm=日志开启访客记录
 cz=AccessLogEnabled bool
 
-[AccessLogPattern string       `json:"accessLogPattern"`]
+[AccessLogPattern string `json:"accessLogPattern"`]
 qm=日志访客文件命名模式
 cz=AccessLogPattern string
 
-[PProfEnabled bool   `json:"pprofEnabled"`]
+[PProfEnabled bool `json:"pprofEnabled"`]
 qm=PProf开启
 cz=PProfEnabled bool
 
@@ -205,11 +202,11 @@ cz=PProfEnabled bool
 qm=PProf模式
 cz=PProfPattern string
 
-[OpenApiPath       string `json:"openapiPath"`]
+[OpenApiPath string `json:"openapiPath"`]
 qm=APIOpenApiUI路径
 cz=OpenApiPath string
 
-[SwaggerPath       string `json:"swaggerPath"`]
+[SwaggerPath string `json:"swaggerPath"`]
 qm=APISwaggerUI路径
 cz=SwaggerPath string
 

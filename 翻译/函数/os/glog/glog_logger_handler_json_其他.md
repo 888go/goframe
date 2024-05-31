@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,29 +25,28 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
 
-[Time       string `json:""`]
+[Time string `json:""`]
 qm=时间
 cz=Time string `json:""
 
-[TraceId    string `json:",omitempty"`]
+[TraceId string `json:",omitempty"`]
 qm=链路跟踪ID
 cz=TraceId string `json:",omitempty"
 
-[CtxStr     string `json:",omitempty"`]
+[CtxStr string `json:",omitempty"`]
 qm=上下文值
 cz=CtxStr string `json:",omitempty"
 
-[Level      string `json:""`]
+[Level string `json:""`]
 qm=级别
 cz=Level string `json:""`
 
@@ -61,10 +58,10 @@ cz=CallerPath string `json:",omitempty"`
 qm=源文件函数名
 cz=CallerFunc string `json:",omitempty"
 
-[Prefix     string `json:",omitempty"`]
+[Prefix string `json:",omitempty"`]
 qm=前缀
 cz=Prefix string `json:",omitempty"
 
-[Content    string `json:""`]
+[Content string `json:""`]
 qm=日志内容
 cz=Content string `json:"

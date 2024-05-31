@@ -86,6 +86,9 @@ func (c *Core) getInternalColumnFromCtx(ctx context.Context) *internalColumnData
 	return nil
 }
 
+
+// ff:底层_InjectIgnoreResult
+// ctx:
 func (c *Core) InjectIgnoreResult(ctx context.Context) context.Context {
 	if ctx.Value(ignoreResultKeyInCtx) != nil {
 		return ctx
@@ -93,6 +96,9 @@ func (c *Core) InjectIgnoreResult(ctx context.Context) context.Context {
 	return context.WithValue(ctx, ignoreResultKeyInCtx, true)
 }
 
+
+// ff:底层_GetIgnoreResultFromCtx
+// ctx:
 func (c *Core) GetIgnoreResultFromCtx(ctx context.Context) bool {
 	return ctx.Value(ignoreResultKeyInCtx) != nil
 }

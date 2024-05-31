@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*" -benchmem
 
-package gconv_test
+package gconv_test//bm:转换类_test
 
 import (
 	"reflect"

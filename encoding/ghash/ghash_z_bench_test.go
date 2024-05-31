@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package ghash_test
+package ghash_test//bm:哈希类_test
 
 import (
 	"testing"

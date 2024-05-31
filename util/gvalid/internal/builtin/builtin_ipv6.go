@@ -22,14 +22,21 @@ func init() {
 	Register(RuleIpv6{})
 }
 
+
+// ff:
 func (r RuleIpv6) Name() string {
 	return "ipv6"
 }
 
+
+// ff:
 func (r RuleIpv6) Message() string {
 	return "The {field} value `{value}` is not a valid IPv6 address"
 }
 
+
+// ff:
+// in:
 func (r RuleIpv6) Run(in RunInput) error {
 	var (
 		ok    bool

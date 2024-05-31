@@ -24,14 +24,21 @@ func init() {
 	Register(RuleBetween{})
 }
 
+
+// ff:
 func (r RuleBetween) Name() string {
 	return "between"
 }
 
+
+// ff:
 func (r RuleBetween) Message() string {
 	return "The {field} value `{value}` must be between {min} and {max}"
 }
 
+
+// ff:
+// in:
 func (r RuleBetween) Run(in RunInput) error {
 	var (
 		array = strings.Split(in.RulePattern, ",")

@@ -24,14 +24,21 @@ func init() {
 	Register(RuleBefore{})
 }
 
+
+// ff:
 func (r RuleBefore) Name() string {
 	return "before"
 }
 
+
+// ff:
 func (r RuleBefore) Message() string {
 	return "The {field} value `{value}` must be before field {field1} value `{value1}`"
 }
 
+
+// ff:
+// in:
 func (r RuleBefore) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

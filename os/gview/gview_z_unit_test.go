@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gview_test
+package gview_test//bm:模板类_test
 
 import (
 	"context"

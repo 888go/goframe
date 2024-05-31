@@ -68,6 +68,9 @@ var (
 
 // Format formats and returns the formatted result with custom `format`.
 // Refer method Layout, if you want to follow stdlib layout.
+
+// ff:取格式文本
+// format:格式
 func (t *Time) Format(format string) string {
 	if t == nil {
 		return ""
@@ -132,6 +135,9 @@ func (t *Time) Format(format string) string {
 }
 
 // FormatNew formats and returns a new Time object with given custom `format`.
+
+// ff:按格式取副本
+// format:格式
 func (t *Time) FormatNew(format string) *Time {
 	if t == nil {
 		return nil
@@ -140,6 +146,9 @@ func (t *Time) FormatNew(format string) *Time {
 }
 
 // FormatTo formats `t` with given custom `format`.
+
+// ff:格式设置
+// format:格式
 func (t *Time) FormatTo(format string) *Time {
 	if t == nil {
 		return nil
@@ -149,6 +158,9 @@ func (t *Time) FormatTo(format string) *Time {
 }
 
 // Layout formats the time with stdlib layout and returns the formatted result.
+
+// ff:取Layout格式文本
+// layout:layout格式
 func (t *Time) Layout(layout string) string {
 	if t == nil {
 		return ""
@@ -157,6 +169,9 @@ func (t *Time) Layout(layout string) string {
 }
 
 // LayoutNew formats the time with stdlib layout and returns the new Time object.
+
+// ff:取副本并按Layout格式
+// layout:layout格式
 func (t *Time) LayoutNew(layout string) *Time {
 	if t == nil {
 		return nil
@@ -169,6 +184,9 @@ func (t *Time) LayoutNew(layout string) *Time {
 }
 
 // LayoutTo formats `t` with stdlib layout.
+
+// ff:设置Layout格式
+// layout:layout格式
 func (t *Time) LayoutTo(layout string) *Time {
 	if t == nil {
 		return nil
@@ -182,6 +200,8 @@ func (t *Time) LayoutTo(layout string) *Time {
 }
 
 // IsLeapYear checks whether the time is leap year.
+
+// ff:是否为闰年
 func (t *Time) IsLeapYear() bool {
 	year := t.Year()
 	if (year%4 == 0 && year%100 != 0) || year%400 == 0 {
@@ -191,6 +211,8 @@ func (t *Time) IsLeapYear() bool {
 }
 
 // DayOfYear checks and returns the position of the day for the year.
+
+// ff:取全年第几天
 func (t *Time) DayOfYear() int {
 	var (
 		day   = t.Day()
@@ -206,6 +228,8 @@ func (t *Time) DayOfYear() int {
 }
 
 // DaysInMonth returns the day count of current month.
+
+// ff:取当前月份总天数
 func (t *Time) DaysInMonth() int {
 	switch t.Month() {
 	case 1, 3, 5, 7, 8, 10, 12:
@@ -220,6 +244,8 @@ func (t *Time) DaysInMonth() int {
 }
 
 // WeeksOfYear returns the point of current week for the year.
+
+// ff:取全年第几星期
 func (t *Time) WeeksOfYear() int {
 	_, week := t.ISOWeek()
 	return week

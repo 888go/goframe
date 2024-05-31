@@ -18,6 +18,11 @@ type Span struct {
 }
 
 // NewSpan creates a span using default tracer.
+
+// ff:
+// opts:
+// spanName:
+// ctx:
 func NewSpan(ctx context.Context, spanName string, opts ...trace.SpanStartOption) (context.Context, *Span) {
 	ctx, span := NewTracer().Start(ctx, spanName, opts...)
 	return ctx, &Span{

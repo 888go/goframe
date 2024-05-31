@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gfile_test
+package gfile_test//bm:文件类_test
 
 import (
 	"fmt"

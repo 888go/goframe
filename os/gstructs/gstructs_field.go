@@ -16,6 +16,9 @@ import (
 
 // Tag returns the value associated with key in the tag string. If there is no
 // such key in the tag, Tag returns the empty string.
+
+// ff:
+// key:
 func (f *Field) Tag(key string) string {
 	s := f.Field.Tag.Get(key)
 	if s != "" {
@@ -30,6 +33,11 @@ func (f *Field) Tag(key string) string {
 // The ok return value reports whether the value was explicitly set in
 // the tag string. If the tag does not have the conventional format,
 // the value returned by Lookup is unspecified.
+
+// ff:
+// ok:
+// value:
+// key:
 func (f *Field) TagLookup(key string) (value string, ok bool) {
 	value, ok = f.Field.Tag.Lookup(key)
 	if ok && value != "" {
@@ -39,16 +47,22 @@ func (f *Field) TagLookup(key string) (value string, ok bool) {
 }
 
 // IsEmbedded returns true if the given field is an anonymous field (embedded)
+
+// ff:
 func (f *Field) IsEmbedded() bool {
 	return f.Field.Anonymous
 }
 
 // TagStr returns the tag string of the field.
+
+// ff:
 func (f *Field) TagStr() string {
 	return string(f.Field.Tag)
 }
 
 // TagMap returns all the tag of the field along with its value string as map.
+
+// ff:
 func (f *Field) TagMap() map[string]string {
 	var (
 		data = ParseTag(f.TagStr())
@@ -60,17 +74,23 @@ func (f *Field) TagMap() map[string]string {
 }
 
 // IsExported returns true if the given field is exported.
+
+// ff:
 func (f *Field) IsExported() bool {
 	return f.Field.PkgPath == ""
 }
 
 // Name returns the name of the given field.
+
+// ff:
 func (f *Field) Name() string {
 	return f.Field.Name
 }
 
 // Type returns the type of the given field.
 // Note that this Type is not reflect.Type. If you need reflect.Type, please use Field.Type().Type.
+
+// ff:
 func (f *Field) Type() Type {
 	return Type{
 		Type: f.Field.Type,
@@ -78,11 +98,15 @@ func (f *Field) Type() Type {
 }
 
 // Kind returns the reflect.Kind for Value of Field `f`.
+
+// ff:
 func (f *Field) Kind() reflect.Kind {
 	return f.Value.Kind()
 }
 
 // OriginalKind retrieves and returns the original reflect.Kind for Value of Field `f`.
+
+// ff:
 func (f *Field) OriginalKind() reflect.Kind {
 	var (
 		reflectType = f.Value.Type()
@@ -97,6 +121,8 @@ func (f *Field) OriginalKind() reflect.Kind {
 }
 
 // OriginalValue retrieves and returns the original reflect.Value of Field `f`.
+
+// ff:
 func (f *Field) OriginalValue() reflect.Value {
 	var (
 		reflectValue = f.Value
@@ -113,11 +139,17 @@ func (f *Field) OriginalValue() reflect.Value {
 }
 
 // IsEmpty checks and returns whether the value of this Field is empty.
+
+// ff:
 func (f *Field) IsEmpty() bool {
 	return empty.IsEmpty(f.Value)
 }
 
 // IsNil checks and returns whether the value of this Field is nil.
+
+// ff:是否为Nil
+// yx:true
+// traceSource:
 func (f *Field) IsNil(traceSource ...bool) bool {
 	return empty.IsNil(f.Value, traceSource...)
 }

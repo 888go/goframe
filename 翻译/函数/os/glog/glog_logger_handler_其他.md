@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,12 +25,11 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
@@ -76,23 +73,18 @@ cz=CtxStr string
 [TraceId string]
 qm=链路跟踪ID
 cz=TraceId string
-
-[// Custom prefix string in logging content header part.]
+[]
 qm=前缀
 cz=Prefix string
-
 [Content string]
 qm=日志内容
 cz=Content string
-
 [Values #左中括号##右中括号#any]
-qm=未格式化切片
+qm=未格式化数组
 cz=Values []any
-
 [IsAsync bool]
 qm=是否为异步
 cz=IsAsync bool
-
 [valueContent string]
 qm=日志内容
 cz=Content string

@@ -25,14 +25,21 @@ func init() {
 	Register(RulePhoneLoose{})
 }
 
+
+// ff:
 func (r RulePhoneLoose) Name() string {
 	return "phone-loose"
 }
 
+
+// ff:
 func (r RulePhoneLoose) Message() string {
 	return "The {field} value `{value}` is not a valid phone number"
 }
 
+
+// ff:
+// in:
 func (r RulePhoneLoose) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^1(3|4|5|6|7|8|9)\d{9}$`,

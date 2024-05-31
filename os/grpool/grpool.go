@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package grpool implements a goroutine reusable pool.
-package grpool
+package grpool//bm:协程类
 
 import (
 	"context"
@@ -50,6 +50,9 @@ var (
 // New creates and returns a new goroutine pool object.
 // The parameter `limit` is used to limit the max goroutine count,
 // which is not limited in default.
+
+// ff:
+// limit:
 func New(limit ...int) *Pool {
 	var (
 		pool = &Pool{
@@ -72,6 +75,10 @@ func New(limit ...int) *Pool {
 
 // Add pushes a new job to the default goroutine pool.
 // The job will be executed asynchronously.
+
+// ff:
+// f:
+// ctx:
 func Add(ctx context.Context, f Func) error {
 	return defaultPool.Add(ctx, f)
 }
@@ -81,16 +88,25 @@ func Add(ctx context.Context, f Func) error {
 // The optional `recoverFunc` is called when any panic during executing of `userFunc`.
 // If `recoverFunc` is not passed or given nil, it ignores the panic from `userFunc`.
 // The job will be executed asynchronously.
+
+// ff:
+// recoverFunc:
+// userFunc:
+// ctx:
 func AddWithRecover(ctx context.Context, userFunc Func, recoverFunc RecoverFunc) error {
 	return defaultPool.AddWithRecover(ctx, userFunc, recoverFunc)
 }
 
 // Size returns current goroutine count of default goroutine pool.
+
+// ff:
 func Size() int {
 	return defaultPool.Size()
 }
 
 // Jobs returns current job count of default goroutine pool.
+
+// ff:
 func Jobs() int {
 	return defaultPool.Jobs()
 }
