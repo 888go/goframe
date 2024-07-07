@@ -20,7 +20,6 @@ var (
 // GoroutineId retrieves and returns the current goroutine id from stack information.
 // Be very aware that, it is with low performance as it uses runtime.Stack function.
 // It is commonly used for debugging purpose.
-
 // ff:
 func GoroutineId() int {
 	buf := make([]byte, 26)

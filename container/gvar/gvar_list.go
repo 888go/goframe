@@ -13,10 +13,10 @@ import (
 // ListItemValues retrieves and returns the elements of all item struct/map with key `key`.
 // Note that the parameter `list` should be type of slice which contains elements of map or struct,
 // or else it returns an empty slice.
-
-// ff:取结构数组或Map数组值
-// values:值s
+// ff:取结构切片或Map切片值
+// v:
 // key:名称
+// values:值s
 func (v *Var) ListItemValues(key interface{}) (values []interface{}) {
 	return gutil.ListItemValues(v.Val(), key)
 }
@@ -24,8 +24,8 @@ func (v *Var) ListItemValues(key interface{}) (values []interface{}) {
 // ListItemValuesUnique retrieves and returns the unique elements of all struct/map with key `key`.
 // Note that the parameter `list` should be type of slice which contains elements of map or struct,
 // or else it returns an empty slice.
-
-// ff:取结构数组或Map数组值并去重
+// ff:取结构切片或Map切片值并去重
+// v:
 // key:名称
 func (v *Var) ListItemValuesUnique(key string) []interface{} {
 	return gutil.ListItemValuesUnique(v.Val(), key)

@@ -25,21 +25,14 @@ func init() {
 	Register(RuleDifferent{})
 }
 
-
-// ff:
 func (r RuleDifferent) Name() string {
 	return "different"
 }
 
-
-// ff:
 func (r RuleDifferent) Message() string {
 	return "The {field} value `{value}` must be different from field {field1} value `{value1}`"
 }
 
-
-// ff:
-// in:
 func (r RuleDifferent) Run(in RunInput) error {
 	var (
 		ok    = true

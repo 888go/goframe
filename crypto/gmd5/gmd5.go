@@ -19,11 +19,10 @@ import (
 
 // Encrypt encrypts any type of variable using MD5 algorithms.
 // It uses gconv package to convert `v` to its bytes type.
-
 // ff:加密
-// err:错误
-// encrypt:md5值
 // data:值
+// encrypt:md5值
+// err:错误
 func Encrypt(data interface{}) (encrypt string, err error) {
 	return EncryptBytes(gconv.Bytes(data))
 }
@@ -31,7 +30,6 @@ func Encrypt(data interface{}) (encrypt string, err error) {
 // MustEncrypt encrypts any type of variable using MD5 algorithms.
 // It uses gconv package to convert `v` to its bytes type.
 // It panics if any error occurs.
-
 // ff:加密PANI
 // data:值
 func MustEncrypt(data interface{}) string {
@@ -43,11 +41,10 @@ func MustEncrypt(data interface{}) string {
 }
 
 // EncryptBytes encrypts `data` using MD5 algorithms.
-
 // ff:加密字节集
-// err:错误
-// encrypt:md5值
 // data:字节集
+// encrypt:md5值
+// err:错误
 func EncryptBytes(data []byte) (encrypt string, err error) {
 	h := md5.New()
 	if _, err = h.Write(data); err != nil {
@@ -59,7 +56,6 @@ func EncryptBytes(data []byte) (encrypt string, err error) {
 
 // MustEncryptBytes encrypts `data` using MD5 algorithms.
 // It panics if any error occurs.
-
 // ff:加密字节集PANI
 // data:字节集
 func MustEncryptBytes(data []byte) string {
@@ -71,18 +67,16 @@ func MustEncryptBytes(data []byte) string {
 }
 
 // EncryptString encrypts string `data` using MD5 algorithms.
-
 // ff:加密文本
-// err:错误
-// encrypt:md5值
 // data:值
+// encrypt:md5值
+// err:错误
 func EncryptString(data string) (encrypt string, err error) {
 	return EncryptBytes([]byte(data))
 }
 
 // MustEncryptString encrypts string `data` using MD5 algorithms.
 // It panics if any error occurs.
-
 // ff:加密文本PANI
 // data:值
 func MustEncryptString(data string) string {
@@ -94,11 +88,10 @@ func MustEncryptString(data string) string {
 }
 
 // EncryptFile encrypts file content of `path` using MD5 algorithms.
-
 // ff:加密文件
-// err:错误
-// encrypt:md5值
 // path:路径
+// encrypt:md5值
+// err:错误
 func EncryptFile(path string) (encrypt string, err error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -117,7 +110,6 @@ func EncryptFile(path string) (encrypt string, err error) {
 
 // MustEncryptFile encrypts file content of `path` using MD5 algorithms.
 // It panics if any error occurs.
-
 // ff:加密文件PANI
 // path:路径
 func MustEncryptFile(path string) string {

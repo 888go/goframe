@@ -17,21 +17,14 @@ func init() {
 	Register(RuleCi{})
 }
 
-
-// ff:
 func (r RuleCi) Name() string {
 	return "ci"
 }
 
-
-// ff:
 func (r RuleCi) Message() string {
 	return ""
 }
 
-
-// ff:
-// in:
 func (r RuleCi) Run(in RunInput) error {
 	return nil
 }

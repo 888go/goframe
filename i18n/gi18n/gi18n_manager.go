@@ -63,7 +63,6 @@ var (
 // New creates and returns a new i18n manager.
 // The optional parameter `option` specifies the custom options for i18n manager.
 // It uses a default one if it's not passed.
-
 // ff:
 // options:
 func New(options ...Options) *Manager {
@@ -132,8 +131,8 @@ func (o *Options) checkPathType(dirPath string) pathType {
 }
 
 // SetPath sets the directory path storing i18n files.
-
 // ff:
+// m:
 // path:
 func (m *Manager) SetPath(path string) error {
 	pathType := m.options.checkPathType(path)
@@ -149,8 +148,8 @@ func (m *Manager) SetPath(path string) error {
 }
 
 // SetLanguage sets the language for translator.
-
 // ff:
+// m:
 // language:
 func (m *Manager) SetLanguage(language string) {
 	m.options.Language = language
@@ -158,50 +157,50 @@ func (m *Manager) SetLanguage(language string) {
 }
 
 // SetDelimiters sets the delimiters for translator.
-
 // ff:
-// right:
+// m:
 // left:
+// right:
 func (m *Manager) SetDelimiters(left, right string) {
 	m.pattern = fmt.Sprintf(`%s(.+?)%s`, gregex.Quote(left), gregex.Quote(right))
 	intlog.Printf(context.TODO(), `SetDelimiters: %v`, m.pattern)
 }
 
 // T is alias of Translate for convenience.
-
 // ff:
-// content:
+// m:
 // ctx:
+// content:
 func (m *Manager) T(ctx context.Context, content string) string {
 	return m.Translate(ctx, content)
 }
 
 // Tf is alias of TranslateFormat for convenience.
-
 // ff:
-// values:
-// format:
+// m:
 // ctx:
+// format:
+// values:
 func (m *Manager) Tf(ctx context.Context, format string, values ...interface{}) string {
 	return m.TranslateFormat(ctx, format, values...)
 }
 
 // TranslateFormat translates, formats and returns the `format` with configured language
 // and given `values`.
-
 // ff:
-// values:
-// format:
+// m:
 // ctx:
+// format:
+// values:
 func (m *Manager) TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return fmt.Sprintf(m.Translate(ctx, format), values...)
 }
 
 // Translate translates `content` with configured language.
-
 // ff:
-// content:
+// m:
 // ctx:
+// content:
 func (m *Manager) Translate(ctx context.Context, content string) string {
 	m.init(ctx)
 	m.mu.RLock()
@@ -235,10 +234,10 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 
 // GetContent retrieves and returns the configured content for given key and specified language.
 // It returns an empty string if not found.
-
 // ff:
-// key:
+// m:
 // ctx:
+// key:
 func (m *Manager) GetContent(ctx context.Context, key string) string {
 	m.init(ctx)
 	m.mu.RLock()

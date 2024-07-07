@@ -14,22 +14,21 @@ import (
 
 // HandlerOutputJson is the structure outputting logging content as single json.
 type HandlerOutputJson struct {
-	Time       string `json:""`            //qm:时间 cz:Time string `json:""     // Formatted time string, like "2016-01-09 12:00:00".
-	TraceId    string `json:",omitempty"`  //qm:链路跟踪ID cz:TraceId string `json:",omitempty"     // Trace id, only available if tracing is enabled.
-	CtxStr     string `json:",omitempty"`  //qm:上下文值 cz:CtxStr string `json:",omitempty"     // The retrieved context value string from context, only available if Config.CtxKeys configured.
-	Level      string `json:""`            //qm:级别 cz:Level string `json:""`     // Formatted level string, like "DEBU", "ERRO", etc. Eg: ERRO
-	CallerPath string `json:",omitempty"`  //qm:源文件路径与行号 cz:CallerPath string `json:",omitempty"`     // The source file path and its line number that calls logging, only available if F_FILE_SHORT or F_FILE_LONG set.
-	CallerFunc string `json:",omitempty"`  //qm:源文件函数名 cz:CallerFunc string `json:",omitempty"     // The source function name that calls logging, only available if F_CALLER_FN set.
-	Prefix     string `json:",omitempty"`  //qm:前缀 cz:Prefix string `json:",omitempty"     // Custom prefix string for logging content.
-	Content    string `json:""`            //qm:日志内容 cz:Content string `json:"     // Content is the main logging content, containing error stack string produced by logger.
+	Time       string `json:""`//qm:时间  cz:Time string `json:""             // Formatted time string, like "2016-01-09 12:00:00".
+	TraceId    string `json:",omitempty"`//qm:链路跟踪ID  cz:TraceId string `json:",omitempty"   // Trace id, only available if tracing is enabled.
+	CtxStr     string `json:",omitempty"`//qm:上下文值  cz:CtxStr string `json:",omitempty"   // The retrieved context value string from context, only available if Config.CtxKeys configured.
+	Level      string `json:""`//qm:级别  cz:Level string `json:""`             // Formatted level string, like "DEBU", "ERRO", etc. Eg: ERRO
+	CallerPath string `json:",omitempty"`//qm:源文件路径与行号  cz:CallerPath string `json:",omitempty"`   // The source file path and its line number that calls logging, only available if F_FILE_SHORT or F_FILE_LONG set.
+	CallerFunc string `json:",omitempty"`//qm:源文件函数名  cz:CallerFunc string `json:",omitempty"   // The source function name that calls logging, only available if F_CALLER_FN set.
+	Prefix     string `json:",omitempty"`//qm:前缀  cz:Prefix string `json:",omitempty"   // Custom prefix string for logging content.
+	Content    string `json:""`//qm:日志内容  cz:Content string `json:"             // Content is the main logging content, containing error stack string produced by logger.
 	Stack      string `json:",omitempty"` // Stack string produced by logger, only available if Config.StStatus configured.
 }
 
 // HandlerJson is a handler for output logging content as a single json string.
-
 // ff:中间件函数Json
-// in:
 // ctx:上下文
+// in:
 func HandlerJson(ctx context.Context, in *HandlerInput) {
 	output := HandlerOutputJson{
 		Time:       in.TimeFormat,

@@ -7,7 +7,6 @@
 package ghash
 
 // JS implements the classic JS hash algorithm for 32 bits.
-
 // ff:
 // str:
 func JS(str []byte) uint32 {
@@ -19,7 +18,6 @@ func JS(str []byte) uint32 {
 }
 
 // JS64 implements the classic JS hash algorithm for 64 bits.
-
 // ff:
 // str:
 func JS64(str []byte) uint64 {

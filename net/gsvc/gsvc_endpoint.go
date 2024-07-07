@@ -23,8 +23,6 @@ type LocalEndpoint struct {
 }
 
 // NewEndpoint creates and returns an Endpoint from address string of pattern "host:port",
-// eg: "192.168.1.100:80".
-
 // ff:
 // address:
 func NewEndpoint(address string) Endpoint {
@@ -43,22 +41,22 @@ func NewEndpoint(address string) Endpoint {
 }
 
 // Host returns the IPv4/IPv6 address of a service.
-
 // ff:
+// e:
 func (e *LocalEndpoint) Host() string {
 	return e.host
 }
 
 // Port returns the port of a service.
-
 // ff:
+// e:
 func (e *LocalEndpoint) Port() int {
 	return e.port
 }
 
 // String formats and returns the Endpoint as a string, like: 192.168.1.100:80.
-
 // ff:
+// e:
 func (e *LocalEndpoint) String() string {
 	return fmt.Sprintf(`%s:%d`, e.host, e.port)
 }

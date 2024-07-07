@@ -22,7 +22,6 @@ type Bytes struct {
 
 // NewBytes creates and returns a concurrent-safe object for []byte type,
 // with given initial value `value`.
-
 // ff:
 // value:
 func NewBytes(value ...[]byte) *Bytes {
@@ -34,19 +33,18 @@ func NewBytes(value ...[]byte) *Bytes {
 }
 
 // Clone clones and returns a new shallow copy object for []byte type.
-
 // ff:
+// v:
 func (v *Bytes) Clone() *Bytes {
 	return NewBytes(v.Val())
 }
 
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
-// Note: The parameter `value` cannot be nil.
-
-// ff:设置值
 // yx:true
-// old:
+// ff:设置值
+// v:
 // value:
+// old:
 func (v *Bytes) Set(value []byte) (old []byte) {
 	old = v.Val()
 	v.value.Store(value)
@@ -54,9 +52,9 @@ func (v *Bytes) Set(value []byte) (old []byte) {
 }
 
 // Val atomically loads and returns t.value.
-
-// ff:取值
 // yx:true
+// ff:取值
+// v:
 func (v *Bytes) Val() []byte {
 	if s := v.value.Load(); s != nil {
 		return s.([]byte)
@@ -65,15 +63,15 @@ func (v *Bytes) Val() []byte {
 }
 
 // String implements String interface for string printing.
-
 // ff:
+// v:
 func (v *Bytes) String() string {
 	return string(v.Val())
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-
 // ff:
+// v:
 func (v Bytes) MarshalJSON() ([]byte, error) {
 	val := v.Val()
 	dst := make([]byte, base64.StdEncoding.EncodedLen(len(val)))
@@ -82,8 +80,8 @@ func (v Bytes) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-
 // ff:
+// v:
 // b:
 func (v *Bytes) UnmarshalJSON(b []byte) error {
 	var (
@@ -99,8 +97,8 @@ func (v *Bytes) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for `v`.
-
 // ff:
+// v:
 // value:
 func (v *Bytes) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Bytes(value))
@@ -108,8 +106,8 @@ func (v *Bytes) UnmarshalValue(value interface{}) error {
 }
 
 // DeepCopy implements interface for deep copy of current type.
-
 // ff:
+// v:
 func (v *Bytes) DeepCopy() interface{} {
 	if v == nil {
 		return nil

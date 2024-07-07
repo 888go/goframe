@@ -7,15 +7,15 @@
 package gjson
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-
 // ff:
+// j:
 func (j Json) MarshalJSON() ([]byte, error) {
 	return j.ToJson()
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-
 // ff:
+// j:
 // b:
 func (j *Json) UnmarshalJSON(b []byte) error {
 	r, err := loadContentWithOptions(b, Options{
@@ -30,8 +30,8 @@ func (j *Json) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for Json.
-
 // ff:
+// j:
 // value:
 func (j *Json) UnmarshalValue(value interface{}) error {
 	if r := NewWithOptions(value, Options{
@@ -44,9 +44,9 @@ func (j *Json) UnmarshalValue(value interface{}) error {
 }
 
 // MapStrAny implements interface function MapStrAny().
-
-// ff:取MapStrAny
 // yx:true
+// ff:取MapStrAny
+// j:
 func (j *Json) MapStrAny() map[string]interface{} {
 	if j == nil {
 		return nil
@@ -55,9 +55,9 @@ func (j *Json) MapStrAny() map[string]interface{} {
 }
 
 // Interfaces implements interface function Interfaces().
-
-// ff:取any数组
 // yx:true
+// ff:取any切片
+// j:
 func (j *Json) Interfaces() []interface{} {
 	if j == nil {
 		return nil
@@ -66,8 +66,8 @@ func (j *Json) Interfaces() []interface{} {
 }
 
 // String returns current Json object as string.
-
 // ff:
+// j:
 func (j *Json) String() string {
 	if j.IsNil() {
 		return ""

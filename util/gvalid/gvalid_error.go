@@ -27,7 +27,7 @@ type Error interface {
 	Map() map[string]error
 	Maps() map[string]map[string]error
 	String() string
-	Strings() (errs []string) //qm:取文本数组 cz:Strings() (errs []string) yx:true     
+	Strings() (errs []string)//qm:取文本切片  cz:Strings() (errs []string)  yx:true
 }
 
 // validationError is the validation error for validation result.
@@ -84,8 +84,8 @@ func newValidationErrorByStr(key string, err error) *validationError {
 }
 
 // Code returns the error code of current validation error.
-
 // ff:
+// e:
 func (e *validationError) Code() gcode.Code {
 	if e == nil {
 		return gcode.CodeNil
@@ -94,8 +94,8 @@ func (e *validationError) Code() gcode.Code {
 }
 
 // Map returns the first error message as map.
-
 // ff:
+// e:
 func (e *validationError) Map() map[string]error {
 	if e == nil {
 		return map[string]error{}
@@ -105,8 +105,8 @@ func (e *validationError) Map() map[string]error {
 }
 
 // Maps returns all error messages as map.
-
 // ff:
+// e:
 func (e *validationError) Maps() map[string]map[string]error {
 	if e == nil {
 		return nil
@@ -116,8 +116,8 @@ func (e *validationError) Maps() map[string]map[string]error {
 
 // Items retrieves and returns error items array in sequence if possible,
 // or else it returns error items with no sequence .
-
 // ff:
+// e:
 // items:
 func (e *validationError) Items() (items []map[string]map[string]error) {
 	if e == nil {
@@ -145,10 +145,10 @@ func (e *validationError) Items() (items []map[string]map[string]error) {
 }
 
 // FirstItem returns the field name and error messages for the first validation rule error.
-
 // ff:
-// messages:
+// e:
 // key:
+// messages:
 func (e *validationError) FirstItem() (key string, messages map[string]error) {
 	if e == nil {
 		return "", map[string]error{}
@@ -176,10 +176,10 @@ func (e *validationError) FirstItem() (key string, messages map[string]error) {
 }
 
 // FirstRule returns the first error rule and message string.
-
 // ff:
-// err:
+// e:
 // rule:
+// err:
 func (e *validationError) FirstRule() (rule string, err error) {
 	if e == nil {
 		return "", nil
@@ -209,8 +209,8 @@ func (e *validationError) FirstRule() (rule string, err error) {
 
 // FirstError returns the first error message as string.
 // Note that the returned message might be different if it has no sequence.
-
 // ff:
+// e:
 // err:
 func (e *validationError) FirstError() (err error) {
 	if e == nil {
@@ -221,15 +221,15 @@ func (e *validationError) FirstError() (err error) {
 }
 
 // Current is alis of FirstError, which implements interface gerror.iCurrent.
-
 // ff:
+// e:
 func (e *validationError) Current() error {
 	return e.FirstError()
 }
 
 // String returns all error messages as string, multiple error messages joined using char ';'.
-
 // ff:
+// e:
 func (e *validationError) String() string {
 	if e == nil {
 		return ""
@@ -238,8 +238,8 @@ func (e *validationError) String() string {
 }
 
 // Error implements interface of error.Error.
-
 // ff:
+// e:
 func (e *validationError) Error() string {
 	if e == nil {
 		return ""
@@ -248,11 +248,10 @@ func (e *validationError) Error() string {
 }
 
 // Strings returns all error messages as string array.
-
-// ff:取文本数组
-// yx:true
+// ff:
+// e:
 // errs:
-func (e *validationError) Strings() (errs []string) //qm:取文本数组 cz:Strings() (errs []string) yx:true      {
+func (e *validationError) Strings() (errs []string)//qm:取文本切片  zz:Strings\(\) \(errs \[\]string\)\n+ {   {
 	if e == nil {
 		return []string{}
 	}

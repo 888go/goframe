@@ -18,8 +18,8 @@ type ExternalDocs struct {
 	Description string `json:"description,omitempty"`
 }
 
-
 // ff:
+// ed:
 // value:
 func (ed *ExternalDocs) UnmarshalValue(value interface{}) error {
 	var valueBytes = gconv.Bytes(value)

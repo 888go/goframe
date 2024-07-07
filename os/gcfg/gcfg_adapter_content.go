@@ -22,7 +22,6 @@ type AdapterContent struct {
 
 // NewAdapterContent returns a new configuration management object using custom content.
 // The parameter `content` specifies the default configuration content for reading.
-
 // ff:
 // content:
 func NewAdapterContent(content ...string) (*AdapterContent, error) {
@@ -39,8 +38,8 @@ func NewAdapterContent(content ...string) (*AdapterContent, error) {
 
 // SetContent sets customized configuration content for specified `file`.
 // The `file` is unnecessary param, default is DefaultConfigFile.
-
 // ff:
+// a:
 // content:
 func (a *AdapterContent) SetContent(content string) error {
 	j, err := gjson.LoadContent(content, true)
@@ -56,11 +55,11 @@ func (a *AdapterContent) SetContent(content string) error {
 //
 // Note that this function does not return error as it just does simply check for
 // backend configuration service.
-
 // ff:
-// ok:
-// resource:
+// a:
 // ctx:
+// resource:
+// ok:
 func (a *AdapterContent) Available(ctx context.Context, resource ...string) (ok bool) {
 	if a.jsonVar.IsNil() {
 		return false
@@ -72,12 +71,12 @@ func (a *AdapterContent) Available(ctx context.Context, resource ...string) (ok 
 // Pattern like:
 // "x.y.z" for map item.
 // "x.0.y" for slice item.
-
 // ff:
-// err:
-// value:
-// pattern:
+// a:
 // ctx:
+// pattern:
+// value:
+// err:
 func (a *AdapterContent) Get(ctx context.Context, pattern string) (value interface{}, err error) {
 	if a.jsonVar.IsNil() {
 		return nil, nil
@@ -88,11 +87,11 @@ func (a *AdapterContent) Get(ctx context.Context, pattern string) (value interfa
 // Data retrieves and returns all configuration data in current resource as map.
 // Note that this function may lead lots of memory usage if configuration data is too large,
 // you can implement this function if necessary.
-
 // ff:
-// err:
-// data:
+// a:
 // ctx:
+// data:
+// err:
 func (a *AdapterContent) Data(ctx context.Context) (data map[string]interface{}, err error) {
 	if a.jsonVar.IsNil() {
 		return nil, nil

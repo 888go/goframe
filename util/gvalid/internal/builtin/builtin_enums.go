@@ -29,21 +29,14 @@ func init() {
 	Register(RuleEnums{})
 }
 
-
-// ff:
 func (r RuleEnums) Name() string {
 	return "enums"
 }
 
-
-// ff:
 func (r RuleEnums) Message() string {
 	return "The {field} value `{value}` should be in enums of: {enums}"
 }
 
-
-// ff:
-// in:
 func (r RuleEnums) Run(in RunInput) error {
 	if in.ValueType == nil {
 		return gerror.NewCode(

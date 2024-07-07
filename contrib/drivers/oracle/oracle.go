@@ -6,7 +6,6 @@
 
 // Package oracle implements gdb.Driver, which supports operations for database Oracle.
 //
-// Note:
 // 1. It does not support Save/Replace features.
 // 2. It does not support LastInsertId.
 package oracle
@@ -31,7 +30,6 @@ func init() {
 }
 
 // New create and returns a driver that implements gdb.Driver, which supports operations for Oracle.
-
 // ff:
 func New() gdb.Driver {
 	return &Driver{}
@@ -39,10 +37,10 @@ func New() gdb.Driver {
 
 // New creates and returns a database object for oracle.
 // It implements the interface of gdb.Driver for extra database driver installation.
-
 // ff:
-// node:
+// d:
 // core:
+// node:
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
@@ -50,10 +48,10 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 }
 
 // GetChars returns the security char for this type of database.
-
 // ff:
-// charRight:
+// d:
 // charLeft:
+// charRight:
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

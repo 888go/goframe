@@ -13,7 +13,6 @@ import (
 )
 
 // AddSlashes quotes with slashes `\` for chars: '"\.
-
 // ff:转义
 // str:文本
 func AddSlashes(str string) string {
@@ -29,7 +28,6 @@ func AddSlashes(str string) string {
 }
 
 // StripSlashes un-quotes a quoted string by AddSlashes.
-
 // ff:转义还原
 // str:文本
 func StripSlashes(str string) string {
@@ -38,10 +36,9 @@ func StripSlashes(str string) string {
 
 // QuoteMeta returns a version of `str` with a backslash character (`\`).
 // If custom chars `chars` not given, it uses default chars: .\+*?[^]($)
-
 // ff:转义并按字符
-// chars:可选转义字符
 // str:文本
+// chars:可选转义字符
 func QuoteMeta(str string, chars ...string) string {
 	var buf bytes.Buffer
 	for _, char := range str {

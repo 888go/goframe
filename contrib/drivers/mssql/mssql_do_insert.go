@@ -20,15 +20,15 @@ import (
 )
 
 // DoInsert inserts or updates data for given table.
-
 // ff:
-// err:
-// result:
-// option:
-// list:
-// table:
-// link:
+// d:
 // ctx:
+// link:
+// table:
+// list:
+// option:
+// result:
+// err:
 func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
 	switch option.InsertOption {
 	case gdb.InsertOptionSave:

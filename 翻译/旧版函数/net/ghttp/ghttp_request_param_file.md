@@ -31,7 +31,7 @@ X保存
 
 # <翻译开始>
 ) Save(dirPath string, randomlyRename ...bool) (filenames
-文件名数组
+文件名切片
 # <翻译结束>
 
 # <翻译开始>
@@ -66,5 +66,5 @@ X取上传文件对象
 
 # <翻译开始>
 ) GetUploadFiles
-X取上传文件数组对象
+X取上传文件切片对象
 # <翻译结束>

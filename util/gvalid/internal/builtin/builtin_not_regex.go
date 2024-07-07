@@ -22,21 +22,14 @@ func init() {
 	Register(RuleNotRegex{})
 }
 
-
-// ff:
 func (r RuleNotRegex) Name() string {
 	return "not-regex"
 }
 
-
-// ff:
 func (r RuleNotRegex) Message() string {
 	return "The {field} value `{value}` should not be in regex of: {pattern}"
 }
 
-
-// ff:
-// in:
 func (r RuleNotRegex) Run(in RunInput) error {
 	if gregex.IsMatchString(in.RulePattern, in.Value.String()) {
 		return errors.New(in.Message)

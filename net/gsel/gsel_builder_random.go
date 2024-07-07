@@ -8,18 +8,15 @@ package gsel
 
 type builderRandom struct{}
 
-
 // ff:
 func NewBuilderRandom() Builder {
 	return &builderRandom{}
 }
 
-
 // ff:
 func (*builderRandom) Name() string {
 	return "BalancerRandom"
 }
-
 
 // ff:
 func (*builderRandom) Build() Selector {

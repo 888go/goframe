@@ -22,11 +22,11 @@ var (
 )
 
 // ObservableUpDownCounter creates and returns a new ObservableUpDownCounter.
-
 // ff:
-// ObservableUpDownCounter:
-// option:
+// meter:
 // name:
+// option:
+// ObservableUpDownCounter:
 func (meter *localMeter) ObservableUpDownCounter(name string, option MetricOption) (ObservableUpDownCounter, error) {
 	m, err := meter.newMetric(MetricTypeObservableUpDownCounter, name, option)
 	if err != nil {
@@ -49,10 +49,10 @@ func (meter *localMeter) ObservableUpDownCounter(name string, option MetricOptio
 
 // MustObservableUpDownCounter creates and returns a new ObservableUpDownCounter.
 // It panics if any error occurs.
-
 // ff:
-// option:
+// meter:
 // name:
+// option:
 func (meter *localMeter) MustObservableUpDownCounter(name string, option MetricOption) ObservableUpDownCounter {
 	m, err := meter.ObservableCounter(name, option)
 	if err != nil {
@@ -62,10 +62,10 @@ func (meter *localMeter) MustObservableUpDownCounter(name string, option MetricO
 }
 
 // Init initializes the Metric in Provider creation.
-
 // ff:
-// err:
+// l:
 // provider:
+// err:
 func (l *localObservableUpDownCounter) Init(provider Provider) (err error) {
 	if _, ok := l.ObservableUpDownCounterPerformer.(noopObservableUpDownCounterPerformer); !ok {
 		// already initialized.
@@ -80,8 +80,8 @@ func (l *localObservableUpDownCounter) Init(provider Provider) (err error) {
 
 // Performer implements interface PerformerExporter, which exports internal Performer of Metric.
 // This is usually used by metric implements.
-
 // ff:
+// l:
 func (l *localObservableUpDownCounter) Performer() any {
 	return l.ObservableUpDownCounterPerformer
 }

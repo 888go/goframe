@@ -42,8 +42,8 @@ func (meter *localMeter) newMetric(
 }
 
 // Info returns the basic information of a Metric.
-
 // ff:
+// l:
 func (l *localMetric) Info() MetricInfo {
 	return l.MetricInfo
 }

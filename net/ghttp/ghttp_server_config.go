@@ -50,26 +50,26 @@ type ServerConfig struct {
 	// ======================================================================================================
 
 	// Service name, which is for service registry and discovery.
-	Name string `json:"name"` //qm:服务名称 cz:Name string `json:"name"`     
+	Name string `json:"name"`//qm:服务名称  cz:Name string `json:"name"`  
 
 	// Address specifies the server listening address like "port" or ":port",
 	// multiple addresses joined using ','.
-	Address string `json:"address"` //qm:监听地址 cz:Address string `json:"address"`     
+	Address string `json:"address"`//qm:监听地址  cz:Address string `json:"address"`  
 
 	// HTTPSAddr specifies the HTTPS addresses, multiple addresses joined using char ','.
-	HTTPSAddr string `json:"httpsAddr"` //qm:HTTPS监听地址 cz:HTTPSAddr string `json:"httpsAddr"`     
+	HTTPSAddr string `json:"httpsAddr"`//qm:HTTPS监听地址  cz:HTTPSAddr string `json:"httpsAddr"`  
 
 	// Listeners specifies the custom listeners.
-	Listeners []net.Listener `json:"listeners"` //qm:自定义监听器 cz:Listeners []net.Listener     
+	Listeners []net.Listener `json:"listeners"`//qm:自定义监听器  cz:Listeners []net.Listener  
 
 	// Endpoints are custom endpoints for service register, it uses Address if empty.
 	Endpoints []string `json:"endpoints"`
 
 	// HTTPSCertPath specifies certification file path for HTTPS service.
-	HTTPSCertPath string `json:"httpsCertPath"` //qm:HTTPS证书路径 cz:HTTPSCertPath string     
+	HTTPSCertPath string `json:"httpsCertPath"`//qm:HTTPS证书路径  cz:HTTPSCertPath string  
 
 	// HTTPSKeyPath specifies the key file path for HTTPS service.
-	HTTPSKeyPath string `json:"httpsKeyPath"` //qm:HTTPS密钥路径 cz:HTTPSKeyPath string     
+	HTTPSKeyPath string `json:"httpsKeyPath"`//qm:HTTPS密钥路径  cz:HTTPSKeyPath string  
 
 	// TLSConfig optionally provides a TLS configuration for use
 	// by ServeTLS and ListenAndServeTLS. Note that this value is
@@ -78,7 +78,7 @@ type ServerConfig struct {
 	// tls.Config.SetSessionTicketKeys. To use
 	// SetSessionTicketKeys, use Server.Serve with a TLS Listener
 	// instead.
-	TLSConfig *tls.Config `json:"tlsConfig"` //qm:TLS配置 cz:TLSConfig *tls     
+	TLSConfig *tls.Config `json:"tlsConfig"`//qm:TLS配置  cz:TLSConfig *tls  
 
 	// Handler the handler for HTTP request.
 	Handler func(w http.ResponseWriter, r *http.Request) `json:"-"`
@@ -90,19 +90,19 @@ type ServerConfig struct {
 	// decisions on each request body's acceptable deadline or
 	// upload rate, most users will prefer to use
 	// ReadHeaderTimeout. It is valid to use them both.
-	ReadTimeout time.Duration `json:"readTimeout"` //qm:读取超时 cz:ReadTimeout time.Duration     
+	ReadTimeout time.Duration `json:"readTimeout"`//qm:读取超时  cz:ReadTimeout time.Duration  
 
 	// WriteTimeout is the maximum duration before timing out
 	// writes of the response. It is reset whenever a new
 	// request's header is read. Like ReadTimeout, it does not
 	// let Handlers make decisions on a per-request basis.
-	WriteTimeout time.Duration `json:"writeTimeout"` //qm:写入超时 cz:WriteTimeout time.Duration     
+	WriteTimeout time.Duration `json:"writeTimeout"`//qm:写入超时  cz:WriteTimeout time.Duration  
 
 	// IdleTimeout is the maximum amount of time to wait for the
 	// next request when keep-alive are enabled. If IdleTimeout
 	// is zero, the value of ReadTimeout is used. If both are
 	// zero, there is no timeout.
-	IdleTimeout time.Duration `json:"idleTimeout"` //qm:长连接超时 cz:IdleTimeout time.Duration     
+	IdleTimeout time.Duration `json:"idleTimeout"`//qm:长连接超时  cz:IdleTimeout time.Duration  
 
 	// MaxHeaderBytes controls the maximum number of bytes the
 	// server will read parsing the request header's keys and
@@ -111,59 +111,59 @@ type ServerConfig struct {
 	//
 	// It can be configured in configuration file using string like: 1m, 10m, 500kb etc.
 	// It's 10240 bytes in default.
-	MaxHeaderBytes int `json:"maxHeaderBytes"` //qm:最大协议头长度 cz:MaxHeaderBytes int     
+	MaxHeaderBytes int `json:"maxHeaderBytes"`//qm:最大协议头长度  cz:MaxHeaderBytes int  
 
 	// KeepAlive enables HTTP keep-alive.
-	KeepAlive bool `json:"keepAlive"` //qm:启用长连接 cz:KeepAlive bool     
+	KeepAlive bool `json:"keepAlive"`//qm:启用长连接  cz:KeepAlive bool  
 
 	// ServerAgent specifies the server agent information, which is wrote to
 	// HTTP response header as "Server".
-	ServerAgent string `json:"serverAgent"` //qm:服务器代理 cz:ServerAgent string     
+	ServerAgent string `json:"serverAgent"`//qm:服务器代理  cz:ServerAgent string  
 
 	// View specifies the default template view object for the server.
-	View *gview.View `json:"view"` //qm:模板默认 cz:View *     
+	View *gview.View `json:"view"`//qm:模板默认  cz:View *  
 
 	// ======================================================================================================
 	// Static.
 	// ======================================================================================================
 
 	// Rewrites specifies the URI rewrite rules map.
-	Rewrites map[string]string `json:"rewrites"` //qm:路由URI重写规则Map cz:Rewrites map     
+	Rewrites map[string]string `json:"rewrites"`//qm:路由URI重写规则Map  cz:Rewrites map  
 
 	// IndexFiles specifies the index files for static folder.
-	IndexFiles []string `json:"indexFiles"` //qm:静态文件索引 cz:IndexFiles []string     
+	IndexFiles []string `json:"indexFiles"`//qm:静态文件索引  cz:IndexFiles []string  
 
 	// IndexFolder specifies if listing sub-files when requesting folder.
 	// The server responses HTTP status code 403 if it is false.
-	IndexFolder bool `json:"indexFolder"` //qm:静态文件是否列出子文件 cz:IndexFolder bool     
+	IndexFolder bool `json:"indexFolder"`//qm:静态文件是否列出子文件  cz:IndexFolder bool  
 
 	// ServerRoot specifies the root directory for static service.
-	ServerRoot string `json:"serverRoot"` //qm:静态文件根目录 cz:ServerRoot string     
+	ServerRoot string `json:"serverRoot"`//qm:静态文件根目录  cz:ServerRoot string  
 
 	// SearchPaths specifies additional searching directories for static service.
-	SearchPaths []string `json:"searchPaths"` //qm:静态文件额外搜索目录 cz:SearchPaths []string     
+	SearchPaths []string `json:"searchPaths"`//qm:静态文件额外搜索目录  cz:SearchPaths []string  
 
 	// StaticPaths specifies URI to directory mapping array.
-	StaticPaths []staticPathItem `json:"staticPaths"` //qm:静态文件目录映射 cz:StaticPaths []     
+	StaticPaths []staticPathItem `json:"staticPaths"`//qm:静态文件目录映射  cz:StaticPaths []  
 
 	// FileServerEnabled is the global switch for static service.
 	// It is automatically set enabled if any static path is set.
-	FileServerEnabled bool `json:"fileServerEnabled"` //qm:静态文件是否开启 cz:FileServerEnabled bool     
+	FileServerEnabled bool `json:"fileServerEnabled"`//qm:静态文件是否开启  cz:FileServerEnabled bool  
 
 	// ======================================================================================================
 	// Cookie.
 	// ======================================================================================================
 
 	// CookieMaxAge specifies the max TTL for cookie items.
-	CookieMaxAge time.Duration `json:"cookieMaxAge"` //qm:Cookie最大存活时长 cz:CookieMaxAge time.Duration     
+	CookieMaxAge time.Duration `json:"cookieMaxAge"`//qm:Cookie最大存活时长  cz:CookieMaxAge time.Duration  
 
 	// CookiePath specifies cookie path.
 	// It also affects the default storage for session id.
-	CookiePath string `json:"cookiePath"` //qm:Cookie路径 cz:CookiePath string     
+	CookiePath string `json:"cookiePath"`//qm:Cookie路径  cz:CookiePath string  
 
 	// CookieDomain specifies cookie domain.
 	// It also affects the default storage for session id.
-	CookieDomain string `json:"cookieDomain"` //qm:Cookie域名 cz:CookieDomain string     
+	CookieDomain string `json:"cookieDomain"`//qm:Cookie域名  cz:CookieDomain string  
 
 	// CookieSameSite specifies cookie SameSite property.
 	// It also affects the default storage for session id.
@@ -171,63 +171,63 @@ type ServerConfig struct {
 
 	// CookieSameSite specifies cookie Secure property.
 	// It also affects the default storage for session id.
-	CookieSecure bool `json:"cookieSecure"` //qm:Cookie安全 cz:CookieSecure bool     
+	CookieSecure bool `json:"cookieSecure"`//qm:Cookie安全  cz:CookieSecure bool  
 
 	// CookieSameSite specifies cookie HttpOnly property.
 	// It also affects the default storage for session id.
-	CookieHttpOnly bool `json:"cookieHttpOnly"` //qm:Cookie跨站访问控制 cz:CookieHttpOnly bool     
+	CookieHttpOnly bool `json:"cookieHttpOnly"`//qm:Cookie跨站访问控制  cz:CookieHttpOnly bool  
 
 	// ======================================================================================================
 	// Session.
 	// ======================================================================================================
 
 	// SessionIdName specifies the session id name.
-	SessionIdName string `json:"sessionIdName"` //qm:SessionID名称 cz:SessionIdName string     
+	SessionIdName string `json:"sessionIdName"`//qm:SessionID名称  cz:SessionIdName string  
 
 	// SessionMaxAge specifies max TTL for session items.
-	SessionMaxAge time.Duration `json:"sessionMaxAge"` //qm:Session最大存活时长 cz:SessionMaxAge time.Duration     
+	SessionMaxAge time.Duration `json:"sessionMaxAge"`//qm:Session最大存活时长  cz:SessionMaxAge time.Duration  
 
 	// SessionPath specifies the session storage directory path for storing session files.
 	// It only makes sense if the session storage is type of file storage.
-	SessionPath string `json:"sessionPath"` //qm:Session存储目录路径 cz:SessionPath string     
+	SessionPath string `json:"sessionPath"`//qm:Session存储目录路径  cz:SessionPath string  
 
 	// SessionStorage specifies the session storage.
 	SessionStorage gsession.Storage `json:"sessionStorage"`
 
 	// SessionCookieMaxAge specifies the cookie ttl for session id.
 	// If it is set 0, it means it expires along with browser session.
-	SessionCookieMaxAge time.Duration `json:"sessionCookieMaxAge"` //qm:SessionCookie存活时长 cz:SessionCookieMaxAge time.Duration     
+	SessionCookieMaxAge time.Duration `json:"sessionCookieMaxAge"`//qm:SessionCookie存活时长  cz:SessionCookieMaxAge time.Duration  
 
 	// SessionCookieOutput specifies whether automatic outputting session id to cookie.
-	SessionCookieOutput bool `json:"sessionCookieOutput"` //qm:SessionID输出到Cookie cz:SessionCookieOutput bool     
+	SessionCookieOutput bool `json:"sessionCookieOutput"`//qm:SessionID输出到Cookie  cz:SessionCookieOutput bool  
 
 	// ======================================================================================================
 	// Logging.
 	// ======================================================================================================
 
-	Logger           *glog.Logger `json:"logger"`            //qm:日志记录器 cz:Logger           *     // Logger specifies the logger for server.
-	LogPath          string       `json:"logPath"`           //qm:日志存储目录 cz:LogPath          string     // LogPath specifies the directory for storing logging files.
-	LogLevel         string       `json:"logLevel"`          //qm:日志记录等级 cz:LogLevel         string     // LogLevel specifies the logging level for logger.
-	LogStdout        bool         `json:"logStdout"`         //qm:日志开启输出到CMD cz:LogStdout        bool     // LogStdout specifies whether printing logging content to stdout.
-	ErrorStack       bool         `json:"errorStack"`        //qm:日志开启错误堆栈记录 cz:ErrorStack       bool     // ErrorStack specifies whether logging stack information when error.
-	ErrorLogEnabled  bool         `json:"errorLogEnabled"`   //qm:日志开启错误记录 cz:ErrorLogEnabled  bool     // ErrorLogEnabled enables error logging content to files.
-	ErrorLogPattern  string       `json:"errorLogPattern"`   //qm:日志错误文件命名模式 cz:ErrorLogPattern  string     // ErrorLogPattern specifies the error log file pattern like: error-{Ymd}.log
-	AccessLogEnabled bool         `json:"accessLogEnabled"`  //qm:日志开启访客记录 cz:AccessLogEnabled bool     // AccessLogEnabled enables access logging content to files.
-	AccessLogPattern string       `json:"accessLogPattern"`  //qm:日志访客文件命名模式 cz:AccessLogPattern string     // AccessLogPattern specifies the error log file pattern like: access-{Ymd}.log
+	Logger           *glog.Logger `json:"logger"`//qm:日志记录器  cz:Logger *             // Logger specifies the logger for server.
+	LogPath          string       `json:"logPath"`//qm:日志存储目录  cz:LogPath string            // LogPath specifies the directory for storing logging files.
+	LogLevel         string       `json:"logLevel"`//qm:日志记录等级  cz:LogLevel string           // LogLevel specifies the logging level for logger.
+	LogStdout        bool         `json:"logStdout"`//qm:日志开启输出到CMD  cz:LogStdout bool          // LogStdout specifies whether printing logging content to stdout.
+	ErrorStack       bool         `json:"errorStack"`//qm:日志开启错误堆栈记录  cz:ErrorStack bool         // ErrorStack specifies whether logging stack information when error.
+	ErrorLogEnabled  bool         `json:"errorLogEnabled"`//qm:日志开启错误记录  cz:ErrorLogEnabled bool    // ErrorLogEnabled enables error logging content to files.
+	ErrorLogPattern  string       `json:"errorLogPattern"`//qm:日志错误文件命名模式  cz:ErrorLogPattern string    // ErrorLogPattern specifies the error log file pattern like: error-{Ymd}.log
+	AccessLogEnabled bool         `json:"accessLogEnabled"`//qm:日志开启访客记录  cz:AccessLogEnabled bool   // AccessLogEnabled enables access logging content to files.
+	AccessLogPattern string       `json:"accessLogPattern"`//qm:日志访客文件命名模式  cz:AccessLogPattern string   // AccessLogPattern specifies the error log file pattern like: access-{Ymd}.log
 
 	// ======================================================================================================
 	// PProf.
 	// ======================================================================================================
 
-	PProfEnabled bool   `json:"pprofEnabled"`  //qm:PProf开启 cz:PProfEnabled bool     // PProfEnabled enables PProf feature.
-	PProfPattern string `json:"pprofPattern"`  //qm:PProf模式 cz:PProfPattern string     // PProfPattern specifies the PProf service pattern for router.
+	PProfEnabled bool   `json:"pprofEnabled"`//qm:PProf开启  cz:PProfEnabled bool   // PProfEnabled enables PProf feature.
+	PProfPattern string `json:"pprofPattern"`//qm:PProf模式  cz:PProfPattern string   // PProfPattern specifies the PProf service pattern for router.
 
 	// ======================================================================================================
 	// API & Swagger.
 	// ======================================================================================================
 
-	OpenApiPath       string `json:"openapiPath"`        //qm:APIOpenApiUI路径 cz:OpenApiPath string     // OpenApiPath specifies the OpenApi specification file path.
-	SwaggerPath       string `json:"swaggerPath"`        //qm:APISwaggerUI路径 cz:SwaggerPath string     // SwaggerPath specifies the swagger UI path for route registering.
+	OpenApiPath       string `json:"openapiPath"`//qm:APIOpenApiUI路径  cz:OpenApiPath string         // OpenApiPath specifies the OpenApi specification file path.
+	SwaggerPath       string `json:"swaggerPath"`//qm:APISwaggerUI路径  cz:SwaggerPath string         // SwaggerPath specifies the swagger UI path for route registering.
 	SwaggerUITemplate string `json:"swaggerUITemplate"` // SwaggerUITemplate specifies the swagger UI custom template
 
 	// ======================================================================================================
@@ -237,26 +237,26 @@ type ServerConfig struct {
 	// ClientMaxBodySize specifies the max body size limit in bytes for client request.
 	// It can be configured in configuration file using string like: 1m, 10m, 500kb etc.
 	// It's `8MB` in default.
-	ClientMaxBodySize int64 `json:"clientMaxBodySize"` //qm:客户端请求最大长度 cz:ClientMaxBodySize int64     
+	ClientMaxBodySize int64 `json:"clientMaxBodySize"`//qm:客户端请求最大长度  cz:ClientMaxBodySize int64  
 
 	// FormParsingMemory specifies max memory buffer size in bytes which can be used for
 	// parsing multimedia form.
 	// It can be configured in configuration file using string like: 1m, 10m, 500kb etc.
 	// It's 1MB in default.
-	FormParsingMemory int64 `json:"formParsingMemory"` //qm:表单解析最大缓冲区长度 cz:FormParsingMemory int64     
+	FormParsingMemory int64 `json:"formParsingMemory"`//qm:表单解析最大缓冲区长度  cz:FormParsingMemory int64  
 
 	// NameToUriType specifies the type for converting struct method name to URI when
 	// registering routes.
 	NameToUriType int `json:"nameToUriType"`
 
 	// RouteOverWrite allows to overwrite the route if duplicated.
-	RouteOverWrite bool `json:"routeOverWrite"` //qm:路由允许覆盖 cz:RouteOverWrite bool     
+	RouteOverWrite bool `json:"routeOverWrite"`//qm:路由允许覆盖  cz:RouteOverWrite bool  
 
 	// DumpRouterMap specifies whether automatically dumps router map when server starts.
 	DumpRouterMap bool `json:"dumpRouterMap"`
 
 	// Graceful enables graceful reload feature for all servers of the process.
-	Graceful bool `json:"graceful"` //qm:平滑重启开启 cz:Graceful bool     
+	Graceful bool `json:"graceful"`//qm:平滑重启开启  cz:Graceful bool  
 
 	// GracefulTimeout set the maximum survival time (seconds) of the parent process.
 	GracefulTimeout uint8 `json:"gracefulTimeout"`
@@ -268,7 +268,6 @@ type ServerConfig struct {
 // NewConfig creates and returns a ServerConfig object with default configurations.
 // Note that, do not define this default configuration to local package variable, as there are
 // some pointer attributes that may be shared in different servers.
-
 // ff:创建默认配置项
 func NewConfig() ServerConfig {
 	return ServerConfig{
@@ -316,10 +315,9 @@ func NewConfig() ServerConfig {
 
 // ConfigFromMap creates and returns a ServerConfig object with given map and
 // default configuration object.
-
 // ff:创建配置对象Map
-// ServerConfig:
 // m:配置
+// ServerConfig:
 func ConfigFromMap(m map[string]interface{}) (ServerConfig, error) {
 	config := NewConfig()
 	if err := gconv.Struct(m, &config); err != nil {
@@ -329,8 +327,8 @@ func ConfigFromMap(m map[string]interface{}) (ServerConfig, error) {
 }
 
 // SetConfigWithMap sets the configuration for the server using map.
-
 // ff:设置配置项Map
+// s:
 // m:配置
 func (s *Server) SetConfigWithMap(m map[string]interface{}) error {
 	// The m now is a shallow copy of m.
@@ -357,8 +355,8 @@ func (s *Server) SetConfigWithMap(m map[string]interface{}) error {
 }
 
 // SetConfig sets the configuration for the server.
-
 // ff:设置配置项
+// s:
 // c:
 func (s *Server) SetConfig(c ServerConfig) error {
 	s.config = c
@@ -397,8 +395,8 @@ func (s *Server) SetConfig(c ServerConfig) error {
 
 // SetAddr sets the listening address for the server.
 // The address is like ':80', '0.0.0.0:80', '127.0.0.1:80', '180.18.99.10:80', etc.
-
 // ff:设置监听地址
+// s:
 // address:地址
 func (s *Server) SetAddr(address string) {
 	s.config.Address = address
@@ -406,8 +404,8 @@ func (s *Server) SetAddr(address string) {
 
 // SetPort sets the listening ports for the server.
 // The listening ports can be multiple like: SetPort(80, 8080).
-
 // ff:设置监听端口
+// s:
 // port:端口
 func (s *Server) SetPort(port ...int) {
 	if len(port) > 0 {
@@ -422,8 +420,8 @@ func (s *Server) SetPort(port ...int) {
 }
 
 // SetHTTPSAddr sets the HTTPS listening ports for the server.
-
 // ff:设置HTTPS监听地址
+// s:
 // address:地址
 func (s *Server) SetHTTPSAddr(address string) {
 	s.config.HTTPSAddr = address
@@ -431,8 +429,8 @@ func (s *Server) SetHTTPSAddr(address string) {
 
 // SetHTTPSPort sets the HTTPS listening ports for the server.
 // The listening ports can be multiple like: SetHTTPSPort(443, 500).
-
 // ff:设置HTTPS监听端口
+// s:
 // port:端口
 func (s *Server) SetHTTPSPort(port ...int) {
 	if len(port) > 0 {
@@ -447,8 +445,8 @@ func (s *Server) SetHTTPSPort(port ...int) {
 }
 
 // SetListener set the custom listener for the server.
-
 // ff:设置自定义监听器
+// s:
 // listeners:监听器
 func (s *Server) SetListener(listeners ...net.Listener) error {
 	if listeners == nil {
@@ -470,11 +468,11 @@ func (s *Server) SetListener(listeners ...net.Listener) error {
 
 // EnableHTTPS enables HTTPS with given certification and key files for the server.
 // The optional parameter `tlsConfig` specifies custom TLS configuration.
-
 // ff:启用HTTPS
-// tlsConfig:tls配置
-// keyFile:密钥路径
+// s:
 // certFile:证书路径
+// keyFile:密钥路径
+// tlsConfig:tls配置
 func (s *Server) EnableHTTPS(certFile, keyFile string, tlsConfig ...*tls.Config) {
 	var ctx = context.TODO()
 	certFileRealPath := gfile.RealPath(certFile)
@@ -513,105 +511,107 @@ func (s *Server) EnableHTTPS(certFile, keyFile string, tlsConfig ...*tls.Config)
 }
 
 // SetTLSConfig sets custom TLS configuration and enables HTTPS feature for the server.
-
 // ff:设置TLS配置
+// s:
 // tlsConfig:tls配置
 func (s *Server) SetTLSConfig(tlsConfig *tls.Config) {
 	s.config.TLSConfig = tlsConfig
 }
 
 // SetReadTimeout sets the ReadTimeout for the server.
-
 // ff:设置读取超时
+// s:
 // t:时长
 func (s *Server) SetReadTimeout(t time.Duration) {
 	s.config.ReadTimeout = t
 }
 
 // SetWriteTimeout sets the WriteTimeout for the server.
-
 // ff:设置写入超时
+// s:
 // t:时长
 func (s *Server) SetWriteTimeout(t time.Duration) {
 	s.config.WriteTimeout = t
 }
 
 // SetIdleTimeout sets the IdleTimeout for the server.
-
 // ff:设置长连接超时
+// s:
 // t:时长
 func (s *Server) SetIdleTimeout(t time.Duration) {
 	s.config.IdleTimeout = t
 }
 
 // SetMaxHeaderBytes sets the MaxHeaderBytes for the server.
-
 // ff:设置协议头最大长度
+// s:
 // b:最大长度
 func (s *Server) SetMaxHeaderBytes(b int) {
 	s.config.MaxHeaderBytes = b
 }
 
 // SetServerAgent sets the ServerAgent for the server.
-
 // ff:设置服务器代理标识
+// s:
 // agent:代理标识
 func (s *Server) SetServerAgent(agent string) {
 	s.config.ServerAgent = agent
 }
 
 // SetKeepAlive sets the KeepAlive for the server.
-
 // ff:设置开启长连接
+// s:
 // enabled:开启
 func (s *Server) SetKeepAlive(enabled bool) {
 	s.config.KeepAlive = enabled
 }
 
 // SetView sets the View for the server.
-
 // ff:设置默认模板对象
+// s:
 // view:模板对象
 func (s *Server) SetView(view *gview.View) {
 	s.config.View = view
 }
 
 // GetName returns the name of the server.
-
 // ff:取服务名称
+// s:
 func (s *Server) GetName() string {
 	return s.config.Name
 }
 
 // SetName sets the name for the server.
-
 // ff:设置服务名称
+// s:
 // name:名称
 func (s *Server) SetName(name string) {
 	s.config.Name = name
 }
 
 // SetEndpoints sets the Endpoints for the server.
-
 // ff:
+// s:
 // endpoints:
 func (s *Server) SetEndpoints(endpoints []string) {
 	s.config.Endpoints = endpoints
 }
 
 // SetHandler sets the request handler for server.
-
 // ff:设置请求处理器
+// s:
 // h:
+// w:
+// r:
 func (s *Server) SetHandler(h func(w http.ResponseWriter, r *http.Request)) {
 	s.config.Handler = h
 }
 
 // GetHandler returns the request handler of the server.
-
 // ff:取请求处理器
-// r:
+// s:
 // w:
+// r:
 func (s *Server) GetHandler() func(w http.ResponseWriter, r *http.Request) {
 	if s.config.Handler == nil {
 		return s.ServeHTTP
@@ -620,16 +620,16 @@ func (s *Server) GetHandler() func(w http.ResponseWriter, r *http.Request) {
 }
 
 // SetRegistrar sets the Registrar for server.
-
 // ff:设置注册发现对象
+// s:
 // registrar:注册发现对象
 func (s *Server) SetRegistrar(registrar gsvc.Registrar) {
 	s.registrar = registrar
 }
 
 // GetRegistrar returns the Registrar of server.
-
 // ff:取注册发现对象
+// s:
 func (s *Server) GetRegistrar() gsvc.Registrar {
 	return s.registrar
 }

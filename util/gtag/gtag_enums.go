@@ -17,7 +17,6 @@ var (
 
 // SetGlobalEnums sets the global enums into package.
 // Note that this operation is not concurrent safety.
-
 // ff:
 // enumsJson:
 func SetGlobalEnums(enumsJson string) error {
@@ -25,7 +24,6 @@ func SetGlobalEnums(enumsJson string) error {
 }
 
 // GetGlobalEnums retrieves and returns the global enums.
-
 // ff:
 func GetGlobalEnums() (string, error) {
 	enumsBytes, err := json.Marshal(enumsMap)
@@ -37,7 +35,6 @@ func GetGlobalEnums() (string, error) {
 
 // GetEnumsByType retrieves and returns the stored enums json by type name.
 // The type name is like: github.com/gogf/gf/v2/encoding/gjson.ContentType
-
 // ff:
 // typeName:
 func GetEnumsByType(typeName string) string {

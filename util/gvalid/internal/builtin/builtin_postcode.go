@@ -22,21 +22,14 @@ func init() {
 	Register(RulePostcode{})
 }
 
-
-// ff:
 func (r RulePostcode) Name() string {
 	return "postcode"
 }
 
-
-// ff:
 func (r RulePostcode) Message() string {
 	return "The {field} value `{value}` is not a valid postcode format"
 }
 
-
-// ff:
-// in:
 func (r RulePostcode) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^\d{6}$`,

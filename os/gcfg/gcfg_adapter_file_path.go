@@ -26,10 +26,10 @@ import (
 // but absolute `directory` path is strongly recommended.
 //
 // Note that this parameter is a path to a directory not a file.
-
 // ff:
-// err:
+// a:
 // directoryPath:
+// err:
 func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 	var (
 		isDir    = false
@@ -99,10 +99,10 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 // AddPath adds an absolute or relative `directory` path to the search paths.
 //
 // Note that this parameter is paths to a directories not files.
-
 // ff:
-// err:
+// a:
 // directoryPaths:
+// err:
 func (a *AdapterFile) AddPath(directoryPaths ...string) (err error) {
 	for _, directoryPath := range directoryPaths {
 		if err = a.doAddPath(directoryPath); err != nil {
@@ -178,8 +178,8 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 }
 
 // GetPaths returns the searching directory path array of current configuration manager.
-
 // ff:
+// a:
 func (a *AdapterFile) GetPaths() []string {
 	return a.searchPaths.Slice()
 }
@@ -251,11 +251,11 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 // GetFilePath returns the absolute configuration file path for the given filename by `file`.
 // If `file` is not passed, it returns the configuration file path of the default name.
 // It returns an empty `path` string and an error if the given `file` does not exist.
-
 // ff:
-// err:
-// filePath:
+// a:
 // fileName:
+// filePath:
+// err:
 func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err error) {
 	var (
 		fileExtName  string

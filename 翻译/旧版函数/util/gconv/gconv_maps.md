@@ -26,7 +26,7 @@ func Maps(value
 
 # <翻译开始>
 func Maps
-X取Map数组
+X取Map切片
 # <翻译结束>
 
 # <翻译开始>
@@ -41,5 +41,5 @@ func MapsDeep(value
 
 # <翻译开始>
 func MapsDeep
-X取Map数组_递归
+X取Map切片_递归
 # <翻译结束>

@@ -17,12 +17,11 @@ import (
 // Search searches file by name `name` in following paths with priority:
 // prioritySearchPaths, Pwd()、SelfDir()、MainPkgPath().
 // It returns the absolute file path of `name` if found, or en empty string if not found.
-
 // ff:查找
-// err:错误
-// realPath:路径
-// prioritySearchPaths:优先级查找路径
 // name:文件名
+// prioritySearchPaths:优先级查找路径
+// realPath:路径
+// err:错误
 func Search(name string, prioritySearchPaths ...string) (realPath string, err error) {
 	// Check if it's an absolute path.
 	realPath = RealPath(name)

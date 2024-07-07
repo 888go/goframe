@@ -19,16 +19,16 @@ type CacheOption struct {
 	// If the parameter `Duration` < 0, which means it clear the cache with given `Name`.
 	// If the parameter `Duration` = 0, which means it never expires.
 	// If the parameter `Duration` > 0, which means it expires after `Duration`.
-	Duration time.Duration //qm:时长 cz:Duration time.Duration     
+	Duration time.Duration//qm:时长  cz:Duration time.Duration  
 
 	// Name is an optional unique name for the cache.
 	// The Name is used to bind a name to the cache, which means you can later control the cache
 	// like changing the `duration` or clearing the cache with specified Name.
-	Name string //qm:名称 cz:Name string     
+	Name string//qm:名称  cz:Name string  
 
 	// Force caches the query result whatever the result is nil or not.
 	// It is used to avoid Cache Penetration.
-	Force bool //qm:强制缓存 cz:Force bool     
+	Force bool//qm:强制缓存  cz:Force bool  
 }
 
 // selectCacheItem is the cache item for SELECT statement result.
@@ -43,8 +43,8 @@ type selectCacheItem struct {
 //
 // Note that, the cache feature is disabled if the model is performing select statement
 // on a transaction.
-
 // ff:X缓存
+// m:
 // option:选项
 func (m *Model) Cache(option CacheOption) *Model {
 	model := m.getModel()

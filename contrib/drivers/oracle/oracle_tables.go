@@ -19,12 +19,12 @@ const (
 // Tables retrieves and returns the tables of current schema.
 // It's mainly used in cli tool chain for automatically generating the models.
 // Note that it ignores the parameter `schema` in oracle database, as it is not necessary.
-
 // ff:
-// err:
-// tables:
-// schema:
+// d:
 // ctx:
+// schema:
+// tables:
+// err:
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
 	// DO NOT use `usedSchema` as parameter for function `SlaveLink`.

@@ -20,11 +20,10 @@ import (
 //
 // The optional parameter `extraParams` is used for additional necessary parameter for this conversion.
 // It supports common basic types conversion as its conversion based on type name string.
-
 // ff:按名称转换
-// extraParams:
-// toTypeName:类型名称
 // fromValue:值
+// toTypeName:类型名称
+// extraParams:
 func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{}) interface{} {
 	return doConvert(doConvertInput{
 		FromValue:  fromValue,
@@ -38,11 +37,10 @@ func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{
 //
 // The optional parameter `extraParams` is used for additional necessary parameter for this conversion.
 // It supports common basic types conversion as its conversion based on type name string.
-
 // ff:按参考值类型转换
-// extraParams:
-// referValue:参考值
 // fromValue:值
+// referValue:参考值
+// extraParams:
 func ConvertWithRefer(fromValue interface{}, referValue interface{}, extraParams ...interface{}) interface{} {
 	var referValueRf reflect.Value
 	if v, ok := referValue.(reflect.Value); ok {
@@ -250,7 +248,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		} else {
 			return *gtime.New()
 		}
-	case "*gtime.Time"://bm:case "*gtime.Time", "*时间类.Time":
+	case "*gtime.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return v

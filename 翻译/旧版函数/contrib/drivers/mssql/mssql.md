@@ -41,7 +41,7 @@ Tables(ctx context.Context, schema ...string) (tables []string, err
 
 # <翻译开始>
 ables(ctx context.Context, schema ...string) (tables
-表名称数组
+表名称切片
 # <翻译结束>
 
 # <翻译开始>
@@ -51,7 +51,7 @@ Tables(ctx
 
 # <翻译开始>
 ) Tables
-X取表名称数组
+X取表名称切片
 # <翻译结束>
 
 # <翻译开始>

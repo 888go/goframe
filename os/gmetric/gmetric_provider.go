@@ -75,7 +75,6 @@ var (
 )
 
 // GetGlobalProvider retrieves the GetGlobalProvider instance.
-
 // ff:
 func GetGlobalProvider() GlobalProvider {
 	return &localGlobalProvider{}
@@ -83,7 +82,6 @@ func GetGlobalProvider() GlobalProvider {
 
 // SetGlobalProvider registers `provider` as the global Provider,
 // which means the following metrics creating will be base on the global provider.
-
 // ff:
 // provider:
 func SetGlobalProvider(provider Provider) {
@@ -91,8 +89,8 @@ func SetGlobalProvider(provider Provider) {
 }
 
 // Meter creates and returns the Meter by given MeterOption.
-
 // ff:
+// l:
 // option:
 func (l *localGlobalProvider) Meter(option MeterOption) Meter {
 	return newMeter(option)

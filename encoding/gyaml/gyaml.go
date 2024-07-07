@@ -19,11 +19,10 @@ import (
 )
 
 // Encode encodes `value` to an YAML format content as bytes.
-
 // ff:
-// err:
-// out:
 // value:
+// out:
+// err:
 func Encode(value interface{}) (out []byte, err error) {
 	if out, err = yaml.Marshal(value); err != nil {
 		err = gerror.Wrap(err, `yaml.Marshal failed`)
@@ -32,12 +31,11 @@ func Encode(value interface{}) (out []byte, err error) {
 }
 
 // EncodeIndent encodes `value` to an YAML format content with indent as bytes.
-
 // ff:
-// err:
-// out:
-// indent:
 // value:
+// indent:
+// out:
+// err:
 func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 	out, err = Encode(value)
 	if err != nil {
@@ -59,7 +57,6 @@ func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 }
 
 // Decode parses `content` into and returns as map.
-
 // ff:
 // content:
 func Decode(content []byte) (map[string]interface{}, error) {
@@ -75,11 +72,10 @@ func Decode(content []byte) (map[string]interface{}, error) {
 }
 
 // DecodeTo parses `content` into `result`.
-
 // ff:
-// err:
-// result:
 // value:
+// result:
+// err:
 func DecodeTo(value []byte, result interface{}) (err error) {
 	err = yaml.Unmarshal(value, result)
 	if err != nil {
@@ -89,11 +85,10 @@ func DecodeTo(value []byte, result interface{}) (err error) {
 }
 
 // ToJson converts `content` to JSON format content.
-
 // ff:
-// err:
-// out:
 // content:
+// out:
+// err:
 func ToJson(content []byte) (out []byte, err error) {
 	var (
 		result interface{}

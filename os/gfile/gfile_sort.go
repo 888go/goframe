@@ -33,9 +33,8 @@ func fileSortFunc(path1, path2 string) int {
 
 // SortFiles sorts the `files` in order of: directory -> file.
 // Note that the item of `files` should be absolute path.
-
 // ff:排序
-// files:文件数组
+// files:文件切片
 func SortFiles(files []string) []string {
 	array := garray.NewSortedStrArrayComparator(fileSortFunc)
 	array.Add(files...)

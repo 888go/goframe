@@ -22,21 +22,14 @@ func init() {
 	Register(RuleJson{})
 }
 
-
-// ff:
 func (r RuleJson) Name() string {
 	return "json"
 }
 
-
-// ff:
 func (r RuleJson) Message() string {
 	return "The {field} value `{value}` is not a valid JSON string"
 }
 
-
-// ff:
-// in:
 func (r RuleJson) Run(in RunInput) error {
 	if json.Valid(in.Value.Bytes()) {
 		return nil

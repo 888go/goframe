@@ -11,18 +11,18 @@ import (
 )
 
 // Set sets key-value pair into metadata.
-
-// ff:设置值
 // yx:true
-// value:
+// ff:设置值
+// m:
 // key:
+// value:
 func (m Metadata) Set(key string, value interface{}) {
 	m[key] = value
 }
 
 // Sets sets key-value pairs into metadata.
-
 // ff:
+// m:
 // kvs:
 func (m Metadata) Sets(kvs map[string]interface{}) {
 	for k, v := range kvs {
@@ -31,8 +31,8 @@ func (m Metadata) Sets(kvs map[string]interface{}) {
 }
 
 // Get retrieves and returns value of specified key as gvar.
-
 // ff:
+// m:
 // key:
 func (m Metadata) Get(key string) *gvar.Var {
 	if v, ok := m[key]; ok {
@@ -42,8 +42,8 @@ func (m Metadata) Get(key string) *gvar.Var {
 }
 
 // IsEmpty checks and returns whether current Metadata is empty.
-
 // ff:
+// m:
 func (m Metadata) IsEmpty() bool {
 	return len(m) == 0
 }

@@ -27,21 +27,14 @@ func init() {
 	Register(RuleRequiredIf{})
 }
 
-
-// ff:
 func (r RuleRequiredIf) Name() string {
 	return "required-if"
 }
 
-
-// ff:
 func (r RuleRequiredIf) Message() string {
 	return "The {field} field is required"
 }
 
-
-// ff:
-// in:
 func (r RuleRequiredIf) Run(in RunInput) error {
 	var (
 		required   = false

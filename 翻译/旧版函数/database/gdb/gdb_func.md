@@ -56,7 +56,7 @@ func CatchSQL(ctx context.Context, f func(ctx context.Context) error) (sqlArray 
 
 # <翻译开始>
 func CatchSQL(ctx context.Context, f func(ctx context.Context) error) (sqlArray
-sql数组
+sql切片
 # <翻译结束>
 
 # <翻译开始>
@@ -81,7 +81,7 @@ X捕捉SQL语句
 
 # <翻译开始>
 func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (values
-数组值
+切片值
 # <翻译结束>
 
 # <翻译开始>
@@ -96,12 +96,12 @@ func ListItemValues(list interface{}, key
 
 # <翻译开始>
 func ListItemValues(list
-结构体数组或Map数组
+结构体切片或Map切片
 # <翻译结束>
 
 # <翻译开始>
 func ListItemValues
-X取结构体数组或Map数组值
+X取结构体切片或Map切片值
 # <翻译结束>
 
 # <翻译开始>
@@ -116,12 +116,12 @@ func ListItemValuesUnique(list interface{}, key
 
 # <翻译开始>
 func ListItemValuesUnique(list
-结构体数组或Map数组
+结构体切片或Map切片
 # <翻译结束>
 
 # <翻译开始>
 func ListItemValuesUnique
-X取结构体数组或Map数组值并去重
+X取结构体切片或Map切片值并去重
 # <翻译结束>
 
 # <翻译开始>
@@ -156,7 +156,7 @@ func GetPrimaryKeyCondition
 
 # <翻译开始>
 func FormatSqlWithArgs(sql string, args
-参数数组
+参数切片
 # <翻译结束>
 
 # <翻译开始>

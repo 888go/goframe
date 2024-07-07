@@ -24,7 +24,6 @@ import (
 
 // Database returns an instance of database ORM object with specified configuration group name.
 // Note that it panics if any error occurs duration instance creating.
-
 // ff:
 // name:
 func Database(name ...string) gdb.DB {

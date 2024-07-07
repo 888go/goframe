@@ -7,7 +7,6 @@
 package ghttp
 
 // MiddlewareNeverDoneCtx sets the context never done for current process.
-
 // ff:
 // r:
 func MiddlewareNeverDoneCtx(r *Request) {

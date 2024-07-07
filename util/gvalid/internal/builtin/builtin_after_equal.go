@@ -24,21 +24,14 @@ func init() {
 	Register(RuleAfterEqual{})
 }
 
-
-// ff:
 func (r RuleAfterEqual) Name() string {
 	return "after-equal"
 }
 
-
-// ff:
 func (r RuleAfterEqual) Message() string {
 	return "The {field} value `{value}` must be after or equal to field {field1} value `{value1}`"
 }
 
-
-// ff:
-// in:
 func (r RuleAfterEqual) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

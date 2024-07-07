@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -147,7 +148,7 @@ qm=原生SQL查询字段值
 cz=GetValue(ctx context.Context, sql string, args ...interface{})
 
 [GetArray(ctx context.Context, sql string, args ...interface{}) (#左中括号##右中括号#Value, error)]
-qm=原生SQL查询数组
+qm=原生SQL查询切片
 cz=GetArray(ctx context.Context, sql string, args ...interface{})
 
 [GetCount(ctx context.Context, sql string, args ...interface{}) (int, error)]
@@ -246,10 +247,6 @@ cz=SetMaxOpenConnCount(n int)
 qm=设置最大空闲时长
 cz=SetMaxConnLifeTime(d time.Duration)
 
-[GetCtx() context.Context]
-qm=取上下文对象
-cz=GetCtx() context.Context
-
 [GetCore() *Core]
 qm=取Core对象
 cz=GetCore() *Core
@@ -259,7 +256,7 @@ qm=底层取数据库安全字符
 cz=GetChars() (charLeft string, charRight string)
 
 [Tables(ctx context.Context, schema ...string) (tables #左中括号##右中括号#string, err error)]
-qm=取表名称数组
+qm=取表名称切片
 cz=Tables(ctx context.Context, schema ...string)
 
 [TableFields(ctx context.Context, table string, schema ...string) (map#左中括号#string#右中括号#*TableField, error)]
@@ -328,7 +325,7 @@ qm=原生SQL查询单条到结构体指针
 cz=GetStruct(obj interface{}, sql string, args ...interface{})
 
 [GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error]
-qm=原生SQL查询到结构体数组指针
+qm=原生SQL查询到结构体切片指针
 cz=GetStructs(objPointerSlice interface{}, sql string, args ...interface{})
 
 [GetScan(pointer interface{}, sql string, args ...interface{}) error]
@@ -371,6 +368,11 @@ cz=Update(table string, data interface{}, condition interface{}, args ...interfa
 qm=删除
 cz=Delete(table string, condition interface{}, args ...interface{})
 
+[GetCtx() context.Context]
+qm=取上下文对象
+cz=GetCtx() context.Context
+cf=2
+
 [GetDB() DB]
 qm=取DB对象
 cz=GetDB() DB
@@ -392,7 +394,7 @@ qm=回滚事务点
 cz=RollbackTo(point string) error
 
 [Records #左中括号##右中括号#Record]
-qm=行记录数组
+qm=行记录切片
 cz=Records []
 
 [Stmt *Stmt]
@@ -412,5 +414,5 @@ qm=增减值
 cz=Value float64
 
 [List = #左中括号##右中括号#Map]
-qm=Map数组
+qm=Map切片
 cz=List #等号# []Map

@@ -6,7 +6,7 @@
 
 # <翻译开始>
 ) Tables(ctx context.Context, schema ...string) (tables
-表名称数组
+表名称切片
 # <翻译结束>
 
 # <翻译开始>
@@ -16,7 +16,7 @@
 
 # <翻译开始>
 ) Tables
-X取表名称数组
+X取表名称切片
 # <翻译结束>
 
 # <翻译开始>
@@ -25,17 +25,17 @@ X取表字段信息Map
 # <翻译结束>
 
 # <翻译开始>
-) DoInsert(ctx context.Context, link Link, table string, list Map数组, option DoInsertOption) (result sql.Result, err
+) DoInsert(ctx context.Context, link Link, table string, list Map切片, option DoInsertOption) (result sql.Result, err
 错误
 # <翻译结束>
 
 # <翻译开始>
-) DoInsert(ctx context.Context, link Link, table string, list Map数组, option DoInsertOption) (result
+) DoInsert(ctx context.Context, link Link, table string, list Map切片, option DoInsertOption) (result
 结果
 # <翻译结束>
 
 # <翻译开始>
-) DoInsert(ctx context.Context, link Link, table string, list Map数组, option
+) DoInsert(ctx context.Context, link Link, table string, list Map切片, option
 选项
 # <翻译结束>
 

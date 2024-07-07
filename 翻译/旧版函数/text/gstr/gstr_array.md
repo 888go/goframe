@@ -6,12 +6,12 @@ func SearchArray(a []string, s
 
 # <翻译开始>
 func SearchArray(a
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 func SearchArray
-X数组查找
+X切片查找
 # <翻译结束>
 
 # <翻译开始>
@@ -21,12 +21,12 @@ func InArray(a []string, s
 
 # <翻译开始>
 func InArray(a
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 func InArray
-X数组是否存在
+X切片是否存在
 # <翻译结束>
 
 # <翻译开始>
@@ -36,10 +36,10 @@ func PrefixArray(array []string, prefix
 
 # <翻译开始>
 func PrefixArray(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 func PrefixArray
-X数组加前缀
+X切片加前缀
 # <翻译结束>

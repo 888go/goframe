@@ -23,21 +23,14 @@ func init() {
 	Register(RulePassport{})
 }
 
-
-// ff:
 func (r RulePassport) Name() string {
 	return "passport"
 }
 
-
-// ff:
 func (r RulePassport) Message() string {
 	return "The {field} value `{value}` is not a valid passport format"
 }
 
-
-// ff:
-// in:
 func (r RulePassport) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^[a-zA-Z]{1}\w{5,17}$`,

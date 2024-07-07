@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -35,55 +36,55 @@
 # 备注结束
 
 [List = #左中括号##右中括号#Map]
-qm=Map数组
+qm=Map切片
 cz=List #等号# []Map
 
 [ListAnyAny = #左中括号##右中括号#MapAnyAny]
-qm=MapAnyAny数组
+qm=MapAnyAny切片
 cz=ListAnyAny #等号# []MapAnyAny
 
 [ListAnyStr = #左中括号##右中括号#MapAnyStr]
-qm=MapAnyStr数组
+qm=MapAnyStr切片
 cz=ListAnyStr #等号# []MapAnyStr
 
 [ListAnyInt = #左中括号##右中括号#MapAnyInt]
-qm=MapAnyInt数组
+qm=MapAnyInt切片
 cz=ListAnyInt #等号# []MapAnyInt
 
 [ListStrAny = #左中括号##右中括号#MapStrAny]
-qm=MapStrAny数组
+qm=MapStrAny切片
 cz=ListStrAny #等号# []MapStrAny
 
 [ListStrStr = #左中括号##右中括号#MapStrStr]
-qm=MapStrStr数组
+qm=MapStrStr切片
 cz=ListStrStr #等号# []MapStrStr
 
 [ListStrInt = #左中括号##右中括号#MapStrInt]
-qm=MapStrInt数组
+qm=MapStrInt切片
 cz=ListStrInt #等号# []MapStrInt
 
 [ListIntAny = #左中括号##右中括号#MapIntAny]
-qm=MapIntAny数组
+qm=MapIntAny切片
 cz=ListIntAny #等号# []MapIntAny
 
 [ListIntStr = #左中括号##右中括号#MapIntStr]
-qm=MapIntStr数组
+qm=MapIntStr切片
 cz=ListIntStr #等号# []MapIntStr
 
 [ListIntInt = #左中括号##右中括号#MapIntInt]
-qm=MapIntInt数组
+qm=MapIntInt切片
 cz=ListIntInt #等号# []MapIntInt
 
 [ListAnyBool = #左中括号##右中括号#MapAnyBool]
-qm=MapAnyBool数组
+qm=MapAnyBool切片
 cz=ListAnyBool #等号# []MapAnyBool
 
 [ListStrBool = #左中括号##右中括号#MapStrBool]
-qm=MapStrBool数组
+qm=MapStrBool切片
 cz=ListStrBool #等号# []MapStrBool
 
 [ListIntBool = #左中括号##右中括号#MapIntBool]
-qm=MapIntBool数组
+qm=MapIntBool切片
 cz=ListIntBool #等号# []MapIntBool
 
 [Slice = #左中括号##右中括号#interface{}]
@@ -103,17 +104,17 @@ qm=SliceInt别名
 cz=SliceInt #等号# []int
 
 [Array = #左中括号##右中括号#interface{}]
-qm=数组
+qm=切片
 cz=Array #等号# []interface{}
 
 [ArrayAny = #左中括号##右中括号#interface{}]
-qm=Any数组
+qm=Any切片
 cz=ArrayAny #等号# []interface{}
 
 [ArrayStr = #左中括号##右中括号#string]
-qm=文本数组
+qm=文本切片
 cz=ArrayStr #等号# []string
 
 [ArrayInt = #左中括号##右中括号#int]
-qm=整数数组
+qm=整数切片
 cz=ArrayInt #等号# []int

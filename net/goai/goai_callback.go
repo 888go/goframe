@@ -20,8 +20,8 @@ type CallbackRef struct {
 	Value *Callback
 }
 
-
 // ff:
+// r:
 func (r CallbackRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

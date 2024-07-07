@@ -21,7 +21,6 @@ type Float32 struct {
 
 // NewFloat32 creates and returns a concurrent-safe object for float32 type,
 // with given initial value `value`.
-
 // ff:
 // value:
 func NewFloat32(value ...float32) *Float32 {
@@ -34,35 +33,35 @@ func NewFloat32(value ...float32) *Float32 {
 }
 
 // Clone clones and returns a new concurrent-safe object for float32 type.
-
 // ff:
+// v:
 func (v *Float32) Clone() *Float32 {
 	return NewFloat32(v.Val())
 }
 
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
-
-// ff:设置值
 // yx:true
-// old:
+// ff:设置值
+// v:
 // value:
+// old:
 func (v *Float32) Set(value float32) (old float32) {
 	return math.Float32frombits(atomic.SwapUint32(&v.value, math.Float32bits(value)))
 }
 
 // Val atomically loads and returns t.value.
-
-// ff:取值
 // yx:true
+// ff:取值
+// v:
 func (v *Float32) Val() float32 {
 	return math.Float32frombits(atomic.LoadUint32(&v.value))
 }
 
 // Add atomically adds `delta` to t.value and returns the new value.
-
 // ff:
-// new:
+// v:
 // delta:
+// new:
 func (v *Float32) Add(delta float32) (new float32) {
 	for {
 		old := math.Float32frombits(v.value)
@@ -79,32 +78,32 @@ func (v *Float32) Add(delta float32) (new float32) {
 }
 
 // Cas executes the compare-and-swap operation for value.
-
 // ff:
-// swapped:
-// new:
+// v:
 // old:
+// new:
+// swapped:
 func (v *Float32) Cas(old, new float32) (swapped bool) {
 	return atomic.CompareAndSwapUint32(&v.value, math.Float32bits(old), math.Float32bits(new))
 }
 
 // String implements String interface for string printing.
-
 // ff:
+// v:
 func (v *Float32) String() string {
 	return strconv.FormatFloat(float64(v.Val()), 'g', -1, 32)
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-
 // ff:
+// v:
 func (v Float32) MarshalJSON() ([]byte, error) {
 	return []byte(strconv.FormatFloat(float64(v.Val()), 'g', -1, 32)), nil
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-
 // ff:
+// v:
 // b:
 func (v *Float32) UnmarshalJSON(b []byte) error {
 	v.Set(gconv.Float32(string(b)))
@@ -112,8 +111,8 @@ func (v *Float32) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for `v`.
-
 // ff:
+// v:
 // value:
 func (v *Float32) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Float32(value))
@@ -121,8 +120,8 @@ func (v *Float32) UnmarshalValue(value interface{}) error {
 }
 
 // DeepCopy implements interface for deep copy of current type.
-
 // ff:
+// v:
 func (v *Float32) DeepCopy() interface{} {
 	if v == nil {
 		return nil

@@ -23,21 +23,14 @@ func init() {
 	Register(RulePassword3{})
 }
 
-
-// ff:
 func (r RulePassword3) Name() string {
 	return "password3"
 }
 
-
-// ff:
 func (r RulePassword3) Message() string {
 	return "The {field} value `{value}` is not a valid password3 format"
 }
 
-
-// ff:
-// in:
 func (r RulePassword3) Run(in RunInput) error {
 	var value = in.Value.String()
 	if gregex.IsMatchString(`^[\w\S]{6,18}$`, value) &&

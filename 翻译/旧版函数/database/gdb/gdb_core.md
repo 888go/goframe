@@ -141,7 +141,7 @@ X原生SQL查询单条记录
 
 # <翻译开始>
 ) GetArray
-X原生SQL查询数组
+X原生SQL查询切片
 # <翻译结束>
 
 # <翻译开始>
@@ -531,7 +531,7 @@ X取表名称缓存
 
 # <翻译开始>
 FormatSqlBeforeExecuting(sql string, args []interface{}) (newSql string, newArgs
-新参数数组
+新参数切片
 # <翻译结束>
 
 # <翻译开始>
@@ -541,7 +541,7 @@ FormatSqlBeforeExecuting(sql string, args []interface{}) (newSql
 
 # <翻译开始>
 ) FormatSqlBeforeExecuting(sql string, args
-参数数组
+参数切片
 # <翻译结束>
 
 # <翻译开始>

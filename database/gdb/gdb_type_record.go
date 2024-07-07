@@ -16,16 +16,16 @@ import (
 )
 
 // Json converts `r` to JSON format content.
-
 // ff:取json
+// r:
 func (r Record) Json() string {
 	content, _ := gjson.New(r.Map()).ToJsonString()
 	return content
 }
 
 // Xml converts `r` to XML format content.
-
 // ff:取xml
+// r:
 // rootTag:根标记
 func (r Record) Xml(rootTag ...string) string {
 	content, _ := gjson.New(r.Map()).ToXmlString(rootTag...)
@@ -33,8 +33,8 @@ func (r Record) Xml(rootTag ...string) string {
 }
 
 // Map converts `r` to map[string]interface{}.
-
 // ff:取Map
+// r:
 func (r Record) Map() Map {
 	m := make(map[string]interface{})
 	for k, v := range r {
@@ -44,8 +44,8 @@ func (r Record) Map() Map {
 }
 
 // GMap converts `r` to a gmap.
-
 // ff:取Map类
+// r:
 func (r Record) GMap() *gmap.StrAnyMap {
 	return gmap.NewStrAnyMapFrom(r.Map())
 }
@@ -54,8 +54,8 @@ func (r Record) GMap() *gmap.StrAnyMap {
 // Note that the parameter `pointer` should be type of *struct/**struct.
 //
 // Note that it returns sql.ErrNoRows if `r` is empty.
-
 // ff:取结构体指针
+// r:
 // pointer:结构体指针
 func (r Record) Struct(pointer interface{}) error {
 	// If the record is empty, it returns error.
@@ -69,8 +69,8 @@ func (r Record) Struct(pointer interface{}) error {
 }
 
 // IsEmpty checks and returns whether `r` is empty.
-
 // ff:是否为空
+// r:
 func (r Record) IsEmpty() bool {
 	return len(r) == 0
 }

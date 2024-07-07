@@ -22,21 +22,14 @@ func init() {
 	Register(RuleUrl{})
 }
 
-
-// ff:
 func (r RuleUrl) Name() string {
 	return "url"
 }
 
-
-// ff:
 func (r RuleUrl) Message() string {
 	return "The {field} value `{value}` is not a valid URL address"
 }
 
-
-// ff:
-// in:
 func (r RuleUrl) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`,

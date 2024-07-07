@@ -12,8 +12,8 @@ import (
 
 // Next returns the next time this schedule is activated, greater than the given
 // time.  If no time can be found to satisfy the schedule, return the zero time.
-
 // ff:
+// s:
 // lastMeetTime:
 func (s *cronSchedule) Next(lastMeetTime time.Time) time.Time {
 	if s.everySeconds != 0 {

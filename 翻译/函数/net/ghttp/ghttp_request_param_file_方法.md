@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -44,7 +45,7 @@ dirPath=目录路径
 [func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames #左中括号##右中括号#string, err error) {]
 ff=X保存
 err=错误
-filenames=文件名数组
+filenames=文件名切片
 randomlyRename=随机重命名
 dirPath=目录路径
 
@@ -53,5 +54,5 @@ ff=取上传文件对象
 name=名称
 
 [func (r *Request) GetUploadFiles(name string) UploadFiles {]
-ff=取上传文件数组对象
+ff=取上传文件切片对象
 name=名称

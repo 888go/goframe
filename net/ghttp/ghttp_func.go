@@ -14,7 +14,6 @@ import (
 )
 
 // SupportedMethods returns all supported HTTP methods.
-
 // ff:取所支持的HTTP方法
 func SupportedMethods() []string {
 	return gstr.SplitAndTrim(supportedHttpMethods, ",")
@@ -24,11 +23,10 @@ func SupportedMethods() []string {
 // string/[]byte/map/struct/*struct.
 //
 // The optional parameter `noUrlEncode` specifies whether to ignore the url encoding for the data.
-
 // ff:生成请求参数
-// encodedParamStr:请求参数
-// noUrlEncode:不进行URL编码
 // params:参数
+// noUrlEncode:不进行URL编码
+// encodedParamStr:请求参数
 func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr string) {
 	return httputil.BuildParams(params, noUrlEncode...)
 }

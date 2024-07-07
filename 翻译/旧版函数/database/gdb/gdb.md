@@ -177,7 +177,7 @@ X原生SQL查询字段值
 
 # <翻译开始>
 GetArray(ctx context.Context, sql string, args ...interface{})
-X原生SQL查询数组
+X原生SQL查询切片
 <跳到行首>
 # <翻译结束>
 
@@ -347,7 +347,7 @@ X底层取数据库安全字符
 
 # <翻译开始>
 Tables(ctx context.Context, schema ...string)
-X取表名称数组
+X取表名称切片
 <跳到行首>
 # <翻译结束>
 
@@ -464,7 +464,7 @@ X原生SQL查询单条到结构体指针
 
 # <翻译开始>
 GetStructs(objPointerSlice interface{}, sql string, args ...interface{})
-X原生SQL查询到结构体数组指针
+X原生SQL查询到结构体切片指针
 <跳到行首>
 # <翻译结束>
 
@@ -642,6 +642,6 @@ X取单例对象
 
 # <翻译开始>
 List = []Map
-Map数组
+Map切片
 <跳到行首>
 # <翻译结束>

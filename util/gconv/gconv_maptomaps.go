@@ -15,11 +15,10 @@ import (
 
 // MapToMaps converts any slice type variable `params` to another map slice type variable `pointer`.
 // See doMapToMaps.
-
 // ff:
-// mapping:
-// pointer:
 // params:
+// pointer:
+// mapping:
 func MapToMaps(params interface{}, pointer interface{}, mapping ...map[string]string) error {
 	return Scan(params, pointer, mapping...)
 }

@@ -513,8 +513,6 @@ func Test_Params_Struct_Validation(t *testing.T) {
 		t.Assert(c.PostContent(ctx, "/", `id=1`), `The name field is required`)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1488
 func Test_Params_Parse_Issue1488(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Group("/", func(group *ghttp.RouterGroup) {

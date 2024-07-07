@@ -420,7 +420,7 @@ X取所有键(上下文 context.Context) (keys []interface{}, err
 
 # <翻译开始>
 X取所有键(上下文 context.Context) (keys
-名称数组
+名称切片
 # <翻译结束>
 
 # <翻译开始>
@@ -430,7 +430,7 @@ X取所有值(上下文 context.Context) (values []interface{}, err
 
 # <翻译开始>
 X取所有值(上下文 context.Context) (values
-值数组
+值切片
 # <翻译结束>
 
 # <翻译开始>

@@ -19,7 +19,6 @@ import (
 )
 
 // CustomMsg is the custom error message type,
-// like: map[field] => string|map[rule]string
 type CustomMsg = map[string]interface{}
 
 // fieldRule defined the alias name and rule string for specified field.
@@ -89,12 +88,11 @@ var (
 
 // ParseTagValue parses one sequence tag to field, rule and error message.
 // The sequence tag is like: [alias@]rule[...#msg...]
-
 // ff:
-// msg:
-// rule:
-// field:
 // tag:
+// field:
+// rule:
+// msg:
 func ParseTagValue(tag string) (field, rule, msg string) {
 	// Complete sequence tag.
 	// Example: name@required|length:2,20|password3|same:password1#||密码强度不足|两次密码不一致
@@ -110,7 +108,6 @@ func ParseTagValue(tag string) (field, rule, msg string) {
 }
 
 // GetTags returns the validation tags.
-
 // ff:
 func GetTags() []string {
 	return structTagPriority

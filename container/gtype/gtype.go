@@ -9,7 +9,6 @@ package gtype
 
 // New is alias of NewAny.
 // See NewAny, NewInterface.
-
 // ff:
 // value:
 func New(value ...interface{}) *Any {

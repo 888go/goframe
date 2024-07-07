@@ -20,7 +20,6 @@ import (
 
 // Server returns an instance of http server with specified name.
 // Note that it panics if any error occurs duration instance creating.
-
 // ff:
 // name:
 func Server(name ...interface{}) *ghttp.Server {

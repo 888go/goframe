@@ -6,8 +6,8 @@ import (
 
 // Scan implements interface used by Scan in package database/sql for Scanning value
 // from database to local golang variable.
-
 // ff:
+// t:
 // value:
 func (t *Time) Scan(value interface{}) error {
 	if t == nil {
@@ -20,8 +20,8 @@ func (t *Time) Scan(value interface{}) error {
 
 // Value is the interface providing the Value method for package database/sql/driver
 // for retrieving value from golang variable to database.
-
 // ff:
+// t:
 func (t *Time) Value() (driver.Value, error) {
 	if t == nil {
 		return nil, nil

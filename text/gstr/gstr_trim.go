@@ -14,30 +14,27 @@ import (
 
 // Trim strips whitespace (or other characters) from the beginning and end of a string.
 // The optional parameter `characterMask` specifies the additional stripped characters.
-
 // ff:过滤首尾符并含空白
-// characterMask:可选过滤符号
 // str:文本
+// characterMask:可选过滤符号
 func Trim(str string, characterMask ...string) string {
 	return utils.Trim(str, characterMask...)
 }
 
 // TrimStr strips all the given `cut` string from the beginning and end of a string.
 // Note that it does not strip the whitespaces of its beginning or end.
-
 // ff:过滤首尾
-// count:可选过滤次数
-// cut:过滤符号
 // str:文本
+// cut:过滤符号
+// count:可选过滤次数
 func TrimStr(str string, cut string, count ...int) string {
 	return TrimLeftStr(TrimRightStr(str, cut, count...), cut, count...)
 }
 
 // TrimLeft strips whitespace (or other characters) from the beginning of a string.
-
 // ff:过滤首字符并含空白
-// characterMask:可选过滤符号
 // str:文本
+// characterMask:可选过滤符号
 func TrimLeft(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -48,11 +45,10 @@ func TrimLeft(str string, characterMask ...string) string {
 
 // TrimLeftStr strips all the given `cut` string from the beginning of a string.
 // Note that it does not strip the whitespaces of its beginning.
-
 // ff:过滤首字符
-// count:可选过滤次数
-// cut:过滤符号
 // str:文本
+// cut:过滤符号
+// count:可选过滤次数
 func TrimLeftStr(str string, cut string, count ...int) string {
 	var (
 		lenCut   = len(cut)
@@ -69,10 +65,9 @@ func TrimLeftStr(str string, cut string, count ...int) string {
 }
 
 // TrimRight strips whitespace (or other characters) from the end of a string.
-
 // ff:过滤尾字符并含空白
-// characterMask:可选过滤符号
 // str:文本
+// characterMask:可选过滤符号
 func TrimRight(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -83,11 +78,10 @@ func TrimRight(str string, characterMask ...string) string {
 
 // TrimRightStr strips all the given `cut` string from the end of a string.
 // Note that it does not strip the whitespaces of its end.
-
 // ff:过滤尾字符
-// count:可选过滤次数
-// cut:过滤符号
 // str:文本
+// cut:过滤符号
+// count:可选过滤次数
 func TrimRightStr(str string, cut string, count ...int) string {
 	var (
 		lenStr   = len(str)
@@ -106,10 +100,9 @@ func TrimRightStr(str string, cut string, count ...int) string {
 }
 
 // TrimAll trims all characters in string `str`.
-
 // ff:过滤所有字符并含空白
-// characterMask:可选过滤符号
 // str:文本
+// characterMask:可选过滤符号
 func TrimAll(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -135,19 +128,17 @@ func TrimAll(str string, characterMask ...string) string {
 }
 
 // HasPrefix tests whether the string s begins with prefix.
-
 // ff:开头判断
-// prefix:开头文本
 // s:文本
+// prefix:开头文本
 func HasPrefix(s, prefix string) bool {
 	return strings.HasPrefix(s, prefix)
 }
 
 // HasSuffix tests whether the string s ends with suffix.
-
 // ff:末尾判断
-// suffix:末尾文本
 // s:文本
+// suffix:末尾文本
 func HasSuffix(s, suffix string) bool {
 	return strings.HasSuffix(s, suffix)
 }

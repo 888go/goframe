@@ -8,10 +8,9 @@ package gutil
 
 // GetOrDefaultStr checks and returns value according whether parameter `param` available.
 // It returns `param[0]` if it is available, or else it returns `def`.
-
 // ff:取文本值或取默认值
-// param:待判断变量
 // def:默认值
+// param:待判断变量
 func GetOrDefaultStr(def string, param ...string) string {
 	value := def
 	if len(param) > 0 && param[0] != "" {
@@ -22,10 +21,9 @@ func GetOrDefaultStr(def string, param ...string) string {
 
 // GetOrDefaultAny checks and returns value according whether parameter `param` available.
 // It returns `param[0]` if it is available, or else it returns `def`.
-
 // ff:取值或取默认值
-// param:待判断变量
 // def:默认值
+// param:待判断变量
 func GetOrDefaultAny(def interface{}, param ...interface{}) interface{} {
 	value := def
 	if len(param) > 0 && param[0] != "" {

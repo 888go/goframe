@@ -18,7 +18,6 @@ import (
 // ParseTag parses tag string into map.
 // For example:
 // ParseTag(`v:"required" p:"id" d:"1"`) => map[v:required p:id d:1].
-
 // ff:
 // tag:
 func ParseTag(tag string) map[string]string {
@@ -79,10 +78,9 @@ func ParseTag(tag string) map[string]string {
 // Note that,
 // 1. It only retrieves the exported attributes with first letter upper-case from struct.
 // 2. The parameter `priority` should be given, it only retrieves fields that has given tag.
-
 // ff:
-// priority:
 // pointer:
+// priority:
 func TagFields(pointer interface{}, priority []string) ([]Field, error) {
 	return getFieldValuesByTagPriority(pointer, priority, map[string]struct{}{})
 }
@@ -95,10 +93,9 @@ func TagFields(pointer interface{}, priority []string) ([]Field, error) {
 // 1. It only retrieves the exported attributes with first letter upper-case from struct.
 // 2. The parameter `priority` should be given, it only retrieves fields that has given tag.
 // 3. If one field has no specified tag, it uses its field name as result map key.
-
 // ff:
-// priority:
 // pointer:
+// priority:
 func TagMapName(pointer interface{}, priority []string) (map[string]string, error) {
 	fields, err := TagFields(pointer, priority)
 	if err != nil {
@@ -118,10 +115,9 @@ func TagMapName(pointer interface{}, priority []string) (map[string]string, erro
 // 1. It only retrieves the exported attributes with first letter upper-case from struct.
 // 2. The parameter `priority` should be given, it only retrieves fields that has given tag.
 // 3. If one field has no specified tag, it uses its field name as result map key.
-
 // ff:
-// priority:
 // object:
+// priority:
 func TagMapField(object interface{}, priority []string) (map[string]Field, error) {
 	fields, err := TagFields(object, priority)
 	if err != nil {

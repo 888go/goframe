@@ -21,7 +21,6 @@ type DefaultHandlerResponse struct {
 }
 
 // MiddlewareHandlerResponse is the default middleware handling handler response object and its error.
-
 // ff:
 // r:
 func MiddlewareHandlerResponse(r *Request) {

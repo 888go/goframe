@@ -16,7 +16,6 @@ import (
 
 // Encode escapes the string so it can be safely placed
 // inside an URL query.
-
 // ff:编码
 // str:文本
 func Encode(str string) string {
@@ -28,7 +27,6 @@ func Encode(str string) string {
 // hex-decoded byte 0xAB.
 // It returns an error if any % is not followed by two hexadecimal
 // digits.
-
 // ff:解码
 // str:文本
 func Decode(str string) (string, error) {
@@ -38,7 +36,6 @@ func Decode(str string) (string, error) {
 // RawEncode does encode the given string according
 // URL-encode according to RFC 3986.
 // See http://php.net/manual/en/function.rawurlencode.php.
-
 // ff:编码RFC3986
 // str:文本
 func RawEncode(str string) string {
@@ -48,7 +45,6 @@ func RawEncode(str string) string {
 // RawDecode does decode the given string
 // Decode URL-encoded strings.
 // See http://php.net/manual/en/function.rawurldecode.php.
-
 // ff:解码RFC3986
 // str:文本
 func RawDecode(str string) (string, error) {
@@ -57,7 +53,6 @@ func RawDecode(str string) (string, error) {
 
 // BuildQuery Generate URL-encoded query string.
 // See http://php.net/manual/en/function.http-build-query.php.
-
 // ff:生成URL
 // queryData:查询参数
 func BuildQuery(queryData url.Values) string {
@@ -67,10 +62,9 @@ func BuildQuery(queryData url.Values) string {
 // ParseURL Parse an URL and return its components.
 // -1: all; 1: scheme; 2: host; 4: port; 8: user; 16: pass; 32: path; 64: query; 128: fragment.
 // See http://php.net/manual/en/function.parse-url.php.
-
 // ff:解析
-// component:类型标签
 // str:文本
+// component:类型标签
 func ParseURL(str string, component int) (map[string]string, error) {
 	u, err := url.Parse(str)
 	if err != nil {

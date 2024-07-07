@@ -10,7 +10,6 @@ package gipv6//bm:ipv6类
 import "github.com/gogf/gf/v2/text/gregex"
 
 // Validate checks whether given `ip` a valid IPv6 address.
-
 // ff:
 // ip:
 func Validate(ip string) bool {

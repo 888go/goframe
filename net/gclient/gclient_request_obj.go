@@ -32,7 +32,6 @@ import (
 // The response object `res` should be a pointer type. It automatically converts result
 // to given object `res` is success.
 //
-// Example:
 // var (
 //
 //	req = UseCreateReq{}
@@ -41,11 +40,11 @@ import (
 // )
 //
 // err := DoRequestObj(ctx, req, &res)
-
 // ff:
-// res:
-// req:
+// c:
 // ctx:
+// req:
+// res:
 func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 	var (
 		method = gmeta.Get(req, gtag.Method).String()
@@ -88,7 +87,6 @@ func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 }
 
 // handlePathForObjRequest replaces parameters in `path` with parameters from request object.
-// Eg:
 // /order/{id}  -> /order/1
 // /user/{name} -> /order/john
 func (c *Client) handlePathForObjRequest(path string, req interface{}) string {

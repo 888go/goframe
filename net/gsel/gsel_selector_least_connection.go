@@ -24,7 +24,6 @@ type leastConnectionNode struct {
 	inflight *gtype.Int
 }
 
-
 // ff:
 func NewSelectorLeastConnection() Selector {
 	return &selectorLeastConnection{
@@ -32,10 +31,10 @@ func NewSelectorLeastConnection() Selector {
 	}
 }
 
-
 // ff:
-// nodes:
+// s:
 // ctx:
+// nodes:
 func (s *selectorLeastConnection) Update(ctx context.Context, nodes Nodes) error {
 	intlog.Printf(ctx, `Update nodes: %s`, nodes.String())
 	var newNodes []*leastConnectionNode
@@ -52,12 +51,12 @@ func (s *selectorLeastConnection) Update(ctx context.Context, nodes Nodes) error
 	return nil
 }
 
-
 // ff:
-// err:
-// done:
-// node:
+// s:
 // ctx:
+// node:
+// done:
+// err:
 func (s *selectorLeastConnection) Pick(ctx context.Context) (node Node, done DoneFunc, err error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()

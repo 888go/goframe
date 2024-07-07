@@ -22,21 +22,14 @@ func init() {
 	Register(RuleArray{})
 }
 
-
-// ff:
 func (r RuleArray) Name() string {
 	return "array"
 }
 
-
-// ff:
 func (r RuleArray) Message() string {
 	return "The {field} value `{value}` is not of valid array type"
 }
 
-
-// ff:
-// in:
 func (r RuleArray) Run(in RunInput) error {
 	if in.Value.IsSlice() {
 		return nil

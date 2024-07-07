@@ -46,8 +46,8 @@ func newPriorityQueue() *priorityQueue {
 }
 
 // NextPriority retrieves and returns the minimum and the most priority value of the queue.
-
 // ff:
+// q:
 func (q *priorityQueue) NextPriority() int64 {
 	return q.nextPriority.Val()
 }
@@ -55,10 +55,10 @@ func (q *priorityQueue) NextPriority() int64 {
 // Push pushes a value to the queue.
 // The `priority` specifies the priority of the value.
 // The lesser the `priority` value the higher priority of the `value`.
-
 // ff:
-// priority:
+// q:
 // value:
+// priority:
 func (q *priorityQueue) Push(value interface{}, priority int64) {
 	q.mu.Lock()
 	defer q.mu.Unlock()
@@ -75,8 +75,8 @@ func (q *priorityQueue) Push(value interface{}, priority int64) {
 }
 
 // Pop retrieves, removes and returns the most high priority value from the queue.
-
 // ff:
+// q:
 func (q *priorityQueue) Pop() interface{} {
 	q.mu.Lock()
 	defer q.mu.Unlock()

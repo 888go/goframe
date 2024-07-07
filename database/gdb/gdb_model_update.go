@@ -25,11 +25,11 @@ import (
 // If the optional parameter `dataAndWhere` is given, the dataAndWhere[0] is the updated data field,
 // and dataAndWhere[1:] is treated as where condition fields.
 // Also see Model.Data and Model.Where functions.
-
 // ff:更新
-// err:错误
-// result:结果
+// m:
 // dataAndWhere:数据或条件
+// result:结果
+// err:错误
 func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(dataAndWhere) > 0 {
@@ -119,11 +119,11 @@ func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err erro
 }
 
 // UpdateAndGetAffected performs update statement and returns the affected rows number.
-
 // ff:更新并取影响行数
-// err:错误
-// affected:影响行数
+// m:
 // dataAndWhere:数据或条件
+// affected:影响行数
+// err:错误
 func (m *Model) UpdateAndGetAffected(dataAndWhere ...interface{}) (affected int64, err error) {
 	result, err := m.Update(dataAndWhere...)
 	if err != nil {
@@ -134,10 +134,10 @@ func (m *Model) UpdateAndGetAffected(dataAndWhere ...interface{}) (affected int6
 
 // Increment increments a column's value by a given amount.
 // The parameter `amount` can be type of float or integer.
-
 // ff:更新增量
-// amount:增量值
+// m:
 // column:字段名称
+// amount:增量值
 func (m *Model) Increment(column string, amount interface{}) (sql.Result, error) {
 	return m.getModel().Data(column, &Counter{
 		Field: column,
@@ -147,10 +147,10 @@ func (m *Model) Increment(column string, amount interface{}) (sql.Result, error)
 
 // Decrement decrements a column's value by a given amount.
 // The parameter `amount` can be type of float or integer.
-
 // ff:更新减量
-// amount:减量值
+// m:
 // column:字段名称
+// amount:减量值
 func (m *Model) Decrement(column string, amount interface{}) (sql.Result, error) {
 	return m.getModel().Data(column, &Counter{
 		Field: column,

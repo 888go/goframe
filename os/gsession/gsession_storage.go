@@ -31,7 +31,7 @@ type Storage interface {
 
 	// Set sets one key-value session pair to the storage.
 	// The parameter `ttl` specifies the TTL for the session id.
-	Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error //qm:设置值 cz:Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) yx:true     
+	Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error//qm:设置值  cz:Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration)  yx:true
 
 	// SetMap batch sets key-value session pairs as map to the storage.
 	// The parameter `ttl` specifies the TTL for the session id.

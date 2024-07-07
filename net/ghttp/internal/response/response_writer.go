@@ -21,9 +21,6 @@ type Writer struct {
 }
 
 // NewWriter creates and returns a new Writer.
-
-// ff:
-// writer:
 func NewWriter(writer http.ResponseWriter) *Writer {
 	return &Writer{
 		ResponseWriter: writer,
@@ -32,9 +29,6 @@ func NewWriter(writer http.ResponseWriter) *Writer {
 
 // WriteHeader implements the interface of http.ResponseWriter.WriteHeader.
 // Note that the underlying `WriteHeader` can only be called once in a http response.
-
-// ff:
-// status:
 func (w *Writer) WriteHeader(status int) {
 	if w.wroteHeader {
 		return
@@ -44,16 +38,11 @@ func (w *Writer) WriteHeader(status int) {
 }
 
 // BytesWritten returns the length that was written to response.
-
-// ff:
 func (w *Writer) BytesWritten() int64 {
 	return w.bytesWritten
 }
 
 // Write implements the interface function of http.ResponseWriter.Write.
-
-// ff:
-// data:
 func (w *Writer) Write(data []byte) (int, error) {
 	n, err := w.ResponseWriter.Write(data)
 	w.bytesWritten += int64(n)
@@ -62,11 +51,6 @@ func (w *Writer) Write(data []byte) (int, error) {
 }
 
 // Hijack implements the interface function of http.Hijacker.Hijack.
-
-// ff:
-// err:
-// writer:
-// conn:
 func (w *Writer) Hijack() (conn net.Conn, writer *bufio.ReadWriter, err error) {
 	conn, writer, err = w.ResponseWriter.(http.Hijacker).Hijack()
 	w.hijacked = true
@@ -74,22 +58,16 @@ func (w *Writer) Hijack() (conn net.Conn, writer *bufio.ReadWriter, err error) {
 }
 
 // IsHeaderWrote returns if the header status is written.
-
-// ff:
 func (w *Writer) IsHeaderWrote() bool {
 	return w.wroteHeader
 }
 
 // IsHijacked returns if the connection is hijacked.
-
-// ff:
 func (w *Writer) IsHijacked() bool {
 	return w.hijacked
 }
 
 // Flush sends any buffered data to the client.
-
-// ff:
 func (w *Writer) Flush() {
 	flusher, ok := w.ResponseWriter.(http.Flusher)
 	if ok {

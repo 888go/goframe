@@ -21,21 +21,14 @@ func init() {
 	Register(RuleRequired{})
 }
 
-
-// ff:
 func (r RuleRequired) Name() string {
 	return "required"
 }
 
-
-// ff:
 func (r RuleRequired) Message() string {
 	return "The {field} field is required"
 }
 
-
-// ff:
-// in:
 func (r RuleRequired) Run(in RunInput) error {
 	if isRequiredEmpty(in.Value.Val()) {
 		return errors.New(in.Message)

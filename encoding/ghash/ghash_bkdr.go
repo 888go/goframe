@@ -7,7 +7,6 @@
 package ghash
 
 // BKDR implements the classic BKDR hash algorithm for 32 bits.
-
 // ff:
 // str:
 func BKDR(str []byte) uint32 {
@@ -22,7 +21,6 @@ func BKDR(str []byte) uint32 {
 }
 
 // BKDR64 implements the classic BKDR hash algorithm for 64 bits.
-
 // ff:
 // str:
 func BKDR64(str []byte) uint64 {

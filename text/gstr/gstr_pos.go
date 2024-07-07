@@ -11,11 +11,10 @@ import "strings"
 // Pos returns the position of the first occurrence of `needle`
 // in `haystack` from `startOffset`, case-sensitively.
 // It returns -1, if not found.
-
 // ff:查找
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func Pos(haystack, needle string, startOffset ...int) int {
 	length := len(haystack)
 	offset := 0
@@ -36,11 +35,10 @@ func Pos(haystack, needle string, startOffset ...int) int {
 }
 
 // PosRune acts like function Pos but considers `haystack` and `needle` as unicode string.
-
 // ff:查找Unicode
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func PosRune(haystack, needle string, startOffset ...int) int {
 	pos := Pos(haystack, needle, startOffset...)
 	if pos < 3 {
@@ -52,11 +50,10 @@ func PosRune(haystack, needle string, startOffset ...int) int {
 // PosI returns the position of the first occurrence of `needle`
 // in `haystack` from `startOffset`, case-insensitively.
 // It returns -1, if not found.
-
 // ff:查找并忽略大小写
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func PosI(haystack, needle string, startOffset ...int) int {
 	length := len(haystack)
 	offset := 0
@@ -78,11 +75,10 @@ func PosI(haystack, needle string, startOffset ...int) int {
 }
 
 // PosIRune acts like function PosI but considers `haystack` and `needle` as unicode string.
-
 // ff:查找并忽略大小写Unicode
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func PosIRune(haystack, needle string, startOffset ...int) int {
 	pos := PosI(haystack, needle, startOffset...)
 	if pos < 3 {
@@ -94,11 +90,10 @@ func PosIRune(haystack, needle string, startOffset ...int) int {
 // PosR returns the position of the last occurrence of `needle`
 // in `haystack` from `startOffset`, case-sensitively.
 // It returns -1, if not found.
-
 // ff:倒找
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func PosR(haystack, needle string, startOffset ...int) int {
 	offset := 0
 	if len(startOffset) > 0 {
@@ -122,11 +117,10 @@ func PosR(haystack, needle string, startOffset ...int) int {
 }
 
 // PosRRune acts like function PosR but considers `haystack` and `needle` as unicode string.
-
 // ff:倒找Unicode
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func PosRRune(haystack, needle string, startOffset ...int) int {
 	pos := PosR(haystack, needle, startOffset...)
 	if pos < 3 {
@@ -138,11 +132,10 @@ func PosRRune(haystack, needle string, startOffset ...int) int {
 // PosRI returns the position of the last occurrence of `needle`
 // in `haystack` from `startOffset`, case-insensitively.
 // It returns -1, if not found.
-
 // ff:倒找并忽略大小写
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func PosRI(haystack, needle string, startOffset ...int) int {
 	offset := 0
 	if len(startOffset) > 0 {
@@ -166,11 +159,10 @@ func PosRI(haystack, needle string, startOffset ...int) int {
 }
 
 // PosRIRune acts like function PosRI but considers `haystack` and `needle` as unicode string.
-
 // ff:倒找并忽略大小写Unicode
-// startOffset:可选查找起点
-// needle:查找文本
 // haystack:文本
+// needle:查找文本
+// startOffset:可选查找起点
 func PosRIRune(haystack, needle string, startOffset ...int) int {
 	pos := PosRI(haystack, needle, startOffset...)
 	if pos < 3 {

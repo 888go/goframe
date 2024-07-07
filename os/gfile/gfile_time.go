@@ -12,7 +12,6 @@ import (
 )
 
 // MTime returns the modification time of file given by `path` in second.
-
 // ff:取修改时间秒
 // path:路径
 func MTime(path string) time.Time {
@@ -24,7 +23,6 @@ func MTime(path string) time.Time {
 }
 
 // MTimestamp returns the modification time of file given by `path` in second.
-
 // ff:取修改时间戳秒
 // path:路径
 func MTimestamp(path string) int64 {
@@ -36,7 +34,6 @@ func MTimestamp(path string) int64 {
 }
 
 // MTimestampMilli returns the modification time of file given by `path` in millisecond.
-
 // ff:取修改时间戳毫秒
 // path:路径
 func MTimestampMilli(path string) int64 {

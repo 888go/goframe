@@ -12,7 +12,6 @@ import (
 
 // Resource returns an instance of Resource.
 // The parameter `name` is the name for the instance.
-
 // ff:
 // name:
 func Resource(name ...string) *gres.Resource {

@@ -1124,8 +1124,6 @@ func Test_Not_Regex(t *testing.T) {
 		t.AssertNil(err)
 	})
 }
-
-// issue: https://github.com/gogf/gf/issues/1077
 func Test_InternalError_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type a struct {

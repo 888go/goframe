@@ -13,15 +13,15 @@ import (
 )
 
 // DoFilter handles the sql before posts it to database.
-
 // ff:
-// err:
-// newArgs:
-// newSql:
-// args:
-// sql:
-// link:
+// d:
 // ctx:
+// link:
+// sql:
+// args:
+// newSql:
+// newArgs:
+// err:
 func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return d.Core.DoFilter(ctx, link, sql, args)
 }

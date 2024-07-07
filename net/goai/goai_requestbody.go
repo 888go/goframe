@@ -26,8 +26,8 @@ type RequestBodyRef struct {
 	Value *RequestBody
 }
 
-
 // ff:
+// r:
 func (r RequestBodyRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

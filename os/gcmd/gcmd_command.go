@@ -60,7 +60,6 @@ var (
 )
 
 // CommandFromCtx retrieves and returns Command from context.
-
 // ff:
 // ctx:
 func CommandFromCtx(ctx context.Context) *Command {
@@ -73,8 +72,8 @@ func CommandFromCtx(ctx context.Context) *Command {
 }
 
 // AddCommand adds one or more sub-commands to current command.
-
 // ff:
+// c:
 // commands:
 func (c *Command) AddCommand(commands ...*Command) error {
 	for _, cmd := range commands {
@@ -108,8 +107,8 @@ func (c *Command) doAddCommand(command *Command) error {
 }
 
 // AddObject adds one or more sub-commands to current command using struct object.
-
 // ff:
+// c:
 // objects:
 func (c *Command) AddObject(objects ...interface{}) error {
 	var commands []*Command

@@ -44,12 +44,12 @@ func init() {
 
 // Tables retrieves and returns the tables of current schema.
 // It's mainly used in cli tool chain for automatically generating the models.
-
 // ff:
-// err:
-// tables:
-// schema:
+// d:
 // ctx:
+// schema:
+// tables:
+// err:
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var (
 		result     gdb.Result

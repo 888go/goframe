@@ -37,31 +37,31 @@ type (
 )
 
 type (
-	List        = []Map         //qm:Map数组 cz:List = []Map     // List is alias of frequently-used slice type []Map.
-	ListAnyAny  = []MapAnyAny   //qm:MapAnyAny数组 cz:ListAnyAny = []MapAnyAny     // ListAnyAny is alias of frequently-used slice type []MapAnyAny.
-	ListAnyStr  = []MapAnyStr   //qm:MapAnyStr数组 cz:ListAnyStr = []MapAnyStr     // ListAnyStr is alias of frequently-used slice type []MapAnyStr.
-	ListAnyInt  = []MapAnyInt   //qm:MapAnyInt数组 cz:ListAnyInt = []MapAnyInt     // ListAnyInt is alias of frequently-used slice type []MapAnyInt.
-	ListStrAny  = []MapStrAny   //qm:MapStrAny数组 cz:ListStrAny = []MapStrAny     // ListStrAny is alias of frequently-used slice type []MapStrAny.
-	ListStrStr  = []MapStrStr   //qm:MapStrStr数组 cz:ListStrStr = []MapStrStr     // ListStrStr is alias of frequently-used slice type []MapStrStr.
-	ListStrInt  = []MapStrInt   //qm:MapStrInt数组 cz:ListStrInt = []MapStrInt     // ListStrInt is alias of frequently-used slice type []MapStrInt.
-	ListIntAny  = []MapIntAny   //qm:MapIntAny数组 cz:ListIntAny = []MapIntAny     // ListIntAny is alias of frequently-used slice type []MapIntAny.
-	ListIntStr  = []MapIntStr   //qm:MapIntStr数组 cz:ListIntStr = []MapIntStr     // ListIntStr is alias of frequently-used slice type []MapIntStr.
-	ListIntInt  = []MapIntInt   //qm:MapIntInt数组 cz:ListIntInt = []MapIntInt     // ListIntInt is alias of frequently-used slice type []MapIntInt.
-	ListAnyBool = []MapAnyBool  //qm:MapAnyBool数组 cz:ListAnyBool = []MapAnyBool     // ListAnyBool is alias of frequently-used slice type []MapAnyBool.
-	ListStrBool = []MapStrBool  //qm:MapStrBool数组 cz:ListStrBool = []MapStrBool     // ListStrBool is alias of frequently-used slice type []MapStrBool.
-	ListIntBool = []MapIntBool  //qm:MapIntBool数组 cz:ListIntBool = []MapIntBool     // ListIntBool is alias of frequently-used slice type []MapIntBool.
+	List        = []Map//qm:Map切片  cz:List = []Map          // List is alias of frequently-used slice type []Map.
+	ListAnyAny  = []MapAnyAny//qm:MapAnyAny切片  cz:ListAnyAny = []MapAnyAny    // ListAnyAny is alias of frequently-used slice type []MapAnyAny.
+	ListAnyStr  = []MapAnyStr//qm:MapAnyStr切片  cz:ListAnyStr = []MapAnyStr    // ListAnyStr is alias of frequently-used slice type []MapAnyStr.
+	ListAnyInt  = []MapAnyInt//qm:MapAnyInt切片  cz:ListAnyInt = []MapAnyInt    // ListAnyInt is alias of frequently-used slice type []MapAnyInt.
+	ListStrAny  = []MapStrAny//qm:MapStrAny切片  cz:ListStrAny = []MapStrAny    // ListStrAny is alias of frequently-used slice type []MapStrAny.
+	ListStrStr  = []MapStrStr//qm:MapStrStr切片  cz:ListStrStr = []MapStrStr    // ListStrStr is alias of frequently-used slice type []MapStrStr.
+	ListStrInt  = []MapStrInt//qm:MapStrInt切片  cz:ListStrInt = []MapStrInt    // ListStrInt is alias of frequently-used slice type []MapStrInt.
+	ListIntAny  = []MapIntAny//qm:MapIntAny切片  cz:ListIntAny = []MapIntAny    // ListIntAny is alias of frequently-used slice type []MapIntAny.
+	ListIntStr  = []MapIntStr//qm:MapIntStr切片  cz:ListIntStr = []MapIntStr    // ListIntStr is alias of frequently-used slice type []MapIntStr.
+	ListIntInt  = []MapIntInt//qm:MapIntInt切片  cz:ListIntInt = []MapIntInt    // ListIntInt is alias of frequently-used slice type []MapIntInt.
+	ListAnyBool = []MapAnyBool//qm:MapAnyBool切片  cz:ListAnyBool = []MapAnyBool   // ListAnyBool is alias of frequently-used slice type []MapAnyBool.
+	ListStrBool = []MapStrBool//qm:MapStrBool切片  cz:ListStrBool = []MapStrBool   // ListStrBool is alias of frequently-used slice type []MapStrBool.
+	ListIntBool = []MapIntBool//qm:MapIntBool切片  cz:ListIntBool = []MapIntBool   // ListIntBool is alias of frequently-used slice type []MapIntBool.
 )
 
 type (
-	Slice    = []interface{}  //qm:Slice别名 cz:Slice = []interface{}     // Slice is alias of frequently-used slice type []interface{}.
-	SliceAny = []interface{}  //qm:SliceAny别名 cz:SliceAny = []interface{}     // SliceAny is alias of frequently-used slice type []interface{}.
-	SliceStr = []string       //qm:SliceStr别名 cz:SliceStr = []string     // SliceStr is alias of frequently-used slice type []string.
-	SliceInt = []int          //qm:SliceInt别名 cz:SliceInt = []int     // SliceInt is alias of frequently-used slice type []int.
+	Slice    = []interface{}//qm:Slice别名  cz:Slice = []interface{}   // Slice is alias of frequently-used slice type []interface{}.
+	SliceAny = []interface{}//qm:SliceAny别名  cz:SliceAny = []interface{}   // SliceAny is alias of frequently-used slice type []interface{}.
+	SliceStr = []string//qm:SliceStr别名  cz:SliceStr = []string        // SliceStr is alias of frequently-used slice type []string.
+	SliceInt = []int//qm:SliceInt别名  cz:SliceInt = []int           // SliceInt is alias of frequently-used slice type []int.
 )
 
 type (
-	Array    = []interface{}  //qm:数组 cz:Array = []interface{}     // Array is alias of frequently-used slice type []interface{}.
-	ArrayAny = []interface{}  //qm:Any数组 cz:ArrayAny = []interface{}     // ArrayAny is alias of frequently-used slice type []interface{}.
-	ArrayStr = []string       //qm:文本数组 cz:ArrayStr = []string     // ArrayStr is alias of frequently-used slice type []string.
-	ArrayInt = []int          //qm:整数数组 cz:ArrayInt = []int     // ArrayInt is alias of frequently-used slice type []int.
+	Array    = []interface{}//qm:切片  cz:Array = []interface{}   // Array is alias of frequently-used slice type []interface{}.
+	ArrayAny = []interface{}//qm:Any切片  cz:ArrayAny = []interface{}   // ArrayAny is alias of frequently-used slice type []interface{}.
+	ArrayStr = []string//qm:文本切片  cz:ArrayStr = []string        // ArrayStr is alias of frequently-used slice type []string.
+	ArrayInt = []int//qm:整数切片  cz:ArrayInt = []int           // ArrayInt is alias of frequently-used slice type []int.
 )

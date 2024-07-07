@@ -20,14 +20,12 @@ import (
 
 // All returns a copy of strings representing the environment,
 // in the form "key=value".
-
 // ff:取全部
 func All() []string {
 	return os.Environ()
 }
 
 // Map returns a copy of strings representing the environment as a map.
-
 // ff:取Map
 func Map() map[string]string {
 	return MapFromEnv(os.Environ())
@@ -36,10 +34,9 @@ func Map() map[string]string {
 // Get creates and returns a Var with the value of the environment variable
 // named by the `key`. It uses the given `def` if the variable does not exist
 // in the environment.
-
 // ff:取值
-// def:默认值
 // key:名称
+// def:默认值
 func Get(key string, def ...interface{}) *gvar.Var {
 	v, ok := os.LookupEnv(key)
 	if !ok {
@@ -53,12 +50,11 @@ func Get(key string, def ...interface{}) *gvar.Var {
 
 // Set sets the value of the environment variable named by the `key`.
 // It returns an error, if any.
-
-// ff:设置值
 // yx:true
-// err:
-// value:
+// ff:设置值
 // key:
+// value:
+// err:
 func Set(key, value string) (err error) {
 	err = os.Setenv(key, value)
 	if err != nil {
@@ -68,10 +64,9 @@ func Set(key, value string) (err error) {
 }
 
 // SetMap sets the environment variables using map.
-
 // ff:设置Map值
-// err:错误
 // m:
+// err:错误
 func SetMap(m map[string]string) (err error) {
 	for k, v := range m {
 		if err = Set(k, v); err != nil {
@@ -82,7 +77,6 @@ func SetMap(m map[string]string) (err error) {
 }
 
 // Contains checks whether the environment variable named `key` exists.
-
 // ff:是否存在
 // key:名称
 func Contains(key string) bool {
@@ -91,10 +85,9 @@ func Contains(key string) bool {
 }
 
 // Remove deletes one or more environment variables.
-
 // ff:删除
-// err:错误
 // key:名称
+// err:错误
 func Remove(key ...string) (err error) {
 	for _, v := range key {
 		if err = os.Unsetenv(v); err != nil {
@@ -112,10 +105,9 @@ func Remove(key ...string) (err error) {
 // Fetching Rules:
 // 1. Environment arguments are in uppercase format, eg: GF_<package name>_<variable name>；
 // 2. Command line arguments are in lowercase format, eg: gf.<package name>.<variable name>;
-
 // ff:取值或命令行
-// def:默认值
 // key:名称
+// def:默认值
 func GetWithCmd(key string, def ...interface{}) *gvar.Var {
 	envKey := utils.FormatEnvKey(key)
 	if v := os.Getenv(envKey); v != "" {
@@ -132,8 +124,7 @@ func GetWithCmd(key string, def ...interface{}) *gvar.Var {
 }
 
 // Build builds a map to an environment variable slice.
-
-// ff:Map到数组
+// ff:Map到切片
 // m:
 func Build(m map[string]string) []string {
 	array := make([]string, len(m))
@@ -146,9 +137,8 @@ func Build(m map[string]string) []string {
 }
 
 // MapFromEnv converts environment variables from slice to map.
-
-// ff:数组到Map
-// envs:数组
+// ff:切片到Map
+// envs:切片
 func MapFromEnv(envs []string) map[string]string {
 	m := make(map[string]string)
 	i := 0
@@ -160,7 +150,6 @@ func MapFromEnv(envs []string) map[string]string {
 }
 
 // MapToEnv converts environment variables from map to slice.
-
 // ff:MapToEnv别名
 // m:
 func MapToEnv(m map[string]string) []string {
@@ -172,9 +161,8 @@ func MapToEnv(m map[string]string) []string {
 }
 
 // Filter filters repeated items from given environment variables.
-
-// ff:数组去重
-// envs:数组
+// ff:切片去重
+// envs:切片
 func Filter(envs []string) []string {
 	return MapToEnv(MapFromEnv(envs))
 }

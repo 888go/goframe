@@ -30,13 +30,13 @@ func newAdapterMemoryData() *adapterMemoryData {
 //
 // It deletes the `key` if given `value` is nil.
 // It does nothing if `key` does not exist in the cache.
-
 // ff:更新值
-// err:错误
-// exist:是否已存在
-// oldValue:旧值
-// value:值
+// d:
 // key:名称
+// value:值
+// oldValue:旧值
+// exist:是否已存在
+// err:错误
 func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue interface{}, exist bool, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -54,12 +54,12 @@ func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue
 //
 // It returns -1 and does nothing if the `key` does not exist in the cache.
 // It deletes the `key` if `duration` < 0.
-
 // ff:更新过期时间
-// err:错误
-// oldDuration:旧过期时长
-// expireTime:时长
+// d:
 // key:名称
+// expireTime:时长
+// oldDuration:旧过期时长
+// err:错误
 func (d *adapterMemoryData) UpdateExpire(key interface{}, expireTime int64) (oldDuration time.Duration, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -75,12 +75,12 @@ func (d *adapterMemoryData) UpdateExpire(key interface{}, expireTime int64) (old
 
 // Remove deletes the one or more keys from cache, and returns its value.
 // If multiple keys are given, it returns the value of the deleted last item.
-
 // ff:删除并带返回值
-// err:错误
-// value:值
-// removedKeys:被删除名称
+// d:
 // keys:名称
+// removedKeys:被删除名称
+// value:值
+// err:错误
 func (d *adapterMemoryData) Remove(keys ...interface{}) (removedKeys []interface{}, value interface{}, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -97,8 +97,8 @@ func (d *adapterMemoryData) Remove(keys ...interface{}) (removedKeys []interface
 }
 
 // Data returns a copy of all key-value pairs in the cache as map type.
-
 // ff:取所有键值Map副本
+// d:
 func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
 	d.mu.RLock()
 	m := make(map[interface{}]interface{}, len(d.data))
@@ -112,8 +112,8 @@ func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
 }
 
 // Keys returns all keys in the cache as slice.
-
 // ff:取所有键
+// d:
 func (d *adapterMemoryData) Keys() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
@@ -131,8 +131,8 @@ func (d *adapterMemoryData) Keys() ([]interface{}, error) {
 }
 
 // Values returns all values in the cache as slice.
-
 // ff:取所有值
+// d:
 func (d *adapterMemoryData) Values() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
@@ -150,10 +150,10 @@ func (d *adapterMemoryData) Values() ([]interface{}, error) {
 }
 
 // Size returns the size of the cache.
-
 // ff:取数量
-// err:错误
+// d:
 // size:数量
+// err:错误
 func (d *adapterMemoryData) Size() (size int, err error) {
 	d.mu.RLock()
 	size = len(d.data)
@@ -163,8 +163,8 @@ func (d *adapterMemoryData) Size() (size int, err error) {
 
 // Clear clears all data of the cache.
 // Note that this function is sensitive and should be carefully used.
-
 // ff:清空
+// d:
 func (d *adapterMemoryData) Clear() error {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -172,11 +172,11 @@ func (d *adapterMemoryData) Clear() error {
 	return nil
 }
 
-
 // ff:取值
-// ok:成功
-// item:
+// d:
 // key:名称
+// item:
+// ok:成功
 func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok bool) {
 	d.mu.RLock()
 	item, ok = d.data[key]
@@ -184,11 +184,11 @@ func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok boo
 	return
 }
 
-
-// ff:设置值
 // yx:true
-// value:
+// ff:设置值
+// d:
 // key:
+// value:
 func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {
 	d.mu.Lock()
 	d.data[key] = value
@@ -199,10 +199,10 @@ func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {
 //
 // It does not expire if `duration` == 0.
 // It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
-
 // ff:设置Map
-// expireTime:
+// d:
 // data:
+// expireTime:
 func (d *adapterMemoryData) SetMap(data map[interface{}]interface{}, expireTime int64) error {
 	d.mu.Lock()
 	for k, v := range data {
@@ -215,12 +215,12 @@ func (d *adapterMemoryData) SetMap(data map[interface{}]interface{}, expireTime 
 	return nil
 }
 
-
 // ff:
-// expireTimestamp:
-// value:
-// key:
+// d:
 // ctx:
+// key:
+// value:
+// expireTimestamp:
 func (d *adapterMemoryData) SetWithLock(ctx context.Context, key interface{}, value interface{}, expireTimestamp int64) (interface{}, error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -247,10 +247,10 @@ func (d *adapterMemoryData) SetWithLock(ctx context.Context, key interface{}, va
 	return value, nil
 }
 
-
 // ff:
-// force:
+// d:
 // key:
+// force:
 func (d *adapterMemoryData) DeleteWithDoubleCheck(key interface{}, force ...bool) {
 	d.mu.Lock()
 	// Doubly check before really deleting it from cache.

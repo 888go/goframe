@@ -17,7 +17,6 @@ type Tracer struct {
 }
 
 // NewTracer Tracer is a short function for retrieving Tracer.
-
 // ff:
 // name:
 func NewTracer(name ...string) *Tracer {

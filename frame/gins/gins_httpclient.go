@@ -14,7 +14,6 @@ import (
 )
 
 // HttpClient returns an instance of http client with specified name.
-
 // ff:
 // name:
 func HttpClient(name ...interface{}) *gclient.Client {

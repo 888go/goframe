@@ -16,7 +16,6 @@ import (
 )
 
 // Scan prints `info` to stdout, reads and returns user input, which stops by '\n'.
-
 // ff:
 // info:
 func Scan(info ...interface{}) string {
@@ -25,10 +24,9 @@ func Scan(info ...interface{}) string {
 }
 
 // Scanf prints `info` to stdout with `format`, reads and returns user input, which stops by '\n'.
-
 // ff:
-// info:
 // format:
+// info:
 func Scanf(format string, info ...interface{}) string {
 	fmt.Printf(format, info...)
 	return readline()

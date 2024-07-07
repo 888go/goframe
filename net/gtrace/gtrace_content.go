@@ -17,10 +17,9 @@ import (
 
 // SafeContentForHttp cuts and returns given content by `MaxContentLogSize`.
 // It appends string `...` to the tail of the result if the content size is greater than `MaxContentLogSize`.
-
 // ff:
-// header:
 // data:
+// header:
 func SafeContentForHttp(data []byte, header http.Header) (string, error) {
 	var err error
 	if gzipAccepted(header) {
@@ -34,7 +33,6 @@ func SafeContentForHttp(data []byte, header http.Header) (string, error) {
 
 // SafeContent cuts and returns given content by `MaxContentLogSize`.
 // It appends string `...` to the tail of the result if the content size is greater than `MaxContentLogSize`.
-
 // ff:
 // data:
 func SafeContent(data []byte) string {

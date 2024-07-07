@@ -17,13 +17,12 @@ import (
 // Fields appends `fieldNamesOrMapStruct` to the operation fields of the model, multiple fields joined using char ','.
 // The parameter `fieldNamesOrMapStruct` can be type of string/map/*map/struct/*struct.
 //
-// Eg:
 // Fields("id", "name", "age")
 // Fields([]string{"id", "name", "age"})
 // Fields(map[string]interface{}{"id":1, "name":"john", "age":18})
 // Fields(User{ Id: 1, Name: "john", Age: 18}).
-
 // ff:字段保留过滤
+// m:
 // fieldNamesOrMapStruct:字段名或Map结构体
 func (m *Model) Fields(fieldNamesOrMapStruct ...interface{}) *Model {
 	length := len(fieldNamesOrMapStruct)
@@ -38,10 +37,10 @@ func (m *Model) Fields(fieldNamesOrMapStruct ...interface{}) *Model {
 }
 
 // FieldsPrefix performs as function Fields but add extra prefix for each field.
-
 // ff:字段保留过滤并带前缀
-// fieldNamesOrMapStruct:字段名或Map结构体
+// m:
 // prefixOrAlias:前缀或别名
+// fieldNamesOrMapStruct:字段名或Map结构体
 func (m *Model) FieldsPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...interface{}) *Model {
 	fields := m.getFieldsFrom(m.getTableNameByPrefixOrAlias(prefixOrAlias), fieldNamesOrMapStruct...)
 	if len(fields) == 0 {
@@ -57,8 +56,8 @@ func (m *Model) FieldsPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...inte
 // The parameter `fieldNamesOrMapStruct` can be type of string/map/*map/struct/*struct.
 //
 // Also see Fields.
-
 // ff:字段排除过滤
+// m:
 // fieldNamesOrMapStruct:字段名或Map结构体
 func (m *Model) FieldsEx(fieldNamesOrMapStruct ...interface{}) *Model {
 	return m.doFieldsEx(m.tablesInit, fieldNamesOrMapStruct...)
@@ -76,10 +75,10 @@ func (m *Model) doFieldsEx(table string, fieldNamesOrMapStruct ...interface{}) *
 }
 
 // FieldsExPrefix performs as function FieldsEx but add extra prefix for each field.
-
 // ff:字段排除过滤并带前缀
-// fieldNamesOrMapStruct:字段名或Map结构体
+// m:
 // prefixOrAlias:前缀或别名
+// fieldNamesOrMapStruct:字段名或Map结构体
 func (m *Model) FieldsExPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...interface{}) *Model {
 	model := m.doFieldsEx(m.getTableNameByPrefixOrAlias(prefixOrAlias), fieldNamesOrMapStruct...)
 	array := gstr.SplitAndTrim(model.fieldsEx, ",")
@@ -89,10 +88,10 @@ func (m *Model) FieldsExPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...in
 }
 
 // FieldCount formats and appends commonly used field `COUNT(column)` to the select fields of model.
-
 // ff:字段追加计数
-// as:新字段别名
+// m:
 // column:需要计数的字段名称
+// as:新字段别名
 func (m *Model) FieldCount(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -102,10 +101,10 @@ func (m *Model) FieldCount(column string, as ...string) *Model {
 }
 
 // FieldSum formats and appends commonly used field `SUM(column)` to the select fields of model.
-
 // ff:字段追加求和
-// as:新字段别名
+// m:
 // column:需要求和的字段名称
+// as:新字段别名
 func (m *Model) FieldSum(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -115,10 +114,10 @@ func (m *Model) FieldSum(column string, as ...string) *Model {
 }
 
 // FieldMin formats and appends commonly used field `MIN(column)` to the select fields of model.
-
 // ff:字段追加最小值
-// as:新字段别名
+// m:
 // column:最小值字段名称
+// as:新字段别名
 func (m *Model) FieldMin(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -128,10 +127,10 @@ func (m *Model) FieldMin(column string, as ...string) *Model {
 }
 
 // FieldMax formats and appends commonly used field `MAX(column)` to the select fields of model.
-
 // ff:字段追加最大值
-// as:新字段别名
+// m:
 // column:最大值字段名称
+// as:新字段别名
 func (m *Model) FieldMax(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -141,10 +140,10 @@ func (m *Model) FieldMax(column string, as ...string) *Model {
 }
 
 // FieldAvg formats and appends commonly used field `AVG(column)` to the select fields of model.
-
 // ff:字段追加平均值
-// as:新字段别名
+// m:
 // column:求平均值字段名称
+// as:新字段别名
 func (m *Model) FieldAvg(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -155,8 +154,8 @@ func (m *Model) FieldAvg(column string, as ...string) *Model {
 
 // GetFieldsStr retrieves and returns all fields from the table, joined with char ','.
 // The optional parameter `prefix` specifies the prefix for each field, eg: GetFieldsStr("u.").
-
 // ff:取所有字段名称
+// m:
 // prefix:字段前缀
 func (m *Model) GetFieldsStr(prefix ...string) string {
 	prefixStr := ""
@@ -189,10 +188,10 @@ func (m *Model) GetFieldsStr(prefix ...string) string {
 // joined with char ','.
 // The parameter `fields` specifies the fields that are excluded.
 // The optional parameter `prefix` specifies the prefix for each field, eg: FieldsExStr("id", "u.").
-
 // ff:取所有字段名称并排除
-// prefix:字段前缀
+// m:
 // fields:需要排除字段
+// prefix:字段前缀
 func (m *Model) GetFieldsExStr(fields string, prefix ...string) string {
 	prefixStr := ""
 	if len(prefix) > 0 {
@@ -225,8 +224,8 @@ func (m *Model) GetFieldsExStr(fields string, prefix ...string) string {
 }
 
 // HasField determine whether the field exists in the table.
-
 // ff:是否存在字段
+// m:
 // field:字段名称
 func (m *Model) HasField(field string) (bool, error) {
 	return m.db.GetCore().HasField(m.GetCtx(), m.tablesInit, field)

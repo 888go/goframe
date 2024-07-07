@@ -71,7 +71,6 @@ func init() {
 //  1. The returned length is fixed to 32 bytes for performance purpose.
 //  2. The custom parameter `data` composed should have unique attribute in your
 //     business scenario.
-
 // ff:生成
 // data:参数
 func S(data ...[]byte) string {

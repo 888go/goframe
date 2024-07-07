@@ -29,8 +29,8 @@ import (
 // SetBrowserMode enables browser mode of the client.
 // When browser mode is enabled, it automatically saves and sends cookie content
 // from and to server.
-
 // ff:启用浏览器模式
+// c:
 // enabled:启用
 func (c *Client) SetBrowserMode(enabled bool) *Client {
 	if enabled {
@@ -41,18 +41,18 @@ func (c *Client) SetBrowserMode(enabled bool) *Client {
 }
 
 // SetHeader sets a custom HTTP header pair for the client.
-
 // ff:设置协议头
-// value:值
+// c:
 // key:名称
+// value:值
 func (c *Client) SetHeader(key, value string) *Client {
 	c.header[key] = value
 	return c
 }
 
 // SetHeaderMap sets custom HTTP headers with map.
-
 // ff:设置Map协议头
+// c:
 // m:map协议头
 func (c *Client) SetHeaderMap(m map[string]string) *Client {
 	for k, v := range m {
@@ -62,8 +62,8 @@ func (c *Client) SetHeaderMap(m map[string]string) *Client {
 }
 
 // SetAgent sets the User-Agent header for client.
-
 // ff:设置UA
+// c:
 // agent:UA值
 func (c *Client) SetAgent(agent string) *Client {
 	c.header[httpHeaderUserAgent] = agent
@@ -71,8 +71,8 @@ func (c *Client) SetAgent(agent string) *Client {
 }
 
 // SetContentType sets HTTP content type for the client.
-
 // ff:设置内容类型
+// c:
 // contentType:内容类型
 func (c *Client) SetContentType(contentType string) *Client {
 	c.header[httpHeaderContentType] = contentType
@@ -80,8 +80,8 @@ func (c *Client) SetContentType(contentType string) *Client {
 }
 
 // SetHeaderRaw sets custom HTTP header using raw string.
-
 // ff:设置原始协议头
+// c:
 // headers:原始协议头
 func (c *Client) SetHeaderRaw(headers string) *Client {
 	for _, line := range gstr.SplitAndTrim(headers, "\n") {
@@ -94,18 +94,18 @@ func (c *Client) SetHeaderRaw(headers string) *Client {
 }
 
 // SetCookie sets a cookie pair for the client.
-
 // ff:设置cookie
-// value:值
+// c:
 // key:名称
+// value:值
 func (c *Client) SetCookie(key, value string) *Client {
 	c.cookies[key] = value
 	return c
 }
 
 // SetCookieMap sets cookie items with map.
-
 // ff:设置CookieMap
+// c:
 // m:MapCookie
 func (c *Client) SetCookieMap(m map[string]string) *Client {
 	for k, v := range m {
@@ -115,8 +115,8 @@ func (c *Client) SetCookieMap(m map[string]string) *Client {
 }
 
 // SetPrefix sets the request server URL prefix.
-
 // ff:设置url前缀
+// c:
 // prefix:前缀
 func (c *Client) SetPrefix(prefix string) *Client {
 	c.prefix = prefix
@@ -124,8 +124,8 @@ func (c *Client) SetPrefix(prefix string) *Client {
 }
 
 // SetTimeout sets the request timeout for the client.
-
 // ff:设置超时
+// c:
 // t:时长
 func (c *Client) SetTimeout(t time.Duration) *Client {
 	c.Client.Timeout = t
@@ -133,10 +133,10 @@ func (c *Client) SetTimeout(t time.Duration) *Client {
 }
 
 // SetBasicAuth sets HTTP basic authentication information for the client.
-
 // ff:设置账号密码
-// pass:密码
+// c:
 // user:账号
+// pass:密码
 func (c *Client) SetBasicAuth(user, pass string) *Client {
 	c.authUser = user
 	c.authPass = pass
@@ -145,10 +145,10 @@ func (c *Client) SetBasicAuth(user, pass string) *Client {
 
 // SetRetry sets retry count and interval.
 // TODO removed.
-
 // ff:设置重试与间隔
-// retryInterval:重试间隔时长
+// c:
 // retryCount:重试计数
+// retryInterval:重试间隔时长
 func (c *Client) SetRetry(retryCount int, retryInterval time.Duration) *Client {
 	c.retryCount = retryCount
 	c.retryInterval = retryInterval
@@ -156,8 +156,8 @@ func (c *Client) SetRetry(retryCount int, retryInterval time.Duration) *Client {
 }
 
 // SetRedirectLimit limits the number of jumps.
-
 // ff:设置重定向次数限制
+// c:
 // redirectLimit:次数
 func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
 	c.CheckRedirect = func(req *http.Request, via []*http.Request) error {
@@ -170,8 +170,8 @@ func (c *Client) SetRedirectLimit(redirectLimit int) *Client {
 }
 
 // SetNoUrlEncode sets the mark that do not encode the parameters before sending request.
-
 // ff:设置请求参数禁止URL编码
+// c:
 // noUrlEncode:禁止编码
 func (c *Client) SetNoUrlEncode(noUrlEncode bool) *Client {
 	c.noUrlEncode = noUrlEncode
@@ -182,8 +182,8 @@ func (c *Client) SetNoUrlEncode(noUrlEncode bool) *Client {
 // This func will do nothing when the parameter `proxyURL` is empty or in wrong pattern.
 // The correct pattern is like `http://USER:PASSWORD@IP:PORT` or `socks5://USER:PASSWORD@IP:PORT`.
 // Only `http` and `socks5` proxies are supported currently.
-
 // ff:设置代理
+// c:
 // proxyURL:代理地址
 func (c *Client) SetProxy(proxyURL string) {
 	if strings.TrimSpace(proxyURL) == "" {
@@ -234,10 +234,10 @@ func (c *Client) SetProxy(proxyURL string) {
 }
 
 // SetTLSKeyCrt sets the certificate and key file for TLS configuration of client.
-
 // ff:设置证书
-// keyFile:key路径
+// c:
 // crtFile:crt路径
+// keyFile:key路径
 func (c *Client) SetTLSKeyCrt(crtFile, keyFile string) error {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -252,8 +252,8 @@ func (c *Client) SetTLSKeyCrt(crtFile, keyFile string) error {
 }
 
 // SetTLSConfig sets the TLS configuration of client.
-
 // ff:设置TLS配置
+// c:
 // tlsConfig:TLS配置
 func (c *Client) SetTLSConfig(tlsConfig *tls.Config) error {
 	if v, ok := c.Transport.(*http.Transport); ok {
@@ -264,16 +264,16 @@ func (c *Client) SetTLSConfig(tlsConfig *tls.Config) error {
 }
 
 // SetBuilder sets the load balance builder for client.
-
 // ff:
+// c:
 // builder:
 func (c *Client) SetBuilder(builder gsel.Builder) {
 	c.builder = builder
 }
 
 // SetDiscovery sets the load balance builder for client.
-
 // ff:
+// c:
 // discovery:
 func (c *Client) SetDiscovery(discovery gsvc.Discovery) {
 	c.discovery = discovery

@@ -27,21 +27,14 @@ func init() {
 	Register(RuleTelephone{})
 }
 
-
-// ff:
 func (r RuleTelephone) Name() string {
 	return "telephone"
 }
 
-
-// ff:
 func (r RuleTelephone) Message() string {
 	return "The {field} value `{value}` is not a valid telephone number"
 }
 
-
-// ff:
-// in:
 func (r RuleTelephone) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^((\d{3,4})|\d{3,4}-)?\d{7,8}$`,

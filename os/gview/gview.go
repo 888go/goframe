@@ -7,7 +7,6 @@
 // Package gview implements a template engine based on text/template.
 //
 // Reserved template variable names:
-// I18nLanguage: Assign this variable to define i18n language for each page.
 package gview//bm:模板类
 
 import (
@@ -55,11 +54,10 @@ func checkAndInitDefaultView() {
 
 // ParseContent parses the template content directly using the default view object
 // and returns the parsed content.
-
 // ff:
-// params:
-// content:
 // ctx:
+// content:
+// params:
 func ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	checkAndInitDefaultView()
 	return defaultViewObj.ParseContent(ctx, content, params...)
@@ -67,7 +65,6 @@ func ParseContent(ctx context.Context, content string, params ...Params) (string
 
 // New returns a new view object.
 // The parameter `path` specifies the template directory path to load template files.
-
 // ff:
 // path:
 func New(path ...string) *View {

@@ -36,7 +36,7 @@ func Join(array []string, sep
 
 # <翻译开始>
 func Join(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -51,7 +51,7 @@ func JoinAny(array interface{}, sep
 
 # <翻译开始>
 func JoinAny(array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>

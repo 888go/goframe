@@ -36,7 +36,7 @@ X底层DoFilter
 
 # <翻译开始>
 ) Tables(ctx context.Context, schema ...string) (tables
-表名称数组
+表名称切片
 # <翻译结束>
 
 # <翻译开始>
@@ -46,7 +46,7 @@ X底层DoFilter
 
 # <翻译开始>
 ) Tables
-X取表名称数组
+X取表名称切片
 # <翻译结束>
 
 # <翻译开始>

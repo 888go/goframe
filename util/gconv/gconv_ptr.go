@@ -7,7 +7,6 @@
 package gconv
 
 // PtrAny creates and returns an interface{} pointer variable to this value.
-
 // ff:取any指针
 // any:值
 func PtrAny(any interface{}) *interface{} {
@@ -15,7 +14,6 @@ func PtrAny(any interface{}) *interface{} {
 }
 
 // PtrString creates and returns a string pointer variable to this value.
-
 // ff:取文本指针
 // any:值
 func PtrString(any interface{}) *string {
@@ -24,7 +22,6 @@ func PtrString(any interface{}) *string {
 }
 
 // PtrBool creates and returns a bool pointer variable to this value.
-
 // ff:取布尔指针
 // any:值
 func PtrBool(any interface{}) *bool {
@@ -33,7 +30,6 @@ func PtrBool(any interface{}) *bool {
 }
 
 // PtrInt creates and returns an int pointer variable to this value.
-
 // ff:取整数指针
 // any:值
 func PtrInt(any interface{}) *int {
@@ -42,7 +38,6 @@ func PtrInt(any interface{}) *int {
 }
 
 // PtrInt8 creates and returns an int8 pointer variable to this value.
-
 // ff:取整数8位指针
 // any:值
 func PtrInt8(any interface{}) *int8 {
@@ -51,7 +46,6 @@ func PtrInt8(any interface{}) *int8 {
 }
 
 // PtrInt16 creates and returns an int16 pointer variable to this value.
-
 // ff:取整数16位指针
 // any:值
 func PtrInt16(any interface{}) *int16 {
@@ -60,7 +54,6 @@ func PtrInt16(any interface{}) *int16 {
 }
 
 // PtrInt32 creates and returns an int32 pointer variable to this value.
-
 // ff:取整数32位指针
 // any:值
 func PtrInt32(any interface{}) *int32 {
@@ -69,7 +62,6 @@ func PtrInt32(any interface{}) *int32 {
 }
 
 // PtrInt64 creates and returns an int64 pointer variable to this value.
-
 // ff:取整数64位指针
 // any:值
 func PtrInt64(any interface{}) *int64 {
@@ -78,7 +70,6 @@ func PtrInt64(any interface{}) *int64 {
 }
 
 // PtrUint creates and returns an uint pointer variable to this value.
-
 // ff:取正整数指针
 // any:值
 func PtrUint(any interface{}) *uint {
@@ -87,7 +78,6 @@ func PtrUint(any interface{}) *uint {
 }
 
 // PtrUint8 creates and returns an uint8 pointer variable to this value.
-
 // ff:取正整数8位指针
 // any:值
 func PtrUint8(any interface{}) *uint8 {
@@ -96,7 +86,6 @@ func PtrUint8(any interface{}) *uint8 {
 }
 
 // PtrUint16 creates and returns an uint16 pointer variable to this value.
-
 // ff:取正整数16位指针
 // any:值
 func PtrUint16(any interface{}) *uint16 {
@@ -105,7 +94,6 @@ func PtrUint16(any interface{}) *uint16 {
 }
 
 // PtrUint32 creates and returns an uint32 pointer variable to this value.
-
 // ff:取正整数32位指针
 // any:值
 func PtrUint32(any interface{}) *uint32 {
@@ -114,7 +102,6 @@ func PtrUint32(any interface{}) *uint32 {
 }
 
 // PtrUint64 creates and returns an uint64 pointer variable to this value.
-
 // ff:取正整数64位指针
 // any:值
 func PtrUint64(any interface{}) *uint64 {
@@ -123,7 +110,6 @@ func PtrUint64(any interface{}) *uint64 {
 }
 
 // PtrFloat32 creates and returns a float32 pointer variable to this value.
-
 // ff:取小数32位指针
 // any:值
 func PtrFloat32(any interface{}) *float32 {
@@ -132,7 +118,6 @@ func PtrFloat32(any interface{}) *float32 {
 }
 
 // PtrFloat64 creates and returns a float64 pointer variable to this value.
-
 // ff:取小数64位指针
 // any:值
 func PtrFloat64(any interface{}) *float64 {

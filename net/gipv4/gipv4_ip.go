@@ -16,10 +16,9 @@ import (
 )
 
 // GetIpArray retrieves and returns all the ip of current host.
-
 // ff:
-// err:
 // ips:
+// err:
 func GetIpArray() (ips []string, err error) {
 	interfaceAddr, err := net.InterfaceAddrs()
 	if err != nil {
@@ -38,7 +37,6 @@ func GetIpArray() (ips []string, err error) {
 }
 
 // MustGetIntranetIp performs as GetIntranetIp, but it panics if any error occurs.
-
 // ff:
 func MustGetIntranetIp() string {
 	ip, err := GetIntranetIp()
@@ -49,10 +47,9 @@ func MustGetIntranetIp() string {
 }
 
 // GetIntranetIp retrieves and returns the first intranet ip of current machine.
-
 // ff:
-// err:
 // ip:
+// err:
 func GetIntranetIp() (ip string, err error) {
 	ips, err := GetIntranetIpArray()
 	if err != nil {
@@ -65,10 +62,9 @@ func GetIntranetIp() (ip string, err error) {
 }
 
 // GetIntranetIpArray retrieves and returns the intranet ip list of current machine.
-
 // ff:
-// err:
 // ips:
+// err:
 func GetIntranetIpArray() (ips []string, err error) {
 	var (
 		addresses  []net.Addr
@@ -125,11 +121,6 @@ func GetIntranetIpArray() (ips []string, err error) {
 
 // IsIntranet checks and returns whether given ip an intranet ip.
 //
-// Local: 127.0.0.1
-// A: 10.0.0.0--10.255.255.255
-// B: 172.16.0.0--172.31.255.255
-// C: 192.168.0.0--192.168.255.255
-
 // ff:
 // ip:
 func IsIntranet(ip string) bool {

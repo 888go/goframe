@@ -3147,8 +3147,6 @@ func createTableForTimeZoneTest() string {
 	}
 	return tableName
 }
-
-// https://github.com/gogf/gf/issues/1012
 func Test_TimeZoneInsert(t *testing.T) {
 	tableName := createTableForTimeZoneTest()
 	defer dropTable(tableName)
@@ -4010,8 +4008,6 @@ func Test_Model_OmitEmptyWhere(t *testing.T) {
 		t.Assert(count, int64(TableSize))
 	})
 }
-
-// https://github.com/gogf/gf/issues/1387
 func Test_Model_GTime_DefaultValue(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -4337,8 +4333,6 @@ func Test_Model_WherePrefixLike(t *testing.T) {
 		t.Assert(r[0]["id"], "3")
 	})
 }
-
-// https://github.com/gogf/gf/issues/1159
 func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4393,8 +4387,6 @@ func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 		t.Assert(s[1].One.Age, 21)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1159
 func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4449,8 +4441,6 @@ func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 		t.Assert(s[1].One.Age, 21)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1159
 func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4553,8 +4543,6 @@ func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 		t.Assert(len(s[1].Many), 0)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1159
 func Test_ScanList_NoRecreate_SliceAttribute_Struct(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {

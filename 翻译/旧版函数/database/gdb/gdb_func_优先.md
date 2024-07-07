@@ -1,7 +1,7 @@
 
 # <翻译开始>
 Interfaces() []interface{}
-X取any数组
+X取any切片
 <跳到行首>
 # <翻译结束>
 

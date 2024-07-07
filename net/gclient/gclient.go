@@ -58,7 +58,6 @@ var (
 )
 
 // New creates and returns a new HTTP client object.
-
 // ff:创建
 func New() *Client {
 	c := &Client{
@@ -83,8 +82,8 @@ func New() *Client {
 }
 
 // Clone deeply clones current client and returns a new one.
-
 // ff:取副本
+// c:
 func (c *Client) Clone() *Client {
 	newClient := New()
 	*newClient = *c
@@ -104,10 +103,9 @@ func (c *Client) Clone() *Client {
 }
 
 // LoadKeyCrt creates and returns a TLS configuration object with given certificate and key files.
-
 // ff:创建TLS配置
-// keyFile:key路径
 // crtFile:crt路径
+// keyFile:key路径
 func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 	crtPath, err := gfile.Search(crtFile)
 	if err != nil {

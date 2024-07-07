@@ -16,7 +16,6 @@ import (
 	"github.com/gogf/gf/v2/internal/json"
 )
 
-
 // ff:
 // v:
 func Encode(v interface{}) ([]byte, error) {
@@ -27,7 +26,6 @@ func Encode(v interface{}) ([]byte, error) {
 	}
 	return buffer.Bytes(), nil
 }
-
 
 // ff:
 // v:
@@ -40,11 +38,10 @@ func Decode(v []byte) (interface{}, error) {
 	return result, nil
 }
 
-
 // ff:
-// err:
-// result:
 // v:
+// result:
+// err:
 func DecodeTo(v []byte, result interface{}) (err error) {
 	err = toml.Unmarshal(v, result)
 	if err != nil {
@@ -52,7 +49,6 @@ func DecodeTo(v []byte, result interface{}) (err error) {
 	}
 	return err
 }
-
 
 // ff:
 // v:

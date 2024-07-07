@@ -26,14 +26,12 @@ var customConverters = make(map[converterInType]map[converterOutType]converterFu
 // It must be registered before you use this custom converting feature.
 // It is suggested to do it in boot procedure of the process.
 //
-// Note:
 //  1. The parameter `fn` must be defined as pattern `func(T1) (T2, error)`.
 //     It will convert type `T1` to type `T2`.
 //  2. The `T1` should not be type of pointer, but the `T2` should be type of pointer.
-
 // ff:转换器注册
-// err:错误
 // fn:
+// err:错误
 func RegisterConverter(fn interface{}) (err error) {
 	var (
 		fnReflectType = reflect.TypeOf(fn)

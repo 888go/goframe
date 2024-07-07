@@ -23,7 +23,6 @@ var (
 
 // NewSessionId creates and returns a new and unique session id string,
 // which is in 32 bytes.
-
 // ff:
 func NewSessionId() string {
 	return guid.S()

@@ -44,12 +44,11 @@ func init() {
 
 // Caller returns the function name and the absolute file path along with its line
 // number of the caller.
-
 // ff:
-// line:
-// path:
-// function:
 // skip:
+// function:
+// path:
+// line:
 func Caller(skip ...int) (function string, path string, line int) {
 	return CallerWithFilter(nil, skip...)
 }
@@ -58,13 +57,12 @@ func Caller(skip ...int) (function string, path string, line int) {
 // its line number of the caller.
 //
 // The parameter `filters` is used to filter the path of the caller.
-
 // ff:
-// line:
-// path:
-// function:
-// skip:
 // filters:
+// skip:
+// function:
+// path:
+// line:
 func CallerWithFilter(filters []string, skip ...int) (function string, path string, line int) {
 	var (
 		number = 0
@@ -144,7 +142,6 @@ func filterFileByFilters(file string, filters []string) (filtered bool) {
 }
 
 // CallerPackage returns the package name of the caller.
-
 // ff:
 func CallerPackage() string {
 	function, _, _ := Caller()
@@ -161,7 +158,6 @@ func CallerPackage() string {
 }
 
 // CallerFunction returns the function name of the caller.
-
 // ff:
 func CallerFunction() string {
 	function, _, _ := Caller()
@@ -171,7 +167,6 @@ func CallerFunction() string {
 }
 
 // CallerFilePath returns the file path of the caller.
-
 // ff:
 func CallerFilePath() string {
 	_, path, _ := Caller()
@@ -179,7 +174,6 @@ func CallerFilePath() string {
 }
 
 // CallerDirectory returns the directory of the caller.
-
 // ff:
 func CallerDirectory() string {
 	_, path, _ := Caller()
@@ -187,7 +181,6 @@ func CallerDirectory() string {
 }
 
 // CallerFileLine returns the file path along with the line number of the caller.
-
 // ff:
 func CallerFileLine() string {
 	_, path, line := Caller()
@@ -195,7 +188,6 @@ func CallerFileLine() string {
 }
 
 // CallerFileLineShort returns the file name along with the line number of the caller.
-
 // ff:
 func CallerFileLineShort() string {
 	_, path, line := Caller()
@@ -203,7 +195,6 @@ func CallerFileLineShort() string {
 }
 
 // FuncPath returns the complete function path of given `f`.
-
 // ff:
 // f:
 func FuncPath(f interface{}) string {
@@ -211,7 +202,6 @@ func FuncPath(f interface{}) string {
 }
 
 // FuncName returns the function name of given `f`.
-
 // ff:
 // f:
 func FuncName(f interface{}) string {

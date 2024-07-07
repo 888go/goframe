@@ -16,7 +16,6 @@ import (
 )
 
 // Zlib compresses `data` with zlib algorithm.
-
 // ff:Zlib压缩字节集
 // data:字节集
 func Zlib(data []byte) ([]byte, error) {
@@ -41,7 +40,6 @@ func Zlib(data []byte) ([]byte, error) {
 }
 
 // UnZlib decompresses `data` with zlib algorithm.
-
 // ff:Zlib解压字节集
 // data:字节集
 func UnZlib(data []byte) ([]byte, error) {

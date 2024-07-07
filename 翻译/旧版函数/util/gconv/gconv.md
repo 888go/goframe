@@ -31,7 +31,7 @@ func Runes(any
 
 # <翻译开始>
 func Runes
-X取字符数组
+X取字符切片
 # <翻译结束>
 
 # <翻译开始>

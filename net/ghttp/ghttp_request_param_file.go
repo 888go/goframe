@@ -29,8 +29,8 @@ type UploadFile struct {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-
 // ff:
+// f:
 func (f UploadFile) MarshalJSON() ([]byte, error) {
 	return json.Marshal(f.FileHeader)
 }
@@ -43,12 +43,12 @@ type UploadFiles []*UploadFile
 // The parameter `dirPath` should be a directory path, or it returns error.
 //
 // Note that it will OVERWRITE the target file if there's already a same name file exist.
-
 // ff:X保存
-// err:错误
-// filename:文件名
-// randomlyRename:随机重命名
+// f:
 // dirPath:目录路径
+// randomlyRename:随机重命名
+// filename:文件名
+// err:错误
 func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename string, err error) {
 	if f == nil {
 		return "", gerror.NewCode(
@@ -95,12 +95,12 @@ func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename stri
 // The parameter `dirPath` should be a directory path or it returns error.
 //
 // The parameter `randomlyRename` specifies whether randomly renames all the file names.
-
 // ff:X保存
-// err:错误
-// filenames:文件名数组
-// randomlyRename:随机重命名
+// fs:
 // dirPath:目录路径
+// randomlyRename:随机重命名
+// filenames:文件名切片
+// err:错误
 func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []string, err error) {
 	if len(fs) == 0 {
 		return nil, gerror.NewCode(
@@ -125,8 +125,8 @@ func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []
 // It returns nil if retrieving failed or no form file with given name posted.
 //
 // Note that the `name` is the file field name of the multipart form from client.
-
 // ff:取上传文件对象
+// r:
 // name:名称
 func (r *Request) GetUploadFile(name string) *UploadFile {
 	uploadFiles := r.GetUploadFiles(name)
@@ -143,8 +143,8 @@ func (r *Request) GetUploadFile(name string) *UploadFile {
 // It returns nil if retrieving failed or no form file with given name posted.
 //
 // Note that the `name` is the file field name of the multipart form from client.
-
-// ff:取上传文件数组对象
+// ff:取上传文件切片对象
+// r:
 // name:名称
 func (r *Request) GetUploadFiles(name string) UploadFiles {
 	multipartFiles := r.GetMultipartFiles(name)

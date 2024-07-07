@@ -9,7 +9,6 @@ package ghttp
 import "net/http"
 
 // WrapF is a helper function for wrapping http.HandlerFunc and returns a ghttp.HandlerFunc.
-
 // ff:
 // f:
 func WrapF(f http.HandlerFunc) HandlerFunc {
@@ -19,7 +18,6 @@ func WrapF(f http.HandlerFunc) HandlerFunc {
 }
 
 // WrapH is a helper function for wrapping http.Handler and returns a ghttp.HandlerFunc.
-
 // ff:
 // h:
 func WrapH(h http.Handler) HandlerFunc {

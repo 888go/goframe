@@ -39,17 +39,17 @@ type iString interface {
 
 // iIterator is the type assert api for Iterator.
 type iIterator interface {
-	Iterator(f func(key, value interface{}) bool) //qm:X遍历 cz:Iterator(f func(key, value interface{}) bool) yx:true     
+	Iterator(f func(key, value interface{}) bool)//qm:X遍历  cz:Iterator(f func(key, value interface{}) bool)  yx:true
 }
 
 // iInterfaces is the type assert api for Interfaces.
 type iInterfaces interface {
-	Interfaces() []interface{} //qm:取any数组 cz:Interfaces() []interface{} yx:true     
+	Interfaces() []interface{}//qm:取any切片  cz:Interfaces() []interface{}  yx:true
 }
 
 // iNil if the type assert api for IsNil.
 type iNil interface {
-	IsNil() bool //qm:是否为Nil cz:IsNil() bool yx:true     
+	IsNil() bool//qm:是否为Nil  cz:IsNil() bool  yx:true
 }
 
 // iTableName is the interface for retrieving table name for struct.
@@ -75,10 +75,9 @@ var (
 )
 
 // WithDB injects given db object into context and returns a new context.
-
 // ff:底层WithDB
-// db:DB对象
 // ctx:上下文
+// db:DB对象
 func WithDB(ctx context.Context, db DB) context.Context {
 	if db == nil {
 		return ctx
@@ -92,7 +91,6 @@ func WithDB(ctx context.Context, db DB) context.Context {
 }
 
 // DBFromCtx retrieves and returns DB object from context.
-
 // ff:上下文取DB对象
 // ctx:上下文
 func DBFromCtx(ctx context.Context) DB {
@@ -109,13 +107,12 @@ func DBFromCtx(ctx context.Context) DB {
 // ToSQL formats and returns the last one of sql statements in given closure function
 // WITHOUT TRULY EXECUTING IT.
 // Be caution that, all the following sql statements should use the context object passing by function `f`.
-
 // ff:捕捉最后一条SQL语句
-// err:错误
-// sql:
-// f:回调函数
-// ctx:
 // ctx:上下文
+// f:回调函数
+// ctx:上下文
+// sql:
+// err:错误
 func ToSQL(ctx context.Context, f func(ctx context.Context) error) (sql string, err error) {
 	var manager = &CatchSQLManager{
 		SQLArray: garray.NewStrArray(),
@@ -129,13 +126,12 @@ func ToSQL(ctx context.Context, f func(ctx context.Context) error) (sql string, 
 
 // CatchSQL catches and returns all sql statements that are EXECUTED in given closure function.
 // Be caution that, all the following sql statements should use the context object passing by function `f`.
-
 // ff:捕捉SQL语句
-// err:错误
-// sqlArray:sql数组
-// f:回调函数
-// ctx:
 // ctx:上下文
+// f:回调函数
+// ctx:上下文
+// sqlArray:sql切片
+// err:错误
 func CatchSQL(ctx context.Context, f func(ctx context.Context) error) (sqlArray []string, err error) {
 	var manager = &CatchSQLManager{
 		SQLArray: garray.NewStrArray(),
@@ -210,12 +206,11 @@ func getTableNameFromOrmTag(object interface{}) string {
 // []struct:sub-struct
 // Note that the sub-map/sub-struct makes sense only if the optional parameter `subKey` is given.
 // See gutil.ListItemValues.
-
-// ff:取结构体数组或Map数组值
-// values:数组值
-// subKey:子名称
+// ff:取结构体切片或Map切片值
+// list:结构体切片或Map切片
 // key:名称
-// list:结构体数组或Map数组
+// subKey:子名称
+// values:切片值
 func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (values []interface{}) {
 	return gutil.ListItemValues(list, key, subKey...)
 }
@@ -224,17 +219,15 @@ func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (v
 // Note that the parameter `list` should be type of slice which contains elements of map or struct,
 // or else it returns an empty slice.
 // See gutil.ListItemValuesUnique.
-
-// ff:取结构体数组或Map数组值并去重
-// subKey:子名称
+// ff:取结构体切片或Map切片值并去重
+// list:结构体切片或Map切片
 // key:名称
-// list:结构体数组或Map数组
+// subKey:子名称
 func ListItemValuesUnique(list interface{}, key string, subKey ...interface{}) []interface{} {
 	return gutil.ListItemValuesUnique(list, key, subKey...)
 }
 
 // GetInsertOperationByOption returns proper insert option with given parameter `option`.
-
 // ff:底层GetInsertOperationByOption
 // option:选项
 func GetInsertOperationByOption(option InsertOption) string {
@@ -286,10 +279,9 @@ func anyValueToMapBeforeToRecord(value interface{}) map[string]interface{} {
 // MapOrStructToMapDeep converts `value` to map type recursively(if attribute struct is embedded).
 // The parameter `value` should be type of *map/map/*struct/struct.
 // It supports embedded struct definition for struct.
-
 // ff:转换到Map
-// omitempty:
 // value:待转换值
+// omitempty:
 func MapOrStructToMapDeep(value interface{}, omitempty bool) map[string]interface{} {
 	m := gconv.Map(value, gconv.MapOption{
 		Tags:      structTagPriority,
@@ -416,11 +408,10 @@ func getFieldsFromStructOrMap(structOrMap interface{}) (fields []string) {
 //
 // Note that it returns the given `where` parameter directly if the `primary` is empty
 // or length of `where` > 1.
-
 // ff:底层GetPrimaryKeyCondition
-// newWhereCondition:
-// where:
 // primary:
+// where:
+// newWhereCondition:
 func GetPrimaryKeyCondition(primary string, where ...interface{}) (newWhereCondition []interface{}) {
 	if len(where) == 0 {
 		return nil
@@ -937,10 +928,9 @@ func handleSliceAndStructArgsForSql(
 
 // FormatSqlWithArgs binds the arguments to the sql string and returns a complete
 // sql string, just for debugging.
-
 // ff:格式化Sql
-// args:参数数组
 // sql:
+// args:参数切片
 func FormatSqlWithArgs(sql string, args []interface{}) string {
 	index := -1
 	newQuery, _ := gregex.ReplaceStringFunc(
@@ -979,7 +969,6 @@ func FormatSqlWithArgs(sql string, args []interface{}) string {
 }
 
 // FormatMultiLineSqlToSingle formats sql template string into one line.
-
 // ff:
 // sql:
 func FormatMultiLineSqlToSingle(sql string) (string, error) {

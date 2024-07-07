@@ -18,7 +18,6 @@ import (
 )
 
 // Ip2long converts ip address to an uint32 integer.
-
 // ff:
 // ip:
 func Ip2long(ip string) uint32 {
@@ -30,7 +29,6 @@ func Ip2long(ip string) uint32 {
 }
 
 // Long2ip converts an uint32 integer ip address to its string type address.
-
 // ff:
 // long:
 func Long2ip(long uint32) string {
@@ -40,7 +38,6 @@ func Long2ip(long uint32) string {
 }
 
 // Validate checks whether given `ip` a valid IPv4 address.
-
 // ff:
 // ip:
 func Validate(ip string) bool {
@@ -48,8 +45,6 @@ func Validate(ip string) bool {
 }
 
 // ParseAddress parses `address` to its ip and port.
-// Eg: 192.168.1.1:80 -> 192.168.1.1, 80
-
 // ff:
 // address:
 func ParseAddress(address string) (string, int) {
@@ -62,8 +57,6 @@ func ParseAddress(address string) (string, int) {
 }
 
 // GetSegment returns the segment of given ip address.
-// Eg: 192.168.2.102 -> 192.168.2
-
 // ff:
 // ip:
 func GetSegment(ip string) string {

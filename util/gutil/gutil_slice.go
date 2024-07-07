@@ -14,7 +14,6 @@ import (
 
 // SliceCopy does a shallow copy of slice `data` for most commonly used slice type
 // []interface{}.
-
 // ff:
 // slice:
 func SliceCopy(slice []interface{}) []interface{} {
@@ -24,12 +23,11 @@ func SliceCopy(slice []interface{}) []interface{} {
 }
 
 // SliceInsertBefore inserts the `values` to the front of `index` and returns a new slice.
-
 // ff:
-// newSlice:
-// values:
-// index:
 // slice:
+// index:
+// values:
+// newSlice:
 func SliceInsertBefore(slice []interface{}, index int, values ...interface{}) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
@@ -42,12 +40,11 @@ func SliceInsertBefore(slice []interface{}, index int, values ...interface{}) (n
 }
 
 // SliceInsertAfter inserts the `values` to the back of `index` and returns a new slice.
-
 // ff:
-// newSlice:
-// values:
-// index:
 // slice:
+// index:
+// values:
+// newSlice:
 func SliceInsertAfter(slice []interface{}, index int, values ...interface{}) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
@@ -61,11 +58,10 @@ func SliceInsertAfter(slice []interface{}, index int, values ...interface{}) (ne
 
 // SliceDelete deletes an element at `index` and returns the new slice.
 // It does nothing if the given `index` is invalid.
-
 // ff:
-// newSlice:
-// index:
 // slice:
+// index:
+// newSlice:
 func SliceDelete(slice []interface{}, index int) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
@@ -84,10 +80,8 @@ func SliceDelete(slice []interface{}, index int) (newSlice []interface{}) {
 
 // SliceToMap converts slice type variable `slice` to `map[string]interface{}`.
 // Note that if the length of `slice` is not an even number, it returns nil.
-// Eg:
 // ["K1", "v1", "K2", "v2"] => {"K1": "v1", "K2": "v2"}
 // ["K1", "v1", "K2"]       => nil
-
 // ff:
 // slice:
 func SliceToMap(slice interface{}) map[string]interface{} {
@@ -116,13 +110,11 @@ func SliceToMap(slice interface{}) map[string]interface{} {
 
 // SliceToMapWithColumnAsKey converts slice type variable `slice` to `map[interface{}]interface{}`
 // The value of specified column use as the key for returned map.
-// Eg:
 // SliceToMapWithColumnAsKey([{"K1": "v1", "K2": 1}, {"K1": "v2", "K2": 2}], "K1") => {"v1": {"K1": "v1", "K2": 1}, "v2": {"K1": "v2", "K2": 2}}
 // SliceToMapWithColumnAsKey([{"K1": "v1", "K2": 1}, {"K1": "v2", "K2": 2}], "K2") => {1: {"K1": "v1", "K2": 1}, 2: {"K1": "v2", "K2": 2}}
-
 // ff:
-// key:
 // slice:
+// key:
 func SliceToMapWithColumnAsKey(slice interface{}, key interface{}) map[interface{}]interface{} {
 	var (
 		reflectValue = reflect.ValueOf(slice)

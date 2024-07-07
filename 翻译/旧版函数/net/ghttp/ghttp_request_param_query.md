@@ -41,7 +41,7 @@ X取查询参数到MapStrStr
 
 # <翻译开始>
 ) GetQueryMapStrVar
-X取查询参数到Map泛型类数组
+X取查询参数到Map泛型类切片
 # <翻译结束>
 
 # <翻译开始>

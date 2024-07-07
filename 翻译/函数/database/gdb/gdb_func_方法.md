@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -52,22 +53,22 @@ ctx=上下文
 [func CatchSQL(ctx context.Context, f func(ctx context.Context) error) (sqlArray #左中括号##右中括号#string, err error) {]
 ff=捕捉SQL语句
 err=错误
-sqlArray=sql数组
+sqlArray=sql切片
 f=回调函数
 ctx=上下文
 
 [func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (values #左中括号##右中括号#interface{}) {]
-ff=取结构体数组或Map数组值
-values=数组值
+ff=取结构体切片或Map切片值
+values=切片值
 subKey=子名称
 key=名称
-list=结构体数组或Map数组
+list=结构体切片或Map切片
 
 [func ListItemValuesUnique(list interface{}, key string, subKey ...interface{}) #左中括号##右中括号#interface{} {]
-ff=取结构体数组或Map数组值并去重
+ff=取结构体切片或Map切片值并去重
 subKey=子名称
 key=名称
-list=结构体数组或Map数组
+list=结构体切片或Map切片
 
 [func GetInsertOperationByOption(option InsertOption) string {]
 ff=底层GetInsertOperationByOption
@@ -82,4 +83,4 @@ ff=底层GetPrimaryKeyCondition
 
 [func FormatSqlWithArgs(sql string, args #左中括号##右中括号#interface{}) string {]
 ff=格式化Sql
-args=参数数组
+args=参数切片

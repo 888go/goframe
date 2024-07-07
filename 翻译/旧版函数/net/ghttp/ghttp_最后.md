@@ -86,7 +86,7 @@ X关闭回调函数
 
 # <翻译开始>
 Middleware []HandlerFunc
-X中间件数组
+X中间件切片
 <跳到行首>
 # <翻译结束>
 

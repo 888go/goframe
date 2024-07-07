@@ -23,8 +23,6 @@ type Bar struct {
 type Baz struct {
 	BazKey string `p:"baz_key" v:"required"`
 }
-
-// https://github.com/gogf/gf/issues/2503
 func Test_Issue2503(t *testing.T) {
 	foo := &Foo{
 		Bar: &Bar{BarKey: "value"},

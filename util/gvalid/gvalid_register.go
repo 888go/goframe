@@ -48,10 +48,9 @@ var (
 )
 
 // RegisterRule registers custom validation rule and function for package.
-
 // ff:
-// f:
 // rule:
+// f:
 func RegisterRule(rule string, f RuleFunc) {
 	if customRuleFuncMap[rule] != nil {
 		intlog.PrintFunc(context.TODO(), func() string {
@@ -65,7 +64,6 @@ func RegisterRule(rule string, f RuleFunc) {
 }
 
 // RegisterRuleByMap registers custom validation rules using map for package.
-
 // ff:
 // m:
 func RegisterRuleByMap(m map[string]RuleFunc) {
@@ -75,7 +73,6 @@ func RegisterRuleByMap(m map[string]RuleFunc) {
 }
 
 // GetRegisteredRuleMap returns all the custom registered rules and associated functions.
-
 // ff:
 func GetRegisteredRuleMap() map[string]RuleFunc {
 	if len(customRuleFuncMap) == 0 {
@@ -89,7 +86,6 @@ func GetRegisteredRuleMap() map[string]RuleFunc {
 }
 
 // DeleteRule deletes custom defined validation one or more rules and associated functions from global package.
-
 // ff:
 // rules:
 func DeleteRule(rules ...string) {

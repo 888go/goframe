@@ -21,21 +21,14 @@ func init() {
 	Register(RuleInteger{})
 }
 
-
-// ff:
 func (r RuleInteger) Name() string {
 	return "integer"
 }
 
-
-// ff:
 func (r RuleInteger) Message() string {
 	return "The {field} value `{value}` is not an integer"
 }
 
-
-// ff:
-// in:
 func (r RuleInteger) Run(in RunInput) error {
 	if _, err := strconv.Atoi(in.Value.String()); err == nil {
 		return nil

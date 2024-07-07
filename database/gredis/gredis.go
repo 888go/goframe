@@ -30,7 +30,6 @@ var (
 
 // New creates and returns a redis client.
 // It creates a default redis adapter of go-redis.
-
 // ff:
 // config:
 func New(config ...*Config) (*Redis, error) {
@@ -67,7 +66,6 @@ func New(config ...*Config) (*Redis, error) {
 }
 
 // NewWithAdapter creates and returns a redis client with given adapter.
-
 // ff:
 // adapter:
 func NewWithAdapter(adapter Adapter) (*Redis, error) {
@@ -79,7 +77,6 @@ func NewWithAdapter(adapter Adapter) (*Redis, error) {
 }
 
 // RegisterAdapterFunc registers default function creating redis adapter.
-
 // ff:
 // adapterFunc:
 func RegisterAdapterFunc(adapterFunc AdapterFunc) {

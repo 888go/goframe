@@ -24,21 +24,14 @@ func init() {
 	Register(RuleResidentId{})
 }
 
-
-// ff:
 func (r RuleResidentId) Name() string {
 	return "resident-id"
 }
 
-
-// ff:
 func (r RuleResidentId) Message() string {
 	return "The {field} value `{value}` is not a valid resident id number"
 }
 
-
-// ff:
-// in:
 func (r RuleResidentId) Run(in RunInput) error {
 	if r.checkResidentId(in.Value.String()) {
 		return nil

@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -35,11 +36,9 @@
 # 备注结束
 
 [func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {]
-ff=创建Model对象
 tableNameQueryOrStruct=表名或结构体
 
 [func (c *Core) Raw(rawSql string, args ...interface{}) *Model {]
-ff=原生SQL
 args=参数
 rawSql=原生Sql
 
@@ -49,12 +48,10 @@ args=参数
 rawSql=原生Sql
 
 [func (tx *TXCore) Raw(rawSql string, args ...interface{}) *Model {]
-ff=原生SQL
 args=参数
 rawSql=原生Sql
 
 [func (c *Core) With(objects ...interface{}) *Model {]
-ff=关联对象
 objects=关联结构体
 
 [func (m *Model) Partition(partitions ...string) *Model {]
@@ -62,11 +59,9 @@ ff=设置分区名称
 partitions=分区名称
 
 [func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {]
-ff=创建Model对象
 tableNameQueryOrStruct=表名或结构体
 
 [func (tx *TXCore) With(object interface{}) *Model {]
-ff=关联对象
 object=关联结构体
 
 [func (m *Model) Ctx(ctx context.Context) *Model {]

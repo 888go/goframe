@@ -15,7 +15,6 @@ import (
 
 // Encrypt encrypts any type of variable using CRC32 algorithms.
 // It uses gconv package to convert `v` to its bytes type.
-
 // ff:加密
 // v:待加密值
 func Encrypt(v interface{}) uint32 {

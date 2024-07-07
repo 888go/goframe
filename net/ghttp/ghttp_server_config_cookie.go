@@ -12,53 +12,53 @@ import (
 )
 
 // SetCookieMaxAge sets the CookieMaxAge for server.
-
 // ff:设置Cookie最大存活时长
+// s:
 // ttl:时长
 func (s *Server) SetCookieMaxAge(ttl time.Duration) {
 	s.config.CookieMaxAge = ttl
 }
 
 // SetCookiePath sets the CookiePath for server.
-
 // ff:设置Cookie路径
+// s:
 // path:路径
 func (s *Server) SetCookiePath(path string) {
 	s.config.CookiePath = path
 }
 
 // SetCookieDomain sets the CookieDomain for server.
-
 // ff:设置Cookie域名
+// s:
 // domain:域名
 func (s *Server) SetCookieDomain(domain string) {
 	s.config.CookieDomain = domain
 }
 
 // GetCookieMaxAge returns the CookieMaxAge of the server.
-
 // ff:取Cookie最大存活时长
+// s:
 func (s *Server) GetCookieMaxAge() time.Duration {
 	return s.config.CookieMaxAge
 }
 
 // GetCookiePath returns the CookiePath of server.
-
 // ff:取Cookie路径
+// s:
 func (s *Server) GetCookiePath() string {
 	return s.config.CookiePath
 }
 
 // GetCookieDomain returns CookieDomain of server.
-
 // ff:取Cookie域名
+// s:
 func (s *Server) GetCookieDomain() string {
 	return s.config.CookieDomain
 }
 
 // GetCookieSameSite return CookieSameSite of server.
-
 // ff:取CookieSameSite
+// s:
 func (s *Server) GetCookieSameSite() http.SameSite {
 	switch s.config.CookieSameSite {
 	case "lax":
@@ -72,14 +72,14 @@ func (s *Server) GetCookieSameSite() http.SameSite {
 	}
 }
 
-
 // ff:取Cookie安全
+// s:
 func (s *Server) GetCookieSecure() bool {
 	return s.config.CookieSecure
 }
 
-
 // ff:取CookieHttpOnly
+// s:
 func (s *Server) GetCookieHttpOnly() bool {
 	return s.config.CookieHttpOnly
 }

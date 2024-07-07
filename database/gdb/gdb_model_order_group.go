@@ -15,14 +15,13 @@ import (
 
 // Order sets the "ORDER BY" statement for the model.
 //
-// Eg:
 // Order("id desc")
 // Order("id", "desc").
 // Order("id desc,name asc")
 // Order("id desc").Order("name asc")
 // Order(gdb.Raw("field(id, 3,1,2)")).
-
 // ff:排序
+// m:
 // orderBy:字段名与排序方式
 func (m *Model) Order(orderBy ...interface{}) *Model {
 	if len(orderBy) == 0 {
@@ -44,8 +43,8 @@ func (m *Model) Order(orderBy ...interface{}) *Model {
 }
 
 // OrderAsc sets the "ORDER BY xxx ASC" statement for the model.
-
 // ff:排序ASC
+// m:
 // column:字段名称
 func (m *Model) OrderAsc(column string) *Model {
 	if len(column) == 0 {
@@ -55,8 +54,8 @@ func (m *Model) OrderAsc(column string) *Model {
 }
 
 // OrderDesc sets the "ORDER BY xxx DESC" statement for the model.
-
 // ff:排序Desc
+// m:
 // column:字段名称
 func (m *Model) OrderDesc(column string) *Model {
 	if len(column) == 0 {
@@ -66,8 +65,8 @@ func (m *Model) OrderDesc(column string) *Model {
 }
 
 // OrderRandom sets the "ORDER BY RANDOM()" statement for the model.
-
 // ff:排序随机
+// m:
 func (m *Model) OrderRandom() *Model {
 	model := m.getModel()
 	model.orderBy = "RAND()"
@@ -75,8 +74,8 @@ func (m *Model) OrderRandom() *Model {
 }
 
 // Group sets the "GROUP BY" statement for the model.
-
 // ff:排序分组
+// m:
 // groupBy:分组名称
 func (m *Model) Group(groupBy ...string) *Model {
 	if len(groupBy) == 0 {

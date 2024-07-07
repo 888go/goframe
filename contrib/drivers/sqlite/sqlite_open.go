@@ -20,12 +20,11 @@ import (
 )
 
 // Open creates and returns an underlying sql.DB object for sqlite.
-// https://github.com/glebarez/go-sqlite
-
 // ff:
-// err:
-// db:
+// d:
 // config:
+// db:
+// err:
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string

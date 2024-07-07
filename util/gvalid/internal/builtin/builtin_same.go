@@ -25,21 +25,14 @@ func init() {
 	Register(RuleSame{})
 }
 
-
-// ff:
 func (r RuleSame) Name() string {
 	return "same"
 }
 
-
-// ff:
 func (r RuleSame) Message() string {
 	return "The {field} value `{value}` must be the same as field {field1} value `{value1}`"
 }
 
-
-// ff:
-// in:
 func (r RuleSame) Run(in RunInput) error {
 	var (
 		ok    bool

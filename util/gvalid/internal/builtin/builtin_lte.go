@@ -26,21 +26,14 @@ func init() {
 	Register(RuleLTE{})
 }
 
-
-// ff:
 func (r RuleLTE) Name() string {
 	return "lte"
 }
 
-
-// ff:
 func (r RuleLTE) Message() string {
 	return "The {field} value `{value}` must be lesser than or equal to field {field1} value `{value1}`"
 }
 
-
-// ff:
-// in:
 func (r RuleLTE) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

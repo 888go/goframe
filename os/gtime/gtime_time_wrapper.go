@@ -17,8 +17,8 @@ type wrapper struct {
 }
 
 // String overwrites the String function of time.Time.
-
 // ff:
+// t:
 func (t wrapper) String() string {
 	if t.IsZero() {
 		return ""

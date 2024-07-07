@@ -31,10 +31,9 @@ type internalRingItem struct {
 // New creates and returns a Ring structure of `cap` elements.
 // The optional parameter `safe` specifies whether using this structure in concurrent safety,
 // which is false in default.
-
 // ff:
-// safe:
 // cap:
+// safe:
 func New(cap int, safe ...bool) *Ring {
 	return &Ring{
 		mu:    rwmutex.New(safe...),
@@ -46,9 +45,9 @@ func New(cap int, safe ...bool) *Ring {
 }
 
 // Val returns the item's value of current position.
-
-// ff:取值
 // yx:true
+// ff:取值
+// r:
 func (r *Ring) Val() interface{} {
 	var value interface{}
 	r.mu.RLock()
@@ -60,16 +59,16 @@ func (r *Ring) Val() interface{} {
 }
 
 // Len returns the size of ring.
-
 // ff:
+// r:
 func (r *Ring) Len() int {
 	r.checkAndUpdateLenAndCap()
 	return r.len.Val()
 }
 
 // Cap returns the capacity of ring.
-
 // ff:
+// r:
 func (r *Ring) Cap() int {
 	r.checkAndUpdateLenAndCap()
 	return r.cap.Val()
@@ -102,9 +101,9 @@ func (r *Ring) checkAndUpdateLenAndCap() {
 }
 
 // Set sets value to the item of current position.
-
-// ff:设置值
 // yx:true
+// ff:设置值
+// r:
 // value:
 func (r *Ring) Set(value interface{}) *Ring {
 	r.mu.Lock()
@@ -117,8 +116,8 @@ func (r *Ring) Set(value interface{}) *Ring {
 }
 
 // Put sets `value` to current item of ring and moves position to next item.
-
 // ff:
+// r:
 // value:
 func (r *Ring) Put(value interface{}) *Ring {
 	r.mu.Lock()
@@ -133,8 +132,8 @@ func (r *Ring) Put(value interface{}) *Ring {
 
 // Move moves n % r.Len() elements backward (n < 0) or forward (n >= 0)
 // in the ring and returns that ring element. r must not be empty.
-
 // ff:
+// r:
 // n:
 func (r *Ring) Move(n int) *Ring {
 	r.mu.Lock()
@@ -144,8 +143,8 @@ func (r *Ring) Move(n int) *Ring {
 }
 
 // Prev returns the previous ring element. r must not be empty.
-
 // ff:
+// r:
 func (r *Ring) Prev() *Ring {
 	r.mu.Lock()
 	r.ring = r.ring.Prev()
@@ -154,8 +153,8 @@ func (r *Ring) Prev() *Ring {
 }
 
 // Next returns the next ring element. r must not be empty.
-
 // ff:
+// r:
 func (r *Ring) Next() *Ring {
 	r.mu.Lock()
 	r.ring = r.ring.Next()
@@ -178,8 +177,8 @@ func (r *Ring) Next() *Ring {
 // them creates a single ring with the elements of s inserted
 // after r. The result points to the element following the
 // last element of s after insertion.
-
 // ff:
+// r:
 // s:
 func (r *Ring) Link(s *Ring) *Ring {
 	r.mu.Lock()
@@ -195,8 +194,8 @@ func (r *Ring) Link(s *Ring) *Ring {
 // Unlink removes n % r.Len() elements from the ring r, starting
 // at r.Next(). If n % r.Len() == 0, r remains unchanged.
 // The result is the removed sub-ring. r must not be empty.
-
 // ff:
+// r:
 // n:
 func (r *Ring) Unlink(n int) *Ring {
 	r.mu.Lock()
@@ -212,9 +211,10 @@ func (r *Ring) Unlink(n int) *Ring {
 // RLockIteratorNext iterates and locks reading forward
 // with given callback function `f` within RWMutex.RLock.
 // If `f` returns true, then it continues iterating; or false to stop.
-
 // ff:
+// r:
 // f:
+// value:
 func (r *Ring) RLockIteratorNext(f func(value interface{}) bool) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
@@ -231,9 +231,10 @@ func (r *Ring) RLockIteratorNext(f func(value interface{}) bool) {
 // RLockIteratorPrev iterates and locks writing backward
 // with given callback function `f` within RWMutex.RLock.
 // If `f` returns true, then it continues iterating; or false to stop.
-
 // ff:
+// r:
 // f:
+// value:
 func (r *Ring) RLockIteratorPrev(f func(value interface{}) bool) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
@@ -248,8 +249,8 @@ func (r *Ring) RLockIteratorPrev(f func(value interface{}) bool) {
 }
 
 // SliceNext returns a copy of all item values as slice forward from current position.
-
 // ff:
+// r:
 func (r *Ring) SliceNext() []interface{} {
 	s := make([]interface{}, 0)
 	r.mu.RLock()
@@ -267,8 +268,8 @@ func (r *Ring) SliceNext() []interface{} {
 }
 
 // SlicePrev returns a copy of all item values as slice backward from current position.
-
 // ff:
+// r:
 func (r *Ring) SlicePrev() []interface{} {
 	s := make([]interface{}, 0)
 	r.mu.RLock()

@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -70,27 +71,27 @@ cz=Bytes() []byte
 yx=true
 
 [Interfaces() #左中括号##右中括号#interface{}]
-qm=取any数组
+qm=取any切片
 cz=Interfaces() []interface{}
 yx=true
 
 [Floats() #左中括号##右中括号#float64]
-qm=取小数数组
+qm=取小数切片
 cz=Floats() []float64
 yx=true
 
 [Ints() #左中括号##右中括号#int]
-qm=取整数数组
+qm=取整数切片
 cz=Ints() []int
 yx=true
 
 [Strings() #左中括号##右中括号#string]
-qm=取文本数组
+qm=取文本切片
 cz=Strings() []string
 yx=true
 
 [Uints() #左中括号##右中括号#uint]
-qm=取正整数数组
+qm=取正整数切片
 cz=Uints() []uint
 yx=true
 

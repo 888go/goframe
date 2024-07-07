@@ -47,10 +47,9 @@ var (
 )
 
 // NewStorageFile creates and returns a file storage object for session.
-
 // ff:
-// ttl:
 // path:
+// ttl:
 func NewStorageFile(path string, ttl time.Duration) *StorageFile {
 	var (
 		ctx         = context.TODO()
@@ -116,16 +115,16 @@ func (s *StorageFile) timelyClearExpiredSessionFile(ctx context.Context) {
 
 // SetCryptoKey sets the crypto key for session storage.
 // The crypto key is used when crypto feature is enabled.
-
 // ff:
+// s:
 // key:
 func (s *StorageFile) SetCryptoKey(key []byte) {
 	s.cryptoKey = key
 }
 
 // SetCryptoEnabled enables/disables the crypto feature for session storage.
-
 // ff:
+// s:
 // enabled:
 func (s *StorageFile) SetCryptoEnabled(enabled bool) {
 	s.cryptoEnabled = enabled
@@ -137,10 +136,10 @@ func (s *StorageFile) sessionFilePath(sessionId string) string {
 }
 
 // RemoveAll deletes all key-value pairs from storage.
-
 // ff:
-// sessionId:
+// s:
 // ctx:
+// sessionId:
 func (s *StorageFile) RemoveAll(ctx context.Context, sessionId string) error {
 	return gfile.Remove(s.sessionFilePath(sessionId))
 }
@@ -152,13 +151,13 @@ func (s *StorageFile) RemoveAll(ctx context.Context, sessionId string) error {
 // and for some storage it might be nil if memory storage is disabled.
 //
 // This function is called ever when session starts.
-
 // ff:
-// err:
-// sessionData:
-// ttl:
-// sessionId:
+// s:
 // ctx:
+// sessionId:
+// ttl:
+// sessionData:
+// err:
 func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (sessionData *gmap.StrAnyMap, err error) {
 	var (
 		path    = s.sessionFilePath(sessionId)
@@ -193,12 +192,12 @@ func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time
 // SetSession updates the data map for specified session id.
 // This function is called ever after session, which is changed dirty, is closed.
 // This copy all session data map from memory to storage.
-
 // ff:
-// ttl:
-// sessionData:
-// sessionId:
+// s:
 // ctx:
+// sessionId:
+// sessionData:
+// ttl:
 func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageFile.SetSession: %s, %v, %v", sessionId, sessionData, ttl)
 	path := s.sessionFilePath(sessionId)
@@ -234,11 +233,11 @@ func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionD
 // UpdateTTL updates the TTL for specified session id.
 // This function is called ever after session, which is not dirty, is closed.
 // It just adds the session id to the async handling queue.
-
 // ff:
-// ttl:
-// sessionId:
+// s:
 // ctx:
+// sessionId:
+// ttl:
 func (s *StorageFile) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageFile.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageFileUpdateTTLInterval {

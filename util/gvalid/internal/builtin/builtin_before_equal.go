@@ -24,21 +24,14 @@ func init() {
 	Register(RuleBeforeEqual{})
 }
 
-
-// ff:
 func (r RuleBeforeEqual) Name() string {
 	return "before-equal"
 }
 
-
-// ff:
 func (r RuleBeforeEqual) Message() string {
 	return "The {field} value `{value}` must be before or equal to field {pattern}"
 }
 
-
-// ff:
-// in:
 func (r RuleBeforeEqual) Run(in RunInput) error {
 	var (
 		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)

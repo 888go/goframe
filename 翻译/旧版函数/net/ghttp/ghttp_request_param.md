@@ -101,5 +101,5 @@ X取multipart表单对象
 
 # <翻译开始>
 ) GetMultipartFiles
-X取multipart表单文件数组对象
+X取multipart表单文件切片对象
 # <翻译结束>

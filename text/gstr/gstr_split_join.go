@@ -14,10 +14,9 @@ import (
 )
 
 // Split splits string `str` by a string `delimiter`, to an array.
-
 // ff:分割
-// delimiter:用作分割的文本
 // str:文本
+// delimiter:用作分割的文本
 func Split(str, delimiter string) []string {
 	return strings.Split(str, delimiter)
 }
@@ -25,21 +24,19 @@ func Split(str, delimiter string) []string {
 // SplitAndTrim splits string `str` by a string `delimiter` to an array,
 // and calls Trim to every element of this array. It ignores the elements
 // which are empty after Trim.
-
 // ff:分割并忽略空值
-// characterMask:
-// delimiter:用作分割的文本
 // str:文本
+// delimiter:用作分割的文本
+// characterMask:
 func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
 	return utils.SplitAndTrim(str, delimiter, characterMask...)
 }
 
 // Join concatenates the elements of `array` to create a single string. The separator string
 // `sep` is placed between elements in the resulting string.
-
 // ff:连接
+// array:切片
 // sep:连接符
-// array:数组
 func Join(array []string, sep string) string {
 	return strings.Join(array, sep)
 }
@@ -48,30 +45,26 @@ func Join(array []string, sep string) string {
 // `sep` is placed between elements in the resulting string.
 //
 // The parameter `array` can be any type of slice, which be converted to string array.
-
 // ff:连接Any
+// array:切片
 // sep:连接符
-// array:数组
 func JoinAny(array interface{}, sep string) string {
 	return strings.Join(gconv.Strings(array), sep)
 }
 
 // Explode splits string `str` by a string `delimiter`, to an array.
 // See http://php.net/manual/en/function.explode.php.
-
 // ff:Explode别名
-// str:
 // delimiter:
+// str:
 func Explode(delimiter, str string) []string {
 	return Split(str, delimiter)
 }
 
 // Implode joins array elements `pieces` with a string `glue`.
-// http://php.net/manual/en/function.implode.php
-
 // ff:Implode别名
-// pieces:
 // glue:
+// pieces:
 func Implode(glue string, pieces []string) string {
 	return strings.Join(pieces, glue)
 }
@@ -81,11 +74,10 @@ func Implode(glue string, pieces []string) string {
 // e.g. converting BASE64 string output to match RFC 2045 semantics.
 // It inserts end every chunkLen characters.
 // It considers parameter `body` and `end` as unicode string.
-
 // ff:长度分割
-// end:分割符
-// chunkLen:分割长度
 // body:文本
+// chunkLen:分割长度
+// end:分割符
 func ChunkSplit(body string, chunkLen int, end string) string {
 	if end == "" {
 		end = "\r\n"
@@ -108,7 +100,6 @@ func ChunkSplit(body string, chunkLen int, end string) string {
 }
 
 // Fields returns the words used in a string as slice.
-
 // ff:单词分割
 // str:文本
 func Fields(str string) []string {

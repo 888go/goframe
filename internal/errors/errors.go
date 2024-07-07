@@ -56,8 +56,6 @@ func init() {
 }
 
 // IsStackModeBrief returns whether current error stack mode is in brief mode.
-
-// ff:
 func IsStackModeBrief() bool {
 	return stackModeConfigured == StackModeBrief
 }

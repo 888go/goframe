@@ -23,21 +23,14 @@ func init() {
 	Register(RuleDateFormat{})
 }
 
-
-// ff:
 func (r RuleDateFormat) Name() string {
 	return "date-format"
 }
 
-
-// ff:
 func (r RuleDateFormat) Message() string {
 	return "The {field} value `{value}` does not match the format: {pattern}"
 }
 
-
-// ff:
-// in:
 func (r RuleDateFormat) Run(in RunInput) error {
 	type iTime interface {
 		Date() (year int, month time.Month, day int)

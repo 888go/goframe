@@ -51,7 +51,7 @@ X替换并忽略大小写
 
 # <翻译开始>
 func ReplaceByArray(origin string, array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -61,12 +61,12 @@ func ReplaceByArray(origin
 
 # <翻译开始>
 func ReplaceByArray
-X数组替换
+X切片替换
 # <翻译结束>
 
 # <翻译开始>
 func ReplaceIByArray(origin string, array
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
@@ -76,7 +76,7 @@ func ReplaceIByArray(origin
 
 # <翻译开始>
 func ReplaceIByArray
-X数组替换并忽略大小写
+X切片替换并忽略大小写
 # <翻译结束>
 
 # <翻译开始>
@@ -96,7 +96,7 @@ Map替换
 
 # <翻译开始>
 func ReplaceIByMap(origin string, replaces
-map数组
+map切片
 # <翻译结束>
 
 # <翻译开始>

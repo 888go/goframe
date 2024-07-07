@@ -22,21 +22,14 @@ func init() {
 	Register(RuleIpv4{})
 }
 
-
-// ff:
 func (r RuleIpv4) Name() string {
 	return "ipv4"
 }
 
-
-// ff:
 func (r RuleIpv4) Message() string {
 	return "The {field} value `{value}` is not a valid IPv4 address"
 }
 
-
-// ff:
-// in:
 func (r RuleIpv4) Run(in RunInput) error {
 	var (
 		ok    bool

@@ -18,10 +18,9 @@ type Manager struct {
 }
 
 // New creates and returns a new session manager.
-
 // ff:
-// storage:
 // ttl:
+// storage:
 func New(ttl time.Duration, storage ...Storage) *Manager {
 	m := &Manager{
 		ttl: ttl,
@@ -38,10 +37,10 @@ func New(ttl time.Duration, storage ...Storage) *Manager {
 // New creates or fetches the session for given session id.
 // The parameter `sessionId` is optional, it creates a new one if not it's passed
 // depending on Storage.New.
-
 // ff:
-// sessionId:
+// m:
 // ctx:
+// sessionId:
 func (m *Manager) New(ctx context.Context, sessionId ...string) *Session {
 	var id string
 	if len(sessionId) > 0 && sessionId[0] != "" {
@@ -55,31 +54,31 @@ func (m *Manager) New(ctx context.Context, sessionId ...string) *Session {
 }
 
 // SetStorage sets the session storage for manager.
-
 // ff:
+// m:
 // storage:
 func (m *Manager) SetStorage(storage Storage) {
 	m.storage = storage
 }
 
 // GetStorage returns the session storage of current manager.
-
 // ff:
+// m:
 func (m *Manager) GetStorage() Storage {
 	return m.storage
 }
 
 // SetTTL the TTL for the session manager.
-
 // ff:
+// m:
 // ttl:
 func (m *Manager) SetTTL(ttl time.Duration) {
 	m.ttl = ttl
 }
 
 // GetTTL returns the TTL of the session manager.
-
 // ff:
+// m:
 func (m *Manager) GetTTL() time.Duration {
 	return m.ttl
 }

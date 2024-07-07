@@ -10,20 +10,18 @@ import "strings"
 
 // Compare returns an integer comparing two strings lexicographically.
 // The result will be 0 if a==b, -1 if a < b, and +1 if a > b.
-
 // ff:顺序比较
-// b:
 // a:
+// b:
 func Compare(a, b string) int {
 	return strings.Compare(a, b)
 }
 
 // Equal reports whether `a` and `b`, interpreted as UTF-8 strings,
 // are equal under Unicode case-folding, case-insensitively.
-
 // ff:相等比较并忽略大小写
-// b:
 // a:
+// b:
 func Equal(a, b string) bool {
 	return strings.EqualFold(a, b)
 }

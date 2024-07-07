@@ -21,11 +21,11 @@ import (
 //
 // The optional parameter `method` is used to specify the method to be registered, which
 // supports multiple method names; multiple methods are separated by char ',', case-sensitive.
-
 // ff:绑定对象
-// method:方法名
-// object:处理对象
+// s:
 // pattern:路由规则
+// object:处理对象
+// method:方法名
 func (s *Server) BindObject(pattern string, object interface{}, method ...string) {
 	var bindMethod = ""
 	if len(method) > 0 {
@@ -45,11 +45,11 @@ func (s *Server) BindObject(pattern string, object interface{}, method ...string
 //
 // The optional parameter `method` is used to specify the method to be registered, which
 // does not support multiple method names but only one, case-sensitive.
-
 // ff:绑定对象方法
-// method:方法
-// object:处理对象
+// s:
 // pattern:路由规则
+// object:处理对象
+// method:方法
 func (s *Server) BindObjectMethod(pattern string, object interface{}, method string) {
 	s.doBindObjectMethod(context.TODO(), doBindObjectMethodInput{
 		Prefix:     "",
@@ -62,10 +62,10 @@ func (s *Server) BindObjectMethod(pattern string, object interface{}, method str
 }
 
 // BindObjectRest registers object in REST API styles to server with a specified pattern.
-
 // ff:绑定RESTfulAPI对象
-// object:处理对象
+// s:
 // pattern:路由规则
+// object:处理对象
 func (s *Server) BindObjectRest(pattern string, object interface{}) {
 	s.doBindObjectRest(context.TODO(), doBindObjectInput{
 		Prefix:     "",

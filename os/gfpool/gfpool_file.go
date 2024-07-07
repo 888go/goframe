@@ -17,14 +17,13 @@ import (
 // Open creates and returns a file item with given file path, flag and opening permission.
 // It automatically creates an associated file pointer pool internally when it's called first time.
 // It retrieves a file item from the file pointer pool after then.
-
 // ff:
-// err:
-// file:
-// ttl:
-// perm:
-// flag:
 // path:
+// flag:
+// perm:
+// ttl:
+// file:
+// err:
 func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *File, err error) {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -49,13 +48,12 @@ func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *
 
 // Get returns a file item with given file path, flag and opening permission.
 // It retrieves a file item from the file pointer pool after then.
-
 // ff:
-// file:
-// ttl:
-// perm:
-// flag:
 // path:
+// flag:
+// perm:
+// ttl:
+// file:
 func Get(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *File) {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -72,8 +70,8 @@ func Get(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *F
 }
 
 // Stat returns the FileInfo structure describing file.
-
 // ff:
+// f:
 func (f *File) Stat() (os.FileInfo, error) {
 	if f.stat == nil {
 		return nil, gerror.New("file stat is empty")
@@ -82,8 +80,8 @@ func (f *File) Stat() (os.FileInfo, error) {
 }
 
 // Close puts the file pointer back to the file pointer pool.
-
 // ff:
+// f:
 // close:
 func (f *File) Close(close ...bool) error {
 	if len(close) > 0 && close[0] {

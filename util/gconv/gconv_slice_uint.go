@@ -16,7 +16,6 @@ import (
 )
 
 // SliceUint is alias of Uints.
-
 // ff:SliceUint别名
 // any:
 func SliceUint(any interface{}) []uint {
@@ -24,7 +23,6 @@ func SliceUint(any interface{}) []uint {
 }
 
 // SliceUint32 is alias of Uint32s.
-
 // ff:SliceUint32别名
 // any:
 func SliceUint32(any interface{}) []uint32 {
@@ -32,7 +30,6 @@ func SliceUint32(any interface{}) []uint32 {
 }
 
 // SliceUint64 is alias of Uint64s.
-
 // ff:SliceUint64别名
 // any:
 func SliceUint64(any interface{}) []uint64 {
@@ -40,9 +37,8 @@ func SliceUint64(any interface{}) []uint64 {
 }
 
 // Uints converts `any` to []uint.
-
-// ff:取正整数数组
 // yx:true
+// ff:取正整数切片
 // any:
 func Uints(any interface{}) []uint {
 	if any == nil {
@@ -181,8 +177,7 @@ func Uints(any interface{}) []uint {
 }
 
 // Uint32s converts `any` to []uint32.
-
-// ff:取正整数32位数组
+// ff:取正整数32位切片
 // any:值
 func Uint32s(any interface{}) []uint32 {
 	if any == nil {
@@ -318,8 +313,7 @@ func Uint32s(any interface{}) []uint32 {
 }
 
 // Uint64s converts `any` to []uint64.
-
-// ff:取正整数64位数组
+// ff:取正整数64位切片
 // any:值
 func Uint64s(any interface{}) []uint64 {
 	if any == nil {

@@ -19,10 +19,6 @@ type OriginValueAndKindOutput struct {
 }
 
 // OriginValueAndKind retrieves and returns the original reflect value and kind.
-
-// ff:
-// out:
-// value:
 func OriginValueAndKind(value interface{}) (out OriginValueAndKindOutput) {
 	if v, ok := value.(reflect.Value); ok {
 		out.InputValue = v
@@ -47,10 +43,6 @@ type OriginTypeAndKindOutput struct {
 }
 
 // OriginTypeAndKind retrieves and returns the original reflect type and kind.
-
-// ff:
-// out:
-// value:
 func OriginTypeAndKind(value interface{}) (out OriginTypeAndKindOutput) {
 	if value == nil {
 		return
@@ -75,11 +67,6 @@ func OriginTypeAndKind(value interface{}) (out OriginTypeAndKindOutput) {
 }
 
 // ValueToInterface converts reflect value to its interface type.
-
-// ff:
-// ok:
-// value:
-// v:
 func ValueToInterface(v reflect.Value) (value interface{}, ok bool) {
 	if v.IsValid() && v.CanInterface() {
 		return v.Interface(), true

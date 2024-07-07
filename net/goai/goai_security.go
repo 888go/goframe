@@ -46,8 +46,8 @@ type OAuthFlow struct {
 	Scopes           map[string]string `json:"scopes"`
 }
 
-
 // ff:
+// r:
 func (r SecuritySchemeRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

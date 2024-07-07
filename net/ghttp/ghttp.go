@@ -30,7 +30,7 @@ import (
 
 type (
 	// Server wraps the http.Server and provides more rich features.
-	Server struct { //qm:服务 cz:Server struct {     
+	Server struct {//qm:服务  cz:Server struct {  
 		instance         string                    // Instance name of current HTTP server.
 		config           ServerConfig              // Server configuration.
 		plugins          []Plugin                  // Plugin array to extend server functionality.
@@ -49,27 +49,27 @@ type (
 	}
 
 	// Router object.
-	Router struct { //qm:路由 cz:Router struct {     
+	Router struct {//qm:路由  cz:Router struct {  
 		Uri      string   // URI.
 		Method   string   // HTTP method
 		Domain   string   // Bound domain.
-		RegRule  string    //qm:正则路由规则 cz:RegRule string     // Parsed regular expression for route matching.
-		RegNames []string  //qm:路由参数名称 cz:RegNames []string     // Parsed router parameter names.
+		RegRule  string//qm:正则路由规则  cz:RegRule string     // Parsed regular expression for route matching.
+		RegNames []string//qm:路由参数名称  cz:RegNames []string   // Parsed router parameter names.
 		Priority int      // Just for reference.
 	}
 
 	// RouterItem is just for route dumps.
 	RouterItem struct {
 		Handler          *HandlerItem // The handler.
-		Server           string        //qm:服务器名称 cz:Server string     // Server name.
-		Address          string        //qm:监听地址 cz:Address string     // Listening address.
+		Server           string//qm:服务器名称  cz:Server string         // Server name.
+		Address          string//qm:监听地址  cz:Address string         // Listening address.
 		Domain           string       // Bound domain.
 		Type             HandlerType  // Route handler type.
-		Middleware       string        //qm:中间件名称 cz:Middleware string     // Bound middleware.
+		Middleware       string//qm:中间件名称  cz:Middleware string         // Bound middleware.
 		Method           string       // Handler method name.
-		Route            string        //qm:路由URI cz:Route string     // Route URI.
+		Route            string//qm:路由URI  cz:Route string         // Route URI.
 		Priority         int          // Just for reference.
-		IsServiceHandler bool          //qm:是否为服务处理器 cz:IsServiceHandler bool     // Is service handler.
+		IsServiceHandler bool//qm:是否为服务处理器  cz:IsServiceHandler bool           // Is service handler.
 	}
 
 	// HandlerFunc is request handler function.
@@ -86,36 +86,36 @@ type (
 
 	// HandlerItem is the registered handler for route handling,
 	// including middleware and hook functions.
-	HandlerItem struct { //qm:路由处理函数 cz:HandlerItem struct {     
+	HandlerItem struct {//qm:路由处理函数  cz:HandlerItem struct {  
 		// Unique handler item id mark.
 		// Note that the handler function may be registered multiple times as different handler items,
 		// which have different handler item id.
 		Id         int
-		Name       string           //qm:处理器名称 cz:Name string     // Handler name, which is automatically retrieved from runtime stack when registered.
+		Name       string//qm:处理器名称  cz:Name string            // Handler name, which is automatically retrieved from runtime stack when registered.
 		Type       HandlerType     // Handler type: object/handler/middleware/hook.
-		Info       handlerFuncInfo  //qm:处理器函数信息 cz:Info handlerFuncInfo     // Handler function information.
-		InitFunc   HandlerFunc      //qm:初始化回调函数 cz:InitFunc HandlerFunc     // Initialization function when request enters the object (only available for object register type).
-		ShutFunc   HandlerFunc      //qm:关闭回调函数 cz:ShutFunc HandlerFunc     // Shutdown function when request leaves out the object (only available for object register type).
-		Middleware []HandlerFunc    //qm:中间件数组 cz:Middleware []HandlerFunc     // Bound middleware array.
-		HookName   HookName         //qm:Hook名称 cz:HookName HookName     // Hook type name, only available for the hook type.
-		Router     *Router          //qm:路由 cz:Router *     // Router object.
-		Source     string           //qm:注册来源 cz:Source string     // Registering source file `path:line`.
+		Info       handlerFuncInfo//qm:处理器函数信息  cz:Info handlerFuncInfo   // Handler function information.
+		InitFunc   HandlerFunc//qm:初始化回调函数  cz:InitFunc HandlerFunc       // Initialization function when request enters the object (only available for object register type).
+		ShutFunc   HandlerFunc//qm:关闭回调函数  cz:ShutFunc HandlerFunc       // Shutdown function when request leaves out the object (only available for object register type).
+		Middleware []HandlerFunc//qm:中间件切片  cz:Middleware []HandlerFunc     // Bound middleware array.
+		HookName   HookName//qm:Hook名称  cz:HookName HookName          // Hook type name, only available for the hook type.
+		Router     *Router//qm:路由  cz:Router *           // Router object.
+		Source     string//qm:注册来源  cz:Source string            // Registering source file `path:line`.
 	}
 
 	// HandlerItemParsed is the item parsed from URL.Path.
-	HandlerItemParsed struct { //qm:路由解析 cz:HandlerItemParsed struct {     
+	HandlerItemParsed struct {//qm:路由解析  cz:HandlerItemParsed struct {  
 		Handler *HandlerItem      // Handler information.
-		Values  map[string]string  //qm:路由值 cz:Values map[string]string     // Router values parsed from URL.Path.
+		Values  map[string]string//qm:路由值  cz:Values map[string]string   // Router values parsed from URL.Path.
 	}
 
 	// ServerStatus is the server status enum type.
-	ServerStatus = int //qm:服务状态 cz:ServerStatus = int     
+	ServerStatus = int//qm:服务状态  cz:ServerStatus = int  
 
 	// HookName is the route hook name enum type.
-	HookName string //qm:Hook名称 cz:HookName string     
+	HookName string//qm:Hook名称  cz:HookName string  
 
 	// HandlerType is the route handler enum type.
-	HandlerType string //qm:路由处理器类型 cz:HandlerType string     
+	HandlerType string//qm:路由处理器类型  cz:HandlerType string  
 
 	// Listening file descriptor mapping.
 	// The key is either "http" or "https" and the value is its FD.
@@ -127,7 +127,7 @@ type (
 
 const (
 	// FreePortAddress marks the server listens using random free port.
-	FreePortAddress = ":0" //qm:空闲端口地址 cz:FreePortAddress = ":0"     
+	FreePortAddress = ":0"//qm:空闲端口地址  cz:FreePortAddress = ":0"  
 )
 
 const (
@@ -206,7 +206,7 @@ var (
 )
 
 var (
-	ErrNeedJsonBody = gerror.NewWithOption(gerror.Option{ //qm:ERR请求体必须json格式 cz:ErrNeedJsonBody =     
+	ErrNeedJsonBody = gerror.NewWithOption(gerror.Option{//qm:ERR请求体必须json格式  cz:ErrNeedJsonBody =  
 		Text: "the request body content should be JSON format",
 		Code: gcode.CodeInvalidRequest,
 	})

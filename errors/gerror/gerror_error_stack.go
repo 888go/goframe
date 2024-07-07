@@ -31,8 +31,8 @@ type stackLine struct {
 }
 
 // Stack returns the error stack information as string.
-
 // ff:
+// err:
 func (err *Error) Stack() string {
 	if err == nil {
 		return ""

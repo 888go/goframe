@@ -1,79 +1,79 @@
 
 # <翻译开始>
 List = []Map
-Map数组
+Map切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListAnyAny = []MapAnyAny
-MapAnyAny数组
+MapAnyAny切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListAnyStr = []MapAnyStr
-MapAnyStr数组
+MapAnyStr切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListAnyInt = []MapAnyInt
-MapAnyInt数组
+MapAnyInt切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListStrAny = []MapStrAny
-MapStrAny数组
+MapStrAny切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListStrStr = []MapStrStr
-MapStrStr数组
+MapStrStr切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListStrInt = []MapStrInt
-MapStrInt数组
+MapStrInt切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListIntAny = []MapIntAny
-MapIntAny数组
+MapIntAny切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListIntStr = []MapIntStr
-MapIntStr数组
+MapIntStr切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListIntInt = []MapIntInt
-MapIntInt数组
+MapIntInt切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListAnyBool = []MapAnyBool
-MapAnyBool数组
+MapAnyBool切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListStrBool = []MapStrBool
-MapStrBool数组
+MapStrBool切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ListIntBool = []MapIntBool
-MapIntBool数组
+MapIntBool切片
 <跳到行首>
 # <翻译结束>
 
@@ -103,24 +103,24 @@ SliceInt别名
 
 # <翻译开始>
 Array = []interface{}
-X数组
+X切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ArrayAny = []interface{}
-Any数组
+Any切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ArrayStr = []string
-X文本数组
+X文本切片
 <跳到行首>
 # <翻译结束>
 
 # <翻译开始>
 ArrayInt = []int
-X整数数组
+X整数切片
 <跳到行首>
 # <翻译结束>

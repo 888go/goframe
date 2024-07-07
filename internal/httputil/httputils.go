@@ -25,11 +25,6 @@ const (
 // string/[]byte/map/struct/*struct.
 //
 // The optional parameter `noUrlEncode` specifies whether ignore the url encoding for the data.
-
-// ff:
-// encodedParamStr:
-// noUrlEncode:
-// params:
 func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr string) {
 	// If given string/[]byte, converts and returns it directly as string.
 	switch v := params.(type) {
@@ -82,9 +77,6 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 }
 
 // HeaderToMap coverts request headers to map.
-
-// ff:
-// header:
 func HeaderToMap(header http.Header) map[string]interface{} {
 	m := make(map[string]interface{})
 	for k, v := range header {

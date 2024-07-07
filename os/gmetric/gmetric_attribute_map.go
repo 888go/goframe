@@ -10,8 +10,8 @@ package gmetric
 type AttributeMap map[string]any
 
 // Sets adds given attribute map to current map.
-
 // ff:
+// m:
 // attrMap:
 func (m AttributeMap) Sets(attrMap map[string]any) {
 	for k, v := range attrMap {
@@ -20,8 +20,8 @@ func (m AttributeMap) Sets(attrMap map[string]any) {
 }
 
 // Pick picks and returns attributes by given attribute keys.
-
 // ff:
+// m:
 // keys:
 func (m AttributeMap) Pick(keys ...string) Attributes {
 	var attrs = make(Attributes, 0)
@@ -36,8 +36,8 @@ func (m AttributeMap) Pick(keys ...string) Attributes {
 }
 
 // PickEx picks and returns attributes of which the given attribute keys does not in given `keys`.
-
 // ff:
+// m:
 // keys:
 func (m AttributeMap) PickEx(keys ...string) Attributes {
 	var (

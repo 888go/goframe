@@ -234,8 +234,6 @@ func Test_Model_Insert(t *testing.T) {
 
 	})
 }
-
-// https://github.com/gogf/gf/issues/3286
 func Test_Model_Insert_Raw(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)

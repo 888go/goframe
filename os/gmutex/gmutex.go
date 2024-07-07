@@ -10,8 +10,6 @@
 package gmutex//bm:互斥锁类
 
 // New creates and returns a new mutex.
-// Deprecated: use Mutex or RWMutex instead.
-
 // ff:创建
 func New() *RWMutex {
 	return &RWMutex{}

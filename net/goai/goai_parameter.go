@@ -40,8 +40,8 @@ func (oai *OpenApiV3) tagMapToParameter(tagMap map[string]string, parameter *Par
 	return nil
 }
 
-
 // ff:
+// p:
 func (p Parameter) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte

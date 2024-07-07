@@ -26,7 +26,7 @@ X取所有名称
 
 # <翻译开始>
 func Values(mapOrStruct interface{}) (values
-值数组
+值切片
 # <翻译结束>
 
 # <翻译开始>

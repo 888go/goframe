@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -35,16 +36,11 @@
 # 备注结束
 
 [func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables #左中括号##右中括号#string, err error) {]
-ff=取表名称数组
 err=错误
-tables=表名称数组
+tables=表名称切片
 ctx=上下文
 
-[func (d *DriverWrapperDB) TableFields(]
-ff=取表字段信息Map
-
 [func (d *DriverWrapperDB) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {]
-ff=底层插入
 table=表名称
 link=链接
 ctx=上下文

@@ -77,7 +77,6 @@ func getDefaultInterval() time.Duration {
 }
 
 // DefaultOptions creates and returns a default options object for Timer creation.
-
 // ff:取单例对象
 func DefaultOptions() TimerOptions {
 	return TimerOptions{
@@ -87,32 +86,29 @@ func DefaultOptions() TimerOptions {
 
 // SetTimeout runs the job once after duration of `delay`.
 // It is like the one in javascript.
-
 // ff:SetTimeout别名
-// job:
-// delay:
 // ctx:
+// delay:
+// job:
 func SetTimeout(ctx context.Context, delay time.Duration, job JobFunc) {
 	AddOnce(ctx, delay, job)
 }
 
 // SetInterval runs the job every duration of `delay`.
 // It is like the one in javascript.
-
 // ff:SetInterval别名
-// job:
-// interval:
 // ctx:
+// interval:
+// job:
 func SetInterval(ctx context.Context, interval time.Duration, job JobFunc) {
 	Add(ctx, interval, job)
 }
 
 // Add adds a timing job to the default timer, which runs in interval of `interval`.
-
 // ff:加入循环任务
-// job:任务函数
-// interval:间隔时长
 // ctx:上下文
+// interval:间隔时长
+// job:任务函数
 func Add(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 	return defaultTimer.Add(ctx, interval, job)
 }
@@ -128,109 +124,100 @@ func Add(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 // exits if its run times exceeds the `times`.
 //
 // The parameter `status` specifies the job status when it's firstly added to the timer.
-
 // ff:加入详细循环任务
-// status:任务状态
-// times:次数
-// isSingleton:是否单例模式
-// job:任务函数
-// interval:间隔时长
 // ctx:上下文
+// interval:间隔时长
+// job:任务函数
+// isSingleton:是否单例模式
+// times:次数
+// status:任务状态
 func AddEntry(ctx context.Context, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) *Entry {
 	return defaultTimer.AddEntry(ctx, interval, job, isSingleton, times, status)
 }
 
 // AddSingleton is a convenience function for add singleton mode job.
-
 // ff:加入单例循环任务
-// job:任务函数
-// interval:间隔时长
 // ctx:上下文
+// interval:间隔时长
+// job:任务函数
 func AddSingleton(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 	return defaultTimer.AddSingleton(ctx, interval, job)
 }
 
 // AddOnce is a convenience function for adding a job which only runs once and then exits.
-
 // ff:加入单次任务
-// job:任务函数
-// interval:间隔时长
 // ctx:上下文
+// interval:间隔时长
+// job:任务函数
 func AddOnce(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 	return defaultTimer.AddOnce(ctx, interval, job)
 }
 
 // AddTimes is a convenience function for adding a job which is limited running times.
-
 // ff:加入指定次数任务
-// job:任务函数
-// times:次数
-// interval:间隔时长
 // ctx:上下文
+// interval:间隔时长
+// times:次数
+// job:任务函数
 func AddTimes(ctx context.Context, interval time.Duration, times int, job JobFunc) *Entry {
 	return defaultTimer.AddTimes(ctx, interval, times, job)
 }
 
 // DelayAdd adds a timing job after delay of `interval` duration.
 // Also see Add.
-
 // ff:延时加入循环任务
-// job:任务函数
-// interval:间隔时长
-// delay:延时加入
 // ctx:上下文
+// delay:延时加入
+// interval:间隔时长
+// job:任务函数
 func DelayAdd(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
 	defaultTimer.DelayAdd(ctx, delay, interval, job)
 }
 
 // DelayAddEntry adds a timing job after delay of `interval` duration.
 // Also see AddEntry.
-
 // ff:延时加入详细循环任务
-// status:任务状态
-// times:次数
-// isSingleton:是否单例模式
-// job:任务函数
-// interval:间隔时长
-// delay:延时加入
 // ctx:上下文
+// delay:延时加入
+// interval:间隔时长
+// job:任务函数
+// isSingleton:是否单例模式
+// times:次数
+// status:任务状态
 func DelayAddEntry(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) {
 	defaultTimer.DelayAddEntry(ctx, delay, interval, job, isSingleton, times, status)
 }
 
 // DelayAddSingleton adds a timing job after delay of `interval` duration.
 // Also see AddSingleton.
-
 // ff:延时加入单例循环任务
-// job:任务函数
-// interval:间隔时长
-// delay:延时加入
 // ctx:上下文
+// delay:延时加入
+// interval:间隔时长
+// job:任务函数
 func DelayAddSingleton(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
 	defaultTimer.DelayAddSingleton(ctx, delay, interval, job)
 }
 
 // DelayAddOnce adds a timing job after delay of `interval` duration.
 // Also see AddOnce.
-
 // ff:延时加入单次任务
-// job:任务函数
-// interval:间隔时长
-// delay:延时加入
 // ctx:上下文
+// delay:延时加入
+// interval:间隔时长
+// job:任务函数
 func DelayAddOnce(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
 	defaultTimer.DelayAddOnce(ctx, delay, interval, job)
 }
 
 // DelayAddTimes adds a timing job after delay of `interval` duration.
 // Also see AddTimes.
-
 // ff:延时加入指定次数任务
-// job:任务函数
-// times:次数
-// interval:间隔时长
-// delay:延时加入
 // ctx:上下文
+// delay:延时加入
+// interval:间隔时长
+// times:次数
+// job:任务函数
 func DelayAddTimes(ctx context.Context, delay time.Duration, interval time.Duration, times int, job JobFunc) {
 	defaultTimer.DelayAddTimes(ctx, delay, interval, times, job)
 }

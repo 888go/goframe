@@ -23,7 +23,6 @@ import (
 //
 // It supports common variable type asserting, and finally it uses fmt.Sprintf converting
 // value to string and then to bytes.
-
 // ff:
 // values:
 func BeEncode(values ...interface{}) []byte {
@@ -74,10 +73,9 @@ func BeEncode(values ...interface{}) []byte {
 	return buf.Bytes()
 }
 
-
 // ff:
-// values:
 // length:
+// values:
 func BeEncodeByLength(length int, values ...interface{}) []byte {
 	b := BeEncode(values...)
 	if len(b) < length {
@@ -88,10 +86,9 @@ func BeEncodeByLength(length int, values ...interface{}) []byte {
 	return b
 }
 
-
 // ff:
-// values:
 // b:
+// values:
 func BeDecode(b []byte, values ...interface{}) error {
 	var (
 		err error
@@ -106,20 +103,17 @@ func BeDecode(b []byte, values ...interface{}) error {
 	return nil
 }
 
-
 // ff:
 // s:
 func BeEncodeString(s string) []byte {
 	return []byte(s)
 }
 
-
 // ff:
 // b:
 func BeDecodeToString(b []byte) string {
 	return string(b)
 }
-
 
 // ff:
 // b:
@@ -130,7 +124,6 @@ func BeEncodeBool(b bool) []byte {
 		return []byte{0}
 	}
 }
-
 
 // ff:
 // i:
@@ -146,7 +139,6 @@ func BeEncodeInt(i int) []byte {
 	}
 }
 
-
 // ff:
 // i:
 func BeEncodeUint(i uint) []byte {
@@ -161,20 +153,17 @@ func BeEncodeUint(i uint) []byte {
 	}
 }
 
-
 // ff:
 // i:
 func BeEncodeInt8(i int8) []byte {
 	return []byte{byte(i)}
 }
 
-
 // ff:
 // i:
 func BeEncodeUint8(i uint8) []byte {
 	return []byte{i}
 }
-
 
 // ff:
 // i:
@@ -184,7 +173,6 @@ func BeEncodeInt16(i int16) []byte {
 	return b
 }
 
-
 // ff:
 // i:
 func BeEncodeUint16(i uint16) []byte {
@@ -192,7 +180,6 @@ func BeEncodeUint16(i uint16) []byte {
 	binary.BigEndian.PutUint16(b, i)
 	return b
 }
-
 
 // ff:
 // i:
@@ -202,7 +189,6 @@ func BeEncodeInt32(i int32) []byte {
 	return b
 }
 
-
 // ff:
 // i:
 func BeEncodeUint32(i uint32) []byte {
@@ -210,7 +196,6 @@ func BeEncodeUint32(i uint32) []byte {
 	binary.BigEndian.PutUint32(b, i)
 	return b
 }
-
 
 // ff:
 // i:
@@ -220,7 +205,6 @@ func BeEncodeInt64(i int64) []byte {
 	return b
 }
 
-
 // ff:
 // i:
 func BeEncodeUint64(i uint64) []byte {
@@ -228,7 +212,6 @@ func BeEncodeUint64(i uint64) []byte {
 	binary.BigEndian.PutUint64(b, i)
 	return b
 }
-
 
 // ff:
 // f:
@@ -239,7 +222,6 @@ func BeEncodeFloat32(f float32) []byte {
 	return b
 }
 
-
 // ff:
 // f:
 func BeEncodeFloat64(f float64) []byte {
@@ -248,7 +230,6 @@ func BeEncodeFloat64(f float64) []byte {
 	binary.BigEndian.PutUint64(b, bits)
 	return b
 }
-
 
 // ff:
 // b:
@@ -264,7 +245,6 @@ func BeDecodeToInt(b []byte) int {
 	}
 }
 
-
 // ff:
 // b:
 func BeDecodeToUint(b []byte) uint {
@@ -279,7 +259,6 @@ func BeDecodeToUint(b []byte) uint {
 	}
 }
 
-
 // ff:
 // b:
 func BeDecodeToBool(b []byte) bool {
@@ -292,7 +271,6 @@ func BeDecodeToBool(b []byte) bool {
 	return true
 }
 
-
 // ff:
 // b:
 func BeDecodeToInt8(b []byte) int8 {
@@ -301,7 +279,6 @@ func BeDecodeToInt8(b []byte) int8 {
 	}
 	return int8(b[0])
 }
-
 
 // ff:
 // b:
@@ -312,13 +289,11 @@ func BeDecodeToUint8(b []byte) uint8 {
 	return b[0]
 }
 
-
 // ff:
 // b:
 func BeDecodeToInt16(b []byte) int16 {
 	return int16(binary.BigEndian.Uint16(BeFillUpSize(b, 2)))
 }
-
 
 // ff:
 // b:
@@ -326,13 +301,11 @@ func BeDecodeToUint16(b []byte) uint16 {
 	return binary.BigEndian.Uint16(BeFillUpSize(b, 2))
 }
 
-
 // ff:
 // b:
 func BeDecodeToInt32(b []byte) int32 {
 	return int32(binary.BigEndian.Uint32(BeFillUpSize(b, 4)))
 }
-
 
 // ff:
 // b:
@@ -340,13 +313,11 @@ func BeDecodeToUint32(b []byte) uint32 {
 	return binary.BigEndian.Uint32(BeFillUpSize(b, 4))
 }
 
-
 // ff:
 // b:
 func BeDecodeToInt64(b []byte) int64 {
 	return int64(binary.BigEndian.Uint64(BeFillUpSize(b, 8)))
 }
-
 
 // ff:
 // b:
@@ -354,13 +325,11 @@ func BeDecodeToUint64(b []byte) uint64 {
 	return binary.BigEndian.Uint64(BeFillUpSize(b, 8))
 }
 
-
 // ff:
 // b:
 func BeDecodeToFloat32(b []byte) float32 {
 	return math.Float32frombits(binary.BigEndian.Uint32(BeFillUpSize(b, 4)))
 }
-
 
 // ff:
 // b:
@@ -372,10 +341,9 @@ func BeDecodeToFloat64(b []byte) float64 {
 //
 // Note that it creates a new bytes slice by copying the original one to avoid changing
 // the original parameter bytes.
-
 // ff:
-// l:
 // b:
+// l:
 func BeFillUpSize(b []byte, l int) []byte {
 	if len(b) >= l {
 		return b[:l]

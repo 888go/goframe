@@ -48,17 +48,11 @@ var (
 )
 
 // Register registers builtin rule into manager.
-
-// ff:
-// rule:
 func Register(rule Rule) {
 	ruleMap[rule.Name()] = rule
 }
 
 // GetRule retrieves and returns rule by `name`.
-
-// ff:
-// name:
 func GetRule(name string) Rule {
 	return ruleMap[name]
 }

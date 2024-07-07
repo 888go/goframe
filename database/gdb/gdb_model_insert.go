@@ -21,8 +21,8 @@ import (
 )
 
 // Batch sets the batch operation number for the model.
-
 // ff:设置批量操作行数
+// m:
 // batch:数量
 func (m *Model) Batch(batch int) *Model {
 	model := m.getModel()
@@ -34,14 +34,13 @@ func (m *Model) Batch(batch int) *Model {
 // The parameter `data` can be type of string/map/gmap/slice/struct/*struct, etc.
 // Note that, it uses shallow value copying for `data` if `data` is type of map/slice
 // to avoid changing it inside function.
-// Eg:
 // Data("uid=10000")
 // Data("uid", 10000)
 // Data("uid=? AND name=?", 10000, "john")
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"}).
-
 // ff:设置数据
+// m:
 // data:值
 func (m *Model) Data(data ...interface{}) *Model {
 	var model = m.getModel()
@@ -126,8 +125,8 @@ func (m *Model) Data(data ...interface{}) *Model {
 
 // OnConflict sets the primary key or index when columns conflicts occurs.
 // It's not necessary for MySQL driver.
-
 // ff:
+// m:
 // onConflict:
 func (m *Model) OnConflict(onConflict ...interface{}) *Model {
 	if len(onConflict) == 0 {
@@ -146,7 +145,6 @@ func (m *Model) OnConflict(onConflict ...interface{}) *Model {
 // In MySQL, this is used for "ON DUPLICATE KEY UPDATE" statement.
 // In PgSQL, this is used for "ON CONFLICT (id) DO UPDATE SET" statement.
 // The parameter `onDuplicate` can be type of string/Raw/*Raw/map/slice.
-// Example:
 //
 // OnDuplicate("nickname, age")
 // OnDuplicate("nickname", "age")
@@ -158,8 +156,8 @@ func (m *Model) OnConflict(onConflict ...interface{}) *Model {
 //	OnDuplicate(g.Map{
 //		  "nickname": "passport",
 //	}).
-
 // ff:设置插入冲突更新字段
+// m:
 // onDuplicate:字段名称
 func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
 	if len(onDuplicate) == 0 {
@@ -178,7 +176,6 @@ func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
 // In MySQL, this is used for "ON DUPLICATE KEY UPDATE" statement.
 // In PgSQL, this is used for "ON CONFLICT (id) DO UPDATE SET" statement.
 // The parameter `onDuplicateEx` can be type of string/map/slice.
-// Example:
 //
 // OnDuplicateEx("passport, password")
 // OnDuplicateEx("passport", "password")
@@ -187,8 +184,8 @@ func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
 //		  "passport": "",
 //		  "password": "",
 //	}).
-
 // ff:设置插入冲突不更新字段
+// m:
 // onDuplicateEx:字段名称
 func (m *Model) OnDuplicateEx(onDuplicateEx ...interface{}) *Model {
 	if len(onDuplicateEx) == 0 {
@@ -206,11 +203,11 @@ func (m *Model) OnDuplicateEx(onDuplicateEx ...interface{}) *Model {
 // Insert does "INSERT INTO ..." statement for the model.
 // The optional parameter `data` is the same as the parameter of Model.Data function,
 // see Model.Data.
-
 // ff:插入
-// err:错误
-// result:结果
+// m:
 // data:值
+// result:结果
+// err:错误
 func (m *Model) Insert(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {
@@ -220,11 +217,11 @@ func (m *Model) Insert(data ...interface{}) (result sql.Result, err error) {
 }
 
 // InsertAndGetId performs action Insert and returns the last insert id that automatically generated.
-
 // ff:插入并取ID
-// err:错误
-// lastInsertId:最后插入ID
+// m:
 // data:值
+// lastInsertId:最后插入ID
+// err:错误
 func (m *Model) InsertAndGetId(data ...interface{}) (lastInsertId int64, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {
@@ -240,11 +237,11 @@ func (m *Model) InsertAndGetId(data ...interface{}) (lastInsertId int64, err err
 // InsertIgnore does "INSERT IGNORE INTO ..." statement for the model.
 // The optional parameter `data` is the same as the parameter of Model.Data function,
 // see Model.Data.
-
 // ff:插入并跳过已存在
-// err:错误
-// result:结果
+// m:
 // data:值
+// result:结果
+// err:错误
 func (m *Model) InsertIgnore(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {
@@ -256,11 +253,11 @@ func (m *Model) InsertIgnore(data ...interface{}) (result sql.Result, err error)
 // Replace does "REPLACE INTO ..." statement for the model.
 // The optional parameter `data` is the same as the parameter of Model.Data function,
 // see Model.Data.
-
 // ff:插入并替换已存在
-// err:错误
-// result:结果
+// m:
 // data:值
+// result:结果
+// err:错误
 func (m *Model) Replace(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {
@@ -275,11 +272,11 @@ func (m *Model) Replace(data ...interface{}) (result sql.Result, err error) {
 //
 // It updates the record if there's primary or unique index in the saving data,
 // or else it inserts a new record into the table.
-
 // ff:插入并更新已存在
-// err:错误
-// result:结果
+// m:
 // data:值
+// result:结果
+// err:错误
 func (m *Model) Save(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {

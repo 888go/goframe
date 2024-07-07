@@ -42,11 +42,11 @@ var transactionIdGenerator = gtype.NewUint64()
 // You should call Commit or Rollback functions of the transaction object
 // if you no longer use the transaction. Commit or Rollback functions will also
 // close the transaction automatically.
-
-// ff:事务开启
-// err:错误
-// tx:事务对象
+// ff:
+// c:
 // ctx:上下文
+// tx:事务对象
+// err:错误
 func (c *Core) Begin(ctx context.Context) (tx TX, err error) {
 	return c.doBeginCtx(ctx)
 }
@@ -73,13 +73,13 @@ func (c *Core) doBeginCtx(ctx context.Context) (TX, error) {
 //
 // Note that, you should not Commit or Rollback the transaction in function `f`
 // as it is automatically handled by this function.
-
-// ff:事务
-// err:错误
-// f:回调函数
-// tx:
-// ctx:
+// ff:
+// c:
 // ctx:上下文
+// f:回调函数
+// ctx:上下文
+// tx:
+// err:错误
 func (c *Core) Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error) {
 	if ctx == nil {
 		ctx = c.db.GetCtx()
@@ -122,10 +122,9 @@ func (c *Core) Transaction(ctx context.Context, f func(ctx context.Context, tx T
 }
 
 // WithTX injects given transaction object into context and returns a new context.
-
 // ff:底层WithTX
-// tx:事务对象
 // ctx:上下文
+// tx:事务对象
 func WithTX(ctx context.Context, tx TX) context.Context {
 	if tx == nil {
 		return ctx
@@ -146,10 +145,9 @@ func WithTX(ctx context.Context, tx TX) context.Context {
 
 // TXFromCtx retrieves and returns transaction object from context.
 // It is usually used in nested transaction feature, and it returns nil if it is not set previously.
-
 // ff:事务从上下文取对象
-// group:
 // ctx:上下文
+// group:
 func TXFromCtx(ctx context.Context, group string) TX {
 	if ctx == nil {
 		return nil
@@ -177,8 +175,8 @@ func (tx *TXCore) transactionKeyForNestedPoint() string {
 }
 
 // Ctx sets the context for current transaction.
-
-// ff:设置上下文并取副本
+// ff:
+// tx:
 // ctx:上下文
 func (tx *TXCore) Ctx(ctx context.Context) TX {
 	tx.ctx = ctx
@@ -189,22 +187,22 @@ func (tx *TXCore) Ctx(ctx context.Context) TX {
 }
 
 // GetCtx returns the context for current transaction.
-
-// ff:取上下文对象
+// ff:
+// tx:
 func (tx *TXCore) GetCtx() context.Context {
 	return tx.ctx
 }
 
 // GetDB returns the DB for current transaction.
-
-// ff:取DB对象
+// ff:
+// tx:
 func (tx *TXCore) GetDB() DB {
 	return tx.db
 }
 
 // GetSqlTX returns the underlying transaction object for current transaction.
-
-// ff:底层取事务对象
+// ff:
+// tx:
 func (tx *TXCore) GetSqlTX() *sql.Tx {
 	return tx.tx
 }
@@ -212,8 +210,8 @@ func (tx *TXCore) GetSqlTX() *sql.Tx {
 // Commit commits current transaction.
 // Note that it releases previous saved transaction point if it's in a nested transaction procedure,
 // or else it commits the hole transaction.
-
-// ff:事务提交
+// ff:
+// tx:
 func (tx *TXCore) Commit() error {
 	if tx.transactionCount > 0 {
 		tx.transactionCount--
@@ -235,8 +233,8 @@ func (tx *TXCore) Commit() error {
 // Rollback aborts current transaction.
 // Note that it aborts current transaction if it's in a nested transaction procedure,
 // or else it aborts the hole transaction.
-
-// ff:事务回滚
+// ff:
+// tx:
 func (tx *TXCore) Rollback() error {
 	if tx.transactionCount > 0 {
 		tx.transactionCount--
@@ -256,15 +254,15 @@ func (tx *TXCore) Rollback() error {
 }
 
 // IsClosed checks and returns this transaction has already been committed or rolled back.
-
-// ff:是否已关闭
+// ff:
+// tx:
 func (tx *TXCore) IsClosed() bool {
 	return tx.isClosed
 }
 
 // Begin starts a nested transaction procedure.
-
-// ff:事务开启
+// ff:
+// tx:
 func (tx *TXCore) Begin() error {
 	_, err := tx.Exec("SAVEPOINT " + tx.transactionKeyForNestedPoint())
 	if err != nil {
@@ -276,8 +274,8 @@ func (tx *TXCore) Begin() error {
 
 // SavePoint performs `SAVEPOINT xxx` SQL statement that saves transaction at current point.
 // The parameter `point` specifies the point name that will be saved to server.
-
-// ff:保存事务点
+// ff:
+// tx:
 // point:事务点名称
 func (tx *TXCore) SavePoint(point string) error {
 	_, err := tx.Exec("SAVEPOINT " + tx.db.GetCore().QuoteWord(point))
@@ -286,8 +284,8 @@ func (tx *TXCore) SavePoint(point string) error {
 
 // RollbackTo performs `ROLLBACK TO SAVEPOINT xxx` SQL statement that rollbacks to specified saved transaction.
 // The parameter `point` specifies the point name that was saved previously.
-
-// ff:回滚事务点
+// ff:
+// tx:
 // point:事务点名称
 func (tx *TXCore) RollbackTo(point string) error {
 	_, err := tx.Exec("ROLLBACK TO SAVEPOINT " + tx.db.GetCore().QuoteWord(point))
@@ -301,13 +299,13 @@ func (tx *TXCore) RollbackTo(point string) error {
 //
 // Note that, you should not Commit or Rollback the transaction in function `f`
 // as it is automatically handled by this function.
-
-// ff:事务
-// err:错误
-// f:回调函数
+// ff:
 // tx:
-// ctx:
 // ctx:上下文
+// f:回调函数
+// ctx:上下文
+// tx:
+// err:错误
 func (tx *TXCore) Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error) {
 	if ctx != nil {
 		tx.ctx = ctx
@@ -347,22 +345,22 @@ func (tx *TXCore) Transaction(ctx context.Context, f func(ctx context.Context, t
 
 // Query does query operation on transaction.
 // See Core.Query.
-
-// ff:原生SQL查询
-// err:错误
-// result:结果
-// args:参数
+// ff:
+// tx:
 // sql:
+// args:参数
+// result:结果
+// err:错误
 func (tx *TXCore) Query(sql string, args ...interface{}) (result Result, err error) {
 	return tx.db.DoQuery(tx.ctx, &txLink{tx.tx}, sql, args...)
 }
 
 // Exec does none query operation on transaction.
 // See Core.Exec.
-
-// ff:原生SQL执行
-// args:参数
+// ff:
+// tx:
 // sql:
+// args:参数
 func (tx *TXCore) Exec(sql string, args ...interface{}) (sql.Result, error) {
 	return tx.db.DoExec(tx.ctx, &txLink{tx.tx}, sql, args...)
 }
@@ -372,29 +370,29 @@ func (tx *TXCore) Exec(sql string, args ...interface{}) (sql.Result, error) {
 // returned statement.
 // The caller must call the statement's Close method
 // when the statement is no longer needed.
-
-// ff:原生sql取参数预处理对象
+// ff:
+// tx:
 // sql:
 func (tx *TXCore) Prepare(sql string) (*Stmt, error) {
 	return tx.db.DoPrepare(tx.ctx, &txLink{tx.tx}, sql)
 }
 
 // GetAll queries and returns data records from database.
-
-// ff:GetAll别名
-// Result:
-// args:参数
+// ff:
+// tx:
 // sql:
+// args:参数
+// Result:
 func (tx *TXCore) GetAll(sql string, args ...interface{}) (Result, error) {
 	return tx.Query(sql, args...)
 }
 
 // GetOne queries and returns one record from database.
-
-// ff:原生SQL查询单条记录
-// Record:
-// args:参数
+// ff:
+// tx:
 // sql:
+// args:参数
+// Record:
 func (tx *TXCore) GetOne(sql string, args ...interface{}) (Record, error) {
 	list, err := tx.GetAll(sql, args...)
 	if err != nil {
@@ -408,11 +406,11 @@ func (tx *TXCore) GetOne(sql string, args ...interface{}) (Record, error) {
 
 // GetStruct queries one record from database and converts it to given struct.
 // The parameter `pointer` should be a pointer to struct.
-
-// ff:原生SQL查询单条到结构体指针
-// args:参数
-// sql:
+// ff:
+// tx:
 // obj:结构体指针
+// sql:
+// args:参数
 func (tx *TXCore) GetStruct(obj interface{}, sql string, args ...interface{}) error {
 	one, err := tx.GetOne(sql, args...)
 	if err != nil {
@@ -423,11 +421,11 @@ func (tx *TXCore) GetStruct(obj interface{}, sql string, args ...interface{}) er
 
 // GetStructs queries records from database and converts them to given struct.
 // The parameter `pointer` should be type of struct slice: []struct/[]*struct.
-
-// ff:原生SQL查询到结构体数组指针
-// args:参数
-// sql:
+// ff:
+// tx:
 // objPointerSlice:结构体指针
+// sql:
+// args:参数
 func (tx *TXCore) GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error {
 	all, err := tx.GetAll(sql, args...)
 	if err != nil {
@@ -442,11 +440,11 @@ func (tx *TXCore) GetStructs(objPointerSlice interface{}, sql string, args ...in
 // If parameter `pointer` is type of struct pointer, it calls GetStruct internally for
 // the conversion. If parameter `pointer` is type of slice, it calls GetStructs internally
 // for conversion.
-
-// ff:原生SQL查询到结构体指针
-// args:参数
-// sql:
+// ff:
+// tx:
 // pointer:结构体指针
+// sql:
+// args:参数
 func (tx *TXCore) GetScan(pointer interface{}, sql string, args ...interface{}) error {
 	reflectInfo := reflection.OriginTypeAndKind(pointer)
 	if reflectInfo.InputKind != reflect.Ptr {
@@ -473,11 +471,11 @@ func (tx *TXCore) GetScan(pointer interface{}, sql string, args ...interface{}) 
 // GetValue queries and returns the field value from database.
 // The sql should query only one field from database, or else it returns only one
 // field of the result.
-
-// ff:原生SQL查询字段值
-// Value:
-// args:参数
+// ff:
+// tx:
 // sql:
+// args:参数
+// Value:
 func (tx *TXCore) GetValue(sql string, args ...interface{}) (Value, error) {
 	one, err := tx.GetOne(sql, args...)
 	if err != nil {
@@ -490,10 +488,10 @@ func (tx *TXCore) GetValue(sql string, args ...interface{}) (Value, error) {
 }
 
 // GetCount queries and returns the count from database.
-
-// ff:原生SQL查询字段计数
-// args:参数
+// ff:
+// tx:
 // sql:
+// args:参数
 func (tx *TXCore) GetCount(sql string, args ...interface{}) (int64, error) {
 	if !gregex.IsMatchString(`(?i)SELECT\s+COUNT\(.+\)\s+FROM`, sql) {
 		sql, _ = gregex.ReplaceString(`(?i)(SELECT)\s+(.+)\s+(FROM)`, `$1 COUNT($2) $3`, sql)
@@ -509,16 +507,15 @@ func (tx *TXCore) GetCount(sql string, args ...interface{}) (int64, error) {
 // If there's already one unique record of the data in the table, it returns error.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // The parameter `batch` specifies the batch operation count when given data is slice.
-
-// ff:插入
-// batch:批量操作行数
-// data:值
+// ff:
+// tx:
 // table:表名称
+// data:值
+// batch:批量操作行数
 func (tx *TXCore) Insert(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).Insert()
@@ -530,16 +527,15 @@ func (tx *TXCore) Insert(table string, data interface{}, batch ...int) (sql.Resu
 // If there's already one unique record of the data in the table, it ignores the inserting.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // The parameter `batch` specifies the batch operation count when given data is slice.
-
-// ff:插入并跳过已存在
-// batch:批量操作行数
-// data:值
+// ff:
+// tx:
 // table:表名称
+// data:值
+// batch:批量操作行数
 func (tx *TXCore) InsertIgnore(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).InsertIgnore()
@@ -548,11 +544,11 @@ func (tx *TXCore) InsertIgnore(table string, data interface{}, batch ...int) (sq
 }
 
 // InsertAndGetId performs action Insert and returns the last insert id that automatically generated.
-
-// ff:插入并取ID
-// batch:批量操作行数
-// data:值
+// ff:
+// tx:
 // table:表名称
+// data:值
+// batch:批量操作行数
 func (tx *TXCore) InsertAndGetId(table string, data interface{}, batch ...int) (int64, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).InsertAndGetId()
@@ -565,18 +561,17 @@ func (tx *TXCore) InsertAndGetId(table string, data interface{}, batch ...int) (
 // and inserts a new one.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
 // If given data is type of slice, it then does batch replacing, and the optional parameter
 // `batch` specifies the batch operation count.
-
-// ff:插入并替换已存在
-// batch:批量操作行数
-// data:值
+// ff:
+// tx:
 // table:表名称
+// data:值
+// batch:批量操作行数
 func (tx *TXCore) Replace(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).Replace()
@@ -589,17 +584,16 @@ func (tx *TXCore) Replace(table string, data interface{}, batch ...int) (sql.Res
 // or else it inserts a new record into the table.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // If given data is type of slice, it then does batch saving, and the optional parameter
 // `batch` specifies the batch operation count.
-
-// ff:插入并更新已存在
-// batch:批量操作行数
-// data:值
+// ff:
+// tx:
 // table:表名称
+// data:值
+// batch:批量操作行数
 func (tx *TXCore) Save(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).Save()
@@ -609,24 +603,22 @@ func (tx *TXCore) Save(table string, data interface{}, batch ...int) (sql.Result
 
 // Update does "UPDATE ... " statement for the table.
 //
-// The parameter `data` can be type of string/map/gmap/struct/*struct, etc.
-// Eg: "uid=10000", "uid", 10000, g.Map{"uid": 10000, "name":"john"}
+// The parameter `data` can be type of string/map/gmap/struct/*struct, etc. "uid=10000", "uid", 10000, g.Map{"uid": 10000, "name":"john"}
 //
 // The parameter `condition` can be type of string/map/gmap/slice/struct/*struct, etc.
 // It is commonly used with parameter `args`.
-// Eg:
 // "uid=10000",
 // "uid", 10000
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
 // User{ Id : 1, UserName : "john"}.
-
-// ff:更新
-// args:参数
-// condition:条件
-// data:值
+// ff:
+// tx:
 // table:表名称
+// data:值
+// condition:条件
+// args:参数
 func (tx *TXCore) Update(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) {
 	return tx.Model(table).Ctx(tx.ctx).Data(data).Where(condition, args...).Update()
 }
@@ -635,61 +627,60 @@ func (tx *TXCore) Update(table string, data interface{}, condition interface{}, 
 //
 // The parameter `condition` can be type of string/map/gmap/slice/struct/*struct, etc.
 // It is commonly used with parameter `args`.
-// Eg:
 // "uid=10000",
 // "uid", 10000
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
 // User{ Id : 1, UserName : "john"}.
-
-// ff:删除
-// args:参数
-// condition:条件
+// ff:
+// tx:
 // table:表名称
+// condition:条件
+// args:参数
 func (tx *TXCore) Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error) {
 	return tx.Model(table).Ctx(tx.ctx).Where(condition, args...).Delete()
 }
 
 // QueryContext implements interface function Link.QueryContext.
-
 // ff:
-// args:
-// sql:
+// tx:
 // ctx:
+// sql:
+// args:
 func (tx *TXCore) QueryContext(ctx context.Context, sql string, args ...interface{}) (*sql.Rows, error) {
 	return tx.tx.QueryContext(ctx, sql, args...)
 }
 
 // ExecContext implements interface function Link.ExecContext.
-
 // ff:
-// args:
-// sql:
+// tx:
 // ctx:
+// sql:
+// args:
 func (tx *TXCore) ExecContext(ctx context.Context, sql string, args ...interface{}) (sql.Result, error) {
 	return tx.tx.ExecContext(ctx, sql, args...)
 }
 
 // PrepareContext implements interface function Link.PrepareContext.
-
 // ff:
-// sql:
+// tx:
 // ctx:
+// sql:
 func (tx *TXCore) PrepareContext(ctx context.Context, sql string) (*sql.Stmt, error) {
 	return tx.tx.PrepareContext(ctx, sql)
 }
 
 // IsOnMaster implements interface function Link.IsOnMaster.
-
 // ff:
+// tx:
 func (tx *TXCore) IsOnMaster() bool {
 	return true
 }
 
 // IsTransaction implements interface function Link.IsTransaction.
-
 // ff:
+// tx:
 func (tx *TXCore) IsTransaction() bool {
 	return true
 }

@@ -14,7 +14,6 @@ import (
 )
 
 // SliceFloat is alias of Floats.
-
 // ff:SliceFloat别名
 // any:
 func SliceFloat(any interface{}) []float64 {
@@ -22,7 +21,6 @@ func SliceFloat(any interface{}) []float64 {
 }
 
 // SliceFloat32 is alias of Float32s.
-
 // ff:SliceFloat32别名
 // any:
 func SliceFloat32(any interface{}) []float32 {
@@ -30,7 +28,6 @@ func SliceFloat32(any interface{}) []float32 {
 }
 
 // SliceFloat64 is alias of Float64s.
-
 // ff:SliceFloat64别名
 // any:
 func SliceFloat64(any interface{}) []float64 {
@@ -38,17 +35,15 @@ func SliceFloat64(any interface{}) []float64 {
 }
 
 // Floats converts `any` to []float64.
-
-// ff:取小数数组
 // yx:true
+// ff:取小数切片
 // any:
 func Floats(any interface{}) []float64 {
 	return Float64s(any)
 }
 
 // Float32s converts `any` to []float32.
-
-// ff:取小数32位数组
+// ff:取小数32位切片
 // any:值
 func Float32s(any interface{}) []float32 {
 	if any == nil {
@@ -174,8 +169,7 @@ func Float32s(any interface{}) []float32 {
 }
 
 // Float64s converts `any` to []float64.
-
-// ff:取小数64位数组
+// ff:取小数64位切片
 // any:值
 func Float64s(any interface{}) []float64 {
 	if any == nil {

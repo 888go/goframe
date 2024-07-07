@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gvar_test
+package gvar_test//bm:泛型类_test
 
 import (
 	"bytes"

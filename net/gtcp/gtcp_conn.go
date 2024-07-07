@@ -32,10 +32,9 @@ const (
 )
 
 // NewConn creates and returns a new connection with given address.
-
 // ff:
-// timeout:
 // addr:
+// timeout:
 func NewConn(addr string, timeout ...time.Duration) (*Conn, error) {
 	if conn, err := NewNetConn(addr, timeout...); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -46,10 +45,9 @@ func NewConn(addr string, timeout ...time.Duration) (*Conn, error) {
 
 // NewConnTLS creates and returns a new TLS connection
 // with given address and TLS configuration.
-
 // ff:
-// tlsConfig:
 // addr:
+// tlsConfig:
 func NewConnTLS(addr string, tlsConfig *tls.Config) (*Conn, error) {
 	if conn, err := NewNetConnTLS(addr, tlsConfig); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -60,11 +58,10 @@ func NewConnTLS(addr string, tlsConfig *tls.Config) (*Conn, error) {
 
 // NewConnKeyCrt creates and returns a new TLS connection
 // with given address and TLS certificate and key files.
-
 // ff:
-// keyFile:
-// crtFile:
 // addr:
+// crtFile:
+// keyFile:
 func NewConnKeyCrt(addr, crtFile, keyFile string) (*Conn, error) {
 	if conn, err := NewNetConnKeyCrt(addr, crtFile, keyFile); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -74,7 +71,6 @@ func NewConnKeyCrt(addr, crtFile, keyFile string) (*Conn, error) {
 }
 
 // NewConnByNetConn creates and returns a TCP connection object with given net.Conn object.
-
 // ff:
 // conn:
 func NewConnByNetConn(conn net.Conn) *Conn {
@@ -88,10 +84,10 @@ func NewConnByNetConn(conn net.Conn) *Conn {
 }
 
 // Send writes data to remote address.
-
 // ff:
-// retry:
+// c:
 // data:
+// retry:
 func (c *Conn) Send(data []byte, retry ...Retry) error {
 	for {
 		if _, err := c.Write(data); err != nil {
@@ -126,10 +122,10 @@ func (c *Conn) Send(data []byte, retry ...Retry) error {
 //     all data from buffer.
 //  3. If length > 0, which means it blocks reading data from connection until length size was received.
 //     It is the most commonly used length value for data receiving.
-
 // ff:
-// retry:
+// c:
 // length:
+// retry:
 func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 	var (
 		err        error  // Reading error.
@@ -210,8 +206,8 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 
 // RecvLine reads data from the connection until reads char '\n'.
 // Note that the returned result does not contain the last char '\n'.
-
 // ff:
+// c:
 // retry:
 func (c *Conn) RecvLine(retry ...Retry) ([]byte, error) {
 	var (
@@ -238,10 +234,10 @@ func (c *Conn) RecvLine(retry ...Retry) ([]byte, error) {
 
 // RecvTill reads data from the connection until reads bytes `til`.
 // Note that the returned result contains the last bytes `til`.
-
 // ff:
-// retry:
+// c:
 // til:
+// retry:
 func (c *Conn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 	var (
 		err    error
@@ -270,13 +266,13 @@ func (c *Conn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 }
 
 // RecvWithTimeout reads data from the connection with timeout.
-
 // ff:
-// err:
-// data:
-// retry:
-// timeout:
+// c:
 // length:
+// timeout:
+// retry:
+// data:
+// err:
 func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) (data []byte, err error) {
 	if err = c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -289,12 +285,12 @@ func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry
 }
 
 // SendWithTimeout writes data to the connection with timeout.
-
 // ff:
-// err:
-// retry:
-// timeout:
+// c:
 // data:
+// timeout:
+// retry:
+// err:
 func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) (err error) {
 	if err = c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -307,11 +303,11 @@ func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retr
 }
 
 // SendRecv writes data to the connection and blocks reading response.
-
 // ff:
-// retry:
-// length:
+// c:
 // data:
+// length:
+// retry:
 func (c *Conn) SendRecv(data []byte, length int, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err == nil {
 		return c.Recv(length, retry...)
@@ -321,12 +317,12 @@ func (c *Conn) SendRecv(data []byte, length int, retry ...Retry) ([]byte, error)
 }
 
 // SendRecvWithTimeout writes data to the connection and reads response with timeout.
-
 // ff:
-// retry:
-// timeout:
-// length:
+// c:
 // data:
+// length:
+// timeout:
+// retry:
 func (c *Conn) SendRecvWithTimeout(data []byte, length int, timeout time.Duration, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err == nil {
 		return c.RecvWithTimeout(length, timeout, retry...)
@@ -336,10 +332,10 @@ func (c *Conn) SendRecvWithTimeout(data []byte, length int, timeout time.Duratio
 }
 
 // SetDeadline sets the deadline for current connection.
-
 // ff:
-// err:
+// c:
 // t:
+// err:
 func (c *Conn) SetDeadline(t time.Time) (err error) {
 	if err = c.Conn.SetDeadline(t); err == nil {
 		c.deadlineRecv = t
@@ -352,10 +348,10 @@ func (c *Conn) SetDeadline(t time.Time) (err error) {
 }
 
 // SetDeadlineRecv sets the deadline of receiving for current connection.
-
 // ff:
-// err:
+// c:
 // t:
+// err:
 func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 	if err = c.SetReadDeadline(t); err == nil {
 		c.deadlineRecv = t
@@ -367,10 +363,10 @@ func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 }
 
 // SetDeadlineSend sets the deadline of sending for current connection.
-
 // ff:
-// err:
+// c:
 // t:
+// err:
 func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 	if err = c.SetWriteDeadline(t); err == nil {
 		c.deadlineSend = t
@@ -383,8 +379,8 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 
 // SetBufferWaitRecv sets the buffer waiting timeout when reading all data from connection.
 // The waiting duration cannot be too long which might delay receiving data from remote address.
-
 // ff:
+// c:
 // bufferWaitDuration:
 func (c *Conn) SetBufferWaitRecv(bufferWaitDuration time.Duration) {
 	c.bufferWaitRecv = bufferWaitDuration

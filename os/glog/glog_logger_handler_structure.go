@@ -141,10 +141,9 @@ var safeSet = [utf8.RuneSelf]bool{
 }
 
 // HandlerStructure is a handler for output logging content as a structured string.
-
 // ff:中间件函数文本结构化输出
-// in:
 // ctx:上下文
+// in:
 func HandlerStructure(ctx context.Context, in *HandlerInput) {
 	s := newStructuredBuffer(in)
 	in.Buffer.Write(s.Bytes())
@@ -159,9 +158,9 @@ func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
 	}
 }
 
-
-// ff:取字节集
 // yx:true
+// ff:取字节集
+// buf:
 func (buf *structuredBuffer) Bytes() []byte {
 	buf.addValue(structureKeyTime, buf.in.TimeFormat)
 	if buf.in.TraceId != "" {

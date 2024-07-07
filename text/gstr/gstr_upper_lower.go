@@ -13,7 +13,6 @@ import (
 )
 
 // ToLower returns a copy of the string s with all Unicode letters mapped to their lower case.
-
 // ff:到小写
 // s:文本
 func ToLower(s string) string {
@@ -21,7 +20,6 @@ func ToLower(s string) string {
 }
 
 // ToUpper returns a copy of the string s with all Unicode letters mapped to their upper case.
-
 // ff:到大写
 // s:文本
 func ToUpper(s string) string {
@@ -29,7 +27,6 @@ func ToUpper(s string) string {
 }
 
 // UcFirst returns a copy of the string s with the first letter mapped to its upper case.
-
 // ff:到首字母大写
 // s:文本
 func UcFirst(s string) string {
@@ -37,7 +34,6 @@ func UcFirst(s string) string {
 }
 
 // LcFirst returns a copy of the string s with the first letter mapped to its lower case.
-
 // ff:到首字母小写
 // s:文本
 func LcFirst(s string) string {
@@ -51,7 +47,6 @@ func LcFirst(s string) string {
 }
 
 // UcWords uppercase the first character of each word in a string.
-
 // ff:到单词首字母大写
 // str:文本
 func UcWords(str string) string {
@@ -59,7 +54,6 @@ func UcWords(str string) string {
 }
 
 // IsLetterLower tests whether the given byte b is in lower case.
-
 // ff:是否小写字符
 // b:字符
 func IsLetterLower(b byte) bool {
@@ -67,7 +61,6 @@ func IsLetterLower(b byte) bool {
 }
 
 // IsLetterUpper tests whether the given byte b is in upper case.
-
 // ff:是否大写字符
 // b:字符
 func IsLetterUpper(b byte) bool {

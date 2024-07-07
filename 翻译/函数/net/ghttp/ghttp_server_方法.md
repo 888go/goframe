@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -45,7 +46,7 @@ ff=开始监听
 ff=取OpenApi对象
 
 [func (s *Server) GetRoutes() #左中括号##右中括号#RouterItem {]
-ff=取路由数组
+ff=取路由切片
 
 [func (s *Server) Run() {]
 ff=启动服务
@@ -61,5 +62,6 @@ ff=取已监听端口
 
 [func (s *Server) GetListenedPorts() #左中括号##右中括号#int {]
 ff=取所有监听已端口
+
 [func (s *Server) GetListenedAddress() string {]
 ff=取已监听地址

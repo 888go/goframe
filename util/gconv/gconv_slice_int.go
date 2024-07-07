@@ -14,7 +14,6 @@ import (
 )
 
 // SliceInt is alias of Ints.
-
 // ff:SliceIne别名
 // any:
 func SliceInt(any interface{}) []int {
@@ -22,7 +21,6 @@ func SliceInt(any interface{}) []int {
 }
 
 // SliceInt32 is alias of Int32s.
-
 // ff:SliceIet32别名
 // any:
 func SliceInt32(any interface{}) []int32 {
@@ -30,7 +28,6 @@ func SliceInt32(any interface{}) []int32 {
 }
 
 // SliceInt64 is alias of Int64s.
-
 // ff:SliceInt64别名
 // any:
 func SliceInt64(any interface{}) []int64 {
@@ -38,9 +35,8 @@ func SliceInt64(any interface{}) []int64 {
 }
 
 // Ints converts `any` to []int.
-
-// ff:取整数数组
 // yx:true
+// ff:取整数切片
 // any:
 func Ints(any interface{}) []int {
 	if any == nil {
@@ -171,8 +167,7 @@ func Ints(any interface{}) []int {
 }
 
 // Int32s converts `any` to []int32.
-
-// ff:取整数32位数组
+// ff:取整数32位切片
 // any:值
 func Int32s(any interface{}) []int32 {
 	if any == nil {
@@ -303,8 +298,7 @@ func Int32s(any interface{}) []int32 {
 }
 
 // Int64s converts `any` to []int64.
-
-// ff:取整数64位数组
+// ff:取整数64位切片
 // any:值
 func Int64s(any interface{}) []int64 {
 	if any == nil {

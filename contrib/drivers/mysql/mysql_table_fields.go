@@ -56,13 +56,13 @@ func init() {
 //
 // It's using cache feature to enhance the performance, which is never expired util the
 // process restarts.
-
 // ff:
-// err:
-// fields:
-// schema:
-// table:
+// d:
 // ctx:
+// table:
+// schema:
+// fields:
+// err:
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result         gdb.Result

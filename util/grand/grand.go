@@ -25,7 +25,6 @@ var (
 // 1. The `max` can only be greater than 0, or else it returns `max` directly;
 // 2. The result is greater than or equal to 0, but less than `max`;
 // 3. The result number is 32bit and less than math.MaxUint32.
-
 // ff:整数
 // max:最大值
 func Intn(max int) int {
@@ -40,7 +39,6 @@ func Intn(max int) int {
 }
 
 // B retrieves and returns random bytes of given length `n`.
-
 // ff:字节集
 // n:长度
 func B(n int) []byte {
@@ -61,10 +59,9 @@ func B(n int) []byte {
 
 // N returns a random int between min and max: [min, max].
 // The `min` and `max` also support negative numbers.
-
 // ff:区间整数
-// max:最大值
 // min:最小值
+// max:最大值
 func N(min, max int) int {
 	if min >= max {
 		return min
@@ -82,10 +79,9 @@ func N(min, max int) int {
 // S returns a random string which contains digits and letters, and its length is `n`.
 // The optional parameter `symbols` specifies whether the result could contain symbols,
 // which is false in default.
-
 // ff:文本
-// symbols:包含特殊字符
 // n:长度
+// symbols:包含特殊字符
 func S(n int, symbols ...bool) string {
 	if n <= 0 {
 		return ""
@@ -105,10 +101,9 @@ func S(n int, symbols ...bool) string {
 }
 
 // D returns a random time.Duration between min and max: [min, max].
-
 // ff:时长
-// max:最大值
 // min:最小值
+// max:最大值
 func D(min, max time.Duration) time.Duration {
 	multiple := int64(1)
 	if min != 0 {
@@ -124,10 +119,9 @@ func D(min, max time.Duration) time.Duration {
 
 // Str randomly picks and returns `n` count of chars from given string `s`.
 // It also supports unicode string like Chinese/Russian/Japanese, etc.
-
 // ff:从文本生成文本
-// n:长度
 // s:给定文本
+// n:长度
 func Str(s string, n int) string {
 	if n <= 0 {
 		return ""
@@ -150,7 +144,6 @@ func Str(s string, n int) string {
 }
 
 // Digits returns a random string which contains only digits, and its length is `n`.
-
 // ff:数字文本
 // n:长度
 func Digits(n int) string {
@@ -168,7 +161,6 @@ func Digits(n int) string {
 }
 
 // Letters returns a random string which contains only letters, and its length is `n`.
-
 // ff:字母文本
 // n:长度
 func Letters(n int) string {
@@ -186,7 +178,6 @@ func Letters(n int) string {
 }
 
 // Symbols returns a random string which contains only symbols, and its length is `n`.
-
 // ff:特殊字符文本
 // n:长度
 func Symbols(n int) string {
@@ -205,8 +196,7 @@ func Symbols(n int) string {
 
 // Perm returns, as a slice of n int numbers, a pseudo-random permutation of the integers [0,n).
 // TODO performance improving for large slice producing.
-
-// ff:整数数组
+// ff:整数切片
 // n:长度
 func Perm(n int) []int {
 	m := make([]int, n)
@@ -219,16 +209,14 @@ func Perm(n int) []int {
 }
 
 // Meet randomly calculate whether the given probability `num`/`total` is met.
-
 // ff:
-// total:
 // num:
+// total:
 func Meet(num, total int) bool {
 	return Intn(total) < num
 }
 
 // MeetProb randomly calculate whether the given probability is met.
-
 // ff:
 // prob:
 func MeetProb(prob float32) bool {

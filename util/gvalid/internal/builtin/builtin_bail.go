@@ -16,21 +16,14 @@ func init() {
 	Register(RuleBail{})
 }
 
-
-// ff:
 func (r RuleBail) Name() string {
 	return "bail"
 }
 
-
-// ff:
 func (r RuleBail) Message() string {
 	return ""
 }
 
-
-// ff:
-// in:
 func (r RuleBail) Run(in RunInput) error {
 	return nil
 }

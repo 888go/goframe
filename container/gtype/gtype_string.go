@@ -20,7 +20,6 @@ type String struct {
 
 // NewString creates and returns a concurrent-safe object for string type,
 // with given initial value `value`.
-
 // ff:
 // value:
 func NewString(value ...string) *String {
@@ -32,18 +31,18 @@ func NewString(value ...string) *String {
 }
 
 // Clone clones and returns a new concurrent-safe object for string type.
-
 // ff:
+// v:
 func (v *String) Clone() *String {
 	return NewString(v.Val())
 }
 
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
-
-// ff:设置值
 // yx:true
-// old:
+// ff:设置值
+// v:
 // value:
+// old:
 func (v *String) Set(value string) (old string) {
 	old = v.Val()
 	v.value.Store(value)
@@ -51,9 +50,9 @@ func (v *String) Set(value string) (old string) {
 }
 
 // Val atomically loads and returns t.value.
-
-// ff:取值
 // yx:true
+// ff:取值
+// v:
 func (v *String) Val() string {
 	s := v.value.Load()
 	if s != nil {
@@ -63,22 +62,22 @@ func (v *String) Val() string {
 }
 
 // String implements String interface for string printing.
-
 // ff:
+// v:
 func (v *String) String() string {
 	return v.Val()
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-
 // ff:
+// v:
 func (v String) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + v.Val() + `"`), nil
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-
 // ff:
+// v:
 // b:
 func (v *String) UnmarshalJSON(b []byte) error {
 	v.Set(string(bytes.Trim(b, `"`)))
@@ -86,8 +85,8 @@ func (v *String) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for `v`.
-
 // ff:
+// v:
 // value:
 func (v *String) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.String(value))
@@ -95,8 +94,8 @@ func (v *String) UnmarshalValue(value interface{}) error {
 }
 
 // DeepCopy implements interface for deep copy of current type.
-
 // ff:
+// v:
 func (v *String) DeepCopy() interface{} {
 	if v == nil {
 		return nil

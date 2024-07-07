@@ -48,10 +48,9 @@ func getCacheDuration() time.Duration {
 // GetContentsWithCache returns string content of given file by `path` from cache.
 // If there's no content in the cache, it will read it from disk file specified by `path`.
 // The parameter `expire` specifies the caching time for this file content in seconds.
-
 // ff:缓存读文本
-// duration:缓存时长
 // path:路径
+// duration:缓存时长
 func GetContentsWithCache(path string, duration ...time.Duration) string {
 	return string(GetBytesWithCache(path, duration...))
 }
@@ -59,10 +58,9 @@ func GetContentsWithCache(path string, duration ...time.Duration) string {
 // GetBytesWithCache returns []byte content of given file by `path` from cache.
 // If there's no content in the cache, it will read it from disk file specified by `path`.
 // The parameter `expire` specifies the caching time for this file content in seconds.
-
 // ff:缓存读字节集
-// duration:缓存时长
 // path:路径
+// duration:缓存时长
 func GetBytesWithCache(path string, duration ...time.Duration) []byte {
 	var (
 		ctx      = context.Background()

@@ -53,7 +53,6 @@ var (
 
 // NewAdapterFile returns a new configuration management object.
 // The parameter `file` specifies the default configuration file name for reading.
-
 // ff:
 // file:
 func NewAdapterFile(file ...string) (*AdapterFile, error) {
@@ -117,8 +116,8 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 //
 // Note that, turning on this feature is quite expensive, and it is not recommended
 // allowing separators in the key names. It is best to avoid this on the application side.
-
 // ff:
+// a:
 // check:
 func (a *AdapterFile) SetViolenceCheck(check bool) {
 	a.violenceCheck = check
@@ -126,16 +125,16 @@ func (a *AdapterFile) SetViolenceCheck(check bool) {
 }
 
 // SetFileName sets the default configuration file name.
-
 // ff:
+// a:
 // name:
 func (a *AdapterFile) SetFileName(name string) {
 	a.defaultName = name
 }
 
 // GetFileName returns the default configuration file name.
-
 // ff:
+// a:
 func (a *AdapterFile) GetFileName() string {
 	return a.defaultName
 }
@@ -148,12 +147,12 @@ func (a *AdapterFile) GetFileName() string {
 // "list.10", "array.0.name", "array.0.1.id".
 //
 // It returns a default value specified by `def` if value for `pattern` is not found.
-
 // ff:
-// err:
-// value:
-// pattern:
+// a:
 // ctx:
+// pattern:
+// value:
+// err:
 func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{}, err error) {
 	j, err := a.getJson()
 	if err != nil {
@@ -170,11 +169,11 @@ func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{
 // It is commonly used for updates certain configuration value in runtime.
 // Note that, it is not recommended using `Set` configuration at runtime as the configuration would be
 // automatically refreshed if underlying configuration file changed.
-
-// ff:设置值
 // yx:true
-// value:
+// ff:设置值
+// a:
 // pattern:
+// value:
 func (a *AdapterFile) Set(pattern string, value interface{}) error {
 	j, err := a.getJson()
 	if err != nil {
@@ -187,11 +186,11 @@ func (a *AdapterFile) Set(pattern string, value interface{}) error {
 }
 
 // Data retrieves and returns all configuration data as map type.
-
 // ff:
-// err:
-// data:
+// a:
 // ctx:
+// data:
+// err:
 func (a *AdapterFile) Data(ctx context.Context) (data map[string]interface{}, err error) {
 	j, err := a.getJson()
 	if err != nil {
@@ -204,10 +203,10 @@ func (a *AdapterFile) Data(ctx context.Context) (data map[string]interface{}, er
 }
 
 // MustGet acts as function Get, but it panics if error occurs.
-
 // ff:
-// pattern:
+// a:
 // ctx:
+// pattern:
 func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
 	v, err := a.Get(ctx, pattern)
 	if err != nil {
@@ -218,15 +217,15 @@ func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
 
 // Clear removes all parsed configuration files content cache,
 // which will force reload configuration content from file.
-
 // ff:
+// a:
 func (a *AdapterFile) Clear() {
 	a.jsonMap.Clear()
 }
 
 // Dump prints current Json object with more manually readable.
-
 // ff:
+// a:
 func (a *AdapterFile) Dump() {
 	if j, _ := a.getJson(); j != nil {
 		j.Dump()
@@ -234,10 +233,10 @@ func (a *AdapterFile) Dump() {
 }
 
 // Available checks and returns whether configuration of given `file` is available.
-
 // ff:
-// fileName:
+// a:
 // ctx:
+// fileName:
 func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
 	checkFileName := gutil.GetOrDefaultStr(a.defaultName, fileName...)
 	// Custom configuration content exists.

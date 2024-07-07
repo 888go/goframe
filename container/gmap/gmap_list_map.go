@@ -25,7 +25,6 @@ import (
 //
 // Structure is not thread safe.
 //
-// Reference: http://en.wikipedia.org/wiki/Associative_array
 type ListMap struct {
 	mu   rwmutex.RWMutex
 	data map[interface{}]*glist.Element
@@ -41,7 +40,6 @@ type gListMapNode struct {
 // ListMap is backed by a hash table to store values and doubly-linked list to store ordering.
 // The parameter `safe` is used to specify whether using map in concurrent-safety,
 // which is false in default.
-
 // ff:创建链表mp
 // safe:并发安全
 func NewListMap(safe ...bool) *ListMap {
@@ -55,10 +53,9 @@ func NewListMap(safe ...bool) *ListMap {
 // NewListMapFrom returns a link map from given map `data`.
 // Note that, the param `data` map will be set as the underlying data map(no deep copy),
 // there might be some concurrent-safe issues when changing the map outside.
-
 // ff:创建链表Map并从Map
-// safe:并发安全
 // data:map值
+// safe:并发安全
 func NewListMapFrom(data map[interface{}]interface{}, safe ...bool) *ListMap {
 	m := NewListMap(safe...)
 	m.Sets(data)
@@ -66,19 +63,23 @@ func NewListMapFrom(data map[interface{}]interface{}, safe ...bool) *ListMap {
 }
 
 // Iterator is alias of IteratorAsc.
-
-// ff:X遍历
 // yx:true
+// ff:X遍历
+// m:
 // f:
+// key:
+// value:
 func (m *ListMap) Iterator(f func(key, value interface{}) bool) {
 	m.IteratorAsc(f)
 }
 
 // IteratorAsc iterates the map readonly in ascending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
-
 // ff:遍历升序
+// m:
 // f:回调函数
+// key:
+// value:
 func (m *ListMap) IteratorAsc(f func(key interface{}, value interface{}) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -93,9 +94,11 @@ func (m *ListMap) IteratorAsc(f func(key interface{}, value interface{}) bool) {
 
 // IteratorDesc iterates the map readonly in descending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
-
 // ff:遍历降序
+// m:
 // f:回调函数
+// key:
+// value:
 func (m *ListMap) IteratorDesc(f func(key interface{}, value interface{}) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -109,16 +112,16 @@ func (m *ListMap) IteratorDesc(f func(key interface{}, value interface{}) bool) 
 }
 
 // Clone returns a new link map with copy of current map data.
-
 // ff:取副本
+// m:
 // safe:并发安全
 func (m *ListMap) Clone(safe ...bool) *ListMap {
 	return NewListMapFrom(m.Map(), safe...)
 }
 
 // Clear deletes all data of the map, it will remake a new underlying data map.
-
 // ff:清空
+// m:
 func (m *ListMap) Clear() {
 	m.mu.Lock()
 	m.data = make(map[interface{}]*glist.Element)
@@ -127,8 +130,8 @@ func (m *ListMap) Clear() {
 }
 
 // Replace the data of the map with given `data`.
-
 // ff:替换
+// m:
 // data:map值
 func (m *ListMap) Replace(data map[interface{}]interface{}) {
 	m.mu.Lock()
@@ -145,8 +148,8 @@ func (m *ListMap) Replace(data map[interface{}]interface{}) {
 }
 
 // Map returns a copy of the underlying data of the map.
-
 // ff:取Map
+// m:
 func (m *ListMap) Map() map[interface{}]interface{} {
 	m.mu.RLock()
 	var node *gListMapNode
@@ -164,9 +167,9 @@ func (m *ListMap) Map() map[interface{}]interface{} {
 }
 
 // MapStrAny returns a copy of the underlying data of the map as map[string]interface{}.
-
-// ff:取MapStrAny
 // yx:true
+// ff:取MapStrAny
+// m:
 func (m *ListMap) MapStrAny() map[string]interface{} {
 	m.mu.RLock()
 	var node *gListMapNode
@@ -184,8 +187,8 @@ func (m *ListMap) MapStrAny() map[string]interface{} {
 }
 
 // FilterEmpty deletes all key-value pair of which the value is empty.
-
 // ff:删除所有空值
+// m:
 func (m *ListMap) FilterEmpty() {
 	m.mu.Lock()
 	if m.list != nil {
@@ -213,11 +216,11 @@ func (m *ListMap) FilterEmpty() {
 }
 
 // Set sets key-value to the map.
-
-// ff:设置值
 // yx:true
-// value:
+// ff:设置值
+// m:
 // key:
+// value:
 func (m *ListMap) Set(key interface{}, value interface{}) {
 	m.mu.Lock()
 	if m.data == nil {
@@ -233,8 +236,8 @@ func (m *ListMap) Set(key interface{}, value interface{}) {
 }
 
 // Sets batch sets key-values to the map.
-
 // ff:设置值Map
+// m:
 // data:map值
 func (m *ListMap) Sets(data map[interface{}]interface{}) {
 	m.mu.Lock()
@@ -254,11 +257,11 @@ func (m *ListMap) Sets(data map[interface{}]interface{}) {
 
 // Search searches the map with given `key`.
 // Second return parameter `found` is true if key was found, otherwise false.
-
 // ff:查找
-// found:成功
-// value:值
+// m:
 // key:名称
+// value:值
+// found:成功
 func (m *ListMap) Search(key interface{}) (value interface{}, found bool) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -272,10 +275,10 @@ func (m *ListMap) Search(key interface{}) (value interface{}, found bool) {
 }
 
 // Get returns the value by given `key`.
-
 // ff:取值
-// value:值
+// m:
 // key:名称
+// value:值
 func (m *ListMap) Get(key interface{}) (value interface{}) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -288,10 +291,10 @@ func (m *ListMap) Get(key interface{}) (value interface{}) {
 }
 
 // Pop retrieves and deletes an item from the map.
-
 // ff:出栈
-// value:值
+// m:
 // key:名称
+// value:值
 func (m *ListMap) Pop() (key, value interface{}) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -306,8 +309,8 @@ func (m *ListMap) Pop() (key, value interface{}) {
 
 // Pops retrieves and deletes `size` items from the map.
 // It returns all items if size == -1.
-
 // ff:出栈多个
+// m:
 // size:数量
 func (m *ListMap) Pops(size int) map[interface{}]interface{} {
 	m.mu.Lock()
@@ -363,10 +366,10 @@ func (m *ListMap) doSetWithLockCheck(key interface{}, value interface{}) interfa
 
 // GetOrSet returns the value by key,
 // or sets value with given `value` if it does not exist and then returns this value.
-
 // ff:取值或设置值
-// value:值
+// m:
 // key:名称
+// value:值
 func (m *ListMap) GetOrSet(key interface{}, value interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, value)
@@ -378,10 +381,10 @@ func (m *ListMap) GetOrSet(key interface{}, value interface{}) interface{} {
 // GetOrSetFunc returns the value by key,
 // or sets value with returned value of callback function `f` if it does not exist
 // and then returns this value.
-
 // ff:取值或设置值_函数
-// f:回调函数
+// m:
 // key:名称
+// f:回调函数
 func (m *ListMap) GetOrSetFunc(key interface{}, f func() interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f())
@@ -396,10 +399,10 @@ func (m *ListMap) GetOrSetFunc(key interface{}, f func() interface{}) interface{
 //
 // GetOrSetFuncLock differs with GetOrSetFunc function is that it executes function `f`
 // with mutex.Lock of the map.
-
 // ff:取值或设置值_函数带锁
-// f:回调函数
+// m:
 // key:名称
+// f:回调函数
 func (m *ListMap) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f)
@@ -410,8 +413,8 @@ func (m *ListMap) GetOrSetFuncLock(key interface{}, f func() interface{}) interf
 
 // GetVar returns a Var with the value by given `key`.
 // The returned Var is un-concurrent safe.
-
 // ff:取值泛型类
+// m:
 // key:名称
 func (m *ListMap) GetVar(key interface{}) *gvar.Var {
 	return gvar.New(m.Get(key))
@@ -419,40 +422,40 @@ func (m *ListMap) GetVar(key interface{}) *gvar.Var {
 
 // GetVarOrSet returns a Var with result from GetVarOrSet.
 // The returned Var is un-concurrent safe.
-
 // ff:取值或设置值泛型类
-// value:值
+// m:
 // key:名称
+// value:值
 func (m *ListMap) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSet(key, value))
 }
 
 // GetVarOrSetFunc returns a Var with result from GetOrSetFunc.
 // The returned Var is un-concurrent safe.
-
 // ff:取值或设置值泛型类_函数
-// f:回调函
+// m:
 // key:名称
+// f:回调函
 func (m *ListMap) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSetFunc(key, f))
 }
 
 // GetVarOrSetFuncLock returns a Var with result from GetOrSetFuncLock.
 // The returned Var is un-concurrent safe.
-
 // ff:取值或设置值泛型类_函数带锁
-// f:回调函数
+// m:
 // key:名称
+// f:回调函数
 func (m *ListMap) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSetFuncLock(key, f))
 }
 
 // SetIfNotExist sets `value` to the map if the `key` does not exist, and then returns true.
 // It returns false if `key` exists, and `value` would be ignored.
-
 // ff:设置值并跳过已存在
-// value:值
+// m:
 // key:名称
+// value:值
 func (m *ListMap) SetIfNotExist(key interface{}, value interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, value)
@@ -463,10 +466,10 @@ func (m *ListMap) SetIfNotExist(key interface{}, value interface{}) bool {
 
 // SetIfNotExistFunc sets value with return value of callback function `f`, and then returns true.
 // It returns false if `key` exists, and `value` would be ignored.
-
 // ff:设置值并跳过已存在_函数
-// f:回调函数
+// m:
 // key:名称
+// f:回调函数
 func (m *ListMap) SetIfNotExistFunc(key interface{}, f func() interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f())
@@ -480,10 +483,10 @@ func (m *ListMap) SetIfNotExistFunc(key interface{}, f func() interface{}) bool 
 //
 // SetIfNotExistFuncLock differs with SetIfNotExistFunc function is that
 // it executes function `f` with mutex.Lock of the map.
-
 // ff:设置值并跳过已存在_函数带锁
-// f:回调函数
+// m:
 // key:名称
+// f:回调函数
 func (m *ListMap) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f)
@@ -493,10 +496,10 @@ func (m *ListMap) SetIfNotExistFuncLock(key interface{}, f func() interface{}) b
 }
 
 // Remove deletes value from map by given `key`, and return this deleted value.
-
 // ff:删除
-// value:值
+// m:
 // key:名称
+// value:值
 func (m *ListMap) Remove(key interface{}) (value interface{}) {
 	m.mu.Lock()
 	if m.data != nil {
@@ -511,8 +514,8 @@ func (m *ListMap) Remove(key interface{}) (value interface{}) {
 }
 
 // Removes batch deletes values of the map by keys.
-
 // ff:删除多个值
+// m:
 // keys:名称
 func (m *ListMap) Removes(keys []interface{}) {
 	m.mu.Lock()
@@ -528,8 +531,8 @@ func (m *ListMap) Removes(keys []interface{}) {
 }
 
 // Keys returns all keys of the map as a slice in ascending order.
-
 // ff:取所有名称
+// m:
 func (m *ListMap) Keys() []interface{} {
 	m.mu.RLock()
 	var (
@@ -548,8 +551,8 @@ func (m *ListMap) Keys() []interface{} {
 }
 
 // Values returns all values of the map as a slice.
-
 // ff:取所有值
+// m:
 func (m *ListMap) Values() []interface{} {
 	m.mu.RLock()
 	var (
@@ -569,10 +572,10 @@ func (m *ListMap) Values() []interface{} {
 
 // Contains checks whether a key exists.
 // It returns true if the `key` exists, or else false.
-
 // ff:是否存在
-// ok:
+// m:
 // key:名称
+// ok:
 func (m *ListMap) Contains(key interface{}) (ok bool) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -583,8 +586,8 @@ func (m *ListMap) Contains(key interface{}) (ok bool) {
 }
 
 // Size returns the size of the map.
-
 // ff:取数量
+// m:
 // size:数量
 func (m *ListMap) Size() (size int) {
 	m.mu.RLock()
@@ -595,15 +598,15 @@ func (m *ListMap) Size() (size int) {
 
 // IsEmpty checks whether the map is empty.
 // It returns true if map is empty, or else false.
-
 // ff:是否为空
+// m:
 func (m *ListMap) IsEmpty() bool {
 	return m.Size() == 0
 }
 
 // Flip exchanges key-value of the map to value-key.
-
 // ff:名称值交换
+// m:
 func (m *ListMap) Flip() {
 	data := m.Map()
 	m.Clear()
@@ -614,8 +617,8 @@ func (m *ListMap) Flip() {
 
 // Merge merges two link maps.
 // The `other` map will be merged into the map `m`.
-
 // ff:合并
+// m:
 // other:map值
 func (m *ListMap) Merge(other *ListMap) {
 	m.mu.Lock()
@@ -641,8 +644,8 @@ func (m *ListMap) Merge(other *ListMap) {
 }
 
 // String returns the map as a string.
-
 // ff:
+// m:
 func (m *ListMap) String() string {
 	if m == nil {
 		return ""
@@ -652,10 +655,10 @@ func (m *ListMap) String() string {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-
 // ff:
-// err:
+// m:
 // jsonBytes:
+// err:
 func (m ListMap) MarshalJSON() (jsonBytes []byte, err error) {
 	if m.data == nil {
 		return []byte("null"), nil
@@ -679,8 +682,8 @@ func (m ListMap) MarshalJSON() (jsonBytes []byte, err error) {
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-
 // ff:
+// m:
 // b:
 func (m *ListMap) UnmarshalJSON(b []byte) error {
 	m.mu.Lock()
@@ -704,10 +707,10 @@ func (m *ListMap) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for map.
-
 // ff:
-// err:
+// m:
 // value:
+// err:
 func (m *ListMap) UnmarshalValue(value interface{}) (err error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -726,8 +729,8 @@ func (m *ListMap) UnmarshalValue(value interface{}) (err error) {
 }
 
 // DeepCopy implements interface for deep copy of current type.
-
 // ff:
+// m:
 func (m *ListMap) DeepCopy() interface{} {
 	if m == nil {
 		return nil

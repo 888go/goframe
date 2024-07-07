@@ -18,8 +18,8 @@ type Domain struct {
 }
 
 // Domain creates and returns a domain object for management for one or more domains.
-
 // ff:创建域名路由
+// s:
 // domains:域名
 func (s *Server) Domain(domains string) *Domain {
 	d := &Domain{
@@ -33,10 +33,10 @@ func (s *Server) Domain(domains string) *Domain {
 }
 
 // BindHandler binds the handler for the specified pattern.
-
 // ff:X绑定
-// handler:处理函数
+// d:
 // pattern:路由规则
+// handler:处理函数
 func (d *Domain) BindHandler(pattern string, handler interface{}) {
 	for domain := range d.domains {
 		d.server.BindHandler(pattern+"@"+domain, handler)
@@ -56,11 +56,11 @@ func (d *Domain) doBindHandler(ctx context.Context, in doBindHandlerInput) {
 }
 
 // BindObject binds the object for the specified pattern.
-
 // ff:绑定对象
-// methods:方法名
-// obj:处理对象
+// d:
 // pattern:路由规则
+// obj:处理对象
+// methods:方法名
 func (d *Domain) BindObject(pattern string, obj interface{}, methods ...string) {
 	for domain := range d.domains {
 		d.server.BindObject(pattern+"@"+domain, obj, methods...)
@@ -81,11 +81,11 @@ func (d *Domain) doBindObject(ctx context.Context, in doBindObjectInput) {
 }
 
 // BindObjectMethod binds the method for the specified pattern.
-
 // ff:绑定对象方法
-// method:方法
-// obj:处理对象
+// d:
 // pattern:路由规则
+// obj:处理对象
+// method:方法
 func (d *Domain) BindObjectMethod(pattern string, obj interface{}, method string) {
 	for domain := range d.domains {
 		d.server.BindObjectMethod(pattern+"@"+domain, obj, method)
@@ -106,10 +106,10 @@ func (d *Domain) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 }
 
 // BindObjectRest binds the RESTful API for the specified pattern.
-
 // ff:绑定RESTfulAPI对象
-// obj:处理对象
+// d:
 // pattern:路由规则
+// obj:处理对象
 func (d *Domain) BindObjectRest(pattern string, obj interface{}) {
 	for domain := range d.domains {
 		d.server.BindObjectRest(pattern+"@"+domain, obj)
@@ -130,11 +130,11 @@ func (d *Domain) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 }
 
 // BindHookHandler binds the hook handler for the specified pattern.
-
 // ff:绑定Hook
-// handler:处理函数
-// hook:触发时机
+// d:
 // pattern:路由规则
+// hook:触发时机
+// handler:处理函数
 func (d *Domain) BindHookHandler(pattern string, hook HookName, handler HandlerFunc) {
 	for domain := range d.domains {
 		d.server.BindHookHandler(pattern+"@"+domain, hook, handler)
@@ -154,10 +154,10 @@ func (d *Domain) doBindHookHandler(ctx context.Context, in doBindHookHandlerInpu
 }
 
 // BindHookHandlerByMap binds the hook handler for the specified pattern.
-
 // ff:绑定HookMap
-// hookMap:HookMap
+// d:
 // pattern:路由规则
+// hookMap:HookMap
 func (d *Domain) BindHookHandlerByMap(pattern string, hookMap map[HookName]HandlerFunc) {
 	for domain := range d.domains {
 		d.server.BindHookHandlerByMap(pattern+"@"+domain, hookMap)
@@ -165,10 +165,10 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookMap map[HookName]Handl
 }
 
 // BindStatusHandler binds the status handler for the specified pattern.
-
 // ff:绑定状态码中间件
-// handler:处理函数
+// d:
 // status:状态码
+// handler:处理函数
 func (d *Domain) BindStatusHandler(status int, handler HandlerFunc) {
 	for domain := range d.domains {
 		d.server.addStatusHandler(d.server.statusHandlerKey(status, domain), handler)
@@ -176,8 +176,8 @@ func (d *Domain) BindStatusHandler(status int, handler HandlerFunc) {
 }
 
 // BindStatusHandlerByMap binds the status handler for the specified pattern.
-
 // ff:绑定状态码中间件Map
+// d:
 // handlerMap:中间件Map
 func (d *Domain) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc) {
 	for k, v := range handlerMap {
@@ -186,10 +186,10 @@ func (d *Domain) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc) {
 }
 
 // BindMiddleware binds the middleware for the specified pattern.
-
 // ff:绑定中间件
-// handlers:处理函数
+// d:
 // pattern:路由规则
+// handlers:处理函数
 func (d *Domain) BindMiddleware(pattern string, handlers ...HandlerFunc) {
 	for domain := range d.domains {
 		d.server.BindMiddleware(pattern+"@"+domain, handlers...)
@@ -197,8 +197,8 @@ func (d *Domain) BindMiddleware(pattern string, handlers ...HandlerFunc) {
 }
 
 // BindMiddlewareDefault binds the default middleware for the specified pattern.
-
 // ff:绑定默认中间件
+// d:
 // handlers:处理函数
 func (d *Domain) BindMiddlewareDefault(handlers ...HandlerFunc) {
 	for domain := range d.domains {
@@ -207,8 +207,8 @@ func (d *Domain) BindMiddlewareDefault(handlers ...HandlerFunc) {
 }
 
 // Use adds middleware to the domain.
-
 // ff:Use别名
+// d:
 // handlers:处理函数
 func (d *Domain) Use(handlers ...HandlerFunc) {
 	d.BindMiddlewareDefault(handlers...)

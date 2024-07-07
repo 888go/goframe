@@ -9,7 +9,6 @@ package gstr
 import "github.com/gogf/gf/v2/internal/utils"
 
 // IsNumeric tests whether the given string s is numeric.
-
 // ff:是否为数字
 // s:值
 func IsNumeric(s string) bool {

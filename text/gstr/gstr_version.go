@@ -13,7 +13,6 @@ import (
 )
 
 // IsGNUVersion checks and returns whether given `version` is valid GNU version string.
-
 // ff:版本号是否有效
 // version:版本号
 func IsGNUVersion(version string) bool {
@@ -57,10 +56,9 @@ func IsGNUVersion(version string) bool {
 // v2.10.8
 // 10.2.0
 // etc.
-
 // ff:版本号比较GNU格式
-// b:
 // a:
+// b:
 func CompareVersion(a, b string) int {
 	if a != "" && a[0] == 'v' {
 		a = a[1:]
@@ -114,11 +112,9 @@ func CompareVersion(a, b string) int {
 // v4.20.0+incompatible
 // etc.
 //
-// Docs: https://go.dev/doc/modules/version-numbers
-
 // ff:版本号比较GO格式
-// b:
 // a:
+// b:
 func CompareVersionGo(a, b string) int {
 	a = Trim(a)
 	b = Trim(b)

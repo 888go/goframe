@@ -13,26 +13,16 @@ import (
 )
 
 // IsNil checks whether `value` is nil, especially for interface{} type value.
-
-// ff:是否为Nil
-// yx:true
-// value:
 func IsNil(value interface{}) bool {
 	return empty.IsNil(value)
 }
 
 // IsEmpty checks whether `value` is empty.
-
-// ff:
-// value:
 func IsEmpty(value interface{}) bool {
 	return empty.IsEmpty(value)
 }
 
 // IsInt checks whether `value` is type of int.
-
-// ff:
-// value:
 func IsInt(value interface{}) bool {
 	switch value.(type) {
 	case int, *int, int8, *int8, int16, *int16, int32, *int32, int64, *int64:
@@ -42,9 +32,6 @@ func IsInt(value interface{}) bool {
 }
 
 // IsUint checks whether `value` is type of uint.
-
-// ff:
-// value:
 func IsUint(value interface{}) bool {
 	switch value.(type) {
 	case uint, *uint, uint8, *uint8, uint16, *uint16, uint32, *uint32, uint64, *uint64:
@@ -54,9 +41,6 @@ func IsUint(value interface{}) bool {
 }
 
 // IsFloat checks whether `value` is type of float.
-
-// ff:
-// value:
 func IsFloat(value interface{}) bool {
 	switch value.(type) {
 	case float32, *float32, float64, *float64:
@@ -66,9 +50,6 @@ func IsFloat(value interface{}) bool {
 }
 
 // IsSlice checks whether `value` is type of slice.
-
-// ff:
-// value:
 func IsSlice(value interface{}) bool {
 	var (
 		reflectValue = reflect.ValueOf(value)
@@ -86,9 +67,6 @@ func IsSlice(value interface{}) bool {
 }
 
 // IsMap checks whether `value` is type of map.
-
-// ff:
-// value:
 func IsMap(value interface{}) bool {
 	var (
 		reflectValue = reflect.ValueOf(value)
@@ -106,9 +84,6 @@ func IsMap(value interface{}) bool {
 }
 
 // IsStruct checks whether `value` is type of struct.
-
-// ff:
-// value:
 func IsStruct(value interface{}) bool {
 	var reflectType = reflect.TypeOf(value)
 	if reflectType == nil {

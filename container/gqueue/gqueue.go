@@ -6,7 +6,6 @@
 
 // Package gqueue provides dynamic/static concurrent-safe queue.
 //
-// Features:
 //
 // 1. FIFO queue(data -> list -> chan);
 //
@@ -41,7 +40,6 @@ const (
 // New returns an empty queue object.
 // Optional parameter `limit` is used to limit the size of the queue, which is unlimited in default.
 // When `limit` is given, the queue will be static and high performance which is comparable with stdlib channel.
-
 // ff:创建
 // limit:队列长度
 func New(limit ...int) *Queue {
@@ -62,8 +60,8 @@ func New(limit ...int) *Queue {
 
 // Push pushes the data `v` into the queue.
 // Note that it would panic if Push is called after the queue is closed.
-
 // ff:入栈
+// q:
 // v:值
 func (q *Queue) Push(v interface{}) {
 	if q.limit > 0 {
@@ -78,17 +76,16 @@ func (q *Queue) Push(v interface{}) {
 
 // Pop pops an item from the queue in FIFO way.
 // Note that it would return nil immediately if Pop is called after the queue is closed.
-
 // ff:出栈
+// q:
 func (q *Queue) Pop() interface{} {
 	return <-q.C
 }
 
 // Close closes the queue.
-// Notice: It would notify all goroutines return immediately,
 // which are being blocked reading using Pop method.
-
 // ff:关闭
+// q:
 func (q *Queue) Close() {
 	if !q.closed.Cas(false, true) {
 		return
@@ -108,8 +105,8 @@ func (q *Queue) Close() {
 // Len returns the length of the queue.
 // Note that the result might not be accurate if using unlimited queue size as there's an
 // asynchronous channel reading the list constantly.
-
 // ff:取长度
+// q:
 // length:长度
 func (q *Queue) Len() (length int64) {
 	bufferedSize := int64(len(q.C))
@@ -120,9 +117,8 @@ func (q *Queue) Len() (length int64) {
 }
 
 // Size is alias of Len.
-// Deprecated: use Len instead.
-
 // ff:Size弃用
+// q:
 func (q *Queue) Size() int64 {
 	return q.Len()
 }

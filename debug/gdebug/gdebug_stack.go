@@ -13,7 +13,6 @@ import (
 )
 
 // PrintStack prints to standard error the stack trace returned by runtime.Stack.
-
 // ff:
 // skip:
 func PrintStack(skip ...int) {
@@ -22,7 +21,6 @@ func PrintStack(skip ...int) {
 
 // Stack returns a formatted stack trace of the goroutine that calls it.
 // It calls runtime.Stack with a large enough buffer to capture the entire trace.
-
 // ff:
 // skip:
 func Stack(skip ...int) string {
@@ -33,10 +31,9 @@ func Stack(skip ...int) string {
 // It calls runtime.Stack with a large enough buffer to capture the entire trace.
 //
 // The parameter `filter` is used to filter the path of the caller.
-
 // ff:
-// skip:
 // filters:
+// skip:
 func StackWithFilter(filters []string, skip ...int) string {
 	return StackWithFilters(filters, skip...)
 }
@@ -48,10 +45,9 @@ func StackWithFilter(filters []string, skip ...int) string {
 // caller.
 //
 // TODO Improve the performance using debug.Stack.
-
 // ff:
-// skip:
 // filters:
+// skip:
 func StackWithFilters(filters []string, skip ...int) string {
 	number := 0
 	if len(skip) > 0 {

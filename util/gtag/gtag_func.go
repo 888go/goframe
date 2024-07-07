@@ -19,11 +19,10 @@ var (
 
 // Set sets tag content for specified name.
 // Note that it panics if `name` already exists.
-
-// ff:设置值
 // yx:true
-// value:
+// ff:设置值
 // name:
+// value:
 func Set(name, value string) {
 	if _, ok := data[name]; ok {
 		panic(gerror.Newf(`value for tag name "%s" already exists`, name))
@@ -32,16 +31,14 @@ func Set(name, value string) {
 }
 
 // SetOver performs as Set, but it overwrites the old value if `name` already exists.
-
 // ff:
-// value:
 // name:
+// value:
 func SetOver(name, value string) {
 	data[name] = value
 }
 
 // Sets sets multiple tag content by map.
-
 // ff:
 // m:
 func Sets(m map[string]string) {
@@ -51,7 +48,6 @@ func Sets(m map[string]string) {
 }
 
 // SetsOver performs as Sets, but it overwrites the old value if `name` already exists.
-
 // ff:
 // m:
 func SetsOver(m map[string]string) {
@@ -61,7 +57,6 @@ func SetsOver(m map[string]string) {
 }
 
 // Get retrieves and returns the stored tag content for specified name.
-
 // ff:
 // name:
 func Get(name string) string {
@@ -70,10 +65,8 @@ func Get(name string) string {
 
 // Parse parses and returns the content by replacing all tag name variable to
 // its content for given `content`.
-// Eg:
 // gtag.Set("demo", "content")
 // Parse(`This is {demo}`) -> `This is content`.
-
 // ff:
 // content:
 func Parse(content string) string {

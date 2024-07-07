@@ -16,7 +16,7 @@ func NewIntSetFrom(items []int, safe
 
 # <翻译开始>
 func NewIntSetFrom(items
-整数数组
+整数切片
 # <翻译结束>
 
 # <翻译开始>
@@ -96,7 +96,7 @@ X清空
 
 # <翻译开始>
 ) Slice
-X取集合数组
+X取集合切片
 # <翻译结束>
 
 # <翻译开始>

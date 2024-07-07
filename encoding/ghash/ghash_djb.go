@@ -7,7 +7,6 @@
 package ghash
 
 // DJB implements the classic DJB hash algorithm for 32 bits.
-
 // ff:
 // str:
 func DJB(str []byte) uint32 {
@@ -19,7 +18,6 @@ func DJB(str []byte) uint32 {
 }
 
 // DJB64 implements the classic DJB hash algorithm for 64 bits.
-
 // ff:
 // str:
 func DJB64(str []byte) uint64 {

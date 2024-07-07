@@ -25,14 +25,14 @@ import (
 // Request is the context object for a request.
 type Request struct {
 	*http.Request
-	Server     *Server            //qm:服务 cz:Server  *Server     // Server.
+	Server     *Server//qm:服务  cz:Server *Server             // Server.
 	Cookie     *Cookie           // Cookie.
 	Session    *gsession.Session // Session.
-	Response   *Response          //qm:响应 cz:Response *Response     // Corresponding Response of this request.
-	Router     *Router            //qm:路由 cz:Router *     // Matched Router for this request. Note that it's not available in HOOK handler.
+	Response   *Response//qm:响应  cz:Response *Response           // Corresponding Response of this request.
+	Router     *Router//qm:路由  cz:Router *             // Matched Router for this request. Note that it's not available in HOOK handler.
 	EnterTime  *gtime.Time       // Request starting time in milliseconds.
 	LeaveTime  *gtime.Time       // Request to end time in milliseconds.
-	Middleware *middleware        //qm:中间件管理器 cz:Middleware *middleware     // Middleware manager.
+	Middleware *middleware//qm:中间件管理器  cz:Middleware *middleware         // Middleware manager.
 	StaticFile *staticFile       // Static file object for static file serving.
 
 	// =================================================================================================================
@@ -118,9 +118,8 @@ func newRequest(s *Server, r *http.Request, w http.ResponseWriter) *Request {
 // It returns a new WebSocket object if success, or the error if failure.
 // Note that the request should be a websocket request, or it will surely fail upgrading.
 //
-// Deprecated: will be removed in the future, please use third-party websocket library instead.
-
 // ff:升级为websocket请求
+// r:
 func (r *Request) WebSocket() (*WebSocket, error) {
 	if conn, err := wsUpGrader.Upgrade(r.Response.Writer, r.Request, nil); err == nil {
 		return &WebSocket{
@@ -132,45 +131,45 @@ func (r *Request) WebSocket() (*WebSocket, error) {
 }
 
 // Exit exits executing of current HTTP handler.
-
 // ff:退出当前
+// r:
 func (r *Request) Exit() {
 	panic(exceptionExit)
 }
 
 // ExitAll exits executing of current and following HTTP handlers.
-
 // ff:退出全部
+// r:
 func (r *Request) ExitAll() {
 	r.exitAll = true
 	panic(exceptionExitAll)
 }
 
 // ExitHook exits executing of current and following HTTP HOOK handlers.
-
 // ff:退出Hook
+// r:
 func (r *Request) ExitHook() {
 	panic(exceptionExitHook)
 }
 
 // IsExited checks and returns whether current request is exited.
-
 // ff:是否已退出
+// r:
 func (r *Request) IsExited() bool {
 	return r.exitAll
 }
 
 // GetHeader retrieves and returns the header value with given `key`.
-
 // ff:取协议头值
+// r:
 // key:名称
 func (r *Request) GetHeader(key string) string {
 	return r.Header.Get(key)
 }
 
 // GetHost returns current request host name, which might be a domain or an IP without port.
-
 // ff:取主机名
+// r:
 func (r *Request) GetHost() string {
 	if len(r.parsedHost) == 0 {
 		array, _ := gregex.MatchString(`(.+):(\d+)`, r.Host)
@@ -184,23 +183,23 @@ func (r *Request) GetHost() string {
 }
 
 // IsFileRequest checks and returns whether current request is serving file.
-
 // ff:是否为文件请求
+// r:
 func (r *Request) IsFileRequest() bool {
 	return r.isFileRequest
 }
 
 // IsAjaxRequest checks and returns whether current request is an AJAX request.
-
 // ff:是否为AJAX请求
+// r:
 func (r *Request) IsAjaxRequest() bool {
 	return strings.EqualFold(r.Header.Get("X-Requested-With"), "XMLHttpRequest")
 }
 
 // GetClientIp returns the client ip of this request without port.
 // Note that this ip address might be modified by client header.
-
 // ff:取客户端IP地址
+// r:
 func (r *Request) GetClientIp() string {
 	if r.clientIp != "" {
 		return r.clientIp
@@ -232,8 +231,8 @@ func (r *Request) GetClientIp() string {
 }
 
 // GetRemoteIp returns the ip from RemoteAddr.
-
 // ff:取远程IP地址
+// r:
 func (r *Request) GetRemoteIp() string {
 	array, _ := gregex.MatchString(`(.+):(\d+)`, r.RemoteAddr)
 	if len(array) > 1 {
@@ -243,8 +242,8 @@ func (r *Request) GetRemoteIp() string {
 }
 
 // GetSchema returns the schema of this request.
-
 // ff:
+// r:
 func (r *Request) GetSchema() string {
 	var (
 		scheme = "http"
@@ -257,8 +256,8 @@ func (r *Request) GetSchema() string {
 }
 
 // GetUrl returns current URL of this request.
-
 // ff:取URL
+// r:
 func (r *Request) GetUrl() string {
 	var (
 		scheme = "http"
@@ -272,8 +271,8 @@ func (r *Request) GetUrl() string {
 }
 
 // GetSessionId retrieves and returns session id from cookie or header.
-
 // ff:取SessionId
+// r:
 func (r *Request) GetSessionId() string {
 	id := r.Cookie.GetSessionId()
 	if id == "" {
@@ -283,23 +282,23 @@ func (r *Request) GetSessionId() string {
 }
 
 // GetReferer returns referer of this request.
-
 // ff:取引用来源URL
+// r:
 func (r *Request) GetReferer() string {
 	return r.Header.Get("Referer")
 }
 
 // GetError returns the error occurs in the procedure of the request.
 // It returns nil if there's no error.
-
 // ff:取错误信息
+// r:
 func (r *Request) GetError() error {
 	return r.error
 }
 
 // SetError sets custom error for current request.
-
 // ff:设置错误信息
+// r:
 // err:错误
 func (r *Request) SetError(err error) {
 	r.error = err
@@ -308,8 +307,8 @@ func (r *Request) SetError(err error) {
 // ReloadParam is used for modifying request parameter.
 // Sometimes, we want to modify request parameters through middleware, but directly modifying Request.Body
 // is invalid, so it clears the parsed* marks of Request to make the parameters reparsed.
-
 // ff:重载请求参数
+// r:
 func (r *Request) ReloadParam() {
 	r.parsedBody = false
 	r.parsedForm = false
@@ -318,15 +317,15 @@ func (r *Request) ReloadParam() {
 }
 
 // GetHandlerResponse retrieves and returns the handler response object and its error.
-
 // ff:取响应对象及错误信息
+// r:
 func (r *Request) GetHandlerResponse() interface{} {
 	return r.handlerResponse
 }
 
 // GetServeHandler retrieves and returns the user defined handler used to serve this request.
-
 // ff:取路由解析对象
+// r:
 func (r *Request) GetServeHandler() *HandlerItemParsed {
 	return r.serveHandler
 }

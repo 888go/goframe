@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gudp_test
+package gudp_test//bm:udp类_test
 
 import (
 	"fmt"

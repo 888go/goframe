@@ -25,21 +25,14 @@ func init() {
 	Register(RuleRequiredUnless{})
 }
 
-
-// ff:
 func (r RuleRequiredUnless) Name() string {
 	return "required-unless"
 }
 
-
-// ff:
 func (r RuleRequiredUnless) Message() string {
 	return "The {field} field is required"
 }
 
-
-// ff:
-// in:
 func (r RuleRequiredUnless) Run(in RunInput) error {
 	var (
 		required   = true

@@ -5,4 +5,4 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package garray provides most commonly used array containers which also support concurrent-safe/unsafe switch feature.
-package garray//bm:数组类
+package garray//bm:切片类

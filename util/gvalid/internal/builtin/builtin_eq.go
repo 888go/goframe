@@ -18,21 +18,14 @@ func init() {
 	Register(RuleEq{})
 }
 
-
-// ff:
 func (r RuleEq) Name() string {
 	return "eq"
 }
 
-
-// ff:
 func (r RuleEq) Message() string {
 	return "The {field} value `{value}` must be equal to field {field1} value `{value1}`"
 }
 
-
-// ff:
-// in:
 func (r RuleEq) Run(in RunInput) error {
 	return RuleSame{}.Run(in)
 }

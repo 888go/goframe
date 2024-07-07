@@ -56,10 +56,9 @@ func init() {
 
 // Mkdir creates directories recursively with given `path`.
 // The parameter `path` is suggested to be an absolute path instead of relative one.
-
 // ff:创建目录
-// err:错误
 // path:目录
+// err:错误
 func Mkdir(path string) (err error) {
 	if err = os.MkdirAll(path, os.ModePerm); err != nil {
 		err = gerror.Wrapf(err, `os.MkdirAll failed for path "%s" with perm "%d"`, path, os.ModePerm)
@@ -70,7 +69,6 @@ func Mkdir(path string) (err error) {
 
 // Create creates a file with given `path` recursively.
 // The parameter `path` is suggested to be absolute path.
-
 // ff:创建文件与目录
 // path:文件路径
 func Create(path string) (*os.File, error) {
@@ -88,7 +86,6 @@ func Create(path string) (*os.File, error) {
 }
 
 // Open opens file/directory READONLY.
-
 // ff:打开并按只读模式
 // path:路径
 func Open(path string) (*os.File, error) {
@@ -101,11 +98,10 @@ func Open(path string) (*os.File, error) {
 
 // OpenFile opens file/directory with custom `flag` and `perm`.
 // The parameter `flag` is like: O_RDONLY, O_RDWR, O_RDWR|O_CREATE|O_TRUNC, etc.
-
 // ff:打开
-// perm:权限模式
-// flag:读写模式
 // path:路径
+// flag:读写模式
+// perm:权限模式
 func OpenFile(path string, flag int, perm os.FileMode) (*os.File, error) {
 	file, err := os.OpenFile(path, flag, perm)
 	if err != nil {
@@ -117,10 +113,9 @@ func OpenFile(path string, flag int, perm os.FileMode) (*os.File, error) {
 // OpenWithFlag opens file/directory with default perm and custom `flag`.
 // The default `perm` is 0666.
 // The parameter `flag` is like: O_RDONLY, O_RDWR, O_RDWR|O_CREATE|O_TRUNC, etc.
-
 // ff:打开并按默认权限
-// flag:读写模式
 // path:路径
+// flag:读写模式
 func OpenWithFlag(path string, flag int) (*os.File, error) {
 	file, err := OpenFile(path, flag, DefaultPermOpen)
 	if err != nil {
@@ -132,11 +127,10 @@ func OpenWithFlag(path string, flag int) (*os.File, error) {
 // OpenWithFlagPerm opens file/directory with custom `flag` and `perm`.
 // The parameter `flag` is like: O_RDONLY, O_RDWR, O_RDWR|O_CREATE|O_TRUNC, etc.
 // The parameter `perm` is like: 0600, 0666, 0777, etc.
-
 // ff:OpenWithFlagPerm别名
-// perm:
-// flag:
 // path:
+// flag:
+// perm:
 func OpenWithFlagPerm(path string, flag int, perm os.FileMode) (*os.File, error) {
 	file, err := OpenFile(path, flag, perm)
 	if err != nil {
@@ -146,7 +140,6 @@ func OpenWithFlagPerm(path string, flag int, perm os.FileMode) (*os.File, error)
 }
 
 // Join joins string array paths with file separator of current system.
-
 // ff:路径生成
 // paths:路径s
 func Join(paths ...string) string {
@@ -161,7 +154,6 @@ func Join(paths ...string) string {
 }
 
 // Exists checks whether given `path` exist.
-
 // ff:是否存在
 // path:路径
 func Exists(path string) bool {
@@ -173,7 +165,6 @@ func Exists(path string) bool {
 
 // IsDir checks whether given `path` a directory.
 // Note that it returns false if the `path` does not exist.
-
 // ff:是否存在目录
 // path:路径
 func IsDir(path string) bool {
@@ -187,7 +178,6 @@ func IsDir(path string) bool {
 // Pwd returns absolute path of current working directory.
 // Note that it returns an empty string if retrieving current
 // working directory failed.
-
 // ff:取当前工作目录
 func Pwd() string {
 	path, err := os.Getwd()
@@ -199,10 +189,9 @@ func Pwd() string {
 
 // Chdir changes the current working directory to the named directory.
 // If there is an error, it will be of type *PathError.
-
 // ff:设置当前工作目录
-// err:错误
 // dir:目录
+// err:错误
 func Chdir(dir string) (err error) {
 	err = os.Chdir(dir)
 	if err != nil {
@@ -213,7 +202,6 @@ func Chdir(dir string) (err error) {
 
 // IsFile checks whether given `path` a file, which means it's not a directory.
 // Note that it returns false if the `path` does not exist.
-
 // ff:是否为文件
 // path:路径
 func IsFile(path string) bool {
@@ -226,7 +214,6 @@ func IsFile(path string) bool {
 
 // Stat returns a FileInfo describing the named file.
 // If there is an error, it will be of type *PathError.
-
 // ff:取详情
 // path:路径
 func Stat(path string) (os.FileInfo, error) {
@@ -239,11 +226,10 @@ func Stat(path string) (os.FileInfo, error) {
 
 // Move renames (moves) `src` to `dst` path.
 // If `dst` already exists and is not a directory, it'll be replaced.
-
 // ff:移动
-// err:错误
-// dst:新路径
 // src:路径
+// dst:新路径
+// err:错误
 func Move(src string, dst string) (err error) {
 	err = os.Rename(src, dst)
 	if err != nil {
@@ -254,17 +240,15 @@ func Move(src string, dst string) (err error) {
 
 // Rename is alias of Move.
 // See Move.
-
 // ff:Rename别名
-// dst:
 // src:
+// dst:
 func Rename(src string, dst string) error {
 	return Move(src, dst)
 }
 
 // DirNames returns sub-file names of given directory `path`.
 // Note that the returned names are NOT absolute paths.
-
 // ff:取文件列表
 // path:路径
 func DirNames(path string) ([]string, error) {
@@ -289,10 +273,9 @@ func DirNames(path string) ([]string, error) {
 // Glob ignores file system errors such as I/O errors reading directories.
 // The only possible returned error is ErrBadPattern, when pattern
 // is malformed.
-
 // ff:模糊查找
-// onlyNames:返回绝对路径
 // pattern:路径
+// onlyNames:返回绝对路径
 func Glob(pattern string, onlyNames ...bool) ([]string, error) {
 	list, err := filepath.Glob(pattern)
 	if err != nil {
@@ -313,10 +296,9 @@ func Glob(pattern string, onlyNames ...bool) ([]string, error) {
 // If parameter `path` is directory, it deletes it recursively.
 //
 // It does nothing if given `path` does not exist or is empty.
-
 // ff:删除
-// err:错误
 // path:路径或文件夹
+// err:错误
 func Remove(path string) (err error) {
 	// It does nothing if `path` is empty.
 	if path == "" {
@@ -329,7 +311,6 @@ func Remove(path string) (err error) {
 }
 
 // IsReadable checks whether given `path` is readable.
-
 // ff:是否可读
 // path:路径
 func IsReadable(path string) bool {
@@ -345,7 +326,6 @@ func IsReadable(path string) bool {
 // IsWritable checks whether given `path` is writable.
 //
 // TODO improve performance; use golang.org/x/sys to cross-plat-form
-
 // ff:是否可写
 // path:路径
 func IsWritable(path string) bool {
@@ -372,11 +352,10 @@ func IsWritable(path string) bool {
 
 // Chmod is alias of os.Chmod.
 // See os.Chmod.
-
 // ff:更改权限
-// err:错误
-// mode:权限模式
 // path:路径
+// mode:权限模式
+// err:错误
 func Chmod(path string, mode os.FileMode) (err error) {
 	err = os.Chmod(path, mode)
 	if err != nil {
@@ -390,7 +369,6 @@ func Chmod(path string, mode os.FileMode) (err error) {
 // working directory to turn it into an absolute path. The absolute
 // path name for a given file is not guaranteed to be unique.
 // Abs calls Clean on the result.
-
 // ff:取绝对路径
 // path:路径
 func Abs(path string) string {
@@ -401,7 +379,6 @@ func Abs(path string) string {
 // RealPath converts the given `path` to its absolute path
 // and checks if the file path exists.
 // If the file does not exist, return an empty string.
-
 // ff:取绝对路径且效验
 // path:路径
 func RealPath(path string) string {
@@ -416,21 +393,18 @@ func RealPath(path string) string {
 }
 
 // SelfPath returns absolute file path of current running process(binary).
-
 // ff:取当前进程路径
 func SelfPath() string {
 	return selfPath
 }
 
 // SelfName returns file name of current running process(binary).
-
 // ff:取当前进程名
 func SelfName() string {
 	return Basename(SelfPath())
 }
 
 // SelfDir returns absolute directory path of current running process(binary).
-
 // ff:取当前进程目录
 func SelfDir() string {
 	return filepath.Dir(SelfPath())
@@ -441,10 +415,8 @@ func SelfDir() string {
 // If the path is empty, Base returns ".".
 // If the path consists entirely of separators, Basename returns a single separator.
 //
-// Example:
 // Basename("/var/www/file.js") -> file.js
 // Basename("file.js")          -> file.js
-
 // ff:路径取文件名
 // path:路径
 func Basename(path string) string {
@@ -453,10 +425,8 @@ func Basename(path string) string {
 
 // Name returns the last element of path without file extension.
 //
-// Example:
 // Name("/var/www/file.js") -> file
 // Name("file.js")          -> file
-
 // ff:路径取文件名且不含扩展名
 // path:路径
 func Name(path string) string {
@@ -475,10 +445,8 @@ func Name(path string) string {
 // If the `path` consists entirely of separators, Dir returns a single separator.
 // The returned path does not end in a separator unless it is the root directory.
 //
-// Example:
 // Dir("/var/www/file.js") -> "/var/www"
 // Dir("file.js")          -> "."
-
 // ff:路径取父目录
 // path:路径
 func Dir(path string) string {
@@ -493,7 +461,6 @@ func Dir(path string) string {
 // If `path` is a file, it checks if the file size is zero.
 //
 // Note that it returns true if `path` does not exist.
-
 // ff:是否为空
 // path:路径
 func IsEmpty(path string) bool {
@@ -521,12 +488,9 @@ func IsEmpty(path string) bool {
 // The extension is the suffix beginning at the final dot
 // in the final element of path; it is empty if there is
 // no dot.
-// Note: the result contains symbol '.'.
 //
-// Example:
 // Ext("main.go")  => .go
 // Ext("api.json") => .json
-
 // ff:路径取扩展名
 // path:路径
 func Ext(path string) string {
@@ -540,10 +504,8 @@ func Ext(path string) string {
 // ExtName is like function Ext, which returns the file name extension used by path,
 // but the result does not contain symbol '.'.
 //
-// Example:
 // ExtName("main.go")  => go
 // ExtName("api.json") => json
-
 // ff:路径取扩展名且不含点号
 // path:路径
 func ExtName(path string) string {
@@ -554,7 +516,6 @@ func ExtName(path string) string {
 //
 // The optional parameter `names` specifies the sub-folders/sub-files,
 // which will be joined with current system separator and returned with the path.
-
 // ff:取临时目录
 // names:可选路径
 func Temp(names ...string) string {

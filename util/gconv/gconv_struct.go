@@ -22,7 +22,6 @@ import (
 // The third parameter `mapping` is unnecessary, indicating the mapping rules between the
 // custom key name and the attribute name(case-sensitive).
 //
-// Note:
 //  1. The `params` can be any type of map/struct, usually a map.
 //  2. The `pointer` should be type of *struct/**struct, which is a pointer to struct object
 //     or struct pointer.
@@ -31,12 +30,11 @@ import (
 //     It will automatically convert the first letter of the key to uppercase
 //     in mapping procedure to do the matching.
 //     It ignores the map key, if it does not match.
-
 // ff:
-// err:
-// paramKeyToAttrMap:
-// pointer:
 // params:
+// pointer:
+// paramKeyToAttrMap:
+// err:
 func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
@@ -44,12 +42,11 @@ func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[st
 // StructTag acts as Struct but also with support for priority tag feature, which retrieves the
 // specified tags for `params` key-value items to struct attribute names mapping.
 // The parameter `priorityTag` supports multiple tags that can be joined with char ','.
-
 // ff:
-// err:
-// priorityTag:
-// pointer:
 // params:
+// pointer:
+// priorityTag:
+// err:
 func StructTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStruct(params, pointer, nil, priorityTag)
 }

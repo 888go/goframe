@@ -7,17 +7,17 @@
 package ghttp
 
 // SetRewrite sets rewrites for static URI for server.
-
 // ff:设置路由URI重写规则
-// rewrite:新URI
+// s:
 // uri:URI
+// rewrite:新URI
 func (s *Server) SetRewrite(uri string, rewrite string) {
 	s.config.Rewrites[uri] = rewrite
 }
 
 // SetRewriteMap sets the rewritten map for server.
-
 // ff:设置路由URI重写规则Map
+// s:
 // rewrites:重写规则Map
 func (s *Server) SetRewriteMap(rewrites map[string]string) {
 	for k, v := range rewrites {
@@ -26,8 +26,8 @@ func (s *Server) SetRewriteMap(rewrites map[string]string) {
 }
 
 // SetRouteOverWrite sets the RouteOverWrite for server.
-
 // ff:设置路由允许覆盖
+// s:
 // enabled:开启
 func (s *Server) SetRouteOverWrite(enabled bool) {
 	s.config.RouteOverWrite = enabled

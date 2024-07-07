@@ -81,8 +81,6 @@ var (
 
 // New creates and returns a new watcher.
 // Note that the watcher number is limited by the file handle setting of the system.
-// Eg: fs.inotify.max_user_instances system variable in linux systems.
-
 // ff:
 func New() (*Watcher, error) {
 	w := &Watcher{
@@ -105,14 +103,13 @@ func New() (*Watcher, error) {
 
 // Add monitors `path` using default watcher with callback function `callbackFunc`.
 // The optional parameter `recursive` specifies whether monitoring the `path` recursively, which is true in default.
-
 // ff:
-// err:
-// callback:
-// recursive:
+// path:
 // callbackFunc:
 // event:
-// path:
+// recursive:
+// callback:
+// err:
 func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -126,15 +123,14 @@ func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callb
 // if it's called twice with the same `name`.
 //
 // The optional parameter `recursive` specifies whether monitoring the `path` recursively, which is true in default.
-
 // ff:
-// err:
-// callback:
-// recursive:
+// name:
+// path:
 // callbackFunc:
 // event:
-// path:
-// name:
+// recursive:
+// callback:
+// err:
 func AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -144,7 +140,6 @@ func AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bo
 }
 
 // Remove removes all monitoring callbacks of given `path` from watcher recursively.
-
 // ff:
 // path:
 func Remove(path string) error {
@@ -156,7 +151,6 @@ func Remove(path string) error {
 }
 
 // RemoveCallback removes specified callback with given id from watcher.
-
 // ff:
 // callbackId:
 func RemoveCallback(callbackId int) error {
@@ -177,7 +171,6 @@ func RemoveCallback(callbackId int) error {
 
 // Exit is only used in the callback function, which can be used to remove current callback
 // of itself from the watcher.
-
 // ff:
 func Exit() {
 	panic(callbackExitEventPanicStr)

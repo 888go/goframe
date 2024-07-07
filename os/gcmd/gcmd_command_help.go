@@ -18,15 +18,15 @@ import (
 )
 
 // Print prints help info to stdout for current command.
-
 // ff:
+// c:
 func (c *Command) Print() {
 	c.PrintTo(os.Stdout)
 }
 
 // PrintTo prints help info to custom io.Writer.
-
 // ff:
+// c:
 // writer:
 func (c *Command) PrintTo(writer io.Writer) {
 	var (

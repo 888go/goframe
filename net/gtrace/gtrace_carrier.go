@@ -15,7 +15,6 @@ import (
 type Carrier map[string]interface{}
 
 // NewCarrier creates and returns a Carrier.
-
 // ff:
 // data:
 func NewCarrier(data ...map[string]interface{}) Carrier {
@@ -26,25 +25,25 @@ func NewCarrier(data ...map[string]interface{}) Carrier {
 }
 
 // Get returns the value associated with the passed key.
-
 // ff:
+// c:
 // k:
 func (c Carrier) Get(k string) string {
 	return gconv.String(c[k])
 }
 
 // Set stores the key-value pair.
-
 // ff:
-// v:
+// c:
 // k:
+// v:
 func (c Carrier) Set(k, v string) {
 	c[k] = v
 }
 
 // Keys lists the keys stored in this carrier.
-
 // ff:
+// c:
 func (c Carrier) Keys() []string {
 	keys := make([]string, 0, len(c))
 	for k := range c {
@@ -54,8 +53,8 @@ func (c Carrier) Keys() []string {
 }
 
 // MustMarshal .returns the JSON encoding of c
-
 // ff:
+// c:
 func (c Carrier) MustMarshal() []byte {
 	b, err := json.Marshal(c)
 	if err != nil {
@@ -65,15 +64,15 @@ func (c Carrier) MustMarshal() []byte {
 }
 
 // String converts and returns current Carrier as string.
-
 // ff:
+// c:
 func (c Carrier) String() string {
 	return string(c.MustMarshal())
 }
 
 // UnmarshalJSON implements interface UnmarshalJSON for package json.
-
 // ff:
+// c:
 // b:
 func (c Carrier) UnmarshalJSON(b []byte) error {
 	carrier := NewCarrier(nil)

@@ -20,11 +20,10 @@ import (
 )
 
 // Decode converts INI format to map.
-
 // ff:取Map
-// err:错误
-// res:map值
 // data:字节集
+// res:map值
+// err:错误
 func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	var (
@@ -84,11 +83,10 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 }
 
 // Encode converts map to INI format.
-
 // ff:Map到ini
-// err:错误
-// res:字节集
 // data:map值
+// res:字节集
+// err:错误
 func Encode(data map[string]interface{}) (res []byte, err error) {
 	var (
 		n  int
@@ -126,11 +124,10 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 }
 
 // ToJson convert INI format to JSON.
-
 // ff:取json
-// err:错误
-// res:json字节集
 // data:字节集
+// res:json字节集
+// err:错误
 func ToJson(data []byte) (res []byte, err error) {
 	iniMap, err := Decode(data)
 	if err != nil {

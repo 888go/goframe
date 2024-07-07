@@ -15,23 +15,21 @@ import (
 
 // Structs converts any slice to given struct slice.
 // Also see Scan, Struct.
-
 // ff:
-// err:
-// paramKeyToAttrMap:
-// pointer:
 // params:
+// pointer:
+// paramKeyToAttrMap:
+// err:
 func Structs(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
 
 // SliceStruct is alias of Structs.
-
 // ff:SliceStruct别名
-// err:
-// mapping:
-// pointer:
 // params:
+// pointer:
+// mapping:
+// err:
 func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
 	return Structs(params, pointer, mapping...)
 }
@@ -39,12 +37,11 @@ func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]
 // StructsTag acts as Structs but also with support for priority tag feature, which retrieves the
 // specified tags for `params` key-value items to struct attribute names mapping.
 // The parameter `priorityTag` supports multiple tags that can be joined with char ','.
-
 // ff:
-// err:
-// priorityTag:
-// pointer:
 // params:
+// pointer:
+// priorityTag:
+// err:
 func StructsTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStructs(params, pointer, nil, priorityTag)
 }

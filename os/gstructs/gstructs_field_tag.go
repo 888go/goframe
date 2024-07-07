@@ -13,8 +13,8 @@ import (
 )
 
 // TagJsonName returns the `json` tag name string of the field.
-
 // ff:
+// f:
 func (f *Field) TagJsonName() string {
 	if jsonTag := f.Tag(gtag.Json); jsonTag != "" {
 		return strings.Split(jsonTag, ",")[0]
@@ -23,8 +23,8 @@ func (f *Field) TagJsonName() string {
 }
 
 // TagDefault returns the most commonly used tag `default/d` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagDefault() string {
 	v := f.Tag(gtag.Default)
 	if v == "" {
@@ -34,8 +34,8 @@ func (f *Field) TagDefault() string {
 }
 
 // TagParam returns the most commonly used tag `param/p` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagParam() string {
 	v := f.Tag(gtag.Param)
 	if v == "" {
@@ -45,8 +45,8 @@ func (f *Field) TagParam() string {
 }
 
 // TagValid returns the most commonly used tag `valid/v` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagValid() string {
 	v := f.Tag(gtag.Valid)
 	if v == "" {
@@ -56,8 +56,8 @@ func (f *Field) TagValid() string {
 }
 
 // TagDescription returns the most commonly used tag `description/des/dc` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagDescription() string {
 	v := f.Tag(gtag.Description)
 	if v == "" {
@@ -70,8 +70,8 @@ func (f *Field) TagDescription() string {
 }
 
 // TagSummary returns the most commonly used tag `summary/sum/sm` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagSummary() string {
 	v := f.Tag(gtag.Summary)
 	if v == "" {
@@ -84,8 +84,8 @@ func (f *Field) TagSummary() string {
 }
 
 // TagAdditional returns the most commonly used tag `additional/ad` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagAdditional() string {
 	v := f.Tag(gtag.Additional)
 	if v == "" {
@@ -95,8 +95,8 @@ func (f *Field) TagAdditional() string {
 }
 
 // TagExample returns the most commonly used tag `example/eg` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagExample() string {
 	v := f.Tag(gtag.Example)
 	if v == "" {
@@ -106,8 +106,8 @@ func (f *Field) TagExample() string {
 }
 
 // TagIn returns the most commonly used tag `in` value of the field.
-
 // ff:
+// f:
 func (f *Field) TagIn() string {
 	v := f.Tag(gtag.In)
 	return v
@@ -115,8 +115,8 @@ func (f *Field) TagIn() string {
 
 // TagPriorityName checks and returns tag name that matches the name item in `gtag.StructTagPriority`.
 // It or else returns attribute field Name if it doesn't have a tag name by `gtag.StructsTagPriority`.
-
 // ff:
+// f:
 func (f *Field) TagPriorityName() string {
 	var name = f.Name()
 	for _, tagName := range gtag.StructTagPriority {

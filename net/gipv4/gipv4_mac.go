@@ -14,10 +14,9 @@ import (
 )
 
 // GetMac retrieves and returns the first mac address of current host.
-
 // ff:
-// err:
 // mac:
+// err:
 func GetMac() (mac string, err error) {
 	macs, err := GetMacArray()
 	if err != nil {
@@ -30,10 +29,9 @@ func GetMac() (mac string, err error) {
 }
 
 // GetMacArray retrieves and returns all the mac address of current host.
-
 // ff:
-// err:
 // macs:
+// err:
 func GetMacArray() (macs []string, err error) {
 	netInterfaces, err := net.Interfaces()
 	if err != nil {

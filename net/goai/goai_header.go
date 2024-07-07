@@ -23,8 +23,8 @@ type HeaderRef struct {
 	Value *Header
 }
 
-
 // ff:
+// r:
 func (r HeaderRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

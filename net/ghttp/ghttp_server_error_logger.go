@@ -19,11 +19,11 @@ type errorLogger struct {
 }
 
 // Write implements the io.Writer interface.
-
 // ff:
-// err:
-// n:
+// l:
 // p:
+// n:
+// err:
 func (l *errorLogger) Write(p []byte) (n int, err error) {
 	l.logger.Skip(1).Error(context.TODO(), string(bytes.TrimRight(p, "\r\n")))
 	return len(p), nil

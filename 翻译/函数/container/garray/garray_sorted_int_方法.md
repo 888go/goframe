@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -56,14 +57,14 @@ end=终点
 start=起点
 
 [func NewSortedIntArrayFrom(array #左中括号##右中括号#int, safe ...bool) *SortedIntArray {]
-ff=创建整数排序并从数组
+ff=创建整数排序并从切片
 safe=并发安全
-array=数组
+array=切片
 
 [func NewSortedIntArrayFromCopy(array #左中括号##右中括号#int, safe ...bool) *SortedIntArray {]
-ff=创建整数排序并从数组复制
+ff=创建整数排序并从切片复制
 safe=并发安全
-array=数组
+array=切片
 
 [func (a *SortedIntArray) At(index int) (value int) {]
 ff=取值
@@ -71,8 +72,8 @@ value=值
 index=索引
 
 [func (a *SortedIntArray) SetArray(array #左中括号##右中括号#int) *SortedIntArray {]
-ff=设置数组
-array=数组
+ff=设置切片
+array=切片
 
 [func (a *SortedIntArray) Sort() *SortedIntArray {]
 ff=排序递增
@@ -153,7 +154,7 @@ sum=值
 ff=取切片
 
 [func (a *SortedIntArray) Interfaces() #左中括号##右中括号#interface{} {]
-ff=取any数组
+ff=取any切片
 yx=true
 
 [func (a *SortedIntArray) Contains(value int) bool {]
@@ -174,7 +175,7 @@ ff=去重
 
 [func (a *SortedIntArray) Clone() (newArray *SortedIntArray) {]
 ff=取副本
-newArray=新数组
+newArray=新切片
 
 [func (a *SortedIntArray) Clear() *SortedIntArray {]
 ff=清空
@@ -189,7 +190,7 @@ f=回调函数
 
 [func (a *SortedIntArray) Merge(array interface{}) *SortedIntArray {]
 ff=合并
-array=数组
+array=切片
 
 [func (a *SortedIntArray) Chunk(size int) #左中括号##右中括号##左中括号##右中括号#int {]
 ff=分割

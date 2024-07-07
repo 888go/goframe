@@ -23,21 +23,14 @@ func init() {
 	Register(RuleIn{})
 }
 
-
-// ff:
 func (r RuleIn) Name() string {
 	return "in"
 }
 
-
-// ff:
 func (r RuleIn) Message() string {
 	return "The {field} value `{value}` is not in acceptable range: {pattern}"
 }
 
-
-// ff:
-// in:
 func (r RuleIn) Run(in RunInput) error {
 	var (
 		ok               bool

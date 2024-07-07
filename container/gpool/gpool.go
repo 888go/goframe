@@ -51,11 +51,10 @@ type ExpireFunc func(interface{})
 // ttl = 0 : not expired;
 // ttl < 0 : immediate expired after use;
 // ttl > 0 : timeout expired;
-
 // ff:创建
-// expireFunc:过期销毁回调函数
-// newFunc:新创建回调函数
 // ttl:过期时长
+// newFunc:新创建回调函数
+// expireFunc:过期销毁回调函数
 func New(ttl time.Duration, newFunc NewFunc, expireFunc ...ExpireFunc) *Pool {
 	r := &Pool{
 		list:    glist.New(true),
@@ -71,8 +70,8 @@ func New(ttl time.Duration, newFunc NewFunc, expireFunc ...ExpireFunc) *Pool {
 }
 
 // Put puts an item to pool.
-
 // ff:入栈
+// p:
 // value:对象
 func (p *Pool) Put(value interface{}) error {
 	if p.closed.Val() {
@@ -93,8 +92,8 @@ func (p *Pool) Put(value interface{}) error {
 }
 
 // MustPut puts an item to pool, it panics if any error occurs.
-
 // ff:入栈PANI
+// p:
 // value:对象
 func (p *Pool) MustPut(value interface{}) {
 	if err := p.Put(value); err != nil {
@@ -103,8 +102,8 @@ func (p *Pool) MustPut(value interface{}) {
 }
 
 // Clear clears pool, which means it will remove all items from pool.
-
 // ff:清空
+// p:
 func (p *Pool) Clear() {
 	if p.ExpireFunc != nil {
 		for {
@@ -121,8 +120,8 @@ func (p *Pool) Clear() {
 
 // Get picks and returns an item from pool. If the pool is empty and NewFunc is defined,
 // it creates and returns one from NewFunc.
-
 // ff:出栈
+// p:
 func (p *Pool) Get() (interface{}, error) {
 	for !p.closed.Val() {
 		if r := p.list.PopFront(); r != nil {
@@ -144,8 +143,8 @@ func (p *Pool) Get() (interface{}, error) {
 }
 
 // Size returns the count of available items of pool.
-
 // ff:取数量
+// p:
 func (p *Pool) Size() int {
 	return p.list.Len()
 }
@@ -153,8 +152,8 @@ func (p *Pool) Size() int {
 // Close closes the pool. If `p` has ExpireFunc,
 // then it automatically closes all items using this function before it's closed.
 // Commonly you do not need to call this function manually.
-
 // ff:关闭
+// p:
 func (p *Pool) Close() {
 	p.closed.Set(true)
 }

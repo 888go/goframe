@@ -1448,7 +1448,6 @@ func Test_DB_Ctx_Logger(t *testing.T) {
 }
 
 // All types testing.
-// https://www.sqlite.org/datatype3.html
 func Test_Types(t *testing.T) {
 	tableName := "types_" + gtime.TimestampNanoStr()
 	gtest.C(t, func(t *gtest.T) {

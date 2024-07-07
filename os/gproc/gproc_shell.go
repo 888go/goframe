@@ -22,12 +22,11 @@ import (
 // Shell executes command `cmd` synchronously with given input pipe `in` and output pipe `out`.
 // The command `cmd` reads the input parameters from input pipe `in`, and writes its output automatically
 // to output pipe `out`.
-
 // ff:
-// in:
-// out:
-// cmd:
 // ctx:
+// cmd:
+// out:
+// in:
 func Shell(ctx context.Context, cmd string, out io.Writer, in io.Reader) error {
 	p := NewProcess(
 		getShell(),
@@ -39,10 +38,9 @@ func Shell(ctx context.Context, cmd string, out io.Writer, in io.Reader) error {
 }
 
 // ShellRun executes given command `cmd` synchronously and outputs the command result to the stdout.
-
 // ff:
-// cmd:
 // ctx:
+// cmd:
 func ShellRun(ctx context.Context, cmd string) error {
 	p := NewProcess(
 		getShell(),
@@ -52,13 +50,12 @@ func ShellRun(ctx context.Context, cmd string) error {
 }
 
 // ShellExec executes given command `cmd` synchronously and returns the command result.
-
 // ff:
-// err:
-// result:
-// environment:
-// cmd:
 // ctx:
+// cmd:
+// environment:
+// result:
+// err:
 func ShellExec(ctx context.Context, cmd string, environment ...[]string) (result string, err error) {
 	var (
 		buf = bytes.NewBuffer(nil)

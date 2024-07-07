@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -49,13 +50,13 @@ search=替换文本
 origin=文本
 
 [func ReplaceByArray(origin string, array #左中括号##右中括号#string) string {]
-ff=数组替换
-array=数组
+ff=切片替换
+array=切片
 origin=文本
 
 [func ReplaceIByArray(origin string, array #左中括号##右中括号#string) string {]
-ff=数组替换并忽略大小写
-array=数组
+ff=切片替换并忽略大小写
+array=切片
 origin=文本
 
 [func ReplaceByMap(origin string, replaces map#左中括号#string#右中括号#string) string {]
@@ -65,5 +66,5 @@ origin=文本
 
 [func ReplaceIByMap(origin string, replaces map#左中括号#string#右中括号#string) string {]
 ff=Map替换并忽略大小写
-replaces=map数组
+replaces=map切片
 origin=文本

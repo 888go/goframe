@@ -37,7 +37,6 @@ const (
 )
 
 // DefaultConfig creates and returns a configuration object with default configurations.
-
 // ff:
 func DefaultConfig() Config {
 	return Config{
@@ -48,8 +47,8 @@ func DefaultConfig() Config {
 }
 
 // SetConfig sets the configuration for view.
-
 // ff:
+// view:
 // config:
 func (view *View) SetConfig(config Config) error {
 	var err error
@@ -79,8 +78,8 @@ func (view *View) SetConfig(config Config) error {
 }
 
 // SetConfigWithMap set configurations with map for the view.
-
 // ff:
+// view:
 // m:
 func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 	if len(m) == 0 {
@@ -110,8 +109,8 @@ func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 
 // SetPath sets the template directory path for template file search.
 // The parameter `path` can be absolute or relative path, but absolute path is suggested.
-
 // ff:
+// view:
 // path:
 func (view *View) SetPath(path string) error {
 	var (
@@ -167,8 +166,8 @@ func (view *View) SetPath(path string) error {
 }
 
 // AddPath adds an absolute or relative path to the search paths.
-
 // ff:
+// view:
 // path:
 func (view *View) AddPath(path string) error {
 	var (
@@ -224,8 +223,8 @@ func (view *View) AddPath(path string) error {
 // Assigns binds multiple global template variables to current view object.
 // Note that it's not concurrent-safe, which means it would panic
 // if it's called in multiple goroutines in runtime.
-
 // ff:
+// view:
 // data:
 func (view *View) Assigns(data Params) {
 	for k, v := range data {
@@ -236,34 +235,34 @@ func (view *View) Assigns(data Params) {
 // Assign binds a global template variable to current view object.
 // Note that it's not concurrent-safe, which means it would panic
 // if it's called in multiple goroutines in runtime.
-
 // ff:
-// value:
+// view:
 // key:
+// value:
 func (view *View) Assign(key string, value interface{}) {
 	view.data[key] = value
 }
 
 // SetDefaultFile sets default template file for parsing.
-
 // ff:
+// view:
 // file:
 func (view *View) SetDefaultFile(file string) {
 	view.config.DefaultFile = file
 }
 
 // GetDefaultFile returns default template file for parsing.
-
 // ff:
+// view:
 func (view *View) GetDefaultFile() string {
 	return view.config.DefaultFile
 }
 
 // SetDelimiters sets customized delimiters for template parsing.
-
 // ff:
-// right:
+// view:
 // left:
+// right:
 func (view *View) SetDelimiters(left, right string) {
 	view.config.Delimiters = []string{left, right}
 }
@@ -271,8 +270,8 @@ func (view *View) SetDelimiters(left, right string) {
 // SetAutoEncode enables/disables automatically html encoding feature.
 // When AutoEncode feature is enables, view engine automatically encodes and provides safe html output,
 // which is good for avoid XSS.
-
 // ff:
+// view:
 // enable:
 func (view *View) SetAutoEncode(enable bool) {
 	view.config.AutoEncode = enable
@@ -281,10 +280,10 @@ func (view *View) SetAutoEncode(enable bool) {
 // BindFunc registers customized global template function named `name`
 // with given function `function` to current view object.
 // The `name` is the function name which can be called in template content.
-
 // ff:
-// function:
+// view:
 // name:
+// function:
 func (view *View) BindFunc(name string, function interface{}) {
 	view.funcMap[name] = function
 	// Clear global template object cache.
@@ -294,8 +293,8 @@ func (view *View) BindFunc(name string, function interface{}) {
 // BindFuncMap registers customized global template functions by map to current view object.
 // The key of map is the template function name
 // and the value of map is the address of customized function.
-
 // ff:
+// view:
 // funcMap:
 func (view *View) BindFuncMap(funcMap FuncMap) {
 	for k, v := range funcMap {
@@ -306,8 +305,8 @@ func (view *View) BindFuncMap(funcMap FuncMap) {
 }
 
 // SetI18n binds i18n manager to current view engine.
-
 // ff:
+// view:
 // manager:
 func (view *View) SetI18n(manager *gi18n.Manager) {
 	view.config.I18nManager = manager

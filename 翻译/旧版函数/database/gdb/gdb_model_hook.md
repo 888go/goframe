@@ -11,7 +11,7 @@ X是否为事务
 
 # <翻译开始>
 func (h *HookSelectInput) Next(ctx context.Context) (result
-行记录数组
+行记录切片
 # <翻译结束>
 
 # <翻译开始>
@@ -26,7 +26,7 @@ func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err
 
 # <翻译开始>
 func (h *HookInsertInput) Next(ctx context.Context) (result
-行记录数组
+行记录切片
 # <翻译结束>
 
 # <翻译开始>
@@ -41,7 +41,7 @@ func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err
 
 # <翻译开始>
 func (h *HookUpdateInput) Next(ctx context.Context) (result
-行记录数组
+行记录切片
 # <翻译结束>
 
 # <翻译开始>

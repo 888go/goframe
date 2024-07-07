@@ -274,14 +274,12 @@ var (
 )
 
 // IsEnabled returns whether the metrics feature is enabled.
-
 // ff:
 func IsEnabled() bool {
 	return globalProvider != nil
 }
 
 // GetAllMetrics returns all Metric that created by current package.
-
 // ff:
 func GetAllMetrics() []Metric {
 	return allMetrics

@@ -34,8 +34,8 @@ func init() {
 }
 
 // DoFilter deals with the sql string before commits it to underlying sql driver.
-
 // ff:
+// d:
 func (d *Driver) DoFilter(
 	ctx context.Context, link gdb.Link, sql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {

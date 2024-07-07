@@ -48,14 +48,12 @@ func init() {
 }
 
 // New creates and returns a context which contains context id.
-
 // ff:创建
 func New() context.Context {
 	return WithCtx(context.Background())
 }
 
 // WithCtx creates and returns a context containing context id upon given parent context `ctx`.
-
 // ff:创建并从上下文
 // ctx:上下文
 func WithCtx(ctx context.Context) context.Context {
@@ -69,7 +67,6 @@ func WithCtx(ctx context.Context) context.Context {
 }
 
 // CtxId retrieves and returns the context id from context.
-
 // ff:取上下文id
 // ctx:上下文
 func CtxId(ctx context.Context) string {
@@ -78,7 +75,6 @@ func CtxId(ctx context.Context) string {
 
 // SetInitCtx sets custom initialization context.
 // Note that this function cannot be called in multiple goroutines.
-
 // ff:设置初始化上下文
 // ctx:上下文
 func SetInitCtx(ctx context.Context) {
@@ -87,7 +83,6 @@ func SetInitCtx(ctx context.Context) {
 
 // GetInitCtx returns the initialization context.
 // Initialization context is used in `main` or `init` functions.
-
 // ff:取初始化上下文
 func GetInitCtx() context.Context {
 	return initCtx

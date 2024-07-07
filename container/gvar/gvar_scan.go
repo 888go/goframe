@@ -14,10 +14,10 @@ import (
 // with type of `*map/*[]map/*[]*map/*struct/**struct/*[]struct/*[]*struct` for converting.
 //
 // See gconv.Scan.
-
 // ff:取结构体指针
-// mapping:名称映射
+// v:
 // pointer:结构体指针
+// mapping:名称映射
 func (v *Var) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return gconv.Scan(v.Val(), pointer, mapping...)
 }

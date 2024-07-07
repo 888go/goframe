@@ -34,21 +34,14 @@ func init() {
 	Register(RuleBoolean{})
 }
 
-
-// ff:
 func (r RuleBoolean) Name() string {
 	return "boolean"
 }
 
-
-// ff:
 func (r RuleBoolean) Message() string {
 	return "The {field} value `{value}` field must be true or false"
 }
 
-
-// ff:
-// in:
 func (r RuleBoolean) Run(in RunInput) error {
 	if _, ok := boolMap[strings.ToLower(in.Value.String())]; ok {
 		return nil

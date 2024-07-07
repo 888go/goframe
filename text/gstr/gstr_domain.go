@@ -10,10 +10,9 @@ import "strings"
 
 // IsSubDomain checks whether `subDomain` is sub-domain of mainDomain.
 // It supports '*' in `mainDomain`.
-
 // ff:是否为子域名
-// mainDomain:主域名
 // subDomain:子域名
+// mainDomain:主域名
 func IsSubDomain(subDomain string, mainDomain string) bool {
 	if p := strings.IndexByte(subDomain, ':'); p != -1 {
 		subDomain = subDomain[0:p]

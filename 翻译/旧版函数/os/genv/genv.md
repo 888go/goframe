@@ -91,17 +91,17 @@ X取值或命令行
 
 # <翻译开始>
 func Build
-Map到数组
+Map到切片
 # <翻译结束>
 
 # <翻译开始>
 func MapFromEnv(envs
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 func MapFromEnv
-X数组到Map
+X切片到Map
 # <翻译结束>
 
 # <翻译开始>
@@ -111,10 +111,10 @@ MapToEnv别名
 
 # <翻译开始>
 func Filter(envs
-数组
+切片
 # <翻译结束>
 
 # <翻译开始>
 func Filter
-X数组去重
+X切片去重
 # <翻译结束>

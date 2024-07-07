@@ -25,12 +25,12 @@ import (
 )
 
 // GetFieldTypeStr retrieves and returns the field type string for certain field by name.
-
 // ff:取字段类型
-// schema:数据库名称
-// table:表名称
-// fieldName:字段名称
+// c:
 // ctx:上下文
+// fieldName:字段名称
+// table:表名称
+// schema:数据库名称
 func (c *Core) GetFieldTypeStr(ctx context.Context, fieldName, table, schema string) string {
 	field := c.GetFieldType(ctx, fieldName, table, schema)
 	if field != nil {
@@ -40,12 +40,12 @@ func (c *Core) GetFieldTypeStr(ctx context.Context, fieldName, table, schema str
 }
 
 // GetFieldType retrieves and returns the field type object for certain field by name.
-
 // ff:取字段信息对象
-// schema:数据库名称
-// table:表名称
-// fieldName:字段名称
+// c:
 // ctx:上下文
+// fieldName:字段名称
+// table:表名称
+// schema:数据库名称
 func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string) *TableField {
 	fieldsMap, err := c.db.TableFields(ctx, table, schema)
 	if err != nil {
@@ -69,11 +69,11 @@ func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string
 //
 // The parameter `value` should be type of *map/map/*struct/struct.
 // It supports embedded struct definition for struct.
-
 // ff:底层ConvertDataForRecord
-// table:表名称
-// value:值
+// c:
 // ctx:上下文
+// value:值
+// table:表名称
 func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, table string) (map[string]interface{}, error) {
 	var (
 		err  error
@@ -95,11 +95,11 @@ func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, tabl
 // ConvertValueForField converts value to the type of the record field.
 // The parameter `fieldType` is the target record field.
 // The parameter `fieldValue` is the value that to be committed to record field.
-
-// ff:底层ConvertValueForField
-// fieldValue:
-// fieldType:
+// ff:
+// c:
 // ctx:
+// fieldType:
+// fieldValue:
 func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	var (
 		err            error
@@ -185,12 +185,12 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 }
 
 // CheckLocalTypeForField checks and returns corresponding type for given db type.
-
-// ff:底层CheckLocalTypeForField
-// LocalType:
-// fieldValue:
-// fieldType:
+// ff:
+// c:
 // ctx:
+// fieldType:
+// fieldValue:
+// LocalType:
 func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) {
 	var (
 		typeName    string
@@ -327,8 +327,8 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 // ConvertValueForLocal converts value to local Golang type of value according field type name from database.
 // The parameter `fieldType` is in lower case, like:
 // `float(5,2)`, `unsigned double(5,2)`, `decimal(10,2)`, `char(45)`, `varchar(100)`, etc.
-
-// ff:底层ConvertValueForLocal
+// ff:
+// c:
 func (c *Core) ConvertValueForLocal(
 	ctx context.Context, fieldType string, fieldValue interface{},
 ) (interface{}, error) {

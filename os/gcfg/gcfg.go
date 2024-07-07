@@ -25,12 +25,11 @@ type Config struct {
 }
 
 const (
-	DefaultInstanceName   = "config"  //qm:默认实例名称 cz:DefaultInstanceName   = "config     // DefaultName is the default instance name for instance usage.
-	DefaultConfigFileName = "config"  //qm:默认配置文件名称 cz:DefaultConfigFileName = "config     // DefaultConfigFile is the default configuration file name.
+	DefaultInstanceName   = "config"//qm:默认实例名称  cz:DefaultInstanceName = "config   // DefaultName is the default instance name for instance usage.
+	DefaultConfigFileName = "config"//qm:默认配置文件名称  cz:DefaultConfigFileName = "config   // DefaultConfigFile is the default configuration file name.
 )
 
 // New creates and returns a Config object with default adapter of AdapterFile.
-
 // ff:创建
 func New() (*Config, error) {
 	adapterFile, err := NewAdapterFile()
@@ -43,7 +42,6 @@ func New() (*Config, error) {
 }
 
 // NewWithAdapter creates and returns a Config object with given adapter.
-
 // ff:创建并按适配器
 // adapter:适配器
 func NewWithAdapter(adapter Adapter) *Config {
@@ -56,7 +54,6 @@ func NewWithAdapter(adapter Adapter) *Config {
 // The parameter `name` is the name for the instance. But very note that, if the file "name.toml"
 // exists in the configuration directory, it then sets it as the default configuration file. The
 // toml file type is the default configuration file type.
-
 // ff:取单例对象
 // name:名称
 func Instance(name ...string) *Config {
@@ -78,16 +75,16 @@ func Instance(name ...string) *Config {
 }
 
 // SetAdapter sets the adapter of current Config object.
-
 // ff:设置适配器
+// c:
 // adapter:适配器
 func (c *Config) SetAdapter(adapter Adapter) {
 	c.adapter = adapter
 }
 
 // GetAdapter returns the adapter of current Config object.
-
 // ff:取适配器
+// c:
 func (c *Config) GetAdapter() Adapter {
 	return c.adapter
 }
@@ -97,11 +94,11 @@ func (c *Config) GetAdapter() Adapter {
 //
 // It returns true if configuration file is present in default AdapterFile, or else false.
 // Note that this function does not return error as it just does simply check for backend configuration service.
-
 // ff:是否可用
-// ok:可用
-// resource:
+// c:
 // ctx:上下文
+// resource:
+// ok:可用
 func (c *Config) Available(ctx context.Context, resource ...string) (ok bool) {
 	return c.adapter.Available(ctx, resource...)
 }
@@ -111,11 +108,11 @@ func (c *Config) Available(ctx context.Context, resource ...string) (ok bool) {
 // It returns nil if no value found by `pattern`.
 //
 // It returns a default value specified by `def` if value for `pattern` is not found.
-
 // ff:取值
-// def:默认值
-// pattern:表达式
+// c:
 // ctx:上下文
+// pattern:表达式
+// def:默认值
 func (c *Config) Get(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	var (
 		err   error
@@ -139,11 +136,11 @@ func (c *Config) Get(ctx context.Context, pattern string, def ...interface{}) (*
 // It returns the default value `def` if none of them exists.
 //
 // Fetching Rules: Environment arguments are in uppercase format, eg: GF_PACKAGE_VARIABLE.
-
 // ff:取值并从环境变量
-// def:默认值
-// pattern:表达式
+// c:
 // ctx:上下文
+// pattern:表达式
+// def:默认值
 func (c *Config) GetWithEnv(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	value, err := c.Get(ctx, pattern)
 	if err != nil && gerror.Code(err) != gcode.CodeNotFound {
@@ -166,11 +163,11 @@ func (c *Config) GetWithEnv(ctx context.Context, pattern string, def ...interfac
 // It returns the default value `def` if none of them exists.
 //
 // Fetching Rules: Command line arguments are in lowercase format, eg: gf.package.variable.
-
 // ff:取值并从启动命令
-// def:默认值
-// pattern:表达式
+// c:
 // ctx:上下文
+// pattern:表达式
+// def:默认值
 func (c *Config) GetWithCmd(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	value, err := c.Get(ctx, pattern)
 	if err != nil && gerror.Code(err) != gcode.CodeNotFound {
@@ -189,21 +186,21 @@ func (c *Config) GetWithCmd(ctx context.Context, pattern string, def ...interfac
 }
 
 // Data retrieves and returns all configuration data as map type.
-
 // ff:取Map
-// err:错误
-// data:值
+// c:
 // ctx:上下文
+// data:值
+// err:错误
 func (c *Config) Data(ctx context.Context) (data map[string]interface{}, err error) {
 	return c.adapter.Data(ctx)
 }
 
 // MustGet acts as function Get, but it panics if error occurs.
-
 // ff:取值PANI
-// def:默认值
-// pattern:表达式
+// c:
 // ctx:上下文
+// pattern:表达式
+// def:默认值
 func (c *Config) MustGet(ctx context.Context, pattern string, def ...interface{}) *gvar.Var {
 	v, err := c.Get(ctx, pattern, def...)
 	if err != nil {
@@ -216,11 +213,11 @@ func (c *Config) MustGet(ctx context.Context, pattern string, def ...interface{}
 }
 
 // MustGetWithEnv acts as function GetWithEnv, but it panics if error occurs.
-
 // ff:取值并从环境变量PANI
-// def:默认值
-// pattern:表达式
+// c:
 // ctx:上下文
+// pattern:表达式
+// def:默认值
 func (c *Config) MustGetWithEnv(ctx context.Context, pattern string, def ...interface{}) *gvar.Var {
 	v, err := c.GetWithEnv(ctx, pattern, def...)
 	if err != nil {
@@ -230,11 +227,11 @@ func (c *Config) MustGetWithEnv(ctx context.Context, pattern string, def ...inte
 }
 
 // MustGetWithCmd acts as function GetWithCmd, but it panics if error occurs.
-
 // ff:取值并从启动命令PANI_有bug
-// def:默认值
-// pattern:表达式
+// c:
 // ctx:上下文
+// pattern:表达式
+// def:默认值
 func (c *Config) MustGetWithCmd(ctx context.Context, pattern string, def ...interface{}) *gvar.Var {
 	v, err := c.GetWithCmd(ctx, pattern, def...)
 	if err != nil {
@@ -244,8 +241,8 @@ func (c *Config) MustGetWithCmd(ctx context.Context, pattern string, def ...inte
 }
 
 // MustData acts as function Data, but it panics if error occurs.
-
 // ff:取MapPANI
+// c:
 // ctx:上下文
 func (c *Config) MustData(ctx context.Context) map[string]interface{} {
 	v, err := c.Data(ctx)

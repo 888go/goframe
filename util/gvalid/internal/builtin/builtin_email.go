@@ -22,21 +22,14 @@ func init() {
 	Register(RuleEmail{})
 }
 
-
-// ff:
 func (r RuleEmail) Name() string {
 	return "email"
 }
 
-
-// ff:
 func (r RuleEmail) Message() string {
 	return "The {field} value `{value}` is not a valid email address"
 }
 
-
-// ff:
-// in:
 func (r RuleEmail) Run(in RunInput) error {
 	ok := gregex.IsMatchString(
 		`^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)+$`,

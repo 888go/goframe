@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -35,10 +36,5 @@
 # 备注结束
 
 [func (d *DriverDefault) Open(config *ConfigNode) (db *sql.DB, err error) {]
-ff=底层Open
 config=配置对象
 
-[func (d *DriverDefault) PingMaster() error {]
-ff=向主节点发送心跳
-[func (d *DriverDefault) PingSlave() error {]
-ff=向从节点发送心跳
