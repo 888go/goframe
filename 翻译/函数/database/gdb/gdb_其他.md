@@ -247,10 +247,6 @@ cz=SetMaxOpenConnCount(n int)
 qm=设置最大空闲时长
 cz=SetMaxConnLifeTime(d time.Duration)
 
-[GetCtx() context.Context]
-qm=取上下文对象
-cz=GetCtx() context.Context
-
 [GetCore() *Core]
 qm=取Core对象
 cz=GetCore() *Core
@@ -371,6 +367,11 @@ cz=Update(table string, data interface{}, condition interface{}, args ...interfa
 [Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error)]
 qm=删除
 cz=Delete(table string, condition interface{}, args ...interface{})
+
+[GetCtx() context.Context]
+qm=取上下文对象
+cz=GetCtx() context.Context
+cf=2
 
 [GetDB() DB]
 qm=取DB对象

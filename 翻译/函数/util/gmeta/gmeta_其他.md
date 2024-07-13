@@ -36,5 +36,5 @@
 # 备注结束
 
 [metaTypeName = "gmeta.Meta" // metaTypeName is for type string comparison.]
-th="元数据类.Meta"
-cz="gmeta.Meta"
+th=元数据类.Meta
+cz=gmeta.Meta
