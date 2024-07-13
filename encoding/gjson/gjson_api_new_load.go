@@ -31,9 +31,6 @@ import (
 //
 // The parameter `safe` specifies whether using this Json object in concurrent-safe context,
 // which is false in default.
-// ff:创建
-// data:值
-// safe:并发安全
 func New(data interface{}, safe ...bool) *Json {
 	return NewWithTag(data, string(ContentTypeJson), safe...)
 }
@@ -46,10 +43,6 @@ func New(data interface{}, safe ...bool) *Json {
 //
 // The parameter `safe` specifies whether using this Json object in concurrent-safe context, which
 // is false in default.
-// ff:创建并按类型标签
-// data:值
-// tags:类型标签
-// safe:并发安全
 func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
 	option := Options{
 		Tags: tags,
@@ -62,9 +55,6 @@ func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
 
 // NewWithOptions creates a Json object with any variable type of `data`, but `data` should be a map
 // or slice for data access reason, or it will make no sense.
-// ff:创建并按选项
-// data:值
-// options:选项
 func NewWithOptions(data interface{}, options Options) *Json {
 	var j *Json
 	switch data.(type) {
@@ -110,9 +100,6 @@ func NewWithOptions(data interface{}, options Options) *Json {
 }
 
 // Load loads content from specified file `path`, and creates a Json object from its content.
-// ff:加载文件
-// path:路径
-// safe:并发安全
 func Load(path string, safe ...bool) (*Json, error) {
 	if p, err := gfile.Search(path); err != nil {
 		return nil, err
@@ -129,17 +116,11 @@ func Load(path string, safe ...bool) (*Json, error) {
 }
 
 // LoadWithOptions creates a Json object from given JSON format content and options.
-// ff:加载并按选项
-// data:值
-// options:选项
 func LoadWithOptions(data interface{}, options Options) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), options)
 }
 
 // LoadJson creates a Json object from given JSON format content.
-// ff:加载json
-// data:值
-// safe:并发安全
 func LoadJson(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeJson,
@@ -151,9 +132,6 @@ func LoadJson(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadXml creates a Json object from given XML format content.
-// ff:加载xml
-// data:值
-// safe:并发安全
 func LoadXml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeXml,
@@ -165,9 +143,6 @@ func LoadXml(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadIni creates a Json object from given INI format content.
-// ff:加载ini
-// data:值
-// safe:并发安全
 func LoadIni(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeIni,
@@ -179,9 +154,6 @@ func LoadIni(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadYaml creates a Json object from given YAML format content.
-// ff:加载Yaml
-// data:值
-// safe:并发安全
 func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeYaml,
@@ -193,9 +165,6 @@ func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadToml creates a Json object from given TOML format content.
-// ff:加载Toml
-// data:值
-// safe:并发安全
 func LoadToml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeToml,
@@ -207,9 +176,6 @@ func LoadToml(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadProperties creates a Json object from given TOML format content.
-// ff:加载Properties
-// data:值
-// safe:并发安全
 func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeProperties,
@@ -223,9 +189,6 @@ func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
 // LoadContent creates a Json object from given content, it checks the data type of `content`
 // automatically, supporting data content type as follows:
 // JSON, XML, INI, YAML and TOML.
-// ff:加载并自动识别格式
-// data:值
-// safe:并发安全
 func LoadContent(data interface{}, safe ...bool) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
@@ -237,10 +200,6 @@ func LoadContent(data interface{}, safe ...bool) (*Json, error) {
 // LoadContentType creates a Json object from given type and content,
 // supporting data content type as follows:
 // JSON, XML, INI, YAML and TOML.
-// ff:加载并按格式
-// dataType:类型标签
-// data:值
-// safe:并发安全
 func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
@@ -261,8 +220,6 @@ func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Jso
 }
 
 // IsValidDataType checks and returns whether given `dataType` a valid data type for loading.
-// ff:检查类型
-// dataType:待判断值
 func IsValidDataType(dataType ContentType) bool {
 	if dataType == "" {
 		return false

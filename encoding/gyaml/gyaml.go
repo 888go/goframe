@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gyaml provides accessing and converting for YAML content.
-package gyaml//bm:yaml类
+package gyaml
 
 import (
 	"bytes"
@@ -19,10 +19,6 @@ import (
 )
 
 // Encode encodes `value` to an YAML format content as bytes.
-// ff:
-// value:
-// out:
-// err:
 func Encode(value interface{}) (out []byte, err error) {
 	if out, err = yaml.Marshal(value); err != nil {
 		err = gerror.Wrap(err, `yaml.Marshal failed`)
@@ -31,11 +27,6 @@ func Encode(value interface{}) (out []byte, err error) {
 }
 
 // EncodeIndent encodes `value` to an YAML format content with indent as bytes.
-// ff:
-// value:
-// indent:
-// out:
-// err:
 func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 	out, err = Encode(value)
 	if err != nil {
@@ -57,8 +48,6 @@ func EncodeIndent(value interface{}, indent string) (out []byte, err error) {
 }
 
 // Decode parses `content` into and returns as map.
-// ff:
-// content:
 func Decode(content []byte) (map[string]interface{}, error) {
 	var (
 		result map[string]interface{}
@@ -72,10 +61,6 @@ func Decode(content []byte) (map[string]interface{}, error) {
 }
 
 // DecodeTo parses `content` into `result`.
-// ff:
-// value:
-// result:
-// err:
 func DecodeTo(value []byte, result interface{}) (err error) {
 	err = yaml.Unmarshal(value, result)
 	if err != nil {
@@ -85,10 +70,6 @@ func DecodeTo(value []byte, result interface{}) (err error) {
 }
 
 // ToJson converts `content` to JSON format content.
-// ff:
-// content:
-// out:
-// err:
 func ToJson(content []byte) (out []byte, err error) {
 	var (
 		result interface{}

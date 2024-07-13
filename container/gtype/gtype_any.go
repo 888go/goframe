@@ -11,8 +11,6 @@ type Any = Interface
 
 // NewAny creates and returns a concurrent-safe object for any type,
 // with given initial value `value`.
-// ff:
-// value:
 func NewAny(value ...any) *Any {
 	t := &Any{}
 	if len(value) > 0 && value[0] != nil {

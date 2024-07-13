@@ -19,8 +19,6 @@ import (
 // Log returns an instance of glog.Logger.
 // The parameter `name` is the name for the instance.
 // Note that it panics if any error occurs duration instance creating.
-// ff:
-// name:
 func Log(name ...string) *glog.Logger {
 	var (
 		ctx          = context.Background()

@@ -22,11 +22,6 @@ var (
 )
 
 // ObservableGauge creates and returns a new ObservableGauge.
-// ff:
-// meter:
-// name:
-// option:
-// ObservableGauge:
 func (meter *localMeter) ObservableGauge(name string, option MetricOption) (ObservableGauge, error) {
 	m, err := meter.newMetric(MetricTypeObservableGauge, name, option)
 	if err != nil {
@@ -49,10 +44,6 @@ func (meter *localMeter) ObservableGauge(name string, option MetricOption) (Obse
 
 // MustObservableGauge creates and returns a new ObservableGauge.
 // It panics if any error occurs.
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustObservableGauge(name string, option MetricOption) ObservableGauge {
 	m, err := meter.ObservableGauge(name, option)
 	if err != nil {
@@ -62,10 +53,6 @@ func (meter *localMeter) MustObservableGauge(name string, option MetricOption) O
 }
 
 // Init initializes the Metric in Provider creation.
-// ff:
-// l:
-// provider:
-// err:
 func (l *localObservableGauge) Init(provider Provider) (err error) {
 	if _, ok := l.ObservableGaugePerformer.(noopObservableGaugePerformer); !ok {
 		// already initialized.
@@ -80,8 +67,6 @@ func (l *localObservableGauge) Init(provider Provider) (err error) {
 
 // Performer implements interface PerformerExporter, which exports internal Performer of Metric.
 // This is usually used by metric implements.
-// ff:
-// l:
 func (l *localObservableGauge) Performer() any {
 	return l.ObservableGaugePerformer
 }

@@ -28,10 +28,6 @@ import (
 // it's called by am already created new goroutine from http.Server.
 //
 // This function also makes serve implementing the interface of http.Handler.
-// ff:
-// s:
-// w:
-// r:
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Max body size limit.
 	if s.config.ClientMaxBodySize > 0 {

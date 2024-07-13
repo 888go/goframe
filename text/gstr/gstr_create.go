@@ -10,10 +10,8 @@ import "strings"
 
 // Repeat returns a new string consisting of multiplier copies of the string input.
 //
+// Example:
 // Repeat("a", 3) -> "aaa"
-// ff:生成重复文本
-// input:文本
-// multiplier:重复次数
 func Repeat(input string, multiplier int) string {
 	return strings.Repeat(input, multiplier)
 }

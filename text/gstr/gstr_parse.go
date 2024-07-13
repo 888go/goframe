@@ -24,10 +24,6 @@ import (
 // v[][]=m&v[][]=n     -> map[v:[map[]]] // Currently does not support nested slice.
 // v=m&v[a]=n          -> error
 // a .[[b=c            -> map[a___[b:c]
-// ff:参数解析
-// s:文本
-// result:map结果
-// err:错误
 func Parse(s string) (result map[string]interface{}, err error) {
 	if s == "" {
 		return nil, nil

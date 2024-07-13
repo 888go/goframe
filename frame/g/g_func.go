@@ -24,7 +24,6 @@ import (
 // throw to parent goroutine.
 //
 // But, note that, if `recoverFunc` also throws panic, such panic will be thrown to parent goroutine.
-// ff:
 func Go(
 	ctx context.Context,
 	goroutineFunc func(ctx context.Context),
@@ -34,16 +33,12 @@ func Go(
 }
 
 // NewVar returns a gvar.Var.
-// ff:X泛型类
-// i:值
-// safe:并发安全
 func NewVar(i interface{}, safe ...bool) *Var {
 	return gvar.New(i, safe...)
 }
 
 // Wait is an alias of ghttp.Wait, which blocks until all the web servers shutdown.
 // It's commonly used in multiple servers' situation.
-// ff:Http类等待所有服务完成
 func Wait() {
 	ghttp.Wait()
 }
@@ -51,64 +46,43 @@ func Wait() {
 // Listen is an alias of gproc.Listen, which handles the signals received and automatically
 // calls registered signal handler functions.
 // It blocks until shutdown signals received and all registered shutdown handlers done.
-// ff:
 func Listen() {
 	gproc.Listen()
 }
 
 // Dump dumps a variable to stdout with more manually readable.
-// ff:调试输出
-// values:值s
 func Dump(values ...interface{}) {
 	gutil.Dump(values...)
 }
 
 // DumpTo writes variables `values` as a string in to `writer` with more manually readable
-// ff:调试输出到Writer
-// writer:
-// value:值
-// option:选项
 func DumpTo(writer io.Writer, value interface{}, option gutil.DumpOption) {
 	gutil.DumpTo(writer, value, option)
 }
 
 // DumpWithType acts like Dump, but with type information.
 // Also see Dump.
-// ff:调试输出并带类型
-// values:值s
 func DumpWithType(values ...interface{}) {
 	gutil.DumpWithType(values...)
 }
 
 // DumpWithOption returns variables `values` as a string with more manually readable.
-// ff:调试输出并带选项
-// value:值s
-// option:选项
 func DumpWithOption(value interface{}, option gutil.DumpOption) {
 	gutil.DumpWithOption(value, option)
 }
 
 // DumpJson pretty dumps json content to stdout.
-// ff:调试输出json
-// value:
 func DumpJson(value any) {
 	gutil.DumpJson(value)
 }
 
 // Throw throws an exception, which can be caught by TryCatch function.
-// ff:异常输出
-// exception:消息
 func Throw(exception interface{}) {
 	gutil.Throw(exception)
 }
 
 // Try implements try... logistics using internal panic...recover.
 // It returns error if any exception occurs, or else it returns nil.
-// ff:异常捕捉
-// ctx:上下文
-// try:处理函数
-// ctx:上下文
-// err:错误
 func Try(ctx context.Context, try func(ctx context.Context)) (err error) {
 	return gutil.Try(ctx, try)
 }
@@ -117,13 +91,6 @@ func Try(ctx context.Context, try func(ctx context.Context)) (err error) {
 // It automatically calls function `catch` if any exception occurs and passes the exception as an error.
 //
 // But, note that, if function `catch` also throws panic, the current goroutine will panic.
-// ff:异常捕捉并带异常处理
-// ctx:上下文
-// try:处理函数
-// ctx:上下文
-// catch:异常处理函数
-// ctx:上下文
-// exception:错误
 func TryCatch(ctx context.Context, try func(ctx context.Context), catch func(ctx context.Context, exception error)) {
 	gutil.TryCatch(ctx, try, catch)
 }
@@ -133,10 +100,6 @@ func TryCatch(ctx context.Context, try func(ctx context.Context), catch func(ctx
 // of pointer that also points to a pointer. It returns nil if the source is nil when `traceSource`
 // is true.
 // Note that it might use reflect feature which affects performance a little.
-// yx:true
-// ff:是否为Nil
-// value:
-// traceSource:
 func IsNil(value interface{}, traceSource ...bool) bool {
 	return empty.IsNil(value, traceSource...)
 }
@@ -148,16 +111,11 @@ func IsNil(value interface{}, traceSource ...bool) bool {
 // The parameter `traceSource` is used for tracing to the source variable if given `value` is type of pointer
 // that also points to a pointer. It returns true if the source is empty when `traceSource` is true.
 // Note that it might use reflect feature which affects performance a little.
-// ff:是否为空
-// value:值
-// traceSource:追踪到源变量
 func IsEmpty(value interface{}, traceSource ...bool) bool {
 	return empty.IsEmpty(value, traceSource...)
 }
 
 // RequestFromCtx retrieves and returns the Request object from context.
-// ff:Http类上下文取请求对象
-// ctx:上下文
 func RequestFromCtx(ctx context.Context) *ghttp.Request {
 	return ghttp.RequestFromCtx(ctx)
 }

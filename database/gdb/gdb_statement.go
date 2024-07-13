@@ -29,10 +29,6 @@ type Stmt struct {
 
 // ExecContext executes a prepared statement with the given arguments and
 // returns a Result summarizing the effect of the statement.
-// ff:
-// s:
-// ctx:
-// args:
 func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result, error) {
 	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
@@ -47,10 +43,6 @@ func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result
 
 // QueryContext executes a prepared query statement with the given arguments
 // and returns the query results as a *Rows.
-// ff:
-// s:
-// ctx:
-// args:
 func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows, error) {
 	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
@@ -75,10 +67,6 @@ func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows
 // If the query selects no rows, the *Row's Scan will return ErrNoRows.
 // Otherwise, the *Row's Scan scans the first selected row and discards
 // the rest.
-// ff:
-// s:
-// ctx:
-// args:
 func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Row {
 	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
@@ -99,18 +87,12 @@ func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Ro
 
 // Exec executes a prepared statement with the given arguments and
 // returns a Result summarizing the effect of the statement.
-// ff:执行
-// s:
-// args:参数
 func (s *Stmt) Exec(args ...interface{}) (sql.Result, error) {
 	return s.ExecContext(context.Background(), args...)
 }
 
 // Query executes a prepared query statement with the given arguments
 // and returns the query results as a *Rows.
-// ff:查询
-// s:
-// args:参数
 func (s *Stmt) Query(args ...interface{}) (*sql.Rows, error) {
 	return s.QueryContext(context.Background(), args...)
 }
@@ -126,16 +108,11 @@ func (s *Stmt) Query(args ...interface{}) (*sql.Rows, error) {
 //
 //	var name string
 //	err := nameByUseridStmt.QueryRow(id).Scan(&name)
-// ff:
-// s:
-// args:
 func (s *Stmt) QueryRow(args ...interface{}) *sql.Row {
 	return s.QueryRowContext(context.Background(), args...)
 }
 
 // Close closes the statement.
-// ff:
-// s:
 func (s *Stmt) Close() error {
 	return s.Stmt.Close()
 }

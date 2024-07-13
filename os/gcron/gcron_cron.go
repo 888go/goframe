@@ -26,7 +26,6 @@ type Cron struct {
 }
 
 // New returns a new Cron object with default settings.
-// ff:
 func New() *Cron {
 	return &Cron{
 		idGen:   gtype.NewInt64(),
@@ -36,23 +35,16 @@ func New() *Cron {
 }
 
 // SetLogger sets the logger for cron.
-// ff:
-// c:
-// logger:
 func (c *Cron) SetLogger(logger glog.ILogger) {
 	c.logger = logger
 }
 
 // GetLogger returns the logger in the cron.
-// ff:
-// c:
 func (c *Cron) GetLogger() glog.ILogger {
 	return c.logger
 }
 
 // AddEntry creates and returns a new Entry object.
-// ff:
-// c:
 func (c *Cron) AddEntry(
 	ctx context.Context,
 	pattern string,
@@ -85,12 +77,6 @@ func (c *Cron) AddEntry(
 // Add adds a timed task.
 // A unique `name` can be bound with the timed task.
 // It returns and error if the `name` is already used.
-// ff:
-// c:
-// ctx:
-// pattern:
-// job:
-// name:
 func (c *Cron) Add(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, -1, false, name...)
 }
@@ -99,12 +85,6 @@ func (c *Cron) Add(ctx context.Context, pattern string, job JobFunc, name ...str
 // A singleton timed task is that can only be running one single instance at the same time.
 // A unique `name` can be bound with the timed task.
 // It returns and error if the `name` is already used.
-// ff:
-// c:
-// ctx:
-// pattern:
-// job:
-// name:
 func (c *Cron) AddSingleton(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, -1, true, name...)
 }
@@ -112,13 +92,6 @@ func (c *Cron) AddSingleton(ctx context.Context, pattern string, job JobFunc, na
 // AddTimes adds a timed task which can be run specified times.
 // A unique `name` can be bound with the timed task.
 // It returns and error if the `name` is already used.
-// ff:
-// c:
-// ctx:
-// pattern:
-// times:
-// job:
-// name:
 func (c *Cron) AddTimes(ctx context.Context, pattern string, times int, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, times, false, name...)
 }
@@ -126,26 +99,11 @@ func (c *Cron) AddTimes(ctx context.Context, pattern string, times int, job JobF
 // AddOnce adds a timed task which can be run only once.
 // A unique `name` can be bound with the timed task.
 // It returns and error if the `name` is already used.
-// ff:
-// c:
-// ctx:
-// pattern:
-// job:
-// name:
 func (c *Cron) AddOnce(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, 1, false, name...)
 }
 
 // DelayAddEntry adds a timed task after `delay` time.
-// ff:
-// c:
-// ctx:
-// delay:
-// pattern:
-// job:
-// times:
-// isSingleton:
-// name:
 func (c *Cron) DelayAddEntry(ctx context.Context, delay time.Duration, pattern string, job JobFunc, times int, isSingleton bool, name ...string) {
 	gtimer.AddOnce(ctx, delay, func(ctx context.Context) {
 		if _, err := c.AddEntry(ctx, pattern, job, times, isSingleton, name...); err != nil {
@@ -155,13 +113,6 @@ func (c *Cron) DelayAddEntry(ctx context.Context, delay time.Duration, pattern s
 }
 
 // DelayAdd adds a timed task after `delay` time.
-// ff:
-// c:
-// ctx:
-// delay:
-// pattern:
-// job:
-// name:
 func (c *Cron) DelayAdd(ctx context.Context, delay time.Duration, pattern string, job JobFunc, name ...string) {
 	gtimer.AddOnce(ctx, delay, func(ctx context.Context) {
 		if _, err := c.Add(ctx, pattern, job, name...); err != nil {
@@ -171,13 +122,6 @@ func (c *Cron) DelayAdd(ctx context.Context, delay time.Duration, pattern string
 }
 
 // DelayAddSingleton adds a singleton timed task after `delay` time.
-// ff:
-// c:
-// ctx:
-// delay:
-// pattern:
-// job:
-// name:
 func (c *Cron) DelayAddSingleton(ctx context.Context, delay time.Duration, pattern string, job JobFunc, name ...string) {
 	gtimer.AddOnce(ctx, delay, func(ctx context.Context) {
 		if _, err := c.AddSingleton(ctx, pattern, job, name...); err != nil {
@@ -188,13 +132,6 @@ func (c *Cron) DelayAddSingleton(ctx context.Context, delay time.Duration, patte
 
 // DelayAddOnce adds a timed task after `delay` time.
 // This timed task can be run only once.
-// ff:
-// c:
-// ctx:
-// delay:
-// pattern:
-// job:
-// name:
 func (c *Cron) DelayAddOnce(ctx context.Context, delay time.Duration, pattern string, job JobFunc, name ...string) {
 	gtimer.AddOnce(ctx, delay, func(ctx context.Context) {
 		if _, err := c.AddOnce(ctx, pattern, job, name...); err != nil {
@@ -205,14 +142,6 @@ func (c *Cron) DelayAddOnce(ctx context.Context, delay time.Duration, pattern st
 
 // DelayAddTimes adds a timed task after `delay` time.
 // This timed task can be run specified times.
-// ff:
-// c:
-// ctx:
-// delay:
-// pattern:
-// times:
-// job:
-// name:
 func (c *Cron) DelayAddTimes(ctx context.Context, delay time.Duration, pattern string, times int, job JobFunc, name ...string) {
 	gtimer.AddOnce(ctx, delay, func(ctx context.Context) {
 		if _, err := c.AddTimes(ctx, pattern, times, job, name...); err != nil {
@@ -223,9 +152,6 @@ func (c *Cron) DelayAddTimes(ctx context.Context, delay time.Duration, pattern s
 
 // Search returns a scheduled task with the specified `name`.
 // It returns nil if not found.
-// ff:
-// c:
-// name:
 func (c *Cron) Search(name string) *Entry {
 	if v := c.entries.Get(name); v != nil {
 		return v.(*Entry)
@@ -235,9 +161,6 @@ func (c *Cron) Search(name string) *Entry {
 
 // Start starts running the specified timed task named `name`.
 // If no`name` specified, it starts the entire cron.
-// ff:
-// c:
-// name:
 func (c *Cron) Start(name ...string) {
 	if len(name) > 0 {
 		for _, v := range name {
@@ -252,9 +175,6 @@ func (c *Cron) Start(name ...string) {
 
 // Stop stops running the specified timed task named `name`.
 // If no`name` specified, it stops the entire cron.
-// ff:
-// c:
-// name:
 func (c *Cron) Stop(name ...string) {
 	if len(name) > 0 {
 		for _, v := range name {
@@ -268,9 +188,6 @@ func (c *Cron) Stop(name ...string) {
 }
 
 // Remove deletes scheduled task which named `name`.
-// ff:
-// c:
-// name:
 func (c *Cron) Remove(name string) {
 	if v := c.entries.Get(name); v != nil {
 		v.(*Entry).Close()
@@ -278,22 +195,16 @@ func (c *Cron) Remove(name string) {
 }
 
 // Close stops and closes current cron.
-// ff:
-// c:
 func (c *Cron) Close() {
 	c.status.Set(StatusClosed)
 }
 
 // Size returns the size of the timed tasks.
-// ff:
-// c:
 func (c *Cron) Size() int {
 	return c.entries.Size()
 }
 
 // Entries return all timed tasks as slice(order by registered time asc).
-// ff:
-// c:
 func (c *Cron) Entries() []*Entry {
 	array := garray.NewSortedArraySize(c.entries.Size(), func(v1, v2 interface{}) int {
 		entry1 := v1.(*Entry)

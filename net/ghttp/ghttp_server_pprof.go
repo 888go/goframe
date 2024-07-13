@@ -24,9 +24,6 @@ const (
 )
 
 // StartPProfServer starts and runs a new server for pprof.
-// ff:PProf服务端创建
-// port:监听端口
-// pattern:作废参数
 func StartPProfServer(port int, pattern ...string) {
 	s := GetServer(defaultPProfServerName)
 	s.EnablePProf(pattern...)
@@ -35,17 +32,11 @@ func StartPProfServer(port int, pattern ...string) {
 }
 
 // EnablePProf enables PProf feature for server.
-// ff:PProf开启
-// s:
-// pattern:路由地址
 func (s *Server) EnablePProf(pattern ...string) {
 	s.Domain(DefaultDomainName).EnablePProf(pattern...)
 }
 
 // EnablePProf enables PProf feature for server of specified domain.
-// ff:PProf开启
-// d:
-// pattern:路由地址
 func (d *Domain) EnablePProf(pattern ...string) {
 	p := defaultPProfPattern
 	if len(pattern) > 0 && pattern[0] != "" {
@@ -64,9 +55,6 @@ func (d *Domain) EnablePProf(pattern ...string) {
 }
 
 // Index shows the PProf index page.
-// ff:显示页面
-// p:
-// r:
 func (p *utilPProf) Index(r *Request) {
 	var (
 		ctx      = r.Context()
@@ -114,9 +102,6 @@ func (p *utilPProf) Index(r *Request) {
 // Cmdline responds with the running program's
 // command line, with arguments separated by NUL bytes.
 // The package initialization registers it as /debug/pprof/cmdline.
-// ff:
-// p:
-// r:
 func (p *utilPProf) Cmdline(r *Request) {
 	netpprof.Cmdline(r.Response.Writer, r.Request)
 }
@@ -124,9 +109,6 @@ func (p *utilPProf) Cmdline(r *Request) {
 // Profile responds with the pprof-formatted cpu profile.
 // Profiling lasts for duration specified in seconds GET parameter, or for 30 seconds if not specified.
 // The package initialization registers it as /debug/pprof/profile.
-// ff:
-// p:
-// r:
 func (p *utilPProf) Profile(r *Request) {
 	netpprof.Profile(r.Response.Writer, r.Request)
 }
@@ -134,9 +116,6 @@ func (p *utilPProf) Profile(r *Request) {
 // Symbol looks up the program counters listed in the request,
 // responding with a table mapping program counters to function names.
 // The package initialization registers it as /debug/pprof/symbol.
-// ff:
-// p:
-// r:
 func (p *utilPProf) Symbol(r *Request) {
 	netpprof.Symbol(r.Response.Writer, r.Request)
 }
@@ -144,9 +123,6 @@ func (p *utilPProf) Symbol(r *Request) {
 // Trace responds with the execution trace in binary form.
 // Tracing lasts for duration specified in seconds GET parameter, or for 1 second if not specified.
 // The package initialization registers it as /debug/pprof/trace.
-// ff:
-// p:
-// r:
 func (p *utilPProf) Trace(r *Request) {
 	netpprof.Trace(r.Response.Writer, r.Request)
 }

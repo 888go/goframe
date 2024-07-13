@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gpage_test//bm:分页类_test
+package gpage_test
 
 import (
 	"testing"

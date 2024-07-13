@@ -400,8 +400,6 @@ func (oai *OpenApiV3) tagMapToPath(tagMap map[string]string, path *Path) error {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// ff:
-// p:
 func (p Path) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte

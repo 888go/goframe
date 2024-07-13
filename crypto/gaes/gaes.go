@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gaes provides useful API for AES encryption/decryption algorithms.
-package gaes//bm:加密aes类
+package gaes
 
 import (
 	"bytes"
@@ -23,19 +23,11 @@ const (
 )
 
 // Encrypt is alias of EncryptCBC.
-// ff:Encrypt别名
-// plainText:
-// key:
-// iv:
 func Encrypt(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	return EncryptCBC(plainText, key, iv...)
 }
 
 // Decrypt is alias of DecryptCBC.
-// ff:Decrypt别名
-// cipherText:
-// key:
-// iv:
 func Decrypt(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	return DecryptCBC(cipherText, key, iv...)
 }
@@ -43,10 +35,6 @@ func Decrypt(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 // EncryptCBC encrypts `plainText` using CBC mode.
 // Note that the key must be 16/24/32 bit length.
 // The parameter `iv` initialization vector is unnecessary.
-// ff:加密CBC
-// plainText:待加密
-// key:秘钥
-// iv:
 func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -71,10 +59,6 @@ func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 // DecryptCBC decrypts `cipherText` using CBC mode.
 // Note that the key must be 16/24/32 bit length.
 // The parameter `iv` initialization vector is unnecessary.
-// ff:解密CBC
-// cipherText:待解密
-// key:秘钥
-// iv:
 func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -107,9 +91,6 @@ func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 // PKCS5Padding applies PKCS#5 padding to the source byte slice to match the given block size.
 //
 // If the block size is not provided, it defaults to 8.
-// ff:
-// src:
-// blockSize:
 func PKCS5Padding(src []byte, blockSize ...int) []byte {
 	blockSizeTemp := 8
 	if len(blockSize) > 0 {
@@ -121,9 +102,6 @@ func PKCS5Padding(src []byte, blockSize ...int) []byte {
 // PKCS5UnPadding removes PKCS#5 padding from the source byte slice based on the given block size.
 //
 // If the block size is not provided, it defaults to 8.
-// ff:
-// src:
-// blockSize:
 func PKCS5UnPadding(src []byte, blockSize ...int) ([]byte, error) {
 	blockSizeTemp := 8
 	if len(blockSize) > 0 {
@@ -133,9 +111,6 @@ func PKCS5UnPadding(src []byte, blockSize ...int) ([]byte, error) {
 }
 
 // PKCS7Padding applies PKCS#7 padding to the source byte slice to match the given block size.
-// ff:
-// src:
-// blockSize:
 func PKCS7Padding(src []byte, blockSize int) []byte {
 	padding := blockSize - len(src)%blockSize
 	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
@@ -143,9 +118,6 @@ func PKCS7Padding(src []byte, blockSize int) []byte {
 }
 
 // PKCS7UnPadding removes PKCS#7 padding from the source byte slice based on the given block size.
-// ff:
-// src:
-// blockSize:
 func PKCS7UnPadding(src []byte, blockSize int) ([]byte, error) {
 	length := len(src)
 	if blockSize <= 0 {
@@ -174,11 +146,6 @@ func PKCS7UnPadding(src []byte, blockSize int) ([]byte, error) {
 // EncryptCFB encrypts `plainText` using CFB mode.
 // Note that the key must be 16/24/32 bit length.
 // The parameter `iv` initialization vector is unnecessary.
-// ff:加密CFB
-// plainText:待加密
-// key:秘钥
-// padding:
-// iv:
 func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -202,11 +169,6 @@ func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byt
 // DecryptCFB decrypts `plainText` using CFB mode.
 // Note that the key must be 16/24/32 bit length.
 // The parameter `iv` initialization vector is unnecessary.
-// ff:解密CFB
-// cipherText:待解密
-// key:秘钥
-// unPadding:
-// iv:
 func DecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -229,18 +191,12 @@ func DecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) ([]b
 	return plainText, nil
 }
 
-// ff:
-// cipherText:
-// blockSize:
 func ZeroPadding(cipherText []byte, blockSize int) ([]byte, int) {
 	padding := blockSize - len(cipherText)%blockSize
 	padText := bytes.Repeat([]byte{byte(0)}, padding)
 	return append(cipherText, padText...), padding
 }
 
-// ff:
-// plaintext:
-// unPadding:
 func ZeroUnPadding(plaintext []byte, unPadding int) []byte {
 	length := len(plaintext)
 	return plaintext[:(length - unPadding)]

@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gspath_test//bm:文件搜索类_test
+package gspath_test
 
 import (
 	"testing"

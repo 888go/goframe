@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gcode//bm:错误码类
+package gcode
 
 import "fmt"
 
@@ -16,30 +16,22 @@ type localCode struct {
 }
 
 // Code returns the integer number of current error code.
-// ff:
-// c:
 func (c localCode) Code() int {
 	return c.code
 }
 
 // Message returns the brief message for current error code.
-// ff:
-// c:
 func (c localCode) Message() string {
 	return c.message
 }
 
 // Detail returns the detailed information of current error code,
 // which is mainly designed as an extension field for error code.
-// ff:
-// c:
 func (c localCode) Detail() interface{} {
 	return c.detail
 }
 
 // String returns current error code as a string.
-// ff:
-// c:
 func (c localCode) String() string {
 	if c.detail != nil {
 		return fmt.Sprintf(`%d:%s %v`, c.code, c.message, c.detail)

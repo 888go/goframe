@@ -16,8 +16,6 @@ import (
 )
 
 // Zlib compresses `data` with zlib algorithm.
-// ff:Zlib压缩字节集
-// data:字节集
 func Zlib(data []byte) ([]byte, error) {
 	if data == nil || len(data) < 13 {
 		return data, nil
@@ -40,8 +38,6 @@ func Zlib(data []byte) ([]byte, error) {
 }
 
 // UnZlib decompresses `data` with zlib algorithm.
-// ff:Zlib解压字节集
-// data:字节集
 func UnZlib(data []byte) ([]byte, error) {
 	if data == nil || len(data) < 13 {
 		return data, nil

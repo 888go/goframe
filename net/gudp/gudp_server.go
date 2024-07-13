@@ -41,8 +41,6 @@ var (
 )
 
 // GetServer creates and returns an UDP server instance with given name.
-// ff:
-// name:
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
@@ -59,10 +57,6 @@ func GetServer(name ...interface{}) *Server {
 // NewServer creates and returns an UDP server.
 // The optional parameter `name` is used to specify its name, which can be used for
 // GetServer function to retrieve its instance.
-// ff:
-// address:
-// handler:
-// name:
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -75,26 +69,17 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 }
 
 // SetAddress sets the server address for UDP server.
-// ff:
-// s:
-// address:
 func (s *Server) SetAddress(address string) {
 	s.address = address
 }
 
 // SetHandler sets the connection handler for UDP server.
-// ff:
-// s:
-// handler:
 func (s *Server) SetHandler(handler func(*Conn)) {
 	s.handler = handler
 }
 
 // Close closes the connection.
 // It will make server shutdowns immediately.
-// ff:
-// s:
-// err:
 func (s *Server) Close() (err error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -106,8 +91,6 @@ func (s *Server) Close() (err error) {
 }
 
 // Run starts listening UDP connection.
-// ff:
-// s:
 func (s *Server) Run() error {
 	if s.handler == nil {
 		err := gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
@@ -131,8 +114,6 @@ func (s *Server) Run() error {
 }
 
 // GetListenedAddress retrieves and returns the address string which are listened by current server.
-// ff:
-// s:
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -146,8 +127,6 @@ func (s *Server) GetListenedAddress() string {
 }
 
 // GetListenedPort retrieves and returns one port which is listened to by current server.
-// ff:
-// s:
 func (s *Server) GetListenedPort() int {
 	s.mu.Lock()
 	defer s.mu.Unlock()

@@ -13,11 +13,6 @@ type DriverWrapper struct {
 
 // New creates and returns a database object for mysql.
 // It implements the interface of gdb.Driver for extra database driver installation.
-// ff:
-// d:
-// core:
-// node:
-// DB:
 func (d *DriverWrapper) New(core *Core, node *ConfigNode) (DB, error) {
 	db, err := d.driver.New(core, node)
 	if err != nil {

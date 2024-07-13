@@ -10,13 +10,14 @@
 //
 // Chinese : GBK/GB18030/GB2312/Big5
 //
+// Japanese: EUCJP/ISO2022JP/ShiftJIS
 //
 // Korean  : EUCKR
 //
 // Unicode : UTF-8/UTF-16/UTF-16BE/UTF-16LE
 //
 // Other   : macintosh/IBM*/Windows*/ISO-*
-package gcharset//bm:编码字符集类
+package gcharset
 
 import (
 	"bytes"
@@ -43,8 +44,6 @@ var (
 )
 
 // Supported returns whether charset `charset` is supported.
-// ff:
-// charset:
 func Supported(charset string) bool {
 	return getEncoding(charset) != nil
 }
@@ -52,12 +51,6 @@ func Supported(charset string) bool {
 // Convert converts `src` charset encoding from `srcCharset` to `dstCharset`,
 // and returns the converted string.
 // It returns `src` as `dst` if it fails converting.
-// ff:
-// dstCharset:
-// srcCharset:
-// src:
-// dst:
-// err:
 func Convert(dstCharset string, srcCharset string, src string) (dst string, err error) {
 	if dstCharset == srcCharset {
 		return src, nil
@@ -98,22 +91,12 @@ func Convert(dstCharset string, srcCharset string, src string) (dst string, err 
 
 // ToUTF8 converts `src` charset encoding from `srcCharset` to UTF-8 ,
 // and returns the converted string.
-// ff:
-// srcCharset:
-// src:
-// dst:
-// err:
 func ToUTF8(srcCharset string, src string) (dst string, err error) {
 	return Convert("UTF-8", srcCharset, src)
 }
 
 // UTF8To converts `src` charset encoding from UTF-8 to `dstCharset`,
 // and returns the converted string.
-// ff:
-// dstCharset:
-// src:
-// dst:
-// err:
 func UTF8To(dstCharset string, src string) (dst string, err error) {
 	return Convert(dstCharset, "UTF-8", src)
 }

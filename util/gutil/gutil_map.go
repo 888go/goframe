@@ -14,9 +14,6 @@ import (
 
 // MapCopy does a shallow copy from map `data` to `copy` for most commonly used map type
 // map[string]interface{}.
-// ff:
-// data:
-// copy:
 func MapCopy(data map[string]interface{}) (copy map[string]interface{}) {
 	copy = make(map[string]interface{}, len(data))
 	for k, v := range data {
@@ -26,10 +23,6 @@ func MapCopy(data map[string]interface{}) (copy map[string]interface{}) {
 }
 
 // MapContains checks whether map `data` contains `key`.
-// ff:
-// data:
-// key:
-// ok:
 func MapContains(data map[string]interface{}, key string) (ok bool) {
 	if len(data) == 0 {
 		return
@@ -39,9 +32,6 @@ func MapContains(data map[string]interface{}, key string) (ok bool) {
 }
 
 // MapDelete deletes all `keys` from map `data`.
-// ff:
-// data:
-// keys:
 func MapDelete(data map[string]interface{}, keys ...string) {
 	if len(data) == 0 {
 		return
@@ -52,9 +42,6 @@ func MapDelete(data map[string]interface{}, keys ...string) {
 }
 
 // MapMerge merges all map from `src` to map `dst`.
-// ff:
-// dst:
-// src:
 func MapMerge(dst map[string]interface{}, src ...map[string]interface{}) {
 	if dst == nil {
 		return
@@ -67,9 +54,6 @@ func MapMerge(dst map[string]interface{}, src ...map[string]interface{}) {
 }
 
 // MapMergeCopy creates and returns a new map which merges all map from `src`.
-// ff:
-// src:
-// copy:
 func MapMergeCopy(src ...map[string]interface{}) (copy map[string]interface{}) {
 	copy = make(map[string]interface{})
 	for _, m := range src {
@@ -83,11 +67,6 @@ func MapMergeCopy(src ...map[string]interface{}) (copy map[string]interface{}) {
 // MapPossibleItemByKey tries to find the possible key-value pair for given key ignoring cases and symbols.
 //
 // Note that this function might be of low performance.
-// ff:
-// data:
-// key:
-// foundKey:
-// foundValue:
 func MapPossibleItemByKey(data map[string]interface{}, key string) (foundKey string, foundValue interface{}) {
 	return utils.MapPossibleItemByKey(data, key)
 }
@@ -96,16 +75,11 @@ func MapPossibleItemByKey(data map[string]interface{}, key string) (foundKey str
 // It checks the key ignoring cases and symbols.
 //
 // Note that this function might be of low performance.
-// ff:
-// data:
-// key:
 func MapContainsPossibleKey(data map[string]interface{}, key string) bool {
 	return utils.MapContainsPossibleKey(data, key)
 }
 
 // MapOmitEmpty deletes all empty values from given map.
-// ff:
-// data:
 func MapOmitEmpty(data map[string]interface{}) {
 	if len(data) == 0 {
 		return
@@ -118,8 +92,7 @@ func MapOmitEmpty(data map[string]interface{}) {
 }
 
 // MapToSlice converts map to slice of which all keys and values are its items.
-// ff:
-// data:
+// Eg: {"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
 func MapToSlice(data interface{}) []interface{} {
 	var (
 		reflectValue = reflect.ValueOf(data)

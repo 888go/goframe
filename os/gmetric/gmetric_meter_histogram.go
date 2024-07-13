@@ -22,11 +22,6 @@ var (
 )
 
 // Histogram creates and returns a new Histogram.
-// ff:
-// meter:
-// name:
-// option:
-// Histogram:
 func (meter *localMeter) Histogram(name string, option MetricOption) (Histogram, error) {
 	m, err := meter.newMetric(MetricTypeHistogram, name, option)
 	if err != nil {
@@ -49,10 +44,6 @@ func (meter *localMeter) Histogram(name string, option MetricOption) (Histogram,
 
 // MustHistogram creates and returns a new Histogram.
 // It panics if any error occurs.
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustHistogram(name string, option MetricOption) Histogram {
 	m, err := meter.Histogram(name, option)
 	if err != nil {
@@ -62,10 +53,6 @@ func (meter *localMeter) MustHistogram(name string, option MetricOption) Histogr
 }
 
 // Init initializes the Metric in Provider creation.
-// ff:
-// l:
-// provider:
-// err:
 func (l *localHistogram) Init(provider Provider) (err error) {
 	if _, ok := l.HistogramPerformer.(noopHistogramPerformer); !ok {
 		// already initialized.
@@ -79,16 +66,12 @@ func (l *localHistogram) Init(provider Provider) (err error) {
 }
 
 // Buckets returns the bucket slice of the Histogram.
-// ff:
-// l:
 func (l *localHistogram) Buckets() []float64 {
 	return l.MetricOption.Buckets
 }
 
 // Performer implements interface PerformerExporter, which exports internal Performer of Metric.
 // This is usually used by metric implements.
-// ff:
-// l:
 func (l *localHistogram) Performer() any {
 	return l.HistogramPerformer
 }

@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gproc implements management and communication for processes.
-package gproc//bm:进程类
+package gproc
 
 import (
 	"os"
@@ -29,13 +29,11 @@ var (
 )
 
 // Pid returns the pid of current process.
-// ff:
 func Pid() int {
 	return processPid
 }
 
 // PPid returns the custom parent pid if exists, or else it returns the system parent pid.
-// ff:
 func PPid() int {
 	if !IsChild() {
 		return Pid()
@@ -51,22 +49,18 @@ func PPid() int {
 // Note that the difference between PPidOS and PPid function is that the PPidOS returns
 // the system ppid, but the PPid functions may return the custom pid by gproc if the custom
 // ppid exists.
-// ff:
 func PPidOS() int {
 	return os.Getppid()
 }
 
 // IsChild checks and returns whether current process is a child process.
 // A child process is forked by another gproc process.
-// ff:
 func IsChild() bool {
 	ppidValue := os.Getenv(envKeyPPid)
 	return ppidValue != "" && ppidValue != "0"
 }
 
 // SetPPid sets custom parent pid for current process.
-// ff:
-// ppid:
 func SetPPid(ppid int) error {
 	if ppid > 0 {
 		return os.Setenv(envKeyPPid, gconv.String(ppid))
@@ -76,20 +70,16 @@ func SetPPid(ppid int) error {
 }
 
 // StartTime returns the start time of current process.
-// ff:
 func StartTime() time.Time {
 	return processStartTime
 }
 
 // Uptime returns the duration which current process has been running
-// ff:
 func Uptime() time.Duration {
 	return time.Since(processStartTime)
 }
 
 // SearchBinary searches the binary `file` in current working folder and PATH environment.
-// ff:
-// file:
 func SearchBinary(file string) string {
 	// Check if it is absolute path of exists at current working directory.
 	if gfile.Exists(file) {
@@ -99,8 +89,6 @@ func SearchBinary(file string) string {
 }
 
 // SearchBinaryPath searches the binary `file` in PATH environment.
-// ff:
-// file:
 func SearchBinaryPath(file string) string {
 	array := ([]string)(nil)
 	switch runtime.GOOS {

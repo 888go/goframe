@@ -18,11 +18,6 @@ import (
 )
 
 // Open creates and returns an underlying sql.DB object for clickhouse.
-// ff:
-// d:
-// config:
-// db:
-// err:
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	source := config.Link
 	// clickhouse://username:password@host1:9000,host2:9000/database?dial_timeout=200ms&max_execution_time=60

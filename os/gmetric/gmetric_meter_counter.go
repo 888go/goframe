@@ -22,11 +22,6 @@ var (
 )
 
 // Counter creates and returns a new Counter.
-// ff:
-// meter:
-// name:
-// option:
-// Counter:
 func (meter *localMeter) Counter(name string, option MetricOption) (Counter, error) {
 	m, err := meter.newMetric(MetricTypeCounter, name, option)
 	if err != nil {
@@ -49,10 +44,6 @@ func (meter *localMeter) Counter(name string, option MetricOption) (Counter, err
 
 // MustCounter creates and returns a new Counter.
 // It panics if any error occurs.
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustCounter(name string, option MetricOption) Counter {
 	m, err := meter.Counter(name, option)
 	if err != nil {
@@ -62,10 +53,6 @@ func (meter *localMeter) MustCounter(name string, option MetricOption) Counter {
 }
 
 // Init initializes the Metric in Provider creation.
-// ff:
-// l:
-// provider:
-// err:
 func (l *localCounter) Init(provider Provider) (err error) {
 	if _, ok := l.CounterPerformer.(noopCounterPerformer); !ok {
 		// already initialized.
@@ -80,8 +67,6 @@ func (l *localCounter) Init(provider Provider) (err error) {
 
 // Performer implements interface PerformerExporter, which exports internal Performer of Metric.
 // This is usually used by metric implements.
-// ff:
-// l:
 func (l *localCounter) Performer() any {
 	return l.CounterPerformer
 }

@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*" -benchmem
 
-package gproc_test//bm:进程类_test
+package gproc_test
 
 import (
 	"testing"

@@ -21,16 +21,12 @@ var (
 
 // GetContents returns the file content of `path` as string.
 // It returns en empty string if it fails reading.
-// ff:读文本
-// path:路径
 func GetContents(path string) string {
 	return string(GetBytes(path))
 }
 
 // GetBytes returns the file content of `path` as []byte.
 // It returns nil if it fails reading.
-// ff:读字节集
-// path:路径
 func GetBytes(path string) []byte {
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -66,10 +62,6 @@ func putContents(path string, data []byte, flag int, perm os.FileMode) error {
 }
 
 // Truncate truncates file of `path` to given size by `size`.
-// ff:截断
-// path:路径
-// size:长度
-// err:错误
 func Truncate(path string, size int) (err error) {
 	err = os.Truncate(path, int64(size))
 	if err != nil {
@@ -80,45 +72,29 @@ func Truncate(path string, size int) (err error) {
 
 // PutContents puts string `content` to file of `path`.
 // It creates file of `path` recursively if it does not exist.
-// ff:写入文本
-// path:路径
-// content:文本
 func PutContents(path string, content string) error {
 	return putContents(path, []byte(content), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, DefaultPermOpen)
 }
 
 // PutContentsAppend appends string `content` to file of `path`.
 // It creates file of `path` recursively if it does not exist.
-// ff:追加文本
-// path:路径
-// content:文本
 func PutContentsAppend(path string, content string) error {
 	return putContents(path, []byte(content), os.O_WRONLY|os.O_CREATE|os.O_APPEND, DefaultPermOpen)
 }
 
 // PutBytes puts binary `content` to file of `path`.
 // It creates file of `path` recursively if it does not exist.
-// ff:写入字节集
-// path:路径
-// content:字节集
 func PutBytes(path string, content []byte) error {
 	return putContents(path, content, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, DefaultPermOpen)
 }
 
 // PutBytesAppend appends binary `content` to file of `path`.
 // It creates file of `path` recursively if it does not exist.
-// ff:追加字节集
-// path:路径
-// content:字节集
 func PutBytesAppend(path string, content []byte) error {
 	return putContents(path, content, os.O_WRONLY|os.O_CREATE|os.O_APPEND, DefaultPermOpen)
 }
 
 // GetNextCharOffset returns the file offset for given `char` starting from `start`.
-// ff:取字符偏移位置
-// reader:
-// char:待查找字符
-// start:查找起点
 func GetNextCharOffset(reader io.ReaderAt, char byte, start int64) int64 {
 	buffer := make([]byte, DefaultReadBuffer)
 	offset := start
@@ -139,10 +115,6 @@ func GetNextCharOffset(reader io.ReaderAt, char byte, start int64) int64 {
 
 // GetNextCharOffsetByPath returns the file offset for given `char` starting from `start`.
 // It opens file of `path` for reading with os.O_RDONLY flag and default perm.
-// ff:取文件字符偏移位置
-// path:路径
-// char:待查找字符
-// start:查找起点
 func GetNextCharOffsetByPath(path string, char byte, start int64) int64 {
 	if f, err := OpenWithFlagPerm(path, os.O_RDONLY, DefaultPermOpen); err == nil {
 		defer f.Close()
@@ -154,10 +126,7 @@ func GetNextCharOffsetByPath(path string, char byte, start int64) int64 {
 // GetBytesTilChar returns the contents of the file as []byte
 // until the next specified byte `char` position.
 //
-// ff:取字节集按字符位置
-// reader:
-// char:待查找字符
-// start:查找起点
+// Note: Returned value contains the character of the last position.
 func GetBytesTilChar(reader io.ReaderAt, char byte, start int64) ([]byte, int64) {
 	if offset := GetNextCharOffset(reader, char, start); offset != -1 {
 		return GetBytesByTwoOffsets(reader, start, offset+1), offset
@@ -169,10 +138,7 @@ func GetBytesTilChar(reader io.ReaderAt, char byte, start int64) ([]byte, int64)
 // until the next specified byte `char` position.
 // It opens file of `path` for reading with os.O_RDONLY flag and default perm.
 //
-// ff:取文件字节集按字符位置
-// path:路径
-// char:待查找字符
-// start:查找起点
+// Note: Returned value contains the character of the last position.
 func GetBytesTilCharByPath(path string, char byte, start int64) ([]byte, int64) {
 	if f, err := OpenWithFlagPerm(path, os.O_RDONLY, DefaultPermOpen); err == nil {
 		defer f.Close()
@@ -182,11 +148,8 @@ func GetBytesTilCharByPath(path string, char byte, start int64) ([]byte, int64) 
 }
 
 // GetBytesByTwoOffsets returns the binary content as []byte from `start` to `end`.
+// Note: Returned value does not contain the character of the last position, which means
 // it returns content range as [start, end).
-// ff:取字节集按范围
-// reader:
-// start:起点
-// end:终点
 func GetBytesByTwoOffsets(reader io.ReaderAt, start int64, end int64) []byte {
 	buffer := make([]byte, end-start)
 	if _, err := reader.ReadAt(buffer, start); err != nil {
@@ -196,12 +159,9 @@ func GetBytesByTwoOffsets(reader io.ReaderAt, start int64, end int64) []byte {
 }
 
 // GetBytesByTwoOffsetsByPath returns the binary content as []byte from `start` to `end`.
+// Note: Returned value does not contain the character of the last position, which means
 // it returns content range as [start, end).
 // It opens file of `path` for reading with os.O_RDONLY flag and default perm.
-// ff:取文件字节集按范围
-// path:路径
-// start:起点
-// end:终点
 func GetBytesByTwoOffsetsByPath(path string, start int64, end int64) []byte {
 	if f, err := OpenWithFlagPerm(path, os.O_RDONLY, DefaultPermOpen); err == nil {
 		defer f.Close()
@@ -215,10 +175,6 @@ func GetBytesByTwoOffsetsByPath(path string, start int64, end int64) []byte {
 //
 // Note that the parameter passed to callback function might be an empty value, and the last non-empty line
 // will be passed to callback function `callback` even if it has no newline marker.
-// ff:逐行读文本_函数
-// file:文件路径
-// callback:回调函数
-// line:文本
 func ReadLines(file string, callback func(line string) error) error {
 	f, err := Open(file)
 	if err != nil {
@@ -240,10 +196,6 @@ func ReadLines(file string, callback func(line string) error) error {
 //
 // Note that the parameter passed to callback function might be an empty value, and the last non-empty line
 // will be passed to callback function `callback` even if it has no newline marker.
-// ff:逐行读字节集_函数
-// file:文件路径
-// callback:回调函数
-// bytes:字节集
 func ReadLinesBytes(file string, callback func(bytes []byte) error) error {
 	f, err := Open(file)
 	if err != nil {

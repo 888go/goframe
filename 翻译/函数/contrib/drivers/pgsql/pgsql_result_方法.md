@@ -35,3 +35,8 @@
 # //zj:
 # 备注结束
 
+[func (pgr Result) RowsAffected() (int64, error) {]
+ff=取影响行数
+
+[func (pgr Result) LastInsertId() (int64, error) {]
+ff=取最后插入id

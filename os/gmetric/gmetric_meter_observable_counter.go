@@ -22,11 +22,6 @@ var (
 )
 
 // ObservableCounter creates and returns a new ObservableCounter.
-// ff:
-// meter:
-// name:
-// option:
-// ObservableCounter:
 func (meter *localMeter) ObservableCounter(name string, option MetricOption) (ObservableCounter, error) {
 	m, err := meter.newMetric(MetricTypeObservableCounter, name, option)
 	if err != nil {
@@ -49,10 +44,6 @@ func (meter *localMeter) ObservableCounter(name string, option MetricOption) (Ob
 
 // MustObservableCounter creates and returns a new ObservableCounter.
 // It panics if any error occurs.
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustObservableCounter(name string, option MetricOption) ObservableCounter {
 	m, err := meter.ObservableCounter(name, option)
 	if err != nil {
@@ -62,10 +53,6 @@ func (meter *localMeter) MustObservableCounter(name string, option MetricOption)
 }
 
 // Init initializes the Metric in Provider creation.
-// ff:
-// l:
-// provider:
-// err:
 func (l *localObservableCounter) Init(provider Provider) (err error) {
 	if _, ok := l.ObservableCounterPerformer.(noopObservableCounterPerformer); !ok {
 		// already initialized.
@@ -80,8 +67,6 @@ func (l *localObservableCounter) Init(provider Provider) (err error) {
 
 // Performer implements interface PerformerExporter, which exports internal Performer of Metric.
 // This is usually used by metric implements.
-// ff:
-// l:
 func (l *localObservableCounter) Performer() any {
 	return l.ObservableCounterPerformer
 }

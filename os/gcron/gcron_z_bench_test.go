@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gcron_test//bm:定时cron类_test
+package gcron_test
 
 import (
 	"context"

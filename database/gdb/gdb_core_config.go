@@ -25,34 +25,34 @@ type ConfigGroup []ConfigNode
 
 // ConfigNode is configuration for one node.
 type ConfigNode struct {
-	Host                 string        `json:"host"`//qm:地址  cz:Host string `json:"host"`                   // Host of server, ip or domain like: 127.0.0.1, localhost
-	Port                 string        `json:"port"`//qm:端口  cz:Port string `json:"port"`                   // Port, it's commonly 3306.
-	User                 string        `json:"user"`//qm:账号  cz:User string `json:"user"                   // Authentication username.
-	Pass                 string        `json:"pass"`//qm:密码  cz:Pass string `json:"pass"                   // Authentication password.
-	Name                 string        `json:"name"`//qm:名称  cz:Name string `json:"name"                   // Default used database name.
-	Type                 string        `json:"type"`//qm:类型  cz:Type string `json:"type"`                   // Database type: mysql, mariadb, sqlite, mssql, pgsql, oracle, clickhouse, dm.
-	Link                 string        `json:"link"`//qm:自定义链接信息  cz:Link string `json:"link"`                   // (Optional) Custom link information for all configuration in one single string.
-	Extra                string        `json:"extra"`//qm:额外  cz:Extra string `json:"extra"                  // (Optional) Extra configuration according the registered third-party database driver.
-	Role                 string        `json:"role"`//qm:节点角色  cz:Role string `json:"role"`                   // (Optional, "master" in default) Node role, used for master-slave mode: master, slave.
-	Debug                bool          `json:"debug"`//qm:调试模式  cz:Debug bool `json:"debug"                  // (Optional) Debug mode enables debug information logging and output.
-	Prefix               string        `json:"prefix"`//qm:表前缀  cz:Prefix string `json:"prefix"`                 // (Optional) Table prefix.
-	DryRun               bool          `json:"dryRun"`//qm:空跑特性  cz:DryRun bool `json:"dryRun"`                 // (Optional) Dry run, which does SELECT but no INSERT/UPDATE/DELETE statements.
-	Weight               int           `json:"weight"`//qm:负载均衡权重  cz:Weight int `json:"weight"                 // (Optional) Weight for load balance calculating, it's useless if there's just one node.
-	Charset              string        `json:"charset"`//qm:字符集  cz:Charset string `json:"charset"                // (Optional, "utf8" in default) Custom charset when operating on database.
-	Protocol             string        `json:"protocol"`//qm:协议  cz:Protocol string `json:"protocol"`               // (Optional, "tcp" in default) See net.Dial for more information which networks are available.
-	Timezone             string        `json:"timezone"`//qm:时区  cz:Timezone string `json:"timezone"               // (Optional) Sets the time zone for displaying and interpreting time stamps.
-	Namespace            string        `json:"namespace"`//qm:命名空间  cz:Namespace string `json:"namespace"              // (Optional) Namespace for some databases. Eg, in pgsql, the `Name` acts as the `catalog`, the `NameSpace` acts as the `schema`.
-	MaxIdleConnCount     int           `json:"maxIdle"`//qm:最大闲置连接数  cz:MaxIdleConnCount int `json:"maxIdle"`                // (Optional) Max idle connection configuration for underlying connection pool.
-	MaxOpenConnCount     int           `json:"maxOpen"`//qm:最大打开连接数  cz:MaxOpenConnCount int `json:"maxOpen"`                // (Optional) Max open connection configuration for underlying connection pool.
-	MaxConnLifeTime      time.Duration `json:"maxLifeTime"`//qm:最大空闲时长  cz:MaxConnLifeTime time.Duration `json:"maxLifeTime"`            // (Optional) Max amount of time a connection may be idle before being closed.
-	QueryTimeout         time.Duration `json:"queryTimeout"`//qm:查询超时时长  cz:QueryTimeout time.Duration `json:"queryTimeout"           // (Optional) Max query time for per dql.
-	ExecTimeout          time.Duration `json:"execTimeout"`//qm:执行超时时长  cz:ExecTimeout time.Duration `json:"execTimeout"            // (Optional) Max exec time for dml.
-	TranTimeout          time.Duration `json:"tranTimeout"`//qm:事务超时时长  cz:TranTimeout time.Duration `json:"tranTimeout"            // (Optional) Max exec time for a transaction.
-	PrepareTimeout       time.Duration `json:"prepareTimeout"`//qm:预准备SQL超时时长  cz:PrepareTimeout time.Duration `json:"prepareTimeout"         // (Optional) Max exec time for prepare operation.
-	CreatedAt            string        `json:"createdAt"`//qm:创建时间字段名  cz:CreatedAt string `json:"createdAt"              // (Optional) The field name of table for automatic-filled created datetime.
-	UpdatedAt            string        `json:"updatedAt"`//qm:更新时间字段名  cz:UpdatedAt string `json:"updatedAt              // (Optional) The field name of table for automatic-filled updated datetime.
-	DeletedAt            string        `json:"deletedAt"`//qm:软删除时间字段名  cz:DeletedAt string `json:"deletedAt"`              // (Optional) The field name of table for automatic-filled updated datetime.
-	TimeMaintainDisabled bool          `json:"timeMaintainDisabled"`//qm:禁用时间自动更新特性  cz:TimeMaintainDisabled bool `json:"timeMaintainDisabled"   // (Optional) Disable the automatic time maintaining feature.
+	Host                 string        `json:"host"`                 // Host of server, ip or domain like: 127.0.0.1, localhost
+	Port                 string        `json:"port"`                 // Port, it's commonly 3306.
+	User                 string        `json:"user"`                 // Authentication username.
+	Pass                 string        `json:"pass"`                 // Authentication password.
+	Name                 string        `json:"name"`                 // Default used database name.
+	Type                 string        `json:"type"`                 // Database type: mysql, mariadb, sqlite, mssql, pgsql, oracle, clickhouse, dm.
+	Link                 string        `json:"link"`                 // (Optional) Custom link information for all configuration in one single string.
+	Extra                string        `json:"extra"`                // (Optional) Extra configuration according the registered third-party database driver.
+	Role                 string        `json:"role"`                 // (Optional, "master" in default) Node role, used for master-slave mode: master, slave.
+	Debug                bool          `json:"debug"`                // (Optional) Debug mode enables debug information logging and output.
+	Prefix               string        `json:"prefix"`               // (Optional) Table prefix.
+	DryRun               bool          `json:"dryRun"`               // (Optional) Dry run, which does SELECT but no INSERT/UPDATE/DELETE statements.
+	Weight               int           `json:"weight"`               // (Optional) Weight for load balance calculating, it's useless if there's just one node.
+	Charset              string        `json:"charset"`              // (Optional, "utf8" in default) Custom charset when operating on database.
+	Protocol             string        `json:"protocol"`             // (Optional, "tcp" in default) See net.Dial for more information which networks are available.
+	Timezone             string        `json:"timezone"`             // (Optional) Sets the time zone for displaying and interpreting time stamps.
+	Namespace            string        `json:"namespace"`            // (Optional) Namespace for some databases. Eg, in pgsql, the `Name` acts as the `catalog`, the `NameSpace` acts as the `schema`.
+	MaxIdleConnCount     int           `json:"maxIdle"`              // (Optional) Max idle connection configuration for underlying connection pool.
+	MaxOpenConnCount     int           `json:"maxOpen"`              // (Optional) Max open connection configuration for underlying connection pool.
+	MaxConnLifeTime      time.Duration `json:"maxLifeTime"`          // (Optional) Max amount of time a connection may be idle before being closed.
+	QueryTimeout         time.Duration `json:"queryTimeout"`         // (Optional) Max query time for per dql.
+	ExecTimeout          time.Duration `json:"execTimeout"`          // (Optional) Max exec time for dml.
+	TranTimeout          time.Duration `json:"tranTimeout"`          // (Optional) Max exec time for a transaction.
+	PrepareTimeout       time.Duration `json:"prepareTimeout"`       // (Optional) Max exec time for prepare operation.
+	CreatedAt            string        `json:"createdAt"`            // (Optional) The field name of table for automatic-filled created datetime.
+	UpdatedAt            string        `json:"updatedAt"`            // (Optional) The field name of table for automatic-filled updated datetime.
+	DeletedAt            string        `json:"deletedAt"`            // (Optional) The field name of table for automatic-filled updated datetime.
+	TimeMaintainDisabled bool          `json:"timeMaintainDisabled"` // (Optional) Disable the automatic time maintaining feature.
 }
 
 const (
@@ -73,8 +73,6 @@ func init() {
 
 // SetConfig sets the global configuration for package.
 // It will overwrite the old configuration of package.
-// ff:设置全局配置
-// config:配置
 func SetConfig(config Config) {
 	defer instances.Clear()
 	configs.Lock()
@@ -89,9 +87,6 @@ func SetConfig(config Config) {
 }
 
 // SetConfigGroup sets the configuration for given group.
-// ff:设置组配置
-// group:配置组名称
-// nodes:配置
 func SetConfigGroup(group string, nodes ConfigGroup) {
 	defer instances.Clear()
 	configs.Lock()
@@ -103,9 +98,6 @@ func SetConfigGroup(group string, nodes ConfigGroup) {
 }
 
 // AddConfigNode adds one node configuration to configuration of given group.
-// ff:添加配置组节点
-// group:配置组名称
-// node:配置
 func AddConfigNode(group string, node ConfigNode) {
 	defer instances.Clear()
 	configs.Lock()
@@ -129,22 +121,16 @@ func parseConfigNode(node ConfigNode) ConfigNode {
 }
 
 // AddDefaultConfigNode adds one node configuration to configuration of default group.
-// ff:添加默认配置组节点
-// node:配置
 func AddDefaultConfigNode(node ConfigNode) {
 	AddConfigNode(DefaultGroupName, node)
 }
 
 // AddDefaultConfigGroup adds multiple node configurations to configuration of default group.
-// ff:添加默认配置组
-// nodes:配置组
 func AddDefaultConfigGroup(nodes ConfigGroup) {
 	SetConfigGroup(DefaultGroupName, nodes)
 }
 
 // GetConfig retrieves and returns the configuration of given group.
-// ff:取配置组配置
-// group:配置组名称
 func GetConfig(group string) ConfigGroup {
 	configs.RLock()
 	defer configs.RUnlock()
@@ -152,8 +138,6 @@ func GetConfig(group string) ConfigGroup {
 }
 
 // SetDefaultGroup sets the group name for default configuration.
-// ff:设置默认组名称
-// name:配置组名称
 func SetDefaultGroup(name string) {
 	defer instances.Clear()
 	configs.Lock()
@@ -162,7 +146,6 @@ func SetDefaultGroup(name string) {
 }
 
 // GetDefaultGroup returns the { name of default configuration.
-// ff:获取默认组名称
 func GetDefaultGroup() string {
 	defer instances.Clear()
 	configs.RLock()
@@ -172,7 +155,6 @@ func GetDefaultGroup() string {
 
 // IsConfigured checks and returns whether the database configured.
 // It returns true if any configuration exists.
-// ff:是否已配置数据库
 func IsConfigured() bool {
 	configs.RLock()
 	defer configs.RUnlock()
@@ -180,16 +162,11 @@ func IsConfigured() bool {
 }
 
 // SetLogger sets the logger for orm.
-// ff:
-// c:
-// logger:日志记录器
 func (c *Core) SetLogger(logger glog.ILogger) {
 	c.logger = logger
 }
 
 // GetLogger returns the (logger) of the orm.
-// ff:
-// c:
 func (c *Core) GetLogger() glog.ILogger {
 	return c.logger
 }
@@ -204,9 +181,6 @@ func (c *Core) GetLogger() glog.ILogger {
 //
 // The default max idle connections is currently 2. This may change in
 // a future release.
-// ff:
-// c:
-// n:连接数
 func (c *Core) SetMaxIdleConnCount(n int) {
 	c.dynamicConfig.MaxIdleConnCount = n
 }
@@ -219,9 +193,6 @@ func (c *Core) SetMaxIdleConnCount(n int) {
 //
 // If n <= 0, then there is no limit on the number of open connections.
 // The default is 0 (unlimited).
-// ff:
-// c:
-// n:连接数
 func (c *Core) SetMaxOpenConnCount(n int) {
 	c.dynamicConfig.MaxOpenConnCount = n
 }
@@ -231,16 +202,11 @@ func (c *Core) SetMaxOpenConnCount(n int) {
 // Expired connections may be closed lazily before reuse.
 //
 // If d <= 0, connections are not closed due to a connection's age.
-// ff:
-// c:
-// d:时长
 func (c *Core) SetMaxConnLifeTime(d time.Duration) {
 	c.dynamicConfig.MaxConnLifeTime = d
 }
 
 // GetConfig returns the current used node configuration.
-// ff:
-// c:
 func (c *Core) GetConfig() *ConfigNode {
 	var configNode = c.getConfigNodeFromCtx(c.db.GetCtx())
 	if configNode != nil {
@@ -257,59 +223,41 @@ func (c *Core) GetConfig() *ConfigNode {
 }
 
 // SetDebug enables/disables the debug mode.
-// ff:
-// c:
-// debug:开启
 func (c *Core) SetDebug(debug bool) {
 	c.debug.Set(debug)
 }
 
 // GetDebug returns the debug value.
-// ff:
-// c:
 func (c *Core) GetDebug() bool {
 	return c.debug.Val()
 }
 
 // GetCache returns the internal cache object.
-// ff:
-// c:
 func (c *Core) GetCache() *gcache.Cache {
 	return c.cache
 }
 
 // GetGroup returns the group string configured.
-// ff:
-// c:
 func (c *Core) GetGroup() string {
 	return c.group
 }
 
 // SetDryRun enables/disables the DryRun feature.
-// ff:
-// c:
-// enabled:开启
 func (c *Core) SetDryRun(enabled bool) {
 	c.config.DryRun = enabled
 }
 
 // GetDryRun returns the DryRun value.
-// ff:
-// c:
 func (c *Core) GetDryRun() bool {
 	return c.config.DryRun || allDryRun
 }
 
 // GetPrefix returns the table prefix string configured.
-// ff:
-// c:
 func (c *Core) GetPrefix() string {
 	return c.config.Prefix
 }
 
 // GetSchema returns the schema configured.
-// ff:
-// c:
 func (c *Core) GetSchema() string {
 	schema := c.schema
 	if schema == "" {

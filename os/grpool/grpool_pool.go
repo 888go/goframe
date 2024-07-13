@@ -15,10 +15,6 @@ import (
 
 // Add pushes a new job to the pool.
 // The job will be executed asynchronously.
-// ff:
-// p:
-// ctx:
-// f:
 func (p *Pool) Add(ctx context.Context, f Func) error {
 	for p.closed.Val() {
 		return gerror.NewCode(
@@ -40,11 +36,6 @@ func (p *Pool) Add(ctx context.Context, f Func) error {
 // The optional `recoverFunc` is called when any panic during executing of `userFunc`.
 // If `recoverFunc` is not passed or given nil, it ignores the panic from `userFunc`.
 // The job will be executed asynchronously.
-// ff:
-// p:
-// ctx:
-// userFunc:
-// recoverFunc:
 func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc RecoverFunc) error {
 	return p.Add(ctx, func(ctx context.Context) {
 		defer func() {
@@ -65,37 +56,27 @@ func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc Re
 // Cap returns the capacity of the pool.
 // This capacity is defined when pool is created.
 // It returns -1 if there's no limit.
-// ff:
-// p:
 func (p *Pool) Cap() int {
 	return p.limit
 }
 
 // Size returns current goroutine count of the pool.
-// ff:
-// p:
 func (p *Pool) Size() int {
 	return p.count.Val()
 }
 
 // Jobs returns current job count of the pool.
 // Note that, it does not return worker/goroutine count but the job/task count.
-// ff:
-// p:
 func (p *Pool) Jobs() int {
 	return p.list.Size()
 }
 
 // IsClosed returns if pool is closed.
-// ff:
-// p:
 func (p *Pool) IsClosed() bool {
 	return p.closed.Val()
 }
 
 // Close closes the goroutine pool, which makes all goroutines exit.
-// ff:
-// p:
 func (p *Pool) Close() {
 	p.closed.Set(true)
 }

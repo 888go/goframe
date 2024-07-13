@@ -569,6 +569,8 @@ func TestJson_Options(t *testing.T) {
 		t.Assert(fmt.Sprintf(`%v`, m["Id"]), `53687091200`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1617
 func Test_Issue1617(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type MyJsonName struct {
@@ -591,6 +593,8 @@ func Test_Issue1617(t *testing.T) {
 		})
 	})
 }
+
+// https://github.com/gogf/gf/issues/1747
 func Test_Issue1747(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var j *gjson.Json
@@ -599,6 +603,8 @@ func Test_Issue1747(t *testing.T) {
 		t.Assert(j.Get("2"), `336371793314971759`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/2520
 func Test_Issue2520(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type test struct {

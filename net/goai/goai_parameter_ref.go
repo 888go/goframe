@@ -96,8 +96,6 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	}, nil
 }
 
-// ff:
-// r:
 func (r ParameterRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

@@ -6,7 +6,7 @@
 //
 
 // Package glist provides most commonly used doubly linked list container which also supports concurrent-safe/unsafe switch feature.
-package glist//bm:链表类
+package glist
 
 import (
 	"bytes"
@@ -30,8 +30,6 @@ type (
 )
 
 // New creates and returns a new empty doubly linked list.
-// ff:
-// safe:
 func New(safe ...bool) *List {
 	return &List{
 		mu:   rwmutex.Create(safe...),
@@ -42,9 +40,6 @@ func New(safe ...bool) *List {
 // NewFrom creates and returns a list from a copy of given slice `array`.
 // The parameter `safe` is used to specify whether using list in concurrent-safety,
 // which is false in default.
-// ff:
-// array:
-// safe:
 func NewFrom(array []interface{}, safe ...bool) *List {
 	l := list.New()
 	for _, v := range array {
@@ -57,10 +52,6 @@ func NewFrom(array []interface{}, safe ...bool) *List {
 }
 
 // PushFront inserts a new element `e` with value `v` at the front of list `l` and returns `e`.
-// ff:
-// l:
-// v:
-// e:
 func (l *List) PushFront(v interface{}) (e *Element) {
 	l.mu.Lock()
 	if l.list == nil {
@@ -72,10 +63,6 @@ func (l *List) PushFront(v interface{}) (e *Element) {
 }
 
 // PushBack inserts a new element `e` with value `v` at the back of list `l` and returns `e`.
-// ff:
-// l:
-// v:
-// e:
 func (l *List) PushBack(v interface{}) (e *Element) {
 	l.mu.Lock()
 	if l.list == nil {
@@ -87,9 +74,6 @@ func (l *List) PushBack(v interface{}) (e *Element) {
 }
 
 // PushFronts inserts multiple new elements with values `values` at the front of list `l`.
-// ff:
-// l:
-// values:
 func (l *List) PushFronts(values []interface{}) {
 	l.mu.Lock()
 	if l.list == nil {
@@ -102,9 +86,6 @@ func (l *List) PushFronts(values []interface{}) {
 }
 
 // PushBacks inserts multiple new elements with values `values` at the back of list `l`.
-// ff:
-// l:
-// values:
 func (l *List) PushBacks(values []interface{}) {
 	l.mu.Lock()
 	if l.list == nil {
@@ -117,9 +98,6 @@ func (l *List) PushBacks(values []interface{}) {
 }
 
 // PopBack removes the element from back of `l` and returns the value of the element.
-// ff:
-// l:
-// value:
 func (l *List) PopBack() (value interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -134,9 +112,6 @@ func (l *List) PopBack() (value interface{}) {
 }
 
 // PopFront removes the element from front of `l` and returns the value of the element.
-// ff:
-// l:
-// value:
 func (l *List) PopFront() (value interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -152,10 +127,6 @@ func (l *List) PopFront() (value interface{}) {
 
 // PopBacks removes `max` elements from back of `l`
 // and returns values of the removed elements as slice.
-// ff:
-// l:
-// max:
-// values:
 func (l *List) PopBacks(max int) (values []interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -178,10 +149,6 @@ func (l *List) PopBacks(max int) (values []interface{}) {
 
 // PopFronts removes `max` elements from front of `l`
 // and returns values of the removed elements as slice.
-// ff:
-// l:
-// max:
-// values:
 func (l *List) PopFronts(max int) (values []interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -204,24 +171,17 @@ func (l *List) PopFronts(max int) (values []interface{}) {
 
 // PopBackAll removes all elements from back of `l`
 // and returns values of the removed elements as slice.
-// ff:
-// l:
 func (l *List) PopBackAll() []interface{} {
 	return l.PopBacks(-1)
 }
 
 // PopFrontAll removes all elements from front of `l`
 // and returns values of the removed elements as slice.
-// ff:
-// l:
 func (l *List) PopFrontAll() []interface{} {
 	return l.PopFronts(-1)
 }
 
 // FrontAll copies and returns values of all elements from front of `l` as slice.
-// ff:
-// l:
-// values:
 func (l *List) FrontAll() (values []interface{}) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -239,9 +199,6 @@ func (l *List) FrontAll() (values []interface{}) {
 }
 
 // BackAll copies and returns values of all elements from back of `l` as slice.
-// ff:
-// l:
-// values:
 func (l *List) BackAll() (values []interface{}) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -259,9 +216,6 @@ func (l *List) BackAll() (values []interface{}) {
 }
 
 // FrontValue returns value of the first element of `l` or nil if the list is empty.
-// ff:
-// l:
-// value:
 func (l *List) FrontValue() (value interface{}) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -275,9 +229,6 @@ func (l *List) FrontValue() (value interface{}) {
 }
 
 // BackValue returns value of the last element of `l` or nil if the list is empty.
-// ff:
-// l:
-// value:
 func (l *List) BackValue() (value interface{}) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -291,9 +242,6 @@ func (l *List) BackValue() (value interface{}) {
 }
 
 // Front returns the first element of list `l` or nil if the list is empty.
-// ff:
-// l:
-// e:
 func (l *List) Front() (e *Element) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -305,9 +253,6 @@ func (l *List) Front() (e *Element) {
 }
 
 // Back returns the last element of list `l` or nil if the list is empty.
-// ff:
-// l:
-// e:
 func (l *List) Back() (e *Element) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -320,9 +265,6 @@ func (l *List) Back() (e *Element) {
 
 // Len returns the number of elements of list `l`.
 // The complexity is O(1).
-// ff:
-// l:
-// length:
 func (l *List) Len() (length int) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -334,8 +276,6 @@ func (l *List) Len() (length int) {
 }
 
 // Size is alias of Len.
-// ff:
-// l:
 func (l *List) Size() int {
 	return l.Len()
 }
@@ -343,10 +283,6 @@ func (l *List) Size() int {
 // MoveBefore moves element `e` to its new position before `p`.
 // If `e` or `p` is not an element of `l`, or `e` == `p`, the list is not modified.
 // The element and `p` must not be nil.
-// ff:
-// l:
-// e:
-// p:
 func (l *List) MoveBefore(e, p *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -359,10 +295,6 @@ func (l *List) MoveBefore(e, p *Element) {
 // MoveAfter moves element `e` to its new position after `p`.
 // If `e` or `p` is not an element of `l`, or `e` == `p`, the list is not modified.
 // The element and `p` must not be nil.
-// ff:
-// l:
-// e:
-// p:
 func (l *List) MoveAfter(e, p *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -375,9 +307,6 @@ func (l *List) MoveAfter(e, p *Element) {
 // MoveToFront moves element `e` to the front of list `l`.
 // If `e` is not an element of `l`, the list is not modified.
 // The element must not be nil.
-// ff:
-// l:
-// e:
 func (l *List) MoveToFront(e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -390,9 +319,6 @@ func (l *List) MoveToFront(e *Element) {
 // MoveToBack moves element `e` to the back of list `l`.
 // If `e` is not an element of `l`, the list is not modified.
 // The element must not be nil.
-// ff:
-// l:
-// e:
 func (l *List) MoveToBack(e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -404,9 +330,6 @@ func (l *List) MoveToBack(e *Element) {
 
 // PushBackList inserts a copy of an other list at the back of list `l`.
 // The lists `l` and `other` may be the same, but they must not be nil.
-// ff:
-// l:
-// other:
 func (l *List) PushBackList(other *List) {
 	if l != other {
 		other.mu.RLock()
@@ -422,9 +345,6 @@ func (l *List) PushBackList(other *List) {
 
 // PushFrontList inserts a copy of an other list at the front of list `l`.
 // The lists `l` and `other` may be the same, but they must not be nil.
-// ff:
-// l:
-// other:
 func (l *List) PushFrontList(other *List) {
 	if l != other {
 		other.mu.RLock()
@@ -441,11 +361,6 @@ func (l *List) PushFrontList(other *List) {
 // InsertAfter inserts a new element `e` with value `v` immediately after `p` and returns `e`.
 // If `p` is not an element of `l`, the list is not modified.
 // The `p` must not be nil.
-// ff:
-// l:
-// p:
-// v:
-// e:
 func (l *List) InsertAfter(p *Element, v interface{}) (e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -459,11 +374,6 @@ func (l *List) InsertAfter(p *Element, v interface{}) (e *Element) {
 // InsertBefore inserts a new element `e` with value `v` immediately before `p` and returns `e`.
 // If `p` is not an element of `l`, the list is not modified.
 // The `p` must not be nil.
-// ff:
-// l:
-// p:
-// v:
-// e:
 func (l *List) InsertBefore(p *Element, v interface{}) (e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -477,10 +387,6 @@ func (l *List) InsertBefore(p *Element, v interface{}) (e *Element) {
 // Remove removes `e` from `l` if `e` is an element of list `l`.
 // It returns the element value e.Value.
 // The element must not be nil.
-// ff:
-// l:
-// e:
-// value:
 func (l *List) Remove(e *Element) (value interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -492,9 +398,6 @@ func (l *List) Remove(e *Element) (value interface{}) {
 }
 
 // Removes removes multiple elements `es` from `l` if `es` are elements of list `l`.
-// ff:
-// l:
-// es:
 func (l *List) Removes(es []*Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -507,8 +410,6 @@ func (l *List) Removes(es []*Element) {
 }
 
 // RemoveAll removes all elements from list `l`.
-// ff:
-// l:
 func (l *List) RemoveAll() {
 	l.mu.Lock()
 	l.list = list.New()
@@ -516,17 +417,11 @@ func (l *List) RemoveAll() {
 }
 
 // Clear is alias of RemoveAll.
-// ff:
-// l:
 func (l *List) Clear() {
 	l.RemoveAll()
 }
 
 // RLockFunc locks reading with given callback function `f` within RWMutex.RLock.
-// ff:
-// l:
-// f:
-// list:
 func (l *List) RLockFunc(f func(list *list.List)) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -536,10 +431,6 @@ func (l *List) RLockFunc(f func(list *list.List)) {
 }
 
 // LockFunc locks writing with given callback function `f` within RWMutex.Lock.
-// ff:
-// l:
-// f:
-// list:
 func (l *List) LockFunc(f func(list *list.List)) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -550,21 +441,12 @@ func (l *List) LockFunc(f func(list *list.List)) {
 }
 
 // Iterator is alias of IteratorAsc.
-// yx:true
-// ff:X遍历
-// l:
-// f:
-// e:
 func (l *List) Iterator(f func(e *Element) bool) {
 	l.IteratorAsc(f)
 }
 
 // IteratorAsc iterates the list readonly in ascending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
-// ff:
-// l:
-// f:
-// e:
 func (l *List) IteratorAsc(f func(e *Element) bool) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -583,10 +465,6 @@ func (l *List) IteratorAsc(f func(e *Element) bool) {
 
 // IteratorDesc iterates the list readonly in descending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
-// ff:
-// l:
-// f:
-// e:
 func (l *List) IteratorDesc(f func(e *Element) bool) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -604,9 +482,6 @@ func (l *List) IteratorDesc(f func(e *Element) bool) {
 }
 
 // Join joins list elements with a string `glue`.
-// ff:
-// l:
-// glue:
 func (l *List) Join(glue string) string {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -627,8 +502,6 @@ func (l *List) Join(glue string) string {
 }
 
 // String returns current list as a string.
-// ff:
-// l:
 func (l *List) String() string {
 	if l == nil {
 		return ""
@@ -637,16 +510,11 @@ func (l *List) String() string {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// ff:
-// l:
 func (l List) MarshalJSON() ([]byte, error) {
 	return json.Marshal(l.FrontAll())
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-// ff:
-// l:
-// b:
 func (l *List) UnmarshalJSON(b []byte) error {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -662,10 +530,6 @@ func (l *List) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for list.
-// ff:
-// l:
-// value:
-// err:
 func (l *List) UnmarshalValue(value interface{}) (err error) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -684,8 +548,6 @@ func (l *List) UnmarshalValue(value interface{}) (err error) {
 }
 
 // DeepCopy implements interface for deep copy of current type.
-// ff:
-// l:
 func (l *List) DeepCopy() interface{} {
 	if l == nil {
 		return nil

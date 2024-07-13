@@ -101,22 +101,16 @@ func doFinalPrint(ctx context.Context, in *HandlerInput) {
 }
 
 // SetDefaultHandler sets default handler for package.
-// ff:设置默认中间件
-// handler:处理函数
 func SetDefaultHandler(handler Handler) {
 	defaultHandler = handler
 }
 
 // GetDefaultHandler returns the default handler of package.
-// ff:取默认中间件
 func GetDefaultHandler() Handler {
 	return defaultHandler
 }
 
 // Next calls the next logging handler in middleware way.
-// ff:
-// in:
-// ctx:
 func (in *HandlerInput) Next(ctx context.Context) {
 	in.index++
 	if in.index < len(in.handlers) {
@@ -125,9 +119,6 @@ func (in *HandlerInput) Next(ctx context.Context) {
 }
 
 // String returns the logging content formatted by default logging handler.
-// ff:
-// in:
-// withColor:
 func (in *HandlerInput) String(withColor ...bool) string {
 	formatWithColor := false
 	if len(withColor) > 0 {
@@ -137,8 +128,6 @@ func (in *HandlerInput) String(withColor ...bool) string {
 }
 
 // ValuesContent converts and returns values as string content.
-// ff:
-// in:
 func (in *HandlerInput) ValuesContent() string {
 	var (
 		buffer       = bytes.NewBuffer(nil)

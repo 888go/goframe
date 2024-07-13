@@ -14,11 +14,6 @@ import (
 
 // Replace returns a copy of the string `origin`
 // in which string `search` replaced by `replace` case-sensitively.
-// ff:替换
-// origin:文本
-// search:替换文本
-// replace:用作替换文本
-// count:替换次数
 func Replace(origin, search, replace string, count ...int) string {
 	n := -1
 	if len(count) > 0 {
@@ -29,11 +24,6 @@ func Replace(origin, search, replace string, count ...int) string {
 
 // ReplaceI returns a copy of the string `origin`
 // in which string `search` replaced by `replace` case-insensitively.
-// ff:替换并忽略大小写
-// origin:文本
-// search:替换文本
-// replace:用作替换文本
-// count:替换次数
 func ReplaceI(origin, search, replace string, count ...int) string {
 	n := -1
 	if len(count) > 0 {
@@ -66,9 +56,6 @@ func ReplaceI(origin, search, replace string, count ...int) string {
 
 // ReplaceByArray returns a copy of `origin`,
 // which is replaced by a slice in order, case-sensitively.
-// ff:切片替换
-// origin:文本
-// array:切片
 func ReplaceByArray(origin string, array []string) string {
 	for i := 0; i < len(array); i += 2 {
 		if i+1 >= len(array) {
@@ -81,9 +68,6 @@ func ReplaceByArray(origin string, array []string) string {
 
 // ReplaceIByArray returns a copy of `origin`,
 // which is replaced by a slice in order, case-insensitively.
-// ff:切片替换并忽略大小写
-// origin:文本
-// array:切片
 func ReplaceIByArray(origin string, array []string) string {
 	for i := 0; i < len(array); i += 2 {
 		if i+1 >= len(array) {
@@ -96,18 +80,12 @@ func ReplaceIByArray(origin string, array []string) string {
 
 // ReplaceByMap returns a copy of `origin`,
 // which is replaced by a map in unordered way, case-sensitively.
-// ff:Map替换
-// origin:文本
-// replaces:用作替换的Map
 func ReplaceByMap(origin string, replaces map[string]string) string {
 	return utils.ReplaceByMap(origin, replaces)
 }
 
 // ReplaceIByMap returns a copy of `origin`,
 // which is replaced by a map in unordered way, case-insensitively.
-// ff:Map替换并忽略大小写
-// origin:文本
-// replaces:map切片
 func ReplaceIByMap(origin string, replaces map[string]string) string {
 	for k, v := range replaces {
 		origin = ReplaceI(origin, k, v)

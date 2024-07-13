@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtimer_test//bm:定时类_test
+package gtimer_test
 
 import (
 	"context"

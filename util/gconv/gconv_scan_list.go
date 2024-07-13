@@ -94,12 +94,6 @@ import (
 // given `relation` parameter.
 //
 // See the example or unit testing cases for clear understanding for this function.
-// ff:
-// structSlice:
-// structSlicePointer:
-// bindToAttrName:
-// relationAttrNameAndFields:
-// err:
 func ScanList(structSlice interface{}, structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	var (
 		relationAttrName string

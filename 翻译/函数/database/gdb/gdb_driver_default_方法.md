@@ -36,5 +36,11 @@
 # 备注结束
 
 [func (d *DriverDefault) Open(config *ConfigNode) (db *sql.DB, err error) {]
+ff=底层Open
 config=配置对象
 
+[func (d *DriverDefault) PingMaster() error {]
+ff=向主节点发送心跳
+
+[func (d *DriverDefault) PingSlave() error {]
+ff=向从节点发送心跳

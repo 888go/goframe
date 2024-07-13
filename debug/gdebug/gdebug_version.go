@@ -19,7 +19,6 @@ import (
 
 // BinVersion returns the version of current running binary.
 // It uses ghash.BKDRHash+BASE36 algorithm to calculate the unique version of the binary.
-// ff:
 func BinVersion() string {
 	if binaryVersion == "" {
 		binaryContent, _ := os.ReadFile(selfPath)
@@ -33,7 +32,6 @@ func BinVersion() string {
 
 // BinVersionMd5 returns the version of current running binary.
 // It uses MD5 algorithm to calculate the unique version of the binary.
-// ff:
 func BinVersionMd5() string {
 	if binaryVersionMd5 == "" {
 		binaryVersionMd5, _ = md5File(selfPath)

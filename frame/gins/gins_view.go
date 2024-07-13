@@ -20,8 +20,6 @@ import (
 // View returns an instance of View with default settings.
 // The parameter `name` is the name for the instance.
 // Note that it panics if any error occurs duration instance creating.
-// ff:
-// name:
 func View(name ...string) *gview.View {
 	instanceName := gview.DefaultName
 	if len(name) > 0 && name[0] != "" {

@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package guid provides simple and high performance unique id generation functionality.
-package guid//bm:uid类
+package guid
 
 import (
 	"os"
@@ -71,8 +71,6 @@ func init() {
 //  1. The returned length is fixed to 32 bytes for performance purpose.
 //  2. The custom parameter `data` composed should have unique attribute in your
 //     business scenario.
-// ff:生成
-// data:参数
 func S(data ...[]byte) string {
 	var (
 		b       = make([]byte, 32)

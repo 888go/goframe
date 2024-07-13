@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gfpool_test//bm:文件指针池类_test
+package gfpool_test
 
 import (
 	"context"

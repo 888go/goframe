@@ -341,6 +341,8 @@ func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
 		t.Assert(err, `Student Name is required`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1983
 func Test_Issue1983(t *testing.T) {
 	// Error as the attribute Student in Teacher is an initialized struct, which has default value.
 	gtest.C(t, func(t *gtest.T) {
@@ -397,6 +399,8 @@ func Test_Issue1983(t *testing.T) {
 		t.AssertNil(err)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1921
 func Test_Issue1921(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type SearchOption struct {
@@ -417,6 +421,8 @@ func Test_Issue1921(t *testing.T) {
 		t.Assert(err, "The Size value `10000` must be equal or lesser than 100")
 	})
 }
+
+// https://github.com/gogf/gf/issues/2011
 func Test_Issue2011(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {

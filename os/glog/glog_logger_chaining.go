@@ -14,9 +14,6 @@ import (
 
 // To is a chaining function,
 // which redirects current logging content output to the specified `writer`.
-// ff:重定向输出
-// l:
-// writer:
 func (l *Logger) To(writer io.Writer) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -32,9 +29,6 @@ func (l *Logger) To(writer io.Writer) *Logger {
 // which sets the directory path to `path` for current logging content output.
 //
 // Note that the parameter `path` is a directory path, not a file path.
-// ff:文件路径
-// l:
-// path:文件路径
 func (l *Logger) Path(path string) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -53,9 +47,6 @@ func (l *Logger) Path(path string) *Logger {
 // Cat is a chaining function,
 // which sets the category to `category` for current logging content output.
 // Param `category` can be hierarchical, eg: module/user.
-// ff:文件分类
-// l:
-// category:类名称
 func (l *Logger) Cat(category string) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -73,9 +64,6 @@ func (l *Logger) Cat(category string) *Logger {
 
 // File is a chaining function,
 // which sets file name `pattern` for the current logging content output.
-// ff:文件名格式
-// l:
-// file:文件名格式
 func (l *Logger) File(file string) *Logger {
 	if file == "" {
 		return l
@@ -92,9 +80,6 @@ func (l *Logger) File(file string) *Logger {
 
 // Level is a chaining function,
 // which sets logging level for the current logging content output.
-// ff:级别
-// l:
-// level:级别
 func (l *Logger) Level(level int) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -108,9 +93,6 @@ func (l *Logger) Level(level int) *Logger {
 
 // LevelStr is a chaining function,
 // which sets logging level for the current logging content output using level string.
-// ff:文本级别
-// l:
-// levelStr:文本级别
 func (l *Logger) LevelStr(levelStr string) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -127,9 +109,6 @@ func (l *Logger) LevelStr(levelStr string) *Logger {
 // Skip is a chaining function,
 // which sets stack skip for the current logging content output.
 // It also affects the caller file path checks when line number printing enabled.
-// ff:堆栈偏移量
-// l:
-// skip:偏移量
 func (l *Logger) Skip(skip int) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -143,10 +122,6 @@ func (l *Logger) Skip(skip int) *Logger {
 
 // Stack is a chaining function,
 // which sets stack options for the current logging content output .
-// ff:堆栈选项
-// l:
-// enabled:开启
-// skip:偏移量
 func (l *Logger) Stack(enabled bool, skip ...int) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -163,9 +138,6 @@ func (l *Logger) Stack(enabled bool, skip ...int) *Logger {
 
 // StackWithFilter is a chaining function,
 // which sets stack filter for the current logging content output .
-// ff:堆栈过滤
-// l:
-// filter:过滤器
 func (l *Logger) StackWithFilter(filter string) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -181,9 +153,6 @@ func (l *Logger) StackWithFilter(filter string) *Logger {
 // Stdout is a chaining function,
 // which enables/disables stdout for the current logging content output.
 // It's enabled in default.
-// ff:是否同时输出到终端
-// l:
-// enabled:开启
 func (l *Logger) Stdout(enabled ...bool) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -203,9 +172,6 @@ func (l *Logger) Stdout(enabled ...bool) *Logger {
 // Header is a chaining function,
 // which enables/disables log header for the current logging content output.
 // It's enabled in default.
-// ff:是否输出头信息
-// l:
-// enabled:开启
 func (l *Logger) Header(enabled ...bool) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -226,9 +192,6 @@ func (l *Logger) Header(enabled ...bool) *Logger {
 // which enables/disables printing its caller file path along with its line number.
 // The parameter `long` specified whether print the long absolute file path, eg: /a/b/c/d.go:23,
 // or else short one: d.go:23.
-// ff:是否输出源文件路径与行号
-// l:
-// long:开启
 func (l *Logger) Line(long ...bool) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {
@@ -246,9 +209,6 @@ func (l *Logger) Line(long ...bool) *Logger {
 
 // Async is a chaining function,
 // which enables/disables async logging output feature.
-// ff:是否异步输出
-// l:
-// enabled:开启
 func (l *Logger) Async(enabled ...bool) *Logger {
 	logger := (*Logger)(nil)
 	if l.parent == nil {

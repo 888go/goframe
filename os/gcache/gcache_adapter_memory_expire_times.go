@@ -21,10 +21,6 @@ func newAdapterMemoryExpireTimes() *adapterMemoryExpireTimes {
 	}
 }
 
-// ff:取值
-// d:
-// key:
-// value:
 func (d *adapterMemoryExpireTimes) Get(key interface{}) (value int64) {
 	d.mu.RLock()
 	value = d.expireTimes[key]
@@ -32,20 +28,12 @@ func (d *adapterMemoryExpireTimes) Get(key interface{}) (value int64) {
 	return
 }
 
-// yx:true
-// ff:设置值
-// d:
-// key:
-// value:
 func (d *adapterMemoryExpireTimes) Set(key interface{}, value int64) {
 	d.mu.Lock()
 	d.expireTimes[key] = value
 	d.mu.Unlock()
 }
 
-// ff:
-// d:
-// key:
 func (d *adapterMemoryExpireTimes) Delete(key interface{}) {
 	d.mu.Lock()
 	delete(d.expireTimes, key)

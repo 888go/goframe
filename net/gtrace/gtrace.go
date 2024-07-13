@@ -60,27 +60,23 @@ func init() {
 }
 
 // IsUsingDefaultProvider checks and return if currently using default trace provider.
-// ff:
 func IsUsingDefaultProvider() bool {
 	_, ok := otel.GetTracerProvider().(*provider.TracerProvider)
 	return ok
 }
 
 // IsTracingInternal returns whether tracing spans of internal components.
-// ff:
 func IsTracingInternal() bool {
 	return tracingInternal
 }
 
 // MaxContentLogSize returns the max log size for request and response body, especially for HTTP/RPC request.
-// ff:
 func MaxContentLogSize() int {
 	return tracingMaxContentLogSize
 }
 
 // CommonLabels returns common used attribute labels:
 // ip.intranet, hostname.
-// ff:
 func CommonLabels() []attribute.KeyValue {
 	return []attribute.KeyValue{
 		attribute.String(tracingCommonKeyIpHostname, hostname),
@@ -90,7 +86,6 @@ func CommonLabels() []attribute.KeyValue {
 }
 
 // CheckSetDefaultTextMapPropagator sets the default TextMapPropagator if it is not set previously.
-// ff:
 func CheckSetDefaultTextMapPropagator() {
 	p := otel.GetTextMapPropagator()
 	if len(p.Fields()) == 0 {
@@ -99,15 +94,12 @@ func CheckSetDefaultTextMapPropagator() {
 }
 
 // GetDefaultTextMapPropagator returns the default propagator for context propagation between peers.
-// ff:
 func GetDefaultTextMapPropagator() propagation.TextMapPropagator {
 	return defaultTextMapPropagator
 }
 
 // GetTraceID retrieves and returns TraceId from context.
 // It returns an empty string is tracing feature is not activated.
-// ff:
-// ctx:
 func GetTraceID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -121,8 +113,6 @@ func GetTraceID(ctx context.Context) string {
 
 // GetSpanID retrieves and returns SpanId from context.
 // It returns an empty string is tracing feature is not activated.
-// ff:
-// ctx:
 func GetSpanID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -136,50 +126,32 @@ func GetSpanID(ctx context.Context) string {
 
 // SetBaggageValue is a convenient function for adding one key-value pair to baggage.
 // Note that it uses attribute.Any to set the key-value pair.
-// ff:
-// ctx:
-// key:
-// value:
 func SetBaggageValue(ctx context.Context, key string, value interface{}) context.Context {
 	return NewBaggage(ctx).SetValue(key, value)
 }
 
 // SetBaggageMap is a convenient function for adding map key-value pairs to baggage.
 // Note that it uses attribute.Any to set the key-value pair.
-// ff:
-// ctx:
-// data:
 func SetBaggageMap(ctx context.Context, data map[string]interface{}) context.Context {
 	return NewBaggage(ctx).SetMap(data)
 }
 
 // GetBaggageMap retrieves and returns the baggage values as map.
-// ff:
-// ctx:
 func GetBaggageMap(ctx context.Context) *gmap.StrAnyMap {
 	return NewBaggage(ctx).GetMap()
 }
 
 // GetBaggageVar retrieves value and returns a *gvar.Var for specified key from baggage.
-// ff:
-// ctx:
-// key:
 func GetBaggageVar(ctx context.Context, key string) *gvar.Var {
 	return NewBaggage(ctx).GetVar(key)
 }
 
 // WithUUID injects custom trace id with UUID into context to propagate.
-// ff:
-// ctx:
-// uuid:
 func WithUUID(ctx context.Context, uuid string) (context.Context, error) {
 	return WithTraceID(ctx, gstr.Replace(uuid, "-", ""))
 }
 
 // WithTraceID injects custom trace id into context to propagate.
-// ff:
-// ctx:
-// traceID:
 func WithTraceID(ctx context.Context, traceID string) (context.Context, error) {
 	generatedTraceID, err := trace.TraceIDFromHex(traceID)
 	if err != nil {

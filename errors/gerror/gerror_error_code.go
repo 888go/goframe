@@ -12,8 +12,6 @@ import (
 
 // Code returns the error code.
 // It returns CodeNil if it has no error code.
-// ff:
-// err:
 func (err *Error) Code() gcode.Code {
 	if err == nil {
 		return gcode.CodeNil
@@ -25,9 +23,6 @@ func (err *Error) Code() gcode.Code {
 }
 
 // SetCode updates the internal code with given code.
-// ff:
-// err:
-// code:
 func (err *Error) SetCode(code gcode.Code) {
 	if err == nil {
 		return

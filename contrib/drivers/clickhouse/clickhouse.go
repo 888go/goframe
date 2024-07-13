@@ -44,17 +44,12 @@ func init() {
 }
 
 // New create and returns a driver that implements gdb.Driver, which supports operations for clickhouse.
-// ff:
 func New() gdb.Driver {
 	return &Driver{}
 }
 
 // New creates and returns a database object for clickhouse.
 // It implements the interface of gdb.Driver for extra database driver installation.
-// ff:
-// d:
-// core:
-// node:
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,

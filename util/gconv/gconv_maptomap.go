@@ -16,10 +16,6 @@ import (
 // MapToMap converts any map type variable `params` to another map type variable `pointer`
 // using reflect.
 // See doMapToMap.
-// ff:
-// params:
-// pointer:
-// mapping:
 func MapToMap(params interface{}, pointer interface{}, mapping ...map[string]string) error {
 	return Scan(params, pointer, mapping...)
 }

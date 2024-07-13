@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gstr provides functions for string handling.
-package gstr//bm:文本类
+package gstr
 
 const (
 	// NotFoundIndex is the position index for string not found in searching functions.

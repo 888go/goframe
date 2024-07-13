@@ -7,8 +7,6 @@
 package ghash
 
 // AP implements the classic AP hash algorithm for 32 bits.
-// ff:
-// str:
 func AP(str []byte) uint32 {
 	var hash uint32
 	for i := 0; i < len(str); i++ {
@@ -22,8 +20,6 @@ func AP(str []byte) uint32 {
 }
 
 // AP64 implements the classic AP hash algorithm for 64 bits.
-// ff:
-// str:
 func AP64(str []byte) uint64 {
 	var hash uint64
 	for i := 0; i < len(str); i++ {

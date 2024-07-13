@@ -21,8 +21,6 @@ type Interface struct {
 
 // NewInterface creates and returns a concurrent-safe object for interface{} type,
 // with given initial value `value`.
-// ff:
-// value:
 func NewInterface(value ...interface{}) *Interface {
 	t := &Interface{}
 	if len(value) > 0 && value[0] != nil {
@@ -32,18 +30,12 @@ func NewInterface(value ...interface{}) *Interface {
 }
 
 // Clone clones and returns a new concurrent-safe object for interface{} type.
-// ff:
-// v:
 func (v *Interface) Clone() *Interface {
 	return NewInterface(v.Val())
 }
 
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
-// yx:true
-// ff:设置值
-// v:
-// value:
-// old:
+// Note: The parameter `value` cannot be nil.
 func (v *Interface) Set(value interface{}) (old interface{}) {
 	old = v.Val()
 	v.value.Store(value)
@@ -51,31 +43,21 @@ func (v *Interface) Set(value interface{}) (old interface{}) {
 }
 
 // Val atomically loads and returns t.value.
-// yx:true
-// ff:取值
-// v:
 func (v *Interface) Val() interface{} {
 	return v.value.Load()
 }
 
 // String implements String interface for string printing.
-// ff:
-// v:
 func (v *Interface) String() string {
 	return gconv.String(v.Val())
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// ff:
-// v:
 func (v Interface) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.Val())
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-// ff:
-// v:
-// b:
 func (v *Interface) UnmarshalJSON(b []byte) error {
 	var i interface{}
 	if err := json.UnmarshalUseNumber(b, &i); err != nil {
@@ -86,17 +68,12 @@ func (v *Interface) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for `v`.
-// ff:
-// v:
-// value:
 func (v *Interface) UnmarshalValue(value interface{}) error {
 	v.Set(value)
 	return nil
 }
 
 // DeepCopy implements interface for deep copy of current type.
-// ff:
-// v:
 func (v *Interface) DeepCopy() interface{} {
 	if v == nil {
 		return nil

@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtimer//bm:定时类
+package gtimer
 
 import (
 	"context"
@@ -31,15 +31,11 @@ type Entry struct {
 type JobFunc = func(ctx context.Context)
 
 // Status returns the status of the job.
-// ff:取任务状态
-// entry:
 func (entry *Entry) Status() int {
 	return entry.status.Val()
 }
 
 // Run runs the timer job asynchronously.
-// ff:异步运行
-// entry:
 func (entry *Entry) Run() {
 	if !entry.infinite.Val() {
 		leftRunningTimes := entry.times.Add(-1)
@@ -100,74 +96,51 @@ func (entry *Entry) doCheckAndRunByTicks(currentTimerTicks int64) {
 }
 
 // SetStatus custom sets the status for the job.
-// ff:设置任务状态
-// entry:
-// status:状态
 func (entry *Entry) SetStatus(status int) int {
 	return entry.status.Set(status)
 }
 
 // Start starts the job.
-// ff:开始工作
-// entry:
 func (entry *Entry) Start() {
 	entry.status.Set(StatusReady)
 }
 
 // Stop stops the job.
-// ff:暂停工作
-// entry:
 func (entry *Entry) Stop() {
 	entry.status.Set(StatusStopped)
 }
 
 // Close closes the job, and then it will be removed from the timer.
-// ff:关闭任务
-// entry:
 func (entry *Entry) Close() {
 	entry.status.Set(StatusClosed)
 }
 
 // Reset resets the job, which resets its ticks for next running.
-// ff:重置任务
-// entry:
 func (entry *Entry) Reset() {
 	entry.nextTicks.Set(entry.timer.ticks.Val() + entry.ticks)
 }
 
 // IsSingleton checks and returns whether the job in singleton mode.
-// ff:是否单例模式
-// entry:
 func (entry *Entry) IsSingleton() bool {
 	return entry.isSingleton.Val()
 }
 
 // SetSingleton sets the job singleton mode.
-// ff:设置单例模式
-// entry:
-// enabled:单例模式
 func (entry *Entry) SetSingleton(enabled bool) {
 	entry.isSingleton.Set(enabled)
 }
 
 // Job returns the job function of this job.
-// ff:取任务函数
-// entry:
 func (entry *Entry) Job() JobFunc {
 	return entry.job
 }
 
 // Ctx returns the initialized context of this job.
-// ff:取任务上下文
-// entry:
 func (entry *Entry) Ctx() context.Context {
 	return entry.ctx
 }
 
 // SetTimes sets the limit running times for the job.
-// ff:设置任务次数
-// entry:
-// times:次数
 func (entry *Entry) SetTimes(times int) {
 	entry.times.Set(times)
 	entry.infinite.Set(false)

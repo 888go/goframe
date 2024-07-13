@@ -34,10 +34,6 @@ var (
 )
 
 // NewFromObject creates and returns a root command object using given object.
-// ff:
-// object:
-// rootCmd:
-// err:
 func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 	switch c := object.(type) {
 	case Command:

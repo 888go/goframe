@@ -20,8 +20,6 @@ type Int32 struct {
 
 // NewInt32 creates and returns a concurrent-safe object for int32 type,
 // with given initial value `value`.
-// ff:
-// value:
 func NewInt32(value ...int32) *Int32 {
 	if len(value) > 0 {
 		return &Int32{
@@ -32,84 +30,53 @@ func NewInt32(value ...int32) *Int32 {
 }
 
 // Clone clones and returns a new concurrent-safe object for int32 type.
-// ff:
-// v:
 func (v *Int32) Clone() *Int32 {
 	return NewInt32(v.Val())
 }
 
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
-// yx:true
-// ff:设置值
-// v:
-// value:
-// old:
 func (v *Int32) Set(value int32) (old int32) {
 	return atomic.SwapInt32(&v.value, value)
 }
 
 // Val atomically loads and returns t.value.
-// yx:true
-// ff:取值
-// v:
 func (v *Int32) Val() int32 {
 	return atomic.LoadInt32(&v.value)
 }
 
 // Add atomically adds `delta` to t.value and returns the new value.
-// ff:
-// v:
-// delta:
-// new:
 func (v *Int32) Add(delta int32) (new int32) {
 	return atomic.AddInt32(&v.value, delta)
 }
 
 // Cas executes the compare-and-swap operation for value.
-// ff:
-// v:
-// old:
-// new:
-// swapped:
 func (v *Int32) Cas(old, new int32) (swapped bool) {
 	return atomic.CompareAndSwapInt32(&v.value, old, new)
 }
 
 // String implements String interface for string printing.
-// ff:
-// v:
 func (v *Int32) String() string {
 	return strconv.Itoa(int(v.Val()))
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// ff:
-// v:
 func (v Int32) MarshalJSON() ([]byte, error) {
 	return []byte(strconv.Itoa(int(v.Val()))), nil
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-// ff:
-// v:
-// b:
 func (v *Int32) UnmarshalJSON(b []byte) error {
 	v.Set(gconv.Int32(string(b)))
 	return nil
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for `v`.
-// ff:
-// v:
-// value:
 func (v *Int32) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Int32(value))
 	return nil
 }
 
 // DeepCopy implements interface for deep copy of current type.
-// ff:
-// v:
 func (v *Int32) DeepCopy() interface{} {
 	if v == nil {
 		return nil

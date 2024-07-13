@@ -18,6 +18,8 @@ import (
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"
 )
+
+// https://github.com/gogf/gf/issues/1227
 func Test_Issue1227(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type StructFromIssue1227 struct {
@@ -114,6 +116,8 @@ func Test_Issue1227(t *testing.T) {
 		}
 	})
 }
+
+// https://github.com/gogf/gf/issues/1607
 func Test_Issue1607(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Demo struct {
@@ -130,6 +134,8 @@ func Test_Issue1607(t *testing.T) {
 		t.Assert(demos[0].B, 1.5)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1946
 func Test_Issue1946(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -202,6 +208,8 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Init.Val(), true)
 	})
 }
+
+// https://github.com/gogf/gf/issues/2381
 func Test_Issue2381(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -237,6 +245,8 @@ func Test_Issue2381(t *testing.T) {
 		t.Assert(a1.Flag.String(), a2.Flag.String())
 	})
 }
+
+// https://github.com/gogf/gf/issues/2391
 func Test_Issue2391(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -275,6 +285,8 @@ func Test_Issue2391(t *testing.T) {
 		t.Assert(a1.Flag.String(), a2.Flag.String())
 	})
 }
+
+// https://github.com/gogf/gf/issues/2395
 func Test_Issue2395(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Test struct {
@@ -285,6 +297,8 @@ func Test_Issue2395(t *testing.T) {
 		t.Assert(gconv.Interfaces(obj), []interface{}{obj})
 	})
 }
+
+// https://github.com/gogf/gf/issues/2371
 func Test_Issue2371(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (

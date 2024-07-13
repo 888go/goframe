@@ -19,8 +19,6 @@ const (
 
 // OmitEmpty sets optionOmitEmpty option for the model, which automatically filers
 // the data and where parameters for `empty` values.
-// ff:过滤空值
-// m:
 func (m *Model) OmitEmpty() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitEmpty
@@ -30,13 +28,12 @@ func (m *Model) OmitEmpty() *Model {
 // OmitEmptyWhere sets optionOmitEmptyWhere option for the model, which automatically filers
 // the Where/Having parameters for `empty` values.
 //
+// Eg:
 //
 //	Where("id", []int{}).All()             -> SELECT xxx FROM xxx WHERE 0=1
 //	Where("name", "").All()                -> SELECT xxx FROM xxx WHERE `name`=''
 //	OmitEmpty().Where("id", []int{}).All() -> SELECT xxx FROM xxx
 //	OmitEmpty().("name", "").All()         -> SELECT xxx FROM xxx.
-// ff:过滤空值条件
-// m:
 func (m *Model) OmitEmptyWhere() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitEmptyWhere
@@ -45,8 +42,6 @@ func (m *Model) OmitEmptyWhere() *Model {
 
 // OmitEmptyData sets optionOmitEmptyData option for the model, which automatically filers
 // the Data parameters for `empty` values.
-// ff:过滤空值数据
-// m:
 func (m *Model) OmitEmptyData() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitEmptyData
@@ -55,8 +50,6 @@ func (m *Model) OmitEmptyData() *Model {
 
 // OmitNil sets optionOmitNil option for the model, which automatically filers
 // the data and where parameters for `nil` values.
-// ff:过滤Nil
-// m:
 func (m *Model) OmitNil() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitNil
@@ -65,8 +58,6 @@ func (m *Model) OmitNil() *Model {
 
 // OmitNilWhere sets optionOmitNilWhere option for the model, which automatically filers
 // the Where/Having parameters for `nil` values.
-// ff:过滤Nil条件
-// m:
 func (m *Model) OmitNilWhere() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitNilWhere
@@ -75,8 +66,6 @@ func (m *Model) OmitNilWhere() *Model {
 
 // OmitNilData sets optionOmitNilData option for the model, which automatically filers
 // the Data parameters for `nil` values.
-// ff:过滤Nil数据
-// m:
 func (m *Model) OmitNilData() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitNilData

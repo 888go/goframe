@@ -21,9 +21,6 @@ type clientMiddleware struct {
 const clientMiddlewareKey gctx.StrKey = "__clientMiddlewareKey"
 
 // Use adds one or more middleware handlers to client.
-// ff:中间件
-// c:
-// handlers:中间件s
 func (c *Client) Use(handlers ...HandlerFunc) *Client {
 	c.middlewareHandler = append(c.middlewareHandler, handlers...)
 	return c
@@ -31,9 +28,6 @@ func (c *Client) Use(handlers ...HandlerFunc) *Client {
 
 // Next calls the next middleware.
 // This should only be call in HandlerFunc.
-// ff:
-// c:
-// req:
 func (c *Client) Next(req *http.Request) (*Response, error) {
 	if v := req.Context().Value(clientMiddlewareKey); v != nil {
 		if m, ok := v.(*clientMiddleware); ok {
@@ -44,11 +38,6 @@ func (c *Client) Next(req *http.Request) (*Response, error) {
 }
 
 // Next calls the next middleware handler.
-// ff:
-// m:
-// req:
-// resp:
-// err:
 func (m *clientMiddleware) Next(req *http.Request) (resp *Response, err error) {
 	if m.err != nil {
 		return m.resp, m.err

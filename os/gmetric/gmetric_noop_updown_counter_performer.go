@@ -17,23 +17,10 @@ func newNoopUpDownCounterPerformer() UpDownCounterPerformer {
 }
 
 // Inc increments the counter by 1.
-// ff:
-// noopUpDownCounterPerformer:
-// ctx:
-// option:
 func (noopUpDownCounterPerformer) Inc(ctx context.Context, option ...Option) {}
 
 // Dec decrements the counter by 1.
-// ff:
-// noopUpDownCounterPerformer:
-// ctx:
-// option:
 func (noopUpDownCounterPerformer) Dec(ctx context.Context, option ...Option) {}
 
 // Add adds the given value to the counter.
-// ff:
-// noopUpDownCounterPerformer:
-// ctx:
-// increment:
-// option:
 func (noopUpDownCounterPerformer) Add(ctx context.Context, increment float64, option ...Option) {}

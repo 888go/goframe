@@ -17,16 +17,7 @@ func newNoopCounterPerformer() CounterPerformer {
 }
 
 // Inc increments the counter by 1.
-// ff:
-// noopCounterPerformer:
-// ctx:
-// option:
 func (noopCounterPerformer) Inc(ctx context.Context, option ...Option) {}
 
 // Add adds the given value to the counter. It panics if the value is < 0.
-// ff:
-// noopCounterPerformer:
-// ctx:
-// increment:
-// option:
 func (noopCounterPerformer) Add(ctx context.Context, increment float64, option ...Option) {}

@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 //
 
-package gcmd//bm:cmd类
+package gcmd
 
 import (
 	"context"
@@ -60,8 +60,6 @@ var (
 )
 
 // CommandFromCtx retrieves and returns Command from context.
-// ff:
-// ctx:
 func CommandFromCtx(ctx context.Context) *Command {
 	if v := ctx.Value(CtxKeyCommand); v != nil {
 		if p, ok := v.(*Command); ok {
@@ -72,9 +70,6 @@ func CommandFromCtx(ctx context.Context) *Command {
 }
 
 // AddCommand adds one or more sub-commands to current command.
-// ff:
-// c:
-// commands:
 func (c *Command) AddCommand(commands ...*Command) error {
 	for _, cmd := range commands {
 		if err := c.doAddCommand(cmd); err != nil {
@@ -107,9 +102,6 @@ func (c *Command) doAddCommand(command *Command) error {
 }
 
 // AddObject adds one or more sub-commands to current command using struct object.
-// ff:
-// c:
-// objects:
 func (c *Command) AddObject(objects ...interface{}) error {
 	var commands []*Command
 	for _, object := range objects {

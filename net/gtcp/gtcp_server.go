@@ -43,8 +43,6 @@ var serverMapping = gmap.NewStrAnyMap(true)
 // GetServer returns the TCP server with specified `name`,
 // or it returns a new normal TCP server named `name` if it does not exist.
 // The parameter `name` is used to specify the TCP server
-// ff:
-// name:
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
@@ -57,10 +55,6 @@ func GetServer(name ...interface{}) *Server {
 
 // NewServer creates and returns a new normal TCP server.
 // The parameter `name` is optional, which is used to specify the instance name of the server.
-// ff:
-// address:
-// handler:
-// name:
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -74,11 +68,6 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 
 // NewServerTLS creates and returns a new TCP server with TLS support.
 // The parameter `name` is optional, which is used to specify the instance name of the server.
-// ff:
-// address:
-// tlsConfig:
-// handler:
-// name:
 func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), name ...string) *Server {
 	s := NewServer(address, handler, name...)
 	s.SetTLSConfig(tlsConfig)
@@ -87,12 +76,6 @@ func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), na
 
 // NewServerKeyCrt creates and returns a new TCP server with TLS support.
 // The parameter `name` is optional, which is used to specify the instance name of the server.
-// ff:
-// address:
-// crtFile:
-// keyFile:
-// handler:
-// name:
 func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name ...string) (*Server, error) {
 	s := NewServer(address, handler, name...)
 	if err := s.SetTLSKeyCrt(crtFile, keyFile); err != nil {
@@ -102,33 +85,21 @@ func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name
 }
 
 // SetAddress sets the listening address for server.
-// ff:
-// s:
-// address:
 func (s *Server) SetAddress(address string) {
 	s.address = address
 }
 
 // GetAddress get the listening address for server.
-// ff:
-// s:
 func (s *Server) GetAddress() string {
 	return s.address
 }
 
 // SetHandler sets the connection handler for server.
-// ff:
-// s:
-// handler:
 func (s *Server) SetHandler(handler func(*Conn)) {
 	s.handler = handler
 }
 
 // SetTLSKeyCrt sets the certificate and key file for TLS configuration of server.
-// ff:
-// s:
-// crtFile:
-// keyFile:
 func (s *Server) SetTLSKeyCrt(crtFile, keyFile string) error {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -139,16 +110,11 @@ func (s *Server) SetTLSKeyCrt(crtFile, keyFile string) error {
 }
 
 // SetTLSConfig sets the TLS configuration of server.
-// ff:
-// s:
-// tlsConfig:
 func (s *Server) SetTLSConfig(tlsConfig *tls.Config) {
 	s.tlsConfig = tlsConfig
 }
 
 // Close closes the listener and shutdowns the server.
-// ff:
-// s:
 func (s *Server) Close() error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -159,9 +125,6 @@ func (s *Server) Close() error {
 }
 
 // Run starts running the TCP Server.
-// ff:
-// s:
-// err:
 func (s *Server) Run() (err error) {
 	if s.handler == nil {
 		err = gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
@@ -204,8 +167,6 @@ func (s *Server) Run() (err error) {
 }
 
 // GetListenedAddress retrieves and returns the address string which are listened by current server.
-// ff:
-// s:
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -219,8 +180,6 @@ func (s *Server) GetListenedAddress() string {
 }
 
 // GetListenedPort retrieves and returns one port which is listened to by current server.
-// ff:
-// s:
 func (s *Server) GetListenedPort() int {
 	s.mu.Lock()
 	defer s.mu.Unlock()

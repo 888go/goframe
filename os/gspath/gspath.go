@@ -9,7 +9,7 @@
 // It searches file internally with high performance in order by the directory adding sequence.
 // Note that:
 // If caching feature enabled, there would be a searching delay after adding/deleting files.
-package gspath//bm:文件搜索类
+package gspath
 
 import (
 	"context"
@@ -44,9 +44,6 @@ var (
 )
 
 // New creates and returns a new path searching manager.
-// ff:
-// path:
-// cache:
 func New(path string, cache bool) *SPath {
 	sp := &SPath{
 		paths: garray.NewStrArray(true),
@@ -66,9 +63,6 @@ func New(path string, cache bool) *SPath {
 // The parameter `cache` specifies whether using cache feature for this manager.
 // If cache feature is enabled, it asynchronously and recursively scans the path
 // and updates all sub files/folders to the cache using package gfsnotify.
-// ff:
-// root:
-// cache:
 func Get(root string, cache bool) *SPath {
 	if root == "" {
 		root = "/"
@@ -85,12 +79,6 @@ func Get(root string, cache bool) *SPath {
 // For example, if the result `filePath` is a directory, and `indexFiles` is [index.html, main.html], it will also
 // search [index.html, main.html] under `filePath`. It returns the absolute file path if any of them found,
 // or else it returns `filePath`.
-// ff:
-// root:
-// name:
-// indexFiles:
-// filePath:
-// isDir:
 func Search(root string, name string, indexFiles ...string) (filePath string, isDir bool) {
 	return Get(root, false).Search(name, indexFiles...)
 }
@@ -102,23 +90,11 @@ func Search(root string, name string, indexFiles ...string) (filePath string, is
 // For example, if the result `filePath` is a directory, and `indexFiles` is [index.html, main.html], it will also
 // search [index.html, main.html] under `filePath`. It returns the absolute file path if any of them found,
 // or else it returns `filePath`.
-// ff:
-// root:
-// name:
-// indexFiles:
-// filePath:
-// isDir:
 func SearchWithCache(root string, name string, indexFiles ...string) (filePath string, isDir bool) {
 	return Get(root, true).Search(name, indexFiles...)
 }
 
 // Set deletes all other searching directories and sets the searching directory for this manager.
-// yx:true
-// ff:设置值
-// sp:
-// path:
-// realPath:
-// err:
 func (sp *SPath) Set(path string) (realPath string, err error) {
 	realPath = gfile.RealPath(path)
 	if realPath == "" {
@@ -154,11 +130,6 @@ func (sp *SPath) Set(path string) (realPath string, err error) {
 
 // Add adds more searching directory to the manager.
 // The manager will search file in added order.
-// ff:
-// sp:
-// path:
-// realPath:
-// err:
 func (sp *SPath) Add(path string) (realPath string, err error) {
 	realPath = gfile.RealPath(path)
 	if realPath == "" {
@@ -191,12 +162,6 @@ func (sp *SPath) Add(path string) (realPath string, err error) {
 // For example, if the result `filePath` is a directory, and `indexFiles` is [index.html, main.html], it will also
 // search [index.html, main.html] under `filePath`. It returns the absolute file path if any of them found,
 // or else it returns `filePath`.
-// ff:
-// sp:
-// name:
-// indexFiles:
-// filePath:
-// isDir:
 func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isDir bool) {
 	// No cache enabled.
 	if sp.cache == nil {
@@ -251,9 +216,6 @@ func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isD
 
 // Remove deletes the `path` from cache files of the manager.
 // The parameter `path` can be either an absolute path or just a relative file name.
-// ff:
-// sp:
-// path:
 func (sp *SPath) Remove(path string) {
 	if sp.cache == nil {
 		return
@@ -271,15 +233,11 @@ func (sp *SPath) Remove(path string) {
 }
 
 // Paths returns all searching directories.
-// ff:
-// sp:
 func (sp *SPath) Paths() []string {
 	return sp.paths.Slice()
 }
 
 // AllPaths returns all paths cached in the manager.
-// ff:
-// sp:
 func (sp *SPath) AllPaths() []string {
 	if sp.cache == nil {
 		return nil
@@ -292,8 +250,6 @@ func (sp *SPath) AllPaths() []string {
 }
 
 // Size returns the count of the searching directories.
-// ff:
-// sp:
 func (sp *SPath) Size() int {
 	return sp.paths.Len()
 }

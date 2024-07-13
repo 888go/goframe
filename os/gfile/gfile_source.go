@@ -31,10 +31,11 @@ func init() {
 //
 // It's only available in develop environment.
 //
+// Note1: Only valid for source development environments,
 // IE only valid for systems that generate this executable.
 //
+// Note2: When the method is called for the first time, if it is in an asynchronous goroutine,
 // the method may not get the main package path.
-// ff:取main路径
 func MainPkgPath() string {
 	// It is only for source development environments.
 	if goRootForFilter == "" {

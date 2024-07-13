@@ -6,6 +6,7 @@
 
 // Package mssql implements gdb.Driver, which supports operations for database MSSql.
 //
+// Note:
 // 1. It does not support Replace features.
 // 2. It does not support LastInsertId.
 package mssql
@@ -32,17 +33,12 @@ func init() {
 }
 
 // New create and returns a driver that implements gdb.Driver, which supports operations for Mssql.
-// ff:
 func New() gdb.Driver {
 	return &Driver{}
 }
 
 // New creates and returns a database object for SQL server.
 // It implements the interface of gdb.Driver for extra database driver installation.
-// ff:
-// d:
-// core:
-// node:
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
@@ -50,10 +46,6 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 }
 
 // GetChars returns the security char for this type of database.
-// ff:
-// d:
-// charLeft:左字符
-// charRight:右字符
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

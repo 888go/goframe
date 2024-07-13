@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gbase64_test//bm:编码base64类_test
+package gbase64_test
 
 import (
 	"testing"

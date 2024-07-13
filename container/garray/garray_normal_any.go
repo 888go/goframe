@@ -34,17 +34,11 @@ type Array struct {
 // New creates and returns an empty array.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
-
-// ff:创建
-// safe:并发安全
 func New(safe ...bool) *Array {
 	return NewArraySize(0, 0, safe...)
 }
 
 // NewArray is alias of New, please see New.
-
-// ff:NewArray别名
-// safe:并发安全
 func NewArray(safe ...bool) *Array {
 	return NewArraySize(0, 0, safe...)
 }
@@ -52,11 +46,6 @@ func NewArray(safe ...bool) *Array {
 // NewArraySize create and returns an array with given size and cap.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
-
-// ff:创建并按大小
-// safe:并发安全
-// cap:上限
-// size:大小
 func NewArraySize(size int, cap int, safe ...bool) *Array {
 	return &Array{
 		mu:    rwmutex.Create(safe...),
@@ -66,12 +55,6 @@ func NewArraySize(size int, cap int, safe ...bool) *Array {
 
 // NewArrayRange creates and returns an array by a range from `start` to `end`
 // with step value `step`.
-
-// ff:创建并按范围
-// safe:并发安全
-// step:步长
-// end:终点
-// start:起点
 func NewArrayRange(start, end, step int, safe ...bool) *Array {
 	if step == 0 {
 		panic(fmt.Sprintf(`invalid step value: %d`, step))
@@ -87,20 +70,12 @@ func NewArrayRange(start, end, step int, safe ...bool) *Array {
 
 // NewFrom is alias of NewArrayFrom.
 // See NewArrayFrom.
-
-// ff:NewFrom别名
-// safe:并发安全
-// array:数组
 func NewFrom(array []interface{}, safe ...bool) *Array {
 	return NewArrayFrom(array, safe...)
 }
 
 // NewFromCopy is alias of NewArrayFromCopy.
 // See NewArrayFromCopy.
-
-// ff:NewFromCopy别名
-// safe:并发安全
-// array:数组
 func NewFromCopy(array []interface{}, safe ...bool) *Array {
 	return NewArrayFromCopy(array, safe...)
 }
@@ -108,10 +83,6 @@ func NewFromCopy(array []interface{}, safe ...bool) *Array {
 // NewArrayFrom creates and returns an array with given slice `array`.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
-
-// ff:创建并从数组
-// safe:并发安全
-// array:数组
 func NewArrayFrom(array []interface{}, safe ...bool) *Array {
 	return &Array{
 		mu:    rwmutex.Create(safe...),
@@ -122,10 +93,6 @@ func NewArrayFrom(array []interface{}, safe ...bool) *Array {
 // NewArrayFromCopy creates and returns an array from a copy of given slice `array`.
 // The parameter `safe` is used to specify whether using array in concurrent-safety,
 // which is false in default.
-
-// ff:创建并从数组复制
-// safe:并发安全
-// array:数组
 func NewArrayFromCopy(array []interface{}, safe ...bool) *Array {
 	newArray := make([]interface{}, len(array))
 	copy(newArray, array)
@@ -137,10 +104,6 @@ func NewArrayFromCopy(array []interface{}, safe ...bool) *Array {
 
 // At returns the value by the specified index.
 // If the given `index` is out of range of the array, it returns `nil`.
-
-// ff:取值
-// value:值
-// index:索引
 func (a *Array) At(index int) (value interface{}) {
 	value, _ = a.Get(index)
 	return
@@ -148,11 +111,6 @@ func (a *Array) At(index int) (value interface{}) {
 
 // Get returns the value by the specified index.
 // If the given `index` is out of range of the array, the `found` is false.
-
-// ff:取值2
-// found:成功
-// value:值
-// index:索引
 func (a *Array) Get(index int) (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -163,11 +121,6 @@ func (a *Array) Get(index int) (value interface{}, found bool) {
 }
 
 // Set sets value to specified index.
-
-// ff:设置值
-// yx:true
-// value:
-// index:
 func (a *Array) Set(index int, value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -179,9 +132,6 @@ func (a *Array) Set(index int, value interface{}) error {
 }
 
 // SetArray sets the underlying slice array with the given `array`.
-
-// ff:设置数组
-// array:数组
 func (a *Array) SetArray(array []interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -190,9 +140,6 @@ func (a *Array) SetArray(array []interface{}) *Array {
 }
 
 // Replace replaces the array items by given `array` from the beginning of array.
-
-// ff:替换
-// array:数组
 func (a *Array) Replace(array []interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -207,9 +154,6 @@ func (a *Array) Replace(array []interface{}) *Array {
 }
 
 // Sum returns the sum of values in an array.
-
-// ff:求和
-// sum:值
 func (a *Array) Sum() (sum int) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -220,11 +164,6 @@ func (a *Array) Sum() (sum int) {
 }
 
 // SortFunc sorts the array by custom function `less`.
-
-// ff:排序并带函数
-// less:回调函数
-// v2:
-// v1:
 func (a *Array) SortFunc(less func(v1, v2 interface{}) bool) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -235,10 +174,6 @@ func (a *Array) SortFunc(less func(v1, v2 interface{}) bool) *Array {
 }
 
 // InsertBefore inserts the `values` to the front of `index`.
-
-// ff:插入前面
-// values:值
-// index:索引
 func (a *Array) InsertBefore(index int, values ...interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -252,10 +187,6 @@ func (a *Array) InsertBefore(index int, values ...interface{}) error {
 }
 
 // InsertAfter inserts the `values` to the back of `index`.
-
-// ff:插入后面
-// values:值
-// index:索引
 func (a *Array) InsertAfter(index int, values ...interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -270,11 +201,6 @@ func (a *Array) InsertAfter(index int, values ...interface{}) error {
 
 // Remove removes an item by index.
 // If the given `index` is out of range of the array, the `found` is false.
-
-// ff:删除
-// found:成功
-// value:值
-// index:索引
 func (a *Array) Remove(index int) (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -306,9 +232,6 @@ func (a *Array) doRemoveWithoutLock(index int) (value interface{}, found bool) {
 
 // RemoveValue removes an item by value.
 // It returns true if value is found in the array, or else false if not found.
-
-// ff:删除值
-// value:值
 func (a *Array) RemoveValue(value interface{}) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -320,9 +243,6 @@ func (a *Array) RemoveValue(value interface{}) bool {
 }
 
 // RemoveValues removes multiple items by `values`.
-
-// ff:删除多个值
-// values:值
 func (a *Array) RemoveValues(values ...interface{}) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -334,9 +254,6 @@ func (a *Array) RemoveValues(values ...interface{}) {
 }
 
 // PushLeft pushes one or multiple items to the beginning of array.
-
-// ff:入栈左
-// value:值
 func (a *Array) PushLeft(value ...interface{}) *Array {
 	a.mu.Lock()
 	a.array = append(value, a.array...)
@@ -346,9 +263,6 @@ func (a *Array) PushLeft(value ...interface{}) *Array {
 
 // PushRight pushes one or multiple items to the end of array.
 // It equals to Append.
-
-// ff:入栈右
-// value:值
 func (a *Array) PushRight(value ...interface{}) *Array {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -358,10 +272,6 @@ func (a *Array) PushRight(value ...interface{}) *Array {
 
 // PopRand randomly pops and return an item out of array.
 // Note that if the array is empty, the `found` is false.
-
-// ff:出栈随机
-// found:成功
-// value:值
 func (a *Array) PopRand() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -369,9 +279,6 @@ func (a *Array) PopRand() (value interface{}, found bool) {
 }
 
 // PopRands randomly pops and returns `size` items out of array.
-
-// ff:出栈随机多个
-// size:数量
 func (a *Array) PopRands(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -390,10 +297,6 @@ func (a *Array) PopRands(size int) []interface{} {
 
 // PopLeft pops and returns an item from the beginning of array.
 // Note that if the array is empty, the `found` is false.
-
-// ff:出栈左
-// found:成功
-// value:值
 func (a *Array) PopLeft() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -407,10 +310,6 @@ func (a *Array) PopLeft() (value interface{}, found bool) {
 
 // PopRight pops and returns an item from the end of array.
 // Note that if the array is empty, the `found` is false.
-
-// ff:出栈右
-// found:成功
-// value:值
 func (a *Array) PopRight() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -424,9 +323,6 @@ func (a *Array) PopRight() (value interface{}, found bool) {
 }
 
 // PopLefts pops and returns `size` items from the beginning of array.
-
-// ff:出栈左多个
-// size:数量
 func (a *Array) PopLefts(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -444,9 +340,6 @@ func (a *Array) PopLefts(size int) []interface{} {
 }
 
 // PopRights pops and returns `size` items from the end of array.
-
-// ff:出栈右多个
-// size:数量
 func (a *Array) PopRights(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -471,10 +364,6 @@ func (a *Array) PopRights(size int) []interface{} {
 // If `end` is negative, then the offset will start from the end of array.
 // If `end` is omitted, then the sequence will have everything from start up
 // until the end of the array.
-
-// ff:取切片并按范围
-// end:终点
-// start:起点
 func (a *Array) Range(start int, end ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -511,10 +400,6 @@ func (a *Array) Range(start int, end ...int) []interface{} {
 // If it is omitted, then the sequence will have everything from offset up until the end of the array.
 //
 // Any possibility crossing the left border of array, it will fail.
-
-// ff:取切片并按数量
-// length:数量
-// offset:起点
 func (a *Array) SubSlice(offset int, length ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -553,17 +438,12 @@ func (a *Array) SubSlice(offset int, length ...int) []interface{} {
 }
 
 // Append is alias of PushRight, please See PushRight.
-
-// ff:Append别名
-// value:值
 func (a *Array) Append(value ...interface{}) *Array {
 	a.PushRight(value...)
 	return a
 }
 
 // Len returns the length of array.
-
-// ff:取长度
 func (a *Array) Len() int {
 	a.mu.RLock()
 	length := len(a.array)
@@ -574,8 +454,6 @@ func (a *Array) Len() int {
 // Slice returns the underlying data of array.
 // Note that, if it's in concurrent-safe usage, it returns a copy of underlying data,
 // or else a pointer to the underlying data.
-
-// ff:取切片
 func (a *Array) Slice() []interface{} {
 	if a.mu.IsSafe() {
 		a.mu.RLock()
@@ -589,17 +467,11 @@ func (a *Array) Slice() []interface{} {
 }
 
 // Interfaces returns current array as []interface{}.
-
-// ff:取any数组
-// yx:true
 func (a *Array) Interfaces() []interface{} {
 	return a.Slice()
 }
 
 // Clone returns a new array, which is a copy of current array.
-
-// ff:取副本
-// newArray:新数组
 func (a *Array) Clone() (newArray *Array) {
 	a.mu.RLock()
 	array := make([]interface{}, len(a.array))
@@ -609,8 +481,6 @@ func (a *Array) Clone() (newArray *Array) {
 }
 
 // Clear deletes all items of current array.
-
-// ff:清空
 func (a *Array) Clear() *Array {
 	a.mu.Lock()
 	if len(a.array) > 0 {
@@ -621,18 +491,12 @@ func (a *Array) Clear() *Array {
 }
 
 // Contains checks whether a value exists in the array.
-
-// ff:是否存在
-// value:值
 func (a *Array) Contains(value interface{}) bool {
 	return a.Search(value) != -1
 }
 
 // Search searches array by `value`, returns the index of `value`,
 // or returns -1 if not exists.
-
-// ff:查找
-// value:值
 func (a *Array) Search(value interface{}) int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -655,8 +519,6 @@ func (a *Array) doSearchWithoutLock(value interface{}) int {
 
 // Unique uniques the array, clear repeated items.
 // Example: [1,1,2,3,2] -> [1,2,3]
-
-// ff:去重
 func (a *Array) Unique() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -682,9 +544,6 @@ func (a *Array) Unique() *Array {
 }
 
 // LockFunc locks writing by callback function `f`.
-
-// ff:遍历并写锁定
-// f:回调函数
 func (a *Array) LockFunc(f func(array []interface{})) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -693,9 +552,6 @@ func (a *Array) LockFunc(f func(array []interface{})) *Array {
 }
 
 // RLockFunc locks reading by callback function `f`.
-
-// ff:遍历并读锁定
-// f:回调函数
 func (a *Array) RLockFunc(f func(array []interface{})) *Array {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -707,20 +563,12 @@ func (a *Array) RLockFunc(f func(array []interface{})) *Array {
 // The parameter `array` can be any garray or slice type.
 // The difference between Merge and Append is Append supports only specified slice type,
 // but Merge supports more parameter types.
-
-// ff:合并
-// array:数组
 func (a *Array) Merge(array interface{}) *Array {
 	return a.Append(gconv.Interfaces(array)...)
 }
 
 // Fill fills an array with num entries of the value `value`,
 // keys starting at the `startIndex` parameter.
-
-// ff:填充
-// value:值
-// num:填充数量
-// startIndex:起点
 func (a *Array) Fill(startIndex int, num int, value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -740,9 +588,6 @@ func (a *Array) Fill(startIndex int, num int, value interface{}) error {
 // Chunk splits an array into multiple arrays,
 // the size of each array is determined by `size`.
 // The last chunk may contain less than size elements.
-
-// ff:分割
-// size:数量
 func (a *Array) Chunk(size int) [][]interface{} {
 	if size < 1 {
 		return nil
@@ -767,10 +612,6 @@ func (a *Array) Chunk(size int) [][]interface{} {
 // If size is positive then the array is padded on the right, or negative on the left.
 // If the absolute value of `size` is less than or equal to the length of the array
 // then no padding takes place.
-
-// ff:填满
-// val:值
-// size:总数量
 func (a *Array) Pad(size int, val interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -795,10 +636,6 @@ func (a *Array) Pad(size int, val interface{}) *Array {
 }
 
 // Rand randomly returns one item from array(no deleting).
-
-// ff:取值随机
-// found:成功
-// value:值
 func (a *Array) Rand() (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -809,9 +646,6 @@ func (a *Array) Rand() (value interface{}, found bool) {
 }
 
 // Rands randomly returns `size` items from array(no deleting).
-
-// ff:取值随机多个
-// size:数量
 func (a *Array) Rands(size int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -826,8 +660,6 @@ func (a *Array) Rands(size int) []interface{} {
 }
 
 // Shuffle randomly shuffles the array.
-
-// ff:随机排序
 func (a *Array) Shuffle() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -838,8 +670,6 @@ func (a *Array) Shuffle() *Array {
 }
 
 // Reverse makes array with elements in reverse order.
-
-// ff:倒排序
 func (a *Array) Reverse() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -850,9 +680,6 @@ func (a *Array) Reverse() *Array {
 }
 
 // Join joins array elements with a string `glue`.
-
-// ff:连接
-// glue:连接符
 func (a *Array) Join(glue string) string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -870,8 +697,6 @@ func (a *Array) Join(glue string) string {
 }
 
 // CountValues counts the number of occurrences of all values in the array.
-
-// ff:统计
 func (a *Array) CountValues() map[interface{}]int {
 	m := make(map[interface{}]int)
 	a.mu.RLock()
@@ -883,19 +708,12 @@ func (a *Array) CountValues() map[interface{}]int {
 }
 
 // Iterator is alias of IteratorAsc.
-
-// ff:X遍历
-// yx:true
-// f:
 func (a *Array) Iterator(f func(k int, v interface{}) bool) {
 	a.IteratorAsc(f)
 }
 
 // IteratorAsc iterates the array readonly in ascending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
-
-// ff:遍历升序
-// f:回调函数
 func (a *Array) IteratorAsc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -908,9 +726,6 @@ func (a *Array) IteratorAsc(f func(k int, v interface{}) bool) {
 
 // IteratorDesc iterates the array readonly in descending order with given callback function `f`.
 // If `f` returns true, then it continues iterating; or false to stop.
-
-// ff:遍历降序
-// f:回调函数
 func (a *Array) IteratorDesc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -922,8 +737,6 @@ func (a *Array) IteratorDesc(f func(k int, v interface{}) bool) {
 }
 
 // String returns current array as a string, which implements like json.Marshal does.
-
-// ff:
 func (a *Array) String() string {
 	if a == nil {
 		return ""
@@ -950,8 +763,6 @@ func (a *Array) String() string {
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
 // Note that do not use pointer as its receiver here.
-
-// ff:
 func (a Array) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -959,9 +770,6 @@ func (a Array) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-
-// ff:
-// b:
 func (a *Array) UnmarshalJSON(b []byte) error {
 	if a.array == nil {
 		a.array = make([]interface{}, 0)
@@ -975,9 +783,6 @@ func (a *Array) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for array.
-
-// ff:
-// value:
 func (a *Array) UnmarshalValue(value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -993,11 +798,6 @@ func (a *Array) UnmarshalValue(value interface{}) error {
 // Filter iterates array and filters elements using custom callback function.
 // It removes the element from array if callback function `filter` returns true,
 // it or else does nothing and continues iterating.
-
-// ff:遍历删除
-// filter:回调函数
-// value:值
-// index:索引
 func (a *Array) Filter(filter func(index int, value interface{}) bool) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -1012,8 +812,6 @@ func (a *Array) Filter(filter func(index int, value interface{}) bool) *Array {
 }
 
 // FilterNil removes all nil value of the array.
-
-// ff:删除所有nil
 func (a *Array) FilterNil() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -1029,8 +827,6 @@ func (a *Array) FilterNil() *Array {
 
 // FilterEmpty removes all empty value of the array.
 // Values like: 0, nil, false, "", len(slice/map/chan) == 0 are considered empty.
-
-// ff:删除所有空值
 func (a *Array) FilterEmpty() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -1045,9 +841,6 @@ func (a *Array) FilterEmpty() *Array {
 }
 
 // Walk applies a user supplied function `f` to every item of array.
-
-// ff:遍历修改
-// f:回调函数
 func (a *Array) Walk(f func(value interface{}) interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -1058,15 +851,11 @@ func (a *Array) Walk(f func(value interface{}) interface{}) *Array {
 }
 
 // IsEmpty checks whether the array is empty.
-
-// ff:是否为空
 func (a *Array) IsEmpty() bool {
 	return a.Len() == 0
 }
 
 // DeepCopy implements interface for deep copy of current type.
-
-// ff:
 func (a *Array) DeepCopy() interface{} {
 	if a == nil {
 		return nil

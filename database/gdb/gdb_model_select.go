@@ -25,10 +25,6 @@ import (
 //
 // The optional parameter `where` is the same as the parameter of Model.Where function,
 // see Model.Where.
-// ff:查询
-// m:
-// where:查询条件
-// Result:
 func (m *Model) All(where ...interface{}) (Result, error) {
 	var ctx = m.GetCtx()
 	return m.doGetAll(ctx, false, where...)
@@ -40,6 +36,7 @@ func (m *Model) All(where ...interface{}) (Result, error) {
 // It returns the result as a slice of records, the total count of records, and an error if any.
 // The where parameter is an optional list of conditions to use when retrieving records.
 //
+// Example:
 //
 //	var model Model
 //	var result Result
@@ -50,12 +47,6 @@ func (m *Model) All(where ...interface{}) (Result, error) {
 //	    // Handle error.
 //	}
 //	fmt.Println(result, count)
-// ff:查询与行数
-// m:
-// useFieldForCount:是否用字段计数
-// result:结果
-// totalCount:行数
-// err:错误
 func (m *Model) AllAndCount(useFieldForCount bool) (result Result, totalCount int, err error) {
 	// Clone the model for counting
 	countModel := m.Clone()
@@ -82,10 +73,6 @@ func (m *Model) AllAndCount(useFieldForCount bool) (result Result, totalCount in
 }
 
 // Chunk iterates the query result with given `size` and `handler` function.
-// ff:分割
-// m:
-// size:数量
-// handler:处理函数
 func (m *Model) Chunk(size int, handler ChunkHandler) {
 	page := m.start
 	if page <= 0 {
@@ -117,10 +104,6 @@ func (m *Model) Chunk(size int, handler ChunkHandler) {
 //
 // The optional parameter `where` is the same as the parameter of Model.Where function,
 // see Model.Where.
-// ff:查询一条
-// m:
-// where:条件
-// Record:
 func (m *Model) One(where ...interface{}) (Record, error) {
 	var ctx = m.GetCtx()
 	if len(where) > 0 {
@@ -142,9 +125,6 @@ func (m *Model) One(where ...interface{}) (Record, error) {
 // If the optional parameter `fieldsAndWhere` is given, the fieldsAndWhere[0] is the selected fields
 // and fieldsAndWhere[1:] is treated as where condition fields.
 // Also see Model.Fields and Model.Where functions.
-// ff:查询切片
-// m:
-// fieldsAndWhere:条件
 func (m *Model) Array(fieldsAndWhere ...interface{}) ([]Value, error) {
 	if len(fieldsAndWhere) > 0 {
 		if len(fieldsAndWhere) > 2 {
@@ -187,6 +167,7 @@ func (m *Model) Array(fieldsAndWhere ...interface{}) ([]Value, error) {
 // Note that it returns sql.ErrNoRows if the given parameter `pointer` pointed to a variable that has
 // default value and there's no record retrieved with the given conditions from table.
 //
+// Example:
 // user := new(User)
 // err  := db.Model("user").Where("id", 1).Scan(user)
 //
@@ -222,6 +203,7 @@ func (m *Model) doStruct(pointer interface{}, where ...interface{}) error {
 // Note that it returns sql.ErrNoRows if the given parameter `pointer` pointed to a variable that has
 // default value and there's no record retrieved with the given conditions from table.
 //
+// Example:
 // users := ([]User)(nil)
 // err   := db.Model("user").Scan(&users)
 //
@@ -264,6 +246,7 @@ func (m *Model) doStructs(pointer interface{}, where ...interface{}) error {
 // Note that it returns sql.ErrNoRows if the given parameter `pointer` pointed to a variable that has
 // default value and there's no record retrieved with the given conditions from table.
 //
+// Example:
 // user := new(User)
 // err  := db.Model("user").Where("id", 1).Scan(user)
 //
@@ -275,10 +258,6 @@ func (m *Model) doStructs(pointer interface{}, where ...interface{}) error {
 //
 // users := ([]*User)(nil)
 // err   := db.Model("user").Scan(&users).
-// ff:查询到结构体指针
-// m:
-// pointer:数据指针
-// where:条件
 func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 	reflectInfo := reflection.OriginTypeAndKind(pointer)
 	if reflectInfo.InputKind != reflect.Ptr {
@@ -308,6 +287,7 @@ func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 // The pointerCount parameter is a pointer to an integer that will be set to the total number of records that match the given conditions.
 // The where parameter is an optional list of conditions to use when retrieving records.
 //
+// Example:
 //
 //	var count int
 //	user := new(User)
@@ -329,12 +309,6 @@ func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 //		Fields("u1.passport,u1.id,u2.name,u2.age").
 //		Where("u1.id<2").
 //		ScanAndCount(&users, &count, false)
-// ff:查询与行数到指针
-// m:
-// pointer:数据指针
-// totalCount:行数指针
-// useFieldForCount:是否用字段计数
-// err:错误
 func (m *Model) ScanAndCount(pointer interface{}, totalCount *int, useFieldForCount bool) (err error) {
 	// support Fields with *, example: .Fields("a.*, b.name"). Count sql is select count(1) from xxx
 	countModel := m.Clone()
@@ -361,12 +335,6 @@ func (m *Model) ScanAndCount(pointer interface{}, totalCount *int, useFieldForCo
 // Note that the parameter `listPointer` should be type of *[]struct/*[]*struct.
 //
 // See Result.ScanList.
-// ff:查询到指针列表
-// m:
-// structSlicePointer:结构体切片指针
-// bindToAttrName:绑定到结构体属性名称
-// relationAttrNameAndFields:结构体属性关联
-// err:错误
 func (m *Model) ScanList(structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	var result Result
 	out, err := checkGetSliceElementInfoForScanList(structSlicePointer, bindToAttrName)
@@ -411,10 +379,6 @@ func (m *Model) ScanList(structSlicePointer interface{}, bindToAttrName string, 
 // If the optional parameter `fieldsAndWhere` is given, the fieldsAndWhere[0] is the selected fields
 // and fieldsAndWhere[1:] is treated as where condition fields.
 // Also see Model.Fields and Model.Where functions.
-// ff:查询一条值
-// m:
-// fieldsAndWhere:字段和条件
-// Value:
 func (m *Model) Value(fieldsAndWhere ...interface{}) (Value, error) {
 	var (
 		core = m.db.GetCore()
@@ -454,9 +418,6 @@ func (m *Model) Value(fieldsAndWhere ...interface{}) (Value, error) {
 // Count does "SELECT COUNT(x) FROM ..." statement for the model.
 // The optional parameter `where` is the same as the parameter of Model.Where function,
 // see Model.Where.
-// ff:查询行数
-// m:
-// where:条件
 func (m *Model) Count(where ...interface{}) (int, error) {
 	var (
 		core = m.db.GetCore()
@@ -488,9 +449,6 @@ func (m *Model) Count(where ...interface{}) (int, error) {
 }
 
 // CountColumn does "SELECT COUNT(x) FROM ..." statement for the model.
-// ff:查询字段行数
-// m:
-// column:字段名称
 func (m *Model) CountColumn(column string) (int, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -499,9 +457,6 @@ func (m *Model) CountColumn(column string) (int, error) {
 }
 
 // Min does "SELECT MIN(x) FROM ..." statement for the model.
-// ff:查询最小值
-// m:
-// column:字段名称
 func (m *Model) Min(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -514,9 +469,6 @@ func (m *Model) Min(column string) (float64, error) {
 }
 
 // Max does "SELECT MAX(x) FROM ..." statement for the model.
-// ff:查询最大值
-// m:
-// column:字段名称
 func (m *Model) Max(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -529,9 +481,6 @@ func (m *Model) Max(column string) (float64, error) {
 }
 
 // Avg does "SELECT AVG(x) FROM ..." statement for the model.
-// ff:查询平均值
-// m:
-// column:字段名称
 func (m *Model) Avg(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -544,9 +493,6 @@ func (m *Model) Avg(column string) (float64, error) {
 }
 
 // Sum does "SELECT SUM(x) FROM ..." statement for the model.
-// ff:查询求和
-// m:
-// column:字段名称
 func (m *Model) Sum(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -559,17 +505,11 @@ func (m *Model) Sum(column string) (float64, error) {
 }
 
 // Union does "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." statement for the model.
-// ff:多表去重查询
-// m:
-// unions:Model对象
 func (m *Model) Union(unions ...*Model) *Model {
 	return m.db.Union(unions...)
 }
 
 // UnionAll does "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." statement for the model.
-// ff:多表查询
-// m:
-// unions:Model对象
 func (m *Model) UnionAll(unions ...*Model) *Model {
 	return m.db.UnionAll(unions...)
 }
@@ -578,9 +518,6 @@ func (m *Model) UnionAll(unions ...*Model) *Model {
 // The parameter `limit` can be either one or two number, if passed two number is passed,
 // it then sets "LIMIT limit[0],limit[1]" statement for the model, or else it sets "LIMIT limit[0]"
 // statement.
-// ff:设置条数
-// m:
-// limit:条数或两个数字
 func (m *Model) Limit(limit ...int) *Model {
 	model := m.getModel()
 	switch len(limit) {
@@ -595,9 +532,6 @@ func (m *Model) Limit(limit ...int) *Model {
 
 // Offset sets the "OFFSET" statement for the model.
 // It only makes sense for some databases like SQLServer, PostgreSQL, etc.
-// ff:
-// m:
-// offset:
 func (m *Model) Offset(offset int) *Model {
 	model := m.getModel()
 	model.offset = offset
@@ -605,8 +539,6 @@ func (m *Model) Offset(offset int) *Model {
 }
 
 // Distinct forces the query to only return distinct results.
-// ff:设置去重
-// m:
 func (m *Model) Distinct() *Model {
 	model := m.getModel()
 	model.distinct = "DISTINCT "
@@ -616,10 +548,6 @@ func (m *Model) Distinct() *Model {
 // Page sets the paging number for the model.
 // The parameter `page` is started from 1 for paging.
 // Note that, it differs that the Limit function starts from 0 for "LIMIT" statement.
-// ff:设置分页
-// m:
-// page:第几页
-// limit:条数
 func (m *Model) Page(page, limit int) *Model {
 	model := m.getModel()
 	if page <= 0 {
@@ -633,10 +561,6 @@ func (m *Model) Page(page, limit int) *Model {
 // Having sets the having statement for the model.
 // The parameters of this function usage are as the same as function Where.
 // See Where.
-// ff:设置分组条件
-// m:
-// having:条件
-// args:参数
 func (m *Model) Having(having interface{}, args ...interface{}) *Model {
 	model := m.getModel()
 	model.having = []interface{}{

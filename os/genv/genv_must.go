@@ -7,9 +7,6 @@
 package genv
 
 // MustSet performs as Set, but it panics if any error occurs.
-// ff:设置值PANI
-// key:名称
-// value:值
 func MustSet(key, value string) {
 	if err := Set(key, value); err != nil {
 		panic(err)
@@ -17,8 +14,6 @@ func MustSet(key, value string) {
 }
 
 // MustRemove performs as Remove, but it panics if any error occurs.
-// ff:删除PANI
-// key:名称
 func MustRemove(key ...string) {
 	if err := Remove(key...); err != nil {
 		panic(err)

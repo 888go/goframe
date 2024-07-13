@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gmeta_test//bm:元数据类_test
+package gmeta_test
 
 import (
 	"testing"

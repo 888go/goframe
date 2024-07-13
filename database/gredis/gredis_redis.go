@@ -71,9 +71,6 @@ func (r *Redis) initGroup() *Redis {
 }
 
 // SetAdapter changes the underlying adapter with custom adapter for current redis client.
-// ff:
-// r:
-// adapter:
 func (r *Redis) SetAdapter(adapter Adapter) {
 	if r == nil {
 		panic(gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis))
@@ -82,8 +79,6 @@ func (r *Redis) SetAdapter(adapter Adapter) {
 }
 
 // GetAdapter returns the adapter that is set in current redis client.
-// ff:
-// r:
 func (r *Redis) GetAdapter() Adapter {
 	if r == nil {
 		return nil
@@ -93,10 +88,6 @@ func (r *Redis) GetAdapter() Adapter {
 
 // Conn retrieves and returns a connection object for continuous operations.
 // Note that you should call Close function manually if you do not use this connection any further.
-// ff:
-// r:
-// ctx:
-// Conn:
 func (r *Redis) Conn(ctx context.Context) (Conn, error) {
 	if r == nil {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)
@@ -109,11 +100,6 @@ func (r *Redis) Conn(ctx context.Context) (Conn, error) {
 
 // Do send a command to the server and returns the received reply.
 // It uses json.Marshal for struct/slice/map type values before committing them to redis.
-// ff:
-// r:
-// ctx:
-// command:
-// args:
 func (r *Redis) Do(ctx context.Context, command string, args ...interface{}) (*gvar.Var, error) {
 	if r == nil {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)
@@ -125,9 +111,6 @@ func (r *Redis) Do(ctx context.Context, command string, args ...interface{}) (*g
 }
 
 // MustConn performs as function Conn, but it panics if any error occurs internally.
-// ff:
-// r:
-// ctx:
 func (r *Redis) MustConn(ctx context.Context) Conn {
 	c, err := r.Conn(ctx)
 	if err != nil {
@@ -137,11 +120,6 @@ func (r *Redis) MustConn(ctx context.Context) Conn {
 }
 
 // MustDo performs as function Do, but it panics if any error occurs internally.
-// ff:
-// r:
-// ctx:
-// command:
-// args:
 func (r *Redis) MustDo(ctx context.Context, command string, args ...interface{}) *gvar.Var {
 	v, err := r.Do(ctx, command, args...)
 	if err != nil {
@@ -151,9 +129,6 @@ func (r *Redis) MustDo(ctx context.Context, command string, args ...interface{})
 }
 
 // Close closes current redis client, closes its connection pool and releases all its related resources.
-// ff:
-// r:
-// ctx:
 func (r *Redis) Close(ctx context.Context) error {
 	if r == nil || r.localAdapter == nil {
 		return nil

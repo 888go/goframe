@@ -43,9 +43,6 @@ type MapOption struct {
 // If `value` is a struct/*struct object, the second parameter `tags` specifies the most priority
 // tags that will be detected, otherwise it detects the tags in order of:
 // gconv, json, field name.
-// ff:取Map
-// value:值
-// option:选项
 func Map(value interface{}, option ...MapOption) map[string]interface{} {
 	return doMapConvert(value, recursiveTypeAuto, false, option...)
 }
@@ -53,9 +50,7 @@ func Map(value interface{}, option ...MapOption) map[string]interface{} {
 // MapDeep does Map function recursively, which means if the attribute of `value`
 // is also a struct/*struct, calls Map function on this attribute converting it to
 // a map[string]interface{} type variable.
-// ff:取Map_递归
-// value:值
-// tags:值标签
+// Deprecated: used Map instead.
 func MapDeep(value interface{}, tags ...string) map[string]interface{} {
 	return doMapConvert(value, recursiveTypeTrue, false, MapOption{
 		Deep: true,
@@ -550,9 +545,6 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 
 // MapStrStr converts `value` to map[string]string.
 // Note that there might be data copy for this map type converting.
-// ff:取文本Map
-// value:值
-// option:选项
 func MapStrStr(value interface{}, option ...MapOption) map[string]string {
 	if r, ok := value.(map[string]string); ok {
 		return r
@@ -570,9 +562,7 @@ func MapStrStr(value interface{}, option ...MapOption) map[string]string {
 
 // MapStrStrDeep converts `value` to map[string]string recursively.
 // Note that there might be data copy for this map type converting.
-// ff:取文本Map_递归
-// value:值
-// tags:值标签
+// Deprecated: used MapStrStr instead.
 func MapStrStrDeep(value interface{}, tags ...string) map[string]string {
 	if r, ok := value.(map[string]string); ok {
 		return r

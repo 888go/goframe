@@ -14,10 +14,6 @@ import (
 )
 
 // MustGet acts like Get, but it panics if any error occurs.
-// ff:取值PANI
-// c:
-// ctx:上下文
-// key:名称
 func (c *Cache) MustGet(ctx context.Context, key interface{}) *gvar.Var {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -27,12 +23,6 @@ func (c *Cache) MustGet(ctx context.Context, key interface{}) *gvar.Var {
 }
 
 // MustGetOrSet acts like GetOrSet, but it panics if any error occurs.
-// ff:取值或设置值PANI
-// c:
-// ctx:上下文
-// key:名称
-// value:值
-// duration:时长
 func (c *Cache) MustGetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) *gvar.Var {
 	v, err := c.GetOrSet(ctx, key, value, duration)
 	if err != nil {
@@ -42,12 +32,6 @@ func (c *Cache) MustGetOrSet(ctx context.Context, key interface{}, value interfa
 }
 
 // MustGetOrSetFunc acts like GetOrSetFunc, but it panics if any error occurs.
-// ff:取值或设置值_函数PANI
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
 func (c *Cache) MustGetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) *gvar.Var {
 	v, err := c.GetOrSetFunc(ctx, key, f, duration)
 	if err != nil {
@@ -57,12 +41,6 @@ func (c *Cache) MustGetOrSetFunc(ctx context.Context, key interface{}, f Func, d
 }
 
 // MustGetOrSetFuncLock acts like GetOrSetFuncLock, but it panics if any error occurs.
-// ff:取值或设置值_并发安全函数PANI
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
 func (c *Cache) MustGetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) *gvar.Var {
 	v, err := c.GetOrSetFuncLock(ctx, key, f, duration)
 	if err != nil {
@@ -72,10 +50,6 @@ func (c *Cache) MustGetOrSetFuncLock(ctx context.Context, key interface{}, f Fun
 }
 
 // MustContains acts like Contains, but it panics if any error occurs.
-// ff:是否存在PANI
-// c:
-// ctx:上下文
-// key:名称
 func (c *Cache) MustContains(ctx context.Context, key interface{}) bool {
 	v, err := c.Contains(ctx, key)
 	if err != nil {
@@ -85,10 +59,6 @@ func (c *Cache) MustContains(ctx context.Context, key interface{}) bool {
 }
 
 // MustGetExpire acts like GetExpire, but it panics if any error occurs.
-// ff:取过期时间PANI
-// c:
-// ctx:上下文
-// key:名称
 func (c *Cache) MustGetExpire(ctx context.Context, key interface{}) time.Duration {
 	v, err := c.GetExpire(ctx, key)
 	if err != nil {
@@ -98,9 +68,6 @@ func (c *Cache) MustGetExpire(ctx context.Context, key interface{}) time.Duratio
 }
 
 // MustSize acts like Size, but it panics if any error occurs.
-// ff:取数量PANI
-// c:
-// ctx:上下文
 func (c *Cache) MustSize(ctx context.Context) int {
 	v, err := c.Size(ctx)
 	if err != nil {
@@ -110,9 +77,6 @@ func (c *Cache) MustSize(ctx context.Context) int {
 }
 
 // MustData acts like Data, but it panics if any error occurs.
-// ff:取所有键值Map副本PANI
-// c:
-// ctx:上下文
 func (c *Cache) MustData(ctx context.Context) map[interface{}]interface{} {
 	v, err := c.Data(ctx)
 	if err != nil {
@@ -122,9 +86,6 @@ func (c *Cache) MustData(ctx context.Context) map[interface{}]interface{} {
 }
 
 // MustKeys acts like Keys, but it panics if any error occurs.
-// ff:取所有键PANI
-// c:
-// ctx:上下文
 func (c *Cache) MustKeys(ctx context.Context) []interface{} {
 	v, err := c.Keys(ctx)
 	if err != nil {
@@ -134,9 +95,6 @@ func (c *Cache) MustKeys(ctx context.Context) []interface{} {
 }
 
 // MustKeyStrings acts like KeyStrings, but it panics if any error occurs.
-// ff:取所有键文本PANI
-// c:
-// ctx:上下文
 func (c *Cache) MustKeyStrings(ctx context.Context) []string {
 	v, err := c.KeyStrings(ctx)
 	if err != nil {
@@ -146,9 +104,6 @@ func (c *Cache) MustKeyStrings(ctx context.Context) []string {
 }
 
 // MustValues acts like Values, but it panics if any error occurs.
-// ff:取所有值PANI
-// c:
-// ctx:上下文
 func (c *Cache) MustValues(ctx context.Context) []interface{} {
 	v, err := c.Values(ctx)
 	if err != nil {

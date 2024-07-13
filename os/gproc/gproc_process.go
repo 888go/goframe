@@ -35,10 +35,6 @@ type Process struct {
 }
 
 // NewProcess creates and returns a new Process.
-// ff:
-// path:
-// args:
-// environment:
 func NewProcess(path string, args []string, environment ...[]string) *Process {
 	env := os.Environ()
 	if len(environment) > 0 {
@@ -70,18 +66,12 @@ func NewProcess(path string, args []string, environment ...[]string) *Process {
 }
 
 // NewProcessCmd creates and returns a process with given command and optional environment variable array.
-// ff:
-// cmd:
-// environment:
 func NewProcessCmd(cmd string, environment ...[]string) *Process {
 	return NewProcess(getShell(), append([]string{getShellOption()}, parseCommand(cmd)...), environment...)
 }
 
 // Start starts executing the process in non-blocking way.
 // It returns the pid if success, or else it returns an error.
-// ff:
-// p:
-// ctx:
 func (p *Process) Start(ctx context.Context) (int, error) {
 	if p.Process != nil {
 		return p.Pid(), nil
@@ -129,9 +119,6 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 }
 
 // Run executes the process in blocking way.
-// ff:
-// p:
-// ctx:
 func (p *Process) Run(ctx context.Context) error {
 	if _, err := p.Start(ctx); err == nil {
 		return p.Wait()
@@ -141,8 +128,6 @@ func (p *Process) Run(ctx context.Context) error {
 }
 
 // Pid retrieves and returns the PID for the process.
-// ff:
-// p:
 func (p *Process) Pid() int {
 	if p.Process != nil {
 		return p.Process.Pid
@@ -151,9 +136,6 @@ func (p *Process) Pid() int {
 }
 
 // Send sends custom data to the process.
-// ff:
-// p:
-// data:
 func (p *Process) Send(data []byte) error {
 	if p.Process != nil {
 		return Send(p.Process.Pid, data)
@@ -164,16 +146,11 @@ func (p *Process) Send(data []byte) error {
 // Release releases any resources associated with the Process p,
 // rendering it unusable in the future.
 // Release only needs to be called if Wait is not.
-// ff:
-// p:
 func (p *Process) Release() error {
 	return p.Process.Release()
 }
 
 // Kill causes the Process to exit immediately.
-// ff:
-// p:
-// err:
 func (p *Process) Kill() (err error) {
 	err = p.Process.Kill()
 	if err != nil {
@@ -196,9 +173,6 @@ func (p *Process) Kill() (err error) {
 
 // Signal sends a signal to the Process.
 // Sending Interrupt on Windows is not implemented.
-// ff:
-// p:
-// sig:
 func (p *Process) Signal(sig os.Signal) error {
 	return p.Process.Signal(sig)
 }

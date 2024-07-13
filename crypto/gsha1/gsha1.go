@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gsha1 provides useful API for SHA1 encryption algorithms.
-package gsha1//bm:加密sha1类
+package gsha1
 
 import (
 	"crypto/sha1"
@@ -19,18 +19,12 @@ import (
 
 // Encrypt encrypts any type of variable using SHA1 algorithms.
 // It uses package gconv to convert `v` to its bytes type.
-// ff:加密
-// v:值
 func Encrypt(v interface{}) string {
 	r := sha1.Sum(gconv.Bytes(v))
 	return hex.EncodeToString(r[:])
 }
 
 // EncryptFile encrypts file content of `path` using SHA1 algorithms.
-// ff:加密文件
-// path:路径
-// encrypt:sha1值
-// err:错误
 func EncryptFile(path string) (encrypt string, err error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -49,8 +43,6 @@ func EncryptFile(path string) (encrypt string, err error) {
 
 // MustEncryptFile encrypts file content of `path` using SHA1 algorithms.
 // It panics if any error occurs.
-// ff:加密文件PANI
-// path:路径
 func MustEncryptFile(path string) string {
 	result, err := EncryptFile(path)
 	if err != nil {

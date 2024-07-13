@@ -25,14 +25,12 @@ var (
 
 // SetTimeZone sets the time zone for current whole process.
 // The parameter `zone` is an area string specifying corresponding time zone,
+// eg: Asia/Shanghai.
 //
 // PLEASE VERY NOTE THAT:
 // 1. This should be called before package "time" import.
 // 2. This function should be called once.
 // 3. Please refer to issue: https://github.com/golang/go/issues/34814
-// ff:设置时区
-// zone:时区
-// err:错误
 func SetTimeZone(zone string) (err error) {
 	setTimeZoneMu.Lock()
 	defer setTimeZoneMu.Unlock()
@@ -81,9 +79,6 @@ func SetTimeZone(zone string) (err error) {
 }
 
 // ToLocation converts current time to specified location.
-// ff:转换时区Location
-// t:
-// location:时区
 func (t *Time) ToLocation(location *time.Location) *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.In(location)
@@ -91,9 +86,6 @@ func (t *Time) ToLocation(location *time.Location) *Time {
 }
 
 // ToZone converts current time to specified zone like: Asia/Shanghai.
-// ff:转换时区
-// t:
-// zone:时区
 func (t *Time) ToZone(zone string) (*Time, error) {
 	if location, err := t.getLocationByZoneName(zone); err == nil {
 		return t.ToLocation(location), nil
@@ -121,8 +113,6 @@ func (t *Time) getLocationByZoneName(name string) (location *time.Location, err 
 }
 
 // Local converts the time to local timezone.
-// ff:取本地时区
-// t:
 func (t *Time) Local() *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.Local()

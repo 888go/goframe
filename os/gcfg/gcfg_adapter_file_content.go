@@ -14,10 +14,6 @@ import (
 
 // SetContent sets customized configuration content for specified `file`.
 // The `file` is unnecessary param, default is DefaultConfigFile.
-// ff:
-// a:
-// content:
-// file:
 func (a *AdapterFile) SetContent(content string, file ...string) {
 	name := DefaultConfigFileName
 	if len(file) > 0 {
@@ -40,9 +36,6 @@ func (a *AdapterFile) SetContent(content string, file ...string) {
 
 // GetContent returns customized configuration content for specified `file`.
 // The `file` is unnecessary param, default is DefaultConfigFile.
-// ff:
-// a:
-// file:
 func (a *AdapterFile) GetContent(file ...string) string {
 	name := DefaultConfigFileName
 	if len(file) > 0 {
@@ -53,9 +46,6 @@ func (a *AdapterFile) GetContent(file ...string) string {
 
 // RemoveContent removes the global configuration with specified `file`.
 // If `name` is not passed, it removes configuration of the default group name.
-// ff:
-// a:
-// file:
 func (a *AdapterFile) RemoveContent(file ...string) {
 	name := DefaultConfigFileName
 	if len(file) > 0 {
@@ -79,8 +69,6 @@ func (a *AdapterFile) RemoveContent(file ...string) {
 }
 
 // ClearContent removes all global configuration contents.
-// ff:
-// a:
 func (a *AdapterFile) ClearContent() {
 	customConfigContentMap.Clear()
 	// Clear cache for all instances.

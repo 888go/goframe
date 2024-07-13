@@ -361,6 +361,8 @@ func Test_Struct_Attr_CustomType2(t *testing.T) {
 		t.Assert(user.Name, "john")
 	})
 }
+
+// From: k8s.io/apimachinery@v0.22.0/pkg/apis/meta/v1/duration.go
 type MyDuration struct {
 	time.Duration
 }
@@ -498,6 +500,8 @@ func Test_StructEmbedded3(t *testing.T) {
 		t.Assert(user.CreateTime, "2019")
 	})
 }
+
+// https://github.com/gogf/gf/issues/775
 func Test_StructEmbedded4(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Sub2 struct {
@@ -1255,6 +1259,8 @@ func Test_Struct_Empty_MapStringString(t *testing.T) {
 		t.AssertNil(err)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1563
 func Test_Struct_Issue1563(t *testing.T) {
 	type User struct {
 		Pass1 string `c:"password1"`
@@ -1273,6 +1279,8 @@ func Test_Struct_Issue1563(t *testing.T) {
 		}
 	})
 }
+
+// https://github.com/gogf/gf/issues/1597
 func Test_Struct_Issue1597(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S struct {
@@ -1294,6 +1302,8 @@ func Test_Struct_Issue1597(t *testing.T) {
 		t.Assert(s.B, `{"c":3}`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/3449
 func Test_Struct_Issue3449(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S struct {
@@ -1319,6 +1329,8 @@ func Test_Struct_Issue3449(t *testing.T) {
 		t.Assert(s.B, `[{"k1":"11","k2":"12"},{"k1":"21","k2":"22"}]`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/2980
 func Test_Struct_Issue2980(t *testing.T) {
 	type Post struct {
 		CreatedAt *gtime.Time `json:"createdAt" `

@@ -22,8 +22,6 @@ import (
 
 // Redis returns an instance of redis client with specified configuration group name.
 // Note that it panics if any error occurs duration instance creating.
-// ff:
-// name:
 func Redis(name ...string) *gredis.Redis {
 	var (
 		err   error

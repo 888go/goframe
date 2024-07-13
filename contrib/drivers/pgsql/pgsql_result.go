@@ -15,14 +15,10 @@ type Result struct {
 	lastInsertIdError error
 }
 
-// ff:
-// pgr:
 func (pgr Result) RowsAffected() (int64, error) {
 	return pgr.affected, nil
 }
 
-// ff:
-// pgr:
 func (pgr Result) LastInsertId() (int64, error) {
 	return pgr.lastInsertId, pgr.lastInsertIdError
 }

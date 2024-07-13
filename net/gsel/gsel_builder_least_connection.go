@@ -8,17 +8,14 @@ package gsel
 
 type builderLeastConnection struct{}
 
-// ff:
 func NewBuilderLeastConnection() Builder {
 	return &builderLeastConnection{}
 }
 
-// ff:
 func (*builderLeastConnection) Name() string {
 	return "BalancerLeastConnection"
 }
 
-// ff:
 func (*builderLeastConnection) Build() Selector {
 	return NewSelectorLeastConnection()
 }

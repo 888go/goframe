@@ -84,9 +84,6 @@ var (
 )
 
 // SoftTime sets the SoftTimeOption to customize soft time feature for Model.
-// ff:
-// m:
-// option:
 func (m *Model) SoftTime(option SoftTimeOption) *Model {
 	model := m.getModel()
 	model.softTimeOption = option
@@ -94,8 +91,6 @@ func (m *Model) SoftTime(option SoftTimeOption) *Model {
 }
 
 // Unscoped disables the soft time feature for insert, update and delete operations.
-// ff:
-// m:
 func (m *Model) Unscoped() *Model {
 	model := m.getModel()
 	model.unscoped = true
@@ -111,8 +106,6 @@ func (m *Model) softTimeMaintainer() iSoftTimeMaintainer {
 // GetFieldNameAndTypeForCreate checks and returns the field name for record creating time.
 // If there's no field name for storing creating time, it returns an empty string.
 // It checks the key with or without cases or chars '-'/'_'/'.'/' '.
-// ff:
-// m:
 func (m *softTimeMaintainer) GetFieldNameAndTypeForCreate(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
@@ -140,8 +133,6 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForCreate(
 // GetFieldNameAndTypeForUpdate checks and returns the field name for record updating time.
 // If there's no field name for storing updating time, it returns an empty string.
 // It checks the key with or without cases or chars '-'/'_'/'.'/' '.
-// ff:
-// m:
 func (m *softTimeMaintainer) GetFieldNameAndTypeForUpdate(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
@@ -169,8 +160,6 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForUpdate(
 // GetFieldNameAndTypeForDelete checks and returns the field name for record deleting time.
 // If there's no field name for storing deleting time, it returns an empty string.
 // It checks the key with or without cases or chars '-'/'_'/'.'/' '.
-// ff:
-// m:
 func (m *softTimeMaintainer) GetFieldNameAndTypeForDelete(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
@@ -247,9 +236,6 @@ func (m *softTimeMaintainer) getSoftFieldNameAndType(
 // "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid)"
 // "user LEFT JOIN user_detail ON(user_detail.uid=user.uid)"
 // "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid) LEFT JOIN user_stats us ON(us.uid=u.uid)".
-// ff:
-// m:
-// ctx:
 func (m *softTimeMaintainer) GetWhereConditionForDelete(ctx context.Context) string {
 	if m.unscoped {
 		return ""
@@ -317,8 +303,6 @@ func (m *softTimeMaintainer) getConditionOfTableStringForSoftDeleting(ctx contex
 
 // GetDataByFieldNameAndTypeForDelete creates and returns the placeholder and value for
 // specified field name and type in soft-deleting scenario.
-// ff:
-// m:
 func (m *softTimeMaintainer) GetDataByFieldNameAndTypeForDelete(
 	ctx context.Context, fieldPrefix, fieldName string, fieldType LocalType,
 ) (dataHolder string, dataValue any) {
@@ -370,8 +354,6 @@ func (m *softTimeMaintainer) getConditionByFieldNameAndTypeForSoftDeleting(
 
 // GetValueByFieldTypeForCreateOrUpdate creates and returns the value for specified field type,
 // usually for creating or updating operations.
-// ff:
-// m:
 func (m *softTimeMaintainer) GetValueByFieldTypeForCreateOrUpdate(
 	ctx context.Context, fieldType LocalType, isDeletedField bool,
 ) any {

@@ -28,8 +28,6 @@ var (
 
 // Receive blocks and receives message from other process using local TCP listening.
 // Note that, it only enables the TCP listening service when this function called.
-// ff:
-// group:
 func Receive(group ...string) *MsgRequest {
 	// Use atomic operations to guarantee only one receiver goroutine listening.
 	if tcpListened.Cas(false, true) {

@@ -9,25 +9,16 @@ package gstr
 import "strings"
 
 // Contains reports whether `substr` is within `str`, case-sensitively.
-// ff:是否包含
-// str:文本
-// substr:欲寻找的文本
 func Contains(str, substr string) bool {
 	return strings.Contains(str, substr)
 }
 
 // ContainsI reports whether substr is within str, case-insensitively.
-// ff:是否包含并忽略大小写
-// str:文本
-// substr:欲寻找的文本
 func ContainsI(str, substr string) bool {
 	return PosI(str, substr) != -1
 }
 
 // ContainsAny reports whether any Unicode code points in `chars` are within `s`.
-// ff:是否包含Any
-// s:文本
-// chars:欲寻找的文本
 func ContainsAny(s, chars string) bool {
 	return strings.ContainsAny(s, chars)
 }

@@ -17,7 +17,6 @@ import (
 // throw to parent goroutine.
 //
 // But, note that, if `recoverFunc` also throws panic, such panic will be thrown to parent goroutine.
-// ff:
 func Go(
 	ctx context.Context,
 	goroutineFunc func(ctx context.Context),

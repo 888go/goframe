@@ -20,9 +20,6 @@ import (
 // 1 to 9 which means from none to the best compression.
 //
 // Note that it returns error if given `level` is invalid.
-// ff:Gzip压缩字节集
-// data:字节集
-// level:可选压缩级别
 func Gzip(data []byte, level ...int) ([]byte, error) {
 	var (
 		writer *gzip.Writer
@@ -50,11 +47,6 @@ func Gzip(data []byte, level ...int) ([]byte, error) {
 }
 
 // GzipFile compresses the file `src` to `dst` using gzip algorithm.
-// ff:Gzip压缩文件
-// srcFilePath:文件路径
-// dstFilePath:压缩文件路径
-// level:可选压缩级别
-// err:错误
 func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
 	dstFile, err := gfile.Create(dstFilePath)
 	if err != nil {
@@ -68,10 +60,6 @@ func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
 // GzipPathWriter compresses `filePath` to `writer` using gzip compressing algorithm.
 //
 // Note that the parameter `path` can be either a directory or a file.
-// ff:Gzip压缩文件到Writer
-// filePath:文件路径
-// writer:
-// level:可选压缩级别
 func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 	var (
 		gzipWriter *gzip.Writer
@@ -101,8 +89,6 @@ func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 }
 
 // UnGzip decompresses `data` with gzip algorithm.
-// ff:Gzip解压字节集
-// data:gzip字节集
 func UnGzip(data []byte) ([]byte, error) {
 	var buf bytes.Buffer
 	reader, err := gzip.NewReader(bytes.NewReader(data))
@@ -122,9 +108,6 @@ func UnGzip(data []byte) ([]byte, error) {
 }
 
 // UnGzipFile decompresses srcFilePath `src` to `dst` using gzip algorithm.
-// ff:Gzip解压文件
-// srcFilePath:gzip文件路径
-// dstFilePath:文件路径
 func UnGzipFile(srcFilePath, dstFilePath string) error {
 	srcFile, err := gfile.Open(srcFilePath)
 	if err != nil {

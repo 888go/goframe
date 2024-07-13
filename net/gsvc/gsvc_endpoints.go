@@ -13,8 +13,6 @@ import (
 
 // NewEndpoints creates and returns Endpoints from multiple addresses like:
 // "192.168.1.100:80,192.168.1.101:80".
-// ff:
-// addresses:
 func NewEndpoints(addresses string) Endpoints {
 	endpoints := make([]Endpoint, 0)
 	for _, address := range gstr.SplitAndTrim(addresses, EndpointsDelimiter) {
@@ -25,8 +23,6 @@ func NewEndpoints(addresses string) Endpoints {
 
 // String formats and returns the Endpoints as a string like:
 // "192.168.1.100:80,192.168.1.101:80"
-// ff:
-// es:
 func (es Endpoints) String() string {
 	var s string
 	for _, endpoint := range es {

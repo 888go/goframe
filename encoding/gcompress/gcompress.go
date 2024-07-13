@@ -5,4 +5,4 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gcompress provides kinds of compression algorithms for binary/bytes data.
-package gcompress//bm:压缩类
+package gcompress

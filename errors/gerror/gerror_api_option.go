@@ -18,8 +18,6 @@ type Option struct {
 
 // NewWithOption creates and returns a custom error with Option.
 // It is the senior usage for creating error, which is often used internally in framework.
-// ff:
-// option:
 func NewWithOption(option Option) error {
 	err := &Error{
 		error: option.Error,
@@ -33,8 +31,7 @@ func NewWithOption(option Option) error {
 }
 
 // NewOption creates and returns a custom error with Option.
-// ff:弃用NewOption
-// option:选项
+// Deprecated: use NewWithOption instead.
 func NewOption(option Option) error {
 	return NewWithOption(option)
 }

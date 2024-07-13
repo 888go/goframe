@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*" -benchmem
 
-package gcache_test//bm:缓存类_test
+package gcache_test
 
 import (
 	"context"

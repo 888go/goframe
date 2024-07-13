@@ -81,8 +81,6 @@ func (s *Session) init() error {
 // If this session is dirty, it also exports it to storage.
 //
 // NOTE that this function must be called ever after a session request done.
-// ff:
-// s:
 func (s *Session) Close() error {
 	if s.manager.storage == nil {
 		return nil
@@ -105,12 +103,6 @@ func (s *Session) Close() error {
 }
 
 // Set sets key-value pair to this session.
-// yx:true
-// ff:设置值
-// s:
-// key:
-// value:
-// err:
 func (s *Session) Set(key string, value interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
@@ -127,10 +119,6 @@ func (s *Session) Set(key string, value interface{}) (err error) {
 }
 
 // SetMap batch sets the session using map.
-// ff:
-// s:
-// data:
-// err:
 func (s *Session) SetMap(data map[string]interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
@@ -147,10 +135,6 @@ func (s *Session) SetMap(data map[string]interface{}) (err error) {
 }
 
 // Remove removes key along with its value from this session.
-// ff:
-// s:
-// keys:
-// err:
 func (s *Session) Remove(keys ...string) (err error) {
 	if s.id == "" {
 		return nil
@@ -172,9 +156,6 @@ func (s *Session) Remove(keys ...string) (err error) {
 }
 
 // RemoveAll deletes all key-value pairs from this session.
-// ff:
-// s:
-// err:
 func (s *Session) RemoveAll() (err error) {
 	if s.id == "" {
 		return nil
@@ -197,10 +178,6 @@ func (s *Session) RemoveAll() (err error) {
 
 // Id returns the session id for this session.
 // It creates and returns a new session id if the session id is not passed in initialization.
-// ff:
-// s:
-// id:
-// err:
 func (s *Session) Id() (id string, err error) {
 	if err = s.init(); err != nil {
 		return "", err
@@ -210,9 +187,6 @@ func (s *Session) Id() (id string, err error) {
 
 // SetId sets custom session before session starts.
 // It returns error if it is called after session starts.
-// ff:
-// s:
-// id:
 func (s *Session) SetId(id string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -223,10 +197,6 @@ func (s *Session) SetId(id string) error {
 
 // SetIdFunc sets custom session id creating function before session starts.
 // It returns error if it is called after session starts.
-// ff:
-// s:
-// f:
-// ttl:
 func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -237,10 +207,6 @@ func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 
 // Data returns all data as map.
 // Note that it's using value copy internally for concurrent-safe purpose.
-// ff:
-// s:
-// sessionData:
-// err:
 func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 	if s.id == "" {
 		return map[string]interface{}{}, nil
@@ -259,10 +225,6 @@ func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 }
 
 // Size returns the size of the session.
-// ff:
-// s:
-// size:
-// err:
 func (s *Session) Size() (size int, err error) {
 	if s.id == "" {
 		return 0, nil
@@ -281,11 +243,6 @@ func (s *Session) Size() (size int, err error) {
 }
 
 // Contains checks whether key exist in the session.
-// ff:
-// s:
-// key:
-// ok:
-// err:
 func (s *Session) Contains(key string) (ok bool, err error) {
 	if s.id == "" {
 		return false, nil
@@ -301,8 +258,6 @@ func (s *Session) Contains(key string) (ok bool, err error) {
 }
 
 // IsDirty checks whether there's any data changes in the session.
-// ff:
-// s:
 func (s *Session) IsDirty() bool {
 	return s.dirty
 }
@@ -310,12 +265,6 @@ func (s *Session) IsDirty() bool {
 // Get retrieves session value with given key.
 // It returns `def` if the key does not exist in the session if `def` is given,
 // or else it returns nil.
-// ff:
-// s:
-// key:
-// def:
-// value:
-// err:
 func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err error) {
 	if s.id == "" {
 		return nil, nil
@@ -341,8 +290,6 @@ func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err erro
 }
 
 // MustId performs as function Id, but it panics if any error occurs.
-// ff:
-// s:
 func (s *Session) MustId() string {
 	id, err := s.Id()
 	if err != nil {
@@ -352,10 +299,6 @@ func (s *Session) MustId() string {
 }
 
 // MustGet performs as function Get, but it panics if any error occurs.
-// ff:
-// s:
-// key:
-// def:
 func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 	v, err := s.Get(key, def...)
 	if err != nil {
@@ -365,10 +308,6 @@ func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 }
 
 // MustSet performs as function Set, but it panics if any error occurs.
-// ff:
-// s:
-// key:
-// value:
 func (s *Session) MustSet(key string, value interface{}) {
 	err := s.Set(key, value)
 	if err != nil {
@@ -377,9 +316,6 @@ func (s *Session) MustSet(key string, value interface{}) {
 }
 
 // MustSetMap performs as function SetMap, but it panics if any error occurs.
-// ff:
-// s:
-// data:
 func (s *Session) MustSetMap(data map[string]interface{}) {
 	err := s.SetMap(data)
 	if err != nil {
@@ -388,9 +324,6 @@ func (s *Session) MustSetMap(data map[string]interface{}) {
 }
 
 // MustContains performs as function Contains, but it panics if any error occurs.
-// ff:
-// s:
-// key:
 func (s *Session) MustContains(key string) bool {
 	b, err := s.Contains(key)
 	if err != nil {
@@ -400,8 +333,6 @@ func (s *Session) MustContains(key string) bool {
 }
 
 // MustData performs as function Data, but it panics if any error occurs.
-// ff:
-// s:
 func (s *Session) MustData() map[string]interface{} {
 	m, err := s.Data()
 	if err != nil {
@@ -411,8 +342,6 @@ func (s *Session) MustData() map[string]interface{} {
 }
 
 // MustSize performs as function Size, but it panics if any error occurs.
-// ff:
-// s:
 func (s *Session) MustSize() int {
 	size, err := s.Size()
 	if err != nil {
@@ -422,9 +351,6 @@ func (s *Session) MustSize() int {
 }
 
 // MustRemove performs as function Remove, but it panics if any error occurs.
-// ff:
-// s:
-// keys:
 func (s *Session) MustRemove(keys ...string) {
 	err := s.Remove(keys...)
 	if err != nil {

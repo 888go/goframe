@@ -36,64 +36,78 @@
 # 备注结束
 
 [func (l *Logger) Print(ctx context.Context, v ...interface{}) {]
+ff=输出
 v=值
 ctx=上下文
 
 [func (l *Logger) Printf(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化
 v=值
 format=格式
 ctx=上下文
 
 [func (l *Logger) Fatal(ctx context.Context, v ...interface{}) {]
+ff=输出FATA
 v=值
 ctx=上下文
 
 [func (l *Logger) Fatalf(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化FATA
 v=值
 format=格式
 ctx=上下文
 
 [func (l *Logger) Panic(ctx context.Context, v ...interface{}) {]
+ff=输出PANI
 v=值
 ctx=上下文
 
 [func (l *Logger) Panicf(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化PANI
 v=值
 format=格式
 ctx=上下文
 
 [func (l *Logger) Info(ctx context.Context, v ...interface{}) {]
+ff=输出INFO
 v=值
 ctx=上下文
 
 [func (l *Logger) Infof(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化INFO
 v=值
 format=格式
 ctx=上下文
 
 [func (l *Logger) Debug(ctx context.Context, v ...interface{}) {]
+ff=输出DEBU
 v=值
 ctx=上下文
 
 [func (l *Logger) Debugf(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化DEBU
 v=值
 format=格式
 ctx=上下文
 
 [func (l *Logger) Notice(ctx context.Context, v ...interface{}) {]
+ff=输出NOTI
 v=值
 ctx=上下文
 
 [func (l *Logger) Noticef(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化NOTI
 v=值
 format=格式
 ctx=上下文
 
 [func (l *Logger) Warning(ctx context.Context, v ...interface{}) {]
+ff=输出WARN
 v=值
 ctx=上下文
 
 [func (l *Logger) Warningf(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化WARN
 v=值
 format=格式
 ctx=上下文
@@ -103,15 +117,18 @@ v=值
 ctx=上下文
 
 [func (l *Logger) Errorf(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化ERR
 v=值
 format=格式
 ctx=上下文
 
 [func (l *Logger) Critical(ctx context.Context, v ...interface{}) {]
+ff=输出CRIT
 v=值
 ctx=上下文
 
 [func (l *Logger) Criticalf(ctx context.Context, format string, v ...interface{}) {]
+ff=输出并格式化CRIT
 v=值
 format=格式
 ctx=上下文

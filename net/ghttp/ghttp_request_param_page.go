@@ -17,10 +17,6 @@ import (
 // GetPage creates and returns the pagination object for given `totalSize` and `pageSize`.
 // NOTE THAT the page parameter name from clients is constantly defined as gpage.DefaultPageName
 // for simplification and convenience.
-// ff:取分页类
-// r:
-// totalSize:总数据量
-// pageSize:每页大小
 func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 	// It must have Router object attribute.
 	if r.Router == nil {

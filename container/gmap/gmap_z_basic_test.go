@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with gm file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gmap_test//bm:map类_test
+package gmap_test
 
 import (
 	"testing"

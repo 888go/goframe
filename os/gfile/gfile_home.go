@@ -20,8 +20,6 @@ import (
 // Home returns absolute path of current user's home directory.
 // The optional parameter `names` specifies the sub-folders/sub-files,
 // which will be joined with current system separator and returned with the path.
-// ff:取用户目录
-// names:可选子目录或子文件
 func Home(names ...string) (string, error) {
 	path, err := getHomePath()
 	if err != nil {

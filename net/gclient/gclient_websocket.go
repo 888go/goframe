@@ -20,7 +20,6 @@ type WebSocketClient struct {
 }
 
 // NewWebSocket creates and returns a new WebSocketClient object.
-// ff:创建WebSocket
 func NewWebSocket() *WebSocketClient {
 	return &WebSocketClient{
 		&websocket.Dialer{

@@ -23,10 +23,6 @@ import (
 //
 // Note that if there are multiple parameters with the same name, the parameters are
 // retrieved and overwrote in order of priority: router < query < body < form < custom.
-// ff:取参数
-// r:
-// key:名称
-// def:默认
 func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
 	value := r.GetParam(key)
 	if value.IsNil() {
@@ -64,9 +60,6 @@ func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
 //
 // Note that if there are multiple parameters with the same name, the parameters are retrieved
 // and overwrote in order of priority: router < query < body < form < custom.
-// ff:取参数到Map
-// r:
-// kvMap:
 func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	r.parseForm()
@@ -143,9 +136,6 @@ func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]inte
 // params as map[string]string, no matter what HTTP method the client is using. The parameter
 // `kvMap` specifies the keys retrieving from client parameters, the associated values are the
 // default values if the client does not pass.
-// ff:取参数到MapStrStr
-// r:
-// kvMap:
 func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	requestMap := r.GetRequestMap(kvMap...)
 	if len(requestMap) > 0 {
@@ -162,9 +152,6 @@ func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[strin
 // params as map[string]*gvar.Var, no matter what HTTP method the client is using. The parameter
 // `kvMap` specifies the keys retrieving from client parameters, the associated values are the
 // default values if the client does not pass.
-// ff:取参数到Map泛型类
-// r:
-// kvMap:
 func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
 	requestMap := r.GetRequestMap(kvMap...)
 	if len(requestMap) > 0 {
@@ -181,10 +168,6 @@ func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[strin
 // what HTTP method the client is using, and converts them to give the struct object. Note that
 // the parameter `pointer` is a pointer to the struct object.
 // The optional parameter `mapping` is used to specify the key to attribute mapping.
-// ff:取参数到结构体
-// r:
-// pointer:结构体指针
-// mapping:名称映射
 func (r *Request) GetRequestStruct(pointer interface{}, mapping ...map[string]string) error {
 	_, err := r.doGetRequestStruct(pointer, mapping...)
 	return err

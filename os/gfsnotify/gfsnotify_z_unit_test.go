@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gfsnotify_test//bm:文件监控类_test
+package gfsnotify_test
 
 import (
 	"testing"

@@ -33,16 +33,11 @@ const (
 )
 
 // Init does custom initialization.
-// ff:
-// args:
 func Init(args ...string) {
 	command.Init(args...)
 }
 
 // GetOpt returns the option value named `name` as gvar.Var.
-// ff:
-// name:
-// def:
 func GetOpt(name string, def ...string) *gvar.Var {
 	if v := command.GetOpt(name, def...); v != "" {
 		return gvar.New(v)
@@ -54,15 +49,11 @@ func GetOpt(name string, def ...string) *gvar.Var {
 }
 
 // GetOptAll returns all parsed options.
-// ff:
 func GetOptAll() map[string]string {
 	return command.GetOptAll()
 }
 
 // GetArg returns the argument at `index` as gvar.Var.
-// ff:
-// index:
-// def:
 func GetArg(index int, def ...string) *gvar.Var {
 	if v := command.GetArg(index, def...); v != "" {
 		return gvar.New(v)
@@ -71,7 +62,6 @@ func GetArg(index int, def ...string) *gvar.Var {
 }
 
 // GetArgAll returns all parsed arguments.
-// ff:
 func GetArgAll() []string {
 	return command.GetArgAll()
 }
@@ -83,9 +73,6 @@ func GetArgAll() []string {
 // Fetching Rules:
 // 1. Command line arguments are in lowercase format, eg: gf.`package name`.<variable name>;
 // 2. Environment arguments are in uppercase format, eg: GF_`package name`_<variable name>；
-// ff:
-// key:
-// def:
 func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
 	cmdKey := utils.FormatCmdKey(key)
 	if command.ContainsOpt(cmdKey) {
@@ -104,9 +91,6 @@ func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
 }
 
 // BuildOptions builds the options as string.
-// ff:
-// m:
-// prefix:
 func BuildOptions(m map[string]string, prefix ...string) string {
 	options := ""
 	leadStr := "-"

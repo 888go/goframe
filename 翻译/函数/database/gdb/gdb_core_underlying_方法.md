@@ -36,12 +36,14 @@
 # 备注结束
 
 [func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {]
+ff=原生SQL查询
 err=错误
 result=结果
 args=参数
 ctx=上下文
 
 [func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {]
+ff=底层原生SQL查询
 err=错误
 result=结果
 args=参数
@@ -49,23 +51,33 @@ link=链接
 ctx=上下文
 
 [func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {]
+ff=原生SQL执行
 err=错误
 result=结果
 args=参数
 ctx=上下文
 
 [func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {]
+ff=底层原生SQL执行
 err=错误
 result=结果
 args=参数
 link=链接
 ctx=上下文
 
+[func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args #左中括号##右中括号#interface{}) (newSql string, newArgs #左中括号##右中括号#interface{}, err error) {]
+ff=底层DoFilter
+
+[func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error) {]
+ff=底层DoCommit
+
 [func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {]
+ff=原生sql取参数预处理对象
 execOnMaster=是否主节点执行
 ctx=上下文
 
 [func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt, err error) {]
+ff=底层原生sql参数预处理对象
 err=错误
 stmt=参数预处理
 link=链接

@@ -14,19 +14,12 @@ import (
 )
 
 // Throw throws out an exception, which can be caught be TryCatch or recover.
-// ff:异常输出
-// exception:消息
 func Throw(exception interface{}) {
 	panic(exception)
 }
 
 // Try implements try... logistics using internal panic...recover.
 // It returns error if any exception occurs, or else it returns nil.
-// ff:异常捕捉
-// ctx:上下文
-// try:处理函数
-// ctx:上下文
-// err:错误
 func Try(ctx context.Context, try func(ctx context.Context)) (err error) {
 	if try == nil {
 		return
@@ -49,13 +42,6 @@ func Try(ctx context.Context, try func(ctx context.Context)) (err error) {
 // If `catch` is given nil, it ignores the panic from `try` and no panic will throw to parent goroutine.
 //
 // But, note that, if function `catch` also throws panic, the current goroutine will panic.
-// ff:异常捕捉并带异常处理
-// ctx:上下文
-// try:处理函数
-// ctx:上下文
-// catch:异常处理函数
-// ctx:上下文
-// exception:错误
 func TryCatch(ctx context.Context, try func(ctx context.Context), catch func(ctx context.Context, exception error)) {
 	if try == nil {
 		return

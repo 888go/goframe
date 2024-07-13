@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gbinary_test//bm:字节集类_test
+package gbinary_test
 
 import (
 	"testing"

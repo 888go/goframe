@@ -15,11 +15,6 @@ import (
 )
 
 // BindHookHandler registers handler for specified hook.
-// ff:绑定Hook
-// s:
-// pattern:路由规则
-// hook:触发时机
-// handler:处理函数
 func (s *Server) BindHookHandler(pattern string, hook HookName, handler HandlerFunc) {
 	s.doBindHookHandler(context.TODO(), doBindHookHandlerInput{
 		Prefix:   "",
@@ -61,10 +56,6 @@ func (s *Server) doBindHookHandler(ctx context.Context, in doBindHookHandlerInpu
 }
 
 // BindHookHandlerByMap registers handler for specified hook.
-// ff:绑定HookMap
-// s:
-// pattern:路由规则
-// hookMap:HookMap
 func (s *Server) BindHookHandlerByMap(pattern string, hookMap map[HookName]HandlerFunc) {
 	for k, v := range hookMap {
 		s.BindHookHandler(pattern, k, v)

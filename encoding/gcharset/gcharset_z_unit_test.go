@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gcharset_test//bm:编码字符集类_test
+package gcharset_test
 
 import (
 	"testing"

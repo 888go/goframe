@@ -7,8 +7,6 @@
 package ghash
 
 // RS implements the classic RS hash algorithm for 32 bits.
-// ff:
-// str:
 func RS(str []byte) uint32 {
 	var (
 		b    uint32 = 378551
@@ -23,8 +21,6 @@ func RS(str []byte) uint32 {
 }
 
 // RS64 implements the classic RS hash algorithm for 64 bits.
-// ff:
-// str:
 func RS64(str []byte) uint64 {
 	var (
 		b    uint64 = 378551

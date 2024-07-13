@@ -67,8 +67,6 @@ const (
 )
 
 // Fields retrieves and returns the fields of `pointer` as slice.
-// ff:
-// in:
 func Fields(in FieldsInput) ([]Field, error) {
 	var (
 		ok                   bool
@@ -146,8 +144,6 @@ func Fields(in FieldsInput) ([]Field, error) {
 // is an embedded struct.
 //
 // Note that it only retrieves the exported attributes with first letter upper-case from struct.
-// ff:
-// in:
 func FieldMap(in FieldMapInput) (map[string]Field, error) {
 	fields, err := getFieldValues(in.Pointer)
 	if err != nil {
@@ -209,8 +205,6 @@ func FieldMap(in FieldMapInput) (map[string]Field, error) {
 
 // StructType retrieves and returns the struct Type of specified struct/*struct.
 // The parameter `object` should be either type of struct/*struct/[]struct/[]*struct.
-// ff:
-// object:
 func StructType(object interface{}) (*Type, error) {
 	var (
 		reflectValue reflect.Value

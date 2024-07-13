@@ -8,17 +8,14 @@ package gsel
 
 type builderRoundRobin struct{}
 
-// ff:
 func NewBuilderRoundRobin() Builder {
 	return &builderRoundRobin{}
 }
 
-// ff:
 func (*builderRoundRobin) Name() string {
 	return "BalancerRoundRobin"
 }
 
-// ff:
 func (*builderRoundRobin) Build() Selector {
 	return NewSelectorRoundRobin()
 }

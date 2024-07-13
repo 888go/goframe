@@ -5,4 +5,4 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gudp provides UDP server and client implementations.
-package gudp//bm:udp类
+package gudp

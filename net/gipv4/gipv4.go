@@ -6,7 +6,7 @@
 //
 
 // Package gipv4 provides useful API for IPv4 address handling.
-package gipv4//bm:ipv4类
+package gipv4
 
 import (
 	"encoding/binary"
@@ -18,8 +18,6 @@ import (
 )
 
 // Ip2long converts ip address to an uint32 integer.
-// ff:
-// ip:
 func Ip2long(ip string) uint32 {
 	netIp := net.ParseIP(ip)
 	if netIp == nil {
@@ -29,8 +27,6 @@ func Ip2long(ip string) uint32 {
 }
 
 // Long2ip converts an uint32 integer ip address to its string type address.
-// ff:
-// long:
 func Long2ip(long uint32) string {
 	ipByte := make([]byte, 4)
 	binary.BigEndian.PutUint32(ipByte, long)
@@ -38,15 +34,12 @@ func Long2ip(long uint32) string {
 }
 
 // Validate checks whether given `ip` a valid IPv4 address.
-// ff:
-// ip:
 func Validate(ip string) bool {
 	return gregex.IsMatchString(`^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$`, ip)
 }
 
 // ParseAddress parses `address` to its ip and port.
-// ff:
-// address:
+// Eg: 192.168.1.1:80 -> 192.168.1.1, 80
 func ParseAddress(address string) (string, int) {
 	match, err := gregex.MatchString(`^(.+):(\d+)$`, address)
 	if err == nil {
@@ -57,8 +50,7 @@ func ParseAddress(address string) (string, int) {
 }
 
 // GetSegment returns the segment of given ip address.
-// ff:
-// ip:
+// Eg: 192.168.2.102 -> 192.168.2
 func GetSegment(ip string) string {
 	match, err := gregex.MatchString(`^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$`, ip)
 	if err != nil || len(match) < 4 {

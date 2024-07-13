@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gbuild manages the build-in variables from "gf build".
-package gbuild//bm:构建信息类
+package gbuild
 
 import (
 	"context"
@@ -59,7 +59,6 @@ func init() {
 // Info returns the basic built information of the binary as map.
 // Note that it should be used with gf-cli tool "gf build",
 // which automatically injects necessary information into the binary.
-// ff:
 func Info() BuildInfo {
 	return BuildInfo{
 		GoFrame: Get(gfVersion).String(),
@@ -72,9 +71,6 @@ func Info() BuildInfo {
 }
 
 // Get retrieves and returns the build-in binary variable with given name.
-// ff:
-// name:
-// def:
 func Get(name string, def ...interface{}) *gvar.Var {
 	if v, ok := builtInVarMap[name]; ok {
 		return gvar.New(v)
@@ -86,7 +82,6 @@ func Get(name string, def ...interface{}) *gvar.Var {
 }
 
 // Data returns the custom build-in variables as map.
-// ff:
 func Data() map[string]interface{} {
 	return builtInVarMap
 }

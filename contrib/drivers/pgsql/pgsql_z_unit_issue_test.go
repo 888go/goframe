@@ -17,6 +17,8 @@ import (
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
 )
+
+// https://github.com/gogf/gf/issues/3330
 func Test_Issue3330(t *testing.T) {
 	var (
 		table      = fmt.Sprintf(`%s_%d`, TablePrefix+"test", gtime.TimestampNano())

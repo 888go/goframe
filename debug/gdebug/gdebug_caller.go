@@ -44,11 +44,6 @@ func init() {
 
 // Caller returns the function name and the absolute file path along with its line
 // number of the caller.
-// ff:
-// skip:
-// function:
-// path:
-// line:
 func Caller(skip ...int) (function string, path string, line int) {
 	return CallerWithFilter(nil, skip...)
 }
@@ -57,12 +52,6 @@ func Caller(skip ...int) (function string, path string, line int) {
 // its line number of the caller.
 //
 // The parameter `filters` is used to filter the path of the caller.
-// ff:
-// filters:
-// skip:
-// function:
-// path:
-// line:
 func CallerWithFilter(filters []string, skip ...int) (function string, path string, line int) {
 	var (
 		number = 0
@@ -142,7 +131,6 @@ func filterFileByFilters(file string, filters []string) (filtered bool) {
 }
 
 // CallerPackage returns the package name of the caller.
-// ff:
 func CallerPackage() string {
 	function, _, _ := Caller()
 	indexSplit := strings.LastIndexByte(function, '/')
@@ -158,7 +146,6 @@ func CallerPackage() string {
 }
 
 // CallerFunction returns the function name of the caller.
-// ff:
 func CallerFunction() string {
 	function, _, _ := Caller()
 	function = function[strings.LastIndexByte(function, '/')+1:]
@@ -167,43 +154,35 @@ func CallerFunction() string {
 }
 
 // CallerFilePath returns the file path of the caller.
-// ff:
 func CallerFilePath() string {
 	_, path, _ := Caller()
 	return path
 }
 
 // CallerDirectory returns the directory of the caller.
-// ff:
 func CallerDirectory() string {
 	_, path, _ := Caller()
 	return filepath.Dir(path)
 }
 
 // CallerFileLine returns the file path along with the line number of the caller.
-// ff:
 func CallerFileLine() string {
 	_, path, line := Caller()
 	return fmt.Sprintf(`%s:%d`, path, line)
 }
 
 // CallerFileLineShort returns the file name along with the line number of the caller.
-// ff:
 func CallerFileLineShort() string {
 	_, path, line := Caller()
 	return fmt.Sprintf(`%s:%d`, filepath.Base(path), line)
 }
 
 // FuncPath returns the complete function path of given `f`.
-// ff:
-// f:
 func FuncPath(f interface{}) string {
 	return runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()
 }
 
 // FuncName returns the function name of given `f`.
-// ff:
-// f:
 func FuncName(f interface{}) string {
 	path := FuncPath(f)
 	if path == "" {

@@ -91,12 +91,6 @@ import (
 // given `relation` parameter.
 //
 // See the example or unit testing cases for clear understanding for this function.
-// ff:取指针列表
-// r:
-// structSlicePointer:结构体切片指针
-// bindToAttrName:绑定到结构体属性名称
-// relationAttrNameAndFields:结构体属性关联
-// err:错误
 func (r Result) ScanList(structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	out, err := checkGetSliceElementInfoForScanList(structSlicePointer, bindToAttrName)
 	if err != nil {

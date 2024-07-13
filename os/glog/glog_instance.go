@@ -20,8 +20,6 @@ var (
 
 // Instance returns an instance of Logger with default settings.
 // The parameter `name` is the name for the instance.
-// ff:取单例对象
-// name:名称
 func Instance(name ...string) *Logger {
 	key := DefaultName
 	if len(name) > 0 && name[0] != "" {

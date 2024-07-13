@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package grpool_test//bm:协程类_test
+package grpool_test
 
 import (
 	"context"

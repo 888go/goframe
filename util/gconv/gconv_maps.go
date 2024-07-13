@@ -9,25 +9,18 @@ package gconv
 import "github.com/gogf/gf/v2/internal/json"
 
 // SliceMap is alias of Maps.
-// ff:SliceMap别名
-// any:值
-// option:
 func SliceMap(any interface{}, option ...MapOption) []map[string]interface{} {
 	return Maps(any, option...)
 }
 
 // SliceMapDeep is alias of MapsDeep.
-// ff:SliceMapDeep别名
-// any:
+// Deprecated: used SliceMap instead.
 func SliceMapDeep(any interface{}) []map[string]interface{} {
 	return MapsDeep(any)
 }
 
 // Maps converts `value` to []map[string]interface{}.
 // Note that it automatically checks and converts json string to []map if `value` is string/[]byte.
-// ff:取Map切片
-// value:值
-// option:选项
 func Maps(value interface{}, option ...MapOption) []map[string]interface{} {
 	if value == nil {
 		return nil
@@ -74,9 +67,7 @@ func Maps(value interface{}, option ...MapOption) []map[string]interface{} {
 // MapsDeep converts `value` to []map[string]interface{} recursively.
 //
 // TODO completely implement the recursive converting for all types.
-// ff:取Map切片_递归
-// value:值
-// tags:值标签
+// Deprecated: used Maps instead.
 func MapsDeep(value interface{}, tags ...string) []map[string]interface{} {
 	if value == nil {
 		return nil

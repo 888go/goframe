@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gsession implements manager and storage features for sessions.
-package gsession//bm:session类
+package gsession
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"
@@ -23,7 +23,6 @@ var (
 
 // NewSessionId creates and returns a new and unique session id string,
 // which is in 32 bytes.
-// ff:
 func NewSessionId() string {
 	return guid.S()
 }

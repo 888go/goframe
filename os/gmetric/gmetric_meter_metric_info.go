@@ -29,49 +29,35 @@ func (meter *localMeter) newMetricInfo(
 }
 
 // Name returns the name of the metric.
-// ff:
-// l:
 func (l *localMetricInfo) Name() string {
 	return l.MetricName
 }
 
 // Help returns the help description of the metric.
-// ff:
-// l:
 func (l *localMetricInfo) Help() string {
 	return l.MetricOption.Help
 }
 
 // Unit returns the unit name of the metric.
-// ff:
-// l:
 func (l *localMetricInfo) Unit() string {
 	return l.MetricOption.Unit
 }
 
 // Type returns the type of the metric.
-// ff:
-// l:
 func (l *localMetricInfo) Type() MetricType {
 	return l.MetricType
 }
 
 // Attributes returns the constant attribute slice of the metric.
-// ff:
-// l:
 func (l *localMetricInfo) Attributes() Attributes {
 	return l.MetricOption.Attributes
 }
 
 // Instrument returns the instrument info of the metric.
-// ff:
-// l:
 func (l *localMetricInfo) Instrument() InstrumentInfo {
 	return l.InstrumentInfo
 }
 
-// ff:
-// l:
 func (l *localMetricInfo) Key() string {
 	if l.Instrument().Name() != "" && l.Instrument().Version() != "" {
 		return fmt.Sprintf(

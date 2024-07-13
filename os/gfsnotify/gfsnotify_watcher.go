@@ -18,14 +18,6 @@ import (
 // Add monitors `path` with callback function `callbackFunc` to the watcher.
 // The optional parameter `recursive` specifies whether monitoring the `path` recursively,
 // which is true in default.
-// ff:
-// w:
-// path:
-// callbackFunc:
-// event:
-// recursive:
-// callback:
-// err:
 func (w *Watcher) Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	return w.AddOnce("", path, callbackFunc, recursive...)
 }
@@ -38,15 +30,6 @@ func (w *Watcher) Add(path string, callbackFunc func(event *Event), recursive ..
 //
 // The optional parameter `recursive` specifies whether monitoring the `path` recursively,
 // which is true in default.
-// ff:
-// w:
-// name:
-// path:
-// callbackFunc:
-// event:
-// recursive:
-// callback:
-// err:
 func (w *Watcher) AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w.nameSet.AddIfNotExistFuncLock(name, func() bool {
 		// Firstly add the path to watcher.
@@ -122,8 +105,6 @@ func (w *Watcher) addWithCallbackFunc(name, path string, callbackFunc func(event
 }
 
 // Close closes the watcher.
-// ff:
-// w:
 func (w *Watcher) Close() {
 	close(w.closeChan)
 	if err := w.watcher.Close(); err != nil {
@@ -133,9 +114,6 @@ func (w *Watcher) Close() {
 }
 
 // Remove removes monitor and all callbacks associated with the `path` recursively.
-// ff:
-// w:
-// path:
 func (w *Watcher) Remove(path string) error {
 	// Firstly remove the callbacks of the path.
 	if value := w.callbacks.Remove(path); value != nil {
@@ -203,9 +181,6 @@ func (w *Watcher) checkPathCanBeRemoved(path string) bool {
 }
 
 // RemoveCallback removes callback with given callback id from watcher.
-// ff:
-// w:
-// callbackId:
 func (w *Watcher) RemoveCallback(callbackId int) {
 	callback := (*Callback)(nil)
 	if r := callbackIdMap.Get(callbackId); r != nil {

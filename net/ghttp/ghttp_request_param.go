@@ -50,25 +50,17 @@ var (
 // 1. Single struct, post content like: {"id":1, "name":"john"} or ?id=1&name=john
 // 2. Multiple struct, post content like: [{"id":1, "name":"john"}, {"id":, "name":"smith"}]
 //
-// ff:解析参数到结构
-// r:
-// pointer:结构指针
+// TODO: Improve the performance by reducing duplicated reflect usage on the same variable across packages.
 func (r *Request) Parse(pointer interface{}) error {
 	return r.doParse(pointer, parseTypeRequest)
 }
 
 // ParseQuery performs like function Parse, but only parses the query parameters.
-// ff:解析URL到结构
-// r:
-// pointer:结构指针
 func (r *Request) ParseQuery(pointer interface{}) error {
 	return r.doParse(pointer, parseTypeQuery)
 }
 
 // ParseForm performs like function Parse, but only parses the form parameters or the body content.
-// ff:解析表单到结构
-// r:
-// pointer:结构指针
 func (r *Request) ParseForm(pointer interface{}) error {
 	return r.doParse(pointer, parseTypeForm)
 }
@@ -153,18 +145,12 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 // Get is alias of GetRequest, which is one of the most commonly used functions for
 // retrieving parameter.
 // See r.GetRequest.
-// ff:Get别名
-// r:
-// key:名称
-// def:默认值
 func (r *Request) Get(key string, def ...interface{}) *gvar.Var {
 	return r.GetRequest(key, def...)
 }
 
 // GetBody retrieves and returns request body content as bytes.
 // It can be called multiple times retrieving the same body content.
-// ff:取请求体字节集
-// r:
 func (r *Request) GetBody() []byte {
 	if r.bodyContent == nil {
 		r.bodyContent = r.MakeBodyRepeatableRead(true)
@@ -174,9 +160,6 @@ func (r *Request) GetBody() []byte {
 
 // MakeBodyRepeatableRead marks the request body could be repeatedly readable or not.
 // It also returns the current content of the request body.
-// ff:
-// r:
-// repeatableRead:
 func (r *Request) MakeBodyRepeatableRead(repeatableRead bool) []byte {
 	if r.bodyContent == nil {
 		var err error
@@ -194,16 +177,12 @@ func (r *Request) MakeBodyRepeatableRead(repeatableRead bool) []byte {
 
 // GetBodyString retrieves and returns request body content as string.
 // It can be called multiple times retrieving the same body content.
-// ff:取请求体文本
-// r:
 func (r *Request) GetBodyString() string {
 	return string(r.GetBody())
 }
 
 // GetJson parses current request content as JSON format, and returns the JSON object.
 // Note that the request content is read from request BODY, not from any field of FORM.
-// ff:取请求体到json类
-// r:
 func (r *Request) GetJson() (*gjson.Json, error) {
 	return gjson.LoadWithOptions(r.GetBody(), gjson.Options{
 		Type:      gjson.ContentTypeJson,
@@ -213,28 +192,18 @@ func (r *Request) GetJson() (*gjson.Json, error) {
 
 // GetMap is an alias and convenient function for GetRequestMap.
 // See GetRequestMap.
-// ff:GetMap别名
-// r:
-// def:默认值
 func (r *Request) GetMap(def ...map[string]interface{}) map[string]interface{} {
 	return r.GetRequestMap(def...)
 }
 
 // GetMapStrStr is an alias and convenient function for GetRequestMapStrStr.
 // See GetRequestMapStrStr.
-// ff:GetMapStrStr别名
-// r:
-// def:默认值
 func (r *Request) GetMapStrStr(def ...map[string]interface{}) map[string]string {
 	return r.GetRequestMapStrStr(def...)
 }
 
 // GetStruct is an alias and convenient function for GetRequestStruct.
 // See GetRequestStruct.
-// ff:GetStruct别名
-// r:
-// pointer:结构指针
-// mapping:
 func (r *Request) GetStruct(pointer interface{}, mapping ...map[string]string) error {
 	return r.GetRequestStruct(pointer, mapping...)
 }
@@ -378,8 +347,6 @@ func (r *Request) parseForm() {
 }
 
 // GetMultipartForm parses and returns the form as multipart forms.
-// ff:取multipart表单对象
-// r:
 func (r *Request) GetMultipartForm() *multipart.Form {
 	r.parseForm()
 	return r.MultipartForm
@@ -387,9 +354,6 @@ func (r *Request) GetMultipartForm() *multipart.Form {
 
 // GetMultipartFiles parses and returns the post files array.
 // Note that the request form should be type of multipart.
-// ff:取multipart表单文件切片对象
-// r:
-// name:名称
 func (r *Request) GetMultipartFiles(name string) []*multipart.FileHeader {
 	form := r.GetMultipartForm()
 	if form == nil {

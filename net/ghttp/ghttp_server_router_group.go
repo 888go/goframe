@@ -20,7 +20,7 @@ import (
 
 type (
 	// RouterGroup is a group wrapping multiple routes and middleware.
-	RouterGroup struct {//qm:分组路由  cz:RouterGroup struct  
+	RouterGroup struct {
 		parent     *RouterGroup  // Parent group.
 		server     *Server       // Server.
 		domain     *Domain       // Domain.
@@ -74,11 +74,6 @@ func (s *Server) handlePreBindItems(ctx context.Context) {
 }
 
 // Group creates and returns a RouterGroup object.
-// ff:创建分组路由
-// s:
-// prefix:分组前缀
-// groups:分组函数
-// group:分组路由
 func (s *Server) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
 	if len(prefix) > 0 && prefix[0] != '/' {
 		prefix = "/" + prefix
@@ -99,11 +94,6 @@ func (s *Server) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 }
 
 // Group creates and returns a RouterGroup object, which is bound to a specified domain.
-// ff:创建分组路由
-// d:
-// prefix:分组前缀
-// groups:分组函数
-// group:分组路由
 func (d *Domain) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
 	if len(prefix) > 0 && prefix[0] != '/' {
 		prefix = "/" + prefix
@@ -125,11 +115,6 @@ func (d *Domain) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 }
 
 // Group creates and returns a subgroup of the current router group.
-// ff:创建分组路由
-// g:
-// prefix:分组前缀
-// groups:分组函数
-// group:分组路由
 func (g *RouterGroup) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
 	if prefix == "/" {
 		prefix = ""
@@ -153,8 +138,6 @@ func (g *RouterGroup) Group(prefix string, groups ...func(group *RouterGroup)) *
 }
 
 // Clone returns a new router group which is a clone of the current group.
-// ff:取副本
-// g:
 func (g *RouterGroup) Clone() *RouterGroup {
 	newGroup := &RouterGroup{
 		parent:     g.parent,
@@ -168,9 +151,6 @@ func (g *RouterGroup) Clone() *RouterGroup {
 }
 
 // Bind does batch route registering feature for a router group.
-// ff:X绑定
-// g:
-// handlerOrObject:处理对象
 func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
 	var (
 		ctx   = context.TODO()
@@ -201,11 +181,6 @@ func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
 }
 
 // ALL register an http handler to give the route pattern and all http methods.
-// ff:绑定所有类型
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) ALL(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(
 		groupBindTypeHandler,
@@ -216,9 +191,6 @@ func (g *RouterGroup) ALL(pattern string, object interface{}, params ...interfac
 }
 
 // ALLMap registers http handlers for http methods using map.
-// ff:绑定所有类型Map
-// g:
-// m:
 func (g *RouterGroup) ALLMap(m map[string]interface{}) {
 	for pattern, object := range m {
 		g.ALL(pattern, object)
@@ -226,9 +198,6 @@ func (g *RouterGroup) ALLMap(m map[string]interface{}) {
 }
 
 // Map registers http handlers for http methods using map.
-// ff:绑定Map
-// g:
-// m:
 func (g *RouterGroup) Map(m map[string]interface{}) {
 	for pattern, object := range m {
 		g.preBindToLocalArray(groupBindTypeHandler, pattern, object)
@@ -236,118 +205,61 @@ func (g *RouterGroup) Map(m map[string]interface{}) {
 }
 
 // GET registers an http handler to give the route pattern and the http method: GET.
-// ff:绑定GET
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) GET(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "GET:"+pattern, object, params...)
 }
 
 // PUT registers an http handler to give the route pattern and the http method: PUT.
-// ff:绑定PUT
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) PUT(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PUT:"+pattern, object, params...)
 }
 
 // POST registers an http handler to give the route pattern and the http method: POST.
-// ff:绑定POST
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) POST(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "POST:"+pattern, object, params...)
 }
 
 // DELETE registers an http handler to give the route pattern and the http method: DELETE.
-// ff:绑定DELETE
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) DELETE(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "DELETE:"+pattern, object, params...)
 }
 
 // PATCH registers an http handler to give the route pattern and the http method: PATCH.
-// ff:绑定PATCH
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) PATCH(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PATCH:"+pattern, object, params...)
 }
 
 // HEAD registers an http handler to give the route pattern and the http method: HEAD.
-// ff:绑定HEAD
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) HEAD(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "HEAD:"+pattern, object, params...)
 }
 
 // CONNECT registers an http handler to give the route pattern and the http method: CONNECT.
-// ff:绑定CONNECT
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) CONNECT(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "CONNECT:"+pattern, object, params...)
 }
 
 // OPTIONS register an http handler to give the route pattern and the http method: OPTIONS.
-// ff:绑定OPTIONS
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) OPTIONS(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "OPTIONS:"+pattern, object, params...)
 }
 
 // TRACE registers an http handler to give the route pattern and the http method: TRACE.
-// ff:绑定TRACE
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) TRACE(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "TRACE:"+pattern, object, params...)
 }
 
 // REST registers an http handler to give the route pattern according to REST rule.
-// ff:绑定RESTfulAPI对象
-// g:
-// pattern:路由规则
-// object:处理对象
 func (g *RouterGroup) REST(pattern string, object interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeRest, pattern, object)
 }
 
 // Hook registers a hook to given route pattern.
-// ff:绑定Hook
-// g:
-// pattern:路由规则
-// hook:触发时机
-// handler:处理函数
 func (g *RouterGroup) Hook(pattern string, hook HookName, handler HandlerFunc) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, pattern, handler, hook)
 }
 
 // Middleware binds one or more middleware to the router group.
-// ff:绑定中间件
-// g:
-// handlers:处理函数
 func (g *RouterGroup) Middleware(handlers ...HandlerFunc) *RouterGroup {
 	g.middleware = append(g.middleware, handlers...)
 	return g

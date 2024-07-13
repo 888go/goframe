@@ -7,7 +7,7 @@
 // Package gtime provides functionality for measuring and displaying time.
 //
 // This package should keep much less dependencies with other packages.
-package gtime//bm:时间类
+package gtime
 
 import (
 	"context"
@@ -102,77 +102,65 @@ var (
 )
 
 // Timestamp retrieves and returns the timestamp in seconds.
-// ff:取时间戳秒
 func Timestamp() int64 {
 	return Now().Timestamp()
 }
 
 // TimestampMilli retrieves and returns the timestamp in milliseconds.
-// ff:取时间戳毫秒
 func TimestampMilli() int64 {
 	return Now().TimestampMilli()
 }
 
 // TimestampMicro retrieves and returns the timestamp in microseconds.
-// ff:取时间戳微秒
 func TimestampMicro() int64 {
 	return Now().TimestampMicro()
 }
 
 // TimestampNano retrieves and returns the timestamp in nanoseconds.
-// ff:取时间戳纳秒
 func TimestampNano() int64 {
 	return Now().TimestampNano()
 }
 
 // TimestampStr is a convenience method which retrieves and returns
 // the timestamp in seconds as string.
-// ff:取文本时间戳秒
 func TimestampStr() string {
 	return Now().TimestampStr()
 }
 
 // TimestampMilliStr is a convenience method which retrieves and returns
 // the timestamp in milliseconds as string.
-// ff:取文本时间戳毫秒
 func TimestampMilliStr() string {
 	return Now().TimestampMilliStr()
 }
 
 // TimestampMicroStr is a convenience method which retrieves and returns
 // the timestamp in microseconds as string.
-// ff:取文本时间戳微秒
 func TimestampMicroStr() string {
 	return Now().TimestampMicroStr()
 }
 
 // TimestampNanoStr is a convenience method which retrieves and returns
 // the timestamp in nanoseconds as string.
-// ff:取文本时间戳纳秒
 func TimestampNanoStr() string {
 	return Now().TimestampNanoStr()
 }
 
 // Date returns current date in string like "2006-01-02".
-// ff:
 func Date() string {
 	return time.Now().Format("2006-01-02")
 }
 
 // Datetime returns current datetime in string like "2006-01-02 15:04:05".
-// ff:取当前日期时间
 func Datetime() string {
 	return time.Now().Format("2006-01-02 15:04:05")
 }
 
 // ISO8601 returns current datetime in ISO8601 format like "2006-01-02T15:04:05-07:00".
-// ff:取当前日期时间ISO8601
 func ISO8601() string {
 	return time.Now().Format("2006-01-02T15:04:05-07:00")
 }
 
 // RFC822 returns current datetime in RFC822 format like "Mon, 02 Jan 06 15:04 MST".
-// ff:取当前日期时间RFC822
 func RFC822() string {
 	return time.Now().Format("Mon, 02 Jan 06 15:04 MST")
 }
@@ -212,9 +200,6 @@ func parseDateStr(s string) (year, month, day int) {
 // If `format` is given, it acts as same as function StrToTimeFormat.
 // If `format` is not given, it converts string as a "standard" datetime string.
 // Note that, it fails and returns error if there's no date string in `str`.
-// ff:转换文本
-// str:文本时间
-// format:格式
 func StrToTime(str string, format ...string) (*Time, error) {
 	if str == "" {
 		return &Time{wrapper{time.Time{}}}, nil
@@ -311,10 +296,6 @@ func StrToTime(str string, format ...string) (*Time, error) {
 
 // ConvertZone converts time in string `strTime` from `fromZone` to `toZone`.
 // The parameter `fromZone` is unnecessary, it is current time zone in default.
-// ff:转换时区
-// strTime:文本时间
-// toZone:新时区
-// fromZone:旧时区
 func ConvertZone(strTime string, toZone string, fromZone ...string) (*Time, error) {
 	t, err := StrToTime(strTime)
 	if err != nil {
@@ -339,18 +320,12 @@ func ConvertZone(strTime string, toZone string, fromZone ...string) (*Time, erro
 
 // StrToTimeFormat parses string `str` to *Time object with given format `format`.
 // The parameter `format` is like "Y-m-d H:i:s".
-// ff:StrToTimeFormat别名
-// str:
-// format:
 func StrToTimeFormat(str string, format string) (*Time, error) {
 	return StrToTimeLayout(str, formatToStdLayout(format))
 }
 
 // StrToTimeLayout parses string `str` to *Time object with given format `layout`.
 // The parameter `layout` is in stdlib format like "2006-01-02 15:04:05".
-// ff:转换文本Layout
-// str:文本时间
-// layout:格式
 func StrToTimeLayout(str string, layout string) (*Time, error) {
 	if t, err := time.ParseInLocation(layout, str, time.Local); err == nil {
 		return NewFromTime(t), nil
@@ -367,9 +342,6 @@ func StrToTimeLayout(str string, layout string) (*Time, error) {
 // as *Time object.
 // It returns the first time information if there are more than one time string in the content.
 // It only retrieves and parses the time information with given first matched `format` if it's passed.
-// ff:解析文本
-// content:文本
-// format:格式
 func ParseTimeFromContent(content string, format ...string) *Time {
 	var (
 		err   error
@@ -404,10 +376,6 @@ func ParseTimeFromContent(content string, format ...string) *Time {
 // Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h", "d".
 //
 // Very note that it supports unit "d" more than function time.ParseDuration.
-// ff:文本取时长
-// s:文本
-// duration:纳秒
-// err:错误
 func ParseDuration(s string) (duration time.Duration, err error) {
 	var (
 		num int64
@@ -443,8 +411,6 @@ func ParseDuration(s string) (duration time.Duration, err error) {
 }
 
 // FuncCost calculates the cost time of function `f` in nanoseconds.
-// ff:取函数执行时长
-// f:执行函数
 func FuncCost(f func()) time.Duration {
 	t := time.Now()
 	f()

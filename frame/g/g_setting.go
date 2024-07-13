@@ -13,8 +13,6 @@ import (
 // SetDebug enables/disables the GoFrame internal logging manually.
 // Note that this function is not concurrent safe, be aware of the DATA RACE,
 // which means you should call this function in your boot but not the runtime.
-// ff:设置debug
-// enabled:开启
 func SetDebug(enabled bool) {
 	utils.SetDebugEnabled(enabled)
 }

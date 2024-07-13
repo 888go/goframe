@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtype//bm:安全变量类
+package gtype
 
 import (
 	"bytes"
@@ -25,8 +25,6 @@ var (
 
 // NewBool creates and returns a concurrent-safe object for bool type,
 // with given initial value `value`.
-// ff:
-// value:
 func NewBool(value ...bool) *Bool {
 	t := &Bool{}
 	if len(value) > 0 {
@@ -40,18 +38,11 @@ func NewBool(value ...bool) *Bool {
 }
 
 // Clone clones and returns a new concurrent-safe object for bool type.
-// ff:
-// v:
 func (v *Bool) Clone() *Bool {
 	return NewBool(v.Val())
 }
 
 // Set atomically stores `value` into t.value and returns the previous value of t.value.
-// yx:true
-// ff:设置值
-// v:
-// value:
-// old:
 func (v *Bool) Set(value bool) (old bool) {
 	if value {
 		old = atomic.SwapInt32(&v.value, 1) == 1
@@ -62,19 +53,11 @@ func (v *Bool) Set(value bool) (old bool) {
 }
 
 // Val atomically loads and returns t.value.
-// yx:true
-// ff:取值
-// v:
 func (v *Bool) Val() bool {
 	return atomic.LoadInt32(&v.value) > 0
 }
 
 // Cas executes the compare-and-swap operation for value.
-// ff:
-// v:
-// old:
-// new:
-// swapped:
 func (v *Bool) Cas(old, new bool) (swapped bool) {
 	var oldInt32, newInt32 int32
 	if old {
@@ -87,8 +70,6 @@ func (v *Bool) Cas(old, new bool) (swapped bool) {
 }
 
 // String implements String interface for string printing.
-// ff:
-// v:
 func (v *Bool) String() string {
 	if v.Val() {
 		return "true"
@@ -97,8 +78,6 @@ func (v *Bool) String() string {
 }
 
 // MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// ff:
-// v:
 func (v Bool) MarshalJSON() ([]byte, error) {
 	if v.Val() {
 		return bytesTrue, nil
@@ -107,26 +86,18 @@ func (v Bool) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-// ff:
-// v:
-// b:
 func (v *Bool) UnmarshalJSON(b []byte) error {
 	v.Set(gconv.Bool(bytes.Trim(b, `"`)))
 	return nil
 }
 
 // UnmarshalValue is an interface implement which sets any type of value for `v`.
-// ff:
-// v:
-// value:
 func (v *Bool) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Bool(value))
 	return nil
 }
 
 // DeepCopy implements interface for deep copy of current type.
-// ff:
-// v:
 func (v *Bool) DeepCopy() interface{} {
 	if v == nil {
 		return nil

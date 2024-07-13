@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gsha1_test//bm:加密sha1类_test
+package gsha1_test
 
 import (
 	"os"

@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gjson_test//bm:json类_test
+package gjson_test
 
 import (
 	json2 "encoding/json"

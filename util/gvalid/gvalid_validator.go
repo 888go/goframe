@@ -33,7 +33,6 @@ type Validator struct {
 }
 
 // New creates and returns a new Validator.
-// ff:
 func New() *Validator {
 	return &Validator{
 		i18nManager: gi18n.Instance(),          // Use default i18n manager.
@@ -42,9 +41,6 @@ func New() *Validator {
 }
 
 // Run starts validating the given data with rules and messages.
-// ff:
-// v:
-// ctx:
 func (v *Validator) Run(ctx context.Context) Error {
 	if v.data == nil {
 		return newValidationErrorByStr(
@@ -90,8 +86,6 @@ func (v *Validator) Run(ctx context.Context) Error {
 }
 
 // Clone creates and returns a new Validator which is a shallow copy of current one.
-// ff:
-// v:
 func (v *Validator) Clone() *Validator {
 	newValidator := New()
 	*newValidator = *v
@@ -99,9 +93,6 @@ func (v *Validator) Clone() *Validator {
 }
 
 // I18n sets the i18n manager for the validator.
-// ff:
-// v:
-// i18nManager:
 func (v *Validator) I18n(i18nManager *gi18n.Manager) *Validator {
 	if i18nManager == nil {
 		return v
@@ -112,8 +103,6 @@ func (v *Validator) I18n(i18nManager *gi18n.Manager) *Validator {
 }
 
 // Bail sets the mark for stopping validation after the first validation error.
-// ff:
-// v:
 func (v *Validator) Bail() *Validator {
 	newValidator := v.Clone()
 	newValidator.bail = true
@@ -122,8 +111,6 @@ func (v *Validator) Bail() *Validator {
 
 // Foreach tells the next validation using current value as an array and validates each of its element.
 // Note that this decorating rule takes effect just once for next validation rule, specially for single value validation.
-// ff:
-// v:
 func (v *Validator) Foreach() *Validator {
 	newValidator := v.Clone()
 	newValidator.foreach = true
@@ -131,8 +118,6 @@ func (v *Validator) Foreach() *Validator {
 }
 
 // Ci sets the mark for Case-Insensitive for those rules that need value comparison.
-// ff:
-// v:
 func (v *Validator) Ci() *Validator {
 	newValidator := v.Clone()
 	newValidator.caseInsensitive = true
@@ -140,9 +125,6 @@ func (v *Validator) Ci() *Validator {
 }
 
 // Data is a chaining operation function, which sets validation data for current operation.
-// ff:
-// v:
-// data:
 func (v *Validator) Data(data interface{}) *Validator {
 	if data == nil {
 		return v
@@ -155,9 +137,6 @@ func (v *Validator) Data(data interface{}) *Validator {
 // Assoc is a chaining operation function, which sets associated validation data for current operation.
 // The optional parameter `assoc` is usually type of map, which specifies the parameter map used in union validation.
 // Calling this function with `assoc` also sets `useAssocInsteadOfObjectAttributes` true
-// ff:
-// v:
-// assoc:
 func (v *Validator) Assoc(assoc interface{}) *Validator {
 	if assoc == nil {
 		return v
@@ -169,9 +148,6 @@ func (v *Validator) Assoc(assoc interface{}) *Validator {
 }
 
 // Rules is a chaining operation function, which sets custom validation rules for current operation.
-// ff:
-// v:
-// rules:
 func (v *Validator) Rules(rules interface{}) *Validator {
 	if rules == nil {
 		return v
@@ -184,9 +160,6 @@ func (v *Validator) Rules(rules interface{}) *Validator {
 // Messages is a chaining operation function, which sets custom error messages for current operation.
 // The parameter `messages` can be type of string/[]string/map[string]string. It supports sequence in error result
 // if `rules` is type of []string.
-// ff:
-// v:
-// messages:
 func (v *Validator) Messages(messages interface{}) *Validator {
 	if messages == nil {
 		return v
@@ -197,10 +170,6 @@ func (v *Validator) Messages(messages interface{}) *Validator {
 }
 
 // RuleFunc registers one custom rule function to current Validator.
-// ff:
-// v:
-// rule:
-// f:
 func (v *Validator) RuleFunc(rule string, f RuleFunc) *Validator {
 	newValidator := v.Clone()
 	newValidator.ruleFuncMap[rule] = f
@@ -208,9 +177,6 @@ func (v *Validator) RuleFunc(rule string, f RuleFunc) *Validator {
 }
 
 // RuleFuncMap registers multiple custom rule functions to current Validator.
-// ff:
-// v:
-// m:
 func (v *Validator) RuleFuncMap(m map[string]RuleFunc) *Validator {
 	if m == nil {
 		return v

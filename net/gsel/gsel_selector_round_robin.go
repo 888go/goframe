@@ -19,17 +19,12 @@ type selectorRoundRobin struct {
 	next  int
 }
 
-// ff:
 func NewSelectorRoundRobin() Selector {
 	return &selectorRoundRobin{
 		nodes: make(Nodes, 0),
 	}
 }
 
-// ff:
-// s:
-// ctx:
-// nodes:
 func (s *selectorRoundRobin) Update(ctx context.Context, nodes Nodes) error {
 	intlog.Printf(ctx, `Update nodes: %s`, nodes.String())
 	s.mu.Lock()
@@ -39,12 +34,6 @@ func (s *selectorRoundRobin) Update(ctx context.Context, nodes Nodes) error {
 	return nil
 }
 
-// ff:
-// s:
-// ctx:
-// node:
-// done:
-// err:
 func (s *selectorRoundRobin) Pick(ctx context.Context) (node Node, done DoneFunc, err error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()

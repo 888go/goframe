@@ -22,30 +22,22 @@ type txLink struct {
 }
 
 // IsTransaction returns if current Link is a transaction.
-// ff:
-// l:
 func (l *dbLink) IsTransaction() bool {
 	return false
 }
 
 // IsOnMaster checks and returns whether current link is operated on master node.
-// ff:
-// l:
 func (l *dbLink) IsOnMaster() bool {
 	return l.isOnMaster
 }
 
 // IsTransaction returns if current Link is a transaction.
-// ff:
-// l:
 func (l *txLink) IsTransaction() bool {
 	return true
 }
 
 // IsOnMaster checks and returns whether current link is operated on master node.
 // Note that, transaction operation is always operated on master node.
-// ff:
-// l:
 func (l *txLink) IsOnMaster() bool {
 	return true
 }

@@ -14,11 +14,9 @@ import (
 
 // Prefix is a chaining function,
 // which sets the URL prefix for next request of this client.
+// Eg:
 // Prefix("http://127.0.0.1:8199/api/v1")
 // Prefix("http://127.0.0.1:8199/api/v2")
-// ff:Url前缀
-// c:
-// prefix:前缀
 func (c *Client) Prefix(prefix string) *Client {
 	newClient := c.Clone()
 	newClient.SetPrefix(prefix)
@@ -27,9 +25,6 @@ func (c *Client) Prefix(prefix string) *Client {
 
 // Header is a chaining function,
 // which sets custom HTTP headers with map for next request.
-// ff:协议头
-// c:
-// m:map协议头
 func (c *Client) Header(m map[string]string) *Client {
 	newClient := c.Clone()
 	newClient.SetHeaderMap(m)
@@ -38,9 +33,6 @@ func (c *Client) Header(m map[string]string) *Client {
 
 // HeaderRaw is a chaining function,
 // which sets custom HTTP header using raw string for next request.
-// ff:原始协议头
-// c:
-// headers:原始协议头
 func (c *Client) HeaderRaw(headers string) *Client {
 	newClient := c.Clone()
 	newClient.SetHeaderRaw(headers)
@@ -49,9 +41,6 @@ func (c *Client) HeaderRaw(headers string) *Client {
 
 // Discovery is a chaining function, which sets the discovery for client.
 // You can use `Discovery(nil)` to disable discovery feature for current client.
-// ff:
-// c:
-// discovery:
 func (c *Client) Discovery(discovery gsvc.Discovery) *Client {
 	newClient := c.Clone()
 	newClient.SetDiscovery(discovery)
@@ -60,9 +49,6 @@ func (c *Client) Discovery(discovery gsvc.Discovery) *Client {
 
 // Cookie is a chaining function,
 // which sets cookie items with map for next request.
-// ff:
-// c:
-// m:MapCookie
 func (c *Client) Cookie(m map[string]string) *Client {
 	newClient := c.Clone()
 	newClient.SetCookieMap(m)
@@ -71,9 +57,6 @@ func (c *Client) Cookie(m map[string]string) *Client {
 
 // ContentType is a chaining function,
 // which sets HTTP content type for the next request.
-// ff:内容类型
-// c:
-// contentType:
 func (c *Client) ContentType(contentType string) *Client {
 	newClient := c.Clone()
 	newClient.SetContentType(contentType)
@@ -84,8 +67,6 @@ func (c *Client) ContentType(contentType string) *Client {
 // which sets the HTTP content type as "application/json" for the next request.
 //
 // Note that it also checks and encodes the parameter to JSON format automatically.
-// ff:内容类型json
-// c:
 func (c *Client) ContentJson() *Client {
 	newClient := c.Clone()
 	newClient.SetContentType(httpHeaderContentTypeJson)
@@ -96,8 +77,6 @@ func (c *Client) ContentJson() *Client {
 // which sets the HTTP content type as "application/xml" for the next request.
 //
 // Note that it also checks and encodes the parameter to XML format automatically.
-// ff:内容类型xml
-// c:
 func (c *Client) ContentXml() *Client {
 	newClient := c.Clone()
 	newClient.SetContentType(httpHeaderContentTypeXml)
@@ -106,9 +85,6 @@ func (c *Client) ContentXml() *Client {
 
 // Timeout is a chaining function,
 // which sets the timeout for next request.
-// ff:超时
-// c:
-// t:时长
 func (c *Client) Timeout(t time.Duration) *Client {
 	newClient := c.Clone()
 	newClient.SetTimeout(t)
@@ -117,10 +93,6 @@ func (c *Client) Timeout(t time.Duration) *Client {
 
 // BasicAuth is a chaining function,
 // which sets HTTP basic authentication information for next request.
-// ff:账号密码
-// c:
-// user:账号
-// pass:密码
 func (c *Client) BasicAuth(user, pass string) *Client {
 	newClient := c.Clone()
 	newClient.SetBasicAuth(user, pass)
@@ -130,10 +102,6 @@ func (c *Client) BasicAuth(user, pass string) *Client {
 // Retry is a chaining function,
 // which sets retry count and interval when failure for next request.
 // TODO removed.
-// ff:重试与间隔
-// c:
-// retryCount:重试次数
-// retryInterval:重试间隔时长
 func (c *Client) Retry(retryCount int, retryInterval time.Duration) *Client {
 	newClient := c.Clone()
 	newClient.SetRetry(retryCount, retryInterval)
@@ -145,9 +113,6 @@ func (c *Client) Retry(retryCount int, retryInterval time.Duration) *Client {
 // Make sure you pass the correct `proxyURL`.
 // The correct pattern is like `http://USER:PASSWORD@IP:PORT` or `socks5://USER:PASSWORD@IP:PORT`.
 // Only `http` and `socks5` proxies are supported currently.
-// ff:代理
-// c:
-// proxyURL:代理地址
 func (c *Client) Proxy(proxyURL string) *Client {
 	newClient := c.Clone()
 	newClient.SetProxy(proxyURL)
@@ -156,9 +121,6 @@ func (c *Client) Proxy(proxyURL string) *Client {
 
 // RedirectLimit is a chaining function,
 // which sets the redirect limit the number of jumps for the request.
-// ff:重定向次数限制
-// c:
-// redirectLimit:次数
 func (c *Client) RedirectLimit(redirectLimit int) *Client {
 	newClient := c.Clone()
 	newClient.SetRedirectLimit(redirectLimit)
@@ -166,8 +128,6 @@ func (c *Client) RedirectLimit(redirectLimit int) *Client {
 }
 
 // NoUrlEncode sets the mark that do not encode the parameters before sending request.
-// ff:请求参数禁止URL编码
-// c:
 func (c *Client) NoUrlEncode() *Client {
 	newClient := c.Clone()
 	newClient.SetNoUrlEncode(true)

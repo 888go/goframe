@@ -20,10 +20,6 @@ import (
 )
 
 // Decode converts properties format to map.
-// ff:
-// data:
-// res:
-// err:
 func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	pr, err := properties.Load(data, properties.UTF8)
@@ -46,10 +42,6 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 }
 
 // Encode converts map to properties format.
-// ff:
-// data:
-// res:
-// err:
 func Encode(data map[string]interface{}) (res []byte, err error) {
 	pr := properties.NewProperties()
 
@@ -85,10 +77,6 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 }
 
 // ToJson convert .properties format to JSON.
-// ff:
-// data:
-// res:
-// err:
 func ToJson(data []byte) (res []byte, err error) {
 	prMap, err := Decode(data)
 	if err != nil {

@@ -21,8 +21,6 @@ type AdapterRedis struct {
 }
 
 // NewAdapterRedis creates and returns a new memory cache object.
-// ff:
-// redis:
 func NewAdapterRedis(redis *gredis.Redis) Adapter {
 	return &AdapterRedis{
 		redis: redis,
@@ -33,14 +31,6 @@ func NewAdapterRedis(redis *gredis.Redis) Adapter {
 //
 // It does not expire if `duration` == 0.
 // It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
-// yx:true
-// ff:
-// c:
-// ctx:
-// key:
-// value:
-// duration:
-// err:
 func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (err error) {
 	redisKey := gconv.String(key)
 	if value == nil || duration < 0 {
@@ -59,11 +49,6 @@ func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface
 //
 // It does not expire if `duration` == 0.
 // It deletes the keys of `data` if `duration` < 0 or given `value` is nil.
-// ff:
-// c:
-// ctx:上下文
-// data:值
-// duration:时长
 func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error {
 	if len(data) == 0 {
 		return nil
@@ -106,12 +91,6 @@ func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interfac
 //
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// value:值
-// duration:时长
 func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (bool, error) {
 	var (
 		err      error
@@ -163,14 +142,6 @@ func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value
 //
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// ok:成功
-// err:错误
 func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -187,14 +158,6 @@ func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f
 //
 // Note that it differs from function `SetIfNotExistFunc` is that the function `f` is executed within
 // writing mutex lock for concurrent safety purpose.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// ok:成功
-// err:错误
 func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -205,10 +168,6 @@ func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{
 
 // Get retrieves and returns the associated value of given <key>.
 // It returns nil if it does not exist or its value is nil.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
 func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, error) {
 	return c.redis.Get(ctx, gconv.String(key))
 }
@@ -220,14 +179,6 @@ func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, err
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil, but it does nothing
 // if `value` is a function and the function result is nil.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// value:值
-// duration:时长
-// result:结果
-// err:
 func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error) {
 	result, err = c.Get(ctx, key)
 	if err != nil {
@@ -246,14 +197,6 @@ func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value inte
 // It does not expire if `duration` == 0.
 // It deletes the `key` if `duration` < 0 or given `value` is nil, but it does nothing
 // if `value` is a function and the function result is nil.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// result:结果
-// err:
 func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -283,23 +226,11 @@ func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func
 //
 // Note that it differs from function `GetOrSetFunc` is that the function `f` is executed within
 // writing mutex lock for concurrent safety purpose.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// result:结果
-// err:
 func (c *AdapterRedis) GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	return c.GetOrSetFunc(ctx, key, f, duration)
 }
 
 // Contains checks and returns true if `key` exists in the cache, or else returns false.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
 func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, error) {
 	n, err := c.redis.Exists(ctx, gconv.String(key))
 	if err != nil {
@@ -309,11 +240,6 @@ func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, err
 }
 
 // Size returns the number of items in the cache.
-// ff:
-// c:
-// ctx:上下文
-// size:数量
-// err:错误
 func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
 	n, err := c.redis.DBSize(ctx)
 	if err != nil {
@@ -325,9 +251,6 @@ func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
 // Data returns a copy of all key-value pairs in the cache as map type.
 // Note that this function may lead lots of memory usage, you can implement this function
 // if necessary.
-// ff:
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, error) {
 	// Keys.
 	keys, err := c.redis.Keys(ctx, "*")
@@ -349,9 +272,6 @@ func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, e
 }
 
 // Keys returns all keys in the cache as slice.
-// ff:
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Keys(ctx context.Context) ([]interface{}, error) {
 	keys, err := c.redis.Keys(ctx, "*")
 	if err != nil {
@@ -361,9 +281,6 @@ func (c *AdapterRedis) Keys(ctx context.Context) ([]interface{}, error) {
 }
 
 // Values returns all values in the cache as slice.
-// ff:
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 	// Keys.
 	keys, err := c.redis.Keys(ctx, "*")
@@ -391,14 +308,6 @@ func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 //
 // It deletes the `key` if given `value` is nil.
 // It does nothing if `key` does not exist in the cache.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// value:值
-// oldValue:旧值
-// exist:
-// err:
 func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error) {
 	var (
 		v        *gvar.Var
@@ -443,13 +352,6 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 //
 // It returns -1 and does nothing if the `key` does not exist in the cache.
 // It deletes the `key` if `duration` < 0.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
-// duration:时长
-// oldDuration:旧过期时长
-// err:错误
 func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error) {
 	var (
 		v        *gvar.Var
@@ -492,10 +394,6 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 // Note that,
 // It returns 0 if the `key` does not expire.
 // It returns -1 if the `key` does not exist in the cache.
-// ff:
-// c:
-// ctx:上下文
-// key:名称
 func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Duration, error) {
 	pttl, err := c.redis.PTTL(ctx, gconv.String(key))
 	if err != nil {
@@ -513,12 +411,6 @@ func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Dur
 
 // Remove deletes the one or more keys from cache, and returns its value.
 // If multiple keys are given, it returns the value of the deleted last item.
-// ff:
-// c:
-// ctx:上下文
-// keys:名称s
-// lastValue:最后一个删除值
-// err:
 func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error) {
 	if len(keys) == 0 {
 		return nil, nil
@@ -535,10 +427,6 @@ func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastVal
 // Clear clears all data of the cache.
 // Note that this function is sensitive and should be carefully used.
 // It uses `FLUSHDB` command in redis server, which might be disabled in server.
-// ff:
-// c:
-// ctx:上下文
-// err:错误
 func (c *AdapterRedis) Clear(ctx context.Context) (err error) {
 	// The "FLUSHDB" may not be available.
 	err = c.redis.FlushDB(ctx)
@@ -546,9 +434,6 @@ func (c *AdapterRedis) Clear(ctx context.Context) (err error) {
 }
 
 // Close closes the cache.
-// ff:
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Close(ctx context.Context) error {
 	// It does nothing.
 	return nil

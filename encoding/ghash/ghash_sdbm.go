@@ -7,8 +7,6 @@
 package ghash
 
 // SDBM implements the classic SDBM hash algorithm for 32 bits.
-// ff:
-// str:
 func SDBM(str []byte) uint32 {
 	var hash uint32
 	for i := 0; i < len(str); i++ {
@@ -19,8 +17,6 @@ func SDBM(str []byte) uint32 {
 }
 
 // SDBM64 implements the classic SDBM hash algorithm for 64 bits.
-// ff:
-// str:
 func SDBM64(str []byte) uint64 {
 	var hash uint64
 	for i := 0; i < len(str); i++ {

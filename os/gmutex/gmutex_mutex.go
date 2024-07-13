@@ -17,9 +17,6 @@ type Mutex struct {
 // If there's a write/reading lock the mutex, it will block until the lock is released.
 //
 // It releases the lock after `f` is executed.
-// ff:锁定_函数
-// m:
-// f:回调函数
 func (m *Mutex) LockFunc(f func()) {
 	m.Lock()
 	defer m.Unlock()
@@ -31,10 +28,6 @@ func (m *Mutex) LockFunc(f func()) {
 // it returns false immediately.
 //
 // It releases the lock after `f` is executed.
-// ff:非阻塞锁定_函数
-// m:
-// f:回调函数
-// result:结果
 func (m *Mutex) TryLockFunc(f func()) (result bool) {
 	if m.TryLock() {
 		result = true

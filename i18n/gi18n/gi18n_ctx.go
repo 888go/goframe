@@ -18,9 +18,6 @@ const (
 )
 
 // WithLanguage append language setting to the context and returns a new context.
-// ff:
-// ctx:
-// language:
 func WithLanguage(ctx context.Context, language string) context.Context {
 	if ctx == nil {
 		ctx = context.TODO()
@@ -30,8 +27,6 @@ func WithLanguage(ctx context.Context, language string) context.Context {
 
 // LanguageFromCtx retrieves and returns language name from context.
 // It returns an empty string if it is not set previously.
-// ff:
-// ctx:
 func LanguageFromCtx(ctx context.Context) string {
 	if ctx == nil {
 		return ""

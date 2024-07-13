@@ -14,8 +14,6 @@ import (
 )
 
 // Size returns the size of file specified by `path` in byte.
-// ff:取大小
-// path:路径
 func Size(path string) int64 {
 	s, e := os.Stat(path)
 	if e != nil {
@@ -25,22 +23,16 @@ func Size(path string) int64 {
 }
 
 // SizeFormat returns the size of file specified by `path` in format string.
-// ff:取大小并易读格式
-// path:路径
 func SizeFormat(path string) string {
 	return FormatSize(Size(path))
 }
 
 // ReadableSize formats size of file given by `path`, for more human readable.
-// ff:ReadableSize别名
-// path:路径
 func ReadableSize(path string) string {
 	return FormatSize(Size(path))
 }
 
 // StrToSize converts formatted size string to its size in bytes.
-// ff:易读格式转字节长度
-// sizeStr:大小文本
 func StrToSize(sizeStr string) int64 {
 	i := 0
 	for ; i < len(sizeStr); i++ {
@@ -83,8 +75,6 @@ func StrToSize(sizeStr string) int64 {
 }
 
 // FormatSize formats size `raw` for more manually readable.
-// ff:字节长度转易读格式
-// raw:文件大小
 func FormatSize(raw int64) string {
 	var r float64 = float64(raw)
 	var t float64 = 1024

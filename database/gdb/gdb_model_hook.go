@@ -109,18 +109,11 @@ const (
 )
 
 // IsTransaction checks and returns whether current operation is during transaction.
-// ff:是否为事务
-// h:
 func (h *internalParamHook) IsTransaction() bool {
 	return h.link.IsTransaction()
 }
 
 // Next calls the next hook handler.
-// ff:
-// h:
-// ctx:上下文
-// result:行记录切片
-// err:错误
 func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -156,11 +149,6 @@ func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
 }
 
 // Next calls the next hook handler.
-// ff:
-// h:
-// ctx:上下文
-// result:行记录切片
-// err:错误
 func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -185,11 +173,6 @@ func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err erro
 }
 
 // Next calls the next hook handler.
-// ff:
-// h:
-// ctx:上下文
-// result:行记录切片
-// err:错误
 func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -220,11 +203,6 @@ func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err erro
 }
 
 // Next calls the next hook handler.
-// ff:
-// h:
-// ctx:
-// result:
-// err:
 func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -255,9 +233,6 @@ func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err erro
 }
 
 // Hook sets the hook functions for current model.
-// ff:
-// m:
-// hook:
 func (m *Model) Hook(hook HookHandler) *Model {
 	model := m.getModel()
 	model.hookHandler = hook

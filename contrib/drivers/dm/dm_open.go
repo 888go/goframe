@@ -19,11 +19,6 @@ import (
 )
 
 // Open creates and returns an underlying sql.DB object for pgsql.
-// ff:
-// d:
-// config:
-// db:
-// err:
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string

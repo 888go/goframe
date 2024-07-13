@@ -168,6 +168,8 @@ func Test_Dump_Slashes(t *testing.T) {
 		gutil.DumpWithType(req.Content)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1661
 func Test_Dump_Issue1661(t *testing.T) {
 	type B struct {
 		ba int

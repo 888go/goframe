@@ -18,11 +18,6 @@ import (
 )
 
 // ConvertValueForField converts value to the type of the record field.
-// ff:
-// d:
-// ctx:
-// fieldType:
-// fieldValue:
 func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	switch itemValue := fieldValue.(type) {
 	case time.Time:

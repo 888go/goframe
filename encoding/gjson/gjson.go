@@ -56,20 +56,21 @@ type Options struct {
 
 // iInterfaces is used for type assert api for Interfaces().
 type iInterfaces interface {
-	Interfaces() []interface{}//qm:取any切片  cz:Interfaces() []interface{}  yx:true
+	Interfaces() []interface{}
 }
 
 // iMapStrAny is the interface support for converting struct parameter to map.
 type iMapStrAny interface {
-	MapStrAny() map[string]interface{}//qm:取MapStrAny  cz:MapStrAny() map[string]interface{}  yx:true
+	MapStrAny() map[string]interface{}
 }
 
 // iVal is the interface for underlying interface{} retrieving.
 type iVal interface {
-	Val() interface{}//qm:取值  cz:Val() interface{}  yx:true
+	Val() interface{}
 }
 
 // setValue sets `value` to `j` by `pattern`.
+// Note:
 // 1. If value is nil and removed is true, means deleting this value;
 // 2. It's quite complicated in hierarchical data search, node creating and data assignment;
 func (j *Json) setValue(pattern string, value interface{}, removed bool) error {

@@ -9,7 +9,7 @@
 // For maintainers, please very note that,
 // this package is quite a basic package, which SHOULD NOT import extra packages
 // except standard packages and internal packages, to avoid cycle imports.
-package gerror//bm:错误类
+package gerror
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"

@@ -36,4 +36,5 @@
 # 备注结束
 
 [func (c *Core) Schema(schema string) *Schema {]
+ff=切换数据库
 schema=数据库名

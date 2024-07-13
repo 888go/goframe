@@ -52,6 +52,7 @@ func (b *WhereBuilder) doWherefType(t string, format string, args ...interface{}
 // Where sets the condition statement for the builder. The parameter `where` can be type of
 // string/map/gmap/slice/struct/*struct, etc. Note that, if it's called more than one times,
 // multiple conditions will be joined into where statement using "AND".
+// Eg:
 // Where("uid=10000")
 // Where("uid", 10000)
 // Where("money>? AND name like ?", 99999, "vip_%")
@@ -59,10 +60,6 @@ func (b *WhereBuilder) doWherefType(t string, format string, args ...interface{}
 // Where("status IN (?)", g.Slice{1,2,3})
 // Where("age IN(?,?)", 18, 50)
 // Where(User{ Id : 1, UserName : "john"}).
-// ff:条件
-// b:
-// where:条件
-// args:参数
 func (b *WhereBuilder) Where(where interface{}, args ...interface{}) *WhereBuilder {
 	return b.doWhereType(``, where, args...)
 }
@@ -70,12 +67,9 @@ func (b *WhereBuilder) Where(where interface{}, args ...interface{}) *WhereBuild
 // Wheref builds condition string using fmt.Sprintf and arguments.
 // Note that if the number of `args` is more than the placeholder in `format`,
 // the extra `args` will be used as the where condition arguments of the Model.
+// Eg:
 // Wheref(`amount<? and status=%s`, "paid", 100)  => WHERE `amount`<100 and status='paid'
 // Wheref(`amount<%d and status=%s`, 100, "paid") => WHERE `amount`<100 and status='paid'
-// ff:条件格式化
-// b:
-// format:格式
-// args:参数
 func (b *WhereBuilder) Wheref(format string, args ...interface{}) *WhereBuilder {
 	return b.doWherefType(``, format, args...)
 }
@@ -85,10 +79,6 @@ func (b *WhereBuilder) Wheref(format string, args ...interface{}) *WhereBuilder 
 // key value. That is, if primary key is "id" and given `where` parameter as "123", the
 // WherePri function treats the condition as "id=123", but Model.Where treats the condition
 // as string "123".
-// ff:条件并识别主键
-// b:
-// where:条件
-// args:参数
 func (b *WhereBuilder) WherePri(where interface{}, args ...interface{}) *WhereBuilder {
 	if len(args) > 0 {
 		return b.Where(where, args...)
@@ -98,73 +88,41 @@ func (b *WhereBuilder) WherePri(where interface{}, args ...interface{}) *WhereBu
 }
 
 // WhereLT builds `column < value` statement.
-// ff:条件小于
-// b:
-// column:字段名
-// value:比较值
 func (b *WhereBuilder) WhereLT(column string, value interface{}) *WhereBuilder {
 	return b.Wheref(`%s < ?`, b.model.QuoteWord(column), value)
 }
 
 // WhereLTE builds `column <= value` statement.
-// ff:条件小于等于
-// b:
-// column:字段名
-// value:比较值
 func (b *WhereBuilder) WhereLTE(column string, value interface{}) *WhereBuilder {
 	return b.Wheref(`%s <= ?`, b.model.QuoteWord(column), value)
 }
 
 // WhereGT builds `column > value` statement.
-// ff:条件大于
-// b:
-// column:字段名
-// value:比较值
 func (b *WhereBuilder) WhereGT(column string, value interface{}) *WhereBuilder {
 	return b.Wheref(`%s > ?`, b.model.QuoteWord(column), value)
 }
 
 // WhereGTE builds `column >= value` statement.
-// ff:条件大于等于
-// b:
-// column:字段名
-// value:比较值
 func (b *WhereBuilder) WhereGTE(column string, value interface{}) *WhereBuilder {
 	return b.Wheref(`%s >= ?`, b.model.QuoteWord(column), value)
 }
 
 // WhereBetween builds `column BETWEEN min AND max` statement.
-// ff:条件取范围
-// b:
-// column:字段名
-// min:最小值
-// max:最大值
 func (b *WhereBuilder) WhereBetween(column string, min, max interface{}) *WhereBuilder {
 	return b.Wheref(`%s BETWEEN ? AND ?`, b.model.QuoteWord(column), min, max)
 }
 
 // WhereLike builds `column LIKE like` statement.
-// ff:条件模糊匹配
-// b:
-// column:字段名
-// like:通配符条件值
 func (b *WhereBuilder) WhereLike(column string, like string) *WhereBuilder {
 	return b.Wheref(`%s LIKE ?`, b.model.QuoteWord(column), like)
 }
 
 // WhereIn builds `column IN (in)` statement.
-// ff:条件包含
-// b:
-// column:字段名
-// in:包含值
 func (b *WhereBuilder) WhereIn(column string, in interface{}) *WhereBuilder {
 	return b.doWherefType(whereHolderTypeIn, `%s IN (?)`, b.model.QuoteWord(column), in)
 }
 
 // WhereNull builds `columns[0] IS NULL AND columns[1] IS NULL ...` statement.
-// ff:条件NULL值
-// b:
-// columns:字段名
 func (b *WhereBuilder) WhereNull(columns ...string) *WhereBuilder {
 	builder := b
 	for _, column := range columns {
@@ -174,46 +132,26 @@ func (b *WhereBuilder) WhereNull(columns ...string) *WhereBuilder {
 }
 
 // WhereNotBetween builds `column NOT BETWEEN min AND max` statement.
-// ff:条件取范围以外
-// b:
-// column:字段名
-// min:最小值
-// max:最大值
 func (b *WhereBuilder) WhereNotBetween(column string, min, max interface{}) *WhereBuilder {
 	return b.Wheref(`%s NOT BETWEEN ? AND ?`, b.model.QuoteWord(column), min, max)
 }
 
 // WhereNotLike builds `column NOT LIKE like` statement.
-// ff:条件模糊匹配以外
-// b:
-// column:字段名
-// like:通配符条件值
 func (b *WhereBuilder) WhereNotLike(column string, like interface{}) *WhereBuilder {
 	return b.Wheref(`%s NOT LIKE ?`, b.model.QuoteWord(column), like)
 }
 
 // WhereNot builds `column != value` statement.
-// ff:条件不等于
-// b:
-// column:字段名
-// value:值
 func (b *WhereBuilder) WhereNot(column string, value interface{}) *WhereBuilder {
 	return b.Wheref(`%s != ?`, b.model.QuoteWord(column), value)
 }
 
 // WhereNotIn builds `column NOT IN (in)` statement.
-// ff:条件不包含
-// b:
-// column:字段名
-// in:不包含值
 func (b *WhereBuilder) WhereNotIn(column string, in interface{}) *WhereBuilder {
 	return b.doWherefType(whereHolderTypeIn, `%s NOT IN (?)`, b.model.QuoteWord(column), in)
 }
 
 // WhereNotNull builds `columns[0] IS NOT NULL AND columns[1] IS NOT NULL ...` statement.
-// ff:条件非Null
-// b:
-// columns:字段名
 func (b *WhereBuilder) WhereNotNull(columns ...string) *WhereBuilder {
 	builder := b
 	for _, column := range columns {

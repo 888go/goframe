@@ -29,27 +29,12 @@ import (
 
 // Query commits one query SQL to underlying driver and returns the execution result.
 // It is most commonly used for data querying.
-// ff:
-// c:
-// ctx:上下文
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
 	return c.db.DoQuery(ctx, nil, sql, args...)
 }
 
 // DoQuery commits the sql string and its arguments to underlying driver
 // through given link object and returns the execution result.
-// ff:
-// c:
-// ctx:上下文
-// link:链接
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -103,27 +88,12 @@ func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...inter
 
 // Exec commits one query SQL to underlying driver and returns the execution result.
 // It is most commonly used for data inserting and updating.
-// ff:
-// c:
-// ctx:上下文
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {
 	return c.db.DoExec(ctx, nil, sql, args...)
 }
 
 // DoExec commits the sql string and its arguments to underlying driver
 // through given link object and returns the execution result.
-// ff:
-// c:
-// ctx:上下文
-// link:链接
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -180,26 +150,11 @@ func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interf
 // DoFilter is a hook function, which filters the sql and its arguments before it's committed to underlying driver.
 // The parameter `link` specifies the current database connection operation object. You can modify the sql
 // string `sql` and its arguments `args` as you wish before they're committed to driver.
-// ff:
-// c:
-// ctx:
-// link:
-// sql:
-// args:
-// newSql:
-// newArgs:
-// err:
 func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
 
 // DoCommit commits current sql and arguments to underlying sql driver.
-// ff:
-// c:
-// ctx:
-// in:
-// out:
-// err:
 func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error) {
 	var (
 		sqlTx                *sql.Tx
@@ -341,11 +296,6 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 //
 // The parameter `execOnMaster` specifies whether executing the sql on master node,
 // or else it executes the sql on slave node if master-slave configured.
-// ff:
-// c:
-// ctx:上下文
-// sql:
-// execOnMaster:是否主节点执行
 func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {
 	var (
 		err  error
@@ -364,13 +314,6 @@ func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*
 }
 
 // DoPrepare calls prepare function on given link object and returns the statement object.
-// ff:
-// c:
-// ctx:上下文
-// link:链接
-// sql:
-// stmt:参数预处理
-// err:错误
 func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -410,11 +353,6 @@ func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt
 // FormatUpsert formats and returns SQL clause part for upsert statement.
 // In default implements, this function performs upsert statement for MySQL like:
 // `INSERT INTO ... ON DUPLICATE KEY UPDATE x=VALUES(z),m=VALUES(y)...`
-// ff:
-// c:
-// columns:
-// list:
-// option:
 func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) (string, error) {
 	var onDuplicateStr string
 	if option.OnDuplicateStr != "" {
@@ -460,11 +398,6 @@ func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) 
 }
 
 // RowsToResult converts underlying data record type sql.Rows to Result type.
-// ff:原生sql记录到行记录切片对象
-// c:
-// ctx:上下文
-// rows:底层数据记录
-// Result:
 func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error) {
 	if rows == nil {
 		return nil, nil

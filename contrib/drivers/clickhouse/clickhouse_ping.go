@@ -14,8 +14,6 @@ import (
 )
 
 // PingMaster pings the master node to check authentication or keeps the connection alive.
-// ff:
-// d:
 func (d *Driver) PingMaster() error {
 	conn, err := d.Master()
 	if err != nil {
@@ -25,8 +23,6 @@ func (d *Driver) PingMaster() error {
 }
 
 // PingSlave pings the slave node to check authentication or keeps the connection alive.
-// ff:
-// d:
 func (d *Driver) PingSlave() error {
 	conn, err := d.Slave()
 	if err != nil {

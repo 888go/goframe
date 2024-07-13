@@ -14,9 +14,6 @@ import (
 )
 
 // Time converts `any` to time.Time.
-// ff:取时间
-// any:
-// format:格式
 func Time(any interface{}, format ...string) time.Time {
 	// It's already this type.
 	if len(format) == 0 {
@@ -33,8 +30,6 @@ func Time(any interface{}, format ...string) time.Time {
 // Duration converts `any` to time.Duration.
 // If `any` is string, then it uses time.ParseDuration to convert it.
 // If `any` is numeric, then it converts `any` as nanoseconds.
-// ff:取时长
-// any:值
 func Duration(any interface{}) time.Duration {
 	// It's already this type.
 	if v, ok := any.(time.Duration); ok {
@@ -53,10 +48,6 @@ func Duration(any interface{}) time.Duration {
 // It returns the converted value that matched the first format of the formats slice.
 // If no `format` given, it converts `any` using gtime.NewFromTimeStamp if `any` is numeric,
 // or using gtime.StrToTime if `any` is string.
-// yx:true
-// ff:取gtime时间类
-// any:
-// format:
 func GTime(any interface{}, format ...string) *gtime.Time {
 	if any == nil {
 		return nil

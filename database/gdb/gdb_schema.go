@@ -12,9 +12,6 @@ type Schema struct {
 }
 
 // Schema creates and returns a schema.
-// ff:
-// c:
-// schema:数据库名
 func (c *Core) Schema(schema string) *Schema {
 	// Do not change the schema of the original db,
 	// it here creates a new db and changes its schema.

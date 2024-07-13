@@ -13,22 +13,11 @@ import (
 )
 
 // Begin starts and returns the transaction object.
-// ff:
-// d:
-// ctx:
-// tx:
-// err:
 func (d *Driver) Begin(ctx context.Context) (tx gdb.TX, err error) {
 	return nil, errUnsupportedBegin
 }
 
 // Transaction wraps the transaction logic using function `f`.
-// ff:
-// d:
-// ctx:
-// f:
-// ctx:
-// tx:
 func (d *Driver) Transaction(ctx context.Context, f func(ctx context.Context, tx gdb.TX) error) error {
 	return errUnsupportedTransaction
 }

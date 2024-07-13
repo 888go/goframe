@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package gmd5_test//bm:加密md5类_test
+package gmd5_test
 
 import (
 	"os"

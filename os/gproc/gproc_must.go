@@ -12,11 +12,6 @@ import (
 )
 
 // MustShell performs as Shell, but it panics if any error occurs.
-// ff:
-// ctx:
-// cmd:
-// out:
-// in:
 func MustShell(ctx context.Context, cmd string, out io.Writer, in io.Reader) {
 	if err := Shell(ctx, cmd, out, in); err != nil {
 		panic(err)
@@ -24,9 +19,6 @@ func MustShell(ctx context.Context, cmd string, out io.Writer, in io.Reader) {
 }
 
 // MustShellRun performs as ShellRun, but it panics if any error occurs.
-// ff:
-// ctx:
-// cmd:
 func MustShellRun(ctx context.Context, cmd string) {
 	if err := ShellRun(ctx, cmd); err != nil {
 		panic(err)
@@ -34,10 +26,6 @@ func MustShellRun(ctx context.Context, cmd string) {
 }
 
 // MustShellExec performs as ShellExec, but it panics if any error occurs.
-// ff:
-// ctx:
-// cmd:
-// environment:
 func MustShellExec(ctx context.Context, cmd string, environment ...[]string) string {
 	result, err := ShellExec(ctx, cmd, environment...)
 	if err != nil {

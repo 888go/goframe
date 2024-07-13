@@ -59,7 +59,6 @@ const (
 )
 
 // New creates and returns a custom logger.
-// ff:创建
 func New() *Logger {
 	return &Logger{
 		config: DefaultConfig(),
@@ -67,8 +66,6 @@ func New() *Logger {
 }
 
 // NewWithWriter creates and returns a custom logger with io.Writer.
-// ff:创建并按writer
-// writer:
 func NewWithWriter(writer io.Writer) *Logger {
 	l := New()
 	l.SetWriter(writer)
@@ -77,8 +74,6 @@ func NewWithWriter(writer io.Writer) *Logger {
 
 // Clone returns a new logger, which a `shallow copy` of the current logger.
 // Note that the attribute `config` of the cloned one is the shallow copy of current one.
-// ff:取副本
-// l:
 func (l *Logger) Clone() *Logger {
 	return &Logger{
 		config: l.config,
@@ -380,10 +375,6 @@ func (l *Logger) format(format string, values ...interface{}) string {
 
 // PrintStack prints the caller stack,
 // the optional parameter `skip` specify the skipped stack offset from the end point.
-// ff:
-// l:
-// ctx:
-// skip:
 func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 	if s := l.GetStack(skip...); s != "" {
 		l.Print(ctx, "Stack:\n"+s)
@@ -394,9 +385,6 @@ func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 
 // GetStack returns the caller stack content,
 // the optional parameter `skip` specify the skipped stack offset from the end point.
-// ff:取堆栈信息
-// l:
-// skip:偏移量
 func (l *Logger) GetStack(skip ...int) string {
 	stackSkip := l.config.StSkip
 	if len(skip) > 0 {

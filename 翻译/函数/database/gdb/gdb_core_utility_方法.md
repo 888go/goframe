@@ -60,15 +60,18 @@ ff=底层添加前缀字符和引用字符
 table=表名称
 
 [func (c *Core) GetChars() (charLeft string, charRight string) {]
+ff=底层取数据库安全字符
 charRight=右字符
 charLeft=左字符
 
 [func (c *Core) Tables(ctx context.Context, schema ...string) (tables #左中括号##右中括号#string, err error) {]
+ff=取表名称切片
 err=错误
 tables=表名称切片
 ctx=上下文
 
 [func (c *Core) TableFields(ctx context.Context, table string, schema ...string) (fields map#左中括号#string#右中括号#*TableField, err error) {]
+ff=取表字段信息Map
 err=错误
 fields=字段信息Map
 table=表名称

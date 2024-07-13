@@ -41,8 +41,6 @@ type DumpOption struct {
 }
 
 // Dump prints variables `values` to stdout with more manually readable.
-// ff:调试输出
-// values:值s
 func Dump(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -54,8 +52,6 @@ func Dump(values ...interface{}) {
 
 // DumpWithType acts like Dump, but with type information.
 // Also see Dump.
-// ff:调试输出并带类型
-// values:值s
 func DumpWithType(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -66,9 +62,6 @@ func DumpWithType(values ...interface{}) {
 }
 
 // DumpWithOption returns variables `values` as a string with more manually readable.
-// ff:调试输出并带选项
-// value:值
-// option:选项
 func DumpWithOption(value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	DumpTo(buffer, value, DumpOption{
@@ -79,10 +72,6 @@ func DumpWithOption(value interface{}, option DumpOption) {
 }
 
 // DumpTo writes variables `values` as a string in to `writer` with more manually readable
-// ff:调试输出到Writer
-// writer:
-// value:值
-// option:选项
 func DumpTo(writer io.Writer, value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	doDump(value, "", buffer, doDumpOption{
@@ -483,8 +472,6 @@ func addSlashesForString(s string) string {
 }
 
 // DumpJson pretty dumps json content to stdout.
-// ff:调试输出json
-// value:
 func DumpJson(value any) {
 	switch result := value.(type) {
 	case []byte:

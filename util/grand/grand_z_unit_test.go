@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package grand_test//bm:随机类_test
+package grand_test
 
 import (
 	"strings"

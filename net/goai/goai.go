@@ -6,6 +6,7 @@
 
 // Package goai implements and provides document generating for OpenApi specification.
 //
+// https://editor.swagger.io/
 package goai
 
 import (
@@ -22,6 +23,8 @@ import (
 )
 
 // OpenApiV3 is the structure defined from:
+// https://swagger.io/specification/
+// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md
 type OpenApiV3 struct {
 	Config       Config                `json:"-"`
 	OpenAPI      string                `json:"openapi"`
@@ -80,7 +83,6 @@ var (
 )
 
 // New creates and returns an OpenApiV3 implements object.
-// ff:
 func New() *OpenApiV3 {
 	oai := &OpenApiV3{}
 	oai.fillWithDefaultValue()
@@ -96,9 +98,6 @@ type AddInput struct {
 }
 
 // Add adds an instance of struct or a route function to OpenApiV3 definition implements.
-// ff:
-// oai:
-// in:
 func (oai *OpenApiV3) Add(in AddInput) error {
 	var (
 		reflectValue = reflect.ValueOf(in.Object)
@@ -127,8 +126,6 @@ func (oai *OpenApiV3) Add(in AddInput) error {
 	}
 }
 
-// ff:
-// oai:
 func (oai OpenApiV3) String() string {
 	b, err := json.Marshal(oai)
 	if err != nil {

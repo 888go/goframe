@@ -34,8 +34,6 @@ func newMeter(option MeterOption) Meter {
 }
 
 // Performer creates and returns the Performer of the Meter.
-// ff:
-// meter:
 func (meter *localMeter) Performer() MeterPerformer {
 	if globalProvider == nil {
 		return nil

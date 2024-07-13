@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with gm file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gtree_test//bm:树形类_test
+package gtree_test
 
 import (
 	"fmt"

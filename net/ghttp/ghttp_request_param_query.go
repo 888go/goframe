@@ -14,10 +14,6 @@ import (
 )
 
 // SetQuery sets custom query value with key-value pairs.
-// ff:设置查询参数
-// r:
-// key:名称
-// value:值
 func (r *Request) SetQuery(key string, value interface{}) {
 	r.parseQuery()
 	if r.queryMap == nil {
@@ -32,10 +28,6 @@ func (r *Request) SetQuery(key string, value interface{}) {
 //
 // Note that if there are multiple parameters with the same name, the parameters are retrieved
 // and overwrote in order of priority: query > body.
-// ff:取查询参数到泛型类
-// r:
-// key:名称
-// def:默认值
 func (r *Request) GetQuery(key string, def ...interface{}) *gvar.Var {
 	r.parseQuery()
 	if len(r.queryMap) > 0 {
@@ -63,9 +55,6 @@ func (r *Request) GetQuery(key string, def ...interface{}) *gvar.Var {
 //
 // Note that if there are multiple parameters with the same name, the parameters are retrieved and overwrote
 // in order of priority: query > body.
-// ff:取查询参数到Map
-// r:
-// kvMap:
 func (r *Request) GetQueryMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	if r.Method == http.MethodGet {
@@ -113,9 +102,6 @@ func (r *Request) GetQueryMap(kvMap ...map[string]interface{}) map[string]interf
 //
 // retrieving from client parameters, the associated values are the default values if the client
 // does not pass.
-// ff:取查询参数到MapStrStr
-// r:
-// kvMap:
 func (r *Request) GetQueryMapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	queryMap := r.GetQueryMap(kvMap...)
 	if len(queryMap) > 0 {
@@ -132,9 +118,6 @@ func (r *Request) GetQueryMapStrStr(kvMap ...map[string]interface{}) map[string]
 // as map[string]*gvar.Var. The parameter `kvMap` specifies the keys
 // retrieving from client parameters, the associated values are the default values if the client
 // does not pass.
-// ff:取查询参数到Map泛型类切片
-// r:
-// kvMap:
 func (r *Request) GetQueryMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
 	queryMap := r.GetQueryMap(kvMap...)
 	if len(queryMap) > 0 {
@@ -151,10 +134,6 @@ func (r *Request) GetQueryMapStrVar(kvMap ...map[string]interface{}) map[string]
 // and converts them to a given struct object. Note that the parameter `pointer` is a pointer
 // to the struct object. The optional parameter `mapping` is used to specify the key to
 // attribute mapping.
-// ff:取查询参数到结构体
-// r:
-// pointer:结构体指针
-// mapping:
 func (r *Request) GetQueryStruct(pointer interface{}, mapping ...map[string]string) error {
 	_, err := r.doGetQueryStruct(pointer, mapping...)
 	return err

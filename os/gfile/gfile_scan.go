@@ -24,10 +24,6 @@ const (
 //
 // The pattern parameter `pattern` supports multiple file name patterns,
 // using the ',' symbol to separate multiple patterns.
-// ff:枚举并含子目录名
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归替换
 func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -56,12 +52,6 @@ func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 // The parameter `handler` specifies the callback function handling each sub-file path of
 // the `path` and its sub-folders. It ignores the sub-file path if `handler` returns an empty
 // string, or else it appends the sub-file path to result slice.
-// ff:枚举并含子目录名_函数
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归替换
-// handler:回调函数
-// path:目录
 func ScanDirFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	list, err := doScanDir(0, path, pattern, recursive, handler)
 	if err != nil {
@@ -80,10 +70,6 @@ func ScanDirFunc(path string, pattern string, recursive bool, handler func(path 
 // using the ',' symbol to separate multiple patterns.
 //
 // Note that it returns only files, exclusive of directories.
-// ff:枚举
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归查找
 func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, error) {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -120,12 +106,6 @@ func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, erro
 //
 // Note that the parameter `path` for `handler` is not a directory but a file.
 // It returns only files, exclusive of directories.
-// ff:枚举_函数
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归查找
-// handler:匿名函数
-// path:目录
 func ScanDirFileFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	list, err := doScanDir(0, path, pattern, recursive, func(path string) string {
 		if IsDir(path) {

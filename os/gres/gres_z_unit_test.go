@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gres_test//bm:资源类_test
+package gres_test
 
 import (
 	_ "github.com/gogf/gf/v2/os/gres/testdata/data"

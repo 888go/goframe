@@ -7,8 +7,6 @@
 package gdb
 
 // LockUpdate sets the lock for update for current operation.
-// ff:锁读写
-// m:
 func (m *Model) LockUpdate() *Model {
 	model := m.getModel()
 	model.lockInfo = "FOR UPDATE"
@@ -16,8 +14,6 @@ func (m *Model) LockUpdate() *Model {
 }
 
 // LockShared sets the lock in share mode for current operation.
-// ff:锁写入
-// m:
 func (m *Model) LockShared() *Model {
 	model := m.getModel()
 	model.lockInfo = "LOCK IN SHARE MODE"

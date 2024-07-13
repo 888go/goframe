@@ -17,22 +17,16 @@ type neverDoneCtx struct {
 }
 
 // Done forbids the context done from parent context.
-// ff:
 func (*neverDoneCtx) Done() <-chan struct{} {
 	return nil
 }
 
 // Deadline forbids the context deadline from parent context.
-// ff:
-// deadline:
-// ok:
 func (*neverDoneCtx) Deadline() (deadline time.Time, ok bool) {
 	return time.Time{}, false
 }
 
 // Err forbids the context done from parent context.
-// ff:
-// c:
 func (c *neverDoneCtx) Err() error {
 	return nil
 }
@@ -43,8 +37,6 @@ func (c *neverDoneCtx) Err() error {
 //
 // Note that, it does not affect the closing (canceling) of the parent context,
 // as it is a wrapper for its parent, which only affects the next context handling.
-// ff:
-// ctx:
 func NeverDone(ctx context.Context) context.Context {
 	return &neverDoneCtx{ctx}
 }

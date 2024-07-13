@@ -13,12 +13,6 @@ import (
 )
 
 // DoCommit commits current sql and arguments to underlying sql driver.
-// ff:
-// d:
-// ctx:
-// in:
-// out:
-// err:
 func (d *Driver) DoCommit(ctx context.Context, in gdb.DoCommitInput) (out gdb.DoCommitOutput, err error) {
 	ctx = d.InjectIgnoreResult(ctx)
 	return d.Core.DoCommit(ctx, in)

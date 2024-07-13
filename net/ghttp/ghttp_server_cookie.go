@@ -37,8 +37,6 @@ type cookieItem struct {
 // GetCookie creates or retrieves a cookie object with given request.
 // It retrieves and returns an existing cookie object if it already exists with given request.
 // It creates and returns a new cookie object if it does not exist with given request.
-// ff:取cookie对象
-// r:
 func GetCookie(r *Request) *Cookie {
 	if r.Cookie != nil {
 		return r.Cookie
@@ -69,8 +67,6 @@ func (c *Cookie) init() {
 }
 
 // Map returns the cookie items as map[string]string.
-// ff:取Map
-// c:
 func (c *Cookie) Map() map[string]string {
 	c.init()
 	m := make(map[string]string)
@@ -81,9 +77,6 @@ func (c *Cookie) Map() map[string]string {
 }
 
 // Contains checks if given key exists and not expire in cookie.
-// ff:是否已过期
-// c:
-// key:名称
 func (c *Cookie) Contains(key string) bool {
 	c.init()
 	if r, ok := c.data[key]; ok {
@@ -95,11 +88,6 @@ func (c *Cookie) Contains(key string) bool {
 }
 
 // Set sets cookie item with default domain, path and expiration age.
-// yx:true
-// ff:设置值
-// c:
-// key:
-// value:
 func (c *Cookie) Set(key, value string) {
 	c.SetCookie(
 		key,
@@ -118,14 +106,6 @@ func (c *Cookie) Set(key, value string) {
 // SetCookie sets cookie item with given domain, path and expiration age.
 // The optional parameter `options` specifies extra security configurations,
 // which is usually empty.
-// ff:设置cookie
-// c:
-// key:名称
-// value:值
-// domain:域名
-// path:路径
-// maxAge:最大存活时长
-// options:安全配置项
 func (c *Cookie) SetCookie(key, value, domain, path string, maxAge time.Duration, options ...CookieOptions) {
 	c.init()
 	config := CookieOptions{}
@@ -150,9 +130,6 @@ func (c *Cookie) SetCookie(key, value, domain, path string, maxAge time.Duration
 }
 
 // SetHttpCookie sets cookie with *http.Cookie.
-// ff:设置httpcookie
-// c:
-// httpCookie:
 func (c *Cookie) SetHttpCookie(httpCookie *http.Cookie) {
 	c.init()
 	c.data[httpCookie.Name] = &cookieItem{
@@ -161,16 +138,11 @@ func (c *Cookie) SetHttpCookie(httpCookie *http.Cookie) {
 }
 
 // GetSessionId retrieves and returns the session id from cookie.
-// ff:取SessionId
-// c:
 func (c *Cookie) GetSessionId() string {
 	return c.Get(c.server.GetSessionIdName()).String()
 }
 
 // SetSessionId sets session id in the cookie.
-// ff:设置SessionId到Cookie
-// c:
-// id:
 func (c *Cookie) SetSessionId(id string) {
 	c.SetCookie(
 		c.server.GetSessionIdName(),
@@ -188,10 +160,6 @@ func (c *Cookie) SetSessionId(id string) {
 
 // Get retrieves and returns the value with specified key.
 // It returns `def` if specified key does not exist and `def` is given.
-// ff:取值
-// c:
-// key:名称
-// def:默认值
 func (c *Cookie) Get(key string, def ...string) *gvar.Var {
 	c.init()
 	if r, ok := c.data[key]; ok {
@@ -207,9 +175,6 @@ func (c *Cookie) Get(key string, def ...string) *gvar.Var {
 
 // Remove deletes specified key and its value from cookie using default domain and path.
 // It actually tells the http client that the cookie is expired, do not send it to server next time.
-// ff:删除值
-// c:
-// key:名称
 func (c *Cookie) Remove(key string) {
 	c.SetCookie(
 		key,
@@ -222,18 +187,11 @@ func (c *Cookie) Remove(key string) {
 
 // RemoveCookie deletes specified key and its value from cookie using given domain and path.
 // It actually tells the http client that the cookie is expired, do not send it to server next time.
-// ff:删除cookie
-// c:
-// key:名称
-// domain:域名
-// path:路径
 func (c *Cookie) RemoveCookie(key, domain, path string) {
 	c.SetCookie(key, "", domain, path, -24*time.Hour)
 }
 
 // Flush outputs the cookie items to the client.
-// ff:输出
-// c:
 func (c *Cookie) Flush() {
 	if len(c.data) == 0 {
 		return

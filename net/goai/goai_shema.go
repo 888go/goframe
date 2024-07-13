@@ -65,8 +65,6 @@ type Schema struct {
 
 // Clone only clones necessary attributes.
 // TODO clone all attributes, or improve package deepcopy.
-// ff:
-// s:
 func (s *Schema) Clone() *Schema {
 	newSchema := *s
 	newSchema.Required = make([]string, len(s.Required))
@@ -75,8 +73,6 @@ func (s *Schema) Clone() *Schema {
 	return &newSchema
 }
 
-// ff:
-// s:
 func (s Schema) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte

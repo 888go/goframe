@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gfpool provides io-reusable pool for file pointer.
-package gfpool//bm:文件指针池类
+package gfpool
 
 import (
 	"os"

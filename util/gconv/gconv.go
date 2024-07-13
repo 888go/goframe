@@ -7,7 +7,7 @@
 // Package gconv implements powerful and convenient converting functionality for any types of variables.
 //
 // This package should keep much less dependencies with other packages.
-package gconv//bm:转换类
+package gconv
 
 import (
 	"context"
@@ -43,8 +43,6 @@ var (
 )
 
 // Byte converts `any` to byte.
-// ff:取字节
-// any:值
 func Byte(any interface{}) byte {
 	if v, ok := any.(byte); ok {
 		return v
@@ -53,9 +51,6 @@ func Byte(any interface{}) byte {
 }
 
 // Bytes converts `any` to []byte.
-// yx:true
-// ff:取字节集
-// any:
 func Bytes(any interface{}) []byte {
 	if any == nil {
 		return nil
@@ -102,8 +97,6 @@ func Bytes(any interface{}) []byte {
 }
 
 // Rune converts `any` to rune.
-// ff:取字符
-// any:值
 func Rune(any interface{}) rune {
 	if v, ok := any.(rune); ok {
 		return v
@@ -112,8 +105,6 @@ func Rune(any interface{}) rune {
 }
 
 // Runes converts `any` to []rune.
-// ff:取字符切片
-// any:值
 func Runes(any interface{}) []rune {
 	if v, ok := any.([]rune); ok {
 		return v
@@ -123,8 +114,6 @@ func Runes(any interface{}) []rune {
 
 // String converts `any` to string.
 // It's most commonly used converting function.
-// ff:
-// any:
 func String(any interface{}) string {
 	if any == nil {
 		return ""
@@ -228,9 +217,6 @@ func String(any interface{}) string {
 
 // Bool converts `any` to bool.
 // It returns false if `any` is: false, "", 0, "false", "off", "no", empty slice/map.
-// yx:true
-// ff:取布尔
-// any:
 func Bool(any interface{}) bool {
 	if any == nil {
 		return false

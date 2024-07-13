@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gxml provides accessing and converting for XML content.
-package gxml//bm:xml类
+package gxml
 
 import (
 	"strings"
@@ -18,8 +18,6 @@ import (
 )
 
 // Decode parses `content` into and returns as map.
-// ff:
-// content:
 func Decode(content []byte) (map[string]interface{}, error) {
 	res, err := convert(content)
 	if err != nil {
@@ -33,8 +31,6 @@ func Decode(content []byte) (map[string]interface{}, error) {
 }
 
 // DecodeWithoutRoot parses `content` into a map, and returns the map without root level.
-// ff:
-// content:
 func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 	res, err := convert(content)
 	if err != nil {
@@ -55,9 +51,6 @@ func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 
 // Encode encodes map `m` to an XML format content as bytes.
 // The optional parameter `rootTag` is used to specify the XML root tag.
-// ff:
-// m:
-// rootTag:
 func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).Xml(rootTag...)
 	if err != nil {
@@ -68,9 +61,6 @@ func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 
 // EncodeWithIndent encodes map `m` to an XML format content as bytes with indent.
 // The optional parameter `rootTag` is used to specify the XML root tag.
-// ff:
-// m:
-// rootTag:
 func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).XmlIndent("", "\t", rootTag...)
 	if err != nil {
@@ -80,8 +70,6 @@ func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, erro
 }
 
 // ToJson converts `content` as XML format into JSON format bytes.
-// ff:
-// content:
 func ToJson(content []byte) ([]byte, error) {
 	res, err := convert(content)
 	if err != nil {

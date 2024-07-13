@@ -58,13 +58,6 @@ var (
 
 // Parse parses given template file `file` with given template variables `params`
 // and returns the parsed template content.
-// ff:
-// view:
-// ctx:
-// file:
-// params:
-// result:
-// err:
 func (view *View) Parse(ctx context.Context, file string, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -79,12 +72,6 @@ func (view *View) Parse(ctx context.Context, file string, params ...Params) (res
 }
 
 // ParseDefault parses the default template file with params.
-// ff:
-// view:
-// ctx:
-// params:
-// result:
-// err:
 func (view *View) ParseDefault(ctx context.Context, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -100,11 +87,6 @@ func (view *View) ParseDefault(ctx context.Context, params ...Params) (result st
 
 // ParseContent parses given template content `content`  with template variables `params`
 // and returns the parsed content in []byte.
-// ff:
-// view:
-// ctx:
-// content:
-// params:
 func (view *View) ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -126,12 +108,6 @@ type Option struct {
 }
 
 // ParseOption implements template parsing using Option.
-// ff:
-// view:
-// ctx:
-// option:
-// result:
-// err:
 func (view *View) ParseOption(ctx context.Context, option Option) (result string, err error) {
 	if option.Content != "" {
 		return view.doParseContent(ctx, option.Content, option.Params)

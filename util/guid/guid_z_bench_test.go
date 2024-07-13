@@ -6,7 +6,7 @@
 
 // go test *.go -bench=".*"
 
-package guid_test//bm:uid类_test
+package guid_test
 
 import (
 	"testing"

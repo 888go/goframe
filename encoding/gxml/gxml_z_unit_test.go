@@ -4,7 +4,7 @@
 // If a copy of the MIT was not distributed with this file,
 // You can obtain one at https://github.com/gogf/gf.
 
-package gxml_test//bm:xml类_test
+package gxml_test
 
 import (
 	"bytes"

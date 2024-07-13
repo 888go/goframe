@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package gres provides resource management and packing/unpacking feature between files and bytes.
-package gres//bm:资源类
+package gres
 
 const (
 	// Separator for directories.
@@ -20,9 +20,6 @@ var (
 // Add unpacks and adds the `content` into the default resource object.
 // The unnecessary parameter `prefix` indicates the prefix
 // for each file storing into current resource object.
-// ff:
-// content:
-// prefix:
 func Add(content string, prefix ...string) error {
 	return defaultResource.Add(content, prefix...)
 }
@@ -30,16 +27,11 @@ func Add(content string, prefix ...string) error {
 // Load loads, unpacks and adds the data from `path` into the default resource object.
 // The unnecessary parameter `prefix` indicates the prefix
 // for each file storing into current resource object.
-// ff:
-// path:
-// prefix:
 func Load(path string, prefix ...string) error {
 	return defaultResource.Load(path, prefix...)
 }
 
 // Get returns the file with given path.
-// ff:
-// path:
 func Get(path string) *File {
 	return defaultResource.Get(path)
 }
@@ -48,29 +40,21 @@ func Get(path string) *File {
 // it then does index files searching under this directory.
 //
 // GetWithIndex is usually used for http static file service.
-// ff:
-// path:
-// indexFiles:
 func GetWithIndex(path string, indexFiles []string) *File {
 	return defaultResource.GetWithIndex(path, indexFiles)
 }
 
 // GetContent directly returns the content of `path` in default resource object.
-// ff:
-// path:
 func GetContent(path string) []byte {
 	return defaultResource.GetContent(path)
 }
 
 // Contains checks whether the `path` exists in the default resource object.
-// ff:
-// path:
 func Contains(path string) bool {
 	return defaultResource.Contains(path)
 }
 
 // IsEmpty checks and returns whether the resource manager is empty.
-// ff:
 func IsEmpty() bool {
 	return defaultResource.tree.IsEmpty()
 }
@@ -81,10 +65,6 @@ func IsEmpty() bool {
 // using the ',' symbol to separate multiple patterns.
 //
 // It scans directory recursively if given parameter `recursive` is true.
-// ff:
-// path:
-// pattern:
-// recursive:
 func ScanDir(path string, pattern string, recursive ...bool) []*File {
 	return defaultResource.ScanDir(path, pattern, recursive...)
 }
@@ -93,25 +73,16 @@ func ScanDir(path string, pattern string, recursive ...bool) []*File {
 // It scans directory recursively if given parameter `recursive` is true.
 //
 // Note that it returns only files, exclusive of directories.
-// ff:
-// path:
-// pattern:
-// recursive:
 func ScanDirFile(path string, pattern string, recursive ...bool) []*File {
 	return defaultResource.ScanDirFile(path, pattern, recursive...)
 }
 
 // Export exports and saves specified path `src` and all its sub files to specified system path `dst` recursively.
-// ff:
-// src:
-// dst:
-// option:
 func Export(src, dst string, option ...ExportOption) error {
 	return defaultResource.Export(src, dst, option...)
 }
 
 // Dump prints the files of the default resource object.
-// ff:
 func Dump() {
 	defaultResource.Dump()
 }

@@ -5,7 +5,7 @@
 // You can obtain one at https://github.com/gogf/gf.
 
 // Package ghtml provides useful API for HTML content handling.
-package ghtml//bm:html类
+package ghtml
 
 import (
 	"html"
@@ -16,30 +16,26 @@ import (
 )
 
 // StripTags strips HTML tags from content, and returns only text.
-// ff:删除HTML标记
-// s:html文本
+// Referer: http://php.net/manual/zh/function.strip-tags.php
 func StripTags(s string) string {
 	return strip.StripTags(s)
 }
 
 // Entities encodes all HTML chars for content.
-// ff:编码
-// s:html文本
+// Referer: http://php.net/manual/zh/function.htmlentities.php
 func Entities(s string) string {
 	return html.EscapeString(s)
 }
 
 // EntitiesDecode decodes all HTML chars for content.
-// ff:解码
-// s:文本
+// Referer: http://php.net/manual/zh/function.html-entity-decode.php
 func EntitiesDecode(s string) string {
 	return html.UnescapeString(s)
 }
 
 // SpecialChars encodes some special chars for content, these special chars are:
 // "&", "<", ">", `"`, "'".
-// ff:编码特殊字符
-// s:文本
+// Referer: http://php.net/manual/zh/function.htmlspecialchars.php
 func SpecialChars(s string) string {
 	return strings.NewReplacer(
 		"&", "&amp;",
@@ -52,8 +48,7 @@ func SpecialChars(s string) string {
 
 // SpecialCharsDecode decodes some special chars for content, these special chars are:
 // "&", "<", ">", `"`, "'".
-// ff:解码特殊字符
-// s:文本
+// Referer: http://php.net/manual/zh/function.htmlspecialchars-decode.php
 func SpecialCharsDecode(s string) string {
 	return strings.NewReplacer(
 		"&amp;", "&",
@@ -65,8 +60,6 @@ func SpecialCharsDecode(s string) string {
 }
 
 // SpecialCharsMapOrStruct automatically encodes string values/attributes for map/struct.
-// ff:编码Map
-// mapOrStruct:map或Struct
 func SpecialCharsMapOrStruct(mapOrStruct interface{}) error {
 	var (
 		reflectValue = reflect.ValueOf(mapOrStruct)
