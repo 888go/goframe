@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gsvc
 
@@ -13,7 +14,11 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// Register registers `service` to default registry..
+// Register 将 `服务` 注册到默认注册表中。 md5:07ed2154ce52f6df
+// ff:
+// ctx:
+// service:
+// Service:
 func Register(ctx context.Context, service Service) (Service, error) {
 	if defaultRegistry == nil {
 		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
@@ -24,7 +29,10 @@ func Register(ctx context.Context, service Service) (Service, error) {
 	return defaultRegistry.Register(ctx, service)
 }
 
-// Deregister removes `service` from default registry.
+// Deregister 将 `service` 从默认注册表中移除。 md5:21de7624550ef4ed
+// ff:
+// ctx:
+// service:
 func Deregister(ctx context.Context, service Service) error {
 	if defaultRegistry == nil {
 		return gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)

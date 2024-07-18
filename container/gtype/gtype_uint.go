@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtype
 
@@ -13,13 +14,15 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Uint is a struct for concurrent-safe operation for type uint.
+// Uint 是一个用于类型 uint 的并发安全操作的结构体。 md5:3b5bf4b2533c3310
 type Uint struct {
 	value uint64
 }
 
-// NewUint creates and returns a concurrent-safe object for uint type,
-// with given initial value `value`.
+// NewUint 创建并返回一个并发安全的 uint 类型对象，初始值为 `value`。
+// md5:7e99bd1d0ac4986d
+// ff:
+// value:
 func NewUint(value ...uint) *Uint {
 	if len(value) > 0 {
 		return &Uint{
@@ -29,54 +32,85 @@ func NewUint(value ...uint) *Uint {
 	return &Uint{}
 }
 
-// Clone clones and returns a new concurrent-safe object for uint type.
+// Clone 为 uint 类型创建并返回一个新的并发安全的对象。 md5:d17e8edf52e037bb
+// ff:
+// v:
 func (v *Uint) Clone() *Uint {
 	return NewUint(v.Val())
 }
 
-// Set atomically stores `value` into t.value and returns the previous value of t.value.
+// Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
+// yx:true
+// ff:设置值
+// v:
+// value:
+// old:
 func (v *Uint) Set(value uint) (old uint) {
 	return uint(atomic.SwapUint64(&v.value, uint64(value)))
 }
 
-// Val atomically loads and returns t.value.
+// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
+// yx:true
+// ff:取值
+// v:
 func (v *Uint) Val() uint {
 	return uint(atomic.LoadUint64(&v.value))
 }
 
-// Add atomically adds `delta` to t.value and returns the new value.
+// Atomically 将 `delta` 增加到 t.value 中，并返回新的值。 md5:73547274aea5fe91
+// ff:
+// v:
+// delta:
+// new:
 func (v *Uint) Add(delta uint) (new uint) {
 	return uint(atomic.AddUint64(&v.value, uint64(delta)))
 }
 
-// Cas executes the compare-and-swap operation for value.
+// Cas 执行针对值的比较并交换操作。 md5:4c2d06b4167bee48
+// ff:
+// v:
+// old:
+// new:
+// swapped:
 func (v *Uint) Cas(old, new uint) (swapped bool) {
 	return atomic.CompareAndSwapUint64(&v.value, uint64(old), uint64(new))
 }
 
-// String implements String interface for string printing.
+// String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
+// ff:
+// v:
 func (v *Uint) String() string {
 	return strconv.FormatUint(uint64(v.Val()), 10)
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
+// ff:
+// v:
 func (v Uint) MarshalJSON() ([]byte, error) {
 	return []byte(strconv.FormatUint(uint64(v.Val()), 10)), nil
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
+// ff:
+// v:
+// b:
 func (v *Uint) UnmarshalJSON(b []byte) error {
 	v.Set(gconv.Uint(string(b)))
 	return nil
 }
 
-// UnmarshalValue is an interface implement which sets any type of value for `v`.
+// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
+// ff:
+// v:
+// value:
 func (v *Uint) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Uint(value))
 	return nil
 }
 
-// DeepCopy implements interface for deep copy of current type.
+// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
+// ff:
+// v:
 func (v *Uint) DeepCopy() interface{} {
 	if v == nil {
 		return nil

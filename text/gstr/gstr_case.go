@@ -1,20 +1,20 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有GoFrame作者(https://goframe.org)，保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可条款约束。若未随此文件分发MIT许可的副本，
+// 您可以从https://github.com/gogf/gf获取。
 //
-//   | Function                          | Result             |
-//   |-----------------------------------|--------------------|
-//   | CaseSnake(s)                      | any_kind_of_string |
-//   | CaseSnakeScreaming(s)             | ANY_KIND_OF_STRING |
-//   | CaseSnakeFirstUpper("RGBCodeMd5") | rgb_code_md5       |
-//   | CaseKebab(s)                      | any-kind-of-string |
-//   | CaseKebabScreaming(s)             | ANY-KIND-OF-STRING |
-//   | CaseDelimited(s, '.')             | any.kind.of.string |
-//   | CaseDelimitedScreaming(s, '.')    | ANY.KIND.OF.STRING |
-//   | CaseCamel(s)                      | AnyKindOfString    |
-//   | CaseCamelLower(s)                 | anyKindOfString    |
+//   | 功能                             | 结果               |
+//   |-----------------------------------|---------------------|
+//   | CaseSnake(s)                       | 任意类型的字符串   |
+//   | CaseSnakeScreaming(s)              | 任意类型的大写字符串 |
+//   | CaseSnakeFirstUpper("RGBCodeMd5")   | rgb_code_md5        |
+//   | CaseKebab(s)                       | 任意-类型-的字符串  |
+//   | CaseKebabScreaming(s)              | 任意-类型-的大写字符串 |
+//   | CaseDelimited(s, '.')              | 任何.类型.的字符串  |
+//   | CaseDelimitedScreaming(s, '.')     | 任何.类型.的大写字符串 |
+//   | CaseCamel(s)                       | AnyKindOfString     |
+//   | CaseCamelLower(s)                  | anyKindOfString     |
+// md5:66511e05f3151030
 
 package gstr
 
@@ -23,10 +23,10 @@ import (
 	"strings"
 )
 
-// CaseType is the type for Case.
+// CaseType 是 Case 的类型。 md5:3bd1a46ccb6a5474
 type CaseType string
 
-// The case type constants.
+// 案例类型常量。 md5:09b430778f19740d
 const (
 	Camel           CaseType = "Camel"
 	CamelLower      CaseType = "CamelLower"
@@ -44,7 +44,9 @@ var (
 	firstCamelCaseEnd   = regexp.MustCompile(`([\w\W]*?)([_]?[A-Z]+)$`)
 )
 
-// CaseTypeMatch matches the case type from string.
+// CaseTypeMatch 从字符串匹配案件类型。 md5:e9d0c49161bc12ae
+// ff:命名方式判断
+// caseStr:待判断名称
 func CaseTypeMatch(caseStr string) CaseType {
 	caseTypes := []CaseType{
 		Camel,
@@ -66,8 +68,12 @@ func CaseTypeMatch(caseStr string) CaseType {
 	return CaseType(caseStr)
 }
 
-// CaseConvert converts a string to the specified naming convention.
-// Use CaseTypeMatch to match the case type from string.
+// CaseConvert 将字符串转换为指定的命名约定。
+// 使用 CaseTypeMatch 从字符串中匹配 case 类型。
+// md5:3c58b688150ee2a3
+// ff:命名转换
+// s:待转换文本
+// caseType:类型
 func CaseConvert(s string, caseType CaseType) string {
 	if s == "" || caseType == "" {
 		return s
@@ -105,16 +111,18 @@ func CaseConvert(s string, caseType CaseType) string {
 
 // CaseCamel converts a string to CamelCase.
 //
-// Example:
 // CaseCamel("any_kind_of_string") -> AnyKindOfString
+// ff:命名转换到首字母大写驼峰
+// s:待转换文本
 func CaseCamel(s string) string {
 	return toCamelInitCase(s, true)
 }
 
 // CaseCamelLower converts a string to lowerCamelCase.
 //
-// Example:
 // CaseCamelLower("any_kind_of_string") -> anyKindOfString
+// ff:命名转换到首字母小写驼峰
+// s:待转换文本
 func CaseCamelLower(s string) string {
 	if s == "" {
 		return s
@@ -127,16 +135,18 @@ func CaseCamelLower(s string) string {
 
 // CaseSnake converts a string to snake_case.
 //
-// Example:
 // CaseSnake("AnyKindOfString") -> any_kind_of_string
+// ff:命名转换到全小写蛇形
+// s:待转换文本
 func CaseSnake(s string) string {
 	return CaseDelimited(s, '_')
 }
 
 // CaseSnakeScreaming converts a string to SNAKE_CASE_SCREAMING.
 //
-// Example:
 // CaseSnakeScreaming("AnyKindOfString") -> ANY_KIND_OF_STRING
+// ff:命名转换到大写蛇形
+// s:待转换文本
 func CaseSnakeScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '_', true)
 }
@@ -144,8 +154,10 @@ func CaseSnakeScreaming(s string) string {
 // CaseSnakeFirstUpper converts a string like "RGBCodeMd5" to "rgb_code_md5".
 // TODO for efficiency should change regexp to traversing string in future.
 //
-// Example:
 // CaseSnakeFirstUpper("RGBCodeMd5") -> rgb_code_md5
+// ff:命名转换到全小写蛇形2
+// word:待转换文本
+// underscore:可选连接符
 func CaseSnakeFirstUpper(word string, underscore ...string) string {
 	replace := "_"
 	if len(underscore) > 0 {
@@ -174,38 +186,45 @@ func CaseSnakeFirstUpper(word string, underscore ...string) string {
 
 // CaseKebab converts a string to kebab-case.
 //
-// Example:
 // CaseKebab("AnyKindOfString") -> any-kind-of-string
+// ff:命名转换到小写短横线
+// s:待转换文本
 func CaseKebab(s string) string {
 	return CaseDelimited(s, '-')
 }
 
 // CaseKebabScreaming converts a string to KEBAB-CASE-SCREAMING.
 //
-// Example:
 // CaseKebab("AnyKindOfString") -> ANY-KIND-OF-STRING
+// ff:命名转换到大写驼峰短横线
+// s:待转换文本
 func CaseKebabScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '-', true)
 }
 
 // CaseDelimited converts a string to snake.case.delimited.
 //
-// Example:
 // CaseDelimited("AnyKindOfString", '.') -> any.kind.of.string
+// ff:命名转换按符号
+// s:待转换文本
+// del:连接符号
 func CaseDelimited(s string, del byte) string {
 	return CaseDelimitedScreaming(s, del, false)
 }
 
 // CaseDelimitedScreaming converts a string to DELIMITED.SCREAMING.CASE or delimited.screaming.case.
 //
-// Example:
 // CaseDelimitedScreaming("AnyKindOfString", '.') -> ANY.KIND.OF.STRING
+// ff:命名转换按符号与大小写
+// s:待转换文本
+// del:连接符号
+// screaming:是否全大写
 func CaseDelimitedScreaming(s string, del uint8, screaming bool) string {
 	s = addWordBoundariesToNumbers(s)
 	s = strings.Trim(s, " ")
 	n := ""
 	for i, v := range s {
-		// treat acronyms as words, eg for JSONData -> JSON is a whole word
+		// 将首字母缩写视为单词，例如 JSONData -> JSON 是一个完整的单词. md5:48305e8e01011121
 		nextCaseIsChanged := false
 		if i+1 < len(s) {
 			next := s[i+1]
@@ -215,14 +234,14 @@ func CaseDelimitedScreaming(s string, del uint8, screaming bool) string {
 		}
 
 		if i > 0 && n[len(n)-1] != del && nextCaseIsChanged {
-			// add underscore if next letter case type is changed
+			// 如果下一个字母的大小写类型改变，请添加下划线. md5:6409a4f72dd6f8df
 			if v >= 'A' && v <= 'Z' {
 				n += string(del) + string(v)
 			} else if v >= 'a' && v <= 'z' {
 				n += string(v) + string(del)
 			}
 		} else if v == ' ' || v == '_' || v == '-' || v == '.' {
-			// replace spaces/underscores with delimiters
+			// 将空格/下划线替换为分隔符. md5:f2c26bc8f3ea056f
 			n += string(del)
 		} else {
 			n = n + string(v)
@@ -255,7 +274,7 @@ func addWordBoundariesToNumbers(s string) string {
 	return string(r)
 }
 
-// Converts a string to CamelCase
+// 将字符串转换为驼峰式命名. md5:e7c9de8ba3801cd9
 func toCamelInitCase(s string, initCase bool) string {
 	s = addWordBoundariesToNumbers(s)
 	s = strings.Trim(s, " ")

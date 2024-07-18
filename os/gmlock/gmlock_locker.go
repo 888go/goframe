@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gmlock
 
@@ -12,87 +13,122 @@ import (
 	"github.com/gogf/gf/v2/container/gmap"
 )
 
-// Locker is a memory based locker.
-// Note that there's no cache expire mechanism for mutex in locker.
-// You need remove certain mutex manually when you do not want use it anymore.
+// Locker 是一个基于内存的锁。
+// 注意，Lockers 中的 mutex 没有缓存过期机制。
+// 当你不再需要使用某个锁时，需要手动删除它。
+// md5:330f85347bba3cc8
 type Locker struct {
 	m *gmap.StrAnyMap
 }
 
-// New creates and returns a new memory locker.
-// A memory locker can lock/unlock with dynamic string key.
+// New 创建并返回一个新的内存锁。
+// 这个内存锁能够使用动态字符串键进行锁定和解锁。
+// md5:37aaba9921b3e711
+// ff:创建
 func New() *Locker {
 	return &Locker{
 		m: gmap.NewStrAnyMap(true),
 	}
 }
 
-// Lock locks the `key` with writing lock.
-// If there's a write/reading lock the `key`,
-// it will block until the lock is released.
+// Lock 以写锁方式锁定`key`。
+// 如果`key`已有写锁或读锁，它会阻塞直到锁被释放。
+// md5:7b2d56ac41ec0a40
+// ff:写锁定
+// l:
+// key:名称
 func (l *Locker) Lock(key string) {
 	l.getOrNewMutex(key).Lock()
 }
 
-// TryLock tries locking the `key` with writing lock,
-// it returns true if success, or it returns false if there's a writing/reading lock the `key`.
+// TryLock尝试使用写入锁锁定`key`，如果成功返回true，如果`key`已经有写入或读取锁则返回false。
+// md5:1e86a7888ed1621a
+// ff:非阻塞写锁定
+// l:
+// key:名称
 func (l *Locker) TryLock(key string) bool {
 	return l.getOrNewMutex(key).TryLock()
 }
 
-// Unlock unlocks the writing lock of the `key`.
+// Unlock 解锁对`key`的写入锁。 md5:b54a3ae386cfa500
+// ff:退出写锁定
+// l:
+// key:名称
 func (l *Locker) Unlock(key string) {
 	if v := l.m.Get(key); v != nil {
 		v.(*sync.RWMutex).Unlock()
 	}
 }
 
-// RLock locks the `key` with reading lock.
-// If there's a writing lock on `key`,
-// it will blocks until the writing lock is released.
+// RLock 使用读锁锁定`key`。如果`key`上有一个写锁，它将阻塞直到写锁被释放。
+// md5:f45f660f368bbb78
+// ff:读锁定
+// l:
+// key:名称
 func (l *Locker) RLock(key string) {
 	l.getOrNewMutex(key).RLock()
 }
 
-// TryRLock tries locking the `key` with reading lock.
-// It returns true if success, or if there's a writing lock on `key`, it returns false.
+// TryRLock 尝试使用读取锁对 `key` 进行加锁。
+// 如果成功，则返回true；如果 `key` 上存在写入锁，则返回false。
+// md5:8733aa161c104b87
+// ff:非阻塞读锁定
+// l:
+// key:名称
 func (l *Locker) TryRLock(key string) bool {
 	return l.getOrNewMutex(key).TryRLock()
 }
 
-// RUnlock unlocks the reading lock of the `key`.
+// RUnlock 释放对 `key` 的读取锁。 md5:d4f823abaa858783
+// ff:退出读锁定
+// l:
+// key:名称
 func (l *Locker) RUnlock(key string) {
 	if v := l.m.Get(key); v != nil {
 		v.(*sync.RWMutex).RUnlock()
 	}
 }
 
-// LockFunc locks the `key` with writing lock and callback function `f`.
-// If there's a write/reading lock the `key`,
-// it will block until the lock is released.
+// LockFunc 使用写入锁锁定`key`，并使用回调函数`f`。
+// 如果`key`已有写入或读取锁，它将阻塞直到锁被释放。
 //
-// It releases the lock after `f` is executed.
+// 在执行完`f`后，它会释放锁。
+// md5:fc66c542fa813208
+// ff:写锁定_函数
+// l:
+// key:名称
+// f:回调函数
 func (l *Locker) LockFunc(key string, f func()) {
 	l.Lock(key)
 	defer l.Unlock(key)
 	f()
 }
 
-// RLockFunc locks the `key` with reading lock and callback function `f`.
-// If there's a writing lock the `key`,
-// it will block until the lock is released.
+// RLockFunc 使用读取锁对`key`进行加锁，并执行回调函数`f`。
+// 如果`key`已被写入锁锁定，
+// 则会阻塞直到该锁被释放。
 //
-// It releases the lock after `f` is executed.
+// 在`f`执行完毕后，它将释放锁。
+// md5:3f30fb5d911cd5e7
+// ff:读锁定_函数
+// l:
+// key:名称
+// f:回调函数
 func (l *Locker) RLockFunc(key string, f func()) {
 	l.RLock(key)
 	defer l.RUnlock(key)
 	f()
 }
 
-// TryLockFunc locks the `key` with writing lock and callback function `f`.
-// It returns true if success, or else if there's a write/reading lock the `key`, it return false.
+// TryLockFunc 使用写锁锁定`key`并执行回调函数`f`。
+// 如果操作成功，返回true；如果`key`已被写锁或读锁占用，则返回false。
 //
-// It releases the lock after `f` is executed.
+// 在回调函数`f`执行完毕后，它会释放锁。
+// md5:a016db0c6b2bc67e
+// ff:非阻塞写锁定_函数
+// l:
+// key:名称
+// f:回调函数
 func (l *Locker) TryLockFunc(key string, f func()) bool {
 	if l.TryLock(key) {
 		defer l.Unlock(key)
@@ -102,10 +138,15 @@ func (l *Locker) TryLockFunc(key string, f func()) bool {
 	return false
 }
 
-// TryRLockFunc locks the `key` with reading lock and callback function `f`.
-// It returns true if success, or else if there's a writing lock the `key`, it returns false.
+// TryRLockFunc 使用读取锁尝试锁定`key`，并调用回调函数`f`。
+// 如果成功，它返回true；如果`key`已有写入锁，则返回false。
 //
-// It releases the lock after `f` is executed.
+// 在`f`执行完毕后释放锁。
+// md5:527ef8bb470bd8fd
+// ff:非阻塞读锁定_函数
+// l:
+// key:名称
+// f:回调函数
 func (l *Locker) TryRLockFunc(key string, f func()) bool {
 	if l.TryRLock(key) {
 		defer l.RUnlock(key)
@@ -115,18 +156,23 @@ func (l *Locker) TryRLockFunc(key string, f func()) bool {
 	return false
 }
 
-// Remove removes mutex with given `key` from locker.
+// Remove 根据给定的 `key` 从 locker 中移除互斥锁。 md5:e557087320b6a672
+// ff:删除锁
+// l:
+// key:名称
 func (l *Locker) Remove(key string) {
 	l.m.Remove(key)
 }
 
-// Clear removes all mutexes from locker.
+// Clear 从 locker 中移除所有互斥锁。 md5:6e7b8ead4ad69f9d
+// ff:移除所有锁
+// l:
 func (l *Locker) Clear() {
 	l.m.Clear()
 }
 
-// getOrNewMutex returns the mutex of given `key` if it exists,
-// or else creates and returns a new one.
+// getOrNewMutex 如果给定的`key`存在，则返回对应的互斥锁，否则创建一个新的并返回。
+// md5:08c35eff58386554
 func (l *Locker) getOrNewMutex(key string) *sync.RWMutex {
 	return l.m.GetOrSetFuncLock(key, func() interface{} {
 		return &sync.RWMutex{}

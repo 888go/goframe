@@ -1,11 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package gaes provides useful API for AES encryption/decryption algorithms.
-package gaes
+// gaes 包提供了对AES加密/解密算法有用的API。 md5:a8dd4c4d404f7193
+package gaes//bm:加密aes类
 
 import (
 	"bytes"
@@ -18,23 +19,36 @@ import (
 )
 
 const (
-	// IVDefaultValue is the default value for IV.
+	// IVDefaultValue 是初始向量(IV)的默认值。 md5:4a6e2194de451335
 	IVDefaultValue = "I Love Go Frame!"
 )
 
-// Encrypt is alias of EncryptCBC.
+// Encrypt 是 EncryptCBC 的别名。 md5:d1191baf4cd313b4
+// ff:Encrypt别名
+// plainText:
+// key:
+// iv:
 func Encrypt(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	return EncryptCBC(plainText, key, iv...)
 }
 
-// Decrypt is alias of DecryptCBC.
+// Decrypt 是DecryptCBC的别名。 md5:8cf4ecbfea3f2867
+// ff:Decrypt别名
+// cipherText:
+// key:
+// iv:
 func Decrypt(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	return DecryptCBC(cipherText, key, iv...)
 }
 
-// EncryptCBC encrypts `plainText` using CBC mode.
-// Note that the key must be 16/24/32 bit length.
-// The parameter `iv` initialization vector is unnecessary.
+// 使用CBC模式加密`plainText`。
+// 注意密钥长度必须为16/24/32位。
+// 参数`iv`初始化向量是不必要的。
+// md5:1628ebc8e55608ea
+// ff:加密CBC
+// plainText:待加密
+// key:秘钥
+// iv:
 func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -56,9 +70,14 @@ func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	return cipherText, nil
 }
 
-// DecryptCBC decrypts `cipherText` using CBC mode.
-// Note that the key must be 16/24/32 bit length.
-// The parameter `iv` initialization vector is unnecessary.
+// DecryptCBC 使用CBC模式解密`cipherText`。
+// 请注意，密钥必须为16/24/32位长度。
+// 参数`iv`初始化向量是可选的。
+// md5:ffdc2bd43249f656
+// ff:解密CBC
+// cipherText:待解密
+// key:秘钥
+// iv:
 func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -88,9 +107,13 @@ func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	return plainText, nil
 }
 
-// PKCS5Padding applies PKCS#5 padding to the source byte slice to match the given block size.
+// PKCS5Padding 对源字节切片应用 PKCS#5 填充，以匹配给定的块大小。
 //
-// If the block size is not provided, it defaults to 8.
+// 如果未提供块大小，则默认为 8。
+// md5:709e406aa572f106
+// ff:
+// src:
+// blockSize:
 func PKCS5Padding(src []byte, blockSize ...int) []byte {
 	blockSizeTemp := 8
 	if len(blockSize) > 0 {
@@ -99,9 +122,13 @@ func PKCS5Padding(src []byte, blockSize ...int) []byte {
 	return PKCS7Padding(src, blockSizeTemp)
 }
 
-// PKCS5UnPadding removes PKCS#5 padding from the source byte slice based on the given block size.
-//
-// If the block size is not provided, it defaults to 8.
+// PKCS5UnPadding 根据给定的块大小，从源字节切片中移除PKCS#5填充。
+// 
+// 如果未提供块大小，则默认为8。
+// md5:d61fd48ac346da68
+// ff:
+// src:
+// blockSize:
 func PKCS5UnPadding(src []byte, blockSize ...int) ([]byte, error) {
 	blockSizeTemp := 8
 	if len(blockSize) > 0 {
@@ -110,14 +137,20 @@ func PKCS5UnPadding(src []byte, blockSize ...int) ([]byte, error) {
 	return PKCS7UnPadding(src, blockSizeTemp)
 }
 
-// PKCS7Padding applies PKCS#7 padding to the source byte slice to match the given block size.
+// PKCS7Padding 对源字节切片应用PKCS#7填充，以匹配给定的块大小。 md5:c93d69357ddcf364
+// ff:
+// src:
+// blockSize:
 func PKCS7Padding(src []byte, blockSize int) []byte {
 	padding := blockSize - len(src)%blockSize
 	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
 	return append(src, padtext...)
 }
 
-// PKCS7UnPadding removes PKCS#7 padding from the source byte slice based on the given block size.
+// PKCS7UnPadding 根据给定的块大小从源字节切片中移除PKCS#7填充。 md5:405becc32a6915c2
+// ff:
+// src:
+// blockSize:
 func PKCS7UnPadding(src []byte, blockSize int) ([]byte, error) {
 	length := len(src)
 	if blockSize <= 0 {
@@ -143,9 +176,15 @@ func PKCS7UnPadding(src []byte, blockSize int) ([]byte, error) {
 	return src[:(length - unpadding)], nil
 }
 
-// EncryptCFB encrypts `plainText` using CFB mode.
-// Note that the key must be 16/24/32 bit length.
-// The parameter `iv` initialization vector is unnecessary.
+// EncryptCFB 使用CFB模式对`plainText`进行加密。
+// 注意，密钥必须是16/24/32位长度。
+// 参数`iv`（初始化向量）是不必要的。
+// md5:cdcc74633b342790
+// ff:加密CFB
+// plainText:待加密
+// key:秘钥
+// padding:
+// iv:
 func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -166,9 +205,15 @@ func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byt
 	return cipherText, nil
 }
 
-// DecryptCFB decrypts `plainText` using CFB mode.
-// Note that the key must be 16/24/32 bit length.
-// The parameter `iv` initialization vector is unnecessary.
+// DecryptCFB 使用CFB模式解密`plainText`。
+// 注意，密钥必须是16/24/32位长度。
+// 参数`iv`（初始化向量）是不必要的。
+// md5:f6a0b1655dd052b7
+// ff:解密CFB
+// cipherText:待解密
+// key:秘钥
+// unPadding:
+// iv:
 func DecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -191,12 +236,18 @@ func DecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) ([]b
 	return plainText, nil
 }
 
+// ff:
+// cipherText:
+// blockSize:
 func ZeroPadding(cipherText []byte, blockSize int) ([]byte, int) {
 	padding := blockSize - len(cipherText)%blockSize
 	padText := bytes.Repeat([]byte{byte(0)}, padding)
 	return append(cipherText, padText...), padding
 }
 
+// ff:
+// plaintext:
+// unPadding:
 func ZeroUnPadding(plaintext []byte, unPadding int) []byte {
 	length := len(plaintext)
 	return plaintext[:(length - unPadding)]

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv_test
 
@@ -18,8 +19,6 @@ import (
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/gogf/gf/v2/util/gconv"
 )
-
-// https://github.com/gogf/gf/issues/1227
 func Test_Issue1227(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type StructFromIssue1227 struct {
@@ -116,8 +115,6 @@ func Test_Issue1227(t *testing.T) {
 		}
 	})
 }
-
-// https://github.com/gogf/gf/issues/1607
 func Test_Issue1607(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Demo struct {
@@ -134,8 +131,6 @@ func Test_Issue1607(t *testing.T) {
 		t.Assert(demos[0].B, 1.5)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1946
 func Test_Issue1946(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -159,7 +154,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// It cannot change private attribute.
+	// 它不能改变私有属性。 md5:c15d94ed6929ce70
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			init *gtype.Bool
@@ -183,7 +178,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// It can change public attribute.
+	// 它可以改变公共属性。 md5:b2c3110608923730
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			Init *gtype.Bool
@@ -208,8 +203,6 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Init.Val(), true)
 	})
 }
-
-// https://github.com/gogf/gf/issues/2381
 func Test_Issue2381(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -245,8 +238,6 @@ func Test_Issue2381(t *testing.T) {
 		t.Assert(a1.Flag.String(), a2.Flag.String())
 	})
 }
-
-// https://github.com/gogf/gf/issues/2391
 func Test_Issue2391(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Inherit struct {
@@ -285,8 +276,6 @@ func Test_Issue2391(t *testing.T) {
 		t.Assert(a1.Flag.String(), a2.Flag.String())
 	})
 }
-
-// https://github.com/gogf/gf/issues/2395
 func Test_Issue2395(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Test struct {
@@ -297,8 +286,6 @@ func Test_Issue2395(t *testing.T) {
 		t.Assert(gconv.Interfaces(obj), []interface{}{obj})
 	})
 }
-
-// https://github.com/gogf/gf/issues/2371
 func Test_Issue2371(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (

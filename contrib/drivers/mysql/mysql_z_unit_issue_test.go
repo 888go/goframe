@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package mysql_test
 
@@ -22,8 +23,6 @@ import (
 	"github.com/gogf/gf/v2/util/gmeta"
 	"github.com/gogf/gf/v2/util/guid"
 )
-
-// https://github.com/gogf/gf/issues/1934
 func Test_Issue1934(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -34,8 +33,6 @@ func Test_Issue1934(t *testing.T) {
 		t.Assert(one["id"], 1)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1570
 func Test_Issue1570(t *testing.T) {
 	var (
 		tableUser       = "user_" + gtime.TimestampMicroStr()
@@ -122,7 +119,7 @@ CREATE TABLE %s (
 		}
 	})
 
-	// Result ScanList with struct elements and pointer attributes.
+	// Result 使用具有结构体元素和指针属性的ScanList。 md5:b23d106d13859ad5
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -162,8 +159,6 @@ CREATE TABLE %s (
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1401
 func Test_Issue1401(t *testing.T) {
 	var (
 		table1 = "parcels"
@@ -204,8 +199,6 @@ func Test_Issue1401(t *testing.T) {
 		t.Assert(parcelDetail.Items[0].ParcelId, 3)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1412
 func Test_Issue1412(t *testing.T) {
 	var (
 		table1 = "parcels"
@@ -266,8 +259,6 @@ func Test_Issue1412(t *testing.T) {
 		t.Assert(entity.Items.Name, "")
 	})
 }
-
-// https://github.com/gogf/gf/issues/1002
 func Test_Issue1002(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -294,19 +285,19 @@ func Test_Issue1002(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + string arguments.
+	// where + 字符串参数。 md5:cb1db92222691d4d
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + gtime.Time arguments.
+	// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", gtime.New("2020-10-27 19:03:32"), gtime.New("2020-10-27 19:03:34")).Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + time.Time arguments, UTC.
+	// 带有时间.Time参数，使用UTC时区。 md5:80f36eaa256e894c
 	gtest.C(t, func(t *gtest.T) {
 		t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32")
 		t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34")
@@ -316,32 +307,32 @@ func Test_Issue1002(t *testing.T) {
 			t.Assert(v.Int(), 1)
 		}
 	})
-	// where + time.Time arguments, +8.
-	// gtest.C(t, func(t *gtest.T) {
-	//	// Change current timezone to +8 zone.
-	//	location, err := time.LoadLocation("Asia/Shanghai")
-	//	t.AssertNil(err)
-	//	t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location)
-	//	t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
-	//	{
-	//		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
-	//		t.AssertNil(err)
-	//		t.Assert(v.Int(), 1)
-	//	}
-	//	{
-	//		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
-	//		t.AssertNil(err)
-	//		t.Assert(v.Int(), 1)
-	//	}
-	//	{
-	//		v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
-	//		t.AssertNil(err)
-	//		t.Assert(v.Int(), 1)
-	//	}
-	// })
+// 在时间.Time参数中，+8代表时区偏移。
+// gtest.C(t, func(t *gtest.T) {
+//     // 将当前时区更改为+8时区（东八区）。
+//     location, err := time.LoadLocation("Asia/Shanghai")
+//     t.AssertNil(err) // 确认加载时区无错误。
+//     t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location)
+//     t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
+//     // 使用定义的时间段进行查询测试：
+//     {
+//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
+//         t.AssertNil(err) // 确认查询无错误。
+//         t.Assert(v.Int(), 1) // 断言查询结果的ID为1。
+//     }
+//     {
+//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
+//         t.AssertNil(err) // 同上，确认查询无错误。
+//         t.Assert(v.Int(), 1) // 断言查询结果的ID为1。
+//     }
+//     {
+//         v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
+//         t.AssertNil(err) // 再次确认查询无错误。
+//         t.Assert(v.Int(), 1) // 继续断言查询结果的ID为1。
+//     }
+// })
+// md5:766797023d98820e
 }
-
-// https://github.com/gogf/gf/issues/1700
 func Test_Issue1700(t *testing.T) {
 	table := "user_" + gtime.Now().TimestampNanoStr()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -388,8 +379,6 @@ func Test_Issue1700(t *testing.T) {
 		}
 	})
 }
-
-// https://github.com/gogf/gf/issues/1701
 func Test_Issue1701(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -399,8 +388,6 @@ func Test_Issue1701(t *testing.T) {
 		t.Assert(value.String(), 100)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1733
 func Test_Issue1733(t *testing.T) {
 	table := "user_" + guid.S()
 	if _, err := db.Exec(ctx, fmt.Sprintf(`
@@ -430,8 +417,6 @@ func Test_Issue1733(t *testing.T) {
 		}
 	})
 }
-
-// https://github.com/gogf/gf/issues/2105
 func Test_Issue2105(t *testing.T) {
 	table := "issue2105"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue2105.sql`), ";")
@@ -460,8 +445,6 @@ func Test_Issue2105(t *testing.T) {
 		t.Assert(len(list[1].Json), 3)
 	})
 }
-
-// https://github.com/gogf/gf/issues/2231
 func Test_Issue2231(t *testing.T) {
 	var (
 		pattern = `(\w+):([\w\-]*):(.*?)@(\w+?)\((.+?)\)/{0,1}([^\?]*)\?{0,1}(.*)`
@@ -479,8 +462,6 @@ func Test_Issue2231(t *testing.T) {
 		t.Assert(match[7], "loc=Local&parseTime=true")
 	})
 }
-
-// https://github.com/gogf/gf/issues/2339
 func Test_Issue2339(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -499,8 +480,6 @@ func Test_Issue2339(t *testing.T) {
 		t.Assert(all3[0]["id"], 8)
 	})
 }
-
-// https://github.com/gogf/gf/issues/2356
 func Test_Issue2356(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table := "demo_" + guid.S()
@@ -524,8 +503,6 @@ func Test_Issue2356(t *testing.T) {
 		t.AssertEQ(one["id"].Val(), uint64(18446744073709551615))
 	})
 }
-
-// https://github.com/gogf/gf/issues/2338
 func Test_Issue2338(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table1 := "demo_" + guid.S()
@@ -635,8 +612,6 @@ CREATE TABLE %s (
 		t.Assert(all[0]["nickname"], "name_2")
 	})
 }
-
-// https://github.com/gogf/gf/issues/2427
 func Test_Issue2427(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table := "demo_" + guid.S()
@@ -666,8 +641,6 @@ CREATE TABLE %s (
 		t.AssertNil(err3)
 	})
 }
-
-// https://github.com/gogf/gf/issues/2561
 func Test_Issue2561(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -728,8 +701,6 @@ func Test_Issue2561(t *testing.T) {
 		t.Assert(one[`create_time`], ``)
 	})
 }
-
-// https://github.com/gogf/gf/issues/2439
 func Test_Issue2439(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		array := gstr.SplitAndTrim(gtest.DataContent(`issue2439.sql`), ";")
@@ -762,8 +733,6 @@ func Test_Issue2439(t *testing.T) {
 		t.Assert(r[0]["name"], "a")
 	})
 }
-
-// https://github.com/gogf/gf/issues/2782
 func Test_Issue2787(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -799,8 +768,6 @@ func Test_Issue2787(t *testing.T) {
 		t.Assert(condWhere, "((`nickname`=?) OR (`password`=?)) AND (`passport`=?)")
 	})
 }
-
-// https://github.com/gogf/gf/issues/2907
 func Test_Issue2907(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -824,8 +791,6 @@ func Test_Issue2907(t *testing.T) {
 		t.Assert(all[0]["id"], 3)
 	})
 }
-
-// https://github.com/gogf/gf/issues/3086
 func Test_Issue3086(t *testing.T) {
 	table := "issue3086_user"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue3086.sql`), ";")
@@ -883,8 +848,6 @@ func Test_Issue3086(t *testing.T) {
 		t.Assert(n, 2)
 	})
 }
-
-// https://github.com/gogf/gf/issues/3204
 func Test_Issue3204(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -969,8 +932,6 @@ func Test_Issue3204(t *testing.T) {
 		)
 	})
 }
-
-// https://github.com/gogf/gf/issues/3218
 func Test_Issue3218(t *testing.T) {
 	table := "issue3218_sys_config"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue3218.sql`), ";")
@@ -1000,8 +961,6 @@ func Test_Issue3218(t *testing.T) {
 		})
 	})
 }
-
-// https://github.com/gogf/gf/issues/2552
 func Test_Issue2552_ClearTableFieldsAll(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -1046,8 +1005,6 @@ func Test_Issue2552_ClearTableFieldsAll(t *testing.T) {
 		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), true)
 	})
 }
-
-// https://github.com/gogf/gf/issues/2552
 func Test_Issue2552_ClearTableFields(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -1092,8 +1049,6 @@ func Test_Issue2552_ClearTableFields(t *testing.T) {
 		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), true)
 	})
 }
-
-// https://github.com/gogf/gf/issues/2643
 func Test_Issue2643(t *testing.T) {
 	table := "issue2643"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue2643.sql`), ";")
@@ -1126,8 +1081,6 @@ func Test_Issue2643(t *testing.T) {
 		t.Assert(gstr.Contains(sqlContent, expectKey2), true)
 	})
 }
-
-// https://github.com/gogf/gf/issues/3238
 func Test_Issue3238(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)

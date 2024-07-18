@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // go test *.go
 
@@ -292,7 +293,7 @@ func TestArray_Merge(t *testing.T) {
 		array2 := garray.NewArrayFrom(i2)
 		t.Assert(array1.Merge(array2).Slice(), []interface{}{0, 1, 2, 3, 4, 5, 6, 7})
 
-		// s1 := []string{"a", "b", "c", "d"}
+		// s1是一个字符串切片，包含元素"a", "b", "c", "d"。 md5:d0a66a34282cf388
 		s2 := []string{"e", "f"}
 		i3 := garray.NewIntArrayFrom([]int{1, 2, 3})
 		i4 := garray.NewArrayFrom([]interface{}{3})

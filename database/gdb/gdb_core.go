@@ -1,11 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者(https://goframe.org)。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
-//
+// 此源代码形式受 MIT 许可证的条款约束。
+// 如果未随此文件一起分发 MIT 许可证的副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
-package gdb
+package gdb//bm:db类
 
 import (
 	"context"
@@ -28,31 +28,36 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// GetCore returns the underlying *Core object.
+// GetCore 返回底层的 *Core 对象。 md5:b7d2ff344b9a6a33
+// ff:取Core对象
+// c:
 func (c *Core) GetCore() *Core {
 	return c
 }
 
-// Ctx is a chaining function, which creates and returns a new DB that is a shallow copy
-// of current DB object and with given context in it.
-// Note that this returned DB object can be used only once, so do not assign it to
-// a global or package variable for long using.
+// Ctx是一个链式函数，它创建并返回一个新的DB对象，它是当前DB对象的浅拷贝，并且包含了给定的上下文。
+// 注意，这个返回的DB对象只能使用一次，所以不要将其分配给全局变量或长期使用的包变量。
+// md5:9dfddec16d5df9f5
+// ff:设置上下文并取副本
+// c:
+// ctx:上下文
 func (c *Core) Ctx(ctx context.Context) DB {
 	if ctx == nil {
 		return c.db
 	}
-	// It makes a shallow copy of current db and changes its context for next chaining operation.
+	// 它会浅复制当前的数据库，并为下一个链式操作更改其上下文。 md5:bf3a0a0f1f30a496
 	var (
 		err        error
 		newCore    = &Core{}
 		configNode = c.db.GetConfig()
 	)
 	*newCore = *c
-	// It creates a new DB object(NOT NEW CONNECTION), which is commonly a wrapper for object `Core`.
+	// 它创建了一个新的DB对象（不是新连接），通常是对`Core`对象的封装。 md5:6cd230087401c98f
 	newCore.db, err = driverMap[configNode.Type].New(newCore, configNode)
 	if err != nil {
-		// It is really a serious error here.
-		// Do not let it continue.
+// 这里确实是一个严重的错误。
+// 不要让它继续下去。
+// md5:790820a929dc0bfd
 		panic(err)
 	}
 	newCore.ctx = WithDB(ctx, newCore.db)
@@ -60,8 +65,11 @@ func (c *Core) Ctx(ctx context.Context) DB {
 	return newCore.db
 }
 
-// GetCtx returns the context for current DB.
-// It returns `context.Background()` is there's no context previously set.
+// GetCtx 返回当前数据库的上下文。
+// 如果之前没有设置上下文，则返回 `context.Background()`。
+// md5:9b56f79a5eaa891e
+// ff:取上下文对象
+// c:
 func (c *Core) GetCtx() context.Context {
 	ctx := c.ctx
 	if ctx == nil {
@@ -70,7 +78,11 @@ func (c *Core) GetCtx() context.Context {
 	return c.injectInternalCtxData(ctx)
 }
 
-// GetCtxTimeout returns the context and cancel function for specified timeout type.
+// GetCtxTimeout 返回指定超时类型的上下文和取消函数。 md5:5d0be7078de61c6d
+// ff:取超时上下文对象
+// c:
+// ctx:上下文
+// timeoutType:超时类型
 func (c *Core) GetCtxTimeout(ctx context.Context, timeoutType int) (context.Context, context.CancelFunc) {
 	if ctx == nil {
 		ctx = c.db.GetCtx()
@@ -96,12 +108,16 @@ func (c *Core) GetCtxTimeout(ctx context.Context, timeoutType int) (context.Cont
 	return ctx, func() {}
 }
 
-// Close closes the database and prevents new queries from starting.
-// Close then waits for all queries that have started processing on the server
-// to finish.
+// Close 方法关闭数据库并阻止新的查询开始。
+// 随后，Close 会等待所有已在服务器上开始处理的查询完成。
 //
-// It is rare to Close a DB, as the DB handle is meant to be
-// long-lived and shared between many goroutines.
+// 关闭 DB 实例是很少见的操作，因为 DB 处理句柄设计为长生命周期的，
+// 并且旨在多个 goroutine 间共享。
+// md5:39e5c90e1da0ee5e
+// ff:关闭数据库
+// c:
+// ctx:上下文
+// err:错误
 func (c *Core) Close(ctx context.Context) (err error) {
 	if err = c.cache.Close(ctx); err != nil {
 		return err
@@ -124,8 +140,12 @@ func (c *Core) Close(ctx context.Context) (err error) {
 	return
 }
 
-// Master creates and returns a connection from master node if master-slave configured.
-// It returns the default connection if master-slave not configured.
+// Master 如果配置了主从节点，则创建并返回一个与主节点的连接。
+// 如果未配置主从节点，则返回默认连接。
+// md5:0bd77b596cdae9a3
+// ff:取主节点对象
+// c:
+// schema:数据库名称
 func (c *Core) Master(schema ...string) (*sql.DB, error) {
 	var (
 		usedSchema   = gutil.GetOrDefaultStr(c.schema, schema...)
@@ -134,8 +154,11 @@ func (c *Core) Master(schema ...string) (*sql.DB, error) {
 	return c.getSqlDb(true, gstr.Trim(usedSchema, charL+charR))
 }
 
-// Slave creates and returns a connection from slave node if master-slave configured.
-// It returns the default connection if master-slave not configured.
+// 如果配置了主从模式，Slave 会创建并返回一个从节点连接。如果没有配置主从模式，则返回默认连接。
+// md5:d92640050cf063d3
+// ff:取从节点对象
+// c:
+// schema:数据库名称
 func (c *Core) Slave(schema ...string) (*sql.DB, error) {
 	var (
 		usedSchema   = gutil.GetOrDefaultStr(c.schema, schema...)
@@ -144,17 +167,37 @@ func (c *Core) Slave(schema ...string) (*sql.DB, error) {
 	return c.getSqlDb(false, gstr.Trim(usedSchema, charL+charR))
 }
 
-// GetAll queries and returns data records from database.
+// GetAll 从数据库中查询并返回数据记录。 md5:dfdcfddaa70ab1d4
+// ff:GetAll别名
+// c:
+// ctx:上下文
+// sql:
+// args:参数
+// Result:
 func (c *Core) GetAll(ctx context.Context, sql string, args ...interface{}) (Result, error) {
 	return c.db.DoSelect(ctx, nil, sql, args...)
 }
 
-// DoSelect queries and returns data records from database.
+// DoSelect 从数据库查询并返回数据记录。 md5:82b06146b8d539d1
+// ff:底层查询
+// c:
+// ctx:上下文
+// link:链接
+// sql:
+// args:参数
+// result:结果
+// err:错误
 func (c *Core) DoSelect(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
 	return c.db.DoQuery(ctx, link, sql, args...)
 }
 
-// GetOne queries and returns one record from database.
+// GetOne 从数据库中查询并返回一条记录。 md5:9552f7e095f58141
+// ff:原生SQL查询单条记录
+// c:
+// ctx:上下文
+// sql:
+// args:参数
+// Record:
 func (c *Core) GetOne(ctx context.Context, sql string, args ...interface{}) (Record, error) {
 	list, err := c.db.GetAll(ctx, sql, args...)
 	if err != nil {
@@ -166,8 +209,14 @@ func (c *Core) GetOne(ctx context.Context, sql string, args ...interface{}) (Rec
 	return nil, nil
 }
 
-// GetArray queries and returns data values as slice from database.
-// Note that if there are multiple columns in the result, it returns just one column values randomly.
+// GetArray 从数据库查询并返回数据值作为切片。
+// 注意，如果结果中有多个列，它会随机返回一列的值。
+// md5:b81cd4c5e063a6f2
+// ff:原生SQL查询切片
+// c:
+// ctx:上下文
+// sql:
+// args:参数
 func (c *Core) GetArray(ctx context.Context, sql string, args ...interface{}) ([]Value, error) {
 	all, err := c.db.DoSelect(ctx, nil, sql, args...)
 	if err != nil {
@@ -176,8 +225,9 @@ func (c *Core) GetArray(ctx context.Context, sql string, args ...interface{}) ([
 	return all.Array(), nil
 }
 
-// doGetStruct queries one record from database and converts it to given struct.
-// The parameter `pointer` should be a pointer to struct.
+// doGetStruct 从数据库查询一条记录，并将其转换为给定的结构体。
+// 参数 `pointer` 应该是指向结构体的指针。
+// md5:9260d4f62deef626
 func (c *Core) doGetStruct(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
 	one, err := c.db.GetOne(ctx, sql, args...)
 	if err != nil {
@@ -186,8 +236,9 @@ func (c *Core) doGetStruct(ctx context.Context, pointer interface{}, sql string,
 	return one.Struct(pointer)
 }
 
-// doGetStructs queries records from database and converts them to given struct.
-// The parameter `pointer` should be type of struct slice: []struct/[]*struct.
+// doGetStructs 从数据库查询记录并将其转换为给定的结构体。
+// 参数 `pointer` 应为结构体切片类型：[]struct/[]*struct。
+// md5:4ce864edda9b9231
 func (c *Core) doGetStructs(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
 	all, err := c.db.GetAll(ctx, sql, args...)
 	if err != nil {
@@ -196,12 +247,16 @@ func (c *Core) doGetStructs(ctx context.Context, pointer interface{}, sql string
 	return all.Structs(pointer)
 }
 
-// GetScan queries one or more records from database and converts them to given struct or
-// struct array.
+// GetScan 从数据库查询一个或多个记录，并将它们转换为给定的结构体或结构体数组。
 //
-// If parameter `pointer` is type of struct pointer, it calls GetStruct internally for
-// the conversion. If parameter `pointer` is type of slice, it calls GetStructs internally
-// for conversion.
+// 如果参数 `pointer` 是结构体指针类型，它内部会调用 GetStruct 进行转换。如果参数 `pointer` 是切片类型，它内部会调用 GetStructs 进行转换。
+// md5:c1dbdab7a7c29c51
+// ff:原生SQL查询到结构体指针
+// c:
+// ctx:上下文
+// pointer:结构体指针
+// sql:
+// args:参数
 func (c *Core) GetScan(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
 	reflectInfo := reflection.OriginTypeAndKind(pointer)
 	if reflectInfo.InputKind != reflect.Ptr {
@@ -225,9 +280,15 @@ func (c *Core) GetScan(ctx context.Context, pointer interface{}, sql string, arg
 	)
 }
 
-// GetValue queries and returns the field value from database.
-// The sql should query only one field from database, or else it returns only one
-// field of the result.
+// GetValue 从数据库查询并返回字段值。
+// SQL 应该只查询数据库中的一个字段，否则它将只返回结果中的一个字段。
+// md5:96794360fadbc288
+// ff:原生SQL查询字段值
+// c:
+// ctx:上下文
+// sql:
+// args:参数
+// Value:
 func (c *Core) GetValue(ctx context.Context, sql string, args ...interface{}) (Value, error) {
 	one, err := c.db.GetOne(ctx, sql, args...)
 	if err != nil {
@@ -239,10 +300,16 @@ func (c *Core) GetValue(ctx context.Context, sql string, args ...interface{}) (V
 	return gvar.New(nil), nil
 }
 
-// GetCount queries and returns the count from database.
+// GetCount 从数据库中查询并返回计数。 md5:a8368d39f4a58979
+// ff:原生SQL查询字段计数
+// c:
+// ctx:上下文
+// sql:
+// args:参数
 func (c *Core) GetCount(ctx context.Context, sql string, args ...interface{}) (int, error) {
-	// If the query fields do not contain function "COUNT",
-	// it replaces the sql string and adds the "COUNT" function to the fields.
+// 如果查询字段中不包含"COUNT"函数，
+// 则替换SQL字符串，并在字段中添加"COUNT"函数。
+// md5:624b6da82fb9facd
 	if !gregex.IsMatchString(`(?i)SELECT\s+COUNT\(.+\)\s+FROM`, sql) {
 		sql, _ = gregex.ReplaceString(`(?i)(SELECT)\s+(.+)\s+(FROM)`, `$1 COUNT($2) $3`, sql)
 	}
@@ -253,13 +320,19 @@ func (c *Core) GetCount(ctx context.Context, sql string, args ...interface{}) (i
 	return value.Int(), nil
 }
 
-// Union does "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." statement.
+// Union 执行 "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." 语句。 md5:6a2f9809c172cb31
+// ff:多表去重查询
+// c:
+// unions:Model对象
 func (c *Core) Union(unions ...*Model) *Model {
 	var ctx = c.db.GetCtx()
 	return c.doUnion(ctx, unionTypeNormal, unions...)
 }
 
-// UnionAll does "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." statement.
+// UnionAll 生成 "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ... " 语句。 md5:5a15c8720fcb152f
+// ff:多表查询
+// c:
+// unions:Model对象
 func (c *Core) UnionAll(unions ...*Model) *Model {
 	var ctx = c.db.GetCtx()
 	return c.doUnion(ctx, unionTypeAll, unions...)
@@ -288,7 +361,9 @@ func (c *Core) doUnion(ctx context.Context, unionType int, unions ...*Model) *Mo
 	return c.db.Raw(composedSqlStr, composedArgs...)
 }
 
-// PingMaster pings the master node to check authentication or keeps the connection alive.
+// PingMaster 向主节点发送请求以检查身份验证或保持连接活动。 md5:47a7df55cbee8583
+// ff:向主节点发送心跳
+// c:
 func (c *Core) PingMaster() error {
 	var ctx = c.db.GetCtx()
 	if master, err := c.db.Master(); err != nil {
@@ -301,7 +376,9 @@ func (c *Core) PingMaster() error {
 	}
 }
 
-// PingSlave pings the slave node to check authentication or keeps the connection alive.
+// PingSlave 调用ping命令检查从节点的认证或者维持连接。 md5:62272b38d874eda6
+// ff:向从节点发送心跳
+// c:
 func (c *Core) PingSlave() error {
 	var ctx = c.db.GetCtx()
 	if slave, err := c.db.Slave(); err != nil {
@@ -318,11 +395,16 @@ func (c *Core) PingSlave() error {
 // If there's already one unique record of the data in the table, it returns error.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // The parameter `batch` specifies the batch operation count when given data is slice.
+// ff:插入
+// c:
+// ctx:上下文
+// table:表名称
+// data:值
+// batch:批量操作行数
 func (c *Core) Insert(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Insert()
@@ -334,11 +416,16 @@ func (c *Core) Insert(ctx context.Context, table string, data interface{}, batch
 // If there's already one unique record of the data in the table, it ignores the inserting.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // The parameter `batch` specifies the batch operation count when given data is slice.
+// ff:插入并跳过已存在
+// c:
+// ctx:上下文
+// table:表名称
+// data:值
+// batch:批量操作行数
 func (c *Core) InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).InsertIgnore()
@@ -346,7 +433,13 @@ func (c *Core) InsertIgnore(ctx context.Context, table string, data interface{},
 	return c.Model(table).Ctx(ctx).Data(data).InsertIgnore()
 }
 
-// InsertAndGetId performs action Insert and returns the last insert id that automatically generated.
+// InsertAndGetId 执行插入操作，并返回自动生成的最后一个插入id。 md5:8d00b40a35fa48a5
+// ff:插入并取ID
+// c:
+// ctx:上下文
+// table:表名称
+// data:值
+// batch:批量操作行数
 func (c *Core) InsertAndGetId(ctx context.Context, table string, data interface{}, batch ...int) (int64, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).InsertAndGetId()
@@ -359,13 +452,18 @@ func (c *Core) InsertAndGetId(ctx context.Context, table string, data interface{
 // and inserts a new one.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
 // If given data is type of slice, it then does batch replacing, and the optional parameter
 // `batch` specifies the batch operation count.
+// ff:插入并替换已存在
+// c:
+// ctx:上下文
+// table:表名称
+// data:值
+// batch:批量操作行数
 func (c *Core) Replace(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Replace()
@@ -378,12 +476,17 @@ func (c *Core) Replace(ctx context.Context, table string, data interface{}, batc
 // or else it inserts a new record into the table.
 //
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // If given data is type of slice, it then does batch saving, and the optional parameter
 // `batch` specifies the batch operation count.
+// ff:插入并更新已存在
+// c:
+// ctx:上下文
+// table:表名称
+// data:值
+// batch:批量操作行数
 func (c *Core) Save(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Save()
@@ -400,7 +503,7 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 	if err != nil {
 		return nil, err
 	}
-	// Sort the fields in order.
+	// 按顺序对字段进行排序。 md5:3edaf791b6d06284
 	var fieldsOfTableInSequence = make([]string, len(tableFields))
 	for _, field := range tableFields {
 		fieldsOfTableInSequence[field.Index] = field.Name
@@ -417,26 +520,31 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 // DoInsert inserts or updates data for given table.
 // This function is usually used for custom interface definition, you do not need call it manually.
 // The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
-// Eg:
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
 // The parameter `option` values are as follows:
-// InsertOptionDefault: just insert, if there's unique/primary key in the data, it returns error;
-// InsertOptionReplace: if there's unique/primary key in the data, it deletes it from table and inserts a new one;
-// InsertOptionSave:    if there's unique/primary key in the data, it updates it or else inserts a new one;
-// InsertOptionIgnore:  if there's unique/primary key in the data, it ignores the inserting;
+// ff:底层插入
+// c:
+// ctx:上下文
+// link:链接
+// table:表名称
+// list:
+// option:
+// result:
+// err:
 func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
 	var (
 		keys           []string      // Field names.
-		values         []string      // Value holder string array, like: (?,?,?)
-		params         []interface{} // Values that will be committed to underlying database driver.
-		onDuplicateStr string        // onDuplicateStr is used in "ON DUPLICATE KEY UPDATE" statement.
+		values         []string      // 值持有字符串数组，例如：(?,?,?). md5:4dd91c222c15917f
+		params         []interface{} // 将被提交给底层数据库驱动程序的值。 md5:d30c8d96f40663c3
+		onDuplicateStr string        // onDuplicateStr 用于 "ON DUPLICATE KEY UPDATE" 语句。 md5:7056b1b5ea46e69e
 	)
-	// ============================================================================================
-	// Group the list by fields. Different fields to different list.
-	// It here uses ListMap to keep sequence for data inserting.
-	// ============================================================================================
+// ============================================================================================
+// 按照字段对列表进行分组。不同的字段将数据分配到不同的列表中。
+// 此处使用ListMap来保持数据插入时的顺序。
+// ============================================================================================
+// md5:f3b3fbc2fd4a59f8
 	var keyListMap = gmap.NewListMap()
 	for _, item := range list {
 		var (
@@ -480,14 +588,14 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 		return &sqlResult, err
 	}
 
-	// Prepare the batch result pointer.
+	// 准备批量结果指针。 md5:dfc8aa8bb292f9d5
 	var (
 		charL, charR = c.db.GetChars()
 		batchResult  = new(SqlResult)
 		keysStr      = charL + strings.Join(keys, charR+","+charL) + charR
 		operation    = GetInsertOperationByOption(option.InsertOption)
 	)
-	// Upsert clause only takes effect on Save operation.
+	// Upsert 子句只在 Save 操作中生效。 md5:c556e85b127111f7
 	if option.InsertOption == InsertOptionSave {
 		onDuplicateStr, err = c.db.FormatUpsert(keys, list, option)
 		if err != nil {
@@ -500,8 +608,9 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 	)
 	for i := 0; i < listLength; i++ {
 		values = values[:0]
-		// Note that the map type is unordered,
-		// so it should use slice+key to retrieve the value.
+// 注意，映射类型是无序的，
+// 因此应该使用切片和键来检索值。
+// md5:2495d5e730dae78f
 		for _, k := range keys {
 			if s, ok := list[i][k].(Raw); ok {
 				values = append(values, gconv.String(s))
@@ -511,7 +620,7 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 			}
 		}
 		valueHolders = append(valueHolders, "("+gstr.Join(values, ",")+")")
-		// Batch package checks: It meets the batch number, or it is the last element.
+		// 批量包检查：它满足批量数量，或者它是最后一个元素。 md5:a2ef8b869c6d8888
 		if len(valueHolders) == option.BatchCount || (i == listLength-1 && len(valueHolders) > 0) {
 			var (
 				stdSqlResult sql.Result
@@ -542,24 +651,40 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 
 // Update does "UPDATE ... " statement for the table.
 //
-// The parameter `data` can be type of string/map/gmap/struct/*struct, etc.
-// Eg: "uid=10000", "uid", 10000, g.Map{"uid": 10000, "name":"john"}
+// The parameter `data` can be type of string/map/gmap/struct/*struct, etc. "uid=10000", "uid", 10000, g.Map{"uid": 10000, "name":"john"}
 //
 // The parameter `condition` can be type of string/map/gmap/slice/struct/*struct, etc.
 // It is commonly used with parameter `args`.
-// Eg:
 // "uid=10000",
 // "uid", 10000
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
 // User{ Id : 1, UserName : "john"}.
+// ff:更新
+// c:
+// ctx:上下文
+// table:表名称
+// data:数据
+// condition:条件
+// args:参数
 func (c *Core) Update(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) {
 	return c.Model(table).Ctx(ctx).Data(data).Where(condition, args...).Update()
 }
 
-// DoUpdate does "UPDATE ... " statement for the table.
-// This function is usually used for custom interface definition, you do not need to call it manually.
+// DoUpdate 执行针对表的 "UPDATE ... " 语句。
+// 这个函数通常用于自定义接口定义，一般不需要手动调用。
+// md5:6d7e08b57dd59a0b
+// ff:底层更新
+// c:
+// ctx:上下文
+// link:链接
+// table:表名称
+// data:值
+// condition:条件
+// args:参数
+// result:
+// err:
 func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) {
 	table = c.QuotePrefixTableName(table)
 	var (
@@ -600,7 +725,7 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 		if err != nil {
 			return nil, err
 		}
-		// Sort the data keys in sequence of table fields.
+		// 按照表格字段的顺序对数据键进行排序。 md5:edcdc64a514af6fa
 		var (
 			dataKeys       = make([]string, 0)
 			keysInSequence = make([]string, 0)
@@ -641,7 +766,7 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 	if len(params) > 0 {
 		args = append(params, args...)
 	}
-	// If no link passed, it then uses the master link.
+	// 如果没有传递链接，那么它就使用主链接。 md5:02e931534071446b
 	if link == nil {
 		if link, err = c.MasterLink(); err != nil {
 			return nil, err
@@ -659,19 +784,36 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 //
 // The parameter `condition` can be type of string/map/gmap/slice/struct/*struct, etc.
 // It is commonly used with parameter `args`.
-// Eg:
 // "uid=10000",
 // "uid", 10000
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
 // User{ Id : 1, UserName : "john"}.
+// ff:删除
+// c:
+// ctx:上下文
+// table:表名称
+// condition:条件
+// args:参数
+// result:结果
+// err:错误
 func (c *Core) Delete(ctx context.Context, table string, condition interface{}, args ...interface{}) (result sql.Result, err error) {
 	return c.Model(table).Ctx(ctx).Where(condition, args...).Delete()
 }
 
-// DoDelete does "DELETE FROM ... " statement for the table.
-// This function is usually used for custom interface definition, you do not need call it manually.
+// DoDelete 对表执行 "DELETE FROM ..." 语句。
+// 此函数通常用于自定义接口定义，无需手动调用。
+// md5:f902004d44b55d73
+// ff:底层删除
+// c:
+// ctx:上下文
+// link:链接
+// table:表名称
+// condition:条件
+// args:参数
+// result:结果
+// err:错误
 func (c *Core) DoDelete(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error) {
 	if link == nil {
 		if link, err = c.MasterLink(); err != nil {
@@ -682,8 +824,10 @@ func (c *Core) DoDelete(ctx context.Context, link Link, table string, condition 
 	return c.db.DoExec(ctx, link, fmt.Sprintf("DELETE FROM %s%s", table, condition), args...)
 }
 
-// FilteredLink retrieves and returns filtered `linkInfo` that can be using for
-// logging or tracing purpose.
+// FilteredLink获取并返回经过过滤的`linkInfo`，这些信息可用于日志记录或跟踪目的。
+// md5:5d3d4d2f55af0347
+// ff:取数据库链接信息
+// c:
 func (c *Core) FilteredLink() string {
 	return fmt.Sprintf(
 		`%s@%s(%s:%s)/%s`,
@@ -691,17 +835,19 @@ func (c *Core) FilteredLink() string {
 	)
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// It just returns the pointer address.
-//
-// Note that this interface implements mainly for workaround for a json infinite loop bug
-// of Golang version < v1.14.
+// MarshalJSON 实现了 json.Marshal 接口的MarshalJSON方法。它只是返回指针地址。
+// 
+// 注意，这个接口主要是为了解决 Golang 版本小于 v1.14 时的json无限循环bug而实现的。
+// md5:1b2346be8e04b5fa
+// ff:
+// c:
 func (c Core) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`%+v`, c)), nil
 }
 
-// writeSqlToLogger outputs the Sql object to logger.
-// It is enabled only if configuration "debug" is true.
+// writeSqlToLogger 将Sql对象输出到日志记录器。
+// 仅当配置"debug"为true时，此功能才启用。
+// md5:ad16123093791e59
 func (c *Core) writeSqlToLogger(ctx context.Context, sql *Sql) {
 	var transactionIdStr string
 	if sql.IsTransaction {
@@ -721,7 +867,10 @@ func (c *Core) writeSqlToLogger(ctx context.Context, sql *Sql) {
 	}
 }
 
-// HasTable determine whether the table name exists in the database.
+// HasTable 判断数据库中是否存在指定的表名。 md5:64f8bb54ba260c03
+// ff:是否存在表名
+// c:
+// name:表名称
 func (c *Core) HasTable(name string) (bool, error) {
 	tables, err := c.GetTablesWithCache()
 	if err != nil {
@@ -737,7 +886,9 @@ func (c *Core) HasTable(name string) (bool, error) {
 	return false, nil
 }
 
-// GetTablesWithCache retrieves and returns the table names of current database with cache.
+// GetTablesWithCache 使用缓存检索并返回当前数据库中的表名。 md5:9abf0a08a0dbc629
+// ff:取表名称缓存
+// c:
 func (c *Core) GetTablesWithCache() ([]string, error) {
 	var (
 		ctx      = c.db.GetCtx()
@@ -758,7 +909,10 @@ func (c *Core) GetTablesWithCache() ([]string, error) {
 	return result.Strings(), nil
 }
 
-// IsSoftCreatedFieldName checks and returns whether given field name is an automatic-filled created time.
+// IsSoftCreatedFieldName 检查并返回给定字段名是否为自动填充的创建时间。 md5:f4c7129bbccec8aa
+// ff:
+// c:
+// fieldName:
 func (c *Core) IsSoftCreatedFieldName(fieldName string) bool {
 	if fieldName == "" {
 		return false
@@ -777,13 +931,21 @@ func (c *Core) IsSoftCreatedFieldName(fieldName string) bool {
 	return false
 }
 
-// FormatSqlBeforeExecuting formats the sql string and its arguments before executing.
-// The internal handleArguments function might be called twice during the SQL procedure,
-// but do not worry about it, it's safe and efficient.
+// FormatSqlBeforeExecuting 在执行SQL之前格式化SQL字符串及其参数。
+// 在SQL执行过程中，内部的handleArguments函数可能会被调用两次，
+// 但请不必担心，这是安全且高效的。
+// md5:73af1c35794cea21
+// ff:格式化Sql
+// c:
+// sql:
+// args:参数切片
+// newSql:新sql
+// newArgs:新参数切片
 func (c *Core) FormatSqlBeforeExecuting(sql string, args []interface{}) (newSql string, newArgs []interface{}) {
-	// DO NOT do this as there may be multiple lines and comments in the sql.
-	// sql = gstr.Trim(sql)
-	// sql = gstr.Replace(sql, "\n", " ")
-	// sql, _ = gregex.ReplaceString(`\s{2,}`, ` `, sql)
+// 不要这样做，因为SQL语句中可能包含多行和注释。
+// sql = gstr.Trim(sql) // 删除sql字符串两侧的空白
+// sql = gstr.Replace(sql, "\n", " ") // 将换行符替换为单个空格
+// sql, _ = gregex.ReplaceString(`\s{2,}`, ` `, sql) // 替换连续两个或更多空格为单个空格
+// md5:907309db612b16e7
 	return handleSliceAndStructArgsForSql(sql, args)
 }

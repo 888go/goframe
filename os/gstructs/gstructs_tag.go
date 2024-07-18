@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gstructs
 
@@ -15,9 +16,12 @@ import (
 	"github.com/gogf/gf/v2/util/gtag"
 )
 
-// ParseTag parses tag string into map.
-// For example:
-// ParseTag(`v:"required" p:"id" d:"1"`) => map[v:required p:id d:1].
+// ParseTag 将标签字符串解析为映射。
+// 例如：
+// ParseTag(`v:"required" p:"id" d:"1"`)) => map[v:required p:id d:1]。
+// md5:967d381052c3a2d8
+// ff:
+// tag:
 func ParseTag(tag string) map[string]string {
 	var (
 		key  string
@@ -33,10 +37,9 @@ func ParseTag(tag string) map[string]string {
 		if tag == "" {
 			break
 		}
-		// Scan to colon. A space, a quote or a control character is a syntax error.
-		// Strictly speaking, control chars include the range [0x7f, 0x9f], not just
-		// [0x00, 0x1f], but in practice, we ignore the multi-byte control characters
-		// as it is simpler to inspect the tag's bytes than the tag's runes.
+// 扫描到冒号。空格、引号或控制字符都是语法错误。
+// 严格来说，控制字符包括范围 [0x7f, 0x9f]，而不仅仅是 [0x00, 0x1f]。但在实践中，我们忽略多字节控制字符，因为检查标签的字节比检查标签的 rune 更简单。
+// md5:2b37f6b6cf4e8415
 		i = 0
 		for i < len(tag) && tag[i] > ' ' && tag[i] != ':' && tag[i] != '"' && tag[i] != 0x7f {
 			i++
@@ -47,7 +50,7 @@ func ParseTag(tag string) map[string]string {
 		key = tag[:i]
 		tag = tag[i+1:]
 
-		// Scan quoted string to find value.
+		// 扫描带引号的字符串以找到值。 md5:022e03f120cb2054
 		i = 1
 		for i < len(tag) && tag[i] != '"' {
 			if tag[i] == '\\' {
@@ -69,25 +72,33 @@ func ParseTag(tag string) map[string]string {
 	return data
 }
 
-// TagFields retrieves and returns struct tags as []Field from `pointer`.
+// TagFields 从`pointer`获取并返回结构体标签作为[]Field。
 //
-// The parameter `pointer` should be type of struct/*struct.
+// 参数`pointer`应为struct/*struct类型。
 //
-// Note that,
-// 1. It only retrieves the exported attributes with first letter upper-case from struct.
-// 2. The parameter `priority` should be given, it only retrieves fields that has given tag.
+// 请注意：
+// 1. 它只从结构体中检索首字母大写的导出属性。
+// 2. 应提供参数`priority`，它只检索具有给定标签的字段。
+// md5:55390bfc1f5537f2
+// ff:
+// pointer:
+// priority:
 func TagFields(pointer interface{}, priority []string) ([]Field, error) {
 	return getFieldValuesByTagPriority(pointer, priority, map[string]struct{}{})
 }
 
-// TagMapName retrieves and returns struct tags as map[tag]attribute from `pointer`.
-//
-// The parameter `pointer` should be type of struct/*struct.
-//
-// Note that,
-// 1. It only retrieves the exported attributes with first letter upper-case from struct.
-// 2. The parameter `priority` should be given, it only retrieves fields that has given tag.
-// 3. If one field has no specified tag, it uses its field name as result map key.
+// TagMapName从`pointer`获取并返回结构体标签作为map[tag]attribute。
+// 
+// 参数`pointer`应为结构体或*struct类型。
+// 
+// 注意：
+// 1. 它仅从结构体中检索首字母大写的导出属性。
+// 2. 需要提供参数`priority`，它只检索具有给定标签的字段。
+// 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。
+// md5:0eb7c62c8a6f7e09
+// ff:
+// pointer:
+// priority:
 func TagMapName(pointer interface{}, priority []string) (map[string]string, error) {
 	fields, err := TagFields(pointer, priority)
 	if err != nil {
@@ -100,13 +111,17 @@ func TagMapName(pointer interface{}, priority []string) (map[string]string, erro
 	return tagMap, nil
 }
 
-// TagMapField retrieves struct tags as map[tag]Field from `pointer`, and returns it.
-// The parameter `object` should be either type of struct/*struct/[]struct/[]*struct.
-//
-// Note that,
-// 1. It only retrieves the exported attributes with first letter upper-case from struct.
-// 2. The parameter `priority` should be given, it only retrieves fields that has given tag.
-// 3. If one field has no specified tag, it uses its field name as result map key.
+// TagMapField 从 `pointer` 中获取结构体标签作为 map[tag]Field，然后返回它。
+// 参数 `object` 应该是 struct 类型、*struct 类型、struct 切片或 []*struct 类型之一。
+// 
+// 注意：
+// 1. 它只会从结构体中检索首字母大写的导出属性。
+// 2. 需要提供参数 `priority`，只检索具有给定标签的字段。
+// 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。
+// md5:ba865b4214b27332
+// ff:
+// object:
+// priority:
 func TagMapField(object interface{}, priority []string) (map[string]Field, error) {
 	fields, err := TagFields(object, priority)
 	if err != nil {
@@ -136,7 +151,7 @@ func getFieldValues(structObject interface{}) ([]Field, error) {
 		switch reflectKind {
 		case reflect.Ptr:
 			if !reflectValue.IsValid() || reflectValue.IsNil() {
-				// If pointer is type of *struct and nil, then automatically create a temporary struct.
+				// 如果指针是*struct类型且为nil，那么会自动创建一个临时的struct。 md5:23b5ebc131739e7d
 				reflectValue = reflect.New(reflectValue.Type().Elem()).Elem()
 				reflectKind = reflectValue.Kind()
 			} else {
@@ -189,7 +204,7 @@ func getFieldValuesByTagPriority(
 		tagFields = make([]Field, 0)
 	)
 	for _, field := range fields {
-		// Only retrieve exported attributes.
+		// 只检索导出的属性。 md5:d8185f07060feffb
 		if !field.IsExported() {
 			continue
 		}
@@ -211,7 +226,7 @@ func getFieldValuesByTagPriority(
 			tagField.TagValue = tagValue
 			tagFields = append(tagFields, tagField)
 		}
-		// If this is an embedded attribute, it retrieves the tags recursively.
+		// 如果这是一个嵌入属性，它将递归地获取标签。 md5:ed1233074f938682
 		if field.IsEmbedded() && field.OriginalKind() == reflect.Struct {
 			subTagFields, err := getFieldValuesByTagPriority(field.Value, priority, repeatedTagFilteringMap)
 			if err != nil {

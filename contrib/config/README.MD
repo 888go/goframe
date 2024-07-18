@@ -1,3 +1,9 @@
-# Configuration center implements.
+# # 配置中心实现。
 
-Please refer to certain sub folder.
+请参考特定子文件夹。
+
+# 配置中心实现。
+
+请参考特定子文件夹。
+
+// md5:d24e1d6a0917c424

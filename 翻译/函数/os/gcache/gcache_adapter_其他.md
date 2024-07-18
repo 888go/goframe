@@ -39,3 +39,79 @@
 qm=设置值
 cz=Set(
 yx=true
+
+[SetMap(ctx context.Context, data map#左中括号#interface{}#右中括号#interface{}, duration time.Duration) error]
+qm=设置Map
+cz=SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error
+
+[SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (ok bool, err error)]
+qm=设置值并跳过已存在
+cz=SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (ok bool, err error)
+
+[SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error)]
+qm=设置值并跳过已存在_函数
+cz=SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error)
+
+[SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error)]
+qm=设置值并跳过已存在_并发安全函数
+cz=SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error)
+
+[Get(ctx context.Context, key interface{}) (*gvar.Var, error)]
+qm=取值
+cz=Get(ctx context.Context, key interface{}) (*gvar.Var, error)
+
+[GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error)]
+qm=取值或设置值
+cz=GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error)
+
+[GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)]
+qm=取值或设置值_函数
+cz=GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)
+
+[GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)]
+qm=取值或设置值_并发安全函数
+cz=GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)
+
+[Contains(ctx context.Context, key interface{}) (bool, error)]
+qm=是否存在
+cz=Contains(ctx context.Context, key interface{}) (bool, error)
+
+[Size(ctx context.Context) (size int, err error)]
+qm=取数量
+cz=Size(ctx context.Context) (size int, err error)
+
+[Data(ctx context.Context) (data map#左中括号#interface{}#右中括号#interface{}, err error)]
+qm=取所有键值Map副本
+cz=Data(ctx context.Context) (data map[interface{}]interface{}, err error)
+
+[Keys(ctx context.Context) (keys #左中括号##右中括号#interface{}, err error)]
+qm=取所有键
+cz=Keys(ctx context.Context) (keys []interface{}, err error)
+
+[Values(ctx context.Context) (values #左中括号##右中括号#interface{}, err error)]
+qm=取所有值
+cz=Values(ctx context.Context) (values []interface{}, err error)
+
+[Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error)]
+qm=更新值
+cz=Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error)
+
+[UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error)]
+qm=更新过期时间
+cz=UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error)
+
+[GetExpire(ctx context.Context, key interface{}) (time.Duration, error)]
+qm=取过期时间
+cz=GetExpire(ctx context.Context, key interface{}) (time.Duration, error)
+
+[Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error)]
+qm=删除并带返回值
+cz=Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error)
+
+[Clear(ctx context.Context) error]
+qm=清空
+cz=Clear(ctx context.Context) error
+
+[Close(ctx context.Context) error]
+qm=关闭
+cz=Close(ctx context.Context) error

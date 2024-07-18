@@ -1,10 +1,11 @@
 //go:build 屏蔽单元测试
 
-// Copyright 2019 gf Author(https://github.com/gogf/gf). All Rights Reserved.
+// 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 此源代码形式受麻省理工学院（MIT）许可证的条款约束。
+// 如果未随此文件一起分发MIT许可证的副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:47e609239e0cb2bc
 
 package mssql_test
 
@@ -284,7 +285,7 @@ func Test_Model_Update(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 	})
-	// Update + Fields(string)
+	// 更新 + Fields(字符串). md5:df4e16d13da67d5e
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Fields("passport").Data(g.Map{
 			"passport": "user_44",
@@ -493,7 +494,7 @@ func Test_Model_Count(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
-	// Count with cache, check internal ctx data feature.
+	// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 10; i++ {
 			count, err := db.Model(table).Cache(gdb.CacheOption{
@@ -572,7 +573,7 @@ func Test_Model_Struct(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_1")
 	})
-	// Auto creating struct object.
+	// 自动创建结构体对象。 md5:4b196dfc1321dc30
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -675,7 +676,7 @@ func Test_Model_Structs(t *testing.T) {
 		t.Assert(users[1].NickName, "name_2")
 		t.Assert(users[2].NickName, "name_3")
 	})
-	// Auto create struct slice.
+	// 自动创建结构体切片。 md5:78598f0d7f20b815
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1095,7 +1096,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["ID"].Int(), 1)
 	})
-	// struct, automatic mapping and filtering.
+	// 结构体，自动映射和过滤。 md5:8edea55227b914af
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2628,7 +2629,7 @@ func Test_Model_Save(t *testing.T) {
 		t.Assert(user.Password, "15d55ad283aa400af464c76d713c07ad")
 		t.Assert(user.NickName, "n1")
 
-		// Sleep 1 second to make sure the updated time is different.
+		// 暂停1秒以确保更新的时间不同。 md5:733cf93f1135fed7
 		time.Sleep(1 * time.Second)
 		_, err = db.Model(table).Data(g.Map{
 			"id":       1,
@@ -2643,7 +2644,7 @@ func Test_Model_Save(t *testing.T) {
 		t.Assert(user.Passport, "p1")
 		t.Assert(user.Password, "25d55ad283aa400af464c76d713c07ad")
 		t.Assert(user.NickName, "n2")
-		// check created_at not equal to updated_at
+		// 检查created_at是否不等于updated_at. md5:1ce415b9de20266f
 		t.AssertNE(user.CreatedAt, user.UpdatedAt)
 
 		count, err = db.Model(table).Count()

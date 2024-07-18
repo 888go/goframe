@@ -37,9 +37,5 @@
 
 [Strings() (errs #左中括号##右中括号#string)]
 qm=取文本切片
-cz=Strings() (errs []string)
+zz=Strings\(\) +\(errs +\[\]string\) *
 yx=true
-
-[func (e *validationError) Strings() (errs #左中括号##右中括号#string)]
-qm=取文本切片
-cz=Strings() (errs []string) {

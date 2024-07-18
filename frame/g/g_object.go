@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package g
 
@@ -22,87 +23,123 @@ import (
 	"github.com/gogf/gf/v2/util/gvalid"
 )
 
-// Client is a convenience function, which creates and returns a new HTTP client.
+// Client 是一个便利函数，它创建并返回一个新的 HTTP 客户端。 md5:70c95e835d086085
+// ff:网页类
 func Client() *gclient.Client {
 	return gclient.New()
 }
 
-// Server returns an instance of http server with specified name.
+// Server 函数返回一个指定名称的 http 服务器实例。 md5:8613002877ca5b89
+// ff:Http类
+// name:名称
 func Server(name ...interface{}) *ghttp.Server {
 	return gins.Server(name...)
 }
 
-// TCPServer returns an instance of tcp server with specified name.
+// TCPServer 返回一个具有指定名称的TCP服务器实例。 md5:57eae18c70a9e8c2
+// ff:TCP类
+// name:名称
 func TCPServer(name ...interface{}) *gtcp.Server {
 	return gtcp.GetServer(name...)
 }
 
-// UDPServer returns an instance of udp server with specified name.
+// UDPServer 返回一个指定名称的UDP服务器实例。 md5:bffbc3c34f72d706
+// ff:UDP类
+// name:名称
 func UDPServer(name ...interface{}) *gudp.Server {
 	return gudp.GetServer(name...)
 }
 
-// View returns an instance of template engine object with specified name.
+// View 返回指定名称的模板引擎对象实例。 md5:090a094475513c16
+// ff:模板类
+// name:名称
 func View(name ...string) *gview.View {
 	return gins.View(name...)
 }
 
-// Config returns an instance of config object with specified name.
+// Config返回具有指定名称的config对象实例。 md5:68a54cf8b0afa4f0
+// ff:配置类
+// name:名称
 func Config(name ...string) *gcfg.Config {
 	return gins.Config(name...)
 }
 
-// Cfg is alias of Config.
-// See Config.
+// Cfg 是 Config 的别名。
+// 参见 Config。
+// md5:1b7d381469f7e212
+// ff:Cfg别名
+// name:名称
 func Cfg(name ...string) *gcfg.Config {
 	return Config(name...)
 }
 
-// Resource returns an instance of Resource.
-// The parameter `name` is the name for the instance.
+// Resource 返回一个 Resource 类型的实例。
+// 参数 `name` 为该实例的名称。
+// md5:42e664c4b3a2bb54
+// ff:资源类
+// name:名称
 func Resource(name ...string) *gres.Resource {
 	return gins.Resource(name...)
 }
 
-// I18n returns an instance of gi18n.Manager.
-// The parameter `name` is the name for the instance.
+// I18n 返回一个 gi18n.Manager 的实例。
+// 参数 `name` 是实例的名称。
+// md5:cb8fb8e2c93c597b
+// ff:多语言类
+// name:名称
 func I18n(name ...string) *gi18n.Manager {
 	return gins.I18n(name...)
 }
 
-// Res is alias of Resource.
-// See Resource.
+// Res是Resource的别名。
+// 请参阅Resource。
+// md5:f2fc8f778d75b07c
+// ff:Res别名
+// name:名称
 func Res(name ...string) *gres.Resource {
 	return Resource(name...)
 }
 
-// Log returns an instance of glog.Logger.
-// The parameter `name` is the name for the instance.
+// Log 函数返回一个 glog.Logger 实例。
+// 参数 `name` 用于指定该实例的名称。
+// md5:01b7637de189b37b
+// ff:日志类
+// name:名称
 func Log(name ...string) *glog.Logger {
 	return gins.Log(name...)
 }
 
-// DB returns an instance of database ORM object with specified configuration group name.
+// DB 根据指定的配置组名称返回一个数据库ORM对象实例。 md5:229506bfec6bd334
+// ff:DB类
+// name:名称
 func DB(name ...string) gdb.DB {
 	return gins.Database(name...)
 }
 
-// Model creates and returns a model based on configuration of default database group.
+// Model 根据默认数据库组的配置创建并返回一个模型。 md5:544c43fcc039bdfd
+// ff:DB类Model
+// tableNameOrStruct:表名或结构体
 func Model(tableNameOrStruct ...interface{}) *gdb.Model {
 	return DB().Model(tableNameOrStruct...)
 }
 
-// ModelRaw creates and returns a model based on a raw sql not a table.
+// ModelRaw根据原始SQL（而非表）创建并返回一个模型。 md5:674c1e89391cbf02
+// ff:DB类原生SQL
+// rawSql:原生Sql
+// args:参数
 func ModelRaw(rawSql string, args ...interface{}) *gdb.Model {
 	return DB().Raw(rawSql, args...)
 }
 
-// Redis returns an instance of redis client with specified configuration group name.
+// Redis 根据给定的配置组名称返回一个redis客户端实例。 md5:3fab97150e392125
+// ff:Redis类
+// name:名称
 func Redis(name ...string) *gredis.Redis {
 	return gins.Redis(name...)
 }
 
-// Validator is a convenience function, which creates and returns a new validation manager object.
+// Validator 是一个便利的函数，它创建并返回一个新的验证管理器对象。 md5:de213201906601b7
+// ff:效验类
 func Validator() *gvalid.Validator {
 	return gvalid.New()
 }

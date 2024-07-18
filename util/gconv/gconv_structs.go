@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv
 
@@ -13,36 +14,52 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// Structs converts any slice to given struct slice.
-// Also see Scan, Struct.
+// Structs 将任何切片转换为给定结构体类型的切片。
+// 另请参见 Scan, Struct。
+// md5:9f4251433eeb586c
+// ff:
+// params:
+// pointer:
+// paramKeyToAttrMap:
+// err:
 func Structs(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
 
-// SliceStruct is alias of Structs.
+// SliceStruct 是 Structs 的别名。 md5:844cd0606fb4edf0
+// ff:SliceStruct别名
+// params:
+// pointer:
+// mapping:
+// err:
 func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
 	return Structs(params, pointer, mapping...)
 }
 
-// StructsTag acts as Structs but also with support for priority tag feature, which retrieves the
-// specified tags for `params` key-value items to struct attribute names mapping.
-// The parameter `priorityTag` supports multiple tags that can be joined with char ','.
+// StructsTag 作为 Structs 的功能增强版本，还支持优先级标签特性。它根据 `params` 键值对获取指定的标签，并将其映射到结构体属性名称上。
+// 参数 `priorityTag` 支持多个标签，这些标签可以使用逗号分隔。
+// md5:ddc344beca5956a8
+// ff:
+// params:
+// pointer:
+// priorityTag:
+// err:
 func StructsTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStructs(params, pointer, nil, priorityTag)
 }
 
-// doStructs converts any slice to given struct slice.
+// doStructs 将任何切片转换为给定的结构体切片。
 //
-// It automatically checks and converts json string to []map if `params` is string/[]byte.
+// 如果 `params` 是字符串或[]byte，它会自动检查并将其转换为[]map。
 //
-// The parameter `pointer` should be type of pointer to slice of struct.
-// Note that if `pointer` is a pointer to another pointer of type of slice of struct,
-// it will create the struct/pointer internally.
+// 参数 `pointer` 应该是指向结构体切片的指针。注意，如果 `pointer` 是指向结构体切片的另一个指针的指针，
+// 它会在内部创建结构体/指针。
+// md5:0bddadd6970c6b0b
 func doStructs(
 	params interface{}, pointer interface{}, paramKeyToAttrMap map[string]string, priorityTag string,
 ) (err error) {
 	defer func() {
-		// Catch the panic, especially the reflection operation panics.
+		// 捕获panic，尤其是反射操作引发的panic。 md5:dd183bf8028f513a
 		if exception := recover(); exception != nil {
 			if v, ok := exception.(error); ok && gerror.HasStack(v) {
 				err = v
@@ -63,7 +80,7 @@ func doStructs(
 			)
 		}
 	}
-	// Converting `params` to map slice.
+	// 将`params`转换为映射切片。 md5:d0685c4290b475fe
 	var (
 		paramsList []interface{}
 		paramsRv   = reflect.ValueOf(params)
@@ -86,7 +103,7 @@ func doStructs(
 			paramsList[i] = paramsMaps[i]
 		}
 	}
-	// If `params` is an empty slice, no conversion.
+	// 如果`params`是一个空切片，则不进行转换。 md5:c2aa546ea7052f08
 	if len(paramsList) == 0 {
 		return nil
 	}

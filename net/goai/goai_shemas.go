@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package goai
 
@@ -26,12 +27,17 @@ func (s *Schemas) init() {
 	}
 }
 
+// ff:
+// s:
 func (s *Schemas) Clone() Schemas {
 	newSchemas := createSchemas()
 	newSchemas.refs = s.refs.Clone()
 	return newSchemas
 }
 
+// ff:
+// s:
+// name:
 func (s *Schemas) Get(name string) *SchemaRef {
 	s.init()
 	value := s.refs.Get(name)
@@ -42,16 +48,26 @@ func (s *Schemas) Get(name string) *SchemaRef {
 	return nil
 }
 
+// yx:true
+// ff:设置值
+// s:
+// name:
+// ref:
 func (s *Schemas) Set(name string, ref SchemaRef) {
 	s.init()
 	s.refs.Set(name, ref)
 }
 
+// ff:
+// s:
+// names:
 func (s *Schemas) Removes(names []interface{}) {
 	s.init()
 	s.refs.Removes(names)
 }
 
+// ff:
+// s:
 func (s *Schemas) Map() map[string]SchemaRef {
 	s.init()
 	m := make(map[string]SchemaRef)
@@ -62,6 +78,12 @@ func (s *Schemas) Map() map[string]SchemaRef {
 	return m
 }
 
+// yx:true
+// ff:X遍历
+// s:
+// f:
+// key:
+// ref:
 func (s *Schemas) Iterator(f func(key string, ref SchemaRef) bool) {
 	s.init()
 	s.refs.Iterator(func(key, value interface{}) bool {
@@ -69,6 +91,8 @@ func (s *Schemas) Iterator(f func(key string, ref SchemaRef) bool) {
 	})
 }
 
+// ff:
+// s:
 func (s Schemas) MarshalJSON() ([]byte, error) {
 	s.init()
 	return s.refs.MarshalJSON()

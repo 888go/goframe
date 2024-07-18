@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp_test
 
@@ -144,7 +145,7 @@ func Test_RoutePathParams(t *testing.T) {
 }
 
 func Test_BuildParams(t *testing.T) {
-	// normal && special cases
+	// 正常情况和特殊情况. md5:e92447df0c42f0ae
 	params := map[string]string{
 		"val":   "12345678",
 		"code1": "x&a=1", // for fix
@@ -162,7 +163,7 @@ func Test_BuildParams(t *testing.T) {
 		for k := range vs {
 			vv := vs.Get(k)
 			_, ok := params[k]
-			// check no additional param
+			// 检查没有多余的参数. md5:0a0f11b34d795824
 			t.Assert(ok, true)
 			// check equal
 			t.AssertEQ(params[k], vv)

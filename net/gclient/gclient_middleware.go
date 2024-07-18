@@ -6,10 +6,10 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 )
 
-// HandlerFunc middleware handler func
+// HandlerFunc 是用于处理中间件的处理器函数. md5:1e0565dffbfa907c
 type HandlerFunc = func(c *Client, r *http.Request) (*Response, error)
 
-// clientMiddleware is the plugin for http client request workflow management.
+// clientMiddleware 是用于管理HTTP客户端请求工作流程的插件。 md5:72add0d1b66ac073
 type clientMiddleware struct {
 	client       *Client       // http client.
 	handlers     []HandlerFunc // mdl handlers.
@@ -20,14 +20,21 @@ type clientMiddleware struct {
 
 const clientMiddlewareKey gctx.StrKey = "__clientMiddlewareKey"
 
-// Use adds one or more middleware handlers to client.
+// Use 向客户端添加一个或多个中间件处理器。 md5:92665269b902692e
+// ff:中间件
+// c:
+// handlers:中间件s
 func (c *Client) Use(handlers ...HandlerFunc) *Client {
 	c.middlewareHandler = append(c.middlewareHandler, handlers...)
 	return c
 }
 
-// Next calls the next middleware.
-// This should only be call in HandlerFunc.
+// Next 调用下一个中间件。
+// 这应该只在 HandlerFunc 中调用。
+// md5:70c74664d7d9f919
+// ff:
+// c:
+// req:
 func (c *Client) Next(req *http.Request) (*Response, error) {
 	if v := req.Context().Value(clientMiddlewareKey); v != nil {
 		if m, ok := v.(*clientMiddleware); ok {
@@ -37,7 +44,12 @@ func (c *Client) Next(req *http.Request) (*Response, error) {
 	return c.callRequest(req)
 }
 
-// Next calls the next middleware handler.
+// Next 调用下一个中间件处理器。 md5:51a6ca6a21a9942e
+// ff:
+// m:
+// req:
+// resp:
+// err:
 func (m *clientMiddleware) Next(req *http.Request) (resp *Response, err error) {
 	if m.err != nil {
 		return m.resp, m.err

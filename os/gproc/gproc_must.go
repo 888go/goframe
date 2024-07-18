@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gproc
 
@@ -11,21 +12,33 @@ import (
 	"io"
 )
 
-// MustShell performs as Shell, but it panics if any error occurs.
+// MustShell 行为与 Shell 相同，但如果发生任何错误则会引发 panic。 md5:8ffd357cf1ea4dbc
+// ff:
+// ctx:
+// cmd:
+// out:
+// in:
 func MustShell(ctx context.Context, cmd string, out io.Writer, in io.Reader) {
 	if err := Shell(ctx, cmd, out, in); err != nil {
 		panic(err)
 	}
 }
 
-// MustShellRun performs as ShellRun, but it panics if any error occurs.
+// MustShellRun 执行与 ShellRun 相同的操作，但如果发生任何错误，则会引发恐慌。 md5:b0e6d628208193e7
+// ff:
+// ctx:
+// cmd:
 func MustShellRun(ctx context.Context, cmd string) {
 	if err := ShellRun(ctx, cmd); err != nil {
 		panic(err)
 	}
 }
 
-// MustShellExec performs as ShellExec, but it panics if any error occurs.
+// MustShellExec 执行类似于 ShellExec，但如果发生任何错误，它将引发恐慌。 md5:9754cecde7636273
+// ff:
+// ctx:
+// cmd:
+// environment:
 func MustShellExec(ctx context.Context, cmd string, environment ...[]string) string {
 	result, err := ShellExec(ctx, cmd, environment...)
 	if err != nil {

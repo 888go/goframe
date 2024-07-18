@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gdb
 
@@ -16,10 +17,12 @@ import (
 // The parameter `table` can be joined table and its joined condition,
 // and also with its alias name.
 //
-// Eg:
 // Model("user").LeftJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").LeftJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").LeftJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid").
+// ff:左连接
+// m:
+// tableOrSubQueryAndJoinConditions:表或子查询和连接条件
 func (m *Model) LeftJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 	return m.doJoin(joinOperatorLeft, tableOrSubQueryAndJoinConditions...)
 }
@@ -28,10 +31,12 @@ func (m *Model) LeftJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // The parameter `table` can be joined table and its joined condition,
 // and also with its alias name.
 //
-// Eg:
 // Model("user").RightJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").RightJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").RightJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid").
+// ff:右连接
+// m:
+// tableOrSubQueryAndJoinConditions:表或子查询和连接条件
 func (m *Model) RightJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 	return m.doJoin(joinOperatorRight, tableOrSubQueryAndJoinConditions...)
 }
@@ -40,19 +45,24 @@ func (m *Model) RightJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 // The parameter `table` can be joined table and its joined condition,
 // and also with its alias name。
 //
-// Eg:
 // Model("user").InnerJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").InnerJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").InnerJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid").
+// ff:内连接
+// m:
+// tableOrSubQueryAndJoinConditions:表或子查询和连接条件
 func (m *Model) InnerJoin(tableOrSubQueryAndJoinConditions ...string) *Model {
 	return m.doJoin(joinOperatorInner, tableOrSubQueryAndJoinConditions...)
 }
 
 // LeftJoinOnField performs as LeftJoin, but it joins both tables with the `same field name`.
 //
-// Eg:
 // Model("order").LeftJoinOnField("user", "user_id")
 // Model("order").LeftJoinOnField("product", "product_id").
+// ff:左连接相同字段
+// m:
+// table:表名
+// field:相同字段名
 func (m *Model) LeftJoinOnField(table, field string) *Model {
 	return m.doJoin(joinOperatorLeft, table, fmt.Sprintf(
 		`%s.%s=%s.%s`,
@@ -65,9 +75,12 @@ func (m *Model) LeftJoinOnField(table, field string) *Model {
 
 // RightJoinOnField performs as RightJoin, but it joins both tables with the `same field name`.
 //
-// Eg:
 // Model("order").InnerJoinOnField("user", "user_id")
 // Model("order").InnerJoinOnField("product", "product_id").
+// ff:右连接相同字段
+// m:
+// table:表名
+// field:相同字段名
 func (m *Model) RightJoinOnField(table, field string) *Model {
 	return m.doJoin(joinOperatorRight, table, fmt.Sprintf(
 		`%s.%s=%s.%s`,
@@ -80,9 +93,12 @@ func (m *Model) RightJoinOnField(table, field string) *Model {
 
 // InnerJoinOnField performs as InnerJoin, but it joins both tables with the `same field name`.
 //
-// Eg:
 // Model("order").InnerJoinOnField("user", "user_id")
 // Model("order").InnerJoinOnField("product", "product_id").
+// ff:内连接相同字段
+// m:
+// table:表名
+// field:相同字段名
 func (m *Model) InnerJoinOnField(table, field string) *Model {
 	return m.doJoin(joinOperatorInner, table, fmt.Sprintf(
 		`%s.%s=%s.%s`,
@@ -95,10 +111,15 @@ func (m *Model) InnerJoinOnField(table, field string) *Model {
 
 // LeftJoinOnFields performs as LeftJoin. It specifies different fields and comparison operator.
 //
-// Eg:
 // Model("user").LeftJoinOnFields("order", "id", "=", "user_id")
 // Model("user").LeftJoinOnFields("order", "id", ">", "user_id")
 // Model("user").LeftJoinOnFields("order", "id", "<", "user_id")
+// ff:左连接带比较运算符
+// m:
+// table:表名
+// firstField:第一个字段
+// operator:比较运算符
+// secondField:第二个字段
 func (m *Model) LeftJoinOnFields(table, firstField, operator, secondField string) *Model {
 	return m.doJoin(joinOperatorLeft, table, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
@@ -112,10 +133,15 @@ func (m *Model) LeftJoinOnFields(table, firstField, operator, secondField string
 
 // RightJoinOnFields performs as RightJoin. It specifies different fields and comparison operator.
 //
-// Eg:
 // Model("user").RightJoinOnFields("order", "id", "=", "user_id")
 // Model("user").RightJoinOnFields("order", "id", ">", "user_id")
 // Model("user").RightJoinOnFields("order", "id", "<", "user_id")
+// ff:右连接带比较运算符
+// m:
+// table:表名
+// firstField:第一个字段
+// operator:比较运算符
+// secondField:第二个字段
 func (m *Model) RightJoinOnFields(table, firstField, operator, secondField string) *Model {
 	return m.doJoin(joinOperatorRight, table, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
@@ -129,10 +155,15 @@ func (m *Model) RightJoinOnFields(table, firstField, operator, secondField strin
 
 // InnerJoinOnFields performs as InnerJoin. It specifies different fields and comparison operator.
 //
-// Eg:
 // Model("user").InnerJoinOnFields("order", "id", "=", "user_id")
 // Model("user").InnerJoinOnFields("order", "id", ">", "user_id")
 // Model("user").InnerJoinOnFields("order", "id", "<", "user_id")
+// ff:内连接带比较运算符
+// m:
+// table:表名
+// firstField:第一个字段
+// operator:比较运算符
+// secondField:第二个字段
 func (m *Model) InnerJoinOnFields(table, firstField, operator, secondField string) *Model {
 	return m.doJoin(joinOperatorInner, table, fmt.Sprintf(
 		`%s.%s %s %s.%s`,
@@ -148,13 +179,11 @@ func (m *Model) InnerJoinOnFields(table, firstField, operator, secondField strin
 // The parameter `tableOrSubQueryAndJoinConditions` can be joined table and its joined condition,
 // and also with its alias name.
 //
-// Eg:
 // Model("user").InnerJoin("user_detail", "user_detail.uid=user.uid")
 // Model("user", "u").InnerJoin("user_detail", "ud", "ud.uid=u.uid")
 // Model("user", "u").InnerJoin("user_detail", "ud", "ud.uid>u.uid")
 // Model("user", "u").InnerJoin("SELECT xxx FROM xxx","a", "a.uid=u.uid")
 // Related issues:
-// https://github.com/gogf/gf/issues/1024
 func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions ...string) *Model {
 	var (
 		model   = m.getModel()
@@ -162,7 +191,7 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 		table   string
 		alias   string
 	)
-	// Check the first parameter table or sub-query.
+	// 检查第一个参数，是否为表格或子查询。 md5:0493998c4b03304e
 	if len(tableOrSubQueryAndJoinConditions) > 0 {
 		if isSubQuery(tableOrSubQueryAndJoinConditions[0]) {
 			joinStr = gstr.Trim(tableOrSubQueryAndJoinConditions[0])
@@ -174,7 +203,7 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 			joinStr = m.db.GetCore().QuotePrefixTableName(table)
 		}
 	}
-	// Generate join condition statement string.
+	// 生成连接条件的字符串表达式。 md5:54f67a1d882ecd10
 	conditionLength := len(tableOrSubQueryAndJoinConditions)
 	switch {
 	case conditionLength > 2:
@@ -201,8 +230,8 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 	return model
 }
 
-// getTableNameByPrefixOrAlias checks and returns the table name if `prefixOrAlias` is an alias of a table,
-// it or else returns the `prefixOrAlias` directly.
+// getTableNameByPrefixOrAlias 检查`prefixOrAlias`是否是某个表的别名，如果是，则返回该表的实际名称，否则直接返回`prefixOrAlias`。
+// md5:ab423b9e1e0ad0ca
 func (m *Model) getTableNameByPrefixOrAlias(prefixOrAlias string) string {
 	value, ok := m.tableAliasMap[prefixOrAlias]
 	if ok {
@@ -211,7 +240,7 @@ func (m *Model) getTableNameByPrefixOrAlias(prefixOrAlias string) string {
 	return prefixOrAlias
 }
 
-// isSubQuery checks and returns whether given string a sub-query sql string.
+// isSubQuery 检查并返回给定的字符串是否为子查询SQL语句。 md5:0921761c51f20650
 func isSubQuery(s string) bool {
 	s = gstr.TrimLeft(s, "()")
 	if p := gstr.Pos(s, " "); p != -1 {

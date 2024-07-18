@@ -38,3 +38,7 @@
 [metaTypeName = "gmeta.Meta" // metaTypeName is for type string comparison.]
 th=元数据类.Meta
 cz=gmeta.Meta
+
+[metaTypeName = "gmeta.Meta" // metaTypeName 用于类型字符串比较。 md5:00017d3b5ff6e69c]
+th=元数据类.Meta
+cz=gmeta.Meta

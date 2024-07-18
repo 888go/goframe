@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient_test
 
@@ -29,7 +30,7 @@ var (
 )
 
 func init() {
-	// Default server for client.
+	// 客户端的默认服务器。 md5:2b3306283554596f
 	p := 8999
 	s := g.Server(p)
 	// HTTP method handlers.
@@ -98,7 +99,7 @@ func init() {
 			)
 		})
 	})
-	// Client chaining operations handlers.
+	// 用于客户端链式操作的处理器。 md5:7a613ac703db33dd
 	s.Group("/", func(group *ghttp.RouterGroup) {
 		group.ALL("/header", func(r *ghttp.Request) {
 			r.Response.Writef(
@@ -121,7 +122,7 @@ func init() {
 			)
 		})
 	})
-	// Other testing handlers.
+	// 其他测试处理程序。 md5:99df94400fbb41dc
 	s.Group("/var", func(group *ghttp.RouterGroup) {
 		group.ALL("/json", func(r *ghttp.Request) {
 			r.Response.Write(`{"id":1,"name":"john"}`)
@@ -188,7 +189,7 @@ func ExampleNew_MultiConn_Recommend() {
 		client = g.Client()
 	)
 
-	// controls the maximum idle(keep-alive) connections to keep per-host
+	// 控制每个主机的最大闲置（保持活动）连接数. md5:71b53159157ddb6e
 	client.Transport.(*http.Transport).MaxIdleConnsPerHost = 5
 
 	for i := 0; i < 5; i++ {
@@ -271,7 +272,7 @@ func ExampleClient_ContentJson() {
 			"name": "john",
 		}
 	)
-	// Post using JSON string.
+	// 使用JSON字符串进行POST操作。 md5:4d52d60dd39bd628
 	fmt.Println(g.Client().ContentJson().PostContent(ctx, url, jsonStr))
 	// Post using JSON map.
 	fmt.Println(g.Client().ContentJson().PostContent(ctx, url, jsonMap))
@@ -283,7 +284,7 @@ func ExampleClient_ContentJson() {
 
 func ExampleClient_Post() {
 	url := "http://127.0.0.1:8999"
-	// Send with string parameter in request body.
+	// 使用字符串参数作为请求体发送。 md5:ba68880cfea93a12
 	r1, err := g.Client().Post(ctx, url, "id=10000&name=john")
 	if err != nil {
 		panic(err)
@@ -291,7 +292,7 @@ func ExampleClient_Post() {
 	defer r1.Close()
 	fmt.Println(r1.ReadAllString())
 
-	// Send with map parameter.
+	// 使用map参数发送。 md5:270768ac9382ef2b
 	r2, err := g.Client().Post(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
@@ -419,7 +420,7 @@ func ExampleClient_Get() {
 		url = "http://127.0.0.1:8999"
 	)
 
-	// Send with string parameter along with URL.
+	// 使用字符串参数和URL一起发送。 md5:0fae209daa2970ad
 	r1, err := g.Client().Get(ctx, url+"?id=10000&name=john")
 	if err != nil {
 		panic(err)
@@ -427,7 +428,7 @@ func ExampleClient_Get() {
 	defer r1.Close()
 	fmt.Println(r1.ReadAllString())
 
-	// Send with string parameter in request body.
+	// 使用字符串参数作为请求体发送。 md5:ba68880cfea93a12
 	r2, err := g.Client().Get(ctx, url, "id=10000&name=john")
 	if err != nil {
 		panic(err)
@@ -435,7 +436,7 @@ func ExampleClient_Get() {
 	defer r2.Close()
 	fmt.Println(r2.ReadAllString())
 
-	// Send with map parameter.
+	// 使用map参数发送。 md5:270768ac9382ef2b
 	r3, err := g.Client().Get(ctx, url, g.Map{
 		"id":   10000,
 		"name": "john",
@@ -524,52 +525,57 @@ func ExampleClient_GetVar() {
 	// &{1 john}
 }
 
-// ExampleClient_SetProxy an example for `gclient.Client.SetProxy` method.
-// please prepare two proxy server before running this example.
-// http proxy server listening on `127.0.0.1:1081`
-// socks5 proxy server listening on `127.0.0.1:1080`
+// ExampleClient_SetProxy 是 `gclient.Client.SetProxy` 方法的一个示例。
+// 在运行这个示例之前，请准备两个代理服务器。
+// HTTP 代理服务器监听 `127.0.0.1:1081`
+// Socks5 代理服务器监听 `127.0.0.1:1080`
+// md5:c26527766902fe18
 func ExampleClient_SetProxy() {
-	// connect to an http proxy server
+	// 连接到一个HTTP代理服务器. md5:62686127819e0038
 	client := g.Client()
 	client.SetProxy("http://127.0.0.1:1081")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err := client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": proxyconnect tcp: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当您的代理服务器不可用时，err 不为 nil。
+// 例如：获取 "http://127.0.0.1:8999" 时：proxyconnect tcp: 拨打 tcp 127.0.0.1:1087: 连接被拒绝
+// md5:51c9b1789e6b5346
 	}
 	fmt.Println(err != nil)
 	resp.Close()
 
-	// connect to an http proxy server which needs auth
+	// 连接到一个HTTP代理服务器. md5:62686127819e0038 which needs auth
 	client.SetProxy("http://user:password:127.0.0.1:1081")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": proxyconnect tcp: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当您的代理服务器不可用时，err 不为 nil。
+// 例如：获取 "http://127.0.0.1:8999" 时：proxyconnect tcp: 拨打 tcp 127.0.0.1:1087: 连接被拒绝
+// md5:51c9b1789e6b5346
 	}
 	fmt.Println(err != nil)
 	resp.Close()
 
-	// connect to a socks5 proxy server
+	// 连接到一个SOCKS5代理服务器. md5:51f0ad95ea53343f
 	client.SetProxy("socks5://127.0.0.1:1080")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": socks connect tcp 127.0.0.1:1087->api.ip.sb:443: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当你的代理服务器不可用时，err不为nil。
+// 例如：Get "http://127.0.0.1:8999"：socks connect tcp 127.0.0.1:1087->api.ip.sb:443: 连接 tcp 127.0.0.1:1087：连接拒绝。
+// md5:f6d9173b84667e10
 	}
 	fmt.Println(err != nil)
 	resp.Close()
 
-	// connect to a socks5 proxy server which needs auth
+	// 连接到一个SOCKS5代理服务器. md5:51f0ad95ea53343f which needs auth
 	client.SetProxy("socks5://user:password@127.0.0.1:1080")
 	client.SetTimeout(5 * time.Second) // it's suggested to set http client timeout
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
-		// err is not nil when your proxy server is down.
-		// eg. Get "http://127.0.0.1:8999": socks connect tcp 127.0.0.1:1087->api.ip.sb:443: dial tcp 127.0.0.1:1087: connect: connection refused
+// 当你的代理服务器不可用时，err不为nil。
+// 例如：Get "http://127.0.0.1:8999"：socks connect tcp 127.0.0.1:1087->api.ip.sb:443: 连接 tcp 127.0.0.1:1087：连接拒绝。
+// md5:f6d9173b84667e10
 	}
 	fmt.Println(err != nil)
 	resp.Close()
@@ -581,11 +587,12 @@ func ExampleClient_SetProxy() {
 	// true
 }
 
-// ExampleClient_Proxy a chain version of example for `gclient.Client.Proxy` method.
-// please prepare two proxy server before running this example.
-// http proxy server listening on `127.0.0.1:1081`
-// socks5 proxy server listening on `127.0.0.1:1080`
-// for more details, please refer to ExampleClient_SetProxy
+// ExampleClient_Proxy 是一个`gclient.Client.Proxy`方法的链式版本示例。
+// 在运行此示例之前，请准备两个代理服务器。
+// HTTP 代理服务器监听 `127.0.0.1:1081`
+// SOCKS5 代理服务器监听 `127.0.0.1:1080`
+// 更多详细信息，请参考 ExampleClient_SetProxy
+// md5:4d9e0da3aa8a180d
 func ExampleClient_Proxy() {
 	var (
 		ctx = context.Background()

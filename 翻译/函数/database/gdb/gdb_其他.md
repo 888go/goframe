@@ -35,6 +35,18 @@
 # //zj:
 # 备注结束
 
+[ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
+qm=底层ConvertValueForField
+cz=ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{})
+
+[ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
+qm=底层ConvertValueForLocal
+cz=ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{})
+
+[CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error)]
+qm=底层CheckLocalTypeForField
+cz=CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{})
+
 [Model(tableNameOrStruct ...interface{}) *Model]
 qm=创建Model对象
 cz=Model(tableNameOrStruct ...interface{})
@@ -53,7 +65,7 @@ cz=Open(config *ConfigNode)
 
 [Ctx(ctx context.Context) DB]
 qm=设置上下文并取副本
-cz=Ctx(ctx context.Context)
+cz=Ctx(ctx context.Context) DB
 
 [Close(ctx context.Context) error]
 qm=关闭数据库
@@ -263,17 +275,9 @@ cz=Tables(ctx context.Context, schema ...string)
 qm=取表字段信息Map
 cz=TableFields(ctx context.Context, table string, schema ...string)
 
-[ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
-qm=底层ConvertValueForField
-cz=ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{})
-
-[ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
-qm=底层ConvertValueForLocal
-cz=ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{})
-
-[CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error)]
-qm=底层CheckLocalTypeForField
-cz=CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{})
+[Ctx(ctx context.Context) TX]
+qm=设置上下文并取副本
+cz=Ctx(ctx context.Context) TX
 
 [Raw(rawSql string, args ...interface{}) *Model]
 qm=原生SQL
@@ -299,6 +303,10 @@ cz=Commit() error
 [Rollback() error]
 qm=事务回滚
 cz=Rollback() error
+
+[Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)]
+qm=事务
+cz=Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)
 
 [Query(sql string, args ...interface{}) (result Result, err error)]
 qm=原生SQL查询
@@ -404,6 +412,18 @@ cz=Stmt *Stmt
 [RawResult interface{}]
 qm=底层结果
 cz=RawResult interface{}
+
+[Name string]
+qm=名称
+cz=Name string
+
+[Type string]
+qm=类型
+cz=Type string
+
+[Extra string]
+qm=额外
+cz=Extra string
 
 [Field string]
 qm=字段名称

@@ -1,11 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package gclient provides convenient http client functionalities.
-package gclient
+// gclient 包提供了便捷的 HTTP 客户端功能。 md5:e1b459f6ec089b4e
+package gclient//bm:网页类
 
 import (
 	"crypto/rand"
@@ -22,20 +23,20 @@ import (
 	"github.com/gogf/gf/v2/os/gfile"
 )
 
-// Client is the HTTP client for HTTP request management.
+// Client 是用于HTTP请求管理的HTTP客户端。 md5:4ad1e09a685144a3
 type Client struct {
-	http.Client                         // Underlying HTTP Client.
+	http.Client                         // 基础的HTTP客户端。 md5:c6441b0ac3b9a383
 	header            map[string]string // Custom header map.
 	cookies           map[string]string // Custom cookie map.
 	prefix            string            // Prefix for request.
-	authUser          string            // HTTP basic authentication: user.
-	authPass          string            // HTTP basic authentication: pass.
-	retryCount        int               // Retry count when request fails.
-	noUrlEncode       bool              // No url encoding for request parameters.
-	retryInterval     time.Duration     // Retry interval when request fails.
+	authUser          string            // HTTP基本身份验证：用户。 md5:16a49cf2f34fe020
+	authPass          string            // HTTP基本认证：通过。 md5:bb96d4f4a15daaad
+	retryCount        int               // 当请求失败时的重试次数。 md5:94508857e0c3610f
+	noUrlEncode       bool              // 对请求参数不做URL编码。 md5:e1a507c4ef43df36
+	retryInterval     time.Duration     // 请求失败时的重试间隔。 md5:f5c1143b17b02297
 	middlewareHandler []HandlerFunc     // Interceptor handlers
 	discovery         gsvc.Discovery    // Discovery for service.
-	builder           gsel.Builder      // Builder for request balance.
+	builder           gsel.Builder      // 用于构建请求平衡的构造器。 md5:03b93939823f0270
 }
 
 const (
@@ -57,12 +58,13 @@ var (
 	defaultClientAgent = fmt.Sprintf(`GClient %s at %s`, gf.VERSION, hostname)
 )
 
-// New creates and returns a new HTTP client object.
+// New 创建并返回一个新的HTTP客户端对象。 md5:704d6059158b6cda
+// ff:创建
 func New() *Client {
 	c := &Client{
 		Client: http.Client{
 			Transport: &http.Transport{
-				// No validation for https certification of the server in default.
+				// 默认情况下，不对服务器的HTTPS证书进行验证。 md5:afd65bbc5be16457
 				TLSClientConfig: &tls.Config{
 					InsecureSkipVerify: true,
 				},
@@ -75,12 +77,14 @@ func New() *Client {
 		discovery: gsvc.GetRegistry(),
 	}
 	c.header[httpHeaderUserAgent] = defaultClientAgent
-	// It enables OpenTelemetry for client in default.
+	// 它默认启用客户端的OpenTelemetry。 md5:d39de17478071c01
 	c.Use(internalMiddlewareObservability, internalMiddlewareDiscovery)
 	return c
 }
 
-// Clone deeply clones current client and returns a new one.
+// 克隆当前客户端并深拷贝，返回一个新的客户端实例。 md5:6d6f07ba99eeeabe
+// ff:取副本
+// c:
 func (c *Client) Clone() *Client {
 	newClient := New()
 	*newClient = *c
@@ -99,7 +103,10 @@ func (c *Client) Clone() *Client {
 	return newClient
 }
 
-// LoadKeyCrt creates and returns a TLS configuration object with given certificate and key files.
+// LoadKeyCrt 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。 md5:e31385756c06b0a4
+// ff:创建TLS配置
+// crtFile:crt路径
+// keyFile:key路径
 func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 	crtPath, err := gfile.Search(crtFile)
 	if err != nil {

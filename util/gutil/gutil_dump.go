@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gutil
 
@@ -19,28 +20,30 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// iString is used for type assert api for String().
+// iString 用于类型断言API，用于String()。 md5:8ec0af717c4f530e
 type iString interface {
 	String() string
 }
 
-// iError is used for type assert api for Error().
+// iError用于类型断言错误信息。 md5:ca9885066be22039
 type iError interface {
 	Error() string
 }
 
-// iMarshalJSON is the interface for custom Json marshaling.
+// iMarshalJSON 是自定义 JSON 序列化接口。 md5:8f96cb97a90bdc48
 type iMarshalJSON interface {
 	MarshalJSON() ([]byte, error)
 }
 
-// DumpOption specifies the behavior of function Export.
+// DumpOption 指定了 Export 函数的行为。 md5:2a73bcd0ce073910
 type DumpOption struct {
-	WithType     bool // WithType specifies dumping content with type information.
-	ExportedOnly bool // Only dump Exported fields for structs.
+	WithType     bool // WithType 指定以包含类型信息的方式转储内容。 md5:f0b7a9863381d552
+	ExportedOnly bool // 只导出结构体的Exported字段。 md5:b19bd21abecb4c21
 }
 
-// Dump prints variables `values` to stdout with more manually readable.
+// Dump 将变量 `values` 打印到标准输出，以更人工可读的方式。 md5:05206ddf9d48510d
+// ff:调试输出
+// values:值s
 func Dump(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -50,8 +53,10 @@ func Dump(values ...interface{}) {
 	}
 }
 
-// DumpWithType acts like Dump, but with type information.
-// Also see Dump.
+// DumpWithType 类似于 Dump，但带有类型信息。同时参阅 Dump。
+// md5:faabab79589d38a3
+// ff:调试输出并带类型
+// values:值s
 func DumpWithType(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -61,7 +66,10 @@ func DumpWithType(values ...interface{}) {
 	}
 }
 
-// DumpWithOption returns variables `values` as a string with more manually readable.
+// DumpWithOption 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
+// ff:调试输出并带选项
+// value:值
+// option:选项
 func DumpWithOption(value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	DumpTo(buffer, value, DumpOption{
@@ -71,7 +79,11 @@ func DumpWithOption(value interface{}, option DumpOption) {
 	fmt.Println(buffer.String())
 }
 
-// DumpTo writes variables `values` as a string in to `writer` with more manually readable
+// DumpTo 将变量 `values` 作为字符串写入到 `writer` 中，提供更易人工阅读的格式. md5:68fd8fc9ea0dfc4b
+// ff:调试输出到Writer
+// writer:
+// value:值
+// option:选项
 func DumpTo(writer io.Writer, value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	doDump(value, "", buffer, doDumpOption{
@@ -110,7 +122,7 @@ func doDump(value interface{}, indent string, buffer *bytes.Buffer, option doDum
 		reflectValue = reflect.ValueOf(value)
 	}
 	var reflectKind = reflectValue.Kind()
-	// Double check nil value.
+	// 二次确认空值。 md5:7122d7415991f3ef
 	if value == nil || reflectKind == reflect.Invalid {
 		buffer.WriteString(`<nil>`)
 		return
@@ -281,7 +293,7 @@ func doDumpMap(in doDumpInternalInput) {
 		} else {
 			mapKeyStr = fmt.Sprintf(`%v`, mapKey.Interface())
 		}
-		// Map key and indent string dump.
+		// 映射键和缩进字符串的转储。 md5:2c8156f9f5e204bd
 		if !in.Option.WithType {
 			in.Buffer.WriteString(fmt.Sprintf(
 				"%s%v:%s",
@@ -341,7 +353,7 @@ func doDumpStruct(in doDumpInternalInput) {
 			b, _ := v.MarshalJSON()
 			structContentStr = string(b)
 		} else {
-			// Has no common interface implements.
+			// 没有实现任何公共接口。 md5:e916242484fe8e89
 			if len(structFields) != 0 {
 				goto dumpStructFields
 			}
@@ -471,7 +483,9 @@ func addSlashesForString(s string) string {
 	})
 }
 
-// DumpJson pretty dumps json content to stdout.
+// DumpJson 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
+// ff:调试输出json
+// value:
 func DumpJson(value any) {
 	switch result := value.(type) {
 	case []byte:

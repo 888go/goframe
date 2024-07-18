@@ -1,11 +1,12 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package ghtml provides useful API for HTML content handling.
-package ghtml
+// 包ghtml提供了处理HTML内容的有用API。 md5:218d4666a789e8d7
+package ghtml//bm:html类
 
 import (
 	"html"
@@ -16,26 +17,30 @@ import (
 )
 
 // StripTags strips HTML tags from content, and returns only text.
-// Referer: http://php.net/manual/zh/function.strip-tags.php
+// ff:删除HTML标记
+// s:html文本
 func StripTags(s string) string {
 	return strip.StripTags(s)
 }
 
 // Entities encodes all HTML chars for content.
-// Referer: http://php.net/manual/zh/function.htmlentities.php
+// ff:编码
+// s:html文本
 func Entities(s string) string {
 	return html.EscapeString(s)
 }
 
 // EntitiesDecode decodes all HTML chars for content.
-// Referer: http://php.net/manual/zh/function.html-entity-decode.php
+// ff:解码
+// s:文本
 func EntitiesDecode(s string) string {
 	return html.UnescapeString(s)
 }
 
 // SpecialChars encodes some special chars for content, these special chars are:
 // "&", "<", ">", `"`, "'".
-// Referer: http://php.net/manual/zh/function.htmlspecialchars.php
+// ff:编码特殊字符
+// s:文本
 func SpecialChars(s string) string {
 	return strings.NewReplacer(
 		"&", "&amp;",
@@ -48,7 +53,8 @@ func SpecialChars(s string) string {
 
 // SpecialCharsDecode decodes some special chars for content, these special chars are:
 // "&", "<", ">", `"`, "'".
-// Referer: http://php.net/manual/zh/function.htmlspecialchars-decode.php
+// ff:解码特殊字符
+// s:文本
 func SpecialCharsDecode(s string) string {
 	return strings.NewReplacer(
 		"&amp;", "&",
@@ -59,7 +65,9 @@ func SpecialCharsDecode(s string) string {
 	).Replace(s)
 }
 
-// SpecialCharsMapOrStruct automatically encodes string values/attributes for map/struct.
+// SpecialCharsMapOrStruct 会自动对映射/结构体中的字符串值/属性进行编码。 md5:a26c73e35955b542
+// ff:编码Map
+// mapOrStruct:map或Struct
 func SpecialCharsMapOrStruct(mapOrStruct interface{}) error {
 	var (
 		reflectValue = reflect.ValueOf(mapOrStruct)

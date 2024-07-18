@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid_test
 
@@ -235,7 +236,7 @@ func ExampleRule_CaseInsensitive() {
 		ctx = context.Background()
 		req = BizReq{
 			Account:   "gf",
-			Password:  "Goframe.org", // Diff from Password2, but because of "ci", rule check passed
+			Password:  "Goframe.org", // 与 Password2 的差异，但由于 "ci"，规则检查通过了. md5:1ea4cafc6ed3b9d0
 			Password2: "goframe.org",
 		}
 	)
@@ -449,7 +450,7 @@ func ExampleRule_Telephone() {
 			Telephone1: "010-77542145",
 			Telephone2: "0571-77542145",
 			Telephone3: "20-77542145", // error
-			Telephone4: "775421451",   // error len must be 7 or 8
+			Telephone4: "775421451",   // 错误：长度必须为7或8. md5:6ad7d366cd5d8d46
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -473,9 +474,9 @@ func ExampleRule_Passport() {
 		ctx = context.Background()
 		req = BizReq{
 			Passport1: "goframe",
-			Passport2: "1356666",  // error starting with letter
-			Passport3: "goframe#", // error containing only numbers or underscores
-			Passport4: "gf",       // error length between 6 and 18
+			Passport2: "1356666",  // 以字母开头的错误. md5:63ddf5a5fd5af498
+			Passport3: "goframe#", // 只包含数字或下划线的错误. md5:ae2a625fe5f45877
+			Passport4: "gf",       // 错误长度应在6到18之间. md5:73fe6ad826054b75
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -498,7 +499,7 @@ func ExampleRule_Password() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "goframe",
-			Password2: "gofra", // error length between 6 and 18
+			Password2: "gofra", // 错误长度应在6到18之间. md5:73fe6ad826054b75
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -521,9 +522,9 @@ func ExampleRule_Password2() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "Goframe123",
-			Password2: "gofra",      // error length between 6 and 18
-			Password3: "Goframe",    // error must contain lower and upper letters and numbers.
-			Password4: "goframe123", // error must contain lower and upper letters and numbers.
+			Password2: "gofra",      // 错误长度应在6到18之间. md5:73fe6ad826054b75
+			Password3: "Goframe",    // 错误必须包含小写字母、大写字母和数字。 md5:8854a8736d651553
+			Password4: "goframe123", // 错误必须包含小写字母、大写字母和数字。 md5:8854a8736d651553
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {
@@ -547,8 +548,8 @@ func ExampleRule_Password3() {
 		ctx = context.Background()
 		req = BizReq{
 			Password1: "Goframe123#",
-			Password2: "gofra",      // error length between 6 and 18
-			Password3: "Goframe123", // error must contain lower and upper letters, numbers and special chars.
+			Password2: "gofra",      // 错误长度应在6到18之间. md5:73fe6ad826054b75
+			Password3: "Goframe123", // error 必须包含小写字母、大写字母、数字和特殊字符。 md5:9dd0a1fe72ffc374
 		}
 	)
 	if err := g.Validator().Data(req).Run(ctx); err != nil {

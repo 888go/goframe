@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid_test
 
@@ -274,7 +275,7 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 		t.Assert(err, `Student Name is required`)
 	})
 
-	// https://github.com/gogf/gf/issues/1864
+	// 关于 issue #1864 的讨论，请访问：https://github.com/gogf/gf/issues/1864. md5:9de8e8d82eb09662
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {
 			Name string `v:"required"`
@@ -341,10 +342,8 @@ func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
 		t.Assert(err, `Student Name is required`)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1983
 func Test_Issue1983(t *testing.T) {
-	// Error as the attribute Student in Teacher is an initialized struct, which has default value.
+	// 当Teacher中的属性Student是一个初始化的结构体时，会默认赋值，因此会报错。 md5:f02f5f9d926be5f1
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {
 			Name string `v:"required"`
@@ -362,7 +361,7 @@ func Test_Issue1983(t *testing.T) {
 		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
-	// The same as upper, it is not affected by association values.
+	// 与 upper 相同，它不受关联值的影响。 md5:d46133fe4ba08bc0
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {
 			Name string `v:"required"`
@@ -399,8 +398,6 @@ func Test_Issue1983(t *testing.T) {
 		t.AssertNil(err)
 	})
 }
-
-// https://github.com/gogf/gf/issues/1921
 func Test_Issue1921(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type SearchOption struct {
@@ -421,8 +418,6 @@ func Test_Issue1921(t *testing.T) {
 		t.Assert(err, "The Size value `10000` must be equal or lesser than 100")
 	})
 }
-
-// https://github.com/gogf/gf/issues/2011
 func Test_Issue2011(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {
