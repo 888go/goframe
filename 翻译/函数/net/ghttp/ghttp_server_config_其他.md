@@ -35,14 +35,6 @@
 # //zj:
 # 备注结束
 
-[ErrorLogPattern string `json:"errorLogPattern"`]
-qm=日志错误文件命名模式
-cz=ErrorLogPattern string
-
-[AccessLogPattern string `json:"accessLogPattern"`]
-qm=日志访客文件命名模式
-cz=AccessLogPattern string
-
 [Name string `json:"name"`]
 qm=服务名称
 cz=Name string `json:"name"`
@@ -191,9 +183,17 @@ cz=ErrorStack bool
 qm=日志开启错误记录
 cz=ErrorLogEnabled bool
 
+[ErrorLogPattern string `json:"errorLogPattern"`]
+qm=日志错误文件命名模式
+cz=ErrorLogPattern string
+
 [AccessLogEnabled bool `json:"accessLogEnabled"`]
 qm=日志开启访客记录
 cz=AccessLogEnabled bool
+
+[AccessLogPattern string `json:"accessLogPattern"`]
+qm=日志访客文件命名模式
+cz=AccessLogPattern string
 
 [PProfEnabled bool `json:"pprofEnabled"`]
 qm=PProf开启
