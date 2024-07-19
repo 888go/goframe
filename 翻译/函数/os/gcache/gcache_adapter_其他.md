@@ -58,19 +58,19 @@ cz=SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration 
 
 [Get(ctx context.Context, key interface{}) (*gvar.Var, error)]
 qm=取值
-cz=Get(ctx context.Context, key interface{}) (*gvar.Var, error)
+cz=Get(ctx context.Context, key interface{})
 
 [GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error)]
 qm=取值或设置值
-cz=GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error)
+cz=GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration)
 
 [GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)]
 qm=取值或设置值_函数
-cz=GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)
+cz=GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration)
 
 [GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)]
 qm=取值或设置值_并发安全函数
-cz=GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error)
+cz=GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration)
 
 [Contains(ctx context.Context, key interface{}) (bool, error)]
 qm=是否存在
@@ -94,7 +94,7 @@ cz=Values(ctx context.Context) (values []interface{}, err error)
 
 [Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error)]
 qm=更新值
-cz=Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error)
+cz=Update(ctx context.Context, key interface{}, value interface{})
 
 [UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error)]
 qm=更新过期时间
@@ -106,7 +106,7 @@ cz=GetExpire(ctx context.Context, key interface{}) (time.Duration, error)
 
 [Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error)]
 qm=删除并带返回值
-cz=Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error)
+cz=Remove(ctx context.Context, keys ...interface{})
 
 [Clear(ctx context.Context) error]
 qm=清空
