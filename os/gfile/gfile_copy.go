@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gfile
 
@@ -16,18 +15,17 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// CopyOption 是 Copy* 函数的选项。 md5:1863c87f867e036e
+// CopyOption is the option for Copy* functions.
 type CopyOption struct {
-	// 在源文件内容复制到目标文件后，自动调用文件同步。 md5:ef1f9250b5fdabe3
+	// Auto call file sync after source file content copied to target file.
 	Sync bool
 
-// 保留源文件的模式到目标文件。如果为true，Mode属性将没有意义。
-// md5:681b0704991c814c
+	// Preserve the mode of the original file to the target file.
+	// If true, the Mode attribute will make no sense.
 	PreserveMode bool
 
-// 创建目标文件的模式。
-// 如果PreserveMode为false，默认的文件模式是DefaultPermCopy。
-// md5:e495278ff0787785
+	// Destination created file mode.
+	// The default file mode is DefaultPermCopy if PreserveMode is false.
 	Mode os.FileMode
 }
 
@@ -116,7 +114,7 @@ func CopyFile(src, dst string, option ...CopyOption) (err error) {
 	if dst == "" {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "destination file cannot be empty")
 	}
-	// 如果src和dst是相同的路径，它不会做任何事情。 md5:1ad6359456a4bebc
+	// If src and dst are the same path, it does nothing.
 	if src == dst {
 		return nil
 	}
@@ -188,10 +186,9 @@ func CopyFile(src, dst string, option ...CopyOption) (err error) {
 	return
 }
 
-// CopyDir 递归地复制目录树，尝试保留权限。
+// CopyDir recursively copies a directory tree, attempting to preserve permissions.
 //
-// 注意，源目录必须存在，并且符号链接将被忽略和跳过。
-// md5:4dd9167e563fa997
+// Note that, the Source directory must exist and symlinks are ignored and skipped.
 // ff:复制目录
 // src:目录路径
 // dst:复制到
@@ -205,7 +202,7 @@ func CopyDir(src string, dst string, option ...CopyOption) (err error) {
 	if dst == "" {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "destination directory cannot be empty")
 	}
-	// 如果src和dst是相同的路径，它不会做任何事情。 md5:1ad6359456a4bebc
+	// If src and dst are the same path, it does nothing.
 	if src == dst {
 		return nil
 	}

@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gpage为网页提供有用的分页功能。 md5:21def24b73b57b89
+// Package gpage provides useful paging functionality for web pages.
 package gpage//bm:分页类
 
 import (
@@ -16,37 +15,36 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Page 是分页实现者。
-// 所有属性都是公开的，您可以在需要时更改它们。
-// md5:78469553f947138e
+// Page is the pagination implementer.
+// All the attributes are public, you can change them when necessary.
 type Page struct {
 	TotalSize      int//qm:总数量  cz:TotalSize int      // Total size.
-	TotalPage      int//qm:总页数  cz:TotalPage int      // 总页数，由系统自动计算。 md5:f193103cf068ac01
-	CurrentPage    int//qm:当前页码  cz:CurrentPage int      // 当前页面编号大于或等于 1。 md5:9b8199029dd6b8ba
-	UrlTemplate    string//qm:自定义URL模板  cz:UrlTemplate string   // 用于自定义页面URL生成的模板。 md5:0b8b624ee864eb73
-	LinkStyle      string//qm:链接标签css名称  cz:LinkStyle string   // HTML链接标签`a`的CSS样式名称。 md5:36ef7ca8f8320560
-	SpanStyle      string//qm:Span标签css名称  cz:SpanStyle string   // CSS样式名称，用于HTML的`span`标签，该标签用于首页、当前页和最后一页的标记。 md5:4986703e502e7951
-	SelectStyle    string//qm:选择标签css名称  cz:SelectStyle string   // 用于HTML选择标签`select`的CSS样式名称。 md5:f8bef1c5304f46e0
+	TotalPage      int//qm:总页数  cz:TotalPage int      // Total page, which is automatically calculated.
+	CurrentPage    int//qm:当前页码  cz:CurrentPage int      // Current page number >= 1.
+	UrlTemplate    string//qm:自定义URL模板  cz:UrlTemplate string   // Custom url template for page url producing.
+	LinkStyle      string//qm:链接标签css名称  cz:LinkStyle string   // CSS style name for HTML link tag `a`.
+	SpanStyle      string//qm:Span标签css名称  cz:SpanStyle string   // CSS style name for HTML span tag `span`, which is used for first, current and last page tag.
+	SelectStyle    string//qm:选择标签css名称  cz:SelectStyle string   // CSS style name for HTML select tag `select`.
 	NextPageTag    string//qm:到下一页标签名称  cz:NextPageTag string   // Tag name for next p.
 	PrevPageTag    string//qm:到前一页标签名称  cz:PrevPageTag string   // Tag name for prev p.
 	FirstPageTag   string//qm:到第一页标签名称  cz:FirstPageTag string   // Tag name for first p.
 	LastPageTag    string//qm:到最后一页标签名称  cz:LastPageTag string   // Tag name for last p.
-	PrevBarTag     string // 用于前一个柱状图的标签字符串。 md5:aa5bb3a271974cb9
-	NextBarTag     string // 下一个条形的标签字符串。 md5:bc5dad3acc8e9dc8
-	PageBarNum     int//qm:分页栏显示页码  cz:PageBarNum int      // 用于显示的分页条编号。 md5:663d7e28f2e8da2f
-	AjaxActionName string//qm:Ajax函数名称  cz:AjaxActionName string   // Ajax 函数名。如果此属性不为空，则启用了Ajax。 md5:b0e509303a20d45a
+	PrevBarTag     string // Tag string for prev bar.
+	NextBarTag     string // Tag string for next bar.
+	PageBarNum     int//qm:分页栏显示页码  cz:PageBarNum int      // Page bar number for displaying.
+	AjaxActionName string//qm:Ajax函数名称  cz:AjaxActionName string   // Ajax function name. Ajax is enabled if this attribute is not empty.
 }
 
 const (
-	DefaultPageName        = "page"//qm:常量_默认页面名称  cz:DefaultPageName = "page"      // DefaultPageName 定义了默认的页面名称。 md5:4cdd682d15037e0c
-	DefaultPagePlaceHolder = "{.page}"//qm:常量_默认模板占位符  cz:DefaultPagePlaceHolder = "{.page}"   // DefaultPagePlaceHolder 定义了URL模板中占位符的默认值。 md5:ee96d0a865392462
+	DefaultPageName        = "page"//qm:常量_默认页面名称  cz:DefaultPageName = "page"      // DefaultPageName defines the default page name.
+	DefaultPagePlaceHolder = "{.page}"//qm:常量_默认模板占位符  cz:DefaultPagePlaceHolder = "{.page}"   // DefaultPagePlaceHolder defines the place holder for the url template.
 )
 
-// New 创建并返回一个分页管理器。
-// 请注意，参数 `urlTemplate` 指定用于生成URL的模板，例如：
-// /user/list/{.page}, /user/list/{.page}.html, /user/list?page={.page}&type=1 等。
-// 在 `urlTemplate` 中内置的变量 "{.page}" 表示页码，在生成时将被替换为特定的页码。
-// md5:019378bcadf783f6
+// New creates and returns a pagination manager.
+// Note that the parameter `urlTemplate` specifies the URL producing template, like:
+// /user/list/{.page}, /user/list/{.page}.html, /user/list?page={.page}&type=1, etc.
+// The build-in variable in `urlTemplate` "{.page}" specifies the page number, which will be replaced by certain
+// page number when producing.
 // ff:创建
 // totalSize:总数量
 // pageSize:分页大小
@@ -75,7 +73,7 @@ func New(totalSize, pageSize, currentPage int, urlTemplate string) *Page {
 	return p
 }
 
-// NextPage 返回下一页的HTML内容。 md5:5e3d6534a771a5bc
+// NextPage returns the HTML content for the next page.
 // ff:取下一页html
 // p:
 func (p *Page) NextPage() string {
@@ -85,7 +83,7 @@ func (p *Page) NextPage() string {
 	return fmt.Sprintf(`<span class="%s">%s</span>`, p.SpanStyle, p.NextPageTag)
 }
 
-// PrevPage 返回前一页的HTML内容。 md5:f1834cdd39f5958f
+// PrevPage returns the HTML content for the previous page.
 // ff:取上一页html
 // p:
 func (p *Page) PrevPage() string {
@@ -95,7 +93,7 @@ func (p *Page) PrevPage() string {
 	return fmt.Sprintf(`<span class="%s">%s</span>`, p.SpanStyle, p.PrevPageTag)
 }
 
-// FirstPage 返回首页的HTML内容。 md5:3da5d9517addeef9
+// FirstPage returns the HTML content for the first page.
 // ff:取首页html
 // p:
 func (p *Page) FirstPage() string {
@@ -105,7 +103,7 @@ func (p *Page) FirstPage() string {
 	return p.GetLink(1, p.FirstPageTag, "")
 }
 
-// LastPage 返回最后一页的HTML内容。 md5:7b9da4335fd7cabf
+// LastPage returns the HTML content for the last page.
 // ff:取最后一页html
 // p:
 func (p *Page) LastPage() string {
@@ -115,7 +113,7 @@ func (p *Page) LastPage() string {
 	return p.GetLink(p.TotalPage, p.LastPageTag, "")
 }
 
-// PageBar 返回带有链接和span标签的HTML页面栏内容。 md5:fdbe83a2ac56364b
+// PageBar returns the HTML page bar content with link and span tags.
 // ff:取分页栏html
 // p:
 func (p *Page) PageBar() string {
@@ -143,7 +141,7 @@ func (p *Page) PageBar() string {
 	return barContent
 }
 
-// SelectBar 用于返回分页的 select HTML 内容。 md5:675aaa94bd2abde3
+// SelectBar returns the select HTML content for pagination.
 // ff:取下拉框html
 // p:
 func (p *Page) SelectBar() string {
@@ -159,10 +157,9 @@ func (p *Page) SelectBar() string {
 	return barContent
 }
 
-// GetContent 返回预定义模式下的页面内容。
-// 这些预定义内容主要为了中文本地化的目的。您可以根据此函数的实现定义自己的
-// 页面函数来获取页面内容。
-// md5:36d242b683a4fb96
+// GetContent returns the page content for predefined mode.
+// These predefined contents are mainly for chinese localization purpose. You can defines your own
+// page function retrieving the page content according to the implementation of this function.
 // ff:取预定义模式html
 // p:
 // mode:预定义编号
@@ -226,10 +223,9 @@ func (p *Page) GetContent(mode int) string {
 	return ""
 }
 
-// GetUrl 使用给定的页面号解析UrlTemplate，并返回URL字符串。
-// 注意，UrlTemplate属性可以是一个URL，也可以是一个包含"{.page}"占位符的URI字符串，
-// 该占位符指定了页面号的位置。
-// md5:f7db6853b1f3a681
+// GetUrl parses the UrlTemplate with given page number and returns the URL string.
+// Note that the UrlTemplate attribute can be either an URL or an URI string with "{.page}"
+// place holder specifying the page number position.
 // ff:取链接
 // p:
 // page:页码编号
@@ -237,7 +233,7 @@ func (p *Page) GetUrl(page int) string {
 	return gstr.Replace(p.UrlTemplate, DefaultPagePlaceHolder, gconv.String(page))
 }
 
-// GetLink 函数根据给定的页码，返回 HTML 链接标签（`a`）的内容。 md5:fe3c9d8f012c0f0c
+// GetLink returns the HTML link tag `a` content for given page number.
 // ff:取链接html
 // p:
 // page:页码编号

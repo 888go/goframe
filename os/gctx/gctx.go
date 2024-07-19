@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gctx封装了context.Context并提供了额外的上下文功能。 md5:edcfb6983b687169
+// Package gctx wraps context.Context and provides extra context features.
 package gctx//bm:上下文类
 
 import (
@@ -20,17 +19,17 @@ import (
 )
 
 type (
-	Ctx    = context.Context // Ctx是context.Context的简短名称别名。 md5:2c9c93edc22890c4
-	StrKey string            // StrKey 是一个类型，用于将基本类型字符串作为上下文键进行封装。 md5:84db5aa6fb6ea74e
+	Ctx    = context.Context // Ctx is short name alias for context.Context.
+	StrKey string            // StrKey is a type for warps basic type string as context key.
 )
 
 var (
-	// initCtx是从进程环境初始化的上下文。 md5:7e2eda888a5b2cc9
+	// initCtx is the context initialized from process environment.
 	initCtx context.Context
 )
 
 func init() {
-	// 所有环境键值对。 md5:4c0179afb7589376
+	// All environment key-value pairs.
 	m := make(map[string]string)
 	i := 0
 	for _, s := range os.Environ() {
@@ -40,7 +39,7 @@ func init() {
 		}
 		m[s[0:i]] = s[i+1:]
 	}
-	// 从环境获取OpenTelemetry。 md5:95f284182505db14
+	// OpenTelemetry from environments.
 	initCtx = otel.GetTextMapPropagator().Extract(
 		context.Background(),
 		propagation.MapCarrier(m),
@@ -48,13 +47,13 @@ func init() {
 	initCtx = WithCtx(initCtx)
 }
 
-// New 创建并返回一个包含上下文ID的上下文。 md5:ace97871c3d80d4f
+// New creates and returns a context which contains context id.
 // ff:创建
 func New() context.Context {
 	return WithCtx(context.Background())
 }
 
-// WithCtx 根据给定的父上下文`ctx`创建并返回一个包含上下文ID的新上下文。 md5:bea2d0daa280a6eb
+// WithCtx creates and returns a context containing context id upon given parent context `ctx`.
 // ff:创建并从上下文
 // ctx:上下文
 func WithCtx(ctx context.Context) context.Context {
@@ -67,25 +66,23 @@ func WithCtx(ctx context.Context) context.Context {
 	return ctx
 }
 
-// CtxId从上下文中检索并返回context ID。 md5:bd18ae591706e243
+// CtxId retrieves and returns the context id from context.
 // ff:取上下文id
 // ctx:上下文
 func CtxId(ctx context.Context) string {
 	return gtrace.GetTraceID(ctx)
 }
 
-// SetInitCtx 设置自定义初始化上下文。
-// 注意，此函数不能在多个goroutine中调用。
-// md5:10830063aafa5df4
+// SetInitCtx sets custom initialization context.
+// Note that this function cannot be called in multiple goroutines.
 // ff:设置初始化上下文
 // ctx:上下文
 func SetInitCtx(ctx context.Context) {
 	initCtx = ctx
 }
 
-// GetInitCtx 返回初始化上下文。
-// 初始化上下文用于在`main`函数或`init`函数中。
-// md5:5608d282e442f76c
+// GetInitCtx returns the initialization context.
+// Initialization context is used in `main` or `init` functions.
 // ff:取初始化上下文
 func GetInitCtx() context.Context {
 	return initCtx

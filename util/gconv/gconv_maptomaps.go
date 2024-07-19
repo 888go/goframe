@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
 
@@ -14,9 +13,8 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// MapToMaps 将任何切片类型变量 `params` 转换为另一个映射切片类型变量 `pointer`。
-// 参见 doMapToMaps。
-// md5:70b6d6cf0e63da31
+// MapToMaps converts any slice type variable `params` to another map slice type variable `pointer`.
+// See doMapToMaps.
 // ff:
 // params:
 // pointer:
@@ -25,16 +23,16 @@ func MapToMaps(params interface{}, pointer interface{}, mapping ...map[string]st
 	return Scan(params, pointer, mapping...)
 }
 
-// doMapToMaps 将任何类型的映射变量`params`转换为另一个映射切片变量`pointer`。
+// doMapToMaps converts any map type variable `params` to another map slice variable `pointer`.
 //
-// 参数`params`可以是[]map, []*map, []struct, []*struct类型。
+// The parameter `params` can be type of []map, []*map, []struct, []*struct.
 //
-// 参数`pointer`应该是[]map, []*map类型。
+// The parameter `pointer` should be type of []map, []*map.
 //
-// 可选参数`mapping`用于结构体属性到映射键的映射，只有当`params`的元素类型为struct时才有意义。
-// md5:e5da204851e0f1b9
+// The optional parameter `mapping` is used for struct attribute to map key mapping, which makes
+// sense only if the item of `params` is type struct.
 func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
-	// 检查参数及其元素类型。 md5:9678a18f11496e59
+	// Params and its element type check.
 	var (
 		paramsRv   reflect.Value
 		paramsKind reflect.Kind
@@ -72,11 +70,11 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 			paramsElemKind,
 		)
 	}
-	// 空切片，无需继续。 md5:3e185b94ae24e0b3
+	// Empty slice, no need continue.
 	if paramsRv.Len() == 0 {
 		return nil
 	}
-	// 指针及其元素类型的检查。 md5:b460debe108087f5
+	// Pointer and its element type check.
 	var (
 		pointerRv   = reflect.ValueOf(pointer)
 		pointerKind = pointerRv.Kind()
@@ -99,7 +97,7 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		return gerror.NewCode(gcode.CodeInvalidParameter, "pointer element should be type of map/*map")
 	}
 	defer func() {
-		// 捕获panic，尤其是反射操作引发的panic。 md5:dd183bf8028f513a
+		// Catch the panic, especially the reflection operation panics.
 		if exception := recover(); exception != nil {
 			if v, ok := exception.(error); ok && gerror.HasStack(v) {
 				err = v

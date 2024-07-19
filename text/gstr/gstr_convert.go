@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gstr
 
@@ -20,7 +19,7 @@ import (
 )
 
 var (
-	// octReg 是用于检查八进制字符串的正则表达式对象。 md5:5c5c93db5da71e18
+	// octReg is the regular expression object for checks octal string.
 	octReg = regexp.MustCompile(`\\[0-7]{3}`)
 )
 
@@ -142,9 +141,8 @@ func Shuffle(str string) string {
 	return string(s)
 }
 
-// HideStr 函数将字符串 `str` 的从中间开始按 `percentage` 比例部分内容替换为 `hide`。
-// 此函数将参数 `str` 视为Unicode字符串处理。
-// md5:f9986962939bb788
+// HideStr replaces part of the string `str` to `hide` by `percentage` from the `middle`.
+// It considers parameter `str` as unicode string.
 // ff:替换中间字符
 // str:文本
 // percent:替换百分比
@@ -176,9 +174,9 @@ func HideStr(str string, percent int, hide string) string {
 	return buffer.String()
 }
 
-// Nl2Br 在字符串中的所有换行符(\n\r, \r\n, \r, \n)前插入HTML换行标签(`br`|<br />)。
-// 它将参数`str`视为Unicode字符串。
-// md5:6cad5f70848065d0
+// Nl2Br inserts HTML line breaks(`br`|<br />) before all newlines in a string:
+// \n\r, \r\n, \r, \n.
+// It considers parameter `str` as unicode string.
 // ff:替换换行符
 // str:文本
 // isXhtml:是否html

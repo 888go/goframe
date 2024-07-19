@@ -1,10 +1,10 @@
-// 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
+// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// Package empty 提供检查空/空指针变量的函数。 md5:4be7b468c813f750
+// Package empty provides functions for checking empty/nil variables.
 package empty
 
 import (
@@ -14,17 +14,17 @@ import (
 	"github.com/gogf/gf/v2/internal/reflection"
 )
 
-// iString 用于类型断言API，用于String()。 md5:8ec0af717c4f530e
+// iString is used for type assert api for String().
 type iString interface {
 	String() string
 }
 
-// iInterfaces 用于接口类型的断言API。 md5:9162512bdb64ee64
+// iInterfaces is used for type assert api for Interfaces.
 type iInterfaces interface {
 	Interfaces() []interface{}
 }
 
-// iMapStrAny 是一个接口，支持将结构体参数转换为映射。 md5:cfd4642c77fca6ec
+// iMapStrAny is the interface support for converting struct parameter to map.
 type iMapStrAny interface {
 	MapStrAny() map[string]interface{}
 }
@@ -34,20 +34,19 @@ type iTime interface {
 	IsZero() bool
 }
 
-// IsEmpty 检查给定的 `value` 是否为空。
-// 如果 `value` 为以下情况，函数返回 true：0, nil, false, "", slice/映射/通道的长度为0，
-// 否则返回 false。
+// IsEmpty checks whether given `value` empty.
+// It returns true if `value` is in: 0, nil, false, "", len(slice/map/chan) == 0,
+// or else it returns false.
 //
-// 参数 `traceSource` 用于在 `value` 是指向指针的指针类型时追踪源变量。
-// 当 `traceSource` 为 true 且源变量为空时，返回 true。
-// 注意，这可能使用反射功能，可能会稍微影响性能。
-// md5:343856f448e80aef
+// The parameter `traceSource` is used for tracing to the source variable if given `value` is type of pointer
+// that also points to a pointer. It returns true if the source is empty when `traceSource` is true.
+// Note that it might use reflect feature which affects performance a little.
 func IsEmpty(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true
 	}
-// 它首先使用断言检查变量为常见类型，以提高性能，然后使用反射。
-// md5:9722a28f813b5ddb
+	// It firstly checks the variable as common types using assertion to enhance the performance,
+	// and then using reflection.
 	switch result := value.(type) {
 	case int:
 		return result == 0
@@ -93,7 +92,7 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 		return len(result) == 0
 
 	default:
-		// 最后，使用反射。 md5:e4ce8ad5b39b80cd
+		// Finally, using reflect.
 		var rv reflect.Value
 		if v, ok := value.(reflect.Value); ok {
 			rv = v
@@ -103,10 +102,9 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 				return true
 			}
 
-// =========================
-// 公共接口检查。
-// =========================
-// md5:e561bbb4afe04dee
+			// =========================
+			// Common interfaces checks.
+			// =========================
 			if f, ok := value.(iTime); ok {
 				if f == (*time.Time)(nil) {
 					return true
@@ -200,11 +198,10 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 	}
 }
 
-// IsNil 检查给定的 `value` 是否为 nil，特别是对于 interface{} 类型的值。
-// 参数 `traceSource` 用于在给定的 `value` 是指向指针的指针类型时，追踪到源变量。
-// 当 `traceSource` 为真且源为 nil 时，它会返回 nil。
-// 注意，该函数可能使用反射功能，这可能稍微影响性能。
-// md5:c12efd8c176fc73a
+// IsNil checks whether given `value` is nil, especially for interface{} type value.
+// Parameter `traceSource` is used for tracing to the source variable if given `value` is type of pointer
+// that also points to a pointer. It returns nil if the source is nil when `traceSource` is true.
+// Note that it might use reflect feature which affects performance a little.
 func IsNil(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true

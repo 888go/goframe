@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -13,8 +12,9 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// doWhereType 设置模型的条件语句。参数 `where` 可以是类型为 string、map、gmap、slice、struct 或其派生结构等。需要注意的是，如果多次调用此函数，多个条件将使用 "AND" 连接到 where 语句中。
-// md5:92ee322b44569cba
+// doWhereType sets the condition statement for the model. The parameter `where` can be type of
+// string/map/gmap/slice/struct/*struct, etc. Note that, if it's called more than one times,
+// multiple conditions will be joined into where statement using "AND".
 func (b *WhereBuilder) doWhereType(whereType string, where interface{}, args ...interface{}) *WhereBuilder {
 	where, args = b.convertWhereBuilder(where, args)
 
@@ -38,9 +38,9 @@ func (b *WhereBuilder) doWhereType(whereType string, where interface{}, args ...
 	return builder
 }
 
-// doWherefType 使用 fmt.Sprintf 和参数构建条件字符串。
-// 注意，如果 `args` 的数量多于 `format` 中的占位符，多余的 `args` 将作为 Model 的 where 条件参数使用。
-// md5:67cfb01201c57037
+// doWherefType builds condition string using fmt.Sprintf and arguments.
+// Note that if the number of `args` is more than the placeholder in `format`,
+// the extra `args` will be used as the where condition arguments of the Model.
 func (b *WhereBuilder) doWherefType(t string, format string, args ...interface{}) *WhereBuilder {
 	var (
 		placeHolderCount = gstr.Count(format, "?")
@@ -80,8 +80,11 @@ func (b *WhereBuilder) Wheref(format string, args ...interface{}) *WhereBuilder 
 	return b.doWherefType(``, format, args...)
 }
 
-// WherePri 的逻辑与 Model.Where 相同，但当参数 `where` 是单个条件，如 int、string、float 或 slice 时，它将该条件视为主键值。也就是说，如果主键是 "id" 并且给定的 `where` 参数为 "123"，WherePri 函数会将条件解析为 "id=123"，而 Model.Where 则会将条件视为字符串 "123"。
-// md5:2545fa57bcbd235c
+// WherePri does the same logic as Model.Where except that if the parameter `where`
+// is a single condition like int/string/float/slice, it treats the condition as the primary
+// key value. That is, if primary key is "id" and given `where` parameter as "123", the
+// WherePri function treats the condition as "id=123", but Model.Where treats the condition
+// as string "123".
 // ff:条件并识别主键
 // b:
 // where:条件
@@ -94,7 +97,7 @@ func (b *WhereBuilder) WherePri(where interface{}, args ...interface{}) *WhereBu
 	return b.Where(newWhere[0], newWhere[1:]...)
 }
 
-// WhereLT构建`column < value`语句。 md5:438e43e951037408
+// WhereLT builds `column < value` statement.
 // ff:条件小于
 // b:
 // column:字段名
@@ -103,7 +106,7 @@ func (b *WhereBuilder) WhereLT(column string, value interface{}) *WhereBuilder {
 	return b.Wheref(`%s < ?`, b.model.QuoteWord(column), value)
 }
 
-// WhereLTE 构建 `column <= value` 的语句。 md5:149d7bc478d211fd
+// WhereLTE builds `column <= value` statement.
 // ff:条件小于等于
 // b:
 // column:字段名
@@ -112,7 +115,7 @@ func (b *WhereBuilder) WhereLTE(column string, value interface{}) *WhereBuilder 
 	return b.Wheref(`%s <= ?`, b.model.QuoteWord(column), value)
 }
 
-// WhereGT 构建 `column > value` 语句。 md5:41527fa039c8a299
+// WhereGT builds `column > value` statement.
 // ff:条件大于
 // b:
 // column:字段名
@@ -121,7 +124,7 @@ func (b *WhereBuilder) WhereGT(column string, value interface{}) *WhereBuilder {
 	return b.Wheref(`%s > ?`, b.model.QuoteWord(column), value)
 }
 
-// WhereGTE构建`column >= value`语句。 md5:fff159ae64237621
+// WhereGTE builds `column >= value` statement.
 // ff:条件大于等于
 // b:
 // column:字段名
@@ -130,7 +133,7 @@ func (b *WhereBuilder) WhereGTE(column string, value interface{}) *WhereBuilder 
 	return b.Wheref(`%s >= ?`, b.model.QuoteWord(column), value)
 }
 
-// WhereBetween构建`column BETWEEN min AND max`语句。 md5:cdb9b4a2942f3b60
+// WhereBetween builds `column BETWEEN min AND max` statement.
 // ff:条件取范围
 // b:
 // column:字段名
@@ -140,7 +143,7 @@ func (b *WhereBuilder) WhereBetween(column string, min, max interface{}) *WhereB
 	return b.Wheref(`%s BETWEEN ? AND ?`, b.model.QuoteWord(column), min, max)
 }
 
-// WhereLike 构建 `column LIKE like` 语句。 md5:5cf0790f9754307f
+// WhereLike builds `column LIKE like` statement.
 // ff:条件模糊匹配
 // b:
 // column:字段名
@@ -149,7 +152,7 @@ func (b *WhereBuilder) WhereLike(column string, like string) *WhereBuilder {
 	return b.Wheref(`%s LIKE ?`, b.model.QuoteWord(column), like)
 }
 
-// WhereIn 构建 `column IN (in)` 语句。 md5:08648a50bb84e2ee
+// WhereIn builds `column IN (in)` statement.
 // ff:条件包含
 // b:
 // column:字段名
@@ -158,7 +161,7 @@ func (b *WhereBuilder) WhereIn(column string, in interface{}) *WhereBuilder {
 	return b.doWherefType(whereHolderTypeIn, `%s IN (?)`, b.model.QuoteWord(column), in)
 }
 
-// WhereNull 构建 `columns[0] IS NULL AND columns[1] IS NULL ...` 语句。 md5:9341218ae0c32357
+// WhereNull builds `columns[0] IS NULL AND columns[1] IS NULL ...` statement.
 // ff:条件NULL值
 // b:
 // columns:字段名
@@ -170,7 +173,7 @@ func (b *WhereBuilder) WhereNull(columns ...string) *WhereBuilder {
 	return builder
 }
 
-// WhereNotBetween构建`column NOT BETWEEN min AND max`语句。 md5:ac5d20d314a9fa0c
+// WhereNotBetween builds `column NOT BETWEEN min AND max` statement.
 // ff:条件取范围以外
 // b:
 // column:字段名
@@ -180,7 +183,7 @@ func (b *WhereBuilder) WhereNotBetween(column string, min, max interface{}) *Whe
 	return b.Wheref(`%s NOT BETWEEN ? AND ?`, b.model.QuoteWord(column), min, max)
 }
 
-// WhereNotLike 构建 `column NOT LIKE like` 的 SQL 语句。 md5:683105cb42e27e3b
+// WhereNotLike builds `column NOT LIKE like` statement.
 // ff:条件模糊匹配以外
 // b:
 // column:字段名
@@ -189,7 +192,7 @@ func (b *WhereBuilder) WhereNotLike(column string, like interface{}) *WhereBuild
 	return b.Wheref(`%s NOT LIKE ?`, b.model.QuoteWord(column), like)
 }
 
-// WhereNot 构建 `column != value` 语句。 md5:d409867c3e8a9641
+// WhereNot builds `column != value` statement.
 // ff:条件不等于
 // b:
 // column:字段名
@@ -198,7 +201,7 @@ func (b *WhereBuilder) WhereNot(column string, value interface{}) *WhereBuilder 
 	return b.Wheref(`%s != ?`, b.model.QuoteWord(column), value)
 }
 
-// WhereNotIn构建`column NOT IN (in)`语句。 md5:658ffbae4d294fa4
+// WhereNotIn builds `column NOT IN (in)` statement.
 // ff:条件不包含
 // b:
 // column:字段名
@@ -207,7 +210,7 @@ func (b *WhereBuilder) WhereNotIn(column string, in interface{}) *WhereBuilder {
 	return b.doWherefType(whereHolderTypeIn, `%s NOT IN (?)`, b.model.QuoteWord(column), in)
 }
 
-// WhereNotNull 构建 `columns[0] IS NOT NULL AND columns[1] IS NOT NULL ...` 语句。 md5:2444d6e2f6bcbf2d
+// WhereNotNull builds `columns[0] IS NOT NULL AND columns[1] IS NOT NULL ...` statement.
 // ff:条件非Null
 // b:
 // columns:字段名

@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
+// go test *.go -bench=".*" -benchmem
 
 package gset_test
 
@@ -88,7 +87,7 @@ func Benchmark_AnySet_Remove(b *testing.B) {
 	})
 }
 
-// 注意，字符串转换会带来额外的性能开销。 md5:1a28b26d80944830
+// Note that there's additional performance cost for string conversion.
 func Benchmark_StrSet_Add(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -99,7 +98,7 @@ func Benchmark_StrSet_Add(b *testing.B) {
 	})
 }
 
-// 注意，字符串转换会带来额外的性能开销。 md5:1a28b26d80944830
+// Note that there's additional performance cost for string conversion.
 func Benchmark_StrSet_Contains(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -110,7 +109,7 @@ func Benchmark_StrSet_Contains(b *testing.B) {
 	})
 }
 
-// 注意，字符串转换会带来额外的性能开销。 md5:1a28b26d80944830
+// Note that there's additional performance cost for string conversion.
 func Benchmark_StrSet_Remove(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
@@ -157,21 +156,21 @@ func Benchmark_Unsafe_AnySet_Remove(b *testing.B) {
 	}
 }
 
-// 注意，字符串转换会带来额外的性能开销。 md5:1a28b26d80944830
+// Note that there's additional performance cost for string conversion.
 func Benchmark_Unsafe_StrSet_Add(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Add(strconv.Itoa(i))
 	}
 }
 
-// 注意，字符串转换会带来额外的性能开销。 md5:1a28b26d80944830
+// Note that there's additional performance cost for string conversion.
 func Benchmark_Unsafe_StrSet_Contains(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Contains(strconv.Itoa(i))
 	}
 }
 
-// 注意，字符串转换会带来额外的性能开销。 md5:1a28b26d80944830
+// Note that there's additional performance cost for string conversion.
 func Benchmark_Unsafe_StrSet_Remove(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strSetUnsafe.Remove(strconv.Itoa(i))

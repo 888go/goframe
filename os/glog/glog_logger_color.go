@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package glog
 
@@ -20,7 +19,7 @@ const (
 	COLOR_WHITE
 )
 
-// 前景高亮度文本颜色. md5:e39d29d745b2e70e
+// Foreground Hi-Intensity text colors
 const (
 	COLOR_HI_BLACK = 90 + iota
 	COLOR_HI_RED
@@ -32,7 +31,7 @@ const (
 	COLOR_HI_WHITE
 )
 
-// defaultLevelColor 定义了默认级别及其前缀字符串。 md5:c6a4c65e46485929
+// defaultLevelColor defines the default level and its mapping prefix string.
 var defaultLevelColor = map[int]int{
 	LEVEL_DEBU: COLOR_YELLOW,
 	LEVEL_INFO: COLOR_GREEN,
@@ -44,7 +43,7 @@ var defaultLevelColor = map[int]int{
 	LEVEL_FATA: COLOR_HI_RED,
 }
 
-// getColoredStr 返回一个使用给定颜色着色的字符串。 md5:accfa5b8ad258119
+// getColoredStr returns a string that is colored by given color.
 func (l *Logger) getColoredStr(c int, s string) string {
 	return color.New(color.Attribute(c)).Sprint(s)
 }

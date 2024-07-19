@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtag
 
@@ -18,9 +17,8 @@ var (
 	regex = regexp.MustCompile(`\{(.+?)\}`)
 )
 
-// Set 设置指定名称的标签内容。
-// 请注意，如果`name`已经存在，该函数会引发恐慌。
-// md5:3b301b4174b60616
+// Set sets tag content for specified name.
+// Note that it panics if `name` already exists.
 // yx:true
 // ff:设置值
 // name:
@@ -32,7 +30,7 @@ func Set(name, value string) {
 	data[name] = value
 }
 
-// SetOver 执行 Set 的功能，但如果 `name` 已经存在，它会覆盖旧的值。 md5:906ca9f516be44d0
+// SetOver performs as Set, but it overwrites the old value if `name` already exists.
 // ff:
 // name:
 // value:
@@ -40,7 +38,7 @@ func SetOver(name, value string) {
 	data[name] = value
 }
 
-// 通过map设置多个标签的内容。 md5:c02ae9dd9350cf50
+// Sets sets multiple tag content by map.
 // ff:
 // m:
 func Sets(m map[string]string) {
@@ -49,7 +47,7 @@ func Sets(m map[string]string) {
 	}
 }
 
-// SetsOver 的行为类似于 Sets，但如果 `name` 已经存在，它会覆盖旧值。 md5:6a87c6587ed9794f
+// SetsOver performs as Sets, but it overwrites the old value if `name` already exists.
 // ff:
 // m:
 func SetsOver(m map[string]string) {
@@ -58,7 +56,7 @@ func SetsOver(m map[string]string) {
 	}
 }
 
-// Get 获取并返回指定名称的存储标签内容。 md5:1a0a007cb18c41fa
+// Get retrieves and returns the stored tag content for specified name.
 // ff:
 // name:
 func Get(name string) string {

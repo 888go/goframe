@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
 
@@ -31,7 +30,7 @@ import (
 )
 
 const (
-	// 允许在服务器启动后经过此毫秒间隔执行管理命令。 md5:0a7e1d2b4fe2af39
+	// Allow executing management command after server starts after this interval in milliseconds.
 	adminActionIntervalLimit = 2000
 	adminActionNone          = 0
 	adminActionRestarting    = 1
@@ -42,19 +41,18 @@ const (
 )
 
 var (
-	// serverActionLocker 是用于服务器管理操作的锁。 md5:3de592f90d7f4ae4
+	// serverActionLocker is the locker for server administration operations.
 	serverActionLocker sync.Mutex
 
-	// serverActionLastTime 是上一次管理操作的时间戳（以毫秒为单位）。 md5:df445bcc172577e2
+	// serverActionLastTime is timestamp in milliseconds of last administration operation.
 	serverActionLastTime = gtype.NewInt64(gtime.TimestampMilli())
 
-	// serverProcessStatus是当前进程运行时的服务器状态。 md5:3d55829242522190
+	// serverProcessStatus is the server status for operation of current process.
 	serverProcessStatus = gtype.NewInt()
 )
 
-// RestartAllServer 优雅地重启进程中的所有服务器。
-// 可选参数 `newExeFilePath` 指定了用于创建进程的新二进制文件路径。
-// md5:cd148e150eddefe2
+// RestartAllServer restarts all the servers of the process gracefully.
+// The optional parameter `newExeFilePath` specifies the new binary file for creating process.
 // ff:平滑重启所有服务
 // ctx:上下文
 // newExeFilePath:新可执行文件路径
@@ -73,7 +71,7 @@ func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	return restartWebServers(ctx, nil, newExeFilePath)
 }
 
-// ShutdownAllServer 优雅地关闭当前进程中的所有服务器。 md5:1eb1bf001c79c66c
+// ShutdownAllServer shuts down all servers of current process gracefully.
 // ff:平滑关闭所有服务
 // ctx:上下文
 func ShutdownAllServer(ctx context.Context) error {
@@ -89,7 +87,7 @@ func ShutdownAllServer(ctx context.Context) error {
 	return nil
 }
 
-// checkProcessStatus 检查当前进程的服务器状态。 md5:f49e9c4fdac4de86
+// checkProcessStatus checks the server status of current process.
 func checkProcessStatus() error {
 	status := serverProcessStatus.Val()
 	if status > 0 {
@@ -104,9 +102,8 @@ func checkProcessStatus() error {
 	return nil
 }
 
-// checkActionFrequency 检查操作频率。
-// 如果频率过高，它会返回错误。
-// md5:b5db2b4c0ba2cdf7
+// checkActionFrequency checks the operation frequency.
+// It returns error if it is too frequency.
 func checkActionFrequency() error {
 	interval := gtime.TimestampMilli() - serverActionLastTime.Val()
 	if interval < adminActionIntervalLimit {
@@ -120,7 +117,7 @@ func checkActionFrequency() error {
 	return nil
 }
 
-// forkReloadProcess 创建一个新的子进程，并将文件描述符复制到子进程中。 md5:5de49cf62f76603e
+// forkReloadProcess creates a new child process and copies the fd to child process.
 func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 	var (
 		path = os.Args[0]
@@ -163,7 +160,7 @@ func forkReloadProcess(ctx context.Context, newExeFilePath ...string) error {
 	return nil
 }
 
-// forkRestartProcess 创建一个新的服务器进程。 md5:f786ce6758d0d9ed
+// forkRestartProcess creates a new server process.
 func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 	var (
 		path = os.Args[0]
@@ -188,7 +185,7 @@ func forkRestartProcess(ctx context.Context, newExeFilePath ...string) error {
 	return nil
 }
 
-// getServerFdMap 返回所有服务器名称到文件描述符映射的map。 md5:dd5b6c5b0372c1b6
+// getServerFdMap returns all the servers name to file descriptor mapping as map.
 func getServerFdMap() map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	serverMapping.RLockFunc(func(m map[string]interface{}) {
@@ -199,7 +196,7 @@ func getServerFdMap() map[string]listenerFdMap {
 	return sfm
 }
 
-// bufferToServerFdMap 将二进制内容转换为fd映射。 md5:f02ae7f98f43f216
+// bufferToServerFdMap converts binary content to fd map.
 func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 	sfm := make(map[string]listenerFdMap)
 	if len(buffer) > 0 {
@@ -215,7 +212,7 @@ func bufferToServerFdMap(buffer []byte) map[string]listenerFdMap {
 	return sfm
 }
 
-// restartWebServers 重启所有服务器。 md5:cad06ab5309d1725
+// restartWebServers restarts all servers.
 func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath string) error {
 	serverProcessStatus.Set(adminActionRestarting)
 	if runtime.GOOS == "windows" {
@@ -227,9 +224,8 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 			}
 			return nil
 		}
-// 由网页控制。
-// 它应该确保响应已写入客户端，然后优雅地关闭所有服务器。
-// md5:a5b2bfe1eb0f3681
+		// Controlled by web page.
+		// It should ensure the response wrote to client and then close all servers gracefully.
 		gtimer.SetTimeout(ctx, time.Second, func(ctx context.Context) {
 			forceCloseWebServers(ctx)
 			if err := forkRestartProcess(ctx, newExeFilePath); err != nil {
@@ -253,7 +249,7 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 	return nil
 }
 
-// shutdownWebServersGracefully 延长关闭所有服务器。 md5:032a0ea9c1919f82
+// shutdownWebServersGracefully gracefully shuts down all servers.
 func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 	serverProcessStatus.Set(adminActionShuttingDown)
 	if signal != nil {
@@ -276,7 +272,7 @@ func shutdownWebServersGracefully(ctx context.Context, signal os.Signal) {
 	})
 }
 
-// forceCloseWebServers 强制关闭所有服务器。 md5:e7c5bd88a9acbd9e
+// forceCloseWebServers forced shuts down all servers.
 func forceCloseWebServers(ctx context.Context) {
 	serverMapping.RLockFunc(func(m map[string]interface{}) {
 		for _, v := range m {
@@ -287,9 +283,8 @@ func forceCloseWebServers(ctx context.Context) {
 	})
 }
 
-// handleProcessMessage 接收并处理来自进程的消息，
-// 这通常用于实现优雅重启功能。
-// md5:80ebd3c82cd48199
+// handleProcessMessage receives and handles the message from processes,
+// which are commonly used for graceful reloading feature.
 func handleProcessMessage() {
 	var (
 		ctx = context.TODO()

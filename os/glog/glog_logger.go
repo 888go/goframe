@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package glog
 
@@ -33,9 +32,9 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Logger 是用于日志管理的结构体。 md5:c338807dca943ae3
+// Logger is the struct for logging management.
 type Logger struct {
-	parent *Logger // 父日志记录器，如果非空，表示该日志记录器用于链式调用功能。 md5:9efa0349702d1c2c
+	parent *Logger // Parent logger, if it is not empty, it means the logger is used in chaining function.
 	config Config  // Logger configuration.
 }
 
@@ -49,17 +48,17 @@ const (
 )
 
 const (
-	F_ASYNC      = 1 << iota // 异步打印日志内容。 md5:aae4973631499f41
-	F_FILE_LONG              // 打印完整的文件名和行号：/a/b/c/d.go:23。 md5:b0d552af751b5a59
-	F_FILE_SHORT             // 打印最终的文件名元素和行号：d.go:23。会覆盖F_FILE_LONG设置。 md5:b2f804c31e821aba
-	F_TIME_DATE              // 在本地时区打印日期：2009-01-23。 md5:d7310c166de59388
-	F_TIME_TIME              // 在本地时区打印时间：01:23:23。 md5:547ab7e84bd2a146
-	F_TIME_MILLI             // 在本地时区打印带有毫秒的时间：01:23:23.675。 md5:063a060ef145f39d
-	F_CALLER_FN              // 打印调用者函数名称和包：main.main. md5:1d729cf0b4dce445
+	F_ASYNC      = 1 << iota // Print logging content asynchronously。
+	F_FILE_LONG              // Print full file name and line number: /a/b/c/d.go:23.
+	F_FILE_SHORT             // Print final file name element and line number: d.go:23. overrides F_FILE_LONG.
+	F_TIME_DATE              // Print the date in the local time zone: 2009-01-23.
+	F_TIME_TIME              // Print the time in the local time zone: 01:23:23.
+	F_TIME_MILLI             // Print the time with milliseconds in the local time zone: 01:23:23.675.
+	F_CALLER_FN              // Print Caller function name and package: main.main
 	F_TIME_STD   = F_TIME_DATE | F_TIME_MILLI
 )
 
-// New 创建并返回一个自定义的日志器。 md5:0205650422cdd95e
+// New creates and returns a custom logger.
 // ff:创建
 func New() *Logger {
 	return &Logger{
@@ -67,7 +66,7 @@ func New() *Logger {
 	}
 }
 
-// NewWithWriter 创建并返回一个具有 io.Writer 的自定义日志器。 md5:51edfcbd62ded572
+// NewWithWriter creates and returns a custom logger with io.Writer.
 // ff:创建并按writer
 // writer:
 func NewWithWriter(writer io.Writer) *Logger {
@@ -76,9 +75,8 @@ func NewWithWriter(writer io.Writer) *Logger {
 	return l
 }
 
-// Clone 返回一个新的记录器，它是当前记录器的`浅拷贝`。
-// 注意，克隆体的`config`属性是对当前记录器配置的浅拷贝。
-// md5:c70ded0c6903f4be
+// Clone returns a new logger, which a `shallow copy` of the current logger.
+// Note that the attribute `config` of the cloned one is the shallow copy of current one.
 // ff:取副本
 // l:
 func (l *Logger) Clone() *Logger {
@@ -88,11 +86,10 @@ func (l *Logger) Clone() *Logger {
 	}
 }
 
-// getFilePath 返回日志文件的路径。
-// 日志文件的名称必须带有".log"扩展名。
-// md5:f3fb565d6de6de8e
+// getFilePath returns the logging file path.
+// The logging file name must have extension name of "log".
 func (l *Logger) getFilePath(now time.Time) string {
-	// 文件名中包含“{}”的内容将使用gtime进行格式化。 md5:9502dc758bde7fca
+	// Content containing "{}" in the file name is formatted using gtime.
 	file, _ := gregex.ReplaceStringFunc(`{.+?}`, l.config.File, func(s string) string {
 		return gtime.New(now).Format(strings.Trim(s, "{}"))
 	})
@@ -100,13 +97,12 @@ func (l *Logger) getFilePath(now time.Time) string {
 	return file
 }
 
-// print 将`s`打印到已定义的writer（日志文件）或传递的`std`。 md5:2368d31e4b600609
+// print prints `s` to defined writer, logging file or passed `std`.
 func (l *Logger) print(ctx context.Context, level int, stack string, values ...any) {
-// 延迟初始化旋转特性。
-// 它采用原子读取操作来增强性能检查。
-// 此处使用CAP以确保性能和并发安全性。
-// 每个日志器仅初始化一次。
-// md5:1562dbed8f576bc2
+	// Lazy initialize for rotation feature.
+	// It uses atomic reading operation to enhance the performance checking.
+	// It here uses CAP for performance and concurrent safety.
+	// It just initializes once for each logger.
 	if l.config.RotateSize > 0 || l.config.RotateExpire > 0 {
 		if !l.config.rotatedHandlerInitialized.Val() && l.config.rotatedHandlerInitialized.Cas(false, true) {
 			l.rotateChecksTimely(ctx)
@@ -167,7 +163,7 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 	// Level string.
 	input.LevelFormat = l.GetLevelPrefix(level)
 
-	// 调用者路径和函数名。 md5:92543c6732cddd2d
+	// Caller path and Fn name.
 	if l.config.Flags&(F_FILE_LONG|F_FILE_SHORT|F_CALLER_FN) > 0 {
 		callerFnName, path, line := gdebug.CallerWithFilter(
 			[]string{consts.StackFilterKeyForGoFrame},
@@ -192,7 +188,7 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 		input.Prefix = l.config.Prefix
 	}
 
-	// 将值转换为字符串。 md5:c172ad8437ce5ebf
+	// Convert value to string.
 	if ctx != nil {
 		// Tracing values.
 		spanCtx := trace.SpanContextFromContext(ctx)
@@ -228,17 +224,17 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 	}
 }
 
-// doFinalPrint 根据配置输出日志内容。 md5:d442b45c82ee936e
+// doFinalPrint outputs the logging content according configuration.
 func (l *Logger) doFinalPrint(ctx context.Context, input *HandlerInput) *bytes.Buffer {
 	var buffer *bytes.Buffer
-	// 允许输出到标准输出（stdout）吗？. md5:0f9801ce26bfb625
+	// Allow output to stdout?
 	if l.config.StdoutPrint {
 		if buf := l.printToStdout(ctx, input); buf != nil {
 			buffer = buf
 		}
 	}
 
-	// 将内容输出到磁盘文件。 md5:eac9c01dcbb64a4f
+	// Output content to disk file.
 	if l.config.Path != "" {
 		if buf := l.printToFile(ctx, input.Time, input); buf != nil {
 			buffer = buf
@@ -247,7 +243,7 @@ func (l *Logger) doFinalPrint(ctx context.Context, input *HandlerInput) *bytes.B
 
 	// Used custom writer.
 	if l.config.Writer != nil {
-		// 向自定义写入器输出。 md5:ef7c09b52f5d355b
+		// Output to custom writer.
 		if buf := l.printToWriter(ctx, input); buf != nil {
 			buffer = buf
 		}
@@ -255,7 +251,7 @@ func (l *Logger) doFinalPrint(ctx context.Context, input *HandlerInput) *bytes.B
 	return buffer
 }
 
-// printToWriter 将缓冲区写入writer。 md5:5b62d7e007bf0275
+// printToWriter writes buffer to writer.
 func (l *Logger) printToWriter(ctx context.Context, input *HandlerInput) *bytes.Buffer {
 	if l.config.Writer != nil {
 		var buffer = input.getRealBuffer(l.config.WriterColorEnable)
@@ -267,18 +263,17 @@ func (l *Logger) printToWriter(ctx context.Context, input *HandlerInput) *bytes.
 	return nil
 }
 
-// printToStdout 将日志内容输出到标准输出（stdout）。 md5:2fb96a5229ec7af7
+// printToStdout outputs logging content to stdout.
 func (l *Logger) printToStdout(ctx context.Context, input *HandlerInput) *bytes.Buffer {
 	if l.config.StdoutPrint {
 		var (
 			err    error
 			buffer = input.getRealBuffer(!l.config.StdoutColorDisabled)
 		)
-// 这将在Windows操作系统中丢失颜色信息。请勿使用。
-// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil {
-// md5:29dd90df2339a223
+		// This will lose color in Windows os system. DO NOT USE.
+		// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil {
 
-		// 这将在Windows操作系统中打印颜色。 md5:c2abebac838c5747
+		// This will print color in Windows os system.
 		if _, err = fmt.Fprint(color.Output, buffer.String()); err != nil {
 			intlog.Errorf(ctx, `%+v`, err)
 		}
@@ -287,7 +282,7 @@ func (l *Logger) printToStdout(ctx context.Context, input *HandlerInput) *bytes.
 	return nil
 }
 
-// printToFile 将日志内容输出到磁盘文件中。 md5:20d4379608c45b69
+// printToFile outputs logging content to disk file.
 func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput) *bytes.Buffer {
 	var (
 		buffer        = in.getRealBuffer(l.config.WriterColorEnable)
@@ -297,7 +292,7 @@ func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput)
 	gmlock.Lock(memoryLockKey)
 	defer gmlock.Unlock(memoryLockKey)
 
-	// 旋转文件大小检查。 md5:82f7b948ac1657a5
+	// Rotation file size checks.
 	if l.config.RotateSize > 0 && gfile.Size(logFilePath) > l.config.RotateSize {
 		if runtime.GOOS == "windows" {
 			file := l.createFpInPool(ctx, logFilePath)
@@ -320,7 +315,7 @@ func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput)
 
 		l.rotateFileBySize(ctx, t)
 	}
-	// 将日志内容输出到磁盘文件。 md5:c3b494b8895acc38
+	// Logging content outputting to disk file.
 	if file := l.createFpInPool(ctx, logFilePath); file == nil {
 		intlog.Errorf(ctx, `got nil file pointer for: %s`, logFilePath)
 	} else {
@@ -334,7 +329,7 @@ func (l *Logger) printToFile(ctx context.Context, t time.Time, in *HandlerInput)
 	return buffer
 }
 
-// createFpInPool 从文件池中检索并返回一个文件指针。 md5:4acfc3ca923fca99
+// createFpInPool retrieves and returns a file pointer from file pool.
 func (l *Logger) createFpInPool(ctx context.Context, path string) *gfpool.File {
 	file, err := gfpool.Open(
 		path,
@@ -349,7 +344,7 @@ func (l *Logger) createFpInPool(ctx context.Context, path string) *gfpool.File {
 	return file
 }
 
-// getFpFromPool 从文件池中检索并返回一个文件指针。 md5:e3cccf00ba4439d4
+// getFpFromPool retrieves and returns a file pointer from file pool.
 func (l *Logger) getFpFromPool(ctx context.Context, path string) *gfpool.File {
 	file := gfpool.Get(
 		path,
@@ -363,29 +358,28 @@ func (l *Logger) getFpFromPool(ctx context.Context, path string) *gfpool.File {
 	return file
 }
 
-// printStd 在不打印调用栈的情况下输出内容 `s`。 md5:f9e76daf3a16b514
+// printStd prints content `s` without stack.
 func (l *Logger) printStd(ctx context.Context, level int, values ...interface{}) {
 	l.print(ctx, level, "", values...)
 }
 
-// printErr 打印内容 `s`，并检查堆栈信息。 md5:d9883612e4e85bcb
+// printErr prints content `s` with stack check.
 func (l *Logger) printErr(ctx context.Context, level int, values ...interface{}) {
 	var stack string
 	if l.config.StStatus == 1 {
 		stack = l.GetStack()
 	}
-	// 从顺序上来说，这里不要使用stderr，而是要使用相同的stdout。 md5:1f1258ae1ca0856e
+	// In matter of sequence, do not use stderr here, but use the same stdout.
 	l.print(ctx, level, stack, values...)
 }
 
-// format 使用fmt.Sprintf格式化`values`。 md5:bd4bb80582842100
+// format formats `values` using fmt.Sprintf.
 func (l *Logger) format(format string, values ...interface{}) string {
 	return fmt.Sprintf(format, values...)
 }
 
-// PrintStack 打印调用堆栈，
-// 可选参数 `skip` 用于指定从堆栈终点开始忽略的偏移量。
-// md5:ef6cd40820765783
+// PrintStack prints the caller stack,
+// the optional parameter `skip` specify the skipped stack offset from the end point.
 // ff:
 // l:
 // ctx:
@@ -398,9 +392,8 @@ func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 	}
 }
 
-// GetStack 返回调用者栈的内容，
-// 可选参数 `skip` 指定从终点开始要跳过的栈偏移量。
-// md5:13592be3061e779d
+// GetStack returns the caller stack content,
+// the optional parameter `skip` specify the skipped stack offset from the end point.
 // ff:取堆栈信息
 // l:
 // skip:偏移量
@@ -413,7 +406,7 @@ func (l *Logger) GetStack(skip ...int) string {
 	if l.config.StFilter != "" {
 		filters = append(filters, l.config.StFilter)
 	}
-	// 是否过滤框架错误堆栈。 md5:7cf82960065281e9
+	// Whether filter framework error stacks.
 	if errors.IsStackModeBrief() {
 		filters = append(filters, consts.StackFilterKeyForGoFrame)
 	}

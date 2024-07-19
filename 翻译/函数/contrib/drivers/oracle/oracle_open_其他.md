@@ -36,4 +36,5 @@
 # 备注结束
 
 [func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {]
-ff=底层Open
+hm=底层Open
+cz=func (d *Driver) Open

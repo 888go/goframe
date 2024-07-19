@@ -35,18 +35,6 @@
 # //zj:
 # 备注结束
 
-[ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
-qm=底层ConvertValueForField
-cz=ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{})
-
-[ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
-qm=底层ConvertValueForLocal
-cz=ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{})
-
-[CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error)]
-qm=底层CheckLocalTypeForField
-cz=CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{})
-
 [Model(tableNameOrStruct ...interface{}) *Model]
 qm=创建Model对象
 cz=Model(tableNameOrStruct ...interface{})
@@ -274,6 +262,18 @@ cz=Tables(ctx context.Context, schema ...string)
 [TableFields(ctx context.Context, table string, schema ...string) (map#左中括号#string#右中括号#*TableField, error)]
 qm=取表字段信息Map
 cz=TableFields(ctx context.Context, table string, schema ...string)
+
+[ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
+qm=底层ConvertValueForField
+cz=ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{})
+
+[ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)]
+qm=底层ConvertValueForLocal
+cz=ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{})
+
+[CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error)]
+qm=底层CheckLocalTypeForField
+cz=CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{})
 
 [Ctx(ctx context.Context) TX]
 qm=设置上下文并取副本

@@ -6,10 +6,10 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 )
 
-// HandlerFunc 是用于处理中间件的处理器函数. md5:1e0565dffbfa907c
+// HandlerFunc middleware handler func
 type HandlerFunc = func(c *Client, r *http.Request) (*Response, error)
 
-// clientMiddleware 是用于管理HTTP客户端请求工作流程的插件。 md5:72add0d1b66ac073
+// clientMiddleware is the plugin for http client request workflow management.
 type clientMiddleware struct {
 	client       *Client       // http client.
 	handlers     []HandlerFunc // mdl handlers.
@@ -20,7 +20,7 @@ type clientMiddleware struct {
 
 const clientMiddlewareKey gctx.StrKey = "__clientMiddlewareKey"
 
-// Use 向客户端添加一个或多个中间件处理器。 md5:92665269b902692e
+// Use adds one or more middleware handlers to client.
 // ff:中间件
 // c:
 // handlers:中间件s
@@ -29,9 +29,8 @@ func (c *Client) Use(handlers ...HandlerFunc) *Client {
 	return c
 }
 
-// Next 调用下一个中间件。
-// 这应该只在 HandlerFunc 中调用。
-// md5:70c74664d7d9f919
+// Next calls the next middleware.
+// This should only be call in HandlerFunc.
 // ff:
 // c:
 // req:
@@ -44,7 +43,7 @@ func (c *Client) Next(req *http.Request) (*Response, error) {
 	return c.callRequest(req)
 }
 
-// Next 调用下一个中间件处理器。 md5:51a6ca6a21a9942e
+// Next calls the next middleware handler.
 // ff:
 // m:
 // req:

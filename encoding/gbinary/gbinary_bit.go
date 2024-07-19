@@ -1,16 +1,15 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gbinary
 
 // Bit Binary bit (0 | 1)
 type Bit int8
 
-// EncodeBits 对bits进行编码，返回默认的编码结果. md5:0e00e3ef37578d60
+// EncodeBits does encode bits return bits Default coding
 // ff:
 // bits:
 // i:
@@ -19,9 +18,8 @@ func EncodeBits(bits []Bit, i int, l int) []Bit {
 	return EncodeBitsWithUint(bits, uint(i), l)
 }
 
-// 将Uint与bits数组进行位运算合并，并占用length个比特位
-// （注意：二进制的0和1位存储在uis数组中）
-// md5:d607be5613f78556
+// EncodeBitsWithUint . Merge ui bitwise into the bits array and occupy the length bits
+// (Note: binary 0 | 1 digits are stored in the uis array)
 // ff:
 // bits:
 // ui:
@@ -38,9 +36,8 @@ func EncodeBitsWithUint(bits []Bit, ui uint, l int) []Bit {
 	return a
 }
 
-// EncodeBitsToBytes 将位编码为字节
-// 将位转换为[]byte，从左到右进行编码，并在末尾添加不足1字节的0。
-// md5:0f20302eaa5194b7
+// EncodeBitsToBytes . does encode bits to bytes
+// Convert bits to [] byte, encode from left to right, and add less than 1 byte from 0 to the end.
 // ff:
 // bits:
 func EncodeBitsToBytes(bits []Bit) []byte {
@@ -56,9 +53,8 @@ func EncodeBitsToBytes(bits []Bit) []byte {
 	return b
 }
 
-// DecodeBits 解码位为整数
-// 转换为整数
-// md5:120b81a9c7484ad9
+// DecodeBits .does decode bits to int
+// Resolve to int
 // ff:
 // bits:
 func DecodeBits(bits []Bit) int {
@@ -69,7 +65,7 @@ func DecodeBits(bits []Bit) int {
 	return v
 }
 
-// DecodeBitsToUint 解码位并转换为无符号整数. md5:6f9a7b3d400472c8
+// DecodeBitsToUint .Resolve to uint
 // ff:
 // bits:
 func DecodeBitsToUint(bits []Bit) uint {
@@ -80,7 +76,7 @@ func DecodeBitsToUint(bits []Bit) uint {
 	return v
 }
 
-// DecodeBytesToBits 将字节切片解析为字符数组 []uint8. md5:bf0570931fd34b7c
+// DecodeBytesToBits .Parsing [] byte into character array [] uint8
 // ff:
 // bs:
 func DecodeBytesToBits(bs []byte) []Bit {

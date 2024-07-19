@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gutil
 
@@ -13,8 +12,8 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// SliceCopy 对于最常用的切片类型（[]interface{}）执行浅拷贝操作。
-// md5:d119afb140e8324a
+// SliceCopy does a shallow copy of slice `data` for most commonly used slice type
+// []interface{}.
 // ff:
 // slice:
 func SliceCopy(slice []interface{}) []interface{} {
@@ -23,7 +22,7 @@ func SliceCopy(slice []interface{}) []interface{} {
 	return newSlice
 }
 
-// SliceInsertBefore 将 `values` 插入到 `index` 位置的前面，并返回一个新的切片。 md5:d1cbe1d61df82fb6
+// SliceInsertBefore inserts the `values` to the front of `index` and returns a new slice.
 // ff:
 // slice:
 // index:
@@ -40,7 +39,7 @@ func SliceInsertBefore(slice []interface{}, index int, values ...interface{}) (n
 	return
 }
 
-// SliceInsertAfter 在 `index` 后方插入 `values`，并返回一个新的切片。 md5:bb561266d0b2b921
+// SliceInsertAfter inserts the `values` to the back of `index` and returns a new slice.
 // ff:
 // slice:
 // index:
@@ -57,8 +56,8 @@ func SliceInsertAfter(slice []interface{}, index int, values ...interface{}) (ne
 	return
 }
 
-// SliceDelete 从索引 `index` 处删除一个元素，并返回新的切片。如果给定的 `index` 不有效，它不会做任何操作。
-// md5:f57a8afe207e8169
+// SliceDelete deletes an element at `index` and returns the new slice.
+// It does nothing if the given `index` is invalid.
 // ff:
 // slice:
 // index:
@@ -67,16 +66,15 @@ func SliceDelete(slice []interface{}, index int) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
 	}
-	// 在删除时确定数组边界，以提高删除效率。 md5:bc969ee880edf699
+	// Determine array boundaries when deleting to improve deletion efficiency.
 	if index == 0 {
 		return slice[1:]
 	} else if index == len(slice)-1 {
 		return slice[:index]
 	}
-// 如果是一个非边界删除，
-// 它将涉及创建一个数组，
-// 那么删除操作效率较低。
-// md5:6a664196d66bc968
+	// If it is a non-boundary delete,
+	// it will involve the creation of an array,
+	// then the deletion is less efficient.
 	return append(slice[:index], slice[index+1:]...)
 }
 

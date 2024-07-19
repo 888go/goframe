@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
 
@@ -14,12 +13,12 @@ import (
 	"github.com/gogf/gf/v2/os/glog"
 )
 
-// errorLogger是底层net/http.Server的错误日志记录器。 md5:6405822f309730c2
+// errorLogger is the error logging logger for underlying net/http.Server.
 type errorLogger struct {
 	logger *glog.Logger
 }
 
-// Write 实现了 io.Writer 接口。 md5:6464c47cfa35b955
+// Write implements the io.Writer interface.
 // ff:
 // l:
 // p:

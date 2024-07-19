@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -43,7 +42,7 @@ func (m *Model) Order(orderBy ...interface{}) *Model {
 	return model
 }
 
-// OrderAsc 设置模型的“ORDER BY xxx ASC”语句。 md5:be417beb10c6b9c1
+// OrderAsc sets the "ORDER BY xxx ASC" statement for the model.
 // ff:排序ASC
 // m:
 // column:字段名称
@@ -54,7 +53,7 @@ func (m *Model) OrderAsc(column string) *Model {
 	return m.Order(column + " ASC")
 }
 
-// OrderDesc 为模型设置 "ORDER BY xxx DESC" 语句。 md5:ae573bad83990472
+// OrderDesc sets the "ORDER BY xxx DESC" statement for the model.
 // ff:排序Desc
 // m:
 // column:字段名称
@@ -65,7 +64,7 @@ func (m *Model) OrderDesc(column string) *Model {
 	return m.Order(column + " DESC")
 }
 
-// OrderRandom 为模型设置 "ORDER BY RANDOM()" 语句。 md5:e0a71e8f00c3d926
+// OrderRandom sets the "ORDER BY RANDOM()" statement for the model.
 // ff:排序随机
 // m:
 func (m *Model) OrderRandom() *Model {
@@ -74,7 +73,7 @@ func (m *Model) OrderRandom() *Model {
 	return model
 }
 
-// Group 设置模型的“GROUP BY”语句。 md5:51d1d1d81a2ab77a
+// Group sets the "GROUP BY" statement for the model.
 // ff:排序分组
 // m:
 // groupBy:分组名称

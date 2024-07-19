@@ -1,18 +1,17 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvar
 
 import "github.com/gogf/gf/v2/util/gconv"
 
-// MapOption 定义了映射转换的选项。 md5:8dc53d6fdc486bf8
+// MapOption specifies the option for map converting.
 type MapOption = gconv.MapOption
 
-// Map 将 `v` 转换为 map[string]interface{} 并返回。 md5:88b2687bddef8ca6
+// Map converts and returns `v` as map[string]interface{}.
 // ff:取Map
 // v:
 // option:选项
@@ -20,7 +19,7 @@ func (v *Var) Map(option ...MapOption) map[string]interface{} {
 	return gconv.Map(v.Val(), option...)
 }
 
-// MapStrAny 类似于 Map 函数，但它实现了 MapStrAny 接口。 md5:f7cf0af70c8cbee9
+// MapStrAny is like function Map, but implements the interface of MapStrAny.
 // yx:true
 // ff:取MapStrAny
 // v:
@@ -29,7 +28,7 @@ func (v *Var) MapStrAny(option ...MapOption) map[string]interface{} {
 	return v.Map(option...)
 }
 
-// MapStrStr 将 `v` 转换并返回为 map[string]string 类型。 md5:b5af3d144d89aad9
+// MapStrStr converts and returns `v` as map[string]string.
 // ff:取文本Map
 // v:
 // option:选项
@@ -37,7 +36,7 @@ func (v *Var) MapStrStr(option ...MapOption) map[string]string {
 	return gconv.MapStrStr(v.Val(), option...)
 }
 
-// MapStrVar将`v`转换为map[string]Var并返回。 md5:18642fac7292b37a
+// MapStrVar converts and returns `v` as map[string]Var.
 // ff:取泛型类Map
 // v:
 // option:选项
@@ -85,8 +84,8 @@ func (v *Var) MapStrVarDeep(tags ...string) map[string]*Var {
 	return nil
 }
 
-// Maps 将 `v` 转换为 map[string]string 类型并返回。参考 gconv.Maps。
-// md5:0240a1ad5bd80743
+// Maps converts and returns `v` as map[string]string.
+// See gconv.Maps.
 // ff:取Map切片
 // v:
 // option:选项
@@ -102,9 +101,8 @@ func (v *Var) MapsDeep(tags ...string) []map[string]interface{} {
 	return gconv.MapsDeep(v.Val(), tags...)
 }
 
-// MapToMap 将任意映射类型变量 `params` 转换为另一个映射类型变量 `pointer`。
-// 参见 gconv.MapToMap。
-// md5:bc3ef5f9ee0920e7
+// MapToMap converts any map type variable `params` to another map type variable `pointer`.
+// See gconv.MapToMap.
 // ff:
 // v:
 // pointer:
@@ -114,9 +112,8 @@ func (v *Var) MapToMap(pointer interface{}, mapping ...map[string]string) (err e
 	return gconv.MapToMap(v.Val(), pointer, mapping...)
 }
 
-// MapToMaps 将任何类型的映射变量 `params` 转换为另一个映射类型变量 `pointer`。
-// 参考 gconv.MapToMaps。
-// md5:1bd0da08c8937a10
+// MapToMaps converts any map type variable `params` to another map type variable `pointer`.
+// See gconv.MapToMaps.
 // ff:
 // v:
 // pointer:
@@ -126,9 +123,9 @@ func (v *Var) MapToMaps(pointer interface{}, mapping ...map[string]string) (err 
 	return gconv.MapToMaps(v.Val(), pointer, mapping...)
 }
 
-// MapToMapsDeep 将任何映射类型变量 `params` 递归地转换为另一个映射类型变量 `pointer`。
-// 参考 gconv.MapToMapsDeep。
-// md5:77546446f168a41a
+// MapToMapsDeep converts any map type variable `params` to another map type variable
+// `pointer` recursively.
+// See gconv.MapToMapsDeep.
 // ff:
 // v:
 // pointer:

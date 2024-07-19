@@ -1,15 +1,14 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
 
 import "github.com/gogf/gf/v2/internal/json"
 
-// SliceMap 是 Maps 的别名。 md5:af436f87335633ac
+// SliceMap is alias of Maps.
 // ff:SliceMap别名
 // any:值
 // option:
@@ -24,9 +23,8 @@ func SliceMapDeep(any interface{}) []map[string]interface{} {
 	return MapsDeep(any)
 }
 
-// Maps 将 `value` 转换为 []map[string]interface{} 类型。
-// 注意，如果 `value` 是字符串或[]byte类型，它会自动检查并转换为json字符串到 []map。
-// md5:cff297515bb58eac
+// Maps converts `value` to []map[string]interface{}.
+// Note that it automatically checks and converts json string to []map if `value` is string/[]byte.
 // ff:取Map切片
 // value:值
 // option:选项

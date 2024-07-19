@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -101,7 +100,7 @@ func Test_parseConfigNodeLink_WithType(t *testing.T) {
 		t.Assert(newNode.Charset, defaultCharset)
 		t.Assert(newNode.Protocol, `tcp`)
 	})
-	// 空的数据库预选择。 md5:6532737d348f4a34
+	// empty database preselect.
 	gtest.C(t, func(t *gtest.T) {
 		node := &ConfigNode{
 			Link: `mysql:root:CxzhD*624:27jh@tcp(9.135.69.119:3306)/?loc=Local&parseTime=true&charset=latin`,
@@ -269,7 +268,7 @@ func Test_Func_doQuoteString(t *testing.T) {
 			"u.id asc":                         "`u`.`id` asc",
 			"u.id asc, ut.uid desc":            "`u`.`id` asc,`ut`.`uid` desc",
 			"user.user u, user.user_detail ut": "`user`.`user` u,`user`.`user_detail` ut",
-			// 使用双点表示法访问mssql全局模式。 md5:527d45c5102e6cb0
+			// mssql global schema access with double dots.
 			"user..user u, user.user_detail ut": "`user`..`user` u,`user`.`user_detail` ut",
 		}
 		for k, v := range array {
@@ -291,7 +290,7 @@ func Test_Func_addTablePrefix(t *testing.T) {
 			"`user`.`user_detail`":         "`user`.`user_detail`",
 			"user as u, user_detail as ut": "`user` as u,`user_detail` as ut",
 			"UserCenter.user as u, UserCenter.user_detail as ut": "`UserCenter`.`user` as u,`UserCenter`.`user_detail` as ut",
-			// 使用双点表示法访问mssql全局模式。 md5:527d45c5102e6cb0
+			// mssql global schema access with double dots.
 			"UserCenter..user as u, user_detail as ut": "`UserCenter`..`user` as u,`user_detail` as ut",
 		}
 		for k, v := range array {
@@ -310,7 +309,7 @@ func Test_Func_addTablePrefix(t *testing.T) {
 			"`user`.`user_detail`":         "`user`.`gf_user_detail`",
 			"user as u, user_detail as ut": "`gf_user` as u,`gf_user_detail` as ut",
 			"UserCenter.user as u, UserCenter.user_detail as ut": "`UserCenter`.`gf_user` as u,`UserCenter`.`gf_user_detail` as ut",
-			// 使用双点表示法访问mssql全局模式。 md5:527d45c5102e6cb0
+			// mssql global schema access with double dots.
 			"UserCenter..user as u, user_detail as ut": "`UserCenter`..`gf_user` as u,`gf_user_detail` as ut",
 		}
 		for k, v := range array {

@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包gregex提供了正则表达式功能的高性能API。 md5:5d43833868579329
+// Package gregex provides high performance API for regular expression functionality.
 package gregex//bm:正则类
 
 import (
@@ -22,7 +21,7 @@ func Quote(s string) string {
 	return regexp.QuoteMeta(s)
 }
 
-// Validate 检查给定的正则表达式模式 `pattern` 是否有效。 md5:39fda51666585abe
+// Validate checks whether given regular expression pattern `pattern` valid.
 // ff:表达式验证
 // pattern:表达式
 func Validate(pattern string) error {
@@ -30,7 +29,7 @@ func Validate(pattern string) error {
 	return err
 }
 
-// IsMatch 检查给定的字节`src`是否匹配`pattern`。 md5:7f26688fb33d288d
+// IsMatch checks whether given bytes `src` matches `pattern`.
 // ff:是否匹配字节集
 // pattern:表达式
 // src:字节集
@@ -41,7 +40,7 @@ func IsMatch(pattern string, src []byte) bool {
 	return false
 }
 
-// IsMatchString 检查给定的字符串 `src` 是否与 `pattern` 匹配。 md5:b4afd86a0688ae19
+// IsMatchString checks whether given string `src` matches `pattern`.
 // ff:是否匹配文本
 // pattern:表达式
 // src:字节集
@@ -49,7 +48,7 @@ func IsMatchString(pattern string, src string) bool {
 	return IsMatch(pattern, []byte(src))
 }
 
-// Match 返回匹配`pattern`的字节切片。 md5:7f3dd939e61e4db8
+// Match return bytes slice that matched `pattern`.
 // ff:匹配字节集
 // pattern:表达式
 // src:字节集
@@ -61,7 +60,7 @@ func Match(pattern string, src []byte) ([][]byte, error) {
 	}
 }
 
-// MatchString 返回与`pattern`匹配的字符串。 md5:d4d623eec4e1f3ec
+// MatchString return strings that matched `pattern`.
 // ff:匹配文本
 // pattern:表达式
 // src:文本
@@ -73,7 +72,7 @@ func MatchString(pattern string, src string) ([]string, error) {
 	}
 }
 
-// MatchAll 返回所有匹配`pattern`的字节切片。 md5:64871f15e4916377
+// MatchAll return all bytes slices that matched `pattern`.
 // ff:匹配全部字节集
 // pattern:表达式
 // src:字节集
@@ -85,7 +84,7 @@ func MatchAll(pattern string, src []byte) ([][][]byte, error) {
 	}
 }
 
-// MatchAllString 返回所有与`pattern`匹配的字符串。 md5:ec34b1802db69c97
+// MatchAllString return all strings that matched `pattern`.
 // ff:匹配全部文本
 // pattern:表达式
 // src:文本
@@ -97,7 +96,7 @@ func MatchAllString(pattern string, src string) ([][]string, error) {
 	}
 }
 
-// Replace 将 `src` 字节中的所有匹配 `pattern` 的部分替换为 `replace` 字节。 md5:5d5c7ad162f72858
+// Replace replaces all matched `pattern` in bytes `src` with bytes `replace`.
 // ff:替换字节集
 // pattern:表达式
 // replace:替换字节集
@@ -110,7 +109,7 @@ func Replace(pattern string, replace, src []byte) ([]byte, error) {
 	}
 }
 
-// ReplaceString 将字符串 `src` 中所有匹配的 `pattern` 替换为字符串 `replace`。 md5:1e7fdbe12a62e763
+// ReplaceString replace all matched `pattern` in string `src` with string `replace`.
 // ff:替换文本
 // pattern:表达式
 // replace:替换文本
@@ -120,8 +119,8 @@ func ReplaceString(pattern, replace, src string) (string, error) {
 	return string(r), e
 }
 
-// ReplaceFunc 使用自定义的替换函数 `replaceFunc`，将字节切片 `src` 中所有匹配的 `pattern` 替换。
-// md5:3b66619bd59d4056
+// ReplaceFunc replace all matched `pattern` in bytes `src`
+// with custom replacement function `replaceFunc`.
 // ff:替换字节集_函数
 // pattern:表达式
 // src:字节集
@@ -135,8 +134,10 @@ func ReplaceFunc(pattern string, src []byte, replaceFunc func(b []byte) []byte) 
 	}
 }
 
-// ReplaceFuncMatch：在字节`src`中使用自定义替换函数`replaceFunc`替换所有匹配的`pattern`。`replaceFunc`的参数`match`类型为`[][]byte`，它包含了`pattern`使用Match函数的所有子模式的结果。
-// md5:cdbed5cefac02741
+// ReplaceFuncMatch replace all matched `pattern` in bytes `src`
+// with custom replacement function `replaceFunc`.
+// The parameter `match` type for `replaceFunc` is [][]byte,
+// which is the result contains all sub-patterns of `pattern` using Match function.
 // ff:
 // pattern:
 // src:
@@ -153,8 +154,8 @@ func ReplaceFuncMatch(pattern string, src []byte, replaceFunc func(match [][]byt
 	}
 }
 
-// ReplaceStringFunc 函数会在字符串 `src` 中替换所有匹配的 `pattern`，使用自定义的替换函数 `replaceFunc`。
-// md5:8575760795474682
+// ReplaceStringFunc replace all matched `pattern` in string `src`
+// with custom replacement function `replaceFunc`.
 // ff:替换文本_函数
 // pattern:表达式
 // src:文本
@@ -167,11 +168,10 @@ func ReplaceStringFunc(pattern string, src string, replaceFunc func(s string) st
 	return string(bytes), err
 }
 
-// ReplaceStringFuncMatch 将字符串 `src` 中所有与 `pattern` 匹配的部分
-// 使用自定义替换函数 `replaceFunc` 进行替换。
-// 替换函数 `replaceFunc` 的参数 `match` 类型为 []string，
-// 它包含使用 MatchString 函数得到的 `pattern` 中所有子模式匹配结果。
-// md5:b24f208b16cfd56a
+// ReplaceStringFuncMatch replace all matched `pattern` in string `src`
+// with custom replacement function `replaceFunc`.
+// The parameter `match` type for `replaceFunc` is []string,
+// which is the result contains all sub-patterns of `pattern` using MatchString function.
 // ff:
 // pattern:
 // src:
@@ -188,8 +188,8 @@ func ReplaceStringFuncMatch(pattern string, src string, replaceFunc func(match [
 	}
 }
 
-// Split 将切片 `src` 按照给定的表达式分割成多个子字符串，并返回这些匹配之间的子字符串切片。
-// md5:e0809df699cf82c1
+// Split slices `src` into substrings separated by the expression and returns a slice of
+// the substrings between those expression matches.
 // ff:分割
 // pattern:表达式
 // src:文本

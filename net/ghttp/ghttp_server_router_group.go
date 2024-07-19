@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package ghttp
 
@@ -20,7 +19,7 @@ import (
 )
 
 type (
-	// RouterGroup 是一个包裹多个路由和中间件的分组。 md5:609e7eb75d8a51f0
+	// RouterGroup is a group wrapping multiple routes and middleware.
 	RouterGroup struct {//qm:分组路由  cz:RouterGroup struct  
 		parent     *RouterGroup  // Parent group.
 		server     *Server       // Server.
@@ -29,17 +28,16 @@ type (
 		middleware []HandlerFunc // Middleware array.
 	}
 
-// preBindItem 是用于路由器组延迟注册功能的项目。当路由组的路由函数被调用时，preBindItem 并没有真正注册到服务器，
-// 而是在服务器启动时进行懒惰注册。
-// md5:4255b2f4d61ba05c
+	// preBindItem is item for lazy registering feature of router group. preBindItem is not really registered
+	// to server when route function of the group called but is lazily registered when server starts.
 	preBindItem struct {
 		group    *RouterGroup
 		bindType string
 		pattern  string
-		object   interface{}   // 可以是处理器、控制器或对象。 md5:0c53d2880dc0aafc
-		params   []interface{} // 根据类型，为路由注册额外的参数。 md5:9b2faaa25e40fcdb
-		source   string        // Handler 是在特定源文件路径和行号处的注册处理器。 md5:0cf92074c14f8d58
-		bound    bool          // 是否将此项目绑定到服务器？. md5:7da1001818a8ed44
+		object   interface{}   // Can be handler, controller or object.
+		params   []interface{} // Extra parameters for route registering depending on the type.
+		source   string        // Handler is a register at a certain source file path: line.
+		bound    bool          // Is this item bound to server?
 	}
 )
 
@@ -54,7 +52,7 @@ var (
 	preBindItems = make([]*preBindItem, 0, 64)
 )
 
-// handlePreBindItems 在服务器启动时被调用，它确实将路由注册到服务器上。 md5:4f0e019b6d905274
+// handlePreBindItems is called when server starts, which does really route registering to the server.
 func (s *Server) handlePreBindItems(ctx context.Context) {
 	if len(preBindItems) == 0 {
 		return
@@ -63,7 +61,7 @@ func (s *Server) handlePreBindItems(ctx context.Context) {
 		if item.bound {
 			continue
 		}
-		// 处理当前服务器的项目。 md5:5caf897b6c7b073a
+		// Handle the items of current server.
 		if item.group.server != nil && item.group.server != s {
 			continue
 		}
@@ -75,7 +73,7 @@ func (s *Server) handlePreBindItems(ctx context.Context) {
 	}
 }
 
-// Group 创建并返回一个 RouterGroup 对象。 md5:ab811975f9ba0334
+// Group creates and returns a RouterGroup object.
 // ff:创建分组路由
 // s:
 // prefix:分组前缀
@@ -100,7 +98,7 @@ func (s *Server) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 	return group
 }
 
-// Group 创建并返回一个 RouterGroup 对象，该对象绑定到指定的域名。 md5:bd60cfbd62234fcd
+// Group creates and returns a RouterGroup object, which is bound to a specified domain.
 // ff:创建分组路由
 // d:
 // prefix:分组前缀
@@ -126,7 +124,7 @@ func (d *Domain) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 	return routerGroup
 }
 
-// Group 创建并返回当前路由器组的一个子组。 md5:9706484677759d8f
+// Group creates and returns a subgroup of the current router group.
 // ff:创建分组路由
 // g:
 // prefix:分组前缀
@@ -154,7 +152,7 @@ func (g *RouterGroup) Group(prefix string, groups ...func(group *RouterGroup)) *
 	return group
 }
 
-// Clone 返回一个新的路由组，它是当前组的克隆。 md5:a3328662d1da7f5f
+// Clone returns a new router group which is a clone of the current group.
 // ff:取副本
 // g:
 func (g *RouterGroup) Clone() *RouterGroup {
@@ -169,7 +167,7 @@ func (g *RouterGroup) Clone() *RouterGroup {
 	return newGroup
 }
 
-// Bind 为路由器组提供了批量路由注册的功能。 md5:16fbec330e17cafe
+// Bind does batch route registering feature for a router group.
 // ff:X绑定
 // g:
 // handlerOrObject:处理对象
@@ -202,7 +200,7 @@ func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
 	return group
 }
 
-// ALL 注册一个http处理器，用于处理给定路由模式的所有HTTP方法。 md5:06f3f9b3c30b17f0
+// ALL register an http handler to give the route pattern and all http methods.
 // ff:绑定所有类型
 // g:
 // pattern:路由规则
@@ -217,7 +215,7 @@ func (g *RouterGroup) ALL(pattern string, object interface{}, params ...interfac
 	)
 }
 
-// ALLMap 使用映射注册HTTP处理程序，针对HTTP方法。 md5:4baef0383348c469
+// ALLMap registers http handlers for http methods using map.
 // ff:绑定所有类型Map
 // g:
 // m:
@@ -227,7 +225,7 @@ func (g *RouterGroup) ALLMap(m map[string]interface{}) {
 	}
 }
 
-// Map使用映射注册HTTP方法的处理器。 md5:234d05d7bb247514
+// Map registers http handlers for http methods using map.
 // ff:绑定Map
 // g:
 // m:
@@ -237,7 +235,7 @@ func (g *RouterGroup) Map(m map[string]interface{}) {
 	}
 }
 
-// GET 函数用于注册一个HTTP处理程序，该程序根据给定的路由模式和HTTP方法（GET）进行处理。 md5:28790c458e1b962d
+// GET registers an http handler to give the route pattern and the http method: GET.
 // ff:绑定GET
 // g:
 // pattern:路由规则
@@ -247,7 +245,7 @@ func (g *RouterGroup) GET(pattern string, object interface{}, params ...interfac
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "GET:"+pattern, object, params...)
 }
 
-// PUT 注册一个 HTTP 处理器，用于处理给定的路由模式和 HTTP 方法：PUT。 md5:28ecbdff64685060
+// PUT registers an http handler to give the route pattern and the http method: PUT.
 // ff:绑定PUT
 // g:
 // pattern:路由规则
@@ -257,7 +255,7 @@ func (g *RouterGroup) PUT(pattern string, object interface{}, params ...interfac
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PUT:"+pattern, object, params...)
 }
 
-// POST 注册一个http处理器，用于给路由模式和HTTP方法：POST。 md5:a251027c1c7a1d8c
+// POST registers an http handler to give the route pattern and the http method: POST.
 // ff:绑定POST
 // g:
 // pattern:路由规则
@@ -267,7 +265,7 @@ func (g *RouterGroup) POST(pattern string, object interface{}, params ...interfa
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "POST:"+pattern, object, params...)
 }
 
-// DELETE 注册一个 http 处理器，用于给路由模式（pattern）和 http 方法：DELETE。 md5:b493fe2a753e0422
+// DELETE registers an http handler to give the route pattern and the http method: DELETE.
 // ff:绑定DELETE
 // g:
 // pattern:路由规则
@@ -277,7 +275,7 @@ func (g *RouterGroup) DELETE(pattern string, object interface{}, params ...inter
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "DELETE:"+pattern, object, params...)
 }
 
-// PATCH 注册一个HTTP处理器，给定路由模式和HTTP方法：PATCH。 md5:6662f45a2e57a836
+// PATCH registers an http handler to give the route pattern and the http method: PATCH.
 // ff:绑定PATCH
 // g:
 // pattern:路由规则
@@ -287,7 +285,7 @@ func (g *RouterGroup) PATCH(pattern string, object interface{}, params ...interf
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PATCH:"+pattern, object, params...)
 }
 
-// HEAD 注册一个http处理器，用于指定路由模式和HTTP方法：HEAD。 md5:c1e170eaa1fe60b7
+// HEAD registers an http handler to give the route pattern and the http method: HEAD.
 // ff:绑定HEAD
 // g:
 // pattern:路由规则
@@ -297,7 +295,7 @@ func (g *RouterGroup) HEAD(pattern string, object interface{}, params ...interfa
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "HEAD:"+pattern, object, params...)
 }
 
-// CONNECT 注册一个 http 处理器，用于指定路由模式和方法：CONNECT。 md5:01352b24b5b15d84
+// CONNECT registers an http handler to give the route pattern and the http method: CONNECT.
 // ff:绑定CONNECT
 // g:
 // pattern:路由规则
@@ -307,7 +305,7 @@ func (g *RouterGroup) CONNECT(pattern string, object interface{}, params ...inte
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "CONNECT:"+pattern, object, params...)
 }
 
-// OPTIONS 注册一个 http 处理器，用于指定路由模式和方法：OPTIONS。 md5:7c22cd8904d32b99
+// OPTIONS register an http handler to give the route pattern and the http method: OPTIONS.
 // ff:绑定OPTIONS
 // g:
 // pattern:路由规则
@@ -317,7 +315,7 @@ func (g *RouterGroup) OPTIONS(pattern string, object interface{}, params ...inte
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "OPTIONS:"+pattern, object, params...)
 }
 
-// TRACE 注册一个HTTP处理程序，用于提供路由模式和HTTP方法：TRACE。 md5:530929842b31c7fa
+// TRACE registers an http handler to give the route pattern and the http method: TRACE.
 // ff:绑定TRACE
 // g:
 // pattern:路由规则
@@ -327,7 +325,7 @@ func (g *RouterGroup) TRACE(pattern string, object interface{}, params ...interf
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "TRACE:"+pattern, object, params...)
 }
 
-// REST 根据 REST 规则注册一个 HTTP 处理器，以提供路由模式。 md5:b89313386e2f52de
+// REST registers an http handler to give the route pattern according to REST rule.
 // ff:绑定RESTfulAPI对象
 // g:
 // pattern:路由规则
@@ -336,7 +334,7 @@ func (g *RouterGroup) REST(pattern string, object interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeRest, pattern, object)
 }
 
-// Hook 注册一个钩子到给定的路由模式。 md5:1b98e351ffc870a2
+// Hook registers a hook to given route pattern.
 // ff:绑定Hook
 // g:
 // pattern:路由规则
@@ -346,7 +344,7 @@ func (g *RouterGroup) Hook(pattern string, hook HookName, handler HandlerFunc) *
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, pattern, handler, hook)
 }
 
-// Middleware 将一个或多个中间件绑定到路由器组。 md5:ba25a44638f73d20
+// Middleware binds one or more middleware to the router group.
 // ff:绑定中间件
 // g:
 // handlers:处理函数
@@ -355,7 +353,7 @@ func (g *RouterGroup) Middleware(handlers ...HandlerFunc) *RouterGroup {
 	return g
 }
 
-// preBindToLocalArray 将路由注册参数添加到内部变量数组中，以便于惰性注册特性。 md5:0b2a8a31bb20bca1
+// preBindToLocalArray adds the route registering parameters to an internal variable array for lazily registering feature.
 func (g *RouterGroup) preBindToLocalArray(bindType string, pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	_, file, line := gdebug.CallerWithFilter([]string{consts.StackFilterKeyForGoFrame})
 	preBindItems = append(preBindItems, &preBindItem{
@@ -369,7 +367,7 @@ func (g *RouterGroup) preBindToLocalArray(bindType string, pattern string, objec
 	return g
 }
 
-// getPrefix 返回该组的路由前缀，该方法会递归地获取其父组的前缀。 md5:0d086cd9e63f6697
+// getPrefix returns the route prefix of the group, which recursively retrieves its parent's prefix.
 func (g *RouterGroup) getPrefix() string {
 	prefix := g.prefix
 	parent := g.parent
@@ -380,7 +378,7 @@ func (g *RouterGroup) getPrefix() string {
 	return prefix
 }
 
-// doBindRoutersToServer 确实为该组注册。 md5:436447cc3534e54c
+// doBindRoutersToServer does really register for the group.
 func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindItem) *RouterGroup {
 	var (
 		bindType = item.bindType
@@ -396,7 +394,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 		if err != nil {
 			g.server.Logger().Fatalf(ctx, "invalid route pattern: %s", pattern)
 		}
-		// 如果已经有域，那么在模式中清除域字段。 md5:e02751d36da77b97
+		// If there is already a domain, unset the domain field in the pattern.
 		if g.domain != nil {
 			domain = ""
 		}
@@ -408,13 +406,13 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 			)
 		}
 	}
-	// 过滤重复的字符 '/'。 md5:9b9a7539f6ae7305
+	// Filter repeated char '/'.
 	pattern = gstr.Replace(pattern, "//", "/")
 
-	// 将参数转换为字符串数组。 md5:8388b98c9b261cad
+	// Convert params to a string array.
 	extras := gconv.Strings(params)
 
-	// 检查它是否是钩子处理器。 md5:f6b816a5e567ae34
+	// Check whether it's a hook handler.
 	if _, ok := object.(HandlerFunc); ok && len(extras) > 0 {
 		bindType = groupBindTypeHook
 	}
@@ -478,7 +476,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 					Middleware: g.middleware,
 					Source:     source,
 				}
-				// 最后，它将`object`视为注册类型的对象。 md5:1175240ff3996b3d
+				// Finally, it treats the `object` as the Object registering type.
 				if g.domain != nil {
 					g.domain.doBindObject(ctx, in)
 				} else {

@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gres
 
@@ -14,14 +13,14 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// Close 实现了 http.File 接口。 md5:ed68e1aedf92d678
+// Close implements interface of http.File.
 // ff:
 // f:
 func (f *File) Close() error {
 	return nil
 }
 
-// Readdir 实现了 http.File 接口的 Readdir 方法。 md5:d47ea30bb07047c4
+// Readdir implements Readdir interface of http.File.
 // ff:
 // f:
 // count:
@@ -40,14 +39,14 @@ func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	return nil, nil
 }
 
-// Stat 实现了 http.File 接口中的 Stat 方法。 md5:f25fb28810e2d18b
+// Stat implements Stat interface of http.File.
 // ff:
 // f:
 func (f *File) Stat() (os.FileInfo, error) {
 	return f.FileInfo(), nil
 }
 
-// Read implements the io.Reader接口。 md5:ef2823b98664212a
+// Read implements the io.Reader interface.
 // ff:
 // f:
 // b:
@@ -64,7 +63,7 @@ func (f *File) Read(b []byte) (n int, err error) {
 	return
 }
 
-// Seek 实现了 io.Seeker 接口。 md5:891a8f7e89e80191
+// Seek implements the io.Seeker interface.
 // ff:
 // f:
 // offset:

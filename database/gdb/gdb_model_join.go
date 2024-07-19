@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -191,7 +190,7 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 		table   string
 		alias   string
 	)
-	// 检查第一个参数，是否为表格或子查询。 md5:0493998c4b03304e
+	// Check the first parameter table or sub-query.
 	if len(tableOrSubQueryAndJoinConditions) > 0 {
 		if isSubQuery(tableOrSubQueryAndJoinConditions[0]) {
 			joinStr = gstr.Trim(tableOrSubQueryAndJoinConditions[0])
@@ -203,7 +202,7 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 			joinStr = m.db.GetCore().QuotePrefixTableName(table)
 		}
 	}
-	// 生成连接条件的字符串表达式。 md5:54f67a1d882ecd10
+	// Generate join condition statement string.
 	conditionLength := len(tableOrSubQueryAndJoinConditions)
 	switch {
 	case conditionLength > 2:
@@ -230,8 +229,8 @@ func (m *Model) doJoin(operator joinOperator, tableOrSubQueryAndJoinConditions .
 	return model
 }
 
-// getTableNameByPrefixOrAlias 检查`prefixOrAlias`是否是某个表的别名，如果是，则返回该表的实际名称，否则直接返回`prefixOrAlias`。
-// md5:ab423b9e1e0ad0ca
+// getTableNameByPrefixOrAlias checks and returns the table name if `prefixOrAlias` is an alias of a table,
+// it or else returns the `prefixOrAlias` directly.
 func (m *Model) getTableNameByPrefixOrAlias(prefixOrAlias string) string {
 	value, ok := m.tableAliasMap[prefixOrAlias]
 	if ok {
@@ -240,7 +239,7 @@ func (m *Model) getTableNameByPrefixOrAlias(prefixOrAlias string) string {
 	return prefixOrAlias
 }
 
-// isSubQuery 检查并返回给定的字符串是否为子查询SQL语句。 md5:0921761c51f20650
+// isSubQuery checks and returns whether given string a sub-query sql string.
 func isSubQuery(s string) bool {
 	s = gstr.TrimLeft(s, "()")
 	if p := gstr.Pos(s, " "); p != -1 {

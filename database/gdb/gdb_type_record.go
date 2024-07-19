@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -16,7 +15,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Json 将 `r` 转换为JSON格式的内容。 md5:60a0626b0a333d14
+// Json converts `r` to JSON format content.
 // ff:取json
 // r:
 func (r Record) Json() string {
@@ -24,7 +23,7 @@ func (r Record) Json() string {
 	return content
 }
 
-// Xml 将 `r` 转换为 XML 格式的内容。 md5:31a335fedb874d26
+// Xml converts `r` to XML format content.
 // ff:取xml
 // r:
 // rootTag:根标记
@@ -33,7 +32,7 @@ func (r Record) Xml(rootTag ...string) string {
 	return content
 }
 
-// Map 将 `r` 转换为 map[string]interface{} 类型。 md5:5b4502a5f29602f9
+// Map converts `r` to map[string]interface{}.
 // ff:取Map
 // r:
 func (r Record) Map() Map {
@@ -44,23 +43,22 @@ func (r Record) Map() Map {
 	return m
 }
 
-// GMap将`r`转换为gmap。 md5:573ff0b484a9573f
+// GMap converts `r` to a gmap.
 // ff:取Map类
 // r:
 func (r Record) GMap() *gmap.StrAnyMap {
 	return gmap.NewStrAnyMapFrom(r.Map())
 }
 
-// Struct 将 `r` 转换为结构体。
-// 注意参数 `pointer` 应为 *struct 或 **struct 类型。
+// Struct converts `r` to a struct.
+// Note that the parameter `pointer` should be type of *struct/**struct.
 //
-// 注意，如果 `r` 为空，它将返回 sql.ErrNoRows。
-// md5:9ad6d688dbdddb25
+// Note that it returns sql.ErrNoRows if `r` is empty.
 // ff:取结构体指针
 // r:
 // pointer:结构体指针
 func (r Record) Struct(pointer interface{}) error {
-	// 如果记录为空，它将返回错误。 md5:dc39009d7d477d46
+	// If the record is empty, it returns error.
 	if r.IsEmpty() {
 		if !empty.IsNil(pointer, true) {
 			return sql.ErrNoRows
@@ -70,7 +68,7 @@ func (r Record) Struct(pointer interface{}) error {
 	return gconv.StructTag(r, pointer, OrmTagForStruct)
 }
 
-// IsEmpty 检查 `r` 是否为空，然后返回结果。 md5:4ee28a47e769cceb
+// IsEmpty checks and returns whether `r` is empty.
 // ff:是否为空
 // r:
 func (r Record) IsEmpty() bool {

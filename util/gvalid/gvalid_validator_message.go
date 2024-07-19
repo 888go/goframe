@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gvalid
 
@@ -13,10 +12,9 @@ import (
 	"github.com/gogf/gf/v2/util/gvalid/internal/builtin"
 )
 
-// getErrorMessageByRule 根据指定的规则获取并返回错误信息。
-// 首先从自定义消息映射中检索消息，然后检查国际化（i18n）管理器。
-// 如果在自定义消息映射和国际化管理器中都未找到，则返回默认的错误消息。
-// md5:2d034704bcfee175
+// getErrorMessageByRule retrieves and returns the error message for specified rule.
+// It firstly retrieves the message from custom message map, and then checks i18n manager,
+// it returns the default error message if it's not found in neither custom message map nor i18n manager.
 func (v *Validator) getErrorMessageByRule(ctx context.Context, ruleKey string, customMsgMap map[string]string) string {
 	content := customMsgMap[ruleKey]
 	if content != "" {
@@ -28,7 +26,7 @@ func (v *Validator) getErrorMessageByRule(ctx context.Context, ruleKey string, c
 		return content
 	}
 
-	// 根据特定规则获取默认消息。 md5:2b6271804cddc298
+	// Retrieve default message according to certain rule.
 	content = v.i18nManager.GetContent(ctx, ruleMessagePrefixForI18n+ruleKey)
 	if content == "" {
 		content = defaultErrorMessages[ruleKey]
@@ -39,11 +37,11 @@ func (v *Validator) getErrorMessageByRule(ctx context.Context, ruleKey string, c
 			content = builtinRule.Message()
 		}
 	}
-	// 如果没有配置的规则消息，它将使用默认的消息。 md5:e64aad97d87b44ca
+	// If there's no configured rule message, it uses default one.
 	if content == "" {
 		content = v.i18nManager.GetContent(ctx, ruleMessagePrefixForI18n+internalDefaultRuleName)
 	}
-	// 如果没有配置的规则消息，它将使用默认的消息。 md5:e64aad97d87b44ca
+	// If there's no configured rule message, it uses default one.
 	if content == "" {
 		content = defaultErrorMessages[internalDefaultRuleName]
 	}

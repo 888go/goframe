@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtype
 
@@ -15,13 +14,13 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Interface 是一个结构体，用于实现类型 interface{} 的并发安全操作。 md5:5655f929d7777a3d
+// Interface is a struct for concurrent-safe operation for type interface{}.
 type Interface struct {
 	value atomic.Value
 }
 
-// NewInterface 创建并返回一个并发安全的对象，用于interface{}类型，初始值为`value`。
-// md5:4f93c81a49f5b2f6
+// NewInterface creates and returns a concurrent-safe object for interface{} type,
+// with given initial value `value`.
 // ff:
 // value:
 func NewInterface(value ...interface{}) *Interface {
@@ -32,7 +31,7 @@ func NewInterface(value ...interface{}) *Interface {
 	return t
 }
 
-// Clone 为接口类型创建并返回一个新的并发安全的对象。 md5:ea3e89ab199c1ad7
+// Clone clones and returns a new concurrent-safe object for interface{} type.
 // ff:
 // v:
 func (v *Interface) Clone() *Interface {
@@ -51,7 +50,7 @@ func (v *Interface) Set(value interface{}) (old interface{}) {
 	return
 }
 
-// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
+// Val atomically loads and returns t.value.
 // yx:true
 // ff:取值
 // v:
@@ -59,21 +58,21 @@ func (v *Interface) Val() interface{} {
 	return v.value.Load()
 }
 
-// String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
+// String implements String interface for string printing.
 // ff:
 // v:
 func (v *Interface) String() string {
 	return gconv.String(v.Val())
 }
 
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 // ff:
 // v:
 func (v Interface) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.Val())
 }
 
-// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
 // ff:
 // v:
 // b:
@@ -86,7 +85,7 @@ func (v *Interface) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
+// UnmarshalValue is an interface implement which sets any type of value for `v`.
 // ff:
 // v:
 // value:
@@ -95,7 +94,7 @@ func (v *Interface) UnmarshalValue(value interface{}) error {
 	return nil
 }
 
-// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
+// DeepCopy implements interface for deep copy of current type.
 // ff:
 // v:
 func (v *Interface) DeepCopy() interface{} {

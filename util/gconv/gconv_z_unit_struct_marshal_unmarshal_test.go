@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv_test
 
@@ -64,7 +63,7 @@ type Pkg struct {
 	Data   []byte
 }
 
-// NewPkg 根据给定的数据创建并返回一个包。 md5:6d3c16ce53d93510
+// NewPkg creates and returns a package with given data.
 func NewPkg(data []byte) *Pkg {
 	return &Pkg{
 		Length: uint16(len(data) + 6),
@@ -73,7 +72,7 @@ func NewPkg(data []byte) *Pkg {
 	}
 }
 
-// Marshal 将协议结构体编码为字节。 md5:0d863a50fb456e64
+// Marshal encodes the protocol struct to bytes.
 func (p *Pkg) Marshal() []byte {
 	b := make([]byte, 6+len(p.Data))
 	copy(b, gbinary.EncodeUint16(p.Length))
@@ -82,7 +81,7 @@ func (p *Pkg) Marshal() []byte {
 	return b
 }
 
-// UnmarshalValue 将字节解码为协议结构体。 md5:8eadcfee42fbaf11
+// UnmarshalValue decodes bytes to protocol struct.
 func (p *Pkg) UnmarshalValue(v interface{}) error {
 	b := gconv.Bytes(v)
 	if len(b) < 6 {

@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gi18n
 
@@ -24,7 +23,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// pathType 是用于i18n文件路径的类型。 md5:1aa056f2406cd3a6
+// pathType is the type for i18n file path.
 type pathType string
 
 const (
@@ -33,38 +32,37 @@ const (
 	pathTypeGres   pathType = "gres"
 )
 
-// i18n内容的管理器，它是并发安全的，支持热重载。 md5:9c519435bec8f5ad
+// Manager for i18n contents, it is concurrent safe, supporting hot reload.
 type Manager struct {
 	mu       sync.RWMutex
 	data     map[string]map[string]string // Translating map.
-	pattern  string                       // 正则表达式解析的模式。 md5:1d0109d4850fd141
-	pathType pathType                     // i18n 文件的路径类型。 md5:5b086fc46e36729e
+	pattern  string                       // Pattern for regex parsing.
+	pathType pathType                     // Path type for i18n files.
 	options  Options                      // configuration options.
 }
 
-// Options 用于国际化对象的配置。 md5:029f81136c5c3e6a
+// Options is used for i18n object configuration.
 type Options struct {
-	Path       string         // 国际化文件的存储路径。 md5:67cec25950dc6464
-	Language   string         // 默认本地语言。 md5:41ccf6a6028cf49d
-	Delimiters []string       // 变量解析的定界符。 md5:355db5afb17acaf5
-	Resource   *gres.Resource // i18n文件的资源。 md5:611cd5c408223400
+	Path       string         // I18n files storage path.
+	Language   string         // Default local language.
+	Delimiters []string       // Delimiters for variable parsing.
+	Resource   *gres.Resource // Resource for i18n files.
 }
 
 var (
-	// defaultLanguage 定义了如果用户在选项中未指定，默认的语言。 md5:37b426a695c48d49
+	// defaultLanguage defines the default language if user does not specify in options.
 	defaultLanguage = "en"
 
-	// defaultDelimiters 定义了默认的键变量分隔符。 md5:98706258206bfd9a
+	// defaultDelimiters defines the default key variable delimiters.
 	defaultDelimiters = []string{"{#", "}"}
 
-	// 国际化文件搜索目录。 md5:cf8914abf6ec0557
+	// i18n files searching folders.
 	searchFolders = []string{"manifest/i18n", "manifest/config/i18n", "i18n"}
 )
 
-// New 创建并返回一个新的国际化管理器。
-// 可选参数 `option` 用于指定国际化管理器的自定义选项。
-// 如果未传递该参数，它将使用默认选项。
-// md5:79f31dcd2ff8cf56
+// New creates and returns a new i18n manager.
+// The optional parameter `option` specifies the custom options for i18n manager.
+// It uses a default one if it's not passed.
 // ff:
 // options:
 func New(options ...Options) *Manager {
@@ -82,7 +80,7 @@ func New(options ...Options) *Manager {
 			}
 		}
 		if opts.Path != "" {
-			// 为了避免GoFrame的源路径：github.com/gogf/i18n/gi18n. md5:2eecc4478ca65bd7
+			// To avoid of the source path of GoFrame: github.com/gogf/i18n/gi18n
 			if gfile.Exists(opts.Path + gfile.Separator + "gi18n") {
 				opts.Path = ""
 				pathType = pathTypeNone
@@ -108,7 +106,7 @@ func New(options ...Options) *Manager {
 	return m
 }
 
-// checkPathType 检查并返回给定目录路径的路径类型。 md5:101af7b8de6f50f8
+// checkPathType checks and returns the path type for given directory path.
 func (o *Options) checkPathType(dirPath string) pathType {
 	if dirPath == "" {
 		return pathTypeNone
@@ -132,7 +130,7 @@ func (o *Options) checkPathType(dirPath string) pathType {
 	return pathTypeNone
 }
 
-// SetPath 设置存储i18n文件的目录路径。 md5:b39e1d244949dcf8
+// SetPath sets the directory path storing i18n files.
 // ff:
 // m:
 // path:
@@ -144,12 +142,12 @@ func (m *Manager) SetPath(path string) error {
 
 	m.pathType = pathType
 	intlog.Printf(context.TODO(), `SetPath[%s]: %s`, m.pathType, m.options.Path)
-	// 路径改变后重置管理器。 md5:1f0260d8d112184d
+	// Reset the manager after path changed.
 	m.reset()
 	return nil
 }
 
-// SetLanguage 设置翻译器的语言。 md5:50b09b0bb0944dc1
+// SetLanguage sets the language for translator.
 // ff:
 // m:
 // language:
@@ -158,7 +156,7 @@ func (m *Manager) SetLanguage(language string) {
 	intlog.Printf(context.TODO(), `SetLanguage: %s`, m.options.Language)
 }
 
-// SetDelimiters 为翻译器设置分隔符。 md5:f84b046b11204dc7
+// SetDelimiters sets the delimiters for translator.
 // ff:
 // m:
 // left:
@@ -168,7 +166,7 @@ func (m *Manager) SetDelimiters(left, right string) {
 	intlog.Printf(context.TODO(), `SetDelimiters: %v`, m.pattern)
 }
 
-// T 是为了方便而对 Translate 的别名。 md5:c07a6fa99a429eb3
+// T is alias of Translate for convenience.
 // ff:
 // m:
 // ctx:
@@ -177,7 +175,7 @@ func (m *Manager) T(ctx context.Context, content string) string {
 	return m.Translate(ctx, content)
 }
 
-// Tf是TranslateFormat的别名，为了方便起见。 md5:bdb209b24c669f5a
+// Tf is alias of TranslateFormat for convenience.
 // ff:
 // m:
 // ctx:
@@ -187,8 +185,8 @@ func (m *Manager) Tf(ctx context.Context, format string, values ...interface{}) 
 	return m.TranslateFormat(ctx, format, values...)
 }
 
-// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
-// md5:2806a81d6db86c7f
+// TranslateFormat translates, formats and returns the `format` with configured language
+// and given `values`.
 // ff:
 // m:
 // ctx:
@@ -198,7 +196,7 @@ func (m *Manager) TranslateFormat(ctx context.Context, format string, values ...
 	return fmt.Sprintf(m.Translate(ctx, format), values...)
 }
 
-// Translate 使用配置的语言翻译`content`。 md5:8f8b7d32e0b26a99
+// Translate translates `content` with configured language.
 // ff:
 // m:
 // ctx:
@@ -219,25 +217,23 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 	if v, ok := data[content]; ok {
 		return v
 	}
-	// 解析内容作为变量容器。 md5:6fab6ca886fe327a
+	// Parse content as variables container.
 	result, _ := gregex.ReplaceStringFuncMatch(
 		m.pattern, content,
 		func(match []string) string {
 			if v, ok := data[match[1]]; ok {
 				return v
 			}
-// 返回match[1] 将返回分隔符之间的内容
-// 返回match[0] 将返回原始内容
-// md5:3dd48230b02f1348
+			// return match[1] will return the content between delimiters
+			// return match[0] will return the original content
 			return match[0]
 		})
 	intlog.Printf(ctx, `Translate for language: %s`, transLang)
 	return result
 }
 
-// GetContent 获取并返回给定键和指定语言的配置内容。
-// 如果未找到，将返回一个空字符串。
-// md5:c64a3a803ac07e38
+// GetContent retrieves and returns the configured content for given key and specified language.
+// It returns an empty string if not found.
 // ff:
 // m:
 // ctx:
@@ -256,19 +252,18 @@ func (m *Manager) GetContent(ctx context.Context, key string) string {
 	return ""
 }
 
-// reset 重置管理器的数据。 md5:582ac65a0b066583
+// reset reset data of the manager.
 func (m *Manager) reset() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.data = nil
 }
 
-// init 初始化管理器，用于延迟初始化设计。
-// 国际化(i18n)管理器仅初始化一次。
-// md5:b3e5cf7f018d1485
+// init initializes the manager for lazy initialization design.
+// The i18n manager is only initialized once.
 func (m *Manager) init(ctx context.Context) {
 	m.mu.RLock()
-	// 如果数据不为nil，表示它已经初始化。 md5:8d4d8b324fc9951a
+	// If the data is not nil, means it's already initialized.
 	if m.data != nil {
 		m.mu.RUnlock()
 		return
@@ -346,10 +341,10 @@ func (m *Manager) init(ctx context.Context) {
 			}
 		}
 		intlog.Printf(ctx, "i18n files loaded in path: %s", m.options.Path)
-		// 监控i18n文件的变化，以实现热重载功能。 md5:feeb4e0abb048a7b
+		// Monitor changes of i18n files for hot reload feature.
 		_, _ = gfsnotify.Add(m.options.Path, func(event *gfsnotify.Event) {
 			intlog.Printf(ctx, `i18n file changed: %s`, event.Path)
-			// 对i18n文件的任何更改，都会清空数据。 md5:fbcc6de55a881c92
+			// Any changes of i18n files, clear the data.
 			m.reset()
 			gfsnotify.Exit()
 		})
