@@ -6,60 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fdbfa3a1-a971-447c-8231-bccb5bc7c74c" name="更改" comment="2024-05-22">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/ghttp/ghttp_server_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/ghttp/ghttp_server_config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_server_config_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_server_config_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/README_MD.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/README_MD.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/container/gring/gring_z_unit_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/container/gring/gring_z_unit_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/container/gvar/gvar_z_unit_map_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/container/gvar/gvar_z_unit_map_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/config/README_MD.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/config/README_MD.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/README_MD.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/README_MD.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/clickhouse/clickhouse_open_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/clickhouse/clickhouse_open_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/clickhouse/clickhouse_z_unit_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/clickhouse/clickhouse_z_unit_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/dm/dm_z_unit_basic_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/dm/dm_z_unit_basic_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/mysql/mysql_z_unit_core_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/mysql/mysql_z_unit_core_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/mysql/mysql_z_unit_issue_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/mysql/mysql_z_unit_issue_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/mysql/mysql_z_unit_model_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/mysql/mysql_z_unit_model_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/oracle/oracle_z_unit_model_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/oracle/oracle_z_unit_model_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/pgsql/pgsql_z_unit_issue_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/pgsql/pgsql_z_unit_issue_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/sqlite/sqlite_z_unit_core_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/sqlite/sqlite_z_unit_core_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/drivers/sqlite/sqlite_z_unit_model_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/drivers/sqlite/sqlite_z_unit_model_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/contrib/registry/README_MD.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/contrib/registry/README_MD.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/database/gdb/gdb_func_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/database/gdb/gdb_func_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/debug/gdebug/gdebug_caller_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/debug/gdebug/gdebug_caller_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/encoding/gcharset/gcharset_z_unit_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/encoding/gcharset/gcharset_z_unit_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/encoding/gjson/gjson_z_unit_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/encoding/gjson/gjson_z_unit_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/encoding/gxml/gxml_z_unit_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/encoding/gxml/gxml_z_unit_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/frame/gins/gins_z_unit_database_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/frame/gins/gins_z_unit_database_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/internal/command/command_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/internal/command/command_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/gclient/gclient_config_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/gclient/gclient_config_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_request_param_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_request_param_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_response_write_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_response_write_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_server_config_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_server_config_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_server_router_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_server_router_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_cookie_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_cookie_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_log_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_log_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_request_struct_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_request_struct_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_router_group_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_router_group_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_router_strict_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_feature_router_strict_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_issue_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/net/ghttp/ghttp_z_unit_issue_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/os/gcmd/gcmd_z_unit_feature_object2_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/os/gcmd/gcmd_z_unit_feature_object2_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/os/gcron/gcron_schedule_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/os/gcron/gcron_schedule_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/os/gspath/gspath_cache_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/os/gspath/gspath_cache_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/os/gtime/gtime_format_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/os/gtime/gtime_format_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/os/gtime/gtime_z_unit_issue_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/os/gtime/gtime_z_unit_issue_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/os/gtimer/gtimer_z_unit_timer_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/os/gtimer/gtimer_z_unit_timer_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/text/gstr/gstr_z_example_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/text/gstr/gstr_z_example_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/text/gstr/gstr_z_unit_parse_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/text/gstr/gstr_z_unit_parse_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_converter_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_converter_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_issue_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_issue_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_maptomap_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_maptomap_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_slice_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_slice_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_struct_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gconv/gconv_z_unit_struct_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gtag/gtag_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gtag/gtag_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gutil/gutil_z_unit_dump_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gutil/gutil_z_unit_dump_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gvalid/gvalid_z_unit_feature_recursive_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gvalid/gvalid_z_unit_feature_recursive_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gvalid/gvalid_z_unit_feature_rule_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gvalid/gvalid_z_unit_feature_rule_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/util/gvalid/gvalid_z_unit_issue_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/util/gvalid/gvalid_z_unit_issue_test_GO.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/gdb/gdb_core_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/gdb/gdb_core_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_core_config_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_core_config_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/注释/database/gdb/gdb_core_config_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/database/gdb/gdb_core_config_GO.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,35 +43,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLine.executor": "Run",
-    "Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLineShort.executor": "Run",
-    "Go 测试.github.com/gogf/gf/v2/frame/g 中的 Test_DumpTo.executor": "Run",
-    "Go 测试.github.com/gogf/gf/v2/os/gfpool 中的 TestOpenErr.executor": "Run",
-    "Go 测试.go test container.executor": "Coverage",
-    "Go 测试.go test frame.executor": "Coverage",
-    "Go 测试.go test goframe.executor": "Coverage",
-    "Go 测试.go test gproc.executor": "Coverage",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/SVN/GO/code/goframe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "cn.yiiguxing.plugin.translate"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLine.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLineShort.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/gogf/gf/v2/frame/g 中的 Test_DumpTo.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/gogf/gf/v2/os/gfpool 中的 TestOpenErr.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.go test container.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test frame.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test goframe.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test gproc.executor&quot;: &quot;Coverage&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/goframe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;cn.yiiguxing.plugin.translate&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Go 测试.go test frame">
     <configuration name="github.com/gogf/gf/v2/frame/g 中的 Test_DumpTo" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="goframe" />

@@ -24,7 +24,9 @@ type Config map[string]ConfigGroup
 // ConfigGroup 是为指定命名组的配置节点切片。 md5:fd0679403bacd284
 type ConfigGroup []ConfigNode
 
-// ConfigNode 是一个节点的配置信息。 md5:c441354f84b63933
+// ConfigNode 是一个节点的配置信息。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// md5:c441354f84b63933
 type ConfigNode struct {
 	Host                 string        `json:"host"`                 // 服务器的主机，可以是 IP 地址或域名，如：127.0.0.1，localhost. md5:995f8d0f775d1561
 	Port                 string        `json:"port"`                 // Port, it's commonly 3306.
@@ -37,7 +39,7 @@ type ConfigNode struct {
 	Role                 string        `json:"role"`                 // （可选，默认为"master"）节点角色，用于主从模式：master, slave。 md5:9645d0e7417ebf0c
 	Debug                bool          `json:"debug"`                // （可选）调试模式启用调试信息日志和输出。 md5:e292d7585b9505f9
 	Prefix               string        `json:"prefix"`               //（可选）表前缀。 md5:201acb7d8a3cfba7
-	DryRun               bool          `json:"dryRun"`               // （可选） dry run，只执行 SELECT 语句，而不执行 INSERT/UPDATE/DELETE 语句。 md5:3983d4a8bb269d45
+	DryRun               bool          `json:"dryRun"`               // （可选）空跑特性，只执行 SELECT 语句，而不执行 INSERT/UPDATE/DELETE 语句。 md5:3983d4a8bb269d45
 	Weight               int           `json:"weight"`               // （可选）用于负载均衡计算的权重，如果只有一个节点则无效。 md5:6be8657f1809396b
 	Charset              string        `json:"charset"`              // (可选，默认为 "utf8") 操作数据库时使用的自定义字符集。 md5:e63288ee7f2834e2
 	Protocol             string        `json:"protocol"`             // （可选， 默认为 "tcp"）有关可用网络的更多信息，请参阅 net.Dial。 md5:96a17fcac4ef394d
@@ -175,11 +177,11 @@ func (c *Core) GetLogger() glog.ILogger {
 }
 
 // SetMaxIdleConnCount 设置空闲连接池中的最大连接数。
-// 
+//
 // 如果 MaxOpenConns 大于 0 但小于新的 MaxIdleConns，那么新的 MaxIdleConns 将被调整为与 MaxOpenConns 的限制相匹配。
-// 
+//
 // 如果 n 小于或等于 0，则不保留任何空闲连接。
-// 
+//
 // 当前默认的最大空闲连接数为 2。这可能会在未来的版本中改变。
 // md5:7d6f4079c0bfc25f
 func (c *Core) SetMaxIdleConnCount(n int) {
