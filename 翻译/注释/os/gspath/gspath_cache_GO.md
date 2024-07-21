@@ -130,8 +130,6 @@
 <原文结束>
 
 # <翻译开始>
-// glog.Debug(event.String()) 
-// 
 // 这个Go语言注释的中文翻译是：使用glog库的Debug级别记录event的字符串表示。 md5:9b7b21454414b499
 # <翻译结束>
 

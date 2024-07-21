@@ -193,7 +193,6 @@
 <原文结束>
 
 # <翻译开始>
-// r.Header().Set("Content-Type", "application/json") 
 // 设置HTTP响应头中的"Content-Type"为"application/json". md5:8e0be5eb3c232d44
 # <翻译结束>
 

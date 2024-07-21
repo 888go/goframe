@@ -31,10 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// fmt.Println(gfile.GetContents(logPath2)) 
-// 
-// 这段 Go 代码的注释翻译成中文是：
-// 
 // 打印日志路径2中的内容（使用 gfile.GetContents 函数）. md5:bbe5d38122741545
 # <翻译结束>
 
@@ -44,10 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// fmt.Println(gfile.GetContents(logPath3)) 
-// 
-// 这行Go代码的注释翻译成中文是：
-// 
 // 打印日志路径3中的内容（使用gfile.GetContents函数）. md5:57930db9a93e7c59
 # <翻译结束>
 

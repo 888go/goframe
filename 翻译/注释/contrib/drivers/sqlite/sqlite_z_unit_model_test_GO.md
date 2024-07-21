@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 解决问题：https://github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 # <翻译结束>
 
 
@@ -174,7 +174,6 @@
 <原文结束>
 
 # <翻译开始>
-// fmt.Println(buffer.String()) 翻译成中文为：
 // 打印出buffer的内容字符串。 md5:3d49298f0e6d7a25
 # <翻译结束>
 
@@ -310,7 +309,7 @@
 <原文结束>
 
 # <翻译开始>
-// 问题：https://github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
+//github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
 # <翻译结束>
 
 
@@ -367,8 +366,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/1012
-// 
 // 这段注释指的是在GitHub上的一个gf项目（Golang Fast Foundation，一个Go语言的优秀库）中的Issue 1012。"Issue"通常在GitHub上表示一个问题、错误报告或者改进的请求。所以，这个注释可能是在指有关gf库的一个已知问题或者开发者希望解决的问题，链接指向了该问题的具体页面。 md5:d21c0bba53139335
 # <翻译结束>
 
@@ -394,8 +391,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/1387
-// 
 // 这段注释链接指向的是GitHub上的一个Issue，GF（Go Foundation）是一个Go语言的库或框架。"1387"可能是Issue的编号。具体的内容需要查看该链接才能得知，大致意思是关于GF项目在1387号问题上的讨论、报告了一个错误或者提出了一个特性请求。 md5:7c877c3e7a856cb1
 # <翻译结束>
 
@@ -423,8 +418,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/1159
-// 
 // 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 # <翻译结束>
 

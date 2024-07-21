@@ -49,6 +49,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://golang.google.cn/doc/install/source. md5:f8fa931d443d3f23
+//golang.google.cn/doc/install/source. md5:f8fa931d443d3f23
 # <翻译结束>
 

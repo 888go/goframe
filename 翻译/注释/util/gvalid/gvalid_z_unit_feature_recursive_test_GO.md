@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 关于 issue #1864 的讨论，请访问：https://github.com/gogf/gf/issues/1864. md5:9de8e8d82eb09662
+//github.com/gogf/gf/issues/1864. md5:9de8e8d82eb09662
 # <翻译结束>
 
 
@@ -31,7 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/1983
 // 该问题是在gf框架中的一个GitHub议题，编号为1983。 md5:e3d4329eb46f9f8f
 # <翻译结束>
 
@@ -59,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
+//github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
 # <翻译结束>
 
 
@@ -68,8 +67,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/2011
-// 
 // 这段注释是指向GitHub上gf框架的第2011号问题的链接。在Go语言中，这种注释用于提供外部资源的引用或相关问题的参考。 md5:d6879a7954832d1c
 # <翻译结束>
 

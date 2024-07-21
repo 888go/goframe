@@ -86,8 +86,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/1488
-// 
 // 这段注释引用的是一个GitHub问题（Issue）的链接，来自 "gf"（Go Foundation）项目。gf是一个用Go语言编写的轻量级、高性能的Web框架。1488号问题可能是指该框架中某个特定的问题或者讨论点。要了解详细内容，需要访问该链接查看相关讨论。 md5:dd9dcdabfe17c38c
 # <翻译结束>
 

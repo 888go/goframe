@@ -262,7 +262,7 @@
 <原文结束>
 
 # <翻译开始>
-// Security 定义了认证的方案。详细信息见 https://swagger.io/docs/specification/authentication/. md5:28d2c5914a05dfdb
+//swagger.io/docs/specification/authentication/. md5:28d2c5914a05dfdb
 # <翻译结束>
 
 
@@ -271,7 +271,7 @@
 <原文结束>
 
 # <翻译开始>
-// Swagger根据参数的位置，区分了以下参数类型。详情请参阅：https://swagger.io/docs/specification/describing-parameters/. md5:13bb3747232af609
+//swagger.io/docs/specification/describing-parameters/. md5:13bb3747232af609
 # <翻译结束>
 
 

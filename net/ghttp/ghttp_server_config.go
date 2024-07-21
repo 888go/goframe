@@ -44,7 +44,9 @@ const (
 	UriTypeCamel           // 将方法名称转换为URI的类型，该类型将名称转换为驼峰式命名。 md5:2e028fc00d70d9bf
 )
 
-// ServerConfig 是HTTP服务器的配置管理器。 md5:a2c6c214e9d64d54
+// ServerConfig 是HTTP服务器的配置管理器。
+// 备注: 此配置结构不做名称翻译, 单元测试内的SetConfigWithMap()方法, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// md5:a2c6c214e9d64d54
 type ServerConfig struct {
 	// ======================================================================================================
 	// 基础内容.
@@ -82,7 +84,7 @@ type ServerConfig struct {
 	Handler func(w http.ResponseWriter, r *http.Request) `json:"-"`
 
 	// ReadTimeout是读取整个请求（包括正文）的最大持续时间。
-	// 
+	//
 	// 由于ReadTimeout不允許Handler根据每个请求体的可接受截止日期或上传速率做出逐个请求的决定，大多数用户更喜欢使用ReadHeaderTimeout。同时使用它们两者也是可以的。
 	// md5:45add6b4a3777e9a
 	ReadTimeout time.Duration `json:"readTimeout"`
@@ -96,7 +98,7 @@ type ServerConfig struct {
 	IdleTimeout time.Duration `json:"idleTimeout"`
 
 	// MaxHeaderBytes 控制服务器解析请求头的键值对（包括请求行）时的最大字节数。它不限制请求体的大小。
-	// 
+	//
 	// 可以在配置文件中通过字符串进行配置，例如：1m、10m、500kb等。默认值为 10240 字节。
 	// md5:8a61cc04b245e3d0
 	MaxHeaderBytes int `json:"maxHeaderBytes"`

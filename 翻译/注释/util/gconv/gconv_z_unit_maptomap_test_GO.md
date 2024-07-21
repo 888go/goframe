@@ -34,7 +34,6 @@
 <原文结束>
 
 # <翻译开始>
-// map[string]interface{} -> map[string]string
 // 将map[string]interface{}类型的值转换为map[string]string类型. md5:273bd8baf5a0dc6f
 # <翻译结束>
 

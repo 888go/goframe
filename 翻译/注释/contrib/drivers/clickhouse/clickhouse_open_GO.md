@@ -31,10 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// clickhouse://username:password@host1:9000,host2:9000/database?dial_timeout=200ms&max_execution_time=60
-// 
-// 这个Go注释翻译成中文表示：
-// 
 // 使用clickhouse协议，连接到主机host1和host2的9000端口，数据库为'database'。设置连接超时时间为200毫秒，最大执行时间为60秒。其中，'username'和'password'是用户名和密码。 md5:18f0aa9304f1e37e
 # <翻译结束>
 

@@ -22,6 +22,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/2503. md5:f22d150cb76ec306
+//github.com/gogf/gf/issues/2503. md5:f22d150cb76ec306
 # <翻译结束>
 

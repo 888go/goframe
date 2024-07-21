@@ -44,6 +44,6 @@
 <原文结束>
 
 # <翻译开始>
-// 对于 Go < 1.16 版本，Cookie 始终会输出 "SameSite"，详情请参阅：https://github.com/golang/go/commit/542693e00529fbb4248fac614ece68b127a5ec4d. md5:6f46e9f2afc803ab
+//github.com/golang/go/commit/542693e00529fbb4248fac614ece68b127a5ec4d. md5:6f46e9f2afc803ab
 # <翻译结束>
 

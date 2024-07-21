@@ -43,8 +43,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/3253
-// 
 // 这段注释是指向GitHub上一个名为gf的项目中的问题号3253的链接。在Go语言中，这种注释用于提供外部资源的引用或相关问题的追踪。 md5:f4927fbc7539374d
 # <翻译结束>
 
@@ -63,8 +61,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/1617
-// 
 // 这段注释引用的是一个GitHub问题的链接，来自gogf（一个Go语言的优秀库）项目。"gf"是"Golang Foundation"的缩写，它表示这是一个关于gogf库的问题编号为1617的讨论或报告。具体的内容需要查看链接以获取详细信息。 md5:b2aec94e8fc5f5be
 # <翻译结束>
 
@@ -74,7 +70,7 @@
 <原文结束>
 
 # <翻译开始>
-// 关于 issue #1747 的讨论，请访问：https://github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
+//github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
 # <翻译结束>
 
 
@@ -83,10 +79,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/2520
-// 
-// 这段注释是链接到一个GitHub问题的，原始内容是英文的，它指向了GoGF框架（gf）中的一个特定问题编号2520。在中文中，这个注释可以翻译为：
-// 
-// https://github.com/gogf/gf/issues/2520  // 指向GoGF框架问题2520. md5:ed6150ec52dbee88
+// 指向GoGF框架问题2520. md5:ed6150ec52dbee88
 # <翻译结束>
 

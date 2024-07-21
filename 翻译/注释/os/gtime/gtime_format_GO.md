@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 参考: http://php.net/manual/en/function.date.php. md5:8a7c43207206ddc7
+//php.net/manual/en/function.date.php. md5:8a7c43207206ddc7
 # <翻译结束>
 
 

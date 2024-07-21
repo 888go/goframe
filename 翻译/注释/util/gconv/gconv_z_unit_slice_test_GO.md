@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 关于 issue #1750 的讨论，请访问：https://github.com/gogf/gf/issues/1750. md5:b86a24bc52c53801
+//github.com/gogf/gf/issues/1750. md5:b86a24bc52c53801
 # <翻译结束>
 
 
@@ -31,8 +31,6 @@
 <原文结束>
 
 # <翻译开始>
-// https://github.com/gogf/gf/issues/3465
-// 
 // 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。3465号issue可能是指该框架中的某个问题或讨论的编号。具体的内容需要查看相关链接才能了解详情。 md5:53810ebfb659d15e
 # <翻译结束>
 

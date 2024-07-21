@@ -304,8 +304,6 @@
 <原文结束>
 
 # <翻译开始>
-// multipart/form-data，multipart/mixed
-// 
 // 这两个注释是在描述MIME类型。`multipart/form-data`通常用于通过HTTP发送表单数据，如文件上传。`multipart/mixed`则用于包含多个部分的混合内容，每个部分可以是不同的MIME类型，常用于邮件或API请求中包含多种类型的附件或数据。 md5:5f5a1e86722f47ec
 # <翻译结束>
 

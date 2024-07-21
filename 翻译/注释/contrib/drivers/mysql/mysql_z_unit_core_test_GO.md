@@ -22,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// 解决问题：https://github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 # <翻译结束>
 
 
