@@ -6,4 +6,4 @@
 // md5:a9832f33b234e3f3
 
 // 包gudp提供了UDP服务器和客户端实现。 md5:ebe4dd90f0f46a82
-package gudp//bm:udp类
+package gudp

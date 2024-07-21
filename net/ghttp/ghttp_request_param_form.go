@@ -13,10 +13,6 @@ import (
 )
 
 // SetForm 使用键值对设置自定义表单值。 md5:eca1a8c094c9ff19
-// ff:设置表单值
-// r:
-// key:名称
-// value:值
 func (r *Request) SetForm(key string, value interface{}) {
 	r.parseForm()
 	if r.formMap == nil {
@@ -27,10 +23,6 @@ func (r *Request) SetForm(key string, value interface{}) {
 
 // GetForm 从表单中检索并返回键为 `key` 的参数。如果表单中不存在 `key`，并且提供了默认值 `def`，则返回 `def`；否则返回 `nil`。
 // md5:f4a13744025f01b8
-// ff:取表单值到泛型类
-// r:
-// key:名称
-// def:默认值
 func (r *Request) GetForm(key string, def ...interface{}) *gvar.Var {
 	r.parseForm()
 	if len(r.formMap) > 0 {
@@ -46,9 +38,6 @@ func (r *Request) GetForm(key string, def ...interface{}) *gvar.Var {
 
 // GetFormMap 从客户端获取并返回所有的表单参数，以map形式。参数`kvMap`指定了从客户端参数中检索的键，如果客户端未传递，则关联的值为默认值。
 // md5:bc80893a54c1e60c
-// ff:取表单值到Map
-// r:
-// kvMap:
 func (r *Request) GetFormMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseForm()
 	if len(kvMap) > 0 && kvMap[0] != nil {
@@ -72,9 +61,6 @@ func (r *Request) GetFormMap(kvMap ...map[string]interface{}) map[string]interfa
 // GetFormMapStrStr 获取并以map[string]string的形式返回客户端传递的所有表单参数。
 // 参数 `kvMap` 指定了从客户端参数中提取的键，如果客户端未传递，则关联的值是默认值。
 // md5:09a548d91ee42cff
-// ff:取表单值到MapStrStr
-// r:
-// kvMap:
 func (r *Request) GetFormMapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	formMap := r.GetFormMap(kvMap...)
 	if len(formMap) > 0 {
@@ -90,9 +76,6 @@ func (r *Request) GetFormMapStrStr(kvMap ...map[string]interface{}) map[string]s
 // GetFormMapStrVar 从客户端传递的所有表单参数中获取并返回一个 map[string]*gvar.Var。
 // 参数 `kvMap` 指定了要从客户端参数中检索的键，对应的值是如果客户端未传递时的默认值。
 // md5:0e9cf1899de0705b
-// ff:取表单值到Map泛型类
-// r:
-// kvMap:
 func (r *Request) GetFormMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
 	formMap := r.GetFormMap(kvMap...)
 	if len(formMap) > 0 {
@@ -105,12 +88,8 @@ func (r *Request) GetFormMapStrVar(kvMap ...map[string]interface{}) map[string]*
 	return nil
 }
 
-				// GetFormStruct 从客户端获取所有传递的表单参数，并将它们转换为给定的结构体对象。需要注意的是，参数 `pointer` 是指向结构体对象的指针。可选参数 `mapping` 用于指定键到属性的映射。
-				// md5:36ac7f24ad6e766e
-// ff:取表单值到结构
-// r:
-// pointer:结构指针
-// mapping:
+// GetFormStruct 从客户端获取所有传递的表单参数，并将它们转换为给定的结构体对象。需要注意的是，参数 `pointer` 是指向结构体对象的指针。可选参数 `mapping` 用于指定键到属性的映射。
+// md5:36ac7f24ad6e766e
 func (r *Request) GetFormStruct(pointer interface{}, mapping ...map[string]string) error {
 	_, err := r.doGetFormStruct(pointer, mapping...)
 	return err

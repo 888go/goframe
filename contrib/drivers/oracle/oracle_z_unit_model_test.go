@@ -235,6 +235,16 @@ func Test_Model_Insert(t *testing.T) {
 
 	})
 }
+
+// https://github.com/gogf/gf/issues/3286
+// 
+// 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。"3286"可能是指issue的编号。翻译成中文就是：
+// 
+// https://github.com/gogf/gf/issues/3286
+// 
+// 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。"3286"可能是指issue的编号。翻译成中文就是：
+// 
+// 关于gf（Go Foundation）框架的问题#3286. md5:99d564c3a7918995
 func Test_Model_Insert_Raw(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)

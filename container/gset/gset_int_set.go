@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gset//bm:集合类
+package gset
 
 import (
 	"bytes"
@@ -23,8 +23,6 @@ type IntSet struct {
 // NewIntSet 创建并返回一个新集合，其中包含不重复的元素。
 // 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。
 // md5:5ede16db776ad391
-// ff:创建整数
-// safe:并发安全
 func NewIntSet(safe ...bool) *IntSet {
 	return &IntSet{
 		mu:   rwmutex.Create(safe...),
@@ -33,9 +31,6 @@ func NewIntSet(safe ...bool) *IntSet {
 }
 
 // NewIntSetFrom 从`items`创建一个新的整数集合。 md5:473f94b321141021
-// ff:创建整数并按值
-// items:整数切片
-// safe:并发安全
 func NewIntSetFrom(items []int, safe ...bool) *IntSet {
 	m := make(map[int]struct{})
 	for _, v := range items {
@@ -49,11 +44,6 @@ func NewIntSetFrom(items []int, safe ...bool) *IntSet {
 
 // Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
 // md5:b896360b1cf6fc88
-// yx:true
-// ff:X遍历
-// set:
-// f:
-// v:
 func (set *IntSet) Iterator(f func(v int) bool) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -65,9 +55,6 @@ func (set *IntSet) Iterator(f func(v int) bool) {
 }
 
 // Add 将一个或多个项目添加到集合中。 md5:316141ff7d4b8e45
-// ff:加入
-// set:
-// item:值s
 func (set *IntSet) Add(item ...int) {
 	set.mu.Lock()
 	if set.data == nil {
@@ -85,9 +72,6 @@ func (set *IntSet) Add(item ...int) {
 //
 // 注意，如果 `item` 为 nil，它将不做任何操作并返回false。
 // md5:3d920a290d301fb9
-// ff:加入值并跳过已存在
-// set:
-// item:值
 func (set *IntSet) AddIfNotExist(item int) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -108,10 +92,6 @@ func (set *IntSet) AddIfNotExist(item int) bool {
 //
 // 注意，函数 `f` 在写入锁未获取的情况下执行。
 // md5:7563a3cf864d8a2b
-// ff:加入值并跳过已存在_函数
-// set:
-// item:值
-// f:
 func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 	if !set.Contains(item) {
 		if f() {
@@ -135,10 +115,6 @@ func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 //
 // 注意，函数 `f` 的执行不在写入锁的保护下进行。
 // md5:48d67b0145855ed9
-// ff:加入值并跳过已存在_并发安全函数
-// set:
-// item:值
-// f:
 func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -157,9 +133,6 @@ func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
 }
 
 // Contains 检查集合是否包含 `item`。 md5:20a3bdc6aeef1d67
-// ff:是否存在
-// set:
-// item:值
 func (set *IntSet) Contains(item int) bool {
 	var ok bool
 	set.mu.RLock()
@@ -171,9 +144,6 @@ func (set *IntSet) Contains(item int) bool {
 }
 
 // Remove 从集合中删除 `item`。 md5:ab30c696cc44d190
-// ff:删除
-// set:
-// item:值
 func (set *IntSet) Remove(item int) {
 	set.mu.Lock()
 	if set.data != nil {
@@ -183,8 +153,6 @@ func (set *IntSet) Remove(item int) {
 }
 
 // Size 返回集合的大小。 md5:0d55ac576b7779ee
-// ff:取数量
-// set:
 func (set *IntSet) Size() int {
 	set.mu.RLock()
 	l := len(set.data)
@@ -193,8 +161,6 @@ func (set *IntSet) Size() int {
 }
 
 // Clear 删除集合中的所有项。 md5:ce349f0cd3114465
-// ff:清空
-// set:
 func (set *IntSet) Clear() {
 	set.mu.Lock()
 	set.data = make(map[int]struct{})
@@ -202,8 +168,6 @@ func (set *IntSet) Clear() {
 }
 
 // Slice 返回集合中的元素作为切片。 md5:f5bc80ac01ae812b
-// ff:取集合切片
-// set:
 func (set *IntSet) Slice() []int {
 	set.mu.RLock()
 	var (
@@ -219,9 +183,6 @@ func (set *IntSet) Slice() []int {
 }
 
 // Join 使用字符串 `glue` 连接多个项目。 md5:c8699391999ac788
-// ff:取集合文本
-// set:
-// glue:连接符
 func (set *IntSet) Join(glue string) string {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -244,8 +205,6 @@ func (set *IntSet) Join(glue string) string {
 }
 
 // String 将 items 转换为字符串，其实现方式类似于 json.Marshal。 md5:cedb10711c2e5dac
-// ff:
-// set:
 func (set *IntSet) String() string {
 	if set == nil {
 		return ""
@@ -254,10 +213,6 @@ func (set *IntSet) String() string {
 }
 
 // LockFunc 使用回调函数 `f` 为写入操作加锁。 md5:85d746d8a49edab7
-// ff:写锁定_函数
-// set:
-// f:
-// m:
 func (set *IntSet) LockFunc(f func(m map[int]struct{})) {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -265,10 +220,6 @@ func (set *IntSet) LockFunc(f func(m map[int]struct{})) {
 }
 
 // RLockFunc 使用回调函数 `f` 进行读取锁定。 md5:5fe2bf1a85ce319e
-// ff:读锁定_函数
-// set:
-// f:
-// m:
 func (set *IntSet) RLockFunc(f func(m map[int]struct{})) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -276,9 +227,6 @@ func (set *IntSet) RLockFunc(f func(m map[int]struct{})) {
 }
 
 // Equal 检查两个集合是否相等。 md5:105ea4dd39b57fe8
-// ff:是否相等
-// set:
-// other:待比较集合
 func (set *IntSet) Equal(other *IntSet) bool {
 	if set == other {
 		return true
@@ -299,9 +247,6 @@ func (set *IntSet) Equal(other *IntSet) bool {
 }
 
 // IsSubsetOf 检查当前集合是否为 `other` 的子集。 md5:333e392219846e17
-// ff:是否为子集
-// set:
-// other:父集
 func (set *IntSet) IsSubsetOf(other *IntSet) bool {
 	if set == other {
 		return true
@@ -321,10 +266,6 @@ func (set *IntSet) IsSubsetOf(other *IntSet) bool {
 // Union 返回一个新集合，它是`set`和`other`的并集。
 // 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
 // md5:420e241c3c12e8e6
-// ff:取并集
-// set:
-// others:集合
-// newSet:新集合
 func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -352,10 +293,6 @@ func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 // Diff 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
 // 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
 // md5:6779e6e007651b53
-// ff:取差集
-// set:
-// others:集合
-// newSet:新集合
 func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -378,10 +315,6 @@ func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 // Intersect 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
 // 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
 // md5:327d3fcc12f06583
-// ff:取交集
-// set:
-// others:集合
-// newSet:新集合
 func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -407,10 +340,6 @@ func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 //
 // 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。
 // md5:7e76900d6f20af06
-// ff:取补集
-// set:
-// full:集合
-// newSet:新集合
 func (set *IntSet) Complement(full *IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -428,9 +357,6 @@ func (set *IntSet) Complement(full *IntSet) (newSet *IntSet) {
 }
 
 // Merge 将 `others` 集合中的项目合并到 `set` 中。 md5:788b02e300c6f440
-// ff:合并
-// set:
-// others:集合s
 func (set *IntSet) Merge(others ...*IntSet) *IntSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -448,11 +374,10 @@ func (set *IntSet) Merge(others ...*IntSet) *IntSet {
 	return set
 }
 
-// Sum sums items.
-// or you'd get a result that you unexpected.
-// ff:求和
-// set:
-// sum:总和
+// Sum 计算项目总和。
+// 注意：项目应该转换为整数类型，
+// 否则你可能会得到意想不到的结果。
+// md5:979b37fbf86a5233
 func (set *IntSet) Sum() (sum int) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -463,8 +388,6 @@ func (set *IntSet) Sum() (sum int) {
 }
 
 // Pop 随机从集合中弹出一个元素。 md5:7e1906e951f13db1
-// ff:出栈
-// set:
 func (set *IntSet) Pop() int {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -478,9 +401,6 @@ func (set *IntSet) Pop() int {
 // Pops 从集合中随机弹出 `size` 个元素。
 // 如果 size == -1，它将返回所有元素。
 // md5:c687f88e0a2df8f2
-// ff:出栈多个
-// set:
-// size:数量
 func (set *IntSet) Pops(size int) []int {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -504,10 +424,6 @@ func (set *IntSet) Pops(size int) []int {
 }
 
 // Walk应用用户提供的函数`f`到集合中的每一项。 md5:d6ceaae555e8a9e6
-// ff:遍历修改
-// set:
-// f:
-// item:
 func (set *IntSet) Walk(f func(item int) int) *IntSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -520,16 +436,11 @@ func (set *IntSet) Walk(f func(item int) int) *IntSet {
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// set:
 func (set IntSet) MarshalJSON() ([]byte, error) {
 	return json.Marshal(set.Slice())
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
-// ff:
-// set:
-// b:
 func (set *IntSet) UnmarshalJSON(b []byte) error {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -547,10 +458,6 @@ func (set *IntSet) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的价值设置为集合。 md5:b119247f684920ad
-// ff:
-// set:
-// value:
-// err:
 func (set *IntSet) UnmarshalValue(value interface{}) (err error) {
 	set.mu.Lock()
 	defer set.mu.Unlock()
@@ -571,8 +478,6 @@ func (set *IntSet) UnmarshalValue(value interface{}) (err error) {
 }
 
 // DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
-// ff:
-// set:
 func (set *IntSet) DeepCopy() interface{} {
 	if set == nil {
 		return nil

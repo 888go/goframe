@@ -366,7 +366,7 @@ func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 	})
 }
 
-										// 批量上传时选择多个文件. md5:b38cd6734ce32c09
+// 批量上传时选择多个文件. md5:b38cd6734ce32c09
 func Test_Params_Strict_Route_File_Batch_Up_Multiple(t *testing.T) {
 	type Req struct {
 		gmeta.Meta `method:"post" mime:"multipart/form-data"`

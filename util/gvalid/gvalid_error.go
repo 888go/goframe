@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid//bm:效验类
+package gvalid
 
 import (
 	"strings"
@@ -28,7 +28,7 @@ type Error interface {
 	Map() map[string]error
 	Maps() map[string]map[string]error
 	String() string
-	Strings() (errs []string)//qm:取文本切片  zz:Strings\(\) +\(errs +\[\]string\) *  yx:true
+	Strings() (errs []string)
 }
 
 // validationError 是验证结果的验证错误。 md5:b67f2d45170f86ce
@@ -85,8 +85,6 @@ func newValidationErrorByStr(key string, err error) *validationError {
 }
 
 // Code 返回当前验证错误的错误代码。 md5:e3c1f143cc6ab020
-// ff:
-// e:
 func (e *validationError) Code() gcode.Code {
 	if e == nil {
 		return gcode.CodeNil
@@ -95,8 +93,6 @@ func (e *validationError) Code() gcode.Code {
 }
 
 // Map 返回第一个错误消息作为映射。 md5:a50660d08282062c
-// ff:
-// e:
 func (e *validationError) Map() map[string]error {
 	if e == nil {
 		return map[string]error{}
@@ -106,8 +102,6 @@ func (e *validationError) Map() map[string]error {
 }
 
 // Maps返回所有的错误消息作为映射。 md5:3018cad54a77010b
-// ff:
-// e:
 func (e *validationError) Maps() map[string]map[string]error {
 	if e == nil {
 		return nil
@@ -117,9 +111,6 @@ func (e *validationError) Maps() map[string]map[string]error {
 
 // Items 如果可能，按顺序检索并返回错误项数组，否则返回无序的错误项。
 // md5:cb51d4d0fa07a635
-// ff:
-// e:
-// items:
 func (e *validationError) Items() (items []map[string]map[string]error) {
 	if e == nil {
 		return []map[string]map[string]error{}
@@ -146,10 +137,6 @@ func (e *validationError) Items() (items []map[string]map[string]error) {
 }
 
 // FirstItem 返回第一个验证规则错误的字段名称和错误消息。 md5:f1a0ce09f39c751b
-// ff:
-// e:
-// key:
-// messages:
 func (e *validationError) FirstItem() (key string, messages map[string]error) {
 	if e == nil {
 		return "", map[string]error{}
@@ -177,10 +164,6 @@ func (e *validationError) FirstItem() (key string, messages map[string]error) {
 }
 
 // FirstRule 返回第一个错误规则及其消息字符串。 md5:ba540411a8e82a5d
-// ff:
-// e:
-// rule:
-// err:
 func (e *validationError) FirstRule() (rule string, err error) {
 	if e == nil {
 		return "", nil
@@ -211,9 +194,6 @@ func (e *validationError) FirstRule() (rule string, err error) {
 // FirstError 返回第一个错误消息作为字符串。
 // 注意，如果没有错误序列，返回的消息可能会有所不同。
 // md5:194a5e5551fbb1e3
-// ff:
-// e:
-// err:
 func (e *validationError) FirstError() (err error) {
 	if e == nil {
 		return nil
@@ -223,15 +203,11 @@ func (e *validationError) FirstError() (err error) {
 }
 
 // Current是FirstError的别名，实现了gerror.iCurrent接口。 md5:0a09fda4e8417f2c
-// ff:
-// e:
 func (e *validationError) Current() error {
 	return e.FirstError()
 }
 
 // String 返回所有错误信息作为一个字符串，多个错误消息使用分号 ';' 连接。 md5:d6ac7d8c7c8a6a03
-// ff:
-// e:
 func (e *validationError) String() string {
 	if e == nil {
 		return ""
@@ -240,8 +216,6 @@ func (e *validationError) String() string {
 }
 
 // Error 实现了 error 接口的 Error 方法。 md5:6b9d58fee5a72399
-// ff:
-// e:
 func (e *validationError) Error() string {
 	if e == nil {
 		return ""
@@ -250,9 +224,6 @@ func (e *validationError) Error() string {
 }
 
 // Strings 将所有的错误消息返回为字符串数组。 md5:63f084a27bc91b14
-// ff:
-// e:
-// errs:
 func (e *validationError) Strings() (errs []string) {
 	if e == nil {
 		return []string{}

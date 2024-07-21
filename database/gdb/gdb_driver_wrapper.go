@@ -14,11 +14,6 @@ type DriverWrapper struct {
 
 // New 创建并返回一个针对 MySQL 的数据库对象。它实现了 gdb.Driver 接口，以便于额外的数据库驱动程序安装。
 // md5:e61df629828efeff
-// ff:
-// d:
-// core:
-// node:
-// DB:
 func (d *DriverWrapper) New(core *Core, node *ConfigNode) (DB, error) {
 	db, err := d.driver.New(core, node)
 	if err != nil {

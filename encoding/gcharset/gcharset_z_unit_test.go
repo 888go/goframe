@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcharset_test//bm:编码字符集类_test
+package gcharset_test
 
 import (
 	"testing"

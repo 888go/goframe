@@ -60,7 +60,6 @@ const (
 )
 
 // New 创建并返回一个自定义的日志器。 md5:0205650422cdd95e
-// ff:创建
 func New() *Logger {
 	return &Logger{
 		config: DefaultConfig(),
@@ -68,8 +67,6 @@ func New() *Logger {
 }
 
 // NewWithWriter 创建并返回一个具有 io.Writer 的自定义日志器。 md5:51edfcbd62ded572
-// ff:创建并按writer
-// writer:
 func NewWithWriter(writer io.Writer) *Logger {
 	l := New()
 	l.SetWriter(writer)
@@ -79,8 +76,6 @@ func NewWithWriter(writer io.Writer) *Logger {
 // Clone 返回一个新的记录器，它是当前记录器的`浅拷贝`。
 // 注意，克隆体的`config`属性是对当前记录器配置的浅拷贝。
 // md5:c70ded0c6903f4be
-// ff:取副本
-// l:
 func (l *Logger) Clone() *Logger {
 	return &Logger{
 		config: l.config,
@@ -102,11 +97,11 @@ func (l *Logger) getFilePath(now time.Time) string {
 
 // print 将`s`打印到已定义的writer（日志文件）或传递的`std`。 md5:2368d31e4b600609
 func (l *Logger) print(ctx context.Context, level int, stack string, values ...any) {
-// 延迟初始化旋转特性。
-// 它采用原子读取操作来增强性能检查。
-// 此处使用CAP以确保性能和并发安全性。
-// 每个日志器仅初始化一次。
-// md5:1562dbed8f576bc2
+	// 延迟初始化旋转特性。
+	// 它采用原子读取操作来增强性能检查。
+	// 此处使用CAP以确保性能和并发安全性。
+	// 每个日志器仅初始化一次。
+	// md5:1562dbed8f576bc2
 	if l.config.RotateSize > 0 || l.config.RotateExpire > 0 {
 		if !l.config.rotatedHandlerInitialized.Val() && l.config.rotatedHandlerInitialized.Cas(false, true) {
 			l.rotateChecksTimely(ctx)
@@ -274,9 +269,9 @@ func (l *Logger) printToStdout(ctx context.Context, input *HandlerInput) *bytes.
 			err    error
 			buffer = input.getRealBuffer(!l.config.StdoutColorDisabled)
 		)
-// 这将在Windows操作系统中丢失颜色信息。请勿使用。
-// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil {
-// md5:29dd90df2339a223
+		// 这将在Windows操作系统中丢失颜色信息。请勿使用。
+		// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil {
+		// md5:29dd90df2339a223
 
 		// 这将在Windows操作系统中打印颜色。 md5:c2abebac838c5747
 		if _, err = fmt.Fprint(color.Output, buffer.String()); err != nil {
@@ -386,10 +381,6 @@ func (l *Logger) format(format string, values ...interface{}) string {
 // PrintStack 打印调用堆栈，
 // 可选参数 `skip` 用于指定从堆栈终点开始忽略的偏移量。
 // md5:ef6cd40820765783
-// ff:
-// l:
-// ctx:
-// skip:
 func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 	if s := l.GetStack(skip...); s != "" {
 		l.Print(ctx, "Stack:\n"+s)
@@ -401,9 +392,6 @@ func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 // GetStack 返回调用者栈的内容，
 // 可选参数 `skip` 指定从终点开始要跳过的栈偏移量。
 // md5:13592be3061e779d
-// ff:取堆栈信息
-// l:
-// skip:偏移量
 func (l *Logger) GetStack(skip ...int) string {
 	stackSkip := l.config.StSkip
 	if len(skip) > 0 {

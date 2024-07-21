@@ -50,7 +50,7 @@ func createTable(table ...string) string {
 	return createTableWithDb(db, table...)
 }
 
-						// 创建表并插入初始数据. md5:a4bda4ca9da339e1
+// 创建表并插入初始数据. md5:a4bda4ca9da339e1
 func createInitTable(table ...string) string {
 	return createInitTableWithDb(db, table...)
 }

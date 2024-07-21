@@ -16,15 +16,10 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-	// Delete 执行针对模型的 "DELETE FROM ... " 语句。
-	// 可选参数 `where` 与 Model.Where 函数的参数相同，
-	// 请参考 Model.Where 查看详细用法。
-	// md5:efc496574e0829d8
-// ff:删除
-// m:
-// where:条件
-// result:结果
-// err:错误
+// Delete 执行针对模型的 "DELETE FROM ... " 语句。
+// 可选参数 `where` 与 Model.Where 函数的参数相同，
+// 请参考 Model.Where 查看详细用法。
+// md5:efc496574e0829d8
 func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(where) > 0 {

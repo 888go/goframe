@@ -16,9 +16,6 @@ import (
 // Trim 函数从字符串的开头和结尾删除空白符（或其他字符）。
 // 可选参数 `characterMask` 指定了额外需要删除的字符。
 // md5:a1d794d7a10c9c7a
-// ff:过滤首尾符并含空白
-// str:文本
-// characterMask:可选过滤符号
 func Trim(str string, characterMask ...string) string {
 	return utils.Trim(str, characterMask...)
 }
@@ -26,18 +23,11 @@ func Trim(str string, characterMask ...string) string {
 // TrimStr 从字符串的开始和结束处删除给定的 `cut` 字符串。
 // 请注意，它不会删除其开始或结束处的空格。
 // md5:6180dbb1bb9965c4
-// ff:过滤首尾
-// str:文本
-// cut:过滤符号
-// count:可选过滤次数
 func TrimStr(str string, cut string, count ...int) string {
 	return TrimLeftStr(TrimRightStr(str, cut, count...), cut, count...)
 }
 
 // TrimLeft 从字符串的开头移除空格（或其他字符）。 md5:648a4eb609597439
-// ff:过滤首字符并含空白
-// str:文本
-// characterMask:可选过滤符号
 func TrimLeft(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -48,10 +38,6 @@ func TrimLeft(str string, characterMask ...string) string {
 
 // TrimLeftStr 从字符串的开头移除所有给定的 `cut` 字符串。注意，它不会移除字符串开头的空格。
 // md5:765cffbaed7e3cce
-// ff:过滤首字符
-// str:文本
-// cut:过滤符号
-// count:可选过滤次数
 func TrimLeftStr(str string, cut string, count ...int) string {
 	var (
 		lenCut   = len(cut)
@@ -68,9 +54,6 @@ func TrimLeftStr(str string, cut string, count ...int) string {
 }
 
 // TrimRight 从字符串的末尾移除空白符（或其他字符）。 md5:c252aae10c16cd5a
-// ff:过滤尾字符并含空白
-// str:文本
-// characterMask:可选过滤符号
 func TrimRight(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -82,10 +65,6 @@ func TrimRight(str string, characterMask ...string) string {
 // TrimRightStr 从字符串的末尾删除所有给定的 `cut` 字符串。
 // 请注意，它不会删除字符串末尾的空格。
 // md5:0ca4b90c9d600b39
-// ff:过滤尾字符
-// str:文本
-// cut:过滤符号
-// count:可选过滤次数
 func TrimRightStr(str string, cut string, count ...int) string {
 	var (
 		lenStr   = len(str)
@@ -104,9 +83,6 @@ func TrimRightStr(str string, cut string, count ...int) string {
 }
 
 // TrimAll 函数会删除字符串 `str` 中的所有字符。 md5:2d770fefafe6bda4
-// ff:过滤所有字符并含空白
-// str:文本
-// characterMask:可选过滤符号
 func TrimAll(str string, characterMask ...string) string {
 	trimChars := utils.DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -132,17 +108,11 @@ func TrimAll(str string, characterMask ...string) string {
 }
 
 // HasPrefix 测试字符串 s 是否以 prefix 开头。 md5:8b4cd90bff10b28a
-// ff:开头判断
-// s:文本
-// prefix:开头文本
 func HasPrefix(s, prefix string) bool {
 	return strings.HasPrefix(s, prefix)
 }
 
 // HasSuffix 检测字符串 s 是否以 suffix 结尾。 md5:964d208ab1e843e1
-// ff:末尾判断
-// s:文本
-// suffix:末尾文本
 func HasSuffix(s, suffix string) bool {
 	return strings.HasSuffix(s, suffix)
 }

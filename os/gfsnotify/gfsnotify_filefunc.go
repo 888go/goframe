@@ -94,14 +94,14 @@ func fileScanDir(path string, pattern string, recursive ...bool) ([]string, erro
 	return list, nil
 }
 
-	// doFileScanDir 是一个内部方法，用于扫描目录
-	// 并返回未排序的文件的绝对路径列表。
-	//
-	// 模式参数 `pattern` 支持多个文件名模式，
-	// 使用 `,` 符号分隔多个模式。
-	//
-	// 如果给定的参数 `recursive` 为 true，它将递归地扫描目录。
-	// md5:187616f6d86800cf
+// doFileScanDir 是一个内部方法，用于扫描目录
+// 并返回未排序的文件的绝对路径列表。
+//
+// 模式参数 `pattern` 支持多个文件名模式，
+// 使用 `,` 符号分隔多个模式。
+//
+// 如果给定的参数 `recursive` 为 true，它将递归地扫描目录。
+// md5:187616f6d86800cf
 func doFileScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 	var (
 		list      []string

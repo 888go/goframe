@@ -58,9 +58,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		checkValueData = object
 	}
 	switch assertValue := v.rules.(type) {
-// 序列标签：[]序列标签
-// 序列中错误结果的顺序是有意义的。
-// md5:3ffc642de1ce88d6
+	// 序列标签：[]序列标签
+	// 序列中错误结果的顺序是有意义的。
+	// md5:3ffc642de1ce88d6
 	case []string:
 		for _, tag := range assertValue {
 			name, rule, msg := ParseTagValue(tag)
@@ -73,8 +73,8 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 					ruleArray = strings.Split(rule, "|")
 				)
 				for k, ruleKey := range ruleArray {
-// 如果自定义消息的长度小于规则的长度，那么剩余的规则将使用默认的错误消息。
-// md5:ada20f4d064fc46a
+					// 如果自定义消息的长度小于规则的长度，那么剩余的规则将使用默认的错误消息。
+					// md5:ada20f4d064fc46a
 					if len(msgArray) <= k {
 						continue
 					}
@@ -95,9 +95,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 			})
 		}
 
-// 地图类型规则不支持序列。
-// 格式：map[key]rule
-// md5:e0dce9966e6f4666
+	// 地图类型规则不支持序列。
+	// 格式：map[key]rule
+	// md5:e0dce9966e6f4666
 	case map[string]string:
 		nameToRuleMap = assertValue
 		for name, rule := range assertValue {
@@ -127,9 +127,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		}
 	}
 
-// 将自定义验证规则与结构体标签中的规则合并。
-// 自定义规则具有最高优先级，可以覆盖结构体标签中的规则。
-// md5:327ef56dd9382e55
+	// 将自定义验证规则与结构体标签中的规则合并。
+	// 自定义规则具有最高优先级，可以覆盖结构体标签中的规则。
+	// md5:327ef56dd9382e55
 	for _, field := range tagFields {
 		var (
 			isMeta          bool
@@ -148,9 +148,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 			// 它使用了验证规则中的别名名称。 md5:e12f1e225f531883
 			fieldToAliasNameMap[fieldName] = name
 		}
-// 这里使用别名名称扩展params映射。
-// 注意变量`name`可能是别名名称或属性名称。
-// md5:67115358a00d1d8c
+		// 这里使用别名名称扩展params映射。
+		// 注意变量`name`可能是别名名称或属性名称。
+		// md5:67115358a00d1d8c
 		if _, ok := inputParamMap[name]; !ok {
 			if !v.useAssocInsteadOfObjectAttributes {
 				inputParamMap[name] = field.Value.Interface()
@@ -165,9 +165,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 
 		if _, ok := nameToRuleMap[name]; !ok {
 			if _, ok = nameToRuleMap[fieldName]; ok {
-// 如果有别名名称，
-// 使用别名名称作为其键，删除字段名称键。
-// md5:4454688e693edd27
+				// 如果有别名名称，
+				// 使用别名名称作为其键，删除字段名称键。
+				// md5:4454688e693edd27
 				nameToRuleMap[name] = nameToRuleMap[fieldName]
 				delete(nameToRuleMap, fieldName)
 				for index, checkRuleItem := range checkRules {
@@ -218,9 +218,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		}
 	}
 
-// 自定义错误消息，
-// 其优先级高于 `rules` 和结构体标签。
-// md5:9ed0fde7c514e9ef
+	// 自定义错误消息，
+	// 其优先级高于 `rules` 和结构体标签。
+	// md5:9ed0fde7c514e9ef
 	if msg, ok := v.messages.(CustomMsg); ok && len(msg) > 0 {
 		for k, msgName := range msg {
 			if aliasName, ok := fieldToAliasNameMap[k]; ok {
@@ -254,9 +254,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 				}
 			}
 		} else {
-// `field.TagValue`是field.Name()的别名。
-// 例如，从结构体标签`p`获取的值。
-// md5:0b34b40285c5eb31
+			// `field.TagValue`是field.Name()的别名。
+			// 例如，从结构体标签`p`获取的值。
+			// md5:0b34b40285c5eb31
 			if field.TagValue != "" {
 				fieldToAliasNameMap[field.Name()] = field.TagValue
 			}

@@ -62,7 +62,7 @@ func Test_ShellExec_SpaceDir_Windows(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		testPath := gtest.DataPath("shellexec")
 		filename := filepath.Join(testPath, "main.go")
-				// 使用go build命令，生成名为test.exe的可执行文件，源代码为main.go. md5:3a438d2ac0c99590
+		// 使用go build命令，生成名为test.exe的可执行文件，源代码为main.go. md5:3a438d2ac0c99590
 		cmd := fmt.Sprintf(`go build -o test.exe %s`, filename)
 		r, err := gproc.ShellExec(gctx.New(), cmd)
 		t.AssertNil(err)
@@ -93,7 +93,7 @@ func Test_ShellExec_SpaceDir_Windows(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		testPath := gtest.DataPath("shellexec")
 		filename := filepath.Join(testPath, "main.go")
-				// 使用go build命令，生成名为test.exe的可执行文件，源代码为main.go. md5:3a438d2ac0c99590
+		// 使用go build命令，生成名为test.exe的可执行文件，源代码为main.go. md5:3a438d2ac0c99590
 		cmd := fmt.Sprintf(`go build -o test.exe %s`, filename)
 		r, err := gproc.ShellExec(gctx.New(), cmd)
 		t.AssertNil(err)

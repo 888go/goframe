@@ -9,7 +9,7 @@
 //
 // 此包应尽量减少与其他包的依赖关系。
 // md5:b18f07aca2be5125
-package gconv//bm:转换类
+package gconv
 
 import (
 	"context"
@@ -38,15 +38,13 @@ var (
 		"false": {},
 	}
 
-// StructTagPriority 定义了Map*/Struct*函数的默认优先级标签。
-// 注意，`gconv/param` 标签由旧版本的包使用。强烈建议未来改用简短的标签 `c/p`。
-// md5:c4b7d2fe8905ed52
+	// StructTagPriority 定义了Map*/Struct*函数的默认优先级标签。
+	// 注意，`gconv/param` 标签由旧版本的包使用。强烈建议未来改用简短的标签 `c/p`。
+	// md5:c4b7d2fe8905ed52
 	StructTagPriority = gtag.StructTagPriority
 )
 
 // Byte将`any`转换为byte。 md5:aeef919e3fba4f95
-// ff:取字节
-// any:值
 func Byte(any interface{}) byte {
 	if v, ok := any.(byte); ok {
 		return v
@@ -55,9 +53,6 @@ func Byte(any interface{}) byte {
 }
 
 // Bytes 将 `any` 转换为 []byte。 md5:06125d6ba5f449a5
-// yx:true
-// ff:取字节集
-// any:
 func Bytes(any interface{}) []byte {
 	if any == nil {
 		return nil
@@ -104,8 +99,6 @@ func Bytes(any interface{}) []byte {
 }
 
 // Rune 将 `any` 转换为 rune。 md5:3459f7528861cc23
-// ff:取字符
-// any:值
 func Rune(any interface{}) rune {
 	if v, ok := any.(rune); ok {
 		return v
@@ -114,8 +107,6 @@ func Rune(any interface{}) rune {
 }
 
 // Runes将`any`转换为[]rune。 md5:25552cd961d1d6bb
-// ff:取字符切片
-// any:值
 func Runes(any interface{}) []rune {
 	if v, ok := any.([]rune); ok {
 		return v
@@ -125,8 +116,6 @@ func Runes(any interface{}) []rune {
 
 // String 将 `any` 转换为字符串。它是最常用的转换函数。
 // md5:722d0704c061781b
-// ff:
-// any:
 func String(any interface{}) string {
 	if any == nil {
 		return ""
@@ -188,15 +177,15 @@ func String(any interface{}) string {
 			return ""
 		}
 		if f, ok := value.(iString); ok {
-// 如果变量实现了String()接口，
-// 则使用该接口来进行转换
-// md5:08e76021f60d81ed
+			// 如果变量实现了String()接口，
+			// 则使用该接口来进行转换
+			// md5:08e76021f60d81ed
 			return f.String()
 		}
 		if f, ok := value.(iError); ok {
-// /* 如果该变量实现了Error()接口，
-//    则使用该接口进行转换 */
-// md5:7c7c512864a0b034
+			// /* 如果该变量实现了Error()接口，
+			//    则使用该接口进行转换 */
+			// md5:7c7c512864a0b034
 			return f.Error()
 		}
 		// Reflect checks.
@@ -233,9 +222,6 @@ func String(any interface{}) string {
 // Bool 将 `any` 转换为布尔值。
 // 如果 `any` 是：false，""，0，"false"，"off"，"no"，空切片/映射，则返回 false。
 // md5:b9d150a8798a274a
-// yx:true
-// ff:取布尔
-// any:
 func Bool(any interface{}) bool {
 	if any == nil {
 		return false

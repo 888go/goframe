@@ -25,9 +25,9 @@ type internalCtxData struct {
 
 // column 用于内部目的，在ctx中存储列数据。 md5:12a8a80132bf8ae7
 type internalColumnData struct {
-// 来自数据库服务器的响应结果中的第一列。
-// 此属性用于值/计数选择语句的目的，以避免可能修改结果列的HOOK处理器，这可能会混淆值/计数选择语句的逻辑。
-// md5:c678f20e25487136
+	// 来自数据库服务器的响应结果中的第一列。
+	// 此属性用于值/计数选择语句的目的，以避免可能修改结果列的HOOK处理器，这可能会混淆值/计数选择语句的逻辑。
+	// md5:c678f20e25487136
 	FirstResultColumn string
 }
 
@@ -84,9 +84,6 @@ func (c *Core) getInternalColumnFromCtx(ctx context.Context) *internalColumnData
 	return nil
 }
 
-// ff:底层_InjectIgnoreResult
-// c:
-// ctx:
 func (c *Core) InjectIgnoreResult(ctx context.Context) context.Context {
 	if ctx.Value(ignoreResultKeyInCtx) != nil {
 		return ctx
@@ -94,9 +91,6 @@ func (c *Core) InjectIgnoreResult(ctx context.Context) context.Context {
 	return context.WithValue(ctx, ignoreResultKeyInCtx, true)
 }
 
-// ff:底层_GetIgnoreResultFromCtx
-// c:
-// ctx:
 func (c *Core) GetIgnoreResultFromCtx(ctx context.Context) bool {
 	return ctx.Value(ignoreResultKeyInCtx) != nil
 }

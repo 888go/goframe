@@ -20,8 +20,6 @@ type Option struct {
 // NewWithOption 创建并返回一个带有选项的自定义错误。
 // 这是创建错误的高级用法，通常在框架内部使用。
 // md5:0727fc0de90f397f
-// ff:
-// option:
 func NewWithOption(option Option) error {
 	err := &Error{
 		error: option.Error,
@@ -34,9 +32,9 @@ func NewWithOption(option Option) error {
 	return err
 }
 
-// NewOption creates and returns a custom error with Option.
-// ff:弃用NewOption
-// option:选项
+// NewOption 创建并返回一个带有 Option 的自定义错误。
+// 已弃用：请使用 NewWithOption 替代。
+// md5:dba08610e527e0f9
 func NewOption(option Option) error {
 	return NewWithOption(option)
 }

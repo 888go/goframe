@@ -14,9 +14,6 @@ import (
 )
 
 // Float32 将 `any` 转换为 float32 类型。 md5:ae355a911909e343
-// yx:true
-// ff:取小数32位
-// any:
 func Float32(any interface{}) float32 {
 	if any == nil {
 		return 0
@@ -38,9 +35,6 @@ func Float32(any interface{}) float32 {
 }
 
 // Float64 将 `any` 转换为 float64 类型。 md5:c0bd7cb237571bff
-// yx:true
-// ff:取小数64位
-// any:
 func Float64(any interface{}) float64 {
 	if any == nil {
 		return 0

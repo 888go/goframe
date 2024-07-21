@@ -27,15 +27,12 @@ type StorageRedis struct {
 }
 
 const (
-// DefaultStorageRedisLoopInterval 是用于在最近一段时间内更新会话ID的TTL（生存时间）的间隔。
-// md5:5adbee0aa8ff1658
+	// DefaultStorageRedisLoopInterval 是用于在最近一段时间内更新会话ID的TTL（生存时间）的间隔。
+	// md5:5adbee0aa8ff1658
 	DefaultStorageRedisLoopInterval = 10 * time.Second
 )
 
 // NewStorageRedis 创建并返回一个用于session的redis存储对象。 md5:58528aab48b7daea
-// ff:
-// redis:
-// prefix:
 func NewStorageRedis(redis *gredis.Redis, prefix ...string) *StorageRedis {
 	if redis == nil {
 		panic("redis instance for storage cannot be empty")
@@ -71,10 +68,6 @@ func NewStorageRedis(redis *gredis.Redis, prefix ...string) *StorageRedis {
 }
 
 // RemoveAll 删除存储中的所有键值对。 md5:8b06607595d19a73
-// ff:
-// s:
-// ctx:
-// sessionId:
 func (s *StorageRedis) RemoveAll(ctx context.Context, sessionId string) error {
 	_, err := s.redis.Del(ctx, s.sessionIdToRedisKey(sessionId))
 	return err
@@ -86,11 +79,6 @@ func (s *StorageRedis) RemoveAll(ctx context.Context, sessionId string) error {
 //
 // 此函数在会话启动时会被调用。
 // md5:01e56ce09d5fd934
-// ff:
-// s:
-// ctx:
-// sessionId:
-// ttl:
 func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
 	intlog.Printf(ctx, "StorageRedis.GetSession: %s, %v", sessionId, ttl)
 	r, err := s.redis.Get(ctx, s.sessionIdToRedisKey(sessionId))
@@ -115,12 +103,6 @@ func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl tim
 // 当某个被标记为脏（即发生过修改）的会话关闭后，将调用此函数。
 // 该操作会将所有会话数据从内存复制到存储中。
 // md5:1caa26989d884fa4
-// ff:
-// s:
-// ctx:
-// sessionId:
-// sessionData:
-// ttl:
 func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.SetSession: %s, %v, %v", sessionId, sessionData, ttl)
 	content, err := json.Marshal(sessionData)
@@ -135,11 +117,6 @@ func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, session
 // 当一个未被修改（非脏）的会话关闭后，此函数会被调用。
 // 它只是将会话ID添加到异步处理队列中。
 // md5:cc5ac287cbbc0eab
-// ff:
-// s:
-// ctx:
-// sessionId:
-// ttl:
 func (s *StorageRedis) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageRedisLoopInterval {

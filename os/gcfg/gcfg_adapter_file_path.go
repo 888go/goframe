@@ -28,10 +28,6 @@ import (
 //
 // 注意，此参数是一个指向目录的路径，而不是指向文件的路径。
 // md5:56f162e4bbfc634d
-// ff:
-// a:
-// directoryPath:
-// err:
 func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 	var (
 		isDir    = false
@@ -102,10 +98,6 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 //
 // 请注意，此参数是目录路径，而不是文件路径。
 // md5:25c79c7444dc4e16
-// ff:
-// a:
-// directoryPaths:
-// err:
 func (a *AdapterFile) AddPath(directoryPaths ...string) (err error) {
 	for _, directoryPath := range directoryPaths {
 		if err = a.doAddPath(directoryPath); err != nil {
@@ -121,8 +113,8 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 		isDir    = false
 		realPath = ""
 	)
-// 首先检查资源管理器，然后在文件系统中查找路径。
-// md5:deb5a0d060375b57
+	// 首先检查资源管理器，然后在文件系统中查找路径。
+	// md5:deb5a0d060375b57
 	if file := gres.Get(directoryPath); file != nil {
 		realPath = directoryPath
 		isDir = file.FileInfo().IsDir()
@@ -181,8 +173,6 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 }
 
 // GetPaths 返回当前配置管理器的搜索目录路径数组。 md5:c77738d1ef96cc99
-// ff:
-// a:
 func (a *AdapterFile) GetPaths() []string {
 	return a.searchPaths.Slice()
 }
@@ -256,11 +246,6 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 // 如果没有传递 `file`，则返回默认名称的配置文件路径。
 // 如果给定的 `file` 不存在，它将返回一个空的 `path` 字符串和一个错误。
 // md5:b116b9d063e12bc9
-// ff:
-// a:
-// fileName:
-// filePath:
-// err:
 func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err error) {
 	var (
 		fileExtName  string

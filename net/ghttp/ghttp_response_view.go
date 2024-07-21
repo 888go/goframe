@@ -17,10 +17,6 @@ import (
 
 // WriteTpl解析并响应给定的模板文件。参数`params`指定了解析时的模板变量。
 // md5:f7af01616060ef2a
-// ff:输出到模板文件
-// r:
-// tpl:模板文件路径
-// params:模板变量
 func (r *Response) WriteTpl(tpl string, params ...gview.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.ParseTpl(tpl, params...)
@@ -37,9 +33,6 @@ func (r *Response) WriteTpl(tpl string, params ...gview.Params) error {
 // WriteTplDefault 函数用于解析并响应默认的模板文件。
 // 参数 `params` 用于指定解析模板时所需的变量。
 // md5:746b7bfd331d0eb8
-// ff:输出到默认模板文件
-// r:
-// params:模板变量
 func (r *Response) WriteTplDefault(params ...gview.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.ParseTplDefault(params...)
@@ -56,10 +49,6 @@ func (r *Response) WriteTplDefault(params ...gview.Params) error {
 // WriteTplContent 解析并响应模板内容。
 // 参数 `params` 用于指定模板解析时的变量。
 // md5:967e05a26da5c949
-// ff:输出文本模板
-// r:
-// content:文本模板
-// params:模板变量
 func (r *Response) WriteTplContent(content string, params ...gview.Params) error {
 	r.Header().Set("Content-Type", contentTypeHtml)
 	b, err := r.ParseTplContent(content, params...)
@@ -75,18 +64,11 @@ func (r *Response) WriteTplContent(content string, params ...gview.Params) error
 
 // ParseTpl 使用给定的模板文件 `tpl` 和模板变量 `params` 进行解析，然后返回解析后的模板内容。
 // md5:170f6327b48f33cd
-// ff:解析模板文件
-// r:
-// tpl:模板文件路径
-// params:模板变量
 func (r *Response) ParseTpl(tpl string, params ...gview.Params) (string, error) {
 	return r.Request.GetView().Parse(r.Request.Context(), tpl, r.buildInVars(params...))
 }
 
 // ParseTplDefault 使用参数解析默认模板文件。 md5:83eb637c4bdf2659
-// ff:解析默认模板文件
-// r:
-// params:模板变量
 func (r *Response) ParseTplDefault(params ...gview.Params) (string, error) {
 	return r.Request.GetView().ParseDefault(r.Request.Context(), r.buildInVars(params...))
 }
@@ -94,10 +76,6 @@ func (r *Response) ParseTplDefault(params ...gview.Params) (string, error) {
 // ParseTplContent 使用给定的模板参数`params`解析指定的模板文件`file`，
 // 并返回解析后的模板内容。
 // md5:e91c27dd95553a3d
-// ff:解析文本模板
-// r:
-// content:文本模板
-// params:模板变量
 func (r *Response) ParseTplContent(content string, params ...gview.Params) (string, error) {
 	return r.Request.GetView().ParseContent(r.Request.Context(), content, r.buildInVars(params...))
 }

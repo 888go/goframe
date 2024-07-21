@@ -6,4 +6,4 @@
 // md5:a9832f33b234e3f3
 
 // gcompress 包提供了针对二进制/字节数据的各种压缩算法。 md5:eb6f1752b091375d
-package gcompress//bm:压缩类
+package gcompress

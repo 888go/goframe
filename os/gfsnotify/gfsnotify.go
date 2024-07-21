@@ -80,9 +80,10 @@ var (
 	callbackIdGenerator = gtype.NewInt()          // 用于回调的原子性ID生成器。 md5:2caf00d0d805af7b
 )
 
-// New creates and returns a new watcher.
-// Note that the watcher number is limited by the file handle setting of the system.
-// ff:
+// New 创建并返回一个新的观察者。
+// 注意，观察者的数量受系统文件描述符限制。
+// 例如：在 Linux 系统中，fs.inotify.max_user_instances 系统变量。
+// md5:a2587b1623329074
 func New() (*Watcher, error) {
 	w := &Watcher{
 		cache:     gcache.New(),
@@ -105,13 +106,6 @@ func New() (*Watcher, error) {
 // 使用默认的观察者(`watcher`)监控路径`path`，并调用回调函数`callbackFunc`。
 // 可选参数`recursive`指定是否递归地监控路径`path`，默认为true。
 // md5:e660326b83136bd1
-// ff:
-// path:
-// callbackFunc:
-// event:
-// recursive:
-// callback:
-// err:
 func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -125,14 +119,6 @@ func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callb
 //
 // 可选参数 `recursive` 指定是否递归监控 `path`，默认为 true。
 // md5:c28c83d5a2230d07
-// ff:
-// name:
-// path:
-// callbackFunc:
-// event:
-// recursive:
-// callback:
-// err:
 func AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -142,8 +128,6 @@ func AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bo
 }
 
 // Remove 递归地从监视器中删除给定`path`的所有监控回调。 md5:63888786f53ffca5
-// ff:
-// path:
 func Remove(path string) error {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -153,8 +137,6 @@ func Remove(path string) error {
 }
 
 // RemoveCallback 从观察者中移除具有给定ID的指定回调。 md5:af906f3547f93046
-// ff:
-// callbackId:
 func RemoveCallback(callbackId int) error {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -173,14 +155,13 @@ func RemoveCallback(callbackId int) error {
 
 // Exit 只在回调函数中使用，可以用于从观察者中移除当前的回调。
 // md5:697f4cd00adc082e
-// ff:
 func Exit() {
 	panic(callbackExitEventPanicStr)
 }
 
-	// getDefaultWatcher 创建并返回默认的监视器。
-	// 这用于惰性初始化的目的。
-	// md5:c1a7b4f4102130c0
+// getDefaultWatcher 创建并返回默认的监视器。
+// 这用于惰性初始化的目的。
+// md5:c1a7b4f4102130c0
 func getDefaultWatcher() (*Watcher, error) {
 	mu.Lock()
 	defer mu.Unlock()

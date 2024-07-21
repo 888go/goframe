@@ -30,27 +30,12 @@ import (
 // Query 向底层驱动提交一个查询SQL并返回执行结果。
 // 它最常用于数据查询。
 // md5:06bbbfc29aa3894b
-// ff:原生SQL查询
-// c:
-// ctx:上下文
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
 	return c.db.DoQuery(ctx, nil, sql, args...)
 }
 
 // DoQuery 通过给定的链接对象将SQL字符串及其参数提交给底层驱动，并返回执行结果。
 // md5:af7bdcd1a2074bc0
-// ff:底层原生SQL查询
-// c:
-// ctx:上下文
-// link:链接
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -104,27 +89,12 @@ func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...inter
 
 // Exec 将一个查询 SQL 执行到底层驱动并返回执行结果。它最常用于数据插入和更新。
 // md5:6f9ddc85964b9797
-// ff:原生SQL执行
-// c:
-// ctx:上下文
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {
 	return c.db.DoExec(ctx, nil, sql, args...)
 }
 
 // DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
 // md5:947bd2b83e751e10
-// ff:底层原生SQL执行
-// c:
-// ctx:上下文
-// link:链接
-// sql:
-// args:参数
-// result:结果
-// err:错误
 func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -181,26 +151,11 @@ func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interf
 // DoFilter 是一个钩子函数，它在 SQL 语句及其参数提交给底层驱动之前进行过滤。
 // 参数 `link` 指定当前数据库连接的操作对象。在 SQL 语句 `sql` 及其参数 `args` 被提交给驱动之前，您可以根据需要随意修改它们。
 // md5:41118fbc4e6c5562
-// ff:底层DoFilter
-// c:
-// ctx:
-// link:
-// sql:
-// args:
-// newSql:
-// newArgs:
-// err:
 func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
 
 // DoCommit 将当前SQL和参数提交给底层SQL驱动程序。 md5:7cf9b1f6f4d9d2cb
-// ff:底层DoCommit
-// c:
-// ctx:
-// in:
-// out:
-// err:
 func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error) {
 	var (
 		sqlTx                *sql.Tx
@@ -340,11 +295,6 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 // 
 // 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从复制，则在从节点上执行。
 // md5:639eebcae369b0a2
-// ff:原生sql取参数预处理对象
-// c:
-// ctx:上下文
-// sql:
-// execOnMaster:是否主节点执行
 func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {
 	var (
 		err  error
@@ -363,13 +313,6 @@ func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*
 }
 
 // DoPrepare 会调用给定链接对象上的prepare函数，并返回语句对象。 md5:bae03ede256987bd
-// ff:底层原生sql参数预处理对象
-// c:
-// ctx:上下文
-// link:链接
-// sql:
-// stmt:参数预处理
-// err:错误
 func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -410,11 +353,6 @@ func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt
 // 在默认实现中，此函数执行类似 MySQL 的 UPSERT 语句：
 // `INSERT INTO ... ON DUPLICATE KEY UPDATE x=VALUES(z),m=VALUES(y)...`
 // md5:c1c6d7b14661682b
-// ff:
-// c:
-// columns:
-// list:
-// option:
 func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) (string, error) {
 	var onDuplicateStr string
 	if option.OnDuplicateStr != "" {
@@ -460,11 +398,6 @@ func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) 
 }
 
 // RowsToResult 将底层的 sql.Rows 数据记录类型转换为 Result 类型。 md5:ae9065176ef07b2e
-// ff:原生sql记录到行记录切片对象
-// c:
-// ctx:上下文
-// rows:底层数据记录
-// Result:
 func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error) {
 	if rows == nil {
 		return nil, nil

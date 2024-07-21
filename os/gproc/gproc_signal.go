@@ -21,8 +21,8 @@ import (
 type SigHandler func(sig os.Signal)
 
 var (
-// 使用内部变量来保证当发生多个监听（Listen）时的并发安全。
-// md5:7c2a9e90bd5be8da
+	// 使用内部变量来保证当发生多个监听（Listen）时的并发安全。
+	// md5:7c2a9e90bd5be8da
 	listenOnce        = sync.Once{}
 	waitChan          = make(chan struct{})
 	signalChan        = make(chan os.Signal, 1)
@@ -44,9 +44,6 @@ func init() {
 }
 
 // AddSigHandler 为自定义的一个或多个信号添加自定义的信号处理器。 md5:996226c8d75ebdf5
-// ff:
-// handler:
-// signals:
 func AddSigHandler(handler SigHandler, signals ...os.Signal) {
 	signalHandlerMu.Lock()
 	defer signalHandlerMu.Unlock()
@@ -63,8 +60,6 @@ func AddSigHandler(handler SigHandler, signals ...os.Signal) {
 // - syscall.SIGTERM（终止信号，用来请求程序正常退出）
 // - syscall.SIGABRT（异常终止信号，通常由调用abort函数产生，用于指示严重错误）
 // md5:6fd417c58f499e80
-// ff:
-// handler:
 func AddSigHandlerShutdown(handler ...SigHandler) {
 	signalHandlerMu.Lock()
 	defer signalHandlerMu.Unlock()
@@ -77,7 +72,6 @@ func AddSigHandlerShutdown(handler ...SigHandler) {
 }
 
 // Listen 会阻塞并进行信号监听和处理。 md5:2425bc5d9026c36f
-// ff:
 func Listen() {
 	listenOnce.Do(func() {
 		go listen()

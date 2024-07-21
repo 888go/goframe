@@ -96,61 +96,42 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 }
 
 // IsSingleton 判断这个条目是否是定时单例任务。 md5:171967c731b60f88
-// ff:
-// e:
 func (e *Entry) IsSingleton() bool {
 	return e.timerEntry.IsSingleton()
 }
 
 // SetSingleton 设置以单例模式运行的条目。 md5:6c81a3a09d0ef0b1
-// ff:
-// e:
-// enabled:
 func (e *Entry) SetSingleton(enabled bool) {
 	e.timerEntry.SetSingleton(enabled)
 }
 
 // SetTimes 设置条目可以运行的时间。 md5:663af054d5aab5e9
-// ff:
-// e:
-// times:
 func (e *Entry) SetTimes(times int) {
 	e.times.Set(times)
 	e.infinite.Set(false)
 }
 
 // Status 返回条目的状态。 md5:6a9d3438dc575881
-// ff:
-// e:
 func (e *Entry) Status() int {
 	return e.timerEntry.Status()
 }
 
 // SetStatus 设置条目的状态。 md5:ea0ecb4171f3f017
-// ff:
-// e:
-// status:
 func (e *Entry) SetStatus(status int) int {
 	return e.timerEntry.SetStatus(status)
 }
 
 // Start 开始运行入口函数。 md5:aa729d73eb626ca1
-// ff:
-// e:
 func (e *Entry) Start() {
 	e.timerEntry.Start()
 }
 
 // Stop 停止运行条目。 md5:06d53148d6536ce9
-// ff:
-// e:
 func (e *Entry) Stop() {
 	e.timerEntry.Stop()
 }
 
 // Close 停止并从 cron 中移除条目。 md5:a2a5eee9228cd918
-// ff:
-// e:
 func (e *Entry) Close() {
 	e.cron.entries.Remove(e.Name)
 	e.timerEntry.Close()

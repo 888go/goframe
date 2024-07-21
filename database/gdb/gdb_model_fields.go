@@ -15,16 +15,15 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Fields appends `fieldNamesOrMapStruct` to the operation fields of the model, multiple fields joined using char ','.
-// The parameter `fieldNamesOrMapStruct` can be type of string/map/*map/struct/*struct.
-//
+// `Fields` 方法将 `fieldNamesOrMapStruct` 添加到模型的operation字段中，多个字段使用字符`,`连接。
+// 参数 `fieldNamesOrMapStruct` 可以是字符串、映射（map）、*map、结构体或*结构体类型。
+// 
+// 示例：
 // Fields("id", "name", "age")
 // Fields([]string{"id", "name", "age"})
 // Fields(map[string]interface{}{"id":1, "name":"john", "age":18})
-// Fields(User{ Id: 1, Name: "john", Age: 18}).
-// ff:字段保留过滤
-// m:
-// fieldNamesOrMapStruct:字段名或Map结构体
+// Fields(User{ Id: 1, Name: "john", Age: 18})
+// md5:21db86fe96babad2
 func (m *Model) Fields(fieldNamesOrMapStruct ...interface{}) *Model {
 	length := len(fieldNamesOrMapStruct)
 	if length == 0 {
@@ -38,10 +37,6 @@ func (m *Model) Fields(fieldNamesOrMapStruct ...interface{}) *Model {
 }
 
 // FieldsPrefix 作为 Fields 函数，但为每个字段添加额外的前缀。 md5:8a672048e8753526
-// ff:字段保留过滤并带前缀
-// m:
-// prefixOrAlias:前缀或别名
-// fieldNamesOrMapStruct:字段名或Map结构体
 func (m *Model) FieldsPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...interface{}) *Model {
 	fields := m.getFieldsFrom(m.getTableNameByPrefixOrAlias(prefixOrAlias), fieldNamesOrMapStruct...)
 	if len(fields) == 0 {
@@ -58,9 +53,6 @@ func (m *Model) FieldsPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...inte
 //
 // 参见 Fields。
 // md5:7b8ec243202549a8
-// ff:字段排除过滤
-// m:
-// fieldNamesOrMapStruct:字段名或Map结构体
 func (m *Model) FieldsEx(fieldNamesOrMapStruct ...interface{}) *Model {
 	return m.doFieldsEx(m.tablesInit, fieldNamesOrMapStruct...)
 }
@@ -77,10 +69,6 @@ func (m *Model) doFieldsEx(table string, fieldNamesOrMapStruct ...interface{}) *
 }
 
 // FieldsExPrefix 函数与 FieldsEx 功能相似，但在每个字段前添加额外的前缀。 md5:66ba7040b83e6e81
-// ff:字段排除过滤并带前缀
-// m:
-// prefixOrAlias:前缀或别名
-// fieldNamesOrMapStruct:字段名或Map结构体
 func (m *Model) FieldsExPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...interface{}) *Model {
 	model := m.doFieldsEx(m.getTableNameByPrefixOrAlias(prefixOrAlias), fieldNamesOrMapStruct...)
 	array := gstr.SplitAndTrim(model.fieldsEx, ",")
@@ -90,10 +78,6 @@ func (m *Model) FieldsExPrefix(prefixOrAlias string, fieldNamesOrMapStruct ...in
 }
 
 // FieldCount 将常用字段 `COUNT(column)` 格式化并添加到模型的 select 字段中。 md5:99439830c058a91f
-// ff:字段追加计数
-// m:
-// column:需要计数的字段名称
-// as:新字段别名
 func (m *Model) FieldCount(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -103,10 +87,6 @@ func (m *Model) FieldCount(column string, as ...string) *Model {
 }
 
 // FieldSum 将常用字段 `SUM(column)` 格式化后添加到模型的 select 字段中。 md5:938249bb2923fa1f
-// ff:字段追加求和
-// m:
-// column:需要求和的字段名称
-// as:新字段别名
 func (m *Model) FieldSum(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -116,10 +96,6 @@ func (m *Model) FieldSum(column string, as ...string) *Model {
 }
 
 // FieldMin 格式化并追加常用的字段 `MIN(column)` 到模型的选择字段中。 md5:fd1204ad66608451
-// ff:字段追加最小值
-// m:
-// column:最小值字段名称
-// as:新字段别名
 func (m *Model) FieldMin(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -129,10 +105,6 @@ func (m *Model) FieldMin(column string, as ...string) *Model {
 }
 
 // FieldMax 格式化并追加常用的字段 `MAX(column)` 到模型的选择字段中。 md5:77150e433b0d44c4
-// ff:字段追加最大值
-// m:
-// column:最大值字段名称
-// as:新字段别名
 func (m *Model) FieldMax(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -142,10 +114,6 @@ func (m *Model) FieldMax(column string, as ...string) *Model {
 }
 
 // FieldAvg 将常用字段 `AVG(column)` 格式化并添加到模型的 select 字段中。 md5:0b09ffae1b0cbabe
-// ff:字段追加平均值
-// m:
-// column:求平均值字段名称
-// as:新字段别名
 func (m *Model) FieldAvg(column string, as ...string) *Model {
 	asStr := ""
 	if len(as) > 0 && as[0] != "" {
@@ -157,9 +125,6 @@ func (m *Model) FieldAvg(column string, as ...string) *Model {
 // GetFieldsStr 从表中检索并返回所有字段，以逗号分隔。
 // 可选参数 `prefix` 指定每个字段的前缀，例如：GetFieldsStr("u.")。
 // md5:c76f2f45c8680a27
-// ff:取所有字段名称
-// m:
-// prefix:字段前缀
 func (m *Model) GetFieldsStr(prefix ...string) string {
 	prefixStr := ""
 	if len(prefix) > 0 {
@@ -191,10 +156,6 @@ func (m *Model) GetFieldsStr(prefix ...string) string {
 // 参数`fields`指定了需要排除的字段。
 // 可选参数`prefix`为每个字段指定前缀，例如：FieldsExStr("id", "u.")。
 // md5:57698a0c43f54ec9
-// ff:取所有字段名称并排除
-// m:
-// fields:需要排除字段
-// prefix:字段前缀
 func (m *Model) GetFieldsExStr(fields string, prefix ...string) string {
 	prefixStr := ""
 	if len(prefix) > 0 {
@@ -227,9 +188,6 @@ func (m *Model) GetFieldsExStr(fields string, prefix ...string) string {
 }
 
 // HasField 用于判断该字段是否存在于表中。 md5:e26ad0ecb292096b
-// ff:是否存在字段
-// m:
-// field:字段名称
 func (m *Model) HasField(field string) (bool, error) {
 	return m.db.GetCore().HasField(m.GetCtx(), m.tablesInit, field)
 }

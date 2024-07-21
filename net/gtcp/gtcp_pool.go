@@ -37,9 +37,6 @@ var (
 )
 
 // NewPoolConn 创建并返回一个具有连接池特性的连接。 md5:ee2281aa2be8c181
-// ff:
-// addr:
-// timeout:
 func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
 	v := addressPoolMap.GetOrSetFuncLock(addr, func() interface{} {
 		var pool *gpool.Pool
@@ -63,8 +60,6 @@ func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
 //
 // 请注意，如果`c`调用Close函数关闭自身，那么`c`将无法再次使用。
 // md5:8596872730e65b10
-// ff:
-// c:
 func (c *PoolConn) Close() error {
 	if c.pool != nil && c.status == connStatusActive {
 		c.status = connStatusUnknown
@@ -75,10 +70,6 @@ func (c *PoolConn) Close() error {
 
 // Send 将数据写入连接。如果写数据失败，它会从其池中获取一个新的连接。
 // md5:a5cfc10ec76d87e1
-// ff:
-// c:
-// data:
-// retry:
 func (c *PoolConn) Send(data []byte, retry ...Retry) error {
 	err := c.Conn.Send(data, retry...)
 	if err != nil && c.status == connStatusUnknown {
@@ -98,10 +89,6 @@ func (c *PoolConn) Send(data []byte, retry ...Retry) error {
 }
 
 // Recv 从连接中接收数据。 md5:d32a0574f5be517a
-// ff:
-// c:
-// length:
-// retry:
 func (c *PoolConn) Recv(length int, retry ...Retry) ([]byte, error) {
 	data, err := c.Conn.Recv(length, retry...)
 	if err != nil {
@@ -114,9 +101,6 @@ func (c *PoolConn) Recv(length int, retry ...Retry) ([]byte, error) {
 
 // RecvLine 从连接中读取数据，直到读取到字符 '\n'。注意，返回的结果不包含最后一个字符 '\n'。
 // md5:e8f4d38a9d0e03e2
-// ff:
-// c:
-// retry:
 func (c *PoolConn) RecvLine(retry ...Retry) ([]byte, error) {
 	data, err := c.Conn.RecvLine(retry...)
 	if err != nil {
@@ -130,10 +114,6 @@ func (c *PoolConn) RecvLine(retry ...Retry) ([]byte, error) {
 // RecvTill 从连接中读取数据，直到读取到字节 `til` 为止。
 // 注意，返回的结果中包含最后一个字节 `til`。
 // md5:3d5a6b2420bd7164
-// ff:
-// c:
-// til:
-// retry:
 func (c *PoolConn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 	data, err := c.Conn.RecvTill(til, retry...)
 	if err != nil {
@@ -145,13 +125,6 @@ func (c *PoolConn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 }
 
 // RecvWithTimeout 在连接上读取数据，带有超时设置。 md5:9c30fddfcddde9a2
-// ff:
-// c:
-// length:
-// timeout:
-// retry:
-// data:
-// err:
 func (c *PoolConn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) (data []byte, err error) {
 	if err := c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -164,12 +137,6 @@ func (c *PoolConn) RecvWithTimeout(length int, timeout time.Duration, retry ...R
 }
 
 // SendWithTimeout 在超时时间内向连接写入数据。 md5:776c26aa00723dd4
-// ff:
-// c:
-// data:
-// timeout:
-// retry:
-// err:
 func (c *PoolConn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) (err error) {
 	if err := c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -182,11 +149,6 @@ func (c *PoolConn) SendWithTimeout(data []byte, timeout time.Duration, retry ...
 }
 
 // SendRecv 向连接写入数据，并阻塞读取响应。 md5:a92dbf9e10bfe35b
-// ff:
-// c:
-// data:
-// receive:
-// retry:
 func (c *PoolConn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err == nil {
 		return c.Recv(receive, retry...)
@@ -196,12 +158,6 @@ func (c *PoolConn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, e
 }
 
 // SendRecvWithTimeout 向连接写入数据并带有超时时间地读取响应。 md5:154815490fa55262
-// ff:
-// c:
-// data:
-// receive:
-// timeout:
-// retry:
 func (c *PoolConn) SendRecvWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err == nil {
 		return c.RecvWithTimeout(receive, timeout, retry...)

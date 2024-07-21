@@ -10,16 +10,11 @@ package ghttp
 import "github.com/gogf/gf/v2/os/gview"
 
 // SetView 为当前请求设置模板视图引擎对象。 md5:ec41ed91daaf7bd3
-// ff:设置模板对象
-// r:
-// view:模板对象
 func (r *Request) SetView(view *gview.View) {
 	r.viewObject = view
 }
 
 // GetView 返回此请求的模板视图引擎对象。 md5:1eb5934f5359a959
-// ff:取模板对象
-// r:
 func (r *Request) GetView() *gview.View {
 	view := r.viewObject
 	if view == nil {
@@ -32,9 +27,6 @@ func (r *Request) GetView() *gview.View {
 }
 
 // Assigns 将多个模板变量绑定到当前请求。 md5:9676a02a50e91095
-// ff:绑定模板变量Map
-// r:
-// data:Map值
 func (r *Request) Assigns(data gview.Params) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params, len(data))
@@ -45,10 +37,6 @@ func (r *Request) Assigns(data gview.Params) {
 }
 
 // Assign 将模板变量绑定到当前请求。 md5:0a82d7a20f0d7265
-// ff:绑定模板变量
-// r:
-// key:名称
-// value:值
 func (r *Request) Assign(key string, value interface{}) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params)

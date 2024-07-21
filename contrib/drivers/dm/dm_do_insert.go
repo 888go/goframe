@@ -21,8 +21,6 @@ import (
 )
 
 // DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8
-// ff:
-// d:
 func (d *Driver) DoInsert(
 	ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption,
 ) (result sql.Result, err error) {
@@ -64,12 +62,12 @@ func (d *Driver) doSave(ctx context.Context,
 		conflictKeys   = option.OnConflict
 		conflictKeySet = gset.New(false)
 
-// queryHolders：处理需要插入或更新的Holder数据
-// queryValues：处理需要插入或更新的值
-// insertKeys：处理需要插入的有效键
-// insertValues：处理需要插入的值
-// updateValues：处理需要更新的值
-// md5:7779ec7103105a5e
+		// queryHolders：处理需要插入或更新的Holder数据
+		// queryValues：处理需要插入或更新的值
+		// insertKeys：处理需要插入的有效键
+		// insertValues：处理需要插入的值
+		// updateValues：处理需要更新的值
+		// md5:7779ec7103105a5e
 		queryHolders = make([]string, oneLen)
 		queryValues  = make([]interface{}, oneLen)
 		insertKeys   = make([]string, oneLen)
@@ -117,15 +115,15 @@ func (d *Driver) doSave(ctx context.Context,
 	return batchResult, nil
 }
 
-		// parseSqlForUpsert
-		// MERGE INTO {{table}} T1
-		// 使用 ( SELECT {{queryHolders}} FROM DUAL T2
-		// ON (T1.{{duplicateKey}} = T2.{{duplicateKey}} AND ...)
-		// 当未找到匹配时
-		// INSERT {{insertKeys}} VALUES {{insertValues}}
-		// 当找到匹配时
-		// UPDATE SET {{updateValues}}
-		// md5:7a233cb2881f0359
+// parseSqlForUpsert
+// MERGE INTO {{table}} T1
+// 使用 ( SELECT {{queryHolders}} FROM DUAL T2
+// ON (T1.{{duplicateKey}} = T2.{{duplicateKey}} AND ...)
+// 当未找到匹配时
+// INSERT {{insertKeys}} VALUES {{insertValues}}
+// 当找到匹配时
+// UPDATE SET {{updateValues}}
+// md5:7a233cb2881f0359
 func parseSqlForUpsert(table string,
 	queryHolders, insertKeys, insertValues, updateValues, duplicateKey []string,
 ) (sqlStr string) {

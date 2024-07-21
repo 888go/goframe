@@ -15,16 +15,11 @@ import (
 )
 
 // SliceStr是Strings的别名。 md5:dacb4ebc45c023cf
-// ff:SliceStr别名
-// any:
 func SliceStr(any interface{}) []string {
 	return Strings(any)
 }
 
 // Strings 将 `any` 转换为 []string。 md5:cbac28ee26158116
-// yx:true
-// ff:取文本切片
-// any:
 func Strings(any interface{}) []string {
 	if any == nil {
 		return nil
@@ -83,9 +78,9 @@ func Strings(any interface{}) []string {
 			if value == "" {
 				return []string{}
 			}
-// 防止字符串为null
-// 查看问题3465以获取详细信息
-// md5:7177702384700ffb
+			// 防止字符串为null
+			// 查看问题3465以获取详细信息
+			// md5:7177702384700ffb
 			return []string{value}
 		}
 	case []uint16:

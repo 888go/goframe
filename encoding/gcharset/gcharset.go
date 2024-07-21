@@ -5,19 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-// Package gcharset implements character-set conversion functionality.
+// Package gcharset 实现字符集转换功能。
 //
-// Supported Character Set:
+// 支持的字符集：
 //
-// Chinese : GBK/GB18030/GB2312/Big5
+// 中文：GBK/GB18030/GB2312/Big5
 //
+// 日本语：EUCJP/ISO2022JP/ShiftJIS
 //
-// Korean  : EUCKR
+// 韩语：EUCKR
 //
-// Unicode : UTF-8/UTF-16/UTF-16BE/UTF-16LE
+// Unicode：UTF-8/UTF-16/UTF-16BE/UTF-16LE
 //
-// Other   : macintosh/IBM*/Windows*/ISO-*
-package gcharset//bm:编码字符集类
+// 其他：macintosh/IBM*/Windows*/ISO-*（*表示各种变种）
+// md5:5f95b30c9186a77b
+package gcharset
 
 import (
 	"bytes"
@@ -44,8 +46,6 @@ var (
 )
 
 // Supported 返回字符集 `charset` 是否受支持。 md5:ecb209536b99e114
-// ff:
-// charset:
 func Supported(charset string) bool {
 	return getEncoding(charset) != nil
 }
@@ -53,12 +53,6 @@ func Supported(charset string) bool {
 // Convert 将 `src` 字符串的编码从 `srcCharset` 转换为 `dstCharset`，并返回转换后的字符串。
 // 如果转换失败，则返回原 `src` 作为 `dst`。
 // md5:d579c6167a34081f
-// ff:
-// dstCharset:
-// srcCharset:
-// src:
-// dst:
-// err:
 func Convert(dstCharset string, srcCharset string, src string) (dst string, err error) {
 	if dstCharset == srcCharset {
 		return src, nil
@@ -100,11 +94,6 @@ func Convert(dstCharset string, srcCharset string, src string) (dst string, err 
 // ToUTF8 将 `src` 字符串的字符集编码从 `srcCharset` 转换为 UTF-8，
 // 并返回转换后的字符串。
 // md5:ed113e096f11dcee
-// ff:
-// srcCharset:
-// src:
-// dst:
-// err:
 func ToUTF8(srcCharset string, src string) (dst string, err error) {
 	return Convert("UTF-8", srcCharset, src)
 }
@@ -112,17 +101,12 @@ func ToUTF8(srcCharset string, src string) (dst string, err error) {
 // UTF8To 将 `src` 字符集编码从 UTF-8 转换为 `dstCharset`，
 // 并返回转换后的字符串。
 // md5:6d376918eb2969a6
-// ff:
-// dstCharset:
-// src:
-// dst:
-// err:
 func UTF8To(dstCharset string, src string) (dst string, err error) {
 	return Convert(dstCharset, "UTF-8", src)
 }
 
-	// getEncoding 返回与 `charset` 对应的 encoding.Encoding 接口对象。如果 `charset` 不被支持，它将返回 nil。
-	// md5:8770abf28a404b1b
+// getEncoding 返回与 `charset` 对应的 encoding.Encoding 接口对象。如果 `charset` 不被支持，它将返回 nil。
+// md5:8770abf28a404b1b
 func getEncoding(charset string) encoding.Encoding {
 	if c, ok := charsetAlias[charset]; ok {
 		charset = c

@@ -12,8 +12,6 @@ import (
 )
 
 // IsExpired 检查 `item` 是否已过期。 md5:9e46a52b25ea5be9
-// ff:
-// item:
 func (item *adapterMemoryItem) IsExpired() bool {
 	// 注意这里应该使用大于或等于的判断
 	// 想象一下缓存时间只有1毫秒。

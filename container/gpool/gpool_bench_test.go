@@ -7,7 +7,7 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gpool_test//bm:对象复用类_test
+package gpool_test
 
 import (
 	"sync"

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfpool_test//bm:文件指针池类_test
+package gfpool_test
 
 import (
 	"context"
@@ -226,47 +226,47 @@ func Test_ConcurrentOS(t *testing.T) {
 
 		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2000)
 	})
-// ```go
-// 数据竞争
-// gtest.C(t, func(t *gtest.T) {
-// 临时文件路径 := gfile.Temp(gtime.TimestampNanoStr())
-// defer 删除文件(临时文件路径)
-// f1, 错误 := os.OpenFile(临时文件路径, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
-// t 断言错误为 nil
-// defer 关闭 f1
-// 
-// f2, 错误 := os.OpenFile(临时文件路径, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
-// t 断言错误为 nil
-// defer 关闭 f2
-// 
-// wg := sync.WaitGroup{}
-// ch := make(chan struct{})
-// for i := 0; i < 1000; i++ {
-// 	wg.Add(1)
-// 	go func() {
-// 		defer wg.Done()
-// 		<-ch
-// 		_, 写入错误 = f1.Write([]byte("@1234567890#"))
-// 		t 断言错误为 nil
-// 	}()
-// }
-// for i := 0; i < 1000; i++ {
-// 	wg.Add(1)
-// 	go func() {
-// 		defer wg.Done()
-// 		<-ch
-// 		_, 写入错误 = f2.Write([]byte("@1234567890#"))
-// 		t 断言错误为 nil
-// 	}()
-// }
-// close(ch)
-// wg.Wait()
-// t 断言(gstr.Count(gfile.GetContents(临时文件路径), "@1234567890#"), 2000)
-// })
-// ```
-// 
-// 这段Go代码的注释描述了一个数据竞争的例子。它创建了两个文件句柄`f1`和`f2`，并尝试并发地向同一个文件写入内容，通过1000个goroutine交替使用这两个句柄。在所有写入完成后，检查文件内容中特定字符串`@1234567890#`出现的次数是否为2000次。由于未进行同步控制，这可能导致数据竞争问题。
-// md5:0ab85d1fb1789860
+	// ```go
+	// 数据竞争
+	// gtest.C(t, func(t *gtest.T) {
+	// 临时文件路径 := gfile.Temp(gtime.TimestampNanoStr())
+	// defer 删除文件(临时文件路径)
+	// f1, 错误 := os.OpenFile(临时文件路径, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+	// t 断言错误为 nil
+	// defer 关闭 f1
+	// 
+	// f2, 错误 := os.OpenFile(临时文件路径, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
+	// t 断言错误为 nil
+	// defer 关闭 f2
+	// 
+	// wg := sync.WaitGroup{}
+	// ch := make(chan struct{})
+	// for i := 0; i < 1000; i++ {
+	// 	wg.Add(1)
+	// 	go func() {
+	// 		defer wg.Done()
+	// 		<-ch
+	// 		_, 写入错误 = f1.Write([]byte("@1234567890#"))
+	// 		t 断言错误为 nil
+	// 	}()
+	// }
+	// for i := 0; i < 1000; i++ {
+	// 	wg.Add(1)
+	// 	go func() {
+	// 		defer wg.Done()
+	// 		<-ch
+	// 		_, 写入错误 = f2.Write([]byte("@1234567890#"))
+	// 		t 断言错误为 nil
+	// 	}()
+	// }
+	// close(ch)
+	// wg.Wait()
+	// t 断言(gstr.Count(gfile.GetContents(临时文件路径), "@1234567890#"), 2000)
+	// })
+	// ```
+	// 
+	// 这段Go代码的注释描述了一个数据竞争的例子。它创建了两个文件句柄`f1`和`f2`，并尝试并发地向同一个文件写入内容，通过1000个goroutine交替使用这两个句柄。在所有写入完成后，检查文件内容中特定字符串`@1234567890#`出现的次数是否为2000次。由于未进行同步控制，这可能导致数据竞争问题。
+	// md5:0ab85d1fb1789860
 }
 
 func Test_ConcurrentGFPool(t *testing.T) {

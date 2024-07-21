@@ -23,16 +23,15 @@ type (
 // customConverters 用于内部转换器的存储。 md5:eb816f1844daac79
 var customConverters = make(map[converterInType]map[converterOutType]converterFunc)
 
-// RegisterConverter to register custom converter.
-// It must be registered before you use this custom converting feature.
-// It is suggested to do it in boot procedure of the process.
+// RegisterConverter 用于注册自定义转换器。
+// 必须在使用此自定义转换功能之前进行注册。
+// 建议在进程的启动程序中执行此操作。
 //
-//  1. The parameter `fn` must be defined as pattern `func(T1) (T2, error)`.
-//     It will convert type `T1` to type `T2`.
-//  2. The `T1` should not be type of pointer, but the `T2` should be type of pointer.
-// ff:转换器注册
-// fn:
-// err:错误
+// 注意：
+//  1. 参数 `fn` 必须定义为模式 `func(T1) (T2, error)`。
+//     它将类型 `T1` 转换为类型 `T2`。
+//  2. `T1` 不应为指针类型，但 `T2` 应为指针类型。
+// md5:8fbaa372837e6d8c
 func RegisterConverter(fn interface{}) (err error) {
 	var (
 		fnReflectType = reflect.TypeOf(fn)
@@ -115,9 +114,9 @@ func getRegisteredConverterFuncAndSrcType(
 	} else {
 		dstType = reflect.PointerTo(dstType)
 	}
-// 其次，它会在输入参数类型映射中搜索
-// 并通过输出参数类型找到结果转换函数。
-// md5:3781290987232f09
+	// 其次，它会在输入参数类型映射中搜索
+	// 并通过输出参数类型找到结果转换函数。
+	// md5:3781290987232f09
 	f, ok = registeredOutTypeMap[dstType]
 	if !ok {
 		return reflect.Value{}, nil, false

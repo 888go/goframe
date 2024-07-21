@@ -55,9 +55,6 @@ var (
 // RestartAllServer 优雅地重启进程中的所有服务器。
 // 可选参数 `newExeFilePath` 指定了用于创建进程的新二进制文件路径。
 // md5:cd148e150eddefe2
-// ff:平滑重启所有服务
-// ctx:上下文
-// newExeFilePath:新可执行文件路径
 func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	if !gracefulEnabled {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "graceful reload feature is disabled")
@@ -74,8 +71,6 @@ func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 }
 
 // ShutdownAllServer 优雅地关闭当前进程中的所有服务器。 md5:1eb1bf001c79c66c
-// ff:平滑关闭所有服务
-// ctx:上下文
 func ShutdownAllServer(ctx context.Context) error {
 	serverActionLocker.Lock()
 	defer serverActionLocker.Unlock()
@@ -287,9 +282,9 @@ func forceCloseWebServers(ctx context.Context) {
 	})
 }
 
-		// handleProcessMessage 接收并处理来自进程的消息，
-		// 这通常用于实现优雅重启功能。
-		// md5:80ebd3c82cd48199
+// handleProcessMessage 接收并处理来自进程的消息，
+// 这通常用于实现优雅重启功能。
+// md5:80ebd3c82cd48199
 func handleProcessMessage() {
 	var (
 		ctx = context.TODO()

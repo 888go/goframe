@@ -21,8 +21,6 @@ import (
 )
 
 // GetDB 返回底层的DB。 md5:5ebeb6e695bd2a8a
-// ff:取DB对象
-// c:
 func (c *Core) GetDB() DB {
 	return c.db
 }
@@ -30,12 +28,6 @@ func (c *Core) GetDB() DB {
 // GetLink 创建并返回底层数据库链接对象，并进行事务检查。
 // 参数 `master` 指定在配置了主从的情况下是否使用主节点。
 // md5:51315fe7b2e9a929
-// ff:取数据库链接对象
-// c:
-// ctx:上下文
-// master:主节点
-// schema:
-// Link:
 func (c *Core) GetLink(ctx context.Context, master bool, schema string) (Link, error) {
 	tx := TXFromCtx(ctx, c.db.GetGroup())
 	if tx != nil {
@@ -58,10 +50,6 @@ func (c *Core) GetLink(ctx context.Context, master bool, schema string) (Link, e
 // MasterLink 类似于函数 Master，但增加了 `schema` 参数，用于指定连接的模式。
 // 这个函数主要用于内部使用。同时也参考 Master 函数。
 // md5:ae74b996555aea95
-// ff:底层MasterLink
-// c:
-// schema:
-// Link:
 func (c *Core) MasterLink(schema ...string) (Link, error) {
 	db, err := c.db.Master(schema...)
 	if err != nil {
@@ -76,10 +64,6 @@ func (c *Core) MasterLink(schema ...string) (Link, error) {
 // SlaveLink 行为类似于 Slave 函数，但增加了 `schema` 参数，用于指定连接的模式。它主要用于内部使用。
 // 参阅 Slave。
 // md5:8a8929395882c04a
-// ff:底层SlaveLink
-// c:
-// schema:
-// Link:
 func (c *Core) SlaveLink(schema ...string) (Link, error) {
 	db, err := c.db.Slave(schema...)
 	if err != nil {
@@ -96,9 +80,6 @@ func (c *Core) SlaveLink(schema ...string) (Link, error) {
 //
 // 可以认为一个 `word` 表示列名。
 // md5:71291615d7bcffe0
-// ff:底层QuoteWord
-// c:
-// s:
 func (c *Core) QuoteWord(s string) string {
 	s = gstr.Trim(s)
 	if s == "" {
@@ -113,9 +94,6 @@ func (c *Core) QuoteWord(s string) string {
 //
 // `string` 的含义可以理解为作为包含列名的语句字符串的一部分。
 // md5:09c5263950e9ed1a
-// ff:底层QuoteString
-// c:
-// s:
 func (c *Core) QuoteString(s string) string {
 	if !gregex.IsMatchString(regularFieldNameWithCommaRegPattern, s) {
 		return s
@@ -134,9 +112,6 @@ func (c *Core) QuoteString(s string) string {
 // 请注意，此函数会自动检查表前缀是否已经添加，
 // 如果是，则不对表名做任何处理，否则会在表名前添加前缀。
 // md5:46ab3c3833cc0124
-// ff:底层添加前缀字符和引用字符
-// c:
-// table:表名称
 func (c *Core) QuotePrefixTableName(table string) string {
 	charLeft, charRight := c.db.GetChars()
 	return doQuoteTableName(table, c.db.GetPrefix(), charLeft, charRight)
@@ -144,10 +119,6 @@ func (c *Core) QuotePrefixTableName(table string) string {
 
 // GetChars 返回当前数据库的安全字符。在默认情况下，它不执行任何操作。
 // md5:681b4cc93b5adecd
-// ff:底层取数据库安全字符
-// c:
-// charLeft:左字符
-// charRight:右字符
 func (c *Core) GetChars() (charLeft string, charRight string) {
 	return "", ""
 }
@@ -155,12 +126,6 @@ func (c *Core) GetChars() (charLeft string, charRight string) {
 // Tables 获取并返回当前模式下的表格列表。
 //主要用于命令行工具链，用于自动生成模型。
 // md5:bce161ba95454bf5
-// ff:取表名称切片
-// c:
-// ctx:上下文
-// schema:
-// tables:表名称切片
-// err:错误
 func (c *Core) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	return
 }
@@ -173,24 +138,11 @@ func (c *Core) Tables(ctx context.Context, schema ...string) (tables []string, e
 // 
 // 该方法使用缓存功能来提高性能，直到进程重启，缓存永不过期。
 // md5:c844572d5210b35e
-// ff:取表字段信息Map
-// c:
-// ctx:上下文
-// table:表名称
-// schema:
-// fields:字段信息Map
-// err:错误
 func (c *Core) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*TableField, err error) {
 	return
 }
 
 // ClearTableFields 清除当前配置组中特定的缓存表字段。 md5:061271b8a4f298a0
-// ff:删除表字段缓存
-// c:
-// ctx:上下文
-// table:表名称
-// schema:
-// err:错误
 func (c *Core) ClearTableFields(ctx context.Context, table string, schema ...string) (err error) {
 	tableFieldsMap.Remove(fmt.Sprintf(
 		`%s%s@%s#%s`,
@@ -203,10 +155,6 @@ func (c *Core) ClearTableFields(ctx context.Context, table string, schema ...str
 }
 
 // ClearTableFieldsAll 删除当前配置组中所有缓存的表字段。 md5:2b2f2ebba86cfda6
-// ff:删除表字段所有缓存
-// c:
-// ctx:上下文
-// err:错误
 func (c *Core) ClearTableFieldsAll(ctx context.Context) (err error) {
 	var (
 		keys        = tableFieldsMap.Keys()
@@ -225,20 +173,11 @@ func (c *Core) ClearTableFieldsAll(ctx context.Context) (err error) {
 }
 
 // ClearCache 删除特定表的缓存SQL结果。 md5:5849435c2385500b
-// ff:删除表查询缓存
-// c:
-// ctx:上下文
-// table:表名称
-// err:错误
 func (c *Core) ClearCache(ctx context.Context, table string) (err error) {
 	return c.db.GetCache().Clear(ctx)
 }
 
 // ClearCacheAll 从缓存中移除所有已缓存的SQL结果. md5:1cafe85ca7b9f62d
-// ff:删除所有表查询缓存
-// c:
-// ctx:上下文
-// err:错误
 func (c *Core) ClearCacheAll(ctx context.Context) (err error) {
 	return c.db.GetCache().Clear(ctx)
 }
@@ -257,12 +196,6 @@ func (c *Core) makeSelectCacheKey(name, schema, table, sql string, args ...inter
 }
 
 // HasField 用于判断该字段是否存在于表中。 md5:e26ad0ecb292096b
-// ff:是否存在字段
-// c:
-// ctx:上下文
-// table:表名称
-// field:字段名称
-// schema:
 func (c *Core) HasField(ctx context.Context, table, field string, schema ...string) (bool, error) {
 	table = c.guessPrimaryTableName(table)
 	tableFields, err := c.db.TableFields(ctx, table, schema...)

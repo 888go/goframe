@@ -11,14 +11,11 @@ package gsel
 var defaultBuilder = NewBuilderRoundRobin()
 
 // SetBuilder 设置全局使用的默认构建器。 md5:c9730a1fbeb24fc6
-// ff:
-// builder:
 func SetBuilder(builder Builder) {
 	defaultBuilder = builder
 }
 
 // GetBuilder 返回全局使用的默认构建器。 md5:34c08237f2d0e6f4
-// ff:
 func GetBuilder() Builder {
 	return defaultBuilder
 }

@@ -9,12 +9,11 @@ package gstr
 
 import "strings"
 
-// Repeat returns a new string consisting of multiplier copies of the string input.
+// Repeat 函数返回一个新字符串，该字符串由输入字符串乘数次复制组成。
 //
+// 示例：
 // Repeat("a", 3) -> "aaa"
-// ff:生成重复文本
-// input:文本
-// multiplier:重复次数
+// md5:e4200cea299476dc
 func Repeat(input string, multiplier int) string {
 	return strings.Repeat(input, multiplier)
 }

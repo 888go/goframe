@@ -143,9 +143,9 @@ func ExampleReplace() {
 }
 
 func ExampleReplaceFunc() {
-// 与 [ExampleReplaceFunc] 相比，
-// 结果包含了所有使用匹配函数的子模式的`pattern`
-// md5:3cc683990c37065c
+	// 与 [ExampleReplaceFunc] 相比，
+	// 结果包含了所有使用匹配函数的子模式的`pattern`
+	// md5:3cc683990c37065c
 	result, err := gregex.ReplaceFuncMatch(`(\d+)~(\d+)`, []byte("hello gf 2018~2020!"), func(match [][]byte) []byte {
 		g.Dump(match)
 		match[2] = []byte("2021")
@@ -169,9 +169,9 @@ func ExampleReplaceFuncMatch() {
 		patternStr = `(\d+)~(\d+)`
 		str        = "hello gf 2018~2020!"
 	)
-// 与[ExampleReplaceFunc]不同的是，
-// 结果包含了使用匹配函数的所有子模式的`pattern`。
-// md5:1b711898b19df13d
+	// 与[ExampleReplaceFunc]不同的是，
+	// 结果包含了使用匹配函数的所有子模式的`pattern`。
+	// md5:1b711898b19df13d
 	result, err := gregex.ReplaceFuncMatch(patternStr, []byte(str), func(match [][]byte) []byte {
 		g.Dump(match)
 		match[2] = []byte("2021")
@@ -239,9 +239,9 @@ func ExampleReplaceStringFuncMatch() {
 		patternStr = `([A-Z])\w+`
 		str        = "hello Golang 2018~2021!"
 	)
-// 与[ExampleReplaceFunc]不同的是，
-// 结果包含了使用匹配函数的所有子模式的`pattern`。
-// md5:1b711898b19df13d
+	// 与[ExampleReplaceFunc]不同的是，
+	// 结果包含了使用匹配函数的所有子模式的`pattern`。
+	// md5:1b711898b19df13d
 	result, err := gregex.ReplaceStringFuncMatch(patternStr, str, func(match []string) string {
 		g.Dump(match)
 		match[0] = "Gf"

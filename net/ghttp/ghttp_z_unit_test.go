@@ -163,7 +163,7 @@ func Test_BuildParams(t *testing.T) {
 		for k := range vs {
 			vv := vs.Get(k)
 			_, ok := params[k]
-													// 检查没有多余的参数. md5:0a0f11b34d795824
+			// 检查没有多余的参数. md5:0a0f11b34d795824
 			t.Assert(ok, true)
 			// check equal
 			t.AssertEQ(params[k], vv)

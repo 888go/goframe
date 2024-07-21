@@ -17,8 +17,6 @@ import (
 )
 
 // DoFilter 在将SQL提交到数据库之前进行处理。 md5:e56455a7432db765
-// ff:
-// d:
 func (d *Driver) DoFilter(
 	ctx context.Context, link gdb.Link, originSql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {
@@ -49,11 +47,11 @@ func (d *Driver) DoFilter(
 	// 只有删除/更新语句需要过滤条件. md5:a43c6e48c79fc525
 	switch strings.ToUpper(modeRes[0]) {
 	case "UPDATE":
-// MySQL 示例：UPDATE table_name SET field1=new-value1, field2=new-value2 [WHERE 条件]
-// Clickhouse 示例：ALTER TABLE [db.]table UPDATE column1 = expr1[, ...] WHERE filter_expr
-// 
-// 这段代码是针对两种数据库系统的更新语句的注释。在MySQL中，`UPDATE` 用于更新表中的数据，设置指定字段的新值，并可选地使用 `WHERE` 子句来限制更新的行。在Clickhouse中，`ALTER TABLE` 用于更新表中的列，将列的值设置为表达式（expr1），并且需要一个过滤表达式（filter_expr）来确定哪些行会被更新。其中 `[db.]table` 表示可以包含数据库名的表名。
-// md5:d201a8d0c4df9319
+		// MySQL 示例：UPDATE table_name SET field1=new-value1, field2=new-value2 [WHERE 条件]
+		// Clickhouse 示例：ALTER TABLE [db.]table UPDATE column1 = expr1[, ...] WHERE filter_expr
+		// 
+		// 这段代码是针对两种数据库系统的更新语句的注释。在MySQL中，`UPDATE` 用于更新表中的数据，设置指定字段的新值，并可选地使用 `WHERE` 子句来限制更新的行。在Clickhouse中，`ALTER TABLE` 用于更新表中的列，将列的值设置为表达式（expr1），并且需要一个过滤表达式（filter_expr）来确定哪些行会被更新。其中 `[db.]table` 表示可以包含数据库名的表名。
+		// md5:d201a8d0c4df9319
 		newSql, err = gregex.ReplaceStringFuncMatch(
 			updateFilterPattern, originSql,
 			func(s []string) string {

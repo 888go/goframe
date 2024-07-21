@@ -20,8 +20,6 @@ import (
 // 例如：
 // ParseTag(`v:"required" p:"id" d:"1"`)) => map[v:required p:id d:1]。
 // md5:967d381052c3a2d8
-// ff:
-// tag:
 func ParseTag(tag string) map[string]string {
 	var (
 		key  string
@@ -37,9 +35,9 @@ func ParseTag(tag string) map[string]string {
 		if tag == "" {
 			break
 		}
-// 扫描到冒号。空格、引号或控制字符都是语法错误。
-// 严格来说，控制字符包括范围 [0x7f, 0x9f]，而不仅仅是 [0x00, 0x1f]。但在实践中，我们忽略多字节控制字符，因为检查标签的字节比检查标签的 rune 更简单。
-// md5:2b37f6b6cf4e8415
+		// 扫描到冒号。空格、引号或控制字符都是语法错误。
+		// 严格来说，控制字符包括范围 [0x7f, 0x9f]，而不仅仅是 [0x00, 0x1f]。但在实践中，我们忽略多字节控制字符，因为检查标签的字节比检查标签的 rune 更简单。
+		// md5:2b37f6b6cf4e8415
 		i = 0
 		for i < len(tag) && tag[i] > ' ' && tag[i] != ':' && tag[i] != '"' && tag[i] != 0x7f {
 			i++
@@ -80,9 +78,6 @@ func ParseTag(tag string) map[string]string {
 // 1. 它只从结构体中检索首字母大写的导出属性。
 // 2. 应提供参数`priority`，它只检索具有给定标签的字段。
 // md5:55390bfc1f5537f2
-// ff:
-// pointer:
-// priority:
 func TagFields(pointer interface{}, priority []string) ([]Field, error) {
 	return getFieldValuesByTagPriority(pointer, priority, map[string]struct{}{})
 }
@@ -96,9 +91,6 @@ func TagFields(pointer interface{}, priority []string) ([]Field, error) {
 // 2. 需要提供参数`priority`，它只检索具有给定标签的字段。
 // 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。
 // md5:0eb7c62c8a6f7e09
-// ff:
-// pointer:
-// priority:
 func TagMapName(pointer interface{}, priority []string) (map[string]string, error) {
 	fields, err := TagFields(pointer, priority)
 	if err != nil {
@@ -119,9 +111,6 @@ func TagMapName(pointer interface{}, priority []string) (map[string]string, erro
 // 2. 需要提供参数 `priority`，只检索具有给定标签的字段。
 // 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。
 // md5:ba865b4214b27332
-// ff:
-// object:
-// priority:
 func TagMapField(object interface{}, priority []string) (map[string]Field, error) {
 	fields, err := TagFields(object, priority)
 	if err != nil {

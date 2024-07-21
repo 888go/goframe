@@ -15,20 +15,13 @@ import (
 // 注意，参数`list`应该是包含映射或结构体元素的切片类型，
 // 否则将返回一个空切片。
 // md5:22a160e15c6a6d6c
-// ff:取结构切片或Map切片值
-// v:
-// key:名称
-// values:值s
 func (v *Var) ListItemValues(key interface{}) (values []interface{}) {
 	return gutil.ListItemValues(v.Val(), key)
 }
 
-	// ListItemValuesUnique 获取并返回具有键为`key`的所有结构体/映射的独特元素。
-	// 请注意，参数`list`应为包含映射或结构体元素的切片类型，否则将返回一个空切片。
-	// md5:0f361d3ff901d0a1
-// ff:取结构切片或Map切片值并去重
-// v:
-// key:名称
+// ListItemValuesUnique 获取并返回具有键为`key`的所有结构体/映射的独特元素。
+// 请注意，参数`list`应为包含映射或结构体元素的切片类型，否则将返回一个空切片。
+// md5:0f361d3ff901d0a1
 func (v *Var) ListItemValuesUnique(key string) []interface{} {
 	return gutil.ListItemValuesUnique(v.Val(), key)
 }

@@ -21,8 +21,6 @@ import (
 // Home 返回当前用户主目录的绝对路径。
 // 可选参数 `names` 指定了要与当前系统分隔符连接的子文件夹/子文件，将与路径一起返回。
 // md5:0b575ba0215ebb2d
-// ff:取用户目录
-// names:可选子目录或子文件
 func Home(names ...string) (string, error) {
 	path, err := getHomePath()
 	if err != nil {

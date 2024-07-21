@@ -14,16 +14,15 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Order sets the "ORDER BY" statement for the model.
+// Order 设置模型的 "ORDER BY" 语句。
 //
+// 示例：
 // Order("id desc")
 // Order("id", "desc").
 // Order("id desc,name asc")
 // Order("id desc").Order("name asc")
-// Order(gdb.Raw("field(id, 3,1,2)")).
-// ff:排序
-// m:
-// orderBy:字段名与排序方式
+// Order(gdb.Raw("field(id, 3,1,2)"))
+// md5:41ff2d0293c241c6
 func (m *Model) Order(orderBy ...interface{}) *Model {
 	if len(orderBy) == 0 {
 		return m
@@ -44,9 +43,6 @@ func (m *Model) Order(orderBy ...interface{}) *Model {
 }
 
 // OrderAsc 设置模型的“ORDER BY xxx ASC”语句。 md5:be417beb10c6b9c1
-// ff:排序ASC
-// m:
-// column:字段名称
 func (m *Model) OrderAsc(column string) *Model {
 	if len(column) == 0 {
 		return m
@@ -55,9 +51,6 @@ func (m *Model) OrderAsc(column string) *Model {
 }
 
 // OrderDesc 为模型设置 "ORDER BY xxx DESC" 语句。 md5:ae573bad83990472
-// ff:排序Desc
-// m:
-// column:字段名称
 func (m *Model) OrderDesc(column string) *Model {
 	if len(column) == 0 {
 		return m
@@ -66,8 +59,6 @@ func (m *Model) OrderDesc(column string) *Model {
 }
 
 // OrderRandom 为模型设置 "ORDER BY RANDOM()" 语句。 md5:e0a71e8f00c3d926
-// ff:排序随机
-// m:
 func (m *Model) OrderRandom() *Model {
 	model := m.getModel()
 	model.orderBy = "RAND()"
@@ -75,9 +66,6 @@ func (m *Model) OrderRandom() *Model {
 }
 
 // Group 设置模型的“GROUP BY”语句。 md5:51d1d1d81a2ab77a
-// ff:排序分组
-// m:
-// groupBy:分组名称
 func (m *Model) Group(groupBy ...string) *Model {
 	if len(groupBy) == 0 {
 		return m

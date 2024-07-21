@@ -27,7 +27,7 @@ package %s
 import "github.com/gogf/gf/v2/os/gres"
 
 func init() {
-	if err := gres.Add("%s"); err != nil { //th:if err := 资源类.Add("%s"); err != nil {  
+	if err := gres.Add("%s"); err != nil {
 		panic("add binary content to resource manager failed: " + err.Error())
 	}
 }
@@ -40,15 +40,12 @@ type Option struct {
 	KeepPath bool   // 在打包时保留传递的路径，通常用于相对路径。 md5:78a556a27d461bea
 }
 
-// Pack packs the path specified by `srcPaths` into bytes.
-// The unnecessary parameter `keyPrefix` indicates the prefix for each file
-// packed into the result bytes.
-//
-// Note that parameter `srcPaths` supports multiple paths join with ','.
-//
-// ff:
-// srcPaths:
-// keyPrefix:
+// Pack 将由 `srcPaths` 指定的路径打包成字节。不必要的参数 `keyPrefix` 表示每个文件打包到结果字节中的前缀。
+// 
+// 注意，参数 `srcPaths` 支持用逗号分隔多个路径。
+// 
+// 警告：请使用 PackWithOption 替代此方法。
+// md5:bba941587b4a7962
 func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 	option := Option{}
 	if len(keyPrefix) > 0 && keyPrefix[0] != "" {
@@ -61,9 +58,6 @@ func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 // 
 // 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。
 // md5:15ee3362e7cd91a0
-// ff:
-// srcPaths:
-// option:
 func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 	var buffer = bytes.NewBuffer(nil)
 	err := zipPathWriter(srcPaths, buffer, option)
@@ -74,16 +68,13 @@ func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 	return gcompress.Gzip(buffer.Bytes(), 9)
 }
 
-// PackToFile packs the path specified by `srcPaths` to target file `dstPath`.
-// The unnecessary parameter `keyPrefix` indicates the prefix for each file
-// packed into the result bytes.
+// PackToFile 将`srcPaths`指定的路径打包到目标文件`dstPath`中。
+// 不必要的参数`keyPrefix`表示打包到结果字节中的每个文件的前缀。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，参数`srcPaths`支持使用','连接的多个路径。
 //
-// ff:
-// srcPaths:
-// dstPath:
-// keyPrefix:
+// 已弃用：请改用PackToFileWithOption。
+// md5:222d6d9ef38edd09
 func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 	data, err := Pack(srcPaths, keyPrefix...)
 	if err != nil {
@@ -96,10 +87,6 @@ func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 // 
 // 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。
 // md5:5daf8e107f124634
-// ff:
-// srcPaths:
-// dstPath:
-// option:
 func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	data, err := PackWithOption(srcPaths, option)
 	if err != nil {
@@ -108,19 +95,14 @@ func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	return gfile.PutBytes(dstPath, data)
 }
 
-// PackToGoFile packs the path specified by `srcPaths` to target go file `goFilePath`
-// with given package name `pkgName`.
+// PackToGoFile 将由 `srcPaths` 指定的路径打包成目标 Go 文件 `goFilePath`，并使用给定的包名 `pkgName`。
 //
-// The unnecessary parameter `keyPrefix` indicates the prefix for each file
-// packed into the result bytes.
+// 参数 `keyPrefix`（可选）表示打包到结果字节中的每个文件的前缀。
 //
-// Note that parameter `srcPaths` supports multiple paths join with ','.
+// 注意，`srcPaths` 参数支持用逗号分隔多个路径。
 //
-// ff:
-// srcPath:
-// goFilePath:
-// pkgName:
-// keyPrefix:
+// 警告：请改用 PackToGoFileWithOption。
+// md5:99701ca10a176f76
 func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) error {
 	data, err := Pack(srcPath, keyPrefix...)
 	if err != nil {
@@ -137,11 +119,6 @@ func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) erro
 //
 // 注意，参数 `srcPaths` 支持使用逗号`,`连接多个路径。
 // md5:0e7ba248d1ba0543
-// ff:
-// srcPath:
-// goFilePath:
-// pkgName:
-// option:
 func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) error {
 	data, err := PackWithOption(srcPath, option)
 	if err != nil {
@@ -154,8 +131,6 @@ func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) 
 }
 
 // Unpack 将由 `path` 指定的内容解压缩到 []*File 中。 md5:c88b5e566f58802e
-// ff:
-// path:
 func Unpack(path string) ([]*File, error) {
 	realPath, err := gfile.Search(path)
 	if err != nil {
@@ -165,17 +140,15 @@ func Unpack(path string) ([]*File, error) {
 }
 
 // UnpackContent 将内容解包为 []*File。 md5:a49a123f27175e6d
-// ff:
-// content:
 func UnpackContent(content string) ([]*File, error) {
 	var (
 		err  error
 		data []byte
 	)
 	if isHexStr(content) {
-// 这里是为了保持与旧版本使用十六进制字符串打包字符串的兼容性。
-// TODO：未来移除这个支持。
-// md5:5253278930daad11
+		// 这里是为了保持与旧版本使用十六进制字符串打包字符串的兼容性。
+		// TODO：未来移除这个支持。
+		// md5:5253278930daad11
 		data, err = gcompress.UnGzip(hexStrToBytes(content))
 		if err != nil {
 			return nil, err

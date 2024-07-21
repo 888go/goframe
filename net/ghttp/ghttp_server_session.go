@@ -9,6 +9,6 @@ package ghttp
 
 import "github.com/gogf/gf/v2/os/gsession"
 
-	// Session 实际上是 gsession.Session 的别名，它绑定到一个单独的请求。
-	// md5:669895d1042f4c49
+// Session 实际上是 gsession.Session 的别名，它绑定到一个单独的请求。
+// md5:669895d1042f4c49
 type Session = gsession.Session

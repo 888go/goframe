@@ -11,9 +11,9 @@ import (
 	"github.com/gogf/gf/v2/internal/json"
 )
 
-		// Header遵循OpenAPI/Swagger 3.0标准。
-		// 参见：https:		//github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#headerObject
-		// md5:df7c9f506710dc39
+// Header遵循OpenAPI/Swagger 3.0标准。
+// 参见：https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#headerObject
+// md5:df7c9f506710dc39
 type Header struct {
 	Parameter
 }
@@ -25,8 +25,6 @@ type HeaderRef struct {
 	Value *Header
 }
 
-// ff:
-// r:
 func (r HeaderRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

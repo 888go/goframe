@@ -15,7 +15,7 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-		// 在Windows平台直接设置底层参数. md5:418ca44ebddf20f0
+// 在Windows平台直接设置底层参数. md5:418ca44ebddf20f0
 func joinProcessArgs(p *Process) {
 	p.SysProcAttr = &syscall.SysProcAttr{}
 	p.SysProcAttr.CmdLine = gstr.Join(p.Args, " ")

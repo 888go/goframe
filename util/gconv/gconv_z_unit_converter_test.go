@@ -319,6 +319,8 @@ func TestConverter_CustomBasicType_ToStruct(t *testing.T) {
 		t.Assert(b.S, a)
 	})
 }
+
+// 修复：https://github.com/gogf/gf/issues/3099. md5:d217d1a2ab119603
 func TestConverter_CustomTimeType_ToStruct(t *testing.T) {
 	type timestamppb struct {
 		S string

@@ -32,19 +32,12 @@ import (
 // Run 调用与该命令绑定的自定义函数，根据os.Args执行。
 // 如果发生任何错误，它将使进程退出并返回退出代码1。
 // md5:f6512536eb3555fe
-// ff:
-// c:
-// ctx:
 func (c *Command) Run(ctx context.Context) {
 	_ = c.RunWithValue(ctx)
 }
 
 // RunWithValue 调用与该命令绑定的 os.Args 中的自定义函数，传入值作为输出。如果发生任何错误，它将退出进程并返回退出码 1。
 // md5:4d204c2503673c10
-// ff:
-// c:
-// ctx:
-// value:
 func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 	value, err := c.RunWithValueError(ctx)
 	if err != nil {
@@ -73,32 +66,17 @@ func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 }
 
 // RunWithError 调用与该命令关联的 os.Args 中的自定义函数，同时输出错误信息。 md5:59f4632a1aab9342
-// ff:
-// c:
-// ctx:
-// err:
 func (c *Command) RunWithError(ctx context.Context) (err error) {
 	_, err = c.RunWithValueError(ctx)
 	return
 }
 
 // RunWithValueError 使用os.Args中的值调用与此命令关联的自定义函数，并带有值和错误输出。 md5:007ad372fee78f96
-// ff:
-// c:
-// ctx:
-// value:
-// err:
 func (c *Command) RunWithValueError(ctx context.Context) (value interface{}, err error) {
 	return c.RunWithSpecificArgs(ctx, os.Args)
 }
 
 // RunWithSpecificArgs 使用绑定到该命令的特定参数调用自定义函数，并将值和错误输出传递给它。 md5:48c98cbef4733851
-// ff:
-// c:
-// ctx:
-// args:
-// value:
-// err:
 func (c *Command) RunWithSpecificArgs(ctx context.Context, args []string) (value interface{}, err error) {
 	if len(args) == 0 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "args can not be empty!")
@@ -245,9 +223,9 @@ func (c *Command) searchCommand(
 		return c, nil, ctx
 	}
 	for _, cmd := range c.commands {
-// 递归搜索命令。
-// 字符串比较区分大小写。
-// md5:801cc6b5c74b2a82
+		// 递归搜索命令。
+		// 字符串比较区分大小写。
+		// md5:801cc6b5c74b2a82
 		if cmd.Name == args[0] {
 			leftArgs := args[1:]
 			// 如果此命令需要参数，

@@ -27,10 +27,6 @@ type Stmt struct {
 
 // ExecContext 使用给定的参数执行一个预编译的语句，并返回一个总结语句影响的结果。
 // md5:aa3184ee6004a352
-// ff:
-// s:
-// ctx:
-// args:
 func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result, error) {
 	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
@@ -45,10 +41,6 @@ func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result
 
 // QueryContext 使用给定的参数执行一个预处理查询语句，并将查询结果作为*Rows返回。
 // md5:2dc9d8dfa34a3cb1
-// ff:
-// s:
-// ctx:
-// args:
 func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows, error) {
 	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
@@ -72,10 +64,6 @@ func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows
 // 如果查询没有选择任何行，*Row的Scan将返回ErrNoRows。
 // 否则，*Row的Scan会扫描选中的第一行并丢弃其余部分。
 // md5:a2aed2939b0e481c
-// ff:
-// s:
-// ctx:
-// args:
 func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Row {
 	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
@@ -96,18 +84,12 @@ func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Ro
 
 // Exec 使用给定的参数执行预处理语句，并返回一个 Result 来概括该语句的影响。
 // md5:7ff0a9731fb27dd1
-// ff:执行
-// s:
-// args:参数
 func (s *Stmt) Exec(args ...interface{}) (sql.Result, error) {
 	return s.ExecContext(context.Background(), args...)
 }
 
 // Query 使用给定的参数执行预编译的查询语句，并将查询结果返回为一个 *Rows 对象。
 // md5:5028edd0d7332759
-// ff:查询
-// s:
-// args:参数
 func (s *Stmt) Query(args ...interface{}) (*sql.Rows, error) {
 	return s.QueryContext(context.Background(), args...)
 }
@@ -119,16 +101,11 @@ func (s *Stmt) Query(args ...interface{}) (*sql.Rows, error) {
 //	var name string
 //	err := nameByUseridStmt.QueryRow(id).Scan(&name)
 // md5:3b2851663bab6cd6
-// ff:
-// s:
-// args:
 func (s *Stmt) QueryRow(args ...interface{}) *sql.Row {
 	return s.QueryRowContext(context.Background(), args...)
 }
 
 // Close关闭语句。 md5:73ebf594ef1ccf7c
-// ff:
-// s:
 func (s *Stmt) Close() error {
 	return s.Stmt.Close()
 }

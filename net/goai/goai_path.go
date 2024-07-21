@@ -135,9 +135,9 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	}
 
 	if len(inputMetaMap) > 0 {
-// 路径（Path）和操作（Operation）不是同一概念，因此需要从操作中复制一个元信息（Meta）到路径，并进行编辑。
-// 你知道的，我们是在操作上设置Summary和Description，而不是在路径上，所以我们需要将它们移除。
-// md5:82d486896b1d65b3
+		// 路径（Path）和操作（Operation）不是同一概念，因此需要从操作中复制一个元信息（Meta）到路径，并进行编辑。
+		// 你知道的，我们是在操作上设置Summary和Description，而不是在路径上，所以我们需要将它们移除。
+		// md5:82d486896b1d65b3
 		inputMetaMapForPath := gmap.NewStrStrMapFrom(inputMetaMap).Clone()
 		inputMetaMapForPath.Removes([]string{
 			gtag.SummaryShort,
@@ -160,10 +160,10 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		}
 	}
 
-// 路径安全
-// 注意：安全模式类型仅支持http和apiKey；不支持oauth2和openIdConnect。
-// 多个模式使用逗号分隔，例如：`security: apiKey1,apiKey2`
-// md5:b64ffa4261f0711d
+	// 路径安全
+	// 注意：安全模式类型仅支持http和apiKey；不支持oauth2和openIdConnect。
+	// 多个模式使用逗号分隔，例如：`security: apiKey1,apiKey2`
+	// md5:b64ffa4261f0711d
 	TagNameSecurity := gmeta.Get(inputObject.Interface(), gtag.Security).String()
 	securities := gstr.SplitAndTrim(TagNameSecurity, ",")
 	for _, sec := range securities {
@@ -173,10 +173,10 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		operation.Security = &SecurityRequirements{seRequirement}
 	}
 
-// =================================================================================================================
-// 请求参数。
-// =================================================================================================================
-// md5:c70d5376eecf5c01
+	// =================================================================================================================
+	// 请求参数。
+	// =================================================================================================================
+	// md5:c70d5376eecf5c01
 	structFields, _ := gstructs.Fields(gstructs.FieldsInput{
 		Pointer:         inputObject.Interface(),
 		RecursiveOption: gstructs.RecursiveOptionEmbeddedNoTag,
@@ -194,10 +194,10 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		}
 	}
 
-// =================================================================================================================
-// 请求体
-// =================================================================================================================
-// md5:c70baaeba9963b54
+	// =================================================================================================================
+	// 请求体
+	// =================================================================================================================
+	// md5:c70baaeba9963b54
 	if operation.RequestBody == nil {
 		operation.RequestBody = &RequestBodyRef{}
 	}
@@ -406,8 +406,6 @@ func (oai *OpenApiV3) tagMapToPath(tagMap map[string]string, path *Path) error {
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// p:
 func (p Path) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte

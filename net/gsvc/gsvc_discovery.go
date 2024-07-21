@@ -25,45 +25,21 @@ var watchedMap = gmap.New(true)
 type ServiceWatch func(service Service)
 
 // Get通过服务名称检索并返回服务。 md5:74843a42d759b705
-// ff:
-// ctx:
-// name:
-// service:
-// err:
 func Get(ctx context.Context, name string) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, defaultRegistry, name, nil)
 }
 
 // GetWithDiscovery 通过`discovery`中的服务名称检索并返回服务。 md5:f1ca28780ddf8348
-// ff:
-// ctx:
-// discovery:
-// name:
-// service:
-// err:
 func GetWithDiscovery(ctx context.Context, discovery Discovery, name string) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, discovery, name, nil)
 }
 
 // GetAndWatch 用于获取服务并使用自定义的监视回调函数进行监视。 md5:9fa8d7df3bbbbe6d
-// ff:
-// ctx:
-// name:
-// watch:
-// service:
-// err:
 func GetAndWatch(ctx context.Context, name string, watch ServiceWatch) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, defaultRegistry, name, watch)
 }
 
 // GetAndWatchWithDiscovery 用于在`discovery`中获取服务并使用自定义的观察回调函数。 md5:07dc90075ba8e7c6
-// ff:
-// ctx:
-// discovery:
-// name:
-// watch:
-// service:
-// err:
 func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name string, watch ServiceWatch) (service Service, err error) {
 	if discovery == nil {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `discovery cannot be nil`)
@@ -134,9 +110,6 @@ func watchAndUpdateService(watchedServiceMap *gmap.StrAnyMap, watcher Watcher, s
 }
 
 // Search 搜索并返回符合指定条件的服务。 md5:62e529e326dae7b7
-// ff:
-// ctx:
-// in:
 func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 	if defaultRegistry == nil {
 		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
@@ -146,10 +119,6 @@ func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 }
 
 // Watch 监视指定条件的变化。 md5:9fb048527d2a1698
-// ff:
-// ctx:
-// key:
-// Watcher:
 func Watch(ctx context.Context, key string) (Watcher, error) {
 	if defaultRegistry == nil {
 		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)

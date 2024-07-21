@@ -22,11 +22,6 @@ var (
 )
 
 //UpDownCounter 创建并返回一个新的Counter。 md5:0fd05c1ce07af34f
-// ff:
-// meter:
-// name:
-// option:
-// UpDownCounter:
 func (meter *localMeter) UpDownCounter(name string, option MetricOption) (UpDownCounter, error) {
 	m, err := meter.newMetric(MetricTypeUpDownCounter, name, option)
 	if err != nil {
@@ -50,10 +45,6 @@ func (meter *localMeter) UpDownCounter(name string, option MetricOption) (UpDown
 // MustUpDownCounter 创建并返回一个新的计数器。
 // 如果发生任何错误，它将引发恐慌。
 // md5:02c439bc7eddaccb
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustUpDownCounter(name string, option MetricOption) UpDownCounter {
 	m, err := meter.UpDownCounter(name, option)
 	if err != nil {
@@ -63,10 +54,6 @@ func (meter *localMeter) MustUpDownCounter(name string, option MetricOption) UpD
 }
 
 // Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
-// ff:
-// l:
-// provider:
-// err:
 func (l *localUpDownCounter) Init(provider Provider) (err error) {
 	if _, ok := l.UpDownCounterPerformer.(noopUpDownCounterPerformer); !ok {
 		// already initialized.
@@ -79,11 +66,9 @@ func (l *localUpDownCounter) Init(provider Provider) (err error) {
 	return
 }
 
-	// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-	// 这通常被指标实现所使用。
-	// md5:e521fc985b9a53e2
-// ff:
-// l:
+// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 func (l *localUpDownCounter) Performer() any {
 	return l.UpDownCounterPerformer
 }

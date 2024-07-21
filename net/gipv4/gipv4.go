@@ -6,7 +6,7 @@
 // md5:a114f4bdd106ab31
 
 // gipv4 包提供了用于处理IPv4地址的有用API。 md5:dc7fb957be20c17f
-package gipv4//bm:ipv4类
+package gipv4
 
 import (
 	"encoding/binary"
@@ -18,8 +18,6 @@ import (
 )
 
 // Ip2long 将IP地址转换为一个uint32整数。 md5:160031646344d859
-// ff:
-// ip:
 func Ip2long(ip string) uint32 {
 	netIp := net.ParseIP(ip)
 	if netIp == nil {
@@ -29,8 +27,6 @@ func Ip2long(ip string) uint32 {
 }
 
 // Long2ip 将无符号 32 位整数形式的 IP 地址转换为字符串类型的地址。 md5:de7a5a15d74ae9b6
-// ff:
-// long:
 func Long2ip(long uint32) string {
 	ipByte := make([]byte, 4)
 	binary.BigEndian.PutUint32(ipByte, long)
@@ -38,15 +34,13 @@ func Long2ip(long uint32) string {
 }
 
 // Validate 检查给定的 `ip` 是否为有效的IPv4地址。 md5:d26ab457dd3beb9e
-// ff:
-// ip:
 func Validate(ip string) bool {
 	return gregex.IsMatchString(`^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$`, ip)
 }
 
-// ParseAddress parses `address` to its ip and port.
-// ff:
-// address:
+// ParseAddress 将 `地址` 解析为它的IP和端口。
+// 例如：192.168.1.1:80 -> 192.168.1.1, 80
+// md5:224991801d25eab5
 func ParseAddress(address string) (string, int) {
 	match, err := gregex.MatchString(`^(.+):(\d+)$`, address)
 	if err == nil {
@@ -56,9 +50,9 @@ func ParseAddress(address string) (string, int) {
 	return "", 0
 }
 
-// GetSegment returns the segment of given ip address.
-// ff:
-// ip:
+// GetSegment 返回给定IP地址的段。
+// 例如：192.168.2.102 -> 192.168.2
+// md5:6b442ab0a95dc737
 func GetSegment(ip string) string {
 	match, err := gregex.MatchString(`^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$`, ip)
 	if err != nil || len(match) < 4 {

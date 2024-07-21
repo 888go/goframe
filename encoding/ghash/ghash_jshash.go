@@ -8,8 +8,6 @@
 package ghash
 
 // JS 实现了经典的 JS 哈希算法，用于32位。 md5:a87e9c7d1a1f7232
-// ff:
-// str:
 func JS(str []byte) uint32 {
 	var hash uint32 = 1315423911
 	for i := 0; i < len(str); i++ {
@@ -19,8 +17,6 @@ func JS(str []byte) uint32 {
 }
 
 // JS64实现了经典的64位JS哈希算法。 md5:8248afb9bdc18117
-// ff:
-// str:
 func JS64(str []byte) uint64 {
 	var hash uint64 = 1315423911
 	for i := 0; i < len(str); i++ {

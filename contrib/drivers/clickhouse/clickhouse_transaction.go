@@ -14,22 +14,11 @@ import (
 )
 
 // Begin 方法开始并返回事务对象。 md5:8fa258c0123d6569
-// ff:
-// d:
-// ctx:
-// tx:
-// err:
 func (d *Driver) Begin(ctx context.Context) (tx gdb.TX, err error) {
 	return nil, errUnsupportedBegin
 }
 
 // Transaction 使用函数 `f` 包裹事务逻辑。 md5:e6842034a9a21a66
-// ff:
-// d:
-// ctx:
-// f:
-// ctx:
-// tx:
 func (d *Driver) Transaction(ctx context.Context, f func(ctx context.Context, tx gdb.TX) error) error {
 	return errUnsupportedTransaction
 }

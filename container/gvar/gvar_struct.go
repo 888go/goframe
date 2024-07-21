@@ -15,19 +15,11 @@ import (
 // 参数`pointer`应为指向结构体实例的指针。
 // 参数`mapping`用于指定键到属性的映射规则。
 // md5:a5bf066b3ef1c653
-// ff:
-// v:
-// pointer:
-// mapping:
 func (v *Var) Struct(pointer interface{}, mapping ...map[string]string) error {
 	return gconv.Struct(v.Val(), pointer, mapping...)
 }
 
 // Structs 将 `v` 转换并返回为指定结构体切片。 md5:396a4079aac15c40
-// ff:
-// v:
-// pointer:
-// mapping:
 func (v *Var) Structs(pointer interface{}, mapping ...map[string]string) error {
 	return gconv.Structs(v.Val(), pointer, mapping...)
 }

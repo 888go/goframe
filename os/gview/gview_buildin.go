@@ -303,8 +303,8 @@ func (view *View) buildInFuncTimes(value interface{}, values ...interface{}) str
 	return gconv.String(result)
 }
 
-		// buildInFuncDivide 实现了内置模板函数：divide，它返回将`value`除以所有`values`的结果。
-		// md5:55b84c767c41e466
+// buildInFuncDivide 实现了内置模板函数：divide，它返回将`value`除以所有`values`的结果。
+// md5:55b84c767c41e466
 func (view *View) buildInFuncDivide(value interface{}, values ...interface{}) string {
 	result := gconv.Float64(value)
 	for _, v := range values {

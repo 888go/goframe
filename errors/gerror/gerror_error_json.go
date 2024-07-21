@@ -7,11 +7,9 @@
 
 package gerror
 
-	// MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
-	// 注意，这里不要使用指针作为接收者。
-	// md5:b4f76062b07a5263
-// ff:
-// err:
+// MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
+// 注意，这里不要使用指针作为接收者。
+// md5:b4f76062b07a5263
 func (err Error) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + err.Error() + `"`), nil
 }

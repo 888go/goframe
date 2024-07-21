@@ -45,8 +45,6 @@ var (
 )
 
 // CaseTypeMatch 从字符串匹配案件类型。 md5:e9d0c49161bc12ae
-// ff:命名方式判断
-// caseStr:待判断名称
 func CaseTypeMatch(caseStr string) CaseType {
 	caseTypes := []CaseType{
 		Camel,
@@ -71,9 +69,6 @@ func CaseTypeMatch(caseStr string) CaseType {
 // CaseConvert 将字符串转换为指定的命名约定。
 // 使用 CaseTypeMatch 从字符串中匹配 case 类型。
 // md5:3c58b688150ee2a3
-// ff:命名转换
-// s:待转换文本
-// caseType:类型
 func CaseConvert(s string, caseType CaseType) string {
 	if s == "" || caseType == "" {
 		return s
@@ -109,20 +104,20 @@ func CaseConvert(s string, caseType CaseType) string {
 	}
 }
 
-// CaseCamel converts a string to CamelCase.
+// CaseCamel 将一个字符串转换为驼峰式写法。
 //
+// 示例：
 // CaseCamel("any_kind_of_string") -> AnyKindOfString
-// ff:命名转换到首字母大写驼峰
-// s:待转换文本
+// md5:189cc8dcd6a04d2c
 func CaseCamel(s string) string {
 	return toCamelInitCase(s, true)
 }
 
-// CaseCamelLower converts a string to lowerCamelCase.
+// CaseCamelLower 将一个字符串转换为下划线驼峰式（lowerCamelCase）。
 //
+// 例子：
 // CaseCamelLower("any_kind_of_string") -> anyKindOfString
-// ff:命名转换到首字母小写驼峰
-// s:待转换文本
+// md5:dc604c858a2452d4
 func CaseCamelLower(s string) string {
 	if s == "" {
 		return s
@@ -133,31 +128,30 @@ func CaseCamelLower(s string) string {
 	return toCamelInitCase(s, false)
 }
 
-// CaseSnake converts a string to snake_case.
+// CaseSnake将一个字符串转换为蛇形命名（snake_case）。
 //
+// 示例：
 // CaseSnake("AnyKindOfString") -> any_kind_of_string
-// ff:命名转换到全小写蛇形
-// s:待转换文本
+// md5:348ee5cd8cb1cd34
 func CaseSnake(s string) string {
 	return CaseDelimited(s, '_')
 }
 
-// CaseSnakeScreaming converts a string to SNAKE_CASE_SCREAMING.
+// CaseSnakeScreaming 将一个字符串转换为 SNAKE_CASE_SCREAMING 格式。
 //
-// CaseSnakeScreaming("AnyKindOfString") -> ANY_KIND_OF_STRING
-// ff:命名转换到大写蛇形
-// s:待转换文本
+// 示例：
+// CaseSnakeScreaming("AnyKindOfString") -> "ANY_KIND_OF_STRING"
+// md5:9f2e1f082921e42e
 func CaseSnakeScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '_', true)
 }
 
-// CaseSnakeFirstUpper converts a string like "RGBCodeMd5" to "rgb_code_md5".
-// TODO for efficiency should change regexp to traversing string in future.
+// CaseSnakeFirstUpper 将类似 "RGBCodeMd5" 的字符串转换为 "rgb_code_md5"。
+// TODO 为了提高效率，未来应将正则表达式改为遍历字符串的方式。
 //
+// 示例：
 // CaseSnakeFirstUpper("RGBCodeMd5") -> rgb_code_md5
-// ff:命名转换到全小写蛇形2
-// word:待转换文本
-// underscore:可选连接符
+// md5:aff36f9f5f3a68d7
 func CaseSnakeFirstUpper(word string, underscore ...string) string {
 	replace := "_"
 	if len(underscore) > 0 {
@@ -184,41 +178,38 @@ func CaseSnakeFirstUpper(word string, underscore ...string) string {
 	return TrimLeft(word, replace)
 }
 
-// CaseKebab converts a string to kebab-case.
+// CaseKebab 将字符串转换为kebab-case形式。
 //
+// 例子：
 // CaseKebab("AnyKindOfString") -> any-kind-of-string
-// ff:命名转换到小写短横线
-// s:待转换文本
+// md5:885475f21356c510
 func CaseKebab(s string) string {
 	return CaseDelimited(s, '-')
 }
 
-// CaseKebabScreaming converts a string to KEBAB-CASE-SCREAMING.
+// CaseKebabScreaming 将一个字符串转换为KEBAB-CASE-SCREAMING格式。
 //
-// CaseKebab("AnyKindOfString") -> ANY-KIND-OF-STRING
-// ff:命名转换到大写驼峰短横线
-// s:待转换文本
+// 示例：
+// CaseKebab("AnyKindOfString") -> "ANY-KIND-OF-STRING"
+// md5:64e3399ff1b60dad
 func CaseKebabScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '-', true)
 }
 
-// CaseDelimited converts a string to snake.case.delimited.
+// CaseDelimited 将字符串转换为 snake_case_delimited 形式。
 //
+// 示例：
 // CaseDelimited("AnyKindOfString", '.') -> any.kind.of.string
-// ff:命名转换按符号
-// s:待转换文本
-// del:连接符号
+// md5:8edd65912cb80360
 func CaseDelimited(s string, del byte) string {
 	return CaseDelimitedScreaming(s, del, false)
 }
 
-// CaseDelimitedScreaming converts a string to DELIMITED.SCREAMING.CASE or delimited.screaming.case.
+// CaseDelimitedScreaming 将字符串转换为 DELIMITED.SCREAMING.CASE 或 delimited.screaming.case 格式。
 //
+// 示例：
 // CaseDelimitedScreaming("AnyKindOfString", '.') -> ANY.KIND.OF.STRING
-// ff:命名转换按符号与大小写
-// s:待转换文本
-// del:连接符号
-// screaming:是否全大写
+// md5:e81c17d2e4a95231
 func CaseDelimitedScreaming(s string, del uint8, screaming bool) string {
 	s = addWordBoundariesToNumbers(s)
 	s = strings.Trim(s, " ")
@@ -274,7 +265,7 @@ func addWordBoundariesToNumbers(s string) string {
 	return string(r)
 }
 
-		// 将字符串转换为驼峰式命名. md5:e7c9de8ba3801cd9
+// 将字符串转换为驼峰式命名. md5:e7c9de8ba3801cd9
 func toCamelInitCase(s string, initCase bool) string {
 	s = addWordBoundariesToNumbers(s)
 	s = strings.Trim(s, " ")

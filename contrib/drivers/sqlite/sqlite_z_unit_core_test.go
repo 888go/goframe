@@ -43,7 +43,7 @@ func Test_New(t *testing.T) {
 func Test_New_Path_With_Colon(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 
-		dbFilePathWithColon := gfile.Join(dbDir, "test:1") //th:"test_1") cz:"test:1")  
+		dbFilePathWithColon := gfile.Join(dbDir, "test:1")
 		if err := gfile.Mkdir(dbFilePathWithColon); err != nil {
 			gtest.Error(err)
 		}
@@ -1448,7 +1448,9 @@ func Test_DB_Ctx_Logger(t *testing.T) {
 	})
 }
 
-// All types testing.
+// 所有类型的测试。
+// https://www.sqlite.org/datatype3.html
+// md5:d23ed0b51680ff07
 func Test_Types(t *testing.T) {
 	tableName := "types_" + gtime.TimestampNanoStr()
 	gtest.C(t, func(t *gtest.T) {

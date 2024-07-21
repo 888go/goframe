@@ -57,22 +57,24 @@ type Options struct {
 
 // iInterfaces 用于类型断言接口，用于 Interfaces() 方法。 md5:711dc755f9cd4979
 type iInterfaces interface {
-	Interfaces() []interface{}//qm:取any切片  cz:Interfaces() []interface{}  yx:true
+	Interfaces() []interface{}
 }
 
 // iMapStrAny 是一个接口，支持将结构体参数转换为映射。 md5:cfd4642c77fca6ec
 type iMapStrAny interface {
-	MapStrAny() map[string]interface{}//qm:取MapStrAny  cz:MapStrAny() map[string]interface{}  yx:true
+	MapStrAny() map[string]interface{}
 }
 
 // iVal是用于获取底层interface{}的接口。 md5:2915e3bd3d7e4f43
 type iVal interface {
-	Val() interface{}//qm:取值  cz:Val() interface{}  yx:true
+	Val() interface{}
 }
 
-// setValue sets `value` to `j` by `pattern`.
-// 1. If value is nil and removed is true, means deleting this value;
-// 2. It's quite complicated in hierarchical data search, node creating and data assignment;
+// setValue 将`value`设置为`j`，按照`pattern`。
+// 注意：
+// 1. 如果`value`为nil且`removed`为true，表示删除这个值；
+// 2. 在层次数据搜索、节点创建和数据赋值方面相当复杂。
+// md5:6aca091405b9da40
 func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 	var (
 		err    error
@@ -453,8 +455,8 @@ func (j *Json) getPointerByPatternWithoutViolenceCheck(pattern string) *interfac
 	return nil
 }
 
-		// checkPatternByPointer 检查指定`pointer`中是否存在键为`key`的值。它返回该值的指针。
-		// md5:10f17307c0c6e052
+// checkPatternByPointer 检查指定`pointer`中是否存在键为`key`的值。它返回该值的指针。
+// md5:10f17307c0c6e052
 func (j *Json) checkPatternByPointer(key string, pointer *interface{}) *interface{} {
 	switch (*pointer).(type) {
 	case map[string]interface{}:

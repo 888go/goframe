@@ -19,17 +19,16 @@ import (
 // StorageMemory 使用内存实现了会话存储接口。 md5:1a9a78b3bd5a138b
 type StorageMemory struct {
 	StorageBase
-// cache是用于session TTL的内存数据缓存， 
-// 只有在Storage不存储任何会话数据时才可用（即不同步存储数据）。
-// 请参考StorageFile, StorageMemory和StorageRedis的实现。
-//
-// 其值为`*gmap.StrAnyMap`类型。
-// md5:c8273be50da58f8d
+	// cache是用于session TTL的内存数据缓存， 
+	// 只有在Storage不存储任何会话数据时才可用（即不同步存储数据）。
+	// 请参考StorageFile, StorageMemory和StorageRedis的实现。
+	//
+	// 其值为`*gmap.StrAnyMap`类型。
+	// md5:c8273be50da58f8d
 	cache *gcache.Cache
 }
 
 // NewStorageMemory 创建并返回一个用于会话的内存存储对象。 md5:9b1b616d48dd808e
-// ff:
 func NewStorageMemory() *StorageMemory {
 	return &StorageMemory{
 		cache: gcache.New(),
@@ -37,10 +36,6 @@ func NewStorageMemory() *StorageMemory {
 }
 
 // RemoveAll 从存储中删除会话。 md5:488d9f9ca747e8e4
-// ff:
-// s:
-// ctx:
-// sessionId:
 func (s *StorageMemory) RemoveAll(ctx context.Context, sessionId string) error {
 	_, err := s.cache.Remove(ctx, sessionId)
 	return err
@@ -52,11 +47,6 @@ func (s *StorageMemory) RemoveAll(ctx context.Context, sessionId string) error {
 //
 // 此函数在会话启动时会被调用。
 // md5:01e56ce09d5fd934
-// ff:
-// s:
-// ctx:
-// sessionId:
-// ttl:
 func (s *StorageMemory) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
 	// 从管理器中获取内存会话数据。 md5:9a3be5b3f3de62f6
 	var (
@@ -77,25 +67,14 @@ func (s *StorageMemory) GetSession(ctx context.Context, sessionId string, ttl ti
 // 当某个被标记为脏（即发生过修改）的会话关闭后，将调用此函数。
 // 该操作会将所有会话数据从内存复制到存储中。
 // md5:1caa26989d884fa4
-// ff:
-// s:
-// ctx:
-// sessionId:
-// sessionData:
-// ttl:
 func (s *StorageMemory) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	return s.cache.Set(ctx, sessionId, sessionData, ttl)
 }
 
-	// UpdateTTL 更新指定会话ID的生存时间（TTL）。
-	// 当一个未被修改（非脏）的会话关闭后，此函数会被调用。
-	// 它只是将会话ID添加到异步处理队列中。
-	// md5:cc5ac287cbbc0eab
-// ff:
-// s:
-// ctx:
-// sessionId:
-// ttl:
+// UpdateTTL 更新指定会话ID的生存时间（TTL）。
+// 当一个未被修改（非脏）的会话关闭后，此函数会被调用。
+// 它只是将会话ID添加到异步处理队列中。
+// md5:cc5ac287cbbc0eab
 func (s *StorageMemory) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	_, err := s.cache.UpdateExpire(ctx, sessionId, ttl)
 	return err

@@ -5,10 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-// Package gview implements a template engine based on text/template.
+// 包gview实现了基于text/template的模板引擎。
 //
-// Reserved template variable names:
-package gview//bm:模板类
+// 预留的模板变量名：
+// I18nLanguage：将此变量赋值以定义每个页面的国际化语言。
+// md5:31bd070a7bdcf2a1
+package gview
 
 import (
 	"context"
@@ -56,10 +58,6 @@ func checkAndInitDefaultView() {
 
 // ParseContent 使用默认的视图对象直接解析模板内容，并返回解析后的内容。
 // md5:8349c5832e5a90c1
-// ff:
-// ctx:
-// content:
-// params:
 func ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	checkAndInitDefaultView()
 	return defaultViewObj.ParseContent(ctx, content, params...)
@@ -68,8 +66,6 @@ func ParseContent(ctx context.Context, content string, params ...Params) (string
 // New 返回一个新的视图对象。
 // 参数 `path` 指定加载模板文件的模板目录路径。
 // md5:b96716da886c0dc3
-// ff:
-// path:
 func New(path ...string) *View {
 	var (
 		ctx = context.TODO()

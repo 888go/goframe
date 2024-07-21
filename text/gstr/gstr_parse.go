@@ -26,10 +26,6 @@ import (
 // v=m&v[a]=n          -> 错误
 // a .[[b=c            -> 无法解析，缺少有效的键值对格式。
 // md5:28f985708060eab0
-// ff:参数解析
-// s:文本
-// result:map结果
-// err:错误
 func Parse(s string) (result map[string]interface{}, err error) {
 	if s == "" {
 		return nil, nil

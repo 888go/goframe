@@ -38,18 +38,11 @@ func (s *Server) statusHandlerKey(status int, domain string) string {
 }
 
 // BindStatusHandler 为给定的状态码注册处理器。 md5:c94c3dd2e5b4197e
-// ff:绑定状态码中间件
-// s:
-// status:状态码
-// handler:处理函数
 func (s *Server) BindStatusHandler(status int, handler HandlerFunc) {
 	s.addStatusHandler(s.statusHandlerKey(status, DefaultDomainName), handler)
 }
 
 // BindStatusHandlerByMap 使用映射为给定的状态码注册处理器。 md5:a9ee1be3cd8089de
-// ff:绑定状态码中间件Map
-// s:
-// handlerMap:中间件Map
 func (s *Server) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc) {
 	for k, v := range handlerMap {
 		s.BindStatusHandler(k, v)

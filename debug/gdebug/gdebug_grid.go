@@ -18,11 +18,10 @@ var (
 	gridRegex = regexp.MustCompile(`^\w+\s+(\d+)\s+`)
 )
 
-	// GoroutineId 从堆栈信息中获取并返回当前goroutine的ID。
-	// 需要特别注意的是，由于它使用了runtime.Stack函数，因此性能较低。
-	// 通常用于调试目的。
-	// md5:c6453659dbcae88d
-// ff:
+// GoroutineId 从堆栈信息中获取并返回当前goroutine的ID。
+// 需要特别注意的是，由于它使用了runtime.Stack函数，因此性能较低。
+// 通常用于调试目的。
+// md5:c6453659dbcae88d
 func GoroutineId() int {
 	buf := make([]byte, 26)
 	runtime.Stack(buf, false)

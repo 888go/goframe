@@ -15,8 +15,6 @@ import (
 // NewEndpoints 从多个地址创建并返回 Endpoints，例如：
 // "192.168.1.100:80,192.168.1.101:80"。
 // md5:a9ff1a4a1317ab38
-// ff:
-// addresses:
 func NewEndpoints(addresses string) Endpoints {
 	endpoints := make([]Endpoint, 0)
 	for _, address := range gstr.SplitAndTrim(addresses, EndpointsDelimiter) {
@@ -25,11 +23,9 @@ func NewEndpoints(addresses string) Endpoints {
 	return endpoints
 }
 
-	// String 方法将 Endpoints 格式化为字符串，类似于：
-	// "192.168.1.100:80,192.168.1.101:80"
-	// md5:f254f1ef4b38d633
-// ff:
-// es:
+// String 方法将 Endpoints 格式化为字符串，类似于：
+// "192.168.1.100:80,192.168.1.101:80"
+// md5:f254f1ef4b38d633
 func (es Endpoints) String() string {
 	var s string
 	for _, endpoint := range es {

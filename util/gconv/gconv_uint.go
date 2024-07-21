@@ -15,8 +15,6 @@ import (
 )
 
 // Uint 将 `any` 转换为 uint 类型。 md5:0a9e343966117c44
-// ff:取正整数
-// any:值
 func Uint(any interface{}) uint {
 	if any == nil {
 		return 0
@@ -28,8 +26,6 @@ func Uint(any interface{}) uint {
 }
 
 // Uint8 将 `any` 类型转换为 uint8 类型。 md5:330b11711227c6f3
-// ff:取正整数8位
-// any:值
 func Uint8(any interface{}) uint8 {
 	if any == nil {
 		return 0
@@ -41,8 +37,6 @@ func Uint8(any interface{}) uint8 {
 }
 
 // Uint16 将 `any` 转换为 uint16。 md5:7763a0b90bd179e4
-// ff:取正整数16位
-// any:值
 func Uint16(any interface{}) uint16 {
 	if any == nil {
 		return 0
@@ -54,8 +48,6 @@ func Uint16(any interface{}) uint16 {
 }
 
 // Uint32 将 `any` 转换为 uint32 类型。 md5:26c3b815ff56d271
-// ff:取正整数32位
-// any:值
 func Uint32(any interface{}) uint32 {
 	if any == nil {
 		return 0
@@ -67,9 +59,6 @@ func Uint32(any interface{}) uint32 {
 }
 
 // Uint64 将 `any` 转换为 uint64 类型。 md5:14c7f76fe909ea8e
-// yx:true
-// ff:取正整数64位
-// any:
 func Uint64(any interface{}) uint64 {
 	if any == nil {
 		return 0

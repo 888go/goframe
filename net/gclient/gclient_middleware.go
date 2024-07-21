@@ -21,9 +21,6 @@ type clientMiddleware struct {
 const clientMiddlewareKey gctx.StrKey = "__clientMiddlewareKey"
 
 // Use 向客户端添加一个或多个中间件处理器。 md5:92665269b902692e
-// ff:中间件
-// c:
-// handlers:中间件s
 func (c *Client) Use(handlers ...HandlerFunc) *Client {
 	c.middlewareHandler = append(c.middlewareHandler, handlers...)
 	return c
@@ -32,9 +29,6 @@ func (c *Client) Use(handlers ...HandlerFunc) *Client {
 // Next 调用下一个中间件。
 // 这应该只在 HandlerFunc 中调用。
 // md5:70c74664d7d9f919
-// ff:
-// c:
-// req:
 func (c *Client) Next(req *http.Request) (*Response, error) {
 	if v := req.Context().Value(clientMiddlewareKey); v != nil {
 		if m, ok := v.(*clientMiddleware); ok {
@@ -45,11 +39,6 @@ func (c *Client) Next(req *http.Request) (*Response, error) {
 }
 
 // Next 调用下一个中间件处理器。 md5:51a6ca6a21a9942e
-// ff:
-// m:
-// req:
-// resp:
-// err:
 func (m *clientMiddleware) Next(req *http.Request) (resp *Response, err error) {
 	if m.err != nil {
 		return m.resp, m.err

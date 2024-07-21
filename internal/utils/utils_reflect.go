@@ -11,9 +11,9 @@ import (
 	"reflect"
 )
 
-	// CanCallIsNil 可以检查 reflect.Value 是否可以安全地调用 reflect.Value.IsNil。
-	// 它可以防止 reflect.Value.IsNil 引起的恐慌。
-	// md5:888460104b60f818
+// CanCallIsNil 可以检查 reflect.Value 是否可以安全地调用 reflect.Value.IsNil。
+// 它可以防止 reflect.Value.IsNil 引起的恐慌。
+// md5:888460104b60f818
 func CanCallIsNil(v interface{}) bool {
 	rv, ok := v.(reflect.Value)
 	if !ok {

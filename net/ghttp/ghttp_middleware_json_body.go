@@ -12,8 +12,6 @@ import (
 )
 
 // MiddlewareJsonBody 验证并返回请求体是否为JSON格式。 md5:861efc2736ae2e13
-// ff:中间件函数_验证JSON格式请求体
-// r:
 func MiddlewareJsonBody(r *Request) {
 	requestBody := r.GetBody()
 	if len(requestBody) > 0 {

@@ -13,8 +13,6 @@ import (
 )
 
 // MTime 返回由`path`指定的文件的修改时间（以秒为单位）。 md5:66dbc182c71f7ffb
-// ff:取修改时间秒
-// path:路径
 func MTime(path string) time.Time {
 	s, e := os.Stat(path)
 	if e != nil {
@@ -24,8 +22,6 @@ func MTime(path string) time.Time {
 }
 
 // MTimestamp 返回给定路径`path`的文件修改时间，以秒为单位。 md5:bb848f3c89f3cb71
-// ff:取修改时间戳秒
-// path:路径
 func MTimestamp(path string) int64 {
 	mtime := MTime(path)
 	if mtime.IsZero() {
@@ -35,8 +31,6 @@ func MTimestamp(path string) int64 {
 }
 
 // MTimestampMilli 返回由 `path` 指定的文件的修改时间（以毫秒为单位）。 md5:2def39248c3bde9b
-// ff:取修改时间戳毫秒
-// path:路径
 func MTimestampMilli(path string) int64 {
 	mtime := MTime(path)
 	if mtime.IsZero() {

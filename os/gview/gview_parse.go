@@ -43,9 +43,9 @@ type fileCacheItem struct {
 }
 
 var (
-// 模板缓存映射，用于模板文件夹。
-// 注意，这个映射没有过期逻辑。
-// md5:23e4c8f42fd00704
+	// 模板缓存映射，用于模板文件夹。
+	// 注意，这个映射没有过期逻辑。
+	// md5:23e4c8f42fd00704
 	templates = gmap.NewStrAnyMap(true)
 
 	// 资源模板文件搜索的尝试文件夹。 md5:17efa863e4db400f
@@ -60,13 +60,6 @@ var (
 
 // Parse 使用给定的模板变量`params`解析给定的模板文件`file`，并返回解析后的模板内容。
 // md5:4b41bf3f848a2345
-// ff:
-// view:
-// ctx:
-// file:
-// params:
-// result:
-// err:
 func (view *View) Parse(ctx context.Context, file string, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -81,12 +74,6 @@ func (view *View) Parse(ctx context.Context, file string, params ...Params) (res
 }
 
 // ParseDefault 使用params解析默认模板文件。 md5:32a43fbd413f5a4e
-// ff:
-// view:
-// ctx:
-// params:
-// result:
-// err:
 func (view *View) ParseDefault(ctx context.Context, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -102,11 +89,6 @@ func (view *View) ParseDefault(ctx context.Context, params ...Params) (result st
 
 // ParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的字节切片。
 // md5:26fcffe5c26897e5
-// ff:
-// view:
-// ctx:
-// content:
-// params:
 func (view *View) ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -128,12 +110,6 @@ type Option struct {
 }
 
 // ParseOption 使用 Option 实现模板解析。 md5:ffb69e45da51ff4f
-// ff:
-// view:
-// ctx:
-// option:
-// result:
-// err:
 func (view *View) ParseOption(ctx context.Context, option Option) (result string, err error) {
 	if option.Content != "" {
 		return view.doParseContent(ctx, option.Content, option.Params)
@@ -208,9 +184,9 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	if err != nil {
 		return "", err
 	}
-// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
-// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
-// md5:07678aa51c871b54
+	// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
+	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
+	// md5:07678aa51c871b54
 	variables := gutil.MapMergeCopy(option.Params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -274,9 +250,9 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		err = gerror.Wrapf(err, `template parsing failed`)
 		return "", err
 	}
-// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
-// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
-// md5:07678aa51c871b54
+	// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
+	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
+	// md5:07678aa51c871b54
 	variables := gutil.MapMergeCopy(params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -353,9 +329,9 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 				}
 			}
 
-// 其次，检查文件系统，
-// 然后递归地自动解析所有子文件。
-// md5:46d132de94281d12
+			// 其次，检查文件系统，
+			// 然后递归地自动解析所有子文件。
+			// md5:46d132de94281d12
 			var files []string
 			files, err = gfile.ScanDir(folderPath, pattern, true)
 			if err != nil {

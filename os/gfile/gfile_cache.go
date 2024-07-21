@@ -48,9 +48,6 @@ func getCacheDuration() time.Duration {
 
 // GetContentsWithCache 通过`path`从缓存中返回给定文件的字符串内容。如果缓存中没有内容，它将从指定的磁盘文件（由`path`提供）中读取。参数`expire`指定了该文件内容的缓存过期时间（以秒为单位）。
 // md5:ee3ca4011fe59d23
-// ff:缓存读文本
-// path:路径
-// duration:缓存时长
 func GetContentsWithCache(path string, duration ...time.Duration) string {
 	return string(GetBytesWithCache(path, duration...))
 }
@@ -59,9 +56,6 @@ func GetContentsWithCache(path string, duration ...time.Duration) string {
 // 如果缓存中没有内容，它将从由`path`指定的磁盘文件中读取。
 // 参数`expire`以秒为单位指定该文件内容的缓存时间。
 // md5:8b877378627c94a2
-// ff:缓存读字节集
-// path:路径
-// duration:缓存时长
 func GetBytesWithCache(path string, duration ...time.Duration) []byte {
 	var (
 		ctx      = context.Background()

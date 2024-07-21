@@ -332,7 +332,7 @@ func Test_Split(t *testing.T) {
 		item1 := "dd"
 		s := item0 + notmatched + item1
 		t.Assert(gregex.IsMatchString(re, notmatched), false)
-		items := gregex.Split(re, s) 		//使用未匹配的分隔符分割字符串，然后不进行进一步的分割. md5:57f95f5e42957010
+		items := gregex.Split(re, s) //使用未匹配的分隔符分割字符串，然后不进行进一步的分割. md5:57f95f5e42957010
 		if items[0] != s {
 			t.Fatalf("regex:%s,Split(%q) want %q", re, s, item0)
 		}

@@ -22,10 +22,6 @@ import (
 // 可选参数 `extraParams` 用于提供此转换所需的额外参数。
 // 它支持基于类型名称字符串的常见基本类型转换。
 // md5:e081c8fc6552be4c
-// ff:按名称转换
-// fromValue:值
-// toTypeName:类型名称
-// extraParams:
 func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{}) interface{} {
 	return doConvert(doConvertInput{
 		FromValue:  fromValue,
@@ -39,10 +35,6 @@ func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{
 //
 // 可选参数 `extraParams` 用于此转换所需的额外参数。它支持基于类型名称字符串的常见基本类型转换。
 // md5:0badd37157c72db1
-// ff:按参考值类型转换
-// fromValue:值
-// referValue:参考值
-// extraParams:
 func ConvertWithRefer(fromValue interface{}, referValue interface{}, extraParams ...interface{}) interface{} {
 	var referValueRf reflect.Value
 	if v, ok := referValue.(reflect.Value); ok {
@@ -63,9 +55,9 @@ type doConvertInput struct {
 	ToTypeName string        // 目标值类型名称（字符串形式）。 md5:56863f5417d5b24f
 	ReferValue interface{}   // 引用的值，类型为`ToTypeName`。请注意，它的类型可能是`reflect.Value`。 md5:7e9c4375ec4d26f3
 	Extra      []interface{} // 用于实现转换的额外值。 md5:c5e0f680118ba627
-// 标记该值已经转换并设置为`ReferValue`。调用者可以忽略返回的结果。
-// 这是一个用于内部使用的属性。
-// md5:91187d21c0d0ac16
+	// 标记该值已经转换并设置为`ReferValue`。调用者可以忽略返回的结果。
+	// 这是一个用于内部使用的属性。
+	// md5:91187d21c0d0ac16
 	alreadySetToReferValue bool
 }
 
@@ -238,7 +230,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		}
 		return &v
 
-	case "GTime", "gtime.Time": //th:case "GTime", "gtime.Time", "时间类", "时间类.Time":  
+	case "GTime", "gtime.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return *v
@@ -251,7 +243,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		} else {
 			return *gtime.New()
 		}
-	case "*gtime.Time": //th:case "*gtime.Time", "*时间类.Time":  
+	case "*gtime.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return v
@@ -322,15 +314,15 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 			}()
 			switch referReflectValue.Kind() {
 			case reflect.Ptr:
-// 自定义类型指针的类型转换。
-// 例如：
-// type PayMode int
-// type Req struct{
-//     Mode *PayMode
-// }
-// 
-// Struct(`{"Mode": 1000}`, &req)
-// md5:d218e7f3f409c5f7
+				// 自定义类型指针的类型转换。
+				// 例如：
+				// type PayMode int
+				// type Req struct{
+				//     Mode *PayMode
+				// }
+				// 
+				// Struct(`{"Mode": 1000}`, &req)
+				// md5:d218e7f3f409c5f7
 				originType := referReflectValue.Type().Elem()
 				switch originType.Kind() {
 				case reflect.Struct:

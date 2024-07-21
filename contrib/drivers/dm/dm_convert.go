@@ -16,18 +16,13 @@ import (
 )
 
 // ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
-// ff:
-// d:
-// ctx:
-// fieldType:
-// fieldValue:
 func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	switch itemValue := fieldValue.(type) {
 	// dm 不支持 time.Time 类型，所以这里将其转换为它支持的时间字符串。 md5:afbc1f9b897fc589
 	case time.Time:
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// 如果时间是零值，它将更新为nil，
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue.IsZero() {
 			return nil, nil
 		}
@@ -35,9 +30,9 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 
 	// dm 不支持 time.Time 类型，所以这里将其转换为它支持的时间字符串。 md5:afbc1f9b897fc589
 	case *time.Time:
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// 如果时间是零值，它将更新为nil，
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}

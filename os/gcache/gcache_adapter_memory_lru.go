@@ -40,16 +40,11 @@ func newMemCacheLru(cache *AdapterMemory) *adapterMemoryLru {
 }
 
 // Close 关闭 LRU 对象。 md5:5fbab2bd7f830bd3
-// ff:
-// lru:
 func (lru *adapterMemoryLru) Close() {
 	lru.closed.Set(true)
 }
 
 // Remove 从 LRU 缓存中删除 `key`。 md5:1b31a149f111557e
-// ff:删除并带返回值
-// lru:
-// key:
 func (lru *adapterMemoryLru) Remove(key interface{}) {
 	if v := lru.data.Get(key); v != nil {
 		lru.data.Remove(key)
@@ -58,23 +53,16 @@ func (lru *adapterMemoryLru) Remove(key interface{}) {
 }
 
 // Size 返回 lru 的大小。 md5:e6b8b41e660eeabd
-// ff:取数量
-// lru:
 func (lru *adapterMemoryLru) Size() int {
 	return lru.data.Size()
 }
 
 // Push 将`key`推送到`lru`的尾部。 md5:d0793b82031a3f0e
-// ff:
-// lru:
-// key:
 func (lru *adapterMemoryLru) Push(key interface{}) {
 	lru.rawList.PushBack(key)
 }
 
 // Pop 从`lru`的尾部删除并返回键。 md5:e9a281592f5ec82e
-// ff:
-// lru:
 func (lru *adapterMemoryLru) Pop() interface{} {
 	if v := lru.list.PopBack(); v != nil {
 		lru.data.Remove(v)
@@ -85,9 +73,6 @@ func (lru *adapterMemoryLru) Pop() interface{} {
 
 // SyncAndClear 使用最近最少使用（LRU）算法，将键从`rawList`同步到`list`和`data`中，并清除不再需要的数据。
 // md5:1da6cde3bc8d63d6
-// ff:
-// lru:
-// ctx:
 func (lru *adapterMemoryLru) SyncAndClear(ctx context.Context) {
 	if lru.closed.Val() {
 		gtimer.Exit()

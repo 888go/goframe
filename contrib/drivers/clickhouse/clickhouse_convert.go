@@ -19,17 +19,12 @@ import (
 )
 
 // ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
-// ff:
-// d:
-// ctx:
-// fieldType:
-// fieldValue:
 func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	switch itemValue := fieldValue.(type) {
 	case time.Time:
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// 如果时间是零值，它将更新为nil，
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue.IsZero() {
 			return nil, nil
 		}
@@ -38,18 +33,18 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 		return itemValue, nil
 
 	case *time.Time:
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// 如果时间是零值，它将更新为nil，
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}
 		return itemValue, nil
 
 	case gtime.Time:
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// 如果时间是零值，它将更新为nil，
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue.IsZero() {
 			return nil, nil
 		}
@@ -61,9 +56,9 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 		if itemValue != nil {
 			return itemValue.Time, nil
 		}
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// 如果时间是零值，它将更新为nil，
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}

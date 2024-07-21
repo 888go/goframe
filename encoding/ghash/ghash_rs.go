@@ -8,8 +8,6 @@
 package ghash
 
 // RS 实现了经典的 32 位 RS 哈希算法。 md5:b79898a4563914ab
-// ff:
-// str:
 func RS(str []byte) uint32 {
 	var (
 		b    uint32 = 378551
@@ -24,8 +22,6 @@ func RS(str []byte) uint32 {
 }
 
 // RS64实现了经典RS哈希算法用于64位。 md5:26281dc7803cc7e0
-// ff:
-// str:
 func RS64(str []byte) uint64 {
 	var (
 		b    uint64 = 378551

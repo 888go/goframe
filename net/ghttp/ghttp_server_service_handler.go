@@ -25,10 +25,6 @@ import (
 // 1. func(*ghttp.Request)
 // 2. func(context.Context, BizRequest) (BizResponse, error)
 // md5:245b5139c4d933ad
-// ff:X绑定
-// s:
-// pattern:路由规则
-// handler:处理函数
 func (s *Server) BindHandler(pattern string, handler interface{}) {
 	var ctx = context.TODO()
 	funcInfo, err := s.checkAndCreateFuncInfo(handler, "", "", "")
@@ -215,8 +211,8 @@ func (s *Server) checkAndCreateFuncInfo(
 		return
 	}
 
-// 不要启用此逻辑，因为许多用户已经将非结构指针类型作为第一个输出参数使用。
-// md5:46785e26d27207d1
+	// 不要启用此逻辑，因为许多用户已经将非结构指针类型作为第一个输出参数使用。
+	// md5:46785e26d27207d1
 	/*
 		if reflectType.Out(0).Kind() != reflect.Ptr ||
 			(reflectType.Out(0).Kind() == reflect.Ptr && reflectType.Out(0).Elem().Kind() != reflect.Struct) {

@@ -48,9 +48,6 @@ var (
 )
 
 // NewStorageFile 创建并返回一个用于会话的文件存储对象。 md5:047619bd552117d1
-// ff:
-// path:
-// ttl:
 func NewStorageFile(path string, ttl time.Duration) *StorageFile {
 	var (
 		ctx         = context.TODO()
@@ -117,17 +114,11 @@ func (s *StorageFile) timelyClearExpiredSessionFile(ctx context.Context) {
 // SetCryptoKey 设置会话存储的加密密钥。
 // 当启用加密功能时，将使用此加密密钥。
 // md5:dbc53d710307bd28
-// ff:
-// s:
-// key:
 func (s *StorageFile) SetCryptoKey(key []byte) {
 	s.cryptoKey = key
 }
 
 // SetCryptoEnabled 启用/禁用会话存储的加密功能。 md5:14228b4577da32ec
-// ff:
-// s:
-// enabled:
 func (s *StorageFile) SetCryptoEnabled(enabled bool) {
 	s.cryptoEnabled = enabled
 }
@@ -138,10 +129,6 @@ func (s *StorageFile) sessionFilePath(sessionId string) string {
 }
 
 // RemoveAll 删除存储中的所有键值对。 md5:8b06607595d19a73
-// ff:
-// s:
-// ctx:
-// sessionId:
 func (s *StorageFile) RemoveAll(ctx context.Context, sessionId string) error {
 	return gfile.Remove(s.sessionFilePath(sessionId))
 }
@@ -152,13 +139,6 @@ func (s *StorageFile) RemoveAll(ctx context.Context, sessionId string) error {
 //
 // 此函数在会话启动时会被调用。
 // md5:01e56ce09d5fd934
-// ff:
-// s:
-// ctx:
-// sessionId:
-// ttl:
-// sessionData:
-// err:
 func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (sessionData *gmap.StrAnyMap, err error) {
 	var (
 		path    = s.sessionFilePath(sessionId)
@@ -194,12 +174,6 @@ func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time
 // 当某个被标记为脏（即发生过修改）的会话关闭后，将调用此函数。
 // 该操作会将所有会话数据从内存复制到存储中。
 // md5:1caa26989d884fa4
-// ff:
-// s:
-// ctx:
-// sessionId:
-// sessionData:
-// ttl:
 func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageFile.SetSession: %s, %v, %v", sessionId, sessionData, ttl)
 	path := s.sessionFilePath(sessionId)
@@ -236,11 +210,6 @@ func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionD
 // 当一个未被修改（非脏）的会话关闭后，此函数会被调用。
 // 它只是将会话ID添加到异步处理队列中。
 // md5:cc5ac287cbbc0eab
-// ff:
-// s:
-// ctx:
-// sessionId:
-// ttl:
 func (s *StorageFile) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageFile.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageFileUpdateTTLInterval {

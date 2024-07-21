@@ -25,8 +25,6 @@ type AdapterContent struct {
 // NewAdapterContent 返回一个使用自定义内容的新配置管理对象。
 // 参数 `content` 指定用于读取的默认配置内容。
 // md5:efafcabf61d7087b
-// ff:
-// content:
 func NewAdapterContent(content ...string) (*AdapterContent, error) {
 	a := &AdapterContent{
 		jsonVar: gvar.New(nil, true),
@@ -42,9 +40,6 @@ func NewAdapterContent(content ...string) (*AdapterContent, error) {
 // SetContent 为指定的`file`设置自定义配置内容。
 // `file`是可选参数，默认值为DefaultConfigFile。
 // md5:49ae38cf671e3b96
-// ff:
-// a:
-// content:
 func (a *AdapterContent) SetContent(content string) error {
 	j, err := gjson.LoadContent(content, true)
 	if err != nil {
@@ -59,11 +54,6 @@ func (a *AdapterContent) SetContent(content string) error {
 // 
 // 请注意，此函数不会返回错误，因为它只是简单地检查后端配置服务。
 // md5:79f955eb2fcdd137
-// ff:
-// a:
-// ctx:
-// resource:
-// ok:
 func (a *AdapterContent) Available(ctx context.Context, resource ...string) (ok bool) {
 	if a.jsonVar.IsNil() {
 		return false
@@ -76,12 +66,6 @@ func (a *AdapterContent) Available(ctx context.Context, resource ...string) (ok 
 // "x.y.z" 用于map中的条目。
 // "x.0.y" 用于切片中的条目。
 // md5:39b9171603468968
-// ff:
-// a:
-// ctx:
-// pattern:
-// value:
-// err:
 func (a *AdapterContent) Get(ctx context.Context, pattern string) (value interface{}, err error) {
 	if a.jsonVar.IsNil() {
 		return nil, nil
@@ -89,15 +73,10 @@ func (a *AdapterContent) Get(ctx context.Context, pattern string) (value interfa
 	return a.jsonVar.Val().(*gjson.Json).Get(pattern).Val(), nil
 }
 
-	// Data 获取并以映射的形式返回当前资源中的所有配置数据。
-	// 注意，如果配置数据量过大，此函数可能会占用大量内存。
-	// 如有需要，你可以根据实际情况实现这个函数。
-	// md5:19dfa88d9aa6ece5
-// ff:
-// a:
-// ctx:
-// data:
-// err:
+// Data 获取并以映射的形式返回当前资源中的所有配置数据。
+// 注意，如果配置数据量过大，此函数可能会占用大量内存。
+// 如有需要，你可以根据实际情况实现这个函数。
+// md5:19dfa88d9aa6ece5
 func (a *AdapterContent) Data(ctx context.Context) (data map[string]interface{}, err error) {
 	if a.jsonVar.IsNil() {
 		return nil, nil

@@ -17,11 +17,6 @@ import (
 
 // Search 通过名称 `name` 在以下路径中搜索文件，按照优先级进行：优先搜索路径（prioritySearchPaths）、当前工作目录（Pwd()）、自身目录（SelfDir()）和主包路径（MainPkgPath()）。如果找到，则返回文件的绝对路径；如果没有找到，则返回空字符串。
 // md5:4251b6145a87bd38
-// ff:查找
-// name:文件名
-// prioritySearchPaths:优先级查找路径
-// realPath:路径
-// err:错误
 func Search(name string, prioritySearchPaths ...string) (realPath string, err error) {
 	// 检查它是否是绝对路径。 md5:fcbf7e8f8e3d02b7
 	realPath = RealPath(name)

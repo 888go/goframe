@@ -13,18 +13,18 @@ type localMeter struct {
 
 // MeterOption 是用于创建Meter的创建选项。 md5:aeec4cb6c20611f7
 type MeterOption struct {
-// Instrument 是将此 Metric 绑定到全局度量提供程序的指标名称。这是指标的可选配置。
-// md5:c68d90eb2e2a5738
+	// Instrument 是将此 Metric 绑定到全局度量提供程序的指标名称。这是指标的可选配置。
+	// md5:c68d90eb2e2a5738
 	Instrument string
 
-// InstrumentVersion 是用于将此指标绑定到全局 MeterProvider 的仪器版本。
-// 这是指标的一个可选配置。
-// md5:9e0f63bfaddf4047
+	// InstrumentVersion 是用于将此指标绑定到全局 MeterProvider 的仪器版本。
+	// 这是指标的一个可选配置。
+	// md5:9e0f63bfaddf4047
 	InstrumentVersion string
 
-// Attributes 保存了计量器（Meter）中所有指标的常量键值对描述元数据。
-// 这是一个可选的仪表配置。
-// md5:b57d2f1c17951d62
+	// Attributes 保存了计量器（Meter）中所有指标的常量键值对描述元数据。
+	// 这是一个可选的仪表配置。
+	// md5:b57d2f1c17951d62
 	Attributes Attributes
 }
 
@@ -36,8 +36,6 @@ func newMeter(option MeterOption) Meter {
 }
 
 // Performer 为 Meter 创建并返回表演者。 md5:78f41b5ebd242dd8
-// ff:
-// meter:
 func (meter *localMeter) Performer() MeterPerformer {
 	if globalProvider == nil {
 		return nil

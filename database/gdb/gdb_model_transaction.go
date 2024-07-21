@@ -11,18 +11,11 @@ import (
 	"context"
 )
 
-		// Transaction 包装了使用函数 `f` 执行的事务逻辑。
-		// 如果函数 `f` 返回非空错误，它将回滚事务并返回该错误。如果函数 `f` 返回 nil，它将提交事务并返回 nil。
-		// 
-		// 注意，在函数 `f` 中不应手动提交或回滚事务，因为这些操作将由这个函数自动处理。
-		// md5:8906440d4dbbef1f
-// ff:事务
-// m:
-// ctx:上下文
-// f:回调函数
-// ctx:上下文
-// tx:
-// err:错误
+// Transaction 包装了使用函数 `f` 执行的事务逻辑。
+// 如果函数 `f` 返回非空错误，它将回滚事务并返回该错误。如果函数 `f` 返回 nil，它将提交事务并返回 nil。
+// 
+// 注意，在函数 `f` 中不应手动提交或回滚事务，因为这些操作将由这个函数自动处理。
+// md5:8906440d4dbbef1f
 func (m *Model) Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error) {
 	if ctx == nil {
 		ctx = m.GetCtx()

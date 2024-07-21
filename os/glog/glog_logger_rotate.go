@@ -73,10 +73,10 @@ func (l *Logger) doRotateFile(ctx context.Context, filePath string) error {
 		fileExtName = gfile.ExtName(filePath)
 		newFilePath = ""
 	)
-// 通过在日志文件名中添加额外的日期时间信息（到微秒级别），重命名日志文件，例如：
-// access.log            -> access.20200326101301899002.log
-// access.20200326.log   -> access.20200326.20200326101301899002.log
-// md5:96d2e4456a2a561d
+	// 通过在日志文件名中添加额外的日期时间信息（到微秒级别），重命名日志文件，例如：
+	// access.log            -> access.20200326101301899002.log
+	// access.20200326.log   -> access.20200326.20200326101301899002.log
+	// md5:96d2e4456a2a561d
 	for {
 		var (
 			now   = gtime.Now()
@@ -139,18 +139,18 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 		intlog.Errorf(ctx, `%+v`, err)
 	}
 	intlog.Printf(ctx, "logging rotation start checks: %+v", files)
-// 获取文件名正则表达式模式
-// access-{yyyy-mm-dd}-test.log => access-${}-test.log => access-\$\-test\.log => access-(\w+)-test\.log
-// 
-// 这段注释说明了一个正则表达式规则，用于从文件名中提取部分。原始格式是`access-yyyy-mm-dd-test.log`，经过转换后，它首先替换`{}`为`-`（`access-yyyy-mm-dd-test.log` => `access-yyyy-mm-dd-test.log`），然后替换`-`为`\`（`access-yyyy-mm-dd-test.log` => `access-$-test.log`），再进一步替换`\`为`\`（`access-$-test.log` => `access-\$-test\.log`），最后使用正向前瞻断言匹配一个或多个任意字符但不包括`-`（`access-\$-test\.log` => `access-(.+?)-test\.log`），这样就可以匹配如`access-2021-08-31-test.log`这样的文件名。
-// md5:e9cbde6eccd06a32
+	// 获取文件名正则表达式模式
+	// access-{yyyy-mm-dd}-test.log => access-${}-test.log => access-\$\-test\.log => access-(\w+)-test\.log
+	// 
+	// 这段注释说明了一个正则表达式规则，用于从文件名中提取部分。原始格式是`access-yyyy-mm-dd-test.log`，经过转换后，它首先替换`{}`为`-`（`access-yyyy-mm-dd-test.log` => `access-yyyy-mm-dd-test.log`），然后替换`-`为`\`（`access-yyyy-mm-dd-test.log` => `access-$-test.log`），再进一步替换`\`为`\`（`access-$-test.log` => `access-\$-test\.log`），最后使用正向前瞻断言匹配一个或多个任意字符但不包括`-`（`access-\$-test\.log` => `access-(.+?)-test\.log`），这样就可以匹配如`access-2021-08-31-test.log`这样的文件名。
+	// md5:e9cbde6eccd06a32
 	fileNameRegexPattern, _ := gregex.ReplaceString(`{.+?}`, "$", l.config.File)
 	fileNameRegexPattern = gregex.Quote(fileNameRegexPattern)
 	fileNameRegexPattern = strings.ReplaceAll(fileNameRegexPattern, "\\$", "(.+?)")
-// =============================================================
-// 无效文件检查的旋转
-// =============================================================
-// md5:2ac41d9c8ed6dcd1
+	// =============================================================
+	// 无效文件检查的旋转
+	// =============================================================
+	// md5:2ac41d9c8ed6dcd1
 	if l.config.RotateExpire > 0 {
 		var (
 			mtime         time.Time
@@ -196,10 +196,10 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 		}
 	}
 
-// =============================================================
-// 旋转文件压缩。
-// =============================================================
-// md5:c028a879a3e48da1
+	// =============================================================
+	// 旋转文件压缩。
+	// =============================================================
+	// md5:c028a879a3e48da1
 	needCompressFileArray := garray.NewStrArray()
 	if l.config.RotateBackupCompress > 0 {
 		for _, file := range files {
@@ -212,15 +212,15 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 			if !gregex.IsMatchString(fileNameRegexPattern, originalLoggingFilePath) {
 				continue
 			}
-// 示例：
-// access.20200326101301899002.log
-// 
-// 这个注释没有明确的翻译需求，因为它本身就是表示一个文件名样例，其中包含了日期和可能的访问记录序列号。如果需要解释其结构含义，可以这样翻译：
-// 
-// 示例文件名：
-// 访问日志文件，格式为"access.日期(YYYYMMDDHHMMSS).序列号.log"
-// 例如：access.2020年03月26日10时13分01秒899002序列号.log
-// md5:08ddd9e8cc49fee7
+			// 示例：
+			// access.20200326101301899002.log
+			// 
+			// 这个注释没有明确的翻译需求，因为它本身就是表示一个文件名样例，其中包含了日期和可能的访问记录序列号。如果需要解释其结构含义，可以这样翻译：
+			// 
+			// 示例文件名：
+			// 访问日志文件，格式为"access.日期(YYYYMMDDHHMMSS).序列号.log"
+			// 例如：access.2020年03月26日10时13分01秒899002序列号.log
+			// md5:08ddd9e8cc49fee7
 			if gregex.IsMatchString(`.+\.\d{20}\.log`, gfile.Basename(file)) {
 				needCompressFileArray.Append(file)
 			}
@@ -246,14 +246,14 @@ func (l *Logger) rotateChecksTimely(ctx context.Context) {
 		}
 	}
 
-// =============================================================
-// 备份数量限制和过期检查。
-// =============================================================
-// md5:7edc3bfeec7fde2e
+	// =============================================================
+	// 备份数量限制和过期检查。
+	// =============================================================
+	// md5:7edc3bfeec7fde2e
 	backupFiles := garray.NewSortedArray(func(a, b interface{}) int {
-// 按照旋转/备份文件的mtime（修改时间）排序。
-// 老的旋转/备份文件被放在数组的头部。
-// md5:7ead56b6a771900f
+		// 按照旋转/备份文件的mtime（修改时间）排序。
+		// 老的旋转/备份文件被放在数组的头部。
+		// md5:7ead56b6a771900f
 		var (
 			file1  = a.(string)
 			file2  = b.(string)

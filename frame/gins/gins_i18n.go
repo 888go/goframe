@@ -11,11 +11,9 @@ import (
 	"github.com/gogf/gf/v2/i18n/gi18n"
 )
 
-		// I18n 返回一个 gi18n.Manager 的实例。
-		// 参数 `name` 是实例的名称。
-		// md5:cb8fb8e2c93c597b
-// ff:
-// name:
+// I18n 返回一个 gi18n.Manager 的实例。
+// 参数 `name` 是实例的名称。
+// md5:cb8fb8e2c93c597b
 func I18n(name ...string) *gi18n.Manager {
 	return gi18n.Instance(name...)
 }

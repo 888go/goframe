@@ -18,10 +18,6 @@ import (
 // GetPage 根据给定的`totalSize`和`pageSize`创建并返回分页对象。
 // 请注意，来自客户端的分页参数名称常量定义为gpage.DefaultPageName，以简化和方便使用。
 // md5:4d3bd97d937b25b8
-// ff:取分页类
-// r:
-// totalSize:总数据量
-// pageSize:每页大小
 func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 	// 它必须有 Router 对象属性。 md5:8cc7be190bf78663
 	if r.Router == nil {

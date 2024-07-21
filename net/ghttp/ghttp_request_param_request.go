@@ -22,10 +22,6 @@ import (
 // 
 // 注意，如果有多个同名参数，将按照以下优先级顺序进行获取和覆盖：路由器 < 查询参数 < 身份验证 < 表单数据 < 自定义参数。
 // md5:a008e7f428967448
-// ff:取参数
-// r:
-// key:名称
-// def:默认
 func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
 	value := r.GetParam(key)
 	if value.IsNil() {
@@ -60,9 +56,6 @@ func (r *Request) GetRequest(key string, def ...interface{}) *gvar.Var {
 //
 // 注意，如果有多个同名参数，参数将按照优先级顺序被获取及覆盖：路由参数 < 查询参数 < 请求体参数 < 表单参数 < 自定义参数。
 // md5:b01ba4caf2092f12
-// ff:取参数到Map
-// r:
-// kvMap:
 func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	r.parseForm()
@@ -137,9 +130,6 @@ func (r *Request) GetRequestMap(kvMap ...map[string]interface{}) map[string]inte
 
 // GetRequestMapStrStr 从客户端和自定义参数中获取并返回所有传递的参数，无论客户端使用何种HTTP方法。参数`kvMap`指定了从客户端参数中检索的键，关联的值是客户端未传递时的默认值。
 // md5:18e353330403d45b
-// ff:取参数到MapStrStr
-// r:
-// kvMap:
 func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	requestMap := r.GetRequestMap(kvMap...)
 	if len(requestMap) > 0 {
@@ -154,9 +144,6 @@ func (r *Request) GetRequestMapStrStr(kvMap ...map[string]interface{}) map[strin
 
 // GetRequestMapStrVar 从客户端和自定义参数中检索并返回所有传递的参数，作为map[string]*gvar.Var。无论客户端使用何种HTTP方法，都会进行检索。参数`kvMap`指定了从客户端参数中获取的键，关联的值是客户端未传递时的默认值。
 // md5:1063c291381a5048
-// ff:取参数到Map泛型类
-// r:
-// kvMap:
 func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
 	requestMap := r.GetRequestMap(kvMap...)
 	if len(requestMap) > 0 {
@@ -173,10 +160,6 @@ func (r *Request) GetRequestMapStrVar(kvMap ...map[string]interface{}) map[strin
 // 并将它们转换为结构体对象。注意，参数`pointer`是一个指向结构体对象的指针。
 // 可选参数`mapping`用于指定键到属性的映射。
 // md5:a117b2c0722fc3fe
-// ff:取参数到结构体
-// r:
-// pointer:结构体指针
-// mapping:名称映射
 func (r *Request) GetRequestStruct(pointer interface{}, mapping ...map[string]string) error {
 	_, err := r.doGetRequestStruct(pointer, mapping...)
 	return err

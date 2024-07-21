@@ -13,53 +13,36 @@ import (
 )
 
 // SetCookieMaxAge 设置服务器的CookieMaxAge。 md5:1bd691f49b3f7d7e
-// ff:设置Cookie最大存活时长
-// s:
-// ttl:时长
 func (s *Server) SetCookieMaxAge(ttl time.Duration) {
 	s.config.CookieMaxAge = ttl
 }
 
 // SetCookiePath 为服务器设置Cookie路径。 md5:427faaa8ad8633d8
-// ff:设置Cookie路径
-// s:
-// path:路径
 func (s *Server) SetCookiePath(path string) {
 	s.config.CookiePath = path
 }
 
 // SetCookieDomain 设置服务器的Cookie域。 md5:0337df246d313fe6
-// ff:设置Cookie域名
-// s:
-// domain:域名
 func (s *Server) SetCookieDomain(domain string) {
 	s.config.CookieDomain = domain
 }
 
 // GetCookieMaxAge 返回服务器的 CookieMaxAge。 md5:515f434ef606a7c5
-// ff:取Cookie最大存活时长
-// s:
 func (s *Server) GetCookieMaxAge() time.Duration {
 	return s.config.CookieMaxAge
 }
 
 // GetCookiePath 返回服务器的CookiePath。 md5:5879f664e379d096
-// ff:取Cookie路径
-// s:
 func (s *Server) GetCookiePath() string {
 	return s.config.CookiePath
 }
 
 // GetCookieDomain 返回服务器的Cookie域名。 md5:f44dbe67d6622660
-// ff:取Cookie域名
-// s:
 func (s *Server) GetCookieDomain() string {
 	return s.config.CookieDomain
 }
 
 // GetCookieSameSite 返回服务器的CookieSameSite设置。 md5:e015f6293556b8a8
-// ff:取CookieSameSite
-// s:
 func (s *Server) GetCookieSameSite() http.SameSite {
 	switch s.config.CookieSameSite {
 	case "lax":
@@ -73,14 +56,10 @@ func (s *Server) GetCookieSameSite() http.SameSite {
 	}
 }
 
-// ff:取Cookie安全
-// s:
 func (s *Server) GetCookieSecure() bool {
 	return s.config.CookieSecure
 }
 
-// ff:取CookieHttpOnly
-// s:
 func (s *Server) GetCookieHttpOnly() bool {
 	return s.config.CookieHttpOnly
 }

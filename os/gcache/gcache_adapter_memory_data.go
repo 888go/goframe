@@ -32,13 +32,6 @@ func newAdapterMemoryData() *adapterMemoryData {
 // 如果给定的`value`为nil，它会删除`key`。
 // 如果`key`不在缓存中，它不会做任何操作。
 // md5:6d92816db5b1d3bd
-// ff:更新值
-// d:
-// key:名称
-// value:值
-// oldValue:旧值
-// exist:是否已存在
-// err:错误
 func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue interface{}, exist bool, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -56,12 +49,6 @@ func (d *adapterMemoryData) Update(key interface{}, value interface{}) (oldValue
 //
 // 如果`key`在缓存中不存在，它将返回-1并什么都不做。如果`duration`小于0，它会删除`key`。
 // md5:b974907dd46b44be
-// ff:更新过期时间
-// d:
-// key:名称
-// expireTime:时长
-// oldDuration:旧过期时长
-// err:错误
 func (d *adapterMemoryData) UpdateExpire(key interface{}, expireTime int64) (oldDuration time.Duration, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -78,12 +65,6 @@ func (d *adapterMemoryData) UpdateExpire(key interface{}, expireTime int64) (old
 // Remove 从缓存中删除一个或多个键，并返回其值。
 // 如果给出了多个键，它将返回最后删除项的值。
 // md5:b3f23906b769df08
-// ff:删除并带返回值
-// d:
-// keys:名称
-// removedKeys:被删除名称
-// value:值
-// err:错误
 func (d *adapterMemoryData) Remove(keys ...interface{}) (removedKeys []interface{}, value interface{}, err error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -100,8 +81,6 @@ func (d *adapterMemoryData) Remove(keys ...interface{}) (removedKeys []interface
 }
 
 // Data 返回一个缓存中所有键值对的副本，以映射类型表示。 md5:d88afdf7cfc66604
-// ff:取所有键值Map副本
-// d:
 func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
 	d.mu.RLock()
 	m := make(map[interface{}]interface{}, len(d.data))
@@ -115,8 +94,6 @@ func (d *adapterMemoryData) Data() (map[interface{}]interface{}, error) {
 }
 
 // Keys 返回缓存中所有键的切片。 md5:7ebd9dba01282dc2
-// ff:取所有键
-// d:
 func (d *adapterMemoryData) Keys() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
@@ -134,8 +111,6 @@ func (d *adapterMemoryData) Keys() ([]interface{}, error) {
 }
 
 // Values 返回缓存中所有的值作为切片。 md5:dc00b32eb8913e9b
-// ff:取所有值
-// d:
 func (d *adapterMemoryData) Values() ([]interface{}, error) {
 	d.mu.RLock()
 	var (
@@ -153,10 +128,6 @@ func (d *adapterMemoryData) Values() ([]interface{}, error) {
 }
 
 // Size 返回缓存的大小。 md5:c939a4ed87cd79ce
-// ff:取数量
-// d:
-// size:数量
-// err:错误
 func (d *adapterMemoryData) Size() (size int, err error) {
 	d.mu.RLock()
 	size = len(d.data)
@@ -167,8 +138,6 @@ func (d *adapterMemoryData) Size() (size int, err error) {
 // Clear 清空缓存中的所有数据。
 // 注意，此函数涉及敏感操作，应谨慎使用。
 // md5:9212cab88870d3df
-// ff:清空
-// d:
 func (d *adapterMemoryData) Clear() error {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -176,11 +145,6 @@ func (d *adapterMemoryData) Clear() error {
 	return nil
 }
 
-// ff:取值
-// d:
-// key:名称
-// item:
-// ok:成功
 func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok bool) {
 	d.mu.RLock()
 	item, ok = d.data[key]
@@ -188,11 +152,6 @@ func (d *adapterMemoryData) Get(key interface{}) (item adapterMemoryItem, ok boo
 	return
 }
 
-// yx:true
-// ff:设置值
-// d:
-// key:
-// value:
 func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {
 	d.mu.Lock()
 	d.data[key] = value
@@ -204,10 +163,6 @@ func (d *adapterMemoryData) Set(key interface{}, value adapterMemoryItem) {
 // 如果 `duration` == 0，则不设置过期时间。
 // 如果 `duration` < 0 或者给定的 `value` 为 nil，则删除 `data` 中的键。
 // md5:cc6156a6df071b21
-// ff:设置Map
-// d:
-// data:
-// expireTime:
 func (d *adapterMemoryData) SetMap(data map[interface{}]interface{}, expireTime int64) error {
 	d.mu.Lock()
 	for k, v := range data {
@@ -220,12 +175,6 @@ func (d *adapterMemoryData) SetMap(data map[interface{}]interface{}, expireTime 
 	return nil
 }
 
-// ff:
-// d:
-// ctx:
-// key:
-// value:
-// expireTimestamp:
 func (d *adapterMemoryData) SetWithLock(ctx context.Context, key interface{}, value interface{}, expireTimestamp int64) (interface{}, error) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -252,10 +201,6 @@ func (d *adapterMemoryData) SetWithLock(ctx context.Context, key interface{}, va
 	return value, nil
 }
 
-// ff:
-// d:
-// key:
-// force:
 func (d *adapterMemoryData) DeleteWithDoubleCheck(key interface{}, force ...bool) {
 	d.mu.Lock()
 	// 在从缓存中真正删除之前，再双检查一次。 md5:53767fc86cbfbf5e

@@ -58,9 +58,6 @@ var (
 // SetConfig 为指定的组设置全局配置。
 // 如果没有传递 `name`，则为默认组名设置配置。
 // md5:8d7c1f181c0057f0
-// ff:
-// config:
-// name:
 func SetConfig(config *Config, name ...string) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -74,9 +71,6 @@ func SetConfig(config *Config, name ...string) {
 // SetConfigByMap 使用映射设置指定组的全局配置。
 // 如果未传递`name`，则将配置设置为默认组名。
 // md5:1d191bb426ab05fb
-// ff:
-// m:
-// name:
 func SetConfigByMap(m map[string]interface{}, name ...string) error {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -91,10 +85,6 @@ func SetConfigByMap(m map[string]interface{}, name ...string) error {
 }
 
 // ConfigFromMap 从给定的映射中解析并返回配置。 md5:105a2224aed53bc9
-// ff:
-// m:
-// config:
-// err:
 func ConfigFromMap(m map[string]interface{}) (config *Config, err error) {
 	config = &Config{}
 	if err = gconv.Scan(m, config); err != nil {
@@ -126,10 +116,6 @@ func ConfigFromMap(m map[string]interface{}) (config *Config, err error) {
 
 // GetConfig 返回指定组名的全局配置。如果未传入 `name`，则返回默认组名的配置。
 // md5:327a839e91668442
-// ff:
-// name:
-// config:
-// ok:
 func GetConfig(name ...string) (config *Config, ok bool) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -144,8 +130,6 @@ func GetConfig(name ...string) (config *Config, ok bool) {
 // RemoveConfig 删除指定组的全局配置。
 // 如果没有传递 `name`，则删除默认组名的配置。
 // md5:8e808827f299122d
-// ff:
-// name:
 func RemoveConfig(name ...string) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -157,7 +141,6 @@ func RemoveConfig(name ...string) {
 }
 
 // ClearConfig 删除所有的 Redis 配置。 md5:337bf67372d51962
-// ff:
 func ClearConfig() {
 	localConfigMap.Clear()
 }

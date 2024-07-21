@@ -26,15 +26,11 @@ type discoveryNode struct {
 }
 
 // Service是服务发现客户端。 md5:0022814c173cde3d
-// ff:
-// n:
 func (n *discoveryNode) Service() gsvc.Service {
 	return n.service
 }
 
 // Address 返回节点的地址。 md5:299d6002549d1c50
-// ff:
-// n:
 func (n *discoveryNode) Address() string {
 	return n.address
 }
@@ -113,11 +109,11 @@ func updateSelectorNodesByService(ctx context.Context, selector gsel.Selector, s
 	return selector.Update(ctx, nodes)
 }
 
-	// isServiceName 检查并返回给定的输入参数是否为服务名称。
-	// 它通过判断参数中是否包含端口分隔符':'来检查。
-	//
-	// 如果使用服务发现，则它不包含任何端口号。
-	// md5:fefe525183a2ba4d
+// isServiceName 检查并返回给定的输入参数是否为服务名称。
+// 它通过判断参数中是否包含端口分隔符':'来检查。
+//
+// 如果使用服务发现，则它不包含任何端口号。
+// md5:fefe525183a2ba4d
 func isServiceName(serviceNameOrAddress string) bool {
 	return !gstr.Contains(serviceNameOrAddress, gsvc.EndpointHostPortDelimiter)
 }

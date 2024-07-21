@@ -13,7 +13,7 @@
 //
 // Redis中文文档：http://redisdoc.com/
 // md5:fd856764d3114fd3
-package gredis//bm:redis类
+package gredis
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"
@@ -33,8 +33,6 @@ var (
 // New 创建并返回一个redis客户端。
 // 它创建了一个默认的go-redis适配器。
 // md5:3f355ab0e775862a
-// ff:
-// config:
 func New(config ...*Config) (*Redis, error) {
 	var (
 		usedConfig  *Config
@@ -69,8 +67,6 @@ func New(config ...*Config) (*Redis, error) {
 }
 
 // NewWithAdapter 使用给定的适配器创建并返回一个Redis客户端。 md5:ab7dc6695935087f
-// ff:
-// adapter:
 func NewWithAdapter(adapter Adapter) (*Redis, error) {
 	if adapter == nil {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `adapter cannot be nil`)
@@ -80,8 +76,6 @@ func NewWithAdapter(adapter Adapter) (*Redis, error) {
 }
 
 // RegisterAdapterFunc 注册创建默认 Redis 适配器的函数。 md5:2390765dfc7002cb
-// ff:
-// adapterFunc:
 func RegisterAdapterFunc(adapterFunc AdapterFunc) {
 	defaultAdapterFunc = adapterFunc
 }

@@ -31,7 +31,7 @@ import (
 
 type (
 	// Server 包装了 http.Server 并提供了更多丰富的功能。 md5:0f435fc6994521cc
-	Server struct {//qm:服务  cz:Server struct {  
+	Server struct {
 		instance         string                    // 当前HTTP服务器的实例名称。 md5:9bf2787b3978a65a
 		config           ServerConfig              // Server configuration.
 		plugins          []Plugin                  // 用于扩展服务器功能的插件数组。 md5:9911152f56cd3480
@@ -50,27 +50,27 @@ type (
 	}
 
 	// Router object.
-	Router struct {//qm:路由  cz:Router struct {  
+	Router struct {
 		Uri      string   // URI.
 		Method   string   // HTTP method
 		Domain   string   // Bound domain.
-		RegRule  string//qm:正则路由规则  cz:RegRule string     // 用于路由匹配的解析正则表达式。 md5:8892e0f87233f591
-		RegNames []string//qm:路由参数名称  cz:RegNames []string   // 已解析的路由器参数名称。 md5:cb14202c5a1319f3
+		RegRule  string   // 用于路由匹配的解析正则表达式。 md5:8892e0f87233f591
+		RegNames []string // 已解析的路由器参数名称。 md5:cb14202c5a1319f3
 		Priority int      // Just for reference.
 	}
 
 	// RouterItem 仅仅用于路由输出。 md5:50edede8ea2ffda9
 	RouterItem struct {
 		Handler          *HandlerItem // The handler.
-		Server           string//qm:服务器名称  cz:Server string         // Server name.
-		Address          string//qm:监听地址  cz:Address string         // Listening address.
+		Server           string       // Server name.
+		Address          string       // Listening address.
 		Domain           string       // Bound domain.
 		Type             HandlerType  // Route handler type.
-		Middleware       string//qm:中间件名称  cz:Middleware string         // Bound middleware.
+		Middleware       string       // Bound middleware.
 		Method           string       // Handler method name.
-		Route            string//qm:路由URI  cz:Route string         // Route URI.
+		Route            string       // Route URI.
 		Priority         int          // Just for reference.
-		IsServiceHandler bool//qm:是否为服务处理器  cz:IsServiceHandler bool           // Is service handler.
+		IsServiceHandler bool         // Is service handler.
 	}
 
 	// HandlerFunc是一个请求处理函数。 md5:9d90773cd75863ca
@@ -87,40 +87,40 @@ type (
 
 	// HandlerItem是注册的路由处理程序，包括中间件和钩子函数。
 	// md5:78b676e6e09329bb
-	HandlerItem struct {//qm:路由处理函数  cz:HandlerItem struct {  
-// 唯一的处理器项标识。
-// 注意，同一个处理器函数可能会注册为不同的处理器项，它们具有不同的处理器项ID。
-// md5:7b474802a6e17d79
+	HandlerItem struct {
+		// 唯一的处理器项标识。
+		// 注意，同一个处理器函数可能会注册为不同的处理器项，它们具有不同的处理器项ID。
+		// md5:7b474802a6e17d79
 		Id         int
-		Name       string//qm:处理器名称  cz:Name string            // 处理器名称，当注册时会自动从运行时堆栈中获取。 md5:72fae2285a3c4c69
+		Name       string          // 处理器名称，当注册时会自动从运行时堆栈中获取。 md5:72fae2285a3c4c69
 		Type       HandlerType     // 处理器类型：对象/处理器/中间件/钩子。 md5:3f54f4463e6e5dc5
-		Info       handlerFuncInfo//qm:处理器函数信息  cz:Info handlerFuncInfo   // 处理器函数信息。 md5:471fa38cfb5ee901
-		InitFunc   HandlerFunc//qm:初始化回调函数  cz:InitFunc HandlerFunc       // 当请求进入对象时的初始化函数（仅适用于对象注册类型）。 md5:e9c9e4d3f3d42414
-		ShutFunc   HandlerFunc//qm:关闭回调函数  cz:ShutFunc HandlerFunc       // 当请求删除对象时（仅适用于对象注册类型），调用的退出函数。 md5:b919a3d55a43043b
-		Middleware []HandlerFunc//qm:中间件切片  cz:Middleware []HandlerFunc     //绑定中间件数组。 md5:8fba709766af338f
-		HookName   HookName//qm:Hook名称  cz:HookName HookName          // 挂钩类型名称，仅对挂钩类型可用。 md5:13d0e45e1f8d3e9f
-		Router     *Router//qm:路由  cz:Router *           // Router object.
-		Source     string//qm:注册来源  cz:Source string            // 注册源文件`路径:行号`。 md5:681405429ed39e78
+		Info       handlerFuncInfo // 处理器函数信息。 md5:471fa38cfb5ee901
+		InitFunc   HandlerFunc     // 当请求进入对象时的初始化函数（仅适用于对象注册类型）。 md5:e9c9e4d3f3d42414
+		ShutFunc   HandlerFunc     // 当请求删除对象时（仅适用于对象注册类型），调用的退出函数。 md5:b919a3d55a43043b
+		Middleware []HandlerFunc   //绑定中间件数组。 md5:8fba709766af338f
+		HookName   HookName        // 挂钩类型名称，仅对挂钩类型可用。 md5:13d0e45e1f8d3e9f
+		Router     *Router         // Router object.
+		Source     string          // 注册源文件`路径:行号`。 md5:681405429ed39e78
 	}
 
 	// HandlerItemParsed是从URL.Path解析出的项目。 md5:6e18c9d6fea2d3d1
-	HandlerItemParsed struct {//qm:路由解析  cz:HandlerItemParsed struct {  
+	HandlerItemParsed struct {
 		Handler *HandlerItem      // Handler information.
-		Values  map[string]string//qm:路由值  cz:Values map[string]string   // 从URL.Path中解析得到的路由值。 md5:f6d02a0cfbdeb7d3
+		Values  map[string]string // 从URL.Path中解析得到的路由值。 md5:f6d02a0cfbdeb7d3
 	}
 
 	// ServerStatus 是服务器状态的枚举类型。 md5:6de5e4d7f5fc52a6
-	ServerStatus = int//qm:服务状态  cz:ServerStatus = int  
+	ServerStatus = int
 
 	// HookName是路由钩子名称枚举类型。 md5:9e0295b925c0c40f
-	HookName string//qm:Hook名称  cz:HookName string  
+	HookName string
 
 	// HandlerType 是路由处理器枚举类型。 md5:940090bf597744cc
-	HandlerType string//qm:路由处理器类型  cz:HandlerType string  
+	HandlerType string
 
-// 文件描述符映射的监听。
-// 键可以是 "http" 或 "https"，值则是对应的文件描述符（FD）。
-// md5:203cb0295faad7ff
+	// 文件描述符映射的监听。
+	// 键可以是 "http" 或 "https"，值则是对应的文件描述符（FD）。
+	// md5:203cb0295faad7ff
 	listenerFdMap = map[string]string
 
 	// internalPanic 是用于内部使用的自定义恐慌。 md5:287806e552654f1d
@@ -129,7 +129,7 @@ type (
 
 const (
 	// FreePortAddress 标记服务器使用随机的空闲端口进行监听。 md5:16e8ca0633c4a135
-	FreePortAddress = ":0"//qm:空闲端口地址  cz:FreePortAddress = ":0"  
+	FreePortAddress = ":0"
 )
 
 const (
@@ -173,19 +173,19 @@ const (
 )
 
 var (
-// methodsMap 存储所有支持的HTTP方法。
-// 它用于通过映射快速搜索HTTP方法。
-// md5:d1f472198ffb7422
+	// methodsMap 存储所有支持的HTTP方法。
+	// 它用于通过映射快速搜索HTTP方法。
+	// md5:d1f472198ffb7422
 	methodsMap = make(map[string]struct{})
 
-// serverMapping 为当前进程存储多个服务器实例。
-// 键是服务器的名称，值是其对应的实例。
-// md5:ebea00ddd34b8a0e
+	// serverMapping 为当前进程存储多个服务器实例。
+	// 键是服务器的名称，值是其对应的实例。
+	// md5:ebea00ddd34b8a0e
 	serverMapping = gmap.NewStrAnyMap(true)
 
-// serverRunning 标记运行中的服务器数量。
-// 如果没有成功运行的服务器或所有服务器都已关闭，该值为 0。
-// md5:5521930133e9bda1
+	// serverRunning 标记运行中的服务器数量。
+	// 如果没有成功运行的服务器或所有服务器都已关闭，该值为 0。
+	// md5:5521930133e9bda1
 	serverRunning = gtype.NewInt()
 
 	// wsUpGrader是websocket的默认升级器配置。 md5:dcb5f656ab8a1a3a
@@ -195,9 +195,9 @@ var (
 			return true
 		},
 	}
-// allShutdownChan 是所有服务器完成服务并退出的事件。
-// 它用于进程阻塞的目的。
-// md5:7575f7dd8d471d7f
+	// allShutdownChan 是所有服务器完成服务并退出的事件。
+	// 它用于进程阻塞的目的。
+	// md5:7575f7dd8d471d7f
 	allShutdownChan = make(chan struct{}, 1000)
 
 	// serverProcessInitialized 用于服务器的懒惰初始化。进程只能初始化一次。
@@ -212,7 +212,7 @@ var (
 )
 
 var (
-	ErrNeedJsonBody = gerror.NewWithOption(gerror.Option{//qm:ERR请求体必须json格式  cz:ErrNeedJsonBody =  
+	ErrNeedJsonBody = gerror.NewWithOption(gerror.Option{
 		Text: "the request body content should be JSON format",
 		Code: gcode.CodeInvalidRequest,
 	})

@@ -27,11 +27,11 @@ func MapPossibleItemByKey(data map[string]interface{}, key string) (foundKey str
 	return "", nil
 }
 
-	// MapContainsPossibleKey 检查给定的`key`是否包含在给定的映射`data`中。
-	// 它在检查键时忽略大小写和符号。
-	//
-	// 注意：此函数可能性能较低。
-	// md5:f1b183430304dc85
+// MapContainsPossibleKey 检查给定的`key`是否包含在给定的映射`data`中。
+// 它在检查键时忽略大小写和符号。
+//
+// 注意：此函数可能性能较低。
+// md5:f1b183430304dc85
 func MapContainsPossibleKey(data map[string]interface{}, key string) bool {
 	if k, _ := MapPossibleItemByKey(data, key); k != "" {
 		return true

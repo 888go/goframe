@@ -15,9 +15,9 @@ import (
 type StackMode string
 
 const (
-// commandEnvKeyForBrief 是用于切换简要错误堆栈的命令环境变量名。
-// 已弃用：请使用 commandEnvKeyForStackMode 代替。
-// md5:ec191a8df835f7da
+	// commandEnvKeyForBrief 是用于切换简要错误堆栈的命令环境变量名。
+	// 已弃用：请使用 commandEnvKeyForStackMode 代替。
+	// md5:ec191a8df835f7da
 	commandEnvKeyForBrief = "gf.gerror.brief"
 
 	// commandEnvKeyForStackMode 是用于切换简短错误堆栈的命令环境名称。 md5:23f1a1bc661e992f

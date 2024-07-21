@@ -10,8 +10,6 @@ package gstr
 import "unicode/utf8"
 
 // LenRune返回Unicode字符串的长度。 md5:153854e98ec30abe
-// ff:取字符长度
-// str:文本
 func LenRune(str string) int {
 	return utf8.RuneCountInString(str)
 }

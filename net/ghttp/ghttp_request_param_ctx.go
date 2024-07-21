@@ -15,8 +15,6 @@ import (
 )
 
 // RequestFromCtx 从上下文中检索并返回Request对象。 md5:c247eac3d031fb2b
-// ff:从上下文取请求对象
-// ctx:上下文
 func RequestFromCtx(ctx context.Context) *Request {
 	if v := ctx.Value(ctxKeyForRequest); v != nil {
 		return v.(*Request)
@@ -28,8 +26,6 @@ func RequestFromCtx(ctx context.Context) *Request {
 // 这个函数重写了 http.Request.Context 函数。
 // 参考 GetCtx 函数。
 // md5:cc1d0847fad835ae
-// ff:Context别名
-// r:
 func (r *Request) Context() context.Context {
 	var ctx = r.Request.Context()
 	// 检查并把Request对象注入到context中。 md5:6db244059baa2f77
@@ -47,8 +43,6 @@ func (r *Request) Context() context.Context {
 // GetCtx 获取并返回请求的上下文。
 // 它是函数Context的别名，与SetCtx函数相关联。
 // md5:67b84a74829ae7e1
-// ff:取上下文对象
-// r:
 func (r *Request) GetCtx() context.Context {
 	return r.Context()
 }
@@ -59,16 +53,11 @@ func (r *Request) GetCtx() context.Context {
 // 
 // 这个更改是考虑到开发人员在单个HTTP请求中创建多个goroutine时，常见的上下文传播习惯。
 // md5:14245b7febbf75b4
-// ff:
-// r:
 func (r *Request) GetNeverDoneCtx() context.Context {
 	return gctx.NeverDone(r.Context())
 }
 
 // SetCtx 为当前请求设置自定义上下文。 md5:447efd465325d822
-// ff:设置上下文对象
-// r:
-// ctx:上下文
 func (r *Request) SetCtx(ctx context.Context) {
 	*r.Request = *r.WithContext(ctx)
 }
@@ -76,10 +65,6 @@ func (r *Request) SetCtx(ctx context.Context) {
 // GetCtxVar 根据给定的键名获取并返回一个 Var。
 // 可选参数 `def` 指定了如果给定的 `key` 在上下文中不存在时，Var 的默认值。
 // md5:8e874c6ac730ae7b
-// ff:取上下文对象值
-// r:
-// key:名称
-// def:默认值
 func (r *Request) GetCtxVar(key interface{}, def ...interface{}) *gvar.Var {
 	value := r.Context().Value(key)
 	if value == nil && len(def) > 0 {
@@ -89,10 +74,6 @@ func (r *Request) GetCtxVar(key interface{}, def ...interface{}) *gvar.Var {
 }
 
 // SetCtxVar 为上下文（context）设置自定义参数，使用键值对形式。 md5:f6782a132f936ef1
-// ff:设置上下文对象值
-// r:
-// key:名称
-// value:值
 func (r *Request) SetCtxVar(key interface{}, value interface{}) {
 	var ctx = r.Context()
 	ctx = context.WithValue(ctx, key, value)

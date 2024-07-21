@@ -16,10 +16,6 @@ import (
 )
 
 // Send 向给定pid的指定进程发送数据。 md5:32fd0c7aeb3b969c
-// ff:
-// pid:
-// data:
-// group:
 func Send(pid int, data []byte, group ...string) error {
 	msg := MsgRequest{
 		SenderPid:   Pid(),

@@ -14,16 +14,12 @@ import (
 )
 
 // PrintStack 将运行时堆栈跟踪信息输出到标准错误。 md5:91aa0db11ba5ad2a
-// ff:
-// skip:
 func PrintStack(skip ...int) {
 	fmt.Print(Stack(skip...))
 }
 
 // Stack 返回调用它的goroutine的格式化堆栈跟踪。它调用runtime.Stack，使用足够大的缓冲区来捕获整个跟踪。
 // md5:1115a268fe979d5c
-// ff:
-// skip:
 func Stack(skip ...int) string {
 	return StackWithFilter(nil, skip...)
 }
@@ -33,23 +29,17 @@ func Stack(skip ...int) string {
 // 
 // 参数`filter`用于过滤调用者路径。
 // md5:5342cfca7c1801ab
-// ff:
-// filters:
-// skip:
 func StackWithFilter(filters []string, skip ...int) string {
 	return StackWithFilters(filters, skip...)
 }
 
-	// StackWithFilters 返回调用它的goroutine的格式化堆栈跟踪。
-	// 它使用足够大的缓冲区调用runtime.Stack以捕获整个跟踪。
-	//
-	// 参数 `filters` 是一个字符串切片，用于过滤调用者的路径。
-	//
-	// 待办：使用debug.Stack来提高性能。
-	// md5:febf8524b3fa5e97
-// ff:
-// filters:
-// skip:
+// StackWithFilters 返回调用它的goroutine的格式化堆栈跟踪。
+// 它使用足够大的缓冲区调用runtime.Stack以捕获整个跟踪。
+//
+// 参数 `filters` 是一个字符串切片，用于过滤调用者的路径。
+//
+// 待办：使用debug.Stack来提高性能。
+// md5:febf8524b3fa5e97
 func StackWithFilters(filters []string, skip ...int) string {
 	number := 0
 	if len(skip) > 0 {

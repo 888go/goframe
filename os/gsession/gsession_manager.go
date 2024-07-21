@@ -19,9 +19,6 @@ type Manager struct {
 }
 
 // New 创建并返回一个新的会话管理器。 md5:f41a96ed9e4273e4
-// ff:
-// ttl:
-// storage:
 func New(ttl time.Duration, storage ...Storage) *Manager {
 	m := &Manager{
 		ttl: ttl,
@@ -38,10 +35,6 @@ func New(ttl time.Duration, storage ...Storage) *Manager {
 // New 为给定的 session ID 创建或获取会话。
 // 参数 `sessionId` 是可选的，如果未提供，则根据 Storage.New 的行为创建新的会话。
 // md5:4d84930c3cbf9027
-// ff:
-// m:
-// ctx:
-// sessionId:
 func (m *Manager) New(ctx context.Context, sessionId ...string) *Session {
 	var id string
 	if len(sessionId) > 0 && sessionId[0] != "" {
@@ -55,31 +48,21 @@ func (m *Manager) New(ctx context.Context, sessionId ...string) *Session {
 }
 
 // SetStorage 设置管理器的会话存储。 md5:9fe6b2a9a6ae9990
-// ff:
-// m:
-// storage:
 func (m *Manager) SetStorage(storage Storage) {
 	m.storage = storage
 }
 
 // GetStorage 返回当前会话管理器的存储对象。 md5:43cdd2b5155f8389
-// ff:
-// m:
 func (m *Manager) GetStorage() Storage {
 	return m.storage
 }
 
 // SetTTL 设置会话管理器的生存时间（TTL）。 md5:bba913d23693cf2a
-// ff:
-// m:
-// ttl:
 func (m *Manager) SetTTL(ttl time.Duration) {
 	m.ttl = ttl
 }
 
 // GetTTL 返回会话管理器的TTL（时间到 live，生存时间）。 md5:d0733ac8b424fbe1
-// ff:
-// m:
 func (m *Manager) GetTTL() time.Duration {
 	return m.ttl
 }

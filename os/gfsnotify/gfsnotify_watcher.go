@@ -19,14 +19,6 @@ import (
 // 将监控器添加到观察者，监控的路径为`path`，回调函数为`callbackFunc`。
 // 可选参数`recursive`指定是否递归监控`path`，默认值为真。
 // md5:35e0c4a9c0901ef8
-// ff:
-// w:
-// path:
-// callbackFunc:
-// event:
-// recursive:
-// callback:
-// err:
 func (w *Watcher) Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	return w.AddOnce("", path, callbackFunc, recursive...)
 }
@@ -37,15 +29,6 @@ func (w *Watcher) Add(path string, callbackFunc func(event *Event), recursive ..
 // 
 // 可选参数 `recursive` 指定是否递归地监控 `path`，默认为 true。
 // md5:6ead1d3d4bff4432
-// ff:
-// w:
-// name:
-// path:
-// callbackFunc:
-// event:
-// recursive:
-// callback:
-// err:
 func (w *Watcher) AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w.nameSet.AddIfNotExistFuncLock(name, func() bool {
 		// 首先，添加路径到观察者。 md5:8830f7aece4dab2e
@@ -123,8 +106,6 @@ func (w *Watcher) addWithCallbackFunc(name, path string, callbackFunc func(event
 }
 
 // Close 关闭监听器。 md5:c20cd2708e199b34
-// ff:
-// w:
 func (w *Watcher) Close() {
 	close(w.closeChan)
 	if err := w.watcher.Close(); err != nil {
@@ -134,9 +115,6 @@ func (w *Watcher) Close() {
 }
 
 // Remove 递归地移除与"path"关联的监视器和所有回调。 md5:e48d059cb96966c1
-// ff:
-// w:
-// path:
 func (w *Watcher) Remove(path string) error {
 	// 首先移除路径上的回调函数。 md5:15ba778318ad7bb9
 	if value := w.callbacks.Remove(path); value != nil {
@@ -204,9 +182,6 @@ func (w *Watcher) checkPathCanBeRemoved(path string) bool {
 }
 
 // RemoveCallback 从观察者中移除具有给定回调ID的回调。 md5:78b678cca3a84b90
-// ff:
-// w:
-// callbackId:
 func (w *Watcher) RemoveCallback(callbackId int) {
 	callback := (*Callback)(nil)
 	if r := callbackIdMap.Get(callbackId); r != nil {

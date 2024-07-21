@@ -15,8 +15,6 @@ import (
 )
 
 // HttpClient 返回指定名称的 http 客户端实例。 md5:4ad3009bae654769
-// ff:
-// name:
 func HttpClient(name ...interface{}) *gclient.Client {
 	var instanceKey = fmt.Sprintf("%s.%v", frameCoreComponentNameHttpClient, name)
 	return instance.GetOrSetFuncLock(instanceKey, func() interface{} {

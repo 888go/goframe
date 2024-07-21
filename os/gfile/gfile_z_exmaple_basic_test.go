@@ -89,9 +89,9 @@ func ExampleOpenFile() {
 		path     = gfile.Join(gfile.Temp("gfile_example_basic_dir"), "file1")
 		dataByte = make([]byte, 4096)
 	)
-// 使用自定义的 `flag` 和 `perm` 打开文件/目录
-// 如果文件不存在，则创建一个可读写模式的文件，权限默认为 0777
-// md5:77b0a10407d251c5
+	// 使用自定义的 `flag` 和 `perm` 打开文件/目录
+	// 如果文件不存在，则创建一个可读写模式的文件，权限默认为 0777
+	// md5:77b0a10407d251c5
 	openFile, _ := gfile.OpenFile(path, os.O_CREATE|os.O_RDWR, gfile.DefaultPermCopy)
 	defer openFile.Close()
 
@@ -117,9 +117,9 @@ func ExampleOpenWithFlag() {
 		dataByte = make([]byte, 4096)
 	)
 
-// 使用自定义的`flag`打开文件/目录
-// 如果文件不存在，将创建文件，并以可读写模式打开，默认的`perm`权限为0666
-// md5:510ad8864d50d6b6
+	// 使用自定义的`flag`打开文件/目录
+	// 如果文件不存在，将创建文件，并以可读写模式打开，默认的`perm`权限为0666
+	// md5:510ad8864d50d6b6
 	openFile, _ := gfile.OpenWithFlag(path, os.O_CREATE|os.O_RDWR)
 	defer openFile.Close()
 
@@ -257,9 +257,9 @@ func ExampleMove() {
 	// Check is file
 	fmt.Println(gfile.IsFile(dstPath))
 
-// 将`src`移动到`dst`路径。
-// 如果`dst`已经存在且不是目录，它将被替换。
-// md5:3401f06a2c8ccd49
+	// 将`src`移动到`dst`路径。
+	// 如果`dst`已经存在且不是目录，它将被替换。
+	// md5:3401f06a2c8ccd49
 	gfile.Move(srcPath, dstPath)
 
 	fmt.Println(gfile.IsFile(srcPath))
@@ -280,9 +280,9 @@ func ExampleRename() {
 	// Check is file
 	fmt.Println(gfile.IsFile(dstPath))
 
-// 将`src`路径重命名（移动）到`dst`。
-// 如果`dst`已经存在且不是目录，它将被替换。
-// md5:b028a167dc2de1d0
+	// 将`src`路径重命名（移动）到`dst`。
+	// 如果`dst`已经存在且不是目录，它将被替换。
+	// md5:b028a167dc2de1d0
 	gfile.Rename(srcPath, dstPath)
 
 	fmt.Println(gfile.IsFile(srcPath))

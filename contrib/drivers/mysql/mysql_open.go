@@ -23,8 +23,7 @@ import (
 // Open 创建并返回一个底层的 sql.DB 对象，用于 MySQL。
 // 注意，它将时间.Time 参数默认转换为本地时区。
 // md5:341df118003c304e
-
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底层Open cz:func (d *Driver) Open
+func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "mysql"
@@ -41,7 +40,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底
 			source, _ = gregex.ReplaceString(`/([\w\.\-]+)+`, "/"+config.Name, source)
 		}
 	} else {
-								// 待办事项：在未指定字符集时不要设置字符集（在v2.5.0版本中）. md5:2c9a899c402d1e44
+		// 待办事项：在未指定字符集时不要设置字符集（在v2.5.0版本中）. md5:2c9a899c402d1e44
 		source = fmt.Sprintf(
 			"%s:%s@%s(%s:%s)/%s?charset=%s",
 			config.User, config.Pass, config.Protocol, config.Host, config.Port, config.Name, config.Charset,

@@ -273,7 +273,7 @@ func Test_Package_Option_HeadSize4(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result, data)
 	})
-				// pkgOption.HeaderSize 头部溢出. md5:3ffe7aeda48c1a82
+	// pkgOption.HeaderSize 头部溢出. md5:3ffe7aeda48c1a82
 	gtest.C(t, func(t *gtest.T) {
 		conn, err := gtcp.NewConn(s.GetListenedAddress())
 		t.AssertNil(err)

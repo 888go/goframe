@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdes_test//bm:加密DES类_test
+package gdes_test
 
 import (
 	"encoding/hex"
@@ -152,7 +152,7 @@ func TestDesCBC(t *testing.T) {
 		errEncrypt, err = gdes.EncryptCBC(text, key, iv, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-								// 解密错误测试。密钥是 err. md5:d37b14dae71a9447
+		// 解密错误测试。密钥是 err. md5:d37b14dae71a9447
 		errDecrypt, err := gdes.DecryptCBC(cipherText, errKey, iv, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errDecrypt, nil)

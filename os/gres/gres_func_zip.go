@@ -70,8 +70,8 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 
 	if headerPrefix == "" {
 		if usedOption.KeepPath {
-// 它在资源管理器中保存从文件系统到zip信息的路径。通常对于相对路径，绝对路径意义不大。
-// md5:bba8ee186d063506
+			// 它在资源管理器中保存从文件系统到zip信息的路径。通常对于相对路径，绝对路径意义不大。
+			// md5:bba8ee186d063506
 			headerPrefix = srcPath
 		} else {
 			headerPrefix = gfile.Basename(absolutePath)
@@ -79,13 +79,13 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 	}
 	headerPrefix = strings.ReplaceAll(headerPrefix, `//`, `/`)
 	for _, file := range files {
-// 它在这里计算文件名前缀，特别是打包目录。
-// 例如：
-// 路径：dir1
-// 文件：dir1/dir2/file
-// file[字符串长度(absolutePath)：] => /dir2/file
-// gfile.Dir(subFilePath) => /dir2
-// md5:80c4920a234839ce
+		// 它在这里计算文件名前缀，特别是打包目录。
+		// 例如：
+		// 路径：dir1
+		// 文件：dir1/dir2/file
+		// file[字符串长度(absolutePath)：] => /dir2/file
+		// gfile.Dir(subFilePath) => /dir2
+		// md5:80c4920a234839ce
 		var subFilePath string
 		// 正常处理：移除文件的`absolutePath`（源目录路径）。 md5:66bfc67471cf5f63
 		subFilePath = file[len(absolutePath):]

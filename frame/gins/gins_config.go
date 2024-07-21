@@ -11,11 +11,9 @@ import (
 	"github.com/gogf/gf/v2/os/gcfg"
 )
 
-	// Config返回一个具有默认设置的View实例。
-	// 参数`name`是实例的名称。
-	// md5:9ab5ade589362ad3
-// ff:
-// name:
+// Config返回一个具有默认设置的View实例。
+// 参数`name`是实例的名称。
+// md5:9ab5ade589362ad3
 func Config(name ...string) *gcfg.Config {
 	return gcfg.Instance(name...)
 }

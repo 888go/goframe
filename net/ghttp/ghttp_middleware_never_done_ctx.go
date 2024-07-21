@@ -8,8 +8,6 @@
 package ghttp
 
 // MiddlewareNeverDoneCtx为当前进程设置永不完成的上下文。 md5:82de09cee1c428a4
-// ff:
-// r:
 func MiddlewareNeverDoneCtx(r *Request) {
 	r.SetCtx(r.GetNeverDoneCtx())
 	r.Middleware.Next()

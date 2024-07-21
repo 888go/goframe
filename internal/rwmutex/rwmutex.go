@@ -71,9 +71,9 @@ func (mu *RWMutex) RLock() {
 	}
 }
 
-	// RUnlock 释放读取锁。
-	// 如果在非并发安全使用时，它将不执行任何操作。
-	// md5:834672a97d0bd47f
+// RUnlock 释放读取锁。
+// 如果在非并发安全使用时，它将不执行任何操作。
+// md5:834672a97d0bd47f
 func (mu *RWMutex) RUnlock() {
 	if mu.mutex != nil {
 		mu.mutex.RUnlock()

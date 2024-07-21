@@ -16,23 +16,23 @@ import (
 
 // CacheOption是查询中用于模型缓存控制的选项。 md5:8a833b8335c45455
 type CacheOption struct {
-// Duration 是缓存的过期时间。
-// 如果参数 `Duration` 小于 0，表示使用给定的 `Name` 清除缓存。
-// 如果参数 `Duration` 等于 0，表示永不过期。
-// 如果参数 `Duration` 大于 0，表示在 `Duration` 秒后过期。
-// md5:28707300732ac411
-	Duration time.Duration//qm:时长  cz:Duration time.Duration  
+	// Duration 是缓存的过期时间。
+	// 如果参数 `Duration` 小于 0，表示使用给定的 `Name` 清除缓存。
+	// 如果参数 `Duration` 等于 0，表示永不过期。
+	// 如果参数 `Duration` 大于 0，表示在 `Duration` 秒后过期。
+	// md5:28707300732ac411
+	Duration time.Duration
 
-// Name 是一个可选的唯一名称，用于标识缓存。
-// 通过 Name 可以将一个名称与缓存绑定，这意味着您之后可以根据指定的名称来控制该缓存，
-// 例如更改缓存的 `持续时间` 或者清除指定名称的缓存。
-// md5:8c2eeafa42d36067
-	Name string//qm:名称  cz:Name string  
+	// Name 是一个可选的唯一名称，用于标识缓存。
+	// 通过 Name 可以将一个名称与缓存绑定，这意味着您之后可以根据指定的名称来控制该缓存，
+	// 例如更改缓存的 `持续时间` 或者清除指定名称的缓存。
+	// md5:8c2eeafa42d36067
+	Name string
 
 	// 强制缓存查询结果，无论结果是否为nil。
 	// 这用于防止缓存穿透。
 	// md5:78fc7d8520d64954
-	Force bool//qm:强制缓存  cz:Force bool  
+	Force bool
 }
 
 // selectCacheItem是用于SELECT语句结果的缓存项。 md5:73fb34eaa64ea7d1
@@ -46,9 +46,6 @@ type selectCacheItem struct {
 //
 // 注意，如果模型在事务中执行 SELECT 语句，缓存功能将被禁用。
 // md5:5d7ea513a485f3ad
-// ff:X缓存
-// m:
-// option:选项
 func (m *Model) Cache(option CacheOption) *Model {
 	model := m.getModel()
 	model.cacheOption = option

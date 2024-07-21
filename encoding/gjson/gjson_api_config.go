@@ -8,9 +8,6 @@
 package gjson
 
 // SetSplitChar 设置用于层次数据访问的分隔符字符。 md5:99655266409bea6a
-// ff:设置参数分隔符
-// j:
-// char:分隔符
 func (j *Json) SetSplitChar(char byte) {
 	j.mu.Lock()
 	j.c = char
@@ -18,9 +15,6 @@ func (j *Json) SetSplitChar(char byte) {
 }
 
 // SetViolenceCheck 用于启用或禁用层次数据访问时的暴力检查。 md5:b2fa0bb88e62957d
-// ff:设置分层冲突检查
-// j:
-// enabled:启用
 func (j *Json) SetViolenceCheck(enabled bool) {
 	j.mu.Lock()
 	j.vc = enabled

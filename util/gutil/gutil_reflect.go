@@ -17,17 +17,11 @@ type (
 )
 
 // OriginValueAndKind 获取并返回原始的反射值和类型。 md5:e2cdf5d39aa2b981
-// ff:
-// value:
-// out:
 func OriginValueAndKind(value interface{}) (out OriginValueAndKindOutput) {
 	return reflection.OriginValueAndKind(value)
 }
 
 // OriginTypeAndKind 获取并返回原始反射类型和种类。 md5:ee62836f1445e493
-// ff:
-// value:
-// out:
 func OriginTypeAndKind(value interface{}) (out OriginTypeAndKindOutput) {
 	return reflection.OriginTypeAndKind(value)
 }

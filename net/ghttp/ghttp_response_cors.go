@@ -29,9 +29,9 @@ type CORSOptions struct {
 }
 
 var (
-// defaultAllowHeaders 是CORS默认允许的头信息。
-// 为了提高头部键搜索性能，我们定义了另一个映射。
-// md5:e6a13ea98879b3e6
+	// defaultAllowHeaders 是CORS默认允许的头信息。
+	// 为了提高头部键搜索性能，我们定义了另一个映射。
+	// md5:e6a13ea98879b3e6
 	defaultAllowHeaders    = "Origin,Content-Type,Accept,User-Agent,Cookie,Authorization,X-Auth-Token,X-Requested-With"
 	defaultAllowHeadersMap = make(map[string]struct{})
 )
@@ -45,8 +45,6 @@ func init() {
 
 // DefaultCORSOptions 返回默认的 CORS 选项，它允许任何跨域请求。
 // md5:ed45ce5e88088eac
-// ff:取跨域默认选项
-// r:
 func (r *Response) DefaultCORSOptions() CORSOptions {
 	options := CORSOptions{
 		AllowOrigin:      "*",
@@ -80,9 +78,6 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 // CORS 设置自定义CORS选项。
 // 参见 https://www.w3.org/TR/cors/ 。
 // md5:5ace1c84086a260a
-// ff:跨域请求设置
-// r:
-// options:跨域选项
 func (r *Response) CORS(options CORSOptions) {
 	if r.CORSAllowedOrigin(options) {
 		r.Header().Set("Access-Control-Allow-Origin", options.AllowOrigin)
@@ -116,9 +111,6 @@ func (r *Response) CORS(options CORSOptions) {
 }
 
 // CORSAllowedOrigin CORSAllowed 检查当前请求的来源是否被允许进行跨域。 md5:599a140b617c5c1c
-// ff:是否允许跨域
-// r:
-// options:跨域选项
 func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
 	if options.AllowDomain == nil {
 		return true
@@ -139,11 +131,9 @@ func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
 	return false
 }
 
-	// CORSDefault 使用默认的 CORS 选项设置 CORS，
-	// 允许任何跨域请求。
-	// md5:2808119e534c338a
-// ff:跨域请求全允许
-// r:
+// CORSDefault 使用默认的 CORS 选项设置 CORS，
+// 允许任何跨域请求。
+// md5:2808119e534c338a
 func (r *Response) CORSDefault() {
 	r.CORS(r.DefaultCORSOptions())
 }

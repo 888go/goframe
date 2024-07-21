@@ -128,7 +128,7 @@ func Test_Model_Builder(t *testing.T) {
 }
 
 func Test_Safe_Builder(t *testing.T) {
-							// 测试m.Builder()是否在链式调用时安全. md5:429d30328a75265b
+	// 测试m.Builder()是否在链式调用时安全. md5:429d30328a75265b
 	gtest.C(t, func(t *gtest.T) {
 		b := db.Model().Builder()
 		b.Where("id", 1)

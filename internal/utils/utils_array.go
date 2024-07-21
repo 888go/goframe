@@ -9,9 +9,9 @@ package utils
 
 import "reflect"
 
-	// IsArray 检查给定值是否为数组/切片。
-	// 注意，它内部使用了反射来实现这个功能。
-	// md5:285200236d9da794
+// IsArray 检查给定值是否为数组/切片。
+// 注意，它内部使用了反射来实现这个功能。
+// md5:285200236d9da794
 func IsArray(value interface{}) bool {
 	rv := reflect.ValueOf(value)
 	kind := rv.Kind()

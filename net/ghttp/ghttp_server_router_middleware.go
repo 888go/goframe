@@ -21,10 +21,6 @@ const (
 
 // BindMiddleware 会在服务器上注册一个或多个全局中间件。全局中间件可以在没有服务处理器的情况下单独使用，它会在服务处理器之前或之后拦截所有动态请求。参数 `pattern` 指定了中间件拦截的路由模式，通常是一个模糊模式，如 "/:name"、"/*any" 或 "/{field}"。
 // md5:a58488c3f3613ab4
-// ff:绑定全局中间件
-// s:
-// pattern:路由规则
-// handlers:处理函数
 func (s *Server) BindMiddleware(pattern string, handlers ...HandlerFunc) {
 	var (
 		ctx = context.TODO()
@@ -48,9 +44,6 @@ func (s *Server) BindMiddleware(pattern string, handlers ...HandlerFunc) {
 // BindMiddlewareDefault 使用默认模式 "/*" 向服务器注册一个或多个全局中间件。
 // 全局中间件可以独立使用，无需服务处理器，它能在所有动态请求的前后拦截处理。
 // md5:fc212697fcedf39e
-// ff:绑定全局默认中间件
-// s:
-// handlers:处理函数
 func (s *Server) BindMiddlewareDefault(handlers ...HandlerFunc) {
 	var (
 		ctx = context.TODO()
@@ -71,12 +64,9 @@ func (s *Server) BindMiddlewareDefault(handlers ...HandlerFunc) {
 	}
 }
 
-			// Use 是 BindMiddlewareDefault 的别名。
-			// 参见 BindMiddlewareDefault。
-			// md5:713ca39a398552e8
-// ff:Use别名
-// s:
-// handlers:处理函数
+// Use 是 BindMiddlewareDefault 的别名。
+// 参见 BindMiddlewareDefault。
+// md5:713ca39a398552e8
 func (s *Server) Use(handlers ...HandlerFunc) {
 	s.BindMiddlewareDefault(handlers...)
 }

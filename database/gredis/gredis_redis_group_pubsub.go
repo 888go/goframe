@@ -37,8 +37,6 @@ type Subscription struct {
 }
 
 // String 将当前对象转换为可读的字符串。 md5:b831e7b38fabfe56
-// ff:
-// m:
 func (m *Subscription) String() string {
 	return fmt.Sprintf("%s: %s", m.Kind, m.Channel)
 }

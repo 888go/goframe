@@ -32,9 +32,6 @@ import (
 //
 // 参数`safe`指定是否在并发安全的上下文中使用此Json对象，默认值为false。
 // md5:b84f401db24e69d8
-// ff:创建
-// data:值
-// safe:并发安全
 func New(data interface{}, safe ...bool) *Json {
 	return NewWithTag(data, string(ContentTypeJson), safe...)
 }
@@ -45,10 +42,6 @@ func New(data interface{}, safe ...bool) *Json {
 // 
 // 参数`safe`表示是否在并发安全上下文中使用这个Json对象，默认为false。
 // md5:2558f08f4f082a16
-// ff:创建并按类型标签
-// data:值
-// tags:类型标签
-// safe:并发安全
 func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
 	option := Options{
 		Tags: tags,
@@ -61,9 +54,6 @@ func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
 
 // NewWithOptions使用任何类型的'data'创建一个Json对象，但出于数据访问的原因，`data`应该是map或切片，否则将没有意义。
 // md5:48be1828a6556518
-// ff:创建并按选项
-// data:值
-// options:选项
 func NewWithOptions(data interface{}, options Options) *Json {
 	var j *Json
 	switch data.(type) {
@@ -109,9 +99,6 @@ func NewWithOptions(data interface{}, options Options) *Json {
 }
 
 // Load 从指定的文件`path`加载内容，并根据其内容创建一个Json对象。 md5:fc26d8aa3d537173
-// ff:加载文件
-// path:路径
-// safe:并发安全
 func Load(path string, safe ...bool) (*Json, error) {
 	if p, err := gfile.Search(path); err != nil {
 		return nil, err
@@ -128,17 +115,11 @@ func Load(path string, safe ...bool) (*Json, error) {
 }
 
 // LoadWithOptions 根据给定的 JSON 格式内容和选项创建一个 Json 对象。 md5:77290b5f994f3ff1
-// ff:加载并按选项
-// data:值
-// options:选项
 func LoadWithOptions(data interface{}, options Options) (*Json, error) {
 	return doLoadContentWithOptions(gconv.Bytes(data), options)
 }
 
 // LoadJson 从给定的JSON格式内容创建一个Json对象。 md5:1f41cbc0a35bd390
-// ff:加载json
-// data:值
-// safe:并发安全
 func LoadJson(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeJson,
@@ -150,9 +131,6 @@ func LoadJson(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadXml 从给定的XML格式内容创建一个Json对象。 md5:a170d56aa371a2bb
-// ff:加载xml
-// data:值
-// safe:并发安全
 func LoadXml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeXml,
@@ -164,9 +142,6 @@ func LoadXml(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadIni 从给定的INI格式内容创建一个Json对象。 md5:bf3225da0be4c26b
-// ff:加载ini
-// data:值
-// safe:并发安全
 func LoadIni(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeIni,
@@ -178,9 +153,6 @@ func LoadIni(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadYaml 根据给定的 YAML 格式内容创建一个 Json 对象。 md5:d810aac213716b5a
-// ff:加载Yaml
-// data:值
-// safe:并发安全
 func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeYaml,
@@ -192,9 +164,6 @@ func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadToml 从给定的TOML格式内容创建一个Json对象。 md5:a27ac84d2a7e5a70
-// ff:加载Toml
-// data:值
-// safe:并发安全
 func LoadToml(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeToml,
@@ -206,9 +175,6 @@ func LoadToml(data interface{}, safe ...bool) (*Json, error) {
 }
 
 // LoadProperties 从给定的TOML格式内容创建一个Json对象。 md5:aacff07e57605d82
-// ff:加载Properties
-// data:值
-// safe:并发安全
 func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeProperties,
@@ -223,9 +189,6 @@ func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
 // 支持如下数据内容类型：
 // JSON、XML、INI、YAML和TOML。
 // md5:e930374f4ac3b32e
-// ff:加载并自动识别格式
-// data:值
-// safe:并发安全
 func LoadContent(data interface{}, safe ...bool) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
@@ -237,10 +200,6 @@ func LoadContent(data interface{}, safe ...bool) (*Json, error) {
 // LoadContentType 根据给定的类型和内容创建一个 JSON 对象，支持以下数据内容类型：
 // JSON, XML, INI, YAML 和 TOML.
 // md5:7db5bd0b429fea01
-// ff:加载并按格式
-// dataType:类型标签
-// data:值
-// safe:并发安全
 func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Json, error) {
 	content := gconv.Bytes(data)
 	if len(content) == 0 {
@@ -261,8 +220,6 @@ func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Jso
 }
 
 // IsValidDataType 检查并返回给定的 `dataType` 是否是用于加载的有效数据类型。 md5:3cc6cab5a2631a3e
-// ff:检查类型
-// dataType:待判断值
 func IsValidDataType(dataType ContentType) bool {
 	if dataType == "" {
 		return false

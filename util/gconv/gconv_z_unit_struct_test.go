@@ -369,6 +369,8 @@ func Test_Struct_Attr_CustomType2(t *testing.T) {
 		t.Assert(user.Name, "john")
 	})
 }
+
+// 从：k8s.io/apimachinery@v0.22.0/pkg/apis/meta/v1/duration.go. md5:08be22594408ed2b
 type MyDuration struct {
 	time.Duration
 }
@@ -506,6 +508,10 @@ func Test_StructEmbedded3(t *testing.T) {
 		t.Assert(user.CreateTime, "2019")
 	})
 }
+
+// https://github.com/gogf/gf/issues/775
+// 
+// 这个注释链接指向的是GitHub上的一个 issues（问题或讨论），gf（GoGF）是一个用Go语言编写的Web框架。775号issue可能是指该框架中的某个特定问题或者讨论的编号，具体内容需要查看链接才能得知。 md5:aad5ea6b7b59206e
 func Test_StructEmbedded4(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Sub2 struct {
@@ -1265,6 +1271,10 @@ func Test_Struct_Empty_MapStringString(t *testing.T) {
 		t.AssertNil(err)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1563
+// 
+// 这段注释链接指向的是GitHub上的一个 issues 页面，其中包含关于 "gf"（Go语言框架）项目的问题1563。具体的内容需要点击链接查看，可能是一个bug报告、功能请求或者讨论点。 md5:40653716adf5b048
 func Test_Struct_Issue1563(t *testing.T) {
 	type User struct {
 		Pass1 string `c:"password1"`
@@ -1283,6 +1293,8 @@ func Test_Struct_Issue1563(t *testing.T) {
 		}
 	})
 }
+
+// https://github.com/gogf/gf/issues/1597 问题讨论. md5:934fd7bf7bd1b6b7
 func Test_Struct_Issue1597(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S struct {
@@ -1304,6 +1316,9 @@ func Test_Struct_Issue1597(t *testing.T) {
 		t.Assert(s.B, `{"c":3}`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/3449
+// 这段代码是链接到一个GitHub问题的注释，问题编号为3449。在Go语言中，这种注释用于提供有关代码的额外信息，比如引用外部资源、说明问题或者提供待解决的任务。由于内容是URL，它可能指向一个关于代码库gf的讨论、错误报告或改进请求。要查看具体的内容，需要访问该链接。 md5:641e41ce7485cc00
 func Test_Struct_Issue3449(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S struct {
@@ -1329,6 +1344,10 @@ func Test_Struct_Issue3449(t *testing.T) {
 		t.Assert(s.B, `[{"k1":"11","k2":"12"},{"k1":"21","k2":"22"}]`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/2980
+// 
+// 这段注释是引用了GitHub上gf框架的一个问题链接，编号为2980。在Go语言中，这种注释通常用于指向相关问题、讨论或资源的链接，以便读者可以获取更多信息。 md5:5fa723daec963e70
 func Test_Struct_Issue2980(t *testing.T) {
 	type Post struct {
 		CreatedAt *gtime.Time `json:"createdAt" `

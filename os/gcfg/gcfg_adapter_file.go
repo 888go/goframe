@@ -55,8 +55,6 @@ var (
 // NewAdapterFile 返回一个新的配置管理对象。
 // 参数 `file` 指定了默认的配置文件读取名称。
 // md5:52ab633a98562ceb
-// ff:
-// file:
 func NewAdapterFile(file ...string) (*AdapterFile, error) {
 	var (
 		err  error
@@ -85,11 +83,11 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 			return nil, gerror.Newf(`configuration directory path "%s" does not exist`, customPath)
 		}
 	} else {
-// =================================================================================
-// 自动搜索目录。
-// 如果这些目录不存在，不影响适配器对象的创建。
-// =================================================================================
-// md5:08a226598ce0311e
+		// =================================================================================
+		// 自动搜索目录。
+		// 如果这些目录不存在，不影响适配器对象的创建。
+		// =================================================================================
+		// md5:08a226598ce0311e
 
 		// Dir 是工作目录的路径。 md5:0fba211853ea97a0
 		if err = config.AddPath(gfile.Pwd()); err != nil {
@@ -118,25 +116,17 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 // 
 // 注意，开启此功能的开销较大，并不建议在键名中使用分隔符。最好在应用层面上避免这种情况。
 // md5:5009f694ccd4efc0
-// ff:
-// a:
-// check:
 func (a *AdapterFile) SetViolenceCheck(check bool) {
 	a.violenceCheck = check
 	a.Clear()
 }
 
 // SetFileName 设置默认的配置文件名。 md5:b540171ead70ddf8
-// ff:
-// a:
-// name:
 func (a *AdapterFile) SetFileName(name string) {
 	a.defaultName = name
 }
 
 // GetFileName 返回默认的配置文件名。 md5:d13e3bd27526f03d
-// ff:
-// a:
 func (a *AdapterFile) GetFileName() string {
 	return a.defaultName
 }
@@ -147,12 +137,6 @@ func (a *AdapterFile) GetFileName() string {
 // 
 // 如果没有找到与`pattern`匹配的值，它将返回由`def`指定的默认值。
 // md5:8a88d01912ac6218
-// ff:
-// a:
-// ctx:
-// pattern:
-// value:
-// err:
 func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{}, err error) {
 	j, err := a.getJson()
 	if err != nil {
@@ -169,11 +153,6 @@ func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{
 // 这通常用于在运行时更新特定配置值。
 // 请注意，不建议在运行时使用 `Set` 配置，因为如果底层配置文件更改，配置会自动刷新。
 // md5:65992c2815af747e
-// yx:true
-// ff:设置值
-// a:
-// pattern:
-// value:
 func (a *AdapterFile) Set(pattern string, value interface{}) error {
 	j, err := a.getJson()
 	if err != nil {
@@ -186,11 +165,6 @@ func (a *AdapterFile) Set(pattern string, value interface{}) error {
 }
 
 // Data 获取并以映射类型返回所有配置数据。 md5:2a92e8bbe7388f01
-// ff:
-// a:
-// ctx:
-// data:
-// err:
 func (a *AdapterFile) Data(ctx context.Context) (data map[string]interface{}, err error) {
 	j, err := a.getJson()
 	if err != nil {
@@ -203,10 +177,6 @@ func (a *AdapterFile) Data(ctx context.Context) (data map[string]interface{}, er
 }
 
 // MustGet 行为类似于函数 Get，但如果发生错误时会引发 panic。 md5:b1d3af83a52fd248
-// ff:
-// a:
-// ctx:
-// pattern:
 func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
 	v, err := a.Get(ctx, pattern)
 	if err != nil {
@@ -217,15 +187,11 @@ func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
 
 // Clear 清除所有解析的配置文件内容缓存，这将强制重新从文件加载配置内容。
 // md5:5868c636ce62cb14
-// ff:
-// a:
 func (a *AdapterFile) Clear() {
 	a.jsonMap.Clear()
 }
 
 // Dump 打印当前的Json对象，使其更便于人工阅读。 md5:c8c6bbdb40fa6383
-// ff:
-// a:
 func (a *AdapterFile) Dump() {
 	if j, _ := a.getJson(); j != nil {
 		j.Dump()
@@ -233,10 +199,6 @@ func (a *AdapterFile) Dump() {
 }
 
 // 可用检查并返回给定`file`的配置是否可用。 md5:d915d3cb575cbd5b
-// ff:
-// a:
-// ctx:
-// fileName:
 func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
 	checkFileName := gutil.GetOrDefaultStr(a.defaultName, fileName...)
 	// 存在自定义配置内容。 md5:50d226a12b07427d

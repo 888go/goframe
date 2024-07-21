@@ -30,7 +30,6 @@ const (
 )
 
 // New 创建并返回一个新的资源对象。 md5:8c594601bad2dd64
-// ff:
 func New() *Resource {
 	return &Resource{
 		tree: gtree.NewBTree(defaultTreeM, func(v1, v2 interface{}) int {
@@ -41,10 +40,6 @@ func New() *Resource {
 
 // Add 解包并把`content`添加到当前资源对象中。不必要的参数`prefix`表示每个文件存储在当前资源对象中的前缀。
 // md5:93345d9770c1e7fa
-// ff:
-// r:
-// content:
-// prefix:
 func (r *Resource) Add(content string, prefix ...string) error {
 	files, err := UnpackContent(content)
 	if err != nil {
@@ -65,10 +60,6 @@ func (r *Resource) Add(content string, prefix ...string) error {
 
 // Load 从`path`加载、解包并将数据添加到当前资源对象中。不必要的参数`prefix`表示将每个文件存储到当前资源对象中的前缀。
 // md5:ab3e52fa479e7de6
-// ff:
-// r:
-// path:
-// prefix:
 func (r *Resource) Load(path string, prefix ...string) error {
 	realPath, err := gfile.Search(path)
 	if err != nil {
@@ -78,9 +69,6 @@ func (r *Resource) Load(path string, prefix ...string) error {
 }
 
 // Get返回给定路径的文件。 md5:f4989a4832cde2d2
-// ff:
-// r:
-// path:
 func (r *Resource) Get(path string) *File {
 	if path == "" {
 		return nil
@@ -103,10 +91,6 @@ func (r *Resource) Get(path string) *File {
 //
 // GetWithIndex 通常用于HTTP静态文件服务中。
 // md5:bfb61cc8920b4633
-// ff:
-// r:
-// path:
-// indexFiles:
 func (r *Resource) GetWithIndex(path string, indexFiles []string) *File {
 	// 用于在前缀中替换双字符 '/'。 md5:2ab9f670789bab70
 	path = strings.ReplaceAll(path, "\\", "/")
@@ -131,9 +115,6 @@ func (r *Resource) GetWithIndex(path string, indexFiles []string) *File {
 }
 
 // GetContent 直接返回 `path` 的内容。 md5:50cf0f721b7b89a5
-// ff:
-// r:
-// path:
 func (r *Resource) GetContent(path string) []byte {
 	file := r.Get(path)
 	if file != nil {
@@ -143,16 +124,11 @@ func (r *Resource) GetContent(path string) []byte {
 }
 
 // Contains 检查路径 `path` 是否存在于当前资源对象中。 md5:9beb2e9c06e1e221
-// ff:
-// r:
-// path:
 func (r *Resource) Contains(path string) bool {
 	return r.Get(path) != nil
 }
 
 // IsEmpty 检查资源管理器是否为空，并返回结果。 md5:3aaae27781ad4e8c
-// ff:
-// r:
 func (r *Resource) IsEmpty() bool {
 	return r.tree.IsEmpty()
 }
@@ -165,11 +141,6 @@ func (r *Resource) IsEmpty() bool {
 //
 // 注意，返回的文件不包含给定的 `path`。
 // md5:c7e8c1023db3f55f
-// ff:
-// r:
-// path:
-// pattern:
-// recursive:
 func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -183,11 +154,6 @@ func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*Fi
 //
 // 注意，它只返回文件，不包括目录。
 // md5:0f3154c32271652b
-// ff:
-// r:
-// path:
-// pattern:
-// recursive:
 func (r *Resource) ScanDirFile(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -266,11 +232,6 @@ type ExportOption struct {
 }
 
 // Export 将指定的路径 `srcPath` 及其所有子文件递归导出并保存到指定的系统路径 `dstPath`。 md5:271f4d0f27211419
-// ff:
-// r:
-// src:
-// dst:
-// option:
 func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 	var (
 		err          error
@@ -312,8 +273,6 @@ func (r *Resource) Export(src, dst string, option ...ExportOption) error {
 }
 
 // Dump 打印当前资源对象的文件。 md5:4533063269cc5df2
-// ff:
-// r:
 func (r *Resource) Dump() {
 	var info os.FileInfo
 	r.tree.Iterator(func(key, value interface{}) bool {

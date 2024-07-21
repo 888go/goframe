@@ -71,7 +71,7 @@ func Test_Gpool(t *testing.T) {
 		v2, err2 := p2.Get()
 		t.Assert(err2, nil)
 		t.Assert(v2, 0)
-						// 测试超时过期函数. md5:f6b3719e6bec20e3
+		// 测试超时过期函数. md5:f6b3719e6bec20e3
 		time.Sleep(3 * time.Second)
 		v2, err2 = p2.Get()
 		t.Assert(err2, errors.New("pool is empty"))

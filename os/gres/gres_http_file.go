@@ -15,16 +15,11 @@ import (
 )
 
 // Close 实现了 http.File 接口。 md5:ed68e1aedf92d678
-// ff:
-// f:
 func (f *File) Close() error {
 	return nil
 }
 
 // Readdir 实现了 http.File 接口的 Readdir 方法。 md5:d47ea30bb07047c4
-// ff:
-// f:
-// count:
 func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	files := f.resource.ScanDir(f.Name(), "*", false)
 	if len(files) > 0 {
@@ -41,18 +36,11 @@ func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 }
 
 // Stat 实现了 http.File 接口中的 Stat 方法。 md5:f25fb28810e2d18b
-// ff:
-// f:
 func (f *File) Stat() (os.FileInfo, error) {
 	return f.FileInfo(), nil
 }
 
 // Read implements the io.Reader接口。 md5:ef2823b98664212a
-// ff:
-// f:
-// b:
-// n:
-// err:
 func (f *File) Read(b []byte) (n int, err error) {
 	reader, err := f.getReader()
 	if err != nil {
@@ -65,12 +53,6 @@ func (f *File) Read(b []byte) (n int, err error) {
 }
 
 // Seek 实现了 io.Seeker 接口。 md5:891a8f7e89e80191
-// ff:
-// f:
-// offset:
-// whence:
-// n:
-// err:
 func (f *File) Seek(offset int64, whence int) (n int64, err error) {
 	reader, err := f.getReader()
 	if err != nil {

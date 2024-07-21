@@ -21,8 +21,7 @@ import (
 )
 
 // Open 创建并返回一个底层的 sql.DB 对象，针对 Oracle。 md5:db2b73d9e41929bd
-
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底层Open cz:func (d *Driver) Open
+func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "oracle"

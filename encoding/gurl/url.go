@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gurl提供了处理URL的有用API。 md5:3954efb697af4a41
-package gurl//bm:url类
+package gurl
 
 import (
 	"net/url"
@@ -17,8 +17,6 @@ import (
 
 // Encode将字符串进行转义，以便安全地放置在URL查询中。
 // md5:2e139b94de8d8e81
-// ff:编码
-// str:文本
 func Encode(str string) string {
 	return url.QueryEscape(str)
 }
@@ -27,8 +25,6 @@ func Encode(str string) string {
 // 将形如 "%AB" 的每3字节编码子串转换为其十六进制解码字节 0xAB。
 // 如果任何百分号（%）后面没有跟随两个十六进制数字，它将返回一个错误。
 // md5:c8ff43c799b800c0
-// ff:解码
-// str:文本
 func Decode(str string) (string, error) {
 	return url.QueryUnescape(str)
 }
@@ -36,8 +32,6 @@ func Decode(str string) (string, error) {
 // RawEncode 按照 RFC 3986 标准对给定的字符串进行原始URL编码。
 // 参考 http://php.net/manual/en/function.rawurlencode.php。
 // md5:b116dd32b351afc8
-// ff:编码RFC3986
-// str:文本
 func RawEncode(str string) string {
 	return strings.ReplaceAll(url.QueryEscape(str), "+", "%20")
 }
@@ -46,8 +40,6 @@ func RawEncode(str string) string {
 // 解码 URL 编码的字符串。
 // 参考：http://php.net/manual/zh/function.rawurldecode.php
 // md5:ffbb20457d038fe3
-// ff:解码RFC3986
-// str:文本
 func RawDecode(str string) (string, error) {
 	return url.QueryUnescape(strings.ReplaceAll(str, "%20", "+"))
 }
@@ -55,21 +47,16 @@ func RawDecode(str string) (string, error) {
 // BuildQuery 生成 URL 编码的查询字符串。
 // 参考：http://php.net/manual/zh/function.http-build-query.php。
 // md5:f0e4222e29189a30
-// ff:生成URL
-// queryData:查询参数
 func BuildQuery(queryData url.Values) string {
 	return queryData.Encode()
 }
 
-			// ParseURL 解析一个URL并返回其组成部分。
-			// 参数可选值：-1表示全部；1表示方案（scheme）；2表示主机（host）；4表示端口（port）；
-			// 8表示用户名（user）；16表示密码（pass）；32表示路径（path）；
-			// 64表示查询字符串（query）；128表示片段（fragment）。
-			// 参考 PHP 手册中的函数 parse-url：http:			//php.net/manual/en/function.parse-url.php。
-			// md5:ab33f23dd1fe61ca
-// ff:解析
-// str:文本
-// component:类型标签
+// ParseURL 解析一个URL并返回其组成部分。
+// 参数可选值：-1表示全部；1表示方案（scheme）；2表示主机（host）；4表示端口（port）；
+// 8表示用户名（user）；16表示密码（pass）；32表示路径（path）；
+// 64表示查询字符串（query）；128表示片段（fragment）。
+// 参考 PHP 手册中的函数 parse-url：http://php.net/manual/en/function.parse-url.php。
+// md5:ab33f23dd1fe61ca
 func ParseURL(str string, component int) (map[string]string, error) {
 	u, err := url.Parse(str)
 	if err != nil {

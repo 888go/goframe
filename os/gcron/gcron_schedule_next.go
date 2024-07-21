@@ -13,9 +13,6 @@ import (
 
 // Next 返回此调度的下次激活时间，大于给定的时间。如果找不到满足调度的时间，则返回零时间。
 // md5:a7867a51955c4fd0
-// ff:
-// s:
-// lastMeetTime:
 func (s *cronSchedule) Next(lastMeetTime time.Time) time.Time {
 	if s.everySeconds != 0 {
 		var (
@@ -41,7 +38,7 @@ func (s *cronSchedule) Next(lastMeetTime time.Time) time.Time {
 
 WRAP:
 	if currentTime.Year() > yearLimit {
-		return currentTime 						// 谁会在五年后关心这个任务呢？. md5:b515d5d4b0e4c598
+		return currentTime // 谁会在五年后关心这个任务呢？. md5:b515d5d4b0e4c598
 	}
 
 	for !s.checkMeetMonth(currentTime) {

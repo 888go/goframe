@@ -23,8 +23,6 @@ type ResponseRef struct {
 // Responses 是由 OpenAPI/Swagger 3.0 标准指定的。 md5:6a58747083cc2ced
 type Responses map[string]ResponseRef
 
-// ff:
-// r:
 func (r ResponseRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

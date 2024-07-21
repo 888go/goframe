@@ -49,9 +49,9 @@ const (
 	In                = "in"           // Swagger根据参数的位置，区分了以下参数类型。详情请参阅：https://swagger.io/docs/specification/describing-parameters/. md5:13bb3747232af609
 )
 
-	// StructTagPriority 定义了Map*/Struct*函数的默认优先级标签。
-	// 注意，`gconv/param` 标签由旧版本的包使用。强烈建议未来改用简短的标签 `c/p`。
-	// md5:0d809ae278226ae3
+// StructTagPriority 定义了Map*/Struct*函数的默认优先级标签。
+// 注意，`gconv/param` 标签由旧版本的包使用。强烈建议未来改用简短的标签 `c/p`。
+// md5:0d809ae278226ae3
 var StructTagPriority = []string{
 	GConv, Param, GConvShort, ParamShort, Json,
 }

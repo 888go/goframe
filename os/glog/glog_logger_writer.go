@@ -12,14 +12,9 @@ import (
 	"context"
 )
 
-		// Write 实现了 io.Writer 接口。
-		// 它只是使用 Print 函数打印内容。
-		// md5:da123f9fe994f171
-// ff:
-// l:
-// p:
-// n:
-// err:
+// Write 实现了 io.Writer 接口。
+// 它只是使用 Print 函数打印内容。
+// md5:da123f9fe994f171
 func (l *Logger) Write(p []byte) (n int, err error) {
 	l.Header(false).Print(context.TODO(), string(bytes.TrimRight(p, "\r\n")))
 	return len(p), nil

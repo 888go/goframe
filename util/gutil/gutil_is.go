@@ -17,16 +17,11 @@ import (
 // 如果 `value` 为以下情况，返回 false：整数0，bool 值 false，长度为0的切片/映射，或 nil；
 // 否则，返回 true。
 // md5:8e21f87627e70ce3
-// ff:
-// value:
 func IsEmpty(value interface{}) bool {
 	return empty.IsEmpty(value)
 }
 
 // IsTypeOf 检查"value"和"valueInExpectType"的类型是否相等，并返回结果。 md5:e1d0bdccffd973a1
-// ff:
-// value:
-// valueInExpectType:
 func IsTypeOf(value, valueInExpectType interface{}) bool {
 	return reflect.TypeOf(value) == reflect.TypeOf(valueInExpectType)
 }

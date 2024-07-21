@@ -32,8 +32,6 @@ type stackLine struct {
 }
 
 // Stack 返回错误堆栈信息作为字符串。 md5:467a08a63c68ff5e
-// ff:
-// err:
 func (err *Error) Stack() string {
 	if err == nil {
 		return ""

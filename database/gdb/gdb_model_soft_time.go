@@ -85,9 +85,6 @@ var (
 )
 
 // SoftTime 设置 SoftTimeOption 以自定义 Model 的软时间功能。 md5:6c4368abcd89e6b0
-// ff:
-// m:
-// option:
 func (m *Model) SoftTime(option SoftTimeOption) *Model {
 	model := m.getModel()
 	model.softTimeOption = option
@@ -95,8 +92,6 @@ func (m *Model) SoftTime(option SoftTimeOption) *Model {
 }
 
 // Unscoped禁用插入、更新和删除操作的软时间特性。 md5:0fc4af29459bd61e
-// ff:
-// m:
 func (m *Model) Unscoped() *Model {
 	model := m.getModel()
 	model.unscoped = true
@@ -113,8 +108,6 @@ func (m *Model) softTimeMaintainer() iSoftTimeMaintainer {
 // 如果没有用于存储创建时间的字段名，它将返回一个空字符串。
 // 它会检查键名，无论大小写或包含字符 '-'、'_'、'.'、' '。
 // md5:c03150380846ea77
-// ff:
-// m:
 func (m *softTimeMaintainer) GetFieldNameAndTypeForCreate(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
@@ -141,8 +134,6 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForCreate(
 
 // GetFieldNameAndTypeForUpdate 检查并返回用于更新时间的字段名。如果没有用于存储更新时间的字段名，它将返回空字符串。它会检查带有或不带大小写、字符 '-'/'_'/'.'/' 的键。
 // md5:220eb56737359035
-// ff:
-// m:
 func (m *softTimeMaintainer) GetFieldNameAndTypeForUpdate(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
@@ -169,8 +160,6 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForUpdate(
 
 // GetFieldNameAndTypeForDelete 检查并返回记录删除时间的字段名。如果没有用于存储删除时间的字段名，它将返回空字符串。它会检查大小写敏感或不敏感，以及使用 '-'、'_'、'.' 或 ' ' 作为分隔符的键。
 // md5:f7c6b45838b970b0
-// ff:
-// m:
 func (m *softTimeMaintainer) GetFieldNameAndTypeForDelete(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
@@ -247,9 +236,6 @@ func (m *softTimeMaintainer) getSoftFieldNameAndType(
 // "user LEFT JOIN user_detail ON(user_detail.uid=user.uid)" - "用户左连接 user_detail，连接条件为 user_detail.uid 等于 user.uid"
 // "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid) LEFT JOIN user_stats us ON(us.uid=u.uid)" - "用户 u 先左连接 user_detail ud，再连接 user_stats us，连接条件为 us.uid 等于 u.uid"
 // md5:f2c849c59f2ab188
-// ff:
-// m:
-// ctx:
 func (m *softTimeMaintainer) GetWhereConditionForDelete(ctx context.Context) string {
 	if m.unscoped {
 		return ""
@@ -318,8 +304,6 @@ func (m *softTimeMaintainer) getConditionOfTableStringForSoftDeleting(ctx contex
 
 // GetDataByFieldNameAndTypeForDelete 用于在软删除场景下，根据指定的字段名和类型创建并返回占位符和值。
 // md5:276be24343264681
-// ff:
-// m:
 func (m *softTimeMaintainer) GetDataByFieldNameAndTypeForDelete(
 	ctx context.Context, fieldPrefix, fieldName string, fieldType LocalType,
 ) (dataHolder string, dataValue any) {
@@ -369,10 +353,8 @@ func (m *softTimeMaintainer) getConditionByFieldNameAndTypeForSoftDeleting(
 	return ""
 }
 
-		// GetValueByFieldTypeForCreateOrUpdate 为创建或更新操作创建并返回指定字段类型的值。
-		// md5:263c89f2a7abf2da
-// ff:
-// m:
+// GetValueByFieldTypeForCreateOrUpdate 为创建或更新操作创建并返回指定字段类型的值。
+// md5:263c89f2a7abf2da
 func (m *softTimeMaintainer) GetValueByFieldTypeForCreateOrUpdate(
 	ctx context.Context, fieldType LocalType, isDeletedField bool,
 ) any {

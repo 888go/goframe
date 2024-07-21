@@ -19,14 +19,11 @@ var (
 // SetGlobalEnums 将全局枚举设置到包中。
 // 注意，此操作不具备并发安全性。
 // md5:1967d957ac1f393c
-// ff:
-// enumsJson:
 func SetGlobalEnums(enumsJson string) error {
 	return json.Unmarshal([]byte(enumsJson), &enumsMap)
 }
 
 // GetGlobalEnums 获取并返回全局枚举。 md5:9652b5705ec1767f
-// ff:
 func GetGlobalEnums() (string, error) {
 	enumsBytes, err := json.Marshal(enumsMap)
 	if err != nil {
@@ -35,11 +32,9 @@ func GetGlobalEnums() (string, error) {
 	return string(enumsBytes), nil
 }
 
-	// GetEnumsByType 根据类型名称检索并返回存储的枚举json。
-	// 类型名称格式如：github.com/gogf/gf/v2/encoding/gjson.ContentType
-	// md5:51961ee0c0c68589
-// ff:
-// typeName:
+// GetEnumsByType 根据类型名称检索并返回存储的枚举json。
+// 类型名称格式如：github.com/gogf/gf/v2/encoding/gjson.ContentType
+// md5:51961ee0c0c68589
 func GetEnumsByType(typeName string) string {
 	return string(enumsMap[typeName])
 }

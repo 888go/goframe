@@ -39,7 +39,7 @@ func Test_Static_ServerRoot(t *testing.T) {
 		t.Assert(client.GetContent(ctx, "/index.htm"), "index")
 	})
 
-											// 使用相对路径设置ServerRoot. md5:67e7f5010754dafc
+	// 使用相对路径设置ServerRoot. md5:67e7f5010754dafc
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())
 		path := fmt.Sprintf(`static/test/%d`, s.GetListenedPort())

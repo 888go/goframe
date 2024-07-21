@@ -21,12 +21,6 @@ const (
 // 主要用于CLI工具链，用于自动生成模型。
 // 注意，在Oracle数据库中，它会忽略`schema`参数，因为该参数是不必要的。
 // md5:75a87bb44fddc91a
-// ff:
-// d:
-// ctx:
-// schema:
-// tables:
-// err:
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
 	// 不要将`usedSchema`作为`SlaveLink`函数的参数。 md5:283541defa4ac558

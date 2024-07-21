@@ -26,24 +26,16 @@ type staticPathItem struct {
 }
 
 // SetIndexFiles 设置服务器的索引文件。 md5:9fa01b4418733cc9
-// ff:设置静态文件索引
-// s:
-// indexFiles:索引
 func (s *Server) SetIndexFiles(indexFiles []string) {
 	s.config.IndexFiles = indexFiles
 }
 
 // GetIndexFiles 从服务器检索并返回索引文件。 md5:4a8b46856576d1ee
-// ff:取静态文件索引
-// s:
 func (s *Server) GetIndexFiles() []string {
 	return s.config.IndexFiles
 }
 
 // SetIndexFolder 用于启用或禁用在请求目录时列出子文件的功能。 md5:68a17005c9c4e9c6
-// ff:设置静态文件是否列出子文件
-// s:
-// enabled:是否
 func (s *Server) SetIndexFolder(enabled bool) {
 	s.config.IndexFolder = enabled
 }
@@ -51,17 +43,11 @@ func (s *Server) SetIndexFolder(enabled bool) {
 // SetFileServerEnabled 启用或禁用静态文件服务。
 // 这是静态文件服务的主要开关。当调用如 SetServerRoot、AddSearchPath 和 AddStaticPath 等静态文件服务配置函数时，此配置会自动启用。
 // md5:62ef61e18a481245
-// ff:设置静态文件是否开启
-// s:
-// enabled:开启
 func (s *Server) SetFileServerEnabled(enabled bool) {
 	s.config.FileServerEnabled = enabled
 }
 
 // SetServerRoot 设置静态服务的文档根。 md5:a2b38f0b2614dd83
-// ff:设置静态文件根目录
-// s:
-// root:根目录
 func (s *Server) SetServerRoot(root string) {
 	var (
 		ctx      = context.TODO()
@@ -80,9 +66,6 @@ func (s *Server) SetServerRoot(root string) {
 }
 
 // AddSearchPath 为静态文件服务添加搜索目录路径。 md5:cd47be9ef3e2898b
-// ff:静态文件添加额外搜索目录
-// s:
-// path:目录
 func (s *Server) AddSearchPath(path string) {
 	var (
 		ctx      = context.TODO()
@@ -100,10 +83,6 @@ func (s *Server) AddSearchPath(path string) {
 }
 
 // AddStaticPath 为静态文件服务设置URI到静态目录路径的映射。 md5:d4831b3f2ef706f4
-// ff:静态文件添加目录映射
-// s:
-// prefix:旧路径
-// path:新路径
 func (s *Server) AddStaticPath(prefix string, path string) {
 	var (
 		ctx      = context.TODO()

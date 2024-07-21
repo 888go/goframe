@@ -7,7 +7,7 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gaes_test//bm:加密aes类_test
+package gaes_test
 
 import (
 	"testing"
@@ -139,11 +139,11 @@ func TestPKCS5UnPaddingErr(t *testing.T) {
 		_, err = gaes.PKCS7UnPadding([]byte(""), 16)
 		t.AssertNE(err, nil)
 
-								// PKCS7UnPadding 如果src的长度大于blockSize，则src. md5:556a3db952e22b01
+		// PKCS7UnPadding 如果src的长度大于blockSize，则src. md5:556a3db952e22b01
 		_, err = gaes.PKCS7UnPadding(key_17, 16)
 		t.AssertNE(err, nil)
 
-								// PKCS7UnPadding 如果src的长度大于blockSize，则src. md5:556a3db952e22b01
+		// PKCS7UnPadding 如果src的长度大于blockSize，则src. md5:556a3db952e22b01
 		_, err = gaes.PKCS7UnPadding(key_32_err, 32)
 		t.AssertNE(err, nil)
 	})

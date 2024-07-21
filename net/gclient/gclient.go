@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // gclient 包提供了便捷的 HTTP 客户端功能。 md5:e1b459f6ec089b4e
-package gclient//bm:网页类
+package gclient
 
 import (
 	"crypto/rand"
@@ -59,7 +59,6 @@ var (
 )
 
 // New 创建并返回一个新的HTTP客户端对象。 md5:704d6059158b6cda
-// ff:创建
 func New() *Client {
 	c := &Client{
 		Client: http.Client{
@@ -83,8 +82,6 @@ func New() *Client {
 }
 
 // 克隆当前客户端并深拷贝，返回一个新的客户端实例。 md5:6d6f07ba99eeeabe
-// ff:取副本
-// c:
 func (c *Client) Clone() *Client {
 	newClient := New()
 	*newClient = *c
@@ -104,9 +101,6 @@ func (c *Client) Clone() *Client {
 }
 
 // LoadKeyCrt 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。 md5:e31385756c06b0a4
-// ff:创建TLS配置
-// crtFile:crt路径
-// keyFile:key路径
 func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 	crtPath, err := gfile.Search(crtFile)
 	if err != nil {

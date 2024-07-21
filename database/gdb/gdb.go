@@ -32,167 +32,167 @@ import (
 
 // DB 定义 ORM 操作的接口。 md5:328f032182d38455
 type DB interface {
-// =============================================================================
-// 模型创建。
-// =============================================================================
-// 这里是对一段Go代码中的注释进行翻译，"Model creation"指的是模型的创建过程。这部分代码可能是用于描述一个函数或部分代码的作用，即它负责构建或初始化某个模型。
-// md5:1c8c0b09089a9689
+	// =============================================================================
+	// 模型创建。
+	// =============================================================================
+	// 这里是对一段Go代码中的注释进行翻译，"Model creation"指的是模型的创建过程。这部分代码可能是用于描述一个函数或部分代码的作用，即它负责构建或初始化某个模型。
+	// md5:1c8c0b09089a9689
 
-// Model 根据给定的模式创建并返回一个新的 ORM 模型。
-// 参数 `table` 可以是多个表名，也可以包括别名，例如：
-// 1. 模型名称：
-//    Model("user")
-//    Model("user u") // u 作为 user 表的别名
-//    Model("user, user_detail") // 多个模型名称
-//    Model("user u, user_detail ud") // 多个模型名称及别名
-// 2. 带别名的模型名称：Model("user", "u") // 第二个参数指定别名
-// 参见 Core.Model 了解更多。
-// md5:61d3e6d835068122
-	Model(tableNameOrStruct ...interface{}) *Model//qm:创建Model对象  cz:Model(tableNameOrStruct ...interface{})  
+	// Model 根据给定的模式创建并返回一个新的 ORM 模型。
+	// 参数 `table` 可以是多个表名，也可以包括别名，例如：
+	// 1. 模型名称：
+	//    Model("user")
+	//    Model("user u") 	// u 作为 user 表的别名
+	//    Model("user, user_detail") 	// 多个模型名称
+	//    Model("user u, user_detail ud") 	// 多个模型名称及别名
+	// 2. 带别名的模型名称：Model("user", "u") 	// 第二个参数指定别名
+	// 参见 Core.Model 了解更多。
+	// md5:61d3e6d835068122
+	Model(tableNameOrStruct ...interface{}) *Model
 
 	// Raw 根据原始SQL（而不是表格）创建并返回一个模型。 md5:96066a9d41296a2a
-	Raw(rawSql string, args ...interface{}) *Model//qm:原生SQL  cz:Raw(rawSql string, args ...interface{})  
+	Raw(rawSql string, args ...interface{}) *Model
 
-// Schema 创建并返回一个模式。
-// 参见 Core.Schema。
-// md5:0f4472ee79f06819
-	Schema(schema string) *Schema//qm:切换数据库  cz:Schema(schema string)  
+	// Schema 创建并返回一个模式。
+	// 参见 Core.Schema。
+	// md5:0f4472ee79f06819
+	Schema(schema string) *Schema
 
-// With根据给定对象的元数据创建并返回一个ORM模型。同时参见Core.With。
-// md5:78ab17ce6b00ce6e
-	With(objects ...interface{}) *Model//qm:关联对象  cz:With(objects ...interface{})  
+	// With根据给定对象的元数据创建并返回一个ORM模型。同时参见Core.With。
+	// md5:78ab17ce6b00ce6e
+	With(objects ...interface{}) *Model
 
-// Open 使用给定的节点配置为数据库创建一个原始连接对象。
-// 注意，不建议手动使用此函数。
-// 另请参阅 DriverMysql.Open。
-// md5:1021f26472df579e
-	Open(config *ConfigNode) (*sql.DB, error)//qm:底层Open  cz:Open(config *ConfigNode)  
+	// Open 使用给定的节点配置为数据库创建一个原始连接对象。
+	// 注意，不建议手动使用此函数。
+	// 另请参阅 DriverMysql.Open。
+	// md5:1021f26472df579e
+	Open(config *ConfigNode) (*sql.DB, error)
 
-// Ctx 是一个链式函数，它创建并返回一个新的 DB，该 DB 是当前 DB 对象的浅拷贝，并在其中设置了给定的上下文。
-// 另请参阅 Core.Ctx。
-// md5:7eec5fab912764e7
-	Ctx(ctx context.Context) DB//qm:设置上下文并取副本  cz:Ctx(ctx context.Context) DB  
+	// Ctx 是一个链式函数，它创建并返回一个新的 DB，该 DB 是当前 DB 对象的浅拷贝，并在其中设置了给定的上下文。
+	// 另请参阅 Core.Ctx。
+	// md5:7eec5fab912764e7
+	Ctx(ctx context.Context) DB
 
-// Close 关闭数据库并阻止新的查询开始。然后，Close 等待已经在服务器上开始处理的所有查询完成。
-// 
-// 通常不会关闭 DB，因为 DB句柄应该是长期存在的，并且在多个 goroutine 之间共享。
-// md5:0985fc8e558f83fc
-	Close(ctx context.Context) error//qm:关闭数据库  cz:Close(ctx context.Context)  
+	// Close 关闭数据库并阻止新的查询开始。然后，Close 等待已经在服务器上开始处理的所有查询完成。
+	// 
+	// 通常不会关闭 DB，因为 DB句柄应该是长期存在的，并且在多个 goroutine 之间共享。
+	// md5:0985fc8e558f83fc
+	Close(ctx context.Context) error
 
-// =============================================================================
-// 查询接口。
-// =============================================================================
-// 这里是对查询相关的API进行的注释。
-// md5:06da8c4c9c8d957b
+	// =============================================================================
+	// 查询接口。
+	// =============================================================================
+	// 这里是对查询相关的API进行的注释。
+	// md5:06da8c4c9c8d957b
 
-	Query(ctx context.Context, sql string, args ...interface{}) (Result, error)//qm:原生SQL查询  cz:Query(ctx context.Context, sql string, args ...interface{})      // See Core.Query.
-	Exec(ctx context.Context, sql string, args ...interface{}) (sql.Result, error)//qm:原生SQL执行  cz:Exec(ctx context.Context, sql string, args ...interface{})   // See Core.Exec.
-	Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error)//qm:原生sql取参数预处理对象  cz:Prepare(ctx context.Context, sql string, execOnMaster ...bool)    // See Core.Prepare.
+	Query(ctx context.Context, sql string, args ...interface{}) (Result, error)    // See Core.Query.
+	Exec(ctx context.Context, sql string, args ...interface{}) (sql.Result, error) // See Core.Exec.
+	Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error)  // See Core.Prepare.
 
-// ===========================================================================
-// 用于CURD操作的通用API。
-// ===========================================================================
-// md5:781fc1b4ac386204
+	// ===========================================================================
+	// 用于CURD操作的通用API。
+	// ===========================================================================
+	// md5:781fc1b4ac386204
 
-	Insert(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入  cz:Insert(ctx context.Context, table string, data interface{}, batch ...int)                                 // See Core.Insert.
-	InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入并跳过已存在  cz:InsertIgnore(ctx context.Context, table string, data interface{                           // See Core.InsertIgnore.
-	InsertAndGetId(ctx context.Context, table string, data interface{}, batch ...int) (int64, error)//qm:插入并取ID  cz:InsertAndGetId(ctx context.Context, table string, data interface{}                              // 参见Core.InsertAndGetId。 md5:b7dec69920da6e7a
-	Replace(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入并替换已存在  cz:Replace(ctx context.Context, table string, data interface{}, batch ...int)                                // See Core.Replace.
-	Save(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入并更新已存在  cz:Save(ctx context.Context, table string, data interface{}, batch ...int)                                   // See Core.Save.
-	Update(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error)//qm:更新  cz:Update(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{})   // See Core.Update.
-	Delete(ctx context.Context, table string, condition interface{}, args ...interface{}) (sql.Result, error)//qm:删除  cz:Delete(ctx context.Context, table string, condition interface{}, args ...interface{})                     // See Core.Delete.
+	Insert(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                               // See Core.Insert.
+	InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                         // See Core.InsertIgnore.
+	InsertAndGetId(ctx context.Context, table string, data interface{}, batch ...int) (int64, error)                            // 参见Core.InsertAndGetId。 md5:b7dec69920da6e7a
+	Replace(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                              // See Core.Replace.
+	Save(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                                 // See Core.Save.
+	Update(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) // See Core.Update.
+	Delete(ctx context.Context, table string, condition interface{}, args ...interface{}) (sql.Result, error)                   // See Core.Delete.
 
-// ===========================================================================
-// CURD的内部API，可以被自定义的CURD实现覆盖。
-// ===========================================================================
-// md5:02480feeb95bda1e
+	// ===========================================================================
+	// CURD的内部API，可以被自定义的CURD实现覆盖。
+	// ===========================================================================
+	// md5:02480feeb95bda1e
 
-	DoSelect(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)//qm:底层查询  cz:DoSelect(ctx context.Context, link Link, sql string, args ...interface{})                                             // See Core.DoSelect.
-	DoInsert(ctx context.Context, link Link, table string, data List, option DoInsertOption) (result sql.Result, err error)//qm:底层插入  cz:DoInsert(ctx context.Context, link Link, table string, data List, option DoInsertOption)                          // See Core.DoInsert.
-	DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error)//qm:底层更新  cz:DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{})   // See Core.DoUpdate.
-	DoDelete(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error)//qm:底层删除  cz:DoDelete(ctx context.Context, link Link, table string, condition string, args ...interface{})                     // See Core.DoDelete.
+	DoSelect(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)                                           // See Core.DoSelect.
+	DoInsert(ctx context.Context, link Link, table string, data List, option DoInsertOption) (result sql.Result, err error)                        // See Core.DoInsert.
+	DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) // See Core.DoUpdate.
+	DoDelete(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error)                   // See Core.DoDelete.
 
-	DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)//qm:底层原生SQL查询  cz:DoQuery(ctx context.Context, link Link, sql string, args ...interface{})      // See Core.DoQuery.
-	DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error)//qm:底层原生SQL执行  cz:DoExec(ctx context.Context, link Link, sql string, args ...interface{})   // See Core.DoExec.
+	DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)    // See Core.DoQuery.
+	DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) // See Core.DoExec.
 
-	DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error)//qm:底层DoFilter  cz:DoFilter(ctx context.Context, link Link, sql string, args []interface{})   // See Core.DoFilter.
-	DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error)//qm:底层DoCommit  cz:DoCommit(ctx context.Context, in DoCommitInput)                                              // See Core.DoCommit.
+	DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) // See Core.DoFilter.
+	DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error)                                            // See Core.DoCommit.
 
-	DoPrepare(ctx context.Context, link Link, sql string) (*Stmt, error)//qm:底层原生sql参数预处理对象  cz:DoPrepare(ctx context.Context, link Link, sql string)   // See Core.DoPrepare.
+	DoPrepare(ctx context.Context, link Link, sql string) (*Stmt, error) // See Core.DoPrepare.
 
-// ===========================================================================
-// 为了方便起见，提供查询API。
-// ===========================================================================
-// md5:be53a34b0863cf28
+	// ===========================================================================
+	// 为了方便起见，提供查询API。
+	// ===========================================================================
+	// md5:be53a34b0863cf28
 
-	GetAll(ctx context.Context, sql string, args ...interface{}) (Result, error)//qm:GetAll别名  cz:GetAll(ctx context.Context, sql string, args ...interface{})                  // See Core.GetAll.
-	GetOne(ctx context.Context, sql string, args ...interface{}) (Record, error)//qm:原生SQL查询单条记录  cz:GetOne(ctx context.Context, sql string, args ...interface{})                  // See Core.GetOne.
-	GetValue(ctx context.Context, sql string, args ...interface{}) (Value, error)//qm:原生SQL查询字段值  cz:GetValue(ctx context.Context, sql string, args ...interface{})                 // See Core.GetValue.
-	GetArray(ctx context.Context, sql string, args ...interface{}) ([]Value, error)//qm:原生SQL查询切片  cz:GetArray(ctx context.Context, sql string, args ...interface{})               // See Core.GetArray.
-	GetCount(ctx context.Context, sql string, args ...interface{}) (int, error)//qm:原生SQL查询字段计数  cz:GetCount(ctx context.Context, sql string, args ...interface{})                   // See Core.GetCount.
-	GetScan(ctx context.Context, objPointer interface{}, sql string, args ...interface{}) error//qm:原生SQL查询到结构体指针  cz:GetScan(ctx context.Context, objPointer interface{}, sql string, args ...interface{})   // See Core.GetScan.
-	Union(unions ...*Model) *Model//qm:多表去重查询  cz:Union(unions ...*Model)                                                                // See Core.Union.
-	UnionAll(unions ...*Model) *Model//qm:多表查询  cz:UnionAll(unions ...*Model)                                                             // See Core.UnionAll.
+	GetAll(ctx context.Context, sql string, args ...interface{}) (Result, error)                // See Core.GetAll.
+	GetOne(ctx context.Context, sql string, args ...interface{}) (Record, error)                // See Core.GetOne.
+	GetValue(ctx context.Context, sql string, args ...interface{}) (Value, error)               // See Core.GetValue.
+	GetArray(ctx context.Context, sql string, args ...interface{}) ([]Value, error)             // See Core.GetArray.
+	GetCount(ctx context.Context, sql string, args ...interface{}) (int, error)                 // See Core.GetCount.
+	GetScan(ctx context.Context, objPointer interface{}, sql string, args ...interface{}) error // See Core.GetScan.
+	Union(unions ...*Model) *Model                                                              // See Core.Union.
+	UnionAll(unions ...*Model) *Model                                                           // See Core.UnionAll.
 
-// ===========================================================================
-// 主从规范支持。
-// ===========================================================================
-// md5:f0ac82262204c704
+	// ===========================================================================
+	// 主从规范支持。
+	// ===========================================================================
+	// md5:f0ac82262204c704
 
-	Master(schema ...string) (*sql.DB, error)//qm:取主节点对象  cz:Master(schema ...string)   // See Core.Master.
-	Slave(schema ...string) (*sql.DB, error)//qm:取从节点对象  cz:Slave(schema ...string)    // See Core.Slave.
+	Master(schema ...string) (*sql.DB, error) // See Core.Master.
+	Slave(schema ...string) (*sql.DB, error)  // See Core.Slave.
 
-// ===========================================================================
-// 乒乓游戏。
-// ===========================================================================
-// md5:548138891df7682f
+	// ===========================================================================
+	// 乒乓游戏。
+	// ===========================================================================
+	// md5:548138891df7682f
 
-	PingMaster() error//qm:向主节点发送心跳  cz:PingMaster()   // See Core.PingMaster.
-	PingSlave() error//qm:向从节点发送心跳  cz:PingSlave()    // See Core.PingSlave.
+	PingMaster() error // See Core.PingMaster.
+	PingSlave() error  // See Core.PingSlave.
 
-// =============================================================================
-// 事务处理。
-// =============================================================================
-// 这里是对一个名为 "Transaction" 的部分或函数的注释，表示它与交易操作相关。
-// md5:98c80ce4a302c379
+	// =============================================================================
+	// 事务处理。
+	// =============================================================================
+	// 这里是对一个名为 "Transaction" 的部分或函数的注释，表示它与交易操作相关。
+	// md5:98c80ce4a302c379
 
-	Begin(ctx context.Context) (TX, error)//qm:事务开启  cz:Begin(ctx context.Context)                                             // See Core.Begin.
-	Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) error//qm:事务  cz:Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error)   // See Core.Transaction.
+	Begin(ctx context.Context) (TX, error)                                           // See Core.Begin.
+	Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) error // See Core.Transaction.
 
-// ===========================================================================
-// 配置方法。
-// ===========================================================================
-// md5:e4c7270c61398365
+	// ===========================================================================
+	// 配置方法。
+	// ===========================================================================
+	// md5:e4c7270c61398365
 
-	GetCache() *gcache.Cache//qm:取缓存对象  cz:GetCache()              // See Core.GetCache.
-	SetDebug(debug bool)//qm:设置调试模式  cz:SetDebug(debug bool)                  // See Core.SetDebug.
-	GetDebug() bool//qm:取调试模式  cz:GetDebug() bool                       // See Core.GetDebug.
-	GetSchema() string//qm:取默认数据库名称  cz:GetSchema() string                    // See Core.GetSchema.
-	GetPrefix() string//qm:取表前缀  cz:GetPrefix() string                    // See Core.GetPrefix.
-	GetGroup() string//qm:取配置组名称  cz:GetGroup() string                     // See Core.GetGroup.
-	SetDryRun(enabled bool)//qm:设置空跑特性  cz:SetDryRun(enabled bool)               // See Core.SetDryRun.
-	GetDryRun() bool//qm:取空跑特性  cz:GetDryRun()                      // See Core.GetDryRun.
-	SetLogger(logger glog.ILogger)//qm:设置日志记录器  cz:SetLogger(        // See Core.SetLogger.
-	GetLogger() glog.ILogger//qm:取日志记录器  cz:GetLogger()              // See Core.GetLogger.
-	GetConfig() *ConfigNode//qm:取当前节点配置  cz:GetConfig() *ConfigNode               // See Core.GetConfig.
-	SetMaxIdleConnCount(n int)//qm:设置最大闲置连接数  cz:SetMaxIdleConnCount(n int)            // 参见 Core.SetMaxIdleConnCount。 md5:93a41dde27176210
-	SetMaxOpenConnCount(n int)//qm:设置最大打开连接数  cz:SetMaxOpenConnCount(n int)            // 参见Core.SetMaxOpenConnCount。 md5:781ba14245ef2d2f
-	SetMaxConnLifeTime(d time.Duration)//qm:设置最大空闲时长  cz:SetMaxConnLifeTime(d time.Duration)   // 请参考Core.SetMaxConnLifeTime。 md5:9886c404ca6b5919
+	GetCache() *gcache.Cache            // See Core.GetCache.
+	SetDebug(debug bool)                // See Core.SetDebug.
+	GetDebug() bool                     // See Core.GetDebug.
+	GetSchema() string                  // See Core.GetSchema.
+	GetPrefix() string                  // See Core.GetPrefix.
+	GetGroup() string                   // See Core.GetGroup.
+	SetDryRun(enabled bool)             // See Core.SetDryRun.
+	GetDryRun() bool                    // See Core.GetDryRun.
+	SetLogger(logger glog.ILogger)      // See Core.SetLogger.
+	GetLogger() glog.ILogger            // See Core.GetLogger.
+	GetConfig() *ConfigNode             // See Core.GetConfig.
+	SetMaxIdleConnCount(n int)          // 参见 Core.SetMaxIdleConnCount。 md5:93a41dde27176210
+	SetMaxOpenConnCount(n int)          // 参见Core.SetMaxOpenConnCount。 md5:781ba14245ef2d2f
+	SetMaxConnLifeTime(d time.Duration) // 请参考Core.SetMaxConnLifeTime。 md5:9886c404ca6b5919
 
-// ===========================================================================
-// 辅助方法。
-// ===========================================================================
-// md5:0c5a132a773f89c0
+	// ===========================================================================
+	// 辅助方法。
+	// ===========================================================================
+	// md5:0c5a132a773f89c0
 
 	Stats(ctx context.Context) []StatsItem                                                                   // See Core.Stats.
-	GetCtx() context.Context//qm:取上下文对象  cz:GetCtx() context.Context                                                                                   // See Core.GetCtx.
-	GetCore() *Core//qm:取Core对象  cz:GetCore() *Core                                                                                            // See Core.GetCore
-	GetChars() (charLeft string, charRight string)//qm:底层取数据库安全字符  cz:GetChars() (charLeft string, charRight string)                                                             // See Core.GetChars.
-	Tables(ctx context.Context, schema ...string) (tables []string, err error)//qm:取表名称切片  cz:Tables(ctx context.Context, schema ...string)                                 // 参见 Core.Tables。驱动程序必须实现此函数。 md5:d7f231f6b59af607
-	TableFields(ctx context.Context, table string, schema ...string) (map[string]*TableField, error)//qm:取表字段信息Map  cz:TableFields(ctx context.Context, table string, schema ...string)           // 参见 Core.TableFields。驱动程序必须实现此函数。 md5:657c24bb39017da1
-	ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)// 参见Core(ConvertValueForField). md5:cd3e4aabe989b5b0
-	ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error)// 参见Core.ConvertValueForLocal. md5:c5ed8f55d002cc9b
-	CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error)// 参见 Core.CheckLocalTypeForField. md5:9dab404962da3137
+	GetCtx() context.Context                                                                                 // See Core.GetCtx.
+	GetCore() *Core                                                                                          // See Core.GetCore
+	GetChars() (charLeft string, charRight string)                                                           // See Core.GetChars.
+	Tables(ctx context.Context, schema ...string) (tables []string, err error)                               // 参见 Core.Tables。驱动程序必须实现此函数。 md5:d7f231f6b59af607
+	TableFields(ctx context.Context, table string, schema ...string) (map[string]*TableField, error)         // 参见 Core.TableFields。驱动程序必须实现此函数。 md5:657c24bb39017da1
+	ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 参见Core(ConvertValueForField). md5:cd3e4aabe989b5b0
+	ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 参见Core.ConvertValueForLocal. md5:c5ed8f55d002cc9b
+	CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) // 参见 Core.CheckLocalTypeForField. md5:9dab404962da3137
 	FormatUpsert(columns []string, list List, option DoInsertOption) (string, error)                         // 参见Core.DoFormatUpsert. md5:e28a610aead90684
 }
 
@@ -200,73 +200,73 @@ type DB interface {
 type TX interface {
 	Link
 
-	Ctx(ctx context.Context) TX//qm:设置上下文并取副本  cz:Ctx(ctx context.Context) TX  
-	Raw(rawSql string, args ...interface{}) *Model//qm:原生SQL  cz:Raw(rawSql string, args ...interface{})  
-	Model(tableNameQueryOrStruct ...interface{}) *Model//qm:创建Model对象  cz:Model(tableNameQueryOrStruct ...interface{})  
-	With(object interface{}) *Model//qm:关联对象  cz:With(object interface{})  
+	Ctx(ctx context.Context) TX
+	Raw(rawSql string, args ...interface{}) *Model
+	Model(tableNameQueryOrStruct ...interface{}) *Model
+	With(object interface{}) *Model
 
-// 如果需要，嵌套事务。
-// ===========================================================================
-// md5:96e249df6d75bc7f
+	// 如果需要，嵌套事务。
+	// ===========================================================================
+	// md5:96e249df6d75bc7f
 
-	Begin() error//qm:事务开启  cz:Begin() error  
-	Commit() error//qm:事务提交  cz:Commit() error  
-	Rollback() error//qm:事务回滚  cz:Rollback() error  
-	Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)//qm:事务  cz:Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)  
+	Begin() error
+	Commit() error
+	Rollback() error
+	Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)
 
-// ===========================================================================
-// 核心方法。
-// ===========================================================================
-// md5:a10911bb5021107c
+	// ===========================================================================
+	// 核心方法。
+	// ===========================================================================
+	// md5:a10911bb5021107c
 
-	Query(sql string, args ...interface{}) (result Result, err error)//qm:原生SQL查询  cz:Query(sql string, args ...interface{})  
-	Exec(sql string, args ...interface{}) (sql.Result, error)//qm:原生SQL执行  cz:Exec(sql string, args ...interface{})  
-	Prepare(sql string) (*Stmt, error)//qm:原生sql取参数预处理对象  cz:Prepare(sql string)  
+	Query(sql string, args ...interface{}) (result Result, err error)
+	Exec(sql string, args ...interface{}) (sql.Result, error)
+	Prepare(sql string) (*Stmt, error)
 
-// ===========================================================================
-// 查询
-// ===========================================================================
-// md5:4612a1ae72dd3cf5
+	// ===========================================================================
+	// 查询
+	// ===========================================================================
+	// md5:4612a1ae72dd3cf5
 
-	GetAll(sql string, args ...interface{}) (Result, error)//qm:GetAll别名  cz:GetAll(sql string, args ...interface{})  
-	GetOne(sql string, args ...interface{}) (Record, error)//qm:原生SQL查询单条记录  cz:GetOne(sql string, args ...interface{})  
-	GetStruct(obj interface{}, sql string, args ...interface{}) error//qm:原生SQL查询单条到结构体指针  cz:GetStruct(obj interface{}, sql string, args ...interface{})  
-	GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error//qm:原生SQL查询到结构体切片指针  cz:GetStructs(objPointerSlice interface{}, sql string, args ...interface{})  
-	GetScan(pointer interface{}, sql string, args ...interface{}) error//qm:原生SQL查询到结构体指针  cz:GetScan(pointer interface{}, sql string, args ...interface{})  
-	GetValue(sql string, args ...interface{}) (Value, error)//qm:原生SQL查询字段值  cz:GetValue(sql string, args ...interface{})  
-	GetCount(sql string, args ...interface{}) (int64, error)//qm:原生SQL查询字段计数  cz:GetCount(sql string, args ...interface{})  
+	GetAll(sql string, args ...interface{}) (Result, error)
+	GetOne(sql string, args ...interface{}) (Record, error)
+	GetStruct(obj interface{}, sql string, args ...interface{}) error
+	GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error
+	GetScan(pointer interface{}, sql string, args ...interface{}) error
+	GetValue(sql string, args ...interface{}) (Value, error)
+	GetCount(sql string, args ...interface{}) (int64, error)
 
-// =============================================================================
-// CURD (Create, Read, Update, Delete) 操作。
-// =============================================================================
-// 这是Go语言中的注释，描述了一个与CRUD（创建、读取、更新、删除）操作相关的部分。在软件开发中，CURD通常用于数据库操作的基本操作。
-// md5:b9584d9a2373e908
+	// =============================================================================
+	// CURD (Create, Read, Update, Delete) 操作。
+	// =============================================================================
+	// 这是Go语言中的注释，描述了一个与CRUD（创建、读取、更新、删除）操作相关的部分。在软件开发中，CURD通常用于数据库操作的基本操作。
+	// md5:b9584d9a2373e908
 
-	Insert(table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入  cz:Insert(table string, data interface{}, batch ...int)  
-	InsertIgnore(table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入并跳过已存在  cz:InsertIgnore(table string, data interface{}, batch ...int)  
-	InsertAndGetId(table string, data interface{}, batch ...int) (int64, error)//qm:插入并取ID  cz:InsertAndGetId(table string, data interface{}, batch ...int)  
-	Replace(table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入并替换已存在  cz:Replace(table string, data interface{}, batch ...int)  
-	Save(table string, data interface{}, batch ...int) (sql.Result, error)//qm:插入并更新已存在  cz:Save(table string, data interface{}, batch ...int)  
-	Update(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error)//qm:更新  cz:Update(table string, data interface{}, condition interface{}, args ...interface{})  
-	Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error)//qm:删除  cz:Delete(table string, condition interface{}, args ...interface{})  
+	Insert(table string, data interface{}, batch ...int) (sql.Result, error)
+	InsertIgnore(table string, data interface{}, batch ...int) (sql.Result, error)
+	InsertAndGetId(table string, data interface{}, batch ...int) (int64, error)
+	Replace(table string, data interface{}, batch ...int) (sql.Result, error)
+	Save(table string, data interface{}, batch ...int) (sql.Result, error)
+	Update(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error)
+	Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error)
 
-// ===========================================================================
-// 辅助方法。
-// ===========================================================================
-// md5:0c5a132a773f89c0
+	// ===========================================================================
+	// 辅助方法。
+	// ===========================================================================
+	// md5:0c5a132a773f89c0
 
-	GetCtx() context.Context//qm:取上下文对象  cz:GetCtx() context.Context  
-	GetDB() DB//qm:取DB对象  cz:GetDB() DB  
-	GetSqlTX() *sql.Tx//qm:底层取事务对象  cz:GetSqlTX() *sql.Tx  
-	IsClosed() bool//qm:是否已关闭  cz:IsClosed() bool  
+	GetCtx() context.Context
+	GetDB() DB
+	GetSqlTX() *sql.Tx
+	IsClosed() bool
 
-// ===================================================================================
-// 保存点功能。
-// ===================================================================================
-// md5:54487b34337e4026
+	// ===================================================================================
+	// 保存点功能。
+	// ===================================================================================
+	// md5:54487b34337e4026
 
-	SavePoint(point string) error//qm:保存事务点  cz:SavePoint(point string) error  
-	RollbackTo(point string) error//qm:回滚事务点  cz:RollbackTo(point string) error  
+	SavePoint(point string) error
+	RollbackTo(point string) error
 }
 
 // StatsItem 定义了配置节点的统计信息。 md5:95acda1876ad44fa
@@ -313,10 +313,10 @@ type DoCommitInput struct {
 // DoCommitOutput是DoCommit函数的输出参数。 md5:bb154a9d2f960894
 type DoCommitOutput struct {
 	Result    sql.Result  // Result 是执行语句的结果。 md5:92181818237c3bdd
-	Records   []Record//qm:行记录切片  cz:Records []      // Records 是查询语句的结果。 md5:3ab79979d5bb7a15
-	Stmt      *Stmt//qm:参数预处理  cz:Stmt *Stmt         // Stmt是Prepare的结果，是一个Statement对象。 md5:f7d8689435820710
+	Records   []Record    // Records 是查询语句的结果。 md5:3ab79979d5bb7a15
+	Stmt      *Stmt       // Stmt是Prepare的结果，是一个Statement对象。 md5:f7d8689435820710
 	Tx        TX          // Tx是Begin操作的结果交易对象。 md5:388468f78948bf40
-	RawResult interface{}//qm:底层结果  cz:RawResult interface{}   // RawResult 是底层结果，可能是 sql.Result/*sql.Rows/*sql.Row。 md5:8f6721571bd4ebc3
+	RawResult interface{} // RawResult 是底层结果，可能是 sql.Result/*sql.Rows/*sql.Row。 md5:8f6721571bd4ebc3
 }
 
 // Driver 是将 sql 驱动程序集成到 gdb 包的接口。 md5:739e8c3911355df2
@@ -363,19 +363,19 @@ type DoInsertOption struct {
 // TableField 是用于表示表字段的结构体。 md5:dad00a23ddbc4525
 type TableField struct {
 	Index   int         // 用于排序，因为map是无序的。 md5:2c2b51c0f42d0aa5
-	Name    string//qm:名称  cz:Name string        // Field name.
-	Type    string//qm:类型  cz:Type string        // 字段类型。例如：'int(10) unsigned'，'varchar(64)'。 md5:c5cb4af28fd84cc4
+	Name    string      // Field name.
+	Type    string      // 字段类型。例如：'int(10) unsigned'，'varchar(64)'。 md5:c5cb4af28fd84cc4
 	Null    bool        // 字段可以为null，也可以不为null。 md5:eecc03ab53cc06c9
 	Key     string      // The index information(empty if it's not an index). Eg: PRI, MUL.
 	Default interface{} // 字段的默认值。 md5:e9e6c4fce349ba5e
-	Extra   string//qm:额外  cz:Extra string        //额外的信息。例如：auto_increment。 md5:706ba1f1653042e0
+	Extra   string      //额外的信息。例如：auto_increment。 md5:706ba1f1653042e0
 	Comment string      // Field comment.
 }
 
 // Counter 是更新计数的类型。 md5:d05ba3f2911b8013
 type Counter struct {
-	Field string//qm:字段名称  cz:Field string  
-	Value float64//qm:增减值  cz:Value float64  
+	Field string
+	Value float64
 }
 
 type (
@@ -384,7 +384,7 @@ type (
 	Record map[string]Value         // Record 是表格的行记录。 md5:f13ea17db2caaf51
 	Result []Record                 // Result 是行记录数组。 md5:cfc50f7c3d051e4e
 	Map    = map[string]interface{} // Map是map[string]interface{}的别名，这是最常用的映射类型。 md5:d30ae3cb84b9285e
-	List   = []Map//qm:Map切片  cz:List = []Map                    // List 是映射数组的类型。 md5:a6dda10906f1d599
+	List   = []Map                  // List 是映射数组的类型。 md5:a6dda10906f1d599
 )
 
 type CatchSQLManager struct {
@@ -528,26 +528,26 @@ var (
 	// driverMap管理所有自定义注册的驱动程序。 md5:625ff37f5c3fb23d
 	driverMap = map[string]Driver{}
 
-// lastOperatorRegPattern 是一个正则表达式模式，用于匹配字符串末尾带有操作符的字符串。
-// md5:6a05c1a2b57c687b
+	// lastOperatorRegPattern 是一个正则表达式模式，用于匹配字符串末尾带有操作符的字符串。
+	// md5:6a05c1a2b57c687b
 	lastOperatorRegPattern = `[<>=]+\s*$`
 
-// regularFieldNameRegPattern 是一个正则表达式模式，用于匹配表格的普通字段名称的字符串。
-// md5:d18bc9e2bf6112ed
+	// regularFieldNameRegPattern 是一个正则表达式模式，用于匹配表格的普通字段名称的字符串。
+	// md5:d18bc9e2bf6112ed
 	regularFieldNameRegPattern = `^[\w\.\-]+$`
 
-// regularFieldNameWithCommaRegPattern 是用于匹配一个或多个表的常规字段名的正则表达式模式，这些字段名由字符','连接。
-// md5:90a0d75039f03540
+	// regularFieldNameWithCommaRegPattern 是用于匹配一个或多个表的常规字段名的正则表达式模式，这些字段名由字符','连接。
+	// md5:90a0d75039f03540
 	regularFieldNameWithCommaRegPattern = `^[\w\.\-,\s]+$`
 
-// regularFieldNameWithoutDotRegPattern 与 regularFieldNameRegPattern 类似，但不允许使用点（.）。
-// 注意，虽然一些数据库允许字段名中包含字符 '.', 但在某些情况下，这里不允许在字段名中使用 '.'，因为它与 "db.table.field" 的模式冲突。
-// md5:4a7a4427aab61aa8
+	// regularFieldNameWithoutDotRegPattern 与 regularFieldNameRegPattern 类似，但不允许使用点（.）。
+	// 注意，虽然一些数据库允许字段名中包含字符 '.', 但在某些情况下，这里不允许在字段名中使用 '.'，因为它与 "db.table.field" 的模式冲突。
+	// md5:4a7a4427aab61aa8
 	regularFieldNameWithoutDotRegPattern = `^[\w\-]+$`
 
-// allDryRun 为所有数据库连接设置了 dry-run 特性。
-// 它通常用于命令选项，以便于使用时带来方便。
-// md5:038bcc87fc3093b6
+	// allDryRun 为所有数据库连接设置了 dry-run 特性。
+	// 它通常用于命令选项，以便于使用时带来方便。
+	// md5:038bcc87fc3093b6
 	allDryRun = false
 
 	// tableFieldsMap 缓存从数据库获取的表信息。 md5:5ae26e45c71e9a09
@@ -560,19 +560,12 @@ func init() {
 }
 
 // Register 注册自定义数据库驱动到gdb。 md5:d889e7374da12918
-// ff:注册驱动
-// name:名称
-// driver:驱动
 func Register(name string, driver Driver) error {
 	driverMap[name] = newDriverWrapper(driver)
 	return nil
 }
 
 // New 根据给定的配置节点创建并返回一个ORM对象。 md5:c6039a0817062f9e
-// ff:创建DB对象
-// node:配置项
-// db:DB对象
-// err:错误
 func New(node ConfigNode) (db DB, err error) {
 	return newDBByConfigNode(&node, "")
 }
@@ -580,10 +573,6 @@ func New(node ConfigNode) (db DB, err error) {
 // NewByGroup 根据指定的配置组名称创建并返回一个ORM对象，带有全局配置。
 // 参数`name`指定了配置组的名称，默认为DefaultGroupName。
 // md5:a15dd30e999d29e5
-// ff:创建DB对象并按配置组
-// group:配置组名称
-// db:DB对象
-// err:错误
 func NewByGroup(group ...string) (db DB, err error) {
 	groupName := configs.group
 	if len(group) > 0 && group[0] != "" {
@@ -649,10 +638,6 @@ func newDBByConfigNode(node *ConfigNode, group string) (db DB, err error) {
 // Instance 返回用于数据库操作的实例。
 // 参数 `name` 指定配置组名称，默认为 DefaultGroupName。
 // md5:06c22232a9c53a60
-// ff:取单例对象
-// name:配置组名称
-// db:DB对象
-// err:错误
 func Instance(name ...string) (db DB, err error) {
 	group := configs.group
 	if len(name) > 0 && name[0] != "" {
@@ -723,8 +708,8 @@ func getConfigNodeByWeight(cg ConfigGroup) *ConfigNode {
 	for i := 0; i < len(cg); i++ {
 		total += cg[i].Weight * 100
 	}
-// 如果total为0，表示所有节点都没有配置权重属性。在这种情况下，将为每个节点的权重属性默认设置为1。
-// md5:a8625af7b996c9a2
+	// 如果total为0，表示所有节点都没有配置权重属性。在这种情况下，将为每个节点的权重属性默认设置为1。
+	// md5:a8625af7b996c9a2
 	if total == 0 {
 		for i := 0; i < len(cg); i++ {
 			cg[i].Weight = 1

@@ -17,10 +17,6 @@ import (
 // MapToMaps 将任何切片类型变量 `params` 转换为另一个映射切片类型变量 `pointer`。
 // 参见 doMapToMaps。
 // md5:70b6d6cf0e63da31
-// ff:
-// params:
-// pointer:
-// mapping:
 func MapToMaps(params interface{}, pointer interface{}, mapping ...map[string]string) error {
 	return Scan(params, pointer, mapping...)
 }

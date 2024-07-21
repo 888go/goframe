@@ -12,9 +12,6 @@ import "strings"
 // IsSubDomain 检查 `subDomain` 是否为 `mainDomain` 的子域名。
 // 它支持在 `mainDomain` 中使用通配符 '*'。
 // md5:a9d75f1129f8ee85
-// ff:是否为子域名
-// subDomain:子域名
-// mainDomain:主域名
 func IsSubDomain(subDomain string, mainDomain string) bool {
 	if p := strings.IndexByte(subDomain, ':'); p != -1 {
 		subDomain = subDomain[0:p]
@@ -28,9 +25,9 @@ func IsSubDomain(subDomain string, mainDomain string) bool {
 		subLength  = len(subArray)
 		mainLength = len(mainArray)
 	)
-// 例如：
-// "goframe.org" 不是 "s.goframe.org" 的子域名。
-// md5:82e988c659c65b8f
+	// 例如：
+	// "goframe.org" 不是 "s.goframe.org" 的子域名。
+	// md5:82e988c659c65b8f
 	if mainLength > subLength {
 		for i := range mainArray[0 : mainLength-subLength] {
 			if mainArray[i] != "*" {

@@ -8,8 +8,6 @@
 package ghash
 
 // BKDR 实现了经典的 BKDR 哈希算法，用于生成 32 位哈希值。 md5:b92e10073a79eea4
-// ff:
-// str:
 func BKDR(str []byte) uint32 {
 	var (
 		seed uint32 = 131 // 31 131 1313 13131 131313 等等.... md5:41340a6a56b6dc66
@@ -22,8 +20,6 @@ func BKDR(str []byte) uint32 {
 }
 
 // BKDR64 实现了经典的64位BKDR哈希算法。 md5:3767ac6eac21d31d
-// ff:
-// str:
 func BKDR64(str []byte) uint64 {
 	var (
 		seed uint64 = 131 // 31 131 1313 13131 131313 等等.... md5:41340a6a56b6dc66

@@ -15,8 +15,6 @@ import (
 )
 
 // Int 将 `any` 转换为整数。 md5:7d14e0d4caedf28f
-// ff:取整数
-// any:值
 func Int(any interface{}) int {
 	if any == nil {
 		return 0
@@ -28,8 +26,6 @@ func Int(any interface{}) int {
 }
 
 // Int8 将 `any` 类型转换为 int8。 md5:3a0a5e4022ab71df
-// ff:取整数8位
-// any:值
 func Int8(any interface{}) int8 {
 	if any == nil {
 		return 0
@@ -41,8 +37,6 @@ func Int8(any interface{}) int8 {
 }
 
 // Int16 将 `any` 转换为 int16。 md5:5acb21515934f62d
-// ff:取整数16位
-// any:值
 func Int16(any interface{}) int16 {
 	if any == nil {
 		return 0
@@ -54,8 +48,6 @@ func Int16(any interface{}) int16 {
 }
 
 // Int32 将 `any` 转换为 int32 类型。 md5:87b6a70499ffaf8a
-// ff:取整数32位
-// any:值
 func Int32(any interface{}) int32 {
 	if any == nil {
 		return 0
@@ -67,9 +59,6 @@ func Int32(any interface{}) int32 {
 }
 
 // Int64 将 `any` 转换为 int64 类型。 md5:e95a0233b73ea496
-// yx:true
-// ff:取整数64位
-// any:
 func Int64(any interface{}) int64 {
 	if any == nil {
 		return 0

@@ -22,8 +22,6 @@ const (
 )
 
 // TableFields 获取并返回当前模式中指定表的字段信息。 md5:920febaff284f5e7
-// ff:
-// d:
 func (d *Driver) TableFields(
 	ctx context.Context, table string, schema ...string,
 ) (fields map[string]*gdb.TableField, err error) {
@@ -51,10 +49,10 @@ func (d *Driver) TableFields(
 	}
 	fields = make(map[string]*gdb.TableField)
 	for i, m := range result {
-// m[nullable] 返回"N"或"Y"
-// "N" 表示非空
-// "Y" 表示可能为空
-// md5:63d3103e22469aea
+		// m[nullable] 返回"N"或"Y"
+		// "N" 表示非空
+		// "Y" 表示可能为空
+		// md5:63d3103e22469aea
 		var nullable bool
 		if m["NULLABLE"].String() != "N" {
 			nullable = true

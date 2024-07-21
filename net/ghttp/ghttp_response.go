@@ -39,10 +39,6 @@ func newResponse(s *Server, w http.ResponseWriter) *Response {
 }
 
 // ServeFile 向响应中发送文件。 md5:e5a83a4dd0cadaf6
-// ff:发送文件
-// r:
-// path:文件路径
-// allowIndex:是否展示目录文件列表
 func (r *Response) ServeFile(path string, allowIndex ...bool) {
 	var (
 		serveFile *staticFile
@@ -64,10 +60,6 @@ func (r *Response) ServeFile(path string, allowIndex ...bool) {
 }
 
 // ServeFileDownload 用于将文件下载服务响应到请求。 md5:b5e9e8b76f0afca0
-// ff:下载文件
-// r:
-// path:路径
-// name:文件名
 func (r *Response) ServeFileDownload(path string, name ...string) {
 	var (
 		serveFile    *staticFile
@@ -106,10 +98,6 @@ func (r *Response) ServeFileDownload(path string, name ...string) {
 // RedirectTo 将客户端重定向到另一个位置。
 // 可选参数 `code` 指定重定向的HTTP状态码，通常可以是301或302。默认为302。
 // md5:ba008c02151efa61
-// ff:重定向
-// r:
-// location:url地址
-// code:重定向状态码
 func (r *Response) RedirectTo(location string, code ...int) {
 	r.Header().Set("Location", location)
 	if len(code) > 0 {
@@ -124,9 +112,6 @@ func (r *Response) RedirectTo(location string, code ...int) {
 // 可选参数 `code` 指定了用于重定向的HTTP状态码，
 // 常见的可选值有301或302，默认情况下使用302。
 // md5:b52d05fd1d742c11
-// ff:重定向到来源页面
-// r:
-// code:重定向状态码
 func (r *Response) RedirectBack(code ...int) {
 	r.RedirectTo(r.Request.GetReferer(), code...)
 }
@@ -135,18 +120,11 @@ func (r *Response) RedirectBack(code ...int) {
 //
 // 参考 http.ServeContent
 // md5:935db9add8e4232c
-// ff:
-// r:
-// name:
-// modTime:
-// content:
 func (r *Response) ServeContent(name string, modTime time.Time, content io.ReadSeeker) {
 	http.ServeContent(r.RawWriter(), r.Request.Request, name, modTime, content)
 }
 
 // Flush 将缓冲区的内容输出到客户端并清空缓冲区。 md5:16e9c330d696be4e
-// ff:输出缓存区
-// r:
 func (r *Response) Flush() {
 	r.Header().Set(responseHeaderTraceID, gtrace.GetTraceID(r.Request.Context()))
 	if r.Server.config.ServerAgent != "" {

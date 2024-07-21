@@ -21,8 +21,6 @@ import (
 // 参数 `name` 是该实例的名称。
 // 请注意，如果在创建实例过程中发生任何错误，它将引发 panic。
 // md5:9578e0721b3e1c0b
-// ff:
-// name:
 func Log(name ...string) *glog.Logger {
 	var (
 		ctx          = context.Background()

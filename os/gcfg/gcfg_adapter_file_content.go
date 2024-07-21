@@ -16,10 +16,6 @@ import (
 // SetContent 为指定的`file`设置自定义配置内容。
 // `file`是可选参数，默认值为DefaultConfigFile。
 // md5:49ae38cf671e3b96
-// ff:
-// a:
-// content:
-// file:
 func (a *AdapterFile) SetContent(content string, file ...string) {
 	name := DefaultConfigFileName
 	if len(file) > 0 {
@@ -43,9 +39,6 @@ func (a *AdapterFile) SetContent(content string, file ...string) {
 // GetContent 为指定的 `file`(默认为DefaultConfigFile)返回自定义配置内容。
 // `file` 参数是不必要的。
 // md5:633823fe81267232
-// ff:
-// a:
-// file:
 func (a *AdapterFile) GetContent(file ...string) string {
 	name := DefaultConfigFileName
 	if len(file) > 0 {
@@ -56,9 +49,6 @@ func (a *AdapterFile) GetContent(file ...string) string {
 
 // RemoveContent 移除具有指定`file`的全局配置。如果未传递`name`，则删除默认组名的配置。
 // md5:93cf717e8dc7670b
-// ff:
-// a:
-// file:
 func (a *AdapterFile) RemoveContent(file ...string) {
 	name := DefaultConfigFileName
 	if len(file) > 0 {
@@ -82,8 +72,6 @@ func (a *AdapterFile) RemoveContent(file ...string) {
 }
 
 // ClearContent 清除所有全局配置内容。 md5:89d91d7f2a05e7da
-// ff:
-// a:
 func (a *AdapterFile) ClearContent() {
 	customConfigContentMap.Clear()
 	// 清除所有实例的缓存。 md5:9be897e5e4dd65a8

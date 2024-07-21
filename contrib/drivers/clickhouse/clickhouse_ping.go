@@ -15,8 +15,6 @@ import (
 )
 
 // PingMaster 向主节点发送请求以检查身份验证或保持连接活动。 md5:47a7df55cbee8583
-// ff:
-// d:
 func (d *Driver) PingMaster() error {
 	conn, err := d.Master()
 	if err != nil {
@@ -26,8 +24,6 @@ func (d *Driver) PingMaster() error {
 }
 
 // PingSlave 调用ping命令检查从节点的认证或者维持连接。 md5:62272b38d874eda6
-// ff:
-// d:
 func (d *Driver) PingSlave() error {
 	conn, err := d.Slave()
 	if err != nil {

@@ -15,30 +15,21 @@ import (
 )
 
 // SliceInt 是 Ints 的别名。 md5:1918d6b770b537c7
-// ff:SliceIne别名
-// any:
 func SliceInt(any interface{}) []int {
 	return Ints(any)
 }
 
 // SliceInt32 是 Int32s 的别名。 md5:ea50c4495697e1ad
-// ff:SliceIet32别名
-// any:
 func SliceInt32(any interface{}) []int32 {
 	return Int32s(any)
 }
 
 // SliceInt64 是 Int64s 的别名。 md5:c8c6a11351f3c7dc
-// ff:SliceInt64别名
-// any:
 func SliceInt64(any interface{}) []int64 {
 	return Int64s(any)
 }
 
 // Ints 将 `any` 类型转换为 []int 类型。 md5:2e68bd53fc00e307
-// yx:true
-// ff:取整数切片
-// any:
 func Ints(any interface{}) []int {
 	if any == nil {
 		return nil
@@ -168,8 +159,6 @@ func Ints(any interface{}) []int {
 }
 
 // Int32s 将 `any` 转换为 []int32。 md5:3b96167e68fc609e
-// ff:取整数32位切片
-// any:值
 func Int32s(any interface{}) []int32 {
 	if any == nil {
 		return nil
@@ -299,8 +288,6 @@ func Int32s(any interface{}) []int32 {
 }
 
 // Int64s 将 `any` 转换为 []int64。 md5:c28e69b40a68187f
-// ff:取整数64位切片
-// any:值
 func Int64s(any interface{}) []int64 {
 	if any == nil {
 		return nil

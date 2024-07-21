@@ -12,8 +12,8 @@ import (
 )
 
 const (
-// commandEnvKeyForErrorPrint 用于指定控制将错误打印到 stdout 的键。这个错误设计上不被函数返回。
-// md5:45fbe9796576f681
+	// commandEnvKeyForErrorPrint 用于指定控制将错误打印到 stdout 的键。这个错误设计上不被函数返回。
+	// md5:45fbe9796576f681
 	commandEnvKeyForErrorPrint = "gf.gview.errorprint"
 )
 

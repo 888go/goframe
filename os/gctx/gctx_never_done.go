@@ -18,32 +18,24 @@ type neverDoneCtx struct {
 }
 
 // Done 禁止从父上下文中关闭 done。 md5:6ee3971853766306
-// ff:
 func (*neverDoneCtx) Done() <-chan struct{} {
 	return nil
 }
 
 // Deadline 禁止从父上下文中继承截止期限。 md5:b0a8033fcfdd0483
-// ff:
-// deadline:
-// ok:
 func (*neverDoneCtx) Deadline() (deadline time.Time, ok bool) {
 	return time.Time{}, false
 }
 
 // Err 限制了从父上下文中完成的上下文。 md5:605f4a25a7f54817
-// ff:
-// c:
 func (c *neverDoneCtx) Err() error {
 	return nil
 }
 
-		// NeverDone 包装并返回一个永远不会完成的新上下文对象，这禁止手动完成上下文，使得上下文可以传递给异步的 Goroutine。
-		//
-		// 请注意，这不会影响父上下文的关闭（取消），因为它只是父上下文的包装器，只影响下一个上下文处理。
-		// md5:38b63a322c5449a9
-// ff:
-// ctx:
+// NeverDone 包装并返回一个永远不会完成的新上下文对象，这禁止手动完成上下文，使得上下文可以传递给异步的 Goroutine。
+//
+// 请注意，这不会影响父上下文的关闭（取消），因为它只是父上下文的包装器，只影响下一个上下文处理。
+// md5:38b63a322c5449a9
 func NeverDone(ctx context.Context) context.Context {
 	return &neverDoneCtx{ctx}
 }

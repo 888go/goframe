@@ -89,8 +89,6 @@ func (s *Server) newHttpServer(address string) *http.Server {
 
 // Fd获取并返回当前服务器的文件描述符。它只在*nix类操作系统中可用，如Linux、Unix和Darwin。
 // md5:40546fed24d791cd
-// ff:
-// s:
 func (s *gracefulServer) Fd() uintptr {
 	if ln := s.getRawListener(); ln != nil {
 		file, err := ln.(*net.TCPListener).File()
@@ -102,8 +100,6 @@ func (s *gracefulServer) Fd() uintptr {
 }
 
 // CreateListener 在配置的地址上创建监听器。 md5:89f8795cf6b796f9
-// ff:
-// s:
 func (s *gracefulServer) CreateListener() error {
 	ln, err := s.getNetListener()
 	if err != nil {
@@ -118,11 +114,6 @@ func (s *gracefulServer) CreateListener() error {
 // 参数`certFile`和`keyFile`指定了HTTPS所需的证书和密钥文件。
 // 可选参数`tlsConfig`指定自定义的TLS配置。
 // md5:04f46f61853037ca
-// ff:
-// s:
-// certFile:
-// keyFile:
-// tlsConfig:
 func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig ...*tls.Config) error {
 	var config *tls.Config
 	if len(tlsConfig) > 0 && tlsConfig[0] != nil {
@@ -161,9 +152,6 @@ func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig .
 }
 
 // Serve以阻塞方式启动服务。 md5:230e5731ffa3d482
-// ff:
-// s:
-// ctx:
 func (s *gracefulServer) Serve(ctx context.Context) error {
 	if s.rawListener == nil {
 		return gerror.NewCode(gcode.CodeInvalidOperation, `call CreateListener/CreateListenerTLS before Serve`)
@@ -185,8 +173,6 @@ func (s *gracefulServer) Serve(ctx context.Context) error {
 }
 
 // GetListenedAddress 获取并返回当前服务器所监听的地址字符串。 md5:51d352ffec9dc329
-// ff:
-// s:
 func (s *gracefulServer) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -202,8 +188,6 @@ func (s *gracefulServer) GetListenedAddress() string {
 // GetListenedPort 获取并返回当前服务器正在监听的其中一个端口。
 // 注意，如果服务器只监听一个端口，则此方法才可用。
 // md5:2fe5eae2317fe8f9
-// ff:
-// s:
 func (s *gracefulServer) GetListenedPort() int {
 	if ln := s.getRawListener(); ln != nil {
 		return ln.Addr().(*net.TCPAddr).Port

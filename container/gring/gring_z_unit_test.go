@@ -140,6 +140,9 @@ func TestRing_Slice(t *testing.T) {
 		t.Assert(array4, g.Slice{1, 5, 4, 3, 2})
 	})
 }
+
+// https://github.com/gogf/gf/issues/1394
+// 这是一个GitHub问题链接，指向gf框架的第1394号问题讨论。在Go代码中，这种注释通常用于引用外部资源或问题，以便其他开发者了解代码相关的背景信息或跟踪问题。 md5:267eaeef2b053eb9
 func Test_Issue1394(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// gring.

@@ -41,38 +41,38 @@ type HandlerInput struct {
 	// 格式化的输出时间字符串，如 "2016-01-09 12:00:00"。 md5:530cb544b3906631
 	TimeFormat string
 
-//（只读）使用颜色常量值，如COLOR_RED，COLOR_BLUE等。
-// 示例：34
-// md5:e377684c0eb82b75
+	//（只读）使用颜色常量值，如COLOR_RED，COLOR_BLUE等。
+	// 示例：34
+	// md5:e377684c0eb82b75
 	Color int
 
-// （只读）使用级别，如LEVEL_INFO、LEVEL_ERROR等。
-// 例子：256
-// md5:20e8f648c34222c9
+	// （只读）使用级别，如LEVEL_INFO、LEVEL_ERROR等。
+	// 例子：256
+	// md5:20e8f648c34222c9
 	Level int
 
-// 用于输出的格式化日志级别字符串，如 "DEBU"、"ERRO" 等。
-// 示例：ERRO
-// md5:0bad424894695e93
+	// 用于输出的格式化日志级别字符串，如 "DEBU"、"ERRO" 等。
+	// 示例：ERRO
+	// md5:0bad424894695e93
 	LevelFormat string
 
 	// 调用日志的源函数名称，仅在设置F_CALLER_FN时可用。 md5:2bfd8148853e8e4c
 	CallerFunc string
 
-// 调用日志的源文件路径及其行号，只有在设置F_FILE_SHORT或F_FILE_LONG时可用。
-// md5:8e31a0cc592be662
+	// 调用日志的源文件路径及其行号，只有在设置F_FILE_SHORT或F_FILE_LONG时可用。
+	// md5:8e31a0cc592be662
 	CallerPath string
 
-// 从上下文中获取的已配置的 context 值字符串。如果没有配置 Config.CtxKeys，它将为空。
-// md5:b854bd1bcad06fda
+	// 从上下文中获取的已配置的 context 值字符串。如果没有配置 Config.CtxKeys，它将为空。
+	// md5:b854bd1bcad06fda
 	CtxStr string
 
 	// 跟踪ID，仅在启用OpenTelemetry时可用，否则为空字符串。 md5:0cd8e77f80286121
 	TraceId string
 
-// 在日志内容头部自定义的前缀字符串。
-// 请注意，如果已禁用HeaderPrint，此设置将不会生效。
-// md5:004eed7afe3ca2dd
+	// 在日志内容头部自定义的前缀字符串。
+	// 请注意，如果已禁用HeaderPrint，此设置将不会生效。
+	// md5:004eed7afe3ca2dd
 	Prefix string
 
 	// 用于日志记录的自定义日志内容。 md5:9749c3bafd8e33d5
@@ -81,9 +81,9 @@ type HandlerInput struct {
 	// 传递给日志记录器的未经格式化的值数组。 md5:854ab8e84e01371d
 	Values []any
 
-// 由记录器生成的堆栈字符串，仅在配置了Config.StStatus时可用。
-// 注意，堆栈内容中通常包含多行。
-// md5:c36e69fdfae3ac16
+	// 由记录器生成的堆栈字符串，仅在配置了Config.StStatus时可用。
+	// 注意，堆栈内容中通常包含多行。
+	// md5:c36e69fdfae3ac16
 	Stack string
 
 	// IsAsync 标记为异步日志记录。 md5:e138a9a968506347
@@ -109,22 +109,16 @@ func doFinalPrint(ctx context.Context, in *HandlerInput) {
 }
 
 // SetDefaultHandler 设置包的默认处理器。 md5:33a213aebe83e5ed
-// ff:设置默认中间件
-// handler:处理函数
 func SetDefaultHandler(handler Handler) {
 	defaultHandler = handler
 }
 
 // GetDefaultHandler 返回包的默认处理器。 md5:8812c42db1189f3b
-// ff:取默认中间件
 func GetDefaultHandler() Handler {
 	return defaultHandler
 }
 
 // Next 以中间件的方式调用下一个日志处理程序。 md5:ab91f9dfe65c4322
-// ff:
-// in:
-// ctx:
 func (in *HandlerInput) Next(ctx context.Context) {
 	in.index++
 	if in.index < len(in.handlers) {
@@ -133,9 +127,6 @@ func (in *HandlerInput) Next(ctx context.Context) {
 }
 
 // String 返回默认日志处理器格式化的日志内容。 md5:e78613962fe54276
-// ff:
-// in:
-// withColor:
 func (in *HandlerInput) String(withColor ...bool) string {
 	formatWithColor := false
 	if len(withColor) > 0 {
@@ -145,8 +136,6 @@ func (in *HandlerInput) String(withColor ...bool) string {
 }
 
 // ValuesContent 将值转换为字符串内容并返回。 md5:da3a0fd9093d35c9
-// ff:
-// in:
 func (in *HandlerInput) ValuesContent() string {
 	var (
 		buffer       = bytes.NewBuffer(nil)

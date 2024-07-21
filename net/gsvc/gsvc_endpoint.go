@@ -23,9 +23,8 @@ type LocalEndpoint struct {
 	port int    // port 是通常所说的端口。 md5:543d477387d04665
 }
 
-// NewEndpoint creates and returns an Endpoint from address string of pattern "host:port",
-// ff:
-// address:
+// NewEndpoint 从地址字符串（格式为"host:port"，如："192.168.1.100:80"）创建并返回一个Endpoint。
+// md5:837de544fe4ec26d
 func NewEndpoint(address string) Endpoint {
 	array := gstr.SplitAndTrim(address, EndpointHostPortDelimiter)
 	if len(array) != 2 {
@@ -42,22 +41,16 @@ func NewEndpoint(address string) Endpoint {
 }
 
 // Host 返回服务的 IPv4/IPv6 地址。 md5:c70938f835a0f6e4
-// ff:
-// e:
 func (e *LocalEndpoint) Host() string {
 	return e.host
 }
 
 // Port 返回服务的端口。 md5:1650bc955f20ce4c
-// ff:
-// e:
 func (e *LocalEndpoint) Port() int {
 	return e.port
 }
 
 // String 方法将Endpoint格式化为字符串，例如：192.168.1.100:80。 md5:b9ebe410fee82ac0
-// ff:
-// e:
 func (e *LocalEndpoint) String() string {
 	return fmt.Sprintf(`%s:%d`, e.host, e.port)
 }

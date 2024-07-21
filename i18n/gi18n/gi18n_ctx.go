@@ -19,9 +19,6 @@ const (
 )
 
 // WithLanguage 向上下文中追加语言设置并返回一个新的上下文。 md5:c09b915c27b37312
-// ff:
-// ctx:
-// language:
 func WithLanguage(ctx context.Context, language string) context.Context {
 	if ctx == nil {
 		ctx = context.TODO()
@@ -29,11 +26,9 @@ func WithLanguage(ctx context.Context, language string) context.Context {
 	return context.WithValue(ctx, ctxLanguage, language)
 }
 
-		// LanguageFromCtx 从上下文中获取并返回语言名称。
-		// 如果之前未设置，则返回空字符串。
-		// md5:f62999632f76669e
-// ff:
-// ctx:
+// LanguageFromCtx 从上下文中获取并返回语言名称。
+// 如果之前未设置，则返回空字符串。
+// md5:f62999632f76669e
 func LanguageFromCtx(ctx context.Context) string {
 	if ctx == nil {
 		return ""

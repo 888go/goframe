@@ -13,11 +13,6 @@ import (
 )
 
 // MustShell 行为与 Shell 相同，但如果发生任何错误则会引发 panic。 md5:8ffd357cf1ea4dbc
-// ff:
-// ctx:
-// cmd:
-// out:
-// in:
 func MustShell(ctx context.Context, cmd string, out io.Writer, in io.Reader) {
 	if err := Shell(ctx, cmd, out, in); err != nil {
 		panic(err)
@@ -25,9 +20,6 @@ func MustShell(ctx context.Context, cmd string, out io.Writer, in io.Reader) {
 }
 
 // MustShellRun 执行与 ShellRun 相同的操作，但如果发生任何错误，则会引发恐慌。 md5:b0e6d628208193e7
-// ff:
-// ctx:
-// cmd:
 func MustShellRun(ctx context.Context, cmd string) {
 	if err := ShellRun(ctx, cmd); err != nil {
 		panic(err)
@@ -35,10 +27,6 @@ func MustShellRun(ctx context.Context, cmd string) {
 }
 
 // MustShellExec 执行类似于 ShellExec，但如果发生任何错误，它将引发恐慌。 md5:9754cecde7636273
-// ff:
-// ctx:
-// cmd:
-// environment:
 func MustShellExec(ctx context.Context, cmd string, environment ...[]string) string {
 	result, err := ShellExec(ctx, cmd, environment...)
 	if err != nil {

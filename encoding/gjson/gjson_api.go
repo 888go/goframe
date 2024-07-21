@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gjson//bm:json类
+package gjson
 
 import (
 	"fmt"
@@ -17,8 +17,6 @@ import (
 )
 
 // Interface 返回 json 值。 md5:63120da1c18a889c
-// ff:
-// j:
 func (j *Json) Interface() interface{} {
 	if j == nil {
 		return nil
@@ -32,16 +30,11 @@ func (j *Json) Interface() interface{} {
 }
 
 // Var将json值作为*gvar.Var返回。 md5:fcfd99090165a7b5
-// ff:取泛型类
-// j:
 func (j *Json) Var() *gvar.Var {
 	return gvar.New(j.Interface())
 }
 
 // IsNil 检查指针 `j` 所指向的值是否为 nil。 md5:669f952cb58d64ce
-// yx:true
-// ff:是否为Nil
-// j:
 func (j *Json) IsNil() bool {
 	if j == nil {
 		return true
@@ -60,10 +53,6 @@ func (j *Json) IsNil() bool {
 //
 // 如果没有为`pattern`找到值，它将返回由`def`指定的默认值。
 // md5:f56f76d635296903
-// ff:取值
-// j:
-// pattern:表达式
-// def:默认值
 func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	if j == nil {
 		return nil
@@ -88,20 +77,12 @@ func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 
 // GetJson 通过指定的`pattern`获取值，并将其转换为一个非并发安全的Json对象。
 // md5:e0f60541ee6017b5
-// ff:取对象
-// j:
-// pattern:表达式
-// def:默认值
 func (j *Json) GetJson(pattern string, def ...interface{}) *Json {
 	return New(j.Get(pattern, def...).Val())
 }
 
 // GetJsons 通过指定的`pattern`获取值，并将其转换为一个不并发安全的Json对象切片。
 // md5:1bd75964e1b32ed2
-// ff:取对象切片
-// j:
-// pattern:表达式
-// def:默认值
 func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 	array := j.Get(pattern, def...).Array()
 	if len(array) > 0 {
@@ -117,10 +98,6 @@ func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 // GetJsonMap 通过指定的`pattern`获取值，
 // 并将其转换为非并发安全的Json对象映射。
 // md5:d549d238d186a4e0
-// ff:取对象Map
-// j:
-// pattern:表达式
-// def:默认值
 func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 	m := j.Get(pattern, def...).Map()
 	if len(m) > 0 {
@@ -136,20 +113,11 @@ func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 // Set 使用指定的 `pattern` 设置值。
 // 它支持通过字符分隔符（默认为'.'）进行层次数据访问。
 // md5:85400f8aa43895d6
-// yx:true
-// ff:设置值
-// j:
-// pattern:
-// value:
 func (j *Json) Set(pattern string, value interface{}) error {
 	return j.setValue(pattern, value, false)
 }
 
 // MustSet 执行与 Set 相同的操作，但如果发生任何错误，它将引发恐慌。 md5:89753cb5f56f60cc
-// ff:设置值PANI
-// j:
-// pattern:表达式
-// value:值
 func (j *Json) MustSet(pattern string, value interface{}) {
 	if err := j.Set(pattern, value); err != nil {
 		panic(err)
@@ -158,17 +126,11 @@ func (j *Json) MustSet(pattern string, value interface{}) {
 
 // Remove 删除具有指定`pattern`的值。它支持通过字符分隔符（默认为`.`）进行层次数据访问。
 // md5:a8bd1b8b0e8d7d8e
-// ff:删除
-// j:
-// pattern:表达式
 func (j *Json) Remove(pattern string) error {
 	return j.setValue(pattern, nil, true)
 }
 
 // MustRemove 的行为与 Remove 相同，但如果发生任何错误，它会直接 panic。 md5:ad4ac7324486398a
-// ff:删除PANI
-// j:
-// pattern:表达式
 func (j *Json) MustRemove(pattern string) {
 	if err := j.Remove(pattern); err != nil {
 		panic(err)
@@ -176,18 +138,12 @@ func (j *Json) MustRemove(pattern string) {
 }
 
 // Contains 检查是否存在指定的 `pattern` 值。 md5:4f248b6aebb74d05
-// ff:是否存在
-// j:
-// pattern:表达式
 func (j *Json) Contains(pattern string) bool {
 	return j.Get(pattern) != nil
 }
 
 // Len 返回由指定 `pattern` 定义的值的长度/大小。目标值应该是切片或映射类型。如果找不到目标值或者其类型无效，它将返回 -1。
 // md5:f929eb27a0ef1a36
-// ff:取长度
-// j:
-// pattern:表达式
 func (j *Json) Len(pattern string) int {
 	p := j.getPointerByPattern(pattern)
 	if p != nil {
@@ -205,10 +161,6 @@ func (j *Json) Len(pattern string) int {
 
 // Append 将指定的 `pattern` 所引用的值追加到目标值（应该是切片类型）中。
 // md5:5b8e7f4c493419ba
-// ff:加入
-// j:
-// pattern:表达式
-// value:值
 func (j *Json) Append(pattern string, value interface{}) error {
 	p := j.getPointerByPattern(pattern)
 	if p == nil || *p == nil {
@@ -228,10 +180,6 @@ func (j *Json) Append(pattern string, value interface{}) error {
 }
 
 // MustAppend 的行为与 Append 相同，但如果发生任何错误，它会直接 panic。 md5:3a0acd5a244f264f
-// ff:加入PANI
-// j:
-// pattern:表达式
-// value:值
 func (j *Json) MustAppend(pattern string, value interface{}) {
 	if err := j.Append(pattern, value); err != nil {
 		panic(err)
@@ -241,33 +189,23 @@ func (j *Json) MustAppend(pattern string, value interface{}) {
 // Map 将当前的 Json 对象转换为 map[string]interface{}。
 // 如果转换失败，它将返回 nil。
 // md5:599d2c152000d26b
-// ff:取Map
-// j:
 func (j *Json) Map() map[string]interface{} {
 	return j.Var().Map()
 }
 
 // Array 将当前Json对象转换为 []interface{} 类型。如果转换失败，它将返回nil。
 // md5:8b3042473c46995f
-// ff:取切片
-// j:
 func (j *Json) Array() []interface{} {
 	return j.Var().Array()
 }
 
 // Scan会根据参数类型自动调用Struct或Structs函数，并通过`pointer`实现转换。
 // md5:afdb5ab720fddc3b
-// ff:取结构体指针
-// j:
-// pointer:结构体指针
-// mapping:名称映射
 func (j *Json) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return j.Var().Scan(pointer, mapping...)
 }
 
 // Dump 打印当前的Json对象，使其更便于人工阅读。 md5:c8c6bbdb40fa6383
-// ff:调试输出
-// j:
 func (j *Json) Dump() {
 	if j == nil {
 		return

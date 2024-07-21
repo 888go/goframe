@@ -13,8 +13,8 @@ import (
 	"github.com/gogf/gf/v2/os/gtimer"
 )
 
-		// supervisor 检查工作列表，如果工作列表中有任务但工作池中没有工人goroutine，就 fork 新的工人goroutine来处理任务。
-		// md5:02b61e26a9994363
+// supervisor 检查工作列表，如果工作列表中有任务但工作池中没有工人goroutine，就 fork 新的工人goroutine来处理任务。
+// md5:02b61e26a9994363
 func (p *Pool) supervisor(_ context.Context) {
 	if p.IsClosed() {
 		gtimer.Exit()

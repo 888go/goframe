@@ -23,9 +23,6 @@ import (
 //
 // 可以认为一个 `word` 表示列名。
 // md5:71291615d7bcffe0
-// ff:底层QuoteWord
-// m:
-// s:
 func (m *Model) QuoteWord(s string) string {
 	return m.db.GetCore().QuoteWord(s)
 }
@@ -34,12 +31,6 @@ func (m *Model) QuoteWord(s string) string {
 //
 // 参见 DriverMysql.TableFields。
 // md5:61e256ba53f813cb
-// ff:取表字段信息Map
-// m:
-// tableStr:表名称
-// schema:
-// fields:字段信息Map
-// err:错误
 func (m *Model) TableFields(tableStr string, schema ...string) (fields map[string]*TableField, err error) {
 	var (
 		table      = m.db.GetCore().guessPrimaryTableName(tableStr)
@@ -58,9 +49,11 @@ func (m *Model) getModel() *Model {
 	}
 }
 
-// mappingAndFilterToTableFields mappings and changes given field name to really table field name.
+// mappingAndFilterToTableFields：将给定的字段名映射并转换为实际的表格字段名。
+// 例如：
 // ID        -> id
 // NICK_Name -> nickname.
+// md5:35f1e9dc3d13c4f0
 func (m *Model) mappingAndFilterToTableFields(table string, fields []string, filter bool) []string {
 	var fieldsTable = table
 	if fieldsTable != "" {
@@ -89,10 +82,10 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 		} else if gregex.IsMatchString(regularFieldNameWithCommaRegPattern, field) {
 			inputFieldsArray = gstr.SplitAndTrim(field, ",")
 		} else {
-// 示例：
-// user.id, user.name
-// 将逗号分隔的字符串（格式：lpad(s.id, 6, '0')，s.name）替换为`code`
-// md5:5ee6374c41194bf3
+			// 示例：
+			// user.id, user.name
+			// 将逗号分隔的字符串（格式：lpad(s.id, 6, '0')，s.name）替换为`code`
+			// md5:5ee6374c41194bf3
 			outputFieldsArray = append(outputFieldsArray, field)
 			continue
 		}

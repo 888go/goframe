@@ -8,7 +8,7 @@
 // 
 // 对于维护者，请注意，这个包是一个基础包，不应该导入除标准包和内部包以外的额外包，以避免循环导入。
 // md5:ee2cf0d4a8603263
-package gerror//bm:错误类
+package gerror
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"

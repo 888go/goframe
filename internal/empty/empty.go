@@ -46,8 +46,8 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true
 	}
-// 它首先使用断言检查变量为常见类型，以提高性能，然后使用反射。
-// md5:9722a28f813b5ddb
+	// 它首先使用断言检查变量为常见类型，以提高性能，然后使用反射。
+	// md5:9722a28f813b5ddb
 	switch result := value.(type) {
 	case int:
 		return result == 0
@@ -200,11 +200,11 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 	}
 }
 
-			// IsNil 检查给定的 `value` 是否为 nil，特别是对于 interface{} 类型的值。
-			// 参数 `traceSource` 用于在给定的 `value` 是指向指针的指针类型时，追踪到源变量。
-			// 当 `traceSource` 为真且源为 nil 时，它会返回 nil。
-			// 注意，该函数可能使用反射功能，这可能稍微影响性能。
-			// md5:c12efd8c176fc73a
+// IsNil 检查给定的 `value` 是否为 nil，特别是对于 interface{} 类型的值。
+// 参数 `traceSource` 用于在给定的 `value` 是指向指针的指针类型时，追踪到源变量。
+// 当 `traceSource` 为真且源为 nil 时，它会返回 nil。
+// 注意，该函数可能使用反射功能，这可能稍微影响性能。
+// md5:c12efd8c176fc73a
 func IsNil(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true

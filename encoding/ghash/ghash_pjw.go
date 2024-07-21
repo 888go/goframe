@@ -8,8 +8,6 @@
 package ghash
 
 // PJW实现了经典的32位PJW哈希算法。 md5:3822bc8ce34ff2e9
-// ff:
-// str:
 func PJW(str []byte) uint32 {
 	var (
 		BitsInUnsignedInt uint32 = 32 // 4 * 8
@@ -29,8 +27,6 @@ func PJW(str []byte) uint32 {
 }
 
 // PJW64 实现了经典的 PJW 算法，用于生成64位的哈希值。 md5:5c34a99d5f76f106
-// ff:
-// str:
 func PJW64(str []byte) uint64 {
 	var (
 		BitsInUnsignedInt uint64 = 32 // 4 * 8

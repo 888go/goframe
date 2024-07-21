@@ -23,30 +23,22 @@ type txLink struct {
 }
 
 // IsTransaction 返回当前Link是否为交易。 md5:83b57bf1eb9cb599
-// ff:
-// l:
 func (l *dbLink) IsTransaction() bool {
 	return false
 }
 
 // IsOnMaster 检查并返回当前链接是否在主节点上运行。 md5:ec0eef810e78c3f2
-// ff:
-// l:
 func (l *dbLink) IsOnMaster() bool {
 	return l.isOnMaster
 }
 
 // IsTransaction 返回当前Link是否为交易。 md5:83b57bf1eb9cb599
-// ff:
-// l:
 func (l *txLink) IsTransaction() bool {
 	return true
 }
 
 // IsOnMaster 检查并返回当前链接是否在主节点上运行。 md5:ec0eef810e78c3f2
 // Note that, transaction operation is always operated on master node.
-// ff:
-// l:
 func (l *txLink) IsOnMaster() bool {
 	return true
 }

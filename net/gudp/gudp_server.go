@@ -42,8 +42,6 @@ var (
 )
 
 // GetServer 创建并返回一个给定名称的UDP服务器实例。 md5:c822bb20e355a198
-// ff:
-// name:
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
@@ -61,10 +59,6 @@ func GetServer(name ...interface{}) *Server {
 // 可选参数`name`用于指定服务器的名称，该名称可以用于
 // GetServer 函数来检索其实例。
 // md5:752020b7ca7ce4b2
-// ff:
-// address:
-// handler:
-// name:
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -77,17 +71,11 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 }
 
 // SetAddress 设置UDP服务器的地址。 md5:7159be88401e01c8
-// ff:
-// s:
-// address:
 func (s *Server) SetAddress(address string) {
 	s.address = address
 }
 
 // SetHandler 设置UDP服务器的连接处理器。 md5:734c7ee9adee69b0
-// ff:
-// s:
-// handler:
 func (s *Server) SetHandler(handler func(*Conn)) {
 	s.handler = handler
 }
@@ -95,9 +83,6 @@ func (s *Server) SetHandler(handler func(*Conn)) {
 // Close 关闭连接。
 // 它将使服务器立即关闭。
 // md5:251649bd57732e67
-// ff:
-// s:
-// err:
 func (s *Server) Close() (err error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -109,8 +94,6 @@ func (s *Server) Close() (err error) {
 }
 
 // Run 开始监听UDP连接。 md5:582eb8bc9f8281c9
-// ff:
-// s:
 func (s *Server) Run() error {
 	if s.handler == nil {
 		err := gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
@@ -134,8 +117,6 @@ func (s *Server) Run() error {
 }
 
 // GetListenedAddress 获取并返回当前服务器所监听的地址字符串。 md5:51d352ffec9dc329
-// ff:
-// s:
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -149,8 +130,6 @@ func (s *Server) GetListenedAddress() string {
 }
 
 // GetListenedPort 获取并返回当前服务器监听的其中一个端口。 md5:98e33a51d8d8309c
-// ff:
-// s:
 func (s *Server) GetListenedPort() int {
 	s.mu.Lock()
 	defer s.mu.Unlock()

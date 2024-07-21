@@ -34,10 +34,6 @@ var (
 )
 
 // NewFromObject 使用给定的对象创建并返回一个根命令对象。 md5:3bdd362e3ec9f337
-// ff:
-// object:
-// rootCmd:
-// err:
 func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 	switch c := object.(type) {
 	case Command:
@@ -55,9 +51,9 @@ func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 		return
 	}
 	var reflectValue = originValueAndKind.InputValue
-// 如果给定的`object`不是指针，那么它会创建一个临时的，其值为`reflectValue`。
-// 然后它可以获取结构体/`*struct`的所有方法。
-// md5:1e216cd9c7839ef2
+	// 如果给定的`object`不是指针，那么它会创建一个临时的，其值为`reflectValue`。
+	// 然后它可以获取结构体/`*struct`的所有方法。
+	// md5:1e216cd9c7839ef2
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectValue.Type())
 		newValue.Elem().Set(reflectValue)
@@ -258,10 +254,10 @@ func newCommandFromMethod(
 	// 利用优先级标签进行输入结构体转换。 md5:501b3e1e29551f82
 	var priorityTag = gstr.Join([]string{tagNameName, tagNameShort}, ",")
 
-// =============================================================================================
-// 创建一个有返回值的函数。
-// =============================================================================================
-// md5:665eb5f5657321cc
+	// =============================================================================================
+	// 创建一个有返回值的函数。
+	// =============================================================================================
+	// md5:665eb5f5657321cc
 	command.FuncWithValue = func(ctx context.Context, parser *Parser) (out interface{}, err error) {
 		ctx = context.WithValue(ctx, CtxKeyParser, parser)
 		var (

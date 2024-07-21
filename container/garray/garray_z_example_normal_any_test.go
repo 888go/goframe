@@ -80,15 +80,15 @@ func ExampleNew() {
 
 func ExampleArray_Iterator() {
 	array := garray.NewArrayFrom(g.Slice{"a", "b", "c"})
-// Iterator 是 IteratorAsc 的别名，它按照升序遍历数组，并使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:d842b3c6584033ab
+	// Iterator 是 IteratorAsc 的别名，它按照升序遍历数组，并使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。
+	// md5:d842b3c6584033ab
 	array.Iterator(func(k int, v interface{}) bool {
 		fmt.Println(k, v)
 		return true
 	})
-// IteratorDesc 以降序遍历数组，并使用给定的回调函数`f`进行只读迭代。
-// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。
-// md5:94f26122239ef7ac
+	// IteratorDesc 以降序遍历数组，并使用给定的回调函数`f`进行只读迭代。
+	// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。
+	// md5:94f26122239ef7ac
 	array.IteratorDesc(func(k int, v interface{}) bool {
 		fmt.Println(k, v)
 		return true
@@ -123,28 +123,28 @@ func ExampleArray_Shuffle() {
 func ExampleArray_Rands() {
 	array := garray.NewFrom(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// 随机从数组中获取并返回两个元素。
-// 它不会从数组中删除这些元素。
-// md5:6df7401a881dedbb
+	// 随机从数组中获取并返回两个元素。
+	// 它不会从数组中删除这些元素。
+	// md5:6df7401a881dedbb
 	fmt.Println(array.Rands(2))
 
-// 随机从数组中选择一个元素并返回。
-// 从数组中删除选中的元素。
-// md5:5c923218de5c63ae
+	// 随机从数组中选择一个元素并返回。
+	// 从数组中删除选中的元素。
+	// md5:5c923218de5c63ae
 	fmt.Println(array.PopRand())
 }
 
 func ExampleArray_PopRand() {
 	array := garray.NewFrom(g.Slice{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
-// 随机从数组中获取并返回两个元素。
-// 它不会从数组中删除这些元素。
-// md5:6df7401a881dedbb
+	// 随机从数组中获取并返回两个元素。
+	// 它不会从数组中删除这些元素。
+	// md5:6df7401a881dedbb
 	fmt.Println(array.Rands(2))
 
-// 随机从数组中选择一个元素并返回。
-// 从数组中删除选中的元素。
-// md5:5c923218de5c63ae
+	// 随机从数组中选择一个元素并返回。
+	// 从数组中删除选中的元素。
+	// md5:5c923218de5c63ae
 	fmt.Println(array.PopRand())
 }
 

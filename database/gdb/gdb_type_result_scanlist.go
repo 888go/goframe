@@ -90,12 +90,6 @@ import (
 //
 // 可参考示例或单元测试用例以更清晰地理解此函数的工作方式。
 // md5:d6997acc67d472c4
-// ff:取指针列表
-// r:
-// structSlicePointer:结构体切片指针
-// bindToAttrName:绑定到结构体属性名称
-// relationAttrNameAndFields:结构体属性关联
-// err:错误
 func (r Result) ScanList(structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	out, err := checkGetSliceElementInfoForScanList(structSlicePointer, bindToAttrName)
 	if err != nil {
@@ -221,9 +215,9 @@ func doScanList(in doScanListInput) (err error) {
 	if length == 0 {
 		// 指向的切片不为空。 md5:1348d4b6d686b8f3
 		if in.StructSliceValue.Len() > 0 {
-// 这里检查是否具有已初始化的结构体项。
-// 然后返回错误以警告开发者其为空且无法进行转换。
-// md5:cd5f133a393c1157
+			// 这里检查是否具有已初始化的结构体项。
+			// 然后返回错误以警告开发者其为空且无法进行转换。
+			// md5:cd5f133a393c1157
 			if v := in.StructSliceValue.Index(0); v.Kind() != reflect.Ptr {
 				return sql.ErrNoRows
 			}
@@ -252,9 +246,9 @@ func doScanList(in doScanListInput) (err error) {
 		relationBindToFieldName string // 例如：relationKV：id：uid -> uid. md5:dda263df86dc03a1
 	)
 	if len(in.RelationFields) > 0 {
-// 表字段名与属性名之间的关联键字符串
-// 可以使用字符'='或':'进行连接。
-// md5:a3dd08343df8a7ac
+		// 表字段名与属性名之间的关联键字符串
+		// 可以使用字符'='或':'进行连接。
+		// md5:a3dd08343df8a7ac
 		array := gstr.SplitAndTrim(in.RelationFields, "=")
 		if len(array) == 1 {
 			// 与旧的分隔字符':'兼容。 md5:21a764d3ea1e081b
@@ -265,11 +259,11 @@ func doScanList(in doScanListInput) (err error) {
 			array = []string{in.RelationFields, in.RelationFields}
 		}
 		if len(array) == 2 {
-// 定义表字段到关系属性名。
-// 例如：
-// uid:Uid
-// uid:UserId
-// md5:029253159bee75d1
+			// 定义表字段到关系属性名。
+			// 例如：
+			// uid:Uid
+			// uid:UserId
+			// md5:029253159bee75d1
 			relationFromFieldName = array[0]
 			relationBindToFieldName = array[1]
 			if key, _ := gutil.MapPossibleItemByKey(in.Result[0].Map(), relationFromFieldName); key == "" {

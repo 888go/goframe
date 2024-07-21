@@ -15,16 +15,11 @@ import (
 )
 
 // SliceAny 是 Interfaces 的别名。 md5:4a67bb7703f4770e
-// ff:SliceAny别名
-// any:值
 func SliceAny(any interface{}) []interface{} {
 	return Interfaces(any)
 }
 
 // Interfaces 将 `any` 转换为 []interface{}。 md5:74035d098fdf06f6
-// yx:true
-// ff:取any切片
-// any:
 func Interfaces(any interface{}) []interface{} {
 	if any == nil {
 		return nil

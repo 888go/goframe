@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog_test//bm:日志类_test
+package glog_test
 
 import (
 	"context"

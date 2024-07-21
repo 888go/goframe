@@ -26,10 +26,6 @@ const (
 // 模式参数`pattern`支持多个文件名模式，
 // 使用`,`符号分隔多个模式。
 // md5:1f662f1008f0113e
-// ff:枚举并含子目录名
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归替换
 func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -54,12 +50,6 @@ func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 //
 // 参数`handler`指定了处理`path`及其子目录下每个子文件路径的回调函数。如果`handler`返回空字符串，将忽略子文件路径，否则将子文件路径添加到结果切片中。
 // md5:93774b4b752cee08
-// ff:枚举并含子目录名_函数
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归替换
-// handler:回调函数
-// path:目录
 func ScanDirFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	list, err := doScanDir(0, path, pattern, recursive, handler)
 	if err != nil {
@@ -78,10 +68,6 @@ func ScanDirFunc(path string, pattern string, recursive bool, handler func(path 
 //
 // 注意，它只返回文件，不包括目录。
 // md5:1d9c6ada055eaa05
-// ff:枚举
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归查找
 func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, error) {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -113,12 +99,6 @@ func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, erro
 //
 // 注意，`handler` 中的参数 `path` 不是目录，而是文件。它只返回文件，不包括目录。
 // md5:036965ff87c95b63
-// ff:枚举_函数
-// path:目录
-// pattern:匹配文件模式
-// recursive:是否递归查找
-// handler:匿名函数
-// path:目录
 func ScanDirFileFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	list, err := doScanDir(0, path, pattern, recursive, func(path string) string {
 		if IsDir(path) {

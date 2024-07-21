@@ -51,8 +51,8 @@ func (mu *Mutex) Lock() {
 	}
 }
 
-	// Unlock 为写操作解锁互斥锁。如果它不是在并发安全模式下使用，则不会做任何事情。
-	// md5:ce0b3215f968f29c
+// Unlock 为写操作解锁互斥锁。如果它不是在并发安全模式下使用，则不会做任何事情。
+// md5:ce0b3215f968f29c
 func (mu *Mutex) Unlock() {
 	if mu.mutex != nil {
 		mu.mutex.Unlock()

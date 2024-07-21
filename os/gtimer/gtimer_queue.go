@@ -47,8 +47,6 @@ func newPriorityQueue() *priorityQueue {
 }
 
 // NextPriority 从队列中获取并返回最小优先级和最高优先级的值。 md5:deb4631876016380
-// ff:
-// q:
 func (q *priorityQueue) NextPriority() int64 {
 	return q.nextPriority.Val()
 }
@@ -57,10 +55,6 @@ func (q *priorityQueue) NextPriority() int64 {
 // `priority` 参数指定了该值的优先级。
 // `priority` 的值越小，表示 `value` 的优先级越高。
 // md5:cf9acf4068187c77
-// ff:
-// q:
-// value:
-// priority:
 func (q *priorityQueue) Push(value interface{}, priority int64) {
 	q.mu.Lock()
 	defer q.mu.Unlock()
@@ -77,8 +71,6 @@ func (q *priorityQueue) Push(value interface{}, priority int64) {
 }
 
 // Pop 从队列中取出、移除并返回最高优先级的值。 md5:828fb8c6fde3e6a4
-// ff:
-// q:
 func (q *priorityQueue) Pop() interface{} {
 	q.mu.Lock()
 	defer q.mu.Unlock()

@@ -20,12 +20,6 @@ const (
 // Tables 获取并返回当前模式下的表格列表。
 //主要用于命令行工具链，用于自动生成模型。
 // md5:bce161ba95454bf5
-// ff:
-// d:
-// ctx:
-// schema:
-// tables:
-// err:
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
 	// 当schema为空时，返回默认链接. md5:fd8d52adc6efeedb

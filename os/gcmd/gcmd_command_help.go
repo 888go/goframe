@@ -18,16 +18,11 @@ import (
 )
 
 // Print 将当前命令的帮助信息打印到标准输出（stdout）。 md5:f96bdfd3fe6f19a6
-// ff:
-// c:
 func (c *Command) Print() {
 	c.PrintTo(os.Stdout)
 }
 
 // PrintTo 将帮助信息打印到自定义的io.Writer。 md5:bd4a5ae4f69d2d7d
-// ff:
-// c:
-// writer:
 func (c *Command) PrintTo(writer io.Writer) {
 	var (
 		prefix    = gstr.Repeat(" ", 4)

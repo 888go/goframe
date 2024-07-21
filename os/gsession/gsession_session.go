@@ -28,8 +28,8 @@ type Session struct {
 	start   bool            // 用于标记会话已开始。 md5:213288ad3376abfc
 	manager *Manager        // 父级会话管理器。 md5:6b920db9951d3f89
 
-// idFunc是一个用于创建自定义会话ID的回调函数。当会话开始时，如果会话ID为空，就会调用这个函数。
-// md5:83b853b0118605bd
+	// idFunc是一个用于创建自定义会话ID的回调函数。当会话开始时，如果会话ID为空，就会调用这个函数。
+	// md5:83b853b0118605bd
 	idFunc func(ttl time.Duration) (id string)
 }
 
@@ -63,8 +63,8 @@ func (s *Session) init() error {
 				intlog.Errorf(s.ctx, "create session id failed: %+v", err)
 				return err
 			}
-// 如果会话存储不实现ID生成功能，那么它将使用默认的会话ID创建函数。
-// md5:4f2bd0ddc795fde4
+			// 如果会话存储不实现ID生成功能，那么它将使用默认的会话ID创建函数。
+			// md5:4f2bd0ddc795fde4
 			if s.id == "" {
 				s.id = NewSessionId()
 			}
@@ -82,8 +82,6 @@ func (s *Session) init() error {
 //
 // 注意：此功能必须在每次会话请求完成后调用。
 // md5:f68a83f493f4727a
-// ff:
-// s:
 func (s *Session) Close() error {
 	if s.manager.storage == nil {
 		return nil
@@ -106,12 +104,6 @@ func (s *Session) Close() error {
 }
 
 // Set 将键值对设置到这个会话中。 md5:09e1539c4a50fcfd
-// yx:true
-// ff:设置值
-// s:
-// key:
-// value:
-// err:
 func (s *Session) Set(key string, value interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
@@ -128,10 +120,6 @@ func (s *Session) Set(key string, value interface{}) (err error) {
 }
 
 // SetMap 批量使用映射设置会话。 md5:f55c78b98e85ba61
-// ff:
-// s:
-// data:
-// err:
 func (s *Session) SetMap(data map[string]interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
@@ -148,10 +136,6 @@ func (s *Session) SetMap(data map[string]interface{}) (err error) {
 }
 
 // Remove 从本次会话中移除指定的键及其对应的值。 md5:3dc440da200c0834
-// ff:
-// s:
-// keys:
-// err:
 func (s *Session) Remove(keys ...string) (err error) {
 	if s.id == "" {
 		return nil
@@ -173,9 +157,6 @@ func (s *Session) Remove(keys ...string) (err error) {
 }
 
 // RemoveAll 从该会话中删除所有键值对。 md5:6ca756339a9f18b5
-// ff:
-// s:
-// err:
 func (s *Session) RemoveAll() (err error) {
 	if s.id == "" {
 		return nil
@@ -199,10 +180,6 @@ func (s *Session) RemoveAll() (err error) {
 // Id 返回此会话的会话标识符。
 // 如果在初始化时未传递会话标识符，则创建并返回新的会话标识符。
 // md5:c1a4c6b98633e656
-// ff:
-// s:
-// id:
-// err:
 func (s *Session) Id() (id string, err error) {
 	if err = s.init(); err != nil {
 		return "", err
@@ -212,9 +189,6 @@ func (s *Session) Id() (id string, err error) {
 
 // SetId 在会话开始前设置自定义会话。如果在会话已经开始后调用，将返回错误。
 // md5:cf8fd98a6cd07079
-// ff:
-// s:
-// id:
 func (s *Session) SetId(id string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -226,10 +200,6 @@ func (s *Session) SetId(id string) error {
 // SetIdFunc 在会话开始前设置自定义会话ID生成函数。
 // 如果在会话已经开始后调用它，将返回错误。
 // md5:07c5962c3c68bf37
-// ff:
-// s:
-// f:
-// ttl:
 func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -241,10 +211,6 @@ func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 // Data 将所有数据作为映射返回。
 // 请注意，为了并发安全，它内部使用了值拷贝。
 // md5:a37827aba4dd5df4
-// ff:
-// s:
-// sessionData:
-// err:
 func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 	if s.id == "" {
 		return map[string]interface{}{}, nil
@@ -263,10 +229,6 @@ func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 }
 
 // Size返回会话的大小。 md5:072795e87a3938d1
-// ff:
-// s:
-// size:
-// err:
 func (s *Session) Size() (size int, err error) {
 	if s.id == "" {
 		return 0, nil
@@ -285,11 +247,6 @@ func (s *Session) Size() (size int, err error) {
 }
 
 // Contains 检查键是否存在于会话中。 md5:7a03d1ea75cda393
-// ff:
-// s:
-// key:
-// ok:
-// err:
 func (s *Session) Contains(key string) (ok bool, err error) {
 	if s.id == "" {
 		return false, nil
@@ -305,8 +262,6 @@ func (s *Session) Contains(key string) (ok bool, err error) {
 }
 
 // IsDirty 检查会话中是否有数据变更。 md5:2a726ce013b067fe
-// ff:
-// s:
 func (s *Session) IsDirty() bool {
 	return s.dirty
 }
@@ -315,12 +270,6 @@ func (s *Session) IsDirty() bool {
 // 如果键在 session 中不存在且提供了 `def`，则返回 `def`，
 // 否则返回 nil。
 // md5:893a612d87b25ee2
-// ff:
-// s:
-// key:
-// def:
-// value:
-// err:
 func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err error) {
 	if s.id == "" {
 		return nil, nil
@@ -346,8 +295,6 @@ func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err erro
 }
 
 // MustId 行为就像Id函数一样，但如果发生任何错误，它会引发恐慌。 md5:a51e8673adaf6727
-// ff:
-// s:
 func (s *Session) MustId() string {
 	id, err := s.Id()
 	if err != nil {
@@ -357,10 +304,6 @@ func (s *Session) MustId() string {
 }
 
 // MustGet执行与Get相同的功能，但如果发生任何错误，它将引发恐慌。 md5:bdc72a85510733d5
-// ff:
-// s:
-// key:
-// def:
 func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 	v, err := s.Get(key, def...)
 	if err != nil {
@@ -370,10 +313,6 @@ func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 }
 
 // MustSet 的功能与 Set 函数相同，但如果发生任何错误，它会直接 panic。 md5:06fa308e1636bcfa
-// ff:
-// s:
-// key:
-// value:
 func (s *Session) MustSet(key string, value interface{}) {
 	err := s.Set(key, value)
 	if err != nil {
@@ -382,9 +321,6 @@ func (s *Session) MustSet(key string, value interface{}) {
 }
 
 // MustSetMap 行为类似于函数 SetMap，但如果发生任何错误则会引发 panic。 md5:3d54948e22292bcf
-// ff:
-// s:
-// data:
 func (s *Session) MustSetMap(data map[string]interface{}) {
 	err := s.SetMap(data)
 	if err != nil {
@@ -393,9 +329,6 @@ func (s *Session) MustSetMap(data map[string]interface{}) {
 }
 
 // MustContains执行Contains函数的功能，但如果发生任何错误，它将引发恐慌。 md5:b9f29f0374157bc5
-// ff:
-// s:
-// key:
 func (s *Session) MustContains(key string) bool {
 	b, err := s.Contains(key)
 	if err != nil {
@@ -405,8 +338,6 @@ func (s *Session) MustContains(key string) bool {
 }
 
 // MustData 执行与函数 Data 相同的操作，但如果发生任何错误，它将引发恐慌。 md5:ae01e79f6f27c9fe
-// ff:
-// s:
 func (s *Session) MustData() map[string]interface{} {
 	m, err := s.Data()
 	if err != nil {
@@ -416,8 +347,6 @@ func (s *Session) MustData() map[string]interface{} {
 }
 
 // MustSize 的行为与 Size 函数相同，但如果发生任何错误，它会直接 panic。 md5:d9d8c4724cdd0db4
-// ff:
-// s:
 func (s *Session) MustSize() int {
 	size, err := s.Size()
 	if err != nil {
@@ -427,9 +356,6 @@ func (s *Session) MustSize() int {
 }
 
 // MustRemove 行为与函数 Remove 相同，但如果发生任何错误则会引发恐慌。 md5:76bd8c9cb1e6223b
-// ff:
-// s:
-// keys:
 func (s *Session) MustRemove(keys ...string) {
 	err := s.Remove(keys...)
 	if err != nil {

@@ -15,9 +15,6 @@ import (
 )
 
 // Time 将 `any` 转换为 time.Time 类型。 md5:2e2c448d3d063180
-// ff:取时间
-// any:
-// format:格式
 func Time(any interface{}, format ...string) time.Time {
 	// 它已经是这种类型了。 md5:9b7d52c77ca28e7b
 	if len(format) == 0 {
@@ -35,8 +32,6 @@ func Time(any interface{}, format ...string) time.Time {
 // 如果 `any` 是字符串，那么它使用 time.ParseDuration 进行转换。
 // 如果 `any` 是数字，那么它将 `any` 作为纳秒来转换。
 // md5:4328f63b0561b4f4
-// ff:取时长
-// any:值
 func Duration(any interface{}) time.Duration {
 	// 它已经是这种类型了。 md5:9b7d52c77ca28e7b
 	if v, ok := any.(time.Duration); ok {
@@ -56,10 +51,6 @@ func Duration(any interface{}) time.Duration {
 // 如果没有提供 `format`，则当 `any` 为数字时使用 gtime.NewFromTimeStamp 进行转换，
 // 或者当 `any` 为字符串时使用 gtime.StrToTime 进行转换。
 // md5:a1c7656c4b134443
-// yx:true
-// ff:取gtime时间类
-// any:
-// format:
 func GTime(any interface{}, format ...string) *gtime.Time {
 	if any == nil {
 		return nil

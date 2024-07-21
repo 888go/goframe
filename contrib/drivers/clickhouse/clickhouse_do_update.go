@@ -15,16 +15,6 @@ import (
 )
 
 // DoUpdate 对该表执行 "UPDATE ... " 语句。 md5:d99c5c0beb2de28e
-// ff:
-// d:
-// ctx:
-// link:
-// table:
-// data:
-// condition:
-// args:
-// result:
-// err:
 func (d *Driver) DoUpdate(ctx context.Context, link gdb.Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) {
 	ctx = d.injectNeedParsedSql(ctx)
 	return d.Core.DoUpdate(ctx, link, table, data, condition, args...)

@@ -19,14 +19,6 @@ import (
 
 // DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
 // md5:947bd2b83e751e10
-// ff:
-// d:
-// ctx:
-// link:
-// sql:
-// args:
-// result:
-// err:
 func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	var (
 		isUseCoreDoExec bool   = false // 检查是否需要使用默认方法. md5:5c2234665d43c8e2
@@ -70,7 +62,7 @@ func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...
 		return d.Core.DoExec(ctx, link, sql, args...)
 	}
 
-							// 只有使用主键进行插入操作时，才能执行以下代码. md5:90f3f7f5e35bf09e
+	// 只有使用主键进行插入操作时，才能执行以下代码. md5:90f3f7f5e35bf09e
 
 	if d.GetConfig().ExecTimeout > 0 {
 		var cancelFunc context.CancelFunc

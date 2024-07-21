@@ -11,14 +11,10 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-	// Scan 自动检查`pointer`的类型，并将`params`转换为`pointer`。它支持`pointer`类型，包括`*map`、`*[]map`、`*[]*map`、`*struct`、`**struct`、`[]struct`和`[]*struct`。
-	// 
-	// 参见gconv.Scan。
-	// md5:7f6cfec69999319d
-// ff:取结构体指针
-// v:
-// pointer:结构体指针
-// mapping:名称映射
+// Scan 自动检查`pointer`的类型，并将`params`转换为`pointer`。它支持`pointer`类型，包括`*map`、`*[]map`、`*[]*map`、`*struct`、`**struct`、`[]struct`和`[]*struct`。
+// 
+// 参见gconv.Scan。
+// md5:7f6cfec69999319d
 func (v *Var) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return gconv.Scan(v.Val(), pointer, mapping...)
 }

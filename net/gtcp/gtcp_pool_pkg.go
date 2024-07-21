@@ -14,11 +14,6 @@ import (
 // SendPkg 向连接发送一个包含 `data` 的数据包。
 // 可选参数 `option` 用于指定发送数据包时的选项。
 // md5:b992093685758441
-// ff:
-// c:
-// data:
-// option:
-// err:
 func (c *PoolConn) SendPkg(data []byte, option ...PkgOption) (err error) {
 	if err = c.Conn.SendPkg(data, option...); err != nil && c.status == connStatusUnknown {
 		if v, e := c.pool.NewFunc(); e == nil {
@@ -39,9 +34,6 @@ func (c *PoolConn) SendPkg(data []byte, option ...PkgOption) (err error) {
 // RecvPkg 使用简单的包协议从连接接收包。
 // 可选的`option`参数指定了接收包时的选项。
 // md5:6b708b1338c6bb8c
-// ff:
-// c:
-// option:
 func (c *PoolConn) RecvPkg(option ...PkgOption) ([]byte, error) {
 	data, err := c.Conn.RecvPkg(option...)
 	if err != nil {
@@ -53,12 +45,6 @@ func (c *PoolConn) RecvPkg(option ...PkgOption) ([]byte, error) {
 }
 
 // RecvPkgWithTimeout 使用简单包协议，从连接中读取数据，同时设置超时。 md5:5e1d4882f4476862
-// ff:
-// c:
-// timeout:
-// option:
-// data:
-// err:
 func (c *PoolConn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (data []byte, err error) {
 	if err := c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -71,12 +57,6 @@ func (c *PoolConn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption
 }
 
 // 使用简单包协议带超时时间地向连接发送数据。 md5:3f89f6011aed63bc
-// ff:
-// c:
-// data:
-// timeout:
-// option:
-// err:
 func (c *PoolConn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) (err error) {
 	if err := c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -89,10 +69,6 @@ func (c *PoolConn) SendPkgWithTimeout(data []byte, timeout time.Duration, option
 }
 
 // SendRecvPkg 使用简单的包协议将数据写入连接，并阻塞读取响应。 md5:c157760431f11896
-// ff:
-// c:
-// data:
-// option:
 func (c *PoolConn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkg(option...)
@@ -102,11 +78,6 @@ func (c *PoolConn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error)
 }
 
 // SendRecvPkgWithTimeout 使用简单包协议，带超时读取连接上的数据。 md5:41984892fec65364
-// ff:
-// c:
-// data:
-// timeout:
-// option:
 func (c *PoolConn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkgWithTimeout(timeout, option...)

@@ -8,8 +8,6 @@
 package ghttp
 
 // MiddlewareCORS 是一个使用默认选项的CORS中间件处理器。 md5:522ca96c4772b84d
-// ff:中间件跨域函数
-// r:
 func MiddlewareCORS(r *Request) {
 	r.Response.CORSDefault()
 	r.Middleware.Next()

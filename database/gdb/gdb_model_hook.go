@@ -111,18 +111,11 @@ const (
 )
 
 // IsTransaction 检查并返回当前操作是否处于事务中。 md5:689b943de611f296
-// ff:是否为事务
-// h:
 func (h *internalParamHook) IsTransaction() bool {
 	return h.link.IsTransaction()
 }
 
 // Next 调用下一个钩子处理器。 md5:7348deede95e47b0
-// ff:
-// h:
-// ctx:上下文
-// result:行记录切片
-// err:错误
 func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -158,11 +151,6 @@ func (h *HookSelectInput) Next(ctx context.Context) (result Result, err error) {
 }
 
 // Next 调用下一个钩子处理器。 md5:7348deede95e47b0
-// ff:
-// h:
-// ctx:上下文
-// result:行记录切片
-// err:错误
 func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -187,11 +175,6 @@ func (h *HookInsertInput) Next(ctx context.Context) (result sql.Result, err erro
 }
 
 // Next 调用下一个钩子处理器。 md5:7348deede95e47b0
-// ff:
-// h:
-// ctx:上下文
-// result:行记录切片
-// err:错误
 func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -222,11 +205,6 @@ func (h *HookUpdateInput) Next(ctx context.Context) (result sql.Result, err erro
 }
 
 // Next 调用下一个钩子处理器。 md5:7348deede95e47b0
-// ff:
-// h:
-// ctx:
-// result:
-// err:
 func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err error) {
 	if h.originalTableName.IsNil() {
 		h.originalTableName = gvar.New(h.Table)
@@ -257,9 +235,6 @@ func (h *HookDeleteInput) Next(ctx context.Context) (result sql.Result, err erro
 }
 
 // Hook 设置当前模型的钩子函数。 md5:a324f56d597fd873
-// ff:
-// m:
-// hook:
 func (m *Model) Hook(hook HookHandler) *Model {
 	model := m.getModel()
 	model.hookHandler = hook

@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gdes提供了DES加密/解密算法的有用API。 md5:c8b6785595a2b6ed
-package gdes//bm:加密DES类
+package gdes
 
 import (
 	"bytes"
@@ -23,10 +23,6 @@ const (
 )
 
 // ECB加密使用ECB模式对`plainText`进行加密。 md5:393855a628599a31
-// ff:加密ECB
-// plainText:待加密
-// key:秘钥
-// padding:填充
 func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
 	text, err := Padding(plainText, padding)
 	if err != nil {
@@ -49,10 +45,6 @@ func EncryptECB(plainText []byte, key []byte, padding int) ([]byte, error) {
 }
 
 // 使用ECB模式解密`cipherText`。 md5:de6e332e6c59244e
-// ff:解密ECB
-// cipherText:待解密
-// key:秘钥
-// padding:填充
 func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	text := make([]byte, len(cipherText))
 	block, err := des.NewCipher(key)
@@ -77,10 +69,6 @@ func DecryptECB(cipherText []byte, key []byte, padding int) ([]byte, error) {
 // EncryptECBTriple 使用TripleDES和ECB模式加密`plainText`。
 // `key`的长度应为16或24字节。
 // md5:925f2b0f96f4bc56
-// ff:加密三重ECB
-// plainText:待加密
-// key:秘钥
-// padding:填充
 func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
@@ -117,10 +105,6 @@ func EncryptECBTriple(plainText []byte, key []byte, padding int) ([]byte, error)
 // DecryptECBTriple 使用三重DES和ECB模式解密`cipherText`。
 // `key`的长度应该是16或24字节。
 // md5:c1bf1a1ac477aa6e
-// ff:解密三重ECB
-// cipherText:待解密
-// key:秘钥
-// padding:填充
 func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length error")
@@ -155,11 +139,6 @@ func DecryptECBTriple(cipherText []byte, key []byte, padding int) ([]byte, error
 }
 
 // EncryptCBC 使用CBC模式对`plainText`进行加密。 md5:f3a1f35b734799c4
-// ff:加密CBC
-// plainText:待加密
-// key:密钥
-// iv:
-// padding:填充
 func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	block, err := des.NewCipher(key)
 	if err != nil {
@@ -184,11 +163,6 @@ func EncryptCBC(plainText []byte, key []byte, iv []byte, padding int) ([]byte, e
 }
 
 // 使用CBC模式解密`cipherText`。 md5:232eecbdd9458374
-// ff:解密CBC
-// cipherText:待解密
-// key:密钥
-// iv:
-// padding:填充
 func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	block, err := des.NewCipher(key)
 	if err != nil {
@@ -213,11 +187,6 @@ func DecryptCBC(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, 
 }
 
 // EncryptCBCTriple 使用TripleDES和CBC模式加密`plainText`。 md5:8fb88673fa27c4a0
-// ff:加密三重CBC
-// plainText:待加密
-// key:密钥
-// iv:
-// padding:填充
 func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")
@@ -254,11 +223,6 @@ func EncryptCBCTriple(plainText []byte, key []byte, iv []byte, padding int) ([]b
 }
 
 // DecryptCBCTriple 使用三重DES和CBC模式解密`cipherText`。 md5:53d3127b0b4fcbb0
-// ff:解密三重CBC
-// cipherText:待解密
-// key:密钥
-// iv:
-// padding:填充
 func DecryptCBCTriple(cipherText []byte, key []byte, iv []byte, padding int) ([]byte, error) {
 	if len(key) != 16 && len(key) != 24 {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "key length invalid")
@@ -294,26 +258,18 @@ func DecryptCBCTriple(cipherText []byte, key []byte, iv []byte, padding int) ([]
 	return plainText, nil
 }
 
-// ff:
-// text:
-// blockSize:
 func PaddingPKCS5(text []byte, blockSize int) []byte {
 	padding := blockSize - len(text)%blockSize
 	padText := bytes.Repeat([]byte{byte(padding)}, padding)
 	return append(text, padText...)
 }
 
-// ff:
-// text:
 func UnPaddingPKCS5(text []byte) []byte {
 	length := len(text)
 	padText := int(text[length-1])
 	return text[:(length - padText)]
 }
 
-// ff:
-// text:
-// padding:
 func Padding(text []byte, padding int) ([]byte, error) {
 	switch padding {
 	case NOPADDING:
@@ -331,9 +287,6 @@ func Padding(text []byte, padding int) ([]byte, error) {
 	return text, nil
 }
 
-// ff:
-// text:
-// padding:
 func UnPadding(text []byte, padding int) ([]byte, error) {
 	switch padding {
 	case NOPADDING:

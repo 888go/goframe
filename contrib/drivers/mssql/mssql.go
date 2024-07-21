@@ -5,10 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-// Package mssql implements gdb.Driver, which supports operations for database MSSql.
+// 包mssql实现了gdb.Driver，它支持MSSql数据库的操作。
 //
-// 1. It does not support Replace features.
-// 2. It does not support LastInsertId.
+// 注意：
+// 1. 它不支持Replace功能。
+// 2. 它不支持LastInsertId。
+// md5:fb4f98bf77e784a6
 package mssql
 
 import (
@@ -33,7 +35,6 @@ func init() {
 }
 
 // New 创建并返回一个实现了gdb.Driver的驱动，该驱动支持Mssql的操作。 md5:4893e60c8841c569
-// ff:
 func New() gdb.Driver {
 	return &Driver{}
 }
@@ -41,10 +42,6 @@ func New() gdb.Driver {
 // New 创建并返回一个用于SQL服务器的数据库对象。
 // 它实现了gdb.Driver接口，以便于额外的数据库驱动安装。
 // md5:ce3ce027533c5bb6
-// ff:
-// d:
-// core:
-// node:
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
@@ -52,10 +49,6 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 }
 
 // GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
-// ff:底层取数据库安全字符
-// d:
-// charLeft:左字符
-// charRight:右字符
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

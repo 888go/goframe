@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // Package gfpool 提供可重用的文件指针io池。 md5:994211336c178d55
-package gfpool//bm:文件指针池类
+package gfpool
 
 import (
 	"os"

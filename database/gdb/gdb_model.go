@@ -88,9 +88,6 @@ const (
 // 3. 带子查询的模型名称：
 //     db.Model("? AS a, ? AS b", subQuery1, subQuery2)
 // md5:add855a912a9b6ef
-// ff:创建Model对象
-// c:
-// tableNameQueryOrStruct:表名或结构体
 func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	var (
 		ctx       = c.db.GetCtx()
@@ -152,13 +149,10 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	return m
 }
 
-// Raw creates and returns a model based on a raw sql not a table.
+// Raw根据原始SQL（而不是表）创建并返回一个模型。示例：
 //
 //	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
-// ff:原生SQL
-// c:
-// rawSql:原生Sql
-// args:参数
+// md5:0865d39f2ab854cb
 func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 	model := c.Model()
 	model.rawSql = rawSql
@@ -166,15 +160,13 @@ func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 	return model
 }
 
-// Raw sets current model as a raw sql model.
+// Raw 将当前模型设置为原始SQL模型。
+// 示例：
 //
 //	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
 //
-// See Core.Raw.
-// ff:原生SQL
-// m:
-// rawSql:原生Sql
-// args:参数
+// 参见 Core.Raw。
+// md5:ced75308536ddfff
 func (m *Model) Raw(rawSql string, args ...interface{}) *Model {
 	model := m.db.Raw(rawSql, args...)
 	model.db = m.db
@@ -182,27 +174,21 @@ func (m *Model) Raw(rawSql string, args ...interface{}) *Model {
 	return model
 }
 
-// ff:原生SQL
-// tx:
-// rawSql:原生Sql
-// args:参数
 func (tx *TXCore) Raw(rawSql string, args ...interface{}) *Model {
 	return tx.Model().Raw(rawSql, args...)
 }
 
 // With 根据给定对象的元数据创建并返回一个ORM模型。 md5:18604e26c0c946fb
-// ff:关联对象
-// c:
-// objects:关联结构体
 func (c *Core) With(objects ...interface{}) *Model {
 	return c.db.Model().With(objects...)
 }
 
-// Partition sets Partition name.
-// dao.User.Ctx(ctx).Partition（"p1","p2","p3").All()
-// ff:设置分区名称
-// m:
-// partitions:分区名称
+// 分区设置分区名称。
+// 例子：
+// dao.User.Ctx(ctx).Partition("p1", "p2", "p3").All() 
+// 
+// 这段Go代码的注释表示：使用`Partition`方法对数据进行分区操作，传入多个分区名称（如："p1", "p2", "p3"），然后在查询时指定这些分区。`Ctx(ctx)`表示使用上下文`ctx`进行操作。`All()`是获取所有满足条件的数据。
+// md5:f133a577ba31c05f
 func (m *Model) Partition(partitions ...string) *Model {
 	model := m.getModel()
 	model.partition = gstr.Join(partitions, ",")
@@ -212,9 +198,6 @@ func (m *Model) Partition(partitions ...string) *Model {
 // Model 类似于 Core.Model，但它是基于事务操作的。
 // 请参阅 Core.Model。
 // md5:2c5866afc2e5dd90
-// ff:创建Model对象
-// tx:
-// tableNameQueryOrStruct:表名或结构体
 func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	model := tx.db.Model(tableNameQueryOrStruct...)
 	model.db = tx.db
@@ -225,17 +208,11 @@ func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 // With 的行为类似于 Core.With，但它是在事务上操作。
 // 参见 Core.With。
 // md5:37000d6ea41561fc
-// ff:关联对象
-// tx:
-// object:关联结构体
 func (tx *TXCore) With(object interface{}) *Model {
 	return tx.Model().With(object)
 }
 
 // Ctx 设置当前操作的上下文。 md5:77d589f34a65753b
-// ff:设置上下文并取副本
-// m:
-// ctx:上下文
 func (m *Model) Ctx(ctx context.Context) *Model {
 	if ctx == nil {
 		return m
@@ -251,8 +228,6 @@ func (m *Model) Ctx(ctx context.Context) *Model {
 // GetCtx返回当前Model的上下文。
 // 如果之前没有设置上下文，则返回`context.Background()`。
 // md5:48edd9b438a38523
-// ff:取上下文对象
-// m:
 func (m *Model) GetCtx() context.Context {
 	if m.tx != nil && m.tx.GetCtx() != nil {
 		return m.tx.GetCtx()
@@ -261,9 +236,6 @@ func (m *Model) GetCtx() context.Context {
 }
 
 // As 设置当前表的别名名称。 md5:c28e3f79c6fe2e48
-// ff:设置表别名
-// m:
-// as:别名
 func (m *Model) As(as string) *Model {
 	if m.tables != "" {
 		model := m.getModel()
@@ -283,9 +255,6 @@ func (m *Model) As(as string) *Model {
 }
 
 // DB 为当前操作设置或更改 db 对象。 md5:1761cc3b00f1d6bb
-// ff:设置DB对象
-// m:
-// db:DB对象
 func (m *Model) DB(db DB) *Model {
 	model := m.getModel()
 	model.db = db
@@ -293,9 +262,6 @@ func (m *Model) DB(db DB) *Model {
 }
 
 // TX 设置或更改当前操作的事务。 md5:7171a26d8d2d8431
-// ff:设置事务对象
-// m:
-// tx:事务对象
 func (m *Model) TX(tx TX) *Model {
 	model := m.getModel()
 	model.db = tx.GetDB()
@@ -304,9 +270,6 @@ func (m *Model) TX(tx TX) *Model {
 }
 
 // Schema 设置当前操作的模式。 md5:723e31c5f24ff604
-// ff:切换数据库
-// m:
-// schema:数据库名
 func (m *Model) Schema(schema string) *Model {
 	model := m.getModel()
 	model.schema = schema
@@ -315,8 +278,6 @@ func (m *Model) Schema(schema string) *Model {
 
 // Clone 创建并返回一个新的模型，它是当前模型的克隆。请注意，它使用深拷贝进行克隆。
 // md5:27e973f2f4fb42b3
-// ff:取副本
-// m:
 func (m *Model) Clone() *Model {
 	newModel := (*Model)(nil)
 	if m.tx != nil {
@@ -342,8 +303,6 @@ func (m *Model) Clone() *Model {
 }
 
 // Master 在主节点上标记以下操作。 md5:86cff0c5fb8d6d5d
-// ff:取主节点对象
-// m:
 func (m *Model) Master() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeMaster
@@ -353,8 +312,6 @@ func (m *Model) Master() *Model {
 // Slave 在 slave 节点上标记以下操作。
 // 请注意，只有在配置了 slave 节点的情况下，此注释才有意义。
 // md5:3d6dbca5bafb9cdf
-// ff:取从节点对象
-// m:
 func (m *Model) Slave() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeSlave
@@ -364,9 +321,6 @@ func (m *Model) Slave() *Model {
 // Safe 标记此模型为安全或不安全。如果 safe 为 true，那么在执行完操作后，它会克隆并返回一个新的模型对象；
 // 否则，它将直接修改当前模型的属性。
 // md5:56aecad30556ca98
-// ff:链式安全
-// m:
-// safe:开启
 func (m *Model) Safe(safe ...bool) *Model {
 	if len(safe) > 0 {
 		m.safe = safe[0]
@@ -377,9 +331,6 @@ func (m *Model) Safe(safe ...bool) *Model {
 }
 
 // Args 为模型操作设置自定义参数。 md5:6cf507acdf0e2401
-// ff:底层Args
-// m:
-// args:参数
 func (m *Model) Args(args ...interface{}) *Model {
 	model := m.getModel()
 	model.extraArgs = append(model.extraArgs, args)
@@ -388,9 +339,6 @@ func (m *Model) Args(args ...interface{}) *Model {
 
 // Handler calls each of `handlers` on current Model and returns a new Model.
 // ModelHandler 是一个处理给定 Model 并返回一个自定义修改后的新 Model 的函数。 md5:a02af46ff8fb2568
-// ff:处理函数
-// m:
-// handlers:处理函数
 func (m *Model) Handler(handlers ...ModelHandler) *Model {
 	model := m.getModel()
 	for _, handler := range handlers {

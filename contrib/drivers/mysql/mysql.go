@@ -38,17 +38,12 @@ func init() {
 }
 
 // New 创建并返回一个实现了gdb.Driver接口的驱动器，该驱动器支持对MySQL的操作。 md5:95ca0306bee3a521
-// ff:
 func New() gdb.Driver {
 	return &Driver{}
 }
 
 // New 创建并返回一个针对 MySQL 的数据库对象。它实现了 gdb.Driver 接口，以便于额外的数据库驱动程序安装。
 // md5:e61df629828efeff
-// ff:
-// d:
-// core:
-// node:
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
@@ -56,10 +51,6 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 }
 
 // GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
-// ff:底层取数据库安全字符
-// d:
-// charLeft:左字符
-// charRight:右字符
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

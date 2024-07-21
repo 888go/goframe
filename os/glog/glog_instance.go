@@ -19,11 +19,9 @@ var (
 	instances = gmap.NewStrAnyMap(true)
 )
 
-	// Instance 返回一个具有默认设置的 Logger 实例。
-	// 参数 `name` 是该实例的名称。
-	// md5:ff5711e68bbfdd35
-// ff:取单例对象
-// name:名称
+// Instance 返回一个具有默认设置的 Logger 实例。
+// 参数 `name` 是该实例的名称。
+// md5:ff5711e68bbfdd35
 func Instance(name ...string) *Logger {
 	key := DefaultName
 	if len(name) > 0 && name[0] != "" {

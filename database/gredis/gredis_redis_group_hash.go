@@ -13,9 +13,9 @@ import (
 	"github.com/gogf/gf/v2/container/gvar"
 )
 
-	// IGroupHash 管理Redis哈希操作。
-	// 实现参见 redis.GroupHash。
-	// md5:25da2b7d81c6ce3b
+// IGroupHash 管理Redis哈希操作。
+// 实现参见 redis.GroupHash。
+// md5:25da2b7d81c6ce3b
 type IGroupHash interface {
 	HSet(ctx context.Context, key string, fields map[string]interface{}) (int64, error)
 	HSetNX(ctx context.Context, key, field string, value interface{}) (int64, error)

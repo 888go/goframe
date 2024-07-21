@@ -14,12 +14,6 @@ import (
 )
 
 // DoCommit 将当前SQL和参数提交给底层SQL驱动程序。 md5:7cf9b1f6f4d9d2cb
-// ff:
-// d:
-// ctx:
-// in:
-// out:
-// err:
 func (d *Driver) DoCommit(ctx context.Context, in gdb.DoCommitInput) (out gdb.DoCommitOutput, err error) {
 	ctx = d.InjectIgnoreResult(ctx)
 	return d.Core.DoCommit(ctx, in)

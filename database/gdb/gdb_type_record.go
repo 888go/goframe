@@ -17,25 +17,18 @@ import (
 )
 
 // Json 将 `r` 转换为JSON格式的内容。 md5:60a0626b0a333d14
-// ff:取json
-// r:
 func (r Record) Json() string {
 	content, _ := gjson.New(r.Map()).ToJsonString()
 	return content
 }
 
 // Xml 将 `r` 转换为 XML 格式的内容。 md5:31a335fedb874d26
-// ff:取xml
-// r:
-// rootTag:根标记
 func (r Record) Xml(rootTag ...string) string {
 	content, _ := gjson.New(r.Map()).ToXmlString(rootTag...)
 	return content
 }
 
 // Map 将 `r` 转换为 map[string]interface{} 类型。 md5:5b4502a5f29602f9
-// ff:取Map
-// r:
 func (r Record) Map() Map {
 	m := make(map[string]interface{})
 	for k, v := range r {
@@ -45,8 +38,6 @@ func (r Record) Map() Map {
 }
 
 // GMap将`r`转换为gmap。 md5:573ff0b484a9573f
-// ff:取Map类
-// r:
 func (r Record) GMap() *gmap.StrAnyMap {
 	return gmap.NewStrAnyMapFrom(r.Map())
 }
@@ -56,9 +47,6 @@ func (r Record) GMap() *gmap.StrAnyMap {
 //
 // 注意，如果 `r` 为空，它将返回 sql.ErrNoRows。
 // md5:9ad6d688dbdddb25
-// ff:取结构体指针
-// r:
-// pointer:结构体指针
 func (r Record) Struct(pointer interface{}) error {
 	// 如果记录为空，它将返回错误。 md5:dc39009d7d477d46
 	if r.IsEmpty() {
@@ -71,8 +59,6 @@ func (r Record) Struct(pointer interface{}) error {
 }
 
 // IsEmpty 检查 `r` 是否为空，然后返回结果。 md5:4ee28a47e769cceb
-// ff:是否为空
-// r:
 func (r Record) IsEmpty() bool {
 	return len(r) == 0
 }

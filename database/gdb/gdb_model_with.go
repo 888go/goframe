@@ -19,32 +19,38 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// With creates and returns an ORM model based on metadata of given object.
-// It also enables model association operations feature on given `object`.
-// It can be called multiple times to add one or more objects to model and enable
-// their mode association operations feature.
-// For example, if given struct definition:
-//
-//	type User struct {
-//		 gmeta.Meta `orm:"table:user"`
-//		 Id         int           `json:"id"`
-//		 Name       string        `json:"name"`
-//		 UserDetail *UserDetail   `orm:"with:uid=id"`
-//		 UserScores []*UserScores `orm:"with:uid=id"`
-//	}
-//
-// We can enable model association operations on attribute `UserDetail` and `UserScores` by:
-//
-//	db.With(User{}.UserDetail).With(User{}.UserScores).Scan(xxx)
-//
-//
-//	db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
-//
-//
-//	db.With(UserDetail{}, UserScores{}).Scan(xxx)
-// ff:关联对象
-// m:
-// objects:关联结构体
+// With 创建并返回一个基于给定对象元数据的 ORM 模型。它还为给定的 `object` 启用模型关联操作功能。
+// 可以多次调用此函数，以向模型中添加一个或多个对象，并启用它们的模式关联操作功能。
+// 例如，如果给出的结构体定义如下：
+// 
+// ```
+// type User struct {
+//     gmeta.Meta `orm:"table:user"`
+//     Id         int           `json:"id"`
+//     Name       string        `json:"name"`
+//     UserDetail *UserDetail   `orm:"with:uid=id"`
+//     UserScores []*UserScores `orm:"with:uid=id"`
+// }
+// ```
+// 
+// 我们可以通过以下方式在 `UserDetail` 和 `UserScores` 属性上启用模型关联操作：
+// 
+// ```
+// db.With(User{}.UserDetail).With(User{}.UserScores).Scan(xxx)
+// ```
+// 
+// 或者：
+// 
+// ```
+// db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
+// ```
+// 
+// 或者：
+// 
+// ```
+// db.With(UserDetail{}, UserScores{}).Scan(xxx)
+// ```
+// md5:c9498702475d54a9
 func (m *Model) With(objects ...interface{}) *Model {
 	model := m.getModel()
 	for _, object := range objects {
@@ -61,8 +67,6 @@ func (m *Model) With(objects ...interface{}) *Model {
 }
 
 // WithAll 启用对结构体中带有 "with" 标签的所有对象进行模型关联操作。 md5:83d3591315f0add0
-// ff:关联全部对象
-// m:
 func (m *Model) WithAll() *Model {
 	model := m.getModel()
 	model.withAll = true
@@ -116,9 +120,9 @@ func (m *Model) doWithScanStruct(pointer interface{}) error {
 		}
 		array := gstr.SplitAndTrim(parsedTagOutput.With, "=")
 		if len(array) == 1 {
-// 它还支持仅使用一个列名
-// 如果两个表使用相同的列名进行关联。
-// md5:c924339d8b4eddbc
+			// 它还支持仅使用一个列名
+			// 如果两个表使用相同的列名进行关联。
+			// md5:c924339d8b4eddbc
 			array = append(array, parsedTagOutput.With)
 		}
 		var (

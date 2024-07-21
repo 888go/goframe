@@ -6,13 +6,11 @@
 // md5:a9832f33b234e3f3
 
 // gipv6 包提供了用于处理IPv6地址的有用API。 md5:1519803148a024e5
-package gipv6//bm:ipv6类
+package gipv6
 
 import "github.com/gogf/gf/v2/text/gregex"
 
 // Validate 检查给定的 `ip` 是否为有效的 IPv6 地址。 md5:e5d94dc19cebfa9a
-// ff:
-// ip:
 func Validate(ip string) bool {
 	return gregex.IsMatchString(`^([\da-fA-F]{1,4}:){7}[\da-fA-F]{1,4}$|^:((:[\da-fA-F]{1,4}){1,6}|:)$|^[\da-fA-F]{1,4}:((:[\da-fA-F]{1,4}){1,5}|:)$|^([\da-fA-F]{1,4}:){2}((:[\da-fA-F]{1,4}){1,4}|:)$|^([\da-fA-F]{1,4}:){3}((:[\da-fA-F]{1,4}){1,3}|:)$|^([\da-fA-F]{1,4}:){4}((:[\da-fA-F]{1,4}){1,2}|:)$|^([\da-fA-F]{1,4}:){5}:([\da-fA-F]{1,4})?$|^([\da-fA-F]{1,4}:){6}:$`, ip)
 }

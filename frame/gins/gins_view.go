@@ -18,12 +18,10 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-		// View 返回一个具有默认设置的View实例。
-		// 参数 `name` 是实例的名称。
-		// 请注意，如果在创建实例期间发生任何错误，它将引发 panic。
-		// md5:5f91ad34b8070939
-// ff:
-// name:
+// View 返回一个具有默认设置的View实例。
+// 参数 `name` 是实例的名称。
+// 请注意，如果在创建实例期间发生任何错误，它将引发 panic。
+// md5:5f91ad34b8070939
 func View(name ...string) *gview.View {
 	instanceName := gview.DefaultName
 	if len(name) > 0 && name[0] != "" {

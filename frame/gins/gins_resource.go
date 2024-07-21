@@ -11,11 +11,9 @@ import (
 	"github.com/gogf/gf/v2/os/gres"
 )
 
-		// Resource 返回一个 Resource 类型的实例。
-		// 参数 `name` 为该实例的名称。
-		// md5:42e664c4b3a2bb54
-// ff:
-// name:
+// Resource 返回一个 Resource 类型的实例。
+// 参数 `name` 为该实例的名称。
+// md5:42e664c4b3a2bb54
 func Resource(name ...string) *gres.Resource {
 	return gres.Instance(name...)
 }

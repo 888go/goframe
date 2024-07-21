@@ -55,7 +55,7 @@ PLATFORMS
     openbsd   386,amd64,arm
     windows   386,amd64
 `
-							// https://golang.google.cn/doc/install/source. md5:f8fa931d443d3f23
+	// https://golang.google.cn/doc/install/source. md5:f8fa931d443d3f23
 	commandBuildPlatforms = `
     darwin    amd64
     darwin    arm64

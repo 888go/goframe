@@ -16,11 +16,6 @@ import (
 )
 
 // BindHookHandler 为指定的钩子注册处理程序。 md5:325d65ceb75f1b33
-// ff:绑定Hook
-// s:
-// pattern:路由规则
-// hook:触发时机
-// handler:处理函数
 func (s *Server) BindHookHandler(pattern string, hook HookName, handler HandlerFunc) {
 	s.doBindHookHandler(context.TODO(), doBindHookHandlerInput{
 		Prefix:   "",
@@ -62,10 +57,6 @@ func (s *Server) doBindHookHandler(ctx context.Context, in doBindHookHandlerInpu
 }
 
 // BindHookHandlerByMap 为指定的钩子注册处理器。 md5:38d4b79317ac1b3f
-// ff:绑定HookMap
-// s:
-// pattern:路由规则
-// hookMap:HookMap
 func (s *Server) BindHookHandlerByMap(pattern string, hookMap map[HookName]HandlerFunc) {
 	for k, v := range hookMap {
 		s.BindHookHandler(pattern, k, v)
@@ -119,9 +110,9 @@ func (r *Request) getHookHandlers(hook HookName) []*HandlerItemParsed {
 	return parsedItems
 }
 
-			// niceCallHookHandler 美好地调用钩子处理函数，
-			// 即它会自动捕获并返回可能的恐慌错误，以防止goroutine崩溃。
-			// md5:915bcff9c5f9cc4e
+// niceCallHookHandler 美好地调用钩子处理函数，
+// 即它会自动捕获并返回可能的恐慌错误，以防止goroutine崩溃。
+// md5:915bcff9c5f9cc4e
 func (s *Server) niceCallHookHandler(f HandlerFunc, r *Request) (err interface{}) {
 	defer func() {
 		err = recover()

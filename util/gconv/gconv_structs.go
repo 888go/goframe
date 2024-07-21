@@ -17,21 +17,11 @@ import (
 // Structs 将任何切片转换为给定结构体类型的切片。
 // 另请参见 Scan, Struct。
 // md5:9f4251433eeb586c
-// ff:
-// params:
-// pointer:
-// paramKeyToAttrMap:
-// err:
 func Structs(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
 
 // SliceStruct 是 Structs 的别名。 md5:844cd0606fb4edf0
-// ff:SliceStruct别名
-// params:
-// pointer:
-// mapping:
-// err:
 func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
 	return Structs(params, pointer, mapping...)
 }
@@ -39,11 +29,6 @@ func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]
 // StructsTag 作为 Structs 的功能增强版本，还支持优先级标签特性。它根据 `params` 键值对获取指定的标签，并将其映射到结构体属性名称上。
 // 参数 `priorityTag` 支持多个标签，这些标签可以使用逗号分隔。
 // md5:ddc344beca5956a8
-// ff:
-// params:
-// pointer:
-// priorityTag:
-// err:
 func StructsTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStructs(params, pointer, nil, priorityTag)
 }

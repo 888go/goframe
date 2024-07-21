@@ -39,8 +39,6 @@ func (oai *OpenApiV3) tagMapToOperation(tagMap map[string]string, operation *Ope
 	return nil
 }
 
-// ff:
-// o:
 func (o Operation) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte

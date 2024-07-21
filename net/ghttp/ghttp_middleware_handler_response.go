@@ -22,8 +22,6 @@ type DefaultHandlerResponse struct {
 }
 
 // MiddlewareHandlerResponse 是默认的处理handler响应对象及其错误的中间件。 md5:d59676d7f703b4b1
-// ff:
-// r:
 func MiddlewareHandlerResponse(r *Request) {
 	r.Middleware.Next()
 

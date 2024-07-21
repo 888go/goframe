@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glist_test//bm:链表类_test
+package glist_test
 
 import (
 	"container/list"

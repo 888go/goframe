@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gctx封装了context.Context并提供了额外的上下文功能。 md5:edcfb6983b687169
-package gctx//bm:上下文类
+package gctx
 
 import (
 	"context"
@@ -49,14 +49,11 @@ func init() {
 }
 
 // New 创建并返回一个包含上下文ID的上下文。 md5:ace97871c3d80d4f
-// ff:创建
 func New() context.Context {
 	return WithCtx(context.Background())
 }
 
 // WithCtx 根据给定的父上下文`ctx`创建并返回一个包含上下文ID的新上下文。 md5:bea2d0daa280a6eb
-// ff:创建并从上下文
-// ctx:上下文
 func WithCtx(ctx context.Context) context.Context {
 	if CtxId(ctx) != "" {
 		return ctx
@@ -68,8 +65,6 @@ func WithCtx(ctx context.Context) context.Context {
 }
 
 // CtxId从上下文中检索并返回context ID。 md5:bd18ae591706e243
-// ff:取上下文id
-// ctx:上下文
 func CtxId(ctx context.Context) string {
 	return gtrace.GetTraceID(ctx)
 }
@@ -77,16 +72,13 @@ func CtxId(ctx context.Context) string {
 // SetInitCtx 设置自定义初始化上下文。
 // 注意，此函数不能在多个goroutine中调用。
 // md5:10830063aafa5df4
-// ff:设置初始化上下文
-// ctx:上下文
 func SetInitCtx(ctx context.Context) {
 	initCtx = ctx
 }
 
-		// GetInitCtx 返回初始化上下文。
-		// 初始化上下文用于在`main`函数或`init`函数中。
-		// md5:5608d282e442f76c
-// ff:取初始化上下文
+// GetInitCtx 返回初始化上下文。
+// 初始化上下文用于在`main`函数或`init`函数中。
+// md5:5608d282e442f76c
 func GetInitCtx() context.Context {
 	return initCtx
 }

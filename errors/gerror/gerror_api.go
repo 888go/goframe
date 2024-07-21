@@ -14,8 +14,6 @@ import (
 )
 
 // New 创建并返回一个根据给定文本格式化的错误。 md5:de9ec7c958a945bb
-// ff:创建
-// text:错误文本
 func New(text string) error {
 	return &Error{
 		stack: callers(),
@@ -25,9 +23,6 @@ func New(text string) error {
 }
 
 // Newf 返回一个根据给定格式和参数格式化的错误。 md5:bd62f35687f8bc83
-// ff:创建并格式化
-// format:格式
-// args:参数
 func Newf(format string, args ...interface{}) error {
 	return &Error{
 		stack: callers(),
@@ -38,9 +33,6 @@ func Newf(format string, args ...interface{}) error {
 
 // NewSkip 创建并返回一个根据给定文本格式化的错误。参数 `skip` 指定了要跳过的调用者堆栈数量。
 // md5:22bec296ea4c17b0
-// ff:创建并跳过堆栈
-// skip:跳过堆栈
-// text:错误文本
 func NewSkip(skip int, text string) error {
 	return &Error{
 		stack: callers(skip),
@@ -52,10 +44,6 @@ func NewSkip(skip int, text string) error {
 // NewSkipf 返回一个按照给定格式和参数格式化的错误。
 // 参数 `skip` 指定了跳过调用栈的层数。
 // md5:82d8fef84b9d2ba0
-// ff:创建并跳过堆栈与格式化
-// skip:跳过堆栈
-// format:格式
-// args:参数
 func NewSkipf(skip int, format string, args ...interface{}) error {
 	return &Error{
 		stack: callers(skip),
@@ -67,9 +55,6 @@ func NewSkipf(skip int, format string, args ...interface{}) error {
 // Wrap 使用文本包装错误。如果给定的 err 为 nil，则返回 nil。
 // 注意，它不会丢失被包裹错误的错误码，因为它从被包裹的错误中继承了错误码。
 // md5:e04f9222b50c8938
-// ff:多层错误
-// err:上一层错误
-// text:错误文本
 func Wrap(err error, text string) error {
 	if err == nil {
 		return nil
@@ -86,10 +71,6 @@ func Wrap(err error, text string) error {
 // 如果给定的 `err` 为 nil，它将返回 nil。
 // 请注意，它不会丢失被包装错误的错误代码，因为它从错误中继承了错误代码。
 // md5:cbfccfaa6fa0bee1
-// ff:多层错误并格式化
-// err:上一层错误
-// format:格式
-// args:参数
 func Wrapf(err error, format string, args ...interface{}) error {
 	if err == nil {
 		return nil
@@ -106,10 +87,6 @@ func Wrapf(err error, format string, args ...interface{}) error {
 // 参数 `skip` 指定了跳过调用堆栈的层数。
 // 注意，它不会丢失被包装错误的错误代码，因为它是从其继承错误代码的。
 // md5:5f87402ce06c586b
-// ff:多层错误并跳过堆栈
-// skip:跳过堆栈
-// err:上一层错误
-// text:错误文本
 func WrapSkip(skip int, err error, text string) error {
 	if err == nil {
 		return nil
@@ -122,15 +99,10 @@ func WrapSkip(skip int, err error, text string) error {
 	}
 }
 
-	// WrapSkipf 将错误用给定的格式和参数进行文本包装。如果给定的 err 为 nil，它将返回 nil。
-	// 参数 `skip` 指定了要跳过的调用栈层数。
-	// 注意，它不会丢失被包装错误的错误代码，因为它是从原始错误中继承错误代码的。
-	// md5:82d4f5ae39c67b27
-// ff:多层错误并跳过堆栈与格式化
-// skip:跳过堆栈
-// err:上一层错误
-// format:格式
-// args:参数
+// WrapSkipf 将错误用给定的格式和参数进行文本包装。如果给定的 err 为 nil，它将返回 nil。
+// 参数 `skip` 指定了要跳过的调用栈层数。
+// 注意，它不会丢失被包装错误的错误代码，因为它是从原始错误中继承错误代码的。
+// md5:82d4f5ae39c67b27
 func WrapSkipf(skip int, err error, format string, args ...interface{}) error {
 	if err == nil {
 		return nil

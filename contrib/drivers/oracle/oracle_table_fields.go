@@ -37,17 +37,10 @@ func init() {
 	}
 }
 
-		// TableFields 获取并返回当前模式下指定表的字段信息。
-		//
-		// 参见 DriverMysql.TableFields。
-		// md5:7f7a75c67e38ad22
-// ff:
-// d:
-// ctx:
-// table:
-// schema:
-// fields:
-// err:
+// TableFields 获取并返回当前模式下指定表的字段信息。
+//
+// 参见 DriverMysql.TableFields。
+// md5:7f7a75c67e38ad22
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result       gdb.Result

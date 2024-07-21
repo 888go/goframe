@@ -29,10 +29,6 @@ import (
 //
 // 这个函数还实现了http.Handler接口。
 // md5:82dd5f4475c291db
-// ff:
-// s:
-// w:
-// r:
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Max body size limit.
 	if s.config.ClientMaxBodySize > 0 {
@@ -51,14 +47,14 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	)
 	defer s.handleAfterRequestDone(request)
 
-// ============================================================
-// 优先级：
-// 静态文件 > 动态服务 > 静态目录
-// ============================================================
-// md5:9514a47b66a76f01
+	// ============================================================
+	// 优先级：
+	// 静态文件 > 动态服务 > 静态目录
+	// ============================================================
+	// md5:9514a47b66a76f01
 
-// 搜索具有最高优先级的静态文件，同时也处理索引文件功能。
-// md5:f618b1fa06ea7acb
+	// 搜索具有最高优先级的静态文件，同时也处理索引文件功能。
+	// md5:f618b1fa06ea7acb
 	if s.config.FileServerEnabled {
 		request.StaticFile = s.searchStaticFile(r.URL.Path)
 		if request.StaticFile != nil {
@@ -154,12 +150,12 @@ func (s *Server) handleResponse(request *Request, sessionId string) {
 		}
 	}
 
-// 如果在这个请求中生成了新的会话ID，并且启用了SessionCookieOutput，自动将会话ID设置为cookie。
-// md5:2c6864797c5d809f
+	// 如果在这个请求中生成了新的会话ID，并且启用了SessionCookieOutput，自动将会话ID设置为cookie。
+	// md5:2c6864797c5d809f
 	if s.config.SessionCookieOutput && request.Session.IsDirty() {
-// 初始化会话前，可以通过 r.Session.SetId("") 来更改
-// 也可以通过 r.Cookie.SetSessionId("") 来更改
-// md5:7175563db73b9a50
+		// 初始化会话前，可以通过 r.Session.SetId("") 来更改
+		// 也可以通过 r.Cookie.SetSessionId("") 来更改
+		// md5:7175563db73b9a50
 		sidFromSession, sidFromRequest := request.Session.MustId(), request.GetSessionId()
 		if sidFromSession != sidFromRequest {
 			if sidFromSession != sessionId {
@@ -202,14 +198,14 @@ func (s *Server) handleAfterRequestDone(request *Request) {
 	}
 	// access log handling.
 	s.handleAccessLog(request)
-// 关闭会话，如果会话存在，这将自动更新其TTL（超时时间）。
-// md5:a86a4db886c94158
+	// 关闭会话，如果会话存在，这将自动更新其TTL（超时时间）。
+	// md5:a86a4db886c94158
 	if err := request.Session.Close(); err != nil {
 		intlog.Errorf(request.Context(), `%+v`, err)
 	}
 
-// 关闭请求和响应体以及时释放文件描述符。
-// md5:aea97d230b2451b0
+	// 关闭请求和响应体以及时释放文件描述符。
+	// md5:aea97d230b2451b0
 	err := request.Request.Body.Close()
 	if err != nil {
 		intlog.Errorf(request.Context(), `%+v`, err)

@@ -34,7 +34,7 @@ func ExampleCopy() {
 	// copy file
 	gfile.Copy(srcTempFile, dstTempFile)
 
-				// 读取复制文件后的内容. md5:1645f6025a796e52
+	// 读取复制文件后的内容. md5:1645f6025a796e52
 	fmt.Println(gfile.GetContents(dstTempFile))
 
 	// copy dir

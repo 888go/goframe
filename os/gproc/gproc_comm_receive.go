@@ -30,8 +30,6 @@ var (
 // Receive 函数通过本地TCP监听来阻塞并接收来自其他进程的消息。
 // 注意，只有当调用此函数时，才会启用TCP监听服务。
 // md5:dbf5481b7dcc4222
-// ff:
-// group:
 func Receive(group ...string) *MsgRequest {
 	// 使用原子操作来保证只有一个接收者goroutine在监听。 md5:3ddf24c1b343c721
 	if tcpListened.Cas(false, true) {

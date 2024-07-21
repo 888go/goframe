@@ -15,8 +15,6 @@ import (
 
 // SliceCopy 对于最常用的切片类型（[]interface{}）执行浅拷贝操作。
 // md5:d119afb140e8324a
-// ff:
-// slice:
 func SliceCopy(slice []interface{}) []interface{} {
 	newSlice := make([]interface{}, len(slice))
 	copy(newSlice, slice)
@@ -24,11 +22,6 @@ func SliceCopy(slice []interface{}) []interface{} {
 }
 
 // SliceInsertBefore 将 `values` 插入到 `index` 位置的前面，并返回一个新的切片。 md5:d1cbe1d61df82fb6
-// ff:
-// slice:
-// index:
-// values:
-// newSlice:
 func SliceInsertBefore(slice []interface{}, index int, values ...interface{}) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
@@ -41,11 +34,6 @@ func SliceInsertBefore(slice []interface{}, index int, values ...interface{}) (n
 }
 
 // SliceInsertAfter 在 `index` 后方插入 `values`，并返回一个新的切片。 md5:bb561266d0b2b921
-// ff:
-// slice:
-// index:
-// values:
-// newSlice:
 func SliceInsertAfter(slice []interface{}, index int, values ...interface{}) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
@@ -59,10 +47,6 @@ func SliceInsertAfter(slice []interface{}, index int, values ...interface{}) (ne
 
 // SliceDelete 从索引 `index` 处删除一个元素，并返回新的切片。如果给定的 `index` 不有效，它不会做任何操作。
 // md5:f57a8afe207e8169
-// ff:
-// slice:
-// index:
-// newSlice:
 func SliceDelete(slice []interface{}, index int) (newSlice []interface{}) {
 	if index < 0 || index >= len(slice) {
 		return slice
@@ -73,19 +57,18 @@ func SliceDelete(slice []interface{}, index int) (newSlice []interface{}) {
 	} else if index == len(slice)-1 {
 		return slice[:index]
 	}
-// 如果是一个非边界删除，
-// 它将涉及创建一个数组，
-// 那么删除操作效率较低。
-// md5:6a664196d66bc968
+	// 如果是一个非边界删除，
+	// 它将涉及创建一个数组，
+	// 那么删除操作效率较低。
+	// md5:6a664196d66bc968
 	return append(slice[:index], slice[index+1:]...)
 }
 
-// SliceToMap converts slice type variable `slice` to `map[string]interface{}`.
-// Note that if the length of `slice` is not an even number, it returns nil.
+// SliceToMap 将切片类型变量 `slice` 转换为 `map[string]interface{}` 类型。注意，如果 `slice` 的长度不是偶数，它将返回nil。
+// 例如：
 // ["K1", "v1", "K2", "v2"] => {"K1": "v1", "K2": "v2"}
 // ["K1", "v1", "K2"]       => nil
-// ff:
-// slice:
+// md5:f7b4384607d6bfbe
 func SliceToMap(slice interface{}) map[string]interface{} {
 	var (
 		reflectValue = reflect.ValueOf(slice)
@@ -110,13 +93,12 @@ func SliceToMap(slice interface{}) map[string]interface{} {
 	return nil
 }
 
-// SliceToMapWithColumnAsKey converts slice type variable `slice` to `map[interface{}]interface{}`
-// The value of specified column use as the key for returned map.
+// SliceToMapWithColumnAsKey 将切片类型变量 `slice` 转换为 `map[interface{}]interface{}`
+// 切片中指定列的值将作为返回映射的键。
+// 例如：
 // SliceToMapWithColumnAsKey([{"K1": "v1", "K2": 1}, {"K1": "v2", "K2": 2}], "K1") => {"v1": {"K1": "v1", "K2": 1}, "v2": {"K1": "v2", "K2": 2}}
 // SliceToMapWithColumnAsKey([{"K1": "v1", "K2": 1}, {"K1": "v2", "K2": 2}], "K2") => {1: {"K1": "v1", "K2": 1}, 2: {"K1": "v2", "K2": 2}}
-// ff:
-// slice:
-// key:
+// md5:bf178f79b93bd1b2
 func SliceToMapWithColumnAsKey(slice interface{}, key interface{}) map[interface{}]interface{} {
 	var (
 		reflectValue = reflect.ValueOf(slice)

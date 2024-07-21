@@ -45,11 +45,6 @@ func init() {
 
 // Caller 返回调用者函数的名称，以及包含该函数的绝对文件路径和行号。
 // md5:ede3e19ac5afa26d
-// ff:
-// skip:
-// function:
-// path:
-// line:
 func Caller(skip ...int) (function string, path string, line int) {
 	return CallerWithFilter(nil, skip...)
 }
@@ -58,12 +53,6 @@ func Caller(skip ...int) (function string, path string, line int) {
 // 
 // 参数 `filters` 用于过滤调用者的路径。
 // md5:77e7b623dc180797
-// ff:
-// filters:
-// skip:
-// function:
-// path:
-// line:
 func CallerWithFilter(filters []string, skip ...int) (function string, path string, line int) {
 	var (
 		number = 0
@@ -145,7 +134,6 @@ func filterFileByFilters(file string, filters []string) (filtered bool) {
 }
 
 // CallerPackage 返回调用者的包名。 md5:5ce61ae99065c96c
-// ff:
 func CallerPackage() string {
 	function, _, _ := Caller()
 	indexSplit := strings.LastIndexByte(function, '/')
@@ -161,7 +149,6 @@ func CallerPackage() string {
 }
 
 // CallerFunction 返回调用者函数的名称。 md5:af9ad1617f64a1c2
-// ff:
 func CallerFunction() string {
 	function, _, _ := Caller()
 	function = function[strings.LastIndexByte(function, '/')+1:]
@@ -170,43 +157,35 @@ func CallerFunction() string {
 }
 
 // CallerFilePath 返回调用者的文件路径。 md5:cf0e426c8a45ff1b
-// ff:
 func CallerFilePath() string {
 	_, path, _ := Caller()
 	return path
 }
 
 // CallerDirectory 返回调用者的目录。 md5:13a2e4e3afd2554a
-// ff:
 func CallerDirectory() string {
 	_, path, _ := Caller()
 	return filepath.Dir(path)
 }
 
 // CallerFileLine 返回调用者的文件路径和行号。 md5:94cba50c9cbd0bd5
-// ff:
 func CallerFileLine() string {
 	_, path, line := Caller()
 	return fmt.Sprintf(`%s:%d`, path, line)
 }
 
 // CallerFileLineShort 返回调用者所在的文件名和行号。 md5:ca795c06dfcf9d18
-// ff:
 func CallerFileLineShort() string {
 	_, path, line := Caller()
 	return fmt.Sprintf(`%s:%d`, filepath.Base(path), line)
 }
 
 // FuncPath 返回给定函数`f`的完整函数路径。 md5:fcff03839e6125e6
-// ff:
-// f:
 func FuncPath(f interface{}) string {
 	return runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()
 }
 
 // FuncName 返回给定函数`f`的函数名称。 md5:6ccbd3c81a265a6e
-// ff:
-// f:
 func FuncName(f interface{}) string {
 	path := FuncPath(f)
 	if path == "" {

@@ -17,16 +17,7 @@ func newNoopCounterPerformer() CounterPerformer {
 }
 
 // Inc 将计数器增加1。 md5:81a1f6bd9f2e53ca
-// ff:
-// noopCounterPerformer:
-// ctx:
-// option:
 func (noopCounterPerformer) Inc(ctx context.Context, option ...Option) {}
 
 // Add将给定的值添加到计数器中。如果值小于0，则会引发恐慌。 md5:d0e547634cd9c23f
-// ff:
-// noopCounterPerformer:
-// ctx:
-// increment:
-// option:
 func (noopCounterPerformer) Add(ctx context.Context, increment float64, option ...Option) {}

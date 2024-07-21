@@ -14,8 +14,6 @@ import (
 )
 
 // AddSlashes 为字符 '"'、'\' 和 '.' 添加反斜杠 `\` 进行转义。 md5:7e939499c0cd825f
-// ff:转义
-// str:文本
 func AddSlashes(str string) string {
 	var buf bytes.Buffer
 	for _, char := range str {
@@ -29,18 +27,13 @@ func AddSlashes(str string) string {
 }
 
 // StripSlashes通过AddSlashes方法去引号化一个带引号的字符串。 md5:fdba1646284db234
-// ff:转义还原
-// str:文本
 func StripSlashes(str string) string {
 	return utils.StripSlashes(str)
 }
 
-	// QuoteMeta 返回一个带有反斜杠字符 (`\`) 的 `str` 的版本。
-	// 如果没有提供自定义字符 `chars`，则使用默认字符：.\+*?[^]($)
-	// md5:e6bfeeabc9838069
-// ff:转义并按字符
-// str:文本
-// chars:可选转义字符
+// QuoteMeta 返回一个带有反斜杠字符 (`\`) 的 `str` 的版本。
+// 如果没有提供自定义字符 `chars`，则使用默认字符：.\+*?[^]($)
+// md5:e6bfeeabc9838069
 func QuoteMeta(str string, chars ...string) string {
 	var buf bytes.Buffer
 	for _, char := range str {

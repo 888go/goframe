@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gcmd//bm:cmd类
+package gcmd
 
 import (
 	"context"
@@ -60,8 +60,6 @@ var (
 )
 
 // CommandFromCtx从上下文检索并返回Command。 md5:81a6b36fc029401b
-// ff:
-// ctx:
 func CommandFromCtx(ctx context.Context) *Command {
 	if v := ctx.Value(CtxKeyCommand); v != nil {
 		if p, ok := v.(*Command); ok {
@@ -72,9 +70,6 @@ func CommandFromCtx(ctx context.Context) *Command {
 }
 
 // AddCommand向当前命令添加一个或多个子命令。 md5:f1582e4eafa78dd7
-// ff:
-// c:
-// commands:
 func (c *Command) AddCommand(commands ...*Command) error {
 	for _, cmd := range commands {
 		if err := c.doAddCommand(cmd); err != nil {
@@ -107,9 +102,6 @@ func (c *Command) doAddCommand(command *Command) error {
 }
 
 // AddObject 通过struct对象向当前命令添加一个或多个子命令。 md5:8de76f64f667f83d
-// ff:
-// c:
-// objects:
 func (c *Command) AddObject(objects ...interface{}) error {
 	var commands []*Command
 	for _, object := range objects {

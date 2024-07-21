@@ -37,16 +37,11 @@ func init() {
 }
 
 // New 创建并返回一个实现了gdb.Driver的驱动器，该驱动器支持dm的操作。 md5:eaafc794fe673f0d
-// ff:
 func New() gdb.Driver {
 	return &Driver{}
 }
 
 // New 创建并返回一个针对 dm 的数据库对象。 md5:503a0529287d7ea6
-// ff:
-// d:
-// core:
-// node:
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
@@ -54,10 +49,6 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 }
 
 // GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
-// ff:
-// d:
-// charLeft:
-// charRight:
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

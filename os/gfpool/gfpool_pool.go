@@ -25,11 +25,6 @@ import (
 // ttl > 0：超时过期；
 // 默认情况下，它不过期。
 // md5:521d6eb77a70a063
-// ff:
-// path:
-// flag:
-// perm:
-// ttl:
 func New(path string, flag int, perm os.FileMode, ttl ...time.Duration) *Pool {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -69,8 +64,6 @@ func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Dura
 // File 从文件指针池中获取文件项并返回。如果文件指针池为空，它将创建一个。
 // 注意，当文件不再会被使用时，应当关闭它。当它被“关闭”时，并不是真正关闭底层的文件指针，而是将其放回文件指针池中。
 // md5:b6c4b6a3ade746fc
-// ff:
-// p:
 func (p *Pool) File() (*File, error) {
 	if v, err := p.pool.Get(); err != nil {
 		return nil, err
@@ -126,8 +119,6 @@ func (p *Pool) File() (*File, error) {
 }
 
 // Close关闭当前文件指针池。 md5:01a922bcbbea5a0f
-// ff:
-// p:
 func (p *Pool) Close() {
 	p.pool.Close()
 }

@@ -179,8 +179,6 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 	return schemaRef, nil
 }
 
-// ff:
-// r:
 func (r SchemaRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

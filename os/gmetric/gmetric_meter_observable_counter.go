@@ -22,11 +22,6 @@ var (
 )
 
 // ObservableCounter 创建并返回一个新的 ObservableCounter。 md5:1fb1055edede2f1e
-// ff:
-// meter:
-// name:
-// option:
-// ObservableCounter:
 func (meter *localMeter) ObservableCounter(name string, option MetricOption) (ObservableCounter, error) {
 	m, err := meter.newMetric(MetricTypeObservableCounter, name, option)
 	if err != nil {
@@ -50,10 +45,6 @@ func (meter *localMeter) ObservableCounter(name string, option MetricOption) (Ob
 // MustObservableCounter 创建并返回一个新的 ObservableCounter。
 // 如果发生任何错误，它将引发恐慌。
 // md5:0e100a900e418612
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustObservableCounter(name string, option MetricOption) ObservableCounter {
 	m, err := meter.ObservableCounter(name, option)
 	if err != nil {
@@ -63,10 +54,6 @@ func (meter *localMeter) MustObservableCounter(name string, option MetricOption)
 }
 
 // Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
-// ff:
-// l:
-// provider:
-// err:
 func (l *localObservableCounter) Init(provider Provider) (err error) {
 	if _, ok := l.ObservableCounterPerformer.(noopObservableCounterPerformer); !ok {
 		// already initialized.
@@ -79,11 +66,9 @@ func (l *localObservableCounter) Init(provider Provider) (err error) {
 	return err
 }
 
-	// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-	// 这通常被指标实现所使用。
-	// md5:e521fc985b9a53e2
-// ff:
-// l:
+// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 func (l *localObservableCounter) Performer() any {
 	return l.ObservableCounterPerformer
 }

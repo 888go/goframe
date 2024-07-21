@@ -20,11 +20,6 @@ import (
 // FormatUpsert 为PgSQL返回一个类型为upsert的SQL子句。
 // 例如：ON CONFLICT (id) DO UPDATE SET ...
 // md5:fb2528b8816e9dc5
-// ff:
-// d:
-// columns:
-// list:
-// option:
 func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInsertOption) (string, error) {
 	if len(option.OnConflict) == 0 {
 		return "", gerror.NewCode(

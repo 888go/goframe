@@ -26,14 +26,14 @@ import (
 // Request 是请求的上下文对象。 md5:90c1e82eacf87b05
 type Request struct {
 	*http.Request
-	Server     *Server//qm:服务  cz:Server *Server             // Server.
+	Server     *Server           // Server.
 	Cookie     *Cookie           // Cookie.
 	Session    *gsession.Session // Session.
-	Response   *Response//qm:响应  cz:Response *Response           // 对应于此请求的响应。 md5:aca9c7c1b8de7fd3
-	Router     *Router//qm:路由  cz:Router *             // Matched Router for this request. Note that it's not available in HOOK handler.
+	Response   *Response         // 对应于此请求的响应。 md5:aca9c7c1b8de7fd3
+	Router     *Router           // Matched Router for this request. Note that it's not available in HOOK handler.
 	EnterTime  *gtime.Time       // 请求开始时间（以毫秒为单位）。 md5:c8ed1608de735520
 	LeaveTime  *gtime.Time       // 结束时间（以毫秒为单位）的请求。 md5:d10eec1013ccf8ce
-	Middleware *middleware//qm:中间件管理器  cz:Middleware *middleware         // Middleware manager.
+	Middleware *middleware       // Middleware manager.
 	StaticFile *staticFile       // 用于静态文件服务的静态文件对象。 md5:c9ba568602380c10
 
 	// =================================================================================================================
@@ -116,12 +116,12 @@ func newRequest(s *Server, r *http.Request, w http.ResponseWriter) *Request {
 	return request
 }
 
-// WebSocket upgrades current request as a websocket request.
-// It returns a new WebSocket object if success, or the error if failure.
-// Note that the request should be a websocket request, or it will surely fail upgrading.
-//
-// ff:升级为websocket请求
-// r:
+// 将当前请求升级为WebSocket请求。
+// 如果成功，返回一个新的WebSocket对象，如果失败，则返回错误。
+// 注意，请求必须是WebSocket请求，否则升级肯定会失败。
+// 
+// 警告：将来将被移除，请使用第三方WebSocket库代替。
+// md5:68ad17d4740330b2
 func (r *Request) WebSocket() (*WebSocket, error) {
 	if conn, err := wsUpGrader.Upgrade(r.Response.Writer, r.Request, nil); err == nil {
 		return &WebSocket{
@@ -133,45 +133,32 @@ func (r *Request) WebSocket() (*WebSocket, error) {
 }
 
 // Exit 退出当前HTTP处理器的执行。 md5:3a3298adda39cc74
-// ff:退出当前
-// r:
 func (r *Request) Exit() {
 	panic(exceptionExit)
 }
 
 // ExitAll 退出当前及后续的HTTP处理器执行。 md5:53932e5e1bdd10d5
-// ff:退出全部
-// r:
 func (r *Request) ExitAll() {
 	r.exitAll = true
 	panic(exceptionExitAll)
 }
 
 // ExitHook 退出当前及后续HTTP钩子处理器的执行。 md5:ef92857b0e046888
-// ff:退出Hook
-// r:
 func (r *Request) ExitHook() {
 	panic(exceptionExitHook)
 }
 
 // IsExited 检查并返回当前请求是否已退出。 md5:9198deaaaf14733a
-// ff:是否已退出
-// r:
 func (r *Request) IsExited() bool {
 	return r.exitAll
 }
 
 // GetHeader 获取并返回给定`key`对应的头值。 md5:3088bb7beaf8a754
-// ff:取协议头值
-// r:
-// key:名称
 func (r *Request) GetHeader(key string) string {
 	return r.Header.Get(key)
 }
 
 // GetHost 返回当前请求的主机名，可能是不带端口的域名或IP。 md5:3a06fa36ddefd149
-// ff:取主机名
-// r:
 func (r *Request) GetHost() string {
 	if len(r.parsedHost) == 0 {
 		array, _ := gregex.MatchString(`(.+):(\d+)`, r.Host)
@@ -185,15 +172,11 @@ func (r *Request) GetHost() string {
 }
 
 // IsFileRequest 检查并返回当前请求是否是为文件服务的。 md5:a849769abec62994
-// ff:是否为文件请求
-// r:
 func (r *Request) IsFileRequest() bool {
 	return r.isFileRequest
 }
 
 // IsAjaxRequest 检查并返回当前请求是否为AJAX请求。 md5:c4e5c9eb4c13dae7
-// ff:是否为AJAX请求
-// r:
 func (r *Request) IsAjaxRequest() bool {
 	return strings.EqualFold(r.Header.Get("X-Requested-With"), "XMLHttpRequest")
 }
@@ -201,8 +184,6 @@ func (r *Request) IsAjaxRequest() bool {
 // GetClientIp 返回此请求的客户端IP（不包含端口号）。
 // 注意，此IP地址可能已被客户端头部信息修改。
 // md5:54dc4a1d4744646a
-// ff:取客户端IP地址
-// r:
 func (r *Request) GetClientIp() string {
 	if r.clientIp != "" {
 		return r.clientIp
@@ -234,8 +215,6 @@ func (r *Request) GetClientIp() string {
 }
 
 // GetRemoteIp 从 RemoteAddr 中返回 IP 地址。 md5:fca642ffe8c25d8c
-// ff:取远程IP地址
-// r:
 func (r *Request) GetRemoteIp() string {
 	array, _ := gregex.MatchString(`(.+):(\d+)`, r.RemoteAddr)
 	if len(array) > 1 {
@@ -245,8 +224,6 @@ func (r *Request) GetRemoteIp() string {
 }
 
 // GetSchema 返回此请求的架构。 md5:7bbb51fb51117978
-// ff:
-// r:
 func (r *Request) GetSchema() string {
 	var (
 		scheme = "http"
@@ -259,8 +236,6 @@ func (r *Request) GetSchema() string {
 }
 
 // GetUrl 返回本次请求的当前URL。 md5:8be855812fe4346f
-// ff:取URL
-// r:
 func (r *Request) GetUrl() string {
 	var (
 		scheme = "http"
@@ -274,8 +249,6 @@ func (r *Request) GetUrl() string {
 }
 
 // GetSessionId 从cookie或header中检索并返回会话ID。 md5:06fb7350f9f5597f
-// ff:取SessionId
-// r:
 func (r *Request) GetSessionId() string {
 	id := r.Cookie.GetSessionId()
 	if id == "" {
@@ -285,24 +258,17 @@ func (r *Request) GetSessionId() string {
 }
 
 // GetReferer 返回此请求的引荐来源。 md5:4684519c6f7dc2c0
-// ff:取引用来源URL
-// r:
 func (r *Request) GetReferer() string {
 	return r.Header.Get("Referer")
 }
 
 // GetError 返回请求过程中发生的错误。如果没有错误，它将返回 nil。
 // md5:035e49a2662f9c04
-// ff:取错误信息
-// r:
 func (r *Request) GetError() error {
 	return r.error
 }
 
 // SetError 为当前请求设置自定义错误。 md5:025f3a0817a4be99
-// ff:设置错误信息
-// r:
-// err:错误
 func (r *Request) SetError(err error) {
 	r.error = err
 }
@@ -311,8 +277,6 @@ func (r *Request) SetError(err error) {
 // 有时，我们希望通过中间件来修改请求参数，但直接修改 Request.Body 是无效的，
 // 因此它会清除 Request 的已解析标记，使得参数能够被重新解析。
 // md5:af7ff26c797683ef
-// ff:重载请求参数
-// r:
 func (r *Request) ReloadParam() {
 	r.parsedBody = false
 	r.parsedForm = false
@@ -321,15 +285,11 @@ func (r *Request) ReloadParam() {
 }
 
 // GetHandlerResponse 获取并返回处理器响应对象及其错误信息。 md5:d6ef2cb1d4fef297
-// ff:取响应对象及错误信息
-// r:
 func (r *Request) GetHandlerResponse() interface{} {
 	return r.handlerResponse
 }
 
 // GetServeHandler 获取并返回用于处理此请求的用户定义的处理器。 md5:6aef7d779ee52097
-// ff:取路由解析对象
-// r:
 func (r *Request) GetServeHandler() *HandlerItemParsed {
 	return r.serveHandler
 }

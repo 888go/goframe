@@ -20,11 +20,6 @@ import (
 // FormatUpsert 返回用于SQLite的UPSERT类型的SQL子句。
 // 例如：ON CONFLICT (id) DO UPDATE SET ...
 // md5:49f955d5c160f808
-// ff:
-// d:
-// columns:
-// list:
-// option:
 func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInsertOption) (string, error) {
 	if len(option.OnConflict) == 0 {
 		return "", gerror.NewCode(

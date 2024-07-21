@@ -19,10 +19,6 @@ type Span struct {
 }
 
 // NewSpan 使用默认追踪器创建一个span。 md5:0b09fd499d941eba
-// ff:
-// ctx:
-// spanName:
-// opts:
 func NewSpan(ctx context.Context, spanName string, opts ...trace.SpanStartOption) (context.Context, *Span) {
 	ctx, span := NewTracer().Start(ctx, spanName, opts...)
 	return ctx, &Span{

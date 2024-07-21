@@ -18,15 +18,9 @@ const (
 	tablesSqlTmp = "select name from `system`.tables where database = '%s'"
 )
 
-		// Tables 获取并返回当前模式下的表格列表。
-		//主要用于命令行工具链，用于自动生成模型。
-		// md5:bce161ba95454bf5
-// ff:
-// d:
-// ctx:
-// schema:
-// tables:
-// err:
+// Tables 获取并返回当前模式下的表格列表。
+//主要用于命令行工具链，用于自动生成模型。
+// md5:bce161ba95454bf5
 func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
 	link, err := d.SlaveLink(schema...)

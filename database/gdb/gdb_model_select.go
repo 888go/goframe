@@ -27,37 +27,29 @@ import (
 // 可选参数 `where` 和 Model.Where 函数的参数相同，
 // 请参阅 Model.Where。
 // md5:fd88d2addfbe9655
-// ff:查询
-// m:
-// where:查询条件
-// Result:
 func (m *Model) All(where ...interface{}) (Result, error) {
 	var ctx = m.GetCtx()
 	return m.doGetAll(ctx, false, where...)
 }
 
-// AllAndCount retrieves all records and the total count of records from the model.
-// If useFieldForCount is true, it will use the fields specified in the model for counting;
-// otherwise, it will use a constant value of 1 for counting.
-// It returns the result as a slice of records, the total count of records, and an error if any.
-// The where parameter is an optional list of conditions to use when retrieving records.
+// AllAndCount 从模型中检索所有记录以及记录的总数量。
+// 如果 useFieldForCount 为真，它将使用模型中指定的字段进行计数；
+// 否则，它将使用常数值1来进行计数。
+// 此方法返回结果作为一个记录切片，记录的总数量，以及可能存在的错误。
+// where 参数是一个可选的条件列表，用于在检索记录时应用。
 //
+// 示例：
 //
 //	var model Model
-//	var result Result
+//	var result []Record
 //	var count int
 //	where := []interface{}{"name = ?", "John"}
-//	result, count, err := model.AllAndCount(true)
+//	result, count, err := model.AllAndCount(true, where...)
 //	if err != nil {
-//	    // Handle error.
+//	    // 处理错误。
 //	}
 //	fmt.Println(result, count)
-// ff:查询与行数
-// m:
-// useFieldForCount:是否用字段计数
-// result:结果
-// totalCount:行数
-// err:错误
+// md5:b631bbec9e186f68
 func (m *Model) AllAndCount(useFieldForCount bool) (result Result, totalCount int, err error) {
 	// 克隆模型用于计数. md5:662b7475962d2c44
 	countModel := m.Clone()
@@ -84,10 +76,6 @@ func (m *Model) AllAndCount(useFieldForCount bool) (result Result, totalCount in
 }
 
 // Chunk 使用给定的 `size` 和 `handler` 函数来分块迭代查询结果。 md5:4c5d0d282b8e1fe4
-// ff:分割
-// m:
-// size:数量
-// handler:处理函数
 func (m *Model) Chunk(size int, handler ChunkHandler) {
 	page := m.start
 	if page <= 0 {
@@ -118,10 +106,6 @@ func (m *Model) Chunk(size int, handler ChunkHandler) {
 //
 // 可选参数`where`与Model.Where函数的参数相同，参见Model.Where。
 // md5:b48f8e0c5d07b484
-// ff:查询一条
-// m:
-// where:条件
-// Record:
 func (m *Model) One(where ...interface{}) (Record, error) {
 	var ctx = m.GetCtx()
 	if len(where) > 0 {
@@ -144,9 +128,6 @@ func (m *Model) One(where ...interface{}) (Record, error) {
 // 而 fieldsAndWhere[1:] 则被视为 where 条件字段。
 // 参见 Model.Fields 和 Model.Where 函数。
 // md5:1de6885dc1e83172
-// ff:查询切片
-// m:
-// fieldsAndWhere:条件
 func (m *Model) Array(fieldsAndWhere ...interface{}) ([]Value, error) {
 	if len(fieldsAndWhere) > 0 {
 		if len(fieldsAndWhere) > 2 {
@@ -179,21 +160,23 @@ func (m *Model) Array(fieldsAndWhere ...interface{}) ([]Value, error) {
 	return all.Array(field), nil
 }
 
-// Struct retrieves one record from table and converts it into given struct.
-// The parameter `pointer` should be type of *struct/**struct. If type **struct is given,
-// it can create the struct internally during converting.
+// Struct 从表中检索一条记录，并将其转换为给定的结构体。
+// 参数 `pointer` 应为 *struct 或 **struct 类型。如果给出 **struct 类型，
+// 则在转换过程中可以在内部创建该结构体。
 //
-// The optional parameter `where` is the same as the parameter of Model.Where function,
-// see Model.Where.
+// 可选参数 `where` 与 Model.Where 函数的参数相同，
+// 详情请参阅 Model.Where。
 //
-// Note that it returns sql.ErrNoRows if the given parameter `pointer` pointed to a variable that has
-// default value and there's no record retrieved with the given conditions from table.
+// 注意，如果给定参数 `pointer` 指向一个具有默认值的变量，并且根据给定条件从表中没有检索到任何记录，
+// 则它将返回 sql.ErrNoRows 错误。
 //
+// 示例：
 // user := new(User)
 // err  := db.Model("user").Where("id", 1).Scan(user)
 //
 // user := (*User)(nil)
-// err  := db.Model("user").Where("id", 1).Scan(&user).
+// err  := db.Model("user").Where("id", 1).Scan(&user)
+// md5:473a4005864a522f
 func (m *Model) doStruct(pointer interface{}, where ...interface{}) error {
 	model := m
 	// 自动通过结构体属性选择字段。 md5:25f031330d67c88b
@@ -214,21 +197,20 @@ func (m *Model) doStruct(pointer interface{}, where ...interface{}) error {
 	return model.doWithScanStruct(pointer)
 }
 
-// Structs retrieves records from table and converts them into given struct slice.
-// The parameter `pointer` should be type of *[]struct/*[]*struct. It can create and fill the struct
-// slice internally during converting.
+// Structs 从表中检索记录并将其转换为给定的结构体切片。
+// 参数 `pointer` 应该是类型为 *[]struct 或 *[]*struct。在转换过程中，它可以内部创建和填充结构体切片。
 //
-// The optional parameter `where` is the same as the parameter of Model.Where function,
-// see Model.Where.
+// 可选参数 `where` 和 Model.Where 函数的参数相同，参见 Model.Where。
 //
-// Note that it returns sql.ErrNoRows if the given parameter `pointer` pointed to a variable that has
-// default value and there's no record retrieved with the given conditions from table.
+// 注意，如果给定的 `pointer` 指向一个具有默认值的变量，并且根据给定条件从表中没有检索到任何记录，则返回 sql.ErrNoRows。
 //
+// 示例：
 // users := ([]User)(nil)
 // err   := db.Model("user").Scan(&users)
 //
 // users := ([]*User)(nil)
-// err   := db.Model("user").Scan(&users).
+// err   := db.Model("user").Scan(&users)
+// md5:bd3102709ae8c192
 func (m *Model) doStructs(pointer interface{}, where ...interface{}) error {
 	model := m
 	// 自动通过结构体属性选择字段。 md5:25f031330d67c88b
@@ -257,30 +239,27 @@ func (m *Model) doStructs(pointer interface{}, where ...interface{}) error {
 	return model.doWithScanStructs(pointer)
 }
 
-// Scan automatically calls Struct or Structs function according to the type of parameter `pointer`.
-// It calls function doStruct if `pointer` is type of *struct/**struct.
-// It calls function doStructs if `pointer` is type of *[]struct/*[]*struct.
-//
-// The optional parameter `where` is the same as the parameter of Model.Where function,  see Model.Where.
-//
-// Note that it returns sql.ErrNoRows if the given parameter `pointer` pointed to a variable that has
-// default value and there's no record retrieved with the given conditions from table.
-//
+// Scan会根据参数`pointer`的类型自动调用Struct或Structs函数。
+// 如果`pointer`是类型`*struct`或`**struct`，它会调用doStruct函数。
+// 如果`pointer`是类型`*[]struct`或`*[]*struct`，它会调用doStructs函数。
+// 
+// 可选参数`where`与Model.Where函数的参数相同，参见Model.Where。
+// 
+// 注意，如果给定的`pointer`指向一个具有默认值的变量，并且在表中没有满足条件的记录，它将返回sql.ErrNoRows错误。
+// 
+// 示例：
 // user := new(User)
-// err  := db.Model("user").Where("id", 1).Scan(user)
-//
+// err := db.Model("user").Where("id", 1).Scan(user)
+// 
 // user := (*User)(nil)
-// err  := db.Model("user").Where("id", 1).Scan(&user)
-//
+// err := db.Model("user").Where("id", 1).Scan(&user)
+// 
 // users := ([]User)(nil)
-// err   := db.Model("user").Scan(&users)
-//
+// err := db.Model("user").Scan(&users)
+// 
 // users := ([]*User)(nil)
-// err   := db.Model("user").Scan(&users).
-// ff:查询到结构体指针
-// m:
-// pointer:数据指针
-// where:条件
+// err := db.Model("user").Scan(&users)
+// md5:a6df07ddafe5975a
 func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 	reflectInfo := reflection.OriginTypeAndKind(pointer)
 	if reflectInfo.InputKind != reflect.Ptr {
@@ -304,19 +283,20 @@ func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 	}
 }
 
-// ScanAndCount scans a single record or record array that matches the given conditions and counts the total number of records that match those conditions.
-// If useFieldForCount is true, it will use the fields specified in the model for counting;
-// The pointer parameter is a pointer to a struct that the scanned data will be stored in.
-// The pointerCount parameter is a pointer to an integer that will be set to the total number of records that match the given conditions.
-// The where parameter is an optional list of conditions to use when retrieving records.
+// ScanAndCount 扫描与给定条件匹配的单条记录或记录数组，并计算符合这些条件的总记录数。
+// 如果 useFieldForCount 为 true，它将使用模型中指定的字段进行计数；
+// pointer 参数是一个指向结构体的指针，用于存储扫描到的数据。
+// pointerCount 参数是一个指向整数的指针，将被设置为符合给定条件的总记录数。
+// where 参数是可选的条件列表，用于在检索记录时使用。
 //
+// 示例：
 //
 //	var count int
 //	user := new(User)
-//	err  := db.Model("user").Where("id", 1).ScanAndCount(user,&count,true)
+//	err  := db.Model("user").Where("id", 1).ScanAndCount(user, &count, true)
 //	fmt.Println(user, count)
 //
-// Example Join:
+// 示例（联接）：
 //
 //	type User struct {
 //		Id       int
@@ -331,12 +311,7 @@ func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 //		Fields("u1.passport,u1.id,u2.name,u2.age").
 //		Where("u1.id<2").
 //		ScanAndCount(&users, &count, false)
-// ff:查询与行数到指针
-// m:
-// pointer:数据指针
-// totalCount:行数指针
-// useFieldForCount:是否用字段计数
-// err:错误
+// md5:984fa8f0e50708f4
 func (m *Model) ScanAndCount(pointer interface{}, totalCount *int, useFieldForCount bool) (err error) {
 	// 支持使用 * 的字段，例如：.Fields("a.*, b.name")。计数SQL为：select count(1) from xxx. md5:a3fc56bcc1dcba76
 	countModel := m.Clone()
@@ -363,12 +338,6 @@ func (m *Model) ScanAndCount(pointer interface{}, totalCount *int, useFieldForCo
 // 
 // 参见 Result.ScanList。
 // md5:4116492a123661b5
-// ff:查询到指针列表
-// m:
-// structSlicePointer:结构体切片指针
-// bindToAttrName:绑定到结构体属性名称
-// relationAttrNameAndFields:结构体属性关联
-// err:错误
 func (m *Model) ScanList(structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	var result Result
 	out, err := checkGetSliceElementInfoForScanList(structSlicePointer, bindToAttrName)
@@ -414,10 +383,6 @@ func (m *Model) ScanList(structSlicePointer interface{}, bindToAttrName string, 
 // 而 fieldsAndWhere[1:] 用作 WHERE 条件字段。
 // 另请参阅 Model.Fields 和 Model.Where 函数。
 // md5:e6b48ca188d3d208
-// ff:查询一条值
-// m:
-// fieldsAndWhere:字段和条件
-// Value:
 func (m *Model) Value(fieldsAndWhere ...interface{}) (Value, error) {
 	var (
 		core = m.db.GetCore()
@@ -457,9 +422,6 @@ func (m *Model) Value(fieldsAndWhere ...interface{}) (Value, error) {
 // Count 对于该模型执行 "SELECT COUNT(x) FROM ..." 语句。
 // 可选参数 `where` 和 Model.Where 函数的参数相同，参见 Model.Where。
 // md5:52b3d2e0e43bb2af
-// ff:查询行数
-// m:
-// where:条件
 func (m *Model) Count(where ...interface{}) (int, error) {
 	var (
 		core = m.db.GetCore()
@@ -491,9 +453,6 @@ func (m *Model) Count(where ...interface{}) (int, error) {
 }
 
 // CountColumn 执行对模型的 "SELECT COUNT(x) FROM ..." 语句。 md5:150abf4737c4588c
-// ff:查询字段行数
-// m:
-// column:字段名称
 func (m *Model) CountColumn(column string) (int, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -502,9 +461,6 @@ func (m *Model) CountColumn(column string) (int, error) {
 }
 
 // Min 为模型执行 "SELECT MIN(x) FROM ..." 语句。 md5:e2fc098c542503d1
-// ff:查询最小值
-// m:
-// column:字段名称
 func (m *Model) Min(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -517,9 +473,6 @@ func (m *Model) Min(column string) (float64, error) {
 }
 
 // Max 对模型执行 "SELECT MAX(x) FROM ..." 语句。 md5:bb6b4d0dc51fbfaf
-// ff:查询最大值
-// m:
-// column:字段名称
 func (m *Model) Max(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -532,9 +485,6 @@ func (m *Model) Max(column string) (float64, error) {
 }
 
 // Avg 对于该模型执行"SELECT AVG(x) FROM ..." 语句。 md5:9b360a11d26d6fca
-// ff:查询平均值
-// m:
-// column:字段名称
 func (m *Model) Avg(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -547,9 +497,6 @@ func (m *Model) Avg(column string) (float64, error) {
 }
 
 // Sum 对于该模型执行 "SELECT SUM(x) FROM ..." 语句。 md5:bcbe9e29cd168603
-// ff:查询求和
-// m:
-// column:字段名称
 func (m *Model) Sum(column string) (float64, error) {
 	if len(column) == 0 {
 		return 0, nil
@@ -562,17 +509,11 @@ func (m *Model) Sum(column string) (float64, error) {
 }
 
 // Union 为模型执行 "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." 语句。 md5:97431dccd533414e
-// ff:多表去重查询
-// m:
-// unions:Model对象
 func (m *Model) Union(unions ...*Model) *Model {
 	return m.db.Union(unions...)
 }
 
 // UnionAll 对模型执行 "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." 语句。 md5:d112aec0d1929661
-// ff:多表查询
-// m:
-// unions:Model对象
 func (m *Model) UnionAll(unions ...*Model) *Model {
 	return m.db.UnionAll(unions...)
 }
@@ -580,9 +521,6 @@ func (m *Model) UnionAll(unions ...*Model) *Model {
 // Limit 设置模型的 "LIMIT" 语句。
 // 参数 `limit` 可以是一个或两个数字。如果传递两个数字，它将为模型设置 "LIMIT limit[0],limit[1]" 语句；否则，它将设置 "LIMIT limit[0]" 语句。
 // md5:fd06ed75a128d403
-// ff:设置条数
-// m:
-// limit:条数或两个数字
 func (m *Model) Limit(limit ...int) *Model {
 	model := m.getModel()
 	switch len(limit) {
@@ -597,9 +535,6 @@ func (m *Model) Limit(limit ...int) *Model {
 
 // Offset 设置模型的“OFFSET”语句。它只对某些数据库（如 SQLServer、PostgreSQL 等）有意义。
 // md5:5a99cab6ce558c69
-// ff:
-// m:
-// offset:
 func (m *Model) Offset(offset int) *Model {
 	model := m.getModel()
 	model.offset = offset
@@ -607,8 +542,6 @@ func (m *Model) Offset(offset int) *Model {
 }
 
 // Distinct 强制查询仅返回不重复的结果。 md5:ead62c0e4b4795ab
-// ff:设置去重
-// m:
 func (m *Model) Distinct() *Model {
 	model := m.getModel()
 	model.distinct = "DISTINCT "
@@ -619,10 +552,6 @@ func (m *Model) Distinct() *Model {
 // 参数 `page` 的起始值为1，用于分页。
 // 注意，这与Limit函数在"LIMIT"语句中从0开始不同。
 // md5:02b920e99951ce53
-// ff:设置分页
-// m:
-// page:第几页
-// limit:条数
 func (m *Model) Page(page, limit int) *Model {
 	model := m.getModel()
 	if page <= 0 {
@@ -637,10 +566,6 @@ func (m *Model) Page(page, limit int) *Model {
 // 该函数的使用参数与Where函数相同。
 // 参见Where。
 // md5:b4e737511765f79f
-// ff:设置分组条件
-// m:
-// having:条件
-// args:参数
 func (m *Model) Having(having interface{}, args ...interface{}) *Model {
 	model := m.getModel()
 	model.having = []interface{}{
@@ -696,9 +621,9 @@ func (m *Model) getFormattedSqlAndArgs(
 	case queryTypeCount:
 		queryFields := "COUNT(1)"
 		if m.fields != "" && m.fields != "*" {
-// 不要在这里引用m.fields，以防出现如下的字段情况：
-// DISTINCT t.user_id uid
-// md5:97ff3b5639a12242
+			// 不要在这里引用m.fields，以防出现如下的字段情况：
+			// DISTINCT t.user_id uid
+			// md5:97ff3b5639a12242
 			queryFields = fmt.Sprintf(`COUNT(%s%s)`, m.distinct, m.fields)
 		}
 		// Raw SQL Model.

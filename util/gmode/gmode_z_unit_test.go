@@ -7,7 +7,7 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gmode_test//bm:环境类_test
+package gmode_test
 
 import (
 	"testing"

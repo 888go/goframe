@@ -15,10 +15,6 @@ import (
 )
 
 // SetQuery 使用键值对设置自定义查询值。 md5:464e6b634ef97c90
-// ff:设置查询参数
-// r:
-// key:名称
-// value:值
 func (r *Request) SetQuery(key string, value interface{}) {
 	r.parseQuery()
 	if r.queryMap == nil {
@@ -31,10 +27,6 @@ func (r *Request) SetQuery(key string, value interface{}) {
 // 
 // 注意，如果有多个同名的参数，将按照优先级顺序进行检索和覆盖：查询参数 > 身体参数。
 // md5:3948868b7e507e93
-// ff:取查询参数到泛型类
-// r:
-// key:名称
-// def:默认值
 func (r *Request) GetQuery(key string, def ...interface{}) *gvar.Var {
 	r.parseQuery()
 	if len(r.queryMap) > 0 {
@@ -60,9 +52,6 @@ func (r *Request) GetQuery(key string, def ...interface{}) *gvar.Var {
 // 
 // 注意，如果有多个具有相同名称的参数，将按照优先级顺序检索和覆盖：查询参数 > 身体（请求体）参数。
 // md5:72471cd6457be5f2
-// ff:取查询参数到Map
-// r:
-// kvMap:
 func (r *Request) GetQueryMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	if r.Method == http.MethodGet {
@@ -110,9 +99,6 @@ func (r *Request) GetQueryMap(kvMap ...map[string]interface{}) map[string]interf
 //
 // ，关联的值是如果客户端没有传递时的默认值。
 // md5:b1d5d46b8cc53f3a
-// ff:取查询参数到MapStrStr
-// r:
-// kvMap:
 func (r *Request) GetQueryMapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	queryMap := r.GetQueryMap(kvMap...)
 	if len(queryMap) > 0 {
@@ -127,9 +113,6 @@ func (r *Request) GetQueryMapStrStr(kvMap ...map[string]interface{}) map[string]
 
 // GetQueryMapStrVar 从使用 HTTP GET 方法传递的客户端参数中获取并返回所有参数，形式为 map[string]*gvar.Var。参数 `kvMap` 指定了要从客户端参数中获取的键，对应的值是如果客户端未传递时的默认值。
 // md5:3db7496b4b165e99
-// ff:取查询参数到Map泛型类切片
-// r:
-// kvMap:
 func (r *Request) GetQueryMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
 	queryMap := r.GetQueryMap(kvMap...)
 	if len(queryMap) > 0 {
@@ -142,12 +125,8 @@ func (r *Request) GetQueryMapStrVar(kvMap ...map[string]interface{}) map[string]
 	return nil
 }
 
-				// GetQueryStruct 从客户端通过HTTP GET方法获取所有传递的参数，并将它们转换为给定的结构体对象。请注意，参数`pointer`是指向结构体对象的指针。可选参数`mapping`用于指定键到属性的映射。
-				// md5:7061a83f935b7317
-// ff:取查询参数到结构体
-// r:
-// pointer:结构体指针
-// mapping:
+// GetQueryStruct 从客户端通过HTTP GET方法获取所有传递的参数，并将它们转换为给定的结构体对象。请注意，参数`pointer`是指向结构体对象的指针。可选参数`mapping`用于指定键到属性的映射。
+// md5:7061a83f935b7317
 func (r *Request) GetQueryStruct(pointer interface{}, mapping ...map[string]string) error {
 	_, err := r.doGetQueryStruct(pointer, mapping...)
 	return err

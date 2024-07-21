@@ -54,10 +54,6 @@ var (
 // New 创建并返回一个错误代码。
 // 注意，它返回一个 Code 接口对象。
 // md5:a3d7ec3807589165
-// ff:
-// code:
-// message:
-// detail:
 func New(code int, message string, detail interface{}) Code {
 	return localCode{
 		code:    code,
@@ -66,12 +62,9 @@ func New(code int, message string, detail interface{}) Code {
 	}
 }
 
-	// WithCode 根据给定的`Code`创建并返回一个新的错误代码。
-	// 该错误代码的码和消息来自`code`，但详细信息来自`detail`。
-	// md5:6f2355f302e9ea32
-// ff:
-// code:
-// detail:
+// WithCode 根据给定的`Code`创建并返回一个新的错误代码。
+// 该错误代码的码和消息来自`code`，但详细信息来自`detail`。
+// md5:6f2355f302e9ea32
 func WithCode(code Code, detail interface{}) Code {
 	return localCode{
 		code:    code.Code(),

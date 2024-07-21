@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gxml提供了访问和转换XML内容的功能。 md5:7f72b127efb49044
-package gxml//bm:xml类
+package gxml
 
 import (
 	"strings"
@@ -19,8 +19,6 @@ import (
 )
 
 // Decode将`content`解析为映射并返回。 md5:09afa737da32e1d3
-// ff:
-// content:
 func Decode(content []byte) (map[string]interface{}, error) {
 	res, err := convert(content)
 	if err != nil {
@@ -34,8 +32,6 @@ func Decode(content []byte) (map[string]interface{}, error) {
 }
 
 // DecodeWithoutRoot 将 `content` 解析为一个映射，然后返回不包含根级别的映射。 md5:3210d3b75da05efb
-// ff:
-// content:
 func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 	res, err := convert(content)
 	if err != nil {
@@ -57,9 +53,6 @@ func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 // Encode 将字典 `m` 编码为 XML 格式的字节内容。
 // 可选参数 `rootTag` 用于指定 XML 的根标签。
 // md5:b83a924118f435fb
-// ff:
-// m:
-// rootTag:
 func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).Xml(rootTag...)
 	if err != nil {
@@ -71,9 +64,6 @@ func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 // EncodeWithIndent 将映射 `m` 编码为带缩进的 XML 格式的字节内容。
 // 可选参数 `rootTag` 用于指定 XML 根标签。
 // md5:4ce035684ef6a0cc
-// ff:
-// m:
-// rootTag:
 func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).XmlIndent("", "\t", rootTag...)
 	if err != nil {
@@ -83,8 +73,6 @@ func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, erro
 }
 
 // ToJson 将 `content` 作为 XML 格式转换为 JSON 格式的字节。 md5:ba7a69746da22ea8
-// ff:
-// content:
 func ToJson(content []byte) ([]byte, error) {
 	res, err := convert(content)
 	if err != nil {

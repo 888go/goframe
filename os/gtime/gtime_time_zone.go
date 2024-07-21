@@ -24,16 +24,14 @@ var (
 	zoneMu          sync.RWMutex
 )
 
-// SetTimeZone sets the time zone for current whole process.
-// The parameter `zone` is an area string specifying corresponding time zone,
-//
-// PLEASE VERY NOTE THAT:
-// 1. This should be called before package "time" import.
-// 2. This function should be called once.
-// 3. Please refer to issue: https://github.com/golang/go/issues/34814
-// ff:设置时区
-// zone:时区
-// err:错误
+// SetTimeZone 设置当前整个进程的时间区域。
+// 参数 `zone` 是一个指定对应时区的区域字符串，例如：Asia/Shanghai。
+// 
+// 请注意：
+// 1. 应在导入 "time" 包之前调用此函数。
+// 2. 此函数仅需调用一次。
+// 3. 请参阅问题：https://github.com/golang/go/issues/34814
+// md5:4d2c0d7e82a0e0f8
 func SetTimeZone(zone string) (err error) {
 	setTimeZoneMu.Lock()
 	defer setTimeZoneMu.Unlock()
@@ -82,9 +80,6 @@ func SetTimeZone(zone string) (err error) {
 }
 
 // ToLocation 将当前时间转换为指定时区的时间。 md5:ee4fd7d4de93340a
-// ff:转换时区Location
-// t:
-// location:时区
 func (t *Time) ToLocation(location *time.Location) *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.In(location)
@@ -92,9 +87,6 @@ func (t *Time) ToLocation(location *time.Location) *Time {
 }
 
 // ToZone 将当前时间转换为指定的时区，如 Asia/Shanghai。 md5:1226213d40f57eb2
-// ff:转换时区
-// t:
-// zone:时区
 func (t *Time) ToZone(zone string) (*Time, error) {
 	if location, err := t.getLocationByZoneName(zone); err == nil {
 		return t.ToLocation(location), nil
@@ -122,8 +114,6 @@ func (t *Time) getLocationByZoneName(name string) (location *time.Location, err 
 }
 
 // Local将时间转换为本地时区。 md5:8eaacff0234ddea5
-// ff:取本地时区
-// t:
 func (t *Time) Local() *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.Local()

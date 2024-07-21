@@ -38,7 +38,6 @@ const (
 )
 
 // DefaultConfig 创建并返回一个使用默认配置的配置对象。 md5:27f0cf63ebd5dd9e
-// ff:
 func DefaultConfig() Config {
 	return Config{
 		DefaultFile: defaultParsingFile,
@@ -48,9 +47,6 @@ func DefaultConfig() Config {
 }
 
 // SetConfig 设置视图的配置。 md5:44d304b99e74e865
-// ff:
-// view:
-// config:
 func (view *View) SetConfig(config Config) error {
 	var err error
 	if len(config.Paths) > 0 {
@@ -70,9 +66,9 @@ func (view *View) SetConfig(config Config) error {
 		view.SetDelimiters(config.Delimiters[0], config.Delimiters[1])
 	}
 	view.config = config
-// 清除全局模板对象缓存。
-// 这只是一个缓存，不要犹豫清空它。
-// md5:51c51fe68d143dd8
+	// 清除全局模板对象缓存。
+	// 这只是一个缓存，不要犹豫清空它。
+	// md5:51c51fe68d143dd8
 	templates.Clear()
 
 	intlog.Printf(context.TODO(), "SetConfig: %+v", view.config)
@@ -80,17 +76,14 @@ func (view *View) SetConfig(config Config) error {
 }
 
 // SetConfigWithMap 使用映射为视图设置配置。 md5:1e1d667c3b2ace2b
-// ff:
-// view:
-// m:
 func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 	if len(m) == 0 {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "configuration cannot be empty")
 	}
-// m 现在是 m 的浅拷贝。
-// 对 m 的任何修改都不会影响原始对象。
-// 这有点巧妙，不是吗？
-// md5:4d1dd38c4db57a79
+	// m 现在是 m 的浅拷贝。
+	// 对 m 的任何修改都不会影响原始对象。
+	// 这有点巧妙，不是吗？
+	// md5:4d1dd38c4db57a79
 	m = gutil.MapCopy(m)
 	// 最常用的单视图路径配置支持。 md5:4ebc24cd15a30d35
 	_, v1 := gutil.MapPossibleItemByKey(m, "paths")
@@ -112,9 +105,6 @@ func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 
 // SetPath 设置模板文件搜索的目录路径。参数 `path` 可以是绝对路径或相对路径，但建议使用绝对路径。
 // md5:abd751ab819d28b6
-// ff:
-// view:
-// path:
 func (view *View) SetPath(path string) error {
 	var (
 		ctx      = context.TODO()
@@ -169,9 +159,6 @@ func (view *View) SetPath(path string) error {
 }
 
 // AddPath 向搜索路径中添加一个绝对或相对路径。 md5:d279479528c86f4e
-// ff:
-// view:
-// path:
 func (view *View) AddPath(path string) error {
 	var (
 		ctx      = context.TODO()
@@ -225,9 +212,6 @@ func (view *View) AddPath(path string) error {
 
 // 将多个全局模板变量绑定到当前视图对象。需要注意的是，它不是并发安全的，这意味着如果在运行时从多个goroutine中调用它，会导致panic。
 // md5:b31929b349e74390
-// ff:
-// view:
-// data:
 func (view *View) Assigns(data Params) {
 	for k, v := range data {
 		view.data[k] = v
@@ -236,34 +220,21 @@ func (view *View) Assigns(data Params) {
 
 // Assign 将全局模板变量绑定到当前视图对象。需要注意的是，它不是线程安全的，这意味着如果在运行时从多个goroutine中调用它，会导致panic。
 // md5:7043c41fc2b3a0c3
-// ff:
-// view:
-// key:
-// value:
 func (view *View) Assign(key string, value interface{}) {
 	view.data[key] = value
 }
 
 // SetDefaultFile 为解析设置默认的模板文件。 md5:17f210ece0d189f6
-// ff:
-// view:
-// file:
 func (view *View) SetDefaultFile(file string) {
 	view.config.DefaultFile = file
 }
 
 // GetDefaultFile 返回默认的模板文件，用于解析。 md5:f72bb2dc04f3d4a4
-// ff:
-// view:
 func (view *View) GetDefaultFile() string {
 	return view.config.DefaultFile
 }
 
 // SetDelimiters 设置模板解析的自定义分隔符。 md5:a09465c3518f1023
-// ff:
-// view:
-// left:
-// right:
 func (view *View) SetDelimiters(left, right string) {
 	view.config.Delimiters = []string{left, right}
 }
@@ -271,9 +242,6 @@ func (view *View) SetDelimiters(left, right string) {
 // SetAutoEncode 启用/禁用自动 HTML 编码功能。
 // 当 AutoEncode 功能启用时，视图引擎会自动编码并提供安全的 HTML 输出，这对于防止 XSS 攻击很有好处。
 // md5:cd0107f5d2170f4f
-// ff:
-// view:
-// enable:
 func (view *View) SetAutoEncode(enable bool) {
 	view.config.AutoEncode = enable
 }
@@ -281,10 +249,6 @@ func (view *View) SetAutoEncode(enable bool) {
 // BindFunc 向当前视图对象注册一个名为 `name` 的自定义全局模板函数，
 // 使用提供的 `function` 函数。其中，`name` 是在模板内容中可被调用的函数名。
 // md5:20f79a4c8d0ba97a
-// ff:
-// view:
-// name:
-// function:
 func (view *View) BindFunc(name string, function interface{}) {
 	view.funcMap[name] = function
 	// Clear global template object cache.
@@ -295,9 +259,6 @@ func (view *View) BindFunc(name string, function interface{}) {
 // 映射的键是模板函数名称，
 // 映射的值是自定义函数的地址。
 // md5:2fe9bab0463cef27
-// ff:
-// view:
-// funcMap:
 func (view *View) BindFuncMap(funcMap FuncMap) {
 	for k, v := range funcMap {
 		view.funcMap[k] = v
@@ -307,9 +268,6 @@ func (view *View) BindFuncMap(funcMap FuncMap) {
 }
 
 // SetI18n 将i18n管理器绑定到当前视图引擎。 md5:8d1b88bd87c041ba
-// ff:
-// view:
-// manager:
 func (view *View) SetI18n(manager *gi18n.Manager) {
 	view.config.I18nManager = manager
 }

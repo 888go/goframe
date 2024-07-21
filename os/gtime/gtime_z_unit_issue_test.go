@@ -14,6 +14,8 @@ import (
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/test/gtest"
 )
+
+// https://github.com/gogf/gf/issues/1681. md5:2eac1ca19dcb940c
 func Test_Issue1681(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(gtime.New("2022-03-08T03:01:14-07:00").Local().Time, gtime.New("2022-03-08T10:01:14Z").Local().Time)
@@ -22,6 +24,10 @@ func Test_Issue1681(t *testing.T) {
 		t.Assert(gtime.New("2022-03-08T03:01:14+08:00").Local().Time, gtime.New("2022-03-07T19:01:14Z").Local().Time)
 	})
 }
+
+// https://github.com/gogf/gf/issues/2803
+// 
+// 这段注释引用的是GitHub上的一个 issue，地址为：https://github.com/gogf/gf/issues/2803。gf可能是Go语言的一个库（gogf）的简称，issue号2803表示该库中的一个已知问题或特性请求。具体的内容需要查看该issue页面以获取详细信息。 md5:1ee3164a38e80927
 func Test_Issue2803(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		newTime := gtime.New("2023-07-26").LayoutTo("2006-01")
@@ -33,6 +39,10 @@ func Test_Issue2803(t *testing.T) {
 		t.Assert(newTime.Second(), 0)
 	})
 }
+
+// https://github.com/gogf/gf/issues/3558
+// 
+// 这段注释引用的是一个GitHub问题或拉取请求，地址为：https://github.com/gogf/gf/issues/3558。这可能是关于GF（Golang Foundation）项目的一个问题或者建议，3558是该问题或拉取请求的编号。具体的内容需要查看相关页面以了解详细信息。 md5:53534467109d62b9
 func Test_Issue3558(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		timeStr := "1880-10-24T00:00:00+08:05"

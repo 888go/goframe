@@ -8,18 +8,11 @@
 package ghttp
 
 // SetRewrite 为服务器设置静态URI的重写规则。 md5:de7f1cfb68c0440c
-// ff:设置路由URI重写规则
-// s:
-// uri:URI
-// rewrite:新URI
 func (s *Server) SetRewrite(uri string, rewrite string) {
 	s.config.Rewrites[uri] = rewrite
 }
 
 // SetRewriteMap 设置服务器的重写映射。 md5:61d51060723e66b8
-// ff:设置路由URI重写规则Map
-// s:
-// rewrites:重写规则Map
 func (s *Server) SetRewriteMap(rewrites map[string]string) {
 	for k, v := range rewrites {
 		s.config.Rewrites[k] = v
@@ -27,9 +20,6 @@ func (s *Server) SetRewriteMap(rewrites map[string]string) {
 }
 
 // SetRouteOverWrite 设置服务器的路由覆盖。 md5:613439182bb14ec2
-// ff:设置路由允许覆盖
-// s:
-// enabled:开启
 func (s *Server) SetRouteOverWrite(enabled bool) {
 	s.config.RouteOverWrite = enabled
 }

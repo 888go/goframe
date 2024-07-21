@@ -17,11 +17,11 @@ import (
 var (
 	regexMu = sync.RWMutex{}
 
-// 正则表达式对象的缓存。
-// 注意：
-// 1. 使用 sync.RWMutex 确保并发安全性。
-// 2. 这个映射表中没有过期逻辑。
-// md5:645e245ad93c001d
+	// 正则表达式对象的缓存。
+	// 注意：
+	// 1. 使用 sync.RWMutex 确保并发安全性。
+	// 2. 这个映射表中没有过期逻辑。
+	// md5:645e245ad93c001d
 	regexMap = make(map[string]*regexp.Regexp)
 )
 
@@ -39,9 +39,9 @@ func getRegexp(pattern string) (regex *regexp.Regexp, err error) {
 	if regex != nil {
 		return
 	}
-// 如果该模式不存在于缓存中，
-// 则编译该模式并创建一个。
-// md5:16abd6a4a92df88a
+	// 如果该模式不存在于缓存中，
+	// 则编译该模式并创建一个。
+	// md5:16abd6a4a92df88a
 	if regex, err = regexp.Compile(pattern); err != nil {
 		err = gerror.Wrapf(err, `regexp.Compile failed for pattern "%s"`, pattern)
 		return

@@ -11,18 +11,17 @@ import (
 	"context"
 )
 
-	// Go 创建一个新的异步 goroutine 函数，并指定了恢复函数。
-	//
-	// 参数 `recoverFunc` 在 `goroutineFunc` 执行过程中发生任何 panic 时被调用。
-	// 如果 `recoverFunc` 为 nil，它将忽略 `goroutineFunc` 中的 panic，且不会向父 goroutine 抛出 panic。
-	//
-	// 但是要注意，如果 `recoverFunc` 自身也抛出 panic，这个 panic 将会被抛给父 goroutine。
-	// md5:3820395064a9e843
-// ff:
+// Go 创建一个新的异步 goroutine 函数，并指定了恢复函数。
+//
+// 参数 `recoverFunc` 在 `goroutineFunc` 执行过程中发生任何 panic 时被调用。
+// 如果 `recoverFunc` 为 nil，它将忽略 `goroutineFunc` 中的 panic，且不会向父 goroutine 抛出 panic。
+//
+// 但是要注意，如果 `recoverFunc` 自身也抛出 panic，这个 panic 将会被抛给父 goroutine。
+// md5:3820395064a9e843
 func Go(
 	ctx context.Context,
-	goroutineFunc func(ctx context.Context),//qm:协程函数  cz:goroutineFunc func(  
-	recoverFunc func(ctx context.Context, exception error),//qm:异常处理函数  cz:recoverFunc func(  
+	goroutineFunc func(ctx context.Context),
+	recoverFunc func(ctx context.Context, exception error),
 ) {
 	if goroutineFunc == nil {
 		return

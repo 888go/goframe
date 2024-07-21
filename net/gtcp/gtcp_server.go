@@ -43,8 +43,6 @@ var serverMapping = gmap.NewStrAnyMap(true)
 
 // GetServer 返回指定名称的 TCP 服务器，如果不存在，则返回一个新创建的默认名为 `name` 的 TCP 服务器。参数 `name` 用于指定 TCP 服务器的名称。
 // md5:f6bb57410cf2ca98
-// ff:
-// name:
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
@@ -58,10 +56,6 @@ func GetServer(name ...interface{}) *Server {
 // NewServer 创建并返回一个新的普通TCP服务器。
 // 参数 `name` 是可选的，用于指定服务器的实例名称。
 // md5:ce4abdc7a25f75da
-// ff:
-// address:
-// handler:
-// name:
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -76,11 +70,6 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 // NewServerTLS 创建并返回一个支持TLS的TCP服务器。
 // 参数`name`是可选的，用于指定服务器的实例名称。
 // md5:102d98ca307029b3
-// ff:
-// address:
-// tlsConfig:
-// handler:
-// name:
 func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), name ...string) *Server {
 	s := NewServer(address, handler, name...)
 	s.SetTLSConfig(tlsConfig)
@@ -90,12 +79,6 @@ func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), na
 // NewServerKeyCrt 创建并返回一个支持TLS的TCP服务器。
 // 参数 `name` 是可选的，用于指定服务器的实例名称。
 // md5:65a6856829628fe8
-// ff:
-// address:
-// crtFile:
-// keyFile:
-// handler:
-// name:
 func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name ...string) (*Server, error) {
 	s := NewServer(address, handler, name...)
 	if err := s.SetTLSKeyCrt(crtFile, keyFile); err != nil {
@@ -105,33 +88,21 @@ func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name
 }
 
 // SetAddress 设置服务器的监听地址。 md5:35306d25b7cbc244
-// ff:
-// s:
-// address:
 func (s *Server) SetAddress(address string) {
 	s.address = address
 }
 
 // GetAddress 获取服务器的监听地址。 md5:6085c2f0086d87f9
-// ff:
-// s:
 func (s *Server) GetAddress() string {
 	return s.address
 }
 
 // SetHandler 设置服务器的连接处理器。 md5:10bacdc88ff59cee
-// ff:
-// s:
-// handler:
 func (s *Server) SetHandler(handler func(*Conn)) {
 	s.handler = handler
 }
 
 // SetTLSKeyCrt 设置服务器TLS配置的证书和密钥文件。 md5:dd19415f9056b27d
-// ff:
-// s:
-// crtFile:
-// keyFile:
 func (s *Server) SetTLSKeyCrt(crtFile, keyFile string) error {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -142,16 +113,11 @@ func (s *Server) SetTLSKeyCrt(crtFile, keyFile string) error {
 }
 
 // SetTLSConfig 设置服务器的TLS配置。 md5:02f67dcfad23906c
-// ff:
-// s:
-// tlsConfig:
 func (s *Server) SetTLSConfig(tlsConfig *tls.Config) {
 	s.tlsConfig = tlsConfig
 }
 
 // Close 方法关闭监听器并停止服务器。 md5:494fcac465675910
-// ff:
-// s:
 func (s *Server) Close() error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -162,9 +128,6 @@ func (s *Server) Close() error {
 }
 
 // Run 开始运行TCP服务器。 md5:b107bdcd45f1ccdc
-// ff:
-// s:
-// err:
 func (s *Server) Run() (err error) {
 	if s.handler == nil {
 		err = gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
@@ -207,8 +170,6 @@ func (s *Server) Run() (err error) {
 }
 
 // GetListenedAddress 获取并返回当前服务器所监听的地址字符串。 md5:51d352ffec9dc329
-// ff:
-// s:
 func (s *Server) GetListenedAddress() string {
 	if !gstr.Contains(s.address, FreePortAddress) {
 		return s.address
@@ -222,8 +183,6 @@ func (s *Server) GetListenedAddress() string {
 }
 
 // GetListenedPort 获取并返回当前服务器监听的其中一个端口。 md5:98e33a51d8d8309c
-// ff:
-// s:
 func (s *Server) GetListenedPort() int {
 	s.mu.Lock()
 	defer s.mu.Unlock()

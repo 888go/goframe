@@ -24,10 +24,6 @@ func newAdapterMemoryExpireSets() *adapterMemoryExpireSets {
 	}
 }
 
-// ff:取值
-// d:
-// key:
-// result:
 func (d *adapterMemoryExpireSets) Get(key int64) (result *gset.Set) {
 	d.mu.RLock()
 	result = d.expireSets[key]
@@ -35,10 +31,6 @@ func (d *adapterMemoryExpireSets) Get(key int64) (result *gset.Set) {
 	return
 }
 
-// ff:
-// d:
-// key:
-// result:
 func (d *adapterMemoryExpireSets) GetOrNew(key int64) (result *gset.Set) {
 	if result = d.Get(key); result != nil {
 		return
@@ -54,9 +46,6 @@ func (d *adapterMemoryExpireSets) GetOrNew(key int64) (result *gset.Set) {
 	return
 }
 
-// ff:
-// d:
-// key:
 func (d *adapterMemoryExpireSets) Delete(key int64) {
 	d.mu.Lock()
 	delete(d.expireSets, key)

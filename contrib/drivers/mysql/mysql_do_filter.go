@@ -14,15 +14,6 @@ import (
 )
 
 // DoFilter 在将SQL提交到数据库之前进行处理。 md5:e56455a7432db765
-// ff:
-// d:
-// ctx:
-// link:
-// sql:
-// args:
-// newSql:
-// newArgs:
-// err:
 func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return d.Core.DoFilter(ctx, link, sql, args)
 }

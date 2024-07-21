@@ -19,23 +19,15 @@ import (
 	"github.com/gogf/gf/v2/util/gtag"
 )
 
-// Struct maps the params key-value pairs to the corresponding struct object's attributes.
-// The third parameter `mapping` is unnecessary, indicating the mapping rules between the
-// custom key name and the attribute name(case-sensitive).
-//
-//  1. The `params` can be any type of map/struct, usually a map.
-//  2. The `pointer` should be type of *struct/**struct, which is a pointer to struct object
-//     or struct pointer.
-//  3. Only the public attributes of struct object can be mapped.
-//  4. If `params` is a map, the key of the map `params` can be lowercase.
-//     It will automatically convert the first letter of the key to uppercase
-//     in mapping procedure to do the matching.
-//     It ignores the map key, if it does not match.
-// ff:
-// params:
-// pointer:
-// paramKeyToAttrMap:
-// err:
+// 结构体将参数的键值对映射到对应结构对象的属性。
+// 第三个参数 `mapping` 不必要，表示自定义键名和属性名之间的映射规则（区分大小写）。
+// 
+// 注意：
+// 1. `params` 可以是任何类型的 map/struct，通常为 map。
+// 2. `pointer` 应该是 *struct/**struct 类型，即指向结构体对象或结构体指针。
+// 3. 只有结构体对象的公共属性可以被映射。
+// 4. 如果 `params` 是一个 map，其键 `params` 可以是小写。在映射过程中，它会自动将键的首字母转换为大写进行匹配。如果键不匹配，它将忽略该键。
+// md5:b39a46da903b06f5
 func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
@@ -43,11 +35,6 @@ func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[st
 // StructTag 作为 Struct 的功能，但同时也支持优先级标签特性。这个特性用于获取 `params` 键值对中的指定标签，并将其映射到结构体属性名上。
 // 参数 `priorityTag` 支持多个标签，这些标签之间可以使用逗号 `,` 进行连接。
 // md5:14d47a8c22737303
-// ff:
-// params:
-// pointer:
-// priorityTag:
-// err:
 func StructTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStruct(params, pointer, nil, priorityTag)
 }
@@ -120,9 +107,9 @@ func doStruct(
 		pointerElemReflectValue = pointerReflectValue.Elem()
 	}
 
-// 如果`params`和`pointer`是相同类型，直接进行赋值操作。
-// 为了性能优化。
-// md5:87eefbed1426eef0
+	// 如果`params`和`pointer`是相同类型，直接进行赋值操作。
+	// 为了性能优化。
+	// md5:87eefbed1426eef0
 	if ok = doConvertWithTypeCheck(paramsReflectValue, pointerElemReflectValue); ok {
 		return nil
 	}
@@ -137,9 +124,9 @@ func doStruct(
 		return err
 	}
 
-// 如果必要，它会自动创建结构体对象。
-// 例如，如果`pointer`是**User（双星号表示指针），那么`elem`就是*User，即User类型的指针。
-// md5:172757349701f610
+	// 如果必要，它会自动创建结构体对象。
+	// 例如，如果`pointer`是**User（双星号表示指针），那么`elem`就是*User，即User类型的指针。
+	// md5:172757349701f610
 	if pointerElemReflectValue.Kind() == reflect.Ptr {
 		if !pointerElemReflectValue.IsValid() || pointerElemReflectValue.IsNil() {
 			e := reflect.New(pointerElemReflectValue.Type().Elem())
@@ -151,11 +138,11 @@ func doStruct(
 				}
 			}()
 		}
-// 如果v, ok := pointerElemReflectValue.Interface().(iUnmarshalValue); ok {
-// 	return v.UnmarshalValue(params)
-// }
-// 请注意，这里是`pointerElemReflectValue`而不是`pointerReflectValue`。
-// md5:722eb6b1c6132d70
+		// 如果v, ok := pointerElemReflectValue.Interface().(iUnmarshalValue); ok {
+		// 	return v.UnmarshalValue(params)
+		// }
+		// 请注意，这里是`pointerElemReflectValue`而不是`pointerReflectValue`。
+		// md5:722eb6b1c6132d70
 		if ok, err = bindVarToReflectValueWithInterfaceCheck(pointerElemReflectValue, paramsInterface); ok {
 			return err
 		}
@@ -163,9 +150,9 @@ func doStruct(
 		pointerElemReflectValue = pointerElemReflectValue.Elem()
 	}
 
-// paramsMap 是一个类型为 map[string]interface{} 的变量，用于存储参数。
-// 不要在這裡使用 MapDeep。
-// md5:96735ea71b035d62
+	// paramsMap 是一个类型为 map[string]interface{} 的变量，用于存储参数。
+	// 不要在這裡使用 MapDeep。
+	// md5:96735ea71b035d62
 	paramsMap := doMapConvert(paramsInterface, recursiveTypeAuto, true)
 	if paramsMap == nil {
 		return gerror.NewCodef(
@@ -213,24 +200,24 @@ func doStruct(
 		var fieldTagName = getTagNameFromField(elemFieldType, priorityTagArray)
 		// 也许它嵌入了struct。 md5:e77a8f08191e1bd2
 		if elemFieldType.Anonymous {
-// 定义一个名为Name的结构体，其中包含两个字段：LastName和FirstName，它们都有`json`标签进行标记
-// ```
-// type Name struct {
-//    LastName  string `json:"lastName"`
-//    FirstName string `json:"firstName"`
-// }
-// ```
-// 
-// 定义一个User结构体，其中包含一个嵌套的Name结构体，并使用`json:"name"`对整个嵌套结构进行标记
-// ```
-// type User struct {
-//     Name `json:"name"`
-//     // ...
-// }
-// ```
-// 
-// 只有当Name结构体中包含fieldTag（字段标签）时，才会记录这些信息
-// md5:d42e389449351045
+			// 定义一个名为Name的结构体，其中包含两个字段：LastName和FirstName，它们都有`json`标签进行标记
+			// ```
+			// type Name struct {
+			//    LastName  string `json:"lastName"`
+			//    FirstName string `json:"firstName"`
+			// }
+			// ```
+			// 
+			// 定义一个User结构体，其中包含一个嵌套的Name结构体，并使用`json:"name"`对整个嵌套结构进行标记
+			// ```
+			// type User struct {
+			//     Name `json:"name"`
+			//     			// ...
+			// }
+			// ```
+			// 
+			// 只有当Name结构体中包含fieldTag（字段标签）时，才会记录这些信息
+			// md5:d42e389449351045
 			if fieldTagName != "" {
 				toBeConvertedFieldNameToInfoMap[elemFieldName] = toBeConvertedFieldInfo{
 					FieldIndex:     elemFieldType.Index[0],
@@ -275,9 +262,9 @@ func doStruct(
 		}
 	}
 
-// 首先，根据自定义的映射规则进行搜索。
-// 如果找到了可能的直接赋值关系，减少后续映射搜索的数量。
-// md5:50dd567944f99367
+	// 首先，根据自定义的映射规则进行搜索。
+	// 如果找到了可能的直接赋值关系，减少后续映射搜索的数量。
+	// md5:50dd567944f99367
 	var fieldInfo toBeConvertedFieldInfo
 	for paramKey, fieldName := range paramKeyToAttrMap {
 		// 防止设置不存在的字段. md5:408a34ea9e6a0539
@@ -328,14 +315,14 @@ func getTagNameFromField(field reflect.StructField, priorityTags []string) strin
 	for _, tag := range priorityTags {
 		value, ok := field.Tag.Lookup(tag)
 		if ok {
-// 如果标签字符串中还有其他内容，
-// 它会使用以逗号','分隔的第一部分。
-// 例如：
-// `orm:"id, priority"`
-// `orm:"name, with:uid=id"` 
-// 
-// 这段注释说明了一个Go语言中的ORM（对象关系映射）相关代码。它解释了当解析一个包含多个属性的标签字符串时，程序会选择以逗号分隔的第一个属性作为主要处理的部分。如果标签格式为`attribute1, attribute2`，则只会使用`attribute1`。另一个例子展示了如何在`name`属性中使用额外的条件，即`with:uid=id`。
-// md5:fab9db8addb2ccc4
+			// 如果标签字符串中还有其他内容，
+			// 它会使用以逗号','分隔的第一部分。
+			// 例如：
+			// `orm:"id, priority"`
+			// `orm:"name, with:uid=id"` 
+			// 
+			// 这段注释说明了一个Go语言中的ORM（对象关系映射）相关代码。它解释了当解析一个包含多个属性的标签字符串时，程序会选择以逗号分隔的第一个属性作为主要处理的部分。如果标签格式为`attribute1, attribute2`，则只会使用`attribute1`。另一个例子展示了如何在`name`属性中使用额外的条件，即`with:uid=id`。
+			// md5:fab9db8addb2ccc4
 			array := strings.Split(value, ",")
 			// json:",omitempty"
 			trimmedTagName := strings.TrimSpace(array[0])
@@ -390,9 +377,9 @@ func bindVarToStructAttrWithFieldIndex(
 	if empty.IsNil(value) {
 		structFieldValue.Set(reflect.Zero(structFieldValue.Type()))
 	} else {
-// 尝试调用自定义转换器。
-// 问题：https://github.com/gogf/gf/issues/3099
-// md5:e874679d6ecc39f0
+		// 尝试调用自定义转换器。
+		// 问题：https:		//github.com/gogf/gf/issues/3099
+		// md5:e874679d6ecc39f0
 		var (
 			customConverterInput reflect.Value
 			ok                   bool
@@ -405,9 +392,9 @@ func bindVarToStructAttrWithFieldIndex(
 			return
 		}
 
-// 对某些类型进行特殊处理：
-// - 重写stdlib中time.Time类型的默认类型转换逻辑。
-// md5:39ca7f7684bdc13c
+		// 对某些类型进行特殊处理：
+		// - 重写stdlib中time.Time类型的默认类型转换逻辑。
+		// md5:39ca7f7684bdc13c
 		var structFieldTypeName = structFieldValue.Type().String()
 		switch structFieldTypeName {
 		case "time.Time", "*time.Time":
@@ -417,9 +404,9 @@ func bindVarToStructAttrWithFieldIndex(
 				ReferValue: structFieldValue,
 			})
 			return
-// 在递归中保持时区一致
-// 问题：https://github.com/gogf/gf/issues/2980
-// md5:1d09e937a28bf051
+		// 在递归中保持时区一致
+		// 问题：https:		//github.com/gogf/gf/issues/2980
+		// md5:1d09e937a28bf051
 		case "*gtime.Time", "gtime.Time":
 			doConvertWithReflectValueSet(structFieldValue, doConvertInput{
 				FromValue:  value,
@@ -545,9 +532,9 @@ func bindVarToReflectValue(
 			structFieldValue.Set(reflect.ValueOf(value).Convert(structFieldValue.Type()))
 		}
 
-// 注意，切片元素的类型可能是结构体，
-// 因此它内部使用了一个名为Struct的函数来进行转换。
-// md5:b8519d4d1a736c40
+	// 注意，切片元素的类型可能是结构体，
+	// 因此它内部使用了一个名为Struct的函数来进行转换。
+	// md5:b8519d4d1a736c40
 	case reflect.Slice, reflect.Array:
 		var (
 			reflectArray reflect.Value

@@ -5,8 +5,8 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-	// gtree 包提供了并发安全/不安全的树容器。
-	//
-	// 部分实现来源于：https:	//github.com/emirpasic/gods
-	// md5:d7058919da3c4b80
+// gtree 包提供了并发安全/不安全的树容器。
+//
+// 部分实现来源于：https://github.com/emirpasic/gods
+// md5:d7058919da3c4b80
 package gtree

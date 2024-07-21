@@ -102,11 +102,11 @@ func Benchmark_Reflect_PPStruct_PStruct(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		v1 := reflect.ValueOf(&structPointerNil)
 		v2 := reflect.ValueOf(structPointer)
-//如果v1的Kind()为指针类型 {
-// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
-// 将v2的值赋给elem
-//}
-// md5:f0c12588cbe6880e
+		//如果v1的Kind()为指针类型 {
+		// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
+		// 将v2的值赋给elem
+		//}
+		// md5:f0c12588cbe6880e
 		v1.Elem().Set(v2)
 	}
 }
@@ -122,11 +122,11 @@ func Benchmark_Reflect_PStruct_Struct(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		v1 := reflect.ValueOf(structPointer)
 		v2 := reflect.ValueOf(structObj)
-//如果v1的Kind()为指针类型 {
-// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
-// 将v2的值赋给elem
-//}
-// md5:f0c12588cbe6880e
+		//如果v1的Kind()为指针类型 {
+		// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
+		// 将v2的值赋给elem
+		//}
+		// md5:f0c12588cbe6880e
 		v1.Elem().Set(v2)
 	}
 }
@@ -142,11 +142,11 @@ func Benchmark_Reflect_PStructs_Structs(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		v1 := reflect.ValueOf(&structSliceNil)
 		v2 := reflect.ValueOf(structSlice)
-//如果v1的Kind()为指针类型 {
-// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
-// 将v2的值赋给elem
-//}
-// md5:f0c12588cbe6880e
+		//如果v1的Kind()为指针类型 {
+		// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
+		// 将v2的值赋给elem
+		//}
+		// md5:f0c12588cbe6880e
 		v1.Elem().Set(v2)
 	}
 }
@@ -162,11 +162,11 @@ func Benchmark_Reflect_PPStructs_PStructs(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		v1 := reflect.ValueOf(&structPointerSliceNil)
 		v2 := reflect.ValueOf(structPointerSlice)
-//如果v1的Kind()为指针类型 {
-// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
-// 将v2的值赋给elem
-//}
-// md5:f0c12588cbe6880e
+		//如果v1的Kind()为指针类型 {
+		// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
+		// 将v2的值赋给elem
+		//}
+		// md5:f0c12588cbe6880e
 		v1.Elem().Set(v2)
 	}
 }

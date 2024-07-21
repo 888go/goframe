@@ -196,9 +196,9 @@ func Test_Line(t *testing.T) {
 		fmt.Println(content)
 		t.Assert(gstr.Count(content, defaultLevelPrefixes[LEVEL_DEBU]), 1)
 		t.Assert(gstr.Count(content, "1 2 3"), 1)
-// t.Assert断言字符串gstr在content中出现的".go"子串次数为1
-// t.Assert断言content中包含gfile.Separator（假设是一个路径分隔符），结果为true
-// md5:1411e0e8f0387662
+		// t.Assert断言字符串gstr在content中出现的".go"子串次数为1
+		// t.Assert断言content中包含gfile.Separator（假设是一个路径分隔符），结果为true
+		// md5:1411e0e8f0387662
 	})
 	gtest.C(t, func(t *gtest.T) {
 		path := gfile.Temp(gtime.TimestampNanoStr())

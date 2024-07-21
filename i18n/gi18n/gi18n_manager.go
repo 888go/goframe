@@ -65,8 +65,6 @@ var (
 // 可选参数 `option` 用于指定国际化管理器的自定义选项。
 // 如果未传递该参数，它将使用默认选项。
 // md5:79f31dcd2ff8cf56
-// ff:
-// options:
 func New(options ...Options) *Manager {
 	var opts Options
 	var pathType = pathTypeNone
@@ -133,9 +131,6 @@ func (o *Options) checkPathType(dirPath string) pathType {
 }
 
 // SetPath 设置存储i18n文件的目录路径。 md5:b39e1d244949dcf8
-// ff:
-// m:
-// path:
 func (m *Manager) SetPath(path string) error {
 	pathType := m.options.checkPathType(path)
 	if pathType == pathTypeNone {
@@ -150,59 +145,34 @@ func (m *Manager) SetPath(path string) error {
 }
 
 // SetLanguage 设置翻译器的语言。 md5:50b09b0bb0944dc1
-// ff:
-// m:
-// language:
 func (m *Manager) SetLanguage(language string) {
 	m.options.Language = language
 	intlog.Printf(context.TODO(), `SetLanguage: %s`, m.options.Language)
 }
 
 // SetDelimiters 为翻译器设置分隔符。 md5:f84b046b11204dc7
-// ff:
-// m:
-// left:
-// right:
 func (m *Manager) SetDelimiters(left, right string) {
 	m.pattern = fmt.Sprintf(`%s(.+?)%s`, gregex.Quote(left), gregex.Quote(right))
 	intlog.Printf(context.TODO(), `SetDelimiters: %v`, m.pattern)
 }
 
 // T 是为了方便而对 Translate 的别名。 md5:c07a6fa99a429eb3
-// ff:
-// m:
-// ctx:
-// content:
 func (m *Manager) T(ctx context.Context, content string) string {
 	return m.Translate(ctx, content)
 }
 
 // Tf是TranslateFormat的别名，为了方便起见。 md5:bdb209b24c669f5a
-// ff:
-// m:
-// ctx:
-// format:
-// values:
 func (m *Manager) Tf(ctx context.Context, format string, values ...interface{}) string {
 	return m.TranslateFormat(ctx, format, values...)
 }
 
 // TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
 // md5:2806a81d6db86c7f
-// ff:
-// m:
-// ctx:
-// format:
-// values:
 func (m *Manager) TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return fmt.Sprintf(m.Translate(ctx, format), values...)
 }
 
 // Translate 使用配置的语言翻译`content`。 md5:8f8b7d32e0b26a99
-// ff:
-// m:
-// ctx:
-// content:
 func (m *Manager) Translate(ctx context.Context, content string) string {
 	m.init(ctx)
 	m.mu.RLock()
@@ -238,10 +208,6 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 // GetContent 获取并返回给定键和指定语言的配置内容。
 // 如果未找到，将返回一个空字符串。
 // md5:c64a3a803ac07e38
-// ff:
-// m:
-// ctx:
-// key:
 func (m *Manager) GetContent(ctx context.Context, key string) string {
 	m.init(ctx)
 	m.mu.RLock()

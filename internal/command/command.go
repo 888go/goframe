@@ -112,14 +112,14 @@ func GetArgAll() []string {
 	return defaultParsedArgs
 }
 
-			// GetOptWithEnv 返回指定 `key` 的命令行参数。
-			// 如果该参数不存在，则返回指定 `key` 的环境变量。
-			// 如果两者都不存在，它将返回默认值 `def`。
-			//
-			// 获取规则：
-			// 1. 命令行参数采用小写格式，例如：gf.package.variable；
-			// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。
-			// md5:13bcb9c2795488a1
+// GetOptWithEnv 返回指定 `key` 的命令行参数。
+// 如果该参数不存在，则返回指定 `key` 的环境变量。
+// 如果两者都不存在，它将返回默认值 `def`。
+//
+// 获取规则：
+// 1. 命令行参数采用小写格式，例如：gf.package.variable；
+// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。
+// md5:13bcb9c2795488a1
 func GetOptWithEnv(key string, def ...string) string {
 	cmdKey := strings.ToLower(strings.ReplaceAll(key, "_", "."))
 	if ContainsOpt(cmdKey) {

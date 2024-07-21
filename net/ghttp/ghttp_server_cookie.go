@@ -39,8 +39,6 @@ type cookieItem struct {
 // 如果已经存在与给定请求匹配的cookie对象，它将检索并返回该对象。
 // 如果不存在与给定请求匹配的cookie对象，它将创建一个新的cookie对象并返回。
 // md5:5b2b3a376a2f6162
-// ff:取cookie对象
-// r:
 func GetCookie(r *Request) *Cookie {
 	if r.Cookie != nil {
 		return r.Cookie
@@ -72,8 +70,6 @@ func (c *Cookie) init() {
 }
 
 // Map将Cookie项作为map[string]string返回。 md5:6d265855ff6356fa
-// ff:取Map
-// c:
 func (c *Cookie) Map() map[string]string {
 	c.init()
 	m := make(map[string]string)
@@ -84,9 +80,6 @@ func (c *Cookie) Map() map[string]string {
 }
 
 // Contains 检查给定的键是否存在于cookie中且未过期。 md5:acb79130bbbf78e6
-// ff:是否已过期
-// c:
-// key:名称
 func (c *Cookie) Contains(key string) bool {
 	c.init()
 	if r, ok := c.data[key]; ok {
@@ -98,11 +91,6 @@ func (c *Cookie) Contains(key string) bool {
 }
 
 // Set 使用默认域名、路径和过期时间来设置cookie项。 md5:66be80c8c6c07dc1
-// yx:true
-// ff:设置值
-// c:
-// key:
-// value:
 func (c *Cookie) Set(key, value string) {
 	c.SetCookie(
 		key,
@@ -121,14 +109,6 @@ func (c *Cookie) Set(key, value string) {
 // SetCookie 设置具有给定域名、路径和过期时间的cookie项。
 // 可选参数`options`指定了额外的安全配置，通常为空。
 // md5:2afc45e40597ce0d
-// ff:设置cookie
-// c:
-// key:名称
-// value:值
-// domain:域名
-// path:路径
-// maxAge:最大存活时长
-// options:安全配置项
 func (c *Cookie) SetCookie(key, value, domain, path string, maxAge time.Duration, options ...CookieOptions) {
 	c.init()
 	config := CookieOptions{}
@@ -153,9 +133,6 @@ func (c *Cookie) SetCookie(key, value, domain, path string, maxAge time.Duration
 }
 
 // SetHttpCookie 使用*http.Cookie设置cookie。 md5:de525635cedd10e4
-// ff:设置httpcookie
-// c:
-// httpCookie:
 func (c *Cookie) SetHttpCookie(httpCookie *http.Cookie) {
 	c.init()
 	c.data[httpCookie.Name] = &cookieItem{
@@ -164,16 +141,11 @@ func (c *Cookie) SetHttpCookie(httpCookie *http.Cookie) {
 }
 
 // GetSessionId 从cookie中检索并返回session ID。 md5:4b41d62448c6f135
-// ff:取SessionId
-// c:
 func (c *Cookie) GetSessionId() string {
 	return c.Get(c.server.GetSessionIdName()).String()
 }
 
 // SetSessionId 在cookie中设置会话ID。 md5:56899c22c78f2267
-// ff:设置SessionId到Cookie
-// c:
-// id:
 func (c *Cookie) SetSessionId(id string) {
 	c.SetCookie(
 		c.server.GetSessionIdName(),
@@ -192,10 +164,6 @@ func (c *Cookie) SetSessionId(id string) {
 // Get 获取并返回具有指定键的值。
 // 如果指定的键不存在，并且提供了默认值`def`，则返回`def`。
 // md5:f137dd1311660ee4
-// ff:取值
-// c:
-// key:名称
-// def:默认值
 func (c *Cookie) Get(key string, def ...string) *gvar.Var {
 	c.init()
 	if r, ok := c.data[key]; ok {
@@ -211,9 +179,6 @@ func (c *Cookie) Get(key string, def ...string) *gvar.Var {
 
 // Remove 从使用默认域名和路径的cookie中删除指定键及其值。实际上，它告诉HTTP客户端该cookie已过期，下次不要将其发送到服务器。
 // md5:4c429c6b33ce790c
-// ff:删除值
-// c:
-// key:名称
 func (c *Cookie) Remove(key string) {
 	c.SetCookie(
 		key,
@@ -226,18 +191,11 @@ func (c *Cookie) Remove(key string) {
 
 // RemoveCookie 使用给定的域名和路径从cookie中删除指定的键及其值。实际上，它告诉HTTP客户端该cookie已过期，下次不要将其发送到服务器。
 // md5:a437da6ed4ded047
-// ff:删除cookie
-// c:
-// key:名称
-// domain:域名
-// path:路径
 func (c *Cookie) RemoveCookie(key, domain, path string) {
 	c.SetCookie(key, "", domain, path, -24*time.Hour)
 }
 
 // Flush 将cookie项输出到客户端。 md5:77b1f132a9910559
-// ff:输出
-// c:
 func (c *Cookie) Flush() {
 	if len(c.data) == 0 {
 		return

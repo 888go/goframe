@@ -10,16 +10,13 @@ package gconv
 import "github.com/gogf/gf/v2/internal/json"
 
 // SliceMap 是 Maps 的别名。 md5:af436f87335633ac
-// ff:SliceMap别名
-// any:值
-// option:
 func SliceMap(any interface{}, option ...MapOption) []map[string]interface{} {
 	return Maps(any, option...)
 }
 
-// SliceMapDeep is alias of MapsDeep.
-// ff:SliceMapDeep别名
-// any:
+// SliceMapDeep 是 MapsDeep 的别名。
+// 不推荐使用：请改用 SliceMap。
+// md5:e577a1254364096d
 func SliceMapDeep(any interface{}) []map[string]interface{} {
 	return MapsDeep(any)
 }
@@ -27,9 +24,6 @@ func SliceMapDeep(any interface{}) []map[string]interface{} {
 // Maps 将 `value` 转换为 []map[string]interface{} 类型。
 // 注意，如果 `value` 是字符串或[]byte类型，它会自动检查并转换为json字符串到 []map。
 // md5:cff297515bb58eac
-// ff:取Map切片
-// value:值
-// option:选项
 func Maps(value interface{}, option ...MapOption) []map[string]interface{} {
 	if value == nil {
 		return nil
@@ -73,12 +67,11 @@ func Maps(value interface{}, option ...MapOption) []map[string]interface{} {
 	}
 }
 
-// MapsDeep converts `value` to []map[string]interface{} recursively.
+// MapsDeep 将 `value` 递归地转换为 []map[string]interface{} 类型。
 //
-// TODO completely implement the recursive converting for all types.
-// ff:取Map切片_递归
-// value:值
-// tags:值标签
+// TODO：完全实现所有类型的递归转换。
+// 已弃用：推荐使用 Maps 替代。
+// md5:4fca16e80380d63d
 func MapsDeep(value interface{}, tags ...string) []map[string]interface{} {
 	if value == nil {
 		return nil

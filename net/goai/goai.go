@@ -5,8 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-// Package goai implements and provides document generating for OpenApi specification.
+// 包 goai 实现并提供针对 OpenApi 规范的文档生成。
 //
+// https://editor.swagger.io/
+// md5:cb37ff4d3e18479e
 package goai
 
 import (
@@ -22,7 +24,12 @@ import (
 	"github.com/gogf/gf/v2/util/gtag"
 )
 
-// OpenApiV3 is the structure defined from:
+// OpenApiV3 是根据以下规范定义的结构体：
+// https://swagger.io/specification/
+// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md
+// 
+// 这个注释说明OpenApiV3这个结构体是依据Swagger/OpenAPI规范定义的，具体参照了给定的两个链接，分别指向Swagger官方网站的规范描述和OpenAPI Specification在GitHub上的3.0.0版本文档。
+// md5:0153ee143f23e076
 type OpenApiV3 struct {
 	Config       Config                `json:"-"`
 	OpenAPI      string                `json:"openapi"`
@@ -81,7 +88,6 @@ var (
 )
 
 // New 创建并返回一个实现了OpenApiV3接口的对象。 md5:ccf57e0cf557df8a
-// ff:
 func New() *OpenApiV3 {
 	oai := &OpenApiV3{}
 	oai.fillWithDefaultValue()
@@ -97,9 +103,6 @@ type AddInput struct {
 }
 
 // Add 将结构体实例或路由函数添加到 OpenApiV3 定义中实现。 md5:b29b3c78eb104250
-// ff:
-// oai:
-// in:
 func (oai *OpenApiV3) Add(in AddInput) error {
 	var (
 		reflectValue = reflect.ValueOf(in.Object)
@@ -128,8 +131,6 @@ func (oai *OpenApiV3) Add(in AddInput) error {
 	}
 }
 
-// ff:
-// oai:
 func (oai OpenApiV3) String() string {
 	b, err := json.Marshal(oai)
 	if err != nil {

@@ -4,7 +4,7 @@
 // 您可以从 https://github.com/gogf/gf 获取。
 // md5:c14c707c81272457
 
-package gcode//bm:错误码类
+package gcode
 
 import "fmt"
 
@@ -16,15 +16,11 @@ type localCode struct {
 }
 
 // Code 返回当前错误代码的整数值。 md5:75b8de0b4b9fa0a7
-// ff:
-// c:
 func (c localCode) Code() int {
 	return c.code
 }
 
 // Message返回当前错误代码的简要消息。 md5:e0440d2d9a5b929c
-// ff:
-// c:
 func (c localCode) Message() string {
 	return c.message
 }
@@ -32,15 +28,11 @@ func (c localCode) Message() string {
 // Detail 返回当前错误代码的详细信息，
 // 主要设计为错误代码的扩展字段。
 // md5:b97007ef3f91efa2
-// ff:
-// c:
 func (c localCode) Detail() interface{} {
 	return c.detail
 }
 
 // String 返回当前错误代码的字符串表示。 md5:bef1417927806ff8
-// ff:
-// c:
 func (c localCode) String() string {
 	if c.detail != nil {
 		return fmt.Sprintf(`%d:%s %v`, c.code, c.message, c.detail)

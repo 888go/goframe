@@ -10,8 +10,6 @@ package ghttp
 import "net/http"
 
 // WrapF 是一个辅助函数，用于包装http.HandlerFunc并返回一个ghttp.HandlerFunc。 md5:f1b5a37e2bddfd19
-// ff:
-// f:
 func WrapF(f http.HandlerFunc) HandlerFunc {
 	return func(r *Request) {
 		f(r.Response.Writer, r.Request)
@@ -19,8 +17,6 @@ func WrapF(f http.HandlerFunc) HandlerFunc {
 }
 
 // WrapH 是一个辅助函数，用于包装 http.Handler，并返回一个 ghttp.HandlerFunc。 md5:0d35a772811803c8
-// ff:
-// h:
 func WrapH(h http.Handler) HandlerFunc {
 	return func(r *Request) {
 		h.ServeHTTP(r.Response.Writer, r.Request)

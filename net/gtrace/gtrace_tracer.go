@@ -18,8 +18,6 @@ type Tracer struct {
 }
 
 // NewTracer 是一个简短的函数，用于获取Tracer。 md5:188ccb7ad71b192b
-// ff:
-// name:
 func NewTracer(name ...string) *Tracer {
 	tracerName := ""
 	if len(name) > 0 {

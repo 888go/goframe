@@ -26,8 +26,6 @@ type ExampleRef struct {
 	Value *Example
 }
 
-// ff:
-// r:
 func (r ExampleRef) MarshalJSON() ([]byte, error) {
 	if r.Ref != "" {
 		return formatRefToBytes(r.Ref), nil

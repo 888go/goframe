@@ -17,10 +17,6 @@ import (
 // Add 将一个新任务添加到池中。
 // 该任务将会异步执行。
 // md5:69389d53e280086b
-// ff:
-// p:
-// ctx:
-// f:
 func (p *Pool) Add(ctx context.Context, f Func) error {
 	for p.closed.Val() {
 		return gerror.NewCode(
@@ -41,11 +37,6 @@ func (p *Pool) Add(ctx context.Context, f Func) error {
 // 
 // 可选的 `recoverFunc` 在执行 `userFunc` 时发生任何 panic 时被调用。如果未传递或给定 nil，它将忽略来自 `userFunc` 的 panic。任务将异步执行。
 // md5:764d1260466b9a5d
-// ff:
-// p:
-// ctx:
-// userFunc:
-// recoverFunc:
 func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc RecoverFunc) error {
 	return p.Add(ctx, func(ctx context.Context) {
 		defer func() {
@@ -67,15 +58,11 @@ func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc Re
 // 这个容量在创建池时定义。
 // 如果没有限制，则返回-1。
 // md5:1c6cae16429df1b2
-// ff:
-// p:
 func (p *Pool) Cap() int {
 	return p.limit
 }
 
 // Size 返回当前池中的goroutine数量。 md5:247eb1685633ccc3
-// ff:
-// p:
 func (p *Pool) Size() int {
 	return p.count.Val()
 }
@@ -83,22 +70,16 @@ func (p *Pool) Size() int {
 // Jobs 返回池中的当前任务数。
 // 注意，它返回的不是工作器/goroutine的数量，而是任务的数量。
 // md5:c82d92b33047974c
-// ff:
-// p:
 func (p *Pool) Jobs() int {
 	return p.list.Size()
 }
 
 // IsClosed 返回池是否已关闭。 md5:85755176347bcfea
-// ff:
-// p:
 func (p *Pool) IsClosed() bool {
 	return p.closed.Val()
 }
 
 // Close 关闭goroutine池，导致所有goroutines退出。 md5:3d9c73ed9b0f4643
-// ff:
-// p:
 func (p *Pool) Close() {
 	p.closed.Set(true)
 }

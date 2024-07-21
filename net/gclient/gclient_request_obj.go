@@ -22,30 +22,26 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// DoRequestObj does HTTP request using standard request/response object.
-// The request object `req` is defined like:
+// DoRequestObj 使用标准的请求/响应对象进行HTTP请求。
+// 请求对象 `req` 的定义如下：
 //
-//	type UseCreateReq struct {
+//	类型 UseCreateReq 结构体 {
 //	    g.Meta `path:"/user" method:"put"`
-//	    // other fields....
+//	    // 其他字段...
 //	}
 //
-// The response object `res` should be a pointer type. It automatically converts result
-// to given object `res` is success.
+// 响应对象 `res` 应该是指针类型。如果请求成功，它会自动将结果转换为给定的对象 `res`。
 //
-// var (
+// 示例：
+// 变量：
 //
 //	req = UseCreateReq{}
 //	res *UseCreateRes
 //
-// )
+// 使用 DoRequestObj 函数，传入 ctx、req 和 res 指针，执行请求并获取可能的错误： 
 //
-// err := DoRequestObj(ctx, req, &res)
-// ff:
-// c:
-// ctx:
-// req:
-// res:
+//	err := DoRequestObj(ctx, req, &res)
+// md5:a9b1690353dd26b2
 func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 	var (
 		method = gmeta.Get(req, gtag.Method).String()
@@ -87,9 +83,11 @@ func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 	}
 }
 
-// handlePathForObjRequest replaces parameters in `path` with parameters from request object.
+// handlePathForObjRequest 将请求对象中的参数替换到`path`中的占位符。
+// 例如：
 // /order/{id}  -> /order/1
-// /user/{name} -> /order/john
+// /user/{name} -> /user/john
+// md5:96a0939362ee6d87
 func (c *Client) handlePathForObjRequest(path string, req interface{}) string {
 	if gstr.Contains(path, "{") {
 		requestParamsMap := gconv.Map(req)

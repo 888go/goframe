@@ -21,20 +21,20 @@ func (s *cronSchedule) getAndUpdateLastCheckTimestamp(ctx context.Context, t tim
 		lastCheckTimestamp = s.lastCheckTimestamp.Val()
 	)
 	switch {
-// 通常情况下，定时器在同一秒内触发，但毫秒数不同。
-// 例如：
-// lastCheckTimestamp: 2024-03-26 19:47:34.000
-// currentTimestamp:   2024-03-26 19:47:34.999
-// md5:7ad3ec347d1a6583
+	// 通常情况下，定时器在同一秒内触发，但毫秒数不同。
+	// 例如：
+	// lastCheckTimestamp: 2024-03-26 19:47:34.000
+	// currentTimestamp:   2024-03-26 19:47:34.999
+	// md5:7ad3ec347d1a6583
 	case
 		lastCheckTimestamp == currentTimestamp:
 		lastCheckTimestamp += 1
 
-// 经常发生的情况，没有延迟。
-// 示例：
-// lastCheckTimestamp: 2024年03月26日 19时47分34秒.000
-// currentTimestamp:   2024年03月26日 19时47分35秒.000
-// md5:1ed300ef7b928611
+	// 经常发生的情况，没有延迟。
+	// 示例：
+	// lastCheckTimestamp: 2024年03月26日 19时47分34秒.000
+	// currentTimestamp:   2024年03月26日 19时47分35秒.000
+	// md5:1ed300ef7b928611
 	case
 		lastCheckTimestamp == currentTimestamp-1:
 		lastCheckTimestamp = currentTimestamp

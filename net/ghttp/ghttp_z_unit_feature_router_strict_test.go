@@ -442,6 +442,9 @@ func (t *testJsonRawMessageIssue3449) Test(ctx context.Context, req *testJsonRaw
 		JSONRaw: req.JSONRaw,
 	}, nil
 }
+
+// https://github.com/gogf/gf/issues/3449
+// 这段代码是链接到一个GitHub问题的注释，问题编号为3449。在Go语言中，这种注释用于提供有关代码的额外信息，比如引用外部资源、说明问题或者提供待解决的任务。由于内容是URL，它可能指向一个关于代码库gf的讨论、错误报告或改进请求。要查看具体的内容，需要访问该链接。 md5:641e41ce7485cc00
 func Test_JsonRawMessage_Issue3449(t *testing.T) {
 
 	s := g.Server(guid.S())
@@ -501,6 +504,10 @@ func (t *testNullStringIssue3465) Test(ctx context.Context, req *testNullStringI
 		Name: req.Name,
 	}, nil
 }
+
+// https://github.com/gogf/gf/issues/3465
+// 
+// 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。3465号issue可能是指该框架中的某个问题或讨论的编号。具体的内容需要查看相关链接才能了解详情。 md5:53810ebfb659d15e
 func Test_NullString_Issue3465(t *testing.T) {
 
 	s := g.Server(guid.S())

@@ -38,31 +38,31 @@ type (
 )
 
 type (
-	List        = []Map//qm:Map切片  cz:List = []Map          // List 是常用切片类型 []Map 的别名。 md5:ff03e40655e3f35f
-	ListAnyAny  = []MapAnyAny//qm:MapAnyAny切片  cz:ListAnyAny = []MapAnyAny    // ListAnyAny是常用切片类型[]MapAnyAny的别名。 md5:f6b168f11392abb0
-	ListAnyStr  = []MapAnyStr//qm:MapAnyStr切片  cz:ListAnyStr = []MapAnyStr    // ListAnyStr 是常用的切片类型 []MapAnyStr 的别名。 md5:d7812e32db355aa6
-	ListAnyInt  = []MapAnyInt//qm:MapAnyInt切片  cz:ListAnyInt = []MapAnyInt    // ListAnyInt 是常用切片类型 []MapAnyInt 的别名。 md5:8562af0324cd1e5a
-	ListStrAny  = []MapStrAny//qm:MapStrAny切片  cz:ListStrAny = []MapStrAny    // ListStrAny 是常用切片类型 []MapStrAny 的别名。 md5:144077caa161cdf6
-	ListStrStr  = []MapStrStr//qm:MapStrStr切片  cz:ListStrStr = []MapStrStr    // ListStrStr是常用的切片类型[]MapStrStr的别名。 md5:2045a3a5bab66ff3
-	ListStrInt  = []MapStrInt//qm:MapStrInt切片  cz:ListStrInt = []MapStrInt    // ListStrInt 是一个常用的切片类型 []MapStrInt 的别名。 md5:31e1179a1af9c57e
-	ListIntAny  = []MapIntAny//qm:MapIntAny切片  cz:ListIntAny = []MapIntAny    // ListIntAny 是常用切片类型 []MapIntAny 的别名。 md5:5683714d5eda3cde
-	ListIntStr  = []MapIntStr//qm:MapIntStr切片  cz:ListIntStr = []MapIntStr    // ListIntStr 是常用切片类型 []MapIntStr 的别名。 md5:383a98d6f17d278d
-	ListIntInt  = []MapIntInt//qm:MapIntInt切片  cz:ListIntInt = []MapIntInt    // ListIntInt 是一个常用的切片类型 []MapIntInt 的别名。 md5:9fd8565ffb13d5b2
-	ListAnyBool = []MapAnyBool//qm:MapAnyBool切片  cz:ListAnyBool = []MapAnyBool   // ListAnyBool 是一个常用的切片类型 []MapAnyBool 的别名。 md5:8dcdb92f2ce053c8
-	ListStrBool = []MapStrBool//qm:MapStrBool切片  cz:ListStrBool = []MapStrBool   // ListStrBool 是常用切片类型 []MapStrBool 的别名。 md5:de56ef83a16ba4a2
-	ListIntBool = []MapIntBool//qm:MapIntBool切片  cz:ListIntBool = []MapIntBool   // ListIntBool 是常用切片类型 []MapIntBool 的别名。 md5:44e8bb52de3fc953
+	List        = []Map        // List 是常用切片类型 []Map 的别名。 md5:ff03e40655e3f35f
+	ListAnyAny  = []MapAnyAny  // ListAnyAny是常用切片类型[]MapAnyAny的别名。 md5:f6b168f11392abb0
+	ListAnyStr  = []MapAnyStr  // ListAnyStr 是常用的切片类型 []MapAnyStr 的别名。 md5:d7812e32db355aa6
+	ListAnyInt  = []MapAnyInt  // ListAnyInt 是常用切片类型 []MapAnyInt 的别名。 md5:8562af0324cd1e5a
+	ListStrAny  = []MapStrAny  // ListStrAny 是常用切片类型 []MapStrAny 的别名。 md5:144077caa161cdf6
+	ListStrStr  = []MapStrStr  // ListStrStr是常用的切片类型[]MapStrStr的别名。 md5:2045a3a5bab66ff3
+	ListStrInt  = []MapStrInt  // ListStrInt 是一个常用的切片类型 []MapStrInt 的别名。 md5:31e1179a1af9c57e
+	ListIntAny  = []MapIntAny  // ListIntAny 是常用切片类型 []MapIntAny 的别名。 md5:5683714d5eda3cde
+	ListIntStr  = []MapIntStr  // ListIntStr 是常用切片类型 []MapIntStr 的别名。 md5:383a98d6f17d278d
+	ListIntInt  = []MapIntInt  // ListIntInt 是一个常用的切片类型 []MapIntInt 的别名。 md5:9fd8565ffb13d5b2
+	ListAnyBool = []MapAnyBool // ListAnyBool 是一个常用的切片类型 []MapAnyBool 的别名。 md5:8dcdb92f2ce053c8
+	ListStrBool = []MapStrBool // ListStrBool 是常用切片类型 []MapStrBool 的别名。 md5:de56ef83a16ba4a2
+	ListIntBool = []MapIntBool // ListIntBool 是常用切片类型 []MapIntBool 的别名。 md5:44e8bb52de3fc953
 )
 
 type (
-	Slice    = []interface{}//qm:Slice别名  cz:Slice = []interface{}   // Slice 是对常用切片类型 []interface{} 的别名。 md5:9a6ecfa92fac8f3a
-	SliceAny = []interface{}//qm:SliceAny别名  cz:SliceAny = []interface{}   // SliceAny 是一个别名，用于频繁使用的切片类型 []interface{}。 md5:0b565fb84a9bac93
-	SliceStr = []string//qm:SliceStr别名  cz:SliceStr = []string        // SliceStr 是经常使用的切片类型 []string 的别名。 md5:19d8a28bce60c7d8
-	SliceInt = []int//qm:SliceInt别名  cz:SliceInt = []int           // SliceInt 是常用切片类型 []int 的别名。 md5:2923a4699e7e68da
+	Slice    = []interface{} // Slice 是对常用切片类型 []interface{} 的别名。 md5:9a6ecfa92fac8f3a
+	SliceAny = []interface{} // SliceAny 是一个别名，用于频繁使用的切片类型 []interface{}。 md5:0b565fb84a9bac93
+	SliceStr = []string      // SliceStr 是经常使用的切片类型 []string 的别名。 md5:19d8a28bce60c7d8
+	SliceInt = []int         // SliceInt 是常用切片类型 []int 的别名。 md5:2923a4699e7e68da
 )
 
 type (
-	Array    = []interface{}//qm:切片  cz:Array = []interface{}   // Array 是一个常用的切片类型 []interface{} 的别名。 md5:83e56770b618f21f
-	ArrayAny = []interface{}//qm:Any切片  cz:ArrayAny = []interface{}   // ArrayAny是常用的切片类型[]interface{}的别名。 md5:6dfa6ee832fcc9f4
-	ArrayStr = []string//qm:文本切片  cz:ArrayStr = []string        // ArrayStr 是经常使用的切片类型 []string 的别名。 md5:55e2175bd1bb667d
-	ArrayInt = []int//qm:整数切片  cz:ArrayInt = []int           // ArrayInt 是常用切片类型 []int 的别名。 md5:f524bf88e64fcf6e
+	Array    = []interface{} // Array 是一个常用的切片类型 []interface{} 的别名。 md5:83e56770b618f21f
+	ArrayAny = []interface{} // ArrayAny是常用的切片类型[]interface{}的别名。 md5:6dfa6ee832fcc9f4
+	ArrayStr = []string      // ArrayStr 是经常使用的切片类型 []string 的别名。 md5:55e2175bd1bb667d
+	ArrayInt = []int         // ArrayInt 是常用切片类型 []int 的别名。 md5:f524bf88e64fcf6e
 )

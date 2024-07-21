@@ -22,13 +22,6 @@ const (
 
 // TableFields 获取并返回当前模式指定表的字段信息。也可以参考 DriverMysql.TableFields。
 // md5:2ca710808274dcba
-// ff:
-// d:
-// ctx:
-// table:
-// schema:
-// fields:
-// err:
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result

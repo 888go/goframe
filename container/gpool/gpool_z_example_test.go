@@ -25,9 +25,9 @@ func ExampleNew() {
 			return dbConn, nil
 		},
 		func(i interface{}) {
-// 示例：关闭数据库连接
-// 调用 i.(DBConn) 的 Conn 关闭方法
-// md5:1207f4943d8a98dc
+			// 示例：关闭数据库连接
+			// 调用 i.(DBConn) 的 Conn 关闭方法
+			// md5:1207f4943d8a98dc
 		})
 
 	fmt.Println(dbConnPool.TTL)
@@ -49,9 +49,9 @@ func ExamplePool_Put() {
 			return dbConn, nil
 		},
 		func(i interface{}) {
-// 示例：关闭数据库连接
-// 调用 i.(DBConn) 的 Conn 关闭方法
-// md5:1207f4943d8a98dc
+			// 示例：关闭数据库连接
+			// 调用 i.(DBConn) 的 Conn 关闭方法
+			// md5:1207f4943d8a98dc
 		})
 
 	// get db conn
@@ -59,9 +59,9 @@ func ExamplePool_Put() {
 	// 修改这个连接的限制. md5:fbc2b791ac0ae7a0
 	conn.(*DBConn).Limit = 20
 
-// 示例：执行相同的数据库操作
-// 使用conn指向的*DBConn的Conn方法，以context.Background()为上下文，执行SQL查询"select * from user"
-// md5:92af4813b4267108
+	// 示例：执行相同的数据库操作
+	// 使用conn指向的*DBConn的Conn方法，以context.Background()为上下文，执行SQL查询"select * from user"
+	// md5:92af4813b4267108
 
 	// put back conn
 	dbConnPool.MustPut(conn)
@@ -86,9 +86,9 @@ func ExamplePool_Clear() {
 		},
 		func(i interface{}) {
 			i.(*DBConn).Limit = 0
-// 示例：关闭数据库连接
-// 调用 i.(DBConn) 的 Conn 关闭方法
-// md5:1207f4943d8a98dc
+			// 示例：关闭数据库连接
+			// 调用 i.(DBConn) 的 Conn 关闭方法
+			// md5:1207f4943d8a98dc
 		})
 
 	conn, _ := dbConnPool.Get()
@@ -116,9 +116,9 @@ func ExamplePool_Get() {
 			return dbConn, nil
 		},
 		func(i interface{}) {
-// 示例：关闭数据库连接
-// 调用 i.(DBConn) 的 Conn 关闭方法
-// md5:1207f4943d8a98dc
+			// 示例：关闭数据库连接
+			// 调用 i.(DBConn) 的 Conn 关闭方法
+			// md5:1207f4943d8a98dc
 		})
 
 	conn, err := dbConnPool.Get()
@@ -143,9 +143,9 @@ func ExamplePool_Size() {
 			return dbConn, nil
 		},
 		func(i interface{}) {
-// 示例：关闭数据库连接
-// 调用 i.(DBConn) 的 Conn 关闭方法
-// md5:1207f4943d8a98dc
+			// 示例：关闭数据库连接
+			// 调用 i.(DBConn) 的 Conn 关闭方法
+			// md5:1207f4943d8a98dc
 		})
 
 	conn, _ := dbConnPool.Get()
@@ -172,9 +172,9 @@ func ExamplePool_Close() {
 		}
 		closeFunc = func(i interface{}) {
 			fmt.Println("Close The Pool")
-// 示例：关闭数据库连接
-// 调用 i.(DBConn) 的 Conn 关闭方法
-// md5:1207f4943d8a98dc
+			// 示例：关闭数据库连接
+			// 调用 i.(DBConn) 的 Conn 关闭方法
+			// md5:1207f4943d8a98dc
 		}
 	)
 	dbConnPool := gpool.New(time.Hour, newFunc, closeFunc)

@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gbuild管理"gf build"中的内置变量。 md5:c98a1c81088c9728
-package gbuild//bm:构建信息类
+package gbuild
 
 import (
 	"context"
@@ -61,7 +61,6 @@ func init() {
 // 注意，它应当与 gf-cli 工具的 "gf build" 命令配合使用，
 // 该命令会自动将必需的信息注入到二进制文件中。
 // md5:d327a3b92b2b2006
-// ff:
 func Info() BuildInfo {
 	return BuildInfo{
 		GoFrame: Get(gfVersion).String(),
@@ -74,9 +73,6 @@ func Info() BuildInfo {
 }
 
 // Get 获取并返回具有给定名称的内置二进制变量。 md5:3b52dd5dc655096c
-// ff:
-// name:
-// def:
 func Get(name string, def ...interface{}) *gvar.Var {
 	if v, ok := builtInVarMap[name]; ok {
 		return gvar.New(v)
@@ -88,7 +84,6 @@ func Get(name string, def ...interface{}) *gvar.Var {
 }
 
 // Data返回自定义的内置变量作为映射。 md5:d1a22399bad5a8b6
-// ff:
 func Data() map[string]interface{} {
 	return builtInVarMap
 }

@@ -7,14 +7,12 @@
 
 package gstr
 
-// Levenshtein calculates Levenshtein distance between two strings.
-// See http://php.net/manual/en/function.levenshtein.php.
-// ff:
-// str1:
-// str2:
-// costIns:
-// costRep:
-// costDel:
+// Levenshtein 计算两个字符串之间的Levenshtein距离。
+// costIns: 定义插入操作的成本。
+// costRep: 定义替换操作的成本。
+// costDel: 定义删除操作的成本。
+// 参考 http://php.net/manual/en/function.levenshtein.php。
+// md5:d04eb32ecd9f609b
 func Levenshtein(str1, str2 string, costIns, costRep, costDel int) int {
 	var maxLen = 255
 	l1 := len(str1)
@@ -67,10 +65,6 @@ func Levenshtein(str1, str2 string, costIns, costRep, costDel int) int {
 // SimilarText 计算两个字符串之间的相似度。
 // 参考：http://php.net/manual/zh/function.similar-text.php。
 // md5:773f9b9fd3d9b20d
-// ff:取相似度
-// first:文本1
-// second:文本2
-// percent:百分比
 func SimilarText(first, second string, percent *float64) int {
 	var similarText func(string, string, int, int) int
 	similarText = func(str1, str2 string, len1, len2 int) int {
@@ -115,11 +109,9 @@ func SimilarText(first, second string, percent *float64) int {
 	return sim
 }
 
-	// Soundex 计算字符串的音素编码。
-	// 参见 http:	//php.net/manual/en/function.soundex.php。
-	// md5:80909cffb32263c4
-// ff:取soundex码
-// str:文本
+// Soundex 计算字符串的音素编码。
+// 参见 http://php.net/manual/en/function.soundex.php。
+// md5:80909cffb32263c4
 func Soundex(str string) string {
 	if str == "" {
 		panic("str: cannot be an empty string")

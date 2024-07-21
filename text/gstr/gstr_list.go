@@ -8,21 +8,11 @@
 package gstr
 
 // List2：使用`delimiter`将`str`分割，并将结果作为两个部分的字符串返回。 md5:7d263c861d943343
-// ff:分割2份
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
 func List2(str, delimiter string) (part1, part2 string) {
 	return doList2(delimiter, Split(str, delimiter))
 }
 
 // ListAndTrim2 使用 `delimiter` 分割并修剪 `str`，然后将结果作为两个部分的字符串返回。 md5:8cd76102c10490b7
-// ff:分割2份并忽略空值
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
 func ListAndTrim2(str, delimiter string) (part1, part2 string) {
 	return doList2(delimiter, SplitAndTrim(str, delimiter))
 }
@@ -41,23 +31,11 @@ func doList2(delimiter string, array []string) (part1, part2 string) {
 }
 
 // List3 使用 `delimiter` 将 `str` 分割，并将结果作为三个部分的字符串返回。 md5:dc7213002b271e82
-// ff:分割3份
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
-// part3:返回值3
 func List3(str, delimiter string) (part1, part2, part3 string) {
 	return doList3(delimiter, Split(str, delimiter))
 }
 
 // ListAndTrim3：使用`delimiter`分割`str`，并将结果作为三个部分的字符串返回。 md5:f669baf0550fad04
-// ff:分割3份并忽略空值
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
-// part3:返回值3
 func ListAndTrim3(str, delimiter string) (part1, part2, part3 string) {
 	return doList3(delimiter, SplitAndTrim(str, delimiter))
 }

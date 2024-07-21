@@ -38,8 +38,6 @@ type Parser struct {
 }
 
 // ParserFromCtx 从上下文中检索并返回解析器。 md5:260bf6b7d06ebc7c
-// ff:
-// ctx:
 func ParserFromCtx(ctx context.Context) *Parser {
 	if v := ctx.Value(CtxKeyParser); v != nil {
 		if p, ok := v.(*Parser); ok {
@@ -56,9 +54,6 @@ func ParserFromCtx(ctx context.Context) *Parser {
 //
 // 可选参数`strict`指定如果遇到无效选项时，是否停止解析并返回错误。
 // md5:136e728aecd2a3b5
-// ff:
-// supportedOptions:
-// option:
 func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(os.Args...)
@@ -76,10 +71,6 @@ func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, e
 // 
 // 可选参数`strict`指定是否在遇到无效选项时停止解析并返回错误。
 // md5:5c367c6c4d6d78be
-// ff:
-// args:
-// supportedOptions:
-// option:
 func ParseArgs(args []string, supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(args...)
@@ -222,10 +213,6 @@ func (p *Parser) setOptionValue(name, value string) {
 }
 
 // GetOpt 作为gvar.Var返回名为`name`的选项值。 md5:1859b868ee779be0
-// ff:
-// p:
-// name:
-// def:
 func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
 	if p == nil {
 		return nil
@@ -240,8 +227,6 @@ func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
 }
 
 // GetOptAll 返回所有已解析的选项。 md5:6de4d266d8991786
-// ff:
-// p:
 func (p *Parser) GetOptAll() map[string]string {
 	if p == nil {
 		return nil
@@ -250,10 +235,6 @@ func (p *Parser) GetOptAll() map[string]string {
 }
 
 // GetArg 作为gvar.Var返回索引为`index`的参数。 md5:12ea2f8d74c6370d
-// ff:
-// p:
-// index:
-// def:
 func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
 	if p == nil {
 		return nil
@@ -268,8 +249,6 @@ func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
 }
 
 // GetArgAll 返回所有解析的参数。 md5:85cc0fd5995d4878
-// ff:
-// p:
 func (p *Parser) GetArgAll() []string {
 	if p == nil {
 		return nil
@@ -278,8 +257,6 @@ func (p *Parser) GetArgAll() []string {
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// p:
 func (p Parser) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
 		"parsedArgs":       p.parsedArgs,

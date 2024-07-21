@@ -15,8 +15,6 @@ import (
 )
 
 // Size 返回指定路径`path`的文件大小，以字节为单位。 md5:bb6ab734af5c941f
-// ff:取大小
-// path:路径
 func Size(path string) int64 {
 	s, e := os.Stat(path)
 	if e != nil {
@@ -26,22 +24,16 @@ func Size(path string) int64 {
 }
 
 // SizeFormat 返回由 `path` 指定的文件的大小，格式为字符串。 md5:17a4b324cd8ec9a7
-// ff:取大小并易读格式
-// path:路径
 func SizeFormat(path string) string {
 	return FormatSize(Size(path))
 }
 
 // ReadableSize 格式化给定路径（`path`）的文件大小，使其更易于人类阅读。 md5:04f6ed7d21e25298
-// ff:ReadableSize别名
-// path:路径
 func ReadableSize(path string) string {
 	return FormatSize(Size(path))
 }
 
 // StrToSize 将格式化后的尺寸字符串转换为字节大小。 md5:b40fff33ad10f088
-// ff:易读格式转字节长度
-// sizeStr:大小文本
 func StrToSize(sizeStr string) int64 {
 	i := 0
 	for ; i < len(sizeStr); i++ {
@@ -84,8 +76,6 @@ func StrToSize(sizeStr string) int64 {
 }
 
 // FormatSize 将大小 `raw` 格式化为更易读的形式。 md5:7b0eb2b4570b5bb2
-// ff:字节长度转易读格式
-// raw:文件大小
 func FormatSize(raw int64) string {
 	var r float64 = float64(raw)
 	var t float64 = 1024

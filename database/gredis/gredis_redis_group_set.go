@@ -13,9 +13,9 @@ import (
 	"github.com/gogf/gf/v2/container/gvar"
 )
 
-	// IGroupSet 管理 Redis 集合操作。
-	// 实现了 redis.GroupSet 接口。
-	// md5:98fdccab09106c8c
+// IGroupSet 管理 Redis 集合操作。
+// 实现了 redis.GroupSet 接口。
+// md5:98fdccab09106c8c
 type IGroupSet interface {
 	SAdd(ctx context.Context, key string, member interface{}, members ...interface{}) (int64, error)
 	SIsMember(ctx context.Context, key string, member interface{}) (int64, error)

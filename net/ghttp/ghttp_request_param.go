@@ -41,35 +41,26 @@ var (
 	xmlHeaderBytes = []byte("<?xml")
 )
 
-// Parse is the most commonly used function, which converts request parameters to struct or struct
-// slice. It also automatically validates the struct or every element of the struct slice according
-// to the validation tag of the struct.
+// Parse 是最常用的函数，它将请求参数转换为结构体或结构体切片。同时，根据结构体上的验证标签，自动对结构体或结构体切片的每个元素进行验证。
 //
-// The parameter `pointer` can be type of: *struct/**struct/*[]struct/*[]*struct.
+// 参数 `pointer` 可以是以下类型之一：*struct/*struct/*[]struct/*[]*struct。
 //
-// It supports single and multiple struct converting:
-// 1. Single struct, post content like: {"id":1, "name":"john"} or ?id=1&name=john
-// 2. Multiple struct, post content like: [{"id":1, "name":"john"}, {"id":, "name":"smith"}]
+// 它支持单个和多个结构体的转换：
+// 1. 单个结构体时，请求内容格式如：{"id":1, "name":"john"} 或 ?id=1&name=john
+// 2. 多个结构体时，请求内容格式如：[{"id":1, "name":"john"}, {"id":, "name":"smith"}]
 //
-// ff:解析参数到结构
-// r:
-// pointer:结构指针
+// 待办事项：通过减少跨包对同一变量的重复反射使用，来提升性能。
+// md5:ad971f0fee54e93d
 func (r *Request) Parse(pointer interface{}) error {
 	return r.doParse(pointer, parseTypeRequest)
 }
 
 // ParseQuery 的行为类似于 Parse 函数，但只解析查询参数。 md5:4104abbe70053960
-// ff:解析URL到结构
-// r:
-// pointer:结构指针
 func (r *Request) ParseQuery(pointer interface{}) error {
 	return r.doParse(pointer, parseTypeQuery)
 }
 
 // ParseForm 类似于 Parse 函数，但只解析表单参数或主体内容。 md5:c384eb18ba068958
-// ff:解析表单到结构
-// r:
-// pointer:结构指针
 func (r *Request) ParseForm(pointer interface{}) error {
 	return r.doParse(pointer, parseTypeForm)
 }
@@ -93,10 +84,10 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 		reflectKind2 = reflectVal2.Kind()
 	)
 	switch reflectKind2 {
-// 单个结构体，帖子内容格式如下：
-// 1. {"id":1, "name":"john"} 
-// 2. ?id=1&name=john
-// md5:968f64e28941480c
+	// 单个结构体，帖子内容格式如下：
+	// 1. {"id":1, "name":"john"} 
+	// 2. ?id=1&name=john
+	// md5:968f64e28941480c
 	case reflect.Ptr, reflect.Struct:
 		var (
 			err  error
@@ -117,9 +108,9 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 				return err
 			}
 		}
-// 待办事项: https://github.com/gogf/gf/pull/2450
-// 验证。
-// md5:ec24b1494dabb977
+		// 待办事项: https:		//github.com/gogf/gf/pull/2450
+		// 验证。
+		// md5:ec24b1494dabb977
 		if err = gvalid.New().
 			Bail().
 			Data(pointer).
@@ -128,12 +119,12 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 			return err
 		}
 
-// 多个结构体，它只支持像这样的JSON类型POST内容：
-// [{"id":1, "name":"john"}, {"id":2, "name":"smith"}]
-// md5:b759870b71d2ffab
+	// 多个结构体，它只支持像这样的JSON类型POST内容：
+	// [{"id":1, "name":"john"}, {"id":2, "name":"smith"}]
+	// md5:b759870b71d2ffab
 	case reflect.Array, reflect.Slice:
-// 如果是结构体切片转换，可能会包含JSON/XML等内容，因此它使用`gjson`进行转换。
-// md5:e60fd34347047253
+		// 如果是结构体切片转换，可能会包含JSON/XML等内容，因此它使用`gjson`进行转换。
+		// md5:e60fd34347047253
 		j, err := gjson.LoadContent(r.GetBody())
 		if err != nil {
 			return err
@@ -157,10 +148,6 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 // Get 是 GetRequest 的别名，它是用于检索参数的最常用函数之一。
 // 请参见 r.GetRequest。
 // md5:80825e01a3c06041
-// ff:Get别名
-// r:
-// key:名称
-// def:默认值
 func (r *Request) Get(key string, def ...interface{}) *gvar.Var {
 	return r.GetRequest(key, def...)
 }
@@ -168,8 +155,6 @@ func (r *Request) Get(key string, def ...interface{}) *gvar.Var {
 // GetBody 读取并返回请求体内容为字节。
 // 可以多次调用，每次都返回相同的正文内容。
 // md5:be66d2484fd786ca
-// ff:取请求体字节集
-// r:
 func (r *Request) GetBody() []byte {
 	if r.bodyContent == nil {
 		r.bodyContent = r.MakeBodyRepeatableRead(true)
@@ -179,9 +164,6 @@ func (r *Request) GetBody() []byte {
 
 // MakeBodyRepeatableRead 标记请求体是否可以重复读取。它还会返回当前请求体的内容。
 // md5:3cda0a2da5c712d7
-// ff:
-// r:
-// repeatableRead:
 func (r *Request) MakeBodyRepeatableRead(repeatableRead bool) []byte {
 	if r.bodyContent == nil {
 		var err error
@@ -199,8 +181,6 @@ func (r *Request) MakeBodyRepeatableRead(repeatableRead bool) []byte {
 
 // GetBodyString 用于检索并返回请求体内容作为字符串。可以多次调用以获取相同的内容。
 // md5:503c28317dc909ca
-// ff:取请求体文本
-// r:
 func (r *Request) GetBodyString() string {
 	return string(r.GetBody())
 }
@@ -208,8 +188,6 @@ func (r *Request) GetBodyString() string {
 // GetJson 将当前请求内容解析为JSON格式，并返回JSON对象。
 // 注意，请求内容是从请求体(BODY)中读取的，而不是从表单的任何字段中读取。
 // md5:166af4b89b6a5a68
-// ff:取请求体到json类
-// r:
 func (r *Request) GetJson() (*gjson.Json, error) {
 	return gjson.LoadWithOptions(r.GetBody(), gjson.Options{
 		Type:      gjson.ContentTypeJson,
@@ -220,28 +198,18 @@ func (r *Request) GetJson() (*gjson.Json, error) {
 // GetMap 是 GetRequestMap 函数的别名，提供便利的使用方式。
 // 参考 GetRequestMap。
 // md5:395e8bbf3fea416a
-// ff:GetMap别名
-// r:
-// def:默认值
 func (r *Request) GetMap(def ...map[string]interface{}) map[string]interface{} {
 	return r.GetRequestMap(def...)
 }
 
 // GetMapStrStr是GetRequestMapStrStr的别名，提供便捷的功能。详情请参阅GetRequestMapStrStr。
 // md5:1828f3886ccd906d
-// ff:GetMapStrStr别名
-// r:
-// def:默认值
 func (r *Request) GetMapStrStr(def ...map[string]interface{}) map[string]string {
 	return r.GetRequestMapStrStr(def...)
 }
 
 // GetStruct 是 GetRequestStruct 的别名和便捷函数。详情请参阅 GetRequestStruct。
 // md5:c558debb875b77cd
-// ff:GetStruct别名
-// r:
-// pointer:结构指针
-// mapping:
 func (r *Request) GetStruct(pointer interface{}, mapping ...map[string]string) error {
 	return r.GetRequestStruct(pointer, mapping...)
 }
@@ -314,9 +282,9 @@ func (r *Request) parseForm() {
 			repeatableRead = true
 		)
 		if gstr.Contains(contentType, "multipart/") {
-// 为了避免大量消耗内存。
-// `multipart/` 类型的表单始终包含二进制数据，没有必要读取两次。
-// md5:d95befcac4fa7fd0
+			// 为了避免大量消耗内存。
+			// `multipart/` 类型的表单始终包含二进制数据，没有必要读取两次。
+			// md5:d95befcac4fa7fd0
 			repeatableRead = false
 			// multipart/form-data，multipart/mixed
 // 
@@ -391,8 +359,6 @@ func (r *Request) parseForm() {
 }
 
 // GetMultipartForm 解析并返回表单为多部分形式。 md5:c80c641ed3887bea
-// ff:取multipart表单对象
-// r:
 func (r *Request) GetMultipartForm() *multipart.Form {
 	r.parseForm()
 	return r.MultipartForm
@@ -401,9 +367,6 @@ func (r *Request) GetMultipartForm() *multipart.Form {
 // GetMultipartFiles 解析并返回表单中的文件数组。
 // 请注意，请求表单的类型应该是multipart。
 // md5:33503fc76a60c149
-// ff:取multipart表单文件切片对象
-// r:
-// name:名称
 func (r *Request) GetMultipartFiles(name string) []*multipart.FileHeader {
 	form := r.GetMultipartForm()
 	if form == nil {

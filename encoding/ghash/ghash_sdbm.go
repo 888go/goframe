@@ -8,8 +8,6 @@
 package ghash
 
 // SDBM实现了经典的32位SDBM哈希算法。 md5:bd39a0f984820134
-// ff:
-// str:
 func SDBM(str []byte) uint32 {
 	var hash uint32
 	for i := 0; i < len(str); i++ {
@@ -20,8 +18,6 @@ func SDBM(str []byte) uint32 {
 }
 
 // SDBM64 实现了经典的 64 位 SDBM 哈希算法。 md5:ef45ecc578ca9c54
-// ff:
-// str:
 func SDBM64(str []byte) uint64 {
 	var hash uint64
 	for i := 0; i < len(str); i++ {

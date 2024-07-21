@@ -1,11 +1,11 @@
 //go:build 屏蔽单元测试
 
-		// 版权所有 2019 gf 作者（https:		//github.com/gogf/gf）。保留所有权利。
-		//
-		// 此源代码形式受麻省理工学院（MIT）许可证的条款约束。
-		// 如果未随此文件一起分发MIT许可证的副本，
-		// 您可以在 https:		//github.com/gogf/gf 获取一个。
-		// md5:47e609239e0cb2bc
+// 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
+//
+// 此源代码形式受麻省理工学院（MIT）许可证的条款约束。
+// 如果未随此文件一起分发MIT许可证的副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:47e609239e0cb2bc
 
 package oracle_test
 

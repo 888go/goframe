@@ -127,9 +127,6 @@ func newMetricManager() *localMetricManager {
 	return mm
 }
 
-// ff:
-// m:
-// r:
 func (m *localMetricManager) GetMetricOptionForHistogram(r *http.Request) gmetric.Option {
 	attrMap := m.GetMetricAttributeMap(r)
 	return gmetric.Option{
@@ -140,9 +137,6 @@ func (m *localMetricManager) GetMetricOptionForHistogram(r *http.Request) gmetri
 	}
 }
 
-// ff:
-// m:
-// attrMap:
 func (m *localMetricManager) GetMetricOptionForHistogramByMap(attrMap gmetric.AttributeMap) gmetric.Option {
 	return gmetric.Option{
 		Attributes: attrMap.Pick(
@@ -152,17 +146,11 @@ func (m *localMetricManager) GetMetricOptionForHistogramByMap(attrMap gmetric.At
 	}
 }
 
-// ff:
-// m:
-// r:
 func (m *localMetricManager) GetMetricOptionForRequest(r *http.Request) gmetric.Option {
 	attrMap := m.GetMetricAttributeMap(r)
 	return m.GetMetricOptionForRequestByMap(attrMap)
 }
 
-// ff:
-// m:
-// attrMap:
 func (m *localMetricManager) GetMetricOptionForRequestByMap(attrMap gmetric.AttributeMap) gmetric.Option {
 	return gmetric.Option{
 		Attributes: attrMap.Pick(
@@ -175,9 +163,6 @@ func (m *localMetricManager) GetMetricOptionForRequestByMap(attrMap gmetric.Attr
 	}
 }
 
-// ff:
-// m:
-// attrMap:
 func (m *localMetricManager) GetMetricOptionForResponseByMap(attrMap gmetric.AttributeMap) gmetric.Option {
 	return gmetric.Option{
 		Attributes: attrMap.Pick(
@@ -191,9 +176,6 @@ func (m *localMetricManager) GetMetricOptionForResponseByMap(attrMap gmetric.Att
 	}
 }
 
-// ff:
-// m:
-// r:
 func (m *localMetricManager) GetMetricAttributeMap(r *http.Request) gmetric.AttributeMap {
 	var (
 		serverAddress   string

@@ -37,22 +37,19 @@ type RuleFuncInput struct {
 	// Value 指定此规则用于验证的值。 md5:29bdb57107181fe6
 	Value *gvar.Var
 
-// Data 指定了传递给Validator的数据，它可以是map/结构体类型或nil值。如果你的自定义验证规则不需要这个参数，可以忽略它。
-// md5:fd9ebb5b1bdabe03
+	// Data 指定了传递给Validator的数据，它可以是map/结构体类型或nil值。如果你的自定义验证规则不需要这个参数，可以忽略它。
+	// md5:fd9ebb5b1bdabe03
 	Data *gvar.Var
 }
 
 var (
-// customRuleFuncMap 存储自定义规则函数。
-// map[Rule]RuleFunc
-// md5:ddde03f9fa92aae7
+	// customRuleFuncMap 存储自定义规则函数。
+	// map[Rule]RuleFunc
+	// md5:ddde03f9fa92aae7
 	customRuleFuncMap = make(map[string]RuleFunc)
 )
 
 // RegisterRule 为包注册自定义验证规则和函数。 md5:bb0c3971adfb8935
-// ff:
-// rule:
-// f:
 func RegisterRule(rule string, f RuleFunc) {
 	if customRuleFuncMap[rule] != nil {
 		intlog.PrintFunc(context.TODO(), func() string {
@@ -66,8 +63,6 @@ func RegisterRule(rule string, f RuleFunc) {
 }
 
 // RegisterRuleByMap 通过映射为包注册自定义验证规则。 md5:6f3ae52bddfd4a24
-// ff:
-// m:
 func RegisterRuleByMap(m map[string]RuleFunc) {
 	for k, v := range m {
 		customRuleFuncMap[k] = v
@@ -75,7 +70,6 @@ func RegisterRuleByMap(m map[string]RuleFunc) {
 }
 
 // GetRegisteredRuleMap 返回所有自定义注册的规则及其关联的函数。 md5:3abbd0fbfe9f3c51
-// ff:
 func GetRegisteredRuleMap() map[string]RuleFunc {
 	if len(customRuleFuncMap) == 0 {
 		return nil
@@ -88,8 +82,6 @@ func GetRegisteredRuleMap() map[string]RuleFunc {
 }
 
 // DeleteRule 从全局包中删除一个或多个自定义定义的验证规则及其关联函数。 md5:474d821f8f0b7fdc
-// ff:
-// rules:
 func DeleteRule(rules ...string) {
 	for _, rule := range rules {
 		delete(customRuleFuncMap, rule)

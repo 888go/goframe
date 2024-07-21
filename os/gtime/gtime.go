@@ -9,7 +9,7 @@
 // 
 // 本包应该尽量减少与其他包的依赖。
 // md5:34aae194a36b5e34
-package gtime//bm:时间类
+package gtime
 
 import (
 	"context"
@@ -37,42 +37,42 @@ const (
 	US = time.Microsecond
 	NS = time.Nanosecond
 
-// 正则表达式1（日期时间分隔符支持'-', '/' 和 '.'）。
-// 例如：
-// "2017-12-14 04:51:34 +0805 LMT",
-// "2017/12/14 04:51:34 +0805 LMT",
-// "2006-01-02T15:04:05Z07:00",
-// "2014-01-17T01:19:15+08:00",
-// "2018-02-09T20:46:17.897Z",
-// "2018-02-09 20:46:17.897",
-// "2018-02-09T20:46:17Z",
-// "2018-02-09 20:46:17",
-// "2018/10/31 - 16:38:46"
-// "2018-02-09",
-// "2018.02.09",
-// md5:2b97a95934c21f54
+	// 正则表达式1（日期时间分隔符支持'-', '/' 和 '.'）。
+	// 例如：
+	// "2017-12-14 04:51:34 +0805 LMT",
+	// "2017/12/14 04:51:34 +0805 LMT",
+	// "2006-01-02T15:04:05Z07:00",
+	// "2014-01-17T01:19:15+08:00",
+	// "2018-02-09T20:46:17.897Z",
+	// "2018-02-09 20:46:17.897",
+	// "2018-02-09T20:46:17Z",
+	// "2018-02-09 20:46:17",
+	// "2018/10/31 - 16:38:46"
+	// "2018-02-09",
+	// "2018.02.09",
+	// md5:2b97a95934c21f54
 	timeRegexPattern1 = `(\d{4}[-/\.]\d{1,2}[-/\.]\d{1,2})[:\sT-]*(\d{0,2}:{0,1}\d{0,2}:{0,1}\d{0,2}){0,1}\.{0,1}(\d{0,9})([\sZ]{0,1})([\+-]{0,1})([:\d]*)`
 
-// 正则表达式（日期时间分隔符支持'-'、'/'和'.'）。
-// 例如：
-// 01-Nov-2018 11:50:28
-// 01/Nov/2018 11:50:28
-// 01.Nov.2018 11:50:28
-// 01.Nov.2018:11:50:28
-// md5:1f5fc72c5b6eb4f8
+	// 正则表达式（日期时间分隔符支持'-'、'/'和'.'）。
+	// 例如：
+	// 01-Nov-2018 11:50:28
+	// 01/Nov/2018 11:50:28
+	// 01.Nov.2018 11:50:28
+	// 01.Nov.2018:11:50:28
+	// md5:1f5fc72c5b6eb4f8
 	timeRegexPattern2 = `(\d{1,2}[-/\.][A-Za-z]{3,}[-/\.]\d{4})[:\sT-]*(\d{0,2}:{0,1}\d{0,2}:{0,1}\d{0,2}){0,1}\.{0,1}(\d{0,9})([\sZ]{0,1})([\+-]{0,1})([:\d]*)`
 
-// 正则表达式3（时间）。
-// 例如：
-// 11:50:28
-// 11:50:28.897
-// md5:99204487b527a8dc
+	// 正则表达式3（时间）。
+	// 例如：
+	// 11:50:28
+	// 11:50:28.897
+	// md5:99204487b527a8dc
 	timeRegexPattern3 = `(\d{2}):(\d{2}):(\d{2})\.{0,1}(\d{0,9})`
 )
 
 var (
-// 使用正则表达式解析日期时间字符串比time.ParseInLocation更高效。
-// md5:08fb8b42e551caf6
+	// 使用正则表达式解析日期时间字符串比time.ParseInLocation更高效。
+	// md5:08fb8b42e551caf6
 	timeRegex1 = regexp.MustCompile(timeRegexPattern1)
 	timeRegex2 = regexp.MustCompile(timeRegexPattern2)
 	timeRegex3 = regexp.MustCompile(timeRegexPattern3)
@@ -107,77 +107,65 @@ var (
 )
 
 // Timestamp 获取并返回秒为单位的时间戳。 md5:f859aadcb9d86dfc
-// ff:取时间戳秒
 func Timestamp() int64 {
 	return Now().Timestamp()
 }
 
 // TimestampMilli 获取并返回毫秒级的时间戳。 md5:59f90b1b1bf0bd83
-// ff:取时间戳毫秒
 func TimestampMilli() int64 {
 	return Now().TimestampMilli()
 }
 
 // TimestampMicro 获取并返回以微秒为单位的时间戳。 md5:f773c1913603fb89
-// ff:取时间戳微秒
 func TimestampMicro() int64 {
 	return Now().TimestampMicro()
 }
 
 // TimestampNano 获取并以纳秒为单位返回时间戳。 md5:8b782ae92acea8e7
-// ff:取时间戳纳秒
 func TimestampNano() int64 {
 	return Now().TimestampNano()
 }
 
 // TimestampStr 是一个方便的方法，它获取并返回时间戳（以秒为单位）的字符串形式。
 // md5:f638769b91eb1dd5
-// ff:取文本时间戳秒
 func TimestampStr() string {
 	return Now().TimestampStr()
 }
 
 // TimestampMilliStr是一个方便的方法，它获取并返回毫秒级的时间戳作为字符串。
 // md5:cf293e6d5c9383d0
-// ff:取文本时间戳毫秒
 func TimestampMilliStr() string {
 	return Now().TimestampMilliStr()
 }
 
 // TimestampMicroStr是一个方便的方法，它获取并返回微秒级别的时间戳作为字符串。
 // md5:2930c4dc2c5feaae
-// ff:取文本时间戳微秒
 func TimestampMicroStr() string {
 	return Now().TimestampMicroStr()
 }
 
 // TimestampNanoStr 是一个便捷方法，用于获取并以字符串形式返回纳秒级的时间戳。
 // md5:ff842fbe274c5052
-// ff:取文本时间戳纳秒
 func TimestampNanoStr() string {
 	return Now().TimestampNanoStr()
 }
 
 // Date 返回当前日期的字符串，格式为 "2006-01-02"。 md5:e4ebaf573ffc4bd6
-// ff:
 func Date() string {
 	return time.Now().Format("2006-01-02")
 }
 
 // Datetime 返回当前日期时间的字符串格式，例如 "2006-01-02 15:04:05"。 md5:a1afd811808be0ca
-// ff:取当前日期时间
 func Datetime() string {
 	return time.Now().Format("2006-01-02 15:04:05")
 }
 
 // ISO8601 返回当前日期时间，格式为 "2006-01-02T15:04:05-07:00"。 md5:ab2ef4b60100081e
-// ff:取当前日期时间ISO8601
 func ISO8601() string {
 	return time.Now().Format("2006-01-02T15:04:05-07:00")
 }
 
 // RFC822 返回当前日期时间的 RFC822 格式，例如 "Mon, 02 Jan 06 15:04 MST"。 md5:a6362395180caeda
-// ff:取当前日期时间RFC822
 func RFC822() string {
 	return time.Now().Format("Mon, 02 Jan 06 15:04 MST")
 }
@@ -218,9 +206,6 @@ func parseDateStr(s string) (year, month, day int) {
 // 如果没有提供 `format`，它将把字符串作为 "标准" 日期时间字符串进行转换。
 // 注意，如果 `str` 中没有日期字符串，它将失败并返回错误。
 // md5:5e4dd2ec67cb758d
-// ff:转换文本
-// str:文本时间
-// format:格式
 func StrToTime(str string, format ...string) (*Time, error) {
 	if str == "" {
 		return &Time{wrapper{time.Time{}}}, nil
@@ -276,9 +261,9 @@ func StrToTime(str string, format ...string) (*Time, error) {
 			nsec *= 10
 		}
 	}
-// 如果字符串中包含时区信息，
-// 然后进行时区转换，将时区转换为UTC。
-// md5:57a54806130bc3f5
+	// 如果字符串中包含时区信息，
+	// 然后进行时区转换，将时区转换为UTC。
+	// md5:57a54806130bc3f5
 	if match[4] != "" && match[6] == "" {
 		match[6] = "000000"
 	}
@@ -319,10 +304,6 @@ func StrToTime(str string, format ...string) (*Time, error) {
 // ConvertZone 将字符串格式的时间`strTime`从`fromZone`时区转换为`toZone`时区。
 // 参数`fromZone`是可选的，默认情况下它代表当前所在的时区。
 // md5:9c73950cf06cb368
-// ff:转换时区
-// strTime:文本时间
-// toZone:新时区
-// fromZone:旧时区
 func ConvertZone(strTime string, toZone string, fromZone ...string) (*Time, error) {
 	t, err := StrToTime(strTime)
 	if err != nil {
@@ -348,18 +329,12 @@ func ConvertZone(strTime string, toZone string, fromZone ...string) (*Time, erro
 // StrToTimeFormat 函数将字符串 `str` 根据给定的格式 `format` 解析为 *Time 对象。
 // 参数 `format` 的格式类似于 "Y-m-d H:i:s"。
 // md5:0eb1a22261a21da1
-// ff:StrToTimeFormat别名
-// str:
-// format:
 func StrToTimeFormat(str string, format string) (*Time, error) {
 	return StrToTimeLayout(str, formatToStdLayout(format))
 }
 
 // StrToTimeLayout 将字符串 `str` 解析为具有给定格式 `layout` 的 *Time 对象。参数 `layout` 应使用标准库中的格式，如 "2006-01-02 15:04:05"。
 // md5:54702732831e3f2e
-// ff:转换文本Layout
-// str:文本时间
-// layout:格式
 func StrToTimeLayout(str string, layout string) (*Time, error) {
 	if t, err := time.ParseInLocation(layout, str, time.Local); err == nil {
 		return NewFromTime(t), nil
@@ -376,9 +351,6 @@ func StrToTimeLayout(str string, layout string) (*Time, error) {
 // 如果内容中有多个时间字符串，它将返回第一个时间信息。
 // 如果提供了 `format`，它只会检索并解析与之匹配的第一个时间信息。
 // md5:37e6a9bec5011038
-// ff:解析文本
-// content:文本
-// format:格式
 func ParseTimeFromContent(content string, format ...string) *Time {
 	var (
 		err   error
@@ -413,10 +385,6 @@ func ParseTimeFromContent(content string, format ...string) *Time {
 // Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h", "d".
 //
 // Very note that it supports unit "d" more than function time.ParseDuration.
-// ff:文本取时长
-// s:文本
-// duration:纳秒
-// err:错误
 func ParseDuration(s string) (duration time.Duration, err error) {
 	var (
 		num int64
@@ -452,8 +420,6 @@ func ParseDuration(s string) (duration time.Duration, err error) {
 }
 
 // FuncCost 计算函数 `f` 的执行时间成本，以纳秒为单位。 md5:f6d4e0146ba246f1
-// ff:取函数执行时长
-// f:执行函数
 func FuncCost(f func()) time.Duration {
 	t := time.Now()
 	f()

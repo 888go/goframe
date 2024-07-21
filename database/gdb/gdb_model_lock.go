@@ -8,8 +8,6 @@
 package gdb
 
 // LockUpdate 为当前操作设置更新锁。 md5:ecffaffee1e7b1df
-// ff:锁读写
-// m:
 func (m *Model) LockUpdate() *Model {
 	model := m.getModel()
 	model.lockInfo = "FOR UPDATE"
@@ -17,8 +15,6 @@ func (m *Model) LockUpdate() *Model {
 }
 
 // LockShared 将当前操作的锁设置为共享模式。 md5:d3afc426055403b9
-// ff:锁写入
-// m:
 func (m *Model) LockShared() *Model {
 	model := m.getModel()
 	model.lockInfo = "LOCK IN SHARE MODE"

@@ -19,9 +19,6 @@ const (
 )
 
 // Keys 从给定的映射或结构体中检索并返回键。 md5:90c2f70b36eaef9e
-// ff:取所有名称
-// mapOrStruct:map或Struct
-// keysOrAttrs:键或属性
 func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
 	keysOrAttrs = make([]string, 0)
 	if m, ok := mapOrStruct.(map[string]interface{}); ok {
@@ -72,9 +69,6 @@ func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
 }
 
 // Values 从给定的映射或结构体中检索并返回值。 md5:e03f3d848bc2ef9a
-// ff:取所有值
-// mapOrStruct:map或Struct
-// values:值切片
 func Values(mapOrStruct interface{}) (values []interface{}) {
 	values = make([]interface{}, 0)
 	if m, ok := mapOrStruct.(map[string]interface{}); ok {

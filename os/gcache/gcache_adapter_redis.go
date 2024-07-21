@@ -21,8 +21,6 @@ type AdapterRedis struct {
 }
 
 // NewAdapterRedis 创建并返回一个新的内存缓存对象。 md5:ac9ad598fcd2adbb
-// ff:
-// redis:
 func NewAdapterRedis(redis *gredis.Redis) Adapter {
 	return &AdapterRedis{
 		redis: redis,
@@ -34,14 +32,6 @@ func NewAdapterRedis(redis *gredis.Redis) Adapter {
 // 如果 `duration` 等于 0，则不会过期。
 // 如果 `duration` 小于 0 或者给定的 `value` 为 nil，它将删除 `data` 中的键。
 // md5:7faea7b643bffd7c
-// yx:true
-// ff:设置值
-// c:
-// ctx:
-// key:
-// value:
-// duration:
-// err:
 func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (err error) {
 	redisKey := gconv.String(key)
 	if value == nil || duration < 0 {
@@ -61,11 +51,6 @@ func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface
 // 如果 `duration` 等于 0，则不会过期。
 // 如果 `duration` 小于 0 或给定的 `value` 为 `nil`，则会删除 `data` 中的键。
 // md5:a09a11cd5d9d21e6
-// ff:设置Map
-// c:
-// ctx:上下文
-// data:值
-// duration:时长
 func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error {
 	if len(data) == 0 {
 		return nil
@@ -107,12 +92,6 @@ func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interfac
 // 如果`duration`为0，缓存不会过期。
 // 如果`duration`小于0或给定的`value`为`nil`，它会删除`key`。
 // md5:38aa90beb53ed441
-// ff:设置值并跳过已存在
-// c:
-// ctx:上下文
-// key:名称
-// value:值
-// duration:时长
 func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (bool, error) {
 	var (
 		err      error
@@ -165,14 +144,6 @@ func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value
 // 如果`duration`等于0，则不设置过期时间。
 // 如果`duration`小于0或给定的`value`为nil，则删除该`key`。
 // md5:8300c80b9bab735d
-// ff:设置值并跳过已存在_函数
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// ok:成功
-// err:错误
 func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -189,14 +160,6 @@ func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f
 //
 // 注意，它与函数`SetIfNotExistFunc`的区别在于，函数`f`在写入互斥锁内部执行，以保证并发安全性。
 // md5:629e13ace9eaf720
-// ff:设置值并跳过已存在_并发安全函数
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// ok:成功
-// err:错误
 func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -207,10 +170,6 @@ func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{
 
 // Get 通过给定的 <key> 获取并返回关联的值。如果不存在或其值为 nil，则返回 nil。
 // md5:ecb61eca16fb4324
-// ff:取值
-// c:
-// ctx:上下文
-// key:名称
 func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, error) {
 	return c.redis.Get(ctx, gconv.String(key))
 }
@@ -221,14 +180,6 @@ func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, err
 // 如果`duration`为0，则不会过期。
 // 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且函数结果为nil，它则不做任何操作。
 // md5:b8646fcb99c81de9
-// ff:取值或设置值
-// c:
-// ctx:上下文
-// key:名称
-// value:值
-// duration:时长
-// result:结果
-// err:
 func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error) {
 	result, err = c.Get(ctx, key)
 	if err != nil {
@@ -245,14 +196,6 @@ func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value inte
 // 如果`duration`等于0，则不会过期。
 // 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且其结果为nil，则不执行任何操作。
 // md5:822486c86baa87d1
-// ff:取值或设置值_函数
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// result:结果
-// err:
 func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -279,23 +222,11 @@ func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func
 // 
 // 注意，它与`GetOrSetFunc`函数不同，函数`f`是在写入互斥锁保护下执行的，以确保并发安全。
 // md5:3e49c54e5e0c2857
-// ff:取值或设置值_并发安全函数
-// c:
-// ctx:上下文
-// key:名称
-// f:回调函数
-// duration:时长
-// result:结果
-// err:
 func (c *AdapterRedis) GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	return c.GetOrSetFunc(ctx, key, f, duration)
 }
 
 // Contains 检查并返回如果 `key` 在缓存中存在则为真，否则为假。 md5:4ff234995709b9ab
-// ff:是否存在
-// c:
-// ctx:上下文
-// key:名称
 func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, error) {
 	n, err := c.redis.Exists(ctx, gconv.String(key))
 	if err != nil {
@@ -305,11 +236,6 @@ func (c *AdapterRedis) Contains(ctx context.Context, key interface{}) (bool, err
 }
 
 // Size 返回缓存中的项目数量。 md5:2122f80de9340261
-// ff:取数量
-// c:
-// ctx:上下文
-// size:数量
-// err:错误
 func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
 	n, err := c.redis.DBSize(ctx)
 	if err != nil {
@@ -321,9 +247,6 @@ func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
 // Data 返回缓存中所有键值对的副本，以映射类型形式呈现。
 // 注意：此函数可能会占用大量内存，请根据需要决定是否实现该功能。
 // md5:c44cdbd9b10ab98f
-// ff:取所有键值Map副本
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, error) {
 	// Keys.
 	keys, err := c.redis.Keys(ctx, "*")
@@ -345,9 +268,6 @@ func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, e
 }
 
 // Keys 返回缓存中所有键的切片。 md5:7ebd9dba01282dc2
-// ff:取所有键
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Keys(ctx context.Context) ([]interface{}, error) {
 	keys, err := c.redis.Keys(ctx, "*")
 	if err != nil {
@@ -357,9 +277,6 @@ func (c *AdapterRedis) Keys(ctx context.Context) ([]interface{}, error) {
 }
 
 // Values 返回缓存中所有的值作为切片。 md5:dc00b32eb8913e9b
-// ff:取所有值
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 	// Keys.
 	keys, err := c.redis.Keys(ctx, "*")
@@ -388,14 +305,6 @@ func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 // 如果给定的`value`为nil，它会删除`key`。
 // 如果`key`不在缓存中，它不会做任何操作。
 // md5:6d92816db5b1d3bd
-// ff:更新值
-// c:
-// ctx:上下文
-// key:名称
-// value:值
-// oldValue:旧值
-// exist:
-// err:
 func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error) {
 	var (
 		v        *gvar.Var
@@ -441,13 +350,6 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 //
 // 如果`key`在缓存中不存在，它将返回-1并什么都不做。如果`duration`小于0，它会删除`key`。
 // md5:b974907dd46b44be
-// ff:更新过期时间
-// c:
-// ctx:上下文
-// key:名称
-// duration:时长
-// oldDuration:旧过期时长
-// err:错误
 func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error) {
 	var (
 		v        *gvar.Var
@@ -491,10 +393,6 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 // 如果 `key` 没有过期，它将返回 0。
 // 如果 `key` 不在缓存中，它将返回 -1。
 // md5:d80ce12df8668b97
-// ff:取过期时间
-// c:
-// ctx:上下文
-// key:名称
 func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Duration, error) {
 	pttl, err := c.redis.PTTL(ctx, gconv.String(key))
 	if err != nil {
@@ -513,12 +411,6 @@ func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Dur
 // Remove 从缓存中删除一个或多个键，并返回其值。
 // 如果给出了多个键，它将返回最后删除项的值。
 // md5:b3f23906b769df08
-// ff:删除并带返回值
-// c:
-// ctx:上下文
-// keys:名称s
-// lastValue:最后一个删除值
-// err:
 func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error) {
 	if len(keys) == 0 {
 		return nil, nil
@@ -536,10 +428,6 @@ func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastVal
 // 注意，此函数具有敏感性，应谨慎使用。
 // 它使用了 Redis 服务器中的 `FLUSHDB` 命令，但该命令可能在服务器中被禁用。
 // md5:e9b895cf3a7760c0
-// ff:清空
-// c:
-// ctx:上下文
-// err:错误
 func (c *AdapterRedis) Clear(ctx context.Context) (err error) {
 	// "FLUSHDB"可能不可用。 md5:95fb09eb47c6baab
 	err = c.redis.FlushDB(ctx)
@@ -547,9 +435,6 @@ func (c *AdapterRedis) Clear(ctx context.Context) (err error) {
 }
 
 // Close 关闭缓存。 md5:c1a9d7a347be93a8
-// ff:关闭
-// c:
-// ctx:上下文
 func (c *AdapterRedis) Close(ctx context.Context) error {
 	// It does nothing.
 	return nil

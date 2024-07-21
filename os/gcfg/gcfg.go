@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gcfg提供了配置的读取、缓存和管理功能。 md5:5ae504d1379cd99a
-package gcfg//bm:配置类
+package gcfg
 
 import (
 	"context"
@@ -26,12 +26,11 @@ type Config struct {
 }
 
 const (
-	DefaultInstanceName   = "config"//qm:默认实例名称  cz:DefaultInstanceName = "config   // DefaultName 是实例使用的默认实例名称。 md5:4736f3b4285b6846
-	DefaultConfigFileName = "config"//qm:默认配置文件名称  cz:DefaultConfigFileName = "config   // DefaultConfigFile 是默认的配置文件名。 md5:b558e9c92a774f9a
+	DefaultInstanceName   = "config" // DefaultName 是实例使用的默认实例名称。 md5:4736f3b4285b6846
+	DefaultConfigFileName = "config" // DefaultConfigFile 是默认的配置文件名。 md5:b558e9c92a774f9a
 )
 
 // New 创建并返回一个 Config 对象，其默认适配器为 AdapterFile。 md5:52cd678118524272
-// ff:创建
 func New() (*Config, error) {
 	adapterFile, err := NewAdapterFile()
 	if err != nil {
@@ -43,8 +42,6 @@ func New() (*Config, error) {
 }
 
 // NewWithAdapter使用给定的适配器创建并返回一个Config对象。 md5:9ddaae0ddb0e0297
-// ff:创建并按适配器
-// adapter:适配器
 func NewWithAdapter(adapter Adapter) *Config {
 	return &Config{
 		adapter: adapter,
@@ -55,8 +52,6 @@ func NewWithAdapter(adapter Adapter) *Config {
 // 参数 `name` 是该实例的名称。但请注意，如果配置目录中存在文件 "name.toml"，
 // 则将其设置为默认配置文件。TOML 文件类型是默认的配置文件类型。
 // md5:4164ff567a8c8c31
-// ff:取单例对象
-// name:名称
 func Instance(name ...string) *Config {
 	var instanceName = DefaultInstanceName
 	if len(name) > 0 && name[0] != "" {
@@ -76,16 +71,11 @@ func Instance(name ...string) *Config {
 }
 
 // SetAdapter 设置当前 Config 对象的适配器。 md5:8d00d377baafeb01
-// ff:设置适配器
-// c:
-// adapter:适配器
 func (c *Config) SetAdapter(adapter Adapter) {
 	c.adapter = adapter
 }
 
 // GetAdapter 返回当前Config对象的适配器。 md5:46c003ab367518d8
-// ff:取适配器
-// c:
 func (c *Config) GetAdapter() Adapter {
 	return c.adapter
 }
@@ -96,11 +86,6 @@ func (c *Config) GetAdapter() Adapter {
 // 如果默认AdapterFile中存在配置文件，则返回true，否则返回false。
 // 请注意，此函数不会返回错误，因为它只是简单地检查后端配置服务。
 // md5:771d98d194158bc1
-// ff:是否可用
-// c:
-// ctx:上下文
-// resource:
-// ok:可用
 func (c *Config) Available(ctx context.Context, resource ...string) (ok bool) {
 	return c.adapter.Available(ctx, resource...)
 }
@@ -111,11 +96,6 @@ func (c *Config) Available(ctx context.Context, resource ...string) (ok bool) {
 //
 // 如果没有为`pattern`找到值，它将返回由`def`指定的默认值。
 // md5:b10a106fb9d6af41
-// ff:取值
-// c:
-// ctx:上下文
-// pattern:表达式
-// def:默认值
 func (c *Config) Get(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	var (
 		err   error
@@ -140,11 +120,6 @@ func (c *Config) Get(ctx context.Context, pattern string, def ...interface{}) (*
 //
 // 获取规则：环境变量参数以大写格式表示，例如：GF_PACKAGE_VARIABLE。
 // md5:d533293fbfbf6350
-// ff:取值并从环境变量
-// c:
-// ctx:上下文
-// pattern:表达式
-// def:默认值
 func (c *Config) GetWithEnv(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	value, err := c.Get(ctx, pattern)
 	if err != nil && gerror.Code(err) != gcode.CodeNotFound {
@@ -168,11 +143,6 @@ func (c *Config) GetWithEnv(ctx context.Context, pattern string, def ...interfac
 // 
 // 获取规则：命令行参数采用小写格式，例如：gf.package.variable。
 // md5:2a77887f42041d88
-// ff:取值并从启动命令
-// c:
-// ctx:上下文
-// pattern:表达式
-// def:默认值
 func (c *Config) GetWithCmd(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	value, err := c.Get(ctx, pattern)
 	if err != nil && gerror.Code(err) != gcode.CodeNotFound {
@@ -191,21 +161,11 @@ func (c *Config) GetWithCmd(ctx context.Context, pattern string, def ...interfac
 }
 
 // Data 获取并以映射类型返回所有配置数据。 md5:2a92e8bbe7388f01
-// ff:取Map
-// c:
-// ctx:上下文
-// data:值
-// err:错误
 func (c *Config) Data(ctx context.Context) (data map[string]interface{}, err error) {
 	return c.adapter.Data(ctx)
 }
 
 // MustGet 行为类似于函数 Get，但如果发生错误时会引发 panic。 md5:b1d3af83a52fd248
-// ff:取值PANI
-// c:
-// ctx:上下文
-// pattern:表达式
-// def:默认值
 func (c *Config) MustGet(ctx context.Context, pattern string, def ...interface{}) *gvar.Var {
 	v, err := c.Get(ctx, pattern, def...)
 	if err != nil {
@@ -218,11 +178,6 @@ func (c *Config) MustGet(ctx context.Context, pattern string, def ...interface{}
 }
 
 // MustGetWithEnv 作为 GetWithEnv 函数的行为，但如果发生错误，它会引发恐慌。 md5:9f816c41440b51cf
-// ff:取值并从环境变量PANI
-// c:
-// ctx:上下文
-// pattern:表达式
-// def:默认值
 func (c *Config) MustGetWithEnv(ctx context.Context, pattern string, def ...interface{}) *gvar.Var {
 	v, err := c.GetWithEnv(ctx, pattern, def...)
 	if err != nil {
@@ -232,11 +187,6 @@ func (c *Config) MustGetWithEnv(ctx context.Context, pattern string, def ...inte
 }
 
 // MustGetWithCmd 的行为类似于 GetWithCmd 函数，但如果发生错误，它会直接 panic。 md5:683d24a1f4aceb7b
-// ff:取值并从启动命令PANI_有bug
-// c:
-// ctx:上下文
-// pattern:表达式
-// def:默认值
 func (c *Config) MustGetWithCmd(ctx context.Context, pattern string, def ...interface{}) *gvar.Var {
 	v, err := c.GetWithCmd(ctx, pattern, def...)
 	if err != nil {
@@ -246,9 +196,6 @@ func (c *Config) MustGetWithCmd(ctx context.Context, pattern string, def ...inte
 }
 
 // MustData 行为类似于函数 Data，但如果发生错误则会引发恐慌。 md5:eb72c1ce036d70b6
-// ff:取MapPANI
-// c:
-// ctx:上下文
 func (c *Config) MustData(ctx context.Context) map[string]interface{} {
 	v, err := c.Data(ctx)
 	if err != nil {

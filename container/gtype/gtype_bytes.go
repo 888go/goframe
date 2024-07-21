@@ -24,8 +24,6 @@ type Bytes struct {
 // NewBytes 创建并返回一个针对 []byte 类型的并发安全对象，
 // 初始化值为给定的 `value`。
 // md5:6aea34a99a4d10ee
-// ff:
-// value:
 func NewBytes(value ...[]byte) *Bytes {
 	t := &Bytes{}
 	if len(value) > 0 {
@@ -35,18 +33,13 @@ func NewBytes(value ...[]byte) *Bytes {
 }
 
 // Clone 创建并返回一个[]byte类型的浅拷贝新对象。 md5:408a6650b2b17fbd
-// ff:
-// v:
 func (v *Bytes) Clone() *Bytes {
 	return NewBytes(v.Val())
 }
 
-// Set atomically stores `value` into t.value and returns the previous value of t.value.
-// yx:true
-// ff:设置值
-// v:
-// value:
-// old:
+// Set 原子地将 `value` 赋值给 t.value，并返回 t.value 的旧值。
+// 注意：参数 `value` 不能为 nil。
+// md5:00adcc3b6d3bb3da
 func (v *Bytes) Set(value []byte) (old []byte) {
 	old = v.Val()
 	v.value.Store(value)
@@ -54,9 +47,6 @@ func (v *Bytes) Set(value []byte) (old []byte) {
 }
 
 // Val原子性地加载并返回t.value。 md5:429a11b89436cc12
-// yx:true
-// ff:取值
-// v:
 func (v *Bytes) Val() []byte {
 	if s := v.value.Load(); s != nil {
 		return s.([]byte)
@@ -65,15 +55,11 @@ func (v *Bytes) Val() []byte {
 }
 
 // String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
-// ff:
-// v:
 func (v *Bytes) String() string {
 	return string(v.Val())
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// v:
 func (v Bytes) MarshalJSON() ([]byte, error) {
 	val := v.Val()
 	dst := make([]byte, base64.StdEncoding.EncodedLen(len(val)))
@@ -82,9 +68,6 @@ func (v Bytes) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
-// ff:
-// v:
-// b:
 func (v *Bytes) UnmarshalJSON(b []byte) error {
 	var (
 		src    = make([]byte, base64.StdEncoding.DecodedLen(len(b)))
@@ -99,17 +82,12 @@ func (v *Bytes) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
-// ff:
-// v:
-// value:
 func (v *Bytes) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Bytes(value))
 	return nil
 }
 
 // DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
-// ff:
-// v:
 func (v *Bytes) DeepCopy() interface{} {
 	if v == nil {
 		return nil

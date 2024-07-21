@@ -37,20 +37,20 @@ type IGroupSortedSet interface {
 type ZAddOption struct {
 	XX bool // Only update elements that already exist. Don't add new elements.
 	NX bool // Only add new elements. Don't update already existing elements.
-// 只有当新分数小于当前分数时，才更新已存在的元素。
-// 此标志不会阻止添加新元素。
-// md5:df3556a5d410e3c9
+	// 只有当新分数小于当前分数时，才更新已存在的元素。
+	// 此标志不会阻止添加新元素。
+	// md5:df3556a5d410e3c9
 	LT bool
 
-// 只有当新分数大于当前分数时，才更新现有元素。此标志不会阻止添加新元素。
-// md5:4866b5e44d3c1bec
+	// 只有当新分数大于当前分数时，才更新现有元素。此标志不会阻止添加新元素。
+	// md5:4866b5e44d3c1bec
 	GT bool
 
-// 将返回值从新添加元素的数量修改为更改的总元素数量（CH代表已更改）。 
-// 已更改的元素包括新添加的元素和分数已被更新的现有元素。 
-// 因此，命令行中指定的与过去相同的分数的元素不计入总数。 
-// 注意：通常情况下，ZAdd的返回值只计算新添加的元素数量。
-// md5:f80865660e63c42c
+	// 将返回值从新添加元素的数量修改为更改的总元素数量（CH代表已更改）。 
+	// 已更改的元素包括新添加的元素和分数已被更新的现有元素。 
+	// 因此，命令行中指定的与过去相同的分数的元素不计入总数。 
+	// 注意：通常情况下，ZAdd的返回值只计算新添加的元素数量。
+	// md5:f80865660e63c42c
 	CH bool
 
 	// 当指定了此选项时，ZAdd 命令的行为类似于 ZIncrBy。在这种模式下，只能指定一个分数-元素对。 md5:bb002fb3eec4eb13

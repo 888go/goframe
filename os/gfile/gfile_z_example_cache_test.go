@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test//bm:文件类_test
+package gfile_test
 
 import (
 	"fmt"
@@ -25,9 +25,9 @@ func ExampleGetContentsWithCache() {
 	// write contents
 	gfile.PutContents(tempFile, "goframe example content")
 
-// 它使用1分钟的缓存过期时间读取文件内容，
-// 这意味着在接下来的一分钟内，如果没有进行任何IO操作，它将从缓存中读取。
-// md5:2d9221dfe7c2f44a
+	// 它使用1分钟的缓存过期时间读取文件内容，
+	// 这意味着在接下来的一分钟内，如果没有进行任何IO操作，它将从缓存中读取。
+	// md5:2d9221dfe7c2f44a
 	fmt.Println(gfile.GetContentsWithCache(tempFile, time.Minute))
 
 	// 写入新内容将清除其缓存. md5:cdefd2fa84d5ae75

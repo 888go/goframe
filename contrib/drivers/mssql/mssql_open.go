@@ -19,8 +19,7 @@ import (
 )
 
 // Open 创建并返回一个底层的 sql.DB 对象，用于 mssql。 md5:942e7644482faff9
-
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底层Open cz:func (d *Driver) Open
+func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlserver"

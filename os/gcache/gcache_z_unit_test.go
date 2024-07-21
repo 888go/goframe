@@ -472,7 +472,7 @@ func TestCache_SetConcurrency(t *testing.T) {
 		}()
 		select {
 		case <-time.After(2 * time.Second):
-						// t.Log("第二部分结束"). md5:9a0317b9c13ab35a
+			// t.Log("第二部分结束"). md5:9a0317b9c13ab35a
 		}
 	})
 }

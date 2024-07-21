@@ -35,8 +35,6 @@ func init() {
 }
 
 // DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
-// ff:
-// d:
 func (d *Driver) DoFilter(
 	ctx context.Context, link gdb.Link, sql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {

@@ -17,23 +17,10 @@ func newNoopUpDownCounterPerformer() UpDownCounterPerformer {
 }
 
 // Inc 将计数器增加1。 md5:81a1f6bd9f2e53ca
-// ff:
-// noopUpDownCounterPerformer:
-// ctx:
-// option:
 func (noopUpDownCounterPerformer) Inc(ctx context.Context, option ...Option) {}
 
 // Dec 将计数器减1。 md5:a57e133a130dce44
-// ff:
-// noopUpDownCounterPerformer:
-// ctx:
-// option:
 func (noopUpDownCounterPerformer) Dec(ctx context.Context, option ...Option) {}
 
 // Add 将给定的值添加到计数器中。 md5:52aba4021b7f61b2
-// ff:
-// noopUpDownCounterPerformer:
-// ctx:
-// increment:
-// option:
 func (noopUpDownCounterPerformer) Add(ctx context.Context, increment float64, option ...Option) {}

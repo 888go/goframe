@@ -79,8 +79,6 @@ type doScanOption struct {
 }
 
 // ToUsedOption 将ScanOption中的零值字段转换为nil。只有具有值的字段才会被保留。 md5:42a6307a3e94db33
-// ff:
-// scanOpt:
 func (scanOpt *ScanOption) ToUsedOption() doScanOption {
 	var usedOption doScanOption
 

@@ -10,90 +10,61 @@ package gvar
 import "github.com/gogf/gf/v2/util/gconv"
 
 // Ints 将 `v` 转换并返回为 []int 类型。 md5:063ba1cd966af441
-// yx:true
-// ff:取整数切片
-// v:
 func (v *Var) Ints() []int {
 	return gconv.Ints(v.Val())
 }
 
 // Int64s 将 `v` 转换并返回为 []int64。 md5:def1c601eff8c141
-// ff:取整数64位切片
-// v:
 func (v *Var) Int64s() []int64 {
 	return gconv.Int64s(v.Val())
 }
 
 // Uints将`v`转换为[]uint并返回。 md5:fee8ec1b779988fe
-// yx:true
-// ff:取正整数切片
-// v:
 func (v *Var) Uints() []uint {
 	return gconv.Uints(v.Val())
 }
 
 // Uint64s 将 `v` 转换为 []uint64 并返回。 md5:b4b77de84a5454a9
-// ff:取正整数64位切片
-// v:
 func (v *Var) Uint64s() []uint64 {
 	return gconv.Uint64s(v.Val())
 }
 
 // Floats 是 Float64s 的别名。 md5:df981a5dcf3a4356
-// yx:true
-// ff:取小数切片
-// v:
 func (v *Var) Floats() []float64 {
 	return gconv.Floats(v.Val())
 }
 
 // Float32s 将 `v` 转换并返回为 []float32。 md5:c1c14441284dfcfd
-// ff:取小数32位切片
-// v:
 func (v *Var) Float32s() []float32 {
 	return gconv.Float32s(v.Val())
 }
 
 // Float64s 将 `v` 转换为 []float64 并返回。 md5:f515ce0f1efc3fca
-// ff:取小数64位切片
-// v:
 func (v *Var) Float64s() []float64 {
 	return gconv.Float64s(v.Val())
 }
 
 // Strings 将 `v` 转换为字符串切片并返回。 md5:7f2a45762d2cb9c8
-// yx:true
-// ff:取文本切片
-// v:
 func (v *Var) Strings() []string {
 	return gconv.Strings(v.Val())
 }
 
 // Interfaces 将 `v` 转换并返回为 []interface{}。 md5:8b6ea8b55919ad7a
-// yx:true
-// ff:取any切片
-// v:
 func (v *Var) Interfaces() []interface{} {
 	return gconv.Interfaces(v.Val())
 }
 
 // Slice 是 Interfaces 的别名。 md5:94e5a660c49c5e34
-// ff:Slice别名
-// v:
 func (v *Var) Slice() []interface{} {
 	return v.Interfaces()
 }
 
 // Array是Interfaces的别名。 md5:137944f64a8b7b89
-// ff:Array别名
-// v:
 func (v *Var) Array() []interface{} {
 	return v.Interfaces()
 }
 
 // Vars 将 `v` 转换为 []Var 并返回。 md5:fdbc7c7817f9852d
-// ff:取泛型类切片
-// v:
 func (v *Var) Vars() []*Var {
 	array := gconv.Interfaces(v.Val())
 	if len(array) == 0 {

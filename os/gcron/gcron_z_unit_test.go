@@ -137,7 +137,7 @@ func doTestCronAddFixedPattern(t *testing.T) {
 }
 
 func TestCron_AddSingleton(t *testing.T) {
-							// 未使用，可以删除. md5:7acdb570a3213eac
+	// 未使用，可以删除. md5:7acdb570a3213eac
 	gtest.C(t, func(t *gtest.T) {
 		cron := gcron.New()
 		cron.Add(ctx, "* * * * * *", func(ctx context.Context) {}, "add")

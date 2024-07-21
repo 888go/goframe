@@ -31,9 +31,6 @@ type Retry struct {
 // NewNetConn 创建并返回一个具有给定地址（如 "127.0.0.1:80"）的net.Conn。
 // 可选参数 `timeout` 指定了建立连接的超时时间。
 // md5:2e0124ac2d5ba04b
-// ff:
-// address:
-// timeout:
 func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network  = `tcp`
@@ -56,10 +53,6 @@ func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 // NewNetConnTLS 创建并返回一个具有给定地址（如 "127.0.0.1:80"）的 TLS net.Conn。
 // 可选参数 `timeout` 指定了建立连接时的超时时间。
 // md5:5eb25eb4d9f5078a
-// ff:
-// address:
-// tlsConfig:
-// timeout:
 func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network = `tcp`
@@ -83,11 +76,6 @@ func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Durati
 
 // NewNetConnKeyCrt 创建并返回一个带有给定TLS证书和密钥文件的TLS net.Conn，地址类似于"127.0.0.1:80"。可选参数`timeout`指定了连接超时时间。
 // md5:232eecc025740731
-// ff:
-// addr:
-// crtFile:
-// keyFile:
-// timeout:
 func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (net.Conn, error) {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -99,10 +87,6 @@ func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (
 // Send 建立连接到 `address`，向连接写入 `data`，然后关闭连接。
 // 可选参数 `retry` 指定在写入数据失败时的重试策略。
 // md5:657cbdf2b2958d6f
-// ff:
-// address:
-// data:
-// retry:
 func Send(address string, data []byte, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -119,11 +103,6 @@ func Send(address string, data []byte, retry ...Retry) error {
 //
 // 可选参数 `retry` 指定了在写入数据失败时的重试策略。
 // md5:2f0794c80f81d806
-// ff:
-// address:
-// data:
-// length:
-// retry:
 func SendRecv(address string, data []byte, length int, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -134,11 +113,6 @@ func SendRecv(address string, data []byte, length int, retry ...Retry) ([]byte, 
 }
 
 // SendWithTimeout 在发送逻辑中添加了写入超时的限制。 md5:3ede704cb632bc5e
-// ff:
-// address:
-// data:
-// timeout:
-// retry:
 func SendWithTimeout(address string, data []byte, timeout time.Duration, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -149,12 +123,6 @@ func SendWithTimeout(address string, data []byte, timeout time.Duration, retry .
 }
 
 // SendRecvWithTimeout 在限制读取超时的情况下执行SendRecv逻辑。 md5:a0b595ec27ab2abf
-// ff:
-// address:
-// data:
-// receive:
-// timeout:
-// retry:
 func SendRecvWithTimeout(address string, data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -176,9 +144,6 @@ func isTimeout(err error) bool {
 }
 
 // LoadKeyCrt 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。 md5:e31385756c06b0a4
-// ff:
-// crtFile:
-// keyFile:
 func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 	crtPath, err := gfile.Search(crtFile)
 	if err != nil {
@@ -203,7 +168,6 @@ func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 }
 
 // MustGetFreePort 的行为与 GetFreePort 相同，但如果发生任何错误，它会直接 panic。 md5:a1ae43bc1faffe59
-// ff:
 func MustGetFreePort() int {
 	port, err := GetFreePort()
 	if err != nil {
@@ -213,9 +177,6 @@ func MustGetFreePort() int {
 }
 
 // GetFreePort 获取并返回一个空闲的端口号。 md5:52dbf7a2d6e71da6
-// ff:
-// port:
-// err:
 func GetFreePort() (port int, err error) {
 	var (
 		network = `tcp`
@@ -249,10 +210,6 @@ func GetFreePort() (port int, err error) {
 }
 
 // GetFreePorts 获取并返回指定数量的空闲端口。 md5:ea99fb15b5bbc0fb
-// ff:
-// count:
-// ports:
-// err:
 func GetFreePorts(count int) (ports []int, err error) {
 	var (
 		network = `tcp`

@@ -92,12 +92,6 @@ import (
 //
 // 参考示例或单元测试用例以更清楚地理解此函数的工作原理。
 // md5:1e63a3d19a1b0060
-// ff:
-// structSlice:
-// structSlicePointer:
-// bindToAttrName:
-// relationAttrNameAndFields:
-// err:
 func ScanList(structSlice interface{}, structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	var (
 		relationAttrName string
@@ -161,9 +155,9 @@ func doScanList(
 	if length == 0 {
 		// 指向的切片不为空。 md5:1348d4b6d686b8f3
 		if reflectValue.Len() > 0 {
-// 这里检查是否具有已初始化的结构体项。
-// 然后返回错误以警告开发者其为空且无法进行转换。
-// md5:cd5f133a393c1157
+			// 这里检查是否具有已初始化的结构体项。
+			// 然后返回错误以警告开发者其为空且无法进行转换。
+			// md5:cd5f133a393c1157
 			if v := reflectValue.Index(0); v.Kind() != reflect.Ptr {
 				return sql.ErrNoRows
 			}
@@ -192,9 +186,9 @@ func doScanList(
 		relationBindToFieldName string // 例如：relationKV：id：uid -> uid. md5:dda263df86dc03a1
 	)
 	if len(relationFields) > 0 {
-// 表字段名与属性名之间的关联键字符串
-// 可以使用字符'='或':'进行连接。
-// md5:a3dd08343df8a7ac
+		// 表字段名与属性名之间的关联键字符串
+		// 可以使用字符'='或':'进行连接。
+		// md5:a3dd08343df8a7ac
 		array := utils.SplitAndTrim(relationFields, "=")
 		if len(array) == 1 {
 			// 与旧的分隔字符':'兼容。 md5:21a764d3ea1e081b
@@ -205,11 +199,11 @@ func doScanList(
 			array = []string{relationFields, relationFields}
 		}
 		if len(array) == 2 {
-// 定义表字段到关系属性名。
-// 例如：
-// uid:Uid
-// uid:UserId
-// md5:029253159bee75d1
+			// 定义表字段到关系属性名。
+			// 例如：
+			// uid:Uid
+			// uid:UserId
+			// md5:029253159bee75d1
 			relationFromFieldName = array[0]
 			relationBindToFieldName = array[1]
 			if key, _ := utils.MapPossibleItemByKey(maps[0], relationFromFieldName); key == "" {
@@ -281,12 +275,12 @@ func doScanList(
 			// Like: []*Entity
 			arrayElemValue = arrayElemValue.Elem()
 			if !arrayElemValue.IsValid() {
-// 如果元素为nil，则创建一个并将其设置到切片中。
-// "reflect.New(itemType.Elem())" 用于创建一个新的元素，并返回该元素的地址。
-// 例如：
-// reflect.New(itemType.Elem())        => *实体
-// reflect.New(itemType.Elem()).Elem() => 实体
-// md5:0897d7c0e7467f9d
+				// 如果元素为nil，则创建一个并将其设置到切片中。
+				// "reflect.New(itemType.Elem())" 用于创建一个新的元素，并返回该元素的地址。
+				// 例如：
+				// reflect.New(itemType.Elem())        => *实体
+				// reflect.New(itemType.Elem()).Elem() => 实体
+				// md5:0897d7c0e7467f9d
 				arrayElemValue = reflect.New(arrayItemType.Elem()).Elem()
 				arrayValue.Index(i).Set(arrayElemValue.Addr())
 			}

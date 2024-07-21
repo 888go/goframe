@@ -18,9 +18,10 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// Open creates and returns an underlying sql.DB object for pgsql.
-
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底层Open cz:func (d *Driver) Open
+// Open 创建并返回一个用于pgsql的底层sql.DB对象。
+// 参考链接：https://pkg.go.dev/github.com/lib/pq
+// md5:9889bcb899248a2b
+func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "postgres"

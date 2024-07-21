@@ -17,10 +17,6 @@ import (
 // MapToMap 通过反射将任何map类型变量`params`转换为另一个map类型变量`pointer`。
 // 参考 doMapToMap。
 // md5:8fbdb048d4cad524
-// ff:
-// params:
-// pointer:
-// mapping:
 func MapToMap(params interface{}, pointer interface{}, mapping ...map[string]string) error {
 	return Scan(params, pointer, mapping...)
 }

@@ -573,6 +573,10 @@ func TestJson_Options(t *testing.T) {
 		t.Assert(fmt.Sprintf(`%v`, m["Id"]), `53687091200`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1617
+// 
+// 这段注释引用的是一个GitHub问题的链接，来自gogf（一个Go语言的优秀库）项目。"gf"是"Golang Foundation"的缩写，它表示这是一个关于gogf库的问题编号为1617的讨论或报告。具体的内容需要查看链接以获取详细信息。 md5:b2aec94e8fc5f5be
 func Test_Issue1617(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type MyJsonName struct {
@@ -595,6 +599,8 @@ func Test_Issue1617(t *testing.T) {
 		})
 	})
 }
+
+// 关于 issue #1747 的讨论，请访问：https://github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
 func Test_Issue1747(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var j *gjson.Json
@@ -603,6 +609,16 @@ func Test_Issue1747(t *testing.T) {
 		t.Assert(j.Get("2"), `336371793314971759`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/2520
+// 
+// 这段注释是链接到一个GitHub问题的，原始内容是英文的，它指向了GoGF框架（gf）中的一个特定问题编号2520。在中文中，这个注释可以翻译为：
+// 
+// https://github.com/gogf/gf/issues/2520
+// 
+// 这段注释是链接到一个GitHub问题的，原始内容是英文的，它指向了GoGF框架（gf）中的一个特定问题编号2520。在中文中，这个注释可以翻译为：
+// 
+// https://github.com/gogf/gf/issues/2520  // 指向GoGF框架问题2520. md5:ed6150ec52dbee88
 func Test_Issue2520(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type test struct {

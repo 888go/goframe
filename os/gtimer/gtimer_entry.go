@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtimer//bm:定时类
+package gtimer
 
 import (
 	"context"
@@ -32,15 +32,11 @@ type Entry struct {
 type JobFunc = func(ctx context.Context)
 
 // Status 返回作业的状态。 md5:2147922a20ade271
-// ff:取任务状态
-// entry:
 func (entry *Entry) Status() int {
 	return entry.status.Val()
 }
 
 // Run 异步运行计时器任务。 md5:11fb4e6232736ab7
-// ff:异步运行
-// entry:
 func (entry *Entry) Run() {
 	if !entry.infinite.Val() {
 		leftRunningTimes := entry.times.Add(-1)
@@ -100,74 +96,51 @@ func (entry *Entry) doCheckAndRunByTicks(currentTimerTicks int64) {
 }
 
 // SetStatus 自定义设置作业的状态。 md5:c143d90d99990f2c
-// ff:设置任务状态
-// entry:
-// status:状态
 func (entry *Entry) SetStatus(status int) int {
 	return entry.status.Set(status)
 }
 
 // Start starts the job.
-// ff:开始工作
-// entry:
 func (entry *Entry) Start() {
 	entry.status.Set(StatusReady)
 }
 
 // Stop stops the job.
-// ff:暂停工作
-// entry:
 func (entry *Entry) Stop() {
 	entry.status.Set(StatusStopped)
 }
 
 // Close 方法关闭任务，随后该任务将从计时器中移除。 md5:f499b51290bff676
-// ff:关闭任务
-// entry:
 func (entry *Entry) Close() {
 	entry.status.Set(StatusClosed)
 }
 
 // Reset 重置作业，这将为下次运行重置其计数器。 md5:5a5ab5e4b73a76fe
-// ff:重置任务
-// entry:
 func (entry *Entry) Reset() {
 	entry.nextTicks.Set(entry.timer.ticks.Val() + entry.ticks)
 }
 
 // IsSingleton 检查并返回当前任务是否处于单例模式。 md5:a380e519564eb9da
-// ff:是否单例模式
-// entry:
 func (entry *Entry) IsSingleton() bool {
 	return entry.isSingleton.Val()
 }
 
 // SetSingleton 设置单例模式。 md5:3fd379a01f57d11e
-// ff:设置单例模式
-// entry:
-// enabled:单例模式
 func (entry *Entry) SetSingleton(enabled bool) {
 	entry.isSingleton.Set(enabled)
 }
 
 // Job 返回此任务的工作函数。 md5:38a44e496baf9d51
-// ff:取任务函数
-// entry:
 func (entry *Entry) Job() JobFunc {
 	return entry.job
 }
 
 // Ctx 返回此任务的初始化上下文。 md5:c2a3cb7932f8bf8a
-// ff:取任务上下文
-// entry:
 func (entry *Entry) Ctx() context.Context {
 	return entry.ctx
 }
 
 // SetTimes 设置作业的运行次数限制。 md5:812717e2b2bcce7c
-// ff:设置任务次数
-// entry:
-// times:次数
 func (entry *Entry) SetTimes(times int) {
 	entry.times.Set(times)
 	entry.infinite.Set(false)

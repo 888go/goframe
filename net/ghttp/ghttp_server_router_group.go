@@ -21,7 +21,7 @@ import (
 
 type (
 	// RouterGroup 是一个包裹多个路由和中间件的分组。 md5:609e7eb75d8a51f0
-	RouterGroup struct {//qm:分组路由  cz:RouterGroup struct  
+	RouterGroup struct {
 		parent     *RouterGroup  // Parent group.
 		server     *Server       // Server.
 		domain     *Domain       // Domain.
@@ -76,11 +76,6 @@ func (s *Server) handlePreBindItems(ctx context.Context) {
 }
 
 // Group 创建并返回一个 RouterGroup 对象。 md5:ab811975f9ba0334
-// ff:创建分组路由
-// s:
-// prefix:分组前缀
-// groups:分组函数
-// group:分组路由
 func (s *Server) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
 	if len(prefix) > 0 && prefix[0] != '/' {
 		prefix = "/" + prefix
@@ -101,11 +96,6 @@ func (s *Server) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 }
 
 // Group 创建并返回一个 RouterGroup 对象，该对象绑定到指定的域名。 md5:bd60cfbd62234fcd
-// ff:创建分组路由
-// d:
-// prefix:分组前缀
-// groups:分组函数
-// group:分组路由
 func (d *Domain) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
 	if len(prefix) > 0 && prefix[0] != '/' {
 		prefix = "/" + prefix
@@ -127,11 +117,6 @@ func (d *Domain) Group(prefix string, groups ...func(group *RouterGroup)) *Route
 }
 
 // Group 创建并返回当前路由器组的一个子组。 md5:9706484677759d8f
-// ff:创建分组路由
-// g:
-// prefix:分组前缀
-// groups:分组函数
-// group:分组路由
 func (g *RouterGroup) Group(prefix string, groups ...func(group *RouterGroup)) *RouterGroup {
 	if prefix == "/" {
 		prefix = ""
@@ -155,8 +140,6 @@ func (g *RouterGroup) Group(prefix string, groups ...func(group *RouterGroup)) *
 }
 
 // Clone 返回一个新的路由组，它是当前组的克隆。 md5:a3328662d1da7f5f
-// ff:取副本
-// g:
 func (g *RouterGroup) Clone() *RouterGroup {
 	newGroup := &RouterGroup{
 		parent:     g.parent,
@@ -170,9 +153,6 @@ func (g *RouterGroup) Clone() *RouterGroup {
 }
 
 // Bind 为路由器组提供了批量路由注册的功能。 md5:16fbec330e17cafe
-// ff:X绑定
-// g:
-// handlerOrObject:处理对象
 func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
 	var (
 		ctx   = context.TODO()
@@ -203,11 +183,6 @@ func (g *RouterGroup) Bind(handlerOrObject ...interface{}) *RouterGroup {
 }
 
 // ALL 注册一个http处理器，用于处理给定路由模式的所有HTTP方法。 md5:06f3f9b3c30b17f0
-// ff:绑定所有类型
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) ALL(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(
 		groupBindTypeHandler,
@@ -218,9 +193,6 @@ func (g *RouterGroup) ALL(pattern string, object interface{}, params ...interfac
 }
 
 // ALLMap 使用映射注册HTTP处理程序，针对HTTP方法。 md5:4baef0383348c469
-// ff:绑定所有类型Map
-// g:
-// m:
 func (g *RouterGroup) ALLMap(m map[string]interface{}) {
 	for pattern, object := range m {
 		g.ALL(pattern, object)
@@ -228,9 +200,6 @@ func (g *RouterGroup) ALLMap(m map[string]interface{}) {
 }
 
 // Map使用映射注册HTTP方法的处理器。 md5:234d05d7bb247514
-// ff:绑定Map
-// g:
-// m:
 func (g *RouterGroup) Map(m map[string]interface{}) {
 	for pattern, object := range m {
 		g.preBindToLocalArray(groupBindTypeHandler, pattern, object)
@@ -238,118 +207,61 @@ func (g *RouterGroup) Map(m map[string]interface{}) {
 }
 
 // GET 函数用于注册一个HTTP处理程序，该程序根据给定的路由模式和HTTP方法（GET）进行处理。 md5:28790c458e1b962d
-// ff:绑定GET
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) GET(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "GET:"+pattern, object, params...)
 }
 
 // PUT 注册一个 HTTP 处理器，用于处理给定的路由模式和 HTTP 方法：PUT。 md5:28ecbdff64685060
-// ff:绑定PUT
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) PUT(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PUT:"+pattern, object, params...)
 }
 
 // POST 注册一个http处理器，用于给路由模式和HTTP方法：POST。 md5:a251027c1c7a1d8c
-// ff:绑定POST
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) POST(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "POST:"+pattern, object, params...)
 }
 
 // DELETE 注册一个 http 处理器，用于给路由模式（pattern）和 http 方法：DELETE。 md5:b493fe2a753e0422
-// ff:绑定DELETE
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) DELETE(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "DELETE:"+pattern, object, params...)
 }
 
 // PATCH 注册一个HTTP处理器，给定路由模式和HTTP方法：PATCH。 md5:6662f45a2e57a836
-// ff:绑定PATCH
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) PATCH(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "PATCH:"+pattern, object, params...)
 }
 
 // HEAD 注册一个http处理器，用于指定路由模式和HTTP方法：HEAD。 md5:c1e170eaa1fe60b7
-// ff:绑定HEAD
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) HEAD(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "HEAD:"+pattern, object, params...)
 }
 
 // CONNECT 注册一个 http 处理器，用于指定路由模式和方法：CONNECT。 md5:01352b24b5b15d84
-// ff:绑定CONNECT
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) CONNECT(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "CONNECT:"+pattern, object, params...)
 }
 
 // OPTIONS 注册一个 http 处理器，用于指定路由模式和方法：OPTIONS。 md5:7c22cd8904d32b99
-// ff:绑定OPTIONS
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) OPTIONS(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "OPTIONS:"+pattern, object, params...)
 }
 
 // TRACE 注册一个HTTP处理程序，用于提供路由模式和HTTP方法：TRACE。 md5:530929842b31c7fa
-// ff:绑定TRACE
-// g:
-// pattern:路由规则
-// object:处理函数
-// params:额外参数
 func (g *RouterGroup) TRACE(pattern string, object interface{}, params ...interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, "TRACE:"+pattern, object, params...)
 }
 
 // REST 根据 REST 规则注册一个 HTTP 处理器，以提供路由模式。 md5:b89313386e2f52de
-// ff:绑定RESTfulAPI对象
-// g:
-// pattern:路由规则
-// object:处理对象
 func (g *RouterGroup) REST(pattern string, object interface{}) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeRest, pattern, object)
 }
 
 // Hook 注册一个钩子到给定的路由模式。 md5:1b98e351ffc870a2
-// ff:绑定Hook
-// g:
-// pattern:路由规则
-// hook:触发时机
-// handler:处理函数
 func (g *RouterGroup) Hook(pattern string, hook HookName, handler HandlerFunc) *RouterGroup {
 	return g.Clone().preBindToLocalArray(groupBindTypeHandler, pattern, handler, hook)
 }
 
 // Middleware 将一个或多个中间件绑定到路由器组。 md5:ba25a44638f73d20
-// ff:绑定中间件
-// g:
-// handlers:处理函数
 func (g *RouterGroup) Middleware(handlers ...HandlerFunc) *RouterGroup {
 	g.middleware = append(g.middleware, handlers...)
 	return g

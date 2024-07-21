@@ -25,12 +25,9 @@ type DriverWrapperDB struct {
 	DB
 }
 
-// Open creates and returns an underlying sql.DB object for pgsql.
-// ff:
-// d:
-// node:
-// db:
-// err:
+// Open 创建并返回一个用于pgsql的底层sql.DB对象。
+// 参考链接：https://pkg.go.dev/github.com/lib/pq
+// md5:9889bcb899248a2b
 func (d *DriverWrapperDB) Open(node *ConfigNode) (db *sql.DB, err error) {
 	var ctx = d.GetCtx()
 	intlog.PrintFunc(ctx, func() string {
@@ -42,12 +39,6 @@ func (d *DriverWrapperDB) Open(node *ConfigNode) (db *sql.DB, err error) {
 // Tables 获取并返回当前模式下的表格列表。
 //主要用于命令行工具链，用于自动生成模型。
 // md5:bce161ba95454bf5
-// ff:取表名称切片
-// d:
-// ctx:上下文
-// schema:
-// tables:表名称切片
-// err:错误
 func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
 	ctx = context.WithValue(ctx, ctxKeyInternalProducedSQL, struct{}{})
 	return d.DB.Tables(ctx, schema...)
@@ -61,8 +52,6 @@ func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables 
 // 
 // 该方法使用缓存功能来提高性能，直到进程重启，缓存永不过期。
 // md5:c844572d5210b35e
-// ff:取表字段信息Map
-// d:
 func (d *DriverWrapperDB) TableFields(
 	ctx context.Context, table string, schema ...string,
 ) (fields map[string]*TableField, err error) {
@@ -101,22 +90,19 @@ func (d *DriverWrapperDB) TableFields(
 	return
 }
 
-// DoInsert inserts or updates data for given table.
-// This function is usually used for custom interface definition, you do not need call it manually.
-// The parameter `data` can be type of map/gmap/struct/*struct/[]map/[]struct, etc.
+// DoInsert 用于插入或更新给定表的数据。
+// 此函数通常用于自定义接口定义，您无需手动调用。
+// 参数 `data` 可以为 map/gmap/struct/*struct/[]map/[]struct 等类型。
+// 例如：
 // Data(g.Map{"uid": 10000, "name":"john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"})
 //
-// The parameter `option` values are as follows:
-// ff:底层插入
-// d:
-// ctx:上下文
-// link:链接
-// table:表名称
-// list:
-// option:
-// result:
-// err:
+// 参数 `option` 的值如下：
+// InsertOptionDefault：仅插入，如果数据中包含唯一键或主键，则返回错误；
+// InsertOptionReplace：如果数据中包含唯一键或主键，先从表中删除原有记录，再插入新记录；
+// InsertOptionSave：如果数据中包含唯一键或主键，进行更新，否则插入新记录；
+// InsertOptionIgnore：如果数据中包含唯一键或主键，忽略插入操作。
+// md5:9fab32fdc41df179
 func (d *DriverWrapperDB) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
 	// 在将数据类型提交给底层数据库驱动程序之前进行转换。 md5:58b56ae1ed22196f
 	for i, item := range list {

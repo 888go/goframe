@@ -14,9 +14,6 @@ import (
 )
 
 // GetMac 获取并返回当前主机的第一个MAC地址。 md5:59a524347ebb9dcc
-// ff:
-// mac:
-// err:
 func GetMac() (mac string, err error) {
 	macs, err := GetMacArray()
 	if err != nil {
@@ -29,9 +26,6 @@ func GetMac() (mac string, err error) {
 }
 
 // GetMacArray 获取并返回当前主机的所有MAC地址。 md5:18289e2c88c62bec
-// ff:
-// macs:
-// err:
 func GetMacArray() (macs []string, err error) {
 	netInterfaces, err := net.Interfaces()
 	if err != nil {

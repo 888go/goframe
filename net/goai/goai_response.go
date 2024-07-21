@@ -31,8 +31,6 @@ func (oai *OpenApiV3) tagMapToResponse(tagMap map[string]string, response *Respo
 	return nil
 }
 
-// ff:
-// r:
 func (r Response) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte

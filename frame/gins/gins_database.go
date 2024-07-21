@@ -26,8 +26,6 @@ import (
 // Database 返回一个根据指定配置组名实例化的数据库ORM对象。
 // 注意，如果在实例创建过程中发生任何错误，它将会直接 panic。
 // md5:c8c0e8142b2f24af
-// ff:
-// name:
 func Database(name ...string) gdb.DB {
 	var (
 		ctx   = context.Background()

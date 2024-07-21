@@ -17,8 +17,6 @@ import (
 )
 
 // Zlib使用zlib算法对`data`进行压缩。 md5:ed5cf5943e81e6a3
-// ff:Zlib压缩字节集
-// data:字节集
 func Zlib(data []byte) ([]byte, error) {
 	if data == nil || len(data) < 13 {
 		return data, nil
@@ -41,8 +39,6 @@ func Zlib(data []byte) ([]byte, error) {
 }
 
 // UnZlib使用zlib算法对`data`进行解压缩。 md5:e5713bb3c9724494
-// ff:Zlib解压字节集
-// data:字节集
 func UnZlib(data []byte) ([]byte, error) {
 	if data == nil || len(data) < 13 {
 		return data, nil

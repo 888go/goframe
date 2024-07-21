@@ -69,9 +69,6 @@ var (
 
 // Format 使用自定义`format`格式化并返回格式化结果。如果你想要遵循stdlib（标准库）的布局，可以参考 Layout 方法。
 // md5:8f91fb876a2c8a6d
-// ff:取格式文本
-// t:
-// format:格式
 func (t *Time) Format(format string) string {
 	if t == nil {
 		return ""
@@ -136,9 +133,6 @@ func (t *Time) Format(format string) string {
 }
 
 // FormatNew 根据给定的自定义`format`格式化并返回一个新的 Time 对象。 md5:651ea5fc95b95b2e
-// ff:按格式取副本
-// t:
-// format:格式
 func (t *Time) FormatNew(format string) *Time {
 	if t == nil {
 		return nil
@@ -147,9 +141,6 @@ func (t *Time) FormatNew(format string) *Time {
 }
 
 // FormatTo使用给定的自定义`format`格式化`t`。 md5:d34597383793dd06
-// ff:格式设置
-// t:
-// format:格式
 func (t *Time) FormatTo(format string) *Time {
 	if t == nil {
 		return nil
@@ -159,9 +150,6 @@ func (t *Time) FormatTo(format string) *Time {
 }
 
 // Layout使用stdlib布局格式化时间并返回格式化后的结果。 md5:bf29a9bede753c3a
-// ff:取Layout格式文本
-// t:
-// layout:layout格式
 func (t *Time) Layout(layout string) string {
 	if t == nil {
 		return ""
@@ -170,9 +158,6 @@ func (t *Time) Layout(layout string) string {
 }
 
 // LayoutNew 使用stdlib布局格式化时间，并返回一个新的Time对象。 md5:6849149696989dbb
-// ff:取副本并按Layout格式
-// t:
-// layout:layout格式
 func (t *Time) LayoutNew(layout string) *Time {
 	if t == nil {
 		return nil
@@ -185,9 +170,6 @@ func (t *Time) LayoutNew(layout string) *Time {
 }
 
 // LayoutTo 使用stdlib布局格式化`t`。 md5:fb1407c2e7429179
-// ff:设置Layout格式
-// t:
-// layout:layout格式
 func (t *Time) LayoutTo(layout string) *Time {
 	if t == nil {
 		return nil
@@ -201,8 +183,6 @@ func (t *Time) LayoutTo(layout string) *Time {
 }
 
 // IsLeapYear 检查给定的时间是否为闰年。 md5:cc71272fbb6cec2b
-// ff:是否为闰年
-// t:
 func (t *Time) IsLeapYear() bool {
 	year := t.Year()
 	if (year%4 == 0 && year%100 != 0) || year%400 == 0 {
@@ -212,8 +192,6 @@ func (t *Time) IsLeapYear() bool {
 }
 
 // DayOfYear 检查并返回该年中的某一天的位置。 md5:c518ddcab14a7a55
-// ff:取全年第几天
-// t:
 func (t *Time) DayOfYear() int {
 	var (
 		day   = t.Day()
@@ -229,8 +207,6 @@ func (t *Time) DayOfYear() int {
 }
 
 // DaysInMonth 返回当前月份的天数。 md5:0cd1f14a8bb1f8fc
-// ff:取当前月份总天数
-// t:
 func (t *Time) DaysInMonth() int {
 	switch t.Month() {
 	case 1, 3, 5, 7, 8, 10, 12:
@@ -245,8 +221,6 @@ func (t *Time) DaysInMonth() int {
 }
 
 // WeeksOfYear 返回当前年份中的当前周数。 md5:a51898ffdc6f00df
-// ff:取全年第几星期
-// t:
 func (t *Time) WeeksOfYear() int {
 	_, week := t.ISOWeek()
 	return week

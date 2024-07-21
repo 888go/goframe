@@ -70,13 +70,13 @@ func (w *Watcher) eventLoop() {
 				}
 				switch {
 				case event.IsRemove():
-// 它应该再次检查路径的存在。
-// 如果该路径仍然存在，它会将其重新添加到监视器中。
-// md5:216ebbce200ac7a4
+					// 它应该再次检查路径的存在。
+					// 如果该路径仍然存在，它会将其重新添加到监视器中。
+					// md5:216ebbce200ac7a4
 					if fileExists(event.Path) {
-// 将路径重新添加到监控列表。
-// 我们不需要担心重复添加的问题。
-// md5:4487198f5d35bb60
+						// 将路径重新添加到监控列表。
+						// 我们不需要担心重复添加的问题。
+						// md5:4487198f5d35bb60
 						if err := w.watcher.Add(event.Path); err != nil {
 							intlog.Errorf(context.TODO(), `%+v`, err)
 						} else {
@@ -87,14 +87,14 @@ func (w *Watcher) eventLoop() {
 					}
 
 				case event.IsRename():
-// 它应该再次检查路径的存在。
-// 如果该路径仍然存在，它会将其重新添加到监视器中。
-// md5:216ebbce200ac7a4
+					// 它应该再次检查路径的存在。
+					// 如果该路径仍然存在，它会将其重新添加到监视器中。
+					// md5:216ebbce200ac7a4
 					// Especially Some editors might do RENAME and then CHMOD when it's editing file.
 					if fileExists(event.Path) {
-// 可能会丢失对路径的监控，因此我们需将路径重新添加到监控中。
-// 我们无需担心重复添加的问题。
-// md5:d6dd87eba165d9e7
+						// 可能会丢失对路径的监控，因此我们需将路径重新添加到监控中。
+						// 我们无需担心重复添加的问题。
+						// md5:d6dd87eba165d9e7
 						if err := w.watcher.Add(event.Path); err != nil {
 							intlog.Errorf(context.TODO(), `%+v`, err)
 						} else {
@@ -105,11 +105,11 @@ func (w *Watcher) eventLoop() {
 					}
 
 				case event.IsCreate():
-// =========================================
-// 注意，这里只是添加了要监控的路径，而不需要注册回调，
-// 因为它的父级已经具有了回调。
-// =========================================
-// md5:2b5f1f3849c5ccff
+					// =========================================
+					// 注意，这里只是添加了要监控的路径，而不需要注册回调，
+					// 因为它的父级已经具有了回调。
+					// =========================================
+					// md5:2b5f1f3849c5ccff
 					if fileIsDir(event.Path) {
 						// 如果这是一个文件夹，它会递归地添加以进行监控。 md5:3b1a61cf45e4cf3a
 						for _, subPath := range fileAllDirs(event.Path) {

@@ -5,17 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-// Package gqueue provides dynamic/static concurrent-safe queue.
+// 包 gqueue 提供动态/静态并发安全队列。
 //
+// 功能：
 //
-// 1. FIFO queue(data -> list -> chan);
+// 1.先进先出队列（数据 -> 列表 -> 通道）；
 //
-// 2. Fast creation and initialization;
+// 2.快速创建和初始化；
 //
-// 3. Support dynamic queue size(unlimited queue size);
+// 3.支持动态队列大小（无限制的队列大小）；
 //
-// 4. Blocking when reading data from queue;
-package gqueue//bm:队列类
+// 4.从队列中读取数据时会阻塞。
+// md5:ff40490071065bb6
+package gqueue
 
 import (
 	"math"
@@ -42,8 +44,6 @@ const (
 // 可选参数 `limit` 用于限制队列的大小，默认情况下无限制。
 // 当提供 `limit` 时，队列将变为静态且高性能，其性能可与标准库中的通道相媲美。
 // md5:9fbd45b8d84f665e
-// ff:创建
-// limit:队列长度
 func New(limit ...int) *Queue {
 	q := &Queue{
 		closed: gtype.NewBool(),
@@ -63,9 +63,6 @@ func New(limit ...int) *Queue {
 // Push 将数据 `v` 推入队列。
 // 注意，如果在关闭队列后调用 Push，它将引发 panic。
 // md5:ace317b42ed78776
-// ff:入栈
-// q:
-// v:值
 func (q *Queue) Push(v interface{}) {
 	if q.limit > 0 {
 		q.C <- v
@@ -80,16 +77,13 @@ func (q *Queue) Push(v interface{}) {
 // Pop 从队列中按先进先出（FIFO）方式弹出一个项目。
 // 如果在关闭队列后调用 Pop，它会立即返回 nil。
 // md5:f632ecf6d87ed4c5
-// ff:出栈
-// q:
 func (q *Queue) Pop() interface{} {
 	return <-q.C
 }
 
-// Close closes the queue.
-// which are being blocked reading using Pop method.
-// ff:关闭
-// q:
+// Close 关闭队列。
+// 注意：它会通知所有因调用Pop方法而阻塞的goroutine立即返回。
+// md5:bd22bcaaebaed5dc
 func (q *Queue) Close() {
 	if !q.closed.Cas(false, true) {
 		return
@@ -109,9 +103,6 @@ func (q *Queue) Close() {
 // Len 返回队列的长度。
 // 请注意，如果使用无限大的队列大小，结果可能不准确，因为有一个异步通道持续读取列表。
 // md5:b2b860a611742a51
-// ff:取长度
-// q:
-// length:长度
 func (q *Queue) Len() (length int64) {
 	bufferedSize := int64(len(q.C))
 	if q.limit > 0 {
@@ -120,9 +111,9 @@ func (q *Queue) Len() (length int64) {
 	return int64(q.list.Size()) + bufferedSize
 }
 
-// Size is alias of Len.
-// ff:Size弃用
-// q:
+// Size是Len的别名。
+// 警告：请改用Len。
+// md5:25acbbc5f8f37a14
 func (q *Queue) Size() int64 {
 	return q.Len()
 }
@@ -140,9 +131,9 @@ func (q *Queue) asyncLoopFromListToChannel() {
 		<-q.events
 		for !q.closed.Val() {
 			if bufferLength := q.list.Len(); bufferLength > 0 {
-// 当q.C被关闭时，这里将会发生恐慌，尤其是当q.C因写入操作而被阻塞时。
-// 如果这里发生任何错误，它将被recover捕获并被忽略。
-// md5:eaf48f57d3e8e5be
+				// 当q.C被关闭时，这里将会发生恐慌，尤其是当q.C因写入操作而被阻塞时。
+				// 如果这里发生任何错误，它将被recover捕获并被忽略。
+				// md5:eaf48f57d3e8e5be
 				for i := 0; i < bufferLength; i++ {
 					q.C <- q.list.PopFront()
 				}

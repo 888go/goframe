@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gini提供了访问和转换INI内容的功能。 md5:3e0e37cb2af85941
-package gini//bm:ini类
+package gini
 
 import (
 	"bufio"
@@ -21,10 +21,6 @@ import (
 )
 
 // Decode将INI格式转换为映射。 md5:355a2d8ee06f84fe
-// ff:取Map
-// data:字节集
-// res:map值
-// err:错误
 func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	var (
@@ -84,10 +80,6 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 }
 
 // Encode将映射转换为INI格式。 md5:2b1bb156815e46bd
-// ff:Map到ini
-// data:map值
-// res:字节集
-// err:错误
 func Encode(data map[string]interface{}) (res []byte, err error) {
 	var (
 		n  int
@@ -125,10 +117,6 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 }
 
 // ToJson 将INI格式转换为JSON。 md5:760a6629bda12608
-// ff:取json
-// data:字节集
-// res:json字节集
-// err:错误
 func ToJson(data []byte) (res []byte, err error) {
 	iniMap, err := Decode(data)
 	if err != nil {

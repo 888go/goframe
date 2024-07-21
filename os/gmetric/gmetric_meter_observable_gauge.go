@@ -22,11 +22,6 @@ var (
 )
 
 // ObservableGauge 创建并返回一个新的可观察计量表。 md5:406f093f6a405dd4
-// ff:
-// meter:
-// name:
-// option:
-// ObservableGauge:
 func (meter *localMeter) ObservableGauge(name string, option MetricOption) (ObservableGauge, error) {
 	m, err := meter.newMetric(MetricTypeObservableGauge, name, option)
 	if err != nil {
@@ -50,10 +45,6 @@ func (meter *localMeter) ObservableGauge(name string, option MetricOption) (Obse
 // MustObservableGauge 创建并返回一个新的 ObservableGauge。
 // 如果发生任何错误，它将引发 panic。
 // md5:fba8400cc344af01
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustObservableGauge(name string, option MetricOption) ObservableGauge {
 	m, err := meter.ObservableGauge(name, option)
 	if err != nil {
@@ -63,10 +54,6 @@ func (meter *localMeter) MustObservableGauge(name string, option MetricOption) O
 }
 
 // Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
-// ff:
-// l:
-// provider:
-// err:
 func (l *localObservableGauge) Init(provider Provider) (err error) {
 	if _, ok := l.ObservableGaugePerformer.(noopObservableGaugePerformer); !ok {
 		// already initialized.
@@ -79,11 +66,9 @@ func (l *localObservableGauge) Init(provider Provider) (err error) {
 	return err
 }
 
-	// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-	// 这通常被指标实现所使用。
-	// md5:e521fc985b9a53e2
-// ff:
-// l:
+// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 func (l *localObservableGauge) Performer() any {
 	return l.ObservableGaugePerformer
 }

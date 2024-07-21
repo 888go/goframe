@@ -24,8 +24,6 @@ import (
 // Redis 返回一个根据指定配置组名初始化的 Redis 客户端实例。
 // 注意，如果在创建实例过程中发生任何错误，它将会直接 panic。
 // md5:d7ef478cb4351b62
-// ff:
-// name:
 func Redis(name ...string) *gredis.Redis {
 	var (
 		err   error

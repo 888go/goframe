@@ -19,11 +19,9 @@ var (
 	localInstances = gmap.NewStrAnyMap(true)
 )
 
-	// Instance 返回指定分组的 redis 客户端实例。
-	// 如果未传入 `name` 参数，它将返回一个使用默认配置分组的 redis 实例。
-	// md5:22f72aaad455f11e
-// ff:
-// name:
+// Instance 返回指定分组的 redis 客户端实例。
+// 如果未传入 `name` 参数，它将返回一个使用默认配置分组的 redis 实例。
+// md5:22f72aaad455f11e
 func Instance(name ...string) *Redis {
 	group := DefaultGroupName
 	if len(name) > 0 && name[0] != "" {

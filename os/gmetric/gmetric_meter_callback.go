@@ -23,10 +23,6 @@ var (
 // 回调与特定组件和版本绑定，当关联的指标被读取时会被调用。
 // 同一组件和版本上的多个回调将按照它们注册的顺序被调用。
 // md5:a7b0f2e948a5cd42
-// ff:
-// meter:
-// callback:
-// observableMetrics:
 func (meter *localMeter) RegisterCallback(callback Callback, observableMetrics ...ObservableMetric) error {
 	if len(observableMetrics) == 0 {
 		return nil
@@ -40,10 +36,6 @@ func (meter *localMeter) RegisterCallback(callback Callback, observableMetrics .
 }
 
 // MustRegisterCallback 类似于 RegisterCallback，但是如果发生任何错误，它会直接 panic。 md5:41b35f310c8c461d
-// ff:
-// meter:
-// callback:
-// observableMetrics:
 func (meter *localMeter) MustRegisterCallback(callback Callback, observableMetrics ...ObservableMetric) {
 	err := meter.RegisterCallback(callback, observableMetrics...)
 	if err != nil {
@@ -51,10 +43,9 @@ func (meter *localMeter) MustRegisterCallback(callback Callback, observableMetri
 	}
 }
 
-	// GetRegisteredCallbacks 获取并返回已注册的全局回调函数。
-	// 如果返回回调函数，会截断回调函数切片。
-	// md5:22e1858dfd047cb0
-// ff:
+// GetRegisteredCallbacks 获取并返回已注册的全局回调函数。
+// 如果返回回调函数，会截断回调函数切片。
+// md5:22e1858dfd047cb0
 func GetRegisteredCallbacks() []CallbackItem {
 	items := globalCallbackItems
 	globalCallbackItems = globalCallbackItems[:0]

@@ -22,11 +22,6 @@ var (
 )
 
 // Histogram 创建并返回一个新的 Histogram.. md5:8a66ea5ba65143f0
-// ff:
-// meter:
-// name:
-// option:
-// Histogram:
 func (meter *localMeter) Histogram(name string, option MetricOption) (Histogram, error) {
 	m, err := meter.newMetric(MetricTypeHistogram, name, option)
 	if err != nil {
@@ -50,10 +45,6 @@ func (meter *localMeter) Histogram(name string, option MetricOption) (Histogram,
 // MustHistogram 创建并返回一个新的Histogram。
 // 如果发生任何错误，它将引发恐慌。
 // md5:3716fed48bf43141
-// ff:
-// meter:
-// name:
-// option:
 func (meter *localMeter) MustHistogram(name string, option MetricOption) Histogram {
 	m, err := meter.Histogram(name, option)
 	if err != nil {
@@ -63,10 +54,6 @@ func (meter *localMeter) MustHistogram(name string, option MetricOption) Histogr
 }
 
 // Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
-// ff:
-// l:
-// provider:
-// err:
 func (l *localHistogram) Init(provider Provider) (err error) {
 	if _, ok := l.HistogramPerformer.(noopHistogramPerformer); !ok {
 		// already initialized.
@@ -80,17 +67,13 @@ func (l *localHistogram) Init(provider Provider) (err error) {
 }
 
 // Buckets 返回Histogram的桶数组。 md5:b0cdc9def1273944
-// ff:
-// l:
 func (l *localHistogram) Buckets() []float64 {
 	return l.MetricOption.Buckets
 }
 
-	// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-	// 这通常被指标实现所使用。
-	// md5:e521fc985b9a53e2
-// ff:
-// l:
+// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 func (l *localHistogram) Performer() any {
 	return l.HistogramPerformer
 }

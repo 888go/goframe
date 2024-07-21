@@ -2644,7 +2644,7 @@ func Test_Model_Save(t *testing.T) {
 		t.Assert(user.Passport, "p1")
 		t.Assert(user.Password, "25d55ad283aa400af464c76d713c07ad")
 		t.Assert(user.NickName, "n2")
-								// 检查created_at是否不等于updated_at. md5:1ce415b9de20266f
+		// 检查created_at是否不等于updated_at. md5:1ce415b9de20266f
 		t.AssertNE(user.CreatedAt, user.UpdatedAt)
 
 		count, err = db.Model(table).Count()

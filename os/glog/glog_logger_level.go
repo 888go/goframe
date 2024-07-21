@@ -66,24 +66,16 @@ var levelStringMap = map[string]int{
 // SetLevel 设置日志级别。
 // 注意，`LEVEL_CRIT`、`LEVEL_PANI` 和 `LEVEL_FATA` 级别无法删除，因为它们会自动添加到日志内容中。
 // md5:e488e79c6c4c2e71
-// ff:设置级别
-// l:
-// level:级别
 func (l *Logger) SetLevel(level int) {
 	l.config.Level = level | LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA
 }
 
 // GetLevel 返回日志级别值。 md5:8b5b1f26924bf360
-// ff:取级别
-// l:
 func (l *Logger) GetLevel() int {
 	return l.config.Level
 }
 
 // SetLevelStr 通过级别字符串设置日志级别。 md5:53cbbdf23584340e
-// ff:设置文本级别
-// l:
-// levelStr:级别
 func (l *Logger) SetLevelStr(levelStr string) error {
 	if level, ok := levelStringMap[strings.ToUpper(levelStr)]; ok {
 		l.config.Level = level
@@ -94,18 +86,11 @@ func (l *Logger) SetLevelStr(levelStr string) error {
 }
 
 // SetLevelPrefix 为指定的日志级别设置前缀字符串。 md5:a2b7a43af150bcb7
-// ff:设置级别前缀
-// l:
-// level:级别
-// prefix:前缀
 func (l *Logger) SetLevelPrefix(level int, prefix string) {
 	l.config.LevelPrefixes[level] = prefix
 }
 
 // SetLevelPrefixes 为记录器设置级别与前缀字符串的映射关系。 md5:a80f5e3de3c222ff
-// ff:设置级别前缀Map
-// l:
-// prefixes:前缀Map
 func (l *Logger) SetLevelPrefixes(prefixes map[int]string) {
 	for k, v := range prefixes {
 		l.config.LevelPrefixes[k] = v
@@ -113,9 +98,6 @@ func (l *Logger) SetLevelPrefixes(prefixes map[int]string) {
 }
 
 // GetLevelPrefix 返回指定级别的前缀字符串。 md5:339b86b4f84d6049
-// ff:取级别前缀
-// l:
-// level:级别
 func (l *Logger) GetLevelPrefix(level int) string {
 	return l.config.LevelPrefixes[level]
 }

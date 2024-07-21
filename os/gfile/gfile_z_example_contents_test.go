@@ -24,9 +24,9 @@ func ExampleGetContents() {
 	// write contents
 	gfile.PutContents(tempFile, "goframe example content")
 
-// 它读取文件内容并返回字符串形式。
-// 如果读取失败，例如权限或IO错误，它将返回空字符串。
-// md5:47f28c87cbca1824
+	// 它读取文件内容并返回字符串形式。
+	// 如果读取失败，例如权限或IO错误，它将返回空字符串。
+	// md5:47f28c87cbca1824
 	fmt.Println(gfile.GetContents(tempFile))
 
 	// Output:
@@ -44,9 +44,9 @@ func ExampleGetBytes() {
 	// write contents
 	gfile.PutContents(tempFile, "goframe example content")
 
-// 它读取文件内容并返回一个字节切片。
-// 如果在读取时出现错误，如权限或IO错误，它将返回nil。
-// md5:5cdf3501c0f95f5e
+	// 它读取文件内容并返回一个字节切片。
+	// 如果在读取时出现错误，如权限或IO错误，它将返回nil。
+	// md5:5cdf3501c0f95f5e
 	fmt.Println(gfile.GetBytes(tempFile))
 
 	// Output:
@@ -61,9 +61,9 @@ func ExamplePutContents() {
 		tempFile = gfile.Join(tempDir, fileName)
 	)
 
-// 它创建并将内容字符串放入指定的文件路径中。
-// 如果目录不存在，它会自动递归创建。
-// md5:ed9205edb3fc637b
+	// 它创建并将内容字符串放入指定的文件路径中。
+	// 如果目录不存在，它会自动递归创建。
+	// md5:ed9205edb3fc637b
 	gfile.PutContents(tempFile, "goframe example content")
 
 	// read contents

@@ -13,9 +13,6 @@ type Schema struct {
 }
 
 // Schema 创建并返回一个模式。 md5:2857e60cfa18e20e
-// ff:切换数据库
-// c:
-// schema:数据库名
 func (c *Core) Schema(schema string) *Schema {
 	// 不要更改原始数据库的模式，
 	// 这里会创建一个新的数据库并改变其模式。

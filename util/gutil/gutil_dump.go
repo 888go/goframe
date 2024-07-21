@@ -42,8 +42,6 @@ type DumpOption struct {
 }
 
 // Dump 将变量 `values` 打印到标准输出，以更人工可读的方式。 md5:05206ddf9d48510d
-// ff:调试输出
-// values:值s
 func Dump(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -55,8 +53,6 @@ func Dump(values ...interface{}) {
 
 // DumpWithType 类似于 Dump，但带有类型信息。同时参阅 Dump。
 // md5:faabab79589d38a3
-// ff:调试输出并带类型
-// values:值s
 func DumpWithType(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -67,9 +63,6 @@ func DumpWithType(values ...interface{}) {
 }
 
 // DumpWithOption 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
-// ff:调试输出并带选项
-// value:值
-// option:选项
 func DumpWithOption(value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	DumpTo(buffer, value, DumpOption{
@@ -80,10 +73,6 @@ func DumpWithOption(value interface{}, option DumpOption) {
 }
 
 // DumpTo 将变量 `values` 作为字符串写入到 `writer` 中，提供更易人工阅读的格式. md5:68fd8fc9ea0dfc4b
-// ff:调试输出到Writer
-// writer:
-// value:值
-// option:选项
 func DumpTo(writer io.Writer, value interface{}, option DumpOption) {
 	buffer := bytes.NewBuffer(nil)
 	doDump(value, "", buffer, doDumpOption{
@@ -484,8 +473,6 @@ func addSlashesForString(s string) string {
 }
 
 // DumpJson 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
-// ff:调试输出json
-// value:
 func DumpJson(value any) {
 	switch result := value.(type) {
 	case []byte:

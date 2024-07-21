@@ -22,8 +22,6 @@ import (
 // Server 函数返回一个指定名称的 http 服务器实例。
 // 注意，如果在创建实例过程中发生任何错误，它将引发 panic。
 // md5:09f2ffb4e37b28a6
-// ff:
-// name:
 func Server(name ...interface{}) *ghttp.Server {
 	var (
 		err          error

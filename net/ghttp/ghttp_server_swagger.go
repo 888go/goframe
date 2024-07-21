@@ -35,9 +35,9 @@ const (
 `
 )
 
-	// swaggerUI 是一个内置的钩子处理器，用于将默认的 Swagger JSON URL 替换为本地 OpenAPI JSON 文件路径。
-	// 该处理器仅在启用了 OpenAPI 规范自动生成配置的情况下才有意义。
-	// md5:7110c29f8ea820f7
+// swaggerUI 是一个内置的钩子处理器，用于将默认的 Swagger JSON URL 替换为本地 OpenAPI JSON 文件路径。
+// 该处理器仅在启用了 OpenAPI 规范自动生成配置的情况下才有意义。
+// md5:7110c29f8ea820f7
 func (s *Server) swaggerUI(r *Request) {
 	if s.config.OpenApiPath == "" {
 		return

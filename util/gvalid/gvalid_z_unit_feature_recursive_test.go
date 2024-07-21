@@ -342,6 +342,9 @@ func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
 		t.Assert(err, `Student Name is required`)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1983
+// 该问题是在gf框架中的一个GitHub议题，编号为1983。 md5:e3d4329eb46f9f8f
 func Test_Issue1983(t *testing.T) {
 	// 当Teacher中的属性Student是一个初始化的结构体时，会默认赋值，因此会报错。 md5:f02f5f9d926be5f1
 	gtest.C(t, func(t *gtest.T) {
@@ -398,6 +401,8 @@ func Test_Issue1983(t *testing.T) {
 		t.AssertNil(err)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
 func Test_Issue1921(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type SearchOption struct {
@@ -418,6 +423,10 @@ func Test_Issue1921(t *testing.T) {
 		t.Assert(err, "The Size value `10000` must be equal or lesser than 100")
 	})
 }
+
+// https://github.com/gogf/gf/issues/2011
+// 
+// 这段注释是指向GitHub上gf框架的第2011号问题的链接。在Go语言中，这种注释用于提供外部资源的引用或相关问题的参考。 md5:d6879a7954832d1c
 func Test_Issue2011(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {

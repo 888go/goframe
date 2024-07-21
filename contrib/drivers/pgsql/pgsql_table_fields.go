@@ -41,13 +41,6 @@ func init() {
 }
 
 // TableFields 获取并返回当前模式中指定表的字段信息。 md5:920febaff284f5e7
-// ff:
-// d:
-// ctx:
-// table:
-// schema:
-// fields:
-// err:
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result

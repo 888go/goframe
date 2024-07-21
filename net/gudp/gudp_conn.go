@@ -38,9 +38,6 @@ type Retry struct {
 // NewConn 创建到 `remoteAddress` 的 UDP 连接。
 // 可选参数 `localAddress` 指定连接的本地地址。
 // md5:d5e06df7ea2ee28d
-// ff:
-// remoteAddress:
-// localAddress:
 func NewConn(remoteAddress string, localAddress ...string) (*Conn, error) {
 	if conn, err := NewNetConn(remoteAddress, localAddress...); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -50,8 +47,6 @@ func NewConn(remoteAddress string, localAddress ...string) (*Conn, error) {
 }
 
 // NewConnByNetConn 使用给定的 *net.UDPConn 对象创建一个UDP连接对象。 md5:8cbe128848b49656
-// ff:
-// udp:
 func NewConnByNetConn(udp *net.UDPConn) *Conn {
 	return &Conn{
 		UDPConn:        udp,
@@ -62,11 +57,6 @@ func NewConnByNetConn(udp *net.UDPConn) *Conn {
 }
 
 // Send 将数据写入远程地址。 md5:445009019bd4a1a8
-// ff:
-// c:
-// data:
-// retry:
-// err:
 func (c *Conn) Send(data []byte, retry ...Retry) (err error) {
 	for {
 		if c.remoteAddr != nil {
@@ -102,10 +92,6 @@ func (c *Conn) Send(data []byte, retry ...Retry) (err error) {
 //
 // UDP协议存在分包边界，如果指定的缓冲区大小足够大，我们可以接收到一个完整的数据包。非常重要的是，必须一次性接收完整个包，否则剩下的包数据将会丢失。
 // md5:190b81cc02f9d449
-// ff:
-// c:
-// buffer:
-// retry:
 func (c *Conn) Recv(buffer int, retry ...Retry) ([]byte, error) {
 	var (
 		err        error        // Reading error
@@ -149,11 +135,6 @@ func (c *Conn) Recv(buffer int, retry ...Retry) ([]byte, error) {
 }
 
 // SendRecv 向连接写入数据并阻塞读取响应。 md5:8416afe592163603
-// ff:
-// c:
-// data:
-// receive:
-// retry:
 func (c *Conn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err != nil {
 		return nil, err
@@ -162,13 +143,6 @@ func (c *Conn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, error
 }
 
 // RecvWithTimeout 带超时限制地从远程地址读取数据。 md5:9e229854a65f6de2
-// ff:
-// c:
-// length:
-// timeout:
-// retry:
-// data:
-// err:
 func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) (data []byte, err error) {
 	if err = c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err
@@ -181,12 +155,6 @@ func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry
 }
 
 // SendWithTimeout 在连接中写入数据，并设置超时时间。 md5:d15d51d6004b2a6a
-// ff:
-// c:
-// data:
-// timeout:
-// retry:
-// err:
 func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) (err error) {
 	if err = c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -199,12 +167,6 @@ func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retr
 }
 
 // SendRecvWithTimeout 向连接写入数据，并在超时时间内读取响应。 md5:6aa7751868598fb2
-// ff:
-// c:
-// data:
-// receive:
-// timeout:
-// retry:
 func (c *Conn) SendRecvWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error) {
 	if err := c.Send(data, retry...); err != nil {
 		return nil, err
@@ -213,10 +175,6 @@ func (c *Conn) SendRecvWithTimeout(data []byte, receive int, timeout time.Durati
 }
 
 // SetDeadline 设置与连接相关的读写超时截止时间。 md5:e0438bc956760556
-// ff:
-// c:
-// t:
-// err:
 func (c *Conn) SetDeadline(t time.Time) (err error) {
 	if err = c.UDPConn.SetDeadline(t); err == nil {
 		c.deadlineRecv = t
@@ -228,10 +186,6 @@ func (c *Conn) SetDeadline(t time.Time) (err error) {
 }
 
 // SetDeadlineRecv 设置与连接关联的读取截止时间。 md5:763094b16fe580fe
-// ff:
-// c:
-// t:
-// err:
 func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 	if err = c.SetReadDeadline(t); err == nil {
 		c.deadlineRecv = t
@@ -242,10 +196,6 @@ func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 }
 
 // SetDeadlineSend 设置当前连接的发送截止期限。 md5:9f0d98d0e6beda95
-// ff:
-// c:
-// t:
-// err:
 func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 	if err = c.SetWriteDeadline(t); err == nil {
 		c.deadlineSend = t
@@ -258,18 +208,13 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 // SetBufferWaitRecv 设置从连接读取所有数据时的缓冲等待超时时间。
 // 等待时间不能过长，否则可能会延迟从远程地址接收数据。
 // md5:54992dd21ce2360a
-// ff:
-// c:
-// d:
 func (c *Conn) SetBufferWaitRecv(d time.Duration) {
 	c.bufferWaitRecv = d
 }
 
-		// RemoteAddr 返回当前UDP连接的远程地址。
-		// 请注意，它不能使用c.conn.RemoteAddr()，因为该值为nil。
-		// md5:0a785ae4cb967a81
-// ff:
-// c:
+// RemoteAddr 返回当前UDP连接的远程地址。
+// 请注意，它不能使用c.conn.RemoteAddr()，因为该值为nil。
+// md5:0a785ae4cb967a81
 func (c *Conn) RemoteAddr() net.Addr {
 	return c.remoteAddr
 }

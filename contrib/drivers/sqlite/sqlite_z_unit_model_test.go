@@ -423,27 +423,27 @@ func Test_Model_Save(t *testing.T) {
 func Test_Model_Update(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-// 更新...限制
-// 使用gtest进行测试，传入t作为测试上下文
-// 执行如下操作：
-// 根据模型table，设置数据字段"nickname"为"T100"，
-// 并在满足条件1的情况下，限制更新操作影响的行数为2。
-// 获取更新操作的结果与错误信息。
-// 断言：期望错误为nil。
-// 计算并获取更新影响的行数，忽略此操作可能产生的错误。
-// 断言：期望更新影响的行数为2。
-// md5:cfae918cd0afb1ea
+	// 更新...限制
+	// 使用gtest进行测试，传入t作为测试上下文
+	// 执行如下操作：
+	// 根据模型table，设置数据字段"nickname"为"T100"，
+	// 并在满足条件1的情况下，限制更新操作影响的行数为2。
+	// 获取更新操作的结果与错误信息。
+	// 断言：期望错误为nil。
+	// 计算并获取更新影响的行数，忽略此操作可能产生的错误。
+	// 断言：期望更新影响的行数为2。
+	// md5:cfae918cd0afb1ea
 
-// 通过$db$查询$table$表中id为10的nickname字段值，赋值给v1，预期可能产生错误err
-// t.AssertNil(err)：断言错误err为nil，即无错误发生
-// t.Assert(v1.String(), "T100")：断言v1转换为字符串后的值等于"T100"
-// md5:a2bbef8eea48f43a
+	// 通过$db$查询$table$表中id为10的nickname字段值，赋值给v1，预期可能产生错误err
+	// t.AssertNil(err)：断言错误err为nil，即无错误发生
+	// t.Assert(v1.String(), "T100")：断言v1转换为字符串后的值等于"T100"
+	// md5:a2bbef8eea48f43a
 
-// 使用$db$操作数据库，根据模型$table$获取nickname字段，查询id为8的记录，并获取其值。
-// 验证错误是否为nil。
-// 验证获取到的值（v2）是否等于"name_8"。
-// }
-// md5:0005058975deac4b
+	// 使用$db$操作数据库，根据模型$table$获取nickname字段，查询id为8的记录，并获取其值。
+	// 验证错误是否为nil。
+	// 验证获取到的值（v2）是否等于"name_8"。
+	// }
+	// md5:0005058975deac4b
 
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Data("passport", "user_22").Where("passport=?", "user_2").Update()
@@ -2078,19 +2078,19 @@ func Test_Model_WherePri(t *testing.T) {
 }
 
 func Test_Model_Delete(t *testing.T) {
-// table := createInitTable() // 创建初始化表
-// defer dropTable(table)    // 延迟执行，删除表
-// md5:b569b2401cb8568d
+	// table := createInitTable() 	// 创建初始化表
+	// defer dropTable(table)    	// 延迟执行，删除表
+	// md5:b569b2401cb8568d
 
-// DELETE...LIMIT
-// 参考: https://github.com/mattn/go-sqlite3/pull/802
-// gtest.C(t, func(t *gtest.T) {
-// 	删除结果, err := db.Model(table).Where(1).Limit(2).Delete()
-// 	t.AssertNil(err)
-// 	影响行数, _ := result.RowsAffected()
-// 	t.Assert(影响行数, 2)
-// })
-// md5:63b42e136740eea6
+	// DELETE...LIMIT
+	// 参考: https:	//github.com/mattn/go-sqlite3/pull/802
+	// gtest.C(t, func(t *gtest.T) {
+	// 	删除结果, err := db.Model(table).Where(1).Limit(2).Delete()
+	// 	t.AssertNil(err)
+	// 	影响行数, _ := result.RowsAffected()
+	// 	t.Assert(影响行数, 2)
+	// })
+	// md5:63b42e136740eea6
 
 	gtest.C(t, func(t *gtest.T) {
 		table := createInitTable()
@@ -2749,12 +2749,12 @@ func Test_Model_FieldsEx_AutoMapping(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 
-// "id":          i, // 用户ID
-// "passport":    fmt.Sprintf("user_%d", i), // 通行证（格式为"user_编号")
-// "password":    fmt.Sprintf("pass_%d", i), // 密码（格式为"pass_编号")
-// "nickname":    fmt.Sprintf("name_%d", i), // 昵称（格式为"name_编号")
-// "create_time": gtime.NewFromStr(CreateTime).String(), // 创建时间（将CreateTime字符串转换为gtime格式并转为字符串）
-// md5:ddd0764dc67c4e9f
+	// "id":          i, 	// 用户ID
+	// "passport":    fmt.Sprintf("user_%d", i), 	// 通行证（格式为"user_编号")
+	// "password":    fmt.Sprintf("pass_%d", i), 	// 密码（格式为"pass_编号")
+	// "nickname":    fmt.Sprintf("name_%d", i), 	// 昵称（格式为"name_编号")
+	// "create_time": gtime.NewFromStr(CreateTime).String(), 	// 创建时间（将CreateTime字符串转换为gtime格式并转为字符串）
+	// md5:ddd0764dc67c4e9f
 
 	gtest.C(t, func(t *gtest.T) {
 		value, err := db.Model(table).FieldsEx("Passport, Password, NickName, CreateTime").Where("id", 2).Value()
@@ -2892,6 +2892,8 @@ func Test_Model_HasField(t *testing.T) {
 		t.AssertNil(err)
 	})
 }
+
+// 问题：https://github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
 func Test_Model_Issue1002(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -2930,18 +2932,18 @@ func Test_Model_Issue1002(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-// 待办事项
-// 在这里使用 + time.Time 参数，采用 UTC 时间。
-// gtest.C(t, func(t *gtest.T) {
-//   t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32") // 解析时间字符串为 t1
-//   t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34") // 解析时间字符串为 t2
-//   {
-//     v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value() // 查询创建时间在 t1 和 t2 之间记录的 id
-//     t.AssertNil(err) // 断言 err 为空，即查询无错误
-//     t.Assert(v.Int(), 1) // 断言查询结果的整数值为 1
-//   }
-// })
-// md5:6089a1ebb4983ace
+	// 待办事项
+	// 在这里使用 + time.Time 参数，采用 UTC 时间。
+	// gtest.C(t, func(t *gtest.T) {
+	//   t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32") 	// 解析时间字符串为 t1
+	//   t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34") 	// 解析时间字符串为 t2
+	//   {
+	//     v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value() 	// 查询创建时间在 t1 和 t2 之间记录的 id
+	//     t.AssertNil(err) 	// 断言 err 为空，即查询无错误
+	//     t.Assert(v.Int(), 1) 	// 断言查询结果的整数值为 1
+	//   }
+	// })
+	// md5:6089a1ebb4983ace
 }
 
 func createTableForTimeZoneTest() string {
@@ -2964,6 +2966,10 @@ func createTableForTimeZoneTest() string {
 	}
 	return tableName
 }
+
+// https://github.com/gogf/gf/issues/1012
+// 
+// 这段注释指的是在GitHub上的一个gf项目（Golang Fast Foundation，一个Go语言的优秀库）中的Issue 1012。"Issue"通常在GitHub上表示一个问题、错误报告或者改进的请求。所以，这个注释可能是在指有关gf库的一个已知问题或者开发者希望解决的问题，链接指向了该问题的具体页面。 md5:d21c0bba53139335
 func Test_TimeZoneInsert(t *testing.T) {
 	tableName := createTableForTimeZoneTest()
 	defer dropTable(tableName)
@@ -3634,6 +3640,10 @@ func Test_Model_OmitEmptyWhere(t *testing.T) {
 		t.Assert(count, int64(TableSize))
 	})
 }
+
+// https://github.com/gogf/gf/issues/1387
+// 
+// 这段注释链接指向的是GitHub上的一个Issue，GF（Go Foundation）是一个Go语言的库或框架。"1387"可能是Issue的编号。具体的内容需要查看该链接才能得知，大致意思是关于GF项目在1387号问题上的讨论、报告了一个错误或者提出了一个特性请求。 md5:7c877c3e7a856cb1
 func Test_Model_GTime_DefaultValue(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -3963,6 +3973,10 @@ func Test_Model_WherePrefixLike(t *testing.T) {
 		t.Assert(r[0]["id"], "3")
 	})
 }
+
+// https://github.com/gogf/gf/issues/1159
+// 
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4017,6 +4031,10 @@ func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 		t.Assert(s[1].One.Age, 21)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1159
+// 
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4071,6 +4089,10 @@ func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 		t.Assert(s[1].One.Age, 21)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1159
+// 
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4173,6 +4195,10 @@ func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 		t.Assert(len(s[1].Many), 0)
 	})
 }
+
+// https://github.com/gogf/gf/issues/1159
+// 
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_SliceAttribute_Struct(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {

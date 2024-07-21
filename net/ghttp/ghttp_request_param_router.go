@@ -10,8 +10,6 @@ package ghttp
 import "github.com/gogf/gf/v2/container/gvar"
 
 // GetRouterMap 获取并返回路由器映射的副本。 md5:c47609cda93e62b3
-// ff:取路由器Map副本
-// r:
 func (r *Request) GetRouterMap() map[string]string {
 	if r.routerMap != nil {
 		m := make(map[string]string, len(r.routerMap))
@@ -23,12 +21,8 @@ func (r *Request) GetRouterMap() map[string]string {
 	return nil
 }
 
-				// GetRouter 通过给定的键名 `key` 获取并返回路由器值。如果 `key` 不存在，它将返回 `def`。
-				// md5:25ec580295596f49
-// ff:取路由器值到泛型类
-// r:
-// key:名称
-// def:默认值
+// GetRouter 通过给定的键名 `key` 获取并返回路由器值。如果 `key` 不存在，它将返回 `def`。
+// md5:25ec580295596f49
 func (r *Request) GetRouter(key string, def ...interface{}) *gvar.Var {
 	if r.routerMap != nil {
 		if v, ok := r.routerMap[key]; ok {

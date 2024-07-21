@@ -26,12 +26,6 @@ import (
 )
 
 // GetFieldTypeStr 通过名称检索并返回指定字段的字段类型字符串。 md5:aeb8d310c854c45a
-// ff:取字段类型
-// c:
-// ctx:上下文
-// fieldName:字段名称
-// table:表名称
-// schema:数据库名称
 func (c *Core) GetFieldTypeStr(ctx context.Context, fieldName, table, schema string) string {
 	field := c.GetFieldType(ctx, fieldName, table, schema)
 	if field != nil {
@@ -41,12 +35,6 @@ func (c *Core) GetFieldTypeStr(ctx context.Context, fieldName, table, schema str
 }
 
 // GetFieldType 通过字段名获取并返回该字段的类型对象。 md5:eeebff59dbaf1064
-// ff:取字段信息对象
-// c:
-// ctx:上下文
-// fieldName:字段名称
-// table:表名称
-// schema:数据库名称
 func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string) *TableField {
 	fieldsMap, err := c.db.TableFields(ctx, table, schema)
 	if err != nil {
@@ -71,11 +59,6 @@ func (c *Core) GetFieldType(ctx context.Context, fieldName, table, schema string
 // 参数 `value` 应为 *map/map/*struct/struct 类型。
 // 对于结构体，它支持嵌入式结构体定义。
 // md5:27b867ec3a1c3c1d
-// ff:底层ConvertDataForRecord
-// c:
-// ctx:上下文
-// value:值
-// table:表名称
 func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, table string) (map[string]interface{}, error) {
 	var (
 		err  error
@@ -98,11 +81,6 @@ func (c *Core) ConvertDataForRecord(ctx context.Context, value interface{}, tabl
 // 参数 `fieldType` 是目标记录字段。
 // 参数 `fieldValue` 是要写入记录字段的值。
 // md5:196c02c9f6cf3380
-// ff:底层ConvertValueForField
-// c:
-// ctx:
-// fieldType:
-// fieldValue:
 func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	var (
 		err            error
@@ -139,9 +117,9 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 
 	case reflect.Struct:
 		switch r := fieldValue.(type) {
-// 如果时间是零值，它将更新为nil，
-// 这样在数据库中插入或更新的值将会是"null"。
-// md5:058aebae61025f37
+		// 如果时间是零值，它将更新为nil，
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		case time.Time:
 			if r.IsZero() {
 				convertedValue = nil
@@ -168,10 +146,10 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 			// Nothing to do.
 
 		default:
-// 如果`value`实现了iNil接口，
-// 检查其IsNil()函数，如果返回true，
-// 将把该值插入/更新到数据库中作为"null"。
-// md5:b2415061d93829e6
+			// 如果`value`实现了iNil接口，
+			// 检查其IsNil()函数，如果返回true，
+			// 将把该值插入/更新到数据库中作为"null"。
+			// md5:b2415061d93829e6
 			if v, ok := fieldValue.(iNil); ok && v.IsNil() {
 				convertedValue = nil
 			} else if s, ok := fieldValue.(iString); ok {
@@ -190,12 +168,6 @@ func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, field
 }
 
 // CheckLocalTypeForField 检查并返回与给定数据库类型相对应的本地类型。 md5:d3191e6393b7e531
-// ff:底层CheckLocalTypeForField
-// c:
-// ctx:
-// fieldType:
-// fieldValue:
-// LocalType:
 func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) {
 	var (
 		typeName    string
@@ -333,14 +305,12 @@ func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fie
 // 参数 `fieldType` 为小写格式，例如：
 // `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。
 // md5:7e1ede2b68158e31
-// ff:底层ConvertValueForLocal
-// c:
 func (c *Core) ConvertValueForLocal(
 	ctx context.Context, fieldType string, fieldValue interface{},
 ) (interface{}, error) {
-// 如果没有获取到类型，则直接返回`fieldValue`，
-// 利用其原始数据类型，因为`fieldValue`是`interface{}`类型的。
-// md5:62cf4d391c9da4f2
+	// 如果没有获取到类型，则直接返回`fieldValue`，
+	// 利用其原始数据类型，因为`fieldValue`是`interface{}`类型的。
+	// md5:62cf4d391c9da4f2
 	if fieldType == "" {
 		return fieldValue, nil
 	}

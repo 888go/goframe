@@ -27,15 +27,16 @@ func init() {
 	}
 }
 
-// MainPkgPath returns absolute file path of package main,
-// which contains the entrance function main.
+// MainPkgPath 返回包含入口函数main的package main的绝对文件路径。
 //
-// It's only available in develop environment.
+// 它仅在开发环境中可用。
 //
-// IE only valid for systems that generate this executable.
+// 注意1：仅对源代码开发环境有效，
+// 即仅对生成此可执行文件的系统有效。
 //
-// the method may not get the main package path.
-// ff:取main路径
+// 注意2：首次调用此方法时，如果处于异步goroutine中，
+// 方法可能无法获取到main包的路径。
+// md5:7fb1d2fdcb626f85
 func MainPkgPath() string {
 	// 仅供源代码开发环境使用。 md5:56e807aeb00eee19
 	if goRootForFilter == "" {
@@ -55,10 +56,10 @@ func MainPkgPath() string {
 				continue
 			}
 			lastFile = file
-// 检查它是否在包初始化函数中被调用，
-// 在这种情况下，无法获取主包路径，
-// 所以直接返回，以便进行下一步检查。
-// md5:e583ee52c2832f4d
+			// 检查它是否在包初始化函数中被调用，
+			// 在这种情况下，无法获取主包路径，
+			// 所以直接返回，以便进行下一步检查。
+			// md5:e583ee52c2832f4d
 			if fn := runtime.FuncForPC(pc); fn != nil {
 				array := gstr.Split(fn.Name(), ".")
 				if array[0] != "main" {

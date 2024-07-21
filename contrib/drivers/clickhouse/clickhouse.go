@@ -45,17 +45,12 @@ func init() {
 }
 
 // New 创建并返回一个实现了gdb.Driver接口的驱动器，该驱动器支持对Clickhouse的操作。 md5:e191d797c82bf046
-// ff:
 func New() gdb.Driver {
 	return &Driver{}
 }
 
-		// New 创建并返回一个用于ClickHouse的数据库对象。它实现了gdb.Driver接口，以便于额外的数据库驱动程序安装。
-		// md5:79dabf2eba06bc88
-// ff:
-// d:
-// core:
-// node:
+// New 创建并返回一个用于ClickHouse的数据库对象。它实现了gdb.Driver接口，以便于额外的数据库驱动程序安装。
+// md5:79dabf2eba06bc88
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,

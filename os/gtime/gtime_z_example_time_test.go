@@ -100,8 +100,10 @@ func ExampleNewFromStrLayout() {
 	// 2018-08-08 08:08:08
 }
 
-// NewFromTimeStamp creates and returns a Time object with given timestamp,
-// which can be in seconds to nanoseconds.
+// NewFromTimeStamp 根据给定的时间戳创建并返回一个 Time 对象，
+// 该时间戳可以是秒到纳秒的精度。
+// 例如：1600443866 和 1600443866199266000 都被视为有效的时间戳数值。
+// md5:6a84edd691c97a4f
 func ExampleNewFromTimeStamp() {
 	t1 := gtime.NewFromTimeStamp(1533686888)
 	t2 := gtime.NewFromTimeStamp(1533686888000)

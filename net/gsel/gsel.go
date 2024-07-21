@@ -55,10 +55,10 @@ type DoneInfo struct {
 	// BytesReceived表示是否已从服务器接收任何字节。 md5:76160cbbde4b2264
 	BytesReceived bool
 
-// ServerLoad 是从服务器接收到的负载。它通常作为尾部元数据的一部分发送。
-//
-// 目前唯一支持的类型是 *orca_v1.LoadReport。
-// md5:631ea6798c4714cb
+	// ServerLoad 是从服务器接收到的负载。它通常作为尾部元数据的一部分发送。
+	//
+	// 目前唯一支持的类型是 *orca_v1.LoadReport。
+	// md5:631ea6798c4714cb
 	ServerLoad interface{}
 }
 
@@ -69,22 +69,22 @@ type DoneInfoMD interface {
 	// Len 返回md中的项目数量。 md5:dd1e6c01d830a7fd
 	Len() int
 
-// Get 获取指定键的值。
-//
-// 在对 md 进行搜索之前，k 会被转换为小写。
-// md5:cd83da607a1a524c
+	// Get 获取指定键的值。
+	//
+	// 在对 md 进行搜索之前，k 会被转换为小写。
+	// md5:cd83da607a1a524c
 	Get(k string) []string
 
-// Set 使用一系列值设置给定键的值。
-//
-// 在存储到 md 之前，k 将被转换为小写。
-// md5:723075d936727645
+	// Set 使用一系列值设置给定键的值。
+	//
+	// 在存储到 md 之前，k 将被转换为小写。
+	// md5:723075d936727645
 	Set(key string, values ...string)
 
-// Append 将值添加到键 k，但不会覆盖已经存储在该键上的内容。
-//
-// 在存储到 md 中之前，k 会被转换为小写。
-// md5:8b748588b95754ce
+	// Append 将值添加到键 k，但不会覆盖已经存储在该键上的内容。
+	//
+	// 在存储到 md 中之前，k 会被转换为小写。
+	// md5:8b748588b95754ce
 	Append(k string, values ...string)
 
 	// Delete 删除给定键 k 的值，该键在从 md 中删除之前会被转换为小写。
@@ -93,8 +93,6 @@ type DoneInfoMD interface {
 }
 
 // String 方法将节点格式化并返回为字符串。 md5:8aee26fc061ca942
-// ff:
-// ns:
 func (ns Nodes) String() string {
 	var s string
 	for _, node := range ns {

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtest_test//bm:单元测试类_test
+package gtest_test
 
 import (
 	"errors"

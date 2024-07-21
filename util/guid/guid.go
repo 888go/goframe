@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // guid包提供了简单且高性能的唯一ID生成功能。 md5:22d1fe7516a2dff2
-package guid//bm:uid类
+package guid
 
 import (
 	"os"
@@ -67,8 +67,6 @@ func init() {
 //  1. 为了性能考虑，返回的长度固定为32字节。
 //  2. 自定义参数`data`组合的内容在你的业务场景中应具有唯一性。
 // md5:b09b2d34d56e1344
-// ff:生成
-// data:参数
 func S(data ...[]byte) string {
 	var (
 		b       = make([]byte, 32)

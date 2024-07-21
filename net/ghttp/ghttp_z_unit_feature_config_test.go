@@ -55,7 +55,7 @@ func Test_SetConfigWithMap(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		m := g.Map{
 			"Address": ":8199",
-								// "ServerRoot":       "/var/www/我的服务器根目录". md5:c70dfe0e8fb98ccb
+			// "ServerRoot":       "/var/www/我的服务器根目录". md5:c70dfe0e8fb98ccb
 			"IndexFiles":       g.Slice{"index.php", "main.php"},
 			"AccessLogEnabled": true,
 			"ErrorLogEnabled":  true,

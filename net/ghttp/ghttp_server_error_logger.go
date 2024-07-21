@@ -20,11 +20,6 @@ type errorLogger struct {
 }
 
 // Write 实现了 io.Writer 接口。 md5:6464c47cfa35b955
-// ff:
-// l:
-// p:
-// n:
-// err:
 func (l *errorLogger) Write(p []byte) (n int, err error) {
 	l.logger.Skip(1).Error(context.TODO(), string(bytes.TrimRight(p, "\r\n")))
 	return len(p), nil

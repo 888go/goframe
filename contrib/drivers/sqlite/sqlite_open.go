@@ -20,18 +20,19 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Open creates and returns an underlying sql.DB object for sqlite.
-
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底层Open cz:func (d *Driver) Open
+// Open 创建并返回一个底层的 sql.DB 对象，用于 SQLite。
+// https://github.com/glebarez/go-sqlite
+// md5:f3c66f09b7236ffa
+func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlite"
 	)
 	if config.Link != "" {
-// ============================================================================
-// 从 v2.2.0 版本开始已废弃。
-// ============================================================================
-// md5:73505fc2089cb531
+		// ============================================================================
+		// 从 v2.2.0 版本开始已废弃。
+		// ============================================================================
+		// md5:73505fc2089cb531
 		source = config.Link
 	} else {
 		source = config.Name

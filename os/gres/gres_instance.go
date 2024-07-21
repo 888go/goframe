@@ -19,11 +19,9 @@ var (
 	instances = gmap.NewStrAnyMap(true)
 )
 
-		// Instance 返回一个 Resource 的实例。
-		// 参数 `name` 是该实例的名称。
-		// md5:7525989539de5240
-// ff:
-// name:
+// Instance 返回一个 Resource 的实例。
+// 参数 `name` 是该实例的名称。
+// md5:7525989539de5240
 func Instance(name ...string) *Resource {
 	key := DefaultName
 	if len(name) > 0 && name[0] != "" {

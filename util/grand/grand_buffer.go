@@ -20,9 +20,9 @@ const (
 )
 
 var (
-// bufferChan 是用于随机字节的缓冲区，
-// 每个元素存储4个字节。
-// md5:4d20aff4f4a62f55
+	// bufferChan 是用于随机字节的缓冲区，
+	// 每个元素存储4个字节。
+	// md5:4d20aff4f4a62f55
 	bufferChan = make(chan []byte, bufferChanSize)
 )
 

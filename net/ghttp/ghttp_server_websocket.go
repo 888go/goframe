@@ -9,28 +9,29 @@ package ghttp
 
 import "github.com/gorilla/websocket"
 
-// WebSocket wraps the underlying websocket connection
-// and provides convenient functions.
-//
+// WebSocket 包装了底层的websocket连接，并提供了方便的函数。
+// 
+// 警告：将来将被移除，请改用第三方websocket库。
+// md5:85d39ed9e94efa8d
 type WebSocket struct {
 	*websocket.Conn
 }
 
 const (
-// WsMsgText TextMessage 表示一个文本数据消息。
-// 文本消息的有效负载被解释为UTF-8编码的文本数据。
-// md5:2212894321ec5f57
+	// WsMsgText TextMessage 表示一个文本数据消息。
+	// 文本消息的有效负载被解释为UTF-8编码的文本数据。
+	// md5:2212894321ec5f57
 	WsMsgText = websocket.TextMessage
 
 	// WsMsgBinary 表示一个二进制数据消息。 md5:a65808b202eac553
 	WsMsgBinary = websocket.BinaryMessage
 
-// WsMsgClose CloseMessage 表示一个关闭控制消息。可选的消息负载包含一个数字代码和文本。使用 FormatCloseMessage 函数格式化关闭消息负载。
-// md5:a469c715d4927f73
+	// WsMsgClose CloseMessage 表示一个关闭控制消息。可选的消息负载包含一个数字代码和文本。使用 FormatCloseMessage 函数格式化关闭消息负载。
+	// md5:a469c715d4927f73
 	WsMsgClose = websocket.CloseMessage
 
-// WsMsgPing PingMessage 表示一个ping控制消息。可选的消息负载是UTF-8编码的文本。
-// md5:be2bfff84d685414
+	// WsMsgPing PingMessage 表示一个ping控制消息。可选的消息负载是UTF-8编码的文本。
+	// md5:be2bfff84d685414
 	WsMsgPing = websocket.PingMessage
 
 	// WsMsgPong PongMessage 表示一个 pong 控制消息。

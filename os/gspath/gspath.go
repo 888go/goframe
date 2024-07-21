@@ -10,7 +10,7 @@
 // 它按照目录添加顺序，内部高效地进行文件搜索。请注意：
 // 如果启用了缓存功能，添加或删除文件后可能会有搜索延迟。
 // md5:626b2e878f4df376
-package gspath//bm:文件搜索类
+package gspath
 
 import (
 	"context"
@@ -45,9 +45,6 @@ var (
 )
 
 // New 创建并返回一个新的路径搜索管理器。 md5:4a9d5d03b9c2c8be
-// ff:
-// path:
-// cache:
 func New(path string, cache bool) *SPath {
 	sp := &SPath{
 		paths: garray.NewStrArray(true),
@@ -68,9 +65,6 @@ func New(path string, cache bool) *SPath {
 // 如果启用了缓存功能，它将异步且递归地扫描该路径，
 // 并使用 gfsnotify 包将所有子文件/文件夹更新到缓存中。
 // md5:db411c9b09cbef91
-// ff:
-// root:
-// cache:
 func Get(root string, cache bool) *SPath {
 	if root == "" {
 		root = "/"
@@ -86,12 +80,6 @@ func Get(root string, cache bool) *SPath {
 // 例如，如果结果 `filePath` 是一个目录，并且 `indexFiles` 是 [index.html, main.html]，它将在 `filePath` 下也搜索这两个文件。
 // 如果找到其中任何一个文件，它将返回该文件的绝对路径，否则返回 `filePath`。
 // md5:dfc991bd35d2d178
-// ff:
-// root:
-// name:
-// indexFiles:
-// filePath:
-// isDir:
 func Search(root string, name string, indexFiles ...string) (filePath string, isDir bool) {
 	return Get(root, false).Search(name, indexFiles...)
 }
@@ -99,23 +87,11 @@ func Search(root string, name string, indexFiles ...string) (filePath string, is
 // SearchWithCache 在启用缓存的情况下，在路径`root`下搜索文件`name`。参数`root`应为绝对路径，出于性能考虑，它不会自动将`root`转换为绝对路径。
 // 可选参数`indexFiles`用于指定当结果为目录时的索引文件。例如，如果结果`filePath`是一个目录，并且`indexFiles`为`[index.html, main.html]`，它将在`filePath`下搜索`[index.html, main.html)`。如果有找到任何文件，则返回其绝对文件路径，否则返回`filePath`。
 // md5:f0b25342a4685319
-// ff:
-// root:
-// name:
-// indexFiles:
-// filePath:
-// isDir:
 func SearchWithCache(root string, name string, indexFiles ...string) (filePath string, isDir bool) {
 	return Get(root, true).Search(name, indexFiles...)
 }
 
 // Set删除所有其他搜索目录，并为这个管理器设置搜索目录。 md5:6bb092ed0381b154
-// yx:true
-// ff:设置值
-// sp:
-// path:
-// realPath:
-// err:
 func (sp *SPath) Set(path string) (realPath string, err error) {
 	realPath = gfile.RealPath(path)
 	if realPath == "" {
@@ -152,11 +128,6 @@ func (sp *SPath) Set(path string) (realPath string, err error) {
 // Add 向管理器添加更多的搜索目录。
 // 管理器将按照添加的顺序查找文件。
 // md5:b27b49ecc2f1758a
-// ff:
-// sp:
-// path:
-// realPath:
-// err:
 func (sp *SPath) Add(path string) (realPath string, err error) {
 	realPath = gfile.RealPath(path)
 	if realPath == "" {
@@ -170,9 +141,9 @@ func (sp *SPath) Add(path string) (realPath string, err error) {
 	}
 	// 添加的路径必须是一个目录。 md5:3e2662f535c6872c
 	if gfile.IsDir(realPath) {
-// fmt.Println("gspath:", realPath, sp.paths.Search(realPath)) 
-// 对于同一个目录，它不会重复添加。
-// md5:701deef87cf571aa
+		// fmt.Println("gspath:", realPath, sp.paths.Search(realPath)) 
+		// 对于同一个目录，它不会重复添加。
+		// md5:701deef87cf571aa
 		if sp.paths.Search(realPath) < 0 {
 			realPath = strings.TrimRight(realPath, gfile.Separator)
 			sp.paths.Append(realPath)
@@ -191,12 +162,6 @@ func (sp *SPath) Add(path string) (realPath string, err error) {
 // 在`filePath`目录下查找[index.html, main.html]。如果找到了其中任何一个文件，就返回其绝对路径；
 // 否则，直接返回`filePath`。
 // md5:8210196c6e2ae787
-// ff:
-// sp:
-// name:
-// indexFiles:
-// filePath:
-// isDir:
 func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isDir bool) {
 	// No cache enabled.
 	if sp.cache == nil {
@@ -251,9 +216,6 @@ func (sp *SPath) Search(name string, indexFiles ...string) (filePath string, isD
 
 // Remove 从管理器的缓存文件中删除`path`。参数`path`可以是绝对路径或仅仅是相对文件名。
 // md5:30f46aaaf75a1da8
-// ff:
-// sp:
-// path:
 func (sp *SPath) Remove(path string) {
 	if sp.cache == nil {
 		return
@@ -271,15 +233,11 @@ func (sp *SPath) Remove(path string) {
 }
 
 // Paths返回所有搜索目录。 md5:0e02e3a85da8e197
-// ff:
-// sp:
 func (sp *SPath) Paths() []string {
 	return sp.paths.Slice()
 }
 
 // AllPaths 返回存储在管理器中的所有路径。 md5:75157edfcae7d2a0
-// ff:
-// sp:
 func (sp *SPath) AllPaths() []string {
 	if sp.cache == nil {
 		return nil
@@ -292,8 +250,6 @@ func (sp *SPath) AllPaths() []string {
 }
 
 // Size 返回搜索目录的数量。 md5:e115dd584d3351a2
-// ff:
-// sp:
 func (sp *SPath) Size() int {
 	return sp.paths.Len()
 }

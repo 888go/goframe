@@ -140,9 +140,6 @@ var safeSet = [utf8.RuneSelf]bool{
 }
 
 // HandlerStructure 是一个处理器，用于将输出的日志内容以结构化字符串的形式处理。 md5:392f74b46dcdd1eb
-// ff:中间件函数文本结构化输出
-// ctx:上下文
-// in:
 func HandlerStructure(ctx context.Context, in *HandlerInput) {
 	s := newStructuredBuffer(in)
 	in.Buffer.Write(s.Bytes())
@@ -157,9 +154,6 @@ func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
 	}
 }
 
-// yx:true
-// ff:取字节集
-// buf:
 func (buf *structuredBuffer) Bytes() []byte {
 	buf.addValue(structureKeyTime, buf.in.TimeFormat)
 	if buf.in.TraceId != "" {

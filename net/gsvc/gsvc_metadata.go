@@ -12,19 +12,11 @@ import (
 )
 
 // Set 将键值对设置到元数据中。 md5:3d5704977db787ca
-// yx:true
-// ff:设置值
-// m:
-// key:
-// value:
 func (m Metadata) Set(key string, value interface{}) {
 	m[key] = value
 }
 
 // Sets 将键值对设置到元数据中。 md5:5e97d454777313f3
-// ff:
-// m:
-// kvs:
 func (m Metadata) Sets(kvs map[string]interface{}) {
 	for k, v := range kvs {
 		m[k] = v
@@ -32,9 +24,6 @@ func (m Metadata) Sets(kvs map[string]interface{}) {
 }
 
 // Get 通过指定的键获取并返回作为gvar的值。 md5:000450be6d0167a3
-// ff:
-// m:
-// key:
 func (m Metadata) Get(key string) *gvar.Var {
 	if v, ok := m[key]; ok {
 		return gvar.New(v)
@@ -43,8 +32,6 @@ func (m Metadata) Get(key string) *gvar.Var {
 }
 
 // IsEmpty 检查当前Metadata是否为空，并返回结果。 md5:0ebeb5f8ed40404a
-// ff:
-// m:
 func (m Metadata) IsEmpty() bool {
 	return len(m) == 0
 }

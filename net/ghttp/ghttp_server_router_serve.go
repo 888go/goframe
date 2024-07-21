@@ -48,22 +48,22 @@ func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemPar
 		path   = r.URL.Path
 		host   = r.GetHost()
 	)
-// 在以下情况中，例如：
-// 情况1：
-// 		GET /net/http
-// 		r.URL.Path    : /net/http
-// 		r.URL.RawPath : （空字符串）
-// 情况2：
-// 		GET /net%2Fhttp
-// 		r.URL.Path    : /net/http
-// 		r.URL.RawPath : /net%2Fhttp
-// md5:97750eaa6ac9d07d
+	// 在以下情况中，例如：
+	// 情况1：
+	// 		GET /net/http
+	// 		r.URL.Path    : /net/http
+	// 		r.URL.RawPath : （空字符串）
+	// 情况2：
+	// 		GET /net%2Fhttp
+	// 		r.URL.Path    : /net/http
+	// 		r.URL.RawPath : /net%2Fhttp
+	// md5:97750eaa6ac9d07d
 	if r.URL.RawPath != "" {
 		path = r.URL.RawPath
 	}
-// 专门处理 HTTP 方法 OPTIONS。
-// 它会使用请求方法搜索处理器，而不是 OPTIONS 方法。
-// md5:2704b13524189224
+	// 专门处理 HTTP 方法 OPTIONS。
+	// 它会使用请求方法搜索处理器，而不是 OPTIONS 方法。
+	// md5:2704b13524189224
 	if method == http.MethodOptions {
 		if v := r.Request.Header.Get("Access-Control-Request-Method"); v != "" {
 			method = v
@@ -98,9 +98,9 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 	if len(path) == 0 {
 		return nil, nil, false, false
 	}
-// 对于包含连续'/'的URI，例如：
-// /user//index, //user/index, //user//index//
-// md5:fb272e4928c6b465
+	// 对于包含连续'/'的URI，例如：
+	// /user	//index, 	//user/index, 	//user	//index	//
+	// md5:fb272e4928c6b465
 	var previousIsSep = false
 	for i := 0; i < len(path); {
 		if path[i] == '/' {
@@ -128,8 +128,8 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 		repeatHandlerCheckMap = make(map[int]struct{}, 16)
 	)
 
-// 当迭代时，默认域具有最高优先级。如果您想了解serveTree的结构，请参阅doSetHandler。
-// md5:8bc20bbd07335cfd
+	// 当迭代时，默认域具有最高优先级。如果您想了解serveTree的结构，请参阅doSetHandler。
+	// md5:8bc20bbd07335cfd
 	for _, domainItem := range []string{DefaultDomainName, domain} {
 		p, ok := s.serveTree[domainItem]
 		if !ok {
@@ -156,9 +156,9 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 				p = v
 			}
 			if i == len(array)-1 {
-// 这里同时检查模糊项，
-// 适用于诸如规则情况："/user/*action" 匹配到 "/user"。
-// md5:89d31460cfdbd8e6
+				// 这里同时检查模糊项，
+				// 适用于诸如规则情况："/user/*action" 匹配到 "/user"。
+				// md5:89d31460cfdbd8e6
 				if v, ok := p.(map[string]interface{})["*fuzz"]; ok {
 					p = v
 				}
@@ -169,29 +169,29 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 			}
 		}
 
-// 好的，让我们遍历结果列表数组，将处理项添加到结果处理器结果数组中。由于列表数组的尾部优先级最高，所以我们从数组尾部开始向前遍历。
-// md5:1f7f116128551404
+		// 好的，让我们遍历结果列表数组，将处理项添加到结果处理器结果数组中。由于列表数组的尾部优先级最高，所以我们从数组尾部开始向前遍历。
+		// md5:1f7f116128551404
 		for i := len(lists) - 1; i >= 0; i-- {
 			for e := lists[i].Front(); e != nil; e = e.Next() {
 				item := e.Value.(*HandlerItem)
-// 过滤重复的处理器项，特别是中间件和钩子处理器。
-// 这是必要的，除非你非常清楚为什么需要移除这个检查逻辑，否则请不要删除。
-//
-// `repeatHandlerCheckMap` 用于在搜索处理器时进行重复处理器过滤。由于存在模糊节点，这些模糊节点既有子节点也有子列表节点，因此可能会在子节点和子列表节点中出现重复的处理器项。
-//
-// 同一个处理器项是指使用 `doSetHandler` 函数在同一函数中注册的处理器。需要注意的是，一个处理器函数（中间件或钩子函数）可能通过 `doSetHandler` 函数以不同的处理器项多次注册，并且它们有不同的处理器项 ID。
-//
-// 另外需要注意，同一种处理器函数可能由于不同的处理目的而被多次注册为不同的处理器项。
-// md5:6e4536c4e013b86a
+				// 过滤重复的处理器项，特别是中间件和钩子处理器。
+				// 这是必要的，除非你非常清楚为什么需要移除这个检查逻辑，否则请不要删除。
+				//
+				// `repeatHandlerCheckMap` 用于在搜索处理器时进行重复处理器过滤。由于存在模糊节点，这些模糊节点既有子节点也有子列表节点，因此可能会在子节点和子列表节点中出现重复的处理器项。
+				//
+				// 同一个处理器项是指使用 `doSetHandler` 函数在同一函数中注册的处理器。需要注意的是，一个处理器函数（中间件或钩子函数）可能通过 `doSetHandler` 函数以不同的处理器项多次注册，并且它们有不同的处理器项 ID。
+				//
+				// 另外需要注意，同一种处理器函数可能由于不同的处理目的而被多次注册为不同的处理器项。
+				// md5:6e4536c4e013b86a
 				if _, isRepeatedHandler := repeatHandlerCheckMap[item.Id]; isRepeatedHandler {
 					continue
 				} else {
 					repeatHandlerCheckMap[item.Id] = struct{}{}
 				}
-// 服务处理程序只能添加到处理器数组中一次。
-// 列表中的第一个路由项比其余项具有更高的优先级。
-// 此忽略功能可以实现路由覆盖功能。
-// md5:6e93290e1cdad8d9
+				// 服务处理程序只能添加到处理器数组中一次。
+				// 列表中的第一个路由项比其余项具有更高的优先级。
+				// 此忽略功能可以实现路由覆盖功能。
+				// md5:6e93290e1cdad8d9
 				if hasServe {
 					switch item.Type {
 					case HandlerTypeHandler, HandlerTypeObject:
@@ -202,9 +202,9 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 					// 注意没有模糊规则的规则：match 的长度等于 1. md5:c26d1818ce3f384e
 					if match, err := gregex.MatchString(item.Router.RegRule, path); err == nil && len(match) > 0 {
 						parsedItem := &HandlerItemParsed{item, nil}
-// 如果规则包含模糊名称（fuzzy names），
-// 需要对URL进行切分以获取名称的值。
-// md5:022aca8d52d2dc1f
+						// 如果规则包含模糊名称（fuzzy names），
+						// 需要对URL进行切分以获取名称的值。
+						// md5:022aca8d52d2dc1f
 						if len(item.Router.RegNames) > 0 {
 							if len(match) > len(item.Router.RegNames) {
 								parsedItem.Values = make(map[string]string)
@@ -257,8 +257,6 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// item:
 func (item HandlerItem) MarshalJSON() ([]byte, error) {
 	switch item.Type {
 	case HandlerTypeHook:
@@ -293,8 +291,6 @@ func (item HandlerItem) MarshalJSON() ([]byte, error) {
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// item:
 func (item HandlerItemParsed) MarshalJSON() ([]byte, error) {
 	return json.Marshal(item.Handler)
 }

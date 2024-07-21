@@ -30,8 +30,6 @@ type LocalService struct {
 }
 
 // NewServiceWithName 根据服务名称创建并返回一个默认实现的 Service 接口实例。 md5:24c38960f0d05e58
-// ff:
-// name:
 func NewServiceWithName(name string) Service {
 	s := &LocalService{
 		Name:     name,
@@ -42,10 +40,6 @@ func NewServiceWithName(name string) Service {
 }
 
 // NewServiceWithKV 使用键值对字符串创建并返回一个默认实现 Service 接口的服务。 md5:8789fc514001694f
-// ff:
-// key:
-// value:
-// Service:
 func NewServiceWithKV(key, value string) (Service, error) {
 	var (
 		err   error
@@ -77,8 +71,6 @@ func NewServiceWithKV(key, value string) (Service, error) {
 // GetName 返回服务的名称。
 // 名称对于服务是必需的，应在所有服务中保持唯一。
 // md5:c0cc1fa5e19d9a6c
-// ff:
-// s:
 func (s *LocalService) GetName() string {
 	return s.Name
 }
@@ -88,8 +80,6 @@ func (s *LocalService) GetName() string {
 // 服务可以同时部署多个版本。
 // 如果服务中未设置版本，那么服务的默认版本为 "latest"。
 // md5:bf857eeaf16711ca
-// ff:
-// s:
 func (s *LocalService) GetVersion() string {
 	return s.Version
 }
@@ -97,8 +87,6 @@ func (s *LocalService) GetVersion() string {
 // GetKey 格式化并返回服务的唯一键字符串。
 // 生成的结果键通常用于键值注册服务器。
 // md5:8651d9bc2f308934
-// ff:
-// s:
 func (s *LocalService) GetKey() string {
 	serviceNameUnique := s.GetPrefix()
 	serviceNameUnique += DefaultSeparator + s.Endpoints.String()
@@ -107,8 +95,6 @@ func (s *LocalService) GetKey() string {
 
 // GetValue 格式化并返回服务的值。结果值通常用于键值注册服务器。
 // md5:81a88bc4bcc73037
-// ff:
-// s:
 func (s *LocalService) GetValue() string {
 	b, err := gjson.Marshal(s.Metadata)
 	if err != nil {
@@ -123,8 +109,6 @@ func (s *LocalService) GetValue() string {
 // 以 etcd 服务器为例，前缀字符串的用法如下：
 // `etcdctl get /services/prod/hello.svc --prefix`
 // md5:3c443e018050694a
-// ff:
-// s:
 func (s *LocalService) GetPrefix() string {
 	s.autoFillDefaultAttributes()
 	return DefaultSeparator + gstr.Join(
@@ -142,17 +126,13 @@ func (s *LocalService) GetPrefix() string {
 // GetMetadata 返回服务的元数据地图。
 // 元数据是一个键值对映射，用于指定服务的额外属性。
 // md5:42fd4200585681c1
-// ff:
-// s:
 func (s *LocalService) GetMetadata() Metadata {
 	return s.Metadata
 }
 
-	// GetEndpoints 返回服务的端点信息。
-	// 端点包含服务的多个主机/端口信息。
-	// md5:164bdc2d3a7db5e0
-// ff:
-// s:
+// GetEndpoints 返回服务的端点信息。
+// 端点包含服务的多个主机/端口信息。
+// md5:164bdc2d3a7db5e0
 func (s *LocalService) GetEndpoints() Endpoints {
 	return s.Endpoints
 }

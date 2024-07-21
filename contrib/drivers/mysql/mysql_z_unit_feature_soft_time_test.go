@@ -812,9 +812,9 @@ CREATE TABLE %s (
 		gtest.Error(err)
 	}
 	defer dropTable(table)
-// db.SetDebug(true)
-// 添加数据。
-// md5:940469df021bcc3f
+	// db.SetDebug(true)
+	// 添加数据。
+	// md5:940469df021bcc3f
 	gtest.C(t, func(t *gtest.T) {
 		for i := 1; i <= 10; i++ {
 			data := g.Map{
@@ -856,9 +856,9 @@ CREATE TABLE %s (
 	}
 	defer dropTable(table)
 
-// 将数据库设置为调试模式
-// 使用defer语句确保在函数返回前将数据库的调试模式重置为false
-// md5:b9225b2fca692b91
+	// 将数据库设置为调试模式
+	// 使用defer语句确保在函数返回前将数据库的调试模式重置为false
+	// md5:b9225b2fca692b91
 
 	type Entity struct {
 		Id       uint64      `orm:"id,primary" json:"id"`

@@ -21,24 +21,21 @@ const (
 // OmitEmpty 为模型设置了 optionOmitEmpty 选项，该选项会自动过滤掉
 // 数据和 where 参数中的 `空值`。
 // md5:bf1dc800704b3324
-// ff:过滤空值
-// m:
 func (m *Model) OmitEmpty() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitEmpty
 	return model
 }
 
-// OmitEmptyWhere sets optionOmitEmptyWhere option for the model, which automatically filers
-// the Where/Having parameters for `empty` values.
+// OmitEmptyWhere 为模型设置 optionOmitEmptyWhere 选项，该选项会自动过滤掉 Where/Having 参数中的"空"值。
 //
+// 示例：
 //
-//	Where("id", []int{}).All()             -> SELECT xxx FROM xxx WHERE 0=1
-//	Where("name", "").All()                -> SELECT xxx FROM xxx WHERE `name`=''
-//	OmitEmpty().Where("id", []int{}).All() -> SELECT xxx FROM xxx
-//	OmitEmpty().("name", "").All()         -> SELECT xxx FROM xxx.
-// ff:过滤空值条件
-// m:
+// 	Where("id", []int{}).All()             -> SELECT xxx FROM xxx WHERE 0=1
+// 	Where("name", "").All()                -> SELECT xxx FROM xxx WHERE `name`=''
+// 	OmitEmpty().Where("id", []int{}).All() -> SELECT xxx FROM xxx
+// 	OmitEmpty().("name", "").All()         -> SELECT xxx FROM xxx.
+// md5:df62f4199a96c566
 func (m *Model) OmitEmptyWhere() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitEmptyWhere
@@ -47,8 +44,6 @@ func (m *Model) OmitEmptyWhere() *Model {
 
 // OmitEmptyData 为模型设置 optionOmitEmptyData 选项，该选项会自动过滤掉 Data 参数中的空值。
 // md5:56dab615155b1550
-// ff:过滤空值数据
-// m:
 func (m *Model) OmitEmptyData() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitEmptyData
@@ -57,8 +52,6 @@ func (m *Model) OmitEmptyData() *Model {
 
 // OmitNil为模型设置optionOmitNil选项，该选项会自动过滤掉`nil`值的数据和where参数。
 // md5:d24d4fb4b4f59068
-// ff:过滤Nil
-// m:
 func (m *Model) OmitNil() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitNil
@@ -68,18 +61,14 @@ func (m *Model) OmitNil() *Model {
 // OmitNilWhere 为模型设置了 optionOmitNilWhere 选项，该选项会自动过滤掉
 // Where/Having 参数中的 `nil` 值。
 // md5:b5927ba5d926adaf
-// ff:过滤Nil条件
-// m:
 func (m *Model) OmitNilWhere() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitNilWhere
 	return model
 }
 
-					// OmitNilData 为模型设置 optionOmitNilData 选项，该选项会自动过滤掉 Data 参数中的 `nil` 值。
-					// md5:e6503d524a0d8d31
-// ff:过滤Nil数据
-// m:
+// OmitNilData 为模型设置 optionOmitNilData 选项，该选项会自动过滤掉 Data 参数中的 `nil` 值。
+// md5:e6503d524a0d8d31
 func (m *Model) OmitNilData() *Model {
 	model := m.getModel()
 	model.option = model.option | optionOmitNilData

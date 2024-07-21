@@ -36,8 +36,6 @@ func getResponseBody(res *http.Response) string {
 }
 
 // RawRequest 返回请求的原始内容。 md5:75945739a746b6fa
-// ff:取请求原始文本
-// r:
 func (r *Response) RawRequest() string {
 	// Response can be nil.
 	if r == nil || r.request == nil {
@@ -58,8 +56,6 @@ func (r *Response) RawRequest() string {
 }
 
 // RawResponse 返回响应的原始内容。 md5:a3d4faef4d056f70
-// ff:取响应原始文本
-// r:
 func (r *Response) RawResponse() string {
 	// Response might be nil.
 	if r == nil || r.Response == nil {
@@ -80,15 +76,11 @@ func (r *Response) RawResponse() string {
 }
 
 // Raw返回请求和响应的原始文本。 md5:68a1f59b34b9e33a
-// ff:取请求和响应原始文本
-// r:
 func (r *Response) Raw() string {
 	return fmt.Sprintf("%s\n%s", r.RawRequest(), r.RawResponse())
 }
 
 // RawDump 将请求和响应的原始文本输出到stdout。 md5:aa9a7a2cc5e60970
-// ff:请求和响应输出终端
-// r:
 func (r *Response) RawDump() {
 	fmt.Println(r.Raw())
 }

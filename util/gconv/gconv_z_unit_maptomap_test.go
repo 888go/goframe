@@ -16,9 +16,9 @@ import (
 )
 
 func Test_MapToMap1(t *testing.T) {
-// int到int的映射 -> string到string的映射
-// 清空原始映射。
-// md5:53ade5c68bd0aad0
+	// int到int的映射 -> string到string的映射
+	// 清空原始映射。
+	// md5:53ade5c68bd0aad0
 	gtest.C(t, func(t *gtest.T) {
 		m1 := g.MapIntInt{}
 		m2 := g.MapStrStr{}
@@ -37,10 +37,6 @@ func Test_MapToMap1(t *testing.T) {
 		t.Assert(m2["2"], m1[2])
 	})
 	// map[string]interface{} -> map[string]string
-// map[string]interface{} -> map[string]string
-// map[string]interface{} -> map[string]string
-// map[string]interface{} -> map[string]string
-// map[string]interface{} -> map[string]string
 // map[string]interface{} -> map[string]string
 // 将map[string]interface{}类型的值转换为map[string]string类型. md5:273bd8baf5a0dc6f
 	gtest.C(t, func(t *gtest.T) {

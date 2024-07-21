@@ -11,7 +11,7 @@ import "github.com/gogf/gf/v2/os/gtime"
 
 // iVal 用于类型断言以实现String()方法。 md5:46c43d7149579432
 type iVal interface {
-	Val() interface{}//qm:取值  cz:Val() interface{}  yx:true
+	Val() interface{}
 }
 
 // iString 用于类型断言API，用于String()。 md5:8ec0af717c4f530e
@@ -21,27 +21,27 @@ type iString interface {
 
 // iBool 用于布尔类型断言的 API。 md5:59ff9e6dd6e8d3da
 type iBool interface {
-	Bool() bool//qm:取布尔  cz:Bool() bool  yx:true
+	Bool() bool
 }
 
 // iInt64 用于对 Int64() 函数的类型断言。 md5:db7ff0850aa64638
 type iInt64 interface {
-	Int64() int64//qm:取整数64位  cz:Int64() int64  yx:true
+	Int64() int64
 }
 
 // iUint64 用于为 Uint64() 方法的类型断言提供支持。 md5:49a588d92caa8794
 type iUint64 interface {
-	Uint64() uint64//qm:取正整数64位  cz:Uint64() uint64  yx:true
+	Uint64() uint64
 }
 
 // iFloat32 用于在Float32()方法中进行类型断言的API。 md5:2187b83d5c94d667
 type iFloat32 interface {
-	Float32() float32//qm:取小数32位  cz:Float32() float32  yx:true
+	Float32() float32
 }
 
 // iFloat64 用于Float64()类型的断言API。 md5:b38f89afc3709759
 type iFloat64 interface {
-	Float64() float64//qm:取小数64位  cz:Float64() float64  yx:true
+	Float64() float64
 }
 
 // iError用于类型断言错误信息。 md5:ca9885066be22039
@@ -51,7 +51,7 @@ type iError interface {
 
 // iBytes 用于类型断言 API，以支持 Bytes() 方法。 md5:f39d15d800efa326
 type iBytes interface {
-	Bytes() []byte//qm:取字节集  cz:Bytes() []byte  yx:true
+	Bytes() []byte
 }
 
 // iInterface 用于Interface()方法的类型断言接口。 md5:9daf47766ff28118
@@ -61,32 +61,32 @@ type iInterface interface {
 
 // iInterfaces 用于类型断言接口，用于 Interfaces() 方法。 md5:711dc755f9cd4979
 type iInterfaces interface {
-	Interfaces() []interface{}//qm:取any切片  cz:Interfaces() []interface{}  yx:true
+	Interfaces() []interface{}
 }
 
 // iFloats 用于Floats()方法的类型断言。 md5:72d86b425f0484a9
 type iFloats interface {
-	Floats() []float64//qm:取小数切片  cz:Floats() []float64  yx:true
+	Floats() []float64
 }
 
 // iInts 用于 Ints() 类型断言API。 md5:f310759e5276f31e
 type iInts interface {
-	Ints() []int//qm:取整数切片  cz:Ints() []int  yx:true
+	Ints() []int
 }
 
 // iStrings 用于为 Strings() 方法提供类型断言的接口。 md5:fb5546612acb4787
 type iStrings interface {
-	Strings() []string//qm:取文本切片  cz:Strings() []string  yx:true
+	Strings() []string
 }
 
 // iUints 用于Uints()的类型断言API。 md5:df1a889976394f51
 type iUints interface {
-	Uints() []uint//qm:取正整数切片  cz:Uints() []uint  yx:true
+	Uints() []uint
 }
 
 // iMapStrAny 是一个接口，支持将结构体参数转换为映射。 md5:cfd4642c77fca6ec
 type iMapStrAny interface {
-	MapStrAny() map[string]interface{}//qm:取MapStrAny  cz:MapStrAny() map[string]interface{}  yx:true
+	MapStrAny() map[string]interface{}
 }
 
 // iUnmarshalValue 是用于自定义类型定制值赋值的接口。
@@ -112,10 +112,10 @@ type iUnmarshalJSON interface {
 
 // iSet 是自定义值赋值的接口。 md5:a36eda9131af6c27
 type iSet interface {
-	Set(value interface{}) (old interface{})//qm:设置值  cz:Set(  yx:true
+	Set(value interface{}) (old interface{})
 }
 
 // iGTime是gtime.Time转换的接口。 md5:33093b8b6fff69af
 type iGTime interface {
-	GTime(format ...string) *gtime.Time//qm:取gtime时间类  cz:GTime(  yx:true
+	GTime(format ...string) *gtime.Time
 }

@@ -18,11 +18,6 @@ import (
 )
 
 // CheckLocalTypeForField 检查并返回给定数据库类型对应的本地Go语言类型。 md5:f8aef7c5b09aa9c8
-// ff:
-// d:
-// ctx:
-// fieldType:
-// fieldValue:
 func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (gdb.LocalType, error) {
 	var typeName string
 	match, _ := gregex.MatchString(`(.+?)\((.+)\)`, fieldType)
@@ -63,11 +58,6 @@ func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, f
 // 参数 `fieldType` 为小写格式，例如：
 // `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。
 // md5:7e1ede2b68158e31
-// ff:
-// d:
-// ctx:
-// fieldType:
-// fieldValue:
 func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	typeName, _ := gregex.ReplaceString(`\(.+\)`, "", fieldType)
 	typeName = strings.ToLower(typeName)

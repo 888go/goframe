@@ -111,9 +111,9 @@ func TestOpenApiV3_Add(t *testing.T) {
 			Object: f,
 		})
 		t.AssertNil(err)
-// fmt.Println(oai.String()) 打印oai的字符串表示形式
-// Schema断言
-// md5:ccde758f296b7f2e
+		// fmt.Println(oai.String()) 打印oai的字符串表示形式
+		// Schema断言
+		// md5:ccde758f296b7f2e
 		t.Assert(len(oai.Components.Schemas.Map()), 3)
 		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CreateResourceReq`).Value.Type, goai.TypeObject)
 
@@ -343,9 +343,9 @@ func TestOpenApiV3_CommonRequest_WithoutDataField_Setting(t *testing.T) {
 			Object: f2,
 		})
 		t.AssertNil(err)
-// Schema断言。
-// 打印OAI的字符串表示。
-// md5:91f27bfa251a3680
+		// Schema断言。
+		// 打印OAI的字符串表示。
+		// md5:91f27bfa251a3680
 		t.Assert(len(oai.Components.Schemas.Map()), 4)
 		t.Assert(len(oai.Paths), 1)
 		t.Assert(len(oai.Paths["/index"].Put.Parameters), 2)
@@ -387,9 +387,9 @@ func TestOpenApiV3_CommonRequest_EmptyRequest(t *testing.T) {
 			Object: f,
 		})
 		t.AssertNil(err)
-// Schema断言。
-// 打印OAI的字符串表示。
-// md5:91f27bfa251a3680
+		// Schema断言。
+		// 打印OAI的字符串表示。
+		// md5:91f27bfa251a3680
 		t.Assert(len(oai.Components.Schemas.Map()), 3)
 		t.Assert(len(oai.Paths), 1)
 		t.Assert(len(oai.Paths["/index"].Put.RequestBody.Value.Content["application/json"].Schema.Value.Properties.Map()), 3)
@@ -459,9 +459,9 @@ func TestOpenApiV3_CommonRequest_SubDataField(t *testing.T) {
 		})
 		t.AssertNil(err)
 
-// Schema断言。
-// 打印OAI的字符串表示。
-// md5:91f27bfa251a3680
+		// Schema断言。
+		// 打印OAI的字符串表示。
+		// md5:91f27bfa251a3680
 		t.Assert(len(oai.Components.Schemas.Map()), 5)
 		t.Assert(len(oai.Paths), 1)
 		t.Assert(len(oai.Paths["/index"].Put.RequestBody.Value.Content["application/json"].Schema.Value.Properties.Map()), 1)
@@ -600,9 +600,9 @@ func TestOpenApiV3_CommonResponse_EmptyResponse(t *testing.T) {
 			Object: f,
 		})
 		t.AssertNil(err)
-// Schema断言。
-// 打印OAI的字符串表示。
-// md5:91f27bfa251a3680
+		// Schema断言。
+		// 打印OAI的字符串表示。
+		// md5:91f27bfa251a3680
 		t.Assert(len(oai.Components.Schemas.Map()), 3)
 		t.Assert(len(oai.Paths), 1)
 		t.Assert(oai.Paths["/index"].Put.RequestBody.Value.Content["application/json"].Schema.Ref, `github.com.gogf.gf.v2.net.goai_test.Req`)
@@ -657,9 +657,9 @@ func TestOpenApiV3_CommonResponse_SubDataField(t *testing.T) {
 			Object: f,
 		})
 		t.AssertNil(err)
-// Schema断言。
-// 打印OAI的字符串表示。
-// md5:91f27bfa251a3680
+		// Schema断言。
+		// 打印OAI的字符串表示。
+		// md5:91f27bfa251a3680
 		t.Assert(len(oai.Components.Schemas.Map()), 4)
 		t.Assert(len(oai.Paths), 1)
 		t.Assert(len(oai.Paths["/index"].Get.Responses["200"].Value.Content["application/json"].Schema.Value.Properties.Map()), 1)
@@ -714,9 +714,9 @@ func TestOpenApiV3_ShortTags(t *testing.T) {
 			Object: f,
 		})
 		t.AssertNil(err)
-// fmt.Println(oai.String()) 打印oai的字符串表示形式
-// Schema断言
-// md5:ccde758f296b7f2e
+		// fmt.Println(oai.String()) 打印oai的字符串表示形式
+		// Schema断言
+		// md5:ccde758f296b7f2e
 		t.Assert(len(oai.Components.Schemas.Map()), 3)
 		t.Assert(oai.Paths[`/test1/{appId}`].Summary, ``)
 		t.Assert(oai.Paths[`/test1/{appId}`].Description, ``)
@@ -923,9 +923,9 @@ func TestOpenApiV3_Ignore_Parameter(t *testing.T) {
 			Object: f,
 		})
 		t.AssertNil(err)
-// Schema断言。
-// 打印OAI的字符串表示。
-// md5:91f27bfa251a3680
+		// Schema断言。
+		// 打印OAI的字符串表示。
+		// md5:91f27bfa251a3680
 		t.Assert(len(oai.Components.Schemas.Map()), 3)
 		t.Assert(len(oai.Paths), 1)
 		t.Assert(len(oai.Paths["/test"].Get.Responses["200"].Value.Content["application/json"].Schema.Value.Properties.Map()), 8)

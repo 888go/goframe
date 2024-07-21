@@ -61,20 +61,17 @@ func init() {
 }
 
 // IsUsingDefaultProvider 检查并返回当前是否正在使用默认的跟踪提供程序。 md5:dd9a8bbd104a14cf
-// ff:
 func IsUsingDefaultProvider() bool {
 	_, ok := otel.GetTracerProvider().(*provider.TracerProvider)
 	return ok
 }
 
 // IsTracingInternal 返回是否正在追踪内部组件的跨度。 md5:4439b167674c69e6
-// ff:
 func IsTracingInternal() bool {
 	return tracingInternal
 }
 
 // MaxContentLogSize 返回请求和响应体的最大日志大小，特别是对于HTTP/RPC请求。 md5:762f425039c664ca
-// ff:
 func MaxContentLogSize() int {
 	return tracingMaxContentLogSize
 }
@@ -82,7 +79,6 @@ func MaxContentLogSize() int {
 // CommonLabels 返回常用属性标签：
 // ip.intranet，hostname。
 // md5:8affbee0c43e3bad
-// ff:
 func CommonLabels() []attribute.KeyValue {
 	return []attribute.KeyValue{
 		attribute.String(tracingCommonKeyIpHostname, hostname),
@@ -92,7 +88,6 @@ func CommonLabels() []attribute.KeyValue {
 }
 
 // CheckSetDefaultTextMapPropagator 如果之前未设置，默认情况下会设置文本映射传播器。 md5:586855119e290f63
-// ff:
 func CheckSetDefaultTextMapPropagator() {
 	p := otel.GetTextMapPropagator()
 	if len(p.Fields()) == 0 {
@@ -101,15 +96,12 @@ func CheckSetDefaultTextMapPropagator() {
 }
 
 // GetDefaultTextMapPropagator 返回用于在对等体之间传播上下文的默认 propagator。 md5:c053466fb206297d
-// ff:
 func GetDefaultTextMapPropagator() propagation.TextMapPropagator {
 	return defaultTextMapPropagator
 }
 
 // GetTraceID 从 context 中检索并返回 TraceId。如果跟踪功能未启用，则返回空字符串。
 // md5:09e9e014a696e105
-// ff:
-// ctx:
 func GetTraceID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -123,8 +115,6 @@ func GetTraceID(ctx context.Context) string {
 
 // GetSpanID 从上下文中检索并返回 SpanId。如果跟踪功能未激活，则返回空字符串。
 // md5:1cca885adbc44f92
-// ff:
-// ctx:
 func GetSpanID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -139,10 +129,6 @@ func GetSpanID(ctx context.Context) string {
 // SetBaggageValue 是一个便捷函数，用于向 baggage 中添加一个键值对。
 // 注意，它使用 attribute.Any 来设置键值对。
 // md5:a0a5e77a036e4b8b
-// ff:
-// ctx:
-// key:
-// value:
 func SetBaggageValue(ctx context.Context, key string, value interface{}) context.Context {
 	return NewBaggage(ctx).SetValue(key, value)
 }
@@ -150,40 +136,26 @@ func SetBaggageValue(ctx context.Context, key string, value interface{}) context
 // SetBaggageMap 是一个方便的函数，用于向行李中添加映射的键值对。
 // 请注意，它使用 attribute.Any 来设置键值对。
 // md5:635cc7b15635106d
-// ff:
-// ctx:
-// data:
 func SetBaggageMap(ctx context.Context, data map[string]interface{}) context.Context {
 	return NewBaggage(ctx).SetMap(data)
 }
 
 // GetBaggageMap 获取并返回行李（baggage）的值作为map。 md5:c2fd062493b49cd1
-// ff:
-// ctx:
 func GetBaggageMap(ctx context.Context) *gmap.StrAnyMap {
 	return NewBaggage(ctx).GetMap()
 }
 
 // GetBaggageVar 从 baggage 中检索值，并为指定的键返回一个 *gvar.Var。 md5:b7635ba9a07703cf
-// ff:
-// ctx:
-// key:
 func GetBaggageVar(ctx context.Context, key string) *gvar.Var {
 	return NewBaggage(ctx).GetVar(key)
 }
 
 // WithUUID 向上下文注入自定义的基于UUID的追踪ID以进行传播。 md5:b75be6e561eacb0c
-// ff:
-// ctx:
-// uuid:
 func WithUUID(ctx context.Context, uuid string) (context.Context, error) {
 	return WithTraceID(ctx, gstr.Replace(uuid, "-", ""))
 }
 
 // WithTraceID 将自定义的跟踪ID注入上下文以进行传播。 md5:74657c53cd9aeefb
-// ff:
-// ctx:
-// traceID:
 func WithTraceID(ctx context.Context, traceID string) (context.Context, error) {
 	generatedTraceID, err := trace.TraceIDFromHex(traceID)
 	if err != nil {

@@ -67,8 +67,6 @@ type Schema struct {
 // 只有必要的属性会被克隆。
 // TODO 克隆所有属性，或者改进包的深拷贝功能。
 // md5:5648a4a6a90c8e18
-// ff:
-// s:
 func (s *Schema) Clone() *Schema {
 	newSchema := *s
 	newSchema.Required = make([]string, len(s.Required))
@@ -77,8 +75,6 @@ func (s *Schema) Clone() *Schema {
 	return &newSchema
 }
 
-// ff:
-// s:
 func (s Schema) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte

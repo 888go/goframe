@@ -13,8 +13,6 @@ import (
 )
 
 // GetHostByName 返回给定互联网主机名对应的 IPv4 地址。 md5:b6dcb532a1a7dd84
-// ff:
-// hostname:
 func GetHostByName(hostname string) (string, error) {
 	ips, err := net.LookupIP(hostname)
 	if ips != nil {
@@ -30,8 +28,6 @@ func GetHostByName(hostname string) (string, error) {
 
 // GetHostsByName 根据给定的互联网主机名返回一个IPv4地址列表。
 // md5:57770571b1c3af32
-// ff:
-// hostname:
 func GetHostsByName(hostname string) ([]string, error) {
 	ips, err := net.LookupIP(hostname)
 	if ips != nil {
@@ -47,8 +43,6 @@ func GetHostsByName(hostname string) ([]string, error) {
 }
 
 // GetNameByAddr 根据给定的IP地址返回对应的互联网主机名。 md5:9abc34f304140e79
-// ff:
-// ipAddress:
 func GetNameByAddr(ipAddress string) (string, error) {
 	names, err := net.LookupAddr(ipAddress)
 	if names != nil {

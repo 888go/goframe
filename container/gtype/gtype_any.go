@@ -10,10 +10,8 @@ package gtype
 // Any是一个用于并发安全操作的any类型的结构体。 md5:40fc918c497f5cab
 type Any = Interface
 
-	// NewAny 为任何类型创建并返回一个并发安全的对象，初始值为`value`。
-	// md5:5624706a34a7a1be
-// ff:
-// value:
+// NewAny 为任何类型创建并返回一个并发安全的对象，初始值为`value`。
+// md5:5624706a34a7a1be
 func NewAny(value ...any) *Any {
 	t := &Any{}
 	if len(value) > 0 && value[0] != nil {

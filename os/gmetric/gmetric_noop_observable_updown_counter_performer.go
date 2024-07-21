@@ -11,8 +11,8 @@ package gmetric
 // md5:8c3502d99cc1c3e5
 type noopObservableUpDownCounterPerformer struct{}
 
-	// newNoopObservableUpDownCounterPerformer 创建并返回一个无实际操作的 ObservableUpDownCounterPerformer.
-	// md5:fdae3e6ba842dbe2
+// newNoopObservableUpDownCounterPerformer 创建并返回一个无实际操作的 ObservableUpDownCounterPerformer.
+// md5:fdae3e6ba842dbe2
 func newNoopObservableUpDownCounterPerformer() ObservableUpDownCounterPerformer {
 	return noopObservableUpDownCounterPerformer{}
 }

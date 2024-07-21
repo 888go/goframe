@@ -34,7 +34,6 @@ type Validator struct {
 }
 
 // New 创建并返回一个新的Validator.. md5:cca3c6d267bf0323
-// ff:
 func New() *Validator {
 	return &Validator{
 		i18nManager: gi18n.Instance(),          // 使用默认的国际化管理器。 md5:89cb0f7e25a6ca81
@@ -43,9 +42,6 @@ func New() *Validator {
 }
 
 // Run 开始根据规则和消息验证给定的数据。 md5:4345968979b93f1e
-// ff:
-// v:
-// ctx:
 func (v *Validator) Run(ctx context.Context) Error {
 	if v.data == nil {
 		return newValidationErrorByStr(
@@ -91,8 +87,6 @@ func (v *Validator) Run(ctx context.Context) Error {
 }
 
 // Clone 创建并返回一个新的Validator，它是当前对象的浅拷贝。 md5:3524ef480b75393c
-// ff:
-// v:
 func (v *Validator) Clone() *Validator {
 	newValidator := New()
 	*newValidator = *v
@@ -100,9 +94,6 @@ func (v *Validator) Clone() *Validator {
 }
 
 // I18n 设置验证器的i18n管理器。 md5:aeb8eebb20995b34
-// ff:
-// v:
-// i18nManager:
 func (v *Validator) I18n(i18nManager *gi18n.Manager) *Validator {
 	if i18nManager == nil {
 		return v
@@ -113,8 +104,6 @@ func (v *Validator) I18n(i18nManager *gi18n.Manager) *Validator {
 }
 
 // Bail设置在遇到第一个验证错误后停止验证的标记。 md5:219188161ae03b77
-// ff:
-// v:
 func (v *Validator) Bail() *Validator {
 	newValidator := v.Clone()
 	newValidator.bail = true
@@ -124,8 +113,6 @@ func (v *Validator) Bail() *Validator {
 // Foreach 通知下一个验证器将当前值作为数组对待，并验证它的每个元素。
 // 注意，此装饰规则仅对下一个验证规则生效一次，特别适用于单值验证。
 // md5:59e49ab195827b14
-// ff:
-// v:
 func (v *Validator) Foreach() *Validator {
 	newValidator := v.Clone()
 	newValidator.foreach = true
@@ -133,8 +120,6 @@ func (v *Validator) Foreach() *Validator {
 }
 
 // Ci 设置标记，表示对于需要值比较的规则进行不区分大小写的处理。 md5:a248130276497a1f
-// ff:
-// v:
 func (v *Validator) Ci() *Validator {
 	newValidator := v.Clone()
 	newValidator.caseInsensitive = true
@@ -142,9 +127,6 @@ func (v *Validator) Ci() *Validator {
 }
 
 // Data是一个链式操作函数，为当前操作设置验证数据。 md5:4bbfa1bb8271d34e
-// ff:
-// v:
-// data:
 func (v *Validator) Data(data interface{}) *Validator {
 	if data == nil {
 		return v
@@ -158,9 +140,6 @@ func (v *Validator) Data(data interface{}) *Validator {
 // 可选参数`assoc`通常类型为map，用于指定并联合验证时使用的参数映射。
 // 使用带有`assoc`调用此函数也会将`useAssocInsteadOfObjectAttributes`设置为true。
 // md5:45823829185f6ad6
-// ff:
-// v:
-// assoc:
 func (v *Validator) Assoc(assoc interface{}) *Validator {
 	if assoc == nil {
 		return v
@@ -172,9 +151,6 @@ func (v *Validator) Assoc(assoc interface{}) *Validator {
 }
 
 // Rules 是一个链接操作函数，用于为当前操作设置自定义验证规则。 md5:20d3aa2d271b3575
-// ff:
-// v:
-// rules:
 func (v *Validator) Rules(rules interface{}) *Validator {
 	if rules == nil {
 		return v
@@ -187,9 +163,6 @@ func (v *Validator) Rules(rules interface{}) *Validator {
 // Messages 是一个链式操作函数，用于为当前操作设置自定义错误消息。
 // 参数 `messages` 可以为 string/[]string/map[string]string 类型。如果 `rules` 类型为 []string，它支持在错误结果中按顺序显示消息。
 // md5:442bfbf7d1878c37
-// ff:
-// v:
-// messages:
 func (v *Validator) Messages(messages interface{}) *Validator {
 	if messages == nil {
 		return v
@@ -200,10 +173,6 @@ func (v *Validator) Messages(messages interface{}) *Validator {
 }
 
 // RuleFunc将一个自定义规则函数注册到当前Validator。 md5:3733cab7b3035ce3
-// ff:
-// v:
-// rule:
-// f:
 func (v *Validator) RuleFunc(rule string, f RuleFunc) *Validator {
 	newValidator := v.Clone()
 	newValidator.ruleFuncMap[rule] = f
@@ -211,9 +180,6 @@ func (v *Validator) RuleFunc(rule string, f RuleFunc) *Validator {
 }
 
 // RuleFuncMap 将多个自定义规则函数注册到当前Validator。 md5:38d8a4ac760a431a
-// ff:
-// v:
-// m:
 func (v *Validator) RuleFuncMap(m map[string]RuleFunc) *Validator {
 	if m == nil {
 		return v

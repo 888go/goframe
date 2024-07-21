@@ -514,9 +514,9 @@ func TestDriverClickhouse_NilTime(t *testing.T) {
 }
 
 func TestDriverClickhouse_BatchInsert(t *testing.T) {
-// 这是来自
-// https://github.com/ClickHouse/clickhouse-go/blob/v2/examples/std/batch/main.go 示例的注释
-// md5:c0ed3f953d0aaab1
+	// 这是来自
+	// https:	//github.com/ClickHouse/clickhouse-go/blob/v2/examples/std/batch/main.go 示例的注释
+	// md5:c0ed3f953d0aaab1
 	connect := clickhouseConfigDB()
 	gtest.AssertNil(createClickhouseExampleTable(connect))
 	defer dropClickhouseExampleTable(connect)

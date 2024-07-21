@@ -19,9 +19,6 @@ type RWMutex struct {
 //
 // 在 `f` 执行完毕后，它会释放锁。
 // md5:946a127ed090616d
-// ff:写锁定_函数
-// m:
-// f:回调函数
 func (m *RWMutex) LockFunc(f func()) {
 	m.Lock()
 	defer m.Unlock()
@@ -33,9 +30,6 @@ func (m *RWMutex) LockFunc(f func()) {
 //
 // 在执行完`f`后，它会释放锁。
 // md5:e97751e4a44accd4
-// ff:读锁定_函数
-// m:
-// f:回调函数
 func (m *RWMutex) RLockFunc(f func()) {
 	m.RLock()
 	defer m.RUnlock()
@@ -46,10 +40,6 @@ func (m *RWMutex) RLockFunc(f func()) {
 // 
 // 在执行完`f`后，它会释放锁。
 // md5:d12ccf3fb040146e
-// ff:非阻塞写锁定_函数
-// m:
-// f:回调函数
-// result:结果
 func (m *RWMutex) TryLockFunc(f func()) (result bool) {
 	if m.TryLock() {
 		result = true
@@ -59,16 +49,12 @@ func (m *RWMutex) TryLockFunc(f func()) (result bool) {
 	return
 }
 
-	// TryRLockFunc尝试使用给定的回调函数`f`获取读取锁。
-	// 如果成功，它会立即返回true。如果互斥锁已被写入锁定，
-	// 它会立即返回false。
-	//
-	// 在`f`执行后释放锁。
-	// md5:138728820d3bbfa0
-// ff:非阻塞读锁定_函数
-// m:
-// f:回调函数
-// result:结果
+// TryRLockFunc尝试使用给定的回调函数`f`获取读取锁。
+// 如果成功，它会立即返回true。如果互斥锁已被写入锁定，
+// 它会立即返回false。
+//
+// 在`f`执行后释放锁。
+// md5:138728820d3bbfa0
 func (m *RWMutex) TryRLockFunc(f func()) (result bool) {
 	if m.TryRLock() {
 		result = true

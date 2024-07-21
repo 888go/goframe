@@ -27,8 +27,6 @@ type WhereHolder struct {
 }
 
 // Builder 创建并返回一个 WhereBuilder。请注意，Builder 是线程安全的。 md5:d2708a694ae36dfa
-// ff:创建组合条件
-// m:
 func (m *Model) Builder() *WhereBuilder {
 	b := &WhereBuilder{
 		model:       m,
@@ -43,8 +41,6 @@ func (b *WhereBuilder) getBuilder() *WhereBuilder {
 }
 
 // Clone 克隆并返回一个与当前 WhereBuilder 相同的副本。 md5:d6ddf2152377c7f0
-// ff:取副本
-// b:
 func (b *WhereBuilder) Clone() *WhereBuilder {
 	newBuilder := b.model.Builder()
 	newBuilder.whereHolder = make([]WhereHolder, len(b.whereHolder))
@@ -53,10 +49,6 @@ func (b *WhereBuilder) Clone() *WhereBuilder {
 }
 
 // Build构建当前的WhereBuilder，并返回条件字符串和参数。 md5:08aa1af8cbe06d71
-// ff:生成条件字符串及参数
-// b:
-// conditionWhere:条件字符串
-// conditionArgs:参数
 func (b *WhereBuilder) Build() (conditionWhere string, conditionArgs []interface{}) {
 	var (
 		ctx                         = b.model.GetCtx()

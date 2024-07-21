@@ -27,38 +27,38 @@ type Field struct {
 	// 从TagValue中获取标签名。这取决于TagValue。 md5:2abab33cf7d9aa7a
 	TagName string
 
-// 获取标签值。
-// 字段中可能有多个标签，但根据调用函数的规则，只能获取一个。
-// md5:45a4365044272532
+	// 获取标签值。
+	// 字段中可能有多个标签，但根据调用函数的规则，只能获取一个。
+	// md5:45a4365044272532
 	TagValue string
 }
 
 // FieldsInput 是函数 Fields 的输入参数结构体类型。 md5:dea3d8d32792f883
 type FieldsInput struct {
-// Pointer 应该是 struct 类型的指针/*指向结构体的指针类型*/。
-// TODO 这个属性名称不合适，可能会引起混淆。
-// md5:7115141b84d46b4a
+	// Pointer 应该是 struct 类型的指针/*指向结构体的指针类型*/。
+	// TODO 这个属性名称不合适，可能会引起混淆。
+	// md5:7115141b84d46b4a
 	Pointer interface{}
 
-// RecursiveOption 定义了如果属性是一个嵌入的结构体，如何递归地检索字段。默认情况下为 RecursiveOptionNone。
-// md5:ad0b9ef1d1f1f1e5
+	// RecursiveOption 定义了如果属性是一个嵌入的结构体，如何递归地检索字段。默认情况下为 RecursiveOptionNone。
+	// md5:ad0b9ef1d1f1f1e5
 	RecursiveOption RecursiveOption
 }
 
 // FieldMapInput是FieldMap函数的输入参数结构体类型。 md5:6265e8efb4329ab9
 type FieldMapInput struct {
-// Pointer 应该是 struct 类型的指针/*指向结构体的指针类型*/。
-// TODO 这个属性名称不合适，可能会引起混淆。
-// md5:7115141b84d46b4a
+	// Pointer 应该是 struct 类型的指针/*指向结构体的指针类型*/。
+	// TODO 这个属性名称不合适，可能会引起混淆。
+	// md5:7115141b84d46b4a
 	Pointer interface{}
 
-// PriorityTagArray 用于指定优先级标签数组，按从高到低的顺序检索。
-// 如果传入 `nil`，则返回 map[name]Field，其中 `name` 是属性名称。
-// md5:454af14097a1e0a3
+	// PriorityTagArray 用于指定优先级标签数组，按从高到低的顺序检索。
+	// 如果传入 `nil`，则返回 map[name]Field，其中 `name` 是属性名称。
+	// md5:454af14097a1e0a3
 	PriorityTagArray []string
 
-// RecursiveOption 定义了如果属性是一个嵌入的结构体，如何递归地检索字段。默认情况下为 RecursiveOptionNone。
-// md5:ad0b9ef1d1f1f1e5
+	// RecursiveOption 定义了如果属性是一个嵌入的结构体，如何递归地检索字段。默认情况下为 RecursiveOptionNone。
+	// md5:ad0b9ef1d1f1f1e5
 	RecursiveOption RecursiveOption
 }
 
@@ -71,8 +71,6 @@ const (
 )
 
 // Fields 获取并以切片形式返回 `pointer` 的字段。 md5:7856c4ee9e72f56f
-// ff:
-// in:
 func Fields(in FieldsInput) ([]Field, error) {
 	var (
 		ok                   bool
@@ -149,8 +147,6 @@ func Fields(in FieldsInput) ([]Field, error) {
 //
 // 注意，它仅从结构体中检索首字母大写的导出属性。
 // md5:deef4c5e31602259
-// ff:
-// in:
 func FieldMap(in FieldMapInput) (map[string]Field, error) {
 	fields, err := getFieldValues(in.Pointer)
 	if err != nil {
@@ -213,8 +209,6 @@ func FieldMap(in FieldMapInput) (map[string]Field, error) {
 // StructType 获取并返回指定结构体的类型。
 // 参数 `object` 应为结构体类型、指向结构体的指针类型、结构体切片类型或指向结构体的切片类型。
 // md5:023b27218d435b61
-// ff:
-// object:
 func StructType(object interface{}) (*Type, error) {
 	var (
 		reflectValue reflect.Value

@@ -21,8 +21,8 @@ type CopyOption struct {
 	// 在源文件内容复制到目标文件后，自动调用文件同步。 md5:ef1f9250b5fdabe3
 	Sync bool
 
-// 保留源文件的模式到目标文件。如果为true，Mode属性将没有意义。
-// md5:681b0704991c814c
+	// 保留源文件的模式到目标文件。如果为true，Mode属性将没有意义。
+	// md5:681b0704991c814c
 	PreserveMode bool
 
 	// 创建目标文件的模式。
@@ -31,22 +31,20 @@ type CopyOption struct {
 	Mode os.FileMode
 }
 
-// Copy file/directory from `src` to `dst`.
+// 将源`src`文件/目录复制到目标`dst`。
 //
-// If `src` is file, it calls CopyFile to implements copy feature,
-// or else it calls CopyDir.
+// 如果`src`是文件，它会调用CopyFile来实现复制功能，
+// 否则，它会调用CopyDir。
 //
-// If `src` is file, but `dst` already exists and is a folder,
-// it then creates a same name file of `src` in folder `dst`.
+// 如果`src`是文件，但`dst`已经存在并且是一个文件夹，
+// 那么它会在`dst`文件夹中创建一个与`src`同名的文件。
 //
-// Copy("/tmp/file1", "/tmp/file2") => /tmp/file1 copied to /tmp/file2
-// Copy("/tmp/dir1",  "/tmp/dir2")  => /tmp/dir1  copied to /tmp/dir2
-// Copy("/tmp/file1", "/tmp/dir2")  => /tmp/file1 copied to /tmp/dir2/file1
-// Copy("/tmp/dir1",  "/tmp/file2") => error
-// ff:复制
-// src:文件或目录路径
-// dst:复制到
-// option:选项
+// 例如：
+// Copy("/tmp/file1", "/tmp/file2") => 将/tmp/file1复制到/tmp/file2
+// Copy("/tmp/dir1",  "/tmp/dir2")  => 将/tmp/dir1复制到/tmp/dir2
+// Copy("/tmp/file1", "/tmp/dir2")  => 将/tmp/file1复制到/tmp/dir2/file1
+// Copy("/tmp/dir1",  "/tmp/file2") => 出错
+// md5:51c6598025f6b135
 func Copy(src string, dst string, option ...CopyOption) error {
 	if src == "" {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "source path cannot be empty")
@@ -98,16 +96,9 @@ func Copy(src string, dst string, option ...CopyOption) error {
 	return CopyDir(src, dst, option...)
 }
 
-// CopyFile copies the contents of the file named `src` to the file named
-// by `dst`. The file will be created if it does not exist. If the
-// destination file exists, all it's contents will be replaced by the contents
-// of the source file. The file mode will be copied from the source and
-// the copied data is synced/flushed to stable storage.
-// ff:复制文件
-// src:路径
-// dst:复制到
-// option:选项
-// err:错误
+// CopyFile 将名为 `src` 的文件的内容复制到由 `dst` 指定的文件中。如果目标文件不存在，它将被创建。如果目标文件已存在，其所有内容将被源文件的内容替换。文件权限将从源文件复制，并且复制的数据会被同步/刷新到稳定的存储中。
+// 谢谢：https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04
+// md5:e2fc3c25ff06fa5b
 func CopyFile(src, dst string, option ...CopyOption) (err error) {
 	var usedOption = getCopyOption(option...)
 	if src == "" {
@@ -188,15 +179,10 @@ func CopyFile(src, dst string, option ...CopyOption) (err error) {
 	return
 }
 
-	// CopyDir 递归地复制目录树，尝试保留权限。
-	//
-	// 注意，源目录必须存在，并且符号链接将被忽略和跳过。
-	// md5:4dd9167e563fa997
-// ff:复制目录
-// src:目录路径
-// dst:复制到
-// option:选项
-// err:错误
+// CopyDir 递归地复制目录树，尝试保留权限。
+//
+// 注意，源目录必须存在，并且符号链接将被忽略和跳过。
+// md5:4dd9167e563fa997
 func CopyDir(src string, dst string, option ...CopyOption) (err error) {
 	var usedOption = getCopyOption(option...)
 	if src == "" {

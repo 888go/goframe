@@ -21,10 +21,6 @@ import (
 )
 
 // Decode将属性格式转换为映射。 md5:022b98c96d23f910
-// ff:
-// data:
-// res:
-// err:
 func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	pr, err := properties.Load(data, properties.UTF8)
@@ -47,10 +43,6 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 }
 
 // Encode 将映射转换为属性格式。 md5:d1876189b2478c4b
-// ff:
-// data:
-// res:
-// err:
 func Encode(data map[string]interface{}) (res []byte, err error) {
 	pr := properties.NewProperties()
 
@@ -86,10 +78,6 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 }
 
 // ToJson 将.properties格式转换为JSON。 md5:1575bc15c05b514f
-// ff:
-// data:
-// res:
-// err:
 func ToJson(data []byte) (res []byte, err error) {
 	prMap, err := Decode(data)
 	if err != nil {
@@ -146,7 +134,7 @@ func flattenAndMergeMap(shadow map[string]interface{}, m map[string]interface{},
 			shadow[strings.ToLower(fullKey)] = val
 			continue
 		}
-											// 递归地将内容合并到阴影映射中. md5:89e72bf601f325cb
+		// 递归地将内容合并到阴影映射中. md5:89e72bf601f325cb
 		shadow = flattenAndMergeMap(shadow, m2, fullKey, delimiter)
 	}
 	return shadow

@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gmeta为struct提供了嵌入式元数据功能。 md5:31c7b2b4ae02619a
-package gmeta//bm:元数据类
+package gmeta
 
 import (
 	"github.com/gogf/gf/v2/container/gvar"
@@ -18,12 +18,10 @@ type Meta struct{}
 
 const (
 	metaAttributeName = "Meta"       // metaAttributeName 是结构体中元数据的属性名称。 md5:08a529ac77f54a13
-	metaTypeName      = "gmeta.Meta" // metaTypeName 用于类型字符串比较。 md5:00017d3b5ff6e69c //th:元数据类.Meta cz:gmeta.Meta  
+	metaTypeName      = "gmeta.Meta" // metaTypeName 用于类型字符串比较。 md5:00017d3b5ff6e69c
 )
 
 // Data 从`object`中检索并返回所有元数据。 md5:d0b2cb45c581d982
-// ff:
-// object:
 func Data(object interface{}) map[string]string {
 	reflectType, err := gstructs.StructType(object)
 	if err != nil {
@@ -38,9 +36,6 @@ func Data(object interface{}) map[string]string {
 }
 
 // Get通过`key`从`object`中检索并返回指定的元数据。 md5:cb5e4223dc341860
-// ff:
-// object:
-// key:
 func Get(object interface{}, key string) *gvar.Var {
 	v, ok := Data(object)[key]
 	if !ok {

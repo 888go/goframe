@@ -17,15 +17,6 @@ import (
 )
 
 // DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8
-// ff:
-// d:
-// ctx:
-// link:
-// table:
-// list:
-// option:
-// result:
-// err:
 func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
 	switch option.InsertOption {
 	case gdb.InsertOptionReplace:

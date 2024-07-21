@@ -19,8 +19,7 @@ import (
 )
 
 // Open 创建并返回clickhouse的底层sql.DB对象。 md5:af49366510276559
-
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底层Open cz:func (d *Driver) Open
+func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	source := config.Link
 	// clickhouse://username:password@host1:9000,host2:9000/database?dial_timeout=200ms&max_execution_time=60
 // 
@@ -36,7 +35,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) { //hm:底
 		if config.Name != "" {
 			source, _ = gregex.ReplaceString(replaceSchemaPattern, "@$1/"+config.Name, config.Link)
 		} else {
-									// 如果没有模式，该链接将被用于替换. md5:20ef7460fd455598
+			// 如果没有模式，该链接将被用于替换. md5:20ef7460fd455598
 			dbName, _ := gregex.MatchString(replaceSchemaPattern, config.Link)
 			if len(dbName) > 0 {
 				config.Name = dbName[len(dbName)-1]

@@ -14,8 +14,6 @@ import (
 // Code 返回错误代码。
 // 如果没有错误代码，它将返回 CodeNil。
 // md5:ff28e1e7c152b8de
-// ff:
-// err:
 func (err *Error) Code() gcode.Code {
 	if err == nil {
 		return gcode.CodeNil
@@ -27,9 +25,6 @@ func (err *Error) Code() gcode.Code {
 }
 
 // SetCode 使用给定的代码更新内部代码。 md5:e53ddd795359c2bb
-// ff:
-// err:
-// code:
 func (err *Error) SetCode(code gcode.Code) {
 	if err == nil {
 		return

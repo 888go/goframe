@@ -16,9 +16,6 @@ import (
 )
 
 // GetIpArray 获取并返回当前主机的所有IP地址。 md5:6828d92b1a684cd2
-// ff:
-// ips:
-// err:
 func GetIpArray() (ips []string, err error) {
 	interfaceAddr, err := net.InterfaceAddrs()
 	if err != nil {
@@ -37,7 +34,6 @@ func GetIpArray() (ips []string, err error) {
 }
 
 // MustGetIntranetIp 执行与 GetIntranetIp 相同的操作，但如果发生任何错误，它将引发恐慌。 md5:f08d856493c3c333
-// ff:
 func MustGetIntranetIp() string {
 	ip, err := GetIntranetIp()
 	if err != nil {
@@ -47,9 +43,6 @@ func MustGetIntranetIp() string {
 }
 
 // GetIntranetIp 获取并返回当前机器的第一个内网IP。 md5:2e53e5f6a86c1f3c
-// ff:
-// ip:
-// err:
 func GetIntranetIp() (ip string, err error) {
 	ips, err := GetIntranetIpArray()
 	if err != nil {
@@ -62,9 +55,6 @@ func GetIntranetIp() (ip string, err error) {
 }
 
 // GetIntranetIpArray 获取并返回当前机器的内网IP列表。 md5:48fe9964790750ba
-// ff:
-// ips:
-// err:
 func GetIntranetIpArray() (ips []string, err error) {
 	var (
 		addresses  []net.Addr
@@ -119,10 +109,12 @@ func GetIntranetIpArray() (ips []string, err error) {
 	return ips, nil
 }
 
-// IsIntranet checks and returns whether given ip an intranet ip.
-//
-// ff:
-// ip:
+// IsIntranet 检查并返回给定IP地址是否为内部网络IP。
+// 当地：127.0.0.1
+// A类：10.0.0.0--10.255.255.255
+// B类：172.16.0.0--172.31.255.255
+// C类：192.168.0.0--192.168.255.255
+// md5:1f4c3df8068af016
 func IsIntranet(ip string) bool {
 	if ip == "127.0.0.1" {
 		return true

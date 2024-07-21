@@ -23,11 +23,6 @@ import (
 // Shell 函数同步地执行命令 `cmd`，并使用给定的输入管道 `in` 和输出管道 `out`。
 // 命令 `cmd` 从输入管道 `in` 读取输入参数，并自动将其输出写入到输出管道 `out`。
 // md5:6690cb7819cb1af8
-// ff:
-// ctx:
-// cmd:
-// out:
-// in:
 func Shell(ctx context.Context, cmd string, out io.Writer, in io.Reader) error {
 	p := NewProcess(
 		getShell(),
@@ -39,9 +34,6 @@ func Shell(ctx context.Context, cmd string, out io.Writer, in io.Reader) error {
 }
 
 // ShellRun 同步执行给定的命令 `cmd`，并将命令结果输出到stdout。 md5:b97833e7f1598d90
-// ff:
-// ctx:
-// cmd:
 func ShellRun(ctx context.Context, cmd string) error {
 	p := NewProcess(
 		getShell(),
@@ -51,12 +43,6 @@ func ShellRun(ctx context.Context, cmd string) error {
 }
 
 // ShellExec 同步执行给定命令 `cmd` 并返回命令结果。 md5:218406708403afde
-// ff:
-// ctx:
-// cmd:
-// environment:
-// result:
-// err:
 func ShellExec(ctx context.Context, cmd string, environment ...[]string) (result string, err error) {
 	var (
 		buf = bytes.NewBuffer(nil)

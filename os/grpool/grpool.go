@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包grpool实现了可重用的goroutine池。 md5:8908f4659795e87e
-package grpool//bm:协程类
+package grpool
 
 import (
 	"context"
@@ -52,8 +52,6 @@ var (
 // 参数 `limit` 用于限制最大 goroutine 数量，
 // 默认情况下不限制。
 // md5:523f5833750663c7
-// ff:
-// limit:
 func New(limit ...int) *Pool {
 	var (
 		pool = &Pool{
@@ -77,9 +75,6 @@ func New(limit ...int) *Pool {
 // Add 将一个新任务添加到默认的 Goroutine 池中。
 // 该任务将会异步执行。
 // md5:2edd63bb852da48c
-// ff:
-// ctx:
-// f:
 func Add(ctx context.Context, f Func) error {
 	return defaultPool.Add(ctx, f)
 }
@@ -88,22 +83,16 @@ func Add(ctx context.Context, f Func) error {
 // 
 // 可选的 `recoverFunc` 在执行 `userFunc` 时遇到任何 panic 时被调用。如果未传递或给定 `nil`，则忽略来自 `userFunc` 的 panic。任务将异步执行。
 // md5:4b448b4fd7caa604
-// ff:
-// ctx:
-// userFunc:
-// recoverFunc:
 func AddWithRecover(ctx context.Context, userFunc Func, recoverFunc RecoverFunc) error {
 	return defaultPool.AddWithRecover(ctx, userFunc, recoverFunc)
 }
 
 // Size 返回默认goroutine池中的当前goroutine数量。 md5:f66351deb380810c
-// ff:
 func Size() int {
 	return defaultPool.Size()
 }
 
 // Jobs 返回默认goroutine池当前的任务数量。 md5:d9b300d28d86f6c3
-// ff:
 func Jobs() int {
 	return defaultPool.Jobs()
 }

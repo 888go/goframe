@@ -25,11 +25,6 @@ import (
 // 
 // 如果提供了可选参数 `dataAndWhere`，则 dataAndWhere[0] 是更新的数据字段，dataAndWhere[1:] 被视为 WHERE 条件字段。同时参考 Model.Data 和 Model.Where 函数。
 // md5:06a16ce16f9da0c0
-// ff:更新
-// m:
-// dataAndWhere:数据或条件
-// result:结果
-// err:错误
 func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(dataAndWhere) > 0 {
@@ -119,11 +114,6 @@ func (m *Model) Update(dataAndWhere ...interface{}) (result sql.Result, err erro
 }
 
 // UpdateAndGetAffected 执行更新语句并返回受影响的行数。 md5:2f9b42bc238e70a4
-// ff:更新并取影响行数
-// m:
-// dataAndWhere:数据或条件
-// affected:影响行数
-// err:错误
 func (m *Model) UpdateAndGetAffected(dataAndWhere ...interface{}) (affected int64, err error) {
 	result, err := m.Update(dataAndWhere...)
 	if err != nil {
@@ -135,10 +125,6 @@ func (m *Model) UpdateAndGetAffected(dataAndWhere ...interface{}) (affected int6
 // Increment 函数通过给定的数量增加某列的值。
 // 参数 `amount` 可以是浮点数或整数类型。
 // md5:31e7e26d28456940
-// ff:更新增量
-// m:
-// column:字段名称
-// amount:增量值
 func (m *Model) Increment(column string, amount interface{}) (sql.Result, error) {
 	return m.getModel().Data(column, &Counter{
 		Field: column,
@@ -146,13 +132,9 @@ func (m *Model) Increment(column string, amount interface{}) (sql.Result, error)
 	}).Update()
 }
 
-		// Decrement 函数通过给定的数量减小某一列的值。
-		// 参数 `amount` 可以是浮点数或整数类型。
-		// md5:e9b9ca17fcd1d042
-// ff:更新减量
-// m:
-// column:字段名称
-// amount:减量值
+// Decrement 函数通过给定的数量减小某一列的值。
+// 参数 `amount` 可以是浮点数或整数类型。
+// md5:e9b9ca17fcd1d042
 func (m *Model) Decrement(column string, amount interface{}) (sql.Result, error) {
 	return m.getModel().Data(column, &Counter{
 		Field: column,

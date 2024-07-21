@@ -21,8 +21,6 @@ type Uint64 struct {
 
 // NewUint64 创建并返回一个针对 uint64 类型的并发安全对象，初始值为 `value`。
 // md5:6b0c10ffdeecf7b1
-// ff:
-// value:
 func NewUint64(value ...uint64) *Uint64 {
 	if len(value) > 0 {
 		return &Uint64{
@@ -33,84 +31,53 @@ func NewUint64(value ...uint64) *Uint64 {
 }
 
 // Clone 为 uint64 类型创建并返回一个新的并发安全的对象。 md5:5fdab60d860cae3b
-// ff:
-// v:
 func (v *Uint64) Clone() *Uint64 {
 	return NewUint64(v.Val())
 }
 
 // Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
-// yx:true
-// ff:设置值
-// v:
-// value:
-// old:
 func (v *Uint64) Set(value uint64) (old uint64) {
 	return atomic.SwapUint64(&v.value, value)
 }
 
 // Val原子性地加载并返回t.value。 md5:429a11b89436cc12
-// yx:true
-// ff:取值
-// v:
 func (v *Uint64) Val() uint64 {
 	return atomic.LoadUint64(&v.value)
 }
 
 // Atomically 将 `delta` 增加到 t.value 中，并返回新的值。 md5:73547274aea5fe91
-// ff:
-// v:
-// delta:
-// new:
 func (v *Uint64) Add(delta uint64) (new uint64) {
 	return atomic.AddUint64(&v.value, delta)
 }
 
 // Cas 执行针对值的比较并交换操作。 md5:4c2d06b4167bee48
-// ff:
-// v:
-// old:
-// new:
-// swapped:
 func (v *Uint64) Cas(old, new uint64) (swapped bool) {
 	return atomic.CompareAndSwapUint64(&v.value, old, new)
 }
 
 // String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
-// ff:
-// v:
 func (v *Uint64) String() string {
 	return strconv.FormatUint(v.Val(), 10)
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// v:
 func (v Uint64) MarshalJSON() ([]byte, error) {
 	return []byte(strconv.FormatUint(v.Val(), 10)), nil
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
-// ff:
-// v:
-// b:
 func (v *Uint64) UnmarshalJSON(b []byte) error {
 	v.Set(gconv.Uint64(string(b)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
-// ff:
-// v:
-// value:
 func (v *Uint64) UnmarshalValue(value interface{}) error {
 	v.Set(gconv.Uint64(value))
 	return nil
 }
 
 // DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
-// ff:
-// v:
 func (v *Uint64) DeepCopy() interface{} {
 	if v == nil {
 		return nil

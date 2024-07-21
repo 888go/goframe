@@ -42,8 +42,6 @@ func (meter *localMeter) newMetric(
 }
 
 // Info 返回一个Metric的基本信息。 md5:d521e5fdeb6e591f
-// ff:
-// l:
 func (l *localMetric) Info() MetricInfo {
 	return l.MetricInfo
 }

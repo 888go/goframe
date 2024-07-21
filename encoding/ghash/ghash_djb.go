@@ -8,8 +8,6 @@
 package ghash
 
 // DJB 实现了经典的 DJB 哈希算法，适用于32位。 md5:5643f3da8f083639
-// ff:
-// str:
 func DJB(str []byte) uint32 {
 	var hash uint32 = 5381
 	for i := 0; i < len(str); i++ {
@@ -19,8 +17,6 @@ func DJB(str []byte) uint32 {
 }
 
 // DJB64 实现了经典的 DJB 哈希算法，用于64位。 md5:a3db0c4ac3099e2b
-// ff:
-// str:
 func DJB64(str []byte) uint64 {
 	var hash uint64 = 5381
 	for i := 0; i < len(str); i++ {

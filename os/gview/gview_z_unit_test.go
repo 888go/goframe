@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview_test//bm:模板类_test
+package gview_test
 
 import (
 	"context"
@@ -616,7 +616,9 @@ func Test_Issue1416(t *testing.T) {
 	})
 }
 
-// template/gview_test.html
+// 模板/gview_test.html
+// 名称:{{.name}}
+// md5:9ab4dfd23d2d58b8
 func init() {
 	if err := gres.Add("H4sIAAAAAAAC/wrwZmYRYeBg4GBIFA0LY0ACEgycDCWpuQU5iSWp+ullmanl8SWpxSV6GSW5OaEhrAyM5o1fk095n/HdumrdNeaLW7c2MDAw/P8f4M3OoZ+9QESIgYGBj4GBAWYBA0MTmgUcSBaADSxt/JoM0o6sKMCbkUmEGeFCZKNBLoSBbY0gkqB7EcZhdw8ECDD8d0xEMg7JdaxsIAVMDEwMfQwMDAvAygEBAAD//0d6jptEAQAA"); err != nil {
 		panic("add binary content to resource manager failed: " + err.Error())

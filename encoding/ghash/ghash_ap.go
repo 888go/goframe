@@ -8,8 +8,6 @@
 package ghash
 
 // AP 实现了经典的 32 位 AP 哈希算法。 md5:191dd9c40a2bc4c0
-// ff:
-// str:
 func AP(str []byte) uint32 {
 	var hash uint32
 	for i := 0; i < len(str); i++ {
@@ -23,8 +21,6 @@ func AP(str []byte) uint32 {
 }
 
 // AP64 实现了经典的64位AP哈希算法。 md5:90dfb2b5d6382bbe
-// ff:
-// str:
 func AP64(str []byte) uint64 {
 	var hash uint64
 	for i := 0; i < len(str); i++ {

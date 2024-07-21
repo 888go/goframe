@@ -21,15 +21,6 @@ import (
 )
 
 // DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8
-// ff:
-// d:
-// ctx:
-// link:
-// table:
-// list:
-// option:
-// result:
-// err:
 func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
 	switch option.InsertOption {
 	case gdb.InsertOptionSave:
@@ -70,12 +61,12 @@ func (d *Driver) doSave(ctx context.Context,
 		conflictKeys   = option.OnConflict
 		conflictKeySet = gset.New(false)
 
-// queryHolders：处理需要插入或更新的Holder数据
-// queryValues：处理需要插入或更新的值
-// insertKeys：处理需要插入的有效键
-// insertValues：处理需要插入的值
-// updateValues：处理需要更新的值
-// md5:7779ec7103105a5e
+		// queryHolders：处理需要插入或更新的Holder数据
+		// queryValues：处理需要插入或更新的值
+		// insertKeys：处理需要插入的有效键
+		// insertValues：处理需要插入的值
+		// updateValues：处理需要更新的值
+		// md5:7779ec7103105a5e
 		queryHolders = make([]string, oneLen)
 		queryValues  = make([]interface{}, oneLen)
 		insertKeys   = make([]string, oneLen)
@@ -122,15 +113,15 @@ func (d *Driver) doSave(ctx context.Context,
 	return batchResult, nil
 }
 
-		// parseSqlForUpsert
-		// 合并到 {{table}} 为 T1
-		// 使用 ( VALUES( {{queryHolders}}) 为 T2 ({{insertKeyStr}})
-		// 当 T1.{{duplicateKey}} 等于 T2.{{duplicateKey}} 和...
-		// 如果未找到匹配项 THEN
-		// 插入 {{insertKeys}} 的值为 {{insertValues}}
-		// 当找到匹配项 THEN
-		// 更新 SET {{updateValues}}
-		// md5:f73865e975016dbf
+// parseSqlForUpsert
+// 合并到 {{table}} 为 T1
+// 使用 ( VALUES( {{queryHolders}}) 为 T2 ({{insertKeyStr}})
+// 当 T1.{{duplicateKey}} 等于 T2.{{duplicateKey}} 和...
+// 如果未找到匹配项 THEN
+// 插入 {{insertKeys}} 的值为 {{insertValues}}
+// 当找到匹配项 THEN
+// 更新 SET {{updateValues}}
+// md5:f73865e975016dbf
 func parseSqlForUpsert(table string,
 	queryHolders, insertKeys, insertValues, updateValues, duplicateKey []string,
 ) (sqlStr string) {

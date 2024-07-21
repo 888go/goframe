@@ -21,9 +21,6 @@ import (
 //
 // 注意，如果给定的 `level` 不合法，它将返回错误。
 // md5:55af48098fabf71a
-// ff:Gzip压缩字节集
-// data:字节集
-// level:可选压缩级别
 func Gzip(data []byte, level ...int) ([]byte, error) {
 	var (
 		writer *gzip.Writer
@@ -51,11 +48,6 @@ func Gzip(data []byte, level ...int) ([]byte, error) {
 }
 
 // GzipFile 使用gzip算法将文件`src`压缩到`dst`。 md5:886a1c3d1f47c22f
-// ff:Gzip压缩文件
-// srcFilePath:文件路径
-// dstFilePath:压缩文件路径
-// level:可选压缩级别
-// err:错误
 func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
 	dstFile, err := gfile.Create(dstFilePath)
 	if err != nil {
@@ -70,10 +62,6 @@ func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
 //
 // 注意，参数`path`既可以是一个目录，也可以是一个文件。
 // md5:5da525f970882d97
-// ff:Gzip压缩文件到Writer
-// filePath:文件路径
-// writer:
-// level:可选压缩级别
 func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 	var (
 		gzipWriter *gzip.Writer
@@ -103,8 +91,6 @@ func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 }
 
 // UnGzip 使用gzip算法对`data`进行解压缩。 md5:65410de81354eedd
-// ff:Gzip解压字节集
-// data:gzip字节集
 func UnGzip(data []byte) ([]byte, error) {
 	var buf bytes.Buffer
 	reader, err := gzip.NewReader(bytes.NewReader(data))
@@ -124,9 +110,6 @@ func UnGzip(data []byte) ([]byte, error) {
 }
 
 // UnGzipFile 使用gzip算法将源文件路径`src`解压缩到`dst`。 md5:d8b51242e54f12db
-// ff:Gzip解压文件
-// srcFilePath:gzip文件路径
-// dstFilePath:文件路径
 func UnGzipFile(srcFilePath, dstFilePath string) error {
 	srcFile, err := gfile.Open(srcFilePath)
 	if err != nil {

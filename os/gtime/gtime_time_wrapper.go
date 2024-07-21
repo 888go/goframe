@@ -19,8 +19,6 @@ type wrapper struct {
 }
 
 // String 方法重写了 time.Time 类型的 String 函数。 md5:c519f17d90f0ddcb
-// ff:
-// t:
 func (t wrapper) String() string {
 	if t.IsZero() {
 		return ""

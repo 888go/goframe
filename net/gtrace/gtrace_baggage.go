@@ -23,8 +23,6 @@ type Baggage struct {
 }
 
 // NewBaggage 从给定的追踪上下文中创建并返回一个新的Baggage对象。 md5:6c3e8093bd06a60a
-// ff:
-// ctx:
 func NewBaggage(ctx context.Context) *Baggage {
 	if ctx == nil {
 		ctx = context.Background()
@@ -35,8 +33,6 @@ func NewBaggage(ctx context.Context) *Baggage {
 }
 
 // Ctx 返回Baggage持有的上下文。 md5:37268f528c617799
-// ff:
-// b:
 func (b *Baggage) Ctx() context.Context {
 	return b.ctx
 }
@@ -44,10 +40,6 @@ func (b *Baggage) Ctx() context.Context {
 // SetValue 是一个方便的函数，用于向 baggage 中添加一个键值对。
 // 注意，它使用 attribute.Any 设置键值对。
 // md5:830faae9a81721ce
-// ff:
-// b:
-// key:
-// value:
 func (b *Baggage) SetValue(key string, value interface{}) context.Context {
 	member, _ := baggage.NewMember(key, gconv.String(value))
 	bag, _ := baggage.New(member)
@@ -58,9 +50,6 @@ func (b *Baggage) SetValue(key string, value interface{}) context.Context {
 // SetMap 是一个方便的函数，用于将映射键值对添加到行李中。
 // 注意，它使用 attribute.Any 设置键值对。
 // md5:a18951801562457c
-// ff:
-// b:
-// data:
 func (b *Baggage) SetMap(data map[string]interface{}) context.Context {
 	members := make([]baggage.Member, 0)
 	for k, v := range data {
@@ -73,8 +62,6 @@ func (b *Baggage) SetMap(data map[string]interface{}) context.Context {
 }
 
 // GetMap 获取并以映射形式返回baggage值。 md5:d6024d765655a29e
-// ff:
-// b:
 func (b *Baggage) GetMap() *gmap.StrAnyMap {
 	m := gmap.NewStrAnyMap()
 	members := baggage.FromContext(b.ctx).Members()
@@ -85,9 +72,6 @@ func (b *Baggage) GetMap() *gmap.StrAnyMap {
 }
 
 // GetVar 从行李中获取指定键的值，并返回一个 *gvar.Var。 md5:6cda7fcfb8ff1c6e
-// ff:
-// b:
-// key:
 func (b *Baggage) GetVar(key string) *gvar.Var {
 	value := baggage.FromContext(b.ctx).Member(key).Value()
 	return gvar.New(value)

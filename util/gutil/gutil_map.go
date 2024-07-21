@@ -15,9 +15,6 @@ import (
 
 // MapCopy 对于最常用的映射类型map[string]interface{}，执行从数据映射`data`到`copy`的浅复制。
 // md5:f29e782d6173a097
-// ff:
-// data:
-// copy:
 func MapCopy(data map[string]interface{}) (copy map[string]interface{}) {
 	copy = make(map[string]interface{}, len(data))
 	for k, v := range data {
@@ -27,10 +24,6 @@ func MapCopy(data map[string]interface{}) (copy map[string]interface{}) {
 }
 
 // MapContains 检查映射数据 `data` 是否包含键 `key`。 md5:be6a3dd5c1d28037
-// ff:
-// data:
-// key:
-// ok:
 func MapContains(data map[string]interface{}, key string) (ok bool) {
 	if len(data) == 0 {
 		return
@@ -40,9 +33,6 @@ func MapContains(data map[string]interface{}, key string) (ok bool) {
 }
 
 // MapDelete 从 map `data` 中删除所有 `keys`。 md5:3e89d2fe52825284
-// ff:
-// data:
-// keys:
 func MapDelete(data map[string]interface{}, keys ...string) {
 	if len(data) == 0 {
 		return
@@ -53,9 +43,6 @@ func MapDelete(data map[string]interface{}, keys ...string) {
 }
 
 // MapMerge 将源（src）映射中的所有映射合并到目标（dst）映射中。 md5:aa4647e55af49733
-// ff:
-// dst:
-// src:
 func MapMerge(dst map[string]interface{}, src ...map[string]interface{}) {
 	if dst == nil {
 		return
@@ -68,9 +55,6 @@ func MapMerge(dst map[string]interface{}, src ...map[string]interface{}) {
 }
 
 // MapMergeCopy 创建并返回一个新地图，该地图合并了来自 `src` 的所有地图。 md5:b880aa85a1899404
-// ff:
-// src:
-// copy:
 func MapMergeCopy(src ...map[string]interface{}) (copy map[string]interface{}) {
 	copy = make(map[string]interface{})
 	for _, m := range src {
@@ -85,11 +69,6 @@ func MapMergeCopy(src ...map[string]interface{}) (copy map[string]interface{}) {
 //
 // 请注意，此函数的性能可能较低。
 // md5:4dd7c7511eb401cd
-// ff:
-// data:
-// key:
-// foundKey:
-// foundValue:
 func MapPossibleItemByKey(data map[string]interface{}, key string) (foundKey string, foundValue interface{}) {
 	return utils.MapPossibleItemByKey(data, key)
 }
@@ -99,16 +78,11 @@ func MapPossibleItemByKey(data map[string]interface{}, key string) (foundKey str
 //
 // 注意：此函数可能性能较低。
 // md5:f1b183430304dc85
-// ff:
-// data:
-// key:
 func MapContainsPossibleKey(data map[string]interface{}, key string) bool {
 	return utils.MapContainsPossibleKey(data, key)
 }
 
 // MapOmitEmpty 从给定的映射中删除所有空值。 md5:9e670086c7ddbc0e
-// ff:
-// data:
 func MapOmitEmpty(data map[string]interface{}) {
 	if len(data) == 0 {
 		return
@@ -120,9 +94,9 @@ func MapOmitEmpty(data map[string]interface{}) {
 	}
 }
 
-// MapToSlice converts map to slice of which all keys and values are its items.
-// ff:
-// data:
+// MapToSlice 将映射转换为包含所有键和值的切片。
+// 例如：{"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
+// md5:bf557c548edfb4a6
 func MapToSlice(data interface{}) []interface{} {
 	var (
 		reflectValue = reflect.ValueOf(data)

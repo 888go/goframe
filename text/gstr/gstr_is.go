@@ -10,8 +10,6 @@ package gstr
 import "github.com/gogf/gf/v2/internal/utils"
 
 // IsNumeric 检查给定的字符串 s 是否为数字。 md5:c82137abf4b164a4
-// ff:是否为数字
-// s:值
 func IsNumeric(s string) bool {
 	return utils.IsNumeric(s)
 }

@@ -225,9 +225,9 @@ func ExampleIntSet_LockFunc() {
 	})
 	fmt.Println(s1.Slice())
 
-// 可能的输出
-// [2 3 1]
-// md5:294c6ba36e85ea4c
+	// 可能的输出
+	// [2 3 1]
+	// md5:294c6ba36e85ea4c
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a

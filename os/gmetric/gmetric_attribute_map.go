@@ -10,9 +10,6 @@ package gmetric
 type AttributeMap map[string]any
 
 // Sets 将给定的属性映射添加到当前映射中。 md5:a21a166cb89d74a0
-// ff:
-// m:
-// attrMap:
 func (m AttributeMap) Sets(attrMap map[string]any) {
 	for k, v := range attrMap {
 		m[k] = v
@@ -20,9 +17,6 @@ func (m AttributeMap) Sets(attrMap map[string]any) {
 }
 
 // Pick根据给定的属性键选择和返回属性。 md5:345fd91cbaf4ea48
-// ff:
-// m:
-// keys:
 func (m AttributeMap) Pick(keys ...string) Attributes {
 	var attrs = make(Attributes, 0)
 	for _, key := range keys {
@@ -36,9 +30,6 @@ func (m AttributeMap) Pick(keys ...string) Attributes {
 }
 
 // PickEx 选取并返回那些属性键不在给定`keys`中的属性。 md5:cf773d7747da56d7
-// ff:
-// m:
-// keys:
 func (m AttributeMap) PickEx(keys ...string) Attributes {
 	var (
 		exKeyMap = make(map[string]struct{})

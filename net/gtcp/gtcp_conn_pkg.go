@@ -23,14 +23,14 @@ const (
 
 // PkgOption是简单协议的包选项。 md5:f49ee7556a39be3e
 type PkgOption struct {
-// HeaderSize 用于标记接下来接收数据的长度。
-// 它默认为2字节，最大为4字节，代表数据的最大长度可以从65535字节到4294967295字节。
-// md5:cc02a98c94fddd76
+	// HeaderSize 用于标记接下来接收数据的长度。
+	// 它默认为2字节，最大为4字节，代表数据的最大长度可以从65535字节到4294967295字节。
+	// md5:cc02a98c94fddd76
 	HeaderSize int
 
-// MaxDataSize 是数据字段的字节大小，用于数据长度验证。
-// 如果未手动设置，它将根据HeaderSize自动相应设置。
-// md5:a47982162ce5ef01
+	// MaxDataSize 是数据字段的字节大小，用于数据长度验证。
+	// 如果未手动设置，它将根据HeaderSize自动相应设置。
+	// md5:a47982162ce5ef01
 	MaxDataSize int
 
 	// 操作失败时的重试策略。 md5:cd672b1b96adbbdd
@@ -45,10 +45,6 @@ type PkgOption struct {
 // 1. DataLength 是 DataField 的长度，不包含头大小。
 // 2. 包的整数字节使用大端序编码。
 // md5:daa39f4e32227d79
-// ff:
-// c:
-// data:
-// option:
 func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	pkgOption, err := getPkgOption(option...)
 	if err != nil {
@@ -73,12 +69,6 @@ func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 }
 
 // 使用简单包协议带超时时间地向连接发送数据。 md5:3f89f6011aed63bc
-// ff:
-// c:
-// data:
-// timeout:
-// option:
-// err:
 func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) (err error) {
 	if err := c.SetDeadlineSend(time.Now().Add(timeout)); err != nil {
 		return err
@@ -91,10 +81,6 @@ func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...
 }
 
 // SendRecvPkg 使用简单的包协议将数据写入连接，并阻塞读取响应。 md5:c157760431f11896
-// ff:
-// c:
-// data:
-// option:
 func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkg(option...)
@@ -104,11 +90,6 @@ func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error) {
 }
 
 // SendRecvPkgWithTimeout 使用简单包协议向连接写入数据，并在超时后读取响应。 md5:6da9109d534f7729
-// ff:
-// c:
-// data:
-// timeout:
-// option:
 func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) ([]byte, error) {
 	if err := c.SendPkg(data, option...); err == nil {
 		return c.RecvPkgWithTimeout(timeout, option...)
@@ -118,11 +99,6 @@ func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option
 }
 
 // RecvPkg 使用简单包协议从连接接收数据。 md5:cf1329c5df27539a
-// ff:
-// c:
-// option:
-// result:
-// err:
 func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	var (
 		buffer []byte
@@ -163,12 +139,6 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 }
 
 // RecvPkgWithTimeout 使用简单包协议，从连接中读取数据，同时设置超时。 md5:5e1d4882f4476862
-// ff:
-// c:
-// timeout:
-// option:
-// data:
-// err:
 func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (data []byte, err error) {
 	if err = c.SetDeadlineRecv(time.Now().Add(timeout)); err != nil {
 		return nil, err

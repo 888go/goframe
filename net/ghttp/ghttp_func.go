@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp//bm:http类
+package ghttp
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"
@@ -15,7 +15,6 @@ import (
 )
 
 // SupportedMethods 返回所有支持的HTTP方法。 md5:1fc8637928ce346f
-// ff:取所支持的HTTP方法
 func SupportedMethods() []string {
 	return gstr.SplitAndTrim(supportedHttpMethods, ",")
 }
@@ -25,10 +24,6 @@ func SupportedMethods() []string {
 //
 // 可选参数 `noUrlEncode` 指定是否忽略数据的 URL 编码。
 // md5:6816cb48e0c8752b
-// ff:生成请求参数
-// params:参数
-// noUrlEncode:不进行URL编码
-// encodedParamStr:请求参数
 func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr string) {
 	return httputil.BuildParams(params, noUrlEncode...)
 }

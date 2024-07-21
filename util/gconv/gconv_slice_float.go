@@ -15,37 +15,26 @@ import (
 )
 
 // SliceFloat是Floats的别名。 md5:d770be8332715271
-// ff:SliceFloat别名
-// any:
 func SliceFloat(any interface{}) []float64 {
 	return Floats(any)
 }
 
 // SliceFloat32 是 Float32s 的别名。 md5:686d576236624be0
-// ff:SliceFloat32别名
-// any:
 func SliceFloat32(any interface{}) []float32 {
 	return Float32s(any)
 }
 
 // SliceFloat64 是 Float64s 的别名。 md5:8fe51e4f2e2255df
-// ff:SliceFloat64别名
-// any:
 func SliceFloat64(any interface{}) []float64 {
 	return Floats(any)
 }
 
 // Floats 将 `any` 转换为 []float64。 md5:888b7822b64d033c
-// yx:true
-// ff:取小数切片
-// any:
 func Floats(any interface{}) []float64 {
 	return Float64s(any)
 }
 
 // Float32s 将 `any` 转换为 []float32。 md5:e1b7a8e84a68d538
-// ff:取小数32位切片
-// any:值
 func Float32s(any interface{}) []float32 {
 	if any == nil {
 		return nil
@@ -170,8 +159,6 @@ func Float32s(any interface{}) []float32 {
 }
 
 // Float64s 将 `any` 转换为 []float64。 md5:f66a670e62a3b46e
-// ff:取小数64位切片
-// any:值
 func Float64s(any interface{}) []float64 {
 	if any == nil {
 		return nil

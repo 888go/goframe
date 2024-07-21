@@ -30,8 +30,6 @@ type UploadFile struct {
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// f:
 func (f UploadFile) MarshalJSON() ([]byte, error) {
 	return json.Marshal(f.FileHeader)
 }
@@ -45,12 +43,6 @@ type UploadFiles []*UploadFile
 //
 // 注意：如果目标位置已经存在同名文件，该函数将覆盖原有的文件。
 // md5:ffe3d8f90d14185a
-// ff:X保存
-// f:
-// dirPath:目录路径
-// randomlyRename:随机重命名
-// filename:文件名
-// err:错误
 func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename string, err error) {
 	if f == nil {
 		return "", gerror.NewCode(
@@ -98,12 +90,6 @@ func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename stri
 //
 // 参数 `randomlyRename` 指定是否为所有文件名随机重命名。
 // md5:de2b45ea5a89ccad
-// ff:X保存
-// fs:
-// dirPath:目录路径
-// randomlyRename:随机重命名
-// filenames:文件名切片
-// err:错误
 func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []string, err error) {
 	if len(fs) == 0 {
 		return nil, gerror.NewCode(
@@ -128,9 +114,6 @@ func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []
 //
 // 注意，`name` 是客户端multipart表单中文件字段的名称。
 // md5:a49268bd7e014ab6
-// ff:取上传文件对象
-// r:
-// name:名称
 func (r *Request) GetUploadFile(name string) *UploadFile {
 	uploadFiles := r.GetUploadFiles(name)
 	if len(uploadFiles) > 0 {
@@ -139,16 +122,13 @@ func (r *Request) GetUploadFile(name string) *UploadFile {
 	return nil
 }
 
-				// GetUploadFiles 用于检索并返回具有指定表单名称的多个上传文件。
-				// 此函数用于获取多个上传文件对象，这些对象是使用多部分表单内容类型上传的。
-				//
-				// 如果检索失败或没有给定名称的表单文件被上传，则返回nil。
-				//
-				// 注意，`name` 是来自客户端的多部分表单中的文件字段名称。
-				// md5:cbbf4db398137505
-// ff:取上传文件切片对象
-// r:
-// name:名称
+// GetUploadFiles 用于检索并返回具有指定表单名称的多个上传文件。
+// 此函数用于获取多个上传文件对象，这些对象是使用多部分表单内容类型上传的。
+//
+// 如果检索失败或没有给定名称的表单文件被上传，则返回nil。
+//
+// 注意，`name` 是来自客户端的多部分表单中的文件字段名称。
+// md5:cbbf4db398137505
 func (r *Request) GetUploadFiles(name string) UploadFiles {
 	multipartFiles := r.GetMultipartFiles(name)
 	if len(multipartFiles) > 0 {

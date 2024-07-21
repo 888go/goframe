@@ -33,16 +33,11 @@ const (
 )
 
 // Init 进行自定义初始化。 md5:08f8a2052942d9c8
-// ff:
-// args:
 func Init(args ...string) {
 	command.Init(args...)
 }
 
 // GetOpt 作为gvar.Var返回名为`name`的选项值。 md5:1859b868ee779be0
-// ff:
-// name:
-// def:
 func GetOpt(name string, def ...string) *gvar.Var {
 	if v := command.GetOpt(name, def...); v != "" {
 		return gvar.New(v)
@@ -54,15 +49,11 @@ func GetOpt(name string, def ...string) *gvar.Var {
 }
 
 // GetOptAll 返回所有已解析的选项。 md5:6de4d266d8991786
-// ff:
 func GetOptAll() map[string]string {
 	return command.GetOptAll()
 }
 
 // GetArg 作为gvar.Var返回索引为`index`的参数。 md5:12ea2f8d74c6370d
-// ff:
-// index:
-// def:
 func GetArg(index int, def ...string) *gvar.Var {
 	if v := command.GetArg(index, def...); v != "" {
 		return gvar.New(v)
@@ -71,7 +62,6 @@ func GetArg(index int, def ...string) *gvar.Var {
 }
 
 // GetArgAll 返回所有解析的参数。 md5:85cc0fd5995d4878
-// ff:
 func GetArgAll() []string {
 	return command.GetArgAll()
 }
@@ -84,9 +74,6 @@ func GetArgAll() []string {
 // 1. 命令行参数采用小写格式，例如：gf.`包名`.<变量名>;
 // 2. 环境变量采用大写格式，例如：GF_`包名`_<变量名>。
 // md5:e3d5c0c773430740
-// ff:
-// key:
-// def:
 func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
 	cmdKey := utils.FormatCmdKey(key)
 	if command.ContainsOpt(cmdKey) {
@@ -105,9 +92,6 @@ func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
 }
 
 // BuildOptions 将选项构建为字符串。 md5:c722b017f3a50346
-// ff:
-// m:
-// prefix:
 func BuildOptions(m map[string]string, prefix ...string) string {
 	options := ""
 	leadStr := "-"

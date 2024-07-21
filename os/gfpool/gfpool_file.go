@@ -17,13 +17,6 @@ import (
 
 // Open 函数根据给定的文件路径、标志和打开权限创建并返回一个文件项。当它首次被调用时，它会自动内部创建一个关联的文件指针池。然后，它从文件指针池中获取文件项。
 // md5:94bbe2b7d15d2c1f
-// ff:
-// path:
-// flag:
-// perm:
-// ttl:
-// file:
-// err:
 func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *File, err error) {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -49,12 +42,6 @@ func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *
 // Get 根据给定的文件路径、标志和打开权限返回一个文件项。
 // 随后，它从文件指针池中检索一个文件项。
 // md5:f56943d16a070df7
-// ff:
-// path:
-// flag:
-// perm:
-// ttl:
-// file:
 func Get(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *File) {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -71,8 +58,6 @@ func Get(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *F
 }
 
 // Stat 返回描述文件的FileInfo结构。 md5:86e6f3f0a508aa53
-// ff:
-// f:
 func (f *File) Stat() (os.FileInfo, error) {
 	if f.stat == nil {
 		return nil, gerror.New("file stat is empty")
@@ -81,9 +66,6 @@ func (f *File) Stat() (os.FileInfo, error) {
 }
 
 // Close 将文件指针放回文件指针池。 md5:a47bacf277b7f774
-// ff:
-// f:
-// close:
 func (f *File) Close(close ...bool) error {
 	if len(close) > 0 && close[0] {
 		f.File.Close()

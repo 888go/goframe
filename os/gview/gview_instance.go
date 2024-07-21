@@ -19,11 +19,9 @@ var (
 	instances = gmap.NewStrAnyMap(true)
 )
 
-	// Instance 返回一个具有默认设置的 View 实例。
-	// 参数 `name` 是该实例的名称。
-	// md5:7ac19173e044fa8f
-// ff:
-// name:
+// Instance 返回一个具有默认设置的 View 实例。
+// 参数 `name` 是该实例的名称。
+// md5:7ac19173e044fa8f
 func Instance(name ...string) *View {
 	key := DefaultName
 	if len(name) > 0 && name[0] != "" {

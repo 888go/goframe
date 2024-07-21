@@ -21,7 +21,6 @@ import (
 // BinVersion 返回当前运行二进制文件的版本。
 // 它使用ghash.BKDRHash和BASE36算法来计算二进制文件的独特版本。
 // md5:d61ca269b0c85c70
-// ff:
 func BinVersion() string {
 	if binaryVersion == "" {
 		binaryContent, _ := os.ReadFile(selfPath)
@@ -36,7 +35,6 @@ func BinVersion() string {
 // BinVersionMd5 返回当前运行二进制文件的版本。
 // 它使用MD5算法计算二进制文件的独特版本。
 // md5:e716b98ad45cf095
-// ff:
 func BinVersionMd5() string {
 	if binaryVersionMd5 == "" {
 		binaryVersionMd5, _ = md5File(selfPath)

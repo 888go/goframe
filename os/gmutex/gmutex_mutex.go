@@ -19,23 +19,16 @@ type Mutex struct {
 //
 // 在 `f` 执行完毕后，它会释放锁。
 // md5:946a127ed090616d
-// ff:锁定_函数
-// m:
-// f:回调函数
 func (m *Mutex) LockFunc(f func()) {
 	m.Lock()
 	defer m.Unlock()
 	f()
 }
 
-	// TryLockFunc尝试使用给定的回调函数`f`为写入锁定mutex。如果成功，它会立即返回true，或者如果mutex已经有写入或读取锁，它会立即返回false。
-	// 
-	// 在执行完`f`后，它会释放锁。
-	// md5:d12ccf3fb040146e
-// ff:非阻塞锁定_函数
-// m:
-// f:回调函数
-// result:结果
+// TryLockFunc尝试使用给定的回调函数`f`为写入锁定mutex。如果成功，它会立即返回true，或者如果mutex已经有写入或读取锁，它会立即返回false。
+// 
+// 在执行完`f`后，它会释放锁。
+// md5:d12ccf3fb040146e
 func (m *Mutex) TryLockFunc(f func()) (result bool) {
 	if m.TryLock() {
 		result = true

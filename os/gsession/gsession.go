@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // gsession 包实现了会话的管理与存储功能。 md5:743dbbcf3d74735d
-package gsession//bm:session类
+package gsession
 
 import (
 	"github.com/gogf/gf/v2/errors/gcode"
@@ -22,9 +22,8 @@ var (
 	})
 )
 
-		// NewSessionId 创建并返回一个新的、唯一的会话ID字符串，该字符串长度为32字节。
-		// md5:c16016979687f8e5
-// ff:
+// NewSessionId 创建并返回一个新的、唯一的会话ID字符串，该字符串长度为32字节。
+// md5:c16016979687f8e5
 func NewSessionId() string {
 	return guid.S()
 }

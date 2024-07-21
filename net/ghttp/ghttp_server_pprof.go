@@ -25,9 +25,6 @@ const (
 )
 
 // StartPProfServer 启动并运行一个新的pprof服务器。 md5:4c0c47dfda03a84b
-// ff:PProf服务端创建
-// port:监听端口
-// pattern:作废参数
 func StartPProfServer(port int, pattern ...string) {
 	s := GetServer(defaultPProfServerName)
 	s.EnablePProf(pattern...)
@@ -36,17 +33,11 @@ func StartPProfServer(port int, pattern ...string) {
 }
 
 // EnablePProf 启用服务器的PProf功能。 md5:5603a60f147574d1
-// ff:PProf开启
-// s:
-// pattern:路由地址
 func (s *Server) EnablePProf(pattern ...string) {
 	s.Domain(DefaultDomainName).EnablePProf(pattern...)
 }
 
 // EnablePProf 为指定域名的服务器启用 PProf 功能。 md5:46c19e5f1d55beb1
-// ff:PProf开启
-// d:
-// pattern:路由地址
 func (d *Domain) EnablePProf(pattern ...string) {
 	p := defaultPProfPattern
 	if len(pattern) > 0 && pattern[0] != "" {
@@ -65,9 +56,6 @@ func (d *Domain) EnablePProf(pattern ...string) {
 }
 
 // Index 显示 PProf 的索引页面。 md5:606e9224f8418b6e
-// ff:显示页面
-// p:
-// r:
 func (p *utilPProf) Index(r *Request) {
 	var (
 		ctx      = r.Context()
@@ -114,9 +102,6 @@ func (p *utilPProf) Index(r *Request) {
 
 // Cmdline 响应正在运行程序的命令行，参数之间用 NULL 字节分隔。包初始化时将其注册为 /debug/pprof/cmdline。
 // md5:35f5d246119cca43
-// ff:
-// p:
-// r:
 func (p *utilPProf) Cmdline(r *Request) {
 	netpprof.Cmdline(r.Response.Writer, r.Request)
 }
@@ -125,9 +110,6 @@ func (p *utilPProf) Cmdline(r *Request) {
 // 如果GET参数指定了持续时间，那么 profiling 将持续该秒数；如果没有指定，则默认为30秒。
 // 在包初始化时，它会注册为 "/debug/pprof/profile"。
 // md5:11bd281949c0ba3c
-// ff:
-// p:
-// r:
 func (p *utilPProf) Profile(r *Request) {
 	netpprof.Profile(r.Response.Writer, r.Request)
 }
@@ -136,20 +118,14 @@ func (p *utilPProf) Profile(r *Request) {
 // 并以映射表的形式响应，该映射表将程序计数器与函数名称关联起来。
 // 包初始化时将其注册为 /debug/pprof/symbol 路由。
 // md5:2944ed5cfe9e0c52
-// ff:
-// p:
-// r:
 func (p *utilPProf) Symbol(r *Request) {
 	netpprof.Symbol(r.Response.Writer, r.Request)
 }
 
-	// Trace 返回执行跟踪的二进制形式。
-	// 跟踪将持续指定的GET参数中的秒数，如果没有指定，则为1秒。
-	// 包初始化时将其注册为/debug/pprof/trace。
-	// md5:02830b4c9b48681f
-// ff:
-// p:
-// r:
+// Trace 返回执行跟踪的二进制形式。
+// 跟踪将持续指定的GET参数中的秒数，如果没有指定，则为1秒。
+// 包初始化时将其注册为/debug/pprof/trace。
+// md5:02830b4c9b48681f
 func (p *utilPProf) Trace(r *Request) {
 	netpprof.Trace(r.Response.Writer, r.Request)
 }

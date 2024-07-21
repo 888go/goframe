@@ -50,7 +50,6 @@ func init() {
 }
 
 // CommonAttributes 返回乐器常用的属性。 md5:a3240e3fe755b09a
-// ff:
 func CommonAttributes() Attributes {
 	return Attributes{
 		NewAttribute(`os.host.name`, hostname),
@@ -59,9 +58,6 @@ func CommonAttributes() Attributes {
 }
 
 // NewAttribute通过给定的`key`和`value`创建并返回一个Attribute。 md5:dc10aeeb3e9da0df
-// ff:
-// key:
-// value:
 func NewAttribute(key string, value any) Attribute {
 	return &localAttribute{
 		key:   key,
@@ -70,37 +66,27 @@ func NewAttribute(key string, value any) Attribute {
 }
 
 // Key 返回属性的键。 md5:27fe16d7c522fc43
-// ff:
-// l:
 func (l *localAttribute) Key() string {
 	return l.key
 }
 
 // Value 返回属性的值。 md5:7b8a05d03d68be89
-// ff:
-// l:
 func (l *localAttribute) Value() any {
 	return l.value
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// l:
 func (l *localAttribute) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`{"%s":%#v}`, l.key, l.value)), nil
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// attrs:
 func (attrs Attributes) String() string {
 	bs, _ := attrs.MarshalJSON()
 	return string(bs)
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-// ff:
-// attrs:
 func (attrs Attributes) MarshalJSON() ([]byte, error) {
 	var (
 		bs     []byte

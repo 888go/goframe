@@ -15,28 +15,18 @@ import (
 )
 
 // Split将字符串`str`按照字符串`delimiter`进行分割，返回一个数组。 md5:905c146c396933a0
-// ff:分割
-// str:文本
-// delimiter:用作分割的文本
 func Split(str, delimiter string) []string {
 	return strings.Split(str, delimiter)
 }
 
 // SplitAndTrim 通过字符串 `delimiter` 将字符串 `str` 分割成一个数组，然后对数组中的每个元素调用 Trim 函数。它会忽略 Trim 后为空的元素。
 // md5:20d7e1d120928c19
-// ff:分割并忽略空值
-// str:文本
-// delimiter:用作分割的文本
-// characterMask:
 func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
 	return utils.SplitAndTrim(str, delimiter, characterMask...)
 }
 
 // Join 函数将 `array` 中的元素连接起来以创建一个单一的字符串。分隔符字符串 `sep` 会被放置在结果字符串中各元素之间。
 // md5:c796a29e291a2864
-// ff:连接
-// array:切片
-// sep:连接符
 func Join(array []string, sep string) string {
 	return strings.Join(array, sep)
 }
@@ -45,9 +35,6 @@ func Join(array []string, sep string) string {
 //
 // 参数 `array` 可以是任何类型的切片，它将被转换为字符串数组。
 // md5:fc531415278a603b
-// ff:连接Any
-// array:切片
-// sep:连接符
 func JoinAny(array interface{}, sep string) string {
 	return strings.Join(gconv.Strings(array), sep)
 }
@@ -55,17 +42,12 @@ func JoinAny(array interface{}, sep string) string {
 // Explode 函数将字符串 `str` 按照字符串 `delimiter` 进行分割，返回一个数组。
 // 参考：http://php.net/manual/zh/function.explode.php。
 // md5:28fb7a55d9ec56dc
-// ff:Explode别名
-// delimiter:
-// str:
 func Explode(delimiter, str string) []string {
 	return Split(str, delimiter)
 }
 
-// Implode joins array elements `pieces` with a string `glue`.
-// ff:Implode别名
-// glue:
-// pieces:
+// Implode 将数组元素 `pieces` 用字符串 `glue` 进行连接。// 参考：http://php.net/manual/zh/function.implode.php
+// md5:e20b4f4a627b156b
 func Implode(glue string, pieces []string) string {
 	return strings.Join(pieces, glue)
 }
@@ -76,10 +58,6 @@ func Implode(glue string, pieces []string) string {
 // 它会在每chunkLen个字符后插入结束标记`end`。
 // 它将参数`body`和`end`视为Unicode字符串处理。
 // md5:94b7c0d7df7ca2e3
-// ff:长度分割
-// body:文本
-// chunkLen:分割长度
-// end:分割符
 func ChunkSplit(body string, chunkLen int, end string) string {
 	if end == "" {
 		end = "\r\n"
@@ -102,8 +80,6 @@ func ChunkSplit(body string, chunkLen int, end string) string {
 }
 
 // Fields 将字符串中的单词返回为一个切片。 md5:b66b97aa739d583c
-// ff:单词分割
-// str:文本
 func Fields(str string) []string {
 	return strings.Fields(str)
 }

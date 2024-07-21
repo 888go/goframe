@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gring提供了一个并发安全/不安全的环形列表（圆形队列）。 md5:bc78eee87d7b5c4b
-package gring//bm:循环链表类
+package gring
 
 import (
 	"container/ring"
@@ -32,9 +32,6 @@ type internalRingItem struct {
 // New 创建并返回一个具有`cap`个元素的Ring结构。
 // 可选参数`safe`指定是否在并发安全环境下使用该结构，默认为false。
 // md5:70892e7ec9ed75d6
-// ff:
-// cap:
-// safe:
 func New(cap int, safe ...bool) *Ring {
 	return &Ring{
 		mu:    rwmutex.New(safe...),
@@ -46,9 +43,6 @@ func New(cap int, safe ...bool) *Ring {
 }
 
 // Val 返回当前位置的项的值。 md5:b1027c8df14f08d2
-// yx:true
-// ff:取值
-// r:
 func (r *Ring) Val() interface{} {
 	var value interface{}
 	r.mu.RLock()
@@ -60,16 +54,12 @@ func (r *Ring) Val() interface{} {
 }
 
 // Len 返回环的大小。 md5:c4ff976cf0b72c58
-// ff:
-// r:
 func (r *Ring) Len() int {
 	r.checkAndUpdateLenAndCap()
 	return r.len.Val()
 }
 
 // Cap 返回环形缓冲区的容量。 md5:2ac015d8e20dce37
-// ff:
-// r:
 func (r *Ring) Cap() int {
 	r.checkAndUpdateLenAndCap()
 	return r.cap.Val()
@@ -102,10 +92,6 @@ func (r *Ring) checkAndUpdateLenAndCap() {
 }
 
 // Set 将值设置为当前位置的项目。 md5:7140c77dfa3aa5dc
-// yx:true
-// ff:设置值
-// r:
-// value:
 func (r *Ring) Set(value interface{}) *Ring {
 	r.mu.Lock()
 	if r.ring.Value == nil {
@@ -117,9 +103,6 @@ func (r *Ring) Set(value interface{}) *Ring {
 }
 
 // Put 将`value`设置为环形列表的当前项，并将位置移动到下一项。 md5:737e9a607801eee9
-// ff:
-// r:
-// value:
 func (r *Ring) Put(value interface{}) *Ring {
 	r.mu.Lock()
 	if r.ring.Value == nil {
@@ -133,9 +116,6 @@ func (r *Ring) Put(value interface{}) *Ring {
 
 // Move 函数根据给定的 n 值，将环(ring)中的元素向后（n < 0）或向前（n >= 0）移动 n % r.Len() 个位置，并返回移动后所在位置的元素。环(r)不能为空。
 // md5:92f786c9a5a8b8cd
-// ff:
-// r:
-// n:
 func (r *Ring) Move(n int) *Ring {
 	r.mu.Lock()
 	r.ring = r.ring.Move(n)
@@ -144,8 +124,6 @@ func (r *Ring) Move(n int) *Ring {
 }
 
 // Prev 返回前一个环形元素。r 不能为空。 md5:574e755d8883dc1f
-// ff:
-// r:
 func (r *Ring) Prev() *Ring {
 	r.mu.Lock()
 	r.ring = r.ring.Prev()
@@ -154,8 +132,6 @@ func (r *Ring) Prev() *Ring {
 }
 
 // Next 返回下一个环元素。r必须不为空。 md5:f16b811ce23ee06b
-// ff:
-// r:
 func (r *Ring) Next() *Ring {
 	r.mu.Lock()
 	r.ring = r.ring.Next()
@@ -170,9 +146,6 @@ func (r *Ring) Next() *Ring {
 // 
 // 如果 r 和 s 指向不同的环，链接它们会在 r 后插入 s 的元素，创建一个单一的环。结果指向插入后 s 的最后一个元素之后的元素。
 // md5:faa73e3f5f43468a
-// ff:
-// r:
-// s:
 func (r *Ring) Link(s *Ring) *Ring {
 	r.mu.Lock()
 	s.mu.Lock()
@@ -188,9 +161,6 @@ func (r *Ring) Link(s *Ring) *Ring {
 // 如果 n % r.Len() == 0，那么 r 保持不变。
 // 结果是被移除的子环。r 必须非空。
 // md5:00909914d8e87d32
-// ff:
-// r:
-// n:
 func (r *Ring) Unlink(n int) *Ring {
 	r.mu.Lock()
 	resultRing := r.ring.Unlink(n)
@@ -205,10 +175,6 @@ func (r *Ring) Unlink(n int) *Ring {
 // RLockIteratorNext 在RWMutex的RLock范围内向前迭代并加锁读取。
 // 如果提供的回调函数`f`返回true，那么将继续迭代；如果返回false，则停止迭代。
 // md5:8cb144956023168f
-// ff:
-// r:
-// f:
-// value:
 func (r *Ring) RLockIteratorNext(f func(value interface{}) bool) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
@@ -225,10 +191,6 @@ func (r *Ring) RLockIteratorNext(f func(value interface{}) bool) {
 // RLockIteratorPrev 逆序迭代并锁定（写入）RWMutex.RLock。
 // 使用给定的回调函数 `f`。如果 `f` 返回 true，那么继续迭代；否则停止。
 // md5:31f0f0af041e234a
-// ff:
-// r:
-// f:
-// value:
 func (r *Ring) RLockIteratorPrev(f func(value interface{}) bool) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
@@ -243,8 +205,6 @@ func (r *Ring) RLockIteratorPrev(f func(value interface{}) bool) {
 }
 
 // SliceNext 返回一个从当前位置开始向前的所有项值的切片副本。 md5:54ba7b6ac01a38f8
-// ff:
-// r:
 func (r *Ring) SliceNext() []interface{} {
 	s := make([]interface{}, 0)
 	r.mu.RLock()
@@ -262,8 +222,6 @@ func (r *Ring) SliceNext() []interface{} {
 }
 
 // SlicePrev 从当前位置向前返回所有项目值的副本作为切片。 md5:632f85c2939f2e91
-// ff:
-// r:
 func (r *Ring) SlicePrev() []interface{} {
 	s := make([]interface{}, 0)
 	r.mu.RLock()

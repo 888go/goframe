@@ -13,18 +13,14 @@ import "unsafe"
 // 注意，如果您完全确定将来绝不会使用 `s` 变量，
 // 您可以使用这个不安全的函数来实现高性能的类型转换。
 // md5:2ea7b3663055237b
-// ff:文本到字节集_非安全
-// s:文本
 func UnsafeStrToBytes(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&s))
 }
 
-		// UnsafeBytesToStr 将 []byte 转换为 string，而不进行内存复制。
-		// 请注意，如果你确定将来绝不会使用 `b` 变量，
-		// 可以使用这个不安全的函数来实现高性能的类型转换。
-		// md5:1d73c9ff996784ae
-// ff:字节集到文本_非安全
-// b:字节集
+// UnsafeBytesToStr 将 []byte 转换为 string，而不进行内存复制。
+// 请注意，如果你确定将来绝不会使用 `b` 变量，
+// 可以使用这个不安全的函数来实现高性能的类型转换。
+// md5:1d73c9ff996784ae
 func UnsafeBytesToStr(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }

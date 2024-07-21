@@ -16,17 +16,12 @@ import (
 )
 
 // Scan 将 `info` 打印到标准输出，读取并返回用户输入，直到遇到 '\n'。 md5:ddd0cd56978ea021
-// ff:
-// info:
 func Scan(info ...interface{}) string {
 	fmt.Print(info...)
 	return readline()
 }
 
 // Scanf 将 `info` 按照 `format` 格式打印到标准输出，然后读取并返回用户输入，直到遇到换行符'\n'停止。 md5:8aa27cd5ac6f9224
-// ff:
-// format:
-// info:
 func Scanf(format string, info ...interface{}) string {
 	fmt.Printf(format, info...)
 	return readline()
