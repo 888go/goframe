@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package mysql_test
 
@@ -118,7 +119,7 @@ CREATE TABLE %s (
 		}
 	})
 
-	// Result ScanList with struct elements and pointer attributes.
+	// Result 使用具有结构体元素和指针属性的ScanList。 md5:b23d106d13859ad5
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -284,19 +285,19 @@ func Test_Issue1002(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + string arguments.
+	// where + 字符串参数。 md5:cb1db92222691d4d
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + gtime.Time arguments.
+	// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", gtime.New("2020-10-27 19:03:32"), gtime.New("2020-10-27 19:03:34")).Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + time.Time arguments, UTC.
+	// 带有时间.Time参数，使用UTC时区。 md5:80f36eaa256e894c
 	gtest.C(t, func(t *gtest.T) {
 		t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32")
 		t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34")
@@ -306,29 +307,31 @@ func Test_Issue1002(t *testing.T) {
 			t.Assert(v.Int(), 1)
 		}
 	})
-	// where + time.Time arguments, +8.
+	// 在时间.Time参数中，+8代表时区偏移。
 	// gtest.C(t, func(t *gtest.T) {
-	//	// Change current timezone to +8 zone.
-	//	location, err := time.LoadLocation("Asia/Shanghai")
-	//	t.AssertNil(err)
-	//	t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location)
-	//	t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
-	//	{
-	//		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
-	//		t.AssertNil(err)
-	//		t.Assert(v.Int(), 1)
-	//	}
-	//	{
-	//		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
-	//		t.AssertNil(err)
-	//		t.Assert(v.Int(), 1)
-	//	}
-	//	{
-	//		v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
-	//		t.AssertNil(err)
-	//		t.Assert(v.Int(), 1)
-	//	}
+	//     	// 将当前时区更改为+8时区（东八区）。
+	//     location, err := time.LoadLocation("Asia/Shanghai")
+	//     t.AssertNil(err) 	// 确认加载时区无错误。
+	//     t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location)
+	//     t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
+	//     	// 使用定义的时间段进行查询测试：
+	//     {
+	//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
+	//         t.AssertNil(err) 	// 确认查询无错误。
+	//         t.Assert(v.Int(), 1) 	// 断言查询结果的ID为1。
+	//     }
+	//     {
+	//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
+	//         t.AssertNil(err) 	// 同上，确认查询无错误。
+	//         t.Assert(v.Int(), 1) 	// 断言查询结果的ID为1。
+	//     }
+	//     {
+	//         v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
+	//         t.AssertNil(err) 	// 再次确认查询无错误。
+	//         t.Assert(v.Int(), 1) 	// 继续断言查询结果的ID为1。
+	//     }
 	// })
+	// md5:766797023d98820e
 }
 func Test_Issue1700(t *testing.T) {
 	table := "user_" + gtime.Now().TimestampNanoStr()

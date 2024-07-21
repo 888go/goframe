@@ -42,9 +42,9 @@
 <原文结束>
 
 # <翻译开始>
-// os.Args 是一个字符串切片，内容为 ["root", "test", "a", "b", "c", "-h"]
-// 使用 cmd.RunWithValueError 函数运行命令并获取值和错误
-// 使用 t.AssertNil 函数断言错误应为 nil（即无错误）
-// md5:9a669f8340465dad
+		// os.Args 是一个字符串切片，内容为 ["root", "test", "a", "b", "c", "-h"]
+		// 使用 cmd.RunWithValueError 函数运行命令并获取值和错误
+		// 使用 t.AssertNil 函数断言错误应为 nil（即无错误）
+		// md5:9a669f8340465dad
 # <翻译结束>
 

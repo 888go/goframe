@@ -1,10 +1,11 @@
 //go:build 屏蔽单元测试
 
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package clickhouse_test
 
@@ -49,7 +50,7 @@ func createTable(table ...string) string {
 	return createTableWithDb(db, table...)
 }
 
-// create table and insert initial data
+						// 创建表并插入初始数据. md5:a4bda4ca9da339e1
 func createInitTable(table ...string) string {
 	return createInitTableWithDb(db, table...)
 }

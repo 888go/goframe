@@ -90,9 +90,9 @@
 <原文结束>
 
 # <翻译开始>
-// 标记该值已经转换并设置为`ReferValue`。调用者可以忽略返回的结果。
-// 这是一个用于内部使用的属性。
-// md5:91187d21c0d0ac16
+	// 标记该值已经转换并设置为`ReferValue`。调用者可以忽略返回的结果。
+	// 这是一个用于内部使用的属性。
+	// md5:91187d21c0d0ac16
 # <翻译结束>
 
 
@@ -117,15 +117,15 @@
 <原文结束>
 
 # <翻译开始>
-// 自定义类型指针的类型转换。
-// 例如：
-// type PayMode int
-// type Req struct{
-//     Mode *PayMode
-// }
-// 
-// Struct(`{"Mode": 1000}`, &req)
-// md5:d218e7f3f409c5f7
+				// 自定义类型指针的类型转换。
+				// 例如：
+				// type PayMode int
+				// type Req struct{
+				//     Mode *PayMode
+				// }
+				// 
+				// Struct(`{"Mode": 1000}`, &req)
+				// md5:d218e7f3f409c5f7
 # <翻译结束>
 
 

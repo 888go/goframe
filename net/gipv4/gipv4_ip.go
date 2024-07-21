@@ -1,9 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者(https://goframe.org)。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
-//
+// 此源代码形式受 MIT 许可证的条款约束。
+// 如果未随此文件一起分发 MIT 许可证的副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gipv4
 
@@ -15,7 +15,7 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// GetIpArray retrieves and returns all the ip of current host.
+// GetIpArray 获取并返回当前主机的所有IP地址。 md5:6828d92b1a684cd2
 // ff:
 // ips:
 // err:
@@ -36,7 +36,7 @@ func GetIpArray() (ips []string, err error) {
 	return ips, nil
 }
 
-// MustGetIntranetIp performs as GetIntranetIp, but it panics if any error occurs.
+// MustGetIntranetIp 执行与 GetIntranetIp 相同的操作，但如果发生任何错误，它将引发恐慌。 md5:f08d856493c3c333
 // ff:
 func MustGetIntranetIp() string {
 	ip, err := GetIntranetIp()
@@ -46,7 +46,7 @@ func MustGetIntranetIp() string {
 	return ip
 }
 
-// GetIntranetIp retrieves and returns the first intranet ip of current machine.
+// GetIntranetIp 获取并返回当前机器的第一个内网IP。 md5:2e53e5f6a86c1f3c
 // ff:
 // ip:
 // err:
@@ -61,7 +61,7 @@ func GetIntranetIp() (ip string, err error) {
 	return ips[0], nil
 }
 
-// GetIntranetIpArray retrieves and returns the intranet ip list of current machine.
+// GetIntranetIpArray 获取并返回当前机器的内网IP列表。 md5:48fe9964790750ba
 // ff:
 // ips:
 // err:

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient
 
@@ -24,24 +25,24 @@ type discoveryNode struct {
 	address string
 }
 
-// Service is the client discovery service.
+// Service是服务发现客户端。 md5:0022814c173cde3d
 // ff:
 // n:
 func (n *discoveryNode) Service() gsvc.Service {
 	return n.service
 }
 
-// Address returns the address of the node.
+// Address 返回节点的地址。 md5:299d6002549d1c50
 // ff:
 // n:
 func (n *discoveryNode) Address() string {
 	return n.address
 }
 
-// service prefix to its selector map cache.
+// 将服务前缀转换并存储到其选择器映射缓存中。 md5:96fd7ebfce9abb4a
 var clientSelectorMap = gmap.New(true)
 
-// internalMiddlewareDiscovery is a client middleware that enables service discovery feature for client.
+// internalMiddlewareDiscovery 是一个客户端中间件，它为客户端启用服务发现功能。 md5:d465f663ac6b0f25
 func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response, err error) {
 	if c.discovery == nil && !isServiceName(r.URL.Host) {
 		return c.Next(r)
@@ -88,7 +89,7 @@ func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response
 		return nil, err
 	}
 	selector := selectorMapValue.(gsel.Selector)
-	// Pick one node from multiple addresses.
+	// 从多个地址中选择一个节点。 md5:088c30a06a0dc6a9
 	node, done, err := selector.Pick(ctx)
 	if err != nil {
 		return nil, err
@@ -112,10 +113,11 @@ func updateSelectorNodesByService(ctx context.Context, selector gsel.Selector, s
 	return selector.Update(ctx, nodes)
 }
 
-// isServiceName checks and returns whether given input parameter is service name or not.
-// It checks by whether the parameter is address by containing port delimiter character ':'.
-//
-// It does not contain any port number if using service discovery.
+	// isServiceName 检查并返回给定的输入参数是否为服务名称。
+	// 它通过判断参数中是否包含端口分隔符':'来检查。
+	//
+	// 如果使用服务发现，则它不包含任何端口号。
+	// md5:fefe525183a2ba4d
 func isServiceName(serviceNameOrAddress string) bool {
 	return !gstr.Contains(serviceNameOrAddress, gsvc.EndpointHostPortDelimiter)
 }

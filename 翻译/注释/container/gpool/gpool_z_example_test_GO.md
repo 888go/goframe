@@ -22,9 +22,9 @@
 <原文结束>
 
 # <翻译开始>
-// 示例：关闭数据库连接
-// 调用 i.(DBConn) 的 Conn 关闭方法
-// md5:1207f4943d8a98dc
+			// 示例：关闭数据库连接
+			// 调用 i.(DBConn) 的 Conn 关闭方法
+			// md5:1207f4943d8a98dc
 # <翻译结束>
 
 
@@ -43,9 +43,9 @@
 <原文结束>
 
 # <翻译开始>
-// 示例：执行相同的数据库操作
-// 使用conn指向的*DBConn的Conn方法，以context.Background()为上下文，执行SQL查询"select * from user"
-// md5:92af4813b4267108
+	// 示例：执行相同的数据库操作
+	// 使用conn指向的*DBConn的Conn方法，以context.Background()为上下文，执行SQL查询"select * from user"
+	// md5:92af4813b4267108
 # <翻译结束>
 
 

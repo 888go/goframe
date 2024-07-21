@@ -1,9 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者(https://goframe.org)。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
-//
+// 此源代码形式受 MIT 许可证的条款约束。
+// 如果未随此文件一起分发 MIT 许可证的副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gdb
 
@@ -17,21 +17,21 @@ type localStatsItem struct {
 	stats sql.DBStats
 }
 
-// Node returns the configuration node info.
+// Node 返回配置节点信息。 md5:868005c0df3fa483
 // ff:
 // item:
 func (item *localStatsItem) Node() ConfigNode {
 	return *item.node
 }
 
-// Stats returns the connection stat for current node.
+// Stats 返回当前节点的连接状态统计信息。 md5:b497e68c5fce778b
 // ff:
 // item:
 func (item *localStatsItem) Stats() sql.DBStats {
 	return item.stats
 }
 
-// Stats retrieves and returns the pool stat for all nodes that have been established.
+// Stats获取并返回所有已建立节点的池统计信息。 md5:83a29e795d6705a8
 // ff:
 // c:
 // ctx:

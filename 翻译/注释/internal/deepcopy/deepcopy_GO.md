@@ -186,8 +186,8 @@
 <原文结束>
 
 # <翻译开始>
-// 对于给定字段，检查Type的StructField，看StructField.PkgPath是否设置，以确定字段是否已导出。因为CanSet()方法对可设置的字段返回false，我不确定原因是什么。-mohae
-// md5:3b6525bda8d105bc
+			// 对于给定字段，检查Type的StructField，看StructField.PkgPath是否设置，以确定字段是否已导出。因为CanSet()方法对可设置的字段返回false，我不确定原因是什么。-mohae
+			// md5:3b6525bda8d105bc
 # <翻译结束>
 
 

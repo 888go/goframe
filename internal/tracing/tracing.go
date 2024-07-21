@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package tracing provides some utility functions for tracing functionality.
+// Package tracing 提供了一些用于追踪功能的实用函数。 md5:e35e84e99377e9ae
 package tracing
 
 import (
@@ -23,12 +24,12 @@ var (
 	sequence           = gtype.NewInt32(randomInitSequence)
 )
 
-// NewIDs creates and returns a new trace and span ID.
+// NewIDs 生成并返回一个新的 trace 和 span ID。 md5:1b5d0dc93c6f38ff
 func NewIDs() (traceID trace.TraceID, spanID trace.SpanID) {
 	return NewTraceID(), NewSpanID()
 }
 
-// NewTraceID creates and returns a trace ID.
+// NewTraceID 创建并返回一个追踪ID。 md5:6832c150aaff566d
 func NewTraceID() (traceID trace.TraceID) {
 	var (
 		timestampNanoBytes = gbinary.EncodeInt64(time.Now().UnixNano())
@@ -41,7 +42,7 @@ func NewTraceID() (traceID trace.TraceID) {
 	return
 }
 
-// NewSpanID creates and returns a span ID.
+// NewSpanID 创建并返回一个新的span ID。 md5:02d4095273219037
 func NewSpanID() (spanID trace.SpanID) {
 	copy(spanID[:], gbinary.EncodeInt64(time.Now().UnixNano()/1e3))
 	copy(spanID[4:], grand.B(4))

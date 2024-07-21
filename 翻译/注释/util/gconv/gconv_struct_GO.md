@@ -119,9 +119,9 @@
 <原文结束>
 
 # <翻译开始>
-// 如果`params`和`pointer`是相同类型，直接进行赋值操作。
-// 为了性能优化。
-// md5:87eefbed1426eef0
+	// 如果`params`和`pointer`是相同类型，直接进行赋值操作。
+	// 为了性能优化。
+	// md5:87eefbed1426eef0
 # <翻译结束>
 
 
@@ -140,9 +140,9 @@
 <原文结束>
 
 # <翻译开始>
-// 如果必要，它会自动创建结构体对象。
-// 例如，如果`pointer`是**User（双星号表示指针），那么`elem`就是*User，即User类型的指针。
-// md5:172757349701f610
+	// 如果必要，它会自动创建结构体对象。
+	// 例如，如果`pointer`是**User（双星号表示指针），那么`elem`就是*User，即User类型的指针。
+	// md5:172757349701f610
 # <翻译结束>
 
 
@@ -163,11 +163,11 @@
 <原文结束>
 
 # <翻译开始>
-// 如果v, ok := pointerElemReflectValue.Interface().(iUnmarshalValue); ok {
-// 	return v.UnmarshalValue(params)
-// }
-// 请注意，这里是`pointerElemReflectValue`而不是`pointerReflectValue`。
-// md5:722eb6b1c6132d70
+		// 如果v, ok := pointerElemReflectValue.Interface().(iUnmarshalValue); ok {
+		// 	return v.UnmarshalValue(params)
+		// }
+		// 请注意，这里是`pointerElemReflectValue`而不是`pointerReflectValue`。
+		// md5:722eb6b1c6132d70
 # <翻译结束>
 
 
@@ -186,9 +186,9 @@
 <原文结束>
 
 # <翻译开始>
-// paramsMap 是一个类型为 map[string]interface{} 的变量，用于存储参数。
-// 不要在這裡使用 MapDeep。
-// md5:96735ea71b035d62
+	// paramsMap 是一个类型为 map[string]interface{} 的变量，用于存储参数。
+	// 不要在這裡使用 MapDeep。
+	// md5:96735ea71b035d62
 # <翻译结束>
 
 
@@ -270,24 +270,24 @@
 <原文结束>
 
 # <翻译开始>
-// 定义一个名为Name的结构体，其中包含两个字段：LastName和FirstName，它们都有`json`标签进行标记
-// ```
-// type Name struct {
-//    LastName  string `json:"lastName"`
-//    FirstName string `json:"firstName"`
-// }
-// ```
-// 
-// 定义一个User结构体，其中包含一个嵌套的Name结构体，并使用`json:"name"`对整个嵌套结构进行标记
-// ```
-// type User struct {
-//     Name `json:"name"`
-//     // ...
-// }
-// ```
-// 
-// 只有当Name结构体中包含fieldTag（字段标签）时，才会记录这些信息
-// md5:d42e389449351045
+			// 定义一个名为Name的结构体，其中包含两个字段：LastName和FirstName，它们都有`json`标签进行标记
+			// ```
+			// type Name struct {
+			//    LastName  string `json:"lastName"`
+			//    FirstName string `json:"firstName"`
+			// }
+			// ```
+			// 
+			// 定义一个User结构体，其中包含一个嵌套的Name结构体，并使用`json:"name"`对整个嵌套结构进行标记
+			// ```
+			// type User struct {
+			//     Name `json:"name"`
+			//     			// ...
+			// }
+			// ```
+			// 
+			// 只有当Name结构体中包含fieldTag（字段标签）时，才会记录这些信息
+			// md5:d42e389449351045
 # <翻译结束>
 
 
@@ -333,9 +333,9 @@
 <原文结束>
 
 # <翻译开始>
-// 首先，根据自定义的映射规则进行搜索。
-// 如果找到了可能的直接赋值关系，减少后续映射搜索的数量。
-// md5:50dd567944f99367
+	// 首先，根据自定义的映射规则进行搜索。
+	// 如果找到了可能的直接赋值关系，减少后续映射搜索的数量。
+	// md5:50dd567944f99367
 # <翻译结束>
 
 
@@ -393,14 +393,14 @@
 <原文结束>
 
 # <翻译开始>
-// 如果标签字符串中还有其他内容，
-// 它会使用以逗号','分隔的第一部分。
-// 例如：
-// `orm:"id, priority"`
-// `orm:"name, with:uid=id"` 
-// 
-// 这段注释说明了一个Go语言中的ORM（对象关系映射）相关代码。它解释了当解析一个包含多个属性的标签字符串时，程序会选择以逗号分隔的第一个属性作为主要处理的部分。如果标签格式为`attribute1, attribute2`，则只会使用`attribute1`。另一个例子展示了如何在`name`属性中使用额外的条件，即`with:uid=id`。
-// md5:fab9db8addb2ccc4
+			// 如果标签字符串中还有其他内容，
+			// 它会使用以逗号','分隔的第一部分。
+			// 例如：
+			// `orm:"id, priority"`
+			// `orm:"name, with:uid=id"` 
+			// 
+			// 这段注释说明了一个Go语言中的ORM（对象关系映射）相关代码。它解释了当解析一个包含多个属性的标签字符串时，程序会选择以逗号分隔的第一个属性作为主要处理的部分。如果标签格式为`attribute1, attribute2`，则只会使用`attribute1`。另一个例子展示了如何在`name`属性中使用额外的条件，即`with:uid=id`。
+			// md5:fab9db8addb2ccc4
 # <翻译结束>
 
 
@@ -440,9 +440,9 @@
 <原文结束>
 
 # <翻译开始>
-// 尝试调用自定义转换器。
-// 问题：https://github.com/gogf/gf/issues/3099
-// md5:e874679d6ecc39f0
+		// 尝试调用自定义转换器。
+		// 问题：https:		//github.com/gogf/gf/issues/3099
+		// md5:e874679d6ecc39f0
 # <翻译结束>
 
 
@@ -452,9 +452,9 @@
 <原文结束>
 
 # <翻译开始>
-// 对某些类型进行特殊处理：
-// - 重写stdlib中time.Time类型的默认类型转换逻辑。
-// md5:39ca7f7684bdc13c
+		// 对某些类型进行特殊处理：
+		// - 重写stdlib中time.Time类型的默认类型转换逻辑。
+		// md5:39ca7f7684bdc13c
 # <翻译结束>
 
 
@@ -464,9 +464,9 @@
 <原文结束>
 
 # <翻译开始>
-// 在递归中保持时区一致
-// 问题：https://github.com/gogf/gf/issues/2980
-// md5:1d09e937a28bf051
+		// 在递归中保持时区一致
+		// 问题：https:		//github.com/gogf/gf/issues/2980
+		// md5:1d09e937a28bf051
 # <翻译结束>
 
 
@@ -557,9 +557,9 @@
 <原文结束>
 
 # <翻译开始>
-// 注意，切片元素的类型可能是结构体，
-// 因此它内部使用了一个名为Struct的函数来进行转换。
-// md5:b8519d4d1a736c40
+	// 注意，切片元素的类型可能是结构体，
+	// 因此它内部使用了一个名为Struct的函数来进行转换。
+	// md5:b8519d4d1a736c40
 # <翻译结束>
 
 
@@ -624,8 +624,8 @@
 <原文结束>
 
 # <翻译开始>
-// 此处使用反射将`value`转换为属性的类型，然后将结果值赋给该属性。
-// 如果常规的Go转换规则不允许转换，此操作可能会失败并引发恐慌。
-// md5:931b86f723a12b7c
+		// 此处使用反射将`value`转换为属性的类型，然后将结果值赋给该属性。
+		// 如果常规的Go转换规则不允许转换，此操作可能会失败并引发恐慌。
+		// md5:931b86f723a12b7c
 # <翻译结束>
 

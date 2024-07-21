@@ -186,9 +186,9 @@
 <原文结束>
 
 # <翻译开始>
-// fmt.Println("gspath:", realPath, sp.paths.Search(realPath)) 
-// 对于同一个目录，它不会重复添加。
-// md5:701deef87cf571aa
+		// fmt.Println("gspath:", realPath, sp.paths.Search(realPath)) 
+		// 对于同一个目录，它不会重复添加。
+		// md5:701deef87cf571aa
 # <翻译结束>
 
 

@@ -68,11 +68,11 @@
 <原文结束>
 
 # <翻译开始>
-// MySQL 示例：UPDATE table_name SET field1=new-value1, field2=new-value2 [WHERE 条件]
-// Clickhouse 示例：ALTER TABLE [db.]table UPDATE column1 = expr1[, ...] WHERE filter_expr
-// 
-// 这段代码是针对两种数据库系统的更新语句的注释。在MySQL中，`UPDATE` 用于更新表中的数据，设置指定字段的新值，并可选地使用 `WHERE` 子句来限制更新的行。在Clickhouse中，`ALTER TABLE` 用于更新表中的列，将列的值设置为表达式（expr1），并且需要一个过滤表达式（filter_expr）来确定哪些行会被更新。其中 `[db.]table` 表示可以包含数据库名的表名。
-// md5:d201a8d0c4df9319
+		// MySQL 示例：UPDATE table_name SET field1=new-value1, field2=new-value2 [WHERE 条件]
+		// Clickhouse 示例：ALTER TABLE [db.]table UPDATE column1 = expr1[, ...] WHERE filter_expr
+		// 
+		// 这段代码是针对两种数据库系统的更新语句的注释。在MySQL中，`UPDATE` 用于更新表中的数据，设置指定字段的新值，并可选地使用 `WHERE` 子句来限制更新的行。在Clickhouse中，`ALTER TABLE` 用于更新表中的列，将列的值设置为表达式（expr1），并且需要一个过滤表达式（filter_expr）来确定哪些行会被更新。其中 `[db.]table` 表示可以包含数据库名的表名。
+		// md5:d201a8d0c4df9319
 # <翻译结束>
 
 
@@ -82,8 +82,8 @@
 <原文结束>
 
 # <翻译开始>
-// MySQL 示例：DELETE FROM 表名 [WHERE 子句]
-// Clickhouse 示例：ALTER TABLE [db.]表名 [ON CLUSTER 集群名称] DELETE WHERE 过滤表达式
-// md5:b83ff5334ed70fb6
+		// MySQL 示例：DELETE FROM 表名 [WHERE 子句]
+		// Clickhouse 示例：ALTER TABLE [db.]表名 [ON CLUSTER 集群名称] DELETE WHERE 过滤表达式
+		// md5:b83ff5334ed70fb6
 # <翻译结束>
 

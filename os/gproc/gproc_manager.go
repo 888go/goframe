@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gproc
 
@@ -13,12 +14,12 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// Manager is a process manager maintaining multiple processes.
+// Manager 是一个管理多个进程的进程管理器。 md5:608ec304d3cca78a
 type Manager struct {
-	processes *gmap.IntAnyMap // Process id to Process object mapping.
+	processes *gmap.IntAnyMap // 进程ID到进程对象的映射。 md5:e1aabd18695c16fa
 }
 
-// NewManager creates and returns a new process manager.
+// NewManager 创建并返回一个新的进程管理器。 md5:bfef06576c70f94f
 // ff:
 func NewManager() *Manager {
 	return &Manager{
@@ -26,7 +27,7 @@ func NewManager() *Manager {
 	}
 }
 
-// NewProcess creates and returns a Process object.
+// NewProcess 创建并返回一个进程对象。 md5:41e1fd6b109e05e7
 // ff:
 // m:
 // path:
@@ -38,8 +39,9 @@ func (m *Manager) NewProcess(path string, args []string, environment []string) *
 	return p
 }
 
-// GetProcess retrieves and returns a Process object.
-// It returns nil if it does not find the process with given `pid`.
+// GetProcess 获取并返回一个Process对象。
+// 如果找不到具有给定`pid`的进程，它将返回nil。
+// md5:d5b11d4d0e9fa1a3
 // ff:
 // m:
 // pid:
@@ -50,8 +52,9 @@ func (m *Manager) GetProcess(pid int) *Process {
 	return nil
 }
 
-// AddProcess adds a process to current manager.
-// It does nothing if the process with given `pid` does not exist.
+// AddProcess 向当前管理器添加一个进程。
+// 如果给定的 `pid` 对应的进程不存在，它不会做任何操作。
+// md5:c51d5832fb1ce691
 // ff:
 // m:
 // pid:
@@ -65,7 +68,7 @@ func (m *Manager) AddProcess(pid int) {
 	}
 }
 
-// RemoveProcess removes a process from current manager.
+// RemoveProcess 从当前管理器中移除一个进程。 md5:0076407de3a7d26a
 // ff:
 // m:
 // pid:
@@ -73,7 +76,7 @@ func (m *Manager) RemoveProcess(pid int) {
 	m.processes.Remove(pid)
 }
 
-// Processes retrieves and returns all processes in current manager.
+// Processes 获取并返回当前管理器中的所有进程。 md5:30ac76e5c68d45de
 // ff:
 // m:
 func (m *Manager) Processes() []*Process {
@@ -86,14 +89,14 @@ func (m *Manager) Processes() []*Process {
 	return processes
 }
 
-// Pids retrieves and returns all process id array in current manager.
+// Pids 获取并返回当前管理器中的所有进程ID数组。 md5:a5ef21ec52c87400
 // ff:
 // m:
 func (m *Manager) Pids() []int {
 	return m.processes.Keys()
 }
 
-// WaitAll waits until all process exit.
+// WaitAll等待直到所有进程退出。 md5:1d27f65463fe8c00
 // ff:
 // m:
 func (m *Manager) WaitAll() {
@@ -105,7 +108,7 @@ func (m *Manager) WaitAll() {
 	}
 }
 
-// KillAll kills all processes in current manager.
+// KillAll 在当前管理器中杀死所有进程。 md5:337f683854b75187
 // ff:
 // m:
 func (m *Manager) KillAll() error {
@@ -117,7 +120,7 @@ func (m *Manager) KillAll() error {
 	return nil
 }
 
-// SignalAll sends a signal `sig` to all processes in current manager.
+// SignalAll 向当前管理器中的所有进程发送信号 `sig`。 md5:64ce0027dcad8808
 // ff:
 // m:
 // sig:
@@ -131,7 +134,7 @@ func (m *Manager) SignalAll(sig os.Signal) error {
 	return nil
 }
 
-// Send sends data bytes to all processes in current manager.
+// Send 将数据字节发送到当前管理器中的所有进程。 md5:05d5ed3b0a5c7e3e
 // ff:
 // m:
 // data:
@@ -141,7 +144,7 @@ func (m *Manager) Send(data []byte) {
 	}
 }
 
-// SendTo sneds data bytes to specified processe in current manager.
+// SendTo 向当前管理器中的指定进程发送数据字节。 md5:b477f09d2f5cca5f
 // ff:
 // m:
 // pid:
@@ -150,14 +153,14 @@ func (m *Manager) SendTo(pid int, data []byte) error {
 	return Send(pid, data)
 }
 
-// Clear removes all processes in current manager.
+// Clear 会清除当前管理器中的所有进程。 md5:26053a86c2f65b33
 // ff:
 // m:
 func (m *Manager) Clear() {
 	m.processes.Clear()
 }
 
-// Size returns the size of processes in current manager.
+// Size 返回当前管理器中进程的数量。 md5:ffaeaa3ed9b66ed1
 // ff:
 // m:
 func (m *Manager) Size() int {

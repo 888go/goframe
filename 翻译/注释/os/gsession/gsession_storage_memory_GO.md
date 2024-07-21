@@ -35,12 +35,12 @@
 <原文结束>
 
 # <翻译开始>
-// cache是用于session TTL的内存数据缓存， 
-// 只有在Storage不存储任何会话数据时才可用（即不同步存储数据）。
-// 请参考StorageFile, StorageMemory和StorageRedis的实现。
-//
-// 其值为`*gmap.StrAnyMap`类型。
-// md5:c8273be50da58f8d
+	// cache是用于session TTL的内存数据缓存， 
+	// 只有在Storage不存储任何会话数据时才可用（即不同步存储数据）。
+	// 请参考StorageFile, StorageMemory和StorageRedis的实现。
+	//
+	// 其值为`*gmap.StrAnyMap`类型。
+	// md5:c8273be50da58f8d
 # <翻译结束>
 
 

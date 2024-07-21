@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcron
 
@@ -10,8 +11,8 @@ import (
 	"time"
 )
 
-// Next returns the next time this schedule is activated, greater than the given
-// time.  If no time can be found to satisfy the schedule, return the zero time.
+// Next 返回此调度的下次激活时间，大于给定的时间。如果找不到满足调度的时间，则返回零时间。
+// md5:a7867a51955c4fd0
 // ff:
 // s:
 // lastMeetTime:
@@ -26,10 +27,10 @@ func (s *cronSchedule) Next(lastMeetTime time.Time) time.Time {
 
 	var currentTime = lastMeetTime
 	if s.ignoreSeconds {
-		// Start at the earliest possible time (the upcoming minute).
+		// 从最早的时间开始（即将来临的分钟）。 md5:8677cc0d5c129643
 		currentTime = currentTime.Add(1*time.Minute - time.Duration(currentTime.Nanosecond())*time.Nanosecond)
 	} else {
-		// Start at the earliest possible time (the upcoming second).
+		// 从最早可能的时间开始（即即将到来的下一秒）。 md5:ea5d8844c8e2b464
 		currentTime = currentTime.Add(1*time.Second - time.Duration(currentTime.Nanosecond())*time.Nanosecond)
 	}
 
@@ -40,7 +41,7 @@ func (s *cronSchedule) Next(lastMeetTime time.Time) time.Time {
 
 WRAP:
 	if currentTime.Year() > yearLimit {
-		return currentTime // who will care the job that run in five years later
+		return currentTime 						// 谁会在五年后关心这个任务呢？. md5:b515d5d4b0e4c598
 	}
 
 	for !s.checkMeetMonth(currentTime) {

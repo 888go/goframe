@@ -129,31 +129,31 @@
 <原文结束>
 
 # <翻译开始>
-// 在时间.Time参数中，+8代表时区偏移。
-// gtest.C(t, func(t *gtest.T) {
-//     // 将当前时区更改为+8时区（东八区）。
-//     location, err := time.LoadLocation("Asia/Shanghai")
-//     t.AssertNil(err) // 确认加载时区无错误。
-//     t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location)
-//     t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
-//     // 使用定义的时间段进行查询测试：
-//     {
-//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
-//         t.AssertNil(err) // 确认查询无错误。
-//         t.Assert(v.Int(), 1) // 断言查询结果的ID为1。
-//     }
-//     {
-//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
-//         t.AssertNil(err) // 同上，确认查询无错误。
-//         t.Assert(v.Int(), 1) // 断言查询结果的ID为1。
-//     }
-//     {
-//         v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
-//         t.AssertNil(err) // 再次确认查询无错误。
-//         t.Assert(v.Int(), 1) // 继续断言查询结果的ID为1。
-//     }
-// })
-// md5:766797023d98820e
+	// 在时间.Time参数中，+8代表时区偏移。
+	// gtest.C(t, func(t *gtest.T) {
+	//     	// 将当前时区更改为+8时区（东八区）。
+	//     location, err := time.LoadLocation("Asia/Shanghai")
+	//     t.AssertNil(err) 	// 确认加载时区无错误。
+	//     t1, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:32", location)
+	//     t2, _ := time.ParseInLocation("2006-01-02 15:04:05", "2020-10-27 19:03:34", location)
+	//     	// 使用定义的时间段进行查询测试：
+	//     {
+	//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
+	//         t.AssertNil(err) 	// 确认查询无错误。
+	//         t.Assert(v.Int(), 1) 	// 断言查询结果的ID为1。
+	//     }
+	//     {
+	//         v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).FindValue()
+	//         t.AssertNil(err) 	// 同上，确认查询无错误。
+	//         t.Assert(v.Int(), 1) 	// 断言查询结果的ID为1。
+	//     }
+	//     {
+	//         v, err := db.Model(table).Where("create_time>? and create_time<?", t1, t2).FindValue("id")
+	//         t.AssertNil(err) 	// 再次确认查询无错误。
+	//         t.Assert(v.Int(), 1) 	// 继续断言查询结果的ID为1。
+	//     }
+	// })
+	// md5:766797023d98820e
 # <翻译结束>
 
 

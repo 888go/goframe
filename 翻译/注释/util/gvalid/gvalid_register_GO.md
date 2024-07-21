@@ -86,8 +86,8 @@
 <原文结束>
 
 # <翻译开始>
-// Data 指定了传递给Validator的数据，它可以是map/结构体类型或nil值。如果你的自定义验证规则不需要这个参数，可以忽略它。
-// md5:fd9ebb5b1bdabe03
+	// Data 指定了传递给Validator的数据，它可以是map/结构体类型或nil值。如果你的自定义验证规则不需要这个参数，可以忽略它。
+	// md5:fd9ebb5b1bdabe03
 # <翻译结束>
 
 
@@ -97,9 +97,9 @@
 <原文结束>
 
 # <翻译开始>
-// customRuleFuncMap 存储自定义规则函数。
-// map[Rule]RuleFunc
-// md5:ddde03f9fa92aae7
+	// customRuleFuncMap 存储自定义规则函数。
+	// map[Rule]RuleFunc
+	// md5:ddde03f9fa92aae7
 # <翻译结束>
 
 

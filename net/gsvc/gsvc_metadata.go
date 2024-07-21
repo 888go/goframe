@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gsvc
 
@@ -10,7 +11,7 @@ import (
 	"github.com/gogf/gf/v2/container/gvar"
 )
 
-// Set sets key-value pair into metadata.
+// Set 将键值对设置到元数据中。 md5:3d5704977db787ca
 // yx:true
 // ff:设置值
 // m:
@@ -20,7 +21,7 @@ func (m Metadata) Set(key string, value interface{}) {
 	m[key] = value
 }
 
-// Sets sets key-value pairs into metadata.
+// Sets 将键值对设置到元数据中。 md5:5e97d454777313f3
 // ff:
 // m:
 // kvs:
@@ -30,7 +31,7 @@ func (m Metadata) Sets(kvs map[string]interface{}) {
 	}
 }
 
-// Get retrieves and returns value of specified key as gvar.
+// Get 通过指定的键获取并返回作为gvar的值。 md5:000450be6d0167a3
 // ff:
 // m:
 // key:
@@ -41,7 +42,7 @@ func (m Metadata) Get(key string) *gvar.Var {
 	return nil
 }
 
-// IsEmpty checks and returns whether current Metadata is empty.
+// IsEmpty 检查当前Metadata是否为空，并返回结果。 md5:0ebeb5f8ed40404a
 // ff:
 // m:
 func (m Metadata) IsEmpty() bool {

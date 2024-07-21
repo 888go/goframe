@@ -41,9 +41,9 @@
 <原文结束>
 
 # <翻译开始>
-// t.Assert断言字符串gstr在content中出现的".go"子串次数为1
-// t.Assert断言content中包含gfile.Separator（假设是一个路径分隔符），结果为true
-// md5:1411e0e8f0387662
+		// t.Assert断言字符串gstr在content中出现的".go"子串次数为1
+		// t.Assert断言content中包含gfile.Separator（假设是一个路径分隔符），结果为true
+		// md5:1411e0e8f0387662
 # <翻译结束>
 
 
@@ -53,8 +53,8 @@
 <原文结束>
 
 # <翻译开始>
-// 断言 content 中 ".go" 出现的次数为 1
-// 断言 content 不包含路径分隔符
-// md5:c3f84d90ca75dcce
+		// 断言 content 中 ".go" 出现的次数为 1
+		// 断言 content 不包含路径分隔符
+		// md5:c3f84d90ca75dcce
 # <翻译结束>
 

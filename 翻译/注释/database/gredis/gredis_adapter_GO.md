@@ -53,9 +53,9 @@
 <原文结束>
 
 # <翻译开始>
-// 发送一个命令到服务器并返回接收到的回复。
-// 在将结构体/切片/映射类型的值提交到redis之前，它使用json.Marshal进行编码。
-// md5:5a464ca35e177113
+	// 发送一个命令到服务器并返回接收到的回复。
+	// 在将结构体/切片/映射类型的值提交到redis之前，它使用json.Marshal进行编码。
+	// md5:5a464ca35e177113
 # <翻译结束>
 
 
@@ -65,9 +65,9 @@
 <原文结束>
 
 # <翻译开始>
-// Conn 获取并返回一个用于连续操作的连接对象。
-// 请注意，如果您不再使用此连接，请手动调用 Close 函数。
-// md5:adf083088afcd372
+	// Conn 获取并返回一个用于连续操作的连接对象。
+	// 请注意，如果您不再使用此连接，请手动调用 Close 函数。
+	// md5:adf083088afcd372
 # <翻译结束>
 
 
@@ -113,9 +113,9 @@
 <原文结束>
 
 # <翻译开始>
-// Subscribe 将客户端订阅到指定的频道。
-// 参考链接：https://redis.io/commands/subscribe/
-// md5:a7414ed1d330bfc7
+	// Subscribe 将客户端订阅到指定的频道。
+	// 参考链接：https:	//redis.io/commands/subscribe/
+	// md5:a7414ed1d330bfc7
 # <翻译结束>
 
 
@@ -133,17 +133,17 @@
 <原文结束>
 
 # <翻译开始>
-// PSubscribe 将客户端订阅给定的模式。
-//
-// 支持的glob风格模式：
-// - h?llo 订阅hello, hallo和hxllo
-// - h*llo 订阅hllo和heeeello
-// - h[ae]llo 订阅hello和hallo，但不订阅hillo
-//
-// 如果需要匹配特殊字符本身，请使用\进行转义。
-//
-// https://redis.io/commands/psubscribe/
-// md5:0bfeb7ebd0d003a7
+	// PSubscribe 将客户端订阅给定的模式。
+	//
+	// 支持的glob风格模式：
+	// - h?llo 订阅hello, hallo和hxllo
+	// - h*llo 订阅hllo和heeeello
+	// - h[ae]llo 订阅hello和hallo，但不订阅hillo
+	//
+	// 如果需要匹配特殊字符本身，请使用\进行转义。
+	//
+	// https:	//redis.io/commands/psubscribe/
+	// md5:0bfeb7ebd0d003a7
 # <翻译结束>
 
 

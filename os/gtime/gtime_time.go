@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtime
 
@@ -15,12 +16,12 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// Time is a wrapper for time.Time for additional features.
+// Time 是一个包装了 time.Time 的结构，用于添加额外的功能。 md5:96d9b7cb3af14206
 type Time struct {
 	wrapper
 }
 
-// iUnixNano is an interface definition commonly for custom time.Time wrapper.
+// iUnixNano 是一个常用的自定义 time.Time 包装器的接口定义。 md5:5c0387efec09a99b
 type iUnixNano interface {
 	UnixNano() int64
 }
@@ -85,7 +86,7 @@ func New(param ...interface{}) *Time {
 	}
 }
 
-// Now creates and returns a time object of now.
+// 现在创建并返回一个表示当前时间的对象。 md5:1cfc3114797b1f98
 // ff:创建并按当前时间
 func Now() *Time {
 	return &Time{
@@ -93,7 +94,7 @@ func Now() *Time {
 	}
 }
 
-// NewFromTime creates and returns a Time object with given time.Time object.
+// NewFromTime 根据给定的time.Time对象创建并返回一个Time对象。 md5:e1cf178ea024f53b
 // ff:创建并按Time
 // t:
 func NewFromTime(t time.Time) *Time {
@@ -102,8 +103,9 @@ func NewFromTime(t time.Time) *Time {
 	}
 }
 
-// NewFromStr creates and returns a Time object with given string.
-// Note that it returns nil if there's error occurs.
+// NewFromStr 根据给定的字符串创建并返回一个 Time 对象。
+// 注意，如果发生错误，它将返回 nil。
+// md5:4687b38a27582a12
 // ff:创建并从文本
 // str:文本时间
 func NewFromStr(str string) *Time {
@@ -113,9 +115,9 @@ func NewFromStr(str string) *Time {
 	return nil
 }
 
-// NewFromStrFormat creates and returns a Time object with given string and
-// custom format like: Y-m-d H:i:s.
-// Note that it returns nil if there's error occurs.
+// NewFromStrFormat 通过给定的字符串和自定义格式（如：Y-m-d H:i:s）创建并返回一个Time对象。
+// 注意，如果发生错误，它将返回nil。
+// md5:ed9966a0a8156f1d
 // ff:创建并按给定格式文本
 // str:文本时间
 // format:格式
@@ -126,9 +128,9 @@ func NewFromStrFormat(str string, format string) *Time {
 	return nil
 }
 
-// NewFromStrLayout creates and returns a Time object with given string and
-// stdlib layout like: 2006-01-02 15:04:05.
-// Note that it returns nil if there's error occurs.
+// NewFromStrLayout 根据给定的字符串和标准库格式（如：2006-01-02 15:04:05）创建并返回一个Time对象。
+// 注意，如果出现错误，它将返回nil。
+// md5:027f4d0876baa1a8
 // ff:创建并按Layout格式文本
 // str:文本时间
 // layout:格式
@@ -162,7 +164,7 @@ func NewFromTimeStamp(timestamp int64) *Time {
 	}
 }
 
-// Timestamp returns the timestamp in seconds.
+// Timestamp 返回时间戳，以秒为单位。 md5:52f3b8b0088c2fab
 // ff:取时间戳秒
 // t:
 func (t *Time) Timestamp() int64 {
@@ -172,7 +174,7 @@ func (t *Time) Timestamp() int64 {
 	return t.UnixNano() / 1e9
 }
 
-// TimestampMilli returns the timestamp in milliseconds.
+// TimestampMilli 返回毫秒级的时间戳。 md5:945db1871b08c49f
 // ff:取时间戳毫秒
 // t:
 func (t *Time) TimestampMilli() int64 {
@@ -182,7 +184,7 @@ func (t *Time) TimestampMilli() int64 {
 	return t.UnixNano() / 1e6
 }
 
-// TimestampMicro returns the timestamp in microseconds.
+// TimestampMicro 返回以微秒为单位的时间戳。 md5:20da1d303fcad848
 // ff:取时间戳微秒
 // t:
 func (t *Time) TimestampMicro() int64 {
@@ -192,7 +194,7 @@ func (t *Time) TimestampMicro() int64 {
 	return t.UnixNano() / 1e3
 }
 
-// TimestampNano returns the timestamp in nanoseconds.
+// TimestampNano 返回以纳秒为单位的时间戳。 md5:93016ce343f59007
 // ff:取时间戳纳秒
 // t:
 func (t *Time) TimestampNano() int64 {
@@ -202,8 +204,8 @@ func (t *Time) TimestampNano() int64 {
 	return t.UnixNano()
 }
 
-// TimestampStr is a convenience method which retrieves and returns
-// the timestamp in seconds as string.
+// TimestampStr 是一个方便的方法，它获取并返回时间戳（以秒为单位）的字符串形式。
+// md5:f638769b91eb1dd5
 // ff:取文本时间戳秒
 // t:
 func (t *Time) TimestampStr() string {
@@ -213,8 +215,8 @@ func (t *Time) TimestampStr() string {
 	return strconv.FormatInt(t.Timestamp(), 10)
 }
 
-// TimestampMilliStr is a convenience method which retrieves and returns
-// the timestamp in milliseconds as string.
+// TimestampMilliStr是一个方便的方法，它获取并返回毫秒级的时间戳作为字符串。
+// md5:cf293e6d5c9383d0
 // ff:取文本时间戳毫秒
 // t:
 func (t *Time) TimestampMilliStr() string {
@@ -224,8 +226,8 @@ func (t *Time) TimestampMilliStr() string {
 	return strconv.FormatInt(t.TimestampMilli(), 10)
 }
 
-// TimestampMicroStr is a convenience method which retrieves and returns
-// the timestamp in microseconds as string.
+// TimestampMicroStr是一个方便的方法，它获取并返回微秒级别的时间戳作为字符串。
+// md5:2930c4dc2c5feaae
 // ff:取文本时间戳微秒
 // t:
 func (t *Time) TimestampMicroStr() string {
@@ -235,8 +237,8 @@ func (t *Time) TimestampMicroStr() string {
 	return strconv.FormatInt(t.TimestampMicro(), 10)
 }
 
-// TimestampNanoStr is a convenience method which retrieves and returns
-// the timestamp in nanoseconds as string.
+// TimestampNanoStr 是一个便捷方法，用于获取并以字符串形式返回纳秒级的时间戳。
+// md5:ff842fbe274c5052
 // ff:取文本时间戳纳秒
 // t:
 func (t *Time) TimestampNanoStr() string {
@@ -246,7 +248,7 @@ func (t *Time) TimestampNanoStr() string {
 	return strconv.FormatInt(t.TimestampNano(), 10)
 }
 
-// Month returns the month of the year specified by t.
+// Month 返回指定时间t的月份。 md5:84f113a801a5eb29
 // ff:取月份
 // t:
 func (t *Time) Month() int {
@@ -256,8 +258,8 @@ func (t *Time) Month() int {
 	return int(t.Time.Month())
 }
 
-// Second returns the second offset within the minute specified by t,
-// in the range [0, 59].
+// Second返回由t指定的分钟内的第二个偏移量，范围在[0, 59]之间。
+// md5:5666ae5cbf21989d
 // ff:取秒
 // t:
 func (t *Time) Second() int {
@@ -267,8 +269,8 @@ func (t *Time) Second() int {
 	return t.Time.Second()
 }
 
-// Millisecond returns the millisecond offset within the second specified by t,
-// in the range [0, 999].
+// Millisecond 返回给定时间 t 所在秒内的毫秒偏移，范围为 [0, 999]。
+// md5:8bb4c372dc3ada79
 // ff:取毫秒
 // t:
 func (t *Time) Millisecond() int {
@@ -278,8 +280,8 @@ func (t *Time) Millisecond() int {
 	return t.Time.Nanosecond() / 1e6
 }
 
-// Microsecond returns the microsecond offset within the second specified by t,
-// in the range [0, 999999].
+// Microsecond 返回 t 指定的秒内微秒偏移量，范围为 [0, 999999]。
+// md5:cb28fad241f60582
 // ff:取微秒
 // t:
 func (t *Time) Microsecond() int {
@@ -289,8 +291,8 @@ func (t *Time) Microsecond() int {
 	return t.Time.Nanosecond() / 1e3
 }
 
-// Nanosecond returns the nanosecond offset within the second specified by t,
-// in the range [0, 999999999].
+// Nanosecond 返回 t 所指定秒内的纳秒偏移量，范围为 [0, 999999999]。
+// md5:c1dcd3dd99062cf7
 // ff:取纳秒
 // t:
 func (t *Time) Nanosecond() int {
@@ -300,7 +302,7 @@ func (t *Time) Nanosecond() int {
 	return t.Time.Nanosecond()
 }
 
-// String returns current time object as string.
+// String 返回当前时间对象作为字符串。 md5:4f5a1f3896ca049d
 // ff:
 // t:
 func (t *Time) String() string {
@@ -310,8 +312,8 @@ func (t *Time) String() string {
 	return t.wrapper.String()
 }
 
-// IsZero reports whether t represents the zero time instant,
-// January 1, year 1, 00:00:00 UTC.
+// IsZero报告是否`t`表示零时间点，即UTC时间的1970年1月1日00:00:00。
+// md5:4e2b46d4fa63a878
 // ff:
 // t:
 func (t *Time) IsZero() bool {
@@ -321,14 +323,14 @@ func (t *Time) IsZero() bool {
 	return t.Time.IsZero()
 }
 
-// Clone returns a new Time object which is a clone of current time object.
+// Clone 返回一个与当前时间对象相克隆的新Time对象。 md5:8a0848cce3c64ef5
 // ff:取副本
 // t:
 func (t *Time) Clone() *Time {
 	return New(t.Time)
 }
 
-// Add adds the duration to current time.
+// Add 将持续时间添加到当前时间。 md5:8a845aeaaa064af4
 // ff:增加时长
 // t:
 // d:时长
@@ -338,7 +340,7 @@ func (t *Time) Add(d time.Duration) *Time {
 	return newTime
 }
 
-// AddStr parses the given duration as string and adds it to current time.
+// AddStr解析给定的字符串持续时间，并将其添加到当前时间。 md5:3c2278027933d90f
 // ff:增加文本时长
 // t:
 // duration:时长
@@ -351,7 +353,7 @@ func (t *Time) AddStr(duration string) (*Time, error) {
 	}
 }
 
-// UTC converts current time to UTC timezone.
+// UTC 将当前时间转换为UTC时区。 md5:5067cfa0c7c94f95
 // ff:取UTC时区
 // t:
 func (t *Time) UTC() *Time {
@@ -360,21 +362,21 @@ func (t *Time) UTC() *Time {
 	return newTime
 }
 
-// ISO8601 formats the time as ISO8601 and returns it as string.
+// ISO8601将时间格式化为ISO8601标准格式，并以字符串形式返回。 md5:6ddd62f8570c26f4
 // ff:取文本时间ISO8601
 // t:
 func (t *Time) ISO8601() string {
 	return t.Layout("2006-01-02T15:04:05-07:00")
 }
 
-// RFC822 formats the time as RFC822 and returns it as string.
+// RFC822 根据 RFC822 格式将时间转换为字符串并返回。 md5:1b6d66ac42df19de
 // ff:取文本时间RFC822
 // t:
 func (t *Time) RFC822() string {
 	return t.Layout("Mon, 02 Jan 06 15:04 MST")
 }
 
-// AddDate adds year, month and day to the time.
+// AddDate 向时间添加年、月和日。 md5:643cfbc24c5bd938
 // ff:增加时间
 // t:
 // years:年
@@ -386,14 +388,11 @@ func (t *Time) AddDate(years int, months int, days int) *Time {
 	return newTime
 }
 
-// Round returns the result of rounding t to the nearest multiple of d (since the zero time).
-// The rounding behavior for halfway values is to round up.
-// If d <= 0, Round returns t stripped of any monotonic clock reading but otherwise unchanged.
+// Round 返回将 t 四舍五入到 d 的倍数的结果（从零时间开始）。对于半等值，四舍五入行为向上取整。
+// 如果 d 小于等于 0，Round 会返回 t 并移除任何单调时钟读数，但保持不变。
 //
-// Round operates on the time as an absolute duration since the
-// zero time; it does not operate on the presentation form of the
-// time. Thus, Round(Hour) may return a time with a non-zero
-// minute, depending on the time's Location.
+// Round 以绝对的自零时间以来的时间段进行操作；它不处理时间的呈现形式。因此，Round(Hour) 可能返回一个非零分钟的时间，具体取决于时间的 Location。
+// md5:b2557220790fc058
 // ff:向上舍入
 // t:
 // d:时长
@@ -403,13 +402,13 @@ func (t *Time) Round(d time.Duration) *Time {
 	return newTime
 }
 
-// Truncate returns the result of rounding t down to a multiple of d (since the zero time).
-// If d <= 0, Truncate returns t stripped of any monotonic clock reading but otherwise unchanged.
+// Truncate 返回将时间t向下舍入到d的倍数的结果（从零时间开始）。
+// 如果d<=0，Truncate会返回t，但去除任何单调时钟读数，否则保持不变。
 //
-// Truncate operates on the time as an absolute duration since the
-// zero time; it does not operate on the presentation form of the
-// time. Thus, Truncate(Hour) may return a time with a non-zero
-// minute, depending on the time's Location.
+// Truncate是基于时间从零时间点起的绝对持续时间来进行操作的；
+// 它并不作用于时间的展示形式。因此，Truncate(Hour)可能返回一个分钟数非零的时间，
+// 这取决于该时间的位置信息（Location）。
+// md5:f72e0e00b245e691
 // ff:向下舍入
 // t:
 // d:时长
@@ -419,11 +418,12 @@ func (t *Time) Truncate(d time.Duration) *Time {
 	return newTime
 }
 
-// Equal reports whether t and u represent the same time instant.
-// Two times can be equal even if they are in different locations.
-// For example, 6:00 +0200 CEST and 4:00 UTC are Equal.
-// See the documentation on the Time type for the pitfalls of using == with
-// Time values; most code should use Equal instead.
+// Equal 函数报告 t 和 u 是否表示相同的时刻。
+// 即使两个时间在不同的时区，它们也可以相等。
+// 例如，CEST 的 6:00 +0200 和 UTC 的 4:00 是相等的。
+// 查看 Time 类型的文档，了解使用 == 操作符比较时间值时可能遇到的问题；
+// 大多数代码应使用 Equal 而非 ==。
+// md5:a28e147d11d5fe0f
 // ff:是否相等
 // t:
 // u:
@@ -440,7 +440,7 @@ func (t *Time) Equal(u *Time) bool {
 	}
 }
 
-// Before reports whether the time instant t is before u.
+// Before 返回时间点 t 是否在 u 之前。 md5:36690a50c1e8d9d4
 // ff:是否之前
 // t:
 // u:
@@ -448,7 +448,7 @@ func (t *Time) Before(u *Time) bool {
 	return t.Time.Before(u.Time)
 }
 
-// After reports whether the time instant t is after u.
+// After 判断时间点t是否在u之后。 md5:750eca8bb04e1a25
 // ff:是否之后
 // t:
 // u:
@@ -463,10 +463,10 @@ func (t *Time) After(u *Time) bool {
 	}
 }
 
-// Sub returns the duration t-u. If the result exceeds the maximum (or minimum)
-// value that can be stored in a Duration, the maximum (or minimum) duration
-// will be returned.
-// To compute t-d for a duration d, use t.Add(-d).
+// Sub 返回持续时间 t-u。如果结果超过了能存储在 Duration 类型中的最大（或最小）
+// 值，那么将返回最大（或最小）的持续时间。
+// 要计算 t-d（其中 d 为一个持续时间），请使用 t.Add(-d)。
+// md5:c975e5087c03d3b9
 // ff:取纳秒时长
 // t:
 // u:
@@ -477,7 +477,7 @@ func (t *Time) Sub(u *Time) time.Duration {
 	return t.Time.Sub(u.Time)
 }
 
-// StartOfMinute clones and returns a new time of which the seconds is set to 0.
+// StartOfMinute 克隆并返回一个新的时间，其中秒数被设置为0。 md5:dc10ea1284a17280
 // ff:取副本忽略秒
 // t:
 func (t *Time) StartOfMinute() *Time {
@@ -486,7 +486,7 @@ func (t *Time) StartOfMinute() *Time {
 	return newTime
 }
 
-// StartOfHour clones and returns a new time of which the hour, minutes and seconds are set to 0.
+// StartOfHour克隆并返回一个新的时间，其中小时、分钟和秒设置为0。 md5:d52e77457a157871
 // ff:取副本忽略分钟秒
 // t:
 func (t *Time) StartOfHour() *Time {
@@ -496,7 +496,7 @@ func (t *Time) StartOfHour() *Time {
 	return newTime
 }
 
-// StartOfDay clones and returns a new time which is the start of day, its time is set to 00:00:00.
+// StartOfDay克隆并返回一个新的时间，它是新的一天的开始，其时间被设置为00:00:00。 md5:a9262cc6eafed6da
 // ff:取副本忽略小时分钟秒
 // t:
 func (t *Time) StartOfDay() *Time {
@@ -524,8 +524,8 @@ func (t *Time) StartOfMonth() *Time {
 	return newTime
 }
 
-// StartOfQuarter clones and returns a new time which is the first day of the quarter and its time is set
-// to 00:00:00.
+// StartOfQuarter克隆并返回一个新的时间，它是季度的第一天，时间被设置为00:00:00。
+// md5:814969ee5c648fb0
 // ff:取副本季度第一天
 // t:
 func (t *Time) StartOfQuarter() *Time {
@@ -534,8 +534,8 @@ func (t *Time) StartOfQuarter() *Time {
 	return month.AddDate(0, -offset, 0)
 }
 
-// StartOfHalf clones and returns a new time which is the first day of the half year and its time is set
-// to 00:00:00.
+// StartOfHalf克隆并返回一个新的时间，它是半年的第一天，时间被设置为00:00:00。
+// md5:5b53c4e328da312e
 // ff:取副本半年第一天
 // t:
 func (t *Time) StartOfHalf() *Time {
@@ -554,7 +554,7 @@ func (t *Time) StartOfYear() *Time {
 	return newTime
 }
 
-// getPrecisionDelta returns the precision parameter for time calculation depending on `withNanoPrecision` option.
+// getPrecisionDelta 根据`withNanoPrecision`选项返回时间计算的精度参数。 md5:8bcdeaaf0e87d398
 func getPrecisionDelta(withNanoPrecision ...bool) time.Duration {
 	if len(withNanoPrecision) > 0 && withNanoPrecision[0] {
 		return time.Nanosecond
@@ -562,7 +562,7 @@ func getPrecisionDelta(withNanoPrecision ...bool) time.Duration {
 	return time.Second
 }
 
-// EndOfMinute clones and returns a new time of which the seconds is set to 59.
+// EndOfMinute克隆并返回一个新的时间，其中秒设置为59。 md5:f1cc1512e831d5fa
 // ff:取副本59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -570,7 +570,7 @@ func (t *Time) EndOfMinute(withNanoPrecision ...bool) *Time {
 	return t.StartOfMinute().Add(time.Minute - getPrecisionDelta(withNanoPrecision...))
 }
 
-// EndOfHour clones and returns a new time of which the minutes and seconds are both set to 59.
+// EndOfHour克隆并返回一个新的时间，其中分钟和秒都设置为59。 md5:ea49434e1e5b1bbb
 // ff:取副本59分59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -578,7 +578,7 @@ func (t *Time) EndOfHour(withNanoPrecision ...bool) *Time {
 	return t.StartOfHour().Add(time.Hour - getPrecisionDelta(withNanoPrecision...))
 }
 
-// EndOfDay clones and returns a new time which is the end of day the and its time is set to 23:59:59.
+// EndOfDay 克隆并返回一个新的时间，该时间设置为当天的结束，即时间部分被设置为 23:59:59。 md5:77a284f48ab6cac4
 // ff:取副本23点59分59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -591,7 +591,7 @@ func (t *Time) EndOfDay(withNanoPrecision ...bool) *Time {
 	return newTime
 }
 
-// EndOfWeek clones and returns a new time which is the end of week and its time is set to 23:59:59.
+// EndOfWeek 创建并返回一个新的时间，该时间表示一周的结束，并将其时间设置为23:59:59。 md5:eb899f421cfb25b4
 // ff:取副本周末23点59分59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -599,7 +599,7 @@ func (t *Time) EndOfWeek(withNanoPrecision ...bool) *Time {
 	return t.StartOfWeek().AddDate(0, 0, 7).Add(-getPrecisionDelta(withNanoPrecision...))
 }
 
-// EndOfMonth clones and returns a new time which is the end of the month and its time is set to 23:59:59.
+// EndOfMonth克隆并返回一个新的时间，它是当月的结束，时间设置为23:59:59。 md5:6c2259b48332a891
 // ff:取副本月末23点59分59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -607,7 +607,7 @@ func (t *Time) EndOfMonth(withNanoPrecision ...bool) *Time {
 	return t.StartOfMonth().AddDate(0, 1, 0).Add(-getPrecisionDelta(withNanoPrecision...))
 }
 
-// EndOfQuarter clones and returns a new time which is end of the quarter and its time is set to 23:59:59.
+// EndOfQuarter克隆并返回一个新的时间，它是季度结束，其时间设置为23:59:59。 md5:c2e7dca6753c6e99
 // ff:取副本季末23点59分59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -615,7 +615,7 @@ func (t *Time) EndOfQuarter(withNanoPrecision ...bool) *Time {
 	return t.StartOfQuarter().AddDate(0, 3, 0).Add(-getPrecisionDelta(withNanoPrecision...))
 }
 
-// EndOfHalf clones and returns a new time which is the end of the half year and its time is set to 23:59:59.
+// EndOfHalf 克隆并返回一个新的时间，该时间设置为半年的结束时刻，具体时间为 23:59:59。 md5:2f3662f357ee5f6d
 // ff:取副本半年末23点59分59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -623,7 +623,7 @@ func (t *Time) EndOfHalf(withNanoPrecision ...bool) *Time {
 	return t.StartOfHalf().AddDate(0, 6, 0).Add(-getPrecisionDelta(withNanoPrecision...))
 }
 
-// EndOfYear clones and returns a new time which is the end of the year and its time is set to 23:59:59.
+// EndOfYear 克隆并返回一个新的时间，该时间是当年的年末，时间设置为23:59:59。 md5:33b38d1d0badf6ad
 // ff:取副本年末23点59分59秒
 // t:
 // withNanoPrecision:纳秒精度
@@ -631,16 +631,15 @@ func (t *Time) EndOfYear(withNanoPrecision ...bool) *Time {
 	return t.StartOfYear().AddDate(1, 0, 0).Add(-getPrecisionDelta(withNanoPrecision...))
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// Note that, DO NOT use `(t *Time) MarshalJSON() ([]byte, error)` as it looses interface
-// implement of `MarshalJSON` for struct of Time.
+// MarshalJSON 实现了 json.Marshal 接口的 MarshalJSON 方法。注意，不要使用 `(t *Time) MarshalJSON() ([]byte, error)`，因为它会丢失 Time 结构体的 MarshalJSON 接口实现。
+// md5:daef718235a856ce
 // ff:
 // t:
 func (t Time) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + t.String() + `"`), nil
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 // ff:
 // t:
 // b:
@@ -657,8 +656,9 @@ func (t *Time) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalText implements the encoding.TextUnmarshaler interface.
-// Note that it overwrites the same implementer of `time.Time`.
+// UnmarshalText实现了encoding.TextUnmarshaler接口。
+// 注意，它会覆盖与`time.Time`相同的实现者。
+// md5:8aa957653e42443a
 // ff:
 // t:
 // data:
@@ -671,12 +671,12 @@ func (t *Time) UnmarshalText(data []byte) error {
 	return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid time value: %s`, data)
 }
 
-// NoValidation marks this struct object will not be validated by package gvalid.
+// NoValidation 标记这个结构体对象将不会被 gvalid 包进行验证。 md5:5241ee7a51fb1912
 // ff:
 // t:
 func (t *Time) NoValidation() {}
 
-// DeepCopy implements interface for deep copy of current type.
+// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
 // ff:
 // t:
 func (t *Time) DeepCopy() interface{} {

@@ -87,9 +87,9 @@
 <原文结束>
 
 # <翻译开始>
-// 将数据库设置为调试模式
-// 使用defer语句确保在函数返回前将数据库的调试模式重置为false
-// md5:b9225b2fca692b91
+	// 将数据库设置为调试模式
+	// 使用defer语句确保在函数返回前将数据库的调试模式重置为false
+	// md5:b9225b2fca692b91
 # <翻译结束>
 
 
@@ -138,12 +138,12 @@
 <原文结束>
 
 # <翻译开始>
-// "id":          i, // ID: i
-// "passport":    fmt.Sprintf(`user_%d`, i), // 用户名: "user_" + i
-// "password":    fmt.Sprintf(`pass_%d`, i), // 密码: "pass_" + i
-// "nickname":    fmt.Sprintf(`name_%d`, i), // 昵称: "name_" + i
-// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(), // 创建时间: "2018-10-24 10:00:00" 的字符串表示
-// md5:62b0a78a146bb60c
+	// "id":          i, 	// ID: i
+	// "passport":    fmt.Sprintf(`user_%d`, i), 	// 用户名: "user_" + i
+	// "password":    fmt.Sprintf(`pass_%d`, i), 	// 密码: "pass_" + i
+	// "nickname":    fmt.Sprintf(`name_%d`, i), 	// 昵称: "name_" + i
+	// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(), 	// 创建时间: "2018-10-24 10:00:00" 的字符串表示
+	// md5:62b0a78a146bb60c
 # <翻译结束>
 
 

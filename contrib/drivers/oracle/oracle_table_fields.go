@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package oracle
 
@@ -36,9 +37,10 @@ func init() {
 	}
 }
 
-// TableFields retrieves and returns the fields' information of specified table of current schema.
-//
-// Also see DriverMysql.TableFields.
+		// TableFields 获取并返回当前模式下指定表的字段信息。
+		//
+		// 参见 DriverMysql.TableFields。
+		// md5:7f7a75c67e38ad22
 // ff:
 // d:
 // ctx:

@@ -32,16 +32,16 @@
 <原文结束>
 
 # <翻译开始>
-// 映射（Map）
-// 使用gtest编写测试用例(t *gtest.T)：
-// 创建一个V类型的指针变量v
-// 尝试将映射g.Map{
-//   "name": "john",
-//   "array": [1, 2, 3]
-// } 转换为结构体，并赋值给v
-// 验证转换是否成功，如果失败则设置t.AssertNil(err)
-// 验证v的Name字段是否等于"john"
-// 验证v的Array.Slice()方法返回的切片是否等于[1, 2, 3]
-// md5:1684dcec1caa154e
+	// 映射（Map）
+	// 使用gtest编写测试用例(t *gtest.T)：
+	// 创建一个V类型的指针变量v
+	// 尝试将映射g.Map{
+	//   "name": "john",
+	//   "array": [1, 2, 3]
+	// } 转换为结构体，并赋值给v
+	// 验证转换是否成功，如果失败则设置t.AssertNil(err)
+	// 验证v的Name字段是否等于"john"
+	// 验证v的Array.Slice()方法返回的切片是否等于[1, 2, 3]
+	// md5:1684dcec1caa154e
 # <翻译结束>
 

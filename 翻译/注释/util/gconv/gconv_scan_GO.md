@@ -75,9 +75,9 @@
 <原文结束>
 
 # <翻译开始>
-// 如果`srcValue`和`dstPointer`是相同的类型，直接进行赋值。
-// 为了提高性能。
-// md5:5d0efd73f7a58b6f
+	// 如果`srcValue`和`dstPointer`是相同的类型，直接进行赋值。
+	// 为了提高性能。
+	// md5:5d0efd73f7a58b6f
 # <翻译结束>
 
 
@@ -87,9 +87,9 @@
 <原文结束>
 
 # <翻译开始>
-// 如果`srcValue`和`dstPointer`是相同的类型，直接进行赋值。
-// 为了提高性能。
-// md5:d2daf4894ee19b6e
+	// 如果`srcValue`和`dstPointer`是相同的类型，直接进行赋值。
+	// 为了提高性能。
+	// md5:d2daf4894ee19b6e
 # <翻译结束>
 
 
@@ -105,16 +105,16 @@
 <原文结束>
 
 # <翻译开始>
-// 示例：
-// 
-// UploadFile    => 上传文件
-// []UploadFile  => 上传文件切片
-// *UploadFile   => 指向上传文件的指针
-// *[]UploadFile => 指向上传文件切片的指针
-// map           => 映射
-// []map         => 映射切片
-// *[]map        => 指向映射切片的指针
-// md5:f6ba941ba3b0269f
+	// 示例：
+	// 
+	// UploadFile    => 上传文件
+	// []UploadFile  => 上传文件切片
+	// *UploadFile   => 指向上传文件的指针
+	// *[]UploadFile => 指向上传文件切片的指针
+	// map           => 映射
+	// []map         => 映射切片
+	// *[]map        => 指向映射切片的指针
+	// md5:f6ba941ba3b0269f
 # <翻译结束>
 
 
@@ -127,19 +127,19 @@
 <原文结束>
 
 # <翻译开始>
-// 示例：
-// UploadFile    => *UploadFile
-// []UploadFile  => *[]UploadFile
-// map           => *map
-// []map         => *[]map
-// 
-// 这些注释表示的是Go语言中的指针和数据结构的转换。在Go中，`*`符号用于表示指针类型。这里展示了如何将非指针类型转换为指针类型：
-// 
-// - `UploadFile` 是一个类型，`*UploadFile` 是它的指针类型。
-// - `[]UploadFile` 是 `UploadFile` 类型的切片（数组），`*[]UploadFile` 是这个切片类型的指针。
-// - `map` 表示一个未指定类型的映射，`*map` 则是这个映射类型的指针。
-// - `[]map` 表示一个包含映射的切片，`*[]map` 是这个切片类型的指针。
-// md5:3b743427a52ed67e
+	// 示例：
+	// UploadFile    => *UploadFile
+	// []UploadFile  => *[]UploadFile
+	// map           => *map
+	// []map         => *[]map
+	// 
+	// 这些注释表示的是Go语言中的指针和数据结构的转换。在Go中，`*`符号用于表示指针类型。这里展示了如何将非指针类型转换为指针类型：
+	// 
+	// - `UploadFile` 是一个类型，`*UploadFile` 是它的指针类型。
+	// - `[]UploadFile` 是 `UploadFile` 类型的切片（数组），`*[]UploadFile` 是这个切片类型的指针。
+	// - `map` 表示一个未指定类型的映射，`*map` 则是这个映射类型的指针。
+	// - `[]map` 表示一个包含映射的切片，`*[]map` 是这个切片类型的指针。
+	// md5:3b743427a52ed67e
 # <翻译结束>
 
 
@@ -152,12 +152,12 @@
 <原文结束>
 
 # <翻译开始>
-// 示例：
-// *UploadFile    => 上传文件
-// *[]UploadFile  => 上传文件的切片
-// *map           => 映射（字典）
-// *[]map         => 映射的切片
-// md5:a787c0f77f0eaa64
+	// 示例：
+	// *UploadFile    => 上传文件
+	// *[]UploadFile  => 上传文件的切片
+	// *map           => 映射（字典）
+	// *[]map         => 映射的切片
+	// md5:a787c0f77f0eaa64
 # <翻译结束>
 
 

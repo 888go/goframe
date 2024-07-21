@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package mysql_test
 
@@ -105,7 +106,7 @@ func Test_Model_Insert(t *testing.T) {
 	})
 }
 
-// Fix issue: https://github.com/gogf/gf/issues/819
+// 解决问题：https://github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 func Test_Model_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -295,7 +296,7 @@ func Test_Model_Batch(t *testing.T) {
 		t.Assert(n, 2)
 	})
 
-	// batch insert, retrieving last insert auto-increment id.
+	// 批量插入，并获取最后插入的自增ID。 md5:b6507323b980f454
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
@@ -423,7 +424,7 @@ func Test_Model_Update(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 	})
-	// Update + Fields(string)
+	// 更新 + Fields(字符串). md5:df4e16d13da67d5e
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Fields("passport").Data(g.Map{
 			"passport": "user_44",
@@ -703,7 +704,7 @@ func Test_Model_Count(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
-	// Count with cache, check internal ctx data feature.
+	// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 10; i++ {
 			count, err := db.Model(table).Cache(gdb.CacheOption{
@@ -934,7 +935,7 @@ func Test_Model_Struct(t *testing.T) {
 		t.Assert(user.NickName, "name_1")
 		t.Assert(user.CreateTime.String(), "2018-10-24 10:00:00")
 	})
-	// Auto creating struct object.
+	// 自动创建结构体对象。 md5:4b196dfc1321dc30
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1041,7 +1042,7 @@ func Test_Model_Structs(t *testing.T) {
 		t.Assert(users[2].NickName, "name_3")
 		t.Assert(users[0].CreateTime.String(), "2018-10-24 10:00:00")
 	})
-	// Auto create struct slice.
+	// 自动创建结构体切片。 md5:78598f0d7f20b815
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1123,7 +1124,8 @@ func Test_Model_StructsWithOrmTag(t *testing.T) {
 		dbInvalid.GetLogger().(*glog.Logger).SetWriter(buffer)
 		defer dbInvalid.GetLogger().(*glog.Logger).SetWriter(os.Stdout)
 		dbInvalid.Model(table).Order("id asc").Scan(&users)
-		// fmt.Println(buffer.String())
+		// fmt.Println(buffer.String()) 翻译成中文为：
+// 打印出buffer的内容字符串。 md5:3d49298f0e6d7a25
 		t.Assert(
 			gstr.Contains(
 				buffer.String(),
@@ -1133,8 +1135,9 @@ func Test_Model_StructsWithOrmTag(t *testing.T) {
 		)
 	})
 
-	// db.SetDebug(true)
-	// defer db.SetDebug(false)
+// 将数据库设置为调试模式
+// 使用defer语句确保在函数返回前将数据库的调试模式重置为false
+// md5:b9225b2fca692b91
 	gtest.C(t, func(t *gtest.T) {
 		type A struct {
 			Passport string
@@ -1546,7 +1549,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["id"].Int(), 1)
 	})
-	// struct, automatic mapping and filtering.
+	// 结构体，自动映射和过滤。 md5:8edea55227b914af
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2399,7 +2402,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(r[0]["id"], "1")
 		t.Assert(r[1]["id"], "2")
 	})
-	// Select with alias to struct.
+	// 用别名选择到结构体。 md5:86d27c7f5b555a89
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2414,7 +2417,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(users[0].Id, 1)
 		t.Assert(users[1].Id, 5)
 	})
-	// Select with alias and join statement.
+	// 使用别名和连接语句进行选择。 md5:5ae27281997ad29c
 	gtest.C(t, func(t *gtest.T) {
 		r, err := db.Model(table+" as u1").LeftJoin(table+" as u2", "u2.id=u1.id").Where("u1.id in (?)", g.Slice{1, 2}).Order("u1.id asc").All()
 		t.AssertNil(err)
@@ -2819,7 +2822,7 @@ func Test_Model_Cache(t *testing.T) {
 		t.Assert(n, 1)
 
 		err = db.Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
-			// Cache feature disabled.
+			// 缓存功能已禁用。 md5:96110ddd3191b243
 			one, err := tx.Model(table).Cache(gdb.CacheOption{
 				Duration: time.Second,
 				Name:     "test4",
@@ -2957,11 +2960,12 @@ func Test_Model_FieldsEx_AutoMapping(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 
-	// "id":          i,
-	// "passport":    fmt.Sprintf(`user_%d`, i),
-	// "password":    fmt.Sprintf(`pass_%d`, i),
-	// "nickname":    fmt.Sprintf(`name_%d`, i),
-	// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(),
+	// "id":          i, 	// ID: i
+	// "passport":    fmt.Sprintf(`user_%d`, i), 	// 用户名: "user_" + i
+	// "password":    fmt.Sprintf(`pass_%d`, i), 	// 密码: "pass_" + i
+	// "nickname":    fmt.Sprintf(`name_%d`, i), 	// 昵称: "name_" + i
+	// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(), 	// 创建时间: "2018-10-24 10:00:00" 的字符串表示
+	// md5:62b0a78a146bb60c
 
 	gtest.C(t, func(t *gtest.T) {
 		value, err := db.Model(table).FieldsEx("Passport, Password, NickName, CreateTime").Where("id", 2).Value()
@@ -4048,7 +4052,7 @@ func Test_Model_GTime_DefaultValue(t *testing.T) {
 	})
 }
 
-// Using filter does not affect the outside value inside function.
+// 使用过滤器不会影响函数内部的外部值。 md5:857585fd480ebfc6
 func Test_Model_Insert_Filter(t *testing.T) {
 	// map
 	gtest.C(t, func(t *gtest.T) {
@@ -4140,31 +4144,19 @@ func Test_Model_Embedded_Filter(t *testing.T) {
 	})
 }
 
-// This is no longer used as the filter feature is automatically enabled from GoFrame v1.16.0.
-// func Test_Model_Insert_KeyFieldNameMapping_Error(t *testing.T) {
-//	table := createTable()
-//	defer dropTable(table)
-//
-//	gtest.C(t, func(t *gtest.T) {
-//		type User struct {
-//			Id             int
-//			Passport       string
-//			Password       string
-//			Nickname       string
-//			CreateTime     string
-//			NoneExistField string
-//		}
-//		data := User{
-//			Id:         1,
-//			Passport:   "user_1",
-//			Password:   "pass_1",
-//			Nickname:   "name_1",
-//			CreateTime: "2020-10-10 12:00:01",
-//		}
-//		_, err := db.Model(table).Data(data).Insert()
-//		t.AssertNE(err, nil)
-//	})
-// }
+// 该代码已不再使用，因为从GoFrame v1.16.0开始，过滤功能会自动启用。
+// 测试函数Test_Model_Insert_KeyFieldNameMapping_Error用于检查在模型插入时键字段映射错误的情况：
+// 创建表
+// defer 释放表（在测试结束后删除）
+// 
+// 使用gtest进行测试：
+// 定义User结构体，包含Id、Passport、Password、Nickname、CreateTime和NoneExistField字段
+// 初始化一个User实例
+// 使用db.Model方法，传入表名和数据，尝试插入记录
+// 断言插入操作返回的错误不为nil，预期会出现错误，因为存在不存在的字段
+// 
+// 注意：这个测试用例期望在执行时抛出错误，因为"NoneExistField"字段不在数据库表中。
+// md5:8afc06ac33d4aa16
 
 func Test_Model_Fields_AutoFilterInJoinStatement(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -4725,7 +4717,7 @@ func Test_Scan_Nil_Result_Error(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(len(ss), TableSize)
 	})
-	// If the result is empty, it returns error.
+	// 如果结果为空，它将返回错误。 md5:e3f68d57e41236a6
 	gtest.C(t, func(t *gtest.T) {
 		var ss = make([]*S, 10)
 		err := db.Model(table).WhereGT("id", 100).Scan(&ss)

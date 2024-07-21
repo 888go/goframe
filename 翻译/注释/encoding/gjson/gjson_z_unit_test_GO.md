@@ -32,9 +32,9 @@
 <原文结束>
 
 # <翻译开始>
-// 使用gvar的新建方法。
-// https://github.com/gogf/gf/issues/1571
-// md5:489c7f12ac3a473f
+	// 使用gvar的新建方法。
+	// https:	//github.com/gogf/gf/issues/1571
+	// md5:489c7f12ac3a473f
 # <翻译结束>
 
 

@@ -120,11 +120,11 @@
 <原文结束>
 
 # <翻译开始>
-// 请勿在此添加任何默认的Cookie域名！
-// 如果 c.request.Server.GetCookieDomain() 等于空字符串 {
-//     c.request.Server.GetCookieDomain() = c.request.GetHost()
-// }
-// md5:dd77fb4cfe35c3cc
+	// 请勿在此添加任何默认的Cookie域名！
+	// 如果 c.request.Server.GetCookieDomain() 等于空字符串 {
+	//     c.request.Server.GetCookieDomain() = c.request.GetHost()
+	// }
+	// md5:dd77fb4cfe35c3cc
 # <翻译结束>
 
 

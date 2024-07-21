@@ -594,9 +594,9 @@
 <原文结束>
 
 # <翻译开始>
-// 不要在这里引用m.fields，以防出现如下的字段情况：
-// DISTINCT t.user_id uid
-// md5:97ff3b5639a12242
+			// 不要在这里引用m.fields，以防出现如下的字段情况：
+			// DISTINCT t.user_id uid
+			// md5:97ff3b5639a12242
 # <翻译结束>
 
 
@@ -615,10 +615,10 @@
 <原文结束>
 
 # <翻译开始>
-// 请不要在 m.fields 中引用，例如：
-// 如果字段为：
-// DISTINCT t.user_id uid
-// md5:e3b773558c54f2eb
+		// 请不要在 m.fields 中引用，例如：
+		// 如果字段为：
+		// DISTINCT t.user_id uid
+		// md5:e3b773558c54f2eb
 # <翻译结束>
 
 

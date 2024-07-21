@@ -71,8 +71,8 @@
 <原文结束>
 
 # <翻译开始>
-// SetAsGlobal 将当前提供者设置为当前进程的全局度量提供者，这使得后续在这个Provider上创建的指标（特别是运行时创建的指标）将使用此提供者。
-// md5:ebeb141536d72db3
+	// SetAsGlobal 将当前提供者设置为当前进程的全局度量提供者，这使得后续在这个Provider上创建的指标（特别是运行时创建的指标）将使用此提供者。
+	// md5:ebeb141536d72db3
 # <翻译结束>
 
 
@@ -94,10 +94,10 @@
 <原文结束>
 
 # <翻译开始>
-// ForceFlush 强制刷新所有待处理的指标。
-//
-// 此方法会考虑 ctx 的截止时间或取消状态。在这些情况下，将返回适当的错误。但无法保证在这些情况下所有指标都已被刷新或所有资源已释放。
-// md5:ea6068dfe51298a9
+	// ForceFlush 强制刷新所有待处理的指标。
+	//
+	// 此方法会考虑 ctx 的截止时间或取消状态。在这些情况下，将返回适当的错误。但无法保证在这些情况下所有指标都已被刷新或所有资源已释放。
+	// md5:ea6068dfe51298a9
 # <翻译结束>
 
 
@@ -107,8 +107,8 @@
 <原文结束>
 
 # <翻译开始>
-// Shutdown 关闭提供者，刷新所有待处理的指标并释放占用的计算资源。
-// md5:ac9c3ba411885fee
+	// Shutdown 关闭提供者，刷新所有待处理的指标并释放占用的计算资源。
+	// md5:ac9c3ba411885fee
 # <翻译结束>
 
 
@@ -127,8 +127,8 @@
 <原文结束>
 
 # <翻译开始>
-// CounterPerformer 创建并返回一个 CounterPerformer，用于执行 Counter 指标的操作。
-// md5:01ef2c0f7cee9b52
+	// CounterPerformer 创建并返回一个 CounterPerformer，用于执行 Counter 指标的操作。
+	// md5:01ef2c0f7cee9b52
 # <翻译结束>
 
 
@@ -138,8 +138,8 @@
 <原文结束>
 
 # <翻译开始>
-// UpDownCounterPerformer 创建并返回一个UpDownCounterPerformer，用于执行UpDownCounter指标的操作。
-// md5:8d0a2d6b5cb6c7e2
+	// UpDownCounterPerformer 创建并返回一个UpDownCounterPerformer，用于执行UpDownCounter指标的操作。
+	// md5:8d0a2d6b5cb6c7e2
 # <翻译结束>
 
 
@@ -149,8 +149,8 @@
 <原文结束>
 
 # <翻译开始>
-// HistogramPerformer 创建并返回一个HistogramPerformer，用于执行Histogram指标的操作。
-// md5:aef82f85510796c2
+	// HistogramPerformer 创建并返回一个HistogramPerformer，用于执行Histogram指标的操作。
+	// md5:aef82f85510796c2
 # <翻译结束>
 
 
@@ -160,8 +160,8 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableCounterPerformer 创建并返回一个 ObservableCounterPerformer，它执行 ObservableCounter 指标所需的运算。
-// md5:fe300c3bfd8a3d0d
+	// ObservableCounterPerformer 创建并返回一个 ObservableCounterPerformer，它执行 ObservableCounter 指标所需的运算。
+	// md5:fe300c3bfd8a3d0d
 # <翻译结束>
 
 
@@ -171,8 +171,8 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableUpDownCounterPerformer 创建并返回一个 ObservableUpDownCounterPerformer，用于执行 ObservableUpDownCounter 指标的相关操作。
-// md5:71a2690321ac6e11
+	// ObservableUpDownCounterPerformer 创建并返回一个 ObservableUpDownCounterPerformer，用于执行 ObservableUpDownCounter 指标的相关操作。
+	// md5:71a2690321ac6e11
 # <翻译结束>
 
 
@@ -182,9 +182,9 @@
 <原文结束>
 
 # <翻译开始>
-// ObservableGaugePerformer 创建并返回一个 ObservableGaugePerformer，它执行
-// ObservableGauge 度量指标的相关操作。
-// md5:02fbd42914a0e2c8
+	// ObservableGaugePerformer 创建并返回一个 ObservableGaugePerformer，它执行
+	// ObservableGauge 度量指标的相关操作。
+	// md5:02fbd42914a0e2c8
 # <翻译结束>
 
 
@@ -195,10 +195,10 @@
 <原文结束>
 
 # <翻译开始>
-// RegisterCallback 在某些指标上注册回调函数。
-// 回调函数与特定的组件和版本绑定，当关联的指标被读取时会被调用。
-// 同一个组件和版本可以注册多个回调函数，它们将按照注册的顺序被调用。
-// md5:89a5acee144aeb40
+	// RegisterCallback 在某些指标上注册回调函数。
+	// 回调函数与特定的组件和版本绑定，当关联的指标被读取时会被调用。
+	// 同一个组件和版本可以注册多个回调函数，它们将按照注册的顺序被调用。
+	// md5:89a5acee144aeb40
 # <翻译结束>
 
 
@@ -217,9 +217,9 @@
 <原文结束>
 
 # <翻译开始>
-// Help提供关于这个直方图的信息。
-// 这是度量的可选配置。
-// md5:f8de096bb00ba08e
+	// Help提供关于这个直方图的信息。
+	// 这是度量的可选配置。
+	// md5:f8de096bb00ba08e
 # <翻译结束>
 
 
@@ -229,9 +229,9 @@
 <原文结束>
 
 # <翻译开始>
-// Unit 是指标值的单位。
-// 这是指标的一个可选配置。
-// md5:98a35ee224664140
+	// Unit 是指标值的单位。
+	// 这是指标的一个可选配置。
+	// md5:98a35ee224664140
 # <翻译结束>
 
 
@@ -241,9 +241,9 @@
 <原文结束>
 
 # <翻译开始>
-// Attributes 保存了该指标的常量键值对描述元数据。
-// 这是度量的可选配置。
-// md5:5610f8005466f637
+	// Attributes 保存了该指标的常量键值对描述元数据。
+	// 这是度量的可选配置。
+	// md5:5610f8005466f637
 # <翻译结束>
 
 
@@ -254,8 +254,8 @@
 <原文结束>
 
 # <翻译开始>
-// Buckets 定义了观察值计数的桶。 // 仅适用于Histogram度量。 // 如果没有显式配置桶，Histogram度量将使用默认桶。
-// md5:fc23bdae2b93e65c
+	// Buckets 定义了观察值计数的桶。 	// 仅适用于Histogram度量。 	// 如果没有显式配置桶，Histogram度量将使用默认桶。
+	// md5:fc23bdae2b93e65c
 # <翻译结束>
 
 
@@ -266,9 +266,9 @@
 <原文结束>
 
 # <翻译开始>
-// 当指标值发生变化时调用的回调函数。仅适用于可观察的指标。
-// 如果可观察的指标没有配置Callback属性或全局回调，它将不会做任何事情。
-// md5:ad172c2ef3bda0a0
+	// 当指标值发生变化时调用的回调函数。仅适用于可观察的指标。
+	// 如果可观察的指标没有配置Callback属性或全局回调，它将不会做任何事情。
+	// md5:ad172c2ef3bda0a0
 # <翻译结束>
 
 
@@ -415,8 +415,8 @@
 <原文结束>
 
 # <翻译开始>
-// Inc 通过1递增计数器。使用Add方法可以按任意非负值进行递增。
-// md5:63d13b20691c041f
+	// Inc 通过1递增计数器。使用Add方法可以按任意非负值进行递增。
+	// md5:63d13b20691c041f
 # <翻译结束>
 
 
@@ -495,8 +495,8 @@
 <原文结束>
 
 # <翻译开始>
-// Record 将一个值添加到直方图中。这个值通常是正数或零。
-// md5:01f7e56a23c793fb
+	// Record 将一个值添加到直方图中。这个值通常是正数或零。
+	// md5:01f7e56a23c793fb
 # <翻译结束>
 
 
@@ -594,9 +594,9 @@
 <原文结束>
 
 # <翻译开始>
-// Init 在创建提供者时初始化指标。
-// 它设置了真正执行操作的指标执行者。
-// md5:99dffc37e63f54c1
+	// Init 在创建提供者时初始化指标。
+	// 它设置了真正执行操作的指标执行者。
+	// md5:99dffc37e63f54c1
 # <翻译结束>
 
 
@@ -618,9 +618,9 @@
 <原文结束>
 
 # <翻译开始>
-// Performer导出Metric的内部实现Performer。
-// 这通常被metric实现者使用。
-// md5:5c2fb8da83b93435
+	// Performer导出Metric的内部实现Performer。
+	// 这通常被metric实现者使用。
+	// md5:5c2fb8da83b93435
 # <翻译结束>
 
 
@@ -662,8 +662,8 @@
 <原文结束>
 
 # <翻译开始>
-// Observe 观察已初始化的 Metric 的值。如果观察到的 Metrics 类型为 Counter，它会将值添加到总结果中。如果观察到的 Metrics 类型为 Gauge，它会将值设置为结果。
-// md5:c1a20cb2ada29935
+	// Observe 观察已初始化的 Metric 的值。如果观察到的 Metrics 类型为 Counter，它会将值添加到总结果中。如果观察到的 Metrics 类型为 Gauge，它会将值设置为结果。
+	// md5:c1a20cb2ada29935
 # <翻译结束>
 
 

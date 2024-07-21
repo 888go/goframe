@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package ghtml provides useful API for HTML content handling.
+// 包ghtml提供了处理HTML内容的有用API。 md5:218d4666a789e8d7
 package ghtml//bm:html类
 
 import (
@@ -64,7 +65,7 @@ func SpecialCharsDecode(s string) string {
 	).Replace(s)
 }
 
-// SpecialCharsMapOrStruct automatically encodes string values/attributes for map/struct.
+// SpecialCharsMapOrStruct 会自动对映射/结构体中的字符串值/属性进行编码。 md5:a26c73e35955b542
 // ff:编码Map
 // mapOrStruct:map或Struct
 func SpecialCharsMapOrStruct(mapOrStruct interface{}) error {

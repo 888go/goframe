@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid//bm:效验类
 
@@ -15,7 +16,7 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// Error is the validation error for validation result.
+// Error是验证结果的错误。 md5:333865ca9d205dfa
 type Error interface {
 	Code() gcode.Code
 	Current() error
@@ -30,16 +31,16 @@ type Error interface {
 	Strings() (errs []string)//qm:取文本切片  zz:Strings\(\) +\(errs +\[\]string\) *  yx:true
 }
 
-// validationError is the validation error for validation result.
+// validationError 是验证结果的验证错误。 md5:b67f2d45170f86ce
 type validationError struct {
 	code      gcode.Code                  // Error code.
-	rules     []fieldRule                 // Rules by sequence, which is used for keeping error sequence only.
-	errors    map[string]map[string]error // Error map:map[field]map[rule]message
-	firstKey  string                      // The first error rule key(empty in default).
-	firstItem map[string]error            // The first error rule value(nil in default).
+	rules     []fieldRule                 // 按顺序的规则，仅用于保持错误顺序。 md5:865d75142a03d16d
+	errors    map[string]map[string]error // 错误信息映射：map字段到map规则到消息. md5:57934a019c99d928
+	firstKey  string                      // 第一个错误规则键（默认为空）。 md5:19b132d9be7a2e96
+	firstItem map[string]error            // 第一个错误规则的值（默认为nil）。 md5:282d9086842ac373
 }
 
-// newValidationError creates and returns a validation error.
+// newValidationError 创建并返回一个验证错误。 md5:60829ca804e6f83e
 func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap map[string]map[string]error) *validationError {
 	for field, ruleErrorMap := range fieldRuleErrorMap {
 		for rule, err := range ruleErrorMap {
@@ -53,7 +54,7 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 		}
 		fieldRuleErrorMap[field] = ruleErrorMap
 	}
-	// Filter repeated sequence rules.
+	// 过滤重复序列规则。 md5:7a7958b11e315baa
 	var ruleNameSet = gset.NewStrSet()
 	for i := 0; i < len(rules); {
 		if !ruleNameSet.AddIfNotExist(rules[i].Name) {
@@ -70,7 +71,7 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 	}
 }
 
-// newValidationErrorByStr creates and returns a validation error by string.
+// newValidationErrorByStr 通过字符串创建并返回一个验证错误。 md5:f8649a2f7b8f4b7c
 func newValidationErrorByStr(key string, err error) *validationError {
 	return newValidationError(
 		gcode.CodeInternalError,
@@ -83,7 +84,7 @@ func newValidationErrorByStr(key string, err error) *validationError {
 	)
 }
 
-// Code returns the error code of current validation error.
+// Code 返回当前验证错误的错误代码。 md5:e3c1f143cc6ab020
 // ff:
 // e:
 func (e *validationError) Code() gcode.Code {
@@ -93,7 +94,7 @@ func (e *validationError) Code() gcode.Code {
 	return e.code
 }
 
-// Map returns the first error message as map.
+// Map 返回第一个错误消息作为映射。 md5:a50660d08282062c
 // ff:
 // e:
 func (e *validationError) Map() map[string]error {
@@ -104,7 +105,7 @@ func (e *validationError) Map() map[string]error {
 	return m
 }
 
-// Maps returns all error messages as map.
+// Maps返回所有的错误消息作为映射。 md5:3018cad54a77010b
 // ff:
 // e:
 func (e *validationError) Maps() map[string]map[string]error {
@@ -114,8 +115,8 @@ func (e *validationError) Maps() map[string]map[string]error {
 	return e.errors
 }
 
-// Items retrieves and returns error items array in sequence if possible,
-// or else it returns error items with no sequence .
+// Items 如果可能，按顺序检索并返回错误项数组，否则返回无序的错误项。
+// md5:cb51d4d0fa07a635
 // ff:
 // e:
 // items:
@@ -144,7 +145,7 @@ func (e *validationError) Items() (items []map[string]map[string]error) {
 	return
 }
 
-// FirstItem returns the field name and error messages for the first validation rule error.
+// FirstItem 返回第一个验证规则错误的字段名称和错误消息。 md5:f1a0ce09f39c751b
 // ff:
 // e:
 // key:
@@ -175,7 +176,7 @@ func (e *validationError) FirstItem() (key string, messages map[string]error) {
 	return "", nil
 }
 
-// FirstRule returns the first error rule and message string.
+// FirstRule 返回第一个错误规则及其消息字符串。 md5:ba540411a8e82a5d
 // ff:
 // e:
 // rule:
@@ -207,8 +208,9 @@ func (e *validationError) FirstRule() (rule string, err error) {
 	return "", nil
 }
 
-// FirstError returns the first error message as string.
-// Note that the returned message might be different if it has no sequence.
+// FirstError 返回第一个错误消息作为字符串。
+// 注意，如果没有错误序列，返回的消息可能会有所不同。
+// md5:194a5e5551fbb1e3
 // ff:
 // e:
 // err:
@@ -220,14 +222,14 @@ func (e *validationError) FirstError() (err error) {
 	return
 }
 
-// Current is alis of FirstError, which implements interface gerror.iCurrent.
+// Current是FirstError的别名，实现了gerror.iCurrent接口。 md5:0a09fda4e8417f2c
 // ff:
 // e:
 func (e *validationError) Current() error {
 	return e.FirstError()
 }
 
-// String returns all error messages as string, multiple error messages joined using char ';'.
+// String 返回所有错误信息作为一个字符串，多个错误消息使用分号 ';' 连接。 md5:d6ac7d8c7c8a6a03
 // ff:
 // e:
 func (e *validationError) String() string {
@@ -237,7 +239,7 @@ func (e *validationError) String() string {
 	return strings.Join(e.Strings(), "; ")
 }
 
-// Error implements interface of error.Error.
+// Error 实现了 error 接口的 Error 方法。 md5:6b9d58fee5a72399
 // ff:
 // e:
 func (e *validationError) Error() string {
@@ -247,7 +249,7 @@ func (e *validationError) Error() string {
 	return e.String()
 }
 
-// Strings returns all error messages as string array.
+// Strings 将所有的错误消息返回为字符串数组。 md5:63f084a27bc91b14
 // ff:
 // e:
 // errs:
@@ -260,7 +262,7 @@ func (e *validationError) Strings() (errs []string) {
 	if len(e.rules) > 0 {
 		for _, v := range e.rules {
 			if errorItemMap, ok := e.errors[v.Name]; ok {
-				// validation error checks.
+				// 验证错误检查。 md5:f68965da177b50ef
 				for _, ruleItem := range strings.Split(v.Rule, "|") {
 					ruleItem = strings.TrimSpace(strings.Split(ruleItem, ":")[0])
 					if err, ok := errorItemMap[ruleItem]; ok {

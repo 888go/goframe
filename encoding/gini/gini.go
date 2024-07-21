@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package gini provides accessing and converting for INI content.
+// 包gini提供了访问和转换INI内容的功能。 md5:3e0e37cb2af85941
 package gini//bm:ini类
 
 import (
@@ -19,7 +20,7 @@ import (
 	"github.com/gogf/gf/v2/internal/json"
 )
 
-// Decode converts INI format to map.
+// Decode将INI格式转换为映射。 md5:355a2d8ee06f84fe
 // ff:取Map
 // data:字节集
 // res:map值
@@ -82,7 +83,7 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 	return res, nil
 }
 
-// Encode converts map to INI format.
+// Encode将映射转换为INI格式。 md5:2b1bb156815e46bd
 // ff:Map到ini
 // data:map值
 // res:字节集
@@ -95,7 +96,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 		ok bool
 	)
 	for section, item := range data {
-		// Section key-value pairs.
+		// 部分键值对。 md5:4d0c7048f054d3df
 		if m, ok = item.(map[string]interface{}); ok {
 			n, err = w.WriteString(fmt.Sprintf("[%s]\n", section))
 			if err != nil || n == 0 {
@@ -108,7 +109,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 			}
 			continue
 		}
-		// Simple key-value pairs.
+		// 简单的键值对。 md5:4ddd5708336bef92
 		for k, v := range data {
 			if n, err = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); err != nil || n == 0 {
 				return nil, gerror.Wrapf(err, "w.WriteString failed")
@@ -123,7 +124,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 	return res, nil
 }
 
-// ToJson convert INI format to JSON.
+// ToJson 将INI格式转换为JSON。 md5:760a6629bda12608
 // ff:取json
 // data:字节集
 // res:json字节集

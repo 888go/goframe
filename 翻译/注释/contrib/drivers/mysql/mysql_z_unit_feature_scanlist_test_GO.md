@@ -95,9 +95,9 @@
 <原文结束>
 
 # <翻译开始>
-// 将db的调试模式设置为true
-// 使用结构体元素和指针属性扫描结果列表
-// md5:2e0de268c0f1e08f
+	// 将db的调试模式设置为true
+	// 使用结构体元素和指针属性扫描结果列表
+	// md5:2e0de268c0f1e08f
 # <翻译结束>
 
 
@@ -119,13 +119,13 @@
 <原文结束>
 
 # <翻译开始>
-// 细节。
-// 插入用户详细信息到数据库，其中uid为i，address为格式化的`address_i`
-// t.AssertNil(err) 验证错误是否为nil
-// 分数。
-// 循环遍历1到5，插入用户分数到数据库，其中uid为i，score为j
-// t.AssertNil(err) 验证错误是否为nil
-// md5:1b3376e15e2dc36d
+			// 细节。
+			// 插入用户详细信息到数据库，其中uid为i，address为格式化的`address_i`
+			// t.AssertNil(err) 验证错误是否为nil
+			// 分数。
+			// 循环遍历1到5，插入用户分数到数据库，其中uid为i，score为j
+			// t.AssertNil(err) 验证错误是否为nil
+			// md5:1b3376e15e2dc36d
 # <翻译结束>
 
 

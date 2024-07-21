@@ -40,9 +40,9 @@
 <原文结束>
 
 # <翻译开始>
-// commandEnvKeyForBrief 是用于切换简要错误堆栈的命令环境变量名。
-// 已弃用：请使用 commandEnvKeyForStackMode 代替。
-// md5:ec191a8df835f7da
+	// commandEnvKeyForBrief 是用于切换简要错误堆栈的命令环境变量名。
+	// 已弃用：请使用 commandEnvKeyForStackMode 代替。
+	// md5:ec191a8df835f7da
 # <翻译结束>
 
 
@@ -79,9 +79,9 @@
 <原文结束>
 
 # <翻译开始>
-// stackModeConfigured 是配置错误堆栈模式的变量。
-// 默认情况下，它处于简略堆栈模式。
-// md5:5f27ddfb8b3441b5
+	// stackModeConfigured 是配置错误堆栈模式的变量。
+	// 默认情况下，它处于简略堆栈模式。
+	// md5:5f27ddfb8b3441b5
 # <翻译结束>
 
 

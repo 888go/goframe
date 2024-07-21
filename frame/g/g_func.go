@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package g
 
@@ -17,13 +18,13 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// Go creates a new asynchronous goroutine function with specified recover function.
+// Go 创建一个新的异步 goroutine 函数，并指定了恢复函数。
 //
-// The parameter `recoverFunc` is called when any panic during executing of `goroutineFunc`.
-// If `recoverFunc` is given nil, it ignores the panic from `goroutineFunc` and no panic will
-// throw to parent goroutine.
+// 参数 `recoverFunc` 在 `goroutineFunc` 执行过程中发生任何 panic 时被调用。
+// 如果 `recoverFunc` 为 nil，它将忽略 `goroutineFunc` 中的 panic，且不会向父 goroutine 抛出 panic。
 //
-// But, note that, if `recoverFunc` also throws panic, such panic will be thrown to parent goroutine.
+// 但是要注意，如果 `recoverFunc` 自身也抛出 panic，这个 panic 将会被抛给父 goroutine。
+// md5:3820395064a9e843
 // ff:
 func Go(
 	ctx context.Context,
@@ -33,7 +34,7 @@ func Go(
 	gutil.Go(ctx, goroutineFunc, recoverFunc)
 }
 
-// NewVar returns a gvar.Var.
+// NewVar返回一个gvar.Var。 md5:384cbf5dc86048e6
 // ff:X泛型类
 // i:值
 // safe:并发安全
@@ -41,29 +42,29 @@ func NewVar(i interface{}, safe ...bool) *Var {
 	return gvar.New(i, safe...)
 }
 
-// Wait is an alias of ghttp.Wait, which blocks until all the web servers shutdown.
-// It's commonly used in multiple servers' situation.
+// Wait 是对 ghttp.Wait 的别名，它会阻塞直到所有的网络服务器停止运行。在多服务器情况下，这通常会被使用。
+// md5:efbd28e068404766
 // ff:Http类等待所有服务完成
 func Wait() {
 	ghttp.Wait()
 }
 
-// Listen is an alias of gproc.Listen, which handles the signals received and automatically
-// calls registered signal handler functions.
-// It blocks until shutdown signals received and all registered shutdown handlers done.
+// Listen 是 gproc.Listen 的别名，用于处理接收到的信号，并自动调用已注册的信号处理函数。
+// 它会阻塞直到接收到关闭信号，并且所有已注册的关闭处理函数执行完毕。
+// md5:566b27b7da3e69b8
 // ff:
 func Listen() {
 	gproc.Listen()
 }
 
-// Dump dumps a variable to stdout with more manually readable.
+// Dump 将变量以更易读的格式输出到标准输出。 md5:e19cf0b857ffd1c6
 // ff:调试输出
 // values:值s
 func Dump(values ...interface{}) {
 	gutil.Dump(values...)
 }
 
-// DumpTo writes variables `values` as a string in to `writer` with more manually readable
+// DumpTo 将变量 `values` 作为字符串写入到 `writer` 中，提供更易人工阅读的格式. md5:68fd8fc9ea0dfc4b
 // ff:调试输出到Writer
 // writer:
 // value:值
@@ -72,15 +73,15 @@ func DumpTo(writer io.Writer, value interface{}, option gutil.DumpOption) {
 	gutil.DumpTo(writer, value, option)
 }
 
-// DumpWithType acts like Dump, but with type information.
-// Also see Dump.
+// DumpWithType 类似于 Dump，但带有类型信息。同时参阅 Dump。
+// md5:faabab79589d38a3
 // ff:调试输出并带类型
 // values:值s
 func DumpWithType(values ...interface{}) {
 	gutil.DumpWithType(values...)
 }
 
-// DumpWithOption returns variables `values` as a string with more manually readable.
+// DumpWithOption 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
 // ff:调试输出并带选项
 // value:值s
 // option:选项
@@ -88,22 +89,22 @@ func DumpWithOption(value interface{}, option gutil.DumpOption) {
 	gutil.DumpWithOption(value, option)
 }
 
-// DumpJson pretty dumps json content to stdout.
+// DumpJson 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
 // ff:调试输出json
 // value:
 func DumpJson(value any) {
 	gutil.DumpJson(value)
 }
 
-// Throw throws an exception, which can be caught by TryCatch function.
+// Throw抛出一个异常，可以被TryCatch函数捕获。 md5:ade0a15f9238635b
 // ff:异常输出
 // exception:消息
 func Throw(exception interface{}) {
 	gutil.Throw(exception)
 }
 
-// Try implements try... logistics using internal panic...recover.
-// It returns error if any exception occurs, or else it returns nil.
+// Try 使用内部的 panic...recover 实现 try...catch 逻辑。如果发生任何异常，它会返回错误；否则返回 nil。
+// md5:7c85aa857bb16fca
 // ff:异常捕捉
 // ctx:上下文
 // try:处理函数
@@ -113,10 +114,11 @@ func Try(ctx context.Context, try func(ctx context.Context)) (err error) {
 	return gutil.Try(ctx, try)
 }
 
-// TryCatch implements try...catch... logistics using internal panic...recover.
-// It automatically calls function `catch` if any exception occurs and passes the exception as an error.
+// TryCatch 使用内部的 panic...recover 机制来实现 try...catch... 的逻辑。
+// 如果发生任何异常，它会自动调用函数 `catch` 并将异常作为错误传递。
 //
-// But, note that, if function `catch` also throws panic, the current goroutine will panic.
+// 但请注意，如果函数 `catch` 本身也引发了 panic，当前的 goroutine 会触发 panic。
+// md5:c9fae3297a82421f
 // ff:异常捕捉并带异常处理
 // ctx:上下文
 // try:处理函数
@@ -128,11 +130,10 @@ func TryCatch(ctx context.Context, try func(ctx context.Context), catch func(ctx
 	gutil.TryCatch(ctx, try, catch)
 }
 
-// IsNil checks whether given `value` is nil.
-// Parameter `traceSource` is used for tracing to the source variable if given `value` is type
-// of pointer that also points to a pointer. It returns nil if the source is nil when `traceSource`
-// is true.
-// Note that it might use reflect feature which affects performance a little.
+// IsNil 检查给定的 `value` 是否为 nil。
+// 参数 `traceSource` 用于在 `value` 为指向指针的指针类型时，追踪到源变量。当 `traceSource` 为真且源为 nil 时，它会返回 nil。
+// 请注意，该功能可能使用反射，这可能稍微影响性能。
+// md5:1a86ab3bedd8914d
 // yx:true
 // ff:是否为Nil
 // value:
@@ -141,13 +142,13 @@ func IsNil(value interface{}, traceSource ...bool) bool {
 	return empty.IsNil(value, traceSource...)
 }
 
-// IsEmpty checks whether given `value` empty.
-// It returns true if `value` is in: 0, nil, false, "", len(slice/map/chan) == 0.
-// Or else it returns true.
-//
-// The parameter `traceSource` is used for tracing to the source variable if given `value` is type of pointer
-// that also points to a pointer. It returns true if the source is empty when `traceSource` is true.
-// Note that it might use reflect feature which affects performance a little.
+// IsEmpty 检查给定的 `value` 是否为空。
+// 如果 `value` 等于：0，nil，false，""，切片、映射或通道的长度为0，则返回 true。
+// 否则，返回 true。
+// 
+// 参数 `traceSource` 用于追踪，如果给定的 `value` 是指向指针的指针类型，它会追踪到源变量。当 `traceSource` 为 true 时，如果源为空，将返回 true。
+// 注意，它可能使用反射特性，这可能会影响性能。
+// md5:7262defa92ce37cb
 // ff:是否为空
 // value:值
 // traceSource:追踪到源变量
@@ -155,7 +156,7 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 	return empty.IsEmpty(value, traceSource...)
 }
 
-// RequestFromCtx retrieves and returns the Request object from context.
+// RequestFromCtx 从上下文中检索并返回Request对象。 md5:c247eac3d031fb2b
 // ff:Http类上下文取请求对象
 // ctx:上下文
 func RequestFromCtx(ctx context.Context) *ghttp.Request {

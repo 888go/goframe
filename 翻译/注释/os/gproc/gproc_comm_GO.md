@@ -68,9 +68,9 @@
 <原文结束>
 
 # <翻译开始>
-// commReceiveQueues 是一个用于存储接收到的数据的组名到队列的映射。
-// 该映射的值类型为*gqueue.Queue。
-// md5:adb11ba95544ea8c
+	// commReceiveQueues 是一个用于存储接收到的数据的组名到队列的映射。
+	// 该映射的值类型为*gqueue.Queue。
+	// md5:adb11ba95544ea8c
 # <翻译结束>
 
 

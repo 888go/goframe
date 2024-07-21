@@ -62,12 +62,12 @@
 <原文结束>
 
 # <翻译开始>
-// queryHolders：处理需要插入或更新的Holder数据
-// queryValues：处理需要插入或更新的值
-// insertKeys：处理需要插入的有效键
-// insertValues：处理需要插入的值
-// updateValues：处理需要更新的值
-// md5:7779ec7103105a5e
+		// queryHolders：处理需要插入或更新的Holder数据
+		// queryValues：处理需要插入或更新的值
+		// insertKeys：处理需要插入的有效键
+		// insertValues：处理需要插入的值
+		// updateValues：处理需要更新的值
+		// md5:7779ec7103105a5e
 # <翻译结束>
 
 
@@ -86,9 +86,9 @@
 <原文结束>
 
 # <翻译开始>
-// 过滤掉更新值中的冲突键。
-// 并且该键不是软创建字段。
-// md5:7882adbf4107a87d
+		// 过滤掉更新值中的冲突键。
+		// 并且该键不是软创建字段。
+		// md5:7882adbf4107a87d
 # <翻译结束>
 
 

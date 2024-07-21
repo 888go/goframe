@@ -35,9 +35,9 @@
 <原文结束>
 
 # <翻译开始>
-// 例如：
-// "goframe.org" 不是 "s.goframe.org" 的子域名。
-// md5:82e988c659c65b8f
+	// 例如：
+	// "goframe.org" 不是 "s.goframe.org" 的子域名。
+	// md5:82e988c659c65b8f
 # <翻译结束>
 
 
@@ -49,10 +49,10 @@
 <原文结束>
 
 # <翻译开始>
-// 例如：
-// "s.s.goframe.org" 不是 "*.goframe.org" 的子域名
-// 但是
-// "s.s.goframe.org" 是 "goframe.org" 的子域名
-// md5:8cdcf05bb87c9aa4
+	// 例如：
+	// "s.s.goframe.org" 不是 "*.goframe.org" 的子域名
+	// 但是
+	// "s.s.goframe.org" 是 "goframe.org" 的子域名
+	// md5:8cdcf05bb87c9aa4
 # <翻译结束>
 

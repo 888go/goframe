@@ -1,9 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权所有 GoFrame 作者(https://goframe.org)。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
-//
+// 此源代码形式受 MIT 许可证的条款约束。
+// 如果未随此文件一起分发 MIT 许可证的副本，
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gset//bm:集合类
 
@@ -20,9 +20,9 @@ type IntSet struct {
 	data map[int]struct{}
 }
 
-// NewIntSet create and returns a new set, which contains un-repeated items.
-// The parameter `safe` is used to specify whether using set in concurrent-safety,
-// which is false in default.
+// NewIntSet 创建并返回一个新集合，其中包含不重复的元素。
+// 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。
+// md5:5ede16db776ad391
 // ff:创建整数
 // safe:并发安全
 func NewIntSet(safe ...bool) *IntSet {
@@ -32,7 +32,7 @@ func NewIntSet(safe ...bool) *IntSet {
 	}
 }
 
-// NewIntSetFrom returns a new set from `items`.
+// NewIntSetFrom 从`items`创建一个新的整数集合。 md5:473f94b321141021
 // ff:创建整数并按值
 // items:整数切片
 // safe:并发安全
@@ -47,8 +47,8 @@ func NewIntSetFrom(items []int, safe ...bool) *IntSet {
 	}
 }
 
-// Iterator iterates the set readonly with given callback function `f`,
-// if `f` returns true then continue iterating; or false to stop.
+// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:b896360b1cf6fc88
 // yx:true
 // ff:X遍历
 // set:
@@ -64,7 +64,7 @@ func (set *IntSet) Iterator(f func(v int) bool) {
 	}
 }
 
-// Add adds one or multiple items to the set.
+// Add 将一个或多个项目添加到集合中。 md5:316141ff7d4b8e45
 // ff:加入
 // set:
 // item:值s
@@ -79,11 +79,12 @@ func (set *IntSet) Add(item ...int) {
 	set.mu.Unlock()
 }
 
-// AddIfNotExist checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set,
-// or else it does nothing and returns false.
+// AddIfNotExist 检查项是否存在于集合中，
+// 如果项不存在于集合中，则将其添加到集合并返回true，
+// 否则不做任何操作并返回false。
 //
-// Note that, if `item` is nil, it does nothing and returns false.
+// 注意，如果 `item` 为 nil，它将不做任何操作并返回false。
+// md5:3d920a290d301fb9
 // ff:加入值并跳过已存在
 // set:
 // item:值
@@ -102,11 +103,11 @@ func (set *IntSet) AddIfNotExist(item int) bool {
 	return false
 }
 
-// AddIfNotExistFunc checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set and
-// function `f` returns true, or else it does nothing and returns false.
+// AddIfNotExistFunc 检查项是否存在于集合中，
+// 如果项不存在于集合中，且函数 `f` 返回 true，则将项添加到集合中并返回 true，否则什么都不做并返回 false。
 //
-// Note that, the function `f` is executed without writing lock.
+// 注意，函数 `f` 在写入锁未获取的情况下执行。
+// md5:7563a3cf864d8a2b
 // ff:加入值并跳过已存在_函数
 // set:
 // item:值
@@ -128,11 +129,12 @@ func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 	return false
 }
 
-// AddIfNotExistFuncLock checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set and
-// function `f` returns true, or else it does nothing and returns false.
+// AddIfNotExistFuncLock 检查项是否存在于集合中，
+// 如果该项不存在于集合中并且函数 `f` 返回 true，那么它会将该项添加到集合中并返回 true；
+// 否则，它不做任何操作并返回 false。
 //
-// Note that, the function `f` is executed without writing lock.
+// 注意，函数 `f` 的执行不在写入锁的保护下进行。
+// md5:48d67b0145855ed9
 // ff:加入值并跳过已存在_并发安全函数
 // set:
 // item:值
@@ -154,7 +156,7 @@ func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
 	return false
 }
 
-// Contains checks whether the set contains `item`.
+// Contains 检查集合是否包含 `item`。 md5:20a3bdc6aeef1d67
 // ff:是否存在
 // set:
 // item:值
@@ -168,7 +170,7 @@ func (set *IntSet) Contains(item int) bool {
 	return ok
 }
 
-// Remove deletes `item` from set.
+// Remove 从集合中删除 `item`。 md5:ab30c696cc44d190
 // ff:删除
 // set:
 // item:值
@@ -180,7 +182,7 @@ func (set *IntSet) Remove(item int) {
 	set.mu.Unlock()
 }
 
-// Size returns the size of the set.
+// Size 返回集合的大小。 md5:0d55ac576b7779ee
 // ff:取数量
 // set:
 func (set *IntSet) Size() int {
@@ -190,7 +192,7 @@ func (set *IntSet) Size() int {
 	return l
 }
 
-// Clear deletes all items of the set.
+// Clear 删除集合中的所有项。 md5:ce349f0cd3114465
 // ff:清空
 // set:
 func (set *IntSet) Clear() {
@@ -199,7 +201,7 @@ func (set *IntSet) Clear() {
 	set.mu.Unlock()
 }
 
-// Slice returns the an of items of the set as slice.
+// Slice 返回集合中的元素作为切片。 md5:f5bc80ac01ae812b
 // ff:取集合切片
 // set:
 func (set *IntSet) Slice() []int {
@@ -216,7 +218,7 @@ func (set *IntSet) Slice() []int {
 	return ret
 }
 
-// Join joins items with a string `glue`.
+// Join 使用字符串 `glue` 连接多个项目。 md5:c8699391999ac788
 // ff:取集合文本
 // set:
 // glue:连接符
@@ -241,7 +243,7 @@ func (set *IntSet) Join(glue string) string {
 	return buffer.String()
 }
 
-// String returns items as a string, which implements like json.Marshal does.
+// String 将 items 转换为字符串，其实现方式类似于 json.Marshal。 md5:cedb10711c2e5dac
 // ff:
 // set:
 func (set *IntSet) String() string {
@@ -251,7 +253,7 @@ func (set *IntSet) String() string {
 	return "[" + set.Join(",") + "]"
 }
 
-// LockFunc locks writing with callback function `f`.
+// LockFunc 使用回调函数 `f` 为写入操作加锁。 md5:85d746d8a49edab7
 // ff:写锁定_函数
 // set:
 // f:
@@ -262,7 +264,7 @@ func (set *IntSet) LockFunc(f func(m map[int]struct{})) {
 	f(set.data)
 }
 
-// RLockFunc locks reading with callback function `f`.
+// RLockFunc 使用回调函数 `f` 进行读取锁定。 md5:5fe2bf1a85ce319e
 // ff:读锁定_函数
 // set:
 // f:
@@ -273,7 +275,7 @@ func (set *IntSet) RLockFunc(f func(m map[int]struct{})) {
 	f(set.data)
 }
 
-// Equal checks whether the two sets equal.
+// Equal 检查两个集合是否相等。 md5:105ea4dd39b57fe8
 // ff:是否相等
 // set:
 // other:待比较集合
@@ -296,7 +298,7 @@ func (set *IntSet) Equal(other *IntSet) bool {
 	return true
 }
 
-// IsSubsetOf checks whether the current set is a sub-set of `other`.
+// IsSubsetOf 检查当前集合是否为 `other` 的子集。 md5:333e392219846e17
 // ff:是否为子集
 // set:
 // other:父集
@@ -316,8 +318,9 @@ func (set *IntSet) IsSubsetOf(other *IntSet) bool {
 	return true
 }
 
-// Union returns a new set which is the union of `set` and `other`.
-// Which means, all the items in `newSet` are in `set` or in `other`.
+// Union 返回一个新集合，它是`set`和`other`的并集。
+// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
+// md5:420e241c3c12e8e6
 // ff:取并集
 // set:
 // others:集合
@@ -346,8 +349,9 @@ func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 	return
 }
 
-// Diff returns a new set which is the difference set from `set` to `other`.
-// Which means, all the items in `newSet` are in `set` but not in `other`.
+// Diff 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
+// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
+// md5:6779e6e007651b53
 // ff:取差集
 // set:
 // others:集合
@@ -371,8 +375,9 @@ func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 	return
 }
 
-// Intersect returns a new set which is the intersection from `set` to `other`.
-// Which means, all the items in `newSet` are in `set` and also in `other`.
+// Intersect 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
+// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
+// md5:327d3fcc12f06583
 // ff:取交集
 // set:
 // others:集合
@@ -397,11 +402,11 @@ func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 	return
 }
 
-// Complement returns a new set which is the complement from `set` to `full`.
-// Which means, all the items in `newSet` are in `full` and not in `set`.
+// Complement 返回一个新的集合，该集合是`set`在`full`中的补集。
+// 换句话说，`newSet`中的所有元素都在`full`中但不在`set`中。
 //
-// It returns the difference between `full` and `set`
-// if the given set `full` is not the full set of `set`.
+// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。
+// md5:7e76900d6f20af06
 // ff:取补集
 // set:
 // full:集合
@@ -422,7 +427,7 @@ func (set *IntSet) Complement(full *IntSet) (newSet *IntSet) {
 	return
 }
 
-// Merge adds items from `others` sets into `set`.
+// Merge 将 `others` 集合中的项目合并到 `set` 中。 md5:788b02e300c6f440
 // ff:合并
 // set:
 // others:集合s
@@ -457,7 +462,7 @@ func (set *IntSet) Sum() (sum int) {
 	return
 }
 
-// Pop randomly pops an item from set.
+// Pop 随机从集合中弹出一个元素。 md5:7e1906e951f13db1
 // ff:出栈
 // set:
 func (set *IntSet) Pop() int {
@@ -470,8 +475,9 @@ func (set *IntSet) Pop() int {
 	return 0
 }
 
-// Pops randomly pops `size` items from set.
-// It returns all items if size == -1.
+// Pops 从集合中随机弹出 `size` 个元素。
+// 如果 size == -1，它将返回所有元素。
+// md5:c687f88e0a2df8f2
 // ff:出栈多个
 // set:
 // size:数量
@@ -497,7 +503,7 @@ func (set *IntSet) Pops(size int) []int {
 	return array
 }
 
-// Walk applies a user supplied function `f` to every item of set.
+// Walk应用用户提供的函数`f`到集合中的每一项。 md5:d6ceaae555e8a9e6
 // ff:遍历修改
 // set:
 // f:
@@ -513,14 +519,14 @@ func (set *IntSet) Walk(f func(item int) int) *IntSet {
 	return set
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 // ff:
 // set:
 func (set IntSet) MarshalJSON() ([]byte, error) {
 	return json.Marshal(set.Slice())
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 // ff:
 // set:
 // b:
@@ -540,7 +546,7 @@ func (set *IntSet) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue is an interface implement which sets any type of value for set.
+// UnmarshalValue 是一个接口实现，用于将任何类型的价值设置为集合。 md5:b119247f684920ad
 // ff:
 // set:
 // value:
@@ -564,7 +570,7 @@ func (set *IntSet) UnmarshalValue(value interface{}) (err error) {
 	return
 }
 
-// DeepCopy implements interface for deep copy of current type.
+// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
 // ff:
 // set:
 func (set *IntSet) DeepCopy() interface{} {

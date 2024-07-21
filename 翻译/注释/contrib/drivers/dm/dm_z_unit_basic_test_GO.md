@@ -70,9 +70,9 @@
 <原文结束>
 
 # <翻译开始>
-// 待办事项：问题2
-// 这是DM（可能是某个项目或模块的缩写）的bug。
-// 断言one["CREATED_TIME"]的GTime转换后字符串与timeStr相等。
-// md5:6c078020ce38de99
+		// 待办事项：问题2
+		// 这是DM（可能是某个项目或模块的缩写）的bug。
+		// 断言one["CREATED_TIME"]的GTime转换后字符串与timeStr相等。
+		// md5:6c078020ce38de99
 # <翻译结束>
 

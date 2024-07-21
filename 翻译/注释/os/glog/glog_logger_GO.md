@@ -166,11 +166,11 @@
 <原文结束>
 
 # <翻译开始>
-// 延迟初始化旋转特性。
-// 它采用原子读取操作来增强性能检查。
-// 此处使用CAP以确保性能和并发安全性。
-// 每个日志器仅初始化一次。
-// md5:1562dbed8f576bc2
+	// 延迟初始化旋转特性。
+	// 它采用原子读取操作来增强性能检查。
+	// 此处使用CAP以确保性能和并发安全性。
+	// 每个日志器仅初始化一次。
+	// md5:1562dbed8f576bc2
 # <翻译结束>
 
 
@@ -252,9 +252,9 @@
 <原文结束>
 
 # <翻译开始>
-// 这将在Windows操作系统中丢失颜色信息。请勿使用。
-// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil {
-// md5:29dd90df2339a223
+		// 这将在Windows操作系统中丢失颜色信息。请勿使用。
+		// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil {
+		// md5:29dd90df2339a223
 # <翻译结束>
 
 

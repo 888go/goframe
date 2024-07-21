@@ -72,9 +72,9 @@
 <原文结束>
 
 # <翻译开始>
-// 这是来自
-// https://github.com/ClickHouse/clickhouse-go/blob/v2/examples/std/batch/main.go 示例的注释
-// md5:c0ed3f953d0aaab1
+	// 这是来自
+	// https:	//github.com/ClickHouse/clickhouse-go/blob/v2/examples/std/batch/main.go 示例的注释
+	// md5:c0ed3f953d0aaab1
 # <翻译结束>
 
 
@@ -85,9 +85,9 @@
 <原文结束>
 
 # <翻译开始>
-// 链接
-// 数据源管理(DSM)
-// 点击house协议连接字符串：//用户名:密码@主机1:9000,主机2:9000/数据库名?拨号超时=200毫秒&最大执行时间=60秒
-// md5:c1d7a1212d7e0483
+	// 链接
+	// 数据源管理(DSM)
+	// 点击house协议连接字符串：	//用户名:密码@主机1:9000,主机2:9000/数据库名?拨号超时=200毫秒&最大执行时间=60秒
+	// md5:c1d7a1212d7e0483
 # <翻译结束>
 

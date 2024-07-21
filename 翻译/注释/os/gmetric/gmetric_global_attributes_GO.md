@@ -51,11 +51,11 @@
 <原文结束>
 
 # <翻译开始>
-// InstrumentPattern 通过正则表达式指定要操作的Instrument名称。
-// 示例：
-// 1. 如果设置为`.+`，将匹配所有Instrument。
-// 2. 如果设置为`github.com/gogf/gf.+`，将匹配所有goframe相关的Instrument。
-// md5:a3225129ad31cbb0
+	// InstrumentPattern 通过正则表达式指定要操作的Instrument名称。
+	// 示例：
+	// 1. 如果设置为`.+`，将匹配所有Instrument。
+	// 2. 如果设置为`github.com/gogf/gf.+`，将匹配所有goframe相关的Instrument。
+	// md5:a3225129ad31cbb0
 # <翻译结束>
 
 

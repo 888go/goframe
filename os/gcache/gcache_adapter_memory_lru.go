@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcache
 
@@ -15,17 +16,18 @@ import (
 	"github.com/gogf/gf/v2/os/gtimer"
 )
 
-// LRU cache object.
-// It uses list.List from stdlib for its underlying doubly linked list.
+// LRU 缓存对象。
+// 它使用 stdlib 中的 list.List 作为其底层的双链表。
+// md5:0865da04bb1ff4bb
 type adapterMemoryLru struct {
 	cache   *AdapterMemory // Parent cache object.
-	data    *gmap.Map      // Key mapping to the item of the list.
+	data    *gmap.Map      // 键映射到列表中的项目。 md5:1783218fcc5a7851
 	list    *glist.List    // Key list.
-	rawList *glist.List    // History for key adding.
+	rawList *glist.List    // 关于添加键的历史记录。 md5:73aaa8a4c7c9ca97
 	closed  *gtype.Bool    // Closed or not.
 }
 
-// newMemCacheLru creates and returns a new LRU object.
+// newMemCacheLru 创建并返回一个新的LRU对象。 md5:e52ac4e697ac0070
 func newMemCacheLru(cache *AdapterMemory) *adapterMemoryLru {
 	lru := &adapterMemoryLru{
 		cache:   cache,
@@ -37,14 +39,14 @@ func newMemCacheLru(cache *AdapterMemory) *adapterMemoryLru {
 	return lru
 }
 
-// Close closes the LRU object.
+// Close 关闭 LRU 对象。 md5:5fbab2bd7f830bd3
 // ff:
 // lru:
 func (lru *adapterMemoryLru) Close() {
 	lru.closed.Set(true)
 }
 
-// Remove deletes the `key` FROM `lru`.
+// Remove 从 LRU 缓存中删除 `key`。 md5:1b31a149f111557e
 // ff:删除并带返回值
 // lru:
 // key:
@@ -55,14 +57,14 @@ func (lru *adapterMemoryLru) Remove(key interface{}) {
 	}
 }
 
-// Size returns the size of `lru`.
+// Size 返回 lru 的大小。 md5:e6b8b41e660eeabd
 // ff:取数量
 // lru:
 func (lru *adapterMemoryLru) Size() int {
 	return lru.data.Size()
 }
 
-// Push pushes `key` to the tail of `lru`.
+// Push 将`key`推送到`lru`的尾部。 md5:d0793b82031a3f0e
 // ff:
 // lru:
 // key:
@@ -70,7 +72,7 @@ func (lru *adapterMemoryLru) Push(key interface{}) {
 	lru.rawList.PushBack(key)
 }
 
-// Pop deletes and returns the key from tail of `lru`.
+// Pop 从`lru`的尾部删除并返回键。 md5:e9a281592f5ec82e
 // ff:
 // lru:
 func (lru *adapterMemoryLru) Pop() interface{} {
@@ -81,8 +83,8 @@ func (lru *adapterMemoryLru) Pop() interface{} {
 	return nil
 }
 
-// SyncAndClear synchronizes the keys from `rawList` to `list` and `data`
-// using Least Recently Used algorithm.
+// SyncAndClear 使用最近最少使用（LRU）算法，将键从`rawList`同步到`list`和`data`中，并清除不再需要的数据。
+// md5:1da6cde3bc8d63d6
 // ff:
 // lru:
 // ctx:
@@ -95,12 +97,13 @@ func (lru *adapterMemoryLru) SyncAndClear(ctx context.Context) {
 	var alreadyExistItem interface{}
 	for {
 		if rawListItem := lru.rawList.PopFront(); rawListItem != nil {
-			// Deleting the key from list.
+			// 从列表中删除键。 md5:9044ea33db98a37a
 			if alreadyExistItem = lru.data.Get(rawListItem); alreadyExistItem != nil {
 				lru.list.Remove(alreadyExistItem.(*glist.Element))
 			}
-			// Pushing key to the head of the list
-			// and setting its list item to hash table for quick indexing.
+			// 将键推送到列表的头部
+			// 并将其项目设置到哈希表中，以便快速索引。
+			// md5:c4ec4de48ddb7b0c
 			lru.data.Set(rawListItem, lru.list.PushFront(rawListItem))
 		} else {
 			break

@@ -43,10 +43,10 @@
 <原文结束>
 
 # <翻译开始>
-// 处理pgsql的jsonb功能支持，其中包含占位符字符'?'。
-// 参考：
-// https://github.com/gogf/gf/issues/1537
-// https://www.postgresql.org/docs/12/functions-json.html
-// md5:49874022abc6a281
+	// 处理pgsql的jsonb功能支持，其中包含占位符字符'?'。
+	// 参考：
+	// https:	//github.com/gogf/gf/issues/1537
+	// https:	//www.postgresql.org/docs/12/functions-json.html
+	// md5:49874022abc6a281
 # <翻译结束>
 

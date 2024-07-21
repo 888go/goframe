@@ -100,15 +100,15 @@ package main
 import (
 	_ "github.com/gogf/gf/contrib/drivers/mysql/v2"
 
-// 其他导入的包。
+	// 其他导入的包。
 )
 
 func main() {
-// 主要逻辑。
+	// 主要逻辑。
 }
 ```
 
-// md5:0bbd7dd7e96240ed
+	// md5:0bbd7dd7e96240ed
 # <翻译结束>
 
 

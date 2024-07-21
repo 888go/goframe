@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcharset_test//bm:编码字符集类_test
 
@@ -22,7 +23,9 @@ var testData = []struct {
 	{"これは漢字です。", "0S0\x8c0oo\"[W0g0Y0\x02", "UTF-16BE"},
 	{"これは漢字です。", "\xfe\xff0S0\x8c0oo\"[W0g0Y0\x02", "UTF-16"},
 	{"𝄢𝄞𝄪𝄫", "\xfe\xff\xd8\x34\xdd\x22\xd8\x34\xdd\x1e\xd8\x34\xdd\x2a\xd8\x34\xdd\x2b", "UTF-16"},
-	//{"Hello, world", "Hello, world", "ASCII"},
+	//{"Hello, world", "Hello, world", "ASCII"} 
+// 
+// 这段Go语言注释翻译成中文是：一个包含三个元素的字符串切片，分别是"Hello, world"、"Hello, world"和"ASCII"。 md5:06bc99dbdccc93f3
 	{"Gdańsk", "Gda\xf1sk", "ISO-8859-2"},
 	{"Ââ Čč Đđ Ŋŋ Õõ Šš Žž Åå Ää", "\xc2\xe2 \xc8\xe8 \xa9\xb9 \xaf\xbf \xd5\xf5 \xaa\xba \xac\xbc \xc5\xe5 \xc4\xe4", "ISO-8859-10"},
 	//{"สำหรับ", "\xca\xd3\xcb\xc3\u047a", "ISO-8859-11"},

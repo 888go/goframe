@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package gsha1 provides useful API for SHA1 encryption algorithms.
+// 包gsha1提供了SHA1加密算法的有用API。 md5:4ebe688b6095e4db
 package gsha1//bm:加密sha1类
 
 import (
@@ -17,8 +18,9 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Encrypt encrypts any type of variable using SHA1 algorithms.
-// It uses package gconv to convert `v` to its bytes type.
+// 使用SHA1算法对任何类型的变量进行加密。
+// 它使用gconv包将`v`转换为其字节类型。
+// md5:3bcfc7ac2d70d9e3
 // ff:加密
 // v:值
 func Encrypt(v interface{}) string {
@@ -26,7 +28,7 @@ func Encrypt(v interface{}) string {
 	return hex.EncodeToString(r[:])
 }
 
-// EncryptFile encrypts file content of `path` using SHA1 algorithms.
+// EncryptFile 使用SHA1算法对`path`路径下的文件内容进行加密。 md5:25246a5477d29491
 // ff:加密文件
 // path:路径
 // encrypt:sha1值
@@ -47,8 +49,8 @@ func EncryptFile(path string) (encrypt string, err error) {
 	return hex.EncodeToString(h.Sum(nil)), nil
 }
 
-// MustEncryptFile encrypts file content of `path` using SHA1 algorithms.
-// It panics if any error occurs.
+		// MustEncryptFile 使用SHA1算法对`path`指定文件的内容进行加密。如果发生任何错误，它将引发恐慌。
+		// md5:ee1a2c634d668ad2
 // ff:加密文件PANI
 // path:路径
 func MustEncryptFile(path string) string {

@@ -42,9 +42,9 @@
 <原文结束>
 
 # <翻译开始>
-// 待办事项：当前的方法太过粗略。我们应该处理GROUP_CONCAT函数，以及从匹配的select语句中解析索引字段的问题。
-// （GROUP_CONCAT功能DM不支持；索引不能作为查询列名使用，并且需要添加安全字符，例如将"index"转义）
-// md5:125ee1107dd70034
+	// 待办事项：当前的方法太过粗略。我们应该处理GROUP_CONCAT函数，以及从匹配的select语句中解析索引字段的问题。
+	// （GROUP_CONCAT功能DM不支持；索引不能作为查询列名使用，并且需要添加安全字符，例如将"index"转义）
+	// md5:125ee1107dd70034
 # <翻译结束>
 
 
@@ -57,16 +57,16 @@
 <原文结束>
 
 # <翻译开始>
-// 待办事项：我尝试过但从未成功：
-// 通过正则表达式匹配SQL中的"INDEX"：
-// array, err := gregex.MatchAllString(`SELECT (.*INDEX.*) FROM .*`, newSql)
-// 打印错误信息：
-// g.Dump("err:", err)
-// 打印匹配结果：
-// g.Dump("array:", array)
-// 打印第一个匹配项的第二部分：
-// g.Dump("array:", array[0][1])
-// md5:46650cd1fe9bb3a8
+	// 待办事项：我尝试过但从未成功：
+	// 通过正则表达式匹配SQL中的"INDEX"：
+	// array, err := gregex.MatchAllString(`SELECT (.*INDEX.*) FROM .*`, newSql)
+	// 打印错误信息：
+	// g.Dump("err:", err)
+	// 打印匹配结果：
+	// g.Dump("array:", array)
+	// 打印第一个匹配项的第二部分：
+	// g.Dump("array:", array[0][1])
+	// md5:46650cd1fe9bb3a8
 # <翻译结束>
 
 
@@ -77,10 +77,10 @@
 <原文结束>
 
 # <翻译开始>
-// 使用正则表达式 `SELECT (.*INDEX.*) FROM .*` 替换原SQL（将 `l` 后面跟着 "INDEX"，再接 `r`），并将结果赋值给新的SQL字符串 `newSql`
-// 打印 "err:" 后面的错误信息
-// 打印 "newSql:" 后面的新SQL字符串
-// md5:5e9ef3312146be4d
+	// 使用正则表达式 `SELECT (.*INDEX.*) FROM .*` 替换原SQL（将 `l` 后面跟着 "INDEX"，再接 `r`），并将结果赋值给新的SQL字符串 `newSql`
+	// 打印 "err:" 后面的错误信息
+	// 打印 "newSql:" 后面的新SQL字符串
+	// md5:5e9ef3312146be4d
 # <翻译结束>
 
 
@@ -93,14 +93,14 @@
 <原文结束>
 
 # <翻译开始>
-// 使用正则表达式编译模式：`.*SELECT (.*INDEX.*) FROM .*`
-// 将新的SQL字符串中的所有匹配到的子串用自定义函数替换
-// 自定义函数接受一个字符串参数data，打印"data: "和数据本身，然后返回数据本身
-// re, err := regexp.Compile(`.*SELECT (.*INDEX.*) FROM .*`)
-// newSql = re.ReplaceAllStringFunc(newSql, func(data string) string {
-// 	fmt.Println("data:", data)
-// 	return data
-// })
-// md5:e2b3231602b36621
+	// 使用正则表达式编译模式：`.*SELECT (.*INDEX.*) FROM .*`
+	// 将新的SQL字符串中的所有匹配到的子串用自定义函数替换
+	// 自定义函数接受一个字符串参数data，打印"data: "和数据本身，然后返回数据本身
+	// re, err := regexp.Compile(`.*SELECT (.*INDEX.*) FROM .*`)
+	// newSql = re.ReplaceAllStringFunc(newSql, func(data string) string {
+	// 	fmt.Println("data:", data)
+	// 	return data
+	// })
+	// md5:e2b3231602b36621
 # <翻译结束>
 

@@ -49,8 +49,8 @@
 <原文结束>
 
 # <翻译开始>
-// StackFilterKeyForGoFrame 是用于过滤所有 GoFrame 模块路径的栈追踪键。
-// 例如：.../pkg/mod/github.com/gogf/gf/v2@v2.0.0-20211011134327-54dd11f51122/debug/gdebug/gdebug_caller.go
-// md5:3b4239b7b32969a5
+	// StackFilterKeyForGoFrame 是用于过滤所有 GoFrame 模块路径的栈追踪键。
+	// 例如：.../pkg/mod/github.com/gogf/gf/v2@v2.0.0-20211011134327-54dd11f51122/debug/gdebug/gdebug_caller.go
+	// md5:3b4239b7b32969a5
 # <翻译结束>
 

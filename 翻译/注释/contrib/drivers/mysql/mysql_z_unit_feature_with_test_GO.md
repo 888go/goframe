@@ -53,19 +53,19 @@
 <原文结束>
 
 # <翻译开始>
-// 使用gtest.C进行测试，参数为t（*gtest.T）
-// 定义一个User类型的指针变量user
-// 使用db的ORM方式，执行查询语句（获取tableUser表中id为3的所有数据），并将结果赋值给user
-// 断言错误(err)为nil
-// 断言user的ID字段值为3
-// 断言user的UserDetail字段不为nil
-// 断言user的UserDetail UserID字段值为3
-// 断言user的UserDetail Address字段值为`address_3`
-// 断言user的UserScores切片长度为5
-// 断言user的UserScores切片的第一个元素UserID字段值为3
-// 断言user的UserScores切片的第一个元素Score字段值为1
-// 断言user的UserScores切片的第5个元素UserID字段值为3
-// 断言user的UserScores切片的第5个元素Score字段值为5
-// md5:1ebf51134a7a3187
+	// 使用gtest.C进行测试，参数为t（*gtest.T）
+	// 定义一个User类型的指针变量user
+	// 使用db的ORM方式，执行查询语句（获取tableUser表中id为3的所有数据），并将结果赋值给user
+	// 断言错误(err)为nil
+	// 断言user的ID字段值为3
+	// 断言user的UserDetail字段不为nil
+	// 断言user的UserDetail UserID字段值为3
+	// 断言user的UserDetail Address字段值为`address_3`
+	// 断言user的UserScores切片长度为5
+	// 断言user的UserScores切片的第一个元素UserID字段值为3
+	// 断言user的UserScores切片的第一个元素Score字段值为1
+	// 断言user的UserScores切片的第5个元素UserID字段值为3
+	// 断言user的UserScores切片的第5个元素Score字段值为5
+	// md5:1ebf51134a7a3187
 # <翻译结束>
 

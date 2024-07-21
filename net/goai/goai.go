@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // Package goai implements and provides document generating for OpenApi specification.
 //
@@ -79,7 +80,7 @@ var (
 	}
 )
 
-// New creates and returns an OpenApiV3 implements object.
+// New 创建并返回一个实现了OpenApiV3接口的对象。 md5:ccf57e0cf557df8a
 // ff:
 func New() *OpenApiV3 {
 	oai := &OpenApiV3{}
@@ -87,15 +88,15 @@ func New() *OpenApiV3 {
 	return oai
 }
 
-// AddInput is the structured parameter for function OpenApiV3.Add.
+// AddInput 是 OpenApiV3.Add 函数的结构化参数。 md5:0f162b41efe0b3d5
 type AddInput struct {
-	Path   string      // Path specifies the custom path if this is not configured in Meta of struct tag.
-	Prefix string      // Prefix specifies the custom route path prefix, which will be added with the path tag in Meta of struct tag.
-	Method string      // Method specifies the custom HTTP method if this is not configured in Meta of struct tag.
-	Object interface{} // Object can be an instance of struct or a route function.
+	Path   string      // Path 如果在结构体标签的Meta中没有配置自定义路径，那么它会指定该路径。 md5:8948516e136d8d65
+	Prefix string      // Prefix 指定自定义的路由路径前缀，它将与结构标签中 Meta 的 path 标签结合使用。 md5:e1653a4036580c9c
+	Method string      // Method 指定了自定义的 HTTP 方法，如果这个没有在结构体标签的 Meta 中配置。 md5:2d3c92a67e5a1f3a
+	Object interface{} // "Object"可以是一个结构体实例或路由函数。 md5:f828ebcbf7a4f386
 }
 
-// Add adds an instance of struct or a route function to OpenApiV3 definition implements.
+// Add 将结构体实例或路由函数添加到 OpenApiV3 定义中实现。 md5:b29b3c78eb104250
 // ff:
 // oai:
 // in:
@@ -179,8 +180,9 @@ func (oai *OpenApiV3) golangTypeToOAIType(t reflect.Type) string {
 	}
 }
 
-// golangTypeToOAIFormat converts and returns OpenAPI parameter format for given golang type `t`.
-// Note that it does not return standard OpenAPI parameter format but custom format in golang type.
+// golangTypeToOAIFormat 将给定的 Go 语言类型 `t` 转换并返回为 OpenAPI 参数格式。
+// 注意，它返回的不是标准的 OpenAPI 参数格式，而是 Go 语言类型中的自定义格式。
+// md5:9fcc3831b2b211c9
 func (oai *OpenApiV3) golangTypeToOAIFormat(t reflect.Type) string {
 	format := t.String()
 	switch gstr.TrimLeft(format, "*") {
@@ -200,7 +202,7 @@ func (oai *OpenApiV3) golangTypeToSchemaName(t reflect.Type) string {
 		pkgPath    string
 		schemaName = gstr.TrimLeft(t.String(), "*")
 	)
-	// Pointer type has no PkgPath.
+	// 指针类型没有PkgPath。 md5:38ccb85365da232e
 	for t.Kind() == reflect.Ptr {
 		t = t.Elem()
 	}

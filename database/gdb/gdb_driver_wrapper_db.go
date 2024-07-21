@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gdb
 
@@ -19,7 +20,7 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// DriverWrapperDB is a DB wrapper for extending features with embedded DB.
+// DriverWrapperDB是一个DB包装器，用于通过嵌入式DB扩展功能。 md5:a926644143c69c76
 type DriverWrapperDB struct {
 	DB
 }
@@ -38,8 +39,9 @@ func (d *DriverWrapperDB) Open(node *ConfigNode) (db *sql.DB, err error) {
 	return d.DB.Open(node)
 }
 
-// Tables retrieves and returns the tables of current schema.
-// It's mainly used in cli tool chain for automatically generating the models.
+// Tables 获取并返回当前模式下的表格列表。
+//主要用于命令行工具链，用于自动生成模型。
+// md5:bce161ba95454bf5
 // ff:取表名称切片
 // d:
 // ctx:上下文
@@ -51,18 +53,14 @@ func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables 
 	return d.DB.Tables(ctx, schema...)
 }
 
-// TableFields retrieves and returns the fields' information of specified table of current
-// schema.
-//
-// The parameter `link` is optional, if given nil it automatically retrieves a raw sql connection
-// as its link to proceed necessary sql query.
-//
-// Note that it returns a map containing the field name and its corresponding fields.
-// As a map is unsorted, the TableField struct has an "Index" field marks its sequence in
-// the fields.
-//
-// It's using cache feature to enhance the performance, which is never expired util the
-// process restarts.
+// TableFields 获取并返回当前模式指定表的字段信息。
+// 
+// 参数 `link` 是可选的，如果为 nil，则自动获取一个原始 SQL 连接，用于执行必要的 SQL 查询。
+// 
+// 它返回一个包含字段名及其对应字段的映射。由于映射是无序的，TableField 结构体有一个 "Index" 字段，标记其在字段中的顺序。
+// 
+// 该方法使用缓存功能来提高性能，直到进程重启，缓存永不过期。
+// md5:c844572d5210b35e
 // ff:取表字段信息Map
 // d:
 func (d *DriverWrapperDB) TableFields(
@@ -80,7 +78,7 @@ func (d *DriverWrapperDB) TableFields(
 		)
 	}
 	var (
-		// prefix:group@schema#table
+		// 前缀:组@模式#表. md5:b22e67d9da02a91b
 		cacheKey = fmt.Sprintf(
 			`%s%s@%s#%s`,
 			cachePrefixTableFields,
@@ -120,7 +118,7 @@ func (d *DriverWrapperDB) TableFields(
 // result:
 // err:
 func (d *DriverWrapperDB) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
-	// Convert data type before commit it to underlying db driver.
+	// 在将数据类型提交给底层数据库驱动程序之前进行转换。 md5:58b56ae1ed22196f
 	for i, item := range list {
 		list[i], err = d.GetCore().ConvertDataForRecord(ctx, item, table)
 		if err != nil {

@@ -23,9 +23,9 @@
 <原文结束>
 
 # <翻译开始>
-// int到int的映射 -> string到string的映射
-// 清空原始映射。
-// md5:53ade5c68bd0aad0
+	// int到int的映射 -> string到string的映射
+	// 清空原始映射。
+	// md5:53ade5c68bd0aad0
 # <翻译结束>
 
 

@@ -34,10 +34,10 @@
 <原文结束>
 
 # <翻译开始>
-//r, err = client.Get(ctx, "/pprof/profile") // 将客户端的GET请求翻译为中文：r, 错误 = 客户端在上下文中获取"/pprof/profile"
-//Assert(err, nil)                           // 断言错误应为nil：断言错误，应为空
-//Assert(r.StatusCode, 200)                  // 断言响应状态码应为200：断言响应的状态码，应为200
-//r.Close()                                   // 关闭响应：关闭r
-// md5:629678dd0441cb92
+		//r, err = client.Get(ctx, "/pprof/profile") 		// 将客户端的GET请求翻译为中文：r, 错误 = 客户端在上下文中获取"/pprof/profile"
+		//Assert(err, nil)                           		// 断言错误应为nil：断言错误，应为空
+		//Assert(r.StatusCode, 200)                  		// 断言响应状态码应为200：断言响应的状态码，应为200
+		//r.Close()                                   		// 关闭响应：关闭r
+		// md5:629678dd0441cb92
 # <翻译结束>
 

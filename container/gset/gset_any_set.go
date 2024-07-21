@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package gset provides kinds of concurrent-safe/unsafe sets.
+// 包gset提供了各种并发安全/不安全的集合。 md5:bcd5b9cf4b925a06
 package gset
 
 import (
@@ -21,17 +22,18 @@ type Set struct {
 	data map[interface{}]struct{}
 }
 
-// New create and returns a new set, which contains un-repeated items.
-// The parameter `safe` is used to specify whether using set in concurrent-safety,
-// which is false in default.
+// New 创建并返回一个新的集合，其中包含不重复的项目。
+// 参数 `safe` 用于指定在并发安全模式下使用集合，其默认为 false。
+// md5:db8312fdb3f679d3
 // ff:创建
 // safe:并发安全
 func New(safe ...bool) *Set {
 	return NewSet(safe...)
 }
 
-// NewSet create and returns a new set, which contains un-repeated items.
-// Also see New.
+// NewSet 创建并返回一个新的集合，该集合包含不重复的项目。
+// 另请参见 New。
+// md5:3b8e2b58affe23e6
 // ff:NewSet别名
 // safe:
 func NewSet(safe ...bool) *Set {
@@ -41,8 +43,9 @@ func NewSet(safe ...bool) *Set {
 	}
 }
 
-// NewFrom returns a new set from `items`.
-// Parameter `items` can be either a variable of any type, or a slice.
+// NewFrom 函数根据 `items` 创建一个新的集合。
+// 参数 `items` 可以是任何类型的变量，或者是一个切片。
+// md5:eab216208c4dc0bb
 // ff:创建并按值
 // items:值
 // safe:并发安全
@@ -57,8 +60,8 @@ func NewFrom(items interface{}, safe ...bool) *Set {
 	}
 }
 
-// Iterator iterates the set readonly with given callback function `f`,
-// if `f` returns true then continue iterating; or false to stop.
+// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:b896360b1cf6fc88
 // yx:true
 // ff:X遍历
 // set:
@@ -74,7 +77,7 @@ func (set *Set) Iterator(f func(v interface{}) bool) {
 	}
 }
 
-// Add adds one or multiple items to the set.
+// Add 将一个或多个项目添加到集合中。 md5:316141ff7d4b8e45
 // ff:加入
 // set:
 // items:值s
@@ -89,11 +92,12 @@ func (set *Set) Add(items ...interface{}) {
 	set.mu.Unlock()
 }
 
-// AddIfNotExist checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set,
-// or else it does nothing and returns false.
+// AddIfNotExist 检查项是否存在于集合中，
+// 如果项不存在于集合中，则将其添加到集合并返回true，
+// 否则不做任何操作并返回false。
 //
-// Note that, if `item` is nil, it does nothing and returns false.
+// 注意，如果 `item` 为 nil，它将不做任何操作并返回false。
+// md5:3d920a290d301fb9
 // ff:加入值并跳过已存在
 // set:
 // item:值
@@ -115,12 +119,11 @@ func (set *Set) AddIfNotExist(item interface{}) bool {
 	return false
 }
 
-// AddIfNotExistFunc checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exist in the set and
-// function `f` returns true, or else it does nothing and returns false.
+// AddIfNotExistFunc 检查项目是否存在于集合中，
+// 如果项目不在集合中并且函数 `f` 返回 true，那么它会将项目添加到集合并返回 true，否则不做任何操作并返回 false。
 //
-// Note that, if `item` is nil, it does nothing and returns false. The function `f`
-// is executed without writing lock.
+// 注意，如果 `item` 为 nil，它不做任何操作并返回 false。函数 `f` 在不持有写锁的情况下执行。
+// md5:f80cf07184bee06f
 // ff:加入值并跳过已存在_函数
 // set:
 // item:值
@@ -145,12 +148,12 @@ func (set *Set) AddIfNotExistFunc(item interface{}, f func() bool) bool {
 	return false
 }
 
-// AddIfNotExistFuncLock checks whether item exists in the set,
-// it adds the item to set and returns true if it does not exists in the set and
-// function `f` returns true, or else it does nothing and returns false.
+// AddIfNotExistFuncLock 检查项是否存在于集合中，
+// 如果项不存在于集合中并且函数 `f` 返回 true，它将在集合中添加该项并返回 true，
+// 否则什么也不做并返回 false。
 //
-// Note that, if `item` is nil, it does nothing and returns false. The function `f`
-// is executed within writing lock.
+// 注意，如果 `item` 为 nil，则什么也不做并返回 false。函数 `f` 在写锁保护下执行。
+// md5:2a57dc990857b7b1
 // ff:加入值并跳过已存在_并发安全函数
 // set:
 // item:值
@@ -175,7 +178,7 @@ func (set *Set) AddIfNotExistFuncLock(item interface{}, f func() bool) bool {
 	return false
 }
 
-// Contains checks whether the set contains `item`.
+// Contains 检查集合是否包含 `item`。 md5:20a3bdc6aeef1d67
 // ff:是否存在
 // set:
 // item:值
@@ -189,7 +192,7 @@ func (set *Set) Contains(item interface{}) bool {
 	return ok
 }
 
-// Remove deletes `item` from set.
+// Remove 从集合中删除 `item`。 md5:ab30c696cc44d190
 // ff:删除
 // set:
 // item:值
@@ -201,7 +204,7 @@ func (set *Set) Remove(item interface{}) {
 	set.mu.Unlock()
 }
 
-// Size returns the size of the set.
+// Size 返回集合的大小。 md5:0d55ac576b7779ee
 // ff:取数量
 // set:
 func (set *Set) Size() int {
@@ -211,7 +214,7 @@ func (set *Set) Size() int {
 	return l
 }
 
-// Clear deletes all items of the set.
+// Clear 删除集合中的所有项。 md5:ce349f0cd3114465
 // ff:清空
 // set:
 func (set *Set) Clear() {
@@ -220,7 +223,7 @@ func (set *Set) Clear() {
 	set.mu.Unlock()
 }
 
-// Slice returns all items of the set as slice.
+// Slice 返回集合中的所有项目作为切片。 md5:d07c46cf5dee2602
 // ff:取集合切片
 // set:
 func (set *Set) Slice() []interface{} {
@@ -237,7 +240,7 @@ func (set *Set) Slice() []interface{} {
 	return ret
 }
 
-// Join joins items with a string `glue`.
+// Join 使用字符串 `glue` 连接多个项目。 md5:c8699391999ac788
 // ff:取集合文本
 // set:
 // glue:连接符
@@ -262,7 +265,7 @@ func (set *Set) Join(glue string) string {
 	return buffer.String()
 }
 
-// String returns items as a string, which implements like json.Marshal does.
+// String 将 items 转换为字符串，其实现方式类似于 json.Marshal。 md5:cedb10711c2e5dac
 // ff:
 // set:
 func (set *Set) String() string {
@@ -294,7 +297,7 @@ func (set *Set) String() string {
 	return buffer.String()
 }
 
-// LockFunc locks writing with callback function `f`.
+// LockFunc 使用回调函数 `f` 为写入操作加锁。 md5:85d746d8a49edab7
 // ff:写锁定_函数
 // set:
 // f:
@@ -305,7 +308,7 @@ func (set *Set) LockFunc(f func(m map[interface{}]struct{})) {
 	f(set.data)
 }
 
-// RLockFunc locks reading with callback function `f`.
+// RLockFunc 使用回调函数 `f` 进行读取锁定。 md5:5fe2bf1a85ce319e
 // ff:读锁定_函数
 // set:
 // f:
@@ -316,7 +319,7 @@ func (set *Set) RLockFunc(f func(m map[interface{}]struct{})) {
 	f(set.data)
 }
 
-// Equal checks whether the two sets equal.
+// Equal 检查两个集合是否相等。 md5:105ea4dd39b57fe8
 // ff:是否相等
 // set:
 // other:待比较集合
@@ -339,7 +342,7 @@ func (set *Set) Equal(other *Set) bool {
 	return true
 }
 
-// IsSubsetOf checks whether the current set is a sub-set of `other`.
+// IsSubsetOf 检查当前集合是否为 `other` 的子集。 md5:333e392219846e17
 // ff:是否为子集
 // set:
 // other:父集
@@ -359,8 +362,9 @@ func (set *Set) IsSubsetOf(other *Set) bool {
 	return true
 }
 
-// Union returns a new set which is the union of `set` and `others`.
-// Which means, all the items in `newSet` are in `set` or in `others`.
+// Union 返回一个新集合，它是`set`和`others`的并集。
+// 意味着，新集合`newSet`中的所有项目都在`set`中或在`others`中。
+// md5:81f60d9140026203
 // ff:取并集
 // set:
 // others:集合
@@ -389,8 +393,9 @@ func (set *Set) Union(others ...*Set) (newSet *Set) {
 	return
 }
 
-// Diff returns a new set which is the difference set from `set` to `others`.
-// Which means, all the items in `newSet` are in `set` but not in `others`.
+// Diff 返回一个新的集合，它是 `set` 与 `others` 的差集。
+// 意味着，新集合 `newSet` 中的所有项都在 `set` 中但不在 `others` 中。
+// md5:0fe9ba09d007ac00
 // ff:取差集
 // set:
 // others:集合
@@ -414,8 +419,9 @@ func (set *Set) Diff(others ...*Set) (newSet *Set) {
 	return
 }
 
-// Intersect returns a new set which is the intersection from `set` to `others`.
-// Which means, all the items in `newSet` are in `set` and also in `others`.
+// Intersect 返回一个新集合，该集合是将`set`与`others`进行交集运算的结果。
+// 这意味着，新集合`newSet`中的所有元素都既存在于`set`中也存在于`others`中。
+// md5:4db6ae5026f8dedc
 // ff:取交集
 // set:
 // others:集合
@@ -440,11 +446,11 @@ func (set *Set) Intersect(others ...*Set) (newSet *Set) {
 	return
 }
 
-// Complement returns a new set which is the complement from `set` to `full`.
-// Which means, all the items in `newSet` are in `full` and not in `set`.
+// Complement 返回一个新的集合，该集合是`set`在`full`中的补集。
+// 换句话说，`newSet`中的所有元素都在`full`中但不在`set`中。
 //
-// It returns the difference between `full` and `set`
-// if the given set `full` is not the full set of `set`.
+// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。
+// md5:7e76900d6f20af06
 // ff:取补集
 // set:
 // full:集合
@@ -465,7 +471,7 @@ func (set *Set) Complement(full *Set) (newSet *Set) {
 	return
 }
 
-// Merge adds items from `others` sets into `set`.
+// Merge 将 `others` 集合中的项目合并到 `set` 中。 md5:788b02e300c6f440
 // ff:合并
 // set:
 // others:集合s
@@ -500,7 +506,7 @@ func (set *Set) Sum() (sum int) {
 	return
 }
 
-// Pop randomly pops an item from set.
+// Pop 随机从集合中弹出一个元素。 md5:7e1906e951f13db1
 // ff:出栈
 // set:
 func (set *Set) Pop() interface{} {
@@ -513,8 +519,9 @@ func (set *Set) Pop() interface{} {
 	return nil
 }
 
-// Pops randomly pops `size` items from set.
-// It returns all items if size == -1.
+// Pops 从集合中随机弹出 `size` 个元素。
+// 如果 size == -1，它将返回所有元素。
+// md5:c687f88e0a2df8f2
 // ff:出栈多个
 // set:
 // size:数量
@@ -540,7 +547,7 @@ func (set *Set) Pops(size int) []interface{} {
 	return array
 }
 
-// Walk applies a user supplied function `f` to every item of set.
+// Walk应用用户提供的函数`f`到集合中的每一项。 md5:d6ceaae555e8a9e6
 // ff:遍历修改
 // set:
 // f:
@@ -556,14 +563,14 @@ func (set *Set) Walk(f func(item interface{}) interface{}) *Set {
 	return set
 }
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 // ff:
 // set:
 func (set Set) MarshalJSON() ([]byte, error) {
 	return json.Marshal(set.Slice())
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 // ff:
 // set:
 // b:
@@ -583,7 +590,7 @@ func (set *Set) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue is an interface implement which sets any type of value for set.
+// UnmarshalValue 是一个接口实现，用于将任何类型的价值设置为集合。 md5:b119247f684920ad
 // ff:
 // set:
 // value:
@@ -607,7 +614,7 @@ func (set *Set) UnmarshalValue(value interface{}) (err error) {
 	return
 }
 
-// DeepCopy implements interface for deep copy of current type.
+// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
 // ff:
 // set:
 func (set *Set) DeepCopy() interface{} {

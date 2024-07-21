@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gview_test
 
@@ -48,7 +49,7 @@ func Test_Config(t *testing.T) {
 
 		t.Assert(view.GetDefaultFile(), "test.html")
 	})
-	// SetConfig path fail: notexist
+	// 设置配置路径失败：不存在. md5:173c2e3f1a4ba9d3
 	gtest.C(t, func(t *gtest.T) {
 		config := gview.Config{
 			Paths: []string{"notexist", gtest.DataPath("config/test.html")},
@@ -63,7 +64,7 @@ func Test_Config(t *testing.T) {
 		err := view.SetConfig(config)
 		t.AssertNE(err, nil)
 	})
-	// SetConfig path fail: set file path
+	// 设置配置路径失败：设置文件路径. md5:8a10375be44f8d09
 	gtest.C(t, func(t *gtest.T) {
 		config := gview.Config{
 			Paths: []string{gtest.DataPath("config/test.html")},
