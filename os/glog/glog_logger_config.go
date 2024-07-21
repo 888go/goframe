@@ -22,7 +22,9 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// Config 是记录器的配置对象。 md5:df2a8ab047bea305
+// Config 是记录器的配置对象。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// md5:df2a8ab047bea305
 type Config struct {
 	Handlers             []Handler      `json:"-"`                    // Logger handlers 实现了类似于中间件的功能。 md5:dba4d3d0c7f592b9
 	Writer               io.Writer      `json:"-"`                    // Customized io.Writer.
@@ -182,7 +184,7 @@ func (l *Logger) SetStackFilter(filter string) {
 }
 
 // SetCtxKeys 为日志器设置上下文键。这些键用于从上下文中检索值并将其打印到日志内容中。
-// 
+//
 // 注意，多次调用此函数会覆盖之前设置的上下文键。
 // md5:f7244f6c7fa79db2
 func (l *Logger) SetCtxKeys(keys ...interface{}) {

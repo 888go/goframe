@@ -22,7 +22,9 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// Config是模板引擎的配置对象。 md5:0c7a20a5c1f534d4
+// Config是模板引擎的配置对象。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// md5:0c7a20a5c1f534d4
 type Config struct {
 	Paths       []string               `json:"paths"`       // 在数组中搜索路径，为了性能原因，非并发安全。 md5:536357ec68a07213
 	Data        map[string]interface{} `json:"data"`        // 全局模板变量，包括配置信息。 md5:5f96c7a35c11b4b2

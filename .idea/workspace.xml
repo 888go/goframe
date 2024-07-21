@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="fdbfa3a1-a971-447c-8231-bccb5bc7c74c" name="更改" comment="2024-05-22">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/gdb/gdb_core_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/gdb/gdb_core_config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_core_config_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_core_config_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/database/gdb/gdb_core_config_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/database/gdb/gdb_core_config_GO.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/gredis/gredis_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/gredis/gredis_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/goai/goai_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/goai/goai_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/glog/glog_logger_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/glog/glog_logger_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/gview/gview_config.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gview/gview_config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_core_config_其他.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_server_config_其他.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/os/glog/glog_logger_config_其他.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

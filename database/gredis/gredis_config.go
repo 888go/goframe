@@ -19,7 +19,9 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Config 是 Redis 配置。 md5:5409b3144db1576a
+// Config 是 Redis 配置。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// md5:5409b3144db1576a
 type Config struct {
 	// Address 支持单个和集群 Redis 服务器。多个地址使用逗号分隔。例如：192.168.1.1:6379, 192.168.1.2:6379。 md5:21ac53e24210b32c
 	Address         string        `json:"address"`
