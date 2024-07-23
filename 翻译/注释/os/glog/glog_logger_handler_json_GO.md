@@ -22,7 +22,9 @@
 <原文结束>
 
 # <翻译开始>
-// HandlerOutputJson 是将日志内容作为单一JSON输出的结构体。 md5:d9846a62089232e7
+// HandlerOutputJson 是将日志内容作为单一JSON输出的结构体。
+// 备注: 此配置结构不做名称翻译, 输出的日志会直接用结构字段名称作为日志内容的键名,导致TestLogger_SetHandlers_HandlerJson单元测试不通过.  (2024-07-21)
+// md5:d9846a62089232e7
 # <翻译结束>
 
 
