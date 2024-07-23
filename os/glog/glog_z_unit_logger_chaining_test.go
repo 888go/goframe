@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package glog
 
@@ -95,7 +96,7 @@ func Test_Skip(t *testing.T) {
 		fmt.Println(content)
 		t.Assert(gstr.Count(content, defaultLevelPrefixes[LEVEL_ERRO]), 2)
 		t.Assert(gstr.Count(content, "1 2 3"), 2)
-		//t.Assert(gstr.Count(content, "Stack"), 1)
+		// 断言内容(content)中"Stack"出现的次数为1次。 md5:a246e53abdc8cb5e
 	})
 }
 
@@ -114,7 +115,7 @@ func Test_Stack(t *testing.T) {
 		fmt.Println(content)
 		t.Assert(gstr.Count(content, defaultLevelPrefixes[LEVEL_ERRO]), 2)
 		t.Assert(gstr.Count(content, "1 2 3"), 2)
-		//t.Assert(gstr.Count(content, "Stack"), 1)
+		// 断言内容(content)中"Stack"出现的次数为1次。 md5:a246e53abdc8cb5e
 	})
 }
 
@@ -132,7 +133,7 @@ func Test_StackWithFilter(t *testing.T) {
 		fmt.Println(ctx, content)
 		t.Assert(gstr.Count(content, defaultLevelPrefixes[LEVEL_ERRO]), 1)
 		t.Assert(gstr.Count(content, "1 2 3"), 1)
-		//t.Assert(gstr.Count(content, "Stack"), 1)
+		// 断言内容(content)中"Stack"出现的次数为1次。 md5:a246e53abdc8cb5e
 
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -148,7 +149,7 @@ func Test_StackWithFilter(t *testing.T) {
 		fmt.Println(ctx, content)
 		t.Assert(gstr.Count(content, defaultLevelPrefixes[LEVEL_ERRO]), 1)
 		t.Assert(gstr.Count(content, "1 2 3"), 1)
-		//t.Assert(gstr.Count(content, "Stack"), 0)
+		// 使用t.Assert断言gstr在content中"Stack"的计数为0。 md5:b6a4aff04f1a4b28
 	})
 }
 
@@ -195,8 +196,9 @@ func Test_Line(t *testing.T) {
 		fmt.Println(content)
 		t.Assert(gstr.Count(content, defaultLevelPrefixes[LEVEL_DEBU]), 1)
 		t.Assert(gstr.Count(content, "1 2 3"), 1)
-		//t.Assert(gstr.Count(content, ".go"), 1)
-		//t.Assert(gstr.Contains(content, gfile.Separator), true)
+		// t.Assert断言字符串gstr在content中出现的".go"子串次数为1
+		// t.Assert断言content中包含gfile.Separator（假设是一个路径分隔符），结果为true
+		// md5:1411e0e8f0387662
 	})
 	gtest.C(t, func(t *gtest.T) {
 		path := gfile.Temp(gtime.TimestampNanoStr())
@@ -210,8 +212,9 @@ func Test_Line(t *testing.T) {
 		content := gfile.GetContents(gfile.Join(path, file))
 		t.Assert(gstr.Count(content, defaultLevelPrefixes[LEVEL_DEBU]), 1)
 		t.Assert(gstr.Count(content, "1 2 3"), 1)
-		//t.Assert(gstr.Count(content, ".go"), 1)
-		//t.Assert(gstr.Contains(content, gfile.Separator), false)
+		// 断言 content 中 ".go" 出现的次数为 1
+		// 断言 content 不包含路径分隔符
+		// md5:c3f84d90ca75dcce
 	})
 }
 

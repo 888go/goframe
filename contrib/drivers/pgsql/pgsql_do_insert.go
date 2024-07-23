@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package pgsql
 
@@ -15,16 +16,7 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// DoInsert inserts or updates data for given table.
-// ff:
-// d:
-// ctx:
-// link:
-// table:
-// list:
-// option:
-// result:
-// err:
+// DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8
 func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
 	switch option.InsertOption {
 	case gdb.InsertOptionReplace:

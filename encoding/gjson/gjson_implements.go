@@ -1,22 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gjson
 
-// MarshalJSON implements the interface MarshalJSON for json.Marshal.
-// ff:
-// j:
+// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (j Json) MarshalJSON() ([]byte, error) {
 	return j.ToJson()
 }
 
-// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
-// ff:
-// j:
-// b:
+// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 func (j *Json) UnmarshalJSON(b []byte) error {
 	r, err := loadContentWithOptions(b, Options{
 		Type:      ContentTypeJson,
@@ -29,10 +25,7 @@ func (j *Json) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// UnmarshalValue is an interface implement which sets any type of value for Json.
-// ff:
-// j:
-// value:
+// UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 Json。 md5:4cedac254443f4c3
 func (j *Json) UnmarshalValue(value interface{}) error {
 	if r := NewWithOptions(value, Options{
 		StrNumber: true,
@@ -43,10 +36,7 @@ func (j *Json) UnmarshalValue(value interface{}) error {
 	return nil
 }
 
-// MapStrAny implements interface function MapStrAny().
-// yx:true
-// ff:取MapStrAny
-// j:
+// MapStrAny 实现了接口函数 MapStrAny()。 md5:e07c56a48f2ed248
 func (j *Json) MapStrAny() map[string]interface{} {
 	if j == nil {
 		return nil
@@ -54,10 +44,7 @@ func (j *Json) MapStrAny() map[string]interface{} {
 	return j.Map()
 }
 
-// Interfaces implements interface function Interfaces().
-// yx:true
-// ff:取any切片
-// j:
+// Interfaces 实现了接口函数 Interfaces()。 md5:b4dff925202b8b35
 func (j *Json) Interfaces() []interface{} {
 	if j == nil {
 		return nil
@@ -65,9 +52,7 @@ func (j *Json) Interfaces() []interface{} {
 	return j.Array()
 }
 
-// String returns current Json object as string.
-// ff:
-// j:
+// String 返回当前Json对象作为字符串。 md5:741610441066450a
 func (j *Json) String() string {
 	if j.IsNil() {
 		return ""

@@ -1,27 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gstr
 
-// List2 Split the `str` with `delimiter` and returns the result as two parts string.
-// ff:分割2份
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
+// List2：使用`delimiter`将`str`分割，并将结果作为两个部分的字符串返回。 md5:7d263c861d943343
 func List2(str, delimiter string) (part1, part2 string) {
 	return doList2(delimiter, Split(str, delimiter))
 }
 
-// ListAndTrim2 SplitAndTrim the `str` with `delimiter` and returns the result as two parts string.
-// ff:分割2份并忽略空值
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
+// ListAndTrim2 使用 `delimiter` 分割并修剪 `str`，然后将结果作为两个部分的字符串返回。 md5:8cd76102c10490b7
 func ListAndTrim2(str, delimiter string) (part1, part2 string) {
 	return doList2(delimiter, SplitAndTrim(str, delimiter))
 }
@@ -39,24 +30,12 @@ func doList2(delimiter string, array []string) (part1, part2 string) {
 	}
 }
 
-// List3 Split the `str` with `delimiter` and returns the result as three parts string.
-// ff:分割3份
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
-// part3:返回值3
+// List3 使用 `delimiter` 将 `str` 分割，并将结果作为三个部分的字符串返回。 md5:dc7213002b271e82
 func List3(str, delimiter string) (part1, part2, part3 string) {
 	return doList3(delimiter, Split(str, delimiter))
 }
 
-// ListAndTrim3 SplitAndTrim the `str` with `delimiter` and returns the result as three parts string.
-// ff:分割3份并忽略空值
-// str:待分割文本
-// delimiter:分隔符
-// part1:返回值1
-// part2:返回值2
-// part3:返回值3
+// ListAndTrim3：使用`delimiter`分割`str`，并将结果作为三个部分的字符串返回。 md5:f669baf0550fad04
 func ListAndTrim3(str, delimiter string) (part1, part2, part3 string) {
 	return doList3(delimiter, SplitAndTrim(str, delimiter))
 }

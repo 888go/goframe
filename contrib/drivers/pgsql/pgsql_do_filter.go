@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package pgsql
 
@@ -14,14 +15,12 @@ import (
 	"github.com/gogf/gf/v2/text/gregex"
 )
 
-// DoFilter deals with the sql string before commits it to underlying sql driver.
-// ff:
-// d:
+// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
 func (d *Driver) DoFilter(
 	ctx context.Context, link gdb.Link, sql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {
 	var index int
-	// Convert placeholder char '?' to string "$x".
+	// 将占位符字符'?'转换为字符串 "$x"。 md5:a1e39f745b49128a
 	newSql, err = gregex.ReplaceStringFunc(`\?`, sql, func(s string) string {
 		index++
 		return fmt.Sprintf(`$%d`, index)
@@ -29,10 +28,11 @@ func (d *Driver) DoFilter(
 	if err != nil {
 		return "", nil, err
 	}
-	// Handle pgsql jsonb feature support, which contains place-holder char '?'.
-	// Refer:
-	// https://github.com/gogf/gf/issues/1537
-	// https://www.postgresql.org/docs/12/functions-json.html
+	// 处理pgsql的jsonb功能支持，其中包含占位符字符'?'。
+	// 参考：
+	// https:	//github.com/gogf/gf/issues/1537
+	// https:	//www.postgresql.org/docs/12/functions-json.html
+	// md5:49874022abc6a281
 	newSql, err = gregex.ReplaceStringFuncMatch(`(::jsonb([^\w\d]*)\$\d)`, newSql, func(match []string) string {
 		return fmt.Sprintf(`::jsonb%s?`, match[2])
 	})

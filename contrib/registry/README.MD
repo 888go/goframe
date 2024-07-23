@@ -1,3 +1,1 @@
-# Service registrar and discovery
-
-Please refer to certain sub folder.
+# // md5:8aac4ddffc6318ba

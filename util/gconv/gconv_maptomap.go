@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv
 
@@ -13,27 +14,21 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// MapToMap converts any map type variable `params` to another map type variable `pointer`
-// using reflect.
-// See doMapToMap.
-// ff:
-// params:
-// pointer:
-// mapping:
+// MapToMap 通过反射将任何map类型变量`params`转换为另一个map类型变量`pointer`。
+// 参考 doMapToMap。
+// md5:8fbdb048d4cad524
 func MapToMap(params interface{}, pointer interface{}, mapping ...map[string]string) error {
 	return Scan(params, pointer, mapping...)
 }
 
-// doMapToMap converts any map type variable `params` to another map type variable `pointer`.
+// doMapToMap 将任何类型的映射变量 `params` 转换为另一个映射类型变量 `pointer`。
 //
-// The parameter `params` can be any type of map, like:
-// map[string]string, map[string]struct, map[string]*struct, reflect.Value, etc.
+// 参数 `params` 可以是任何类型的映射，例如：map[string]string, map[string]struct, map[string]*struct, reflect.Value 等。
 //
-// The parameter `pointer` should be type of *map, like:
-// map[int]string, map[string]struct, map[string]*struct, reflect.Value, etc.
+// 参数 `pointer` 应该是 *map 类型，例如：map[int]string, map[string]struct, map[string]*struct, reflect.Value 等。
 //
-// The optional parameter `mapping` is used for struct attribute to map key mapping, which makes
-// sense only if the items of original map `params` is type struct.
+// 可选参数 `mapping` 用于结构体属性到映射键的映射，只有当原始映射 `params` 的项是结构体类型时，这个参数才有意义。
+// md5:08b8fa82edaf8b08
 func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
 	var (
 		paramsRv                  reflect.Value
@@ -56,7 +51,7 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 	if paramsKind != reflect.Map {
 		return doMapToMap(Map(params), pointer, mapping...)
 	}
-	// Empty params map, no need continue.
+	// 空参数映射，无需继续。 md5:7734e4bea4d21319
 	if paramsRv.Len() == 0 {
 		return nil
 	}
@@ -79,7 +74,7 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 		)
 	}
 	defer func() {
-		// Catch the panic, especially the reflection operation panics.
+		// 捕获panic，尤其是反射操作引发的panic。 md5:dd183bf8028f513a
 		if exception := recover(); exception != nil {
 			if v, ok := exception.(error); ok && gerror.HasStack(v) {
 				err = v
@@ -95,7 +90,7 @@ func doMapToMap(params interface{}, pointer interface{}, mapping ...map[string]s
 		pointerValueKind = pointerValueType.Kind()
 		dataMap          = reflect.MakeMapWithSize(pointerRv.Type(), len(paramsKeys))
 	)
-	// Retrieve the true element type of target map.
+	// 获取目标映射的真正元素类型。 md5:7e93cce5ee0c27e1
 	if pointerValueKind == reflect.Ptr {
 		pointerValueKind = pointerValueType.Elem().Kind()
 	}

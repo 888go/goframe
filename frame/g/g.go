@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package g provides commonly used type/function defines and coupled calling for creating commonly used objects.
+// 包g提供了常用类型/函数的定义及耦合调用，以便创建常用的对象。 md5:ef4a19ad9323813a
 package g
 
 import (
@@ -15,53 +16,53 @@ import (
 )
 
 type (
-	Var  = gvar.Var        // Var is a universal variable interface, like generics.
-	Ctx  = context.Context // Ctx is alias of frequently-used type context.Context.
-	Meta = gmeta.Meta      // Meta is alias of frequently-used type gmeta.Meta.
+	Var  = gvar.Var        // Var 是一个通用变量接口，类似于泛型。 md5:2d8d391465845592
+	Ctx  = context.Context // Ctx是常用类型context.Context的别名。 md5:b60c4b141eb5549c
+	Meta = gmeta.Meta      // Meta 是常用类型 gmeta.Meta 的别名。 md5:5a38da34ec0eacb2
 )
 
 type (
-	Map        = map[string]interface{}      // Map is alias of frequently-used map type map[string]interface{}.
-	MapAnyAny  = map[interface{}]interface{} // MapAnyAny is alias of frequently-used map type map[interface{}]interface{}.
-	MapAnyStr  = map[interface{}]string      // MapAnyStr is alias of frequently-used map type map[interface{}]string.
-	MapAnyInt  = map[interface{}]int         // MapAnyInt is alias of frequently-used map type map[interface{}]int.
-	MapStrAny  = map[string]interface{}      // MapStrAny is alias of frequently-used map type map[string]interface{}.
-	MapStrStr  = map[string]string           // MapStrStr is alias of frequently-used map type map[string]string.
-	MapStrInt  = map[string]int              // MapStrInt is alias of frequently-used map type map[string]int.
-	MapIntAny  = map[int]interface{}         // MapIntAny is alias of frequently-used map type map[int]interface{}.
-	MapIntStr  = map[int]string              // MapIntStr is alias of frequently-used map type map[int]string.
-	MapIntInt  = map[int]int                 // MapIntInt is alias of frequently-used map type map[int]int.
-	MapAnyBool = map[interface{}]bool        // MapAnyBool is alias of frequently-used map type map[interface{}]bool.
-	MapStrBool = map[string]bool             // MapStrBool is alias of frequently-used map type map[string]bool.
-	MapIntBool = map[int]bool                // MapIntBool is alias of frequently-used map type map[int]bool.
+	Map        = map[string]interface{}      // Map 是常用映射类型 map[string]interface{} 的别名。 md5:8b62aec3a70d17d1
+	MapAnyAny  = map[interface{}]interface{} // MapAnyAny 是常用 map 类型 map[interface{}]interface{} 的别名。 md5:9a81681bf8ebfc85
+	MapAnyStr  = map[interface{}]string      // MapAnyStr是常用map类型map[interface{}]string的别名。 md5:30d02524cd1788b7
+	MapAnyInt  = map[interface{}]int         // MapAnyInt 是一个常用的映射类型，键为interface{}，值为int的别名。 md5:decce2b63961b555
+	MapStrAny  = map[string]interface{}      // MapStrAny 是常用映射类型 map[string]interface{} 的别名。 md5:cc0e9426f8d44672
+	MapStrStr  = map[string]string           // MapStrStr 是常用 map 类型 map[string]string 的别名。 md5:93033a49680d75b9
+	MapStrInt  = map[string]int              // MapStrInt是常用map类型map[string]int的别名。 md5:90201f6646f5919e
+	MapIntAny  = map[int]interface{}         // MapIntAny是常用的map类型map[int]interface{}的别名。 md5:ce4daf18697d3f31
+	MapIntStr  = map[int]string              // MapIntStr 是常用映射类型 map[int]string 的别名。 md5:9f579e30a314d76f
+	MapIntInt  = map[int]int                 // MapIntInt 是常用 map 类型 map[int]int 的别名。 md5:1624c134c49d8be9
+	MapAnyBool = map[interface{}]bool        // MapAnyBool 是一个常用的映射类型，键为interface{}，值为bool的别名。 md5:d7ade515deebc839
+	MapStrBool = map[string]bool             // MapStrBool是常用的map类型map[string]bool的别名。 md5:9b58348f2bdc3832
+	MapIntBool = map[int]bool                // MapIntBool 是常用映射类型 map[int]bool 的别名。 md5:fae965f49030c4f0
 )
 
 type (
-	List        = []Map//qm:Map切片  cz:List = []Map          // List is alias of frequently-used slice type []Map.
-	ListAnyAny  = []MapAnyAny//qm:MapAnyAny切片  cz:ListAnyAny = []MapAnyAny    // ListAnyAny is alias of frequently-used slice type []MapAnyAny.
-	ListAnyStr  = []MapAnyStr//qm:MapAnyStr切片  cz:ListAnyStr = []MapAnyStr    // ListAnyStr is alias of frequently-used slice type []MapAnyStr.
-	ListAnyInt  = []MapAnyInt//qm:MapAnyInt切片  cz:ListAnyInt = []MapAnyInt    // ListAnyInt is alias of frequently-used slice type []MapAnyInt.
-	ListStrAny  = []MapStrAny//qm:MapStrAny切片  cz:ListStrAny = []MapStrAny    // ListStrAny is alias of frequently-used slice type []MapStrAny.
-	ListStrStr  = []MapStrStr//qm:MapStrStr切片  cz:ListStrStr = []MapStrStr    // ListStrStr is alias of frequently-used slice type []MapStrStr.
-	ListStrInt  = []MapStrInt//qm:MapStrInt切片  cz:ListStrInt = []MapStrInt    // ListStrInt is alias of frequently-used slice type []MapStrInt.
-	ListIntAny  = []MapIntAny//qm:MapIntAny切片  cz:ListIntAny = []MapIntAny    // ListIntAny is alias of frequently-used slice type []MapIntAny.
-	ListIntStr  = []MapIntStr//qm:MapIntStr切片  cz:ListIntStr = []MapIntStr    // ListIntStr is alias of frequently-used slice type []MapIntStr.
-	ListIntInt  = []MapIntInt//qm:MapIntInt切片  cz:ListIntInt = []MapIntInt    // ListIntInt is alias of frequently-used slice type []MapIntInt.
-	ListAnyBool = []MapAnyBool//qm:MapAnyBool切片  cz:ListAnyBool = []MapAnyBool   // ListAnyBool is alias of frequently-used slice type []MapAnyBool.
-	ListStrBool = []MapStrBool//qm:MapStrBool切片  cz:ListStrBool = []MapStrBool   // ListStrBool is alias of frequently-used slice type []MapStrBool.
-	ListIntBool = []MapIntBool//qm:MapIntBool切片  cz:ListIntBool = []MapIntBool   // ListIntBool is alias of frequently-used slice type []MapIntBool.
+	List        = []Map        // List 是常用切片类型 []Map 的别名。 md5:ff03e40655e3f35f
+	ListAnyAny  = []MapAnyAny  // ListAnyAny是常用切片类型[]MapAnyAny的别名。 md5:f6b168f11392abb0
+	ListAnyStr  = []MapAnyStr  // ListAnyStr 是常用的切片类型 []MapAnyStr 的别名。 md5:d7812e32db355aa6
+	ListAnyInt  = []MapAnyInt  // ListAnyInt 是常用切片类型 []MapAnyInt 的别名。 md5:8562af0324cd1e5a
+	ListStrAny  = []MapStrAny  // ListStrAny 是常用切片类型 []MapStrAny 的别名。 md5:144077caa161cdf6
+	ListStrStr  = []MapStrStr  // ListStrStr是常用的切片类型[]MapStrStr的别名。 md5:2045a3a5bab66ff3
+	ListStrInt  = []MapStrInt  // ListStrInt 是一个常用的切片类型 []MapStrInt 的别名。 md5:31e1179a1af9c57e
+	ListIntAny  = []MapIntAny  // ListIntAny 是常用切片类型 []MapIntAny 的别名。 md5:5683714d5eda3cde
+	ListIntStr  = []MapIntStr  // ListIntStr 是常用切片类型 []MapIntStr 的别名。 md5:383a98d6f17d278d
+	ListIntInt  = []MapIntInt  // ListIntInt 是一个常用的切片类型 []MapIntInt 的别名。 md5:9fd8565ffb13d5b2
+	ListAnyBool = []MapAnyBool // ListAnyBool 是一个常用的切片类型 []MapAnyBool 的别名。 md5:8dcdb92f2ce053c8
+	ListStrBool = []MapStrBool // ListStrBool 是常用切片类型 []MapStrBool 的别名。 md5:de56ef83a16ba4a2
+	ListIntBool = []MapIntBool // ListIntBool 是常用切片类型 []MapIntBool 的别名。 md5:44e8bb52de3fc953
 )
 
 type (
-	Slice    = []interface{}//qm:Slice别名  cz:Slice = []interface{}   // Slice is alias of frequently-used slice type []interface{}.
-	SliceAny = []interface{}//qm:SliceAny别名  cz:SliceAny = []interface{}   // SliceAny is alias of frequently-used slice type []interface{}.
-	SliceStr = []string//qm:SliceStr别名  cz:SliceStr = []string        // SliceStr is alias of frequently-used slice type []string.
-	SliceInt = []int//qm:SliceInt别名  cz:SliceInt = []int           // SliceInt is alias of frequently-used slice type []int.
+	Slice    = []interface{} // Slice 是对常用切片类型 []interface{} 的别名。 md5:9a6ecfa92fac8f3a
+	SliceAny = []interface{} // SliceAny 是一个别名，用于频繁使用的切片类型 []interface{}。 md5:0b565fb84a9bac93
+	SliceStr = []string      // SliceStr 是经常使用的切片类型 []string 的别名。 md5:19d8a28bce60c7d8
+	SliceInt = []int         // SliceInt 是常用切片类型 []int 的别名。 md5:2923a4699e7e68da
 )
 
 type (
-	Array    = []interface{}//qm:切片  cz:Array = []interface{}   // Array is alias of frequently-used slice type []interface{}.
-	ArrayAny = []interface{}//qm:Any切片  cz:ArrayAny = []interface{}   // ArrayAny is alias of frequently-used slice type []interface{}.
-	ArrayStr = []string//qm:文本切片  cz:ArrayStr = []string        // ArrayStr is alias of frequently-used slice type []string.
-	ArrayInt = []int//qm:整数切片  cz:ArrayInt = []int           // ArrayInt is alias of frequently-used slice type []int.
+	Array    = []interface{} // Array 是一个常用的切片类型 []interface{} 的别名。 md5:83e56770b618f21f
+	ArrayAny = []interface{} // ArrayAny是常用的切片类型[]interface{}的别名。 md5:6dfa6ee832fcc9f4
+	ArrayStr = []string      // ArrayStr 是经常使用的切片类型 []string 的别名。 md5:55e2175bd1bb667d
+	ArrayInt = []int         // ArrayInt 是常用切片类型 []int 的别名。 md5:f524bf88e64fcf6e
 )

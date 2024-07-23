@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package goai
 
@@ -21,7 +22,7 @@ import (
 	"github.com/gogf/gf/v2/util/gvalid"
 )
 
-// Schema is specified by OpenAPI/Swagger 3.0 standard.
+// Schema 按照 OpenAPI/Swagger 3.0 标准指定。 md5:6f1f02d1c3d44b09
 type Schema struct {
 	OneOf                SchemaRefs     `json:"oneOf,omitempty"`
 	AnyOf                SchemaRefs     `json:"anyOf,omitempty"`
@@ -63,10 +64,9 @@ type Schema struct {
 	ValidationRules      string         `json:"-"`
 }
 
-// Clone only clones necessary attributes.
-// TODO clone all attributes, or improve package deepcopy.
-// ff:
-// s:
+// 只有必要的属性会被克隆。
+// TODO 克隆所有属性，或者改进包的深拷贝功能。
+// md5:5648a4a6a90c8e18
 func (s *Schema) Clone() *Schema {
 	newSchema := *s
 	newSchema.Required = make([]string, len(s.Required))
@@ -75,15 +75,13 @@ func (s *Schema) Clone() *Schema {
 	return &newSchema
 }
 
-// ff:
-// s:
 func (s Schema) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte
 		m   map[string]json.RawMessage
 		err error
 	)
-	type tempSchema Schema // To prevent JSON marshal recursion error.
+	type tempSchema Schema // 为了防止JSON序列化时的递归错误。 md5:add9f5a47e638cc5
 	if b, err = json.Marshal(tempSchema(s)); err != nil {
 		return nil, err
 	}
@@ -99,14 +97,15 @@ func (s Schema) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// Discriminator is specified by OpenAPI/Swagger standard version 3.0.
+// Discriminator是根据OpenAPI/Swagger标准版本3.0指定的。 md5:7587308535782993
 type Discriminator struct {
 	PropertyName string            `json:"propertyName"`
 	Mapping      map[string]string `json:"mapping,omitempty"`
 }
 
-// addSchema creates schemas with objects.
-// Note that the `object` can be array alias like: `type Res []Item`.
+// addSchema 用于创建包含对象的模式。
+// 注意，`object` 可以是数组别名，例如：`type Res []Item`。
+// md5:c0f033836f564a8c
 func (oai *OpenApiV3) addSchema(object ...interface{}) error {
 	for _, v := range object {
 		if err := oai.doAddSchemaSingle(v); err != nil {
@@ -145,7 +144,7 @@ func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 	return nil
 }
 
-// structToSchema converts and returns given struct object as Schema.
+// structToSchema 将给定的结构体对象转换并返回为Schema。 md5:c3023fab7f0fbf3b
 func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 	var (
 		tagMap = gmeta.Data(object)
@@ -228,7 +227,7 @@ func (oai *OpenApiV3) tagMapToSchema(tagMap map[string]string, schema *Schema) e
 		return gerror.Wrap(err, `mapping struct tags to Schema failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, schema.XExtensions)
-	// Validation info to OpenAPI schema pattern.
+	// 验证信息到OpenAPI规范模式。 md5:8caca50de8e752c8
 	for _, tag := range gvalid.GetTags() {
 		if validationTagValue, ok := tagMap[tag]; ok {
 			_, validationRules, _ := gvalid.ParseTagValue(validationTagValue)

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package clickhouse
 
@@ -17,24 +18,20 @@ import (
 	"github.com/gogf/gf/v2/text/gregex"
 )
 
-// Open creates and returns an underlying sql.DB object for clickhouse.
-// ff:
-// d:
-// config:
-// db:
-// err:
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {//hm:底层Open  cz:func (d *Driver) Open  
+// Open 创建并返回clickhouse的底层sql.DB对象。 md5:af49366510276559
+func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	source := config.Link
-	// clickhouse://username:password@host1:9000,host2:9000/database?dial_timeout=200ms&max_execution_time=60
+	// 使用clickhouse协议，连接到主机host1和host2的9000端口，数据库为'database'。设置连接超时时间为200毫秒，最大执行时间为60秒。其中，'username'和'password'是用户名和密码。 md5:18f0aa9304f1e37e
 	if config.Link != "" {
 		// ============================================================================
-		// Deprecated from v2.2.0.
+		// 从v2.2.0版本开始已废弃。
 		// ============================================================================
-		// Custom changing the schema in runtime.
+		// 自定义在运行时更改架构。
+		// md5:636e7e3d9951c8fa
 		if config.Name != "" {
 			source, _ = gregex.ReplaceString(replaceSchemaPattern, "@$1/"+config.Name, config.Link)
 		} else {
-			// If no schema, the link is matched for replacement
+			// 如果没有模式，该链接将被用于替换. md5:20ef7460fd455598
 			dbName, _ := gregex.MatchString(replaceSchemaPattern, config.Link)
 			if len(dbName) > 0 {
 				config.Name = dbName[len(dbName)-1]

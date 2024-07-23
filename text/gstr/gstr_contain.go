@@ -1,33 +1,25 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gstr
 
 import "strings"
 
-// Contains reports whether `substr` is within `str`, case-sensitively.
-// ff:是否包含
-// str:文本
-// substr:欲寻找的文本
+// Contains报告`substr`是否在`str`中（区分大小写）。 md5:23e258f54d1c33e6
 func Contains(str, substr string) bool {
 	return strings.Contains(str, substr)
 }
 
-// ContainsI reports whether substr is within str, case-insensitively.
-// ff:是否包含并忽略大小写
-// str:文本
-// substr:欲寻找的文本
+// ContainsI 报告 substr 是否在 str 中，不区分大小写。 md5:1dee4dc6bff3de90
 func ContainsI(str, substr string) bool {
 	return PosI(str, substr) != -1
 }
 
-// ContainsAny reports whether any Unicode code points in `chars` are within `s`.
-// ff:是否包含Any
-// s:文本
-// chars:欲寻找的文本
+// ContainsAny 报告 `s` 中是否包含 `chars` 里的任何Unicode字符。 md5:68982aa112f62c02
 func ContainsAny(s, chars string) bool {
 	return strings.ContainsAny(s, chars)
 }

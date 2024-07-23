@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-package glist_test//bm:链表类_test
+package glist_test
 
 import (
 	"container/list"
@@ -606,7 +607,7 @@ func ExampleList_RemoveAll() {
 func ExampleList_RLockFunc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// iterate reading from head.
+	// 从头开始迭代读取。 md5:325279251074c4c7
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {
@@ -616,7 +617,7 @@ func ExampleList_RLockFunc() {
 		}
 	})
 	fmt.Println()
-	// iterate reading from tail.
+	// 从尾部开始迭代读取。 md5:dac3579ac46c0170
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {
@@ -635,7 +636,7 @@ func ExampleList_RLockFunc() {
 func ExampleList_IteratorAsc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// iterate reading from head using IteratorAsc.
+	// 使用IteratorAsc从头开始迭代读取。 md5:6446e33c4d8538db
 	l.IteratorAsc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
 		return true
@@ -648,7 +649,7 @@ func ExampleList_IteratorAsc() {
 func ExampleList_IteratorDesc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// iterate reading from tail using IteratorDesc.
+	// 使用IteratorDesc从尾部开始迭代读取。 md5:acede477df2af09d
 	l.IteratorDesc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
 		return true
@@ -660,7 +661,7 @@ func ExampleList_IteratorDesc() {
 func ExampleList_LockFunc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-	// iterate writing from head.
+	// 从头开始遍历写入。 md5:09622b4042e0678f
 	l.LockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {

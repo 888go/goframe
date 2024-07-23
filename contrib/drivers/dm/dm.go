@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package dm implements gdb.Driver, which supports operations for database DM.
+// 包 dm 实现了 gdb.Driver，支持 DM 数据库的操作。 md5:7ee3e2c1c7faa19a
 package dm
 
 import (
@@ -35,28 +36,19 @@ func init() {
 	}
 }
 
-// New create and returns a driver that implements gdb.Driver, which supports operations for dm.
-// ff:
+// New 创建并返回一个实现了gdb.Driver的驱动器，该驱动器支持dm的操作。 md5:eaafc794fe673f0d
 func New() gdb.Driver {
 	return &Driver{}
 }
 
-// New creates and returns a database object for dm.
-// ff:
-// d:
-// core:
-// node:
+// New 创建并返回一个针对 dm 的数据库对象。 md5:503a0529287d7ea6
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,
 	}, nil
 }
 
-// GetChars returns the security char for this type of database.
-// ff:
-// d:
-// charLeft:
-// charRight:
+// GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
 func (d *Driver) GetChars() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

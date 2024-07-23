@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp_test
 
@@ -21,6 +22,8 @@ import (
 	"github.com/gogf/gf/v2/util/gtag"
 	"github.com/gogf/gf/v2/util/guid"
 )
+
+// 这段注释引用的是一个GitHub问题的链接，来自 "gf"（GoGF）项目，问题编号为1609。这可能是一个关于gf库的问题报告、讨论或者请求，具体内容需要查看链接才能得知。 md5:467f0f77d2ecbf4b
 func Test_Issue1609(t *testing.T) {
 	s := g.Server(guid.S())
 	group := s.Group("/api/get")
@@ -64,6 +67,8 @@ func Test_Issue1611(t *testing.T) {
 		t.Assert(gstr.Contains(c.GetContent(ctx, "/"), content), true)
 	})
 }
+
+//github.com/gogf/gf/issues/1626. md5:3ce099b2ed68c6a6
 func Test_Issue1626(t *testing.T) {
 	type TestReq struct {
 		Name string `v:"required"`
@@ -196,6 +201,8 @@ func (r cFoo1) PostTest1(ctx context.Context, req *TemplateCreateReq) (res *Temp
 	g.Dump(req)
 	return
 }
+
+// 因为这是一个URL，直接保留原样即可，无需翻译。如果需要了解具体内容，可以访问该链接查看相关的讨论或问题描述。 md5:6f39757924ae8691
 func Test_Issue662(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Use(ghttp.MiddlewareHandlerResponse)
@@ -237,6 +244,8 @@ func (a *Api) Demo(ctx context.Context, req *DemoReq) (res *DemoRes, err error) 
 }
 
 var api = Api{}
+
+// 这段注释引用的是一个GitHub问题（issue）的链接，来自 "gf"（Go Foundation）项目。gf是一个用Go语言编写的轻量级ORM（对象关系映射）库。这个注释可能是在讨论与issue号2172相关的某个问题或功能请求，具体内容需要查看GitHub页面以获取详细信息。 md5:65dacaec6e7eb465
 func Test_Issue2172(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Use(ghttp.MiddlewareHandlerResponse)
@@ -255,6 +264,8 @@ func Test_Issue2172(t *testing.T) {
 		t.Assert(c.PostContent(ctx, "/demo", dataReq), `{"code":0,"message":"","data":{"Content":"{\"asd\":1}"}}`)
 	})
 }
+
+// 这段注释指的是在 GitHub 上的 "gogf/gf" 项目中，关于 issue（问题或建议）编号为 2334 的讨论或问题。"gf" 可能是指一个名为 "GF"（Go Framework，Go 框架）的开源项目。 md5:b25df7c1e97eea49
 func Test_Issue2334(t *testing.T) {
 	s := g.Server(guid.S())
 	s.SetServerRoot(gtest.DataPath("static1"))
@@ -293,6 +304,8 @@ type OrderController struct{}
 func (c *OrderController) CreateOrder(ctx context.Context, req *CreateOrderReq) (res *CreateOrderRes, err error) {
 	return
 }
+
+//github.com/gogf/gf/issues/2482. md5:fcdf7bf6606e8f79
 func Test_Issue2482(t *testing.T) {
 	s := g.Server(guid.S())
 	s.Group("/api/v2", func(group *ghttp.RouterGroup) {
@@ -376,6 +389,8 @@ func (c *Issue2890Controller) Post(ctx context.Context, req *Issue2890Req) (res 
 	g.RequestFromCtx(ctx).Response.Write(req.Enums)
 	return
 }
+
+//github.com/gogf/gf/issues/2890”。 md5:a335daa25707abc9
 func Test_Issue2890(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		oldEnumsJson, err := gtag.GetGlobalEnums()
@@ -407,6 +422,8 @@ func Test_Issue2890(t *testing.T) {
 		)
 	})
 }
+
+//github.com/gogf/gf/issues/2963。gf可能是Go语言的一个库或者项目，而2963是一个issue的编号，可能是开发者社区中关于gf库的一个讨论或者bug报告/需求建议。 md5:526c7a4a48782ddd
 func Test_Issue2963(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())
@@ -439,6 +456,8 @@ func (c *Issue3077V1) Hello(ctx context.Context, req *Issue3077Req) (res *Issue3
 	g.RequestFromCtx(ctx).Response.Write(fmt.Sprintf("%v", req))
 	return
 }
+
+// 这段注释引用的是一个GitHub问题（issues）的链接，来自gogf（GoGF）项目。它表示这是对该项目Issue #3077的一个注释，可能是关于某个特定问题、错误报告、功能请求或者讨论的说明。在中文中，你可能会看到类似于“关于 Issue 3077 的讨论”或“参考 GitHub 问题 3077”的内容。 md5:5667623b3895dec8
 func Test_Issue3077(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())
@@ -485,6 +504,8 @@ func (c *cMessage) List(ctx context.Context, req *ListMessageReq) (res *BaseRes[
 	}
 	return res, err
 }
+
+//github.com/gogf/gf/issues/2457. md5:76c442b3ac4849d6
 func Test_Issue2457(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())
@@ -504,6 +525,8 @@ func Test_Issue2457(t *testing.T) {
 		t.Assert(c.GetContent(ctx, "/list"), `{"code":0,"message":"","data":{"Code":100,"Data":{"Title":"title","Content":"hello"},"Msg":""}}`)
 	})
 }
+
+// 这段注释是引用了GitHub上gf框架的一个问题链接，编号为3245。在Go代码中，这种注释通常用于提供问题、讨论或相关资源的链接，以便其他开发者了解更多的背景信息或追踪代码变动的原因。 md5:d1176a3a58b932c6
 type Issue3245Req struct {
 	g.Meta      `path:"/hello" method:"get"`
 	Name        string `p:"nickname" json:"name"`

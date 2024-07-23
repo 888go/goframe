@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -22,7 +23,7 @@ import (
 func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error {
 	var (
 		errorMaps           = make(map[string]map[string]error) // Returning error.
-		fieldToAliasNameMap = make(map[string]string)           // Field names to alias name map.
+		fieldToAliasNameMap = make(map[string]string)           // 字段名称到别名映射的地图。 md5:cd4fee2326581f83
 		resultSequenceRules = make([]fieldRule, 0)
 		isEmptyData         = empty.IsEmpty(v.data)
 		isEmptyAssoc        = empty.IsEmpty(v.assoc)
@@ -36,12 +37,12 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		return newValidationErrorByStr(internalObjectErrRuleName, err)
 	}
 
-	// It here must use gstructs.TagFields not gstructs.FieldMap to ensure error sequence.
+	// 此处必须使用gstructs.TagFields而不是gstructs.FieldMap，以确保错误顺序。 md5:7f18271929bfd060
 	tagFields, err := gstructs.TagFields(object, structTagPriority)
 	if err != nil {
 		return newValidationErrorByStr(internalObjectErrRuleName, err)
 	}
-	// If there's no struct tag and validation rules, it does nothing and returns quickly.
+	// 如果没有结构体标签和验证规则，它什么也不做，快速返回。 md5:62043578db8966a6
 	if len(tagFields) == 0 && v.messages == nil && isEmptyData && isEmptyAssoc {
 		return nil
 	}
@@ -49,16 +50,17 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 	var (
 		inputParamMap  map[string]interface{}
 		checkRules     = make([]fieldRule, 0)
-		nameToRuleMap  = make(map[string]string) // just for internally searching index purpose.
-		customMessage  = make(CustomMsg)         // Custom rule error message map.
-		checkValueData = v.assoc                 // Ready to be validated data.
+		nameToRuleMap  = make(map[string]string) // 只是为了内部搜索索引目的。 md5:d89a7eb74470680a
+		customMessage  = make(CustomMsg)         // 自定义规则错误消息映射。 md5:1489786362b1ed0d
+		checkValueData = v.assoc                 // 准备进行验证的数据。 md5:8be527aae62e9c7b
 	)
 	if checkValueData == nil {
 		checkValueData = object
 	}
 	switch assertValue := v.rules.(type) {
-	// Sequence tag: []sequence tag
-	// Sequence has order for error results.
+	// 序列标签：[]序列标签
+	// 序列中错误结果的顺序是有意义的。
+	// md5:3ffc642de1ce88d6
 	case []string:
 		for _, tag := range assertValue {
 			name, rule, msg := ParseTagValue(tag)
@@ -71,8 +73,8 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 					ruleArray = strings.Split(rule, "|")
 				)
 				for k, ruleKey := range ruleArray {
-					// If length of custom messages is lesser than length of rules,
-					// the rest rules use the default error messages.
+					// 如果自定义消息的长度小于规则的长度，那么剩余的规则将使用默认的错误消息。
+					// md5:ada20f4d064fc46a
 					if len(msgArray) <= k {
 						continue
 					}
@@ -93,8 +95,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 			})
 		}
 
-	// Map type rules does not support sequence.
-	// Format: map[key]rule
+	// 地图类型规则不支持序列。
+	// 格式：map[key]rule
+	// md5:e0dce9966e6f4666
 	case map[string]string:
 		nameToRuleMap = assertValue
 		for name, rule := range assertValue {
@@ -104,17 +107,17 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 			})
 		}
 	}
-	// If there's no struct tag and validation rules, it does nothing and returns quickly.
+	// 如果没有结构体标签和验证规则，它什么也不做，快速返回。 md5:62043578db8966a6
 	if len(tagFields) == 0 && len(checkRules) == 0 && isEmptyData && isEmptyAssoc {
 		return nil
 	}
-	// Input parameter map handling.
+	// 处理输入参数映射。 md5:4e321b50a9e44d75
 	if v.assoc == nil || !v.useAssocInsteadOfObjectAttributes {
 		inputParamMap = make(map[string]interface{})
 	} else {
 		inputParamMap = gconv.Map(v.assoc)
 	}
-	// Checks and extends the parameters map with struct alias tag.
+	// 检查并使用结构体别名标签扩展参数映射。 md5:d6fb47b89d8c4795
 	if !v.useAssocInsteadOfObjectAttributes {
 		for nameOrTag, field := range fieldMap {
 			inputParamMap[nameOrTag] = field.Value.Interface()
@@ -124,28 +127,30 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		}
 	}
 
-	// Merge the custom validation rules with rules in struct tag.
-	// The custom rules has the most high priority that can overwrite the struct tag rules.
+	// 将自定义验证规则与结构体标签中的规则合并。
+	// 自定义规则具有最高优先级，可以覆盖结构体标签中的规则。
+	// md5:327ef56dd9382e55
 	for _, field := range tagFields {
 		var (
 			isMeta          bool
 			fieldName       = field.Name()                  // Attribute name.
-			name, rule, msg = ParseTagValue(field.TagValue) // The `name` is different from `attribute alias`, which is used for validation only.
+			name, rule, msg = ParseTagValue(field.TagValue) // `name`与`attribute alias`不同，后者仅用于验证。 md5:01baece1f454b49d
 		)
 		if len(name) == 0 {
 			if value, ok := fieldToAliasNameMap[fieldName]; ok {
-				// It uses alias name of the attribute if its alias name tag exists.
+				// 如果属性存在别名标签，它将使用属性的别名名称。 md5:6b80790d910fc981
 				name = value
 			} else {
-				// It or else uses the attribute name directly.
+				// 否则，它直接使用属性名称。 md5:4b45cf8fb32210b5
 				name = fieldName
 			}
 		} else {
-			// It uses the alias name from validation rule.
+			// 它使用了验证规则中的别名名称。 md5:e12f1e225f531883
 			fieldToAliasNameMap[fieldName] = name
 		}
-		// It here extends the params map using alias names.
-		// Note that the variable `name` might be alias name or attribute name.
+		// 这里使用别名名称扩展params映射。
+		// 注意变量`name`可能是别名名称或属性名称。
+		// md5:67115358a00d1d8c
 		if _, ok := inputParamMap[name]; !ok {
 			if !v.useAssocInsteadOfObjectAttributes {
 				inputParamMap[name] = field.Value.Interface()
@@ -160,8 +165,9 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 
 		if _, ok := nameToRuleMap[name]; !ok {
 			if _, ok = nameToRuleMap[fieldName]; ok {
-				// If there's alias name,
-				// use alias name as its key and remove the field name key.
+				// 如果有别名名称，
+				// 使用别名名称作为其键，删除字段名称键。
+				// md5:4454688e693edd27
 				nameToRuleMap[name] = nameToRuleMap[fieldName]
 				delete(nameToRuleMap, fieldName)
 				for index, checkRuleItem := range checkRules {
@@ -185,7 +191,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 				})
 			}
 		} else {
-			// The input rules can overwrite the rules in struct tag.
+			// 输入的规则可以覆盖结构标签中的规则。 md5:2f6a125f9ce31c45
 			continue
 		}
 
@@ -212,12 +218,13 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		}
 	}
 
-	// Custom error messages,
-	// which have the most priority than `rules` and struct tag.
+	// 自定义错误消息，
+	// 其优先级高于 `rules` 和结构体标签。
+	// md5:9ed0fde7c514e9ef
 	if msg, ok := v.messages.(CustomMsg); ok && len(msg) > 0 {
 		for k, msgName := range msg {
 			if aliasName, ok := fieldToAliasNameMap[k]; ok {
-				// Overwrite the key of field name.
+				// 替换字段名称的键。 md5:b77535a09a21fa98
 				customMessage[aliasName] = msgName
 			} else {
 				customMessage[k] = msgName
@@ -225,36 +232,37 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		}
 	}
 
-	// Temporary variable for value.
+	// 临时变量，用于存储值。 md5:5c2a7c202b7bf486
 	var value interface{}
 
-	// It checks the struct recursively if its attribute is a struct/struct slice.
+	// 它会递归地检查结构体，以确定其属性是否为结构体或结构体切片。 md5:5461f7e14c7ea93f
 	for _, field := range fieldMap {
-		// No validation interface implements check.
+		// 没有验证接口实现检查。 md5:ac37246e66f75369
 		if _, ok := field.Value.Interface().(iNoValidation); ok {
 			continue
 		}
-		// No validation field tag check.
+		// 不进行验证字段标签检查。 md5:70499912c8f45a5d
 		if _, ok := field.TagLookup(noValidationTagName); ok {
 			continue
 		}
 		if field.IsEmbedded() {
-			// The attributes of embedded struct are considered as direct attributes of its parent struct.
+			//嵌入的结构体的属性被视为其父结构体的直接属性。 md5:157af1f27cab37d6
 			if err = v.doCheckStruct(ctx, field.Value); err != nil {
-				// It merges the errors into single error map.
+				// 它将错误合并为单个错误映射。 md5:56fe32c627a507ee
 				for k, m := range err.(*validationError).errors {
 					errorMaps[k] = m
 				}
 			}
 		} else {
-			// The `field.TagValue` is the alias name of field.Name().
-			// Eg, value from struct tag `p`.
+			// `field.TagValue`是field.Name()的别名。
+			// 例如，从结构体标签`p`获取的值。
+			// md5:0b34b40285c5eb31
 			if field.TagValue != "" {
 				fieldToAliasNameMap[field.Name()] = field.TagValue
 			}
 			switch field.OriginalKind() {
 			case reflect.Map, reflect.Struct, reflect.Slice, reflect.Array:
-				// Recursively check attribute slice/map.
+				// 递归检查属性切片/映射。 md5:da454f5b75f8a7ba
 				value = getPossibleValueFromMap(
 					inputParamMap, field.Name(), fieldToAliasNameMap[field.Name()],
 				)
@@ -282,14 +290,14 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		return newValidationError(gcode.CodeValidationFailed, resultSequenceRules, errorMaps)
 	}
 
-	// The following logic is the same as some of CheckMap but with sequence support.
+	// 下面的逻辑与CheckMap中的一些逻辑相同，但增加了序列支持。 md5:8a807868be68e3c3
 	for _, checkRuleItem := range checkRules {
 		if !checkRuleItem.IsMeta {
 			value = getPossibleValueFromMap(
 				inputParamMap, checkRuleItem.Name, fieldToAliasNameMap[checkRuleItem.Name],
 			)
 		}
-		// Empty json string checks according to mapping field kind.
+		// 根据映射字段类型检查空的json字符串。 md5:e4223594884df6e0
 		if value != nil {
 			switch checkRuleItem.FieldKind {
 			case reflect.Struct, reflect.Map:
@@ -302,7 +310,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 				}
 			}
 		}
-		// It checks each rule and its value in loop.
+		// 它在循环中检查每个规则及其值。 md5:5ab8f96747fbcec4
 		if validatedError := v.doCheckValue(ctx, doCheckValueInput{
 			Name:      checkRuleItem.Name,
 			Value:     value,
@@ -314,10 +322,11 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 		}); validatedError != nil {
 			_, errorItem := validatedError.FirstItem()
 			// ============================================================
-			// Only in map and struct validations:
-			// If value is nil or empty string and has no required* rules,
-			// it clears the error message.
+			// 仅在映射和结构体验证中：
+			// 如果值为nil或空字符串，并且没有required*规则，
+			// 则清除错误信息。
 			// ============================================================
+			// md5:4632db837be49942
 			if !checkRuleItem.IsMeta && (value == nil || gconv.String(value) == "") {
 				required := false
 				// rule => error

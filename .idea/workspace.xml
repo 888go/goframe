@@ -5,89 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdbfa3a1-a971-447c-8231-bccb5bc7c74c" name="更改" comment="2024-05-22">
-      <change afterPath="$PROJECT_DIR$/翻译/函数.rar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/garray/garray_z_bench_any_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/garray/garray_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/glist/glist_z_example_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/glist/glist_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gmap/gmap_z_basic_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gmap/gmap_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gpool/gpool_bench_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gpool/gpool_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gqueue/gqueue_z_bench_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gqueue/gqueue_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gring/gring_z_bench_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gring/gring_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gset/gset_int_set_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gset/gset_z_example_any_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gtree/gtree_avltree_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gtree/gtree_z_example_avltree_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gtype/gtype_bool_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gtype/gtype_z_bench_basic_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gvar/gvar_z_example_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/container/gvar/gvar_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/contrib/drivers/clickhouse/clickhouse_open_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/contrib/drivers/dm/dm_open_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/contrib/drivers/mssql/mssql_open_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/contrib/drivers/mysql/mysql_open_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/contrib/drivers/oracle/oracle_open_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/contrib/drivers/pgsql/pgsql_open_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/contrib/drivers/sqlite/sqlite_open_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gaes/gaes_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gaes/gaes_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gcrc32/gcrc32_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gcrc32/gcrc32_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gdes/gdes_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gdes/gdes_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gmd5/gmd5_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gmd5/gmd5_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gsha1/gsha1_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/crypto/gsha1/gsha1_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_core_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_func_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_model_cache_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_result_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_z_example_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gredis/gredis_redis_group_string_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/database/gredis/gredis_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gbase64/gbase64_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gbase64/gbase64_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gbinary/gbinary_be_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gbinary/gbinary_z_unit_be_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gcharset/gcharset_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gcharset/gcharset_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gcompress/gcompress_z_unit_gzip_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gcompress/gcompress_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/ghash/ghash_z_bench_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/ghash/ghash_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/ghtml/ghtml_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/ghtml/ghtml_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gini/gini_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gini/gini_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gjson/gjson_api_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gjson/gjson_z_bench_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gjson/gjson_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gtoml/gtoml_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gtoml/gtoml_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gurl/url_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gurl/url_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gxml/gxml_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gxml/gxml_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gyaml/gyaml_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/encoding/gyaml/gyaml_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/errors/gcode/gcode_local_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/errors/gcode/gcode_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/errors/gerror/gerror_z_example_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/errors/gerror/gerror_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/frame/g/g_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/net/gclient/gclient_z_unit_test_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/net/gclient/gclient_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_func_包名.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_前后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_结构.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/container/garray/.garray_normal_any.go.kate-swp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray_func.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray_func.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray_normal_any.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray_normal_any.go" afterDir="false" />
@@ -1227,175 +1147,7 @@
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_telephone.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_telephone.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_url.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_url.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/version.go" beforeDir="false" afterPath="$PROJECT_DIR$/version.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/garray/garray_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/garray/garray_z_bench_any_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/glist/glist_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/glist/glist_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gmap/gmap_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gmap/gmap_z_basic_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gpool/gpool_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gpool/gpool_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gqueue/gqueue_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gqueue/gqueue_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gring/gring_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gring/gring_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gset/gset_int_set_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gset/gset_z_example_any_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gtree/gtree_avltree_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gtree/gtree_z_example_avltree_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gtype/gtype_bool_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gtype/gtype_z_bench_basic_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gvar/gvar_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gvar/gvar_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/container/gvar/gvar_z_example_test_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/clickhouse/clickhouse_open_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/dm/dm_open_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/mssql/mssql_open_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/mysql/mysql_open_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/oracle/oracle_open_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/pgsql/pgsql_open_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/sqlite/sqlite_open_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/contrib/drivers/sqlite/sqlite_z_unit_core_test_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gaes/gaes_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gaes/gaes_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gcrc32/gcrc32_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gcrc32/gcrc32_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gdes/gdes_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gdes/gdes_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gmd5/gmd5_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gmd5/gmd5_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gsha1/gsha1_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/crypto/gsha1/gsha1_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_core_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_func_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_model_cache_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_result_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gdb/gdb_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gredis/gredis_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/database/gredis/gredis_redis_group_string_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gbase64/gbase64_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gbase64/gbase64_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gbinary/gbinary_be_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gbinary/gbinary_z_unit_be_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gcharset/gcharset_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gcharset/gcharset_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gcompress/gcompress_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gcompress/gcompress_z_unit_gzip_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/ghash/ghash_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/ghash/ghash_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/ghtml/ghtml_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/ghtml/ghtml_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gini/gini_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gini/gini_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gjson/gjson_api_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gjson/gjson_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gjson/gjson_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gtoml/gtoml_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gtoml/gtoml_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gurl/url_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gurl/url_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gxml/gxml_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gxml/gxml_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gyaml/gyaml_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/encoding/gyaml/gyaml_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/errors/gcode/gcode_local_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/errors/gcode/gcode_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/errors/gerror/gerror_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/errors/gerror/gerror_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/frame/g/g_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gclient/gclient_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gclient/gclient_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_func_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_request_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_server_plugin_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_server_router_group_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/ghttp/ghttp_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gipv4/gipv4_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gipv6/gipv6_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gtcp/gtcp_conn_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gtcp/gtcp_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gudp/gudp_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/net/gudp/gudp_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gbuild/gbuild_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gbuild/gbuild_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcache/gcache_adapter_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcache/gcache_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcache/gcache_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcfg/gcfg_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcfg/gcfg_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcfg/gcfg_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcmd/gcmd_command_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcmd/gcmd_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcron/gcron_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gcron/gcron_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gctx/gctx_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gctx/gctx_z_unit_internal_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/genv/genv_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/genv/genv_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gfile/gfile_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gfile/gfile_z_example_cache_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gfpool/gfpool_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gfpool/gfpool_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gfsnotify/gfsnotify_event_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gfsnotify/gfsnotify_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/glog/glog_api_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/glog/glog_logger_handler_json_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/glog/glog_logger_handler_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/glog/glog_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/glog/glog_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gmlock/gmlock_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gmlock/gmlock_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gmutex/gmutex_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gmutex/gmutex_z_unit_mutex_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gproc/gproc_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gproc/gproc_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gres/gres_func_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gres/gres_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gres/gres_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/grpool/grpool_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/grpool/grpool_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gsession/gsession_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gsession/gsession_storage_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gsession/gsession_z_unit_storage_file_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gspath/gspath_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gspath/gspath_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gtime/gtime_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gtime/gtime_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gtimer/gtimer_entry_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gtimer/gtimer_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gview/gview_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gview/gview_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/test/gtest/gtest_t_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/test/gtest/gtest_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/text/gregex/gregex_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/text/gregex/gregex_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/text/gstr/gstr_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/text/gstr/gstr_z_example_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gconv/gconv_convert_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gconv/gconv_interface_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gconv/gconv_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gconv/gconv_z_bench_reflect_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gmeta/gmeta_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gmeta/gmeta_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gmeta/gmeta_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gmode/gmode_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gmode/gmode_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gpage/gpage_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gpage/gpage_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gpage/gpage_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/grand/grand_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/grand/grand_z_unit_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/guid/guid_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/guid/guid_z_bench_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gutil/gutil_comparator_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gutil/gutil_goroutine_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gutil/gutil_z_unit_comparator_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gvalid/gvalid_error_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gvalid/gvalid_error_其他.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gvalid/gvalid_error_方法.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/util/gvalid/gvalid_z_unit_feature_checkmap_test_package.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/os/glog/glog_logger_handler_json_前后.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/glog/glog_logger_handler_json_前后.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1430,35 +1182,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLine.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLineShort.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/frame/g 中的 Test_DumpTo.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/os/gfpool 中的 TestOpenErr.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.go test container.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test frame.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test goframe.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test gproc.executor&quot;: &quot;Coverage&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/goframe&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;cn.yiiguxing.plugin.translate&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLine.executor": "Run",
+    "Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLineShort.executor": "Run",
+    "Go 测试.github.com/gogf/gf/v2/frame/g 中的 Test_DumpTo.executor": "Run",
+    "Go 测试.github.com/gogf/gf/v2/os/gfpool 中的 TestOpenErr.executor": "Run",
+    "Go 测试.go test container.executor": "Coverage",
+    "Go 测试.go test frame.executor": "Coverage",
+    "Go 测试.go test goframe.executor": "Coverage",
+    "Go 测试.go test gproc.executor": "Coverage",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/SVN/GO/code/goframe",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "cn.yiiguxing.plugin.translate"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Go 测试.go test frame">
     <configuration name="github.com/gogf/gf/v2/frame/g 中的 Test_DumpTo" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="goframe" />

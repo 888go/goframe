@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient
 
@@ -35,7 +36,7 @@ const (
 )
 
 var (
-	// metricManager for http client metrics.
+	//.metricManager是用于HTTP客户端指标的。 md5:3339f3eb00daad23
 	metricManager = newMetricManager()
 )
 
@@ -126,9 +127,6 @@ func newMetricManager() *localMetricManager {
 	return mm
 }
 
-// ff:
-// m:
-// r:
 func (m *localMetricManager) GetMetricOptionForHistogram(r *http.Request) gmetric.Option {
 	attrMap := m.GetMetricAttributeMap(r)
 	return gmetric.Option{
@@ -139,9 +137,6 @@ func (m *localMetricManager) GetMetricOptionForHistogram(r *http.Request) gmetri
 	}
 }
 
-// ff:
-// m:
-// attrMap:
 func (m *localMetricManager) GetMetricOptionForHistogramByMap(attrMap gmetric.AttributeMap) gmetric.Option {
 	return gmetric.Option{
 		Attributes: attrMap.Pick(
@@ -151,17 +146,11 @@ func (m *localMetricManager) GetMetricOptionForHistogramByMap(attrMap gmetric.At
 	}
 }
 
-// ff:
-// m:
-// r:
 func (m *localMetricManager) GetMetricOptionForRequest(r *http.Request) gmetric.Option {
 	attrMap := m.GetMetricAttributeMap(r)
 	return m.GetMetricOptionForRequestByMap(attrMap)
 }
 
-// ff:
-// m:
-// attrMap:
 func (m *localMetricManager) GetMetricOptionForRequestByMap(attrMap gmetric.AttributeMap) gmetric.Option {
 	return gmetric.Option{
 		Attributes: attrMap.Pick(
@@ -174,9 +163,6 @@ func (m *localMetricManager) GetMetricOptionForRequestByMap(attrMap gmetric.Attr
 	}
 }
 
-// ff:
-// m:
-// attrMap:
 func (m *localMetricManager) GetMetricOptionForResponseByMap(attrMap gmetric.AttributeMap) gmetric.Option {
 	return gmetric.Option{
 		Attributes: attrMap.Pick(
@@ -190,9 +176,6 @@ func (m *localMetricManager) GetMetricOptionForResponseByMap(attrMap gmetric.Att
 	}
 }
 
-// ff:
-// m:
-// r:
 func (m *localMetricManager) GetMetricAttributeMap(r *http.Request) gmetric.AttributeMap {
 	var (
 		serverAddress   string

@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv_test
 
@@ -317,11 +318,11 @@ func Test_Strings(t *testing.T) {
 		t.AssertEQ(gconv.Strings([]uint8(`["1","2"]`)), []string{"1", "2"})
 		t.AssertEQ(gconv.Strings([][]byte{{byte(0)}, {byte(1)}}), []string{"\u0000", "\u0001"})
 	})
-	// https://github.com/gogf/gf/issues/1750
+	//github.com/gogf/gf/issues/1750. md5:b86a24bc52c53801
 	gtest.C(t, func(t *gtest.T) {
 		t.AssertEQ(gconv.Strings("123"), []string{"123"})
 	})
-	// https://github.com/gogf/gf/issues/3465
+	// 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。3465号issue可能是指该框架中的某个问题或讨论的编号。具体的内容需要查看相关链接才能了解详情。 md5:53810ebfb659d15e
 	gtest.C(t, func(t *gtest.T) {
 		t.AssertEQ(gconv.Strings("null"), []string{"null"})
 		t.AssertEQ(gconv.Strings([]byte("null")), []string{"110", "117", "108", "108"})
