@@ -35,14 +35,6 @@
 # //zj:
 # 备注结束
 
-[Server struct {]
-qm=服务
-cz=Server struct {
-
-[Router struct {]
-qm=路由
-cz=Router struct {
-
 [RegRule string]
 qm=正则路由规则
 cz=RegRule string
@@ -70,10 +62,6 @@ cz=Route string
 [IsServiceHandler bool]
 qm=是否为服务处理器
 cz=IsServiceHandler bool
-
-[HandlerItem struct {]
-qm=路由处理函数
-cz=HandlerItem struct {
 
 [Name string]
 qm=处理器名称
@@ -106,10 +94,6 @@ cz=Router *
 [Source string]
 qm=注册来源
 cz=Source string
-
-[HandlerItemParsed struct {]
-qm=路由解析
-cz=HandlerItemParsed struct {
 
 [Values map#左中括号#string#右中括号#string]
 qm=路由值

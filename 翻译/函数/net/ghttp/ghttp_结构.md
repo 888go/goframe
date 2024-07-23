@@ -35,48 +35,18 @@
 # //zj:
 # 备注结束
 
-[]
-qm=前缀
-cz=Prefix string
-[Content string]
-qm=日志内容
-cz=Content string
-[Values #左中括号##右中括号#any]
-qm=未格式化切片
-cz=Values []any
-[IsAsync bool]
-qm=是否为异步
-cz=IsAsync bool
-[valueContent string]
-qm=日志内容
-cz=Content string
-[Buffer *bytes.Buffer]
-qm=缓冲区
-cz=Buffer *bytes.Buffer
-[Time time.Time]
-qm=时间
-cz=Time time.Time
-[TimeFormat string]
-qm=格式化时间
-cz=TimeFormat string
-[Color int]
-qm=颜色
-cz=Color int
-[Level int]
-qm=级别
-cz=Level int
-[LevelFormat string]
-qm=文本级别
-cz=LevelFormat string
-[CallerFunc string]
-qm=源文件函数名
-cz=CallerFunc string
-[CallerPath string]
-qm=源文件路径与行号
-cz=CallerPath string
-[CtxStr string]
-qm=上下文值
-cz=CtxStr string
-[TraceId string]
-qm=链路跟踪ID
-cz=TraceId string
+[Server struct {]
+qm=服务
+cz=Server struct {
+
+[Router struct {]
+qm=路由
+cz=Router struct {
+
+[HandlerItem struct {]
+qm=路由处理函数
+cz=HandlerItem struct {
+
+[HandlerItemParsed struct {]
+qm=路由解析
+cz=HandlerItemParsed struct {

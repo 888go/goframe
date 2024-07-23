@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package garray
 
@@ -24,30 +23,37 @@ import (
 	"github.com/gogf/gf/v2/util/grand"
 )
 
-// Array 是一个功能丰富的 Go 语言数组。
-// 它包含一个并发安全/不安全的开关，应该在初始化时设置，并且不能随后更改。
-// md5:e0c9364387271f37
+// Array is a golang array with rich features.
+// It contains a concurrent-safe/unsafe switch, which should be set
+// when its initialization and cannot be changed then.
 type Array struct {
 	mu    rwmutex.RWMutex
 	array []interface{}
 }
 
-// New 创建并返回一个空的数组。
-// 参数 `safe` 用于指定是否使用并发安全的数组，
-// 默认情况下为 false。
-// md5:972f90fc4f666395
+// New creates and returns an empty array.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+// ff:创建
+// safe:并发安全
 func New(safe ...bool) *Array {
 	return NewArraySize(0, 0, safe...)
 }
 
-// NewArray 是 New 的别名，请查看 New 函数的说明。 md5:aa9968eb61e7efdd
+// NewArray is alias of New, please see New.
+// ff:NewArray别名
+// safe:并发安全
 func NewArray(safe ...bool) *Array {
 	return NewArraySize(0, 0, safe...)
 }
 
-// NewArraySize 创建并返回一个具有给定大小和容量的数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:b667b71edd7dd0a0
+// NewArraySize create and returns an array with given size and cap.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+// ff:创建并按大小
+// size:大小
+// cap:上限
+// safe:并发安全
 func NewArraySize(size int, cap int, safe ...bool) *Array {
 	return &Array{
 		mu:    rwmutex.Create(safe...),
@@ -55,8 +61,13 @@ func NewArraySize(size int, cap int, safe ...bool) *Array {
 	}
 }
 
-// newArrayRange 创建并返回一个范围从 `start` 到 `end`，步长为 `step` 的数组。
-// md5:92f64f2571842316
+// NewArrayRange creates and returns an array by a range from `start` to `end`
+// with step value `step`.
+// ff:创建并按范围
+// start:起点
+// end:终点
+// step:步长
+// safe:并发安全
 func NewArrayRange(start, end, step int, safe ...bool) *Array {
 	if step == 0 {
 		panic(fmt.Sprintf(`invalid step value: %d`, step))
@@ -70,23 +81,30 @@ func NewArrayRange(start, end, step int, safe ...bool) *Array {
 	return NewArrayFrom(slice, safe...)
 }
 
-// NewFrom 是 NewArrayFrom 的别名。
-// 参见 NewArrayFrom。
-// md5:bd6788065fd84cb7
+// NewFrom is alias of NewArrayFrom.
+// See NewArrayFrom.
+// ff:NewFrom别名
+// array:切片
+// safe:并发安全
 func NewFrom(array []interface{}, safe ...bool) *Array {
 	return NewArrayFrom(array, safe...)
 }
 
-// NewFromCopy 是 NewArrayFromCopy 的别名。
-// 参考 NewArrayFromCopy 的说明。
-// md5:5a0cadfeeacb74a6
+// NewFromCopy is alias of NewArrayFromCopy.
+// See NewArrayFromCopy.
+// ff:NewFromCopy别名
+// array:切片
+// safe:并发安全
 func NewFromCopy(array []interface{}, safe ...bool) *Array {
 	return NewArrayFromCopy(array, safe...)
 }
 
-// newArrayFrom 创建并返回一个具有给定切片 `array` 的数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:abda2f52425c13a3
+// NewArrayFrom creates and returns an array with given slice `array`.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+// ff:创建并从切片
+// array:切片
+// safe:并发安全
 func NewArrayFrom(array []interface{}, safe ...bool) *Array {
 	return &Array{
 		mu:    rwmutex.Create(safe...),
@@ -94,9 +112,12 @@ func NewArrayFrom(array []interface{}, safe ...bool) *Array {
 	}
 }
 
-// newArrayFromCopy 从给定切片 `array` 的副本创建并返回一个数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:d7ac2661190a4f12
+// NewArrayFromCopy creates and returns an array from a copy of given slice `array`.
+// The parameter `safe` is used to specify whether using array in concurrent-safety,
+// which is false in default.
+// ff:创建并从切片复制
+// array:切片
+// safe:并发安全
 func NewArrayFromCopy(array []interface{}, safe ...bool) *Array {
 	newArray := make([]interface{}, len(array))
 	copy(newArray, array)
@@ -106,17 +127,24 @@ func NewArrayFromCopy(array []interface{}, safe ...bool) *Array {
 	}
 }
 
-// At 通过指定的索引返回值。
-// 如果给定的`index`超出了数组的范围，它将返回`nil`。
-// md5:09a7e6585d2eba1a
+// At returns the value by the specified index.
+// If the given `index` is out of range of the array, it returns `nil`.
+// ff:取值
+// a:
+// index:索引
+// value:值
 func (a *Array) At(index int) (value interface{}) {
 	value, _ = a.Get(index)
 	return
 }
 
-// Get 函数通过指定的索引返回值。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:ab300cfc0d6dd8ee
+// Get returns the value by the specified index.
+// If the given `index` is out of range of the array, the `found` is false.
+// ff:取值2
+// a:
+// index:索引
+// value:值
+// found:成功
 func (a *Array) Get(index int) (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -126,7 +154,12 @@ func (a *Array) Get(index int) (value interface{}, found bool) {
 	return a.array[index], true
 }
 
-// Set 设置指定索引的值。 md5:7c1d7ea9df0b722c
+// Set sets value to specified index.
+// yx:true
+// ff:设置值
+// a:
+// index:
+// value:
 func (a *Array) Set(index int, value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -137,7 +170,10 @@ func (a *Array) Set(index int, value interface{}) error {
 	return nil
 }
 
-// SetArray 使用给定的 `array` 设置底层切片数组。 md5:160b43a5c0ec752c
+// SetArray sets the underlying slice array with the given `array`.
+// ff:设置切片
+// a:
+// array:切片
 func (a *Array) SetArray(array []interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -145,7 +181,10 @@ func (a *Array) SetArray(array []interface{}) *Array {
 	return a
 }
 
-// Replace 从数组的起始位置开始，使用给定的 `array` 替换数组中的元素。 md5:5acead2fd9ec0761
+// Replace replaces the array items by given `array` from the beginning of array.
+// ff:替换
+// a:
+// array:切片
 func (a *Array) Replace(array []interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -159,7 +198,10 @@ func (a *Array) Replace(array []interface{}) *Array {
 	return a
 }
 
-// Sum 返回数组中所有值的和。 md5:b2148175a749b162
+// Sum returns the sum of values in an array.
+// ff:求和
+// a:
+// sum:值
 func (a *Array) Sum() (sum int) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -169,7 +211,12 @@ func (a *Array) Sum() (sum int) {
 	return
 }
 
-// SortFunc 使用自定义函数 `less` 对数组进行排序。 md5:8da07d09bbd08513
+// SortFunc sorts the array by custom function `less`.
+// ff:排序并带函数
+// a:
+// less:回调函数
+// v1:
+// v2:
 func (a *Array) SortFunc(less func(v1, v2 interface{}) bool) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -179,7 +226,11 @@ func (a *Array) SortFunc(less func(v1, v2 interface{}) bool) *Array {
 	return a
 }
 
-// InsertBefore 将`values`插入到`index`的前面。 md5:f5f3b46cd17ba885
+// InsertBefore inserts the `values` to the front of `index`.
+// ff:插入前面
+// a:
+// index:索引
+// values:值
 func (a *Array) InsertBefore(index int, values ...interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -192,7 +243,11 @@ func (a *Array) InsertBefore(index int, values ...interface{}) error {
 	return nil
 }
 
-// InsertAfter 将 `values` 插入到 `index` 后面。 md5:b90b80fa75b6b6e0
+// InsertAfter inserts the `values` to the back of `index`.
+// ff:插入后面
+// a:
+// index:索引
+// values:值
 func (a *Array) InsertAfter(index int, values ...interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -205,21 +260,25 @@ func (a *Array) InsertAfter(index int, values ...interface{}) error {
 	return nil
 }
 
-// Remove 函数通过索引移除一个元素。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:feaf958654838c25
+// Remove removes an item by index.
+// If the given `index` is out of range of the array, the `found` is false.
+// ff:删除
+// a:
+// index:索引
+// value:值
+// found:成功
 func (a *Array) Remove(index int) (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	return a.doRemoveWithoutLock(index)
 }
 
-// doRemoveWithoutLock 不使用锁移除一个项目。 md5:a6a1746903fd131c
+// doRemoveWithoutLock removes an item by index without lock.
 func (a *Array) doRemoveWithoutLock(index int) (value interface{}, found bool) {
 	if index < 0 || index >= len(a.array) {
 		return nil, false
 	}
-	// 在删除时确定数组边界，以提高删除效率。 md5:bc969ee880edf699
+	// Determine array boundaries when deleting to improve deletion efficiency.
 	if index == 0 {
 		value := a.array[0]
 		a.array = a.array[1:]
@@ -229,18 +288,19 @@ func (a *Array) doRemoveWithoutLock(index int) (value interface{}, found bool) {
 		a.array = a.array[:index]
 		return value, true
 	}
-	// 如果是一个非边界删除，
-	// 它将涉及创建一个数组，
-	// 那么删除操作效率较低。
-	// md5:6a664196d66bc968
+	// If it is a non-boundary delete,
+	// it will involve the creation of an array,
+	// then the deletion is less efficient.
 	value = a.array[index]
 	a.array = append(a.array[:index], a.array[index+1:]...)
 	return value, true
 }
 
-// RemoveValue 函数根据值删除一个元素。
-// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。
-// md5:c49c7706ce703d00
+// RemoveValue removes an item by value.
+// It returns true if value is found in the array, or else false if not found.
+// ff:删除值
+// a:
+// value:值
 func (a *Array) RemoveValue(value interface{}) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -251,7 +311,10 @@ func (a *Array) RemoveValue(value interface{}) bool {
 	return false
 }
 
-// RemoveValues 根据`values`移除多个项目。 md5:fbdf68fa6a8cdd26
+// RemoveValues removes multiple items by `values`.
+// ff:删除多个值
+// a:
+// values:值
 func (a *Array) RemoveValues(values ...interface{}) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -262,7 +325,10 @@ func (a *Array) RemoveValues(values ...interface{}) {
 	}
 }
 
-// PushLeft 将一个或多个项目推送到数组的开头。 md5:9062afab48970bed
+// PushLeft pushes one or multiple items to the beginning of array.
+// ff:入栈左
+// a:
+// value:值
 func (a *Array) PushLeft(value ...interface{}) *Array {
 	a.mu.Lock()
 	a.array = append(value, a.array...)
@@ -270,9 +336,11 @@ func (a *Array) PushLeft(value ...interface{}) *Array {
 	return a
 }
 
-// PushRight 将一个或多个元素添加到数组的末尾。
-// 它等同于 Append。
-// md5:bb33f2edfdfd9896
+// PushRight pushes one or multiple items to the end of array.
+// It equals to Append.
+// ff:入栈右
+// a:
+// value:值
 func (a *Array) PushRight(value ...interface{}) *Array {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -280,16 +348,22 @@ func (a *Array) PushRight(value ...interface{}) *Array {
 	return a
 }
 
-// PopRand 从数组中随机弹出并返回一个元素。
-// 注意，如果数组为空，`found` 将为 false。
-// md5:29338267db400401
+// PopRand randomly pops and return an item out of array.
+// Note that if the array is empty, the `found` is false.
+// ff:出栈随机
+// a:
+// value:值
+// found:成功
 func (a *Array) PopRand() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	return a.doRemoveWithoutLock(grand.Intn(len(a.array)))
 }
 
-// PopRands 随机地从数组中弹出并返回 `size` 个元素。 md5:3e1b1cbd52abd4cf
+// PopRands randomly pops and returns `size` items out of array.
+// ff:出栈随机多个
+// a:
+// size:数量
 func (a *Array) PopRands(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -306,9 +380,12 @@ func (a *Array) PopRands(size int) []interface{} {
 	return array
 }
 
-// PopLeft 从数组的开头弹出并返回一个项目。
-// 注意，如果数组为空，`found` 为 false。
-// md5:68f14002d84594a4
+// PopLeft pops and returns an item from the beginning of array.
+// Note that if the array is empty, the `found` is false.
+// ff:出栈左
+// a:
+// value:值
+// found:成功
 func (a *Array) PopLeft() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -320,9 +397,12 @@ func (a *Array) PopLeft() (value interface{}, found bool) {
 	return value, true
 }
 
-// PopRight 从数组的末尾弹出并返回一个元素。
-// 注意，如果数组为空，则 `found` 为 false。
-// md5:207fa7c7c4a04a10
+// PopRight pops and returns an item from the end of array.
+// Note that if the array is empty, the `found` is false.
+// ff:出栈右
+// a:
+// value:值
+// found:成功
 func (a *Array) PopRight() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -335,7 +415,10 @@ func (a *Array) PopRight() (value interface{}, found bool) {
 	return value, true
 }
 
-// PopLefts 从数组开头弹出并返回 `size` 个元素。 md5:4a903258f1fe1dd4
+// PopLefts pops and returns `size` items from the beginning of array.
+// ff:出栈左多个
+// a:
+// size:数量
 func (a *Array) PopLefts(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -352,7 +435,10 @@ func (a *Array) PopLefts(size int) []interface{} {
 	return value
 }
 
-// PopRights 从数组末尾移除并返回 `size` 个元素。 md5:0b04e6ad99e5349b
+// PopRights pops and returns `size` items from the end of array.
+// ff:出栈右多个
+// a:
+// size:数量
 func (a *Array) PopRights(size int) []interface{} {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -370,12 +456,17 @@ func (a *Array) PopRights(size int) []interface{} {
 	return value
 }
 
-// Range通过范围选择并返回项目，就像数组[start:end]一样。
-// 请注意，如果在并发安全使用中，它将返回切片的副本；否则返回底层数据的指针。
-// 
-// 如果`end`为负数，则偏移量将从数组末尾开始。
-// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。
-// md5:8b71690536bb9ec5
+// Range picks and returns items by range, like array[start:end].
+// Notice, if in concurrent-safe usage, it returns a copy of slice;
+// else a pointer to the underlying data.
+//
+// If `end` is negative, then the offset will start from the end of array.
+// If `end` is omitted, then the sequence will have everything from start up
+// until the end of the array.
+// ff:取切片并按范围
+// a:
+// start:起点
+// end:终点
 func (a *Array) Range(start int, end ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -399,19 +490,23 @@ func (a *Array) Range(start int, end ...int) []interface{} {
 	return array
 }
 
-// SubSlice 返回数组中指定的一段元素切片。
-// 如果在并发安全的使用场景下，它将返回切片的一个副本；否则返回切片的指针。
+// SubSlice returns a slice of elements from the array as specified
+// by the `offset` and `size` parameters.
+// If in concurrent safe usage, it returns a copy of the slice; else a pointer.
 //
-// 如果偏移量（offset）为非负数，序列将从数组的该位置开始。
-// 如果偏移量为负数，序列将从数组末尾向前该距离的位置开始。
+// If offset is non-negative, the sequence will start at that offset in the array.
+// If offset is negative, the sequence will start that far from the end of the array.
 //
-// 如果提供了长度（size）且为正数，那么序列将包含最多这么多元素。
-// 如果数组比指定的长度短，则序列只包含可用的数组元素。
-// 如果长度为负数，则序列将在距离数组末尾该数量的元素处停止。
-// 如果省略长度参数，那么序列将从偏移量开始直到数组末尾的所有元素。
+// If length is given and is positive, then the sequence will have up to that many elements in it.
+// If the array is shorter than the length, then only the available array elements will be present.
+// If length is given and is negative then the sequence will stop that many elements from the end of the array.
+// If it is omitted, then the sequence will have everything from offset up until the end of the array.
 //
-// 如果切片范围的起始位置超出数组左侧边界，操作将失败。
-// md5:f87ecd35d1dd7ac8
+// Any possibility crossing the left border of array, it will fail.
+// ff:取切片并按数量
+// a:
+// offset:起点
+// length:数量
 func (a *Array) SubSlice(offset int, length ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -449,13 +544,18 @@ func (a *Array) SubSlice(offset int, length ...int) []interface{} {
 	}
 }
 
-// Append 是 PushRight 的别名，请查看 PushRight 说明。 md5:66b758835bf0db52
+// Append is alias of PushRight, please See PushRight.
+// ff:Append别名
+// a:
+// value:值
 func (a *Array) Append(value ...interface{}) *Array {
 	a.PushRight(value...)
 	return a
 }
 
-// Len 返回数组的长度。 md5:593b37501e98da95
+// Len returns the length of array.
+// ff:取长度
+// a:
 func (a *Array) Len() int {
 	a.mu.RLock()
 	length := len(a.array)
@@ -463,9 +563,11 @@ func (a *Array) Len() int {
 	return length
 }
 
-// Slice 返回数组的底层数据。
-// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。
-// md5:111cbee45795a58b
+// Slice returns the underlying data of array.
+// Note that, if it's in concurrent-safe usage, it returns a copy of underlying data,
+// or else a pointer to the underlying data.
+// ff:取切片
+// a:
 func (a *Array) Slice() []interface{} {
 	if a.mu.IsSafe() {
 		a.mu.RLock()
@@ -478,12 +580,18 @@ func (a *Array) Slice() []interface{} {
 	}
 }
 
-// Interfaces 将当前数组作为 []interface{} 返回。 md5:f7a2e3459e185314
+// Interfaces returns current array as []interface{}.
+// yx:true
+// ff:取any切片
+// a:
 func (a *Array) Interfaces() []interface{} {
 	return a.Slice()
 }
 
-// Clone 返回一个新的数组，它是当前数组的副本。 md5:52ada4030c562295
+// Clone returns a new array, which is a copy of current array.
+// ff:取副本
+// a:
+// newArray:新切片
 func (a *Array) Clone() (newArray *Array) {
 	a.mu.RLock()
 	array := make([]interface{}, len(a.array))
@@ -492,7 +600,9 @@ func (a *Array) Clone() (newArray *Array) {
 	return NewArrayFrom(array, a.mu.IsSafe())
 }
 
-// Clear 删除当前数组中的所有项目。 md5:3d9c6d68a5719979
+// Clear deletes all items of current array.
+// ff:清空
+// a:
 func (a *Array) Clear() *Array {
 	a.mu.Lock()
 	if len(a.array) > 0 {
@@ -502,14 +612,19 @@ func (a *Array) Clear() *Array {
 	return a
 }
 
-// Contains 检查值是否存在于数组中。 md5:f209e1f30dd53cb2
+// Contains checks whether a value exists in the array.
+// ff:是否存在
+// a:
+// value:值
 func (a *Array) Contains(value interface{}) bool {
 	return a.Search(value) != -1
 }
 
-// Search 在数组中搜索 `value`，返回 `value` 的索引，
-// 如果不存在则返回 -1。
-// md5:787617bfeade8f93
+// Search searches array by `value`, returns the index of `value`,
+// or returns -1 if not exists.
+// ff:查找
+// a:
+// value:值
 func (a *Array) Search(value interface{}) int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -530,9 +645,9 @@ func (a *Array) doSearchWithoutLock(value interface{}) int {
 	return result
 }
 
-// Unique 去除数组中的重复元素。
-// 例如：[1,1,2,3,2] -> [1,2,3]
-// md5:5083aa414231fd30
+// Unique uniques the array, clear repeated items.
+// ff:去重
+// a:
 func (a *Array) Unique() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -557,7 +672,11 @@ func (a *Array) Unique() *Array {
 	return a
 }
 
-// LockFunc 通过回调函数 `f` 实现写入锁定。 md5:d45a130fa9aa0af2
+// LockFunc locks writing by callback function `f`.
+// ff:遍历并写锁定
+// a:
+// f:回调函数
+// array:
 func (a *Array) LockFunc(f func(array []interface{})) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -565,7 +684,11 @@ func (a *Array) LockFunc(f func(array []interface{})) *Array {
 	return a
 }
 
-// RLockFunc 通过回调函数 `f` 实现读取锁定。 md5:a45deee1e6f17c88
+// RLockFunc locks reading by callback function `f`.
+// ff:遍历并读锁定
+// a:
+// f:回调函数
+// array:
 func (a *Array) RLockFunc(f func(array []interface{})) *Array {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -573,17 +696,24 @@ func (a *Array) RLockFunc(f func(array []interface{})) *Array {
 	return a
 }
 
-// Merge 将 `array` 合并到当前数组中。
-// 参数 `array` 可以是任何 garray 或切片类型。
-// Merge 和 Append 的区别在于，Append 只支持特定的切片类型，
-// 而 Merge 支持更多种类的参数类型。
-// md5:465caccda38e84f8
+// Merge merges `array` into current array.
+// The parameter `array` can be any garray or slice type.
+// The difference between Merge and Append is Append supports only specified slice type,
+// but Merge supports more parameter types.
+// ff:合并
+// a:
+// array:切片
 func (a *Array) Merge(array interface{}) *Array {
 	return a.Append(gconv.Interfaces(array)...)
 }
 
-// Fill 使用`value`值填充数组，从`startIndex`参数开始的num个条目。
-// md5:0a7d3daa806b72ca
+// Fill fills an array with num entries of the value `value`,
+// keys starting at the `startIndex` parameter.
+// ff:填充
+// a:
+// startIndex:起点
+// num:填充数量
+// value:值
 func (a *Array) Fill(startIndex int, num int, value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -600,8 +730,12 @@ func (a *Array) Fill(startIndex int, num int, value interface{}) error {
 	return nil
 }
 
-// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。
-// md5:0f1f74ff34633d24
+// Chunk splits an array into multiple arrays,
+// the size of each array is determined by `size`.
+// The last chunk may contain less than size elements.
+// ff:分割
+// a:
+// size:数量
 func (a *Array) Chunk(size int) [][]interface{} {
 	if size < 1 {
 		return nil
@@ -622,10 +756,14 @@ func (a *Array) Chunk(size int) [][]interface{} {
 	return n
 }
 
-// Pad 用`value`将数组填充到指定的长度。
-// 如果大小为正数，则在右侧填充数组，如果为负数，则在左侧填充。
-// 如果`size`的绝对值小于或等于数组的长度，则不进行填充。
-// md5:fbe08b371c540418
+// Pad pads array to the specified length with `value`.
+// If size is positive then the array is padded on the right, or negative on the left.
+// If the absolute value of `size` is less than or equal to the length of the array
+// then no padding takes place.
+// ff:填满
+// a:
+// size:总数量
+// val:值
 func (a *Array) Pad(size int, val interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -649,7 +787,11 @@ func (a *Array) Pad(size int, val interface{}) *Array {
 	return a
 }
 
-// Rand 随机从数组中返回一个元素（不进行删除）。 md5:e152d2c5bc15ecd7
+// Rand randomly returns one item from array(no deleting).
+// ff:取值随机
+// a:
+// value:值
+// found:成功
 func (a *Array) Rand() (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -659,7 +801,10 @@ func (a *Array) Rand() (value interface{}, found bool) {
 	return a.array[grand.Intn(len(a.array))], true
 }
 
-// Rands 随机从数组中返回 `size` 个元素（不删除）。 md5:09ad7802f8190e3c
+// Rands randomly returns `size` items from array(no deleting).
+// ff:取值随机多个
+// a:
+// size:数量
 func (a *Array) Rands(size int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -673,7 +818,9 @@ func (a *Array) Rands(size int) []interface{} {
 	return array
 }
 
-// 随机打乱数组。 md5:5897797461d9f11a
+// Shuffle randomly shuffles the array.
+// ff:随机排序
+// a:
 func (a *Array) Shuffle() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -683,7 +830,9 @@ func (a *Array) Shuffle() *Array {
 	return a
 }
 
-// Reverse 函数将数组元素反转顺序。 md5:cc34cd0a2fa08e1c
+// Reverse makes array with elements in reverse order.
+// ff:倒排序
+// a:
 func (a *Array) Reverse() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -693,7 +842,10 @@ func (a *Array) Reverse() *Array {
 	return a
 }
 
-// Join 使用字符串 `glue` 连接数组元素。 md5:ec3894b049af1251
+// Join joins array elements with a string `glue`.
+// ff:连接
+// a:
+// glue:连接符
 func (a *Array) Join(glue string) string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -710,7 +862,9 @@ func (a *Array) Join(glue string) string {
 	return buffer.String()
 }
 
-// CountValues 计算数组中所有值出现的次数。 md5:95b4772dcb002365
+// CountValues counts the number of occurrences of all values in the array.
+// ff:统计
+// a:
 func (a *Array) CountValues() map[interface{}]int {
 	m := make(map[interface{}]int)
 	a.mu.RLock()
@@ -721,13 +875,24 @@ func (a *Array) CountValues() map[interface{}]int {
 	return m
 }
 
-// Iterator 是 IteratorAsc 的别名。 md5:1bfdea306db62845
+// Iterator is alias of IteratorAsc.
+// yx:true
+// ff:X遍历
+// a:
+// f:
+// k:
+// v:
 func (a *Array) Iterator(f func(k int, v interface{}) bool) {
 	a.IteratorAsc(f)
 }
 
-// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:8a125e2dd8982d48
+// IteratorAsc iterates the array readonly in ascending order with given callback function `f`.
+// If `f` returns true, then it continues iterating; or false to stop.
+// ff:遍历升序
+// a:
+// f:回调函数
+// k:
+// v:
 func (a *Array) IteratorAsc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -738,9 +903,13 @@ func (a *Array) IteratorAsc(f func(k int, v interface{}) bool) {
 	}
 }
 
-// IteratorDesc 以降序遍历数组，并使用给定的回调函数`f`进行只读迭代。
-// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。
-// md5:ea0a3805bccce0f7
+// IteratorDesc iterates the array readonly in descending order with given callback function `f`.
+// If `f` returns true, then it continues iterating; or false to stop.
+// ff:遍历降序
+// a:
+// f:回调函数
+// k:
+// v:
 func (a *Array) IteratorDesc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -751,7 +920,9 @@ func (a *Array) IteratorDesc(f func(k int, v interface{}) bool) {
 	}
 }
 
-// String 将当前数组转换为字符串，其实现方式类似于 json.Marshal。 md5:feda8f29233cde8d
+// String returns current array as a string, which implements like json.Marshal does.
+// ff:
+// a:
 func (a *Array) String() string {
 	if a == nil {
 		return ""
@@ -776,16 +947,20 @@ func (a *Array) String() string {
 	return buffer.String()
 }
 
-// MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
-// 注意，这里不要使用指针作为接收者。
-// md5:b4f76062b07a5263
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
+// Note that do not use pointer as its receiver here.
+// ff:
+// a:
 func (a Array) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 	return json.Marshal(a.array)
 }
 
-// UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
+// UnmarshalJSON implements the interface UnmarshalJSON for json.Unmarshal.
+// ff:
+// a:
+// b:
 func (a *Array) UnmarshalJSON(b []byte) error {
 	if a.array == nil {
 		a.array = make([]interface{}, 0)
@@ -798,7 +973,10 @@ func (a *Array) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalValue 是一个接口实现，用于为数组设置任何类型的数据值。 md5:35211e747ab939ab
+// UnmarshalValue is an interface implement which sets any type of value for array.
+// ff:
+// a:
+// value:
 func (a *Array) UnmarshalValue(value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -811,9 +989,14 @@ func (a *Array) UnmarshalValue(value interface{}) error {
 	return nil
 }
 
-// Filter 遍历数组，并使用自定义回调函数过滤元素。
-// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。
-// md5:d33873cfb9f1bb38
+// Filter iterates array and filters elements using custom callback function.
+// It removes the element from array if callback function `filter` returns true,
+// it or else does nothing and continues iterating.
+// ff:遍历删除
+// a:
+// filter:回调函数
+// index:索引
+// value:值
 func (a *Array) Filter(filter func(index int, value interface{}) bool) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -827,7 +1010,9 @@ func (a *Array) Filter(filter func(index int, value interface{}) bool) *Array {
 	return a
 }
 
-// FilterNil 删除数组中的所有空值（nil）。 md5:df6d66c2056b4815
+// FilterNil removes all nil value of the array.
+// ff:删除所有nil
+// a:
 func (a *Array) FilterNil() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -841,9 +1026,10 @@ func (a *Array) FilterNil() *Array {
 	return a
 }
 
-// FilterEmpty 移除数组中的所有空值。
-// 被认为是空的值包括：0，nil，false，""，切片、映射（map）或通道（channel）的长度为0。
-// md5:da01f627cd0962db
+// FilterEmpty removes all empty value of the array.
+// Values like: 0, nil, false, "", len(slice/map/chan) == 0 are considered empty.
+// ff:删除所有空值
+// a:
 func (a *Array) FilterEmpty() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -857,7 +1043,11 @@ func (a *Array) FilterEmpty() *Array {
 	return a
 }
 
-// Walk 将用户提供的函数 `f` 应用到数组的每个元素上。 md5:51e35ea7c2c6525c
+// Walk applies a user supplied function `f` to every item of array.
+// ff:遍历修改
+// a:
+// f:回调函数
+// value:
 func (a *Array) Walk(f func(value interface{}) interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -867,12 +1057,16 @@ func (a *Array) Walk(f func(value interface{}) interface{}) *Array {
 	return a
 }
 
-// IsEmpty 检查数组是否为空。 md5:fb6684351506a02d
+// IsEmpty checks whether the array is empty.
+// ff:是否为空
+// a:
 func (a *Array) IsEmpty() bool {
 	return a.Len() == 0
 }
 
-// DeepCopy实现当前类型的深拷贝接口。 md5:9cfbcb08109f6ce1
+// DeepCopy implements interface for deep copy of current type.
+// ff:
+// a:
 func (a *Array) DeepCopy() interface{} {
 	if a == nil {
 		return nil

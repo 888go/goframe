@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gtimer
+package gtimer//bm:定时类
 
 import (
 	"context"
@@ -15,32 +14,36 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// Entry是定时任务。 md5:50a66c0cedad73c2
+// Entry is the timing job.
 type Entry struct {
 	job         JobFunc         // The job function.
-	ctx         context.Context // 作业的上下文，只读。 md5:f8c9c52b497bf322
+	ctx         context.Context // The context for the job, for READ ONLY.
 	timer       *Timer          // Belonged timer.
-	ticks       int64           // 任务每滴答一声就执行一次。 md5:ee9f167eaedbe210
+	ticks       int64           // The job runs every tick.
 	times       *gtype.Int      // Limit running times.
 	status      *gtype.Int      // Job status.
 	isSingleton *gtype.Bool     // Singleton mode.
-	nextTicks   *gtype.Int64    // 下一次运行任务的ticks。 md5:41046b30b7471bf3
+	nextTicks   *gtype.Int64    // Next run ticks of the job.
 	infinite    *gtype.Bool     // No times limit.
 }
 
-// JobFunc 是定时器中调用的定时任务函数。 md5:8958cfb2ccc06eff
+// JobFunc is the timing called job function in timer.
 type JobFunc = func(ctx context.Context)
 
-// Status 返回作业的状态。 md5:2147922a20ade271
+// Status returns the status of the job.
+// ff:取任务状态
+// entry:
 func (entry *Entry) Status() int {
 	return entry.status.Val()
 }
 
-// Run 异步运行计时器任务。 md5:11fb4e6232736ab7
+// Run runs the timer job asynchronously.
+// ff:异步运行
+// entry:
 func (entry *Entry) Run() {
 	if !entry.infinite.Val() {
 		leftRunningTimes := entry.times.Add(-1)
-		// 检查其运行时间是否超时。 md5:040ad43c2af11b3d
+		// It checks its running times exceeding.
 		if leftRunningTimes < 0 {
 			entry.status.Set(StatusClosed)
 			return
@@ -68,8 +71,9 @@ func (entry *Entry) Run() {
 	}()
 }
 
-// doCheckAndRunByTicks 检查在给定的计时器周期内，任务是否可以运行。如果当前的`currentTimerTicks`满足条件，它会异步运行；否则，它会增加其周期并等待下一次运行检查。
-// md5:44d5223afb2e4f9d
+// doCheckAndRunByTicks checks the if job can run in given timer ticks,
+// it runs asynchronously if the given `currentTimerTicks` meets or else
+// it increments its ticks and waits for next running check.
 func (entry *Entry) doCheckAndRunByTicks(currentTimerTicks int64) {
 	// Ticks check.
 	if currentTimerTicks < entry.nextTicks.Val() {
@@ -95,52 +99,75 @@ func (entry *Entry) doCheckAndRunByTicks(currentTimerTicks int64) {
 	entry.Run()
 }
 
-// SetStatus 自定义设置作业的状态。 md5:c143d90d99990f2c
+// SetStatus custom sets the status for the job.
+// ff:设置任务状态
+// entry:
+// status:状态
 func (entry *Entry) SetStatus(status int) int {
 	return entry.status.Set(status)
 }
 
 // Start starts the job.
+// ff:开始工作
+// entry:
 func (entry *Entry) Start() {
 	entry.status.Set(StatusReady)
 }
 
 // Stop stops the job.
+// ff:暂停工作
+// entry:
 func (entry *Entry) Stop() {
 	entry.status.Set(StatusStopped)
 }
 
-// Close 方法关闭任务，随后该任务将从计时器中移除。 md5:f499b51290bff676
+// Close closes the job, and then it will be removed from the timer.
+// ff:关闭任务
+// entry:
 func (entry *Entry) Close() {
 	entry.status.Set(StatusClosed)
 }
 
-// Reset 重置作业，这将为下次运行重置其计数器。 md5:5a5ab5e4b73a76fe
+// Reset resets the job, which resets its ticks for next running.
+// ff:重置任务
+// entry:
 func (entry *Entry) Reset() {
 	entry.nextTicks.Set(entry.timer.ticks.Val() + entry.ticks)
 }
 
-// IsSingleton 检查并返回当前任务是否处于单例模式。 md5:a380e519564eb9da
+// IsSingleton checks and returns whether the job in singleton mode.
+// ff:是否单例模式
+// entry:
 func (entry *Entry) IsSingleton() bool {
 	return entry.isSingleton.Val()
 }
 
-// SetSingleton 设置单例模式。 md5:3fd379a01f57d11e
+// SetSingleton sets the job singleton mode.
+// ff:设置单例模式
+// entry:
+// enabled:单例模式
 func (entry *Entry) SetSingleton(enabled bool) {
 	entry.isSingleton.Set(enabled)
 }
 
-// Job 返回此任务的工作函数。 md5:38a44e496baf9d51
+// Job returns the job function of this job.
+// ff:取任务函数
+// entry:
 func (entry *Entry) Job() JobFunc {
 	return entry.job
 }
 
-// Ctx 返回此任务的初始化上下文。 md5:c2a3cb7932f8bf8a
+// Ctx returns the initialized context of this job.
+// ff:取任务上下文
+// entry:
 func (entry *Entry) Ctx() context.Context {
 	return entry.ctx
 }
 
-// SetTimes 设置作业的运行次数限制。 md5:812717e2b2bcce7c
+// SetTimes sets the limit running times for the job.
+// ff:设置任务次数
+// entry:
+// times:次数
 func (entry *Entry) SetTimes(times int) {
 	entry.times.Set(times)
 	entry.infinite.Set(false)

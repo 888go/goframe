@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
@@ -19,77 +18,85 @@ import (
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
-// ScanList 将 `r` 转换为包含其他复杂结构体属性的结构体切片。
-// 注意，参数 `structSlicePointer` 应该是 *[]struct/*[]*struct 类型。
+// ScanList converts `r` to struct slice which contains other complex struct attributes.
+// Note that the parameter `structSlicePointer` should be type of *[]struct/*[]*struct.
 //
-// 使用示例 1：普通属性结构体关系：
+// Usage example 1: Normal attribute struct relation:
 //
 //	type EntityUser struct {
-//		Uid  int
-//		Name string
+//		   Uid  int
+//		   Name string
 //	}
 //
 //	type EntityUserDetail struct {
-//		Uid     int
-//		Address string
+//		   Uid     int
+//		   Address string
 //	}
 //
 //	type EntityUserScores struct {
-//		Id     int
-//		Uid    int
-//		Score  int
-//		Course string
+//		   Id     int
+//		   Uid    int
+//		   Score  int
+//		   Course string
 //	}
 //
 //	type Entity struct {
-//		User       *EntityUser
-//		UserDetail *EntityUserDetail
-//		UserScores []*EntityUserScores
+//	    User       *EntityUser
+//		   UserDetail *EntityUserDetail
+//		   UserScores []*EntityUserScores
 //	}
 //
-//	var users []*Entity
-//	ScanList(&users, "User")
-//	ScanList(&users, "User", "uid")
-//	ScanList(&users, "UserDetail", "User", "uid:Uid")
-//	ScanList(&users, "UserScores", "User", "uid:Uid")
-//	ScanList(&users, "UserScores", "User", "uid")
+// var users []*Entity
+// ScanList(&users, "User")
+// ScanList(&users, "User", "uid")
+// ScanList(&users, "UserDetail", "User", "uid:Uid")
+// ScanList(&users, "UserScores", "User", "uid:Uid")
+// ScanList(&users, "UserScores", "User", "uid")
 //
-// 使用示例 2：嵌入属性结构体关系：
+// Usage example 2: Embedded attribute struct relation:
 //
 //	type EntityUser struct {
-//		Uid  int
-//		Name string
+//		   Uid  int
+//		   Name string
 //	}
 //
 //	type EntityUserDetail struct {
-//		Uid     int
-//		Address string
+//		   Uid     int
+//		   Address string
 //	}
 //
 //	type EntityUserScores struct {
-//		Id    int
-//		Uid   int
-//		Score int
+//		   Id    int
+//		   Uid   int
+//		   Score int
 //	}
 //
 //	type Entity struct {
-//		EntityUser
-//		UserDetail EntityUserDetail
-//		UserScores []EntityUserScores
+//		   EntityUser
+//		   UserDetail EntityUserDetail
+//		   UserScores []EntityUserScores
 //	}
 //
-//	var users []*Entity
-//	ScanList(&users)
-//	ScanList(&users, "UserDetail", "uid")
-//	ScanList(&users, "UserScores", "uid")
+// var users []*Entity
+// ScanList(&users)
+// ScanList(&users, "UserDetail", "uid")
+// ScanList(&users, "UserScores", "uid")
 //
-// 示例代码中的 "User/UserDetail/UserScores" 参数指定了当前结果将绑定的目标属性结构体。
+// The parameters "User/UserDetail/UserScores" in the example codes specify the target attribute struct
+// that current result will be bound to.
 //
-// 示例代码中的 "uid" 是结果表字段名，而 "Uid" 是相关结构体属性名，而不是绑定目标的属性名。
-// 在示例代码中，它是 "Entity" 实体的 "User" 的属性名 "Uid"。它会根据给定的 `relation` 参数自动计算 HasOne/HasMany 关系。
+// The "uid" in the example codes is the table field name of the result, and the "Uid" is the relational
+// struct attribute name - not the attribute name of the bound to target. In the example codes, it's attribute
+// name "Uid" of "User" of entity "Entity". It automatically calculates the HasOne/HasMany relationship with
+// given `relation` parameter.
 //
-// 可参考示例或单元测试用例以更清晰地理解此函数的工作方式。
-// md5:d6997acc67d472c4
+// See the example or unit testing cases for clear understanding for this function.
+// ff:取指针列表
+// r:
+// structSlicePointer:结构体切片指针
+// bindToAttrName:绑定到结构体属性名称
+// relationAttrNameAndFields:结构体属性关联
+// err:错误
 func (r Result) ScanList(structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	out, err := checkGetSliceElementInfoForScanList(structSlicePointer, bindToAttrName)
 	if err != nil {
@@ -124,7 +131,7 @@ type checkGetSliceElementInfoForScanListOutput struct {
 }
 
 func checkGetSliceElementInfoForScanList(structSlicePointer interface{}, bindToAttrName string) (out *checkGetSliceElementInfoForScanListOutput, err error) {
-	// 对参数进行必要的检查。 md5:00bddba1a043bfdd
+	// Necessary checks for parameters.
 	if structSlicePointer == nil {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, `structSlicePointer cannot be nil`)
 	}
@@ -150,7 +157,7 @@ func checkGetSliceElementInfoForScanList(structSlicePointer interface{}, bindToA
 	out = &checkGetSliceElementInfoForScanListOutput{
 		SliceReflectValue: reflectValue.Elem(),
 	}
-	// 找到切片的元素结构类型。 md5:a55c378f6fa3b326
+	// Find the element struct type of the slice.
 	reflectType = reflectValue.Type().Elem().Elem()
 	reflectKind = reflectType.Kind()
 	for reflectKind == reflect.Ptr {
@@ -165,7 +172,7 @@ func checkGetSliceElementInfoForScanList(structSlicePointer interface{}, bindToA
 		)
 		return
 	}
-	// 通过给定的名称查找目标字段。 md5:8fe292d32e17dba0
+	// Find the target field by given name.
 	structField, ok := reflectType.FieldByName(bindToAttrName)
 	if !ok {
 		return nil, gerror.NewCodef(
@@ -175,7 +182,7 @@ func checkGetSliceElementInfoForScanList(structSlicePointer interface{}, bindToA
 			reflect.TypeOf(structSlicePointer).String(),
 		)
 	}
-	// 查找用于ORM字段过滤的属性结构体类型。 md5:1b98a4f65808a146
+	// Find the attribute struct type for ORM fields filtering.
 	reflectType = structField.Type
 	reflectKind = reflectType.Kind()
 	for reflectKind == reflect.Ptr {
@@ -200,9 +207,10 @@ type doScanListInput struct {
 	RelationFields     string
 }
 
-// doScanList 将 `result` 转换为包含嵌套复杂结构体属性的切片。参数 `model` 用于递归扫描，即它可以递归地扫描结构体/结构体的属性，但需要数据库访问模型。
-// 注意参数 `structSlicePointer` 应该是 *[]struct 或 *[]*struct 类型。
-// md5:b32c3ddd7d2b8656
+// doScanList converts `result` to struct slice which contains other complex struct attributes recursively.
+// The parameter `model` is used for recursively scanning purpose, which means, it can scan the attribute struct/structs recursively,
+// but it needs the Model for database accessing.
+// Note that the parameter `structSlicePointer` should be type of *[]struct/*[]*struct.
 func doScanList(in doScanListInput) (err error) {
 	if in.Result.IsEmpty() {
 		return nil
@@ -213,16 +221,15 @@ func doScanList(in doScanListInput) (err error) {
 
 	length := len(in.Result)
 	if length == 0 {
-		// 指向的切片不为空。 md5:1348d4b6d686b8f3
+		// The pointed slice is not empty.
 		if in.StructSliceValue.Len() > 0 {
-			// 这里检查是否具有已初始化的结构体项。
-			// 然后返回错误以警告开发者其为空且无法进行转换。
-			// md5:cd5f133a393c1157
+			// It here checks if it has struct item, which is already initialized.
+			// It then returns error to warn the developer its empty and no conversion.
 			if v := in.StructSliceValue.Index(0); v.Kind() != reflect.Ptr {
 				return sql.ErrNoRows
 			}
 		}
-		// 对于空的结构体切片，什么也不做。 md5:f65a6d24cd42ca62
+		// Do nothing for empty struct slice.
 		return nil
 	}
 	var (
@@ -242,28 +249,26 @@ func doScanList(in doScanListInput) (err error) {
 	// Relation variables.
 	var (
 		relationDataMap         map[string]Value
-		relationFromFieldName   string // 例如：relationKV：id：uid -> id. md5:3732472417ccbf22
-		relationBindToFieldName string // 例如：relationKV：id：uid -> uid. md5:dda263df86dc03a1
+		relationFromFieldName   string // Eg: relationKV: id:uid  -> id
+		relationBindToFieldName string // Eg: relationKV: id:uid  -> uid
 	)
 	if len(in.RelationFields) > 0 {
-		// 表字段名与属性名之间的关联键字符串
-		// 可以使用字符'='或':'进行连接。
-		// md5:a3dd08343df8a7ac
+		// The relation key string of table field name and attribute name
+		// can be joined with char '=' or ':'.
 		array := gstr.SplitAndTrim(in.RelationFields, "=")
 		if len(array) == 1 {
-			// 与旧的分隔字符':'兼容。 md5:21a764d3ea1e081b
+			// Compatible with old splitting char ':'.
 			array = gstr.SplitAndTrim(in.RelationFields, ":")
 		}
 		if len(array) == 1 {
-			// 关系名称是相同的。 md5:1075b6495b26357b
+			// The relation names are the same.
 			array = []string{in.RelationFields, in.RelationFields}
 		}
 		if len(array) == 2 {
-			// 定义表字段到关系属性名。
-			// 例如：
+			// Defined table field to relation attribute name.
+			// Like:
 			// uid:Uid
 			// uid:UserId
-			// md5:029253159bee75d1
 			relationFromFieldName = array[0]
 			relationBindToFieldName = array[1]
 			if key, _ := gutil.MapPossibleItemByKey(in.Result[0].Map(), relationFromFieldName); key == "" {
@@ -283,7 +288,7 @@ func doScanList(in doScanListInput) (err error) {
 			)
 		}
 		if relationFromFieldName != "" {
-			// 请注意，该值可能是切片类型。 md5:079de568e97881a6
+			// Note that the value might be type of slice.
 			relationDataMap = in.Result.MapKeyValue(relationFromFieldName)
 		}
 		if len(relationDataMap) == 0 {
@@ -294,7 +299,7 @@ func doScanList(in doScanListInput) (err error) {
 			)
 		}
 	}
-	// 将其绑定到目标属性。 md5:6248a034de9b08e4
+	// Bind to target attribute.
 	var (
 		ok              bool
 		bindToAttrValue reflect.Value
@@ -322,7 +327,7 @@ func doScanList(in doScanListInput) (err error) {
 	bindToAttrType = bindToAttrField.Type
 	bindToAttrKind = bindToAttrType.Kind()
 
-	// 绑定关系条件。 md5:1d13e1ebe0b47bd2
+	// Bind to relation conditions.
 	var (
 		relationFromAttrValue          reflect.Value
 		relationFromAttrField          reflect.Value
@@ -330,17 +335,16 @@ func doScanList(in doScanListInput) (err error) {
 	)
 	for i := 0; i < arrayValue.Len(); i++ {
 		arrayElemValue := arrayValue.Index(i)
-		// 应该在非指针的reflect.Value上调用FieldByName。 md5:1343ff0ec0419e1f
+		// The FieldByName should be called on non-pointer reflect.Value.
 		if arrayElemValue.Kind() == reflect.Ptr {
 			// Like: []*Entity
 			arrayElemValue = arrayElemValue.Elem()
 			if !arrayElemValue.IsValid() {
-				// 如果元素为nil，则创建一个并将其设置到切片中。
-				// "reflect.New(itemType.Elem())" 用于创建一个新的元素，并返回该元素的地址。
-				// 例如：
-				// reflect.New(itemType.Elem())        => *实体
-				// reflect.New(itemType.Elem()).Elem() => 实体
-				// md5:0897d7c0e7467f9d
+				// The element is nil, then create one and set it to the slice.
+				// The "reflect.New(itemType.Elem())" creates a new element and returns the address of it.
+				// For example:
+				// reflect.New(itemType.Elem())        => *Entity
+				// reflect.New(itemType.Elem()).Elem() => Entity
 				arrayElemValue = reflect.New(arrayItemType.Elem()).Elem()
 				arrayValue.Index(i).Set(arrayElemValue.Addr())
 			}
@@ -349,7 +353,7 @@ func doScanList(in doScanListInput) (err error) {
 		}
 		bindToAttrValue = arrayElemValue.FieldByName(in.BindToAttrName)
 		if in.RelationAttrName != "" {
-			// 当前切片元素的属性值。 md5:b46440a93bb1ddaa
+			// Attribute value of current slice element.
 			relationFromAttrValue = arrayElemValue.FieldByName(in.RelationAttrName)
 			if relationFromAttrValue.Kind() == reflect.Ptr {
 				relationFromAttrValue = relationFromAttrValue.Elem()
@@ -361,7 +365,7 @@ func doScanList(in doScanListInput) (err error) {
 		if len(relationDataMap) > 0 && !relationFromAttrValue.IsValid() {
 			return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, in.RelationFields)
 		}
-		// 检查并尝试找到可能与属性名绑定的位置。 md5:b1e1f2121b3b5f92
+		// Check and find possible bind to attribute name.
 		if in.RelationFields != "" && !relationBindToFieldNameChecked {
 			relationFromAttrField = relationFromAttrValue.FieldByName(relationBindToFieldName)
 			if !relationFromAttrField.IsValid() {
@@ -401,7 +405,7 @@ func doScanList(in doScanListInput) (err error) {
 						}
 					}
 				} else {
-					// 可能属性还不存在。 md5:d7992076e8a1e5fe
+					// Maybe the attribute does not exist yet.
 					return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, in.RelationFields)
 				}
 			} else {
@@ -424,7 +428,7 @@ func doScanList(in doScanListInput) (err error) {
 				if relationFromAttrField.IsValid() {
 					v := relationDataMap[gconv.String(relationFromAttrField.Interface())]
 					if v == nil {
-						// 没有关联数据。 md5:4f76ca1525fb5005
+						// There's no relational data.
 						continue
 					}
 					if v.IsSlice() {
@@ -437,17 +441,17 @@ func doScanList(in doScanListInput) (err error) {
 						}
 					}
 				} else {
-					// 可能属性还不存在。 md5:d7992076e8a1e5fe
+					// Maybe the attribute does not exist yet.
 					return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, in.RelationFields)
 				}
 			} else {
 				if i >= len(in.Result) {
-					// 没有关联数据。 md5:4f76ca1525fb5005
+					// There's no relational data.
 					continue
 				}
 				v := in.Result[i]
 				if v == nil {
-					// 没有关联数据。 md5:4f76ca1525fb5005
+					// There's no relational data.
 					continue
 				}
 				if err = v.Struct(element); err != nil {
@@ -468,7 +472,7 @@ func doScanList(in doScanListInput) (err error) {
 				if relationFromAttrField.IsValid() {
 					relationDataItem := relationDataMap[gconv.String(relationFromAttrField.Interface())]
 					if relationDataItem == nil {
-						// 没有关联数据。 md5:4f76ca1525fb5005
+						// There's no relational data.
 						continue
 					}
 					if relationDataItem.IsSlice() {
@@ -481,17 +485,17 @@ func doScanList(in doScanListInput) (err error) {
 						}
 					}
 				} else {
-					// 可能属性还不存在。 md5:d7992076e8a1e5fe
+					// Maybe the attribute does not exist yet.
 					return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid relation fields specified: "%v"`, in.RelationFields)
 				}
 			} else {
 				if i >= len(in.Result) {
-					// 没有关联数据。 md5:4f76ca1525fb5005
+					// There's no relational data.
 					continue
 				}
 				relationDataItem := in.Result[i]
 				if relationDataItem == nil {
-					// 没有关联数据。 md5:4f76ca1525fb5005
+					// There's no relational data.
 					continue
 				}
 				if err = relationDataItem.Struct(bindToAttrValue); err != nil {

@@ -51,8 +51,6 @@ func ExampleJson_SetViolenceCheck() {
 // ========================================================================
 // JSON
 // ========================================================================
-// 这段注释是关于JSON的，可能表示下面的代码与JSON（JavaScript Object Notation）处理有关，JSON是一种轻量级的数据交换格式。
-// md5:9f636a538977ae4f
 func ExampleJson_ToJson() {
 	type BaseInfo struct {
 		Name string
@@ -220,13 +218,6 @@ func ExampleJson_MustToJsonIndentString() {
 // ========================================================================
 // XML
 // ========================================================================
-// 这段代码的注释翻译成中文是：
-// 
-// ========================================================================
-// XML
-// ========================================================================
-// 这是对XML部分的注释，表示接下来的内容与XML（可扩展标记语言）相关。
-// md5:931c367389ad5867
 func ExampleJson_ToXml() {
 	type BaseInfo struct {
 		Name string
@@ -394,7 +385,6 @@ func ExampleJson_MustToXmlIndentString() {
 // ========================================================================
 // YAML
 // ========================================================================
-// md5:86131a4a0253d702
 func ExampleJson_ToYaml() {
 	type BaseInfo struct {
 		Name string
@@ -496,9 +486,8 @@ func ExampleJson_MustToYamlString() {
 }
 
 // ========================================================================
-// TOML 配置文件格式
+// TOML
 // ========================================================================
-// md5:2a6d07eba917d4f3
 func ExampleJson_ToToml() {
 	type BaseInfo struct {
 		Name string
@@ -582,7 +571,6 @@ func ExampleJson_MustToTomlString() {
 // ========================================================================
 // INI
 // ========================================================================
-// md5:a7d46faaad75eec6
 func ExampleJson_ToIni() {
 	type BaseInfo struct {
 		Name string
@@ -655,9 +643,8 @@ func ExampleJson_MustToIniString() {
 }
 
 // ========================================================================
-// 属性
+// Properties
 // ========================================================================
-// md5:b684439963732a7f
 func ExampleJson_ToProperties() {
 	type BaseInfo struct {
 		Name string

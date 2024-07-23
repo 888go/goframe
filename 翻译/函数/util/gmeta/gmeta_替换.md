@@ -35,6 +35,6 @@
 # //zj:
 # 备注结束
 
-[func (e *validationError) Strings() (errs #左中括号##右中括号#string)]
-ff=取文本切片
-yx=true
+[metaTypeName = "gmeta.Meta" // metaTypeName is for type string comparison.]
+th=元数据类.Meta
+cz=gmeta.Meta

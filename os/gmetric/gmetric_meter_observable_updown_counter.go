@@ -1,12 +1,12 @@
-// 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
+// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gmetric
 
-// localObservableUpDownCounter是实现ObservableUpDownCounter接口的本地实现。 md5:be0cdcbf24029cf7
+// localObservableUpDownCounter is the local implements for interface ObservableUpDownCounter.
 type localObservableUpDownCounter struct {
 	Metric
 	MeterOption
@@ -15,13 +15,18 @@ type localObservableUpDownCounter struct {
 }
 
 var (
-	// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
+	// Check the implements for interface MetricInitializer.
 	_ MetricInitializer = (*localObservableUpDownCounter)(nil)
-	// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
+	// Check the implements for interface PerformerExporter.
 	_ PerformerExporter = (*localObservableUpDownCounter)(nil)
 )
 
-// ObservableUpDownCounter 创建并返回一个新的ObservableUpDownCounter。 md5:a7f48b253e6c2099
+// ObservableUpDownCounter creates and returns a new ObservableUpDownCounter.
+// ff:
+// meter:
+// name:
+// option:
+// ObservableUpDownCounter:
 func (meter *localMeter) ObservableUpDownCounter(name string, option MetricOption) (ObservableUpDownCounter, error) {
 	m, err := meter.newMetric(MetricTypeObservableUpDownCounter, name, option)
 	if err != nil {
@@ -42,9 +47,12 @@ func (meter *localMeter) ObservableUpDownCounter(name string, option MetricOptio
 	return observableUpDownCounter, nil
 }
 
-// MustObservableUpDownCounter 创建并返回一个新的 ObservableUpDownCounter。
-// 如果发生任何错误，它将 panic。
-// md5:2c1790e420456ea1
+// MustObservableUpDownCounter creates and returns a new ObservableUpDownCounter.
+// It panics if any error occurs.
+// ff:
+// meter:
+// name:
+// option:
 func (meter *localMeter) MustObservableUpDownCounter(name string, option MetricOption) ObservableUpDownCounter {
 	m, err := meter.ObservableCounter(name, option)
 	if err != nil {
@@ -53,7 +61,11 @@ func (meter *localMeter) MustObservableUpDownCounter(name string, option MetricO
 	return m
 }
 
-// Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
+// Init initializes the Metric in Provider creation.
+// ff:
+// l:
+// provider:
+// err:
 func (l *localObservableUpDownCounter) Init(provider Provider) (err error) {
 	if _, ok := l.ObservableUpDownCounterPerformer.(noopObservableUpDownCounterPerformer); !ok {
 		// already initialized.
@@ -66,9 +78,10 @@ func (l *localObservableUpDownCounter) Init(provider Provider) (err error) {
 	return err
 }
 
-// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-// 这通常被指标实现所使用。
-// md5:e521fc985b9a53e2
+// Performer implements interface PerformerExporter, which exports internal Performer of Metric.
+// This is usually used by metric implements.
+// ff:
+// l:
 func (l *localObservableUpDownCounter) Performer() any {
 	return l.ObservableUpDownCounterPerformer
 }

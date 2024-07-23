@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gtime_test
 
@@ -13,9 +12,8 @@ import (
 	"github.com/gogf/gf/v2/os/gtime"
 )
 
-// New 创建并返回一个带有给定参数的时间对象。
-// 可选参数可以是：time.Time（时间类型）、string（字符串）或 integer（整数）。
-// md5:6bd8b77e3852fdf3
+// New creates and returns a Time object with given parameter.
+// The optional parameter can be type of: time.Time/*time.Time, string or integer.
 func ExampleSetTimeZone() {
 	gtime.SetTimeZone("Asia/Shanghai")
 	fmt.Println(gtime.Datetime())
@@ -217,7 +215,7 @@ func ExampleTime_DayOfYear() {
 	// 7
 }
 
-// DaysInMonth 返回当前月份的天数。 md5:0cd1f14a8bb1f8fc
+// DaysInMonth returns the day count of current month.
 func ExampleTime_DaysInMonth() {
 	gt1 := gtime.New("2018-08-08 08:08:08")
 
@@ -227,7 +225,7 @@ func ExampleTime_DaysInMonth() {
 	// 31
 }
 
-// WeeksOfYear 返回当前年份中的当前周数。 md5:a51898ffdc6f00df
+// WeeksOfYear returns the point of current week for the year.
 func ExampleTime_WeeksOfYear() {
 	gt1 := gtime.New("2018-01-08 08:08:08")
 

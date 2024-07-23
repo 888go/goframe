@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package clickhouse
 
@@ -18,13 +17,17 @@ import (
 	"github.com/gogf/gf/v2/os/gtime"
 )
 
-// ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
+// ConvertValueForField converts value to the type of the record field.
+// ff:
+// d:
+// ctx:
+// fieldType:
+// fieldValue:
 func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	switch itemValue := fieldValue.(type) {
 	case time.Time:
-		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。
-		// md5:058aebae61025f37
+		// If the time is zero, it then updates it to nil,
+		// which will insert/update the value to database as "null".
 		if itemValue.IsZero() {
 			return nil, nil
 		}
@@ -33,32 +36,29 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 		return itemValue, nil
 
 	case *time.Time:
-		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。
-		// md5:058aebae61025f37
+		// If the time is zero, it then updates it to nil,
+		// which will insert/update the value to database as "null".
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}
 		return itemValue, nil
 
 	case gtime.Time:
-		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。
-		// md5:058aebae61025f37
+		// If the time is zero, it then updates it to nil,
+		// which will insert/update the value to database as "null".
 		if itemValue.IsZero() {
 			return nil, nil
 		}
-		// 用于gtime类型，需要获取time.Time. md5:cbd653f9cf62963a
+		// for gtime type, needs to get time.Time
 		return itemValue.Time, nil
 
 	case *gtime.Time:
-		// 用于gtime类型，需要获取time.Time. md5:cbd653f9cf62963a
+		// for gtime type, needs to get time.Time
 		if itemValue != nil {
 			return itemValue.Time, nil
 		}
-		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。
-		// md5:058aebae61025f37
+		// If the time is zero, it then updates it to nil,
+		// which will insert/update the value to database as "null".
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}
@@ -73,10 +73,9 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 		return nil, nil
 
 	default:
-		// 如果其他类型实现了driver包的valuer接口
-		// 则使用转换后的结果
-		// 否则，提交接口数据
-		// md5:a04dad650b0b5d2a
+		// if the other type implements valuer for the driver package
+		// the converted result is used
+		// otherwise the interface data is committed
 		valuer, ok := itemValue.(driver.Valuer)
 		if !ok {
 			return itemValue, nil

@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gerror
 
@@ -14,7 +13,10 @@ import (
 	"github.com/gogf/gf/v2/errors/gcode"
 )
 
-// NewCode 创建并返回一个具有错误代码和给定文本的错误。 md5:5f88f8ae1151acac
+// NewCode creates and returns an error that has error code and given text.
+// ff:创建错误码
+// code:错误码
+// text:
 func NewCode(code gcode.Code, text ...string) error {
 	return &Error{
 		stack: callers(),
@@ -23,7 +25,11 @@ func NewCode(code gcode.Code, text ...string) error {
 	}
 }
 
-// NewCodef 返回一个具有错误代码，并按照给定格式和参数格式化的错误。 md5:bb6b90ee5a4ce175
+// NewCodef returns an error that has error code and formats as the given format and args.
+// ff:创建错误码并格式化
+// code:错误码
+// format:
+// args:
 func NewCodef(code gcode.Code, format string, args ...interface{}) error {
 	return &Error{
 		stack: callers(),
@@ -32,9 +38,12 @@ func NewCodef(code gcode.Code, format string, args ...interface{}) error {
 	}
 }
 
-// NewCodeSkip 创建并返回一个带有错误码的错误，该错误根据给定的文本格式化。
-// 参数 `skip` 指定了跳过的堆栈调用者数量。
-// md5:5c3aabed2ce89e0c
+// NewCodeSkip creates and returns an error which has error code and is formatted from given text.
+// The parameter `skip` specifies the stack callers skipped amount.
+// ff:创建错误码并跳过堆栈
+// code:错误码
+// skip:
+// text:
 func NewCodeSkip(code gcode.Code, skip int, text ...string) error {
 	return &Error{
 		stack: callers(skip),
@@ -43,9 +52,13 @@ func NewCodeSkip(code gcode.Code, skip int, text ...string) error {
 	}
 }
 
-// NewCodeSkipf 返回一个具有指定错误代码和格式化参数的错误。
-// 参数 `skip` 指定了要跳过的调用堆栈数量。
-// md5:ccd3b74e8b4f8acc
+// NewCodeSkipf returns an error that has error code and formats as the given format and args.
+// The parameter `skip` specifies the stack callers skipped amount.
+// ff:创建错误码并跳过堆栈与格式化
+// code:错误码
+// skip:
+// format:
+// args:
 func NewCodeSkipf(code gcode.Code, skip int, format string, args ...interface{}) error {
 	return &Error{
 		stack: callers(skip),
@@ -54,9 +67,12 @@ func NewCodeSkipf(code gcode.Code, skip int, format string, args ...interface{})
 	}
 }
 
-// WrapCode 将错误与代码和文本一起包装。
-// 如果给定的 err 为 nil，它将返回 nil。
-// md5:5e09a5ffb6fa4e21
+// WrapCode wraps error with code and text.
+// It returns nil if given err is nil.
+// ff:多层错误码
+// code:错误码
+// err:
+// text:
 func WrapCode(code gcode.Code, err error, text ...string) error {
 	if err == nil {
 		return nil
@@ -69,9 +85,13 @@ func WrapCode(code gcode.Code, err error, text ...string) error {
 	}
 }
 
-// WrapCodef 将错误与代码和格式化占位符一起包装。
-// 如果给定的 `err` 为 nil，它将返回 nil。
-// md5:ef3a7436eb342ff6
+// WrapCodef wraps error with code and format specifier.
+// It returns nil if given `err` is nil.
+// ff:多层错误码并格式化
+// code:错误码
+// err:
+// format:
+// args:
 func WrapCodef(code gcode.Code, err error, format string, args ...interface{}) error {
 	if err == nil {
 		return nil
@@ -84,10 +104,14 @@ func WrapCodef(code gcode.Code, err error, format string, args ...interface{}) e
 	}
 }
 
-// WrapCodeSkip 用于给错误附加代码和文本信息。
-// 如果给定的err为nil，该函数将返回nil。
-// 参数 `skip` 指定了要跳过的堆栈调用者数量。
-// md5:5ee348edd866b587
+// WrapCodeSkip wraps error with code and text.
+// It returns nil if given err is nil.
+// The parameter `skip` specifies the stack callers skipped amount.
+// ff:多层错误码并跳过堆栈
+// code:错误码
+// skip:
+// err:
+// text:
 func WrapCodeSkip(code gcode.Code, skip int, err error, text ...string) error {
 	if err == nil {
 		return nil
@@ -100,10 +124,15 @@ func WrapCodeSkip(code gcode.Code, skip int, err error, text ...string) error {
 	}
 }
 
-// WrapCodeSkipf 使用给定的格式和参数将错误包装成带有代码和文本的错误。
-// 如果给定的err为nil，它将返回nil。
-// 参数`skip`指定了要跳过的调用者堆栈的数量。
-// md5:00fbaefc556da645
+// WrapCodeSkipf wraps error with code and text that is formatted with given format and args.
+// It returns nil if given err is nil.
+// The parameter `skip` specifies the stack callers skipped amount.
+// ff:多层错误码并跳过堆栈与格式化
+// code:错误码
+// skip:
+// err:
+// format:
+// args:
 func WrapCodeSkipf(code gcode.Code, skip int, err error, format string, args ...interface{}) error {
 	if err == nil {
 		return nil
@@ -116,9 +145,10 @@ func WrapCodeSkipf(code gcode.Code, skip int, err error, format string, args ...
 	}
 }
 
-// Code 函数返回当前错误的错误代码。
-// 如果它没有错误代码并且也没有实现 Code 接口，它将返回 CodeNil。
-// md5:33b7429f6f7b3dbe
+// Code returns the error code of `current error`.
+// It returns `CodeNil` if it has no error code neither it does not implement interface Code.
+// ff:取错误码
+// err:错误
 func Code(err error) gcode.Code {
 	if err == nil {
 		return gcode.CodeNil
@@ -132,7 +162,10 @@ func Code(err error) gcode.Code {
 	return gcode.CodeNil
 }
 
-// HasCode 检查并报告 `err` 的链式错误中是否包含 `code`。 md5:5d1b8286d1872717
+// HasCode checks and reports whether `err` has `code` in its chaining errors.
+// ff:是否包含错误码
+// err:错误
+// code:错误码
 func HasCode(err error, code gcode.Code) bool {
 	if err == nil {
 		return false

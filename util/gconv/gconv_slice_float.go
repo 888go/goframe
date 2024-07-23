@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gconv
 
@@ -14,27 +13,38 @@ import (
 	"github.com/gogf/gf/v2/internal/reflection"
 )
 
-// SliceFloat是Floats的别名。 md5:d770be8332715271
+// SliceFloat is alias of Floats.
+// ff:SliceFloat别名
+// any:
 func SliceFloat(any interface{}) []float64 {
 	return Floats(any)
 }
 
-// SliceFloat32 是 Float32s 的别名。 md5:686d576236624be0
+// SliceFloat32 is alias of Float32s.
+// ff:SliceFloat32别名
+// any:
 func SliceFloat32(any interface{}) []float32 {
 	return Float32s(any)
 }
 
-// SliceFloat64 是 Float64s 的别名。 md5:8fe51e4f2e2255df
+// SliceFloat64 is alias of Float64s.
+// ff:SliceFloat64别名
+// any:
 func SliceFloat64(any interface{}) []float64 {
 	return Floats(any)
 }
 
-// Floats 将 `any` 转换为 []float64。 md5:888b7822b64d033c
+// Floats converts `any` to []float64.
+// yx:true
+// ff:取小数切片
+// any:
 func Floats(any interface{}) []float64 {
 	return Float64s(any)
 }
 
-// Float32s 将 `any` 转换为 []float32。 md5:e1b7a8e84a68d538
+// Float32s converts `any` to []float32.
+// ff:取小数32位切片
+// any:值
 func Float32s(any interface{}) []float32 {
 	if any == nil {
 		return nil
@@ -133,11 +143,11 @@ func Float32s(any interface{}) []float32 {
 	if v, ok := any.(iInterfaces); ok {
 		return Float32s(v.Interfaces())
 	}
-	// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:
@@ -158,7 +168,9 @@ func Float32s(any interface{}) []float32 {
 	}
 }
 
-// Float64s 将 `any` 转换为 []float64。 md5:f66a670e62a3b46e
+// Float64s converts `any` to []float64.
+// ff:取小数64位切片
+// any:值
 func Float64s(any interface{}) []float64 {
 	if any == nil {
 		return nil
@@ -257,11 +269,11 @@ func Float64s(any interface{}) []float64 {
 	if v, ok := any.(iInterfaces); ok {
 		return Floats(v.Interfaces())
 	}
-	// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
+	// JSON format string value converting.
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
+	// Not a common type, it then uses reflection for conversion.
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:

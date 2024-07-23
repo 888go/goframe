@@ -1,23 +1,20 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包 gqueue 提供动态/静态并发安全队列。
+// Package gqueue provides dynamic/static concurrent-safe queue.
 //
-// 功能：
 //
-// 1.先进先出队列（数据 -> 列表 -> 通道）；
+// 1. FIFO queue(data -> list -> chan);
 //
-// 2.快速创建和初始化；
+// 2. Fast creation and initialization;
 //
-// 3.支持动态队列大小（无限制的队列大小）；
+// 3. Support dynamic queue size(unlimited queue size);
 //
-// 4.从队列中读取数据时会阻塞。
-// md5:ff40490071065bb6
-package gqueue
+// 4. Blocking when reading data from queue;
+package gqueue//bm:队列类
 
 import (
 	"math"
@@ -26,24 +23,25 @@ import (
 	"github.com/gogf/gf/v2/container/gtype"
 )
 
-// Queue是一个基于双向链表和通道的并发安全队列。 md5:dc3dd26386e4acfb
+// Queue is a concurrent-safe queue built on doubly linked list and channel.
 type Queue struct {
 	limit  int              // Limit for queue size.
-	list   *glist.List      // 用于数据维护的基础列表结构。 md5:c41c31abb5b3b9e9
-	closed *gtype.Bool      // 队列是否关闭。 md5:e327adc6a3cf2327
-	events chan struct{}    // 数据写入事件。 md5:e179f70066a0a70c
-	C      chan interface{} // 数据读取的底层通道。 md5:1bf7b6e23c35ba5f
+	list   *glist.List      // Underlying list structure for data maintaining.
+	closed *gtype.Bool      // Whether queue is closed.
+	events chan struct{}    // Events for data writing.
+	C      chan interface{} // Underlying channel for data reading.
 }
 
 const (
 	defaultQueueSize = 10000 // Size for queue buffer.
-	defaultBatchSize = 10    // 从列表中每次预取的最大批处理大小。 md5:d8aca34be43fb879
+	defaultBatchSize = 10    // Max batch size per-fetching from list.
 )
 
-// New 返回一个空的队列对象。
-// 可选参数 `limit` 用于限制队列的大小，默认情况下无限制。
-// 当提供 `limit` 时，队列将变为静态且高性能，其性能可与标准库中的通道相媲美。
-// md5:9fbd45b8d84f665e
+// New returns an empty queue object.
+// Optional parameter `limit` is used to limit the size of the queue, which is unlimited in default.
+// When `limit` is given, the queue will be static and high performance which is comparable with stdlib channel.
+// ff:创建
+// limit:队列长度
 func New(limit ...int) *Queue {
 	q := &Queue{
 		closed: gtype.NewBool(),
@@ -60,9 +58,11 @@ func New(limit ...int) *Queue {
 	return q
 }
 
-// Push 将数据 `v` 推入队列。
-// 注意，如果在关闭队列后调用 Push，它将引发 panic。
-// md5:ace317b42ed78776
+// Push pushes the data `v` into the queue.
+// Note that it would panic if Push is called after the queue is closed.
+// ff:入栈
+// q:
+// v:值
 func (q *Queue) Push(v interface{}) {
 	if q.limit > 0 {
 		q.C <- v
@@ -74,16 +74,18 @@ func (q *Queue) Push(v interface{}) {
 	}
 }
 
-// Pop 从队列中按先进先出（FIFO）方式弹出一个项目。
-// 如果在关闭队列后调用 Pop，它会立即返回 nil。
-// md5:f632ecf6d87ed4c5
+// Pop pops an item from the queue in FIFO way.
+// Note that it would return nil immediately if Pop is called after the queue is closed.
+// ff:出栈
+// q:
 func (q *Queue) Pop() interface{} {
 	return <-q.C
 }
 
-// Close 关闭队列。
-// 注意：它会通知所有因调用Pop方法而阻塞的goroutine立即返回。
-// md5:bd22bcaaebaed5dc
+// Close closes the queue.
+// which are being blocked reading using Pop method.
+// ff:关闭
+// q:
 func (q *Queue) Close() {
 	if !q.closed.Cas(false, true) {
 		return
@@ -100,9 +102,12 @@ func (q *Queue) Close() {
 	}
 }
 
-// Len 返回队列的长度。
-// 请注意，如果使用无限大的队列大小，结果可能不准确，因为有一个异步通道持续读取列表。
-// md5:b2b860a611742a51
+// Len returns the length of the queue.
+// Note that the result might not be accurate if using unlimited queue size as there's an
+// asynchronous channel reading the list constantly.
+// ff:取长度
+// q:
+// length:长度
 func (q *Queue) Len() (length int64) {
 	bufferedSize := int64(len(q.C))
 	if q.limit > 0 {
@@ -111,16 +116,15 @@ func (q *Queue) Len() (length int64) {
 	return int64(q.list.Size()) + bufferedSize
 }
 
-// Size是Len的别名。
-// 警告：请改用Len。
-// md5:25acbbc5f8f37a14
+// Size is alias of Len.
+// ff:Size弃用
+// q:
 func (q *Queue) Size() int64 {
 	return q.Len()
 }
 
-// asyncLoopFromListToChannel 启动一个异步goroutine，
-// 它负责从列表`q.list`到通道`q.C`的数据同步处理。
-// md5:fd4f8b385cd5a6ba
+// asyncLoopFromListToChannel starts an asynchronous goroutine,
+// which handles the data synchronization from list `q.list` to channel `q.C`.
 func (q *Queue) asyncLoopFromListToChannel() {
 	defer func() {
 		if q.closed.Val() {
@@ -131,9 +135,8 @@ func (q *Queue) asyncLoopFromListToChannel() {
 		<-q.events
 		for !q.closed.Val() {
 			if bufferLength := q.list.Len(); bufferLength > 0 {
-				// 当q.C被关闭时，这里将会发生恐慌，尤其是当q.C因写入操作而被阻塞时。
-				// 如果这里发生任何错误，它将被recover捕获并被忽略。
-				// md5:eaf48f57d3e8e5be
+				// When q.C is closed, it will panic here, especially q.C is being blocked for writing.
+				// If any error occurs here, it will be caught by recover and be ignored.
 				for i := 0; i < bufferLength; i++ {
 					q.C <- q.list.PopFront()
 				}
@@ -141,13 +144,12 @@ func (q *Queue) asyncLoopFromListToChannel() {
 				break
 			}
 		}
-		// 清除q.events，只保留一个事件以进行下次同步检查。 md5:925f0acc845d8b6d
+		// Clear q.events to remain just one event to do the next synchronization check.
 		for i := 0; i < len(q.events)-1; i++ {
 			<-q.events
 		}
 	}
-	// 如果队列 `q` 的大小是无限的，它应该在这里关闭 `q.C`。
-	// 当需要关闭通道时，发送者有责任关闭通道。
-	// md5:bd37819839de5b3c
+	// It should be here to close `q.C` if `q` is unlimited size.
+	// It's the sender's responsibility to close channel when it should be closed.
 	close(q.C)
 }

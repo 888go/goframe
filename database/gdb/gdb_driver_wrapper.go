@@ -1,19 +1,23 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gdb
 
-// DriverWrapper是一个驱动程序包装器，用于通过嵌入式驱动程序扩展功能。 md5:7294ac58de5aa606
+// DriverWrapper is a driver wrapper for extending features with embedded driver.
 type DriverWrapper struct {
 	driver Driver
 }
 
-// New 创建并返回一个针对 MySQL 的数据库对象。它实现了 gdb.Driver 接口，以便于额外的数据库驱动程序安装。
-// md5:e61df629828efeff
+// New creates and returns a database object for mysql.
+// It implements the interface of gdb.Driver for extra database driver installation.
+// ff:
+// d:
+// core:
+// node:
+// DB:
 func (d *DriverWrapper) New(core *Core, node *ConfigNode) (DB, error) {
 	db, err := d.driver.New(core, node)
 	if err != nil {
@@ -24,7 +28,7 @@ func (d *DriverWrapper) New(core *Core, node *ConfigNode) (DB, error) {
 	}, nil
 }
 
-// newDriverWrapper 创建并返回一个驱动包装器。 md5:4bc742bfe28b9706
+// newDriverWrapper creates and returns a driver wrapper.
 func newDriverWrapper(driver Driver) Driver {
 	return &DriverWrapper{
 		driver: driver,
