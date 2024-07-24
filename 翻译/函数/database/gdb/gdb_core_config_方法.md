@@ -72,49 +72,19 @@ ff=获取默认组名称
 ff=是否已配置数据库
 
 [func (c *Core) SetLogger(logger glog.ILogger) {]
-ff=设置日志记录器
 logger=日志记录器
 
-[func (c *Core) GetLogger() glog.ILogger {]
-ff=取日志记录器
-
 [func (c *Core) SetMaxIdleConnCount(n int) {]
-ff=设置最大闲置连接数
 n=连接数
 
 [func (c *Core) SetMaxOpenConnCount(n int) {]
-ff=设置最大打开连接数
 n=连接数
 
 [func (c *Core) SetMaxConnLifeTime(d time.Duration) {]
-ff=设置最大空闲时长
 d=时长
 
-[func (c *Core) GetConfig() *ConfigNode {]
-ff=取当前节点配置
-
 [func (c *Core) SetDebug(debug bool) {]
-ff=设置调试模式
 debug=开启
 
-[func (c *Core) GetDebug() bool {]
-ff=取调试模式
-
-[func (c *Core) GetCache() *gcache.Cache {]
-ff=取缓存对象
-
-[func (c *Core) GetGroup() string {]
-ff=取配置组名称
-
 [func (c *Core) SetDryRun(enabled bool) {]
-ff=设置空跑特性
 enabled=开启
-
-[func (c *Core) GetDryRun() bool {]
-ff=取空跑特性
-
-[func (c *Core) GetPrefix() string {]
-ff=取表前缀
-
-[func (c *Core) GetSchema() string {]
-ff=取默认数据库名称

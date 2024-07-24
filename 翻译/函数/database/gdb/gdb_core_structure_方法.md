@@ -55,11 +55,4 @@ table=表名称
 value=值
 ctx=上下文
 
-[func (c *Core) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {]
-ff=底层ConvertValueForField
-
-[func (c *Core) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) {]
-ff=底层CheckLocalTypeForField
-
-[func (c *Core) ConvertValueForLocal(]
-ff=底层ConvertValueForLocal
+ 

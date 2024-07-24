@@ -36,11 +36,9 @@
 # 备注结束
 
 [func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {]
-ff=创建Model对象
 tableNameQueryOrStruct=表名或结构体
 
 [func (c *Core) Raw(rawSql string, args ...interface{}) *Model {]
-ff=原生SQL
 args=参数
 rawSql=原生Sql
 
@@ -50,12 +48,10 @@ args=参数
 rawSql=原生Sql
 
 [func (tx *TXCore) Raw(rawSql string, args ...interface{}) *Model {]
-ff=原生SQL
 args=参数
 rawSql=原生Sql
 
 [func (c *Core) With(objects ...interface{}) *Model {]
-ff=关联对象
 objects=关联结构体
 
 [func (m *Model) Partition(partitions ...string) *Model {]
@@ -63,11 +59,9 @@ ff=设置分区名称
 partitions=分区名称
 
 [func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {]
-ff=创建Model对象
 tableNameQueryOrStruct=表名或结构体
 
 [func (tx *TXCore) With(object interface{}) *Model {]
-ff=关联对象
 object=关联结构体
 
 [func (m *Model) Ctx(ctx context.Context) *Model {]

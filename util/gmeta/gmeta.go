@@ -18,7 +18,7 @@ type Meta struct{}
 
 const (
 	metaAttributeName = "Meta"       // metaAttributeName 是结构体中元数据的属性名称。 md5:08a529ac77f54a13
-	metaTypeName      = "gmeta.Meta" // metaTypeName 用于类型字符串比较。 md5:00017d3b5ff6e69c
+	metaTypeName      = "元数据类.Meta" // metaTypeName 用于类型字符串比较。 md5:00017d3b5ff6e69c
 )
 
 // Data 从`object`中检索并返回所有元数据。 md5:d0b2cb45c581d982

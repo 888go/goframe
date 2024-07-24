@@ -36,16 +36,11 @@
 # 备注结束
 
 [func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables #左中括号##右中括号#string, err error) {]
-ff=取表名称切片
 err=错误
 tables=表名称切片
 ctx=上下文
 
-[func (d *DriverWrapperDB) TableFields(]
-ff=取表字段信息Map
-
 [func (d *DriverWrapperDB) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {]
-ff=底层插入
 table=表名称
 link=链接
 ctx=上下文

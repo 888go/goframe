@@ -36,13 +36,11 @@
 # 备注结束
 
 [func (c *Core) Begin(ctx context.Context) (tx TX, err error) {]
-ff=事务开启
 err=错误
 tx=事务对象
 ctx=上下文
 
 [func (c *Core) Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error) {]
-ff=事务
 err=错误
 f=回调函数
 ctx=上下文
@@ -57,127 +55,83 @@ ff=事务从上下文取对象
 ctx=上下文
 
 [func (tx *TXCore) Ctx(ctx context.Context) TX {]
-ff=设置上下文并取副本
 ctx=上下文
 
-[func (tx *TXCore) GetCtx() context.Context {]
-ff=取上下文对象
-
-[func (tx *TXCore) GetDB() DB {]
-ff=取DB对象
-
-[func (tx *TXCore) GetSqlTX() *sql.Tx {]
-ff=底层取事务对象
-
-[func (tx *TXCore) Commit() error {]
-ff=事务提交
-
-[func (tx *TXCore) Rollback() error {]
-ff=事务回滚
-
-[func (tx *TXCore) IsClosed() bool {]
-ff=是否已关闭
-
-[func (tx *TXCore) Begin() error {]
-ff=事务开启
-
 [func (tx *TXCore) SavePoint(point string) error {]
-ff=保存事务点
 point=事务点名称
 
 [func (tx *TXCore) RollbackTo(point string) error {]
-ff=回滚事务点
 point=事务点名称
 
 [func (tx *TXCore) Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error) {]
-ff=事务
 err=错误
 f=回调函数
 ctx=上下文
 
 [func (tx *TXCore) Query(sql string, args ...interface{}) (result Result, err error) {]
-ff=原生SQL查询
 err=错误
 result=结果
 args=参数
 
 [func (tx *TXCore) Exec(sql string, args ...interface{}) (sql.Result, error) {]
-ff=原生SQL执行
 args=参数
 
-[func (tx *TXCore) Prepare(sql string) (*Stmt, error) {]
-ff=原生sql取参数预处理对象
-
 [func (tx *TXCore) GetAll(sql string, args ...interface{}) (Result, error) {]
-ff=GetAll别名
 args=参数
 
 [func (tx *TXCore) GetOne(sql string, args ...interface{}) (Record, error) {]
-ff=原生SQL查询单条记录
 args=参数
 
 [func (tx *TXCore) GetStruct(obj interface{}, sql string, args ...interface{}) error {]
-ff=原生SQL查询单条到结构体指针
 args=参数
 obj=结构体指针
 
 [func (tx *TXCore) GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error {]
-ff=原生SQL查询到结构体切片指针
 args=参数
 objPointerSlice=结构体指针
 
 [func (tx *TXCore) GetScan(pointer interface{}, sql string, args ...interface{}) error {]
-ff=原生SQL查询到结构体指针
 args=参数
 pointer=结构体指针
 
 [func (tx *TXCore) GetValue(sql string, args ...interface{}) (Value, error) {]
-ff=原生SQL查询字段值
 args=参数
 
 [func (tx *TXCore) GetCount(sql string, args ...interface{}) (int64, error) {]
-ff=原生SQL查询字段计数
 args=参数
 
 [func (tx *TXCore) Insert(table string, data interface{}, batch ...int) (sql.Result, error) {]
-ff=插入
 batch=批量操作行数
 data=值
 table=表名称
 
 [func (tx *TXCore) InsertIgnore(table string, data interface{}, batch ...int) (sql.Result, error) {]
-ff=插入并跳过已存在
 batch=批量操作行数
 data=值
 table=表名称
 
 [func (tx *TXCore) InsertAndGetId(table string, data interface{}, batch ...int) (int64, error) {]
-ff=插入并取ID
 batch=批量操作行数
 data=值
 table=表名称
 
 [func (tx *TXCore) Replace(table string, data interface{}, batch ...int) (sql.Result, error) {]
-ff=插入并替换已存在
 batch=批量操作行数
 data=值
 table=表名称
 
 [func (tx *TXCore) Save(table string, data interface{}, batch ...int) (sql.Result, error) {]
-ff=插入并更新已存在
 batch=批量操作行数
 data=值
 table=表名称
 
 [func (tx *TXCore) Update(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) {]
-ff=更新
 args=参数
 condition=条件
 data=值
 table=表名称
 
 [func (tx *TXCore) Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error) {]
-ff=删除
 args=参数
 condition=条件
 table=表名称
