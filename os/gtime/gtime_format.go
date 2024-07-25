@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtime
 
@@ -67,8 +66,7 @@ var (
 	dayOfMonth = []int{0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334}
 )
 
-// Format 使用自定义`format`格式化并返回格式化结果。如果你想要遵循stdlib（标准库）的布局，可以参考 Layout 方法。
-// md5:8f91fb876a2c8a6d
+// Format 使用自定义`format`格式化并返回格式化结果。如果你想要遵循stdlib（标准库）的布局，可以参考 Layout 方法。 md5:8f91fb876a2c8a6d
 func (t *Time) Format(format string) string {
 	if t == nil {
 		return ""

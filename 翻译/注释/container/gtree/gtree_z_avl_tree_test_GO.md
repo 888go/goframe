@@ -11,8 +11,7 @@
 // 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
 //
 // 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。
-// md5:1d281c30cdc3423b
+// 您可以从https://github.com/gogf/gf获取。 md5:1d281c30cdc3423b
 # <翻译结束>
 
 
@@ -21,7 +20,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetOrSetFunc 用于锁定或解锁. md5:0ebd30e2c667f970
+	// GetOrSetFunc 用于锁定或解锁. md5:0ebd30e2c667f970
 # <翻译结束>
 
 
@@ -30,6 +29,6 @@
 <原文结束>
 
 # <翻译开始>
-//如果不存在则设置函数：锁或解锁. md5:e3586809aed38993
+	//如果不存在则设置函数：锁或解锁. md5:e3586809aed38993
 # <翻译结束>
 

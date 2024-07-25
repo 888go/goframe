@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // gbase64 包提供了对 BASE64 编码/解码算法的有用API。 md5:0524d2c59dedacdf
 package gbase64
@@ -43,8 +42,7 @@ func EncodeFile(path string) ([]byte, error) {
 }
 
 // MustEncodeFile 使用BASE64算法对`path`路径的文件内容进行编码。
-// 如果出现任何错误，它将引发 panic。
-// md5:d31d543637e7eb6a
+// 如果出现任何错误，它将引发 panic。 md5:d31d543637e7eb6a
 func MustEncodeFile(path string) []byte {
 	result, err := EncodeFile(path)
 	if err != nil {
@@ -62,8 +60,7 @@ func EncodeFileToString(path string) (string, error) {
 	return string(content), nil
 }
 
-// MustEncodeFileToString 使用BASE64算法将路径`path`中的文件内容编码为字符串。如果发生任何错误，它会引发恐慌。
-// md5:f3091087e9edde81
+// MustEncodeFileToString 使用BASE64算法将路径`path`中的文件内容编码为字符串。如果发生任何错误，它会引发恐慌。 md5:f3091087e9edde81
 func MustEncodeFileToString(path string) string {
 	result, err := EncodeFileToString(path)
 	if err != nil {
@@ -85,8 +82,7 @@ func Decode(data []byte) ([]byte, error) {
 }
 
 // MustDecode 使用BASE64算法解码字节。
-// 如果出现任何错误，它将引发恐慌。
-// md5:92f5fbea62981c7a
+// 如果出现任何错误，它将引发恐慌。 md5:92f5fbea62981c7a
 func MustDecode(data []byte) []byte {
 	result, err := Decode(data)
 	if err != nil {
@@ -101,8 +97,7 @@ func DecodeString(data string) ([]byte, error) {
 }
 
 // MustDecodeString 使用BASE64算法解码字符串。
-// 如果发生任何错误，它将引发恐慌。
-// md5:215040f1e41de5af
+// 如果发生任何错误，它将引发恐慌。 md5:215040f1e41de5af
 func MustDecodeString(data string) []byte {
 	result, err := DecodeString(data)
 	if err != nil {
@@ -118,8 +113,7 @@ func DecodeToString(data string) (string, error) {
 }
 
 // MustDecodeToString 使用BASE64算法解码字符串。
-// 如果发生错误，该函数将引发恐慌。
-// md5:e2e017d04a30d409
+// 如果发生错误，该函数将引发恐慌。 md5:e2e017d04a30d409
 func MustDecodeToString(data string) string {
 	result, err := DecodeToString(data)
 	if err != nil {

@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -31,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/1626. md5:3ce099b2ed68c6a6
+// github.com/gogf/gf/issues/1626. md5:3ce099b2ed68c6a6
 # <翻译结束>
 
 
@@ -67,7 +66,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/2482. md5:fcdf7bf6606e8f79
+// github.com/gogf/gf/issues/2482. md5:fcdf7bf6606e8f79
 # <翻译结束>
 
 
@@ -76,7 +75,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/2890”。 md5:a335daa25707abc9
+// github.com/gogf/gf/issues/2890”。 md5:a335daa25707abc9
 # <翻译结束>
 
 
@@ -85,7 +84,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/2963。gf可能是Go语言的一个库或者项目，而2963是一个issue的编号，可能是开发者社区中关于gf库的一个讨论或者bug报告/需求建议。 md5:526c7a4a48782ddd
+// github.com/gogf/gf/issues/2963。gf可能是Go语言的一个库或者项目，而2963是一个issue的编号，可能是开发者社区中关于gf库的一个讨论或者bug报告/需求建议。 md5:526c7a4a48782ddd
 # <翻译结束>
 
 
@@ -103,7 +102,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/2457. md5:76c442b3ac4849d6
+// github.com/gogf/gf/issues/2457. md5:76c442b3ac4849d6
 # <翻译结束>
 
 

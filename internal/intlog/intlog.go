@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包intlog为GoFrame开发内部日志提供支持，仅限于内部使用。 md5:f26290ffdfc859a6
 package intlog
@@ -26,8 +25,7 @@ const (
 )
 
 // Print 使用 fmt.Println 将 `v` 打印并附带换行。
-// 参数 `v` 可以是多个变量。
-// md5:38560020d990b134
+// 参数 `v` 可以是多个变量。 md5:38560020d990b134
 func Print(ctx context.Context, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -36,8 +34,7 @@ func Print(ctx context.Context, v ...interface{}) {
 }
 
 // Printf 使用 fmt.Printf 函数，按照格式 `format` 打印变量 `v`。
-// 参数 `v` 可以是多个变量。
-// md5:4791bf475aaad1f3
+// 参数 `v` 可以是多个变量。 md5:4791bf475aaad1f3
 func Printf(ctx context.Context, format string, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -46,8 +43,7 @@ func Printf(ctx context.Context, format string, v ...interface{}) {
 }
 
 // Error 使用 fmt.Println 在新的一行打印 `v`。
-// 参数 `v` 可以是多个变量。
-// md5:25d1ed8d9d342a20
+// 参数 `v` 可以是多个变量。 md5:25d1ed8d9d342a20
 func Error(ctx context.Context, v ...interface{}) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -64,8 +60,7 @@ func Errorf(ctx context.Context, format string, v ...interface{}) {
 }
 
 // PrintFunc 打印来自函数 `f` 的输出。
-// 仅当调试模式启用时，它才会调用函数 `f`。
-// md5:c3e57b3168c59983
+// 仅当调试模式启用时，它才会调用函数 `f`。 md5:c3e57b3168c59983
 func PrintFunc(ctx context.Context, f func() string) {
 	if !utils.IsDebugEnabled() {
 		return
@@ -78,8 +73,7 @@ func PrintFunc(ctx context.Context, f func() string) {
 }
 
 // ErrorFunc 打印函数 `f` 的输出。
-// 只有在调试模式启用时，它才会调用函数 `f`。
-// md5:0fe2f7c87344bf65
+// 只有在调试模式启用时，它才会调用函数 `f`。 md5:0fe2f7c87344bf65
 func ErrorFunc(ctx context.Context, f func() string) {
 	if !utils.IsDebugEnabled() {
 		return

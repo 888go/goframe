@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtype
 
@@ -21,8 +20,7 @@ type Float32 struct {
 }
 
 // NewFloat32 创建并返回一个针对float32类型的并发安全对象，
-// 初始值为给定的`value`。
-// md5:a2e96663c9c91d0d
+// 初始值为给定的`value`。 md5:a2e96663c9c91d0d
 func NewFloat32(value ...float32) *Float32 {
 	if len(value) > 0 {
 		return &Float32{

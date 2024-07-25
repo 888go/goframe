@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtcp
 
@@ -29,8 +28,7 @@ type Retry struct {
 }
 
 // NewNetConn 创建并返回一个具有给定地址（如 "127.0.0.1:80"）的net.Conn。
-// 可选参数 `timeout` 指定了建立连接的超时时间。
-// md5:2e0124ac2d5ba04b
+// 可选参数 `timeout` 指定了建立连接的超时时间。 md5:2e0124ac2d5ba04b
 func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network  = `tcp`
@@ -51,8 +49,7 @@ func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 }
 
 // NewNetConnTLS 创建并返回一个具有给定地址（如 "127.0.0.1:80"）的 TLS net.Conn。
-// 可选参数 `timeout` 指定了建立连接时的超时时间。
-// md5:5eb25eb4d9f5078a
+// 可选参数 `timeout` 指定了建立连接时的超时时间。 md5:5eb25eb4d9f5078a
 func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network = `tcp`
@@ -74,8 +71,7 @@ func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Durati
 	return conn, err
 }
 
-// NewNetConnKeyCrt 创建并返回一个带有给定TLS证书和密钥文件的TLS net.Conn，地址类似于"127.0.0.1:80"。可选参数`timeout`指定了连接超时时间。
-// md5:232eecc025740731
+// NewNetConnKeyCrt 创建并返回一个带有给定TLS证书和密钥文件的TLS net.Conn，地址类似于"127.0.0.1:80"。可选参数`timeout`指定了连接超时时间。 md5:232eecc025740731
 func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (net.Conn, error) {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -85,8 +81,7 @@ func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (
 }
 
 // Send 建立连接到 `address`，向连接写入 `data`，然后关闭连接。
-// 可选参数 `retry` 指定在写入数据失败时的重试策略。
-// md5:657cbdf2b2958d6f
+// 可选参数 `retry` 指定在写入数据失败时的重试策略。 md5:657cbdf2b2958d6f
 func Send(address string, data []byte, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -101,8 +96,7 @@ func Send(address string, data []byte, retry ...Retry) error {
 //
 // 参数 `length` 指定等待接收的字节数量。如果 `length` 为 -1，则接收缓冲区的所有内容并返回。
 //
-// 可选参数 `retry` 指定了在写入数据失败时的重试策略。
-// md5:2f0794c80f81d806
+// 可选参数 `retry` 指定了在写入数据失败时的重试策略。 md5:2f0794c80f81d806
 func SendRecv(address string, data []byte, length int, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {

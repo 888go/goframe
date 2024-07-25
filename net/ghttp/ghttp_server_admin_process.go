@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -53,8 +52,7 @@ var (
 )
 
 // RestartAllServer 优雅地重启进程中的所有服务器。
-// 可选参数 `newExeFilePath` 指定了用于创建进程的新二进制文件路径。
-// md5:cd148e150eddefe2
+// 可选参数 `newExeFilePath` 指定了用于创建进程的新二进制文件路径。 md5:cd148e150eddefe2
 func RestartAllServer(ctx context.Context, newExeFilePath string) error {
 	if !gracefulEnabled {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "graceful reload feature is disabled")
@@ -100,8 +98,7 @@ func checkProcessStatus() error {
 }
 
 // checkActionFrequency 检查操作频率。
-// 如果频率过高，它会返回错误。
-// md5:b5db2b4c0ba2cdf7
+// 如果频率过高，它会返回错误。 md5:b5db2b4c0ba2cdf7
 func checkActionFrequency() error {
 	interval := gtime.TimestampMilli() - serverActionLastTime.Val()
 	if interval < adminActionIntervalLimit {
@@ -223,8 +220,7 @@ func restartWebServers(ctx context.Context, signal os.Signal, newExeFilePath str
 			return nil
 		}
 		// 由网页控制。
-		// 它应该确保响应已写入客户端，然后优雅地关闭所有服务器。
-		// md5:a5b2bfe1eb0f3681
+		// 它应该确保响应已写入客户端，然后优雅地关闭所有服务器。 md5:a5b2bfe1eb0f3681
 		gtimer.SetTimeout(ctx, time.Second, func(ctx context.Context) {
 			forceCloseWebServers(ctx)
 			if err := forkRestartProcess(ctx, newExeFilePath); err != nil {
@@ -283,8 +279,7 @@ func forceCloseWebServers(ctx context.Context) {
 }
 
 // handleProcessMessage 接收并处理来自进程的消息，
-// 这通常用于实现优雅重启功能。
-// md5:80ebd3c82cd48199
+// 这通常用于实现优雅重启功能。 md5:80ebd3c82cd48199
 func handleProcessMessage() {
 	var (
 		ctx = context.TODO()

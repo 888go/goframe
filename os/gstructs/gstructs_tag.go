@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gstructs
 
@@ -18,8 +17,7 @@ import (
 
 // ParseTag 将标签字符串解析为映射。
 // 例如：
-// ParseTag(`v:"required" p:"id" d:"1"`)) => map[v:required p:id d:1]。
-// md5:967d381052c3a2d8
+// ParseTag(`v:"required" p:"id" d:"1"`)) => map[v:required p:id d:1]。 md5:967d381052c3a2d8
 func ParseTag(tag string) map[string]string {
 	var (
 		key  string
@@ -36,8 +34,7 @@ func ParseTag(tag string) map[string]string {
 			break
 		}
 		// 扫描到冒号。空格、引号或控制字符都是语法错误。
-		// 严格来说，控制字符包括范围 [0x7f, 0x9f]，而不仅仅是 [0x00, 0x1f]。但在实践中，我们忽略多字节控制字符，因为检查标签的字节比检查标签的 rune 更简单。
-		// md5:2b37f6b6cf4e8415
+		// 严格来说，控制字符包括范围 [0x7f, 0x9f]，而不仅仅是 [0x00, 0x1f]。但在实践中，我们忽略多字节控制字符，因为检查标签的字节比检查标签的 rune 更简单。 md5:2b37f6b6cf4e8415
 		i = 0
 		for i < len(tag) && tag[i] > ' ' && tag[i] != ':' && tag[i] != '"' && tag[i] != 0x7f {
 			i++
@@ -76,21 +73,19 @@ func ParseTag(tag string) map[string]string {
 //
 // 请注意：
 // 1. 它只从结构体中检索首字母大写的导出属性。
-// 2. 应提供参数`priority`，它只检索具有给定标签的字段。
-// md5:55390bfc1f5537f2
+// 2. 应提供参数`priority`，它只检索具有给定标签的字段。 md5:55390bfc1f5537f2
 func TagFields(pointer interface{}, priority []string) ([]Field, error) {
 	return getFieldValuesByTagPriority(pointer, priority, map[string]struct{}{})
 }
 
 // TagMapName从`pointer`获取并返回结构体标签作为map[tag]attribute。
-// 
+//
 // 参数`pointer`应为结构体或*struct类型。
-// 
+//
 // 注意：
 // 1. 它仅从结构体中检索首字母大写的导出属性。
 // 2. 需要提供参数`priority`，它只检索具有给定标签的字段。
-// 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。
-// md5:0eb7c62c8a6f7e09
+// 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。 md5:0eb7c62c8a6f7e09
 func TagMapName(pointer interface{}, priority []string) (map[string]string, error) {
 	fields, err := TagFields(pointer, priority)
 	if err != nil {
@@ -105,12 +100,11 @@ func TagMapName(pointer interface{}, priority []string) (map[string]string, erro
 
 // TagMapField 从 `pointer` 中获取结构体标签作为 map[tag]Field，然后返回它。
 // 参数 `object` 应该是 struct 类型、*struct 类型、struct 切片或 []*struct 类型之一。
-// 
+//
 // 注意：
 // 1. 它只会从结构体中检索首字母大写的导出属性。
 // 2. 需要提供参数 `priority`，只检索具有给定标签的字段。
-// 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。
-// md5:ba865b4214b27332
+// 3. 如果一个字段没有指定标签，它将使用其字段名称作为结果映射的键。 md5:ba865b4214b27332
 func TagMapField(object interface{}, priority []string) (map[string]Field, error) {
 	fields, err := TagFields(object, priority)
 	if err != nil {

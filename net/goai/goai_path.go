@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package goai
 
@@ -136,8 +135,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	if len(inputMetaMap) > 0 {
 		// 路径（Path）和操作（Operation）不是同一概念，因此需要从操作中复制一个元信息（Meta）到路径，并进行编辑。
-		// 你知道的，我们是在操作上设置Summary和Description，而不是在路径上，所以我们需要将它们移除。
-		// md5:82d486896b1d65b3
+		// 你知道的，我们是在操作上设置Summary和Description，而不是在路径上，所以我们需要将它们移除。 md5:82d486896b1d65b3
 		inputMetaMapForPath := gmap.NewStrStrMapFrom(inputMetaMap).Clone()
 		inputMetaMapForPath.Removes([]string{
 			gtag.SummaryShort,
@@ -162,8 +160,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// 路径安全
 	// 注意：安全模式类型仅支持http和apiKey；不支持oauth2和openIdConnect。
-	// 多个模式使用逗号分隔，例如：`security: apiKey1,apiKey2`
-	// md5:b64ffa4261f0711d
+	// 多个模式使用逗号分隔，例如：`security: apiKey1,apiKey2` md5:b64ffa4261f0711d
 	TagNameSecurity := gmeta.Get(inputObject.Interface(), gtag.Security).String()
 	securities := gstr.SplitAndTrim(TagNameSecurity, ",")
 	for _, sec := range securities {
@@ -175,8 +172,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// =================================================================================================================
 	// 请求参数。
-	// =================================================================================================================
-	// md5:c70d5376eecf5c01
+	// ================================================================================================================= md5:c70d5376eecf5c01
 	structFields, _ := gstructs.Fields(gstructs.FieldsInput{
 		Pointer:         inputObject.Interface(),
 		RecursiveOption: gstructs.RecursiveOptionEmbeddedNoTag,
@@ -196,8 +192,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// =================================================================================================================
 	// 请求体
-	// =================================================================================================================
-	// md5:c70baaeba9963b54
+	// ================================================================================================================= md5:c70baaeba9963b54
 	if operation.RequestBody == nil {
 		operation.RequestBody = &RequestBodyRef{}
 	}
@@ -240,8 +235,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// =======================================================
 	// 响应。
-	// =======================================================
-	// md5:ceb9c442cfbdefa1
+	// ======================================================= md5:ceb9c442cfbdefa1
 	if _, ok := operation.Responses[responseOkKey]; !ok {
 		var (
 			response = Response{

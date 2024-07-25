@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -22,6 +21,6 @@
 <原文结束>
 
 # <翻译开始>
-// 这段Go语言注释翻译成中文是：一个包含三个元素的字符串切片，分别是"Hello, world"、"Hello, world"和"ASCII"。 md5:06bc99dbdccc93f3
+	// 这段Go语言注释翻译成中文是：一个包含三个元素的字符串切片，分别是"Hello, world"、"Hello, world"和"ASCII"。 md5:06bc99dbdccc93f3
 # <翻译结束>
 

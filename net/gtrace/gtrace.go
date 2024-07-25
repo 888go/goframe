@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gtrace提供了使用OpenTelemetry进行跟踪功能的便利封装。 md5:4c5ceb4a418df579
 package gtrace
@@ -77,8 +76,7 @@ func MaxContentLogSize() int {
 }
 
 // CommonLabels 返回常用属性标签：
-// ip.intranet，hostname。
-// md5:8affbee0c43e3bad
+// ip.intranet，hostname。 md5:8affbee0c43e3bad
 func CommonLabels() []attribute.KeyValue {
 	return []attribute.KeyValue{
 		attribute.String(tracingCommonKeyIpHostname, hostname),
@@ -100,8 +98,7 @@ func GetDefaultTextMapPropagator() propagation.TextMapPropagator {
 	return defaultTextMapPropagator
 }
 
-// GetTraceID 从 context 中检索并返回 TraceId。如果跟踪功能未启用，则返回空字符串。
-// md5:09e9e014a696e105
+// GetTraceID 从 context 中检索并返回 TraceId。如果跟踪功能未启用，则返回空字符串。 md5:09e9e014a696e105
 func GetTraceID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -113,8 +110,7 @@ func GetTraceID(ctx context.Context) string {
 	return ""
 }
 
-// GetSpanID 从上下文中检索并返回 SpanId。如果跟踪功能未激活，则返回空字符串。
-// md5:1cca885adbc44f92
+// GetSpanID 从上下文中检索并返回 SpanId。如果跟踪功能未激活，则返回空字符串。 md5:1cca885adbc44f92
 func GetSpanID(ctx context.Context) string {
 	if ctx == nil {
 		return ""
@@ -127,15 +123,13 @@ func GetSpanID(ctx context.Context) string {
 }
 
 // SetBaggageValue 是一个便捷函数，用于向 baggage 中添加一个键值对。
-// 注意，它使用 attribute.Any 来设置键值对。
-// md5:a0a5e77a036e4b8b
+// 注意，它使用 attribute.Any 来设置键值对。 md5:a0a5e77a036e4b8b
 func SetBaggageValue(ctx context.Context, key string, value interface{}) context.Context {
 	return NewBaggage(ctx).SetValue(key, value)
 }
 
 // SetBaggageMap 是一个方便的函数，用于向行李中添加映射的键值对。
-// 请注意，它使用 attribute.Any 来设置键值对。
-// md5:635cc7b15635106d
+// 请注意，它使用 attribute.Any 来设置键值对。 md5:635cc7b15635106d
 func SetBaggageMap(ctx context.Context, data map[string]interface{}) context.Context {
 	return NewBaggage(ctx).SetMap(data)
 }

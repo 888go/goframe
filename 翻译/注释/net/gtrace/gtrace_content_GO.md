@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,8 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// SafeContentForHttp 通过 `MaxContentLogSize` 剪切并返回给定内容。如果内容大小超过 `MaxContentLogSize`，它会在结果尾部添加字符串 `...`。
-// md5:ba3a657223c70042
+// SafeContentForHttp 通过 `MaxContentLogSize` 剪切并返回给定内容。如果内容大小超过 `MaxContentLogSize`，它会在结果尾部添加字符串 `...`。 md5:ba3a657223c70042
 # <翻译结束>
 
 
@@ -34,8 +32,7 @@
 <原文结束>
 
 # <翻译开始>
-// SafeContent 通过 `MaxContentLogSize` 剪切并返回给定的内容。如果内容大小超过 `MaxContentLogSize`，则在结果的尾部添加字符串 `...`。
-// md5:7ea5429876707ef6
+// SafeContent 通过 `MaxContentLogSize` 剪切并返回给定的内容。如果内容大小超过 `MaxContentLogSize`，则在结果的尾部添加字符串 `...`。 md5:7ea5429876707ef6
 # <翻译结束>
 
 

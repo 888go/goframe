@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -24,8 +23,7 @@
 
 # <翻译开始>
 // IGroupScript 管理 redis 脚本操作。
-// 实现了 redis.GroupScript 接口。
-// md5:e1fe409124b24bad
+// 实现了 redis.GroupScript 接口。 md5:e1fe409124b24bad
 # <翻译结束>
 
 

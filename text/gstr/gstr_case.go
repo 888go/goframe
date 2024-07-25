@@ -13,8 +13,7 @@
 //   | CaseDelimited(s, '.')              | 任何.类型.的字符串  |
 //   | CaseDelimitedScreaming(s, '.')     | 任何.类型.的大写字符串 |
 //   | CaseCamel(s)                       | AnyKindOfString     |
-//   | CaseCamelLower(s)                  | anyKindOfString     |
-// md5:66511e05f3151030
+//   | CaseCamelLower(s)                  | anyKindOfString     | md5:66511e05f3151030
 
 package gstr
 
@@ -67,8 +66,7 @@ func CaseTypeMatch(caseStr string) CaseType {
 }
 
 // CaseConvert 将字符串转换为指定的命名约定。
-// 使用 CaseTypeMatch 从字符串中匹配 case 类型。
-// md5:3c58b688150ee2a3
+// 使用 CaseTypeMatch 从字符串中匹配 case 类型。 md5:3c58b688150ee2a3
 func CaseConvert(s string, caseType CaseType) string {
 	if s == "" || caseType == "" {
 		return s
@@ -107,8 +105,7 @@ func CaseConvert(s string, caseType CaseType) string {
 // CaseCamel 将一个字符串转换为驼峰式写法。
 //
 // 示例：
-// CaseCamel("any_kind_of_string") -> AnyKindOfString
-// md5:189cc8dcd6a04d2c
+// CaseCamel("any_kind_of_string") -> AnyKindOfString md5:189cc8dcd6a04d2c
 func CaseCamel(s string) string {
 	return toCamelInitCase(s, true)
 }
@@ -116,8 +113,7 @@ func CaseCamel(s string) string {
 // CaseCamelLower 将一个字符串转换为下划线驼峰式（lowerCamelCase）。
 //
 // 例子：
-// CaseCamelLower("any_kind_of_string") -> anyKindOfString
-// md5:dc604c858a2452d4
+// CaseCamelLower("any_kind_of_string") -> anyKindOfString md5:dc604c858a2452d4
 func CaseCamelLower(s string) string {
 	if s == "" {
 		return s
@@ -131,8 +127,7 @@ func CaseCamelLower(s string) string {
 // CaseSnake将一个字符串转换为蛇形命名（snake_case）。
 //
 // 示例：
-// CaseSnake("AnyKindOfString") -> any_kind_of_string
-// md5:348ee5cd8cb1cd34
+// CaseSnake("AnyKindOfString") -> any_kind_of_string md5:348ee5cd8cb1cd34
 func CaseSnake(s string) string {
 	return CaseDelimited(s, '_')
 }
@@ -140,8 +135,7 @@ func CaseSnake(s string) string {
 // CaseSnakeScreaming 将一个字符串转换为 SNAKE_CASE_SCREAMING 格式。
 //
 // 示例：
-// CaseSnakeScreaming("AnyKindOfString") -> "ANY_KIND_OF_STRING"
-// md5:9f2e1f082921e42e
+// CaseSnakeScreaming("AnyKindOfString") -> "ANY_KIND_OF_STRING" md5:9f2e1f082921e42e
 func CaseSnakeScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '_', true)
 }
@@ -150,8 +144,7 @@ func CaseSnakeScreaming(s string) string {
 // TODO 为了提高效率，未来应将正则表达式改为遍历字符串的方式。
 //
 // 示例：
-// CaseSnakeFirstUpper("RGBCodeMd5") -> rgb_code_md5
-// md5:aff36f9f5f3a68d7
+// CaseSnakeFirstUpper("RGBCodeMd5") -> rgb_code_md5 md5:aff36f9f5f3a68d7
 func CaseSnakeFirstUpper(word string, underscore ...string) string {
 	replace := "_"
 	if len(underscore) > 0 {
@@ -181,8 +174,7 @@ func CaseSnakeFirstUpper(word string, underscore ...string) string {
 // CaseKebab 将字符串转换为kebab-case形式。
 //
 // 例子：
-// CaseKebab("AnyKindOfString") -> any-kind-of-string
-// md5:885475f21356c510
+// CaseKebab("AnyKindOfString") -> any-kind-of-string md5:885475f21356c510
 func CaseKebab(s string) string {
 	return CaseDelimited(s, '-')
 }
@@ -190,8 +182,7 @@ func CaseKebab(s string) string {
 // CaseKebabScreaming 将一个字符串转换为KEBAB-CASE-SCREAMING格式。
 //
 // 示例：
-// CaseKebab("AnyKindOfString") -> "ANY-KIND-OF-STRING"
-// md5:64e3399ff1b60dad
+// CaseKebab("AnyKindOfString") -> "ANY-KIND-OF-STRING" md5:64e3399ff1b60dad
 func CaseKebabScreaming(s string) string {
 	return CaseDelimitedScreaming(s, '-', true)
 }
@@ -199,8 +190,7 @@ func CaseKebabScreaming(s string) string {
 // CaseDelimited 将字符串转换为 snake_case_delimited 形式。
 //
 // 示例：
-// CaseDelimited("AnyKindOfString", '.') -> any.kind.of.string
-// md5:8edd65912cb80360
+// CaseDelimited("AnyKindOfString", '.') -> any.kind.of.string md5:8edd65912cb80360
 func CaseDelimited(s string, del byte) string {
 	return CaseDelimitedScreaming(s, del, false)
 }
@@ -208,8 +198,7 @@ func CaseDelimited(s string, del byte) string {
 // CaseDelimitedScreaming 将字符串转换为 DELIMITED.SCREAMING.CASE 或 delimited.screaming.case 格式。
 //
 // 示例：
-// CaseDelimitedScreaming("AnyKindOfString", '.') -> ANY.KIND.OF.STRING
-// md5:e81c17d2e4a95231
+// CaseDelimitedScreaming("AnyKindOfString", '.') -> ANY.KIND.OF.STRING md5:e81c17d2e4a95231
 func CaseDelimitedScreaming(s string, del uint8, screaming bool) string {
 	s = addWordBoundariesToNumbers(s)
 	s = strings.Trim(s, " ")

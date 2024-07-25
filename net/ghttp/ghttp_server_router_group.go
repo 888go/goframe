@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -30,8 +29,7 @@ type (
 	}
 
 	// preBindItem 是用于路由器组延迟注册功能的项目。当路由组的路由函数被调用时，preBindItem 并没有真正注册到服务器，
-	// 而是在服务器启动时进行懒惰注册。
-	// md5:4255b2f4d61ba05c
+	// 而是在服务器启动时进行懒惰注册。 md5:4255b2f4d61ba05c
 	preBindItem struct {
 		group    *RouterGroup
 		bindType string

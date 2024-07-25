@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package clickhouse
 
@@ -26,8 +25,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		// ============================================================================
 		// 从v2.2.0版本开始已废弃。
 		// ============================================================================
-		// 自定义在运行时更改架构。
-		// md5:636e7e3d9951c8fa
+		// 自定义在运行时更改架构。 md5:636e7e3d9951c8fa
 		if config.Name != "" {
 			source, _ = gregex.ReplaceString(replaceSchemaPattern, "@$1/"+config.Name, config.Link)
 		} else {

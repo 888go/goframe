@@ -2,13 +2,11 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gconv实现了对任何类型变量的强大而便捷的转换功能。
 //
-// 此包应尽量减少与其他包的依赖关系。
-// md5:b18f07aca2be5125
+// 此包应尽量减少与其他包的依赖关系。 md5:b18f07aca2be5125
 package gconv
 
 import (
@@ -39,8 +37,7 @@ var (
 	}
 
 	// StructTagPriority 定义了Map*/Struct*函数的默认优先级标签。
-	// 注意，`gconv/param` 标签由旧版本的包使用。强烈建议未来改用简短的标签 `c/p`。
-	// md5:c4b7d2fe8905ed52
+	// 注意，`gconv/param` 标签由旧版本的包使用。强烈建议未来改用简短的标签 `c/p`。 md5:c4b7d2fe8905ed52
 	StructTagPriority = gtag.StructTagPriority
 )
 
@@ -114,8 +111,7 @@ func Runes(any interface{}) []rune {
 	return []rune(String(any))
 }
 
-// String 将 `any` 转换为字符串。它是最常用的转换函数。
-// md5:722d0704c061781b
+// String 将 `any` 转换为字符串。它是最常用的转换函数。 md5:722d0704c061781b
 func String(any interface{}) string {
 	if any == nil {
 		return ""
@@ -178,14 +174,12 @@ func String(any interface{}) string {
 		}
 		if f, ok := value.(iString); ok {
 			// 如果变量实现了String()接口，
-			// 则使用该接口来进行转换
-			// md5:08e76021f60d81ed
+			// 则使用该接口来进行转换 md5:08e76021f60d81ed
 			return f.String()
 		}
 		if f, ok := value.(iError); ok {
 			// /* 如果该变量实现了Error()接口，
-			//    则使用该接口进行转换 */
-			// md5:7c7c512864a0b034
+			//    则使用该接口进行转换 */ md5:7c7c512864a0b034
 			return f.Error()
 		}
 		// Reflect checks.
@@ -220,8 +214,7 @@ func String(any interface{}) string {
 }
 
 // Bool 将 `any` 转换为布尔值。
-// 如果 `any` 是：false，""，0，"false"，"off"，"no"，空切片/映射，则返回 false。
-// md5:b9d150a8798a274a
+// 如果 `any` 是：false，""，0，"false"，"off"，"no"，空切片/映射，则返回 false。 md5:b9d150a8798a274a
 func Bool(any interface{}) bool {
 	if any == nil {
 		return false

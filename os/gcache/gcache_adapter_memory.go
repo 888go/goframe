@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcache
 
@@ -25,8 +24,7 @@ type AdapterMemory struct {
 	// cap 限制了缓存池的大小。
 	// 如果缓存的大小超过了 cap，
 	// 则按照 LRU（最近最少使用）算法进行缓存淘汰过程。
-	// 默认值为 0，表示没有大小限制。
-	// md5:70436dcd07b73070
+	// 默认值为 0，表示没有大小限制。 md5:70436dcd07b73070
 	cap         int
 	data        *adapterMemoryData        // data 是底层的缓存数据，它存储在一个哈希表中。 md5:7cfaf636328aa0e7
 	expireTimes *adapterMemoryExpireTimes // expireTimes是过期键到其时间戳的映射，用于快速索引和删除。 md5:5e7fa0cd3e17ed6c
@@ -51,8 +49,7 @@ type adapterMemoryEvent struct {
 
 const (
 	// defaultMaxExpire是不设置过期时间的默认过期时间。
-	// 它等于math.MaxInt64除以1000000。
-	// md5:75ccaa3b4b490a54
+	// 它等于math.MaxInt64除以1000000。 md5:75ccaa3b4b490a54
 	defaultMaxExpire = 9223372036854
 )
 
@@ -71,8 +68,7 @@ func NewAdapterMemory(lruCap ...int) Adapter {
 		c.lru = newMemCacheLru(c)
 	}
 	// 如果适配器手动从内存适配器更改，这里可能存在“计时器泄露”。
-	// 但不必担心这个问题，因为适配器的变更较少，并且如果未被使用，它也不会做什么。
-	// md5:0d85b615ef8507fb
+	// 但不必担心这个问题，因为适配器的变更较少，并且如果未被使用，它也不会做什么。 md5:0d85b615ef8507fb
 	gtimer.AddSingleton(context.Background(), time.Second, c.syncEventAndClearExpired)
 	return c
 }
@@ -80,8 +76,7 @@ func NewAdapterMemory(lruCap ...int) Adapter {
 // Set 使用键值对 `key`-`value` 设置缓存，该缓存在 `duration` 时间后过期。
 //
 // 如果 `duration` 等于 0，则不会过期。
-// 如果 `duration` 小于 0 或者给定的 `value` 为 nil，它将删除 `data` 中的键。
-// md5:7faea7b643bffd7c
+// 如果 `duration` 小于 0 或者给定的 `value` 为 nil，它将删除 `data` 中的键。 md5:7faea7b643bffd7c
 func (c *AdapterMemory) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) error {
 	expireTime := c.getInternalExpire(duration)
 	c.data.Set(key, adapterMemoryItem{
@@ -98,8 +93,7 @@ func (c *AdapterMemory) Set(ctx context.Context, key interface{}, value interfac
 // SetMap 批量设置缓存，使用 `data` 映射（键值对）的方式，其在 `duration` 后过期。
 //
 // 如果 `duration` 等于 0，则不会过期。
-// 如果 `duration` 小于 0 或给定的 `value` 为 `nil`，则会删除 `data` 中的键。
-// md5:a09a11cd5d9d21e6
+// 如果 `duration` 小于 0 或给定的 `value` 为 `nil`，则会删除 `data` 中的键。 md5:a09a11cd5d9d21e6
 func (c *AdapterMemory) SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error {
 	var (
 		expireTime = c.getInternalExpire(duration)
@@ -118,10 +112,9 @@ func (c *AdapterMemory) SetMap(ctx context.Context, data map[interface{}]interfa
 }
 
 // SetIfNotExist 如果缓存中不存在`key`，则设置过期时间为`duration`的`key`-`value`对。如果成功将`value`设置到缓存中，它会返回`true`，表示`key`在缓存中不存在；否则返回`false`。
-// 
+//
 // 如果`duration`为0，缓存不会过期。
-// 如果`duration`小于0或给定的`value`为`nil`，它会删除`key`。
-// md5:38aa90beb53ed441
+// 如果`duration`小于0或给定的`value`为`nil`，它会删除`key`。 md5:38aa90beb53ed441
 func (c *AdapterMemory) SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (bool, error) {
 	isContained, err := c.Contains(ctx, key)
 	if err != nil {
@@ -143,8 +136,7 @@ func (c *AdapterMemory) SetIfNotExist(ctx context.Context, key interface{}, valu
 // 但如果其结果为nil，则不会执行任何操作。
 //
 // 如果`duration`等于0，则不设置过期时间。
-// 如果`duration`小于0或给定的`value`为nil，则删除该`key`。
-// md5:8300c80b9bab735d
+// 如果`duration`小于0或给定的`value`为nil，则删除该`key`。 md5:8300c80b9bab735d
 func (c *AdapterMemory) SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (bool, error) {
 	isContained, err := c.Contains(ctx, key)
 	if err != nil {
@@ -169,8 +161,7 @@ func (c *AdapterMemory) SetIfNotExistFunc(ctx context.Context, key interface{}, 
 // 如果`duration`等于0，则不会过期。
 // 如果`duration`小于0或给定的`value`为nil，将删除`key`。
 //
-// 注意，它与函数`SetIfNotExistFunc`的区别在于，函数`f`在写入互斥锁内部执行，以保证并发安全性。
-// md5:629e13ace9eaf720
+// 注意，它与函数`SetIfNotExistFunc`的区别在于，函数`f`在写入互斥锁内部执行，以保证并发安全性。 md5:629e13ace9eaf720
 func (c *AdapterMemory) SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (bool, error) {
 	isContained, err := c.Contains(ctx, key)
 	if err != nil {
@@ -185,8 +176,7 @@ func (c *AdapterMemory) SetIfNotExistFuncLock(ctx context.Context, key interface
 	return false, nil
 }
 
-// Get 从缓存中检索并返回给定 `key` 的关联值。如果不存在、值为nil或已过期，它将返回nil。如果你想检查`key`是否存在于缓存中，建议使用Contains函数。
-// md5:f78c30f8338ce106
+// Get 从缓存中检索并返回给定 `key` 的关联值。如果不存在、值为nil或已过期，它将返回nil。如果你想检查`key`是否存在于缓存中，建议使用Contains函数。 md5:f78c30f8338ce106
 func (c *AdapterMemory) Get(ctx context.Context, key interface{}) (*gvar.Var, error) {
 	item, ok := c.data.Get(key)
 	if ok && !item.IsExpired() {
@@ -203,8 +193,7 @@ func (c *AdapterMemory) Get(ctx context.Context, key interface{}) (*gvar.Var, er
 // 这对键值将在指定的`duration`后过期。
 //
 // 如果`duration`为0，则不会过期。
-// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且函数结果为nil，它则不做任何操作。
-// md5:b8646fcb99c81de9
+// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且函数结果为nil，它则不做任何操作。 md5:b8646fcb99c81de9
 func (c *AdapterMemory) GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (*gvar.Var, error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -219,8 +208,7 @@ func (c *AdapterMemory) GetOrSet(ctx context.Context, key interface{}, value int
 // GetOrSetFunc 获取并返回`key`的值，如果缓存中不存在`key`，则使用函数`f`的结果设置`key`并返回该结果。键值对在`duration`时间后过期。
 //
 // 如果`duration`等于0，则不会过期。
-// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且其结果为nil，则不执行任何操作。
-// md5:822486c86baa87d1
+// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且其结果为nil，则不执行任何操作。 md5:822486c86baa87d1
 func (c *AdapterMemory) GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (*gvar.Var, error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -240,12 +228,11 @@ func (c *AdapterMemory) GetOrSetFunc(ctx context.Context, key interface{}, f Fun
 }
 
 // GetOrSetFuncLock 获取并返回键`key`的值，或者如果`key`在缓存中不存在，则使用函数`f`的结果设置`key`，并返回其结果。键值对在`duration`后过期。
-// 
+//
 // 如果`duration`为0，它不会过期。
 // 如果`duration`小于0或给定的`value`为nil，它会删除`key`；但如果`value`是一个函数并且函数结果为nil，它将不执行任何操作。
-// 
-// 注意，它与`GetOrSetFunc`函数不同，函数`f`是在写入互斥锁保护下执行的，以确保并发安全。
-// md5:3e49c54e5e0c2857
+//
+// 注意，它与`GetOrSetFunc`函数不同，函数`f`是在写入互斥锁保护下执行的，以确保并发安全。 md5:3e49c54e5e0c2857
 func (c *AdapterMemory) GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (*gvar.Var, error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -267,11 +254,10 @@ func (c *AdapterMemory) Contains(ctx context.Context, key interface{}) (bool, er
 }
 
 // GetExpire 从缓存中检索并返回 `key` 的过期时间。
-// 
+//
 // 注意，
 // 如果 `key` 没有过期，它将返回 0。
-// 如果 `key` 不在缓存中，它将返回 -1。
-// md5:d80ce12df8668b97
+// 如果 `key` 不在缓存中，它将返回 -1。 md5:d80ce12df8668b97
 func (c *AdapterMemory) GetExpire(ctx context.Context, key interface{}) (time.Duration, error) {
 	if item, ok := c.data.Get(key); ok {
 		return time.Duration(item.e-gtime.TimestampMilli()) * time.Millisecond, nil
@@ -280,8 +266,7 @@ func (c *AdapterMemory) GetExpire(ctx context.Context, key interface{}) (time.Du
 }
 
 // Remove 从缓存中删除一个或多个键，并返回其值。
-// 如果给出了多个键，它将返回最后删除项的值。
-// md5:d3b1c8af168b0ebf
+// 如果给出了多个键，它将返回最后删除项的值。 md5:d3b1c8af168b0ebf
 func (c *AdapterMemory) Remove(ctx context.Context, keys ...interface{}) (*gvar.Var, error) {
 	var removedKeys []interface{}
 	removedKeys, value, err := c.data.Remove(keys...)
@@ -301,8 +286,7 @@ func (c *AdapterMemory) Remove(ctx context.Context, keys ...interface{}) (*gvar.
 // 如果`key`在缓存中不存在，返回的值`exist`为false。
 //
 // 如果给定的`value`为nil，它会删除`key`。
-// 如果`key`不在缓存中，它不会做任何操作。
-// md5:6d92816db5b1d3bd
+// 如果`key`不在缓存中，它不会做任何操作。 md5:6d92816db5b1d3bd
 func (c *AdapterMemory) Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error) {
 	v, exist, err := c.data.Update(key, value)
 	return gvar.New(v), exist, err
@@ -310,8 +294,7 @@ func (c *AdapterMemory) Update(ctx context.Context, key interface{}, value inter
 
 // UpdateExpire 更新键`key`的过期时间，并返回旧的过期持续时间值。
 //
-// 如果`key`在缓存中不存在，它将返回-1并什么都不做。如果`duration`小于0，它会删除`key`。
-// md5:b974907dd46b44be
+// 如果`key`在缓存中不存在，它将返回-1并什么都不做。如果`duration`小于0，它会删除`key`。 md5:b974907dd46b44be
 func (c *AdapterMemory) UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error) {
 	newExpireTime := c.getInternalExpire(duration)
 	oldDuration, err = c.data.UpdateExpire(key, newExpireTime)
@@ -348,8 +331,7 @@ func (c *AdapterMemory) Values(ctx context.Context) ([]interface{}, error) {
 }
 
 // Clear 清空缓存中的所有数据。
-// 注意，此函数涉及敏感操作，应谨慎使用。
-// md5:9212cab88870d3df
+// 注意，此函数涉及敏感操作，应谨慎使用。 md5:9212cab88870d3df
 func (c *AdapterMemory) Clear(ctx context.Context) error {
 	return c.data.Clear()
 }
@@ -367,8 +349,7 @@ func (c *AdapterMemory) Close(ctx context.Context) error {
 //
 // 如果`duration`为0，则不过期。参数`value`可以是类型为`func() interface{}`的函数，但如果函数结果为nil，则不执行任何操作。
 //
-// 在将`key-value`对设置到缓存之前，它会使用写入锁双重检查`key`是否已存在于缓存中。
-// md5:17967ab63e2b200c
+// 在将`key-value`对设置到缓存之前，它会使用写入锁双重检查`key`是否已存在于缓存中。 md5:17967ab63e2b200c
 func (c *AdapterMemory) doSetWithLockCheck(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error) {
 	expireTimestamp := c.getInternalExpire(duration)
 	v, err := c.data.SetWithLock(ctx, key, value, expireTimestamp)
@@ -392,8 +373,7 @@ func (c *AdapterMemory) makeExpireKey(expire int64) int64 {
 // syncEventAndClearExpired 执行异步任务循环：
 // 1. 异步处理事件列表中的数据，
 // 并将结果同步到 `expireTimes` 和 `expireSets` 属性。
-// 2. 清理过期的键值对数据。
-// md5:ce52abd32c5f232e
+// 2. 清理过期的键值对数据。 md5:ce52abd32c5f232e
 func (c *AdapterMemory) syncEventAndClearExpired(ctx context.Context) {
 	if c.closed.Val() {
 		gtimer.Exit()
@@ -406,8 +386,7 @@ func (c *AdapterMemory) syncEventAndClearExpired(ctx context.Context) {
 	)
 	// ========================
 	// 数据同步。
-	// ========================
-	// md5:a7203ea428e10983
+	// ======================== md5:a7203ea428e10983
 	for {
 		v := c.eventList.PopFront()
 		if v == nil {
@@ -446,8 +425,7 @@ func (c *AdapterMemory) syncEventAndClearExpired(ctx context.Context) {
 	}
 	// ========================
 	// 数据清理。
-	// ========================
-	// md5:c845ec8cb41f31ac
+	// ======================== md5:c845ec8cb41f31ac
 	var (
 		expireSet *gset.Set
 		ek        = c.makeExpireKey(gtime.TimestampMilli())
@@ -466,8 +444,7 @@ func (c *AdapterMemory) syncEventAndClearExpired(ctx context.Context) {
 	}
 }
 
-// clearByKey 删除给定`key`的键值对。参数`force`指定是否强制执行删除操作。
-// md5:5b26398959f735ad
+// clearByKey 删除给定`key`的键值对。参数`force`指定是否强制执行删除操作。 md5:5b26398959f735ad
 func (c *AdapterMemory) clearByKey(key interface{}, force ...bool) {
 	// 在从缓存中真正删除之前，再双检查一次。 md5:53767fc86cbfbf5e
 	c.data.DeleteWithDoubleCheck(key, force...)

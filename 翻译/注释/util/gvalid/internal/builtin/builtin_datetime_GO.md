@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -28,8 +27,7 @@
 // RuleDatetime 实现了 `datetime` 规则：
 // 标准日期时间格式，例如：2006-01-02 12:00:00。
 //
-// 格式：datetime
-// md5:cd1da4eb292e6ea1
+// 格式：datetime md5:cd1da4eb292e6ea1
 # <翻译结束>
 
 
@@ -38,6 +36,6 @@
 <原文结束>
 
 # <翻译开始>
-// 支持时间值，例如：gtime.Time/*gtime.Time, time.Time/*time.Time。 md5:fc74717f7b27de8d
+	// 支持时间值，例如：gtime.Time/*gtime.Time, time.Time/*time.Time。 md5:fc74717f7b27de8d
 # <翻译结束>
 

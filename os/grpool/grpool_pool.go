@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package grpool
 
@@ -15,8 +14,7 @@ import (
 )
 
 // Add 将一个新任务添加到池中。
-// 该任务将会异步执行。
-// md5:69389d53e280086b
+// 该任务将会异步执行。 md5:69389d53e280086b
 func (p *Pool) Add(ctx context.Context, f Func) error {
 	for p.closed.Val() {
 		return gerror.NewCode(
@@ -34,9 +32,8 @@ func (p *Pool) Add(ctx context.Context, f Func) error {
 }
 
 // AddWithRecover 将指定的恢复函数推送到队列中执行新任务。
-// 
-// 可选的 `recoverFunc` 在执行 `userFunc` 时发生任何 panic 时被调用。如果未传递或给定 nil，它将忽略来自 `userFunc` 的 panic。任务将异步执行。
-// md5:764d1260466b9a5d
+//
+// 可选的 `recoverFunc` 在执行 `userFunc` 时发生任何 panic 时被调用。如果未传递或给定 nil，它将忽略来自 `userFunc` 的 panic。任务将异步执行。 md5:764d1260466b9a5d
 func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc RecoverFunc) error {
 	return p.Add(ctx, func(ctx context.Context) {
 		defer func() {
@@ -56,8 +53,7 @@ func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc Re
 
 // Cap 返回池的容量。
 // 这个容量在创建池时定义。
-// 如果没有限制，则返回-1。
-// md5:1c6cae16429df1b2
+// 如果没有限制，则返回-1。 md5:1c6cae16429df1b2
 func (p *Pool) Cap() int {
 	return p.limit
 }
@@ -68,8 +64,7 @@ func (p *Pool) Size() int {
 }
 
 // Jobs 返回池中的当前任务数。
-// 注意，它返回的不是工作器/goroutine的数量，而是任务的数量。
-// md5:c82d92b33047974c
+// 注意，它返回的不是工作器/goroutine的数量，而是任务的数量。 md5:c82d92b33047974c
 func (p *Pool) Jobs() int {
 	return p.list.Size()
 }
@@ -85,8 +80,7 @@ func (p *Pool) Close() {
 }
 
 // checkAndForkNewGoroutineWorker 检查并创建一个新的goroutine工作进程。
-// 请注意，如果工作函数出现恐慌且该工作没有恢复处理，那么该工作进程将会死亡。
-// md5:242a912451066181
+// 请注意，如果工作函数出现恐慌且该工作没有恢复处理，那么该工作进程将会死亡。 md5:242a912451066181
 func (p *Pool) checkAndForkNewGoroutineWorker() {
 	// 检查是否需要在新的goroutine中 fork。 md5:20ef20b082ef0b86
 	var n int

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcron
 
@@ -15,8 +14,7 @@ import (
 )
 
 // checkMeetAndUpdateLastSeconds 检查给定的时间 `t` 是否满足作业的可运行点。
-// 这个函数每秒被调用一次。
-// md5:7e9ffb92b302c297
+// 这个函数每秒被调用一次。 md5:7e9ffb92b302c297
 func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, currentTime time.Time) (ok bool) {
 	var (
 		lastCheckTimestamp = s.getAndUpdateLastCheckTimestamp(ctx, currentTime)
@@ -73,8 +71,7 @@ func (s *cronSchedule) checkMeetSecond(lastMeetTime, currentTime time.Time) (ok 
 		}
 	} else {
 		// 如果此模式在精确到秒的时间设置，
-		// 则不允许在同一时间执行。
-		// md5:b3ec1446bf507768
+		// 则不允许在同一时间执行。 md5:b3ec1446bf507768
 		if len(s.secondMap) == 1 && lastMeetTime.Format(time.RFC3339) == currentTime.Format(time.RFC3339) {
 			return false
 		}

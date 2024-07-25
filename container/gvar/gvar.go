@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // gvar 包提供了一个通用变量类型，类似于泛型。 md5:edfcd2c00687a1cf
 package gvar
@@ -26,8 +25,7 @@ type Var struct {
 }
 
 // New 创建并返回一个具有给定`value`的新Var。
-// 可选参数`safe`指定Var是否用于并发安全，默认为false。
-// md5:451fb2bb36ca4e4f
+// 可选参数`safe`指定Var是否用于并发安全，默认为false。 md5:451fb2bb36ca4e4f
 func New(value interface{}, safe ...bool) *Var {
 	if len(safe) > 0 && safe[0] {
 		return &Var{
@@ -158,22 +156,19 @@ func (v *Var) Float64() float64 {
 
 // Time 将 `v` 转换并返回为 time.Time 类型。
 // 参数 `format` 使用 gtime 指定时间字符串的格式，
-// 例如：Y-m-d H:i:s。
-// md5:f8b0cb9b11c12546
+// 例如：Y-m-d H:i:s。 md5:f8b0cb9b11c12546
 func (v *Var) Time(format ...string) time.Time {
 	return gconv.Time(v.Val(), format...)
 }
 
 // Duration 将 `v` 转换并返回为 time.Duration 类型。
-// 如果 `v` 的值为字符串，那么它会使用 time.ParseDuration 进行转换。
-// md5:202e87ef6d521c17
+// 如果 `v` 的值为字符串，那么它会使用 time.ParseDuration 进行转换。 md5:202e87ef6d521c17
 func (v *Var) Duration() time.Duration {
 	return gconv.Duration(v.Val())
 }
 
 // GTime将`v`转换为*gtime.Time并返回。
-// 参数`format`使用gtime指定时间字符串的格式，例如：Y-m-d H:i:s。
-// md5:0809b54d564e1570
+// 参数`format`使用gtime指定时间字符串的格式，例如：Y-m-d H:i:s。 md5:0809b54d564e1570
 func (v *Var) GTime(format ...string) *gtime.Time {
 	return gconv.GTime(v.Val(), format...)
 }

@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -33,8 +32,7 @@
 <原文结束>
 
 # <翻译开始>
-// SplitAndTrim 通过字符串 `delimiter` 将字符串 `str` 分割成一个数组，然后对数组中的每个元素调用 Trim 函数。它会忽略 Trim 后为空的元素。
-// md5:20d7e1d120928c19
+// SplitAndTrim 通过字符串 `delimiter` 将字符串 `str` 分割成一个数组，然后对数组中的每个元素调用 Trim 函数。它会忽略 Trim 后为空的元素。 md5:20d7e1d120928c19
 # <翻译结束>
 
 
@@ -44,8 +42,7 @@
 <原文结束>
 
 # <翻译开始>
-// Join 函数将 `array` 中的元素连接起来以创建一个单一的字符串。分隔符字符串 `sep` 会被放置在结果字符串中各元素之间。
-// md5:c796a29e291a2864
+// Join 函数将 `array` 中的元素连接起来以创建一个单一的字符串。分隔符字符串 `sep` 会被放置在结果字符串中各元素之间。 md5:c796a29e291a2864
 # <翻译结束>
 
 
@@ -59,8 +56,7 @@
 # <翻译开始>
 // JoinAny 将 `array` 中的元素连接成一个单一的字符串。在结果字符串中，元素之间由分隔符字符串 `sep` 分隔。
 //
-// 参数 `array` 可以是任何类型的切片，它将被转换为字符串数组。
-// md5:fc531415278a603b
+// 参数 `array` 可以是任何类型的切片，它将被转换为字符串数组。 md5:fc531415278a603b
 # <翻译结束>
 
 
@@ -71,8 +67,7 @@
 
 # <翻译开始>
 // Explode 函数将字符串 `str` 按照字符串 `delimiter` 进行分割，返回一个数组。
-// 参考：http://php.net/manual/zh/function.explode.php。
-// md5:28fb7a55d9ec56dc
+// 参考：http://php.net/manual/zh/function.explode.php。 md5:28fb7a55d9ec56dc
 # <翻译结束>
 
 
@@ -82,8 +77,7 @@
 <原文结束>
 
 # <翻译开始>
-// Implode 将数组元素 `pieces` 用字符串 `glue` 进行连接。// 参考：http://php.net/manual/zh/function.implode.php
-// md5:e20b4f4a627b156b
+// Implode 将数组元素 `pieces` 用字符串 `glue` 进行连接。// 参考：http://php.net/manual/zh/function.implode.php md5:e20b4f4a627b156b
 # <翻译结束>
 
 
@@ -100,8 +94,7 @@
 // 可用于将字符串分割成更小的块，这对于
 // 例如，将BASE64字符串输出转换为符合RFC 2045语义的情况非常有用。
 // 它会在每chunkLen个字符后插入结束标记`end`。
-// 它将参数`body`和`end`视为Unicode字符串处理。
-// md5:94b7c0d7df7ca2e3
+// 它将参数`body`和`end`视为Unicode字符串处理。 md5:94b7c0d7df7ca2e3
 # <翻译结束>
 
 

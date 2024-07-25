@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtest
 
@@ -26,8 +25,7 @@ const (
 
 // C 创建一个单元测试用例。
 // 参数 `t` 是标准库 (*testing.T) 的 testing.T 指针。
-// 参数 `f` 是用于单元测试的闭包函数。
-// md5:0a3ae380343ea962
+// 参数 `f` 是用于单元测试的闭包函数。 md5:0a3ae380343ea962
 func C(t *testing.T, f func(t *T)) {
 	defer func() {
 		if err := recover(); err != nil {
@@ -125,8 +123,7 @@ func AssertNQ(value, expect interface{}) {
 
 // AssertGT 检查 `value` 是否大于 `expect`。
 // 注意，只有字符串、整数和浮点数类型能使用 AssertGT 进行比较，
-// 其他类型是无效的。
-// md5:647270894818c6c7
+// 其他类型是无效的。 md5:647270894818c6c7
 func AssertGT(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -148,8 +145,7 @@ func AssertGT(value, expect interface{}) {
 }
 
 // AssertGE 检查 `value` 是否大于或等于 `expect`。
-// 请注意，只有字符串、整数和浮点数类型可以使用 AssertGE 进行比较，其他类型是无效的。
-// md5:3227e007891ed72e
+// 请注意，只有字符串、整数和浮点数类型可以使用 AssertGE 进行比较，其他类型是无效的。 md5:3227e007891ed72e
 func AssertGE(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -175,8 +171,7 @@ func AssertGE(value, expect interface{}) {
 }
 
 // AssertLT 检查 `value` 是否小于等于 `expect`。
-// 注意，只有字符串、整数和浮点类型可以通过 AssertLT 进行比较，其他类型无效。
-// md5:784a9db44c03122b
+// 注意，只有字符串、整数和浮点类型可以通过 AssertLT 进行比较，其他类型无效。 md5:784a9db44c03122b
 func AssertLT(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -198,8 +193,7 @@ func AssertLT(value, expect interface{}) {
 }
 
 // AssertLE 检查 `value` 是否小于或等于 `expect`。
-// 请注意，只有字符串、整数和浮点类型可以通过 AssertLTE 进行比较，其他类型的值是无效的。
-// md5:bca4df91bef4e152
+// 请注意，只有字符串、整数和浮点类型可以通过 AssertLTE 进行比较，其他类型的值是无效的。 md5:bca4df91bef4e152
 func AssertLE(value, expect interface{}) {
 	passed := false
 	switch reflect.ValueOf(expect).Kind() {
@@ -224,8 +218,7 @@ func AssertLE(value, expect interface{}) {
 // `expect` 应该是一个切片，
 // 但是 `value` 可以是切片或基本类型变量。
 // TODO: 添加对 map 的支持。
-// TODO: gconv.Strings(0) 不应该转换为 `[0]`。
-// md5:d8391e0c6cba6480
+// TODO: gconv.Strings(0) 不应该转换为 `[0]`。 md5:d8391e0c6cba6480
 func AssertIN(value, expect interface{}) {
 	var (
 		passed     = true
@@ -264,8 +257,7 @@ func AssertIN(value, expect interface{}) {
 // AssertNI 检查 `value` 不在 `expect` 中。
 // `expect` 应该是一个切片，
 // 但是 `value` 可以是切片或基本类型变量。
-// TODO 增加对 map 的支持。
-// md5:483febd56930eb64
+// TODO 增加对 map 的支持。 md5:483febd56930eb64
 func AssertNI(value, expect interface{}) {
 	var (
 		passed     = true
@@ -324,8 +316,7 @@ func compareMap(value, expect interface{}) error {
 		if rvValue.Kind() == reflect.Map {
 			if rvExpect.Len() == rvValue.Len() {
 				// 将两个接口映射转换为相同类型以便进行比较。
-				// 直接使用rvValue.MapIndex(key).Interface() 当键的类型不一致时，会导致恐慌。
-				// md5:ae85735772c34002
+				// 直接使用rvValue.MapIndex(key).Interface() 当键的类型不一致时，会导致恐慌。 md5:ae85735772c34002
 				mValue := make(map[string]string)
 				mExpect := make(map[string]string)
 				ksValue := rvValue.MapKeys()
@@ -364,8 +355,7 @@ func AssertNil(value interface{}) {
 }
 
 // DataPath获取并返回当前包的测试数据路径，仅用于单元测试。
-// 可选参数`names`指定了子文件夹/子文件，将与当前系统的分隔符连接，并与路径一起返回。
-// md5:55efb430c9f8a73f
+// 可选参数`names`指定了子文件夹/子文件，将与当前系统的分隔符连接，并与路径一起返回。 md5:55efb430c9f8a73f
 func DataPath(names ...string) string {
 	_, path, _ := gdebug.CallerWithFilter([]string{pathFilterKey})
 	path = filepath.Dir(path) + string(filepath.Separator) + "testdata"

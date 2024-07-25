@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gins
 
@@ -19,8 +18,7 @@ import (
 
 // Log 返回一个 glog.Logger 的实例。
 // 参数 `name` 是该实例的名称。
-// 请注意，如果在创建实例过程中发生任何错误，它将引发 panic。
-// md5:9578e0721b3e1c0b
+// 请注意，如果在创建实例过程中发生任何错误，它将引发 panic。 md5:9578e0721b3e1c0b
 func Log(name ...string) *glog.Logger {
 	var (
 		ctx          = context.Background()

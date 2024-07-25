@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
@@ -33,8 +32,7 @@ type HookHandler struct {
 }
 
 // internalParamHook 管理所有用于钩子操作的内部参数。
-// `internal` 显然意味着您无法在此包之外访问这些参数。
-// md5:25a7b0a478a19a4b
+// `internal` 显然意味着您无法在此包之外访问这些参数。 md5:25a7b0a478a19a4b
 type internalParamHook struct {
 	link               Link      // 来自第三方sql驱动的连接对象。 md5:8c0e18a3b7135850
 	handlerCalled      bool      // 用于自定义处理器调用的简单标记，如果存在递归调用。 md5:8a70de5e368bfa75
@@ -64,8 +62,7 @@ type internalParamHookDelete struct {
 }
 
 // HookSelectInput 存储选择操作的参数。
-// 注意，COUNT 语句也会被此功能捕获，这通常对上层业务钩子处理程序不感兴趣。
-// md5:c5f22bccaae80481
+// 注意，COUNT 语句也会被此功能捕获，这通常对上层业务钩子处理程序不感兴趣。 md5:c5f22bccaae80481
 type HookSelectInput struct {
 	internalParamHookSelect
 	Model  *Model        // 当前操作模型。 md5:d9c5abcf43d4a0c5

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -37,15 +36,13 @@ type RuleFuncInput struct {
 	// Value 指定此规则用于验证的值。 md5:29bdb57107181fe6
 	Value *gvar.Var
 
-	// Data 指定了传递给Validator的数据，它可以是map/结构体类型或nil值。如果你的自定义验证规则不需要这个参数，可以忽略它。
-	// md5:fd9ebb5b1bdabe03
+	// Data 指定了传递给Validator的数据，它可以是map/结构体类型或nil值。如果你的自定义验证规则不需要这个参数，可以忽略它。 md5:fd9ebb5b1bdabe03
 	Data *gvar.Var
 }
 
 var (
 	// customRuleFuncMap 存储自定义规则函数。
-	// map[Rule]RuleFunc
-	// md5:ddde03f9fa92aae7
+	// map[Rule]RuleFunc md5:ddde03f9fa92aae7
 	customRuleFuncMap = make(map[string]RuleFunc)
 )
 

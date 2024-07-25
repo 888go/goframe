@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gsession
 
@@ -112,8 +111,7 @@ func (s *StorageFile) timelyClearExpiredSessionFile(ctx context.Context) {
 }
 
 // SetCryptoKey 设置会话存储的加密密钥。
-// 当启用加密功能时，将使用此加密密钥。
-// md5:dbc53d710307bd28
+// 当启用加密功能时，将使用此加密密钥。 md5:dbc53d710307bd28
 func (s *StorageFile) SetCryptoKey(key []byte) {
 	s.cryptoKey = key
 }
@@ -137,8 +135,7 @@ func (s *StorageFile) RemoveAll(ctx context.Context, sessionId string) error {
 //
 // 参数`ttl`指定了此会话的有效期，如果超过有效期，则返回nil。参数`data`是当前存储在内存中的旧会话数据，对于某些存储方式，如果禁用了内存存储，它可能会为nil。
 //
-// 此函数在会话启动时会被调用。
-// md5:01e56ce09d5fd934
+// 此函数在会话启动时会被调用。 md5:01e56ce09d5fd934
 func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (sessionData *gmap.StrAnyMap, err error) {
 	var (
 		path    = s.sessionFilePath(sessionId)
@@ -172,8 +169,7 @@ func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time
 
 // SetSession 根据指定的会话ID更新数据映射。
 // 当某个被标记为脏（即发生过修改）的会话关闭后，将调用此函数。
-// 该操作会将所有会话数据从内存复制到存储中。
-// md5:1caa26989d884fa4
+// 该操作会将所有会话数据从内存复制到存储中。 md5:1caa26989d884fa4
 func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageFile.SetSession: %s, %v, %v", sessionId, sessionData, ttl)
 	path := s.sessionFilePath(sessionId)
@@ -208,8 +204,7 @@ func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionD
 
 // UpdateTTL 更新指定会话ID的生存时间（TTL）。
 // 当一个未被修改（非脏）的会话关闭后，此函数会被调用。
-// 它只是将会话ID添加到异步处理队列中。
-// md5:cc5ac287cbbc0eab
+// 它只是将会话ID添加到异步处理队列中。 md5:cc5ac287cbbc0eab
 func (s *StorageFile) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageFile.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageFileUpdateTTLInterval {

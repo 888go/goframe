@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gconv
 
@@ -18,8 +17,7 @@ import (
 // Scan 自动检查`pointer`的类型，并将`params`转换为`pointer`。
 // 它支持以下类型的`pointer`进行转换：`*map/*[]map/*[]*map/*struct/**struct/*[]struct/*[]*struct`。
 //
-// 待办：将`paramKeyToAttrMap`改为`ScanOption`以提高可扩展性；为`ScanOption`添加`DeepCopy`选项。
-// md5:6b1a82a906dd8ec9
+// 待办：将`paramKeyToAttrMap`改为`ScanOption`以提高可扩展性；为`ScanOption`添加`DeepCopy`选项。 md5:6b1a82a906dd8ec9
 func Scan(srcValue interface{}, dstPointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	if srcValue == nil {
 		// 如果`srcValue`为nil，不进行转换。 md5:72ad5bbbd6b824ce
@@ -77,12 +75,10 @@ func Scan(srcValue interface{}, dstPointer interface{}, paramKeyToAttrMap ...map
 		srcValueReflectValue = reflect.ValueOf(srcValue)
 	}
 	// 如果`srcValue`和`dstPointer`是相同的类型，直接进行赋值。
-	// 为了提高性能。
-	// md5:5d0efd73f7a58b6f
+	// 为了提高性能。 md5:5d0efd73f7a58b6f
 	var dstPointerReflectValueElem = dstPointerReflectValue.Elem()
 	// 如果`srcValue`和`dstPointer`是相同的类型，直接进行赋值。
-	// 为了提高性能。
-	// md5:5d0efd73f7a58b6f
+	// 为了提高性能。 md5:5d0efd73f7a58b6f
 	if ok = doConvertWithTypeCheck(srcValueReflectValue, dstPointerReflectValueElem); ok {
 		return nil
 	}
@@ -125,15 +121,14 @@ func doConvertWithTypeCheck(srcValueReflectValue, dstPointerReflectValueElem ref
 	}
 	switch {
 	// 示例：
-	// 
+	//
 	// UploadFile    => 上传文件
 	// []UploadFile  => 上传文件切片
 	// *UploadFile   => 指向上传文件的指针
 	// *[]UploadFile => 指向上传文件切片的指针
 	// map           => 映射
 	// []map         => 映射切片
-	// *[]map        => 指向映射切片的指针
-	// md5:f6ba941ba3b0269f
+	// *[]map        => 指向映射切片的指针 md5:f6ba941ba3b0269f
 	case dstPointerReflectValueElem.Type() == srcValueReflectValue.Type():
 		dstPointerReflectValueElem.Set(srcValueReflectValue)
 		return true
@@ -143,14 +138,13 @@ func doConvertWithTypeCheck(srcValueReflectValue, dstPointerReflectValueElem ref
 	// []UploadFile  => *[]UploadFile
 	// map           => *map
 	// []map         => *[]map
-	// 
+	//
 	// 这些注释表示的是Go语言中的指针和数据结构的转换。在Go中，`*`符号用于表示指针类型。这里展示了如何将非指针类型转换为指针类型：
-	// 
+	//
 	// - `UploadFile` 是一个类型，`*UploadFile` 是它的指针类型。
 	// - `[]UploadFile` 是 `UploadFile` 类型的切片（数组），`*[]UploadFile` 是这个切片类型的指针。
 	// - `map` 表示一个未指定类型的映射，`*map` 则是这个映射类型的指针。
-	// - `[]map` 表示一个包含映射的切片，`*[]map` 是这个切片类型的指针。
-	// md5:3b743427a52ed67e
+	// - `[]map` 表示一个包含映射的切片，`*[]map` 是这个切片类型的指针。 md5:3b743427a52ed67e
 	case dstPointerReflectValueElem.Kind() == reflect.Ptr &&
 		dstPointerReflectValueElem.Elem().IsValid() &&
 		dstPointerReflectValueElem.Elem().Type() == srcValueReflectValue.Type():
@@ -161,8 +155,7 @@ func doConvertWithTypeCheck(srcValueReflectValue, dstPointerReflectValueElem ref
 	// *UploadFile    => 上传文件
 	// *[]UploadFile  => 上传文件的切片
 	// *map           => 映射（字典）
-	// *[]map         => 映射的切片
-	// md5:a787c0f77f0eaa64
+	// *[]map         => 映射的切片 md5:a787c0f77f0eaa64
 	case srcValueReflectValue.Kind() == reflect.Ptr &&
 		srcValueReflectValue.Elem().IsValid() &&
 		dstPointerReflectValueElem.Type() == srcValueReflectValue.Elem().Type():
@@ -175,8 +168,7 @@ func doConvertWithTypeCheck(srcValueReflectValue, dstPointerReflectValueElem ref
 }
 
 // doConvertWithJsonCheck 做 JSON 转换检查。
-// 如果给定的 `params` 是 JSON，那么它会使用 json.Unmarshal 进行转换。
-// md5:aa79d041fb48e2db
+// 如果给定的 `params` 是 JSON，那么它会使用 json.Unmarshal 进行转换。 md5:aa79d041fb48e2db
 func doConvertWithJsonCheck(srcValue interface{}, dstPointer interface{}) (ok bool, err error) {
 	switch valueResult := srcValue.(type) {
 	case []byte:

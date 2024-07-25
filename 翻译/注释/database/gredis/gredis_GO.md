@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -34,8 +33,7 @@
 //
 // Redis命令官方文档：https://redis.io/commands
 //
-// Redis中文文档：http://redisdoc.com/
-// md5:fd856764d3114fd3
+// Redis中文文档：http://redisdoc.com/ md5:fd856764d3114fd3
 # <翻译结束>
 
 
@@ -53,7 +51,7 @@
 <原文结束>
 
 # <翻译开始>
-// defaultAdapterFunc 是默认的适配器函数，用于创建 Redis 适配器。 md5:e518e287cdac2bb2
+	// defaultAdapterFunc 是默认的适配器函数，用于创建 Redis 适配器。 md5:e518e287cdac2bb2
 # <翻译结束>
 
 
@@ -64,8 +62,7 @@
 
 # <翻译开始>
 // New 创建并返回一个redis客户端。
-// 它创建了一个默认的go-redis适配器。
-// md5:3f355ab0e775862a
+// 它创建了一个默认的go-redis适配器。 md5:3f355ab0e775862a
 # <翻译结束>
 
 
@@ -74,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用Go Redis实现的Redis客户端，根据给定配置进行适配。 md5:3df311ce390d85c6
+		// 使用Go Redis实现的Redis客户端，根据给定配置进行适配。 md5:3df311ce390d85c6
 # <翻译结束>
 
 
@@ -83,7 +80,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用Go Redis实现的Redis客户端，它实现了包配置中的适配器。 md5:91dc0454a671c4de
+		// 使用Go Redis实现的Redis客户端，它实现了包配置中的适配器。 md5:91dc0454a671c4de
 # <翻译结束>
 
 

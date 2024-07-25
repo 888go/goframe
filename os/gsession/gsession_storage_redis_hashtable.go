@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gsession
 
@@ -39,8 +38,7 @@ func NewStorageRedisHashTable(redis *gredis.Redis, prefix ...string) *StorageRed
 }
 
 // Get 通过给定的键获取会话值。
-// 如果该键不存在于会话中，它将返回nil。
-// md5:dd25fb53030b0080
+// 如果该键不存在于会话中，它将返回nil。 md5:dd25fb53030b0080
 func (s *StorageRedisHashTable) Get(ctx context.Context, sessionId string, key string) (value interface{}, err error) {
 	v, err := s.redis.HGet(ctx, s.sessionIdToRedisKey(sessionId), key)
 	if err != nil {
@@ -68,8 +66,7 @@ func (s *StorageRedisHashTable) GetSize(ctx context.Context, sessionId string) (
 }
 
 // Set 将键值对设置到存储中。
-// 参数 `ttl` 指定了会话 ID 的过期时间（而不是键值对）。
-// md5:561e667e69e855f6
+// 参数 `ttl` 指定了会话 ID 的过期时间（而不是键值对）。 md5:561e667e69e855f6
 func (s *StorageRedisHashTable) Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
 	_, err := s.redis.HSet(ctx, s.sessionIdToRedisKey(sessionId), map[string]interface{}{
 		key: value,
@@ -78,8 +75,7 @@ func (s *StorageRedisHashTable) Set(ctx context.Context, sessionId string, key s
 }
 
 // SetMap 使用映射批量设置键值对会话到存储中。
-// 参数 `ttl` 指定了会话ID的TTL（并非针对键值对）。
-// md5:a1bf3a748ba4aef3
+// 参数 `ttl` 指定了会话ID的TTL（并非针对键值对）。 md5:a1bf3a748ba4aef3
 func (s *StorageRedisHashTable) SetMap(ctx context.Context, sessionId string, data map[string]interface{}, ttl time.Duration) error {
 	err := s.redis.HMSet(ctx, s.sessionIdToRedisKey(sessionId), data)
 	return err
@@ -101,8 +97,7 @@ func (s *StorageRedisHashTable) RemoveAll(ctx context.Context, sessionId string)
 //
 // 参数`ttl`指定了此会话的有效期，如果超过有效期，则返回nil。参数`data`是当前存储在内存中的旧会话数据，对于某些存储方式，如果禁用了内存存储，它可能会为nil。
 //
-// 此函数在会话启动时会被调用。
-// md5:01e56ce09d5fd934
+// 此函数在会话启动时会被调用。 md5:01e56ce09d5fd934
 func (s *StorageRedisHashTable) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
 	intlog.Printf(ctx, "StorageRedisHashTable.GetSession: %s, %v", sessionId, ttl)
 	v, err := s.redis.Exists(ctx, s.sessionIdToRedisKey(sessionId))
@@ -111,8 +106,7 @@ func (s *StorageRedisHashTable) GetSession(ctx context.Context, sessionId string
 	}
 	if v > 0 {
 		// 它不将会话数据存储在内存中，因此返回一个空的映射。
-		// 每次都是直接通过Redis服务器获取会话数据项。
-		// md5:780013e56e130612
+		// 每次都是直接通过Redis服务器获取会话数据项。 md5:780013e56e130612
 		return gmap.NewStrAnyMap(true), nil
 	}
 	return nil, nil
@@ -120,8 +114,7 @@ func (s *StorageRedisHashTable) GetSession(ctx context.Context, sessionId string
 
 // SetSession 根据指定的会话ID更新数据映射。
 // 当某个被标记为脏（即发生过修改）的会话关闭后，将调用此函数。
-// 该操作会将所有会话数据从内存复制到存储中。
-// md5:1caa26989d884fa4
+// 该操作会将所有会话数据从内存复制到存储中。 md5:1caa26989d884fa4
 func (s *StorageRedisHashTable) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedisHashTable.SetSession: %s, %v", sessionId, ttl)
 	_, err := s.redis.Expire(ctx, s.sessionIdToRedisKey(sessionId), int64(ttl.Seconds()))
@@ -130,8 +123,7 @@ func (s *StorageRedisHashTable) SetSession(ctx context.Context, sessionId string
 
 // UpdateTTL 更新指定会话ID的生存时间（TTL）。
 // 当一个未被修改（非脏）的会话关闭后，此函数会被调用。
-// 它只是将会话ID添加到异步处理队列中。
-// md5:cc5ac287cbbc0eab
+// 它只是将会话ID添加到异步处理队列中。 md5:cc5ac287cbbc0eab
 func (s *StorageRedisHashTable) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedisHashTable.UpdateTTL: %s, %v", sessionId, ttl)
 	_, err := s.redis.Expire(ctx, s.sessionIdToRedisKey(sessionId), int64(ttl.Seconds()))

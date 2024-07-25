@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package mysql_test
 
@@ -1499,8 +1498,7 @@ CREATE TABLE %s (
 			// t.AssertNil(err) 验证错误是否为nil
 			// 分数。
 			// 循环遍历1到5，插入用户分数到数据库，其中uid为i，score为j
-			// t.AssertNil(err) 验证错误是否为nil
-			// md5:1b3376e15e2dc36d
+			// t.AssertNil(err) 验证错误是否为nil md5:1b3376e15e2dc36d
 		}
 	})
 

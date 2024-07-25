@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包 httputil 提供仅供内部使用的 HTTP 函数。 md5:68a87514ccfd9190
 package httputil
@@ -25,8 +24,7 @@ const (
 // BuildParams 为http客户端构建请求字符串。`params`可以是以下类型：
 // 字符串/字节切片/映射/结构体/结构体指针。
 //
-// 可选参数`noUrlEncode`指定是否忽略数据的URL编码。
-// md5:664ad104f4b3f610
+// 可选参数`noUrlEncode`指定是否忽略数据的URL编码。 md5:664ad104f4b3f610
 func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr string) {
 	// 如果给定字符串/字节切片，会直接转换并返回它作为字符串。 md5:80d9827515b7e847
 	switch v := params.(type) {

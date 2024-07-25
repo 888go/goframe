@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -20,8 +19,7 @@ import (
 
 // BindObject 将对象绑定到具有给定模式的服务器路由。
 //
-// 可选参数 `method` 用于指定要注册的方法，支持多个方法名称；多个方法名称之间用字符 `,` 分隔，区分大小写。
-// md5:224eaf0adfd81c84
+// 可选参数 `method` 用于指定要注册的方法，支持多个方法名称；多个方法名称之间用字符 `,` 分隔，区分大小写。 md5:224eaf0adfd81c84
 func (s *Server) BindObject(pattern string, object interface{}, method ...string) {
 	var bindMethod = ""
 	if len(method) > 0 {
@@ -38,9 +36,8 @@ func (s *Server) BindObject(pattern string, object interface{}, method ...string
 }
 
 // BindObjectMethod 将指定对象的特定方法与给定模式的服务器路由绑定。
-// 
-// 可选参数 `method` 用于指定要注册的方法，它不支持多个方法名，仅支持一个，且区分大小写。
-// md5:badb3f7323abfd11
+//
+// 可选参数 `method` 用于指定要注册的方法，它不支持多个方法名，仅支持一个，且区分大小写。 md5:badb3f7323abfd11
 func (s *Server) BindObjectMethod(pattern string, object interface{}, method string) {
 	s.doBindObjectMethod(context.TODO(), doBindObjectMethodInput{
 		Prefix:     "",
@@ -82,8 +79,7 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 			methodMap[strings.TrimSpace(v)] = true
 		}
 	}
-	// 如果`pattern`中的`method`为`defaultMethod`，为了方便后续语句的控制，它会移除。
-	// md5:08bf69a00eee9caa
+	// 如果`pattern`中的`method`为`defaultMethod`，为了方便后续语句的控制，它会移除。 md5:08bf69a00eee9caa
 	domain, method, path, err := s.parsePattern(in.Pattern)
 	if err != nil {
 		s.Logger().Fatalf(ctx, `%+v`, err)
@@ -100,8 +96,7 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		shutFunc     func(*Request)
 	)
 	// 如果给定的`object`不是指针，那么它会创建一个临时的，其值为`reflectValue`。
-	// 然后它可以获取结构体/`*struct`的所有方法。
-	// md5:1e216cd9c7839ef2
+	// 然后它可以获取结构体/`*struct`的所有方法。 md5:1e216cd9c7839ef2
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectType)
 		newValue.Elem().Set(reflectValue)
@@ -149,8 +144,7 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		// 如果模式是"/user"，那么"/user"和"/user/index"都会被自动
 		// 注册。
 		//
-		// 请注意，如果模式中包含内置变量，这条路由将不会被自动添加。
-		// md5:96b4d9eca149582c
+		// 请注意，如果模式中包含内置变量，这条路由将不会被自动添加。 md5:96b4d9eca149582c
 		var (
 			isIndexMethod = strings.EqualFold(methodName, specialMethodNameIndex)
 			hasBuildInVar = gregex.IsMatchString(`\{\.\w+\}`, in.Pattern)
@@ -194,8 +188,7 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 		shutFunc     func(*Request)
 	)
 	// 如果给定的`object`不是指针，那么它会创建一个临时的指针，
-	// 其值为`v`。
-	// md5:ea1cbad8bfbac476
+	// 其值为`v`。 md5:ea1cbad8bfbac476
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectType)
 		newValue.Elem().Set(reflectValue)
@@ -254,8 +247,7 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 		shutFunc     func(*Request)
 	)
 	// 如果给定的`object`不是指针，那么它会创建一个临时的指针，
-	// 其值为`v`。
-	// md5:ea1cbad8bfbac476
+	// 其值为`v`。 md5:ea1cbad8bfbac476
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectType)
 		newValue.Elem().Set(reflectValue)

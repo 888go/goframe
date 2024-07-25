@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
@@ -22,8 +21,7 @@ func init() {
 	}
 }
 
-// New 创建并返回一个针对 MySQL 的数据库对象。它实现了 gdb.Driver 接口，以便于额外的数据库驱动程序安装。
-// md5:e61df629828efeff
+// New 创建并返回一个针对 MySQL 的数据库对象。它实现了 gdb.Driver 接口，以便于额外的数据库驱动程序安装。 md5:e61df629828efeff
 func (d *DriverDefault) New(core *Core, node *ConfigNode) (DB, error) {
 	return &DriverDefault{
 		Core: core,
@@ -31,8 +29,7 @@ func (d *DriverDefault) New(core *Core, node *ConfigNode) (DB, error) {
 }
 
 // Open 创建并返回一个底层的 sql.DB 对象，用于 MySQL。
-// 注意，它将时间.Time 参数默认转换为本地时区。
-// md5:341df118003c304e
+// 注意，它将时间.Time 参数默认转换为本地时区。 md5:341df118003c304e
 func (d *DriverDefault) Open(config *ConfigNode) (db *sql.DB, err error) {
 	return
 }

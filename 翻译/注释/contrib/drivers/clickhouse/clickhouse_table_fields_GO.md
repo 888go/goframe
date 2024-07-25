@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,8 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// TableFields 获取并返回当前模式指定表的字段信息。也可以参考 DriverMysql.TableFields。
-// md5:2ca710808274dcba
+// TableFields 获取并返回当前模式指定表的字段信息。也可以参考 DriverMysql.TableFields。 md5:2ca710808274dcba
 # <翻译结束>
 
 
@@ -33,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// 在ClickHouse中，字段类型like是可空的整数（Nullable(int)）. md5:42a10ecf6628471b
+		// 在ClickHouse中，字段类型like是可空的整数（Nullable(int)）. md5:42a10ecf6628471b
 # <翻译结束>
 
 
@@ -42,6 +40,6 @@
 <原文结束>
 
 # <翻译开始>
-// 键:     m["Key"] 的字符串表示,. md5:e3714fd2a741c0a1
+			// 键:     m["Key"] 的字符串表示,. md5:e3714fd2a741c0a1
 # <翻译结束>
 

@@ -1,8 +1,7 @@
 // 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
 //
 // 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。
-// md5:1d281c30cdc3423b
+// 您可以从https://github.com/gogf/gf获取。 md5:1d281c30cdc3423b
 
 package gset_test
 
@@ -15,8 +14,7 @@ import (
 )
 
 // New 创建并返回一个新的集合，其中包含不重复的项目。
-// 参数 `safe` 用于指定在并发安全模式下使用集合，其默认为 false。
-// md5:db8312fdb3f679d3
+// 参数 `safe` 用于指定在并发安全模式下使用集合，其默认为 false。 md5:db8312fdb3f679d3
 func ExampleNewIntSet() {
 	intSet := gset.NewIntSet()
 	intSet.Add([]int{1, 2, 3}...)
@@ -48,8 +46,7 @@ func ExampleIntSet_Add() {
 }
 
 // AddIfNotExist 检查项是否存在于集合中，
-// 如果项不存在于集合中，它会将项添加到集合中并返回 true，否则什么都不做并返回 false。
-// md5:3a8a0467b52a54c0
+// 如果项不存在于集合中，它会将项添加到集合中并返回 true，否则什么都不做并返回 false。 md5:3a8a0467b52a54c0
 func ExampleIntSet_AddIfNotExist() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	intSet.Add(1)
@@ -64,8 +61,7 @@ func ExampleIntSet_AddIfNotExist() {
 // AddIfNotExistFunc 检查项是否存在于集合中，
 // 如果项不存在于集合中且函数 `f` 返回 true，它会将项添加到集合中并返回 true，
 // 否则，它什么都不做并返回 false。
-// 请注意，函数 `f` 在写入锁之外执行。
-// md5:a60fff9115523801
+// 请注意，函数 `f` 在写入锁之外执行。 md5:a60fff9115523801
 func ExampleIntSet_AddIfNotExistFunc() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	intSet.Add(1)
@@ -82,8 +78,7 @@ func ExampleIntSet_AddIfNotExistFunc() {
 // AddIfNotExistFunc 检查项是否存在于集合中，
 // 如果项不存在于集合中且函数 `f` 返回 true，它会将项添加到集合中并返回 true，
 // 否则，它什么都不做并返回 false。
-// 请注意，函数 `f` 在写入锁之外执行。
-// md5:a60fff9115523801
+// 请注意，函数 `f` 在写入锁之外执行。 md5:a60fff9115523801
 func ExampleIntSet_AddIfNotExistFuncLock() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3})
 	intSet.Add(1)
@@ -111,8 +106,7 @@ func ExampleIntSet_Clear() {
 
 // Complement 返回一个新的集合，该集合是相对于`set`到`full`的补集。
 // 这意味着，`newSet`中的所有项都包含在`full`中但不包含在`set`中。
-// 如果给定的集合`full`并不是`set`的全集，则它返回`full`与`set`之间的差异。
-// md5:2116fbb7587db792
+// 如果给定的集合`full`并不是`set`的全集，则它返回`full`与`set`之间的差异。 md5:2116fbb7587db792
 func ExampleIntSet_Complement() {
 	intSet := gset.NewIntSetFrom([]int{1, 2, 3, 4, 5})
 	s := gset.NewIntSetFrom([]int{1, 2, 3})
@@ -138,8 +132,7 @@ func ExampleIntSet_Contains() {
 }
 
 // Diff 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
-// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
-// md5:6779e6e007651b53
+// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。 md5:6779e6e007651b53
 func ExampleIntSet_Diff() {
 	s1 := gset.NewIntSetFrom([]int{1, 2, 3})
 	s2 := gset.NewIntSetFrom([]int{1, 2, 3, 4})
@@ -165,8 +158,7 @@ func ExampleIntSet_Equal() {
 }
 
 // Intersect 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
-// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
-// md5:327d3fcc12f06583
+// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。 md5:327d3fcc12f06583
 func ExampleIntSet_Intersect() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3}...)
@@ -190,8 +182,7 @@ func ExampleIntSet_IsSubsetOf() {
 	// true
 }
 
-// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:b896360b1cf6fc88
+// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。 md5:b896360b1cf6fc88
 func ExampleIntSet_Iterator() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -226,8 +217,7 @@ func ExampleIntSet_LockFunc() {
 	fmt.Println(s1.Slice())
 
 	// 可能的输出
-	// [2 3 1]
-	// md5:294c6ba36e85ea4c
+	// [2 3 1] md5:294c6ba36e85ea4c
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
@@ -273,8 +263,7 @@ func ExampleIntSet_Pop() {
 }
 
 // Pops 从集合中随机弹出 `size` 个元素。
-// 如果 size == -1，它将返回所有元素。
-// md5:c687f88e0a2df8f2
+// 如果 size == -1，它将返回所有元素。 md5:c687f88e0a2df8f2
 func ExampleIntSet_Pops() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -341,8 +330,7 @@ func ExampleIntSet_String() {
 }
 
 // Sum 对项目求和。注意：项目应转换为整型，
-// 否则你可能会得到意想不到的结果。
-// md5:7cca75708fbf4ffc
+// 否则你可能会得到意想不到的结果。 md5:7cca75708fbf4ffc
 func ExampleIntSet_Sum() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)
@@ -353,8 +341,7 @@ func ExampleIntSet_Sum() {
 }
 
 // Union 返回一个新集合，它是`set`和`other`的并集。
-// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
-// md5:420e241c3c12e8e6
+// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。 md5:420e241c3c12e8e6
 func ExampleIntSet_Union() {
 	s1 := gset.NewIntSet()
 	s1.Add([]int{1, 2, 3, 4}...)

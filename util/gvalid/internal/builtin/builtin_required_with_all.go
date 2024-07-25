@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package builtin
 
@@ -19,8 +18,7 @@ import (
 // 如果所有给定的字段都不为空，则此字段为必填。
 //
 // 格式：required-with-all:field1,field2,...
-// 示例：required-with-all:id,name
-// md5:1e341cc8965dfdc6
+// 示例：required-with-all:id,name md5:1e341cc8965dfdc6
 type RuleRequiredWithAll struct{}
 
 func init() {

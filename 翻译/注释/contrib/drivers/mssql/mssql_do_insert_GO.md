@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -48,8 +47,7 @@
 		// queryValues：处理需要插入或更新的值
 		// insertKeys：处理需要插入的有效键
 		// insertValues：处理需要插入的值
-		// updateValues：处理需要更新的值
-		// md5:7779ec7103105a5e
+		// updateValues：处理需要更新的值 md5:7779ec7103105a5e
 # <翻译结束>
 
 
@@ -58,7 +56,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将conflictKeys切片类型转换为集合（set）类型. md5:bec4a3b4ed209948
+	// 将conflictKeys切片类型转换为集合（set）类型. md5:bec4a3b4ed209948
 # <翻译结束>
 
 
@@ -69,8 +67,7 @@
 
 # <翻译开始>
 		// 过滤掉更新值中的冲突键。
-		// 并且该键不是软创建字段。
-		// md5:7882adbf4107a87d
+		// 并且该键不是软创建字段。 md5:7882adbf4107a87d
 # <翻译结束>
 
 
@@ -93,7 +90,6 @@
 // 如果未找到匹配项 THEN
 // 插入 {{insertKeys}} 的值为 {{insertValues}}
 // 当找到匹配项 THEN
-// 更新 SET {{updateValues}}
-// md5:f73865e975016dbf
+// 更新 SET {{updateValues}} md5:f73865e975016dbf
 # <翻译结束>
 

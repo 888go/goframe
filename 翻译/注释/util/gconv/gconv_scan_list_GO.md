@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -104,76 +103,75 @@
 //
 // 使用示例1：普通属性结构关系：
 //
-// 	type EntityUser struct {
-// 	    Uid  int
-// 	    Name string
-// 	}
+//	type EntityUser struct {
+//	    Uid  int
+//	    Name string
+//	}
 //
-// 	type EntityUserDetail struct {
-// 	    Uid     int
-// 	    Address string
-// 	}
+//	type EntityUserDetail struct {
+//	    Uid     int
+//	    Address string
+//	}
 //
-// 	type EntityUserScores struct {
-// 	    Id     int
-// 	    Uid    int
-// 	    Score  int
-// 	    Course string
-// 	}
+//	type EntityUserScores struct {
+//	    Id     int
+//	    Uid    int
+//	    Score  int
+//	    Course string
+//	}
 //
-// 	type Entity struct {
-// 	    User       *EntityUser
-// 	    UserDetail *EntityUserDetail
-// 	    UserScores []*EntityUserScores
-// 	}
+//	type Entity struct {
+//	    User       *EntityUser
+//	    UserDetail *EntityUserDetail
+//	    UserScores []*EntityUserScores
+//	}
 //
-// 	var users []*Entity
-// 	var userRecords   = EntityUser{Uid: 1, Name:"john"}
-// 	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
-// 	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
-// 	ScanList(userRecords, &users, "User")
-// 	ScanList(userRecords, &users, "User", "uid")
-// 	ScanList(detailRecords, &users, "UserDetail", "User", "uid:Uid")
-// 	ScanList(scoresRecords, &users, "UserScores", "User", "uid:Uid")
-// 	ScanList(scoresRecords, &users, "UserScores", "User", "uid")
+//	var users []*Entity
+//	var userRecords   = EntityUser{Uid: 1, Name:"john"}
+//	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
+//	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
+//	ScanList(userRecords, &users, "User")
+//	ScanList(userRecords, &users, "User", "uid")
+//	ScanList(detailRecords, &users, "UserDetail", "User", "uid:Uid")
+//	ScanList(scoresRecords, &users, "UserScores", "User", "uid:Uid")
+//	ScanList(scoresRecords, &users, "UserScores", "User", "uid")
 //
 // 使用示例2：嵌入属性结构关系：
 //
-// 	type EntityUser struct {
-// 		   Uid  int
-// 		   Name string
-// 	}
+//	type EntityUser struct {
+//		   Uid  int
+//		   Name string
+//	}
 //
-// 	type EntityUserDetail struct {
-// 		   Uid     int
-// 		   Address string
-// 	}
+//	type EntityUserDetail struct {
+//		   Uid     int
+//		   Address string
+//	}
 //
-// 	type EntityUserScores struct {
-// 		   Id    int
-// 		   Uid   int
-// 		   Score int
-// 	}
+//	type EntityUserScores struct {
+//		   Id    int
+//		   Uid   int
+//		   Score int
+//	}
 //
-// 	type Entity struct {
-// 		   EntityUser
-// 		   UserDetail EntityUserDetail
-// 		   UserScores []EntityUserScores
-// 	}
+//	type Entity struct {
+//		   EntityUser
+//		   UserDetail EntityUserDetail
+//		   UserScores []EntityUserScores
+//	}
 //
-// 	var userRecords   = EntityUser{Uid: 1, Name:"john"}
-// 	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
-// 	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
-// 	ScanList(userRecords, &users)
-// 	ScanList(detailRecords, &users, "UserDetail", "uid")
-// 	ScanList(scoresRecords, &users, "UserScores", "uid")
+//	var userRecords   = EntityUser{Uid: 1, Name:"john"}
+//	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
+//	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
+//	ScanList(userRecords, &users)
+//	ScanList(detailRecords, &users, "UserDetail", "uid")
+//	ScanList(scoresRecords, &users, "UserScores", "uid")
 //
 // 示例代码中的"User/UserDetail/UserScores"指定当前结果将绑定的目标属性结构。
 //
 // 示例代码中的"uid"是结果的表字段名，而"Uid"是相关结构体属性名，而不是绑定到目标的属性名。在示例代码中，它是实体"Entity"的"User"属性的"Uid"属性名称。它会根据给定的`relation`参数自动计算HasOne/HasMany关系。
 //
-// 参考示例或单元测试用例以更清楚地理解此函数的工作原理。
-// md5:1e63a3d19a1b0060
+// 参考示例或单元测试用例以更清楚地理解此函数的工作原理。 md5:1e63a3d19a1b0060
 # <翻译结束>
 
 
@@ -183,8 +181,7 @@
 <原文结束>
 
 # <翻译开始>
-// doScanList 将 `structSlice` 转换为包含嵌套复杂结构体属性的 struct 切片。注意，参数 `structSlicePointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。
-// md5:37e4682b243c9ef8
+// doScanList 将 `structSlice` 转换为包含嵌套复杂结构体属性的 struct 切片。注意，参数 `structSlicePointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。 md5:37e4682b243c9ef8
 # <翻译结束>
 
 
@@ -193,7 +190,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对参数进行必要的检查。 md5:00bddba1a043bfdd
+	// 对参数进行必要的检查。 md5:00bddba1a043bfdd
 # <翻译结束>
 
 
@@ -202,7 +199,7 @@
 <原文结束>
 
 # <翻译开始>
-// 指向的切片不为空。 md5:1348d4b6d686b8f3
+		// 指向的切片不为空。 md5:1348d4b6d686b8f3
 # <翻译结束>
 
 
@@ -213,8 +210,7 @@
 
 # <翻译开始>
 			// 这里检查是否具有已初始化的结构体项。
-			// 然后返回错误以警告开发者其为空且无法进行转换。
-			// md5:cd5f133a393c1157
+			// 然后返回错误以警告开发者其为空且无法进行转换。 md5:cd5f133a393c1157
 # <翻译结束>
 
 
@@ -223,7 +219,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对于空的结构体切片，什么也不做。 md5:f65a6d24cd42ca62
+		// 对于空的结构体切片，什么也不做。 md5:f65a6d24cd42ca62
 # <翻译结束>
 
 
@@ -252,8 +248,7 @@
 
 # <翻译开始>
 		// 表字段名与属性名之间的关联键字符串
-		// 可以使用字符'='或':'进行连接。
-		// md5:a3dd08343df8a7ac
+		// 可以使用字符'='或':'进行连接。 md5:a3dd08343df8a7ac
 # <翻译结束>
 
 
@@ -262,7 +257,7 @@
 <原文结束>
 
 # <翻译开始>
-// 与旧的分隔字符':'兼容。 md5:21a764d3ea1e081b
+			// 与旧的分隔字符':'兼容。 md5:21a764d3ea1e081b
 # <翻译结束>
 
 
@@ -271,7 +266,7 @@
 <原文结束>
 
 # <翻译开始>
-// 关系名称是相同的。 md5:1075b6495b26357b
+			// 关系名称是相同的。 md5:1075b6495b26357b
 # <翻译结束>
 
 
@@ -286,8 +281,7 @@
 			// 定义表字段到关系属性名。
 			// 例如：
 			// uid:Uid
-			// uid:UserId
-			// md5:029253159bee75d1
+			// uid:UserId md5:029253159bee75d1
 # <翻译结束>
 
 
@@ -296,7 +290,7 @@
 <原文结束>
 
 # <翻译开始>
-// 请注意，该值可能是切片类型。 md5:079de568e97881a6
+			// 请注意，该值可能是切片类型。 md5:079de568e97881a6
 # <翻译结束>
 
 
@@ -305,7 +299,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将其绑定到目标属性。 md5:6248a034de9b08e4
+	// 将其绑定到目标属性。 md5:6248a034de9b08e4
 # <翻译结束>
 
 
@@ -314,7 +308,7 @@
 <原文结束>
 
 # <翻译开始>
-// 绑定关系条件。 md5:1d13e1ebe0b47bd2
+	// 绑定关系条件。 md5:1d13e1ebe0b47bd2
 # <翻译结束>
 
 
@@ -323,7 +317,7 @@
 <原文结束>
 
 # <翻译开始>
-// 应该在非指针的reflect.Value上调用FieldByName。 md5:1343ff0ec0419e1f
+		// 应该在非指针的reflect.Value上调用FieldByName。 md5:1343ff0ec0419e1f
 # <翻译结束>
 
 
@@ -340,8 +334,7 @@
 				// "reflect.New(itemType.Elem())" 用于创建一个新的元素，并返回该元素的地址。
 				// 例如：
 				// reflect.New(itemType.Elem())        => *实体
-				// reflect.New(itemType.Elem()).Elem() => 实体
-				// md5:0897d7c0e7467f9d
+				// reflect.New(itemType.Elem()).Elem() => 实体 md5:0897d7c0e7467f9d
 # <翻译结束>
 
 
@@ -350,7 +343,7 @@
 <原文结束>
 
 # <翻译开始>
-// 当前切片元素的属性值。 md5:b46440a93bb1ddaa
+			// 当前切片元素的属性值。 md5:b46440a93bb1ddaa
 # <翻译结束>
 
 
@@ -359,7 +352,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查并尝试找到可能与属性名绑定的位置。 md5:b1e1f2121b3b5f92
+		// 检查并尝试找到可能与属性名绑定的位置。 md5:b1e1f2121b3b5f92
 # <翻译结束>
 
 
@@ -368,7 +361,7 @@
 <原文结束>
 
 # <翻译开始>
-// 将results初始化为一个长度为0的Result切片。 md5:676fe93ddada53e4
+					// 将results初始化为一个长度为0的Result切片。 md5:676fe93ddada53e4
 # <翻译结束>
 
 
@@ -377,7 +370,7 @@
 <原文结束>
 
 # <翻译开始>
-// 可能属性还不存在。 md5:d7992076e8a1e5fe
+					// 可能属性还不存在。 md5:d7992076e8a1e5fe
 # <翻译结束>
 
 
@@ -386,6 +379,6 @@
 <原文结束>
 
 # <翻译开始>
-// 没有关联数据。 md5:4f76ca1525fb5005
+					// 没有关联数据。 md5:4f76ca1525fb5005
 # <翻译结束>
 

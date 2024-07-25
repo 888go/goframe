@@ -2,16 +2,14 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gstr
 
 import "strings"
 
 // Pos 函数返回 `needle` 在 `haystack` 中从 `startOffset` 开始的第一次出现的位置，
-// 区分大小写。如果未找到，则返回 -1。
-// md5:5f4ec91dd8b1819b
+// 区分大小写。如果未找到，则返回 -1。 md5:5f4ec91dd8b1819b
 func Pos(haystack, needle string, startOffset ...int) int {
 	length := len(haystack)
 	offset := 0
@@ -41,8 +39,7 @@ func PosRune(haystack, needle string, startOffset ...int) int {
 }
 
 // PosI 函数从 `startOffset` 开始在 `haystack` 中按大小写不敏感的方式返回 `needle` 的第一个出现位置。
-// 如果未找到，它将返回 -1。
-// md5:9643b4a9d5243ed9
+// 如果未找到，它将返回 -1。 md5:9643b4a9d5243ed9
 func PosI(haystack, needle string, startOffset ...int) int {
 	length := len(haystack)
 	offset := 0
@@ -73,8 +70,7 @@ func PosIRune(haystack, needle string, startOffset ...int) int {
 }
 
 // PosR 返回 `needle` 在 `haystack` 中从 `startOffset` 开始的最后一次出现的位置，
-// 区分大小写。如果未找到，则返回 -1。
-// md5:ceee68bb3f71cbed
+// 区分大小写。如果未找到，则返回 -1。 md5:ceee68bb3f71cbed
 func PosR(haystack, needle string, startOffset ...int) int {
 	offset := 0
 	if len(startOffset) > 0 {
@@ -107,8 +103,7 @@ func PosRRune(haystack, needle string, startOffset ...int) int {
 }
 
 // PosRI 在从 `startOffset` 开始的 `haystack` 中，不区分大小写地返回 `needle` 的最后一次出现的位置。
-// 如果未找到，它将返回 -1。
-// md5:5ce310967675e981
+// 如果未找到，它将返回 -1。 md5:5ce310967675e981
 func PosRI(haystack, needle string, startOffset ...int) int {
 	offset := 0
 	if len(startOffset) > 0 {

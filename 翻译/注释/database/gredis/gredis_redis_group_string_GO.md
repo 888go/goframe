@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -24,8 +23,7 @@
 
 # <翻译开始>
 // IGroupString 管理 Redis 字符串操作。
-// 实现了 redis.GroupString。
-// md5:1b6f861ea35b113e
+// 实现了 redis.GroupString。 md5:1b6f861ea35b113e
 # <翻译结束>
 
 
@@ -117,8 +115,7 @@
 
 # <翻译开始>
 	// 返回key存储的旧字符串，如果key不存在则返回nil。
-	// 如果key存储的值不是字符串，将返回错误并中止SET操作。
-	// md5:0932521a97426d54
+	// 如果key存储的值不是字符串，将返回错误并中止SET操作。 md5:0932521a97426d54
 # <翻译结束>
 
 

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package goai
 
@@ -14,8 +13,7 @@ import (
 )
 
 // 参数由 OpenAPI/Swagger 3.0 标准定义。
-// 参见 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#parameterObject
-// md5:c86f94d3392df58e
+// 参见 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#parameterObject md5:c86f94d3392df58e
 type Parameter struct {
 	Name            string      `json:"name,omitempty"`
 	In              string      `json:"in,omitempty"`

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gfile
 
@@ -24,8 +23,7 @@ const (
 // 如果给定的参数`recursive`为true，则递归扫描目录。
 //
 // 模式参数`pattern`支持多个文件名模式，
-// 使用`,`符号分隔多个模式。
-// md5:1f662f1008f0113e
+// 使用`,`符号分隔多个模式。 md5:1f662f1008f0113e
 func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -48,8 +46,7 @@ func ScanDir(path string, pattern string, recursive ...bool) ([]string, error) {
 //
 // 参数`recursive`指定是否递归扫描`path`。默认情况下，它是false，表示不递归。
 //
-// 参数`handler`指定了处理`path`及其子目录下每个子文件路径的回调函数。如果`handler`返回空字符串，将忽略子文件路径，否则将子文件路径添加到结果切片中。
-// md5:93774b4b752cee08
+// 参数`handler`指定了处理`path`及其子目录下每个子文件路径的回调函数。如果`handler`返回空字符串，将忽略子文件路径，否则将子文件路径添加到结果切片中。 md5:93774b4b752cee08
 func ScanDirFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	list, err := doScanDir(0, path, pattern, recursive, handler)
 	if err != nil {
@@ -66,8 +63,7 @@ func ScanDirFunc(path string, pattern string, recursive bool, handler func(path 
 //
 // `pattern` 参数支持多个文件名模式，使用逗号 `,` 来分隔多个模式。
 //
-// 注意，它只返回文件，不包括目录。
-// md5:1d9c6ada055eaa05
+// 注意，它只返回文件，不包括目录。 md5:1d9c6ada055eaa05
 func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, error) {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -97,8 +93,7 @@ func ScanDirFile(path string, pattern string, recursive ...bool) ([]string, erro
 //
 // 参数 `handler` 指定处理 `path` 和其子文件夹每个子文件路径的回调函数。如果 `handler` 返回空字符串，那么忽略该子文件路径；否则，将子文件路径添加到结果切片中。
 //
-// 注意，`handler` 中的参数 `path` 不是目录，而是文件。它只返回文件，不包括目录。
-// md5:036965ff87c95b63
+// 注意，`handler` 中的参数 `path` 不是目录，而是文件。它只返回文件，不包括目录。 md5:036965ff87c95b63
 func ScanDirFileFunc(path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	list, err := doScanDir(0, path, pattern, recursive, func(path string) string {
 		if IsDir(path) {
@@ -123,8 +118,7 @@ func ScanDirFileFunc(path string, pattern string, recursive bool, handler func(p
 // 则扫描其子文件并将文件路径追加到结果数组中。默认为 false。
 //
 // 参数 `handler` 指定一个回调函数，用于处理 `path` 及其子目录下的每个子文件路径。
-// 如果 `handler` 返回空字符串，则忽略该子文件路径；否则，将子文件路径追加到结果切片中。
-// md5:5f6bc88fb2ff75fe
+// 如果 `handler` 返回空字符串，则忽略该子文件路径；否则，将子文件路径追加到结果切片中。 md5:5f6bc88fb2ff75fe
 func doScanDir(depth int, path string, pattern string, recursive bool, handler func(path string) string) ([]string, error) {
 	if depth >= maxScanDepth {
 		return nil, gerror.Newf("directory scanning exceeds max recursive depth: %d", maxScanDepth)

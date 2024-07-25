@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gfsnotify提供了一个与平台无关的接口，用于文件系统通知。 md5:85a6a9e7b52e09e5
 package gfsnotify
@@ -82,8 +81,7 @@ var (
 
 // New 创建并返回一个新的观察者。
 // 注意，观察者的数量受系统文件描述符限制。
-// 例如：在 Linux 系统中，fs.inotify.max_user_instances 系统变量。
-// md5:a2587b1623329074
+// 例如：在 Linux 系统中，fs.inotify.max_user_instances 系统变量。 md5:a2587b1623329074
 func New() (*Watcher, error) {
 	w := &Watcher{
 		cache:     gcache.New(),
@@ -104,8 +102,7 @@ func New() (*Watcher, error) {
 }
 
 // 使用默认的观察者(`watcher`)监控路径`path`，并调用回调函数`callbackFunc`。
-// 可选参数`recursive`指定是否递归地监控路径`path`，默认为true。
-// md5:e660326b83136bd1
+// 可选参数`recursive`指定是否递归地监控路径`path`，默认为true。 md5:e660326b83136bd1
 func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -117,8 +114,7 @@ func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callb
 // AddOnce 使用唯一名称 `name` 及回调函数 `callbackFunc`，仅使用默认监视器监控 `path` 一次。
 // 如果多次调用 AddOnce 并传入相同的 `name` 参数，`path` 仅会被添加监控一次。如果使用相同的 `name` 调用两次，它将返回错误。
 //
-// 可选参数 `recursive` 指定是否递归监控 `path`，默认为 true。
-// md5:c28c83d5a2230d07
+// 可选参数 `recursive` 指定是否递归监控 `path`，默认为 true。 md5:c28c83d5a2230d07
 func AddOnce(name, path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error) {
 	w, err := getDefaultWatcher()
 	if err != nil {
@@ -153,15 +149,13 @@ func RemoveCallback(callbackId int) error {
 	return nil
 }
 
-// Exit 只在回调函数中使用，可以用于从观察者中移除当前的回调。
-// md5:697f4cd00adc082e
+// Exit 只在回调函数中使用，可以用于从观察者中移除当前的回调。 md5:697f4cd00adc082e
 func Exit() {
 	panic(callbackExitEventPanicStr)
 }
 
 // getDefaultWatcher 创建并返回默认的监视器。
-// 这用于惰性初始化的目的。
-// md5:c1a7b4f4102130c0
+// 这用于惰性初始化的目的。 md5:c1a7b4f4102130c0
 func getDefaultWatcher() (*Watcher, error) {
 	mu.Lock()
 	defer mu.Unlock()

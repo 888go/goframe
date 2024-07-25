@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gvar_test
 
@@ -32,7 +31,7 @@ func ExampleVar_Clone() {
 	fmt.Println(v == v.Clone())
 
 	// Output:
-	// *泛型类.Var(11) "fisrt hello"
+	// *gvar.Var(11) "fisrt hello"
 	// false
 }
 
@@ -134,7 +133,7 @@ func ExampleVar_GTime() {
 	g.DumpWithType(v.GTime())
 
 	// Output:
-	// *时间类.Time(19) "2021-11-11 00:00:00"
+	// *gtime.Time(19) "2021-11-11 00:00:00"
 }
 
 // Duration
@@ -391,12 +390,12 @@ func ExampleVar_Structs() {
 	g.DumpWithType(t)
 
 	// Output:
-	// []泛型类_test.tartget(2) [
-	//     泛型类_test.tartget(2) {
+	// []gvar_test.tartget(2) [
+	//     gvar_test.tartget(2) {
 	//         Uid:  int(1),
 	//         Name: string(6) "golang",
 	//     },
-	//     泛型类_test.tartget(2) {
+	//     gvar_test.tartget(2) {
 	//         Uid:  int(2),
 	//         Name: string(4) "java",
 	//     },
@@ -762,9 +761,9 @@ func ExampleVar_Scan() {
 	}
 
 	// Output:
-	// 泛型类_test.Student(3) {
-	//     Id:     *泛型类.Var(1) "1",
-	//     Name:   *泛型类.Var(4) "john",
-	//     Scores: *泛型类.Var(11) "[100,99,98]",
+	// gvar_test.Student(3) {
+	//     Id:     *gvar.Var(1) "1",
+	//     Name:   *gvar.Var(4) "john",
+	//     Scores: *gvar.Var(11) "[100,99,98]",
 	// }
 }

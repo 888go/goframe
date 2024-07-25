@@ -169,8 +169,7 @@ type Basics struct {
 	Interfaces  []interface{}
 }
 
-// 这些测试检查所有支持的基本类型是否正确复制。这是通过复制包含大多数基本类型字段的结构体来实现的，这些字段表示为[]T。
-// md5:b02f5e2f90167f01
+// 这些测试检查所有支持的基本类型是否正确复制。这是通过复制包含大多数基本类型字段的结构体来实现的，这些字段表示为[]T。 md5:b02f5e2f90167f01
 func TestMostTypes(t *testing.T) {
 	test := Basics{
 		String:      "kimchi",
@@ -848,8 +847,7 @@ func TestUnexportedFields(t *testing.T) {
 	}
 }
 
-// 注意：此测试将在 https://github.com/golang/go/issues/15716 被修复并发布相应的版本之前失败。
-// md5:7c10c88146b8e213
+// 注意：此测试将在 https://github.com/golang/go/issues/15716 被修复并发布相应的版本之前失败。 md5:7c10c88146b8e213
 type T struct {
 	time.Time
 }
@@ -1025,8 +1023,7 @@ func TestIssue9(t *testing.T) {
 		t.Fatalf("got len %d; want %d", len(copyC), len(testC))
 	}
 
-	// 确保所有内容都进行了深拷贝：由于键是一个指针，我们检查指针是否不同，但被指向的值是否相同。
-	// md5:6b3bfbe7f869c100
+	// 确保所有内容都进行了深拷贝：由于键是一个指针，我们检查指针是否不同，但被指向的值是否相同。 md5:6b3bfbe7f869c100
 	for k, v := range testC {
 		for kk, vv := range copyC {
 			if *kk == *k {

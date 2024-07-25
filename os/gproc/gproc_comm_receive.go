@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gproc
 
@@ -28,8 +27,7 @@ var (
 )
 
 // Receive 函数通过本地TCP监听来阻塞并接收来自其他进程的消息。
-// 注意，只有当调用此函数时，才会启用TCP监听服务。
-// md5:dbf5481b7dcc4222
+// 注意，只有当调用此函数时，才会启用TCP监听服务。 md5:dbf5481b7dcc4222
 func Receive(group ...string) *MsgRequest {
 	// 使用原子操作来保证只有一个接收者goroutine在监听。 md5:3ddf24c1b343c721
 	if tcpListened.Cas(false, true) {

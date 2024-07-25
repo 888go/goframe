@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcfg
 
@@ -53,8 +52,7 @@ var (
 )
 
 // NewAdapterFile 返回一个新的配置管理对象。
-// 参数 `file` 指定了默认的配置文件读取名称。
-// md5:52ab633a98562ceb
+// 参数 `file` 指定了默认的配置文件读取名称。 md5:52ab633a98562ceb
 func NewAdapterFile(file ...string) (*AdapterFile, error) {
 	var (
 		err  error
@@ -86,8 +84,7 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 		// =================================================================================
 		// 自动搜索目录。
 		// 如果这些目录不存在，不影响适配器对象的创建。
-		// =================================================================================
-		// md5:08a226598ce0311e
+		// ================================================================================= md5:08a226598ce0311e
 
 		// Dir 是工作目录的路径。 md5:0fba211853ea97a0
 		if err = config.AddPath(gfile.Pwd()); err != nil {
@@ -113,9 +110,8 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 
 // SetViolenceCheck 设置是否执行层次冲突检查。
 // 当键名中包含级别符号时，需要启用此功能。默认情况下禁用。
-// 
-// 注意，开启此功能的开销较大，并不建议在键名中使用分隔符。最好在应用层面上避免这种情况。
-// md5:5009f694ccd4efc0
+//
+// 注意，开启此功能的开销较大，并不建议在键名中使用分隔符。最好在应用层面上避免这种情况。 md5:5009f694ccd4efc0
 func (a *AdapterFile) SetViolenceCheck(check bool) {
 	a.violenceCheck = check
 	a.Clear()
@@ -132,11 +128,10 @@ func (a *AdapterFile) GetFileName() string {
 }
 
 // Get通过指定的`pattern`获取并返回值。如果`pattern`为空或为"."，则返回当前Json对象的所有值。如果没有找到匹配`pattern`的值，它将返回nil。
-// 
+//
 // 我们也可以通过在`pattern`中使用索引来访问切片项，例如："list.10"，"array.0.name"，"array.0.1.id"。
-// 
-// 如果没有找到与`pattern`匹配的值，它将返回由`def`指定的默认值。
-// md5:8a88d01912ac6218
+//
+// 如果没有找到与`pattern`匹配的值，它将返回由`def`指定的默认值。 md5:8a88d01912ac6218
 func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{}, err error) {
 	j, err := a.getJson()
 	if err != nil {
@@ -151,8 +146,7 @@ func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{
 // Set 使用指定的 `pattern` 设置值。
 // 它支持通过字符分隔符（默认为`.`）进行层次数据访问。
 // 这通常用于在运行时更新特定配置值。
-// 请注意，不建议在运行时使用 `Set` 配置，因为如果底层配置文件更改，配置会自动刷新。
-// md5:65992c2815af747e
+// 请注意，不建议在运行时使用 `Set` 配置，因为如果底层配置文件更改，配置会自动刷新。 md5:65992c2815af747e
 func (a *AdapterFile) Set(pattern string, value interface{}) error {
 	j, err := a.getJson()
 	if err != nil {
@@ -185,8 +179,7 @@ func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
 	return gvar.New(v)
 }
 
-// Clear 清除所有解析的配置文件内容缓存，这将强制重新从文件加载配置内容。
-// md5:5868c636ce62cb14
+// Clear 清除所有解析的配置文件内容缓存，这将强制重新从文件加载配置内容。 md5:5868c636ce62cb14
 func (a *AdapterFile) Clear() {
 	a.jsonMap.Clear()
 }
@@ -212,8 +205,7 @@ func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
 	return false
 }
 
-// autoCheckAndAddMainPkgPathToSearchPaths 自动检查并添加当前开发环境中的"main"包目录路径到搜索路径列表中。
-// md5:4a1366fa2d1d98ab
+// autoCheckAndAddMainPkgPathToSearchPaths 自动检查并添加当前开发环境中的"main"包目录路径到搜索路径列表中。 md5:4a1366fa2d1d98ab
 func (a *AdapterFile) autoCheckAndAddMainPkgPathToSearchPaths() {
 	if gmode.IsDevelop() {
 		mainPkgPath := gfile.MainPkgPath()
@@ -226,8 +218,7 @@ func (a *AdapterFile) autoCheckAndAddMainPkgPathToSearchPaths() {
 }
 
 // getJson 为指定的`file`内容返回一个*gjson.Json*对象。
-// 如果文件读取失败，它会打印错误。如果发生任何错误，它将返回nil。
-// md5:ffbc3e1a6ff12753
+// 如果文件读取失败，它会打印错误。如果发生任何错误，它将返回nil。 md5:ffbc3e1a6ff12753
 func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err error) {
 	var (
 		usedFileName = a.defaultName
@@ -277,8 +268,7 @@ func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err e
 		}
 		configJson.SetViolenceCheck(a.violenceCheck)
 		// 为这个配置文件添加监控，
-		// 该文件的任何更改都会刷新Config对象中的缓存。
-		// md5:8520fe419f2d8cc1
+		// 该文件的任何更改都会刷新Config对象中的缓存。 md5:8520fe419f2d8cc1
 		if filePath != "" && !gres.Contains(filePath) {
 			_, err = gfsnotify.Add(filePath, func(event *gfsnotify.Event) {
 				a.jsonMap.Remove(usedFileName)

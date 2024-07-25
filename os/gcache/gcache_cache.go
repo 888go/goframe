@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcache
 
@@ -22,8 +21,7 @@ type Cache struct {
 type localAdapter = Adapter
 
 // New 使用默认的内存适配器创建并返回一个新的缓存对象。
-// 请注意，LRU（最近最少使用）功能仅在使用内存适配器时可用。
-// md5:658995a71d08fbbe
+// 请注意，LRU（最近最少使用）功能仅在使用内存适配器时可用。 md5:658995a71d08fbbe
 func New(lruCap ...int) *Cache {
 	memAdapter := NewAdapterMemory(lruCap...)
 	c := &Cache{
@@ -40,8 +38,7 @@ func NewWithAdapter(adapter Adapter) *Cache {
 }
 
 // SetAdapter 更改此缓存的适配器。
-// 非常注意，这个设置函数不是并发安全的，这意味着你不应该在多个goroutine中并发调用此设置函数。
-// md5:5f950a554baddc2c
+// 非常注意，这个设置函数不是并发安全的，这意味着你不应该在多个goroutine中并发调用此设置函数。 md5:5f950a554baddc2c
 func (c *Cache) SetAdapter(adapter Adapter) {
 	c.localAdapter = adapter
 }

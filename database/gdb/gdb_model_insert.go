@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
@@ -36,8 +35,7 @@ func (m *Model) Batch(batch int) *Model {
 // Data("uid", 10000)
 // Data("uid=? AND name=?", 10000, "john")
 // Data(g.Map{"uid": 10000, "name":"john"})
-// Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"}})
-// md5:116cf94880dfa535
+// Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"}}) md5:116cf94880dfa535
 func (m *Model) Data(data ...interface{}) *Model {
 	var model = m.getModel()
 	if len(data) > 1 {
@@ -76,8 +74,7 @@ func (m *Model) Data(data ...interface{}) *Model {
 				if reflectInfo.OriginValue.Len() > 0 {
 					// 如果`data`参数是一个DO结构体，
 					// 则为这个条件添加`OmitNilData`选项，
-					// 这将过滤掉`data`中的所有空值参数。
-					// md5:c978d65b6ea1129a
+					// 这将过滤掉`data`中的所有空值参数。 md5:c978d65b6ea1129a
 					if isDoStruct(reflectInfo.OriginValue.Index(0).Interface()) {
 						model = model.OmitNilData()
 						model.option |= optionOmitNilDataInternal
@@ -120,8 +117,7 @@ func (m *Model) Data(data ...interface{}) *Model {
 	return model
 }
 
-// OnConflict在列冲突时设置主键或索引。对于MySQL驱动程序来说，这通常是不必要的。
-// md5:30314cb75360b0e6
+// OnConflict在列冲突时设置主键或索引。对于MySQL驱动程序来说，这通常是不必要的。 md5:30314cb75360b0e6
 func (m *Model) OnConflict(onConflict ...interface{}) *Model {
 	if len(onConflict) == 0 {
 		return m
@@ -141,17 +137,16 @@ func (m *Model) OnConflict(onConflict ...interface{}) *Model {
 // 参数 `onDuplicate` 可以是字符串/Raw/*Raw/映射/切片类型。
 // 示例：
 //
-// OnDuplicate("nickname, age") 
+// OnDuplicate("nickname, age")
 // OnDuplicate("nickname", "age")
-// 
-// OnDuplicate(g.Map{
-// 	  "nickname": gdb.Raw("CONCAT('name_', VALUES(`nickname`))"),
-// })
 //
-// OnDuplicate(g.Map{
-// 	  "nickname": "passport",
-// })
-// md5:fa9214f9681b4e5d
+//	OnDuplicate(g.Map{
+//		  "nickname": gdb.Raw("CONCAT('name_', VALUES(`nickname`))"),
+//	})
+//
+//	OnDuplicate(g.Map{
+//		  "nickname": "passport",
+//	}) md5:fa9214f9681b4e5d
 func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
 	if len(onDuplicate) == 0 {
 		return m
@@ -177,8 +172,7 @@ func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
 //	OnDuplicateEx(g.Map{
 //		  "passport": "",
 //		  "password": "",
-//	})
-// md5:6fa8981bef042b71
+//	}) md5:6fa8981bef042b71
 func (m *Model) OnDuplicateEx(onDuplicateEx ...interface{}) *Model {
 	if len(onDuplicateEx) == 0 {
 		return m
@@ -193,8 +187,7 @@ func (m *Model) OnDuplicateEx(onDuplicateEx ...interface{}) *Model {
 }
 
 // Insert 为模型执行 "INSERT INTO ..." 语句。
-// 可选参数 `data` 等同于 Model.Data 函数的参数，参见 Model.Data。
-// md5:9a6427cabf3ec194
+// 可选参数 `data` 等同于 Model.Data 函数的参数，参见 Model.Data。 md5:9a6427cabf3ec194
 func (m *Model) Insert(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {
@@ -217,8 +210,7 @@ func (m *Model) InsertAndGetId(data ...interface{}) (lastInsertId int64, err err
 }
 
 // InsertIgnore 为模型执行 "INSERT IGNORE INTO..." 语句。
-// 可选参数 `data` 和 Model.Data 函数的参数相同，详情请参考 Model.Data。
-// md5:d6d8007d779bd324
+// 可选参数 `data` 和 Model.Data 函数的参数相同，详情请参考 Model.Data。 md5:d6d8007d779bd324
 func (m *Model) InsertIgnore(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {
@@ -229,8 +221,7 @@ func (m *Model) InsertIgnore(data ...interface{}) (result sql.Result, err error)
 
 // Replace 执行 "REPLACE INTO ..." 语句用于模型。
 // 可选参数 `data` 与 Model.Data 函数的参数相同，
-// 请参阅 Model.Data。
-// md5:d5596c2470b6bcf4
+// 请参阅 Model.Data。 md5:d5596c2470b6bcf4
 func (m *Model) Replace(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {
@@ -243,8 +234,7 @@ func (m *Model) Replace(data ...interface{}) (result sql.Result, err error) {
 // 可选参数 `data` 与 Model.Data 函数的参数相同，请参阅 Model.Data。
 //
 // 如果保存的数据中包含主键或唯一索引，它将更新记录；
-// 否则，它会向表中插入一条新记录。
-// md5:9d87bd779f8f5acd
+// 否则，它会向表中插入一条新记录。 md5:9d87bd779f8f5acd
 func (m *Model) Save(data ...interface{}) (result sql.Result, err error) {
 	var ctx = m.GetCtx()
 	if len(data) > 0 {

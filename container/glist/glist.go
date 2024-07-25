@@ -2,8 +2,7 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随本文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:036a875c2d7cd8b1
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:036a875c2d7cd8b1
 
 // 包glist提供了最常见的双链表容器，同时也支持并发安全/不安全切换功能。 md5:0b7229b4fa0fbb49
 package glist
@@ -19,8 +18,7 @@ import (
 )
 
 type (
-	// List是一个包含并发安全/不安全切换的双向链表。初始化时应设置该开关，并且之后不能更改。
-	// md5:54c981e147e0a03a
+	// List是一个包含并发安全/不安全切换的双向链表。初始化时应设置该开关，并且之后不能更改。 md5:54c981e147e0a03a
 	List struct {
 		mu   rwmutex.RWMutex
 		list *list.List
@@ -38,8 +36,7 @@ func New(safe ...bool) *List {
 }
 
 // NewFrom 根据给定的切片 `array` 创建并返回一个新的列表。
-// 参数 `safe` 用于指定是否在并发安全环境下使用列表，默认为 false。
-// md5:bee3fb299025c2d8
+// 参数 `safe` 用于指定是否在并发安全环境下使用列表，默认为 false。 md5:bee3fb299025c2d8
 func NewFrom(array []interface{}, safe ...bool) *List {
 	l := list.New()
 	for _, v := range array {
@@ -126,8 +123,7 @@ func (l *List) PopFront() (value interface{}) {
 }
 
 // PopBacks 从 `l` 的末尾移除 `max` 个元素，
-// 并将移除元素的值作为切片返回。
-// md5:100add87dc541cc8
+// 并将移除元素的值作为切片返回。 md5:100add87dc541cc8
 func (l *List) PopBacks(max int) (values []interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -149,8 +145,7 @@ func (l *List) PopBacks(max int) (values []interface{}) {
 }
 
 // PopFronts 从列表 `l` 的前面移除 `max` 个元素，
-// 并将移除的元素值作为切片返回。
-// md5:cced2abc2e709a67
+// 并将移除的元素值作为切片返回。 md5:cced2abc2e709a67
 func (l *List) PopFronts(max int) (values []interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -171,14 +166,12 @@ func (l *List) PopFronts(max int) (values []interface{}) {
 	return
 }
 
-// PopBackAll 从 `l` 的尾部移除所有元素，并将移除的元素值作为切片返回。
-// md5:6fd64ee47034d8b6
+// PopBackAll 从 `l` 的尾部移除所有元素，并将移除的元素值作为切片返回。 md5:6fd64ee47034d8b6
 func (l *List) PopBackAll() []interface{} {
 	return l.PopBacks(-1)
 }
 
-// PopFrontAll 从 `l` 的前端移除所有元素，并将移除的元素值作为切片返回。
-// md5:b1d251b985eb6a51
+// PopFrontAll 从 `l` 的前端移除所有元素，并将移除的元素值作为切片返回。 md5:b1d251b985eb6a51
 func (l *List) PopFrontAll() []interface{} {
 	return l.PopFronts(-1)
 }
@@ -266,8 +259,7 @@ func (l *List) Back() (e *Element) {
 }
 
 // Len 返回列表 `l` 的元素数量。
-// 复杂度为 O(1)。
-// md5:d2de4a4e990d787d
+// 复杂度为 O(1)。 md5:d2de4a4e990d787d
 func (l *List) Len() (length int) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -283,8 +275,7 @@ func (l *List) Size() int {
 	return l.Len()
 }
 
-// MoveBefore 将元素 `e` 移动到其新的位置，位于 `p` 之前。如果 `e` 或 `p` 不是 `l` 的元素，或者 `e` 等于 `p`，则列表不会被修改。元素 `e` 和 `p` 都不能为 nil。
-// md5:b58644e1e9174539
+// MoveBefore 将元素 `e` 移动到其新的位置，位于 `p` 之前。如果 `e` 或 `p` 不是 `l` 的元素，或者 `e` 等于 `p`，则列表不会被修改。元素 `e` 和 `p` 都不能为 nil。 md5:b58644e1e9174539
 func (l *List) MoveBefore(e, p *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -296,8 +287,7 @@ func (l *List) MoveBefore(e, p *Element) {
 
 // MoveAfter 将元素 `e` 移动到 `p` 之后的新位置。
 // 如果 `e` 或 `p` 不是 `l` 的元素，或者 `e` 等于 `p`，则列表不作任何修改。
-// 元素 `e` 和 `p` 都不能为 nil。
-// md5:18e13c9c5720547c
+// 元素 `e` 和 `p` 都不能为 nil。 md5:18e13c9c5720547c
 func (l *List) MoveAfter(e, p *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -309,8 +299,7 @@ func (l *List) MoveAfter(e, p *Element) {
 
 // MoveToFront 将元素 `e` 移动到列表 `l` 的前面。
 // 如果 `e` 不是 `l` 中的元素，列表将不会被修改。
-// 元素必须不为 nil。
-// md5:8b3809d7912952aa
+// 元素必须不为 nil。 md5:8b3809d7912952aa
 func (l *List) MoveToFront(e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -322,8 +311,7 @@ func (l *List) MoveToFront(e *Element) {
 
 // MoveToBack 将元素 `e` 移动到列表 `l` 的末尾。
 // 如果 `e` 不是 `l` 的元素，列表不会被修改。
-// 元素不能为空。
-// md5:97cb0a61b230357a
+// 元素不能为空。 md5:97cb0a61b230357a
 func (l *List) MoveToBack(e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -334,8 +322,7 @@ func (l *List) MoveToBack(e *Element) {
 }
 
 // PushBackList 在列表 `l` 的末尾插入另一个列表的副本。
-// 列表 `l` 和 `other` 可以是相同的，但它们不能为 nil。
-// md5:9bb4d2888e02946d
+// 列表 `l` 和 `other` 可以是相同的，但它们不能为 nil。 md5:9bb4d2888e02946d
 func (l *List) PushBackList(other *List) {
 	if l != other {
 		other.mu.RLock()
@@ -350,8 +337,7 @@ func (l *List) PushBackList(other *List) {
 }
 
 // PushFrontList 将另一个列表 `other` 的副本插入到列表 `l` 的前端。
-// 列表 `l` 和 `other` 可以是相同的列表，但它们都不能为空。
-// md5:0b7e24dd279b0ec0
+// 列表 `l` 和 `other` 可以是相同的列表，但它们都不能为空。 md5:0b7e24dd279b0ec0
 func (l *List) PushFrontList(other *List) {
 	if l != other {
 		other.mu.RLock()
@@ -367,8 +353,7 @@ func (l *List) PushFrontList(other *List) {
 
 // InsertAfter 在元素 `p` 之后立即插入一个新元素 `e`，其值为 `v`，并返回 `e`。
 // 如果 `p` 不是 `l` 的元素，列表不会被修改。
-// `p` 不能为 nil。
-// md5:18fa91d04a81c29d
+// `p` 不能为 nil。 md5:18fa91d04a81c29d
 func (l *List) InsertAfter(p *Element, v interface{}) (e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -381,8 +366,7 @@ func (l *List) InsertAfter(p *Element, v interface{}) (e *Element) {
 
 // InsertBefore 在`p`元素之前插入新元素`e`，值为`v`，然后返回`e`。
 // 如果`p`不是`l`中的元素，则不修改列表。
-// `p`不能为nil。
-// md5:b4054a0ba93bd780
+// `p`不能为nil。 md5:b4054a0ba93bd780
 func (l *List) InsertBefore(p *Element, v interface{}) (e *Element) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -393,8 +377,7 @@ func (l *List) InsertBefore(p *Element, v interface{}) (e *Element) {
 	return
 }
 
-// Remove 从列表 `l` 中移除元素 `e`，如果 `e` 是 `l` 的元素。它返回元素的值 `e.Value`。元素必须不为 nil。
-// md5:49dd42047b93518c
+// Remove 从列表 `l` 中移除元素 `e`，如果 `e` 是 `l` 的元素。它返回元素的值 `e.Value`。元素必须不为 nil。 md5:49dd42047b93518c
 func (l *List) Remove(e *Element) (value interface{}) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -454,8 +437,7 @@ func (l *List) Iterator(f func(e *Element) bool) {
 }
 
 // IteratorAsc 按升序遍历列表，只读方式，使用给定的回调函数 `f`。
-// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止。
-// md5:0a077491be342096
+// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止。 md5:0a077491be342096
 func (l *List) IteratorAsc(f func(e *Element) bool) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()
@@ -472,8 +454,7 @@ func (l *List) IteratorAsc(f func(e *Element) bool) {
 	}
 }
 
-// IteratorDesc 以降序方式遍历列表，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续迭代；否则停止。
-// md5:b9a7d34f2e3426a7
+// IteratorDesc 以降序方式遍历列表，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续迭代；否则停止。 md5:b9a7d34f2e3426a7
 func (l *List) IteratorDesc(f func(e *Element) bool) {
 	l.mu.RLock()
 	defer l.mu.RUnlock()

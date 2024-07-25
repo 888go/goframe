@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gredis
 
@@ -20,8 +19,7 @@ var (
 )
 
 // Instance 返回指定分组的 redis 客户端实例。
-// 如果未传入 `name` 参数，它将返回一个使用默认配置分组的 redis 实例。
-// md5:22f72aaad455f11e
+// 如果未传入 `name` 参数，它将返回一个使用默认配置分组的 redis 实例。 md5:22f72aaad455f11e
 func Instance(name ...string) *Redis {
 	group := DefaultGroupName
 	if len(name) > 0 && name[0] != "" {

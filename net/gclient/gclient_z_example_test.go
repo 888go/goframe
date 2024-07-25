@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gclient_test
 
@@ -528,8 +527,7 @@ func ExampleClient_GetVar() {
 // ExampleClient_SetProxy 是 `gclient.Client.SetProxy` 方法的一个示例。
 // 在运行这个示例之前，请准备两个代理服务器。
 // HTTP 代理服务器监听 `127.0.0.1:1081`
-// Socks5 代理服务器监听 `127.0.0.1:1080`
-// md5:c26527766902fe18
+// Socks5 代理服务器监听 `127.0.0.1:1080` md5:c26527766902fe18
 func ExampleClient_SetProxy() {
 	// 连接到一个HTTP代理服务器. md5:62686127819e0038
 	client := g.Client()
@@ -538,8 +536,7 @@ func ExampleClient_SetProxy() {
 	resp, err := client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 		// 当您的代理服务器不可用时，err 不为 nil。
-		// 例如：获取 "http:		//127.0.0.1:8999" 时：proxyconnect tcp: 拨打 tcp 127.0.0.1:1087: 连接被拒绝
-		// md5:51c9b1789e6b5346
+		// 例如：获取 "http:		//127.0.0.1:8999" 时：proxyconnect tcp: 拨打 tcp 127.0.0.1:1087: 连接被拒绝 md5:51c9b1789e6b5346
 	}
 	fmt.Println(err != nil)
 	resp.Close()
@@ -550,8 +547,7 @@ func ExampleClient_SetProxy() {
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 		// 当您的代理服务器不可用时，err 不为 nil。
-		// 例如：获取 "http:		//127.0.0.1:8999" 时：proxyconnect tcp: 拨打 tcp 127.0.0.1:1087: 连接被拒绝
-		// md5:51c9b1789e6b5346
+		// 例如：获取 "http:		//127.0.0.1:8999" 时：proxyconnect tcp: 拨打 tcp 127.0.0.1:1087: 连接被拒绝 md5:51c9b1789e6b5346
 	}
 	fmt.Println(err != nil)
 	resp.Close()
@@ -562,8 +558,7 @@ func ExampleClient_SetProxy() {
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 		// 当你的代理服务器不可用时，err不为nil。
-		// 例如：Get "http:		//127.0.0.1:8999"：socks connect tcp 127.0.0.1:1087->api.ip.sb:443: 连接 tcp 127.0.0.1:1087：连接拒绝。
-		// md5:f6d9173b84667e10
+		// 例如：Get "http:		//127.0.0.1:8999"：socks connect tcp 127.0.0.1:1087->api.ip.sb:443: 连接 tcp 127.0.0.1:1087：连接拒绝。 md5:f6d9173b84667e10
 	}
 	fmt.Println(err != nil)
 	resp.Close()
@@ -574,8 +569,7 @@ func ExampleClient_SetProxy() {
 	resp, err = client.Get(ctx, "http://127.0.0.1:8999")
 	if err != nil {
 		// 当你的代理服务器不可用时，err不为nil。
-		// 例如：Get "http:		//127.0.0.1:8999"：socks connect tcp 127.0.0.1:1087->api.ip.sb:443: 连接 tcp 127.0.0.1:1087：连接拒绝。
-		// md5:f6d9173b84667e10
+		// 例如：Get "http:		//127.0.0.1:8999"：socks connect tcp 127.0.0.1:1087->api.ip.sb:443: 连接 tcp 127.0.0.1:1087：连接拒绝。 md5:f6d9173b84667e10
 	}
 	fmt.Println(err != nil)
 	resp.Close()
@@ -591,8 +585,7 @@ func ExampleClient_SetProxy() {
 // 在运行此示例之前，请准备两个代理服务器。
 // HTTP 代理服务器监听 `127.0.0.1:1081`
 // SOCKS5 代理服务器监听 `127.0.0.1:1080`
-// 更多详细信息，请参考 ExampleClient_SetProxy
-// md5:4d9e0da3aa8a180d
+// 更多详细信息，请参考 ExampleClient_SetProxy md5:4d9e0da3aa8a180d
 func ExampleClient_Proxy() {
 	var (
 		ctx = context.Background()

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gfpool
 
@@ -15,8 +14,7 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// Open 函数根据给定的文件路径、标志和打开权限创建并返回一个文件项。当它首次被调用时，它会自动内部创建一个关联的文件指针池。然后，它从文件指针池中获取文件项。
-// md5:94bbe2b7d15d2c1f
+// Open 函数根据给定的文件路径、标志和打开权限创建并返回一个文件项。当它首次被调用时，它会自动内部创建一个关联的文件指针池。然后，它从文件指针池中获取文件项。 md5:94bbe2b7d15d2c1f
 func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *File, err error) {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {
@@ -27,8 +25,7 @@ func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *
 	//
 	// path, err := gfile.Search(path)
 	// 如果 err 不为 nil，则：
-	// 返回 nil 和 err
-	// md5:763fc7901895ec01
+	// 返回 nil 和 err md5:763fc7901895ec01
 	pool := pools.GetOrSetFuncLock(
 		fmt.Sprintf("%s&%d&%d&%d", path, flag, fpTTL, perm),
 		func() interface{} {
@@ -40,8 +37,7 @@ func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *
 }
 
 // Get 根据给定的文件路径、标志和打开权限返回一个文件项。
-// 随后，它从文件指针池中检索一个文件项。
-// md5:f56943d16a070df7
+// 随后，它从文件指针池中检索一个文件项。 md5:f56943d16a070df7
 func Get(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *File) {
 	var fpTTL time.Duration
 	if len(ttl) > 0 {

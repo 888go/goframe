@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gins
 
@@ -24,8 +23,7 @@ import (
 )
 
 // Database 返回一个根据指定配置组名实例化的数据库ORM对象。
-// 注意，如果在实例创建过程中发生任何错误，它将会直接 panic。
-// md5:c8c0e8142b2f24af
+// 注意，如果在实例创建过程中发生任何错误，它将会直接 panic。 md5:c8c0e8142b2f24af
 func Database(name ...string) gdb.DB {
 	var (
 		ctx   = context.Background()
@@ -101,8 +99,7 @@ func Database(name ...string) gdb.DB {
 			}
 		}
 		// 将 `m` 解析为单个节点配置，
-		// 这是默认的组配置。
-		// md5:8f62d1ad0b43783e
+		// 这是默认的组配置。 md5:8f62d1ad0b43783e
 		if node := parseDBConfigNode(configMap); node != nil {
 			cg := gdb.ConfigGroup{}
 			if node.Link != "" || node.Host != "" {

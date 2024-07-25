@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // json包提供了对json操作的封装，忽略了标准库或第三方库的json。 md5:8c700638d650aacd
 package json
@@ -17,14 +16,12 @@ import (
 )
 
 // RawMessage 是一个原始的编码JSON值。
-// 它实现了Marshaler和Unmarshaler接口，可以用于延迟JSON解码或预先计算JSON编码。
-// md5:2ea51fc4bfe3af87
+// 它实现了Marshaler和Unmarshaler接口，可以用于延迟JSON解码或预先计算JSON编码。 md5:2ea51fc4bfe3af87
 type RawMessage = json.RawMessage
 
 // Marshal 适应了json/encoding.Marshal API。
 //
-// Marshal 返回 v 的 JSON 编码，适应了 json/encoding.Marshal API。更多信息请参考 https://godoc.org/encoding/json#Marshal。
-// md5:e67e9d2efbcb1d3c
+// Marshal 返回 v 的 JSON 编码，适应了 json/encoding.Marshal API。更多信息请参考 https://godoc.org/encoding/json#Marshal。 md5:e67e9d2efbcb1d3c
 func Marshal(v interface{}) (marshaledBytes []byte, err error) {
 	marshaledBytes, err = json.Marshal(v)
 	if err != nil {
@@ -45,8 +42,7 @@ func MarshalIndent(v interface{}, prefix, indent string) (marshaledBytes []byte,
 // Unmarshal 适应于 json/encoding 的 Unmarshal API
 //
 // Unmarshal 解析 JSON 编码的数据，并将结果存储到由 v 指向的值中。
-// 更多信息，请参考 https://godoc.org/encoding/json#Unmarshal。
-// md5:7272cfbd647a7f0f
+// 更多信息，请参考 https://godoc.org/encoding/json#Unmarshal。 md5:7272cfbd647a7f0f
 func Unmarshal(data []byte, v interface{}) (err error) {
 	err = json.Unmarshal(data, v)
 	if err != nil {
@@ -75,8 +71,7 @@ func NewEncoder(writer io.Writer) *json.Encoder {
 //
 // NewDecoder 从 r 读取数据，返回一个新的解码器。
 //
-// 返回的不是一个 json/encoding 中的 Decoder，而是 Decoder。更多详细信息请参考：https://godoc.org/encoding/json#NewDecoder。
-// md5:eea702294e95e71d
+// 返回的不是一个 json/encoding 中的 Decoder，而是 Decoder。更多详细信息请参考：https://godoc.org/encoding/json#NewDecoder。 md5:eea702294e95e71d
 func NewDecoder(reader io.Reader) *json.Decoder {
 	return json.NewDecoder(reader)
 }

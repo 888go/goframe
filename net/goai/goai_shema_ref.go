@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package goai
 
@@ -25,7 +24,7 @@ type SchemaRef struct {
 }
 
 // isEmbeddedStructDefinition 检查并返回给定的 Go 语言类型是否是嵌入的结构体定义，例如：
-// 
+//
 //	```go
 //	type A struct {
 //	    B struct {
@@ -33,9 +32,8 @@ type SchemaRef struct {
 //	    }
 //	}
 //	```
-// 
-// 在 `A` 中的 `B` 被称为 `嵌入的结构体定义`。
-// md5:45d275bc85e98290
+//
+// 在 `A` 中的 `B` 被称为 `嵌入的结构体定义`。 md5:45d275bc85e98290
 func (oai *OpenApiV3) isEmbeddedStructDefinition(golangType reflect.Type) bool {
 	s := golangType.String()
 	return gstr.Contains(s, `struct {`)

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gclient
 
@@ -28,8 +27,7 @@ import (
 )
 
 // SetBrowserMode 启用客户端的浏览器模式。
-// 当浏览器模式启用时，它会自动保存并从客户端向服务器发送cookie内容以及从服务器接收cookie内容。
-// md5:00d8775b045e9c09
+// 当浏览器模式启用时，它会自动保存并从客户端向服务器发送cookie内容以及从服务器接收cookie内容。 md5:00d8775b045e9c09
 func (c *Client) SetBrowserMode(enabled bool) *Client {
 	if enabled {
 		jar, _ := cookiejar.New(nil)
@@ -109,8 +107,7 @@ func (c *Client) SetBasicAuth(user, pass string) *Client {
 }
 
 // SetRetry 设置重试次数和间隔。
-// TODO：移除。
-// md5:1089293b9f9371f0
+// TODO：移除。 md5:1089293b9f9371f0
 func (c *Client) SetRetry(retryCount int, retryInterval time.Duration) *Client {
 	c.retryCount = retryCount
 	c.retryInterval = retryInterval
@@ -137,8 +134,7 @@ func (c *Client) SetNoUrlEncode(noUrlEncode bool) *Client {
 // SetProxy 为客户端设置代理。
 // 当参数 `proxyURL` 为空或格式不正确时，此函数将不会执行任何操作。
 // 正确的格式应为 `http://用户名:密码@IP:端口` 或 `socks5://用户名:密码@IP:端口`。
-// 目前仅支持 `http` 和 `socks5` 类型的代理。
-// md5:aa3f2b21308c7bec
+// 目前仅支持 `http` 和 `socks5` 类型的代理。 md5:aa3f2b21308c7bec
 func (c *Client) SetProxy(proxyURL string) {
 	if strings.TrimSpace(proxyURL) == "" {
 		return

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gudp
 
@@ -57,8 +56,7 @@ func GetServer(name ...interface{}) *Server {
 
 // NewServer 创建并返回一个UDP服务器。
 // 可选参数`name`用于指定服务器的名称，该名称可以用于
-// GetServer 函数来检索其实例。
-// md5:752020b7ca7ce4b2
+// GetServer 函数来检索其实例。 md5:752020b7ca7ce4b2
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -81,8 +79,7 @@ func (s *Server) SetHandler(handler func(*Conn)) {
 }
 
 // Close 关闭连接。
-// 它将使服务器立即关闭。
-// md5:251649bd57732e67
+// 它将使服务器立即关闭。 md5:251649bd57732e67
 func (s *Server) Close() (err error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()

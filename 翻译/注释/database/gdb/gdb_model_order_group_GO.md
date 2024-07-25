@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -36,8 +35,7 @@
 // Order("id", "desc").
 // Order("id desc,name asc")
 // Order("id desc").Order("name asc")
-// Order(gdb.Raw("field(id, 3,1,2)"))
-// md5:41ff2d0293c241c6
+// Order(gdb.Raw("field(id, 3,1,2)")) md5:41ff2d0293c241c6
 # <翻译结束>
 
 

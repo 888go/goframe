@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtcp
 
@@ -24,13 +23,11 @@ const (
 // PkgOption是简单协议的包选项。 md5:f49ee7556a39be3e
 type PkgOption struct {
 	// HeaderSize 用于标记接下来接收数据的长度。
-	// 它默认为2字节，最大为4字节，代表数据的最大长度可以从65535字节到4294967295字节。
-	// md5:cc02a98c94fddd76
+	// 它默认为2字节，最大为4字节，代表数据的最大长度可以从65535字节到4294967295字节。 md5:cc02a98c94fddd76
 	HeaderSize int
 
 	// MaxDataSize 是数据字段的字节大小，用于数据长度验证。
-	// 如果未手动设置，它将根据HeaderSize自动相应设置。
-	// md5:a47982162ce5ef01
+	// 如果未手动设置，它将根据HeaderSize自动相应设置。 md5:a47982162ce5ef01
 	MaxDataSize int
 
 	// 操作失败时的重试策略。 md5:cd672b1b96adbbdd
@@ -43,8 +40,7 @@ type PkgOption struct {
 //
 // 注意，
 // 1. DataLength 是 DataField 的长度，不包含头大小。
-// 2. 包的整数字节使用大端序编码。
-// md5:daa39f4e32227d79
+// 2. 包的整数字节使用大端序编码。 md5:daa39f4e32227d79
 func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	pkgOption, err := getPkgOption(option...)
 	if err != nil {
@@ -125,8 +121,7 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 		length = int(binary.BigEndian.Uint32([]byte{buffer[0], buffer[1], buffer[2], buffer[3]}))
 	}
 	// 此处校验包的大小。
-	// 如果校验失败，会立即清空缓冲区并返回错误。
-	// md5:0871405b30986628
+	// 如果校验失败，会立即清空缓冲区并返回错误。 md5:0871405b30986628
 	if length < 0 || length > pkgOption.MaxDataSize {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid package size %d`, length)
 	}
@@ -151,8 +146,7 @@ func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) (d
 }
 
 // getPkgOption 包装并返回 PkgOption。
-// 如果没有提供选项，则返回一个具有默认值的新选项。
-// md5:752809cff379479d
+// 如果没有提供选项，则返回一个具有默认值的新选项。 md5:752809cff379479d
 func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 	pkgOption := PkgOption{}
 	if len(option) > 0 {

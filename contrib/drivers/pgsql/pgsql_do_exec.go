@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package pgsql
 
@@ -17,8 +16,7 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
-// md5:947bd2b83e751e10
+// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。 md5:947bd2b83e751e10
 func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	var (
 		isUseCoreDoExec bool   = false // 检查是否需要使用默认方法. md5:5c2234665d43c8e2

@@ -27,8 +27,7 @@ func (c *Client) Use(handlers ...HandlerFunc) *Client {
 }
 
 // Next 调用下一个中间件。
-// 这应该只在 HandlerFunc 中调用。
-// md5:70c74664d7d9f919
+// 这应该只在 HandlerFunc 中调用。 md5:70c74664d7d9f919
 func (c *Client) Next(req *http.Request) (*Response, error) {
 	if v := req.Context().Value(clientMiddlewareKey); v != nil {
 		if m, ok := v.(*clientMiddleware); ok {

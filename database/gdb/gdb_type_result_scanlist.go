@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
@@ -88,8 +87,7 @@ import (
 // 示例代码中的 "uid" 是结果表字段名，而 "Uid" 是相关结构体属性名，而不是绑定目标的属性名。
 // 在示例代码中，它是 "Entity" 实体的 "User" 的属性名 "Uid"。它会根据给定的 `relation` 参数自动计算 HasOne/HasMany 关系。
 //
-// 可参考示例或单元测试用例以更清晰地理解此函数的工作方式。
-// md5:d6997acc67d472c4
+// 可参考示例或单元测试用例以更清晰地理解此函数的工作方式。 md5:d6997acc67d472c4
 func (r Result) ScanList(structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	out, err := checkGetSliceElementInfoForScanList(structSlicePointer, bindToAttrName)
 	if err != nil {
@@ -201,8 +199,7 @@ type doScanListInput struct {
 }
 
 // doScanList 将 `result` 转换为包含嵌套复杂结构体属性的切片。参数 `model` 用于递归扫描，即它可以递归地扫描结构体/结构体的属性，但需要数据库访问模型。
-// 注意参数 `structSlicePointer` 应该是 *[]struct 或 *[]*struct 类型。
-// md5:b32c3ddd7d2b8656
+// 注意参数 `structSlicePointer` 应该是 *[]struct 或 *[]*struct 类型。 md5:b32c3ddd7d2b8656
 func doScanList(in doScanListInput) (err error) {
 	if in.Result.IsEmpty() {
 		return nil
@@ -216,8 +213,7 @@ func doScanList(in doScanListInput) (err error) {
 		// 指向的切片不为空。 md5:1348d4b6d686b8f3
 		if in.StructSliceValue.Len() > 0 {
 			// 这里检查是否具有已初始化的结构体项。
-			// 然后返回错误以警告开发者其为空且无法进行转换。
-			// md5:cd5f133a393c1157
+			// 然后返回错误以警告开发者其为空且无法进行转换。 md5:cd5f133a393c1157
 			if v := in.StructSliceValue.Index(0); v.Kind() != reflect.Ptr {
 				return sql.ErrNoRows
 			}
@@ -247,8 +243,7 @@ func doScanList(in doScanListInput) (err error) {
 	)
 	if len(in.RelationFields) > 0 {
 		// 表字段名与属性名之间的关联键字符串
-		// 可以使用字符'='或':'进行连接。
-		// md5:a3dd08343df8a7ac
+		// 可以使用字符'='或':'进行连接。 md5:a3dd08343df8a7ac
 		array := gstr.SplitAndTrim(in.RelationFields, "=")
 		if len(array) == 1 {
 			// 与旧的分隔字符':'兼容。 md5:21a764d3ea1e081b
@@ -262,8 +257,7 @@ func doScanList(in doScanListInput) (err error) {
 			// 定义表字段到关系属性名。
 			// 例如：
 			// uid:Uid
-			// uid:UserId
-			// md5:029253159bee75d1
+			// uid:UserId md5:029253159bee75d1
 			relationFromFieldName = array[0]
 			relationBindToFieldName = array[1]
 			if key, _ := gutil.MapPossibleItemByKey(in.Result[0].Map(), relationFromFieldName); key == "" {
@@ -339,8 +333,7 @@ func doScanList(in doScanListInput) (err error) {
 				// "reflect.New(itemType.Elem())" 用于创建一个新的元素，并返回该元素的地址。
 				// 例如：
 				// reflect.New(itemType.Elem())        => *实体
-				// reflect.New(itemType.Elem()).Elem() => 实体
-				// md5:0897d7c0e7467f9d
+				// reflect.New(itemType.Elem()).Elem() => 实体 md5:0897d7c0e7467f9d
 				arrayElemValue = reflect.New(arrayItemType.Elem()).Elem()
 				arrayValue.Index(i).Set(arrayElemValue.Addr())
 			}

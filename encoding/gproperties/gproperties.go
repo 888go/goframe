@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gproperties提供了对.properties内容的访问和转换。 md5:d7f77f0eb45bfdad
 package gproperties
@@ -87,15 +86,13 @@ func ToJson(data []byte) (res []byte, err error) {
 }
 
 // deepSearch 用于深入扫描嵌套的映射，它会按照序列"path"中列出的键索引进行遍历。
-// 预期最后一个值是另一个映射，并将其返回。
-// md5:2b80516b778b8ffa
+// 预期最后一个值是另一个映射，并将其返回。 md5:2b80516b778b8ffa
 func deepSearch(m map[string]interface{}, path []string) map[string]interface{} {
 	for _, k := range path {
 		m2, ok := m[k]
 		if !ok {
 			// 中间键不存在
-			// => 创建它并从此处继续
-			// md5:ea01acf7f923de86
+			// => 创建它并从此处继续 md5:ea01acf7f923de86
 			m3 := make(map[string]interface{})
 			m[k] = m3
 			m = m3

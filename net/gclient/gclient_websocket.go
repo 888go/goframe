@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gclient
 
@@ -15,8 +14,7 @@ import (
 )
 
 // WebSocketClient 封装了底层的websocket客户端连接，
-// 并提供了便捷的功能方法。
-// md5:82e7259d43b0aaee
+// 并提供了便捷的功能方法。 md5:82e7259d43b0aaee
 type WebSocketClient struct {
 	*websocket.Dialer
 }

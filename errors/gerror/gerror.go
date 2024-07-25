@@ -1,13 +1,11 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
 
 // Package gerror 提供了丰富的错误处理功能。
-// 
-// 对于维护者，请注意，这个包是一个基础包，不应该导入除标准包和内部包以外的额外包，以避免循环导入。
-// md5:ee2cf0d4a8603263
+//
+// 对于维护者，请注意，这个包是一个基础包，不应该导入除标准包和内部包以外的额外包，以避免循环导入。 md5:ee2cf0d4a8603263
 package gerror
 
 import (

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdebug
 
@@ -43,16 +42,14 @@ func init() {
 	}
 }
 
-// Caller 返回调用者函数的名称，以及包含该函数的绝对文件路径和行号。
-// md5:ede3e19ac5afa26d
+// Caller 返回调用者函数的名称，以及包含该函数的绝对文件路径和行号。 md5:ede3e19ac5afa26d
 func Caller(skip ...int) (function string, path string, line int) {
 	return CallerWithFilter(nil, skip...)
 }
 
 // CallerWithFilter 返回调用者函数名、绝对文件路径及其行号。
-// 
-// 参数 `filters` 用于过滤调用者的路径。
-// md5:77e7b623dc180797
+//
+// 参数 `filters` 用于过滤调用者的路径。 md5:77e7b623dc180797
 func CallerWithFilter(filters []string, skip ...int) (function string, path string, line int) {
 	var (
 		number = 0
@@ -88,8 +85,7 @@ func CallerWithFilter(filters []string, skip ...int) (function string, path stri
 
 // callerFromIndex 返回调用位置及其相关信息，但不包括 debug 包的内容。
 //
-// 非常注意，返回的索引值应该是 `index - 1`，因为调用者的起点是从 1 开始的。
-// md5:7a22ee9c6da468f5
+// 非常注意，返回的索引值应该是 `index - 1`，因为调用者的起点是从 1 开始的。 md5:7a22ee9c6da468f5
 func callerFromIndex(filters []string) (pc uintptr, file string, line int, index int) {
 	var ok bool
 	for index = 0; index < maxCallerDepth; index++ {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gconv_test
 
@@ -320,7 +319,7 @@ func TestConverter_CustomBasicType_ToStruct(t *testing.T) {
 	})
 }
 
-//github.com/gogf/gf/issues/3099. md5:d217d1a2ab119603
+// github.com/gogf/gf/issues/3099. md5:d217d1a2ab119603
 func TestConverter_CustomTimeType_ToStruct(t *testing.T) {
 	type timestamppb struct {
 		S string

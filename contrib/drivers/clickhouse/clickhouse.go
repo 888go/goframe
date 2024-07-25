@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // Package clickhouse 实现了 gdb.Driver，它支持 ClickHouse 数据库的操作。 md5:8c421a92a767ff72
 package clickhouse
@@ -49,8 +48,7 @@ func New() gdb.Driver {
 	return &Driver{}
 }
 
-// New 创建并返回一个用于ClickHouse的数据库对象。它实现了gdb.Driver接口，以便于额外的数据库驱动程序安装。
-// md5:79dabf2eba06bc88
+// New 创建并返回一个用于ClickHouse的数据库对象。它实现了gdb.Driver接口，以便于额外的数据库驱动程序安装。 md5:79dabf2eba06bc88
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,

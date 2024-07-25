@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -29,8 +28,7 @@ func (r *Request) SetParamMap(data map[string]interface{}) {
 
 // GetParam 通过给定的名称 `key` 返回自定义参数。
 // 如果 `key` 不存在，它将返回 `def`。
-// 如果没有传递 `def`，它将返回 nil。
-// md5:4fe03a677e843703
+// 如果没有传递 `def`，它将返回 nil。 md5:4fe03a677e843703
 func (r *Request) GetParam(key string, def ...interface{}) *gvar.Var {
 	if len(r.paramsMap) > 0 {
 		if value, ok := r.paramsMap[key]; ok {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gvalid实现了强大且实用的数据/表单验证功能。 md5:e037cf7a2dd78c4c
 package gvalid
@@ -19,8 +18,7 @@ import (
 	"github.com/gogf/gf/v2/util/gtag"
 )
 
-// CustomMsg 是自定义错误消息类型，例如：map[field] => string|map[rule]string
-// md5:7623c4a13054d811
+// CustomMsg 是自定义错误消息类型，例如：map[field] => string|map[rule]string md5:7623c4a13054d811
 type CustomMsg = map[string]interface{}
 
 // fieldRule 定义了指定字段的别名名称和规则字符串。 md5:54ed236de61abbbc
@@ -58,8 +56,7 @@ const (
 
 var (
 	// defaultErrorMessages 是默认的错误信息。
-	// 注意，这些信息是从 ./i18n/en/validation.toml 文件同步而来的。
-	// md5:373f31d6c37a48f9
+	// 注意，这些信息是从 ./i18n/en/validation.toml 文件同步而来的。 md5:373f31d6c37a48f9
 	defaultErrorMessages = map[string]string{
 		internalDefaultRuleName: "The {field} value `{value}` is invalid",
 	}
@@ -77,12 +74,10 @@ var (
 		internalObjectErrRuleName: internalObjectErrRuleName,
 	}
 	// 单个规则的正则表达式对象
-	// 它仅编译一次，可重复使用。
-	// md5:5d3b8b54080f71ba
+	// 它仅编译一次，可重复使用。 md5:5d3b8b54080f71ba
 	ruleRegex, _ = regexp.Compile(singleRulePattern)
 
-	// decorativeRuleMap 定义了所有仅具有标记规则，既没有功能意义也没有错误信息的规则。
-	// md5:d98db5ea3aaff41f
+	// decorativeRuleMap 定义了所有仅具有标记规则，既没有功能意义也没有错误信息的规则。 md5:d98db5ea3aaff41f
 	decorativeRuleMap = map[string]bool{
 		ruleNameForeach: true,
 		ruleNameBail:    true,
@@ -91,8 +86,7 @@ var (
 )
 
 // ParseTagValue 解析一个序列标签到字段、规则和错误消息。
-// 序列标签的格式为：[别名@]规则[...#消息...]
-// md5:c1a14088e6940223
+// 序列标签的格式为：[别名@]规则[...#消息...] md5:c1a14088e6940223
 func ParseTagValue(tag string) (field, rule, msg string) {
 	// Complete sequence tag.
 	// Example: name@required|length:2,20|password3|same:password1#||密码强度不足|两次密码不一致

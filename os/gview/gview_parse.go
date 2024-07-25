@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gview
 
@@ -44,8 +43,7 @@ type fileCacheItem struct {
 
 var (
 	// 模板缓存映射，用于模板文件夹。
-	// 注意，这个映射没有过期逻辑。
-	// md5:23e4c8f42fd00704
+	// 注意，这个映射没有过期逻辑。 md5:23e4c8f42fd00704
 	templates = gmap.NewStrAnyMap(true)
 
 	// 资源模板文件搜索的尝试文件夹。 md5:17efa863e4db400f
@@ -58,8 +56,7 @@ var (
 	localSystemTryFolders = []string{"", "template/", "resource/template"}
 )
 
-// Parse 使用给定的模板变量`params`解析给定的模板文件`file`，并返回解析后的模板内容。
-// md5:4b41bf3f848a2345
+// Parse 使用给定的模板变量`params`解析给定的模板文件`file`，并返回解析后的模板内容。 md5:4b41bf3f848a2345
 func (view *View) Parse(ctx context.Context, file string, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -87,8 +84,7 @@ func (view *View) ParseDefault(ctx context.Context, params ...Params) (result st
 	})
 }
 
-// ParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的字节切片。
-// md5:26fcffe5c26897e5
+// ParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的字节切片。 md5:26fcffe5c26897e5
 func (view *View) ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -185,8 +181,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		return "", err
 	}
 	// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
-	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
-	// md5:07678aa51c871b54
+	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。 md5:07678aa51c871b54
 	variables := gutil.MapMergeCopy(option.Params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -214,8 +209,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	return result, nil
 }
 
-// doParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的内容作为 []byte 类型。
-// md5:9fcc7059fb505864
+// doParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的内容作为 []byte 类型。 md5:9fcc7059fb505864
 func (view *View) doParseContent(ctx context.Context, content string, params Params) (string, error) {
 	// 如果模板内容为空，没有必要继续解析。 md5:59270c3283cce903
 	if content == "" {
@@ -251,8 +245,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		return "", err
 	}
 	// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
-	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
-	// md5:07678aa51c871b54
+	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。 md5:07678aa51c871b54
 	variables := gutil.MapMergeCopy(params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -285,8 +278,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 
 // getTemplate 根据给定的模板文件路径 `path` 返回关联的模板对象。
 // 它使用模板缓存来提高性能，即对于相同的 `path`，它将返回相同的模板对象。
-// 当`path`下的模板文件发生改变（递归检查）时，它会自动刷新模板缓存。
-// md5:c5cd3094a5634faa
+// 当`path`下的模板文件发生改变（递归检查）时，它会自动刷新模板缓存。 md5:c5cd3094a5634faa
 func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interface{}, err error) {
 	var (
 		mapKey  = fmt.Sprintf("%s_%v", filePath, view.config.Delimiters)
@@ -330,8 +322,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 			}
 
 			// 其次，检查文件系统，
-			// 然后递归地自动解析所有子文件。
-			// md5:46d132de94281d12
+			// 然后递归地自动解析所有子文件。 md5:46d132de94281d12
 			var files []string
 			files, err = gfile.ScanDir(folderPath, pattern, true)
 			if err != nil {
@@ -373,8 +364,7 @@ func (view *View) formatTemplateObjectCreatingError(filePath, tplName string, er
 }
 
 // searchFile 返回找到的文件`file`的绝对路径以及其模板文件夹路径。
-// 请注意，返回的`folder`是模板文件夹路径，而不是返回的模板文件`path`所在的文件夹。
-// md5:a3bcfce2f1e0e878
+// 请注意，返回的`folder`是模板文件夹路径，而不是返回的模板文件`path`所在的文件夹。 md5:a3bcfce2f1e0e878
 func (view *View) searchFile(ctx context.Context, file string) (path string, folder string, resource *gres.File, err error) {
 	var tempPath string
 	// 首先检查资源管理器。 md5:da6f8b6e01c9081c

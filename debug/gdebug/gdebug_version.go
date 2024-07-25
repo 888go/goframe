@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdebug
 
@@ -19,8 +18,7 @@ import (
 )
 
 // BinVersion 返回当前运行二进制文件的版本。
-// 它使用ghash.BKDRHash和BASE36算法来计算二进制文件的独特版本。
-// md5:d61ca269b0c85c70
+// 它使用ghash.BKDRHash和BASE36算法来计算二进制文件的独特版本。 md5:d61ca269b0c85c70
 func BinVersion() string {
 	if binaryVersion == "" {
 		binaryContent, _ := os.ReadFile(selfPath)
@@ -33,8 +31,7 @@ func BinVersion() string {
 }
 
 // BinVersionMd5 返回当前运行二进制文件的版本。
-// 它使用MD5算法计算二进制文件的独特版本。
-// md5:e716b98ad45cf095
+// 它使用MD5算法计算二进制文件的独特版本。 md5:e716b98ad45cf095
 func BinVersionMd5() string {
 	if binaryVersionMd5 == "" {
 		binaryVersionMd5, _ = md5File(selfPath)

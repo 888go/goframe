@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp_test
 
@@ -380,8 +379,7 @@ func Test_Params_Parse_Attr_Pointer2(t *testing.T) {
 //     client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
 //     t.Assert(client.PostContent(ctx, "/parse", `{"id":1,"name":"john","scores":[[1,2,3]]}`), `1100`)
 // })
-// }
-// md5:65bedf537ac79a00
+// } md5:65bedf537ac79a00
 
 func Test_Params_Struct(t *testing.T) {
 	type User struct {

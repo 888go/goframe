@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gconv_test
 
@@ -162,8 +161,7 @@ func Test_Struct_Attr_Slice1(t *testing.T) {
 //			})
 //		}
 //	})
-//}
-// md5:530558b91cc069c7
+//} md5:530558b91cc069c7
 
 func Test_Struct_Attr_Struct(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -1288,7 +1286,7 @@ func Test_Struct_Issue1563(t *testing.T) {
 	})
 }
 
-//github.com/gogf/gf/issues/1597 问题讨论. md5:934fd7bf7bd1b6b7
+// github.com/gogf/gf/issues/1597 问题讨论. md5:934fd7bf7bd1b6b7
 func Test_Struct_Issue1597(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S struct {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -41,8 +40,7 @@ type UploadFiles []*UploadFile
 //
 // 参数 `dirPath` 应为一个目录路径，否则会返回错误。
 //
-// 注意：如果目标位置已经存在同名文件，该函数将覆盖原有的文件。
-// md5:ffe3d8f90d14185a
+// 注意：如果目标位置已经存在同名文件，该函数将覆盖原有的文件。 md5:ffe3d8f90d14185a
 func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename string, err error) {
 	if f == nil {
 		return "", gerror.NewCode(
@@ -88,8 +86,7 @@ func (f *UploadFile) Save(dirPath string, randomlyRename ...bool) (filename stri
 //
 // 参数 `dirPath` 应该是一个目录路径，否则会返回错误。
 //
-// 参数 `randomlyRename` 指定是否为所有文件名随机重命名。
-// md5:de2b45ea5a89ccad
+// 参数 `randomlyRename` 指定是否为所有文件名随机重命名。 md5:de2b45ea5a89ccad
 func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []string, err error) {
 	if len(fs) == 0 {
 		return nil, gerror.NewCode(
@@ -112,8 +109,7 @@ func (fs UploadFiles) Save(dirPath string, randomlyRename ...bool) (filenames []
 //
 // 如果检索失败或没有给定名称的表单文件被上传，它将返回nil。
 //
-// 注意，`name` 是客户端multipart表单中文件字段的名称。
-// md5:a49268bd7e014ab6
+// 注意，`name` 是客户端multipart表单中文件字段的名称。 md5:a49268bd7e014ab6
 func (r *Request) GetUploadFile(name string) *UploadFile {
 	uploadFiles := r.GetUploadFiles(name)
 	if len(uploadFiles) > 0 {
@@ -127,8 +123,7 @@ func (r *Request) GetUploadFile(name string) *UploadFile {
 //
 // 如果检索失败或没有给定名称的表单文件被上传，则返回nil。
 //
-// 注意，`name` 是来自客户端的多部分表单中的文件字段名称。
-// md5:cbbf4db398137505
+// 注意，`name` 是来自客户端的多部分表单中的文件字段名称。 md5:cbbf4db398137505
 func (r *Request) GetUploadFiles(name string) UploadFiles {
 	multipartFiles := r.GetMultipartFiles(name)
 	if len(multipartFiles) > 0 {

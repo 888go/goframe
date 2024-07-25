@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcompress
 
@@ -19,8 +18,7 @@ import (
 // Gzip 使用 gzip 算法压缩 `data`。
 // 可选参数 `level` 指定压缩级别，范围从 1 到 9，1 表示无压缩，9 表示最佳压缩。
 //
-// 注意，如果给定的 `level` 不合法，它将返回错误。
-// md5:55af48098fabf71a
+// 注意，如果给定的 `level` 不合法，它将返回错误。 md5:55af48098fabf71a
 func Gzip(data []byte, level ...int) ([]byte, error) {
 	var (
 		writer *gzip.Writer
@@ -60,8 +58,7 @@ func GzipFile(srcFilePath, dstFilePath string, level ...int) (err error) {
 
 // GzipPathWriter 使用gzip压缩算法将`filePath`的内容压缩并写入到`writer`中。
 //
-// 注意，参数`path`既可以是一个目录，也可以是一个文件。
-// md5:5da525f970882d97
+// 注意，参数`path`既可以是一个目录，也可以是一个文件。 md5:5da525f970882d97
 func GzipPathWriter(filePath string, writer io.Writer, level ...int) error {
 	var (
 		gzipWriter *gzip.Writer

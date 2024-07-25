@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -31,13 +30,12 @@
 # <翻译开始>
 // `Fields` 方法将 `fieldNamesOrMapStruct` 添加到模型的operation字段中，多个字段使用字符`,`连接。
 // 参数 `fieldNamesOrMapStruct` 可以是字符串、映射（map）、*map、结构体或*结构体类型。
-// 
+//
 // 示例：
 // Fields("id", "name", "age")
 // Fields([]string{"id", "name", "age"})
 // Fields(map[string]interface{}{"id":1, "name":"john", "age":18})
-// Fields(User{ Id: 1, Name: "john", Age: 18})
-// md5:21db86fe96babad2
+// Fields(User{ Id: 1, Name: "john", Age: 18}) md5:21db86fe96babad2
 # <翻译结束>
 
 
@@ -65,8 +63,7 @@
 // 注意，此函数仅支持单表操作。
 // 参数 `fieldNamesOrMapStruct` 可以是字符串类型、映射类型（map）、映射指针类型（*map）、结构体类型或结构体指针类型（*struct）。
 //
-// 参见 Fields。
-// md5:7b8ec243202549a8
+// 参见 Fields。 md5:7b8ec243202549a8
 # <翻译结束>
 
 
@@ -131,8 +128,7 @@
 
 # <翻译开始>
 // GetFieldsStr 从表中检索并返回所有字段，以逗号分隔。
-// 可选参数 `prefix` 指定每个字段的前缀，例如：GetFieldsStr("u.")。
-// md5:c76f2f45c8680a27
+// 可选参数 `prefix` 指定每个字段的前缀，例如：GetFieldsStr("u.")。 md5:c76f2f45c8680a27
 # <翻译结束>
 
 
@@ -146,8 +142,7 @@
 # <翻译开始>
 // GetFieldsExStr 从表中获取并返回那些不在参数`fields`中的字段，这些字段通过逗号','连接。
 // 参数`fields`指定了需要排除的字段。
-// 可选参数`prefix`为每个字段指定前缀，例如：FieldsExStr("id", "u.")。
-// md5:57698a0c43f54ec9
+// 可选参数`prefix`为每个字段指定前缀，例如：FieldsExStr("id", "u.")。 md5:57698a0c43f54ec9
 # <翻译结束>
 
 
@@ -174,6 +169,6 @@
 <原文结束>
 
 # <翻译开始>
-// 需要类型断言。 md5:ec336d143828f70d
+	// 需要类型断言。 md5:ec336d143828f70d
 # <翻译结束>
 

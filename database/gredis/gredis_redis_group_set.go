@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gredis
 
@@ -14,8 +13,7 @@ import (
 )
 
 // IGroupSet 管理 Redis 集合操作。
-// 实现了 redis.GroupSet 接口。
-// md5:98fdccab09106c8c
+// 实现了 redis.GroupSet 接口。 md5:98fdccab09106c8c
 type IGroupSet interface {
 	SAdd(ctx context.Context, key string, member interface{}, members ...interface{}) (int64, error)
 	SIsMember(ctx context.Context, key string, member interface{}) (int64, error)

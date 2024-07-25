@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gfile
 
@@ -46,16 +45,14 @@ func getCacheDuration() time.Duration {
 	return d
 }
 
-// GetContentsWithCache 通过`path`从缓存中返回给定文件的字符串内容。如果缓存中没有内容，它将从指定的磁盘文件（由`path`提供）中读取。参数`expire`指定了该文件内容的缓存过期时间（以秒为单位）。
-// md5:ee3ca4011fe59d23
+// GetContentsWithCache 通过`path`从缓存中返回给定文件的字符串内容。如果缓存中没有内容，它将从指定的磁盘文件（由`path`提供）中读取。参数`expire`指定了该文件内容的缓存过期时间（以秒为单位）。 md5:ee3ca4011fe59d23
 func GetContentsWithCache(path string, duration ...time.Duration) string {
 	return string(GetBytesWithCache(path, duration...))
 }
 
 // GetBytesWithCache 通过`path`从缓存中返回给定文件的[]byte内容。
 // 如果缓存中没有内容，它将从由`path`指定的磁盘文件中读取。
-// 参数`expire`以秒为单位指定该文件内容的缓存时间。
-// md5:8b877378627c94a2
+// 参数`expire`以秒为单位指定该文件内容的缓存时间。 md5:8b877378627c94a2
 func GetBytesWithCache(path string, duration ...time.Duration) []byte {
 	var (
 		ctx      = context.Background()
@@ -70,8 +67,7 @@ func GetBytesWithCache(path string, duration ...time.Duration) []byte {
 		b := GetBytes(path)
 		if b != nil {
 			// 将此`path`添加到gfsnotify，
-			// 如果文件有任何更改，它将清除其缓存。
-			// md5:d6795c29773b5d37
+			// 如果文件有任何更改，它将清除其缓存。 md5:d6795c29773b5d37
 			_, _ = gfsnotify.Add(path, func(event *gfsnotify.Event) {
 				_, err := internalCache.Remove(ctx, cacheKey)
 				if err != nil {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtcp
 
@@ -15,8 +14,7 @@ import (
 )
 
 // PoolConn 是一个具有连接池特性的TCP连接。
-// 注意，它本身并不是一个连接池或连接管理器，而只是一个TCP连接对象。
-// md5:ba1f65d3a4240a38
+// 注意，它本身并不是一个连接池或连接管理器，而只是一个TCP连接对象。 md5:ba1f65d3a4240a38
 type PoolConn struct {
 	*Conn              // 底层连接对象。 md5:b967bfe4f6e1fc27
 	pool   *gpool.Pool // 连接池，其实不是一个真正的连接池，而是一个连接的重用池。 md5:a26d386f822f05df
@@ -58,8 +56,7 @@ func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
 
 // Close将活动的连接放回池中，如果连接未活动，则将其关闭。
 //
-// 请注意，如果`c`调用Close函数关闭自身，那么`c`将无法再次使用。
-// md5:8596872730e65b10
+// 请注意，如果`c`调用Close函数关闭自身，那么`c`将无法再次使用。 md5:8596872730e65b10
 func (c *PoolConn) Close() error {
 	if c.pool != nil && c.status == connStatusActive {
 		c.status = connStatusUnknown
@@ -68,8 +65,7 @@ func (c *PoolConn) Close() error {
 	return c.Conn.Close()
 }
 
-// Send 将数据写入连接。如果写数据失败，它会从其池中获取一个新的连接。
-// md5:a5cfc10ec76d87e1
+// Send 将数据写入连接。如果写数据失败，它会从其池中获取一个新的连接。 md5:a5cfc10ec76d87e1
 func (c *PoolConn) Send(data []byte, retry ...Retry) error {
 	err := c.Conn.Send(data, retry...)
 	if err != nil && c.status == connStatusUnknown {
@@ -99,8 +95,7 @@ func (c *PoolConn) Recv(length int, retry ...Retry) ([]byte, error) {
 	return data, err
 }
 
-// RecvLine 从连接中读取数据，直到读取到字符 '\n'。注意，返回的结果不包含最后一个字符 '\n'。
-// md5:e8f4d38a9d0e03e2
+// RecvLine 从连接中读取数据，直到读取到字符 '\n'。注意，返回的结果不包含最后一个字符 '\n'。 md5:e8f4d38a9d0e03e2
 func (c *PoolConn) RecvLine(retry ...Retry) ([]byte, error) {
 	data, err := c.Conn.RecvLine(retry...)
 	if err != nil {
@@ -112,8 +107,7 @@ func (c *PoolConn) RecvLine(retry ...Retry) ([]byte, error) {
 }
 
 // RecvTill 从连接中读取数据，直到读取到字节 `til` 为止。
-// 注意，返回的结果中包含最后一个字节 `til`。
-// md5:3d5a6b2420bd7164
+// 注意，返回的结果中包含最后一个字节 `til`。 md5:3d5a6b2420bd7164
 func (c *PoolConn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 	data, err := c.Conn.RecvTill(til, retry...)
 	if err != nil {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package builtin
 
@@ -17,8 +16,7 @@ import (
 // RuleDate 实现了 `date` 规则：
 // 标准日期格式，例如：2006-01-02, 20060102, 2006.01.02。
 //
-// 格式：date
-// md5:91044156fb254923
+// 格式：date md5:91044156fb254923
 type RuleDate struct{}
 
 func init() {

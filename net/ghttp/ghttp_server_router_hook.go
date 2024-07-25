@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -76,8 +75,7 @@ func (s *Server) callHookHandler(hook HookName, r *Request) {
 			r.routerMap = item.Values
 			// 不要使用钩子处理器的路由器，
 			// 因为它可能会覆盖服务处理器的路由器。
-			// r.Router = item.handler.router
-			// md5:9c797403c522d44d
+			// r.Router = item.handler.router md5:9c797403c522d44d
 			if err := s.niceCallHookHandler(item.Handler.Info.Func, r); err != nil {
 				switch err {
 				case exceptionExit:
@@ -111,8 +109,7 @@ func (r *Request) getHookHandlers(hook HookName) []*HandlerItemParsed {
 }
 
 // niceCallHookHandler 美好地调用钩子处理函数，
-// 即它会自动捕获并返回可能的恐慌错误，以防止goroutine崩溃。
-// md5:915bcff9c5f9cc4e
+// 即它会自动捕获并返回可能的恐慌错误，以防止goroutine崩溃。 md5:915bcff9c5f9cc4e
 func (s *Server) niceCallHookHandler(f HandlerFunc, r *Request) (err interface{}) {
 	defer func() {
 		err = recover()

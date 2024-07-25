@@ -2,8 +2,7 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
 
 // 包command提供控制台操作，如选项/参数读取。 md5:940e3926fff20c9a
 package command
@@ -116,8 +115,7 @@ func GetArgAll() []string {
 //
 // 获取规则：
 // 1. 命令行参数采用小写格式，例如：gf.package.variable；
-// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。
-// md5:13bcb9c2795488a1
+// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。 md5:13bcb9c2795488a1
 func GetOptWithEnv(key string, def ...string) string {
 	cmdKey := strings.ToLower(strings.ReplaceAll(key, "_", "."))
 	if ContainsOpt(cmdKey) {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gjson
 
@@ -15,8 +14,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
-// Valid 检查 `data` 是否是有效的 JSON 数据类型。参数 `data` 指定 JSON 格式的数据，可以是字节或字符串类型。
-// md5:a1bbf790f78e4608
+// Valid 检查 `data` 是否是有效的 JSON 数据类型。参数 `data` 指定 JSON 格式的数据，可以是字节或字符串类型。 md5:a1bbf790f78e4608
 func Valid(data interface{}) bool {
 	return json.Valid(gconv.Bytes(data))
 }
@@ -56,15 +54,13 @@ func EncodeString(value interface{}) (string, error) {
 	return string(b), err
 }
 
-// MustEncodeString 将任何 Go 语言变量 `value` 编码为 JSON 字符串。如果发生任何错误，它将引发 panic。
-// md5:05f6a19afa24c836
+// MustEncodeString 将任何 Go 语言变量 `value` 编码为 JSON 字符串。如果发生任何错误，它将引发 panic。 md5:05f6a19afa24c836
 func MustEncodeString(value interface{}) string {
 	return string(MustEncode(value))
 }
 
 // Decode 将 JSON 格式的 `data` 解码为 Go 语言变量。
-// 参数 `data` 可以是字节切片或字符串类型。
-// md5:8c3a611dab2c0896
+// 参数 `data` 可以是字节切片或字符串类型。 md5:8c3a611dab2c0896
 func Decode(data interface{}, options ...Options) (interface{}, error) {
 	var value interface{}
 	if err := DecodeTo(gconv.Bytes(data), &value, options...); err != nil {
@@ -76,14 +72,12 @@ func Decode(data interface{}, options ...Options) (interface{}, error) {
 
 // DecodeTo 将json格式的 `data` 解码到指定的golang变量 `v`。
 // 参数 `data` 可以是字节切片或字符串类型。
-// 参数 `v` 应该是一个指针类型。
-// md5:bc0dc16b58d95bda
+// 参数 `v` 应该是一个指针类型。 md5:bc0dc16b58d95bda
 func DecodeTo(data interface{}, v interface{}, options ...Options) (err error) {
 	decoder := json.NewDecoder(bytes.NewReader(gconv.Bytes(data)))
 	if len(options) > 0 {
 		// StrNumber 选项适用于某些特定情况，而不是所有情况。
-		// 例如，它会导致其他数据格式（如 YAML）的转换问题。
-		// md5:304760f002a3649d
+		// 例如，它会导致其他数据格式（如 YAML）的转换问题。 md5:304760f002a3649d
 		if options[0].StrNumber {
 			decoder.UseNumber()
 		}
@@ -95,8 +89,7 @@ func DecodeTo(data interface{}, v interface{}, options ...Options) (err error) {
 }
 
 // DecodeToJson 将JSON格式的`data`编码为一个Json对象。
-// 参数`data`可以是字节或字符串类型。
-// md5:f1745bf8c9553699
+// 参数`data`可以是字节或字符串类型。 md5:f1745bf8c9553699
 func DecodeToJson(data interface{}, options ...Options) (*Json, error) {
 	if v, err := Decode(gconv.Bytes(data), options...); err != nil {
 		return nil, err

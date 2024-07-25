@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gstr
 
@@ -54,8 +53,7 @@ func IsGNUVersion(version string) bool {
 // v1.0.1
 // v2.10.8
 // 10.2.0
-// 等等。
-// md5:2716e579b3f9ba4d
+// 等等。 md5:2716e579b3f9ba4d
 func CompareVersion(a, b string) int {
 	if a != "" && a[0] == 'v' {
 		a = a[1:]
@@ -109,8 +107,7 @@ func CompareVersion(a, b string) int {
 // v4.20.0+incompatible
 // 等等。
 //
-// 文档：https://go.dev/doc/modules/version-numbers
-// md5:27f202ad306995b3
+// 文档：https://go.dev/doc/modules/version-numbers md5:27f202ad306995b3
 func CompareVersionGo(a, b string) int {
 	a = Trim(a)
 	b = Trim(b)
@@ -162,8 +159,7 @@ func CompareVersionGo(a, b string) int {
 		// 特别是在Go语言中：
 		// 特别是：
 		// "v1.12.2-0.20200413154443-b17e3a6804fa" < "v1.12.2" 		// 表示 v1.12.2-0.20200413154443-b17e3a6804fa 版本早于 v1.12.2
-		// "v1.12.3-0.20200413154443-b17e3a6804fa" > "v1.12.2" 		// 表示 v1.12.3-0.20200413154443-b17e3a6804fa 版本晚于 v1.12.2
-		// md5:685fe05f97473463
+		// "v1.12.3-0.20200413154443-b17e3a6804fa" > "v1.12.2" 		// 表示 v1.12.3-0.20200413154443-b17e3a6804fa 版本晚于 v1.12.2 md5:685fe05f97473463
 		if i == 4 && v1 != v2 && (v1 == 0 || v2 == 0) {
 			if v1 > v2 {
 				return -1
@@ -181,8 +177,7 @@ func CompareVersionGo(a, b string) int {
 	}
 
 	// 特别是在 Golang 中：
-	// "v4.20.1+incompatible" 小于 "v4.20.1"
-	// md5:a292bd03375fd35c
+	// "v4.20.1+incompatible" 小于 "v4.20.1" md5:a292bd03375fd35c
 	inA, inB := Contains(rawA, "+incompatible"), Contains(rawB, "+incompatible")
 	if inA && !inB {
 		return -1

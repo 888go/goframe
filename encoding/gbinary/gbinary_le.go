@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gbinary
 
@@ -21,8 +20,7 @@ import (
 // LeEncode 使用小端字节序编码一个或多个 `values` 成字节。
 // 它通过类型断言检查 `values` 中每个值的类型，并在内部调用相应的转换函数来进行字节转换。
 //
-// 它支持常见的变量类型断言，最终使用 fmt.Sprintf 将值转换为字符串，再转换为字节。
-// md5:4210ce2214f05499
+// 它支持常见的变量类型断言，最终使用 fmt.Sprintf 将值转换为字符串，再转换为字节。 md5:4210ce2214f05499
 func LeEncode(values ...interface{}) []byte {
 	buf := new(bytes.Buffer)
 	for i := 0; i < len(values); i++ {
@@ -275,8 +273,7 @@ func LeDecodeToFloat64(b []byte) float64 {
 
 // LeFillUpSize 使用LittleEndian字节序将字节`b`填充到给定长度`l`。
 //
-// 请注意，它通过复制原始字节切片创建一个新的字节切片，以避免修改原始参数字节。
-// md5:9ac3ba6f3d5c0177
+// 请注意，它通过复制原始字节切片创建一个新的字节切片，以避免修改原始参数字节。 md5:9ac3ba6f3d5c0177
 func LeFillUpSize(b []byte, l int) []byte {
 	if len(b) >= l {
 		return b[:l]

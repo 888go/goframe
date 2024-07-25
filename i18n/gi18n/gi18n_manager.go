@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gi18n
 
@@ -63,8 +62,7 @@ var (
 
 // New 创建并返回一个新的国际化管理器。
 // 可选参数 `option` 用于指定国际化管理器的自定义选项。
-// 如果未传递该参数，它将使用默认选项。
-// md5:79f31dcd2ff8cf56
+// 如果未传递该参数，它将使用默认选项。 md5:79f31dcd2ff8cf56
 func New(options ...Options) *Manager {
 	var opts Options
 	var pathType = pathTypeNone
@@ -166,8 +164,7 @@ func (m *Manager) Tf(ctx context.Context, format string, values ...interface{}) 
 	return m.TranslateFormat(ctx, format, values...)
 }
 
-// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
-// md5:2806a81d6db86c7f
+// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。 md5:2806a81d6db86c7f
 func (m *Manager) TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return fmt.Sprintf(m.Translate(ctx, format), values...)
 }
@@ -197,8 +194,7 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 				return v
 			}
 			// 返回match[1] 将返回分隔符之间的内容
-			// 返回match[0] 将返回原始内容
-			// md5:3dd48230b02f1348
+			// 返回match[0] 将返回原始内容 md5:3dd48230b02f1348
 			return match[0]
 		})
 	intlog.Printf(ctx, `Translate for language: %s`, transLang)
@@ -206,8 +202,7 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 }
 
 // GetContent 获取并返回给定键和指定语言的配置内容。
-// 如果未找到，将返回一个空字符串。
-// md5:c64a3a803ac07e38
+// 如果未找到，将返回一个空字符串。 md5:c64a3a803ac07e38
 func (m *Manager) GetContent(ctx context.Context, key string) string {
 	m.init(ctx)
 	m.mu.RLock()
@@ -230,8 +225,7 @@ func (m *Manager) reset() {
 }
 
 // init 初始化管理器，用于延迟初始化设计。
-// 国际化(i18n)管理器仅初始化一次。
-// md5:b3e5cf7f018d1485
+// 国际化(i18n)管理器仅初始化一次。 md5:b3e5cf7f018d1485
 func (m *Manager) init(ctx context.Context) {
 	m.mu.RLock()
 	// 如果数据不为nil，表示它已经初始化。 md5:8d4d8b324fc9951a

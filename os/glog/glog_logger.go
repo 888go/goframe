@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package glog
 
@@ -74,8 +73,7 @@ func NewWithWriter(writer io.Writer) *Logger {
 }
 
 // Clone 返回一个新的记录器，它是当前记录器的`浅拷贝`。
-// 注意，克隆体的`config`属性是对当前记录器配置的浅拷贝。
-// md5:c70ded0c6903f4be
+// 注意，克隆体的`config`属性是对当前记录器配置的浅拷贝。 md5:c70ded0c6903f4be
 func (l *Logger) Clone() *Logger {
 	return &Logger{
 		config: l.config,
@@ -84,8 +82,7 @@ func (l *Logger) Clone() *Logger {
 }
 
 // getFilePath 返回日志文件的路径。
-// 日志文件的名称必须带有".log"扩展名。
-// md5:f3fb565d6de6de8e
+// 日志文件的名称必须带有".log"扩展名。 md5:f3fb565d6de6de8e
 func (l *Logger) getFilePath(now time.Time) string {
 	// 文件名中包含“{}”的内容将使用gtime进行格式化。 md5:9502dc758bde7fca
 	file, _ := gregex.ReplaceStringFunc(`{.+?}`, l.config.File, func(s string) string {
@@ -100,8 +97,7 @@ func (l *Logger) print(ctx context.Context, level int, stack string, values ...a
 	// 延迟初始化旋转特性。
 	// 它采用原子读取操作来增强性能检查。
 	// 此处使用CAP以确保性能和并发安全性。
-	// 每个日志器仅初始化一次。
-	// md5:1562dbed8f576bc2
+	// 每个日志器仅初始化一次。 md5:1562dbed8f576bc2
 	if l.config.RotateSize > 0 || l.config.RotateExpire > 0 {
 		if !l.config.rotatedHandlerInitialized.Val() && l.config.rotatedHandlerInitialized.Cas(false, true) {
 			l.rotateChecksTimely(ctx)
@@ -270,8 +266,7 @@ func (l *Logger) printToStdout(ctx context.Context, input *HandlerInput) *bytes.
 			buffer = input.getRealBuffer(!l.config.StdoutColorDisabled)
 		)
 		// 这将在Windows操作系统中丢失颜色信息。请勿使用。
-		// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil {
-		// md5:29dd90df2339a223
+		// if _, err := os.Stdout.Write(input.getRealBuffer(true).Bytes()); err != nil { md5:29dd90df2339a223
 
 		// 这将在Windows操作系统中打印颜色。 md5:c2abebac838c5747
 		if _, err = fmt.Fprint(color.Output, buffer.String()); err != nil {
@@ -379,8 +374,7 @@ func (l *Logger) format(format string, values ...interface{}) string {
 }
 
 // PrintStack 打印调用堆栈，
-// 可选参数 `skip` 用于指定从堆栈终点开始忽略的偏移量。
-// md5:ef6cd40820765783
+// 可选参数 `skip` 用于指定从堆栈终点开始忽略的偏移量。 md5:ef6cd40820765783
 func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 	if s := l.GetStack(skip...); s != "" {
 		l.Print(ctx, "Stack:\n"+s)
@@ -390,8 +384,7 @@ func (l *Logger) PrintStack(ctx context.Context, skip ...int) {
 }
 
 // GetStack 返回调用者栈的内容，
-// 可选参数 `skip` 指定从终点开始要跳过的栈偏移量。
-// md5:13592be3061e779d
+// 可选参数 `skip` 指定从终点开始要跳过的栈偏移量。 md5:13592be3061e779d
 func (l *Logger) GetStack(skip ...int) string {
 	stackSkip := l.config.StSkip
 	if len(skip) > 0 {

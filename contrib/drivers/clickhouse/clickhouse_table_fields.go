@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package clickhouse
 
@@ -20,8 +19,7 @@ const (
 	tableFieldsColumns = `name,position,default_expression,comment,type,is_in_partition_key,is_in_sorting_key,is_in_primary_key,is_in_sampling_key`
 )
 
-// TableFields 获取并返回当前模式指定表的字段信息。也可以参考 DriverMysql.TableFields。
-// md5:2ca710808274dcba
+// TableFields 获取并返回当前模式指定表的字段信息。也可以参考 DriverMysql.TableFields。 md5:2ca710808274dcba
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package glog
 
@@ -107,8 +106,7 @@ func (l *Logger) SetConfigWithMap(m map[string]interface{}) error {
 		return gerror.NewCode(gcode.CodeInvalidParameter, "configuration cannot be empty")
 	}
 	// 现在m是一个浅拷贝 of m。
-	// 有点巧妙，不是吗？
-	// md5:644970336da24c9d
+	// 有点巧妙，不是吗？ md5:644970336da24c9d
 	m = gutil.MapCopy(m)
 	// 将字符串配置更改为级别的整数值。 md5:e990c1dc64df6943
 	levelKey, levelValue := gutil.MapPossibleItemByKey(m, "Level")
@@ -133,8 +131,7 @@ func (l *Logger) SetConfigWithMap(m map[string]interface{}) error {
 	return l.SetConfig(l.config)
 }
 
-// SetDebug 用于启用/禁用日志记录器的调试级别。默认情况下，调试级别是启用的。
-// md5:72f0f67e25416b8e
+// SetDebug 用于启用/禁用日志记录器的调试级别。默认情况下，调试级别是启用的。 md5:72f0f67e25416b8e
 func (l *Logger) SetDebug(debug bool) {
 	if debug {
 		l.config.Level = l.config.Level | LEVEL_DEBU
@@ -182,16 +179,14 @@ func (l *Logger) SetStackFilter(filter string) {
 }
 
 // SetCtxKeys 为日志器设置上下文键。这些键用于从上下文中检索值并将其打印到日志内容中。
-// 
-// 注意，多次调用此函数会覆盖之前设置的上下文键。
-// md5:f7244f6c7fa79db2
+//
+// 注意，多次调用此函数会覆盖之前设置的上下文键。 md5:f7244f6c7fa79db2
 func (l *Logger) SetCtxKeys(keys ...interface{}) {
 	l.config.CtxKeys = keys
 }
 
 // AppendCtxKeys 向记录器添加额外的键。
-// 如果该键已先前被添加到记录器中，则此操作会忽略该键。
-// md5:f989e696d285ffc1
+// 如果该键已先前被添加到记录器中，则此操作会忽略该键。 md5:f989e696d285ffc1
 func (l *Logger) AppendCtxKeys(keys ...interface{}) {
 	var isExist bool
 	for _, key := range keys {
@@ -216,15 +211,13 @@ func (l *Logger) GetCtxKeys() []interface{} {
 // SetWriter 设置自定义的日志记录器`writer`。
 // `writer`对象应实现io.Writer接口。
 // 开发者可以使用自定义的`writer`将日志输出重定向到其他服务，
-// 例如：kafka，mysql，mongodb等。
-// md5:8f650a69c1fe2b4b
+// 例如：kafka，mysql，mongodb等。 md5:8f650a69c1fe2b4b
 func (l *Logger) SetWriter(writer io.Writer) {
 	l.config.Writer = writer
 }
 
 // GetWriter 返回自定义的 writer 对象，该对象实现了 io.Writer 接口。
-// 如果之前未设置 writer，则返回 nil。
-// md5:cce0a2679c717d75
+// 如果之前未设置 writer，则返回 nil。 md5:cce0a2679c717d75
 func (l *Logger) GetWriter() io.Writer {
 	return l.config.Writer
 }
@@ -244,16 +237,14 @@ func (l *Logger) SetPath(path string) error {
 }
 
 // GetPath 返回用于文件日志记录的目录路径。
-// 如果未设置目录路径，它将返回空字符串。
-// md5:f69da996992ffd9e
+// 如果未设置目录路径，它将返回空字符串。 md5:f69da996992ffd9e
 func (l *Logger) GetPath() string {
 	return l.config.Path
 }
 
 // SetFile 设置文件日志的文件名模式为 `pattern`。
 // 在 `pattern` 中可以使用日期时间模式，例如：access-YYYYMMDD.log。
-// 默认的文件名模式为：Y-m-d.log，例如：2018-01-01.log
-// md5:03b3a973ce783b24
+// 默认的文件名模式为：Y-m-d.log，例如：2018-01-01.log md5:03b3a973ce783b24
 func (l *Logger) SetFile(pattern string) {
 	l.config.File = pattern
 }
@@ -279,8 +270,7 @@ func (l *Logger) SetLevelPrint(enabled bool) {
 }
 
 // SetPrefix 设置日志内容的前缀字符串。
-// 前缀是日志头的一部分，如果关闭了头部输出，就不会显示前缀。
-// md5:31d8e3c101c1eea6
+// 前缀是日志头的一部分，如果关闭了头部输出，就不会显示前缀。 md5:31d8e3c101c1eea6
 func (l *Logger) SetPrefix(prefix string) {
 	l.config.Prefix = prefix
 }

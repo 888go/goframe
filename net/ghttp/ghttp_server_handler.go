@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -27,8 +26,7 @@ import (
 // ServeHTTP 是 http 请求的默认处理器。
 // 它不应该为处理请求创建新的goroutine，因为http.Server已经为此创建了一个新的goroutine。
 //
-// 这个函数还实现了http.Handler接口。
-// md5:82dd5f4475c291db
+// 这个函数还实现了http.Handler接口。 md5:82dd5f4475c291db
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Max body size limit.
 	if s.config.ClientMaxBodySize > 0 {
@@ -50,11 +48,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// ============================================================
 	// 优先级：
 	// 静态文件 > 动态服务 > 静态目录
-	// ============================================================
-	// md5:9514a47b66a76f01
+	// ============================================================ md5:9514a47b66a76f01
 
-	// 搜索具有最高优先级的静态文件，同时也处理索引文件功能。
-	// md5:f618b1fa06ea7acb
+	// 搜索具有最高优先级的静态文件，同时也处理索引文件功能。 md5:f618b1fa06ea7acb
 	if s.config.FileServerEnabled {
 		request.StaticFile = s.searchStaticFile(r.URL.Path)
 		if request.StaticFile != nil {
@@ -150,12 +146,10 @@ func (s *Server) handleResponse(request *Request, sessionId string) {
 		}
 	}
 
-	// 如果在这个请求中生成了新的会话ID，并且启用了SessionCookieOutput，自动将会话ID设置为cookie。
-	// md5:2c6864797c5d809f
+	// 如果在这个请求中生成了新的会话ID，并且启用了SessionCookieOutput，自动将会话ID设置为cookie。 md5:2c6864797c5d809f
 	if s.config.SessionCookieOutput && request.Session.IsDirty() {
 		// 初始化会话前，可以通过 r.Session.SetId("") 来更改
-		// 也可以通过 r.Cookie.SetSessionId("") 来更改
-		// md5:7175563db73b9a50
+		// 也可以通过 r.Cookie.SetSessionId("") 来更改 md5:7175563db73b9a50
 		sidFromSession, sidFromRequest := request.Session.MustId(), request.GetSessionId()
 		if sidFromSession != sidFromRequest {
 			if sidFromSession != sessionId {
@@ -198,14 +192,12 @@ func (s *Server) handleAfterRequestDone(request *Request) {
 	}
 	// access log handling.
 	s.handleAccessLog(request)
-	// 关闭会话，如果会话存在，这将自动更新其TTL（超时时间）。
-	// md5:a86a4db886c94158
+	// 关闭会话，如果会话存在，这将自动更新其TTL（超时时间）。 md5:a86a4db886c94158
 	if err := request.Session.Close(); err != nil {
 		intlog.Errorf(request.Context(), `%+v`, err)
 	}
 
-	// 关闭请求和响应体以及时释放文件描述符。
-	// md5:aea97d230b2451b0
+	// 关闭请求和响应体以及时释放文件描述符。 md5:aea97d230b2451b0
 	err := request.Request.Body.Close()
 	if err != nil {
 		intlog.Errorf(request.Context(), `%+v`, err)
@@ -222,8 +214,7 @@ func (s *Server) handleAfterRequestDone(request *Request) {
 }
 
 // searchStaticFile 根据给定的URI搜索文件。
-// 它返回一个file结构体，其中包含文件信息。
-// md5:e5b76cc2b6c98a07
+// 它返回一个file结构体，其中包含文件信息。 md5:e5b76cc2b6c98a07
 func (s *Server) searchStaticFile(uri string) *staticFile {
 	var (
 		file *gres.File
@@ -286,8 +277,7 @@ func (s *Server) searchStaticFile(uri string) *staticFile {
 }
 
 // serveFile 为客户端服务静态文件。
-// 可选参数 `allowIndex` 指定如果 `f` 是一个目录时是否允许目录列表。
-// md5:1741c137e9fcf4cd
+// 可选参数 `allowIndex` 指定如果 `f` 是一个目录时是否允许目录列表。 md5:1741c137e9fcf4cd
 func (s *Server) serveFile(r *Request, f *staticFile, allowIndex ...bool) {
 	// 从内存中使用资源文件。 md5:eb37e3d39231ad74
 	if f.File != nil {
@@ -314,8 +304,7 @@ func (s *Server) serveFile(r *Request, f *staticFile, allowIndex ...bool) {
 	}()
 
 	// 在服务文件之前清空响应缓冲区。
-	// 它忽略所有自定义的缓冲内容，转而使用文件内容。
-	// md5:b7ae0cf8ef13c29c
+	// 它忽略所有自定义的缓冲内容，转而使用文件内容。 md5:b7ae0cf8ef13c29c
 	r.Response.ClearBuffer()
 
 	info, _ := file.Stat()

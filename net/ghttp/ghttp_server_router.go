@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -31,8 +30,7 @@ var (
 	handlerIdGenerator = gtype.NewInt()
 )
 
-// routerMapKey 为给定参数创建并返回一个唯一的路由键。这个键用于 `Server.routerMap` 属性，主要用于检查重复的路由注册。
-// md5:0a5f0d744a55d4ed
+// routerMapKey 为给定参数创建并返回一个唯一的路由键。这个键用于 `Server.routerMap` 属性，主要用于检查重复的路由注册。 md5:0a5f0d744a55d4ed
 func (s *Server) routerMapKey(hook HookName, method, path, domain string) string {
 	return string(hook) + "%" + s.serveHandlerKey(method, path, domain)
 }
@@ -72,8 +70,7 @@ type setHandlerInput struct {
 // setHandler 根据给定的处理器和模式创建路由项，并将处理器注册到路由树中。
 // 路由树可以看作是一个多层哈希表，请参考下面代码中的注释。
 // 此函数在服务器启动时被调用，此时对性能要求不高。真正重要的是设计良好的
-// 路由存储结构，以便在处理请求时能够高效地进行路由查找。
-// md5:325f9f3a1c077ca7
+// 路由存储结构，以便在处理请求时能够高效地进行路由查找。 md5:325f9f3a1c077ca7
 func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 	var (
 		prefix  = in.Prefix
@@ -95,8 +92,7 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 	// ====================================================================================
 	// 根据请求结构体中的元信息更改注册的路由。
 	// 它支持使用字符 ',' 连接的多个方法。
-	// ====================================================================================
-	// md5:1ec1db24aded2c53
+	// ==================================================================================== md5:1ec1db24aded2c53
 	if handler.Info.Type != nil && handler.Info.Type.NumIn() == 2 {
 		var objectReq = reflect.New(handler.Info.Type.In(1))
 		if v := gmeta.Get(objectReq, gtag.Path); !v.IsEmpty() {
@@ -191,8 +187,7 @@ func (s *Server) doSetHandler(
 		s.serveTree[domain] = make(map[string]interface{})
 	}
 	// List数组，对路由器注册非常重要。
-	// 在从根到叶的搜索过程中，可能会有多个列表添加到这个数组中。
-	// md5:7ddaff62bcec3109
+	// 在从根到叶的搜索过程中，可能会有多个列表添加到这个数组中。 md5:7ddaff62bcec3109
 	var (
 		array []string
 		lists = make([]*glist.List, 0)
@@ -207,8 +202,7 @@ func (s *Server) doSetHandler(
 	// 2. 键 "*fuzz" 指示这是一个模糊节点，它没有确定的名字。
 	// 3. 键 "*list" 是节点的列表项，大多数节点都有这个项，特别是模糊节点。注意：模糊节点必须有 "*list" 项，叶子节点也有 "*list" 项。如果节点既不是模糊节点也不是叶子节点，则不包含 "*list" 项。
 	// 4. "*list" 项是一个按优先级从高到低排序的已注册路由项的列表。如果是模糊节点，该模糊节点的所有子路由项也会添加到其 "*list" 项中。
-	// 5. 路由列表中可能存在重复的路由项。从根到叶的列表优先级是从低到高。
-	// md5:3b9d86c224bf6153
+	// 5. 路由列表中可能存在重复的路由项。从根到叶的列表优先级是从低到高。 md5:3b9d86c224bf6153
 	var p = s.serveTree[domain]
 	for i, part := range array {
 		//index. md5:44ed3114aa11886a
@@ -219,8 +213,7 @@ func (s *Server) doSetHandler(
 		if gregex.IsMatchString(`^[:\*]|\{[\w\.\-]+\}|\*`, part) {
 			part = "*fuzz"
 			// 如果它是一个模糊节点，它会在哈希映射中创建一个"*list"项，这实际上是一个列表。
-			// 该模糊节点下的所有子路由器项也将被添加到它的"*list"项中。
-			// md5:31e4feee2e295113
+			// 该模糊节点下的所有子路由器项也将被添加到它的"*list"项中。 md5:31e4feee2e295113
 			if v, ok := p.(map[string]interface{})["*list"]; !ok {
 				newListForFuzzy := glist.New()
 				p.(map[string]interface{})["*list"] = newListForFuzzy
@@ -237,8 +230,7 @@ func (s *Server) doSetHandler(
 		p = p.(map[string]interface{})[part]
 		// 叶节点是一个哈希映射，必须包含一个名为"*list"的项，其中包含路由项。
 		// 叶节点可以通过在其映射中添加更多的键值对来进一步扩展。
-		// 请注意，需要进行 `v != "*fuzz"` 的比较，因为列表可能在先前的模糊检查中被添加。
-		// md5:0a1026e07b9b2544
+		// 请注意，需要进行 `v != "*fuzz"` 的比较，因为列表可能在先前的模糊检查中被添加。 md5:0a1026e07b9b2544
 		if i == len(array)-1 && part != "*fuzz" {
 			if v, ok := p.(map[string]interface{})["*list"]; !ok {
 				leafList := glist.New()
@@ -250,15 +242,13 @@ func (s *Server) doSetHandler(
 		}
 	}
 	// 它遍历`lists`的列表数组，比较优先级，并将新的路由项插入到每个列表的适当位置。
-	// 列表的优先级从高到低排序。
-	// md5:f7e3738ec2e01b79
+	// 列表的优先级从高到低排序。 md5:f7e3738ec2e01b79
 	var item *HandlerItem
 	for _, l := range lists {
 		pushed := false
 		for e := l.Front(); e != nil; e = e.Next() {
 			item = e.Value.(*HandlerItem)
-			// 检查是否应在当前项之前插入路由项，即它具有更高的优先级。
-			// md5:0e6fc2994f00bc96
+			// 检查是否应在当前项之前插入路由项，即它具有更高的优先级。 md5:0e6fc2994f00bc96
 			if s.compareRouterPriority(handler, item) {
 				l.InsertBefore(e, handler)
 				pushed = true
@@ -293,8 +283,7 @@ func (s *Server) isValidMethod(method string) bool {
 // 比较规则：
 // 1. 中间件具有最高的优先级。
 // 2. URI：深度越深，优先级越高（简单地检查 URI 中字符 '/' 的数量）。
-// 3. 路由类型：{xxx} > :xxx > *xxx。
-// md5:d3f2e1aac7e71a05
+// 3. 路由类型：{xxx} > :xxx > *xxx。 md5:d3f2e1aac7e71a05
 func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerItem) bool {
 	// 如果它们都是中间件类型，则按照注册的顺序决定优先级。 md5:3a53e273b3f3566f
 	if newItem.Type == HandlerTypeMiddleware && oldItem.Type == HandlerTypeMiddleware {
@@ -313,13 +302,11 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 	}
 
 	// 比较它们的URI长度，
-	// 但URI中的模糊部分和命名部分不计入结果中。
-	// md5:55bd5729f8c0352a
+	// 但URI中的模糊部分和命名部分不计入结果中。 md5:55bd5729f8c0352a
 
 	// 示例：
 	// /admin-goods-{分页}  > /admin-{分页}
-	// /{哈希}.{类型}      > /{哈希}
-	// md5:482c38c410b3c591
+	// /{哈希}.{类型}      > /{哈希} md5:482c38c410b3c591
 	var uriNew, uriOld string
 	uriNew, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", newItem.Router.Uri)
 	uriOld, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", oldItem.Router.Uri)
@@ -337,15 +324,14 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 	// 路由类型检查：{xxx} > :xxx > *xxx。
 	// 例子：
 	// /name/act > /{name}/:act
-	// 
+	//
 	// 这段注释的意思是，它在描述Go语言中的路由类型检查规则。`{xxx}`、`:xxx`和`*xxx`是路由匹配模式：
-	// 
+	//
 	// - `{xxx}` 表示路径中可以包含任意字符的占位符，但需要与实际请求中的某个参数匹配。
 	// - `:xxx` 表示路径中的命名参数，这些参数将在路由处理函数中作为变量传递。
 	// - `*xxx` 表示零个或多个重复的前面的模式，通常用于处理路径中的可选组件。
-	// 
-	// 举例来说，路由`/name/act` 使用了`{name}`和`:act`，表示请求的URL可以形式为`/具体名称/操作名`，`{name}`会被替换为实际请求中的名称，`:act`则是一个动态的操作标识。
-	// md5:5fc64b4a4a78b2aa
+	//
+	// 举例来说，路由`/name/act` 使用了`{name}`和`:act`，表示请求的URL可以形式为`/具体名称/操作名`，`{name}`会被替换为实际请求中的名称，`:act`则是一个动态的操作标识。 md5:5fc64b4a4a78b2aa
 	var (
 		fuzzyCountFieldNew int
 		fuzzyCountFieldOld int
@@ -402,8 +388,7 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return false
 	}
 
-	// 然后，它会比较它们的HTTP方法的准确性，越准确优先级越高。
-	// md5:19e263d51107b5cb
+	// 然后，它会比较它们的HTTP方法的准确性，越准确优先级越高。 md5:19e263d51107b5cb
 	if newItem.Router.Method != defaultMethod {
 		return true
 	}
@@ -412,15 +397,13 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 	}
 
 	// 如果它们具有不同的路由类型，
-	// 那么新的路由项比其他项具有更高的优先级。
-	// md5:63dfba3b91db8cc4
+	// 那么新的路由项比其他项具有更高的优先级。 md5:63dfba3b91db8cc4
 	if newItem.Type == HandlerTypeHandler || newItem.Type == HandlerTypeObject {
 		return true
 	}
 
 	// 其他情况，如HOOK项目，
-	// 旧的路由项具有更高的优先级。
-	// md5:53b3ce09282d12db
+	// 旧的路由项具有更高的优先级。 md5:53b3ce09282d12db
 	return false
 }
 

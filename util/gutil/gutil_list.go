@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gutil
 
@@ -15,14 +14,13 @@ import (
 
 // ListItemValues 从所有元素为映射或结构体的切片（list）中，根据给定的键（key）获取并返回对应的值。
 // 注意，参数 list 应该是包含 map 或结构体元素的切片，否则将返回一个空切片。
-// 
+//
 // 参数 list 支持的类型包括：
 // []map[string]interface{}
 // []map[string]子映射
 // []struct
 // []struct:子结构体
-// 如果提供了可选参数 `subKey`，子映射/子结构体才有意义。
-// md5:9523dac525318de2
+// 如果提供了可选参数 `subKey`，子映射/子结构体才有意义。 md5:9523dac525318de2
 func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (values []interface{}) {
 	var reflectValue reflect.Value
 	if v, ok := list.(reflect.Value); ok {
@@ -62,8 +60,7 @@ func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (v
 }
 
 // ItemValue 获取并返回由`key`指定的名称/属性的值。
-// 参数`item`可以是地图(map)、指针地图(*map)、结构体(struct)或指针结构体(*struct)类型。
-// md5:ca5bcda09a11157b
+// 参数`item`可以是地图(map)、指针地图(*map)、结构体(struct)或指针结构体(*struct)类型。 md5:ca5bcda09a11157b
 func ItemValue(item interface{}, key interface{}) (value interface{}, found bool) {
 	var reflectValue reflect.Value
 	if v, ok := item.(reflect.Value); ok {
@@ -114,8 +111,7 @@ func ItemValue(item interface{}, key interface{}) (value interface{}, found bool
 }
 
 // ListItemValuesUnique 获取并返回具有键为`key`的所有结构体/映射的独特元素。
-// 请注意，参数`list`应为包含映射或结构体元素的切片类型，否则将返回一个空切片。
-// md5:0f361d3ff901d0a1
+// 请注意，参数`list`应为包含映射或结构体元素的切片类型，否则将返回一个空切片。 md5:0f361d3ff901d0a1
 func ListItemValuesUnique(list interface{}, key string, subKey ...interface{}) []interface{} {
 	values := ListItemValues(list, key, subKey...)
 	if len(values) > 0 {
@@ -140,8 +136,7 @@ func ListItemValuesUnique(list interface{}, key string, subKey ...interface{}) [
 	return values
 }
 
-// ListToMapByKey 将 `list` 转换为一个键为 `key` 的 map[string]interface{}。注意，项的值可能为切片类型。
-// md5:6509753e629d5dc6
+// ListToMapByKey 将 `list` 转换为一个键为 `key` 的 map[string]interface{}。注意，项的值可能为切片类型。 md5:6509753e629d5dc6
 func ListToMapByKey(list []map[string]interface{}, key string) map[string]interface{} {
 	return utils.ListToMapByKey(list, key)
 }

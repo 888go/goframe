@@ -13,8 +13,7 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
 # <翻译结束>
 
 
@@ -33,8 +32,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetHostsByName 根据给定的互联网主机名返回一个IPv4地址列表。
-// md5:57770571b1c3af32
+// GetHostsByName 根据给定的互联网主机名返回一个IPv4地址列表。 md5:57770571b1c3af32
 # <翻译结束>
 
 

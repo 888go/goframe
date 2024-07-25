@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
@@ -13,8 +12,7 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// SqlResult是SQL操作的执行结果。它还支持行影响的批量操作结果。
-// md5:c89c5ab24627c936
+// SqlResult是SQL操作的执行结果。它还支持行影响的批量操作结果。 md5:c89c5ab24627c936
 type SqlResult struct {
 	Result   sql.Result
 	Affected int64
@@ -41,8 +39,7 @@ func (r *SqlResult) MustGetInsertId() int64 {
 }
 
 // RowsAffected 返回更新、插入或删除操作影响的行数。并非所有数据库或数据库驱动程序都支持此功能。
-// 参见 sql.Result。
-// md5:f41c8ccbf7344301
+// 参见 sql.Result。 md5:f41c8ccbf7344301
 func (r *SqlResult) RowsAffected() (int64, error) {
 	if r.Affected > 0 {
 		return r.Affected, nil
@@ -54,8 +51,7 @@ func (r *SqlResult) RowsAffected() (int64, error) {
 }
 
 // LastInsertId返回数据库对命令的响应生成的整数。通常，这将是在插入新行时来自“自动递增”列的。并非所有数据库都支持此功能，且此类语句的语法各不相同。
-// 参见sql.Result。
-// md5:7236c1ac3f4fc094
+// 参见sql.Result。 md5:7236c1ac3f4fc094
 func (r *SqlResult) LastInsertId() (int64, error) {
 	if r.Result == nil {
 		return 0, nil

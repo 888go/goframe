@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -69,8 +68,7 @@
 
 # <翻译开始>
 // MapDeep 递归地将 `v` 转换为 map[string]interface{} 并返回。
-// 提示：已使用 Map 函数代替。
-// md5:1a45b51f1c84bb44
+// 提示：已使用 Map 函数代替。 md5:1a45b51f1c84bb44
 # <翻译结束>
 
 
@@ -81,8 +79,7 @@
 
 # <翻译开始>
 // MapStrStrDeep 递归地将 `v` 转换并返回为 map[string]string 类型。
-// 已废弃：请使用 MapStrStr 函数代替。
-// md5:9f5885f5e2b8a6e4
+// 已废弃：请使用 MapStrStr 函数代替。 md5:9f5885f5e2b8a6e4
 # <翻译结束>
 
 
@@ -93,8 +90,7 @@
 
 # <翻译开始>
 // MapStrVarDeep 递归地将`v`转换并返回为map[string]*Var。
-// 注意：请使用MapStrVar代替。
-// md5:b37116aff42f6b15
+// 注意：请使用MapStrVar代替。 md5:b37116aff42f6b15
 # <翻译结束>
 
 
@@ -104,8 +100,7 @@
 <原文结束>
 
 # <翻译开始>
-// Maps 将 `v` 转换为 map[string]string 类型并返回。参考 gconv.Maps。
-// md5:0240a1ad5bd80743
+// Maps 将 `v` 转换为 map[string]string 类型并返回。参考 gconv.Maps。 md5:0240a1ad5bd80743
 # <翻译结束>
 
 
@@ -116,8 +111,7 @@
 
 # <翻译开始>
 // MapsDeep 将 `value` 递归地转换为 []map[string]interface{} 类型。
-// 警告：已使用 Maps 替代。
-// md5:10c733fd844f279f
+// 警告：已使用 Maps 替代。 md5:10c733fd844f279f
 # <翻译结束>
 
 
@@ -128,8 +122,7 @@
 
 # <翻译开始>
 // MapToMap 将任意映射类型变量 `params` 转换为另一个映射类型变量 `pointer`。
-// 参见 gconv.MapToMap。
-// md5:bc3ef5f9ee0920e7
+// 参见 gconv.MapToMap。 md5:bc3ef5f9ee0920e7
 # <翻译结束>
 
 
@@ -140,8 +133,7 @@
 
 # <翻译开始>
 // MapToMaps 将任何类型的映射变量 `params` 转换为另一个映射类型变量 `pointer`。
-// 参考 gconv.MapToMaps。
-// md5:1bd0da08c8937a10
+// 参考 gconv.MapToMaps。 md5:1bd0da08c8937a10
 # <翻译结束>
 
 
@@ -153,7 +145,6 @@
 
 # <翻译开始>
 // MapToMapsDeep 将任何映射类型变量 `params` 递归地转换为另一个映射类型变量 `pointer`。
-// 参考 gconv.MapToMapsDeep。
-// md5:77546446f168a41a
+// 参考 gconv.MapToMapsDeep。 md5:77546446f168a41a
 # <翻译结束>
 

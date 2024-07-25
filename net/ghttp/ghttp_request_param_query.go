@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -24,9 +23,8 @@ func (r *Request) SetQuery(key string, value interface{}) {
 }
 
 // GetQuery 从查询字符串和请求体中检索并返回给定名称 `key` 的参数。如果 `key` 不在查询中并且提供了 `def`，则返回 `def`；否则返回 nil。
-// 
-// 注意，如果有多个同名的参数，将按照优先级顺序进行检索和覆盖：查询参数 > 身体参数。
-// md5:3948868b7e507e93
+//
+// 注意，如果有多个同名的参数，将按照优先级顺序进行检索和覆盖：查询参数 > 身体参数。 md5:3948868b7e507e93
 func (r *Request) GetQuery(key string, def ...interface{}) *gvar.Var {
 	r.parseQuery()
 	if len(r.queryMap) > 0 {
@@ -49,9 +47,8 @@ func (r *Request) GetQuery(key string, def ...interface{}) *gvar.Var {
 }
 
 // GetQueryMap 从客户端通过HTTP GET方法传递的所有参数中检索并返回它们作为映射。参数 `kvMap` 指定了从客户端参数中获取的键，如果客户端未提供，则关联的值为默认值。
-// 
-// 注意，如果有多个具有相同名称的参数，将按照优先级顺序检索和覆盖：查询参数 > 身体（请求体）参数。
-// md5:72471cd6457be5f2
+//
+// 注意，如果有多个具有相同名称的参数，将按照优先级顺序检索和覆盖：查询参数 > 身体（请求体）参数。 md5:72471cd6457be5f2
 func (r *Request) GetQueryMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
 	if r.Method == http.MethodGet {
@@ -97,8 +94,7 @@ func (r *Request) GetQueryMap(kvMap ...map[string]interface{}) map[string]interf
 //
 // map[string]string。参数 `kvMap` 指定了从客户端参数中提取的键
 //
-// ，关联的值是如果客户端没有传递时的默认值。
-// md5:b1d5d46b8cc53f3a
+// ，关联的值是如果客户端没有传递时的默认值。 md5:b1d5d46b8cc53f3a
 func (r *Request) GetQueryMapStrStr(kvMap ...map[string]interface{}) map[string]string {
 	queryMap := r.GetQueryMap(kvMap...)
 	if len(queryMap) > 0 {
@@ -111,8 +107,7 @@ func (r *Request) GetQueryMapStrStr(kvMap ...map[string]interface{}) map[string]
 	return nil
 }
 
-// GetQueryMapStrVar 从使用 HTTP GET 方法传递的客户端参数中获取并返回所有参数，形式为 map[string]*gvar.Var。参数 `kvMap` 指定了要从客户端参数中获取的键，对应的值是如果客户端未传递时的默认值。
-// md5:3db7496b4b165e99
+// GetQueryMapStrVar 从使用 HTTP GET 方法传递的客户端参数中获取并返回所有参数，形式为 map[string]*gvar.Var。参数 `kvMap` 指定了要从客户端参数中获取的键，对应的值是如果客户端未传递时的默认值。 md5:3db7496b4b165e99
 func (r *Request) GetQueryMapStrVar(kvMap ...map[string]interface{}) map[string]*gvar.Var {
 	queryMap := r.GetQueryMap(kvMap...)
 	if len(queryMap) > 0 {
@@ -125,8 +120,7 @@ func (r *Request) GetQueryMapStrVar(kvMap ...map[string]interface{}) map[string]
 	return nil
 }
 
-// GetQueryStruct 从客户端通过HTTP GET方法获取所有传递的参数，并将它们转换为给定的结构体对象。请注意，参数`pointer`是指向结构体对象的指针。可选参数`mapping`用于指定键到属性的映射。
-// md5:7061a83f935b7317
+// GetQueryStruct 从客户端通过HTTP GET方法获取所有传递的参数，并将它们转换为给定的结构体对象。请注意，参数`pointer`是指向结构体对象的指针。可选参数`mapping`用于指定键到属性的映射。 md5:7061a83f935b7317
 func (r *Request) GetQueryStruct(pointer interface{}, mapping ...map[string]string) error {
 	_, err := r.doGetQueryStruct(pointer, mapping...)
 	return err

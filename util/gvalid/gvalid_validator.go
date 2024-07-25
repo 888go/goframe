@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -111,8 +110,7 @@ func (v *Validator) Bail() *Validator {
 }
 
 // Foreach 通知下一个验证器将当前值作为数组对待，并验证它的每个元素。
-// 注意，此装饰规则仅对下一个验证规则生效一次，特别适用于单值验证。
-// md5:59e49ab195827b14
+// 注意，此装饰规则仅对下一个验证规则生效一次，特别适用于单值验证。 md5:59e49ab195827b14
 func (v *Validator) Foreach() *Validator {
 	newValidator := v.Clone()
 	newValidator.foreach = true
@@ -138,8 +136,7 @@ func (v *Validator) Data(data interface{}) *Validator {
 
 // Assoc是一个链式操作函数，为当前操作设置关联验证数据。
 // 可选参数`assoc`通常类型为map，用于指定并联合验证时使用的参数映射。
-// 使用带有`assoc`调用此函数也会将`useAssocInsteadOfObjectAttributes`设置为true。
-// md5:45823829185f6ad6
+// 使用带有`assoc`调用此函数也会将`useAssocInsteadOfObjectAttributes`设置为true。 md5:45823829185f6ad6
 func (v *Validator) Assoc(assoc interface{}) *Validator {
 	if assoc == nil {
 		return v
@@ -161,8 +158,7 @@ func (v *Validator) Rules(rules interface{}) *Validator {
 }
 
 // Messages 是一个链式操作函数，用于为当前操作设置自定义错误消息。
-// 参数 `messages` 可以为 string/[]string/map[string]string 类型。如果 `rules` 类型为 []string，它支持在错误结果中按顺序显示消息。
-// md5:442bfbf7d1878c37
+// 参数 `messages` 可以为 string/[]string/map[string]string 类型。如果 `rules` 类型为 []string，它支持在错误结果中按顺序显示消息。 md5:442bfbf7d1878c37
 func (v *Validator) Messages(messages interface{}) *Validator {
 	if messages == nil {
 		return v

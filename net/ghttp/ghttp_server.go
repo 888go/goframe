@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -56,8 +55,7 @@ func serverProcessInit() {
 	if !serverProcessInitialized.Cas(false, true) {
 		return
 	}
-	// 这意味着它是一个重启服务器。在开始监听之前，它应该杀死其父进程，以防止两个进程占用同一个端口进行监听。
-	// md5:534f767682eae0c3
+	// 这意味着它是一个重启服务器。在开始监听之前，它应该杀死其父进程，以防止两个进程占用同一个端口进行监听。 md5:534f767682eae0c3
 	if !genv.Get(adminActionRestartEnvKey).IsEmpty() {
 		if p, err := os.FindProcess(gproc.PPid()); err == nil {
 			if err = p.Kill(); err != nil {
@@ -72,8 +70,7 @@ func serverProcessInit() {
 	}
 
 	// 处理消息的处理器。
-	// 仅当启用了优雅特性时，它才可用。
-	// md5:b41176de77cc4833
+	// 仅当启用了优雅特性时，它才可用。 md5:b41176de77cc4833
 	if gracefulEnabled {
 		intlog.Printf(ctx, "pid[%d]: graceful reload feature is enabled", gproc.Pid())
 		go handleProcessMessage()
@@ -83,14 +80,12 @@ func serverProcessInit() {
 
 	// 这是一种在源代码开发环境中更好地初始化主包路径的不优雅的方式。
 	// 它只应在主 goroutine 中使用。
-	// 在异步 goroutines 中无法获取主包路径。
-	// md5:e0733b122721224e
+	// 在异步 goroutines 中无法获取主包路径。 md5:e0733b122721224e
 	gfile.MainPkgPath()
 }
 
 // GetServer 使用给定名称和默认配置创建并返回一个服务器实例。
-// 注意，参数 `name` 应该在不同的服务器中是唯一的。如果给定的 `name` 已经存在于服务器映射中，它将返回现有的服务器实例。
-// md5:ad04664fa9750188
+// 注意，参数 `name` 应该在不同的服务器中是唯一的。如果给定的 `name` 已经存在于服务器映射中，它将返回现有的服务器实例。 md5:ad04664fa9750188
 func GetServer(name ...interface{}) *Server {
 	serverName := DefaultServerName
 	if len(name) > 0 && name[0] != "" {
@@ -122,8 +117,7 @@ func GetServer(name ...interface{}) *Server {
 }
 
 // Start 开始在配置的端口上监听。
-// 此函数不会阻塞进程，你可以使用 Wait 函数来阻塞进程。
-// md5:05c1c66553fa4a61
+// 此函数不会阻塞进程，你可以使用 Wait 函数来阻塞进程。 md5:05c1c66553fa4a61
 func (s *Server) Start() error {
 	var ctx = gctx.GetInitCtx()
 
@@ -194,8 +188,7 @@ func (s *Server) Start() error {
 	// 检查内部注册的路由再次应用于组路由。 md5:7949c3fe59e30c8c
 	s.handlePreBindItems(ctx)
 
-	// 如果没有注册路由且没有启用静态服务，它将返回服务器使用无效的错误。
-	// md5:d916b25cf4c384d4
+	// 如果没有注册路由且没有启用静态服务，它将返回服务器使用无效的错误。 md5:d916b25cf4c384d4
 	if len(s.routesMap) == 0 && !s.config.FileServerEnabled {
 		return gerror.NewCode(
 			gcode.CodeInvalidOperation,
@@ -204,8 +197,7 @@ func (s *Server) Start() error {
 	}
 	// ================================================================================================
 	// 启动HTTP服务器。
-	// ================================================================================================
-	// md5:9c551ab8996cea5a
+	// ================================================================================================ md5:9c551ab8996cea5a
 	reloaded := false
 	fdMapStr := genv.Get(adminActionReloadEnvKey).String()
 	if len(fdMapStr) > 0 {
@@ -402,8 +394,7 @@ func (s *Server) GetRoutes() []RouterItem {
 				}
 			}
 			// 如果域名在dump映射中不存在，它会创建该映射。
-			// 映射的值是一个自定义排序的数组。
-			// md5:b6191883863f4f52
+			// 映射的值是一个自定义排序的数组。 md5:b6191883863f4f52
 			if _, ok := m[item.Domain]; !ok {
 				// Sort in ASC order.
 				m[item.Domain] = garray.NewSortedArray(func(v1, v2 interface{}) int {
@@ -440,8 +431,7 @@ func (s *Server) GetRoutes() []RouterItem {
 }
 
 // Run 以阻塞方式启动服务器监听。
-// 它通常用于单服务器场景。
-// md5:4035b4359934ad62
+// 它通常用于单服务器场景。 md5:4035b4359934ad62
 func (s *Server) Run() {
 	var ctx = context.TODO()
 
@@ -467,8 +457,7 @@ func (s *Server) Run() {
 	s.Logger().Infof(ctx, "pid[%d]: all servers shutdown", gproc.Pid())
 }
 
-// Wait 会阻塞等待所有服务器完成。它通常用于多服务器情况。
-// md5:69d8345a5fb12619
+// Wait 会阻塞等待所有服务器完成。它通常用于多服务器情况。 md5:69d8345a5fb12619
 func Wait() {
 	var ctx = context.TODO()
 
@@ -527,8 +516,7 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 			)
 			if len(addrAndFd) > 1 {
 				itemFunc = addrAndFd[0]
-				// Windows操作系统不支持从父进程传递套接字文件描述符。
-				// md5:ab73e9587a9e540d
+				// Windows操作系统不支持从父进程传递套接字文件描述符。 md5:ab73e9587a9e540d
 				if runtime.GOOS != "windows" {
 					fd = gconv.Int(addrAndFd[1])
 				}
@@ -562,8 +550,7 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 		)
 		if len(addrAndFd) > 1 {
 			itemFunc = addrAndFd[0]
-			// Windows操作系统不支持从父进程传递套接字文件描述符。
-			// md5:68778a7e9822b36e
+			// Windows操作系统不支持从父进程传递套接字文件描述符。 md5:68778a7e9822b36e
 			if runtime.GOOS != "windows" {
 				fd = gconv.Int(addrAndFd[1])
 			}
@@ -628,8 +615,7 @@ func (s *Server) Status() ServerStatus {
 }
 
 // getListenerFdMap 获取并返回套接字文件描述符的映射。
-// 返回映射的键为 "http" 和 "https"。
-// md5:970d132151bcc23b
+// 返回映射的键为 "http" 和 "https"。 md5:970d132151bcc23b
 func (s *Server) getListenerFdMap() map[string]string {
 	m := map[string]string{
 		"https": "",

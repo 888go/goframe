@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gctx封装了context.Context并提供了额外的上下文功能。 md5:edcfb6983b687169
 package gctx
@@ -70,15 +69,13 @@ func CtxId(ctx context.Context) string {
 }
 
 // SetInitCtx 设置自定义初始化上下文。
-// 注意，此函数不能在多个goroutine中调用。
-// md5:10830063aafa5df4
+// 注意，此函数不能在多个goroutine中调用。 md5:10830063aafa5df4
 func SetInitCtx(ctx context.Context) {
 	initCtx = ctx
 }
 
 // GetInitCtx 返回初始化上下文。
-// 初始化上下文用于在`main`函数或`init`函数中。
-// md5:5608d282e442f76c
+// 初始化上下文用于在`main`函数或`init`函数中。 md5:5608d282e442f76c
 func GetInitCtx() context.Context {
 	return initCtx
 }

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package utils
 
@@ -14,8 +13,7 @@ import (
 // ReadCloser 实现了 io.ReadCloser 接口，
 // 该接口用于多次读取请求体内容。
 //
-// 注意，它不能被关闭。
-// md5:dc906d3f78dd2393
+// 注意，它不能被关闭。 md5:dc906d3f78dd2393
 type ReadCloser struct {
 	index      int    // Current read position.
 	content    []byte // Content.

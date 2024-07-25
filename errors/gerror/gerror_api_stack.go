@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gerror
 
@@ -34,8 +33,7 @@ func Cause(err error) error {
 }
 
 // Stack 返回调用堆栈作为字符串。
-// 如果 `err` 不支持堆栈信息，它将直接返回错误字符串。
-// md5:bcba4c4f440cb0a7
+// 如果 `err` 不支持堆栈信息，它将直接返回错误字符串。 md5:bcba4c4f440cb0a7
 func Stack(err error) string {
 	if err == nil {
 		return ""
@@ -46,8 +44,7 @@ func Stack(err error) string {
 	return err.Error()
 }
 
-// Current 创建并返回当前级别的错误。如果当前级别错误为 nil，则返回 nil。
-// md5:d8b26e22ec63a837
+// Current 创建并返回当前级别的错误。如果当前级别错误为 nil，则返回 nil。 md5:d8b26e22ec63a837
 func Current(err error) error {
 	if err == nil {
 		return nil
@@ -59,8 +56,7 @@ func Current(err error) error {
 }
 
 // Unwrap返回下一级错误。
-// 如果当前级别或下一级错误为nil，则返回nil。
-// md5:97894c3cda2b0c4e
+// 如果当前级别或下一级错误为nil，则返回nil。 md5:97894c3cda2b0c4e
 func Unwrap(err error) error {
 	if err == nil {
 		return nil
@@ -78,8 +74,7 @@ func HasStack(err error) bool {
 }
 
 // Equal 检查当前错误 `err` 是否等于错误 `target`。
-// 请注意，在默认的 `Error` 比较逻辑中，如果两个错误的 `code` 和 `text` 都相同，则认为它们是相同的。
-// md5:adaa63023ba44f79
+// 请注意，在默认的 `Error` 比较逻辑中，如果两个错误的 `code` 和 `text` 都相同，则认为它们是相同的。 md5:adaa63023ba44f79
 func Equal(err, target error) bool {
 	if err == target {
 		return true
@@ -93,8 +88,7 @@ func Equal(err, target error) bool {
 	return false
 }
 
-// Is 判断当前错误 `err` 是否在其嵌套错误中包含目标错误 `target`。这是为了实现从 Go 1.17 版本开始的标准库中的 errors.Is 接口。
-// md5:dfc92c8d3ba58133
+// Is 判断当前错误 `err` 是否在其嵌套错误中包含目标错误 `target`。这是为了实现从 Go 1.17 版本开始的标准库中的 errors.Is 接口。 md5:dfc92c8d3ba58133
 func Is(err, target error) bool {
 	if e, ok := err.(IIs); ok {
 		return e.Is(target)
@@ -108,8 +102,7 @@ func HasError(err, target error) bool {
 }
 
 // callers 返回调用栈的调用者。
-// 注意，这里只是获取调用者内存地址数组，并非调用者的具体信息。
-// md5:9c65fc07c2395a65
+// 注意，这里只是获取调用者内存地址数组，并非调用者的具体信息。 md5:9c65fc07c2395a65
 func callers(skip ...int) stack {
 	var (
 		pcs [maxStackDepth]uintptr

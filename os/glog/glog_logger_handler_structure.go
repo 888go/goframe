@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package glog
 
@@ -38,8 +37,7 @@ const (
 //
 // safeSet用于存储一个布尔值，表示具有给定数组位置的ASCII字符可以在JSON字符串中表示，而无需进一步转义。
 //
-// 除了ASCII控制字符（0-31）、双引号（"）和反斜杠字符（\）之外，所有值都为true。
-// md5:2df5305c3a107923
+// 除了ASCII控制字符（0-31）、双引号（"）和反斜杠字符（\）之外，所有值都为true。 md5:2df5305c3a107923
 var safeSet = [utf8.RuneSelf]bool{
 	' ':      true,
 	'!':      true,
@@ -226,8 +224,7 @@ func (buf *structuredBuffer) needsQuoting(s string) bool {
 	for i := 0; i < len(s); {
 		b := s[i]
 		if b < utf8.RuneSelf {
-			// 在JSON字符串中，除了需要转义的反斜杠、空格和'='之外，对任何内容进行引号包裹
-			// md5:0202f0293260c21e
+			// 在JSON字符串中，除了需要转义的反斜杠、空格和'='之外，对任何内容进行引号包裹 md5:0202f0293260c21e
 			if b != '\\' && (b == ' ' || b == '=' || !safeSet[b]) {
 				return true
 			}

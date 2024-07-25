@@ -2,8 +2,7 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
 
 package gcmd
 
@@ -52,8 +51,7 @@ func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 	}
 	var reflectValue = originValueAndKind.InputValue
 	// 如果给定的`object`不是指针，那么它会创建一个临时的，其值为`reflectValue`。
-	// 然后它可以获取结构体/`*struct`的所有方法。
-	// md5:1e216cd9c7839ef2
+	// 然后它可以获取结构体/`*struct`的所有方法。 md5:1e216cd9c7839ef2
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectValue.Type())
 		newValue.Elem().Set(reflectValue)
@@ -137,8 +135,7 @@ func methodToRootCmdWhenNameEqual(rootCmd *Command, methodCmd *Command) {
 	}
 }
 
-// `object`是业务对象的元属性，`name`是命令名称，通常来自方法名。当Meta中没有定义名称标签时使用这个。
-// md5:044898119694fdf5
+// `object`是业务对象的元属性，`name`是命令名称，通常来自方法名。当Meta中没有定义名称标签时使用这个。 md5:044898119694fdf5
 func newCommandFromObjectMeta(object interface{}, name string) (command *Command, err error) {
 	var metaData = gmeta.Data(object)
 	if err = gconv.Scan(metaData, &command); err != nil {
@@ -256,8 +253,7 @@ func newCommandFromMethod(
 
 	// =============================================================================================
 	// 创建一个有返回值的函数。
-	// =============================================================================================
-	// md5:665eb5f5657321cc
+	// ============================================================================================= md5:665eb5f5657321cc
 	command.FuncWithValue = func(ctx context.Context, parser *Parser) (out interface{}, err error) {
 		ctx = context.WithValue(ctx, CtxKeyParser, parser)
 		var (
@@ -298,8 +294,7 @@ func newCommandFromMethod(
 							// 适配常见的用户习惯。
 							// 例如：
 							// `gf -f=0`：参数 `f` 被解析为 false
-							// `gf -f=1`：参数 `f` 被解析为 true
-							// md5:72432f87d0fc818b
+							// `gf -f=1`：参数 `f` 被解析为 true md5:72432f87d0fc818b
 							data[arg.Name] = orphanValue.Bool()
 						}
 					}

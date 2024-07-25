@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcompress
 
@@ -24,8 +23,7 @@ import (
 
 // ZipPath 使用zip压缩算法将`fileOrFolderPaths`压缩到`dstFilePath`。
 //
-// 参数`paths`可以是目录或文件，支持使用`,`连接多个路径。参数`prefix`（可选）表示zip文件的路径前缀。
-// md5:6754e1656d2dfc22
+// 参数`paths`可以是目录或文件，支持使用`,`连接多个路径。参数`prefix`（可选）表示zip文件的路径前缀。 md5:6754e1656d2dfc22
 func ZipPath(fileOrFolderPaths, dstFilePath string, prefix ...string) error {
 	writer, err := os.Create(dstFilePath)
 	if err != nil {
@@ -45,10 +43,9 @@ func ZipPath(fileOrFolderPaths, dstFilePath string, prefix ...string) error {
 }
 
 // ZipPathWriter 使用zip压缩算法将`fileOrFolderPaths`压缩到`writer`中。
-// 
+//
 // 注意，参数`fileOrFolderPaths`可以是目录或文件，支持使用','连接多个路径。
-// 参数`prefix`（可选）表示zip文件的路径前缀。
-// md5:0e6a4ca6fdf7a9d7
+// 参数`prefix`（可选）表示zip文件的路径前缀。 md5:0e6a4ca6fdf7a9d7
 func ZipPathWriter(fileOrFolderPaths string, writer io.Writer, prefix ...string) error {
 	zipWriter := zip.NewWriter(writer)
 	defer zipWriter.Close()
@@ -64,8 +61,7 @@ func ZipPathWriter(fileOrFolderPaths string, writer io.Writer, prefix ...string)
 // ZipPathContent 使用zip压缩算法将`fileOrFolderPaths`压缩为[]byte。
 //
 // 注意，参数`fileOrFolderPaths`可以是目录或文件，支持使用逗号','连接多个路径。
-// 不强制要求的参数`prefix`表示zip文件中的路径前缀。
-// md5:6700858e8ecb32a5
+// 不强制要求的参数`prefix`表示zip文件中的路径前缀。 md5:6700858e8ecb32a5
 func ZipPathContent(fileOrFolderPaths string, prefix ...string) ([]byte, error) {
 	var (
 		err    error
@@ -81,8 +77,7 @@ func ZipPathContent(fileOrFolderPaths string, prefix ...string) ([]byte, error) 
 //
 // 参数 `fileOrFolderPath` 可以是一个单一的文件或文件夹路径。
 // 参数 `exclude` 指定了不应被压缩到 `zipWriter` 的排除文件路径，通常为目标zip文件路径。
-// 参数 `prefix` 是用于zip文件的路径前缀，一般不需要。
-// md5:491b5e660bfd8ac9
+// 参数 `prefix` 是用于zip文件的路径前缀，一般不需要。 md5:491b5e660bfd8ac9
 func doZipPathWriter(fileOrFolderPath string, exclude string, zipWriter *zip.Writer, prefix ...string) error {
 	var (
 		err   error
@@ -131,8 +126,7 @@ func doZipPathWriter(fileOrFolderPath string, exclude string, zipWriter *zip.Wri
 
 // UnZipFile 使用 ZIP 压缩算法将 `archive` 解压缩到 `dstFolderPath`。
 //
-// 参数 `dstFolderPath` 应该是一个目录。可选参数 `zippedPrefix` 指定了 `zippedFilePath` 的解压缩路径部分，可以用来指定要解压缩的归档文件的一部分。
-// md5:4ef9114de36ab1d8
+// 参数 `dstFolderPath` 应该是一个目录。可选参数 `zippedPrefix` 指定了 `zippedFilePath` 的解压缩路径部分，可以用来指定要解压缩的归档文件的一部分。 md5:4ef9114de36ab1d8
 func UnZipFile(zippedFilePath, dstFolderPath string, zippedPrefix ...string) error {
 	readerCloser, err := zip.OpenReader(zippedFilePath)
 	if err != nil {
@@ -145,8 +139,7 @@ func UnZipFile(zippedFilePath, dstFolderPath string, zippedPrefix ...string) err
 
 // UnZipContent 使用zip压缩算法将`zippedContent`解压缩到`dstFolderPath`。
 //
-// 参数`dstFolderPath`应该是一个目录。参数`zippedPrefix`指定了`zippedContent`的解压路径，可以用来指定要解压的归档文件的一部分。
-// md5:808f21381d5e3681
+// 参数`dstFolderPath`应该是一个目录。参数`zippedPrefix`指定了`zippedContent`的解压路径，可以用来指定要解压的归档文件的一部分。 md5:808f21381d5e3681
 func UnZipContent(zippedContent []byte, dstFolderPath string, zippedPrefix ...string) error {
 	reader, err := zip.NewReader(bytes.NewReader(zippedContent), int64(len(zippedContent)))
 	if err != nil {
@@ -222,8 +215,7 @@ func doCopyForUnZipFileWithReader(file *zip.File, fileReader io.ReadCloser, dstP
 }
 
 // zipFile 将给定的 `filePath` 文件压缩，并将内容写入 `zw`。
-// 参数 `prefix` 用于表示在压缩文件中的路径前缀。
-// md5:69f2856c4cb49f38
+// 参数 `prefix` 用于表示在压缩文件中的路径前缀。 md5:69f2856c4cb49f38
 func zipFile(filePath string, prefix string, zw *zip.Writer) error {
 	file, err := os.Open(filePath)
 	if err != nil {

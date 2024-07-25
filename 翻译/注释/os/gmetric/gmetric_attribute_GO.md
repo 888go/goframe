@@ -11,8 +11,7 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
 # <翻译结束>
 
 
@@ -75,7 +74,7 @@
 <原文结束>
 
 # <翻译开始>
-// Attributes保存动态的键值对元数据。 md5:837d5c5300f22ee1
+	// Attributes保存动态的键值对元数据。 md5:837d5c5300f22ee1
 # <翻译结束>
 
 

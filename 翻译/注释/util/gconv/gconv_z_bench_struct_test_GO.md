@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -38,8 +37,7 @@
 		//如果v1的Kind()为指针类型 {
 		// 如果elem是v1的元素（即指针所指向的对象），并且elem的Type()与v2相同 {
 		// 将v2的值赋给elem
-		//}
-		// md5:f0c12588cbe6880e
+		//} md5:f0c12588cbe6880e
 # <翻译结束>
 
 

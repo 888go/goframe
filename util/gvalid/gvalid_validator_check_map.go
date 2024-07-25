@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -29,8 +28,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 	)
 	switch assertValue := v.rules.(type) {
 	// 序列标签：[]序列标签
-	// 序列中错误结果的顺序是有意义的。
-	// md5:3ffc642de1ce88d6
+	// 序列中错误结果的顺序是有意义的。 md5:3ffc642de1ce88d6
 	case []string:
 		for _, tag := range assertValue {
 			name, rule, msg := ParseTagValue(tag)
@@ -43,8 +41,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 					ruleArray = strings.Split(rule, "|")
 				)
 				for k, ruleItem := range ruleArray {
-					// 如果自定义消息的长度小于规则的长度，那么剩余的规则将使用默认的错误消息。
-					// md5:ada20f4d064fc46a
+					// 如果自定义消息的长度小于规则的长度，那么剩余的规则将使用默认的错误消息。 md5:ada20f4d064fc46a
 					if len(msgArray) <= k {
 						continue
 					}
@@ -95,8 +92,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 	)
 
 	// 该函数会递归地检查结构体，以确定其属性是否为嵌入式结构体。
-	// 从父结构体中忽略输入参数映射（inputParamMap）、关联（assoc）、规则（rules）和消息（messages）。
-	// md5:ac90de50afcf3ac6
+	// 从父结构体中忽略输入参数映射（inputParamMap）、关联（assoc）、规则（rules）和消息（messages）。 md5:ac90de50afcf3ac6
 	validator.assoc = nil
 	validator.rules = nil
 	validator.messages = nil
@@ -144,8 +140,7 @@ func (v *Validator) doCheckMap(ctx context.Context, params interface{}) Error {
 			// 仅在映射和结构体验证中：
 			// 如果值为nil或空字符串，并且没有required*规则，
 			// 它会清除错误消息。
-			// ===========================================================
-			// md5:561b52db8297e035
+			// =========================================================== md5:561b52db8297e035
 			if gconv.String(value) == "" {
 				required := false
 				// rule => error

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package builtin
 
@@ -19,8 +18,7 @@ import (
 // 如果给定的任何字段为空，那么这个是必需的。
 //
 // 格式：  required-without:field1,field2,...
-// 示例： required-without:id,name
-// md5:2e4a4e507f20f3a1
+// 示例： required-without:id,name md5:2e4a4e507f20f3a1
 type RuleRequiredWithout struct{}
 
 func init() {

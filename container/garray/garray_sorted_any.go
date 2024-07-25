@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package garray
 
@@ -25,8 +24,7 @@ import (
 
 // SortedArray 是一个功能丰富的 Go 语言排序数组。
 // 默认情况下，它使用递增顺序，但可以通过设置自定义比较器进行更改。
-// 它包含一个并发安全/不安全的开关，该开关应在初始化时设置并且不能更改。
-// md5:48308289d58755e8
+// 它包含一个并发安全/不安全的开关，该开关应在初始化时设置并且不能更改。 md5:48308289d58755e8
 type SortedArray struct {
 	mu         rwmutex.RWMutex
 	array      []interface{}
@@ -39,15 +37,13 @@ type SortedArray struct {
 // 参数 `comparator` 用于比较数组中值的排序，
 // 若返回值小于 0，表示 `a` 小于 `b`；`a` 将插入到 `b` 之前；
 // 若返回值等于 0，表示 `a` 等于 `b`；`a` 将被 `b` 替换；
-// 若返回值大于 0，表示 `a` 大于 `b`；`a` 将插入到 `b` 之后。
-// md5:72443a89d087c135
+// 若返回值大于 0，表示 `a` 大于 `b`；`a` 将插入到 `b` 之后。 md5:72443a89d087c135
 func NewSortedArray(comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	return NewSortedArraySize(0, comparator, safe...)
 }
 
 // NewSortedArraySize 创建并返回一个给定大小和容量的排序数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:827c3309faba84ac
+// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。 md5:827c3309faba84ac
 func NewSortedArraySize(cap int, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	return &SortedArray{
 		mu:         rwmutex.Create(safe...),
@@ -56,8 +52,7 @@ func NewSortedArraySize(cap int, comparator func(a, b interface{}) int, safe ...
 	}
 }
 
-// NewSortedArrayRange 创建并返回一个从 `start` 到 `end` 的范围，步长为 `step` 的数组。
-// md5:93c103a8dc8cf9d7
+// NewSortedArrayRange 创建并返回一个从 `start` 到 `end` 的范围，步长为 `step` 的数组。 md5:93c103a8dc8cf9d7
 func NewSortedArrayRange(start, end, step int, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	if step == 0 {
 		panic(fmt.Sprintf(`invalid step value: %d`, step))
@@ -72,8 +67,7 @@ func NewSortedArrayRange(start, end, step int, comparator func(a, b interface{})
 }
 
 // NewSortedArrayFrom 根据给定的切片 `array` 创建并返回一个排序数组。
-// 参数 `safe` 用于指定是否使用并发安全的数组，默认为 false。
-// md5:764ff7e74cab303e
+// 参数 `safe` 用于指定是否使用并发安全的数组，默认为 false。 md5:764ff7e74cab303e
 func NewSortedArrayFrom(array []interface{}, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	a := NewSortedArraySize(0, comparator, safe...)
 	a.array = array
@@ -84,8 +78,7 @@ func NewSortedArrayFrom(array []interface{}, comparator func(a, b interface{}) i
 }
 
 // NewSortedArrayFromCopy 根据给定切片 `array` 的副本创建并返回一个已排序的数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:ec79e11f360050f4
+// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。 md5:ec79e11f360050f4
 func NewSortedArrayFromCopy(array []interface{}, comparator func(a, b interface{}) int, safe ...bool) *SortedArray {
 	newArray := make([]interface{}, len(array))
 	copy(newArray, array)
@@ -93,8 +86,7 @@ func NewSortedArrayFromCopy(array []interface{}, comparator func(a, b interface{
 }
 
 // At 通过指定的索引返回值。
-// 如果给定的`index`超出了数组的范围，它将返回`nil`。
-// md5:09a7e6585d2eba1a
+// 如果给定的`index`超出了数组的范围，它将返回`nil`。 md5:09a7e6585d2eba1a
 func (a *SortedArray) At(index int) (value interface{}) {
 	value, _ = a.Get(index)
 	return
@@ -112,8 +104,7 @@ func (a *SortedArray) SetArray(array []interface{}) *SortedArray {
 }
 
 // SetComparator 设置/更改排序的比较器。
-// 当比较器更改时，它会重新对数组进行排序。
-// md5:1323d8fba2b97b75
+// 当比较器更改时，它会重新对数组进行排序。 md5:1323d8fba2b97b75
 func (a *SortedArray) SetComparator(comparator func(a, b interface{}) int) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -124,8 +115,7 @@ func (a *SortedArray) SetComparator(comparator func(a, b interface{}) int) {
 }
 
 // Sort 对数组进行升序排序。
-// 参数 `reverse` 控制排序方式，如果为 true，则降序排列（默认为升序）。
-// md5:35d4650a0f563ccf
+// 参数 `reverse` 控制排序方式，如果为 true，则降序排列（默认为升序）。 md5:35d4650a0f563ccf
 func (a *SortedArray) Sort() *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -135,8 +125,7 @@ func (a *SortedArray) Sort() *SortedArray {
 	return a
 }
 
-// Add 将一个或多个值添加到已排序的数组中，数组始终保持排序。它是Append函数的别名，请参阅Append。
-// md5:34facedfc7e1b731
+// Add 将一个或多个值添加到已排序的数组中，数组始终保持排序。它是Append函数的别名，请参阅Append。 md5:34facedfc7e1b731
 func (a *SortedArray) Add(values ...interface{}) *SortedArray {
 	return a.Append(values...)
 }
@@ -166,8 +155,7 @@ func (a *SortedArray) Append(values ...interface{}) *SortedArray {
 }
 
 // Get 函数通过指定的索引返回值。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:ab300cfc0d6dd8ee
+// 如果给定的 `index` 超出了数组范围，`found` 将为 false。 md5:ab300cfc0d6dd8ee
 func (a *SortedArray) Get(index int) (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -178,8 +166,7 @@ func (a *SortedArray) Get(index int) (value interface{}, found bool) {
 }
 
 // Remove 函数通过索引移除一个元素。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:feaf958654838c25
+// 如果给定的 `index` 超出了数组范围，`found` 将为 false。 md5:feaf958654838c25
 func (a *SortedArray) Remove(index int) (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -203,16 +190,14 @@ func (a *SortedArray) doRemoveWithoutLock(index int) (value interface{}, found b
 	}
 	// 如果是一个非边界删除，
 	// 它将涉及创建一个数组，
-	// 那么删除操作效率较低。
-	// md5:6a664196d66bc968
+	// 那么删除操作效率较低。 md5:6a664196d66bc968
 	value = a.array[index]
 	a.array = append(a.array[:index], a.array[index+1:]...)
 	return value, true
 }
 
 // RemoveValue 函数根据值删除一个元素。
-// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。
-// md5:c49c7706ce703d00
+// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。 md5:c49c7706ce703d00
 func (a *SortedArray) RemoveValue(value interface{}) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -235,8 +220,7 @@ func (a *SortedArray) RemoveValues(values ...interface{}) {
 }
 
 // PopLeft 从数组的开头弹出并返回一个项目。
-// 注意，如果数组为空，`found` 为 false。
-// md5:68f14002d84594a4
+// 注意，如果数组为空，`found` 为 false。 md5:68f14002d84594a4
 func (a *SortedArray) PopLeft() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -249,8 +233,7 @@ func (a *SortedArray) PopLeft() (value interface{}, found bool) {
 }
 
 // PopRight 从数组的末尾弹出并返回一个元素。
-// 注意，如果数组为空，则 `found` 为 false。
-// md5:207fa7c7c4a04a10
+// 注意，如果数组为空，则 `found` 为 false。 md5:207fa7c7c4a04a10
 func (a *SortedArray) PopRight() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -264,8 +247,7 @@ func (a *SortedArray) PopRight() (value interface{}, found bool) {
 }
 
 // PopRand 从数组中随机弹出并返回一个元素。
-// 注意，如果数组为空，`found` 将为 false。
-// md5:29338267db400401
+// 注意，如果数组为空，`found` 将为 false。 md5:29338267db400401
 func (a *SortedArray) PopRand() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -326,10 +308,9 @@ func (a *SortedArray) PopRights(size int) []interface{} {
 
 // Range通过范围选择并返回项目，就像数组[start:end]一样。
 // 请注意，如果在并发安全使用中，它将返回切片的副本；否则返回底层数据的指针。
-// 
+//
 // 如果`end`为负数，则偏移量将从数组末尾开始。
-// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。
-// md5:8b71690536bb9ec5
+// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。 md5:8b71690536bb9ec5
 func (a *SortedArray) Range(start int, end ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -364,8 +345,7 @@ func (a *SortedArray) Range(start int, end ...int) []interface{} {
 // 如果长度为负数，则序列将在距离数组末尾该数量的元素处停止。
 // 如果省略长度参数，那么序列将从偏移量开始直到数组末尾的所有元素。
 //
-// 如果切片范围的起始位置超出数组左侧边界，操作将失败。
-// md5:f87ecd35d1dd7ac8
+// 如果切片范围的起始位置超出数组左侧边界，操作将失败。 md5:f87ecd35d1dd7ac8
 func (a *SortedArray) SubSlice(offset int, length ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -422,8 +402,7 @@ func (a *SortedArray) Len() int {
 }
 
 // Slice 返回数组的底层数据。
-// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。
-// md5:111cbee45795a58b
+// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。 md5:111cbee45795a58b
 func (a *SortedArray) Slice() []interface{} {
 	var array []interface{}
 	if a.mu.IsSafe() {
@@ -448,8 +427,7 @@ func (a *SortedArray) Contains(value interface{}) bool {
 }
 
 // Search 在数组中搜索 `value`，返回 `value` 的索引，
-// 如果不存在则返回 -1。
-// md5:787617bfeade8f93
+// 如果不存在则返回 -1。 md5:787617bfeade8f93
 func (a *SortedArray) Search(value interface{}) (index int) {
 	if i, r := a.binSearch(value, true); r == 0 {
 		return i
@@ -461,8 +439,7 @@ func (a *SortedArray) Search(value interface{}) (index int) {
 // 它返回最后比较的索引和结果。
 // 如果 `result` 等于 0，表示索引处的值等于 `value`。
 // 如果 `result` 小于 0，表示索引处的值小于 `value`。
-// 如果 `result` 大于 0，表示索引处的值大于 `value`。
-// md5:869c6a1ccba79c7a
+// 如果 `result` 大于 0，表示索引处的值大于 `value`。 md5:869c6a1ccba79c7a
 func (a *SortedArray) binSearch(value interface{}, lock bool) (index int, result int) {
 	if lock {
 		a.mu.RLock()
@@ -492,8 +469,7 @@ func (a *SortedArray) binSearch(value interface{}, lock bool) (index int, result
 
 // SetUnique 将唯一标记设置到数组中，
 // 这意味着它不包含任何重复的项目。
-// 它还会进行唯一性检查，删除所有重复项。
-// md5:acbac75bf944670c
+// 它还会进行唯一性检查，删除所有重复项。 md5:acbac75bf944670c
 func (a *SortedArray) SetUnique(unique bool) *SortedArray {
 	oldUnique := a.unique
 	a.unique = unique
@@ -568,14 +544,12 @@ func (a *SortedArray) RLockFunc(f func(array []interface{})) *SortedArray {
 // Merge 将 `array` 合并到当前数组中。
 // 参数 `array` 可以是任何 garray 或切片类型。
 // Merge 和 Append 的区别在于，Append 只支持特定的切片类型，
-// 而 Merge 支持更多种类的参数类型。
-// md5:465caccda38e84f8
+// 而 Merge 支持更多种类的参数类型。 md5:465caccda38e84f8
 func (a *SortedArray) Merge(array interface{}) *SortedArray {
 	return a.Add(gconv.Interfaces(array)...)
 }
 
-// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。
-// md5:0f1f74ff34633d24
+// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。 md5:0f1f74ff34633d24
 func (a *SortedArray) Chunk(size int) [][]interface{} {
 	if size < 1 {
 		return nil
@@ -653,8 +627,7 @@ func (a *SortedArray) Iterator(f func(k int, v interface{}) bool) {
 	a.IteratorAsc(f)
 }
 
-// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:8a125e2dd8982d48
+// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。 md5:8a125e2dd8982d48
 func (a *SortedArray) IteratorAsc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -666,8 +639,7 @@ func (a *SortedArray) IteratorAsc(f func(k int, v interface{}) bool) {
 }
 
 // IteratorDesc 以降序遍历数组，并使用给定的回调函数`f`进行只读迭代。
-// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。
-// md5:ea0a3805bccce0f7
+// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。 md5:ea0a3805bccce0f7
 func (a *SortedArray) IteratorDesc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -704,8 +676,7 @@ func (a *SortedArray) String() string {
 }
 
 // MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
-// 注意，这里不要使用指针作为接收者。
-// md5:b4f76062b07a5263
+// 注意，这里不要使用指针作为接收者。 md5:b4f76062b07a5263
 func (a SortedArray) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -713,8 +684,7 @@ func (a SortedArray) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。
-// 注意，默认情况下，比较器被设置为字符串比较器。
-// md5:8af2d4d6f742bb31
+// 注意，默认情况下，比较器被设置为字符串比较器。 md5:8af2d4d6f742bb31
 func (a *SortedArray) UnmarshalJSON(b []byte) error {
 	if a.comparator == nil {
 		a.array = make([]interface{}, 0)
@@ -734,8 +704,7 @@ func (a *SortedArray) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalValue 是一个接口实现，用于为数组设置任何类型的价值。
-// 注意，比较器默认设置为字符串比较器。
-// md5:5c9d5d1af1e97ec8
+// 注意，比较器默认设置为字符串比较器。 md5:5c9d5d1af1e97ec8
 func (a *SortedArray) UnmarshalValue(value interface{}) (err error) {
 	if a.comparator == nil {
 		a.comparator = gutil.ComparatorString
@@ -778,8 +747,7 @@ func (a *SortedArray) FilterNil() *SortedArray {
 }
 
 // Filter 遍历数组，并使用自定义回调函数过滤元素。
-// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。
-// md5:d33873cfb9f1bb38
+// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。 md5:d33873cfb9f1bb38
 func (a *SortedArray) Filter(filter func(index int, value interface{}) bool) *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -794,8 +762,7 @@ func (a *SortedArray) Filter(filter func(index int, value interface{}) bool) *So
 }
 
 // FilterEmpty 移除数组中的所有空值。
-// 被认为是空的值包括：0，nil，false，""，切片、映射（map）或通道（channel）的长度为0。
-// md5:da01f627cd0962db
+// 被认为是空的值包括：0，nil，false，""，切片、映射（map）或通道（channel）的长度为0。 md5:da01f627cd0962db
 func (a *SortedArray) FilterEmpty() *SortedArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -835,8 +802,7 @@ func (a *SortedArray) IsEmpty() bool {
 	return a.Len() == 0
 }
 
-// getComparator 如果之前已设置比较器，则返回该比较器，否则将引发恐慌。
-// md5:03eac9fd6d838369
+// getComparator 如果之前已设置比较器，则返回该比较器，否则将引发恐慌。 md5:03eac9fd6d838369
 func (a *SortedArray) getComparator() func(a, b interface{}) int {
 	if a.comparator == nil {
 		panic("comparator is missing for sorted array")

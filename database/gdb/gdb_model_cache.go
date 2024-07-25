@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
@@ -19,19 +18,16 @@ type CacheOption struct {
 	// Duration 是缓存的过期时间。
 	// 如果参数 `Duration` 小于 0，表示使用给定的 `Name` 清除缓存。
 	// 如果参数 `Duration` 等于 0，表示永不过期。
-	// 如果参数 `Duration` 大于 0，表示在 `Duration` 秒后过期。
-	// md5:28707300732ac411
+	// 如果参数 `Duration` 大于 0，表示在 `Duration` 秒后过期。 md5:28707300732ac411
 	Duration time.Duration
 
 	// Name 是一个可选的唯一名称，用于标识缓存。
 	// 通过 Name 可以将一个名称与缓存绑定，这意味着您之后可以根据指定的名称来控制该缓存，
-	// 例如更改缓存的 `持续时间` 或者清除指定名称的缓存。
-	// md5:8c2eeafa42d36067
+	// 例如更改缓存的 `持续时间` 或者清除指定名称的缓存。 md5:8c2eeafa42d36067
 	Name string
 
 	// 强制缓存查询结果，无论结果是否为nil。
-	// 这用于防止缓存穿透。
-	// md5:78fc7d8520d64954
+	// 这用于防止缓存穿透。 md5:78fc7d8520d64954
 	Force bool
 }
 
@@ -44,8 +40,7 @@ type selectCacheItem struct {
 // Cache 为模型设置缓存功能。它将 SQL 的结果缓存起来，这意味着如果有相同的 SQL 请求，
 // 它会直接从缓存中读取并返回结果，而不会真正提交并执行到数据库中。
 //
-// 注意，如果模型在事务中执行 SELECT 语句，缓存功能将被禁用。
-// md5:5d7ea513a485f3ad
+// 注意，如果模型在事务中执行 SELECT 语句，缓存功能将被禁用。 md5:5d7ea513a485f3ad
 func (m *Model) Cache(option CacheOption) *Model {
 	model := m.getModel()
 	model.cacheOption = option
@@ -53,8 +48,7 @@ func (m *Model) Cache(option CacheOption) *Model {
 	return model
 }
 
-// checkAndRemoveSelectCache 检查并移除插入/更新/删除语句中的缓存，如果启用了缓存功能。
-// md5:7247a2e1e2e19e4b
+// checkAndRemoveSelectCache 检查并移除插入/更新/删除语句中的缓存，如果启用了缓存功能。 md5:7247a2e1e2e19e4b
 func (m *Model) checkAndRemoveSelectCache(ctx context.Context) {
 	if m.cacheEnabled && m.cacheOption.Duration < 0 && len(m.cacheOption.Name) > 0 {
 		var cacheKey = m.makeSelectCacheKey("")

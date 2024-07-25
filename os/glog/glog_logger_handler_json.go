@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package glog
 
@@ -15,7 +14,8 @@ import (
 
 // HandlerOutputJson 是将日志内容作为单一JSON输出的结构体。
 // 备注: 此配置结构不做名称翻译, 输出的日志会直接用结构字段名称作为日志内容的键名,导致TestLogger_SetHandlers_HandlerJson单元测试不通过.  (2024-07-21)
-// md5:d9846a62089232e7
+// HandlerOutputJson 是将日志内容作为单一JSON输出的结构体。
+// 备注: 此配置结构不做名称翻译, 输出的日志会直接用结构字段名称作为日志内容的键名,导致TestLogger_SetHandlers_HandlerJson单元测试不通过.  (2024-07-21) md5:d9846a62089232e7
 type HandlerOutputJson struct {
 	Time       string `json:""`           // 格式化的日期时间字符串，例如 "2016-01-09 12:00:00"。 md5:4e5e7f760859f24e
 	TraceId    string `json:",omitempty"` // 跟踪ID，仅在启用跟踪时可用。 md5:3b404f27a111b55f

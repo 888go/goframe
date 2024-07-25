@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package mssql
 
@@ -59,8 +58,7 @@ func (d *Driver) DoFilter(
 	return d.Core.DoFilter(ctx, link, newSql, newArgs)
 }
 
-// parseSql 在将 SQL 语句提交给底层驱动程序之前，进行一些替换，以支持微软SQL服务器。
-// md5:dedc2c424a170a26
+// parseSql 在将 SQL 语句提交给底层驱动程序之前，进行一些替换，以支持微软SQL服务器。 md5:dedc2c424a170a26
 func (d *Driver) parseSql(toBeCommittedSql string) (string, error) {
 	var (
 		err       error

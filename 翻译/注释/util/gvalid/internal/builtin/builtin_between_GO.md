@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -28,7 +27,6 @@
 // RuleBetween 实现了 `between` 规则：
 // 范围在 :min 和 :max 之间。它支持整数和浮点数。
 //
-// 格式：between:min,max
-// md5:99eb04ab3fef89e8
+// 格式：between:min,max md5:99eb04ab3fef89e8
 # <翻译结束>
 

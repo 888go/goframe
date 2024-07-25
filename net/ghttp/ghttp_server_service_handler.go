@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -20,11 +19,10 @@ import (
 )
 
 // BindHandler 将一个处理器函数注册到服务器，使用给定的模式。
-// 
+//
 // 注意，参数 `handler` 可以是以下两种类型之一：
 // 1. func(*ghttp.Request)
-// 2. func(context.Context, BizRequest) (BizResponse, error)
-// md5:245b5139c4d933ad
+// 2. func(context.Context, BizRequest) (BizResponse, error) md5:245b5139c4d933ad
 func (s *Server) BindHandler(pattern string, handler interface{}) {
 	var ctx = context.TODO()
 	funcInfo, err := s.checkAndCreateFuncInfo(handler, "", "", "")
@@ -51,8 +49,7 @@ type doBindHandlerInput struct {
 // doBindHandler 使用给定的模式向服务器注册一个处理函数。
 //
 // 参数 `pattern` 的格式如下：
-// /user/list, put:/user, delete:/user, post:/user@goframe.org
-// md5:d71f121a1c2830d3
+// /user/list, put:/user, delete:/user, post:/user@goframe.org md5:d71f121a1c2830d3
 func (s *Server) doBindHandler(ctx context.Context, in doBindHandlerInput) {
 	s.setHandler(ctx, setHandlerInput{
 		Prefix:  in.Prefix,
@@ -81,9 +78,8 @@ func (s *Server) bindHandlerByMap(ctx context.Context, prefix string, m map[stri
 // 规则 1：如果模式中的URI包含{.struct}关键字，它将替换该关键字为结构体名称；
 // 规则 2：如果模式中的URI包含{.method}关键字，它将替换该关键字为方法名称；
 // 规则 3：如果没有满足规则 1，那么直接在模式中的URI后添加方法名称。
-// 
-// 参数 `allowAppend` 指定是否允许将方法名称追加到模式的末尾。
-// md5:1c79af7afc57b081
+//
+// 参数 `allowAppend` 指定是否允许将方法名称追加到模式的末尾。 md5:1c79af7afc57b081
 func (s *Server) mergeBuildInNameToPattern(pattern string, structName, methodName string, allowAppend bool) string {
 	structName = s.nameToUri(structName)
 	methodName = s.nameToUri(methodName)
@@ -110,8 +106,7 @@ func (s *Server) mergeBuildInNameToPattern(pattern string, structName, methodNam
 // 规则0：将所有方法名转换为小写，单词间添加字符'-'。
 // 规则1：不转换方法名，使用原始方法名构建URI。
 // 规则2：将所有方法名转换为小写，单词间不添加连接符号。
-// 规则3：使用驼峰式命名。
-// md5:c9f350c3c6635668
+// 规则3：使用驼峰式命名。 md5:c9f350c3c6635668
 func (s *Server) nameToUri(name string) string {
 	switch s.config.NameToUriType {
 	case UriTypeFullName:
@@ -211,8 +206,7 @@ func (s *Server) checkAndCreateFuncInfo(
 		return
 	}
 
-	// 不要启用此逻辑，因为许多用户已经将非结构指针类型作为第一个输出参数使用。
-	// md5:46785e26d27207d1
+	// 不要启用此逻辑，因为许多用户已经将非结构指针类型作为第一个输出参数使用。 md5:46785e26d27207d1
 	/*
 		if reflectType.Out(0).Kind() != reflect.Ptr ||
 			(reflectType.Out(0).Kind() == reflect.Ptr && reflectType.Out(0).Elem().Kind() != reflect.Struct) {
@@ -320,8 +314,7 @@ func trimGeneric(structName string) string {
 		return structName
 	} else if leftBraceIndex+1 == rightBraceIndex {
 		// 可能是一个切片，因为泛型是'[X]'而不是'[]'
-		// 以兼容不良的返回参数类型：[]XxxRes
-		// md5:a521893d3e187a1a
+		// 以兼容不良的返回参数类型：[]XxxRes md5:a521893d3e187a1a
 		return structName
 	}
 	return structName[:leftBraceIndex]

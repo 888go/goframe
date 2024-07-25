@@ -11,8 +11,7 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
 # <翻译结束>
 
 
@@ -54,8 +53,7 @@
 	// InstrumentPattern 通过正则表达式指定要操作的Instrument名称。
 	// 示例：
 	// 1. 如果设置为`.+`，将匹配所有Instrument。
-	// 2. 如果设置为`github.com/gogf/gf.+`，将匹配所有goframe相关的Instrument。
-	// md5:a3225129ad31cbb0
+	// 2. 如果设置为`github.com/gogf/gf.+`，将匹配所有goframe相关的Instrument。 md5:a3225129ad31cbb0
 # <翻译结束>
 
 
@@ -73,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// globalAttributes 将全局属性存储到一个映射中。 md5:e8b73fe60d039913
+	// globalAttributes 将全局属性存储到一个映射中。 md5:e8b73fe60d039913
 # <翻译结束>
 
 
@@ -84,8 +82,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetGlobalAttributes 根据 `SetGlobalAttributesOption` 添加全局属性。如果给定的 `SetGlobalAttributesOption` 为空，它将向所有指标添加全局属性。如果提供了特定的 `SetGlobalAttributesOption`，它将向指定的度量添加全局属性。
-// md5:5ba03a1e3d761b95
+// SetGlobalAttributes 根据 `SetGlobalAttributesOption` 添加全局属性。如果给定的 `SetGlobalAttributesOption` 为空，它将向所有指标添加全局属性。如果提供了特定的 `SetGlobalAttributesOption`，它将向指定的度量添加全局属性。 md5:5ba03a1e3d761b95
 # <翻译结束>
 
 
@@ -98,7 +95,6 @@
 # <翻译开始>
 // GetGlobalAttributes 通过 `GetGlobalAttributesOption` 获取并返回全局属性。
 // 如果给定的 `GetGlobalAttributesOption` 为空，它将返回所有全局属性。
-// 如果 `GetGlobalAttributesOption` 不为空，它将返回特定仪器的全局属性。
-// md5:8327524dc9d44419
+// 如果 `GetGlobalAttributesOption` 不为空，它将返回特定仪器的全局属性。 md5:8327524dc9d44419
 # <翻译结束>
 

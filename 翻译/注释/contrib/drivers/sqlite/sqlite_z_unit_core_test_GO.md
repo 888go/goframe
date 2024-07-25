@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -22,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+// github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 # <翻译结束>
 
 
@@ -33,8 +32,7 @@
 
 # <翻译开始>
 // 所有类型的测试。
-// https://www.sqlite.org/datatype3.html
-// md5:d23ed0b51680ff07
+// https://www.sqlite.org/datatype3.html md5:d23ed0b51680ff07
 # <翻译结束>
 
 
@@ -52,6 +50,6 @@
 <原文结束>
 
 # <翻译开始>
-// 字段	类型	空值	键	默认值	额外信息	注释. md5:c2b58b539e04fa5f
+			// 字段	类型	空值	键	默认值	额外信息	注释. md5:c2b58b539e04fa5f
 # <翻译结束>
 

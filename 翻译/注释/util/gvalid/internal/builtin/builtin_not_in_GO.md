@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -28,7 +27,6 @@
 // RuleNotIn 实现了 "not-in" 规则：
 // 值不应该在：value1, value2, ...
 //
-// 格式：not-in:value1,value2,...
-// md5:de8746fa53d5a5b4
+// 格式：not-in:value1,value2,... md5:de8746fa53d5a5b4
 # <翻译结束>
 

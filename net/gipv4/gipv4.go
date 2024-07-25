@@ -2,8 +2,7 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
 
 // gipv4 包提供了用于处理IPv4地址的有用API。 md5:dc7fb957be20c17f
 package gipv4
@@ -39,8 +38,7 @@ func Validate(ip string) bool {
 }
 
 // ParseAddress 将 `地址` 解析为它的IP和端口。
-// 例如：192.168.1.1:80 -> 192.168.1.1, 80
-// md5:224991801d25eab5
+// 例如：192.168.1.1:80 -> 192.168.1.1, 80 md5:224991801d25eab5
 func ParseAddress(address string) (string, int) {
 	match, err := gregex.MatchString(`^(.+):(\d+)$`, address)
 	if err == nil {
@@ -51,8 +49,7 @@ func ParseAddress(address string) (string, int) {
 }
 
 // GetSegment 返回给定IP地址的段。
-// 例如：192.168.2.102 -> 192.168.2
-// md5:6b442ab0a95dc737
+// 例如：192.168.2.102 -> 192.168.2 md5:6b442ab0a95dc737
 func GetSegment(ip string) string {
 	match, err := gregex.MatchString(`^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$`, ip)
 	if err != nil || len(match) < 4 {

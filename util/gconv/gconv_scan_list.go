@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gconv
 
@@ -22,76 +21,75 @@ import (
 //
 // 使用示例1：普通属性结构关系：
 //
-// 	type EntityUser struct {
-// 	    Uid  int
-// 	    Name string
-// 	}
+//	type EntityUser struct {
+//	    Uid  int
+//	    Name string
+//	}
 //
-// 	type EntityUserDetail struct {
-// 	    Uid     int
-// 	    Address string
-// 	}
+//	type EntityUserDetail struct {
+//	    Uid     int
+//	    Address string
+//	}
 //
-// 	type EntityUserScores struct {
-// 	    Id     int
-// 	    Uid    int
-// 	    Score  int
-// 	    Course string
-// 	}
+//	type EntityUserScores struct {
+//	    Id     int
+//	    Uid    int
+//	    Score  int
+//	    Course string
+//	}
 //
-// 	type Entity struct {
-// 	    User       *EntityUser
-// 	    UserDetail *EntityUserDetail
-// 	    UserScores []*EntityUserScores
-// 	}
+//	type Entity struct {
+//	    User       *EntityUser
+//	    UserDetail *EntityUserDetail
+//	    UserScores []*EntityUserScores
+//	}
 //
-// 	var users []*Entity
-// 	var userRecords   = EntityUser{Uid: 1, Name:"john"}
-// 	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
-// 	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
-// 	ScanList(userRecords, &users, "User")
-// 	ScanList(userRecords, &users, "User", "uid")
-// 	ScanList(detailRecords, &users, "UserDetail", "User", "uid:Uid")
-// 	ScanList(scoresRecords, &users, "UserScores", "User", "uid:Uid")
-// 	ScanList(scoresRecords, &users, "UserScores", "User", "uid")
+//	var users []*Entity
+//	var userRecords   = EntityUser{Uid: 1, Name:"john"}
+//	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
+//	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
+//	ScanList(userRecords, &users, "User")
+//	ScanList(userRecords, &users, "User", "uid")
+//	ScanList(detailRecords, &users, "UserDetail", "User", "uid:Uid")
+//	ScanList(scoresRecords, &users, "UserScores", "User", "uid:Uid")
+//	ScanList(scoresRecords, &users, "UserScores", "User", "uid")
 //
 // 使用示例2：嵌入属性结构关系：
 //
-// 	type EntityUser struct {
-// 		   Uid  int
-// 		   Name string
-// 	}
+//	type EntityUser struct {
+//		   Uid  int
+//		   Name string
+//	}
 //
-// 	type EntityUserDetail struct {
-// 		   Uid     int
-// 		   Address string
-// 	}
+//	type EntityUserDetail struct {
+//		   Uid     int
+//		   Address string
+//	}
 //
-// 	type EntityUserScores struct {
-// 		   Id    int
-// 		   Uid   int
-// 		   Score int
-// 	}
+//	type EntityUserScores struct {
+//		   Id    int
+//		   Uid   int
+//		   Score int
+//	}
 //
-// 	type Entity struct {
-// 		   EntityUser
-// 		   UserDetail EntityUserDetail
-// 		   UserScores []EntityUserScores
-// 	}
+//	type Entity struct {
+//		   EntityUser
+//		   UserDetail EntityUserDetail
+//		   UserScores []EntityUserScores
+//	}
 //
-// 	var userRecords   = EntityUser{Uid: 1, Name:"john"}
-// 	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
-// 	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
-// 	ScanList(userRecords, &users)
-// 	ScanList(detailRecords, &users, "UserDetail", "uid")
-// 	ScanList(scoresRecords, &users, "UserScores", "uid")
+//	var userRecords   = EntityUser{Uid: 1, Name:"john"}
+//	var detailRecords = EntityUser{Uid: 1, Address: "chengdu"}
+//	var scoresRecords = EntityUser{Id: 1, Uid: 1, Score: 100, Course: "math"}
+//	ScanList(userRecords, &users)
+//	ScanList(detailRecords, &users, "UserDetail", "uid")
+//	ScanList(scoresRecords, &users, "UserScores", "uid")
 //
 // 示例代码中的"User/UserDetail/UserScores"指定当前结果将绑定的目标属性结构。
 //
 // 示例代码中的"uid"是结果的表字段名，而"Uid"是相关结构体属性名，而不是绑定到目标的属性名。在示例代码中，它是实体"Entity"的"User"属性的"Uid"属性名称。它会根据给定的`relation`参数自动计算HasOne/HasMany关系。
 //
-// 参考示例或单元测试用例以更清楚地理解此函数的工作原理。
-// md5:1e63a3d19a1b0060
+// 参考示例或单元测试用例以更清楚地理解此函数的工作原理。 md5:1e63a3d19a1b0060
 func ScanList(structSlice interface{}, structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
 	var (
 		relationAttrName string
@@ -107,8 +105,7 @@ func ScanList(structSlice interface{}, structSlicePointer interface{}, bindToAtt
 	return doScanList(structSlice, structSlicePointer, bindToAttrName, relationAttrName, relationFields)
 }
 
-// doScanList 将 `structSlice` 转换为包含嵌套复杂结构体属性的 struct 切片。注意，参数 `structSlicePointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。
-// md5:37e4682b243c9ef8
+// doScanList 将 `structSlice` 转换为包含嵌套复杂结构体属性的 struct 切片。注意，参数 `structSlicePointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。 md5:37e4682b243c9ef8
 func doScanList(
 	structSlice interface{}, structSlicePointer interface{}, bindToAttrName, relationAttrName, relationFields string,
 ) (err error) {
@@ -156,8 +153,7 @@ func doScanList(
 		// 指向的切片不为空。 md5:1348d4b6d686b8f3
 		if reflectValue.Len() > 0 {
 			// 这里检查是否具有已初始化的结构体项。
-			// 然后返回错误以警告开发者其为空且无法进行转换。
-			// md5:cd5f133a393c1157
+			// 然后返回错误以警告开发者其为空且无法进行转换。 md5:cd5f133a393c1157
 			if v := reflectValue.Index(0); v.Kind() != reflect.Ptr {
 				return sql.ErrNoRows
 			}
@@ -187,8 +183,7 @@ func doScanList(
 	)
 	if len(relationFields) > 0 {
 		// 表字段名与属性名之间的关联键字符串
-		// 可以使用字符'='或':'进行连接。
-		// md5:a3dd08343df8a7ac
+		// 可以使用字符'='或':'进行连接。 md5:a3dd08343df8a7ac
 		array := utils.SplitAndTrim(relationFields, "=")
 		if len(array) == 1 {
 			// 与旧的分隔字符':'兼容。 md5:21a764d3ea1e081b
@@ -202,8 +197,7 @@ func doScanList(
 			// 定义表字段到关系属性名。
 			// 例如：
 			// uid:Uid
-			// uid:UserId
-			// md5:029253159bee75d1
+			// uid:UserId md5:029253159bee75d1
 			relationFromFieldName = array[0]
 			relationBindToFieldName = array[1]
 			if key, _ := utils.MapPossibleItemByKey(maps[0], relationFromFieldName); key == "" {
@@ -279,8 +273,7 @@ func doScanList(
 				// "reflect.New(itemType.Elem())" 用于创建一个新的元素，并返回该元素的地址。
 				// 例如：
 				// reflect.New(itemType.Elem())        => *实体
-				// reflect.New(itemType.Elem()).Elem() => 实体
-				// md5:0897d7c0e7467f9d
+				// reflect.New(itemType.Elem()).Elem() => 实体 md5:0897d7c0e7467f9d
 				arrayElemValue = reflect.New(arrayItemType.Elem()).Elem()
 				arrayValue.Index(i).Set(arrayElemValue.Addr())
 			}

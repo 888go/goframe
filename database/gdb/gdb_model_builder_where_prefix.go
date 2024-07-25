@@ -2,23 +2,21 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
 // WherePrefix 的功能类似于 Where，但它会在 where 语句中的每个字段前添加一个前缀。
 // 例如：
 // WherePrefix("order", "status", "paid")                        => WHERE `order`.`status`='paid'
-// WherePrefix("order", struct{Status:"paid", "channel":"bank"}) => WHERE `order`.`status`='paid' AND `order`.`channel`='bank' 
-// 
+// WherePrefix("order", struct{Status:"paid", "channel":"bank"}) => WHERE `order`.`status`='paid' AND `order`.`channel`='bank'
+//
 // 这段注释的中文翻译为：
-// 
+//
 // WherePrefix 的行为与 Where 相似，但它会在 where 子句里的每个字段前加上一个前缀。
 // 例如：
 // WherePrefix("order", "status", "paid")                        => 生成 WHERE `order`.`status`='paid'
-// WherePrefix("order", struct{Status:"paid", "channel":"bank"}) => 生成 WHERE `order`.`status`='paid' AND `order`.`channel`='bank'
-// md5:062302edb484784b
+// WherePrefix("order", struct{Status:"paid", "channel":"bank"}) => 生成 WHERE `order`.`status`='paid' AND `order`.`channel`='bank' md5:062302edb484784b
 func (b *WhereBuilder) WherePrefix(prefix string, where interface{}, args ...interface{}) *WhereBuilder {
 	where, args = b.convertWhereBuilder(where, args)
 

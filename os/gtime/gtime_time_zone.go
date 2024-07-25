@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtime
 
@@ -26,12 +25,11 @@ var (
 
 // SetTimeZone 设置当前整个进程的时间区域。
 // 参数 `zone` 是一个指定对应时区的区域字符串，例如：Asia/Shanghai。
-// 
+//
 // 请注意：
 // 1. 应在导入 "time" 包之前调用此函数。
 // 2. 此函数仅需调用一次。
-// 3. 请参阅问题：https://github.com/golang/go/issues/34814
-// md5:4d2c0d7e82a0e0f8
+// 3. 请参阅问题：https://github.com/golang/go/issues/34814 md5:4d2c0d7e82a0e0f8
 func SetTimeZone(zone string) (err error) {
 	setTimeZoneMu.Lock()
 	defer setTimeZoneMu.Unlock()

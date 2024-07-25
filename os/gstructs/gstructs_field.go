@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gstructs
 
@@ -15,8 +14,7 @@ import (
 	"github.com/gogf/gf/v2/util/gtag"
 )
 
-// Tag 函数从标签字符串中返回与给定键关联的值。如果标签中没有该键，Tag 函数将返回空字符串。
-// md5:1f7397ec7f558f60
+// Tag 函数从标签字符串中返回与给定键关联的值。如果标签中没有该键，Tag 函数将返回空字符串。 md5:1f7397ec7f558f60
 func (f *Field) Tag(key string) string {
 	s := f.Field.Tag.Get(key)
 	if s != "" {
@@ -25,8 +23,7 @@ func (f *Field) Tag(key string) string {
 	return s
 }
 
-// TagLookup 从标签字符串中返回与给定键关联的值。如果键在标签中存在，即使值为空，也会返回。否则，返回的值将是空字符串。ok返回值报告了该值是否明确设置在标签字符串中。如果标签不具备常规格式，Lookup返回的值是未定义的。
-// md5:d4bff95e89bd22d0
+// TagLookup 从标签字符串中返回与给定键关联的值。如果键在标签中存在，即使值为空，也会返回。否则，返回的值将是空字符串。ok返回值报告了该值是否明确设置在标签字符串中。如果标签不具备常规格式，Lookup返回的值是未定义的。 md5:d4bff95e89bd22d0
 func (f *Field) TagLookup(key string) (value string, ok bool) {
 	value, ok = f.Field.Tag.Lookup(key)
 	if ok && value != "" {
@@ -67,8 +64,7 @@ func (f *Field) Name() string {
 }
 
 // Type 返回给定字段的类型。
-// 请注意，此Type不是reflect.Type。如果需要reflect.Type，请使用Field.Type().Type。
-// md5:27a135d33cbd8f21
+// 请注意，此Type不是reflect.Type。如果需要reflect.Type，请使用Field.Type().Type。 md5:27a135d33cbd8f21
 func (f *Field) Type() Type {
 	return Type{
 		Type: f.Field.Type,

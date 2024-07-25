@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gudp_test
 
@@ -149,9 +148,8 @@ func Test_Basic(t *testing.T) {
 // 启动服务器并等待一段时间后，进行以下测试：
 // 1. 发送字符串"123"到服务器地址，期望返回结果为"1"，并验证错误是否为nil。
 // 2. 再次发送字符串"456"到服务器地址，期望返回结果为"4"，同样验证错误是否为nil。
-// 
-// 最后确保关闭服务器。
-// md5:e1d59962b87c120a
+//
+// 最后确保关闭服务器。 md5:e1d59962b87c120a
 
 func Test_NewConn(t *testing.T) {
 	s := startUDPServer(gudp.FreePortAddress)

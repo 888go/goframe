@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包ghttp提供了强大的HTTP服务器和简单的客户端实现。 md5:0b6b4fc969b3488d
 package ghttp
@@ -85,12 +84,10 @@ type (
 		ReqStructFields []gstructs.Field // Request struct fields.
 	}
 
-	// HandlerItem是注册的路由处理程序，包括中间件和钩子函数。
-	// md5:78b676e6e09329bb
+	// HandlerItem是注册的路由处理程序，包括中间件和钩子函数。 md5:78b676e6e09329bb
 	HandlerItem struct {
 		// 唯一的处理器项标识。
-		// 注意，同一个处理器函数可能会注册为不同的处理器项，它们具有不同的处理器项ID。
-		// md5:7b474802a6e17d79
+		// 注意，同一个处理器函数可能会注册为不同的处理器项，它们具有不同的处理器项ID。 md5:7b474802a6e17d79
 		Id         int
 		Name       string          // 处理器名称，当注册时会自动从运行时堆栈中获取。 md5:72fae2285a3c4c69
 		Type       HandlerType     // 处理器类型：对象/处理器/中间件/钩子。 md5:3f54f4463e6e5dc5
@@ -119,8 +116,7 @@ type (
 	HandlerType string
 
 	// 文件描述符映射的监听。
-	// 键可以是 "http" 或 "https"，值则是对应的文件描述符（FD）。
-	// md5:203cb0295faad7ff
+	// 键可以是 "http" 或 "https"，值则是对应的文件描述符（FD）。 md5:203cb0295faad7ff
 	listenerFdMap = map[string]string
 
 	// internalPanic 是用于内部使用的自定义恐慌。 md5:287806e552654f1d
@@ -174,18 +170,15 @@ const (
 
 var (
 	// methodsMap 存储所有支持的HTTP方法。
-	// 它用于通过映射快速搜索HTTP方法。
-	// md5:d1f472198ffb7422
+	// 它用于通过映射快速搜索HTTP方法。 md5:d1f472198ffb7422
 	methodsMap = make(map[string]struct{})
 
 	// serverMapping 为当前进程存储多个服务器实例。
-	// 键是服务器的名称，值是其对应的实例。
-	// md5:ebea00ddd34b8a0e
+	// 键是服务器的名称，值是其对应的实例。 md5:ebea00ddd34b8a0e
 	serverMapping = gmap.NewStrAnyMap(true)
 
 	// serverRunning 标记运行中的服务器数量。
-	// 如果没有成功运行的服务器或所有服务器都已关闭，该值为 0。
-	// md5:5521930133e9bda1
+	// 如果没有成功运行的服务器或所有服务器都已关闭，该值为 0。 md5:5521930133e9bda1
 	serverRunning = gtype.NewInt()
 
 	// wsUpGrader是websocket的默认升级器配置。 md5:dcb5f656ab8a1a3a
@@ -196,12 +189,10 @@ var (
 		},
 	}
 	// allShutdownChan 是所有服务器完成服务并退出的事件。
-	// 它用于进程阻塞的目的。
-	// md5:7575f7dd8d471d7f
+	// 它用于进程阻塞的目的。 md5:7575f7dd8d471d7f
 	allShutdownChan = make(chan struct{}, 1000)
 
-	// serverProcessInitialized 用于服务器的懒惰初始化。进程只能初始化一次。
-	// md5:34bc30c229d05a4a
+	// serverProcessInitialized 用于服务器的懒惰初始化。进程只能初始化一次。 md5:34bc30c229d05a4a
 	serverProcessInitialized = gtype.NewBool()
 
 	// gracefulEnabled 用于启用优雅重启功能，该功能默认为 false。 md5:ff6dd18537c796d9

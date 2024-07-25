@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -31,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对于pgsql，int2等于smallint。 md5:5d75ff3e1cf74f36
+		// 对于pgsql，int2等于smallint。 md5:5d75ff3e1cf74f36
 # <翻译结束>
 
 
@@ -40,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对于 PostgreSQL，int4 表示整数. md5:0e9fb5268eeec552
+		// 对于 PostgreSQL，int4 表示整数. md5:0e9fb5268eeec552
 # <翻译结束>
 
 
@@ -49,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对于 PostgreSQL，int8 等同于 bigint. md5:4717ef91027dfe75
+	// 对于 PostgreSQL，int8 等同于 bigint. md5:4717ef91027dfe75.
 # <翻译结束>
 
 
@@ -62,8 +61,7 @@
 # <翻译开始>
 // ConvertValueForLocal 根据从数据库中获取的字段类型名称，将值转换为Go语言中的本地类型。
 // 参数 `fieldType` 为小写格式，例如：
-// `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。
-// md5:7e1ede2b68158e31
+// `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。 md5:7e1ede2b68158e31
 # <翻译结束>
 
 
@@ -72,7 +70,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对于pgsql，int2等于smallint，int4等于integer。 md5:9a03a0c9b626da62
+	// 对于pgsql，int2等于smallint，int4等于integer。 md5:9a03a0c9b626da62
 # <翻译结束>
 
 

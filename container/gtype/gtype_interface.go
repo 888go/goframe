@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtype
 
@@ -20,8 +19,7 @@ type Interface struct {
 	value atomic.Value
 }
 
-// NewInterface 创建并返回一个并发安全的对象，用于interface{}类型，初始值为`value`。
-// md5:4f93c81a49f5b2f6
+// NewInterface 创建并返回一个并发安全的对象，用于interface{}类型，初始值为`value`。 md5:4f93c81a49f5b2f6
 func NewInterface(value ...interface{}) *Interface {
 	t := &Interface{}
 	if len(value) > 0 && value[0] != nil {
@@ -36,8 +34,7 @@ func (v *Interface) Clone() *Interface {
 }
 
 // Set 原子地将 `value` 赋值给 t.value，并返回 t.value 的旧值。
-// 注意：参数 `value` 不能为 nil。
-// md5:00adcc3b6d3bb3da
+// 注意：参数 `value` 不能为 nil。 md5:00adcc3b6d3bb3da
 func (v *Interface) Set(value interface{}) (old interface{}) {
 	old = v.Val()
 	v.value.Store(value)

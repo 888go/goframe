@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtree
 
@@ -43,8 +42,7 @@ type BTreeEntry struct {
 }
 
 // NewBTree 创建一个具有 `m`（最大子节点数）和自定义键比较器的 B 树。参数 `safe` 用于指定是否在并发安全模式下使用树，其默认值为 false。
-// 注意，`m` 必须大于或等于 3，否则将引发 panic。
-// md5:63e15eb274ca4e1d
+// 注意，`m` 必须大于或等于 3，否则将引发 panic。 md5:63e15eb274ca4e1d
 func NewBTree(m int, comparator func(v1, v2 interface{}) int, safe ...bool) *BTree {
 	if m < 3 {
 		panic("Invalid order, should be at least 3")
@@ -57,8 +55,7 @@ func NewBTree(m int, comparator func(v1, v2 interface{}) int, safe ...bool) *BTr
 }
 
 // NewBTreeFrom 根据给定的参数实例化一个 B-树，包括孩子节点的最大数量 `m`、自定义键比较器和数据映射。
-// 参数 `safe` 用于指定是否需要并发安全，默认情况下为 false。
-// md5:7a8fbca9b49feb70
+// 参数 `safe` 用于指定是否需要并发安全，默认情况下为 false。 md5:7a8fbca9b49feb70
 func NewBTreeFrom(m int, comparator func(v1, v2 interface{}) int, data map[interface{}]interface{}, safe ...bool) *BTree {
 	tree := NewBTree(m, comparator, safe...)
 	for k, v := range data {
@@ -82,8 +79,7 @@ func (tree *BTree) Set(key interface{}, value interface{}) {
 }
 
 // doSet 将键值对节点插入到树中。
-// 如果键已存在，则用新值更新其值。
-// md5:dd34c6d624358b26
+// 如果键已存在，则用新值更新其值。 md5:dd34c6d624358b26
 func (tree *BTree) doSet(key interface{}, value interface{}) {
 	entry := &BTreeEntry{Key: key, Value: value}
 	if tree.root == nil {
@@ -120,8 +116,7 @@ func (tree *BTree) Get(key interface{}) (value interface{}) {
 // 它将在哈希映射的互斥锁(mutex.Lock)保护下执行，
 // 并将其返回值设置到以`key`为键的映射中。
 //
-// 返回给定`key`对应的值。
-// md5:1de9ffab89f3c38a
+// 返回给定`key`对应的值。 md5:1de9ffab89f3c38a
 func (tree *BTree) doSetWithLockCheck(key interface{}, value interface{}) interface{} {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -138,8 +133,7 @@ func (tree *BTree) doSetWithLockCheck(key interface{}, value interface{}) interf
 }
 
 // GetOrSet 通过键返回值，
-// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。
-// md5:d8f89b6dec47292b
+// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。 md5:d8f89b6dec47292b
 func (tree *BTree) GetOrSet(key interface{}, value interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, value)
@@ -150,8 +144,7 @@ func (tree *BTree) GetOrSet(key interface{}, value interface{}) interface{} {
 
 // GetOrSetFunc 通过键获取值，
 // 如果键不存在，则使用回调函数`f`的返回值设置值，
-// 并返回这个设置的值。
-// md5:f584dd7547dfbcc0
+// 并返回这个设置的值。 md5:f584dd7547dfbcc0
 func (tree *BTree) GetOrSetFunc(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f())
@@ -163,8 +156,7 @@ func (tree *BTree) GetOrSetFunc(key interface{}, f func() interface{}) interface
 // GetOrSetFuncLock 通过键获取值，
 // 如果不存在，它将使用回调函数 `f` 的返回值设置该值，然后返回这个值。
 //
-// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。
-// md5:d32fdee586d84dde
+// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。 md5:d32fdee586d84dde
 func (tree *BTree) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f)
@@ -174,34 +166,29 @@ func (tree *BTree) GetOrSetFuncLock(key interface{}, f func() interface{}) inter
 }
 
 // GetVar 函数通过给定的 `key` 返回一个 gvar.Var，其值为对应的变量。
-// 返回的 gvar.Var 不是并发安全的。
-// md5:a04747902e4bf242
+// 返回的 gvar.Var 不是并发安全的。 md5:a04747902e4bf242
 func (tree *BTree) GetVar(key interface{}) *gvar.Var {
 	return gvar.New(tree.Get(key))
 }
 
-// GetVarOrSet 返回一个从 GetVarOrSet 获取的结果的 gvar.Var。返回的 gvar.Var 不是线程安全的。
-// md5:089beb08264e18cf
+// GetVarOrSet 返回一个从 GetVarOrSet 获取的结果的 gvar.Var。返回的 gvar.Var 不是线程安全的。 md5:089beb08264e18cf
 func (tree *BTree) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSet(key, value))
 }
 
 // GetVarOrSetFunc 返回一个 gvar.Var，其结果来自 GetOrSetFunc。
-// 返回的 gvar.Var 不是线程安全的。
-// md5:8c97b145faade5ae
+// 返回的 gvar.Var 不是线程安全的。 md5:8c97b145faade5ae
 func (tree *BTree) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFunc(key, f))
 }
 
 // GetVarOrSetFuncLock 返回一个gvar.Var，其结果来自GetOrSetFuncLock。
-// 返回的gvar.Var是非并发安全的。
-// md5:90c22300c2187ce4
+// 返回的gvar.Var是非并发安全的。 md5:90c22300c2187ce4
 func (tree *BTree) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFuncLock(key, f))
 }
 
-// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。
-// md5:f80895920828f03e
+// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。 md5:f80895920828f03e
 func (tree *BTree) SetIfNotExist(key interface{}, value interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, value)
@@ -211,8 +198,7 @@ func (tree *BTree) SetIfNotExist(key interface{}, value interface{}) bool {
 }
 
 // SetIfNotExistFunc 使用回调函数`f`的返回值设置值，并返回true。
-// 如果`key`已存在，则返回false，且`value`会被忽略。
-// md5:326c0b7c63d813e7
+// 如果`key`已存在，则返回false，且`value`会被忽略。 md5:326c0b7c63d813e7
 func (tree *BTree) SetIfNotExistFunc(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f())
@@ -225,8 +211,7 @@ func (tree *BTree) SetIfNotExistFunc(key interface{}, f func() interface{}) bool
 // 如果 `key` 已存在，则返回 false，`value` 将被忽略。
 //
 // SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
-// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。
-// md5:a6ee84b157328f61
+// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。 md5:a6ee84b157328f61
 func (tree *BTree) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f)
@@ -242,8 +227,7 @@ func (tree *BTree) Contains(key interface{}) bool {
 }
 
 // doRemove 通过键从树中删除节点。
-// 键应符合比较器的类型断言，否则方法将 panic。
-// md5:748baf2fba8b968d
+// 键应符合比较器的类型断言，否则方法将 panic。 md5:748baf2fba8b968d
 func (tree *BTree) doRemove(key interface{}) (value interface{}) {
 	node, index, found := tree.searchRecursively(tree.root, key)
 	if found {
@@ -389,8 +373,7 @@ func (tree *BTree) String() string {
 }
 
 // Search 函数使用给定的 `key` 在树中进行查找。
-// 第二个返回参数 `found` 为 true 表示找到了键，否则为 false。
-// md5:d151c3783cadda2c
+// 第二个返回参数 `found` 为 true 表示找到了键，否则为 false。 md5:d151c3783cadda2c
 func (tree *BTree) Search(key interface{}) (value interface{}, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -401,8 +384,7 @@ func (tree *BTree) Search(key interface{}) (value interface{}, found bool) {
 	return nil, false
 }
 
-// Search 使用给定的 `key` 在不加锁的情况下搜索树。如果找到相应的条目，则返回该条目，否则返回 nil。
-// md5:2f4ee3482351a19d
+// Search 使用给定的 `key` 在不加锁的情况下搜索树。如果找到相应的条目，则返回该条目，否则返回 nil。 md5:2f4ee3482351a19d
 func (tree *BTree) doSearch(key interface{}) *BTreeEntry {
 	node, index, found := tree.searchRecursively(tree.root, key)
 	if found {
@@ -426,8 +408,7 @@ func (tree *BTree) IteratorFrom(key interface{}, match bool, f func(key, value i
 	tree.IteratorAscFrom(key, match, f)
 }
 
-// IteratorAsc 使用给定的回调函数 `f` 以升序遍历树（只读）。如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。
-// md5:c13b99ae40add3b0
+// IteratorAsc 使用给定的回调函数 `f` 以升序遍历树（只读）。如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。 md5:c13b99ae40add3b0
 func (tree *BTree) IteratorAsc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -440,8 +421,7 @@ func (tree *BTree) IteratorAsc(f func(key, value interface{}) bool) {
 
 // IteratorAscFrom 从给定的回调函数 `f` 以升序遍历树。
 // 参数 `key` 指定了遍历的起始条目。`match` 参数指定如果 `key` 完全匹配时是否开始遍历，否则使用索引搜索进行遍历。
-// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。
-// md5:c04855bbd3989808
+// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。 md5:c04855bbd3989808
 func (tree *BTree) IteratorAscFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -501,8 +481,7 @@ loop:
 	}
 }
 
-// IteratorDesc 以降序方式遍历树，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:f6740ea55dafe4bb
+// IteratorDesc 以降序方式遍历树，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。 md5:f6740ea55dafe4bb
 func (tree *BTree) IteratorDesc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -515,8 +494,7 @@ func (tree *BTree) IteratorDesc(f func(key, value interface{}) bool) {
 	tree.doIteratorDesc(node, entry, index, f)
 }
 
-// IteratorDescFrom 以降序方式遍历树，使用给定的回调函数 `f`。参数 `key` 指定开始遍历的条目。`match` 表示是否在 `key` 完全匹配时开始遍历，否则使用索引搜索遍历。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:e6bb2f7d12ab34f6
+// IteratorDescFrom 以降序方式遍历树，使用给定的回调函数 `f`。参数 `key` 指定开始遍历的条目。`match` 表示是否在 `key` 完全匹配时开始遍历，否则使用索引搜索遍历。如果 `f` 返回 true，则继续遍历；否则停止。 md5:e6bb2f7d12ab34f6
 func (tree *BTree) IteratorDescFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -532,8 +510,7 @@ func (tree *BTree) IteratorDescFrom(key interface{}, match bool, f func(key, val
 	}
 }
 
-// IteratorDesc 以降序方式遍历树，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:f6740ea55dafe4bb
+// IteratorDesc 以降序方式遍历树，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。 md5:f6740ea55dafe4bb
 func (tree *BTree) doIteratorDesc(node *BTreeNode, entry *BTreeEntry, index int, f func(key, value interface{}) bool) {
 	first := true
 loop:
@@ -612,8 +589,7 @@ func (tree *BTree) isLeaf(node *BTreeNode) bool {
 }
 
 // 函数（tree *BTree）isFull（node *BTreeNode）bool：
-// 返回当前节点（node）的条目数等于BTree类型的maxEntries方法的返回值，即满载状态。
-// md5:3a4924d98a84d807
+// 返回当前节点（node）的条目数等于BTree类型的maxEntries方法的返回值，即满载状态。 md5:3a4924d98a84d807
 
 func (tree *BTree) shouldSplit(node *BTreeNode) bool {
 	return len(node.Entries) > tree.maxEntries()
@@ -809,8 +785,7 @@ func (tree *BTree) right(node *BTreeNode) *BTreeNode {
 }
 
 // leftSibling 函数返回节点的左兄弟节点以及该节点在父节点中的索引（如果存在的话），否则返回（nil, -1）。
-// key 是节点中的任意一个键（即使是已被删除的键）。
-// md5:5df6d39676db1b43
+// key 是节点中的任意一个键（即使是已被删除的键）。 md5:5df6d39676db1b43
 func (tree *BTree) leftSibling(node *BTreeNode, key interface{}) (*BTreeNode, int) {
 	if node.Parent != nil {
 		index, _ := tree.search(node.Parent, key)
@@ -823,8 +798,7 @@ func (tree *BTree) leftSibling(node *BTreeNode, key interface{}) (*BTreeNode, in
 }
 
 // rightSibling 返回节点的右兄弟节点及其在父节点中的子索引，如果存在的话，否则返回 (nil,-1)。
-// key 可以是节点中的任意键（甚至可能是已删除的键）。
-// md5:d987c8284e77dafa
+// key 可以是节点中的任意键（甚至可能是已删除的键）。 md5:d987c8284e77dafa
 func (tree *BTree) rightSibling(node *BTreeNode, key interface{}) (*BTreeNode, int) {
 	if node.Parent != nil {
 		index, _ := tree.search(node.Parent, key)
@@ -837,8 +811,7 @@ func (tree *BTree) rightSibling(node *BTreeNode, key interface{}) (*BTreeNode, i
 }
 
 // delete 删除node中entries索引处的条目
-// 参考：https://en.wikipedia.org/wiki/B-tree#Deletion
-// md5:b876a095ea679730
+// 参考：https://en.wikipedia.org/wiki/B-tree#Deletion md5:b876a095ea679730
 func (tree *BTree) delete(node *BTreeNode, index int) {
 	// 从叶节点删除. md5:7876d56e8045e7f9
 	if tree.isLeaf(node) {
@@ -861,8 +834,7 @@ func (tree *BTree) delete(node *BTreeNode, index int) {
 }
 
 // reBalance 在必要时重新平衡树并返回true，否则返回false。
-// 注意，我们首先删除条目，然后调用reBalance，因此将传递已删除的键作为引用。
-// md5:c3feadb6a7f38094
+// 注意，我们首先删除条目，然后调用reBalance，因此将传递已删除的键作为引用。 md5:c3feadb6a7f38094
 func (tree *BTree) reBalance(node *BTreeNode, deletedKey interface{}) {
 	// 检查是否需要重新平衡. md5:1a872a2636208ac3
 	if node == nil || len(node.Entries) >= tree.minEntries() {
@@ -981,8 +953,7 @@ func (tree BTree) MarshalJSON() (jsonBytes []byte, err error) {
 	return buffer.Bytes(), nil
 }
 
-// getComparator 如果之前已设置比较器，则返回该比较器，否则将引发恐慌。
-// md5:03eac9fd6d838369
+// getComparator 如果之前已设置比较器，则返回该比较器，否则将引发恐慌。 md5:03eac9fd6d838369
 func (tree *BTree) getComparator() func(a, b interface{}) int {
 	if tree.comparator == nil {
 		panic("comparator is missing for tree")

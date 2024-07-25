@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -26,8 +25,7 @@
 # <翻译开始>
 // 包 goai 实现并提供针对 OpenApi 规范的文档生成。
 //
-// https://editor.swagger.io/
-// md5:cb37ff4d3e18479e
+// https://editor.swagger.io/ md5:cb37ff4d3e18479e
 # <翻译结束>
 
 
@@ -41,9 +39,8 @@
 // OpenApiV3 是根据以下规范定义的结构体：
 // https://swagger.io/specification/
 // https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md
-// 
-// 这个注释说明OpenApiV3这个结构体是依据Swagger/OpenAPI规范定义的，具体参照了给定的两个链接，分别指向Swagger官方网站的规范描述和OpenAPI Specification在GitHub上的3.0.0版本文档。
-// md5:0153ee143f23e076
+//
+// 这个注释说明OpenApiV3这个结构体是依据Swagger/OpenAPI规范定义的，具体参照了给定的两个链接，分别指向Swagger官方网站的规范描述和OpenAPI Specification在GitHub上的3.0.0版本文档。 md5:0153ee143f23e076
 # <翻译结束>
 
 
@@ -117,8 +114,7 @@
 
 # <翻译开始>
 // golangTypeToOAIFormat 将给定的 Go 语言类型 `t` 转换并返回为 OpenAPI 参数格式。
-// 注意，它返回的不是标准的 OpenAPI 参数格式，而是 Go 语言类型中的自定义格式。
-// md5:9fcc3831b2b211c9
+// 注意，它返回的不是标准的 OpenAPI 参数格式，而是 Go 语言类型中的自定义格式。 md5:9fcc3831b2b211c9
 # <翻译结束>
 
 
@@ -127,6 +123,6 @@
 <原文结束>
 
 # <翻译开始>
-// 指针类型没有PkgPath。 md5:38ccb85365da232e
+	// 指针类型没有PkgPath。 md5:38ccb85365da232e
 # <翻译结束>
 

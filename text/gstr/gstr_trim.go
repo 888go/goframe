@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gstr
 
@@ -14,15 +13,13 @@ import (
 )
 
 // Trim 函数从字符串的开头和结尾删除空白符（或其他字符）。
-// 可选参数 `characterMask` 指定了额外需要删除的字符。
-// md5:a1d794d7a10c9c7a
+// 可选参数 `characterMask` 指定了额外需要删除的字符。 md5:a1d794d7a10c9c7a
 func Trim(str string, characterMask ...string) string {
 	return utils.Trim(str, characterMask...)
 }
 
 // TrimStr 从字符串的开始和结束处删除给定的 `cut` 字符串。
-// 请注意，它不会删除其开始或结束处的空格。
-// md5:6180dbb1bb9965c4
+// 请注意，它不会删除其开始或结束处的空格。 md5:6180dbb1bb9965c4
 func TrimStr(str string, cut string, count ...int) string {
 	return TrimLeftStr(TrimRightStr(str, cut, count...), cut, count...)
 }
@@ -36,8 +33,7 @@ func TrimLeft(str string, characterMask ...string) string {
 	return strings.TrimLeft(str, trimChars)
 }
 
-// TrimLeftStr 从字符串的开头移除所有给定的 `cut` 字符串。注意，它不会移除字符串开头的空格。
-// md5:765cffbaed7e3cce
+// TrimLeftStr 从字符串的开头移除所有给定的 `cut` 字符串。注意，它不会移除字符串开头的空格。 md5:765cffbaed7e3cce
 func TrimLeftStr(str string, cut string, count ...int) string {
 	var (
 		lenCut   = len(cut)
@@ -63,8 +59,7 @@ func TrimRight(str string, characterMask ...string) string {
 }
 
 // TrimRightStr 从字符串的末尾删除所有给定的 `cut` 字符串。
-// 请注意，它不会删除字符串末尾的空格。
-// md5:0ca4b90c9d600b39
+// 请注意，它不会删除字符串末尾的空格。 md5:0ca4b90c9d600b39
 func TrimRightStr(str string, cut string, count ...int) string {
 	var (
 		lenStr   = len(str)

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -23,8 +22,7 @@ func (s *Server) getStatusHandler(status int, r *Request) []HandlerFunc {
 }
 
 // addStatusHandler 为给定的状态码设置处理器。
-// 参数 `pattern` 的格式形如：domain#status
-// md5:cd0f0b9754ee5b43
+// 参数 `pattern` 的格式形如：domain#status md5:cd0f0b9754ee5b43
 func (s *Server) addStatusHandler(pattern string, handler HandlerFunc) {
 	if s.statusHandlerMap[pattern] == nil {
 		s.statusHandlerMap[pattern] = make([]HandlerFunc, 0)

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -37,8 +36,7 @@ type cookieItem struct {
 
 // GetCookie 通过给定的请求创建或检索一个cookie对象。
 // 如果已经存在与给定请求匹配的cookie对象，它将检索并返回该对象。
-// 如果不存在与给定请求匹配的cookie对象，它将创建一个新的cookie对象并返回。
-// md5:5b2b3a376a2f6162
+// 如果不存在与给定请求匹配的cookie对象，它将创建一个新的cookie对象并返回。 md5:5b2b3a376a2f6162
 func GetCookie(r *Request) *Cookie {
 	if r.Cookie != nil {
 		return r.Cookie
@@ -59,8 +57,7 @@ func (c *Cookie) init() {
 	// 请勿在此添加任何默认的Cookie域名！
 	// 如果 c.request.Server.GetCookieDomain() 等于空字符串 {
 	//     c.request.Server.GetCookieDomain() = c.request.GetHost()
-	// }
-	// md5:dd77fb4cfe35c3cc
+	// } md5:dd77fb4cfe35c3cc
 	for _, v := range c.request.Cookies() {
 		c.data[v.Name] = &cookieItem{
 			Cookie:     v,
@@ -107,8 +104,7 @@ func (c *Cookie) Set(key, value string) {
 }
 
 // SetCookie 设置具有给定域名、路径和过期时间的cookie项。
-// 可选参数`options`指定了额外的安全配置，通常为空。
-// md5:2afc45e40597ce0d
+// 可选参数`options`指定了额外的安全配置，通常为空。 md5:2afc45e40597ce0d
 func (c *Cookie) SetCookie(key, value, domain, path string, maxAge time.Duration, options ...CookieOptions) {
 	c.init()
 	config := CookieOptions{}
@@ -162,8 +158,7 @@ func (c *Cookie) SetSessionId(id string) {
 }
 
 // Get 获取并返回具有指定键的值。
-// 如果指定的键不存在，并且提供了默认值`def`，则返回`def`。
-// md5:f137dd1311660ee4
+// 如果指定的键不存在，并且提供了默认值`def`，则返回`def`。 md5:f137dd1311660ee4
 func (c *Cookie) Get(key string, def ...string) *gvar.Var {
 	c.init()
 	if r, ok := c.data[key]; ok {
@@ -177,8 +172,7 @@ func (c *Cookie) Get(key string, def ...string) *gvar.Var {
 	return nil
 }
 
-// Remove 从使用默认域名和路径的cookie中删除指定键及其值。实际上，它告诉HTTP客户端该cookie已过期，下次不要将其发送到服务器。
-// md5:4c429c6b33ce790c
+// Remove 从使用默认域名和路径的cookie中删除指定键及其值。实际上，它告诉HTTP客户端该cookie已过期，下次不要将其发送到服务器。 md5:4c429c6b33ce790c
 func (c *Cookie) Remove(key string) {
 	c.SetCookie(
 		key,
@@ -189,8 +183,7 @@ func (c *Cookie) Remove(key string) {
 	)
 }
 
-// RemoveCookie 使用给定的域名和路径从cookie中删除指定的键及其值。实际上，它告诉HTTP客户端该cookie已过期，下次不要将其发送到服务器。
-// md5:a437da6ed4ded047
+// RemoveCookie 使用给定的域名和路径从cookie中删除指定的键及其值。实际上，它告诉HTTP客户端该cookie已过期，下次不要将其发送到服务器。 md5:a437da6ed4ded047
 func (c *Cookie) RemoveCookie(key, domain, path string) {
 	c.SetCookie(key, "", domain, path, -24*time.Hour)
 }

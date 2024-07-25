@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -25,8 +24,7 @@ type middleware struct {
 }
 
 // Next 调用下一个工作流处理器。
-// 这是一个重要的函数，用于控制服务器请求执行的工作流程。
-// md5:9993825368a59675
+// 这是一个重要的函数，用于控制服务器请求执行的工作流程。 md5:9993825368a59675
 func (m *middleware) Next() {
 	var item *HandlerItemParsed
 	var loop = true
@@ -97,8 +95,7 @@ func (m *middleware) Next() {
 				niceCallFunc(func() {
 					item.Handler.Info.Func(m.request)
 				})
-				// 它不会在其他中间件完成之后继续调用下一个中间件。为了管理工作流程，中间件应该有一个名为 "Next" 的函数可供调用。
-				// md5:0a1a7642101f1bb9
+				// 它不会在其他中间件完成之后继续调用下一个中间件。为了管理工作流程，中间件应该有一个名为 "Next" 的函数可供调用。 md5:0a1a7642101f1bb9
 				loop = false
 			}
 		}, func(ctx context.Context, exception error) {
@@ -107,8 +104,7 @@ func (m *middleware) Next() {
 				m.request.error = exception
 			} else {
 				// 创建一个带有堆栈信息的新错误。
-				// 注意，skip 参数指定了从哪个调用栈开始追踪真正的错误点。
-				// md5:e23da1f0a4a0c90f
+				// 注意，skip 参数指定了从哪个调用栈开始追踪真正的错误点。 md5:e23da1f0a4a0c90f
 				m.request.error = gerror.WrapCodeSkip(gcode.CodeInternalError, 1, exception, "")
 			}
 			m.request.Response.WriteStatus(http.StatusInternalServerError, exception)

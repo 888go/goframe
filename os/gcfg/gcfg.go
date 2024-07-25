@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gcfg提供了配置的读取、缓存和管理功能。 md5:5ae504d1379cd99a
 package gcfg
@@ -50,8 +49,7 @@ func NewWithAdapter(adapter Adapter) *Config {
 
 // Instance 返回一个具有默认设置的 Config 实例。
 // 参数 `name` 是该实例的名称。但请注意，如果配置目录中存在文件 "name.toml"，
-// 则将其设置为默认配置文件。TOML 文件类型是默认的配置文件类型。
-// md5:4164ff567a8c8c31
+// 则将其设置为默认配置文件。TOML 文件类型是默认的配置文件类型。 md5:4164ff567a8c8c31
 func Instance(name ...string) *Config {
 	var instanceName = DefaultInstanceName
 	if len(name) > 0 && name[0] != "" {
@@ -82,10 +80,9 @@ func (c *Config) GetAdapter() Adapter {
 
 // 可用性检查并返回配置服务是否可用。
 // 可选参数 `pattern` 指定某些配置资源。
-// 
+//
 // 如果默认AdapterFile中存在配置文件，则返回true，否则返回false。
-// 请注意，此函数不会返回错误，因为它只是简单地检查后端配置服务。
-// md5:771d98d194158bc1
+// 请注意，此函数不会返回错误，因为它只是简单地检查后端配置服务。 md5:771d98d194158bc1
 func (c *Config) Available(ctx context.Context, resource ...string) (ok bool) {
 	return c.adapter.Available(ctx, resource...)
 }
@@ -94,8 +91,7 @@ func (c *Config) Available(ctx context.Context, resource ...string) (ok bool) {
 // 如果`pattern`为空字符串或"."，它将返回当前Json对象的所有值。
 // 如果根据`pattern`没有找到值，它将返回nil。
 //
-// 如果没有为`pattern`找到值，它将返回由`def`指定的默认值。
-// md5:b10a106fb9d6af41
+// 如果没有为`pattern`找到值，它将返回由`def`指定的默认值。 md5:b10a106fb9d6af41
 func (c *Config) Get(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	var (
 		err   error
@@ -118,8 +114,7 @@ func (c *Config) Get(ctx context.Context, pattern string, def ...interface{}) (*
 // 如果配置值不存在，那么它会获取并返回由`key`指定的环境变量值。
 // 如果两者都不存在，则返回默认值`def`。
 //
-// 获取规则：环境变量参数以大写格式表示，例如：GF_PACKAGE_VARIABLE。
-// md5:d533293fbfbf6350
+// 获取规则：环境变量参数以大写格式表示，例如：GF_PACKAGE_VARIABLE。 md5:d533293fbfbf6350
 func (c *Config) GetWithEnv(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	value, err := c.Get(ctx, pattern)
 	if err != nil && gerror.Code(err) != gcode.CodeNotFound {
@@ -140,9 +135,8 @@ func (c *Config) GetWithEnv(ctx context.Context, pattern string, def ...interfac
 // GetWithCmd 根据模式 `pattern` 返回配置值。
 // 如果找不到配置值，它将检索并返回由 `key` 指定的命令行选项。
 // 如果它们都不存在，则返回默认值 `def`。
-// 
-// 获取规则：命令行参数采用小写格式，例如：gf.package.variable。
-// md5:2a77887f42041d88
+//
+// 获取规则：命令行参数采用小写格式，例如：gf.package.variable。 md5:2a77887f42041d88
 func (c *Config) GetWithCmd(ctx context.Context, pattern string, def ...interface{}) (*gvar.Var, error) {
 	value, err := c.Get(ctx, pattern)
 	if err != nil && gerror.Code(err) != gcode.CodeNotFound {

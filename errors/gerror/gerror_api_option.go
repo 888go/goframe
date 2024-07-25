@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gerror
 
@@ -18,8 +17,7 @@ type Option struct {
 }
 
 // NewWithOption 创建并返回一个带有选项的自定义错误。
-// 这是创建错误的高级用法，通常在框架内部使用。
-// md5:0727fc0de90f397f
+// 这是创建错误的高级用法，通常在框架内部使用。 md5:0727fc0de90f397f
 func NewWithOption(option Option) error {
 	err := &Error{
 		error: option.Error,
@@ -33,8 +31,7 @@ func NewWithOption(option Option) error {
 }
 
 // NewOption 创建并返回一个带有 Option 的自定义错误。
-// 已弃用：请使用 NewWithOption 替代。
-// md5:dba08610e527e0f9
+// 已弃用：请使用 NewWithOption 替代。 md5:dba08610e527e0f9
 func NewOption(option Option) error {
 	return NewWithOption(option)
 }

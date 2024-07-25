@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gjson_test
 
@@ -36,8 +35,7 @@ func Test_New(t *testing.T) {
 		t.Assert(j.Get("2.c").String(), `3`)
 	})
 	// 使用gvar的新建方法。
-	// https:	//github.com/gogf/gf/issues/1571
-	// md5:489c7f12ac3a473f
+	// https:	//github.com/gogf/gf/issues/1571 md5:489c7f12ac3a473f
 	gtest.C(t, func(t *gtest.T) {
 		v := gvar.New(`[{"a":1},{"b":2},{"c":3}]`)
 		j := gjson.New(v)
@@ -596,7 +594,7 @@ func Test_Issue1617(t *testing.T) {
 	})
 }
 
-//github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
+// github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
 func Test_Issue1747(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var j *gjson.Json

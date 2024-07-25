@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -22,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用t.Assert断言result转换为字符串后，应该大于指定的整数i，并格式化输出`> %d`。 md5:a472ffa3da0404c5
+			// 使用t.Assert断言result转换为字符串后，应该大于指定的整数i，并格式化输出`> %d`。 md5:a472ffa3da0404c5
 # <翻译结束>
 
 
@@ -31,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// gudp.Conn.SendWithTimeout. md5:5bddfc1c824abcc9
+	// gudp.Conn.SendWithTimeout. md5:5bddfc1c824abcc9
 # <翻译结束>
 
 
@@ -40,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// gudp.Conn.RecvWithTimeout. md5:230cfff3316a9a8e
+	// gudp.Conn.RecvWithTimeout. md5:230cfff3316a9a8e
 # <翻译结束>
 
 
@@ -49,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// gudp.Conn.SendRecvWithTimeout 是一个方法，用于在连接上同时发送和接收数据，并带有超时设置。 md5:61b16b2e37fcaedb
+	// gudp.Conn.SendRecvWithTimeout 是一个方法，用于在连接上同时发送和接收数据，并带有超时设置。 md5:61b16b2e37fcaedb
 # <翻译结束>
 
 
@@ -96,8 +95,7 @@
 // 启动服务器并等待一段时间后，进行以下测试：
 // 1. 发送字符串"123"到服务器地址，期望返回结果为"1"，并验证错误是否为nil。
 // 2. 再次发送字符串"456"到服务器地址，期望返回结果为"4"，同样验证错误是否为nil。
-// 
-// 最后确保关闭服务器。
-// md5:e1d59962b87c120a
+//
+// 最后确保关闭服务器。 md5:e1d59962b87c120a
 # <翻译结束>
 

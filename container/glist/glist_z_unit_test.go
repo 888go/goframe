@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package glist
 
@@ -235,8 +234,7 @@ func checkList(t *gtest.T, l *List, es []interface{}) {
 	//     }
 	//     i++ 	// 移动到下一个元素
 	// }
-	// ```
-	// md5:70725046d20cffb7
+	// ``` md5:70725046d20cffb7
 }
 
 func TestExtending(t *testing.T) {
@@ -292,23 +290,22 @@ func TestRemove(t *testing.T) {
 		e1 := l.PushBack(1)
 		e2 := l.PushBack(2)
 		checkListPointers(t, l, []*Element{e1, e2})
-		// e := l.Front() 
+		// e := l.Front()
 		// 将链表l的前端元素赋值给e
-		// 
-		// l.Remove(e) 
+		//
+		// l.Remove(e)
 		// 从链表l中移除元素e
-		// 
-		// checkListPointers(t, l, []*Element{e2}) 
+		//
+		// checkListPointers(t, l, []*Element{e2})
 		// 检查链表l的指针，预期结果是包含元素e2的元素指针切片
-		// 
-		// l.Remove(e) 
+		//
+		// l.Remove(e)
 		// 再次尝试从链表l中移除元素e（注意：此处的e已被先前移除，此操作可能会引发错误或无效行为）
-		// 
-		// checkListPointers(t, l, []*Element{e2}) 
+		//
+		// checkListPointers(t, l, []*Element{e2})
 		// 再次检查链表l的指针，预期结果仍然是只包含元素e2的元素指针切片
-		// 
-		// 这段代码注释描述了一段Go语言程序中对链表进行的操作序列，包括获取链表前端元素、两次移除同一元素（第二次移除可能不合法或无效果）以及两次验证链表内部指针状态的操作。
-		// md5:3676fd13658ebe61
+		//
+		// 这段代码注释描述了一段Go语言程序中对链表进行的操作序列，包括获取链表前端元素、两次移除同一元素（第二次移除可能不合法或无效果）以及两次验证链表内部指针状态的操作。 md5:3676fd13658ebe61
 	})
 }
 
@@ -344,8 +341,7 @@ func TestIssue6349(t *testing.T) {
 		t.Errorf("e.value = %d, want 1", e.Value)
 	}
 	// 如果e.Next()不等于nil，则执行错误输出："e.Next() != nil"
-	// 如果e.Prev()不等于nil，则执行错误输出："e.Prev() != nil"
-	// md5:a75956b6e6f13085
+	// 如果e.Prev()不等于nil，则执行错误输出："e.Prev() != nil" md5:a75956b6e6f13085
 }
 
 func TestMove(t *testing.T) {

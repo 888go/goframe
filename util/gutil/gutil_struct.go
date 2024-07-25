@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gutil
 
@@ -17,8 +16,7 @@ import (
 )
 
 // StructToSlice 将结构体转换为一个键值对作为元素的切片。
-// 例如：{"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
-// md5:ca8c34ec711fb0de
+// 例如：{"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"] md5:ca8c34ec711fb0de
 func StructToSlice(data interface{}) []interface{} {
 	var (
 		reflectValue = reflect.ValueOf(data)
@@ -31,8 +29,7 @@ func StructToSlice(data interface{}) []interface{} {
 	switch reflectKind {
 	case reflect.Struct:
 		array := make([]interface{}, 0)
-		// 如果在结构体属性中找到了gconv标签，它将使用gconv标签名而不是属性名。
-		// md5:697077ff458895f0
+		// 如果在结构体属性中找到了gconv标签，它将使用gconv标签名而不是属性名。 md5:697077ff458895f0
 		for k, v := range gconv.Map(reflectValue) {
 			array = append(array, k)
 			array = append(array, v)
@@ -42,8 +39,7 @@ func StructToSlice(data interface{}) []interface{} {
 	return nil
 }
 
-// FillStructWithDefault 使用`default/d`标签的值填充指向的结构体的属性。参数`structPtr`应该是`*struct`或`[]*struct`类型的一种。
-// md5:5777fe6fdb6efa8a
+// FillStructWithDefault 使用`default/d`标签的值填充指向的结构体的属性。参数`structPtr`应该是`*struct`或`[]*struct`类型的一种。 md5:5777fe6fdb6efa8a
 func FillStructWithDefault(structPtr interface{}) error {
 	var (
 		reflectValue reflect.Value

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gres
 
@@ -20,8 +19,7 @@ var (
 )
 
 // Instance 返回一个 Resource 的实例。
-// 参数 `name` 是该实例的名称。
-// md5:7525989539de5240
+// 参数 `name` 是该实例的名称。 md5:7525989539de5240
 func Instance(name ...string) *Resource {
 	key := DefaultName
 	if len(name) > 0 && name[0] != "" {

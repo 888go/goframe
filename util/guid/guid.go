@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // guid包提供了简单且高性能的唯一ID生成功能。 md5:22d1fe7516a2dff2
 package guid
@@ -65,8 +64,7 @@ func init() {
 //
 // 注意：
 //  1. 为了性能考虑，返回的长度固定为32字节。
-//  2. 自定义参数`data`组合的内容在你的业务场景中应具有唯一性。
-// md5:b09b2d34d56e1344
+//  2. 自定义参数`data`组合的内容在你的业务场景中应具有唯一性。 md5:b09b2d34d56e1344
 func S(data ...[]byte) string {
 	var (
 		b       = make([]byte, 32)
@@ -100,8 +98,7 @@ func S(data ...[]byte) string {
 }
 
 // getSequence 递增并返回一个以3个字节表示的序列字符串。
-// 序列小于"zzz"(46655)。
-// md5:742b11b09412718d
+// 序列小于"zzz"(46655)。 md5:742b11b09412718d
 func getSequence() []byte {
 	b := []byte{'0', '0', '0'}
 	s := strconv.FormatUint(uint64(sequence.Add(1)%sequenceMax), 36)

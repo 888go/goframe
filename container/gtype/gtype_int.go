@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtype
 
@@ -19,8 +18,7 @@ type Int struct {
 	value int64
 }
 
-// NewInt 创建并返回一个并发安全的 int 类型的对象，其初始值为 `value`。
-// md5:2bb0b2973897c335
+// NewInt 创建并返回一个并发安全的 int 类型的对象，其初始值为 `value`。 md5:2bb0b2973897c335
 func NewInt(value ...int) *Int {
 	if len(value) > 0 {
 		return &Int{

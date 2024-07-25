@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcron
 
@@ -24,8 +23,7 @@ func (s *cronSchedule) getAndUpdateLastCheckTimestamp(ctx context.Context, t tim
 	// 通常情况下，定时器在同一秒内触发，但毫秒数不同。
 	// 例如：
 	// lastCheckTimestamp: 2024-03-26 19:47:34.000
-	// currentTimestamp:   2024-03-26 19:47:34.999
-	// md5:7ad3ec347d1a6583
+	// currentTimestamp:   2024-03-26 19:47:34.999 md5:7ad3ec347d1a6583
 	case
 		lastCheckTimestamp == currentTimestamp:
 		lastCheckTimestamp += 1
@@ -33,8 +31,7 @@ func (s *cronSchedule) getAndUpdateLastCheckTimestamp(ctx context.Context, t tim
 	// 经常发生的情况，没有延迟。
 	// 示例：
 	// lastCheckTimestamp: 2024年03月26日 19时47分34秒.000
-	// currentTimestamp:   2024年03月26日 19时47分35秒.000
-	// md5:1ed300ef7b928611
+	// currentTimestamp:   2024年03月26日 19时47分35秒.000 md5:1ed300ef7b928611
 	case
 		lastCheckTimestamp == currentTimestamp-1:
 		lastCheckTimestamp = currentTimestamp
@@ -42,8 +39,7 @@ func (s *cronSchedule) getAndUpdateLastCheckTimestamp(ctx context.Context, t tim
 	// 可容忍的延迟时间为3秒。
 	// 例如：
 	// lastCheckTimestamp: 2024-03-26 19:47:31.000、2024-03-26 19:47:32.000
-	// currentTimestamp:   2024-03-26 19:47:34.000
-	// md5:21934a048bbfddaf
+	// currentTimestamp:   2024-03-26 19:47:34.000 md5:21934a048bbfddaf
 	case
 		lastCheckTimestamp == currentTimestamp-2,
 		lastCheckTimestamp == currentTimestamp-3:

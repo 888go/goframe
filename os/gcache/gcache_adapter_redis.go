@@ -1,8 +1,7 @@
 // 版权所有 (c) 2020 gogf 作者(https://github.com/gogf/gf)。保留所有权利。
 //
 // 本源代码形式遵循MIT许可协议。若未随此文件一同分发MIT许可协议副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:7063305469ff40c2
+// 您可以从 https://github.com/gogf/gf 获取。 md5:7063305469ff40c2
 
 package gcache
 
@@ -30,8 +29,7 @@ func NewAdapterRedis(redis *gredis.Redis) Adapter {
 // Set 使用键值对 `key`-`value` 设置缓存，该缓存在 `duration` 时间后过期。
 //
 // 如果 `duration` 等于 0，则不会过期。
-// 如果 `duration` 小于 0 或者给定的 `value` 为 nil，它将删除 `data` 中的键。
-// md5:7faea7b643bffd7c
+// 如果 `duration` 小于 0 或者给定的 `value` 为 nil，它将删除 `data` 中的键。 md5:7faea7b643bffd7c
 func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (err error) {
 	redisKey := gconv.String(key)
 	if value == nil || duration < 0 {
@@ -49,8 +47,7 @@ func (c *AdapterRedis) Set(ctx context.Context, key interface{}, value interface
 // SetMap 批量设置缓存，使用 `data` 映射（键值对）的方式，其在 `duration` 后过期。
 //
 // 如果 `duration` 等于 0，则不会过期。
-// 如果 `duration` 小于 0 或给定的 `value` 为 `nil`，则会删除 `data` 中的键。
-// md5:a09a11cd5d9d21e6
+// 如果 `duration` 小于 0 或给定的 `value` 为 `nil`，则会删除 `data` 中的键。 md5:a09a11cd5d9d21e6
 func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interface{}, duration time.Duration) error {
 	if len(data) == 0 {
 		return nil
@@ -88,10 +85,9 @@ func (c *AdapterRedis) SetMap(ctx context.Context, data map[interface{}]interfac
 }
 
 // SetIfNotExist 如果缓存中不存在`key`，则设置过期时间为`duration`的`key`-`value`对。如果成功将`value`设置到缓存中，它会返回`true`，表示`key`在缓存中不存在；否则返回`false`。
-// 
+//
 // 如果`duration`为0，缓存不会过期。
-// 如果`duration`小于0或给定的`value`为`nil`，它会删除`key`。
-// md5:38aa90beb53ed441
+// 如果`duration`小于0或给定的`value`为`nil`，它会删除`key`。 md5:38aa90beb53ed441
 func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (bool, error) {
 	var (
 		err      error
@@ -142,8 +138,7 @@ func (c *AdapterRedis) SetIfNotExist(ctx context.Context, key interface{}, value
 // 但如果其结果为nil，则不会执行任何操作。
 //
 // 如果`duration`等于0，则不设置过期时间。
-// 如果`duration`小于0或给定的`value`为nil，则删除该`key`。
-// md5:8300c80b9bab735d
+// 如果`duration`小于0或给定的`value`为nil，则删除该`key`。 md5:8300c80b9bab735d
 func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -158,8 +153,7 @@ func (c *AdapterRedis) SetIfNotExistFunc(ctx context.Context, key interface{}, f
 // 如果`duration`等于0，则不会过期。
 // 如果`duration`小于0或给定的`value`为nil，将删除`key`。
 //
-// 注意，它与函数`SetIfNotExistFunc`的区别在于，函数`f`在写入互斥锁内部执行，以保证并发安全性。
-// md5:629e13ace9eaf720
+// 注意，它与函数`SetIfNotExistFunc`的区别在于，函数`f`在写入互斥锁内部执行，以保证并发安全性。 md5:629e13ace9eaf720
 func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (ok bool, err error) {
 	value, err := f(ctx)
 	if err != nil {
@@ -168,8 +162,7 @@ func (c *AdapterRedis) SetIfNotExistFuncLock(ctx context.Context, key interface{
 	return c.SetIfNotExist(ctx, key, value, duration)
 }
 
-// Get 通过给定的 <key> 获取并返回关联的值。如果不存在或其值为 nil，则返回 nil。
-// md5:ecb61eca16fb4324
+// Get 通过给定的 <key> 获取并返回关联的值。如果不存在或其值为 nil，则返回 nil。 md5:ecb61eca16fb4324
 func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, error) {
 	return c.redis.Get(ctx, gconv.String(key))
 }
@@ -178,8 +171,7 @@ func (c *AdapterRedis) Get(ctx context.Context, key interface{}) (*gvar.Var, err
 // 这对键值将在指定的`duration`后过期。
 //
 // 如果`duration`为0，则不会过期。
-// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且函数结果为nil，它则不做任何操作。
-// md5:b8646fcb99c81de9
+// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且函数结果为nil，它则不做任何操作。 md5:b8646fcb99c81de9
 func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value interface{}, duration time.Duration) (result *gvar.Var, err error) {
 	result, err = c.Get(ctx, key)
 	if err != nil {
@@ -194,8 +186,7 @@ func (c *AdapterRedis) GetOrSet(ctx context.Context, key interface{}, value inte
 // GetOrSetFunc 获取并返回`key`的值，如果缓存中不存在`key`，则使用函数`f`的结果设置`key`并返回该结果。键值对在`duration`时间后过期。
 //
 // 如果`duration`等于0，则不会过期。
-// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且其结果为nil，则不执行任何操作。
-// md5:822486c86baa87d1
+// 如果`duration`小于0或给定的`value`为nil，它将删除`key`，但若`value`是一个函数且其结果为nil，则不执行任何操作。 md5:822486c86baa87d1
 func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	v, err := c.Get(ctx, key)
 	if err != nil {
@@ -216,12 +207,11 @@ func (c *AdapterRedis) GetOrSetFunc(ctx context.Context, key interface{}, f Func
 }
 
 // GetOrSetFuncLock 获取并返回键`key`的值，或者如果`key`在缓存中不存在，则使用函数`f`的结果设置`key`，并返回其结果。键值对在`duration`后过期。
-// 
+//
 // 如果`duration`为0，它不会过期。
 // 如果`duration`小于0或给定的`value`为nil，它会删除`key`；但如果`value`是一个函数并且函数结果为nil，它将不执行任何操作。
-// 
-// 注意，它与`GetOrSetFunc`函数不同，函数`f`是在写入互斥锁保护下执行的，以确保并发安全。
-// md5:3e49c54e5e0c2857
+//
+// 注意，它与`GetOrSetFunc`函数不同，函数`f`是在写入互斥锁保护下执行的，以确保并发安全。 md5:3e49c54e5e0c2857
 func (c *AdapterRedis) GetOrSetFuncLock(ctx context.Context, key interface{}, f Func, duration time.Duration) (result *gvar.Var, err error) {
 	return c.GetOrSetFunc(ctx, key, f, duration)
 }
@@ -245,8 +235,7 @@ func (c *AdapterRedis) Size(ctx context.Context) (size int, err error) {
 }
 
 // Data 返回缓存中所有键值对的副本，以映射类型形式呈现。
-// 注意：此函数可能会占用大量内存，请根据需要决定是否实现该功能。
-// md5:c44cdbd9b10ab98f
+// 注意：此函数可能会占用大量内存，请根据需要决定是否实现该功能。 md5:c44cdbd9b10ab98f
 func (c *AdapterRedis) Data(ctx context.Context) (map[interface{}]interface{}, error) {
 	// Keys.
 	keys, err := c.redis.Keys(ctx, "*")
@@ -303,8 +292,7 @@ func (c *AdapterRedis) Values(ctx context.Context) ([]interface{}, error) {
 // 如果`key`在缓存中不存在，返回的值`exist`为false。
 //
 // 如果给定的`value`为nil，它会删除`key`。
-// 如果`key`不在缓存中，它不会做任何操作。
-// md5:6d92816db5b1d3bd
+// 如果`key`不在缓存中，它不会做任何操作。 md5:6d92816db5b1d3bd
 func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interface{}) (oldValue *gvar.Var, exist bool, err error) {
 	var (
 		v        *gvar.Var
@@ -339,8 +327,7 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 		_, err = c.redis.Set(ctx, redisKey, value)
 	} else {
 		// 更新 SetEX -> 设置PX选项（毫秒）
-		// 从Redis版本2.6.12开始：添加了EX、PX、NX和XX选项。
-		// md5:490be86df7cc2df5
+		// 从Redis版本2.6.12开始：添加了EX、PX、NX和XX选项。 md5:490be86df7cc2df5
 		_, err = c.redis.Set(ctx, redisKey, value, gredis.SetOption{TTLOption: gredis.TTLOption{PX: gconv.PtrInt64(oldPTTL)}})
 	}
 	return oldValue, true, err
@@ -348,8 +335,7 @@ func (c *AdapterRedis) Update(ctx context.Context, key interface{}, value interf
 
 // UpdateExpire 更新键`key`的过期时间，并返回旧的过期持续时间值。
 //
-// 如果`key`在缓存中不存在，它将返回-1并什么都不做。如果`duration`小于0，它会删除`key`。
-// md5:b974907dd46b44be
+// 如果`key`在缓存中不存在，它将返回-1并什么都不做。如果`duration`小于0，它会删除`key`。 md5:b974907dd46b44be
 func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, duration time.Duration) (oldDuration time.Duration, err error) {
 	var (
 		v        *gvar.Var
@@ -388,11 +374,10 @@ func (c *AdapterRedis) UpdateExpire(ctx context.Context, key interface{}, durati
 }
 
 // GetExpire 从缓存中检索并返回 `key` 的过期时间。
-// 
+//
 // 注意，
 // 如果 `key` 没有过期，它将返回 0。
-// 如果 `key` 不在缓存中，它将返回 -1。
-// md5:d80ce12df8668b97
+// 如果 `key` 不在缓存中，它将返回 -1。 md5:d80ce12df8668b97
 func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Duration, error) {
 	pttl, err := c.redis.PTTL(ctx, gconv.String(key))
 	if err != nil {
@@ -409,8 +394,7 @@ func (c *AdapterRedis) GetExpire(ctx context.Context, key interface{}) (time.Dur
 }
 
 // Remove 从缓存中删除一个或多个键，并返回其值。
-// 如果给出了多个键，它将返回最后删除项的值。
-// md5:b3f23906b769df08
+// 如果给出了多个键，它将返回最后删除项的值。 md5:b3f23906b769df08
 func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastValue *gvar.Var, err error) {
 	if len(keys) == 0 {
 		return nil, nil
@@ -426,8 +410,7 @@ func (c *AdapterRedis) Remove(ctx context.Context, keys ...interface{}) (lastVal
 
 // Clear 清空缓存中的所有数据。
 // 注意，此函数具有敏感性，应谨慎使用。
-// 它使用了 Redis 服务器中的 `FLUSHDB` 命令，但该命令可能在服务器中被禁用。
-// md5:e9b895cf3a7760c0
+// 它使用了 Redis 服务器中的 `FLUSHDB` 命令，但该命令可能在服务器中被禁用。 md5:e9b895cf3a7760c0
 func (c *AdapterRedis) Clear(ctx context.Context) (err error) {
 	// "FLUSHDB"可能不可用。 md5:95fb09eb47c6baab
 	err = c.redis.FlushDB(ctx)

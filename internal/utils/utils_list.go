@@ -2,15 +2,13 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package utils
 
 import "fmt"
 
-// ListToMapByKey 将 `list` 转换为一个键为 `key` 的 map[string]interface{}。注意，项的值可能为切片类型。
-// md5:6509753e629d5dc6
+// ListToMapByKey 将 `list` 转换为一个键为 `key` 的 map[string]interface{}。注意，项的值可能为切片类型。 md5:6509753e629d5dc6
 func ListToMapByKey(list []map[string]interface{}, key string) map[string]interface{} {
 	var (
 		s              = ""

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package builtin
 
@@ -17,9 +16,8 @@ import (
 
 // RuleMaxLength 实现了 `max-length` 规则：
 // 长度小于或等于 :max。长度是根据 Unicode 字符串计算的，这意味着一个中文字符或字母的长度均为 1。
-// 
-// 格式：max-length:max
-// md5:79ec85f367534ee2
+//
+// 格式：max-length:max md5:79ec85f367534ee2
 type RuleMaxLength struct{}
 
 func init() {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包 gsel 提供选择器的定义和实现。 md5:009a7633736cc0b4
 package gsel
@@ -57,38 +56,32 @@ type DoneInfo struct {
 
 	// ServerLoad 是从服务器接收到的负载。它通常作为尾部元数据的一部分发送。
 	//
-	// 目前唯一支持的类型是 *orca_v1.LoadReport。
-	// md5:631ea6798c4714cb
+	// 目前唯一支持的类型是 *orca_v1.LoadReport。 md5:631ea6798c4714cb
 	ServerLoad interface{}
 }
 
 // DoneInfoMD 是一个从元数据键映射到值数组的映射。
-// 用户应使用以下两个便利函数 New 和 Pairs 来生成 MD。
-// md5:46c19d6d882119ab
+// 用户应使用以下两个便利函数 New 和 Pairs 来生成 MD。 md5:46c19d6d882119ab
 type DoneInfoMD interface {
 	// Len 返回md中的项目数量。 md5:dd1e6c01d830a7fd
 	Len() int
 
 	// Get 获取指定键的值。
 	//
-	// 在对 md 进行搜索之前，k 会被转换为小写。
-	// md5:cd83da607a1a524c
+	// 在对 md 进行搜索之前，k 会被转换为小写。 md5:cd83da607a1a524c
 	Get(k string) []string
 
 	// Set 使用一系列值设置给定键的值。
 	//
-	// 在存储到 md 之前，k 将被转换为小写。
-	// md5:723075d936727645
+	// 在存储到 md 之前，k 将被转换为小写。 md5:723075d936727645
 	Set(key string, values ...string)
 
 	// Append 将值添加到键 k，但不会覆盖已经存储在该键上的内容。
 	//
-	// 在存储到 md 中之前，k 会被转换为小写。
-	// md5:8b748588b95754ce
+	// 在存储到 md 中之前，k 会被转换为小写。 md5:8b748588b95754ce
 	Append(k string, values ...string)
 
-	// Delete 删除给定键 k 的值，该键在从 md 中删除之前会被转换为小写。
-	// md5:fa165ee7e187c245
+	// Delete 删除给定键 k 的值，该键在从 md 中删除之前会被转换为小写。 md5:fa165ee7e187c245
 	Delete(k string)
 }
 

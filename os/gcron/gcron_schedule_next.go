@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcron
 
@@ -11,8 +10,7 @@ import (
 	"time"
 )
 
-// Next 返回此调度的下次激活时间，大于给定的时间。如果找不到满足调度的时间，则返回零时间。
-// md5:a7867a51955c4fd0
+// Next 返回此调度的下次激活时间，大于给定的时间。如果找不到满足调度的时间，则返回零时间。 md5:a7867a51955c4fd0
 func (s *cronSchedule) Next(lastMeetTime time.Time) time.Time {
 	if s.everySeconds != 0 {
 		var (

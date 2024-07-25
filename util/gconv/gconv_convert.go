@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gconv
 
@@ -20,8 +19,7 @@ import (
 // Convert 将变量 `fromValue` 转换为类型 `toTypeName`，其中 `toTypeName` 由字符串指定。
 //
 // 可选参数 `extraParams` 用于提供此转换所需的额外参数。
-// 它支持基于类型名称字符串的常见基本类型转换。
-// md5:e081c8fc6552be4c
+// 它支持基于类型名称字符串的常见基本类型转换。 md5:e081c8fc6552be4c
 func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{}) interface{} {
 	return doConvert(doConvertInput{
 		FromValue:  fromValue,
@@ -33,8 +31,7 @@ func Convert(fromValue interface{}, toTypeName string, extraParams ...interface{
 
 // ConvertWithRefer 将变量 `fromValue` 转换为由 `referValue` 指定的类型。
 //
-// 可选参数 `extraParams` 用于此转换所需的额外参数。它支持基于类型名称字符串的常见基本类型转换。
-// md5:0badd37157c72db1
+// 可选参数 `extraParams` 用于此转换所需的额外参数。它支持基于类型名称字符串的常见基本类型转换。 md5:0badd37157c72db1
 func ConvertWithRefer(fromValue interface{}, referValue interface{}, extraParams ...interface{}) interface{} {
 	var referValueRf reflect.Value
 	if v, ok := referValue.(reflect.Value); ok {
@@ -56,8 +53,7 @@ type doConvertInput struct {
 	ReferValue interface{}   // 引用的值，类型为`ToTypeName`。请注意，它的类型可能是`reflect.Value`。 md5:7e9c4375ec4d26f3
 	Extra      []interface{} // 用于实现转换的额外值。 md5:c5e0f680118ba627
 	// 标记该值已经转换并设置为`ReferValue`。调用者可以忽略返回的结果。
-	// 这是一个用于内部使用的属性。
-	// md5:91187d21c0d0ac16
+	// 这是一个用于内部使用的属性。 md5:91187d21c0d0ac16
 	alreadySetToReferValue bool
 }
 
@@ -230,7 +226,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		}
 		return &v
 
-	case "GTime", "gtime.Time", "时间类", "时间类.Time":
+	case "GTime", "gtime.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return *v
@@ -243,7 +239,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		} else {
 			return *gtime.New()
 		}
-	case "*gtime.Time", "*时间类.Time":
+	case "*gtime.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return v
@@ -320,9 +316,8 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 				// type Req struct{
 				//     Mode *PayMode
 				// }
-				// 
-				// Struct(`{"Mode": 1000}`, &req)
-				// md5:d218e7f3f409c5f7
+				//
+				// Struct(`{"Mode": 1000}`, &req) md5:d218e7f3f409c5f7
 				originType := referReflectValue.Type().Elem()
 				switch originType.Kind() {
 				case reflect.Struct:

@@ -12,8 +12,7 @@
 //
 // 本源代码文件受MIT许可协议条款的约束。
 // 如果您没有随此文件分发MIT许可证的副本，
-// 您可以从https://gitee.com/gogf/gf获取。
-// md5:358e3ba76264232a
+// 您可以从https://gitee.com/gogf/gf获取。 md5:358e3ba76264232a
 # <翻译结束>
 
 
@@ -24,8 +23,7 @@
 
 # <翻译开始>
 // callWhereBuilder 创建并返回一个新的Model实例，如果当前Model是安全的，则设置其WhereBuilder。
-// 如果当前Model不是安全的，它将直接设置WhereBuilder并返回当前Model。
-// md5:f847d7aad8140312
+// 如果当前Model不是安全的，它将直接设置WhereBuilder并返回当前Model。 md5:f847d7aad8140312
 # <翻译结束>
 
 
@@ -40,8 +38,7 @@
 // Where 为构建器设置条件语句。参数 `where` 可以是
 // 字符串/映射/gmap/切片/结构体/结构体指针等类型。注意，如果调用多次，
 // 多个条件将使用 "AND" 连接成 WHERE 语句。
-// 参见 WhereBuilder.Where。
-// md5:d18e25934a430281
+// 参见 WhereBuilder.Where。 md5:d18e25934a430281
 # <翻译结束>
 
 
@@ -56,8 +53,7 @@
 // Wheref 使用 fmt.Sprintf 和参数构建条件字符串。
 // 注意，如果 `args` 的数量多于 `format` 中的占位符，
 // 多余的 `args` 将用作 Model 的 WHERE 条件参数。
-// 参见 WhereBuilder.Wheref。
-// md5:ecb69c9051fee97d
+// 参见 WhereBuilder.Wheref。 md5:ecb69c9051fee97d
 # <翻译结束>
 
 
@@ -72,8 +68,7 @@
 
 # <翻译开始>
 // WherePri 的逻辑与 Model.Where 相同，但当参数 `where` 是一个单一的条件，如 int、string、float 或 slice 时，它会将条件视为主键值。也就是说，如果主键是 "id"，并且给定的 `where` 参数为 "123"，WherePri 函数会将条件解析为 "id=123"，而 Model.Where 则会将条件视为字符串 "123"。
-// 参阅 WhereBuilder.WherePri。
-// md5:13dc66b105f841e9
+// 参阅 WhereBuilder.WherePri。 md5:13dc66b105f841e9
 # <翻译结束>
 
 
@@ -84,8 +79,7 @@
 
 # <翻译开始>
 // WhereLT 用于构建 `column < value` 的语句。
-// 参见 WhereBuilder.WhereLT。
-// md5:16aa57cc63797f44
+// 参见 WhereBuilder.WhereLT。 md5:16aa57cc63797f44
 # <翻译结束>
 
 
@@ -96,8 +90,7 @@
 
 # <翻译开始>
 // WhereLTE 构建 `column <= value` 条件语句。
-// 参考 WhereBuilder.WhereLTE。
-// md5:85440b32a52d1c2c
+// 参考 WhereBuilder.WhereLTE。 md5:85440b32a52d1c2c
 # <翻译结束>
 
 
@@ -108,8 +101,7 @@
 
 # <翻译开始>
 // WhereGT构建`column > value`语句。
-// 参见WhereBuilder.WhereGT。
-// md5:900e4d7769d650c2
+// 参见WhereBuilder.WhereGT。 md5:900e4d7769d650c2
 # <翻译结束>
 
 
@@ -120,8 +112,7 @@
 
 # <翻译开始>
 // WhereGTE构建`column >= value`语句。
-// 参见WhereBuilder.WhereGTE。
-// md5:cd051232a4d3707c
+// 参见WhereBuilder.WhereGTE。 md5:cd051232a4d3707c
 # <翻译结束>
 
 
@@ -132,8 +123,7 @@
 
 # <翻译开始>
 // WhereBetween 用于构建 `column BETWEEN min AND max` 的语句。
-// 参见 WhereBuilder.WhereBetween 的使用。
-// md5:88a499f60e180ae2
+// 参见 WhereBuilder.WhereBetween 的使用。 md5:88a499f60e180ae2
 # <翻译结束>
 
 
@@ -144,8 +134,7 @@
 
 # <翻译开始>
 // WhereLike 构建 `column LIKE like` 语句。
-// 参考 WhereBuilder.WhereLike。
-// md5:0d0b14277dfc3be8
+// 参考 WhereBuilder.WhereLike。 md5:0d0b14277dfc3be8
 # <翻译结束>
 
 
@@ -156,8 +145,7 @@
 
 # <翻译开始>
 // WhereIn 构建 `column IN (in)` 语句。
-// 参考 WhereBuilder.WhereIn。
-// md5:b4b77eb17cf9b671
+// 参考 WhereBuilder.WhereIn。 md5:b4b77eb17cf9b671
 # <翻译结束>
 
 
@@ -168,8 +156,7 @@
 
 # <翻译开始>
 // WhereNull构建`columns[0] IS NULL AND columns[1] IS NULL ...`语句。
-// 参见WhereBuilder.WhereNull。
-// md5:af598d8379efcab6
+// 参见WhereBuilder.WhereNull。 md5:af598d8379efcab6
 # <翻译结束>
 
 
@@ -180,8 +167,7 @@
 
 # <翻译开始>
 // WhereNotBetween 用于构建 `column NOT BETWEEN min AND max` 的SQL语句。
-// 参见WhereBuilder.WhereNotBetween的用法。
-// md5:be0e739db028ee79
+// 参见WhereBuilder.WhereNotBetween的用法。 md5:be0e739db028ee79
 # <翻译结束>
 
 
@@ -192,8 +178,7 @@
 
 # <翻译开始>
 // WhereNotLike 构建 `column NOT LIKE like` 语句。
-// 参考 WhereBuilder.WhereNotLike。
-// md5:1be6fd9ae98cc213
+// 参考 WhereBuilder.WhereNotLike。 md5:1be6fd9ae98cc213
 # <翻译结束>
 
 
@@ -204,8 +189,7 @@
 
 # <翻译开始>
 // WhereNot构建`column != value`语句。
-// 参见WhereBuilder.WhereNot。
-// md5:973b26be7332c7b2
+// 参见WhereBuilder.WhereNot。 md5:973b26be7332c7b2
 # <翻译结束>
 
 
@@ -216,8 +200,7 @@
 
 # <翻译开始>
 // WhereNotIn构建`column NOT IN (in)`语句。
-// 请参阅WhereBuilder.WhereNotIn。
-// md5:4fbfcfa2b85a83d2
+// 请参阅WhereBuilder.WhereNotIn。 md5:4fbfcfa2b85a83d2
 # <翻译结束>
 
 
@@ -228,7 +211,6 @@
 
 # <翻译开始>
 // WhereNotNull 构建 `columns[0] IS NOT NULL AND columns[1] IS NOT NULL ...` 语句。
-// 参见 WhereBuilder.WhereNotNull 的用法。
-// md5:05b9b4179d41a28b
+// 参见 WhereBuilder.WhereNotNull 的用法。 md5:05b9b4179d41a28b
 # <翻译结束>
 

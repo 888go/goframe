@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -49,35 +48,36 @@
 // With 创建并返回一个基于给定对象元数据的 ORM 模型。它还为给定的 `object` 启用模型关联操作功能。
 // 可以多次调用此函数，以向模型中添加一个或多个对象，并启用它们的模式关联操作功能。
 // 例如，如果给出的结构体定义如下：
-// 
+//
 // ```
-// type User struct {
-//     gmeta.Meta `orm:"table:user"`
-//     Id         int           `json:"id"`
-//     Name       string        `json:"name"`
-//     UserDetail *UserDetail   `orm:"with:uid=id"`
-//     UserScores []*UserScores `orm:"with:uid=id"`
-// }
+//
+//	type User struct {
+//	    gmeta.Meta `orm:"table:user"`
+//	    Id         int           `json:"id"`
+//	    Name       string        `json:"name"`
+//	    UserDetail *UserDetail   `orm:"with:uid=id"`
+//	    UserScores []*UserScores `orm:"with:uid=id"`
+//	}
+//
 // ```
-// 
+//
 // 我们可以通过以下方式在 `UserDetail` 和 `UserScores` 属性上启用模型关联操作：
-// 
+//
 // ```
 // db.With(User{}.UserDetail).With(User{}.UserScores).Scan(xxx)
 // ```
-// 
+//
 // 或者：
-// 
+//
 // ```
 // db.With(UserDetail{}).With(UserScores{}).Scan(xxx)
 // ```
-// 
+//
 // 或者：
-// 
+//
 // ```
 // db.With(UserDetail{}, UserScores{}).Scan(xxx)
-// ```
-// md5:c9498702475d54a9
+// ``` md5:c9498702475d54a9
 # <翻译结束>
 
 
@@ -104,7 +104,7 @@
 <原文结束>
 
 # <翻译开始>
-// 它会检查with数组，并自动调用ScanList来完成关联查询。 md5:cb83f16b7131ad65
+	// 它会检查with数组，并自动调用ScanList来完成关联查询。 md5:cb83f16b7131ad65
 # <翻译结束>
 
 
@@ -113,7 +113,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果字段类型在指定的"with"类型数组中，它会执行选择操作。 md5:b425357c98d952c8
+				// 如果字段类型在指定的"with"类型数组中，它会执行选择操作。 md5:b425357c98d952c8
 # <翻译结束>
 
 
@@ -122,7 +122,7 @@
 <原文结束>
 
 # <翻译开始>
-// 它仅处理带有"type"属性的"with"类型结构体，因此会忽略其他类型的结构体。 md5:c1f385406b699f00
+		// 它仅处理带有"type"属性的"with"类型结构体，因此会忽略其他类型的结构体。 md5:c1f385406b699f00
 # <翻译结束>
 
 
@@ -133,8 +133,7 @@
 
 # <翻译开始>
 			// 它还支持仅使用一个列名
-			// 如果两个表使用相同的列名进行关联。
-			// md5:c924339d8b4eddbc
+			// 如果两个表使用相同的列名进行关联。 md5:c924339d8b4eddbc
 # <翻译结束>
 
 
@@ -143,7 +142,7 @@
 <原文结束>
 
 # <翻译开始>
-// 从`pointer`中找到相关的属性值。 md5:b2da611599aed2d2
+		// 从`pointer`中找到相关的属性值。 md5:b2da611599aed2d2
 # <翻译结束>
 
 
@@ -152,7 +151,7 @@
 <原文结束>
 
 # <翻译开始>
-// 它会自动从当前属性结构体/切片中获取字段名。 md5:09af2856a6801ffd
+		// 它会自动从当前属性结构体/切片中获取字段名。 md5:09af2856a6801ffd
 # <翻译结束>
 
 
@@ -161,7 +160,7 @@
 <原文结束>
 
 # <翻译开始>
-// 递归实现并带有特性检查。 md5:9ddeb46ca8a2b86d
+		// 递归实现并带有特性检查。 md5:9ddeb46ca8a2b86d
 # <翻译结束>
 
 
@@ -170,7 +169,7 @@
 <原文结束>
 
 # <翻译开始>
-// 它在该特性中忽略sql.ErrNoRows错误。 md5:4b82d692c0646927
+		// 它在该特性中忽略sql.ErrNoRows错误。 md5:4b82d692c0646927
 # <翻译结束>
 
 
@@ -181,8 +180,7 @@
 
 # <翻译开始>
 // doWithScanStructs 处理结构切片的模型关联操作功能。
-// 参见 doWithScanStruct。
-// md5:6219b8feabf0e7d9
+// 参见 doWithScanStruct。 md5:6219b8feabf0e7d9
 # <翻译结束>
 
 
@@ -191,7 +189,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果字段类型在指定的数组类型中，它将执行选择操作。 md5:afefe105662c6d79
+				// 如果字段类型在指定的数组类型中，它将执行选择操作。 md5:afefe105662c6d79
 # <翻译结束>
 
 
@@ -202,8 +200,7 @@
 
 # <翻译开始>
 			// 它支持仅使用一个列名的情况，
-			// 当两个表通过相同的列名关联时。
-			// md5:18222f22ecbee1ef
+			// 当两个表通过相同的列名关联时。 md5:18222f22ecbee1ef
 # <翻译结束>
 
 
@@ -212,7 +209,7 @@
 <原文结束>
 
 # <翻译开始>
-// 从`pointer`中查找相关属性的值切片。 md5:e729db1e29dfb929
+		// 从`pointer`中查找相关属性的值切片。 md5:e729db1e29dfb929
 # <翻译结束>
 
 
@@ -221,6 +218,6 @@
 <原文结束>
 
 # <翻译开始>
-// 如果相关值为空，它什么也不做，只是返回。 md5:e4acb6a4c5d73f8f
+		// 如果相关值为空，它什么也不做，只是返回。 md5:e4acb6a4c5d73f8f
 # <翻译结束>
 

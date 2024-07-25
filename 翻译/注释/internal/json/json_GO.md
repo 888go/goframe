@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -34,8 +33,7 @@
 
 # <翻译开始>
 // RawMessage 是一个原始的编码JSON值。
-// 它实现了Marshaler和Unmarshaler接口，可以用于延迟JSON解码或预先计算JSON编码。
-// md5:2ea51fc4bfe3af87
+// 它实现了Marshaler和Unmarshaler接口，可以用于延迟JSON解码或预先计算JSON编码。 md5:2ea51fc4bfe3af87
 # <翻译结束>
 
 
@@ -49,8 +47,7 @@
 # <翻译开始>
 // Marshal 适应了json/encoding.Marshal API。
 //
-// Marshal 返回 v 的 JSON 编码，适应了 json/encoding.Marshal API。更多信息请参考 https://godoc.org/encoding/json#Marshal。
-// md5:e67e9d2efbcb1d3c
+// Marshal 返回 v 的 JSON 编码，适应了 json/encoding.Marshal API。更多信息请参考 https://godoc.org/encoding/json#Marshal。 md5:e67e9d2efbcb1d3c
 # <翻译结束>
 
 
@@ -74,8 +71,7 @@
 // Unmarshal 适应于 json/encoding 的 Unmarshal API
 //
 // Unmarshal 解析 JSON 编码的数据，并将结果存储到由 v 指向的值中。
-// 更多信息，请参考 https://godoc.org/encoding/json#Unmarshal。
-// md5:7272cfbd647a7f0f
+// 更多信息，请参考 https://godoc.org/encoding/json#Unmarshal。 md5:7272cfbd647a7f0f
 # <翻译结束>
 
 
@@ -111,8 +107,7 @@
 //
 // NewDecoder 从 r 读取数据，返回一个新的解码器。
 //
-// 返回的不是一个 json/encoding 中的 Decoder，而是 Decoder。更多详细信息请参考：https://godoc.org/encoding/json#NewDecoder。
-// md5:eea702294e95e71d
+// 返回的不是一个 json/encoding 中的 Decoder，而是 Decoder。更多详细信息请参考：https://godoc.org/encoding/json#NewDecoder。 md5:eea702294e95e71d
 # <翻译结束>
 
 

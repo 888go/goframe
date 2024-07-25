@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -76,7 +75,7 @@
 <原文结束>
 
 # <翻译开始>
-// 当创建记录时，用于自动填充的表的默认字段名称。 md5:58c0524feef22203
+	// 当创建记录时，用于自动填充的表的默认字段名称。 md5:58c0524feef22203
 # <翻译结束>
 
 
@@ -85,7 +84,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于记录更新时自动填充的表默认字段名称。 md5:dfaf612ced6164b4
+	// 用于记录更新时自动填充的表默认字段名称。 md5:dfaf612ced6164b4
 # <翻译结束>
 
 
@@ -94,7 +93,7 @@
 <原文结束>
 
 # <翻译开始>
-// 默认的表字段名，用于自动填充记录删除。 md5:82caa57d9d8aac21
+	// 默认的表字段名，用于自动填充记录删除。 md5:82caa57d9d8aac21
 # <翻译结束>
 
 
@@ -125,8 +124,7 @@
 # <翻译开始>
 // GetFieldNameAndTypeForCreate 检查并返回用于记录创建时间的字段名。
 // 如果没有用于存储创建时间的字段名，它将返回一个空字符串。
-// 它会检查键名，无论大小写或包含字符 '-'、'_'、'.'、' '。
-// md5:c03150380846ea77
+// 它会检查键名，无论大小写或包含字符 '-'、'_'、'.'、' '。 md5:c03150380846ea77
 # <翻译结束>
 
 
@@ -135,7 +133,7 @@
 <原文结束>
 
 # <翻译开始>
-// 检查是否禁用了此功能。 md5:413ae315bebe927f
+	// 检查是否禁用了此功能。 md5:413ae315bebe927f
 # <翻译结束>
 
 
@@ -146,8 +144,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetFieldNameAndTypeForUpdate 检查并返回用于更新时间的字段名。如果没有用于存储更新时间的字段名，它将返回空字符串。它会检查带有或不带大小写、字符 '-'/'_'/'.'/' 的键。
-// md5:220eb56737359035
+// GetFieldNameAndTypeForUpdate 检查并返回用于更新时间的字段名。如果没有用于存储更新时间的字段名，它将返回空字符串。它会检查带有或不带大小写、字符 '-'/'_'/'.'/' 的键。 md5:220eb56737359035
 # <翻译结束>
 
 
@@ -158,8 +155,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetFieldNameAndTypeForDelete 检查并返回记录删除时间的字段名。如果没有用于存储删除时间的字段名，它将返回空字符串。它会检查大小写敏感或不敏感，以及使用 '-'、'_'、'.' 或 ' ' 作为分隔符的键。
-// md5:f7c6b45838b970b0
+// GetFieldNameAndTypeForDelete 检查并返回记录删除时间的字段名。如果没有用于存储删除时间的字段名，它将返回空字符串。它会检查大小写敏感或不敏感，以及使用 '-'、'_'、'.' 或 ' ' 作为分隔符的键。 md5:f7c6b45838b970b0
 # <翻译结束>
 
 
@@ -177,7 +173,7 @@
 <原文结束>
 
 # <翻译开始>
-// 忽略TableFields函数的错误。 md5:b488d48f86ec5aea
+			// 忽略TableFields函数的错误。 md5:b488d48f86ec5aea
 # <翻译结束>
 
 
@@ -195,8 +191,7 @@
 // "user u, user_detail ud" - "用户 u 和 user_detail ud"
 // "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid)" - "用户 u 左连接 user_detail ud，连接条件为 ud.uid 等于 u.uid"
 // "user LEFT JOIN user_detail ON(user_detail.uid=user.uid)" - "用户左连接 user_detail，连接条件为 user_detail.uid 等于 user.uid"
-// "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid) LEFT JOIN user_stats us ON(us.uid=u.uid)" - "用户 u 先左连接 user_detail ud，再连接 user_stats us，连接条件为 us.uid 等于 u.uid"
-// md5:f2c849c59f2ab188
+// "user u LEFT JOIN user_detail ud ON(ud.uid=u.uid) LEFT JOIN user_stats us ON(us.uid=u.uid)" - "用户 u 先左连接 user_detail ud，再连接 user_stats us，连接条件为 us.uid 等于 u.uid" md5:f2c849c59f2ab188
 # <翻译结束>
 
 
@@ -205,7 +200,7 @@
 <原文结束>
 
 # <翻译开始>
-// 多个连接的表，排除包含字符'('和')'的子查询SQL。 md5:a9edf50410c73b2c
+		// 多个连接的表，排除包含字符'('和')'的子查询SQL。 md5:a9edf50410c73b2c
 # <翻译结束>
 
 
@@ -224,8 +219,7 @@
 // - `test`.`demo` as b
 // - `test`.`demo` b
 // - `demo`
-// - demo
-// md5:ffb3e23129e1b6db
+// - demo md5:ffb3e23129e1b6db
 # <翻译结束>
 
 
@@ -235,8 +229,7 @@
 <原文结束>
 
 # <翻译开始>
-// GetDataByFieldNameAndTypeForDelete 用于在软删除场景下，根据指定的字段名和类型创建并返回占位符和值。
-// md5:276be24343264681
+// GetDataByFieldNameAndTypeForDelete 用于在软删除场景下，根据指定的字段名和类型创建并返回占位符和值。 md5:276be24343264681
 # <翻译结束>
 
 
@@ -246,7 +239,6 @@
 <原文结束>
 
 # <翻译开始>
-// GetValueByFieldTypeForCreateOrUpdate 为创建或更新操作创建并返回指定字段类型的值。
-// md5:263c89f2a7abf2da
+// GetValueByFieldTypeForCreateOrUpdate 为创建或更新操作创建并返回指定字段类型的值。 md5:263c89f2a7abf2da
 # <翻译结束>
 

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gredis
 
@@ -56,8 +55,7 @@ var (
 )
 
 // SetConfig 为指定的组设置全局配置。
-// 如果没有传递 `name`，则为默认组名设置配置。
-// md5:8d7c1f181c0057f0
+// 如果没有传递 `name`，则为默认组名设置配置。 md5:8d7c1f181c0057f0
 func SetConfig(config *Config, name ...string) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -69,8 +67,7 @@ func SetConfig(config *Config, name ...string) {
 }
 
 // SetConfigByMap 使用映射设置指定组的全局配置。
-// 如果未传递`name`，则将配置设置为默认组名。
-// md5:1d191bb426ab05fb
+// 如果未传递`name`，则将配置设置为默认组名。 md5:1d191bb426ab05fb
 func SetConfigByMap(m map[string]interface{}, name ...string) error {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -114,8 +111,7 @@ func ConfigFromMap(m map[string]interface{}) (config *Config, err error) {
 	return
 }
 
-// GetConfig 返回指定组名的全局配置。如果未传入 `name`，则返回默认组名的配置。
-// md5:327a839e91668442
+// GetConfig 返回指定组名的全局配置。如果未传入 `name`，则返回默认组名的配置。 md5:327a839e91668442
 func GetConfig(name ...string) (config *Config, ok bool) {
 	group := DefaultGroupName
 	if len(name) > 0 {
@@ -128,8 +124,7 @@ func GetConfig(name ...string) (config *Config, ok bool) {
 }
 
 // RemoveConfig 删除指定组的全局配置。
-// 如果没有传递 `name`，则删除默认组名的配置。
-// md5:8e808827f299122d
+// 如果没有传递 `name`，则删除默认组名的配置。 md5:8e808827f299122d
 func RemoveConfig(name ...string) {
 	group := DefaultGroupName
 	if len(name) > 0 {

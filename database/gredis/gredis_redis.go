@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gredis
 
@@ -88,8 +87,7 @@ func (r *Redis) GetAdapter() Adapter {
 }
 
 // Conn 获取并返回一个用于连续操作的连接对象。
-// 请注意，如果您不再使用此连接，请手动调用 Close 函数。
-// md5:b0379f4ab8131447
+// 请注意，如果您不再使用此连接，请手动调用 Close 函数。 md5:b0379f4ab8131447
 func (r *Redis) Conn(ctx context.Context) (Conn, error) {
 	if r == nil {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)
@@ -101,8 +99,7 @@ func (r *Redis) Conn(ctx context.Context) (Conn, error) {
 }
 
 // Do 向服务器发送命令并返回接收到的回复。
-// 它在将结构体、切片或映射类型值提交到Redis之前，使用json.Marshal进行序列化。
-// md5:bbe59d4e1ff07fa3
+// 它在将结构体、切片或映射类型值提交到Redis之前，使用json.Marshal进行序列化。 md5:bbe59d4e1ff07fa3
 func (r *Redis) Do(ctx context.Context, command string, args ...interface{}) (*gvar.Var, error) {
 	if r == nil {
 		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtcp
 
@@ -41,8 +40,7 @@ func NewConn(addr string, timeout ...time.Duration) (*Conn, error) {
 	}
 }
 
-// NewConnTLS 创建并返回一个新的TLS连接，使用给定的地址和TLS配置。
-// md5:a21dcb1cad67caa6
+// NewConnTLS 创建并返回一个新的TLS连接，使用给定的地址和TLS配置。 md5:a21dcb1cad67caa6
 func NewConnTLS(addr string, tlsConfig *tls.Config) (*Conn, error) {
 	if conn, err := NewNetConnTLS(addr, tlsConfig); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -51,8 +49,7 @@ func NewConnTLS(addr string, tlsConfig *tls.Config) (*Conn, error) {
 	}
 }
 
-// NewConnKeyCrt 创建并返回一个新的带有给定地址和TLS证书及密钥文件的TLS连接。
-// md5:b79c43de9a5f13ce
+// NewConnKeyCrt 创建并返回一个新的带有给定地址和TLS证书及密钥文件的TLS连接。 md5:b79c43de9a5f13ce
 func NewConnKeyCrt(addr, crtFile, keyFile string) (*Conn, error) {
 	if conn, err := NewNetConnKeyCrt(addr, crtFile, keyFile); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -99,12 +96,11 @@ func (c *Conn) Send(data []byte, retry ...Retry) error {
 }
 
 // Recv 从连接中接收并返回数据。
-// 
+//
 // 注意，
 // 1. 如果长度为0，表示它会从当前缓冲区接收数据并立即返回。
 // 2. 如果长度小于0，表示它会接收连接中的所有数据，并返回直到没有更多的数据。如果决定接收缓冲区中的所有数据，开发者需要注意自行解析数据包。
-// 3. 如果长度大于0，表示它会阻塞，直到接收到指定长度的数据。这是最常用的用于接收数据的长度值。
-// md5:75d42f229725a3f7
+// 3. 如果长度大于0，表示它会阻塞，直到接收到指定长度的数据。这是最常用的用于接收数据的长度值。 md5:75d42f229725a3f7
 func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 	var (
 		err        error  // Reading error.
@@ -183,8 +179,7 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 	return buffer[:index], err
 }
 
-// RecvLine 从连接中读取数据，直到读取到字符 '\n'。注意，返回的结果不包含最后一个字符 '\n'。
-// md5:e8f4d38a9d0e03e2
+// RecvLine 从连接中读取数据，直到读取到字符 '\n'。注意，返回的结果不包含最后一个字符 '\n'。 md5:e8f4d38a9d0e03e2
 func (c *Conn) RecvLine(retry ...Retry) ([]byte, error) {
 	var (
 		err    error
@@ -209,8 +204,7 @@ func (c *Conn) RecvLine(retry ...Retry) ([]byte, error) {
 }
 
 // RecvTill 从连接中读取数据，直到读取到字节 `til` 为止。
-// 注意，返回的结果中包含最后一个字节 `til`。
-// md5:3d5a6b2420bd7164
+// 注意，返回的结果中包含最后一个字节 `til`。 md5:3d5a6b2420bd7164
 func (c *Conn) RecvTill(til []byte, retry ...Retry) ([]byte, error) {
 	var (
 		err    error
@@ -315,8 +309,7 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 }
 
 // SetBufferWaitRecv 设置从连接读取所有数据时的缓冲等待超时时间。
-// 等待时间不能过长，否则可能会延迟从远程地址接收数据。
-// md5:54992dd21ce2360a
+// 等待时间不能过长，否则可能会延迟从远程地址接收数据。 md5:54992dd21ce2360a
 func (c *Conn) SetBufferWaitRecv(bufferWaitDuration time.Duration) {
 	c.bufferWaitRecv = bufferWaitDuration
 }

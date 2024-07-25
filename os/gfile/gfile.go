@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // gfile 包提供了易于使用的文件系统操作。 md5:51d18e994a768bb4
 package gfile
@@ -24,8 +23,7 @@ import (
 const (
 	// 文件系统分隔符。
 	// 这里将分隔符定义为变量，
-	// 以便开发人员在必要时进行修改。
-	// md5:ec0b6e47ec28478f
+	// 以便开发人员在必要时进行修改。 md5:ec0b6e47ec28478f
 	Separator = string(filepath.Separator)
 
 	// DefaultPermOpen 是文件打开的默认权限。 md5:dc57341030d46a11
@@ -37,13 +35,11 @@ const (
 
 var (
 	// 主包的绝对文件路径。
-	// 只能检查和设置一次。
-	// md5:4a0d292a2835bc99
+	// 只能检查和设置一次。 md5:4a0d292a2835bc99
 	mainPkgPath = gtype.NewString()
 
 	// selfPath 是当前运行二进制文件的路径。
-	// 由于它最常被使用，因此作为内部包变量进行定义。
-	// md5:0e75acfdf2f4b9e7
+	// 由于它最常被使用，因此作为内部包变量进行定义。 md5:0e75acfdf2f4b9e7
 	selfPath = ""
 )
 
@@ -58,8 +54,7 @@ func init() {
 	}
 }
 
-// Mkdir 递归创建给定的 `path` 所表示的目录。建议使用绝对路径而非相对路径作为参数。
-// md5:e78abb40a45c2886
+// Mkdir 递归创建给定的 `path` 所表示的目录。建议使用绝对路径而非相对路径作为参数。 md5:e78abb40a45c2886
 func Mkdir(path string) (err error) {
 	if err = os.MkdirAll(path, os.ModePerm); err != nil {
 		err = gerror.Wrapf(err, `os.MkdirAll failed for path "%s" with perm "%d"`, path, os.ModePerm)
@@ -69,8 +64,7 @@ func Mkdir(path string) (err error) {
 }
 
 // Create 递归地创建具有给定`path`的文件。
-// 建议参数`path`使用绝对路径。
-// md5:163accaf36969b42
+// 建议参数`path`使用绝对路径。 md5:163accaf36969b42
 func Create(path string) (*os.File, error) {
 	dir := Dir(path)
 	if !Exists(dir) {
@@ -94,8 +88,7 @@ func Open(path string) (*os.File, error) {
 	return file, err
 }
 
-// OpenFile 用自定义的 `flag` 和 `perm` 打开文件或目录。参数 `flag` 类似于：O_RDONLY（只读），O_RDWR（读写），O_RDWR|O_CREATE|O_TRUNC 等。
-// md5:0cef38d8408ed250
+// OpenFile 用自定义的 `flag` 和 `perm` 打开文件或目录。参数 `flag` 类似于：O_RDONLY（只读），O_RDWR（读写），O_RDWR|O_CREATE|O_TRUNC 等。 md5:0cef38d8408ed250
 func OpenFile(path string, flag int, perm os.FileMode) (*os.File, error) {
 	file, err := os.OpenFile(path, flag, perm)
 	if err != nil {
@@ -105,8 +98,7 @@ func OpenFile(path string, flag int, perm os.FileMode) (*os.File, error) {
 }
 
 // OpenWithFlag 使用默认权限和自定义`flag`打开文件/目录。默认的`perm`为0666。
-// 参数`flag`类似于：O_RDONLY（只读），O_RDWR（读写），O_RDWR|O_CREATE|O_TRUNC（读写并创建或截断），等等。
-// md5:2e77d9a0acc43298
+// 参数`flag`类似于：O_RDONLY（只读），O_RDWR（读写），O_RDWR|O_CREATE|O_TRUNC（读写并创建或截断），等等。 md5:2e77d9a0acc43298
 func OpenWithFlag(path string, flag int) (*os.File, error) {
 	file, err := OpenFile(path, flag, DefaultPermOpen)
 	if err != nil {
@@ -117,8 +109,7 @@ func OpenWithFlag(path string, flag int) (*os.File, error) {
 
 // OpenWithFlagPerm 使用自定义的 `flag` 和 `perm` 来打开文件/目录。
 // 参数 `flag` 例如：O_RDONLY, O_RDWR, O_RDWR|O_CREATE|O_TRUNC 等。
-// 参数 `perm` 例如：0600, 0666, 0777 等。
-// md5:1f44c05cc68654d8
+// 参数 `perm` 例如：0600, 0666, 0777 等。 md5:1f44c05cc68654d8
 func OpenWithFlagPerm(path string, flag int, perm os.FileMode) (*os.File, error) {
 	file, err := OpenFile(path, flag, perm)
 	if err != nil {
@@ -148,8 +139,7 @@ func Exists(path string) bool {
 }
 
 // IsDir 检查给定的 `path` 是否为目录。
-// 注意，如果 `path` 不存在，它将返回 false。
-// md5:c5b2468307c9c9e2
+// 注意，如果 `path` 不存在，它将返回 false。 md5:c5b2468307c9c9e2
 func IsDir(path string) bool {
 	s, err := os.Stat(path)
 	if err != nil {
@@ -159,8 +149,7 @@ func IsDir(path string) bool {
 }
 
 // Pwd 返回当前工作目录的绝对路径。
-// 注意，如果获取当前工作目录失败，它将返回一个空字符串。
-// md5:90f41f1bfdd61dba
+// 注意，如果获取当前工作目录失败，它将返回一个空字符串。 md5:90f41f1bfdd61dba
 func Pwd() string {
 	path, err := os.Getwd()
 	if err != nil {
@@ -170,8 +159,7 @@ func Pwd() string {
 }
 
 // Chdir 将当前工作目录更改为指定的目录。
-// 如果发生错误，该错误将为 *PathError 类型。
-// md5:7bafb79d47f0c3b3
+// 如果发生错误，该错误将为 *PathError 类型。 md5:7bafb79d47f0c3b3
 func Chdir(dir string) (err error) {
 	err = os.Chdir(dir)
 	if err != nil {
@@ -181,8 +169,7 @@ func Chdir(dir string) (err error) {
 }
 
 // IsFile 检查给定的 `path` 是否为文件，即不是目录。
-// 注意，如果 `path` 不存在，它将返回 false。
-// md5:38595d733f36d367
+// 注意，如果 `path` 不存在，它将返回 false。 md5:38595d733f36d367
 func IsFile(path string) bool {
 	s, err := Stat(path)
 	if err != nil {
@@ -191,8 +178,7 @@ func IsFile(path string) bool {
 	return !s.IsDir()
 }
 
-// Stat 返回一个描述命名文件的 FileInfo。如果出现错误，错误类型为 *PathError。
-// md5:f4ee45de3278c17f
+// Stat 返回一个描述命名文件的 FileInfo。如果出现错误，错误类型为 *PathError。 md5:f4ee45de3278c17f
 func Stat(path string) (os.FileInfo, error) {
 	info, err := os.Stat(path)
 	if err != nil {
@@ -202,8 +188,7 @@ func Stat(path string) (os.FileInfo, error) {
 }
 
 // Move 将路径 `src` 重命名（移动）到 `dst`。
-// 如果 `dst` 已经存在且不是一个目录，它将被替换。
-// md5:4bc635341db78f64
+// 如果 `dst` 已经存在且不是一个目录，它将被替换。 md5:4bc635341db78f64
 func Move(src string, dst string) (err error) {
 	err = os.Rename(src, dst)
 	if err != nil {
@@ -213,14 +198,12 @@ func Move(src string, dst string) (err error) {
 }
 
 // Rename 是 Move 的别名。
-// 参考 Move。
-// md5:f235456881c23527
+// 参考 Move。 md5:f235456881c23527
 func Rename(src string, dst string) error {
 	return Move(src, dst)
 }
 
-// DirNames 返回给定目录 `path` 的子文件名。请注意，返回的名称不是绝对路径。
-// md5:62471f4b0e0bb389
+// DirNames 返回给定目录 `path` 的子文件名。请注意，返回的名称不是绝对路径。 md5:62471f4b0e0bb389
 func DirNames(path string) ([]string, error) {
 	f, err := Open(path)
 	if err != nil {
@@ -236,9 +219,8 @@ func DirNames(path string) ([]string, error) {
 }
 
 // Glob 返回匹配 pattern 的所有文件名，如果没有匹配的文件，则返回 nil。pattern 的语法与 Match 中的相同。pattern 可以描述像 /usr/*/bin/ed（假设分隔符为 '/'）这样的层次名称。
-// 
-// Glob 忽略读取目录时发生的文件系统错误，如 I/O 错误。可能返回的唯一错误是 ErrBadPattern，当 pattern 格式不正确时。
-// md5:0baeeb8710df5d67
+//
+// Glob 忽略读取目录时发生的文件系统错误，如 I/O 错误。可能返回的唯一错误是 ErrBadPattern，当 pattern 格式不正确时。 md5:0baeeb8710df5d67
 func Glob(pattern string, onlyNames ...bool) ([]string, error) {
 	list, err := filepath.Glob(pattern)
 	if err != nil {
@@ -258,8 +240,7 @@ func Glob(pattern string, onlyNames ...bool) ([]string, error) {
 // Remove 删除具有`path`参数的所有文件/目录。
 // 如果参数`path`是一个目录，它会递归地删除该目录。
 //
-// 如果给定的`path`不存在或为空，它不做任何操作。
-// md5:ae9ec60d038f0ebd
+// 如果给定的`path`不存在或为空，它不做任何操作。 md5:ae9ec60d038f0ebd
 func Remove(path string) (err error) {
 	// 如果`path`为空，该函数不执行任何操作。 md5:5ea1be4b22dde448
 	if path == "" {
@@ -284,8 +265,7 @@ func IsReadable(path string) bool {
 
 // IsWritable 检查给定的 `path` 是否可写。
 //
-// TODO 优化性能；使用 golang.org/x/sys 进行跨平台处理
-// md5:2b947cc78310d3f1
+// TODO 优化性能；使用 golang.org/x/sys 进行跨平台处理 md5:2b947cc78310d3f1
 func IsWritable(path string) bool {
 	result := true
 	if IsDir(path) {
@@ -309,8 +289,7 @@ func IsWritable(path string) bool {
 }
 
 // Chmod是os.Chmod的别名。
-// 请参阅os.Chmod。
-// md5:edb0528fe01cdccd
+// 请参阅os.Chmod。 md5:edb0528fe01cdccd
 func Chmod(path string, mode os.FileMode) (err error) {
 	err = os.Chmod(path, mode)
 	if err != nil {
@@ -321,8 +300,7 @@ func Chmod(path string, mode os.FileMode) (err error) {
 
 // Abs返回一个路径的绝对表示。
 // 如果路径不是绝对路径，它将与当前工作目录连接起来，使其成为一个绝对路径。对于给定的文件，其绝对路径名称并不保证是唯一的。
-// Abs会调用Clean方法处理结果。
-// md5:4cb8146c59de22da
+// Abs会调用Clean方法处理结果。 md5:4cb8146c59de22da
 func Abs(path string) string {
 	p, _ := filepath.Abs(path)
 	return p
@@ -330,8 +308,7 @@ func Abs(path string) string {
 
 // RealPath 将给定的`path`转换为其绝对路径
 // 并检查文件路径是否存在。
-// 如果文件不存在，则返回空字符串。
-// md5:125663d904f8d81e
+// 如果文件不存在，则返回空字符串。 md5:125663d904f8d81e
 func RealPath(path string) string {
 	p, err := filepath.Abs(path)
 	if err != nil {
@@ -365,8 +342,7 @@ func SelfDir() string {
 //
 // 示例：
 // Basename("/var/www/file.js") -> file.js
-// Basename("file.js")          -> file.js
-// md5:0601675e20751381
+// Basename("file.js")          -> file.js md5:0601675e20751381
 func Basename(path string) string {
 	return filepath.Base(path)
 }
@@ -375,8 +351,7 @@ func Basename(path string) string {
 //
 // 示例：
 // Name("/var/www/file.js") -> file
-// Name("file.js")          -> file
-// md5:231670418efd9216
+// Name("file.js")          -> file md5:231670418efd9216
 func Name(path string) string {
 	base := filepath.Base(path)
 	if i := strings.LastIndexByte(base, '.'); i != -1 {
@@ -390,11 +365,10 @@ func Name(path string) string {
 // 如果 `path` 为"."，Dir 将路径视为当前工作目录。
 // 如果 `path` 仅由分隔符组成，Dir 返回一个单独的分隔符。
 // 返回的路径除非是根目录，否则不会以分隔符结尾。
-// 
+//
 // 示例：
 // Dir("/var/www/file.js") -> "/var/www"
-// Dir("file.js")          -> "."
-// md5:03710913db229986
+// Dir("file.js")          -> "." md5:03710913db229986
 func Dir(path string) string {
 	if path == "." {
 		return filepath.Dir(RealPath(path))
@@ -405,9 +379,8 @@ func Dir(path string) string {
 // IsEmpty 检查给定的 `path` 是否为空。
 // 如果 `path` 是一个文件夹，它会检查其下是否存在任何文件。
 // 如果 `path` 是一个文件，它会检查文件大小是否为零。
-// 
-// 注意，如果 `path` 不存在，它将返回 true。
-// md5:1b96bff377b05eac
+//
+// 注意，如果 `path` 不存在，它将返回 true。 md5:1b96bff377b05eac
 func IsEmpty(path string) bool {
 	stat, err := Stat(path)
 	if err != nil {
@@ -436,8 +409,7 @@ func IsEmpty(path string) bool {
 //
 // 示例：
 // Ext("main.go")  => .go
-// Ext("api.json") => .json
-// md5:63a13ee69ce09cec
+// Ext("api.json") => .json md5:63a13ee69ce09cec
 func Ext(path string) string {
 	ext := filepath.Ext(path)
 	if p := strings.IndexByte(ext, '?'); p != -1 {
@@ -451,16 +423,14 @@ func Ext(path string) string {
 //
 // 示例：
 // ExtName("main.go")  => "go"
-// ExtName("api.json") => "json"
-// md5:d508af455375f787
+// ExtName("api.json") => "json" md5:d508af455375f787
 func ExtName(path string) string {
 	return strings.TrimLeft(Ext(path), ".")
 }
 
 // Temp获取并返回当前系统的临时目录。
 //
-// 可选参数`names`指定了要与当前系统分隔符连接的子文件夹/子文件，将与路径一起返回。
-// md5:8db9471945246517
+// 可选参数`names`指定了要与当前系统分隔符连接的子文件夹/子文件，将与路径一起返回。 md5:8db9471945246517
 func Temp(names ...string) string {
 	path := os.TempDir()
 	for _, name := range names {

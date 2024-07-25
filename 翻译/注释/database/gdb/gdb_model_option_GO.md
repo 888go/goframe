@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -33,8 +32,7 @@
 
 # <翻译开始>
 // OmitEmpty 为模型设置了 optionOmitEmpty 选项，该选项会自动过滤掉
-// 数据和 where 参数中的 `空值`。
-// md5:bf1dc800704b3324
+// 数据和 where 参数中的 `空值`。 md5:bf1dc800704b3324
 # <翻译结束>
 
 
@@ -55,11 +53,10 @@
 //
 // 示例：
 //
-// 	Where("id", []int{}).All()             -> SELECT xxx FROM xxx WHERE 0=1
-// 	Where("name", "").All()                -> SELECT xxx FROM xxx WHERE `name`=''
-// 	OmitEmpty().Where("id", []int{}).All() -> SELECT xxx FROM xxx
-// 	OmitEmpty().("name", "").All()         -> SELECT xxx FROM xxx.
-// md5:df62f4199a96c566
+//	Where("id", []int{}).All()             -> SELECT xxx FROM xxx WHERE 0=1
+//	Where("name", "").All()                -> SELECT xxx FROM xxx WHERE `name`=''
+//	OmitEmpty().Where("id", []int{}).All() -> SELECT xxx FROM xxx
+//	OmitEmpty().("name", "").All()         -> SELECT xxx FROM xxx. md5:df62f4199a96c566
 # <翻译结束>
 
 
@@ -69,8 +66,7 @@
 <原文结束>
 
 # <翻译开始>
-// OmitEmptyData 为模型设置 optionOmitEmptyData 选项，该选项会自动过滤掉 Data 参数中的空值。
-// md5:56dab615155b1550
+// OmitEmptyData 为模型设置 optionOmitEmptyData 选项，该选项会自动过滤掉 Data 参数中的空值。 md5:56dab615155b1550
 # <翻译结束>
 
 
@@ -80,8 +76,7 @@
 <原文结束>
 
 # <翻译开始>
-// OmitNil为模型设置optionOmitNil选项，该选项会自动过滤掉`nil`值的数据和where参数。
-// md5:d24d4fb4b4f59068
+// OmitNil为模型设置optionOmitNil选项，该选项会自动过滤掉`nil`值的数据和where参数。 md5:d24d4fb4b4f59068
 # <翻译结束>
 
 
@@ -92,8 +87,7 @@
 
 # <翻译开始>
 // OmitNilWhere 为模型设置了 optionOmitNilWhere 选项，该选项会自动过滤掉
-// Where/Having 参数中的 `nil` 值。
-// md5:b5927ba5d926adaf
+// Where/Having 参数中的 `nil` 值。 md5:b5927ba5d926adaf
 # <翻译结束>
 
 
@@ -103,7 +97,6 @@
 <原文结束>
 
 # <翻译开始>
-// OmitNilData 为模型设置 optionOmitNilData 选项，该选项会自动过滤掉 Data 参数中的 `nil` 值。
-// md5:e6503d524a0d8d31
+// OmitNilData 为模型设置 optionOmitNilData 选项，该选项会自动过滤掉 Data 参数中的 `nil` 值。 md5:e6503d524a0d8d31
 # <翻译结束>
 

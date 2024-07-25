@@ -2,8 +2,7 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
 
 // 包gcmd提供控制台操作，如读取选项/参数和运行命令。 md5:bb72337a704c599f
 package gcmd
@@ -72,8 +71,7 @@ func GetArgAll() []string {
 //
 // 获取规则：
 // 1. 命令行参数采用小写格式，例如：gf.`包名`.<变量名>;
-// 2. 环境变量采用大写格式，例如：GF_`包名`_<变量名>。
-// md5:e3d5c0c773430740
+// 2. 环境变量采用大写格式，例如：GF_`包名`_<变量名>。 md5:e3d5c0c773430740
 func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
 	cmdKey := utils.FormatCmdKey(key)
 	if command.ContainsOpt(cmdKey) {

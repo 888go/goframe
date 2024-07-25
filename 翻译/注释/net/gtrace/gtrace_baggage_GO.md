@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -51,8 +50,7 @@
 
 # <翻译开始>
 // SetValue 是一个方便的函数，用于向 baggage 中添加一个键值对。
-// 注意，它使用 attribute.Any 设置键值对。
-// md5:830faae9a81721ce
+// 注意，它使用 attribute.Any 设置键值对。 md5:830faae9a81721ce
 # <翻译结束>
 
 
@@ -63,8 +61,7 @@
 
 # <翻译开始>
 // SetMap 是一个方便的函数，用于将映射键值对添加到行李中。
-// 注意，它使用 attribute.Any 设置键值对。
-// md5:a18951801562457c
+// 注意，它使用 attribute.Any 设置键值对。 md5:a18951801562457c
 # <翻译结束>
 
 

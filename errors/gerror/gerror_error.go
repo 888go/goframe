@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gerror
 
@@ -78,16 +77,14 @@ func (err *Error) Cause() error {
 		} else {
 			// 返回循环
 			//
-			// 以兼容 https:			//github.com/pkg/errors 中的 Case 情况。
-			// md5:a923900fc4a93e9d
+			// 以兼容 https:			//github.com/pkg/errors 中的 Case 情况。 md5:a923900fc4a93e9d
 			return errors.New(loop.text)
 		}
 	}
 	return nil
 }
 
-// Current 创建并返回当前级别的错误。如果当前级别错误为 nil，则返回 nil。
-// md5:d8b26e22ec63a837
+// Current 创建并返回当前级别的错误。如果当前级别错误为 nil，则返回 nil。 md5:d8b26e22ec63a837
 func (err *Error) Current() error {
 	if err == nil {
 		return nil
@@ -101,8 +98,7 @@ func (err *Error) Current() error {
 }
 
 // Unwrap 是函数 `Next` 的别名。
-// 它只是为了实现自 Go 1.17 版本的stdlib库中的 `errors.Unwrap`。
-// md5:4ab7dcc4181801cd
+// 它只是为了实现自 Go 1.17 版本的stdlib库中的 `errors.Unwrap`。 md5:4ab7dcc4181801cd
 func (err *Error) Unwrap() error {
 	if err == nil {
 		return nil
@@ -110,15 +106,13 @@ func (err *Error) Unwrap() error {
 	return err.error
 }
 
-// Equal 判断当前错误 `err` 是否等于目标错误 `target`。请注意，在默认的错误比较中，如果两个错误的 `code` 和 `text` 都相同，那么它们将被视为相等。
-// md5:6256ec44e7b04b0e
+// Equal 判断当前错误 `err` 是否等于目标错误 `target`。请注意，在默认的错误比较中，如果两个错误的 `code` 和 `text` 都相同，那么它们将被视为相等。 md5:6256ec44e7b04b0e
 func (err *Error) Equal(target error) bool {
 	if err == target {
 		return true
 	}
 	// 代码应该保持不变。
-	// 注意，如果两个错误的代码都为`nil`，那么它们也会被视为相等。
-	// md5:9cd5037f48adc142
+	// 注意，如果两个错误的代码都为`nil`，那么它们也会被视为相等。 md5:9cd5037f48adc142
 	if err.code != Code(target) {
 		return false
 	}
@@ -129,8 +123,7 @@ func (err *Error) Equal(target error) bool {
 	return true
 }
 
-// Is 判断当前错误 `err` 是否在其嵌套错误中包含目标错误 `target`。这是为了实现从 Go 1.17 版本开始的标准库中的 errors.Is 接口。
-// md5:dfc92c8d3ba58133
+// Is 判断当前错误 `err` 是否在其嵌套错误中包含目标错误 `target`。这是为了实现从 Go 1.17 版本开始的标准库中的 errors.Is 接口。 md5:dfc92c8d3ba58133
 func (err *Error) Is(target error) bool {
 	if Equal(err, target) {
 		return true

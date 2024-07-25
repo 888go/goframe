@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -12,8 +11,7 @@ func (s *Server) SetNameToUriType(t int) {
 	s.config.NameToUriType = t
 }
 
-// SetDumpRouterMap 为服务器设置DumpRouterMap。如果启用了DumpRouterMap，服务器启动时会自动dump路由映射。
-// md5:1570556de016c76c
+// SetDumpRouterMap 为服务器设置DumpRouterMap。如果启用了DumpRouterMap，服务器启动时会自动dump路由映射。 md5:1570556de016c76c
 func (s *Server) SetDumpRouterMap(enabled bool) {
 	s.config.DumpRouterMap = enabled
 }

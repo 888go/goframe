@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -58,8 +57,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			customMsgMap[k] = gconv.String(message)
 		}
 	}
-	// 处理规则中的字符'|'，这使得该规则被分成多个子规则。
-	// md5:11aa0a7f39f13bef
+	// 处理规则中的字符'|'，这使得该规则被分成多个子规则。 md5:11aa0a7f39f13bef
 	ruleItems := strings.Split(strings.TrimSpace(in.Rule), "|")
 	for i := 0; ; {
 		array := strings.Split(ruleItems[i], ":")
@@ -67,8 +65,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			// =========================== 特殊 ===========================
 			// 对于特殊的正则表达式 (`regex`) 和非正则表达式 (`not-regex`) 规则。
 			// 如果模式中包含特殊字符，如 ':' 或 '|'，则合并正则表达式模式。
-			// =========================== 特殊 ===========================
-			// md5:8f3bcac9a314de33
+			// =========================== 特殊 =========================== md5:8f3bcac9a314de33
 			var (
 				ruleNameRegexLengthMatch    bool
 				ruleNameNotRegexLengthMatch bool
@@ -203,8 +200,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 				ruleErrorMap[ruleKey] = err
 
 				// 如果存在错误并且有放弃规则，
-				// 则不再继续验证剩余的规则。
-				// md5:746db6c03bb62206
+				// 则不再继续验证剩余的规则。 md5:746db6c03bb62206
 				if hasBailRule {
 					goto CheckDone
 				}

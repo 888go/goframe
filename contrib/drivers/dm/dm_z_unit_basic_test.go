@@ -4,8 +4,7 @@
 //
 // 此源代码形式受麻省理工学院（MIT）许可证的条款约束。
 // 如果未随此文件一起分发MIT许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:47e609239e0cb2bc
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:47e609239e0cb2bc
 
 package dm_test
 
@@ -69,8 +68,7 @@ func TestTables(t *testing.T) {
 // 如果之前从mysql迁移过来的数据结构中有一个索引（完全匹配字段），也会被允许。
 // 但是，在处理索引（完全匹配字段）时，适配器会自动添加安全字符。
 // 原则上，如果你直接使用达梦数据库初始化，而不是从mysql迁移数据结构，就不会出现此类问题。
-// 即使如此，适配器也已经考虑到了这种情况。
-// md5:bdfc451ff291c639
+// 即使如此，适配器也已经考虑到了这种情况。 md5:bdfc451ff291c639
 func TestTablesFalse(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		tables := []string{"A_tables", "A_tables2"}
@@ -308,8 +306,7 @@ func Test_DB_Insert(t *testing.T) {
 		t.Assert(ones[0]["ACCOUNT_NAME"].String(), "struct_4")
 		// 待办事项：问题2
 		// 这是DM（可能是某个项目或模块的缩写）的bug。
-		// 断言one["CREATED_TIME"]的GTime转换后字符串与timeStr相等。
-		// md5:6c078020ce38de99
+		// 断言one["CREATED_TIME"]的GTime转换后字符串与timeStr相等。 md5:6c078020ce38de99
 
 		// *struct
 		result, err = db.Insert(ctx, table, &User{

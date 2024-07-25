@@ -2,8 +2,7 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
 
 package gdb
 
@@ -28,14 +27,12 @@ import (
 )
 
 // Query 向底层驱动提交一个查询SQL并返回执行结果。
-// 它最常用于数据查询。
-// md5:06bbbfc29aa3894b
+// 它最常用于数据查询。 md5:06bbbfc29aa3894b
 func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
 	return c.db.DoQuery(ctx, nil, sql, args...)
 }
 
-// DoQuery 通过给定的链接对象将SQL字符串及其参数提交给底层驱动，并返回执行结果。
-// md5:af7bdcd1a2074bc0
+// DoQuery 通过给定的链接对象将SQL字符串及其参数提交给底层驱动，并返回执行结果。 md5:af7bdcd1a2074bc0
 func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -87,14 +84,12 @@ func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...inter
 	return out.Records, err
 }
 
-// Exec 将一个查询 SQL 执行到底层驱动并返回执行结果。它最常用于数据插入和更新。
-// md5:6f9ddc85964b9797
+// Exec 将一个查询 SQL 执行到底层驱动并返回执行结果。它最常用于数据插入和更新。 md5:6f9ddc85964b9797
 func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {
 	return c.db.DoExec(ctx, nil, sql, args...)
 }
 
-// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
-// md5:947bd2b83e751e10
+// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。 md5:947bd2b83e751e10
 func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	// Transaction checks.
 	if link == nil {
@@ -149,8 +144,7 @@ func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interf
 }
 
 // DoFilter 是一个钩子函数，它在 SQL 语句及其参数提交给底层驱动之前进行过滤。
-// 参数 `link` 指定当前数据库连接的操作对象。在 SQL 语句 `sql` 及其参数 `args` 被提交给驱动之前，您可以根据需要随意修改它们。
-// md5:41118fbc4e6c5562
+// 参数 `link` 指定当前数据库连接的操作对象。在 SQL 语句 `sql` 及其参数 `args` 被提交给驱动之前，您可以根据需要随意修改它们。 md5:41118fbc4e6c5562
 func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
@@ -292,9 +286,8 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 // Prepare 准备一个预编译语句，供后续查询或执行使用。
 // 可以从返回的语句对象并发运行多个查询或执行。
 // 当不再需要语句时，调用者必须调用 statement 的 Close 方法。
-// 
-// 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从复制，则在从节点上执行。
-// md5:639eebcae369b0a2
+//
+// 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从复制，则在从节点上执行。 md5:639eebcae369b0a2
 func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {
 	var (
 		err  error
@@ -351,8 +344,7 @@ func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt
 
 // FormatUpsert 格式化并返回用于 UPSERT 语句的 SQL 子句部分。
 // 在默认实现中，此函数执行类似 MySQL 的 UPSERT 语句：
-// `INSERT INTO ... ON DUPLICATE KEY UPDATE x=VALUES(z),m=VALUES(y)...`
-// md5:c1c6d7b14661682b
+// `INSERT INTO ... ON DUPLICATE KEY UPDATE x=VALUES(z),m=VALUES(y)...` md5:c1c6d7b14661682b
 func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) (string, error) {
 	var onDuplicateStr string
 	if option.OnDuplicateStr != "" {
@@ -437,8 +429,7 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 		for i, value := range values {
 			if value == nil {
 				// 不要在这里使用 `gvar.New(nil)`，因为它会创建一个已初始化的对象，
-				// 这将导致结构体转换问题。
-				// md5:4df778f025fefd53
+				// 这将导致结构体转换问题。 md5:4df778f025fefd53
 				record[columnTypes[i].Name()] = nil
 			} else {
 				var convertedValue interface{}

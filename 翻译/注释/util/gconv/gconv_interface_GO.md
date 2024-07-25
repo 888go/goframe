@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -168,8 +167,7 @@
 
 # <翻译开始>
 // iUnmarshalValue 是用于自定义类型定制值赋值的接口。
-// 注意，只有指针可以实现 iUnmarshalValue 接口。
-// md5:be9b0c2575849208
+// 注意，只有指针可以实现 iUnmarshalValue 接口。 md5:be9b0c2575849208
 # <翻译结束>
 
 
@@ -180,8 +178,7 @@
 
 # <翻译开始>
 // iUnmarshalText 是自定义类型用于自定义值赋值的接口。
-// 注意，只有指针类型可以实现 iUnmarshalText 接口。
-// md5:cdd798fd0d1402d5
+// 注意，只有指针类型可以实现 iUnmarshalText 接口。 md5:cdd798fd0d1402d5
 # <翻译结束>
 
 
@@ -192,8 +189,7 @@
 
 # <翻译开始>
 // iUnmarshalText 是用于自定义类型以定制值赋予的接口。
-// 注意，只有指针类型可以实现 iUnmarshalJSON 接口。
-// md5:ea7d987eea1cf703
+// 注意，只有指针类型可以实现 iUnmarshalJSON 接口。 md5:ea7d987eea1cf703
 # <翻译结束>
 
 

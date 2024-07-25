@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -22,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-// 断言内容(content)中"Stack"出现的次数为1次。 md5:a246e53abdc8cb5e
+		// 断言内容(content)中"Stack"出现的次数为1次。 md5:a246e53abdc8cb5e
 # <翻译结束>
 
 
@@ -31,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用t.Assert断言gstr在content中"Stack"的计数为0。 md5:b6a4aff04f1a4b28
+		// 使用t.Assert断言gstr在content中"Stack"的计数为0。 md5:b6a4aff04f1a4b28
 # <翻译结束>
 
 
@@ -42,8 +41,7 @@
 
 # <翻译开始>
 		// t.Assert断言字符串gstr在content中出现的".go"子串次数为1
-		// t.Assert断言content中包含gfile.Separator（假设是一个路径分隔符），结果为true
-		// md5:1411e0e8f0387662
+		// t.Assert断言content中包含gfile.Separator（假设是一个路径分隔符），结果为true md5:1411e0e8f0387662
 # <翻译结束>
 
 
@@ -54,7 +52,6 @@
 
 # <翻译开始>
 		// 断言 content 中 ".go" 出现的次数为 1
-		// 断言 content 不包含路径分隔符
-		// md5:c3f84d90ca75dcce
+		// 断言 content 不包含路径分隔符 md5:c3f84d90ca75dcce
 # <翻译结束>
 

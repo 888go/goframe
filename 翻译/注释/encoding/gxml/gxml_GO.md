@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -51,8 +50,7 @@
 
 # <翻译开始>
 // Encode 将字典 `m` 编码为 XML 格式的字节内容。
-// 可选参数 `rootTag` 用于指定 XML 的根标签。
-// md5:b83a924118f435fb
+// 可选参数 `rootTag` 用于指定 XML 的根标签。 md5:b83a924118f435fb
 # <翻译结束>
 
 
@@ -63,8 +61,7 @@
 
 # <翻译开始>
 // EncodeWithIndent 将映射 `m` 编码为带缩进的 XML 格式的字节内容。
-// 可选参数 `rootTag` 用于指定 XML 根标签。
-// md5:4ce035684ef6a0cc
+// 可选参数 `rootTag` 用于指定 XML 根标签。 md5:4ce035684ef6a0cc
 # <翻译结束>
 
 

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gclient
 
@@ -31,71 +30,62 @@ import (
 )
 
 // Get 发送GET请求并返回响应对象。
-// 请注意，如果响应对象将永远不会被使用，必须关闭它。
-// md5:bf82e1e2c38506f6
+// 请注意，如果响应对象将永远不会被使用，必须关闭它。 md5:bf82e1e2c38506f6
 func (c *Client) Get(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodGet, url, data...)
 }
 
 // 发送PUT请求并返回响应对象。
-// 注意，如果响应对象将永远不会使用，必须关闭它。
-// md5:44e5f3e5edebbb91
+// 注意，如果响应对象将永远不会使用，必须关闭它。 md5:44e5f3e5edebbb91
 func (c *Client) Put(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPut, url, data...)
 }
 
 // Post 使用HTTP POST方法发送请求，并返回响应对象。
-// 注意，如果响应对象将永远不会使用，必须关闭它。
-// md5:9ba8d1283ba032cb
+// 注意，如果响应对象将永远不会使用，必须关闭它。 md5:9ba8d1283ba032cb
 func (c *Client) Post(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPost, url, data...)
 }
 
 // Delete 发送DELETE请求并返回响应对象。
-// 注意，如果响应对象将永远不会被使用，那么必须关闭它。
-// md5:4dde007718fff7a6
+// 注意，如果响应对象将永远不会被使用，那么必须关闭它。 md5:4dde007718fff7a6
 func (c *Client) Delete(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodDelete, url, data...)
 }
 
 // Head 发送HEAD请求并返回响应对象。
-// 请注意，如果响应对象不会被使用，必须关闭它。
-// md5:400dd3a80c3a0ccb
+// 请注意，如果响应对象不会被使用，必须关闭它。 md5:400dd3a80c3a0ccb
 func (c *Client) Head(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodHead, url, data...)
 }
 
 // Patch 发送PATCH请求并返回响应对象。
-// 注意，如果响应对象将永远不会使用，必须关闭它。
-// md5:4e530560a87457a1
+// 注意，如果响应对象将永远不会使用，必须关闭它。 md5:4e530560a87457a1
 func (c *Client) Patch(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodPatch, url, data...)
 }
 
 // Connect 发送CONNECT请求并返回响应对象。
-// 注意，如果响应对象永远不会使用，必须关闭它。
-// md5:cb5555f2c2a7a29d
+// 注意，如果响应对象永远不会使用，必须关闭它。 md5:cb5555f2c2a7a29d
 func (c *Client) Connect(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodConnect, url, data...)
 }
 
 // Options 发送OPTIONS请求并返回响应对象。
-// 注意，如果响应对象将永远不会被使用，那么必须关闭它。
-// md5:3a2d4fbe5e9f5e31
+// 注意，如果响应对象将永远不会被使用，那么必须关闭它。 md5:3a2d4fbe5e9f5e31
 func (c *Client) Options(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodOptions, url, data...)
 }
 
 // Trace 发送TRACE请求并返回响应对象。
-// 请注意，如果响应对象将永远不会被使用，必须关闭它。
-// md5:82834b110d843156
+// 请注意，如果响应对象将永远不会被使用，必须关闭它。 md5:82834b110d843156
 func (c *Client) Trace(ctx context.Context, url string, data ...interface{}) (*Response, error) {
 	return c.DoRequest(ctx, http.MethodTrace, url, data...)
 }
 
 // PostForm 与 net/http.PostForm 不同。它是一个 Post 方法的包装器，会将 Content-Type 设置为 "multipart/form-data;"。
 // 它会自动为请求体和 Content-Type 设置边界字符。
-// 
+//
 // 类似于下面的情况：
 //
 // Content-Type: multipart/form-data; boundary=----Boundarye4Ghaog6giyQ9ncN
@@ -105,9 +95,8 @@ func (c *Client) Trace(ctx context.Context, url string, data ...interface{}) (*R
 // Content-Disposition: form-data; name="checkType"
 //
 // none
-// 
-// 它用于发送表单数据。请注意，如果响应对象永远不会使用，必须关闭它。
-// md5:bd2237aaca8f2a89
+//
+// 它用于发送表单数据。请注意，如果响应对象永远不会使用，必须关闭它。 md5:bd2237aaca8f2a89
 func (c *Client) PostForm(ctx context.Context, url string, data map[string]string) (resp *Response, err error) {
 	body := new(bytes.Buffer)
 	w := multipart.NewWriter(body)
@@ -126,9 +115,8 @@ func (c *Client) PostForm(ctx context.Context, url string, data map[string]strin
 
 // DoRequest 发送给定HTTP方法和数据的请求，并返回响应对象。
 // 注意，如果响应对象永远不会使用，必须关闭它。
-// 
-// 如果包含文件上传，它将使用"multipart/form-data"作为Content-Type，否则使用"application/x-www-form-urlencoded"。它还能自动检测POST内容的JSON格式，并为此自动设置Content-Type为"application/json"。
-// md5:09c1fd65446e9a2e
+//
+// 如果包含文件上传，它将使用"multipart/form-data"作为Content-Type，否则使用"application/x-www-form-urlencoded"。它还能自动检测POST内容的JSON格式，并为此自动设置Content-Type为"application/json"。 md5:09c1fd65446e9a2e
 func (c *Client) DoRequest(
 	ctx context.Context, method, url string, data ...interface{},
 ) (resp *Response, err error) {
@@ -213,8 +201,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 				httpHeaderContentTypeXml:
 				bodyBuffer = bytes.NewBuffer([]byte(params))
 			default:
-				// 如果HTTP方法为GET且未指定Content-Type时，它将参数追加到URL中。
-				// md5:a6325a5bd7f8b355
+				// 如果HTTP方法为GET且未指定Content-Type时，它将参数追加到URL中。 md5:a6325a5bd7f8b355
 				if gstr.Contains(url, "?") {
 					url = url + "&" + params
 				} else {
@@ -274,8 +261,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 					}
 				}
 			}
-			// Close完成multipart消息并写入尾部边界结束行到输出。
-			// md5:0a89f03d075fd9ee
+			// Close完成multipart消息并写入尾部边界结束行到输出。 md5:0a89f03d075fd9ee
 			if err = writer.Close(); err != nil {
 				err = gerror.Wrapf(err, `form writer close failed`)
 				return nil, err
@@ -321,8 +307,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 		}
 	}
 	// 如果你想要自定义请求的主机值，那么设置 `req.Host` 是必要的。
-	// 如果 `Host` 头部不为空，它会使用头部的 "Host" 值。
-	// md5:e71cb70a52453d4c
+	// 如果 `Host` 头部不为空，它会使用头部的 "Host" 值。 md5:e71cb70a52453d4c
 	if reqHeaderHost := req.Header.Get(httpHeaderHost); reqHeaderHost != "" {
 		req.Host = reqHeaderHost
 	}
@@ -347,16 +332,14 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 }
 
 // callRequest 使用给定的http.Request发送请求，并返回响应对象。
-// 注意，如果响应对象将永远不会被使用，那么必须关闭它。
-// md5:d6e9d1e1953e082b
+// 注意，如果响应对象将永远不会被使用，那么必须关闭它。 md5:d6e9d1e1953e082b
 func (c *Client) callRequest(req *http.Request) (resp *Response, err error) {
 	resp = &Response{
 		request: req,
 	}
 	// Dump 功能。
 	// 请求体可以用于转储
-	// 原始HTTP请求-响应过程。
-	// md5:57f6d6cec0adad22
+	// 原始HTTP请求-响应过程。 md5:57f6d6cec0adad22
 	reqBodyContent, _ := io.ReadAll(req.Body)
 	resp.requestBody = reqBodyContent
 	for {

@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gdb
 
@@ -41,8 +40,7 @@ var transactionIdGenerator = gtype.NewUint64()
 
 // Begin 启动并返回事务对象。
 // 如果不再使用事务，你应该调用事务对象的Commit或Rollback方法。
-// Commit或Rollback方法也会自动关闭事务。
-// md5:cca0e58680665343
+// Commit或Rollback方法也会自动关闭事务。 md5:cca0e58680665343
 func (c *Core) Begin(ctx context.Context) (tx TX, err error) {
 	return c.doBeginCtx(ctx)
 }
@@ -64,9 +62,8 @@ func (c *Core) doBeginCtx(ctx context.Context) (TX, error) {
 
 // Transaction 包装了使用函数 `f` 执行的事务逻辑。
 // 如果函数 `f` 返回非空错误，它将回滚事务并返回该错误。如果函数 `f` 返回 nil，它将提交事务并返回 nil。
-// 
-// 注意，在函数 `f` 中不应手动提交或回滚事务，因为这些操作将由这个函数自动处理。
-// md5:8906440d4dbbef1f
+//
+// 注意，在函数 `f` 中不应手动提交或回滚事务，因为这些操作将由这个函数自动处理。 md5:8906440d4dbbef1f
 func (c *Core) Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error) {
 	if ctx == nil {
 		ctx = c.db.GetCtx()
@@ -128,8 +125,7 @@ func WithTX(ctx context.Context, tx TX) context.Context {
 }
 
 // TXFromCtx 从上下文中获取并返回事务对象。
-// 它通常用于嵌套事务功能，如果之前未设置，则返回nil。
-// md5:21e22b68139fc8b6
+// 它通常用于嵌套事务功能，如果之前未设置，则返回nil。 md5:21e22b68139fc8b6
 func TXFromCtx(ctx context.Context, group string) TX {
 	if ctx == nil {
 		return nil
@@ -182,8 +178,7 @@ func (tx *TXCore) GetSqlTX() *sql.Tx {
 
 // Commit 提交当前事务。
 // 注意，如果处于嵌套事务过程中，它会释放之前的保存事务点，
-// 否则，它将提交整个事务。
-// md5:9ca50fd58870ed9e
+// 否则，它将提交整个事务。 md5:9ca50fd58870ed9e
 func (tx *TXCore) Commit() error {
 	if tx.transactionCount > 0 {
 		tx.transactionCount--
@@ -203,8 +198,7 @@ func (tx *TXCore) Commit() error {
 }
 
 // Rollback 会回滚当前事务。
-// 注意，在嵌套事务过程中，它会回滚当前的事务；否则，它将回滚整个事务。
-// md5:0c483721f8447f53
+// 注意，在嵌套事务过程中，它会回滚当前的事务；否则，它将回滚整个事务。 md5:0c483721f8447f53
 func (tx *TXCore) Rollback() error {
 	if tx.transactionCount > 0 {
 		tx.transactionCount--
@@ -239,16 +233,14 @@ func (tx *TXCore) Begin() error {
 }
 
 // SavePoint 执行 `SAVEPOINT xxx` SQL 语句，该语句在当前点保存事务。
-// 参数 `point` 指定将被保存到服务器的保存点名称。
-// md5:f4061450298afabd
+// 参数 `point` 指定将被保存到服务器的保存点名称。 md5:f4061450298afabd
 func (tx *TXCore) SavePoint(point string) error {
 	_, err := tx.Exec("SAVEPOINT " + tx.db.GetCore().QuoteWord(point))
 	return err
 }
 
 // RollbackTo 执行 `ROLLBACK TO SAVEPOINT xxx` SQL语句，回滚到指定的保存点事务。
-// 参数 `point` 指定了之前保存的保存点名称。
-// md5:e347c163ad8fefa7
+// 参数 `point` 指定了之前保存的保存点名称。 md5:e347c163ad8fefa7
 func (tx *TXCore) RollbackTo(point string) error {
 	_, err := tx.Exec("ROLLBACK TO SAVEPOINT " + tx.db.GetCore().QuoteWord(point))
 	return err
@@ -256,9 +248,8 @@ func (tx *TXCore) RollbackTo(point string) error {
 
 // Transaction 包装了使用函数 `f` 执行的事务逻辑。
 // 如果函数 `f` 返回非空错误，它将回滚事务并返回该错误。如果函数 `f` 返回 nil，它将提交事务并返回 nil。
-// 
-// 注意，在函数 `f` 中不应手动提交或回滚事务，因为这些操作将由这个函数自动处理。
-// md5:8906440d4dbbef1f
+//
+// 注意，在函数 `f` 中不应手动提交或回滚事务，因为这些操作将由这个函数自动处理。 md5:8906440d4dbbef1f
 func (tx *TXCore) Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error) {
 	if ctx != nil {
 		tx.ctx = ctx
@@ -297,23 +288,20 @@ func (tx *TXCore) Transaction(ctx context.Context, f func(ctx context.Context, t
 }
 
 // Query 在事务上执行查询操作。
-// 请参阅Core.Query。
-// md5:0d7503cceb0dc1d6
+// 请参阅Core.Query。 md5:0d7503cceb0dc1d6
 func (tx *TXCore) Query(sql string, args ...interface{}) (result Result, err error) {
 	return tx.db.DoQuery(tx.ctx, &txLink{tx.tx}, sql, args...)
 }
 
 // Exec 在事务上执行非查询操作。
-// 参见Core.Exec。
-// md5:043edf012223f310
+// 参见Core.Exec。 md5:043edf012223f310
 func (tx *TXCore) Exec(sql string, args ...interface{}) (sql.Result, error) {
 	return tx.db.DoExec(tx.ctx, &txLink{tx.tx}, sql, args...)
 }
 
 // Prepare 创建一个预处理语句，以便后续的查询或执行。
 // 可以从返回的语句中并发地运行多个查询或执行。
-// 调用者必须在不再需要该语句时调用语句的 Close 方法。
-// md5:16334dc7db1c37a9
+// 调用者必须在不再需要该语句时调用语句的 Close 方法。 md5:16334dc7db1c37a9
 func (tx *TXCore) Prepare(sql string) (*Stmt, error) {
 	return tx.db.DoPrepare(tx.ctx, &txLink{tx.tx}, sql)
 }
@@ -336,8 +324,7 @@ func (tx *TXCore) GetOne(sql string, args ...interface{}) (Record, error) {
 }
 
 // GetStruct 从数据库中查询一条记录，并将其转换为给定的结构体。
-// 参数 `pointer` 应该是指向结构体的指针。
-// md5:7ddc0d419d6cd2aa
+// 参数 `pointer` 应该是指向结构体的指针。 md5:7ddc0d419d6cd2aa
 func (tx *TXCore) GetStruct(obj interface{}, sql string, args ...interface{}) error {
 	one, err := tx.GetOne(sql, args...)
 	if err != nil {
@@ -346,8 +333,7 @@ func (tx *TXCore) GetStruct(obj interface{}, sql string, args ...interface{}) er
 	return one.Struct(obj)
 }
 
-// GetStructs 从数据库查询记录，并将它们转换为给定的结构体。参数 `pointer` 应该是结构体切片的类型：[]struct 或 []*struct。
-// md5:af7dfbf46c6660c6
+// GetStructs 从数据库查询记录，并将它们转换为给定的结构体。参数 `pointer` 应该是结构体切片的类型：[]struct 或 []*struct。 md5:af7dfbf46c6660c6
 func (tx *TXCore) GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error {
 	all, err := tx.GetAll(sql, args...)
 	if err != nil {
@@ -358,8 +344,7 @@ func (tx *TXCore) GetStructs(objPointerSlice interface{}, sql string, args ...in
 
 // GetScan 从数据库查询一个或多个记录，并将它们转换为给定的结构体或结构体数组。
 //
-// 如果参数 `pointer` 是结构体指针类型，它内部会调用 GetStruct 进行转换。如果参数 `pointer` 是切片类型，它内部会调用 GetStructs 进行转换。
-// md5:c1dbdab7a7c29c51
+// 如果参数 `pointer` 是结构体指针类型，它内部会调用 GetStruct 进行转换。如果参数 `pointer` 是切片类型，它内部会调用 GetStructs 进行转换。 md5:c1dbdab7a7c29c51
 func (tx *TXCore) GetScan(pointer interface{}, sql string, args ...interface{}) error {
 	reflectInfo := reflection.OriginTypeAndKind(pointer)
 	if reflectInfo.InputKind != reflect.Ptr {
@@ -384,8 +369,7 @@ func (tx *TXCore) GetScan(pointer interface{}, sql string, args ...interface{}) 
 }
 
 // GetValue 从数据库查询并返回字段值。
-// SQL 应该只查询数据库中的一个字段，否则它将只返回结果中的一个字段。
-// md5:96794360fadbc288
+// SQL 应该只查询数据库中的一个字段，否则它将只返回结果中的一个字段。 md5:96794360fadbc288
 func (tx *TXCore) GetValue(sql string, args ...interface{}) (Value, error) {
 	one, err := tx.GetOne(sql, args...)
 	if err != nil {
@@ -417,8 +401,7 @@ func (tx *TXCore) GetCount(sql string, args ...interface{}) (int64, error) {
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"}})
 //
-// 参数 `batch` 在给定数据为切片时，指定批量操作的次数。
-// md5:fd75d343f485b8dc
+// 参数 `batch` 在给定数据为切片时，指定批量操作的次数。 md5:fd75d343f485b8dc
 func (tx *TXCore) Insert(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).Insert()
@@ -434,8 +417,7 @@ func (tx *TXCore) Insert(table string, data interface{}, batch ...int) (sql.Resu
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"})
 //
-// 当给定的数据为切片时，参数 `batch` 指定批处理操作的计数。
-// md5:49f76901041c9819
+// 当给定的数据为切片时，参数 `batch` 指定批处理操作的计数。 md5:49f76901041c9819
 func (tx *TXCore) InsertIgnore(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).InsertIgnore()
@@ -457,8 +439,7 @@ func (tx *TXCore) InsertAndGetId(table string, data interface{}, batch ...int) (
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"}})
 //
-// 参数 `data` 可以是 map/gmap/struct/*struct/[]map/[]struct 等类型。如果给定的数据是切片类型，它将进行批量替换，并可选地通过参数 `batch` 指定批量操作次数。
-// md5:69ecd0994eab5bbb
+// 参数 `data` 可以是 map/gmap/struct/*struct/[]map/[]struct 等类型。如果给定的数据是切片类型，它将进行批量替换，并可选地通过参数 `batch` 指定批量操作次数。 md5:69ecd0994eab5bbb
 func (tx *TXCore) Replace(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).Replace()
@@ -474,8 +455,7 @@ func (tx *TXCore) Replace(table string, data interface{}, batch ...int) (sql.Res
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"}})
 //
-// 如果给定的数据是切片类型，它将进行批量保存。可选参数 `batch` 指定了批量操作的次数。
-// md5:c76721f5e0b01424
+// 如果给定的数据是切片类型，它将进行批量保存。可选参数 `batch` 指定了批量操作的次数。 md5:c76721f5e0b01424
 func (tx *TXCore) Save(table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return tx.Model(table).Ctx(tx.ctx).Data(data).Batch(batch[0]).Save()
@@ -496,8 +476,7 @@ func (tx *TXCore) Save(table string, data interface{}, batch ...int) (sql.Result
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
-// User{ Id : 1, UserName : "john"}.
-// md5:8651eb1bd7e10da0
+// User{ Id : 1, UserName : "john"}. md5:8651eb1bd7e10da0
 func (tx *TXCore) Update(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) {
 	return tx.Model(table).Ctx(tx.ctx).Data(data).Where(condition, args...).Update()
 }
@@ -512,8 +491,7 @@ func (tx *TXCore) Update(table string, data interface{}, condition interface{}, 
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
-// User{ Id : 1, UserName : "john"}.
-// md5:c6c87830434eba7d
+// User{ Id : 1, UserName : "john"}. md5:c6c87830434eba7d
 func (tx *TXCore) Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error) {
 	return tx.Model(table).Ctx(tx.ctx).Where(condition, args...).Delete()
 }

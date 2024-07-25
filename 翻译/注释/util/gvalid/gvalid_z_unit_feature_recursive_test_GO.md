@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -22,7 +21,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/1864. md5:9de8e8d82eb09662
+	//github.com/gogf/gf/issues/1864. md5:9de8e8d82eb09662
 # <翻译结束>
 
 
@@ -40,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 当Teacher中的属性Student是一个初始化的结构体时，会默认赋值，因此会报错。 md5:f02f5f9d926be5f1
+	// 当Teacher中的属性Student是一个初始化的结构体时，会默认赋值，因此会报错。 md5:f02f5f9d926be5f1
 # <翻译结束>
 
 
@@ -49,7 +48,7 @@
 <原文结束>
 
 # <翻译开始>
-// 与 upper 相同，它不受关联值的影响。 md5:d46133fe4ba08bc0
+	// 与 upper 相同，它不受关联值的影响。 md5:d46133fe4ba08bc0
 # <翻译结束>
 
 
@@ -58,7 +57,7 @@
 <原文结束>
 
 # <翻译开始>
-//github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
+// github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
 # <翻译结束>
 
 

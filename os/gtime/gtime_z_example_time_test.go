@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtime_test
 
@@ -67,8 +66,7 @@ func ExampleNewFromTime() {
 }
 
 // NewFromStr 根据给定的字符串创建并返回一个 Time 对象。
-// 注意，如果发生错误，它将返回 nil。
-// md5:4687b38a27582a12
+// 注意，如果发生错误，它将返回 nil。 md5:4687b38a27582a12
 func ExampleNewFromStr() {
 	t := gtime.NewFromStr("2018-08-08 08:08:08")
 
@@ -79,8 +77,7 @@ func ExampleNewFromStr() {
 }
 
 // NewFromStrFormat 通过给定的字符串和自定义格式（如：Y-m-d H:i:s）创建并返回一个Time对象。
-// 注意，如果发生错误，它将返回nil。
-// md5:ed9966a0a8156f1d
+// 注意，如果发生错误，它将返回nil。 md5:ed9966a0a8156f1d
 func ExampleNewFromStrFormat() {
 	t := gtime.NewFromStrFormat("2018-08-08 08:08:08", "Y-m-d H:i:s")
 	fmt.Println(t)
@@ -90,8 +87,7 @@ func ExampleNewFromStrFormat() {
 }
 
 // NewFromStrLayout 根据给定的字符串和标准库格式（如：2006-01-02 15:04:05）创建并返回一个Time对象。
-// 注意，如果出现错误，它将返回nil。
-// md5:027f4d0876baa1a8
+// 注意，如果出现错误，它将返回nil。 md5:027f4d0876baa1a8
 func ExampleNewFromStrLayout() {
 	t := gtime.NewFromStrLayout("2018-08-08 08:08:08", "2006-01-02 15:04:05")
 	fmt.Println(t)
@@ -102,8 +98,7 @@ func ExampleNewFromStrLayout() {
 
 // NewFromTimeStamp 根据给定的时间戳创建并返回一个 Time 对象，
 // 该时间戳可以是秒到纳秒的精度。
-// 例如：1600443866 和 1600443866199266000 都被视为有效的时间戳数值。
-// md5:6a84edd691c97a4f
+// 例如：1600443866 和 1600443866199266000 都被视为有效的时间戳数值。 md5:6a84edd691c97a4f
 func ExampleNewFromTimeStamp() {
 	t1 := gtime.NewFromTimeStamp(1533686888)
 	t2 := gtime.NewFromTimeStamp(1533686888000)
@@ -156,8 +151,7 @@ func ExampleTime_TimestampNano() {
 	// 1533686888000000
 }
 
-// TimestampStr 是一个方便的方法，它获取并返回时间戳（以秒为单位）的字符串形式。
-// md5:f638769b91eb1dd5
+// TimestampStr 是一个方便的方法，它获取并返回时间戳（以秒为单位）的字符串形式。 md5:f638769b91eb1dd5
 func ExampleTime_TimestampStr() {
 	t := gtime.TimestampStr()
 
@@ -178,8 +172,7 @@ func ExampleTime_Month() {
 	// 8
 }
 
-// Second返回由t指定的分钟内的第二个偏移量，范围在[0, 59]之间。
-// md5:5666ae5cbf21989d
+// Second返回由t指定的分钟内的第二个偏移量，范围在[0, 59]之间。 md5:5666ae5cbf21989d
 func ExampleTime_Second() {
 	gt := gtime.New("2018-08-08 08:08:08")
 	t1 := gt.Second()
@@ -203,8 +196,7 @@ func ExampleTime_String() {
 	// string
 }
 
-// IsZero报告是否`t`表示零时间点，即UTC时间的1970年1月1日00:00:00。
-// md5:4e2b46d4fa63a878
+// IsZero报告是否`t`表示零时间点，即UTC时间的1970年1月1日00:00:00。 md5:4e2b46d4fa63a878
 func ExampleTime_IsZero() {
 	gt := gtime.New("2018-08-08 08:08:08")
 
@@ -256,8 +248,7 @@ func ExampleTime_AddDate() {
 // Round 返回将 t 四舍五入到 d 的倍数的结果（从零时间开始）。对于半等值，四舍五入行为向上取整。
 // 如果 d 小于等于 0，Round 会返回 t 并移除任何单调时钟读数，但保持不变。
 //
-// Round 以绝对的自零时间以来的时间段进行操作；它不处理时间的呈现形式。因此，Round(Hour) 可能返回一个非零分钟的时间，具体取决于时间的 Location。
-// md5:b2557220790fc058
+// Round 以绝对的自零时间以来的时间段进行操作；它不处理时间的呈现形式。因此，Round(Hour) 可能返回一个非零分钟的时间，具体取决于时间的 Location。 md5:b2557220790fc058
 func ExampleTime_Round() {
 	gt := gtime.New("2018-08-08 08:08:08")
 	t := gt.Round(time.Duration(10) * time.Second)
@@ -273,8 +264,7 @@ func ExampleTime_Round() {
 //
 // Truncate是基于时间从零时间点起的绝对持续时间来进行操作的；
 // 它并不作用于时间的展示形式。因此，Truncate(Hour)可能返回一个分钟数非零的时间，
-// 这取决于该时间的位置信息（Location）。
-// md5:f72e0e00b245e691
+// 这取决于该时间的位置信息（Location）。 md5:f72e0e00b245e691
 func ExampleTime_Truncate() {
 	gt := gtime.New("2018-08-08 08:08:08")
 	t := gt.Truncate(time.Duration(10) * time.Second)
@@ -289,8 +279,7 @@ func ExampleTime_Truncate() {
 // 即使两个时间在不同的时区，它们也可以相等。
 // 例如，CEST 的 6:00 +0200 和 UTC 的 4:00 是相等的。
 // 查看 Time 类型的文档，了解使用 == 操作符比较时间值时可能遇到的问题；
-// 大多数代码应使用 Equal 而非 ==。
-// md5:a28e147d11d5fe0f
+// 大多数代码应使用 Equal 而非 ==。 md5:a28e147d11d5fe0f
 func ExampleTime_Equal() {
 	gt1 := gtime.New("2018-08-08 08:08:08")
 	gt2 := gtime.New("2018-08-08 08:08:08")
@@ -325,8 +314,7 @@ func ExampleTime_After() {
 
 // Sub 返回持续时间 t-u。如果结果超过了能存储在 Duration 类型中的最大（或最小）
 // 值，那么将返回最大（或最小）的持续时间。
-// 要计算 t-d（其中 d 为一个持续时间），请使用 t.Add(-d)。
-// md5:c975e5087c03d3b9
+// 要计算 t-d（其中 d 为一个持续时间），请使用 t.Add(-d)。 md5:c975e5087c03d3b9
 func ExampleTime_Sub() {
 	gt1 := gtime.New("2018-08-08 08:08:08")
 	gt2 := gtime.New("2018-08-08 08:08:10")
@@ -500,8 +488,7 @@ func ExampleTime_UnmarshalJSON() {
 	fmt.Println(p)
 
 	// 输出
-	// &{goframe 2018-08-08 08:08:08} 
-	// 
-	// 这段Go代码的注释表示这是一个输出（Output），内容是关于一个结构体（&{...}）的引用，该结构体名为goframe，包含了日期和时间信息（2018-08-08 08:08:08）。
-	// md5:a93ddd4a9e34a1af
+	// &{goframe 2018-08-08 08:08:08}
+	//
+	// 这段Go代码的注释表示这是一个输出（Output），内容是关于一个结构体（&{...}）的引用，该结构体名为goframe，包含了日期和时间信息（2018-08-08 08:08:08）。 md5:a93ddd4a9e34a1af
 }

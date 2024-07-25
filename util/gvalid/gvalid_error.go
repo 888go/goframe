@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -109,8 +108,7 @@ func (e *validationError) Maps() map[string]map[string]error {
 	return e.errors
 }
 
-// Items 如果可能，按顺序检索并返回错误项数组，否则返回无序的错误项。
-// md5:cb51d4d0fa07a635
+// Items 如果可能，按顺序检索并返回错误项数组，否则返回无序的错误项。 md5:cb51d4d0fa07a635
 func (e *validationError) Items() (items []map[string]map[string]error) {
 	if e == nil {
 		return []map[string]map[string]error{}
@@ -192,8 +190,7 @@ func (e *validationError) FirstRule() (rule string, err error) {
 }
 
 // FirstError 返回第一个错误消息作为字符串。
-// 注意，如果没有错误序列，返回的消息可能会有所不同。
-// md5:194a5e5551fbb1e3
+// 注意，如果没有错误序列，返回的消息可能会有所不同。 md5:194a5e5551fbb1e3
 func (e *validationError) FirstError() (err error) {
 	if e == nil {
 		return nil

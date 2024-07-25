@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gtimer
 
@@ -17,8 +16,7 @@ import (
 
 // priorityQueue 是一种抽象数据类型，类似于常规的队列或堆数据结构，但每个元素都附加了一个“优先级”。
 // 在优先队列中，高优先级的元素会在低优先级元素之前被处理。
-// priorityQueue 基于堆结构实现。
-// md5:83d2128c4f6a7192
+// priorityQueue 基于堆结构实现。 md5:83d2128c4f6a7192
 type priorityQueue struct {
 	mu           sync.Mutex
 	heap         *priorityQueueHeap // 使用堆实现的底层队列项目管理器。 md5:e4cb05ba6e4f562a
@@ -53,8 +51,7 @@ func (q *priorityQueue) NextPriority() int64 {
 
 // Push 将一个值推入队列。
 // `priority` 参数指定了该值的优先级。
-// `priority` 的值越小，表示 `value` 的优先级越高。
-// md5:cf9acf4068187c77
+// `priority` 的值越小，表示 `value` 的优先级越高。 md5:cf9acf4068187c77
 func (q *priorityQueue) Push(value interface{}, priority int64) {
 	q.mu.Lock()
 	defer q.mu.Unlock()

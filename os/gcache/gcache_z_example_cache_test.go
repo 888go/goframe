@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gcache_test
 
@@ -20,8 +19,7 @@ import (
 
 func ExampleNew() {
 	// 创建一个缓存对象，
-	// 当然，你也可以直接轻松地使用gcache包提供的方法。
-	// md5:ffacc88538a18ac1
+	// 当然，你也可以直接轻松地使用gcache包提供的方法。 md5:ffacc88538a18ac1
 	c := gcache.New()
 
 	// 设置不带过期时间的缓存. md5:10e925a877b589df
@@ -115,8 +113,7 @@ func ExampleCache_SetMap() {
 	}
 
 	// 使用键值对`data`设置批处理缓存，过期时间为`duration`。
-	// 如果`duration`为0，则不会过期。如果`duration`小于0或给定的`value`为nil，将删除`data`中的键。
-	// md5:b2f121999e39c24d
+	// 如果`duration`为0，则不会过期。如果`duration`小于0或给定的`value`为nil，将删除`data`中的键。 md5:b2f121999e39c24d
 	c.SetMap(ctx, data, 1000*time.Millisecond)
 
 	// 获取指定的键值. md5:78fc35a6610c5179
@@ -154,8 +151,7 @@ func ExampleCache_Update() {
 	c := gcache.New()
 
 	// 使用键值对`data`设置批处理缓存，过期时间为`duration`。
-	// 如果`duration`为0，则不会过期。如果`duration`小于0或给定的`value`为nil，将删除`data`中的键。
-	// md5:b2f121999e39c24d
+	// 如果`duration`为0，则不会过期。如果`duration`小于0或给定的`value`为nil，将删除`data`中的键。 md5:b2f121999e39c24d
 	c.SetMap(ctx, g.MapAnyAny{"k1": "v1", "k2": "v2", "k3": "v3"}, 0)
 
 	// Print the current key value pair
@@ -171,8 +167,7 @@ func ExampleCache_Update() {
 	fmt.Println(re, exist)
 
 	// 返回的值`exist`如果`key`在缓存中不存在，则为false。
-	// 如果`key`不在缓存中，它将不执行任何操作。
-	// md5:1ecdac9a4397de58
+	// 如果`key`不在缓存中，它将不执行任何操作。 md5:1ecdac9a4397de58
 	re1, exist1, _ := c.Update(ctx, "k4", "v44")
 	fmt.Println(re1, exist1)
 
@@ -203,8 +198,7 @@ func ExampleCache_UpdateExpire() {
 	expire, _ := c.GetExpire(ctx, "k1")
 	fmt.Println(expire)
 
-	// UpdateExpire 更新键`key`的过期时间，并返回旧的过期持续时间值。如果缓存中不存在`key`，则返回-1并什么都不做。
-	// md5:8a59f61ead71c844
+	// UpdateExpire 更新键`key`的过期时间，并返回旧的过期持续时间值。如果缓存中不存在`key`，则返回-1并什么都不做。 md5:8a59f61ead71c844
 	c.UpdateExpire(ctx, "k1", 500*time.Millisecond)
 
 	expire1, _ := c.GetExpire(ctx, "k1")
@@ -223,8 +217,7 @@ func ExampleCache_Values() {
 	// Write value
 	c.Set(ctx, "k1", g.Map{"k1": "v1", "k2": "v2"}, 0)
 	// 将键为 "k2" 的值设置为 "Here is Value2"，过期时间为 0（默认不设置过期时间）
-	// 将键为 "k3" 的值设置为整数 111，过期时间为 0（默认不设置过期时间）
-	// md5:b8ee9984ed9da43d
+	// 将键为 "k3" 的值设置为整数 111，过期时间为 0（默认不设置过期时间） md5:b8ee9984ed9da43d
 
 	// Values 返回缓存中所有的值作为切片。 md5:dc00b32eb8913e9b
 	data, _ := c.Values(ctx)
@@ -264,8 +257,7 @@ func ExampleCache_Contains() {
 	// Set Cache
 	c.Set(ctx, "k", "v", 0)
 
-	// Contains 如果`key`存在于缓存中，则返回true，否则返回false。
-	// md5:370eab2c5835bfb1
+	// Contains 如果`key`存在于缓存中，则返回true，否则返回false。 md5:370eab2c5835bfb1
 	data, _ := c.Contains(ctx, "k")
 	fmt.Println(data)
 
@@ -307,8 +299,7 @@ func ExampleCache_Get() {
 	c.Set(ctx, "k1", "v1", 0)
 
 	// Get 获取并返回给定`key`关联的值。
-	// 如果键不存在、其值为nil或已过期，它将返回nil。
-	// md5:2999106994454771
+	// 如果键不存在、其值为nil或已过期，它将返回nil。 md5:2999106994454771
 	data, _ := c.Get(ctx, "k1")
 	fmt.Println(data)
 
@@ -324,8 +315,7 @@ func ExampleCache_GetExpire() {
 	// 设置不带过期时间的缓存. md5:10e925a877b589df
 	c.Set(ctx, "k", "v", 10000*time.Millisecond)
 
-	// GetExpire 从缓存中检索并返回`key`的过期时间。如果`key`不过期，它将返回0。如果`key`在缓存中不存在，它将返回-1。
-	// md5:a60a46e9632013e1
+	// GetExpire 从缓存中检索并返回`key`的过期时间。如果`key`不过期，它将返回0。如果`key`在缓存中不存在，它将返回-1。 md5:a60a46e9632013e1
 	expire, _ := c.GetExpire(ctx, "k")
 	fmt.Println(expire)
 
@@ -338,8 +328,7 @@ func ExampleCache_GetOrSet() {
 	// Of course, you can also easily use the gcache package method directly
 	c := gcache.New()
 
-	// GetOrSet 从缓存中检索并返回`key`对应的值，如果`key`在缓存中不存在，则设置`key-value`对，并返回`value`。
-	// md5:f1f24272b9b4a43c
+	// GetOrSet 从缓存中检索并返回`key`对应的值，如果`key`在缓存中不存在，则设置`key-value`对，并返回`value`。 md5:f1f24272b9b4a43c
 	data, _ := c.GetOrSet(ctx, "k", "v", 10000*time.Millisecond)
 	fmt.Println(data)
 
@@ -358,8 +347,7 @@ func ExampleCache_GetOrSetFunc() {
 	c := gcache.New()
 
 	// GetOrSetFunc 方法尝试获取并返回`key`对应的值，如果`key`在缓存中不存在，则使用函数`f`的结果设置`key`的值，
-	// 并返回该函数的结果。
-	// md5:6a21b8ed72969e95
+	// 并返回该函数的结果。 md5:6a21b8ed72969e95
 	c.GetOrSetFunc(ctx, "k1", func(ctx context.Context) (value interface{}, err error) {
 		return "v1", nil
 	}, 10000*time.Millisecond)
@@ -439,8 +427,7 @@ func ExampleCache_Remove() {
 	c.SetMap(ctx, g.MapAnyAny{"k1": "v1", "k2": "v2"}, 0)
 
 	// Remove 从缓存中删除一个或多个键，并返回其值。
-	// 如果提供了多个键，它将返回最后一个被删除项的值。
-	// md5:6e5f157befbc08c2
+	// 如果提供了多个键，它将返回最后一个被删除项的值。 md5:6e5f157befbc08c2
 	remove, _ := c.Remove(ctx, "k1")
 	fmt.Println(remove)
 
@@ -460,8 +447,7 @@ func ExampleCache_Removes() {
 	c.SetMap(ctx, g.MapAnyAny{"k1": "v1", "k2": "v2", "k3": "v3", "k4": "v4"}, 0)
 
 	// Remove 从缓存中删除一个或多个键，并返回其值。
-	// 如果提供了多个键，它将返回最后一个被删除项的值。
-	// md5:6e5f157befbc08c2
+	// 如果提供了多个键，它将返回最后一个被删除项的值。 md5:6e5f157befbc08c2
 	c.Removes(ctx, g.Slice{"k1", "k2", "k3"})
 
 	data, _ := c.Data(ctx)
@@ -490,8 +476,7 @@ func ExampleCache_Clear() {
 
 func ExampleCache_MustGet() {
 	// 拦截恐慌异常信息
-	// err 为空，因此不执行恐慌操作
-	// md5:aa899aa9abc889f7
+	// err 为空，因此不执行恐慌操作 md5:aa899aa9abc889f7
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("recover...:", r)
@@ -590,8 +575,7 @@ func ExampleCache_MustContains() {
 	c.Set(ctx, "k", "v", 0)
 
 	// MustContains 返回true如果`key`在缓存中存在，否则返回false。
-	// 返回true
-	// md5:226a8dda1fb50b87
+	// 返回true md5:226a8dda1fb50b87
 	data := c.MustContains(ctx, "k")
 	fmt.Println(data)
 
@@ -674,8 +658,7 @@ func ExampleCache_MustKeyStrings() {
 	c.SetMap(ctx, g.MapAnyAny{"k1": "v1", "k2": "v2"}, 0)
 
 	// MustKeyStrings 返回缓存中的所有键作为字符串切片。
-	// MustKeyStrings 的行为类似于 KeyStrings，但如果发生任何错误，它将引发恐慌。
-	// md5:e647a507f2385601
+	// MustKeyStrings 的行为类似于 KeyStrings，但如果发生任何错误，它将引发恐慌。 md5:e647a507f2385601
 	keys := c.MustKeyStrings(ctx)
 	fmt.Println(keys)
 

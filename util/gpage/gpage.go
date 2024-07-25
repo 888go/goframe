@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // 包gpage为网页提供有用的分页功能。 md5:21def24b73b57b89
 package gpage
@@ -17,8 +16,7 @@ import (
 )
 
 // Page 是分页实现者。
-// 所有属性都是公开的，您可以在需要时更改它们。
-// md5:78469553f947138e
+// 所有属性都是公开的，您可以在需要时更改它们。 md5:78469553f947138e
 type Page struct {
 	TotalSize      int    // Total size.
 	TotalPage      int    // 总页数，由系统自动计算。 md5:f193103cf068ac01
@@ -45,8 +43,7 @@ const (
 // New 创建并返回一个分页管理器。
 // 请注意，参数 `urlTemplate` 指定用于生成URL的模板，例如：
 // /user/list/{.page}, /user/list/{.page}.html, /user/list?page={.page}&type=1 等。
-// 在 `urlTemplate` 中内置的变量 "{.page}" 表示页码，在生成时将被替换为特定的页码。
-// md5:019378bcadf783f6
+// 在 `urlTemplate` 中内置的变量 "{.page}" 表示页码，在生成时将被替换为特定的页码。 md5:019378bcadf783f6
 func New(totalSize, pageSize, currentPage int, urlTemplate string) *Page {
 	p := &Page{
 		LinkStyle:    "GPageLink",
@@ -144,8 +141,7 @@ func (p *Page) SelectBar() string {
 
 // GetContent 返回预定义模式下的页面内容。
 // 这些预定义内容主要为了中文本地化的目的。您可以根据此函数的实现定义自己的
-// 页面函数来获取页面内容。
-// md5:36d242b683a4fb96
+// 页面函数来获取页面内容。 md5:36d242b683a4fb96
 func (p *Page) GetContent(mode int) string {
 	switch mode {
 	case 1:
@@ -208,8 +204,7 @@ func (p *Page) GetContent(mode int) string {
 
 // GetUrl 使用给定的页面号解析UrlTemplate，并返回URL字符串。
 // 注意，UrlTemplate属性可以是一个URL，也可以是一个包含"{.page}"占位符的URI字符串，
-// 该占位符指定了页面号的位置。
-// md5:f7db6853b1f3a681
+// 该占位符指定了页面号的位置。 md5:f7db6853b1f3a681
 func (p *Page) GetUrl(page int) string {
 	return gstr.Replace(p.UrlTemplate, DefaultPagePlaceHolder, gconv.String(page))
 }

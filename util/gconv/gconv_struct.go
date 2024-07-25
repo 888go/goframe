@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gconv
 
@@ -21,20 +20,18 @@ import (
 
 // 结构体将参数的键值对映射到对应结构对象的属性。
 // 第三个参数 `mapping` 不必要，表示自定义键名和属性名之间的映射规则（区分大小写）。
-// 
+//
 // 注意：
 // 1. `params` 可以是任何类型的 map/struct，通常为 map。
 // 2. `pointer` 应该是 *struct/**struct 类型，即指向结构体对象或结构体指针。
 // 3. 只有结构体对象的公共属性可以被映射。
-// 4. 如果 `params` 是一个 map，其键 `params` 可以是小写。在映射过程中，它会自动将键的首字母转换为大写进行匹配。如果键不匹配，它将忽略该键。
-// md5:b39a46da903b06f5
+// 4. 如果 `params` 是一个 map，其键 `params` 可以是小写。在映射过程中，它会自动将键的首字母转换为大写进行匹配。如果键不匹配，它将忽略该键。 md5:b39a46da903b06f5
 func Struct(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[string]string) (err error) {
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
 
 // StructTag 作为 Struct 的功能，但同时也支持优先级标签特性。这个特性用于获取 `params` 键值对中的指定标签，并将其映射到结构体属性名上。
-// 参数 `priorityTag` 支持多个标签，这些标签之间可以使用逗号 `,` 进行连接。
-// md5:14d47a8c22737303
+// 参数 `priorityTag` 支持多个标签，这些标签之间可以使用逗号 `,` 进行连接。 md5:14d47a8c22737303
 func StructTag(params interface{}, pointer interface{}, priorityTag string) (err error) {
 	return doStruct(params, pointer, nil, priorityTag)
 }
@@ -108,8 +105,7 @@ func doStruct(
 	}
 
 	// 如果`params`和`pointer`是相同类型，直接进行赋值操作。
-	// 为了性能优化。
-	// md5:87eefbed1426eef0
+	// 为了性能优化。 md5:87eefbed1426eef0
 	if ok = doConvertWithTypeCheck(paramsReflectValue, pointerElemReflectValue); ok {
 		return nil
 	}
@@ -125,8 +121,7 @@ func doStruct(
 	}
 
 	// 如果必要，它会自动创建结构体对象。
-	// 例如，如果`pointer`是**User（双星号表示指针），那么`elem`就是*User，即User类型的指针。
-	// md5:172757349701f610
+	// 例如，如果`pointer`是**User（双星号表示指针），那么`elem`就是*User，即User类型的指针。 md5:172757349701f610
 	if pointerElemReflectValue.Kind() == reflect.Ptr {
 		if !pointerElemReflectValue.IsValid() || pointerElemReflectValue.IsNil() {
 			e := reflect.New(pointerElemReflectValue.Type().Elem())
@@ -141,8 +136,7 @@ func doStruct(
 		// 如果v, ok := pointerElemReflectValue.Interface().(iUnmarshalValue); ok {
 		// 	return v.UnmarshalValue(params)
 		// }
-		// 请注意，这里是`pointerElemReflectValue`而不是`pointerReflectValue`。
-		// md5:722eb6b1c6132d70
+		// 请注意，这里是`pointerElemReflectValue`而不是`pointerReflectValue`。 md5:722eb6b1c6132d70
 		if ok, err = bindVarToReflectValueWithInterfaceCheck(pointerElemReflectValue, paramsInterface); ok {
 			return err
 		}
@@ -151,8 +145,7 @@ func doStruct(
 	}
 
 	// paramsMap 是一个类型为 map[string]interface{} 的变量，用于存储参数。
-	// 不要在這裡使用 MapDeep。
-	// md5:96735ea71b035d62
+	// 不要在這裡使用 MapDeep。 md5:96735ea71b035d62
 	paramsMap := doMapConvert(paramsInterface, recursiveTypeAuto, true)
 	if paramsMap == nil {
 		return gerror.NewCodef(
@@ -207,7 +200,7 @@ func doStruct(
 			//    FirstName string `json:"firstName"`
 			// }
 			// ```
-			// 
+			//
 			// 定义一个User结构体，其中包含一个嵌套的Name结构体，并使用`json:"name"`对整个嵌套结构进行标记
 			// ```
 			// type User struct {
@@ -215,9 +208,8 @@ func doStruct(
 			//     			// ...
 			// }
 			// ```
-			// 
-			// 只有当Name结构体中包含fieldTag（字段标签）时，才会记录这些信息
-			// md5:d42e389449351045
+			//
+			// 只有当Name结构体中包含fieldTag（字段标签）时，才会记录这些信息 md5:d42e389449351045
 			if fieldTagName != "" {
 				toBeConvertedFieldNameToInfoMap[elemFieldName] = toBeConvertedFieldInfo{
 					FieldIndex:     elemFieldType.Index[0],
@@ -263,8 +255,7 @@ func doStruct(
 	}
 
 	// 首先，根据自定义的映射规则进行搜索。
-	// 如果找到了可能的直接赋值关系，减少后续映射搜索的数量。
-	// md5:50dd567944f99367
+	// 如果找到了可能的直接赋值关系，减少后续映射搜索的数量。 md5:50dd567944f99367
 	var fieldInfo toBeConvertedFieldInfo
 	for paramKey, fieldName := range paramKeyToAttrMap {
 		// 防止设置不存在的字段. md5:408a34ea9e6a0539
@@ -319,10 +310,9 @@ func getTagNameFromField(field reflect.StructField, priorityTags []string) strin
 			// 它会使用以逗号','分隔的第一部分。
 			// 例如：
 			// `orm:"id, priority"`
-			// `orm:"name, with:uid=id"` 
-			// 
-			// 这段注释说明了一个Go语言中的ORM（对象关系映射）相关代码。它解释了当解析一个包含多个属性的标签字符串时，程序会选择以逗号分隔的第一个属性作为主要处理的部分。如果标签格式为`attribute1, attribute2`，则只会使用`attribute1`。另一个例子展示了如何在`name`属性中使用额外的条件，即`with:uid=id`。
-			// md5:fab9db8addb2ccc4
+			// `orm:"name, with:uid=id"`
+			//
+			// 这段注释说明了一个Go语言中的ORM（对象关系映射）相关代码。它解释了当解析一个包含多个属性的标签字符串时，程序会选择以逗号分隔的第一个属性作为主要处理的部分。如果标签格式为`attribute1, attribute2`，则只会使用`attribute1`。另一个例子展示了如何在`name`属性中使用额外的条件，即`with:uid=id`。 md5:fab9db8addb2ccc4
 			array := strings.Split(value, ",")
 			// json:",omitempty"
 			trimmedTagName := strings.TrimSpace(array[0])
@@ -333,8 +323,7 @@ func getTagNameFromField(field reflect.StructField, priorityTags []string) strin
 }
 
 // 模糊匹配规则：
-// 不区分大小写，不考虑符号地匹配字段名和参数键。
-// md5:22c4645c8af23d0d
+// 不区分大小写，不考虑符号地匹配字段名和参数键。 md5:22c4645c8af23d0d
 func fuzzyMatchingFieldName(
 	fieldName string,
 	paramsMap map[string]any,
@@ -378,8 +367,7 @@ func bindVarToStructAttrWithFieldIndex(
 		structFieldValue.Set(reflect.Zero(structFieldValue.Type()))
 	} else {
 		// 尝试调用自定义转换器。
-		// 问题：https:		//github.com/gogf/gf/issues/3099
-		// md5:e874679d6ecc39f0
+		// 问题：https:		//github.com/gogf/gf/issues/3099 md5:e874679d6ecc39f0
 		var (
 			customConverterInput reflect.Value
 			ok                   bool
@@ -393,8 +381,7 @@ func bindVarToStructAttrWithFieldIndex(
 		}
 
 		// 对某些类型进行特殊处理：
-		// - 重写stdlib中time.Time类型的默认类型转换逻辑。
-		// md5:39ca7f7684bdc13c
+		// - 重写stdlib中time.Time类型的默认类型转换逻辑。 md5:39ca7f7684bdc13c
 		var structFieldTypeName = structFieldValue.Type().String()
 		switch structFieldTypeName {
 		case "time.Time", "*time.Time":
@@ -405,8 +392,7 @@ func bindVarToStructAttrWithFieldIndex(
 			})
 			return
 		// 在递归中保持时区一致
-		// 问题：https:		//github.com/gogf/gf/issues/2980
-		// md5:1d09e937a28bf051
+		// 问题：https:		//github.com/gogf/gf/issues/2980 md5:1d09e937a28bf051
 		case "*gtime.Time", "gtime.Time":
 			doConvertWithReflectValueSet(structFieldValue, doConvertInput{
 				FromValue:  value,
@@ -533,8 +519,7 @@ func bindVarToReflectValue(
 		}
 
 	// 注意，切片元素的类型可能是结构体，
-	// 因此它内部使用了一个名为Struct的函数来进行转换。
-	// md5:b8519d4d1a736c40
+	// 因此它内部使用了一个名为Struct的函数来进行转换。 md5:b8519d4d1a736c40
 	case reflect.Slice, reflect.Array:
 		var (
 			reflectArray reflect.Value
@@ -671,8 +656,7 @@ func bindVarToReflectValue(
 			}
 		}()
 		// 此处使用反射将`value`转换为属性的类型，然后将结果值赋给该属性。
-		// 如果常规的Go转换规则不允许转换，此操作可能会失败并引发恐慌。
-		// md5:931b86f723a12b7c
+		// 如果常规的Go转换规则不允许转换，此操作可能会失败并引发恐慌。 md5:931b86f723a12b7c
 		structFieldValue.Set(reflect.ValueOf(value).Convert(structFieldValue.Type()))
 	}
 	return nil

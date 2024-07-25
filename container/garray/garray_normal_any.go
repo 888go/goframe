@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package garray
 
@@ -25,8 +24,7 @@ import (
 )
 
 // Array 是一个功能丰富的 Go 语言数组。
-// 它包含一个并发安全/不安全的开关，应该在初始化时设置，并且不能随后更改。
-// md5:e0c9364387271f37
+// 它包含一个并发安全/不安全的开关，应该在初始化时设置，并且不能随后更改。 md5:e0c9364387271f37
 type Array struct {
 	mu    rwmutex.RWMutex
 	array []interface{}
@@ -34,8 +32,7 @@ type Array struct {
 
 // New 创建并返回一个空的数组。
 // 参数 `safe` 用于指定是否使用并发安全的数组，
-// 默认情况下为 false。
-// md5:972f90fc4f666395
+// 默认情况下为 false。 md5:972f90fc4f666395
 func New(safe ...bool) *Array {
 	return NewArraySize(0, 0, safe...)
 }
@@ -46,8 +43,7 @@ func NewArray(safe ...bool) *Array {
 }
 
 // NewArraySize 创建并返回一个具有给定大小和容量的数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:b667b71edd7dd0a0
+// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。 md5:b667b71edd7dd0a0
 func NewArraySize(size int, cap int, safe ...bool) *Array {
 	return &Array{
 		mu:    rwmutex.Create(safe...),
@@ -55,8 +51,7 @@ func NewArraySize(size int, cap int, safe ...bool) *Array {
 	}
 }
 
-// newArrayRange 创建并返回一个范围从 `start` 到 `end`，步长为 `step` 的数组。
-// md5:92f64f2571842316
+// newArrayRange 创建并返回一个范围从 `start` 到 `end`，步长为 `step` 的数组。 md5:92f64f2571842316
 func NewArrayRange(start, end, step int, safe ...bool) *Array {
 	if step == 0 {
 		panic(fmt.Sprintf(`invalid step value: %d`, step))
@@ -71,22 +66,19 @@ func NewArrayRange(start, end, step int, safe ...bool) *Array {
 }
 
 // NewFrom 是 NewArrayFrom 的别名。
-// 参见 NewArrayFrom。
-// md5:bd6788065fd84cb7
+// 参见 NewArrayFrom。 md5:bd6788065fd84cb7
 func NewFrom(array []interface{}, safe ...bool) *Array {
 	return NewArrayFrom(array, safe...)
 }
 
 // NewFromCopy 是 NewArrayFromCopy 的别名。
-// 参考 NewArrayFromCopy 的说明。
-// md5:5a0cadfeeacb74a6
+// 参考 NewArrayFromCopy 的说明。 md5:5a0cadfeeacb74a6
 func NewFromCopy(array []interface{}, safe ...bool) *Array {
 	return NewArrayFromCopy(array, safe...)
 }
 
 // newArrayFrom 创建并返回一个具有给定切片 `array` 的数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:abda2f52425c13a3
+// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。 md5:abda2f52425c13a3
 func NewArrayFrom(array []interface{}, safe ...bool) *Array {
 	return &Array{
 		mu:    rwmutex.Create(safe...),
@@ -95,8 +87,7 @@ func NewArrayFrom(array []interface{}, safe ...bool) *Array {
 }
 
 // newArrayFromCopy 从给定切片 `array` 的副本创建并返回一个数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
-// md5:d7ac2661190a4f12
+// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。 md5:d7ac2661190a4f12
 func NewArrayFromCopy(array []interface{}, safe ...bool) *Array {
 	newArray := make([]interface{}, len(array))
 	copy(newArray, array)
@@ -107,16 +98,14 @@ func NewArrayFromCopy(array []interface{}, safe ...bool) *Array {
 }
 
 // At 通过指定的索引返回值。
-// 如果给定的`index`超出了数组的范围，它将返回`nil`。
-// md5:09a7e6585d2eba1a
+// 如果给定的`index`超出了数组的范围，它将返回`nil`。 md5:09a7e6585d2eba1a
 func (a *Array) At(index int) (value interface{}) {
 	value, _ = a.Get(index)
 	return
 }
 
 // Get 函数通过指定的索引返回值。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:ab300cfc0d6dd8ee
+// 如果给定的 `index` 超出了数组范围，`found` 将为 false。 md5:ab300cfc0d6dd8ee
 func (a *Array) Get(index int) (value interface{}, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -206,8 +195,7 @@ func (a *Array) InsertAfter(index int, values ...interface{}) error {
 }
 
 // Remove 函数通过索引移除一个元素。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
-// md5:feaf958654838c25
+// 如果给定的 `index` 超出了数组范围，`found` 将为 false。 md5:feaf958654838c25
 func (a *Array) Remove(index int) (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -231,16 +219,14 @@ func (a *Array) doRemoveWithoutLock(index int) (value interface{}, found bool) {
 	}
 	// 如果是一个非边界删除，
 	// 它将涉及创建一个数组，
-	// 那么删除操作效率较低。
-	// md5:6a664196d66bc968
+	// 那么删除操作效率较低。 md5:6a664196d66bc968
 	value = a.array[index]
 	a.array = append(a.array[:index], a.array[index+1:]...)
 	return value, true
 }
 
 // RemoveValue 函数根据值删除一个元素。
-// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。
-// md5:c49c7706ce703d00
+// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。 md5:c49c7706ce703d00
 func (a *Array) RemoveValue(value interface{}) bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -271,8 +257,7 @@ func (a *Array) PushLeft(value ...interface{}) *Array {
 }
 
 // PushRight 将一个或多个元素添加到数组的末尾。
-// 它等同于 Append。
-// md5:bb33f2edfdfd9896
+// 它等同于 Append。 md5:bb33f2edfdfd9896
 func (a *Array) PushRight(value ...interface{}) *Array {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -281,8 +266,7 @@ func (a *Array) PushRight(value ...interface{}) *Array {
 }
 
 // PopRand 从数组中随机弹出并返回一个元素。
-// 注意，如果数组为空，`found` 将为 false。
-// md5:29338267db400401
+// 注意，如果数组为空，`found` 将为 false。 md5:29338267db400401
 func (a *Array) PopRand() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -307,8 +291,7 @@ func (a *Array) PopRands(size int) []interface{} {
 }
 
 // PopLeft 从数组的开头弹出并返回一个项目。
-// 注意，如果数组为空，`found` 为 false。
-// md5:68f14002d84594a4
+// 注意，如果数组为空，`found` 为 false。 md5:68f14002d84594a4
 func (a *Array) PopLeft() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -321,8 +304,7 @@ func (a *Array) PopLeft() (value interface{}, found bool) {
 }
 
 // PopRight 从数组的末尾弹出并返回一个元素。
-// 注意，如果数组为空，则 `found` 为 false。
-// md5:207fa7c7c4a04a10
+// 注意，如果数组为空，则 `found` 为 false。 md5:207fa7c7c4a04a10
 func (a *Array) PopRight() (value interface{}, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -372,10 +354,9 @@ func (a *Array) PopRights(size int) []interface{} {
 
 // Range通过范围选择并返回项目，就像数组[start:end]一样。
 // 请注意，如果在并发安全使用中，它将返回切片的副本；否则返回底层数据的指针。
-// 
+//
 // 如果`end`为负数，则偏移量将从数组末尾开始。
-// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。
-// md5:8b71690536bb9ec5
+// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。 md5:8b71690536bb9ec5
 func (a *Array) Range(start int, end ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -410,8 +391,7 @@ func (a *Array) Range(start int, end ...int) []interface{} {
 // 如果长度为负数，则序列将在距离数组末尾该数量的元素处停止。
 // 如果省略长度参数，那么序列将从偏移量开始直到数组末尾的所有元素。
 //
-// 如果切片范围的起始位置超出数组左侧边界，操作将失败。
-// md5:f87ecd35d1dd7ac8
+// 如果切片范围的起始位置超出数组左侧边界，操作将失败。 md5:f87ecd35d1dd7ac8
 func (a *Array) SubSlice(offset int, length ...int) []interface{} {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -464,8 +444,7 @@ func (a *Array) Len() int {
 }
 
 // Slice 返回数组的底层数据。
-// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。
-// md5:111cbee45795a58b
+// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。 md5:111cbee45795a58b
 func (a *Array) Slice() []interface{} {
 	if a.mu.IsSafe() {
 		a.mu.RLock()
@@ -508,8 +487,7 @@ func (a *Array) Contains(value interface{}) bool {
 }
 
 // Search 在数组中搜索 `value`，返回 `value` 的索引，
-// 如果不存在则返回 -1。
-// md5:787617bfeade8f93
+// 如果不存在则返回 -1。 md5:787617bfeade8f93
 func (a *Array) Search(value interface{}) int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -531,8 +509,7 @@ func (a *Array) doSearchWithoutLock(value interface{}) int {
 }
 
 // Unique 去除数组中的重复元素。
-// 例如：[1,1,2,3,2] -> [1,2,3]
-// md5:5083aa414231fd30
+// 例如：[1,1,2,3,2] -> [1,2,3] md5:5083aa414231fd30
 func (a *Array) Unique() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -576,14 +553,12 @@ func (a *Array) RLockFunc(f func(array []interface{})) *Array {
 // Merge 将 `array` 合并到当前数组中。
 // 参数 `array` 可以是任何 garray 或切片类型。
 // Merge 和 Append 的区别在于，Append 只支持特定的切片类型，
-// 而 Merge 支持更多种类的参数类型。
-// md5:465caccda38e84f8
+// 而 Merge 支持更多种类的参数类型。 md5:465caccda38e84f8
 func (a *Array) Merge(array interface{}) *Array {
 	return a.Append(gconv.Interfaces(array)...)
 }
 
-// Fill 使用`value`值填充数组，从`startIndex`参数开始的num个条目。
-// md5:0a7d3daa806b72ca
+// Fill 使用`value`值填充数组，从`startIndex`参数开始的num个条目。 md5:0a7d3daa806b72ca
 func (a *Array) Fill(startIndex int, num int, value interface{}) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -600,8 +575,7 @@ func (a *Array) Fill(startIndex int, num int, value interface{}) error {
 	return nil
 }
 
-// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。
-// md5:0f1f74ff34633d24
+// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。 md5:0f1f74ff34633d24
 func (a *Array) Chunk(size int) [][]interface{} {
 	if size < 1 {
 		return nil
@@ -624,8 +598,7 @@ func (a *Array) Chunk(size int) [][]interface{} {
 
 // Pad 用`value`将数组填充到指定的长度。
 // 如果大小为正数，则在右侧填充数组，如果为负数，则在左侧填充。
-// 如果`size`的绝对值小于或等于数组的长度，则不进行填充。
-// md5:fbe08b371c540418
+// 如果`size`的绝对值小于或等于数组的长度，则不进行填充。 md5:fbe08b371c540418
 func (a *Array) Pad(size int, val interface{}) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -726,8 +699,7 @@ func (a *Array) Iterator(f func(k int, v interface{}) bool) {
 	a.IteratorAsc(f)
 }
 
-// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。
-// md5:8a125e2dd8982d48
+// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。 md5:8a125e2dd8982d48
 func (a *Array) IteratorAsc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -739,8 +711,7 @@ func (a *Array) IteratorAsc(f func(k int, v interface{}) bool) {
 }
 
 // IteratorDesc 以降序遍历数组，并使用给定的回调函数`f`进行只读迭代。
-// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。
-// md5:ea0a3805bccce0f7
+// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。 md5:ea0a3805bccce0f7
 func (a *Array) IteratorDesc(f func(k int, v interface{}) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -777,8 +748,7 @@ func (a *Array) String() string {
 }
 
 // MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
-// 注意，这里不要使用指针作为接收者。
-// md5:b4f76062b07a5263
+// 注意，这里不要使用指针作为接收者。 md5:b4f76062b07a5263
 func (a Array) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -812,8 +782,7 @@ func (a *Array) UnmarshalValue(value interface{}) error {
 }
 
 // Filter 遍历数组，并使用自定义回调函数过滤元素。
-// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。
-// md5:d33873cfb9f1bb38
+// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。 md5:d33873cfb9f1bb38
 func (a *Array) Filter(filter func(index int, value interface{}) bool) *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -842,8 +811,7 @@ func (a *Array) FilterNil() *Array {
 }
 
 // FilterEmpty 移除数组中的所有空值。
-// 被认为是空的值包括：0，nil，false，""，切片、映射（map）或通道（channel）的长度为0。
-// md5:da01f627cd0962db
+// 被认为是空的值包括：0，nil，false，""，切片、映射（map）或通道（channel）的长度为0。 md5:da01f627cd0962db
 func (a *Array) FilterEmpty() *Array {
 	a.mu.Lock()
 	defer a.mu.Unlock()

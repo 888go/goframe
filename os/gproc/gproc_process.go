@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gproc
 
@@ -72,8 +71,7 @@ func NewProcessCmd(cmd string, environment ...[]string) *Process {
 }
 
 // Start 以非阻塞方式开始执行进程。
-// 如果成功，它将返回进程ID（pid），否则返回一个错误。
-// md5:4607fc00f35e6338
+// 如果成功，它将返回进程ID（pid），否则返回一个错误。 md5:4607fc00f35e6338
 func (p *Process) Start(ctx context.Context) (int, error) {
 	if p.Process != nil {
 		return p.Pid(), nil
@@ -146,8 +144,7 @@ func (p *Process) Send(data []byte) error {
 }
 
 // Release 释放与进程 p 关联的任何资源，使其将来无法使用。
-// 只有在不调用 Wait 的情况下才需要调用 Release。
-// md5:f3540c25ba14f0ee
+// 只有在不调用 Wait 的情况下才需要调用 Release。 md5:f3540c25ba14f0ee
 func (p *Process) Release() error {
 	return p.Process.Release()
 }
@@ -174,8 +171,7 @@ func (p *Process) Kill() (err error) {
 }
 
 // Signal 向进程发送一个信号。
-// 在Windows上发送Interrupt信号未实现。
-// md5:c1afe56a9d236095
+// 在Windows上发送Interrupt信号未实现。 md5:c1afe56a9d236095
 func (p *Process) Signal(sig os.Signal) error {
 	return p.Process.Signal(sig)
 }

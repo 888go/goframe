@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -45,8 +44,7 @@ func internalMiddlewareServerTracing(r *Request) {
 	var (
 		ctx = r.Context()
 	)
-	// 标记此请求已由服务器跟踪中间件处理，以避免被相同的中间件重复处理。
-	// md5:0ca4c50f5a9f8851
+	// 标记此请求已由服务器跟踪中间件处理，以避免被相同的中间件重复处理。 md5:0ca4c50f5a9f8851
 	if ctx.Value(tracingMiddlewareHandled) != nil {
 		r.Middleware.Next()
 		return

@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -31,9 +30,8 @@
 //
 // 格式：bank-card
 // ```
-// 
-// 这段Go代码的注释是描述一个名为RuleBankCard的实现，它与验证银行卡号相关的规则有关。规则的格式是"bank-card"。
-// md5:c9583cdff892228a
+//
+// 这段Go代码的注释是描述一个名为RuleBankCard的实现，它与验证银行卡号相关的规则有关。规则的格式是"bank-card"。 md5:c9583cdff892228a
 # <翻译结束>
 
 
@@ -44,7 +42,6 @@
 
 # <翻译开始>
 // checkLuHn 使用LUHN算法检查`value`。
-// 通常用于银行卡号的验证。
-// md5:fac6db232cdfe191
+// 通常用于银行卡号的验证。 md5:fac6db232cdfe191
 # <翻译结束>
 

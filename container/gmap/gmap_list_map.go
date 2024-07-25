@@ -1,8 +1,7 @@
 // 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
 //
 // 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。
-// md5:1d281c30cdc3423b
+// 您可以从https://github.com/gogf/gf获取。 md5:1d281c30cdc3423b
 
 package gmap
 
@@ -25,8 +24,7 @@ import (
 //
 // 该结构不支持多线程安全。
 //
-// 参考：http://en.wikipedia.org/wiki/Associative_array
-// md5:a164418fa5f6798e
+// 参考：http://en.wikipedia.org/wiki/Associative_array md5:a164418fa5f6798e
 type ListMap struct {
 	mu   rwmutex.RWMutex
 	data map[interface{}]*glist.Element
@@ -40,8 +38,7 @@ type gListMapNode struct {
 
 // NewListMap 返回一个空的链接映射。
 // ListMap 使用哈希表存储值，使用双向链表存储顺序。
-// 参数 `safe` 用于指定是否在并发安全模式下使用映射，默认为 false。
-// md5:515d74cfd6f50ee5
+// 参数 `safe` 用于指定是否在并发安全模式下使用映射，默认为 false。 md5:515d74cfd6f50ee5
 func NewListMap(safe ...bool) *ListMap {
 	return &ListMap{
 		mu:   rwmutex.Create(safe...),
@@ -51,8 +48,7 @@ func NewListMap(safe ...bool) *ListMap {
 }
 
 // NewListMapFrom 从给定的映射（map）`data`创建一个链接映射。
-// 注意，参数`data`映射将被设置为底层数据映射（不进行深拷贝），如果在外部修改该映射可能会导致并发安全问题。
-// md5:d15c506b7dc77488
+// 注意，参数`data`映射将被设置为底层数据映射（不进行深拷贝），如果在外部修改该映射可能会导致并发安全问题。 md5:d15c506b7dc77488
 func NewListMapFrom(data map[interface{}]interface{}, safe ...bool) *ListMap {
 	m := NewListMap(safe...)
 	m.Sets(data)
@@ -65,8 +61,7 @@ func (m *ListMap) Iterator(f func(key, value interface{}) bool) {
 }
 
 // IteratorAsc 使用给定的回调函数 `f` 以升序遍历地图，并且是只读遍历。
-// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。
-// md5:da20ab57c78da7c6
+// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。 md5:da20ab57c78da7c6
 func (m *ListMap) IteratorAsc(f func(key interface{}, value interface{}) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -80,8 +75,7 @@ func (m *ListMap) IteratorAsc(f func(key interface{}, value interface{}) bool) {
 }
 
 // IteratorDesc 使用给定的回调函数 `f` 以降序遍历只读映射。
-// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止。
-// md5:1745f0b396846901
+// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止。 md5:1745f0b396846901
 func (m *ListMap) IteratorDesc(f func(key interface{}, value interface{}) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -216,8 +210,7 @@ func (m *ListMap) Sets(data map[interface{}]interface{}) {
 }
 
 // Search 在给定的`key`下搜索映射。
-// 第二个返回参数`found`如果找到键，则为true，否则为false。
-// md5:99336de9941a3b02
+// 第二个返回参数`found`如果找到键，则为true，否则为false。 md5:99336de9941a3b02
 func (m *ListMap) Search(key interface{}) (value interface{}, found bool) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -256,8 +249,7 @@ func (m *ListMap) Pop() (key, value interface{}) {
 }
 
 // Pops 从映射中检索并删除 `size` 个项目。
-// 如果 size 等于 -1，则返回所有项目。
-// md5:0f2cdbc0238fdc37
+// 如果 size 等于 -1，则返回所有项目。 md5:0f2cdbc0238fdc37
 func (m *ListMap) Pops(size int) map[interface{}]interface{} {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -284,12 +276,11 @@ func (m *ListMap) Pops(size int) map[interface{}]interface{} {
 
 // doSetWithLockCheck 使用 mutex.Lock 检查给定键的值是否存在。
 // 如果不存在，使用给定的 `key` 将值设置到映射中；否则，直接返回现有的值。
-// 
+//
 // 当设置值时，如果 `value` 是类型为 `func() interface{}`，它将在映射的 mutex.Lock 保护下执行，
 // 并将返回值设置为映射中的 `key`。
-// 
-// 它返回给定 `key` 的值。
-// md5:b667e8828a47a6d9
+//
+// 它返回给定 `key` 的值。 md5:b667e8828a47a6d9
 func (m *ListMap) doSetWithLockCheck(key interface{}, value interface{}) interface{} {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -310,8 +301,7 @@ func (m *ListMap) doSetWithLockCheck(key interface{}, value interface{}) interfa
 }
 
 // GetOrSet 通过键返回值，
-// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。
-// md5:d8f89b6dec47292b
+// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。 md5:d8f89b6dec47292b
 func (m *ListMap) GetOrSet(key interface{}, value interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, value)
@@ -322,8 +312,7 @@ func (m *ListMap) GetOrSet(key interface{}, value interface{}) interface{} {
 
 // GetOrSetFunc 通过键获取值，
 // 如果键不存在，则使用回调函数`f`的返回值设置值，
-// 并返回这个设置的值。
-// md5:f584dd7547dfbcc0
+// 并返回这个设置的值。 md5:f584dd7547dfbcc0
 func (m *ListMap) GetOrSetFunc(key interface{}, f func() interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f())
@@ -336,8 +325,7 @@ func (m *ListMap) GetOrSetFunc(key interface{}, f func() interface{}) interface{
 // 如果该值不存在，则使用回调函数 `f` 的返回值进行设置，
 // 然后返回这个值。
 //
-// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于它在执行映射的 mutex.Lock 保护下执行函数 `f`。
-// md5:f5e408a3393171bc
+// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于它在执行映射的 mutex.Lock 保护下执行函数 `f`。 md5:f5e408a3393171bc
 func (m *ListMap) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f)
@@ -346,34 +334,29 @@ func (m *ListMap) GetOrSetFuncLock(key interface{}, f func() interface{}) interf
 	}
 }
 
-// GetVar通过给定的`key`返回一个Var。返回的Var是非并发安全的。
-// md5:debfb1b2bd13312b
+// GetVar通过给定的`key`返回一个Var。返回的Var是非并发安全的。 md5:debfb1b2bd13312b
 func (m *ListMap) GetVar(key interface{}) *gvar.Var {
 	return gvar.New(m.Get(key))
 }
 
 // GetVarOrSet 返回一个 Var，其中包含从 GetVarOrSet 获取的结果。
-// 返回的 Var 是非并发安全的。
-// md5:c3730f368b7f62b5
+// 返回的 Var 是非并发安全的。 md5:c3730f368b7f62b5
 func (m *ListMap) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSet(key, value))
 }
 
 // GetVarOrSetFunc 返回一个Var，其结果来自GetOrSetFunc。
-// 返回的Var不具备并发安全性。
-// md5:7d7674129b73ead1
+// 返回的Var不具备并发安全性。 md5:7d7674129b73ead1
 func (m *ListMap) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSetFunc(key, f))
 }
 
-// GetVarOrSetFuncLock 返回一个从 GetOrSetFuncLock 获得结果的 Var。返回的 Var 不是线程安全的。
-// md5:bdab644d14c89234
+// GetVarOrSetFuncLock 返回一个从 GetOrSetFuncLock 获得结果的 Var。返回的 Var 不是线程安全的。 md5:bdab644d14c89234
 func (m *ListMap) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSetFuncLock(key, f))
 }
 
-// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。
-// md5:f80895920828f03e
+// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。 md5:f80895920828f03e
 func (m *ListMap) SetIfNotExist(key interface{}, value interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, value)
@@ -383,8 +366,7 @@ func (m *ListMap) SetIfNotExist(key interface{}, value interface{}) bool {
 }
 
 // SetIfNotExistFunc 使用回调函数`f`的返回值设置值，并返回true。
-// 如果`key`已存在，则返回false，且`value`会被忽略。
-// md5:326c0b7c63d813e7
+// 如果`key`已存在，则返回false，且`value`会被忽略。 md5:326c0b7c63d813e7
 func (m *ListMap) SetIfNotExistFunc(key interface{}, f func() interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f())
@@ -397,8 +379,7 @@ func (m *ListMap) SetIfNotExistFunc(key interface{}, f func() interface{}) bool 
 // 如果 `key` 已存在，它将返回 false，`value` 将被忽略。
 //
 // SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
-// 它在执行函数 `f` 时会获取映射的 mutex.Lock。
-// md5:12e78d7edb4c4c12
+// 它在执行函数 `f` 时会获取映射的 mutex.Lock。 md5:12e78d7edb4c4c12
 func (m *ListMap) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f)
@@ -472,8 +453,7 @@ func (m *ListMap) Values() []interface{} {
 }
 
 // Contains 检查键是否存在。
-// 如果键存在，它返回 true，否则返回 false。
-// md5:d8fb22313aadd65f
+// 如果键存在，它返回 true，否则返回 false。 md5:d8fb22313aadd65f
 func (m *ListMap) Contains(key interface{}) (ok bool) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -492,8 +472,7 @@ func (m *ListMap) Size() (size int) {
 }
 
 // IsEmpty 检查映射是否为空。
-// 如果映射为空，则返回true，否则返回false。
-// md5:ad4bd5c796f79266
+// 如果映射为空，则返回true，否则返回false。 md5:ad4bd5c796f79266
 func (m *ListMap) IsEmpty() bool {
 	return m.Size() == 0
 }
@@ -508,8 +487,7 @@ func (m *ListMap) Flip() {
 }
 
 // Merge 合并两个链接映射。
-// 将将`other`映射合并到`m`映射中。
-// md5:2ec13ae7c16e16f8
+// 将将`other`映射合并到`m`映射中。 md5:2ec13ae7c16e16f8
 func (m *ListMap) Merge(other *ListMap) {
 	m.mu.Lock()
 	defer m.mu.Unlock()

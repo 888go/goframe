@@ -2,8 +2,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 package gctx
 
@@ -34,8 +33,7 @@ func (c *neverDoneCtx) Err() error {
 
 // NeverDone 包装并返回一个永远不会完成的新上下文对象，这禁止手动完成上下文，使得上下文可以传递给异步的 Goroutine。
 //
-// 请注意，这不会影响父上下文的关闭（取消），因为它只是父上下文的包装器，只影响下一个上下文处理。
-// md5:38b63a322c5449a9
+// 请注意，这不会影响父上下文的关闭（取消），因为它只是父上下文的包装器，只影响下一个上下文处理。 md5:38b63a322c5449a9
 func NeverDone(ctx context.Context) context.Context {
 	return &neverDoneCtx{ctx}
 }

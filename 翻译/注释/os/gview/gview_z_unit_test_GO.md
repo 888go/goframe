@@ -12,8 +12,7 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -24,7 +23,6 @@
 
 # <翻译开始>
 // 模板/gview_test.html
-// 名称:{{.name}}
-// md5:9ab4dfd23d2d58b8
+// 名称:{{.name}} md5:9ab4dfd23d2d58b8
 # <翻译结束>
 

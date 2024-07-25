@@ -2,8 +2,7 @@
 //
 // 本源代码遵循MIT许可证条款。
 // 如果gm文件未随附MIT许可证的副本，
-// 您可以在https://github.com/gogf/gf获取一个。
-// md5:c99fd05f11d37c36
+// 您可以在https://github.com/gogf/gf获取一个。 md5:c99fd05f11d37c36
 
 package gmap
 
@@ -21,8 +20,7 @@ type StrIntMap struct {
 }
 
 // NewStrIntMap 返回一个空的 StrIntMap 对象。
-// 参数 `safe` 用于指定是否使用并发安全的 map，默认为 false。
-// md5:040c01e687e6526f
+// 参数 `safe` 用于指定是否使用并发安全的 map，默认为 false。 md5:040c01e687e6526f
 func NewStrIntMap(safe ...bool) *StrIntMap {
 	return &StrIntMap{
 		mu:   rwmutex.Create(safe...),
@@ -32,8 +30,7 @@ func NewStrIntMap(safe ...bool) *StrIntMap {
 
 // NewStrIntMapFrom 根据给定的映射 `data` 创建并返回一个新的哈希映射。
 // 请注意，参数 `data` 映射将被设置为底层数据映射（无深拷贝），
-// 当在外部修改该映射时，可能存在一些并发安全问题。
-// md5:def2dd5f3c6bbd06
+// 当在外部修改该映射时，可能存在一些并发安全问题。 md5:def2dd5f3c6bbd06
 func NewStrIntMapFrom(data map[string]int, safe ...bool) *StrIntMap {
 	return &StrIntMap{
 		mu:   rwmutex.Create(safe...),
@@ -41,8 +38,7 @@ func NewStrIntMapFrom(data map[string]int, safe ...bool) *StrIntMap {
 	}
 }
 
-// Iterator 使用自定义回调函数 `f` 读取只读哈希映射。如果 `f` 返回 true，则继续迭代；否则停止。
-// md5:52d024b320a69c3b
+// Iterator 使用自定义回调函数 `f` 读取只读哈希映射。如果 `f` 返回 true，则继续迭代；否则停止。 md5:52d024b320a69c3b
 func (m *StrIntMap) Iterator(f func(k string, v int) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -60,8 +56,7 @@ func (m *StrIntMap) Clone() *StrIntMap {
 
 // Map 返回底层数据映射。
 // 注意，如果它在并发安全的使用场景中，它将返回底层数据的一个副本，
-// 否则返回指向底层数据的指针。
-// md5:7f8e0898ab3ddb0f
+// 否则返回指向底层数据的指针。 md5:7f8e0898ab3ddb0f
 func (m *StrIntMap) Map() map[string]int {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -97,8 +92,7 @@ func (m *StrIntMap) MapCopy() map[string]int {
 	return data
 }
 
-// FilterEmpty 删除所有值为空的键值对。空值包括：0、nil、false、""，以及切片、映射（map）或通道（channel）的长度为0的情况。
-// md5:6cdcc470e2c0cab1
+// FilterEmpty 删除所有值为空的键值对。空值包括：0、nil、false、""，以及切片、映射（map）或通道（channel）的长度为0的情况。 md5:6cdcc470e2c0cab1
 func (m *StrIntMap) FilterEmpty() {
 	m.mu.Lock()
 	for k, v := range m.data {
@@ -133,8 +127,7 @@ func (m *StrIntMap) Sets(data map[string]int) {
 }
 
 // Search 在给定的`key`下搜索映射。
-// 第二个返回参数`found`如果找到键，则为true，否则为false。
-// md5:99336de9941a3b02
+// 第二个返回参数`found`如果找到键，则为true，否则为false。 md5:99336de9941a3b02
 func (m *StrIntMap) Search(key string) (value int, found bool) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -166,8 +159,7 @@ func (m *StrIntMap) Pop() (key string, value int) {
 }
 
 // Pops 从映射中检索并删除 `size` 个项目。
-// 如果 size 等于 -1，则返回所有项目。
-// md5:0f2cdbc0238fdc37
+// 如果 size 等于 -1，则返回所有项目。 md5:0f2cdbc0238fdc37
 func (m *StrIntMap) Pops(size int) map[string]int {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -196,8 +188,7 @@ func (m *StrIntMap) Pops(size int) map[string]int {
 // 如果不存在，则将给定的`value`设置到映射中指定的`key`处，
 // 否则，直接返回已存在的值。
 //
-// 它返回与给定`key`关联的值。
-// md5:3a2d1537d3fe7230
+// 它返回与给定`key`关联的值。 md5:3a2d1537d3fe7230
 func (m *StrIntMap) doSetWithLockCheck(key string, value int) int {
 	m.mu.Lock()
 	if m.data == nil {
@@ -213,8 +204,7 @@ func (m *StrIntMap) doSetWithLockCheck(key string, value int) int {
 }
 
 // GetOrSet 通过键返回值，
-// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。
-// md5:d8f89b6dec47292b
+// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。 md5:d8f89b6dec47292b
 func (m *StrIntMap) GetOrSet(key string, value int) int {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, value)
@@ -225,8 +215,7 @@ func (m *StrIntMap) GetOrSet(key string, value int) int {
 
 // GetOrSetFunc 通过键获取值，
 // 如果键不存在，则使用回调函数`f`的返回值设置值，
-// 并返回这个设置的值。
-// md5:f584dd7547dfbcc0
+// 并返回这个设置的值。 md5:f584dd7547dfbcc0
 func (m *StrIntMap) GetOrSetFunc(key string, f func() int) int {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f())
@@ -238,8 +227,7 @@ func (m *StrIntMap) GetOrSetFunc(key string, f func() int) int {
 // GetOrSetFuncLock 通过键获取值，
 // 如果不存在，它将使用回调函数 `f` 的返回值设置该值，然后返回这个值。
 //
-// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。
-// md5:d32fdee586d84dde
+// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。 md5:d32fdee586d84dde
 func (m *StrIntMap) GetOrSetFuncLock(key string, f func() int) int {
 	if v, ok := m.Search(key); !ok {
 		m.mu.Lock()
@@ -258,8 +246,7 @@ func (m *StrIntMap) GetOrSetFuncLock(key string, f func() int) int {
 	}
 }
 
-// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。
-// md5:f80895920828f03e
+// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。 md5:f80895920828f03e
 func (m *StrIntMap) SetIfNotExist(key string, value int) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, value)
@@ -269,8 +256,7 @@ func (m *StrIntMap) SetIfNotExist(key string, value int) bool {
 }
 
 // SetIfNotExistFunc 使用回调函数`f`的返回值设置值，并返回true。
-// 如果`key`已存在，则返回false，且`value`会被忽略。
-// md5:326c0b7c63d813e7
+// 如果`key`已存在，则返回false，且`value`会被忽略。 md5:326c0b7c63d813e7
 func (m *StrIntMap) SetIfNotExistFunc(key string, f func() int) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f())
@@ -283,8 +269,7 @@ func (m *StrIntMap) SetIfNotExistFunc(key string, f func() int) bool {
 // 如果 `key` 已存在，则返回 false，`value` 将被忽略。
 //
 // SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
-// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。
-// md5:a6ee84b157328f61
+// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。 md5:a6ee84b157328f61
 func (m *StrIntMap) SetIfNotExistFuncLock(key string, f func() int) bool {
 	if !m.Contains(key) {
 		m.mu.Lock()
@@ -355,8 +340,7 @@ func (m *StrIntMap) Values() []int {
 }
 
 // Contains 检查键是否存在。
-// 如果键存在，它返回 true，否则返回 false。
-// md5:d8fb22313aadd65f
+// 如果键存在，它返回 true，否则返回 false。 md5:d8fb22313aadd65f
 func (m *StrIntMap) Contains(key string) bool {
 	var ok bool
 	m.mu.RLock()
@@ -376,8 +360,7 @@ func (m *StrIntMap) Size() int {
 }
 
 // IsEmpty 检查映射是否为空。
-// 如果映射为空，则返回true，否则返回false。
-// md5:ad4bd5c796f79266
+// 如果映射为空，则返回true，否则返回false。 md5:ad4bd5c796f79266
 func (m *StrIntMap) IsEmpty() bool {
 	return m.Size() == 0
 }
@@ -422,8 +405,7 @@ func (m *StrIntMap) Flip() {
 }
 
 // Merge 合并两个哈希映射。
-// `other` 映射将被合并到映射 `m` 中。
-// md5:a90c0d2b1f1fdaaa
+// `other` 映射将被合并到映射 `m` 中。 md5:a90c0d2b1f1fdaaa
 func (m *StrIntMap) Merge(other *StrIntMap) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -525,8 +507,7 @@ func (m *StrIntMap) IsSubOf(other *StrIntMap) bool {
 // Diff 函数比较当前地图 `m` 与地图 `other` 并返回它们不同的键。
 // 返回的 `addedKeys` 是存在于地图 `m` 中但不在地图 `other` 中的键。
 // 返回的 `removedKeys` 是存在于地图 `other` 中但不在地图 `m` 中的键。
-// 返回的 `updatedKeys` 是同时存在于地图 `m` 和 `other` 中，但其值不相等（`!=`）的键。
-// md5:d3bf0bf8c70e9093
+// 返回的 `updatedKeys` 是同时存在于地图 `m` 和 `other` 中，但其值不相等（`!=`）的键。 md5:d3bf0bf8c70e9093
 func (m *StrIntMap) Diff(other *StrIntMap) (addedKeys, removedKeys, updatedKeys []string) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()

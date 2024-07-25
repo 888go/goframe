@@ -2,13 +2,11 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
 // gmode 包为项目提供发布模式管理功能。
 //
-// 它使用字符串而非整数来标记模式，便于配置。
-// md5:716bfe2e364994bd
+// 它使用字符串而非整数来标记模式，便于配置。 md5:716bfe2e364994bd
 package gmode
 
 import (
