@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gproc
 
@@ -33,7 +34,8 @@ func (m *Manager) NewProcess(path string, args []string, environment []string) *
 }
 
 // GetProcess 获取并返回一个Process对象。
-// 如果找不到具有给定`pid`的进程，它将返回nil。 md5:d5b11d4d0e9fa1a3
+// 如果找不到具有给定`pid`的进程，它将返回nil。
+// md5:d5b11d4d0e9fa1a3
 func (m *Manager) GetProcess(pid int) *Process {
 	if v := m.processes.Get(pid); v != nil {
 		return v.(*Process)
@@ -42,7 +44,8 @@ func (m *Manager) GetProcess(pid int) *Process {
 }
 
 // AddProcess 向当前管理器添加一个进程。
-// 如果给定的 `pid` 对应的进程不存在，它不会做任何操作。 md5:c51d5832fb1ce691
+// 如果给定的 `pid` 对应的进程不存在，它不会做任何操作。
+// md5:c51d5832fb1ce691
 func (m *Manager) AddProcess(pid int) {
 	if m.processes.Get(pid) == nil {
 		if process, err := os.FindProcess(pid); err == nil {

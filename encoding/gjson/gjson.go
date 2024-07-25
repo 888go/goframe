@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gjson提供了处理JSON/XML/INI/YAML/TOML数据的便捷API。 md5:ddbf6ad5d309a49c
 package gjson
@@ -72,7 +73,8 @@ type iVal interface {
 // setValue 将`value`设置为`j`，按照`pattern`。
 // 注意：
 // 1. 如果`value`为nil且`removed`为true，表示删除这个值；
-// 2. 在层次数据搜索、节点创建和数据赋值方面相当复杂。 md5:6aca091405b9da40
+// 2. 在层次数据搜索、节点创建和数据赋值方面相当复杂。
+// md5:6aca091405b9da40
 func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 	var (
 		err    error
@@ -110,7 +112,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 					(*pointer).(map[string]interface{})[array[i]] = value
 				}
 			} else {
-				// 如果键在映射中不存在。 md5:ba2af475e1347525
+								// 如果键在映射中不存在。 md5:ba2af475e1347525
 				if v, ok := (*pointer).(map[string]interface{})[array[i]]; !ok {
 					if removed && value == nil {
 						goto done
@@ -175,7 +177,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 						// It is the root node.
 						j.setPointerWithValue(pointer, array[i], value)
 					} else {
-						// 它不是根节点。 md5:b90762478c5a92c6
+												// 它不是根节点。 md5:b90762478c5a92c6
 						s := make([]interface{}, valueNum+1)
 						copy(s, (*pointer).([]interface{}))
 						s[valueNum] = value
@@ -236,7 +238,8 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 				}
 			}
 
-		// 如果`pointer`指向的变量不是引用类型，那么它会通过其父对象（pparent）来修改该变量。 md5:aa59525c846686ce
+		// 如果`pointer`指向的变量不是引用类型，那么它会通过其父对象（pparent）来修改该变量。
+		// md5:aa59525c846686ce
 		default:
 			if removed && value == nil {
 				goto done
@@ -279,7 +282,8 @@ done:
 	return nil
 }
 
-// convertValue将"value"转换为map[string]interface{}或[]interface{}，这样可以支持层级数据访问。 md5:089e6e9291ed7aab
+// convertValue将"value"转换为map[string]interface{}或[]interface{}，这样可以支持层级数据访问。
+// md5:089e6e9291ed7aab
 func (j *Json) convertValue(value interface{}) (convertedValue interface{}, err error) {
 	if value == nil {
 		return
@@ -330,7 +334,8 @@ func (j *Json) convertValue(value interface{}) (convertedValue interface{}, err 
 }
 
 // setPointerWithValue 将 `key`:`value` 设置到 `pointer` 中，其中 `key` 可能是映射的键或切片的索引。
-// 它返回新设置值的指针。 md5:2642aca0fd23f46c
+// 它返回新设置值的指针。
+// md5:2642aca0fd23f46c
 func (j *Json) setPointerWithValue(pointer *interface{}, key string, value interface{}) *interface{} {
 	switch (*pointer).(type) {
 	case map[string]interface{}:
@@ -372,11 +377,11 @@ func (j *Json) getPointerByPatternWithViolenceCheck(pattern string) *interface{}
 		return j.getPointerByPatternWithoutViolenceCheck(pattern)
 	}
 
-	// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
+		// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
 	if pattern == "" {
 		return nil
 	}
-	// 如果pattern是"."，则返回所有。 md5:1f0d65d517f332bd
+		// 如果pattern是"."，则返回所有。 md5:1f0d65d517f332bd
 	if pattern == "." {
 		return j.p
 	}
@@ -403,7 +408,7 @@ func (j *Json) getPointerByPatternWithViolenceCheck(pattern string) *interface{}
 				pointer = r
 			}
 		} else {
-			// 获取下一个分隔符字符的位置。 md5:7268bb1b6598460b
+						// 获取下一个分隔符字符的位置。 md5:7268bb1b6598460b
 			index = strings.LastIndexByte(pattern[start:index], j.c)
 			if index != -1 && length > 0 {
 				index += length + 1
@@ -422,11 +427,11 @@ func (j *Json) getPointerByPatternWithoutViolenceCheck(pattern string) *interfac
 		return j.getPointerByPatternWithViolenceCheck(pattern)
 	}
 
-	// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
+		// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
 	if pattern == "" {
 		return nil
 	}
-	// 如果pattern是"."，则返回所有。 md5:1f0d65d517f332bd
+		// 如果pattern是"."，则返回所有。 md5:1f0d65d517f332bd
 	if pattern == "." {
 		return j.p
 	}
@@ -450,7 +455,8 @@ func (j *Json) getPointerByPatternWithoutViolenceCheck(pattern string) *interfac
 	return nil
 }
 
-// checkPatternByPointer 检查指定`pointer`中是否存在键为`key`的值。它返回该值的指针。 md5:10f17307c0c6e052
+// checkPatternByPointer 检查指定`pointer`中是否存在键为`key`的值。它返回该值的指针。
+// md5:10f17307c0c6e052
 func (j *Json) checkPatternByPointer(key string, pointer *interface{}) *interface{} {
 	switch (*pointer).(type) {
 	case map[string]interface{}:

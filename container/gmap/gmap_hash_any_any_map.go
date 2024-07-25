@@ -1,7 +1,8 @@
 // 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
 //
 // 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。 md5:1d281c30cdc3423b
+// 您可以从https://github.com/gogf/gf获取。
+// md5:1d281c30cdc3423b
 
 package gmap
 
@@ -22,7 +23,8 @@ type AnyAnyMap struct {
 }
 
 // NewAnyAnyMap 创建并返回一个空的哈希映射。
-// 参数 `safe` 用于指定是否使用并发安全的映射，默认为false。 md5:f5ea72ba91a61ee2
+// 参数 `safe` 用于指定是否使用并发安全的映射，默认为false。
+// md5:f5ea72ba91a61ee2
 func NewAnyAnyMap(safe ...bool) *AnyAnyMap {
 	return &AnyAnyMap{
 		mu:   rwmutex.Create(safe...),
@@ -32,7 +34,8 @@ func NewAnyAnyMap(safe ...bool) *AnyAnyMap {
 
 // NewAnyAnyMapFrom 根据给定的映射 `data` 创建并返回一个哈希映射。
 // 请注意，参数 `data` 映射将被设置为底层数据映射（无深拷贝），
-// 当在外部修改此映射时，可能存在并发安全问题。 md5:e7327f6b619e71b1
+// 当在外部修改此映射时，可能存在并发安全问题。
+// md5:e7327f6b619e71b1
 func NewAnyAnyMapFrom(data map[interface{}]interface{}, safe ...bool) *AnyAnyMap {
 	return &AnyAnyMap{
 		mu:   rwmutex.Create(safe...),
@@ -40,7 +43,8 @@ func NewAnyAnyMapFrom(data map[interface{}]interface{}, safe ...bool) *AnyAnyMap
 	}
 }
 
-// Iterator 使用自定义回调函数 `f` 读取只读哈希映射。如果 `f` 返回 true，则继续迭代；否则停止。 md5:52d024b320a69c3b
+// Iterator 使用自定义回调函数 `f` 读取只读哈希映射。如果 `f` 返回 true，则继续迭代；否则停止。
+// md5:52d024b320a69c3b
 func (m *AnyAnyMap) Iterator(f func(k interface{}, v interface{}) bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -58,7 +62,8 @@ func (m *AnyAnyMap) Clone(safe ...bool) *AnyAnyMap {
 
 // Map 返回底层数据映射。
 // 注意，如果它在并发安全的使用场景中，它将返回底层数据的一个副本，
-// 否则返回指向底层数据的指针。 md5:7f8e0898ab3ddb0f
+// 否则返回指向底层数据的指针。
+// md5:7f8e0898ab3ddb0f
 func (m *AnyAnyMap) Map() map[interface{}]interface{} {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -94,7 +99,8 @@ func (m *AnyAnyMap) MapStrAny() map[string]interface{} {
 	return data
 }
 
-// FilterEmpty 删除所有值为空的键值对。空值包括：0、nil、false、""，以及切片、映射（map）或通道（channel）的长度为0的情况。 md5:6cdcc470e2c0cab1
+// FilterEmpty 删除所有值为空的键值对。空值包括：0、nil、false、""，以及切片、映射（map）或通道（channel）的长度为0的情况。
+// md5:6cdcc470e2c0cab1
 func (m *AnyAnyMap) FilterEmpty() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -140,7 +146,8 @@ func (m *AnyAnyMap) Sets(data map[interface{}]interface{}) {
 }
 
 // Search 在给定的`key`下搜索映射。
-// 第二个返回参数`found`如果找到键，则为true，否则为false。 md5:99336de9941a3b02
+// 第二个返回参数`found`如果找到键，则为true，否则为false。
+// md5:99336de9941a3b02
 func (m *AnyAnyMap) Search(key interface{}) (value interface{}, found bool) {
 	m.mu.RLock()
 	if m.data != nil {
@@ -172,7 +179,8 @@ func (m *AnyAnyMap) Pop() (key, value interface{}) {
 }
 
 // Pops 从映射中检索并删除 `size` 个项目。
-// 如果 size 等于 -1，则返回所有项目。 md5:0f2cdbc0238fdc37
+// 如果 size 等于 -1，则返回所有项目。
+// md5:0f2cdbc0238fdc37
 func (m *AnyAnyMap) Pops(size int) map[interface{}]interface{} {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -199,11 +207,12 @@ func (m *AnyAnyMap) Pops(size int) map[interface{}]interface{} {
 
 // doSetWithLockCheck 会使用 mutex.Lock 检查给定键的值是否存在。
 // 如果不存在，将使用给定的 `key` 将值设置到映射中；否则，直接返回已存在的值。
-//
+// 
 // 当设置值时，如果 `value` 类型为 `func() interface{}`，它将在映射的 mutex.Lock 保护下执行，
 // 并将返回值设置到映射中，键为 `key`。
-//
-// 它返回给定 `key` 的值。 md5:60f1f50efa66e173
+// 
+// 它返回给定 `key` 的值。
+// md5:60f1f50efa66e173
 func (m *AnyAnyMap) doSetWithLockCheck(key interface{}, value interface{}) interface{} {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -223,7 +232,8 @@ func (m *AnyAnyMap) doSetWithLockCheck(key interface{}, value interface{}) inter
 }
 
 // GetOrSet 通过键返回值，
-// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。 md5:d8f89b6dec47292b
+// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。
+// md5:d8f89b6dec47292b
 func (m *AnyAnyMap) GetOrSet(key interface{}, value interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, value)
@@ -234,7 +244,8 @@ func (m *AnyAnyMap) GetOrSet(key interface{}, value interface{}) interface{} {
 
 // GetOrSetFunc 通过键获取值，
 // 如果键不存在，则使用回调函数`f`的返回值设置值，
-// 并返回这个设置的值。 md5:f584dd7547dfbcc0
+// 并返回这个设置的值。
+// md5:f584dd7547dfbcc0
 func (m *AnyAnyMap) GetOrSetFunc(key interface{}, f func() interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f())
@@ -246,7 +257,8 @@ func (m *AnyAnyMap) GetOrSetFunc(key interface{}, f func() interface{}) interfac
 // GetOrSetFuncLock 通过键获取值，
 // 如果不存在，它将使用回调函数 `f` 的返回值设置该值，然后返回这个值。
 //
-// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。 md5:d32fdee586d84dde
+// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。
+// md5:d32fdee586d84dde
 func (m *AnyAnyMap) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{} {
 	if v, ok := m.Search(key); !ok {
 		return m.doSetWithLockCheck(key, f)
@@ -255,29 +267,34 @@ func (m *AnyAnyMap) GetOrSetFuncLock(key interface{}, f func() interface{}) inte
 	}
 }
 
-// GetVar通过给定的`key`返回一个Var。返回的Var是非并发安全的。 md5:debfb1b2bd13312b
+// GetVar通过给定的`key`返回一个Var。返回的Var是非并发安全的。
+// md5:debfb1b2bd13312b
 func (m *AnyAnyMap) GetVar(key interface{}) *gvar.Var {
 	return gvar.New(m.Get(key))
 }
 
 // GetVarOrSet 返回一个 Var，其结果来自 GetOrSet。
-// 返回的 Var 是非并发安全的。 md5:5d4b8a2f15c827e0
+// 返回的 Var 是非并发安全的。
+// md5:5d4b8a2f15c827e0
 func (m *AnyAnyMap) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSet(key, value))
 }
 
 // GetVarOrSetFunc 返回一个Var，其结果来自GetOrSetFunc。
-// 返回的Var不具备并发安全性。 md5:7d7674129b73ead1
+// 返回的Var不具备并发安全性。
+// md5:7d7674129b73ead1
 func (m *AnyAnyMap) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSetFunc(key, f))
 }
 
-// GetVarOrSetFuncLock 返回一个从 GetOrSetFuncLock 获得结果的 Var。返回的 Var 不是线程安全的。 md5:bdab644d14c89234
+// GetVarOrSetFuncLock 返回一个从 GetOrSetFuncLock 获得结果的 Var。返回的 Var 不是线程安全的。
+// md5:bdab644d14c89234
 func (m *AnyAnyMap) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(m.GetOrSetFuncLock(key, f))
 }
 
-// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。 md5:f80895920828f03e
+// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。
+// md5:f80895920828f03e
 func (m *AnyAnyMap) SetIfNotExist(key interface{}, value interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, value)
@@ -287,7 +304,8 @@ func (m *AnyAnyMap) SetIfNotExist(key interface{}, value interface{}) bool {
 }
 
 // SetIfNotExistFunc 使用回调函数`f`的返回值设置值，并返回true。
-// 如果`key`已存在，则返回false，且`value`会被忽略。 md5:326c0b7c63d813e7
+// 如果`key`已存在，则返回false，且`value`会被忽略。
+// md5:326c0b7c63d813e7
 func (m *AnyAnyMap) SetIfNotExistFunc(key interface{}, f func() interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f())
@@ -300,7 +318,8 @@ func (m *AnyAnyMap) SetIfNotExistFunc(key interface{}, f func() interface{}) boo
 // 如果 `key` 已存在，则返回 false，`value` 将被忽略。
 //
 // SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
-// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。 md5:a6ee84b157328f61
+// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。
+// md5:a6ee84b157328f61
 func (m *AnyAnyMap) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool {
 	if !m.Contains(key) {
 		m.doSetWithLockCheck(key, f)
@@ -364,7 +383,8 @@ func (m *AnyAnyMap) Values() []interface{} {
 }
 
 // Contains 检查键是否存在。
-// 如果键存在，它返回 true，否则返回 false。 md5:d8fb22313aadd65f
+// 如果键存在，它返回 true，否则返回 false。
+// md5:d8fb22313aadd65f
 func (m *AnyAnyMap) Contains(key interface{}) bool {
 	var ok bool
 	m.mu.RLock()
@@ -384,7 +404,8 @@ func (m *AnyAnyMap) Size() int {
 }
 
 // IsEmpty 检查映射是否为空。
-// 如果映射为空，则返回true，否则返回false。 md5:ad4bd5c796f79266
+// 如果映射为空，则返回true，否则返回false。
+// md5:ad4bd5c796f79266
 func (m *AnyAnyMap) IsEmpty() bool {
 	return m.Size() == 0
 }
@@ -429,7 +450,8 @@ func (m *AnyAnyMap) Flip() {
 }
 
 // Merge 合并两个哈希映射。
-// `other` 映射将被合并到映射 `m` 中。 md5:a90c0d2b1f1fdaaa
+// `other` 映射将被合并到映射 `m` 中。
+// md5:a90c0d2b1f1fdaaa
 func (m *AnyAnyMap) Merge(other *AnyAnyMap) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -529,7 +551,8 @@ func (m *AnyAnyMap) IsSubOf(other *AnyAnyMap) bool {
 // Diff 函数比较当前地图 `m` 与地图 `other` 并返回它们不同的键。
 // 返回的 `addedKeys` 是存在于地图 `m` 中但不在地图 `other` 中的键。
 // 返回的 `removedKeys` 是存在于地图 `other` 中但不在地图 `m` 中的键。
-// 返回的 `updatedKeys` 是同时存在于地图 `m` 和 `other` 中，但其值不相等（`!=`）的键。 md5:d3bf0bf8c70e9093
+// 返回的 `updatedKeys` 是同时存在于地图 `m` 和 `other` 中，但其值不相等（`!=`）的键。
+// md5:d3bf0bf8c70e9093
 func (m *AnyAnyMap) Diff(other *AnyAnyMap) (addedKeys, removedKeys, updatedKeys []interface{}) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()

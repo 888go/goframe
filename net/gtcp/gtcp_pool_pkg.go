@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtcp
 
@@ -11,7 +12,8 @@ import (
 )
 
 // SendPkg 向连接发送一个包含 `data` 的数据包。
-// 可选参数 `option` 用于指定发送数据包时的选项。 md5:b992093685758441
+// 可选参数 `option` 用于指定发送数据包时的选项。
+// md5:b992093685758441
 func (c *PoolConn) SendPkg(data []byte, option ...PkgOption) (err error) {
 	if err = c.Conn.SendPkg(data, option...); err != nil && c.status == connStatusUnknown {
 		if v, e := c.pool.NewFunc(); e == nil {
@@ -30,7 +32,8 @@ func (c *PoolConn) SendPkg(data []byte, option ...PkgOption) (err error) {
 }
 
 // RecvPkg 使用简单的包协议从连接接收包。
-// 可选的`option`参数指定了接收包时的选项。 md5:6b708b1338c6bb8c
+// 可选的`option`参数指定了接收包时的选项。
+// md5:6b708b1338c6bb8c
 func (c *PoolConn) RecvPkg(option ...PkgOption) ([]byte, error) {
 	data, err := c.Conn.RecvPkg(option...)
 	if err != nil {

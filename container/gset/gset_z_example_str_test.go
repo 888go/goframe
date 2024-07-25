@@ -1,7 +1,8 @@
 // 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
 //
 // 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。 md5:1d281c30cdc3423b
+// 您可以从https://github.com/gogf/gf获取。
+// md5:1d281c30cdc3423b
 
 package gset_test
 
@@ -14,7 +15,8 @@ import (
 )
 
 // NewStrSet 创建并返回一个新集合，其中包含不重复的元素。
-// 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。 md5:b4b32102d4f1da78
+// 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。
+// md5:b4b32102d4f1da78
 func ExampleNewStrSet() {
 	strSet := gset.NewStrSet(true)
 	strSet.Add([]string{"str1", "str2", "str3"}...)
@@ -46,7 +48,8 @@ func ExampleStrSet_Add() {
 }
 
 // AddIfNotExist 检查项是否存在于集合中，
-// 如果项不存在于集合中，它会将项添加到集合中并返回 true，否则什么都不做并返回 false。 md5:9cff508c42cffd55
+// 如果项不存在于集合中，它会将项添加到集合中并返回 true，否则什么都不做并返回 false。
+// md5:9cff508c42cffd55
 func ExampleStrSet_AddIfNotExist() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	strSet.Add("str")
@@ -61,7 +64,8 @@ func ExampleStrSet_AddIfNotExist() {
 // AddIfNotExistFunc 检查项目是否存在于集合中，
 // 如果项目不在集合中且函数 `f` 返回 true，则将其添加到集合并返回 true，
 // 否则不做任何操作并返回 false。
-// 请注意，函数 `f` 在无写锁的情况下执行。 md5:0a51b9d79022ae82
+// 请注意，函数 `f` 在无写锁的情况下执行。
+// md5:0a51b9d79022ae82
 func ExampleStrSet_AddIfNotExistFunc() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	strSet.Add("str")
@@ -78,7 +82,8 @@ func ExampleStrSet_AddIfNotExistFunc() {
 // AddIfNotExistFunc 检查项目是否存在于集合中，
 // 如果项目不在集合中且函数 `f` 返回 true，则将其添加到集合并返回 true，
 // 否则不做任何操作并返回 false。
-// 请注意，函数 `f` 在无写锁的情况下执行。 md5:0a51b9d79022ae82
+// 请注意，函数 `f` 在无写锁的情况下执行。
+// md5:0a51b9d79022ae82
 func ExampleStrSet_AddIfNotExistFuncLock() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
 	strSet.Add("str")
@@ -106,7 +111,8 @@ func ExampleStrSet_Clear() {
 
 // Complement 返回一个新的集合，该集合是相对于`set`到`full`的补集。
 // 这意味着，`newSet`中的所有项都包含在`full`中但不包含在`set`中。
-// 如果给定的集合`full`并不是`set`的全集，则它返回`full`与`set`之间的差异。 md5:2116fbb7587db792
+// 如果给定的集合`full`并不是`set`的全集，则它返回`full`与`set`之间的差异。
+// md5:2116fbb7587db792
 func ExampleStrSet_Complement() {
 	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3", "str4", "str5"}, true)
 	s := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
@@ -129,7 +135,8 @@ func ExampleStrSet_Contains() {
 }
 
 // ContainsI 检查集合中是否存在某个值（忽略大小写）。
-// 注意，它内部会遍历整个集合以进行不区分大小写的比较。 md5:851e1bbfa6da1bae
+// 注意，它内部会遍历整个集合以进行不区分大小写的比较。
+// md5:851e1bbfa6da1bae
 func ExampleStrSet_ContainsI() {
 	var set gset.StrSet
 	set.Add("a")
@@ -142,7 +149,8 @@ func ExampleStrSet_ContainsI() {
 }
 
 // Diff 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
-// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。 md5:6779e6e007651b53
+// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
+// md5:6779e6e007651b53
 func ExampleStrSet_Diff() {
 	s1 := gset.NewStrSetFrom([]string{"a", "b", "c"}, true)
 	s2 := gset.NewStrSetFrom([]string{"a", "b", "c", "d"}, true)
@@ -168,7 +176,8 @@ func ExampleStrSet_Equal() {
 }
 
 // Intersect 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
-// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。 md5:327d3fcc12f06583
+// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
+// md5:327d3fcc12f06583
 func ExampleStrSet_Intersect() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c"}...)
@@ -192,7 +201,8 @@ func ExampleStrSet_IsSubsetOf() {
 	// true
 }
 
-// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。 md5:b896360b1cf6fc88
+// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:b896360b1cf6fc88
 func ExampleStrSet_Iterator() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -228,7 +238,8 @@ func ExampleStrSet_LockFunc() {
 	fmt.Println(s1.Slice())
 
 	// 可能的输出
-	// [2 3 1] md5:294c6ba36e85ea4c
+	// [2 3 1]
+	// md5:294c6ba36e85ea4c
 
 }
 
@@ -275,7 +286,8 @@ func ExampleStrSet_Pop() {
 }
 
 // Pops 从集合中随机弹出 `size` 个元素。
-// 如果 size == -1，它将返回所有元素。 md5:c687f88e0a2df8f2
+// 如果 size == -1，它将返回所有元素。
+// md5:c687f88e0a2df8f2
 func ExampleStrSet_Pops() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -342,7 +354,8 @@ func ExampleStrSet_String() {
 }
 
 // Sum 对项目求和。注意：项目应转换为整型，
-// 否则你可能会得到意想不到的结果。 md5:7cca75708fbf4ffc
+// 否则你可能会得到意想不到的结果。
+// md5:7cca75708fbf4ffc
 func ExampleStrSet_Sum() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"1", "2", "3", "4"}...)
@@ -353,7 +366,8 @@ func ExampleStrSet_Sum() {
 }
 
 // Union 返回一个新集合，它是`set`和`other`的并集。
-// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。 md5:420e241c3c12e8e6
+// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
+// md5:420e241c3c12e8e6
 func ExampleStrSet_Union() {
 	s1 := gset.NewStrSet(true)
 	s1.Add([]string{"a", "b", "c", "d"}...)
@@ -405,7 +419,7 @@ func ExampleStrSet_Walk() {
 		prefix = "gf_"
 	)
 	set.Add(names...)
-	// 为给定的表名添加前缀。 md5:dea7405f272e0c9e
+		// 为给定的表名添加前缀。 md5:dea7405f272e0c9e
 	set.Walk(func(item string) string {
 		return prefix + item
 	})

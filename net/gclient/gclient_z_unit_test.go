@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient_test
 
@@ -297,7 +298,8 @@ func Test_Client_Param_Containing_Special_Char(t *testing.T) {
 }
 
 // 它在上传文件的同时发送数据。
-// 它不会对参数进行URL编码。 md5:e7d22bb43988cf7d
+// 它不会对参数进行URL编码。
+// md5:e7d22bb43988cf7d
 func Test_Client_File_And_Param(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("/", func(r *ghttp.Request) {
@@ -384,7 +386,7 @@ func Test_Client_Middleware(t *testing.T) {
 		t.Assert(resp.ReadAllString(), str2)
 		t.Assert(isServerHandler, true)
 
-		// 测试中断，中断不会发送. md5:08b4e656520be948
+				// 测试中断，中断不会发送. md5:08b4e656520be948
 		var (
 			str3     = ""
 			abortStr = "abort request"
@@ -510,7 +512,8 @@ func Test_WebSocketClient(t *testing.T) {
 	s.SetDumpRouterMap(false)
 	s.Start()
 	// 注意：由于WebSocket保持活动连接，存在数据竞争风险，因此此处不使用关闭defer语句。
-	// 	// s.Shutdown() 应在适当的地方手动调用以确保资源正确释放。 md5:e59a0c81d7768e8f
+	// 	// s.Shutdown() 应在适当的地方手动调用以确保资源正确释放。
+	// md5:e59a0c81d7768e8f
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {

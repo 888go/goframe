@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv
 
@@ -29,7 +30,8 @@ var customConverters = make(map[converterInType]map[converterOutType]converterFu
 // 注意：
 //  1. 参数 `fn` 必须定义为模式 `func(T1) (T2, error)`。
 //     它将类型 `T1` 转换为类型 `T2`。
-//  2. `T1` 不应为指针类型，但 `T2` 应为指针类型。 md5:8fbaa372837e6d8c
+//  2. `T1` 不应为指针类型，但 `T2` 应为指针类型。
+// md5:8fbaa372837e6d8c
 func RegisterConverter(fn interface{}) (err error) {
 	var (
 		fnReflectType = reflect.TypeOf(fn)
@@ -46,7 +48,7 @@ func RegisterConverter(fn interface{}) (err error) {
 		return
 	}
 
-	// 转换映射的键和值不应该是指针。 md5:79bb068f1985b81a
+		// 转换映射的键和值不应该是指针。 md5:79bb068f1985b81a
 	var (
 		inType  = fnReflectType.In(0)
 		outType = fnReflectType.Out(0)
@@ -96,14 +98,14 @@ func getRegisteredConverterFuncAndSrcType(
 		srcType = srcType.Elem()
 	}
 	var registeredOutTypeMap map[converterOutType]converterFunc
-	// 首先，它通过输入参数类型在映射中搜索。 md5:019f9d8418285668
+		// 首先，它通过输入参数类型在映射中搜索。 md5:019f9d8418285668
 	registeredOutTypeMap, ok = customConverters[srcType]
 	if !ok {
 		return reflect.Value{}, nil, false
 	}
 	var dstType = dstReflectValueForRefer.Type()
 	if dstType.Kind() == reflect.Pointer {
-		// 可能是**struct，这是设计上支持的。 md5:cb1f21754e39c3a1
+				// 可能是**struct，这是设计上支持的。 md5:cb1f21754e39c3a1
 		if dstType.Elem().Kind() == reflect.Pointer {
 			dstType = dstType.Elem()
 		}
@@ -113,7 +115,8 @@ func getRegisteredConverterFuncAndSrcType(
 		dstType = reflect.PointerTo(dstType)
 	}
 	// 其次，它会在输入参数类型映射中搜索
-	// 并通过输出参数类型找到结果转换函数。 md5:3781290987232f09
+	// 并通过输出参数类型找到结果转换函数。
+	// md5:3781290987232f09
 	f, ok = registeredOutTypeMap[dstType]
 	if !ok {
 		return reflect.Value{}, nil, false
@@ -148,7 +151,7 @@ func doCallCustomConverter(
 	registeredConverterFunc converterFunc,
 	srcType reflect.Type,
 ) (converted bool, err error) {
-	// 转换函数调用。 md5:1780fb4f627f751d
+		// 转换函数调用。 md5:1780fb4f627f751d
 	for srcReflectValue.Type() != srcType {
 		srcReflectValue = srcReflectValue.Elem()
 	}
@@ -156,7 +159,7 @@ func doCallCustomConverter(
 	if !result[1].IsNil() {
 		return false, result[1].Interface().(error)
 	}
-	// `result[0]`是一个指针。 md5:6505f86b6cd1e865
+		// `result[0]`是一个指针。 md5:6505f86b6cd1e865
 	if result[0].IsNil() {
 		return false, nil
 	}

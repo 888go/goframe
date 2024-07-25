@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // gproc 包实现了对进程的管理和通信功能。 md5:2bdecc6699345c91
 package gproc
@@ -46,13 +47,15 @@ func PPid() int {
 }
 
 // PPidOS 返回当前进程的系统父进程ID。
-// 请注意，PPidOS与PPid函数的区别在于，PPidOS返回系统的父进程ID，而如果存在自定义父进程ID，PPid函数可能会返回由gproc设置的自定义进程ID。 md5:f6f56ec93bfd6b19
+// 请注意，PPidOS与PPid函数的区别在于，PPidOS返回系统的父进程ID，而如果存在自定义父进程ID，PPid函数可能会返回由gproc设置的自定义进程ID。
+// md5:f6f56ec93bfd6b19
 func PPidOS() int {
 	return os.Getppid()
 }
 
 // IsChild 检查并返回当前进程是否是子进程。
-// 子进程是由另一个gproc进程 fork() 创建的。 md5:9ec53f2cdad75233
+// 子进程是由另一个gproc进程 fork() 创建的。
+// md5:9ec53f2cdad75233
 func IsChild() bool {
 	ppidValue := os.Getenv(envKeyPPid)
 	return ppidValue != "" && ppidValue != "0"
@@ -79,7 +82,7 @@ func Uptime() time.Duration {
 
 // SearchBinary 在当前工作目录和PATH环境变量中搜索名为`file`的二进制文件。 md5:56a48fa45711f1c2
 func SearchBinary(file string) string {
-	// 检查它是否是当前工作目录下存在的绝对路径。 md5:5c4a5911487345cd
+		// 检查它是否是当前工作目录下存在的绝对路径。 md5:5c4a5911487345cd
 	if gfile.Exists(file) {
 		return file
 	}

@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -68,7 +69,8 @@
 <原文结束>
 
 # <翻译开始>
-// Cmdline 响应正在运行程序的命令行，参数之间用 NULL 字节分隔。包初始化时将其注册为 /debug/pprof/cmdline。 md5:35f5d246119cca43
+// Cmdline 响应正在运行程序的命令行，参数之间用 NULL 字节分隔。包初始化时将其注册为 /debug/pprof/cmdline。
+// md5:35f5d246119cca43
 # <翻译结束>
 
 
@@ -81,7 +83,8 @@
 # <翻译开始>
 // Profile 使用pprof格式返回CPU profiling信息。
 // 如果GET参数指定了持续时间，那么 profiling 将持续该秒数；如果没有指定，则默认为30秒。
-// 在包初始化时，它会注册为 "/debug/pprof/profile"。 md5:11bd281949c0ba3c
+// 在包初始化时，它会注册为 "/debug/pprof/profile"。
+// md5:11bd281949c0ba3c
 # <翻译结束>
 
 
@@ -94,7 +97,8 @@
 # <翻译开始>
 // Symbol 查找请求中列出的程序计数器，
 // 并以映射表的形式响应，该映射表将程序计数器与函数名称关联起来。
-// 包初始化时将其注册为 /debug/pprof/symbol 路由。 md5:2944ed5cfe9e0c52
+// 包初始化时将其注册为 /debug/pprof/symbol 路由。
+// md5:2944ed5cfe9e0c52
 # <翻译结束>
 
 
@@ -107,6 +111,7 @@
 # <翻译开始>
 // Trace 返回执行跟踪的二进制形式。
 // 跟踪将持续指定的GET参数中的秒数，如果没有指定，则为1秒。
-// 包初始化时将其注册为/debug/pprof/trace。 md5:02830b4c9b48681f
+// 包初始化时将其注册为/debug/pprof/trace。
+// md5:02830b4c9b48681f
 # <翻译结束>
 

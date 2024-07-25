@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -50,7 +51,8 @@
 
 # <翻译开始>
 // EncryptECBTriple 使用TripleDES和ECB模式加密`plainText`。
-// `key`的长度应为16或24字节。 md5:925f2b0f96f4bc56
+// `key`的长度应为16或24字节。
+// md5:925f2b0f96f4bc56
 # <翻译结束>
 
 
@@ -61,7 +63,8 @@
 
 # <翻译开始>
 // DecryptECBTriple 使用三重DES和ECB模式解密`cipherText`。
-// `key`的长度应该是16或24字节。 md5:c1bf1a1ac477aa6e
+// `key`的长度应该是16或24字节。
+// md5:c1bf1a1ac477aa6e
 # <翻译结束>
 
 

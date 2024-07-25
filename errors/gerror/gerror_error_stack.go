@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gerror
 
@@ -141,17 +142,17 @@ func loopLinesOfStackInfo(st stack, info *stackInfo, isStackModeBrief bool) {
 		if fn := runtime.FuncForPC(p - 1); fn != nil {
 			file, line := fn.FileLine(p - 1)
 			if isStackModeBrief {
-				// 过滤整个GoFrame包堆栈路径。 md5:097ea4b9718ad7a8
+								// 过滤整个GoFrame包堆栈路径。 md5:097ea4b9718ad7a8
 				if strings.Contains(file, consts.StackFilterKeyForGoFrame) {
 					continue
 				}
 			} else {
-				// 包路径栈过滤。 md5:272fc7db0b653585
+								// 包路径栈过滤。 md5:272fc7db0b653585
 				if strings.Contains(file, stackFilterKeyLocal) {
 					continue
 				}
 			}
-			// 避免使用像"`自动生成`"这样的栈字符串. md5:d965e072120580f2
+						// 避免使用像"`自动生成`"这样的栈字符串. md5:d965e072120580f2
 			if strings.Contains(file, "<") {
 				continue
 			}

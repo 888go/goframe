@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gsession
 
@@ -25,14 +26,15 @@ func New(ttl time.Duration, storage ...Storage) *Manager {
 	if len(storage) > 0 && storage[0] != nil {
 		m.storage = storage[0]
 	} else {
-		// 默认使用 StorageFile。 md5:a8eedc355767eccd
+				// 默认使用 StorageFile。 md5:a8eedc355767eccd
 		m.storage = NewStorageFile(DefaultStorageFilePath, ttl)
 	}
 	return m
 }
 
 // New 为给定的 session ID 创建或获取会话。
-// 参数 `sessionId` 是可选的，如果未提供，则根据 Storage.New 的行为创建新的会话。 md5:4d84930c3cbf9027
+// 参数 `sessionId` 是可选的，如果未提供，则根据 Storage.New 的行为创建新的会话。
+// md5:4d84930c3cbf9027
 func (m *Manager) New(ctx context.Context, sessionId ...string) *Session {
 	var id string
 	if len(sessionId) > 0 && sessionId[0] != "" {

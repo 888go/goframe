@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package g
 
@@ -53,31 +54,36 @@ func Config(name ...string) *gcfg.Config {
 }
 
 // Cfg 是 Config 的别名。
-// 参见 Config。 md5:1b7d381469f7e212
+// 参见 Config。
+// md5:1b7d381469f7e212
 func Cfg(name ...string) *gcfg.Config {
 	return Config(name...)
 }
 
 // Resource 返回一个 Resource 类型的实例。
-// 参数 `name` 为该实例的名称。 md5:42e664c4b3a2bb54
+// 参数 `name` 为该实例的名称。
+// md5:42e664c4b3a2bb54
 func Resource(name ...string) *gres.Resource {
 	return gins.Resource(name...)
 }
 
 // I18n 返回一个 gi18n.Manager 的实例。
-// 参数 `name` 是实例的名称。 md5:cb8fb8e2c93c597b
+// 参数 `name` 是实例的名称。
+// md5:cb8fb8e2c93c597b
 func I18n(name ...string) *gi18n.Manager {
 	return gins.I18n(name...)
 }
 
 // Res是Resource的别名。
-// 请参阅Resource。 md5:f2fc8f778d75b07c
+// 请参阅Resource。
+// md5:f2fc8f778d75b07c
 func Res(name ...string) *gres.Resource {
 	return Resource(name...)
 }
 
 // Log 函数返回一个 glog.Logger 实例。
-// 参数 `name` 用于指定该实例的名称。 md5:01b7637de189b37b
+// 参数 `name` 用于指定该实例的名称。
+// md5:01b7637de189b37b
 func Log(name ...string) *glog.Logger {
 	return gins.Log(name...)
 }

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package sqlite_test
 
@@ -214,7 +215,7 @@ func Test_DB_Insert(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 func Test_DB_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -1448,7 +1449,8 @@ func Test_DB_Ctx_Logger(t *testing.T) {
 }
 
 // 所有类型的测试。
-// https://www.sqlite.org/datatype3.html md5:d23ed0b51680ff07
+// https://www.sqlite.org/datatype3.html
+// md5:d23ed0b51680ff07
 func Test_Types(t *testing.T) {
 	tableName := "types_" + gtime.TimestampNanoStr()
 	gtest.C(t, func(t *gtest.T) {
@@ -1544,7 +1546,7 @@ func Test_TableFields(t *testing.T) {
 		createTable(tableName)
 		defer dropTable(tableName)
 		var expect = map[string][]interface{}{
-			// 字段	类型	空值	键	默认值	额外信息	注释. md5:c2b58b539e04fa5f
+						// 字段	类型	空值	键	默认值	额外信息	注释. md5:c2b58b539e04fa5f
 			"id":          {"INTEGER", false, "pri", nil, "", ""},
 			"passport":    {"VARCHAR(45)", false, "", "passport", "", ""},
 			"password":    {"VARCHAR(128)", false, "", "password", "", ""},

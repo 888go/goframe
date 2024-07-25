@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gstr_test
 
@@ -751,7 +752,7 @@ func ExampleParse() {
 		fmt.Println(result)
 	}
 	{
-		// 遍历嵌套切片的格式尚未得到支持。 md5:4ba6b8e024a1bae0
+				// 遍历嵌套切片的格式尚未得到支持。 md5:4ba6b8e024a1bae0
 		var str = `v[][]=m&v[][]=n`
 		result, err := gstr.Parse(str)
 		if err != nil {
@@ -760,7 +761,7 @@ func ExampleParse() {
 		fmt.Println(result)
 	}
 	{
-		// 这将产生一个错误。 md5:a04ca00c0d3445fa
+				// 这将产生一个错误。 md5:a04ca00c0d3445fa
 		var str = `v=m&v[a]=n`
 		result, err := gstr.Parse(str)
 		if err != nil {

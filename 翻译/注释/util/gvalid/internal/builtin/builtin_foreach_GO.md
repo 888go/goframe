@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -26,7 +27,8 @@
 # <翻译开始>
 // RuleForeach 实现了 `foreach` 规则：
 // 它告诉下一个验证使用当前值作为数组，并验证其每个元素。
-//
-// 格式：foreach md5:ee948d3f16a2f23d
+// 
+// 格式：foreach
+// md5:ee948d3f16a2f23d
 # <翻译结束>
 

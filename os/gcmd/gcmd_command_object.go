@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gcmd
 
@@ -28,7 +29,7 @@ import (
 )
 
 var (
-	// defaultValueTags 是用于存储默认值的结构体标签名称。 md5:5ce6fb87a220db49
+		// defaultValueTags 是用于存储默认值的结构体标签名称。 md5:5ce6fb87a220db49
 	defaultValueTags = []string{"d", "default"}
 )
 
@@ -51,7 +52,8 @@ func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 	}
 	var reflectValue = originValueAndKind.InputValue
 	// 如果给定的`object`不是指针，那么它会创建一个临时的，其值为`reflectValue`。
-	// 然后它可以获取结构体/`*struct`的所有方法。 md5:1e216cd9c7839ef2
+	// 然后它可以获取结构体/`*struct`的所有方法。
+	// md5:1e216cd9c7839ef2
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectValue.Type())
 		newValue.Elem().Set(reflectValue)
@@ -135,13 +137,14 @@ func methodToRootCmdWhenNameEqual(rootCmd *Command, methodCmd *Command) {
 	}
 }
 
-// `object`是业务对象的元属性，`name`是命令名称，通常来自方法名。当Meta中没有定义名称标签时使用这个。 md5:044898119694fdf5
+// `object`是业务对象的元属性，`name`是命令名称，通常来自方法名。当Meta中没有定义名称标签时使用这个。
+// md5:044898119694fdf5
 func newCommandFromObjectMeta(object interface{}, name string) (command *Command, err error) {
 	var metaData = gmeta.Data(object)
 	if err = gconv.Scan(metaData, &command); err != nil {
 		return
 	}
-	// 名称字段是必需的。 md5:be70066859cce69e
+		// 名称字段是必需的。 md5:be70066859cce69e
 	if command.Name == "" {
 		if name == "" {
 			err = gerror.Newf(
@@ -179,7 +182,7 @@ func newCommandFromObjectMeta(object interface{}, name string) (command *Command
 func newCommandFromMethod(
 	object interface{}, method reflect.Method, methodValue reflect.Value, methodType reflect.Type,
 ) (command *Command, err error) {
-	// 对输入/输出参数及命名进行必要的验证。 md5:9e72ac9f4181fad5
+		// 对输入/输出参数及命名进行必要的验证。 md5:9e72ac9f4181fad5
 	if methodType.NumIn() != 2 || methodType.NumOut() != 2 {
 		if methodType.PkgPath() != "" {
 			err = gerror.NewCodef(
@@ -212,7 +215,7 @@ func newCommandFromMethod(
 		)
 		return
 	}
-	// 输入结构体应该命名为`xxxInput`。 md5:98fe3954e690f01f
+		// 输入结构体应该命名为`xxxInput`。 md5:98fe3954e690f01f
 	if !gstr.HasSuffix(methodType.In(1).String(), `Input`) {
 		err = gerror.NewCodef(
 			gcode.CodeInvalidParameter,
@@ -221,7 +224,7 @@ func newCommandFromMethod(
 		)
 		return
 	}
-	// 输出结构体应该命名为`xxxOutput`。 md5:3c8e65a804dbe66c
+		// 输出结构体应该命名为`xxxOutput`。 md5:3c8e65a804dbe66c
 	if !gstr.HasSuffix(methodType.Out(0).String(), `Output`) {
 		err = gerror.NewCodef(
 			gcode.CodeInvalidParameter,
@@ -248,12 +251,13 @@ func newCommandFromMethod(
 		return
 	}
 
-	// 利用优先级标签进行输入结构体转换。 md5:501b3e1e29551f82
+		// 利用优先级标签进行输入结构体转换。 md5:501b3e1e29551f82
 	var priorityTag = gstr.Join([]string{tagNameName, tagNameShort}, ",")
 
 	// =============================================================================================
 	// 创建一个有返回值的函数。
-	// ============================================================================================= md5:665eb5f5657321cc
+	// =============================================================================================
+	// md5:665eb5f5657321cc
 	command.FuncWithValue = func(ctx context.Context, parser *Parser) (out interface{}, err error) {
 		ctx = context.WithValue(ctx, CtxKeyParser, parser)
 		var (
@@ -264,7 +268,7 @@ func newCommandFromMethod(
 		)
 		if value := ctx.Value(CtxKeyArgumentsIndex); value != nil {
 			argIndex = value.(int)
-			// 使用左面的参数来给输入结构体对象赋值。 md5:7a575ddae03dd0d6
+						// 使用左面的参数来给输入结构体对象赋值。 md5:7a575ddae03dd0d6
 			if argIndex < len(arguments) {
 				arguments = arguments[argIndex:]
 			}
@@ -275,13 +279,13 @@ func newCommandFromMethod(
 		// Handle orphan options.
 		for _, arg := range command.Arguments {
 			if arg.IsArg {
-				// 从命令行索引读取参数。 md5:aa066778e00736af
+								// 从命令行索引读取参数。 md5:aa066778e00736af
 				if argIndex < len(arguments) {
 					data[arg.Name] = arguments[argIndex]
 					argIndex++
 				}
 			} else {
-				// 从命令行选项名称中读取参数。 md5:9fcf493c28108e47
+								// 从命令行选项名称中读取参数。 md5:9fcf493c28108e47
 				if arg.Orphan {
 					if orphanValue := parser.GetOpt(arg.Name); orphanValue != nil {
 						if orphanValue.String() == "" {
@@ -294,18 +298,19 @@ func newCommandFromMethod(
 							// 适配常见的用户习惯。
 							// 例如：
 							// `gf -f=0`：参数 `f` 被解析为 false
-							// `gf -f=1`：参数 `f` 被解析为 true md5:72432f87d0fc818b
+							// `gf -f=1`：参数 `f` 被解析为 true
+							// md5:72432f87d0fc818b
 							data[arg.Name] = orphanValue.Bool()
 						}
 					}
 				}
 			}
 		}
-		// 来自结构体标签的默认值。 md5:13e4a73100683597
+				// 来自结构体标签的默认值。 md5:13e4a73100683597
 		if err = mergeDefaultStructValue(data, inputObject.Interface()); err != nil {
 			return nil, err
 		}
-		// 构建输入参数。 md5:c74f2d54c503f98e
+				// 构建输入参数。 md5:c74f2d54c503f98e
 		if len(data) > 0 {
 			intlog.PrintFunc(ctx, func() string {
 				return fmt.Sprintf(`input command data map: %s`, gjson.MustEncode(data))
@@ -330,7 +335,7 @@ func newCommandFromMethod(
 		}
 		inputValues = append(inputValues, inputObject)
 
-		// 使用动态创建的参数值调用处理器。 md5:991efec71cdcc95a
+				// 使用动态创建的参数值调用处理器。 md5:991efec71cdcc95a
 		results := methodValue.Call(inputValues)
 		out = results[0].Interface()
 		if !results[1].IsNil() {
@@ -422,7 +427,7 @@ func mergeDefaultStructValue(data map[string]interface{}, pointer interface{}) e
 				nameValue  = field.Tag(tagNameName)
 				shortValue = field.Tag(tagNameShort)
 			)
-			// 如果已经有值，那么它将忽略默认值。 md5:e95a88514a952418
+						// 如果已经有值，那么它将忽略默认值。 md5:e95a88514a952418
 			if value, ok := data[nameValue]; ok {
 				data[field.Name()] = value
 				continue

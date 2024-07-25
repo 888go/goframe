@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package clickhouse
 
@@ -22,7 +23,8 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 	switch itemValue := fieldValue.(type) {
 	case time.Time:
 		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。 md5:058aebae61025f37
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue.IsZero() {
 			return nil, nil
 		}
@@ -32,7 +34,8 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 
 	case *time.Time:
 		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。 md5:058aebae61025f37
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}
@@ -40,20 +43,22 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 
 	case gtime.Time:
 		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。 md5:058aebae61025f37
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue.IsZero() {
 			return nil, nil
 		}
-		// 用于gtime类型，需要获取time.Time. md5:cbd653f9cf62963a
+						// 用于gtime类型，需要获取time.Time. md5:cbd653f9cf62963a
 		return itemValue.Time, nil
 
 	case *gtime.Time:
-		// 用于gtime类型，需要获取time.Time. md5:cbd653f9cf62963a
+						// 用于gtime类型，需要获取time.Time. md5:cbd653f9cf62963a
 		if itemValue != nil {
 			return itemValue.Time, nil
 		}
 		// 如果时间是零值，它将更新为nil，
-		// 这样在数据库中插入或更新的值将会是"null"。 md5:058aebae61025f37
+		// 这样在数据库中插入或更新的值将会是"null"。
+		// md5:058aebae61025f37
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}
@@ -70,7 +75,8 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 	default:
 		// 如果其他类型实现了driver包的valuer接口
 		// 则使用转换后的结果
-		// 否则，提交接口数据 md5:a04dad650b0b5d2a
+		// 否则，提交接口数据
+		// md5:a04dad650b0b5d2a
 		valuer, ok := itemValue.(driver.Valuer)
 		if !ok {
 			return itemValue, nil

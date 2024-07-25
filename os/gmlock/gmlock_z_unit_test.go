@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gmlock_test
 
@@ -413,7 +414,7 @@ func Test_Locker_RLockFunc(t *testing.T) {
 }
 
 func Test_Locker_TryRLockFunc(t *testing.T) {
-	// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
+		// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFunc"
 		array := garray.New(true)
@@ -435,7 +436,7 @@ func Test_Locker_TryRLockFunc(t *testing.T) {
 		t.Assert(array.Len(), 1)
 	})
 
-	// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
+			// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFuncs"
 		array := garray.New(true)

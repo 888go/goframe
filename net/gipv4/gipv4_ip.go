@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gipv4
 
@@ -112,7 +113,8 @@ func GetIntranetIpArray() (ips []string, err error) {
 // 当地：127.0.0.1
 // A类：10.0.0.0--10.255.255.255
 // B类：172.16.0.0--172.31.255.255
-// C类：192.168.0.0--192.168.255.255 md5:1f4c3df8068af016
+// C类：192.168.0.0--192.168.255.255
+// md5:1f4c3df8068af016
 func IsIntranet(ip string) bool {
 	if ip == "127.0.0.1" {
 		return true

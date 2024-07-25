@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // Package gi18n 实现国际化和本地化。 md5:c7d7e3f7580f80a2
 package gi18n
@@ -34,7 +35,8 @@ func Tf(ctx context.Context, format string, values ...interface{}) string {
 	return Instance().TranslateFormat(ctx, format, values...)
 }
 
-// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。 md5:2806a81d6db86c7f
+// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
+// md5:2806a81d6db86c7f
 func TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return Instance().TranslateFormat(ctx, format, values...)
 }
@@ -45,7 +47,8 @@ func Translate(ctx context.Context, content string) string {
 }
 
 // GetContent 获取并返回给定键和指定语言的配置内容。
-// 如果未找到，将返回一个空字符串。 md5:c64a3a803ac07e38
+// 如果未找到，将返回一个空字符串。
+// md5:c64a3a803ac07e38
 func GetContent(ctx context.Context, key string) string {
 	return Instance().GetContent(ctx, key)
 }

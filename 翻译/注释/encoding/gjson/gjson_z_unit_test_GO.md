@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -32,7 +33,8 @@
 
 # <翻译开始>
 	// 使用gvar的新建方法。
-	// https:	//github.com/gogf/gf/issues/1571 md5:489c7f12ac3a473f
+	// https:	//github.com/gogf/gf/issues/1571
+	// md5:489c7f12ac3a473f
 # <翻译结束>
 
 
@@ -68,7 +70,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
+//github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
 # <翻译结束>
 
 

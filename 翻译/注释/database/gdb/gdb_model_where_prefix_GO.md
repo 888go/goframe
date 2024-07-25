@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,7 +24,8 @@
 
 # <翻译开始>
 // WherePrefix 的行为与 Where 相似，但它会为 where 语句中的每个字段添加前缀。
-// 参考 WhereBuilder.WherePrefix。 md5:857520a0e9f2f42c
+// 参考 WhereBuilder.WherePrefix。
+// md5:857520a0e9f2f42c
 # <翻译结束>
 
 
@@ -34,7 +36,8 @@
 
 # <翻译开始>
 // WherePrefixLT构建`prefix.column < value`语句。
-// 参考WhereBuilder.WherePrefixLT。 md5:772fb94f7bcccb22
+// 参考WhereBuilder.WherePrefixLT。
+// md5:772fb94f7bcccb22
 # <翻译结束>
 
 
@@ -45,7 +48,8 @@
 
 # <翻译开始>
 // WherePrefixLTE构建`prefix.column <= value`语句。
-// 参见WhereBuilder.WherePrefixLTE。 md5:09fe8d74131bca96
+// 参见WhereBuilder.WherePrefixLTE。
+// md5:09fe8d74131bca96
 # <翻译结束>
 
 
@@ -56,7 +60,8 @@
 
 # <翻译开始>
 // WherePrefixGT 构建 `prefix.column > value` 的语句。
-// 参见 WhereBuilder.WherePrefixGT 的用法。 md5:7bd6fca29c275204
+// 参见 WhereBuilder.WherePrefixGT 的用法。
+// md5:7bd6fca29c275204
 # <翻译结束>
 
 
@@ -67,7 +72,8 @@
 
 # <翻译开始>
 // WherePrefixGTE 构建 `prefix.column >= value` 语句。
-// 参见 WhereBuilder.WherePrefixGTE。 md5:f4256046c4ee0127
+// 参见 WhereBuilder.WherePrefixGTE。
+// md5:f4256046c4ee0127
 # <翻译结束>
 
 
@@ -78,7 +84,8 @@
 
 # <翻译开始>
 // WherePrefixBetween构建`prefix.column BETWEEN min AND max`语句。
-// 参见WhereBuilder.WherePrefixBetween。 md5:5bd292414bb58ab2
+// 参见WhereBuilder.WherePrefixBetween。
+// md5:5bd292414bb58ab2
 # <翻译结束>
 
 
@@ -89,7 +96,8 @@
 
 # <翻译开始>
 // WherePrefixLike构建`prefix.column LIKE like`语句。
-// 请参考WhereBuilder.WherePrefixLike。 md5:52c7b5d6907728da
+// 请参考WhereBuilder.WherePrefixLike。
+// md5:52c7b5d6907728da
 # <翻译结束>
 
 
@@ -100,7 +108,8 @@
 
 # <翻译开始>
 // WherePrefixIn 构建 `prefix.column IN (in)` 语句。
-// 参见 WhereBuilder.WherePrefixIn。 md5:21e5a1f77d32a6ce
+// 参见 WhereBuilder.WherePrefixIn。
+// md5:21e5a1f77d32a6ce
 # <翻译结束>
 
 
@@ -111,7 +120,8 @@
 
 # <翻译开始>
 // WherePrefixNull 用于构建 `prefix.columns[0] IS NULL AND prefix.columns[1] IS NULL ...` 的SQL语句。
-// 参考 WhereBuilder.WherePrefixNull 方法。 md5:e66f4e8ba9e64abe
+// 参考 WhereBuilder.WherePrefixNull 方法。
+// md5:e66f4e8ba9e64abe
 # <翻译结束>
 
 
@@ -122,7 +132,8 @@
 
 # <翻译开始>
 // WherePrefixNotBetween构建`prefix.column NOT BETWEEN min AND max`语句。
-// 参见WhereBuilder.WherePrefixNotBetween。 md5:2cfa2b60438f51a2
+// 参见WhereBuilder.WherePrefixNotBetween。
+// md5:2cfa2b60438f51a2
 # <翻译结束>
 
 
@@ -133,7 +144,8 @@
 
 # <翻译开始>
 // WherePrefixNotLike构建`prefix.column NOT LIKE like`语句。
-// 参见WhereBuilder.WherePrefixNotLike。 md5:a9a2f0b1ba94005b
+// 参见WhereBuilder.WherePrefixNotLike。
+// md5:a9a2f0b1ba94005b
 # <翻译结束>
 
 
@@ -144,7 +156,8 @@
 
 # <翻译开始>
 // WherePrefixNot 构建 `prefix.column != value` 的语句。
-// 参见 WhereBuilder.WherePrefixNot 的用法。 md5:52ce1c05f4e382fb
+// 参见 WhereBuilder.WherePrefixNot 的用法。
+// md5:52ce1c05f4e382fb
 # <翻译结束>
 
 
@@ -155,7 +168,8 @@
 
 # <翻译开始>
 // WherePrefixNotIn 构建 `prefix.column NOT IN (in)` 语句。
-// 参考 WhereBuilder.WherePrefixNotIn。 md5:ae3cd87814389feb
+// 参考 WhereBuilder.WherePrefixNotIn。
+// md5:ae3cd87814389feb
 # <翻译结束>
 
 
@@ -166,6 +180,7 @@
 
 # <翻译开始>
 // WherePrefixNotNull 构建 `prefix.columns[0] IS NOT NULL AND prefix.columns[1] IS NOT NULL ...` 语句。
-// 参见 WhereBuilder.WherePrefixNotNull。 md5:953102e755997338
+// 参见 WhereBuilder.WherePrefixNotNull。
+// md5:953102e755997338
 # <翻译结束>
 

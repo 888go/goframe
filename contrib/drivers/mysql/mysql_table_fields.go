@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package mysql
 
@@ -45,12 +46,13 @@ func init() {
 }
 
 // TableFields 获取并返回当前模式指定表的字段信息。
-//
+// 
 // 参数 `link` 是可选的，如果为 nil，则自动获取一个原始 SQL 连接，用于执行必要的 SQL 查询。
-//
+// 
 // 它返回一个包含字段名及其对应字段的映射。由于映射是无序的，TableField 结构体有一个 "Index" 字段，标记其在字段中的顺序。
-//
-// 该方法使用缓存功能来提高性能，直到进程重启，缓存永不过期。 md5:38bed6cd2a065572
+// 
+// 该方法使用缓存功能来提高性能，直到进程重启，缓存永不过期。
+// md5:38bed6cd2a065572
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result         gdb.Result

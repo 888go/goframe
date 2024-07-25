@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -39,7 +40,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1946。GF（Golang Foundation）是一个与Golang（Go语言）相关的开源项目，而"issues/1946"表示该链接指向的是第1946个已知问题或讨论。 md5:daac20d464788919
+//github.com/gogf/gf/issues/1946。GF（Golang Foundation）是一个与Golang（Go语言）相关的开源项目，而"issues/1946"表示该链接指向的是第1946个已知问题或讨论。 md5:daac20d464788919
 # <翻译结束>
 
 
@@ -84,7 +85,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2395. md5:f21adc84f980809e
+//github.com/gogf/gf/issues/2395. md5:f21adc84f980809e
 # <翻译结束>
 
 
@@ -93,6 +94,6 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2371 有关gf框架的GitHub问题讨论. md5:c428de079857b105
+//github.com/gogf/gf/issues/2371 有关gf框架的GitHub问题讨论. md5:c428de079857b105
 # <翻译结束>
 

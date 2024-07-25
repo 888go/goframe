@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package goai
 
@@ -72,7 +73,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		inputObject  reflect.Value
 		outputObject reflect.Value
 	)
-	// 根据输入/输出类型创建实例。 md5:f07c2f3124391e08
+		// 根据输入/输出类型创建实例。 md5:f07c2f3124391e08
 	if reflectType.In(1).Kind() == reflect.Ptr {
 		inputObject = reflect.New(reflectType.In(1).Elem()).Elem()
 	} else {
@@ -135,7 +136,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	if len(inputMetaMap) > 0 {
 		// 路径（Path）和操作（Operation）不是同一概念，因此需要从操作中复制一个元信息（Meta）到路径，并进行编辑。
-		// 你知道的，我们是在操作上设置Summary和Description，而不是在路径上，所以我们需要将它们移除。 md5:82d486896b1d65b3
+		// 你知道的，我们是在操作上设置Summary和Description，而不是在路径上，所以我们需要将它们移除。
+		// md5:82d486896b1d65b3
 		inputMetaMapForPath := gmap.NewStrStrMapFrom(inputMetaMap).Clone()
 		inputMetaMapForPath.Removes([]string{
 			gtag.SummaryShort,
@@ -160,7 +162,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// 路径安全
 	// 注意：安全模式类型仅支持http和apiKey；不支持oauth2和openIdConnect。
-	// 多个模式使用逗号分隔，例如：`security: apiKey1,apiKey2` md5:b64ffa4261f0711d
+	// 多个模式使用逗号分隔，例如：`security: apiKey1,apiKey2`
+	// md5:b64ffa4261f0711d
 	TagNameSecurity := gmeta.Get(inputObject.Interface(), gtag.Security).String()
 	securities := gstr.SplitAndTrim(TagNameSecurity, ",")
 	for _, sec := range securities {
@@ -172,7 +175,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// =================================================================================================================
 	// 请求参数。
-	// ================================================================================================================= md5:c70d5376eecf5c01
+	// =================================================================================================================
+	// md5:c70d5376eecf5c01
 	structFields, _ := gstructs.Fields(gstructs.FieldsInput{
 		Pointer:         inputObject.Interface(),
 		RecursiveOption: gstructs.RecursiveOptionEmbeddedNoTag,
@@ -192,7 +196,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// =================================================================================================================
 	// 请求体
-	// ================================================================================================================= md5:c70baaeba9963b54
+	// =================================================================================================================
+	// md5:c70baaeba9963b54
 	if operation.RequestBody == nil {
 		operation.RequestBody = &RequestBodyRef{}
 	}
@@ -203,7 +208,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 				Content:  map[string]MediaType{},
 			}
 		)
-		// 支持的请求MIME类型。 md5:fd32e8079c221b58
+				// 支持的请求MIME类型。 md5:fd32e8079c221b58
 		var (
 			contentTypes = oai.Config.ReadContentTypes
 			tagMimeValue = gmeta.Get(inputObject.Interface(), gtag.Mime).String()
@@ -235,7 +240,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 
 	// =======================================================
 	// 响应。
-	// ======================================================= md5:ceb9c442cfbdefa1
+	// =======================================================
+	// md5:ceb9c442cfbdefa1
 	if _, ok := operation.Responses[responseOkKey]; !ok {
 		var (
 			response = Response{
@@ -248,7 +254,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 				return err
 			}
 		}
-		// 支持的响应MIME类型。 md5:aefcf019c3abea83
+				// 支持的响应MIME类型。 md5:aefcf019c3abea83
 		var (
 			contentTypes = oai.Config.ReadContentTypes
 			tagMimeValue = gmeta.Get(outputObject.Interface(), gtag.Mime).String()
@@ -262,7 +268,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 			contentTypes = gstr.SplitAndTrim(tagMimeValue, ",")
 		}
 		for _, v := range contentTypes {
-			// 如果指定了自定义的响应MIME类型，则会忽略通用响应特性。 md5:c0c25e2bd38f6d7b
+						// 如果指定了自定义的响应MIME类型，则会忽略通用响应特性。 md5:c0c25e2bd38f6d7b
 			if tagMimeValue != "" {
 				refInput.CommonResponseObject = nil
 				refInput.CommonResponseDataField = ""
@@ -278,13 +284,13 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		operation.Responses[responseOkKey] = ResponseRef{Value: &response}
 	}
 
-	// 移除操作体中重复的属性。 md5:976053e0b8002715
+		// 移除操作体中重复的属性。 md5:976053e0b8002715
 	oai.removeOperationDuplicatedProperties(operation)
 
-	// 为特定操作分配属性。 md5:2e40ddbde8a1317e
+		// 为特定操作分配属性。 md5:2e40ddbde8a1317e
 	switch gstr.ToUpper(in.Method) {
 	case http.MethodGet:
-		// GET 操作不能有请求体。 md5:efd94c634a1773f9
+				// GET 操作不能有请求体。 md5:efd94c634a1773f9
 		operation.RequestBody = nil
 		path.Get = &operation
 
@@ -295,12 +301,12 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		path.Post = &operation
 
 	case http.MethodDelete:
-		// DELETE操作不能有requestBody。 md5:29660405e268d3ca
+				// DELETE操作不能有requestBody。 md5:29660405e268d3ca
 		operation.RequestBody = nil
 		path.Delete = &operation
 
 	case http.MethodConnect:
-		// 对于Connect，无需执行任何操作。 md5:200e0639d4f11b33
+				// 对于Connect，无需执行任何操作。 md5:200e0639d4f11b33
 
 	case http.MethodHead:
 		path.Head = &operation
@@ -336,19 +342,19 @@ func (oai *OpenApiV3) removeOperationDuplicatedProperties(operation Operation) {
 		duplicatedParameterNames = append(duplicatedParameterNames, parameter.Value.Name)
 	}
 
-	// 检查操作请求体是否包含通用请求数据字段。 md5:3e4ccc578046cc45
+		// 检查操作请求体是否包含通用请求数据字段。 md5:3e4ccc578046cc45
 	dataFields := gstr.Split(oai.Config.CommonRequestDataField, ".")
 	if len(dataFields) > 0 && dataFields[0] != "" {
 		dataField = dataFields[0]
 	}
 
 	for _, requestBodyContent := range operation.RequestBody.Value.Content {
-		// 检查请求体架构. md5:dab7ff5a79f31000
+				// 检查请求体架构. md5:dab7ff5a79f31000
 		if requestBodyContent.Schema == nil {
 			continue
 		}
 
-		// 检查请求体架构. md5:dab7ff5a79f31000 ref.
+				// 检查请求体架构. md5:dab7ff5a79f31000 ref.
 		if requestBodyContent.Schema.Ref != "" {
 			if schema := oai.Components.Schemas.Get(requestBodyContent.Schema.Ref); schema != nil {
 				newSchema := schema.Value.Clone()
@@ -360,14 +366,14 @@ func (oai *OpenApiV3) removeOperationDuplicatedProperties(operation Operation) {
 			}
 		}
 
-		// 检查请求体中的 Value 公共字段。 md5:dd0253ff15259e4b
+				// 检查请求体中的 Value 公共字段。 md5:dd0253ff15259e4b
 		if commonRequest := requestBodyContent.Schema.Value.Properties.Get(dataField); commonRequest != nil {
 			commonRequest.Value.Required = oai.removeItemsFromArray(commonRequest.Value.Required, duplicatedParameterNames)
 			commonRequest.Value.Properties.Removes(duplicatedParameterNames)
 			continue
 		}
 
-		// 检查请求体架构. md5:dab7ff5a79f31000
+						// 检查请求体架构. md5:dab7ff5a79f31000
 		if requestBodyContent.Schema.Value != nil {
 			requestBodyContent.Schema.Value.Required = oai.removeItemsFromArray(requestBodyContent.Schema.Value.Required, duplicatedParameterNames)
 			requestBodyContent.Schema.Value.Properties.Removes(duplicatedParameterNames)

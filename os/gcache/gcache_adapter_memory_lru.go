@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcache
 
@@ -16,7 +17,8 @@ import (
 )
 
 // LRU 缓存对象。
-// 它使用 stdlib 中的 list.List 作为其底层的双链表。 md5:0865da04bb1ff4bb
+// 它使用 stdlib 中的 list.List 作为其底层的双链表。
+// md5:0865da04bb1ff4bb
 type adapterMemoryLru struct {
 	cache   *AdapterMemory // Parent cache object.
 	data    *gmap.Map      // 键映射到列表中的项目。 md5:1783218fcc5a7851
@@ -69,7 +71,8 @@ func (lru *adapterMemoryLru) Pop() interface{} {
 	return nil
 }
 
-// SyncAndClear 使用最近最少使用（LRU）算法，将键从`rawList`同步到`list`和`data`中，并清除不再需要的数据。 md5:1da6cde3bc8d63d6
+// SyncAndClear 使用最近最少使用（LRU）算法，将键从`rawList`同步到`list`和`data`中，并清除不再需要的数据。
+// md5:1da6cde3bc8d63d6
 func (lru *adapterMemoryLru) SyncAndClear(ctx context.Context) {
 	if lru.closed.Val() {
 		gtimer.Exit()
@@ -79,12 +82,13 @@ func (lru *adapterMemoryLru) SyncAndClear(ctx context.Context) {
 	var alreadyExistItem interface{}
 	for {
 		if rawListItem := lru.rawList.PopFront(); rawListItem != nil {
-			// 从列表中删除键。 md5:9044ea33db98a37a
+						// 从列表中删除键。 md5:9044ea33db98a37a
 			if alreadyExistItem = lru.data.Get(rawListItem); alreadyExistItem != nil {
 				lru.list.Remove(alreadyExistItem.(*glist.Element))
 			}
 			// 将键推送到列表的头部
-			// 并将其项目设置到哈希表中，以便快速索引。 md5:c4ec4de48ddb7b0c
+			// 并将其项目设置到哈希表中，以便快速索引。
+			// md5:c4ec4de48ddb7b0c
 			lru.data.Set(rawListItem, lru.list.PushFront(rawListItem))
 		} else {
 			break

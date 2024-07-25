@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包genv提供了对系统环境变量的操作。 md5:9605f9d2a2186f5b
 package genv
@@ -18,7 +19,8 @@ import (
 	"github.com/gogf/gf/v2/internal/utils"
 )
 
-// All返回一个字符串切片的副本，表示环境，形式为"key=value"。 md5:723df5605f199f2b
+// All返回一个字符串切片的副本，表示环境，形式为"key=value"。
+// md5:723df5605f199f2b
 func All() []string {
 	return os.Environ()
 }
@@ -28,7 +30,8 @@ func Map() map[string]string {
 	return MapFromEnv(os.Environ())
 }
 
-// Get 根据给定的`key`创建并返回一个具有环境变量值的Var。如果环境中不存在该变量，则使用给定的`def`作为默认值。 md5:1c5c61ffd2aa5106
+// Get 根据给定的`key`创建并返回一个具有环境变量值的Var。如果环境中不存在该变量，则使用给定的`def`作为默认值。
+// md5:1c5c61ffd2aa5106
 func Get(key string, def ...interface{}) *gvar.Var {
 	v, ok := os.LookupEnv(key)
 	if !ok {
@@ -40,7 +43,8 @@ func Get(key string, def ...interface{}) *gvar.Var {
 	return gvar.New(v)
 }
 
-// Set 设置环境变量的值，该变量由 `key` 指定。如果发生任何错误，它将返回一个错误。 md5:3d9ca695de9bb4ad
+// Set 设置环境变量的值，该变量由 `key` 指定。如果发生任何错误，它将返回一个错误。
+// md5:3d9ca695de9bb4ad
 func Set(key, value string) (err error) {
 	err = os.Setenv(key, value)
 	if err != nil {
@@ -78,10 +82,11 @@ func Remove(key ...string) (err error) {
 
 // GetWithCmd 返回指定的环境变量值 `key`。
 // 如果环境变量不存在，它将从命令行选项中检索并返回值。如果两者都不存在，它将返回默认值 `def`。
-//
+// 
 // 获取规则：
 // 1. 环境变量参数使用大写格式，例如：GF_<包名>_<变量名>；
-// 2. 命令行参数使用小写格式，例如：gf.<包名>.<变量名>； md5:1bba2e845d6ee0d6
+// 2. 命令行参数使用小写格式，例如：gf.<包名>.<变量名>；
+// md5:1bba2e845d6ee0d6
 func GetWithCmd(key string, def ...interface{}) *gvar.Var {
 	envKey := utils.FormatEnvKey(key)
 	if v := os.Getenv(envKey); v != "" {

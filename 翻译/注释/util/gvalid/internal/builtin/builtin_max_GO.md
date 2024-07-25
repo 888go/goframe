@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -27,6 +28,7 @@
 // RuleMax 实现了 `max` 规则：
 // 小于或等于 :max。它支持整数和浮点数。
 //
-// 格式：max:max md5:178b1e5315ab61af
+// 格式：max:max
+// md5:178b1e5315ab61af
 # <翻译结束>
 

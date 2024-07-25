@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -48,6 +49,7 @@
 		//-p, --path       输出二进制文件目录路径，默认为'./bin'
 		//-e, --extra      额外自定义的 "go build" 选项
 		//-m, --mod        类似 "go build" 的 "-mod" 选项，使用 "-m none" 来禁用 Go 模块
-		//-c, --cgo        启用或禁用 Cgo 功能，默认禁用 md5:4d71bb397da31ab5
+		//-c, --cgo        启用或禁用 Cgo 功能，默认禁用
+		// md5:4d71bb397da31ab5
 # <翻译结束>
 

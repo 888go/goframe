@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcfg
 
@@ -25,7 +26,8 @@ import (
 // 参数 `path` 可以是绝对或相对的`目录`路径，
 // 但强烈建议使用绝对`目录`路径。
 //
-// 注意，此参数是一个指向目录的路径，而不是指向文件的路径。 md5:56f162e4bbfc634d
+// 注意，此参数是一个指向目录的路径，而不是指向文件的路径。
+// md5:56f162e4bbfc634d
 func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 	var (
 		isDir    = false
@@ -94,7 +96,8 @@ func (a *AdapterFile) SetPath(directoryPath string) (err error) {
 
 // AddPath 向搜索路径中添加一个绝对或相对的`目录`路径。
 //
-// 请注意，此参数是目录路径，而不是文件路径。 md5:25c79c7444dc4e16
+// 请注意，此参数是目录路径，而不是文件路径。
+// md5:25c79c7444dc4e16
 func (a *AdapterFile) AddPath(directoryPaths ...string) (err error) {
 	for _, directoryPath := range directoryPaths {
 		if err = a.doAddPath(directoryPath); err != nil {
@@ -110,7 +113,8 @@ func (a *AdapterFile) doAddPath(directoryPath string) (err error) {
 		isDir    = false
 		realPath = ""
 	)
-	// 首先检查资源管理器，然后在文件系统中查找路径。 md5:deb5a0d060375b57
+	// 首先检查资源管理器，然后在文件系统中查找路径。
+	// md5:deb5a0d060375b57
 	if file := gres.Get(directoryPath); file != nil {
 		realPath = directoryPath
 		isDir = file.FileInfo().IsDir()
@@ -175,14 +179,15 @@ func (a *AdapterFile) GetPaths() []string {
 
 // doGetFilePath 根据`file`返回绝对配置文件路径。
 // 如果未传递`file`，则返回默认名称的配置文件路径。
-// 如果给定的`file`不存在，它将返回一个空的`path`字符串和一个错误。 md5:4044ef5a7532d997
+// 如果给定的`file`不存在，它将返回一个空的`path`字符串和一个错误。
+// md5:4044ef5a7532d997
 func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 	var (
 		tempPath string
 		resFile  *gres.File
 		fileInfo os.FileInfo
 	)
-	// 在搜索资源管理器。 md5:52083f8252a4c319
+		// 在搜索资源管理器。 md5:52083f8252a4c319
 	if !gres.IsEmpty() {
 		for _, tryFolder := range resourceTryFolders {
 			tempPath = tryFolder + fileName
@@ -212,7 +217,7 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 
 	a.autoCheckAndAddMainPkgPathToSearchPaths()
 
-	// 在本地文件系统中搜索。 md5:a557bf6cadf8eec7
+		// 在本地文件系统中搜索。 md5:a557bf6cadf8eec7
 	if filePath == "" {
 		// Absolute path.
 		if filePath = gfile.RealPath(fileName); filePath != "" && !gfile.IsDir(filePath) {
@@ -239,7 +244,8 @@ func (a *AdapterFile) doGetFilePath(fileName string) (filePath string) {
 
 // GetFilePath 通过 `file` 参数返回给定文件名的绝对配置文件路径。
 // 如果没有传递 `file`，则返回默认名称的配置文件路径。
-// 如果给定的 `file` 不存在，它将返回一个空的 `path` 字符串和一个错误。 md5:b116b9d063e12bc9
+// 如果给定的 `file` 不存在，它将返回一个空的 `path` 字符串和一个错误。
+// md5:b116b9d063e12bc9
 func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err error) {
 	var (
 		fileExtName  string
@@ -252,7 +258,8 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 	fileExtName = gfile.ExtName(usedFileName)
 	if filePath = a.doGetFilePath(usedFileName); (filePath == "" || gfile.IsDir(filePath)) && !gstr.InArray(supportedFileTypes, fileExtName) {
 		// 如果它没有使用默认配置，或者其配置文件不可用，
-		// 它将根据名称和所有支持的文件类型搜索可能的配置文件。 md5:421551127aec1652
+		// 它将根据名称和所有支持的文件类型搜索可能的配置文件。
+		// md5:421551127aec1652
 		for _, fileType := range supportedFileTypes {
 			tempFileName = fmt.Sprintf(`%s.%s`, usedFileName, fileType)
 			if filePath = a.doGetFilePath(tempFileName); filePath != "" {
@@ -260,7 +267,7 @@ func (a *AdapterFile) GetFilePath(fileName ...string) (filePath string, err erro
 			}
 		}
 	}
-	// 如果无法找到`file`的filePath，它会格式化并返回一个详细的错误。 md5:4aed299684f45971
+		// 如果无法找到`file`的filePath，它会格式化并返回一个详细的错误。 md5:4aed299684f45971
 	if filePath == "" {
 		var buffer = bytes.NewBuffer(nil)
 		if a.searchPaths.Len() > 0 {

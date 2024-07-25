@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gsvc提供了服务注册和发现的定义。 md5:d3c854663f57d96a
 package gsvc
@@ -23,71 +24,81 @@ type Registry interface {
 // 服务注册器的Registrar接口。 md5:524b709abe0ef38a
 type Registrar interface {
 	// Register将`service`注册到Registry中。
-	// 请注意，如果它使用自定义的服务修改了输入服务，它将返回一个新的Service。 md5:f5dad972d06c6ae4
+	// 请注意，如果它使用自定义的服务修改了输入服务，它将返回一个新的Service。
+	// md5:f5dad972d06c6ae4
 	Register(ctx context.Context, service Service) (registered Service, err error)
 
-	// 从注册表中注销离线服务，并移除 `service`。 md5:dff133d3dba9309d
+		// 从注册表中注销离线服务，并移除 `service`。 md5:dff133d3dba9309d
 	Deregister(ctx context.Context, service Service) error
 }
 
 // 服务发现的接口。 md5:c536eba406d0d0be
 type Discovery interface {
-	// Search 搜索并返回符合指定条件的服务。 md5:62e529e326dae7b7
+		// Search 搜索并返回符合指定条件的服务。 md5:62e529e326dae7b7
 	Search(ctx context.Context, in SearchInput) (result []Service, err error)
 
 	// Watch 监视指定条件的变化。
-	// `key` 是服务键的前缀。 md5:5f440541abba5ceb
+	// `key` 是服务键的前缀。
+	// md5:5f440541abba5ceb
 	Watch(ctx context.Context, key string) (watcher Watcher, err error)
 }
 
 // 服务的观察者接口。 md5:fbe479c3a1bcdea0
 type Watcher interface {
-	// Proceed以阻塞方式继续监控。如果有任何变化，它将返回所有由`key`监控的完成服务。 md5:9d737841a3f4691f
+	// Proceed以阻塞方式继续监控。如果有任何变化，它将返回所有由`key`监控的完成服务。
+	// md5:9d737841a3f4691f
 	Proceed() (services []Service, err error)
 
-	// Close 关闭监听器。 md5:c20cd2708e199b34
+		// Close 关闭监听器。 md5:c20cd2708e199b34
 	Close() error
 }
 
 // 服务接口，用于服务定义。 md5:e9dc084a14b9ab3c
 type Service interface {
 	// GetName 返回服务的名称。
-	// 服务名称是必需的，并且在所有服务中应具有唯一性。 md5:0eed35abab84da2e
+	// 服务名称是必需的，并且在所有服务中应具有唯一性。
+	// md5:0eed35abab84da2e
 	GetName() string
 
-	// GetVersion 返回服务的版本。建议使用类似于 v1.0.0、v2.0.1、v2.1.0-rc 的 GNU 版本命名法。一个服务可以同时部署多个版本。如果服务中未设置版本，那么默认版本为 "latest"。 md5:17ba2c1584ea1bed
+	// GetVersion 返回服务的版本。建议使用类似于 v1.0.0、v2.0.1、v2.1.0-rc 的 GNU 版本命名法。一个服务可以同时部署多个版本。如果服务中未设置版本，那么默认版本为 "latest"。
+	// md5:17ba2c1584ea1bed
 	GetVersion() string
 
-	// GetKey 格式化并返回服务的唯一键字符串。这个结果键通常用于键值注册服务器。 md5:b5f03cb2d5e4ec9b
+	// GetKey 格式化并返回服务的唯一键字符串。这个结果键通常用于键值注册服务器。
+	// md5:b5f03cb2d5e4ec9b
 	GetKey() string
 
 	// GetValue 格式化并返回服务的值。
-	// 返回的结果值通常用于键值注册服务器。 md5:4272ce46aece6a65
+	// 返回的结果值通常用于键值注册服务器。
+	// md5:4272ce46aece6a65
 	GetValue() string
 
 	// GetPrefix 格式化并返回键的前缀字符串。
 	// 该前缀字符串常用于键值注册服务器中进行服务搜索。
 	//
 	// 以 etcd 服务器为例，前缀字符串的使用方式如下：
-	// `etcdctl get /services/prod/hello.svc --prefix` md5:85bdda3bcce1a496
+	// `etcdctl get /services/prod/hello.svc --prefix`
+	// md5:85bdda3bcce1a496
 	GetPrefix() string
 
-	// GetMetadata 返回服务的元数据映射（Metadata）。元数据是一个键值对映射，用于指定服务的额外属性。 md5:eb70e1f52cd809f7
+	// GetMetadata 返回服务的元数据映射（Metadata）。元数据是一个键值对映射，用于指定服务的额外属性。
+	// md5:eb70e1f52cd809f7
 	GetMetadata() Metadata
 
-	// GetEndpoints 返回服务的 Endpoints。Endpoints 包含服务的多个主机/端口信息。 md5:7c1a630ab5b68b23
+	// GetEndpoints 返回服务的 Endpoints。Endpoints 包含服务的多个主机/端口信息。
+	// md5:7c1a630ab5b68b23
 	GetEndpoints() Endpoints
 }
 
 // 服务的端点接口。 md5:949bbba900f0fdec
 type Endpoint interface {
-	// Host 返回服务的 IPv4/IPv6 地址。 md5:c70938f835a0f6e4
+		// Host 返回服务的 IPv4/IPv6 地址。 md5:c70938f835a0f6e4
 	Host() string
 
-	// Port 返回服务的端口。 md5:1650bc955f20ce4c
+		// Port 返回服务的端口。 md5:1650bc955f20ce4c
 	Port() int
 
-	// String 将Endpoint格式化并作为字符串返回。 md5:03761a672c1719e3
+		// String 将Endpoint格式化并作为字符串返回。 md5:03761a672c1719e3
 	String() string
 }
 
@@ -136,7 +147,8 @@ func SetRegistry(registry Registry) {
 	defaultRegistry = registry
 }
 
-// GetRegistry 返回之前设置的默认Registry。如果没有设置Registry，它将返回nil。 md5:efe24f47351d5419
+// GetRegistry 返回之前设置的默认Registry。如果没有设置Registry，它将返回nil。
+// md5:efe24f47351d5419
 func GetRegistry() Registry {
 	return defaultRegistry
 }

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient
 
@@ -37,9 +38,10 @@ import (
 //	req = UseCreateReq{}
 //	res *UseCreateRes
 //
-// 使用 DoRequestObj 函数，传入 ctx、req 和 res 指针，执行请求并获取可能的错误：
+// 使用 DoRequestObj 函数，传入 ctx、req 和 res 指针，执行请求并获取可能的错误： 
 //
-//	err := DoRequestObj(ctx, req, &res) md5:a9b1690353dd26b2
+//	err := DoRequestObj(ctx, req, &res)
+// md5:a9b1690353dd26b2
 func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 	var (
 		method = gmeta.Get(req, gtag.Method).String()
@@ -84,7 +86,8 @@ func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 // handlePathForObjRequest 将请求对象中的参数替换到`path`中的占位符。
 // 例如：
 // /order/{id}  -> /order/1
-// /user/{name} -> /user/john md5:96a0939362ee6d87
+// /user/{name} -> /user/john
+// md5:96a0939362ee6d87
 func (c *Client) handlePathForObjRequest(path string, req interface{}) string {
 	if gstr.Contains(path, "{") {
 		requestParamsMap := gconv.Map(req)

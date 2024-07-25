@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package response
 
@@ -80,7 +81,7 @@ func (w *BufferWriter) Flush() {
 	if w.Status != 0 && !w.Writer.IsHeaderWrote() {
 		w.Writer.WriteHeader(w.Status)
 	}
-	// 默认状态文本输出。 md5:1cfe5c562c5550e1
+		// 默认状态文本输出。 md5:1cfe5c562c5550e1
 	if w.Status != http.StatusOK && w.buffer.Len() == 0 {
 		w.buffer.WriteString(http.StatusText(w.Status))
 	}

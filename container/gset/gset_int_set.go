@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gset
 
@@ -20,7 +21,8 @@ type IntSet struct {
 }
 
 // NewIntSet 创建并返回一个新集合，其中包含不重复的元素。
-// 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。 md5:5ede16db776ad391
+// 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。
+// md5:5ede16db776ad391
 func NewIntSet(safe ...bool) *IntSet {
 	return &IntSet{
 		mu:   rwmutex.Create(safe...),
@@ -40,7 +42,8 @@ func NewIntSetFrom(items []int, safe ...bool) *IntSet {
 	}
 }
 
-// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。 md5:b896360b1cf6fc88
+// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:b896360b1cf6fc88
 func (set *IntSet) Iterator(f func(v int) bool) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -67,7 +70,8 @@ func (set *IntSet) Add(item ...int) {
 // 如果项不存在于集合中，则将其添加到集合并返回true，
 // 否则不做任何操作并返回false。
 //
-// 注意，如果 `item` 为 nil，它将不做任何操作并返回false。 md5:3d920a290d301fb9
+// 注意，如果 `item` 为 nil，它将不做任何操作并返回false。
+// md5:3d920a290d301fb9
 func (set *IntSet) AddIfNotExist(item int) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -86,7 +90,8 @@ func (set *IntSet) AddIfNotExist(item int) bool {
 // AddIfNotExistFunc 检查项是否存在于集合中，
 // 如果项不存在于集合中，且函数 `f` 返回 true，则将项添加到集合中并返回 true，否则什么都不做并返回 false。
 //
-// 注意，函数 `f` 在写入锁未获取的情况下执行。 md5:7563a3cf864d8a2b
+// 注意，函数 `f` 在写入锁未获取的情况下执行。
+// md5:7563a3cf864d8a2b
 func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 	if !set.Contains(item) {
 		if f() {
@@ -108,7 +113,8 @@ func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 // 如果该项不存在于集合中并且函数 `f` 返回 true，那么它会将该项添加到集合中并返回 true；
 // 否则，它不做任何操作并返回 false。
 //
-// 注意，函数 `f` 的执行不在写入锁的保护下进行。 md5:48d67b0145855ed9
+// 注意，函数 `f` 的执行不在写入锁的保护下进行。
+// md5:48d67b0145855ed9
 func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -258,7 +264,8 @@ func (set *IntSet) IsSubsetOf(other *IntSet) bool {
 }
 
 // Union 返回一个新集合，它是`set`和`other`的并集。
-// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。 md5:420e241c3c12e8e6
+// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
+// md5:420e241c3c12e8e6
 func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -284,7 +291,8 @@ func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 }
 
 // Diff 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
-// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。 md5:6779e6e007651b53
+// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
+// md5:6779e6e007651b53
 func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -305,7 +313,8 @@ func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 }
 
 // Intersect 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
-// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。 md5:327d3fcc12f06583
+// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
+// md5:327d3fcc12f06583
 func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -329,7 +338,8 @@ func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 // Complement 返回一个新的集合，该集合是`set`在`full`中的补集。
 // 换句话说，`newSet`中的所有元素都在`full`中但不在`set`中。
 //
-// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。 md5:7e76900d6f20af06
+// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。
+// md5:7e76900d6f20af06
 func (set *IntSet) Complement(full *IntSet) (newSet *IntSet) {
 	newSet = NewIntSet()
 	set.mu.RLock()
@@ -366,7 +376,8 @@ func (set *IntSet) Merge(others ...*IntSet) *IntSet {
 
 // Sum 计算项目总和。
 // 注意：项目应该转换为整数类型，
-// 否则你可能会得到意想不到的结果。 md5:979b37fbf86a5233
+// 否则你可能会得到意想不到的结果。
+// md5:979b37fbf86a5233
 func (set *IntSet) Sum() (sum int) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -388,7 +399,8 @@ func (set *IntSet) Pop() int {
 }
 
 // Pops 从集合中随机弹出 `size` 个元素。
-// 如果 size == -1，它将返回所有元素。 md5:c687f88e0a2df8f2
+// 如果 size == -1，它将返回所有元素。
+// md5:c687f88e0a2df8f2
 func (set *IntSet) Pops(size int) []int {
 	set.mu.Lock()
 	defer set.mu.Unlock()

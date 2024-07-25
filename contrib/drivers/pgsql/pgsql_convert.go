@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package pgsql
 
@@ -28,14 +29,14 @@ func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, f
 	typeName = strings.ToLower(typeName)
 	switch typeName {
 	case
-		// 对于pgsql，int2等于smallint。 md5:5d75ff3e1cf74f36
+				// 对于pgsql，int2等于smallint。 md5:5d75ff3e1cf74f36
 		"int2",
-		// 对于 PostgreSQL，int4 表示整数. md5:0e9fb5268eeec552
+						// 对于 PostgreSQL，int4 表示整数. md5:0e9fb5268eeec552
 		"int4":
 		return gdb.LocalTypeInt, nil
 
 	case
-		// 对于 PostgreSQL，int8 等同于 bigint. md5:4717ef91027dfe75
+			// 对于 PostgreSQL，int8 等同于 bigint. md5:4717ef91027dfe75.
 		"int8":
 		return gdb.LocalTypeInt64, nil
 
@@ -55,16 +56,17 @@ func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, f
 
 // ConvertValueForLocal 根据从数据库中获取的字段类型名称，将值转换为Go语言中的本地类型。
 // 参数 `fieldType` 为小写格式，例如：
-// `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。 md5:7e1ede2b68158e31
+// `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。
+// md5:7e1ede2b68158e31
 func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	typeName, _ := gregex.ReplaceString(`\(.+\)`, "", fieldType)
 	typeName = strings.ToLower(typeName)
 	switch typeName {
-	// 对于pgsql，int2等于smallint，int4等于integer。 md5:9a03a0c9b626da62
+		// 对于pgsql，int2等于smallint，int4等于integer。 md5:9a03a0c9b626da62
 	case "int2", "int4":
 		return gconv.Int(gconv.String(fieldValue)), nil
 
-	// 对于 PostgreSQL，int8 等同于 bigint. md5:4717ef91027dfe75.
+		// 对于 PostgreSQL，int8 等同于 bigint. md5:4717ef91027dfe75..
 	case "int8":
 		return gconv.Int64(gconv.String(fieldValue)), nil
 

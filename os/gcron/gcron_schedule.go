@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcron
 
@@ -31,10 +32,10 @@ type cronSchedule struct {
 	weekMap         map[int]struct{} // Job 可以在这些星期数中运行。 md5:e9d2ed887e372b17
 	monthMap        map[int]struct{} // Job可以在这些月份运行。 md5:e58af4ea6da7e868
 
-	// 这个字段存储满足计划的最新时间戳。 md5:df6f9fc73fbf03d6
+		// 这个字段存储满足计划的最新时间戳。 md5:df6f9fc73fbf03d6
 	lastMeetTimestamp *gtype.Int64
 
-	// 最后一个时间戳编号，用于在某些延迟情况下固定时间戳。 md5:6839316ecd982e4b
+		// 最后一个时间戳编号，用于在某些延迟情况下固定时间戳。 md5:6839316ecd982e4b
 	lastCheckTimestamp *gtype.Int64
 }
 
@@ -50,12 +51,12 @@ const (
 )
 
 const (
-	// 正则表达式表示的cron模式，包含6个时间单位部分。 md5:75e472ef39ca5aab
+		// 正则表达式表示的cron模式，包含6个时间单位部分。 md5:75e472ef39ca5aab
 	regexForCron = `^([\-/\d\*,#]+)\s+([\-/\d\*,]+)\s+([\-/\d\*,]+)\s+([\-/\d\*\?,]+)\s+([\-/\d\*,A-Za-z]+)\s+([\-/\d\*\?,A-Za-z]+)$`
 )
 
 var (
-	// 预定义的模式映射。 md5:dc23a289b509e3b6
+		// 预定义的模式映射。 md5:dc23a289b509e3b6
 	predefinedPatternMap = map[string]string{
 		"@yearly":   "# 0 0 1 1 *",
 		"@annually": "# 0 0 1 1 *",
@@ -65,7 +66,7 @@ var (
 		"@midnight": "# 0 0 * * *",
 		"@hourly":   "# 0 * * * *",
 	}
-	// 短月名到其对应的数字。 md5:44f6938b62580af0
+		// 短月名到其对应的数字。 md5:44f6938b62580af0
 	monthShortNameMap = map[string]int{
 		"jan": 1,
 		"feb": 2,
@@ -80,7 +81,7 @@ var (
 		"nov": 11,
 		"dec": 12,
 	}
-	// 完整的月份名称转换为其对应的数字。 md5:e9b9f99b1f2191d0
+		// 完整的月份名称转换为其对应的数字。 md5:e9b9f99b1f2191d0
 	monthFullNameMap = map[string]int{
 		"january":   1,
 		"february":  2,
@@ -95,7 +96,7 @@ var (
 		"november":  11,
 		"december":  12,
 	}
-	// 短星期名转换为对应的数字。 md5:c8dde2776e296b0a
+		// 短星期名转换为对应的数字。 md5:c8dde2776e296b0a
 	weekShortNameMap = map[string]int{
 		"sun": 0,
 		"mon": 1,
@@ -105,7 +106,7 @@ var (
 		"fri": 5,
 		"sat": 6,
 	}
-	// 完整的星期名称到其数字。 md5:05d1a360fc5b25ee
+		// 完整的星期名称到其数字。 md5:05d1a360fc5b25ee
 	weekFullNameMap = map[string]int{
 		"sunday":    0,
 		"monday":    1,
@@ -120,7 +121,7 @@ var (
 // newSchedule根据给定的cron模式创建并返回一个调度对象。 md5:14dff188c64f1e56
 func newSchedule(pattern string) (*cronSchedule, error) {
 	var currentTimestamp = time.Now().Unix()
-	// 检查给定的`pattern`是否在预定义的模式中。 md5:31badfbc0ed60d2b
+		// 检查给定的`pattern`是否在预定义的模式中。 md5:31badfbc0ed60d2b
 	if match, _ := gregex.MatchString(`(@\w+)\s*(\w*)\s*`, pattern); len(match) > 0 {
 		key := strings.ToLower(match[1])
 		if v, ok := predefinedPatternMap[key]; ok {
@@ -141,7 +142,7 @@ func newSchedule(pattern string) (*cronSchedule, error) {
 			return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
 		}
 	}
-	// 处理给定的`pattern`作为常见的6部分模式。 md5:224ce220d8873fe0
+		// 处理给定的`pattern`作为常见的6部分模式。 md5:224ce220d8873fe0
 	match, _ := gregex.MatchString(regexForCron, pattern)
 	if len(match) != 7 {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
@@ -206,7 +207,7 @@ func parsePatternItem(
 		}
 		return itemMap, nil
 	}
-	// 这个注释表示一个范围的分组示例。"1-10/2" 表示从1开始到10，每2个数一组；"11-30/3" 表示从11开始到30，每3个数一组。 md5:7074496c7eb487df
+		// 这个注释表示一个范围的分组示例。"1-10/2" 表示从1开始到10，每2个数一组；"11-30/3" 表示从11开始到30，每3个数一组。 md5:7074496c7eb487df
 	var number int
 	for _, itemElem := range strings.Split(item, ",") {
 		var (
@@ -266,7 +267,8 @@ func parseWeekAndMonthNameToInt(value string, itemType patternItemType) (int, er
 		}
 	} else {
 		// 检查是否包含字母，
-		// 根据预定义的映射将值转换为数字。 md5:d6cf713cc1230de9
+		// 根据预定义的映射将值转换为数字。
+		// md5:d6cf713cc1230de9
 		switch itemType {
 		case patternItemTypeWeek:
 			if number, ok := weekShortNameMap[strings.ToLower(value)]; ok {

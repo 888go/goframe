@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package ghttp
 
@@ -20,7 +21,8 @@ import (
 )
 
 // Response 是HTTP响应管理器。
-// 注意它实现了带有缓冲功能的http.ResponseWriter接口。 md5:897398e62eaf56fc
+// 注意它实现了带有缓冲功能的http.ResponseWriter接口。
+// md5:897398e62eaf56fc
 type Response struct {
 	*response.BufferWriter          // 基础的 ResponseWriter。 md5:edecebd8a0d4cf02
 	Server                 *Server  // Parent server.
@@ -94,7 +96,8 @@ func (r *Response) ServeFileDownload(path string, name ...string) {
 }
 
 // RedirectTo 将客户端重定向到另一个位置。
-// 可选参数 `code` 指定重定向的HTTP状态码，通常可以是301或302。默认为302。 md5:ba008c02151efa61
+// 可选参数 `code` 指定重定向的HTTP状态码，通常可以是301或302。默认为302。
+// md5:ba008c02151efa61
 func (r *Response) RedirectTo(location string, code ...int) {
 	r.Header().Set("Location", location)
 	if len(code) > 0 {
@@ -107,14 +110,16 @@ func (r *Response) RedirectTo(location string, code ...int) {
 
 // RedirectBack 将客户端重定向回引荐来源。
 // 可选参数 `code` 指定了用于重定向的HTTP状态码，
-// 常见的可选值有301或302，默认情况下使用302。 md5:b52d05fd1d742c11
+// 常见的可选值有301或302，默认情况下使用302。
+// md5:b52d05fd1d742c11
 func (r *Response) RedirectBack(code ...int) {
 	r.RedirectTo(r.Request.GetReferer(), code...)
 }
 
 // ServeContent 使用提供的 ReadSeeker 中的内容回复请求。ServeContent 相较于 io.Copy 的主要优点是它能正确处理范围请求，设置 MIME 类型，并处理 If-Match, If-Unmodified-Since, If-None-Match, If-Modified-Since 和 If-Range 请求。
 //
-// 参考 http.ServeContent md5:935db9add8e4232c
+// 参考 http.ServeContent
+// md5:935db9add8e4232c
 func (r *Response) ServeContent(name string, modTime time.Time, content io.ReadSeeker) {
 	http.ServeContent(r.RawWriter(), r.Request.Request, name, modTime, content)
 }

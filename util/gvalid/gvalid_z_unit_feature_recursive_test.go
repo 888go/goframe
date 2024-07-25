@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid_test
 
@@ -274,7 +275,7 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 		t.Assert(err, `Student Name is required`)
 	})
 
-	//github.com/gogf/gf/issues/1864. md5:9de8e8d82eb09662
+			//github.com/gogf/gf/issues/1864. md5:9de8e8d82eb09662
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {
 			Name string `v:"required"`
@@ -344,7 +345,7 @@ func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
 
 // 该问题是在gf框架中的一个GitHub议题，编号为1983。 md5:e3d4329eb46f9f8f
 func Test_Issue1983(t *testing.T) {
-	// 当Teacher中的属性Student是一个初始化的结构体时，会默认赋值，因此会报错。 md5:f02f5f9d926be5f1
+		// 当Teacher中的属性Student是一个初始化的结构体时，会默认赋值，因此会报错。 md5:f02f5f9d926be5f1
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {
 			Name string `v:"required"`
@@ -362,7 +363,7 @@ func Test_Issue1983(t *testing.T) {
 		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
-	// 与 upper 相同，它不受关联值的影响。 md5:d46133fe4ba08bc0
+		// 与 upper 相同，它不受关联值的影响。 md5:d46133fe4ba08bc0
 	gtest.C(t, func(t *gtest.T) {
 		type Student struct {
 			Name string `v:"required"`
@@ -400,7 +401,7 @@ func Test_Issue1983(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
+//github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
 func Test_Issue1921(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type SearchOption struct {

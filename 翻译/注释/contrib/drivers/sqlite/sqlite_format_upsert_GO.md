@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,7 +24,8 @@
 
 # <翻译开始>
 // FormatUpsert 返回用于SQLite的UPSERT类型的SQL子句。
-// 例如：ON CONFLICT (id) DO UPDATE SET ... md5:49f955d5c160f808
+// 例如：ON CONFLICT (id) DO UPDATE SET ...
+// md5:49f955d5c160f808
 # <翻译结束>
 
 

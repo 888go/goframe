@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gstructs
 
@@ -96,7 +97,8 @@ func (f *Field) TagIn() string {
 }
 
 // TagPriorityName 检查并返回与`gtag.StructTagPriority`中的名称项匹配的标签名。
-// 如果没有按照`gtag.StructTagPriority`设置标签名，它将返回属性字段的Name。 md5:5323769f60ec004e
+// 如果没有按照`gtag.StructTagPriority`设置标签名，它将返回属性字段的Name。
+// md5:5323769f60ec004e
 func (f *Field) TagPriorityName() string {
 	var name = f.Name()
 	for _, tagName := range gtag.StructTagPriority {

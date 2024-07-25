@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -21,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 # <翻译结束>
 
 
@@ -52,7 +53,8 @@
 	// 获取更新操作的结果与错误信息。
 	// 断言：期望错误为nil。
 	// 计算并获取更新影响的行数，忽略此操作可能产生的错误。
-	// 断言：期望更新影响的行数为2。 md5:cfae918cd0afb1ea
+	// 断言：期望更新影响的行数为2。
+	// md5:cfae918cd0afb1ea
 # <翻译结束>
 
 
@@ -65,7 +67,8 @@
 # <翻译开始>
 	// 通过$db$查询$table$表中id为10的nickname字段值，赋值给v1，预期可能产生错误err
 	// t.AssertNil(err)：断言错误err为nil，即无错误发生
-	// t.Assert(v1.String(), "T100")：断言v1转换为字符串后的值等于"T100" md5:a2bbef8eea48f43a
+	// t.Assert(v1.String(), "T100")：断言v1转换为字符串后的值等于"T100"
+	// md5:a2bbef8eea48f43a
 # <翻译结束>
 
 
@@ -80,7 +83,8 @@
 	// 使用$db$操作数据库，根据模型$table$获取nickname字段，查询id为8的记录，并获取其值。
 	// 验证错误是否为nil。
 	// 验证获取到的值（v2）是否等于"name_8"。
-	// } md5:0005058975deac4b
+	// }
+	// md5:0005058975deac4b
 # <翻译结束>
 
 
@@ -226,7 +230,8 @@
 
 # <翻译开始>
 	// table := createInitTable() 	// 创建初始化表
-	// defer dropTable(table)    	// 延迟执行，删除表 md5:b569b2401cb8568d
+	// defer dropTable(table)    	// 延迟执行，删除表
+	// md5:b569b2401cb8568d
 # <翻译结束>
 
 
@@ -249,7 +254,8 @@
 	// 	t.AssertNil(err)
 	// 	影响行数, _ := result.RowsAffected()
 	// 	t.Assert(影响行数, 2)
-	// }) md5:63b42e136740eea6
+	// })
+	// md5:63b42e136740eea6
 # <翻译结束>
 
 
@@ -293,7 +299,8 @@
 	// "passport":    fmt.Sprintf("user_%d", i), 	// 通行证（格式为"user_编号")
 	// "password":    fmt.Sprintf("pass_%d", i), 	// 密码（格式为"pass_编号")
 	// "nickname":    fmt.Sprintf("name_%d", i), 	// 昵称（格式为"name_编号")
-	// "create_time": gtime.NewFromStr(CreateTime).String(), 	// 创建时间（将CreateTime字符串转换为gtime格式并转为字符串） md5:ddd0764dc67c4e9f
+	// "create_time": gtime.NewFromStr(CreateTime).String(), 	// 创建时间（将CreateTime字符串转换为gtime格式并转为字符串）
+	// md5:ddd0764dc67c4e9f
 # <翻译结束>
 
 
@@ -302,7 +309,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
+//github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
 # <翻译结束>
 
 
@@ -349,7 +356,8 @@
 	//     t.AssertNil(err) 	// 断言 err 为空，即查询无错误
 	//     t.Assert(v.Int(), 1) 	// 断言查询结果的整数值为 1
 	//   }
-	// }) md5:6089a1ebb4983ace
+	// })
+	// md5:6089a1ebb4983ace
 # <翻译结束>
 
 
@@ -373,7 +381,8 @@
 		// TODO
 		// t.Assert(userEntity.CreatedAt.String(), "2020-11-22 11:23:45") 		// 断言用户实体的创建时间字符串为 "2020-11-22 11:23:45"
 		// t.Assert(userEntity.UpdatedAt.String(), "2020-11-22 12:23:45") 		// 断言用户实体的更新时间字符串为 "2020-11-22 12:23:45"
-		// t.Assert(gtime.NewFromTime(userEntity.DeletedAt).String(), "2020-11-22 13:23:45") 		// 断言用户实体的删除时间（转换为gtime类型）字符串为 "2020-11-22 13:23:45" md5:8ad9ae5f1d9029d0
+		// t.Assert(gtime.NewFromTime(userEntity.DeletedAt).String(), "2020-11-22 13:23:45") 		// 断言用户实体的删除时间（转换为gtime类型）字符串为 "2020-11-22 13:23:45"
+		// md5:8ad9ae5f1d9029d0
 # <翻译结束>
 
 

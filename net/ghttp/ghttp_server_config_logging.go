@@ -2,14 +2,16 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
 import "github.com/gogf/gf/v2/os/glog"
 
 // SetLogPath 设置服务器的日志路径。
-// 只有当设置了日志路径时，才会将内容写入文件。 md5:a5143c3c45534bef
+// 只有当设置了日志路径时，才会将内容写入文件。
+// md5:a5143c3c45534bef
 func (s *Server) SetLogPath(path string) error {
 	if len(path) == 0 {
 		return nil
@@ -26,7 +28,8 @@ func (s *Server) SetLogPath(path string) error {
 }
 
 // SetLogger 用于设置负责日志记录的logger。
-// 注意，由于可能存在并发安全问题，因此无法在运行时进行设置。 md5:560d266f79fb0915
+// 注意，由于可能存在并发安全问题，因此无法在运行时进行设置。
+// md5:560d266f79fb0915
 func (s *Server) SetLogger(logger *glog.Logger) {
 	s.config.Logger = logger
 }

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gres
 
@@ -40,10 +41,11 @@ type Option struct {
 }
 
 // Pack 将由 `srcPaths` 指定的路径打包成字节。不必要的参数 `keyPrefix` 表示每个文件打包到结果字节中的前缀。
-//
+// 
 // 注意，参数 `srcPaths` 支持用逗号分隔多个路径。
-//
-// 警告：请使用 PackWithOption 替代此方法。 md5:bba941587b4a7962
+// 
+// 警告：请使用 PackWithOption 替代此方法。
+// md5:bba941587b4a7962
 func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 	option := Option{}
 	if len(keyPrefix) > 0 && keyPrefix[0] != "" {
@@ -53,15 +55,16 @@ func Pack(srcPaths string, keyPrefix ...string) ([]byte, error) {
 }
 
 // PackWithOption 将由 `srcPaths` 指定的路径打包成字节。
-//
-// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。 md5:15ee3362e7cd91a0
+// 
+// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。
+// md5:15ee3362e7cd91a0
 func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 	var buffer = bytes.NewBuffer(nil)
 	err := zipPathWriter(srcPaths, buffer, option)
 	if err != nil {
 		return nil, err
 	}
-	// 使用Gzip压缩数据字节以减小大小。 md5:d15c5898ab8d9408
+		// 使用Gzip压缩数据字节以减小大小。 md5:d15c5898ab8d9408
 	return gcompress.Gzip(buffer.Bytes(), 9)
 }
 
@@ -70,7 +73,8 @@ func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 //
 // 注意，参数`srcPaths`支持使用','连接的多个路径。
 //
-// 已弃用：请改用PackToFileWithOption。 md5:222d6d9ef38edd09
+// 已弃用：请改用PackToFileWithOption。
+// md5:222d6d9ef38edd09
 func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 	data, err := Pack(srcPaths, keyPrefix...)
 	if err != nil {
@@ -80,8 +84,9 @@ func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 }
 
 // PackToFileWithOption 将由 `srcPaths` 指定的路径打包到目标文件 `dstPath` 中。
-//
-// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。 md5:5daf8e107f124634
+// 
+// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。
+// md5:5daf8e107f124634
 func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	data, err := PackWithOption(srcPaths, option)
 	if err != nil {
@@ -96,7 +101,8 @@ func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 //
 // 注意，`srcPaths` 参数支持用逗号分隔多个路径。
 //
-// 警告：请改用 PackToGoFileWithOption。 md5:99701ca10a176f76
+// 警告：请改用 PackToGoFileWithOption。
+// md5:99701ca10a176f76
 func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) error {
 	data, err := Pack(srcPath, keyPrefix...)
 	if err != nil {
@@ -111,7 +117,8 @@ func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) erro
 // PackToGoFileWithOption 将由 `srcPaths` 指定的路径打包到目标Go文件 `goFilePath` 中，
 // 使用给定的包名 `pkgName`。
 //
-// 注意，参数 `srcPaths` 支持使用逗号`,`连接多个路径。 md5:0e7ba248d1ba0543
+// 注意，参数 `srcPaths` 支持使用逗号`,`连接多个路径。
+// md5:0e7ba248d1ba0543
 func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) error {
 	data, err := PackWithOption(srcPath, option)
 	if err != nil {
@@ -140,13 +147,14 @@ func UnpackContent(content string) ([]*File, error) {
 	)
 	if isHexStr(content) {
 		// 这里是为了保持与旧版本使用十六进制字符串打包字符串的兼容性。
-		// TODO：未来移除这个支持。 md5:5253278930daad11
+		// TODO：未来移除这个支持。
+		// md5:5253278930daad11
 		data, err = gcompress.UnGzip(hexStrToBytes(content))
 		if err != nil {
 			return nil, err
 		}
 	} else if isBase64(content) {
-		// 使用base64的新版本打包字符串。 md5:c884a25b1e4334ae
+				// 使用base64的新版本打包字符串。 md5:c884a25b1e4334ae
 		b, err := gbase64.DecodeString(content)
 		if err != nil {
 			return nil, err
@@ -174,7 +182,8 @@ func UnpackContent(content string) ([]*File, error) {
 }
 
 // isBase64 检查并返回给定内容 `s` 是否为 Base64 编码的字符串。
-// 如果 `s` 是 Base64 字符串，它将返回 true，否则返回 false。 md5:314047c834f3cf6c
+// 如果 `s` 是 Base64 字符串，它将返回 true，否则返回 false。
+// md5:314047c834f3cf6c
 func isBase64(s string) bool {
 	var r bool
 	for i := 0; i < len(s); i++ {
@@ -190,7 +199,8 @@ func isBase64(s string) bool {
 	return true
 }
 
-// isHexStr 检查并返回给定内容 `s` 是否为十六进制字符串。如果 `s` 是十六进制字符串，它将返回 true，否则返回 false。 md5:ca395ed524f01122
+// isHexStr 检查并返回给定内容 `s` 是否为十六进制字符串。如果 `s` 是十六进制字符串，它将返回 true，否则返回 false。
+// md5:ca395ed524f01122
 func isHexStr(s string) bool {
 	var r bool
 	for i := 0; i < len(s); i++ {

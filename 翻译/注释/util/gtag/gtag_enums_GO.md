@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -32,7 +33,8 @@
 
 # <翻译开始>
 // SetGlobalEnums 将全局枚举设置到包中。
-// 注意，此操作不具备并发安全性。 md5:1967d957ac1f393c
+// 注意，此操作不具备并发安全性。
+// md5:1967d957ac1f393c
 # <翻译结束>
 
 
@@ -52,6 +54,7 @@
 
 # <翻译开始>
 // GetEnumsByType 根据类型名称检索并返回存储的枚举json。
-// 类型名称格式如：github.com/gogf/gf/v2/encoding/gjson.ContentType md5:51961ee0c0c68589
+// 类型名称格式如：github.com/gogf/gf/v2/encoding/gjson.ContentType
+// md5:51961ee0c0c68589
 # <翻译结束>
 

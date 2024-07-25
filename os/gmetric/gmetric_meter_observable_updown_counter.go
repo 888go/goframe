@@ -1,7 +1,8 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 
 package gmetric
 
@@ -14,9 +15,9 @@ type localObservableUpDownCounter struct {
 }
 
 var (
-	// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
+		// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
 	_ MetricInitializer = (*localObservableUpDownCounter)(nil)
-	// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
+		// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
 	_ PerformerExporter = (*localObservableUpDownCounter)(nil)
 )
 
@@ -42,7 +43,8 @@ func (meter *localMeter) ObservableUpDownCounter(name string, option MetricOptio
 }
 
 // MustObservableUpDownCounter 创建并返回一个新的 ObservableUpDownCounter。
-// 如果发生任何错误，它将 panic。 md5:2c1790e420456ea1
+// 如果发生任何错误，它将 panic。
+// md5:2c1790e420456ea1
 func (meter *localMeter) MustObservableUpDownCounter(name string, option MetricOption) ObservableUpDownCounter {
 	m, err := meter.ObservableCounter(name, option)
 	if err != nil {
@@ -65,7 +67,8 @@ func (l *localObservableUpDownCounter) Init(provider Provider) (err error) {
 }
 
 // Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-// 这通常被指标实现所使用。 md5:e521fc985b9a53e2
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 func (l *localObservableUpDownCounter) Performer() any {
 	return l.ObservableUpDownCounterPerformer
 }

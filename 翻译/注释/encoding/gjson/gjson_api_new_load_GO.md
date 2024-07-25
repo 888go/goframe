@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -28,7 +29,8 @@
 // New 使用任何类型的`data`创建一个Json对象，但为了数据访问的原因，`data`应该是map或slice，
 // 否则将失去意义。
 //
-// 参数`safe`指定是否在并发安全的上下文中使用此Json对象，默认值为false。 md5:b84f401db24e69d8
+// 参数`safe`指定是否在并发安全的上下文中使用此Json对象，默认值为false。
+// md5:b84f401db24e69d8
 # <翻译结束>
 
 
@@ -45,10 +47,11 @@
 
 # <翻译开始>
 // NewWithTag 创建一个Json对象，可以包含任何类型的`data`，但出于数据访问的原因，`data`应该是一个map或切片，否则将没有意义。
-//
+// 
 // 参数`tags`用于指定结构体转换为map的优先标签，多个标签之间用逗号分隔。
-//
-// 参数`safe`表示是否在并发安全上下文中使用这个Json对象，默认为false。 md5:2558f08f4f082a16
+// 
+// 参数`safe`表示是否在并发安全上下文中使用这个Json对象，默认为false。
+// md5:2558f08f4f082a16
 # <翻译结束>
 
 
@@ -58,7 +61,8 @@
 <原文结束>
 
 # <翻译开始>
-// NewWithOptions使用任何类型的'data'创建一个Json对象，但出于数据访问的原因，`data`应该是map或切片，否则将没有意义。 md5:48be1828a6556518
+// NewWithOptions使用任何类型的'data'创建一个Json对象，但出于数据访问的原因，`data`应该是map或切片，否则将没有意义。
+// md5:48be1828a6556518
 # <翻译结束>
 
 
@@ -143,7 +147,8 @@
 # <翻译开始>
 // LoadContent 根据给定的内容创建一个Json对象，它会自动检查`content`的数据类型，
 // 支持如下数据内容类型：
-// JSON、XML、INI、YAML和TOML。 md5:e930374f4ac3b32e
+// JSON、XML、INI、YAML和TOML。
+// md5:e930374f4ac3b32e
 # <翻译结束>
 
 
@@ -155,7 +160,8 @@
 
 # <翻译开始>
 // LoadContentType 根据给定的类型和内容创建一个 JSON 对象，支持以下数据内容类型：
-// JSON, XML, INI, YAML 和 TOML. md5:7db5bd0b429fea01
+// JSON, XML, INI, YAML 和 TOML.
+// md5:7db5bd0b429fea01
 # <翻译结束>
 
 
@@ -177,7 +183,8 @@
 # <翻译开始>
 // doLoadContent 从给定内容创建一个Json对象。
 // 它支持以下数据内容类型：
-// JSON、XML、INI、YAML和TOML。 md5:a1daf6666c64b0bc
+// JSON、XML、INI、YAML和TOML。
+// md5:a1daf6666c64b0bc
 # <翻译结束>
 
 
@@ -190,7 +197,8 @@
 # <翻译开始>
 // checkDataType 会自动检查并返回`content`的数据类型。
 // 注意，它使用正则表达式进行宽松的检查，你可以根据需要使用LoadXXX/LoadContentType
-// 函数来为特定内容类型加载内容。 md5:faa69696c8f02af2
+// 函数来为特定内容类型加载内容。
+// md5:faa69696c8f02af2
 # <翻译结束>
 
 

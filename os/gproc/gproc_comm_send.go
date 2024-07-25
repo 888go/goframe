@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gproc
 
@@ -50,7 +51,7 @@ func Send(pid int, data []byte, group ...string) error {
 			}
 		}
 	}
-	// EOF并不是真正的错误。 md5:cb1e51e9bbca2b19
+		// EOF并不是真正的错误。 md5:cb1e51e9bbca2b19
 	if err == io.EOF {
 		err = nil
 	}

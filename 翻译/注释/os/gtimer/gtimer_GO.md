@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -40,7 +41,8 @@
 // 3. gcron 支持类似 Linux crontab 的配置模式语法，更加便于人工阅读。
 // 4. gtimer 的基准操作时间单位为纳秒，而 gcron 的基准操作时间单位为微秒。
 //
-// 另外，特别注意定时器常见的延迟问题：https://github.com/golang/go/issues/14410 md5:c0dc9837a603eb26
+// 另外，特别注意定时器常见的延迟问题：https://github.com/golang/go/issues/14410
+// md5:c0dc9837a603eb26
 # <翻译结束>
 
 
@@ -204,7 +206,8 @@
 
 # <翻译开始>
 // SetTimeout 在`delay`时间间隔后执行一次该任务。
-// 它的作用类似于JavaScript中的同名函数。 md5:e0477460fecac4d8
+// 它的作用类似于JavaScript中的同名函数。
+// md5:e0477460fecac4d8
 # <翻译结束>
 
 
@@ -215,7 +218,8 @@
 
 # <翻译开始>
 // SetInterval 每隔 `delay` 的时间运行一次任务。
-// 类似于 JavaScript 中的 SetInterval。 md5:1a47e33b3567d415
+// 类似于 JavaScript 中的 SetInterval。
+// md5:1a47e33b3567d415
 # <翻译结束>
 
 
@@ -252,7 +256,8 @@
 //
 // 参数 `times` 限制了任务的运行次数，意味着如果任务运行次数超过 `times` 就会退出。
 //
-// 参数 `status` 指定任务首次添加到计时器时的状态。 md5:0f65b7fd26b5f483
+// 参数 `status` 指定任务首次添加到计时器时的状态。
+// md5:0f65b7fd26b5f483
 # <翻译结束>
 
 
@@ -290,7 +295,8 @@
 
 # <翻译开始>
 // DelayAdd 在延迟`interval`持续时间后，添加一个定时任务。
-// 参见Add。 md5:e1bb93aeff16693d
+// 参见Add。
+// md5:e1bb93aeff16693d
 # <翻译结束>
 
 
@@ -301,7 +307,8 @@
 
 # <翻译开始>
 // DelayAddEntry 在 `interval` 时长后添加一个定时任务。
-// 另请参阅 AddEntry。 md5:e6e85b15472aaf98
+// 另请参阅 AddEntry。
+// md5:e6e85b15472aaf98
 # <翻译结束>
 
 
@@ -312,7 +319,8 @@
 
 # <翻译开始>
 // DelayAddSingleton 在延迟`interval`时长后添加一个定时任务。
-// 参阅 AddSingleton。 md5:80f70090fa17a370
+// 参阅 AddSingleton。
+// md5:80f70090fa17a370
 # <翻译结束>
 
 
@@ -323,7 +331,8 @@
 
 # <翻译开始>
 // DelayAddOnce 在延迟 `interval` 持续时间后添加一个定时任务。
-// 参见 AddOnce。 md5:71c388c8096e5e48
+// 参见 AddOnce。
+// md5:71c388c8096e5e48
 # <翻译结束>
 
 
@@ -334,6 +343,7 @@
 
 # <翻译开始>
 // DelayAddTimes 在延迟`interval`持续时间后，添加一个定时任务。
-// 参见AddTimes。 md5:62463bf6c56709b2
+// 参见AddTimes。
+// md5:62463bf6c56709b2
 # <翻译结束>
 

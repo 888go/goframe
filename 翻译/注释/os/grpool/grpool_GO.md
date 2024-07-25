@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -106,7 +107,8 @@
 # <翻译开始>
 // New 创建并返回一个新的 goroutine 池对象。
 // 参数 `limit` 用于限制最大 goroutine 数量，
-// 默认情况下不限制。 md5:523f5833750663c7
+// 默认情况下不限制。
+// md5:523f5833750663c7
 # <翻译结束>
 
 
@@ -117,7 +119,8 @@
 
 # <翻译开始>
 // Add 将一个新任务添加到默认的 Goroutine 池中。
-// 该任务将会异步执行。 md5:2edd63bb852da48c
+// 该任务将会异步执行。
+// md5:2edd63bb852da48c
 # <翻译结束>
 
 
@@ -131,8 +134,9 @@
 
 # <翻译开始>
 // AddWithRecover 将一个新的任务推送到默认池中，指定一个恢复函数。
-//
-// 可选的 `recoverFunc` 在执行 `userFunc` 时遇到任何 panic 时被调用。如果未传递或给定 `nil`，则忽略来自 `userFunc` 的 panic。任务将异步执行。 md5:4b448b4fd7caa604
+// 
+// 可选的 `recoverFunc` 在执行 `userFunc` 时遇到任何 panic 时被调用。如果未传递或给定 `nil`，则忽略来自 `userFunc` 的 panic。任务将异步执行。
+// md5:4b448b4fd7caa604
 # <翻译结束>
 
 

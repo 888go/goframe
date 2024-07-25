@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -24,7 +25,8 @@
 
 # <翻译开始>
 // MapToMap 通过反射将任何map类型变量`params`转换为另一个map类型变量`pointer`。
-// 参考 doMapToMap。 md5:8fbdb048d4cad524
+// 参考 doMapToMap。
+// md5:8fbdb048d4cad524
 # <翻译结束>
 
 
@@ -48,7 +50,8 @@
 //
 // 参数 `pointer` 应该是 *map 类型，例如：map[int]string, map[string]struct, map[string]*struct, reflect.Value 等。
 //
-// 可选参数 `mapping` 用于结构体属性到映射键的映射，只有当原始映射 `params` 的项是结构体类型时，这个参数才有意义。 md5:08b8fa82edaf8b08
+// 可选参数 `mapping` 用于结构体属性到映射键的映射，只有当原始映射 `params` 的项是结构体类型时，这个参数才有意义。
+// md5:08b8fa82edaf8b08
 # <翻译结束>
 
 

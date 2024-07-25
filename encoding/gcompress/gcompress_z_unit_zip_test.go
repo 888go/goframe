@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcompress_test
 
@@ -27,7 +28,7 @@ func Test_ZipPath(t *testing.T) {
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
 
-		// 解压缩到临时目录。 md5:dca515f4cd33b4f1
+				// 解压缩到临时目录。 md5:dca515f4cd33b4f1
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
 		t.Assert(gcompress.UnZipFile(dstPath, tempDirPath), nil)
@@ -55,7 +56,7 @@ func Test_ZipPath(t *testing.T) {
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
 
-		// 解压缩到另一个临时目录。 md5:33401796f8abba9e
+				// 解压缩到另一个临时目录。 md5:33401796f8abba9e
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
 		err = gcompress.UnZipFile(dstPath, tempDirPath)
@@ -88,7 +89,7 @@ func Test_ZipPath(t *testing.T) {
 		t.Assert(gfile.Exists(dstPath), true)
 		defer gfile.Remove(dstPath)
 
-		// 解压缩到另一个临时目录。 md5:33401796f8abba9e
+				// 解压缩到另一个临时目录。 md5:33401796f8abba9e
 		tempDirPath := gfile.Temp(gtime.TimestampNanoStr())
 		t.Assert(gfile.Mkdir(tempDirPath), nil)
 		err = gcompress.UnZipFile(dstPath, tempDirPath)
@@ -137,7 +138,7 @@ func Test_ZipPath(t *testing.T) {
 			gfile.GetContents(gfile.Join(srcPath, "path2", "2.txt")),
 		)
 	})
-	// 使用字符'，'连接多个目录路径。 md5:d801a18d5afe6f27
+		// 使用字符'，'连接多个目录路径。 md5:d801a18d5afe6f27
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			srcPath  = gtest.DataPath("zip")

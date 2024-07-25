@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -104,7 +105,8 @@
 
 # <翻译开始>
 // buildInFuncInclude 实现了内置模板函数：include
-// 注意，配置自动编码(AutoEncode)不会影响此函数的输出。 md5:3741767b68e0d6cc
+// 注意，配置自动编码(AutoEncode)不会影响此函数的输出。
+// md5:3741767b68e0d6cc
 # <翻译结束>
 
 
@@ -268,7 +270,8 @@
 
 # <翻译开始>
 // buildInFuncJson 实现了模板内置函数：json，
-// 该函数将 `value` 编码为JSON字符串并返回。 md5:fb0da1ee66d4c2a4
+// 该函数将 `value` 编码为JSON字符串并返回。
+// md5:fb0da1ee66d4c2a4
 # <翻译结束>
 
 
@@ -278,7 +281,8 @@
 <原文结束>
 
 # <翻译开始>
-// buildInFuncXml 实现了内置模板函数：xml，它将`value`编码为XML字符串并返回。 md5:c1a5971d91e92b28
+// buildInFuncXml 实现了内置模板函数：xml，它将`value`编码为XML字符串并返回。
+// md5:c1a5971d91e92b28
 # <翻译结束>
 
 
@@ -288,7 +292,8 @@
 <原文结束>
 
 # <翻译开始>
-// buildInFuncIni 实现了内置模板函数：ini，它将 `value` 编码为 XML 字符串并返回。 md5:e58c98b4d09ac61d
+// buildInFuncIni 实现了内置模板函数：ini，它将 `value` 编码为 XML 字符串并返回。
+// md5:e58c98b4d09ac61d
 # <翻译结束>
 
 
@@ -298,7 +303,8 @@
 <原文结束>
 
 # <翻译开始>
-// buildInFuncYaml 实现了内置模板函数：yaml，它将 `value` 编码为 YAML 字符串并返回。 md5:04183ea12eb16c2c
+// buildInFuncYaml 实现了内置模板函数：yaml，它将 `value` 编码为 YAML 字符串并返回。
+// md5:04183ea12eb16c2c
 # <翻译结束>
 
 
@@ -309,7 +315,8 @@
 
 # <翻译开始>
 // buildInFuncYamlIndent 实现了构建内置模板函数：yamli，
-// 该函数将 `value` 编码为具有自定义缩进字符串的 YAML 格式字符串并返回。 md5:2b1af65bb7bac809
+// 该函数将 `value` 编码为具有自定义缩进字符串的 YAML 格式字符串并返回。
+// md5:2b1af65bb7bac809
 # <翻译结束>
 
 
@@ -319,7 +326,8 @@
 <原文结束>
 
 # <翻译开始>
-// buildInFuncToml 实现了内建的模板函数：toml，该函数将 `value` 编码为 TOML 字符串并返回。 md5:fc418b3314bd75fd
+// buildInFuncToml 实现了内建的模板函数：toml，该函数将 `value` 编码为 TOML 字符串并返回。
+// md5:fc418b3314bd75fd
 # <翻译结束>
 
 
@@ -329,7 +337,8 @@
 <原文结束>
 
 # <翻译开始>
-// buildInFuncPlus 实现了内置模板函数：plus，它将所有 `deltas` 加到 `value` 上并返回结果。 md5:66a5ee3d0a30fd00
+// buildInFuncPlus 实现了内置模板函数：plus，它将所有 `deltas` 加到 `value` 上并返回结果。
+// md5:66a5ee3d0a30fd00
 # <翻译结束>
 
 
@@ -339,7 +348,8 @@
 <原文结束>
 
 # <翻译开始>
-// buildInFuncMinus 实现了内置模板函数：minus，它从"value"中减去所有 "deltas" 并返回结果。 md5:3a8c7bc3d577d854
+// buildInFuncMinus 实现了内置模板函数：minus，它从"value"中减去所有 "deltas" 并返回结果。
+// md5:3a8c7bc3d577d854
 # <翻译结束>
 
 
@@ -350,7 +360,8 @@
 
 # <翻译开始>
 // buildInFuncTimes 实现了内置模板函数：times，
-// 该函数返回 `value` 与所有 `values` 元素相乘的结果。 md5:5e5ba3a1856c3b44
+// 该函数返回 `value` 与所有 `values` 元素相乘的结果。
+// md5:5e5ba3a1856c3b44
 # <翻译结束>
 
 
@@ -360,6 +371,7 @@
 <原文结束>
 
 # <翻译开始>
-// buildInFuncDivide 实现了内置模板函数：divide，它返回将`value`除以所有`values`的结果。 md5:55b84c767c41e466
+// buildInFuncDivide 实现了内置模板函数：divide，它返回将`value`除以所有`values`的结果。
+// md5:55b84c767c41e466
 # <翻译结束>
 

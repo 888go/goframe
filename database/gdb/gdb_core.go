@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gdb
 
@@ -33,23 +34,25 @@ func (c *Core) GetCore() *Core {
 }
 
 // Ctx是一个链式函数，它创建并返回一个新的DB对象，它是当前DB对象的浅拷贝，并且包含了给定的上下文。
-// 注意，这个返回的DB对象只能使用一次，所以不要将其分配给全局变量或长期使用的包变量。 md5:9dfddec16d5df9f5
+// 注意，这个返回的DB对象只能使用一次，所以不要将其分配给全局变量或长期使用的包变量。
+// md5:9dfddec16d5df9f5
 func (c *Core) Ctx(ctx context.Context) DB {
 	if ctx == nil {
 		return c.db
 	}
-	// 它会浅复制当前的数据库，并为下一个链式操作更改其上下文。 md5:bf3a0a0f1f30a496
+		// 它会浅复制当前的数据库，并为下一个链式操作更改其上下文。 md5:bf3a0a0f1f30a496
 	var (
 		err        error
 		newCore    = &Core{}
 		configNode = c.db.GetConfig()
 	)
 	*newCore = *c
-	// 它创建了一个新的DB对象（不是新连接），通常是对`Core`对象的封装。 md5:6cd230087401c98f
+		// 它创建了一个新的DB对象（不是新连接），通常是对`Core`对象的封装。 md5:6cd230087401c98f
 	newCore.db, err = driverMap[configNode.Type].New(newCore, configNode)
 	if err != nil {
 		// 这里确实是一个严重的错误。
-		// 不要让它继续下去。 md5:790820a929dc0bfd
+		// 不要让它继续下去。
+		// md5:790820a929dc0bfd
 		panic(err)
 	}
 	newCore.ctx = WithDB(ctx, newCore.db)
@@ -58,7 +61,8 @@ func (c *Core) Ctx(ctx context.Context) DB {
 }
 
 // GetCtx 返回当前数据库的上下文。
-// 如果之前没有设置上下文，则返回 `context.Background()`。 md5:9b56f79a5eaa891e
+// 如果之前没有设置上下文，则返回 `context.Background()`。
+// md5:9b56f79a5eaa891e
 func (c *Core) GetCtx() context.Context {
 	ctx := c.ctx
 	if ctx == nil {
@@ -97,7 +101,8 @@ func (c *Core) GetCtxTimeout(ctx context.Context, timeoutType int) (context.Cont
 // 随后，Close 会等待所有已在服务器上开始处理的查询完成。
 //
 // 关闭 DB 实例是很少见的操作，因为 DB 处理句柄设计为长生命周期的，
-// 并且旨在多个 goroutine 间共享。 md5:39e5c90e1da0ee5e
+// 并且旨在多个 goroutine 间共享。
+// md5:39e5c90e1da0ee5e
 func (c *Core) Close(ctx context.Context) (err error) {
 	if err = c.cache.Close(ctx); err != nil {
 		return err
@@ -121,7 +126,8 @@ func (c *Core) Close(ctx context.Context) (err error) {
 }
 
 // Master 如果配置了主从节点，则创建并返回一个与主节点的连接。
-// 如果未配置主从节点，则返回默认连接。 md5:0bd77b596cdae9a3
+// 如果未配置主从节点，则返回默认连接。
+// md5:0bd77b596cdae9a3
 func (c *Core) Master(schema ...string) (*sql.DB, error) {
 	var (
 		usedSchema   = gutil.GetOrDefaultStr(c.schema, schema...)
@@ -130,7 +136,8 @@ func (c *Core) Master(schema ...string) (*sql.DB, error) {
 	return c.getSqlDb(true, gstr.Trim(usedSchema, charL+charR))
 }
 
-// 如果配置了主从模式，Slave 会创建并返回一个从节点连接。如果没有配置主从模式，则返回默认连接。 md5:d92640050cf063d3
+// 如果配置了主从模式，Slave 会创建并返回一个从节点连接。如果没有配置主从模式，则返回默认连接。
+// md5:d92640050cf063d3
 func (c *Core) Slave(schema ...string) (*sql.DB, error) {
 	var (
 		usedSchema   = gutil.GetOrDefaultStr(c.schema, schema...)
@@ -162,7 +169,8 @@ func (c *Core) GetOne(ctx context.Context, sql string, args ...interface{}) (Rec
 }
 
 // GetArray 从数据库查询并返回数据值作为切片。
-// 注意，如果结果中有多个列，它会随机返回一列的值。 md5:b81cd4c5e063a6f2
+// 注意，如果结果中有多个列，它会随机返回一列的值。
+// md5:b81cd4c5e063a6f2
 func (c *Core) GetArray(ctx context.Context, sql string, args ...interface{}) ([]Value, error) {
 	all, err := c.db.DoSelect(ctx, nil, sql, args...)
 	if err != nil {
@@ -172,7 +180,8 @@ func (c *Core) GetArray(ctx context.Context, sql string, args ...interface{}) ([
 }
 
 // doGetStruct 从数据库查询一条记录，并将其转换为给定的结构体。
-// 参数 `pointer` 应该是指向结构体的指针。 md5:9260d4f62deef626
+// 参数 `pointer` 应该是指向结构体的指针。
+// md5:9260d4f62deef626
 func (c *Core) doGetStruct(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
 	one, err := c.db.GetOne(ctx, sql, args...)
 	if err != nil {
@@ -182,7 +191,8 @@ func (c *Core) doGetStruct(ctx context.Context, pointer interface{}, sql string,
 }
 
 // doGetStructs 从数据库查询记录并将其转换为给定的结构体。
-// 参数 `pointer` 应为结构体切片类型：[]struct/[]*struct。 md5:4ce864edda9b9231
+// 参数 `pointer` 应为结构体切片类型：[]struct/[]*struct。
+// md5:4ce864edda9b9231
 func (c *Core) doGetStructs(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
 	all, err := c.db.GetAll(ctx, sql, args...)
 	if err != nil {
@@ -193,7 +203,8 @@ func (c *Core) doGetStructs(ctx context.Context, pointer interface{}, sql string
 
 // GetScan 从数据库查询一个或多个记录，并将它们转换为给定的结构体或结构体数组。
 //
-// 如果参数 `pointer` 是结构体指针类型，它内部会调用 GetStruct 进行转换。如果参数 `pointer` 是切片类型，它内部会调用 GetStructs 进行转换。 md5:c1dbdab7a7c29c51
+// 如果参数 `pointer` 是结构体指针类型，它内部会调用 GetStruct 进行转换。如果参数 `pointer` 是切片类型，它内部会调用 GetStructs 进行转换。
+// md5:c1dbdab7a7c29c51
 func (c *Core) GetScan(ctx context.Context, pointer interface{}, sql string, args ...interface{}) error {
 	reflectInfo := reflection.OriginTypeAndKind(pointer)
 	if reflectInfo.InputKind != reflect.Ptr {
@@ -218,7 +229,8 @@ func (c *Core) GetScan(ctx context.Context, pointer interface{}, sql string, arg
 }
 
 // GetValue 从数据库查询并返回字段值。
-// SQL 应该只查询数据库中的一个字段，否则它将只返回结果中的一个字段。 md5:96794360fadbc288
+// SQL 应该只查询数据库中的一个字段，否则它将只返回结果中的一个字段。
+// md5:96794360fadbc288
 func (c *Core) GetValue(ctx context.Context, sql string, args ...interface{}) (Value, error) {
 	one, err := c.db.GetOne(ctx, sql, args...)
 	if err != nil {
@@ -233,7 +245,8 @@ func (c *Core) GetValue(ctx context.Context, sql string, args ...interface{}) (V
 // GetCount 从数据库中查询并返回计数。 md5:a8368d39f4a58979
 func (c *Core) GetCount(ctx context.Context, sql string, args ...interface{}) (int, error) {
 	// 如果查询字段中不包含"COUNT"函数，
-	// 则替换SQL字符串，并在字段中添加"COUNT"函数。 md5:624b6da82fb9facd
+	// 则替换SQL字符串，并在字段中添加"COUNT"函数。
+	// md5:624b6da82fb9facd
 	if !gregex.IsMatchString(`(?i)SELECT\s+COUNT\(.+\)\s+FROM`, sql) {
 		sql, _ = gregex.ReplaceString(`(?i)(SELECT)\s+(.+)\s+(FROM)`, `$1 COUNT($2) $3`, sql)
 	}
@@ -313,7 +326,8 @@ func (c *Core) PingSlave() error {
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"}})
 //
-// 参数 `batch` 在给定数据为切片时，指定批量操作的次数。 md5:fd75d343f485b8dc
+// 参数 `batch` 在给定数据为切片时，指定批量操作的次数。
+// md5:fd75d343f485b8dc
 func (c *Core) Insert(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Insert()
@@ -329,7 +343,8 @@ func (c *Core) Insert(ctx context.Context, table string, data interface{}, batch
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"})
 //
-// 当给定的数据为切片时，参数 `batch` 指定批处理操作的计数。 md5:49f76901041c9819
+// 当给定的数据为切片时，参数 `batch` 指定批处理操作的计数。
+// md5:49f76901041c9819
 func (c *Core) InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).InsertIgnore()
@@ -351,7 +366,8 @@ func (c *Core) InsertAndGetId(ctx context.Context, table string, data interface{
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"}})
 //
-// 参数 `data` 可以是 map/gmap/struct/*struct/[]map/[]struct 等类型。如果给定的数据是切片类型，它将进行批量替换，并可选地通过参数 `batch` 指定批量操作次数。 md5:69ecd0994eab5bbb
+// 参数 `data` 可以是 map/gmap/struct/*struct/[]map/[]struct 等类型。如果给定的数据是切片类型，它将进行批量替换，并可选地通过参数 `batch` 指定批量操作次数。
+// md5:69ecd0994eab5bbb
 func (c *Core) Replace(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Replace()
@@ -367,7 +383,8 @@ func (c *Core) Replace(ctx context.Context, table string, data interface{}, batc
 // Data(g.Map{"uid": 10000, "name": "john"})
 // Data(g.Slice{g.Map{"uid": 10000, "name": "john"}, g.Map{"uid": 20000, "name": "smith"}})
 //
-// 如果给定的数据是切片类型，它将进行批量保存。可选参数 `batch` 指定了批量操作的次数。 md5:c76721f5e0b01424
+// 如果给定的数据是切片类型，它将进行批量保存。可选参数 `batch` 指定了批量操作的次数。
+// md5:c76721f5e0b01424
 func (c *Core) Save(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	if len(batch) > 0 {
 		return c.Model(table).Ctx(ctx).Data(data).Batch(batch[0]).Save()
@@ -384,7 +401,7 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 	if err != nil {
 		return nil, err
 	}
-	// 按顺序对字段进行排序。 md5:3edaf791b6d06284
+		// 按顺序对字段进行排序。 md5:3edaf791b6d06284
 	var fieldsOfTableInSequence = make([]string, len(tableFields))
 	for _, field := range tableFields {
 		fieldsOfTableInSequence[field.Index] = field.Name
@@ -409,7 +426,8 @@ func (c *Core) fieldsToSequence(ctx context.Context, table string, fields []stri
 // InsertOptionDefault：仅插入，如果数据中包含唯一键或主键，会返回错误；
 // InsertOptionReplace：如果数据中包含唯一键或主键，会先从表中删除再插入新的记录；
 // InsertOptionSave：   如果数据中包含唯一键或主键，会进行更新，否则插入新记录；
-// InsertOptionIgnore： 如果数据中包含唯一键或主键，忽略插入操作。 md5:e9554638335c9c80
+// InsertOptionIgnore： 如果数据中包含唯一键或主键，忽略插入操作。
+// md5:e9554638335c9c80
 func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
 	var (
 		keys           []string      // Field names.
@@ -420,7 +438,8 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 	// ============================================================================================
 	// 按照字段对列表进行分组。不同的字段将数据分配到不同的列表中。
 	// 此处使用ListMap来保持数据插入时的顺序。
-	// ============================================================================================ md5:f3b3fbc2fd4a59f8
+	// ============================================================================================
+	// md5:f3b3fbc2fd4a59f8
 	var keyListMap = gmap.NewListMap()
 	for _, item := range list {
 		var (
@@ -464,14 +483,14 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 		return &sqlResult, err
 	}
 
-	// 准备批量结果指针。 md5:dfc8aa8bb292f9d5
+		// 准备批量结果指针。 md5:dfc8aa8bb292f9d5
 	var (
 		charL, charR = c.db.GetChars()
 		batchResult  = new(SqlResult)
 		keysStr      = charL + strings.Join(keys, charR+","+charL) + charR
 		operation    = GetInsertOperationByOption(option.InsertOption)
 	)
-	// Upsert 子句只在 Save 操作中生效。 md5:c556e85b127111f7
+		// Upsert 子句只在 Save 操作中生效。 md5:c556e85b127111f7
 	if option.InsertOption == InsertOptionSave {
 		onDuplicateStr, err = c.db.FormatUpsert(keys, list, option)
 		if err != nil {
@@ -485,7 +504,8 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 	for i := 0; i < listLength; i++ {
 		values = values[:0]
 		// 注意，映射类型是无序的，
-		// 因此应该使用切片和键来检索值。 md5:2495d5e730dae78f
+		// 因此应该使用切片和键来检索值。
+		// md5:2495d5e730dae78f
 		for _, k := range keys {
 			if s, ok := list[i][k].(Raw); ok {
 				values = append(values, gconv.String(s))
@@ -495,7 +515,7 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 			}
 		}
 		valueHolders = append(valueHolders, "("+gstr.Join(values, ",")+")")
-		// 批量包检查：它满足批量数量，或者它是最后一个元素。 md5:a2ef8b869c6d8888
+				// 批量包检查：它满足批量数量，或者它是最后一个元素。 md5:a2ef8b869c6d8888
 		if len(valueHolders) == option.BatchCount || (i == listLength-1 && len(valueHolders) > 0) {
 			var (
 				stdSqlResult sql.Result
@@ -537,13 +557,15 @@ func (c *Core) DoInsert(ctx context.Context, link Link, table string, list List,
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
-// User{ Id : 1, UserName : "john"}. md5:8651eb1bd7e10da0
+// User{ Id : 1, UserName : "john"}.
+// md5:8651eb1bd7e10da0
 func (c *Core) Update(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) {
 	return c.Model(table).Ctx(ctx).Data(data).Where(condition, args...).Update()
 }
 
 // DoUpdate 执行针对表的 "UPDATE ... " 语句。
-// 这个函数通常用于自定义接口定义，一般不需要手动调用。 md5:6d7e08b57dd59a0b
+// 这个函数通常用于自定义接口定义，一般不需要手动调用。
+// md5:6d7e08b57dd59a0b
 func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) {
 	table = c.QuotePrefixTableName(table)
 	var (
@@ -584,7 +606,7 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 		if err != nil {
 			return nil, err
 		}
-		// 按照表格字段的顺序对数据键进行排序。 md5:edcdc64a514af6fa
+				// 按照表格字段的顺序对数据键进行排序。 md5:edcdc64a514af6fa
 		var (
 			dataKeys       = make([]string, 0)
 			keysInSequence = make([]string, 0)
@@ -625,7 +647,7 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 	if len(params) > 0 {
 		args = append(params, args...)
 	}
-	// 如果没有传递链接，那么它就使用主链接。 md5:02e931534071446b
+		// 如果没有传递链接，那么它就使用主链接。 md5:02e931534071446b
 	if link == nil {
 		if link, err = c.MasterLink(); err != nil {
 			return nil, err
@@ -649,13 +671,15 @@ func (c *Core) DoUpdate(ctx context.Context, link Link, table string, data inter
 // "money>? AND name like ?", 99999, "vip_%"
 // "status IN (?)", g.Slice{1,2,3}
 // "age IN(?,?)", 18, 50
-// User{ Id : 1, UserName : "john"}. md5:c6c87830434eba7d
+// User{ Id : 1, UserName : "john"}.
+// md5:c6c87830434eba7d
 func (c *Core) Delete(ctx context.Context, table string, condition interface{}, args ...interface{}) (result sql.Result, err error) {
 	return c.Model(table).Ctx(ctx).Where(condition, args...).Delete()
 }
 
 // DoDelete 对表执行 "DELETE FROM ..." 语句。
-// 此函数通常用于自定义接口定义，无需手动调用。 md5:f902004d44b55d73
+// 此函数通常用于自定义接口定义，无需手动调用。
+// md5:f902004d44b55d73
 func (c *Core) DoDelete(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error) {
 	if link == nil {
 		if link, err = c.MasterLink(); err != nil {
@@ -666,7 +690,8 @@ func (c *Core) DoDelete(ctx context.Context, link Link, table string, condition 
 	return c.db.DoExec(ctx, link, fmt.Sprintf("DELETE FROM %s%s", table, condition), args...)
 }
 
-// FilteredLink获取并返回经过过滤的`linkInfo`，这些信息可用于日志记录或跟踪目的。 md5:5d3d4d2f55af0347
+// FilteredLink获取并返回经过过滤的`linkInfo`，这些信息可用于日志记录或跟踪目的。
+// md5:5d3d4d2f55af0347
 func (c *Core) FilteredLink() string {
 	return fmt.Sprintf(
 		`%s@%s(%s:%s)/%s`,
@@ -675,14 +700,16 @@ func (c *Core) FilteredLink() string {
 }
 
 // MarshalJSON 实现了 json.Marshal 接口的MarshalJSON方法。它只是返回指针地址。
-//
-// 注意，这个接口主要是为了解决 Golang 版本小于 v1.14 时的json无限循环bug而实现的。 md5:1b2346be8e04b5fa
+// 
+// 注意，这个接口主要是为了解决 Golang 版本小于 v1.14 时的json无限循环bug而实现的。
+// md5:1b2346be8e04b5fa
 func (c Core) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`%+v`, c)), nil
 }
 
 // writeSqlToLogger 将Sql对象输出到日志记录器。
-// 仅当配置"debug"为true时，此功能才启用。 md5:ad16123093791e59
+// 仅当配置"debug"为true时，此功能才启用。
+// md5:ad16123093791e59
 func (c *Core) writeSqlToLogger(ctx context.Context, sql *Sql) {
 	var transactionIdStr string
 	if sql.IsTransaction {
@@ -760,11 +787,13 @@ func (c *Core) IsSoftCreatedFieldName(fieldName string) bool {
 
 // FormatSqlBeforeExecuting 在执行SQL之前格式化SQL字符串及其参数。
 // 在SQL执行过程中，内部的handleArguments函数可能会被调用两次，
-// 但请不必担心，这是安全且高效的。 md5:73af1c35794cea21
+// 但请不必担心，这是安全且高效的。
+// md5:73af1c35794cea21
 func (c *Core) FormatSqlBeforeExecuting(sql string, args []interface{}) (newSql string, newArgs []interface{}) {
 	// 不要这样做，因为SQL语句中可能包含多行和注释。
 	// sql = gstr.Trim(sql) 	// 删除sql字符串两侧的空白
 	// sql = gstr.Replace(sql, "\n", " ") 	// 将换行符替换为单个空格
-	// sql, _ = gregex.ReplaceString(`\s{2,}`, ` `, sql) 	// 替换连续两个或更多空格为单个空格 md5:907309db612b16e7
+	// sql, _ = gregex.ReplaceString(`\s{2,}`, ` `, sql) 	// 替换连续两个或更多空格为单个空格
+	// md5:907309db612b16e7
 	return handleSliceAndStructArgsForSql(sql, args)
 }

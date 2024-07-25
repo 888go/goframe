@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -21,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 # <翻译结束>
 
 
@@ -86,7 +87,8 @@
 
 # <翻译开始>
 	// 将数据库设置为调试模式
-	// 使用defer语句确保在函数返回前将数据库的调试模式重置为false md5:b9225b2fca692b91
+	// 使用defer语句确保在函数返回前将数据库的调试模式重置为false
+	// md5:b9225b2fca692b91
 # <翻译结束>
 
 
@@ -139,7 +141,8 @@
 	// "passport":    fmt.Sprintf(`user_%d`, i), 	// 用户名: "user_" + i
 	// "password":    fmt.Sprintf(`pass_%d`, i), 	// 密码: "pass_" + i
 	// "nickname":    fmt.Sprintf(`name_%d`, i), 	// 昵称: "name_" + i
-	// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(), 	// 创建时间: "2018-10-24 10:00:00" 的字符串表示 md5:62b0a78a146bb60c
+	// "create_time": gtime.NewFromStr("2018-10-24 10:00:00").String(), 	// 创建时间: "2018-10-24 10:00:00" 的字符串表示
+	// md5:62b0a78a146bb60c
 # <翻译结束>
 
 
@@ -203,14 +206,15 @@
 // 测试函数Test_Model_Insert_KeyFieldNameMapping_Error用于检查在模型插入时键字段映射错误的情况：
 // 创建表
 // defer 释放表（在测试结束后删除）
-//
+// 
 // 使用gtest进行测试：
 // 定义User结构体，包含Id、Passport、Password、Nickname、CreateTime和NoneExistField字段
 // 初始化一个User实例
 // 使用db.Model方法，传入表名和数据，尝试插入记录
 // 断言插入操作返回的错误不为nil，预期会出现错误，因为存在不存在的字段
-//
-// 注意：这个测试用例期望在执行时抛出错误，因为"NoneExistField"字段不在数据库表中。 md5:8afc06ac33d4aa16
+// 
+// 注意：这个测试用例期望在执行时抛出错误，因为"NoneExistField"字段不在数据库表中。
+// md5:8afc06ac33d4aa16
 # <翻译结束>
 
 

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gbuild管理"gf build"中的内置变量。 md5:c98a1c81088c9728
 package gbuild
@@ -42,7 +43,7 @@ var (
 )
 
 func init() {
-	// `builtInVarStr` 是由 Go 构建标志注入的。 md5:3fb4d6289f310035
+		// `builtInVarStr` 是由 Go 构建标志注入的。 md5:3fb4d6289f310035
 	if builtInVarStr != "" {
 		err := json.UnmarshalUseNumber(gbase64.MustDecodeString(builtInVarStr), &builtInVarMap)
 		if err != nil {
@@ -58,7 +59,8 @@ func init() {
 
 // Info 返回二进制文件的基本构建信息，以映射的形式呈现。
 // 注意，它应当与 gf-cli 工具的 "gf build" 命令配合使用，
-// 该命令会自动将必需的信息注入到二进制文件中。 md5:d327a3b92b2b2006
+// 该命令会自动将必需的信息注入到二进制文件中。
+// md5:d327a3b92b2b2006
 func Info() BuildInfo {
 	return BuildInfo{
 		GoFrame: Get(gfVersion).String(),

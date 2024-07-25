@@ -4,7 +4,8 @@
 //
 // 此源代码形式受麻省理工学院（MIT）许可证的条款约束。
 // 如果未随此文件一起分发MIT许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:47e609239e0cb2bc
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:47e609239e0cb2bc
 
 package oracle_test
 
@@ -338,7 +339,7 @@ func Test_Model_Update(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 	})
-	// 更新 + Fields(字符串). md5:df4e16d13da67d5e
+		// 更新 + Fields(字符串). md5:df4e16d13da67d5e
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Fields("PASSPORT").Data(g.Map{
 			"PASSPORT": "user_44",
@@ -431,7 +432,7 @@ func Test_Model_Count(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
-	// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
+		// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 10; i++ {
 			count, err := db.Model(table).Cache(gdb.CacheOption{
@@ -513,7 +514,7 @@ func Test_Model_Struct(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_1")
 	})
-	// 自动创建结构体对象。 md5:4b196dfc1321dc30
+		// 自动创建结构体对象。 md5:4b196dfc1321dc30
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -859,7 +860,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["ID"].Int(), 1)
 	})
-	// 结构体，自动映射和过滤。 md5:8edea55227b914af
+		// 结构体，自动映射和过滤。 md5:8edea55227b914af
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int

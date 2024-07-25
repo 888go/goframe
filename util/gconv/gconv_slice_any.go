@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv
 
@@ -107,11 +108,11 @@ func Interfaces(any interface{}) []interface{} {
 	if v, ok := any.(iInterfaces); ok {
 		return v.Interfaces()
 	}
-	// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
+		// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
 		return array
 	}
-	// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
+		// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
 	originValueAndKind := reflection.OriginValueAndKind(any)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:

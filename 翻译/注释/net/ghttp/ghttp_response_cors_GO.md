@@ -13,7 +13,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 # <翻译结束>
 
 
@@ -24,7 +25,8 @@
 
 # <翻译开始>
 // CORSOptions 是 CORS 功能的选项。
-// 参见 https://www.w3.org/TR/cors/ 。 md5:86678849c932cd8d
+// 参见 https://www.w3.org/TR/cors/ 。
+// md5:86678849c932cd8d
 # <翻译结束>
 
 
@@ -89,7 +91,8 @@
 
 # <翻译开始>
 	// defaultAllowHeaders 是CORS默认允许的头信息。
-	// 为了提高头部键搜索性能，我们定义了另一个映射。 md5:e6a13ea98879b3e6
+	// 为了提高头部键搜索性能，我们定义了另一个映射。
+	// md5:e6a13ea98879b3e6
 # <翻译结束>
 
 
@@ -99,7 +102,8 @@
 <原文结束>
 
 # <翻译开始>
-// DefaultCORSOptions 返回默认的 CORS 选项，它允许任何跨域请求。 md5:ed45ce5e88088eac
+// DefaultCORSOptions 返回默认的 CORS 选项，它允许任何跨域请求。
+// md5:ed45ce5e88088eac
 # <翻译结束>
 
 
@@ -128,7 +132,8 @@
 
 # <翻译开始>
 // CORS 设置自定义CORS选项。
-// 参见 https://www.w3.org/TR/cors/ 。 md5:5ace1c84086a260a
+// 参见 https://www.w3.org/TR/cors/ 。
+// md5:5ace1c84086a260a
 # <翻译结束>
 
 
@@ -141,7 +146,8 @@
 # <翻译开始>
 	// 如果请求是OPTIONS类型，不继续服务处理。
 	// 注意，之前的路由器搜索中已经有特殊检查，
-	// 所以如果到达这里，意味着已经存在正在处理的处理器。 md5:178e6bee651f512f
+	// 所以如果到达这里，意味着已经存在正在处理的处理器。
+	// md5:178e6bee651f512f
 # <翻译结束>
 
 
@@ -161,6 +167,7 @@
 
 # <翻译开始>
 // CORSDefault 使用默认的 CORS 选项设置 CORS，
-// 允许任何跨域请求。 md5:2808119e534c338a
+// 允许任何跨域请求。
+// md5:2808119e534c338a
 # <翻译结束>
 

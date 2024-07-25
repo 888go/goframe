@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gstr
 
@@ -23,7 +24,8 @@ import (
 // v[a][]=m&v[a][]=n   -> map[v:map[a:[m, n]]]
 // v[][]=m&v[][]=n     -> map[v:[map[]]] // 当前不支持嵌套切片。
 // v=m&v[a]=n          -> 错误
-// a .[[b=c            -> 无法解析，缺少有效的键值对格式。 md5:28f985708060eab0
+// a .[[b=c            -> 无法解析，缺少有效的键值对格式。
+// md5:28f985708060eab0
 func Parse(s string) (result map[string]interface{}, err error) {
 	if s == "" {
 		return nil, nil
@@ -53,7 +55,7 @@ func Parse(s string) (result map[string]interface{}, err error) {
 			err = gerror.Wrapf(err, `url.QueryUnescape failed for string "%s"`, part[pos+1:])
 			return nil, err
 		}
-		// 分割成多个键. md5:3bdb5e68a953321c
+						// 分割成多个键. md5:3bdb5e68a953321c
 		var keys []string
 		left := 0
 		for i, k := range key {
@@ -109,7 +111,7 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 		return nil
 	}
 
-	// "end" 是一个切片，类似于 f[] 或者 f[a][]. md5:41e332252e9d2da1
+		// "end" 是一个切片，类似于 f[] 或者 f[a][]. md5:41e332252e9d2da1
 	if keys[1] == "" && length == 2 {
 		// TODO nested slice
 		if key == "" {
@@ -131,7 +133,7 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 		result[key] = append(children, value)
 		return nil
 	}
-	// 结束是切片和映射。就像 v[][][a]. md5:79444379ed8ddfc4
+		// 结束是切片和映射。就像 v[][][a]. md5:79444379ed8ddfc4
 	if keys[1] == "" && length > 2 && keys[2] != "" {
 		val, ok := result[key]
 		if !ok {
@@ -160,7 +162,7 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 		return nil
 	}
 
-	// 类似于 v[a]，v[a][b] 的映射. md5:e8aa555b3543c9ea
+		// 类似于 v[a]，v[a][b] 的映射. md5:e8aa555b3543c9ea
 	val, ok := result[key]
 	if !ok {
 		result[key] = map[string]interface{}{}

@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gdb
 
@@ -27,24 +28,26 @@ import (
 )
 
 // Query 向底层驱动提交一个查询SQL并返回执行结果。
-// 它最常用于数据查询。 md5:06bbbfc29aa3894b
+// 它最常用于数据查询。
+// md5:06bbbfc29aa3894b
 func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
 	return c.db.DoQuery(ctx, nil, sql, args...)
 }
 
-// DoQuery 通过给定的链接对象将SQL字符串及其参数提交给底层驱动，并返回执行结果。 md5:af7bdcd1a2074bc0
+// DoQuery 通过给定的链接对象将SQL字符串及其参数提交给底层驱动，并返回执行结果。
+// md5:af7bdcd1a2074bc0
 func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
 	// Transaction checks.
 	if link == nil {
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
+						// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
 			link = &txLink{tx.GetSqlTX()}
 		} else if link, err = c.SlaveLink(); err != nil {
-			// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
+						// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
 			return nil, err
 		}
 	} else if !link.IsTransaction() {
-		// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
+				// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
 			link = &txLink{tx.GetSqlTX()}
 		}
@@ -60,7 +63,7 @@ func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...inter
 	if err != nil {
 		return nil, err
 	}
-	// SQL格式化和获取。 md5:815f530302ec8a7e
+		// SQL格式化和获取。 md5:815f530302ec8a7e
 	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
@@ -84,24 +87,26 @@ func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...inter
 	return out.Records, err
 }
 
-// Exec 将一个查询 SQL 执行到底层驱动并返回执行结果。它最常用于数据插入和更新。 md5:6f9ddc85964b9797
+// Exec 将一个查询 SQL 执行到底层驱动并返回执行结果。它最常用于数据插入和更新。
+// md5:6f9ddc85964b9797
 func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {
 	return c.db.DoExec(ctx, nil, sql, args...)
 }
 
-// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。 md5:947bd2b83e751e10
+// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
+// md5:947bd2b83e751e10
 func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	// Transaction checks.
 	if link == nil {
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
+						// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
 			link = &txLink{tx.GetSqlTX()}
 		} else if link, err = c.MasterLink(); err != nil {
-			// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
+						// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
 			return nil, err
 		}
 	} else if !link.IsTransaction() {
-		// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
+				// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
 			link = &txLink{tx.GetSqlTX()}
 		}
@@ -119,7 +124,7 @@ func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interf
 	if err != nil {
 		return nil, err
 	}
-	// SQL格式化和获取。 md5:815f530302ec8a7e
+		// SQL格式化和获取。 md5:815f530302ec8a7e
 	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
@@ -144,7 +149,8 @@ func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interf
 }
 
 // DoFilter 是一个钩子函数，它在 SQL 语句及其参数提交给底层驱动之前进行过滤。
-// 参数 `link` 指定当前数据库连接的操作对象。在 SQL 语句 `sql` 及其参数 `args` 被提交给驱动之前，您可以根据需要随意修改它们。 md5:41118fbc4e6c5562
+// 参数 `link` 指定当前数据库连接的操作对象。在 SQL 语句 `sql` 及其参数 `args` 被提交给驱动之前，您可以根据需要随意修改它们。
+// md5:41118fbc4e6c5562
 func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
@@ -169,7 +175,7 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 	ctx, span := tr.Start(ctx, string(in.Type), trace.WithSpanKind(trace.SpanKindInternal))
 	defer span.End()
 
-	// 根据类型执行。 md5:4f8bf756ef2da0c5
+		// 根据类型执行。 md5:4f8bf756ef2da0c5
 	switch in.Type {
 	case SqlTypeBegin:
 		if sqlTx, err = in.Db.Begin(); err == nil {
@@ -286,8 +292,9 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 // Prepare 准备一个预编译语句，供后续查询或执行使用。
 // 可以从返回的语句对象并发运行多个查询或执行。
 // 当不再需要语句时，调用者必须调用 statement 的 Close 方法。
-//
-// 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从复制，则在从节点上执行。 md5:639eebcae369b0a2
+// 
+// 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从复制，则在从节点上执行。
+// md5:639eebcae369b0a2
 func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {
 	var (
 		err  error
@@ -310,24 +317,24 @@ func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt
 	// Transaction checks.
 	if link == nil {
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
+						// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
 			link = &txLink{tx.GetSqlTX()}
 		} else {
-			// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
+						// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
 			var err error
 			if link, err = c.MasterLink(); err != nil {
 				return nil, err
 			}
 		}
 	} else if !link.IsTransaction() {
-		// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
+				// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
 		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
 			link = &txLink{tx.GetSqlTX()}
 		}
 	}
 
 	if c.db.GetConfig().PrepareTimeout > 0 {
-		// 不要在预处理语句中使用取消函数。 md5:5e529fe5094c7942
+				// 不要在预处理语句中使用取消函数。 md5:5e529fe5094c7942
 		ctx, _ = context.WithTimeout(ctx, c.db.GetConfig().PrepareTimeout)
 	}
 
@@ -344,7 +351,8 @@ func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt
 
 // FormatUpsert 格式化并返回用于 UPSERT 语句的 SQL 子句部分。
 // 在默认实现中，此函数执行类似 MySQL 的 UPSERT 语句：
-// `INSERT INTO ... ON DUPLICATE KEY UPDATE x=VALUES(z),m=VALUES(y)...` md5:c1c6d7b14661682b
+// `INSERT INTO ... ON DUPLICATE KEY UPDATE x=VALUES(z),m=VALUES(y)...`
+// md5:c1c6d7b14661682b
 func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) (string, error) {
 	var onDuplicateStr string
 	if option.OnDuplicateStr != "" {
@@ -371,7 +379,7 @@ func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) 
 		}
 	} else {
 		for _, column := range columns {
-			// 如果是SAVE操作，不要自动更新创建时间。 md5:409c9c162d30afae
+						// 如果是SAVE操作，不要自动更新创建时间。 md5:409c9c162d30afae
 			if c.IsSoftCreatedFieldName(column) {
 				continue
 			}
@@ -402,7 +410,7 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 	if !rows.Next() {
 		return nil, nil
 	}
-	// 列名和类型。 md5:51cafb00c4482aba
+		// 列名和类型。 md5:51cafb00c4482aba
 	columnTypes, err := rows.ColumnTypes()
 	if err != nil {
 		return nil, err
@@ -429,7 +437,8 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 		for i, value := range values {
 			if value == nil {
 				// 不要在这里使用 `gvar.New(nil)`，因为它会创建一个已初始化的对象，
-				// 这将导致结构体转换问题。 md5:4df778f025fefd53
+				// 这将导致结构体转换问题。
+				// md5:4df778f025fefd53
 				record[columnTypes[i].Name()] = nil
 			} else {
 				var convertedValue interface{}
@@ -450,7 +459,7 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 func (c *Core) columnValueToLocalValue(ctx context.Context, value interface{}, columnType *sql.ColumnType) (interface{}, error) {
 	var scanType = columnType.ScanType()
 	if scanType != nil {
-		// 常见的基本内置类型。 md5:4c57bcc430188806
+				// 常见的基本内置类型。 md5:4c57bcc430188806
 		switch scanType.Kind() {
 		case
 			reflect.Bool,
@@ -463,6 +472,6 @@ func (c *Core) columnValueToLocalValue(ctx context.Context, value interface{}, c
 			), nil
 		}
 	}
-	// 其他复杂类型，特别是自定义类型。 md5:5d9bae215068a0c1
+		// 其他复杂类型，特别是自定义类型。 md5:5d9bae215068a0c1
 	return c.db.ConvertValueForLocal(ctx, columnType.DatabaseTypeName(), value)
 }

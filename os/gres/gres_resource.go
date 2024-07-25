@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gres
 
@@ -37,7 +38,8 @@ func New() *Resource {
 	}
 }
 
-// Add 解包并把`content`添加到当前资源对象中。不必要的参数`prefix`表示每个文件存储在当前资源对象中的前缀。 md5:93345d9770c1e7fa
+// Add 解包并把`content`添加到当前资源对象中。不必要的参数`prefix`表示每个文件存储在当前资源对象中的前缀。
+// md5:93345d9770c1e7fa
 func (r *Resource) Add(content string, prefix ...string) error {
 	files, err := UnpackContent(content)
 	if err != nil {
@@ -56,7 +58,8 @@ func (r *Resource) Add(content string, prefix ...string) error {
 	return nil
 }
 
-// Load 从`path`加载、解包并将数据添加到当前资源对象中。不必要的参数`prefix`表示将每个文件存储到当前资源对象中的前缀。 md5:ab3e52fa479e7de6
+// Load 从`path`加载、解包并将数据添加到当前资源对象中。不必要的参数`prefix`表示将每个文件存储到当前资源对象中的前缀。
+// md5:ab3e52fa479e7de6
 func (r *Resource) Load(path string, prefix ...string) error {
 	realPath, err := gfile.Search(path)
 	if err != nil {
@@ -86,9 +89,10 @@ func (r *Resource) Get(path string) *File {
 
 // GetWithIndex 在给定路径`path`下搜索文件。如果找到的是一个目录，它会在这个目录下索引文件进行搜索。
 //
-// GetWithIndex 通常用于HTTP静态文件服务中。 md5:bfb61cc8920b4633
+// GetWithIndex 通常用于HTTP静态文件服务中。
+// md5:bfb61cc8920b4633
 func (r *Resource) GetWithIndex(path string, indexFiles []string) *File {
-	// 用于在前缀中替换双字符 '/'。 md5:2ab9f670789bab70
+		// 用于在前缀中替换双字符 '/'。 md5:2ab9f670789bab70
 	path = strings.ReplaceAll(path, "\\", "/")
 	path = strings.ReplaceAll(path, "//", "/")
 	if path != "/" {
@@ -135,7 +139,8 @@ func (r *Resource) IsEmpty() bool {
 //
 // 如果 `recursive` 参数为 true，它会递归扫描目录。
 //
-// 注意，返回的文件不包含给定的 `path`。 md5:c7e8c1023db3f55f
+// 注意，返回的文件不包含给定的 `path`。
+// md5:c7e8c1023db3f55f
 func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -147,7 +152,8 @@ func (r *Resource) ScanDir(path string, pattern string, recursive ...bool) []*Fi
 // ScanDirFile 返回给定`path`下的所有子文件的绝对路径，
 // 如果给定的参数`recursive`为true，它会递归地扫描目录。
 //
-// 注意，它只返回文件，不包括目录。 md5:0f3154c32271652b
+// 注意，它只返回文件，不包括目录。
+// md5:0f3154c32271652b
 func (r *Resource) ScanDirFile(path string, pattern string, recursive ...bool) []*File {
 	isRecursive := false
 	if len(recursive) > 0 {
@@ -162,7 +168,8 @@ func (r *Resource) ScanDirFile(path string, pattern string, recursive ...bool) [
 // 模式参数 `pattern` 支持多个文件名模式，
 // 使用 ',' 符号来分隔多个模式。
 //
-// 如果给定的参数 `recursive` 为 true，则会递归地扫描目录。 md5:9e5185e985fd2bb6
+// 如果给定的参数 `recursive` 为 true，则会递归地扫描目录。
+// md5:9e5185e985fd2bb6
 func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFile bool) []*File {
 	path = strings.ReplaceAll(path, "\\", "/")
 	path = strings.ReplaceAll(path, "//", "/")
@@ -180,7 +187,7 @@ func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFi
 	for i := 0; i < len(patterns); i++ {
 		patterns[i] = strings.TrimSpace(patterns[i])
 	}
-	// 用于检查第一个条目的类型。 md5:da747d2102d6a47c
+		// 用于检查第一个条目的类型。 md5:da747d2102d6a47c
 	first := true
 	r.tree.IteratorFrom(path, true, func(key, value interface{}) bool {
 		if first {
@@ -199,7 +206,7 @@ func (r *Resource) doScanDir(path string, pattern string, recursive bool, onlyFi
 		if path != name[:length] {
 			return false
 		}
-		// 为了避免，例如：/i18n 和 /i18n-dir. md5:ab3565cb1db7bc63
+				// 为了避免，例如：/i18n 和 /i18n-dir. md5:ab3565cb1db7bc63
 		if !first && name[length] != '/' {
 			return true
 		}

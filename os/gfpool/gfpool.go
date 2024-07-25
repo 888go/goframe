@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // Package gfpool 提供可重用的文件指针io池。 md5:994211336c178d55
 package gfpool
@@ -36,6 +37,6 @@ type File struct {
 }
 
 var (
-	// 全局文件指针池。 md5:4db4f1674b75c6e1
+		// 全局文件指针池。 md5:4db4f1674b75c6e1
 	pools = gmap.NewStrAnyMap(true)
 )

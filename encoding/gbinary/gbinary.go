@@ -2,11 +2,13 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // Package gbinary 提供了处理二进制/字节数据的有用 API。
-//
-// 注意，gbinary 包默认使用 LittleEndian 方式编码数据。 md5:20767570ab1713ca
+// 
+// 注意，gbinary 包默认使用 LittleEndian 方式编码数据。
+// md5:20767570ab1713ca
 package gbinary
 
 func Encode(values ...interface{}) []byte {

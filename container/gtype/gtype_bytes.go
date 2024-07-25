@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtype
 
@@ -21,7 +22,8 @@ type Bytes struct {
 }
 
 // NewBytes 创建并返回一个针对 []byte 类型的并发安全对象，
-// 初始化值为给定的 `value`。 md5:6aea34a99a4d10ee
+// 初始化值为给定的 `value`。
+// md5:6aea34a99a4d10ee
 func NewBytes(value ...[]byte) *Bytes {
 	t := &Bytes{}
 	if len(value) > 0 {
@@ -36,7 +38,8 @@ func (v *Bytes) Clone() *Bytes {
 }
 
 // Set 原子地将 `value` 赋值给 t.value，并返回 t.value 的旧值。
-// 注意：参数 `value` 不能为 nil。 md5:00adcc3b6d3bb3da
+// 注意：参数 `value` 不能为 nil。
+// md5:00adcc3b6d3bb3da
 func (v *Bytes) Set(value []byte) (old []byte) {
 	old = v.Val()
 	v.value.Store(value)

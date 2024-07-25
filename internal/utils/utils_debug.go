@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package utils
 
@@ -11,12 +12,12 @@ import (
 )
 
 const (
-	// 调试键，用于检查是否处于调试模式。 md5:69f2af5509cc7334
+		// 调试键，用于检查是否处于调试模式。 md5:69f2af5509cc7334
 	commandEnvKeyForDebugKey = "gf.debug"
 )
 
 var (
-	// isDebugEnabled 标记是否启用了GoFrame的调试模式。 md5:50f038bff2bf5f20
+		// isDebugEnabled 标记是否启用了GoFrame的调试模式。 md5:50f038bff2bf5f20
 	isDebugEnabled = false
 )
 
@@ -31,7 +32,8 @@ func init() {
 }
 
 // IsDebugEnabled 检查并返回是否启用了调试模式。
-// 当命令参数 "gf.debug" 或环境变量 "GF_DEBUG" 被设置时，调试模式启用。 md5:df7415f68212ff27
+// 当命令参数 "gf.debug" 或环境变量 "GF_DEBUG" 被设置时，调试模式启用。
+// md5:df7415f68212ff27
 func IsDebugEnabled() bool {
 	return isDebugEnabled
 }

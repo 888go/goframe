@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -24,7 +25,7 @@ type DefaultHandlerResponse struct {
 func MiddlewareHandlerResponse(r *Request) {
 	r.Middleware.Next()
 
-	// 存在自定义缓冲区内容，然后退出当前处理器。 md5:fd21f1b41f115a81
+		// 存在自定义缓冲区内容，然后退出当前处理器。 md5:fd21f1b41f115a81
 	if r.Response.BufferLength() > 0 {
 		return
 	}
@@ -51,7 +52,7 @@ func MiddlewareHandlerResponse(r *Request) {
 			default:
 				code = gcode.CodeUnknown
 			}
-			// 由于其他中间件可以获取到这个错误，所以它会产生错误。 md5:36a5d15e82de8d66
+						// 由于其他中间件可以获取到这个错误，所以它会产生错误。 md5:36a5d15e82de8d66
 			err = gerror.NewCode(code, msg)
 			r.SetError(err)
 		} else {

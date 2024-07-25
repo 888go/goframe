@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 静态服务测试。 md5:2105c089651008de
 
@@ -21,7 +22,7 @@ import (
 )
 
 func Test_Static_ServerRoot(t *testing.T) {
-	// SetServerRoot 设置服务器的绝对路径. md5:fcd9affa06770b5b
+			// SetServerRoot 设置服务器的绝对路径. md5:fcd9affa06770b5b
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())
 		path := fmt.Sprintf(`%s/ghttp/static/test/%d`, gfile.Temp(), s.GetListenedPort())
@@ -38,7 +39,7 @@ func Test_Static_ServerRoot(t *testing.T) {
 		t.Assert(client.GetContent(ctx, "/index.htm"), "index")
 	})
 
-	// 使用相对路径设置ServerRoot. md5:67e7f5010754dafc
+			// 使用相对路径设置ServerRoot. md5:67e7f5010754dafc
 	gtest.C(t, func(t *gtest.T) {
 		s := g.Server(guid.S())
 		path := fmt.Sprintf(`static/test/%d`, s.GetListenedPort())

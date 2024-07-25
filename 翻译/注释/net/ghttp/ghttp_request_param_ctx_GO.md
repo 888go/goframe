@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -34,7 +35,8 @@
 # <翻译开始>
 // Context 是函数 GetCtx 的别名。
 // 这个函数重写了 http.Request.Context 函数。
-// 参考 GetCtx 函数。 md5:cc1d0847fad835ae
+// 参考 GetCtx 函数。
+// md5:cc1d0847fad835ae
 # <翻译结束>
 
 
@@ -81,7 +83,8 @@
 
 # <翻译开始>
 // GetCtx 获取并返回请求的上下文。
-// 它是函数Context的别名，与SetCtx函数相关联。 md5:67b84a74829ae7e1
+// 它是函数Context的别名，与SetCtx函数相关联。
+// md5:67b84a74829ae7e1
 # <翻译结束>
 
 
@@ -98,8 +101,9 @@
 // GetNeverDoneCtx 创建并返回一个永不完成的上下文对象，
 // 允许在手动完成上下文之前，使得该上下文可以传播到异步goroutine中，
 // 不受HTTP请求结束的影响。
-//
-// 这个更改是考虑到开发人员在单个HTTP请求中创建多个goroutine时，常见的上下文传播习惯。 md5:14245b7febbf75b4
+// 
+// 这个更改是考虑到开发人员在单个HTTP请求中创建多个goroutine时，常见的上下文传播习惯。
+// md5:14245b7febbf75b4
 # <翻译结束>
 
 
@@ -120,7 +124,8 @@
 
 # <翻译开始>
 // GetCtxVar 根据给定的键名获取并返回一个 Var。
-// 可选参数 `def` 指定了如果给定的 `key` 在上下文中不存在时，Var 的默认值。 md5:8e874c6ac730ae7b
+// 可选参数 `def` 指定了如果给定的 `key` 在上下文中不存在时，Var 的默认值。
+// md5:8e874c6ac730ae7b
 # <翻译结束>
 
 

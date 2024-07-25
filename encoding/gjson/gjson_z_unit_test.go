@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gjson_test
 
@@ -28,14 +29,15 @@ func Test_New(t *testing.T) {
 		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
 		t.Assert(j.Get("a").Array(), g.Slice{1, 2, 3})
 	})
-	// 使用json数组映射创建新的。 md5:0f642e2d9a82f660
+		// 使用json数组映射创建新的。 md5:0f642e2d9a82f660
 	gtest.C(t, func(t *gtest.T) {
 		j := gjson.New(`[{"a":1},{"b":2},{"c":3}]`)
 		t.Assert(j.Get(".").String(), `[{"a":1},{"b":2},{"c":3}]`)
 		t.Assert(j.Get("2.c").String(), `3`)
 	})
 	// 使用gvar的新建方法。
-	// https:	//github.com/gogf/gf/issues/1571 md5:489c7f12ac3a473f
+	// https:	//github.com/gogf/gf/issues/1571
+	// md5:489c7f12ac3a473f
 	gtest.C(t, func(t *gtest.T) {
 		v := gvar.New(`[{"a":1},{"b":2},{"c":3}]`)
 		j := gjson.New(v)
@@ -53,7 +55,7 @@ func Test_New(t *testing.T) {
 		t.Assert(j.Get("k2"), "v2")
 		t.Assert(j.Get("k3"), nil)
 	})
-	// 这段注释是指向GitHub上一个名为gf的项目中的问题号3253的链接。在Go语言中，这种注释用于提供外部资源的引用或相关问题的追踪。 md5:f4927fbc7539374d
+		// 这段注释是指向GitHub上一个名为gf的项目中的问题号3253的链接。在Go语言中，这种注释用于提供外部资源的引用或相关问题的追踪。 md5:f4927fbc7539374d
 	gtest.C(t, func(t *gtest.T) {
 		type TestStruct struct {
 			Result []map[string]string `json:"result"`
@@ -453,7 +455,7 @@ func Test_Basic(t *testing.T) {
 		t.Assert(len(j.Var().Array()), 2)
 
 		j = gjson.New(`[1,2,3]`)
-		// 如果索引 0 被删除，其下一个项目将位于索引 0。 md5:935e43cb97250f0e
+				// 如果索引 0 被删除，其下一个项目将位于索引 0。 md5:935e43cb97250f0e
 		t.Assert(j.Remove("0"), nil)
 		t.Assert(j.Remove("0"), nil)
 		t.Assert(j.Remove("0"), nil)
@@ -594,7 +596,7 @@ func Test_Issue1617(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
+//github.com/gogf/gf/issues/1747. md5:6ee5dc419dd3705e
 func Test_Issue1747(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var j *gjson.Json

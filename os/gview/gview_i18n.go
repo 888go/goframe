@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gview
 
@@ -20,7 +21,7 @@ const (
 // i18nTranslate 使用i18n功能翻译内容。 md5:7e06981e1220b9b8
 func (view *View) i18nTranslate(ctx context.Context, content string, variables Params) string {
 	if view.config.I18nManager != nil {
-		// 兼容旧版本。 md5:7b67a6d4fcad7e51
+				// 兼容旧版本。 md5:7b67a6d4fcad7e51
 		if language, ok := variables[i18nLanguageVariableName]; ok {
 			ctx = gi18n.WithLanguage(ctx, gconv.String(language))
 		}

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtime
 
@@ -16,7 +17,7 @@ import (
 )
 
 var (
-	//php.net/manual/en/function.date.php. md5:8a7c43207206ddc7
+			//php.net/manual/en/function.date.php. md5:8a7c43207206ddc7
 	formats = map[byte]string{
 		'd': "02",                        // Day: 月份中的天数，两位数字，前面带零。例如：01 到 31。 md5:172194d0b1814362
 		'D': "Mon",                       // Day：一个文本表示一天，三个字母。例如：周一到周日。 md5:675cfde285bf0c68
@@ -51,7 +52,7 @@ var (
 		'r': "Mon, 02 Jan 06 15:04 MST",  // 格式：RFC 2822 格式的日期。例如：Thu, 21 Dec 2000 16:01:07 +0200。 md5:832bc55e456d82e4
 	}
 
-	// 周到数字的映射。 md5:a200a191f65df59c
+		// 周到数字的映射。 md5:a200a191f65df59c
 	weekMap = map[string]string{
 		"Sunday":    "0",
 		"Monday":    "1",
@@ -62,11 +63,12 @@ var (
 		"Saturday":  "6",
 	}
 
-	// 每个非闰年的月份的天数。 md5:2519753cb5104326
+		// 每个非闰年的月份的天数。 md5:2519753cb5104326
 	dayOfMonth = []int{0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334}
 )
 
-// Format 使用自定义`format`格式化并返回格式化结果。如果你想要遵循stdlib（标准库）的布局，可以参考 Layout 方法。 md5:8f91fb876a2c8a6d
+// Format 使用自定义`format`格式化并返回格式化结果。如果你想要遵循stdlib（标准库）的布局，可以参考 Layout 方法。
+// md5:8f91fb876a2c8a6d
 func (t *Time) Format(format string) string {
 	if t == nil {
 		return ""
@@ -98,7 +100,7 @@ func (t *Time) Format(format string) string {
 			}
 			if f, ok := formats[byte(runes[i])]; ok {
 				result := t.Time.Format(f)
-				// 特定的字符应该在这里被处理。 md5:e72d802cbb002d25
+								// 特定的字符应该在这里被处理。 md5:e72d802cbb002d25
 				switch runes[i] {
 				case 'j':
 					for _, s := range []string{"=j=0", "=j="} {
@@ -240,7 +242,7 @@ func formatToStdLayout(format string) string {
 
 		default:
 			if f, ok := formats[format[i]]; ok {
-				// 处理特定字符。 md5:65410637e4dc8fe5
+								// 处理特定字符。 md5:65410637e4dc8fe5
 				switch format[i] {
 				case 'j':
 					b.WriteString("2")

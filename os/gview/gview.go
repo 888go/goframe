@@ -2,12 +2,14 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gview实现了基于text/template的模板引擎。
 //
 // 预留的模板变量名：
-// I18nLanguage：将此变量赋值以定义每个页面的国际化语言。 md5:31bd070a7bdcf2a1
+// I18nLanguage：将此变量赋值以定义每个页面的国际化语言。
+// md5:31bd070a7bdcf2a1
 package gview
 
 import (
@@ -46,21 +48,24 @@ var (
 )
 
 // checkAndInitDefaultView 检查并初始化默认视图对象。
-// 默认视图对象仅会被初始化一次。 md5:d74d29ccd894a2fa
+// 默认视图对象仅会被初始化一次。
+// md5:d74d29ccd894a2fa
 func checkAndInitDefaultView() {
 	if defaultViewObj == nil {
 		defaultViewObj = New()
 	}
 }
 
-// ParseContent 使用默认的视图对象直接解析模板内容，并返回解析后的内容。 md5:8349c5832e5a90c1
+// ParseContent 使用默认的视图对象直接解析模板内容，并返回解析后的内容。
+// md5:8349c5832e5a90c1
 func ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	checkAndInitDefaultView()
 	return defaultViewObj.ParseContent(ctx, content, params...)
 }
 
 // New 返回一个新的视图对象。
-// 参数 `path` 指定加载模板文件的模板目录路径。 md5:b96716da886c0dc3
+// 参数 `path` 指定加载模板文件的模板目录路径。
+// md5:b96716da886c0dc3
 func New(path ...string) *View {
 	var (
 		ctx = context.TODO()
@@ -77,7 +82,7 @@ func New(path ...string) *View {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
 	} else {
-		// 从环境变量或命令行自定义的目录路径。 md5:8cfcbca968e23c5b
+				// 从环境变量或命令行自定义的目录路径。 md5:8cfcbca968e23c5b
 		if envPath := gcmd.GetOptWithEnv(commandEnvKeyForPath).String(); envPath != "" {
 			if gfile.Exists(envPath) {
 				if err := view.SetPath(envPath); err != nil {
@@ -89,7 +94,7 @@ func New(path ...string) *View {
 				}
 			}
 		} else {
-			// Dir 是工作目录的路径。 md5:0fba211853ea97a0
+						// Dir 是工作目录的路径。 md5:0fba211853ea97a0
 			if pwdPath := gfile.Pwd(); pwdPath != "" {
 				if err := view.SetPath(pwdPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
@@ -101,7 +106,7 @@ func New(path ...string) *View {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}
 			}
-			// 主包的目录路径。 md5:a4d2802779172abe
+						// 主包的目录路径。 md5:a4d2802779172abe
 			if mainPath := gfile.MainPkgPath(); mainPath != "" && gfile.Exists(mainPath) {
 				if err := view.AddPath(mainPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
@@ -110,11 +115,11 @@ func New(path ...string) *View {
 		}
 	}
 	view.SetDelimiters("{{", "}}")
-	// 默认内置变量。 md5:b0f8a83fbf9378e6
+		// 默认内置变量。 md5:b0f8a83fbf9378e6
 	view.data["GF"] = map[string]interface{}{
 		"version": gf.VERSION,
 	}
-	// 默认内置函数。 md5:8ca9492d3b848286
+		// 默认内置函数。 md5:8ca9492d3b848286
 	view.BindFuncMap(FuncMap{
 		"eq":         view.buildInFuncEq,
 		"ne":         view.buildInFuncNe,

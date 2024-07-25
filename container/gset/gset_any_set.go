@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gset提供了各种并发安全/不安全的集合。 md5:bcd5b9cf4b925a06
 package gset
@@ -22,13 +23,15 @@ type Set struct {
 }
 
 // New 创建并返回一个新的集合，其中包含不重复的项目。
-// 参数 `safe` 用于指定在并发安全模式下使用集合，其默认为 false。 md5:db8312fdb3f679d3
+// 参数 `safe` 用于指定在并发安全模式下使用集合，其默认为 false。
+// md5:db8312fdb3f679d3
 func New(safe ...bool) *Set {
 	return NewSet(safe...)
 }
 
 // NewSet 创建并返回一个新的集合，该集合包含不重复的项目。
-// 另请参见 New。 md5:3b8e2b58affe23e6
+// 另请参见 New。
+// md5:3b8e2b58affe23e6
 func NewSet(safe ...bool) *Set {
 	return &Set{
 		data: make(map[interface{}]struct{}),
@@ -37,7 +40,8 @@ func NewSet(safe ...bool) *Set {
 }
 
 // NewFrom 函数根据 `items` 创建一个新的集合。
-// 参数 `items` 可以是任何类型的变量，或者是一个切片。 md5:eab216208c4dc0bb
+// 参数 `items` 可以是任何类型的变量，或者是一个切片。
+// md5:eab216208c4dc0bb
 func NewFrom(items interface{}, safe ...bool) *Set {
 	m := make(map[interface{}]struct{})
 	for _, v := range gconv.Interfaces(items) {
@@ -49,7 +53,8 @@ func NewFrom(items interface{}, safe ...bool) *Set {
 	}
 }
 
-// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。 md5:b896360b1cf6fc88
+// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:b896360b1cf6fc88
 func (set *Set) Iterator(f func(v interface{}) bool) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -76,7 +81,8 @@ func (set *Set) Add(items ...interface{}) {
 // 如果项不存在于集合中，则将其添加到集合并返回true，
 // 否则不做任何操作并返回false。
 //
-// 注意，如果 `item` 为 nil，它将不做任何操作并返回false。 md5:3d920a290d301fb9
+// 注意，如果 `item` 为 nil，它将不做任何操作并返回false。
+// md5:3d920a290d301fb9
 func (set *Set) AddIfNotExist(item interface{}) bool {
 	if item == nil {
 		return false
@@ -98,7 +104,8 @@ func (set *Set) AddIfNotExist(item interface{}) bool {
 // AddIfNotExistFunc 检查项目是否存在于集合中，
 // 如果项目不在集合中并且函数 `f` 返回 true，那么它会将项目添加到集合并返回 true，否则不做任何操作并返回 false。
 //
-// 注意，如果 `item` 为 nil，它不做任何操作并返回 false。函数 `f` 在不持有写锁的情况下执行。 md5:f80cf07184bee06f
+// 注意，如果 `item` 为 nil，它不做任何操作并返回 false。函数 `f` 在不持有写锁的情况下执行。
+// md5:f80cf07184bee06f
 func (set *Set) AddIfNotExistFunc(item interface{}, f func() bool) bool {
 	if item == nil {
 		return false
@@ -123,7 +130,8 @@ func (set *Set) AddIfNotExistFunc(item interface{}, f func() bool) bool {
 // 如果项不存在于集合中并且函数 `f` 返回 true，它将在集合中添加该项并返回 true，
 // 否则什么也不做并返回 false。
 //
-// 注意，如果 `item` 为 nil，则什么也不做并返回 false。函数 `f` 在写锁保护下执行。 md5:2a57dc990857b7b1
+// 注意，如果 `item` 为 nil，则什么也不做并返回 false。函数 `f` 在写锁保护下执行。
+// md5:2a57dc990857b7b1
 func (set *Set) AddIfNotExistFuncLock(item interface{}, f func() bool) bool {
 	if item == nil {
 		return false
@@ -298,7 +306,8 @@ func (set *Set) IsSubsetOf(other *Set) bool {
 }
 
 // Union 返回一个新集合，它是`set`和`others`的并集。
-// 意味着，新集合`newSet`中的所有项目都在`set`中或在`others`中。 md5:81f60d9140026203
+// 意味着，新集合`newSet`中的所有项目都在`set`中或在`others`中。
+// md5:81f60d9140026203
 func (set *Set) Union(others ...*Set) (newSet *Set) {
 	newSet = NewSet()
 	set.mu.RLock()
@@ -324,7 +333,8 @@ func (set *Set) Union(others ...*Set) (newSet *Set) {
 }
 
 // Diff 返回一个新的集合，它是 `set` 与 `others` 的差集。
-// 意味着，新集合 `newSet` 中的所有项都在 `set` 中但不在 `others` 中。 md5:0fe9ba09d007ac00
+// 意味着，新集合 `newSet` 中的所有项都在 `set` 中但不在 `others` 中。
+// md5:0fe9ba09d007ac00
 func (set *Set) Diff(others ...*Set) (newSet *Set) {
 	newSet = NewSet()
 	set.mu.RLock()
@@ -345,7 +355,8 @@ func (set *Set) Diff(others ...*Set) (newSet *Set) {
 }
 
 // Intersect 返回一个新集合，该集合是将`set`与`others`进行交集运算的结果。
-// 这意味着，新集合`newSet`中的所有元素都既存在于`set`中也存在于`others`中。 md5:4db6ae5026f8dedc
+// 这意味着，新集合`newSet`中的所有元素都既存在于`set`中也存在于`others`中。
+// md5:4db6ae5026f8dedc
 func (set *Set) Intersect(others ...*Set) (newSet *Set) {
 	newSet = NewSet()
 	set.mu.RLock()
@@ -369,7 +380,8 @@ func (set *Set) Intersect(others ...*Set) (newSet *Set) {
 // Complement 返回一个新的集合，该集合是`set`在`full`中的补集。
 // 换句话说，`newSet`中的所有元素都在`full`中但不在`set`中。
 //
-// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。 md5:7e76900d6f20af06
+// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。
+// md5:7e76900d6f20af06
 func (set *Set) Complement(full *Set) (newSet *Set) {
 	newSet = NewSet()
 	set.mu.RLock()
@@ -406,7 +418,8 @@ func (set *Set) Merge(others ...*Set) *Set {
 
 // Sum 计算项目总和。
 // 注意：项目应该转换为整数类型，
-// 否则你可能会得到意想不到的结果。 md5:979b37fbf86a5233
+// 否则你可能会得到意想不到的结果。
+// md5:979b37fbf86a5233
 func (set *Set) Sum() (sum int) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -428,7 +441,8 @@ func (set *Set) Pop() interface{} {
 }
 
 // Pops 从集合中随机弹出 `size` 个元素。
-// 如果 size == -1，它将返回所有元素。 md5:c687f88e0a2df8f2
+// 如果 size == -1，它将返回所有元素。
+// md5:c687f88e0a2df8f2
 func (set *Set) Pops(size int) []interface{} {
 	set.mu.Lock()
 	defer set.mu.Unlock()

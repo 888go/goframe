@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package garray
 
@@ -22,20 +23,23 @@ import (
 )
 
 // StrArray 是一个具有丰富功能的 Go 语言字符串数组。
-// 它包含一个并发安全/不安全的开关，该开关应在初始化时设置，并且之后不能更改。 md5:60bf9d0fe402df8a
+// 它包含一个并发安全/不安全的开关，该开关应在初始化时设置，并且之后不能更改。
+// md5:60bf9d0fe402df8a
 type StrArray struct {
 	mu    rwmutex.RWMutex
 	array []string
 }
 
 // NewStrArray 创建并返回一个空数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。 md5:1a16d6b7fa6dc90d
+// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
+// md5:1a16d6b7fa6dc90d
 func NewStrArray(safe ...bool) *StrArray {
 	return NewStrArraySize(0, 0, safe...)
 }
 
 // NewStrArraySize 创建并返回一个给定大小和容量的数组。
-// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。 md5:d419c5b3ffb2a682
+// 参数 `safe` 用于指定是否在并发安全模式下使用数组，默认为 false。
+// md5:d419c5b3ffb2a682
 func NewStrArraySize(size int, cap int, safe ...bool) *StrArray {
 	return &StrArray{
 		mu:    rwmutex.Create(safe...),
@@ -44,7 +48,8 @@ func NewStrArraySize(size int, cap int, safe ...bool) *StrArray {
 }
 
 // NewStrArrayFrom 根据给定的切片 `array` 创建并返回一个数组。
-// 参数 `safe` 用于指定是否使用并发安全的数组，默认为 false。 md5:719d22a529b420db
+// 参数 `safe` 用于指定是否使用并发安全的数组，默认为 false。
+// md5:719d22a529b420db
 func NewStrArrayFrom(array []string, safe ...bool) *StrArray {
 	return &StrArray{
 		mu:    rwmutex.Create(safe...),
@@ -53,7 +58,8 @@ func NewStrArrayFrom(array []string, safe ...bool) *StrArray {
 }
 
 // NewStrArrayFromCopy 根据给定切片 `array` 的副本创建并返回一个数组。
-// 参数 `safe` 用于指定是否在并发安全环境下使用数组，默认为 false。 md5:71bd55b1c0df65be
+// 参数 `safe` 用于指定是否在并发安全环境下使用数组，默认为 false。
+// md5:71bd55b1c0df65be
 func NewStrArrayFromCopy(array []string, safe ...bool) *StrArray {
 	newArray := make([]string, len(array))
 	copy(newArray, array)
@@ -64,14 +70,16 @@ func NewStrArrayFromCopy(array []string, safe ...bool) *StrArray {
 }
 
 // At通过指定的索引返回值。
-// 如果给定的`index`超出了数组的范围，它将返回一个空字符串。 md5:2465f6b1e3ac2863
+// 如果给定的`index`超出了数组的范围，它将返回一个空字符串。
+// md5:2465f6b1e3ac2863
 func (a *StrArray) At(index int) (value string) {
 	value, _ = a.Get(index)
 	return
 }
 
 // Get 函数通过指定的索引返回值。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。 md5:ab300cfc0d6dd8ee
+// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
+// md5:ab300cfc0d6dd8ee
 func (a *StrArray) Get(index int) (value string, found bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -125,7 +133,8 @@ func (a *StrArray) Sum() (sum int) {
 }
 
 // Sort 对数组进行升序排序。
-// 参数 `reverse` 控制排序方式，如果为 true，则降序排列（默认为升序）。 md5:35d4650a0f563ccf
+// 参数 `reverse` 控制排序方式，如果为 true，则降序排列（默认为升序）。
+// md5:35d4650a0f563ccf
 func (a *StrArray) Sort(reverse ...bool) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -176,7 +185,8 @@ func (a *StrArray) InsertAfter(index int, values ...string) error {
 }
 
 // Remove 函数通过索引移除一个元素。
-// 如果给定的 `index` 超出了数组范围，`found` 将为 false。 md5:feaf958654838c25
+// 如果给定的 `index` 超出了数组范围，`found` 将为 false。
+// md5:feaf958654838c25
 func (a *StrArray) Remove(index int) (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -188,7 +198,7 @@ func (a *StrArray) doRemoveWithoutLock(index int) (value string, found bool) {
 	if index < 0 || index >= len(a.array) {
 		return "", false
 	}
-	// 在删除时确定数组边界，以提高删除效率。 md5:bc969ee880edf699
+		// 在删除时确定数组边界，以提高删除效率。 md5:bc969ee880edf699
 	if index == 0 {
 		value := a.array[0]
 		a.array = a.array[1:]
@@ -200,14 +210,16 @@ func (a *StrArray) doRemoveWithoutLock(index int) (value string, found bool) {
 	}
 	// 如果是一个非边界删除，
 	// 它将涉及创建一个数组，
-	// 那么删除操作效率较低。 md5:6a664196d66bc968
+	// 那么删除操作效率较低。
+	// md5:6a664196d66bc968
 	value = a.array[index]
 	a.array = append(a.array[:index], a.array[index+1:]...)
 	return value, true
 }
 
 // RemoveValue 函数根据值删除一个元素。
-// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。 md5:c49c7706ce703d00
+// 如果值在数组中找到，它将返回 true，否则如果未找到则返回 false。
+// md5:c49c7706ce703d00
 func (a *StrArray) RemoveValue(value string) bool {
 	if i := a.Search(value); i != -1 {
 		_, found := a.Remove(i)
@@ -236,7 +248,8 @@ func (a *StrArray) PushLeft(value ...string) *StrArray {
 }
 
 // PushRight 将一个或多个元素添加到数组的末尾。
-// 它等同于 Append。 md5:bb33f2edfdfd9896
+// 它等同于 Append。
+// md5:bb33f2edfdfd9896
 func (a *StrArray) PushRight(value ...string) *StrArray {
 	a.mu.Lock()
 	a.array = append(a.array, value...)
@@ -245,7 +258,8 @@ func (a *StrArray) PushRight(value ...string) *StrArray {
 }
 
 // PopLeft 从数组的开头弹出并返回一个项目。
-// 注意，如果数组为空，`found` 为 false。 md5:68f14002d84594a4
+// 注意，如果数组为空，`found` 为 false。
+// md5:68f14002d84594a4
 func (a *StrArray) PopLeft() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -258,7 +272,8 @@ func (a *StrArray) PopLeft() (value string, found bool) {
 }
 
 // PopRight 从数组的末尾弹出并返回一个元素。
-// 注意，如果数组为空，则 `found` 为 false。 md5:207fa7c7c4a04a10
+// 注意，如果数组为空，则 `found` 为 false。
+// md5:207fa7c7c4a04a10
 func (a *StrArray) PopRight() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -272,7 +287,8 @@ func (a *StrArray) PopRight() (value string, found bool) {
 }
 
 // PopRand 从数组中随机弹出并返回一个元素。
-// 注意，如果数组为空，`found` 将为 false。 md5:29338267db400401
+// 注意，如果数组为空，`found` 将为 false。
+// md5:29338267db400401
 func (a *StrArray) PopRand() (value string, found bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -281,7 +297,8 @@ func (a *StrArray) PopRand() (value string, found bool) {
 
 // PopRands 随机地从数组中弹出并返回 `size` 个元素。
 // 如果给定的 `size` 大于数组的大小，它将返回数组的所有元素。
-// 注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。 md5:9fd270d3d3021d32
+// 注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。
+// md5:9fd270d3d3021d32
 func (a *StrArray) PopRands(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -300,7 +317,8 @@ func (a *StrArray) PopRands(size int) []string {
 
 // PopLefts 从数组开始处弹出并返回 `size` 个元素。
 // 如果给定的 `size` 大于数组的长度，它将返回数组中的所有元素。
-// 请注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。 md5:3ecbe066336a9849
+// 请注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。
+// md5:3ecbe066336a9849
 func (a *StrArray) PopLefts(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -319,7 +337,8 @@ func (a *StrArray) PopLefts(size int) []string {
 
 // PopRights 从数组末尾弹出并返回 `size` 个元素。
 // 如果给定的 `size` 大于数组的大小，它将返回数组中的所有元素。
-// 注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。 md5:4f44f32fbb68fb50
+// 注意，如果给定的 `size` 小于等于 0 或数组为空，它将返回 nil。
+// md5:4f44f32fbb68fb50
 func (a *StrArray) PopRights(size int) []string {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -339,9 +358,10 @@ func (a *StrArray) PopRights(size int) []string {
 
 // Range通过范围选择并返回项目，就像数组[start:end]一样。
 // 请注意，如果在并发安全使用中，它将返回切片的副本；否则返回底层数据的指针。
-//
+// 
 // 如果`end`为负数，则偏移量将从数组末尾开始。
-// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。 md5:8b71690536bb9ec5
+// 如果省略`end`，则序列将包含从`start`到数组结尾的所有内容。
+// md5:8b71690536bb9ec5
 func (a *StrArray) Range(start int, end ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -376,7 +396,8 @@ func (a *StrArray) Range(start int, end ...int) []string {
 // 如果长度为负数，则序列将在距离数组末尾该数量的元素处停止。
 // 如果省略长度参数，那么序列将从偏移量开始直到数组末尾的所有元素。
 //
-// 如果切片范围的起始位置超出数组左侧边界，操作将失败。 md5:f87ecd35d1dd7ac8
+// 如果切片范围的起始位置超出数组左侧边界，操作将失败。
+// md5:f87ecd35d1dd7ac8
 func (a *StrArray) SubSlice(offset int, length ...int) []string {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -430,7 +451,8 @@ func (a *StrArray) Len() int {
 }
 
 // Slice 返回数组的底层数据。
-// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。 md5:111cbee45795a58b
+// 注意，如果在并发安全的使用情况下，它会返回底层数据的副本，否则返回底层数据的指针。
+// md5:111cbee45795a58b
 func (a *StrArray) Slice() []string {
 	array := ([]string)(nil)
 	if a.mu.IsSafe() {
@@ -480,7 +502,8 @@ func (a *StrArray) Contains(value string) bool {
 }
 
 // ContainsI 检查数组中是否存在某个值（忽略大小写）。
-// 注意，它内部会遍历整个数组以进行不区分大小写的比较。 md5:faf76a65365aa0ac
+// 注意，它内部会遍历整个数组以进行不区分大小写的比较。
+// md5:faf76a65365aa0ac
 func (a *StrArray) ContainsI(value string) bool {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -496,7 +519,8 @@ func (a *StrArray) ContainsI(value string) bool {
 }
 
 // Search 在数组中搜索 `value`，返回 `value` 的索引，
-// 如果不存在则返回 -1。 md5:787617bfeade8f93
+// 如果不存在则返回 -1。
+// md5:787617bfeade8f93
 func (a *StrArray) Search(value string) int {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -518,7 +542,8 @@ func (a *StrArray) doSearchWithoutLock(value string) int {
 }
 
 // Unique 去除数组中的重复元素。
-// 例如：[1,1,2,3,2] -> [1,2,3] md5:5083aa414231fd30
+// 例如：[1,1,2,3,2] -> [1,2,3]
+// md5:5083aa414231fd30
 func (a *StrArray) Unique() *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -562,12 +587,14 @@ func (a *StrArray) RLockFunc(f func(array []string)) *StrArray {
 // Merge 将 `array` 合并到当前数组中。
 // 参数 `array` 可以是任何 garray 或切片类型。
 // Merge 和 Append 的区别在于，Append 只支持特定的切片类型，
-// 而 Merge 支持更多种类的参数类型。 md5:465caccda38e84f8
+// 而 Merge 支持更多种类的参数类型。
+// md5:465caccda38e84f8
 func (a *StrArray) Merge(array interface{}) *StrArray {
 	return a.Append(gconv.Strings(array)...)
 }
 
-// Fill 使用`value`值填充数组，从`startIndex`参数开始的num个条目。 md5:0a7d3daa806b72ca
+// Fill 使用`value`值填充数组，从`startIndex`参数开始的num个条目。
+// md5:0a7d3daa806b72ca
 func (a *StrArray) Fill(startIndex int, num int, value string) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -584,7 +611,8 @@ func (a *StrArray) Fill(startIndex int, num int, value string) error {
 	return nil
 }
 
-// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。 md5:0f1f74ff34633d24
+// Chunk 将一个数组分割成多个子数组，每个子数组的大小由 `size` 决定。最后一个子数组可能包含少于 `size` 个元素。
+// md5:0f1f74ff34633d24
 func (a *StrArray) Chunk(size int) [][]string {
 	if size < 1 {
 		return nil
@@ -607,7 +635,8 @@ func (a *StrArray) Chunk(size int) [][]string {
 
 // Pad 用`value`将数组填充到指定的长度。
 // 如果大小为正数，则在右侧填充数组，如果为负数，则在左侧填充。
-// 如果`size`的绝对值小于或等于数组的长度，则不进行填充。 md5:fbe08b371c540418
+// 如果`size`的绝对值小于或等于数组的长度，则不进行填充。
+// md5:fbe08b371c540418
 func (a *StrArray) Pad(size int, value string) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -708,7 +737,8 @@ func (a *StrArray) Iterator(f func(k int, v string) bool) {
 	a.IteratorAsc(f)
 }
 
-// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。 md5:8a125e2dd8982d48
+// IteratorAsc 遍历数组，按照给定的回调函数 `f` 以升序进行只读访问。如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:8a125e2dd8982d48
 func (a *StrArray) IteratorAsc(f func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -720,7 +750,8 @@ func (a *StrArray) IteratorAsc(f func(k int, v string) bool) {
 }
 
 // IteratorDesc 以降序遍历数组，并使用给定的回调函数`f`进行只读迭代。
-// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。 md5:ea0a3805bccce0f7
+// 如果`f`返回true，则继续遍历；如果返回false，则停止遍历。
+// md5:ea0a3805bccce0f7
 func (a *StrArray) IteratorDesc(f func(k int, v string) bool) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -751,7 +782,8 @@ func (a *StrArray) String() string {
 }
 
 // MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
-// 注意，这里不要使用指针作为接收者。 md5:b4f76062b07a5263
+// 注意，这里不要使用指针作为接收者。
+// md5:b4f76062b07a5263
 func (a StrArray) MarshalJSON() ([]byte, error) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
@@ -785,7 +817,8 @@ func (a *StrArray) UnmarshalValue(value interface{}) error {
 }
 
 // Filter 遍历数组，并使用自定义回调函数过滤元素。
-// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。 md5:d33873cfb9f1bb38
+// 如果回调函数`filter`返回true，它将从数组中移除该元素，否则不做任何操作并继续遍历。
+// md5:d33873cfb9f1bb38
 func (a *StrArray) Filter(filter func(index int, value string) bool) *StrArray {
 	a.mu.Lock()
 	defer a.mu.Unlock()

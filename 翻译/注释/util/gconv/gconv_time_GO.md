@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -43,7 +44,8 @@
 # <翻译开始>
 // Duration 将 `any` 转换为 time.Duration。
 // 如果 `any` 是字符串，那么它使用 time.ParseDuration 进行转换。
-// 如果 `any` 是数字，那么它将 `any` 作为纳秒来转换。 md5:4328f63b0561b4f4
+// 如果 `any` 是数字，那么它将 `any` 作为纳秒来转换。
+// md5:4328f63b0561b4f4
 # <翻译结束>
 
 
@@ -60,7 +62,8 @@
 // 参数 `format` 可用于指定 `any` 的格式。
 // 它返回与格式切片中第一个格式匹配的转换值。
 // 如果没有提供 `format`，则当 `any` 为数字时使用 gtime.NewFromTimeStamp 进行转换，
-// 或者当 `any` 为字符串时使用 gtime.StrToTime 进行转换。 md5:a1c7656c4b134443
+// 或者当 `any` 为字符串时使用 gtime.StrToTime 进行转换。
+// md5:a1c7656c4b134443
 # <翻译结束>
 
 

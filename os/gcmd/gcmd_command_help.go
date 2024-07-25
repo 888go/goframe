@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gcmd
 
@@ -28,9 +29,9 @@ func (c *Command) PrintTo(writer io.Writer) {
 		buffer    = bytes.NewBuffer(nil)
 		arguments = make([]Argument, len(c.Arguments))
 	)
-	// 复制打印选项。 md5:e1c3b9f9f9585d88
+		// 复制打印选项。 md5:e1c3b9f9f9585d88
 	copy(arguments, c.Arguments)
-	// 添加内置帮助选项，仅用于信息用途。 md5:7ddb319e073cbc2c
+		// 添加内置帮助选项，仅用于信息用途。 md5:7ddb319e073cbc2c
 	arguments = append(arguments, defaultHelpOption)
 
 	// Usage.
@@ -212,7 +213,7 @@ type printLineBriefInput struct {
 func (c *Command) printLineBrief(in printLineBriefInput) {
 	briefArray := gstr.SplitAndTrim(in.Brief, "\n")
 	if len(briefArray) == 0 {
-		// 如果命令摘要为空，它只打印其命令名。 md5:07ab5664d0594d07
+				// 如果命令摘要为空，它只打印其命令名。 md5:07ab5664d0594d07
 		briefArray = []string{""}
 	}
 	for i, line := range briefArray {
@@ -234,7 +235,7 @@ func (c *Command) printLineBrief(in printLineBriefInput) {
 }
 
 func (c *Command) defaultHelpFunc(ctx context.Context, parser *Parser) error {
-	// 将命令帮助信息打印到标准输出（stdout）。 md5:0971e4539e0f02f6
+		// 将命令帮助信息打印到标准输出（stdout）。 md5:0971e4539e0f02f6
 	c.Print()
 	return nil
 }

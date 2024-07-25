@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gjson
 
@@ -50,7 +51,8 @@ func (j *Json) IsNil() bool {
 // 我们也可以在`pattern`中通过索引数字来访问切片的元素，例如：
 // "list.10", "array.0.name", "array.0.1.id"。
 //
-// 如果没有为`pattern`找到值，它将返回由`def`指定的默认值。 md5:f56f76d635296903
+// 如果没有为`pattern`找到值，它将返回由`def`指定的默认值。
+// md5:f56f76d635296903
 func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	if j == nil {
 		return nil
@@ -58,7 +60,7 @@ func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
 
-	// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
+		// 如果pattern为空，它将返回nil。 md5:8e2a6f56affd353a
 	if pattern == "" {
 		return nil
 	}
@@ -73,12 +75,14 @@ func (j *Json) Get(pattern string, def ...interface{}) *gvar.Var {
 	return nil
 }
 
-// GetJson 通过指定的`pattern`获取值，并将其转换为一个非并发安全的Json对象。 md5:e0f60541ee6017b5
+// GetJson 通过指定的`pattern`获取值，并将其转换为一个非并发安全的Json对象。
+// md5:e0f60541ee6017b5
 func (j *Json) GetJson(pattern string, def ...interface{}) *Json {
 	return New(j.Get(pattern, def...).Val())
 }
 
-// GetJsons 通过指定的`pattern`获取值，并将其转换为一个不并发安全的Json对象切片。 md5:1bd75964e1b32ed2
+// GetJsons 通过指定的`pattern`获取值，并将其转换为一个不并发安全的Json对象切片。
+// md5:1bd75964e1b32ed2
 func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 	array := j.Get(pattern, def...).Array()
 	if len(array) > 0 {
@@ -92,7 +96,8 @@ func (j *Json) GetJsons(pattern string, def ...interface{}) []*Json {
 }
 
 // GetJsonMap 通过指定的`pattern`获取值，
-// 并将其转换为非并发安全的Json对象映射。 md5:d549d238d186a4e0
+// 并将其转换为非并发安全的Json对象映射。
+// md5:d549d238d186a4e0
 func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 	m := j.Get(pattern, def...).Map()
 	if len(m) > 0 {
@@ -106,7 +111,8 @@ func (j *Json) GetJsonMap(pattern string, def ...interface{}) map[string]*Json {
 }
 
 // Set 使用指定的 `pattern` 设置值。
-// 它支持通过字符分隔符（默认为'.'）进行层次数据访问。 md5:85400f8aa43895d6
+// 它支持通过字符分隔符（默认为'.'）进行层次数据访问。
+// md5:85400f8aa43895d6
 func (j *Json) Set(pattern string, value interface{}) error {
 	return j.setValue(pattern, value, false)
 }
@@ -118,7 +124,8 @@ func (j *Json) MustSet(pattern string, value interface{}) {
 	}
 }
 
-// Remove 删除具有指定`pattern`的值。它支持通过字符分隔符（默认为`.`）进行层次数据访问。 md5:a8bd1b8b0e8d7d8e
+// Remove 删除具有指定`pattern`的值。它支持通过字符分隔符（默认为`.`）进行层次数据访问。
+// md5:a8bd1b8b0e8d7d8e
 func (j *Json) Remove(pattern string) error {
 	return j.setValue(pattern, nil, true)
 }
@@ -135,7 +142,8 @@ func (j *Json) Contains(pattern string) bool {
 	return j.Get(pattern) != nil
 }
 
-// Len 返回由指定 `pattern` 定义的值的长度/大小。目标值应该是切片或映射类型。如果找不到目标值或者其类型无效，它将返回 -1。 md5:f929eb27a0ef1a36
+// Len 返回由指定 `pattern` 定义的值的长度/大小。目标值应该是切片或映射类型。如果找不到目标值或者其类型无效，它将返回 -1。
+// md5:f929eb27a0ef1a36
 func (j *Json) Len(pattern string) int {
 	p := j.getPointerByPattern(pattern)
 	if p != nil {
@@ -151,7 +159,8 @@ func (j *Json) Len(pattern string) int {
 	return -1
 }
 
-// Append 将指定的 `pattern` 所引用的值追加到目标值（应该是切片类型）中。 md5:5b8e7f4c493419ba
+// Append 将指定的 `pattern` 所引用的值追加到目标值（应该是切片类型）中。
+// md5:5b8e7f4c493419ba
 func (j *Json) Append(pattern string, value interface{}) error {
 	p := j.getPointerByPattern(pattern)
 	if p == nil || *p == nil {
@@ -178,17 +187,20 @@ func (j *Json) MustAppend(pattern string, value interface{}) {
 }
 
 // Map 将当前的 Json 对象转换为 map[string]interface{}。
-// 如果转换失败，它将返回 nil。 md5:599d2c152000d26b
+// 如果转换失败，它将返回 nil。
+// md5:599d2c152000d26b
 func (j *Json) Map() map[string]interface{} {
 	return j.Var().Map()
 }
 
-// Array 将当前Json对象转换为 []interface{} 类型。如果转换失败，它将返回nil。 md5:8b3042473c46995f
+// Array 将当前Json对象转换为 []interface{} 类型。如果转换失败，它将返回nil。
+// md5:8b3042473c46995f
 func (j *Json) Array() []interface{} {
 	return j.Var().Array()
 }
 
-// Scan会根据参数类型自动调用Struct或Structs函数，并通过`pointer`实现转换。 md5:afdb5ab720fddc3b
+// Scan会根据参数类型自动调用Struct或Structs函数，并通过`pointer`实现转换。
+// md5:afdb5ab720fddc3b
 func (j *Json) Scan(pointer interface{}, mapping ...map[string]string) error {
 	return j.Var().Scan(pointer, mapping...)
 }

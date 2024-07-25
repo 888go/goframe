@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // gaes 包提供了对AES加密/解密算法有用的API。 md5:a8dd4c4d404f7193
 package gaes
@@ -18,7 +19,7 @@ import (
 )
 
 const (
-	// IVDefaultValue 是初始向量(IV)的默认值。 md5:4a6e2194de451335
+		// IVDefaultValue 是初始向量(IV)的默认值。 md5:4a6e2194de451335
 	IVDefaultValue = "I Love Go Frame!"
 )
 
@@ -34,7 +35,8 @@ func Decrypt(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 
 // 使用CBC模式加密`plainText`。
 // 注意密钥长度必须为16/24/32位。
-// 参数`iv`初始化向量是不必要的。 md5:1628ebc8e55608ea
+// 参数`iv`初始化向量是不必要的。
+// md5:1628ebc8e55608ea
 func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -58,7 +60,8 @@ func EncryptCBC(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 
 // DecryptCBC 使用CBC模式解密`cipherText`。
 // 请注意，密钥必须为16/24/32位长度。
-// 参数`iv`初始化向量是可选的。 md5:ffdc2bd43249f656
+// 参数`iv`初始化向量是可选的。
+// md5:ffdc2bd43249f656
 func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -90,7 +93,8 @@ func DecryptCBC(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 
 // PKCS5Padding 对源字节切片应用 PKCS#5 填充，以匹配给定的块大小。
 //
-// 如果未提供块大小，则默认为 8。 md5:709e406aa572f106
+// 如果未提供块大小，则默认为 8。
+// md5:709e406aa572f106
 func PKCS5Padding(src []byte, blockSize ...int) []byte {
 	blockSizeTemp := 8
 	if len(blockSize) > 0 {
@@ -100,8 +104,9 @@ func PKCS5Padding(src []byte, blockSize ...int) []byte {
 }
 
 // PKCS5UnPadding 根据给定的块大小，从源字节切片中移除PKCS#5填充。
-//
-// 如果未提供块大小，则默认为8。 md5:d61fd48ac346da68
+// 
+// 如果未提供块大小，则默认为8。
+// md5:d61fd48ac346da68
 func PKCS5UnPadding(src []byte, blockSize ...int) ([]byte, error) {
 	blockSizeTemp := 8
 	if len(blockSize) > 0 {
@@ -145,7 +150,8 @@ func PKCS7UnPadding(src []byte, blockSize int) ([]byte, error) {
 
 // EncryptCFB 使用CFB模式对`plainText`进行加密。
 // 注意，密钥必须是16/24/32位长度。
-// 参数`iv`（初始化向量）是不必要的。 md5:cdcc74633b342790
+// 参数`iv`（初始化向量）是不必要的。
+// md5:cdcc74633b342790
 func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -168,7 +174,8 @@ func EncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byt
 
 // DecryptCFB 使用CFB模式解密`plainText`。
 // 注意，密钥必须是16/24/32位长度。
-// 参数`iv`（初始化向量）是不必要的。 md5:f6a0b1655dd052b7
+// 参数`iv`（初始化向量）是不必要的。
+// md5:f6a0b1655dd052b7
 func DecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {

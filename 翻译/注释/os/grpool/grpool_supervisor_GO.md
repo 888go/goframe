@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -22,6 +23,7 @@
 <原文结束>
 
 # <翻译开始>
-// supervisor 检查工作列表，如果工作列表中有任务但工作池中没有工人goroutine，就 fork 新的工人goroutine来处理任务。 md5:02b61e26a9994363
+// supervisor 检查工作列表，如果工作列表中有任务但工作池中没有工人goroutine，就 fork 新的工人goroutine来处理任务。
+// md5:02b61e26a9994363
 # <翻译结束>
 

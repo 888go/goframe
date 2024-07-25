@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package dm
 
@@ -28,7 +29,7 @@ func (d *Driver) DoInsert(
 		return d.doSave(ctx, link, table, list, option)
 
 	case gdb.InsertOptionReplace:
-		// 待办:: 应当予以支持. md5:e307b954f3ef009f
+						// 待办:: 应当予以支持. md5:e307b954f3ef009f
 		return nil, gerror.NewCode(
 			gcode.CodeNotSupported, `Replace operation is not supported by dm driver`,
 		)
@@ -65,7 +66,8 @@ func (d *Driver) doSave(ctx context.Context,
 		// queryValues：处理需要插入或更新的值
 		// insertKeys：处理需要插入的有效键
 		// insertValues：处理需要插入的值
-		// updateValues：处理需要更新的值 md5:7779ec7103105a5e
+		// updateValues：处理需要更新的值
+		// md5:7779ec7103105a5e
 		queryHolders = make([]string, oneLen)
 		queryValues  = make([]interface{}, oneLen)
 		insertKeys   = make([]string, oneLen)
@@ -73,7 +75,7 @@ func (d *Driver) doSave(ctx context.Context,
 		updateValues []string
 	)
 
-	// 将conflictKeys切片类型转换为集合（set）类型. md5:bec4a3b4ed209948
+		// 将conflictKeys切片类型转换为集合（set）类型. md5:bec4a3b4ed209948
 	for _, conflictKey := range conflictKeys {
 		conflictKeySet.Add(gstr.ToUpper(conflictKey))
 	}
@@ -87,7 +89,8 @@ func (d *Driver) doSave(ctx context.Context,
 		insertValues[index] = fmt.Sprintf("T2.%s", keyWithChar)
 
 		// 过滤掉更新值中的冲突键。
-		// 并且该键不是软创建字段。 md5:7882adbf4107a87d
+		// 并且该键不是软创建字段。
+		// md5:7882adbf4107a87d
 		if !(conflictKeySet.Contains(key) || d.Core.IsSoftCreatedFieldName(key)) {
 			updateValues = append(
 				updateValues,
@@ -119,7 +122,8 @@ func (d *Driver) doSave(ctx context.Context,
 // 当未找到匹配时
 // INSERT {{insertKeys}} VALUES {{insertValues}}
 // 当找到匹配时
-// UPDATE SET {{updateValues}} md5:7a233cb2881f0359
+// UPDATE SET {{updateValues}}
+// md5:7a233cb2881f0359
 func parseSqlForUpsert(table string,
 	queryHolders, insertKeys, insertValues, updateValues, duplicateKey []string,
 ) (sqlStr string) {

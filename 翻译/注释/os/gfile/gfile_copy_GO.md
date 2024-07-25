@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -40,7 +41,8 @@
 <原文结束>
 
 # <翻译开始>
-	// 保留源文件的模式到目标文件。如果为true，Mode属性将没有意义。 md5:681b0704991c814c
+	// 保留源文件的模式到目标文件。如果为true，Mode属性将没有意义。
+	// md5:681b0704991c814c
 # <翻译结束>
 
 
@@ -51,7 +53,8 @@
 
 # <翻译开始>
 	// 创建目标文件的模式。
-	// 如果PreserveMode为false，默认的文件模式是DefaultPermCopy。 md5:e495278ff0787785
+	// 如果PreserveMode为false，默认的文件模式是DefaultPermCopy。
+	// md5:e495278ff0787785
 # <翻译结束>
 
 
@@ -84,7 +87,8 @@
 // Copy("/tmp/file1", "/tmp/file2") => 将/tmp/file1复制到/tmp/file2
 // Copy("/tmp/dir1",  "/tmp/dir2")  => 将/tmp/dir1复制到/tmp/dir2
 // Copy("/tmp/file1", "/tmp/dir2")  => 将/tmp/file1复制到/tmp/dir2/file1
-// Copy("/tmp/dir1",  "/tmp/file2") => 出错 md5:51c6598025f6b135
+// Copy("/tmp/dir1",  "/tmp/file2") => 出错
+// md5:51c6598025f6b135
 # <翻译结束>
 
 
@@ -99,7 +103,8 @@
 
 # <翻译开始>
 // CopyFile 将名为 `src` 的文件的内容复制到由 `dst` 指定的文件中。如果目标文件不存在，它将被创建。如果目标文件已存在，其所有内容将被源文件的内容替换。文件权限将从源文件复制，并且复制的数据会被同步/刷新到稳定的存储中。
-// 谢谢：https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04 md5:e2fc3c25ff06fa5b
+// 谢谢：https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04
+// md5:e2fc3c25ff06fa5b
 # <翻译结束>
 
 
@@ -121,6 +126,7 @@
 # <翻译开始>
 // CopyDir 递归地复制目录树，尝试保留权限。
 //
-// 注意，源目录必须存在，并且符号链接将被忽略和跳过。 md5:4dd9167e563fa997
+// 注意，源目录必须存在，并且符号链接将被忽略和跳过。
+// md5:4dd9167e563fa997
 # <翻译结束>
 

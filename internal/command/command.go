@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 // 包command提供控制台操作，如选项/参数读取。 md5:940e3926fff20c9a
 package command
@@ -31,7 +32,7 @@ func Init(args ...string) {
 		defaultParsedArgs = make([]string, 0)
 		defaultParsedOptions = make(map[string]string)
 	}
-	// 使用默认算法解析os.Args。 md5:460cde73efccc8f2
+		// 使用默认算法解析os.Args。 md5:460cde73efccc8f2
 	defaultParsedArgs, defaultParsedOptions = ParseUsingDefaultAlgorithm(args...)
 }
 
@@ -46,7 +47,7 @@ func ParseUsingDefaultAlgorithm(args ...string) (parsedArgs []string, parsedOpti
 				parsedOptions[array[1]] = array[3]
 			} else if i < len(args)-1 {
 				if len(args[i+1]) > 0 && args[i+1][0] == '-' {
-					// 这段Go语言的注释翻译成中文是：“这是一个示例命令行：使用gf（一个工具）生成代码，指定-d表示启用调试模式，-n 1表示生成1个示例。”. md5:a66be18aee4c44b9
+										// 这段Go语言的注释翻译成中文是：“这是一个示例命令行：使用gf（一个工具）生成代码，指定-d表示启用调试模式，-n 1表示生成1个示例。”. md5:a66be18aee4c44b9
 					parsedOptions[array[1]] = array[3]
 				} else {
 					// Example: gf gen -n 2
@@ -115,7 +116,8 @@ func GetArgAll() []string {
 //
 // 获取规则：
 // 1. 命令行参数采用小写格式，例如：gf.package.variable；
-// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。 md5:13bcb9c2795488a1
+// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。
+// md5:13bcb9c2795488a1
 func GetOptWithEnv(key string, def ...string) string {
 	cmdKey := strings.ToLower(strings.ReplaceAll(key, "_", "."))
 	if ContainsOpt(cmdKey) {

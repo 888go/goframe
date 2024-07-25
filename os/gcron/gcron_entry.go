@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcron
 
@@ -62,7 +63,7 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	if err != nil {
 		return nil, err
 	}
-	// 对于`times`没有限制，用于每秒检查调度的计时器。 md5:dce371ba28b68c21
+		// 对于`times`没有限制，用于每秒检查调度的计时器。 md5:dce371ba28b68c21
 	entry := &Entry{
 		cron:         c,
 		schedule:     schedule,
@@ -79,7 +80,8 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	}
 	// 当你添加一个定时任务时，不能让它立即运行。
 	// 它在添加到计时器时不能开始执行。
-	// 应该在将条目添加到Cron条目映射后开始运行，以防止在添加过程中（此时条目信息可能不完整）任务运行，从而可能导致恐慌。 md5:e2b503aef8166c84
+	// 应该在将条目添加到Cron条目映射后开始运行，以防止在添加过程中（此时条目信息可能不完整）任务运行，从而可能导致恐慌。
+	// md5:e2b503aef8166c84
 	entry.timerEntry = gtimer.AddEntry(
 		in.Ctx,
 		time.Second,
@@ -136,7 +138,8 @@ func (e *Entry) Close() {
 }
 
 // checkAndRun是核心定时任务检查逻辑。
-// 这个函数每秒被调用一次。 md5:e4a94345d01fd7df
+// 这个函数每秒被调用一次。
+// md5:e4a94345d01fd7df
 func (e *Entry) checkAndRun(ctx context.Context) {
 	currentTime := time.Now()
 	if !e.schedule.checkMeetAndUpdateLastSeconds(ctx, currentTime) {
@@ -153,7 +156,7 @@ func (e *Entry) checkAndRun(ctx context.Context) {
 	case StatusReady, StatusRunning:
 		defer func() {
 			if exception := recover(); exception != nil {
-				// 捕获到异常，默认行为是将错误内容记录到日志中。 md5:9af43ee64f5795bf
+								// 捕获到异常，默认行为是将错误内容记录到日志中。 md5:9af43ee64f5795bf
 				e.logErrorf(ctx,
 					`cron job "%s(%s)" end with error: %+v`,
 					e.jobName, e.schedule.pattern, exception,

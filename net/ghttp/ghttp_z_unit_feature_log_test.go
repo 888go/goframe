@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 静态服务测试。 md5:2105c089651008de
 
@@ -54,11 +55,11 @@ func Test_Log(t *testing.T) {
 		t.Assert(gstr.Contains(content, "HANDLER"), true)
 
 		logPath2 := gfile.Join(logDir, "access-"+gtime.Now().Format("Ymd")+".log")
-		// 打印日志路径2中的内容（使用 gfile.GetContents 函数）. md5:bbe5d38122741545
+				// 打印日志路径2中的内容（使用 gfile.GetContents 函数）. md5:bbe5d38122741545
 		t.Assert(gstr.Contains(gfile.GetContents(logPath2), " /hello "), true)
 
 		logPath3 := gfile.Join(logDir, "error-"+gtime.Now().Format("Ymd")+".log")
-		// 打印日志路径3中的内容（使用gfile.GetContents函数）. md5:57930db9a93e7c59
+				// 打印日志路径3中的内容（使用gfile.GetContents函数）. md5:57930db9a93e7c59
 		t.Assert(gstr.Contains(gfile.GetContents(logPath3), "custom error"), true)
 	})
 }

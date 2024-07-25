@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package glog
 
@@ -13,7 +14,8 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 )
 
-// 注意，LEVEL_PANI和LEVEL_FATA级别不用于日志输出，而是用于前缀配置。 md5:991a3476bacb665d
+// 注意，LEVEL_PANI和LEVEL_FATA级别不用于日志输出，而是用于前缀配置。
+// md5:991a3476bacb665d
 const (
 	LEVEL_ALL  = LEVEL_DEBU | LEVEL_INFO | LEVEL_NOTI | LEVEL_WARN | LEVEL_ERRO | LEVEL_CRIT
 	LEVEL_DEV  = LEVEL_ALL
@@ -62,7 +64,8 @@ var levelStringMap = map[string]int{
 }
 
 // SetLevel 设置日志级别。
-// 注意，`LEVEL_CRIT`、`LEVEL_PANI` 和 `LEVEL_FATA` 级别无法删除，因为它们会自动添加到日志内容中。 md5:e488e79c6c4c2e71
+// 注意，`LEVEL_CRIT`、`LEVEL_PANI` 和 `LEVEL_FATA` 级别无法删除，因为它们会自动添加到日志内容中。
+// md5:e488e79c6c4c2e71
 func (l *Logger) SetLevel(level int) {
 	l.config.Level = level | LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA
 }

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package sqlite
 
@@ -20,7 +21,8 @@ import (
 )
 
 // Open 创建并返回一个底层的 sql.DB 对象，用于 SQLite。
-// https://github.com/glebarez/go-sqlite md5:f3c66f09b7236ffa
+// https://github.com/glebarez/go-sqlite
+// md5:f3c66f09b7236ffa
 func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
@@ -29,18 +31,20 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	if config.Link != "" {
 		// ============================================================================
 		// 从 v2.2.0 版本开始已废弃。
-		// ============================================================================ md5:73505fc2089cb531
+		// ============================================================================
+		// md5:73505fc2089cb531
 		source = config.Link
 	} else {
 		source = config.Name
 	}
-	// 它会搜索源文件以找到其绝对路径。 md5:c47257e12a6e34cf
+		// 它会搜索源文件以找到其绝对路径。 md5:c47257e12a6e34cf
 	if absolutePath, _ := gfile.Search(source); absolutePath != "" {
 		source = absolutePath
 	}
 
 	// 可以指定多个PRAGMA，例如：
-	// path/to/some.db?_pragma=忙闲超时(5000)&_pragma=日志模式(WAL) md5:407d435292848935
+	// path/to/some.db?_pragma=忙闲超时(5000)&_pragma=日志模式(WAL)
+	// md5:407d435292848935
 	if config.Extra != "" {
 		var (
 			options  string

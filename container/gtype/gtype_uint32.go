@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtype
 
@@ -18,7 +19,8 @@ type Uint32 struct {
 	value uint32
 }
 
-// NewUint32 创建并返回一个针对 uint32 类型的并发安全对象，初始值为 `value`。 md5:5cc7d55fe951a549
+// NewUint32 创建并返回一个针对 uint32 类型的并发安全对象，初始值为 `value`。
+// md5:5cc7d55fe951a549
 func NewUint32(value ...uint32) *Uint32 {
 	if len(value) > 0 {
 		return &Uint32{

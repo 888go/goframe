@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package sqlite_test
 
@@ -107,7 +108,7 @@ func Test_Model_Insert(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 func Test_Model_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -297,7 +298,7 @@ func Test_Model_Batch(t *testing.T) {
 		t.Assert(n, 2)
 	})
 
-	// 批量插入，并获取最后插入的自增ID。 md5:b6507323b980f454
+		// 批量插入，并获取最后插入的自增ID。 md5:b6507323b980f454
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
@@ -430,16 +431,19 @@ func Test_Model_Update(t *testing.T) {
 	// 获取更新操作的结果与错误信息。
 	// 断言：期望错误为nil。
 	// 计算并获取更新影响的行数，忽略此操作可能产生的错误。
-	// 断言：期望更新影响的行数为2。 md5:cfae918cd0afb1ea
+	// 断言：期望更新影响的行数为2。
+	// md5:cfae918cd0afb1ea
 
 	// 通过$db$查询$table$表中id为10的nickname字段值，赋值给v1，预期可能产生错误err
 	// t.AssertNil(err)：断言错误err为nil，即无错误发生
-	// t.Assert(v1.String(), "T100")：断言v1转换为字符串后的值等于"T100" md5:a2bbef8eea48f43a
+	// t.Assert(v1.String(), "T100")：断言v1转换为字符串后的值等于"T100"
+	// md5:a2bbef8eea48f43a
 
 	// 使用$db$操作数据库，根据模型$table$获取nickname字段，查询id为8的记录，并获取其值。
 	// 验证错误是否为nil。
 	// 验证获取到的值（v2）是否等于"name_8"。
-	// } md5:0005058975deac4b
+	// }
+	// md5:0005058975deac4b
 
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Data("passport", "user_22").Where("passport=?", "user_2").Update()
@@ -462,7 +466,7 @@ func Test_Model_Update(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 	})
-	// 更新 + Fields(字符串). md5:df4e16d13da67d5e
+		// 更新 + Fields(字符串). md5:df4e16d13da67d5e
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Fields("passport").Data(g.Map{
 			"passport": "user_44",
@@ -646,14 +650,14 @@ func Test_Model_AllAndCount(t *testing.T) {
 	n, _ := r.RowsAffected()
 	gtest.Assert(n, 1)
 
-	// 使用所有数据的AllAndCount. md5:04233fbd8b956565
+			// 使用所有数据的AllAndCount. md5:04233fbd8b956565
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).AllAndCount(false)
 		t.AssertNil(err)
 		t.Assert(len(result), TableSize)
 		t.Assert(count, TableSize)
 	})
-	// AllAndCount 无数据情况. md5:78116cd399301bd7
+		// AllAndCount 无数据情况. md5:78116cd399301bd7
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).Where("id<0").AllAndCount(false)
 		t.Assert(result, nil)
@@ -667,7 +671,7 @@ func Test_Model_AllAndCount(t *testing.T) {
 		t.Assert(len(result), 5)
 		t.Assert(count, TableSize)
 	})
-	// AllAndCount 返回正常结果. md5:d132fb7fcbc86207
+			// AllAndCount 返回正常结果. md5:d132fb7fcbc86207
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).Where("id=?", 1).AllAndCount(false)
 		t.AssertNil(err)
@@ -676,7 +680,7 @@ func Test_Model_AllAndCount(t *testing.T) {
 		t.Assert(result[0]["nickname"], "name_1")
 		t.Assert(result[0]["passport"], "user_1")
 	})
-	// 所有唯一项并计数. md5:ecb27c1ddcd9a325
+			// 所有唯一项并计数. md5:ecb27c1ddcd9a325
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).Fields("DISTINCT nickname").AllAndCount(true)
 		t.AssertNil(err)
@@ -700,7 +704,7 @@ func Test_Model_AllAndCount(t *testing.T) {
 		t.Assert(all[0]["passport"], "user_1")
 		t.Assert(count, 1)
 	})
-	// AllAndCount 与 Join 方法返回 CodeDbOperationError. md5:e59618ae9d29f9f5
+		// AllAndCount 与 Join 方法返回 CodeDbOperationError. md5:e59618ae9d29f9f5
 	gtest.C(t, func(t *gtest.T) {
 		all, count, err := db.Model(table).As("u1").
 			LeftJoin(tableName2, "u2", "u2.id=u1.id").
@@ -837,7 +841,7 @@ func Test_Model_Count(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
-	// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
+		// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 10; i++ {
 			count, err := db.Model(table).Cache(gdb.CacheOption{
@@ -917,7 +921,7 @@ func Test_Model_Struct(t *testing.T) {
 		t.Assert(user.NickName, "name_1")
 		t.Assert(user.CreateTime.String(), CreateTime)
 	})
-	// 自动创建结构体对象。 md5:4b196dfc1321dc30
+		// 自动创建结构体对象。 md5:4b196dfc1321dc30
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1024,7 +1028,7 @@ func Test_Model_Structs(t *testing.T) {
 		t.Assert(users[2].NickName, "name_3")
 		t.Assert(users[0].CreateTime.String(), CreateTime)
 	})
-	// 自动创建结构体切片。 md5:78598f0d7f20b815
+		// 自动创建结构体切片。 md5:78598f0d7f20b815
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1106,7 +1110,7 @@ func Test_Model_StructsWithOrmTag(t *testing.T) {
 		db.GetLogger().(*glog.Logger).SetWriter(buffer)
 		defer db.GetLogger().(*glog.Logger).SetWriter(os.Stdout)
 		db.Model(table).Order("id asc").Scan(&users)
-		// 打印出buffer的内容字符串。 md5:3d49298f0e6d7a25
+				// 打印出buffer的内容字符串。 md5:3d49298f0e6d7a25
 		t.Assert(
 			gstr.Contains(buffer.String(), "SELECT `id`,`passport`,`password`,`nickname`,`create_time` FROM `user"),
 			true,
@@ -1249,7 +1253,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 	n, _ := r.RowsAffected()
 	gtest.Assert(n, 1)
 
-	// 使用普通结构体结果的ScanAndCount. md5:941b5fec0e73797f
+			// 使用普通结构体结果的ScanAndCount. md5:941b5fec0e73797f
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1266,7 +1270,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 		t.Assert(user.CreateTime.String(), CreateTime)
 		t.Assert(count, 1)
 	})
-	// ScanAndCount 使用常规数组作为结果. md5:640a035a18ac03db
+			// ScanAndCount 使用常规数组作为结果. md5:640a035a18ac03db
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1327,7 +1331,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 		t.Assert(len(users), 3)
 		t.Assert(count, TableSize)
 	})
-	// 使用distinct进行扫描和计数. md5:5afa1e02dbecba67
+		// 使用distinct进行扫描和计数. md5:5afa1e02dbecba67
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1364,7 +1368,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 		t.Assert(count, 1)
 		t.AssertEQ(users[0].Name, "table2_1")
 	})
-	// 使用连接执行ScanAndCount，返回CodeDbOperationError. md5:28f0d53619e4ce12
+			// 使用连接执行ScanAndCount，返回CodeDbOperationError. md5:28f0d53619e4ce12
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -1681,7 +1685,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["id"].Int(), 1)
 	})
-	// 结构体，自动映射和过滤。 md5:8edea55227b914af
+		// 结构体，自动映射和过滤。 md5:8edea55227b914af
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2074,7 +2078,8 @@ func Test_Model_WherePri(t *testing.T) {
 
 func Test_Model_Delete(t *testing.T) {
 	// table := createInitTable() 	// 创建初始化表
-	// defer dropTable(table)    	// 延迟执行，删除表 md5:b569b2401cb8568d
+	// defer dropTable(table)    	// 延迟执行，删除表
+	// md5:b569b2401cb8568d
 
 	// DELETE...LIMIT
 	// 参考: https:	//github.com/mattn/go-sqlite3/pull/802
@@ -2083,7 +2088,8 @@ func Test_Model_Delete(t *testing.T) {
 	// 	t.AssertNil(err)
 	// 	影响行数, _ := result.RowsAffected()
 	// 	t.Assert(影响行数, 2)
-	// }) md5:63b42e136740eea6
+	// })
+	// md5:63b42e136740eea6
 
 	gtest.C(t, func(t *gtest.T) {
 		table := createInitTable()
@@ -2320,7 +2326,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(r[0]["id"], "1")
 		t.Assert(r[1]["id"], "2")
 	})
-	// 用别名选择到结构体。 md5:86d27c7f5b555a89
+		// 用别名选择到结构体。 md5:86d27c7f5b555a89
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2335,7 +2341,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(users[0].Id, 1)
 		t.Assert(users[1].Id, 5)
 	})
-	// 使用别名和连接语句进行选择。 md5:5ae27281997ad29c
+		// 使用别名和连接语句进行选择。 md5:5ae27281997ad29c
 	gtest.C(t, func(t *gtest.T) {
 		r, err := db.Model(noPrefixName+" as u1").LeftJoin(noPrefixName+" as u2", "u2.id=u1.id").Where("u1.id in (?)", g.Slice{1, 2}).Order("u1.id asc").All()
 		t.AssertNil(err)
@@ -2604,7 +2610,7 @@ func Test_Model_Cache(t *testing.T) {
 		t.Assert(n, 1)
 
 		err = db.Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
-			// 缓存功能已禁用。 md5:96110ddd3191b243
+						// 缓存功能已禁用。 md5:96110ddd3191b243
 			one, err := tx.Model(table).Cache(gdb.CacheOption{
 				Duration: time.Second,
 				Name:     "test4",
@@ -2746,7 +2752,8 @@ func Test_Model_FieldsEx_AutoMapping(t *testing.T) {
 	// "passport":    fmt.Sprintf("user_%d", i), 	// 通行证（格式为"user_编号")
 	// "password":    fmt.Sprintf("pass_%d", i), 	// 密码（格式为"pass_编号")
 	// "nickname":    fmt.Sprintf("name_%d", i), 	// 昵称（格式为"name_编号")
-	// "create_time": gtime.NewFromStr(CreateTime).String(), 	// 创建时间（将CreateTime字符串转换为gtime格式并转为字符串） md5:ddd0764dc67c4e9f
+	// "create_time": gtime.NewFromStr(CreateTime).String(), 	// 创建时间（将CreateTime字符串转换为gtime格式并转为字符串）
+	// md5:ddd0764dc67c4e9f
 
 	gtest.C(t, func(t *gtest.T) {
 		value, err := db.Model(table).FieldsEx("Passport, Password, NickName, CreateTime").Where("id", 2).Value()
@@ -2885,7 +2892,7 @@ func Test_Model_HasField(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
+//github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
 func Test_Model_Issue1002(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -2912,13 +2919,13 @@ func Test_Model_Issue1002(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + 字符串参数。 md5:cb1db92222691d4d
+		// where + 字符串参数。 md5:cb1db92222691d4d
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
+		// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", gtime.New("2020-10-27 19:03:32"), gtime.New("2020-10-27 19:03:34")).Value()
 		t.AssertNil(err)
@@ -2934,7 +2941,8 @@ func Test_Model_Issue1002(t *testing.T) {
 	//     t.AssertNil(err) 	// 断言 err 为空，即查询无错误
 	//     t.Assert(v.Int(), 1) 	// 断言查询结果的整数值为 1
 	//   }
-	// }) md5:6089a1ebb4983ace
+	// })
+	// md5:6089a1ebb4983ace
 }
 
 func createTableForTimeZoneTest() string {
@@ -2993,7 +3001,8 @@ func Test_TimeZoneInsert(t *testing.T) {
 		// TODO
 		// t.Assert(userEntity.CreatedAt.String(), "2020-11-22 11:23:45") 		// 断言用户实体的创建时间字符串为 "2020-11-22 11:23:45"
 		// t.Assert(userEntity.UpdatedAt.String(), "2020-11-22 12:23:45") 		// 断言用户实体的更新时间字符串为 "2020-11-22 12:23:45"
-		// t.Assert(gtime.NewFromTime(userEntity.DeletedAt).String(), "2020-11-22 13:23:45") 		// 断言用户实体的删除时间（转换为gtime类型）字符串为 "2020-11-22 13:23:45" md5:8ad9ae5f1d9029d0
+		// t.Assert(gtime.NewFromTime(userEntity.DeletedAt).String(), "2020-11-22 13:23:45") 		// 断言用户实体的删除时间（转换为gtime类型）字符串为 "2020-11-22 13:23:45"
+		// md5:8ad9ae5f1d9029d0
 	})
 }
 

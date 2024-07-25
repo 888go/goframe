@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gsession
 
@@ -26,7 +27,8 @@ type StorageRedis struct {
 }
 
 const (
-	// DefaultStorageRedisLoopInterval 是用于在最近一段时间内更新会话ID的TTL（生存时间）的间隔。 md5:5adbee0aa8ff1658
+	// DefaultStorageRedisLoopInterval 是用于在最近一段时间内更新会话ID的TTL（生存时间）的间隔。
+	// md5:5adbee0aa8ff1658
 	DefaultStorageRedisLoopInterval = 10 * time.Second
 )
 
@@ -43,7 +45,7 @@ func NewStorageRedis(redis *gredis.Redis, prefix ...string) *StorageRedis {
 	if len(prefix) > 0 && prefix[0] != "" {
 		s.prefix = prefix[0]
 	}
-	// 定期批量更新会话ID的TTL（时间到 live，生存时间）。 md5:81e845800fad5861
+		// 定期批量更新会话ID的TTL（时间到 live，生存时间）。 md5:81e845800fad5861
 	gtimer.AddSingleton(context.Background(), DefaultStorageRedisLoopInterval, func(ctx context.Context) {
 		intlog.Print(context.TODO(), "StorageRedis.timer start")
 		var (
@@ -75,7 +77,8 @@ func (s *StorageRedis) RemoveAll(ctx context.Context, sessionId string) error {
 //
 // 参数`ttl`指定了此会话的有效期，如果超过有效期，则返回nil。参数`data`是当前存储在内存中的旧会话数据，对于某些存储方式，如果禁用了内存存储，它可能会为nil。
 //
-// 此函数在会话启动时会被调用。 md5:01e56ce09d5fd934
+// 此函数在会话启动时会被调用。
+// md5:01e56ce09d5fd934
 func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (*gmap.StrAnyMap, error) {
 	intlog.Printf(ctx, "StorageRedis.GetSession: %s, %v", sessionId, ttl)
 	r, err := s.redis.Get(ctx, s.sessionIdToRedisKey(sessionId))
@@ -98,7 +101,8 @@ func (s *StorageRedis) GetSession(ctx context.Context, sessionId string, ttl tim
 
 // SetSession 根据指定的会话ID更新数据映射。
 // 当某个被标记为脏（即发生过修改）的会话关闭后，将调用此函数。
-// 该操作会将所有会话数据从内存复制到存储中。 md5:1caa26989d884fa4
+// 该操作会将所有会话数据从内存复制到存储中。
+// md5:1caa26989d884fa4
 func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.SetSession: %s, %v, %v", sessionId, sessionData, ttl)
 	content, err := json.Marshal(sessionData)
@@ -111,7 +115,8 @@ func (s *StorageRedis) SetSession(ctx context.Context, sessionId string, session
 
 // UpdateTTL 更新指定会话ID的生存时间（TTL）。
 // 当一个未被修改（非脏）的会话关闭后，此函数会被调用。
-// 它只是将会话ID添加到异步处理队列中。 md5:cc5ac287cbbc0eab
+// 它只是将会话ID添加到异步处理队列中。
+// md5:cc5ac287cbbc0eab
 func (s *StorageRedis) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageRedis.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageRedisLoopInterval {

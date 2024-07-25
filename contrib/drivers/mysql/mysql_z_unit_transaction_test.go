@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package mysql_test
 
@@ -953,7 +954,8 @@ func Test_Transaction_Nested_TX_Transaction_UseDB(t *testing.T) {
 	defer dropTable(table)
 
 	// 将数据库设置为调试模式
-	// 使用defer语句确保在函数返回前将数据库的调试模式重置为false md5:b9225b2fca692b91
+	// 使用defer语句确保在函数返回前将数据库的调试模式重置为false
+	// md5:b9225b2fca692b91
 
 	gtest.C(t, func(t *gtest.T) {
 		var (
@@ -1001,7 +1003,7 @@ func Test_Transaction_Nested_TX_Transaction_UseDB(t *testing.T) {
 					"create_time": gtime.Now().String(),
 				}).Insert()
 				t.AssertNil(err)
-				// panic 会使这个事务回滚。 md5:f790e985b287f5dc
+								// panic 会使这个事务回滚。 md5:f790e985b287f5dc
 				panic("error")
 				return err
 			})
@@ -1055,7 +1057,7 @@ func Test_Transaction_Nested_TX_Transaction_UseDB(t *testing.T) {
 					"create_time": gtime.Now().String(),
 				}).Insert()
 				t.AssertNil(err)
-				// panic 会使这个事务回滚。 md5:f790e985b287f5dc
+								// panic 会使这个事务回滚。 md5:f790e985b287f5dc
 				panic("error")
 				return err
 			})

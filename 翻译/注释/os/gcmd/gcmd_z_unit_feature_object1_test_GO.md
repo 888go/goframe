@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -43,6 +44,7 @@
 # <翻译开始>
 		// os.Args 是一个字符串切片，内容为 ["root", "test", "a", "b", "c", "-h"]
 		// 使用 cmd.RunWithValueError 函数运行命令并获取值和错误
-		// 使用 t.AssertNil 函数断言错误应为 nil（即无错误） md5:9a669f8340465dad
+		// 使用 t.AssertNil 函数断言错误应为 nil（即无错误）
+		// md5:9a669f8340465dad
 # <翻译结束>
 

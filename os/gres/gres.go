@@ -2,29 +2,32 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gres提供了文件和字节之间资源管理及打包/解包的功能。 md5:29e79f40a11fe941
 package gres
 
 const (
-	// 目录分隔符。 md5:a4832545f002edfe
+		// 目录分隔符。 md5:a4832545f002edfe
 	Separator = "/"
 )
 
 var (
-	// 默认资源对象。 md5:f02aee71ab2f8fc2
+		// 默认资源对象。 md5:f02aee71ab2f8fc2
 	defaultResource = Instance()
 )
 
 // Add 方法将 'content' 解包并添加到默认资源对象中。
-// 不需要的参数 'prefix' 表示存储在当前资源对象中的每个文件的前缀。 md5:3b5da05501708d4d
+// 不需要的参数 'prefix' 表示存储在当前资源对象中的每个文件的前缀。
+// md5:3b5da05501708d4d
 func Add(content string, prefix ...string) error {
 	return defaultResource.Add(content, prefix...)
 }
 
 // Load 从 `path` 加载、解包并将数据添加到默认资源对象中。
-// 不必要的参数 `prefix` 表示存储到当前资源对象中的每个文件的前缀。 md5:901d4f7e4d8bf0cf
+// 不必要的参数 `prefix` 表示存储到当前资源对象中的每个文件的前缀。
+// md5:901d4f7e4d8bf0cf
 func Load(path string, prefix ...string) error {
 	return defaultResource.Load(path, prefix...)
 }
@@ -36,7 +39,8 @@ func Get(path string) *File {
 
 // GetWithIndex 在给定路径`path`下搜索文件。如果找到的是一个目录，它会在这个目录下索引文件进行搜索。
 //
-// GetWithIndex 通常用于HTTP静态文件服务中。 md5:bfb61cc8920b4633
+// GetWithIndex 通常用于HTTP静态文件服务中。
+// md5:bfb61cc8920b4633
 func GetWithIndex(path string, indexFiles []string) *File {
 	return defaultResource.GetWithIndex(path, indexFiles)
 }
@@ -60,7 +64,8 @@ func IsEmpty() bool {
 //
 // `pattern` 参数支持多个文件名模式，使用逗号 `,` 来分隔多个模式。
 //
-// 如果 `recursive` 参数为真，它会递归扫描目录。 md5:4726ded4e00ca75f
+// 如果 `recursive` 参数为真，它会递归扫描目录。
+// md5:4726ded4e00ca75f
 func ScanDir(path string, pattern string, recursive ...bool) []*File {
 	return defaultResource.ScanDir(path, pattern, recursive...)
 }
@@ -68,7 +73,8 @@ func ScanDir(path string, pattern string, recursive ...bool) []*File {
 // ScanDirFile 返回给定`path`下的所有子文件的绝对路径，
 // 如果给定的参数`recursive`为true，它会递归地扫描目录。
 //
-// 注意，它只返回文件，不包括目录。 md5:0f3154c32271652b
+// 注意，它只返回文件，不包括目录。
+// md5:0f3154c32271652b
 func ScanDirFile(path string, pattern string, recursive ...bool) []*File {
 	return defaultResource.ScanDirFile(path, pattern, recursive...)
 }

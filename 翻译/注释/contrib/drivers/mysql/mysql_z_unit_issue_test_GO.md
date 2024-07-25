@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -21,7 +22,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1934. md5:96f55929c7ed56a0
+//github.com/gogf/gf/issues/1934. md5:96f55929c7ed56a0
 # <翻译结束>
 
 
@@ -30,7 +31,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1570. md5:37966850af641bcc
+//github.com/gogf/gf/issues/1570. md5:37966850af641bcc
 # <翻译结束>
 
 
@@ -66,7 +67,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1002 问题讨论. md5:2a97dfd9cd049763
+//github.com/gogf/gf/issues/1002 问题讨论. md5:2a97dfd9cd049763
 # <翻译结束>
 
 
@@ -147,7 +148,8 @@
 	//         t.AssertNil(err) 	// 再次确认查询无错误。
 	//         t.Assert(v.Int(), 1) 	// 继续断言查询结果的ID为1。
 	//     }
-	// }) md5:766797023d98820e
+	// })
+	// md5:766797023d98820e
 # <翻译结束>
 
 
@@ -165,7 +167,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1701。GF（Go Foundation）可能是Go语言的一个项目或者库，而"1701"可能是问题的编号。这个注释可能是在讨论或记录与GF项目相关的问题1701的情况。 md5:cc9c86ac60eeaf58
+//github.com/gogf/gf/issues/1701。GF（Go Foundation）可能是Go语言的一个项目或者库，而"1701"可能是问题的编号。这个注释可能是在讨论或记录与GF项目相关的问题1701的情况。 md5:cc9c86ac60eeaf58
 # <翻译结束>
 
 
@@ -183,7 +185,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2105. md5:579ab324e61be1fb
+//github.com/gogf/gf/issues/2105. md5:579ab324e61be1fb
 # <翻译结束>
 
 
@@ -201,7 +203,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2339。"gf"可能是某个Go语言的库（golang的gopher框架）的简称，"issues/2339"表示该仓库中编号为2339的问题或者issue。这可能是一个开发者社区中关于gf库的报告、提问或者反馈。 md5:fb506ddf20da598c
+//github.com/gogf/gf/issues/2339。"gf"可能是某个Go语言的库（golang的gopher框架）的简称，"issues/2339"表示该仓库中编号为2339的问题或者issue。这可能是一个开发者社区中关于gf库的报告、提问或者反馈。 md5:fb506ddf20da598c
 # <翻译结束>
 
 
@@ -210,7 +212,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2356。"gf"可能是某个项目的代号，"gogf"可能是一个开发者的用户名，"issues/2356"表示该问题是编号为2356的 issue（通常是开发者社区中报告的问题、建议或讨论）。 md5:a688eda9a4ec7d89
+//github.com/gogf/gf/issues/2356。"gf"可能是某个项目的代号，"gogf"可能是一个开发者的用户名，"issues/2356"表示该问题是编号为2356的 issue（通常是开发者社区中报告的问题、建议或讨论）。 md5:a688eda9a4ec7d89
 # <翻译结束>
 
 
@@ -219,7 +221,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2338. md5:a504f30db0e1a70a
+//github.com/gogf/gf/issues/2338. md5:a504f30db0e1a70a
 # <翻译结束>
 
 
@@ -237,7 +239,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2561。gf（Golang Foundation）是一个Go语言的开源框架，而"issues/2561"表示该仓库中编号为2561的问题或讨论。可能是用户在报告问题、请求功能或者讨论某个特定的代码问题。 md5:97cd71d9bf45e151
+//github.com/gogf/gf/issues/2561。gf（Golang Foundation）是一个Go语言的开源框架，而"issues/2561"表示该仓库中编号为2561的问题或讨论。可能是用户在报告问题、请求功能或者讨论某个特定的代码问题。 md5:97cd71d9bf45e151
 # <翻译结束>
 
 
@@ -255,7 +257,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2782. md5:e2d84654d9404496
+//github.com/gogf/gf/issues/2782. md5:e2d84654d9404496
 # <翻译结束>
 
 
@@ -264,7 +266,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/2907. md5:61d8552a7d7948bb
+//github.com/gogf/gf/issues/2907. md5:61d8552a7d7948bb
 # <翻译结束>
 
 
@@ -291,7 +293,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/3218. md5:ebeb6327a156dd70
+//github.com/gogf/gf/issues/3218. md5:ebeb6327a156dd70
 # <翻译结束>
 
 
@@ -318,6 +320,6 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/3238。gf（GoGF）是一个用Go语言编写的高性能Web框架。这个注释可能是开发者在提到他们在gf项目中遇到的问题或提出的一个改进请求，3238号issue可能是一个已知问题的编号或者一个讨论的话题。 md5:98233bbbba37f999
+//github.com/gogf/gf/issues/3238。gf（GoGF）是一个用Go语言编写的高性能Web框架。这个注释可能是开发者在提到他们在gf项目中遇到的问题或提出的一个改进请求，3238号issue可能是一个已知问题的编号或者一个讨论的话题。 md5:98233bbbba37f999
 # <翻译结束>
 

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtree
 
@@ -34,7 +35,8 @@ type AVLTreeNode struct {
 }
 
 // NewAVLTree 创建一个带有自定义键比较器的AVL树。
-// 参数 `safe` 用于指定是否需要并发安全，默认为false。 md5:dfb13f71bc07620c
+// 参数 `safe` 用于指定是否需要并发安全，默认为false。
+// md5:dfb13f71bc07620c
 func NewAVLTree(comparator func(v1, v2 interface{}) int, safe ...bool) *AVLTree {
 	return &AVLTree{
 		mu:         rwmutex.Create(safe...),
@@ -43,7 +45,8 @@ func NewAVLTree(comparator func(v1, v2 interface{}) int, safe ...bool) *AVLTree 
 }
 
 // NewAVLTreeFrom 使用自定义的键比较器和数据映射初始化一个AVL树。
-// 参数`safe`用于指定是否在并发安全模式下使用树，其默认值为false。 md5:856b75ecd9dc1540
+// 参数`safe`用于指定是否在并发安全模式下使用树，其默认值为false。
+// md5:856b75ecd9dc1540
 func NewAVLTreeFrom(comparator func(v1, v2 interface{}) int, data map[interface{}]interface{}, safe ...bool) *AVLTree {
 	tree := NewAVLTree(comparator, safe...)
 	for k, v := range data {
@@ -76,7 +79,8 @@ func (tree *AVLTree) Sets(data map[interface{}]interface{}) {
 }
 
 // Search 函数使用给定的 `key` 在树中进行查找。
-// 第二个返回参数 `found` 为 true 表示找到了键，否则为 false。 md5:d151c3783cadda2c
+// 第二个返回参数 `found` 为 true 表示找到了键，否则为 false。
+// md5:d151c3783cadda2c
 func (tree *AVLTree) Search(key interface{}) (value interface{}, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -87,7 +91,8 @@ func (tree *AVLTree) Search(key interface{}) (value interface{}, found bool) {
 }
 
 // doSearch 使用给定的 `key` 在树中进行搜索。
-// 第二个返回参数 `found` 如果找到了键，则为 true，否则为 false。 md5:46c1cf26ceea8b4b
+// 第二个返回参数 `found` 如果找到了键，则为 true，否则为 false。
+// md5:46c1cf26ceea8b4b
 func (tree *AVLTree) doSearch(key interface{}) (node *AVLTreeNode, found bool) {
 	node = tree.root
 	for node != nil {
@@ -118,7 +123,8 @@ func (tree *AVLTree) Get(key interface{}) (value interface{}) {
 // 它将在哈希映射的互斥锁(mutex.Lock)保护下执行，
 // 并将其返回值设置到以`key`为键的映射中。
 //
-// 返回给定`key`对应的值。 md5:1de9ffab89f3c38a
+// 返回给定`key`对应的值。
+// md5:1de9ffab89f3c38a
 func (tree *AVLTree) doSetWithLockCheck(key interface{}, value interface{}) interface{} {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -135,7 +141,8 @@ func (tree *AVLTree) doSetWithLockCheck(key interface{}, value interface{}) inte
 }
 
 // GetOrSet 通过键返回值，
-// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。 md5:d8f89b6dec47292b
+// 如果该键不存在，则使用给定的`value`设置值，然后返回这个值。
+// md5:d8f89b6dec47292b
 func (tree *AVLTree) GetOrSet(key interface{}, value interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, value)
@@ -146,7 +153,8 @@ func (tree *AVLTree) GetOrSet(key interface{}, value interface{}) interface{} {
 
 // GetOrSetFunc 通过键获取值，
 // 如果键不存在，则使用回调函数`f`的返回值设置值，
-// 并返回这个设置的值。 md5:f584dd7547dfbcc0
+// 并返回这个设置的值。
+// md5:f584dd7547dfbcc0
 func (tree *AVLTree) GetOrSetFunc(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f())
@@ -158,7 +166,8 @@ func (tree *AVLTree) GetOrSetFunc(key interface{}, f func() interface{}) interfa
 // GetOrSetFuncLock 通过键获取值，
 // 如果不存在，它将使用回调函数 `f` 的返回值设置该值，然后返回这个值。
 //
-// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。 md5:d32fdee586d84dde
+// GetOrSetFuncLock 与 GetOrSetFunc 函数的不同之处在于，它在执行函数 `f` 时会先锁定哈希映射的 mutex。
+// md5:d32fdee586d84dde
 func (tree *AVLTree) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{} {
 	if v, ok := tree.Search(key); !ok {
 		return tree.doSetWithLockCheck(key, f)
@@ -168,29 +177,34 @@ func (tree *AVLTree) GetOrSetFuncLock(key interface{}, f func() interface{}) int
 }
 
 // GetVar 函数通过给定的 `key` 返回一个 gvar.Var，其值为对应的变量。
-// 返回的 gvar.Var 不是并发安全的。 md5:a04747902e4bf242
+// 返回的 gvar.Var 不是并发安全的。
+// md5:a04747902e4bf242
 func (tree *AVLTree) GetVar(key interface{}) *gvar.Var {
 	return gvar.New(tree.Get(key))
 }
 
-// GetVarOrSet 返回一个从 GetVarOrSet 获取的结果的 gvar.Var。返回的 gvar.Var 不是线程安全的。 md5:089beb08264e18cf
+// GetVarOrSet 返回一个从 GetVarOrSet 获取的结果的 gvar.Var。返回的 gvar.Var 不是线程安全的。
+// md5:089beb08264e18cf
 func (tree *AVLTree) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSet(key, value))
 }
 
 // GetVarOrSetFunc 返回一个 gvar.Var，其结果来自 GetOrSetFunc。
-// 返回的 gvar.Var 不是线程安全的。 md5:8c97b145faade5ae
+// 返回的 gvar.Var 不是线程安全的。
+// md5:8c97b145faade5ae
 func (tree *AVLTree) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFunc(key, f))
 }
 
 // GetVarOrSetFuncLock 返回一个gvar.Var，其结果来自GetOrSetFuncLock。
-// 返回的gvar.Var是非并发安全的。 md5:90c22300c2187ce4
+// 返回的gvar.Var是非并发安全的。
+// md5:90c22300c2187ce4
 func (tree *AVLTree) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
 	return gvar.New(tree.GetOrSetFuncLock(key, f))
 }
 
-// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。 md5:f80895920828f03e
+// SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。
+// md5:f80895920828f03e
 func (tree *AVLTree) SetIfNotExist(key interface{}, value interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, value)
@@ -200,7 +214,8 @@ func (tree *AVLTree) SetIfNotExist(key interface{}, value interface{}) bool {
 }
 
 // SetIfNotExistFunc 使用回调函数`f`的返回值设置值，并返回true。
-// 如果`key`已存在，则返回false，且`value`会被忽略。 md5:326c0b7c63d813e7
+// 如果`key`已存在，则返回false，且`value`会被忽略。
+// md5:326c0b7c63d813e7
 func (tree *AVLTree) SetIfNotExistFunc(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f())
@@ -213,7 +228,8 @@ func (tree *AVLTree) SetIfNotExistFunc(key interface{}, f func() interface{}) bo
 // 如果 `key` 已存在，则返回 false，`value` 将被忽略。
 //
 // SetIfNotExistFuncLock 与 SetIfNotExistFunc 函数的区别在于，
-// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。 md5:a6ee84b157328f61
+// 它在哈希映射的 mutex.Lock 保护下执行函数 `f`。
+// md5:a6ee84b157328f61
 func (tree *AVLTree) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool {
 	if !tree.Contains(key) {
 		tree.doSetWithLockCheck(key, f)
@@ -229,7 +245,8 @@ func (tree *AVLTree) Contains(key interface{}) bool {
 }
 
 // Remove 通过键从树中移除节点。
-// 键应符合比较器的类型断言，否则方法将 panic。 md5:23794cd4708d8756
+// 键应符合比较器的类型断言，否则方法将 panic。
+// md5:23794cd4708d8756
 func (tree *AVLTree) Remove(key interface{}) (value interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
@@ -283,7 +300,8 @@ func (tree *AVLTree) Values() []interface{} {
 }
 
 // Left 返回 AVL 树中的最小元素
-// 如果树为空，则返回 nil。 md5:d6b4c070feb60521
+// 如果树为空，则返回 nil。
+// md5:d6b4c070feb60521
 func (tree *AVLTree) Left() *AVLTreeNode {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -297,7 +315,8 @@ func (tree *AVLTree) Left() *AVLTreeNode {
 	return node
 }
 
-// Right 返回AVL树中的最大元素，如果树为空则返回nil。 md5:7f0d34ae61ed561f
+// Right 返回AVL树中的最大元素，如果树为空则返回nil。
+// md5:7f0d34ae61ed561f
 func (tree *AVLTree) Right() *AVLTreeNode {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -312,10 +331,11 @@ func (tree *AVLTree) Right() *AVLTreeNode {
 }
 
 // Floor 找到输入键的地板节点，如果没有找到地板节点，则返回nil。第二个返回参数表示是否找到了地板，如果找到为true，否则为false。
-//
+// 
 // 地板节点定义为大于或等于给定节点的最大节点。可能找不到地板节点，原因可能是树为空，或者树中的所有节点都大于给定节点。
-//
-// 键应遵循比较器的类型断言，否则方法会 panic。 md5:720f6000179912eb
+// 
+// 键应遵循比较器的类型断言，否则方法会 panic。
+// md5:720f6000179912eb
 func (tree *AVLTree) Floor(key interface{}) (floor *AVLTreeNode, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -339,10 +359,11 @@ func (tree *AVLTree) Floor(key interface{}) (floor *AVLTreeNode, found bool) {
 }
 
 // Ceiling 找到输入键的天花板节点，如果没有找到天花板节点，则返回nil。第二个返回参数表示是否找到了天花板（true）或未找到（false）。
-//
+// 
 // 定义天花板节点为大于或等于给定节点的最小节点。可能找不到天花板节点，因为树为空，或者树中的所有节点都小于给定节点。
-//
-// 键应遵循比较器的类型断言，否则方法会 panic。 md5:6b92342a03f9f586
+// 
+// 键应遵循比较器的类型断言，否则方法会 panic。
+// md5:6b92342a03f9f586
 func (tree *AVLTree) Ceiling(key interface{}) (ceiling *AVLTreeNode, found bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -426,7 +447,8 @@ func (tree *AVLTree) MapStrAny() map[string]interface{} {
 // Flip 将树中的键值对交换为值键。
 // 请注意，你应该确保值的类型与键相同，否则比较器会panic。
 //
-// 如果值的类型与键不同，你需要传递新的 `comparator`。 md5:e71ceac22aee55f1
+// 如果值的类型与键不同，你需要传递新的 `comparator`。
+// md5:e71ceac22aee55f1
 func (tree *AVLTree) Flip(comparator ...func(v1, v2 interface{}) int) {
 	t := (*AVLTree)(nil)
 	if len(comparator) > 0 {
@@ -454,7 +476,8 @@ func (tree *AVLTree) IteratorFrom(key interface{}, match bool, f func(key, value
 	tree.IteratorAscFrom(key, match, f)
 }
 
-// IteratorAsc 使用给定的回调函数 `f` 以升序遍历树（只读）。如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。 md5:c13b99ae40add3b0
+// IteratorAsc 使用给定的回调函数 `f` 以升序遍历树（只读）。如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。
+// md5:c13b99ae40add3b0
 func (tree *AVLTree) IteratorAsc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -463,7 +486,8 @@ func (tree *AVLTree) IteratorAsc(f func(key, value interface{}) bool) {
 
 // IteratorAscFrom 从给定的回调函数 `f` 以升序遍历树。
 // 参数 `key` 指定了遍历的起始条目。`match` 参数指定如果 `key` 完全匹配时是否开始遍历，否则使用索引搜索进行遍历。
-// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。 md5:c04855bbd3989808
+// 如果 `f` 返回 true，则继续遍历；如果返回 false，则停止遍历。
+// md5:c04855bbd3989808
 func (tree *AVLTree) IteratorAscFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -486,14 +510,16 @@ func (tree *AVLTree) doIteratorAsc(node *AVLTreeNode, f func(key, value interfac
 	}
 }
 
-// IteratorDesc 以降序方式遍历树，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。 md5:f6740ea55dafe4bb
+// IteratorDesc 以降序方式遍历树，使用给定的回调函数 `f`。如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:f6740ea55dafe4bb
 func (tree *AVLTree) IteratorDesc(f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
 	tree.doIteratorDesc(tree.bottom(1), f)
 }
 
-// IteratorDescFrom 以降序方式遍历树，使用给定的回调函数 `f`。参数 `key` 指定开始遍历的条目。`match` 表示是否在 `key` 完全匹配时开始遍历，否则使用索引搜索遍历。如果 `f` 返回 true，则继续遍历；否则停止。 md5:e6bb2f7d12ab34f6
+// IteratorDescFrom 以降序方式遍历树，使用给定的回调函数 `f`。参数 `key` 指定开始遍历的条目。`match` 表示是否在 `key` 完全匹配时开始遍历，否则使用索引搜索遍历。如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:e6bb2f7d12ab34f6
 func (tree *AVLTree) IteratorDescFrom(key interface{}, match bool, f func(key, value interface{}) bool) {
 	tree.mu.RLock()
 	defer tree.mu.RUnlock()
@@ -702,12 +728,14 @@ func (tree *AVLTree) bottom(d int) *AVLTreeNode {
 	return n
 }
 
-// Prev 返回AVL树中序遍历的上一个元素。 md5:d859f5a91f8afa30
+// Prev 返回AVL树中序遍历的上一个元素。
+// md5:d859f5a91f8afa30
 func (node *AVLTreeNode) Prev() *AVLTreeNode {
 	return node.walk1(0)
 }
 
-// Next 返回AVL树中序遍历的下一个元素。 md5:bf33a084df1455d4
+// Next 返回AVL树中序遍历的下一个元素。
+// md5:bf33a084df1455d4
 func (node *AVLTreeNode) Next() *AVLTreeNode {
 	return node.walk1(1)
 }
@@ -784,7 +812,8 @@ func (tree AVLTree) MarshalJSON() (jsonBytes []byte, err error) {
 	return buffer.Bytes(), nil
 }
 
-// getComparator 如果之前已设置比较器，则返回该比较器，否则将引发恐慌。 md5:03eac9fd6d838369
+// getComparator 如果之前已设置比较器，则返回该比较器，否则将引发恐慌。
+// md5:03eac9fd6d838369
 func (tree *AVLTree) getComparator() func(a, b interface{}) int {
 	if tree.comparator == nil {
 		panic("comparator is missing for tree")

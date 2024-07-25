@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package builtin
 
@@ -16,7 +17,8 @@ import (
 // 全局密码格式规则3：
 // 必须符合密码规则1，必须包含小写字母、大写字母、数字和特殊字符。
 //
-// 格式：password3 md5:b62e78e30236a94a
+// 格式：password3
+// md5:b62e78e30236a94a
 type RulePassword3 struct{}
 
 func init() {

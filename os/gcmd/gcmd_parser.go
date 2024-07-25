@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gcmd
 
@@ -51,7 +52,8 @@ func ParserFromCtx(ctx context.Context) *Parser {
 // 请注意，参数`supportedOptions`是[key: need argument]形式，其中
 // `supportedOptions`的值项表示相应的选项名是否需要参数。
 //
-// 可选参数`strict`指定如果遇到无效选项时，是否停止解析并返回错误。 md5:136e728aecd2a3b5
+// 可选参数`strict`指定如果遇到无效选项时，是否停止解析并返回错误。
+// md5:136e728aecd2a3b5
 func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(os.Args...)
@@ -64,10 +66,11 @@ func Parse(supportedOptions map[string]bool, option ...ParserOption) (*Parser, e
 }
 
 // ParseArgs 创建并返回一个新的Parser，具有给定的参数和支持的选项。
-//
+// 
 // 注意，参数`supportedOptions`是一个[选项名称: 需要参数]的映射，这意味着`supportedOptions`的值项表示对应选项名称是否需要参数。
-//
-// 可选参数`strict`指定是否在遇到无效选项时停止解析并返回错误。 md5:5c367c6c4d6d78be
+// 
+// 可选参数`strict`指定是否在遇到无效选项时停止解析并返回错误。
+// md5:5c367c6c4d6d78be
 func ParseArgs(args []string, supportedOptions map[string]bool, option ...ParserOption) (*Parser, error) {
 	if supportedOptions == nil {
 		command.Init(args...)
@@ -135,7 +138,8 @@ func ParseArgs(args []string, supportedOptions map[string]bool, option ...Parser
 	return parser, nil
 }
 
-// parseMultiOption 解析多个有效选项，如：--dav。如果给定的选项不是多选项，它将返回nil。 md5:d70d0f096bf48cc4
+// parseMultiOption 解析多个有效选项，如：--dav。如果给定的选项不是多选项，它将返回nil。
+// md5:d70d0f096bf48cc4
 func (p *Parser) parseMultiOption(option string) []string {
 	for i := 1; i <= len(option); i++ {
 		s := option[:i]
@@ -182,7 +186,7 @@ func (p *Parser) isOptionNeedArgument(name string) bool {
 
 // setOptionValue 为名称和相应的别名设置选项值。 md5:9b55fb71d527f4c6
 func (p *Parser) setOptionValue(name, value string) {
-	// 准确的选项名称匹配。 md5:92eb07ef58b2270c
+		// 准确的选项名称匹配。 md5:92eb07ef58b2270c
 	for optionName := range p.passedOptions {
 		optionNameAndShort := gstr.SplitAndTrim(optionName, ",")
 		for _, optionNameItem := range optionNameAndShort {
@@ -194,7 +198,7 @@ func (p *Parser) setOptionValue(name, value string) {
 			}
 		}
 	}
-	// 模糊选项名称匹配。 md5:84dde7ce64941c27
+		// 模糊选项名称匹配。 md5:84dde7ce64941c27
 	for optionName := range p.passedOptions {
 		optionNameAndShort := gstr.SplitAndTrim(optionName, ",")
 		for _, optionNameItem := range optionNameAndShort {

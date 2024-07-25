@@ -1,7 +1,8 @@
 // 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
 //
 // 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。 md5:1d281c30cdc3423b
+// 您可以从https://github.com/gogf/gf获取。
+// md5:1d281c30cdc3423b
 
 package gmap_test
 
@@ -51,7 +52,7 @@ func ExampleIntIntMap_Clone() {
 }
 
 func ExampleIntIntMap_Map() {
-	// 非并发安全，指向底层数据的指针. md5:0c201eaf65f11ed8
+		// 非并发安全，指向底层数据的指针. md5:0c201eaf65f11ed8
 	m1 := gmap.NewIntIntMap()
 	m1.Set(1, 1)
 	fmt.Println("m1:", m1)
@@ -61,7 +62,7 @@ func ExampleIntIntMap_Map() {
 	m1.Set(1, 2)
 	fmt.Println("after n1:", n1)
 
-	// 并发安全，底层数据的副本. md5:114a4273430037c7
+			// 并发安全，底层数据的副本. md5:114a4273430037c7
 	m2 := gmap.New(true)
 	m2.Set(1, "1")
 	fmt.Println("m2:", m2)

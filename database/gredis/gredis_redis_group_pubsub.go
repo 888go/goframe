@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gredis
 
@@ -12,7 +13,8 @@ import (
 )
 
 // IGroupPubSub 管理 redis 的发布/订阅操作。
-// 实现了 redis.GroupPubSub 接口。 md5:9987807bf281dfb2
+// 实现了 redis.GroupPubSub 接口。
+// md5:9987807bf281dfb2
 type IGroupPubSub interface {
 	Publish(ctx context.Context, channel string, message interface{}) (int64, error)
 	Subscribe(ctx context.Context, channel string, channels ...string) (Conn, []*Subscription, error)

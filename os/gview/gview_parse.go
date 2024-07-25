@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gview
 
@@ -30,7 +31,7 @@ import (
 )
 
 const (
-	// 内容解析的模板名称。 md5:6afae8a8a8ed33e4
+		// 内容解析的模板名称。 md5:6afae8a8a8ed33e4
 	templateNameForContentParsing = "TemplateContent"
 )
 
@@ -43,20 +44,22 @@ type fileCacheItem struct {
 
 var (
 	// 模板缓存映射，用于模板文件夹。
-	// 注意，这个映射没有过期逻辑。 md5:23e4c8f42fd00704
+	// 注意，这个映射没有过期逻辑。
+	// md5:23e4c8f42fd00704
 	templates = gmap.NewStrAnyMap(true)
 
-	// 资源模板文件搜索的尝试文件夹。 md5:17efa863e4db400f
+		// 资源模板文件搜索的尝试文件夹。 md5:17efa863e4db400f
 	resourceTryFolders = []string{
 		"template/", "template", "/template", "/template/",
 		"resource/template/", "resource/template", "/resource/template", "/resource/template/",
 	}
 
-	// 前缀数组，用于在本地系统中尝试搜索。 md5:51a8f1255f95f3fc
+		// 前缀数组，用于在本地系统中尝试搜索。 md5:51a8f1255f95f3fc
 	localSystemTryFolders = []string{"", "template/", "resource/template"}
 )
 
-// Parse 使用给定的模板变量`params`解析给定的模板文件`file`，并返回解析后的模板内容。 md5:4b41bf3f848a2345
+// Parse 使用给定的模板变量`params`解析给定的模板文件`file`，并返回解析后的模板内容。
+// md5:4b41bf3f848a2345
 func (view *View) Parse(ctx context.Context, file string, params ...Params) (result string, err error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -84,7 +87,8 @@ func (view *View) ParseDefault(ctx context.Context, params ...Params) (result st
 	})
 }
 
-// ParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的字节切片。 md5:26fcffe5c26897e5
+// ParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的字节切片。
+// md5:26fcffe5c26897e5
 func (view *View) ParseContent(ctx context.Context, content string, params ...Params) (string, error) {
 	var usedParams Params
 	if len(params) > 0 {
@@ -113,7 +117,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	if option.File == "" {
 		return "", gerror.New(`template file cannot be empty`)
 	}
-	// 它缓存文件、文件夹和内容以提高性能。 md5:18ed1889fbe8ba22
+		// 它缓存文件、文件夹和内容以提高性能。 md5:18ed1889fbe8ba22
 	r := view.fileCacheMap.GetOrSetFuncLock(option.File, func() interface{} {
 		var (
 			path     string
@@ -121,7 +125,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 			content  string
 			resource *gres.File
 		)
-		// 在`file`的绝对路径下进行搜索。 md5:769fae837e95c873
+				// 在`file`的绝对路径下进行搜索。 md5:769fae837e95c873
 		path, folder, resource, err = view.searchFile(ctx, option.File)
 		if err != nil {
 			return nil
@@ -131,7 +135,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		} else {
 			content = gfile.GetContentsWithCache(path)
 		}
-		// 异步使用fsnotify监视模板文件的更改。 md5:e8a79bcdc9b5c5a4
+				// 异步使用fsnotify监视模板文件的更改。 md5:e8a79bcdc9b5c5a4
 		if resource == nil {
 			if _, err = gfsnotify.AddOnce("gview.Parse:"+folder, folder, func(event *gfsnotify.Event) {
 				// CLEAR THEM ALL.
@@ -152,21 +156,21 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		return
 	}
 	item := r.(*fileCacheItem)
-	// 如果模板内容为空，没有必要继续解析。 md5:59270c3283cce903
+		// 如果模板内容为空，没有必要继续解析。 md5:59270c3283cce903
 	if item.content == "" {
 		return "", nil
 	}
-	// 如果它是孤儿选项，它只是通过ParseContent解析单个文件。 md5:bd95b1f5616b7fce
+		// 如果它是孤儿选项，它只是通过ParseContent解析单个文件。 md5:bd95b1f5616b7fce
 	if option.Orphan {
 		return view.doParseContent(ctx, item.content, option.Params)
 	}
-	// 获取`folder`的模板对象实例。 md5:850769d5264084fa
+		// 获取`folder`的模板对象实例。 md5:850769d5264084fa
 	var tpl interface{}
 	tpl, err = view.getTemplate(item.path, item.folder, fmt.Sprintf(`*%s`, gfile.Ext(item.path)))
 	if err != nil {
 		return "", err
 	}
-	// 使用内存锁确保模板解析的并发安全性。 md5:b64152a6d03ebce0
+		// 使用内存锁确保模板解析的并发安全性。 md5:b64152a6d03ebce0
 	gmlock.LockFunc("gview.Parse:"+item.path, func() {
 		if view.config.AutoEncode {
 			tpl, err = tpl.(*htmltpl.Template).Parse(item.content)
@@ -181,7 +185,8 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		return "", err
 	}
 	// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
-	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。 md5:07678aa51c871b54
+	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
+	// md5:07678aa51c871b54
 	variables := gutil.MapMergeCopy(option.Params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -203,15 +208,16 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		}
 	}
 
-	// TODO 有没有一种优雅的计划来替换 "<无值>"？. md5:b722bf3a8104fe3b
+		// TODO 有没有一种优雅的计划来替换 "<无值>"？. md5:b722bf3a8104fe3b
 	result = gstr.Replace(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
 }
 
-// doParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的内容作为 []byte 类型。 md5:9fcc7059fb505864
+// doParseContent 使用模板变量 `params` 解析给定的模板内容 `content`，并返回解析后的内容作为 []byte 类型。
+// md5:9fcc7059fb505864
 func (view *View) doParseContent(ctx context.Context, content string, params Params) (string, error) {
-	// 如果模板内容为空，没有必要继续解析。 md5:59270c3283cce903
+		// 如果模板内容为空，没有必要继续解析。 md5:59270c3283cce903
 	if content == "" {
 		return "", nil
 	}
@@ -231,7 +237,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 			).Funcs(view.funcMap)
 		})
 	)
-	// 使用内存锁确保内容解析的并发安全性。 md5:d526d1fe96e88c9d
+		// 使用内存锁确保内容解析的并发安全性。 md5:d526d1fe96e88c9d
 	hash := strconv.FormatUint(ghash.DJB64([]byte(content)), 10)
 	gmlock.LockFunc("gview.ParseContent:"+hash, func() {
 		if view.config.AutoEncode {
@@ -245,7 +251,8 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		return "", err
 	}
 	// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
-	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。 md5:07678aa51c871b54
+	// 因为这两个变量都是指针。它需要将两个映射的值合并到一个新的映射中。
+	// md5:07678aa51c871b54
 	variables := gutil.MapMergeCopy(params)
 	if len(view.data) > 0 {
 		gutil.MapMerge(variables, view.data)
@@ -270,7 +277,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 			return "", err
 		}
 	}
-	// TODO 有没有一种优雅的计划来替换 "<无值>"？. md5:b722bf3a8104fe3b
+		// TODO 有没有一种优雅的计划来替换 "<无值>"？. md5:b722bf3a8104fe3b
 	result := gstr.Replace(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
@@ -278,7 +285,8 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 
 // getTemplate 根据给定的模板文件路径 `path` 返回关联的模板对象。
 // 它使用模板缓存来提高性能，即对于相同的 `path`，它将返回相同的模板对象。
-// 当`path`下的模板文件发生改变（递归检查）时，它会自动刷新模板缓存。 md5:c5cd3094a5634faa
+// 当`path`下的模板文件发生改变（递归检查）时，它会自动刷新模板缓存。
+// md5:c5cd3094a5634faa
 func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interface{}, err error) {
 	var (
 		mapKey  = fmt.Sprintf("%s_%v", filePath, view.config.Delimiters)
@@ -295,7 +303,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 					view.config.Delimiters[1],
 				).Funcs(view.funcMap)
 			}
-			// 首先检查资源管理器。 md5:da6f8b6e01c9081c
+				// 首先检查资源管理器。 md5:da6f8b6e01c9081c
 			if !gres.IsEmpty() {
 				if files := gres.ScanDirFile(folderPath, pattern, true); len(files) > 0 {
 					if view.config.AutoEncode {
@@ -322,7 +330,8 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 			}
 
 			// 其次，检查文件系统，
-			// 然后递归地自动解析所有子文件。 md5:46d132de94281d12
+			// 然后递归地自动解析所有子文件。
+			// md5:46d132de94281d12
 			var files []string
 			files, err = gfile.ScanDir(folderPath, pattern, true)
 			if err != nil {
@@ -364,10 +373,11 @@ func (view *View) formatTemplateObjectCreatingError(filePath, tplName string, er
 }
 
 // searchFile 返回找到的文件`file`的绝对路径以及其模板文件夹路径。
-// 请注意，返回的`folder`是模板文件夹路径，而不是返回的模板文件`path`所在的文件夹。 md5:a3bcfce2f1e0e878
+// 请注意，返回的`folder`是模板文件夹路径，而不是返回的模板文件`path`所在的文件夹。
+// md5:a3bcfce2f1e0e878
 func (view *View) searchFile(ctx context.Context, file string) (path string, folder string, resource *gres.File, err error) {
 	var tempPath string
-	// 首先检查资源管理器。 md5:da6f8b6e01c9081c
+		// 首先检查资源管理器。 md5:da6f8b6e01c9081c
 	if !gres.IsEmpty() {
 		// Try folders.
 		for _, tryFolder := range resourceTryFolders {
@@ -393,7 +403,7 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 		})
 	}
 
-	// 其次，检查文件系统。 md5:1afe55a17dac6b06
+		// 其次，检查文件系统。 md5:1afe55a17dac6b06
 	if path == "" {
 		// Absolute path.
 		path = gfile.RealPath(file)

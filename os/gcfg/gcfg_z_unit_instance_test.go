@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
@@ -56,7 +57,7 @@ func Test_Instance_AutoLocateConfigFile(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(Instance("gf") != nil, true)
 	})
-	// 自动定位支持的文件扩展名的配置文件。 md5:941b2ef0c3ebcbf1
+		// 自动定位支持的文件扩展名的配置文件。 md5:941b2ef0c3ebcbf1
 	gtest.C(t, func(t *gtest.T) {
 		pwd := gfile.Pwd()
 		t.AssertNil(gfile.Chdir(gtest.DataPath()))
@@ -65,14 +66,14 @@ func Test_Instance_AutoLocateConfigFile(t *testing.T) {
 		t.Assert(Instance("c1").MustGet(ctx, "my-config"), "1")
 		t.Assert(Instance("folder1/c1").MustGet(ctx, "my-config"), "2")
 	})
-	// 自动定位支持的文件扩展名的配置文件。 md5:941b2ef0c3ebcbf1
+		// 自动定位支持的文件扩展名的配置文件。 md5:941b2ef0c3ebcbf1
 	gtest.C(t, func(t *gtest.T) {
 		pwd := gfile.Pwd()
 		t.AssertNil(gfile.Chdir(gtest.DataPath("folder1")))
 		defer gfile.Chdir(pwd)
 		t.Assert(Instance("c2").MustGet(ctx, "my-config"), 2)
 	})
-	// 默认配置文件。 md5:bfb03b7e4e99b27b
+		// 默认配置文件。 md5:bfb03b7e4e99b27b
 	gtest.C(t, func(t *gtest.T) {
 		localInstances.Clear()
 		pwd := gfile.Pwd()

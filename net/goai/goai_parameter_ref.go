@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package goai
 
@@ -45,11 +46,11 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 		}
 	}
 	if parameter.In == "" {
-		// 自动检测其"in"属性。 md5:681a19858c274871
+				// 自动检测其"in"属性。 md5:681a19858c274871
 		if gstr.ContainsI(path, fmt.Sprintf(`{%s}`, parameter.Name)) {
 			parameter.In = ParameterInPath
 		} else {
-			// 如果方法为"GET/DELETE"，则将参数输入默认设置为"query"。 md5:e11ada17c61b4191
+						// 如果方法为"GET/DELETE"，则将参数输入默认设置为"query"。 md5:e11ada17c61b4191
 			switch gstr.ToUpper(method) {
 			case http.MethodGet, http.MethodDelete:
 				parameter.In = ParameterInQuery
@@ -62,7 +63,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 
 	switch parameter.In {
 	case ParameterInPath:
-		// 路径参数所需的。 md5:55007a5c2ee8b9f3
+				// 路径参数所需的。 md5:55007a5c2ee8b9f3
 		parameter.Required = true
 
 	case ParameterInCookie, ParameterInHeader, ParameterInQuery:
@@ -70,7 +71,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	default:
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid tag value "%s" for In`, parameter.In)
 	}
-	// 必要的模式或内容。 md5:35319ee51590f5ad
+		// 必要的模式或内容。 md5:35319ee51590f5ad
 	schemaRef, err := oai.newSchemaRefWithGolangType(field.Type().Type, tagMap)
 	if err != nil {
 		return nil, err

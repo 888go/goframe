@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -24,7 +25,8 @@
 
 # <翻译开始>
 // GetPage 根据给定的`totalSize`和`pageSize`创建并返回分页对象。
-// 请注意，来自客户端的分页参数名称常量定义为gpage.DefaultPageName，以简化和方便使用。 md5:4d3bd97d937b25b8
+// 请注意，来自客户端的分页参数名称常量定义为gpage.DefaultPageName，以简化和方便使用。
+// md5:4d3bd97d937b25b8
 # <翻译结束>
 
 

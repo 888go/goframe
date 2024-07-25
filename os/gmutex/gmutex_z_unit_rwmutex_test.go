@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gmutex_test
 
@@ -212,7 +213,7 @@ func Test_RWMutex_TryRLockFunc(t *testing.T) {
 				time.Sleep(2000 * time.Millisecond)
 			})
 		}()
-		// 这个goroutine永远无法获取锁。 md5:47331ca99d298935
+				// 这个goroutine永远无法获取锁。 md5:47331ca99d298935
 		go func() {
 			time.Sleep(1000 * time.Millisecond)
 			mu.TryRLockFunc(func() {

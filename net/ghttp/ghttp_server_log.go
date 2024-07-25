@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -42,7 +43,7 @@ func (s *Server) handleAccessLog(r *Request) {
 
 // handleErrorLog 处理服务器的错误日志。 md5:f4ba08c94e4f5e6f
 func (s *Server) handleErrorLog(err error, r *Request) {
-	// 如果错误日志记录被特别禁用，则什么也不做。 md5:f40ab65302593bd7
+		// 如果错误日志记录被特别禁用，则什么也不做。 md5:f40ab65302593bd7
 	if !s.IsErrorLogEnabled() {
 		return
 	}

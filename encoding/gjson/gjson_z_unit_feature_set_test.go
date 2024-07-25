@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gjson_test
 
@@ -278,7 +279,7 @@ func Test_Set17(t *testing.T) {
 
 		t.Assert(j.Set("0.k1", "v1"), nil)
 		t.Assert(j.Set("1.k2", "v2"), nil)
-		// 覆盖之前的切片。 md5:7ecc228788fbb89e
+				// 覆盖之前的切片。 md5:7ecc228788fbb89e
 		t.Assert(j.Set("k", "v"), nil)
 
 		s, err := j.ToJsonString()

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtcp
 
@@ -20,7 +21,7 @@ import (
 )
 
 const (
-	// FreePortAddress 标记服务器使用随机的空闲端口进行监听。 md5:16e8ca0633c4a135
+		// FreePortAddress 标记服务器使用随机的空闲端口进行监听。 md5:16e8ca0633c4a135
 	FreePortAddress = ":0"
 )
 
@@ -40,7 +41,8 @@ type Server struct {
 // 用于单例目的，存储名称到服务器的映射。 md5:8e877c386766a97c
 var serverMapping = gmap.NewStrAnyMap(true)
 
-// GetServer 返回指定名称的 TCP 服务器，如果不存在，则返回一个新创建的默认名为 `name` 的 TCP 服务器。参数 `name` 用于指定 TCP 服务器的名称。 md5:f6bb57410cf2ca98
+// GetServer 返回指定名称的 TCP 服务器，如果不存在，则返回一个新创建的默认名为 `name` 的 TCP 服务器。参数 `name` 用于指定 TCP 服务器的名称。
+// md5:f6bb57410cf2ca98
 func GetServer(name ...interface{}) *Server {
 	serverName := defaultServer
 	if len(name) > 0 && name[0] != "" {
@@ -52,7 +54,8 @@ func GetServer(name ...interface{}) *Server {
 }
 
 // NewServer 创建并返回一个新的普通TCP服务器。
-// 参数 `name` 是可选的，用于指定服务器的实例名称。 md5:ce4abdc7a25f75da
+// 参数 `name` 是可选的，用于指定服务器的实例名称。
+// md5:ce4abdc7a25f75da
 func NewServer(address string, handler func(*Conn), name ...string) *Server {
 	s := &Server{
 		address: address,
@@ -65,7 +68,8 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 }
 
 // NewServerTLS 创建并返回一个支持TLS的TCP服务器。
-// 参数`name`是可选的，用于指定服务器的实例名称。 md5:102d98ca307029b3
+// 参数`name`是可选的，用于指定服务器的实例名称。
+// md5:102d98ca307029b3
 func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), name ...string) *Server {
 	s := NewServer(address, handler, name...)
 	s.SetTLSConfig(tlsConfig)
@@ -73,7 +77,8 @@ func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), na
 }
 
 // NewServerKeyCrt 创建并返回一个支持TLS的TCP服务器。
-// 参数 `name` 是可选的，用于指定服务器的实例名称。 md5:65a6856829628fe8
+// 参数 `name` 是可选的，用于指定服务器的实例名称。
+// md5:65a6856829628fe8
 func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name ...string) (*Server, error) {
 	s := NewServer(address, handler, name...)
 	if err := s.SetTLSKeyCrt(crtFile, keyFile); err != nil {

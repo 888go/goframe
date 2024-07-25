@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -50,7 +51,7 @@ func (p *utilAdmin) Restart(r *Request) {
 		ctx = r.Context()
 		err error
 	)
-	// 自定义此进程退出时的自启动二进制路径。 md5:8198fd7edf44314f
+		// 自定义此进程退出时的自启动二进制路径。 md5:8198fd7edf44314f
 	path := r.GetQuery("newExeFilePath").String()
 	if path == "" {
 		path = os.Args[0]
@@ -66,14 +67,16 @@ func (p *utilAdmin) Restart(r *Request) {
 func (p *utilAdmin) Shutdown(r *Request) {
 	gtimer.SetTimeout(r.Context(), time.Second, func(ctx context.Context) {
 		// 它在1秒后关闭服务器，这不由系统信号触发，
-		// 以确保成功响应客户端。 md5:c6fb3a1932e2bc99
+		// 以确保成功响应客户端。
+		// md5:c6fb3a1932e2bc99
 		_ = r.Server.Shutdown()
 	})
 	r.Response.WriteExit("server shutdown")
 }
 
 // EnableAdmin 为进程启用管理功能。
-// 可选参数 `pattern` 指定了管理页面的 URI。 md5:edecba6f65e585e5
+// 可选参数 `pattern` 指定了管理页面的 URI。
+// md5:edecba6f65e585e5
 func (s *Server) EnableAdmin(pattern ...string) {
 	p := "/debug/admin"
 	if len(pattern) > 0 {
@@ -87,7 +90,8 @@ func (s *Server) Shutdown() error {
 	var ctx = context.TODO()
 	s.doServiceDeregister()
 	// 只关闭当前的服务器。
-	// 它可能有多个底层HTTP服务器。 md5:da82a73df4e8a814
+	// 它可能有多个底层HTTP服务器。
+	// md5:da82a73df4e8a814
 	for _, v := range s.servers {
 		v.close(ctx)
 	}

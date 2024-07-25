@@ -1,7 +1,8 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 
 package gmetric
 
@@ -14,9 +15,9 @@ type localObservableCounter struct {
 }
 
 var (
-	// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
+		// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
 	_ MetricInitializer = (*localObservableCounter)(nil)
-	// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
+		// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
 	_ PerformerExporter = (*localObservableCounter)(nil)
 )
 
@@ -42,7 +43,8 @@ func (meter *localMeter) ObservableCounter(name string, option MetricOption) (Ob
 }
 
 // MustObservableCounter 创建并返回一个新的 ObservableCounter。
-// 如果发生任何错误，它将引发恐慌。 md5:0e100a900e418612
+// 如果发生任何错误，它将引发恐慌。
+// md5:0e100a900e418612
 func (meter *localMeter) MustObservableCounter(name string, option MetricOption) ObservableCounter {
 	m, err := meter.ObservableCounter(name, option)
 	if err != nil {
@@ -65,7 +67,8 @@ func (l *localObservableCounter) Init(provider Provider) (err error) {
 }
 
 // Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-// 这通常被指标实现所使用。 md5:e521fc985b9a53e2
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 func (l *localObservableCounter) Performer() any {
 	return l.ObservableCounterPerformer
 }

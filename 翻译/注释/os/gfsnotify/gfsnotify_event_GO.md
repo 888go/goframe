@@ -11,7 +11,8 @@
 // 版权声明：GoFrame 作者（https://goframe.org）。保留所有权利。
 //
 // 本源代码受MIT许可证条款约束。如果此文件未附带MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:12b80d680e9de440
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:12b80d680e9de440
 # <翻译结束>
 
 

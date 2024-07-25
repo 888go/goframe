@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -29,7 +30,8 @@
 //
 // 注意：
 // 1. 它不支持 Save/Replace 功能。
-// 2. 它不支持 LastInsertId。 md5:898bf7c99e282e5b
+// 2. 它不支持 LastInsertId。
+// md5:898bf7c99e282e5b
 # <翻译结束>
 
 
@@ -57,7 +59,8 @@
 <原文结束>
 
 # <翻译开始>
-// New 创建并返回一个用于Oracle的数据库对象。它实现了gdb.Driver接口，以便于额外的数据库驱动程序安装。 md5:7f4f55e7c45290be
+// New 创建并返回一个用于Oracle的数据库对象。它实现了gdb.Driver接口，以便于额外的数据库驱动程序安装。
+// md5:7f4f55e7c45290be
 # <翻译结束>
 
 

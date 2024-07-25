@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // gmd5包提供了对MD5加密算法的实用API。 md5:637f00f8697c325b
 package gmd5
@@ -18,14 +19,16 @@ import (
 )
 
 // Encrypt 使用MD5算法加密任何类型的变量。
-// 它使用gconv包将`v`转换为字节类型。 md5:0ab9d73eb0da5581
+// 它使用gconv包将`v`转换为字节类型。
+// md5:0ab9d73eb0da5581
 func Encrypt(data interface{}) (encrypt string, err error) {
 	return EncryptBytes(gconv.Bytes(data))
 }
 
 // MustEncrypt 使用MD5算法对任何类型的变量进行加密。
 // 它使用gconv包将`v`转换为其字节类型。
-// 如果发生任何错误，它将引发恐慌。 md5:759531471ae8fb5a
+// 如果发生任何错误，它将引发恐慌。
+// md5:759531471ae8fb5a
 func MustEncrypt(data interface{}) string {
 	result, err := Encrypt(data)
 	if err != nil {
@@ -45,7 +48,8 @@ func EncryptBytes(data []byte) (encrypt string, err error) {
 }
 
 // MustEncryptBytes 使用MD5算法对`data`进行加密。
-// 如果发生任何错误，它将直接 panic。 md5:24200c4b1dd0cbd3
+// 如果发生任何错误，它将直接 panic。
+// md5:24200c4b1dd0cbd3
 func MustEncryptBytes(data []byte) string {
 	result, err := EncryptBytes(data)
 	if err != nil {
@@ -59,7 +63,8 @@ func EncryptString(data string) (encrypt string, err error) {
 	return EncryptBytes([]byte(data))
 }
 
-// MustEncryptString 使用MD5算法对字符串`data`进行加密。如果发生任何错误，它将引发恐慌。 md5:54e2ed7e76b2c713
+// MustEncryptString 使用MD5算法对字符串`data`进行加密。如果发生任何错误，它将引发恐慌。
+// md5:54e2ed7e76b2c713
 func MustEncryptString(data string) string {
 	result, err := EncryptString(data)
 	if err != nil {
@@ -86,7 +91,8 @@ func EncryptFile(path string) (encrypt string, err error) {
 }
 
 // MustEncryptFile 使用MD5算法加密`path`文件的内容。
-// 如果发生任何错误，它将直接 panic。 md5:71f4a9ffa26ff10c
+// 如果发生任何错误，它将直接 panic。
+// md5:71f4a9ffa26ff10c
 func MustEncryptFile(path string) string {
 	result, err := EncryptFile(path)
 	if err != nil {

@@ -35,7 +35,8 @@
 //   | CaseDelimited(s, '.')              | 任何.类型.的字符串  |
 //   | CaseDelimitedScreaming(s, '.')     | 任何.类型.的大写字符串 |
 //   | CaseCamel(s)                       | AnyKindOfString     |
-//   | CaseCamelLower(s)                  | anyKindOfString     | md5:66511e05f3151030
+//   | CaseCamelLower(s)                  | anyKindOfString     |
+// md5:66511e05f3151030
 # <翻译结束>
 
 
@@ -73,7 +74,8 @@
 
 # <翻译开始>
 // CaseConvert 将字符串转换为指定的命名约定。
-// 使用 CaseTypeMatch 从字符串中匹配 case 类型。 md5:3c58b688150ee2a3
+// 使用 CaseTypeMatch 从字符串中匹配 case 类型。
+// md5:3c58b688150ee2a3
 # <翻译结束>
 
 
@@ -88,7 +90,8 @@
 // CaseCamel 将一个字符串转换为驼峰式写法。
 //
 // 示例：
-// CaseCamel("any_kind_of_string") -> AnyKindOfString md5:189cc8dcd6a04d2c
+// CaseCamel("any_kind_of_string") -> AnyKindOfString
+// md5:189cc8dcd6a04d2c
 # <翻译结束>
 
 
@@ -103,7 +106,8 @@
 // CaseCamelLower 将一个字符串转换为下划线驼峰式（lowerCamelCase）。
 //
 // 例子：
-// CaseCamelLower("any_kind_of_string") -> anyKindOfString md5:dc604c858a2452d4
+// CaseCamelLower("any_kind_of_string") -> anyKindOfString
+// md5:dc604c858a2452d4
 # <翻译结束>
 
 
@@ -118,7 +122,8 @@
 // CaseSnake将一个字符串转换为蛇形命名（snake_case）。
 //
 // 示例：
-// CaseSnake("AnyKindOfString") -> any_kind_of_string md5:348ee5cd8cb1cd34
+// CaseSnake("AnyKindOfString") -> any_kind_of_string
+// md5:348ee5cd8cb1cd34
 # <翻译结束>
 
 
@@ -133,7 +138,8 @@
 // CaseSnakeScreaming 将一个字符串转换为 SNAKE_CASE_SCREAMING 格式。
 //
 // 示例：
-// CaseSnakeScreaming("AnyKindOfString") -> "ANY_KIND_OF_STRING" md5:9f2e1f082921e42e
+// CaseSnakeScreaming("AnyKindOfString") -> "ANY_KIND_OF_STRING"
+// md5:9f2e1f082921e42e
 # <翻译结束>
 
 
@@ -150,7 +156,8 @@
 // TODO 为了提高效率，未来应将正则表达式改为遍历字符串的方式。
 //
 // 示例：
-// CaseSnakeFirstUpper("RGBCodeMd5") -> rgb_code_md5 md5:aff36f9f5f3a68d7
+// CaseSnakeFirstUpper("RGBCodeMd5") -> rgb_code_md5
+// md5:aff36f9f5f3a68d7
 # <翻译结束>
 
 
@@ -165,7 +172,8 @@
 // CaseKebab 将字符串转换为kebab-case形式。
 //
 // 例子：
-// CaseKebab("AnyKindOfString") -> any-kind-of-string md5:885475f21356c510
+// CaseKebab("AnyKindOfString") -> any-kind-of-string
+// md5:885475f21356c510
 # <翻译结束>
 
 
@@ -180,7 +188,8 @@
 // CaseKebabScreaming 将一个字符串转换为KEBAB-CASE-SCREAMING格式。
 //
 // 示例：
-// CaseKebab("AnyKindOfString") -> "ANY-KIND-OF-STRING" md5:64e3399ff1b60dad
+// CaseKebab("AnyKindOfString") -> "ANY-KIND-OF-STRING"
+// md5:64e3399ff1b60dad
 # <翻译结束>
 
 
@@ -195,7 +204,8 @@
 // CaseDelimited 将字符串转换为 snake_case_delimited 形式。
 //
 // 示例：
-// CaseDelimited("AnyKindOfString", '.') -> any.kind.of.string md5:8edd65912cb80360
+// CaseDelimited("AnyKindOfString", '.') -> any.kind.of.string
+// md5:8edd65912cb80360
 # <翻译结束>
 
 
@@ -210,7 +220,8 @@
 // CaseDelimitedScreaming 将字符串转换为 DELIMITED.SCREAMING.CASE 或 delimited.screaming.case 格式。
 //
 // 示例：
-// CaseDelimitedScreaming("AnyKindOfString", '.') -> ANY.KIND.OF.STRING md5:e81c17d2e4a95231
+// CaseDelimitedScreaming("AnyKindOfString", '.') -> ANY.KIND.OF.STRING
+// md5:e81c17d2e4a95231
 # <翻译结束>
 
 

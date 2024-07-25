@@ -2,12 +2,14 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包 builtin 实现了内置的验证规则。
 //
 // 参考了 Laravel 验证规则：
-// https://laravel.com/docs/master/validation#available-validation-rules md5:855d785bc4982d21
+// https://laravel.com/docs/master/validation#available-validation-rules
+// md5:855d785bc4982d21
 package builtin
 
 import (
@@ -17,13 +19,13 @@ import (
 )
 
 type Rule interface {
-	// Name 返回该规则的内置名称。 md5:a71cebab229252cc
+		// Name 返回该规则的内置名称。 md5:a71cebab229252cc
 	Name() string
 
-	// Message返回规则的默认错误消息。 md5:0b3669ebda3f3237
+		// Message返回规则的默认错误消息。 md5:0b3669ebda3f3237
 	Message() string
 
-	// Run开始运行规则，如果成功则返回nil，否则返回一个错误。 md5:1e3c94009a35745d
+		// Run开始运行规则，如果成功则返回nil，否则返回一个错误。 md5:1e3c94009a35745d
 	Run(in RunInput) error
 }
 
@@ -43,7 +45,7 @@ type RunOption struct {
 }
 
 var (
-	// ruleMap 存储所有预置的验证规则。 md5:9a86d7fe68fc3d28
+		// ruleMap 存储所有预置的验证规则。 md5:9a86d7fe68fc3d28
 	ruleMap = map[string]Rule{}
 )
 

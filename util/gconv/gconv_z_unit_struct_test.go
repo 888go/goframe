@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv_test
 
@@ -161,7 +162,8 @@ func Test_Struct_Attr_Slice1(t *testing.T) {
 //			})
 //		}
 //	})
-//} md5:530558b91cc069c7
+//}
+// md5:530558b91cc069c7
 
 func Test_Struct_Attr_Struct(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
@@ -648,7 +650,7 @@ func Test_Struct_Time(t *testing.T) {
 }
 
 func Test_Struct_GTime(t *testing.T) {
-	// 这段注释链接指向的是GitHub上的一个Issue，GF（Go Foundation）是一个Go语言的库或框架。"1387"可能是Issue的编号。具体的内容需要查看该链接才能得知，大致意思是关于GF项目在1387号问题上的讨论、报告了一个错误或者提出了一个特性请求。 md5:7c877c3e7a856cb1
+		// 这段注释链接指向的是GitHub上的一个Issue，GF（Go Foundation）是一个Go语言的库或框架。"1387"可能是Issue的编号。具体的内容需要查看该链接才能得知，大致意思是关于GF项目在1387号问题上的讨论、报告了一个错误或者提出了一个特性请求。 md5:7c877c3e7a856cb1
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Name       string
@@ -933,7 +935,7 @@ type TestStruct struct {
 }
 
 func Test_Struct_Embedded(t *testing.T) {
-	// 实现的接口属性。 md5:cc0d5c4c14ca721e
+		// 实现的接口属性。 md5:cc0d5c4c14ca721e
 	gtest.C(t, func(t *gtest.T) {
 		v1 := TestStruct{
 			TestInterface: &T{"john"},
@@ -943,7 +945,7 @@ func Test_Struct_Embedded(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v1.Test(), "john")
 	})
-	// 实现的接口属性。 md5:cc0d5c4c14ca721e
+		// 实现的接口属性。 md5:cc0d5c4c14ca721e
 	gtest.C(t, func(t *gtest.T) {
 		v1 := TestStruct{
 			TestInterface: &T{"john"},
@@ -955,7 +957,7 @@ func Test_Struct_Embedded(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v1.Test(), "test")
 	})
-	// 没有实现的接口属性。 md5:441b8a44b6a99ee2
+		// 没有实现的接口属性。 md5:441b8a44b6a99ee2
 	gtest.C(t, func(t *gtest.T) {
 		v1 := TestStruct{}
 		v2 := g.Map{
@@ -1286,7 +1288,7 @@ func Test_Struct_Issue1563(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1597 问题讨论. md5:934fd7bf7bd1b6b7
+//github.com/gogf/gf/issues/1597 问题讨论. md5:934fd7bf7bd1b6b7
 func Test_Struct_Issue1597(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S struct {

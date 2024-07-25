@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gbinary
 
@@ -18,8 +19,9 @@ import (
 )
 
 // BeEncode 使用大端字节序将一个或多个`values`编码为字节。它通过检查`values`中每个值的类型，并调用相应的转换函数来进行内部字节转换。
-//
-// 它支持常见的变量类型断言，最后如果无法确定类型，会使用`fmt.Sprintf`将值转换为字符串，然后再转换为字节。 md5:9b191604817267a1
+// 
+// 它支持常见的变量类型断言，最后如果无法确定类型，会使用`fmt.Sprintf`将值转换为字符串，然后再转换为字节。
+// md5:9b191604817267a1
 func BeEncode(values ...interface{}) []byte {
 	buf := new(bytes.Buffer)
 	for i := 0; i < len(values); i++ {
@@ -271,8 +273,9 @@ func BeDecodeToFloat64(b []byte) float64 {
 }
 
 // BeFillUpSize 使用大端字节序填充字节切片 `b` 到给定长度 `l`。
-//
-// 注意，它通过复制原始字节切片来创建一个新的字节切片，以避免修改原始参数字节。 md5:ae17f54c414e3a97
+// 
+// 注意，它通过复制原始字节切片来创建一个新的字节切片，以避免修改原始参数字节。
+// md5:ae17f54c414e3a97
 func BeFillUpSize(b []byte, l int) []byte {
 	if len(b) >= l {
 		return b[:l]

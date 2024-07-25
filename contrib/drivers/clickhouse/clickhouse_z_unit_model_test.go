@@ -4,7 +4,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package clickhouse_test
 
@@ -191,7 +192,7 @@ func Test_Model_Update(t *testing.T) {
 		t.AssertEQ(err.Error(), "updating table with empty data")
 	})
 
-	// 更新 + Fields(字符串). md5:df4e16d13da67d5e
+		// 更新 + Fields(字符串). md5:df4e16d13da67d5e
 	gtest.C(t, func(t *gtest.T) {
 		_, err := db.Model(table).Fields("passport").Data(g.Map{
 			"passport": "user_44",
@@ -275,7 +276,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(result["id"].Int(), 3)
 	})
 
-	// 结构体，自动映射和过滤。 md5:8edea55227b914af
+		// 结构体，自动映射和过滤。 md5:8edea55227b914af
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int

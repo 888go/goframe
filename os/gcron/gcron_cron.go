@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcron
 
@@ -76,7 +77,8 @@ func (c *Cron) AddEntry(
 
 // Add 添加一个定时任务。
 // 一个唯一的`name`可以与定时任务绑定。
-// 如果`name`已经被使用，它将返回一个错误。 md5:850ebd654a2e3695
+// 如果`name`已经被使用，它将返回一个错误。
+// md5:850ebd654a2e3695
 func (c *Cron) Add(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, -1, false, name...)
 }
@@ -84,21 +86,24 @@ func (c *Cron) Add(ctx context.Context, pattern string, job JobFunc, name ...str
 // AddSingleton 添加一个单例定时任务。
 // 单例定时任务是指在同一时间只能运行一个实例的任务。
 // 可以通过一个唯一的`name`与定时任务绑定。
-// 如果`name`已经被使用，它将返回错误。 md5:9e0e86c2aee09877
+// 如果`name`已经被使用，它将返回错误。
+// md5:9e0e86c2aee09877
 func (c *Cron) AddSingleton(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, -1, true, name...)
 }
 
 // AddTimes 添加一个定时任务，可以指定执行次数。
 // 可以为定时任务绑定一个唯一的`name`。
-// 如果`name`已存在，将返回一个错误。 md5:b01e5695f9cc54d5
+// 如果`name`已存在，将返回一个错误。
+// md5:b01e5695f9cc54d5
 func (c *Cron) AddTimes(ctx context.Context, pattern string, times int, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, times, false, name...)
 }
 
 // AddOnce 添加一个定时任务，该任务只能运行一次。
 // 可以为定时任务绑定一个唯一的`name`。
-// 如果`name`已使用，将返回一个错误。 md5:fd5fb4f131e1f937
+// 如果`name`已使用，将返回一个错误。
+// md5:fd5fb4f131e1f937
 func (c *Cron) AddOnce(ctx context.Context, pattern string, job JobFunc, name ...string) (*Entry, error) {
 	return c.AddEntry(ctx, pattern, job, 1, false, name...)
 }
@@ -131,7 +136,8 @@ func (c *Cron) DelayAddSingleton(ctx context.Context, delay time.Duration, patte
 }
 
 // DelayAddOnce 在 `delay` 时间后添加一个定时任务。
-// 这个定时任务只能运行一次。 md5:34aa0df8fb8e5477
+// 这个定时任务只能运行一次。
+// md5:34aa0df8fb8e5477
 func (c *Cron) DelayAddOnce(ctx context.Context, delay time.Duration, pattern string, job JobFunc, name ...string) {
 	gtimer.AddOnce(ctx, delay, func(ctx context.Context) {
 		if _, err := c.AddOnce(ctx, pattern, job, name...); err != nil {
@@ -141,7 +147,8 @@ func (c *Cron) DelayAddOnce(ctx context.Context, delay time.Duration, pattern st
 }
 
 // DelayAddTimes 在延迟`delay`时间后添加一个定时任务。
-// 该定时任务可以指定运行次数。 md5:5ed58fb7650ed0bb
+// 该定时任务可以指定运行次数。
+// md5:5ed58fb7650ed0bb
 func (c *Cron) DelayAddTimes(ctx context.Context, delay time.Duration, pattern string, times int, job JobFunc, name ...string) {
 	gtimer.AddOnce(ctx, delay, func(ctx context.Context) {
 		if _, err := c.AddTimes(ctx, pattern, times, job, name...); err != nil {
@@ -151,7 +158,8 @@ func (c *Cron) DelayAddTimes(ctx context.Context, delay time.Duration, pattern s
 }
 
 // Search 返回指定名称的计划任务。
-// 如果未找到，则返回 nil。 md5:b0da4b1e1203c6c7
+// 如果未找到，则返回 nil。
+// md5:b0da4b1e1203c6c7
 func (c *Cron) Search(name string) *Entry {
 	if v := c.entries.Get(name); v != nil {
 		return v.(*Entry)
@@ -159,7 +167,8 @@ func (c *Cron) Search(name string) *Entry {
 	return nil
 }
 
-// Start 启动指定名为 `name` 的定时任务。如果没有指定 `name`，则启动整个 cron。 md5:d573745c6d8edaac
+// Start 启动指定名为 `name` 的定时任务。如果没有指定 `name`，则启动整个 cron。
+// md5:d573745c6d8edaac
 func (c *Cron) Start(name ...string) {
 	if len(name) > 0 {
 		for _, v := range name {
@@ -172,7 +181,8 @@ func (c *Cron) Start(name ...string) {
 	}
 }
 
-// Stop 停止运行指定的定时任务，任务名为 `name`。如果未指定 `name`，则停止整个cron（cron job）。 md5:68ed27359d633f5e
+// Stop 停止运行指定的定时任务，任务名为 `name`。如果未指定 `name`，则停止整个cron（cron job）。
+// md5:68ed27359d633f5e
 func (c *Cron) Stop(name ...string) {
 	if len(name) > 0 {
 		for _, v := range name {

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp_test
 
@@ -247,7 +248,7 @@ func Test_Middleware_Hook_With_Static(t *testing.T) {
 		client := g.Client()
 		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
 
-		// 长度断言有时会失败，所以为了调试目的我在这里添加了time.Sleep。 md5:9a9315edc424405c
+				// 长度断言有时会失败，所以为了调试目的我在这里添加了time.Sleep。 md5:9a9315edc424405c
 
 		t.Assert(client.GetContent(ctx, "/"), "index")
 		time.Sleep(100 * time.Millisecond)

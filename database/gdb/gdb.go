@@ -2,11 +2,13 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gdb为流行的关系型数据库提供ORM（对象关系映射）功能。
 //
-// 待办事项：将context.Context作为所有数据库操作的必需参数。 md5:ed61b69bd00b7384
+// 待办事项：将context.Context作为所有数据库操作的必需参数。
+// md5:ed61b69bd00b7384
 package gdb
 
 import (
@@ -33,7 +35,8 @@ type DB interface {
 	// =============================================================================
 	// 模型创建。
 	// =============================================================================
-	// 这里是对一段Go代码中的注释进行翻译，"Model creation"指的是模型的创建过程。这部分代码可能是用于描述一个函数或部分代码的作用，即它负责构建或初始化某个模型。 md5:1c8c0b09089a9689
+	// 这里是对一段Go代码中的注释进行翻译，"Model creation"指的是模型的创建过程。这部分代码可能是用于描述一个函数或部分代码的作用，即它负责构建或初始化某个模型。
+	// md5:1c8c0b09089a9689
 
 	// Model 根据给定的模式创建并返回一个新的 ORM 模型。
 	// 参数 `table` 可以是多个表名，也可以包括别名，例如：
@@ -43,37 +46,44 @@ type DB interface {
 	//    Model("user, user_detail") 	// 多个模型名称
 	//    Model("user u, user_detail ud") 	// 多个模型名称及别名
 	// 2. 带别名的模型名称：Model("user", "u") 	// 第二个参数指定别名
-	// 参见 Core.Model 了解更多。 md5:61d3e6d835068122
+	// 参见 Core.Model 了解更多。
+	// md5:61d3e6d835068122
 	Model(tableNameOrStruct ...interface{}) *Model
 
-	// Raw 根据原始SQL（而不是表格）创建并返回一个模型。 md5:96066a9d41296a2a
+		// Raw 根据原始SQL（而不是表格）创建并返回一个模型。 md5:96066a9d41296a2a
 	Raw(rawSql string, args ...interface{}) *Model
 
 	// Schema 创建并返回一个模式。
-	// 参见 Core.Schema。 md5:0f4472ee79f06819
+	// 参见 Core.Schema。
+	// md5:0f4472ee79f06819
 	Schema(schema string) *Schema
 
-	// With根据给定对象的元数据创建并返回一个ORM模型。同时参见Core.With。 md5:78ab17ce6b00ce6e
+	// With根据给定对象的元数据创建并返回一个ORM模型。同时参见Core.With。
+	// md5:78ab17ce6b00ce6e
 	With(objects ...interface{}) *Model
 
 	// Open 使用给定的节点配置为数据库创建一个原始连接对象。
 	// 注意，不建议手动使用此函数。
-	// 另请参阅 DriverMysql.Open。 md5:1021f26472df579e
+	// 另请参阅 DriverMysql.Open。
+	// md5:1021f26472df579e
 	Open(config *ConfigNode) (*sql.DB, error)
 
 	// Ctx 是一个链式函数，它创建并返回一个新的 DB，该 DB 是当前 DB 对象的浅拷贝，并在其中设置了给定的上下文。
-	// 另请参阅 Core.Ctx。 md5:7eec5fab912764e7
+	// 另请参阅 Core.Ctx。
+	// md5:7eec5fab912764e7
 	Ctx(ctx context.Context) DB
 
 	// Close 关闭数据库并阻止新的查询开始。然后，Close 等待已经在服务器上开始处理的所有查询完成。
-	//
-	// 通常不会关闭 DB，因为 DB句柄应该是长期存在的，并且在多个 goroutine 之间共享。 md5:0985fc8e558f83fc
+	// 
+	// 通常不会关闭 DB，因为 DB句柄应该是长期存在的，并且在多个 goroutine 之间共享。
+	// md5:0985fc8e558f83fc
 	Close(ctx context.Context) error
 
 	// =============================================================================
 	// 查询接口。
 	// =============================================================================
-	// 这里是对查询相关的API进行的注释。 md5:06da8c4c9c8d957b
+	// 这里是对查询相关的API进行的注释。
+	// md5:06da8c4c9c8d957b
 
 	Query(ctx context.Context, sql string, args ...interface{}) (Result, error)    // See Core.Query.
 	Exec(ctx context.Context, sql string, args ...interface{}) (sql.Result, error) // See Core.Exec.
@@ -81,7 +91,8 @@ type DB interface {
 
 	// ===========================================================================
 	// 用于CURD操作的通用API。
-	// =========================================================================== md5:781fc1b4ac386204
+	// ===========================================================================
+	// md5:781fc1b4ac386204
 
 	Insert(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                               // See Core.Insert.
 	InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                         // See Core.InsertIgnore.
@@ -93,7 +104,8 @@ type DB interface {
 
 	// ===========================================================================
 	// CURD的内部API，可以被自定义的CURD实现覆盖。
-	// =========================================================================== md5:02480feeb95bda1e
+	// ===========================================================================
+	// md5:02480feeb95bda1e
 
 	DoSelect(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)                                           // See Core.DoSelect.
 	DoInsert(ctx context.Context, link Link, table string, data List, option DoInsertOption) (result sql.Result, err error)                        // See Core.DoInsert.
@@ -110,7 +122,8 @@ type DB interface {
 
 	// ===========================================================================
 	// 为了方便起见，提供查询API。
-	// =========================================================================== md5:be53a34b0863cf28
+	// ===========================================================================
+	// md5:be53a34b0863cf28
 
 	GetAll(ctx context.Context, sql string, args ...interface{}) (Result, error)                // See Core.GetAll.
 	GetOne(ctx context.Context, sql string, args ...interface{}) (Record, error)                // See Core.GetOne.
@@ -123,14 +136,16 @@ type DB interface {
 
 	// ===========================================================================
 	// 主从规范支持。
-	// =========================================================================== md5:f0ac82262204c704
+	// ===========================================================================
+	// md5:f0ac82262204c704
 
 	Master(schema ...string) (*sql.DB, error) // See Core.Master.
 	Slave(schema ...string) (*sql.DB, error)  // See Core.Slave.
 
 	// ===========================================================================
 	// 乒乓游戏。
-	// =========================================================================== md5:548138891df7682f
+	// ===========================================================================
+	// md5:548138891df7682f
 
 	PingMaster() error // See Core.PingMaster.
 	PingSlave() error  // See Core.PingSlave.
@@ -138,14 +153,16 @@ type DB interface {
 	// =============================================================================
 	// 事务处理。
 	// =============================================================================
-	// 这里是对一个名为 "Transaction" 的部分或函数的注释，表示它与交易操作相关。 md5:98c80ce4a302c379
+	// 这里是对一个名为 "Transaction" 的部分或函数的注释，表示它与交易操作相关。
+	// md5:98c80ce4a302c379
 
 	Begin(ctx context.Context) (TX, error)                                           // See Core.Begin.
 	Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) error // See Core.Transaction.
 
 	// ===========================================================================
 	// 配置方法。
-	// =========================================================================== md5:e4c7270c61398365
+	// ===========================================================================
+	// md5:e4c7270c61398365
 
 	GetCache() *gcache.Cache            // See Core.GetCache.
 	SetDebug(debug bool)                // See Core.SetDebug.
@@ -164,7 +181,8 @@ type DB interface {
 
 	// ===========================================================================
 	// 辅助方法。
-	// =========================================================================== md5:0c5a132a773f89c0
+	// ===========================================================================
+	// md5:0c5a132a773f89c0
 
 	Stats(ctx context.Context) []StatsItem                                                                   // See Core.Stats.
 	GetCtx() context.Context                                                                                 // See Core.GetCtx.
@@ -188,7 +206,8 @@ type TX interface {
 	With(object interface{}) *Model
 
 	// 如果需要，嵌套事务。
-	// =========================================================================== md5:96e249df6d75bc7f
+	// ===========================================================================
+	// md5:96e249df6d75bc7f
 
 	Begin() error
 	Commit() error
@@ -197,7 +216,8 @@ type TX interface {
 
 	// ===========================================================================
 	// 核心方法。
-	// =========================================================================== md5:a10911bb5021107c
+	// ===========================================================================
+	// md5:a10911bb5021107c
 
 	Query(sql string, args ...interface{}) (result Result, err error)
 	Exec(sql string, args ...interface{}) (sql.Result, error)
@@ -205,7 +225,8 @@ type TX interface {
 
 	// ===========================================================================
 	// 查询
-	// =========================================================================== md5:4612a1ae72dd3cf5
+	// ===========================================================================
+	// md5:4612a1ae72dd3cf5
 
 	GetAll(sql string, args ...interface{}) (Result, error)
 	GetOne(sql string, args ...interface{}) (Record, error)
@@ -218,7 +239,8 @@ type TX interface {
 	// =============================================================================
 	// CURD (Create, Read, Update, Delete) 操作。
 	// =============================================================================
-	// 这是Go语言中的注释，描述了一个与CRUD（创建、读取、更新、删除）操作相关的部分。在软件开发中，CURD通常用于数据库操作的基本操作。 md5:b9584d9a2373e908
+	// 这是Go语言中的注释，描述了一个与CRUD（创建、读取、更新、删除）操作相关的部分。在软件开发中，CURD通常用于数据库操作的基本操作。
+	// md5:b9584d9a2373e908
 
 	Insert(table string, data interface{}, batch ...int) (sql.Result, error)
 	InsertIgnore(table string, data interface{}, batch ...int) (sql.Result, error)
@@ -230,7 +252,8 @@ type TX interface {
 
 	// ===========================================================================
 	// 辅助方法。
-	// =========================================================================== md5:0c5a132a773f89c0
+	// ===========================================================================
+	// md5:0c5a132a773f89c0
 
 	GetCtx() context.Context
 	GetDB() DB
@@ -239,7 +262,8 @@ type TX interface {
 
 	// ===================================================================================
 	// 保存点功能。
-	// =================================================================================== md5:54487b34337e4026
+	// ===================================================================================
+	// md5:54487b34337e4026
 
 	SavePoint(point string) error
 	RollbackTo(point string) error
@@ -247,10 +271,10 @@ type TX interface {
 
 // StatsItem 定义了配置节点的统计信息。 md5:95acda1876ad44fa
 type StatsItem interface {
-	// Node 返回配置节点信息。 md5:868005c0df3fa483
+		// Node 返回配置节点信息。 md5:868005c0df3fa483
 	Node() ConfigNode
 
-	// Stats 返回当前节点的连接状态统计信息。 md5:b497e68c5fce778b
+		// Stats 返回当前节点的连接状态统计信息。 md5:b497e68c5fce778b
 	Stats() sql.DBStats
 }
 
@@ -297,12 +321,13 @@ type DoCommitOutput struct {
 
 // Driver 是将 sql 驱动程序集成到 gdb 包的接口。 md5:739e8c3911355df2
 type Driver interface {
-	// New 为指定的数据库服务器创建并返回一个数据库对象。 md5:27bb5dc9ab2ddbdf
+		// New 为指定的数据库服务器创建并返回一个数据库对象。 md5:27bb5dc9ab2ddbdf
 	New(core *Core, node *ConfigNode) (DB, error)
 }
 
 // Link 是一个常见的数据库函数包装接口。
-// 注意，使用 `Link` 进行的任何操作都不会有 SQL 日志记录。 md5:d84360a9ae77a1de
+// 注意，使用 `Link` 进行的任何操作都不会有 SQL 日志记录。
+// md5:d84360a9ae77a1de
 type Link interface {
 	QueryContext(ctx context.Context, sql string, args ...interface{}) (*sql.Rows, error)
 	ExecContext(ctx context.Context, sql string, args ...interface{}) (sql.Result, error)
@@ -388,7 +413,7 @@ const (
 	ctxKeyCatchSQL            gctx.StrKey = `CtxKeyCatchSQL`
 	ctxKeyInternalProducedSQL gctx.StrKey = `CtxKeyInternalProducedSQL`
 
-	// 类型: [用户名[:密码]@][协议[(地址)]]/数据库名[?参数1=值1&...&参数N=值N]. md5:ccc4969581f025ac
+		// 类型: [用户名[:密码]@][协议[(地址)]]/数据库名[?参数1=值1&...&参数N=值N]. md5:ccc4969581f025ac
 	linkPattern = `(\w+):([\w\-\$]*):(.*?)@(\w+?)\((.+?)\)/{0,1}([^\?]*)\?{0,1}(.*)`
 )
 
@@ -497,35 +522,40 @@ const (
 )
 
 var (
-	// instances 是实例的管理映射。 md5:4600091cea2428de
+		// instances 是实例的管理映射。 md5:4600091cea2428de
 	instances = gmap.NewStrAnyMap(true)
 
-	// driverMap管理所有自定义注册的驱动程序。 md5:625ff37f5c3fb23d
+		// driverMap管理所有自定义注册的驱动程序。 md5:625ff37f5c3fb23d
 	driverMap = map[string]Driver{}
 
-	// lastOperatorRegPattern 是一个正则表达式模式，用于匹配字符串末尾带有操作符的字符串。 md5:6a05c1a2b57c687b
+	// lastOperatorRegPattern 是一个正则表达式模式，用于匹配字符串末尾带有操作符的字符串。
+	// md5:6a05c1a2b57c687b
 	lastOperatorRegPattern = `[<>=]+\s*$`
 
-	// regularFieldNameRegPattern 是一个正则表达式模式，用于匹配表格的普通字段名称的字符串。 md5:d18bc9e2bf6112ed
+	// regularFieldNameRegPattern 是一个正则表达式模式，用于匹配表格的普通字段名称的字符串。
+	// md5:d18bc9e2bf6112ed
 	regularFieldNameRegPattern = `^[\w\.\-]+$`
 
-	// regularFieldNameWithCommaRegPattern 是用于匹配一个或多个表的常规字段名的正则表达式模式，这些字段名由字符','连接。 md5:90a0d75039f03540
+	// regularFieldNameWithCommaRegPattern 是用于匹配一个或多个表的常规字段名的正则表达式模式，这些字段名由字符','连接。
+	// md5:90a0d75039f03540
 	regularFieldNameWithCommaRegPattern = `^[\w\.\-,\s]+$`
 
 	// regularFieldNameWithoutDotRegPattern 与 regularFieldNameRegPattern 类似，但不允许使用点（.）。
-	// 注意，虽然一些数据库允许字段名中包含字符 '.', 但在某些情况下，这里不允许在字段名中使用 '.'，因为它与 "db.table.field" 的模式冲突。 md5:4a7a4427aab61aa8
+	// 注意，虽然一些数据库允许字段名中包含字符 '.', 但在某些情况下，这里不允许在字段名中使用 '.'，因为它与 "db.table.field" 的模式冲突。
+	// md5:4a7a4427aab61aa8
 	regularFieldNameWithoutDotRegPattern = `^[\w\-]+$`
 
 	// allDryRun 为所有数据库连接设置了 dry-run 特性。
-	// 它通常用于命令选项，以便于使用时带来方便。 md5:038bcc87fc3093b6
+	// 它通常用于命令选项，以便于使用时带来方便。
+	// md5:038bcc87fc3093b6
 	allDryRun = false
 
-	// tableFieldsMap 缓存从数据库获取的表信息。 md5:5ae26e45c71e9a09
+		// tableFieldsMap 缓存从数据库获取的表信息。 md5:5ae26e45c71e9a09
 	tableFieldsMap = gmap.NewStrAnyMap(true)
 )
 
 func init() {
-	// allDryRun 从环境或命令选项中初始化。 md5:1dffa2ad4982da25
+		// allDryRun 从环境或命令选项中初始化。 md5:1dffa2ad4982da25
 	allDryRun = gcmd.GetOptWithEnv(commandEnvKeyForDryRun, false).Bool()
 }
 
@@ -541,7 +571,8 @@ func New(node ConfigNode) (db DB, err error) {
 }
 
 // NewByGroup 根据指定的配置组名称创建并返回一个ORM对象，带有全局配置。
-// 参数`name`指定了配置组的名称，默认为DefaultGroupName。 md5:a15dd30e999d29e5
+// 参数`name`指定了配置组的名称，默认为DefaultGroupName。
+// md5:a15dd30e999d29e5
 func NewByGroup(group ...string) (db DB, err error) {
 	groupName := configs.group
 	if len(group) > 0 && group[0] != "" {
@@ -571,9 +602,10 @@ func NewByGroup(group ...string) (db DB, err error) {
 }
 
 // newDBByConfigNode 使用给定的配置节点和组名创建并返回一个ORM对象。
-//
+// 
 // 非常注意：
-// 参数`node`用于数据库的创建，而不是底层连接的创建。因此，同一组中的所有数据库类型配置应该相同。 md5:b916b78d0af6a875
+// 参数`node`用于数据库的创建，而不是底层连接的创建。因此，同一组中的所有数据库类型配置应该相同。
+// md5:b916b78d0af6a875
 func newDBByConfigNode(node *ConfigNode, group string) (db DB, err error) {
 	if node.Link != "" {
 		node = parseConfigNodeLink(node)
@@ -604,7 +636,8 @@ func newDBByConfigNode(node *ConfigNode, group string) (db DB, err error) {
 }
 
 // Instance 返回用于数据库操作的实例。
-// 参数 `name` 指定配置组名称，默认为 DefaultGroupName。 md5:06c22232a9c53a60
+// 参数 `name` 指定配置组名称，默认为 DefaultGroupName。
+// md5:06c22232a9c53a60
 func Instance(name ...string) (db DB, err error) {
 	group := configs.group
 	if len(name) > 0 && name[0] != "" {
@@ -622,10 +655,11 @@ func Instance(name ...string) (db DB, err error) {
 
 // getConfigNodeByGroup 计算并返回给定组的配置节点。它使用权重算法内部计算值，以实现负载均衡。
 //
-// 参数 `master` 指定是否获取主节点，如果配置了主从结构，则在非主节点情况下获取从节点。 md5:0e8709cfd78ceae4
+// 参数 `master` 指定是否获取主节点，如果配置了主从结构，则在非主节点情况下获取从节点。
+// md5:0e8709cfd78ceae4
 func getConfigNodeByGroup(group string, master bool) (*ConfigNode, error) {
 	if list, ok := configs.config[group]; ok {
-		// 分离主节点和从节点配置数组。 md5:0aea1639f2f64823
+				// 分离主节点和从节点配置数组。 md5:0aea1639f2f64823
 		var (
 			masterList = make(ConfigGroup, 0)
 			slaveList  = make(ConfigGroup, 0)
@@ -664,7 +698,8 @@ func getConfigNodeByGroup(group string, master bool) (*ConfigNode, error) {
 // 算法简述：
 // 1. 如果我们有两个节点，它们的权重都是 1，那么权重范围是 [0, 199]；
 // 2. 节点1的权重范围是 [0, 99]，节点2的权重范围是 [100, 199]，比例为 1:1；
-// 3. 如果随机数是 99，那么它会选择并返回节点1。 md5:dc1548f9e38ff89b
+// 3. 如果随机数是 99，那么它会选择并返回节点1。
+// md5:dc1548f9e38ff89b
 func getConfigNodeByWeight(cg ConfigGroup) *ConfigNode {
 	if len(cg) < 2 {
 		return &cg[0]
@@ -673,14 +708,15 @@ func getConfigNodeByWeight(cg ConfigGroup) *ConfigNode {
 	for i := 0; i < len(cg); i++ {
 		total += cg[i].Weight * 100
 	}
-	// 如果total为0，表示所有节点都没有配置权重属性。在这种情况下，将为每个节点的权重属性默认设置为1。 md5:a8625af7b996c9a2
+	// 如果total为0，表示所有节点都没有配置权重属性。在这种情况下，将为每个节点的权重属性默认设置为1。
+	// md5:a8625af7b996c9a2
 	if total == 0 {
 		for i := 0; i < len(cg); i++ {
 			cg[i].Weight = 1
 			total += cg[i].Weight * 100
 		}
 	}
-	// 不包括右侧边界值。 md5:660dcac461d09c8d
+		// 不包括右侧边界值。 md5:660dcac461d09c8d
 	var (
 		min    = 0
 		max    = 0
@@ -691,7 +727,8 @@ func getConfigNodeByWeight(cg ConfigGroup) *ConfigNode {
 		if random >= min && random < max {
 			// ====================================================
 			// 返回ConfigNode的一个副本。
-			// ==================================================== md5:c9cfb887df88f931
+			// ====================================================
+			// md5:c9cfb887df88f931
 			node := ConfigNode{}
 			node = cg[i]
 			return &node
@@ -702,7 +739,8 @@ func getConfigNodeByWeight(cg ConfigGroup) *ConfigNode {
 }
 
 // getSqlDb 获取并返回底层的数据库连接对象。
-// 参数 `master` 指定是否获取主节点连接，如果配置了主从节点。 md5:fb885ef2d5264cdc
+// 参数 `master` 指定是否获取主节点连接，如果配置了主从节点。
+// md5:fb885ef2d5264cdc
 func (c *Core) getSqlDb(master bool, schema ...string) (sqlDb *sql.DB, err error) {
 	var (
 		node *ConfigNode
@@ -730,12 +768,12 @@ func (c *Core) getSqlDb(master bool, schema ...string) (sqlDb *sql.DB, err error
 	if nodeSchema != "" {
 		node.Name = nodeSchema
 	}
-	// 更新内部数据中的配置对象。 md5:9cbb8bdfb84aa63f
+		// 更新内部数据中的配置对象。 md5:9cbb8bdfb84aa63f
 	if err = c.setConfigNodeToCtx(ctx, node); err != nil {
 		return
 	}
 
-	// 按节点缓存底层连接池对象。 md5:5ba47140febabd5e
+		// 按节点缓存底层连接池对象。 md5:5ba47140febabd5e
 	var (
 		instanceCacheFunc = func() interface{} {
 			if sqlDb, err = c.db.Open(node); err != nil {
@@ -761,11 +799,11 @@ func (c *Core) getSqlDb(master bool, schema ...string) (sqlDb *sql.DB, err error
 			}
 			return sqlDb
 		}
-		// 这里使用节点值而不是指针作为缓存键，以防出现Oracle ORA-12516错误。 md5:404d8e507e0c4548
+				// 这里使用节点值而不是指针作为缓存键，以防出现Oracle ORA-12516错误。 md5:404d8e507e0c4548
 		instanceValue = c.links.GetOrSetFuncLock(*node, instanceCacheFunc)
 	)
 	if instanceValue != nil && sqlDb == nil {
-		// 从实例映射中读取。 md5:9cd258c405d8d50f
+				// 从实例映射中读取。 md5:9cd258c405d8d50f
 		sqlDb = instanceValue.(*sql.DB)
 	}
 	if node.Debug {

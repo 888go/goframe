@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package pgsql
 
@@ -45,7 +46,7 @@ func (d *Driver) TableFields(ctx context.Context, table string, schema ...string
 		result     gdb.Result
 		link       gdb.Link
 		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
-		// TODO：id结果重复了吗？. md5:1a107e32ccbc7928
+				// TODO：id结果重复了吗？. md5:1a107e32ccbc7928
 		structureSql = fmt.Sprintf(tableFieldsSqlTmp, table)
 	)
 	if link, err = d.SlaveLink(usedSchema); err != nil {
@@ -63,7 +64,7 @@ func (d *Driver) TableFields(ctx context.Context, table string, schema ...string
 	)
 	for _, m := range result {
 		name = m["field"].String()
-		// 过滤重复的字段。 md5:e2695e711875512a
+				// 过滤重复的字段。 md5:e2695e711875512a
 		if _, ok = fields[name]; ok {
 			continue
 		}

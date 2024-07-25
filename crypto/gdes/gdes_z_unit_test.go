@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gdes_test
 
@@ -35,7 +36,7 @@ func TestDesECB(t *testing.T) {
 		t.AssertEQ(err, nil)
 		t.AssertEQ(string(clearText), "12345678")
 
-		// 加密错误测试。当抛出异常时，err不等于nil，而字符串为nil. md5:e1fa7ef89e2e43d2
+						// 加密错误测试。当抛出异常时，err不等于nil，而字符串为nil. md5:e1fa7ef89e2e43d2
 		errEncrypt, err := gdes.EncryptECB(text, key, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
@@ -109,15 +110,15 @@ func Test3DesECB(t *testing.T) {
 		clearText, err := gdes.DecryptECBTriple(cipherText, key, padding)
 		t.AssertEQ(err, nil)
 		t.AssertEQ(string(clearText), "123456789")
-		// 错误测试，当键为err时，但文本和填充是正确的. md5:aa9db0c26aff396e
+						// 错误测试，当键为err时，但文本和填充是正确的. md5:aa9db0c26aff396e
 		errEncrypt, err := gdes.EncryptECBTriple(text, errKey, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 当填充出错，但密钥和文本是正确的时. md5:810554d84cfce555
+				// 当填充出错，但密钥和文本是正确的时. md5:810554d84cfce555
 		errEncrypt, err = gdes.EncryptECBTriple(text, key, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 解密错误测试，当密钥为错误时. md5:cd0ff4262b029c3f
+						// 解密错误测试，当密钥为错误时. md5:cd0ff4262b029c3f
 		errEncrypt, err = gdes.DecryptECBTriple(text, errKey, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
@@ -151,7 +152,7 @@ func TestDesCBC(t *testing.T) {
 		errEncrypt, err = gdes.EncryptCBC(text, key, iv, errPadding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errEncrypt, nil)
-		// 解密错误测试。密钥是 err. md5:d37b14dae71a9447
+						// 解密错误测试。密钥是 err. md5:d37b14dae71a9447
 		errDecrypt, err := gdes.DecryptCBC(cipherText, errKey, iv, padding)
 		t.AssertNE(err, nil)
 		t.AssertEQ(errDecrypt, nil)

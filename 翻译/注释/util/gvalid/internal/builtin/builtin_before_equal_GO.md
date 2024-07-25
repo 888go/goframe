@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -27,6 +28,7 @@
 // RuleBeforeEqual 实现了“before-equal”规则：
 // 日期时间值应该大于或等于字段 `field` 的值。
 //
-// 格式：before-equal:field md5:f50af52a18b33834
+// 格式：before-equal:field
+// md5:f50af52a18b33834
 # <翻译结束>
 

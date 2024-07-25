@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package mysql_test
 
@@ -251,7 +252,7 @@ PRIMARY KEY (id)
 		t.Assert(user.UserScores[4].Uid, 4)
 		t.Assert(user.UserScores[4].Score, 5)
 	})
-	// 带有部分属性：UserDetail.. md5:5d4187f92cc37f3c
+			// 带有部分属性：UserDetail.. md5:5d4187f92cc37f3c
 	gtest.C(t, func(t *gtest.T) {
 		var user User
 		err := db.With(user).
@@ -265,7 +266,7 @@ PRIMARY KEY (id)
 		t.Assert(user.UserDetail.Address, `address_4`)
 		t.Assert(len(user.UserScores), 0)
 	})
-	// 配置部分属性：UserScores。 md5:c8e42122566fe2d2
+		// 配置部分属性：UserScores。 md5:c8e42122566fe2d2
 	gtest.C(t, func(t *gtest.T) {
 		var user User
 		err := db.With(user).
@@ -431,7 +432,7 @@ PRIMARY KEY (id)
 		t.Assert(users[1].UserScores[4].Uid, 4)
 		t.Assert(users[1].UserScores[4].Score, 5)
 	})
-	// 带有部分属性：UserDetail.. md5:5d4187f92cc37f3c
+			// 带有部分属性：UserDetail.. md5:5d4187f92cc37f3c
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
 		err := db.With(User{}).
@@ -454,7 +455,7 @@ PRIMARY KEY (id)
 		t.Assert(users[1].UserDetail.Address, "address_4")
 		t.Assert(len(users[1].UserScores), 0)
 	})
-	// 配置部分属性：UserScores。 md5:c8e42122566fe2d2
+		// 配置部分属性：UserScores。 md5:c8e42122566fe2d2
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
 		err := db.With(User{}).
@@ -1971,7 +1972,8 @@ PRIMARY KEY (id)
 	// 断言user的UserScores切片的第一个元素UserID字段值为3
 	// 断言user的UserScores切片的第一个元素Score字段值为1
 	// 断言user的UserScores切片的第5个元素UserID字段值为3
-	// 断言user的UserScores切片的第5个元素Score字段值为5 md5:1ebf51134a7a3187
+	// 断言user的UserScores切片的第5个元素Score字段值为5
+	// md5:1ebf51134a7a3187
 	gtest.C(t, func(t *gtest.T) {
 		var user User
 		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient
 
@@ -84,7 +85,7 @@ func internalMiddlewareDiscovery(c *Client, r *http.Request) (response *Response
 		return nil, err
 	}
 	selector := selectorMapValue.(gsel.Selector)
-	// 从多个地址中选择一个节点。 md5:088c30a06a0dc6a9
+		// 从多个地址中选择一个节点。 md5:088c30a06a0dc6a9
 	node, done, err := selector.Pick(ctx)
 	if err != nil {
 		return nil, err
@@ -111,7 +112,8 @@ func updateSelectorNodesByService(ctx context.Context, selector gsel.Selector, s
 // isServiceName 检查并返回给定的输入参数是否为服务名称。
 // 它通过判断参数中是否包含端口分隔符':'来检查。
 //
-// 如果使用服务发现，则它不包含任何端口号。 md5:fefe525183a2ba4d
+// 如果使用服务发现，则它不包含任何端口号。
+// md5:fefe525183a2ba4d
 func isServiceName(serviceNameOrAddress string) bool {
 	return !gstr.Contains(serviceNameOrAddress, gsvc.EndpointHostPortDelimiter)
 }

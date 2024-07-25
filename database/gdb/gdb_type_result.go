@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gdb
 
@@ -33,7 +34,8 @@ func (r Result) Size() int {
 
 // Chunk 将一个 Result 分割成多个 Result，
 // 每个数组的大小由 `size` 决定。
-// 最后一块可能包含少于 size 个元素。 md5:e1e9bbb7e5ba1969
+// 最后一块可能包含少于 size 个元素。
+// md5:e1e9bbb7e5ba1969
 func (r Result) Chunk(size int) []Result {
 	if size < 1 {
 		return nil
@@ -74,7 +76,8 @@ func (r Result) List() List {
 }
 
 // Array 用于获取并返回指定列的值作为切片。
-// 参数 `field` 是可选的，如果列字段只有一个。如果未给定 `field` 参数，其默认值为 `Result` 中第一条项的第一个字段名。 md5:f3e0a3bab6043d80
+// 参数 `field` 是可选的，如果列字段只有一个。如果未给定 `field` 参数，其默认值为 `Result` 中第一条项的第一个字段名。
+// md5:f3e0a3bab6043d80
 func (r Result) Array(field ...string) []Value {
 	array := make([]Value, len(r))
 	if len(r) == 0 {
@@ -96,7 +99,8 @@ func (r Result) Array(field ...string) []Value {
 }
 
 // MapKeyValue 将 `r` 转换为一个 map[string]Value，其中的键由 `key` 指定。
-// 注意，项目值可能为切片类型。 md5:0c805cb25cfa56ff
+// 注意，项目值可能为切片类型。
+// md5:0c805cb25cfa56ff
 func (r Result) MapKeyValue(key string) map[string]Value {
 	var (
 		s              string
@@ -190,9 +194,10 @@ func (r Result) RecordKeyUint(key string) map[uint]Record {
 }
 
 // Structs 将 `r` 转换为结构体切片。
-// 注意参数 `pointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。 md5:fef766b4997dca03
+// 注意参数 `pointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。
+// md5:fef766b4997dca03
 func (r Result) Structs(pointer interface{}) (err error) {
-	// 如果结果为空且目标指针不为空，则返回错误。 md5:74dffcb96270ed89
+		// 如果结果为空且目标指针不为空，则返回错误。 md5:74dffcb96270ed89
 	if r.IsEmpty() {
 		if !empty.IsEmpty(pointer, true) {
 			return sql.ErrNoRows

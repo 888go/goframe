@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 静态搜索优先级：资源 > 服务器路径 > 服务器根目录 > 搜索路径. md5:57bfdcb1a5b6e018
 
@@ -40,7 +41,8 @@ func (s *Server) SetIndexFolder(enabled bool) {
 }
 
 // SetFileServerEnabled 启用或禁用静态文件服务。
-// 这是静态文件服务的主要开关。当调用如 SetServerRoot、AddSearchPath 和 AddStaticPath 等静态文件服务配置函数时，此配置会自动启用。 md5:62ef61e18a481245
+// 这是静态文件服务的主要开关。当调用如 SetServerRoot、AddSearchPath 和 AddStaticPath 等静态文件服务配置函数时，此配置会自动启用。
+// md5:62ef61e18a481245
 func (s *Server) SetFileServerEnabled(enabled bool) {
 	s.config.FileServerEnabled = enabled
 }
@@ -99,7 +101,7 @@ func (s *Server) AddStaticPath(prefix string, path string) {
 	}
 	if len(s.config.StaticPaths) > 0 {
 		s.config.StaticPaths = append(s.config.StaticPaths, addItem)
-		// 按照前缀长度从短到长对数组进行排序。 md5:4b9918a40946ebb8
+				// 按照前缀长度从短到长对数组进行排序。 md5:4b9918a40946ebb8
 		array := garray.NewSortedArray(func(v1, v2 interface{}) int {
 			s1 := gconv.String(v1)
 			s2 := gconv.String(v2)
@@ -112,7 +114,7 @@ func (s *Server) AddStaticPath(prefix string, path string) {
 		for _, v := range s.config.StaticPaths {
 			array.Add(v.Prefix)
 		}
-		// 将项目添加到按照之前排序的切片中到paths。 md5:1bd48d981558718c
+				// 将项目添加到按照之前排序的切片中到paths。 md5:1bd48d981558718c
 		paths := make([]staticPathItem, 0)
 		for _, v := range array.Slice() {
 			for _, item := range s.config.StaticPaths {

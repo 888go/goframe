@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package glog
 
@@ -13,13 +14,15 @@ import (
 )
 
 // Print 使用 fmt.Sprintln 函数打印 `v` 并添加换行符。
-// 参数 `v` 可以是多个变量。 md5:6c0b3b96234f77ce
+// 参数 `v` 可以是多个变量。
+// md5:6c0b3b96234f77ce
 func (l *Logger) Print(ctx context.Context, v ...interface{}) {
 	l.printStd(ctx, LEVEL_NONE, v...)
 }
 
 // Printf 使用 fmt.Sprintf 根据格式 `format` 打印 `v`。
-// 参数 `v` 可以是多个变量。 md5:e3b6ab3d8750ad4c
+// 参数 `v` 可以是多个变量。
+// md5:e3b6ab3d8750ad4c
 func (l *Logger) Printf(ctx context.Context, format string, v ...interface{}) {
 	l.printStd(ctx, LEVEL_NONE, l.format(format, v...))
 }
@@ -79,21 +82,24 @@ func (l *Logger) Debugf(ctx context.Context, format string, v ...interface{}) {
 // ```go
 // Notice 打印日志内容，前缀为 [NOTI] 并在末尾添加换行符。
 // 如果启用了堆栈跟踪功能，它还会打印调用者堆栈信息。
-// ``` md5:c36d548c618d1251
+// ```
+// md5:c36d548c618d1251
 func (l *Logger) Notice(ctx context.Context, v ...interface{}) {
 	if l.checkLevel(LEVEL_NOTI) {
 		l.printStd(ctx, LEVEL_NOTI, v...)
 	}
 }
 
-// Noticef 打印带有 [NOTI] 标头的日志内容，自定义格式和换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。 md5:f9d4f5af91856cd9
+// Noticef 打印带有 [NOTI] 标头的日志内容，自定义格式和换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// md5:f9d4f5af91856cd9
 func (l *Logger) Noticef(ctx context.Context, format string, v ...interface{}) {
 	if l.checkLevel(LEVEL_NOTI) {
 		l.printStd(ctx, LEVEL_NOTI, l.format(format, v...))
 	}
 }
 
-// Warning 打印带有 [WARN] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。 md5:8142c86f6be53ee0
+// Warning 打印带有 [WARN] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// md5:8142c86f6be53ee0
 func (l *Logger) Warning(ctx context.Context, v ...interface{}) {
 	if l.checkLevel(LEVEL_WARN) {
 		l.printStd(ctx, LEVEL_WARN, v...)
@@ -101,7 +107,8 @@ func (l *Logger) Warning(ctx context.Context, v ...interface{}) {
 }
 
 // Warningf 函数打印带有 [WARN] 标头的记录内容、自定义格式化字符串以及换行。
-// 如果启用了堆栈追踪功能，它还会打印调用者堆栈信息。 md5:025f0baa4a1f8600
+// 如果启用了堆栈追踪功能，它还会打印调用者堆栈信息。
+// md5:025f0baa4a1f8600
 func (l *Logger) Warningf(ctx context.Context, format string, v ...interface{}) {
 	if l.checkLevel(LEVEL_WARN) {
 		l.printStd(ctx, LEVEL_WARN, l.format(format, v...))
@@ -109,21 +116,24 @@ func (l *Logger) Warningf(ctx context.Context, format string, v ...interface{}) 
 }
 
 // Error 打印带有 [ERRO] 标头和换行符的日志内容。
-// 如果启用了堆栈跟踪功能，它还会打印调用者堆栈信息。 md5:f2aa6f6c0e4d2061
+// 如果启用了堆栈跟踪功能，它还会打印调用者堆栈信息。
+// md5:f2aa6f6c0e4d2061
 func (l *Logger) Error(ctx context.Context, v ...interface{}) {
 	if l.checkLevel(LEVEL_ERRO) {
 		l.printErr(ctx, LEVEL_ERRO, v...)
 	}
 }
 
-// Errorf 函数会打印带有 [ERRO] 标头的日志内容，使用自定义格式并添加换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。 md5:4a90789d1de07943
+// Errorf 函数会打印带有 [ERRO] 标头的日志内容，使用自定义格式并添加换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// md5:4a90789d1de07943
 func (l *Logger) Errorf(ctx context.Context, format string, v ...interface{}) {
 	if l.checkLevel(LEVEL_ERRO) {
 		l.printErr(ctx, LEVEL_ERRO, l.format(format, v...))
 	}
 }
 
-// Critical 打印带有 [CRIT] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。 md5:f9fb0900ff8f602f
+// Critical 打印带有 [CRIT] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// md5:f9fb0900ff8f602f
 func (l *Logger) Critical(ctx context.Context, v ...interface{}) {
 	if l.checkLevel(LEVEL_CRIT) {
 		l.printErr(ctx, LEVEL_CRIT, v...)
@@ -131,7 +141,8 @@ func (l *Logger) Critical(ctx context.Context, v ...interface{}) {
 }
 
 // Criticalf 函数打印带有 [CRIT] 标头、自定义格式和换行的日志内容。
-// 如果启用了堆栈追踪功能，它还会打印调用者堆栈信息。 md5:fa381bbe7b0465d0
+// 如果启用了堆栈追踪功能，它还会打印调用者堆栈信息。
+// md5:fa381bbe7b0465d0
 func (l *Logger) Criticalf(ctx context.Context, format string, v ...interface{}) {
 	if l.checkLevel(LEVEL_CRIT) {
 		l.printErr(ctx, LEVEL_CRIT, l.format(format, v...))

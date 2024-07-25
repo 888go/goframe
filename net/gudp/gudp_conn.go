@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gudp
 
@@ -35,7 +36,8 @@ type Retry struct {
 }
 
 // NewConn 创建到 `remoteAddress` 的 UDP 连接。
-// 可选参数 `localAddress` 指定连接的本地地址。 md5:d5e06df7ea2ee28d
+// 可选参数 `localAddress` 指定连接的本地地址。
+// md5:d5e06df7ea2ee28d
 func NewConn(remoteAddress string, localAddress ...string) (*Conn, error) {
 	if conn, err := NewNetConn(remoteAddress, localAddress...); err == nil {
 		return NewConnByNetConn(conn), nil
@@ -67,7 +69,7 @@ func (c *Conn) Send(data []byte, retry ...Retry) (err error) {
 			if err == io.EOF {
 				return err
 			}
-			// 重试后仍然失败。 md5:b819d69935ab7496
+						// 重试后仍然失败。 md5:b819d69935ab7496
 			if len(retry) == 0 || retry[0].Count == 0 {
 				err = gerror.Wrap(err, `Write data failed`)
 				return err
@@ -88,7 +90,8 @@ func (c *Conn) Send(data []byte, retry ...Retry) (err error) {
 // Recv 从远程地址接收并返回数据。
 // 参数 `buffer` 用于自定义接收缓冲区大小。如果 `buffer` <= 0，将使用默认的缓冲区大小，即1024字节。
 //
-// UDP协议存在分包边界，如果指定的缓冲区大小足够大，我们可以接收到一个完整的数据包。非常重要的是，必须一次性接收完整个包，否则剩下的包数据将会丢失。 md5:190b81cc02f9d449
+// UDP协议存在分包边界，如果指定的缓冲区大小足够大，我们可以接收到一个完整的数据包。非常重要的是，必须一次性接收完整个包，否则剩下的包数据将会丢失。
+// md5:190b81cc02f9d449
 func (c *Conn) Recv(buffer int, retry ...Retry) ([]byte, error) {
 	var (
 		err        error        // Reading error
@@ -112,7 +115,7 @@ func (c *Conn) Recv(buffer int, retry ...Retry) ([]byte, error) {
 				break
 			}
 			if len(retry) > 0 {
-				// 即使重试也会失败。 md5:7f32623c1f255555
+								// 即使重试也会失败。 md5:7f32623c1f255555
 				if retry[0].Count == 0 {
 					break
 				}
@@ -203,13 +206,15 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 }
 
 // SetBufferWaitRecv 设置从连接读取所有数据时的缓冲等待超时时间。
-// 等待时间不能过长，否则可能会延迟从远程地址接收数据。 md5:54992dd21ce2360a
+// 等待时间不能过长，否则可能会延迟从远程地址接收数据。
+// md5:54992dd21ce2360a
 func (c *Conn) SetBufferWaitRecv(d time.Duration) {
 	c.bufferWaitRecv = d
 }
 
 // RemoteAddr 返回当前UDP连接的远程地址。
-// 请注意，它不能使用c.conn.RemoteAddr()，因为该值为nil。 md5:0a785ae4cb967a81
+// 请注意，它不能使用c.conn.RemoteAddr()，因为该值为nil。
+// md5:0a785ae4cb967a81
 func (c *Conn) RemoteAddr() net.Addr {
 	return c.remoteAddr
 }

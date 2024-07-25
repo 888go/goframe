@@ -13,7 +13,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 # <翻译结束>
 
 
@@ -124,6 +125,7 @@
 //
 // 获取规则：
 // 1. 命令行参数采用小写格式，例如：gf.package.variable；
-// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。 md5:13bcb9c2795488a1
+// 2. 环境变量采用大写格式，例如：GF_PACKAGE_VARIABLE。
+// md5:13bcb9c2795488a1
 # <翻译结束>
 

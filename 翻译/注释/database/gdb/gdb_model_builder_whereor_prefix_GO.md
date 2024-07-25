@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -27,9 +28,10 @@
 // WhereOrPrefix 的功能类似于 WhereOr，但它会在 WHERE 子句中的每个字段前添加一个前缀。
 // 例如：
 // WhereOrPrefix("order", "status", "paid")                        => WHERE xxx OR (`order`.`status`='paid')
-// WhereOrPrefix("order", struct{Status:"paid", "channel":"bank"}) => WHERE xxx OR (`order`.`status`='paid' AND `order`.`channel`='bank')
-//
-// 这意味着 WhereOrPrefix 函数允许你在一个 WHERE 子句中指定多个条件，并且自动为这些条件的字段名加上一个指定的前缀，以便清晰地指向某个表或结构。它可以处理单个字段值的情况，也可以处理包含多个键值对的结构体，以生成更复杂的逻辑组合。 md5:2358d43541f472f5
+// WhereOrPrefix("order", struct{Status:"paid", "channel":"bank"}) => WHERE xxx OR (`order`.`status`='paid' AND `order`.`channel`='bank') 
+// 
+// 这意味着 WhereOrPrefix 函数允许你在一个 WHERE 子句中指定多个条件，并且自动为这些条件的字段名加上一个指定的前缀，以便清晰地指向某个表或结构。它可以处理单个字段值的情况，也可以处理包含多个键值对的结构体，以生成更复杂的逻辑组合。
+// md5:2358d43541f472f5
 # <翻译结束>
 
 

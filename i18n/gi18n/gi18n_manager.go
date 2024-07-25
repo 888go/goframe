@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gi18n
 
@@ -50,19 +51,20 @@ type Options struct {
 }
 
 var (
-	// defaultLanguage 定义了如果用户在选项中未指定，默认的语言。 md5:37b426a695c48d49
+		// defaultLanguage 定义了如果用户在选项中未指定，默认的语言。 md5:37b426a695c48d49
 	defaultLanguage = "en"
 
-	// defaultDelimiters 定义了默认的键变量分隔符。 md5:98706258206bfd9a
+		// defaultDelimiters 定义了默认的键变量分隔符。 md5:98706258206bfd9a
 	defaultDelimiters = []string{"{#", "}"}
 
-	// 国际化文件搜索目录。 md5:cf8914abf6ec0557
+		// 国际化文件搜索目录。 md5:cf8914abf6ec0557
 	searchFolders = []string{"manifest/i18n", "manifest/config/i18n", "i18n"}
 )
 
 // New 创建并返回一个新的国际化管理器。
 // 可选参数 `option` 用于指定国际化管理器的自定义选项。
-// 如果未传递该参数，它将使用默认选项。 md5:79f31dcd2ff8cf56
+// 如果未传递该参数，它将使用默认选项。
+// md5:79f31dcd2ff8cf56
 func New(options ...Options) *Manager {
 	var opts Options
 	var pathType = pathTypeNone
@@ -78,7 +80,7 @@ func New(options ...Options) *Manager {
 			}
 		}
 		if opts.Path != "" {
-			// 为了避免GoFrame的源路径：github.com/gogf/i18n/gi18n. md5:2eecc4478ca65bd7
+									// 为了避免GoFrame的源路径：github.com/gogf/i18n/gi18n. md5:2eecc4478ca65bd7
 			if gfile.Exists(opts.Path + gfile.Separator + "gi18n") {
 				opts.Path = ""
 				pathType = pathTypeNone
@@ -137,7 +139,7 @@ func (m *Manager) SetPath(path string) error {
 
 	m.pathType = pathType
 	intlog.Printf(context.TODO(), `SetPath[%s]: %s`, m.pathType, m.options.Path)
-	// 路径改变后重置管理器。 md5:1f0260d8d112184d
+		// 路径改变后重置管理器。 md5:1f0260d8d112184d
 	m.reset()
 	return nil
 }
@@ -164,7 +166,8 @@ func (m *Manager) Tf(ctx context.Context, format string, values ...interface{}) 
 	return m.TranslateFormat(ctx, format, values...)
 }
 
-// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。 md5:2806a81d6db86c7f
+// TranslateFormat 使用配置的语言和给定的 `values` 对 `format` 进行翻译、格式化并返回结果。
+// md5:2806a81d6db86c7f
 func (m *Manager) TranslateFormat(ctx context.Context, format string, values ...interface{}) string {
 	return fmt.Sprintf(m.Translate(ctx, format), values...)
 }
@@ -186,7 +189,7 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 	if v, ok := data[content]; ok {
 		return v
 	}
-	// 解析内容作为变量容器。 md5:6fab6ca886fe327a
+		// 解析内容作为变量容器。 md5:6fab6ca886fe327a
 	result, _ := gregex.ReplaceStringFuncMatch(
 		m.pattern, content,
 		func(match []string) string {
@@ -194,7 +197,8 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 				return v
 			}
 			// 返回match[1] 将返回分隔符之间的内容
-			// 返回match[0] 将返回原始内容 md5:3dd48230b02f1348
+			// 返回match[0] 将返回原始内容
+			// md5:3dd48230b02f1348
 			return match[0]
 		})
 	intlog.Printf(ctx, `Translate for language: %s`, transLang)
@@ -202,7 +206,8 @@ func (m *Manager) Translate(ctx context.Context, content string) string {
 }
 
 // GetContent 获取并返回给定键和指定语言的配置内容。
-// 如果未找到，将返回一个空字符串。 md5:c64a3a803ac07e38
+// 如果未找到，将返回一个空字符串。
+// md5:c64a3a803ac07e38
 func (m *Manager) GetContent(ctx context.Context, key string) string {
 	m.init(ctx)
 	m.mu.RLock()
@@ -225,10 +230,11 @@ func (m *Manager) reset() {
 }
 
 // init 初始化管理器，用于延迟初始化设计。
-// 国际化(i18n)管理器仅初始化一次。 md5:b3e5cf7f018d1485
+// 国际化(i18n)管理器仅初始化一次。
+// md5:b3e5cf7f018d1485
 func (m *Manager) init(ctx context.Context) {
 	m.mu.RLock()
-	// 如果数据不为nil，表示它已经初始化。 md5:8d4d8b324fc9951a
+		// 如果数据不为nil，表示它已经初始化。 md5:8d4d8b324fc9951a
 	if m.data != nil {
 		m.mu.RUnlock()
 		return
@@ -306,10 +312,10 @@ func (m *Manager) init(ctx context.Context) {
 			}
 		}
 		intlog.Printf(ctx, "i18n files loaded in path: %s", m.options.Path)
-		// 监控i18n文件的变化，以实现热重载功能。 md5:feeb4e0abb048a7b
+				// 监控i18n文件的变化，以实现热重载功能。 md5:feeb4e0abb048a7b
 		_, _ = gfsnotify.Add(m.options.Path, func(event *gfsnotify.Event) {
 			intlog.Printf(ctx, `i18n file changed: %s`, event.Path)
-			// 对i18n文件的任何更改，都会清空数据。 md5:fbcc6de55a881c92
+						// 对i18n文件的任何更改，都会清空数据。 md5:fbcc6de55a881c92
 			m.reset()
 			gfsnotify.Exit()
 		})

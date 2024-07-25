@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -43,7 +44,7 @@ import (
 )
 
 func init() {
-	// 初始化方法映射。 md5:19df407918075ac2
+		// 初始化方法映射。 md5:19df407918075ac2
 	for _, v := range strings.Split(supportedHttpMethods, ",") {
 		methodsMap[v] = struct{}{}
 	}
@@ -55,7 +56,8 @@ func serverProcessInit() {
 	if !serverProcessInitialized.Cas(false, true) {
 		return
 	}
-	// 这意味着它是一个重启服务器。在开始监听之前，它应该杀死其父进程，以防止两个进程占用同一个端口进行监听。 md5:534f767682eae0c3
+	// 这意味着它是一个重启服务器。在开始监听之前，它应该杀死其父进程，以防止两个进程占用同一个端口进行监听。
+	// md5:534f767682eae0c3
 	if !genv.Get(adminActionRestartEnvKey).IsEmpty() {
 		if p, err := os.FindProcess(gproc.PPid()); err == nil {
 			if err = p.Kill(); err != nil {
@@ -70,7 +72,8 @@ func serverProcessInit() {
 	}
 
 	// 处理消息的处理器。
-	// 仅当启用了优雅特性时，它才可用。 md5:b41176de77cc4833
+	// 仅当启用了优雅特性时，它才可用。
+	// md5:b41176de77cc4833
 	if gracefulEnabled {
 		intlog.Printf(ctx, "pid[%d]: graceful reload feature is enabled", gproc.Pid())
 		go handleProcessMessage()
@@ -80,12 +83,14 @@ func serverProcessInit() {
 
 	// 这是一种在源代码开发环境中更好地初始化主包路径的不优雅的方式。
 	// 它只应在主 goroutine 中使用。
-	// 在异步 goroutines 中无法获取主包路径。 md5:e0733b122721224e
+	// 在异步 goroutines 中无法获取主包路径。
+	// md5:e0733b122721224e
 	gfile.MainPkgPath()
 }
 
 // GetServer 使用给定名称和默认配置创建并返回一个服务器实例。
-// 注意，参数 `name` 应该在不同的服务器中是唯一的。如果给定的 `name` 已经存在于服务器映射中，它将返回现有的服务器实例。 md5:ad04664fa9750188
+// 注意，参数 `name` 应该在不同的服务器中是唯一的。如果给定的 `name` 已经存在于服务器映射中，它将返回现有的服务器实例。
+// md5:ad04664fa9750188
 func GetServer(name ...interface{}) *Server {
 	serverName := DefaultServerName
 	if len(name) > 0 && name[0] != "" {
@@ -105,11 +110,11 @@ func GetServer(name ...interface{}) *Server {
 			openapi:          goai.New(),
 			registrar:        gsvc.GetRegistry(),
 		}
-		// 使用默认配置初始化服务器。 md5:ac8ad35c2e6592fb
+				// 使用默认配置初始化服务器。 md5:ac8ad35c2e6592fb
 		if err := s.SetConfig(NewConfig()); err != nil {
 			panic(gerror.WrapCode(gcode.CodeInvalidConfiguration, err, ""))
 		}
-		// 它默认为服务器启用OpenTelemetry。 md5:2a2de55e6612dec7
+				// 它默认为服务器启用OpenTelemetry。 md5:2a2de55e6612dec7
 		s.Use(internalMiddlewareServerTracing)
 		return s
 	})
@@ -117,7 +122,8 @@ func GetServer(name ...interface{}) *Server {
 }
 
 // Start 开始在配置的端口上监听。
-// 此函数不会阻塞进程，你可以使用 Wait 函数来阻塞进程。 md5:05c1c66553fa4a61
+// 此函数不会阻塞进程，你可以使用 Wait 函数来阻塞进程。
+// md5:05c1c66553fa4a61
 func (s *Server) Start() error {
 	var ctx = gctx.GetInitCtx()
 
@@ -128,7 +134,7 @@ func (s *Server) Start() error {
 		s.BindHookHandler(s.config.SwaggerPath+"/*", HookBeforeServe, s.swaggerUI)
 	}
 
-	// 开放API规范生成JSON处理器。 md5:62cb20bceb4ec15e
+		// 开放API规范生成JSON处理器。 md5:62cb20bceb4ec15e
 	if s.config.OpenApiPath != "" {
 		s.BindHandler(s.config.OpenApiPath, s.openapiSpec)
 	}
@@ -136,21 +142,21 @@ func (s *Server) Start() error {
 	// Register group routes.
 	s.handlePreBindItems(ctx)
 
-	// 服务器进程初始化，这只能初始化一次。 md5:f4fd6ab84839bb71
+		// 服务器进程初始化，这只能初始化一次。 md5:f4fd6ab84839bb71
 	serverProcessInit()
 
-	// 服务器只能运行一次。 md5:4372da1cc9e271f0
+		// 服务器只能运行一次。 md5:4372da1cc9e271f0
 	if s.Status() == ServerStatusRunning {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "server is already running")
 	}
 
-	// 日志记录路径设置检查。 md5:b1b53a71404f3b28
+		// 日志记录路径设置检查。 md5:b1b53a71404f3b28
 	if s.config.LogPath != "" && s.config.LogPath != s.config.Logger.GetPath() {
 		if err := s.config.Logger.SetPath(s.config.LogPath); err != nil {
 			return err
 		}
 	}
-	// 默认会话存储。 md5:e5e4d66ee85c002a
+		// 默认会话存储。 md5:e5e4d66ee85c002a
 	if s.config.SessionStorage == nil {
 		sessionStoragePath := ""
 		if s.config.SessionPath != "" {
@@ -163,7 +169,7 @@ func (s *Server) Start() error {
 		}
 		s.config.SessionStorage = gsession.NewStorageFile(sessionStoragePath, s.config.SessionMaxAge)
 	}
-	// 在启动时初始化会话管理器。 md5:060e4cc6f4f8b93e
+		// 在启动时初始化会话管理器。 md5:060e4cc6f4f8b93e
 	s.sessionManager = gsession.New(
 		s.config.SessionMaxAge,
 		s.config.SessionStorage,
@@ -179,16 +185,17 @@ func (s *Server) Start() error {
 		s.config.Handler = s.ServeHTTP
 	}
 
-	// 安装外部插件。 md5:5a986e9f0fb84368
+		// 安装外部插件。 md5:5a986e9f0fb84368
 	for _, p := range s.plugins {
 		if err := p.Install(s); err != nil {
 			s.Logger().Fatalf(ctx, `%+v`, err)
 		}
 	}
-	// 检查内部注册的路由再次应用于组路由。 md5:7949c3fe59e30c8c
+		// 检查内部注册的路由再次应用于组路由。 md5:7949c3fe59e30c8c
 	s.handlePreBindItems(ctx)
 
-	// 如果没有注册路由且没有启用静态服务，它将返回服务器使用无效的错误。 md5:d916b25cf4c384d4
+	// 如果没有注册路由且没有启用静态服务，它将返回服务器使用无效的错误。
+	// md5:d916b25cf4c384d4
 	if len(s.routesMap) == 0 && !s.config.FileServerEnabled {
 		return gerror.NewCode(
 			gcode.CodeInvalidOperation,
@@ -197,7 +204,8 @@ func (s *Server) Start() error {
 	}
 	// ================================================================================================
 	// 启动HTTP服务器。
-	// ================================================================================================ md5:9c551ab8996cea5a
+	// ================================================================================================
+	// md5:9c551ab8996cea5a
 	reloaded := false
 	fdMapStr := genv.Get(adminActionReloadEnvKey).String()
 	if len(fdMapStr) > 0 {
@@ -220,7 +228,7 @@ func (s *Server) Start() error {
 			s.config.SwaggerPath,
 		)
 	}
-	// OpenAPI规范信息。 md5:e99b4557db364598
+		// OpenAPI规范信息。 md5:e99b4557db364598
 	if s.config.OpenApiPath != "" {
 		s.Logger().Infof(
 			ctx,
@@ -242,7 +250,7 @@ func (s *Server) Start() error {
 		}
 	}
 
-	// 如果该进程是子进程，那么它将通知其父进程退出。 md5:c9a0c66193cbdbfc
+		// 如果该进程是子进程，那么它将通知其父进程退出。 md5:c9a0c66193cbdbfc
 	if gproc.IsChild() {
 		gtimer.SetTimeout(ctx, time.Duration(s.config.GracefulTimeout)*time.Second, func(ctx context.Context) {
 			if err := gproc.Send(gproc.PPid(), []byte("exit"), adminGProcCommGroup); err != nil {
@@ -299,7 +307,7 @@ func (s *Server) doRouterMapDump() {
 				middlewares = gstr.SplitAndTrim(item.Middleware, ",")
 			)
 
-			// 不打印可能导致混淆的特殊内部中间件。 md5:16290644b5e53f3b
+						// 不打印可能导致混淆的特殊内部中间件。 md5:16290644b5e53f3b
 			if gstr.SubStrFromREx(handlerName, ".") == noPrintInternalRoute {
 				continue
 			}
@@ -377,7 +385,7 @@ func (s *Server) GetRoutes() []RouterItem {
 			case HandlerTypeMiddleware:
 				item.Middleware = "GLOBAL MIDDLEWARE"
 			}
-			// 为dump重复路由过滤。 md5:e9067e19b70a8904
+						// 为dump重复路由过滤。 md5:e9067e19b70a8904
 			var setKey = fmt.Sprintf(
 				`%s|%s|%s|%s`,
 				item.Method, item.Route, item.Domain, item.Type,
@@ -394,7 +402,8 @@ func (s *Server) GetRoutes() []RouterItem {
 				}
 			}
 			// 如果域名在dump映射中不存在，它会创建该映射。
-			// 映射的值是一个自定义排序的数组。 md5:b6191883863f4f52
+			// 映射的值是一个自定义排序的数组。
+			// md5:b6191883863f4f52
 			if _, ok := m[item.Domain]; !ok {
 				// Sort in ASC order.
 				m[item.Domain] = garray.NewSortedArray(func(v1, v2 interface{}) int {
@@ -431,7 +440,8 @@ func (s *Server) GetRoutes() []RouterItem {
 }
 
 // Run 以阻塞方式启动服务器监听。
-// 它通常用于单服务器场景。 md5:4035b4359934ad62
+// 它通常用于单服务器场景。
+// md5:4035b4359934ad62
 func (s *Server) Run() {
 	var ctx = context.TODO()
 
@@ -439,10 +449,10 @@ func (s *Server) Run() {
 		s.Logger().Fatalf(ctx, `%+v`, err)
 	}
 
-	// 异步信号处理程序。 md5:7eaa2de84f3b5dae
+		// 异步信号处理程序。 md5:7eaa2de84f3b5dae
 	go handleProcessSignal()
 
-	// 通过通道进行阻塞以实现优雅重启。 md5:68e2b8bbfb67985a
+		// 通过通道进行阻塞以实现优雅重启。 md5:68e2b8bbfb67985a
 	<-s.closeChan
 	// Remove plugins.
 	if len(s.plugins) > 0 {
@@ -457,11 +467,12 @@ func (s *Server) Run() {
 	s.Logger().Infof(ctx, "pid[%d]: all servers shutdown", gproc.Pid())
 }
 
-// Wait 会阻塞等待所有服务器完成。它通常用于多服务器情况。 md5:69d8345a5fb12619
+// Wait 会阻塞等待所有服务器完成。它通常用于多服务器情况。
+// md5:69d8345a5fb12619
 func Wait() {
 	var ctx = context.TODO()
 
-	// 异步信号处理程序。 md5:7eaa2de84f3b5dae
+		// 异步信号处理程序。 md5:7eaa2de84f3b5dae
 	go handleProcessSignal()
 
 	<-allShutdownChan
@@ -516,7 +527,8 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 			)
 			if len(addrAndFd) > 1 {
 				itemFunc = addrAndFd[0]
-				// Windows操作系统不支持从父进程传递套接字文件描述符。 md5:ab73e9587a9e540d
+				// Windows操作系统不支持从父进程传递套接字文件描述符。
+				// md5:ab73e9587a9e540d
 				if runtime.GOOS != "windows" {
 					fd = gconv.Int(addrAndFd[1])
 				}
@@ -550,7 +562,8 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 		)
 		if len(addrAndFd) > 1 {
 			itemFunc = addrAndFd[0]
-			// Windows操作系统不支持从父进程传递套接字文件描述符。 md5:68778a7e9822b36e
+			// Windows操作系统不支持从父进程传递套接字文件描述符。
+			// md5:68778a7e9822b36e
 			if runtime.GOOS != "windows" {
 				fd = gconv.Int(addrAndFd[1])
 			}
@@ -561,7 +574,7 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 			s.servers = append(s.servers, s.newGracefulServer(itemFunc))
 		}
 	}
-	// 开始异步监听。 md5:9d840d3502f6ae05
+		// 开始异步监听。 md5:9d840d3502f6ae05
 	serverRunning.Add(1)
 	var wg = sync.WaitGroup{}
 	for _, v := range s.servers {
@@ -581,13 +594,13 @@ func (s *Server) startServer(fdMap listenerFdMap) {
 				s.Logger().Fatalf(ctx, `%+v`, err)
 			}
 			wg.Done()
-			// 以阻塞的方式开始监听和服务。 md5:066c0cdda27b7cd1
+						// 以阻塞的方式开始监听和服务。 md5:066c0cdda27b7cd1
 			err = server.Serve(ctx)
-			// 如果服务器在没有错误的情况下关闭，进程将退出。 md5:0a64c12a91a31329
+						// 如果服务器在没有错误的情况下关闭，进程将退出。 md5:0a64c12a91a31329
 			if err != nil && !strings.EqualFold(http.ErrServerClosed.Error(), err.Error()) {
 				s.Logger().Fatalf(ctx, `%+v`, err)
 			}
-			// 如果所有底层服务器都关闭，进程退出。 md5:4b398d3f7ef09228
+						// 如果所有底层服务器都关闭，进程退出。 md5:4b398d3f7ef09228
 			if s.serverCount.Add(-1) < 1 {
 				s.closeChan <- struct{}{}
 				if serverRunning.Add(-1) < 1 {
@@ -605,7 +618,7 @@ func (s *Server) Status() ServerStatus {
 	if serverRunning.Val() == 0 {
 		return ServerStatusStopped
 	}
-	// 如果任何底层服务器正在运行，那么服务器状态为运行中。 md5:5e0e398c116a1838
+		// 如果任何底层服务器正在运行，那么服务器状态为运行中。 md5:5e0e398c116a1838
 	for _, v := range s.servers {
 		if v.status.Val() == ServerStatusRunning {
 			return ServerStatusRunning
@@ -615,7 +628,8 @@ func (s *Server) Status() ServerStatus {
 }
 
 // getListenerFdMap 获取并返回套接字文件描述符的映射。
-// 返回映射的键为 "http" 和 "https"。 md5:970d132151bcc23b
+// 返回映射的键为 "http" 和 "https"。
+// md5:970d132151bcc23b
 func (s *Server) getListenerFdMap() map[string]string {
 	m := map[string]string{
 		"https": "",

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gins_test
 
@@ -57,10 +58,10 @@ func Test_Config2(t *testing.T) {
 		t.Assert(gins.Config().MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config().MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
+		// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
 	time.Sleep(500 * time.Millisecond)
 
-	// 相对路径，配置文件夹. md5:cd955a5e034346e9
+			// 相对路径，配置文件夹. md5:cd955a5e034346e9
 	gtest.C(t, func(t *gtest.T) {
 		var err error
 		dirPath := gfile.Temp(gtime.TimestampNanoStr())
@@ -80,7 +81,7 @@ func Test_Config2(t *testing.T) {
 		t.Assert(gins.Config().MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config().MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 
-		// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
+			// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
 		time.Sleep(500 * time.Millisecond)
 	})
 }
@@ -107,7 +108,7 @@ func Test_Config3(t *testing.T) {
 		t.Assert(gins.Config("test").MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config("test").MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
+		// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
 	time.Sleep(500 * time.Millisecond)
 
 	gtest.C(t, func(t *gtest.T) {
@@ -131,7 +132,7 @@ func Test_Config3(t *testing.T) {
 		t.Assert(gins.Config("test").MustGet(ctx, "database.default.1.host"), "127.0.0.1")
 		t.Assert(gins.Config("test").MustGet(ctx, "redis.disk"), `{"address":"127.0.0.1:6379","db":1}`)
 	})
-	// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
+			// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
 	time.Sleep(500 * time.Millisecond)
 }
 

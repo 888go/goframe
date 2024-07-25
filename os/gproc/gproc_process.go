@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gproc
 
@@ -55,7 +56,7 @@ func NewProcess(path string, args []string, environment ...[]string) *Process {
 	}
 	process.Dir, _ = os.Getwd()
 	if len(args) > 0 {
-		// 排除当前二进制文件的路径。 md5:a174ba38ac49d432
+				// 排除当前二进制文件的路径。 md5:a174ba38ac49d432
 		start := 0
 		if strings.EqualFold(path, args[0]) {
 			start = 1
@@ -71,12 +72,13 @@ func NewProcessCmd(cmd string, environment ...[]string) *Process {
 }
 
 // Start 以非阻塞方式开始执行进程。
-// 如果成功，它将返回进程ID（pid），否则返回一个错误。 md5:4607fc00f35e6338
+// 如果成功，它将返回进程ID（pid），否则返回一个错误。
+// md5:4607fc00f35e6338
 func (p *Process) Start(ctx context.Context) (int, error) {
 	if p.Process != nil {
 		return p.Pid(), nil
 	}
-	// 为命令提供OpenTelemetry。 md5:46407dd5b38f692f
+		// 为命令提供OpenTelemetry。 md5:46407dd5b38f692f
 	var (
 		span trace.Span
 		tr   = otel.GetTracerProvider().Tracer(
@@ -95,7 +97,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	defer span.End()
 	span.SetAttributes(gtrace.CommonLabels()...)
 
-	// OpenTelemetry 传播。 md5:aecf3a0cccd13f96
+		// OpenTelemetry 传播。 md5:aecf3a0cccd13f96
 	tracingEnv := tracingEnvFromCtx(ctx)
 	if len(tracingEnv) > 0 {
 		p.Env = append(p.Env, tracingEnv...)
@@ -103,7 +105,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	p.Env = append(p.Env, fmt.Sprintf("%s=%d", envKeyPPid, p.PPid))
 	p.Env = genv.Filter(p.Env)
 
-	// 在 Windows 系统中，这可以工作，但在其他平台则无法工作. md5:9aac240ca7d717fe
+		// 在 Windows 系统中，这可以工作，但在其他平台则无法工作. md5:9aac240ca7d717fe
 	if runtime.GOOS == "windows" {
 		joinProcessArgs(p)
 	}
@@ -144,7 +146,8 @@ func (p *Process) Send(data []byte) error {
 }
 
 // Release 释放与进程 p 关联的任何资源，使其将来无法使用。
-// 只有在不调用 Wait 的情况下才需要调用 Release。 md5:f3540c25ba14f0ee
+// 只有在不调用 Wait 的情况下才需要调用 Release。
+// md5:f3540c25ba14f0ee
 func (p *Process) Release() error {
 	return p.Process.Release()
 }
@@ -164,14 +167,15 @@ func (p *Process) Kill() (err error) {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
 	}
-	// 它忽略这个错误，仅记录日志。 md5:578bff85a58d16e8
+		// 它忽略这个错误，仅记录日志。 md5:578bff85a58d16e8
 	_, err = p.Process.Wait()
 	intlog.Errorf(context.TODO(), `%+v`, err)
 	return nil
 }
 
 // Signal 向进程发送一个信号。
-// 在Windows上发送Interrupt信号未实现。 md5:c1afe56a9d236095
+// 在Windows上发送Interrupt信号未实现。
+// md5:c1afe56a9d236095
 func (p *Process) Signal(sig os.Signal) error {
 	return p.Process.Signal(sig)
 }

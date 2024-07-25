@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtimer
 
@@ -39,7 +40,7 @@ func (entry *Entry) Status() int {
 func (entry *Entry) Run() {
 	if !entry.infinite.Val() {
 		leftRunningTimes := entry.times.Add(-1)
-		// 检查其运行时间是否超时。 md5:040ad43c2af11b3d
+				// 检查其运行时间是否超时。 md5:040ad43c2af11b3d
 		if leftRunningTimes < 0 {
 			entry.status.Set(StatusClosed)
 			return
@@ -67,7 +68,8 @@ func (entry *Entry) Run() {
 	}()
 }
 
-// doCheckAndRunByTicks 检查在给定的计时器周期内，任务是否可以运行。如果当前的`currentTimerTicks`满足条件，它会异步运行；否则，它会增加其周期并等待下一次运行检查。 md5:44d5223afb2e4f9d
+// doCheckAndRunByTicks 检查在给定的计时器周期内，任务是否可以运行。如果当前的`currentTimerTicks`满足条件，它会异步运行；否则，它会增加其周期并等待下一次运行检查。
+// md5:44d5223afb2e4f9d
 func (entry *Entry) doCheckAndRunByTicks(currentTimerTicks int64) {
 	// Ticks check.
 	if currentTimerTicks < entry.nextTicks.Val() {

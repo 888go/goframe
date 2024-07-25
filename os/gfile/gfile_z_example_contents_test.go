@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gfile_test
 
@@ -24,7 +25,8 @@ func ExampleGetContents() {
 	gfile.PutContents(tempFile, "goframe example content")
 
 	// 它读取文件内容并返回字符串形式。
-	// 如果读取失败，例如权限或IO错误，它将返回空字符串。 md5:47f28c87cbca1824
+	// 如果读取失败，例如权限或IO错误，它将返回空字符串。
+	// md5:47f28c87cbca1824
 	fmt.Println(gfile.GetContents(tempFile))
 
 	// Output:
@@ -43,7 +45,8 @@ func ExampleGetBytes() {
 	gfile.PutContents(tempFile, "goframe example content")
 
 	// 它读取文件内容并返回一个字节切片。
-	// 如果在读取时出现错误，如权限或IO错误，它将返回nil。 md5:5cdf3501c0f95f5e
+	// 如果在读取时出现错误，如权限或IO错误，它将返回nil。
+	// md5:5cdf3501c0f95f5e
 	fmt.Println(gfile.GetBytes(tempFile))
 
 	// Output:
@@ -59,7 +62,8 @@ func ExamplePutContents() {
 	)
 
 	// 它创建并将内容字符串放入指定的文件路径中。
-	// 如果目录不存在，它会自动递归创建。 md5:ed9205edb3fc637b
+	// 如果目录不存在，它会自动递归创建。
+	// md5:ed9205edb3fc637b
 	gfile.PutContents(tempFile, "goframe example content")
 
 	// read contents
@@ -102,7 +106,8 @@ func ExamplePutContentsAppend() {
 	fmt.Println(gfile.GetContents(tempFile))
 
 	// 该函数创建并追加内容字符串到指定的文件路径。
-	// 如果指定的目录不存在，它会自动递归创建。 md5:bc62171e0c6aaf77
+	// 如果指定的目录不存在，它会自动递归创建。
+	// md5:bc62171e0c6aaf77
 	gfile.PutContentsAppend(tempFile, " append content")
 
 	// read contents

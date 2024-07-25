@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,7 +24,8 @@
 
 # <翻译开始>
 // SetContent 为指定的`file`设置自定义配置内容。
-// `file`是可选参数，默认值为DefaultConfigFile。 md5:49ae38cf671e3b96
+// `file`是可选参数，默认值为DefaultConfigFile。
+// md5:49ae38cf671e3b96
 # <翻译结束>
 
 
@@ -43,7 +45,8 @@
 
 # <翻译开始>
 // GetContent 为指定的 `file`(默认为DefaultConfigFile)返回自定义配置内容。
-// `file` 参数是不必要的。 md5:633823fe81267232
+// `file` 参数是不必要的。
+// md5:633823fe81267232
 # <翻译结束>
 
 
@@ -53,7 +56,8 @@
 <原文结束>
 
 # <翻译开始>
-// RemoveContent 移除具有指定`file`的全局配置。如果未传递`name`，则删除默认组名的配置。 md5:93cf717e8dc7670b
+// RemoveContent 移除具有指定`file`的全局配置。如果未传递`name`，则删除默认组名的配置。
+// md5:93cf717e8dc7670b
 # <翻译结束>
 
 

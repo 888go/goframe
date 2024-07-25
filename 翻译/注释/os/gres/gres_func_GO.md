@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -55,10 +56,11 @@
 
 # <翻译开始>
 // Pack 将由 `srcPaths` 指定的路径打包成字节。不必要的参数 `keyPrefix` 表示每个文件打包到结果字节中的前缀。
-//
+// 
 // 注意，参数 `srcPaths` 支持用逗号分隔多个路径。
-//
-// 警告：请使用 PackWithOption 替代此方法。 md5:bba941587b4a7962
+// 
+// 警告：请使用 PackWithOption 替代此方法。
+// md5:bba941587b4a7962
 # <翻译结束>
 
 
@@ -70,8 +72,9 @@
 
 # <翻译开始>
 // PackWithOption 将由 `srcPaths` 指定的路径打包成字节。
-//
-// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。 md5:15ee3362e7cd91a0
+// 
+// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。
+// md5:15ee3362e7cd91a0
 # <翻译结束>
 
 
@@ -100,7 +103,8 @@
 //
 // 注意，参数`srcPaths`支持使用','连接的多个路径。
 //
-// 已弃用：请改用PackToFileWithOption。 md5:222d6d9ef38edd09
+// 已弃用：请改用PackToFileWithOption。
+// md5:222d6d9ef38edd09
 # <翻译结束>
 
 
@@ -112,8 +116,9 @@
 
 # <翻译开始>
 // PackToFileWithOption 将由 `srcPaths` 指定的路径打包到目标文件 `dstPath` 中。
-//
-// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。 md5:5daf8e107f124634
+// 
+// 注意，参数 `srcPaths` 支持使用逗号分隔多个路径。
+// md5:5daf8e107f124634
 # <翻译结束>
 
 
@@ -136,7 +141,8 @@
 //
 // 注意，`srcPaths` 参数支持用逗号分隔多个路径。
 //
-// 警告：请改用 PackToGoFileWithOption。 md5:99701ca10a176f76
+// 警告：请改用 PackToGoFileWithOption。
+// md5:99701ca10a176f76
 # <翻译结束>
 
 
@@ -151,7 +157,8 @@
 // PackToGoFileWithOption 将由 `srcPaths` 指定的路径打包到目标Go文件 `goFilePath` 中，
 // 使用给定的包名 `pkgName`。
 //
-// 注意，参数 `srcPaths` 支持使用逗号`,`连接多个路径。 md5:0e7ba248d1ba0543
+// 注意，参数 `srcPaths` 支持使用逗号`,`连接多个路径。
+// md5:0e7ba248d1ba0543
 # <翻译结束>
 
 
@@ -180,7 +187,8 @@
 
 # <翻译开始>
 		// 这里是为了保持与旧版本使用十六进制字符串打包字符串的兼容性。
-		// TODO：未来移除这个支持。 md5:5253278930daad11
+		// TODO：未来移除这个支持。
+		// md5:5253278930daad11
 # <翻译结束>
 
 
@@ -200,7 +208,8 @@
 
 # <翻译开始>
 // isBase64 检查并返回给定内容 `s` 是否为 Base64 编码的字符串。
-// 如果 `s` 是 Base64 字符串，它将返回 true，否则返回 false。 md5:314047c834f3cf6c
+// 如果 `s` 是 Base64 字符串，它将返回 true，否则返回 false。
+// md5:314047c834f3cf6c
 # <翻译结束>
 
 
@@ -210,7 +219,8 @@
 <原文结束>
 
 # <翻译开始>
-// isHexStr 检查并返回给定内容 `s` 是否为十六进制字符串。如果 `s` 是十六进制字符串，它将返回 true，否则返回 false。 md5:ca395ed524f01122
+// isHexStr 检查并返回给定内容 `s` 是否为十六进制字符串。如果 `s` 是十六进制字符串，它将返回 true，否则返回 false。
+// md5:ca395ed524f01122
 # <翻译结束>
 
 

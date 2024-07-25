@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -34,16 +35,16 @@ type doCheckValueInput struct {
 
 // doCheckValue 对单个键值对执行实际的规则验证。 md5:9032f66341668b1c
 func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Error {
-	// 如果没有验证规则，它什么也不做并迅速返回。 md5:bc52d29571b990f7
+		// 如果没有验证规则，它什么也不做并迅速返回。 md5:bc52d29571b990f7
 	if in.Rule == "" {
 		return nil
 	}
-	// 它将值转换为字符串，然后进行验证。 md5:2687e35bf141700c
+		// 它将值转换为字符串，然后进行验证。 md5:2687e35bf141700c
 	var (
-		// 不要删除空白，因为空白也是值的一部分。 md5:149754fbc3e60837
+				// 不要删除空白，因为空白也是值的一部分。 md5:149754fbc3e60837
 		ruleErrorMap = make(map[string]error)
 	)
-	// 自定义错误消息处理。 md5:034ef969034ce61c
+		// 自定义错误消息处理。 md5:034ef969034ce61c
 	var (
 		msgArray     = make([]string, 0)
 		customMsgMap = make(map[string]string)
@@ -57,7 +58,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			customMsgMap[k] = gconv.String(message)
 		}
 	}
-	// 处理规则中的字符'|'，这使得该规则被分成多个子规则。 md5:11aa0a7f39f13bef
+	// 处理规则中的字符'|'，这使得该规则被分成多个子规则。
+	// md5:11aa0a7f39f13bef
 	ruleItems := strings.Split(strings.TrimSpace(in.Rule), "|")
 	for i := 0; ; {
 		array := strings.Split(ruleItems[i], ":")
@@ -65,7 +67,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			// =========================== 特殊 ===========================
 			// 对于特殊的正则表达式 (`regex`) 和非正则表达式 (`not-regex`) 规则。
 			// 如果模式中包含特殊字符，如 ':' 或 '|'，则合并正则表达式模式。
-			// =========================== 特殊 =========================== md5:8f3bcac9a314de33
+			// =========================== 特殊 ===========================
+			// md5:8f3bcac9a314de33
 			var (
 				ruleNameRegexLengthMatch    bool
 				ruleNameNotRegexLengthMatch bool
@@ -118,7 +121,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			hasCaseInsensitive = true
 		}
 
-		// 忽略标记规则的执行逻辑。 md5:34f3e7a7cffba70b
+				// 忽略标记规则的执行逻辑。 md5:34f3e7a7cffba70b
 		if decorativeRuleMap[ruleKey] {
 			index++
 			continue
@@ -135,15 +138,15 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			foreachValues  = []interface{}{in.Value}
 		)
 		if hasForeachRule {
-			// 由于它标记了 `foreach`，所以它会将值转换为切片。 md5:9f599bb9b2fe0bba
+						// 由于它标记了 `foreach`，所以它会将值转换为切片。 md5:9f599bb9b2fe0bba
 			foreachValues = gconv.Interfaces(in.Value)
-			// 重置 `foreach` 规则，因为它只对下一条规则生效一次。 md5:8c7dd94030559037
+						// 重置 `foreach` 规则，因为它只对下一条规则生效一次。 md5:8c7dd94030559037
 			hasForeachRule = false
 		}
 
 		for _, value := range foreachValues {
 			switch {
-			// 自定义验证规则。 md5:fbd7800af1a73578
+						// 自定义验证规则。 md5:fbd7800af1a73578
 			case customRuleFunc != nil:
 				err = customRuleFunc(ctx, RuleFuncInput{
 					Rule:      ruleItems[index],
@@ -154,7 +157,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 					Data:      gvar.New(in.DataRaw),
 				})
 
-			// 内置验证规则。 md5:4f4f87cac993a840
+						// 内置验证规则。 md5:4f4f87cac993a840
 			case customRuleFunc == nil && builtinRule != nil:
 				err = builtinRule.Run(builtin.RunInput{
 					RuleKey:     ruleKey,
@@ -170,12 +173,12 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 				})
 
 			default:
-				// 它永远不会出现在这里。 md5:1b17e9ac7d650245
+								// 它永远不会出现在这里。 md5:1b17e9ac7d650245
 			}
 
 			// Error handling.
 			if err != nil {
-				// 用于错误信息的错误变量替换。 md5:c424d98305e44662
+								// 用于错误信息的错误变量替换。 md5:c424d98305e44662
 				if errMsg := err.Error(); gstr.Contains(errMsg, "{") {
 					errMsg = gstr.ReplaceByMap(errMsg, map[string]string{
 						"{field}":     in.Name,             // `value` 的字段名称。 md5:c75900d2041a10e5
@@ -186,13 +189,13 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 					errMsg, _ = gregex.ReplaceString(`\s{2,}`, ` `, errMsg)
 					err = errors.New(errMsg)
 				}
-				// 错误应该包含堆栈信息，以指示错误的位置。 md5:bef4a94931ed384c
+								// 错误应该包含堆栈信息，以指示错误的位置。 md5:bef4a94931ed384c
 				if !gerror.HasStack(err) {
 					err = gerror.NewCode(gcode.CodeValidationFailed, err.Error())
 				}
-				// 错误应该有错误代码，该代码为 `gcode.CodeValidationFailed`。 md5:b54af62f83c4db11
+								// 错误应该有错误代码，该代码为 `gcode.CodeValidationFailed`。 md5:b54af62f83c4db11
 				if gerror.Code(err) == gcode.CodeNil {
-					// TODO 使用接口可能更好？. md5:04cb382580755c3a
+										// TODO 使用接口可能更好？. md5:04cb382580755c3a
 					if e, ok := err.(*gerror.Error); ok {
 						e.SetCode(gcode.CodeValidationFailed)
 					}
@@ -200,7 +203,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 				ruleErrorMap[ruleKey] = err
 
 				// 如果存在错误并且有放弃规则，
-				// 则不再继续验证剩余的规则。 md5:746db6c03bb62206
+				// 则不再继续验证剩余的规则。
+				// md5:746db6c03bb62206
 				if hasBailRule {
 					goto CheckDone
 				}
@@ -242,7 +246,7 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 		})
 
 	case reflect.Struct:
-		// 忽略父级的数据、关联、规则和消息。 md5:27ad0097eee0432e
+				// 忽略父级的数据、关联、规则和消息。 md5:27ad0097eee0432e
 		var (
 			validator           = v.Clone()
 			toBeValidatedObject interface{}
@@ -256,7 +260,7 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 		validator.rules = nil
 		validator.messages = nil
 		if err := validator.Data(toBeValidatedObject).Assoc(in.Value).Run(ctx); err != nil {
-			// 它将错误合并为单个错误映射。 md5:56fe32c627a507ee
+						// 它将错误合并为单个错误映射。 md5:56fe32c627a507ee
 			for k, m := range err.(*validationError).errors {
 				in.ErrorMaps[k] = m
 			}

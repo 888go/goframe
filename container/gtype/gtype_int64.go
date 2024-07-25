@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtype
 
@@ -18,7 +19,8 @@ type Int64 struct {
 	value int64
 }
 
-// NewInt64 创建并返回一个针对 int64 类型的并发安全对象，初始值为 `value`。 md5:5685b29efcb68e8a
+// NewInt64 创建并返回一个针对 int64 类型的并发安全对象，初始值为 `value`。
+// md5:5685b29efcb68e8a
 func NewInt64(value ...int64) *Int64 {
 	if len(value) > 0 {
 		return &Int64{

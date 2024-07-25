@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,7 +24,8 @@
 
 # <翻译开始>
 // IGroupList 管理Redis列表操作。
-// 实现了redis.GroupList接口。 md5:25ae44de5ae09921
+// 实现了redis.GroupList接口。
+// md5:25ae44de5ae09921
 # <翻译结束>
 
 

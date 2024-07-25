@@ -11,7 +11,8 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 # <翻译结束>
 
 
@@ -58,7 +59,8 @@
 
 # <翻译开始>
 // MustObservableGauge 创建并返回一个新的 ObservableGauge。
-// 如果发生任何错误，它将引发 panic。 md5:fba8400cc344af01
+// 如果发生任何错误，它将引发 panic。
+// md5:fba8400cc344af01
 # <翻译结束>
 
 
@@ -78,6 +80,7 @@
 
 # <翻译开始>
 // Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
-// 这通常被指标实现所使用。 md5:e521fc985b9a53e2
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 # <翻译结束>
 

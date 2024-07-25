@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -29,7 +30,8 @@
 // costIns: 定义插入操作的成本。
 // costRep: 定义替换操作的成本。
 // costDel: 定义删除操作的成本。
-// 参考 http://php.net/manual/en/function.levenshtein.php。 md5:d04eb32ecd9f609b
+// 参考 http://php.net/manual/en/function.levenshtein.php。
+// md5:d04eb32ecd9f609b
 # <翻译结束>
 
 
@@ -40,7 +42,8 @@
 
 # <翻译开始>
 // SimilarText 计算两个字符串之间的相似度。
-// 参考：http://php.net/manual/zh/function.similar-text.php。 md5:773f9b9fd3d9b20d
+// 参考：http://php.net/manual/zh/function.similar-text.php。
+// md5:773f9b9fd3d9b20d
 # <翻译结束>
 
 
@@ -60,6 +63,7 @@
 
 # <翻译开始>
 // Soundex 计算字符串的音素编码。
-// 参见 http://php.net/manual/en/function.soundex.php。 md5:80909cffb32263c4
+// 参见 http://php.net/manual/en/function.soundex.php。
+// md5:80909cffb32263c4
 # <翻译结束>
 

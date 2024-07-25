@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -28,7 +29,8 @@
 // QuoteWord 检查给定的字符串 `s` 是否为一个单词，
 // 如果是，它将使用数据库的安全字符对 `s` 进行转义，并返回带引号的字符串；否则，返回原始字符串不做任何更改。
 //
-// 可以认为一个 `word` 表示列名。 md5:71291615d7bcffe0
+// 可以认为一个 `word` 表示列名。
+// md5:71291615d7bcffe0
 # <翻译结束>
 
 
@@ -42,7 +44,8 @@
 # <翻译开始>
 // TableFields 获取并返回当前模式下指定表的字段信息。
 //
-// 参见 DriverMysql.TableFields。 md5:61e256ba53f813cb
+// 参见 DriverMysql.TableFields。
+// md5:61e256ba53f813cb
 # <翻译结束>
 
 
@@ -52,7 +55,8 @@
 <原文结束>
 
 # <翻译开始>
-// getModel 如果`safe`为真，则创建并返回当前模型的克隆，否则直接返回当前模型。 md5:e4ae726aba6b01ab
+// getModel 如果`safe`为真，则创建并返回当前模型的克隆，否则直接返回当前模型。
+// md5:e4ae726aba6b01ab
 # <翻译结束>
 
 
@@ -67,7 +71,8 @@
 // mappingAndFilterToTableFields：将给定的字段名映射并转换为实际的表格字段名。
 // 例如：
 // ID        -> id
-// NICK_Name -> nickname. md5:35f1e9dc3d13c4f0
+// NICK_Name -> nickname.
+// md5:35f1e9dc3d13c4f0
 # <翻译结束>
 
 
@@ -80,7 +85,8 @@
 # <翻译开始>
 			// 示例：
 			// user.id, user.name
-			// 将逗号分隔的字符串（格式：lpad(s.id, 6, '0')，s.name）替换为`code` md5:5ee6374c41194bf3
+			// 将逗号分隔的字符串（格式：lpad(s.id, 6, '0')，s.name）替换为`code`
+			// md5:5ee6374c41194bf3
 # <翻译结束>
 
 
@@ -91,7 +97,8 @@
 
 # <翻译开始>
 				// 示例：
-				// id, 名称 md5:f16c15c62075a7aa
+				// id, 名称
+				// md5:f16c15c62075a7aa
 # <翻译结束>
 
 
@@ -102,7 +109,8 @@
 
 # <翻译开始>
 // filterDataForInsertOrUpdate 对用于插入/更新操作的数据执行过滤功能。
-// 请注意，它不会对列表项（也是一种映射类型）进行“忽略空值”处理。 md5:ffc8a604eaec8a77
+// 请注意，它不会对列表项（也是一种映射类型）进行“忽略空值”处理。
+// md5:ffc8a604eaec8a77
 # <翻译结束>
 
 
@@ -113,7 +121,8 @@
 
 # <翻译开始>
 // doMappingAndFilterForInsertOrUpdateDataMap 为映射类型的数据执行过滤功能。
-// 注意，它不会对"忽略空"特性下的列表项（也是映射类型）进行过滤。 md5:93fefbe3176f55de
+// 注意，它不会对"忽略空"特性下的列表项（也是映射类型）进行过滤。
+// md5:93fefbe3176f55de
 # <翻译结束>
 
 
@@ -160,7 +169,8 @@
 
 # <翻译开始>
 // getLink 函数返回配置了 `linkType` 属性的底层数据库链接对象。
-// 参数 `master` 指定是否在主从配置中使用主节点。 md5:e8add2f9371393db
+// 参数 `master` 指定是否在主从配置中使用主节点。
+// md5:e8add2f9371393db
 # <翻译结束>
 
 
@@ -173,7 +183,8 @@
 # <翻译开始>
 // getPrimaryKey 获取并返回模型表的主键名称。
 // 它解析 m.tables 以获取主表名，支持如下的 m.tables 写法：
-// "user", "user u", "user as u, user_detail as ud"。 md5:07ea92a426e953d1
+// "user", "user u", "user as u, user_detail as ud"。
+// md5:07ea92a426e953d1
 # <翻译结束>
 
 

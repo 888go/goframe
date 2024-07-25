@@ -4,7 +4,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package clickhouse
 
@@ -285,12 +286,12 @@ func TestDriverClickhouse_InsertOneAutoDateTimeWrite(t *testing.T) {
 		"url":      gconv.String(grand.Intn(999)),
 	}).Insert()
 	gtest.AssertNil(err)
-	// 查询插入的数据以获取时间字段的值. md5:7044ac81cbd8f93f
+		// 查询插入的数据以获取时间字段的值. md5:7044ac81cbd8f93f
 	data, err := connect.Model("visits").One()
 	gtest.AssertNil(err)
-	// 从插入的数据中获取时间值. md5:f519e5efebe5e810
+		// 从插入的数据中获取时间值. md5:f519e5efebe5e810
 	createdTime := data["created"].Time()
-	// 断言时间字段的值等于或晚于beforeInsertTime. md5:1ec7235b45d129a3
+			// 断言时间字段的值等于或晚于beforeInsertTime. md5:1ec7235b45d129a3
 	gtest.AssertGE(createdTime.Unix(), beforeInsertTime.Unix())
 }
 
@@ -398,12 +399,12 @@ func TestDriverClickhouse_DoFilter(t *testing.T) {
 	gtest.AssertNil(err)
 	gtest.AssertEQ(rawSQL, replaceSQL)
 
-	// 此SQL无法运行，因为没有WHERE子句，Clickhouse会报告错误. md5:50770b7fc72b157f
+		// 此SQL无法运行，因为没有WHERE子句，Clickhouse会报告错误. md5:50770b7fc72b157f
 	rawSQL = "update visit set url = '1'"
 	replaceSQL, _, err = this.DoFilter(context.Background(), nil, rawSQL, []interface{}{1})
 	gtest.AssertNil(err)
 
-	// 此SQL无法运行，因为没有WHERE子句，Clickhouse会报告错误. md5:50770b7fc72b157f
+		// 此SQL无法运行，因为没有WHERE子句，Clickhouse会报告错误. md5:50770b7fc72b157f
 	rawSQL = "delete from visit"
 	replaceSQL, _, err = this.DoFilter(context.Background(), nil, rawSQL, []interface{}{1})
 	gtest.AssertNil(err)
@@ -510,7 +511,8 @@ func TestDriverClickhouse_NilTime(t *testing.T) {
 
 func TestDriverClickhouse_BatchInsert(t *testing.T) {
 	// 这是来自
-	// https:	//github.com/ClickHouse/clickhouse-go/blob/v2/examples/std/batch/main.go 示例的注释 md5:c0ed3f953d0aaab1
+	// https:	//github.com/ClickHouse/clickhouse-go/blob/v2/examples/std/batch/main.go 示例的注释
+	// md5:c0ed3f953d0aaab1
 	connect := clickhouseConfigDB()
 	gtest.AssertNil(createClickhouseExampleTable(connect))
 	defer dropClickhouseExampleTable(connect)
@@ -545,7 +547,8 @@ func TestDriverClickhouse_BatchInsert(t *testing.T) {
 func TestDriverClickhouse_Open(t *testing.T) {
 	// 链接
 	// 数据源管理(DSM)
-	// 点击house协议连接字符串：	//用户名:密码@主机1:9000,主机2:9000/数据库名?拨号超时=200毫秒&最大执行时间=60秒 md5:c1d7a1212d7e0483
+	// 点击house协议连接字符串：	//用户名:密码@主机1:9000,主机2:9000/数据库名?拨号超时=200毫秒&最大执行时间=60秒
+	// md5:c1d7a1212d7e0483
 	link := "clickhouse://default@127.0.0.1:9000,127.0.0.1:9000/default?dial_timeout=200ms&max_execution_time=60"
 	db, err := gdb.New(gdb.ConfigNode{
 		Link: link,

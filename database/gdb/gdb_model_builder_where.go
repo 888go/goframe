@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gdb
 
@@ -12,7 +13,8 @@ import (
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-// doWhereType 设置模型的条件语句。参数 `where` 可以是类型为 string、map、gmap、slice、struct 或其派生结构等。需要注意的是，如果多次调用此函数，多个条件将使用 "AND" 连接到 where 语句中。 md5:92ee322b44569cba
+// doWhereType 设置模型的条件语句。参数 `where` 可以是类型为 string、map、gmap、slice、struct 或其派生结构等。需要注意的是，如果多次调用此函数，多个条件将使用 "AND" 连接到 where 语句中。
+// md5:92ee322b44569cba
 func (b *WhereBuilder) doWhereType(whereType string, where interface{}, args ...interface{}) *WhereBuilder {
 	where, args = b.convertWhereBuilder(where, args)
 
@@ -37,7 +39,8 @@ func (b *WhereBuilder) doWhereType(whereType string, where interface{}, args ...
 }
 
 // doWherefType 使用 fmt.Sprintf 和参数构建条件字符串。
-// 注意，如果 `args` 的数量多于 `format` 中的占位符，多余的 `args` 将作为 Model 的 where 条件参数使用。 md5:67cfb01201c57037
+// 注意，如果 `args` 的数量多于 `format` 中的占位符，多余的 `args` 将作为 Model 的 where 条件参数使用。
+// md5:67cfb01201c57037
 func (b *WhereBuilder) doWherefType(t string, format string, args ...interface{}) *WhereBuilder {
 	var (
 		placeHolderCount = gstr.Count(format, "?")
@@ -52,11 +55,12 @@ func (b *WhereBuilder) doWherefType(t string, format string, args ...interface{}
 // 例如：
 // Where("uid=10000")
 // Where("uid", 10000)
-// Where("money>? AND name like ?", 99999, "vip_%")
+// Where("money>? AND name like ?", 99999, "vip_%") 
 // Where("uid", 1).Where("name", "john")
-// Where("status IN (?)", g.Slice{1,2,3})
+// Where("status IN (?)", g.Slice{1,2,3}) 
 // Where("age IN(?,?)", 18, 50)
-// Where(User{ Id : 1, UserName : "john"}) // 使用结构体作为查询条件 md5:38a2f7ff889346c5
+// Where(User{ Id : 1, UserName : "john"}) // 使用结构体作为查询条件
+// md5:38a2f7ff889346c5
 func (b *WhereBuilder) Where(where interface{}, args ...interface{}) *WhereBuilder {
 	return b.doWhereType(``, where, args...)
 }
@@ -66,12 +70,14 @@ func (b *WhereBuilder) Where(where interface{}, args ...interface{}) *WhereBuild
 // 多余的`args`将作为Model的WHERE条件参数。
 // 例如：
 // Wheref(`amount<? and status=%s`, "paid", 100)  => WHERE `amount`<100 and status='paid'
-// Wheref(`amount<%d and status=%s`, 100, "paid") => WHERE `amount`<100 and status='paid' md5:e4748efd7332202a
+// Wheref(`amount<%d and status=%s`, 100, "paid") => WHERE `amount`<100 and status='paid'
+// md5:e4748efd7332202a
 func (b *WhereBuilder) Wheref(format string, args ...interface{}) *WhereBuilder {
 	return b.doWherefType(``, format, args...)
 }
 
-// WherePri 的逻辑与 Model.Where 相同，但当参数 `where` 是单个条件，如 int、string、float 或 slice 时，它将该条件视为主键值。也就是说，如果主键是 "id" 并且给定的 `where` 参数为 "123"，WherePri 函数会将条件解析为 "id=123"，而 Model.Where 则会将条件视为字符串 "123"。 md5:2545fa57bcbd235c
+// WherePri 的逻辑与 Model.Where 相同，但当参数 `where` 是单个条件，如 int、string、float 或 slice 时，它将该条件视为主键值。也就是说，如果主键是 "id" 并且给定的 `where` 参数为 "123"，WherePri 函数会将条件解析为 "id=123"，而 Model.Where 则会将条件视为字符串 "123"。
+// md5:2545fa57bcbd235c
 func (b *WhereBuilder) WherePri(where interface{}, args ...interface{}) *WhereBuilder {
 	if len(args) > 0 {
 		return b.Where(where, args...)

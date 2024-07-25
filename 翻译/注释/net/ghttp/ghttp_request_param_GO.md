@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -48,7 +49,8 @@
 // 1. 单个结构体时，请求内容格式如：{"id":1, "name":"john"} 或 ?id=1&name=john
 // 2. 多个结构体时，请求内容格式如：[{"id":1, "name":"john"}, {"id":, "name":"smith"}]
 //
-// 待办事项：通过减少跨包对同一变量的重复反射使用，来提升性能。 md5:ad971f0fee54e93d
+// 待办事项：通过减少跨包对同一变量的重复反射使用，来提升性能。
+// md5:ad971f0fee54e93d
 # <翻译结束>
 
 
@@ -87,8 +89,9 @@
 
 # <翻译开始>
 	// 单个结构体，帖子内容格式如下：
-	// 1. {"id":1, "name":"john"}
-	// 2. ?id=1&name=john md5:968f64e28941480c
+	// 1. {"id":1, "name":"john"} 
+	// 2. ?id=1&name=john
+	// md5:968f64e28941480c
 # <翻译结束>
 
 
@@ -99,7 +102,8 @@
 
 # <翻译开始>
 		// 待办事项: https:		//github.com/gogf/gf/pull/2450
-		// 验证。 md5:ec24b1494dabb977
+		// 验证。
+		// md5:ec24b1494dabb977
 # <翻译结束>
 
 
@@ -110,7 +114,8 @@
 
 # <翻译开始>
 	// 多个结构体，它只支持像这样的JSON类型POST内容：
-	// [{"id":1, "name":"john"}, {"id":2, "name":"smith"}] md5:b759870b71d2ffab
+	// [{"id":1, "name":"john"}, {"id":2, "name":"smith"}]
+	// md5:b759870b71d2ffab
 # <翻译结束>
 
 
@@ -120,7 +125,8 @@
 <原文结束>
 
 # <翻译开始>
-		// 如果是结构体切片转换，可能会包含JSON/XML等内容，因此它使用`gjson`进行转换。 md5:e60fd34347047253
+		// 如果是结构体切片转换，可能会包含JSON/XML等内容，因此它使用`gjson`进行转换。
+		// md5:e60fd34347047253
 # <翻译结束>
 
 
@@ -132,7 +138,8 @@
 
 # <翻译开始>
 // Get 是 GetRequest 的别名，它是用于检索参数的最常用函数之一。
-// 请参见 r.GetRequest。 md5:80825e01a3c06041
+// 请参见 r.GetRequest。
+// md5:80825e01a3c06041
 # <翻译结束>
 
 
@@ -143,7 +150,8 @@
 
 # <翻译开始>
 // GetBody 读取并返回请求体内容为字节。
-// 可以多次调用，每次都返回相同的正文内容。 md5:be66d2484fd786ca
+// 可以多次调用，每次都返回相同的正文内容。
+// md5:be66d2484fd786ca
 # <翻译结束>
 
 
@@ -153,7 +161,8 @@
 <原文结束>
 
 # <翻译开始>
-// MakeBodyRepeatableRead 标记请求体是否可以重复读取。它还会返回当前请求体的内容。 md5:3cda0a2da5c712d7
+// MakeBodyRepeatableRead 标记请求体是否可以重复读取。它还会返回当前请求体的内容。
+// md5:3cda0a2da5c712d7
 # <翻译结束>
 
 
@@ -163,7 +172,8 @@
 <原文结束>
 
 # <翻译开始>
-// GetBodyString 用于检索并返回请求体内容作为字符串。可以多次调用以获取相同的内容。 md5:503c28317dc909ca
+// GetBodyString 用于检索并返回请求体内容作为字符串。可以多次调用以获取相同的内容。
+// md5:503c28317dc909ca
 # <翻译结束>
 
 
@@ -174,7 +184,8 @@
 
 # <翻译开始>
 // GetJson 将当前请求内容解析为JSON格式，并返回JSON对象。
-// 注意，请求内容是从请求体(BODY)中读取的，而不是从表单的任何字段中读取。 md5:166af4b89b6a5a68
+// 注意，请求内容是从请求体(BODY)中读取的，而不是从表单的任何字段中读取。
+// md5:166af4b89b6a5a68
 # <翻译结束>
 
 
@@ -185,7 +196,8 @@
 
 # <翻译开始>
 // GetMap 是 GetRequestMap 函数的别名，提供便利的使用方式。
-// 参考 GetRequestMap。 md5:395e8bbf3fea416a
+// 参考 GetRequestMap。
+// md5:395e8bbf3fea416a
 # <翻译结束>
 
 
@@ -195,7 +207,8 @@
 <原文结束>
 
 # <翻译开始>
-// GetMapStrStr是GetRequestMapStrStr的别名，提供便捷的功能。详情请参阅GetRequestMapStrStr。 md5:1828f3886ccd906d
+// GetMapStrStr是GetRequestMapStrStr的别名，提供便捷的功能。详情请参阅GetRequestMapStrStr。
+// md5:1828f3886ccd906d
 # <翻译结束>
 
 
@@ -205,7 +218,8 @@
 <原文结束>
 
 # <翻译开始>
-// GetStruct 是 GetRequestStruct 的别名和便捷函数。详情请参阅 GetRequestStruct。 md5:c558debb875b77cd
+// GetStruct 是 GetRequestStruct 的别名和便捷函数。详情请参阅 GetRequestStruct。
+// md5:c558debb875b77cd
 # <翻译结束>
 
 
@@ -225,7 +239,8 @@
 
 # <翻译开始>
 // parseBody 将请求的原始数据解析到 r.rawMap 中。
-// 请注意，它还支持从客户端请求的 JSON 数据。 md5:f8f001deccef59e6
+// 请注意，它还支持从客户端请求的 JSON 数据。
+// md5:f8f001deccef59e6
 # <翻译结束>
 
 
@@ -267,7 +282,8 @@
 // parseForm 解析HTTP方法PUT，POST，PATCH的请求表单。
 // 表单数据被解析到r.formMap中。
 //
-// 请注意，如果已经先解析了表单，那么请求体将会被清空。 md5:97f04aa06758375b
+// 请注意，如果已经先解析了表单，那么请求体将会被清空。
+// md5:97f04aa06758375b
 # <翻译结束>
 
 
@@ -278,7 +294,8 @@
 
 # <翻译开始>
 			// 为了避免大量消耗内存。
-			// `multipart/` 类型的表单始终包含二进制数据，没有必要读取两次。 md5:d95befcac4fa7fd0
+			// `multipart/` 类型的表单始终包含二进制数据，没有必要读取两次。
+			// md5:d95befcac4fa7fd0
 # <翻译结束>
 
 
@@ -316,7 +333,8 @@
 
 # <翻译开始>
 				// 非法的参数名称。
-				// 只允许使用以下字符：`\w`，`[`，`]`，`-`。 md5:72a7ff7f2d38a973
+				// 只允许使用以下字符：`\w`，`[`，`]`，`-`。
+				// md5:72a7ff7f2d38a973
 # <翻译结束>
 
 
@@ -354,7 +372,8 @@
 
 # <翻译开始>
 // GetMultipartFiles 解析并返回表单中的文件数组。
-// 请注意，请求表单的类型应该是multipart。 md5:33503fc76a60c149
+// 请注意，请求表单的类型应该是multipart。
+// md5:33503fc76a60c149
 # <翻译结束>
 
 

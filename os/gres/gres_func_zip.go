@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gres
 
@@ -22,7 +23,8 @@ import (
 // ZipPathWriter 使用zip压缩算法将`paths`压缩到`writer`中。
 // 不需要的参数`prefix`表示zip文件中的路径前缀。
 //
-// 注意，参数`paths`可以是目录或文件，支持使用逗号','连接多个路径。 md5:d392a5d80ec973d9
+// 注意，参数`paths`可以是目录或文件，支持使用逗号','连接多个路径。
+// md5:d392a5d80ec973d9
 func zipPathWriter(paths string, writer io.Writer, option ...Option) error {
 	zipWriter := zip.NewWriter(writer)
 	defer zipWriter.Close()
@@ -37,7 +39,8 @@ func zipPathWriter(paths string, writer io.Writer, option ...Option) error {
 
 // doZipPathWriter 将给定路径`path`的文件压缩，并将内容写入`zipWriter`。
 // 参数`exclude`指定了不被压缩到`zipWriter`的排除文件路径，通常为目标zip文件路径。
-// 参数`prefix`表示zip文件的路径前缀，可选。 md5:46c9d23dcfa03c25
+// 参数`prefix`表示zip文件的路径前缀，可选。
+// md5:46c9d23dcfa03c25
 func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) error {
 	var (
 		err          error
@@ -67,7 +70,8 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 
 	if headerPrefix == "" {
 		if usedOption.KeepPath {
-			// 它在资源管理器中保存从文件系统到zip信息的路径。通常对于相对路径，绝对路径意义不大。 md5:bba8ee186d063506
+			// 它在资源管理器中保存从文件系统到zip信息的路径。通常对于相对路径，绝对路径意义不大。
+			// md5:bba8ee186d063506
 			headerPrefix = srcPath
 		} else {
 			headerPrefix = gfile.Basename(absolutePath)
@@ -80,9 +84,10 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 		// 路径：dir1
 		// 文件：dir1/dir2/file
 		// file[字符串长度(absolutePath)：] => /dir2/file
-		// gfile.Dir(subFilePath) => /dir2 md5:80c4920a234839ce
+		// gfile.Dir(subFilePath) => /dir2
+		// md5:80c4920a234839ce
 		var subFilePath string
-		// 正常处理：移除文件的`absolutePath`（源目录路径）。 md5:66bfc67471cf5f63
+				// 正常处理：移除文件的`absolutePath`（源目录路径）。 md5:66bfc67471cf5f63
 		subFilePath = file[len(absolutePath):]
 		if subFilePath != "" {
 			subFilePath = gfile.Dir(subFilePath)
@@ -91,7 +96,7 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 			return err
 		}
 	}
-	// 将所有目录添加到zip归档中。 md5:f8910528d8dda79d
+		// 将所有目录添加到zip归档中。 md5:f8910528d8dda79d
 	if headerPrefix != "" {
 		var (
 			name    string
@@ -112,7 +117,8 @@ func doZipPathWriter(srcPath string, zipWriter *zip.Writer, option ...Option) er
 	return nil
 }
 
-// zipFile 压缩给定路径 `path` 的文件，并将内容写入 `zw`。参数 `prefix` 表示zip文件的路径前缀。 md5:bb4064703bf6d8ad
+// zipFile 压缩给定路径 `path` 的文件，并将内容写入 `zw`。参数 `prefix` 表示zip文件的路径前缀。
+// md5:bb4064703bf6d8ad
 func zipFile(path string, prefix string, zw *zip.Writer) error {
 	prefix = strings.ReplaceAll(prefix, `//`, `/`)
 	file, err := os.Open(path)
@@ -133,10 +139,10 @@ func zipFile(path string, prefix string, zw *zip.Writer) error {
 		return err
 	}
 	if !info.IsDir() {
-		// 默认压缩级别。 md5:27fa604e26eb1270
+				// 默认压缩级别。 md5:27fa604e26eb1270
 		header.Method = zip.Deflate
 	}
-	// 包含ZIP文件信息的ZIP头。 md5:df2d788fe836a2e5
+		// 包含ZIP文件信息的ZIP头。 md5:df2d788fe836a2e5
 	writer, err := zw.CreateHeader(header)
 	if err != nil {
 		err = gerror.Wrapf(err, `create zip header failed for %#v`, header)

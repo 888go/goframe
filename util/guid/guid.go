@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // guid包提供了简单且高性能的唯一ID生成功能。 md5:22d1fe7516a2dff2
 package guid
@@ -27,13 +28,13 @@ const (
 
 var (
 	sequence     gtype.Uint32 // 当前进程独有的序列。 md5:2e6129c144b94c7b
-	macAddrStr   = "0000000"  // MAC地址的哈希结果为7字节。 md5:99aa7e69b289dd55
+	macAddrStr   = "0000000"  	// MAC地址的哈希结果为7字节。 md5:99aa7e69b289dd55
 	processIdStr = "0000"     // Process id in 4 bytes.
 )
 
 // init 函数用于初始化几个固定的局部变量。 md5:3e44426e20423c37
 func init() {
-	// MAC地址的哈希结果为7字节。 md5:99aa7e69b289dd55
+		// MAC地址的哈希结果为7字节。 md5:99aa7e69b289dd55
 	macs, _ := gipv4.GetMacArray()
 	if len(macs) > 0 {
 		var macAddrBytes []byte
@@ -64,7 +65,8 @@ func init() {
 //
 // 注意：
 //  1. 为了性能考虑，返回的长度固定为32字节。
-//  2. 自定义参数`data`组合的内容在你的业务场景中应具有唯一性。 md5:b09b2d34d56e1344
+//  2. 自定义参数`data`组合的内容在你的业务场景中应具有唯一性。
+// md5:b09b2d34d56e1344
 func S(data ...[]byte) string {
 	var (
 		b       = make([]byte, 32)
@@ -79,7 +81,7 @@ func S(data ...[]byte) string {
 	} else if len(data) <= 2 {
 		n := 0
 		for i, v := range data {
-			// 忽略空数据项字节。 md5:653aa2fb92e185e8
+						// 忽略空数据项字节。 md5:653aa2fb92e185e8
 			if len(v) > 0 {
 				copy(b[i*7:], getDataHashStr(v))
 				n += 7
@@ -98,7 +100,8 @@ func S(data ...[]byte) string {
 }
 
 // getSequence 递增并返回一个以3个字节表示的序列字符串。
-// 序列小于"zzz"(46655)。 md5:742b11b09412718d
+// 序列小于"zzz"(46655)。
+// md5:742b11b09412718d
 func getSequence() []byte {
 	b := []byte{'0', '0', '0'}
 	s := strconv.FormatUint(uint64(sequence.Add(1)%sequenceMax), 36)

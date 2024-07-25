@@ -1,7 +1,8 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 
 // Package empty 提供检查空/空指针变量的函数。 md5:4be7b468c813f750
 package empty
@@ -39,12 +40,14 @@ type iTime interface {
 //
 // 参数 `traceSource` 用于在 `value` 是指向指针的指针类型时追踪源变量。
 // 当 `traceSource` 为 true 且源变量为空时，返回 true。
-// 注意，这可能使用反射功能，可能会稍微影响性能。 md5:343856f448e80aef
+// 注意，这可能使用反射功能，可能会稍微影响性能。
+// md5:343856f448e80aef
 func IsEmpty(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true
 	}
-	// 它首先使用断言检查变量为常见类型，以提高性能，然后使用反射。 md5:9722a28f813b5ddb
+	// 它首先使用断言检查变量为常见类型，以提高性能，然后使用反射。
+	// md5:9722a28f813b5ddb
 	switch result := value.(type) {
 	case int:
 		return result == 0
@@ -90,7 +93,7 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 		return len(result) == 0
 
 	default:
-		// 最后，使用反射。 md5:e4ce8ad5b39b80cd
+				// 最后，使用反射。 md5:e4ce8ad5b39b80cd
 		var rv reflect.Value
 		if v, ok := value.(reflect.Value); ok {
 			rv = v
@@ -102,7 +105,8 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 
 			// =========================
 			// 公共接口检查。
-			// ========================= md5:e561bbb4afe04dee
+			// =========================
+			// md5:e561bbb4afe04dee
 			if f, ok := value.(iTime); ok {
 				if f == (*time.Time)(nil) {
 					return true
@@ -199,7 +203,8 @@ func IsEmpty(value interface{}, traceSource ...bool) bool {
 // IsNil 检查给定的 `value` 是否为 nil，特别是对于 interface{} 类型的值。
 // 参数 `traceSource` 用于在给定的 `value` 是指向指针的指针类型时，追踪到源变量。
 // 当 `traceSource` 为真且源为 nil 时，它会返回 nil。
-// 注意，该函数可能使用反射功能，这可能稍微影响性能。 md5:c12efd8c176fc73a
+// 注意，该函数可能使用反射功能，这可能稍微影响性能。
+// md5:c12efd8c176fc73a
 func IsNil(value interface{}, traceSource ...bool) bool {
 	if value == nil {
 		return true

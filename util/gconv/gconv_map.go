@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv
 
@@ -25,13 +26,14 @@ const (
 
 // MapOption 定义了映射转换的选项。 md5:8dc53d6fdc486bf8
 type MapOption struct {
-	// Deep 标记表示递归地执行 Map 函数，这意味着如果给定转换值的属性也是一个结构体（struct），它会自动对这个属性调用 Map 函数，将其转换为 map[string]interface{} 类型变量。 md5:3653359965fb222d
+	// Deep 标记表示递归地执行 Map 函数，这意味着如果给定转换值的属性也是一个结构体（struct），它会自动对这个属性调用 Map 函数，将其转换为 map[string]interface{} 类型变量。
+	// md5:3653359965fb222d
 	Deep bool
 
-	// OmitEmpty 忽略具有 json `omitempty` 标签的属性。 md5:ce80b66cfe17a0ba
+		// OmitEmpty 忽略具有 json `omitempty` 标签的属性。 md5:ce80b66cfe17a0ba
 	OmitEmpty bool
 
-	// Tags 指定了通过结构体标签名转换后的映射键名称。 md5:b08e40ad043d7120
+		// Tags 指定了通过结构体标签名转换后的映射键名称。 md5:b08e40ad043d7120
 	Tags []string
 }
 
@@ -40,13 +42,15 @@ type MapOption struct {
 //
 // 如果 `value` 是一个 struct/*struct 对象，第二个参数 `tags` 指定了具有最高优先级的
 // 将被检测的标签，否则它会按照以下顺序检测标签：
-// gconv, json, 字段名称。 md5:34498665a6393f82
+// gconv, json, 字段名称。
+// md5:34498665a6393f82
 func Map(value interface{}, option ...MapOption) map[string]interface{} {
 	return doMapConvert(value, recursiveTypeAuto, false, option...)
 }
 
 // MapDeep递归地执行Map函数，这意味着如果`value`的属性也是一个`struct/*struct`，则会在这个属性上调用Map函数，并将其转换为map[string]interface{}类型的变量。
-// 警告：建议使用Map替代。 md5:dc0620a4d15b4389
+// 警告：建议使用Map替代。
+// md5:dc0620a4d15b4389
 func MapDeep(value interface{}, tags ...string) map[string]interface{} {
 	return doMapConvert(value, recursiveTypeTrue, false, MapOption{
 		Deep: true,
@@ -56,13 +60,14 @@ func MapDeep(value interface{}, tags ...string) map[string]interface{} {
 
 // doMapConvert 实现了映射转换。
 // 如果 `value` 是字符串或[]byte，它会自动检查并将其转换为map。
-//
-// TODO 完全实现所有类型的递归转换，特别是map。 md5:f55eadf34b47fad4
+// 
+// TODO 完全实现所有类型的递归转换，特别是map。
+// md5:f55eadf34b47fad4
 func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool, option ...MapOption) map[string]interface{} {
 	if value == nil {
 		return nil
 	}
-	// 如果它已经实现了iVal接口，那么它会重定向到其底层值。 md5:fb13fb87762a52a2
+		// 如果它已经实现了iVal接口，那么它会重定向到其底层值。 md5:fb13fb87762a52a2
 	if v, ok := value.(iVal); ok {
 		value = v.Val()
 	}
@@ -82,11 +87,11 @@ func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool
 	default:
 		newTags = append(usedOption.Tags, gtag.StructTagPriority...)
 	}
-	// 断言常见的类型组合，并最终使用反射。 md5:28d02793b273a6c1
+		// 断言常见的类型组合，并最终使用反射。 md5:28d02793b273a6c1
 	dataMap := make(map[string]interface{})
 	switch r := value.(type) {
 	case string:
-		// 如果它是一个JSON字符串，自动反序列化它！. md5:2da2afc6ee11f379
+						// 如果它是一个JSON字符串，自动反序列化它！. md5:2da2afc6ee11f379
 		if len(r) > 0 && r[0] == '{' && r[len(r)-1] == '}' {
 			if err := json.UnmarshalUseNumber([]byte(r), &dataMap); err != nil {
 				return nil
@@ -95,7 +100,7 @@ func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool
 			return nil
 		}
 	case []byte:
-		// 如果它是一个JSON字符串，自动反序列化它！. md5:2da2afc6ee11f379
+						// 如果它是一个JSON字符串，自动反序列化它！. md5:2da2afc6ee11f379
 		if len(r) > 0 && r[0] == '{' && r[len(r)-1] == '}' {
 			if err := json.UnmarshalUseNumber(r, &dataMap); err != nil {
 				return nil
@@ -178,7 +183,7 @@ func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool
 				)
 			}
 		} else {
-			// 它直接返回映射，不做任何更改。 md5:fa0b6b4232562112
+						// 它直接返回映射，不做任何更改。 md5:fa0b6b4232562112
 			return r
 		}
 	case map[int]interface{}:
@@ -205,7 +210,7 @@ func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool
 		}
 
 	default:
-		// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
+				// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
 		var reflectValue reflect.Value
 		if v, ok := value.(reflect.Value); ok {
 			reflectValue = v
@@ -213,7 +218,7 @@ func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool
 			reflectValue = reflect.ValueOf(value)
 		}
 		reflectKind := reflectValue.Kind()
-		// 如果它是一个指针，我们应该找到其实际的数据类型。 md5:db4733e40015c40e
+			// 如果它是一个指针，我们应该找到其实际的数据类型。 md5:db4733e40015c40e
 		for reflectKind == reflect.Ptr {
 			reflectValue = reflectValue.Elem()
 			reflectKind = reflectValue.Kind()
@@ -221,7 +226,8 @@ func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool
 		switch reflectKind {
 		// 如果`value`是数组类型，它将偶数索引的值作为键，奇数索引的值作为对应的值。例如：
 		// `[]string{"k1","v1","k2","v2"}` => `map[string]interface{}{"k1":"v1", "k2":"v2"}`
-		// `[]string{"k1","v1","k2"}`       => `map[string]interface{}{"k1":"v1", "k2":nil}` md5:5e90ff5bc08f2638
+		// `[]string{"k1","v1","k2"}`       => `map[string]interface{}{"k1":"v1", "k2":nil}`
+		// md5:5e90ff5bc08f2638
 		case reflect.Slice, reflect.Array:
 			length := reflectValue.Len()
 			for i := 0; i < length; i += 2 {
@@ -285,7 +291,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 		reflectValue = reflect.ValueOf(in.Value)
 	}
 	reflectKind := reflectValue.Kind()
-	// 如果它是一个指针，我们应该找到其实际的数据类型。 md5:db4733e40015c40e
+		// 如果它是一个指针，我们应该找到其实际的数据类型。 md5:db4733e40015c40e
 	for reflectKind == reflect.Ptr {
 		reflectValue = reflectValue.Elem()
 		reflectKind = reflectValue.Kind()
@@ -304,11 +310,12 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 			switch {
 			case mapKeyValue.IsZero():
 				if utils.CanCallIsNil(mapKeyValue) && mapKeyValue.IsNil() {
-					// 快速检查值是否为nil。 md5:93138802a95bcbf7
+										// 快速检查值是否为nil。 md5:93138802a95bcbf7
 					mapValue = nil
 				} else {
 					// 在出现以下情况时：
-					// 异常恢复：reflect: 对零值调用reflect.Value.Interface md5:e32f0249911d4dde
+					// 异常恢复：reflect: 对零值调用reflect.Value.Interface
+					// md5:e32f0249911d4dde
 					mapValue = reflect.New(mapKeyValue.Type()).Elem().Interface()
 				}
 			default:
@@ -328,9 +335,9 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 
 	case reflect.Struct:
 		var dataMap = make(map[string]interface{})
-		// 转换接口检查的映射。 md5:e4adcda9bbeec1fc
+				// 转换接口检查的映射。 md5:e4adcda9bbeec1fc
 		if v, ok := in.Value.(iMapStrAny); ok {
-			// 为了并发安全，进行值复制。 md5:57f6f9976b1be5ca
+						// 为了并发安全，进行值复制。 md5:57f6f9976b1be5ca
 			for mapK, mapV := range v.MapStrAny() {
 				if in.RecursiveOption {
 					dataMap[mapK] = doMapConvertForMapOrStructValue(
@@ -350,7 +357,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 				return dataMap
 			}
 		}
-		// 使用反射进行转换。 md5:ffcf9b71ef0563af
+				// 使用反射进行转换。 md5:ffcf9b71ef0563af
 		var (
 			rtField     reflect.StructField
 			rvField     reflect.Value
@@ -360,7 +367,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 		for i := 0; i < reflectValue.NumField(); i++ {
 			rtField = reflectType.Field(i)
 			rvField = reflectValue.Field(i)
-			// 只转换公共属性。 md5:090d3eafbff3ac6e
+						// 只转换公共属性。 md5:090d3eafbff3ac6e
 			fieldName := rtField.Name
 			if !utils.IsLetterUpper(fieldName[0]) {
 				continue
@@ -375,7 +382,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 			if mapKey == "" {
 				mapKey = fieldName
 			} else {
-				// 支持json标签特性：-，omitempty. md5:89511416feac7bb4
+												// 支持json标签特性：-，omitempty. md5:89511416feac7bb4
 				mapKey = strings.TrimSpace(mapKey)
 				if mapKey == "-" {
 					continue
@@ -398,7 +405,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 				}
 			}
 			if in.RecursiveOption || rtField.Anonymous {
-				// 递归地进行映射转换。 md5:1676b5bed955fd64
+								// 递归地进行映射转换。 md5:1676b5bed955fd64
 				var (
 					rvAttrField = rvField
 					rvAttrKind  = rvField.Kind()
@@ -410,19 +417,22 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 				switch rvAttrKind {
 				case reflect.Struct:
 					// 内嵌结构体且没有字段，将忽略它。
-					// 例如：gmeta.Meta md5:8505cb87a6269724
+					// 例如：gmeta.Meta
+					// md5:8505cb87a6269724
 					if rvAttrField.Type().NumField() == 0 {
 						continue
 					}
 					var (
 						hasNoTag = mapKey == fieldName
-						// 不要在这里使用rvAttrField.Interface()，因为它可能会从指针转换为结构体。 md5:5cd6517f328dfd1c
+						// 不要在这里使用rvAttrField.Interface()，因为它可能会从指针转换为结构体。
+						// md5:5cd6517f328dfd1c
 						rvInterface = rvField.Interface()
 					)
 					switch {
 					case hasNoTag && rtField.Anonymous:
 						// 这意味着这个属性字段没有标签。
-						// 使用子结构体的属性字段覆盖该属性。 md5:525f64e84a599d2d
+						// 使用子结构体的属性字段覆盖该属性。
+						// md5:525f64e84a599d2d
 						anonymousValue := doMapConvertForMapOrStructValue(doMapConvertForMapOrStructValueInput{
 							IsRoot:          false,
 							Value:           rvInterface,
@@ -438,7 +448,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 							dataMap[mapKey] = rvInterface
 						}
 
-					// 这意味着该属性字段具有期望的标签。 md5:e6252ec8be3f90cb
+										// 这意味着该属性字段具有期望的标签。 md5:e6252ec8be3f90cb
 					case !hasNoTag && rtField.Anonymous:
 						dataMap[mapKey] = doMapConvertForMapOrStructValue(doMapConvertForMapOrStructValueInput{
 							IsRoot:          false,
@@ -458,7 +468,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 						})
 					}
 
-				// 该结构体属性是切片类型。 md5:e1a646d8191abc2f
+								// 该结构体属性是切片类型。 md5:e1a646d8191abc2f
 				case reflect.Array, reflect.Slice:
 					length := rvAttrField.Len()
 					if length == 0 {
@@ -503,7 +513,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 					}
 				}
 			} else {
-				// 不进行递归地将映射值转换. md5:fd213a1b3835dd97
+								// 不进行递归地将映射值转换. md5:fd213a1b3835dd97
 				if rvField.IsValid() {
 					dataMap[mapKey] = reflectValue.Field(i).Interface()
 				} else {
@@ -516,7 +526,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 		}
 		return dataMap
 
-	// 给定的值是切片类型。 md5:fb5a502257cf9a01
+		// 给定的值是切片类型。 md5:fb5a502257cf9a01
 	case reflect.Array, reflect.Slice:
 		length := reflectValue.Len()
 		if length == 0 {
@@ -538,7 +548,8 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 }
 
 // MapStrStr 将 `value` 转换为 map[string]string 类型。
-// 注意，对于这种映射类型转换，可能会有数据复制的情况发生。 md5:a1ec9ce0d856cd1e
+// 注意，对于这种映射类型转换，可能会有数据复制的情况发生。
+// md5:a1ec9ce0d856cd1e
 func MapStrStr(value interface{}, option ...MapOption) map[string]string {
 	if r, ok := value.(map[string]string); ok {
 		return r
@@ -556,7 +567,8 @@ func MapStrStr(value interface{}, option ...MapOption) map[string]string {
 
 // MapStrStrDeep 递归地将`value`转换为map[string]string。
 // 请注意，这种映射类型的转换可能会涉及数据复制。
-// 已弃用：请使用MapStrStr代替。 md5:79528a85e8ff4c82
+// 已弃用：请使用MapStrStr代替。
+// md5:79528a85e8ff4c82
 func MapStrStrDeep(value interface{}, tags ...string) map[string]string {
 	if r, ok := value.(map[string]string); ok {
 		return r

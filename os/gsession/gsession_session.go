@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gsession
 
@@ -17,7 +18,8 @@ import (
 	"github.com/gogf/gf/v2/internal/intlog"
 )
 
-// Session 结构体，用于存储单个会话数据，它与单个请求绑定。Session 结构体是与用户交互的接口，但 Storage 是底层适配器设计的接口，用于实现特定功能。 md5:1d1b86dcb53a276e
+// Session 结构体，用于存储单个会话数据，它与单个请求绑定。Session 结构体是与用户交互的接口，但 Storage 是底层适配器设计的接口，用于实现特定功能。
+// md5:1d1b86dcb53a276e
 type Session struct {
 	id      string          // 会话ID。如果指定了自定义的id，则用于获取会话。 md5:7fec8def5a7d635f
 	ctx     context.Context // 当前会话的上下文。请注意，会话与上下文一起存在。 md5:c61c2b0f3688fce4
@@ -26,11 +28,13 @@ type Session struct {
 	start   bool            // 用于标记会话已开始。 md5:213288ad3376abfc
 	manager *Manager        // 父级会话管理器。 md5:6b920db9951d3f89
 
-	// idFunc是一个用于创建自定义会话ID的回调函数。当会话开始时，如果会话ID为空，就会调用这个函数。 md5:83b853b0118605bd
+	// idFunc是一个用于创建自定义会话ID的回调函数。当会话开始时，如果会话ID为空，就会调用这个函数。
+	// md5:83b853b0118605bd
 	idFunc func(ttl time.Duration) (id string)
 }
 
-// init函数进行懒惰初始化session，如果指定了session ID，则获取session，否则创建一个新的空session。 md5:60a85a2954d0a427
+// init函数进行懒惰初始化session，如果指定了session ID，则获取session，否则创建一个新的空session。
+// md5:60a85a2954d0a427
 func (s *Session) init() error {
 	if s.start {
 		return nil
@@ -38,7 +42,7 @@ func (s *Session) init() error {
 	var err error
 	// Session retrieving.
 	if s.id != "" {
-		// 从存储中检索存储的会话数据。 md5:e6c3f2bdc143f93c
+				// 从存储中检索存储的会话数据。 md5:e6c3f2bdc143f93c
 		if s.manager.storage != nil {
 			s.data, err = s.manager.storage.GetSession(s.ctx, s.id, s.manager.GetTTL())
 			if err != nil && err != ErrorDisabled {
@@ -50,16 +54,17 @@ func (s *Session) init() error {
 	// Session id creation.
 	if s.id == "" {
 		if s.idFunc != nil {
-			// 使用自定义的会话ID创建函数。 md5:4c1e5f997d31f1b3
+						// 使用自定义的会话ID创建函数。 md5:4c1e5f997d31f1b3
 			s.id = s.idFunc(s.manager.ttl)
 		} else {
-			// 使用存储的默认会话ID创建函数。 md5:11db3a1576d0231f
+						// 使用存储的默认会话ID创建函数。 md5:11db3a1576d0231f
 			s.id, err = s.manager.storage.New(s.ctx, s.manager.ttl)
 			if err != nil && err != ErrorDisabled {
 				intlog.Errorf(s.ctx, "create session id failed: %+v", err)
 				return err
 			}
-			// 如果会话存储不实现ID生成功能，那么它将使用默认的会话ID创建函数。 md5:4f2bd0ddc795fde4
+			// 如果会话存储不实现ID生成功能，那么它将使用默认的会话ID创建函数。
+			// md5:4f2bd0ddc795fde4
 			if s.id == "" {
 				s.id = NewSessionId()
 			}
@@ -75,7 +80,8 @@ func (s *Session) init() error {
 // Close 方法关闭当前会话并在会话管理器中更新其TTL（生存时间）。
 // 如果此会话已被修改（脏会话），它还会将该会话导出到存储中。
 //
-// 注意：此功能必须在每次会话请求完成后调用。 md5:f68a83f493f4727a
+// 注意：此功能必须在每次会话请求完成后调用。
+// md5:f68a83f493f4727a
 func (s *Session) Close() error {
 	if s.manager.storage == nil {
 		return nil
@@ -163,7 +169,7 @@ func (s *Session) RemoveAll() (err error) {
 			return err
 		}
 	}
-	// 从内存中移除数据。 md5:47322b1cdcaf7596
+		// 从内存中移除数据。 md5:47322b1cdcaf7596
 	if s.data != nil {
 		s.data.Clear()
 	}
@@ -172,7 +178,8 @@ func (s *Session) RemoveAll() (err error) {
 }
 
 // Id 返回此会话的会话标识符。
-// 如果在初始化时未传递会话标识符，则创建并返回新的会话标识符。 md5:c1a4c6b98633e656
+// 如果在初始化时未传递会话标识符，则创建并返回新的会话标识符。
+// md5:c1a4c6b98633e656
 func (s *Session) Id() (id string, err error) {
 	if err = s.init(); err != nil {
 		return "", err
@@ -180,7 +187,8 @@ func (s *Session) Id() (id string, err error) {
 	return s.id, nil
 }
 
-// SetId 在会话开始前设置自定义会话。如果在会话已经开始后调用，将返回错误。 md5:cf8fd98a6cd07079
+// SetId 在会话开始前设置自定义会话。如果在会话已经开始后调用，将返回错误。
+// md5:cf8fd98a6cd07079
 func (s *Session) SetId(id string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -190,7 +198,8 @@ func (s *Session) SetId(id string) error {
 }
 
 // SetIdFunc 在会话开始前设置自定义会话ID生成函数。
-// 如果在会话已经开始后调用它，将返回错误。 md5:07c5962c3c68bf37
+// 如果在会话已经开始后调用它，将返回错误。
+// md5:07c5962c3c68bf37
 func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 	if s.start {
 		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
@@ -200,7 +209,8 @@ func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 }
 
 // Data 将所有数据作为映射返回。
-// 请注意，为了并发安全，它内部使用了值拷贝。 md5:a37827aba4dd5df4
+// 请注意，为了并发安全，它内部使用了值拷贝。
+// md5:a37827aba4dd5df4
 func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 	if s.id == "" {
 		return map[string]interface{}{}, nil
@@ -258,7 +268,8 @@ func (s *Session) IsDirty() bool {
 
 // Get 通过给定的键获取 session 值。
 // 如果键在 session 中不存在且提供了 `def`，则返回 `def`，
-// 否则返回 nil。 md5:893a612d87b25ee2
+// 否则返回 nil。
+// md5:893a612d87b25ee2
 func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err error) {
 	if s.id == "" {
 		return nil, nil

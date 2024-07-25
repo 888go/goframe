@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gutil
 
@@ -50,7 +51,8 @@ func Dump(values ...interface{}) {
 	}
 }
 
-// DumpWithType 类似于 Dump，但带有类型信息。同时参阅 Dump。 md5:faabab79589d38a3
+// DumpWithType 类似于 Dump，但带有类型信息。同时参阅 Dump。
+// md5:faabab79589d38a3
 func DumpWithType(values ...interface{}) {
 	for _, value := range values {
 		DumpWithOption(value, DumpOption{
@@ -109,7 +111,7 @@ func doDump(value interface{}, indent string, buffer *bytes.Buffer, option doDum
 		reflectValue = reflect.ValueOf(value)
 	}
 	var reflectKind = reflectValue.Kind()
-	// 二次确认空值。 md5:7122d7415991f3ef
+		// 二次确认空值。 md5:7122d7415991f3ef
 	if value == nil || reflectKind == reflect.Invalid {
 		buffer.WriteString(`<nil>`)
 		return
@@ -280,7 +282,7 @@ func doDumpMap(in doDumpInternalInput) {
 		} else {
 			mapKeyStr = fmt.Sprintf(`%v`, mapKey.Interface())
 		}
-		// 映射键和缩进字符串的转储。 md5:2c8156f9f5e204bd
+				// 映射键和缩进字符串的转储。 md5:2c8156f9f5e204bd
 		if !in.Option.WithType {
 			in.Buffer.WriteString(fmt.Sprintf(
 				"%s%v:%s",
@@ -340,7 +342,7 @@ func doDumpStruct(in doDumpInternalInput) {
 			b, _ := v.MarshalJSON()
 			structContentStr = string(b)
 		} else {
-			// 没有实现任何公共接口。 md5:e916242484fe8e89
+						// 没有实现任何公共接口。 md5:e916242484fe8e89
 			if len(structFields) != 0 {
 				goto dumpStructFields
 			}

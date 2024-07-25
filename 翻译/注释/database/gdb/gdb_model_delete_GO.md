@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -25,6 +26,7 @@
 # <翻译开始>
 // Delete 执行针对模型的 "DELETE FROM ... " 语句。
 // 可选参数 `where` 与 Model.Where 函数的参数相同，
-// 请参考 Model.Where 查看详细用法。 md5:efc496574e0829d8
+// 请参考 Model.Where 查看详细用法。
+// md5:efc496574e0829d8
 # <翻译结束>
 

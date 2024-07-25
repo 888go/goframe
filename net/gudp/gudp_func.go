@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gudp
 
@@ -50,7 +51,8 @@ func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, err
 }
 
 // Send 使用UDP连接向`address`发送数据，然后关闭连接。
-// 注意，它用于短连接用途。 md5:3d373f3db04ae03d
+// 注意，它用于短连接用途。
+// md5:3d373f3db04ae03d
 func Send(address string, data []byte, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -61,7 +63,8 @@ func Send(address string, data []byte, retry ...Retry) error {
 }
 
 // SendRecv 使用UDP连接向`address`写入数据，读取响应后关闭连接。
-// 注意，它用于短暂连接的场景。 md5:f88304194d59603d
+// 注意，它用于短暂连接的场景。
+// md5:f88304194d59603d
 func SendRecv(address string, data []byte, receive int, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {

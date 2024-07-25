@@ -2,13 +2,15 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包pgsql实现了gdb.Driver，它支持PostgreSQL数据库的操作。
 //
 // 注意：
 // 1. 它不支持Replace功能。
-// 2. 它不支持Insert Ignore功能。 md5:a7153a434a6751dc
+// 2. 它不支持Insert Ignore功能。
+// md5:a7153a434a6751dc
 package pgsql
 
 import (
@@ -41,7 +43,8 @@ func New() gdb.Driver {
 }
 
 // New 创建并返回一个用于postgresql的数据库对象。
-// 它实现了gdb.Driver接口，以便安装额外的数据库驱动。 md5:05f196cdca4e65a1
+// 它实现了gdb.Driver接口，以便安装额外的数据库驱动。
+// md5:05f196cdca4e65a1
 func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	return &Driver{
 		Core: core,

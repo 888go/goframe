@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 // 包gproperties提供了对.properties内容的访问和转换。 md5:d7f77f0eb45bfdad
 package gproperties
@@ -28,9 +29,9 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 		return nil, err
 	}
 	for _, key := range pr.Keys() {
-		// 忽略存在性检查：我们知道它就在那里. md5:ab11cdfb730ab02c
+				// 忽略存在性检查：我们知道它就在那里. md5:ab11cdfb730ab02c
 		value, _ := pr.Get(key)
-		// 递归地构建嵌套映射. md5:1bc0faa7e615b22a
+				// 递归地构建嵌套映射. md5:1bc0faa7e615b22a
 		path := strings.Split(key, ".")
 		lastKey := strings.ToLower(path[len(path)-1])
 		deepestMap := deepSearch(res, path[0:len(path)-1])
@@ -86,13 +87,15 @@ func ToJson(data []byte) (res []byte, err error) {
 }
 
 // deepSearch 用于深入扫描嵌套的映射，它会按照序列"path"中列出的键索引进行遍历。
-// 预期最后一个值是另一个映射，并将其返回。 md5:2b80516b778b8ffa
+// 预期最后一个值是另一个映射，并将其返回。
+// md5:2b80516b778b8ffa
 func deepSearch(m map[string]interface{}, path []string) map[string]interface{} {
 	for _, k := range path {
 		m2, ok := m[k]
 		if !ok {
 			// 中间键不存在
-			// => 创建它并从此处继续 md5:ea01acf7f923de86
+			// => 创建它并从此处继续
+			// md5:ea01acf7f923de86
 			m3 := make(map[string]interface{})
 			m[k] = m3
 			m = m3
@@ -103,7 +106,7 @@ func deepSearch(m map[string]interface{}, path []string) map[string]interface{} 
 			m3 = make(map[string]interface{})
 			m[k] = m3
 		}
-		// 从这里继续搜索. md5:fb1246c13ecceb40
+				// 从这里继续搜索. md5:fb1246c13ecceb40
 		m = m3
 	}
 	return m
@@ -131,7 +134,7 @@ func flattenAndMergeMap(shadow map[string]interface{}, m map[string]interface{},
 			shadow[strings.ToLower(fullKey)] = val
 			continue
 		}
-		// 递归地将内容合并到阴影映射中. md5:89e72bf601f325cb
+						// 递归地将内容合并到阴影映射中. md5:89e72bf601f325cb
 		shadow = flattenAndMergeMap(shadow, m2, fullKey, delimiter)
 	}
 	return shadow

@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gipv4
 
@@ -25,7 +26,8 @@ func GetHostByName(hostname string) (string, error) {
 	return "", err
 }
 
-// GetHostsByName 根据给定的互联网主机名返回一个IPv4地址列表。 md5:57770571b1c3af32
+// GetHostsByName 根据给定的互联网主机名返回一个IPv4地址列表。
+// md5:57770571b1c3af32
 func GetHostsByName(hostname string) ([]string, error) {
 	ips, err := net.LookupIP(hostname)
 	if ips != nil {

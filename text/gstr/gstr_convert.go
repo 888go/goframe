@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gstr
 
@@ -19,14 +20,15 @@ import (
 )
 
 var (
-	// octReg 是用于检查八进制字符串的正则表达式对象。 md5:5c5c93db5da71e18
+		// octReg 是用于检查八进制字符串的正则表达式对象。 md5:5c5c93db5da71e18
 	octReg = regexp.MustCompile(`\\[0-7]{3}`)
 )
 
 // Chr 函数返回一个数字（0-255）的ASCII字符串。
 //
 // 示例：
-// Chr(65) -> "A" md5:1eeda35a229d907f
+// Chr(65) -> "A"
+// md5:1eeda35a229d907f
 func Chr(ascii int) string {
 	return string([]byte{byte(ascii % 256)})
 }
@@ -34,7 +36,8 @@ func Chr(ascii int) string {
 // Ord 将字符串的第一个字节转换为0到255之间的值。
 //
 // 示例：
-// Ord("A") -> 65 md5:4b57c924e8be0a49
+// Ord("A") -> 65
+// md5:4b57c924e8be0a49
 func Ord(char string) int {
 	return int(char[0])
 }
@@ -57,7 +60,8 @@ func OctStr(str string) string {
 // Reverse 函数返回一个字符串，它是 `str` 的反向字符串。
 //
 // 示例：
-// Reverse("123456") -> "654321" md5:7106270467ce887e
+// Reverse("123456") -> "654321"
+// md5:7106270467ce887e
 func Reverse(str string) string {
 	runes := []rune(str)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
@@ -71,10 +75,11 @@ func Reverse(str string) string {
 // 参数 `decPoint`：设置小数点的分隔符。
 // 参数 `thousandsSep`：设置千位分隔符。
 // 参考：http://php.net/manual/en/function.number-format.php。
-//
+// 
 // 示例：
 // NumberFormat(1234.56, 2, ".", "") -> 1234,56
-// NumberFormat(1234.56, 2, ",", " ") -> 1 234,56 md5:c4f419bbc874acfc
+// NumberFormat(1234.56, 2, ",", " ") -> 1 234,56
+// md5:c4f419bbc874acfc
 func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) string {
 	neg := false
 	if number < 0 {
@@ -118,11 +123,12 @@ func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) s
 
 // `Shuffle` 随机打乱一个字符串。
 // 它将参数 `str` 视为 Unicode 字符串。
-//
+// 
 // 示例：
 // Shuffle("123456") -> "325164"
 // Shuffle("123456") -> "231546"
-// ... md5:2e7f0ae98e6b5210
+// ...
+// md5:2e7f0ae98e6b5210
 func Shuffle(str string) string {
 	runes := []rune(str)
 	s := make([]rune, len(runes))
@@ -133,7 +139,8 @@ func Shuffle(str string) string {
 }
 
 // HideStr 函数将字符串 `str` 的从中间开始按 `percentage` 比例部分内容替换为 `hide`。
-// 此函数将参数 `str` 视为Unicode字符串处理。 md5:f9986962939bb788
+// 此函数将参数 `str` 视为Unicode字符串处理。
+// md5:f9986962939bb788
 func HideStr(str string, percent int, hide string) string {
 	array := strings.Split(str, "@")
 	if len(array) > 1 {
@@ -162,7 +169,8 @@ func HideStr(str string, percent int, hide string) string {
 }
 
 // Nl2Br 在字符串中的所有换行符(\n\r, \r\n, \r, \n)前插入HTML换行标签(`br`|<br />)。
-// 它将参数`str`视为Unicode字符串。 md5:6cad5f70848065d0
+// 它将参数`str`视为Unicode字符串。
+// md5:6cad5f70848065d0
 func Nl2Br(str string, isXhtml ...bool) string {
 	r, n, runes := '\r', '\n', []rune(str)
 	var br []byte
@@ -196,7 +204,8 @@ func Nl2Br(str string, isXhtml ...bool) string {
 
 // WordWrap 将一个字符串按照给定的字符数进行换行。
 // 这个函数支持英文和中文标点符号的截断参数。
-// TODO: 开启自定义截断参数，参考 http://php.net/manual/en/function.wordwrap.php。 md5:389c5474efb0a8e8
+// TODO: 开启自定义截断参数，参考 http://php.net/manual/en/function.wordwrap.php。
+// md5:389c5474efb0a8e8
 func WordWrap(str string, width int, br string) string {
 	if br == "" {
 		br = "\n"

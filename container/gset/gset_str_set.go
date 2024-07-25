@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gset
 
@@ -22,7 +23,8 @@ type StrSet struct {
 }
 
 // NewStrSet 创建并返回一个新集合，其中包含不重复的元素。
-// 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。 md5:b4b32102d4f1da78
+// 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。
+// md5:b4b32102d4f1da78
 func NewStrSet(safe ...bool) *StrSet {
 	return &StrSet{
 		mu:   rwmutex.Create(safe...),
@@ -42,7 +44,8 @@ func NewStrSetFrom(items []string, safe ...bool) *StrSet {
 	}
 }
 
-// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。 md5:b896360b1cf6fc88
+// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
+// md5:b896360b1cf6fc88
 func (set *StrSet) Iterator(f func(v string) bool) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -66,7 +69,8 @@ func (set *StrSet) Add(item ...string) {
 }
 
 // AddIfNotExist 检查项是否存在于集合中，
-// 如果项不存在于集合中，它会将项添加到集合中并返回 true，否则什么都不做并返回 false。 md5:9cff508c42cffd55
+// 如果项不存在于集合中，它会将项添加到集合中并返回 true，否则什么都不做并返回 false。
+// md5:9cff508c42cffd55
 func (set *StrSet) AddIfNotExist(item string) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -85,7 +89,8 @@ func (set *StrSet) AddIfNotExist(item string) bool {
 // AddIfNotExistFunc 检查项是否存在于集合中，
 // 如果项不存在于集合中，且函数 `f` 返回 true，则将项添加到集合中并返回 true，否则什么都不做并返回 false。
 //
-// 注意，函数 `f` 在写入锁未获取的情况下执行。 md5:7563a3cf864d8a2b
+// 注意，函数 `f` 在写入锁未获取的情况下执行。
+// md5:7563a3cf864d8a2b
 func (set *StrSet) AddIfNotExistFunc(item string, f func() bool) bool {
 	if !set.Contains(item) {
 		if f() {
@@ -107,7 +112,8 @@ func (set *StrSet) AddIfNotExistFunc(item string, f func() bool) bool {
 // 如果该项不存在于集合中并且函数 `f` 返回 true，那么它会将该项添加到集合中并返回 true；
 // 否则，它不做任何操作并返回 false。
 //
-// 注意，函数 `f` 的执行不在写入锁的保护下进行。 md5:48d67b0145855ed9
+// 注意，函数 `f` 的执行不在写入锁的保护下进行。
+// md5:48d67b0145855ed9
 func (set *StrSet) AddIfNotExistFuncLock(item string, f func() bool) bool {
 	if !set.Contains(item) {
 		set.mu.Lock()
@@ -137,7 +143,8 @@ func (set *StrSet) Contains(item string) bool {
 }
 
 // ContainsI 检查集合中是否存在某个值（忽略大小写）。
-// 注意，它内部会遍历整个集合以进行不区分大小写的比较。 md5:851e1bbfa6da1bae
+// 注意，它内部会遍历整个集合以进行不区分大小写的比较。
+// md5:851e1bbfa6da1bae
 func (set *StrSet) ContainsI(item string) bool {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -287,7 +294,8 @@ func (set *StrSet) IsSubsetOf(other *StrSet) bool {
 }
 
 // Union 返回一个新集合，它是`set`和`other`的并集。
-// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。 md5:420e241c3c12e8e6
+// 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
+// md5:420e241c3c12e8e6
 func (set *StrSet) Union(others ...*StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -313,7 +321,8 @@ func (set *StrSet) Union(others ...*StrSet) (newSet *StrSet) {
 }
 
 // Diff 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
-// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。 md5:6779e6e007651b53
+// 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
+// md5:6779e6e007651b53
 func (set *StrSet) Diff(others ...*StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -334,7 +343,8 @@ func (set *StrSet) Diff(others ...*StrSet) (newSet *StrSet) {
 }
 
 // Intersect 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
-// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。 md5:327d3fcc12f06583
+// 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
+// md5:327d3fcc12f06583
 func (set *StrSet) Intersect(others ...*StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -358,7 +368,8 @@ func (set *StrSet) Intersect(others ...*StrSet) (newSet *StrSet) {
 // Complement 返回一个新的集合，该集合是`set`在`full`中的补集。
 // 换句话说，`newSet`中的所有元素都在`full`中但不在`set`中。
 //
-// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。 md5:7e76900d6f20af06
+// 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。
+// md5:7e76900d6f20af06
 func (set *StrSet) Complement(full *StrSet) (newSet *StrSet) {
 	newSet = NewStrSet()
 	set.mu.RLock()
@@ -395,7 +406,8 @@ func (set *StrSet) Merge(others ...*StrSet) *StrSet {
 
 // Sum 计算项目总和。
 // 注意：项目应该转换为整数类型，
-// 否则你可能会得到意想不到的结果。 md5:979b37fbf86a5233
+// 否则你可能会得到意想不到的结果。
+// md5:979b37fbf86a5233
 func (set *StrSet) Sum() (sum int) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
@@ -417,7 +429,8 @@ func (set *StrSet) Pop() string {
 }
 
 // Pops 从集合中随机弹出 `size` 个元素。
-// 如果 size == -1，它将返回所有元素。 md5:c687f88e0a2df8f2
+// 如果 size == -1，它将返回所有元素。
+// md5:c687f88e0a2df8f2
 func (set *StrSet) Pops(size int) []string {
 	set.mu.Lock()
 	defer set.mu.Unlock()

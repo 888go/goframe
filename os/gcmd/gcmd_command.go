@@ -2,7 +2,8 @@
 //
 // 此源代码形式受 MIT 许可证的条款约束。
 // 如果未随此文件一起分发 MIT 许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。 md5:a114f4bdd106ab31
+// 您可以在 https://github.com/gogf/gf 获取一个。
+// md5:a114f4bdd106ab31
 
 package gcmd
 
@@ -49,7 +50,7 @@ type Argument struct {
 }
 
 var (
-	// defaultHelpOption 是默认的帮助选项，将会自动添加到每个命令中。 md5:3593428e8c7dfe0a
+		// defaultHelpOption 是默认的帮助选项，将会自动添加到每个命令中。 md5:3593428e8c7dfe0a
 	defaultHelpOption = Argument{
 		Name:   `help`,
 		Short:  `h`,
@@ -94,7 +95,7 @@ func (c *Command) doAddCommand(command *Command) error {
 	if commandNameSet.Contains(command.Name) {
 		return gerror.Newf(`command "%s" is already added to command "%s"`, command.Name, c.Name)
 	}
-	// 将给定的命令添加到其子命令数组中。 md5:ddd450893c5e1fcc
+		// 将给定的命令添加到其子命令数组中。 md5:ddd450893c5e1fcc
 	command.parent = c
 	c.commands = append(c.commands, command)
 	return nil

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtimer
 
@@ -12,7 +13,8 @@ func (h *priorityQueueHeap) Len() int {
 }
 
 // Less 用于实现 sort.Interface 接口。
-// 较小的元素将被放在堆的顶部。 md5:ad6834ec849095c3
+// 较小的元素将被放在堆的顶部。
+// md5:ad6834ec849095c3
 func (h *priorityQueueHeap) Less(i, j int) bool {
 	return h.array[i].priority < h.array[j].priority
 }

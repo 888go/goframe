@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -41,7 +42,8 @@
 
 # <翻译开始>
 // AdapterOperation 是 Redis 的核心操作函数。
-// 这些函数可以被自定义实现轻松覆盖。 md5:6a3c39d3c764e39e
+// 这些函数可以被自定义实现轻松覆盖。
+// md5:6a3c39d3c764e39e
 # <翻译结束>
 
 
@@ -52,7 +54,8 @@
 
 # <翻译开始>
 	// 发送一个命令到服务器并返回接收到的回复。
-	// 在将结构体/切片/映射类型的值提交到redis之前，它使用json.Marshal进行编码。 md5:5a464ca35e177113
+	// 在将结构体/切片/映射类型的值提交到redis之前，它使用json.Marshal进行编码。
+	// md5:5a464ca35e177113
 # <翻译结束>
 
 
@@ -63,7 +66,8 @@
 
 # <翻译开始>
 	// Conn 获取并返回一个用于连续操作的连接对象。
-	// 请注意，如果您不再使用此连接，请手动调用 Close 函数。 md5:adf083088afcd372
+	// 请注意，如果您不再使用此连接，请手动调用 Close 函数。
+	// md5:adf083088afcd372
 # <翻译结束>
 
 
@@ -110,7 +114,8 @@
 
 # <翻译开始>
 	// Subscribe 将客户端订阅到指定的频道。
-	// 参考链接：https:	//redis.io/commands/subscribe/ md5:a7414ed1d330bfc7
+	// 参考链接：https:	//redis.io/commands/subscribe/
+	// md5:a7414ed1d330bfc7
 # <翻译结束>
 
 
@@ -137,7 +142,8 @@
 	//
 	// 如果需要匹配特殊字符本身，请使用\进行转义。
 	//
-	// https:	//redis.io/commands/psubscribe/ md5:0bfeb7ebd0d003a7
+	// https:	//redis.io/commands/psubscribe/
+	// md5:0bfeb7ebd0d003a7
 # <翻译结束>
 
 

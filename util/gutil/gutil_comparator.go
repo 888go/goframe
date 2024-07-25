@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gutil
 
@@ -18,7 +19,8 @@ import (
 //
 // 如果 a < b，则返回负数
 // 如果 a == b，则返回零
-// 如果 a > b，则返回正数 md5:c1e00d03f187b96f
+// 如果 a > b，则返回正数
+// md5:c1e00d03f187b96f
 type Comparator func(a, b interface{}) int
 
 // ComparatorString 提供了一个快速的字符串比较功能。 md5:d0e6023eaf1cf6f5

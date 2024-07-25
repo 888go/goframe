@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gvalid
 
@@ -53,7 +54,7 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 		}
 		fieldRuleErrorMap[field] = ruleErrorMap
 	}
-	// 过滤重复序列规则。 md5:7a7958b11e315baa
+		// 过滤重复序列规则。 md5:7a7958b11e315baa
 	var ruleNameSet = gset.NewStrSet()
 	for i := 0; i < len(rules); {
 		if !ruleNameSet.AddIfNotExist(rules[i].Name) {
@@ -108,7 +109,8 @@ func (e *validationError) Maps() map[string]map[string]error {
 	return e.errors
 }
 
-// Items 如果可能，按顺序检索并返回错误项数组，否则返回无序的错误项。 md5:cb51d4d0fa07a635
+// Items 如果可能，按顺序检索并返回错误项数组，否则返回无序的错误项。
+// md5:cb51d4d0fa07a635
 func (e *validationError) Items() (items []map[string]map[string]error) {
 	if e == nil {
 		return []map[string]map[string]error{}
@@ -190,7 +192,8 @@ func (e *validationError) FirstRule() (rule string, err error) {
 }
 
 // FirstError 返回第一个错误消息作为字符串。
-// 注意，如果没有错误序列，返回的消息可能会有所不同。 md5:194a5e5551fbb1e3
+// 注意，如果没有错误序列，返回的消息可能会有所不同。
+// md5:194a5e5551fbb1e3
 func (e *validationError) FirstError() (err error) {
 	if e == nil {
 		return nil
@@ -230,7 +233,7 @@ func (e *validationError) Strings() (errs []string) {
 	if len(e.rules) > 0 {
 		for _, v := range e.rules {
 			if errorItemMap, ok := e.errors[v.Name]; ok {
-				// 验证错误检查。 md5:f68965da177b50ef
+								// 验证错误检查。 md5:f68965da177b50ef
 				for _, ruleItem := range strings.Split(v.Rule, "|") {
 					ruleItem = strings.TrimSpace(strings.Split(ruleItem, ":")[0])
 					if err, ok := errorItemMap[ruleItem]; ok {

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gconv_test
 
@@ -135,7 +136,7 @@ func Test_Issue1607(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1946。GF（Golang Foundation）是一个与Golang（Go语言）相关的开源项目，而"issues/1946"表示该链接指向的是第1946个已知问题或讨论。 md5:daac20d464788919
+//github.com/gogf/gf/issues/1946。GF（Golang Foundation）是一个与Golang（Go语言）相关的开源项目，而"issues/1946"表示该链接指向的是第1946个已知问题或讨论。 md5:daac20d464788919
 func Test_Issue1946(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -159,7 +160,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// 它不能改变私有属性。 md5:c15d94ed6929ce70
+		// 它不能改变私有属性。 md5:c15d94ed6929ce70
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			init *gtype.Bool
@@ -183,7 +184,7 @@ func Test_Issue1946(t *testing.T) {
 		t.Assert(a.B.Name, "init")
 		t.Assert(a.B.init.Val(), true)
 	})
-	// 它可以改变公共属性。 md5:b2c3110608923730
+		// 它可以改变公共属性。 md5:b2c3110608923730
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
 			Init *gtype.Bool
@@ -286,7 +287,7 @@ func Test_Issue2391(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2395. md5:f21adc84f980809e
+//github.com/gogf/gf/issues/2395. md5:f21adc84f980809e
 func Test_Issue2395(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type Test struct {
@@ -298,7 +299,7 @@ func Test_Issue2395(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2371 有关gf框架的GitHub问题讨论. md5:c428de079857b105
+//github.com/gogf/gf/issues/2371 有关gf框架的GitHub问题讨论. md5:c428de079857b105
 func Test_Issue2371(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (

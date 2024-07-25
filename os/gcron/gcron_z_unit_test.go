@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gcron_test
 
@@ -53,7 +54,7 @@ func TestCron_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		cron := gcron.New()
 		cron.Add(ctx, "* * * * * *", func(ctx context.Context) {}, "add")
-		// fmt.Println("开始", time.Now()). md5:518c980e118bdbbf
+				// fmt.Println("开始", time.Now()). md5:518c980e118bdbbf
 		cron.DelayAdd(ctx, time.Second, "* * * * * *", func(ctx context.Context) {}, "delay_add")
 		t.Assert(cron.Size(), 1)
 		time.Sleep(1200 * time.Millisecond)
@@ -136,7 +137,7 @@ func doTestCronAddFixedPattern(t *testing.T) {
 }
 
 func TestCron_AddSingleton(t *testing.T) {
-	// 未使用，可以删除. md5:7acdb570a3213eac
+			// 未使用，可以删除. md5:7acdb570a3213eac
 	gtest.C(t, func(t *gtest.T) {
 		cron := gcron.New()
 		cron.Add(ctx, "* * * * * *", func(ctx context.Context) {}, "add")

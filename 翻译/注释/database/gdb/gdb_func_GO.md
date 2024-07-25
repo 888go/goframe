@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -105,7 +106,8 @@
 
 # <翻译开始>
 // ToSQL 将给定闭包函数中的最后一个 SQL 语句格式化并返回，但并不会真正执行。
-// 注意，所有后续的 SQL 语句都应该使用由函数 `f` 传递的上下文对象。 md5:3fe82285d68728a0
+// 注意，所有后续的 SQL 语句都应该使用由函数 `f` 传递的上下文对象。
+// md5:3fe82285d68728a0
 # <翻译结束>
 
 
@@ -116,7 +118,8 @@
 
 # <翻译开始>
 // CatchSQL捕获并返回在给定闭包函数中执行的所有SQL语句。
-// 注意，所有以下SQL语句都应使用由`f`函数传递的context对象。 md5:1088111f1248173d
+// 注意，所有以下SQL语句都应使用由`f`函数传递的context对象。
+// md5:1088111f1248173d
 # <翻译结束>
 
 
@@ -136,7 +139,8 @@
 
 # <翻译开始>
 	// 它通过结构体名称如 "XxxForDao" 进行检查，以兼容旧版本。
-	// TODO: 未来某个时候移除这个兼容性代码。 md5:c8dc9518a3014aca
+	// TODO: 未来某个时候移除这个兼容性代码。
+	// md5:c8dc9518a3014aca
 # <翻译结束>
 
 
@@ -201,13 +205,14 @@
 
 # <翻译开始>
 // ListItemValues 从所有具有键为 `key` 的映射或结构体元素中检索并返回。请注意，参数 `list` 应该是包含映射或结构体元素的切片，否则将返回一个空切片。
-//
+// 
 // 参数 `list` 支持以下类型：
 // []map[string]interface{}
 // []map[string]子映射
 // []struct
 // []struct:子结构体
-// 如果提供了可选参数 `subKey`，子映射/子结构体才有意义。请参阅 gutil.ListItemValues。 md5:e67327bcbcd82096
+// 如果提供了可选参数 `subKey`，子映射/子结构体才有意义。请参阅 gutil.ListItemValues。
+// md5:e67327bcbcd82096
 # <翻译结束>
 
 
@@ -222,7 +227,8 @@
 // ListItemValuesUnique 获取并返回所有结构体/映射中键为`key`的唯一元素。
 // 注意，参数`list`应为切片类型，且包含的元素为映射或结构体，
 // 否则将返回一个空切片。
-// 参见gutil.ListItemValuesUnique。 md5:aa00cb15fafa41ba
+// 参见gutil.ListItemValuesUnique。
+// md5:aa00cb15fafa41ba
 # <翻译结束>
 
 
@@ -280,7 +286,8 @@
 # <翻译开始>
 // MapOrStructToMapDeep 递归地将 `value` 转换为映射类型（如果属性结构体被嵌入）。
 // 参数 `value` 应该是 *map、map、*struct 或 struct 类型。
-// 它支持结构体中的嵌入式结构体定义。 md5:3d9a4c7ad65d9fe1
+// 它支持结构体中的嵌入式结构体定义。
+// md5:3d9a4c7ad65d9fe1
 # <翻译结束>
 
 
@@ -296,9 +303,10 @@
 # <翻译开始>
 // doQuoteTableName 在表名前添加前缀字符串和引号。它处理的表名类型包括：
 // "user", "user u", "user,user_detail", "user u, user_detail ut", "user as u, user_detail as ut",
-// "user.user u", "“user“.“user“ u"。
-//
-// 注意，它会自动检查表名前缀是否已添加。如果已添加，则不进行任何操作；否则，会在表名前添加前缀，并返回带有前缀的新表名。 md5:fc5ea60c27043ac8
+// "user.user u", "``user``.``user`` u"。
+// 
+// 注意，它会自动检查表名前缀是否已添加。如果已添加，则不进行任何操作；否则，会在表名前添加前缀，并返回带有前缀的新表名。
+// md5:fc5ea60c27043ac8
 # <翻译结束>
 
 
@@ -344,7 +352,8 @@
 <原文结束>
 
 # <翻译开始>
-// doQuoteWord 检查给定的字符串 `s` 是否为一个单词，如果是，则使用 `charLeft` 和 `charRight` 对其进行引用并返回被引用的字符串；否则原样返回 `s`，不做任何改变。 md5:ac0c8a621b951784
+// doQuoteWord 检查给定的字符串 `s` 是否为一个单词，如果是，则使用 `charLeft` 和 `charRight` 对其进行引用并返回被引用的字符串；否则原样返回 `s`，不做任何改变。
+// md5:ac0c8a621b951784
 # <翻译结束>
 
 
@@ -371,7 +380,8 @@
 // "user u, user_detail ut"           => "`user` u,`user_detail` ut"
 // "user.user u, user.user_detail ut" => "`user`.`user` u,`user`.`user_detail` ut"
 // "u.id, u.name, u.age"              => "`u`.`id`,`u`.`name`,`u`.`age`"
-// "u.id asc"                         => "`u`.`id` asc" md5:556d2b4db186afe8
+// "u.id asc"                         => "`u`.`id` asc"
+// md5:556d2b4db186afe8
 # <翻译结束>
 
 
@@ -384,7 +394,8 @@
 # <翻译开始>
 			// 注释：
 			// mysql：u.uid
-			// mssql：使用双点表示法 Database..Table md5:66df82a8563f168b
+			// mssql：使用双点表示法 Database..Table
+			// md5:66df82a8563f168b
 # <翻译结束>
 
 
@@ -413,7 +424,8 @@
 // g.Map{"id": 1, "name": "john"}  => id=1 AND name='john'
 // 等等。
 //
-// 注意，如果主键为空或者`where`参数长度大于1，它会直接返回给定的`where`参数。 md5:748dfa9c0f0d93b5
+// 注意，如果主键为空或者`where`参数长度大于1，它会直接返回给定的`where`参数。
+// md5:748dfa9c0f0d93b5
 # <翻译结束>
 
 
@@ -450,7 +462,8 @@
 	// Where("name", "") .All()                -> 选择xxx FROM xxx WHERE `name`= ''
 	// OmitEmpty() .Where("id", []int{}) .All() -> 选择xxx FROM xxx
 	// OmitEmpty() .Where("name", "") .All()    -> 选择xxx FROM xxx
-	// OmitEmpty() .Where("1") .All()           -> 选择xxx FROM xxx WHERE 1 md5:13a1baa59d83a9fe
+	// OmitEmpty() .Where("1") .All()           -> 选择xxx FROM xxx WHERE 1
+	// md5:13a1baa59d83a9fe
 # <翻译结束>
 
 
@@ -470,7 +483,8 @@
 
 # <翻译开始>
 		// 如果`where`参数是`DO`结构体，那么它会为这个条件添加`OmitNil`选项，
-		// 这将会过滤掉`where`中的所有nil参数。 md5:dc90f650b5a33b25
+		// 这将会过滤掉`where`中的所有nil参数。
+		// md5:dc90f650b5a33b25
 # <翻译结束>
 
 
@@ -485,7 +499,8 @@
 		// 如果`where`结构体实现了`iIterator`接口，
 		// 则使用其Iterate函数来遍历键值对。
 		// 例如，ListMap和TreeMap是有序映射，
-		// 它们实现了`iIterator`接口，并且对where条件的索引友好。 md5:d2bd42ea2a41d114
+		// 它们实现了`iIterator`接口，并且对where条件的索引友好。
+		// md5:d2bd42ea2a41d114
 # <翻译结束>
 
 
@@ -545,9 +560,10 @@
 		// `whereStr` 是用作键值条件的字段名称吗？
 		// 例如：
 		// Where("id", 1)
-		// Where("id", g.Slice{1,2,3})
-		//
-		// 这段Go代码中的注释是在询问`whereStr`是否是一个用作键值对条件的字段名。它举例说明了如何使用`where`函数，其中第一个参数是字段名（如"id"），第二个参数可以是单个值（如1）或一个包含多个值的切片（如g.Slice{1,2,3}）。 md5:3e3e293b8d2b6e27
+		// Where("id", g.Slice{1,2,3}) 
+		// 
+		// 这段Go代码中的注释是在询问`whereStr`是否是一个用作键值对条件的字段名。它举例说明了如何使用`where`函数，其中第一个参数是字段名（如"id"），第二个参数可以是单个值（如1）或一个包含多个值的切片（如g.Slice{1,2,3}）。
+		// md5:3e3e293b8d2b6e27
 # <翻译结束>
 
 
@@ -569,7 +585,8 @@
 # <翻译开始>
 		// 普通字符串和参数占位符处理。
 		// 例如：
-		// Where("id in(?) and name=?", g.Slice{1,2,3}, "john") md5:8a2be53569a9ada1
+		// Where("id in(?) and name=?", g.Slice{1,2,3}, "john")
+		// md5:8a2be53569a9ada1
 # <翻译结束>
 
 
@@ -582,7 +599,8 @@
 # <翻译开始>
 			// ===============================================================
 			// 子查询，总是与字符串条件一起使用。
-			// =============================================================== md5:3cd7047ec77cba30
+			// ===============================================================
+			// md5:3cd7047ec77cba30
 # <翻译结束>
 
 
@@ -614,8 +632,9 @@
 						// 例如：
 						// Where("id", []int{1,2,3})
 						// Where("user.id", []int{1,2,3})
-						//
-						// 这段代码的注释表示示例用法，其中`Where`是一个函数，它接受两个参数：一个是要查询的字段（如"id"或"user.id"），另一个是一组值（如包含1, 2, 3的整数切片）。这通常用于在数据库查询中设置条件，比如筛选id为1, 2或3的记录，或者在"user"表中的"id"字段匹配这些值。 md5:5688161e5a37e690
+						// 
+						// 这段代码的注释表示示例用法，其中`Where`是一个函数，它接受两个参数：一个是要查询的字段（如"id"或"user.id"），另一个是一组值（如包含1, 2, 3的整数切片）。这通常用于在数据库查询中设置条件，比如筛选id为1, 2或3的记录，或者在"user"表中的"id"字段匹配这些值。
+						// md5:5688161e5a37e690
 # <翻译结束>
 
 
@@ -628,7 +647,8 @@
 # <翻译开始>
 						// 例如：
 						// Where("id", nil) 						// 指定 "id" 字段的查询条件为 nil（空）
-						// Where("user.id", nil) 						// 指定 "user.id" 字段的查询条件为 nil（空） md5:7b874349f1af2dd8
+						// Where("user.id", nil) 						// 指定 "user.id" 字段的查询条件为 nil（空）
+						// md5:7b874349f1af2dd8
 # <翻译结束>
 
 
@@ -641,7 +661,8 @@
 # <翻译开始>
 						// 例如：
 						// Where/And/Or("uid", 1) 						// 指定 "uid" 字段等于 1 的条件
-						// Where/And/Or("user.uid", 1) 						// 指定 "user" 对象下的 "uid" 字段等于 1 的条件 md5:0809c46d1c195714
+						// Where/And/Or("user.uid", 1) 						// 指定 "user" 对象下的 "uid" 字段等于 1 的条件
+						// md5:0809c46d1c195714
 # <翻译结束>
 
 
@@ -742,7 +763,8 @@
 <原文结束>
 
 # <翻译开始>
-	// 如果值是切片类型，并且键字符串中只有一个'?'占位符，它会根据参数数量自动添加占位符字符，并将其转换为"In"语句。 md5:10f5c168c92db7c7
+	// 如果值是切片类型，并且键字符串中只有一个'?'占位符，它会根据参数数量自动添加占位符字符，并将其转换为"In"语句。
+	// md5:10f5c168c92db7c7
 # <翻译结束>
 
 
@@ -809,7 +831,8 @@
 # <翻译开始>
 					// 键不是一个常规的字段名。
 					// 例如：Where(g.Map{"age > 16": nil})
-					// 问题链接：https:					//github.com/gogf/gf/issues/765 md5:79107f0b28e8b612
+					// 问题链接：https:					//github.com/gogf/gf/issues/765
+					// md5:79107f0b28e8b612
 # <翻译结束>
 
 
@@ -819,7 +842,8 @@
 <原文结束>
 
 # <翻译开始>
-// handleSliceAndStructArgsForSql 是一个重要的函数，它在将 sql 和其所有参数提交给底层驱动程序之前处理它们。 md5:a6e05a5f78b51a2b
+// handleSliceAndStructArgsForSql 是一个重要的函数，它在将 sql 和其所有参数提交给底层驱动程序之前处理它们。
+// md5:a6e05a5f78b51a2b
 # <翻译结束>
 
 
@@ -848,7 +872,8 @@
 
 # <翻译开始>
 			// 它不会分割 []byte 类型。
-			// 例如：table.Where("name = ?", []byte("john")) md5:05dcc823e289de42
+			// 例如：table.Where("name = ?", []byte("john"))
+			// md5:05dcc823e289de42
 # <翻译结束>
 
 
@@ -864,8 +889,9 @@
 				// 示例：
 				// Query("select * from xxx where id in(?)", g.Slice{}) -> select * from xxx where 0=1
 				// Where("id in(?)", g.Slice{}) -> WHERE 0=1
-				//
-				// 这里的注释说明了当使用空切片（`g.Slice{}`）作为参数时，Go的某些函数（如`Query`和`Where`）会将SQL中的条件改变为等价于`false`的形式，例如将`in`条件替换为`0=1`，从而使得查询结果为空。 md5:020597c0f38437e4
+				// 
+				// 这里的注释说明了当使用空切片（`g.Slice{}`）作为参数时，Go的某些函数（如`Query`和`Where`）会将SQL中的条件改变为等价于`false`的形式，例如将`in`条件替换为`0=1`，从而使得查询结果为空。
+				// md5:020597c0f38437e4
 # <翻译结束>
 
 
@@ -878,7 +904,8 @@
 # <翻译开始>
 				// 示例：
 				// Query("SELECT ?+?", g.Slice{1,2}) 				// 查询语句，参数为1和2
-				// WHERE("id=?", g.Slice{1,2}) 				// WHERE子句，参数为1和2 md5:4f9ae718d40ffb8b
+				// WHERE("id=?", g.Slice{1,2}) 				// WHERE子句，参数为1和2
+				// md5:4f9ae718d40ffb8b
 # <翻译结束>
 
 
@@ -891,7 +918,8 @@
 # <翻译开始>
 			// 如果 "?" 占位符的数量等于切片的长度，
 			// 则不执行参数分割的逻辑。
-			// 例如：db.Query("SELECT ?+?", g.Slice{1, 2}) md5:aac31c8c27bdcf7d
+			// 例如：db.Query("SELECT ?+?", g.Slice{1, 2})
+			// md5:aac31c8c27bdcf7d
 # <翻译结束>
 
 
@@ -928,7 +956,8 @@
 <原文结束>
 
 # <翻译开始>
-				// 如果结构体实现了String接口，它将默认将结构体转换为字符串。 md5:59ba6afad009bc6a
+				// 如果结构体实现了String接口，它将默认将结构体转换为字符串。
+				// md5:59ba6afad009bc6a
 # <翻译结束>
 
 
@@ -938,7 +967,8 @@
 <原文结束>
 
 # <翻译开始>
-// FormatSqlWithArgs 将参数绑定到SQL字符串并返回一个完整的SQL字符串，仅用于调试。 md5:1453466956e418ba
+// FormatSqlWithArgs 将参数绑定到SQL字符串并返回一个完整的SQL字符串，仅用于调试。
+// md5:1453466956e418ba
 # <翻译结束>
 
 

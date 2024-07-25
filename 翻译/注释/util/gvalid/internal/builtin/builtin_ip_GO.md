@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -27,6 +28,7 @@
 // RuleIp 实现了`ip`规则：
 // IPv4/IPv6。
 //
-// 格式：ip md5:29f0c39a26475dfa
+// 格式：ip
+// md5:29f0c39a26475dfa
 # <翻译结束>
 

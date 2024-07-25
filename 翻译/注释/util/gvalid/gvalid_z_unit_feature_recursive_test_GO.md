@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -57,7 +58,7 @@
 <原文结束>
 
 # <翻译开始>
-// github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
+//github.com/gogf/gf/issues/1921 问题讨论. md5:90deeb2484f4dc3a
 # <翻译结束>
 
 

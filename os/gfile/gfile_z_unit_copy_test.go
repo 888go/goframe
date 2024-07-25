@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gfile_test
 
@@ -118,7 +119,7 @@ func Test_CopyFile(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(dstStat.Mode().Perm(), dstMode)
 	})
-	// 保留src文件的模式. md5:a4c68c56c9abe9c4
+		// 保留src文件的模式. md5:a4c68c56c9abe9c4
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			src = "/testfile_copyfile1.txt"

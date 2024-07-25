@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gdb
 
@@ -55,11 +56,13 @@ type Model struct {
 	softTimeOption SoftTimeOption    // SoftTimeOption 是用于自定义 Model 的软时间功能的选项。 md5:fcc19f5ef8ad45e7
 }
 
+// Handler calls each of `handlers` on current Model and returns a new Model.
 // ModelHandler 是一个处理给定 Model 并返回一个自定义修改后的新 Model 的函数。 md5:a02af46ff8fb2568
 type ModelHandler func(m *Model) *Model
 
 // ChunkHandler 是一个函数，用于 Chunk 函数中，负责处理给定的结果和错误。
-// 如果希望继续分块处理，则返回true；否则返回false以停止分块。 md5:e7b2a1b4761ac415
+// 如果希望继续分块处理，则返回true；否则返回false以停止分块。
+// md5:e7b2a1b4761ac415
 type ChunkHandler func(result Result, err error) bool
 
 const (
@@ -76,15 +79,16 @@ const (
 
 // Model 根据给定的模式创建并返回一个新的ORM模型。
 // 参数 `tableNameQueryOrStruct` 可以是多个表名，也可以是别名，例如：
-//  1. 模型名称：
+// 1. 模型名称：
 //     db.Model("user")
 //     db.Model("user u")
 //     db.Model("user, user_detail")
 //     db.Model("user u, user_detail ud")
-//  2. 带别名的模型名称：
+// 2. 带别名的模型名称：
 //     db.Model("user", "u")
-//  3. 带子查询的模型名称：
-//     db.Model("? AS a, ? AS b", subQuery1, subQuery2) md5:add855a912a9b6ef
+// 3. 带子查询的模型名称：
+//     db.Model("? AS a, ? AS b", subQuery1, subQuery2)
+// md5:add855a912a9b6ef
 func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	var (
 		ctx       = c.db.GetCtx()
@@ -92,7 +96,7 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 		tableName string
 		extraArgs []interface{}
 	)
-	// 使用子查询创建模型。 md5:1c8112f948bca053
+		// 使用子查询创建模型。 md5:1c8112f948bca053
 	if len(tableNameQueryOrStruct) > 1 {
 		conditionStr := gconv.String(tableNameQueryOrStruct[0])
 		if gstr.Contains(conditionStr, "?") {
@@ -148,7 +152,8 @@ func (c *Core) Model(tableNameQueryOrStruct ...interface{}) *Model {
 
 // Raw根据原始SQL（而不是表）创建并返回一个模型。示例：
 //
-//	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result) md5:0865d39f2ab854cb
+//	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
+// md5:0865d39f2ab854cb
 func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 	model := c.Model()
 	model.rawSql = rawSql
@@ -161,7 +166,8 @@ func (c *Core) Raw(rawSql string, args ...interface{}) *Model {
 //
 //	db.Raw("SELECT * FROM `user` WHERE `name` = ?", "john").Scan(&result)
 //
-// 参见 Core.Raw。 md5:ced75308536ddfff
+// 参见 Core.Raw。
+// md5:ced75308536ddfff
 func (m *Model) Raw(rawSql string, args ...interface{}) *Model {
 	model := m.db.Raw(rawSql, args...)
 	model.db = m.db
@@ -180,9 +186,10 @@ func (c *Core) With(objects ...interface{}) *Model {
 
 // 分区设置分区名称。
 // 例子：
-// dao.User.Ctx(ctx).Partition("p1", "p2", "p3").All()
-//
-// 这段Go代码的注释表示：使用`Partition`方法对数据进行分区操作，传入多个分区名称（如："p1", "p2", "p3"），然后在查询时指定这些分区。`Ctx(ctx)`表示使用上下文`ctx`进行操作。`All()`是获取所有满足条件的数据。 md5:f133a577ba31c05f
+// dao.User.Ctx(ctx).Partition("p1", "p2", "p3").All() 
+// 
+// 这段Go代码的注释表示：使用`Partition`方法对数据进行分区操作，传入多个分区名称（如："p1", "p2", "p3"），然后在查询时指定这些分区。`Ctx(ctx)`表示使用上下文`ctx`进行操作。`All()`是获取所有满足条件的数据。
+// md5:f133a577ba31c05f
 func (m *Model) Partition(partitions ...string) *Model {
 	model := m.getModel()
 	model.partition = gstr.Join(partitions, ",")
@@ -190,7 +197,8 @@ func (m *Model) Partition(partitions ...string) *Model {
 }
 
 // Model 类似于 Core.Model，但它是基于事务操作的。
-// 请参阅 Core.Model。 md5:2c5866afc2e5dd90
+// 请参阅 Core.Model。
+// md5:2c5866afc2e5dd90
 func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 	model := tx.db.Model(tableNameQueryOrStruct...)
 	model.db = tx.db
@@ -199,7 +207,8 @@ func (tx *TXCore) Model(tableNameQueryOrStruct ...interface{}) *Model {
 }
 
 // With 的行为类似于 Core.With，但它是在事务上操作。
-// 参见 Core.With。 md5:37000d6ea41561fc
+// 参见 Core.With。
+// md5:37000d6ea41561fc
 func (tx *TXCore) With(object interface{}) *Model {
 	return tx.Model().With(object)
 }
@@ -218,7 +227,8 @@ func (m *Model) Ctx(ctx context.Context) *Model {
 }
 
 // GetCtx返回当前Model的上下文。
-// 如果之前没有设置上下文，则返回`context.Background()`。 md5:48edd9b438a38523
+// 如果之前没有设置上下文，则返回`context.Background()`。
+// md5:48edd9b438a38523
 func (m *Model) GetCtx() context.Context {
 	if m.tx != nil && m.tx.GetCtx() != nil {
 		return m.tx.GetCtx()
@@ -267,7 +277,8 @@ func (m *Model) Schema(schema string) *Model {
 	return model
 }
 
-// Clone 创建并返回一个新的模型，它是当前模型的克隆。请注意，它使用深拷贝进行克隆。 md5:27e973f2f4fb42b3
+// Clone 创建并返回一个新的模型，它是当前模型的克隆。请注意，它使用深拷贝进行克隆。
+// md5:27e973f2f4fb42b3
 func (m *Model) Clone() *Model {
 	newModel := (*Model)(nil)
 	if m.tx != nil {
@@ -277,10 +288,10 @@ func (m *Model) Clone() *Model {
 	}
 	// Basic attributes copy.
 	*newModel = *m
-	// WhereBuilder 的复制方法，注意属性是指针。 md5:c9aa75059eb72059
+		// WhereBuilder 的复制方法，注意属性是指针。 md5:c9aa75059eb72059
 	newModel.whereBuilder = m.whereBuilder.Clone()
 	newModel.whereBuilder.model = newModel
-	// 浅复制切片属性。 md5:d03df5f661b330b7
+		// 浅复制切片属性。 md5:d03df5f661b330b7
 	if n := len(m.extraArgs); n > 0 {
 		newModel.extraArgs = make([]interface{}, n)
 		copy(newModel.extraArgs, m.extraArgs)
@@ -300,7 +311,8 @@ func (m *Model) Master() *Model {
 }
 
 // Slave 在 slave 节点上标记以下操作。
-// 请注意，只有在配置了 slave 节点的情况下，此注释才有意义。 md5:3d6dbca5bafb9cdf
+// 请注意，只有在配置了 slave 节点的情况下，此注释才有意义。
+// md5:3d6dbca5bafb9cdf
 func (m *Model) Slave() *Model {
 	model := m.getModel()
 	model.linkType = linkTypeSlave
@@ -308,7 +320,8 @@ func (m *Model) Slave() *Model {
 }
 
 // Safe 标记此模型为安全或不安全。如果 safe 为 true，那么在执行完操作后，它会克隆并返回一个新的模型对象；
-// 否则，它将直接修改当前模型的属性。 md5:56aecad30556ca98
+// 否则，它将直接修改当前模型的属性。
+// md5:56aecad30556ca98
 func (m *Model) Safe(safe ...bool) *Model {
 	if len(safe) > 0 {
 		m.safe = safe[0]
@@ -325,6 +338,7 @@ func (m *Model) Args(args ...interface{}) *Model {
 	return model
 }
 
+// Handler calls each of `handlers` on current Model and returns a new Model.
 // Handler calls each of `handlers` on current Model and returns a new Model.
 // ModelHandler 是一个处理给定 Model 并返回一个自定义修改后的新 Model 的函数。 md5:a02af46ff8fb2568
 func (m *Model) Handler(handlers ...ModelHandler) *Model {

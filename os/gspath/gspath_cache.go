@@ -2,9 +2,11 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// gspath 包实现了对文件夹的索引和搜索功能。 md5:04299e0152ee648b
+// gspath 包实现了对文件夹的索引和搜索功能。
+// md5:04299e0152ee648b
 
 package gspath
 
@@ -27,7 +29,8 @@ func (sp *SPath) updateCacheByPath(path string) {
 
 // formatCacheName 根据以下规则格式化`name`：
 // 1. 分隔符统一为字符'/'。
-// 2. 名称应以'/'开头（类似于HTTP URI）。 md5:ed5316ca14ce4d4c
+// 2. 名称应以'/'开头（类似于HTTP URI）。
+// md5:ed5316ca14ce4d4c
 func (sp *SPath) formatCacheName(name string) string {
 	if runtime.GOOS != "linux" {
 		name = gstr.Replace(name, "\\", "/")
@@ -59,17 +62,18 @@ func (sp *SPath) parseCacheValue(value string) (filePath string, isDir bool) {
 }
 
 // addToCache 将一个项目添加到缓存中。
-// 如果 `filePath` 是一个目录，它还会递归地将所有子文件/目录添加到缓存中。 md5:836028ec6822544d
+// 如果 `filePath` 是一个目录，它还会递归地将所有子文件/目录添加到缓存中。
+// md5:836028ec6822544d
 func (sp *SPath) addToCache(filePath, rootPath string) {
 	// Add itself firstly.
 	idDir := gfile.IsDir(filePath)
 	sp.cache.SetIfNotExist(
 		sp.nameFromPath(filePath, rootPath), sp.makeCacheValue(filePath, idDir),
 	)
-	// 如果是一个目录，它会添加其下所有的子文件和子目录。 md5:d133c73c85e80b5b
+		// 如果是一个目录，它会添加其下所有的子文件和子目录。 md5:d133c73c85e80b5b
 	if idDir {
 		if files, err := gfile.ScanDir(filePath, "*", true); err == nil {
-			// fmt.Println("将文件路径", filePath, "和文件列表添加到缓存:", files). md5:787f23087852cffe
+						// fmt.Println("将文件路径", filePath, "和文件列表添加到缓存:", files). md5:787f23087852cffe
 			for _, path := range files {
 				sp.cache.SetIfNotExist(sp.nameFromPath(path, rootPath), sp.makeCacheValue(path, gfile.IsDir(path)))
 			}
@@ -79,13 +83,14 @@ func (sp *SPath) addToCache(filePath, rootPath string) {
 
 // addMonitorByPath 递归地添加 gfsnotify 监控。
 // 当目录下的文件被更新时，缓存也会同时被更新。
-// 注意，由于监听是递归添加的，如果你删除一个目录，该目录下的所有文件（包括目录本身）都会触发删除事件，这意味着如果删除了一个包含 N 个文件的目录，总共会产生 N+1 个事件。 md5:0142c351fd8dd58f
+// 注意，由于监听是递归添加的，如果你删除一个目录，该目录下的所有文件（包括目录本身）都会触发删除事件，这意味着如果删除了一个包含 N 个文件的目录，总共会产生 N+1 个事件。
+// md5:0142c351fd8dd58f
 func (sp *SPath) addMonitorByPath(path string) {
 	if sp.cache == nil {
 		return
 	}
 	_, _ = gfsnotify.Add(path, func(event *gfsnotify.Event) {
-		// 这个Go语言注释的中文翻译是：使用glog库的Debug级别记录event的字符串表示。 md5:9b7b21454414b499
+				// 这个Go语言注释的中文翻译是：使用glog库的Debug级别记录event的字符串表示。 md5:9b7b21454414b499
 		switch {
 		case event.IsRemove():
 			sp.cache.Remove(sp.nameFromPath(event.Path, path))

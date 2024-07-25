@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gsvc
 
@@ -43,11 +44,11 @@ func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name str
 	if discovery == nil {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `discovery cannot be nil`)
 	}
-	// 通过发现对象获取服务映射。 md5:a91dd67cf7ae237f
+		// 通过发现对象获取服务映射。 md5:a91dd67cf7ae237f
 	watchedServiceMap := watchedMap.GetOrSetFunc(discovery, func() interface{} {
 		return gmap.NewStrAnyMap(true)
 	}).(*gmap.StrAnyMap)
-	// 通过名称获取服务。 md5:6c20d3bc7e9e9d09
+		// 通过名称获取服务。 md5:6c20d3bc7e9e9d09
 	storedService := watchedServiceMap.GetOrSetFuncLock(name, func() interface{} {
 		var (
 			services []Service
@@ -64,10 +65,10 @@ func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name str
 			return nil
 		}
 
-		// 如果有多个，只选择一个。 md5:9ea08b90e82cd566
+				// 如果有多个，只选择一个。 md5:9ea08b90e82cd566
 		service = services[0]
 
-		// 在goroutine中观察服务的变化。 md5:365a338a3be90ab6
+				// 在goroutine中观察服务的变化。 md5:365a338a3be90ab6
 		if watch != nil {
 			if watcher, err = discovery.Watch(ctx, service.GetPrefix()); err != nil {
 				return nil

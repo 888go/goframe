@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gdb
 
@@ -30,7 +31,16 @@ type ConfigGroup []ConfigNode
 // ConfigNode 是一个节点的配置信息。
 // 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
 // ConfigNode 是一个节点的配置信息。
-// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21) md5:c441354f84b63933
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// ConfigNode 是一个节点的配置信息。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// ConfigNode 是一个节点的配置信息。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// ConfigNode 是一个节点的配置信息。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// ConfigNode 是一个节点的配置信息。
+// 备注: 此配置结构不做名称翻译, 防止通过map载入配置时, 会直接将文本名称转换成配置项名称, 导致找不到原名的配置项. (2024-07-21)
+// md5:c441354f84b63933
 type ConfigNode struct {
 	Host                 string        `json:"host"`                 // 服务器的主机，可以是 IP 地址或域名，如：127.0.0.1，localhost. md5:995f8d0f775d1561
 	Port                 string        `json:"port"`                 // Port, it's commonly 3306.
@@ -79,7 +89,8 @@ func init() {
 }
 
 // SetConfig 设置包的全局配置。
-// 它将覆盖包原有的配置。 md5:e9d794925a260f3e
+// 它将覆盖包原有的配置。
+// md5:e9d794925a260f3e
 func SetConfig(config Config) {
 	defer instances.Clear()
 	configs.Lock()
@@ -161,7 +172,8 @@ func GetDefaultGroup() string {
 }
 
 // IsConfigured 检查并返回数据库是否已配置。
-// 如果存在任何配置，它将返回 true。 md5:1232e7ebd0a7ce10
+// 如果存在任何配置，它将返回 true。
+// md5:1232e7ebd0a7ce10
 func IsConfigured() bool {
 	configs.RLock()
 	defer configs.RUnlock()
@@ -184,7 +196,8 @@ func (c *Core) GetLogger() glog.ILogger {
 //
 // 如果 n 小于或等于 0，则不保留任何空闲连接。
 //
-// 当前默认的最大空闲连接数为 2。这可能会在未来的版本中改变。 md5:7d6f4079c0bfc25f
+// 当前默认的最大空闲连接数为 2。这可能会在未来的版本中改变。
+// md5:7d6f4079c0bfc25f
 func (c *Core) SetMaxIdleConnCount(n int) {
 	c.dynamicConfig.MaxIdleConnCount = n
 }
@@ -193,7 +206,8 @@ func (c *Core) SetMaxIdleConnCount(n int) {
 //
 // 如果 MaxIdleConns 大于 0，并且新的 MaxOpenConns 小于 MaxIdleConns，那么 MaxIdleConns 将被调整为与新的 MaxOpenConns 限制相匹配。
 //
-// 如果 n 小于或等于 0，则没有对打开连接数的限制。默认值为 0（无限制）。 md5:e8cfc3ecf7f5887e
+// 如果 n 小于或等于 0，则没有对打开连接数的限制。默认值为 0（无限制）。
+// md5:e8cfc3ecf7f5887e
 func (c *Core) SetMaxOpenConnCount(n int) {
 	c.dynamicConfig.MaxOpenConnCount = n
 }
@@ -202,7 +216,8 @@ func (c *Core) SetMaxOpenConnCount(n int) {
 //
 // 过期的连接可能会在被重用前被惰性关闭。
 //
-// 如果 d <= 0，则连接不会因为超时而被关闭。 md5:f8d0da250f6387ba
+// 如果 d <= 0，则连接不会因为超时而被关闭。
+// md5:f8d0da250f6387ba
 func (c *Core) SetMaxConnLifeTime(d time.Duration) {
 	c.dynamicConfig.MaxConnLifeTime = d
 }
@@ -215,7 +230,8 @@ func (c *Core) GetConfig() *ConfigNode {
 		// 它会检查并从当前数据库返回配置，
 		// 如果当前数据库和上下文中的config.Name（名称）之间存在不同的模式，
 		// 例如，在嵌套事务场景中，上下文会传递给整个逻辑处理过程，
-		// 但来自上下文的config.Name可能仍然是最初事务对象的原始值。 md5:b5980190888563ed
+		// 但来自上下文的config.Name可能仍然是最初事务对象的原始值。
+		// md5:b5980190888563ed
 		if c.config.Name == configNode.Name {
 			return configNode
 		}

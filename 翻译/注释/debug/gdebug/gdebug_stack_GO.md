@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -31,7 +32,8 @@
 <原文结束>
 
 # <翻译开始>
-// Stack 返回调用它的goroutine的格式化堆栈跟踪。它调用runtime.Stack，使用足够大的缓冲区来捕获整个跟踪。 md5:1115a268fe979d5c
+// Stack 返回调用它的goroutine的格式化堆栈跟踪。它调用runtime.Stack，使用足够大的缓冲区来捕获整个跟踪。
+// md5:1115a268fe979d5c
 # <翻译结束>
 
 
@@ -45,8 +47,9 @@
 # <翻译开始>
 // StackWithFilter 返回调用它的goroutine的格式化堆栈跟踪。
 // 它使用足够大的缓冲区调用runtime.Stack以捕获整个跟踪。
-//
-// 参数`filter`用于过滤调用者路径。 md5:5342cfca7c1801ab
+// 
+// 参数`filter`用于过滤调用者路径。
+// md5:5342cfca7c1801ab
 # <翻译结束>
 
 
@@ -66,6 +69,7 @@
 //
 // 参数 `filters` 是一个字符串切片，用于过滤调用者的路径。
 //
-// 待办：使用debug.Stack来提高性能。 md5:febf8524b3fa5e97
+// 待办：使用debug.Stack来提高性能。
+// md5:febf8524b3fa5e97
 # <翻译结束>
 

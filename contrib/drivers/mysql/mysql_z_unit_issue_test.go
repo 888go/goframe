@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package mysql_test
 
@@ -23,7 +24,7 @@ import (
 	"github.com/gogf/gf/v2/util/guid"
 )
 
-// github.com/gogf/gf/issues/1934. md5:96f55929c7ed56a0
+//github.com/gogf/gf/issues/1934. md5:96f55929c7ed56a0
 func Test_Issue1934(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -35,7 +36,7 @@ func Test_Issue1934(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1570. md5:37966850af641bcc
+//github.com/gogf/gf/issues/1570. md5:37966850af641bcc
 func Test_Issue1570(t *testing.T) {
 	var (
 		tableUser       = "user_" + gtime.TimestampMicroStr()
@@ -122,7 +123,7 @@ CREATE TABLE %s (
 		}
 	})
 
-	// Result 使用具有结构体元素和指针属性的ScanList。 md5:b23d106d13859ad5
+		// Result 使用具有结构体元素和指针属性的ScanList。 md5:b23d106d13859ad5
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
@@ -267,7 +268,7 @@ func Test_Issue1412(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1002 问题讨论. md5:2a97dfd9cd049763
+//github.com/gogf/gf/issues/1002 问题讨论. md5:2a97dfd9cd049763
 func Test_Issue1002(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -294,19 +295,19 @@ func Test_Issue1002(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + 字符串参数。 md5:cb1db92222691d4d
+		// where + 字符串参数。 md5:cb1db92222691d4d
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
+		// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", gtime.New("2020-10-27 19:03:32"), gtime.New("2020-10-27 19:03:34")).Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// 带有时间.Time参数，使用UTC时区。 md5:80f36eaa256e894c
+		// 带有时间.Time参数，使用UTC时区。 md5:80f36eaa256e894c
 	gtest.C(t, func(t *gtest.T) {
 		t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32")
 		t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34")
@@ -339,7 +340,8 @@ func Test_Issue1002(t *testing.T) {
 	//         t.AssertNil(err) 	// 再次确认查询无错误。
 	//         t.Assert(v.Int(), 1) 	// 继续断言查询结果的ID为1。
 	//     }
-	// }) md5:766797023d98820e
+	// })
+	// md5:766797023d98820e
 }
 
 // 这段注释是引用了GitHub上gf框架的一个问题链接，编号为1700。在Go代码中，这种注释通常用于指向相关的讨论、问题或者需求，以便其他开发者了解代码的背景或上下文。翻译成中文后，其含义不变：. md5:a352b9ef5236ff28
@@ -390,7 +392,7 @@ func Test_Issue1700(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/1701。GF（Go Foundation）可能是Go语言的一个项目或者库，而"1701"可能是问题的编号。这个注释可能是在讨论或记录与GF项目相关的问题1701的情况。 md5:cc9c86ac60eeaf58
+//github.com/gogf/gf/issues/1701。GF（Go Foundation）可能是Go语言的一个项目或者库，而"1701"可能是问题的编号。这个注释可能是在讨论或记录与GF项目相关的问题1701的情况。 md5:cc9c86ac60eeaf58
 func Test_Issue1701(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -432,7 +434,7 @@ func Test_Issue1733(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2105. md5:579ab324e61be1fb
+//github.com/gogf/gf/issues/2105. md5:579ab324e61be1fb
 func Test_Issue2105(t *testing.T) {
 	table := "issue2105"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue2105.sql`), ";")
@@ -481,7 +483,7 @@ func Test_Issue2231(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2339。"gf"可能是某个Go语言的库（golang的gopher框架）的简称，"issues/2339"表示该仓库中编号为2339的问题或者issue。这可能是一个开发者社区中关于gf库的报告、提问或者反馈。 md5:fb506ddf20da598c
+//github.com/gogf/gf/issues/2339。"gf"可能是某个Go语言的库（golang的gopher框架）的简称，"issues/2339"表示该仓库中编号为2339的问题或者issue。这可能是一个开发者社区中关于gf库的报告、提问或者反馈。 md5:fb506ddf20da598c
 func Test_Issue2339(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -501,7 +503,7 @@ func Test_Issue2339(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2356。"gf"可能是某个项目的代号，"gogf"可能是一个开发者的用户名，"issues/2356"表示该问题是编号为2356的 issue（通常是开发者社区中报告的问题、建议或讨论）。 md5:a688eda9a4ec7d89
+//github.com/gogf/gf/issues/2356。"gf"可能是某个项目的代号，"gogf"可能是一个开发者的用户名，"issues/2356"表示该问题是编号为2356的 issue（通常是开发者社区中报告的问题、建议或讨论）。 md5:a688eda9a4ec7d89
 func Test_Issue2356(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table := "demo_" + guid.S()
@@ -526,7 +528,7 @@ func Test_Issue2356(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2338. md5:a504f30db0e1a70a
+//github.com/gogf/gf/issues/2338. md5:a504f30db0e1a70a
 func Test_Issue2338(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table1 := "demo_" + guid.S()
@@ -668,7 +670,7 @@ CREATE TABLE %s (
 	})
 }
 
-// github.com/gogf/gf/issues/2561。gf（Golang Foundation）是一个Go语言的开源框架，而"issues/2561"表示该仓库中编号为2561的问题或讨论。可能是用户在报告问题、请求功能或者讨论某个特定的代码问题。 md5:97cd71d9bf45e151
+//github.com/gogf/gf/issues/2561。gf（Golang Foundation）是一个Go语言的开源框架，而"issues/2561"表示该仓库中编号为2561的问题或讨论。可能是用户在报告问题、请求功能或者讨论某个特定的代码问题。 md5:97cd71d9bf45e151
 func Test_Issue2561(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -764,7 +766,7 @@ func Test_Issue2439(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2782. md5:e2d84654d9404496
+//github.com/gogf/gf/issues/2782. md5:e2d84654d9404496
 func Test_Issue2787(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -801,7 +803,7 @@ func Test_Issue2787(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/2907. md5:61d8552a7d7948bb
+//github.com/gogf/gf/issues/2907. md5:61d8552a7d7948bb
 func Test_Issue2907(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
@@ -971,7 +973,7 @@ func Test_Issue3204(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/3218. md5:ebeb6327a156dd70
+//github.com/gogf/gf/issues/3218. md5:ebeb6327a156dd70
 func Test_Issue3218(t *testing.T) {
 	table := "issue3218_sys_config"
 	array := gstr.SplitAndTrim(gtest.DataContent(`issue3218.sql`), ";")
@@ -1128,7 +1130,7 @@ func Test_Issue2643(t *testing.T) {
 	})
 }
 
-// github.com/gogf/gf/issues/3238。gf（GoGF）是一个用Go语言编写的高性能Web框架。这个注释可能是开发者在提到他们在gf项目中遇到的问题或提出的一个改进请求，3238号issue可能是一个已知问题的编号或者一个讨论的话题。 md5:98233bbbba37f999
+//github.com/gogf/gf/issues/3238。gf（GoGF）是一个用Go语言编写的高性能Web框架。这个注释可能是开发者在提到他们在gf项目中遇到的问题或提出的一个改进请求，3238号issue可能是一个已知问题的编号或者一个讨论的话题。 md5:98233bbbba37f999
 func Test_Issue3238(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)

@@ -4,7 +4,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package pgsql_test
 
@@ -304,7 +305,8 @@ func Test_DB_TableFields(t *testing.T) {
 
 		var expect = map[string][]interface{}{
 			// []string: 索引类型 为空情况 键 默认值 注释
-			// id 是 bigserial，所以默认值是一个 pgsql 函数 md5:42642899667c8094
+			// id 是 bigserial，所以默认值是一个 pgsql 函数
+			// md5:42642899667c8094
 			"id":          {0, "int8", false, "pri", fmt.Sprintf("nextval('%s_id_seq'::regclass)", table), ""},
 			"passport":    {1, "varchar", false, "", nil, ""},
 			"password":    {2, "varchar", false, "", nil, ""},

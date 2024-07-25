@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -19,7 +20,7 @@ import (
 )
 
 type (
-	// RouterGroup 是一个包裹多个路由和中间件的分组。 md5:609e7eb75d8a51f0
+		// RouterGroup 是一个包裹多个路由和中间件的分组。 md5:609e7eb75d8a51f0
 	RouterGroup struct {
 		parent     *RouterGroup  // Parent group.
 		server     *Server       // Server.
@@ -29,7 +30,8 @@ type (
 	}
 
 	// preBindItem 是用于路由器组延迟注册功能的项目。当路由组的路由函数被调用时，preBindItem 并没有真正注册到服务器，
-	// 而是在服务器启动时进行懒惰注册。 md5:4255b2f4d61ba05c
+	// 而是在服务器启动时进行懒惰注册。
+	// md5:4255b2f4d61ba05c
 	preBindItem struct {
 		group    *RouterGroup
 		bindType string
@@ -61,7 +63,7 @@ func (s *Server) handlePreBindItems(ctx context.Context) {
 		if item.bound {
 			continue
 		}
-		// 处理当前服务器的项目。 md5:5caf897b6c7b073a
+				// 处理当前服务器的项目。 md5:5caf897b6c7b073a
 		if item.group.server != nil && item.group.server != s {
 			continue
 		}
@@ -306,7 +308,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 		if err != nil {
 			g.server.Logger().Fatalf(ctx, "invalid route pattern: %s", pattern)
 		}
-		// 如果已经有域，那么在模式中清除域字段。 md5:e02751d36da77b97
+				// 如果已经有域，那么在模式中清除域字段。 md5:e02751d36da77b97
 		if g.domain != nil {
 			domain = ""
 		}
@@ -318,13 +320,13 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 			)
 		}
 	}
-	// 过滤重复的字符 '/'。 md5:9b9a7539f6ae7305
+		// 过滤重复的字符 '/'。 md5:9b9a7539f6ae7305
 	pattern = gstr.Replace(pattern, "//", "/")
 
-	// 将参数转换为字符串数组。 md5:8388b98c9b261cad
+		// 将参数转换为字符串数组。 md5:8388b98c9b261cad
 	extras := gconv.Strings(params)
 
-	// 检查它是否是钩子处理器。 md5:f6b816a5e567ae34
+		// 检查它是否是钩子处理器。 md5:f6b816a5e567ae34
 	if _, ok := object.(HandlerFunc); ok && len(extras) > 0 {
 		bindType = groupBindTypeHook
 	}
@@ -388,7 +390,7 @@ func (g *RouterGroup) doBindRoutersToServer(ctx context.Context, item *preBindIt
 					Middleware: g.middleware,
 					Source:     source,
 				}
-				// 最后，它将`object`视为注册类型的对象。 md5:1175240ff3996b3d
+								// 最后，它将`object`视为注册类型的对象。 md5:1175240ff3996b3d
 				if g.domain != nil {
 					g.domain.doBindObject(ctx, in)
 				} else {

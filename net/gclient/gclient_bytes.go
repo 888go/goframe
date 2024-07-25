@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gclient
 
@@ -58,7 +59,8 @@ func (c *Client) TraceBytes(ctx context.Context, url string, data ...interface{}
 	return c.RequestBytes(ctx, http.MethodTrace, url, data...)
 }
 
-// RequestBytes 使用给定的HTTP方法和数据发送请求，并将结果作为字节返回。它会自动读取并关闭响应对象。 md5:9c3a91009734fc7a
+// RequestBytes 使用给定的HTTP方法和数据发送请求，并将结果作为字节返回。它会自动读取并关闭响应对象。
+// md5:9c3a91009734fc7a
 func (c *Client) RequestBytes(ctx context.Context, method string, url string, data ...interface{}) []byte {
 	response, err := c.DoRequest(ctx, method, url, data...)
 	if err != nil {

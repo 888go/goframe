@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package goai
 
@@ -64,7 +65,8 @@ type Schema struct {
 }
 
 // 只有必要的属性会被克隆。
-// TODO 克隆所有属性，或者改进包的深拷贝功能。 md5:5648a4a6a90c8e18
+// TODO 克隆所有属性，或者改进包的深拷贝功能。
+// md5:5648a4a6a90c8e18
 func (s *Schema) Clone() *Schema {
 	newSchema := *s
 	newSchema.Required = make([]string, len(s.Required))
@@ -102,7 +104,8 @@ type Discriminator struct {
 }
 
 // addSchema 用于创建包含对象的模式。
-// 注意，`object` 可以是数组别名，例如：`type Res []Item`。 md5:c0f033836f564a8c
+// 注意，`object` 可以是数组别名，例如：`type Res []Item`。
+// md5:c0f033836f564a8c
 func (oai *OpenApiV3) addSchema(object ...interface{}) error {
 	for _, v := range object {
 		if err := oai.doAddSchemaSingle(v); err != nil {
@@ -224,7 +227,7 @@ func (oai *OpenApiV3) tagMapToSchema(tagMap map[string]string, schema *Schema) e
 		return gerror.Wrap(err, `mapping struct tags to Schema failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, schema.XExtensions)
-	// 验证信息到OpenAPI规范模式。 md5:8caca50de8e752c8
+		// 验证信息到OpenAPI规范模式。 md5:8caca50de8e752c8
 	for _, tag := range gvalid.GetTags() {
 		if validationTagValue, ok := tagMap[tag]; ok {
 			_, validationRules, _ := gvalid.ParseTagValue(validationTagValue)

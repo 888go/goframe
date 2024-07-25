@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,7 +24,8 @@
 
 # <翻译开始>
 // LRU 缓存对象。
-// 它使用 stdlib 中的 list.List 作为其底层的双链表。 md5:0865da04bb1ff4bb
+// 它使用 stdlib 中的 list.List 作为其底层的双链表。
+// md5:0865da04bb1ff4bb
 # <翻译结束>
 
 
@@ -105,7 +107,8 @@
 <原文结束>
 
 # <翻译开始>
-// SyncAndClear 使用最近最少使用（LRU）算法，将键从`rawList`同步到`list`和`data`中，并清除不再需要的数据。 md5:1da6cde3bc8d63d6
+// SyncAndClear 使用最近最少使用（LRU）算法，将键从`rawList`同步到`list`和`data`中，并清除不再需要的数据。
+// md5:1da6cde3bc8d63d6
 # <翻译结束>
 
 
@@ -125,6 +128,7 @@
 
 # <翻译开始>
 			// 将键推送到列表的头部
-			// 并将其项目设置到哈希表中，以便快速索引。 md5:c4ec4de48ddb7b0c
+			// 并将其项目设置到哈希表中，以便快速索引。
+			// md5:c4ec4de48ddb7b0c
 # <翻译结束>
 

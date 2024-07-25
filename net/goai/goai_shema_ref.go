@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package goai
 
@@ -24,7 +25,7 @@ type SchemaRef struct {
 }
 
 // isEmbeddedStructDefinition 检查并返回给定的 Go 语言类型是否是嵌入的结构体定义，例如：
-//
+// 
 //	```go
 //	type A struct {
 //	    B struct {
@@ -32,8 +33,9 @@ type SchemaRef struct {
 //	    }
 //	}
 //	```
-//
-// 在 `A` 中的 `B` 被称为 `嵌入的结构体定义`。 md5:45d275bc85e98290
+// 
+// 在 `A` 中的 `B` 被称为 `嵌入的结构体定义`。
+// md5:45d275bc85e98290
 func (oai *OpenApiV3) isEmbeddedStructDefinition(golangType reflect.Type) bool {
 	s := golangType.String()
 	return gstr.Contains(s, `struct {`)
@@ -84,35 +86,35 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 		if schemaRef.Value.Default != nil {
 			schemaRef.Value.Default = gconv.Int64(schemaRef.Value.Default)
 		}
-		// 将默认值保留为nil。 md5:a85d623b66e78405
+				// 将默认值保留为nil。 md5:a85d623b66e78405
 
-		// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
+				// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
 		if schemaRef.Value.Example != nil {
 			schemaRef.Value.Example = gconv.Int64(schemaRef.Value.Example)
 		}
-		// 保持示例值为 nil。 md5:236a31f4aed61b8c
+				// 保持示例值为 nil。 md5:236a31f4aed61b8c
 	case TypeNumber:
 		if schemaRef.Value.Default != nil {
 			schemaRef.Value.Default = gconv.Float64(schemaRef.Value.Default)
 		}
-		// 将默认值保留为nil。 md5:a85d623b66e78405
+				// 将默认值保留为nil。 md5:a85d623b66e78405
 
-		// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
+				// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
 		if schemaRef.Value.Example != nil {
 			schemaRef.Value.Example = gconv.Float64(schemaRef.Value.Example)
 		}
-		// 保持示例值为 nil。 md5:236a31f4aed61b8c
+				// 保持示例值为 nil。 md5:236a31f4aed61b8c
 	case TypeBoolean:
 		if schemaRef.Value.Default != nil {
 			schemaRef.Value.Default = gconv.Bool(schemaRef.Value.Default)
 		}
-		// 将默认值保留为nil。 md5:a85d623b66e78405
+				// 将默认值保留为nil。 md5:a85d623b66e78405
 
-		// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
+				// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
 		if schemaRef.Value.Example != nil {
 			schemaRef.Value.Example = gconv.Bool(schemaRef.Value.Example)
 		}
-		// 保持示例值为 nil。 md5:236a31f4aed61b8c
+				// 保持示例值为 nil。 md5:236a31f4aed61b8c
 	case
 		TypeArray:
 		subSchemaRef, err := oai.newSchemaRefWithGolangType(golangType.Elem(), nil)
@@ -132,7 +134,7 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 		}
 		switch golangType.Kind() {
 		case reflect.Map:
-			// 特别针对映射类型。 md5:e7fa8512d15545fb
+						// 特别针对映射类型。 md5:e7fa8512d15545fb
 			subSchemaRef, err := oai.newSchemaRefWithGolangType(golangType.Elem(), nil)
 			if err != nil {
 				return nil, err
@@ -141,7 +143,7 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 			return schemaRef, nil
 
 		case reflect.Interface:
-			// 专门用于接口类型。 md5:dbaf9c5bd34e0ea8
+						// 专门用于接口类型。 md5:dbaf9c5bd34e0ea8
 			var (
 				structTypeName = oai.golangTypeToSchemaName(golangType)
 			)

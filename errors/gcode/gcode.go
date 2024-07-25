@@ -1,27 +1,30 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 
 // 包gcode提供了通用的错误代码定义和常见的错误代码实现。 md5:cb91541987c67096
 package gcode
 
 // Code 是一个通用错误代码接口的定义。 md5:bc72f9cd69a9f042
 type Code interface {
-	// Code 返回当前错误代码的整数值。 md5:75b8de0b4b9fa0a7
+		// Code 返回当前错误代码的整数值。 md5:75b8de0b4b9fa0a7
 	Code() int
 
-	// Message返回当前错误代码的简要消息。 md5:e0440d2d9a5b929c
+		// Message返回当前错误代码的简要消息。 md5:e0440d2d9a5b929c
 	Message() string
 
-	// Detail返回当前错误代码的详细信息，主要用于作为错误代码的扩展字段。 md5:b363ac7e7695be15
+	// Detail返回当前错误代码的详细信息，主要用于作为错误代码的扩展字段。
+	// md5:b363ac7e7695be15
 	Detail() interface{}
 }
 
 //==============================================================================================================
 // 公共错误码定义。
 // 框架保留了内部错误码的使用范围：代码小于1000。
-//============================================================================================================== md5:aeebc2e4a8ad2666
+//==============================================================================================================
+// md5:aeebc2e4a8ad2666
 
 var (
 	CodeNil                       = localCode{-1, "", nil}                             // 没有指定错误代码。 md5:f3402e31e47f29a9
@@ -49,7 +52,8 @@ var (
 )
 
 // New 创建并返回一个错误代码。
-// 注意，它返回一个 Code 接口对象。 md5:a3d7ec3807589165
+// 注意，它返回一个 Code 接口对象。
+// md5:a3d7ec3807589165
 func New(code int, message string, detail interface{}) Code {
 	return localCode{
 		code:    code,
@@ -59,7 +63,8 @@ func New(code int, message string, detail interface{}) Code {
 }
 
 // WithCode 根据给定的`Code`创建并返回一个新的错误代码。
-// 该错误代码的码和消息来自`code`，但详细信息来自`detail`。 md5:6f2355f302e9ea32
+// 该错误代码的码和消息来自`code`，但详细信息来自`detail`。
+// md5:6f2355f302e9ea32
 func WithCode(code Code, detail interface{}) Code {
 	return localCode{
 		code:    code.Code(),

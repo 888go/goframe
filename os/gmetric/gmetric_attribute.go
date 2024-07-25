@@ -1,7 +1,8 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 
 package gmetric
 
@@ -28,7 +29,7 @@ type AttributeKey string
 
 // Option包含执行度量操作的选项。 md5:1a7865b57252c62c
 type Option struct {
-	// Attributes保存动态的键值对元数据。 md5:837d5c5300f22ee1
+		// Attributes保存动态的键值对元数据。 md5:837d5c5300f22ee1
 	Attributes Attributes
 }
 

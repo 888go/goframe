@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtime
 
@@ -29,7 +30,8 @@ type iUnixNano interface {
 // 例子：
 // New("2024-10-29")
 // New(1390876568)
-// New(t) // t 是 time.Time 类型。 md5:6951100c014c4ba9
+// New(t) // t 是 time.Time 类型。
+// md5:6951100c014c4ba9
 func New(param ...interface{}) *Time {
 	if len(param) > 0 {
 		switch r := param[0].(type) {
@@ -98,7 +100,8 @@ func NewFromTime(t time.Time) *Time {
 }
 
 // NewFromStr 根据给定的字符串创建并返回一个 Time 对象。
-// 注意，如果发生错误，它将返回 nil。 md5:4687b38a27582a12
+// 注意，如果发生错误，它将返回 nil。
+// md5:4687b38a27582a12
 func NewFromStr(str string) *Time {
 	if t, err := StrToTime(str); err == nil {
 		return t
@@ -107,7 +110,8 @@ func NewFromStr(str string) *Time {
 }
 
 // NewFromStrFormat 通过给定的字符串和自定义格式（如：Y-m-d H:i:s）创建并返回一个Time对象。
-// 注意，如果发生错误，它将返回nil。 md5:ed9966a0a8156f1d
+// 注意，如果发生错误，它将返回nil。
+// md5:ed9966a0a8156f1d
 func NewFromStrFormat(str string, format string) *Time {
 	if t, err := StrToTimeFormat(str, format); err == nil {
 		return t
@@ -116,7 +120,8 @@ func NewFromStrFormat(str string, format string) *Time {
 }
 
 // NewFromStrLayout 根据给定的字符串和标准库格式（如：2006-01-02 15:04:05）创建并返回一个Time对象。
-// 注意，如果出现错误，它将返回nil。 md5:027f4d0876baa1a8
+// 注意，如果出现错误，它将返回nil。
+// md5:027f4d0876baa1a8
 func NewFromStrLayout(str string, layout string) *Time {
 	if t, err := StrToTimeLayout(str, layout); err == nil {
 		return t
@@ -126,7 +131,8 @@ func NewFromStrLayout(str string, layout string) *Time {
 
 // NewFromTimeStamp 根据给定的时间戳创建并返回一个 Time 对象，
 // 该时间戳可以是秒到纳秒的精度。
-// 例如：1600443866 和 1600443866199266000 都被视为有效的时间戳数值。 md5:6a84edd691c97a4f
+// 例如：1600443866 和 1600443866199266000 都被视为有效的时间戳数值。
+// md5:6a84edd691c97a4f
 func NewFromTimeStamp(timestamp int64) *Time {
 	if timestamp == 0 {
 		return &Time{}
@@ -178,7 +184,8 @@ func (t *Time) TimestampNano() int64 {
 	return t.UnixNano()
 }
 
-// TimestampStr 是一个方便的方法，它获取并返回时间戳（以秒为单位）的字符串形式。 md5:f638769b91eb1dd5
+// TimestampStr 是一个方便的方法，它获取并返回时间戳（以秒为单位）的字符串形式。
+// md5:f638769b91eb1dd5
 func (t *Time) TimestampStr() string {
 	if t.IsZero() {
 		return ""
@@ -186,7 +193,8 @@ func (t *Time) TimestampStr() string {
 	return strconv.FormatInt(t.Timestamp(), 10)
 }
 
-// TimestampMilliStr是一个方便的方法，它获取并返回毫秒级的时间戳作为字符串。 md5:cf293e6d5c9383d0
+// TimestampMilliStr是一个方便的方法，它获取并返回毫秒级的时间戳作为字符串。
+// md5:cf293e6d5c9383d0
 func (t *Time) TimestampMilliStr() string {
 	if t.IsZero() {
 		return ""
@@ -194,7 +202,8 @@ func (t *Time) TimestampMilliStr() string {
 	return strconv.FormatInt(t.TimestampMilli(), 10)
 }
 
-// TimestampMicroStr是一个方便的方法，它获取并返回微秒级别的时间戳作为字符串。 md5:2930c4dc2c5feaae
+// TimestampMicroStr是一个方便的方法，它获取并返回微秒级别的时间戳作为字符串。
+// md5:2930c4dc2c5feaae
 func (t *Time) TimestampMicroStr() string {
 	if t.IsZero() {
 		return ""
@@ -202,7 +211,8 @@ func (t *Time) TimestampMicroStr() string {
 	return strconv.FormatInt(t.TimestampMicro(), 10)
 }
 
-// TimestampNanoStr 是一个便捷方法，用于获取并以字符串形式返回纳秒级的时间戳。 md5:ff842fbe274c5052
+// TimestampNanoStr 是一个便捷方法，用于获取并以字符串形式返回纳秒级的时间戳。
+// md5:ff842fbe274c5052
 func (t *Time) TimestampNanoStr() string {
 	if t.IsZero() {
 		return ""
@@ -218,7 +228,8 @@ func (t *Time) Month() int {
 	return int(t.Time.Month())
 }
 
-// Second返回由t指定的分钟内的第二个偏移量，范围在[0, 59]之间。 md5:5666ae5cbf21989d
+// Second返回由t指定的分钟内的第二个偏移量，范围在[0, 59]之间。
+// md5:5666ae5cbf21989d
 func (t *Time) Second() int {
 	if t.IsZero() {
 		return 0
@@ -226,7 +237,8 @@ func (t *Time) Second() int {
 	return t.Time.Second()
 }
 
-// Millisecond 返回给定时间 t 所在秒内的毫秒偏移，范围为 [0, 999]。 md5:8bb4c372dc3ada79
+// Millisecond 返回给定时间 t 所在秒内的毫秒偏移，范围为 [0, 999]。
+// md5:8bb4c372dc3ada79
 func (t *Time) Millisecond() int {
 	if t.IsZero() {
 		return 0
@@ -234,7 +246,8 @@ func (t *Time) Millisecond() int {
 	return t.Time.Nanosecond() / 1e6
 }
 
-// Microsecond 返回 t 指定的秒内微秒偏移量，范围为 [0, 999999]。 md5:cb28fad241f60582
+// Microsecond 返回 t 指定的秒内微秒偏移量，范围为 [0, 999999]。
+// md5:cb28fad241f60582
 func (t *Time) Microsecond() int {
 	if t.IsZero() {
 		return 0
@@ -242,7 +255,8 @@ func (t *Time) Microsecond() int {
 	return t.Time.Nanosecond() / 1e3
 }
 
-// Nanosecond 返回 t 所指定秒内的纳秒偏移量，范围为 [0, 999999999]。 md5:c1dcd3dd99062cf7
+// Nanosecond 返回 t 所指定秒内的纳秒偏移量，范围为 [0, 999999999]。
+// md5:c1dcd3dd99062cf7
 func (t *Time) Nanosecond() int {
 	if t.IsZero() {
 		return 0
@@ -258,7 +272,8 @@ func (t *Time) String() string {
 	return t.wrapper.String()
 }
 
-// IsZero报告是否`t`表示零时间点，即UTC时间的1970年1月1日00:00:00。 md5:4e2b46d4fa63a878
+// IsZero报告是否`t`表示零时间点，即UTC时间的1970年1月1日00:00:00。
+// md5:4e2b46d4fa63a878
 func (t *Time) IsZero() bool {
 	if t == nil {
 		return true
@@ -315,7 +330,8 @@ func (t *Time) AddDate(years int, months int, days int) *Time {
 // Round 返回将 t 四舍五入到 d 的倍数的结果（从零时间开始）。对于半等值，四舍五入行为向上取整。
 // 如果 d 小于等于 0，Round 会返回 t 并移除任何单调时钟读数，但保持不变。
 //
-// Round 以绝对的自零时间以来的时间段进行操作；它不处理时间的呈现形式。因此，Round(Hour) 可能返回一个非零分钟的时间，具体取决于时间的 Location。 md5:b2557220790fc058
+// Round 以绝对的自零时间以来的时间段进行操作；它不处理时间的呈现形式。因此，Round(Hour) 可能返回一个非零分钟的时间，具体取决于时间的 Location。
+// md5:b2557220790fc058
 func (t *Time) Round(d time.Duration) *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.Round(d)
@@ -327,7 +343,8 @@ func (t *Time) Round(d time.Duration) *Time {
 //
 // Truncate是基于时间从零时间点起的绝对持续时间来进行操作的；
 // 它并不作用于时间的展示形式。因此，Truncate(Hour)可能返回一个分钟数非零的时间，
-// 这取决于该时间的位置信息（Location）。 md5:f72e0e00b245e691
+// 这取决于该时间的位置信息（Location）。
+// md5:f72e0e00b245e691
 func (t *Time) Truncate(d time.Duration) *Time {
 	newTime := t.Clone()
 	newTime.Time = newTime.Time.Truncate(d)
@@ -338,7 +355,8 @@ func (t *Time) Truncate(d time.Duration) *Time {
 // 即使两个时间在不同的时区，它们也可以相等。
 // 例如，CEST 的 6:00 +0200 和 UTC 的 4:00 是相等的。
 // 查看 Time 类型的文档，了解使用 == 操作符比较时间值时可能遇到的问题；
-// 大多数代码应使用 Equal 而非 ==。 md5:a28e147d11d5fe0f
+// 大多数代码应使用 Equal 而非 ==。
+// md5:a28e147d11d5fe0f
 func (t *Time) Equal(u *Time) bool {
 	switch {
 	case t == nil && u != nil:
@@ -371,7 +389,8 @@ func (t *Time) After(u *Time) bool {
 
 // Sub 返回持续时间 t-u。如果结果超过了能存储在 Duration 类型中的最大（或最小）
 // 值，那么将返回最大（或最小）的持续时间。
-// 要计算 t-d（其中 d 为一个持续时间），请使用 t.Add(-d)。 md5:c975e5087c03d3b9
+// 要计算 t-d（其中 d 为一个持续时间），请使用 t.Add(-d)。
+// md5:c975e5087c03d3b9
 func (t *Time) Sub(u *Time) time.Duration {
 	if t == nil || u == nil {
 		return 0
@@ -402,13 +421,15 @@ func (t *Time) StartOfDay() *Time {
 	return newTime
 }
 
-// StartOfWeek 克隆并返回一个新的时间，该时间为一周的第一天，其时间设置为00:00:00。 md5:46c7f050c7f59e0a
+// StartOfWeek 克隆并返回一个新的时间，该时间为一周的第一天，其时间设置为00:00:00。
+// md5:46c7f050c7f59e0a
 func (t *Time) StartOfWeek() *Time {
 	weekday := int(t.Weekday())
 	return t.StartOfDay().AddDate(0, 0, -weekday)
 }
 
-// StartOfMonth 创建并返回一个新的时间，该时间是月份的第一天，并且时间设置为 00:00:00 md5:3de8c28f482566bb
+// StartOfMonth 创建并返回一个新的时间，该时间是月份的第一天，并且时间设置为 00:00:00
+// md5:3de8c28f482566bb
 func (t *Time) StartOfMonth() *Time {
 	y, m, _ := t.Date()
 	newTime := t.Clone()
@@ -416,21 +437,24 @@ func (t *Time) StartOfMonth() *Time {
 	return newTime
 }
 
-// StartOfQuarter克隆并返回一个新的时间，它是季度的第一天，时间被设置为00:00:00。 md5:814969ee5c648fb0
+// StartOfQuarter克隆并返回一个新的时间，它是季度的第一天，时间被设置为00:00:00。
+// md5:814969ee5c648fb0
 func (t *Time) StartOfQuarter() *Time {
 	month := t.StartOfMonth()
 	offset := (int(month.Month()) - 1) % 3
 	return month.AddDate(0, -offset, 0)
 }
 
-// StartOfHalf克隆并返回一个新的时间，它是半年的第一天，时间被设置为00:00:00。 md5:5b53c4e328da312e
+// StartOfHalf克隆并返回一个新的时间，它是半年的第一天，时间被设置为00:00:00。
+// md5:5b53c4e328da312e
 func (t *Time) StartOfHalf() *Time {
 	month := t.StartOfMonth()
 	offset := (int(month.Month()) - 1) % 6
 	return month.AddDate(0, -offset, 0)
 }
 
-// StartOfYear 克隆并返回一个新的时间，该时间为一年中的第一天，其时间设置为00:00:00。 md5:7bfbc3ec2e634ff2
+// StartOfYear 克隆并返回一个新的时间，该时间为一年中的第一天，其时间设置为00:00:00。
+// md5:7bfbc3ec2e634ff2
 func (t *Time) StartOfYear() *Time {
 	y, _, _ := t.Date()
 	newTime := t.Clone()
@@ -491,7 +515,8 @@ func (t *Time) EndOfYear(withNanoPrecision ...bool) *Time {
 	return t.StartOfYear().AddDate(1, 0, 0).Add(-getPrecisionDelta(withNanoPrecision...))
 }
 
-// MarshalJSON 实现了 json.Marshal 接口的 MarshalJSON 方法。注意，不要使用 `(t *Time) MarshalJSON() ([]byte, error)`，因为它会丢失 Time 结构体的 MarshalJSON 接口实现。 md5:daef718235a856ce
+// MarshalJSON 实现了 json.Marshal 接口的 MarshalJSON 方法。注意，不要使用 `(t *Time) MarshalJSON() ([]byte, error)`，因为它会丢失 Time 结构体的 MarshalJSON 接口实现。
+// md5:daef718235a856ce
 func (t Time) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + t.String() + `"`), nil
 }
@@ -511,7 +536,8 @@ func (t *Time) UnmarshalJSON(b []byte) error {
 }
 
 // UnmarshalText实现了encoding.TextUnmarshaler接口。
-// 注意，它会覆盖与`time.Time`相同的实现者。 md5:8aa957653e42443a
+// 注意，它会覆盖与`time.Time`相同的实现者。
+// md5:8aa957653e42443a
 func (t *Time) UnmarshalText(data []byte) error {
 	vTime := New(data)
 	if vTime != nil {

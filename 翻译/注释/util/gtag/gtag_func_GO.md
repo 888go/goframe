@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -23,7 +24,8 @@
 
 # <翻译开始>
 // Set 设置指定名称的标签内容。
-// 请注意，如果`name`已经存在，该函数会引发恐慌。 md5:3b301b4174b60616
+// 请注意，如果`name`已经存在，该函数会引发恐慌。
+// md5:3b301b4174b60616
 # <翻译结束>
 
 
@@ -75,6 +77,7 @@
 // Parse 通过将所有标签名变量替换为其内容，解析并返回给定的`content`。
 // 示例：
 // gtag.Set("demo", "content")
-// Parse(`This is {demo}`) -> `This is content`。 md5:b45c5273962c7662
+// Parse(`This is {demo}`) -> `This is content`。
+// md5:b45c5273962c7662
 # <翻译结束>
 

@@ -1,7 +1,8 @@
 // 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
 // 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。 md5:c14c707c81272457
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 
 package gmetric
 
@@ -20,7 +21,8 @@ var (
 
 // RegisterCallback 在特定指标上注册回调。
 // 回调与特定组件和版本绑定，当关联的指标被读取时会被调用。
-// 同一组件和版本上的多个回调将按照它们注册的顺序被调用。 md5:a7b0f2e948a5cd42
+// 同一组件和版本上的多个回调将按照它们注册的顺序被调用。
+// md5:a7b0f2e948a5cd42
 func (meter *localMeter) RegisterCallback(callback Callback, observableMetrics ...ObservableMetric) error {
 	if len(observableMetrics) == 0 {
 		return nil
@@ -42,7 +44,8 @@ func (meter *localMeter) MustRegisterCallback(callback Callback, observableMetri
 }
 
 // GetRegisteredCallbacks 获取并返回已注册的全局回调函数。
-// 如果返回回调函数，会截断回调函数切片。 md5:22e1858dfd047cb0
+// 如果返回回调函数，会截断回调函数切片。
+// md5:22e1858dfd047cb0
 func GetRegisteredCallbacks() []CallbackItem {
 	items := globalCallbackItems
 	globalCallbackItems = globalCallbackItems[:0]

@@ -2,7 +2,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package ghttp
 
@@ -40,9 +41,10 @@ type gracefulServer struct {
 }
 
 // newGracefulServer 创建并返回一个给定地址的优雅HTTP服务器。
-// 可选参数 `fd` 指定了从父服务器传递过来的文件描述符。 md5:e7000c344ed0446f
+// 可选参数 `fd` 指定了从父服务器传递过来的文件描述符。
+// md5:e7000c344ed0446f
 func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
-	// 将端口转换为地址形式，如：80 -> :80. md5:71e59572a00dec96
+		// 将端口转换为地址形式，如：80 -> :80. md5:71e59572a00dec96
 	if gstr.IsNumeric(address) {
 		address = ":" + address
 	}
@@ -85,7 +87,8 @@ func (s *Server) newHttpServer(address string) *http.Server {
 	return server
 }
 
-// Fd获取并返回当前服务器的文件描述符。它只在*nix类操作系统中可用，如Linux、Unix和Darwin。 md5:40546fed24d791cd
+// Fd获取并返回当前服务器的文件描述符。它只在*nix类操作系统中可用，如Linux、Unix和Darwin。
+// md5:40546fed24d791cd
 func (s *gracefulServer) Fd() uintptr {
 	if ln := s.getRawListener(); ln != nil {
 		file, err := ln.(*net.TCPListener).File()
@@ -109,7 +112,8 @@ func (s *gracefulServer) CreateListener() error {
 
 // CreateListenerTLS 在配置的地址上创建使用HTTPS的监听器。
 // 参数`certFile`和`keyFile`指定了HTTPS所需的证书和密钥文件。
-// 可选参数`tlsConfig`指定自定义的TLS配置。 md5:04f46f61853037ca
+// 可选参数`tlsConfig`指定自定义的TLS配置。
+// md5:04f46f61853037ca
 func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig ...*tls.Config) error {
 	var config *tls.Config
 	if len(tlsConfig) > 0 && tlsConfig[0] != nil {
@@ -182,7 +186,8 @@ func (s *gracefulServer) GetListenedAddress() string {
 }
 
 // GetListenedPort 获取并返回当前服务器正在监听的其中一个端口。
-// 注意，如果服务器只监听一个端口，则此方法才可用。 md5:2fe5eae2317fe8f9
+// 注意，如果服务器只监听一个端口，则此方法才可用。
+// md5:2fe5eae2317fe8f9
 func (s *gracefulServer) GetListenedPort() int {
 	if ln := s.getRawListener(); ln != nil {
 		return ln.Addr().(*net.TCPAddr).Port

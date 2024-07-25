@@ -12,7 +12,8 @@
 //
 // 本源代码形式受MIT许可证条款约束。
 // 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 # <翻译结束>
 
 
@@ -40,7 +41,8 @@
 <原文结束>
 
 # <翻译开始>
-// parseSql 在将 SQL 语句提交给底层驱动程序之前，进行一些替换，以支持 Oracle 服务器。 md5:be49fd2231417d4d
+// parseSql 在将 SQL 语句提交给底层驱动程序之前，进行一些替换，以支持 Oracle 服务器。
+// md5:be49fd2231417d4d
 # <翻译结束>
 
 
