@@ -273,7 +273,7 @@ func Test_StructType(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A))
 		t.AssertNil(err)
-		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.A`)
+		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.A`) //th:github.com/888go/goframe/os/gstructs_test/gstructs_test.A cz:github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.A
 	})
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {
@@ -284,7 +284,7 @@ func Test_StructType(t *testing.T) {
 		}
 		r, err := gstructs.StructType(new(A).B)
 		t.AssertNil(err)
-		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.B`)
+		t.Assert(r.Signature(), `github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.B`) //th:github.com/888go/goframe/os/gstructs_test/gstructs_test.B cz:github.com/gogf/gf/v2/os/gstructs_test/gstructs_test.B
 	})
 	gtest.C(t, func(t *gtest.T) {
 		type B struct {

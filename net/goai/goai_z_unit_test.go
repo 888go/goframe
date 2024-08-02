@@ -53,12 +53,12 @@ func Test_Basic(t *testing.T) {
 		t.AssertNil(err)
 		// Schema asserts.
 		t.Assert(len(oai.Components.Schemas.Map()), 2)
-		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CreateResourceReq`).Value.Type, goai.TypeObject)
+		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CreateResourceReq`).Value.Type, goai.TypeObject) //th:github.com.888go.goframe.net.goai_test.CreateResourceReq cz:github.com.gogf.gf.v2.net.goai_test.CreateResourceReq
 		t.Assert(len(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CreateResourceReq`).Value.Properties.Map()), 7)
 		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CreateResourceReq`).Value.Properties.Get(`appId`).Value.Type, goai.TypeInteger)
 		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CreateResourceReq`).Value.Properties.Get(`resourceId`).Value.Type, goai.TypeString)
 
-		t.Assert(len(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.SetSpecInfo`).Value.Properties.Map()), 3)
+		t.Assert(len(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.SetSpecInfo`).Value.Properties.Map()), 3) //th:github.com.888go.goframe.net.goai_test.SetSpecInfo cz:github.com.gogf.gf.v2.net.goai_test.SetSpecInfo
 		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.SetSpecInfo`).Value.Properties.Get(`Params`).Value.Type, goai.TypeArray)
 	})
 }
@@ -167,7 +167,7 @@ func TestOpenApiV3_Add_Recursive(t *testing.T) {
 		t.AssertNil(err)
 		// Schema asserts.
 		t.Assert(len(oai.Components.Schemas.Map()), 3)
-		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CategoryTreeItem`).Value.Type, goai.TypeObject)
+		t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CategoryTreeItem`).Value.Type, goai.TypeObject) //th:github.com.888go.goframe.net.goai_test.CategoryTreeItem cz:github.com.gogf.gf.v2.net.goai_test.CategoryTreeItem
 		t.Assert(len(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.CategoryTreeItem`).Value.Properties.Map()), 3)
 	})
 }
@@ -1031,7 +1031,7 @@ func Test_NameFromJsonTag(t *testing.T) {
 
 		b, err := json.Marshal(oai)
 		t.AssertNil(err)
-		t.Assert(b, `{"openapi":"3.0.0","components":{"schemas":{"github.com.gogf.gf.v2.net.goai_test.CreateReq":{"properties":{"nick_name":{"format":"string","properties":{},"type":"string"}},"type":"object"}}},"info":{"title":"","version":""},"paths":null}`)
+		t.Assert(b, `{"openapi":"3.0.0","components":{"schemas":{"github.com.gogf.gf.v2.net.goai_test.CreateReq":{"properties":{"nick_name":{"format":"string","properties":{},"type":"string"}},"type":"object"}}},"info":{"title":"","version":""},"paths":null}`) //th:github.com.888go.goframe.net.goai_test.CreateReq cz:github.com.gogf.gf.v2.net.goai_test.CreateReq
 	})
 	// GET
 	gtest.C(t, func(t *gtest.T) {
@@ -1155,7 +1155,7 @@ func Test_Enums(t *testing.T) {
 			req = new(Req)
 		)
 		err = gtag.SetGlobalEnums(gjson.MustEncodeString(g.Map{
-			"github.com/gogf/gf/v2/net/goai_test.Status": []interface{}{StatusA, StatusB},
+			"github.com/gogf/gf/v2/net/goai_test.Status": []interface{}{StatusA, StatusB}, //th:github.com/888go/goframe/net/goai_test.Status cz:github.com/gogf/gf/v2/net/goai_test.Status
 		}))
 		t.AssertNil(err)
 
@@ -1163,7 +1163,7 @@ func Test_Enums(t *testing.T) {
 			Object: req,
 		})
 		t.AssertNil(err)
-		var reqKey = "github.com.gogf.gf.v2.net.goai_test.Req"
+		var reqKey = "github.com.gogf.gf.v2.net.goai_test.Req" //th:github.com.888go.goframe.net.goai_test.Req cz:github.com.gogf.gf.v2.net.goai_test.Req
 		t.AssertNE(oai.Components.Schemas.Get(reqKey).Value.Properties.Get("Name"), nil)
 		t.Assert(oai.Components.Schemas.Get(reqKey).Value.Properties.Get("Status1").Value.Enum, g.Slice{"a", "b"})
 		t.Assert(oai.Components.Schemas.Get(reqKey).Value.Properties.Get("Status2").Value.Enum, g.Slice{"a", "b"})
@@ -1188,6 +1188,6 @@ func Test_XExtension(t *testing.T) {
 			Object: req,
 		})
 		t.AssertNil(err)
-		t.Assert(oai.String(), `{"openapi":"3.0.0","components":{"schemas":{"github.com.gogf.gf.v2.net.goai_test.GetListReq":{"properties":{"Page":{"default":1,"description":"Page number","format":"int","properties":{},"type":"integer","x-sort":"1"},"Size":{"default":10,"description":"Size for per page.","format":"int","properties":{},"type":"integer","x-sort":"2"}},"type":"object","x-group":"User/Info"}}},"info":{"title":"","version":""},"paths":null}`)
+		t.Assert(oai.String(), `{"openapi":"3.0.0","components":{"schemas":{"github.com.gogf.gf.v2.net.goai_test.GetListReq":{"properties":{"Page":{"default":1,"description":"Page number","format":"int","properties":{},"type":"integer","x-sort":"1"},"Size":{"default":10,"description":"Size for per page.","format":"int","properties":{},"type":"integer","x-sort":"2"}},"type":"object","x-group":"User/Info"}}},"info":{"title":"","version":""},"paths":null}`) //th:github.com.888go.goframe.net.goai_test.GetListReq cz:github.com.gogf.gf.v2.net.goai_test.GetListReq
 	})
 }
