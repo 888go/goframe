@@ -62,3 +62,7 @@ cz=github.com.gogf.gf.v2.net.goai_test.Req
 [t.Assert(oai.String(), `{"openapi":"3.0.0","components":{"schemas":{"github.com.gogf.gf.v2.net.goai_test.GetListReq":{"properties":{"Page":{"default":1,"description":"Page number","format":"int","properties":{},"type":"integer","x-sort":"1"},"Size":{"default":10,"description":"Size for per page.","format":"int","properties":{},"type":"integer","x-sort":"2"}},"type":"object","x-group":"User/Info"}}},"info":{"title":"","version":""},"paths":null}`)]
 th=github.com.888go.goframe.net.goai_test.GetListReq
 cz=github.com.gogf.gf.v2.net.goai_test.GetListReq
+
+[t.Assert(oai.Components.Schemas.Get(`github.com.gogf.gf.v2.net.goai_test.Res`).Value.Type, goai.TypeString)]
+th=github.com.888go.goframe.net.goai_test.Res
+cz=github.com.gogf.gf.v2.net.goai_test.Res

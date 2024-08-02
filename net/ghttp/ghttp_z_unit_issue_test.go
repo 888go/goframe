@@ -396,7 +396,7 @@ func Test_Issue2890(t *testing.T) {
 		t.AssertNil(err)
 		defer t.AssertNil(gtag.SetGlobalEnums(oldEnumsJson))
 
-		err = gtag.SetGlobalEnums(`{"github.com/gogf/gf/v2/net/ghttp_test.Issue2890Enum": ["a","b"]}`) //th:github.com/888go/goframe/net/ghttp_test.Issue2890Enum cz:github.com/gogf/gf/v2/net/ghttp_test.Issue2890Enum
+		err = gtag.SetGlobalEnums(`{"github.com/888go/goframe/net/ghttp_test.Issue2890Enum": ["a","b"]}`)
 		t.AssertNil(err)
 
 		s := g.Server(guid.S())

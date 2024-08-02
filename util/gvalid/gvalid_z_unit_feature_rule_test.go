@@ -1586,7 +1586,7 @@ func Test_Enums(t *testing.T) {
 		t.AssertNil(err)
 		defer t.AssertNil(gtag.SetGlobalEnums(oldEnumsJson))
 
-		err = gtag.SetGlobalEnums(`{"github.com/gogf/gf/v2/util/gvalid_test.EnumsTest": ["a","b"]}`) //th:github.com/888go/goframe/util/gvalid_test.EnumsTest cz:github.com/gogf/gf/v2/util/gvalid_test.EnumsTest
+		err = gtag.SetGlobalEnums(`{"github.com/888go/goframe/util/gvalid_test.EnumsTest": ["a","b"]}`)
 		t.AssertNil(err)
 
 		err = g.Validator().Data(&Params{
