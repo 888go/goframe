@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package pgsql
 
@@ -11,8 +10,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/util/gutil"
+	gdb "github.com/888go/goframe/database/gdb"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 var (
@@ -40,13 +39,13 @@ func init() {
 	}
 }
 
-// TableFields 获取并返回当前模式中指定表的字段信息。 md5:920febaff284f5e7
+// TableFields retrieves and returns the fields' information of specified table of current schema.
 func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result
 		link       gdb.Link
 		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
-				// TODO：id结果重复了吗？. md5:1a107e32ccbc7928
+		// TODO duplicated `id` result?
 		structureSql = fmt.Sprintf(tableFieldsSqlTmp, table)
 	)
 	if link, err = d.SlaveLink(usedSchema); err != nil {
@@ -64,7 +63,7 @@ func (d *Driver) TableFields(ctx context.Context, table string, schema ...string
 	)
 	for _, m := range result {
 		name = m["field"].String()
-				// 过滤重复的字段。 md5:e2695e711875512a
+		// Filter duplicated fields.
 		if _, ok = fields[name]; ok {
 			continue
 		}

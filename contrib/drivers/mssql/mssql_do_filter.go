@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package mssql
 
@@ -13,9 +12,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	gdb "github.com/888go/goframe/database/gdb"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 var (
@@ -34,12 +33,12 @@ func init() {
 	}
 }
 
-// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
+// DoFilter deals with the sql string before commits it to underlying sql driver.
 func (d *Driver) DoFilter(
 	ctx context.Context, link gdb.Link, sql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {
 	var index int
-		// 将占位符字符'?'转换为字符串"@px"。 md5:e9602cb8693766e3
+	// Convert placeholder char '?' to string "@px".
 	newSql, err = gregex.ReplaceStringFunc("\\?", sql, func(s string) string {
 		index++
 		return fmt.Sprintf("@p%d", index)
@@ -59,8 +58,8 @@ func (d *Driver) DoFilter(
 	return d.Core.DoFilter(ctx, link, newSql, newArgs)
 }
 
-// parseSql 在将 SQL 语句提交给底层驱动程序之前，进行一些替换，以支持微软SQL服务器。
-// md5:dedc2c424a170a26
+// parseSql does some replacement of the sql before commits it to underlying driver,
+// for support of microsoft sql server.
 func (d *Driver) parseSql(toBeCommittedSql string) (string, error) {
 	var (
 		err       error
@@ -78,7 +77,7 @@ func (d *Driver) parseSql(toBeCommittedSql string) (string, error) {
 }
 
 func (d *Driver) handleSelectSqlReplacement(toBeCommittedSql string) (newSql string, err error) {
-		// 查询USER表中ID为1的所有列，限制返回结果为1条. md5:3f978a0c9e2f99a6
+	// SELECT * FROM USER WHERE ID=1 LIMIT 1
 	match, err := gregex.MatchString(`^SELECT(.+)LIMIT 1$`, toBeCommittedSql)
 	if err != nil {
 		return "", err
@@ -87,7 +86,7 @@ func (d *Driver) handleSelectSqlReplacement(toBeCommittedSql string) (newSql str
 		return fmt.Sprintf(`SELECT TOP 1 %s`, match[1]), nil
 	}
 
-		// 从USER表中选择所有AGE大于18的记录，按ID降序排序，从第100条开始，取200条数据. md5:b1500e0aa6edbbb7
+	// SELECT * FROM USER WHERE AGE>18 ORDER BY ID DESC LIMIT 100, 200
 	patten := `^\s*(?i)(SELECT)|(LIMIT\s*(\d+)\s*,\s*(\d+))`
 	if gregex.IsMatchString(patten, toBeCommittedSql) == false {
 		return toBeCommittedSql, nil
@@ -97,7 +96,7 @@ func (d *Driver) handleSelectSqlReplacement(toBeCommittedSql string) (newSql str
 		return "", err
 	}
 	var index = 1
-		// LIMIT语句检查。 md5:b3cd8a3a3e1cd305
+	// LIMIT statement checks.
 	if len(allMatch) < 2 ||
 		(strings.HasPrefix(allMatch[index][0], "LIMIT") == false &&
 			strings.HasPrefix(allMatch[index][0], "limit") == false) {
@@ -106,7 +105,7 @@ func (d *Driver) handleSelectSqlReplacement(toBeCommittedSql string) (newSql str
 	if gregex.IsMatchString("((?i)SELECT)(.+)((?i)LIMIT)", toBeCommittedSql) == false {
 		return toBeCommittedSql, nil
 	}
-		// 检查ORDER BY语句。 md5:5ff030b44f15e56a
+	// ORDER BY statement checks.
 	var (
 		selectStr = ""
 		orderStr  = ""

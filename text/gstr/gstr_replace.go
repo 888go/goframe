@@ -1,21 +1,19 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gstr
+package 文本类
 
 import (
 	"strings"
 
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/internal/utils"
 )
 
-// Replace 函数返回一个副本字符串 `origin`
-// 在这个副本中，所有字符串 `search` 都会被 `replace` 替换，此替换区分大小写。
-// md5:452df01ae43b07d9
+// Replace returns a copy of the string `origin`
+// in which string `search` replaced by `replace` case-sensitively.
 func Replace(origin, search, replace string, count ...int) string {
 	n := -1
 	if len(count) > 0 {
@@ -24,9 +22,8 @@ func Replace(origin, search, replace string, count ...int) string {
 	return strings.Replace(origin, search, replace, n)
 }
 
-// ReplaceI 返回一个字符串 `origin` 的副本，
-// 在该副本中不区分大小写地将字符串 `search` 替换为 `replace`。
-// md5:f667575fd12d3732
+// ReplaceI returns a copy of the string `origin`
+// in which string `search` replaced by `replace` case-insensitively.
 func ReplaceI(origin, search, replace string, count ...int) string {
 	n := -1
 	if len(count) > 0 {
@@ -57,8 +54,8 @@ func ReplaceI(origin, search, replace string, count ...int) string {
 	return origin
 }
 
-// ReplaceByArray返回一个`origin`的副本，它被按顺序、区分大小写的方式替换为一个切片。
-// md5:3b7b1a35fd597e47
+// ReplaceByArray returns a copy of `origin`,
+// which is replaced by a slice in order, case-sensitively.
 func ReplaceByArray(origin string, array []string) string {
 	for i := 0; i < len(array); i += 2 {
 		if i+1 >= len(array) {
@@ -69,8 +66,8 @@ func ReplaceByArray(origin string, array []string) string {
 	return origin
 }
 
-// ReplaceIByArray 返回一个副本 `origin`，它被按顺序、不区分大小写地替换为一个切片。
-// md5:45d1fbd66515d9dd
+// ReplaceIByArray returns a copy of `origin`,
+// which is replaced by a slice in order, case-insensitively.
 func ReplaceIByArray(origin string, array []string) string {
 	for i := 0; i < len(array); i += 2 {
 		if i+1 >= len(array) {
@@ -81,16 +78,14 @@ func ReplaceIByArray(origin string, array []string) string {
 	return origin
 }
 
-// ReplaceByMap 返回一个`origin`的副本，
-// 使用映射无序地替换其中的内容，且区分大小写。
-// md5:c047c08d8be640ad
+// ReplaceByMap returns a copy of `origin`,
+// which is replaced by a map in unordered way, case-sensitively.
 func ReplaceByMap(origin string, replaces map[string]string) string {
 	return utils.ReplaceByMap(origin, replaces)
 }
 
-// ReplaceIByMap 返回 `origin` 的一个副本，
-// 其中内容被一个映射无序地替换，且替换时不区分大小写。
-// md5:5b002ab4f7bd0cd8
+// ReplaceIByMap returns a copy of `origin`,
+// which is replaced by a map in unordered way, case-insensitively.
 func ReplaceIByMap(origin string, replaces map[string]string) string {
 	for k, v := range replaces {
 		origin = ReplaceI(origin, k, v)

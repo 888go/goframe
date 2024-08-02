@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package ghttp_test
+package http类_test
 
 import (
 	"context"
@@ -16,13 +15,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/encoding/gurl"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/httputil"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	gurl "github.com/888go/goframe/encoding/gurl"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/httputil"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	genv "github.com/888go/goframe/os/genv"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 var (
@@ -145,7 +144,7 @@ func Test_RoutePathParams(t *testing.T) {
 }
 
 func Test_BuildParams(t *testing.T) {
-		// 正常情况和特殊情况. md5:e92447df0c42f0ae
+	// normal && special cases
 	params := map[string]string{
 		"val":   "12345678",
 		"code1": "x&a=1", // for fix
@@ -163,7 +162,7 @@ func Test_BuildParams(t *testing.T) {
 		for k := range vs {
 			vv := vs.Get(k)
 			_, ok := params[k]
-									// 检查没有多余的参数. md5:0a0f11b34d795824
+			// check no additional param
 			t.Assert(ok, true)
 			// check equal
 			t.AssertEQ(params[k], vv)

@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package sqlite_test
 
@@ -14,14 +13,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gdb "github.com/888go/goframe/database/gdb"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gxml "github.com/888go/goframe/encoding/gxml"
+	"github.com/888go/goframe/frame/g"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_New(t *testing.T) {
@@ -43,7 +42,7 @@ func Test_New(t *testing.T) {
 func Test_New_Path_With_Colon(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 
-		dbFilePathWithColon := gfile.Join(dbDir, "test:1")
+		dbFilePathWithColon := gfile.Join(dbDir, "test_1")
 		if err := gfile.Mkdir(dbFilePathWithColon); err != nil {
 			gtest.Error(err)
 		}
@@ -215,7 +214,7 @@ func Test_DB_Insert(t *testing.T) {
 	})
 }
 
-//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
+// Fix issue: https://github.com/gogf/gf/issues/819
 func Test_DB_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -1448,9 +1447,8 @@ func Test_DB_Ctx_Logger(t *testing.T) {
 	})
 }
 
-// 所有类型的测试。
+// All types testing.
 // https://www.sqlite.org/datatype3.html
-// md5:d23ed0b51680ff07
 func Test_Types(t *testing.T) {
 	tableName := "types_" + gtime.TimestampNanoStr()
 	gtest.C(t, func(t *gtest.T) {
@@ -1508,7 +1506,7 @@ func Test_Types(t *testing.T) {
 		t.Assert(one["date"].String(), data["date"])
 		t.Assert(one["time"].String(), `10:00:01`)
 		t.Assert(one["timestamp"].GTime().Format(`Y-m-d H:i:s.u`), `2022-02-14 12:00:01.123`)
-		t.Assert(one["decimal"].String(), data["decimal"]) // 在SQLite中，值的类型与值本身关联，而不是与它的容器关联。 md5:3cb74b511f32abf4
+		t.Assert(one["decimal"].String(), data["decimal"]) // In SQLite, the datatype of a value is associated with the value itself, not with its container.
 		t.Assert(one["double"].String(), data["double"])
 		t.Assert(one["tinyint"].Bool(), data["tinyint"])
 
@@ -1546,7 +1544,7 @@ func Test_TableFields(t *testing.T) {
 		createTable(tableName)
 		defer dropTable(tableName)
 		var expect = map[string][]interface{}{
-						// 字段	类型	空值	键	默认值	额外信息	注释. md5:c2b58b539e04fa5f
+			// fields		type	null	key	default	extra	comment
 			"id":          {"INTEGER", false, "pri", nil, "", ""},
 			"passport":    {"VARCHAR(45)", false, "", "passport", "", ""},
 			"password":    {"VARCHAR(128)", false, "", "password", "", ""},

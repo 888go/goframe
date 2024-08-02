@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gsvc
 
@@ -11,44 +10,44 @@ import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/util/gutil"
+	gmap "github.com/888go/goframe/container/gmap"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
-// watchedMap 存储了发现对象及其关注的服务映射。 md5:131b7e9a4eb2667c
+// watchedMap stores discovery object and its watched service mapping.
 var watchedMap = gmap.New(true)
 
-// ServiceWatch 用于观察服务状态。 md5:075e96d2f9f06fe0
+// ServiceWatch is used to watch the service status.
 type ServiceWatch func(service Service)
 
-// Get通过服务名称检索并返回服务。 md5:74843a42d759b705
+// Get retrieves and returns the service by service name.
 func Get(ctx context.Context, name string) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, defaultRegistry, name, nil)
 }
 
-// GetWithDiscovery 通过`discovery`中的服务名称检索并返回服务。 md5:f1ca28780ddf8348
+// GetWithDiscovery retrieves and returns the service by service name in `discovery`.
 func GetWithDiscovery(ctx context.Context, discovery Discovery, name string) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, discovery, name, nil)
 }
 
-// GetAndWatch 用于获取服务并使用自定义的监视回调函数进行监视。 md5:9fa8d7df3bbbbe6d
+// GetAndWatch is used to getting the service with custom watch callback function.
 func GetAndWatch(ctx context.Context, name string, watch ServiceWatch) (service Service, err error) {
 	return GetAndWatchWithDiscovery(ctx, defaultRegistry, name, watch)
 }
 
-// GetAndWatchWithDiscovery 用于在`discovery`中获取服务并使用自定义的观察回调函数。 md5:07dc90075ba8e7c6
+// GetAndWatchWithDiscovery is used to getting the service with custom watch callback function in `discovery`.
 func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name string, watch ServiceWatch) (service Service, err error) {
 	if discovery == nil {
 		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `discovery cannot be nil`)
 	}
-		// 通过发现对象获取服务映射。 md5:a91dd67cf7ae237f
+	// Retrieve service map by discovery object.
 	watchedServiceMap := watchedMap.GetOrSetFunc(discovery, func() interface{} {
 		return gmap.NewStrAnyMap(true)
 	}).(*gmap.StrAnyMap)
-		// 通过名称获取服务。 md5:6c20d3bc7e9e9d09
+	// Retrieve service by name.
 	storedService := watchedServiceMap.GetOrSetFuncLock(name, func() interface{} {
 		var (
 			services []Service
@@ -65,10 +64,10 @@ func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name str
 			return nil
 		}
 
-				// 如果有多个，只选择一个。 md5:9ea08b90e82cd566
+		// Just pick one if multiple.
 		service = services[0]
 
-				// 在goroutine中观察服务的变化。 md5:365a338a3be90ab6
+		// Watch the service changes in goroutine.
 		if watch != nil {
 			if watcher, err = discovery.Watch(ctx, service.GetPrefix()); err != nil {
 				return nil
@@ -83,7 +82,7 @@ func GetAndWatchWithDiscovery(ctx context.Context, discovery Discovery, name str
 	return
 }
 
-// watchAndUpdateService 监控服务并在其发生更改时更新内存中的服务。 md5:08346bbe119e4400
+// watchAndUpdateService watches and updates the service in memory if it is changed.
 func watchAndUpdateService(watchedServiceMap *gmap.StrAnyMap, watcher Watcher, service Service, watchFunc ServiceWatch) {
 	var (
 		ctx      = context.Background()
@@ -109,7 +108,7 @@ func watchAndUpdateService(watchedServiceMap *gmap.StrAnyMap, watcher Watcher, s
 	}
 }
 
-// Search 搜索并返回符合指定条件的服务。 md5:62e529e326dae7b7
+// Search searches and returns services with specified condition.
 func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 	if defaultRegistry == nil {
 		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
@@ -118,7 +117,7 @@ func Search(ctx context.Context, in SearchInput) ([]Service, error) {
 	return defaultRegistry.Search(ctx, in)
 }
 
-// Watch 监视指定条件的变化。 md5:9fb048527d2a1698
+// Watch watches specified condition changes.
 func Watch(ctx context.Context, key string) (Watcher, error) {
 	if defaultRegistry == nil {
 		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)

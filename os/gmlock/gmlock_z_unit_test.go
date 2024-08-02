@@ -1,20 +1,19 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gmlock_test
+package 内存锁类_test
 
 import (
 	"sync"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gmlock"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gmlock "github.com/888go/goframe/os/gmlock"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Locker_Lock(t *testing.T) {
@@ -414,7 +413,7 @@ func Test_Locker_RLockFunc(t *testing.T) {
 }
 
 func Test_Locker_TryRLockFunc(t *testing.T) {
-		// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
+	// Lock before TryRLockFunc
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFunc"
 		array := garray.New(true)
@@ -436,7 +435,7 @@ func Test_Locker_TryRLockFunc(t *testing.T) {
 		t.Assert(array.Len(), 1)
 	})
 
-			// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
+	// Lock before TryRLockFuncs
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFuncs"
 		array := garray.New(true)

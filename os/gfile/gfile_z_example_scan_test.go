@@ -1,16 +1,15 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/os/gfile"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 func ExampleScanDir() {
@@ -28,7 +27,7 @@ func ExampleScanDir() {
 	gfile.PutContents(tempFile, "goframe example content")
 	gfile.PutContents(tempSubFile, "goframe example content")
 
-		// 递归扫描目录. md5:6afcf6167831bfa3
+	// scans directory recursively
 	list, _ := gfile.ScanDir(tempDir, "*", true)
 	for _, v := range list {
 		fmt.Println(gfile.Basename(v))
@@ -55,7 +54,7 @@ func ExampleScanDirFile() {
 	gfile.PutContents(tempFile, "goframe example content")
 	gfile.PutContents(tempSubFile, "goframe example content")
 
-			// 递归扫描目录. md5:6afcf6167831bfa3
+	// scans directory recursively exclusive of directories
 	list, _ := gfile.ScanDirFile(tempDir, "*.txt", true)
 	for _, v := range list {
 		fmt.Println(gfile.Basename(v))
@@ -81,7 +80,7 @@ func ExampleScanDirFunc() {
 	gfile.PutContents(tempFile, "goframe example content")
 	gfile.PutContents(tempSubFile, "goframe example content")
 
-		// 递归扫描目录. md5:6afcf6167831bfa3
+	// scans directory recursively
 	list, _ := gfile.ScanDirFunc(tempDir, "*", true, func(path string) string {
 		// ignores some files
 		if gfile.Basename(path) == "gfile_example.txt" {
@@ -116,7 +115,7 @@ func ExampleScanDirFileFunc() {
 	gfile.PutContents(tempFile1, "goframe example content")
 	gfile.PutContents(tempSubFile, "goframe example content")
 
-			// 递归扫描目录. md5:6afcf6167831bfa3
+	// scans directory recursively exclusive of directories
 	list, _ := gfile.ScanDirFileFunc(tempDir, "*.txt", true, func(path string) string {
 		// ignores some files
 		if gfile.Basename(path) == "gfile_example_ignores.txt" {

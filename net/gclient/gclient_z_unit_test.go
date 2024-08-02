@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gclient_test
+package 网页类_test
 
 import (
 	"bytes"
@@ -19,15 +18,15 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/gclient"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/debug/gdebug"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gclient "github.com/888go/goframe/net/gclient"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 var (
@@ -297,9 +296,8 @@ func Test_Client_Param_Containing_Special_Char(t *testing.T) {
 	})
 }
 
-// 它在上传文件的同时发送数据。
-// 它不会对参数进行URL编码。
-// md5:e7d22bb43988cf7d
+// It posts data along with file uploading.
+// It does not url-encodes the parameters.
 func Test_Client_File_And_Param(t *testing.T) {
 	s := g.Server(guid.S())
 	s.BindHandler("/", func(r *ghttp.Request) {
@@ -386,7 +384,7 @@ func Test_Client_Middleware(t *testing.T) {
 		t.Assert(resp.ReadAllString(), str2)
 		t.Assert(isServerHandler, true)
 
-				// 测试中断，中断不会发送. md5:08b4e656520be948
+		// test abort, abort will not send
 		var (
 			str3     = ""
 			abortStr = "abort request"
@@ -511,9 +509,8 @@ func Test_WebSocketClient(t *testing.T) {
 	})
 	s.SetDumpRouterMap(false)
 	s.Start()
-	// 注意：由于WebSocket保持活动连接，存在数据竞争风险，因此此处不使用关闭defer语句。
-	// 	// s.Shutdown() 应在适当的地方手动调用以确保资源正确释放。
-	// md5:e59a0c81d7768e8f
+	// No closing in case of DATA RACE due to keep alive connection of WebSocket.
+	// defer s.Shutdown()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {

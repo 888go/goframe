@@ -1,19 +1,18 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package glist_test
+package 链表类_test
 
 import (
 	"container/list"
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/frame/g"
+	garray "github.com/888go/goframe/container/garray"
+	glist "github.com/888go/goframe/container/glist"
+	"github.com/888go/goframe/frame/g"
 )
 
 func ExampleNew() {
@@ -607,7 +606,7 @@ func ExampleList_RemoveAll() {
 func ExampleList_RLockFunc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-		// 从头开始迭代读取。 md5:325279251074c4c7
+	// iterate reading from head.
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {
@@ -617,7 +616,7 @@ func ExampleList_RLockFunc() {
 		}
 	})
 	fmt.Println()
-		// 从尾部开始迭代读取。 md5:dac3579ac46c0170
+	// iterate reading from tail.
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {
@@ -636,7 +635,7 @@ func ExampleList_RLockFunc() {
 func ExampleList_IteratorAsc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-		// 使用IteratorAsc从头开始迭代读取。 md5:6446e33c4d8538db
+	// iterate reading from head using IteratorAsc.
 	l.IteratorAsc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
 		return true
@@ -649,7 +648,7 @@ func ExampleList_IteratorAsc() {
 func ExampleList_IteratorDesc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-		// 使用IteratorDesc从尾部开始迭代读取。 md5:acede477df2af09d
+	// iterate reading from tail using IteratorDesc.
 	l.IteratorDesc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
 		return true
@@ -661,7 +660,7 @@ func ExampleList_IteratorDesc() {
 func ExampleList_LockFunc() {
 	// concurrent-safe list.
 	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
-		// 从头开始遍历写入。 md5:09622b4042e0678f
+	// iterate writing from head.
 	l.LockFunc(func(list *list.List) {
 		length := list.Len()
 		if length > 0 {

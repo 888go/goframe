@@ -1,25 +1,24 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package ghttp
+package http类
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gpage"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gpage "github.com/888go/goframe/util/gpage"
 )
 
-// GetPage 根据给定的`totalSize`和`pageSize`创建并返回分页对象。
-// 请注意，来自客户端的分页参数名称常量定义为gpage.DefaultPageName，以简化和方便使用。
-// md5:4d3bd97d937b25b8
+// GetPage creates and returns the pagination object for given `totalSize` and `pageSize`.
+// NOTE THAT the page parameter name from clients is constantly defined as gpage.DefaultPageName
+// for simplification and convenience.
 func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
-		// 它必须有 Router 对象属性。 md5:8cc7be190bf78663
+	// It must have Router object attribute.
 	if r.Router == nil {
 		panic("Router object not found")
 	}
@@ -28,7 +27,7 @@ func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 		urlTemplate    = url.Path
 		uriHasPageName = false
 	)
-		// 检查URI中的page变量。 md5:7e5a6c48958e8612
+	// Check the page variable in the URI.
 	if len(r.Router.RegNames) > 0 {
 		for _, name := range r.Router.RegNames {
 			if name == gpage.DefaultPageName {
@@ -57,12 +56,12 @@ func (r *Request) GetPage(totalSize, pageSize int) *gpage.Page {
 			}
 		}
 	}
-		// 检查查询字符串中的page变量。 md5:4c851fb33e38ee9b
+	// Check the page variable in the query string.
 	if !uriHasPageName {
 		values := url.Query()
 		values.Set(gpage.DefaultPageName, gpage.DefaultPagePlaceHolder)
 		url.RawQuery = values.Encode()
-				// 将编码的 "{.page}" 替换为原始的 "{.page}"。 md5:755f7a81273710ea
+		// Replace the encoded "{.page}" to original "{.page}".
 		url.RawQuery = gstr.Replace(url.RawQuery, "%7B.page%7D", "{.page}")
 	}
 	if url.RawQuery != "" {

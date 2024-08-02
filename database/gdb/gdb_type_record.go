@@ -1,34 +1,33 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gdb
+package db类
 
 import (
 	"database/sql"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/internal/empty"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// Json 将 `r` 转换为JSON格式的内容。 md5:60a0626b0a333d14
+// Json converts `r` to JSON format content.
 func (r Record) Json() string {
 	content, _ := gjson.New(r.Map()).ToJsonString()
 	return content
 }
 
-// Xml 将 `r` 转换为 XML 格式的内容。 md5:31a335fedb874d26
+// Xml converts `r` to XML format content.
 func (r Record) Xml(rootTag ...string) string {
 	content, _ := gjson.New(r.Map()).ToXmlString(rootTag...)
 	return content
 }
 
-// Map 将 `r` 转换为 map[string]interface{} 类型。 md5:5b4502a5f29602f9
+// Map converts `r` to map[string]interface{}.
 func (r Record) Map() Map {
 	m := make(map[string]interface{})
 	for k, v := range r {
@@ -37,18 +36,17 @@ func (r Record) Map() Map {
 	return m
 }
 
-// GMap将`r`转换为gmap。 md5:573ff0b484a9573f
+// GMap converts `r` to a gmap.
 func (r Record) GMap() *gmap.StrAnyMap {
 	return gmap.NewStrAnyMapFrom(r.Map())
 }
 
-// Struct 将 `r` 转换为结构体。
-// 注意参数 `pointer` 应为 *struct 或 **struct 类型。
+// Struct converts `r` to a struct.
+// Note that the parameter `pointer` should be type of *struct/**struct.
 //
-// 注意，如果 `r` 为空，它将返回 sql.ErrNoRows。
-// md5:9ad6d688dbdddb25
+// Note that it returns sql.ErrNoRows if `r` is empty.
 func (r Record) Struct(pointer interface{}) error {
-		// 如果记录为空，它将返回错误。 md5:dc39009d7d477d46
+	// If the record is empty, it returns error.
 	if r.IsEmpty() {
 		if !empty.IsNil(pointer, true) {
 			return sql.ErrNoRows
@@ -58,7 +56,7 @@ func (r Record) Struct(pointer interface{}) error {
 	return gconv.StructTag(r, pointer, OrmTagForStruct)
 }
 
-// IsEmpty 检查 `r` 是否为空，然后返回结果。 md5:4ee28a47e769cceb
+// IsEmpty checks and returns whether `r` is empty.
 func (r Record) IsEmpty() bool {
 	return len(r) == 0
 }

@@ -1,1 +1,3 @@
-# // md5:d24e1d6a0917c424
+# Configuration center implements.
+
+Please refer to certain sub folder.

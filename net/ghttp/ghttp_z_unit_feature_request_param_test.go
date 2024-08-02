@@ -1,4 +1,4 @@
-package ghttp_test
+package http类_test
 
 import (
 	"context"
@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 type UserReq struct {
@@ -18,7 +18,7 @@ type UserReq struct {
 	Id     int    `v:"required" d:"1"`
 	Name   string `v:"required" in:"cookie"`
 	Age    string `v:"required" in:"header"`
-		// 请求头,查询参数,cookie,表单字段. md5:6dbe508b6d52a710
+	// header,query,cookie,form
 }
 
 type UserRes struct {

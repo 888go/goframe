@@ -1,25 +1,24 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 // go test *.go
 
-package garray_test
+package 切片类_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/888go/goframe/internal/empty"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	garray "github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Array_Basic(t *testing.T) {
@@ -293,7 +292,7 @@ func TestArray_Merge(t *testing.T) {
 		array2 := garray.NewArrayFrom(i2)
 		t.Assert(array1.Merge(array2).Slice(), []interface{}{0, 1, 2, 3, 4, 5, 6, 7})
 
-				// s1是一个字符串切片，包含元素"a", "b", "c", "d"。 md5:d0a66a34282cf388
+		// s1 := []string{"a", "b", "c", "d"}
 		s2 := []string{"e", "f"}
 		i3 := garray.NewIntArrayFrom([]int{1, 2, 3})
 		i4 := garray.NewArrayFrom([]interface{}{3})

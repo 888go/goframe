@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package goai
 
@@ -11,19 +10,19 @@ import (
 	"net/http"
 	"reflect"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gtag"
+	garray "github.com/888go/goframe/container/garray"
+	gmap "github.com/888go/goframe/container/gmap"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/888go/goframe/util/gtag"
 )
 
-// Path遵循OpenAPI/Swagger标准版本3.0。 md5:26b252ebd7fb17bd
+// Path is specified by OpenAPI/Swagger standard version 3.0.
 type Path struct {
 	Ref         string      `json:"$ref,omitempty"`
 	Summary     string      `json:"summary,omitempty"`
@@ -42,7 +41,7 @@ type Path struct {
 	XExtensions XExtensions `json:"-"`
 }
 
-// 路径按照OpenAPI/Swagger标准版本3.0进行指定。 md5:77c53887ba9bfc0f
+// Paths are specified by OpenAPI/Swagger standard version 3.0.
 type Paths map[string]Path
 
 const (
@@ -73,7 +72,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		inputObject  reflect.Value
 		outputObject reflect.Value
 	)
-		// 根据输入/输出类型创建实例。 md5:f07c2f3124391e08
+	// Create instance according input/output types.
 	if reflectType.In(1).Kind() == reflect.Ptr {
 		inputObject = reflect.New(reflectType.In(1).Elem()).Elem()
 	} else {
@@ -135,9 +134,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	}
 
 	if len(inputMetaMap) > 0 {
-		// 路径（Path）和操作（Operation）不是同一概念，因此需要从操作中复制一个元信息（Meta）到路径，并进行编辑。
-		// 你知道的，我们是在操作上设置Summary和Description，而不是在路径上，所以我们需要将它们移除。
-		// md5:82d486896b1d65b3
+		// Path and Operation are not the same thing, so it is necessary to copy a Meta for Path from Operation and edit it.
+		// And you know, we set the Summary and Description for Operation, not for Path, so we need to remove them.
 		inputMetaMapForPath := gmap.NewStrStrMapFrom(inputMetaMap).Clone()
 		inputMetaMapForPath.Removes([]string{
 			gtag.SummaryShort,
@@ -160,10 +158,9 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		}
 	}
 
-	// 路径安全
-	// 注意：安全模式类型仅支持http和apiKey；不支持oauth2和openIdConnect。
-	// 多个模式使用逗号分隔，例如：`security: apiKey1,apiKey2`
-	// md5:b64ffa4261f0711d
+	// path security
+	// note: the security schema type only support http and apiKey;not support oauth2 and openIdConnect.
+	// multi schema separate with comma, e.g. `security: apiKey1,apiKey2`
 	TagNameSecurity := gmeta.Get(inputObject.Interface(), gtag.Security).String()
 	securities := gstr.SplitAndTrim(TagNameSecurity, ",")
 	for _, sec := range securities {
@@ -174,9 +171,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	}
 
 	// =================================================================================================================
-	// 请求参数。
+	// Request Parameter.
 	// =================================================================================================================
-	// md5:c70d5376eecf5c01
 	structFields, _ := gstructs.Fields(gstructs.FieldsInput{
 		Pointer:         inputObject.Interface(),
 		RecursiveOption: gstructs.RecursiveOptionEmbeddedNoTag,
@@ -195,9 +191,8 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 	}
 
 	// =================================================================================================================
-	// 请求体
+	// Request Body.
 	// =================================================================================================================
-	// md5:c70baaeba9963b54
 	if operation.RequestBody == nil {
 		operation.RequestBody = &RequestBodyRef{}
 	}
@@ -208,7 +203,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 				Content:  map[string]MediaType{},
 			}
 		)
-				// 支持的请求MIME类型。 md5:fd32e8079c221b58
+		// Supported mime types of request.
 		var (
 			contentTypes = oai.Config.ReadContentTypes
 			tagMimeValue = gmeta.Get(inputObject.Interface(), gtag.Mime).String()
@@ -238,10 +233,9 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		}
 	}
 
-	// =======================================================
-	// 响应。
-	// =======================================================
-	// md5:ceb9c442cfbdefa1
+	// =================================================================================================================
+	// Response.
+	// =================================================================================================================
 	if _, ok := operation.Responses[responseOkKey]; !ok {
 		var (
 			response = Response{
@@ -254,7 +248,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 				return err
 			}
 		}
-				// 支持的响应MIME类型。 md5:aefcf019c3abea83
+		// Supported mime types of response.
 		var (
 			contentTypes = oai.Config.ReadContentTypes
 			tagMimeValue = gmeta.Get(outputObject.Interface(), gtag.Mime).String()
@@ -268,7 +262,7 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 			contentTypes = gstr.SplitAndTrim(tagMimeValue, ",")
 		}
 		for _, v := range contentTypes {
-						// 如果指定了自定义的响应MIME类型，则会忽略通用响应特性。 md5:c0c25e2bd38f6d7b
+			// If customized response mime type, it then ignores common response feature.
 			if tagMimeValue != "" {
 				refInput.CommonResponseObject = nil
 				refInput.CommonResponseDataField = ""
@@ -284,13 +278,13 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		operation.Responses[responseOkKey] = ResponseRef{Value: &response}
 	}
 
-		// 移除操作体中重复的属性。 md5:976053e0b8002715
+	// Remove operation body duplicated properties.
 	oai.removeOperationDuplicatedProperties(operation)
 
-		// 为特定操作分配属性。 md5:2e40ddbde8a1317e
+	// Assign to certain operation attribute.
 	switch gstr.ToUpper(in.Method) {
 	case http.MethodGet:
-				// GET 操作不能有请求体。 md5:efd94c634a1773f9
+		// GET operations cannot have a requestBody.
 		operation.RequestBody = nil
 		path.Get = &operation
 
@@ -301,12 +295,12 @@ func (oai *OpenApiV3) addPath(in addPathInput) error {
 		path.Post = &operation
 
 	case http.MethodDelete:
-				// DELETE操作不能有requestBody。 md5:29660405e268d3ca
+		// DELETE operations cannot have a requestBody.
 		operation.RequestBody = nil
 		path.Delete = &operation
 
 	case http.MethodConnect:
-				// 对于Connect，无需执行任何操作。 md5:200e0639d4f11b33
+		// Nothing to do for Connect.
 
 	case http.MethodHead:
 		path.Head = &operation
@@ -342,19 +336,19 @@ func (oai *OpenApiV3) removeOperationDuplicatedProperties(operation Operation) {
 		duplicatedParameterNames = append(duplicatedParameterNames, parameter.Value.Name)
 	}
 
-		// 检查操作请求体是否包含通用请求数据字段。 md5:3e4ccc578046cc45
+	// Check operation request body have common request data field.
 	dataFields := gstr.Split(oai.Config.CommonRequestDataField, ".")
 	if len(dataFields) > 0 && dataFields[0] != "" {
 		dataField = dataFields[0]
 	}
 
 	for _, requestBodyContent := range operation.RequestBody.Value.Content {
-				// 检查请求体架构. md5:dab7ff5a79f31000
+		// Check request body schema
 		if requestBodyContent.Schema == nil {
 			continue
 		}
 
-				// 检查请求体架构. md5:dab7ff5a79f31000 ref.
+		// Check request body schema ref.
 		if requestBodyContent.Schema.Ref != "" {
 			if schema := oai.Components.Schemas.Get(requestBodyContent.Schema.Ref); schema != nil {
 				newSchema := schema.Value.Clone()
@@ -366,14 +360,14 @@ func (oai *OpenApiV3) removeOperationDuplicatedProperties(operation Operation) {
 			}
 		}
 
-				// 检查请求体中的 Value 公共字段。 md5:dd0253ff15259e4b
+		// Check the Value public field for the request body.
 		if commonRequest := requestBodyContent.Schema.Value.Properties.Get(dataField); commonRequest != nil {
 			commonRequest.Value.Required = oai.removeItemsFromArray(commonRequest.Value.Required, duplicatedParameterNames)
 			commonRequest.Value.Properties.Removes(duplicatedParameterNames)
 			continue
 		}
 
-						// 检查请求体架构. md5:dab7ff5a79f31000
+		// Check request body schema value.
 		if requestBodyContent.Schema.Value != nil {
 			requestBodyContent.Schema.Value.Required = oai.removeItemsFromArray(requestBodyContent.Schema.Value.Required, duplicatedParameterNames)
 			requestBodyContent.Schema.Value.Properties.Removes(duplicatedParameterNames)
@@ -405,14 +399,14 @@ func (oai *OpenApiV3) tagMapToPath(tagMap map[string]string, path *Path) error {
 	return nil
 }
 
-// MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
+// MarshalJSON implements the interface MarshalJSON for json.Marshal.
 func (p Path) MarshalJSON() ([]byte, error) {
 	var (
 		b   []byte
 		m   map[string]json.RawMessage
 		err error
 	)
-	type tempPath Path // 为了防止JSON序列化时的递归错误。 md5:add9f5a47e638cc5
+	type tempPath Path // To prevent JSON marshal recursion error.
 	if b, err = json.Marshal(tempPath(p)); err != nil {
 		return nil, err
 	}

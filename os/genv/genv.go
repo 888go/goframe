@@ -1,37 +1,37 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 包genv提供了对系统环境变量的操作。 md5:9605f9d2a2186f5b
-package genv
+// Package genv provides operations for environment variables of system.
+package 环境变量类
 
 import (
 	"fmt"
 	"os"
 	"strings"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/utils"
+	gvar "github.com/888go/goframe/container/gvar"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/internal/utils"
 )
 
-// All返回一个字符串切片的副本，表示环境，形式为"key=value"。
-// md5:723df5605f199f2b
+// All returns a copy of strings representing the environment,
+// in the form "key=value".
 func All() []string {
 	return os.Environ()
 }
 
-// Map 返回一个副本，该副本将环境表示为映射（map）形式的字符串。 md5:9477b6d266100b3d
+// Map returns a copy of strings representing the environment as a map.
 func Map() map[string]string {
 	return MapFromEnv(os.Environ())
 }
 
-// Get 根据给定的`key`创建并返回一个具有环境变量值的Var。如果环境中不存在该变量，则使用给定的`def`作为默认值。
-// md5:1c5c61ffd2aa5106
+// Get creates and returns a Var with the value of the environment variable
+// named by the `key`. It uses the given `def` if the variable does not exist
+// in the environment.
 func Get(key string, def ...interface{}) *gvar.Var {
 	v, ok := os.LookupEnv(key)
 	if !ok {
@@ -43,8 +43,8 @@ func Get(key string, def ...interface{}) *gvar.Var {
 	return gvar.New(v)
 }
 
-// Set 设置环境变量的值，该变量由 `key` 指定。如果发生任何错误，它将返回一个错误。
-// md5:3d9ca695de9bb4ad
+// Set sets the value of the environment variable named by the `key`.
+// It returns an error, if any.
 func Set(key, value string) (err error) {
 	err = os.Setenv(key, value)
 	if err != nil {
@@ -53,7 +53,7 @@ func Set(key, value string) (err error) {
 	return
 }
 
-// SetMap 使用映射设置环境变量。 md5:78d0cfffe3bc8311
+// SetMap sets the environment variables using map.
 func SetMap(m map[string]string) (err error) {
 	for k, v := range m {
 		if err = Set(k, v); err != nil {
@@ -63,13 +63,13 @@ func SetMap(m map[string]string) (err error) {
 	return nil
 }
 
-// Contains 检查名为 `key` 的环境变量是否存在。 md5:76124e3be6d217ff
+// Contains checks whether the environment variable named `key` exists.
 func Contains(key string) bool {
 	_, ok := os.LookupEnv(key)
 	return ok
 }
 
-// Remove 删除一个或多个环境变量。 md5:546a01a7df799055
+// Remove deletes one or more environment variables.
 func Remove(key ...string) (err error) {
 	for _, v := range key {
 		if err = os.Unsetenv(v); err != nil {
@@ -80,13 +80,13 @@ func Remove(key ...string) (err error) {
 	return nil
 }
 
-// GetWithCmd 返回指定的环境变量值 `key`。
-// 如果环境变量不存在，它将从命令行选项中检索并返回值。如果两者都不存在，它将返回默认值 `def`。
-// 
-// 获取规则：
-// 1. 环境变量参数使用大写格式，例如：GF_<包名>_<变量名>；
-// 2. 命令行参数使用小写格式，例如：gf.<包名>.<变量名>；
-// md5:1bba2e845d6ee0d6
+// GetWithCmd returns the environment value specified `key`.
+// If the environment value does not exist, then it retrieves and returns the value from command line options.
+// It returns the default value `def` if none of them exists.
+//
+// Fetching Rules:
+// 1. Environment arguments are in uppercase format, eg: GF_<package name>_<variable name>；
+// 2. Command line arguments are in lowercase format, eg: gf.<package name>.<variable name>;
 func GetWithCmd(key string, def ...interface{}) *gvar.Var {
 	envKey := utils.FormatEnvKey(key)
 	if v := os.Getenv(envKey); v != "" {
@@ -102,7 +102,7 @@ func GetWithCmd(key string, def ...interface{}) *gvar.Var {
 	return nil
 }
 
-// Build 构建一个映射到环境变量切片的map。 md5:f58dc9490f9468a7
+// Build builds a map to an environment variable slice.
 func Build(m map[string]string) []string {
 	array := make([]string, len(m))
 	index := 0
@@ -113,7 +113,7 @@ func Build(m map[string]string) []string {
 	return array
 }
 
-// MapFromEnv 将环境变量从切片转换为映射。 md5:1c7b8b3cbc6a6d0d
+// MapFromEnv converts environment variables from slice to map.
 func MapFromEnv(envs []string) map[string]string {
 	m := make(map[string]string)
 	i := 0
@@ -124,7 +124,7 @@ func MapFromEnv(envs []string) map[string]string {
 	return m
 }
 
-// MapToEnv 将环境变量从映射转换为切片。 md5:3cef9db0baccea9f
+// MapToEnv converts environment variables from map to slice.
 func MapToEnv(m map[string]string) []string {
 	envs := make([]string, 0)
 	for k, v := range m {
@@ -133,7 +133,7 @@ func MapToEnv(m map[string]string) []string {
 	return envs
 }
 
-// Filter 从给定的环境变量中过滤重复项。 md5:7b495d60bfff573e
+// Filter filters repeated items from given environment variables.
 func Filter(envs []string) []string {
 	return MapToEnv(MapFromEnv(envs))
 }

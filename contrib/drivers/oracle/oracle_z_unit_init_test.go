@@ -1,11 +1,10 @@
 //go:build 屏蔽单元测试
 
-// 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
+// Copyright 2019 gf Author(https://github.com/gogf/gf). All Rights Reserved.
 //
-// 此源代码形式受麻省理工学院（MIT）许可证的条款约束。
-// 如果未随此文件一起分发MIT许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:47e609239e0cb2bc
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package oracle_test
 
@@ -16,11 +15,11 @@ import (
 
 	_ "github.com/sijms/go-ora/v2"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (

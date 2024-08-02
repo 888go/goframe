@@ -1,24 +1,24 @@
-// 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
+// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gmetric
 
 import (
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
-// localMetric 实现了 Metric 接口。 md5:1d7e92821badcf91
+// localMetric implements interface Metric.
 type localMetric struct {
 	MetricInfo
 }
 
-// newMetric 创建并返回一个实现Metric接口的对象。 md5:566502ff9b514701
+// newMetric creates and returns an object that implements interface Metric.
 func (meter *localMeter) newMetric(
 	metricType MetricType, metricName string, metricOption MetricOption,
 ) (Metric, error) {
@@ -41,7 +41,7 @@ func (meter *localMeter) newMetric(
 	}, nil
 }
 
-// Info 返回一个Metric的基本信息。 md5:d521e5fdeb6e591f
+// Info returns the basic information of a Metric.
 func (l *localMetric) Info() MetricInfo {
 	return l.MetricInfo
 }

@@ -1,11 +1,10 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gtcp
+package tcp类
 
 import (
 	"crypto/rand"
@@ -13,14 +12,14 @@ import (
 	"net"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gfile"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 const (
-	defaultConnTimeout    = 30 * time.Second       // 默认的连接超时时间。 md5:f32319a8522e8f90
-	defaultRetryInternal  = 100 * time.Millisecond // 默认重试间隔。 md5:d53e6b260a9e594d
-	defaultReadBufferSize = 128                    // 读取的字节缓冲区大小。 md5:3bb21d80469c9916
+	defaultConnTimeout    = 30 * time.Second       // Default connection timeout.
+	defaultRetryInternal  = 100 * time.Millisecond // Default retry interval.
+	defaultReadBufferSize = 128                    // (Byte) Buffer size for reading.
 )
 
 type Retry struct {
@@ -28,9 +27,8 @@ type Retry struct {
 	Interval time.Duration // Retry interval.
 }
 
-// NewNetConn 创建并返回一个具有给定地址（如 "127.0.0.1:80"）的net.Conn。
-// 可选参数 `timeout` 指定了建立连接的超时时间。
-// md5:2e0124ac2d5ba04b
+// NewNetConn creates and returns a net.Conn with given address like "127.0.0.1:80".
+// The optional parameter `timeout` specifies the timeout for dialing connection.
 func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network  = `tcp`
@@ -50,9 +48,8 @@ func NewNetConn(address string, timeout ...time.Duration) (net.Conn, error) {
 	return conn, err
 }
 
-// NewNetConnTLS 创建并返回一个具有给定地址（如 "127.0.0.1:80"）的 TLS net.Conn。
-// 可选参数 `timeout` 指定了建立连接时的超时时间。
-// md5:5eb25eb4d9f5078a
+// NewNetConnTLS creates and returns a TLS net.Conn with given address like "127.0.0.1:80".
+// The optional parameter `timeout` specifies the timeout for dialing connection.
 func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Duration) (net.Conn, error) {
 	var (
 		network = `tcp`
@@ -74,8 +71,9 @@ func NewNetConnTLS(address string, tlsConfig *tls.Config, timeout ...time.Durati
 	return conn, err
 }
 
-// NewNetConnKeyCrt 创建并返回一个带有给定TLS证书和密钥文件的TLS net.Conn，地址类似于"127.0.0.1:80"。可选参数`timeout`指定了连接超时时间。
-// md5:232eecc025740731
+// NewNetConnKeyCrt creates and returns a TLS net.Conn with given TLS certificate and key files
+// and address like "127.0.0.1:80". The optional parameter `timeout` specifies the timeout for
+// dialing connection.
 func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (net.Conn, error) {
 	tlsConfig, err := LoadKeyCrt(crtFile, keyFile)
 	if err != nil {
@@ -84,9 +82,8 @@ func NewNetConnKeyCrt(addr, crtFile, keyFile string, timeout ...time.Duration) (
 	return NewNetConnTLS(addr, tlsConfig, timeout...)
 }
 
-// Send 建立连接到 `address`，向连接写入 `data`，然后关闭连接。
-// 可选参数 `retry` 指定在写入数据失败时的重试策略。
-// md5:657cbdf2b2958d6f
+// Send creates connection to `address`, writes `data` to the connection and then closes the connection.
+// The optional parameter `retry` specifies the retry policy when fails in writing data.
 func Send(address string, data []byte, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -96,13 +93,13 @@ func Send(address string, data []byte, retry ...Retry) error {
 	return conn.Send(data, retry...)
 }
 
-// SendRecv 会创建到 `address` 的连接，向该连接写入 `data`，接收响应，
-// 然后关闭连接。
+// SendRecv creates connection to `address`, writes `data` to the connection, receives response
+// and then closes the connection.
 //
-// 参数 `length` 指定等待接收的字节数量。如果 `length` 为 -1，则接收缓冲区的所有内容并返回。
+// The parameter `length` specifies the bytes count waiting to receive. It receives all buffer content
+// and returns if `length` is -1.
 //
-// 可选参数 `retry` 指定了在写入数据失败时的重试策略。
-// md5:2f0794c80f81d806
+// The optional parameter `retry` specifies the retry policy when fails in writing data.
 func SendRecv(address string, data []byte, length int, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -112,7 +109,7 @@ func SendRecv(address string, data []byte, length int, retry ...Retry) ([]byte, 
 	return conn.SendRecv(data, length, retry...)
 }
 
-// SendWithTimeout 在发送逻辑中添加了写入超时的限制。 md5:3ede704cb632bc5e
+// SendWithTimeout does Send logic with writing timeout limitation.
 func SendWithTimeout(address string, data []byte, timeout time.Duration, retry ...Retry) error {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -122,7 +119,7 @@ func SendWithTimeout(address string, data []byte, timeout time.Duration, retry .
 	return conn.SendWithTimeout(data, timeout, retry...)
 }
 
-// SendRecvWithTimeout 在限制读取超时的情况下执行SendRecv逻辑。 md5:a0b595ec27ab2abf
+// SendRecvWithTimeout does SendRecv logic with reading timeout limitation.
 func SendRecvWithTimeout(address string, data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error) {
 	conn, err := NewConn(address)
 	if err != nil {
@@ -132,7 +129,7 @@ func SendRecvWithTimeout(address string, data []byte, receive int, timeout time.
 	return conn.SendRecvWithTimeout(data, receive, timeout, retry...)
 }
 
-// isTimeout 检查给定的 `err` 是否是超时错误。 md5:c277cc8323b1a413
+// isTimeout checks whether given `err` is a timeout error.
 func isTimeout(err error) bool {
 	if err == nil {
 		return false
@@ -143,7 +140,7 @@ func isTimeout(err error) bool {
 	return false
 }
 
-// LoadKeyCrt 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。 md5:e31385756c06b0a4
+// LoadKeyCrt creates and returns a TLS configuration object with given certificate and key files.
 func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 	crtPath, err := gfile.Search(crtFile)
 	if err != nil {
@@ -167,7 +164,7 @@ func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
 	return tlsConfig, nil
 }
 
-// MustGetFreePort 的行为与 GetFreePort 相同，但如果发生任何错误，它会直接 panic。 md5:a1ae43bc1faffe59
+// MustGetFreePort performs as GetFreePort, but it panics is any error occurs.
 func MustGetFreePort() int {
 	port, err := GetFreePort()
 	if err != nil {
@@ -176,7 +173,7 @@ func MustGetFreePort() int {
 	return port
 }
 
-// GetFreePort 获取并返回一个空闲的端口号。 md5:52dbf7a2d6e71da6
+// GetFreePort retrieves and returns a port that is free.
 func GetFreePort() (port int, err error) {
 	var (
 		network = `tcp`
@@ -209,7 +206,7 @@ func GetFreePort() (port int, err error) {
 	return
 }
 
-// GetFreePorts 获取并返回指定数量的空闲端口。 md5:ea99fb15b5bbc0fb
+// GetFreePorts retrieves and returns specified number of ports that are free.
 func GetFreePorts(count int) (ports []int, err error) {
 	var (
 		network = `tcp`

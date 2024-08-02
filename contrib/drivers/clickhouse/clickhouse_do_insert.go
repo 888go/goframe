@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package clickhouse
 
@@ -13,10 +12,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
-// DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8
+// DoInsert inserts or updates data for given table.
 func (d *Driver) DoInsert(
 	ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption,
 ) (result sql.Result, err error) {
@@ -24,12 +23,12 @@ func (d *Driver) DoInsert(
 		keys        []string // Field names.
 		valueHolder = make([]string, 0)
 	)
-		// 处理字段名和占位符。 md5:a4c2e01bfbec2f37
+	// Handle the field names and placeholders.
 	for k := range list[0] {
 		keys = append(keys, k)
 		valueHolder = append(valueHolder, "?")
 	}
-		// 准备批量结果指针。 md5:dfc8aa8bb292f9d5
+	// Prepare the batch result pointer.
 	var (
 		charL, charR = d.Core.GetChars()
 		keysStr      = charL + strings.Join(keys, charR+","+charL) + charR
@@ -41,7 +40,7 @@ func (d *Driver) DoInsert(
 	if err != nil {
 		return
 	}
-		// 使用`defer`确保事务将被提交或回滚。 md5:f7e6a525062b3162
+	// It here uses defer to guarantee transaction be committed or roll-backed.
 	defer func() {
 		if err == nil {
 			_ = tx.Commit()
@@ -58,12 +57,12 @@ func (d *Driver) DoInsert(
 		return
 	}
 	for i := 0; i < len(list); i++ {
-				// 将被提交给底层数据库驱动程序的值。 md5:d30c8d96f40663c3
+		// Values that will be committed to underlying database driver.
 		params := make([]interface{}, 0)
 		for _, k := range keys {
 			params = append(params, list[i][k])
 		}
-				// Prepare 只允许在由 clickhouse 打开的事务中执行一次. md5:b763067296709df3
+		// Prepare is allowed to execute only once in a transaction opened by clickhouse
 		result, err = stmt.ExecContext(ctx, params...)
 		if err != nil {
 			return

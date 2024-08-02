@@ -1,9 +1,8 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package builtin
 
@@ -11,16 +10,15 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
-// RuleRequiredUnless 实现了 `required-unless` 规则：
-// 当给定的字段及其值都不相等时，该字段是必需的。
+// RuleRequiredUnless implements `required-unless` rule:
+// Required unless all given field and its value are not equal.
 //
-// 格式：required-unless:field,value,...
-// 示例：required-unless:id,1,age,18
-// md5:3492b6f7c0cf1435
+// Format:  required-unless:field,value,...
+// Example: required-unless:id,1,age,18
 type RuleRequiredUnless struct{}
 
 func init() {
@@ -43,7 +41,7 @@ func (r RuleRequiredUnless) Run(in RunInput) error {
 		dataMap    = in.Data.Map()
 	)
 
-		// 它支持多个字段和值对。 md5:42a9e200e1db00d5
+	// It supports multiple field and value pairs.
 	if len(array)%2 == 0 {
 		for i := 0; i < len(array); {
 			tk := array[i]

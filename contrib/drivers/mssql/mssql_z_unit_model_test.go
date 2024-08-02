@@ -1,11 +1,10 @@
 //go:build 屏蔽单元测试
 
-// 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
+// Copyright 2019 gf Author(https://github.com/gogf/gf). All Rights Reserved.
 //
-// 此源代码形式受麻省理工学院（MIT）许可证的条款约束。
-// 如果未随此文件一起分发MIT许可证的副本，
-// 您可以在 https://github.com/gogf/gf 获取一个。
-// md5:47e609239e0cb2bc
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package mssql_test
 
@@ -15,16 +14,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
-	"github.com/gogf/gf/v2/util/gutil"
+	garray "github.com/888go/goframe/container/garray"
+	gmap "github.com/888go/goframe/container/gmap"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_Page(t *testing.T) {
@@ -285,7 +284,7 @@ func Test_Model_Update(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 	})
-		// 更新 + Fields(字符串). md5:df4e16d13da67d5e
+	// Update + Fields(string)
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Fields("passport").Data(g.Map{
 			"passport": "user_44",
@@ -494,7 +493,7 @@ func Test_Model_Count(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
-		// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
+	// Count with cache, check internal ctx data feature.
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 10; i++ {
 			count, err := db.Model(table).Cache(gdb.CacheOption{
@@ -573,7 +572,7 @@ func Test_Model_Struct(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_1")
 	})
-		// 自动创建结构体对象。 md5:4b196dfc1321dc30
+	// Auto creating struct object.
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -676,7 +675,7 @@ func Test_Model_Structs(t *testing.T) {
 		t.Assert(users[1].NickName, "name_2")
 		t.Assert(users[2].NickName, "name_3")
 	})
-		// 自动创建结构体切片。 md5:78598f0d7f20b815
+	// Auto create struct slice.
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1096,7 +1095,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["ID"].Int(), 1)
 	})
-		// 结构体，自动映射和过滤。 md5:8edea55227b914af
+	// struct, automatic mapping and filtering.
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2629,7 +2628,7 @@ func Test_Model_Save(t *testing.T) {
 		t.Assert(user.Password, "15d55ad283aa400af464c76d713c07ad")
 		t.Assert(user.NickName, "n1")
 
-				// 暂停1秒以确保更新的时间不同。 md5:733cf93f1135fed7
+		// Sleep 1 second to make sure the updated time is different.
 		time.Sleep(1 * time.Second)
 		_, err = db.Model(table).Data(g.Map{
 			"id":       1,
@@ -2644,7 +2643,7 @@ func Test_Model_Save(t *testing.T) {
 		t.Assert(user.Passport, "p1")
 		t.Assert(user.Password, "25d55ad283aa400af464c76d713c07ad")
 		t.Assert(user.NickName, "n2")
-						// 检查created_at是否不等于updated_at. md5:1ce415b9de20266f
+		// check created_at not equal to updated_at
 		t.AssertNE(user.CreatedAt, user.UpdatedAt)
 
 		count, err = db.Model(table).Count()

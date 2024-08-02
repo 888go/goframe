@@ -1,23 +1,22 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gtag"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gctx "github.com/888go/goframe/os/gctx"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gtag"
 )
 
 var (
@@ -1126,7 +1125,7 @@ func Test_Not_Regex(t *testing.T) {
 	})
 }
 
-//github.com/gogf/gf/issues/1077. md5:927a252208c6c8ec
+// issue: https://github.com/gogf/gf/issues/1077
 func Test_InternalError_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type a struct {
@@ -1157,7 +1156,7 @@ func Test_Code(t *testing.T) {
 }
 
 func Test_Bail(t *testing.T) {
-		// 无需跳过，检查值. md5:9efe3a48de280a71
+	// check value with no bail
 	gtest.C(t, func(t *gtest.T) {
 		err := g.Validator().
 			Rules("required|min:1|between:1,100").

@@ -1,21 +1,20 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gjson_test
+package json类_test
 
 import (
 	"bytes"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	garray "github.com/888go/goframe/container/garray"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 func Test_Set1(t *testing.T) {
@@ -279,7 +278,7 @@ func Test_Set17(t *testing.T) {
 
 		t.Assert(j.Set("0.k1", "v1"), nil)
 		t.Assert(j.Set("1.k2", "v2"), nil)
-				// 覆盖之前的切片。 md5:7ecc228788fbb89e
+		// overwrite the previous slice.
 		t.Assert(j.Set("k", "v"), nil)
 
 		s, err := j.ToJsonString()

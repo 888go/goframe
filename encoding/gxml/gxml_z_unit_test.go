@@ -1,21 +1,20 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gxml_test
+package xml类_test
 
 import (
 	"bytes"
 	"strings"
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gcharset"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/test/gtest"
+	gcharset "github.com/888go/goframe/encoding/gcharset"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gxml "github.com/888go/goframe/encoding/gxml"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var testData = []struct {
@@ -147,7 +146,7 @@ func Test_Encode(t *testing.T) {
 	if err != nil {
 		t.Errorf("encode error.")
 	}
-		// 使用t.Logf记录日志，格式化输出字符串xmlStr的内容，并在末尾添加换行符。 md5:06a73acff84b1307
+	// t.Logf("%s\n", string(xmlStr))
 
 	res := `<root><bool>true</bool><float>100.92</float><int>123</int><string>hello world</string></root>`
 	if string(xmlStr) != res {
@@ -170,7 +169,7 @@ func Test_EncodeIndent(t *testing.T) {
 		t.Errorf("encodeWithIndent error.")
 	}
 
-		// 使用t.Logf记录日志，格式化输出字符串xmlStr的内容，并在末尾添加换行符。 md5:06a73acff84b1307
+	// t.Logf("%s\n", string(xmlStr))
 
 }
 

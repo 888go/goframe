@@ -1,16 +1,16 @@
-// 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
-// 您可以从https://github.com/gogf/gf获取。
-// md5:1d281c30cdc3423b
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with gm file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gset_test
+package 集合类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/frame/g"
+	gset "github.com/888go/goframe/container/gset"
+	"github.com/888go/goframe/frame/g"
 )
 
 func ExampleSet_Intersect() {

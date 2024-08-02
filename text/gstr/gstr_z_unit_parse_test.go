@@ -1,21 +1,20 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-// 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
+// go test *.go -bench=".*"
 
-package gstr_test
+package 文本类_test
 
 import (
 	"net/url"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 func Test_Parse(t *testing.T) {
@@ -45,7 +44,7 @@ func Test_Parse(t *testing.T) {
 				},
 			},
 		})
-				// v[][a]=m&v[][b]=b 翻译为：v 中的任意元素的 a 键值为 m，b 键值为 b => map["v"]：[{"a":"m","b":"b"}]. md5:4c02c4944234a046
+		// v[][a]=m&v[][b]=b => map["v"]:[{"a":"m","b":"b"}]
 		m, err = gstr.Parse("v[][a]=m&v[][b]=b")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
@@ -56,7 +55,7 @@ func Test_Parse(t *testing.T) {
 				},
 			},
 		})
-				// 当 v 数组的某个元素的 "a" 键对应值为 m 和 b 时， => 结果映射为 "v": [{"a": "m"}, {"a": "b"}]。 md5:c5ab84cca5b2e02d
+		// v[][a]=m&v[][a]=b => map["v"]:[{"a":"m"},{"a":"b"}]
 		m, err = gstr.Parse("v[][a]=m&v[][a]=b")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{

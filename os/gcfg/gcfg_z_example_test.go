@@ -1,21 +1,20 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gcfg_test
+package 配置类_test
 
 import (
 	"fmt"
 	"os"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/genv"
+	"github.com/888go/goframe/frame/g"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	genv "github.com/888go/goframe/os/genv"
 )
 
 func ExampleConfig_GetWithEnv() {
@@ -52,10 +51,10 @@ func ExampleConfig_GetWithCmd() {
 		panic(err)
 	}
 	fmt.Printf("cmd:%s\n", v)
-		// 重新初始化自定义命令参数。 md5:6d308df3285ccc65
+	// Re-Initialize custom command arguments.
 	os.Args = append(os.Args, fmt.Sprintf(`--%s=yes`, key))
 	gcmd.Init(os.Args...)
-		// 再次获取配置和命令选项。 md5:4ac97b4c3c56a003
+	// Retrieve the configuration and command option again.
 	v, err = g.Cfg().GetWithCmd(ctx, key)
 	if err != nil {
 		panic(err)

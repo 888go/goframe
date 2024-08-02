@@ -1,18 +1,18 @@
-// 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
+// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
-// 您可以从 https://github.com/gogf/gf 获取。
-// md5:c14c707c81272457
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
 package gmetric
 
-// noopHistogramPerformer 是一个实现了HistogramPerformer接口但没有任何实际操作的实现者。 md5:7c57c6cdb0ed19f2
+// noopHistogramPerformer is an implementer for interface HistogramPerformer with no truly operations.
 type noopHistogramPerformer struct{}
 
-// newNoopHistogramPerformer 创建并返回一个没有真正操作的 HistogramPerformer。 md5:77291cead93f5830
+// newNoopHistogramPerformer creates and returns a HistogramPerformer with no truly operations.
 func newNoopHistogramPerformer() HistogramPerformer {
 	return noopHistogramPerformer{}
 }
 
-// Record 向直方图中添加一个值。该值通常为正数或零。 md5:9623642cd5abf1d5
+// Record adds a single value to the histogram. The value is usually positive or zero.
 func (noopHistogramPerformer) Record(increment float64, option ...Option) {}

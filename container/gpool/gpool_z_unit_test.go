@@ -1,20 +1,19 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gpool_test
+package 对象复用类_test
 
 import (
 	"errors"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gpool"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	gpool "github.com/888go/goframe/container/gpool"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var nf gpool.NewFunc = func() (i interface{}, e error) {
@@ -71,7 +70,7 @@ func Test_Gpool(t *testing.T) {
 		v2, err2 := p2.Get()
 		t.Assert(err2, nil)
 		t.Assert(v2, 0)
-						// 测试超时过期函数. md5:f6b3719e6bec20e3
+		// test timeout expireFunc
 		time.Sleep(3 * time.Second)
 		v2, err2 = p2.Get()
 		t.Assert(err2, errors.New("pool is empty"))

@@ -1,21 +1,19 @@
-// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
+// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
 //
-// 本源代码形式受MIT许可证条款约束。
-// 如果未随本文件一同分发MIT许可证副本，
-// 您可以在https://github.com/gogf/gf处获取。
-// md5:a9832f33b234e3f3
+// This Source Code Form is subject to the terms of the MIT License.
+// If a copy of the MIT was not distributed with this file,
+// You can obtain one at https://github.com/gogf/gf.
 
-package gredis
+package redis类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/gvar"
+	gvar "github.com/888go/goframe/container/gvar"
 )
 
-// IGroupSet 管理 Redis 集合操作。
-// 实现了 redis.GroupSet 接口。
-// md5:98fdccab09106c8c
+// IGroupSet manages redis set operations.
+// Implements see redis.GroupSet.
 type IGroupSet interface {
 	SAdd(ctx context.Context, key string, member interface{}, members ...interface{}) (int64, error)
 	SIsMember(ctx context.Context, key string, member interface{}) (int64, error)
