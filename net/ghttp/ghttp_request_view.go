@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package http类
 
@@ -10,12 +11,12 @@ import (
 	gview "github.com/888go/goframe/os/gview"
 )
 
-// SetView sets template view engine object for this request.
+// SetView 为当前请求设置模板视图引擎对象。 md5:ec41ed91daaf7bd3
 func (r *Request) SetView(view *gview.View) {
 	r.viewObject = view
 }
 
-// GetView returns the template view engine object for this request.
+// GetView 返回此请求的模板视图引擎对象。 md5:1eb5934f5359a959
 func (r *Request) GetView() *gview.View {
 	view := r.viewObject
 	if view == nil {
@@ -27,7 +28,7 @@ func (r *Request) GetView() *gview.View {
 	return view
 }
 
-// Assigns binds multiple template variables to current request.
+// Assigns 将多个模板变量绑定到当前请求。 md5:9676a02a50e91095
 func (r *Request) Assigns(data gview.Params) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params, len(data))
@@ -37,7 +38,7 @@ func (r *Request) Assigns(data gview.Params) {
 	}
 }
 
-// Assign binds a template variable to current request.
+// Assign 将模板变量绑定到当前请求。 md5:0a82d7a20f0d7265
 func (r *Request) Assign(key string, value interface{}) {
 	if r.viewParams == nil {
 		r.viewParams = make(gview.Params)

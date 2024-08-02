@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package gtrace
 
@@ -11,10 +12,10 @@ import (
 	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// Carrier is the storage medium used by a TextMapPropagator.
+// Carrier是TextMapPropagator使用的存储介质。 md5:8d62ccc64614a0c7
 type Carrier map[string]interface{}
 
-// NewCarrier creates and returns a Carrier.
+// NewCarrier 创建并返回一个 Carrier。 md5:e8b512c41d0c9bd7
 func NewCarrier(data ...map[string]interface{}) Carrier {
 	if len(data) > 0 && data[0] != nil {
 		return data[0]
@@ -22,17 +23,17 @@ func NewCarrier(data ...map[string]interface{}) Carrier {
 	return make(map[string]interface{})
 }
 
-// Get returns the value associated with the passed key.
+// Get 返回与传入键关联的值。 md5:d20be4af58bc2fa7
 func (c Carrier) Get(k string) string {
 	return gconv.String(c[k])
 }
 
-// Set stores the key-value pair.
+// Set 存储键值对。 md5:797de4e363035487
 func (c Carrier) Set(k, v string) {
 	c[k] = v
 }
 
-// Keys lists the keys stored in this carrier.
+// Keys 列出了存储在该载体中的键。 md5:8dca78c8668c962f
 func (c Carrier) Keys() []string {
 	keys := make([]string, 0, len(c))
 	for k := range c {
@@ -41,7 +42,7 @@ func (c Carrier) Keys() []string {
 	return keys
 }
 
-// MustMarshal .returns the JSON encoding of c
+// MustMarshal 返回c的JSON编码. md5:58f2f2d8e0370a56
 func (c Carrier) MustMarshal() []byte {
 	b, err := json.Marshal(c)
 	if err != nil {
@@ -50,12 +51,12 @@ func (c Carrier) MustMarshal() []byte {
 	return b
 }
 
-// String converts and returns current Carrier as string.
+// String 将当前Carrier转换并以字符串形式返回。 md5:9a30611e4d817539
 func (c Carrier) String() string {
 	return string(c.MustMarshal())
 }
 
-// UnmarshalJSON implements interface UnmarshalJSON for package json.
+// UnmarshalJSON 实现了 json 包中的 UnmarshalJSON 接口。 md5:6a50aca077e136ff
 func (c Carrier) UnmarshalJSON(b []byte) error {
 	carrier := NewCarrier(nil)
 	return json.UnmarshalUseNumber(b, carrier)

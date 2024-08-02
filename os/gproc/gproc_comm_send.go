@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 进程类
 
@@ -14,7 +15,7 @@ import (
 	gtcp "github.com/888go/goframe/net/gtcp"
 )
 
-// Send sends data to specified process of given pid.
+// Send 向给定pid的指定进程发送数据。 md5:32fd0c7aeb3b969c
 func Send(pid int, data []byte, group ...string) error {
 	msg := MsgRequest{
 		SenderPid:   Pid(),
@@ -50,7 +51,7 @@ func Send(pid int, data []byte, group ...string) error {
 			}
 		}
 	}
-	// EOF is not really an error.
+		// EOF并不是真正的错误。 md5:cb1e51e9bbca2b19
 	if err == io.EOF {
 		err = nil
 	}

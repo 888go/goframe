@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package http类
 
@@ -11,37 +12,37 @@ import (
 	"time"
 )
 
-// SetCookieMaxAge sets the CookieMaxAge for server.
+// SetCookieMaxAge 设置服务器的CookieMaxAge。 md5:1bd691f49b3f7d7e
 func (s *Server) SetCookieMaxAge(ttl time.Duration) {
 	s.config.CookieMaxAge = ttl
 }
 
-// SetCookiePath sets the CookiePath for server.
+// SetCookiePath 为服务器设置Cookie路径。 md5:427faaa8ad8633d8
 func (s *Server) SetCookiePath(path string) {
 	s.config.CookiePath = path
 }
 
-// SetCookieDomain sets the CookieDomain for server.
+// SetCookieDomain 设置服务器的Cookie域。 md5:0337df246d313fe6
 func (s *Server) SetCookieDomain(domain string) {
 	s.config.CookieDomain = domain
 }
 
-// GetCookieMaxAge returns the CookieMaxAge of the server.
+// GetCookieMaxAge 返回服务器的 CookieMaxAge。 md5:515f434ef606a7c5
 func (s *Server) GetCookieMaxAge() time.Duration {
 	return s.config.CookieMaxAge
 }
 
-// GetCookiePath returns the CookiePath of server.
+// GetCookiePath 返回服务器的CookiePath。 md5:5879f664e379d096
 func (s *Server) GetCookiePath() string {
 	return s.config.CookiePath
 }
 
-// GetCookieDomain returns CookieDomain of server.
+// GetCookieDomain 返回服务器的Cookie域名。 md5:f44dbe67d6622660
 func (s *Server) GetCookieDomain() string {
 	return s.config.CookieDomain
 }
 
-// GetCookieSameSite return CookieSameSite of server.
+// GetCookieSameSite 返回服务器的CookieSameSite设置。 md5:e015f6293556b8a8
 func (s *Server) GetCookieSameSite() http.SameSite {
 	switch s.config.CookieSameSite {
 	case "lax":

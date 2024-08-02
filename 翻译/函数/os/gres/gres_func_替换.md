@@ -35,5 +35,5 @@
 # //zj:
 # 备注结束
 
-[if err := gres.Add("%s"); err != nil {]
-th=if err :#等号# 资源类.Add("%s"); err !#等号# nil {
+[import "github.com/gogf/gf/v2/os/gres"]
+th=import gres "github.com/888go/goframe/os/gres"

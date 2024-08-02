@@ -1,10 +1,11 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
-// Package grpool implements a goroutine reusable pool.
+// 包grpool实现了可重用的goroutine池。 md5:8908f4659795e87e
 package 协程类
 
 import (
@@ -17,21 +18,21 @@ import (
 	grand "github.com/888go/goframe/util/grand"
 )
 
-// Func is the pool function which contains context parameter.
+// Func 是包含上下文参数的池函数。 md5:6974cc4f941bf840
 type Func func(ctx context.Context)
 
-// RecoverFunc is the pool runtime panic recover function which contains context parameter.
+// RecoverFunc 是一个带有上下文参数的池运行时panic恢复函数。 md5:745651d2d0aad841
 type RecoverFunc func(ctx context.Context, exception error)
 
-// Pool manages the goroutines using pool.
+// Pool 使用池管理goroutine。 md5:b07df489dc176e1c
 type Pool struct {
-	limit  int         // Max goroutine count limit.
-	count  *gtype.Int  // Current running goroutine count.
-	list   *glist.List // List for asynchronous job adding purpose.
+	limit  int         // 最大goroutine计数限制。 md5:d8f9a54c9665e042
+	count  *gtype.Int  // 当前正在运行的goroutine数量。 md5:ab841a9a1dadf1a0
+	list   *glist.List // 用于异步添加任务的列表。 md5:65d48b67f1f6833d
 	closed *gtype.Bool // Is pool closed or not.
 }
 
-// localPoolItem is the job item storing in job list.
+// localPoolItem是存储在作业列表中的作业项。 md5:2b97e4fa0813a9cc
 type localPoolItem struct {
 	Ctx  context.Context // Context.
 	Func Func            // Job function.
@@ -42,14 +43,15 @@ const (
 	maxSupervisorTimerDuration = 1500 * time.Millisecond
 )
 
-// Default goroutine pool.
+// 默认的goroutine池。 md5:a834f6aca53d4225
 var (
 	defaultPool = New()
 )
 
-// New creates and returns a new goroutine pool object.
-// The parameter `limit` is used to limit the max goroutine count,
-// which is not limited in default.
+// New 创建并返回一个新的 goroutine 池对象。
+// 参数 `limit` 用于限制最大 goroutine 数量，
+// 默认情况下不限制。
+// md5:523f5833750663c7
 func New(limit ...int) *Pool {
 	var (
 		pool = &Pool{
@@ -70,27 +72,27 @@ func New(limit ...int) *Pool {
 	return pool
 }
 
-// Add pushes a new job to the default goroutine pool.
-// The job will be executed asynchronously.
+// Add 将一个新任务添加到默认的 Goroutine 池中。
+// 该任务将会异步执行。
+// md5:2edd63bb852da48c
 func Add(ctx context.Context, f Func) error {
 	return defaultPool.Add(ctx, f)
 }
 
-// AddWithRecover pushes a new job to the default pool with specified recover function.
-//
-// The optional `recoverFunc` is called when any panic during executing of `userFunc`.
-// If `recoverFunc` is not passed or given nil, it ignores the panic from `userFunc`.
-// The job will be executed asynchronously.
+// AddWithRecover 将一个新的任务推送到默认池中，指定一个恢复函数。
+// 
+// 可选的 `recoverFunc` 在执行 `userFunc` 时遇到任何 panic 时被调用。如果未传递或给定 `nil`，则忽略来自 `userFunc` 的 panic。任务将异步执行。
+// md5:4b448b4fd7caa604
 func AddWithRecover(ctx context.Context, userFunc Func, recoverFunc RecoverFunc) error {
 	return defaultPool.AddWithRecover(ctx, userFunc, recoverFunc)
 }
 
-// Size returns current goroutine count of default goroutine pool.
+// Size 返回默认goroutine池中的当前goroutine数量。 md5:f66351deb380810c
 func Size() int {
 	return defaultPool.Size()
 }
 
-// Jobs returns current job count of default goroutine pool.
+// Jobs 返回默认goroutine池当前的任务数量。 md5:d9b300d28d86f6c3
 func Jobs() int {
 	return defaultPool.Jobs()
 }

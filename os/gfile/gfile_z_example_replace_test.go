@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 文件类_test
 
@@ -27,7 +28,7 @@ func ExampleReplaceFile() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content directly by file path.
+		// 它通过文件路径直接替换内容。 md5:2a3205bdc3de2657
 	gfile.ReplaceFile("content", "replace word", tempFile)
 
 	fmt.Println(gfile.GetContents(tempFile))
@@ -51,9 +52,9 @@ func ExampleReplaceFileFunc() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content directly by file path and callback function.
+		// 它通过文件路径和回调函数直接替换内容。 md5:7962223be9a9a643
 	gfile.ReplaceFileFunc(func(path, content string) string {
-		// Replace with regular match
+						// 使用常规匹配替换. md5:30a3741f5800de5e
 		reg, _ := regexp.Compile(`\d{3}`)
 		return reg.ReplaceAllString(content, "[num]")
 	}, tempFile)
@@ -79,7 +80,7 @@ func ExampleReplaceDir() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content of all files under specified directory recursively.
+		// 它会递归地替换指定目录下所有文件的内容。 md5:20439a8528d54108
 	gfile.ReplaceDir("content", "replace word", tempDir, "gfile_example.txt", true)
 
 	// read contents
@@ -104,9 +105,9 @@ func ExampleReplaceDirFunc() {
 	// read contents
 	fmt.Println(gfile.GetContents(tempFile))
 
-	// It replaces content of all files under specified directory with custom callback function recursively.
+		// 它会递归地用自定义回调函数替换指定目录下所有文件的内容。 md5:9186cb76d9407085
 	gfile.ReplaceDirFunc(func(path, content string) string {
-		// Replace with regular match
+						// 使用常规匹配替换. md5:30a3741f5800de5e
 		reg, _ := regexp.Compile(`\d{3}`)
 		return reg.ReplaceAllString(content, "[num]")
 	}, tempDir, "gfile_example.txt", true)

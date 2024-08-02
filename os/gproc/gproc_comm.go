@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 进程类
 
@@ -19,7 +20,7 @@ import (
 	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// MsgRequest is the request structure for process communication.
+// MsgRequest是进程间通信的请求结构体。 md5:aa294ed7aef773f3
 type MsgRequest struct {
 	SenderPid   int    // Sender PID.
 	ReceiverPid int    // Receiver PID.
@@ -27,7 +28,7 @@ type MsgRequest struct {
 	Data        []byte // Request data.
 }
 
-// MsgResponse is the response structure for process communication.
+// MsgResponse 是进程通信中的响应结构体。 md5:a2e9e35f8a32b58e
 type MsgResponse struct {
 	Code    int    // 1: OK; Other: Error.
 	Message string // Response message.
@@ -35,25 +36,26 @@ type MsgResponse struct {
 }
 
 const (
-	defaultFolderNameForProcComm = "gf_pid_port_mapping" // Default folder name for storing pid to port mapping files.
+	defaultFolderNameForProcComm = "gf_pid_port_mapping" // 默认的保存pid到端口映射文件的文件夹名称。 md5:64d7a3cc62fc8b3c
 	defaultGroupNameForProcComm  = ""                    // Default group name.
-	defaultTcpPortForProcComm    = 10000                 // Starting port number for receiver listening.
-	maxLengthForProcMsgQueue     = 10000                 // Max size for each message queue of the group.
+	defaultTcpPortForProcComm    = 10000                 // 用于接收者监听的起始端口号。 md5:57cde4f483b095cf
+	maxLengthForProcMsgQueue     = 10000                 // 集群中每个消息队列的最大大小。 md5:64e3f3ac37111858
 )
 
 var (
-	// commReceiveQueues is the group name to queue map for storing received data.
-	// The value of the map is type of *gqueue.Queue.
+	// commReceiveQueues 是一个用于存储接收到的数据的组名到队列的映射。
+	// 该映射的值类型为*gqueue.Queue。
+	// md5:adb11ba95544ea8c
 	commReceiveQueues = gmap.NewStrAnyMap(true)
 
-	// commPidFolderPath specifies the folder path storing pid to port mapping files.
+		// commPidFolderPath 指定了存储 PID 到端口映射文件的文件夹路径。 md5:bc9b0e25bfe8ea53
 	commPidFolderPath string
 
-	// commPidFolderPathOnce is used for lazy calculation for `commPidFolderPath` is necessary.
+		// commPidFolderPathOnce用于惰性计算`commPidFolderPath`，只有在必要时才进行。 md5:669e811a3607b61c
 	commPidFolderPathOnce sync.Once
 )
 
-// getConnByPid creates and returns a TCP connection for specified pid.
+// getConnByPid 为指定的 pid 创建并返回一个 TCP 连接。 md5:19b60bfdf9f18aa2
 func getConnByPid(pid int) (*gtcp.PoolConn, error) {
 	port := getPortByPid(pid)
 	if port > 0 {
@@ -66,8 +68,9 @@ func getConnByPid(pid int) (*gtcp.PoolConn, error) {
 	return nil, gerror.Newf(`could not find port for pid "%d"`, pid)
 }
 
-// getPortByPid returns the listening port for specified pid.
-// It returns 0 if no port found for the specified pid.
+// getPortByPid 根据指定的进程ID返回其监听的端口。
+// 如果没有为指定的进程ID找到端口，则返回0。
+// md5:1fc2deacfe985ab1
 func getPortByPid(pid int) int {
 	path := getCommFilePath(pid)
 	if path == "" {
@@ -76,7 +79,7 @@ func getPortByPid(pid int) int {
 	return gconv.Int(gfile.GetContentsWithCache(path))
 }
 
-// getCommFilePath returns the pid to port mapping file path for given pid.
+// getCommFilePath 返回给定pid的进程到端口映射文件路径。 md5:6b8e5776476edbb5
 func getCommFilePath(pid int) string {
 	path, err := getCommPidFolderPath()
 	if err != nil {
@@ -86,7 +89,7 @@ func getCommFilePath(pid int) string {
 	return gfile.Join(path, gconv.String(pid))
 }
 
-// getCommPidFolderPath retrieves and returns the available directory for storing pid mapping files.
+// getCommPidFolderPath 获取并返回用于存储进程映射文件的可用目录。 md5:d871e38ee1ac7054
 func getCommPidFolderPath() (folderPath string, err error) {
 	commPidFolderPathOnce.Do(func() {
 		availablePaths := []string{

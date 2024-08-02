@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package builtin
 
@@ -15,11 +16,12 @@ import (
 	gutil "github.com/888go/goframe/util/gutil"
 )
 
-// RuleLT implements `lt` rule:
-// Lesser than `field`.
-// It supports both integer and float.
+// RuleLT实现了`lt`规则：
+// 小于`field`。
+// 它支持整数和浮点数。
 //
-// Format: lt:field
+// 格式：lt:field
+// md5:46a8beaf4d59f5bb
 type RuleLT struct{}
 
 func init() {

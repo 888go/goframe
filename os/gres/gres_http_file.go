@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 资源类
 
@@ -13,12 +14,12 @@ import (
 	gerror "github.com/888go/goframe/errors/gerror"
 )
 
-// Close implements interface of http.File.
+// Close 实现了 http.File 接口。 md5:ed68e1aedf92d678
 func (f *File) Close() error {
 	return nil
 }
 
-// Readdir implements Readdir interface of http.File.
+// Readdir 实现了 http.File 接口的 Readdir 方法。 md5:d47ea30bb07047c4
 func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	files := f.resource.ScanDir(f.Name(), "*", false)
 	if len(files) > 0 {
@@ -34,12 +35,12 @@ func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	return nil, nil
 }
 
-// Stat implements Stat interface of http.File.
+// Stat 实现了 http.File 接口中的 Stat 方法。 md5:f25fb28810e2d18b
 func (f *File) Stat() (os.FileInfo, error) {
 	return f.FileInfo(), nil
 }
 
-// Read implements the io.Reader interface.
+// Read implements the io.Reader接口。 md5:ef2823b98664212a
 func (f *File) Read(b []byte) (n int, err error) {
 	reader, err := f.getReader()
 	if err != nil {
@@ -51,7 +52,7 @@ func (f *File) Read(b []byte) (n int, err error) {
 	return
 }
 
-// Seek implements the io.Seeker interface.
+// Seek 实现了 io.Seeker 接口。 md5:891a8f7e89e80191
 func (f *File) Seek(offset int64, whence int) (n int64, err error) {
 	reader, err := f.getReader()
 	if err != nil {

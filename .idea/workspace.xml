@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdbfa3a1-a971-447c-8231-bccb5bc7c74c" name="更改" comment="2024-05-22">
+    <list default="true" id="68ec115b-65bc-4d5d-9128-d38875d3ee9a" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/goframe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/goframe.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray_func.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray_func.go" afterDir="false" />
@@ -151,9 +154,7 @@
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_filter.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_filter.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_insert.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_insert.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_update.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_update.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_insert.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_insert.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_open.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_open.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_ping.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_ping.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_table_fields.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_table_fields.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_tables.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_tables.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_transaction.go" afterDir="false" />
@@ -311,9 +312,6 @@
       <change beforePath="$PROJECT_DIR$/database/gredis/gredis_redis_group_set.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/gredis/gredis_redis_group_set.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/gredis/gredis_redis_group_sorted_set.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/gredis/gredis_redis_group_sorted_set.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/gredis/gredis_redis_group_string.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/gredis/gredis_redis_group_string.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug/gdebug/gdebug_caller.go" beforeDir="false" afterPath="$PROJECT_DIR$/debug/gdebug/gdebug_caller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug/gdebug/gdebug_grid.go" beforeDir="false" afterPath="$PROJECT_DIR$/debug/gdebug/gdebug_grid.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug/gdebug/gdebug_stack.go" beforeDir="false" afterPath="$PROJECT_DIR$/debug/gdebug/gdebug_stack.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug/gdebug/gdebug_version.go" beforeDir="false" afterPath="$PROJECT_DIR$/debug/gdebug/gdebug_version.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug/gdebug/gdebug_z_unit_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/debug/gdebug/gdebug_z_unit_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/encoding/gbase64/gbase64.go" beforeDir="false" afterPath="$PROJECT_DIR$/encoding/gbase64/gbase64.go" afterDir="false" />
@@ -603,11 +601,6 @@
       <change beforePath="$PROJECT_DIR$/net/goai/goai_xextensions.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/goai/goai_xextensions.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/goai/goai_z_unit_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/goai/goai_z_unit_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gsel/gsel.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/gsel/gsel_builder.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_builder.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/gsel/gsel_builder_least_connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_builder_least_connection.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/gsel/gsel_builder_random.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_builder_random.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/gsel/gsel_builder_round_robin.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_builder_round_robin.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/gsel/gsel_builder_weight.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_builder_weight.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gsel/gsel_selector_least_connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_selector_least_connection.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gsel/gsel_selector_random.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_selector_random.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gsel/gsel_selector_round_robin.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gsel/gsel_selector_round_robin.go" afterDir="false" />
@@ -636,8 +629,6 @@
       <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_baggage.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_baggage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_carrier.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_carrier.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_content.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_span.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_span.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_tracer.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_tracer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_z_unit_carrier_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_z_unit_carrier_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_z_unit_feature_http_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_z_unit_feature_http_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/gtrace/gtrace_z_unit_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/gtrace/gtrace_z_unit_test.go" afterDir="false" />
@@ -775,25 +766,12 @@
       <change beforePath="$PROJECT_DIR$/os/glog/glog_z_unit_logger_handler_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/glog/glog_z_unit_logger_handler_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/glog/glog_z_unit_logger_rotate_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/glog/glog_z_unit_logger_rotate_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/glog/glog_z_unit_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/glog/glog_z_unit_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_attribute.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_attribute.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_attribute_map.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_attribute_map.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_global_attributes.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_global_attributes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_callback.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_callback.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_counter.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_counter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_histogram.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_histogram.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_metric_info.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_metric_info.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_metric_instrument.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_metric_instrument.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_observable_counter.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_observable_counter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_observable_gauge.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_observable_gauge.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_observable_updown_counter.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_observable_updown_counter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_meter_updown_counter.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_meter_updown_counter.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_metric.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_metric.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_noop_counter_performer.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_noop_counter_performer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_noop_histogram_performer.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_noop_histogram_performer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_noop_updown_counter_performer.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_noop_updown_counter_performer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_provider.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_provider.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_z_unit_internal_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_z_unit_internal_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmetric/gmetric_z_unit_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmetric/gmetric_z_unit_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gmlock/gmlock.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gmlock/gmlock.go" afterDir="false" />
@@ -857,7 +835,6 @@
       <change beforePath="$PROJECT_DIR$/os/gstructs/gstructs_field.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gstructs/gstructs_field.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gstructs/gstructs_field_tag.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gstructs/gstructs_field_tag.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gstructs/gstructs_tag.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gstructs/gstructs_tag.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/gstructs/gstructs_type.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gstructs/gstructs_type.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gstructs/gstructs_z_bench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gstructs/gstructs_z_bench_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gstructs/gstructs_z_unit_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gstructs/gstructs_z_unit_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/gtime/gtime.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/gtime/gtime.go" afterDir="false" />
@@ -1107,140 +1084,73 @@
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_size.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_size.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_telephone.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_telephone.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_url.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_url.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/os/gres/gres_func_替换.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/gres/gres_func_替换.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/旧版备份.rar" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/旧版备份.rar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CoverageOptionsProvider">
-    <option name="myAddOrReplace" value="1" />
-    <option name="myActivateViewOnRun" value="false" />
-  </component>
   <component name="GOROOT" url="file://C:/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GoVcsConfiguration">
-    <option name="GO_FMT" value="false" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="2dEKpNJ1fnZlxZ3zxrMRsCmrTM3" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2k70HCoyTOZ96DQJX2hPjwK8KSh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/contrib/drivers/mysql 中的 Test_SoftTime_CreateUpdateDelete2.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/contrib/drivers/sqlite 中的 Test_New_Path_With_Colon.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLine.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/debug/gdebug 中的 Test_CallerFileLineShort.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/frame/g 中的 Test_DumpTo.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/os/gfpool 中的 TestOpenErr.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/gogf/gf/v2/os/gproc 中的 Test_ShellExec.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.go test container.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test debug.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test frame.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test gdebug.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test goframe.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test gproc.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test mysql.executor&quot;: &quot;Coverage&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/goframe&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Go 测试.go test goframe.executor": "Coverage",
+    "Go 测试.go test gres.executor": "Coverage",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "C:/Users/admin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
-  <component name="RunManager" selected="Go 测试.go test goframe">
-    <configuration name="github.com/gogf/gf/v2/contrib/drivers/mysql 中的 Test_SoftTime_CreateUpdateDelete2" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="goframe" />
-      <working_directory value="$PROJECT_DIR$/contrib/drivers/mysql" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/gogf/gf/v2/contrib/drivers/mysql" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTest_SoftTime_CreateUpdateDelete2\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="github.com/gogf/gf/v2/contrib/drivers/sqlite 中的 Test_New_Path_With_Colon" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="goframe" />
-      <working_directory value="$PROJECT_DIR$/contrib/drivers/sqlite" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/gogf/gf/v2/contrib/drivers/sqlite" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTest_New_Path_With_Colon\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="github.com/gogf/gf/v2/os/gproc 中的 Test_ShellExec" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="goframe" />
-      <working_directory value="$PROJECT_DIR$/os/gproc" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/gogf/gf/v2/os/gproc" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTest_ShellExec\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go test debug" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="goframe" />
-      <working_directory value="$PROJECT_DIR$/debug" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <package value="github.com/gogf/gf/v2/debug" />
-      <directory value="$PROJECT_DIR$/debug" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
+}]]></component>
+  <component name="RunManager" selected="Go 测试.go test gres">
     <configuration name="go test goframe" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="goframe" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="DIRECTORY" />
-      <package value="github.com/gogf/gf/v2" />
       <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test gres" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="goframe" />
+      <working_directory value="$PROJECT_DIR$/os/gres" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/os/gres" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.go test gres" />
         <item itemvalue="Go 测试.go test goframe" />
-        <item itemvalue="Go 测试.github.com/gogf/gf/v2/os/gproc 中的 Test_ShellExec" />
-        <item itemvalue="Go 测试.github.com/gogf/gf/v2/contrib/drivers/sqlite 中的 Test_New_Path_With_Colon" />
-        <item itemvalue="Go 测试.github.com/gogf/gf/v2/contrib/drivers/mysql 中的 Test_SoftTime_CreateUpdateDelete2" />
-        <item itemvalue="Go 测试.go test debug" />
       </list>
     </recent_temporary>
   </component>
@@ -1255,125 +1165,11 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="2024-03-05" />
-    <MESSAGE value="第一版" />
-    <MESSAGE value="2024-05-20 重新换回完整版" />
-    <MESSAGE value="2024-05-22" />
-    <option name="LAST_COMMIT_MESSAGE" value="2024-05-22" />
-  </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/gset/gset_any_set.go</url>
-          <line>19</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/gtype/gtype_interface.go</url>
-          <line>18</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/gmap/gmap_hash_int_str_map.go</url>
-          <line>16</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/genv/genv.go</url>
-          <line>93</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/genv/genv.go</url>
-          <line>96</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/genv/genv.go</url>
-          <line>98</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/genv/genv_z_unit_test.go</url>
-          <line>119</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/genv/genv_z_unit_test.go</url>
-          <line>128</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/garray/garray_normal_int.go</url>
-          <line>453</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <watches-manager>
-      <configuration name="GoTestRunConfiguration">
-        <watch expression="测试" />
-        <watch expression="测试" />
-      </configuration>
-    </watches-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/goframe$go_test_gpool.out" NAME="go test gpool 覆盖结果" MODIFIED="1709651370780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gmutex.out" NAME="go test gmutex 覆盖结果" MODIFIED="1709997424376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gaes.out" NAME="go test gaes 覆盖结果" MODIFIED="1709997099857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gproc.out" NAME="go test gproc 覆盖结果" MODIFIED="1716257400341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_genv.out" NAME="go test genv 覆盖结果" MODIFIED="1709607866909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_grand.out" NAME="go test grand 覆盖结果" MODIFIED="1709997428386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gbase64.out" NAME="go test gbase64 覆盖结果" MODIFIED="1709997163334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$github_com_888go_goframe_garray__TestStrArray_Merge.out" NAME="github.com/888go/goframe/garray 中的 TestStrArray_Merge 覆盖结果" MODIFIED="1709653044083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_guid.out" NAME="go test guid 覆盖结果" MODIFIED="1709997488179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gdes.out" NAME="go test gdes 覆盖结果" MODIFIED="1709997314099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$github_com_888go_goframe_genv__Test_GetWithCmd.out" NAME="github.com/888go/goframe/genv 中的 Test_GetWithCmd 覆盖结果" MODIFIED="1709608578712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gclient.out" NAME="go test gclient 覆盖结果" MODIFIED="1709940400528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gcache.out" NAME="go test gcache 覆盖结果" MODIFIED="1709612089219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gdebug.out" NAME="go test gdebug 覆盖结果" MODIFIED="1721908984194" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gurl.out" NAME="go test gurl 覆盖结果" MODIFIED="1709997550410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gtime.out" NAME="go test gtime 覆盖结果" MODIFIED="1709997482677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gjson.out" NAME="go test gjson 覆盖结果" MODIFIED="1709997363905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gvar.out" NAME="go test gvar 覆盖结果" MODIFIED="1709997563434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_mysql.out" NAME="go test mysql 覆盖结果" MODIFIED="1721907161858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_goframe.out" NAME="go test goframe 覆盖结果" MODIFIED="1722616087543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gfile.out" NAME="go test gfile 覆盖结果" MODIFIED="1709997318761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gtimer.out" NAME="go test gtimer 覆盖结果" MODIFIED="1709997484566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gregex.out" NAME="go test gregex 覆盖结果" MODIFIED="1709997431094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gmd5.out" NAME="go test gmd5 覆盖结果" MODIFIED="1709997368497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gqueue.out" NAME="go test gqueue 覆盖结果" MODIFIED="1709997426250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gmap.out" NAME="go test gmap 覆盖结果" MODIFIED="1709997366209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gcrc32.out" NAME="go test gcrc32 覆盖结果" MODIFIED="1709997168194" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_debug.out" NAME="go test debug 覆盖结果" MODIFIED="1721909301220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gset.out" NAME="go test gset 覆盖结果" MODIFIED="1709997443272" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_ghtml.out" NAME="go test ghtml 覆盖结果" MODIFIED="1709997320895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gsha1.out" NAME="go test gsha1 覆盖结果" MODIFIED="1709997445194" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_garray.out" NAME="go test garray 覆盖结果" MODIFIED="1709997161237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gcfg.out" NAME="go test gcfg 覆盖结果" MODIFIED="1709611825054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_container.out" NAME="go test container 覆盖结果" MODIFIED="1716219401696" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gtype.out" NAME="go test gtype 覆盖结果" MODIFIED="1709997486315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gctx.out" NAME="go test gctx 覆盖结果" MODIFIED="1709997308422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gutil.out" NAME="go test gutil 覆盖结果" MODIFIED="1709997560045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_glog.out" NAME="go test glog 覆盖结果" MODIFIED="1709612001777" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gconv.out" NAME="go test gconv 覆盖结果" MODIFIED="1709940828940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_frame.out" NAME="go test frame 覆盖结果" MODIFIED="1721405530360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gmlock.out" NAME="go test gmlock 覆盖结果" MODIFIED="1709997371009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gview.out" NAME="go test gview 覆盖结果" MODIFIED="1709997565682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gstr.out" NAME="go test gstr 覆盖结果" MODIFIED="1709997447443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gcmd.out" NAME="go test gcmd 覆盖结果" MODIFIED="1709940773956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gview__1_.out" NAME="go test gview (1) 覆盖结果" MODIFIED="1709942210634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gcompress.out" NAME="go test gcompress 覆盖结果" MODIFIED="1709997165626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gini.out" NAME="go test gini 覆盖结果" MODIFIED="1709997323156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$go_test_gmap__1_.out" NAME="go test gmap (1) 覆盖结果" MODIFIED="1709941598534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/goframe$gocheck_gmlock.out" NAME="gocheck gmlock 覆盖结果" MODIFIED="1709612135762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/goframe$go_test_gres.out" NAME="go test gres 覆盖结果" MODIFIED="1722619789002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/goframe$go_test_goframe.out" NAME="go test goframe 覆盖结果" MODIFIED="1722619524614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

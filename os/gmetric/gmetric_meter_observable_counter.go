@@ -1,12 +1,12 @@
-// Copyright GoFrame gf Author(https://goframe.org). All Rights Reserved.
+// 版权所有 (c) GoFrame (https://goframe.org)，保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码遵循MIT许可协议。若未随此文件分发MIT许可证的副本，
+// 您可以从 https://github.com/gogf/gf 获取。
+// md5:c14c707c81272457
 
 package gmetric
 
-// localObservableCounter is the local implements for interface ObservableCounter.
+// localObservableCounter 是接口 ObservableCounter 的本地实现。 md5:49a0950ea1c362dc
 type localObservableCounter struct {
 	Metric
 	MeterOption
@@ -15,13 +15,13 @@ type localObservableCounter struct {
 }
 
 var (
-	// Check the implements for interface MetricInitializer.
+		// 检查是否实现了MetricInitializer接口。 md5:87bf7f014f5d05df
 	_ MetricInitializer = (*localObservableCounter)(nil)
-	// Check the implements for interface PerformerExporter.
+		// 检查对于接口PerformerExporter的实现。 md5:7bc09f325273ded9
 	_ PerformerExporter = (*localObservableCounter)(nil)
 )
 
-// ObservableCounter creates and returns a new ObservableCounter.
+// ObservableCounter 创建并返回一个新的 ObservableCounter。 md5:1fb1055edede2f1e
 func (meter *localMeter) ObservableCounter(name string, option MetricOption) (ObservableCounter, error) {
 	m, err := meter.newMetric(MetricTypeObservableCounter, name, option)
 	if err != nil {
@@ -42,8 +42,9 @@ func (meter *localMeter) ObservableCounter(name string, option MetricOption) (Ob
 	return observableCounter, nil
 }
 
-// MustObservableCounter creates and returns a new ObservableCounter.
-// It panics if any error occurs.
+// MustObservableCounter 创建并返回一个新的 ObservableCounter。
+// 如果发生任何错误，它将引发恐慌。
+// md5:0e100a900e418612
 func (meter *localMeter) MustObservableCounter(name string, option MetricOption) ObservableCounter {
 	m, err := meter.ObservableCounter(name, option)
 	if err != nil {
@@ -52,7 +53,7 @@ func (meter *localMeter) MustObservableCounter(name string, option MetricOption)
 	return m
 }
 
-// Init initializes the Metric in Provider creation.
+// Init 在创建Provider时初始化Metric。 md5:a46b2bb4d31aa7d0
 func (l *localObservableCounter) Init(provider Provider) (err error) {
 	if _, ok := l.ObservableCounterPerformer.(noopObservableCounterPerformer); !ok {
 		// already initialized.
@@ -65,8 +66,9 @@ func (l *localObservableCounter) Init(provider Provider) (err error) {
 	return err
 }
 
-// Performer implements interface PerformerExporter, which exports internal Performer of Metric.
-// This is usually used by metric implements.
+// Performer 实现了 PerformerExporter 接口，该接口用于导出 Metric 的内部 Performer。
+// 这通常被指标实现所使用。
+// md5:e521fc985b9a53e2
 func (l *localObservableCounter) Performer() any {
 	return l.ObservableCounterPerformer
 }

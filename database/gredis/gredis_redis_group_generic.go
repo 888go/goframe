@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package redis类
 
@@ -13,8 +14,9 @@ import (
 	gvar "github.com/888go/goframe/container/gvar"
 )
 
-// IGroupGeneric manages generic redis operations.
-// Implements see redis.GroupGeneric.
+// IGroupGeneric 管理通用的 Redis 操作。
+// 实现了 redis.GroupGeneric 接口。
+// md5:d6eb4921760b60f4
 type IGroupGeneric interface {
 	Copy(ctx context.Context, source, destination string, option ...CopyOption) (int64, error)
 	Exists(ctx context.Context, keys ...string) (int64, error)
@@ -41,42 +43,42 @@ type IGroupGeneric interface {
 	PTTL(ctx context.Context, key string) (int64, error)
 }
 
-// CopyOption provides options for function Copy.
+// CopyOption 为 Copy 函数提供选项。 md5:985df0dc4c62e896
 type CopyOption struct {
-	DB      int  // DB option allows specifying an alternative logical database index for the destination key.
-	REPLACE bool // REPLACE option removes the destination key before copying the value to it.
+	DB      int  // DB 选项允许为目的地键指定一个替代的逻辑数据库索引。 md5:f7752ecd2c09888e
+	REPLACE bool // REPLACE选项在将值复制到目标键之前删除目标键。 md5:7d1daa6e1cf324ab
 }
 
 type FlushOp string
 
 const (
-	FlushAsync FlushOp = "ASYNC" // ASYNC: flushes the databases asynchronously
-	FlushSync  FlushOp = "SYNC"  // SYNC: flushes the databases synchronously
+	FlushAsync FlushOp = "ASYNC" // ASYNC：异步刷新数据库. md5:8f0fb503842c62dc
+	FlushSync  FlushOp = "SYNC"  // 同步：同步刷新数据库. md5:c995019017769085
 )
 
-// ExpireOption provides options for function Expire.
+// ExpireOption 提供了 Expire 函数的选项。 md5:fe605b48792fd395
 type ExpireOption struct {
-	NX bool // NX -- Set expiry only when the key has no expiry
-	XX bool // XX -- Set expiry only when the key has an existing expiry
-	GT bool // GT -- Set expiry only when the new expiry is greater than current one
-	LT bool // LT -- Set expiry only when the new expiry is less than current one
+	NX bool // NX -- 只在键没有过期时设置过期时间. md5:753349361957bc17
+	XX bool // XX -- 只在键已存在过期时间时设置过期. md5:005a0b6114104985
+	GT bool // GT -- 仅当新过期时间大于当前过期时间时，才设置过期时间. md5:e25f0e8a00a61ecf
+	LT bool // LT -- 只有当新的过期时间小于当前过期时间时才设置过期时间. md5:7d837833fbcaa3f3
 }
 
-// ScanOption provides options for function Scan.
+// ScanOption为Scan函数提供了选项。 md5:32efa528c8a65e49
 type ScanOption struct {
-	Match string // Match -- Specifies a glob-style pattern for filtering keys.
-	Count int    // Count -- Suggests the number of keys to return per scan.
-	Type  string // Type -- Filters keys by their data type. Valid types are "string", "list", "set", "zset", "hash", and "stream".
+	Match string // Match - 定义用于筛选键的通配符风格模式。 md5:8a1fe0030e22d0f9
+	Count int    // Count -- 建议每次扫描返回的键的数量。 md5:9090884e4078ad30
+	Type  string // Type -- 根据键的数据类型过滤。有效的类型包括 "string"、"list"、"set"、"zset"、"hash" 和 "stream"。 md5:e1661eb01e6db304
 }
 
-// doScanOption is the internal representation of ScanOption.
+// doScanOption是ScanOption的内部表示。 md5:3846dba237546aef
 type doScanOption struct {
 	Match *string
 	Count *int
 	Type  *string
 }
 
-// ToUsedOption converts fields in ScanOption with zero values to nil. Only fields with values are retained.
+// ToUsedOption 将ScanOption中的零值字段转换为nil。只有具有值的字段才会被保留。 md5:42a6307a3e94db33
 func (scanOpt *ScanOption) ToUsedOption() doScanOption {
 	var usedOption doScanOption
 

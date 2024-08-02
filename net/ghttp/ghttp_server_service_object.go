@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package http类
 
@@ -17,10 +18,10 @@ import (
 	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// BindObject registers object to server routes with a given pattern.
+// BindObject 将对象绑定到具有给定模式的服务器路由。
 //
-// The optional parameter `method` is used to specify the method to be registered, which
-// supports multiple method names; multiple methods are separated by char ',', case-sensitive.
+// 可选参数 `method` 用于指定要注册的方法，支持多个方法名称；多个方法名称之间用字符 `,` 分隔，区分大小写。
+// md5:224eaf0adfd81c84
 func (s *Server) BindObject(pattern string, object interface{}, method ...string) {
 	var bindMethod = ""
 	if len(method) > 0 {
@@ -36,10 +37,10 @@ func (s *Server) BindObject(pattern string, object interface{}, method ...string
 	})
 }
 
-// BindObjectMethod registers specified method of the object to server routes with a given pattern.
-//
-// The optional parameter `method` is used to specify the method to be registered, which
-// does not support multiple method names but only one, case-sensitive.
+// BindObjectMethod 将指定对象的特定方法与给定模式的服务器路由绑定。
+// 
+// 可选参数 `method` 用于指定要注册的方法，它不支持多个方法名，仅支持一个，且区分大小写。
+// md5:badb3f7323abfd11
 func (s *Server) BindObjectMethod(pattern string, object interface{}, method string) {
 	s.doBindObjectMethod(context.TODO(), doBindObjectMethodInput{
 		Prefix:     "",
@@ -51,7 +52,7 @@ func (s *Server) BindObjectMethod(pattern string, object interface{}, method str
 	})
 }
 
-// BindObjectRest registers object in REST API styles to server with a specified pattern.
+// BindObjectRest 使用指定的模式将对象以REST API风格注册到服务器。 md5:e071850c88eb6751
 func (s *Server) BindObjectRest(pattern string, object interface{}) {
 	s.doBindObjectRest(context.TODO(), doBindObjectInput{
 		Prefix:     "",
@@ -73,7 +74,7 @@ type doBindObjectInput struct {
 }
 
 func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
-	// Convert input method to map for convenience and high performance searching purpose.
+		// 将输入方法转换为映射，以便于进行高效便捷的搜索。 md5:116ad79ef3003f65
 	var methodMap map[string]bool
 	if len(in.Method) > 0 {
 		methodMap = make(map[string]bool)
@@ -81,8 +82,8 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 			methodMap[strings.TrimSpace(v)] = true
 		}
 	}
-	// If the `method` in `pattern` is `defaultMethod`,
-	// it removes for convenience for next statement control.
+	// 如果`pattern`中的`method`为`defaultMethod`，为了方便后续语句的控制，它会移除。
+	// md5:08bf69a00eee9caa
 	domain, method, path, err := s.parsePattern(in.Pattern)
 	if err != nil {
 		s.Logger().Fatalf(ctx, `%+v`, err)
@@ -98,9 +99,9 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		initFunc     func(*Request)
 		shutFunc     func(*Request)
 	)
-	// If given `object` is not pointer, it then creates a temporary one,
-	// of which the value is `reflectValue`.
-	// It then can retrieve all the methods both of struct/*struct.
+	// 如果给定的`object`不是指针，那么它会创建一个临时的，其值为`reflectValue`。
+	// 然后它可以获取结构体/`*struct`的所有方法。
+	// md5:1e216cd9c7839ef2
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectType)
 		newValue.Elem().Set(reflectValue)
@@ -144,13 +145,12 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 			Middleware: in.Middleware,
 			Source:     in.Source,
 		}
-		// If there's "Index" method, then an additional route is automatically added
-		// to match the main URI, for example:
-		// If pattern is "/user", then "/user" and "/user/index" are both automatically
-		// registered.
+		// 如果存在"Index"方法，则会自动添加一个额外的路由来匹配主URI，例如：
+		// 如果模式是"/user"，那么"/user"和"/user/index"都会被自动
+		// 注册。
 		//
-		// Note that if there's built-in variables in pattern, this route will not be added
-		// automatically.
+		// 请注意，如果模式中包含内置变量，这条路由将不会被自动添加。
+		// md5:96b4d9eca149582c
 		var (
 			isIndexMethod = strings.EqualFold(methodName, specialMethodNameIndex)
 			hasBuildInVar = gregex.IsMatchString(`\{\.\w+\}`, in.Pattern)
@@ -193,8 +193,9 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 		initFunc     func(*Request)
 		shutFunc     func(*Request)
 	)
-	// If given `object` is not pointer, it then creates a temporary one,
-	// of which the value is `v`.
+	// 如果给定的`object`不是指针，那么它会创建一个临时的指针，
+	// 其值为`v`。
+	// md5:ea1cbad8bfbac476
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectType)
 		newValue.Elem().Set(reflectValue)
@@ -252,8 +253,9 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 		initFunc     func(*Request)
 		shutFunc     func(*Request)
 	)
-	// If given `object` is not pointer, it then creates a temporary one,
-	// of which the value is `v`.
+	// 如果给定的`object`不是指针，那么它会创建一个临时的指针，
+	// 其值为`v`。
+	// md5:ea1cbad8bfbac476
 	if reflectValue.Kind() == reflect.Struct {
 		newValue := reflect.New(reflectType)
 		newValue.Elem().Set(reflectValue)

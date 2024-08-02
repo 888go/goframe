@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 日志类
 
@@ -33,14 +34,12 @@ const (
 	structureKeyStack      = "Stack"
 )
 
-// Copied from encoding/json/tables.go.
+// 从encoding/json/tables.go复制。
 //
-// safeSet holds the value true if the ASCII character with the given array
-// position can be represented inside a JSON string without any further
-// escaping.
+// safeSet用于存储一个布尔值，表示具有给定数组位置的ASCII字符可以在JSON字符串中表示，而无需进一步转义。
 //
-// All values are true except for the ASCII control characters (0-31), the
-// double quote ("), and the backslash character ("\").
+// 除了ASCII控制字符（0-31）、双引号（"）和反斜杠字符（\）之外，所有值都为true。
+// md5:2df5305c3a107923
 var safeSet = [utf8.RuneSelf]bool{
 	' ':      true,
 	'!':      true,
@@ -140,7 +139,7 @@ var safeSet = [utf8.RuneSelf]bool{
 	'\u007f': true,
 }
 
-// HandlerStructure is a handler for output logging content as a structured string.
+// HandlerStructure 是一个处理器，用于将输出的日志内容以结构化字符串的形式处理。 md5:392f74b46dcdd1eb
 func HandlerStructure(ctx context.Context, in *HandlerInput) {
 	s := newStructuredBuffer(in)
 	in.Buffer.Write(s.Bytes())
@@ -175,7 +174,7 @@ func (buf *structuredBuffer) Bytes() []byte {
 	if buf.in.Prefix != "" {
 		buf.addValue(structureKeyPrefix, buf.in.Prefix)
 	}
-	// If the values cannot be the pair, move the first one to content.
+		// 如果这些值不能组成一对，将第一个移到content中。 md5:2bc1ae2ae5605225
 	values := buf.in.Values
 	if len(values)%2 != 0 {
 		if buf.in.Content != "" {
@@ -227,8 +226,8 @@ func (buf *structuredBuffer) needsQuoting(s string) bool {
 	for i := 0; i < len(s); {
 		b := s[i]
 		if b < utf8.RuneSelf {
-			// Quote anything except a backslash that would need quoting in a
-			// JSON string, as well as space and '='
+			// 在JSON字符串中，除了需要转义的反斜杠、空格和'='之外，对任何内容进行引号包裹
+			// md5:0202f0293260c21e
 			if b != '\\' && (b == ' ' || b == '=' || !safeSet[b]) {
 				return true
 			}

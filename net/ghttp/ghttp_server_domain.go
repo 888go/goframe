@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package http类
 
@@ -11,13 +12,13 @@ import (
 	"strings"
 )
 
-// Domain is used for route register for domains.
+// Domain 用于域名的路由注册。 md5:c83832d3612fc101
 type Domain struct {
 	server  *Server             // Belonged server
-	domains map[string]struct{} // Support multiple domains.
+	domains map[string]struct{} // 支持多个域名。 md5:8ddb7825d8136c0d
 }
 
-// Domain creates and returns a domain object for management for one or more domains.
+// Domain 为一个或多个域创建并返回用于管理的域对象。 md5:613c2d9b16e14c56
 func (s *Server) Domain(domains string) *Domain {
 	d := &Domain{
 		server:  s,
@@ -29,7 +30,7 @@ func (s *Server) Domain(domains string) *Domain {
 	return d
 }
 
-// BindHandler binds the handler for the specified pattern.
+// BindHandler 为指定的模式绑定处理器。 md5:91d1c2e239074063
 func (d *Domain) BindHandler(pattern string, handler interface{}) {
 	for domain := range d.domains {
 		d.server.BindHandler(pattern+"@"+domain, handler)
@@ -48,7 +49,7 @@ func (d *Domain) doBindHandler(ctx context.Context, in doBindHandlerInput) {
 	}
 }
 
-// BindObject binds the object for the specified pattern.
+// BindObject 将对象绑定到指定的模式。 md5:3beffc65c22e5098
 func (d *Domain) BindObject(pattern string, obj interface{}, methods ...string) {
 	for domain := range d.domains {
 		d.server.BindObject(pattern+"@"+domain, obj, methods...)
@@ -68,7 +69,7 @@ func (d *Domain) doBindObject(ctx context.Context, in doBindObjectInput) {
 	}
 }
 
-// BindObjectMethod binds the method for the specified pattern.
+// BindObjectMethod 为指定的模式绑定方法。 md5:44230959de888ace
 func (d *Domain) BindObjectMethod(pattern string, obj interface{}, method string) {
 	for domain := range d.domains {
 		d.server.BindObjectMethod(pattern+"@"+domain, obj, method)
@@ -88,7 +89,7 @@ func (d *Domain) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 	}
 }
 
-// BindObjectRest binds the RESTful API for the specified pattern.
+// BindObjectRest 为指定模式绑定RESTful API。 md5:c63a87d6bb5ebd6c
 func (d *Domain) BindObjectRest(pattern string, obj interface{}) {
 	for domain := range d.domains {
 		d.server.BindObjectRest(pattern+"@"+domain, obj)
@@ -108,7 +109,7 @@ func (d *Domain) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 	}
 }
 
-// BindHookHandler binds the hook handler for the specified pattern.
+// BindHookHandler 为指定的模式绑定钩子处理器。 md5:c2455777873cd92a
 func (d *Domain) BindHookHandler(pattern string, hook HookName, handler HandlerFunc) {
 	for domain := range d.domains {
 		d.server.BindHookHandler(pattern+"@"+domain, hook, handler)
@@ -127,42 +128,42 @@ func (d *Domain) doBindHookHandler(ctx context.Context, in doBindHookHandlerInpu
 	}
 }
 
-// BindHookHandlerByMap binds the hook handler for the specified pattern.
+// BindHookHandlerByMap 为指定的模式绑定钩子处理程序。 md5:39439ccca98ce817
 func (d *Domain) BindHookHandlerByMap(pattern string, hookMap map[HookName]HandlerFunc) {
 	for domain := range d.domains {
 		d.server.BindHookHandlerByMap(pattern+"@"+domain, hookMap)
 	}
 }
 
-// BindStatusHandler binds the status handler for the specified pattern.
+// BindStatusHandler 为指定的模式绑定状态处理器。 md5:5cb032dd618649e2
 func (d *Domain) BindStatusHandler(status int, handler HandlerFunc) {
 	for domain := range d.domains {
 		d.server.addStatusHandler(d.server.statusHandlerKey(status, domain), handler)
 	}
 }
 
-// BindStatusHandlerByMap binds the status handler for the specified pattern.
+// BindStatusHandlerByMap 为指定的模式绑定状态处理器。 md5:04388d53c4410f82
 func (d *Domain) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc) {
 	for k, v := range handlerMap {
 		d.BindStatusHandler(k, v)
 	}
 }
 
-// BindMiddleware binds the middleware for the specified pattern.
+// BindMiddleware 为指定的模式绑定中间件。 md5:40c97b890ebb105a
 func (d *Domain) BindMiddleware(pattern string, handlers ...HandlerFunc) {
 	for domain := range d.domains {
 		d.server.BindMiddleware(pattern+"@"+domain, handlers...)
 	}
 }
 
-// BindMiddlewareDefault binds the default middleware for the specified pattern.
+// BindMiddlewareDefault 为指定的模式绑定默认中间件。 md5:792e7f694ab5eeb3
 func (d *Domain) BindMiddlewareDefault(handlers ...HandlerFunc) {
 	for domain := range d.domains {
 		d.server.BindMiddleware(defaultMiddlewarePattern+"@"+domain, handlers...)
 	}
 }
 
-// Use adds middleware to the domain.
+// Use向域添加中间件。 md5:4aeb37c314d609f3
 func (d *Domain) Use(handlers ...HandlerFunc) {
 	d.BindMiddlewareDefault(handlers...)
 }

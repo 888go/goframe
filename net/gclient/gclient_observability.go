@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 网页类
 
@@ -46,11 +47,11 @@ const (
 	tracingMiddlewareHandled        gctx.StrKey = `MiddlewareClientTracingHandled`
 )
 
-// internalMiddlewareObservability is a client middleware that enables observability feature.
+// internalMiddlewareObservability 是一个客户端中间件，用于启用可观测性特性。 md5:3e8ca5815bee6c43
 func internalMiddlewareObservability(c *Client, r *http.Request) (response *Response, err error) {
 	var ctx = r.Context()
-	// Mark this request is handled by server tracing middleware,
-	// to avoid repeated handling by the same middleware.
+	// 标记此请求已由服务器跟踪中间件处理，以避免被相同的中间件重复处理。
+	// md5:0ca4c50f5a9f8851
 	if ctx.Value(tracingMiddlewareHandled) != nil {
 		return c.Next(r)
 	}
@@ -65,10 +66,10 @@ func internalMiddlewareObservability(c *Client, r *http.Request) (response *Resp
 
 	span.SetAttributes(gtrace.CommonLabels()...)
 
-	// Inject tracing content into http header.
+		// 将跟踪内容注入到HTTP头中。 md5:1e1cdfd3fa2c105a
 	otel.GetTextMapPropagator().Inject(ctx, propagation.HeaderCarrier(r.Header))
 
-	// Inject ClientTrace into context for http request.
+		// 将ClientTrace注入到HTTP请求的上下文中。 md5:2eb24a7227c63b0f
 	var (
 		httpClientTracer       *httptrace.ClientTrace
 		baseClientTracer       = newClientTracerNoop()
@@ -90,7 +91,7 @@ func internalMiddlewareObservability(c *Client, r *http.Request) (response *Resp
 	)
 	response, err = c.Next(r)
 
-	// If it is now using default trace provider, it then does no complex tracing jobs.
+		// 如果当前正在使用默认的跟踪提供程序，那么它将不执行复杂的跟踪任务。 md5:27e9b5e1b834aa5d
 	if isUsingDefaultProvider {
 		return
 	}

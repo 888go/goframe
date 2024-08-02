@@ -1,16 +1,18 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 文本类
 
-// Levenshtein calculates Levenshtein distance between two strings.
-// costIns: Defines the cost of insertion.
-// costRep: Defines the cost of replacement.
-// costDel: Defines the cost of deletion.
-// See http://php.net/manual/en/function.levenshtein.php.
+// Levenshtein 计算两个字符串之间的Levenshtein距离。
+// costIns: 定义插入操作的成本。
+// costRep: 定义替换操作的成本。
+// costDel: 定义删除操作的成本。
+// 参考 http://php.net/manual/en/function.levenshtein.php。
+// md5:d04eb32ecd9f609b
 func Levenshtein(str1, str2 string, costIns, costRep, costDel int) int {
 	var maxLen = 255
 	l1 := len(str1)
@@ -60,15 +62,16 @@ func Levenshtein(str1, str2 string, costIns, costRep, costDel int) int {
 	return c0
 }
 
-// SimilarText calculates the similarity between two strings.
-// See http://php.net/manual/en/function.similar-text.php.
+// SimilarText 计算两个字符串之间的相似度。
+// 参考：http://php.net/manual/zh/function.similar-text.php。
+// md5:773f9b9fd3d9b20d
 func SimilarText(first, second string, percent *float64) int {
 	var similarText func(string, string, int, int) int
 	similarText = func(str1, str2 string, len1, len2 int) int {
 		var sum, max int
 		pos1, pos2 := 0, 0
 
-		// Find the longest segment of the same section in two strings
+						// 在两个字符串中找到同一部分最长的连续段落. md5:1a37a1a12c5489f3
 		for i := 0; i < len1; i++ {
 			for j := 0; j < len2; j++ {
 				for l := 0; (i+l < len1) && (j+l < len2) && (str1[i+l] == str2[j+l]); l++ {
@@ -106,8 +109,9 @@ func SimilarText(first, second string, percent *float64) int {
 	return sim
 }
 
-// Soundex calculates the soundex key of a string.
-// See http://php.net/manual/en/function.soundex.php.
+// Soundex 计算字符串的音素编码。
+// 参见 http://php.net/manual/en/function.soundex.php。
+// md5:80909cffb32263c4
 func Soundex(str string) string {
 	if str == "" {
 		panic("str: cannot be an empty string")

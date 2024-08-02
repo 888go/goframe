@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 文件类
 
@@ -13,7 +14,7 @@ import (
 	"strings"
 )
 
-// Size returns the size of file specified by `path` in byte.
+// Size 返回指定路径`path`的文件大小，以字节为单位。 md5:bb6ab734af5c941f
 func Size(path string) int64 {
 	s, e := os.Stat(path)
 	if e != nil {
@@ -22,17 +23,17 @@ func Size(path string) int64 {
 	return s.Size()
 }
 
-// SizeFormat returns the size of file specified by `path` in format string.
+// SizeFormat 返回由 `path` 指定的文件的大小，格式为字符串。 md5:17a4b324cd8ec9a7
 func SizeFormat(path string) string {
 	return FormatSize(Size(path))
 }
 
-// ReadableSize formats size of file given by `path`, for more human readable.
+// ReadableSize 格式化给定路径（`path`）的文件大小，使其更易于人类阅读。 md5:04f6ed7d21e25298
 func ReadableSize(path string) string {
 	return FormatSize(Size(path))
 }
 
-// StrToSize converts formatted size string to its size in bytes.
+// StrToSize 将格式化后的尺寸字符串转换为字节大小。 md5:b40fff33ad10f088
 func StrToSize(sizeStr string) int64 {
 	i := 0
 	for ; i < len(sizeStr); i++ {
@@ -74,7 +75,7 @@ func StrToSize(sizeStr string) int64 {
 	return -1
 }
 
-// FormatSize formats size `raw` for more manually readable.
+// FormatSize 将大小 `raw` 格式化为更易读的形式。 md5:7b0eb2b4570b5bb2
 func FormatSize(raw int64) string {
 	var r float64 = float64(raw)
 	var t float64 = 1024

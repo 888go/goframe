@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package 时间类_test
 
@@ -96,7 +97,7 @@ func Test_RFC822(t *testing.T) {
 
 func Test_StrToTime(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		// Correct datetime string.
+				// 正确的日期时间字符串。 md5:30202903e049484f
 		var testDateTimes = []string{
 			"2006-01-02 15:04:05",
 			"2006/01/02 15:04:05",
@@ -111,7 +112,7 @@ func Test_StrToTime(t *testing.T) {
 			"02.jan.2006 15:04:05",
 			"02.jan.2006:15:04:05",
 		}
-		// Save the previous time zone
+				// 保存先前的时区. md5:e98b311301c3985e
 		local := *time.Local
 		defer func() {
 			*time.Local = local

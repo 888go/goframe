@@ -1,8 +1,8 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者所有（https://goframe.org）。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with gm file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款的约束。如果gm文件中未附带MIT许可证的副本，
+// 您可以从https://github.com/gogf/gf获取。
+// md5:1d281c30cdc3423b
 
 package map类_test
 
@@ -50,7 +50,7 @@ func ExampleStrStrMap_Clone() {
 }
 
 func ExampleStrStrMap_Map() {
-	// non concurrent-safety, a pointer to the underlying data
+		// 非并发安全，指向底层数据的指针. md5:0c201eaf65f11ed8
 	m1 := gmap.NewStrStrMap()
 	m1.Set("key1", "val1")
 	fmt.Println("m1:", m1)
@@ -60,7 +60,7 @@ func ExampleStrStrMap_Map() {
 	m1.Set("key1", "val2")
 	fmt.Println("after n1:", n1)
 
-	// concurrent-safety, copy of underlying data
+			// 并发安全，底层数据的副本. md5:114a4273430037c7
 	m2 := gmap.NewStrStrMap(true)
 	m2.Set("key1", "val1")
 	fmt.Println("m2:", m2)

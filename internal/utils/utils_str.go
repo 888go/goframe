@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package utils
 
@@ -12,7 +13,7 @@ import (
 )
 
 var (
-	// DefaultTrimChars are the characters which are stripped by Trim* functions in default.
+		// DefaultTrimChars 是Trim*函数默认删除的字符。 md5:4841fe294d977402
 	DefaultTrimChars = string([]byte{
 		'\t', // Tab.
 		'\v', // Vertical tab.
@@ -26,7 +27,7 @@ var (
 	})
 )
 
-// IsLetterUpper checks whether the given byte b is in upper case.
+// IsLetterUpper 检查给定字节 b 是否为大写字母。 md5:92d2fefb65d65bd7
 func IsLetterUpper(b byte) bool {
 	if b >= byte('A') && b <= byte('Z') {
 		return true
@@ -34,7 +35,7 @@ func IsLetterUpper(b byte) bool {
 	return false
 }
 
-// IsLetterLower checks whether the given byte b is in lower case.
+// IsLetterLower 检查给定的字节 b 是否为小写。 md5:6f3845d2ae021561
 func IsLetterLower(b byte) bool {
 	if b >= byte('a') && b <= byte('z') {
 		return true
@@ -42,13 +43,14 @@ func IsLetterLower(b byte) bool {
 	return false
 }
 
-// IsLetter checks whether the given byte b is a letter.
+// IsLetter 检查给定的字节b是否为字母。 md5:f483df3b4a456648
 func IsLetter(b byte) bool {
 	return IsLetterUpper(b) || IsLetterLower(b)
 }
 
-// IsNumeric checks whether the given string s is numeric.
-// Note that float string like "123.456" is also numeric.
+// IsNumeric 检查给定的字符串 s 是否为数字。
+// 注意，像 "123.456" 这样的浮点数字符串也被视为数字。
+// md5:630bec1763c4d982
 func IsNumeric(s string) bool {
 	var (
 		dotCount = 0
@@ -76,7 +78,7 @@ func IsNumeric(s string) bool {
 	return dotCount <= 1
 }
 
-// UcFirst returns a copy of the string s with the first letter mapped to its upper case.
+// UcFirst 返回一个字符串s的副本，其中第一个字母映射为其大写形式。 md5:bc090531eef4b3e6
 func UcFirst(s string) string {
 	if len(s) == 0 {
 		return s
@@ -87,8 +89,9 @@ func UcFirst(s string) string {
 	return s
 }
 
-// ReplaceByMap returns a copy of `origin`,
-// which is replaced by a map in unordered way, case-sensitively.
+// ReplaceByMap 返回一个`origin`的副本，
+// 使用映射无序地替换其中的内容，且区分大小写。
+// md5:c047c08d8be640ad
 func ReplaceByMap(origin string, replaces map[string]string) string {
 	for k, v := range replaces {
 		origin = strings.ReplaceAll(origin, k, v)
@@ -96,7 +99,7 @@ func ReplaceByMap(origin string, replaces map[string]string) string {
 	return origin
 }
 
-// RemoveSymbols removes all symbols from string and lefts only numbers and letters.
+// RemoveSymbols 从字符串中移除所有符号，只保留数字和字母。 md5:cdaeb32f53496617
 func RemoveSymbols(s string) string {
 	var b = make([]rune, 0, len(s))
 	for _, c := range s {
@@ -109,15 +112,14 @@ func RemoveSymbols(s string) string {
 	return string(b)
 }
 
-// EqualFoldWithoutChars checks string `s1` and `s2` equal case-insensitively,
-// with/without chars '-'/'_'/'.'/' '.
+// EqualFoldWithoutChars 检查字符串 `s1` 和 `s2` 是否在大小写不敏感的情况下相等，包括/不包括字符 '-'、'_'、'.' 和 ' '。
+// md5:e519885b86d35bd5
 func EqualFoldWithoutChars(s1, s2 string) bool {
 	return strings.EqualFold(RemoveSymbols(s1), RemoveSymbols(s2))
 }
 
-// SplitAndTrim splits string `str` by a string `delimiter` to an array,
-// and calls Trim to every element of this array. It ignores the elements
-// which are empty after Trim.
+// SplitAndTrim 通过字符串 `delimiter` 将字符串 `str` 分割成一个数组，然后对数组中的每个元素调用 Trim 函数。它会忽略 Trim 后为空的元素。
+// md5:20d7e1d120928c19
 func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
 	array := make([]string, 0)
 	for _, v := range strings.Split(str, delimiter) {
@@ -129,8 +131,9 @@ func SplitAndTrim(str, delimiter string, characterMask ...string) []string {
 	return array
 }
 
-// Trim strips whitespace (or other characters) from the beginning and end of a string.
-// The optional parameter `characterMask` specifies the additional stripped characters.
+// Trim 函数从字符串的开头和结尾删除空白符（或其他字符）。
+// 可选参数 `characterMask` 指定了额外需要删除的字符。
+// md5:a1d794d7a10c9c7a
 func Trim(str string, characterMask ...string) string {
 	trimChars := DefaultTrimChars
 	if len(characterMask) > 0 {
@@ -139,17 +142,17 @@ func Trim(str string, characterMask ...string) string {
 	return strings.Trim(str, trimChars)
 }
 
-// FormatCmdKey formats string `s` as command key using uniformed format.
+// FormatCmdKey 使用统一的格式将字符串 `s` 格式化为命令键。 md5:c946276756bc1c34
 func FormatCmdKey(s string) string {
 	return strings.ToLower(strings.ReplaceAll(s, "_", "."))
 }
 
-// FormatEnvKey formats string `s` as environment key using uniformed format.
+// FormatEnvKey 使用统一格式对字符串`s`进行格式化，以便作为环境键。 md5:1ded8906c5ce105d
 func FormatEnvKey(s string) string {
 	return strings.ToUpper(strings.ReplaceAll(s, ".", "_"))
 }
 
-// StripSlashes un-quotes a quoted string by AddSlashes.
+// StripSlashes通过AddSlashes方法去引号化一个带引号的字符串。 md5:fdba1646284db234
 func StripSlashes(str string) string {
 	var buf bytes.Buffer
 	l, skip := len(str), false

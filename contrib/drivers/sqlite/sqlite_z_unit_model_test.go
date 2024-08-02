@@ -1,8 +1,9 @@
-// Copyright GoFrame Author(https://goframe.org). All Rights Reserved.
+// 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
-// This Source Code Form is subject to the terms of the MIT License.
-// If a copy of the MIT was not distributed with this file,
-// You can obtain one at https://github.com/gogf/gf.
+// 本源代码形式受MIT许可证条款约束。
+// 如果未随本文件一同分发MIT许可证副本，
+// 您可以在https://github.com/gogf/gf处获取。
+// md5:a9832f33b234e3f3
 
 package sqlite_test
 
@@ -107,7 +108,7 @@ func Test_Model_Insert(t *testing.T) {
 	})
 }
 
-// Fix issue: https://github.com/gogf/gf/issues/819
+//github.com/gogf/gf/issues/819. md5:205f368062ae50a5
 func Test_Model_Insert_WithStructAndSliceAttribute(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -297,7 +298,7 @@ func Test_Model_Batch(t *testing.T) {
 		t.Assert(n, 2)
 	})
 
-	// batch insert, retrieving last insert auto-increment id.
+		// 批量插入，并获取最后插入的自增ID。 md5:b6507323b980f454
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
@@ -422,21 +423,27 @@ func Test_Model_Save(t *testing.T) {
 func Test_Model_Update(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	// UPDATE...LIMIT
-	// gtest.C(t, func(t *gtest.T) {
-	// 	result, err := db.Model(table).Data("nickname", "T100").Where(1).Limit(2).Update()
-	// 	t.AssertNil(err)
-	// 	n, _ := result.RowsAffected()
-	// 	t.Assert(n, 2)
+	// 更新...限制
+	// 使用gtest进行测试，传入t作为测试上下文
+	// 执行如下操作：
+	// 根据模型table，设置数据字段"nickname"为"T100"，
+	// 并在满足条件1的情况下，限制更新操作影响的行数为2。
+	// 获取更新操作的结果与错误信息。
+	// 断言：期望错误为nil。
+	// 计算并获取更新影响的行数，忽略此操作可能产生的错误。
+	// 断言：期望更新影响的行数为2。
+	// md5:cfae918cd0afb1ea
 
-	// 	v1, err := db.Model(table).Fields("nickname").Where("id", 10).Value()
-	// 	t.AssertNil(err)
-	// 	t.Assert(v1.String(), "T100")
+	// 通过$db$查询$table$表中id为10的nickname字段值，赋值给v1，预期可能产生错误err
+	// t.AssertNil(err)：断言错误err为nil，即无错误发生
+	// t.Assert(v1.String(), "T100")：断言v1转换为字符串后的值等于"T100"
+	// md5:a2bbef8eea48f43a
 
-	// 	v2, err := db.Model(table).Fields("nickname").Where("id", 8).Value()
-	// 	t.AssertNil(err)
-	// 	t.Assert(v2.String(), "name_8")
-	// })
+	// 使用$db$操作数据库，根据模型$table$获取nickname字段，查询id为8的记录，并获取其值。
+	// 验证错误是否为nil。
+	// 验证获取到的值（v2）是否等于"name_8"。
+	// }
+	// md5:0005058975deac4b
 
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Data("passport", "user_22").Where("passport=?", "user_2").Update()
@@ -459,7 +466,7 @@ func Test_Model_Update(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 	})
-	// Update + Fields(string)
+		// 更新 + Fields(字符串). md5:df4e16d13da67d5e
 	gtest.C(t, func(t *gtest.T) {
 		result, err := db.Model(table).Fields("passport").Data(g.Map{
 			"passport": "user_44",
@@ -643,14 +650,14 @@ func Test_Model_AllAndCount(t *testing.T) {
 	n, _ := r.RowsAffected()
 	gtest.Assert(n, 1)
 
-	// AllAndCount with all data
+			// 使用所有数据的AllAndCount. md5:04233fbd8b956565
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).AllAndCount(false)
 		t.AssertNil(err)
 		t.Assert(len(result), TableSize)
 		t.Assert(count, TableSize)
 	})
-	// AllAndCount with no data
+		// AllAndCount 无数据情况. md5:78116cd399301bd7
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).Where("id<0").AllAndCount(false)
 		t.Assert(result, nil)
@@ -664,7 +671,7 @@ func Test_Model_AllAndCount(t *testing.T) {
 		t.Assert(len(result), 5)
 		t.Assert(count, TableSize)
 	})
-	// AllAndCount with normal result
+			// AllAndCount 返回正常结果. md5:d132fb7fcbc86207
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).Where("id=?", 1).AllAndCount(false)
 		t.AssertNil(err)
@@ -673,7 +680,7 @@ func Test_Model_AllAndCount(t *testing.T) {
 		t.Assert(result[0]["nickname"], "name_1")
 		t.Assert(result[0]["passport"], "user_1")
 	})
-	// AllAndCount with distinct
+			// 所有唯一项并计数. md5:ecb27c1ddcd9a325
 	gtest.C(t, func(t *gtest.T) {
 		result, count, err := db.Model(table).Fields("DISTINCT nickname").AllAndCount(true)
 		t.AssertNil(err)
@@ -697,7 +704,7 @@ func Test_Model_AllAndCount(t *testing.T) {
 		t.Assert(all[0]["passport"], "user_1")
 		t.Assert(count, 1)
 	})
-	// AllAndCount with Join return CodeDbOperationError
+		// AllAndCount 与 Join 方法返回 CodeDbOperationError. md5:e59618ae9d29f9f5
 	gtest.C(t, func(t *gtest.T) {
 		all, count, err := db.Model(table).As("u1").
 			LeftJoin(tableName2, "u2", "u2.id=u1.id").
@@ -834,7 +841,7 @@ func Test_Model_Count(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
-	// Count with cache, check internal ctx data feature.
+		// 使用缓存计数，检查内部上下文数据特性。 md5:fa8263fd899afcec
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 10; i++ {
 			count, err := db.Model(table).Cache(gdb.CacheOption{
@@ -914,7 +921,7 @@ func Test_Model_Struct(t *testing.T) {
 		t.Assert(user.NickName, "name_1")
 		t.Assert(user.CreateTime.String(), CreateTime)
 	})
-	// Auto creating struct object.
+		// 自动创建结构体对象。 md5:4b196dfc1321dc30
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1021,7 +1028,7 @@ func Test_Model_Structs(t *testing.T) {
 		t.Assert(users[2].NickName, "name_3")
 		t.Assert(users[0].CreateTime.String(), CreateTime)
 	})
-	// Auto create struct slice.
+		// 自动创建结构体切片。 md5:78598f0d7f20b815
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1103,7 +1110,7 @@ func Test_Model_StructsWithOrmTag(t *testing.T) {
 		db.GetLogger().(*glog.Logger).SetWriter(buffer)
 		defer db.GetLogger().(*glog.Logger).SetWriter(os.Stdout)
 		db.Model(table).Order("id asc").Scan(&users)
-		// fmt.Println(buffer.String())
+				// 打印出buffer的内容字符串。 md5:3d49298f0e6d7a25
 		t.Assert(
 			gstr.Contains(buffer.String(), "SELECT `id`,`passport`,`password`,`nickname`,`create_time` FROM `user"),
 			true,
@@ -1246,7 +1253,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 	n, _ := r.RowsAffected()
 	gtest.Assert(n, 1)
 
-	// ScanAndCount with normal struct result
+			// 使用普通结构体结果的ScanAndCount. md5:941b5fec0e73797f
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1263,7 +1270,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 		t.Assert(user.CreateTime.String(), CreateTime)
 		t.Assert(count, 1)
 	})
-	// ScanAndCount with normal array result
+			// ScanAndCount 使用常规数组作为结果. md5:640a035a18ac03db
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1324,7 +1331,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 		t.Assert(len(users), 3)
 		t.Assert(count, TableSize)
 	})
-	// ScanAndCount with distinct
+		// 使用distinct进行扫描和计数. md5:5afa1e02dbecba67
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id         int
@@ -1361,7 +1368,7 @@ func Test_Model_ScanAndCount(t *testing.T) {
 		t.Assert(count, 1)
 		t.AssertEQ(users[0].Name, "table2_1")
 	})
-	// ScanAndCount with join return CodeDbOperationError
+			// 使用连接执行ScanAndCount，返回CodeDbOperationError. md5:28f0d53619e4ce12
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -1678,7 +1685,7 @@ func Test_Model_Where(t *testing.T) {
 		t.Assert(len(result), 3)
 		t.Assert(result[0]["id"].Int(), 1)
 	})
-	// struct, automatic mapping and filtering.
+		// 结构体，自动映射和过滤。 md5:8edea55227b914af
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2070,17 +2077,19 @@ func Test_Model_WherePri(t *testing.T) {
 }
 
 func Test_Model_Delete(t *testing.T) {
-	// table := createInitTable()
-	// defer dropTable(table)
+	// table := createInitTable() 	// 创建初始化表
+	// defer dropTable(table)    	// 延迟执行，删除表
+	// md5:b569b2401cb8568d
 
 	// DELETE...LIMIT
-	// https://github.com/mattn/go-sqlite3/pull/802
+	// 参考: https:	//github.com/mattn/go-sqlite3/pull/802
 	// gtest.C(t, func(t *gtest.T) {
-	// 	result, err := db.Model(table).Where(1).Limit(2).Delete()
+	// 	删除结果, err := db.Model(table).Where(1).Limit(2).Delete()
 	// 	t.AssertNil(err)
-	// 	n, _ := result.RowsAffected()
-	// 	t.Assert(n, 2)
+	// 	影响行数, _ := result.RowsAffected()
+	// 	t.Assert(影响行数, 2)
 	// })
+	// md5:63b42e136740eea6
 
 	gtest.C(t, func(t *gtest.T) {
 		table := createInitTable()
@@ -2317,7 +2326,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(r[0]["id"], "1")
 		t.Assert(r[1]["id"], "2")
 	})
-	// Select with alias to struct.
+		// 用别名选择到结构体。 md5:86d27c7f5b555a89
 	gtest.C(t, func(t *gtest.T) {
 		type User struct {
 			Id       int
@@ -2332,7 +2341,7 @@ func Test_Model_Prefix(t *testing.T) {
 		t.Assert(users[0].Id, 1)
 		t.Assert(users[1].Id, 5)
 	})
-	// Select with alias and join statement.
+		// 使用别名和连接语句进行选择。 md5:5ae27281997ad29c
 	gtest.C(t, func(t *gtest.T) {
 		r, err := db.Model(noPrefixName+" as u1").LeftJoin(noPrefixName+" as u2", "u2.id=u1.id").Where("u1.id in (?)", g.Slice{1, 2}).Order("u1.id asc").All()
 		t.AssertNil(err)
@@ -2601,7 +2610,7 @@ func Test_Model_Cache(t *testing.T) {
 		t.Assert(n, 1)
 
 		err = db.Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
-			// Cache feature disabled.
+						// 缓存功能已禁用。 md5:96110ddd3191b243
 			one, err := tx.Model(table).Cache(gdb.CacheOption{
 				Duration: time.Second,
 				Name:     "test4",
@@ -2739,11 +2748,12 @@ func Test_Model_FieldsEx_AutoMapping(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 
-	// "id":          i,
-	// "passport":    fmt.Sprintf(`user_%d`, i),
-	// "password":    fmt.Sprintf(`pass_%d`, i),
-	// "nickname":    fmt.Sprintf(`name_%d`, i),
-	// "create_time": gtime.NewFromStr(CreateTime).String(),
+	// "id":          i, 	// 用户ID
+	// "passport":    fmt.Sprintf("user_%d", i), 	// 通行证（格式为"user_编号")
+	// "password":    fmt.Sprintf("pass_%d", i), 	// 密码（格式为"pass_编号")
+	// "nickname":    fmt.Sprintf("name_%d", i), 	// 昵称（格式为"name_编号")
+	// "create_time": gtime.NewFromStr(CreateTime).String(), 	// 创建时间（将CreateTime字符串转换为gtime格式并转为字符串）
+	// md5:ddd0764dc67c4e9f
 
 	gtest.C(t, func(t *gtest.T) {
 		value, err := db.Model(table).FieldsEx("Passport, Password, NickName, CreateTime").Where("id", 2).Value()
@@ -2882,7 +2892,7 @@ func Test_Model_HasField(t *testing.T) {
 	})
 }
 
-// Issue: https://github.com/gogf/gf/issues/1002
+//github.com/gogf/gf/issues/1002. md5:2b9ad829e9523427
 func Test_Model_Issue1002(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -2909,29 +2919,30 @@ func Test_Model_Issue1002(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + string arguments.
+		// where + 字符串参数。 md5:cb1db92222691d4d
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// where + gtime.Time arguments.
+		// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
 	gtest.C(t, func(t *gtest.T) {
 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", gtime.New("2020-10-27 19:03:32"), gtime.New("2020-10-27 19:03:34")).Value()
 		t.AssertNil(err)
 		t.Assert(v.Int(), 1)
 	})
-	// TODO
-	// where + time.Time arguments, UTC.
+	// 待办事项
+	// 在这里使用 + time.Time 参数，采用 UTC 时间。
 	// gtest.C(t, func(t *gtest.T) {
-	// 	t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32")
-	// 	t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34")
-	// 	{
-	// 		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
-	// 		t.AssertNil(err)
-	// 		t.Assert(v.Int(), 1)
-	// 	}
+	//   t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32") 	// 解析时间字符串为 t1
+	//   t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34") 	// 解析时间字符串为 t2
+	//   {
+	//     v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value() 	// 查询创建时间在 t1 和 t2 之间记录的 id
+	//     t.AssertNil(err) 	// 断言 err 为空，即查询无错误
+	//     t.Assert(v.Int(), 1) 	// 断言查询结果的整数值为 1
+	//   }
 	// })
+	// md5:6089a1ebb4983ace
 }
 
 func createTableForTimeZoneTest() string {
@@ -2955,7 +2966,7 @@ func createTableForTimeZoneTest() string {
 	return tableName
 }
 
-// https://github.com/gogf/gf/issues/1012
+// 这段注释指的是在GitHub上的一个gf项目（Golang Fast Foundation，一个Go语言的优秀库）中的Issue 1012。"Issue"通常在GitHub上表示一个问题、错误报告或者改进的请求。所以，这个注释可能是在指有关gf库的一个已知问题或者开发者希望解决的问题，链接指向了该问题的具体页面。 md5:d21c0bba53139335
 func Test_TimeZoneInsert(t *testing.T) {
 	tableName := createTableForTimeZoneTest()
 	defer dropTable(tableName)
@@ -2988,9 +2999,10 @@ func Test_TimeZoneInsert(t *testing.T) {
 		err := db.Model(tableName).Where("id", 1).Unscoped().Scan(&userEntity)
 		t.AssertNil(err)
 		// TODO
-		// t.Assert(userEntity.CreatedAt.String(), "2020-11-22 11:23:45")
-		// t.Assert(userEntity.UpdatedAt.String(), "2020-11-22 12:23:45")
-		// t.Assert(gtime.NewFromTime(userEntity.DeletedAt).String(), "2020-11-22 13:23:45")
+		// t.Assert(userEntity.CreatedAt.String(), "2020-11-22 11:23:45") 		// 断言用户实体的创建时间字符串为 "2020-11-22 11:23:45"
+		// t.Assert(userEntity.UpdatedAt.String(), "2020-11-22 12:23:45") 		// 断言用户实体的更新时间字符串为 "2020-11-22 12:23:45"
+		// t.Assert(gtime.NewFromTime(userEntity.DeletedAt).String(), "2020-11-22 13:23:45") 		// 断言用户实体的删除时间（转换为gtime类型）字符串为 "2020-11-22 13:23:45"
+		// md5:8ad9ae5f1d9029d0
 	})
 }
 
@@ -3626,7 +3638,7 @@ func Test_Model_OmitEmptyWhere(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1387
+// 这段注释链接指向的是GitHub上的一个Issue，GF（Go Foundation）是一个Go语言的库或框架。"1387"可能是Issue的编号。具体的内容需要查看该链接才能得知，大致意思是关于GF项目在1387号问题上的讨论、报告了一个错误或者提出了一个特性请求。 md5:7c877c3e7a856cb1
 func Test_Model_GTime_DefaultValue(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -3668,7 +3680,7 @@ func Test_Model_GTime_DefaultValue(t *testing.T) {
 	})
 }
 
-// Using filter does not affect the outside value inside function.
+// 使用过滤器不会影响函数内部的外部值。 md5:857585fd480ebfc6
 func Test_Model_Insert_Filter(t *testing.T) {
 	// map
 	gtest.C(t, func(t *gtest.T) {
@@ -3760,7 +3772,7 @@ func Test_Model_Embedded_Filter(t *testing.T) {
 	})
 }
 
-// This is no longer used as the filter feature is automatically enabled from GoFrame v1.16.0.
+// 从GoFrame v1.16.0开始，此功能不再使用，因为过滤功能已自动启用。 md5:a491426db314e6d6
 func Test_Model_Insert_KeyFieldNameMapping_Error(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
@@ -3957,7 +3969,7 @@ func Test_Model_WherePrefixLike(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4013,7 +4025,7 @@ func Test_ScanList_NoRecreate_PtrAttribute(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4069,7 +4081,7 @@ func Test_ScanList_NoRecreate_StructAttribute(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
@@ -4173,7 +4185,7 @@ func Test_ScanList_NoRecreate_SliceAttribute_Ptr(t *testing.T) {
 	})
 }
 
-// https://github.com/gogf/gf/issues/1159
+// 这段注释链接指向的是GitHub上的一个 issues（问题或讨论），来自gogf（GoGF）项目。它表示这个注释与 issue #1159 相关，可能是对某个特定问题、错误报告、功能请求或者讨论的引用。具体的内容需要查看该issue页面以获取详细信息。 md5:ef2c3285217b52b1
 func Test_ScanList_NoRecreate_SliceAttribute_Struct(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		type S1 struct {
