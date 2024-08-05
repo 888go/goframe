@@ -6,16 +6,16 @@
 // md5:a9832f33b234e3f3
 
 // 包grpool实现了可重用的goroutine池。 md5:8908f4659795e87e
-package 协程类
+package grpool
 
 import (
 	"context"
 	"time"
 
-	glist "github.com/888go/goframe/container/glist"
-	gtype "github.com/888go/goframe/container/gtype"
-	gtimer "github.com/888go/goframe/os/gtimer"
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 // Func 是包含上下文参数的池函数。 md5:6974cc4f941bf840

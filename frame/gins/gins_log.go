@@ -11,10 +11,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/instance"
-	glog "github.com/888go/goframe/os/glog"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Log 返回一个 glog.Logger 的实例。

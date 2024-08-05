@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 错误类
+package gerror
 
 import (
 	"fmt"
 	"strings"
 
-	gcode "github.com/888go/goframe/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // NewCode 创建并返回一个具有错误代码和给定文本的错误。 md5:5f88f8ae1151acac

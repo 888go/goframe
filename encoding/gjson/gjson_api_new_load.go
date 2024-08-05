@@ -5,26 +5,26 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package json类
+package gjson
 
 import (
 	"bytes"
 	"reflect"
 
-	gini "github.com/888go/goframe/encoding/gini"
-	"github.com/888go/goframe/encoding/gproperties"
-	gtoml "github.com/888go/goframe/encoding/gtoml"
-	gxml "github.com/888go/goframe/encoding/gxml"
-	gyaml "github.com/888go/goframe/encoding/gyaml"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/internal/rwmutex"
-	gfile "github.com/888go/goframe/os/gfile"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/encoding/gini"
+	"github.com/gogf/gf/v2/encoding/gproperties"
+	"github.com/gogf/gf/v2/encoding/gtoml"
+	"github.com/gogf/gf/v2/encoding/gxml"
+	"github.com/gogf/gf/v2/encoding/gyaml"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // New 使用任何类型的`data`创建一个Json对象，但为了数据访问的原因，`data`应该是map或slice，

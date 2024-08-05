@@ -14,7 +14,7 @@
 package oracle
 
 import (
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 // Driver 是用于 Oracle 数据库的驱动程序。 md5:dc4dd4c6d7cda96f

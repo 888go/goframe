@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gctx封装了context.Context并提供了额外的上下文功能。 md5:edcfb6983b687169
-package 上下文类
+package gctx
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 
-	"github.com/888go/goframe/net/gtrace"
+	"github.com/gogf/gf/v2/net/gtrace"
 )
 
 type (

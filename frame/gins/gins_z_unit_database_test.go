@@ -11,11 +11,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/888go/goframe/frame/gins"
-	gcfg "github.com/888go/goframe/os/gcfg"
-	gfile "github.com/888go/goframe/os/gfile"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/frame/gins"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Database(t *testing.T) {

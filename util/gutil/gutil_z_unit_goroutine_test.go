@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 工具类_test
+package gutil_test
 
 import (
 	"context"
 	"sync"
 	"testing"
 
-	garray "github.com/888go/goframe/container/garray"
-	gtest "github.com/888go/goframe/test/gtest"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Go(t *testing.T) {

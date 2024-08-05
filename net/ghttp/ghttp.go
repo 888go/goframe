@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包ghttp提供了强大的HTTP服务器和简单的客户端实现。 md5:0b6b4fc969b3488d
-package http类
+package ghttp
 
 import (
 	"net/http"
@@ -16,17 +16,17 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/net/goai"
-	"github.com/888go/goframe/net/gsvc"
-	gcache "github.com/888go/goframe/os/gcache"
-	gctx "github.com/888go/goframe/os/gctx"
-	gsession "github.com/888go/goframe/os/gsession"
-	"github.com/888go/goframe/os/gstructs"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/goai"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 type (

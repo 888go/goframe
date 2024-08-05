@@ -11,8 +11,8 @@ package g
 import (
 	"context"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/util/gmeta"
 )
 
 type (

@@ -8,7 +8,7 @@
 package g
 
 import (
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // SetDebug 手动启用/禁用 GoFrame 内部日志。

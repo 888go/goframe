@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"context"
 	"fmt"
 	"reflect"
 
-	gset "github.com/888go/goframe/container/gset"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/reflection"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // 所有执行的是 "FROM ..." 语句针对该模型。

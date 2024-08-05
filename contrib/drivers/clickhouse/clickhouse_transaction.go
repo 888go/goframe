@@ -10,7 +10,7 @@ package clickhouse
 import (
 	"context"
 
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 // Begin 方法开始并返回事务对象。 md5:8fa258c0123d6569

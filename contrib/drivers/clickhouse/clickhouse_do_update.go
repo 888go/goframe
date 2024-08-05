@@ -11,7 +11,7 @@ import (
 	"context"
 	"database/sql"
 
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 // DoUpdate 对该表执行 "UPDATE ... " 语句。 md5:d99c5c0beb2de28e

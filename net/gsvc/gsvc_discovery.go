@@ -11,11 +11,11 @@ import (
 	"context"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // watchedMap 存储了发现对象及其关注的服务映射。 md5:131b7e9a4eb2667c

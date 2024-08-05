@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"net/http"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // DefaultHandlerResponse是HandlerResponse的默认实现。 md5:9340fa71a0d9e8f7

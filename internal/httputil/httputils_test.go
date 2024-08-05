@@ -10,10 +10,10 @@ package httputil_test
 import (
 	"testing"
 
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/httputil"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/httputil"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 func TestBuildParams(t *testing.T) {

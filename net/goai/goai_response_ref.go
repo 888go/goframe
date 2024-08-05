@@ -10,9 +10,9 @@ package goai
 import (
 	"reflect"
 
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gstructs"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 type ResponseRef struct {

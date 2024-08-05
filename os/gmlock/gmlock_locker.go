@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 内存锁类
+package gmlock
 
 import (
 	"sync"
 
-	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/gogf/gf/v2/container/gmap"
 )
 
 // Locker 是一个基于内存的锁。

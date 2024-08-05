@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类_test
+package gconv_test
 
 import (
 	"testing"
 	"time"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/frame/g"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Time(t *testing.T) {

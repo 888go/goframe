@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"context"
@@ -14,15 +14,15 @@ import (
 	"strings"
 	"time"
 
-	gbinary "github.com/888go/goframe/encoding/gbinary"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
-	gtime "github.com/888go/goframe/os/gtime"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/encoding/gbinary"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // GetFieldTypeStr 通过名称检索并返回指定字段的字段类型字符串。 md5:aeb8d310c854c45a

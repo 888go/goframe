@@ -5,20 +5,20 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 效验类_test
+package gvalid_test
 
 import (
 	"context"
 	"errors"
 	"fmt"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/i18n/gi18n"
-	gctx "github.com/888go/goframe/os/gctx"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
-	gvalid "github.com/888go/goframe/util/gvalid"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gvalid"
 )
 
 func ExampleNew() {

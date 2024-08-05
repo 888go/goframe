@@ -11,9 +11,9 @@ import (
 	"reflect"
 	"strconv"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // ParseTag 将标签字符串解析为映射。

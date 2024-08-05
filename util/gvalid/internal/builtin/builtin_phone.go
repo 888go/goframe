@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // RulePhone 实现了 `phone` 规则：

@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 配置类
+package gcfg
 
 import (
 	"context"
 
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // SetContent 为指定的`file`设置自定义配置内容。

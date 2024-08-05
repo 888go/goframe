@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类_test
+package gclient_test
 
 import (
 	"context"
@@ -15,13 +15,13 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/frame/g"
-	gclient "github.com/888go/goframe/net/gclient"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gctx "github.com/888go/goframe/os/gctx"
-	gfile "github.com/888go/goframe/os/gfile"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/gclient"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 var (

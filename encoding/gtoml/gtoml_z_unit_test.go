@@ -4,14 +4,14 @@
 // 如果未随本文件一同分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
-package toml类_test
+package gtoml_test
 
 import (
 	"testing"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gtoml "github.com/888go/goframe/encoding/gtoml"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gtoml"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var tomlStr string = `

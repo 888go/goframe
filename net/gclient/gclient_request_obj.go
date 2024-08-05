@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"context"
 	"net/http"
 	"reflect"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gmeta "github.com/888go/goframe/util/gmeta"
-	"github.com/888go/goframe/util/gtag"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gtag"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // DoRequestObj 使用标准的请求/响应对象进行HTTP请求。

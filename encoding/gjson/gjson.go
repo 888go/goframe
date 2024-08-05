@@ -6,20 +6,20 @@
 // md5:a9832f33b234e3f3
 
 // 包gjson提供了处理JSON/XML/INI/YAML/TOML数据的便捷API。 md5:ddbf6ad5d309a49c
-package json类
+package gjson
 
 import (
 	"reflect"
 	"strconv"
 	"strings"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/internal/rwmutex"
-	"github.com/888go/goframe/internal/utils"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type ContentType string

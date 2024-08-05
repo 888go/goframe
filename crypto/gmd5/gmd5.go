@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // gmd5包提供了对MD5加密算法的实用API。 md5:637f00f8697c325b
-package 加密md5类
+package gmd5
 
 import (
 	"crypto/md5"
@@ -14,8 +14,8 @@ import (
 	"io"
 	"os"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Encrypt 使用MD5算法加密任何类型的变量。

@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // Compare函数返回一个整数，用于按字典顺序比较两个字符串。
 // 如果a==b，结果为0；如果a < b，结果为-1；如果a > b，结果为+1。

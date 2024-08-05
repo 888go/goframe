@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"context"
 	"time"
 
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // CacheOption是查询中用于模型缓存控制的选项。 md5:8a833b8335c45455

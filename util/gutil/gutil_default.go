@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 工具类
+package gutil
 
 // GetOrDefaultStr 检查并返回值，根据参数`param`是否可用。
 // 如果`param`可用，它返回`param[0]`，否则返回`def`。

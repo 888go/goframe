@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 错误码类_test
+package gcode_test
 
 import (
 	"testing"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Case(t *testing.T) {

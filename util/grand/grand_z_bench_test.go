@@ -7,7 +7,7 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 随机类_test
+package grand_test
 
 import (
 	cryptoRand "crypto/rand"
@@ -15,7 +15,7 @@ import (
 	mathRand "math/rand"
 	"testing"
 
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 var (

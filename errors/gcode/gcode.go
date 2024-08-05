@@ -5,7 +5,7 @@
 // md5:c14c707c81272457
 
 // 包gcode提供了通用的错误代码定义和常见的错误代码实现。 md5:cb91541987c67096
-package 错误码类
+package gcode
 
 // Code 是一个通用错误代码接口的定义。 md5:bc72f9cd69a9f042
 type Code interface {

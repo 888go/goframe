@@ -6,14 +6,14 @@
 // md5:a9832f33b234e3f3
 
 // gcron 包实现了cron模式解析器和任务运行器。 md5:56d461ee2c75e1f7
-package 定时cron类
+package gcron
 
 import (
 	"context"
 	"time"
 
-	glog "github.com/888go/goframe/os/glog"
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 const (

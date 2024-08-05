@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 错误类
+package gerror
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ import (
 	"runtime"
 	"strings"
 
-	gcode "github.com/888go/goframe/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // Error 是自定义错误，用于附加功能。 md5:6111a19ebbc88a60

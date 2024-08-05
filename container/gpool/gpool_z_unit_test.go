@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 对象复用类_test
+package gpool_test
 
 import (
 	"errors"
 	"testing"
 	"time"
 
-	gpool "github.com/888go/goframe/container/gpool"
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/gpool"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var nf gpool.NewFunc = func() (i interface{}, e error) {

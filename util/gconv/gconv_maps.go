@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
-import (
-	"github.com/888go/goframe/internal/json"
-)
+import "github.com/gogf/gf/v2/internal/json"
 
 // SliceMap 是 Maps 的别名。 md5:af436f87335633ac
 func SliceMap(any interface{}, option ...MapOption) []map[string]interface{} {

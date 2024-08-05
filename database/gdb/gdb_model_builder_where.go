@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"fmt"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // doWhereType 设置模型的条件语句。参数 `where` 可以是类型为 string、map、gmap、slice、struct 或其派生结构等。需要注意的是，如果多次调用此函数，多个条件将使用 "AND" 连接到 where 语句中。

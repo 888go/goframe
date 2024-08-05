@@ -6,12 +6,12 @@
 // md5:a9832f33b234e3f3
 
 // 包gutil提供了实用函数。 md5:94ecbd62b7aa8e76
-package 工具类
+package gutil
 
 import (
 	"reflect"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

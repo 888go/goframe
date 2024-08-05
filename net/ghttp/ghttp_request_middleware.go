@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
 	"net/http"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // middleware是用于请求工作流程管理的插件。 md5:49f6a68042876e4b

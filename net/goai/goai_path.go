@@ -11,16 +11,16 @@ import (
 	"net/http"
 	"reflect"
 
-	garray "github.com/888go/goframe/container/garray"
-	gmap "github.com/888go/goframe/container/gmap"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gstructs"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gmeta "github.com/888go/goframe/util/gmeta"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // Path遵循OpenAPI/Swagger标准版本3.0。 md5:26b252ebd7fb17bd

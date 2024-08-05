@@ -6,17 +6,17 @@
 // md5:a9832f33b234e3f3
 
 // gproc 包实现了对进程的管理和通信功能。 md5:2bdecc6699345c91
-package 进程类
+package gproc
 
 import (
 	"os"
 	"runtime"
 	"time"
 
-	genv "github.com/888go/goframe/os/genv"
-	gfile "github.com/888go/goframe/os/gfile"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

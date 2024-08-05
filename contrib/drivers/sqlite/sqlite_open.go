@@ -11,13 +11,13 @@ import (
 	"database/sql"
 	"fmt"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gurl "github.com/888go/goframe/encoding/gurl"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gfile "github.com/888go/goframe/os/gfile"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Open 创建并返回一个底层的 sql.DB 对象，用于 SQLite。

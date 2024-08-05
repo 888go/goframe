@@ -13,9 +13,9 @@ import (
 	"strconv"
 	"strings"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 var (

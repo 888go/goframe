@@ -4,16 +4,16 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package 树形类_test
+package gtree_test
 
 import (
 	"fmt"
 	"testing"
 
-	gtree "github.com/888go/goframe/container/gtree"
-	gvar "github.com/888go/goframe/container/gvar"
-	gtest "github.com/888go/goframe/test/gtest"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gtree"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func getValue() interface{} {

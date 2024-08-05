@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 日志类
+package glog
 
 import (
 	"context"
@@ -13,14 +13,14 @@ import (
 	"strings"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gcompress "github.com/888go/goframe/encoding/gcompress"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gmlock "github.com/888go/goframe/os/gmlock"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtimer "github.com/888go/goframe/os/gtimer"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/encoding/gcompress"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gmlock"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 const (

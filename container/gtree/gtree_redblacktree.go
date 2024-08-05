@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 树形类
+package gtree
 
 import (
 	"bytes"
 	"fmt"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 type color bool

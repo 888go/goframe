@@ -11,7 +11,7 @@ import (
 	"errors"
 	"time"
 
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // RuleDatetime 实现了 `datetime` 规则：
@@ -38,7 +38,7 @@ func (r RuleDatetime) Run(in RunInput) error {
 		Date() (year int, month time.Month, day int)
 		IsZero() bool
 	}
-	// 支持时间值，例如：gtime.Time/*gtime.Time, time.Time/*time.Time。 md5:fc74717f7b27de8d
+		// 支持时间值，例如：gtime.Time/*gtime.Time, time.Time/*time.Time。 md5:fc74717f7b27de8d
 	if obj, ok := in.Value.Val().(iTime); ok {
 		if obj.IsZero() {
 			return errors.New(in.Message)

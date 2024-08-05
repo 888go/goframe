@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"bytes"
@@ -17,17 +17,17 @@ import (
 	"strings"
 	"time"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/httputil"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/utils"
-	gfile "github.com/888go/goframe/os/gfile"
-	gtime "github.com/888go/goframe/os/gtime"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/httputil"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Get 发送GET请求并返回响应对象。

@@ -19,7 +19,7 @@
 //
 // 其他：macintosh/IBM*/Windows*/ISO-*（*表示各种变种）
 // md5:5f95b30c9186a77b
-package 编码字符集类
+package gcharset
 
 import (
 	"bytes"
@@ -30,9 +30,9 @@ import (
 	"golang.org/x/text/encoding/ianaindex"
 	"golang.org/x/text/transform"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 var (

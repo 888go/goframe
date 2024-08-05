@@ -7,9 +7,7 @@
 
 package utils
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // ListToMapByKey 将 `list` 转换为一个键为 `key` 的 map[string]interface{}。注意，项的值可能为切片类型。
 // md5:6509753e629d5dc6

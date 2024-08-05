@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
-import (
-	gtime "github.com/888go/goframe/os/gtime"
-)
+import "github.com/gogf/gf/v2/os/gtime"
 
 // iVal 用于类型断言以实现String()方法。 md5:46c43d7149579432
 type iVal interface {

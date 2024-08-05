@@ -16,7 +16,7 @@ package mssql
 import (
 	_ "github.com/denisenkom/go-mssqldb"
 
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 // Driver是SQL服务器数据库的驱动程序。 md5:5c5e74aefaf2ae3d

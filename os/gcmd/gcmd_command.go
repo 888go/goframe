@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package cmd类
+package gcmd
 
 import (
 	"context"
 
-	gset "github.com/888go/goframe/container/gset"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Command 包含有关可以处理自定义逻辑的参数的信息。 md5:b0e0f23cc6e868c5

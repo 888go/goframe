@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 单元测试类_test
+package gtest_test
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"testing"
 
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

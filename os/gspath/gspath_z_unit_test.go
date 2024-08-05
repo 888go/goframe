@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件搜索类_test
+package gspath_test
 
 import (
 	"testing"
 
-	gfile "github.com/888go/goframe/os/gfile"
-	gspath "github.com/888go/goframe/os/gspath"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gspath"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestSPath_Api(t *testing.T) {

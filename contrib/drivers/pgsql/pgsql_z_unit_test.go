@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -13,10 +13,12 @@ import (
 	"context"
 	"testing"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
-	gctx "github.com/888go/goframe/os/gctx"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/test/gtest"
+	
+	"github.com/gogf/gf/v2/contrib/drivers/pgsql"
 )
 
 func Test_LastInsertId(t *testing.T) {

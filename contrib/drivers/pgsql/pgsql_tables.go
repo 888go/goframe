@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"regexp"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 var (

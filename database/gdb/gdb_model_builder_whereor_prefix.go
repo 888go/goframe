@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 // WhereOrPrefix 的功能类似于 WhereOr，但它会在 WHERE 子句中的每个字段前添加一个前缀。
 // 例如：

@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 安全变量类
+package gtype
 
 import (
 	"sync/atomic"
 
-	"github.com/888go/goframe/internal/deepcopy"
-	"github.com/888go/goframe/internal/json"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Interface 是一个结构体，用于实现类型 interface{} 的并发安全操作。 md5:5655f929d7777a3d

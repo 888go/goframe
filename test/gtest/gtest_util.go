@@ -3,7 +3,7 @@
 // 如果未随本文件一同分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
-package 单元测试类
+package gtest
 
 import (
 	"fmt"
@@ -12,10 +12,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/internal/empty"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

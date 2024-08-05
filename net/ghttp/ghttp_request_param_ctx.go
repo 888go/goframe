@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gctx "github.com/888go/goframe/os/gctx"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 // RequestFromCtx 从上下文中检索并返回Request对象。 md5:c247eac3d031fb2b

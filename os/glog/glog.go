@@ -6,14 +6,14 @@
 // md5:a9832f33b234e3f3
 
 // 包glog实现了强大且易于使用的等级化日志记录功能。 md5:b8685dc39c4dd154
-package 日志类
+package glog
 
 import (
 	"context"
 
-	"github.com/888go/goframe/internal/command"
-	grpool "github.com/888go/goframe/os/grpool"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/os/grpool"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // ILogger是日志记录器的API接口。 md5:762449020563f6b9

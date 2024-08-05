@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package session类
+package gsession
 
 import (
 	"context"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/gogf/gf/v2/container/gmap"
 )
 
 // StorageBase是会话存储的基本实现。 md5:9a65ccca10de1608

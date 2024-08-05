@@ -6,16 +6,16 @@
 // md5:a9832f33b234e3f3
 
 // 包gxml提供了访问和转换XML内容的功能。 md5:7f72b127efb49044
-package xml类
+package gxml
 
 import (
 	"strings"
 
 	"github.com/clbanning/mxj/v2"
 
-	gcharset "github.com/888go/goframe/encoding/gcharset"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/encoding/gcharset"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // Decode将`content`解析为映射并返回。 md5:09afa737da32e1d3

@@ -8,7 +8,7 @@
 package goai
 
 import (
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // XExtensions 存储了 `x-` 自定义扩展。 md5:e19838946aa45df7

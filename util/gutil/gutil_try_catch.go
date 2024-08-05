@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 工具类
+package gutil
 
 import (
 	"context"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Throw 抛出一个异常，这个异常可以被 TryCatch 结构或 recover 语句捕获。 md5:44e69b1d2fded57f

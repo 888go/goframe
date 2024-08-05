@@ -6,7 +6,7 @@
 // md5:a114f4bdd106ab31
 
 // gipv4 包提供了用于处理IPv4地址的有用API。 md5:dc7fb957be20c17f
-package ipv4类
+package gipv4
 
 import (
 	"encoding/binary"
@@ -14,7 +14,7 @@ import (
 	"net"
 	"strconv"
 
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // Ip2long 将IP地址转换为一个uint32整数。 md5:160031646344d859

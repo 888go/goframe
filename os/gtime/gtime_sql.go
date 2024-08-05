@@ -1,4 +1,4 @@
-package 时间类
+package gtime
 
 import (
 	"database/sql/driver"

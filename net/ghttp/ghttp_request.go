@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"fmt"
@@ -13,14 +13,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/888go/goframe/internal/intlog"
-	gres "github.com/888go/goframe/os/gres"
-	gsession "github.com/888go/goframe/os/gsession"
-	gtime "github.com/888go/goframe/os/gtime"
-	gview "github.com/888go/goframe/os/gview"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gview"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 // Request 是请求的上下文对象。 md5:90c1e82eacf87b05

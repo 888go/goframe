@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // gclient 包提供了便捷的 HTTP 客户端功能。 md5:e1b459f6ec089b4e
-package 网页类
+package gclient
 
 import (
 	"crypto/rand"
@@ -16,11 +16,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/888go/goframe"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/net/gsel"
-	"github.com/888go/goframe/net/gsvc"
-	gfile "github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/gsel"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // Client 是用于HTTP请求管理的HTTP客户端。 md5:4ad1e09a685144a3

@@ -4,14 +4,14 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package 对象复用类_test
+package gpool_test
 
 import (
 	"database/sql"
 	"fmt"
 	"time"
 
-	gpool "github.com/888go/goframe/container/gpool"
+	"github.com/gogf/gf/v2/container/gpool"
 )
 
 func ExampleNew() {

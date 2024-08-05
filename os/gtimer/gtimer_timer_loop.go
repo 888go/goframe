@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时类
+package gtimer
 
-import (
-	"time"
-)
+import "time"
 
 // 使用独立的goroutine启动ticker。 md5:ce88d07fc9fbc1b3
 func (t *Timer) loop() {

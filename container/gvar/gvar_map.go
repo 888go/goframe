@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 泛型类
+package gvar
 
-import (
-	gconv "github.com/888go/goframe/util/gconv"
-)
+import "github.com/gogf/gf/v2/util/gconv"
 
 // MapOption 定义了映射转换的选项。 md5:8dc53d6fdc486bf8
 type MapOption = gconv.MapOption

@@ -6,15 +6,15 @@
 // md5:a9832f33b234e3f3
 
 // 包gset提供了各种并发安全/不安全的集合。 md5:bcd5b9cf4b925a06
-package 集合类
+package gset
 
 import (
 	"bytes"
 
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type Set struct {

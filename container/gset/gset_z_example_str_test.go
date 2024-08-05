@@ -4,14 +4,14 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package 集合类_test
+package gset_test
 
 import (
 	"encoding/json"
 	"fmt"
 
-	gset "github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/frame/g"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 // NewStrSet 创建并返回一个新集合，其中包含不重复的元素。

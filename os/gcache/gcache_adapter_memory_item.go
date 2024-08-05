@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 缓存类
+package gcache
 
 import (
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // IsExpired 检查 `item` 是否已过期。 md5:9e46a52b25ea5be9

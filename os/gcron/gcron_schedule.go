@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时cron类
+package gcron
 
 import (
 	"strconv"
 	"strings"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gtime "github.com/888go/goframe/os/gtime"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // cronSchedule 是定时任务的调度计划。 md5:4731e43288725f27

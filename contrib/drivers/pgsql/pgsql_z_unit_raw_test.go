@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -12,9 +12,9 @@ package pgsql_test
 import (
 	"testing"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Raw_Insert(t *testing.T) {

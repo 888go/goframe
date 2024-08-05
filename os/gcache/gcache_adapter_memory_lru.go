@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 缓存类
+package gcache
 
 import (
 	"context"
 
-	glist "github.com/888go/goframe/container/glist"
-	gmap "github.com/888go/goframe/container/gmap"
-	gtype "github.com/888go/goframe/container/gtype"
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // LRU 缓存对象。

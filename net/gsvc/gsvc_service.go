@@ -10,12 +10,12 @@ package gsvc
 import (
 	"context"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gcmd "github.com/888go/goframe/os/gcmd"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // LocalService 提供了接口 Service 的默认实现。 md5:dd822c79690b7ca2

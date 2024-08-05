@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 字节集类
+package gbinary
 
 import (
 	"bytes"
@@ -14,8 +14,8 @@ import (
 	"fmt"
 	"math"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // LeEncode 使用小端字节序编码一个或多个 `values` 成字节。

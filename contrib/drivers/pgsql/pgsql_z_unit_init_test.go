@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -10,16 +10,16 @@
 package pgsql_test
 
 import (
-	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+	_ "github.com/gogf/gf/v2/contrib/drivers/pgsql"
 
 	"context"
 	"fmt"
 
-	garray "github.com/888go/goframe/container/garray"
-	gdb "github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 const (

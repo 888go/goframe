@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 模板类
+package gview
 
 import (
 	"bytes"
@@ -15,19 +15,19 @@ import (
 	"strconv"
 	texttpl "text/template"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	ghash "github.com/888go/goframe/encoding/ghash"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gfsnotify "github.com/888go/goframe/os/gfsnotify"
-	glog "github.com/888go/goframe/os/glog"
-	gmlock "github.com/888go/goframe/os/gmlock"
-	gres "github.com/888go/goframe/os/gres"
-	gspath "github.com/888go/goframe/os/gspath"
-	gstr "github.com/888go/goframe/text/gstr"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/encoding/ghash"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gmlock"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gspath"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 const (

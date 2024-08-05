@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gmlock实现了一个基于内存的并发安全锁。 md5:46d1d349c220f670
-package 内存锁类
+package gmlock
 
 var (
 	// Default locker.

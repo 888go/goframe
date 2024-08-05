@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 切片类
+package garray
 
 import (
 	"bytes"
@@ -13,10 +13,10 @@ import (
 	"math"
 	"sort"
 
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	gconv "github.com/888go/goframe/util/gconv"
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 // SortedIntArray 是一个具有丰富功能的 Go 语言排序整数数组。
@@ -802,10 +802,3 @@ func (a *SortedIntArray) DeepCopy() interface{} {
 	copy(newSlice, a.array)
 	return NewSortedIntArrayFrom(newSlice, a.mu.IsSafe())
 }
-
-// zj:
-func (a *SortedIntArray) X取文本() string {
-	return a.String()
-}
-
-//zj:

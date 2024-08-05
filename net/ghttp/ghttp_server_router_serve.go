@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
@@ -13,12 +13,12 @@ import (
 	"net/http"
 	"strings"
 
-	glist "github.com/888go/goframe/container/glist"
-	gurl "github.com/888go/goframe/encoding/gurl"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // handlerCacheItem 是仅用于内部路由器搜索缓存的项。 md5:bff6700a37e67c6b

@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"net/http"
 
-	"github.com/888go/goframe"
-	"github.com/888go/goframe/os/gmetric"
-	gtime "github.com/888go/goframe/os/gtime"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/os/gmetric"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 type localMetricManager struct {

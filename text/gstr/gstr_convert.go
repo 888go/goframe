@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 import (
 	"bytes"
@@ -16,7 +16,7 @@ import (
 	"strings"
 	"unicode"
 
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 var (

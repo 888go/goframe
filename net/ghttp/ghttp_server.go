@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"bytes"
@@ -20,27 +20,27 @@ import (
 
 	"github.com/olekukonko/tablewriter"
 
-	garray "github.com/888go/goframe/container/garray"
-	gset "github.com/888go/goframe/container/gset"
-	gtype "github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/debug/gdebug"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/net/ghttp/internal/swaggerui"
-	"github.com/888go/goframe/net/goai"
-	"github.com/888go/goframe/net/gsvc"
-	gcache "github.com/888go/goframe/os/gcache"
-	gctx "github.com/888go/goframe/os/gctx"
-	genv "github.com/888go/goframe/os/genv"
-	gfile "github.com/888go/goframe/os/gfile"
-	glog "github.com/888go/goframe/os/glog"
-	gproc "github.com/888go/goframe/os/gproc"
-	gsession "github.com/888go/goframe/os/gsession"
-	gtimer "github.com/888go/goframe/os/gtimer"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/ghttp/internal/swaggerui"
+	"github.com/gogf/gf/v2/net/goai"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func init() {

@@ -6,9 +6,7 @@
 
 package gmetric
 
-import (
-	"context"
-)
+import "context"
 
 // noopUpDownCounterPerformer 是一个实现了 CounterPerformer 接口但没有实际操作的实现者。 md5:072081413ac6be4f
 type noopUpDownCounterPerformer struct{}

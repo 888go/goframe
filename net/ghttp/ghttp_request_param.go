@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"bytes"
@@ -16,18 +16,18 @@ import (
 	"reflect"
 	"strings"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gurl "github.com/888go/goframe/encoding/gurl"
-	gxml "github.com/888go/goframe/encoding/gxml"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/utils"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gvalid "github.com/888go/goframe/util/gvalid"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/encoding/gxml"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gvalid"
 )
 
 const (

@@ -10,16 +10,16 @@ package goai
 import (
 	"reflect"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gset "github.com/888go/goframe/container/gset"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/os/gstructs"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gmeta "github.com/888go/goframe/util/gmeta"
-	gvalid "github.com/888go/goframe/util/gvalid"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gvalid"
 )
 
 // Schema 按照 OpenAPI/Swagger 3.0 标准指定。 md5:6f1f02d1c3d44b09

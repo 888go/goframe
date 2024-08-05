@@ -11,8 +11,8 @@ package dm
 import (
 	_ "gitee.com/chunanyong/dm"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 type Driver struct {

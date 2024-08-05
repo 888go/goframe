@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 时间类
+package gtime
 
 import (
 	"bytes"
 	"strconv"
 	"time"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Time 是一个包装了 time.Time 的结构，用于添加额外的功能。 md5:96d9b7cb3af14206

@@ -11,11 +11,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/888go/goframe/frame/g"
-	gfile "github.com/888go/goframe/os/gfile"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
-	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gmeta"
 )
 
 /*

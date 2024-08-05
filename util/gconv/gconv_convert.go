@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
 import (
 	"context"
 	"reflect"
 	"time"
 
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // Convert 将变量 `fromValue` 转换为类型 `toTypeName`，其中 `toTypeName` 由字符串指定。
@@ -230,7 +230,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		}
 		return &v
 
-	case "GTime", "gtime.Time", "时间类", "时间类.Time":
+	case "GTime", "gtime.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return *v
@@ -243,7 +243,7 @@ func doConvert(in doConvertInput) (convertedValue interface{}) {
 		} else {
 			return *gtime.New()
 		}
-	case "*gtime.Time", "*时间类.Time":
+	case "*gtime.Time":
 		if len(in.Extra) > 0 {
 			if v := GTime(in.FromValue, String(in.Extra[0])); v != nil {
 				return v

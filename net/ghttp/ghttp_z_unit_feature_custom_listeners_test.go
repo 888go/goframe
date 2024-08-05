@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类_test
+package ghttp_test
 
 import (
 	"fmt"
@@ -13,12 +13,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/888go/goframe/frame/g"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gtcp "github.com/888go/goframe/net/gtcp"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/net/gtcp"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 func Test_SetSingleCustomListener(t *testing.T) {

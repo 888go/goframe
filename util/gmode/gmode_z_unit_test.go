@@ -7,13 +7,13 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 环境类_test
+package gmode_test
 
 import (
 	"testing"
 
-	gtest "github.com/888go/goframe/test/gtest"
-	gmode "github.com/888go/goframe/util/gmode"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gmode"
 )
 
 func Test_AutoCheckSourceCodes(t *testing.T) {

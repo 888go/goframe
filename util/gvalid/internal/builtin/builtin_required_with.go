@@ -11,8 +11,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/888go/goframe/internal/empty"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // RuleRequiredWith 实现了 `required-with` 规则：

@@ -12,9 +12,9 @@ import (
 
 	"go.opentelemetry.io/otel/baggage"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gvar "github.com/888go/goframe/container/gvar"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Baggage在所有跟踪span中持有数据。 md5:0ad27152ec042f81

@@ -11,7 +11,7 @@ package gstructs
 import (
 	"reflect"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Type 是 reflect.Type 的增强版本，提供了更多功能。 md5:8ebe2d126efacb49

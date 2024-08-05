@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package json类
+package gjson
 
 // SetSplitChar 设置用于层次数据访问的分隔符字符。 md5:99655266409bea6a
 func (j *Json) SetSplitChar(char byte) {

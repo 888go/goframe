@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -13,9 +13,9 @@ import (
 	"testing"
 	"time"
 
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 func Test_Issue2594(t *testing.T) {

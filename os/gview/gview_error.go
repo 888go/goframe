@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 模板类
+package gview
 
 import (
-	gcmd "github.com/888go/goframe/os/gcmd"
+	"github.com/gogf/gf/v2/os/gcmd"
 )
 
 const (

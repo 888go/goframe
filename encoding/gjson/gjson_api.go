@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package json类
+package gjson
 
 import (
 	"fmt"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Interface 返回 json 值。 md5:63120da1c18a889c

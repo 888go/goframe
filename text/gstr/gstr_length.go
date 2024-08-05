@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
-import (
-	"unicode/utf8"
-)
+import "unicode/utf8"
 
 // LenRune返回Unicode字符串的长度。 md5:153854e98ec30abe
 func LenRune(str string) int {

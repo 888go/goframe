@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 泛型类
+package gvar
 
 import (
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Struct 将值`v`映射到`pointer`。

@@ -6,17 +6,17 @@
 // md5:a9832f33b234e3f3
 
 // 包genv提供了对系统环境变量的操作。 md5:9605f9d2a2186f5b
-package 环境变量类
+package genv
 
 import (
 	"fmt"
 	"os"
 	"strings"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // All返回一个字符串切片的副本，表示环境，形式为"key=value"。

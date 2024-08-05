@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 // SetRewrite 为服务器设置静态URI的重写规则。 md5:de7f1cfb68c0440c
 func (s *Server) SetRewrite(uri string, rewrite string) {

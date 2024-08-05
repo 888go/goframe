@@ -17,13 +17,13 @@
 //
 // 4.从队列中读取数据时会阻塞。
 // md5:ff40490071065bb6
-package 队列类
+package gqueue
 
 import (
 	"math"
 
-	glist "github.com/888go/goframe/container/glist"
-	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gtype"
 )
 
 // Queue是一个基于双向链表和通道的并发安全队列。 md5:dc3dd26386e4acfb

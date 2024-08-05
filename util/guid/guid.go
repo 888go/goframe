@@ -6,19 +6,19 @@
 // md5:a9832f33b234e3f3
 
 // guid包提供了简单且高性能的唯一ID生成功能。 md5:22d1fe7516a2dff2
-package uid类
+package guid
 
 import (
 	"os"
 	"strconv"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	ghash "github.com/888go/goframe/encoding/ghash"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gipv4 "github.com/888go/goframe/net/gipv4"
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/ghash"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/gipv4"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 const (

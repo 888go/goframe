@@ -7,9 +7,7 @@
 
 package gi18n
 
-import (
-	gmap "github.com/888go/goframe/container/gmap"
-)
+import "github.com/gogf/gf/v2/container/gmap"
 
 const (
 		// DefaultName是实例使用的默认组名。 md5:ca8d8295a8c531f4

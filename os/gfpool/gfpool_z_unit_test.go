@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件指针池类_test
+package gfpool_test
 
 import (
 	"context"
@@ -13,12 +13,12 @@ import (
 	"testing"
 	"time"
 
-	gfile "github.com/888go/goframe/os/gfile"
-	gfpool "github.com/888go/goframe/os/gfpool"
-	glog "github.com/888go/goframe/os/glog"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfpool"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // TestOpen 测试打开文件缓存. md5:81eb9fe8e499fb8d

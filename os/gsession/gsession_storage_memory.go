@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package session类
+package gsession
 
 import (
 	"context"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gvar "github.com/888go/goframe/container/gvar"
-	gcache "github.com/888go/goframe/os/gcache"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/os/gcache"
 )
 
 // StorageMemory 使用内存实现了会话存储接口。 md5:1a9a78b3bd5a138b

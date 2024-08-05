@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 进程类
+package gproc
 
 import (
 	"io"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	gtcp "github.com/888go/goframe/net/gtcp"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/net/gtcp"
 )
 
 // Send 向给定pid的指定进程发送数据。 md5:32fd0c7aeb3b969c

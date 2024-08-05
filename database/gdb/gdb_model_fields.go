@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"fmt"
 
-	gset "github.com/888go/goframe/container/gset"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // `Fields` 方法将 `fieldNamesOrMapStruct` 添加到模型的operation字段中，多个字段使用字符`,`连接。

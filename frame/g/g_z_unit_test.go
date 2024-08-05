@@ -13,10 +13,10 @@ import (
 	"sync"
 	"testing"
 
-	garray "github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 var (

@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 泛型类
+package gvar
 
 import (
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // ListItemValues 获取并返回所有项结构体/映射中键为`key`的元素。

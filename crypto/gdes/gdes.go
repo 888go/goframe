@@ -6,15 +6,15 @@
 // md5:a9832f33b234e3f3
 
 // 包gdes提供了DES加密/解密算法的有用API。 md5:c8b6785595a2b6ed
-package 加密DES类
+package gdes
 
 import (
 	"bytes"
 	"crypto/cipher"
 	"crypto/des"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 const (

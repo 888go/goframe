@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package session类
+package gsession
 
 import (
 	"context"
@@ -13,17 +13,17 @@ import (
 	"os"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gset "github.com/888go/goframe/container/gset"
-	gaes "github.com/888go/goframe/crypto/gaes"
-	gbinary "github.com/888go/goframe/encoding/gbinary"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
-	gfile "github.com/888go/goframe/os/gfile"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/crypto/gaes"
+	"github.com/gogf/gf/v2/encoding/gbinary"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // StorageFile实现了使用文件系统作为会话存储的接口。 md5:bae13bc406aa3178

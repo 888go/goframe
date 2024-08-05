@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 日志类
+package glog
 
-import (
-	"context"
-)
+import "context"
 
 // Print 使用 fmt.Sprintln 函数打印 `v` 并添加换行符。
 // 参数 `v` 可以是多个变量。

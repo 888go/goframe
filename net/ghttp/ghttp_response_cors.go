@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package http类
+package ghttp
 
 import (
 	"net/http"
 	"net/url"
 
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // CORSOptions 是 CORS 功能的选项。

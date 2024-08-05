@@ -11,8 +11,8 @@ package mysql
 import (
 	_ "github.com/go-sql-driver/mysql"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 // Driver 是用于 MySQL 数据库的驱动程序。 md5:db674980450242e3

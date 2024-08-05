@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strconv"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RuleMax 实现了 `max` 规则：

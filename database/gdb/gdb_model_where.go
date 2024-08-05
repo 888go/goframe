@@ -5,7 +5,7 @@
 // 您可以从https://gitee.com/gogf/gf获取。
 // md5:358e3ba76264232a
 
-package db类
+package gdb
 
 // callWhereBuilder 创建并返回一个新的Model实例，如果当前Model是安全的，则设置其WhereBuilder。
 // 如果当前Model不是安全的，它将直接设置WhereBuilder并返回当前Model。

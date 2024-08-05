@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 互斥锁类
+package gmutex
 
-import (
-	"sync"
-)
+import "sync"
 
 // Mutex 是一个高级互斥锁，为互斥锁实现了更多丰富功能。 md5:b81f0b26d312bfc2
 type Mutex struct {

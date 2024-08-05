@@ -4,13 +4,13 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package map类_test
+package gmap_test
 
 import (
 	"fmt"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func ExampleNew() {

@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 错误类
+package gerror
 
-import (
-	gcode "github.com/888go/goframe/errors/gcode"
-)
+import "github.com/gogf/gf/v2/errors/gcode"
 
 // Option 是创建错误时的选项。 md5:e4c01dc11cd0fde6
 type Option struct {

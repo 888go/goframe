@@ -11,8 +11,8 @@ import (
 	"context"
 	"sync"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 type selectorLeastConnection struct {

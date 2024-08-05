@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // Str 函数返回从 `haystack` 字符串开始，包括第一个出现的 `needle` 到 `haystack` 结尾的部分。
 //

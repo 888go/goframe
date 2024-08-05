@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -11,12 +11,12 @@ package pgsql_test
 
 import (
 	"fmt"
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 	"testing"
 
-	"github.com/888go/goframe/frame/g"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 // 这段注释引用的是一个GitHub问题或拉取请求，它来自于 "gogf/gf"（Go GF）项目，编号为3330。"gf" 是一个Go语言的框架（framework）。这个链接指向的是关于该框架的一个 issue（通常指代项目中遇到的问题、错误或特性请求），可能是用户报告了一个问题或者提出了一个改进的建议。 md5:9f7312fda44501ce

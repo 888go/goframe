@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
 import (
 	"reflect"
 	"strings"
 
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 type recursiveType string

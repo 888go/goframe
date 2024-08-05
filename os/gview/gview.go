@@ -10,18 +10,18 @@
 // 预留的模板变量名：
 // I18nLanguage：将此变量赋值以定义每个页面的国际化语言。
 // md5:31bd070a7bdcf2a1
-package 模板类
+package gview
 
 import (
 	"context"
 
-	"github.com/888go/goframe"
-	garray "github.com/888go/goframe/container/garray"
-	gmap "github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/internal/intlog"
-	gcmd "github.com/888go/goframe/os/gcmd"
-	gfile "github.com/888go/goframe/os/gfile"
-	glog "github.com/888go/goframe/os/glog"
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 // 用于模板引擎的视图对象。 md5:d5b31747d89262fc

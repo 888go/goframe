@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 // LockUpdate 为当前操作设置更新锁。 md5:ecffaffee1e7b1df
 func (m *Model) LockUpdate() *Model {

@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 配置类
+package gcfg
 
 import (
 	"context"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // AdapterContent 使用内容实现 Adapter 接口。

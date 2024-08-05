@@ -9,13 +9,13 @@
 // 
 // 默认情况下，它提供了一个并发安全的内存缓存适配器给进程。
 // md5:83aa9516287cdc99
-package 缓存类
+package gcache
 
 import (
 	"context"
 	"time"
 
-	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // Func是缓存函数，它计算并返回值。 md5:a8aeba091cce1386

@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // Repeat 函数返回一个新字符串，该字符串由输入字符串乘数次复制组成。
 //

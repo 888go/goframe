@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 循环链表类_test
+package gring_test
 
 import (
 	"container/ring"
 	"testing"
 
-	gring "github.com/888go/goframe/container/gring"
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/gring"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 type Student struct {

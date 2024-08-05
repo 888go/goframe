@@ -11,10 +11,10 @@ import (
 	"context"
 	"strings"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // CheckLocalTypeForField 检查并返回给定数据库类型对应的本地Go语言类型。 md5:f8aef7c5b09aa9c8

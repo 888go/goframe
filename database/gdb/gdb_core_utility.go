@@ -5,19 +5,19 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package db类
+package gdb
 
 import (
 	"context"
 	"fmt"
 
-	gmd5 "github.com/888go/goframe/crypto/gmd5"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/crypto/gmd5"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // GetDB 返回底层的DB。 md5:5ebeb6e695bd2a8a

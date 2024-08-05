@@ -9,7 +9,7 @@
 // 
 // 注意，gbinary 包默认使用 LittleEndian 方式编码数据。
 // md5:20767570ab1713ca
-package 字节集类
+package gbinary
 
 func Encode(values ...interface{}) []byte {
 	return LeEncode(values...)

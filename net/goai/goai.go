@@ -16,12 +16,12 @@ import (
 	"fmt"
 	"reflect"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
-	gstr "github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // OpenApiV3 是根据以下规范定义的结构体：

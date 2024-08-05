@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package db类
+package gdb
 
 import (
 	"context"
@@ -14,18 +14,18 @@ import (
 	"reflect"
 	"strings"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gset "github.com/888go/goframe/container/gset"
-	gvar "github.com/888go/goframe/container/gvar"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/internal/utils"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // GetCore 返回底层的 *Core 对象。 md5:b7d2ff344b9a6a33

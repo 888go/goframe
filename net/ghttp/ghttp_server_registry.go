@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
 	"fmt"
 
-	gipv4 "github.com/888go/goframe/net/gipv4"
-	"github.com/888go/goframe/net/gsvc"
-	gctx "github.com/888go/goframe/os/gctx"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/net/gipv4"
+	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // doServiceRegister 将当前服务注册到Registry。 md5:fbfe784fd5718e65

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 模板类
+package gview
 
 import (
 	"bytes"
@@ -14,14 +14,14 @@ import (
 	htmltpl "html/template"
 	"strings"
 
-	ghtml "github.com/888go/goframe/encoding/ghtml"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gurl "github.com/888go/goframe/encoding/gurl"
-	gtime "github.com/888go/goframe/os/gtime"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gmode "github.com/888go/goframe/util/gmode"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/encoding/ghtml"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gmode"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // buildInFuncDump 实现了内置模板函数：dump. md5:1f15207852fa685e

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 资源类
+package gres
 
 import (
 	"archive/zip"
@@ -14,10 +14,10 @@ import (
 	"strings"
 	"time"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/fileinfo"
-	gfile "github.com/888go/goframe/os/gfile"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/fileinfo"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // ZipPathWriter 使用zip压缩算法将`paths`压缩到`writer`中。

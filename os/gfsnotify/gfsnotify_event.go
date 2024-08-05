@@ -4,7 +4,7 @@
 // 您可以从 https://github.com/gogf/gf 获取。
 // md5:12b80d680e9de440
 
-package 文件监控类
+package gfsnotify
 
 // String 返回当前事件的字符串表示。 md5:a1d293a81ad7d90a
 func (e *Event) String() string {

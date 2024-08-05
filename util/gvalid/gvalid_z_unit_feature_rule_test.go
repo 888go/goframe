@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 效验类_test
+package gvalid_test
 
 import (
 	"testing"
 	"time"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/frame/g"
-	gctx "github.com/888go/goframe/os/gctx"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 var (
@@ -1587,7 +1587,7 @@ func Test_Enums(t *testing.T) {
 		t.AssertNil(err)
 		defer t.AssertNil(gtag.SetGlobalEnums(oldEnumsJson))
 
-		err = gtag.SetGlobalEnums(`{"github.com/888go/goframe/util/gvalid_test.EnumsTest": ["a","b"]}`)
+		err = gtag.SetGlobalEnums(`{"github.com/gogf/gf/v2/util/gvalid_test.EnumsTest": ["a","b"]}`)
 		t.AssertNil(err)
 
 		err = g.Validator().Data(&Params{

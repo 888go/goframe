@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类_test
+package gconv_test
 
 import (
 	"encoding/json"
@@ -13,10 +13,10 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Map_Basic(t *testing.T) {

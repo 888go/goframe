@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/net/goai"
-	"github.com/888go/goframe/os/gstructs"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/net/goai"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // GetRequest 从客户端获取并返回名为 `key` 的参数，以及作为接口传递的自定义参数。无论客户端使用何种HTTP方法。如果`key`不存在，`def`参数指定了默认值。

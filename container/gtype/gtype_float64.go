@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 安全变量类
+package gtype
 
 import (
 	"math"
 	"strconv"
 	"sync/atomic"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Float64 是一个用于并发安全操作 float64 类型的结构体。 md5:9134cad59fd8776a

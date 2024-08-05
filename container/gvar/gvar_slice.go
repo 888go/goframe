@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 泛型类
+package gvar
 
-import (
-	gconv "github.com/888go/goframe/util/gconv"
-)
+import "github.com/gogf/gf/v2/util/gconv"
 
 // Ints 将 `v` 转换并返回为 []int 类型。 md5:063ba1cd966af441
 func (v *Var) Ints() []int {

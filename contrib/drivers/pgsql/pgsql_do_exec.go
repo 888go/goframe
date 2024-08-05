@@ -12,9 +12,9 @@ import (
 	"database/sql"
 	"strings"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。

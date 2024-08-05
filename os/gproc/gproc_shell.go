@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 进程类
+package gproc
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 
-	gfile "github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // Shell 函数同步地执行命令 `cmd`，并使用给定的输入管道 `in` 和输出管道 `out`。

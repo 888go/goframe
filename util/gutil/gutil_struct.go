@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 工具类
+package gutil
 
 import (
 	"reflect"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gstructs"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // StructToSlice 将结构体转换为一个键值对作为元素的切片。

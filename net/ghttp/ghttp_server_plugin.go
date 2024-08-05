@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 // Plugin是服务器插件的接口。 md5:f625001233bdb03a
 type Plugin interface {

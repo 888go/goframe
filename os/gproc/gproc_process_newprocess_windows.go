@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-//go:build windows
+//---build---//go:build windows
 
-package 进程类
+package gproc
 
 import (
 	"syscall"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // 在Windows平台直接设置底层参数. md5:418ca44ebddf20f0
-func joinProcessArgs(p *Process) {
+func joinProcessArgs_build_2(p *Process) {//build_func_1|joinProcessArgs|
 	p.SysProcAttr = &syscall.SysProcAttr{}
 	p.SysProcAttr.CmdLine = gstr.Join(p.Args, " ")
 }

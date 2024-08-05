@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package json类
+package gjson
 
 import (
-	gini "github.com/888go/goframe/encoding/gini"
-	"github.com/888go/goframe/encoding/gproperties"
-	gtoml "github.com/888go/goframe/encoding/gtoml"
-	gxml "github.com/888go/goframe/encoding/gxml"
-	gyaml "github.com/888go/goframe/encoding/gyaml"
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/encoding/gini"
+	"github.com/gogf/gf/v2/encoding/gproperties"
+	"github.com/gogf/gf/v2/encoding/gtoml"
+	"github.com/gogf/gf/v2/encoding/gxml"
+	"github.com/gogf/gf/v2/encoding/gyaml"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // ========================================================================

@@ -11,11 +11,11 @@ import (
 	"database/sql"
 	"fmt"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Open 创建并返回一个用于pgsql的底层sql.DB对象。

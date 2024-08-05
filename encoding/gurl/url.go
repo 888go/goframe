@@ -6,13 +6,13 @@
 // md5:a9832f33b234e3f3
 
 // 包gurl提供了处理URL的有用API。 md5:3954efb697af4a41
-package url类
+package gurl
 
 import (
 	"net/url"
 	"strings"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Encode将字符串进行转义，以便安全地放置在URL查询中。

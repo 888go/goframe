@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	gipv6 "github.com/888go/goframe/net/gipv6"
+	"github.com/gogf/gf/v2/net/gipv6"
 )
 
 // RuleIpv6 实现了 `ipv6` 规则：

@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package cmd类
+package gcmd
 
 import (
 	"bytes"
@@ -17,16 +17,16 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/888go/goframe"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/net/gtrace"
-	gcfg "github.com/888go/goframe/os/gcfg"
-	genv "github.com/888go/goframe/os/genv"
-	glog "github.com/888go/goframe/os/glog"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Run 调用与该命令绑定的自定义函数，根据os.Args执行。

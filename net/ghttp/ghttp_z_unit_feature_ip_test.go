@@ -7,17 +7,17 @@
 
 // 静态服务测试。 md5:2105c089651008de
 
-package http类_test
+package ghttp_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/888go/goframe/frame/g"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gtest "github.com/888go/goframe/test/gtest"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 func TestRequest_GetRemoteIp(t *testing.T) {

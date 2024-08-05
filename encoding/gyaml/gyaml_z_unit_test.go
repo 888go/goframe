@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package yaml类_test
+package gyaml_test
 
 import (
 	"testing"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gyaml "github.com/888go/goframe/encoding/gyaml"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/json"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gyaml"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var yamlStr string = `

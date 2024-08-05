@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 效验类
+package gvalid
 
 import (
 	"strings"
 
-	gset "github.com/888go/goframe/container/gset"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Error是验证结果的错误。 md5:333865ca9d205dfa

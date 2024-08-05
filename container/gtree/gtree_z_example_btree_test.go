@@ -5,15 +5,15 @@
 // 您可以访问 https://github.com/Agogf/gf 获取一个。
 // md5:8fae8e64a457a737
 
-package 树形类_test
+package gtree_test
 
 import (
 	"fmt"
 
-	gtree "github.com/888go/goframe/container/gtree"
-	"github.com/888go/goframe/internal/json"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gtree"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func ExampleBTree_Clone() {

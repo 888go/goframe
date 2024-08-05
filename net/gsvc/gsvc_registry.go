@@ -10,8 +10,8 @@ package gsvc
 import (
 	"context"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Register 将 `服务` 注册到默认注册表中。 md5:07ed2154ce52f6df

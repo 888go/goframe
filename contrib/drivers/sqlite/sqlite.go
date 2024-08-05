@@ -11,7 +11,7 @@ package sqlite
 import (
 	_ "github.com/glebarez/go-sqlite"
 
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 // Driver是sqlite数据库的驱动程序。 md5:afc6ba2ecab1097e

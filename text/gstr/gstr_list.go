@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 // List2：使用`delimiter`将`str`分割，并将结果作为两个部分的字符串返回。 md5:7d263c861d943343
 func List2(str, delimiter string) (part1, part2 string) {

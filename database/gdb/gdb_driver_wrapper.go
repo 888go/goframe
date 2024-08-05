@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 // DriverWrapper是一个驱动程序包装器，用于通过嵌入式驱动程序扩展功能。 md5:7294ac58de5aa606
 type DriverWrapper struct {

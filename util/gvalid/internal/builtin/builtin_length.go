@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // RuleLength 实现了 `length` 规则：

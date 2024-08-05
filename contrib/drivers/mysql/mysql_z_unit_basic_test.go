@@ -11,8 +11,8 @@ import (
 	"context"
 	"testing"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Instance(t *testing.T) {

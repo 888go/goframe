@@ -6,14 +6,14 @@
 // md5:a9832f33b234e3f3
 
 // 包gpage为网页提供有用的分页功能。 md5:21def24b73b57b89
-package 分页类
+package gpage
 
 import (
 	"fmt"
 	"math"
 
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Page 是分页实现者。

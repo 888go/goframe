@@ -7,16 +7,16 @@
 
 // go test *.go
 
-package 切片类_test
+package garray_test
 
 import (
 	"strings"
 	"testing"
 
-	garray "github.com/888go/goframe/container/garray"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Array_Var(t *testing.T) {

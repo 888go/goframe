@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 import (
 	"strings"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // IsGNUVersion 检查并返回给定的 `version` 是否为有效的 GNU 版本字符串。 md5:6400dc6a399e4aa3

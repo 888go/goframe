@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/888go/goframe/os/gmetric"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/os/gmetric"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Counter(t *testing.T) {

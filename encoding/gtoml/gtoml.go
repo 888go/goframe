@@ -6,15 +6,15 @@
 // md5:a9832f33b234e3f3
 
 // 包gtoml提供了访问和转换TOML内容的功能。 md5:0bf787c2f078634a
-package toml类
+package gtoml
 
 import (
 	"bytes"
 
 	"github.com/BurntSushi/toml"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 func Encode(v interface{}) ([]byte, error) {

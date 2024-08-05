@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 安全变量类
+package gtype
 
 import (
 	"strconv"
 	"sync/atomic"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Uint64是一个结构体，用于并发安全的uint64类型操作。 md5:6a07488d07d4b044

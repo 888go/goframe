@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gtype提供高性能和线程安全的基础变量类型。 md5:94b883ebf0b43fd8
-package 安全变量类
+package gtype
 
 // New 是 NewAny 的别名。
 // 请参阅 NewAny，NewInterface。

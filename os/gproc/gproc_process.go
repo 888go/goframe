@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 进程类
+package gproc
 
 import (
 	"context"
@@ -19,13 +19,13 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/888go/goframe"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/net/gtrace"
-	genv "github.com/888go/goframe/os/genv"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Process 是表示单个进程的结构体。 md5:f6524ce6eee4a18b

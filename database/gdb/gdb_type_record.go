@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"database/sql"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/internal/empty"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Json 将 `r` 转换为JSON格式的内容。 md5:60a0626b0a333d14

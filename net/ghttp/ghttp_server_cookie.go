@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"net/http"
 	"time"
 
-	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // 用于HTTP_COOKIE管理的Cookie。 md5:5990685f9449a6df

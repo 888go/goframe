@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件监控类
+package gfsnotify
 
 import (
 	"context"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 
-	glist "github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // watchLoop 启动循环以从底层inotify监控器监听事件。 md5:a057c294cb3f7186

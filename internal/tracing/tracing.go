@@ -14,9 +14,9 @@ import (
 
 	"go.opentelemetry.io/otel/trace"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gbinary "github.com/888go/goframe/encoding/gbinary"
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/gbinary"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 var (

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 // Levenshtein 计算两个字符串之间的Levenshtein距离。
 // costIns: 定义插入操作的成本。

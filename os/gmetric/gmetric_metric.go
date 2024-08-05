@@ -7,10 +7,10 @@
 package gmetric
 
 import (
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // localMetric 实现了 Metric 接口。 md5:1d7e92821badcf91

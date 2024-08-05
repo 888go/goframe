@@ -6,18 +6,18 @@
 // md5:a9832f33b234e3f3
 
 // 包gpool提供了对象可重用的并发安全池。 md5:d111530cd572ede7
-package 对象复用类
+package gpool
 
 import (
 	"context"
 	"time"
 
-	glist "github.com/888go/goframe/container/glist"
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // Pool是一个对象可重用池。 md5:08c256ba80594199

@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package udp类
+package gudp
 
 import (
 	"net"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // NewNetConn 创建并返回一个具有给定地址的 *net.UDPConn。 md5:7327f361f04568ff

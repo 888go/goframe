@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 资源类
+package gres
 
 import (
 	"archive/zip"
@@ -13,18 +13,18 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	gbase64 "github.com/888go/goframe/encoding/gbase64"
-	gcompress "github.com/888go/goframe/encoding/gcompress"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gfile "github.com/888go/goframe/os/gfile"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/encoding/gbase64"
+	"github.com/gogf/gf/v2/encoding/gcompress"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 const (
 	packedGoSourceTemplate = `
 package %s
 
-import gres "github.com/888go/goframe/os/gres"
+import "github.com/gogf/gf/v2/os/gres"
 
 func init() {
 	if err := gres.Add("%s"); err != nil {

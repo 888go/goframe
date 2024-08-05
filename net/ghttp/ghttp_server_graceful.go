@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
@@ -19,12 +19,12 @@ import (
 	"sync"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gproc "github.com/888go/goframe/os/gproc"
-	gres "github.com/888go/goframe/os/gres"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // gracefulServer 是一个包装了 net/http.Server 的结构，添加了优雅的重新加载/重启功能。 md5:8d812c91a33cd2a2

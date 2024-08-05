@@ -6,15 +6,15 @@
 // md5:a114f4bdd106ab31
 
 // 包gcmd提供控制台操作，如读取选项/参数和运行命令。 md5:bb72337a704c599f
-package cmd类
+package gcmd
 
 import (
 	"os"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/internal/utils"
-	gctx "github.com/888go/goframe/os/gctx"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 const (

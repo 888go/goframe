@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 资源类
+package gres
 
-import (
-	gmap "github.com/888go/goframe/container/gmap"
-)
+import "github.com/gogf/gf/v2/container/gmap"
 
 const (
 		// DefaultName 实例使用的默认分组名称。 md5:451d9ed0f5a0a185

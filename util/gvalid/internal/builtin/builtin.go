@@ -15,17 +15,17 @@ package builtin
 import (
 	"reflect"
 
-	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 type Rule interface {
-	// Name 返回该规则的内置名称。 md5:a71cebab229252cc
+		// Name 返回该规则的内置名称。 md5:a71cebab229252cc
 	Name() string
 
-	// Message返回规则的默认错误消息。 md5:0b3669ebda3f3237
+		// Message返回规则的默认错误消息。 md5:0b3669ebda3f3237
 	Message() string
 
-	// Run开始运行规则，如果成功则返回nil，否则返回一个错误。 md5:1e3c94009a35745d
+		// Run开始运行规则，如果成功则返回nil，否则返回一个错误。 md5:1e3c94009a35745d
 	Run(in RunInput) error
 }
 
@@ -45,7 +45,7 @@ type RunOption struct {
 }
 
 var (
-	// ruleMap 存储所有预置的验证规则。 md5:9a86d7fe68fc3d28
+		// ruleMap 存储所有预置的验证规则。 md5:9a86d7fe68fc3d28
 	ruleMap = map[string]Rule{}
 )
 

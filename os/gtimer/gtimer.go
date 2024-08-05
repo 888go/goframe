@@ -15,7 +15,7 @@
 //
 // 另外，特别注意定时器常见的延迟问题：https://github.com/golang/go/issues/14410
 // md5:c0dc9837a603eb26
-package 定时类
+package gtimer
 
 import (
 	"context"
@@ -23,10 +23,10 @@ import (
 	"sync"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/command"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
 )
 
 // Timer 是计时器管理器，它使用ticks来计算时间间隔。 md5:eab16bf4737f12a8

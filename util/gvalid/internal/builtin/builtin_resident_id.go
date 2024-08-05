@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // RuleResidentId 实现了 `resident-id` 规则：

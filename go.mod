@@ -1,4 +1,4 @@
-module github.com/888go/goframe
+module github.com/gogf/gf/v2
 
 go 1.18
 
@@ -70,7 +70,4 @@ require (
 	modernc.org/sqlite v1.23.1 // indirect
 )
 
-require (
-	github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.7.1
-	github.com/lib/pq v1.10.9
-)
+require github.com/lib/pq v1.10.9

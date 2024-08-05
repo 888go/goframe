@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件类
+package gfile
 
 import (
 	"bytes"
@@ -15,7 +15,7 @@ import (
 	"runtime"
 	"strings"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Home 返回当前用户主目录的绝对路径。

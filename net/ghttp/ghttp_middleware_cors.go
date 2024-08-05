@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 // MiddlewareCORS 是一个使用默认选项的CORS中间件处理器。 md5:522ca96c4772b84d
 func MiddlewareCORS(r *Request) {

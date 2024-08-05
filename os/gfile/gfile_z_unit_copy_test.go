@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件类_test
+package gfile_test
 
 import (
 	"os"
 	"testing"
 
-	gfile "github.com/888go/goframe/os/gfile"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 func Test_Copy(t *testing.T) {

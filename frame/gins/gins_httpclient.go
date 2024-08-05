@@ -10,8 +10,8 @@ package gins
 import (
 	"fmt"
 
-	"github.com/888go/goframe/internal/instance"
-	gclient "github.com/888go/goframe/net/gclient"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/net/gclient"
 )
 
 // HttpClient 返回指定名称的 http 客户端实例。 md5:4ad3009bae654769

@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时类
+package gtimer
 
 import (
 	"container/heap"
 	"math"
 	"sync"
 
-	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/gogf/gf/v2/container/gtype"
 )
 
 // priorityQueue 是一种抽象数据类型，类似于常规的队列或堆数据结构，但每个元素都附加了一个“优先级”。

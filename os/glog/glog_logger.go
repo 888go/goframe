@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 日志类
+package glog
 
 import (
 	"bytes"
@@ -20,17 +20,17 @@ import (
 	"github.com/fatih/color"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/errors"
-	"github.com/888go/goframe/internal/intlog"
-	gctx "github.com/888go/goframe/os/gctx"
-	gfile "github.com/888go/goframe/os/gfile"
-	gfpool "github.com/888go/goframe/os/gfpool"
-	gmlock "github.com/888go/goframe/os/gmlock"
-	gtime "github.com/888go/goframe/os/gtime"
-	gregex "github.com/888go/goframe/text/gregex"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/errors"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfpool"
+	"github.com/gogf/gf/v2/os/gmlock"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Logger 是用于日志管理的结构体。 md5:c338807dca943ae3

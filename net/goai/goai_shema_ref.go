@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/888go/goframe/internal/json"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 type SchemaRefs []SchemaRef

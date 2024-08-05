@@ -11,12 +11,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/internal/intlog"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Server 函数返回一个指定名称的 http 服务器实例。

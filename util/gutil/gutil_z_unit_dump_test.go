@@ -5,20 +5,20 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 工具类_test
+package gutil_test
 
 import (
 	"bytes"
 	"testing"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/frame/g"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
-	gmeta "github.com/888go/goframe/util/gmeta"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Dump(t *testing.T) {

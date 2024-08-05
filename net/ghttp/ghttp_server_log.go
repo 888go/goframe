@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"fmt"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/instance"
-	glog "github.com/888go/goframe/os/glog"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // handleAccessLog 处理服务器的访问日志。 md5:37f533b1207682a1

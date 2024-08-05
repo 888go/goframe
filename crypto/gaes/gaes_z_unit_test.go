@@ -7,14 +7,14 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 加密aes类_test
+package gaes_test
 
 import (
 	"testing"
 
-	gaes "github.com/888go/goframe/crypto/gaes"
-	gbase64 "github.com/888go/goframe/encoding/gbase64"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/crypto/gaes"
+	"github.com/gogf/gf/v2/encoding/gbase64"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

@@ -6,15 +6,15 @@
 // md5:a9832f33b234e3f3
 
 // Package gfpool 提供可重用的文件指针io池。 md5:994211336c178d55
-package 文件指针池类
+package gfpool
 
 import (
 	"os"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gpool "github.com/888go/goframe/container/gpool"
-	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gpool"
+	"github.com/gogf/gf/v2/container/gtype"
 )
 
 // Pool pointer pool.

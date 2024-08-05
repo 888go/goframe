@@ -10,7 +10,7 @@ package oracle
 import (
 	"context"
 
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 const (

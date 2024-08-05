@@ -12,7 +12,7 @@ import (
 	"context"
 	"time"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // 服务注册接口。 md5:ee4e4676007285d8

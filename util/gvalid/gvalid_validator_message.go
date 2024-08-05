@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 效验类
+package gvalid
 
 import (
 	"context"
 
-	"github.com/888go/goframe/util/gvalid/internal/builtin"
+	"github.com/gogf/gf/v2/util/gvalid/internal/builtin"
 )
 
 // getErrorMessageByRule 根据指定的规则获取并返回错误信息。

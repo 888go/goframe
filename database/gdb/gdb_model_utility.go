@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"time"
 
-	gset "github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/internal/empty"
-	gtime "github.com/888go/goframe/os/gtime"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // QuoteWord 检查给定的字符串 `s` 是否为一个单词，

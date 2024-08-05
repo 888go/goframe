@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类_test
+package gconv_test
 
 import (
 	"math/big"
 	"testing"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/frame/g"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // 这段注释是引用了GitHub上gf项目的一个问题链接，编号为1227。在Go语言中，这种注释用于提供外部资源的参考或问题追踪。翻译成中文后，它仍然保留原始的URL，因为这是一个链接，无需翻译。 md5:b76d46c66d00a5ce

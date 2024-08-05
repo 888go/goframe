@@ -4,15 +4,15 @@
 // 如果未随本文件一同分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
-package 正则类_test
+package gregex_test
 
 import (
 	"bytes"
 	"fmt"
 	"strings"
 
-	"github.com/888go/goframe/frame/g"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 func ExampleIsMatch() {

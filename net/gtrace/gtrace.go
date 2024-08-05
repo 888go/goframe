@@ -19,15 +19,15 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.18.0"
 	"go.opentelemetry.io/otel/trace"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gvar "github.com/888go/goframe/container/gvar"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/command"
-	gipv4 "github.com/888go/goframe/net/gipv4"
-	"github.com/888go/goframe/net/gtrace/internal/provider"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/net/gipv4"
+	"github.com/gogf/gf/v2/net/gtrace/internal/provider"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

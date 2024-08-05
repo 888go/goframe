@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // RuleSize 实现了 `size` 规则：

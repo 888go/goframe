@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时类
+package gtimer
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestTimer_Proceed(t *testing.T) {

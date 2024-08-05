@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/888go/goframe/internal/json"
-	gfile "github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // Attributes 是一个 Attribute 类型的切片。 md5:5e8ed6feb0b054bf

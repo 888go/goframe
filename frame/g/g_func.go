@@ -11,11 +11,11 @@ import (
 	"context"
 	"io"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/empty"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gproc "github.com/888go/goframe/os/gproc"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Go 创建一个新的异步 goroutine 函数，并指定了恢复函数。

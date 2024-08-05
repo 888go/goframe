@@ -7,16 +7,16 @@
 
 // Job Operations
 
-package 定时类_test
+package gtimer_test
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gtimer "github.com/888go/goframe/os/gtimer"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestJob_Start_Stop_Close(t *testing.T) {

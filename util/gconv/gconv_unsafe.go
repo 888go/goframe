@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
-import (
-	"unsafe"
-)
+import "unsafe"
 
 // UnsafeStrToBytes 将字符串转换为 []byte，其间不进行内存复制。
 // 注意，如果您完全确定将来绝不会使用 `s` 变量，

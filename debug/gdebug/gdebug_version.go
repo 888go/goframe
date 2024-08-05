@@ -14,8 +14,8 @@ import (
 	"os"
 	"strconv"
 
-	ghash "github.com/888go/goframe/encoding/ghash"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/encoding/ghash"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // BinVersion 返回当前运行二进制文件的版本。

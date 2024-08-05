@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package http类
+package ghttp
 
 import (
-	gcfg "github.com/888go/goframe/os/gcfg"
-	gview "github.com/888go/goframe/os/gview"
-	gconv "github.com/888go/goframe/util/gconv"
-	gmode "github.com/888go/goframe/util/gmode"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/gview"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gmode"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // WriteTpl解析并响应给定的模板文件。参数`params`指定了解析时的模板变量。

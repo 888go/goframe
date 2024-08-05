@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -14,12 +14,12 @@ import (
 	"strings"
 	"testing"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/util/gconv"
 
-	"github.com/888go/goframe/frame/g"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Tables(t *testing.T) {

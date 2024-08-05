@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // Contains报告`substr`是否在`str`中（区分大小写）。 md5:23e258f54d1c33e6
 func Contains(str, substr string) bool {

@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gsha1提供了SHA1加密算法的有用API。 md5:4ebe688b6095e4db
-package 加密sha1类
+package gsha1
 
 import (
 	"crypto/sha1"
@@ -14,8 +14,8 @@ import (
 	"io"
 	"os"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // 使用SHA1算法对任何类型的变量进行加密。

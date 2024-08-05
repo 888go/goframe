@@ -5,11 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
-	gvar "github.com/888go/goframe/container/gvar"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // SetForm 使用键值对设置自定义表单值。 md5:eca1a8c094c9ff19

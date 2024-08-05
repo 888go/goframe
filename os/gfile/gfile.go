@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // gfile 包提供了易于使用的文件系统操作。 md5:51d18e994a768bb4
-package 文件类
+package gfile
 
 import (
 	"os"
@@ -15,10 +15,10 @@ import (
 	"strings"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

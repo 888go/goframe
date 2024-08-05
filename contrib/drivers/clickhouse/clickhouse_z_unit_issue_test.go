@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -13,10 +13,10 @@ import (
 	"github.com/shopspring/decimal"
 	"testing"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Issue2584(t *testing.T) {

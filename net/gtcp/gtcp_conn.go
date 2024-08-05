@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package tcp类
+package gtcp
 
 import (
 	"bufio"
@@ -15,7 +15,7 @@ import (
 	"net"
 	"time"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Conn是TCP连接对象。 md5:d539be0916b2b1b8

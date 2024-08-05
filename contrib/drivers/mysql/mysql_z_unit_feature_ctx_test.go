@@ -11,9 +11,9 @@ import (
 	"context"
 	"testing"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	glog "github.com/888go/goframe/os/glog"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Ctx(t *testing.T) {

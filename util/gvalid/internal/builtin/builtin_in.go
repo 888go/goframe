@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strings"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RuleIn 实现了 `in` 规则：

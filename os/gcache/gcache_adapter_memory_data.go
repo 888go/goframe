@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 缓存类
+package gcache
 
 import (
 	"context"
 	"sync"
 	"time"
 
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 type adapterMemoryData struct {

@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // RuleMac 实现了 `mac` 规则：

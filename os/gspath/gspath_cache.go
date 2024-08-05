@@ -8,15 +8,15 @@
 // gspath 包实现了对文件夹的索引和搜索功能。
 // md5:04299e0152ee648b
 
-package 文件搜索类
+package gspath
 
 import (
 	"runtime"
 	"strings"
 
-	gfile "github.com/888go/goframe/os/gfile"
-	gfsnotify "github.com/888go/goframe/os/gfsnotify"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // updateCacheByPath 递归地在`path`下添加所有文件。 md5:ef869f8f30af135a

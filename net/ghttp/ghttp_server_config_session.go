@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"time"
 
-	gsession "github.com/888go/goframe/os/gsession"
+	"github.com/gogf/gf/v2/os/gsession"
 )
 
 // SetSessionMaxAge 用于设置服务器的会话最大存活时间。 md5:b9197f93d7981d91

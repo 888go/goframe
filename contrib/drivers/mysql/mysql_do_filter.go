@@ -10,7 +10,7 @@ package mysql
 import (
 	"context"
 
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 // DoFilter 在将SQL提交到数据库之前进行处理。 md5:e56455a7432db765

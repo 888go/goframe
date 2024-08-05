@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 错误类
+package gerror
 
 import (
-	gcode "github.com/888go/goframe/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // Code 返回错误代码。

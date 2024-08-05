@@ -11,13 +11,13 @@ import (
 	"errors"
 	"strconv"
 
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // RuleMaxLength 实现了 `max-length` 规则：
 // 长度小于或等于 :max。长度是根据 Unicode 字符串计算的，这意味着一个中文字符或字母的长度均为 1。
-//
+// 
 // 格式：max-length:max
 // md5:79ec85f367534ee2
 type RuleMaxLength struct{}

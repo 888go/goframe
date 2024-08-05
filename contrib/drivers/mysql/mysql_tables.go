@@ -10,7 +10,7 @@ package mysql
 import (
 	"context"
 
-	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/gogf/gf/v2/database/gdb"
 )
 
 // Tables 获取并返回当前模式下的表格列表。

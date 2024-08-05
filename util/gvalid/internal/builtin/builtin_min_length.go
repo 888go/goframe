@@ -11,8 +11,8 @@ import (
 	"errors"
 	"strconv"
 
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // RuleMinLength 实现了 `min-length` 规则：

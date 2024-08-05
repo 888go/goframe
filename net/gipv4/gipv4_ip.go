@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package ipv4类
+package gipv4
 
 import (
 	"net"
 	"strconv"
 	"strings"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // GetIpArray 获取并返回当前主机的所有IP地址。 md5:6828d92b1a684cd2

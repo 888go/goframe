@@ -7,7 +7,7 @@
 
 // go test *.go
 
-package 集合类_test
+package gset_test
 
 import (
 	"strings"
@@ -15,12 +15,12 @@ import (
 	"testing"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gset "github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/json"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func TestIntSet_Var(t *testing.T) {

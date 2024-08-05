@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"database/sql"
 	"reflect"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/os/gstructs"
-	gstr "github.com/888go/goframe/text/gstr"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // With 创建并返回一个基于给定对象元数据的 ORM 模型。它还为给定的 `object` 启用模型关联操作功能。

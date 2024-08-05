@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类_test
+package ghttp_test
 
 import (
 	"context"
@@ -13,14 +13,14 @@ import (
 	"testing"
 	"time"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gurl "github.com/888go/goframe/encoding/gurl"
-	"github.com/888go/goframe/frame/g"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
-	"github.com/888go/goframe/util/gtag"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gtag"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 // 这段注释引用的是一个GitHub问题的链接，来自 "gf"（GoGF）项目，问题编号为1609。这可能是一个关于gf库的问题报告、讨论或者请求，具体内容需要查看链接才能得知。 md5:467f0f77d2ecbf4b
@@ -397,7 +397,7 @@ func Test_Issue2890(t *testing.T) {
 		t.AssertNil(err)
 		defer t.AssertNil(gtag.SetGlobalEnums(oldEnumsJson))
 
-		err = gtag.SetGlobalEnums(`{"github.com/888go/goframe/net/ghttp_test.Issue2890Enum": ["a","b"]}`)
+		err = gtag.SetGlobalEnums(`{"github.com/gogf/gf/v2/net/ghttp_test.Issue2890Enum": ["a","b"]}`)
 		t.AssertNil(err)
 
 		s := g.Server(guid.S())

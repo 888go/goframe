@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 链表类_test
+package glist_test
 
 import (
 	"container/list"
 	"fmt"
 
-	garray "github.com/888go/goframe/container/garray"
-	glist "github.com/888go/goframe/container/glist"
-	"github.com/888go/goframe/frame/g"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 func ExampleNew() {

@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package tcp类
+package gtcp
 
-import (
-	"time"
-)
+import "time"
 
 // SendPkg 将包含 `data` 的包发送到 `address`，并关闭连接。可选参数 `option` 指定了发送包的选项。
 // md5:45d7e35d28ec87b6

@@ -11,8 +11,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/888go/goframe/internal/reflection"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_OriginValueAndKind(t *testing.T) {

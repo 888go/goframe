@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"net"
 	"net/http"
 
-	"github.com/888go/goframe"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gmetric"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gmetric"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 type localMetricManager struct {

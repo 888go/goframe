@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // IsSubDomain 检查 `subDomain` 是否为 `mainDomain` 的子域名。
 // 它支持在 `mainDomain` 中使用通配符 '*'。

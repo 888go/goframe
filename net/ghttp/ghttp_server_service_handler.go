@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"bytes"
@@ -13,10 +13,10 @@ import (
 	"reflect"
 	"strings"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/os/gstructs"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // BindHandler 将一个处理器函数注册到服务器，使用给定的模式。

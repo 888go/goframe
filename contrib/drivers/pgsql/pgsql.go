@@ -16,8 +16,8 @@ package pgsql
 import (
 	_ "github.com/lib/pq"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gctx "github.com/888go/goframe/os/gctx"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 // Driver 是用于 postgresql 数据库的驱动程序。 md5:4abf0752f49a3cfc

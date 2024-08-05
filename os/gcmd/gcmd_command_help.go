@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package cmd类
+package gcmd
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ import (
 	"io"
 	"os"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Print 将当前命令的帮助信息打印到标准输出（stdout）。 md5:f96bdfd3fe6f19a6

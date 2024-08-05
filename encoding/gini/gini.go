@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gini提供了访问和转换INI内容的功能。 md5:3e0e37cb2af85941
-package ini类
+package gini
 
 import (
 	"bufio"
@@ -15,9 +15,9 @@ import (
 	"io"
 	"strings"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // Decode将INI格式转换为映射。 md5:355a2d8ee06f84fe

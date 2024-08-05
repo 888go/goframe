@@ -4,13 +4,13 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package 集合类_test
+package gset_test
 
 import (
 	"fmt"
 
-	gset "github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/frame/g"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 func ExampleSet_Intersect() {

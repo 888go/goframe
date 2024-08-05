@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时cron类
+package gcron
 
 import (
 	"context"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gmap "github.com/888go/goframe/container/gmap"
-	gtype "github.com/888go/goframe/container/gtype"
-	glog "github.com/888go/goframe/os/glog"
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // Cron 存储所有的cron作业项。 md5:3a72b04261d69d0e

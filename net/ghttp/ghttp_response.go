@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package http类
+package ghttp
 
 import (
 	"fmt"
@@ -14,10 +14,10 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/888go/goframe/net/ghttp/internal/response"
-	"github.com/888go/goframe/net/gtrace"
-	gfile "github.com/888go/goframe/os/gfile"
-	gres "github.com/888go/goframe/os/gres"
+	"github.com/gogf/gf/v2/net/ghttp/internal/response"
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
 )
 
 // Response 是HTTP响应管理器。

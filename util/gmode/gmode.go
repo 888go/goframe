@@ -9,12 +9,12 @@
 //
 // 它使用字符串而非整数来标记模式，便于配置。
 // md5:716bfe2e364994bd
-package 环境类
+package gmode
 
 import (
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/internal/command"
-	gfile "github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 const (

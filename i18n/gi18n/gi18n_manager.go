@@ -13,15 +13,15 @@ import (
 	"strings"
 	"sync"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gfsnotify "github.com/888go/goframe/os/gfsnotify"
-	gres "github.com/888go/goframe/os/gres"
-	gregex "github.com/888go/goframe/text/gregex"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // pathType 是用于i18n文件路径的类型。 md5:1aa056f2406cd3a6

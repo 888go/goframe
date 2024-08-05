@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 // SetNameToUriType 为服务器设置NameToUriType。 md5:aa74886d065469f2
 func (s *Server) SetNameToUriType(t int) {

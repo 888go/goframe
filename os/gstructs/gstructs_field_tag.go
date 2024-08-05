@@ -10,7 +10,7 @@ package gstructs
 import (
 	"strings"
 
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // TagJsonName 返回字段的`json`标签名称字符串。 md5:5c012e1a7ddc21a4

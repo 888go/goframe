@@ -7,14 +7,14 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 加密sha1类_test
+package gsha1_test
 
 import (
 	"os"
 	"testing"
 
-	gsha1 "github.com/888go/goframe/crypto/gsha1"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/crypto/gsha1"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 type user struct {

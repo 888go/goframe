@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时cron类_test
+package gcron_test
 
 import (
 	"context"
 	"time"
 
-	gcron "github.com/888go/goframe/os/gcron"
-	glog "github.com/888go/goframe/os/glog"
+	"github.com/gogf/gf/v2/os/gcron"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 func ExampleCronAddSingleton() {

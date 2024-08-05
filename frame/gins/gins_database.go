@@ -11,16 +11,16 @@ import (
 	"context"
 	"fmt"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/internal/intlog"
-	gcfg "github.com/888go/goframe/os/gcfg"
-	glog "github.com/888go/goframe/os/glog"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Database 返回一个根据指定配置组名实例化的数据库ORM对象。

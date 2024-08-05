@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 安全变量类_test
+package gtype_test
 
 import (
 	"math"
 	"sync"
 	"testing"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/json"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Int64(t *testing.T) {

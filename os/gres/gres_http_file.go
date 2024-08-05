@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 资源类
+package gres
 
 import (
 	"bytes"
 	"os"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Close 实现了 http.File 接口。 md5:ed68e1aedf92d678

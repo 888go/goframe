@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 内存锁类_test
+package gmlock_test
 
 import (
 	"sync"
 	"testing"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gmlock "github.com/888go/goframe/os/gmlock"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/gmlock"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Locker_Lock(t *testing.T) {

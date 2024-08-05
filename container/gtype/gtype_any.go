@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 安全变量类
+package gtype
 
 // Any是一个用于并发安全操作的any类型的结构体。 md5:40fc918c497f5cab
 type Any = Interface

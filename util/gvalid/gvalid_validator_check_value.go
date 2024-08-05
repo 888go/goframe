@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 效验类
+package gvalid
 
 import (
 	"context"
@@ -13,14 +13,14 @@ import (
 	"reflect"
 	"strings"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	"github.com/888go/goframe/util/gvalid/internal/builtin"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gvalid/internal/builtin"
 )
 
 type doCheckValueInput struct {

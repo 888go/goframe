@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
 	"fmt"
 	"reflect"
 
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/reflection"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type (

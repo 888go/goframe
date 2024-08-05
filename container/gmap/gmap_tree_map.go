@@ -4,10 +4,10 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package map类
+package gmap
 
 import (
-	gtree "github.com/888go/goframe/container/gtree"
+	"github.com/gogf/gf/v2/container/gtree"
 )
 
 // 基于红黑树的TreeMap，是RedBlackTree的别名。 md5:9f16a90eb8bdf4c1

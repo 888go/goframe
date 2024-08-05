@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 模板类
+package gview
 
 import (
 	"context"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/i18n/gi18n"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	glog "github.com/888go/goframe/os/glog"
-	gres "github.com/888go/goframe/os/gres"
-	gspath "github.com/888go/goframe/os/gspath"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gspath"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Config是模板引擎的配置对象。 md5:0c7a20a5c1f534d4

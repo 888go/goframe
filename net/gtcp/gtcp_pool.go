@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package tcp类
+package gtcp
 
 import (
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gpool "github.com/888go/goframe/container/gpool"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gpool"
 )
 
 // PoolConn 是一个具有连接池特性的TCP连接。

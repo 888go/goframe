@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"net/http"
@@ -13,15 +13,15 @@ import (
 	"sort"
 	"strings"
 
-	ghtml "github.com/888go/goframe/encoding/ghtml"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gres "github.com/888go/goframe/os/gres"
-	gspath "github.com/888go/goframe/os/gspath"
-	gtime "github.com/888go/goframe/os/gtime"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/encoding/ghtml"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gspath"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // ServeHTTP 是 http 请求的默认处理器。

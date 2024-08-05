@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package session类
+package gsession
 
 import (
 	"context"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gvar "github.com/888go/goframe/container/gvar"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // Session 结构体，用于存储单个会话数据，它与单个请求绑定。Session 结构体是与用户交互的接口，但 Storage 是底层适配器设计的接口，用于实现特定功能。

@@ -6,13 +6,13 @@
 // md5:a9832f33b234e3f3
 
 // 包gring提供了一个并发安全/不安全的环形列表（圆形队列）。 md5:bc78eee87d7b5c4b
-package 循环链表类
+package gring
 
 import (
 	"container/ring"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/rwmutex"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/rwmutex"
 )
 
 // Ring是一个环形结构的结构体。 md5:f371ac74ef187b03

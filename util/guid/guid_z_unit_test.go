@@ -7,14 +7,14 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package uid类_test
+package guid_test
 
 import (
 	"testing"
 
-	gset "github.com/888go/goframe/container/gset"
-	gtest "github.com/888go/goframe/test/gtest"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 func Test_S(t *testing.T) {

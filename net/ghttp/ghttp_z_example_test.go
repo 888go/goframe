@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类_test
+package ghttp_test
 
 import (
-	"github.com/888go/goframe/frame/g"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gfile "github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 func ExampleServer_Run() {

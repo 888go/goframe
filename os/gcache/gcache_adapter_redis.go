@@ -4,15 +4,15 @@
 // 您可以从 https://github.com/gogf/gf 获取。
 // md5:7063305469ff40c2
 
-package 缓存类
+package gcache
 
 import (
 	"context"
 	"time"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gredis "github.com/888go/goframe/database/gredis"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/database/gredis"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // AdapterRedis 是使用 Redis 服务器实现的 gcache 适配器。 md5:7ac226ec6d59930e

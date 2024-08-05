@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 工具类_test
+package gutil_test
 
 import (
 	"context"
 	"reflect"
 	"testing"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 var (

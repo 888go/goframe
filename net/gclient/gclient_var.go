@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"context"
 	"net/http"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // GetVar 发送一个GET请求，获取并转换结果内容为*gvar.Var。

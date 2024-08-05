@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 日志类
+package glog
 
 import (
 	"context"
 
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // HandlerOutputJson 是将日志内容作为单一JSON输出的结构体。

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类_test
+package ghttp_test
 
 import (
 	"context"
@@ -16,13 +16,13 @@ import (
 	"testing"
 	"time"
 
-	gurl "github.com/888go/goframe/encoding/gurl"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/httputil"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	genv "github.com/888go/goframe/os/genv"
-	gtest "github.com/888go/goframe/test/gtest"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/encoding/gurl"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/httputil"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 var (

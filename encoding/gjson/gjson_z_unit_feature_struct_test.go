@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package json类_test
+package gjson_test
 
 import (
 	"testing"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_GetScan(t *testing.T) {

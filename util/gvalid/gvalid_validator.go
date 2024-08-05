@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 效验类
+package gvalid
 
 import (
 	"context"
 	"errors"
 	"reflect"
 
-	"github.com/888go/goframe/i18n/gi18n"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/internal/utils"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Validator是用于链式操作的验证管理器。 md5:4554cd1e10f5c88e

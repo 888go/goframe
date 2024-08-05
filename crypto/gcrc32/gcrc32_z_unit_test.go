@@ -7,14 +7,14 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 加密crc32类_test
+package gcrc32_test
 
 import (
 	"testing"
 
-	gcrc32 "github.com/888go/goframe/crypto/gcrc32"
-	gmd5 "github.com/888go/goframe/crypto/gmd5"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/crypto/gcrc32"
+	"github.com/gogf/gf/v2/crypto/gmd5"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestEncrypt(t *testing.T) {

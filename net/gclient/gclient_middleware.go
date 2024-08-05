@@ -1,9 +1,9 @@
-package 网页类
+package gclient
 
 import (
 	"net/http"
 
-	gctx "github.com/888go/goframe/os/gctx"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 // HandlerFunc 是用于处理中间件的处理器函数. md5:1e0565dffbfa907c

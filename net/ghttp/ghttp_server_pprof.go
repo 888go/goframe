@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	netpprof "net/http/pprof"
 	runpprof "runtime/pprof"
 	"strings"
 
-	"github.com/888go/goframe/internal/intlog"
-	gview "github.com/888go/goframe/os/gview"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gview"
 )
 
 // utilPProf是实现PProf接口的结构。 md5:61c1485646c2e81a

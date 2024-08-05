@@ -13,11 +13,11 @@ import (
 
 	gora "github.com/sijms/go-ora/v2"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gregex "github.com/888go/goframe/text/gregex"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Open 创建并返回一个底层的 sql.DB 对象，针对 Oracle。 md5:db2b73d9e41929bd

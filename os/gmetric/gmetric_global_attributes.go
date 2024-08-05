@@ -9,7 +9,7 @@ package gmetric
 import (
 	"sync"
 
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // SetGlobalAttributesOption 将全局属性绑定到特定的仪表。 md5:5cba96bea01d2134

@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 工具类
+package gutil
 
 import (
 	"reflect"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // SliceCopy 对于最常用的切片类型（[]interface{}）执行浅拷贝操作。

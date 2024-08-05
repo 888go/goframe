@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
@@ -13,10 +13,10 @@ import (
 	"strings"
 	"time"
 
-	gfile "github.com/888go/goframe/os/gfile"
-	gproc "github.com/888go/goframe/os/gproc"
-	gtimer "github.com/888go/goframe/os/gtimer"
-	gview "github.com/888go/goframe/os/gview"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/os/gview"
 )
 
 // utilAdmin是管理的控制器。 md5:5be89cb222f1793c

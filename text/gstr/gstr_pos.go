@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
-import (
-	"strings"
-)
+import "strings"
 
 // Pos 函数返回 `needle` 在 `haystack` 中从 `startOffset` 开始的第一次出现的位置，
 // 区分大小写。如果未找到，则返回 -1。

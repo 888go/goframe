@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"context"
 	"net/http"
 
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // GetBytes 发送一个GET请求，并获取结果内容，将其作为字节切片返回。 md5:1814e36a86c5ea59

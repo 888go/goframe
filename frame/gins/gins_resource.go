@@ -8,7 +8,7 @@
 package gins
 
 import (
-	gres "github.com/888go/goframe/os/gres"
+	"github.com/gogf/gf/v2/os/gres"
 )
 
 // Resource 返回一个 Resource 类型的实例。

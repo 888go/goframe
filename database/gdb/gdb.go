@@ -9,25 +9,25 @@
 //
 // 待办事项：将context.Context作为所有数据库操作的必需参数。
 // md5:ed61b69bd00b7384
-package db类
+package gdb
 
 import (
 	"context"
 	"database/sql"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gmap "github.com/888go/goframe/container/gmap"
-	gtype "github.com/888go/goframe/container/gtype"
-	gvar "github.com/888go/goframe/container/gvar"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gcache "github.com/888go/goframe/os/gcache"
-	gcmd "github.com/888go/goframe/os/gcmd"
-	gctx "github.com/888go/goframe/os/gctx"
-	glog "github.com/888go/goframe/os/glog"
-	grand "github.com/888go/goframe/util/grand"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/util/grand"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // DB 定义 ORM 操作的接口。 md5:328f032182d38455

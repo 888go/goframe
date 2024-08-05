@@ -11,9 +11,9 @@ import (
 	"net/http"
 	"strings"
 
-	gcompress "github.com/888go/goframe/encoding/gcompress"
+	"github.com/gogf/gf/v2/encoding/gcompress"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // SafeContentForHttp 通过 `MaxContentLogSize` 剪切并返回给定内容。如果内容大小超过 `MaxContentLogSize`，它会在结果尾部添加字符串 `...`。

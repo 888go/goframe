@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package udp类
+package gudp
 
 import (
 	"io"
 	"net"
 	"time"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Conn 处理 UDP 连接。 md5:3d72ff914b3663e1

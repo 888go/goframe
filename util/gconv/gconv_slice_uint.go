@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
 import (
 	"reflect"
 	"strings"
 
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/reflection"
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // SliceUint是Uints的别名。 md5:75cea5e3f6b32ecb

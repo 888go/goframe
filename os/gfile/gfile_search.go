@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件类
+package gfile
 
 import (
 	"bytes"
 	"fmt"
 
-	garray "github.com/888go/goframe/container/garray"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Search 通过名称 `name` 在以下路径中搜索文件，按照优先级进行：优先搜索路径（prioritySearchPaths）、当前工作目录（Pwd()）、自身目录（SelfDir()）和主包路径（MainPkgPath()）。如果找到，则返回文件的绝对路径；如果没有找到，则返回空字符串。

@@ -11,12 +11,12 @@ import (
 	"fmt"
 	"net/http"
 
-	gset "github.com/888go/goframe/container/gset"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gstructs"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Parameters 是由 OpenAPI/Swagger 3.0 标准指定的。 md5:40f2fa7f283687bf

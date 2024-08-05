@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 编码base64类_test
+package gbase64_test
 
 import (
 	"testing"
 
-	gbase64 "github.com/888go/goframe/encoding/gbase64"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gbase64"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 type testPair struct {

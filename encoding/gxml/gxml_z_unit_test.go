@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package xml类_test
+package gxml_test
 
 import (
 	"bytes"
 	"strings"
 	"testing"
 
-	gcharset "github.com/888go/goframe/encoding/gcharset"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gxml "github.com/888go/goframe/encoding/gxml"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gcharset"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gxml"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var testData = []struct {

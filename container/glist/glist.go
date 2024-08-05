@@ -6,16 +6,16 @@
 // md5:036a875c2d7cd8b1
 
 // 包glist提供了最常见的双链表容器，同时也支持并发安全/不安全切换功能。 md5:0b7229b4fa0fbb49
-package 链表类
+package glist
 
 import (
 	"bytes"
 	"container/list"
 
-	"github.com/888go/goframe/internal/deepcopy"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type (

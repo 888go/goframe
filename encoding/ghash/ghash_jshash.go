@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 哈希类
+package ghash
 
 // JS 实现了经典的 JS 哈希算法，用于32位。 md5:a87e9c7d1a1f7232
 func JS(str []byte) uint32 {

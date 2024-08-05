@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"bytes"
@@ -17,17 +17,17 @@ import (
 	"sync"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	glog "github.com/888go/goframe/os/glog"
-	gproc "github.com/888go/goframe/os/gproc"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtimer "github.com/888go/goframe/os/gtimer"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gproc"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

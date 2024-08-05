@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
 
-	"github.com/888go/goframe/net/goai"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/net/goai"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // initOpenApi 使用OpenApiV3协议生成API规范。 md5:99e2f65c4ca9221a

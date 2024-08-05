@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 互斥锁类_test
+package gmutex_test
 
 import (
 	"testing"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gmutex "github.com/888go/goframe/os/gmutex"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/gmutex"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Mutex_Unlock(t *testing.T) {

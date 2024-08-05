@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 import (
 	"strings"
 
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // ToLower 返回一个字符串 s 的副本，其中所有Unicode字母都被转换为小写。 md5:d70b7de319e04fa7

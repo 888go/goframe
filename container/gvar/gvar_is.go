@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 泛型类
+package gvar
 
 import (
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // IsNil 检查 `v` 是否为 nil。 md5:af4db285987ff32d

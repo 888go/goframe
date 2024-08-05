@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strconv"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RuleMin 实现了`min`规则：

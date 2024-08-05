@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 上下文类_test
+package gctx_test
 
 import (
 	"context"
 	"testing"
 
-	gctx "github.com/888go/goframe/os/gctx"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_New(t *testing.T) {

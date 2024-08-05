@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时cron类
+package gcron
 
 import (
 	"strings"
 	"testing"
 	"time"
 
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestSlash(t *testing.T) {

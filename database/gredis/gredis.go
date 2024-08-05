@@ -13,11 +13,11 @@
 //
 // Redis中文文档：http://redisdoc.com/
 // md5:fd856764d3114fd3
-package redis类
+package gredis
 
 import (
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // AdapterFunc 是创建 Redis 适配器的函数。 md5:806d31217d679afd

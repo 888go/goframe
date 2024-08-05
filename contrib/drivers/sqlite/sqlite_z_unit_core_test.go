@@ -14,14 +14,14 @@ import (
 	"testing"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	gdb "github.com/888go/goframe/database/gdb"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gxml "github.com/888go/goframe/encoding/gxml"
-	"github.com/888go/goframe/frame/g"
-	gfile "github.com/888go/goframe/os/gfile"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/encoding/gxml"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_New(t *testing.T) {
@@ -43,7 +43,7 @@ func Test_New(t *testing.T) {
 func Test_New_Path_With_Colon(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 
-		dbFilePathWithColon := gfile.Join(dbDir, "test_1")
+		dbFilePathWithColon := gfile.Join(dbDir, "test:1")
 		if err := gfile.Mkdir(dbFilePathWithColon); err != nil {
 			gtest.Error(err)
 		}

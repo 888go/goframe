@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
-import (
-	gvar "github.com/888go/goframe/container/gvar"
-)
+import "github.com/gogf/gf/v2/container/gvar"
 
 // GetRouterMap 获取并返回路由器映射的副本。 md5:c47609cda93e62b3
 func (r *Request) GetRouterMap() map[string]string {

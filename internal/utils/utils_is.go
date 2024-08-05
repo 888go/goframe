@@ -10,7 +10,7 @@ package utils
 import (
 	"reflect"
 
-	"github.com/888go/goframe/internal/empty"
+	"github.com/gogf/gf/v2/internal/empty"
 )
 
 // IsNil 检查 `value` 是否为 nil，特别是对于 interface{} 类型的值。 md5:7789b39820de4e0c

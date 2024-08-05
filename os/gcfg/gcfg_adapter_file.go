@@ -5,23 +5,23 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 配置类
+package gcfg
 
 import (
 	"context"
 
-	garray "github.com/888go/goframe/container/garray"
-	gmap "github.com/888go/goframe/container/gmap"
-	gvar "github.com/888go/goframe/container/gvar"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gfsnotify "github.com/888go/goframe/os/gfsnotify"
-	gres "github.com/888go/goframe/os/gres"
-	gmode "github.com/888go/goframe/util/gmode"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gfsnotify"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/util/gmode"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // AdapterFile 实现了使用文件的 Adapter 接口。 md5:c0f0e0b1d4b217fd

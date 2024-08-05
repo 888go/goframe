@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"context"
 	"net/http"
 	"reflect"
 
-	"github.com/888go/goframe/debug/gdebug"
+	"github.com/gogf/gf/v2/debug/gdebug"
 )
 
 // BindHookHandler 为指定的钩子注册处理程序。 md5:325d65ceb75f1b33

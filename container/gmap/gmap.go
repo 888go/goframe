@@ -5,7 +5,7 @@
 // md5:1d281c30cdc3423b
 
 // gmap 包提供了最常用的地图容器，同时支持并发安全/不安全切换特性。 md5:1f468a4fc387a466
-package map类
+package gmap
 
 type (
 	Map     = AnyAnyMap // Map 是 AnyAnyMap 的别名。 md5:5055001ecc89b987

@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/888go/goframe/internal/reflection"
+	"github.com/gogf/gf/v2/internal/reflection"
 )
 
 // iString 用于类型断言API，用于String()。 md5:8ec0af717c4f530e

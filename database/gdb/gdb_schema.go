@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 // Schema 是一个模式对象，从中可以创建一个模型。 md5:59296199d3fdabf5
 type Schema struct {

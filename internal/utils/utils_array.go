@@ -7,9 +7,7 @@
 
 package utils
 
-import (
-	"reflect"
-)
+import "reflect"
 
 // IsArray 检查给定值是否为数组/切片。
 // 注意，它内部使用了反射来实现这个功能。

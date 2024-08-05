@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 缓存类
+package gcache
 
 import (
 	"context"
 	"time"
 
-	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // MustGet 的行为就像 Get 一样，但如果发生任何错误，它会引发 panic。 md5:9004545d221e9637

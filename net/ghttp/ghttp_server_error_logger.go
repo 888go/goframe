@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"bytes"
 	"context"
 
-	glog "github.com/888go/goframe/os/glog"
+	"github.com/gogf/gf/v2/os/glog"
 )
 
 // errorLogger是底层net/http.Server的错误日志记录器。 md5:6405822f309730c2

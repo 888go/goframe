@@ -9,7 +9,7 @@
 package gsvc
 
 import (
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // NewEndpoints 从多个地址创建并返回 Endpoints，例如：

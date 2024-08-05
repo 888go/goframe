@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 泛型类
+package gvar
 
 import (
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Scan 自动检查`pointer`的类型，并将`params`转换为`pointer`。它支持`pointer`类型，包括`*map`、`*[]map`、`*[]*map`、`*struct`、`**struct`、`[]struct`和`[]*struct`。

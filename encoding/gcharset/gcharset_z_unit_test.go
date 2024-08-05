@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 编码字符集类_test
+package gcharset_test
 
 import (
 	"testing"
 
-	gcharset "github.com/888go/goframe/encoding/gcharset"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gcharset"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var testData = []struct {

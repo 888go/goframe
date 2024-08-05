@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // MiddlewareJsonBody 验证并返回请求体是否为JSON格式。 md5:861efc2736ae2e13

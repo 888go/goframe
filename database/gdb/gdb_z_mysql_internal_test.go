@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"context"
 	"fmt"
 	"testing"
 
-	gtest "github.com/888go/goframe/test/gtest"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 var (

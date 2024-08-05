@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 切片类_test
+package garray_test
 
 import (
 	"testing"
 
-	garray "github.com/888go/goframe/container/garray"
+	"github.com/gogf/gf/v2/container/garray"
 )
 
 type anySortedArrayItem struct {

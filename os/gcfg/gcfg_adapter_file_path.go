@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 配置类
+package gcfg
 
 import (
 	"bytes"
@@ -13,13 +13,13 @@ import (
 	"fmt"
 	"os"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gres "github.com/888go/goframe/os/gres"
-	gspath "github.com/888go/goframe/os/gspath"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gspath"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // SetPath 设置文件搜索的配置`目录`路径。

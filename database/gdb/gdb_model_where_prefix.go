@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 // WherePrefix 的行为与 Where 相似，但它会为 where 语句中的每个字段添加前缀。
 // 参考 WhereBuilder.WherePrefix。

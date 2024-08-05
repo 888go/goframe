@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 时间类_test
+package gtime_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/888go/goframe/internal/json"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_New(t *testing.T) {

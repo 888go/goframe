@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package json类
+package gjson
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (j Json) MarshalJSON() ([]byte, error) {
@@ -59,10 +59,3 @@ func (j *Json) String() string {
 	}
 	return j.MustToJsonString()
 }
-
-// zj:
-func (j *Json) X取文本() string { // 字符串返回当前Json对象作为字符串
-	return j.String()
-}
-
-//zj:

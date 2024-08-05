@@ -7,13 +7,13 @@
 
 // 使用`go test`命令测试所有`.go`文件，专注于"Benchmark_Bytes_To_*"命名的基准测试，并在运行时显示内存使用情况。 md5:de663064a4460648
 
-package 转换类
+package gconv
 
 import (
 	"testing"
 	"unsafe"
 
-	gbinary "github.com/888go/goframe/encoding/gbinary"
+	"github.com/gogf/gf/v2/encoding/gbinary"
 )
 
 var valueBytes = gbinary.Encode(123456789)

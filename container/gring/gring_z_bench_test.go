@@ -7,12 +7,12 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 循环链表类_test
+package gring_test
 
 import (
 	"testing"
 
-	gring "github.com/888go/goframe/container/gring"
+	"github.com/gogf/gf/v2/container/gring"
 )
 
 var length = 10000

@@ -5,16 +5,16 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package http类
+package ghttp
 
 import (
 	"fmt"
 	"net/http"
 
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Write 将 `content` 写入响应缓冲区。 md5:2f656734fbf8eab6

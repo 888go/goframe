@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 安全变量类
+package gtype
 
 import (
 	"bytes"
 	"encoding/base64"
 	"sync/atomic"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Bytes 是一个用于并发安全操作的[]byte类型的结构体。 md5:784dc0993857ec47

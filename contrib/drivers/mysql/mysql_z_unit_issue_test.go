@@ -14,14 +14,14 @@ import (
 	"testing"
 	"time"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gregex "github.com/888go/goframe/text/gregex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gmeta "github.com/888go/goframe/util/gmeta"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 //github.com/gogf/gf/issues/1934. md5:96f55929c7ed56a0

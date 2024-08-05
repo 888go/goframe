@@ -1,4 +1,4 @@
-//go:build 屏蔽单元测试
+//---build---//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -16,13 +16,13 @@ import (
 	"testing"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gdb "github.com/888go/goframe/database/gdb"
-	"github.com/888go/goframe/frame/g"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	guid "github.com/888go/goframe/util/guid"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 func Test_Model_InnerJoin(t *testing.T) {

@@ -7,16 +7,16 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 随机类_test
+package grand_test
 
 import (
 	"strings"
 	"testing"
 	"time"
 
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 func Test_Intn(t *testing.T) {

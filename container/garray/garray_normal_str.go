@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 切片类
+package garray
 
 import (
 	"bytes"
@@ -13,13 +13,13 @@ import (
 	"sort"
 	"strings"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
-	grand "github.com/888go/goframe/util/grand"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/grand"
 )
 
 // StrArray 是一个具有丰富功能的 Go 语言字符串数组。
@@ -872,10 +872,3 @@ func (a *StrArray) DeepCopy() interface{} {
 	copy(newSlice, a.array)
 	return NewStrArrayFrom(newSlice, a.mu.IsSafe())
 }
-
-// zj:
-func (a *StrArray) X取文本() string {
-	return a.String()
-}
-
-//zj:

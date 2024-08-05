@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
 import (
 	"reflect"
 
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/reflection"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/reflection"
 )
 
 // SliceStr是Strings的别名。 md5:dacb4ebc45c023cf

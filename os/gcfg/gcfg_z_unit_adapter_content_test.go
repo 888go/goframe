@@ -7,14 +7,14 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package 配置类_test
+package gcfg_test
 
 import (
 	"testing"
 
-	"github.com/888go/goframe/frame/g"
-	gcfg "github.com/888go/goframe/os/gcfg"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestAdapterContent_Available_Get_Data(t *testing.T) {

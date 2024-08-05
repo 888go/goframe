@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时类
+package gtimer
 
 import (
 	"context"
-	gcode "github.com/888go/goframe/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gcode"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Entry是定时任务。 md5:50a66c0cedad73c2

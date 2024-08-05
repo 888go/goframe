@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // gaes 包提供了对AES加密/解密算法有用的API。 md5:a8dd4c4d404f7193
-package 加密aes类
+package gaes
 
 import (
 	"bytes"
@@ -14,8 +14,8 @@ import (
 	"crypto/cipher"
 	"fmt"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 const (

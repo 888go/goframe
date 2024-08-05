@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 环境变量类_test
+package genv_test
 
 import (
 	"os"
 	"testing"
 
-	"github.com/888go/goframe/frame/g"
-	gcmd "github.com/888go/goframe/os/gcmd"
-	genv "github.com/888go/goframe/os/genv"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/genv"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_GEnv_All(t *testing.T) {

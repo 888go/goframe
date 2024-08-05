@@ -10,11 +10,11 @@ package utils_test
 import (
 	"testing"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/internal/utils"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestVar_IsNil(t *testing.T) {

@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 加密DES类_test
+package gdes_test
 
 import (
 	"encoding/hex"
 	"testing"
 
-	gdes "github.com/888go/goframe/crypto/gdes"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/crypto/gdes"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

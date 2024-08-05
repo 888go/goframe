@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 进程类
+package gproc
 
 import (
 	"context"
 	"fmt"
 	"sync"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gtcp "github.com/888go/goframe/net/gtcp"
-	gfile "github.com/888go/goframe/os/gfile"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/net/gtcp"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // MsgRequest是进程间通信的请求结构体。 md5:aa294ed7aef773f3

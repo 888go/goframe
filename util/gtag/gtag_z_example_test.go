@@ -10,9 +10,9 @@ package gtag_test
 import (
 	"fmt"
 
-	"github.com/888go/goframe/frame/g"
-	gmeta "github.com/888go/goframe/util/gmeta"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 func ExampleSet() {

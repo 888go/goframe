@@ -11,11 +11,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/888go/goframe/internal/consts"
-	"github.com/888go/goframe/internal/instance"
-	"github.com/888go/goframe/internal/intlog"
-	gview "github.com/888go/goframe/os/gview"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/internal/consts"
+	"github.com/gogf/gf/v2/internal/instance"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gview"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // View 返回一个具有默认设置的View实例。

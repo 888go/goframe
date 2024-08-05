@@ -8,7 +8,7 @@
 package goai
 
 import (
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // Example 是由 OpenAPI/Swagger 3.0 标准指定的。 md5:fcd88edc2f1e687d

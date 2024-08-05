@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类_test
+package gclient_test
 
 import (
 	"bytes"
@@ -19,15 +19,15 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/888go/goframe/debug/gdebug"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/frame/g"
-	gclient "github.com/888go/goframe/net/gclient"
-	ghttp "github.com/888go/goframe/net/ghttp"
-	gfile "github.com/888go/goframe/os/gfile"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/gclient"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 var (

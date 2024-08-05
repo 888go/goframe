@@ -11,8 +11,8 @@ import (
 	"context"
 	"fmt"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 var (

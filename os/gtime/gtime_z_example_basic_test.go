@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 时间类_test
+package gtime_test
 
 import (
 	"fmt"
 
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // New 创建并返回一个带有给定参数的时间对象。

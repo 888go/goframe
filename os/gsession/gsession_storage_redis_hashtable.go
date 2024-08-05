@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package session类
+package gsession
 
 import (
 	"context"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gredis "github.com/888go/goframe/database/gredis"
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/database/gredis"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // StorageRedisHashTable 是使用 Redis 哈希表实现的会话存储接口。 md5:4479b82640ee5fc6

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"context"
@@ -22,9 +22,9 @@ import (
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/net/gtrace"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // clientTracerTracing 用于实现 httptrace.ClientTrace。 md5:06ba597d73062dd5

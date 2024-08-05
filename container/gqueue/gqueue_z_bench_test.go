@@ -7,12 +7,12 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package 队列类_test
+package gqueue_test
 
 import (
 	"testing"
 
-	gqueue "github.com/888go/goframe/container/gqueue"
+	"github.com/gogf/gf/v2/container/gqueue"
 )
 
 var bn = 20000000

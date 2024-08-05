@@ -7,14 +7,14 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 正则类_test
+package gregex_test
 
 import (
 	"strings"
 	"testing"
 
-	gtest "github.com/888go/goframe/test/gtest"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 var (

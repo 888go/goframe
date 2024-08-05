@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 资源类_test
+package gres_test
 
 import (
-	_ "github.com/888go/goframe/os/gres/testdata/data"
+	_ "github.com/gogf/gf/v2/os/gres/testdata/data"
 
 	"strings"
 	"testing"
 
-	"github.com/888go/goframe/frame/g"
-	gfile "github.com/888go/goframe/os/gfile"
-	gres "github.com/888go/goframe/os/gres"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_PackFolderToGoFile(t *testing.T) {

@@ -6,17 +6,17 @@
 // md5:a9832f33b234e3f3
 
 // 包gbuild管理"gf build"中的内置变量。 md5:c98a1c81088c9728
-package 构建信息类
+package gbuild
 
 import (
 	"context"
 	"runtime"
 
-	"github.com/888go/goframe"
-	gvar "github.com/888go/goframe/container/gvar"
-	gbase64 "github.com/888go/goframe/encoding/gbase64"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/json"
+	"github.com/gogf/gf/v2"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gbase64"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/json"
 )
 
 // BuildInfo 保存了当前二进制文件的构建信息。 md5:fccdfbf6d632a3f0

@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package session类_test
+package gsession_test
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	"github.com/888go/goframe/frame/g"
-	gsession "github.com/888go/goframe/os/gsession"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gsession"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_StorageMemory(t *testing.T) {

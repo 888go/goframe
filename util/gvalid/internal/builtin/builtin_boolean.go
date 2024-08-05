@@ -14,7 +14,7 @@ import (
 
 // RuleBoolean 实现了 `boolean` 规则：
 // Boolean(1, true, on, yes: true | 0, false, off, no, "": false)
-//
+// 
 // 格式：boolean
 // md5:b799fb342217ec2b
 type RuleBoolean struct{}

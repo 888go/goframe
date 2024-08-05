@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gregex提供了正则表达式功能的高性能API。 md5:5d43833868579329
-package 正则类
+package gregex
 
 import (
 	"regexp"

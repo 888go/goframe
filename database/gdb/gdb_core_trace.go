@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package db类
+package gdb
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.18.0"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/888go/goframe/net/gtrace"
+	"github.com/gogf/gf/v2/net/gtrace"
 )
 
 const (

@@ -6,18 +6,18 @@
 // md5:a9832f33b234e3f3
 
 // 包gcfg提供了配置的读取、缓存和管理功能。 md5:5ae504d1379cd99a
-package 配置类
+package gcfg
 
 import (
 	"context"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/command"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/utils"
-	genv "github.com/888go/goframe/os/genv"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/command"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/genv"
 )
 
 // Config 是配置管理对象。 md5:1ef57338c678e400

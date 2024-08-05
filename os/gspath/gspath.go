@@ -10,7 +10,7 @@
 // 它按照目录添加顺序，内部高效地进行文件搜索。请注意：
 // 如果启用了缓存功能，添加或删除文件后可能会有搜索延迟。
 // md5:626b2e878f4df376
-package 文件搜索类
+package gspath
 
 import (
 	"context"
@@ -18,13 +18,13 @@ import (
 	"sort"
 	"strings"
 
-	garray "github.com/888go/goframe/container/garray"
-	gmap "github.com/888go/goframe/container/gmap"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // SPath 管理路径搜索功能。 md5:703d47a59dea75cf

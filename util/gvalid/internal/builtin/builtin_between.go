@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RuleBetween 实现了 `between` 规则：

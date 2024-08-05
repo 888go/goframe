@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时cron类
+package gcron
 
 import (
 	"context"
 	"time"
 
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // checkMeetAndUpdateLastSeconds 检查给定的时间 `t` 是否满足作业的可运行点。

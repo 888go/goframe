@@ -7,16 +7,16 @@
 
 // 静态搜索优先级：资源 > 服务器路径 > 服务器根目录 > 搜索路径. md5:57bfdcb1a5b6e018
 
-package http类
+package ghttp
 
 import (
 	"context"
 	"strings"
 
-	garray "github.com/888go/goframe/container/garray"
-	gfile "github.com/888go/goframe/os/gfile"
-	gres "github.com/888go/goframe/os/gres"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // staticPathItem 是静态路径配置的结构体项。 md5:662c2fcf8901cd8a

@@ -6,14 +6,14 @@
 // md5:a9832f33b234e3f3
 
 // gcompress 包提供了针对二进制/字节数据的各种压缩算法。 md5:eb6f1752b091375d
-package 压缩类
+package gcompress
 
 import (
 	"bytes"
 	"compress/zlib"
 	"io"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Zlib使用zlib算法对`data`进行压缩。 md5:ed5cf5943e81e6a3

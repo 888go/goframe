@@ -6,9 +6,7 @@
 
 package gmetric
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // localMetricInfo 实现了 MetricInfo 接口。 md5:0d4cae443266be67
 type localMetricInfo struct {

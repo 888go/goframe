@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"database/sql"
 	"math"
 
-	gvar "github.com/888go/goframe/container/gvar"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	"github.com/888go/goframe/internal/empty"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // IsEmpty 检查 `r` 是否为空，然后返回结果。 md5:4ee28a47e769cceb

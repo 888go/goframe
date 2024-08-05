@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 压缩类
+package gcompress
 
 import (
 	"bytes"
 	"compress/gzip"
 	"io"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	gfile "github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 // Gzip 使用 gzip 算法压缩 `data`。

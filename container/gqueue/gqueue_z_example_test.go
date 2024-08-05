@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 队列类_test
+package gqueue_test
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	gqueue "github.com/888go/goframe/container/gqueue"
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/container/gqueue"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 func ExampleNew() {

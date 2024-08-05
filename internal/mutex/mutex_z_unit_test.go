@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	garray "github.com/888go/goframe/container/garray"
-	"github.com/888go/goframe/internal/mutex"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/internal/mutex"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func TestMutexIsSafe(t *testing.T) {

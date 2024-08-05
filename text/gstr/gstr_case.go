@@ -16,7 +16,7 @@
 //   | CaseCamelLower(s)                  | anyKindOfString     |
 // md5:66511e05f3151030
 
-package 文本类
+package gstr
 
 import (
 	"regexp"

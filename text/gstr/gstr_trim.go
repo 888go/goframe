@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 import (
 	"strings"
 
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // Trim 函数从字符串的开头和结尾删除空白符（或其他字符）。

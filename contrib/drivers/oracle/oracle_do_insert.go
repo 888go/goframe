@@ -13,13 +13,13 @@ import (
 	"fmt"
 	"strings"
 
-	gset "github.com/888go/goframe/container/gset"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/text/gstr"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8

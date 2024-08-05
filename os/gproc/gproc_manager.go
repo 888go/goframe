@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 进程类
+package gproc
 
 import (
 	"os"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Manager 是一个管理多个进程的进程管理器。 md5:608ec304d3cca78a

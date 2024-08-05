@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"fmt"
@@ -13,8 +13,8 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // dumpTextFormat 是转储原始字符串的格式. md5:050761651fa95433

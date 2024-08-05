@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 缓存类_test
+package gcache_test
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	gredis "github.com/888go/goframe/database/gredis"
-	"github.com/888go/goframe/frame/g"
-	gcache "github.com/888go/goframe/os/gcache"
-	gctx "github.com/888go/goframe/os/gctx"
+	"github.com/gogf/gf/v2/database/gredis"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 func ExampleNew() {

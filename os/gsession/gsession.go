@@ -6,12 +6,12 @@
 // md5:a9832f33b234e3f3
 
 // gsession 包实现了会话的管理与存储功能。 md5:743dbbcf3d74735d
-package session类
+package gsession
 
 import (
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 var (

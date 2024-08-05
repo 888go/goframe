@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 配置类_test
+package gcfg_test
 
 import (
 	"fmt"
 	"os"
 
-	"github.com/888go/goframe/frame/g"
-	gcfg "github.com/888go/goframe/os/gcfg"
-	gcmd "github.com/888go/goframe/os/gcmd"
-	gctx "github.com/888go/goframe/os/gctx"
-	genv "github.com/888go/goframe/os/genv"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/genv"
 )
 
 func ExampleConfig_GetWithEnv() {

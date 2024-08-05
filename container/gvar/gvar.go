@@ -6,17 +6,17 @@
 // md5:a9832f33b234e3f3
 
 // gvar 包提供了一个通用变量类型，类似于泛型。 md5:edfcd2c00687a1cf
-package 泛型类
+package gvar
 
 import (
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	"github.com/888go/goframe/internal/deepcopy"
-	"github.com/888go/goframe/internal/json"
-	gtime "github.com/888go/goframe/os/gtime"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // Var 是一个通用变量类型的实现者。 md5:8d1126ac62635ed2

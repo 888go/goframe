@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件指针池类
+package gfpool
 
 import (
 	"fmt"
 	"os"
 	"time"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Open 函数根据给定的文件路径、标志和打开权限创建并返回一个文件项。当它首次被调用时，它会自动内部创建一个关联的文件指针池。然后，它从文件指针池中获取文件项。

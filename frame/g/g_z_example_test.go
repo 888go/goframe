@@ -8,8 +8,8 @@
 package g_test
 
 import (
-	"github.com/888go/goframe/frame/g"
-	ghttp "github.com/888go/goframe/net/ghttp"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
 )
 
 func ExampleServer() {

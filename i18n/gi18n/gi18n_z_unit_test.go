@@ -10,20 +10,20 @@ package gi18n_test
 import (
 	"time"
 
-	gbase64 "github.com/888go/goframe/encoding/gbase64"
-	gctx "github.com/888go/goframe/os/gctx"
+	"github.com/gogf/gf/v2/encoding/gbase64"
+	"github.com/gogf/gf/v2/os/gctx"
 
 	"context"
 	"testing"
 
-	"github.com/888go/goframe/debug/gdebug"
-	"github.com/888go/goframe/frame/g"
-	"github.com/888go/goframe/i18n/gi18n"
-	gfile "github.com/888go/goframe/os/gfile"
-	gres "github.com/888go/goframe/os/gres"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtest "github.com/888go/goframe/test/gtest"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/os/gres"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 func Test_Basic(t *testing.T) {

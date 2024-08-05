@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package cmd类
+package gcmd
 
 import (
 	"bufio"
 	"fmt"
 	"os"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // Scan 将 `info` 打印到标准输出，读取并返回用户输入，直到遇到 '\n'。 md5:ddd0cd56978ea021

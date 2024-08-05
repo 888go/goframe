@@ -10,9 +10,9 @@ package gstructs
 import (
 	"reflect"
 
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/internal/utils"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // Tag 函数从标签字符串中返回与给定键关联的值。如果标签中没有该键，Tag 函数将返回空字符串。

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 // SearchArray 在字符串切片 `a` 中大小写敏感地搜索字符串 `s`,
 // 并返回 `s` 在 `a` 中的索引。

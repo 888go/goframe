@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文件类_test
+package gfile_test
 
 import (
 	"fmt"
 
-	gfile "github.com/888go/goframe/os/gfile"
+	"github.com/gogf/gf/v2/os/gfile"
 )
 
 func ExampleSearch() {

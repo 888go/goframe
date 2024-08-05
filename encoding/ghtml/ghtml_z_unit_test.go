@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package html类_test
+package ghtml_test
 
 import (
 	"testing"
 
-	ghtml "github.com/888go/goframe/encoding/ghtml"
-	"github.com/888go/goframe/frame/g"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/ghtml"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_StripTags(t *testing.T) {

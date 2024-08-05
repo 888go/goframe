@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 模板类
+package gview
 
-import (
-	gmap "github.com/888go/goframe/container/gmap"
-)
+import "github.com/gogf/gf/v2/container/gmap"
 
 const (
 		// DefaultName是实例使用的默认组名。 md5:ca8d8295a8c531f4

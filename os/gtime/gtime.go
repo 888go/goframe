@@ -9,7 +9,7 @@
 // 
 // 本包应该尽量减少与其他包的依赖。
 // md5:34aae194a36b5e34
-package 时间类
+package gtime
 
 import (
 	"context"
@@ -19,11 +19,11 @@ import (
 	"strings"
 	"time"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	"github.com/888go/goframe/internal/utils"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 const (

@@ -15,9 +15,9 @@ import (
 
 	"github.com/magiconair/properties"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Decode将属性格式转换为映射。 md5:022b98c96d23f910

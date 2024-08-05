@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 网页类
+package gclient
 
 import (
 	"bytes"
 	"io"
 	"net/http"
 
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // Response 是客户端请求响应的结构体。 md5:3dcf67f589d2cb7d

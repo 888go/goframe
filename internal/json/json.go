@@ -13,7 +13,7 @@ import (
 	"encoding/json"
 	"io"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // RawMessage 是一个原始的编码JSON值。

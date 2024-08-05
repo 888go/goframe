@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
-import (
-	gvar "github.com/888go/goframe/container/gvar"
-)
+import "github.com/gogf/gf/v2/container/gvar"
 
 // SetParam 设置自定义参数，使用键值对形式。 md5:d3e3851975cc7c6e
 func (r *Request) SetParam(key string, value interface{}) {

@@ -7,15 +7,15 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package 安全变量类_test
+package gtype_test
 
 import (
 	"strconv"
 	"sync/atomic"
 	"testing"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gbinary "github.com/888go/goframe/encoding/gbinary"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/encoding/gbinary"
 )
 
 var (

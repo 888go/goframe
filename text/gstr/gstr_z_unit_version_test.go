@@ -6,13 +6,13 @@
 
 // go test *.go -bench=".*"
 
-package 文本类_test
+package gstr_test
 
 import (
 	"testing"
 
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 func Test_IsGNUVersion(t *testing.T) {

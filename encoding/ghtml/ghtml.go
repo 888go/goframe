@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包ghtml提供了处理HTML内容的有用API。 md5:218d4666a789e8d7
-package html类
+package ghtml
 
 import (
 	"html"

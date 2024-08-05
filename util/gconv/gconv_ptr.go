@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
 // PtrAny 创建并返回一个指向此值的interface{}指针变量。 md5:12130f8892007df6
 func PtrAny(any interface{}) *interface{} {

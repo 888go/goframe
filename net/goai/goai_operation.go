@@ -8,9 +8,9 @@
 package goai
 
 import (
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Operation 表示符合OpenAPI/Swagger 3.0标准的“操作”定义。 md5:311e40263896a777

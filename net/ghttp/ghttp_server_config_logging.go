@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
-import (
-	glog "github.com/888go/goframe/os/glog"
-)
+import "github.com/gogf/gf/v2/os/glog"
 
 // SetLogPath 设置服务器的日志路径。
 // 只有当设置了日志路径时，才会将内容写入文件。

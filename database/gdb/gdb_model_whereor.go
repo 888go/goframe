@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 // WhereOr在where语句中添加"OR"条件。请参考WhereBuilder.WhereOr。
 // md5:3dc9824669296cea

@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 模板类
+package gview
 
 import (
 	"context"
 
-	"github.com/888go/goframe/i18n/gi18n"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 const (

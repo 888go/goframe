@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包grand提供了高性能的随机字节/数字/字符串生成功能。 md5:b787416316af6730
-package 随机类
+package grand
 
 import (
 	"encoding/binary"

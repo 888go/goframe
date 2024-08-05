@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 压缩类_test
+package gcompress_test
 
 import (
 	"testing"
 
-	gcompress "github.com/888go/goframe/encoding/gcompress"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gcompress"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 func Test_Zlib_UnZlib(t *testing.T) {

@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
-import (
-	gview "github.com/888go/goframe/os/gview"
-)
+import "github.com/gogf/gf/v2/os/gview"
 
 // SetView 为当前请求设置模板视图引擎对象。 md5:ec41ed91daaf7bd3
 func (r *Request) SetView(view *gview.View) {

@@ -10,9 +10,9 @@ package goai
 import (
 	"reflect"
 
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/os/gstructs"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // requestBody 是由 OpenAPI/Swagger 3.0 标准定义的。 md5:c7f34291e4ca763f

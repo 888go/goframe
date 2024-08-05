@@ -8,9 +8,9 @@
 package goai
 
 import (
-	"github.com/888go/goframe/internal/json"
-	gstr "github.com/888go/goframe/text/gstr"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // ExternalDocs 是由 OpenAPI/Swagger 标准版本 3.0 定义的。 md5:351fbd5301af5e56

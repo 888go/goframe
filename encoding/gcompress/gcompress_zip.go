@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 压缩类
+package gcompress
 
 import (
 	"archive/zip"
@@ -16,10 +16,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gfile "github.com/888go/goframe/os/gfile"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // ZipPath 使用zip压缩算法将`fileOrFolderPaths`压缩到`dstFilePath`。

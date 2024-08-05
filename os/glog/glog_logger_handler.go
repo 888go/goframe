@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 日志类
+package glog
 
 import (
 	"bytes"
 	"context"
 	"time"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Handler 是用于自定义日志内容输出的函数处理器。 md5:486a8db7f7dd8188

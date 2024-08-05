@@ -8,10 +8,10 @@
 // 
 // 对于维护者，请注意，这个包是一个基础包，不应该导入除标准包和内部包以外的额外包，以避免循环导入。
 // md5:ee2cf0d4a8603263
-package 错误类
+package gerror
 
 import (
-	gcode "github.com/888go/goframe/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gcode"
 )
 
 // IIs 是 Is 特性接口。 md5:c4d4591e57d60306

@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 缓存类
+package gcache
 
 import (
 	"context"
 	"math"
 	"time"
 
-	glist "github.com/888go/goframe/container/glist"
-	gset "github.com/888go/goframe/container/gset"
-	gtype "github.com/888go/goframe/container/gtype"
-	gvar "github.com/888go/goframe/container/gvar"
-	gtime "github.com/888go/goframe/os/gtime"
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/container/gvar"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // AdapterMemory是一个适配器，它实现了使用内存。 md5:1058c2331fc6bbaa

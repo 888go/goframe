@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 时间类_test
+package gtime_test
 
 import (
 	"testing"
 	"time"
 
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 func Benchmark_Timestamp(b *testing.B) {

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 时间类
+package gtime
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 var (

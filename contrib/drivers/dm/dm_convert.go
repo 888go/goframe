@@ -12,7 +12,7 @@ import (
 
 	"time"
 
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab

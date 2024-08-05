@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 哈希类
+package ghash
 
 // DJB 实现了经典的 DJB 哈希算法，适用于32位。 md5:5643f3da8f083639
 func DJB(str []byte) uint32 {

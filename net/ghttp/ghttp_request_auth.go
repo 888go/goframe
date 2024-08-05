@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package http类
+package ghttp
 
 import (
 	"fmt"
 	"net/http"
 	"strings"
 
-	gbase64 "github.com/888go/goframe/encoding/gbase64"
+	"github.com/gogf/gf/v2/encoding/gbase64"
 )
 
 // BasicAuth 启用HTTP基本认证功能，使用给定的凭证（passport）和密码，并要求客户端进行身份验证。如果认证成功，返回true；否则，如果认证失败，返回false。

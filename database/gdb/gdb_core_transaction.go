@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package db类
+package gdb
 
 import (
 	"context"
 	"database/sql"
 	"reflect"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/reflection"
-	gregex "github.com/888go/goframe/text/gregex"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // TXCore是事务管理的结构体。 md5:c2173551528f4399

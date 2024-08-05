@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 元数据类_test
+package gmeta_test
 
 import (
 	"testing"
 
-	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/gogf/gf/v2/util/gmeta"
 )
 
 type A struct {

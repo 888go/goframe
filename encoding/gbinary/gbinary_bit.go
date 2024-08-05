@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 字节集类
+package gbinary
 
 // 注意：这是一个实验性功能！. md5:f06e54ac5db3ae47
 

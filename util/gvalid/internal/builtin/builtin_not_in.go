@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strings"
 
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 // RuleNotIn 实现了 "not-in" 规则：

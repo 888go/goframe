@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package session类_test
+package gsession_test
 
 import (
 	"fmt"
 	"time"
 
-	gmap "github.com/888go/goframe/container/gmap"
-	"github.com/888go/goframe/frame/g"
-	gctx "github.com/888go/goframe/os/gctx"
-	gsession "github.com/888go/goframe/os/gsession"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gsession"
 )
 
 func ExampleNew() {

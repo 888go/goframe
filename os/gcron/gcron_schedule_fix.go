@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时cron类
+package gcron
 
 import (
 	"context"
 	"time"
 
-	"github.com/888go/goframe/internal/intlog"
+	"github.com/gogf/gf/v2/internal/intlog"
 )
 
 // getAndUpdateLastCheckTimestamp 检查、修复并返回在几秒钟内有延迟修复的最后时间戳。 md5:617d53ed6d0eee3f

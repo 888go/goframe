@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 import (
 	"strings"
 
-	"github.com/888go/goframe/internal/utils"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Split将字符串`str`按照字符串`delimiter`进行分割，返回一个数组。 md5:905c146c396933a0

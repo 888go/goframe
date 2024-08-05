@@ -4,13 +4,13 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package map类
+package gmap
 
 import (
-	"github.com/888go/goframe/internal/empty"
-	"github.com/888go/goframe/internal/json"
-	"github.com/888go/goframe/internal/rwmutex"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/internal/rwmutex"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // IntIntMap 实现了一个具有开关的读写锁保护的 int 到 int 的映射。 md5:2ad66ce15680a609

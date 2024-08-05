@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gfsnotify提供了一个与平台无关的接口，用于文件系统通知。 md5:85a6a9e7b52e09e5
-package 文件监控类
+package gfsnotify
 
 import (
 	"context"
@@ -15,15 +15,15 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 
-	glist "github.com/888go/goframe/container/glist"
-	gmap "github.com/888go/goframe/container/gmap"
-	gqueue "github.com/888go/goframe/container/gqueue"
-	gset "github.com/888go/goframe/container/gset"
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/intlog"
-	gcache "github.com/888go/goframe/os/gcache"
+	"github.com/gogf/gf/v2/container/glist"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/container/gqueue"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/gcache"
 )
 
 // Watcher是文件更改的监视器。 md5:82c8c6038aefc543

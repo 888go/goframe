@@ -6,13 +6,13 @@
 // md5:a9832f33b234e3f3
 
 // gbase64 包提供了对 BASE64 编码/解码算法的有用API。 md5:0524d2c59dedacdf
-package 编码base64类
+package gbase64
 
 import (
 	"encoding/base64"
 	"os"
 
-	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 // Encode 使用BASE64算法对字节进行编码。 md5:9148f0cc83085b94

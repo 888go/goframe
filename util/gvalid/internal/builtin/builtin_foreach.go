@@ -9,7 +9,7 @@ package builtin
 
 // RuleForeach 实现了 `foreach` 规则：
 // 它告诉下一个验证使用当前值作为数组，并验证其每个元素。
-//
+// 
 // 格式：foreach
 // md5:ee948d3f16a2f23d
 type RuleForeach struct{}

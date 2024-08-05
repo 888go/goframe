@@ -5,11 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 互斥锁类
+package gmutex
 
-import (
-	"sync"
-)
+import "sync"
 
 // RWMutex 是一个高级的 RWMutex，它为互斥锁提供了更多丰富的功能。 md5:25a009f424184cca
 type RWMutex struct {

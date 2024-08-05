@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 进程类
+package gproc
 
 import (
 	"context"
-	"github.com/888go/goframe/internal/intlog"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/util/gutil"
 	"os"
 	"os/signal"
 	"sync"

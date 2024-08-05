@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 协程类
+package grpool
 
 import (
 	"context"
 
-	gtimer "github.com/888go/goframe/os/gtimer"
+	"github.com/gogf/gf/v2/os/gtimer"
 )
 
 // supervisor 检查工作列表，如果工作列表中有任务但工作池中没有工人goroutine，就 fork 新的工人goroutine来处理任务。

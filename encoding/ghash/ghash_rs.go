@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 哈希类
+package ghash
 
 // RS 实现了经典的 32 位 RS 哈希算法。 md5:b79898a4563914ab
 func RS(str []byte) uint32 {

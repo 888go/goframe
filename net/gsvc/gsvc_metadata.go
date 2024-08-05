@@ -8,7 +8,7 @@
 package gsvc
 
 import (
-	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // Set 将键值对设置到元数据中。 md5:3d5704977db787ca

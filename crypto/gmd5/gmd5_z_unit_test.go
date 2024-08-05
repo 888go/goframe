@@ -7,14 +7,14 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package 加密md5类_test
+package gmd5_test
 
 import (
 	"os"
 	"testing"
 
-	gmd5 "github.com/888go/goframe/crypto/gmd5"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/crypto/gmd5"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var (

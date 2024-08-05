@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gyaml提供了访问和转换YAML内容的功能。 md5:f1323f1f471201c0
-package yaml类
+package gyaml
 
 import (
 	"bytes"
@@ -14,9 +14,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	gerror "github.com/888go/goframe/errors/gerror"
-	"github.com/888go/goframe/internal/json"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/internal/json"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Encode 将 `value` 编码为字节形式的 YAML 格式内容。 md5:df5adae4088970d4

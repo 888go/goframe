@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
 import (
 	"strconv"
 
-	gbinary "github.com/888go/goframe/encoding/gbinary"
+	"github.com/gogf/gf/v2/encoding/gbinary"
 )
 
 // Float32 将 `any` 转换为 float32 类型。 md5:ae355a911909e343

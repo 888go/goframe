@@ -17,7 +17,7 @@ import (
 //
 // 格式：bank-card
 // ```
-//
+// 
 // 这段Go代码的注释是描述一个名为RuleBankCard的实现，它与验证银行卡号相关的规则有关。规则的格式是"bank-card"。
 // md5:c9583cdff892228a
 type RuleBankCard struct{}

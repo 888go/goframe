@@ -5,23 +5,23 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-//go:build !windows
-// +build !windows
+//---build---//go:build !windows
+//---build---// +build !windows
 
-package http类
+package ghttp
 
 import (
 	"context"
 	"os"
 	"syscall"
 
-	"github.com/888go/goframe/internal/intlog"
-	glog "github.com/888go/goframe/os/glog"
-	gproc "github.com/888go/goframe/os/gproc"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gproc"
 )
 
 // handleProcessSignal 以阻塞方式处理来自系统的所有信号。 md5:822a0f0abd5d924a
-func handleProcessSignal() {
+func handleProcessSignal() { //build_func_1|handleProcessSignal|
 	var ctx = context.TODO()
 	gproc.AddSigHandlerShutdown(func(sig os.Signal) {
 		shutdownWebServersGracefully(ctx, sig)
@@ -36,7 +36,7 @@ func handleProcessSignal() {
 		if err := restartWebServers(ctx, sig, ""); err != nil {
 			intlog.Errorf(ctx, `%+v`, err)
 		}
-	}, syscall.SIGUSR1)
+	}, syscall.SIGABRT)
 
 	gproc.Listen()
 }

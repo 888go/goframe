@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gvalid实现了强大且实用的数据/表单验证功能。 md5:e037cf7a2dd78c4c
-package 效验类
+package gvalid
 
 import (
 	"context"
@@ -14,9 +14,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/888go/goframe/internal/intlog"
-	gregex "github.com/888go/goframe/text/gregex"
-	"github.com/888go/goframe/util/gtag"
+	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/gogf/gf/v2/util/gtag"
 )
 
 // CustomMsg 是自定义错误消息类型，例如：map[field] => string|map[rule]string

@@ -8,7 +8,7 @@
 package gins
 
 import (
-	gcfg "github.com/888go/goframe/os/gcfg"
+	"github.com/gogf/gf/v2/os/gcfg"
 )
 
 // Config返回一个具有默认设置的View实例。

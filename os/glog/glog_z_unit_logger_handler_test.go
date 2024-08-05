@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 日志类_test
+package glog_test
 
 import (
 	"bytes"
 	"context"
 	"testing"
 
-	garray "github.com/888go/goframe/container/garray"
-	glog "github.com/888go/goframe/os/glog"
-	gtest "github.com/888go/goframe/test/gtest"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 var arrayForHandlerTest1 = garray.NewStrArray()

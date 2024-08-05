@@ -10,8 +10,8 @@ package builtin
 import (
 	"errors"
 
-	gipv4 "github.com/888go/goframe/net/gipv4"
-	gipv6 "github.com/888go/goframe/net/gipv6"
+	"github.com/gogf/gf/v2/net/gipv4"
+	"github.com/gogf/gf/v2/net/gipv6"
 )
 
 // RuleIp 实现了`ip`规则：

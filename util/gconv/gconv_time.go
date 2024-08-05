@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 转换类
+package gconv
 
 import (
 	"time"
 
-	"github.com/888go/goframe/internal/utils"
-	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // Time 将 `any` 转换为 time.Time 类型。 md5:2e2c448d3d063180

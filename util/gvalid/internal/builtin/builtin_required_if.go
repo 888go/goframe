@@ -11,10 +11,10 @@ import (
 	"errors"
 	"strings"
 
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	gconv "github.com/888go/goframe/util/gconv"
-	gutil "github.com/888go/goframe/util/gutil"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/util/gutil"
 )
 
 // RuleRequiredIf 实现了 `required-if` 规则：
@@ -52,7 +52,7 @@ func (r RuleRequiredIf) Run(in RunInput) error {
 			in.RulePattern,
 		)
 	}
-	// 它支持多个字段和值对。 md5:42a9e200e1db00d5
+		// 它支持多个字段和值对。 md5:42a9e200e1db00d5
 	for i := 0; i < len(array); {
 		var (
 			tk = array[i]

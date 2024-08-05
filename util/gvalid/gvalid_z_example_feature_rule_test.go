@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 效验类_test
+package gvalid_test
 
 import (
 	"context"
 	"fmt"
 
-	"github.com/888go/goframe/frame/g"
-	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/text/gstr"
 )
 
 func ExampleRule_Required() {

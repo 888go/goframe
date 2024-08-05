@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 文本类
+package gstr
 
 import (
 	"bytes"
 
-	"github.com/888go/goframe/internal/utils"
+	"github.com/gogf/gf/v2/internal/utils"
 )
 
 // AddSlashes 为字符 '"'、'\' 和 '.' 添加反斜杠 `\` 进行转义。 md5:7e939499c0cd825f

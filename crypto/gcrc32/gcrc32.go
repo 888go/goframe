@@ -6,12 +6,12 @@
 // md5:a9832f33b234e3f3
 
 // gcrc32 包提供了对CRC32校验算法有用的API。 md5:020293e34534da3f
-package 加密crc32类
+package gcrc32
 
 import (
 	"hash/crc32"
 
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // Encrypt 使用CRC32算法对任何类型的变量进行加密。

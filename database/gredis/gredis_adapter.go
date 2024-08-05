@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package redis类
+package gredis
 
 import (
 	"context"
 
-	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/gogf/gf/v2/container/gvar"
 )
 
 // Adapter是通用Redis操作的接口。 md5:9c96b73f93ac5323

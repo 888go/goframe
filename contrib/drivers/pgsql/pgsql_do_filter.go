@@ -11,8 +11,8 @@ import (
 	"context"
 	"fmt"
 
-	gdb "github.com/888go/goframe/database/gdb"
-	gregex "github.com/888go/goframe/text/gregex"
+	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/text/gregex"
 )
 
 // DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb

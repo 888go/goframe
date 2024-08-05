@@ -7,7 +7,7 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package 缓存类_test
+package gcache_test
 
 import (
 	"context"
@@ -15,12 +15,12 @@ import (
 	"testing"
 	"time"
 
-	gset "github.com/888go/goframe/container/gset"
-	"github.com/888go/goframe/frame/g"
-	gcache "github.com/888go/goframe/os/gcache"
-	grpool "github.com/888go/goframe/os/grpool"
-	gtest "github.com/888go/goframe/test/gtest"
-	guid "github.com/888go/goframe/util/guid"
+	"github.com/gogf/gf/v2/container/gset"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/grpool"
+	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/gogf/gf/v2/util/guid"
 )
 
 var (

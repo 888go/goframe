@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ini类_test
+package gini_test
 
 import (
 	"testing"
 
-	gini "github.com/888go/goframe/encoding/gini"
-	gjson "github.com/888go/goframe/encoding/gjson"
-	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/gogf/gf/v2/encoding/gini"
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/test/gtest"
 )
 
 var iniContent = `

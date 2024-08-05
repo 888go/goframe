@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package 定时cron类
+package gcron
 
 import (
 	"context"
@@ -14,12 +14,12 @@ import (
 	"runtime"
 	"time"
 
-	gtype "github.com/888go/goframe/container/gtype"
-	gcode "github.com/888go/goframe/errors/gcode"
-	gerror "github.com/888go/goframe/errors/gerror"
-	glog "github.com/888go/goframe/os/glog"
-	gtimer "github.com/888go/goframe/os/gtimer"
-	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/gogf/gf/v2/container/gtype"
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/os/glog"
+	"github.com/gogf/gf/v2/os/gtimer"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // JobFunc 是在cron中定时被调用的作业函数。 md5:476072dbc1ca96ff
