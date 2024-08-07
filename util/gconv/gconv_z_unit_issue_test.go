@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"math/big"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gtype "github.com/888go/goframe/container/gtype"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // 这段注释是引用了GitHub上gf项目的一个问题链接，编号为1227。在Go语言中，这种注释用于提供外部资源的参考或问题追踪。翻译成中文后，它仍然保留原始的URL，因为这是一个链接，无需翻译。 md5:b76d46c66d00a5ce
@@ -158,7 +158,7 @@ func Test_Issue1946(t *testing.T) {
 		}, a)
 		t.AssertNil(err)
 		t.Assert(a.B.Name, "init")
-		t.Assert(a.B.init.Val(), true)
+		t.Assert(a.B.init.X取值(), true)
 	})
 		// 它不能改变私有属性。 md5:c15d94ed6929ce70
 	gtest.C(t, func(t *gtest.T) {
@@ -182,7 +182,7 @@ func Test_Issue1946(t *testing.T) {
 		}, a)
 		t.AssertNil(err)
 		t.Assert(a.B.Name, "init")
-		t.Assert(a.B.init.Val(), true)
+		t.Assert(a.B.init.X取值(), true)
 	})
 		// 它可以改变公共属性。 md5:b2c3110608923730
 	gtest.C(t, func(t *gtest.T) {
@@ -206,7 +206,7 @@ func Test_Issue1946(t *testing.T) {
 		}, a)
 		t.AssertNil(err)
 		t.Assert(a.B.Name, "init")
-		t.Assert(a.B.Init.Val(), true)
+		t.Assert(a.B.Init.X取值(), true)
 	})
 }
 
@@ -233,9 +233,9 @@ func Test_Issue2381(t *testing.T) {
 		a1 = Test1{
 			Inherit{
 				Id:        2,
-				Flag:      gjson.New("[1, 2]"),
+				Flag:      gjson.X创建("[1, 2]"),
 				Title:     "测试",
-				CreatedAt: gtime.Now(),
+				CreatedAt: gtime.X创建并按当前时间(),
 			},
 		}
 		err := gconv.Scan(a1, &a2)
@@ -273,7 +273,7 @@ func Test_Issue2391(t *testing.T) {
 			Inherit{
 				Ids:   []int{1, 2, 3},
 				Ids2:  []int64{4, 5, 6},
-				Flag:  gjson.New("[\"1\", \"2\"]"),
+				Flag:  gjson.X创建("[\"1\", \"2\"]"),
 				Title: "测试",
 			},
 		}
@@ -295,7 +295,7 @@ func Test_Issue2395(t *testing.T) {
 		}
 		var ()
 		obj := Test{Num: 0}
-		t.Assert(gconv.Interfaces(obj), []interface{}{obj})
+		t.Assert(gconv.X取any切片(obj), []interface{}{obj})
 	})
 }
 

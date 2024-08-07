@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68ec115b-65bc-4d5d-9128-d38875d3ee9a" name="更改" comment="2024-08-03">
-      <change beforePath="$PROJECT_DIR$/.idea/goframe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/goframe.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.71原版备份.rar" beforeDir="false" afterPath="$PROJECT_DIR$/2.71原版备份.rar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray_func.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray_func.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/container/garray/garray_normal_any.go" beforeDir="false" afterPath="$PROJECT_DIR$/container/garray/garray_normal_any.go" afterDir="false" />
@@ -153,7 +151,9 @@
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_filter.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_filter.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_insert.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_insert.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_update.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_do_update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_insert.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_insert.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_open.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_open.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_ping.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_ping.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_table_fields.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_table_fields.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_tables.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_tables.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/drivers/clickhouse/clickhouse_transaction.go" afterDir="false" />
@@ -416,7 +416,6 @@
       <change beforePath="$PROJECT_DIR$/frame/gins/gins_z_unit_server_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/frame/gins/gins_z_unit_server_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frame/gins/gins_z_unit_view_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/frame/gins/gins_z_unit_view_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/i18n/gi18n/gi18n.go" beforeDir="false" afterPath="$PROJECT_DIR$/i18n/gi18n/gi18n.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/i18n/gi18n/gi18n_ctx.go" beforeDir="false" afterPath="$PROJECT_DIR$/i18n/gi18n/gi18n_ctx.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/i18n/gi18n/gi18n_instance.go" beforeDir="false" afterPath="$PROJECT_DIR$/i18n/gi18n/gi18n_instance.go" afterDir="false" />
@@ -1036,11 +1035,9 @@
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_after.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_after.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_after_equal.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_after_equal.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_array.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_array.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_bank_card.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_bank_card.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_before.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_before.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_before_equal.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_before_equal.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_between.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_between.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_boolean.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_boolean.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_date.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_date.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_date_format.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_date_format.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_datetime.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_datetime.go" afterDir="false" />
@@ -1048,7 +1045,6 @@
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_domain.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_domain.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_email.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_email.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_enums.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_enums.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_foreach.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_foreach.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_gt.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_gt.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_gte.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_gte.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_in.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/gvalid/internal/builtin/builtin_in.go" afterDir="false" />

@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // MapToMaps 将任何切片类型变量 `params` 转换为另一个映射切片类型变量 `pointer`。
@@ -46,7 +46,7 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		paramsKind = paramsRv.Kind()
 	}
 	if paramsKind != reflect.Array && paramsKind != reflect.Slice {
-		return gerror.NewCode(
+		return gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			"params should be type of slice, example: []map/[]*map/[]struct/[]*struct",
 		)
@@ -62,7 +62,7 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 	if paramsElemKind != reflect.Map &&
 		paramsElemKind != reflect.Struct &&
 		paramsElemKind != reflect.Interface {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			"params element should be type of map/*map/struct/*struct, but got: %s",
 			paramsElemKind,
@@ -82,7 +82,7 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		pointerKind = pointerRv.Kind()
 	}
 	if pointerKind != reflect.Array && pointerKind != reflect.Slice {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "pointer should be type of *[]map/*[]*map")
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "pointer should be type of *[]map/*[]*map")
 	}
 	var (
 		pointerElemType = pointerRv.Type().Elem()
@@ -92,15 +92,15 @@ func doMapToMaps(params interface{}, pointer interface{}, paramKeyToAttrMap ...m
 		pointerElemKind = pointerElemType.Elem().Kind()
 	}
 	if pointerElemKind != reflect.Map {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "pointer element should be type of map/*map")
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "pointer element should be type of map/*map")
 	}
 	defer func() {
 				// 捕获panic，尤其是反射操作引发的panic。 md5:dd183bf8028f513a
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && gerror.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception)
+				err = gerror.X创建错误码并跳过堆栈与格式化(gcode.CodeInternalPanic, 1, "%+v", exception)
 			}
 		}
 	}()

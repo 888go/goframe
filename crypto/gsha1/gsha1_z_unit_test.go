@@ -7,14 +7,14 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gsha1_test
+package 加密sha1类_test
 
 import (
 	"os"
 	"testing"
 
-	"github.com/gogf/gf/v2/crypto/gsha1"
-	"github.com/gogf/gf/v2/test/gtest"
+	gsha1 "github.com/888go/goframe/crypto/gsha1"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 type user struct {
@@ -31,12 +31,12 @@ func TestEncrypt(t *testing.T) {
 			age:      23,
 		}
 		result := "97386736e3ee4adee5ca595c78c12129f6032cad"
-		encrypt := gsha1.Encrypt(user)
+		encrypt := gsha1.X加密(user)
 		t.AssertEQ(encrypt, result)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		result := "5b4c1c2a08ca85ddd031ef8627414f4cb2620b41"
-		s := gsha1.Encrypt("pibigstar")
+		s := gsha1.X加密("pibigstar")
 		t.AssertEQ(s, result)
 	})
 }
@@ -51,10 +51,10 @@ func TestEncryptFile(t *testing.T) {
 		defer file.Close()
 		t.AssertNil(err)
 		_, _ = file.Write([]byte("Hello Go Frame"))
-		encryptFile, _ := gsha1.EncryptFile(path)
+		encryptFile, _ := gsha1.X加密文件(path)
 		t.AssertEQ(encryptFile, result)
 				// 当文件不存在时，encrypt会返回空字符串. md5:2282711167b98cb7
-		errEncrypt, _ := gsha1.EncryptFile(errPath)
+		errEncrypt, _ := gsha1.X加密文件(errPath)
 		t.AssertEQ(errEncrypt, "")
 	})
 }

@@ -12,14 +12,14 @@ import (
 	"database/sql"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gdb "github.com/888go/goframe/database/gdb"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
-// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
+// X底层原生SQL执行 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
 // md5:947bd2b83e751e10
-func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...interface{}) (result sql.Result, err error) {
+func (d *Driver) X底层原生SQL执行(ctx context.Context, link gdb.Link, sql string, args ...interface{}) (result sql.Result, err error) {
 	var (
 		isUseCoreDoExec bool   = false // 检查是否需要使用默认方法. md5:5c2234665d43c8e2
 		primaryKey      string = ""
@@ -28,16 +28,16 @@ func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...
 
 	// Transaction checks.
 	if link == nil {
-		if tx := gdb.TXFromCtx(ctx, d.GetGroup()); tx != nil {
+		if tx := gdb.X事务从上下文取对象(ctx, d.X取配置组名称()); tx != nil {
 						// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
 			link = tx
-		} else if link, err = d.MasterLink(); err != nil {
+		} else if link, err = d.X底层MasterLink(); err != nil {
 						// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
 			return nil, err
 		}
 	} else if !link.IsTransaction() {
 				// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
-		if tx := gdb.TXFromCtx(ctx, d.GetGroup()); tx != nil {
+		if tx := gdb.X事务从上下文取对象(ctx, d.X取配置组名称()); tx != nil {
 			link = tx
 		}
 	}
@@ -54,32 +54,32 @@ func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...
 	}
 
 		// 检查是否为插入操作。 md5:b3cb8d582bc267c9
-	if !isUseCoreDoExec && pkField.Name != "" && strings.Contains(sql, "INSERT INTO") {
-		primaryKey = pkField.Name
+	if !isUseCoreDoExec && pkField.X名称 != "" && strings.Contains(sql, "INSERT INTO") {
+		primaryKey = pkField.X名称
 		sql += " RETURNING " + primaryKey
 	} else {
 		// use default DoExec
-		return d.Core.DoExec(ctx, link, sql, args...)
+		return d.Core.X底层原生SQL执行(ctx, link, sql, args...)
 	}
 
 			// 只有使用主键进行插入操作时，才能执行以下代码. md5:90f3f7f5e35bf09e
 
-	if d.GetConfig().ExecTimeout > 0 {
+	if d.X取当前节点配置().ExecTimeout > 0 {
 		var cancelFunc context.CancelFunc
-		ctx, cancelFunc = context.WithTimeout(ctx, d.GetConfig().ExecTimeout)
+		ctx, cancelFunc = context.WithTimeout(ctx, d.X取当前节点配置().ExecTimeout)
 		defer cancelFunc()
 	}
 
 	// Sql filtering.
-	sql, args = d.FormatSqlBeforeExecuting(sql, args)
-	sql, args, err = d.DoFilter(ctx, link, sql, args)
+	sql, args = d.X格式化Sql(sql, args)
+	sql, args, err = d.X底层DoFilter(ctx, link, sql, args)
 	if err != nil {
 		return nil, err
 	}
 
 	// Link execution.
 	var out gdb.DoCommitOutput
-	out, err = d.DoCommit(ctx, gdb.DoCommitInput{
+	out, err = d.X底层DoCommit(ctx, gdb.DoCommitInput{
 		Link:          link,
 		Sql:           sql,
 		Args:          args,
@@ -91,20 +91,20 @@ func (d *Driver) DoExec(ctx context.Context, link gdb.Link, sql string, args ...
 	if err != nil {
 		return nil, err
 	}
-	affected := len(out.Records)
+	affected := len(out.X行记录切片)
 	if affected > 0 {
-		if !strings.Contains(pkField.Type, "int") {
+		if !strings.Contains(pkField.X类型, "int") {
 			return Result{
 				affected:     int64(affected),
 				lastInsertId: 0,
-				lastInsertIdError: gerror.NewCodef(
+				lastInsertIdError: gerror.X创建错误码并格式化(
 					gcode.CodeNotSupported,
-					"LastInsertId is not supported by primary key type: %s", pkField.Type),
+					"LastInsertId is not supported by primary key type: %s", pkField.X类型),
 			}, nil
 		}
 
-		if out.Records[affected-1][primaryKey] != nil {
-			lastInsertId := out.Records[affected-1][primaryKey].Int64()
+		if out.X行记录切片[affected-1][primaryKey] != nil {
+			lastInsertId := out.X行记录切片[affected-1][primaryKey].X取整数64位()
 			return Result{
 				affected:     int64(affected),
 				lastInsertId: lastInsertId,

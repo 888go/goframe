@@ -11,17 +11,17 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gregex"
+	gdb "github.com/888go/goframe/database/gdb"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
-// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
-func (d *Driver) DoFilter(
+// X底层DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
+func (d *Driver) X底层DoFilter(
 	ctx context.Context, link gdb.Link, sql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {
 	var index int
 		// 将占位符字符'?'转换为字符串 "$x"。 md5:a1e39f745b49128a
-	newSql, err = gregex.ReplaceStringFunc(`\?`, sql, func(s string) string {
+	newSql, err = gregex.X替换文本_函数(`\?`, sql, func(s string) string {
 		index++
 		return fmt.Sprintf(`$%d`, index)
 	})
@@ -39,10 +39,10 @@ func (d *Driver) DoFilter(
 	if err != nil {
 		return "", nil, err
 	}
-	newSql, err = gregex.ReplaceString(` LIMIT (\d+),\s*(\d+)`, ` LIMIT $2 OFFSET $1`, newSql)
+	newSql, err = gregex.X替换文本(` LIMIT (\d+),\s*(\d+)`, ` LIMIT $2 OFFSET $1`, newSql)
 	if err != nil {
 		return "", nil, err
 	}
 	newArgs = args
-	return d.Core.DoFilter(ctx, link, newSql, newArgs)
+	return d.Core.X底层DoFilter(ctx, link, newSql, newArgs)
 }

@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"strconv"
 
-	"github.com/gogf/gf/v2/encoding/gbinary"
+	gbinary "github.com/888go/goframe/encoding/gbinary"
 )
 
-// Float32 将 `any` 转换为 float32 类型。 md5:ae355a911909e343
-func Float32(any interface{}) float32 {
+// X取小数32位 将 `any` 转换为 float32 类型。 md5:ae355a911909e343
+func X取小数32位(any interface{}) float32 {
 	if any == nil {
 		return 0
 	}
@@ -27,15 +27,15 @@ func Float32(any interface{}) float32 {
 		return gbinary.DecodeToFloat32(value)
 	default:
 		if f, ok := value.(iFloat32); ok {
-			return f.Float32()
+			return f.X取小数32位()
 		}
 		v, _ := strconv.ParseFloat(String(any), 64)
 		return float32(v)
 	}
 }
 
-// Float64 将 `any` 转换为 float64 类型。 md5:c0bd7cb237571bff
-func Float64(any interface{}) float64 {
+// X取小数64位 将 `any` 转换为 float64 类型。 md5:c0bd7cb237571bff
+func X取小数64位(any interface{}) float64 {
 	if any == nil {
 		return 0
 	}
@@ -48,7 +48,7 @@ func Float64(any interface{}) float64 {
 		return gbinary.DecodeToFloat64(value)
 	default:
 		if f, ok := value.(iFloat64); ok {
-			return f.Float64()
+			return f.X取小数64位()
 		}
 		v, _ := strconv.ParseFloat(String(any), 64)
 		return v

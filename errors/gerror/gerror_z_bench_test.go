@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gerror_test
+package 错误类_test
 
 import (
 	"errors"
 	"testing"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 var (
@@ -22,72 +22,72 @@ var (
 
 func Benchmark_New(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.New("test")
+		gerror.X创建("test")
 	}
 }
 
 func Benchmark_Newf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.Newf("%s", "test")
+		gerror.X创建并格式化("%s", "test")
 	}
 }
 
 func Benchmark_Wrap(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.Wrap(baseError, "test")
+		gerror.X多层错误(baseError, "test")
 	}
 }
 
 func Benchmark_Wrapf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.Wrapf(baseError, "%s", "test")
+		gerror.X多层错误并格式化(baseError, "%s", "test")
 	}
 }
 
 func Benchmark_NewSkip(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewSkip(1, "test")
+		gerror.X创建并跳过堆栈(1, "test")
 	}
 }
 
 func Benchmark_NewSkipf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewSkipf(1, "%s", "test")
+		gerror.X创建并跳过堆栈与格式化(1, "%s", "test")
 	}
 }
 
 func Benchmark_NewCode(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCode(gcode.New(500, "", nil), "test")
+		gerror.X创建错误码(gcode.New(500, "", nil), "test")
 	}
 }
 
 func Benchmark_NewCodef(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCodef(gcode.New(500, "", nil), "%s", "test")
+		gerror.X创建错误码并格式化(gcode.New(500, "", nil), "%s", "test")
 	}
 }
 
 func Benchmark_NewCodeSkip(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCodeSkip(gcode.New(1, "", nil), 500, "test")
+		gerror.X创建错误码并跳过堆栈(gcode.New(1, "", nil), 500, "test")
 	}
 }
 
 func Benchmark_NewCodeSkipf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.NewCodeSkipf(gcode.New(1, "", nil), 500, "%s", "test")
+		gerror.X创建错误码并跳过堆栈与格式化(gcode.New(1, "", nil), 500, "%s", "test")
 	}
 }
 
 func Benchmark_WrapCode(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.WrapCode(gcode.New(500, "", nil), baseError, "test")
+		gerror.X多层错误码(gcode.New(500, "", nil), baseError, "test")
 	}
 }
 
 func Benchmark_WrapCodef(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gerror.WrapCodef(gcode.New(500, "", nil), baseError, "test")
+		gerror.X多层错误码并格式化(gcode.New(500, "", nil), baseError, "test")
 	}
 }

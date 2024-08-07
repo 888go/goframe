@@ -6,13 +6,13 @@
 // md5:a9832f33b234e3f3
 
 // 包gring提供了一个并发安全/不安全的环形列表（圆形队列）。 md5:bc78eee87d7b5c4b
-package gring
+package 循环链表类
 
 import (
 	"container/ring"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/internal/rwmutex"
+	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/internal/rwmutex"
 )
 
 // Ring是一个环形结构的结构体。 md5:f371ac74ef187b03
@@ -42,8 +42,8 @@ func New(cap int, safe ...bool) *Ring {
 	}
 }
 
-// Val 返回当前位置的项的值。 md5:b1027c8df14f08d2
-func (r *Ring) Val() interface{} {
+// X取值 返回当前位置的项的值。 md5:b1027c8df14f08d2
+func (r *Ring) X取值() interface{} {
 	var value interface{}
 	r.mu.RLock()
 	if r.ring.Value != nil {
@@ -56,18 +56,18 @@ func (r *Ring) Val() interface{} {
 // Len 返回环的大小。 md5:c4ff976cf0b72c58
 func (r *Ring) Len() int {
 	r.checkAndUpdateLenAndCap()
-	return r.len.Val()
+	return r.len.X取值()
 }
 
 // Cap 返回环形缓冲区的容量。 md5:2ac015d8e20dce37
 func (r *Ring) Cap() int {
 	r.checkAndUpdateLenAndCap()
-	return r.cap.Val()
+	return r.cap.X取值()
 }
 
 // 检查并更新ring的长度和容量，当ring被修改时。 md5:264d6fdc8ef33d31
 func (r *Ring) checkAndUpdateLenAndCap() {
-	if !r.dirty.Val() {
+	if !r.dirty.X取值() {
 		return
 	}
 	r.mu.RLock()
@@ -86,13 +86,13 @@ func (r *Ring) checkAndUpdateLenAndCap() {
 			totalLen++
 		}
 	}
-	r.cap.Set(totalLen)
-	r.len.Set(totalLen - emptyLen)
-	r.dirty.Set(false)
+	r.cap.X设置值(totalLen)
+	r.len.X设置值(totalLen - emptyLen)
+	r.dirty.X设置值(false)
 }
 
-// Set 将值设置为当前位置的项目。 md5:7140c77dfa3aa5dc
-func (r *Ring) Set(value interface{}) *Ring {
+// X设置值 将值设置为当前位置的项目。 md5:7140c77dfa3aa5dc
+func (r *Ring) X设置值(value interface{}) *Ring {
 	r.mu.Lock()
 	if r.ring.Value == nil {
 		r.len.Add(1)
@@ -152,8 +152,8 @@ func (r *Ring) Link(s *Ring) *Ring {
 	r.ring.Link(s.ring)
 	s.mu.Unlock()
 	r.mu.Unlock()
-	r.dirty.Set(true)
-	s.dirty.Set(true)
+	r.dirty.X设置值(true)
+	s.dirty.X设置值(true)
 	return r
 }
 
@@ -164,11 +164,11 @@ func (r *Ring) Link(s *Ring) *Ring {
 func (r *Ring) Unlink(n int) *Ring {
 	r.mu.Lock()
 	resultRing := r.ring.Unlink(n)
-	r.dirty.Set(true)
+	r.dirty.X设置值(true)
 	r.mu.Unlock()
 	resultGRing := New(resultRing.Len())
 	resultGRing.ring = resultRing
-	resultGRing.dirty.Set(true)
+	resultGRing.dirty.X设置值(true)
 	return resultGRing
 }
 

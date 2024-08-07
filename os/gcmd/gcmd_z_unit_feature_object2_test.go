@@ -7,18 +7,18 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
 	"os"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gtag"
+	"github.com/888go/goframe/frame/g"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gtag"
 )
 
 type commandBuild struct {
@@ -142,7 +142,7 @@ func (c commandBuild) Index(ctx context.Context, in commandBuildInput) (out *com
 func TestNewFromObject(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			ctx = gctx.New()
+			ctx = gctx.X创建()
 		)
 		cmd, err := gcmd.NewFromObject(commandBuild{
 			nodeNameInConfigFile: "gfcli.build",

@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"context"
 	"reflect"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/888go/goframe/debug/gdebug"
 )
 
 const (
@@ -19,20 +19,20 @@ const (
 	defaultMiddlewarePattern = "/*"
 )
 
-// BindMiddleware 会在服务器上注册一个或多个全局中间件。全局中间件可以在没有服务处理器的情况下单独使用，它会在服务处理器之前或之后拦截所有动态请求。参数 `pattern` 指定了中间件拦截的路由模式，通常是一个模糊模式，如 "/:name"、"/*any" 或 "/{field}"。
+// X绑定全局中间件 会在服务器上注册一个或多个全局中间件。全局中间件可以在没有服务处理器的情况下单独使用，它会在服务处理器之前或之后拦截所有动态请求。参数 `pattern` 指定了中间件拦截的路由模式，通常是一个模糊模式，如 "/:name"、"/*any" 或 "/{field}"。
 // md5:a58488c3f3613ab4
-func (s *Server) BindMiddleware(pattern string, handlers ...HandlerFunc) {
+func (s *X服务) X绑定全局中间件(路由规则 string, 处理函数 ...HandlerFunc) {
 	var (
 		ctx = context.TODO()
 	)
-	for _, handler := range handlers {
+	for _, handler := range 处理函数 {
 		s.setHandler(ctx, setHandlerInput{
 			Prefix:  "",
-			Pattern: pattern,
-			HandlerItem: &HandlerItem{
+			Pattern: 路由规则,
+			HandlerItem: &X路由处理函数{
 				Type: HandlerTypeMiddleware,
-				Name: gdebug.FuncPath(handler),
-				Info: handlerFuncInfo{
+				X处理器名称: gdebug.FuncPath(handler),
+				X处理器函数信息: handlerFuncInfo{
 					Func: handler,
 					Type: reflect.TypeOf(handler),
 				},
@@ -41,21 +41,21 @@ func (s *Server) BindMiddleware(pattern string, handlers ...HandlerFunc) {
 	}
 }
 
-// BindMiddlewareDefault 使用默认模式 "/*" 向服务器注册一个或多个全局中间件。
+// X绑定全局默认中间件 使用默认模式 "/*" 向服务器注册一个或多个全局中间件。
 // 全局中间件可以独立使用，无需服务处理器，它能在所有动态请求的前后拦截处理。
 // md5:fc212697fcedf39e
-func (s *Server) BindMiddlewareDefault(handlers ...HandlerFunc) {
+func (s *X服务) X绑定全局默认中间件(处理函数 ...HandlerFunc) {
 	var (
 		ctx = context.TODO()
 	)
-	for _, handler := range handlers {
+	for _, handler := range 处理函数 {
 		s.setHandler(ctx, setHandlerInput{
 			Prefix:  "",
 			Pattern: defaultMiddlewarePattern,
-			HandlerItem: &HandlerItem{
+			HandlerItem: &X路由处理函数{
 				Type: HandlerTypeMiddleware,
-				Name: gdebug.FuncPath(handler),
-				Info: handlerFuncInfo{
+				X处理器名称: gdebug.FuncPath(handler),
+				X处理器函数信息: handlerFuncInfo{
 					Func: handler,
 					Type: reflect.TypeOf(handler),
 				},
@@ -64,9 +64,9 @@ func (s *Server) BindMiddlewareDefault(handlers ...HandlerFunc) {
 	}
 }
 
-// Use 是 BindMiddlewareDefault 的别名。
+// Use别名 是 BindMiddlewareDefault 的别名。
 // 参见 BindMiddlewareDefault。
 // md5:713ca39a398552e8
-func (s *Server) Use(handlers ...HandlerFunc) {
-	s.BindMiddlewareDefault(handlers...)
+func (s *X服务) Use别名(处理函数 ...HandlerFunc) {
+	s.X绑定全局默认中间件(处理函数...)
 }

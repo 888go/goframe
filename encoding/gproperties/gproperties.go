@@ -15,9 +15,9 @@ import (
 
 	"github.com/magiconair/properties"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Decode将属性格式转换为映射。 md5:022b98c96d23f910
@@ -25,7 +25,7 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 	res = make(map[string]interface{})
 	pr, err := properties.Load(data, properties.UTF8)
 	if err != nil || pr == nil {
-		err = gerror.Wrapf(err, `Lib magiconair load Properties data failed.`)
+		err = gerror.X多层错误并格式化(err, `Lib magiconair load Properties data failed.`)
 		return nil, err
 	}
 	for _, key := range pr.Keys() {
@@ -61,7 +61,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 	for _, key := range keys {
 		_, _, err := pr.Set(key, gconv.String(flattened[key]))
 		if err != nil {
-			err = gerror.Wrapf(err, `Sets the property key to the corresponding value failed.`)
+			err = gerror.X多层错误并格式化(err, `Sets the property key to the corresponding value failed.`)
 			return nil, err
 		}
 	}
@@ -70,7 +70,7 @@ func Encode(data map[string]interface{}) (res []byte, err error) {
 
 	_, err = pr.Write(&buf, properties.UTF8)
 	if err != nil {
-		err = gerror.Wrapf(err, `Properties Write buf failed.`)
+		err = gerror.X多层错误并格式化(err, `Properties Write buf failed.`)
 		return nil, err
 	}
 
@@ -128,7 +128,7 @@ func flattenAndMergeMap(shadow map[string]interface{}, m map[string]interface{},
 		case map[string]interface{}:
 			m2 = val.(map[string]interface{})
 		case map[interface{}]interface{}:
-			m2 = gconv.Map(val)
+			m2 = gconv.X取Map(val)
 		default:
 			// immediate value
 			shadow[strings.ToLower(fullKey)] = val

@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile
+package 文件类
 
 import (
 	"io"
 	"os"
 	"path/filepath"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // CopyOption 是 Copy* 函数的选项。 md5:1863c87f867e036e
@@ -40,194 +40,194 @@ type CopyOption struct {
 // 那么它会在`dst`文件夹中创建一个与`src`同名的文件。
 //
 // 例如：
-// Copy("/tmp/file1", "/tmp/file2") => 将/tmp/file1复制到/tmp/file2
-// Copy("/tmp/dir1",  "/tmp/dir2")  => 将/tmp/dir1复制到/tmp/dir2
-// Copy("/tmp/file1", "/tmp/dir2")  => 将/tmp/file1复制到/tmp/dir2/file1
-// Copy("/tmp/dir1",  "/tmp/file2") => 出错
+// X复制("/tmp/file1", "/tmp/file2") => 将/tmp/file1复制到/tmp/file2
+// X复制("/tmp/dir1",  "/tmp/dir2")  => 将/tmp/dir1复制到/tmp/dir2
+// X复制("/tmp/file1", "/tmp/dir2")  => 将/tmp/file1复制到/tmp/dir2/file1
+// X复制("/tmp/dir1",  "/tmp/file2") => 出错
 // md5:51c6598025f6b135
-func Copy(src string, dst string, option ...CopyOption) error {
-	if src == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "source path cannot be empty")
+func X复制(文件或目录路径 string, 复制到 string, 选项 ...CopyOption) error {
+	if 文件或目录路径 == "" {
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "source path cannot be empty")
 	}
-	if dst == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "destination path cannot be empty")
+	if 复制到 == "" {
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "destination path cannot be empty")
 	}
-	srcStat, srcStatErr := os.Stat(src)
+	srcStat, srcStatErr := os.Stat(文件或目录路径)
 	if srcStatErr != nil {
 		if os.IsNotExist(srcStatErr) {
-			return gerror.WrapCodef(
+			return gerror.X多层错误码并格式化(
 				gcode.CodeInvalidParameter,
 				srcStatErr,
 				`the src path "%s" does not exist`,
-				src,
+				文件或目录路径,
 			)
 		}
-		return gerror.WrapCodef(
-			gcode.CodeInternalError, srcStatErr, `call os.Stat on "%s" failed`, src,
+		return gerror.X多层错误码并格式化(
+			gcode.CodeInternalError, srcStatErr, `call os.Stat on "%s" failed`, 文件或目录路径,
 		)
 	}
-	dstStat, dstStatErr := os.Stat(dst)
+	dstStat, dstStatErr := os.Stat(复制到)
 	if dstStatErr != nil && !os.IsNotExist(dstStatErr) {
-		return gerror.WrapCodef(
-			gcode.CodeInternalError, dstStatErr, `call os.Stat on "%s" failed`, dst)
+		return gerror.X多层错误码并格式化(
+			gcode.CodeInternalError, dstStatErr, `call os.Stat on "%s" failed`, 复制到)
 	}
 
-	if IsFile(src) {
+	if X是否为文件(文件或目录路径) {
 		var isDstExist = false
 		if dstStat != nil && !os.IsNotExist(dstStatErr) {
 			isDstExist = true
 		}
 		if isDstExist && dstStat.IsDir() {
 			var (
-				srcName = Basename(src)
-				dstPath = Join(dst, srcName)
+				srcName = X路径取文件名(文件或目录路径)
+				dstPath = X路径生成(复制到, srcName)
 			)
-			return CopyFile(src, dstPath, option...)
+			return X复制文件(文件或目录路径, dstPath, 选项...)
 		}
-		return CopyFile(src, dst, option...)
+		return X复制文件(文件或目录路径, 复制到, 选项...)
 	}
 	if !srcStat.IsDir() && dstStat != nil && dstStat.IsDir() {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`Copy failed: the src path "%s" is file, but the dst path "%s" is folder`,
-			src, dst,
+			文件或目录路径, 复制到,
 		)
 	}
-	return CopyDir(src, dst, option...)
+	return X复制目录(文件或目录路径, 复制到, 选项...)
 }
 
-// CopyFile 将名为 `src` 的文件的内容复制到由 `dst` 指定的文件中。如果目标文件不存在，它将被创建。如果目标文件已存在，其所有内容将被源文件的内容替换。文件权限将从源文件复制，并且复制的数据会被同步/刷新到稳定的存储中。
+// X复制文件 将名为 `src` 的文件的内容复制到由 `dst` 指定的文件中。如果目标文件不存在，它将被创建。如果目标文件已存在，其所有内容将被源文件的内容替换。文件权限将从源文件复制，并且复制的数据会被同步/刷新到稳定的存储中。
 // 谢谢：https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04
 // md5:e2fc3c25ff06fa5b
-func CopyFile(src, dst string, option ...CopyOption) (err error) {
-	var usedOption = getCopyOption(option...)
-	if src == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "source file cannot be empty")
+func X复制文件(路径, 复制到 string, 选项 ...CopyOption) (错误 error) {
+	var usedOption = getCopyOption(选项...)
+	if 路径 == "" {
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "source file cannot be empty")
 	}
-	if dst == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "destination file cannot be empty")
+	if 复制到 == "" {
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "destination file cannot be empty")
 	}
 		// 如果src和dst是相同的路径，它不会做任何事情。 md5:1ad6359456a4bebc
-	if src == dst {
+	if 路径 == 复制到 {
 		return nil
 	}
 	// file state check.
-	srcStat, srcStatErr := os.Stat(src)
+	srcStat, srcStatErr := os.Stat(路径)
 	if srcStatErr != nil {
 		if os.IsNotExist(srcStatErr) {
-			return gerror.WrapCodef(
+			return gerror.X多层错误码并格式化(
 				gcode.CodeInvalidParameter,
 				srcStatErr,
 				`the src path "%s" does not exist`,
-				src,
+				路径,
 			)
 		}
-		return gerror.WrapCodef(
-			gcode.CodeInternalError, srcStatErr, `call os.Stat on "%s" failed`, src,
+		return gerror.X多层错误码并格式化(
+			gcode.CodeInternalError, srcStatErr, `call os.Stat on "%s" failed`, 路径,
 		)
 	}
-	dstStat, dstStatErr := os.Stat(dst)
+	dstStat, dstStatErr := os.Stat(复制到)
 	if dstStatErr != nil && !os.IsNotExist(dstStatErr) {
-		return gerror.WrapCodef(
-			gcode.CodeInternalError, dstStatErr, `call os.Stat on "%s" failed`, dst,
+		return gerror.X多层错误码并格式化(
+			gcode.CodeInternalError, dstStatErr, `call os.Stat on "%s" failed`, 复制到,
 		)
 	}
 	if !srcStat.IsDir() && dstStat != nil && dstStat.IsDir() {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`CopyFile failed: the src path "%s" is file, but the dst path "%s" is folder`,
-			src, dst,
+			路径, 复制到,
 		)
 	}
 	// copy file logic.
 	var inFile *os.File
-	inFile, err = Open(src)
-	if err != nil {
+	inFile, 错误 = X打开并按只读模式(路径)
+	if 错误 != nil {
 		return
 	}
 	defer func() {
 		if e := inFile.Close(); e != nil {
-			err = gerror.Wrapf(e, `file close failed for "%s"`, src)
+			错误 = gerror.X多层错误并格式化(e, `file close failed for "%s"`, 路径)
 		}
 	}()
 	var outFile *os.File
-	outFile, err = Create(dst)
-	if err != nil {
+	outFile, 错误 = X创建文件与目录(复制到)
+	if 错误 != nil {
 		return
 	}
 	defer func() {
 		if e := outFile.Close(); e != nil {
-			err = gerror.Wrapf(e, `file close failed for "%s"`, dst)
+			错误 = gerror.X多层错误并格式化(e, `file close failed for "%s"`, 复制到)
 		}
 	}()
-	if _, err = io.Copy(outFile, inFile); err != nil {
-		err = gerror.Wrapf(err, `io.Copy failed from "%s" to "%s"`, src, dst)
+	if _, 错误 = io.Copy(outFile, inFile); 错误 != nil {
+		错误 = gerror.X多层错误并格式化(错误, `io.Copy failed from "%s" to "%s"`, 路径, 复制到)
 		return
 	}
 	if usedOption.Sync {
-		if err = outFile.Sync(); err != nil {
-			err = gerror.Wrapf(err, `file sync failed for file "%s"`, dst)
+		if 错误 = outFile.Sync(); 错误 != nil {
+			错误 = gerror.X多层错误并格式化(错误, `file sync failed for file "%s"`, 复制到)
 			return
 		}
 	}
 	if usedOption.PreserveMode {
 		usedOption.Mode = srcStat.Mode().Perm()
 	}
-	if err = Chmod(dst, usedOption.Mode); err != nil {
+	if 错误 = X更改权限(复制到, usedOption.Mode); 错误 != nil {
 		return
 	}
 	return
 }
 
-// CopyDir 递归地复制目录树，尝试保留权限。
+// X复制目录 递归地复制目录树，尝试保留权限。
 //
 // 注意，源目录必须存在，并且符号链接将被忽略和跳过。
 // md5:4dd9167e563fa997
-func CopyDir(src string, dst string, option ...CopyOption) (err error) {
-	var usedOption = getCopyOption(option...)
-	if src == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "source directory cannot be empty")
+func X复制目录(目录路径 string, 复制到 string, 选项 ...CopyOption) (错误 error) {
+	var usedOption = getCopyOption(选项...)
+	if 目录路径 == "" {
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "source directory cannot be empty")
 	}
-	if dst == "" {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "destination directory cannot be empty")
+	if 复制到 == "" {
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "destination directory cannot be empty")
 	}
 		// 如果src和dst是相同的路径，它不会做任何事情。 md5:1ad6359456a4bebc
-	if src == dst {
+	if 目录路径 == 复制到 {
 		return nil
 	}
-	src = filepath.Clean(src)
-	dst = filepath.Clean(dst)
-	si, err := Stat(src)
-	if err != nil {
-		return err
+	目录路径 = filepath.Clean(目录路径)
+	复制到 = filepath.Clean(复制到)
+	si, 错误 := X取详情(目录路径)
+	if 错误 != nil {
+		return 错误
 	}
 	if !si.IsDir() {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "source is not a directory")
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "source is not a directory")
 	}
 	if usedOption.PreserveMode {
 		usedOption.Mode = si.Mode().Perm()
 	}
-	if !Exists(dst) {
-		if err = os.MkdirAll(dst, usedOption.Mode); err != nil {
-			err = gerror.Wrapf(
-				err,
+	if !X是否存在(复制到) {
+		if 错误 = os.MkdirAll(复制到, usedOption.Mode); 错误 != nil {
+			错误 = gerror.X多层错误并格式化(
+				错误,
 				`create directory failed for path "%s", perm "%s"`,
-				dst,
+				复制到,
 				usedOption.Mode,
 			)
 			return
 		}
 	}
-	entries, err := os.ReadDir(src)
-	if err != nil {
-		err = gerror.Wrapf(err, `read directory failed for path "%s"`, src)
+	entries, 错误 := os.ReadDir(目录路径)
+	if 错误 != nil {
+		错误 = gerror.X多层错误并格式化(错误, `read directory failed for path "%s"`, 目录路径)
 		return
 	}
 	for _, entry := range entries {
-		srcPath := filepath.Join(src, entry.Name())
-		dstPath := filepath.Join(dst, entry.Name())
+		srcPath := filepath.Join(目录路径, entry.Name())
+		dstPath := filepath.Join(复制到, entry.Name())
 		if entry.IsDir() {
-			if err = CopyDir(srcPath, dstPath); err != nil {
+			if 错误 = X复制目录(srcPath, dstPath); 错误 != nil {
 				return
 			}
 		} else {
@@ -235,7 +235,7 @@ func CopyDir(src string, dst string, option ...CopyOption) (err error) {
 			if entry.Type()&os.ModeSymlink != 0 {
 				continue
 			}
-			if err = CopyFile(srcPath, dstPath, option...); err != nil {
+			if 错误 = X复制文件(srcPath, dstPath, 选项...); 错误 != nil {
 				return
 			}
 		}

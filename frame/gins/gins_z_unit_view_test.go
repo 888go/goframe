@@ -12,11 +12,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/internal/instance"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_View(t *testing.T) {
@@ -28,20 +28,20 @@ func Test_View(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		tpl := "t.tpl"
-		err := gfile.PutContents(tpl, `{{"我是中国人" | substr 2 -1}}`)
+		err := gfile.X写入文本(tpl, `{{"我是中国人" | substr 2 -1}}`)
 		t.AssertNil(err)
-		defer gfile.Remove(tpl)
+		defer gfile.X删除(tpl)
 
 		b, e := View().Parse(context.TODO(), "t.tpl", nil)
 		t.Assert(e, nil)
 		t.Assert(b, "中国")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		path := fmt.Sprintf(`%s/%d`, gfile.Temp(), gtime.TimestampNano())
+		path := fmt.Sprintf(`%s/%d`, gfile.X取临时目录(), gtime.X取时间戳纳秒())
 		tpl := fmt.Sprintf(`%s/%s`, path, "t.tpl")
-		err := gfile.PutContents(tpl, `{{"我是中国人" | substr 2 -1}}`)
+		err := gfile.X写入文本(tpl, `{{"我是中国人" | substr 2 -1}}`)
 		t.AssertNil(err)
-		defer gfile.Remove(tpl)
+		defer gfile.X删除(tpl)
 		err = View().AddPath(path)
 		t.AssertNil(err)
 
@@ -56,8 +56,8 @@ func Test_View_Config(t *testing.T) {
 	// view1 test1
 	gtest.C(t, func(t *gtest.T) {
 		dirPath := gtest.DataPath("view1")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+		Config().X取适配器().(*gcfg.AdapterFile).SetContent(gfile.X读文本(gfile.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*gcfg.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View("test1")
@@ -78,8 +78,8 @@ func Test_View_Config(t *testing.T) {
 	// view1 test2
 	gtest.C(t, func(t *gtest.T) {
 		dirPath := gtest.DataPath("view1")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+		Config().X取适配器().(*gcfg.AdapterFile).SetContent(gfile.X读文本(gfile.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*gcfg.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View("test2")
@@ -100,8 +100,8 @@ func Test_View_Config(t *testing.T) {
 	// view2
 	gtest.C(t, func(t *gtest.T) {
 		dirPath := gtest.DataPath("view2")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+		Config().X取适配器().(*gcfg.AdapterFile).SetContent(gfile.X读文本(gfile.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*gcfg.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View()
@@ -122,8 +122,8 @@ func Test_View_Config(t *testing.T) {
 	// view2
 	gtest.C(t, func(t *gtest.T) {
 		dirPath := gtest.DataPath("view2")
-		Config().GetAdapter().(*gcfg.AdapterFile).SetContent(gfile.GetContents(gfile.Join(dirPath, "config.toml")))
-		defer Config().GetAdapter().(*gcfg.AdapterFile).ClearContent()
+		Config().X取适配器().(*gcfg.AdapterFile).SetContent(gfile.X读文本(gfile.X路径生成(dirPath, "config.toml")))
+		defer Config().X取适配器().(*gcfg.AdapterFile).ClearContent()
 		defer instance.Clear()
 
 		view := View("test100")

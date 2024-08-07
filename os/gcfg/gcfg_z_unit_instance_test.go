@@ -7,16 +7,16 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gcfg
+package 配置类
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
+	gmap "github.com/888go/goframe/container/gmap"
+	genv "github.com/888go/goframe/os/genv"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -38,74 +38,74 @@ v4 = "1.234"
 `
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			path = DefaultConfigFileName
-			err  = gfile.PutContents(path, config)
+			path = X默认配置文件名称
+			err  = gfile.X写入文本(path, config)
 		)
 		t.AssertNil(err)
 		defer func() {
-			t.AssertNil(gfile.Remove(path))
+			t.AssertNil(gfile.X删除(path))
 		}()
 
-		c := Instance()
-		t.Assert(c.MustGet(ctx, "v1"), 1)
-		filepath, _ := c.GetAdapter().(*AdapterFile).GetFilePath()
-		t.AssertEQ(filepath, gfile.Pwd()+gfile.Separator+path)
+		c := X取单例对象()
+		t.Assert(c.X取值PANI(ctx, "v1"), 1)
+		filepath, _ := c.X取适配器().(*AdapterFile).GetFilePath()
+		t.AssertEQ(filepath, gfile.X取当前工作目录()+gfile.Separator+path)
 	})
 }
 
 func Test_Instance_AutoLocateConfigFile(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(Instance("gf") != nil, true)
+		t.Assert(X取单例对象("gf") != nil, true)
 	})
 		// 自动定位支持的文件扩展名的配置文件。 md5:941b2ef0c3ebcbf1
 	gtest.C(t, func(t *gtest.T) {
-		pwd := gfile.Pwd()
-		t.AssertNil(gfile.Chdir(gtest.DataPath()))
-		defer gfile.Chdir(pwd)
-		t.Assert(Instance("c1") != nil, true)
-		t.Assert(Instance("c1").MustGet(ctx, "my-config"), "1")
-		t.Assert(Instance("folder1/c1").MustGet(ctx, "my-config"), "2")
+		pwd := gfile.X取当前工作目录()
+		t.AssertNil(gfile.X设置当前工作目录(gtest.DataPath()))
+		defer gfile.X设置当前工作目录(pwd)
+		t.Assert(X取单例对象("c1") != nil, true)
+		t.Assert(X取单例对象("c1").X取值PANI(ctx, "my-config"), "1")
+		t.Assert(X取单例对象("folder1/c1").X取值PANI(ctx, "my-config"), "2")
 	})
 		// 自动定位支持的文件扩展名的配置文件。 md5:941b2ef0c3ebcbf1
 	gtest.C(t, func(t *gtest.T) {
-		pwd := gfile.Pwd()
-		t.AssertNil(gfile.Chdir(gtest.DataPath("folder1")))
-		defer gfile.Chdir(pwd)
-		t.Assert(Instance("c2").MustGet(ctx, "my-config"), 2)
+		pwd := gfile.X取当前工作目录()
+		t.AssertNil(gfile.X设置当前工作目录(gtest.DataPath("folder1")))
+		defer gfile.X设置当前工作目录(pwd)
+		t.Assert(X取单例对象("c2").X取值PANI(ctx, "my-config"), 2)
 	})
 		// 默认配置文件。 md5:bfb03b7e4e99b27b
 	gtest.C(t, func(t *gtest.T) {
-		localInstances.Clear()
-		pwd := gfile.Pwd()
-		t.AssertNil(gfile.Chdir(gtest.DataPath("default")))
-		defer gfile.Chdir(pwd)
-		t.Assert(Instance().MustGet(ctx, "my-config"), 1)
+		localInstances.X清空()
+		pwd := gfile.X取当前工作目录()
+		t.AssertNil(gfile.X设置当前工作目录(gtest.DataPath("default")))
+		defer gfile.X设置当前工作目录(pwd)
+		t.Assert(X取单例对象().X取值PANI(ctx, "my-config"), 1)
 
-		localInstances.Clear()
-		t.AssertNil(genv.Set("GF_GCFG_FILE", "config.json"))
-		defer genv.Set("GF_GCFG_FILE", "")
-		t.Assert(Instance().MustGet(ctx, "my-config"), 2)
+		localInstances.X清空()
+		t.AssertNil(genv.X设置值("GF_GCFG_FILE", "config.json"))
+		defer genv.X设置值("GF_GCFG_FILE", "")
+		t.Assert(X取单例对象().X取值PANI(ctx, "my-config"), 2)
 	})
 }
 
 func Test_Instance_EnvPath(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		genv.Set("GF_GCFG_PATH", gtest.DataPath("envpath"))
-		defer genv.Set("GF_GCFG_PATH", "")
-		t.Assert(Instance("c3") != nil, true)
-		t.Assert(Instance("c3").MustGet(ctx, "my-config"), "3")
-		t.Assert(Instance("c4").MustGet(ctx, "my-config"), "4")
-		localInstances = gmap.NewStrAnyMap(true)
+		genv.X设置值("GF_GCFG_PATH", gtest.DataPath("envpath"))
+		defer genv.X设置值("GF_GCFG_PATH", "")
+		t.Assert(X取单例对象("c3") != nil, true)
+		t.Assert(X取单例对象("c3").X取值PANI(ctx, "my-config"), "3")
+		t.Assert(X取单例对象("c4").X取值PANI(ctx, "my-config"), "4")
+		localInstances = gmap.X创建StrAny(true)
 	})
 }
 
 func Test_Instance_EnvFile(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		genv.Set("GF_GCFG_PATH", gtest.DataPath("envfile"))
-		defer genv.Set("GF_GCFG_PATH", "")
-		genv.Set("GF_GCFG_FILE", "c6.json")
-		defer genv.Set("GF_GCFG_FILE", "")
-		t.Assert(Instance().MustGet(ctx, "my-config"), "6")
-		localInstances = gmap.NewStrAnyMap(true)
+		genv.X设置值("GF_GCFG_PATH", gtest.DataPath("envfile"))
+		defer genv.X设置值("GF_GCFG_PATH", "")
+		genv.X设置值("GF_GCFG_FILE", "c6.json")
+		defer genv.X设置值("GF_GCFG_FILE", "")
+		t.Assert(X取单例对象().X取值PANI(ctx, "my-config"), "6")
+		localInstances = gmap.X创建StrAny(true)
 	})
 }

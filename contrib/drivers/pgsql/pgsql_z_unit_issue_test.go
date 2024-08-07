@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -11,21 +11,21 @@ package pgsql_test
 
 import (
 	"fmt"
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 // 这段注释引用的是一个GitHub问题或拉取请求，它来自于 "gogf/gf"（Go GF）项目，编号为3330。"gf" 是一个Go语言的框架（framework）。这个链接指向的是关于该框架的一个 issue（通常指代项目中遇到的问题、错误或特性请求），可能是用户报告了一个问题或者提出了一个改进的建议。 md5:9f7312fda44501ce
 func Test_Issue3330(t *testing.T) {
 	var (
-		table      = fmt.Sprintf(`%s_%d`, TablePrefix+"test", gtime.TimestampNano())
-		uniqueName = fmt.Sprintf(`%s_%d`, TablePrefix+"test_unique", gtime.TimestampNano())
+		table      = fmt.Sprintf(`%s_%d`, TablePrefix+"test", gtime.X取时间戳纳秒())
+		uniqueName = fmt.Sprintf(`%s_%d`, TablePrefix+"test_unique", gtime.X取时间戳纳秒())
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 		CREATE TABLE %s (
 		   	id bigserial  NOT NULL,
 		   	passport varchar(45) NOT NULL,
@@ -47,7 +47,7 @@ func Test_Issue3330(t *testing.T) {
 			err  error
 		)
 
-		fields, err := db.TableFields(ctx, table)
+		fields, err := db.X取表字段信息Map(ctx, table)
 		t.AssertNil(err)
 
 		t.Assert(fields["id"].Key, "pri")
@@ -63,11 +63,11 @@ func Test_Issue3330(t *testing.T) {
 			})
 		}
 
-		_, err = db.Model(table).Data(list).Insert()
+		_, err = db.X创建Model对象(table).X设置数据(list).X插入()
 		t.AssertNil(err)
 
 		for i := 1; i <= 10; i++ {
-			one, err = db.Model(table).WherePri(i).One()
+			one, err = db.X创建Model对象(table).X条件并识别主键(i).X查询一条()
 			t.AssertNil(err)
 			t.Assert(one["id"], list[i-1]["id"])
 			t.Assert(one["passport"], list[i-1]["passport"])

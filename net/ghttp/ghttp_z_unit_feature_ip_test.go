@@ -7,38 +7,38 @@
 
 // 静态服务测试。 md5:2105c089651008de
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func TestRequest_GetRemoteIp(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
-		s.BindHandler("/", func(r *ghttp.Request) {
-			r.Response.Write(r.GetRemoteIp())
+		s := g.Http类(guid.X生成())
+		s.X绑定("/", func(r *ghttp.Request) {
+			r.X响应.X写响应缓冲区(r.X取远程IP地址())
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 
 		time.Sleep(100 * time.Millisecond)
 
-		clientV4 := g.Client()
-		clientV4.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		clientV4 := g.X网页类()
+		clientV4.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		clientV6 := g.Client()
-		clientV6.SetPrefix(fmt.Sprintf("http://[::1]:%d", s.GetListenedPort()))
+		clientV6 := g.X网页类()
+		clientV6.X设置url前缀(fmt.Sprintf("http://[::1]:%d", s.X取已监听端口()))
 
-		t.Assert(clientV4.GetContent(ctx, "/"), "127.0.0.1")
-		t.Assert(clientV6.GetContent(ctx, "/"), "::1")
+		t.Assert(clientV4.Get文本(ctx, "/"), "127.0.0.1")
+		t.Assert(clientV6.Get文本(ctx, "/"), "::1")
 	})
 }

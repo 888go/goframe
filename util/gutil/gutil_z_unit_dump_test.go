@@ -5,20 +5,20 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil_test
+package 工具类_test
 
 import (
 	"bytes"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gutil"
+	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_Dump(t *testing.T) {
@@ -47,7 +47,7 @@ func Test_Dump(t *testing.T) {
 			ResourceId: "tdchqy-xxx",
 		},
 		Name:      "john",
-		CreatedAt: gtime.Now(),
+		CreatedAt: gtime.X创建并按当前时间(),
 		SetMap: map[string]*SetSpecInfo{
 			"test1": {
 				StorageType: "ssd",
@@ -69,15 +69,15 @@ func Test_Dump(t *testing.T) {
 		},
 	}
 	gtest.C(t, func(t *gtest.T) {
-		gutil.Dump(map[int]int{
+		gutil.X调试输出(map[int]int{
 			100: 100,
 		})
-		gutil.Dump(req)
-		gutil.Dump(true, false)
-		gutil.Dump(make(chan int))
-		gutil.Dump(func() {})
-		gutil.Dump(nil)
-		gutil.Dump(gtype.NewInt(1))
+		gutil.X调试输出(req)
+		gutil.X调试输出(true, false)
+		gutil.X调试输出(make(chan int))
+		gutil.X调试输出(func() {})
+		gutil.X调试输出(nil)
+		gutil.X调试输出(gtype.NewInt(1))
 	})
 }
 
@@ -89,7 +89,7 @@ func Test_Dump_Map(t *testing.T) {
 				"k2": "v2",
 			},
 		}
-		gutil.DumpTo(buffer, m, gutil.DumpOption{})
+		gutil.X调试输出到Writer(buffer, m, gutil.DumpOption{})
 		t.Assert(buffer.String(), `{
     "k1": {
         "k2": "v2",
@@ -124,7 +124,7 @@ func TestDumpWithType(t *testing.T) {
 			ResourceId: "tdchqy-xxx",
 		},
 		Name:      "john",
-		CreatedAt: gtime.Now(),
+		CreatedAt: gtime.X创建并按当前时间(),
 		SetMap: map[string]*SetSpecInfo{
 			"test1": {
 				StorageType: "ssd",
@@ -146,11 +146,11 @@ func TestDumpWithType(t *testing.T) {
 		},
 	}
 	gtest.C(t, func(t *gtest.T) {
-		gutil.DumpWithType(map[int]int{
+		gutil.X调试输出并带类型(map[int]int{
 			100: 100,
 		})
-		gutil.DumpWithType(req)
-		gutil.DumpWithType([][]byte{[]byte("hello")})
+		gutil.X调试输出并带类型(req)
+		gutil.X调试输出并带类型([][]byte{[]byte("hello")})
 	})
 }
 
@@ -162,11 +162,11 @@ func Test_Dump_Slashes(t *testing.T) {
 		Content: `{"name":"john", "age":18}`,
 	}
 	gtest.C(t, func(t *gtest.T) {
-		gutil.Dump(req)
-		gutil.Dump(req.Content)
+		gutil.X调试输出(req)
+		gutil.X调试输出(req.Content)
 
-		gutil.DumpWithType(req)
-		gutil.DumpWithType(req.Content)
+		gutil.X调试输出并带类型(req)
+		gutil.X调试输出并带类型(req.Content)
 	})
 }
 
@@ -198,7 +198,7 @@ func Test_Dump_Issue1661(t *testing.T) {
 			}
 		}
 		buffer := bytes.NewBuffer(nil)
-		gutil.DumpTo(buffer, q2, gutil.DumpOption{})
+		gutil.X调试输出到Writer(buffer, q2, gutil.DumpOption{})
 		t.Assert(buffer.String(), `[
     {
         aa: 1,
@@ -285,14 +285,14 @@ func Test_Dump_Cycle_Attribute(t *testing.T) {
 	abc.cd = &abc
 	gtest.C(t, func(t *gtest.T) {
 		buffer := bytes.NewBuffer(nil)
-		g.DumpTo(buffer, abc, gutil.DumpOption{})
-		t.Assert(gstr.Contains(buffer.String(), "cycle"), true)
+		g.X调试输出到Writer(buffer, abc, gutil.DumpOption{})
+		t.Assert(gstr.X是否包含(buffer.String(), "cycle"), true)
 	})
 }
 
 func Test_DumpJson(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var jsonContent = `{"a":1,"b":2}`
-		gutil.DumpJson(jsonContent)
+		gutil.X调试输出json(jsonContent)
 	})
 }

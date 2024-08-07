@@ -12,12 +12,12 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gtag"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gtag"
 )
 
 // RuleEnums 实现了 `enums` 规则：
@@ -41,7 +41,7 @@ func (r RuleEnums) Message() string {
 
 func (r RuleEnums) Run(in RunInput) error {
 	if in.ValueType == nil {
-		return gerror.NewCode(
+		return gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			`value type cannot be empty to use validation rule "enums"`,
 		)
@@ -55,7 +55,7 @@ func (r RuleEnums) Run(in RunInput) error {
 		typeName = in.ValueType.Elem().Name()
 	}
 	if pkgPath == "" {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidOperation,
 			`no pkg path found for type "%s"`,
 			in.ValueType.String(),
@@ -66,7 +66,7 @@ func (r RuleEnums) Run(in RunInput) error {
 		tagEnums = gtag.GetEnumsByType(typeId)
 	)
 	if tagEnums == "" {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidOperation,
 			`no enums found for type "%s", missing using command "gf gen enums"?`,
 			typeId,
@@ -76,8 +76,8 @@ func (r RuleEnums) Run(in RunInput) error {
 	if err := json.Unmarshal([]byte(tagEnums), &enumsValues); err != nil {
 		return err
 	}
-	if !gstr.InArray(gconv.Strings(enumsValues), in.Value.String()) {
-		return errors.New(gstr.Replace(
+	if !gstr.X切片是否存在(gconv.X取文本切片(enumsValues), in.Value.String()) {
+		return errors.New(gstr.X替换(
 			in.Message, `{enums}`, tagEnums,
 		))
 	}

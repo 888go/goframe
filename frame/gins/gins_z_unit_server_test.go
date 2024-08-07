@@ -12,41 +12,41 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/gins"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/gins"
+	"github.com/888go/goframe/internal/instance"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	gctx "github.com/888go/goframe/os/gctx"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Server(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			path                = gcfg.DefaultConfigFileName
+			path                = gcfg.X默认配置文件名称
 			serverConfigContent = gtest.DataContent("server", "config.yaml")
-			err                 = gfile.PutContents(path, serverConfigContent)
+			err                 = gfile.X写入文本(path, serverConfigContent)
 		)
 		t.AssertNil(err)
-		defer gfile.Remove(path)
+		defer gfile.X删除(path)
 
 		instance.Clear()
 		defer instance.Clear()
 
 		s := gins.Server("tempByInstanceName")
-		s.BindHandler("/", func(r *ghttp.Request) {
-			r.Response.Write("hello")
+		s.X绑定("/", func(r *ghttp.Request) {
+			r.X响应.X写响应缓冲区("hello")
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 
 		time.Sleep(100 * time.Millisecond)
 
-		prefix := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
+		prefix := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
 		client := gins.HttpClient()
-		client.SetPrefix(prefix)
-		t.Assert(client.GetContent(gctx.New(), "/"), "hello")
+		client.X设置url前缀(prefix)
+		t.Assert(client.Get文本(gctx.X创建(), "/"), "hello")
 	})
 }

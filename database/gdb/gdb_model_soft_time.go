@@ -5,23 +5,23 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"context"
 	"fmt"
 	"strings"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gcache"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	garray "github.com/888go/goframe/container/garray"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gcache "github.com/888go/goframe/os/gcache"
+	gtime "github.com/888go/goframe/os/gtime"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // SoftTimeType自定义定义软时间字段类型。 md5:dac7cb3a21ca2d1d
@@ -112,7 +112,7 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForCreate(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
 		// 检查是否禁用了此功能。 md5:413ae315bebe927f
-	if m.db.GetConfig().TimeMaintainDisabled {
+	if m.db.X取当前节点配置().TimeMaintainDisabled {
 		return "", LocalTypeUndefined
 	}
 	tableName := ""
@@ -121,7 +121,7 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForCreate(
 	} else {
 		tableName = m.tablesInit
 	}
-	config := m.db.GetConfig()
+	config := m.db.X取当前节点配置()
 	if config.CreatedAt != "" {
 		return m.getSoftFieldNameAndType(
 			ctx, schema, tableName, []string{config.CreatedAt},
@@ -138,7 +138,7 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForUpdate(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
 		// 检查是否禁用了此功能。 md5:413ae315bebe927f
-	if m.db.GetConfig().TimeMaintainDisabled {
+	if m.db.X取当前节点配置().TimeMaintainDisabled {
 		return "", LocalTypeUndefined
 	}
 	tableName := ""
@@ -147,7 +147,7 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForUpdate(
 	} else {
 		tableName = m.tablesInit
 	}
-	config := m.db.GetConfig()
+	config := m.db.X取当前节点配置()
 	if config.UpdatedAt != "" {
 		return m.getSoftFieldNameAndType(
 			ctx, schema, tableName, []string{config.UpdatedAt},
@@ -164,7 +164,7 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForDelete(
 	ctx context.Context, schema string, table string,
 ) (fieldName string, fieldType LocalType) {
 		// 检查是否禁用了此功能。 md5:413ae315bebe927f
-	if m.db.GetConfig().TimeMaintainDisabled {
+	if m.db.X取当前节点配置().TimeMaintainDisabled {
 		return "", LocalTypeUndefined
 	}
 	tableName := ""
@@ -173,7 +173,7 @@ func (m *softTimeMaintainer) GetFieldNameAndTypeForDelete(
 	} else {
 		tableName = m.tablesInit
 	}
-	config := m.db.GetConfig()
+	config := m.db.X取当前节点配置()
 	if config.DeletedAt != "" {
 		return m.getSoftFieldNameAndType(
 			ctx, schema, tableName, []string{config.DeletedAt},
@@ -194,15 +194,15 @@ func (m *softTimeMaintainer) getSoftFieldNameAndType(
 		cacheDuration = gcache.DurationNoExpire
 		cacheFunc     = func(ctx context.Context) (value interface{}, err error) {
 						// 忽略TableFields函数的错误。 md5:b488d48f86ec5aea
-			fieldsMap, _ := m.TableFields(table, schema)
+			fieldsMap, _ := m.X取表字段信息Map(table, schema)
 			if len(fieldsMap) > 0 {
 				for _, checkFiledName := range checkFiledNames {
 					fieldName, _ = gutil.MapPossibleItemByKey(
-						gconv.Map(fieldsMap), checkFiledName,
+						gconv.X取Map(fieldsMap), checkFiledName,
 					)
 					if fieldName != "" {
-						fieldType, _ = m.db.CheckLocalTypeForField(
-							ctx, fieldsMap[fieldName].Type, nil,
+						fieldType, _ = m.db.X底层CheckLocalTypeForField(
+							ctx, fieldsMap[fieldName].X类型, nil,
 						)
 						var cacheItem = getSoftFieldNameAndTypeCacheItem{
 							FieldName: fieldName,
@@ -215,13 +215,13 @@ func (m *softTimeMaintainer) getSoftFieldNameAndType(
 			return
 		}
 	)
-	result, err := gcache.GetOrSetFunc(ctx, cacheKey, cacheFunc, cacheDuration)
+	result, err := gcache.X取值或设置值_函数(ctx, cacheKey, cacheFunc, cacheDuration)
 	if err != nil {
 		intlog.Error(ctx, err)
 	}
 	if result != nil {
 		var cacheItem getSoftFieldNameAndTypeCacheItem
-		if err = result.Scan(&cacheItem); err != nil {
+		if err = result.X取结构体指针(&cacheItem); err != nil {
 			return "", ""
 		}
 		fieldName = cacheItem.FieldName
@@ -240,26 +240,26 @@ func (m *softTimeMaintainer) GetWhereConditionForDelete(ctx context.Context) str
 	if m.unscoped {
 		return ""
 	}
-	conditionArray := garray.NewStrArray()
-	if gstr.Contains(m.tables, " JOIN ") {
+	conditionArray := garray.X创建文本()
+	if gstr.X是否包含(m.tables, " JOIN ") {
 		// Base table.
-		tableMatch, _ := gregex.MatchString(`(.+?) [A-Z]+ JOIN`, m.tables)
-		conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(ctx, tableMatch[1]))
+		tableMatch, _ := gregex.X匹配文本(`(.+?) [A-Z]+ JOIN`, m.tables)
+		conditionArray.Append别名(m.getConditionOfTableStringForSoftDeleting(ctx, tableMatch[1]))
 				// 多个连接的表，排除包含字符'('和')'的子查询SQL。 md5:a9edf50410c73b2c
-		tableMatches, _ := gregex.MatchAllString(`JOIN ([^()]+?) ON`, m.tables)
+		tableMatches, _ := gregex.X匹配全部文本(`JOIN ([^()]+?) ON`, m.tables)
 		for _, match := range tableMatches {
-			conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(ctx, match[1]))
+			conditionArray.Append别名(m.getConditionOfTableStringForSoftDeleting(ctx, match[1]))
 		}
 	}
-	if conditionArray.Len() == 0 && gstr.Contains(m.tables, ",") {
+	if conditionArray.X取长度() == 0 && gstr.X是否包含(m.tables, ",") {
 		// Multiple base tables.
-		for _, s := range gstr.SplitAndTrim(m.tables, ",") {
-			conditionArray.Append(m.getConditionOfTableStringForSoftDeleting(ctx, s))
+		for _, s := range gstr.X分割并忽略空值(m.tables, ",") {
+			conditionArray.Append别名(m.getConditionOfTableStringForSoftDeleting(ctx, s))
 		}
 	}
-	conditionArray.FilterEmpty()
-	if conditionArray.Len() > 0 {
-		return conditionArray.Join(" AND ")
+	conditionArray.X删除所有空值()
+	if conditionArray.X取长度() > 0 {
+		return conditionArray.X连接(" AND ")
 	}
 	// Only one table.
 	fieldName, fieldType := m.GetFieldNameAndTypeForDelete(ctx, "", m.tablesInit)
@@ -280,8 +280,8 @@ func (m *softTimeMaintainer) getConditionOfTableStringForSoftDeleting(ctx contex
 	var (
 		table  string
 		schema string
-		array1 = gstr.SplitAndTrim(s, " ")
-		array2 = gstr.SplitAndTrim(array1[0], ".")
+		array1 = gstr.X分割并忽略空值(s, " ")
+		array2 = gstr.X分割并忽略空值(array1[0], ".")
 	)
 	if len(array2) >= 2 {
 		table = array2[1]
@@ -308,8 +308,8 @@ func (m *softTimeMaintainer) GetDataByFieldNameAndTypeForDelete(
 	ctx context.Context, fieldPrefix, fieldName string, fieldType LocalType,
 ) (dataHolder string, dataValue any) {
 	var (
-		quotedFieldPrefix = m.db.GetCore().QuoteWord(fieldPrefix)
-		quotedFieldName   = m.db.GetCore().QuoteWord(fieldName)
+		quotedFieldPrefix = m.db.X取Core对象().X底层QuoteWord(fieldPrefix)
+		quotedFieldName   = m.db.X取Core对象().X底层QuoteWord(fieldName)
 	)
 	if quotedFieldPrefix != "" {
 		quotedFieldName = fmt.Sprintf(`%s.%s`, quotedFieldPrefix, quotedFieldName)
@@ -323,8 +323,8 @@ func (m *softTimeMaintainer) getConditionByFieldNameAndTypeForSoftDeleting(
 	ctx context.Context, fieldPrefix, fieldName string, fieldType LocalType,
 ) string {
 	var (
-		quotedFieldPrefix = m.db.GetCore().QuoteWord(fieldPrefix)
-		quotedFieldName   = m.db.GetCore().QuoteWord(fieldName)
+		quotedFieldPrefix = m.db.X取Core对象().X底层QuoteWord(fieldPrefix)
+		quotedFieldName   = m.db.X取Core对象().X底层QuoteWord(fieldName)
 	)
 	if quotedFieldPrefix != "" {
 		quotedFieldName = fmt.Sprintf(`%s.%s`, quotedFieldPrefix, quotedFieldName)
@@ -372,9 +372,9 @@ func (m *softTimeMaintainer) GetValueByFieldTypeForCreateOrUpdate(
 	case SoftTimeTypeAuto:
 		switch fieldType {
 		case LocalTypeDate, LocalTypeDatetime:
-			value = gtime.Now()
+			value = gtime.X创建并按当前时间()
 		case LocalTypeInt, LocalTypeUint, LocalTypeInt64, LocalTypeUint64:
-			value = gtime.Timestamp()
+			value = gtime.X取时间戳秒()
 		case LocalTypeBool:
 			value = 1
 		default:
@@ -409,17 +409,17 @@ func (m *softTimeMaintainer) createValueBySoftTimeOption(isDeletedField bool) an
 	}
 	switch m.softTimeOption.SoftTimeType {
 	case SoftTimeTypeTime:
-		value = gtime.Now()
+		value = gtime.X创建并按当前时间()
 	case SoftTimeTypeTimestamp:
-		value = gtime.Timestamp()
+		value = gtime.X取时间戳秒()
 	case SoftTimeTypeTimestampMilli:
-		value = gtime.TimestampMilli()
+		value = gtime.X取时间戳毫秒()
 	case SoftTimeTypeTimestampMicro:
-		value = gtime.TimestampMicro()
+		value = gtime.X取时间戳微秒()
 	case SoftTimeTypeTimestampNano:
-		value = gtime.TimestampNano()
+		value = gtime.X取时间戳纳秒()
 	default:
-		panic(gerror.NewCodef(
+		panic(gerror.X创建错误码并格式化(
 			gcode.CodeInternalPanic,
 			`unrecognized SoftTimeType "%d"`, m.softTimeOption.SoftTimeType,
 		))

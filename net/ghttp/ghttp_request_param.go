@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"bytes"
@@ -16,18 +16,18 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gurl"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gvalid"
+	gvar "github.com/888go/goframe/container/gvar"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gurl "github.com/888go/goframe/encoding/gurl"
+	gxml "github.com/888go/goframe/encoding/gxml"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/utils"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gvalid "github.com/888go/goframe/util/gvalid"
 )
 
 const (
@@ -41,7 +41,7 @@ var (
 	xmlHeaderBytes = []byte("<?xml")
 )
 
-// Parse 是最常用的函数，它将请求参数转换为结构体或结构体切片。同时，根据结构体上的验证标签，自动对结构体或结构体切片的每个元素进行验证。
+// X解析参数到结构 是最常用的函数，它将请求参数转换为结构体或结构体切片。同时，根据结构体上的验证标签，自动对结构体或结构体切片的每个元素进行验证。
 //
 // 参数 `pointer` 可以是以下类型之一：*struct/*struct/*[]struct/*[]*struct。
 //
@@ -51,18 +51,18 @@ var (
 //
 // 待办事项：通过减少跨包对同一变量的重复反射使用，来提升性能。
 // md5:ad971f0fee54e93d
-func (r *Request) Parse(pointer interface{}) error {
-	return r.doParse(pointer, parseTypeRequest)
+func (r *Request) X解析参数到结构(结构指针 interface{}) error {
+	return r.doParse(结构指针, parseTypeRequest)
 }
 
-// ParseQuery 的行为类似于 Parse 函数，但只解析查询参数。 md5:4104abbe70053960
-func (r *Request) ParseQuery(pointer interface{}) error {
-	return r.doParse(pointer, parseTypeQuery)
+// X解析URL到结构 的行为类似于 Parse 函数，但只解析查询参数。 md5:4104abbe70053960
+func (r *Request) X解析URL到结构(结构指针 interface{}) error {
+	return r.doParse(结构指针, parseTypeQuery)
 }
 
-// ParseForm 类似于 Parse 函数，但只解析表单参数或主体内容。 md5:c384eb18ba068958
-func (r *Request) ParseForm(pointer interface{}) error {
-	return r.doParse(pointer, parseTypeForm)
+// X解析表单到结构 类似于 Parse 函数，但只解析表单参数或主体内容。 md5:c384eb18ba068958
+func (r *Request) X解析表单到结构(结构指针 interface{}) error {
+	return r.doParse(结构指针, parseTypeForm)
 }
 
 // doParse 根据请求类型解析请求数据到结构体/结构体中。 md5:82daab462d052004
@@ -72,7 +72,7 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 		reflectKind1 = reflectVal1.Kind()
 	)
 	if reflectKind1 != reflect.Ptr {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid parameter type "%v", of which kind should be of *struct/**struct/*[]struct/*[]*struct, but got: "%v"`,
 			reflectVal1.Type(),
@@ -115,7 +115,7 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 			Bail().
 			Data(pointer).
 			Assoc(data).
-			Run(r.Context()); err != nil {
+			Run(r.Context别名()); err != nil {
 			return err
 		}
 
@@ -125,19 +125,19 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 	case reflect.Array, reflect.Slice:
 		// 如果是结构体切片转换，可能会包含JSON/XML等内容，因此它使用`gjson`进行转换。
 		// md5:e60fd34347047253
-		j, err := gjson.LoadContent(r.GetBody())
+		j, err := gjson.X加载并自动识别格式(r.X取请求体字节集())
 		if err != nil {
 			return err
 		}
-		if err = j.Var().Scan(pointer); err != nil {
+		if err = j.X取泛型类().X取结构体指针(pointer); err != nil {
 			return err
 		}
 		for i := 0; i < reflectVal2.Len(); i++ {
 			if err = gvalid.New().
 				Bail().
 				Data(reflectVal2.Index(i)).
-				Assoc(j.Get(gconv.String(i)).Map()).
-				Run(r.Context()); err != nil {
+				Assoc(j.X取值(gconv.String(i)).X取Map()).
+				Run(r.Context别名()); err != nil {
 				return err
 			}
 		}
@@ -145,17 +145,17 @@ func (r *Request) doParse(pointer interface{}, requestType int) error {
 	return nil
 }
 
-// Get 是 GetRequest 的别名，它是用于检索参数的最常用函数之一。
+// Get别名 是 GetRequest 的别名，它是用于检索参数的最常用函数之一。
 // 请参见 r.GetRequest。
 // md5:80825e01a3c06041
-func (r *Request) Get(key string, def ...interface{}) *gvar.Var {
-	return r.GetRequest(key, def...)
+func (r *Request) Get别名(名称 string, 默认值 ...interface{}) *gvar.Var {
+	return r.X取参数(名称, 默认值...)
 }
 
-// GetBody 读取并返回请求体内容为字节。
+// X取请求体字节集 读取并返回请求体内容为字节。
 // 可以多次调用，每次都返回相同的正文内容。
 // md5:be66d2484fd786ca
-func (r *Request) GetBody() []byte {
+func (r *Request) X取请求体字节集() []byte {
 	if r.bodyContent == nil {
 		r.bodyContent = r.MakeBodyRepeatableRead(true)
 	}
@@ -169,49 +169,49 @@ func (r *Request) MakeBodyRepeatableRead(repeatableRead bool) []byte {
 		var err error
 		if r.bodyContent, err = io.ReadAll(r.Body); err != nil {
 			errMsg := `Read from request Body failed`
-			if gerror.Is(err, io.EOF) {
+			if gerror.X是否包含(err, io.EOF) {
 				errMsg += `, the Body might be closed or read manually from middleware/hook/other package previously`
 			}
-			panic(gerror.WrapCode(gcode.CodeInternalError, err, errMsg))
+			panic(gerror.X多层错误码(gcode.CodeInternalError, err, errMsg))
 		}
 	}
 	r.Body = utils.NewReadCloser(r.bodyContent, repeatableRead)
 	return r.bodyContent
 }
 
-// GetBodyString 用于检索并返回请求体内容作为字符串。可以多次调用以获取相同的内容。
+// X取请求体文本 用于检索并返回请求体内容作为字符串。可以多次调用以获取相同的内容。
 // md5:503c28317dc909ca
-func (r *Request) GetBodyString() string {
-	return string(r.GetBody())
+func (r *Request) X取请求体文本() string {
+	return string(r.X取请求体字节集())
 }
 
-// GetJson 将当前请求内容解析为JSON格式，并返回JSON对象。
+// X取请求体到json类 将当前请求内容解析为JSON格式，并返回JSON对象。
 // 注意，请求内容是从请求体(BODY)中读取的，而不是从表单的任何字段中读取。
 // md5:166af4b89b6a5a68
-func (r *Request) GetJson() (*gjson.Json, error) {
-	return gjson.LoadWithOptions(r.GetBody(), gjson.Options{
+func (r *Request) X取请求体到json类() (*gjson.Json, error) {
+	return gjson.X加载并按选项(r.X取请求体字节集(), gjson.Options{
 		Type:      gjson.ContentTypeJson,
 		StrNumber: true,
 	})
 }
 
-// GetMap 是 GetRequestMap 函数的别名，提供便利的使用方式。
+// GetMap别名 是 GetRequestMap 函数的别名，提供便利的使用方式。
 // 参考 GetRequestMap。
 // md5:395e8bbf3fea416a
-func (r *Request) GetMap(def ...map[string]interface{}) map[string]interface{} {
-	return r.GetRequestMap(def...)
+func (r *Request) GetMap别名(默认值 ...map[string]interface{}) map[string]interface{} {
+	return r.X取参数到Map(默认值...)
 }
 
-// GetMapStrStr是GetRequestMapStrStr的别名，提供便捷的功能。详情请参阅GetRequestMapStrStr。
+// GetMapStrStr别名是GetRequestMapStrStr的别名，提供便捷的功能。详情请参阅GetRequestMapStrStr。
 // md5:1828f3886ccd906d
-func (r *Request) GetMapStrStr(def ...map[string]interface{}) map[string]string {
-	return r.GetRequestMapStrStr(def...)
+func (r *Request) GetMapStrStr别名(默认值 ...map[string]interface{}) map[string]string {
+	return r.X取参数到MapStrStr(默认值...)
 }
 
-// GetStruct 是 GetRequestStruct 的别名和便捷函数。详情请参阅 GetRequestStruct。
+// GetStruct别名 是 GetRequestStruct 的别名和便捷函数。详情请参阅 GetRequestStruct。
 // md5:c558debb875b77cd
-func (r *Request) GetStruct(pointer interface{}, mapping ...map[string]string) error {
-	return r.GetRequestStruct(pointer, mapping...)
+func (r *Request) GetStruct别名(结构指针 interface{}, mapping ...map[string]string) error {
+	return r.X取参数到结构体(结构指针, mapping...)
 }
 
 // parseQuery 将查询字符串解析到 r.queryMap 中。 md5:9a26b305dc518866
@@ -222,9 +222,9 @@ func (r *Request) parseQuery() {
 	r.parsedQuery = true
 	if r.URL.RawQuery != "" {
 		var err error
-		r.queryMap, err = gstr.Parse(r.URL.RawQuery)
+		r.queryMap, err = gstr.X参数解析(r.URL.RawQuery)
 		if err != nil {
-			panic(gerror.WrapCode(gcode.CodeInvalidParameter, err, "Parse Query failed"))
+			panic(gerror.X多层错误码(gcode.CodeInvalidParameter, err, "Parse Query failed"))
 		}
 	}
 }
@@ -241,7 +241,7 @@ func (r *Request) parseBody() {
 	if r.ContentLength == 0 {
 		return
 	}
-	if body := r.GetBody(); len(body) > 0 {
+	if body := r.X取请求体字节集(); len(body) > 0 {
 				// 去除空格和换行符。 md5:0cf77adc8fee1e9a
 		body = bytes.TrimSpace(body)
 		// JSON format checks.
@@ -256,8 +256,8 @@ func (r *Request) parseBody() {
 			r.bodyMap, _ = gxml.DecodeWithoutRoot(body)
 		}
 				// 默认参数解码。 md5:941d9de3ebb46554
-		if contentType := r.Header.Get("Content-Type"); (contentType == "" || !gstr.Contains(contentType, "multipart/")) && r.bodyMap == nil {
-			r.bodyMap, _ = gstr.Parse(r.GetBodyString())
+		if contentType := r.Header.Get("Content-Type"); (contentType == "" || !gstr.X是否包含(contentType, "multipart/")) && r.bodyMap == nil {
+			r.bodyMap, _ = gstr.X参数解析(r.X取请求体文本())
 		}
 	}
 }
@@ -281,19 +281,19 @@ func (r *Request) parseForm() {
 			err            error
 			repeatableRead = true
 		)
-		if gstr.Contains(contentType, "multipart/") {
+		if gstr.X是否包含(contentType, "multipart/") {
 			// 为了避免大量消耗内存。
 			// `multipart/` 类型的表单始终包含二进制数据，没有必要读取两次。
 			// md5:d95befcac4fa7fd0
 			repeatableRead = false
 						// 这两个注释是在描述MIME类型。`multipart/form-data`通常用于通过HTTP发送表单数据，如文件上传。`multipart/mixed`则用于包含多个部分的混合内容，每个部分可以是不同的MIME类型，常用于邮件或API请求中包含多种类型的附件或数据。 md5:5f5a1e86722f47ec
-			if err = r.ParseMultipartForm(r.Server.config.FormParsingMemory); err != nil {
-				panic(gerror.WrapCode(gcode.CodeInvalidRequest, err, "r.ParseMultipartForm failed"))
+			if err = r.ParseMultipartForm(r.X服务.config.FormParsingMemory); err != nil {
+				panic(gerror.X多层错误码(gcode.CodeInvalidRequest, err, "r.ParseMultipartForm failed"))
 			}
-		} else if gstr.Contains(contentType, "form") {
+		} else if gstr.X是否包含(contentType, "form") {
 									// 应用程序/x-www-form-urlencoded. md5:6de553b2a7019beb
 			if err = r.Request.ParseForm(); err != nil {
-				panic(gerror.WrapCode(gcode.CodeInvalidRequest, err, "r.Request.ParseForm failed"))
+				panic(gerror.X多层错误码(gcode.CodeInvalidRequest, err, "r.Request.ParseForm failed"))
 			}
 		}
 		if repeatableRead {
@@ -306,9 +306,9 @@ func (r *Request) parseForm() {
 				// 非法的参数名称。
 				// 只允许使用以下字符：`\w`，`[`，`]`，`-`。
 				// md5:72a7ff7f2d38a973
-				if !gregex.IsMatchString(`^[\w\-\[\]]+$`, name) && len(r.PostForm) == 1 {
+				if !gregex.X是否匹配文本(`^[\w\-\[\]]+$`, name) && len(r.PostForm) == 1 {
 										// 它可能是JSON或XML内容。 md5:105b844bbc2857c0
-					if s := gstr.Trim(name + strings.Join(values, " ")); len(s) > 0 {
+					if s := gstr.X过滤首尾符并含空白(name + strings.Join(values, " ")); len(s) > 0 {
 						if s[0] == '{' && s[len(s)-1] == '}' || s[0] == '<' && s[len(s)-1] == '>' {
 							r.bodyContent = []byte(s)
 							params = ""
@@ -320,7 +320,7 @@ func (r *Request) parseForm() {
 					if len(params) > 0 {
 						params += "&"
 					}
-					params += name + "=" + gurl.Encode(values[0])
+					params += name + "=" + gurl.X编码(values[0])
 				} else {
 					if len(name) > 2 && name[len(name)-2:] == "[]" {
 						name = name[:len(name)-2]
@@ -328,19 +328,19 @@ func (r *Request) parseForm() {
 							if len(params) > 0 {
 								params += "&"
 							}
-							params += name + "[]=" + gurl.Encode(v)
+							params += name + "[]=" + gurl.X编码(v)
 						}
 					} else {
 						if len(params) > 0 {
 							params += "&"
 						}
-						params += name + "=" + gurl.Encode(values[len(values)-1])
+						params += name + "=" + gurl.X编码(values[len(values)-1])
 					}
 				}
 			}
 			if params != "" {
-				if r.formMap, err = gstr.Parse(params); err != nil {
-					panic(gerror.WrapCode(gcode.CodeInvalidParameter, err, "Parse request parameters failed"))
+				if r.formMap, err = gstr.X参数解析(params); err != nil {
+					panic(gerror.X多层错误码(gcode.CodeInvalidParameter, err, "Parse request parameters failed"))
 				}
 			}
 		}
@@ -356,25 +356,25 @@ func (r *Request) parseForm() {
 	}
 }
 
-// GetMultipartForm 解析并返回表单为多部分形式。 md5:c80c641ed3887bea
-func (r *Request) GetMultipartForm() *multipart.Form {
+// X取multipart表单对象 解析并返回表单为多部分形式。 md5:c80c641ed3887bea
+func (r *Request) X取multipart表单对象() *multipart.Form {
 	r.parseForm()
 	return r.MultipartForm
 }
 
-// GetMultipartFiles 解析并返回表单中的文件数组。
+// X取multipart表单文件切片对象 解析并返回表单中的文件数组。
 // 请注意，请求表单的类型应该是multipart。
 // md5:33503fc76a60c149
-func (r *Request) GetMultipartFiles(name string) []*multipart.FileHeader {
-	form := r.GetMultipartForm()
+func (r *Request) X取multipart表单文件切片对象(名称 string) []*multipart.FileHeader {
+	form := r.X取multipart表单对象()
 	if form == nil {
 		return nil
 	}
-	if v := form.File[name]; len(v) > 0 {
+	if v := form.File[名称]; len(v) > 0 {
 		return v
 	}
 		// 支持" name[]"作为数组参数。 md5:f1460d96fee37609
-	if v := form.File[name+"[]"]; len(v) > 0 {
+	if v := form.File[名称+"[]"]; len(v) > 0 {
 		return v
 	}
 		// 支持将"name[0]","name[1]","name[2]"等作为数组参数使用。 md5:a9545b3b88169505
@@ -383,7 +383,7 @@ func (r *Request) GetMultipartFiles(name string) []*multipart.FileHeader {
 		files = make([]*multipart.FileHeader, 0)
 	)
 	for i := 0; ; i++ {
-		key = fmt.Sprintf(`%s[%d]`, name, i)
+		key = fmt.Sprintf(`%s[%d]`, 名称, i)
 		if v := form.File[key]; len(v) > 0 {
 			files = append(files, v[0])
 		} else {

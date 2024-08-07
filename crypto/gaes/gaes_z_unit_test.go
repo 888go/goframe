@@ -7,23 +7,23 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gaes_test
+package 加密aes类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/crypto/gaes"
-	"github.com/gogf/gf/v2/encoding/gbase64"
-	"github.com/gogf/gf/v2/test/gtest"
+	gaes "github.com/888go/goframe/crypto/gaes"
+	gbase64 "github.com/888go/goframe/encoding/gbase64"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (
 	content          = []byte("pibigstar")
-	content_16, _    = gbase64.DecodeString("v1jqsGHId/H8onlVHR8Vaw==")
-	content_24, _    = gbase64.DecodeString("0TXOaj5KMoLhNWmJ3lxY1A==")
-	content_32, _    = gbase64.DecodeString("qM/Waw1kkWhrwzek24rCSA==")
-	content_16_iv, _ = gbase64.DecodeString("DqQUXiHgW/XFb6Qs98+hrA==")
-	content_32_iv, _ = gbase64.DecodeString("ZuLgAOii+lrD5KJoQ7yQ8Q==")
+	content_16, _    = gbase64.X文本解码到字节集("v1jqsGHId/H8onlVHR8Vaw==")
+	content_24, _    = gbase64.X文本解码到字节集("0TXOaj5KMoLhNWmJ3lxY1A==")
+	content_32, _    = gbase64.X文本解码到字节集("qM/Waw1kkWhrwzek24rCSA==")
+	content_16_iv, _ = gbase64.X文本解码到字节集("DqQUXiHgW/XFb6Qs98+hrA==")
+	content_32_iv, _ = gbase64.X文本解码到字节集("ZuLgAOii+lrD5KJoQ7yQ8Q==")
 	// iv 长度必须等于blockSize，只能为16
 	iv         = []byte("Hello My GoFrame")
 	key_16     = []byte("1234567891234567")
@@ -36,24 +36,24 @@ var (
 
 	// cfb模式blockSize补位长度, add by zseeker
 	padding_size      = 16 - len(content)
-	content_16_cfb, _ = gbase64.DecodeString("oSmget3aBDT1nJnBp8u6kA==")
+	content_16_cfb, _ = gbase64.X文本解码到字节集("oSmget3aBDT1nJnBp8u6kA==")
 )
 
 func TestEncrypt(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		data, err := gaes.Encrypt(content, key_16)
+		data, err := gaes.Encrypt别名(content, key_16)
 		t.AssertNil(err)
 		t.Assert(data, []byte(content_16))
-		data, err = gaes.Encrypt(content, key_24)
+		data, err = gaes.Encrypt别名(content, key_24)
 		t.AssertNil(err)
 		t.Assert(data, []byte(content_24))
-		data, err = gaes.Encrypt(content, key_32)
+		data, err = gaes.Encrypt别名(content, key_32)
 		t.AssertNil(err)
 		t.Assert(data, []byte(content_32))
-		data, err = gaes.Encrypt(content, key_16, iv)
+		data, err = gaes.Encrypt别名(content, key_16, iv)
 		t.AssertNil(err)
 		t.Assert(data, []byte(content_16_iv))
-		data, err = gaes.Encrypt(content, key_32, iv)
+		data, err = gaes.Encrypt别名(content, key_32, iv)
 		t.AssertNil(err)
 		t.Assert(data, []byte(content_32_iv))
 	})
@@ -61,27 +61,27 @@ func TestEncrypt(t *testing.T) {
 
 func TestDecrypt(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		decrypt, err := gaes.Decrypt([]byte(content_16), key_16)
+		decrypt, err := gaes.Decrypt别名([]byte(content_16), key_16)
 		t.AssertNil(err)
 		t.Assert(decrypt, content)
 
-		decrypt, err = gaes.Decrypt([]byte(content_24), key_24)
+		decrypt, err = gaes.Decrypt别名([]byte(content_24), key_24)
 		t.AssertNil(err)
 		t.Assert(decrypt, content)
 
-		decrypt, err = gaes.Decrypt([]byte(content_32), key_32)
+		decrypt, err = gaes.Decrypt别名([]byte(content_32), key_32)
 		t.AssertNil(err)
 		t.Assert(decrypt, content)
 
-		decrypt, err = gaes.Decrypt([]byte(content_16_iv), key_16, iv)
+		decrypt, err = gaes.Decrypt别名([]byte(content_16_iv), key_16, iv)
 		t.AssertNil(err)
 		t.Assert(decrypt, content)
 
-		decrypt, err = gaes.Decrypt([]byte(content_32_iv), key_32, iv)
+		decrypt, err = gaes.Decrypt别名([]byte(content_32_iv), key_32, iv)
 		t.AssertNil(err)
 		t.Assert(decrypt, content)
 
-		decrypt, err = gaes.Decrypt([]byte(content_32_iv), keys, iv)
+		decrypt, err = gaes.Decrypt别名([]byte(content_32_iv), keys, iv)
 		t.Assert(err, "invalid unpadding")
 	})
 }
@@ -89,7 +89,7 @@ func TestDecrypt(t *testing.T) {
 func TestEncryptErr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// encrypt key error
-		_, err := gaes.Encrypt(content, key_err)
+		_, err := gaes.Encrypt别名(content, key_err)
 		t.AssertNE(err, nil)
 	})
 }
@@ -97,16 +97,16 @@ func TestEncryptErr(t *testing.T) {
 func TestDecryptErr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// decrypt key error
-		encrypt, err := gaes.Encrypt(content, key_16)
-		_, err = gaes.Decrypt(encrypt, key_err)
+		encrypt, err := gaes.Encrypt别名(content, key_16)
+		_, err = gaes.Decrypt别名(encrypt, key_err)
 		t.AssertNE(err, nil)
 
 						// 解密内容太短错误. md5:0bbefd69d48c111f
-		_, err = gaes.Decrypt([]byte("test"), key_16)
+		_, err = gaes.Decrypt别名([]byte("test"), key_16)
 		t.AssertNE(err, nil)
 
 						// 解密内容大小错误. md5:cead331e0ddda784
-		_, err = gaes.Decrypt(key_17, key_16)
+		_, err = gaes.Decrypt别名(key_17, key_16)
 		t.AssertNE(err, nil)
 	})
 }
@@ -152,7 +152,7 @@ func TestPKCS5UnPaddingErr(t *testing.T) {
 func TestEncryptCFB(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var padding int = 0
-		data, err := gaes.EncryptCFB(content, key_16, &padding, iv)
+		data, err := gaes.X加密CFB(content, key_16, &padding, iv)
 		t.AssertNil(err)
 		t.Assert(padding, padding_size)
 		t.Assert(data, []byte(content_16_cfb))
@@ -161,7 +161,7 @@ func TestEncryptCFB(t *testing.T) {
 
 func TestDecryptCFB(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		decrypt, err := gaes.DecryptCFB([]byte(content_16_cfb), key_16, padding_size, iv)
+		decrypt, err := gaes.X解密CFB([]byte(content_16_cfb), key_16, padding_size, iv)
 		t.AssertNil(err)
 		t.Assert(decrypt, content)
 	})

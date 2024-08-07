@@ -8,9 +8,9 @@
 package goai
 
 import (
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // 参数由 OpenAPI/Swagger 3.0 标准定义。
@@ -36,7 +36,7 @@ type Parameter struct {
 func (oai *OpenApiV3) tagMapToParameter(tagMap map[string]string, parameter *Parameter) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
 	if err := gconv.Struct(mergedTagMap, parameter); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Parameter failed`)
+		return gerror.X多层错误(err, `mapping struct tags to Parameter failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, parameter.XExtensions)
 	return nil

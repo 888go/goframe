@@ -7,7 +7,7 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gutil
+package 工具类
 
 import (
 	"context"
@@ -26,7 +26,7 @@ var (
 func Benchmark_TryCatch(b *testing.B) {
 	ctx := context.TODO()
 	for i := 0; i < b.N; i++ {
-		TryCatch(ctx, func(ctx context.Context) {
+		X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 
 		}, func(ctx context.Context, err error) {
 

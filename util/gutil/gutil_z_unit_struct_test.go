@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil_test
+package 工具类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_StructToSlice(t *testing.T) {
@@ -25,15 +25,15 @@ func Test_StructToSlice(t *testing.T) {
 			K1: 1,
 			K2: "v2",
 		}
-		s := gutil.StructToSlice(a)
+		s := gutil.X结构体到切片(a)
 		t.Assert(len(s), 4)
-		t.AssertIN(s[0], g.Slice{"K1", "K2", 1, "v2"})
-		t.AssertIN(s[1], g.Slice{"K1", "K2", 1, "v2"})
-		t.AssertIN(s[2], g.Slice{"K1", "K2", 1, "v2"})
-		t.AssertIN(s[3], g.Slice{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[0], g.Slice别名{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[1], g.Slice别名{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[2], g.Slice别名{"K1", "K2", 1, "v2"})
+		t.AssertIN(s[3], g.Slice别名{"K1", "K2", 1, "v2"})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		s := gutil.StructToSlice(1)
+		s := gutil.X结构体到切片(1)
 		t.Assert(s, nil)
 	})
 }

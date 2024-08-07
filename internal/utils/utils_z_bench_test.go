@@ -11,7 +11,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/internal/utils"
 )
 
 var (

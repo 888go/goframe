@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gsession
+package session类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
+	gmap "github.com/888go/goframe/container/gmap"
 )
 
 // StorageBase是会话存储的基本实现。 md5:9a65ccca10de1608
@@ -41,10 +41,10 @@ func (s *StorageBase) GetSize(ctx context.Context, sessionId string) (size int, 
 	return 0, ErrorDisabled
 }
 
-// Set 将键值对设置到存储中。
+// X设置值 将键值对设置到存储中。
 // 参数 `ttl` 指定了会话 ID 的过期时间（而不是键值对）。
 // md5:561e667e69e855f6
-func (s *StorageBase) Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
+func (s *StorageBase) X设置值(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
 	return ErrorDisabled
 }
 

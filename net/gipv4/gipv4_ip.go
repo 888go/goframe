@@ -5,21 +5,21 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gipv4
+package ipv4类
 
 import (
 	"net"
 	"strconv"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // GetIpArray 获取并返回当前主机的所有IP地址。 md5:6828d92b1a684cd2
 func GetIpArray() (ips []string, err error) {
 	interfaceAddr, err := net.InterfaceAddrs()
 	if err != nil {
-		err = gerror.Wrap(err, `net.InterfaceAddrs failed`)
+		err = gerror.X多层错误(err, `net.InterfaceAddrs failed`)
 		return nil, err
 	}
 	for _, address := range interfaceAddr {
@@ -49,7 +49,7 @@ func GetIntranetIp() (ip string, err error) {
 		return "", err
 	}
 	if len(ips) == 0 {
-		return "", gerror.New("no intranet ip found")
+		return "", gerror.X创建("no intranet ip found")
 	}
 	return ips[0], nil
 }
@@ -62,7 +62,7 @@ func GetIntranetIpArray() (ips []string, err error) {
 	)
 	interFaces, err = net.Interfaces()
 	if err != nil {
-		err = gerror.Wrap(err, `net.Interfaces failed`)
+		err = gerror.X多层错误(err, `net.Interfaces failed`)
 		return ips, err
 	}
 	for _, interFace := range interFaces {
@@ -80,7 +80,7 @@ func GetIntranetIpArray() (ips []string, err error) {
 		}
 		addresses, err = interFace.Addrs()
 		if err != nil {
-			err = gerror.Wrap(err, `interFace.Addrs failed`)
+			err = gerror.X多层错误(err, `interFace.Addrs failed`)
 			return ips, err
 		}
 		for _, addr := range addresses {

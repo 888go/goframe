@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RulePostcode 实现了 `postcode` 规则：
@@ -33,7 +33,7 @@ func (r RulePostcode) Message() string {
 }
 
 func (r RulePostcode) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := gregex.X是否匹配文本(
 		`^\d{6}$`,
 		in.Value.String(),
 	)

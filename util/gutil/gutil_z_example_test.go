@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil_test
+package 工具类_test
 
 import (
 	"fmt"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/frame/g"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func ExampleSliceInsertBefore() {
-	s1 := g.Slice{
+	s1 := g.Slice别名{
 		0, 1, 2, 3, 4,
 	}
 	s2 := gutil.SliceInsertBefore(s1, 1, 8, 9)
@@ -27,7 +27,7 @@ func ExampleSliceInsertBefore() {
 }
 
 func ExampleSliceInsertAfter() {
-	s1 := g.Slice{
+	s1 := g.Slice别名{
 		0, 1, 2, 3, 4,
 	}
 	s2 := gutil.SliceInsertAfter(s1, 1, 8, 9)

@@ -14,7 +14,7 @@
 package oracle
 
 import (
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
 // Driver 是用于 Oracle 数据库的驱动程序。 md5:dc4dd4c6d7cda96f
@@ -27,7 +27,7 @@ const (
 )
 
 func init() {
-	if err := gdb.Register(`oracle`, New()); err != nil {
+	if err := gdb.X注册驱动(`oracle`, New()); err != nil {
 		panic(err)
 	}
 }
@@ -45,7 +45,7 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	}, nil
 }
 
-// GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
-func (d *Driver) GetChars() (charLeft string, charRight string) {
+// X底层取数据库安全字符 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
+func (d *Driver) X底层取数据库安全字符() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

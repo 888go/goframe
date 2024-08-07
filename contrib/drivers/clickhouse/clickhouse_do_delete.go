@@ -11,11 +11,11 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
-// DoDelete 为表执行 "DELETE FROM ... " 语句。 md5:48e885baa804ab97
-func (d *Driver) DoDelete(ctx context.Context, link gdb.Link, table string, condition string, args ...interface{}) (result sql.Result, err error) {
+// X底层删除 为表执行 "DELETE FROM ... " 语句。 md5:48e885baa804ab97
+func (d *Driver) X底层删除(ctx context.Context, link gdb.Link, table string, condition string, args ...interface{}) (result sql.Result, err error) {
 	ctx = d.injectNeedParsedSql(ctx)
-	return d.Core.DoDelete(ctx, link, table, condition, args...)
+	return d.Core.X底层删除(ctx, link, table, condition, args...)
 }

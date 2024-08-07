@@ -7,12 +7,12 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gring_test
+package 循环链表类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gring"
+	gring "github.com/888go/goframe/container/gring"
 )
 
 var length = 10000
@@ -43,7 +43,7 @@ func BenchmarkRing_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			ringObject.Set(i)
+			ringObject.X设置值(i)
 			i++
 		}
 	})

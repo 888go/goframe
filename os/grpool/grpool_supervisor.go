@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package grpool
+package 协程类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/os/gtimer"
+	gtimer "github.com/888go/goframe/os/gtimer"
 )
 
 // supervisor 检查工作列表，如果工作列表中有任务但工作池中没有工人goroutine，就 fork 新的工人goroutine来处理任务。
 // md5:02b61e26a9994363
 func (p *Pool) supervisor(_ context.Context) {
 	if p.IsClosed() {
-		gtimer.Exit()
+		gtimer.X退出()
 	}
-	if p.list.Size() > 0 && p.count.Val() == 0 {
+	if p.list.Size() > 0 && p.count.X取值() == 0 {
 		var number = p.list.Size()
 		if p.limit > 0 {
 			number = p.limit

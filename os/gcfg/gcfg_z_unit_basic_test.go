@@ -7,17 +7,17 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gcfg_test
+package 配置类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	genv "github.com/888go/goframe/os/genv"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Basic1(t *testing.T) {
@@ -33,17 +33,17 @@ array = [1,2,3]
 `
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			path = gcfg.DefaultConfigFileName
-			err  = gfile.PutContents(path, config)
+			path = gcfg.X默认配置文件名称
+			err  = gfile.X写入文本(path, config)
 		)
 		t.AssertNil(err)
-		defer gfile.Remove(path)
+		defer gfile.X删除(path)
 
-		c, err := gcfg.New()
+		c, err := gcfg.X创建()
 		t.AssertNil(err)
-		t.Assert(c.MustGet(ctx, "v1"), 1)
-		filepath, _ := c.GetAdapter().(*gcfg.AdapterFile).GetFilePath()
-		t.AssertEQ(filepath, gfile.Pwd()+gfile.Separator+path)
+		t.Assert(c.X取值PANI(ctx, "v1"), 1)
+		filepath, _ := c.X取适配器().(*gcfg.AdapterFile).GetFilePath()
+		t.AssertEQ(filepath, gfile.X取当前工作目录()+gfile.Separator+path)
 	})
 }
 
@@ -51,17 +51,17 @@ func Test_Basic2(t *testing.T) {
 	config := `log-path = "logs"`
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			path = gcfg.DefaultConfigFileName
-			err  = gfile.PutContents(path, config)
+			path = gcfg.X默认配置文件名称
+			err  = gfile.X写入文本(path, config)
 		)
 		t.AssertNil(err)
 		defer func() {
-			_ = gfile.Remove(path)
+			_ = gfile.X删除(path)
 		}()
 
-		c, err := gcfg.New()
+		c, err := gcfg.X创建()
 		t.AssertNil(err)
-		t.Assert(c.MustGet(ctx, "log-path"), "logs")
+		t.Assert(c.X取值PANI(ctx, "log-path"), "logs")
 	})
 }
 
@@ -77,11 +77,11 @@ array = [1,2,3]
     cache = "127.0.0.1:6379,1"
 `
 	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.New()
+		c, err := gcfg.X创建()
 		t.AssertNil(err)
-		c.GetAdapter().(*gcfg.AdapterFile).SetContent(content)
-		defer c.GetAdapter().(*gcfg.AdapterFile).ClearContent()
-		t.Assert(c.MustGet(ctx, "v1"), 1)
+		c.X取适配器().(*gcfg.AdapterFile).SetContent(content)
+		defer c.X取适配器().(*gcfg.AdapterFile).ClearContent()
+		t.Assert(c.X取值PANI(ctx, "v1"), 1)
 	})
 }
 
@@ -105,74 +105,74 @@ func Test_SetFileName(t *testing.T) {
 `
 	gtest.C(t, func(t *gtest.T) {
 		path := "config.json"
-		err := gfile.PutContents(path, config)
+		err := gfile.X写入文本(path, config)
 		t.AssertNil(err)
 		defer func() {
-			_ = gfile.Remove(path)
+			_ = gfile.X删除(path)
 		}()
 
-		config, err := gcfg.New()
+		config, err := gcfg.X创建()
 		t.AssertNil(err)
-		c := config.GetAdapter().(*gcfg.AdapterFile)
+		c := config.X取适配器().(*gcfg.AdapterFile)
 		c.SetFileName(path)
 		t.Assert(c.MustGet(ctx, "v1"), 1)
-		t.AssertEQ(c.MustGet(ctx, "v1").Int(), 1)
-		t.AssertEQ(c.MustGet(ctx, "v1").Int8(), int8(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Int16(), int16(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Int32(), int32(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Int64(), int64(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Uint(), uint(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Uint8(), uint8(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Uint16(), uint16(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Uint32(), uint32(1))
-		t.AssertEQ(c.MustGet(ctx, "v1").Uint64(), uint64(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取整数(), 1)
+		t.AssertEQ(c.MustGet(ctx, "v1").X取整数8位(), int8(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取整数16位(), int16(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取整数32位(), int32(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取整数64位(), int64(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取正整数(), uint(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取正整数8位(), uint8(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取正整数16位(), uint16(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取正整数32位(), uint32(1))
+		t.AssertEQ(c.MustGet(ctx, "v1").X取正整数64位(), uint64(1))
 
 		t.AssertEQ(c.MustGet(ctx, "v1").String(), "1")
-		t.AssertEQ(c.MustGet(ctx, "v1").Bool(), true)
+		t.AssertEQ(c.MustGet(ctx, "v1").X取布尔(), true)
 		t.AssertEQ(c.MustGet(ctx, "v2").String(), "true")
-		t.AssertEQ(c.MustGet(ctx, "v2").Bool(), true)
+		t.AssertEQ(c.MustGet(ctx, "v2").X取布尔(), true)
 
 		t.AssertEQ(c.MustGet(ctx, "v1").String(), "1")
-		t.AssertEQ(c.MustGet(ctx, "v4").Float32(), float32(1.234))
-		t.AssertEQ(c.MustGet(ctx, "v4").Float64(), float64(1.234))
+		t.AssertEQ(c.MustGet(ctx, "v4").X取小数32位(), float32(1.234))
+		t.AssertEQ(c.MustGet(ctx, "v4").X取小数64位(), float64(1.234))
 		t.AssertEQ(c.MustGet(ctx, "v2").String(), "true")
-		t.AssertEQ(c.MustGet(ctx, "v2").Bool(), true)
-		t.AssertEQ(c.MustGet(ctx, "v3").Bool(), false)
+		t.AssertEQ(c.MustGet(ctx, "v2").X取布尔(), true)
+		t.AssertEQ(c.MustGet(ctx, "v3").X取布尔(), false)
 
-		t.AssertEQ(c.MustGet(ctx, "array").Ints(), []int{1, 2, 3})
-		t.AssertEQ(c.MustGet(ctx, "array").Strings(), []string{"1", "2", "3"})
-		t.AssertEQ(c.MustGet(ctx, "array").Interfaces(), []interface{}{1, 2, 3})
-		t.AssertEQ(c.MustGet(ctx, "redis").Map(), map[string]interface{}{
+		t.AssertEQ(c.MustGet(ctx, "array").X取整数切片(), []int{1, 2, 3})
+		t.AssertEQ(c.MustGet(ctx, "array").X取文本切片(), []string{"1", "2", "3"})
+		t.AssertEQ(c.MustGet(ctx, "array").X取any切片(), []interface{}{1, 2, 3})
+		t.AssertEQ(c.MustGet(ctx, "redis").X取Map(), map[string]interface{}{
 			"disk":  "127.0.0.1:6379,0",
 			"cache": "127.0.0.1:6379,1",
 		})
 		filepath, _ := c.GetFilePath()
-		t.AssertEQ(filepath, gfile.Pwd()+gfile.Separator+path)
+		t.AssertEQ(filepath, gfile.X取当前工作目录()+gfile.Separator+path)
 	})
 }
 
 func TestCfg_Get_WrongConfigFile(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var err error
-		configPath := gfile.Temp(gtime.TimestampNanoStr())
-		err = gfile.Mkdir(configPath)
+		configPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+		err = gfile.X创建目录(configPath)
 		t.AssertNil(err)
-		defer gfile.Remove(configPath)
+		defer gfile.X删除(configPath)
 
-		defer gfile.Chdir(gfile.Pwd())
-		err = gfile.Chdir(configPath)
+		defer gfile.X设置当前工作目录(gfile.X取当前工作目录())
+		err = gfile.X设置当前工作目录(configPath)
 		t.AssertNil(err)
 
-		err = gfile.PutContents(
-			gfile.Join(configPath, "config.yml"),
+		err = gfile.X写入文本(
+			gfile.X路径生成(configPath, "config.yml"),
 			"wrong config",
 		)
 		t.AssertNil(err)
 		adapterFile, err := gcfg.NewAdapterFile("config.yml")
 		t.AssertNil(err)
 
-		c := gcfg.NewWithAdapter(adapterFile)
-		v, err := c.Get(ctx, "name")
+		c := gcfg.X创建并按适配器(adapterFile)
+		v, err := c.X取值(ctx, "name")
 		t.AssertNE(err, nil)
 		t.Assert(v, nil)
 		adapterFile.Clear()
@@ -191,15 +191,15 @@ array = [1,2,3]
     cache = "127.0.0.1:6379,1"
 `
 	gtest.C(t, func(t *gtest.T) {
-		c, err := gcfg.New()
+		c, err := gcfg.X创建()
 		t.AssertNil(err)
-		c.GetAdapter().(*gcfg.AdapterFile).SetContent(content)
-		defer c.GetAdapter().(*gcfg.AdapterFile).ClearContent()
-		t.Assert(c.MustGet(ctx, "v1"), 1)
-		t.Assert(c.MustGetWithEnv(ctx, `redis.user`), nil)
-		t.Assert(genv.Set("REDIS_USER", `1`), nil)
-		defer genv.Remove(`REDIS_USER`)
-		t.Assert(c.MustGetWithEnv(ctx, `redis.user`), `1`)
+		c.X取适配器().(*gcfg.AdapterFile).SetContent(content)
+		defer c.X取适配器().(*gcfg.AdapterFile).ClearContent()
+		t.Assert(c.X取值PANI(ctx, "v1"), 1)
+		t.Assert(c.X取值并从环境变量PANI(ctx, `redis.user`), nil)
+		t.Assert(genv.X设置值("REDIS_USER", `1`), nil)
+		defer genv.X删除(`REDIS_USER`)
+		t.Assert(c.X取值并从环境变量PANI(ctx, `redis.user`), `1`)
 	})
 }
 
@@ -216,14 +216,14 @@ array = [1,2,3]
 `
 	gtest.C(t, func(t *gtest.T) {
 
-		c, err := gcfg.New()
+		c, err := gcfg.X创建()
 		t.AssertNil(err)
-		c.GetAdapter().(*gcfg.AdapterFile).SetContent(content)
-		defer c.GetAdapter().(*gcfg.AdapterFile).ClearContent()
-		t.Assert(c.MustGet(ctx, "v1"), 1)
-		t.Assert(c.MustGetWithCmd(ctx, `redis.user`), nil)
+		c.X取适配器().(*gcfg.AdapterFile).SetContent(content)
+		defer c.X取适配器().(*gcfg.AdapterFile).ClearContent()
+		t.Assert(c.X取值PANI(ctx, "v1"), 1)
+		t.Assert(c.X取值并从启动命令PANI_有bug(ctx, `redis.user`), nil)
 
 		gcmd.Init([]string{"gf", "--redis.user=2"}...)
-		t.Assert(c.MustGetWithCmd(ctx, `redis.user`), `2`)
+		t.Assert(c.X取值并从启动命令PANI_有bug(ctx, `redis.user`), `2`)
 	})
 }

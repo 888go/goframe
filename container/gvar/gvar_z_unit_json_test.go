@@ -5,22 +5,22 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"math"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestVar_Json(t *testing.T) {
 	// Marshal
 	gtest.C(t, func(t *gtest.T) {
 		s := "i love gf"
-		v := gvar.New(s)
+		v := gvar.X创建(s)
 		b1, err1 := json.Marshal(v)
 		b2, err2 := json.Marshal(s)
 		t.Assert(err1, err2)
@@ -29,7 +29,7 @@ func TestVar_Json(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		s := int64(math.MaxInt64)
-		v := gvar.New(s)
+		v := gvar.X创建(s)
 		b1, err1 := json.Marshal(v)
 		b2, err2 := json.Marshal(s)
 		t.Assert(err1, err2)
@@ -39,7 +39,7 @@ func TestVar_Json(t *testing.T) {
 	// Unmarshal
 	gtest.C(t, func(t *gtest.T) {
 		s := "i love gf"
-		v := gvar.New(nil)
+		v := gvar.X创建(nil)
 		b, err := json.Marshal(s)
 		t.AssertNil(err)
 

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"bytes"
@@ -16,21 +16,21 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gtag"
-	"github.com/gogf/gf/v2/util/gutil"
+	garray "github.com/888go/goframe/container/garray"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/os/gstructs"
+	gtime "github.com/888go/goframe/os/gtime"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/888go/goframe/util/gtag"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // iString 是用于字符串的类型断言接口。 md5:a51d442c33ac2cf4
@@ -40,17 +40,17 @@ type iString interface {
 
 // iIterator是Iterator的类型断言API。 md5:9e146fc0e640273e
 type iIterator interface {
-	Iterator(f func(key, value interface{}) bool)
+	X遍历(f func(key, value interface{}) bool)
 }
 
 // iInterfaces是Interfaces类型的断言API。 md5:843230a1ccff49f5
 type iInterfaces interface {
-	Interfaces() []interface{}
+	X取any切片() []interface{}
 }
 
 // iNil 用于类型断言接口以检查是否为Nil。 md5:49ddfde26b501402
 type iNil interface {
-	IsNil() bool
+	X是否为Nil() bool
 }
 
 // iTableName 是用于获取结构体对应表名的接口。 md5:f3583f3a54701536
@@ -75,56 +75,56 @@ var (
 	structTagPriority = append([]string{OrmTagForStruct}, gtag.StructTagPriority...)
 )
 
-// WithDB 将给定的db对象注入到context中并返回一个新的context。 md5:e414408e96157a02
-func WithDB(ctx context.Context, db DB) context.Context {
-	if db == nil {
-		return ctx
+// X底层WithDB 将给定的db对象注入到context中并返回一个新的context。 md5:e414408e96157a02
+func X底层WithDB(上下文 context.Context, DB对象 DB) context.Context {
+	if DB对象 == nil {
+		return 上下文
 	}
-	dbCtx := db.GetCtx()
-	if ctxDb := DBFromCtx(dbCtx); ctxDb != nil {
+	dbCtx := DB对象.X取上下文对象()
+	if ctxDb := X上下文取DB对象(dbCtx); ctxDb != nil {
 		return dbCtx
 	}
-	ctx = context.WithValue(ctx, ctxKeyForDB, db)
-	return ctx
+	上下文 = context.WithValue(上下文, ctxKeyForDB, DB对象)
+	return 上下文
 }
 
-// DBFromCtx 从上下文中获取并返回DB对象。 md5:90c01e951db89218
-func DBFromCtx(ctx context.Context) DB {
-	if ctx == nil {
+// X上下文取DB对象 从上下文中获取并返回DB对象。 md5:90c01e951db89218
+func X上下文取DB对象(上下文 context.Context) DB {
+	if 上下文 == nil {
 		return nil
 	}
-	v := ctx.Value(ctxKeyForDB)
+	v := 上下文.Value(ctxKeyForDB)
 	if v != nil {
 		return v.(DB)
 	}
 	return nil
 }
 
-// ToSQL 将给定闭包函数中的最后一个 SQL 语句格式化并返回，但并不会真正执行。
+// X捕捉最后一条SQL语句 将给定闭包函数中的最后一个 SQL 语句格式化并返回，但并不会真正执行。
 // 注意，所有后续的 SQL 语句都应该使用由函数 `f` 传递的上下文对象。
 // md5:3fe82285d68728a0
-func ToSQL(ctx context.Context, f func(ctx context.Context) error) (sql string, err error) {
+func X捕捉最后一条SQL语句(上下文 context.Context, 回调函数 func(上下文 context.Context) error) (sql string, 错误 error) {
 	var manager = &CatchSQLManager{
-		SQLArray: garray.NewStrArray(),
+		SQLArray: garray.X创建文本(),
 		DoCommit: false,
 	}
-	ctx = context.WithValue(ctx, ctxKeyCatchSQL, manager)
-	err = f(ctx)
-	sql, _ = manager.SQLArray.PopRight()
+	上下文 = context.WithValue(上下文, ctxKeyCatchSQL, manager)
+	错误 = 回调函数(上下文)
+	sql, _ = manager.SQLArray.X出栈右()
 	return
 }
 
-// CatchSQL捕获并返回在给定闭包函数中执行的所有SQL语句。
+// X捕捉SQL语句捕获并返回在给定闭包函数中执行的所有SQL语句。
 // 注意，所有以下SQL语句都应使用由`f`函数传递的context对象。
 // md5:1088111f1248173d
-func CatchSQL(ctx context.Context, f func(ctx context.Context) error) (sqlArray []string, err error) {
+func X捕捉SQL语句(上下文 context.Context, 回调函数 func(上下文 context.Context) error) (sql切片 []string, 错误 error) {
 	var manager = &CatchSQLManager{
-		SQLArray: garray.NewStrArray(),
+		SQLArray: garray.X创建文本(),
 		DoCommit: true,
 	}
-	ctx = context.WithValue(ctx, ctxKeyCatchSQL, manager)
-	err = f(ctx)
-	return manager.SQLArray.Slice(), err
+	上下文 = context.WithValue(上下文, ctxKeyCatchSQL, manager)
+	错误 = 回调函数(上下文)
+	return manager.SQLArray.X取切片(), 错误
 }
 
 // isDoStruct 检查并返回给定类型是否为 DO 结构体。 md5:c235f077b3b3fcc5
@@ -133,17 +133,17 @@ func isDoStruct(object interface{}) bool {
 	// TODO: 未来某个时候移除这个兼容性代码。
 	// md5:c8dc9518a3014aca
 	reflectType := reflect.TypeOf(object)
-	if gstr.HasSuffix(reflectType.String(), modelForDaoSuffix) {
+	if gstr.X末尾判断(reflectType.String(), modelForDaoSuffix) {
 		return true
 	}
 		// 它通过结构体元数据检查version中的DO结构。 md5:1651dfa7d2770eb0
-	if ormTag := gmeta.Get(object, OrmTagForStruct); !ormTag.IsEmpty() {
-		match, _ := gregex.MatchString(
+	if ormTag := gmeta.Get(object, OrmTagForStruct); !ormTag.X是否为空() {
+		match, _ := gregex.X匹配文本(
 			fmt.Sprintf(`%s\s*:\s*([^,]+)`, OrmTagForDo),
 			ormTag.String(),
 		)
 		if len(match) > 1 {
-			return gconv.Bool(match[1])
+			return gconv.X取布尔(match[1])
 		}
 	}
 	return false
@@ -158,8 +158,8 @@ func getTableNameFromOrmTag(object interface{}) string {
 	}
 		// User meta data 标签 "orm"。 md5:7269c54b8f9aa97f
 	if tableName == "" {
-		if ormTag := gmeta.Get(object, OrmTagForStruct); !ormTag.IsEmpty() {
-			match, _ := gregex.MatchString(
+		if ormTag := gmeta.Get(object, OrmTagForStruct); !ormTag.X是否为空() {
+			match, _ := gregex.X匹配文本(
 				fmt.Sprintf(`%s\s*:\s*([^,]+)`, OrmTagForTable),
 				ormTag.String(),
 			)
@@ -173,40 +173,40 @@ func getTableNameFromOrmTag(object interface{}) string {
 		if t, err := gstructs.StructType(object); err != nil {
 			panic(err)
 		} else {
-			tableName = gstr.CaseSnakeFirstUpper(
-				gstr.StrEx(t.String(), "."),
+			tableName = gstr.X命名转换到全小写蛇形2(
+				gstr.X取右边(t.String(), "."),
 			)
 		}
 	}
 	return tableName
 }
 
-// ListItemValues 从所有具有键为 `key` 的映射或结构体元素中检索并返回。请注意，参数 `list` 应该是包含映射或结构体元素的切片，否则将返回一个空切片。
+// X取结构体切片或Map切片值 从所有具有键为 `key` 的映射或结构体元素中检索并返回。请注意，参数 `list` 应该是包含映射或结构体元素的切片，否则将返回一个空切片。
 // 
 // 参数 `list` 支持以下类型：
 // []map[string]interface{}
 // []map[string]子映射
 // []struct
 // []struct:子结构体
-// 如果提供了可选参数 `subKey`，子映射/子结构体才有意义。请参阅 gutil.ListItemValues。
+// 如果提供了可选参数 `subKey`，子映射/子结构体才有意义。请参阅 gutil.X取结构体切片或Map切片值。
 // md5:e67327bcbcd82096
-func ListItemValues(list interface{}, key interface{}, subKey ...interface{}) (values []interface{}) {
-	return gutil.ListItemValues(list, key, subKey...)
+func X取结构体切片或Map切片值(结构体切片或Map切片 interface{}, 名称 interface{}, 子名称 ...interface{}) (切片值 []interface{}) {
+	return gutil.ListItemValues(结构体切片或Map切片, 名称, 子名称...)
 }
 
-// ListItemValuesUnique 获取并返回所有结构体/映射中键为`key`的唯一元素。
+// X取结构体切片或Map切片值并去重 获取并返回所有结构体/映射中键为`key`的唯一元素。
 // 注意，参数`list`应为切片类型，且包含的元素为映射或结构体，
 // 否则将返回一个空切片。
-// 参见gutil.ListItemValuesUnique。
+// 参见gutil.X取结构体切片或Map切片值并去重。
 // md5:aa00cb15fafa41ba
-func ListItemValuesUnique(list interface{}, key string, subKey ...interface{}) []interface{} {
-	return gutil.ListItemValuesUnique(list, key, subKey...)
+func X取结构体切片或Map切片值并去重(结构体切片或Map切片 interface{}, 名称 string, 子名称 ...interface{}) []interface{} {
+	return gutil.ListItemValuesUnique(结构体切片或Map切片, 名称, 子名称...)
 }
 
-// GetInsertOperationByOption 根据给定的 `option` 参数返回合适的插入操作选项。 md5:19b87dd1244d55ec
-func GetInsertOperationByOption(option InsertOption) string {
+// X底层GetInsertOperationByOption 根据给定的 `option` 参数返回合适的插入操作选项。 md5:19b87dd1244d55ec
+func X底层GetInsertOperationByOption(选项 InsertOption) string {
 	var operator string
-	switch option {
+	switch 选项 {
 	case InsertOptionReplace:
 		operator = InsertOperationReplace
 	case InsertOptionIgnore:
@@ -218,7 +218,7 @@ func GetInsertOperationByOption(option InsertOption) string {
 }
 
 func anyValueToMapBeforeToRecord(value interface{}) map[string]interface{} {
-	convertedMap := gconv.Map(value, gconv.MapOption{
+	convertedMap := gconv.X取Map(value, gconv.MapOption{
 		Tags:      structTagPriority,
 		OmitEmpty: true, // 为了与从v2.6.0版本兼容。 md5:c3311f248eacbf1e
 	})
@@ -250,12 +250,12 @@ func anyValueToMapBeforeToRecord(value interface{}) map[string]interface{} {
 	return convertedMap
 }
 
-// MapOrStructToMapDeep 递归地将 `value` 转换为映射类型（如果属性结构体被嵌入）。
+// X转换到Map 递归地将 `value` 转换为映射类型（如果属性结构体被嵌入）。
 // 参数 `value` 应该是 *map、map、*struct 或 struct 类型。
 // 它支持结构体中的嵌入式结构体定义。
 // md5:3d9a4c7ad65d9fe1
-func MapOrStructToMapDeep(value interface{}, omitempty bool) map[string]interface{} {
-	m := gconv.Map(value, gconv.MapOption{
+func X转换到Map(待转换值 interface{}, omitempty bool) map[string]interface{} {
+	m := gconv.X取Map(待转换值, gconv.MapOption{
 		Tags:      structTagPriority,
 		OmitEmpty: omitempty,
 	})
@@ -278,34 +278,34 @@ func doQuoteTableName(table, prefix, charLeft, charRight string) string {
 	var (
 		index  int
 		chars  = charLeft + charRight
-		array1 = gstr.SplitAndTrim(table, ",")
+		array1 = gstr.X分割并忽略空值(table, ",")
 	)
 	for k1, v1 := range array1 {
-		array2 := gstr.SplitAndTrim(v1, " ")
+		array2 := gstr.X分割并忽略空值(v1, " ")
 				// 去除安全字符。 md5:13d69b898c5635c6
-		array2[0] = gstr.Trim(array2[0], chars)
+		array2[0] = gstr.X过滤首尾符并含空白(array2[0], chars)
 				// 检查是否具有数据库名称。 md5:8d7ee8b347dfbbac
-		array3 := gstr.Split(gstr.Trim(array2[0]), ".")
+		array3 := gstr.X分割(gstr.X过滤首尾符并含空白(array2[0]), ".")
 		for k, v := range array3 {
-			array3[k] = gstr.Trim(v, chars)
+			array3[k] = gstr.X过滤首尾符并含空白(v, chars)
 		}
 		index = len(array3) - 1
 				// 如果表名已经包含前缀，则跳过添加前缀。 md5:047ee36460a1c519
 		if len(array3[index]) <= len(prefix) || array3[index][:len(prefix)] != prefix {
 			array3[index] = prefix + array3[index]
 		}
-		array2[0] = gstr.Join(array3, ".")
+		array2[0] = gstr.X连接(array3, ".")
 				// 添加安全字符。 md5:b299af34cac147b9
 		array2[0] = doQuoteString(array2[0], charLeft, charRight)
-		array1[k1] = gstr.Join(array2, " ")
+		array1[k1] = gstr.X连接(array2, " ")
 	}
-	return gstr.Join(array1, ",")
+	return gstr.X连接(array1, ",")
 }
 
 // doQuoteWord 检查给定的字符串 `s` 是否为一个单词，如果是，则使用 `charLeft` 和 `charRight` 对其进行引用并返回被引用的字符串；否则原样返回 `s`，不做任何改变。
 // md5:ac0c8a621b951784
 func doQuoteWord(s, charLeft, charRight string) string {
-	if quoteWordReg.MatchString(s) && !gstr.ContainsAny(s, charLeft+charRight) {
+	if quoteWordReg.MatchString(s) && !gstr.X是否包含Any(s, charLeft+charRight) {
 		return charLeft + s + charRight
 	}
 	return s
@@ -323,10 +323,10 @@ func doQuoteWord(s, charLeft, charRight string) string {
 // "u.id asc"                         => "`u`.`id` asc"
 // md5:556d2b4db186afe8
 func doQuoteString(s, charLeft, charRight string) string {
-	array1 := gstr.SplitAndTrim(s, ",")
+	array1 := gstr.X分割并忽略空值(s, ",")
 	for k1, v1 := range array1 {
-		array2 := gstr.SplitAndTrim(v1, " ")
-		array3 := gstr.Split(gstr.Trim(array2[0]), ".")
+		array2 := gstr.X分割并忽略空值(v1, " ")
+		array3 := gstr.X分割(gstr.X过滤首尾符并含空白(array2[0]), ".")
 		if len(array3) == 1 {
 			if strings.EqualFold(array3[0], "NULL") {
 				array3[0] = doQuoteWord(array3[0], "", "")
@@ -341,10 +341,10 @@ func doQuoteString(s, charLeft, charRight string) string {
 			// md5:66df82a8563f168b
 			array3[len(array3)-1] = doQuoteWord(array3[len(array3)-1], charLeft, charRight)
 		}
-		array2[0] = gstr.Join(array3, ".")
-		array1[k1] = gstr.Join(array2, " ")
+		array2[0] = gstr.X连接(array3, ".")
+		array1[k1] = gstr.X连接(array2, " ")
 	}
-	return gstr.Join(array1, ",")
+	return gstr.X连接(array1, ",")
 }
 
 func getFieldsFromStructOrMap(structOrMap interface{}) (fields []string) {
@@ -357,20 +357,20 @@ func getFieldsFromStructOrMap(structOrMap interface{}) (fields []string) {
 		var ormTagValue string
 		for _, structField := range structFields {
 			ormTagValue = structField.Tag(OrmTagForStruct)
-			ormTagValue = gstr.Split(gstr.Trim(ormTagValue), ",")[0]
-			if ormTagValue != "" && gregex.IsMatchString(regularFieldNameRegPattern, ormTagValue) {
+			ormTagValue = gstr.X分割(gstr.X过滤首尾符并含空白(ormTagValue), ",")[0]
+			if ormTagValue != "" && gregex.X是否匹配文本(regularFieldNameRegPattern, ormTagValue) {
 				fields = append(fields, ormTagValue)
 			} else {
 				fields = append(fields, structField.Name())
 			}
 		}
 	} else {
-		fields = gutil.Keys(structOrMap)
+		fields = gutil.X取所有名称(structOrMap)
 	}
 	return
 }
 
-// GetPrimaryKeyCondition 通过主键字段名返回一个新的WHERE条件。可选参数`where`的格式如下：
+// X底层GetPrimaryKeyCondition 通过主键字段名返回一个新的WHERE条件。可选参数`where`的格式如下：
 // 123                            => primary=123
 // []int{1, 2, 3}                  => primary IN(1,2,3)
 // "john"                          => primary='john'
@@ -381,7 +381,7 @@ func getFieldsFromStructOrMap(structOrMap interface{}) (fields []string) {
 //
 // 注意，如果主键为空或者`where`参数长度大于1，它会直接返回给定的`where`参数。
 // md5:748dfa9c0f0d93b5
-func GetPrimaryKeyCondition(primary string, where ...interface{}) (newWhereCondition []interface{}) {
+func X底层GetPrimaryKeyCondition(primary string, where ...interface{}) (newWhereCondition []interface{}) {
 	if len(where) == 0 {
 		return nil
 	}
@@ -438,7 +438,7 @@ func isKeyValueCanBeOmitEmpty(omitEmpty bool, whereType string, key, value inter
 		return gutil.IsEmpty(value)
 
 	default:
-		if gstr.Count(gconv.String(key), "?") == 0 && gutil.IsEmpty(value) {
+		if gstr.X统计次数(gconv.String(key), "?") == 0 && gutil.IsEmpty(value) {
 			return true
 		}
 	}
@@ -453,10 +453,10 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 	)
 	switch reflectInfo.OriginKind {
 	case reflect.Array, reflect.Slice:
-		newArgs = formatWhereInterfaces(db, gconv.Interfaces(in.Where), buffer, newArgs)
+		newArgs = formatWhereInterfaces(db, gconv.X取any切片(in.Where), buffer, newArgs)
 
 	case reflect.Map:
-		for key, value := range MapOrStructToMapDeep(in.Where, true) {
+		for key, value := range X转换到Map(in.Where, true) {
 			if in.OmitNil && empty.IsNil(value) {
 				continue
 			}
@@ -487,7 +487,7 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 		// 它们实现了`iIterator`接口，并且对where条件的索引友好。
 		// md5:d2bd42ea2a41d114
 		if iterator, ok := in.Where.(iIterator); ok {
-			iterator.Iterator(func(key, value interface{}) bool {
+			iterator.X遍历(func(key, value interface{}) bool {
 				ketStr := gconv.String(key)
 				if in.OmitNil && empty.IsNil(value) {
 					return true
@@ -513,11 +513,11 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 		var (
 			reflectType = reflectInfo.OriginValue.Type()
 			structField reflect.StructField
-			data        = MapOrStructToMapDeep(in.Where, true)
+			data        = X转换到Map(in.Where, true)
 		)
 				// 如果提供了`Prefix`，则检查并获取表名。 md5:68af0bee501f583b
 		if in.Prefix != "" {
-			hasTable, _ := db.GetCore().HasTable(in.Prefix)
+			hasTable, _ := db.X取Core对象().X是否存在表名(in.Prefix)
 			if hasTable {
 				in.Table = in.Prefix
 			} else {
@@ -529,7 +529,7 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 		}
 				// 如果提供了`Table`，则对字段进行映射和过滤。 md5:369e7f3da1245a29
 		if in.Table != "" {
-			data, _ = db.GetCore().mappingAndFilterData(ctx, in.Schema, in.Table, data, true)
+			data, _ = db.X取Core对象().mappingAndFilterData(ctx, in.Schema, in.Table, data, true)
 		}
 				// 将结构体属性按顺序放入Where语句中。 md5:e18e7534d834dd8a
 		var ormTagValue string
@@ -537,7 +537,7 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 			structField = reflectType.Field(i)
 						// 如果指定了，使用`orm`标签的值作为字段名。 md5:0e761199d5be562b
 			ormTagValue = structField.Tag.Get(OrmTagForStruct)
-			ormTagValue = gstr.Split(gstr.Trim(ormTagValue), ",")[0]
+			ormTagValue = gstr.X分割(gstr.X过滤首尾符并含空白(ormTagValue), ",")[0]
 			if ormTagValue == "" {
 				ormTagValue = structField.Name
 			}
@@ -574,7 +574,7 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 			return
 		}
 		// Usually a string.
-		whereStr := gstr.Trim(gconv.String(in.Where))
+		whereStr := gstr.X过滤首尾符并含空白(gconv.String(in.Where))
 		// `whereStr` 是用作键值条件的字段名称吗？
 		// 例如：
 		// Where("id", 1)
@@ -582,7 +582,7 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 		// 
 		// 这段Go代码中的注释是在询问`whereStr`是否是一个用作键值对条件的字段名。它举例说明了如何使用`where`函数，其中第一个参数是字段名（如"id"），第二个参数可以是单个值（如1）或一个包含多个值的切片（如g.Slice{1,2,3}）。
 		// md5:3e3e293b8d2b6e27
-		if gregex.IsMatchString(regularFieldNameWithoutDotRegPattern, whereStr) && len(in.Args) == 1 {
+		if gregex.X是否匹配文本(regularFieldNameWithoutDotRegPattern, whereStr) && len(in.Args) == 1 {
 			newArgs = formatWhereKeyValue(formatWhereKeyValueInput{
 				Db:        db,
 				Buffer:    buffer,
@@ -598,8 +598,8 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 		}
 				// 如果第一部分是列名，它会自动为列添加前缀。 md5:8174a130580bbf74
 		if in.Prefix != "" {
-			array := gstr.Split(whereStr, " ")
-			if ok, _ := db.GetCore().HasField(ctx, in.Table, array[0]); ok {
+			array := gstr.X分割(whereStr, " ")
+			if ok, _ := db.X取Core对象().X是否存在字段(ctx, in.Table, array[0]); ok {
 				whereStr = in.Prefix + "." + whereStr
 			}
 		}
@@ -618,7 +618,7 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 			// md5:3cd7047ec77cba30
 			if subModel, ok := in.Args[i].(*Model); ok {
 				index := -1
-				whereStr, _ = gregex.ReplaceStringFunc(`(\?)`, whereStr, func(s string) string {
+				whereStr, _ = gregex.X替换文本_函数(`(\?)`, whereStr, func(s string) string {
 					index++
 					if i+len(newArgs) == index {
 						sqlWithHolder, holderArgs := subModel.getHolderAndArgsAsSubModel(ctx)
@@ -644,12 +644,12 @@ func formatWhereHolder(ctx context.Context, db DB, in formatWhereHolderInput) (n
 	}
 	newWhere = buffer.String()
 	if len(newArgs) > 0 {
-		if gstr.Pos(newWhere, "?") == -1 {
-			if gregex.IsMatchString(lastOperatorRegPattern, newWhere) {
+		if gstr.X查找(newWhere, "?") == -1 {
+			if gregex.X是否匹配文本(lastOperatorRegPattern, newWhere) {
 												// 例如：Where/And/Or("uid>=", 1). md5:97d0042da730e39a
 				newWhere += "?"
-			} else if gregex.IsMatchString(regularFieldNameRegPattern, newWhere) {
-				newWhere = db.GetCore().QuoteString(newWhere)
+			} else if gregex.X是否匹配文本(regularFieldNameRegPattern, newWhere) {
+				newWhere = db.X取Core对象().X底层QuoteString(newWhere)
 				if len(newArgs) > 0 {
 					if utils.IsArray(newArgs[0]) {
 						// 例如：
@@ -686,16 +686,16 @@ func formatWhereInterfaces(db DB, where []interface{}, buffer *bytes.Buffer, new
 		return newArgs
 	}
 	if len(where)%2 != 0 {
-		buffer.WriteString(gstr.Join(gconv.Strings(where), ""))
+		buffer.WriteString(gstr.X连接(gconv.X取文本切片(where), ""))
 		return newArgs
 	}
 	var str string
 	for i := 0; i < len(where); i += 2 {
 		str = gconv.String(where[i])
 		if buffer.Len() > 0 {
-			buffer.WriteString(" AND " + db.GetCore().QuoteWord(str) + "=?")
+			buffer.WriteString(" AND " + db.X取Core对象().X底层QuoteWord(str) + "=?")
 		} else {
-			buffer.WriteString(db.GetCore().QuoteWord(str) + "=?")
+			buffer.WriteString(db.X取Core对象().X底层QuoteWord(str) + "=?")
 		}
 		if s, ok := where[i+1].(Raw); ok {
 			buffer.WriteString(gconv.String(s))
@@ -720,13 +720,13 @@ type formatWhereKeyValueInput struct {
 // formatWhereKeyValue 处理参数映射中的每一组键值对。 md5:5d6f9d3dee346d1a
 func formatWhereKeyValue(in formatWhereKeyValueInput) (newArgs []interface{}) {
 	var (
-		quotedKey   = in.Db.GetCore().QuoteWord(in.Key)
-		holderCount = gstr.Count(quotedKey, "?")
+		quotedKey   = in.Db.X取Core对象().X底层QuoteWord(in.Key)
+		holderCount = gstr.X统计次数(quotedKey, "?")
 	)
 	if isKeyValueCanBeOmitEmpty(in.OmitEmpty, in.Type, quotedKey, in.Value) {
 		return in.Args
 	}
-	if in.Prefix != "" && !gstr.Contains(quotedKey, ".") {
+	if in.Prefix != "" && !gstr.X是否包含(quotedKey, ".") {
 		quotedKey = in.Prefix + "." + quotedKey
 	}
 	if in.Buffer.Len() > 0 {
@@ -750,13 +750,13 @@ func formatWhereKeyValue(in formatWhereKeyValueInput) (newArgs []interface{}) {
 				in.Args = append(in.Args, in.Value)
 			} else {
 				in.Buffer.WriteString(quotedKey)
-				in.Args = append(in.Args, gconv.Interfaces(in.Value)...)
+				in.Args = append(in.Args, gconv.X取any切片(in.Value)...)
 			}
 		}
 
 	default:
 		if in.Value == nil || empty.IsNil(reflectValue) {
-			if gregex.IsMatchString(regularFieldNameRegPattern, in.Key) {
+			if gregex.X是否匹配文本(regularFieldNameRegPattern, in.Key) {
 								// 键是一个单个字段名。 md5:637e2145bd0e0f57
 				in.Buffer.WriteString(quotedKey + " IS NULL")
 			} else {
@@ -765,16 +765,16 @@ func formatWhereKeyValue(in formatWhereKeyValueInput) (newArgs []interface{}) {
 			}
 		} else {
 						// 它还支持"LIKE"语句，我们将其视为一种运算符。 md5:71ae1896f0d3b4fd
-			quotedKey = gstr.Trim(quotedKey)
-			if gstr.Pos(quotedKey, "?") == -1 {
+			quotedKey = gstr.X过滤首尾符并含空白(quotedKey)
+			if gstr.X查找(quotedKey, "?") == -1 {
 				like := " LIKE"
-				if len(quotedKey) > len(like) && gstr.Equal(quotedKey[len(quotedKey)-len(like):], like) {
+				if len(quotedKey) > len(like) && gstr.X相等比较并忽略大小写(quotedKey[len(quotedKey)-len(like):], like) {
 										// 这段Go语言的注释表示一个示例用法，其中`Where`是一个函数，它接受一个映射（Map）作为参数，这个映射的键值对是`"name like"` 和 `"john%"`。这意味着在查询时，将对"name"字段进行模糊匹配，查找以"john"开头的记录。 md5:a6037088e14ea97a
 					in.Buffer.WriteString(quotedKey + " ?")
-				} else if gregex.IsMatchString(lastOperatorRegPattern, quotedKey) {
+				} else if gregex.X是否匹配文本(lastOperatorRegPattern, quotedKey) {
 										// 这段Go语言代码的注释表示这是一个示例（Eg），它使用了一个谓词（Where）和一个映射（Map），这个映射中键值对为 "age > " : 16，意思是筛选出年龄大于16的项。 md5:2b3b5668547eafe7
 					in.Buffer.WriteString(quotedKey + " ?")
-				} else if gregex.IsMatchString(regularFieldNameRegPattern, in.Key) {
+				} else if gregex.X是否匹配文本(regularFieldNameRegPattern, in.Key) {
 										// 键是一个常规的字段名。 md5:6088ec7a69f84698
 					in.Buffer.WriteString(quotedKey + "=?")
 				} else {
@@ -826,7 +826,7 @@ func handleSliceAndStructArgsForSql(
 				continue
 			}
 			var (
-				valueHolderCount = gstr.Count(newSql, "?")
+				valueHolderCount = gstr.X统计次数(newSql, "?")
 				argSliceLength   = argReflectInfo.OriginValue.Len()
 			)
 			if argSliceLength == 0 {
@@ -837,12 +837,12 @@ func handleSliceAndStructArgsForSql(
 				// 
 				// 这里的注释说明了当使用空切片（`g.Slice{}`）作为参数时，Go的某些函数（如`Query`和`Where`）会将SQL中的条件改变为等价于`false`的形式，例如将`in`条件替换为`0=1`，从而使得查询结果为空。
 				// md5:020597c0f38437e4
-				if gstr.Contains(newSql, "?") {
+				if gstr.X是否包含(newSql, "?") {
 					whereKeyWord := " WHERE "
-					if p := gstr.PosI(newSql, whereKeyWord); p == -1 {
+					if p := gstr.X查找并忽略大小写(newSql, whereKeyWord); p == -1 {
 						return "0=1", []interface{}{}
 					} else {
-						return gstr.SubStr(newSql, 0, p+len(whereKeyWord)) + "0=1", []interface{}{}
+						return gstr.X按长度取文本(newSql, 0, p+len(whereKeyWord)) + "0=1", []interface{}{}
 					}
 				}
 			} else {
@@ -868,7 +868,7 @@ func handleSliceAndStructArgsForSql(
 				counter  = 0
 				replaced = false
 			)
-			newSql, _ = gregex.ReplaceStringFunc(`\?`, newSql, func(s string) string {
+			newSql, _ = gregex.X替换文本_函数(`\?`, newSql, func(s string) string {
 				if replaced {
 					return s
 				}
@@ -914,39 +914,39 @@ func handleSliceAndStructArgsForSql(
 	return
 }
 
-// FormatSqlWithArgs 将参数绑定到SQL字符串并返回一个完整的SQL字符串，仅用于调试。
+// X格式化Sql 将参数绑定到SQL字符串并返回一个完整的SQL字符串，仅用于调试。
 // md5:1453466956e418ba
-func FormatSqlWithArgs(sql string, args []interface{}) string {
+func X格式化Sql(sql string, 参数切片 []interface{}) string {
 	index := -1
-	newQuery, _ := gregex.ReplaceStringFunc(
+	newQuery, _ := gregex.X替换文本_函数(
 		`(\?|:v\d+|\$\d+|@p\d+)`,
 		sql,
 		func(s string) string {
 			index++
-			if len(args) > index {
-				if args[index] == nil {
+			if len(参数切片) > index {
+				if 参数切片[index] == nil {
 					return "null"
 				}
 								// 类型为Raw的参数不需要特殊处理. md5:aa477b3ebc58b939
-				if v, ok := args[index].(Raw); ok {
+				if v, ok := 参数切片[index].(Raw); ok {
 					return gconv.String(v)
 				}
-				reflectInfo := reflection.OriginValueAndKind(args[index])
+				reflectInfo := reflection.OriginValueAndKind(参数切片[index])
 				if reflectInfo.OriginKind == reflect.Ptr &&
 					(reflectInfo.OriginValue.IsNil() || !reflectInfo.OriginValue.IsValid()) {
 					return "null"
 				}
 				switch reflectInfo.OriginKind {
 				case reflect.String, reflect.Map, reflect.Slice, reflect.Array:
-					return `'` + gstr.QuoteMeta(gconv.String(args[index]), `'`) + `'`
+					return `'` + gstr.X转义并按字符(gconv.String(参数切片[index]), `'`) + `'`
 
 				case reflect.Struct:
-					if t, ok := args[index].(time.Time); ok {
+					if t, ok := 参数切片[index].(time.Time); ok {
 						return `'` + t.Format(`2006-01-02 15:04:05`) + `'`
 					}
-					return `'` + gstr.QuoteMeta(gconv.String(args[index]), `'`) + `'`
+					return `'` + gstr.X转义并按字符(gconv.String(参数切片[index]), `'`) + `'`
 				}
-				return gconv.String(args[index])
+				return gconv.String(参数切片[index])
 			}
 			return s
 		})
@@ -957,11 +957,11 @@ func FormatSqlWithArgs(sql string, args []interface{}) string {
 func FormatMultiLineSqlToSingle(sql string) (string, error) {
 	var err error
 		// 格式化SQL模板字符串。 md5:77bcc0fc1c095ebd
-	sql, err = gregex.ReplaceString(`[\n\r\s]+`, " ", gstr.Trim(sql))
+	sql, err = gregex.X替换文本(`[\n\r\s]+`, " ", gstr.X过滤首尾符并含空白(sql))
 	if err != nil {
 		return "", err
 	}
-	sql, err = gregex.ReplaceString(`\s{2,}`, " ", gstr.Trim(sql))
+	sql, err = gregex.X替换文本(`\s{2,}`, " ", gstr.X过滤首尾符并含空白(sql))
 	if err != nil {
 		return "", err
 	}

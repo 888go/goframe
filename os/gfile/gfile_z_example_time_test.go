@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/os/gfile"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 func ExampleMTime() {
-	t := gfile.MTime(gfile.Temp())
+	t := gfile.X取修改时间秒(gfile.X取临时目录())
 	fmt.Println(t)
 
 	// May Output:
@@ -22,7 +22,7 @@ func ExampleMTime() {
 }
 
 func ExampleMTimestamp() {
-	t := gfile.MTimestamp(gfile.Temp())
+	t := gfile.X取修改时间戳秒(gfile.X取临时目录())
 	fmt.Println(t)
 
 	// May Output:
@@ -30,7 +30,7 @@ func ExampleMTimestamp() {
 }
 
 func ExampleMTimestampMilli() {
-	t := gfile.MTimestampMilli(gfile.Temp())
+	t := gfile.X取修改时间戳毫秒(gfile.X取临时目录())
 	fmt.Println(t)
 
 	// May Output:

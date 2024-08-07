@@ -11,8 +11,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/util/gutil"
+	gdb "github.com/888go/goframe/database/gdb"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 var (
@@ -45,7 +45,7 @@ func init() {
 	}
 }
 
-// TableFields 获取并返回当前模式指定表的字段信息。
+// X取表字段信息Map 获取并返回当前模式指定表的字段信息。
 // 
 // 参数 `link` 是可选的，如果为 nil，则自动获取一个原始 SQL 连接，用于执行必要的 SQL 查询。
 // 
@@ -53,25 +53,25 @@ func init() {
 // 
 // 该方法使用缓存功能来提高性能，直到进程重启，缓存永不过期。
 // md5:38bed6cd2a065572
-func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
+func (d *Driver) X取表字段信息Map(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result         gdb.Result
 		link           gdb.Link
-		usedSchema     = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
+		usedSchema     = gutil.X取文本值或取默认值(d.X取默认数据库名称(), schema...)
 		tableFieldsSql string
 	)
-	if link, err = d.SlaveLink(usedSchema); err != nil {
+	if link, err = d.X底层SlaveLink(usedSchema); err != nil {
 		return nil, err
 	}
-	dbType := d.GetConfig().Type
+	dbType := d.X取当前节点配置().Type
 	switch dbType {
 	case "mariadb":
 		tableFieldsSql = fmt.Sprintf(tableFieldsSqlByMariadb, usedSchema, table)
 	default:
-		tableFieldsSql = fmt.Sprintf(`SHOW FULL COLUMNS FROM %s`, d.QuoteWord(table))
+		tableFieldsSql = fmt.Sprintf(`SHOW FULL COLUMNS FROM %s`, d.X底层QuoteWord(table))
 	}
 
-	result, err = d.DoSelect(
+	result, err = d.X底层查询(
 		ctx, link,
 		tableFieldsSql,
 	)
@@ -82,12 +82,12 @@ func (d *Driver) TableFields(ctx context.Context, table string, schema ...string
 	for i, m := range result {
 		fields[m["Field"].String()] = &gdb.TableField{
 			Index:   i,
-			Name:    m["Field"].String(),
-			Type:    m["Type"].String(),
-			Null:    m["Null"].Bool(),
+			X名称:    m["Field"].String(),
+			X类型:    m["Type"].String(),
+			Null:    m["Null"].X取布尔(),
 			Key:     m["Key"].String(),
-			Default: m["Default"].Val(),
-			Extra:   m["Extra"].String(),
+			Default: m["Default"].X取值(),
+			X额外:   m["Extra"].String(),
 			Comment: m["Comment"].String(),
 		}
 	}

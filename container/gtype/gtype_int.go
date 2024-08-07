@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtype
+package 安全变量类
 
 import (
 	"strconv"
 	"sync/atomic"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Int 是一个结构体，用于实现类型int的并发安全操作。 md5:73f0c87f02f7764f
@@ -32,16 +32,16 @@ func NewInt(value ...int) *Int {
 
 // Clone 为整型类型创建并返回一个新的并发安全的对象克隆。 md5:170a4dc1f40b5178
 func (v *Int) Clone() *Int {
-	return NewInt(v.Val())
+	return NewInt(v.X取值())
 }
 
-// Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
-func (v *Int) Set(value int) (old int) {
+// X设置值 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
+func (v *Int) X设置值(value int) (old int) {
 	return int(atomic.SwapInt64(&v.value, int64(value)))
 }
 
-// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
-func (v *Int) Val() int {
+// X取值原子性地加载并返回t.value。 md5:429a11b89436cc12
+func (v *Int) X取值() int {
 	return int(atomic.LoadInt64(&v.value))
 }
 
@@ -57,23 +57,23 @@ func (v *Int) Cas(old, new int) (swapped bool) {
 
 // String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
 func (v *Int) String() string {
-	return strconv.Itoa(v.Val())
+	return strconv.Itoa(v.X取值())
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (v Int) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.Itoa(v.Val())), nil
+	return []byte(strconv.Itoa(v.X取值())), nil
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 func (v *Int) UnmarshalJSON(b []byte) error {
-	v.Set(gconv.Int(string(b)))
+	v.X设置值(gconv.X取整数(string(b)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
 func (v *Int) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Int(value))
+	v.X设置值(gconv.X取整数(value))
 	return nil
 }
 
@@ -82,5 +82,5 @@ func (v *Int) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewInt(v.Val())
+	return NewInt(v.X取值())
 }

@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gredis
+package redis类
 
 import (
 	"context"
 	"crypto/tls"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Config 是 Redis 配置。 md5:5409b3144db1576a
@@ -52,7 +52,7 @@ const (
 
 var (
 	// Configuration groups.
-	localConfigMap = gmap.NewStrAnyMap(true)
+	localConfigMap = gmap.X创建StrAny(true)
 )
 
 // SetConfig 为指定的组设置全局配置。
@@ -63,7 +63,7 @@ func SetConfig(config *Config, name ...string) {
 	if len(name) > 0 {
 		group = name[0]
 	}
-	localConfigMap.Set(group, config)
+	localConfigMap.X设置值(group, config)
 
 	intlog.Printf(context.TODO(), `SetConfig for group "%s": %+v`, group, config)
 }
@@ -80,7 +80,7 @@ func SetConfigByMap(m map[string]interface{}, name ...string) error {
 	if err != nil {
 		return err
 	}
-	localConfigMap.Set(group, config)
+	localConfigMap.X设置值(group, config)
 	return nil
 }
 
@@ -88,7 +88,7 @@ func SetConfigByMap(m map[string]interface{}, name ...string) error {
 func ConfigFromMap(m map[string]interface{}) (config *Config, err error) {
 	config = &Config{}
 	if err = gconv.Scan(m, config); err != nil {
-		err = gerror.NewCodef(gcode.CodeInvalidConfiguration, `invalid redis configuration: %#v`, m)
+		err = gerror.X创建错误码并格式化(gcode.CodeInvalidConfiguration, `invalid redis configuration: %#v`, m)
 	}
 	if config.DialTimeout < time.Second {
 		config.DialTimeout = config.DialTimeout * time.Second
@@ -121,7 +121,7 @@ func GetConfig(name ...string) (config *Config, ok bool) {
 	if len(name) > 0 {
 		group = name[0]
 	}
-	if v := localConfigMap.Get(group); v != nil {
+	if v := localConfigMap.X取值(group); v != nil {
 		return v.(*Config), true
 	}
 	return &Config{}, false
@@ -135,12 +135,12 @@ func RemoveConfig(name ...string) {
 	if len(name) > 0 {
 		group = name[0]
 	}
-	localConfigMap.Remove(group)
+	localConfigMap.X删除(group)
 
 	intlog.Printf(context.TODO(), `RemoveConfig: %s`, group)
 }
 
 // ClearConfig 删除所有的 Redis 配置。 md5:337bf67372d51962
 func ClearConfig() {
-	localConfigMap.Clear()
+	localConfigMap.X清空()
 }

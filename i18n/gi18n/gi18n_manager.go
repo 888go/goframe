@@ -13,15 +13,15 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gfsnotify"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/util/gconv"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gfile "github.com/888go/goframe/os/gfile"
+	gfsnotify "github.com/888go/goframe/os/gfsnotify"
+	gres "github.com/888go/goframe/os/gres"
+	gregex "github.com/888go/goframe/text/gregex"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // pathType 是用于i18n文件路径的类型。 md5:1aa056f2406cd3a6
@@ -81,7 +81,7 @@ func New(options ...Options) *Manager {
 		}
 		if opts.Path != "" {
 									// 为了避免GoFrame的源路径：github.com/gogf/i18n/gi18n. md5:2eecc4478ca65bd7
-			if gfile.Exists(opts.Path + gfile.Separator + "gi18n") {
+			if gfile.X是否存在(opts.Path + gfile.Separator + "gi18n") {
 				opts.Path = ""
 				pathType = pathTypeNone
 			}
@@ -97,8 +97,8 @@ func New(options ...Options) *Manager {
 		options: opts,
 		pattern: fmt.Sprintf(
 			`%s(.+?)%s`,
-			gregex.Quote(opts.Delimiters[0]),
-			gregex.Quote(opts.Delimiters[1]),
+			gregex.X转义特殊符号(opts.Delimiters[0]),
+			gregex.X转义特殊符号(opts.Delimiters[1]),
 		),
 		pathType: pathType,
 	}
@@ -121,7 +121,7 @@ func (o *Options) checkPathType(dirPath string) pathType {
 		return pathTypeGres
 	}
 
-	realPath, _ := gfile.Search(dirPath)
+	realPath, _ := gfile.X查找(dirPath)
 	if realPath != "" {
 		o.Path = realPath
 		return pathTypeNormal
@@ -134,7 +134,7 @@ func (o *Options) checkPathType(dirPath string) pathType {
 func (m *Manager) SetPath(path string) error {
 	pathType := m.options.checkPathType(path)
 	if pathType == pathTypeNone {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, `%s does not exist`, path)
+		return gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `%s does not exist`, path)
 	}
 
 	m.pathType = pathType
@@ -152,7 +152,7 @@ func (m *Manager) SetLanguage(language string) {
 
 // SetDelimiters 为翻译器设置分隔符。 md5:f84b046b11204dc7
 func (m *Manager) SetDelimiters(left, right string) {
-	m.pattern = fmt.Sprintf(`%s(.+?)%s`, gregex.Quote(left), gregex.Quote(right))
+	m.pattern = fmt.Sprintf(`%s(.+?)%s`, gregex.X转义特殊符号(left), gregex.X转义特殊符号(right))
 	intlog.Printf(context.TODO(), `SetDelimiters: %v`, m.pattern)
 }
 
@@ -267,13 +267,13 @@ func (m *Manager) init(ctx context.Context) {
 				if len(array) > 1 {
 					lang = array[0]
 				} else if len(array) == 1 {
-					lang = gfile.Name(array[0])
+					lang = gfile.X路径取文件名且不含扩展名(array[0])
 				}
 				if m.data[lang] == nil {
 					m.data[lang] = make(map[string]string)
 				}
-				if j, err := gjson.LoadContent(file.Content()); err == nil {
-					for k, v := range j.Var().Map() {
+				if j, err := gjson.X加载并自动识别格式(file.Content()); err == nil {
+					for k, v := range j.X取泛型类().X取Map() {
 						m.data[lang][k] = gconv.String(v)
 					}
 				} else {
@@ -282,7 +282,7 @@ func (m *Manager) init(ctx context.Context) {
 			}
 		}
 	case pathTypeNormal:
-		files, _ := gfile.ScanDirFile(m.options.Path, "*.*", true)
+		files, _ := gfile.X枚举(m.options.Path, "*.*", true)
 		if len(files) == 0 {
 			return
 		}
@@ -298,13 +298,13 @@ func (m *Manager) init(ctx context.Context) {
 			if len(array) > 1 {
 				lang = array[0]
 			} else if len(array) == 1 {
-				lang = gfile.Name(array[0])
+				lang = gfile.X路径取文件名且不含扩展名(array[0])
 			}
 			if m.data[lang] == nil {
 				m.data[lang] = make(map[string]string)
 			}
-			if j, err := gjson.LoadContent(gfile.GetBytes(file)); err == nil {
-				for k, v := range j.Var().Map() {
+			if j, err := gjson.X加载并自动识别格式(gfile.X读字节集(file)); err == nil {
+				for k, v := range j.X取泛型类().X取Map() {
 					m.data[lang][k] = gconv.String(v)
 				}
 			} else {

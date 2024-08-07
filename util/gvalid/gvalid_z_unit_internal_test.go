@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid
+package 效验类
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/test/gtest"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_parseSequenceTag(t *testing.T) {

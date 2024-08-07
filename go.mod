@@ -1,4 +1,4 @@
-module github.com/gogf/gf/v2
+module github.com/888go/goframe
 
 go 1.18
 

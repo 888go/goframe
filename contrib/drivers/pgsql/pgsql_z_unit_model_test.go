@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -14,10 +14,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Model_Insert(t *testing.T) {
@@ -25,27 +25,27 @@ func Test_Model_Insert(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		user := db.Model(table)
-		result, err := user.Data(g.Map{
+		user := db.X创建Model对象(table)
+		result, err := user.X设置数据(g.Map{
 			"id":          1,
 			"uid":         1,
 			"passport":    "t1",
 			"password":    "25d55ad283aa400af464c76d713c07ad",
 			"nickname":    "name_1",
-			"create_time": gtime.Now().String(),
-		}).Insert()
+			"create_time": gtime.X创建并按当前时间().String(),
+		}).X插入()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 
-		result, err = db.Model(table).Data(g.Map{
+		result, err = db.X创建Model对象(table).X设置数据(g.Map{
 			"id":          "2",
 			"uid":         "2",
 			"passport":    "t2",
 			"password":    "25d55ad283aa400af464c76d713c07ad",
 			"nickname":    "name_2",
-			"create_time": gtime.Now().String(),
-		}).Insert()
+			"create_time": gtime.X创建并按当前时间().String(),
+		}).X插入()
 		t.AssertNil(err)
 		n, _ = result.RowsAffected()
 		t.Assert(n, 1)
@@ -59,37 +59,37 @@ func Test_Model_Insert(t *testing.T) {
 			CreateTime *gtime.Time `json:"create_time"`
 		}
 		// Model inserting.
-		result, err = db.Model(table).Data(User{
+		result, err = db.X创建Model对象(table).X设置数据(User{
 			Id:         3,
 			Uid:        3,
 			Passport:   "t3",
 			Password:   "25d55ad283aa400af464c76d713c07ad",
 			Nickname:   "name_3",
-			CreateTime: gtime.Now(),
-		}).Insert()
+			CreateTime: gtime.X创建并按当前时间(),
+		}).X插入()
 		t.AssertNil(err)
 		n, _ = result.RowsAffected()
 		t.Assert(n, 1)
-		value, err := db.Model(table).Fields("passport").Where("id=3").Value() // model value
+		value, err := db.X创建Model对象(table).X字段保留过滤("passport").X条件("id=3").X查询一条值() // model value
 		t.AssertNil(err)
 		t.Assert(value.String(), "t3")
 
-		result, err = db.Model(table).Data(&User{
+		result, err = db.X创建Model对象(table).X设置数据(&User{
 			Id:         4,
 			Uid:        4,
 			Passport:   "t4",
 			Password:   "25d55ad283aa400af464c76d713c07ad",
 			Nickname:   "T4",
-			CreateTime: gtime.Now(),
-		}).Insert()
+			CreateTime: gtime.X创建并按当前时间(),
+		}).X插入()
 		t.AssertNil(err)
 		n, _ = result.RowsAffected()
 		t.Assert(n, 1)
-		value, err = db.Model(table).Fields("passport").Where("id=4").Value()
+		value, err = db.X创建Model对象(table).X字段保留过滤("passport").X条件("id=4").X查询一条值()
 		t.AssertNil(err)
 		t.Assert(value.String(), "t4")
 
-		result, err = db.Model(table).Where("id>?", 1).Delete() // model delete
+		result, err = db.X创建Model对象(table).X条件("id>?", 1).X删除() // model delete
 		t.AssertNil(err)
 		n, _ = result.RowsAffected()
 		t.Assert(n, 3)
@@ -115,10 +115,10 @@ func Test_Model_One(t *testing.T) {
 			Nickname:   "name_1",
 			CreateTime: "2020-10-10 12:00:01",
 		}
-		_, err := db.Model(table).Data(data).Insert()
+		_, err := db.X创建Model对象(table).X设置数据(data).X插入()
 		t.AssertNil(err)
 
-		one, err := db.Model(table).WherePri(1).One() // model one
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条() // model one
 		t.AssertNil(err)
 		t.Assert(one["passport"], data.Passport)
 		t.Assert(one["create_time"], data.CreateTime)
@@ -131,7 +131,7 @@ func Test_Model_All(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).All()
+		result, err := db.X创建Model对象(table).X查询()
 		t.AssertNil(err)
 		t.Assert(len(result), TableSize)
 	})
@@ -142,7 +142,7 @@ func Test_Model_Delete(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).Where("id", "2").Delete()
+		result, err := db.X创建Model对象(table).X条件("id", "2").X删除()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
@@ -155,7 +155,7 @@ func Test_Model_Update(t *testing.T) {
 
 	// Update + Data(string)
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).Data("passport='user_33'").Where("passport='user_3'").Update()
+		result, err := db.X创建Model对象(table).X设置数据("passport='user_33'").X条件("passport='user_3'").X更新()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
@@ -163,10 +163,10 @@ func Test_Model_Update(t *testing.T) {
 
 		// 更新 + Fields(字符串). md5:df4e16d13da67d5e
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).Fields("passport").Data(g.Map{
+		result, err := db.X创建Model对象(table).X字段保留过滤("passport").X设置数据(g.Map{
 			"passport": "user_44",
 			"none":     "none",
-		}).Where("passport='user_4'").Update()
+		}).X条件("passport='user_4'").X更新()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
@@ -178,20 +178,20 @@ func Test_Model_Array(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(table).Where("id", g.Slice{1, 2, 3}).All()
+		all, err := db.X创建Model对象(table).X条件("id", g.Slice别名{1, 2, 3}).X查询()
 		t.AssertNil(err)
-		t.Assert(all.Array("id"), g.Slice{1, 2, 3})
-		t.Assert(all.Array("nickname"), g.Slice{"name_1", "name_2", "name_3"})
+		t.Assert(all.X取字段切片("id"), g.Slice别名{1, 2, 3})
+		t.Assert(all.X取字段切片("nickname"), g.Slice别名{"name_1", "name_2", "name_3"})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array, err := db.Model(table).Fields("nickname").Where("id", g.Slice{1, 2, 3}).Array()
+		array, err := db.X创建Model对象(table).X字段保留过滤("nickname").X条件("id", g.Slice别名{1, 2, 3}).X查询切片()
 		t.AssertNil(err)
-		t.Assert(array, g.Slice{"name_1", "name_2", "name_3"})
+		t.Assert(array, g.Slice别名{"name_1", "name_2", "name_3"})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array, err := db.Model(table).Array("nickname", "id", g.Slice{1, 2, 3})
+		array, err := db.X创建Model对象(table).X查询切片("nickname", "id", g.Slice别名{1, 2, 3})
 		t.AssertNil(err)
-		t.Assert(array, g.Slice{"name_1", "name_2", "name_3"})
+		t.Assert(array, g.Slice别名{"name_1", "name_2", "name_3"})
 	})
 }
 
@@ -208,7 +208,7 @@ func Test_Model_Scan(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		err := db.Model(table).Scan(&users)
+		err := db.X创建Model对象(table).X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize)
 	})
@@ -218,12 +218,12 @@ func Test_Model_Count(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		count, err := db.Model(table).Count()
+		count, err := db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, int64(TableSize))
 	})
 	gtest.C(t, func(t *gtest.T) {
-		count, err := db.Model(table).FieldsEx("id").Where("id>8").Count()
+		count, err := db.X创建Model对象(table).X字段排除过滤("id").X条件("id>8").X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, int64(2))
 	})
@@ -235,13 +235,13 @@ func Test_Model_Where(t *testing.T) {
 
 	// map + slice parameter
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).Where(g.Map{
-			"id":       g.Slice{1, 2, 3},
-			"passport": g.Slice{"user_2", "user_3"},
-		}).Where("id=? and nickname=?", g.Slice{3, "name_3"}).One()
+		result, err := db.X创建Model对象(table).X条件(g.Map{
+			"id":       g.Slice别名{1, 2, 3},
+			"passport": g.Slice别名{"user_2", "user_3"},
+		}).X条件("id=? and nickname=?", g.Slice别名{3, "name_3"}).X查询一条()
 		t.AssertNil(err)
 		t.AssertGT(len(result), 0)
-		t.Assert(result["id"].Int(), 3)
+		t.Assert(result["id"].X取整数(), 3)
 	})
 
 		// 结构体，自动映射和过滤。 md5:8edea55227b914af
@@ -250,13 +250,13 @@ func Test_Model_Where(t *testing.T) {
 			Id       int
 			Nickname string
 		}
-		result, err := db.Model(table).Where(User{3, "name_3"}).One()
+		result, err := db.X创建Model对象(table).X条件(User{3, "name_3"}).X查询一条()
 		t.AssertNil(err)
-		t.Assert(result["id"].Int(), 3)
+		t.Assert(result["id"].X取整数(), 3)
 
-		result, err = db.Model(table).Where(&User{3, "name_3"}).One()
+		result, err = db.X创建Model对象(table).X条件(&User{3, "name_3"}).X查询一条()
 		t.AssertNil(err)
-		t.Assert(result["id"].Int(), 3)
+		t.Assert(result["id"].X取整数(), 3)
 	})
 }
 
@@ -278,18 +278,18 @@ func Test_Model_Save(t *testing.T) {
 			err    error
 		)
 
-		result, err = db.Model(table).Data(g.Map{
+		result, err = db.X创建Model对象(table).X设置数据(g.Map{
 			"id":          1,
 			"passport":    "p1",
 			"password":    "pw1",
 			"nickname":    "n1",
 			"create_time": CreateTime,
-		}).OnConflict("id").Save()
+		}).OnConflict("id").X插入并更新已存在()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 
-		err = db.Model(table).Scan(&user)
+		err = db.X创建Model对象(table).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 1)
 		t.Assert(user.Passport, "p1")
@@ -297,23 +297,23 @@ func Test_Model_Save(t *testing.T) {
 		t.Assert(user.NickName, "n1")
 		t.Assert(user.CreateTime.String(), CreateTime)
 
-		_, err = db.Model(table).Data(g.Map{
+		_, err = db.X创建Model对象(table).X设置数据(g.Map{
 			"id":          1,
 			"passport":    "p1",
 			"password":    "pw2",
 			"nickname":    "n2",
 			"create_time": CreateTime,
-		}).OnConflict("id").Save()
+		}).OnConflict("id").X插入并更新已存在()
 		t.AssertNil(err)
 
-		err = db.Model(table).Scan(&user)
+		err = db.X创建Model对象(table).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Passport, "p1")
 		t.Assert(user.Password, "pw2")
 		t.Assert(user.NickName, "n2")
 		t.Assert(user.CreateTime.String(), CreateTime)
 
-		count, err = db.Model(table).Count()
+		count, err = db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, 1)
 	})
@@ -324,23 +324,23 @@ func Test_Model_Replace(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.Model(table).Data(g.Map{
+		_, err := db.X创建Model对象(table).X设置数据(g.Map{
 			"id":          1,
 			"passport":    "t11",
 			"password":    "25d55ad283aa400af464c76d713c07ad",
 			"nickname":    "T11",
 			"create_time": "2018-10-24 10:00:00",
-		}).Replace()
+		}).X插入并替换已存在()
 		t.Assert(err, "Replace operation is not supported by pgsql driver")
 	})
 }
 
 func Test_Model_OnConflict(t *testing.T) {
 	var (
-		table      = fmt.Sprintf(`%s_%d`, TablePrefix+"test", gtime.TimestampNano())
-		uniqueName = fmt.Sprintf(`%s_%d`, TablePrefix+"test_unique", gtime.TimestampNano())
+		table      = fmt.Sprintf(`%s_%d`, TablePrefix+"test", gtime.X取时间戳纳秒())
+		uniqueName = fmt.Sprintf(`%s_%d`, TablePrefix+"test_unique", gtime.X取时间戳纳秒())
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 		CREATE TABLE %s (
 		   	id bigserial  NOT NULL,
 		   	passport varchar(45) NOT NULL,
@@ -364,9 +364,9 @@ func Test_Model_OnConflict(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("passport,password").Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("passport,password").X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).Where("id", 1).One()
+		one, err := db.X创建Model对象(table).X条件("id", 1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -382,9 +382,9 @@ func Test_Model_OnConflict(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("passport", "password").Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("passport", "password").X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).Where("id", 1).One()
+		one, err := db.X创建Model对象(table).X条件("id", 1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -400,9 +400,9 @@ func Test_Model_OnConflict(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict(g.Slice{"passport", "password"}).Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict(g.Slice别名{"passport", "password"}).X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).Where("id", 1).One()
+		one, err := db.X创建Model对象(table).X条件("id", 1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -423,9 +423,9 @@ func Test_Model_OnDuplicate(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicate("passport,password").Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突更新字段("passport,password").X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -441,9 +441,9 @@ func Test_Model_OnDuplicate(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicate("passport", "password").Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突更新字段("passport", "password").X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -459,9 +459,9 @@ func Test_Model_OnDuplicate(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicate(g.Slice{"passport", "password"}).Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突更新字段(g.Slice别名{"passport", "password"}).X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -477,12 +477,12 @@ func Test_Model_OnDuplicate(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicate(g.Map{
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突更新字段(g.Map{
 			"passport": "nickname",
 			"password": "nickname",
-		}).Data(data).Save()
+		}).X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["nickname"])
 		t.Assert(one["password"], data["nickname"])
@@ -498,12 +498,12 @@ func Test_Model_OnDuplicate(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicate(g.Map{
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突更新字段(g.Map{
 			"passport": gdb.Raw("CONCAT(EXCLUDED.passport, '1')"),
 			"password": gdb.Raw("CONCAT(EXCLUDED.password, '2')"),
-		}).Data(data).Save()
+		}).X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"]+"1")
 		t.Assert(one["password"], data["password"]+"2")
@@ -524,9 +524,9 @@ func Test_Model_OnDuplicateEx(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicateEx("nickname,create_time").Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突不更新字段("nickname,create_time").X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -542,9 +542,9 @@ func Test_Model_OnDuplicateEx(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicateEx("nickname", "create_time").Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突不更新字段("nickname", "create_time").X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -560,9 +560,9 @@ func Test_Model_OnDuplicateEx(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicateEx(g.Slice{"nickname", "create_time"}).Data(data).Save()
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突不更新字段(g.Slice别名{"nickname", "create_time"}).X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])
@@ -578,12 +578,12 @@ func Test_Model_OnDuplicateEx(t *testing.T) {
 			"nickname":    "n1",
 			"create_time": "2016-06-06",
 		}
-		_, err := db.Model(table).OnConflict("id").OnDuplicateEx(g.Map{
+		_, err := db.X创建Model对象(table).OnConflict("id").X设置插入冲突不更新字段(g.Map{
 			"nickname":    "nickname",
 			"create_time": "nickname",
-		}).Data(data).Save()
+		}).X设置数据(data).X插入并更新已存在()
 		t.AssertNil(err)
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["passport"], data["passport"])
 		t.Assert(one["password"], data["password"])

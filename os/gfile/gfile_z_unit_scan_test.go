@@ -5,27 +5,27 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_ScanDir(t *testing.T) {
 	teatPath := gtest.DataPath()
 	gtest.C(t, func(t *gtest.T) {
-		files, err := gfile.ScanDir(teatPath, "*", false)
+		files, err := gfile.X枚举并含子目录名(teatPath, "*", false)
 		t.AssertNil(err)
 		t.AssertIN(teatPath+gfile.Separator+"dir1", files)
 		t.AssertIN(teatPath+gfile.Separator+"dir2", files)
 		t.AssertNE(teatPath+gfile.Separator+"dir1"+gfile.Separator+"file1", files)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		files, err := gfile.ScanDir(teatPath, "*", true)
+		files, err := gfile.X枚举并含子目录名(teatPath, "*", true)
 		t.AssertNil(err)
 		t.AssertIN(teatPath+gfile.Separator+"dir1", files)
 		t.AssertIN(teatPath+gfile.Separator+"dir2", files)
@@ -37,27 +37,27 @@ func Test_ScanDir(t *testing.T) {
 func Test_ScanDirFunc(t *testing.T) {
 	teatPath := gtest.DataPath()
 	gtest.C(t, func(t *gtest.T) {
-		files, err := gfile.ScanDirFunc(teatPath, "*", true, func(path string) string {
-			if gfile.Name(path) != "file1" {
+		files, err := gfile.X枚举并含子目录名_函数(teatPath, "*", true, func(path string) string {
+			if gfile.X路径取文件名且不含扩展名(path) != "file1" {
 				return ""
 			}
 			return path
 		})
 		t.AssertNil(err)
 		t.Assert(len(files), 1)
-		t.Assert(gfile.Name(files[0]), "file1")
+		t.Assert(gfile.X路径取文件名且不含扩展名(files[0]), "file1")
 	})
 }
 
 func Test_ScanDirFile(t *testing.T) {
 	teatPath := gtest.DataPath()
 	gtest.C(t, func(t *gtest.T) {
-		files, err := gfile.ScanDirFile(teatPath, "*", false)
+		files, err := gfile.X枚举(teatPath, "*", false)
 		t.AssertNil(err)
 		t.Assert(len(files), 0)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		files, err := gfile.ScanDirFile(teatPath, "*", true)
+		files, err := gfile.X枚举(teatPath, "*", true)
 		t.AssertNil(err)
 		t.AssertNI(teatPath+gfile.Separator+"dir1", files)
 		t.AssertNI(teatPath+gfile.Separator+"dir2", files)
@@ -69,26 +69,26 @@ func Test_ScanDirFile(t *testing.T) {
 func Test_ScanDirFileFunc(t *testing.T) {
 	teatPath := gtest.DataPath()
 	gtest.C(t, func(t *gtest.T) {
-		array := garray.New()
-		files, err := gfile.ScanDirFileFunc(teatPath, "*", false, func(path string) string {
-			array.Append(1)
+		array := garray.X创建()
+		files, err := gfile.X枚举_函数(teatPath, "*", false, func(path string) string {
+			array.Append别名(1)
 			return path
 		})
 		t.AssertNil(err)
 		t.Assert(len(files), 0)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := garray.New()
-		files, err := gfile.ScanDirFileFunc(teatPath, "*", true, func(path string) string {
-			array.Append(1)
-			if gfile.Basename(path) == "file1" {
+		array := garray.X创建()
+		files, err := gfile.X枚举_函数(teatPath, "*", true, func(path string) string {
+			array.Append别名(1)
+			if gfile.X路径取文件名(path) == "file1" {
 				return path
 			}
 			return ""
 		})
 		t.AssertNil(err)
 		t.Assert(len(files), 1)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 	})
 }

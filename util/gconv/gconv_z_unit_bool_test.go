@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 type boolStruct struct{}
@@ -19,24 +19,24 @@ type boolStruct struct{}
 func Test_Bool(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var any interface{} = nil
-		t.AssertEQ(gconv.Bool(any), false)
-		t.AssertEQ(gconv.Bool(false), false)
-		t.AssertEQ(gconv.Bool(nil), false)
-		t.AssertEQ(gconv.Bool(0), false)
-		t.AssertEQ(gconv.Bool("0"), false)
-		t.AssertEQ(gconv.Bool(""), false)
-		t.AssertEQ(gconv.Bool("false"), false)
-		t.AssertEQ(gconv.Bool("off"), false)
-		t.AssertEQ(gconv.Bool([]byte{}), false)
-		t.AssertEQ(gconv.Bool([]string{}), false)
-		t.AssertEQ(gconv.Bool([]interface{}{}), false)
-		t.AssertEQ(gconv.Bool([]map[int]int{}), false)
+		t.AssertEQ(gconv.X取布尔(any), false)
+		t.AssertEQ(gconv.X取布尔(false), false)
+		t.AssertEQ(gconv.X取布尔(nil), false)
+		t.AssertEQ(gconv.X取布尔(0), false)
+		t.AssertEQ(gconv.X取布尔("0"), false)
+		t.AssertEQ(gconv.X取布尔(""), false)
+		t.AssertEQ(gconv.X取布尔("false"), false)
+		t.AssertEQ(gconv.X取布尔("off"), false)
+		t.AssertEQ(gconv.X取布尔([]byte{}), false)
+		t.AssertEQ(gconv.X取布尔([]string{}), false)
+		t.AssertEQ(gconv.X取布尔([]interface{}{}), false)
+		t.AssertEQ(gconv.X取布尔([]map[int]int{}), false)
 
-		t.AssertEQ(gconv.Bool("1"), true)
-		t.AssertEQ(gconv.Bool("on"), true)
-		t.AssertEQ(gconv.Bool(1), true)
-		t.AssertEQ(gconv.Bool(123.456), true)
-		t.AssertEQ(gconv.Bool(boolStruct{}), true)
-		t.AssertEQ(gconv.Bool(&boolStruct{}), true)
+		t.AssertEQ(gconv.X取布尔("1"), true)
+		t.AssertEQ(gconv.X取布尔("on"), true)
+		t.AssertEQ(gconv.X取布尔(1), true)
+		t.AssertEQ(gconv.X取布尔(123.456), true)
+		t.AssertEQ(gconv.X取布尔(boolStruct{}), true)
+		t.AssertEQ(gconv.X取布尔(&boolStruct{}), true)
 	})
 }

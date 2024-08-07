@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtcp
+package tcp类
 
 import (
 	"encoding/binary"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 const (
@@ -52,7 +52,7 @@ func (c *Conn) SendPkg(data []byte, option ...PkgOption) error {
 	}
 	length := len(data)
 	if length > pkgOption.MaxDataSize {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`data too long, data size %d exceeds allowed max data size %d`,
 			length, pkgOption.MaxDataSize,
@@ -128,7 +128,7 @@ func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error) {
 	// 如果校验失败，会立即清空缓冲区并返回错误。
 	// md5:0871405b30986628
 	if length < 0 || length > pkgOption.MaxDataSize {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid package size %d`, length)
+		return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid package size %d`, length)
 	}
 	// Empty package.
 	if length == 0 {
@@ -162,7 +162,7 @@ func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 		pkgOption.HeaderSize = pkgHeaderSizeDefault
 	}
 	if pkgOption.HeaderSize > pkgHeaderSizeMax {
-		return nil, gerror.NewCodef(
+		return nil, gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`package header size %d definition exceeds max header size %d`,
 			pkgOption.HeaderSize, pkgHeaderSizeMax,
@@ -182,7 +182,7 @@ func getPkgOption(option ...PkgOption) (*PkgOption, error) {
 		}
 	}
 	if pkgOption.MaxDataSize > 0x7FFFFFFF {
-		return nil, gerror.NewCodef(
+		return nil, gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`package data size %d definition exceeds allowed max data size %d`,
 			pkgOption.MaxDataSize, 0x7FFFFFFF,

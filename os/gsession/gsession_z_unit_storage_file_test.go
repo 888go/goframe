@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gsession_test
+package session类_test
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gsession"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gsession "github.com/888go/goframe/os/gsession"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_StorageFile(t *testing.T) {
@@ -24,8 +24,8 @@ func Test_StorageFile(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := manager.New(context.TODO())
 		defer s.Close()
-		s.Set("k1", "v1")
-		s.Set("k2", "v2")
+		s.X设置值("k1", "v1")
+		s.X设置值("k2", "v2")
 		s.MustSet("k3", "v3")
 		s.MustSet("k4", "v4")
 		s.SetMap(g.Map{

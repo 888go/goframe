@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.18.0"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/888go/goframe/net/gtrace"
 )
 
 const (
@@ -47,25 +47,25 @@ func (c *Core) traceSpanEnd(ctx context.Context, span trace.Span, sql *Sql) {
 	labels := make([]attribute.KeyValue, 0)
 	labels = append(labels, gtrace.CommonLabels()...)
 	labels = append(labels,
-		attribute.String(traceAttrDbType, c.db.GetConfig().Type),
+		attribute.String(traceAttrDbType, c.db.X取当前节点配置().Type),
 		semconv.DBStatement(sql.Format),
 	)
-	if c.db.GetConfig().Host != "" {
-		labels = append(labels, attribute.String(traceAttrDbHost, c.db.GetConfig().Host))
+	if c.db.X取当前节点配置().Host != "" {
+		labels = append(labels, attribute.String(traceAttrDbHost, c.db.X取当前节点配置().Host))
 	}
-	if c.db.GetConfig().Port != "" {
-		labels = append(labels, attribute.String(traceAttrDbPort, c.db.GetConfig().Port))
+	if c.db.X取当前节点配置().Port != "" {
+		labels = append(labels, attribute.String(traceAttrDbPort, c.db.X取当前节点配置().Port))
 	}
-	if c.db.GetConfig().Name != "" {
-		labels = append(labels, attribute.String(traceAttrDbName, c.db.GetConfig().Name))
+	if c.db.X取当前节点配置().Name != "" {
+		labels = append(labels, attribute.String(traceAttrDbName, c.db.X取当前节点配置().Name))
 	}
-	if c.db.GetConfig().User != "" {
-		labels = append(labels, attribute.String(traceAttrDbUser, c.db.GetConfig().User))
+	if c.db.X取当前节点配置().User != "" {
+		labels = append(labels, attribute.String(traceAttrDbUser, c.db.X取当前节点配置().User))
 	}
-	if filteredLink := c.db.GetCore().FilteredLink(); filteredLink != "" {
-		labels = append(labels, attribute.String(traceAttrDbLink, c.db.GetCore().FilteredLink()))
+	if filteredLink := c.db.X取Core对象().X取数据库链接信息(); filteredLink != "" {
+		labels = append(labels, attribute.String(traceAttrDbLink, c.db.X取Core对象().X取数据库链接信息()))
 	}
-	if group := c.db.GetGroup(); group != "" {
+	if group := c.db.X取配置组名称(); group != "" {
 		labels = append(labels, attribute.String(traceAttrDbGroup, group))
 	}
 	span.SetAttributes(labels...)

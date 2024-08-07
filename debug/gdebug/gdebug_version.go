@@ -14,8 +14,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/gogf/gf/v2/encoding/ghash"
-	"github.com/gogf/gf/v2/errors/gerror"
+	ghash "github.com/888go/goframe/encoding/ghash"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // BinVersion 返回当前运行二进制文件的版本。
@@ -46,14 +46,14 @@ func BinVersionMd5() string {
 func md5File(path string) (encrypt string, err error) {
 	f, err := os.Open(path)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for name "%s"`, path)
+		err = gerror.X多层错误并格式化(err, `os.Open failed for name "%s"`, path)
 		return "", err
 	}
 	defer f.Close()
 	h := md5.New()
 	_, err = io.Copy(h, f)
 	if err != nil {
-		err = gerror.Wrap(err, `io.Copy failed`)
+		err = gerror.X多层错误(err, `io.Copy failed`)
 		return "", err
 	}
 	return fmt.Sprintf("%x", h.Sum(nil)), nil

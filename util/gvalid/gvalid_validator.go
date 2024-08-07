@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid
+package 效验类
 
 import (
 	"context"
 	"errors"
 	"reflect"
 
-	"github.com/gogf/gf/v2/i18n/gi18n"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/i18n/gi18n"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/utils"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Validator是用于链式操作的验证管理器。 md5:4554cd1e10f5c88e
@@ -82,7 +82,7 @@ func (v *Validator) Run(ctx context.Context) Error {
 		Rule:      gconv.String(v.rules),
 		Messages:  v.messages,
 		DataRaw:   v.assoc,
-		DataMap:   gconv.Map(v.assoc),
+		DataMap:   gconv.X取Map(v.assoc),
 	})
 }
 
@@ -203,7 +203,7 @@ func (v *Validator) getCustomRuleFunc(rule string) RuleFunc {
 // checkRuleRequired 检查并返回给定的 `rule` 是否即使为 nil 或空，也是必需的。 md5:8dd4a95af0752f7f
 func (v *Validator) checkRuleRequired(rule string) bool {
 		// 默认所需的规则。 md5:7047f401aaa9d537
-	if gstr.HasPrefix(rule, requiredRulesPrefix) {
+	if gstr.X开头判断(rule, requiredRulesPrefix) {
 		return true
 	}
 		// 所有自定义验证规则都是必填规则。 md5:58545e43bcc00d45

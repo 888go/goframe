@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package grand
+package 随机类
 
 import (
 	"crypto/rand"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 const (
@@ -39,7 +39,7 @@ func asyncProducingRandomBufferBytesLoop() {
 	for {
 		buffer := make([]byte, 1024)
 		if n, err := rand.Read(buffer); err != nil {
-			panic(gerror.WrapCode(gcode.CodeInternalError, err, `error reading random buffer from system`))
+			panic(gerror.X多层错误码(gcode.CodeInternalError, err, `error reading random buffer from system`))
 		} else {
 			// 系统提供的随机缓冲区非常昂贵，
 			// 因此通过改变步长并使用不同的数字来完全重用随机缓冲区，

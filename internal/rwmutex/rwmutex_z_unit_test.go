@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/internal/rwmutex"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestRWMutexIsSafe(t *testing.T) {
@@ -42,32 +42,32 @@ func TestSafeRWMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			localSafeLock = rwmutex.New(true)
-			array         = garray.New(true)
+			array         = garray.X创建(true)
 		)
 
 		go func() {
 			localSafeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(1000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			localSafeLock.Unlock()
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
 			localSafeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(2000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			localSafeLock.Unlock()
 		}()
 		time.Sleep(500 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(800 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 4)
+		t.Assert(array.X取长度(), 4)
 	})
 }
 
@@ -75,39 +75,39 @@ func TestSafeReaderRWMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			localSafeLock = rwmutex.New(true)
-			array         = garray.New(true)
+			array         = garray.X创建(true)
 		)
 		go func() {
 			localSafeLock.RLock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(1000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			localSafeLock.RUnlock()
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
 			localSafeLock.RLock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(2000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(1000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			localSafeLock.RUnlock()
 		}()
 		go func() {
 			time.Sleep(500 * time.Millisecond)
 			localSafeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			localSafeLock.Unlock()
 		}()
 		time.Sleep(500 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 4)
+		t.Assert(array.X取长度(), 4)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 6)
+		t.Assert(array.X取长度(), 6)
 	})
 }
 
@@ -115,30 +115,30 @@ func TestUnsafeRWMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			localUnsafeLock = rwmutex.New()
-			array           = garray.New(true)
+			array           = garray.X创建(true)
 		)
 		go func() {
 			localUnsafeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(2000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			localUnsafeLock.Unlock()
 		}()
 		go func() {
 			time.Sleep(500 * time.Millisecond)
 			localUnsafeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(500 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			localUnsafeLock.Unlock()
 		}()
 		time.Sleep(800 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 		time.Sleep(800 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(500 * time.Millisecond)
-		t.Assert(array.Len(), 4)
+		t.Assert(array.X取长度(), 4)
 	})
 }

@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtype
+package 安全变量类
 
 import (
 	"strconv"
 	"sync/atomic"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Byte是用于并发安全操作byte类型的结构体。 md5:260dada42dab3948
@@ -33,16 +33,16 @@ func NewByte(value ...byte) *Byte {
 
 // Clone 克隆并返回一个新的并发安全的字节类型对象。 md5:8e0d468a5dfb5e0e
 func (v *Byte) Clone() *Byte {
-	return NewByte(v.Val())
+	return NewByte(v.X取值())
 }
 
-// Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
-func (v *Byte) Set(value byte) (old byte) {
+// X设置值 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
+func (v *Byte) X设置值(value byte) (old byte) {
 	return byte(atomic.SwapInt32(&v.value, int32(value)))
 }
 
-// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
-func (v *Byte) Val() byte {
+// X取值原子性地加载并返回t.value。 md5:429a11b89436cc12
+func (v *Byte) X取值() byte {
 	return byte(atomic.LoadInt32(&v.value))
 }
 
@@ -58,23 +58,23 @@ func (v *Byte) Cas(old, new byte) (swapped bool) {
 
 // String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
 func (v *Byte) String() string {
-	return strconv.FormatUint(uint64(v.Val()), 10)
+	return strconv.FormatUint(uint64(v.X取值()), 10)
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (v Byte) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatUint(uint64(v.Val()), 10)), nil
+	return []byte(strconv.FormatUint(uint64(v.X取值()), 10)), nil
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 func (v *Byte) UnmarshalJSON(b []byte) error {
-	v.Set(gconv.Uint8(string(b)))
+	v.X设置值(gconv.X取正整数8位(string(b)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
 func (v *Byte) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Byte(value))
+	v.X设置值(gconv.X取字节(value))
 	return nil
 }
 
@@ -83,5 +83,5 @@ func (v *Byte) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewByte(v.Val())
+	return NewByte(v.X取值())
 }

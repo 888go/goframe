@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gsession
+package session类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
+	gmap "github.com/888go/goframe/container/gmap"
 )
 
 // Storage是会话存储的接口定义。 md5:3c03cfdd3299edcc
@@ -32,10 +32,10 @@ type Storage interface {
 		// Data 从存储中获取所有的键值对并将其作为映射返回。 md5:7160c6695dcc211b
 	Data(ctx context.Context, sessionId string) (sessionData map[string]interface{}, err error)
 
-	// Set 将一个键值对设置到存储中。
+	// X设置值 将一个键值对设置到存储中。
 	// 参数 `ttl` 指定了会话 ID 的过期时间。
 	// md5:f141e9b5de211364
-	Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error
+	X设置值(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error
 
 	// SetMap 批量将键值对设置为存储中的会话映射。参数 `ttl` 指定会话 ID 的过期时间。
 	// md5:be3d6b9412b66e49

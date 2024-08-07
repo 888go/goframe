@@ -10,9 +10,9 @@ package mysql_test
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Insert_Raw(t *testing.T) {
@@ -20,14 +20,14 @@ func Test_Insert_Raw(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		user := db.Model(table)
-		result, err := user.Data(g.Map{
+		user := db.X创建Model对象(table)
+		result, err := user.X设置数据(g.Map{
 			"id":          gdb.Raw("id+2"),
 			"passport":    "port_1",
 			"password":    "pass_1",
 			"nickname":    "name_1",
 			"create_time": gdb.Raw("now()"),
-		}).Insert()
+		}).X插入()
 		t.AssertNil(err)
 		n, _ := result.LastInsertId()
 		t.Assert(n, 2)
@@ -39,9 +39,9 @@ func Test_BatchInsert_Raw(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		user := db.Model(table)
-		result, err := user.Data(
-			g.List{
+		user := db.X创建Model对象(table)
+		result, err := user.X设置数据(
+			g.Map切片{
 				g.Map{
 					"id":          gdb.Raw("id+2"),
 					"passport":    "port_2",
@@ -57,7 +57,7 @@ func Test_BatchInsert_Raw(t *testing.T) {
 					"create_time": gdb.Raw("now()"),
 				},
 			},
-		).Insert()
+		).X插入()
 		t.AssertNil(err)
 		n, _ := result.LastInsertId()
 		t.Assert(n, 4)
@@ -69,18 +69,18 @@ func Test_Update_Raw(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		user := db.Model(table)
-		result, err := user.Data(g.Map{
+		user := db.X创建Model对象(table)
+		result, err := user.X设置数据(g.Map{
 			"id":          gdb.Raw("id+100"),
 			"create_time": gdb.Raw("now()"),
-		}).Where("id", 1).Update()
+		}).X条件("id", 1).X更新()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		user := db.Model(table)
-		n, err := user.Where("id", 101).Count()
+		user := db.X创建Model对象(table)
+		n, err := user.X条件("id", 101).X查询行数()
 		t.AssertNil(err)
 		t.Assert(n, 1)
 	})

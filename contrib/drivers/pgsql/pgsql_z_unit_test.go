@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -13,18 +13,18 @@ import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/test/gtest"
-	
-	"github.com/gogf/gf/v2/contrib/drivers/pgsql"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gctx "github.com/888go/goframe/os/gctx"
+	gtest "github.com/888go/goframe/test/gtest"
+
+	"github.com/888go/goframe/contrib/drivers/pgsql"
 )
 
 func Test_LastInsertId(t *testing.T) {
 	// err not nil
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.Model("notexist").Insert(g.List{
+		_, err := db.X创建Model对象("notexist").X插入(g.Map切片{
 			{"name": "user1"},
 			{"name": "user2"},
 			{"name": "user3"},
@@ -35,7 +35,7 @@ func Test_LastInsertId(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		tableName := createTable()
 		defer dropTable(tableName)
-		res, err := db.Model(tableName).Insert(g.List{
+		res, err := db.X创建Model对象(tableName).X插入(g.Map切片{
 			{"passport": "user1", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
 			{"passport": "user2", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
 			{"passport": "user3", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
@@ -54,9 +54,9 @@ func Test_TxLastInsertId(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		tableName := createTable()
 		defer dropTable(tableName)
-		err := db.Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
+		err := db.X事务(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
 			// user
-			res, err := tx.Model(tableName).Insert(g.List{
+			res, err := tx.X创建Model对象(tableName).X插入(g.Map切片{
 				{"passport": "user1", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
 				{"passport": "user2", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
 				{"passport": "user3", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
@@ -69,7 +69,7 @@ func Test_TxLastInsertId(t *testing.T) {
 			t.AssertNil(err)
 			t.AssertEQ(rowsAffected, int64(3))
 
-			res1, err := tx.Model(tableName).Insert(g.List{
+			res1, err := tx.X创建Model对象(tableName).X插入(g.Map切片{
 				{"passport": "user4", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
 				{"passport": "user5", "password": "pwd", "nickname": "nickname", "create_time": CreateTime},
 			})
@@ -89,7 +89,7 @@ func Test_TxLastInsertId(t *testing.T) {
 
 func Test_Driver_DoFilter(t *testing.T) {
 	var (
-		ctx    = gctx.New()
+		ctx    = gctx.X创建()
 		driver = pgsql.Driver{}
 	)
 	gtest.C(t, func(t *gtest.T) {
@@ -101,7 +101,7 @@ func Test_Driver_DoFilter(t *testing.T) {
 			`select * from user where '?'`:                      `select * from user where '$1'`,
 		}
 		for k, v := range data {
-			newSql, _, err := driver.DoFilter(ctx, nil, k, nil)
+			newSql, _, err := driver.X底层DoFilter(ctx, nil, k, nil)
 			t.AssertNil(err)
 			t.Assert(newSql, v)
 		}

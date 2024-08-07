@@ -4,14 +4,14 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gpool_test
+package 对象复用类_test
 
 import (
 	"database/sql"
 	"fmt"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gpool"
+	gpool "github.com/888go/goframe/container/gpool"
 )
 
 func ExampleNew() {
@@ -19,7 +19,7 @@ func ExampleNew() {
 		Conn *sql.Conn
 	}
 
-	dbConnPool := gpool.New(time.Hour,
+	dbConnPool := gpool.X创建(time.Hour,
 		func() (interface{}, error) {
 			dbConn := new(DBConn)
 			return dbConn, nil
@@ -42,7 +42,7 @@ func ExamplePool_Put() {
 		Limit int
 	}
 
-	dbConnPool := gpool.New(time.Hour,
+	dbConnPool := gpool.X创建(time.Hour,
 		func() (interface{}, error) {
 			dbConn := new(DBConn)
 			dbConn.Limit = 10
@@ -55,7 +55,7 @@ func ExamplePool_Put() {
 		})
 
 	// get db conn
-	conn, _ := dbConnPool.Get()
+	conn, _ := dbConnPool.X出栈()
 		// 修改这个连接的限制. md5:fbc2b791ac0ae7a0
 	conn.(*DBConn).Limit = 20
 
@@ -64,7 +64,7 @@ func ExamplePool_Put() {
 	// md5:92af4813b4267108
 
 	// put back conn
-	dbConnPool.MustPut(conn)
+	dbConnPool.X入栈PANI(conn)
 
 	fmt.Println(conn.(*DBConn).Limit)
 
@@ -78,7 +78,7 @@ func ExamplePool_Clear() {
 		Limit int
 	}
 
-	dbConnPool := gpool.New(time.Hour,
+	dbConnPool := gpool.X创建(time.Hour,
 		func() (interface{}, error) {
 			dbConn := new(DBConn)
 			dbConn.Limit = 10
@@ -91,12 +91,12 @@ func ExamplePool_Clear() {
 			// md5:1207f4943d8a98dc
 		})
 
-	conn, _ := dbConnPool.Get()
-	dbConnPool.MustPut(conn)
-	dbConnPool.MustPut(conn)
-	fmt.Println(dbConnPool.Size())
-	dbConnPool.Clear()
-	fmt.Println(dbConnPool.Size())
+	conn, _ := dbConnPool.X出栈()
+	dbConnPool.X入栈PANI(conn)
+	dbConnPool.X入栈PANI(conn)
+	fmt.Println(dbConnPool.X取数量())
+	dbConnPool.X清空()
+	fmt.Println(dbConnPool.X取数量())
 
 	// Output:
 	// 2
@@ -109,7 +109,7 @@ func ExamplePool_Get() {
 		Limit int
 	}
 
-	dbConnPool := gpool.New(time.Hour,
+	dbConnPool := gpool.X创建(time.Hour,
 		func() (interface{}, error) {
 			dbConn := new(DBConn)
 			dbConn.Limit = 10
@@ -121,7 +121,7 @@ func ExamplePool_Get() {
 			// md5:1207f4943d8a98dc
 		})
 
-	conn, err := dbConnPool.Get()
+	conn, err := dbConnPool.X出栈()
 	if err == nil {
 		fmt.Println(conn.(*DBConn).Limit)
 	}
@@ -136,7 +136,7 @@ func ExamplePool_Size() {
 		Limit int
 	}
 
-	dbConnPool := gpool.New(time.Hour,
+	dbConnPool := gpool.X创建(time.Hour,
 		func() (interface{}, error) {
 			dbConn := new(DBConn)
 			dbConn.Limit = 10
@@ -148,11 +148,11 @@ func ExamplePool_Size() {
 			// md5:1207f4943d8a98dc
 		})
 
-	conn, _ := dbConnPool.Get()
-	fmt.Println(dbConnPool.Size())
-	dbConnPool.MustPut(conn)
-	dbConnPool.MustPut(conn)
-	fmt.Println(dbConnPool.Size())
+	conn, _ := dbConnPool.X出栈()
+	fmt.Println(dbConnPool.X取数量())
+	dbConnPool.X入栈PANI(conn)
+	dbConnPool.X入栈PANI(conn)
+	fmt.Println(dbConnPool.X取数量())
 
 	// Output:
 	// 0
@@ -177,12 +177,12 @@ func ExamplePool_Close() {
 			// md5:1207f4943d8a98dc
 		}
 	)
-	dbConnPool := gpool.New(time.Hour, newFunc, closeFunc)
+	dbConnPool := gpool.X创建(time.Hour, newFunc, closeFunc)
 
-	conn, _ := dbConnPool.Get()
-	dbConnPool.MustPut(conn)
+	conn, _ := dbConnPool.X出栈()
+	dbConnPool.X入栈PANI(conn)
 
-	dbConnPool.Close()
+	dbConnPool.X关闭()
 
 	// wait for pool close
 	time.Sleep(time.Second * 1)

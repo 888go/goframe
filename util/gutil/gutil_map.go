@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/internal/utils"
 )
 
 // MapCopy 对于最常用的映射类型map[string]interface{}，执行从数据映射`data`到`copy`的浅复制。

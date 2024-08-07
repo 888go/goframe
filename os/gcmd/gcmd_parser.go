@@ -5,20 +5,20 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gcmd
+package cmd类
 
 import (
 	"context"
 	"os"
 	"strings"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	gvar "github.com/888go/goframe/container/gvar"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/internal/json"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // ParserOption负责管理解析选项。 md5:6294496b49d5c3bb
@@ -99,7 +99,7 @@ func ParseArgs(args []string, supportedOptions map[string]bool, option ...Parser
 
 	for i := 0; i < len(args); {
 		if option := parser.parseOption(args[i]); option != "" {
-			array, _ := gregex.MatchString(`^(.+?)=(.+)$`, option)
+			array, _ := gregex.X匹配文本(`^(.+?)=(.+)$`, option)
 			if len(array) == 3 {
 				if parser.isOptionValid(array[1]) {
 					parser.setOptionValue(array[1], array[2])
@@ -126,7 +126,7 @@ func ParseArgs(args []string, supportedOptions map[string]bool, option ...Parser
 						i++
 						continue
 					} else if parser.option.Strict {
-						return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid option '%s'`, args[i])
+						return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid option '%s'`, args[i])
 					}
 				}
 			}
@@ -158,7 +158,7 @@ func (p *Parser) parseMultiOption(option string) []string {
 }
 
 func (p *Parser) parseOption(argument string) string {
-	array, _ := gregex.MatchString(`^\-{1,2}(.+)$`, argument)
+	array, _ := gregex.X匹配文本(`^\-{1,2}(.+)$`, argument)
 	if len(array) == 2 {
 		return array[1]
 	}
@@ -173,7 +173,7 @@ func (p *Parser) isOptionValid(name string) bool {
 	}
 	// Case-InSensitive.
 	for optionName := range p.supportedOptions {
-		if gstr.Equal(optionName, name) {
+		if gstr.X相等比较并忽略大小写(optionName, name) {
 			return true
 		}
 	}
@@ -188,7 +188,7 @@ func (p *Parser) isOptionNeedArgument(name string) bool {
 func (p *Parser) setOptionValue(name, value string) {
 		// 准确的选项名称匹配。 md5:92eb07ef58b2270c
 	for optionName := range p.passedOptions {
-		optionNameAndShort := gstr.SplitAndTrim(optionName, ",")
+		optionNameAndShort := gstr.X分割并忽略空值(optionName, ",")
 		for _, optionNameItem := range optionNameAndShort {
 			if optionNameItem == name {
 				for _, v := range optionNameAndShort {
@@ -200,7 +200,7 @@ func (p *Parser) setOptionValue(name, value string) {
 	}
 		// 模糊选项名称匹配。 md5:84dde7ce64941c27
 	for optionName := range p.passedOptions {
-		optionNameAndShort := gstr.SplitAndTrim(optionName, ",")
+		optionNameAndShort := gstr.X分割并忽略空值(optionName, ",")
 		for _, optionNameItem := range optionNameAndShort {
 			if strings.EqualFold(optionNameItem, name) {
 				for _, v := range optionNameAndShort {
@@ -218,10 +218,10 @@ func (p *Parser) GetOpt(name string, def ...interface{}) *gvar.Var {
 		return nil
 	}
 	if v, ok := p.parsedOptions[name]; ok {
-		return gvar.New(v)
+		return gvar.X创建(v)
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0])
+		return gvar.X创建(def[0])
 	}
 	return nil
 }
@@ -240,10 +240,10 @@ func (p *Parser) GetArg(index int, def ...string) *gvar.Var {
 		return nil
 	}
 	if index >= 0 && index < len(p.parsedArgs) {
-		return gvar.New(p.parsedArgs[index])
+		return gvar.X创建(p.parsedArgs[index])
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0])
+		return gvar.X创建(def[0])
 	}
 	return nil
 }

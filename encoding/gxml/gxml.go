@@ -6,16 +6,16 @@
 // md5:a9832f33b234e3f3
 
 // 包gxml提供了访问和转换XML内容的功能。 md5:7f72b127efb49044
-package gxml
+package xml类
 
 import (
 	"strings"
 
 	"github.com/clbanning/mxj/v2"
 
-	"github.com/gogf/gf/v2/encoding/gcharset"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
+	gcharset "github.com/888go/goframe/encoding/gcharset"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // Decode将`content`解析为映射并返回。 md5:09afa737da32e1d3
@@ -26,7 +26,7 @@ func Decode(content []byte) (map[string]interface{}, error) {
 	}
 	m, err := mxj.NewMapXml(res)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.NewMapXml failed`)
+		err = gerror.X多层错误并格式化(err, `mxj.NewMapXml failed`)
 	}
 	return m, err
 }
@@ -39,7 +39,7 @@ func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 	}
 	m, err := mxj.NewMapXml(res)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.NewMapXml failed`)
+		err = gerror.X多层错误并格式化(err, `mxj.NewMapXml failed`)
 		return nil, err
 	}
 	for _, v := range m {
@@ -56,7 +56,7 @@ func DecodeWithoutRoot(content []byte) (map[string]interface{}, error) {
 func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).Xml(rootTag...)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.Map.Xml failed`)
+		err = gerror.X多层错误并格式化(err, `mxj.Map.Xml failed`)
 	}
 	return b, err
 }
@@ -67,7 +67,7 @@ func Encode(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 func EncodeWithIndent(m map[string]interface{}, rootTag ...string) ([]byte, error) {
 	b, err := mxj.Map(m).XmlIndent("", "\t", rootTag...)
 	if err != nil {
-		err = gerror.Wrapf(err, `mxj.Map.XmlIndent failed`)
+		err = gerror.X多层错误并格式化(err, `mxj.Map.XmlIndent failed`)
 	}
 	return b, err
 }
@@ -82,7 +82,7 @@ func ToJson(content []byte) ([]byte, error) {
 	if err == nil {
 		return mv.Json()
 	}
-	err = gerror.Wrap(err, `mxj.NewMapXml failed`)
+	err = gerror.X多层错误(err, `mxj.NewMapXml failed`)
 	return nil, err
 }
 
@@ -90,14 +90,14 @@ func ToJson(content []byte) ([]byte, error) {
 func convert(xml []byte) (res []byte, err error) {
 	var (
 		patten      = `<\?xml.*encoding\s*=\s*['|"](.*?)['|"].*\?>`
-		matchStr, _ = gregex.MatchString(patten, string(xml))
+		matchStr, _ = gregex.X匹配文本(patten, string(xml))
 		xmlEncode   = "UTF-8"
 	)
 	if len(matchStr) == 2 {
 		xmlEncode = matchStr[1]
 	}
 	xmlEncode = strings.ToUpper(xmlEncode)
-	res, err = gregex.Replace(patten, []byte(""), xml)
+	res, err = gregex.X替换字节集(patten, []byte(""), xml)
 	if err != nil {
 		return nil, err
 	}

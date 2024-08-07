@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gclient_test
+package 网页类_test
 
 import (
 	"bytes"
@@ -19,15 +19,15 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/gclient"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/debug/gdebug"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gclient "github.com/888go/goframe/net/gclient"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 var (
@@ -35,262 +35,262 @@ var (
 )
 
 func Test_Client_Basic(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/hello", func(r *ghttp.Request) {
-		r.Response.Write("hello")
+	s := g.Http类(guid.X生成())
+	s.X绑定("/hello", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("hello")
 	})
-	s.BindHandler("/postForm", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("key1"))
+	s.X绑定("/postForm", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("key1"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		client := g.Client()
-		client.SetPrefix(url)
+		url := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
+		client := g.X网页类()
+		client.X设置url前缀(url)
 
-		t.Assert(g.Client().GetContent(ctx, ""), ``)
-		t.Assert(client.GetContent(ctx, "/hello"), `hello`)
+		t.Assert(g.X网页类().Get文本(ctx, ""), ``)
+		t.Assert(client.Get文本(ctx, "/hello"), `hello`)
 
-		_, err := g.Client().Post(ctx, "")
+		_, err := g.X网页类().Post响应对象(ctx, "")
 		t.AssertNE(err, nil)
 
-		_, err = g.Client().PostForm(ctx, "/postForm", nil)
+		_, err = g.X网页类().Post表单响应对象(ctx, "/postForm", nil)
 		t.AssertNE(err, nil)
-		data, _ := g.Client().PostForm(ctx, url+"/postForm", map[string]string{
+		data, _ := g.X网页类().Post表单响应对象(ctx, url+"/postForm", map[string]string{
 			"key1": "value1",
 		})
-		t.Assert(data.ReadAllString(), "value1")
+		t.Assert(data.X取响应文本(), "value1")
 	})
 }
 
 func Test_Client_BasicAuth(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/auth", func(r *ghttp.Request) {
-		if r.BasicAuth("admin", "admin") {
-			r.Response.Write("1")
+	s := g.Http类(guid.X生成())
+	s.X绑定("/auth", func(r *ghttp.Request) {
+		if r.X账号密码认证("admin", "admin") {
+			r.X响应.X写响应缓冲区("1")
 		} else {
-			r.Response.Write("0")
+			r.X响应.X写响应缓冲区("0")
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.BasicAuth("admin", "123").GetContent(ctx, "/auth"), "0")
-		t.Assert(c.BasicAuth("admin", "admin").GetContent(ctx, "/auth"), "1")
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.X账号密码("admin", "123").Get文本(ctx, "/auth"), "0")
+		t.Assert(c.X账号密码("admin", "admin").Get文本(ctx, "/auth"), "1")
 	})
 }
 
 func Test_Client_Cookie(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/cookie", func(r *ghttp.Request) {
-		r.Response.Write(r.Cookie.Get("test"))
+	s := g.Http类(guid.X生成())
+	s.X绑定("/cookie", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Cookie.X取值("test"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		c.SetCookie("test", "0123456789")
-		t.Assert(c.PostContent(ctx, "/cookie"), "0123456789")
+		c.X设置cookie("test", "0123456789")
+		t.Assert(c.Post文本(ctx, "/cookie"), "0123456789")
 	})
 }
 
 func Test_Client_MapParam(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/map", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("test"))
+	s := g.Http类(guid.X生成())
+	s.X绑定("/map", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("test"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(c.GetContent(ctx, "/map", g.Map{"test": "1234567890"}), "1234567890")
+		t.Assert(c.Get文本(ctx, "/map", g.Map{"test": "1234567890"}), "1234567890")
 	})
 }
 
 func Test_Client_Cookies(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/cookie", func(r *ghttp.Request) {
-		r.Cookie.Set("test1", "1")
-		r.Cookie.Set("test2", "2")
-		r.Response.Write("ok")
+	s := g.Http类(guid.X生成())
+	s.X绑定("/cookie", func(r *ghttp.Request) {
+		r.Cookie.X设置值("test1", "1")
+		r.Cookie.X设置值("test2", "2")
+		r.X响应.X写响应缓冲区("ok")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		resp, err := c.Get(ctx, "/cookie")
+		resp, err := c.Get响应对象(ctx, "/cookie")
 		t.AssertNil(err)
-		defer resp.Close()
+		defer resp.X关闭()
 
 		t.AssertNE(resp.Header.Get("Set-Cookie"), "")
 
-		m := resp.GetCookieMap()
+		m := resp.X取CookieMap()
 		t.Assert(len(m), 2)
 		t.Assert(m["test1"], 1)
 		t.Assert(m["test2"], 2)
-		t.Assert(resp.GetCookie("test1"), 1)
-		t.Assert(resp.GetCookie("test2"), 2)
+		t.Assert(resp.X取Cookie("test1"), 1)
+		t.Assert(resp.X取Cookie("test2"), 2)
 	})
 }
 
 func Test_Client_Chain_Header(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/header1", func(r *ghttp.Request) {
-		r.Response.Write(r.Header.Get("test1"))
+	s := g.Http类(guid.X生成())
+	s.X绑定("/header1", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Header.Get("test1"))
 	})
-	s.BindHandler("/header2", func(r *ghttp.Request) {
-		r.Response.Write(r.Header.Get("test2"))
+	s.X绑定("/header2", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Header.Get("test2"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(c.Header(g.MapStrStr{"test1": "1234567890"}).GetContent(ctx, "/header1"), "1234567890")
-		t.Assert(c.HeaderRaw("test1: 1234567890\ntest2: abcdefg").GetContent(ctx, "/header1"), "1234567890")
-		t.Assert(c.HeaderRaw("test1: 1234567890\ntest2: abcdefg").GetContent(ctx, "/header2"), "abcdefg")
+		t.Assert(c.X协议头(g.MapStrStr{"test1": "1234567890"}).Get文本(ctx, "/header1"), "1234567890")
+		t.Assert(c.X原始协议头("test1: 1234567890\ntest2: abcdefg").Get文本(ctx, "/header1"), "1234567890")
+		t.Assert(c.X原始协议头("test1: 1234567890\ntest2: abcdefg").Get文本(ctx, "/header2"), "abcdefg")
 	})
 }
 
 func Test_Client_Chain_Context(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/context", func(r *ghttp.Request) {
+	s := g.Http类(guid.X生成())
+	s.X绑定("/context", func(r *ghttp.Request) {
 		time.Sleep(1 * time.Second)
-		r.Response.Write("ok")
+		r.X响应.X写响应缓冲区("ok")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		ctx, _ := context.WithTimeout(context.Background(), 100*time.Millisecond)
-		t.Assert(c.GetContent(ctx, "/context"), "")
+		t.Assert(c.Get文本(ctx, "/context"), "")
 
 		ctx, _ = context.WithTimeout(context.Background(), 2000*time.Millisecond)
-		t.Assert(c.GetContent(ctx, "/context"), "ok")
+		t.Assert(c.Get文本(ctx, "/context"), "ok")
 	})
 }
 
 func Test_Client_Chain_Timeout(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/timeout", func(r *ghttp.Request) {
+	s := g.Http类(guid.X生成())
+	s.X绑定("/timeout", func(r *ghttp.Request) {
 		time.Sleep(1 * time.Second)
-		r.Response.Write("ok")
+		r.X响应.X写响应缓冲区("ok")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.Timeout(100*time.Millisecond).GetContent(ctx, "/timeout"), "")
-		t.Assert(c.Timeout(2000*time.Millisecond).GetContent(ctx, "/timeout"), "ok")
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.X超时(100*time.Millisecond).Get文本(ctx, "/timeout"), "")
+		t.Assert(c.X超时(2000*time.Millisecond).Get文本(ctx, "/timeout"), "ok")
 	})
 }
 
 func Test_Client_Chain_ContentJson(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/json", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("name"), r.Get("score"))
+	s := g.Http类(guid.X生成())
+	s.X绑定("/json", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("name"), r.Get别名("score"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.ContentJson().PostContent(ctx, "/json", g.Map{
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.X内容类型json().Post文本(ctx, "/json", g.Map{
 			"name":  "john",
 			"score": 100,
 		}), "john100")
-		t.Assert(c.ContentJson().PostContent(ctx, "/json", `{"name":"john", "score":100}`), "john100")
+		t.Assert(c.X内容类型json().Post文本(ctx, "/json", `{"name":"john", "score":100}`), "john100")
 
 		type User struct {
 			Name  string `json:"name"`
 			Score int    `json:"score"`
 		}
-		t.Assert(c.ContentJson().PostContent(ctx, "/json", User{"john", 100}), "john100")
+		t.Assert(c.X内容类型json().Post文本(ctx, "/json", User{"john", 100}), "john100")
 	})
 }
 
 func Test_Client_Chain_ContentXml(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/xml", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("name"), r.Get("score"))
+	s := g.Http类(guid.X生成())
+	s.X绑定("/xml", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("name"), r.Get别名("score"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.ContentXml().PostContent(ctx, "/xml", g.Map{
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.X内容类型xml().Post文本(ctx, "/xml", g.Map{
 			"name":  "john",
 			"score": 100,
 		}), "john100")
-		t.Assert(c.ContentXml().PostContent(ctx, "/xml", `{"name":"john", "score":100}`), "john100")
+		t.Assert(c.X内容类型xml().Post文本(ctx, "/xml", `{"name":"john", "score":100}`), "john100")
 
 		type User struct {
 			Name  string `json:"name"`
 			Score int    `json:"score"`
 		}
-		t.Assert(c.ContentXml().PostContent(ctx, "/xml", User{"john", 100}), "john100")
+		t.Assert(c.X内容类型xml().Post文本(ctx, "/xml", User{"john", 100}), "john100")
 	})
 }
 
 func Test_Client_Param_Containing_Special_Char(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write("k1=", r.Get("k1"), "&k2=", r.Get("k2"))
+	s := g.Http类(guid.X生成())
+	s.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("k1=", r.Get别名("k1"), "&k2=", r.Get别名("k2"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.PostContent(ctx, "/", "k1=MTIxMg==&k2=100"), "k1=MTIxMg==&k2=100")
-		t.Assert(c.PostContent(ctx, "/", g.Map{
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Post文本(ctx, "/", "k1=MTIxMg==&k2=100"), "k1=MTIxMg==&k2=100")
+		t.Assert(c.Post文本(ctx, "/", g.Map{
 			"k1": "MTIxMg==",
 			"k2": 100,
 		}), "k1=MTIxMg==&k2=100")
@@ -301,24 +301,24 @@ func Test_Client_Param_Containing_Special_Char(t *testing.T) {
 // 它不会对参数进行URL编码。
 // md5:e7d22bb43988cf7d
 func Test_Client_File_And_Param(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/", func(r *ghttp.Request) {
-		tmpPath := gfile.Temp(guid.S())
-		err := gfile.Mkdir(tmpPath)
+	s := g.Http类(guid.X生成())
+	s.X绑定("/", func(r *ghttp.Request) {
+		tmpPath := gfile.X取临时目录(guid.X生成())
+		err := gfile.X创建目录(tmpPath)
 		gtest.AssertNil(err)
-		defer gfile.Remove(tmpPath)
+		defer gfile.X删除(tmpPath)
 
-		file := r.GetUploadFile("file")
-		_, err = file.Save(tmpPath)
+		file := r.X取上传文件对象("file")
+		_, err = file.X保存(tmpPath)
 		gtest.AssertNil(err)
-		r.Response.Write(
-			r.Get("json"),
-			gfile.GetContents(gfile.Join(tmpPath, gfile.Basename(file.Filename))),
+		r.X响应.X写响应缓冲区(
+			r.Get别名("json"),
+			gfile.X读文本(gfile.X路径生成(tmpPath, gfile.X路径取文件名(file.Filename))),
 		)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
@@ -328,21 +328,21 @@ func Test_Client_File_And_Param(t *testing.T) {
 			"file": "@file:" + path,
 			"json": `{"uuid": "luijquiopm", "isRelative": false, "fileName": "test111.xls"}`,
 		}
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.PostContent(ctx, "/", data), data["json"].(string)+gfile.GetContents(path))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Post文本(ctx, "/", data), data["json"].(string)+gfile.X读文本(path))
 	})
 }
 
 func Test_Client_Middleware(t *testing.T) {
-	s := g.Server(guid.S())
+	s := g.Http类(guid.X生成())
 	isServerHandler := false
-	s.BindHandler("/", func(r *ghttp.Request) {
+	s.X绑定("/", func(r *ghttp.Request) {
 		isServerHandler = true
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
@@ -351,8 +351,8 @@ func Test_Client_Middleware(t *testing.T) {
 			str1 = ""
 			str2 = "resp body"
 		)
-		c := g.Client().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		c.Use(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
+		c := g.X网页类().X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		c.X中间件(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
 			str1 += "a"
 			resp, err = c.Next(r)
 			if err != nil {
@@ -361,7 +361,7 @@ func Test_Client_Middleware(t *testing.T) {
 			str1 += "b"
 			return
 		})
-		c.Use(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
+		c.X中间件(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
 			str1 += "c"
 			resp, err = c.Next(r)
 			if err != nil {
@@ -370,7 +370,7 @@ func Test_Client_Middleware(t *testing.T) {
 			str1 += "d"
 			return
 		})
-		c.Use(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
+		c.X中间件(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
 			str1 += "e"
 			resp, err = c.Next(r)
 			if err != nil {
@@ -380,10 +380,10 @@ func Test_Client_Middleware(t *testing.T) {
 			str1 += "f"
 			return
 		})
-		resp, err := c.Get(ctx, "/")
+		resp, err := c.Get响应对象(ctx, "/")
 		t.Assert(str1, "acefdb")
 		t.AssertNil(err)
-		t.Assert(resp.ReadAllString(), str2)
+		t.Assert(resp.X取响应文本(), str2)
 		t.Assert(isServerHandler, true)
 
 				// 测试中断，中断不会发送. md5:08b4e656520be948
@@ -392,24 +392,24 @@ func Test_Client_Middleware(t *testing.T) {
 			abortStr = "abort request"
 		)
 
-		c = g.Client().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		c.Use(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
+		c = g.X网页类().X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		c.X中间件(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
 			str3 += "a"
 			resp, err = c.Next(r)
 			str3 += "b"
 			return
 		})
-		c.Use(func(c *gclient.Client, r *http.Request) (*gclient.Response, error) {
+		c.X中间件(func(c *gclient.Client, r *http.Request) (*gclient.Response, error) {
 			str3 += "c"
-			return nil, gerror.New(abortStr)
+			return nil, gerror.X创建(abortStr)
 		})
-		c.Use(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
+		c.X中间件(func(c *gclient.Client, r *http.Request) (resp *gclient.Response, err error) {
 			str3 += "f"
 			resp, err = c.Next(r)
 			str3 += "g"
 			return
 		})
-		resp, err = c.Get(ctx, "/")
+		resp, err = c.Get响应对象(ctx, "/")
 		t.Assert(err, abortStr)
 		t.Assert(str3, "acb")
 		t.Assert(resp, nil)
@@ -417,87 +417,87 @@ func Test_Client_Middleware(t *testing.T) {
 }
 
 func Test_Client_Agent(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write(r.UserAgent())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.UserAgent())
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client().SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		c.SetAgent("test")
-		t.Assert(c.GetContent(ctx, "/"), "test")
+		c := g.X网页类().X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		c.X设置UA("test")
+		t.Assert(c.Get文本(ctx, "/"), "test")
 	})
 }
 
 func Test_Client_Request_13_Dump(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/hello", func(r *ghttp.Request) {
-		r.Response.WriteHeader(200)
-		r.Response.WriteJson(g.Map{"field": "test_for_response_body"})
+	s := g.Http类(guid.X生成())
+	s.X绑定("/hello", func(r *ghttp.Request) {
+		r.X响应.WriteHeader(200)
+		r.X响应.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
 	})
-	s.BindHandler("/hello2", func(r *ghttp.Request) {
-		r.Response.WriteHeader(200)
-		r.Response.Writeln(g.Map{"field": "test_for_response_body"})
+	s.X绑定("/hello2", func(r *ghttp.Request) {
+		r.X响应.WriteHeader(200)
+		r.X响应.X写响应缓冲区并换行(g.Map{"field": "test_for_response_body"})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		client := g.Client().SetPrefix(url).ContentJson()
-		r, err := client.Post(ctx, "/hello", g.Map{"field": "test_for_request_body"})
+		url := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
+		client := g.X网页类().X设置url前缀(url).X内容类型json()
+		r, err := client.Post响应对象(ctx, "/hello", g.Map{"field": "test_for_request_body"})
 		t.AssertNil(err)
-		dumpedText := r.RawRequest()
-		t.Assert(gstr.Contains(dumpedText, "test_for_request_body"), true)
-		dumpedText2 := r.RawResponse()
+		dumpedText := r.X取请求原始文本()
+		t.Assert(gstr.X是否包含(dumpedText, "test_for_request_body"), true)
+		dumpedText2 := r.X取响应原始文本()
 		fmt.Println(dumpedText2)
-		t.Assert(gstr.Contains(dumpedText2, "test_for_response_body"), true)
+		t.Assert(gstr.X是否包含(dumpedText2, "test_for_response_body"), true)
 
-		client2 := g.Client().SetPrefix(url).ContentType("text/html")
-		r2, err := client2.Post(ctx, "/hello2", g.Map{"field": "test_for_request_body"})
+		client2 := g.X网页类().X设置url前缀(url).X内容类型("text/html")
+		r2, err := client2.Post响应对象(ctx, "/hello2", g.Map{"field": "test_for_request_body"})
 		t.AssertNil(err)
-		dumpedText3 := r2.RawRequest()
-		t.Assert(gstr.Contains(dumpedText3, "test_for_request_body"), true)
-		dumpedText4 := r2.RawResponse()
-		t.Assert(gstr.Contains(dumpedText4, "test_for_request_body"), false)
+		dumpedText3 := r2.X取请求原始文本()
+		t.Assert(gstr.X是否包含(dumpedText3, "test_for_request_body"), true)
+		dumpedText4 := r2.X取响应原始文本()
+		t.Assert(gstr.X是否包含(dumpedText4, "test_for_request_body"), false)
 		r2 = nil
-		t.Assert(r2.RawRequest(), "")
+		t.Assert(r2.X取请求原始文本(), "")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		response, _ := g.Client().Get(ctx, url, g.Map{
+		url := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
+		response, _ := g.X网页类().Get响应对象(ctx, url, g.Map{
 			"id":   10000,
 			"name": "john",
 		})
 		response = nil
-		t.Assert(response.RawRequest(), "")
+		t.Assert(response.X取请求原始文本(), "")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		url := fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort())
-		response, _ := g.Client().Get(ctx, url, g.Map{
+		url := fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口())
+		response, _ := g.X网页类().Get响应对象(ctx, url, g.Map{
 			"id":   10000,
 			"name": "john",
 		})
-		response.RawDump()
-		t.AssertGT(len(response.Raw()), 0)
+		response.X请求和响应输出终端()
+		t.AssertGT(len(response.X取请求和响应原始文本()), 0)
 	})
 }
 
 func Test_WebSocketClient(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/ws", func(r *ghttp.Request) {
-		ws, err := r.WebSocket()
+	s := g.Http类(guid.X生成())
+	s.X绑定("/ws", func(r *ghttp.Request) {
+		ws, err := r.X升级为websocket请求()
 		if err != nil {
-			r.Exit()
+			r.X退出当前()
 		}
 		for {
 			msgType, msg, err := ws.ReadMessage()
@@ -510,18 +510,18 @@ func Test_WebSocketClient(t *testing.T) {
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
+	s.X开始监听()
 	// 注意：由于WebSocket保持活动连接，存在数据竞争风险，因此此处不使用关闭defer语句。
 	// 	// s.Shutdown() 应在适当的地方手动调用以确保资源正确释放。
 	// md5:e59a0c81d7768e8f
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client := gclient.NewWebSocket()
+		client := gclient.X创建WebSocket()
 		client.Proxy = http.ProxyFromEnvironment
 		client.HandshakeTimeout = time.Minute
 
-		conn, _, err := client.Dial(fmt.Sprintf("ws://127.0.0.1:%d/ws", s.GetListenedPort()), nil)
+		conn, _, err := client.Dial(fmt.Sprintf("ws://127.0.0.1:%d/ws", s.X取已监听端口()), nil)
 		t.AssertNil(err)
 		defer conn.Close()
 
@@ -538,57 +538,57 @@ func Test_WebSocketClient(t *testing.T) {
 
 func TestLoadKeyCrt(t *testing.T) {
 	var (
-		testCrtFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/upload/file1.txt"
-		testKeyFile = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/upload/file2.txt"
-		crtFile     = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.crt"
-		keyFile     = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.key"
+		testCrtFile = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/upload/file1.txt"
+		testKeyFile = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/upload/file2.txt"
+		crtFile     = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.crt"
+		keyFile     = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.key"
 		tlsConfig   = &tls.Config{}
 	)
 
 	gtest.C(t, func(t *gtest.T) {
-		tlsConfig, _ = gclient.LoadKeyCrt("crtFile", "keyFile")
+		tlsConfig, _ = gclient.X创建TLS配置("crtFile", "keyFile")
 		t.AssertNil(tlsConfig)
 
-		tlsConfig, _ = gclient.LoadKeyCrt(crtFile, "keyFile")
+		tlsConfig, _ = gclient.X创建TLS配置(crtFile, "keyFile")
 		t.AssertNil(tlsConfig)
 
-		tlsConfig, _ = gclient.LoadKeyCrt(testCrtFile, testKeyFile)
+		tlsConfig, _ = gclient.X创建TLS配置(testCrtFile, testKeyFile)
 		t.AssertNil(tlsConfig)
 
-		tlsConfig, _ = gclient.LoadKeyCrt(crtFile, keyFile)
+		tlsConfig, _ = gclient.X创建TLS配置(crtFile, keyFile)
 		t.AssertNE(tlsConfig, nil)
 	})
 }
 
 func TestClient_DoRequest(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/hello", func(r *ghttp.Request) {
-		r.Response.WriteHeader(200)
-		r.Response.WriteJson(g.Map{"field": "test_for_response_body"})
+	s := g.Http类(guid.X生成())
+	s.X绑定("/hello", func(r *ghttp.Request) {
+		r.X响应.WriteHeader(200)
+		r.X响应.X写响应缓冲区JSON(g.Map{"field": "test_for_response_body"})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		url := fmt.Sprintf("127.0.0.1:%d/hello", s.GetListenedPort())
-		resp, err := c.DoRequest(ctx, http.MethodGet, url)
+		c := g.X网页类()
+		url := fmt.Sprintf("127.0.0.1:%d/hello", s.X取已监听端口())
+		resp, err := c.X请求响应对象(ctx, http.MethodGet, url)
 		t.AssertNil(err)
 		t.AssertNE(resp, nil)
-		t.Assert(resp.ReadAllString(), "{\"field\":\"test_for_response_body\"}")
+		t.Assert(resp.X取响应文本(), "{\"field\":\"test_for_response_body\"}")
 
 		resp.Response = nil
-		bytes := resp.ReadAll()
+		bytes := resp.X取响应字节集()
 		t.Assert(bytes, []byte{})
-		resp.Close()
+		resp.X关闭()
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
+		c := g.X网页类()
 		url := "127.0.0.1:99999/hello"
-		resp, err := c.DoRequest(ctx, http.MethodGet, url)
+		resp, err := c.X请求响应对象(ctx, http.MethodGet, url)
 		t.AssertNil(resp.Response)
 		t.AssertNE(err, nil)
 	})
@@ -599,7 +599,7 @@ func TestClient_RequestVar(t *testing.T) {
 		var (
 			url = "http://127.0.0.1:99999/var/jsons"
 		)
-		varValue := g.Client().RequestVar(ctx, http.MethodGet, url)
+		varValue := g.X网页类().X请求泛型类(ctx, http.MethodGet, url)
 		t.AssertNil(varValue)
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -611,80 +611,80 @@ func TestClient_RequestVar(t *testing.T) {
 			users []User
 			url   = "http://127.0.0.1:8999/var/jsons"
 		)
-		err := g.Client().RequestVar(ctx, http.MethodGet, url).Scan(&users)
+		err := g.X网页类().X请求泛型类(ctx, http.MethodGet, url).X取结构体指针(&users)
 		t.AssertNil(err)
 		t.AssertNE(users, nil)
 	})
 }
 
 func TestClient_SetBodyContent(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write("hello")
+	s := g.Http类(guid.X生成())
+	s.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("hello")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		res, err := c.Get(ctx, "/")
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		res, err := c.Get响应对象(ctx, "/")
 		t.AssertNil(err)
-		defer res.Close()
-		t.Assert(res.ReadAllString(), "hello")
-		res.SetBodyContent([]byte("world"))
-		t.Assert(res.ReadAllString(), "world")
+		defer res.X关闭()
+		t.Assert(res.X取响应文本(), "hello")
+		res.X覆盖响应内容([]byte("world"))
+		t.Assert(res.X取响应文本(), "world")
 	})
 }
 
 func TestClient_SetNoUrlEncode(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write(r.URL.RawQuery)
+	s := g.Http类(guid.X生成())
+	s.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.URL.RawQuery)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		var params = g.Map{
 			"path": "/data/binlog",
 		}
-		t.Assert(c.GetContent(ctx, `/`, params), `path=%2Fdata%2Fbinlog`)
+		t.Assert(c.Get文本(ctx, `/`, params), `path=%2Fdata%2Fbinlog`)
 
-		c.SetNoUrlEncode(true)
-		t.Assert(c.GetContent(ctx, `/`, params), `path=/data/binlog`)
+		c.X设置请求参数禁止URL编码(true)
+		t.Assert(c.Get文本(ctx, `/`, params), `path=/data/binlog`)
 
-		c.SetNoUrlEncode(false)
-		t.Assert(c.GetContent(ctx, `/`, params), `path=%2Fdata%2Fbinlog`)
+		c.X设置请求参数禁止URL编码(false)
+		t.Assert(c.Get文本(ctx, `/`, params), `path=%2Fdata%2Fbinlog`)
 	})
 }
 
 func TestClient_NoUrlEncode(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write(r.URL.RawQuery)
+	s := g.Http类(guid.X生成())
+	s.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.URL.RawQuery)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		var params = g.Map{
 			"path": "/data/binlog",
 		}
-		t.Assert(c.GetContent(ctx, `/`, params), `path=%2Fdata%2Fbinlog`)
+		t.Assert(c.Get文本(ctx, `/`, params), `path=%2Fdata%2Fbinlog`)
 
-		t.Assert(c.NoUrlEncode().GetContent(ctx, `/`, params), `path=/data/binlog`)
+		t.Assert(c.X请求参数禁止URL编码().Get文本(ctx, `/`, params), `path=/data/binlog`)
 	})
 }

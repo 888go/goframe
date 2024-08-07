@@ -12,10 +12,10 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gutil"
+	gdb "github.com/888go/goframe/database/gdb"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 var (
@@ -43,25 +43,25 @@ func init() {
 	}
 }
 
-// Tables 获取并返回当前模式下的表格列表。
+// X取表名称切片 获取并返回当前模式下的表格列表。
 //主要用于命令行工具链，用于自动生成模型。
 // md5:bce161ba95454bf5
-func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
+func (d *Driver) X取表名称切片(ctx context.Context, schema ...string) (tables []string, err error) {
 	var (
 		result     gdb.Result
-		usedSchema = gutil.GetOrDefaultStr(d.GetConfig().Namespace, schema...)
+		usedSchema = gutil.X取文本值或取默认值(d.X取当前节点配置().Namespace, schema...)
 	)
 	if usedSchema == "" {
 		usedSchema = defaultSchema
 	}
 		// 不要将`usedSchema`作为`SlaveLink`函数的参数。 md5:283541defa4ac558
-	link, err := d.SlaveLink(schema...)
+	link, err := d.X底层SlaveLink(schema...)
 	if err != nil {
 		return nil, err
 	}
 
 	useRelpartbound := ""
-	if gstr.CompareVersion(d.version(ctx, link), "10") >= 0 {
+	if gstr.X版本号比较GNU格式(d.version(ctx, link), "10") >= 0 {
 		useRelpartbound = "AND c.relpartbound IS NULL"
 	}
 
@@ -71,8 +71,8 @@ func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string,
 		useRelpartbound,
 	)
 
-	query, _ = gregex.ReplaceString(`[\n\r\s]+`, " ", gstr.Trim(query))
-	result, err = d.DoSelect(ctx, link, query)
+	query, _ = gregex.X替换文本(`[\n\r\s]+`, " ", gstr.X过滤首尾符并含空白(query))
+	result, err = d.X底层查询(ctx, link, query)
 	if err != nil {
 		return
 	}
@@ -86,7 +86,7 @@ func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string,
 
 // 检查并返回数据库版本。 md5:39cd1f37b14f728a
 func (d *Driver) version(ctx context.Context, link gdb.Link) string {
-	result, err := d.DoSelect(ctx, link, "SELECT version();")
+	result, err := d.X底层查询(ctx, link, "SELECT version();")
 	if err != nil {
 		return ""
 	}

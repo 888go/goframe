@@ -7,14 +7,14 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gcfg_test
+package 配置类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestAdapterFile_Dump(t *testing.T) {
@@ -153,17 +153,17 @@ func TestAdapterFile_Set(t *testing.T) {
 	config := `log-path = "logs"`
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			path = gcfg.DefaultConfigFileName
-			err  = gfile.PutContents(path, config)
+			path = gcfg.X默认配置文件名称
+			err  = gfile.X写入文本(path, config)
 		)
 		t.AssertNil(err)
-		defer gfile.Remove(path)
+		defer gfile.X删除(path)
 
-		c, err := gcfg.New()
-		t.Assert(c.MustGet(ctx, "log-path").String(), "logs")
+		c, err := gcfg.X创建()
+		t.Assert(c.X取值PANI(ctx, "log-path").String(), "logs")
 
-		err = c.GetAdapter().(*gcfg.AdapterFile).Set("log-path", "custom-logs")
+		err = c.X取适配器().(*gcfg.AdapterFile).X设置值("log-path", "custom-logs")
 		t.AssertNil(err)
-		t.Assert(c.MustGet(ctx, "log-path").String(), "custom-logs")
+		t.Assert(c.X取值PANI(ctx, "log-path").String(), "custom-logs")
 	})
 }

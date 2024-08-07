@@ -11,8 +11,8 @@ package g
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/util/gmeta"
+	gvar "github.com/888go/goframe/container/gvar"
+	gmeta "github.com/888go/goframe/util/gmeta"
 )
 
 type (
@@ -38,31 +38,31 @@ type (
 )
 
 type (
-	List        = []Map        // List 是常用切片类型 []Map 的别名。 md5:ff03e40655e3f35f
-	ListAnyAny  = []MapAnyAny  // ListAnyAny是常用切片类型[]MapAnyAny的别名。 md5:f6b168f11392abb0
-	ListAnyStr  = []MapAnyStr  // ListAnyStr 是常用的切片类型 []MapAnyStr 的别名。 md5:d7812e32db355aa6
-	ListAnyInt  = []MapAnyInt  // ListAnyInt 是常用切片类型 []MapAnyInt 的别名。 md5:8562af0324cd1e5a
-	ListStrAny  = []MapStrAny  // ListStrAny 是常用切片类型 []MapStrAny 的别名。 md5:144077caa161cdf6
-	ListStrStr  = []MapStrStr  // ListStrStr是常用的切片类型[]MapStrStr的别名。 md5:2045a3a5bab66ff3
-	ListStrInt  = []MapStrInt  // ListStrInt 是一个常用的切片类型 []MapStrInt 的别名。 md5:31e1179a1af9c57e
-	ListIntAny  = []MapIntAny  // ListIntAny 是常用切片类型 []MapIntAny 的别名。 md5:5683714d5eda3cde
-	ListIntStr  = []MapIntStr  // ListIntStr 是常用切片类型 []MapIntStr 的别名。 md5:383a98d6f17d278d
-	ListIntInt  = []MapIntInt  // ListIntInt 是一个常用的切片类型 []MapIntInt 的别名。 md5:9fd8565ffb13d5b2
-	ListAnyBool = []MapAnyBool // ListAnyBool 是一个常用的切片类型 []MapAnyBool 的别名。 md5:8dcdb92f2ce053c8
-	ListStrBool = []MapStrBool // ListStrBool 是常用切片类型 []MapStrBool 的别名。 md5:de56ef83a16ba4a2
-	ListIntBool = []MapIntBool // ListIntBool 是常用切片类型 []MapIntBool 的别名。 md5:44e8bb52de3fc953
+	Map切片        = []Map        // List 是常用切片类型 []Map 的别名。 md5:ff03e40655e3f35f
+	MapAnyAny切片  = []MapAnyAny  // ListAnyAny是常用切片类型[]MapAnyAny的别名。 md5:f6b168f11392abb0
+	MapAnyStr切片  = []MapAnyStr  // ListAnyStr 是常用的切片类型 []MapAnyStr 的别名。 md5:d7812e32db355aa6
+	MapAnyInt切片  = []MapAnyInt  // ListAnyInt 是常用切片类型 []MapAnyInt 的别名。 md5:8562af0324cd1e5a
+	MapStrAny切片  = []MapStrAny  // ListStrAny 是常用切片类型 []MapStrAny 的别名。 md5:144077caa161cdf6
+	MapStrStr切片  = []MapStrStr  // ListStrStr是常用的切片类型[]MapStrStr的别名。 md5:2045a3a5bab66ff3
+	MapStrInt切片  = []MapStrInt  // ListStrInt 是一个常用的切片类型 []MapStrInt 的别名。 md5:31e1179a1af9c57e
+	MapIntAny切片  = []MapIntAny  // ListIntAny 是常用切片类型 []MapIntAny 的别名。 md5:5683714d5eda3cde
+	MapIntStr切片  = []MapIntStr  // ListIntStr 是常用切片类型 []MapIntStr 的别名。 md5:383a98d6f17d278d
+	MapIntInt切片  = []MapIntInt  // ListIntInt 是一个常用的切片类型 []MapIntInt 的别名。 md5:9fd8565ffb13d5b2
+	MapAnyBool切片 = []MapAnyBool // ListAnyBool 是一个常用的切片类型 []MapAnyBool 的别名。 md5:8dcdb92f2ce053c8
+	MapStrBool切片 = []MapStrBool // ListStrBool 是常用切片类型 []MapStrBool 的别名。 md5:de56ef83a16ba4a2
+	MapIntBool切片 = []MapIntBool // ListIntBool 是常用切片类型 []MapIntBool 的别名。 md5:44e8bb52de3fc953
 )
 
 type (
-	Slice    = []interface{} // Slice 是对常用切片类型 []interface{} 的别名。 md5:9a6ecfa92fac8f3a
-	SliceAny = []interface{} // SliceAny 是一个别名，用于频繁使用的切片类型 []interface{}。 md5:0b565fb84a9bac93
-	SliceStr = []string      // SliceStr 是经常使用的切片类型 []string 的别名。 md5:19d8a28bce60c7d8
-	SliceInt = []int         // SliceInt 是常用切片类型 []int 的别名。 md5:2923a4699e7e68da
+	Slice别名    = []interface{} // Slice 是对常用切片类型 []interface{} 的别名。 md5:9a6ecfa92fac8f3a
+	SliceAny别名 = []interface{} // SliceAny 是一个别名，用于频繁使用的切片类型 []interface{}。 md5:0b565fb84a9bac93
+	SliceStr别名 = []string      // SliceStr 是经常使用的切片类型 []string 的别名。 md5:19d8a28bce60c7d8
+	SliceInt别名 = []int         // SliceInt 是常用切片类型 []int 的别名。 md5:2923a4699e7e68da
 )
 
 type (
-	Array    = []interface{} // Array 是一个常用的切片类型 []interface{} 的别名。 md5:83e56770b618f21f
-	ArrayAny = []interface{} // ArrayAny是常用的切片类型[]interface{}的别名。 md5:6dfa6ee832fcc9f4
-	ArrayStr = []string      // ArrayStr 是经常使用的切片类型 []string 的别名。 md5:55e2175bd1bb667d
-	ArrayInt = []int         // ArrayInt 是常用切片类型 []int 的别名。 md5:f524bf88e64fcf6e
+	X切片    = []interface{} // Array 是一个常用的切片类型 []interface{} 的别名。 md5:83e56770b618f21f
+	Any切片 = []interface{} // ArrayAny是常用的切片类型[]interface{}的别名。 md5:6dfa6ee832fcc9f4
+	X文本切片 = []string      // ArrayStr 是经常使用的切片类型 []string 的别名。 md5:55e2175bd1bb667d
+	X整数切片 = []int         // ArrayInt 是常用切片类型 []int 的别名。 md5:f524bf88e64fcf6e
 )

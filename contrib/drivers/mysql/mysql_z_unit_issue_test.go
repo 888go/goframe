@@ -14,14 +14,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/guid"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 //github.com/gogf/gf/issues/1934. md5:96f55929c7ed56a0
@@ -30,7 +30,7 @@ func Test_Issue1934(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		one, err := db.Model(table).Where(" id ", 1).One()
+		one, err := db.X创建Model对象(table).X条件(" id ", 1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["id"], 1)
 	})
@@ -39,11 +39,11 @@ func Test_Issue1934(t *testing.T) {
 //github.com/gogf/gf/issues/1570. md5:37966850af641bcc
 func Test_Issue1570(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -101,20 +101,20 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
 			// Detail.
-			_, err = db.Insert(ctx, tableUserDetail, g.Map{
+			_, err = db.X插入(ctx, tableUserDetail, g.Map{
 				"uid":     i,
 				"address": fmt.Sprintf(`address_%d`, i),
 			})
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
-				_, err = db.Insert(ctx, tableUserScores, g.Map{
+				_, err = db.X插入(ctx, tableUserScores, g.Map{
 					"uid":   i,
 					"score": j,
 				})
@@ -127,30 +127,30 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Fields("uid").
-			Order("uid asc").
-			ScanList(&users, "User")
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X字段保留过滤("uid").
+			X排序("uid asc").
+			X查询到指针列表(&users, "User")
 		t.AssertNil(err)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, ""})
 		t.Assert(users[1].User, &EntityUser{4, ""})
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
@@ -170,9 +170,9 @@ func Test_Issue1401(t *testing.T) {
 		table1 = "parcels"
 		table2 = "parcel_items"
 	)
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue1401.sql`), ";")
+	array := gstr.X分割并忽略空值(gtest.DataContent(`issue1401.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -197,7 +197,7 @@ func Test_Issue1401(t *testing.T) {
 		}
 
 		parcelDetail := &ParcelRsp{}
-		err := db.Model(table1).With(parcelDetail.Items).Where("id", 3).Scan(&parcelDetail)
+		err := db.X创建Model对象(table1).X关联对象(parcelDetail.Items).X条件("id", 3).X查询到结构体指针(&parcelDetail)
 		t.AssertNil(err)
 		t.Assert(parcelDetail.Id, 3)
 		t.Assert(len(parcelDetail.Items), 1)
@@ -212,9 +212,9 @@ func Test_Issue1412(t *testing.T) {
 		table1 = "parcels"
 		table2 = "items"
 	)
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue1412.sql`), ";")
+	array := gstr.X分割并忽略空值(gtest.DataContent(`issue1412.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -236,7 +236,7 @@ func Test_Issue1412(t *testing.T) {
 		}
 
 		entity := &ParcelRsp{}
-		err := db.Model("parcels").With(Items{}).Where("id=3").Scan(&entity)
+		err := db.X创建Model对象("parcels").X关联对象(Items{}).X条件("id=3").X查询到结构体指针(&entity)
 		t.AssertNil(err)
 		t.Assert(entity.Id, 3)
 		t.Assert(entity.ItemId, 0)
@@ -259,7 +259,7 @@ func Test_Issue1412(t *testing.T) {
 		}
 
 		entity := &ParcelRsp{}
-		err := db.Model("parcels").With(Items{}).Where("id=30000").Scan(&entity)
+		err := db.X创建Model对象("parcels").X关联对象(Items{}).X条件("id=30000").X查询到结构体指针(&entity)
 		t.AssertNE(err, nil)
 		t.Assert(entity.Id, 0)
 		t.Assert(entity.ItemId, 0)
@@ -273,48 +273,48 @@ func Test_Issue1002(t *testing.T) {
 	table := createTable()
 	defer dropTable(table)
 
-	result, err := db.Model(table).Data(g.Map{
+	result, err := db.X创建Model对象(table).X设置数据(g.Map{
 		"id":          1,
 		"passport":    "port_1",
 		"password":    "pass_1",
 		"nickname":    "name_2",
 		"create_time": "2020-10-27 19:03:33",
-	}).Insert()
+	}).X插入()
 	gtest.AssertNil(err)
 	n, _ := result.RowsAffected()
 	gtest.Assert(n, 1)
 
 	// where + string.
 	gtest.C(t, func(t *gtest.T) {
-		v, err := db.Model(table).Fields("id").Where("create_time>'2020-10-27 19:03:32' and create_time<'2020-10-27 19:03:34'").Value()
+		v, err := db.X创建Model对象(table).X字段保留过滤("id").X条件("create_time>'2020-10-27 19:03:32' and create_time<'2020-10-27 19:03:34'").X查询一条值()
 		t.AssertNil(err)
-		t.Assert(v.Int(), 1)
+		t.Assert(v.X取整数(), 1)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		v, err := db.Model(table).Fields("id").Where("create_time>'2020-10-27 19:03:32' and create_time<'2020-10-27 19:03:34'").Value()
+		v, err := db.X创建Model对象(table).X字段保留过滤("id").X条件("create_time>'2020-10-27 19:03:32' and create_time<'2020-10-27 19:03:34'").X查询一条值()
 		t.AssertNil(err)
-		t.Assert(v.Int(), 1)
+		t.Assert(v.X取整数(), 1)
 	})
 		// where + 字符串参数。 md5:cb1db92222691d4d
 	gtest.C(t, func(t *gtest.T) {
-		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").Value()
+		v, err := db.X创建Model对象(table).X字段保留过滤("id").X条件("create_time>? and create_time<?", "2020-10-27 19:03:32", "2020-10-27 19:03:34").X查询一条值()
 		t.AssertNil(err)
-		t.Assert(v.Int(), 1)
+		t.Assert(v.X取整数(), 1)
 	})
 		// 其中包含 gtime.Time 类型的参数。 md5:3bd9bb993dd2cc53
 	gtest.C(t, func(t *gtest.T) {
-		v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", gtime.New("2020-10-27 19:03:32"), gtime.New("2020-10-27 19:03:34")).Value()
+		v, err := db.X创建Model对象(table).X字段保留过滤("id").X条件("create_time>? and create_time<?", gtime.X创建("2020-10-27 19:03:32"), gtime.X创建("2020-10-27 19:03:34")).X查询一条值()
 		t.AssertNil(err)
-		t.Assert(v.Int(), 1)
+		t.Assert(v.X取整数(), 1)
 	})
 		// 带有时间.Time参数，使用UTC时区。 md5:80f36eaa256e894c
 	gtest.C(t, func(t *gtest.T) {
 		t1, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:32")
 		t2, _ := time.Parse("2006-01-02 15:04:05", "2020-10-27 11:03:34")
 		{
-			v, err := db.Model(table).Fields("id").Where("create_time>? and create_time<?", t1, t2).Value()
+			v, err := db.X创建Model对象(table).X字段保留过滤("id").X条件("create_time>? and create_time<?", t1, t2).X查询一条值()
 			t.AssertNil(err)
-			t.Assert(v.Int(), 1)
+			t.Assert(v.X取整数(), 1)
 		}
 	})
 	// 在时间.Time参数中，+8代表时区偏移。
@@ -346,8 +346,8 @@ func Test_Issue1002(t *testing.T) {
 
 // 这段注释是引用了GitHub上gf框架的一个问题链接，编号为1700。在Go代码中，这种注释通常用于指向相关的讨论、问题或者需求，以便其他开发者了解代码的背景或上下文。翻译成中文后，其含义不变：. md5:a352b9ef5236ff28
 func Test_Issue1700(t *testing.T) {
-	table := "user_" + gtime.Now().TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "user_" + gtime.X创建并按当前时间().X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	    CREATE TABLE %s (
 	        id         int(10) unsigned NOT NULL AUTO_INCREMENT,
 	        user_id    int(10) unsigned NOT NULL,
@@ -366,14 +366,14 @@ func Test_Issue1700(t *testing.T) {
 			Userid int `orm:"user_id"`
 			UserId int `orm:"UserId"`
 		}
-		_, err := db.Model(table).Data(User{
+		_, err := db.X创建Model对象(table).X设置数据(User{
 			Id:     1,
 			Userid: 2,
 			UserId: 3,
-		}).Insert()
+		}).X插入()
 		t.AssertNil(err)
 
-		one, err := db.Model(table).One()
+		one, err := db.X创建Model对象(table).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one, g.Map{
 			"id":      1,
@@ -383,7 +383,7 @@ func Test_Issue1700(t *testing.T) {
 
 		for i := 0; i < 1000; i++ {
 			var user *User
-			err = db.Model(table).Scan(&user)
+			err = db.X创建Model对象(table).X查询到结构体指针(&user)
 			t.AssertNil(err)
 			t.Assert(user.Id, 1)
 			t.Assert(user.Userid, 2)
@@ -397,7 +397,7 @@ func Test_Issue1701(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		value, err := db.Model(table).Fields(gdb.Raw("if(id=1,100,null)")).WherePri(1).Value()
+		value, err := db.X创建Model对象(table).X字段保留过滤(gdb.Raw("if(id=1,100,null)")).X条件并识别主键(1).X查询一条值()
 		t.AssertNil(err)
 		t.Assert(value.String(), 100)
 	})
@@ -405,8 +405,8 @@ func Test_Issue1701(t *testing.T) {
 
 // 这段注释链接指向的是GitHub上的一个Issue（问题报告）页面，来自gogf/gf（一个Go语言的框架）项目。具体来说，它可能是指1733号问题或者与该问题相关的内容。在中文中，这通常表示对某个问题、讨论或改进的引用。 md5:76faec7f21ba3b13
 func Test_Issue1733(t *testing.T) {
-	table := "user_" + guid.S()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "user_" + guid.X生成()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	    CREATE TABLE %s (
 	        id int(8) unsigned zerofill NOT NULL AUTO_INCREMENT,
 	        PRIMARY KEY (id)
@@ -419,17 +419,17 @@ func Test_Issue1733(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		for i := 1; i <= 10; i++ {
-			_, err := db.Model(table).Data(g.Map{
+			_, err := db.X创建Model对象(table).X设置数据(g.Map{
 				"id": i,
-			}).Insert()
+			}).X插入()
 			t.AssertNil(err)
 		}
 
-		all, err := db.Model(table).OrderAsc("id").All()
+		all, err := db.X创建Model对象(table).X排序ASC("id").X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 10)
 		for i := 0; i < 10; i++ {
-			t.Assert(all[i]["id"].Int(), i+1)
+			t.Assert(all[i]["id"].X取整数(), i+1)
 		}
 	})
 }
@@ -437,9 +437,9 @@ func Test_Issue1733(t *testing.T) {
 //github.com/gogf/gf/issues/2105. md5:579ab324e61be1fb
 func Test_Issue2105(t *testing.T) {
 	table := "issue2105"
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue2105.sql`), ";")
+	array := gstr.X分割并忽略空值(gtest.DataContent(`issue2105.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -456,7 +456,7 @@ func Test_Issue2105(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		var list []*Test
-		err := db.Model(table).Scan(&list)
+		err := db.X创建Model对象(table).X查询到结构体指针(&list)
 		t.AssertNil(err)
 		t.Assert(len(list), 2)
 		t.Assert(len(list[0].Json), 0)
@@ -471,7 +471,7 @@ func Test_Issue2231(t *testing.T) {
 		link    = `mysql:root:12345678@tcp(127.0.0.1:3306)/a正bc式?loc=Local&parseTime=true`
 	)
 	gtest.C(t, func(t *gtest.T) {
-		match, err := gregex.MatchString(pattern, link)
+		match, err := gregex.X匹配文本(pattern, link)
 		t.AssertNil(err)
 		t.Assert(match[1], "mysql")
 		t.Assert(match[2], "root")
@@ -488,15 +488,15 @@ func Test_Issue2339(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		model1 := db.Model(table, "u1").Where("id between ? and ?", 1, 9)
-		model2 := db.Model("? as u2", model1)
-		model3 := db.Model("? as u3", model2)
-		all2, err := model2.WhereGT("id", 6).OrderAsc("id").All()
+		model1 := db.X创建Model对象(table, "u1").X条件("id between ? and ?", 1, 9)
+		model2 := db.X创建Model对象("? as u2", model1)
+		model3 := db.X创建Model对象("? as u3", model2)
+		all2, err := model2.X条件大于("id", 6).X排序ASC("id").X查询()
 		t.AssertNil(err)
 		t.Assert(len(all2), 3)
 		t.Assert(all2[0]["id"], 7)
 
-		all3, err := model3.WhereGT("id", 7).OrderAsc("id").All()
+		all3, err := model3.X条件大于("id", 7).X排序ASC("id").X查询()
 		t.AssertNil(err)
 		t.Assert(len(all3), 2)
 		t.Assert(all3[0]["id"], 8)
@@ -506,8 +506,8 @@ func Test_Issue2339(t *testing.T) {
 //github.com/gogf/gf/issues/2356。"gf"可能是某个项目的代号，"gogf"可能是一个开发者的用户名，"issues/2356"表示该问题是编号为2356的 issue（通常是开发者社区中报告的问题、建议或讨论）。 md5:a688eda9a4ec7d89
 func Test_Issue2356(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		table := "demo_" + guid.S()
-		if _, err := db.Exec(ctx, fmt.Sprintf(`
+		table := "demo_" + guid.X生成()
+		if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	    CREATE TABLE %s (
 	        id BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
 	        PRIMARY KEY (id)
@@ -518,22 +518,22 @@ func Test_Issue2356(t *testing.T) {
 		}
 		defer dropTable(table)
 
-		if _, err := db.Exec(ctx, fmt.Sprintf(`INSERT INTO %s (id) VALUES (18446744073709551615);`, table)); err != nil {
+		if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`INSERT INTO %s (id) VALUES (18446744073709551615);`, table)); err != nil {
 			t.AssertNil(err)
 		}
 
-		one, err := db.Model(table).One()
+		one, err := db.X创建Model对象(table).X查询一条()
 		t.AssertNil(err)
-		t.AssertEQ(one["id"].Val(), uint64(18446744073709551615))
+		t.AssertEQ(one["id"].X取值(), uint64(18446744073709551615))
 	})
 }
 
 //github.com/gogf/gf/issues/2338. md5:a504f30db0e1a70a
 func Test_Issue2338(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		table1 := "demo_" + guid.S()
-		table2 := "demo_" + guid.S()
-		if _, err := db.Schema(TestSchema1).Exec(ctx, fmt.Sprintf(`
+		table1 := "demo_" + guid.X生成()
+		table2 := "demo_" + guid.X生成()
+		if _, err := db.X切换数据库(TestSchema1).X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
     id        int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User ID',
     nickname  varchar(45) DEFAULT NULL COMMENT 'User Nickname',
@@ -545,7 +545,7 @@ CREATE TABLE %s (
 		)); err != nil {
 			t.AssertNil(err)
 		}
-		if _, err := db.Schema(TestSchema2).Exec(ctx, fmt.Sprintf(`
+		if _, err := db.X切换数据库(TestSchema2).X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
     id        int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User ID',
     nickname  varchar(45) DEFAULT NULL COMMENT 'User Nickname',
@@ -557,17 +557,17 @@ CREATE TABLE %s (
 		)); err != nil {
 			t.AssertNil(err)
 		}
-		defer dropTableWithDb(db.Schema(TestSchema1), table1)
-		defer dropTableWithDb(db.Schema(TestSchema2), table2)
+		defer dropTableWithDb(db.X切换数据库(TestSchema1), table1)
+		defer dropTableWithDb(db.X切换数据库(TestSchema2), table2)
 
 		var err error
-		_, err = db.Schema(TestSchema1).Model(table1).Insert(g.Map{
+		_, err = db.X切换数据库(TestSchema1).X创建Model对象(table1).X插入(g.Map{
 			"id":       1,
 			"nickname": "name_1",
 		})
 		t.AssertNil(err)
 
-		_, err = db.Schema(TestSchema2).Model(table2).Insert(g.Map{
+		_, err = db.X切换数据库(TestSchema2).X创建Model对象(table2).X插入(g.Map{
 			"id":       1,
 			"nickname": "name_2",
 		})
@@ -575,18 +575,18 @@ CREATE TABLE %s (
 
 		tableName1 := fmt.Sprintf(`%s.%s`, TestSchema1, table1)
 		tableName2 := fmt.Sprintf(`%s.%s`, TestSchema2, table2)
-		all, err := db.Model(tableName1).As(`a`).
-			LeftJoin(tableName2+" b", `a.id=b.id`).
-			Fields(`a.id`, `b.nickname`).All()
+		all, err := db.X创建Model对象(tableName1).X设置表别名(`a`).
+			X左连接(tableName2+" b", `a.id=b.id`).
+			X字段保留过滤(`a.id`, `b.nickname`).X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 1)
 		t.Assert(all[0]["nickname"], "name_2")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		table1 := "demo_" + guid.S()
-		table2 := "demo_" + guid.S()
-		if _, err := db.Schema(TestSchema1).Exec(ctx, fmt.Sprintf(`
+		table1 := "demo_" + guid.X生成()
+		table2 := "demo_" + guid.X生成()
+		if _, err := db.X切换数据库(TestSchema1).X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
     id        int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User ID',
     nickname  varchar(45) DEFAULT NULL COMMENT 'User Nickname',
@@ -599,7 +599,7 @@ CREATE TABLE %s (
 		)); err != nil {
 			t.AssertNil(err)
 		}
-		if _, err := db.Schema(TestSchema2).Exec(ctx, fmt.Sprintf(`
+		if _, err := db.X切换数据库(TestSchema2).X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
     id        int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User ID',
     nickname  varchar(45) DEFAULT NULL COMMENT 'User Nickname',
@@ -612,17 +612,17 @@ CREATE TABLE %s (
 		)); err != nil {
 			t.AssertNil(err)
 		}
-		defer dropTableWithDb(db.Schema(TestSchema1), table1)
-		defer dropTableWithDb(db.Schema(TestSchema2), table2)
+		defer dropTableWithDb(db.X切换数据库(TestSchema1), table1)
+		defer dropTableWithDb(db.X切换数据库(TestSchema2), table2)
 
 		var err error
-		_, err = db.Schema(TestSchema1).Model(table1).Insert(g.Map{
+		_, err = db.X切换数据库(TestSchema1).X创建Model对象(table1).X插入(g.Map{
 			"id":       1,
 			"nickname": "name_1",
 		})
 		t.AssertNil(err)
 
-		_, err = db.Schema(TestSchema2).Model(table2).Insert(g.Map{
+		_, err = db.X切换数据库(TestSchema2).X创建Model对象(table2).X插入(g.Map{
 			"id":       1,
 			"nickname": "name_2",
 		})
@@ -630,9 +630,9 @@ CREATE TABLE %s (
 
 		tableName1 := fmt.Sprintf(`%s.%s`, TestSchema1, table1)
 		tableName2 := fmt.Sprintf(`%s.%s`, TestSchema2, table2)
-		all, err := db.Model(tableName1).As(`a`).
-			LeftJoin(tableName2+" b", `a.id=b.id`).
-			Fields(`a.id`, `b.nickname`).All()
+		all, err := db.X创建Model对象(tableName1).X设置表别名(`a`).
+			X左连接(tableName2+" b", `a.id=b.id`).
+			X字段保留过滤(`a.id`, `b.nickname`).X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 1)
 		t.Assert(all[0]["nickname"], "name_2")
@@ -642,8 +642,8 @@ CREATE TABLE %s (
 // 这段注释是引用了GitHub上一个名为gf的项目中的问题编号2427。在Go语言中，这种注释通常用于指向相关问题、讨论或需求的链接，以便其他开发人员了解代码背景或跟踪问题。翻译成中文后，它依然保持原样，因为这是一个网址引用，并无实际需要翻译的内容。 md5:cf1b689a44aec285
 func Test_Issue2427(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		table := "demo_" + guid.S()
-		if _, err := db.Exec(ctx, fmt.Sprintf(`
+		table := "demo_" + guid.X生成()
+		if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
     id        int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User ID',
     passport  varchar(45) NOT NULL COMMENT 'User Passport',
@@ -659,13 +659,13 @@ CREATE TABLE %s (
 		}
 		defer dropTable(table)
 
-		_, err1 := db.Model(table).Delete()
+		_, err1 := db.X创建Model对象(table).X删除()
 		t.Assert(err1, `there should be WHERE condition statement for DELETE operation`)
 
-		_, err2 := db.Model(table).Where(g.Map{}).Delete()
+		_, err2 := db.X创建Model对象(table).X条件(g.Map{}).X删除()
 		t.Assert(err2, `there should be WHERE condition statement for DELETE operation`)
 
-		_, err3 := db.Model(table).Where(1).Delete()
+		_, err3 := db.X创建Model对象(table).X条件(1).X删除()
 		t.AssertNil(err3)
 	})
 }
@@ -684,7 +684,7 @@ func Test_Issue2561(t *testing.T) {
 			Nickname   interface{}
 			CreateTime interface{}
 		}
-		data := g.Slice{
+		data := g.Slice别名{
 			User{
 				Id:       1,
 				Passport: "user_1",
@@ -698,7 +698,7 @@ func Test_Issue2561(t *testing.T) {
 				Password: "pass_3",
 			},
 		}
-		result, err := db.Model(table).Data(data).Insert()
+		result, err := db.X创建Model对象(table).X设置数据(data).X插入()
 		t.AssertNil(err)
 		m, _ := result.LastInsertId()
 		t.Assert(m, 3)
@@ -706,7 +706,7 @@ func Test_Issue2561(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 3)
 
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one[`id`], `1`)
 		t.Assert(one[`passport`], `user_1`)
@@ -714,7 +714,7 @@ func Test_Issue2561(t *testing.T) {
 		t.Assert(one[`nickname`], ``)
 		t.Assert(one[`create_time`], ``)
 
-		one, err = db.Model(table).WherePri(2).One()
+		one, err = db.X创建Model对象(table).X条件并识别主键(2).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one[`id`], `2`)
 		t.Assert(one[`passport`], ``)
@@ -722,7 +722,7 @@ func Test_Issue2561(t *testing.T) {
 		t.Assert(one[`nickname`], ``)
 		t.Assert(one[`create_time`], ``)
 
-		one, err = db.Model(table).WherePri(3).One()
+		one, err = db.X创建Model对象(table).X条件并识别主键(3).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one[`id`], `3`)
 		t.Assert(one[`passport`], ``)
@@ -735,9 +735,9 @@ func Test_Issue2561(t *testing.T) {
 // 这段注释引用的是一个GitHub问题（issues）的链接，来自 "gf"（Go Foundation）项目，编号为2439。它可能是一个关于gf库的问题报告、讨论或者是一个已知问题的链接。具体的内容需要查看该链接才能得知。 md5:e37e02e670c04910
 func Test_Issue2439(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := gstr.SplitAndTrim(gtest.DataContent(`issue2439.sql`), ";")
+		array := gstr.X分割并忽略空值(gtest.DataContent(`issue2439.sql`), ";")
 		for _, v := range array {
-			if _, err := db.Exec(ctx, v); err != nil {
+			if _, err := db.X原生SQL执行(ctx, v); err != nil {
 				gtest.Error(err)
 			}
 		}
@@ -745,20 +745,20 @@ func Test_Issue2439(t *testing.T) {
 		defer dropTable("b")
 		defer dropTable("c")
 
-		orm := db.Model("a")
-		orm = orm.InnerJoin(
+		orm := db.X创建Model对象("a")
+		orm = orm.X内连接(
 			"c", "a.id=c.id",
 		)
-		orm = orm.InnerJoinOnField("b", "id")
+		orm = orm.X内连接相同字段("b", "id")
 		whereFormat := fmt.Sprintf(
 			"(`%s`.`%s` LIKE ?) ",
 			"b", "name",
 		)
-		orm = orm.WhereOrf(
+		orm = orm.X条件或格式化(
 			whereFormat,
 			"%a%",
 		)
-		r, err := orm.All()
+		r, err := orm.X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 1)
 		t.Assert(r[0]["id"], 2)
@@ -772,33 +772,33 @@ func Test_Issue2787(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		m := db.Model("user")
+		m := db.X创建Model对象("user")
 
-		condWhere, _ := m.Builder().
-			Where("id", "").
-			Where(m.Builder().
-				Where("nickname", "foo").
-				WhereOr("password", "abc123")).
-			Where("passport", "pp").
-			Build()
+		condWhere, _ := m.X创建组合条件().
+			X条件("id", "").
+			X条件(m.X创建组合条件().
+				X条件("nickname", "foo").
+				X条件或("password", "abc123")).
+			X条件("passport", "pp").
+			X生成条件字符串及参数()
 		t.Assert(condWhere, "(`id`=?) AND (((`nickname`=?) OR (`password`=?))) AND (`passport`=?)")
 
-		condWhere, _ = m.OmitEmpty().Builder().
-			Where("id", "").
-			Where(m.Builder().
-				Where("nickname", "foo").
-				WhereOr("password", "abc123")).
-			Where("passport", "pp").
-			Build()
+		condWhere, _ = m.X过滤空值().X创建组合条件().
+			X条件("id", "").
+			X条件(m.X创建组合条件().
+				X条件("nickname", "foo").
+				X条件或("password", "abc123")).
+			X条件("passport", "pp").
+			X生成条件字符串及参数()
 		t.Assert(condWhere, "((`nickname`=?) OR (`password`=?)) AND (`passport`=?)")
 
-		condWhere, _ = m.OmitEmpty().Builder().
-			Where(m.Builder().
-				Where("nickname", "foo").
-				WhereOr("password", "abc123")).
-			Where("id", "").
-			Where("passport", "pp").
-			Build()
+		condWhere, _ = m.X过滤空值().X创建组合条件().
+			X条件(m.X创建组合条件().
+				X条件("nickname", "foo").
+				X条件或("password", "abc123")).
+			X条件("id", "").
+			X条件("passport", "pp").
+			X生成条件字符串及参数()
 		t.Assert(condWhere, "((`nickname`=?) OR (`password`=?)) AND (`passport`=?)")
 	})
 }
@@ -809,11 +809,11 @@ func Test_Issue2907(t *testing.T) {
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			orm = db.Model(table)
+			orm = db.X创建Model对象(table)
 			err error
 		)
 
-		orm = orm.WherePrefixNotIn(
+		orm = orm.X条件不包含并带前缀(
 			table,
 			"id",
 			[]int{
@@ -821,7 +821,7 @@ func Test_Issue2907(t *testing.T) {
 				2,
 			},
 		)
-		all, err := orm.OrderAsc("id").All()
+		all, err := orm.X排序ASC("id").X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), TableSize-2)
 		t.Assert(all[0]["id"], 3)
@@ -831,9 +831,9 @@ func Test_Issue2907(t *testing.T) {
 // 这段注释引用的是GitHub上的一个 issue，gf（Go Foundation）是一个用Go语言编写的开源框架。3086号 issue 可能是关于gf框架的一个已知问题、错误报告、功能请求或者讨论点。具体的内容需要查看该issue的详细描述。 md5:629eedddf9f2ae76
 func Test_Issue3086(t *testing.T) {
 	table := "issue3086_user"
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue3086.sql`), ";")
+	array := gstr.X分割并忽略空值(gtest.DataContent(`issue3086.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -847,7 +847,7 @@ func Test_Issue3086(t *testing.T) {
 			Nickname   interface{}
 			CreateTime interface{}
 		}
-		data := g.Slice{
+		data := g.Slice别名{
 			User{
 				Id:       nil,
 				Passport: "user_1",
@@ -857,7 +857,7 @@ func Test_Issue3086(t *testing.T) {
 				Passport: "user_2",
 			},
 		}
-		_, err := db.Model(table).Data(data).Batch(10).Insert()
+		_, err := db.X创建Model对象(table).X设置数据(data).X设置批量操作行数(10).X插入()
 		t.AssertNE(err, nil)
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -869,7 +869,7 @@ func Test_Issue3086(t *testing.T) {
 			Nickname   interface{}
 			CreateTime interface{}
 		}
-		data := g.Slice{
+		data := g.Slice别名{
 			User{
 				Id:       1,
 				Passport: "user_1",
@@ -879,7 +879,7 @@ func Test_Issue3086(t *testing.T) {
 				Passport: "user_2",
 			},
 		}
-		result, err := db.Model(table).Data(data).Batch(10).Insert()
+		result, err := db.X创建Model对象(table).X设置数据(data).X设置批量操作行数(10).X插入()
 		t.AssertNil(err)
 		n, err := result.RowsAffected()
 		t.AssertNil(err)
@@ -906,7 +906,7 @@ func Test_Issue3204(t *testing.T) {
 			Id:       2,
 			Passport: "",
 		}
-		all, err := db.Model(table).Where(where).All()
+		all, err := db.X创建Model对象(table).X条件(where).X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 1)
 		t.Assert(all[0]["id"], 2)
@@ -931,14 +931,14 @@ func Test_Issue3204(t *testing.T) {
 				Password: "",
 			}
 		)
-		sqlArray, err = gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			insertId, err = db.Ctx(ctx).Model(table).Data(data).InsertAndGetId()
+		sqlArray, err = gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			insertId, err = db.X设置上下文并取副本(ctx).X创建Model对象(table).X设置数据(data).X插入并取ID()
 			return err
 		})
 		t.AssertNil(err)
 		t.Assert(insertId, 20)
 		t.Assert(
-			gstr.Contains(sqlArray[len(sqlArray)-1], "(`id`,`passport`) VALUES(20,'passport_20')"),
+			gstr.X是否包含(sqlArray[len(sqlArray)-1], "(`id`,`passport`) VALUES(20,'passport_20')"),
 			true,
 		)
 	})
@@ -961,13 +961,13 @@ func Test_Issue3204(t *testing.T) {
 				Nickname: "",
 			}
 		)
-		sqlArray, err = gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			_, err = db.Ctx(ctx).Model(table).Data(data).WherePri(1).Update()
+		sqlArray, err = gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			_, err = db.X设置上下文并取副本(ctx).X创建Model对象(table).X设置数据(data).X条件并识别主键(1).X更新()
 			return err
 		})
 		t.AssertNil(err)
 		t.Assert(
-			gstr.Contains(sqlArray[len(sqlArray)-1], "SET `passport`='passport_1' WHERE `id`=1"),
+			gstr.X是否包含(sqlArray[len(sqlArray)-1], "SET `passport`='passport_1' WHERE `id`=1"),
 			true,
 		)
 	})
@@ -976,9 +976,9 @@ func Test_Issue3204(t *testing.T) {
 //github.com/gogf/gf/issues/3218. md5:ebeb6327a156dd70
 func Test_Issue3218(t *testing.T) {
 	table := "issue3218_sys_config"
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue3218.sql`), ";")
+	array := gstr.X分割并忽略空值(gtest.DataContent(`issue3218.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -989,7 +989,7 @@ func Test_Issue3218(t *testing.T) {
 			Value map[string]string `json:"value"`
 		}
 		var configData *SysConfigInfo
-		err := db.Model(table).Scan(&configData)
+		err := db.X创建Model对象(table).X查询到结构体指针(&configData)
 		t.AssertNil(err)
 		t.Assert(configData, &SysConfigInfo{
 			Name: "site",
@@ -1012,41 +1012,41 @@ func Test_Issue2552_ClearTableFieldsAll(t *testing.T) {
 	showTableKey := `SHOW FULL COLUMNS FROM`
 	gtest.C(t, func(t *gtest.T) {
 		ctx := context.Background()
-		sqlArray, err := gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			_, err := db.Model(table).Ctx(ctx).Insert(g.Map{
-				"passport":    guid.S(),
-				"password":    guid.S(),
-				"nickname":    guid.S(),
-				"create_time": gtime.NewFromStr(CreateTime).String(),
+		sqlArray, err := gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			_, err := db.X创建Model对象(table).X设置上下文并取副本(ctx).X插入(g.Map{
+				"passport":    guid.X生成(),
+				"password":    guid.X生成(),
+				"nickname":    guid.X生成(),
+				"create_time": gtime.X创建并从文本(CreateTime).String(),
 			})
 			return err
 		})
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), true)
+		t.Assert(gstr.X是否包含(gstr.X连接(sqlArray, "|"), showTableKey), true)
 
 		ctx = context.Background()
-		sqlArray, err = gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			one, err := db.Model(table).Ctx(ctx).One()
+		sqlArray, err = gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			one, err := db.X创建Model对象(table).X设置上下文并取副本(ctx).X查询一条()
 			t.Assert(len(one), 5)
 			return err
 		})
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), false)
+		t.Assert(gstr.X是否包含(gstr.X连接(sqlArray, "|"), showTableKey), false)
 
-		_, err = db.Exec(ctx, fmt.Sprintf("alter table %s drop column `nickname`", table))
+		_, err = db.X原生SQL执行(ctx, fmt.Sprintf("alter table %s drop column `nickname`", table))
 		t.AssertNil(err)
 
-		err = db.GetCore().ClearTableFieldsAll(ctx)
+		err = db.X取Core对象().X删除表字段所有缓存(ctx)
 		t.AssertNil(err)
 
 		ctx = context.Background()
-		sqlArray, err = gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			one, err := db.Model(table).Ctx(ctx).One()
+		sqlArray, err = gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			one, err := db.X创建Model对象(table).X设置上下文并取副本(ctx).X查询一条()
 			t.Assert(len(one), 4)
 			return err
 		})
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), true)
+		t.Assert(gstr.X是否包含(gstr.X连接(sqlArray, "|"), showTableKey), true)
 	})
 }
 
@@ -1058,50 +1058,50 @@ func Test_Issue2552_ClearTableFields(t *testing.T) {
 	showTableKey := `SHOW FULL COLUMNS FROM`
 	gtest.C(t, func(t *gtest.T) {
 		ctx := context.Background()
-		sqlArray, err := gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			_, err := db.Model(table).Ctx(ctx).Insert(g.Map{
-				"passport":    guid.S(),
-				"password":    guid.S(),
-				"nickname":    guid.S(),
-				"create_time": gtime.NewFromStr(CreateTime).String(),
+		sqlArray, err := gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			_, err := db.X创建Model对象(table).X设置上下文并取副本(ctx).X插入(g.Map{
+				"passport":    guid.X生成(),
+				"password":    guid.X生成(),
+				"nickname":    guid.X生成(),
+				"create_time": gtime.X创建并从文本(CreateTime).String(),
 			})
 			return err
 		})
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), true)
+		t.Assert(gstr.X是否包含(gstr.X连接(sqlArray, "|"), showTableKey), true)
 
 		ctx = context.Background()
-		sqlArray, err = gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			one, err := db.Model(table).Ctx(ctx).One()
+		sqlArray, err = gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			one, err := db.X创建Model对象(table).X设置上下文并取副本(ctx).X查询一条()
 			t.Assert(len(one), 5)
 			return err
 		})
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), false)
+		t.Assert(gstr.X是否包含(gstr.X连接(sqlArray, "|"), showTableKey), false)
 
-		_, err = db.Exec(ctx, fmt.Sprintf("alter table %s drop column `nickname`", table))
+		_, err = db.X原生SQL执行(ctx, fmt.Sprintf("alter table %s drop column `nickname`", table))
 		t.AssertNil(err)
 
-		err = db.GetCore().ClearTableFields(ctx, table)
+		err = db.X取Core对象().X删除表字段缓存(ctx, table)
 		t.AssertNil(err)
 
 		ctx = context.Background()
-		sqlArray, err = gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			one, err := db.Model(table).Ctx(ctx).One()
+		sqlArray, err = gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			one, err := db.X创建Model对象(table).X设置上下文并取副本(ctx).X查询一条()
 			t.Assert(len(one), 4)
 			return err
 		})
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(gstr.Join(sqlArray, "|"), showTableKey), true)
+		t.Assert(gstr.X是否包含(gstr.X连接(sqlArray, "|"), showTableKey), true)
 	})
 }
 
 // 这段注释引用的是一个GitHub问题（issues）的链接，来自 "gf"（Go Foundation）项目，编号为2643。它可能是一个关于gf库的问题报告、讨论或者是一个已知问题的链接。具体的内容需要查看该链接才能了解。 md5:e98064ecba25be28
 func Test_Issue2643(t *testing.T) {
 	table := "issue2643"
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue2643.sql`), ";")
+	array := gstr.X分割并忽略空值(gtest.DataContent(`issue2643.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -1112,21 +1112,21 @@ func Test_Issue2643(t *testing.T) {
 			expectKey1 = "SELECT s.name,replace(concat_ws(',',lpad(s.id, 6, '0'),s.name),',','') `code` FROM `issue2643` AS s"
 			expectKey2 = "SELECT CASE WHEN dept='物资部' THEN '物资部' ELSE '其他' END dept,sum(s.value) FROM `issue2643` AS s GROUP BY CASE WHEN dept='物资部' THEN '物资部' ELSE '其他' END"
 		)
-		sqlArray, err := gdb.CatchSQL(ctx, func(ctx context.Context) error {
-			db.Ctx(ctx).Model(table).As("s").Fields(
+		sqlArray, err := gdb.X捕捉SQL语句(ctx, func(ctx context.Context) error {
+			db.X设置上下文并取副本(ctx).X创建Model对象(table).X设置表别名("s").X字段保留过滤(
 				"s.name",
 				"replace(concat_ws(',',lpad(s.id, 6, '0'),s.name),',','') `code`",
-			).All()
-			db.Ctx(ctx).Model(table).As("s").Fields(
+			).X查询()
+			db.X设置上下文并取副本(ctx).X创建Model对象(table).X设置表别名("s").X字段保留过滤(
 				"CASE WHEN dept='物资部' THEN '物资部' ELSE '其他' END dept",
 				"sum(s.value)",
-			).Group("CASE WHEN dept='物资部' THEN '物资部' ELSE '其他' END").All()
+			).X排序分组("CASE WHEN dept='物资部' THEN '物资部' ELSE '其他' END").X查询()
 			return nil
 		})
 		t.AssertNil(err)
-		sqlContent := gstr.Join(sqlArray, "\n")
-		t.Assert(gstr.Contains(sqlContent, expectKey1), true)
-		t.Assert(gstr.Contains(sqlContent, expectKey2), true)
+		sqlContent := gstr.X连接(sqlArray, "\n")
+		t.Assert(gstr.X是否包含(sqlContent, expectKey1), true)
+		t.Assert(gstr.X是否包含(sqlContent, expectKey2), true)
 	})
 }
 
@@ -1137,7 +1137,7 @@ func Test_Issue3238(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		for i := 0; i < 100; i++ {
-			_, err := db.Ctx(ctx).Model(table).Hook(gdb.HookHandler{
+			_, err := db.X设置上下文并取副本(ctx).X创建Model对象(table).Hook(gdb.HookHandler{
 				Select: func(ctx context.Context, in *gdb.HookSelectInput) (result gdb.Result, err error) {
 					result, err = in.Next(ctx)
 					if err != nil {
@@ -1148,9 +1148,9 @@ func Test_Issue3238(t *testing.T) {
 						wg.Add(1)
 						go func(record gdb.Record) {
 							defer wg.Done()
-							id, _ := db.Ctx(ctx).Model(table).WherePri(1).Value(`id`)
-							nickname, _ := db.Ctx(ctx).Model(table).WherePri(1).Value(`nickname`)
-							t.Assert(id.Int(), 1)
+							id, _ := db.X设置上下文并取副本(ctx).X创建Model对象(table).X条件并识别主键(1).X查询一条值(`id`)
+							nickname, _ := db.X设置上下文并取副本(ctx).X创建Model对象(table).X条件并识别主键(1).X查询一条值(`nickname`)
+							t.Assert(id.X取整数(), 1)
 							t.Assert(nickname.String(), "name_1")
 						}(record)
 					}
@@ -1158,7 +1158,7 @@ func Test_Issue3238(t *testing.T) {
 					return
 				},
 			},
-			).All()
+			).X查询()
 			t.AssertNil(err)
 		}
 	})

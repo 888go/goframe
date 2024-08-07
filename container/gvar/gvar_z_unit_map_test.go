@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestVar_Map(t *testing.T) {
@@ -21,9 +21,9 @@ func TestVar_Map(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		objOne := gvar.New(m, true)
-		t.Assert(objOne.Map()["k1"], m["k1"])
-		t.Assert(objOne.Map()["k2"], m["k2"])
+		objOne := gvar.X创建(m, true)
+		t.Assert(objOne.X取Map()["k1"], m["k1"])
+		t.Assert(objOne.X取Map()["k2"], m["k2"])
 	})
 }
 
@@ -34,7 +34,7 @@ func TestVar_MapToMap(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		m1 := g.MapIntInt{}
 		m2 := g.MapStrStr{}
-		t.Assert(gvar.New(m1).MapToMap(&m2), nil)
+		t.Assert(gvar.X创建(m1).MapToMap(&m2), nil)
 		t.Assert(len(m1), len(m2))
 	})
 	// map[int]int -> map[string]string
@@ -44,7 +44,7 @@ func TestVar_MapToMap(t *testing.T) {
 			2: 200,
 		}
 		m2 := g.MapStrStr{}
-		t.Assert(gvar.New(m1).MapToMap(&m2), nil)
+		t.Assert(gvar.X创建(m1).MapToMap(&m2), nil)
 		t.Assert(m2["1"], m1[1])
 		t.Assert(m2["2"], m1[2])
 	})
@@ -55,7 +55,7 @@ func TestVar_MapToMap(t *testing.T) {
 			"k2": "v2",
 		}
 		m2 := g.MapStrStr{}
-		t.Assert(gvar.New(m1).MapToMap(&m2), nil)
+		t.Assert(gvar.X创建(m1).MapToMap(&m2), nil)
 		t.Assert(m2["k1"], m1["k1"])
 		t.Assert(m2["k2"], m1["k2"])
 	})
@@ -66,7 +66,7 @@ func TestVar_MapToMap(t *testing.T) {
 			"k2": "v2",
 		}
 		m2 := g.Map{}
-		t.Assert(gvar.New(m1).MapToMap(&m2), nil)
+		t.Assert(gvar.X创建(m1).MapToMap(&m2), nil)
 		t.Assert(m2["k1"], m1["k1"])
 		t.Assert(m2["k2"], m1["k2"])
 	})
@@ -77,7 +77,7 @@ func TestVar_MapToMap(t *testing.T) {
 			"k2": "v2",
 		}
 		m2 := g.MapAnyAny{}
-		t.Assert(gvar.New(m1).MapToMap(&m2), nil)
+		t.Assert(gvar.X创建(m1).MapToMap(&m2), nil)
 		t.Assert(m2["k1"], m1["k1"])
 		t.Assert(m2["k2"], m1["k2"])
 	})
@@ -89,10 +89,10 @@ func TestVar_MapStrVar(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		objOne := gvar.New(m, true)
-		t.Assert(objOne.MapStrVar(), "{\"k1\":\"v1\",\"k2\":\"v2\"}")
+		objOne := gvar.X创建(m, true)
+		t.Assert(objOne.X取泛型类Map(), "{\"k1\":\"v1\",\"k2\":\"v2\"}")
 
-		objEmpty := gvar.New(g.Map{})
-		t.Assert(objEmpty.MapStrVar(), "")
+		objEmpty := gvar.X创建(g.Map{})
+		t.Assert(objEmpty.X取泛型类Map(), "")
 	})
 }

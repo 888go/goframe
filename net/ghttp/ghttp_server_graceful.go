@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -19,17 +19,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gproc"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/text/gstr"
+	gtype "github.com/888go/goframe/container/gtype"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gproc "github.com/888go/goframe/os/gproc"
+	gres "github.com/888go/goframe/os/gres"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // gracefulServer 是一个包装了 net/http.Server 的结构，添加了优雅的重新加载/重启功能。 md5:8d812c91a33cd2a2
 type gracefulServer struct {
-	server      *Server      // Belonged server.
+	server      *X服务      // Belonged server.
 	fd          uintptr      // 用于在优雅重启时传递给子进程的文件描述符。 md5:72ea9b448b106b41
 	address     string       // 监听地址，例如":80"，":8080"。 md5:c746ec22043cf3e0
 	httpServer  *http.Server // 底层的http.Server。 md5:3b44f2da7272f7f3
@@ -43,9 +43,9 @@ type gracefulServer struct {
 // newGracefulServer 创建并返回一个给定地址的优雅HTTP服务器。
 // 可选参数 `fd` 指定了从父服务器传递过来的文件描述符。
 // md5:e7000c344ed0446f
-func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
+func (s *X服务) newGracefulServer(address string, fd ...int) *gracefulServer {
 		// 将端口转换为地址形式，如：80 -> :80. md5:71e59572a00dec96
-	if gstr.IsNumeric(address) {
+	if gstr.X是否为数字(address) {
 		address = ":" + address
 	}
 	gs := &gracefulServer{
@@ -58,7 +58,7 @@ func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
 		gs.fd = uintptr(fd[0])
 	}
 	if s.config.Listeners != nil {
-		addrArray := gstr.SplitAndTrim(address, ":")
+		addrArray := gstr.X分割并忽略空值(address, ":")
 		addrPort, err := strconv.Atoi(addrArray[len(addrArray)-1])
 		if err == nil {
 			for _, v := range s.config.Listeners {
@@ -73,7 +73,7 @@ func (s *Server) newGracefulServer(address string, fd ...int) *gracefulServer {
 }
 
 // newHttpServer 创建并返回一个带有给定地址的底层 http.Server。 md5:12a45a5b95a4e7c3
-func (s *Server) newHttpServer(address string) *http.Server {
+func (s *X服务) newHttpServer(address string) *http.Server {
 	server := &http.Server{
 		Addr:           address,
 		Handler:        http.HandlerFunc(s.config.Handler),
@@ -139,7 +139,7 @@ func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig .
 		}
 	}
 	if err != nil {
-		return gerror.Wrapf(err, `open certFile "%s" and keyFile "%s" failed`, certFile, keyFile)
+		return gerror.X多层错误并格式化(err, `open certFile "%s" and keyFile "%s" failed`, certFile, keyFile)
 	}
 	ln, err := s.getNetListener()
 	if err != nil {
@@ -154,34 +154,34 @@ func (s *gracefulServer) CreateListenerTLS(certFile, keyFile string, tlsConfig .
 // Serve以阻塞方式启动服务。 md5:230e5731ffa3d482
 func (s *gracefulServer) Serve(ctx context.Context) error {
 	if s.rawListener == nil {
-		return gerror.NewCode(gcode.CodeInvalidOperation, `call CreateListener/CreateListenerTLS before Serve`)
+		return gerror.X创建错误码(gcode.CodeInvalidOperation, `call CreateListener/CreateListenerTLS before Serve`)
 	}
 
 	action := "started"
 	if s.fd != 0 {
 		action = "reloaded"
 	}
-	s.server.Logger().Infof(
+	s.server.Logger别名().X输出并格式化INFO(
 		ctx,
 		`pid[%d]: %s server %s listening on [%s]`,
 		gproc.Pid(), s.getProto(), action, s.GetListenedAddress(),
 	)
-	s.status.Set(ServerStatusRunning)
+	s.status.X设置值(ServerStatusRunning)
 	err := s.httpServer.Serve(s.listener)
-	s.status.Set(ServerStatusStopped)
+	s.status.X设置值(ServerStatusStopped)
 	return err
 }
 
 // GetListenedAddress 获取并返回当前服务器所监听的地址字符串。 md5:51d352ffec9dc329
 func (s *gracefulServer) GetListenedAddress() string {
-	if !gstr.Contains(s.address, FreePortAddress) {
+	if !gstr.X是否包含(s.address, X空闲端口地址) {
 		return s.address
 	}
 	var (
 		address      = s.address
 		listenedPort = s.GetListenedPort()
 	)
-	address = gstr.Replace(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
+	address = gstr.X替换(address, X空闲端口地址, fmt.Sprintf(`:%d`, listenedPort))
 	return address
 }
 
@@ -217,13 +217,13 @@ func (s *gracefulServer) getNetListener() (net.Listener, error) {
 		f := os.NewFile(s.fd, "")
 		ln, err = net.FileListener(f)
 		if err != nil {
-			err = gerror.Wrap(err, "net.FileListener failed")
+			err = gerror.X多层错误(err, "net.FileListener failed")
 			return nil, err
 		}
 	} else {
 		ln, err = net.Listen("tcp", s.httpServer.Addr)
 		if err != nil {
-			err = gerror.Wrapf(err, `net.Listen address "%s" failed`, s.httpServer.Addr)
+			err = gerror.X多层错误并格式化(err, `net.Listen address "%s" failed`, s.httpServer.Addr)
 		}
 	}
 	return ln, err
@@ -231,7 +231,7 @@ func (s *gracefulServer) getNetListener() (net.Listener, error) {
 
 // shutdown 停止服务器，优雅地关闭。 md5:6befce727da40eb9
 func (s *gracefulServer) shutdown(ctx context.Context) {
-	if s.status.Val() == ServerStatusStopped {
+	if s.status.X取值() == ServerStatusStopped {
 		return
 	}
 	timeoutCtx, cancelFunc := context.WithTimeout(
@@ -240,7 +240,7 @@ func (s *gracefulServer) shutdown(ctx context.Context) {
 	)
 	defer cancelFunc()
 	if err := s.httpServer.Shutdown(timeoutCtx); err != nil {
-		s.server.Logger().Errorf(
+		s.server.Logger别名().X输出并格式化ERR(
 			ctx,
 			"%d: %s server [%s] shutdown error: %v",
 			gproc.Pid(), s.getProto(), s.address, err,
@@ -264,11 +264,11 @@ func (s *gracefulServer) getRawListener() net.Listener {
 
 // close 强制关闭服务器。 md5:46634188c0dbdf78
 func (s *gracefulServer) close(ctx context.Context) {
-	if s.status.Val() == ServerStatusStopped {
+	if s.status.X取值() == ServerStatusStopped {
 		return
 	}
 	if err := s.httpServer.Close(); err != nil {
-		s.server.Logger().Errorf(
+		s.server.Logger别名().X输出并格式化ERR(
 			ctx,
 			"%d: %s server [%s] closed error: %v",
 			gproc.Pid(), s.getProto(), s.address, err,

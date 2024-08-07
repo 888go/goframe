@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtimer
+package 定时类
 
 import (
 	"container/heap"
 	"math"
 	"sync"
 
-	"github.com/gogf/gf/v2/container/gtype"
+	gtype "github.com/888go/goframe/container/gtype"
 )
 
 // priorityQueue 是一种抽象数据类型，类似于常规的队列或堆数据结构，但每个元素都附加了一个“优先级”。
@@ -48,7 +48,7 @@ func newPriorityQueue() *priorityQueue {
 
 // NextPriority 从队列中获取并返回最小优先级和最高优先级的值。 md5:deb4631876016380
 func (q *priorityQueue) NextPriority() int64 {
-	return q.nextPriority.Val()
+	return q.nextPriority.X取值()
 }
 
 // Push 将一个值推入队列。
@@ -63,11 +63,11 @@ func (q *priorityQueue) Push(value interface{}, priority int64) {
 		priority: priority,
 	})
 		// 使用原子操作更新最小优先级。 md5:c7c29d16bf8470d3
-	nextPriority := q.nextPriority.Val()
+	nextPriority := q.nextPriority.X取值()
 	if priority >= nextPriority {
 		return
 	}
-	q.nextPriority.Set(priority)
+	q.nextPriority.X设置值(priority)
 }
 
 // Pop 从队列中取出、移除并返回最高优先级的值。 md5:828fb8c6fde3e6a4
@@ -79,7 +79,7 @@ func (q *priorityQueue) Pop() interface{} {
 		if len(q.heap.array) > 0 {
 			nextPriority = q.heap.array[0].priority
 		}
-		q.nextPriority.Set(nextPriority)
+		q.nextPriority.X设置值(nextPriority)
 		return v.(priorityQueueItem).value
 	}
 	return nil

@@ -8,7 +8,7 @@
 package errors
 
 import (
-	"github.com/gogf/gf/v2/internal/command"
+	"github.com/888go/goframe/internal/command"
 )
 
 // StackMode是在StackModeBrief或StackModeDetail模式下打印堆栈信息的模式。 md5:2ad08dc7990f413c

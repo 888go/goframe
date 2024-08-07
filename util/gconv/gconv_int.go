@@ -5,61 +5,61 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"math"
 	"strconv"
 
-	"github.com/gogf/gf/v2/encoding/gbinary"
+	gbinary "github.com/888go/goframe/encoding/gbinary"
 )
 
-// Int 将 `any` 转换为整数。 md5:7d14e0d4caedf28f
-func Int(any interface{}) int {
-	if any == nil {
+// X取整数 将 `any` 转换为整数。 md5:7d14e0d4caedf28f
+func X取整数(值 interface{}) int {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int); ok {
+	if v, ok := 值.(int); ok {
 		return v
 	}
-	return int(Int64(any))
+	return int(X取整数64位(值))
 }
 
-// Int8 将 `any` 类型转换为 int8。 md5:3a0a5e4022ab71df
-func Int8(any interface{}) int8 {
-	if any == nil {
+// X取整数8位 将 `any` 类型转换为 int8。 md5:3a0a5e4022ab71df
+func X取整数8位(值 interface{}) int8 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int8); ok {
+	if v, ok := 值.(int8); ok {
 		return v
 	}
-	return int8(Int64(any))
+	return int8(X取整数64位(值))
 }
 
-// Int16 将 `any` 转换为 int16。 md5:5acb21515934f62d
-func Int16(any interface{}) int16 {
-	if any == nil {
+// X取整数16位 将 `any` 转换为 int16。 md5:5acb21515934f62d
+func X取整数16位(值 interface{}) int16 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int16); ok {
+	if v, ok := 值.(int16); ok {
 		return v
 	}
-	return int16(Int64(any))
+	return int16(X取整数64位(值))
 }
 
-// Int32 将 `any` 转换为 int32 类型。 md5:87b6a70499ffaf8a
-func Int32(any interface{}) int32 {
-	if any == nil {
+// X取整数32位 将 `any` 转换为 int32 类型。 md5:87b6a70499ffaf8a
+func X取整数32位(值 interface{}) int32 {
+	if 值 == nil {
 		return 0
 	}
-	if v, ok := any.(int32); ok {
+	if v, ok := 值.(int32); ok {
 		return v
 	}
-	return int32(Int64(any))
+	return int32(X取整数64位(值))
 }
 
-// Int64 将 `any` 转换为 int64 类型。 md5:e95a0233b73ea496
-func Int64(any interface{}) int64 {
+// X取整数64位 将 `any` 转换为 int64 类型。 md5:e95a0233b73ea496
+func X取整数64位(any interface{}) int64 {
 	if any == nil {
 		return 0
 	}
@@ -97,7 +97,7 @@ func Int64(any interface{}) int64 {
 		return gbinary.DecodeToInt64(value)
 	default:
 		if f, ok := value.(iInt64); ok {
-			return f.Int64()
+			return f.X取整数64位()
 		}
 		var (
 			s       = String(value)
@@ -128,7 +128,7 @@ func Int64(any interface{}) int64 {
 			return v
 		}
 		// Float64
-		if valueInt64 := Float64(value); math.IsNaN(valueInt64) {
+		if valueInt64 := X取小数64位(value); math.IsNaN(valueInt64) {
 			return 0
 		} else {
 			return int64(valueInt64)

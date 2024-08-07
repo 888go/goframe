@@ -5,66 +5,66 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gmlock_test
+package 内存锁类_test
 
 import (
 	"sync"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gmlock"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gmlock "github.com/888go/goframe/os/gmlock"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Locker_Lock(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLock"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(300 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.Lock(key)
-			array.Append(1)
-			gmlock.Unlock(key)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
+			gmlock.X退出写锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
-		gmlock.Remove(key)
+		t.Assert(array.X取长度(), 2)
+		gmlock.X删除锁(key)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLock"
-		array := garray.New(true)
-		lock := gmlock.New()
+		array := garray.X创建(true)
+		lock := gmlock.X创建()
 		go func() {
-			lock.Lock(key)
-			array.Append(1)
+			lock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(300 * time.Millisecond)
-			lock.Unlock(key)
+			lock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			lock.Lock(key)
-			array.Append(1)
-			lock.Unlock(key)
+			lock.X写锁定(key)
+			array.Append别名(1)
+			lock.X退出写锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
-		lock.Clear()
+		t.Assert(array.X取长度(), 2)
+		lock.X移除所有锁()
 	})
 
 }
@@ -72,33 +72,33 @@ func Test_Locker_Lock(t *testing.T) {
 func Test_Locker_TryLock(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		key := "testTryLock"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(300 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(150 * time.Millisecond)
-			if gmlock.TryLock(key) {
-				array.Append(1)
-				gmlock.Unlock(key)
+			if gmlock.X非阻塞写锁定(key) {
+				array.Append别名(1)
+				gmlock.X退出写锁定(key)
 			}
 		}()
 		go func() {
 			time.Sleep(400 * time.Millisecond)
-			if gmlock.TryLock(key) {
-				array.Append(1)
-				gmlock.Unlock(key)
+			if gmlock.X非阻塞写锁定(key) {
+				array.Append别名(1)
+				gmlock.X退出写锁定(key)
 			}
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(300 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 
 }
@@ -107,25 +107,25 @@ func Test_Locker_LockFunc(t *testing.T) {
 	//no expire
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockFunc"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.LockFunc(key, func() {
-				array.Append(1)
+			gmlock.X写锁定_函数(key, func() {
+				array.Append别名(1)
 				time.Sleep(300 * time.Millisecond)
 			}) //
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.LockFunc(key, func() {
-				array.Append(1)
+			gmlock.X写锁定_函数(key, func() {
+				array.Append别名(1)
 			})
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1) //
+		t.Assert(array.X取长度(), 1) //
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
@@ -133,29 +133,29 @@ func Test_Locker_TryLockFunc(t *testing.T) {
 	//no expire
 	gtest.C(t, func(t *gtest.T) {
 		key := "testTryLockFunc"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.TryLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X非阻塞写锁定_函数(key, func() {
+				array.Append别名(1)
 				time.Sleep(200 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.TryLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X非阻塞写锁定_函数(key, func() {
+				array.Append别名(1)
 			})
 		}()
 		go func() {
 			time.Sleep(300 * time.Millisecond)
-			gmlock.TryLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X非阻塞写锁定_函数(key, func() {
+				array.Append别名(1)
 			})
 		}()
 		time.Sleep(150 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(400 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
@@ -169,8 +169,8 @@ func Test_Multiple_Goroutine(t *testing.T) {
 			go func() {
 				defer wait.Done()
 				<-ch
-				gmlock.Lock("test")
-				defer gmlock.Unlock("test")
+				gmlock.X写锁定("test")
+				defer gmlock.X退出写锁定("test")
 				time.Sleep(time.Millisecond)
 			}()
 		}
@@ -187,8 +187,8 @@ func Test_Multiple_Goroutine(t *testing.T) {
 			go func() {
 				defer wait.Done()
 				<-ch
-				gmlock.Lock("test")
-				defer gmlock.Unlock("test")
+				gmlock.X写锁定("test")
+				defer gmlock.X退出写锁定("test")
 				time.Sleep(time.Millisecond)
 			}()
 		}
@@ -196,8 +196,8 @@ func Test_Multiple_Goroutine(t *testing.T) {
 			go func() {
 				defer wait.Done()
 				<-ch
-				gmlock.RLock("test")
-				defer gmlock.RUnlock("test")
+				gmlock.X读锁定("test")
+				defer gmlock.X退出读锁定("test")
 				time.Sleep(time.Millisecond)
 			}()
 		}
@@ -210,75 +210,75 @@ func Test_Locker_RLock(t *testing.T) {
 	// RLock before Lock
 	gtest.C(t, func(t *gtest.T) {
 		key := "testRLockBeforeLock"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.RLock(key)
-			array.Append(1)
+			gmlock.X读锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.RUnlock(key)
+			gmlock.X退出读锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.Lock(key)
-			array.Append(1)
-			gmlock.Unlock(key)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
+			gmlock.X退出写锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 
 	// Lock before RLock
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeRLock"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLock(key)
-			array.Append(1)
-			gmlock.RUnlock(key)
+			gmlock.X读锁定(key)
+			array.Append别名(1)
+			gmlock.X退出读锁定(key)
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 
 	// Lock before RLocks
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeRLocks"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(300 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLock(key)
-			array.Append(1)
+			gmlock.X读锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.RUnlock(key)
+			gmlock.X退出读锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLock(key)
-			array.Append(1)
+			gmlock.X读锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.RUnlock(key)
+			gmlock.X退出读锁定(key)
 		}()
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 	})
 }
 
@@ -286,54 +286,54 @@ func Test_Locker_TryRLock(t *testing.T) {
 	// Lock before TryRLock
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLock"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			if gmlock.TryRLock(key) {
-				array.Append(1)
-				gmlock.RUnlock(key)
+			if gmlock.X非阻塞读锁定(key) {
+				array.Append别名(1)
+				gmlock.X退出读锁定(key)
 			}
 		}()
 		time.Sleep(150 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 
 	// Lock before TryRLocks
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLocks"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			if gmlock.TryRLock(key) {
-				array.Append(1)
-				gmlock.RUnlock(key)
+			if gmlock.X非阻塞读锁定(key) {
+				array.Append别名(1)
+				gmlock.X退出读锁定(key)
 			}
 		}()
 		go func() {
 			time.Sleep(300 * time.Millisecond)
-			if gmlock.TryRLock(key) {
-				array.Append(1)
-				gmlock.RUnlock(key)
+			if gmlock.X非阻塞读锁定(key) {
+				array.Append别名(1)
+				gmlock.X退出读锁定(key)
 			}
 		}()
 		time.Sleep(150 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
@@ -341,75 +341,75 @@ func Test_Locker_RLockFunc(t *testing.T) {
 	// RLockFunc before Lock
 	gtest.C(t, func(t *gtest.T) {
 		key := "testRLockFuncBeforeLock"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.RLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X读锁定_函数(key, func() {
+				array.Append别名(1)
 				time.Sleep(200 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.Lock(key)
-			array.Append(1)
-			gmlock.Unlock(key)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
+			gmlock.X退出写锁定(key)
 		}()
 		time.Sleep(150 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 
 	// Lock before RLockFunc
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeRLockFunc"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X读锁定_函数(key, func() {
+				array.Append别名(1)
 			})
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 
 	// Lock before RLockFuncs
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeRLockFuncs"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X读锁定_函数(key, func() {
+				array.Append别名(1)
 				time.Sleep(200 * time.Millisecond)
 			})
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.RLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X读锁定_函数(key, func() {
+				array.Append别名(1)
 				time.Sleep(200 * time.Millisecond)
 			})
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 	})
 }
 
@@ -417,50 +417,50 @@ func Test_Locker_TryRLockFunc(t *testing.T) {
 		// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFunc"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.TryRLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X非阻塞读锁定_函数(key, func() {
+				array.Append别名(1)
 			})
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(200 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 
 			// 在尝试读取锁函数之前加锁. md5:4b4b42302a1b68f7
 	gtest.C(t, func(t *gtest.T) {
 		key := "testLockBeforeTryRLockFuncs"
-		array := garray.New(true)
+		array := garray.X创建(true)
 		go func() {
-			gmlock.Lock(key)
-			array.Append(1)
+			gmlock.X写锁定(key)
+			array.Append别名(1)
 			time.Sleep(200 * time.Millisecond)
-			gmlock.Unlock(key)
+			gmlock.X退出写锁定(key)
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
-			gmlock.TryRLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X非阻塞读锁定_函数(key, func() {
+				array.Append别名(1)
 			})
 		}()
 		go func() {
 			time.Sleep(300 * time.Millisecond)
-			gmlock.TryRLockFunc(key, func() {
-				array.Append(1)
+			gmlock.X非阻塞读锁定_函数(key, func() {
+				array.Append别名(1)
 			})
 		}()
 		time.Sleep(100 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(300 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }

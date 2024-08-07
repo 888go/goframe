@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtype
+package 安全变量类
 
 import (
 	"bytes"
 	"sync/atomic"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Bool 是一个用于并发安全操作布尔类型的结构体。 md5:1d3e571c42d4a013
@@ -41,11 +41,11 @@ func NewBool(value ...bool) *Bool {
 
 // Clone 克隆并返回一个新的布尔类型的并发安全对象。 md5:097dd9b0b48ac960
 func (v *Bool) Clone() *Bool {
-	return NewBool(v.Val())
+	return NewBool(v.X取值())
 }
 
-// Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
-func (v *Bool) Set(value bool) (old bool) {
+// X设置值 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
+func (v *Bool) X设置值(value bool) (old bool) {
 	if value {
 		old = atomic.SwapInt32(&v.value, 1) == 1
 	} else {
@@ -54,8 +54,8 @@ func (v *Bool) Set(value bool) (old bool) {
 	return
 }
 
-// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
-func (v *Bool) Val() bool {
+// X取值原子性地加载并返回t.value。 md5:429a11b89436cc12
+func (v *Bool) X取值() bool {
 	return atomic.LoadInt32(&v.value) > 0
 }
 
@@ -73,7 +73,7 @@ func (v *Bool) Cas(old, new bool) (swapped bool) {
 
 // String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
 func (v *Bool) String() string {
-	if v.Val() {
+	if v.X取值() {
 		return "true"
 	}
 	return "false"
@@ -81,7 +81,7 @@ func (v *Bool) String() string {
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (v Bool) MarshalJSON() ([]byte, error) {
-	if v.Val() {
+	if v.X取值() {
 		return bytesTrue, nil
 	}
 	return bytesFalse, nil
@@ -89,13 +89,13 @@ func (v Bool) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 func (v *Bool) UnmarshalJSON(b []byte) error {
-	v.Set(gconv.Bool(bytes.Trim(b, `"`)))
+	v.X设置值(gconv.X取布尔(bytes.Trim(b, `"`)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
 func (v *Bool) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Bool(value))
+	v.X设置值(gconv.X取布尔(value))
 	return nil
 }
 
@@ -104,5 +104,5 @@ func (v *Bool) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewBool(v.Val())
+	return NewBool(v.X取值())
 }

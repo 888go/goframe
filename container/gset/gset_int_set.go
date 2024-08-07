@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gset
+package 集合类
 
 import (
 	"bytes"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/rwmutex"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 type IntSet struct {
@@ -20,31 +20,31 @@ type IntSet struct {
 	data map[int]struct{}
 }
 
-// NewIntSet 创建并返回一个新集合，其中包含不重复的元素。
+// X创建整数 创建并返回一个新集合，其中包含不重复的元素。
 // 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。
 // md5:5ede16db776ad391
-func NewIntSet(safe ...bool) *IntSet {
+func X创建整数(并发安全 ...bool) *IntSet {
 	return &IntSet{
-		mu:   rwmutex.Create(safe...),
+		mu:   rwmutex.Create(并发安全...),
 		data: make(map[int]struct{}),
 	}
 }
 
-// NewIntSetFrom 从`items`创建一个新的整数集合。 md5:473f94b321141021
-func NewIntSetFrom(items []int, safe ...bool) *IntSet {
+// X创建整数并按值 从`items`创建一个新的整数集合。 md5:473f94b321141021
+func X创建整数并按值(整数切片 []int, 并发安全 ...bool) *IntSet {
 	m := make(map[int]struct{})
-	for _, v := range items {
+	for _, v := range 整数切片 {
 		m[v] = struct{}{}
 	}
 	return &IntSet{
-		mu:   rwmutex.Create(safe...),
+		mu:   rwmutex.Create(并发安全...),
 		data: m,
 	}
 }
 
-// Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
+// X遍历 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
 // md5:b896360b1cf6fc88
-func (set *IntSet) Iterator(f func(v int) bool) {
+func (set *IntSet) X遍历(f func(v int) bool) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
 	for k := range set.data {
@@ -54,54 +54,54 @@ func (set *IntSet) Iterator(f func(v int) bool) {
 	}
 }
 
-// Add 将一个或多个项目添加到集合中。 md5:316141ff7d4b8e45
-func (set *IntSet) Add(item ...int) {
+// X加入 将一个或多个项目添加到集合中。 md5:316141ff7d4b8e45
+func (set *IntSet) X加入(值s ...int) {
 	set.mu.Lock()
 	if set.data == nil {
 		set.data = make(map[int]struct{})
 	}
-	for _, v := range item {
+	for _, v := range 值s {
 		set.data[v] = struct{}{}
 	}
 	set.mu.Unlock()
 }
 
-// AddIfNotExist 检查项是否存在于集合中，
+// X加入值并跳过已存在 检查项是否存在于集合中，
 // 如果项不存在于集合中，则将其添加到集合并返回true，
 // 否则不做任何操作并返回false。
 //
 // 注意，如果 `item` 为 nil，它将不做任何操作并返回false。
 // md5:3d920a290d301fb9
-func (set *IntSet) AddIfNotExist(item int) bool {
-	if !set.Contains(item) {
+func (set *IntSet) X加入值并跳过已存在(值 int) bool {
+	if !set.X是否存在(值) {
 		set.mu.Lock()
 		defer set.mu.Unlock()
 		if set.data == nil {
 			set.data = make(map[int]struct{})
 		}
-		if _, ok := set.data[item]; !ok {
-			set.data[item] = struct{}{}
+		if _, ok := set.data[值]; !ok {
+			set.data[值] = struct{}{}
 			return true
 		}
 	}
 	return false
 }
 
-// AddIfNotExistFunc 检查项是否存在于集合中，
+// X加入值并跳过已存在_函数 检查项是否存在于集合中，
 // 如果项不存在于集合中，且函数 `f` 返回 true，则将项添加到集合中并返回 true，否则什么都不做并返回 false。
 //
 // 注意，函数 `f` 在写入锁未获取的情况下执行。
 // md5:7563a3cf864d8a2b
-func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
-	if !set.Contains(item) {
+func (set *IntSet) X加入值并跳过已存在_函数(值 int, f func() bool) bool {
+	if !set.X是否存在(值) {
 		if f() {
 			set.mu.Lock()
 			defer set.mu.Unlock()
 			if set.data == nil {
 				set.data = make(map[int]struct{})
 			}
-			if _, ok := set.data[item]; !ok {
-				set.data[item] = struct{}{}
+			if _, ok := set.data[值]; !ok {
+				set.data[值] = struct{}{}
 				return true
 			}
 		}
@@ -109,22 +109,22 @@ func (set *IntSet) AddIfNotExistFunc(item int, f func() bool) bool {
 	return false
 }
 
-// AddIfNotExistFuncLock 检查项是否存在于集合中，
+// X加入值并跳过已存在_并发安全函数 检查项是否存在于集合中，
 // 如果该项不存在于集合中并且函数 `f` 返回 true，那么它会将该项添加到集合中并返回 true；
 // 否则，它不做任何操作并返回 false。
 //
 // 注意，函数 `f` 的执行不在写入锁的保护下进行。
 // md5:48d67b0145855ed9
-func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
-	if !set.Contains(item) {
+func (set *IntSet) X加入值并跳过已存在_并发安全函数(值 int, f func() bool) bool {
+	if !set.X是否存在(值) {
 		set.mu.Lock()
 		defer set.mu.Unlock()
 		if set.data == nil {
 			set.data = make(map[int]struct{})
 		}
 		if f() {
-			if _, ok := set.data[item]; !ok {
-				set.data[item] = struct{}{}
+			if _, ok := set.data[值]; !ok {
+				set.data[值] = struct{}{}
 				return true
 			}
 		}
@@ -132,43 +132,43 @@ func (set *IntSet) AddIfNotExistFuncLock(item int, f func() bool) bool {
 	return false
 }
 
-// Contains 检查集合是否包含 `item`。 md5:20a3bdc6aeef1d67
-func (set *IntSet) Contains(item int) bool {
+// X是否存在 检查集合是否包含 `item`。 md5:20a3bdc6aeef1d67
+func (set *IntSet) X是否存在(值 int) bool {
 	var ok bool
 	set.mu.RLock()
 	if set.data != nil {
-		_, ok = set.data[item]
+		_, ok = set.data[值]
 	}
 	set.mu.RUnlock()
 	return ok
 }
 
-// Remove 从集合中删除 `item`。 md5:ab30c696cc44d190
-func (set *IntSet) Remove(item int) {
+// X删除 从集合中删除 `item`。 md5:ab30c696cc44d190
+func (set *IntSet) X删除(值 int) {
 	set.mu.Lock()
 	if set.data != nil {
-		delete(set.data, item)
+		delete(set.data, 值)
 	}
 	set.mu.Unlock()
 }
 
-// Size 返回集合的大小。 md5:0d55ac576b7779ee
-func (set *IntSet) Size() int {
+// X取数量 返回集合的大小。 md5:0d55ac576b7779ee
+func (set *IntSet) X取数量() int {
 	set.mu.RLock()
 	l := len(set.data)
 	set.mu.RUnlock()
 	return l
 }
 
-// Clear 删除集合中的所有项。 md5:ce349f0cd3114465
-func (set *IntSet) Clear() {
+// X清空 删除集合中的所有项。 md5:ce349f0cd3114465
+func (set *IntSet) X清空() {
 	set.mu.Lock()
 	set.data = make(map[int]struct{})
 	set.mu.Unlock()
 }
 
-// Slice 返回集合中的元素作为切片。 md5:f5bc80ac01ae812b
-func (set *IntSet) Slice() []int {
+// X取集合切片 返回集合中的元素作为切片。 md5:f5bc80ac01ae812b
+func (set *IntSet) X取集合切片() []int {
 	set.mu.RLock()
 	var (
 		i   = 0
@@ -182,8 +182,8 @@ func (set *IntSet) Slice() []int {
 	return ret
 }
 
-// Join 使用字符串 `glue` 连接多个项目。 md5:c8699391999ac788
-func (set *IntSet) Join(glue string) string {
+// X取集合文本 使用字符串 `glue` 连接多个项目。 md5:c8699391999ac788
+func (set *IntSet) X取集合文本(连接符 string) string {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
 	if len(set.data) == 0 {
@@ -197,7 +197,7 @@ func (set *IntSet) Join(glue string) string {
 	for k := range set.data {
 		buffer.WriteString(gconv.String(k))
 		if i != l-1 {
-			buffer.WriteString(glue)
+			buffer.WriteString(连接符)
 		}
 		i++
 	}
@@ -209,77 +209,77 @@ func (set *IntSet) String() string {
 	if set == nil {
 		return ""
 	}
-	return "[" + set.Join(",") + "]"
+	return "[" + set.X取集合文本(",") + "]"
 }
 
-// LockFunc 使用回调函数 `f` 为写入操作加锁。 md5:85d746d8a49edab7
-func (set *IntSet) LockFunc(f func(m map[int]struct{})) {
+// X写锁定_函数 使用回调函数 `f` 为写入操作加锁。 md5:85d746d8a49edab7
+func (set *IntSet) X写锁定_函数(f func(m map[int]struct{})) {
 	set.mu.Lock()
 	defer set.mu.Unlock()
 	f(set.data)
 }
 
-// RLockFunc 使用回调函数 `f` 进行读取锁定。 md5:5fe2bf1a85ce319e
-func (set *IntSet) RLockFunc(f func(m map[int]struct{})) {
+// X读锁定_函数 使用回调函数 `f` 进行读取锁定。 md5:5fe2bf1a85ce319e
+func (set *IntSet) X读锁定_函数(f func(m map[int]struct{})) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
 	f(set.data)
 }
 
-// Equal 检查两个集合是否相等。 md5:105ea4dd39b57fe8
-func (set *IntSet) Equal(other *IntSet) bool {
-	if set == other {
+// X是否相等 检查两个集合是否相等。 md5:105ea4dd39b57fe8
+func (set *IntSet) X是否相等(待比较集合 *IntSet) bool {
+	if set == 待比较集合 {
 		return true
 	}
 	set.mu.RLock()
 	defer set.mu.RUnlock()
-	other.mu.RLock()
-	defer other.mu.RUnlock()
-	if len(set.data) != len(other.data) {
+	待比较集合.mu.RLock()
+	defer 待比较集合.mu.RUnlock()
+	if len(set.data) != len(待比较集合.data) {
 		return false
 	}
 	for key := range set.data {
-		if _, ok := other.data[key]; !ok {
+		if _, ok := 待比较集合.data[key]; !ok {
 			return false
 		}
 	}
 	return true
 }
 
-// IsSubsetOf 检查当前集合是否为 `other` 的子集。 md5:333e392219846e17
-func (set *IntSet) IsSubsetOf(other *IntSet) bool {
-	if set == other {
+// X是否为子集 检查当前集合是否为 `other` 的子集。 md5:333e392219846e17
+func (set *IntSet) X是否为子集(父集 *IntSet) bool {
+	if set == 父集 {
 		return true
 	}
 	set.mu.RLock()
 	defer set.mu.RUnlock()
-	other.mu.RLock()
-	defer other.mu.RUnlock()
+	父集.mu.RLock()
+	defer 父集.mu.RUnlock()
 	for key := range set.data {
-		if _, ok := other.data[key]; !ok {
+		if _, ok := 父集.data[key]; !ok {
 			return false
 		}
 	}
 	return true
 }
 
-// Union 返回一个新集合，它是`set`和`other`的并集。
+// X取并集 返回一个新集合，它是`set`和`other`的并集。
 // 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
 // md5:420e241c3c12e8e6
-func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
-	newSet = NewIntSet()
+func (set *IntSet) X取并集(集合 ...*IntSet) (新集合 *IntSet) {
+	新集合 = X创建整数()
 	set.mu.RLock()
 	defer set.mu.RUnlock()
-	for _, other := range others {
+	for _, other := range 集合 {
 		if set != other {
 			other.mu.RLock()
 		}
 		for k, v := range set.data {
-			newSet.data[k] = v
+			新集合.data[k] = v
 		}
 		if set != other {
 			for k, v := range other.data {
-				newSet.data[k] = v
+				新集合.data[k] = v
 			}
 		}
 		if set != other {
@@ -290,21 +290,21 @@ func (set *IntSet) Union(others ...*IntSet) (newSet *IntSet) {
 	return
 }
 
-// Diff 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
+// X取差集 返回一个新的集合，它是 `set` 与 `other` 之间的差集。
 // 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
 // md5:6779e6e007651b53
-func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
-	newSet = NewIntSet()
+func (set *IntSet) X取差集(集合 ...*IntSet) (新集合 *IntSet) {
+	新集合 = X创建整数()
 	set.mu.RLock()
 	defer set.mu.RUnlock()
-	for _, other := range others {
+	for _, other := range 集合 {
 		if set == other {
 			continue
 		}
 		other.mu.RLock()
 		for k, v := range set.data {
 			if _, ok := other.data[k]; !ok {
-				newSet.data[k] = v
+				新集合.data[k] = v
 			}
 		}
 		other.mu.RUnlock()
@@ -312,20 +312,20 @@ func (set *IntSet) Diff(others ...*IntSet) (newSet *IntSet) {
 	return
 }
 
-// Intersect 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
+// X取交集 返回一个新的集合，这个集合是 `set` 和 `other` 的交集。
 // 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
 // md5:327d3fcc12f06583
-func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
-	newSet = NewIntSet()
+func (set *IntSet) X取交集(集合 ...*IntSet) (新集合 *IntSet) {
+	新集合 = X创建整数()
 	set.mu.RLock()
 	defer set.mu.RUnlock()
-	for _, other := range others {
+	for _, other := range 集合 {
 		if set != other {
 			other.mu.RLock()
 		}
 		for k, v := range set.data {
 			if _, ok := other.data[k]; ok {
-				newSet.data[k] = v
+				新集合.data[k] = v
 			}
 		}
 		if set != other {
@@ -335,32 +335,32 @@ func (set *IntSet) Intersect(others ...*IntSet) (newSet *IntSet) {
 	return
 }
 
-// Complement 返回一个新的集合，该集合是`set`在`full`中的补集。
+// X取补集 返回一个新的集合，该集合是`set`在`full`中的补集。
 // 换句话说，`newSet`中的所有元素都在`full`中但不在`set`中。
 //
 // 如果给定的集合`full`不是`set`的全集，它将返回`full`和`set`之间的差集。
 // md5:7e76900d6f20af06
-func (set *IntSet) Complement(full *IntSet) (newSet *IntSet) {
-	newSet = NewIntSet()
+func (set *IntSet) X取补集(集合 *IntSet) (新集合 *IntSet) {
+	新集合 = X创建整数()
 	set.mu.RLock()
 	defer set.mu.RUnlock()
-	if set != full {
-		full.mu.RLock()
-		defer full.mu.RUnlock()
+	if set != 集合 {
+		集合.mu.RLock()
+		defer 集合.mu.RUnlock()
 	}
-	for k, v := range full.data {
+	for k, v := range 集合.data {
 		if _, ok := set.data[k]; !ok {
-			newSet.data[k] = v
+			新集合.data[k] = v
 		}
 	}
 	return
 }
 
-// Merge 将 `others` 集合中的项目合并到 `set` 中。 md5:788b02e300c6f440
-func (set *IntSet) Merge(others ...*IntSet) *IntSet {
+// X合并 将 `others` 集合中的项目合并到 `set` 中。 md5:788b02e300c6f440
+func (set *IntSet) X合并(集合s ...*IntSet) *IntSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
-	for _, other := range others {
+	for _, other := range 集合s {
 		if set != other {
 			other.mu.RLock()
 		}
@@ -374,21 +374,21 @@ func (set *IntSet) Merge(others ...*IntSet) *IntSet {
 	return set
 }
 
-// Sum 计算项目总和。
+// X求和 计算项目总和。
 // 注意：项目应该转换为整数类型，
 // 否则你可能会得到意想不到的结果。
 // md5:979b37fbf86a5233
-func (set *IntSet) Sum() (sum int) {
+func (set *IntSet) X求和() (总和 int) {
 	set.mu.RLock()
 	defer set.mu.RUnlock()
 	for k := range set.data {
-		sum += k
+		总和 += k
 	}
 	return
 }
 
-// Pop 随机从集合中弹出一个元素。 md5:7e1906e951f13db1
-func (set *IntSet) Pop() int {
+// X出栈 随机从集合中弹出一个元素。 md5:7e1906e951f13db1
+func (set *IntSet) X出栈() int {
 	set.mu.Lock()
 	defer set.mu.Unlock()
 	for k := range set.data {
@@ -398,33 +398,33 @@ func (set *IntSet) Pop() int {
 	return 0
 }
 
-// Pops 从集合中随机弹出 `size` 个元素。
+// X出栈多个 从集合中随机弹出 `size` 个元素。
 // 如果 size == -1，它将返回所有元素。
 // md5:c687f88e0a2df8f2
-func (set *IntSet) Pops(size int) []int {
+func (set *IntSet) X出栈多个(数量 int) []int {
 	set.mu.Lock()
 	defer set.mu.Unlock()
-	if size > len(set.data) || size == -1 {
-		size = len(set.data)
+	if 数量 > len(set.data) || 数量 == -1 {
+		数量 = len(set.data)
 	}
-	if size <= 0 {
+	if 数量 <= 0 {
 		return nil
 	}
 	index := 0
-	array := make([]int, size)
+	array := make([]int, 数量)
 	for k := range set.data {
 		delete(set.data, k)
 		array[index] = k
 		index++
-		if index == size {
+		if index == 数量 {
 			break
 		}
 	}
 	return array
 }
 
-// Walk应用用户提供的函数`f`到集合中的每一项。 md5:d6ceaae555e8a9e6
-func (set *IntSet) Walk(f func(item int) int) *IntSet {
+// X遍历修改应用用户提供的函数`f`到集合中的每一项。 md5:d6ceaae555e8a9e6
+func (set *IntSet) X遍历修改(f func(item int) int) *IntSet {
 	set.mu.Lock()
 	defer set.mu.Unlock()
 	m := make(map[int]struct{}, len(set.data))
@@ -437,7 +437,7 @@ func (set *IntSet) Walk(f func(item int) int) *IntSet {
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (set IntSet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(set.Slice())
+	return json.Marshal(set.X取集合切片())
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
@@ -467,9 +467,9 @@ func (set *IntSet) UnmarshalValue(value interface{}) (err error) {
 	var array []int
 	switch value.(type) {
 	case string, []byte:
-		err = json.UnmarshalUseNumber(gconv.Bytes(value), &array)
+		err = json.UnmarshalUseNumber(gconv.X取字节集(value), &array)
 	default:
-		array = gconv.SliceInt(value)
+		array = gconv.SliceIne别名(value)
 	}
 	for _, v := range array {
 		set.data[v] = struct{}{}
@@ -492,5 +492,5 @@ func (set *IntSet) DeepCopy() interface{} {
 		slice[index] = k
 		index++
 	}
-	return NewIntSetFrom(slice, set.mu.IsSafe())
+	return X创建整数并按值(slice, set.mu.IsSafe())
 }

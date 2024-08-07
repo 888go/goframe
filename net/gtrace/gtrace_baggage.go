@@ -12,9 +12,9 @@ import (
 
 	"go.opentelemetry.io/otel/baggage"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	gvar "github.com/888go/goframe/container/gvar"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Baggage在所有跟踪span中持有数据。 md5:0ad27152ec042f81
@@ -63,10 +63,10 @@ func (b *Baggage) SetMap(data map[string]interface{}) context.Context {
 
 // GetMap 获取并以映射形式返回baggage值。 md5:d6024d765655a29e
 func (b *Baggage) GetMap() *gmap.StrAnyMap {
-	m := gmap.NewStrAnyMap()
+	m := gmap.X创建StrAny()
 	members := baggage.FromContext(b.ctx).Members()
 	for i := range members {
-		m.Set(members[i].Key(), members[i].Value())
+		m.X设置值(members[i].Key(), members[i].Value())
 	}
 	return m
 }
@@ -74,5 +74,5 @@ func (b *Baggage) GetMap() *gmap.StrAnyMap {
 // GetVar 从行李中获取指定键的值，并返回一个 *gvar.Var。 md5:6cda7fcfb8ff1c6e
 func (b *Baggage) GetVar(key string) *gvar.Var {
 	value := baggage.FromContext(b.ctx).Member(key).Value()
-	return gvar.New(value)
+	return gvar.X创建(value)
 }

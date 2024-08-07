@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/crypto/gcrc32"
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gcrc32 "github.com/888go/goframe/crypto/gcrc32"
+	gbinary "github.com/888go/goframe/encoding/gbinary"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 type MyTime struct {
@@ -29,8 +29,8 @@ type MyTimeSt struct {
 }
 
 func (st *MyTimeSt) UnmarshalValue(v interface{}) error {
-	m := gconv.Map(v)
-	t, err := gtime.StrToTime(gconv.String(m["ServiceDate"]))
+	m := gconv.X取Map(v)
+	t, err := gtime.X转换文本(gconv.String(m["ServiceDate"]))
 	if err != nil {
 		return err
 	}
@@ -68,7 +68,7 @@ type Pkg struct {
 func NewPkg(data []byte) *Pkg {
 	return &Pkg{
 		Length: uint16(len(data) + 6),
-		Crc32:  gcrc32.Encrypt(data),
+		Crc32:  gcrc32.X加密(data),
 		Data:   data,
 	}
 }
@@ -84,18 +84,18 @@ func (p *Pkg) Marshal() []byte {
 
 // UnmarshalValue 将字节解码为协议结构体。 md5:8eadcfee42fbaf11
 func (p *Pkg) UnmarshalValue(v interface{}) error {
-	b := gconv.Bytes(v)
+	b := gconv.X取字节集(v)
 	if len(b) < 6 {
-		return gerror.New("invalid package length")
+		return gerror.X创建("invalid package length")
 	}
 	p.Length = gbinary.DecodeToUint16(b[:2])
 	if len(b) < int(p.Length) {
-		return gerror.New("invalid data length")
+		return gerror.X创建("invalid data length")
 	}
 	p.Crc32 = gbinary.DecodeToUint32(b[2:6])
 	p.Data = b[6:]
-	if gcrc32.Encrypt(p.Data) != p.Crc32 {
-		return gerror.New("crc32 validation failed")
+	if gcrc32.X加密(p.Data) != p.Crc32 {
+		return gerror.X创建("crc32 validation failed")
 	}
 	return nil
 }

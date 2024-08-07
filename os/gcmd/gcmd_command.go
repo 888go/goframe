@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gcmd
+package cmd类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gstr"
+	gset "github.com/888go/goframe/container/gset"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // Command 包含有关可以处理自定义逻辑的参数的信息。 md5:b0e0f23cc6e868c5
@@ -81,19 +81,19 @@ func (c *Command) AddCommand(commands ...*Command) error {
 
 // doAddCommand 向当前命令添加一个子命令。 md5:bd1d8d447805aafd
 func (c *Command) doAddCommand(command *Command) error {
-	command.Name = gstr.Trim(command.Name)
+	command.Name = gstr.X过滤首尾符并含空白(command.Name)
 	if command.Name == "" {
-		return gerror.New("command name should not be empty")
+		return gerror.X创建("command name should not be empty")
 	}
 	// Repeated check.
 	var (
-		commandNameSet = gset.NewStrSet()
+		commandNameSet = gset.X创建文本()
 	)
 	for _, cmd := range c.commands {
-		commandNameSet.Add(cmd.Name)
+		commandNameSet.X加入(cmd.Name)
 	}
-	if commandNameSet.Contains(command.Name) {
-		return gerror.Newf(`command "%s" is already added to command "%s"`, command.Name, c.Name)
+	if commandNameSet.X是否存在(command.Name) {
+		return gerror.X创建并格式化(`command "%s" is already added to command "%s"`, command.Name, c.Name)
 	}
 		// 将给定的命令添加到其子命令数组中。 md5:ddd450893c5e1fcc
 	command.parent = c

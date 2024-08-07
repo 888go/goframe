@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RulePhoneLoose implements `phone-loose` rule:
@@ -35,7 +35,7 @@ func (r RulePhoneLoose) Message() string {
 }
 
 func (r RulePhoneLoose) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := gregex.X是否匹配文本(
 		`^1(3|4|5|6|7|8|9)\d{9}$`,
 		in.Value.String(),
 	)

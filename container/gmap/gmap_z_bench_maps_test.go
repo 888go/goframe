@@ -6,26 +6,26 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gmap_test
+package map类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/util/gutil"
+	gmap "github.com/888go/goframe/container/gmap"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
-var hashMap = gmap.New(true)
+var hashMap = gmap.X创建(true)
 
-var listMap = gmap.NewListMap(true)
+var listMap = gmap.X创建链表mp(true)
 
-var treeMap = gmap.NewTreeMap(gutil.ComparatorInt, true)
+var treeMap = gmap.X创建红黑树Map(gutil.X比较整数, true)
 
 func Benchmark_HashMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			hashMap.Set(i, i)
+			hashMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -35,7 +35,7 @@ func Benchmark_ListMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			listMap.Set(i, i)
+			listMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -45,7 +45,7 @@ func Benchmark_TreeMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			treeMap.Set(i, i)
+			treeMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -55,7 +55,7 @@ func Benchmark_HashMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			hashMap.Get(i)
+			hashMap.X取值(i)
 			i++
 		}
 	})
@@ -65,7 +65,7 @@ func Benchmark_ListMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			listMap.Get(i)
+			listMap.X取值(i)
 			i++
 		}
 	})

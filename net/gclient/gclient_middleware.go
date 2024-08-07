@@ -1,9 +1,9 @@
-package gclient
+package 网页类
 
 import (
 	"net/http"
 
-	"github.com/gogf/gf/v2/os/gctx"
+	gctx "github.com/888go/goframe/os/gctx"
 )
 
 // HandlerFunc 是用于处理中间件的处理器函数. md5:1e0565dffbfa907c
@@ -20,9 +20,9 @@ type clientMiddleware struct {
 
 const clientMiddlewareKey gctx.StrKey = "__clientMiddlewareKey"
 
-// Use 向客户端添加一个或多个中间件处理器。 md5:92665269b902692e
-func (c *Client) Use(handlers ...HandlerFunc) *Client {
-	c.middlewareHandler = append(c.middlewareHandler, handlers...)
+// X中间件 向客户端添加一个或多个中间件处理器。 md5:92665269b902692e
+func (c *Client) X中间件(中间件s ...HandlerFunc) *Client {
+	c.middlewareHandler = append(c.middlewareHandler, 中间件s...)
 	return c
 }
 

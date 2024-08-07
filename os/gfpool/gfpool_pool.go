@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfpool
+package 文件指针池类
 
 import (
 	"os"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gpool"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gfsnotify"
+	gpool "github.com/888go/goframe/container/gpool"
+	gtype "github.com/888go/goframe/container/gtype"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gfsnotify "github.com/888go/goframe/os/gfsnotify"
 )
 
 // New 创建并返回一个具有给定文件路径、标志和打开权限的文件指针池。
@@ -41,15 +41,15 @@ func New(path string, flag int, perm os.FileMode, ttl ...time.Duration) *Pool {
 
 // newFilePool 创建并返回一个具有给定文件路径、标志和打开权限的文件指针池。 md5:62fda6ff96d41c0f
 func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Duration) *gpool.Pool {
-	pool := gpool.New(ttl, func() (interface{}, error) {
+	pool := gpool.X创建(ttl, func() (interface{}, error) {
 		file, err := os.OpenFile(path, flag, perm)
 		if err != nil {
-			err = gerror.Wrapf(err, `os.OpenFile failed for file "%s", flag "%d", perm "%s"`, path, flag, perm)
+			err = gerror.X多层错误并格式化(err, `os.OpenFile failed for file "%s", flag "%d", perm "%s"`, path, flag, perm)
 			return nil, err
 		}
 		return &File{
 			File: file,
-			pid:  p.id.Val(),
+			pid:  p.id.X取值(),
 			pool: p,
 			flag: flag,
 			perm: perm,
@@ -65,7 +65,7 @@ func newFilePool(p *Pool, path string, flag int, perm os.FileMode, ttl time.Dura
 // 注意，当文件不再会被使用时，应当关闭它。当它被“关闭”时，并不是真正关闭底层的文件指针，而是将其放回文件指针池中。
 // md5:b6c4b6a3ade746fc
 func (p *Pool) File() (*File, error) {
-	if v, err := p.pool.Get(); err != nil {
+	if v, err := p.pool.X出栈(); err != nil {
 		return nil, err
 	} else {
 		f := v.(*File)
@@ -99,14 +99,14 @@ func (p *Pool) File() (*File, error) {
 			}
 		}
 				// 为了提高性能，它首先使用！p.init.Val()进行检查。 md5:bd8c9ebe349c994a
-		if !p.init.Val() && p.init.Cas(false, true) {
+		if !p.init.X取值() && p.init.Cas(false, true) {
 			_, _ = gfsnotify.Add(f.path, func(event *gfsnotify.Event) {
 								// 如果文件被删除或重命名，通过增加池ID来重新创建池。 md5:e825bec9648178de
 				if event.IsRemove() || event.IsRename() {
 					// It drops the old pool.
 					p.id.Add(1)
 										// 清除池中残留的项目。 md5:630859bb0da3cfb4
-					p.pool.Clear()
+					p.pool.X清空()
 					// 它使用另一个添加操作来移除两个添加操作之间的文件项。
 					// 每当池ID改变时，池将被重新创建。
 					// md5:d5f8fd9aa698b70a
@@ -120,5 +120,5 @@ func (p *Pool) File() (*File, error) {
 
 // Close关闭当前文件指针池。 md5:01a922bcbbea5a0f
 func (p *Pool) Close() {
-	p.pool.Close()
+	p.pool.X关闭()
 }

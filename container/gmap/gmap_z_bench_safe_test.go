@@ -6,34 +6,34 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gmap_test
+package map类_test
 
 import (
 	"strconv"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gmap"
+	gmap "github.com/888go/goframe/container/gmap"
 )
 
-var anyAnyMap = gmap.NewAnyAnyMap(true)
+var anyAnyMap = gmap.X创建AnyAny(true)
 
-var intIntMap = gmap.NewIntIntMap(true)
+var intIntMap = gmap.X创建IntInt(true)
 
-var intAnyMap = gmap.NewIntAnyMap(true)
+var intAnyMap = gmap.X创建IntAny(true)
 
-var intStrMap = gmap.NewIntStrMap(true)
+var intStrMap = gmap.X创建IntStr(true)
 
-var strIntMap = gmap.NewStrIntMap(true)
+var strIntMap = gmap.X创建StrInt(true)
 
-var strAnyMap = gmap.NewStrAnyMap(true)
+var strAnyMap = gmap.X创建StrAny(true)
 
-var strStrMap = gmap.NewStrStrMap(true)
+var strStrMap = gmap.X创建StrStr(true)
 
 func Benchmark_IntIntMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			intIntMap.Set(i, i)
+			intIntMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -43,7 +43,7 @@ func Benchmark_IntAnyMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			intAnyMap.Set(i, i)
+			intAnyMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -53,7 +53,7 @@ func Benchmark_IntStrMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			intStrMap.Set(i, "123456789")
+			intStrMap.X设置值(i, "123456789")
 			i++
 		}
 	})
@@ -63,7 +63,7 @@ func Benchmark_AnyAnyMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			anyAnyMap.Set(i, i)
+			anyAnyMap.X设置值(i, i)
 			i++
 		}
 	})
@@ -74,7 +74,7 @@ func Benchmark_StrIntMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			strIntMap.Set(strconv.Itoa(i), i)
+			strIntMap.X设置值(strconv.Itoa(i), i)
 			i++
 		}
 	})
@@ -85,7 +85,7 @@ func Benchmark_StrAnyMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			strAnyMap.Set(strconv.Itoa(i), i)
+			strAnyMap.X设置值(strconv.Itoa(i), i)
 			i++
 		}
 	})
@@ -96,7 +96,7 @@ func Benchmark_StrStrMap_Set(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			strStrMap.Set(strconv.Itoa(i), "123456789")
+			strStrMap.X设置值(strconv.Itoa(i), "123456789")
 			i++
 		}
 	})
@@ -106,7 +106,7 @@ func Benchmark_IntIntMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			intIntMap.Get(i)
+			intIntMap.X取值(i)
 			i++
 		}
 	})
@@ -116,7 +116,7 @@ func Benchmark_IntAnyMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			intAnyMap.Get(i)
+			intAnyMap.X取值(i)
 			i++
 		}
 	})
@@ -126,7 +126,7 @@ func Benchmark_IntStrMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			intStrMap.Get(i)
+			intStrMap.X取值(i)
 			i++
 		}
 	})
@@ -136,7 +136,7 @@ func Benchmark_AnyAnyMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			anyAnyMap.Get(i)
+			anyAnyMap.X取值(i)
 			i++
 		}
 	})
@@ -147,7 +147,7 @@ func Benchmark_StrIntMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			strIntMap.Get(strconv.Itoa(i))
+			strIntMap.X取值(strconv.Itoa(i))
 			i++
 		}
 	})
@@ -158,7 +158,7 @@ func Benchmark_StrAnyMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			strAnyMap.Get(strconv.Itoa(i))
+			strAnyMap.X取值(strconv.Itoa(i))
 			i++
 		}
 	})
@@ -169,7 +169,7 @@ func Benchmark_StrStrMap_Get(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		i := 0
 		for pb.Next() {
-			strStrMap.Get(strconv.Itoa(i))
+			strStrMap.X取值(strconv.Itoa(i))
 			i++
 		}
 	})

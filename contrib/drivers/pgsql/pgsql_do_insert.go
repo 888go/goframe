@@ -11,28 +11,28 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gdb "github.com/888go/goframe/database/gdb"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
-// DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8
-func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption) (result sql.Result, err error) {
+// X底层插入 为给定的表插入或更新数据。 md5:2a62d01f344269b8
+func (d *Driver) X底层插入(ctx context.Context, link gdb.Link, table string, list gdb.Map切片, option gdb.DoInsertOption) (result sql.Result, err error) {
 	switch option.InsertOption {
 	case gdb.InsertOptionReplace:
-		return nil, gerror.NewCode(
+		return nil, gerror.X创建错误码(
 			gcode.CodeNotSupported,
 			`Replace operation is not supported by pgsql driver`,
 		)
 
 	case gdb.InsertOptionIgnore:
-		return nil, gerror.NewCode(
+		return nil, gerror.X创建错误码(
 			gcode.CodeNotSupported,
 			`Insert ignore operation is not supported by pgsql driver`,
 		)
 
 	case gdb.InsertOptionDefault:
-		tableFields, err := d.GetCore().GetDB().TableFields(ctx, table)
+		tableFields, err := d.X取Core对象().X取DB对象().X取表字段信息Map(ctx, table)
 		if err == nil {
 			for _, field := range tableFields {
 				if field.Key == "pri" {
@@ -43,5 +43,5 @@ func (d *Driver) DoInsert(ctx context.Context, link gdb.Link, table string, list
 			}
 		}
 	}
-	return d.Core.DoInsert(ctx, link, table, list, option)
+	return d.Core.X底层插入(ctx, link, table, list, option)
 }

@@ -16,7 +16,7 @@ package mssql
 import (
 	_ "github.com/denisenkom/go-mssqldb"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
 // Driver是SQL服务器数据库的驱动程序。 md5:5c5e74aefaf2ae3d
@@ -29,7 +29,7 @@ const (
 )
 
 func init() {
-	if err := gdb.Register(`mssql`, New()); err != nil {
+	if err := gdb.X注册驱动(`mssql`, New()); err != nil {
 		panic(err)
 	}
 }
@@ -48,7 +48,7 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	}, nil
 }
 
-// GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
-func (d *Driver) GetChars() (charLeft string, charRight string) {
+// X底层取数据库安全字符 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
+func (d *Driver) X底层取数据库安全字符() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

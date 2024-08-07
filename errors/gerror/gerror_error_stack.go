@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gerror
+package 错误类
 
 import (
 	"bytes"
@@ -14,8 +14,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/errors"
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/errors"
 )
 
 // stackInfo 管理特定错误的堆栈信息。 md5:79468b5dd3f5e0ad

@@ -8,9 +8,9 @@
 package goai
 
 import (
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // 响应由 OpenAPI/Swagger 3.0 标准规定。 md5:fbc3562465353f4d
@@ -25,7 +25,7 @@ type Response struct {
 func (oai *OpenApiV3) tagMapToResponse(tagMap map[string]string, response *Response) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
 	if err := gconv.Struct(mergedTagMap, response); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Response failed`)
+		return gerror.X多层错误(err, `mapping struct tags to Response failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, response.XExtensions)
 	return nil

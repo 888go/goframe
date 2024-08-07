@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"fmt"
@@ -26,8 +26,8 @@ type WhereHolder struct {
 	Prefix   string        // 字段前缀，例如："user."，"order."。 md5:1fc1d00029c03395
 }
 
-// Builder 创建并返回一个 WhereBuilder。请注意，Builder 是线程安全的。 md5:d2708a694ae36dfa
-func (m *Model) Builder() *WhereBuilder {
+// X创建组合条件 创建并返回一个 WhereBuilder。请注意，X创建组合条件 是线程安全的。 md5:d2708a694ae36dfa
+func (m *Model) X创建组合条件() *WhereBuilder {
 	b := &WhereBuilder{
 		model:       m,
 		whereHolder: make([]WhereHolder, 0),
@@ -37,21 +37,21 @@ func (m *Model) Builder() *WhereBuilder {
 
 // getBuilder 创建并返回当前WhereBuilder的克隆体WhereBuilder. md5:b77a9fb73a67bab3
 func (b *WhereBuilder) getBuilder() *WhereBuilder {
-	return b.Clone()
+	return b.X取副本()
 }
 
-// Clone 克隆并返回一个与当前 WhereBuilder 相同的副本。 md5:d6ddf2152377c7f0
-func (b *WhereBuilder) Clone() *WhereBuilder {
-	newBuilder := b.model.Builder()
+// X取副本 克隆并返回一个与当前 WhereBuilder 相同的副本。 md5:d6ddf2152377c7f0
+func (b *WhereBuilder) X取副本() *WhereBuilder {
+	newBuilder := b.model.X创建组合条件()
 	newBuilder.whereHolder = make([]WhereHolder, len(b.whereHolder))
 	copy(newBuilder.whereHolder, b.whereHolder)
 	return newBuilder
 }
 
-// Build构建当前的WhereBuilder，并返回条件字符串和参数。 md5:08aa1af8cbe06d71
-func (b *WhereBuilder) Build() (conditionWhere string, conditionArgs []interface{}) {
+// X生成条件字符串及参数构建当前的WhereBuilder，并返回条件字符串和参数。 md5:08aa1af8cbe06d71
+func (b *WhereBuilder) X生成条件字符串及参数() (条件字符串 string, 参数 []interface{}) {
 	var (
-		ctx                         = b.model.GetCtx()
+		ctx                         = b.model.X取上下文对象()
 		autoPrefix                  = b.model.getAutoPrefix()
 		tableForMappingAndFiltering = b.model.tables
 	)
@@ -70,14 +70,14 @@ func (b *WhereBuilder) Build() (conditionWhere string, conditionArgs []interface
 					Table:       tableForMappingAndFiltering,
 				})
 				if len(newWhere) > 0 {
-					if len(conditionWhere) == 0 {
-						conditionWhere = newWhere
-					} else if conditionWhere[0] == '(' {
-						conditionWhere = fmt.Sprintf(`%s AND (%s)`, conditionWhere, newWhere)
+					if len(条件字符串) == 0 {
+						条件字符串 = newWhere
+					} else if 条件字符串[0] == '(' {
+						条件字符串 = fmt.Sprintf(`%s AND (%s)`, 条件字符串, newWhere)
 					} else {
-						conditionWhere = fmt.Sprintf(`(%s) AND (%s)`, conditionWhere, newWhere)
+						条件字符串 = fmt.Sprintf(`(%s) AND (%s)`, 条件字符串, newWhere)
 					}
-					conditionArgs = append(conditionArgs, newArgs...)
+					参数 = append(参数, newArgs...)
 				}
 
 			case whereHolderOperatorOr:
@@ -89,14 +89,14 @@ func (b *WhereBuilder) Build() (conditionWhere string, conditionArgs []interface
 					Table:       tableForMappingAndFiltering,
 				})
 				if len(newWhere) > 0 {
-					if len(conditionWhere) == 0 {
-						conditionWhere = newWhere
-					} else if conditionWhere[0] == '(' {
-						conditionWhere = fmt.Sprintf(`%s OR (%s)`, conditionWhere, newWhere)
+					if len(条件字符串) == 0 {
+						条件字符串 = newWhere
+					} else if 条件字符串[0] == '(' {
+						条件字符串 = fmt.Sprintf(`%s OR (%s)`, 条件字符串, newWhere)
 					} else {
-						conditionWhere = fmt.Sprintf(`(%s) OR (%s)`, conditionWhere, newWhere)
+						条件字符串 = fmt.Sprintf(`(%s) OR (%s)`, 条件字符串, newWhere)
 					}
-					conditionArgs = append(conditionArgs, newArgs...)
+					参数 = append(参数, newArgs...)
 				}
 			}
 		}
@@ -115,7 +115,7 @@ func (b *WhereBuilder) convertWhereBuilder(where interface{}, args []interface{}
 		builder = v
 	}
 	if builder != nil {
-		conditionWhere, conditionArgs := builder.Build()
+		conditionWhere, conditionArgs := builder.X生成条件字符串及参数()
 		if conditionWhere != "" && (len(b.whereHolder) == 0 || len(builder.whereHolder) > 1) {
 			conditionWhere = "(" + conditionWhere + ")"
 		}

@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/i18n/gi18n"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gvalid"
+	"github.com/888go/goframe/i18n/gi18n"
+	gtest "github.com/888go/goframe/test/gtest"
+	gvalid "github.com/888go/goframe/util/gvalid"
 )
 
 func TestValidator_I18n(t *testing.T) {

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gclient
+package 网页类
 
 import (
 	"crypto/tls"
@@ -13,7 +13,7 @@ import (
 	"net/http/httptrace"
 	"net/textproto"
 
-	"github.com/gogf/gf/v2/os/gtime"
+	gtime "github.com/888go/goframe/os/gtime"
 )
 
 type clientTracerMetrics struct {
@@ -106,7 +106,7 @@ func (ct *clientTracerMetrics) ConnectStart(network, addr string) {
 	if ct.Request.RemoteAddr == "" {
 		ct.Request.RemoteAddr = addr
 	}
-	ct.ConnectStartTime = gtime.Now()
+	ct.ConnectStartTime = gtime.X创建并按当前时间()
 	ct.ClientTrace.ConnectStart(network, addr)
 }
 
@@ -115,7 +115,7 @@ func (ct *clientTracerMetrics) ConnectStart(network, addr string) {
 // md5:d12afb735b1333e9
 func (ct *clientTracerMetrics) ConnectDone(network, addr string, err error) {
 	var (
-		duration       = float64(gtime.Now().Sub(ct.ConnectStartTime).Milliseconds())
+		duration       = float64(gtime.X创建并按当前时间().X取纳秒时长(ct.ConnectStartTime).Milliseconds())
 		durationOption = metricManager.GetMetricOptionForHistogram(ct.Request)
 	)
 	metricManager.HttpClientConnectionDuration.Record(

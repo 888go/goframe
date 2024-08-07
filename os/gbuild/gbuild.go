@@ -6,17 +6,17 @@
 // md5:a9832f33b234e3f3
 
 // 包gbuild管理"gf build"中的内置变量。 md5:c98a1c81088c9728
-package gbuild
+package 构建信息类
 
 import (
 	"context"
 	"runtime"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gbase64"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe"
+	gvar "github.com/888go/goframe/container/gvar"
+	gbase64 "github.com/888go/goframe/encoding/gbase64"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/json"
 )
 
 // BuildInfo 保存了当前二进制文件的构建信息。 md5:fccdfbf6d632a3f0
@@ -45,7 +45,7 @@ var (
 func init() {
 		// `builtInVarStr` 是由 Go 构建标志注入的。 md5:3fb4d6289f310035
 	if builtInVarStr != "" {
-		err := json.UnmarshalUseNumber(gbase64.MustDecodeString(builtInVarStr), &builtInVarMap)
+		err := json.UnmarshalUseNumber(gbase64.X文本解码到字节集PANI(builtInVarStr), &builtInVarMap)
 		if err != nil {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
@@ -75,10 +75,10 @@ func Info() BuildInfo {
 // Get 获取并返回具有给定名称的内置二进制变量。 md5:3b52dd5dc655096c
 func Get(name string, def ...interface{}) *gvar.Var {
 	if v, ok := builtInVarMap[name]; ok {
-		return gvar.New(v)
+		return gvar.X创建(v)
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0])
+		return gvar.X创建(def[0])
 	}
 	return nil
 }

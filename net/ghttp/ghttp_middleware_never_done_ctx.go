@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 // MiddlewareNeverDoneCtx为当前进程设置永不完成的上下文。 md5:82de09cee1c428a4
 func MiddlewareNeverDoneCtx(r *Request) {
-	r.SetCtx(r.GetNeverDoneCtx())
-	r.Middleware.Next()
+	r.X设置上下文对象(r.GetNeverDoneCtx())
+	r.X中间件管理器.Next()
 }

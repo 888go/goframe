@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gres
+package 资源类
 
 import (
 	"archive/zip"
@@ -13,18 +13,18 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/gogf/gf/v2/encoding/gbase64"
-	"github.com/gogf/gf/v2/encoding/gcompress"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gstr"
+	gbase64 "github.com/888go/goframe/encoding/gbase64"
+	gcompress "github.com/888go/goframe/encoding/gcompress"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gfile "github.com/888go/goframe/os/gfile"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 const (
 	packedGoSourceTemplate = `
 package %s
 
-import "github.com/gogf/gf/v2/os/gres"
+import gres "github.com/888go/goframe/os/gres"
 
 func init() {
 	if err := gres.Add("%s"); err != nil {
@@ -65,7 +65,7 @@ func PackWithOption(srcPaths string, option Option) ([]byte, error) {
 		return nil, err
 	}
 		// 使用Gzip压缩数据字节以减小大小。 md5:d15c5898ab8d9408
-	return gcompress.Gzip(buffer.Bytes(), 9)
+	return gcompress.Gzip压缩字节集(buffer.Bytes(), 9)
 }
 
 // PackToFile 将`srcPaths`指定的路径打包到目标文件`dstPath`中。
@@ -80,7 +80,7 @@ func PackToFile(srcPaths, dstPath string, keyPrefix ...string) error {
 	if err != nil {
 		return err
 	}
-	return gfile.PutBytes(dstPath, data)
+	return gfile.X写入字节集(dstPath, data)
 }
 
 // PackToFileWithOption 将由 `srcPaths` 指定的路径打包到目标文件 `dstPath` 中。
@@ -92,7 +92,7 @@ func PackToFileWithOption(srcPaths, dstPath string, option Option) error {
 	if err != nil {
 		return err
 	}
-	return gfile.PutBytes(dstPath, data)
+	return gfile.X写入字节集(dstPath, data)
 }
 
 // PackToGoFile 将由 `srcPaths` 指定的路径打包成目标 Go 文件 `goFilePath`，并使用给定的包名 `pkgName`。
@@ -108,9 +108,9 @@ func PackToGoFile(srcPath, goFilePath, pkgName string, keyPrefix ...string) erro
 	if err != nil {
 		return err
 	}
-	return gfile.PutContents(
+	return gfile.X写入文本(
 		goFilePath,
-		fmt.Sprintf(gstr.TrimLeft(packedGoSourceTemplate), pkgName, gbase64.EncodeToString(data)),
+		fmt.Sprintf(gstr.X过滤首字符并含空白(packedGoSourceTemplate), pkgName, gbase64.X字节集编码到文本(data)),
 	)
 }
 
@@ -124,19 +124,19 @@ func PackToGoFileWithOption(srcPath, goFilePath, pkgName string, option Option) 
 	if err != nil {
 		return err
 	}
-	return gfile.PutContents(
+	return gfile.X写入文本(
 		goFilePath,
-		fmt.Sprintf(gstr.TrimLeft(packedGoSourceTemplate), pkgName, gbase64.EncodeToString(data)),
+		fmt.Sprintf(gstr.X过滤首字符并含空白(packedGoSourceTemplate), pkgName, gbase64.X字节集编码到文本(data)),
 	)
 }
 
 // Unpack 将由 `path` 指定的内容解压缩到 []*File 中。 md5:c88b5e566f58802e
 func Unpack(path string) ([]*File, error) {
-	realPath, err := gfile.Search(path)
+	realPath, err := gfile.X查找(path)
 	if err != nil {
 		return nil, err
 	}
-	return UnpackContent(gfile.GetContents(realPath))
+	return UnpackContent(gfile.X读文本(realPath))
 }
 
 // UnpackContent 将内容解包为 []*File。 md5:a49a123f27175e6d
@@ -149,29 +149,29 @@ func UnpackContent(content string) ([]*File, error) {
 		// 这里是为了保持与旧版本使用十六进制字符串打包字符串的兼容性。
 		// TODO：未来移除这个支持。
 		// md5:5253278930daad11
-		data, err = gcompress.UnGzip(hexStrToBytes(content))
+		data, err = gcompress.Gzip解压字节集(hexStrToBytes(content))
 		if err != nil {
 			return nil, err
 		}
 	} else if isBase64(content) {
 				// 使用base64的新版本打包字符串。 md5:c884a25b1e4334ae
-		b, err := gbase64.DecodeString(content)
+		b, err := gbase64.X文本解码到字节集(content)
 		if err != nil {
 			return nil, err
 		}
-		data, err = gcompress.UnGzip(b)
+		data, err = gcompress.Gzip解压字节集(b)
 		if err != nil {
 			return nil, err
 		}
 	} else {
-		data, err = gcompress.UnGzip([]byte(content))
+		data, err = gcompress.Gzip解压字节集([]byte(content))
 		if err != nil {
 			return nil, err
 		}
 	}
 	reader, err := zip.NewReader(bytes.NewReader(data), int64(len(data)))
 	if err != nil {
-		err = gerror.Wrapf(err, `create zip reader failed`)
+		err = gerror.X多层错误并格式化(err, `create zip reader failed`)
 		return nil, err
 	}
 	array := make([]*File, len(reader.File))

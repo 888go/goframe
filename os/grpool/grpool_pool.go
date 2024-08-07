@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package grpool
+package 协程类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Add 将一个新任务添加到池中。
 // 该任务将会异步执行。
 // md5:69389d53e280086b
 func (p *Pool) Add(ctx context.Context, f Func) error {
-	for p.closed.Val() {
-		return gerror.NewCode(
+	for p.closed.X取值() {
+		return gerror.X创建错误码(
 			gcode.CodeInvalidOperation,
 			"goroutine defaultPool is already closed",
 		)
@@ -42,10 +42,10 @@ func (p *Pool) AddWithRecover(ctx context.Context, userFunc Func, recoverFunc Re
 		defer func() {
 			if exception := recover(); exception != nil {
 				if recoverFunc != nil {
-					if v, ok := exception.(error); ok && gerror.HasStack(v) {
+					if v, ok := exception.(error); ok && gerror.X判断是否带堆栈(v) {
 						recoverFunc(ctx, v)
 					} else {
-						recoverFunc(ctx, gerror.NewCodef(gcode.CodeInternalPanic, "%+v", exception))
+						recoverFunc(ctx, gerror.X创建错误码并格式化(gcode.CodeInternalPanic, "%+v", exception))
 					}
 				}
 			}
@@ -64,7 +64,7 @@ func (p *Pool) Cap() int {
 
 // Size 返回当前池中的goroutine数量。 md5:247eb1685633ccc3
 func (p *Pool) Size() int {
-	return p.count.Val()
+	return p.count.X取值()
 }
 
 // Jobs 返回池中的当前任务数。
@@ -76,12 +76,12 @@ func (p *Pool) Jobs() int {
 
 // IsClosed 返回池是否已关闭。 md5:85755176347bcfea
 func (p *Pool) IsClosed() bool {
-	return p.closed.Val()
+	return p.closed.X取值()
 }
 
 // Close 关闭goroutine池，导致所有goroutines退出。 md5:3d9c73ed9b0f4643
 func (p *Pool) Close() {
-	p.closed.Set(true)
+	p.closed.X设置值(true)
 }
 
 // checkAndForkNewGoroutineWorker 检查并创建一个新的goroutine工作进程。
@@ -91,7 +91,7 @@ func (p *Pool) checkAndForkNewGoroutineWorker() {
 		// 检查是否需要在新的goroutine中 fork。 md5:20ef20b082ef0b86
 	var n int
 	for {
-		n = p.count.Val()
+		n = p.count.X取值()
 		if p.limit != -1 && n >= p.limit {
 						// 不需要启动新的goroutine。 md5:a4d7257aa086311e
 			return
@@ -111,7 +111,7 @@ func (p *Pool) checkAndForkNewGoroutineWorker() {
 			poolItem *localPoolItem
 		)
 				// 哈丁工作，一个接一个，任务永无止境，工人永不消亡。 md5:625670ae6a926602
-		for !p.closed.Val() {
+		for !p.closed.X取值() {
 			listItem = p.list.PopBack()
 			if listItem == nil {
 				return

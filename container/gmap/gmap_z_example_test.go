@@ -4,62 +4,62 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gmap_test
+package map类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/util/gutil"
+	gmap "github.com/888go/goframe/container/gmap"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func ExampleNew() {
-	m := gmap.New()
+	m := gmap.X创建()
 
 	// Add data.
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 
 	// Print size.
-	fmt.Println(m.Size())
+	fmt.Println(m.X取数量())
 
 	addMap := make(map[interface{}]interface{})
 	addMap["key2"] = "val2"
 	addMap["key3"] = "val3"
 	addMap[1] = 1
 
-	fmt.Println(m.Values())
+	fmt.Println(m.X取所有值())
 
 	// Batch add data.
-	m.Sets(addMap)
+	m.X设置值Map(addMap)
 
 		// 获取对应键的值。 md5:80c18e88718ab20c
-	fmt.Println(m.Get("key3"))
+	fmt.Println(m.X取值("key3"))
 
 		// 如果键不存在，使用给定的键值对获取或设置值。 md5:6110c826554187ae
-	fmt.Println(m.GetOrSet("key4", "val4"))
+	fmt.Println(m.X取值或设置值("key4", "val4"))
 
 		// 如果键不存在，则设置键值对并返回true；否则，返回false。 md5:cc39f71c7fcd3e86
-	fmt.Println(m.SetIfNotExist("key3", "val3"))
+	fmt.Println(m.X设置值并跳过已存在("key3", "val3"))
 
 	// Remove key
-	m.Remove("key2")
-	fmt.Println(m.Keys())
+	m.X删除("key2")
+	fmt.Println(m.X取所有名称())
 
 	// Batch remove keys.
-	m.Removes([]interface{}{"key1", 1})
-	fmt.Println(m.Keys())
+	m.X删除多个值([]interface{}{"key1", 1})
+	fmt.Println(m.X取所有名称())
 
 		// Contains 检查一个键是否存在。 md5:822d7ed9848c03c4
-	fmt.Println(m.Contains("key3"))
+	fmt.Println(m.X是否存在("key3"))
 
 		// Flip 会交换映射中的键值，它会将键值对改为值键对。 md5:23981f3e2b855f36
-	m.Flip()
-	fmt.Println(m.Map())
+	m.X名称值交换()
+	fmt.Println(m.X取Map())
 
 		// Clear 删除map中的所有数据。 md5:7812c72bbfe807df
-	m.Clear()
+	m.X清空()
 
-	fmt.Println(m.Size())
+	fmt.Println(m.X取数量())
 
 	// May Output:
 	// 1
@@ -75,12 +75,12 @@ func ExampleNew() {
 }
 
 func ExampleNewFrom() {
-	m := gmap.New()
+	m := gmap.X创建()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
-	n := gmap.NewFrom(m.MapCopy(), true)
+	n := gmap.X创建并从Map(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -89,9 +89,9 @@ func ExampleNewFrom() {
 }
 
 func ExampleNewHashMap() {
-	m := gmap.NewHashMap()
+	m := gmap.NewHashMap别名()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
 	// Output:
@@ -99,12 +99,12 @@ func ExampleNewHashMap() {
 }
 
 func ExampleNewHashMapFrom() {
-	m := gmap.New()
+	m := gmap.X创建()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
-	n := gmap.NewHashMapFrom(m.MapCopy(), true)
+	n := gmap.NewHashMapFrom别名(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -113,9 +113,9 @@ func ExampleNewHashMapFrom() {
 }
 
 func ExampleNewAnyAnyMap() {
-	m := gmap.NewAnyAnyMap()
+	m := gmap.X创建AnyAny()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
 	// Output:
@@ -123,12 +123,12 @@ func ExampleNewAnyAnyMap() {
 }
 
 func ExampleNewAnyAnyMapFrom() {
-	m := gmap.NewAnyAnyMap()
+	m := gmap.X创建AnyAny()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
-	n := gmap.NewAnyAnyMapFrom(m.MapCopy(), true)
+	n := gmap.X创建AnyAny并从Map(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -137,9 +137,9 @@ func ExampleNewAnyAnyMapFrom() {
 }
 
 func ExampleNewIntAnyMap() {
-	m := gmap.NewIntAnyMap()
+	m := gmap.X创建IntAny()
 
-	m.Set(1, "val1")
+	m.X设置值(1, "val1")
 	fmt.Println(m)
 
 	// Output:
@@ -147,12 +147,12 @@ func ExampleNewIntAnyMap() {
 }
 
 func ExampleNewIntAnyMapFrom() {
-	m := gmap.NewIntAnyMap()
+	m := gmap.X创建IntAny()
 
-	m.Set(1, "val1")
+	m.X设置值(1, "val1")
 	fmt.Println(m)
 
-	n := gmap.NewIntAnyMapFrom(m.MapCopy(), true)
+	n := gmap.X创建IntAny并从Map(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -161,9 +161,9 @@ func ExampleNewIntAnyMapFrom() {
 }
 
 func ExampleNewIntIntMap() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
-	m.Set(1, 1)
+	m.X设置值(1, 1)
 	fmt.Println(m)
 
 	// Output:
@@ -171,12 +171,12 @@ func ExampleNewIntIntMap() {
 }
 
 func ExampleNewIntIntMapFrom() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
-	m.Set(1, 1)
+	m.X设置值(1, 1)
 	fmt.Println(m)
 
-	n := gmap.NewIntIntMapFrom(m.MapCopy(), true)
+	n := gmap.X创建IntInt并从Map(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -185,9 +185,9 @@ func ExampleNewIntIntMapFrom() {
 }
 
 func ExampleNewStrAnyMap() {
-	m := gmap.NewStrAnyMap()
+	m := gmap.X创建StrAny()
 
-	m.Set("key1", "var1")
+	m.X设置值("key1", "var1")
 	fmt.Println(m)
 
 	// Output:
@@ -195,12 +195,12 @@ func ExampleNewStrAnyMap() {
 }
 
 func ExampleNewStrAnyMapFrom() {
-	m := gmap.NewStrAnyMap()
+	m := gmap.X创建StrAny()
 
-	m.Set("key1", "var1")
+	m.X设置值("key1", "var1")
 	fmt.Println(m)
 
-	n := gmap.NewStrAnyMapFrom(m.MapCopy(), true)
+	n := gmap.X创建AnyStr并从Map(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -209,9 +209,9 @@ func ExampleNewStrAnyMapFrom() {
 }
 
 func ExampleNewStrIntMap() {
-	m := gmap.NewStrIntMap()
+	m := gmap.X创建StrInt()
 
-	m.Set("key1", 1)
+	m.X设置值("key1", 1)
 	fmt.Println(m)
 
 	// Output:
@@ -219,12 +219,12 @@ func ExampleNewStrIntMap() {
 }
 
 func ExampleNewStrIntMapFrom() {
-	m := gmap.NewStrIntMap()
+	m := gmap.X创建StrInt()
 
-	m.Set("key1", 1)
+	m.X设置值("key1", 1)
 	fmt.Println(m)
 
-	n := gmap.NewStrIntMapFrom(m.MapCopy(), true)
+	n := gmap.X创建StrInt并从Map(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -233,9 +233,9 @@ func ExampleNewStrIntMapFrom() {
 }
 
 func ExampleNewStrStrMap() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
-	m.Set("key1", "var1")
+	m.X设置值("key1", "var1")
 	fmt.Println(m)
 
 	// Output:
@@ -243,12 +243,12 @@ func ExampleNewStrStrMap() {
 }
 
 func ExampleNewStrStrMapFrom() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
-	m.Set("key1", "var1")
+	m.X设置值("key1", "var1")
 	fmt.Println(m)
 
-	n := gmap.NewStrStrMapFrom(m.MapCopy(), true)
+	n := gmap.X创建StrStr并从Map(m.X浅拷贝(), true)
 	fmt.Println(n)
 
 	// Output:
@@ -257,10 +257,10 @@ func ExampleNewStrStrMapFrom() {
 }
 
 func ExampleNewListMap() {
-	m := gmap.NewListMap()
+	m := gmap.X创建链表mp()
 
-	m.Set("key1", "var1")
-	m.Set("key2", "var2")
+	m.X设置值("key1", "var1")
+	m.X设置值("key2", "var2")
 	fmt.Println(m)
 
 	// Output:
@@ -268,13 +268,13 @@ func ExampleNewListMap() {
 }
 
 func ExampleNewListMapFrom() {
-	m := gmap.NewListMap()
+	m := gmap.X创建链表mp()
 
-	m.Set("key1", "var1")
-	m.Set("key2", "var2")
+	m.X设置值("key1", "var1")
+	m.X设置值("key2", "var2")
 	fmt.Println(m)
 
-	n := gmap.NewListMapFrom(m.Map(), true)
+	n := gmap.X创建链表Map并从Map(m.X取Map(), true)
 	fmt.Println(n)
 
 	// May Output:
@@ -283,10 +283,10 @@ func ExampleNewListMapFrom() {
 }
 
 func ExampleNewTreeMap() {
-	m := gmap.NewTreeMap(gutil.ComparatorString)
+	m := gmap.X创建红黑树Map(gutil.X比较文本)
 
-	m.Set("key2", "var2")
-	m.Set("key1", "var1")
+	m.X设置值("key2", "var2")
+	m.X设置值("key1", "var1")
 
 	fmt.Println(m.Map())
 
@@ -295,15 +295,15 @@ func ExampleNewTreeMap() {
 }
 
 func ExampleNewTreeMapFrom() {
-	m := gmap.NewTreeMap(gutil.ComparatorString)
+	m := gmap.X创建红黑树Map(gutil.X比较文本)
 
-	m.Set("key2", "var2")
-	m.Set("key1", "var1")
+	m.X设置值("key2", "var2")
+	m.X设置值("key1", "var1")
 
 	fmt.Println(m.Map())
 
-	n := gmap.NewListMapFrom(m.Map(), true)
-	fmt.Println(n.Map())
+	n := gmap.X创建链表Map并从Map(m.Map(), true)
+	fmt.Println(n.X取Map())
 
 	// May Output:
 	// map[key1:var1 key2:var2]

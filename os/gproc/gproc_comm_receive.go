@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gproc
+package 进程类
 
 import (
 	"context"
 	"fmt"
 	"net"
 
-	"github.com/gogf/gf/v2/container/gqueue"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/util/gconv"
+	gqueue "github.com/888go/goframe/container/gqueue"
+	gtype "github.com/888go/goframe/container/gtype"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gtcp "github.com/888go/goframe/net/gtcp"
+	gfile "github.com/888go/goframe/os/gfile"
+	glog "github.com/888go/goframe/os/glog"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 var (
@@ -41,12 +41,12 @@ func Receive(group ...string) *MsgRequest {
 	} else {
 		groupName = defaultGroupNameForProcComm
 	}
-	queue := commReceiveQueues.GetOrSetFuncLock(groupName, func() interface{} {
-		return gqueue.New(maxLengthForProcMsgQueue)
+	queue := commReceiveQueues.X取值或设置值_函数带锁(groupName, func() interface{} {
+		return gqueue.X创建(maxLengthForProcMsgQueue)
 	}).(*gqueue.Queue)
 
 	// Blocking receiving.
-	if v := queue.Pop(); v != nil {
+	if v := queue.X出栈(); v != nil {
 		return v.(*MsgRequest)
 	}
 	return nil
@@ -62,14 +62,14 @@ func receiveTcpListening() {
 	)
 	tcpAddress, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
-		panic(gerror.Wrap(err, `net.ResolveTCPAddr failed`))
+		panic(gerror.X多层错误(err, `net.ResolveTCPAddr failed`))
 	}
 	listen, err = net.ListenTCP("tcp", tcpAddress)
 	if err != nil {
-		panic(gerror.Wrapf(err, `net.ListenTCP failed for address "%s"`, address))
+		panic(gerror.X多层错误并格式化(err, `net.ListenTCP failed for address "%s"`, address))
 	}
 		// 将端口保存到pid文件中。 md5:d6040683bfc292d5
-	if err = gfile.PutContents(getCommFilePath(Pid()), gconv.String(port)); err != nil {
+	if err = gfile.X写入文本(getCommFilePath(Pid()), gconv.String(port)); err != nil {
 		panic(err)
 	}
 	// Start listening.
@@ -106,13 +106,13 @@ func receiveTcpHandler(conn *gtcp.Conn) {
 					"receiver pid not match, target: %d, current: %d",
 					msg.ReceiverPid, Pid(),
 				)
-			} else if v := commReceiveQueues.Get(msg.Group); v == nil {
+			} else if v := commReceiveQueues.X取值(msg.Group); v == nil {
 				// Group check.
 				response.Message = fmt.Sprintf("group [%s] does not exist", msg.Group)
 			} else {
 				// Push to buffer queue.
 				response.Code = 1
-				v.(*gqueue.Queue).Push(msg)
+				v.(*gqueue.Queue).X入栈(msg)
 			}
 		} else {
 			// Empty package.

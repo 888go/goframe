@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog
+package 日志类
 
 import (
 	"context"
@@ -13,139 +13,139 @@ import (
 	"os"
 )
 
-// Print 使用 fmt.Sprintln 函数打印 `v` 并添加换行符。
+// X输出 使用 fmt.Sprintln 函数打印 `v` 并添加换行符。
 // 参数 `v` 可以是多个变量。
 // md5:6c0b3b96234f77ce
-func (l *Logger) Print(ctx context.Context, v ...interface{}) {
-	l.printStd(ctx, LEVEL_NONE, v...)
+func (l *Logger) X输出(上下文 context.Context, 值 ...interface{}) {
+	l.printStd(上下文, LEVEL_NONE, 值...)
 }
 
-// Printf 使用 fmt.Sprintf 根据格式 `format` 打印 `v`。
+// X输出并格式化 使用 fmt.Sprintf 根据格式 `format` 打印 `v`。
 // 参数 `v` 可以是多个变量。
 // md5:e3b6ab3d8750ad4c
-func (l *Logger) Printf(ctx context.Context, format string, v ...interface{}) {
-	l.printStd(ctx, LEVEL_NONE, l.format(format, v...))
+func (l *Logger) X输出并格式化(上下文 context.Context, 格式 string, 值 ...interface{}) {
+	l.printStd(上下文, LEVEL_NONE, l.format(格式, 值...))
 }
 
-// Fatal 以[FATA]标题和换行符打印日志内容，然后退出当前进程。 md5:4061b6551d7137a1
-func (l *Logger) Fatal(ctx context.Context, v ...interface{}) {
-	l.printErr(ctx, LEVEL_FATA, v...)
+// X输出FATA 以[FATA]标题和换行符打印日志内容，然后退出当前进程。 md5:4061b6551d7137a1
+func (l *Logger) X输出FATA(上下文 context.Context, 值 ...interface{}) {
+	l.printErr(上下文, LEVEL_FATA, 值...)
 	os.Exit(1)
 }
 
-// Fatalf 打印带有 [FATA] 头部、自定义格式和换行符的日志内容，然后退出当前进程。 md5:cbaf3fb7e2b92df9
-func (l *Logger) Fatalf(ctx context.Context, format string, v ...interface{}) {
-	l.printErr(ctx, LEVEL_FATA, l.format(format, v...))
+// X输出并格式化FATA 打印带有 [FATA] 头部、自定义格式和换行符的日志内容，然后退出当前进程。 md5:cbaf3fb7e2b92df9
+func (l *Logger) X输出并格式化FATA(上下文 context.Context, 格式 string, 值 ...interface{}) {
+	l.printErr(上下文, LEVEL_FATA, l.format(格式, 值...))
 	os.Exit(1)
 }
 
-// Panic 在输出带有 [PANI] 头部和换行符的日志内容后，引发 panic。 md5:bcde7bf5ff45073a
-func (l *Logger) Panic(ctx context.Context, v ...interface{}) {
-	l.printErr(ctx, LEVEL_PANI, v...)
-	panic(fmt.Sprint(v...))
+// X输出PANI 在输出带有 [PANI] 头部和换行符的日志内容后，引发 panic。 md5:bcde7bf5ff45073a
+func (l *Logger) X输出PANI(上下文 context.Context, 值 ...interface{}) {
+	l.printErr(上下文, LEVEL_PANI, 值...)
+	panic(fmt.Sprint(值...))
 }
 
-// Panicf 函数打印带有 [PANI] 标头、自定义格式和换行的日志内容，然后触发恐慌（panic）。 md5:bf1df3ad28ded71f
-func (l *Logger) Panicf(ctx context.Context, format string, v ...interface{}) {
-	l.printErr(ctx, LEVEL_PANI, l.format(format, v...))
-	panic(l.format(format, v...))
+// X输出并格式化PANI 函数打印带有 [PANI] 标头、自定义格式和换行的日志内容，然后触发恐慌（panic）。 md5:bf1df3ad28ded71f
+func (l *Logger) X输出并格式化PANI(上下文 context.Context, 格式 string, 值 ...interface{}) {
+	l.printErr(上下文, LEVEL_PANI, l.format(格式, 值...))
+	panic(l.format(格式, 值...))
 }
 
-// Info 打印带有 "[INFO]" 标头和换行符的日志内容。 md5:1ed8e917ecca5ef4
-func (l *Logger) Info(ctx context.Context, v ...interface{}) {
+// X输出INFO 打印带有 "[INFO]" 标头和换行符的日志内容。 md5:1ed8e917ecca5ef4
+func (l *Logger) X输出INFO(上下文 context.Context, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_INFO) {
-		l.printStd(ctx, LEVEL_INFO, v...)
+		l.printStd(上下文, LEVEL_INFO, 值...)
 	}
 }
 
-// Infof 打印带有 [INFO] 标头、自定义格式和换行符的日志内容。 md5:fda1e57b2e2089d7
-func (l *Logger) Infof(ctx context.Context, format string, v ...interface{}) {
+// X输出并格式化INFO 打印带有 [INFO] 标头、自定义格式和换行符的日志内容。 md5:fda1e57b2e2089d7
+func (l *Logger) X输出并格式化INFO(上下文 context.Context, 格式 string, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_INFO) {
-		l.printStd(ctx, LEVEL_INFO, l.format(format, v...))
+		l.printStd(上下文, LEVEL_INFO, l.format(格式, 值...))
 	}
 }
 
-// Debug 打印带有 [DEBU] 标头和换行符的日志内容。 md5:7a64f5ebf48d4f92
-func (l *Logger) Debug(ctx context.Context, v ...interface{}) {
+// X输出DEBU 打印带有 [DEBU] 标头和换行符的日志内容。 md5:7a64f5ebf48d4f92
+func (l *Logger) X输出DEBU(上下文 context.Context, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_DEBU) {
-		l.printStd(ctx, LEVEL_DEBU, v...)
+		l.printStd(上下文, LEVEL_DEBU, 值...)
 	}
 }
 
-// Debugf 函数打印带有 [DEBU] 标头、自定义格式化内容和换行符的日志信息。 md5:0c0164b88b59a40c
-func (l *Logger) Debugf(ctx context.Context, format string, v ...interface{}) {
+// X输出并格式化DEBU 函数打印带有 [DEBU] 标头、自定义格式化内容和换行符的日志信息。 md5:0c0164b88b59a40c
+func (l *Logger) X输出并格式化DEBU(上下文 context.Context, 格式 string, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_DEBU) {
-		l.printStd(ctx, LEVEL_DEBU, l.format(format, v...))
+		l.printStd(上下文, LEVEL_DEBU, l.format(格式, 值...))
 	}
 }
 
 // ```go
-// Notice 打印日志内容，前缀为 [NOTI] 并在末尾添加换行符。
+// X输出NOTI 打印日志内容，前缀为 [NOTI] 并在末尾添加换行符。
 // 如果启用了堆栈跟踪功能，它还会打印调用者堆栈信息。
 // ```
 // md5:c36d548c618d1251
-func (l *Logger) Notice(ctx context.Context, v ...interface{}) {
+func (l *Logger) X输出NOTI(上下文 context.Context, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_NOTI) {
-		l.printStd(ctx, LEVEL_NOTI, v...)
+		l.printStd(上下文, LEVEL_NOTI, 值...)
 	}
 }
 
-// Noticef 打印带有 [NOTI] 标头的日志内容，自定义格式和换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// X输出并格式化NOTI 打印带有 [NOTI] 标头的日志内容，自定义格式和换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。
 // md5:f9d4f5af91856cd9
-func (l *Logger) Noticef(ctx context.Context, format string, v ...interface{}) {
+func (l *Logger) X输出并格式化NOTI(上下文 context.Context, 格式 string, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_NOTI) {
-		l.printStd(ctx, LEVEL_NOTI, l.format(format, v...))
+		l.printStd(上下文, LEVEL_NOTI, l.format(格式, 值...))
 	}
 }
 
-// Warning 打印带有 [WARN] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// X输出WARN 打印带有 [WARN] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。
 // md5:8142c86f6be53ee0
-func (l *Logger) Warning(ctx context.Context, v ...interface{}) {
+func (l *Logger) X输出WARN(上下文 context.Context, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_WARN) {
-		l.printStd(ctx, LEVEL_WARN, v...)
+		l.printStd(上下文, LEVEL_WARN, 值...)
 	}
 }
 
-// Warningf 函数打印带有 [WARN] 标头的记录内容、自定义格式化字符串以及换行。
+// X输出并格式化WARN 函数打印带有 [WARN] 标头的记录内容、自定义格式化字符串以及换行。
 // 如果启用了堆栈追踪功能，它还会打印调用者堆栈信息。
 // md5:025f0baa4a1f8600
-func (l *Logger) Warningf(ctx context.Context, format string, v ...interface{}) {
+func (l *Logger) X输出并格式化WARN(上下文 context.Context, 格式 string, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_WARN) {
-		l.printStd(ctx, LEVEL_WARN, l.format(format, v...))
+		l.printStd(上下文, LEVEL_WARN, l.format(格式, 值...))
 	}
 }
 
 // Error 打印带有 [ERRO] 标头和换行符的日志内容。
 // 如果启用了堆栈跟踪功能，它还会打印调用者堆栈信息。
 // md5:f2aa6f6c0e4d2061
-func (l *Logger) Error(ctx context.Context, v ...interface{}) {
+func (l *Logger) Error(上下文 context.Context, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_ERRO) {
-		l.printErr(ctx, LEVEL_ERRO, v...)
+		l.printErr(上下文, LEVEL_ERRO, 值...)
 	}
 }
 
-// Errorf 函数会打印带有 [ERRO] 标头的日志内容，使用自定义格式并添加换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// X输出并格式化ERR 函数会打印带有 [ERRO] 标头的日志内容，使用自定义格式并添加换行符。如果启用了堆栈功能，它还会打印调用者堆栈信息。
 // md5:4a90789d1de07943
-func (l *Logger) Errorf(ctx context.Context, format string, v ...interface{}) {
+func (l *Logger) X输出并格式化ERR(上下文 context.Context, 格式 string, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_ERRO) {
-		l.printErr(ctx, LEVEL_ERRO, l.format(format, v...))
+		l.printErr(上下文, LEVEL_ERRO, l.format(格式, 值...))
 	}
 }
 
-// Critical 打印带有 [CRIT] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。
+// X输出CRIT 打印带有 [CRIT] 头部和换行符的日志内容。如果启用了堆栈功能，它还会打印调用者堆栈信息。
 // md5:f9fb0900ff8f602f
-func (l *Logger) Critical(ctx context.Context, v ...interface{}) {
+func (l *Logger) X输出CRIT(上下文 context.Context, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_CRIT) {
-		l.printErr(ctx, LEVEL_CRIT, v...)
+		l.printErr(上下文, LEVEL_CRIT, 值...)
 	}
 }
 
-// Criticalf 函数打印带有 [CRIT] 标头、自定义格式和换行的日志内容。
+// X输出并格式化CRIT 函数打印带有 [CRIT] 标头、自定义格式和换行的日志内容。
 // 如果启用了堆栈追踪功能，它还会打印调用者堆栈信息。
 // md5:fa381bbe7b0465d0
-func (l *Logger) Criticalf(ctx context.Context, format string, v ...interface{}) {
+func (l *Logger) X输出并格式化CRIT(上下文 context.Context, 格式 string, 值 ...interface{}) {
 	if l.checkLevel(LEVEL_CRIT) {
-		l.printErr(ctx, LEVEL_CRIT, l.format(format, v...))
+		l.printErr(上下文, LEVEL_CRIT, l.format(格式, 值...))
 	}
 }
 

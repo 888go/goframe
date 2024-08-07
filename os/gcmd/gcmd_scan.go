@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gcmd
+package cmd类
 
 import (
 	"bufio"
 	"fmt"
 	"os"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // Scan 将 `info` 打印到标准输出，读取并返回用户输入，直到遇到 '\n'。 md5:ddd0cd56978ea021
@@ -31,6 +31,6 @@ func readline() string {
 	var s string
 	reader := bufio.NewReader(os.Stdin)
 	s, _ = reader.ReadString('\n')
-	s = gstr.Trim(s)
+	s = gstr.X过滤首尾符并含空白(s)
 	return s
 }

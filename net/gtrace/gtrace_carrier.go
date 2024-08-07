@@ -8,8 +8,8 @@
 package gtrace
 
 import (
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Carrier是TextMapPropagator使用的存储介质。 md5:8d62ccc64614a0c7

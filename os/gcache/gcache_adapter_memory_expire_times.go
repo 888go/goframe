@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcache
+package 缓存类
 
 import (
 	"sync"
@@ -22,14 +22,14 @@ func newAdapterMemoryExpireTimes() *adapterMemoryExpireTimes {
 	}
 }
 
-func (d *adapterMemoryExpireTimes) Get(key interface{}) (value int64) {
+func (d *adapterMemoryExpireTimes) X取值(key interface{}) (value int64) {
 	d.mu.RLock()
 	value = d.expireTimes[key]
 	d.mu.RUnlock()
 	return
 }
 
-func (d *adapterMemoryExpireTimes) Set(key interface{}, value int64) {
+func (d *adapterMemoryExpireTimes) X设置值(key interface{}, value int64) {
 	d.mu.Lock()
 	d.expireTimes[key] = value
 	d.mu.Unlock()

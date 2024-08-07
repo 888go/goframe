@@ -5,27 +5,27 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gcmd
+package cmd类
 
 import (
 	"context"
 	"fmt"
 	"reflect"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gtag"
-	"github.com/gogf/gf/v2/util/gutil"
-	"github.com/gogf/gf/v2/util/gvalid"
+	gset "github.com/888go/goframe/container/gset"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/888go/goframe/util/gtag"
+	gutil "github.com/888go/goframe/util/gutil"
+	gvalid "github.com/888go/goframe/util/gvalid"
 )
 
 var (
@@ -44,7 +44,7 @@ func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 
 	originValueAndKind := reflection.OriginValueAndKind(object)
 	if originValueAndKind.OriginKind != reflect.Struct {
-		err = gerror.Newf(
+		err = gerror.X创建并格式化(
 			`input object should be type of struct, but got "%s"`,
 			originValueAndKind.InputValue.Type().String(),
 		)
@@ -67,7 +67,7 @@ func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 	}
 	// Sub command creating.
 	var (
-		nameSet         = gset.NewStrSet()
+		nameSet         = gset.X创建文本()
 		rootCommandName = gmeta.Get(object, gtag.Root).String()
 		subCommands     []*Command
 	)
@@ -85,8 +85,8 @@ func NewFromObject(object interface{}) (rootCmd *Command, err error) {
 		if err != nil {
 			return
 		}
-		if nameSet.Contains(methodCmd.Name) {
-			err = gerror.Newf(
+		if nameSet.X是否存在(methodCmd.Name) {
+			err = gerror.X创建并格式化(
 				`command name should be unique, found duplicated command name in method "%s"`,
 				methodType.String(),
 			)
@@ -147,7 +147,7 @@ func newCommandFromObjectMeta(object interface{}, name string) (command *Command
 		// 名称字段是必需的。 md5:be70066859cce69e
 	if command.Name == "" {
 		if name == "" {
-			err = gerror.Newf(
+			err = gerror.X创建并格式化(
 				`command name cannot be empty, "name" tag not found in meta of struct "%s"`,
 				reflect.TypeOf(object).String(),
 			)
@@ -185,13 +185,13 @@ func newCommandFromMethod(
 		// 对输入/输出参数及命名进行必要的验证。 md5:9e72ac9f4181fad5
 	if methodType.NumIn() != 2 || methodType.NumOut() != 2 {
 		if methodType.PkgPath() != "" {
-			err = gerror.NewCodef(
+			err = gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				`invalid command: %s.%s.%s defined as "%s", but "func(context.Context, Input)(Output, error)" is required`,
 				methodType.PkgPath(), reflect.TypeOf(object).Name(), method.Name, methodType.String(),
 			)
 		} else {
-			err = gerror.NewCodef(
+			err = gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				`invalid command: %s.%s defined as "%s", but "func(context.Context, Input)(Output, error)" is required`,
 				reflect.TypeOf(object).Name(), method.Name, methodType.String(),
@@ -200,7 +200,7 @@ func newCommandFromMethod(
 		return
 	}
 	if !methodType.In(0).Implements(reflect.TypeOf((*context.Context)(nil)).Elem()) {
-		err = gerror.NewCodef(
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid command: %s.%s defined as "%s", but the first input parameter should be type of "context.Context"`,
 			reflect.TypeOf(object).Name(), method.Name, methodType.String(),
@@ -208,7 +208,7 @@ func newCommandFromMethod(
 		return
 	}
 	if !methodType.Out(1).Implements(reflect.TypeOf((*error)(nil)).Elem()) {
-		err = gerror.NewCodef(
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid command: %s.%s defined as "%s", but the last output parameter should be type of "error"`,
 			reflect.TypeOf(object).Name(), method.Name, methodType.String(),
@@ -216,8 +216,8 @@ func newCommandFromMethod(
 		return
 	}
 		// 输入结构体应该命名为`xxxInput`。 md5:98fe3954e690f01f
-	if !gstr.HasSuffix(methodType.In(1).String(), `Input`) {
-		err = gerror.NewCodef(
+	if !gstr.X末尾判断(methodType.In(1).String(), `Input`) {
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid struct naming for input: defined as "%s", but it should be named with "Input" suffix like "xxxInput"`,
 			methodType.In(1).String(),
@@ -225,8 +225,8 @@ func newCommandFromMethod(
 		return
 	}
 		// 输出结构体应该命名为`xxxOutput`。 md5:3c8e65a804dbe66c
-	if !gstr.HasSuffix(methodType.Out(0).String(), `Output`) {
-		err = gerror.NewCodef(
+	if !gstr.X末尾判断(methodType.Out(0).String(), `Output`) {
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid struct naming for output: defined as "%s", but it should be named with "Output" suffix like "xxxOutput"`,
 			methodType.Out(0).String(),
@@ -252,7 +252,7 @@ func newCommandFromMethod(
 	}
 
 		// 利用优先级标签进行输入结构体转换。 md5:501b3e1e29551f82
-	var priorityTag = gstr.Join([]string{tagNameName, tagNameShort}, ",")
+	var priorityTag = gstr.X连接([]string{tagNameName, tagNameShort}, ",")
 
 	// =============================================================================================
 	// 创建一个有返回值的函数。
@@ -261,7 +261,7 @@ func newCommandFromMethod(
 	command.FuncWithValue = func(ctx context.Context, parser *Parser) (out interface{}, err error) {
 		ctx = context.WithValue(ctx, CtxKeyParser, parser)
 		var (
-			data        = gconv.Map(parser.GetOptAll())
+			data        = gconv.X取Map(parser.GetOptAll())
 			argIndex    = 0
 			arguments   = parser.GetArgAll()
 			inputValues = []reflect.Value{reflect.ValueOf(ctx)}
@@ -300,7 +300,7 @@ func newCommandFromMethod(
 							// `gf -f=0`：参数 `f` 被解析为 false
 							// `gf -f=1`：参数 `f` 被解析为 true
 							// md5:72432f87d0fc818b
-							data[arg.Name] = orphanValue.Bool()
+							data[arg.Name] = orphanValue.X取布尔()
 						}
 					}
 				}
@@ -313,7 +313,7 @@ func newCommandFromMethod(
 				// 构建输入参数。 md5:c74f2d54c503f98e
 		if len(data) > 0 {
 			intlog.PrintFunc(ctx, func() string {
-				return fmt.Sprintf(`input command data map: %s`, gjson.MustEncode(data))
+				return fmt.Sprintf(`input command data map: %s`, gjson.X变量到json字节集PANI(data))
 			})
 			if inputObject.Kind() == reflect.Ptr {
 				err = gconv.StructTag(data, inputObject.Interface(), priorityTag)
@@ -321,7 +321,7 @@ func newCommandFromMethod(
 				err = gconv.StructTag(data, inputObject.Addr().Interface(), priorityTag)
 			}
 			intlog.PrintFunc(ctx, func() string {
-				return fmt.Sprintf(`input object assigned data: %s`, gjson.MustEncode(inputObject.Interface()))
+				return fmt.Sprintf(`input object assigned data: %s`, gjson.X变量到json字节集PANI(inputObject.Interface()))
 			})
 			if err != nil {
 				return
@@ -330,7 +330,7 @@ func newCommandFromMethod(
 
 		// Parameters validation.
 		if err = gvalid.New().Bail().Data(inputObject.Interface()).Assoc(data).Run(ctx); err != nil {
-			err = gerror.Wrapf(gerror.Current(err), `arguments validation failed for command "%s"`, command.Name)
+			err = gerror.X多层错误并格式化(gerror.X取当前错误(err), `arguments validation failed for command "%s"`, command.Name)
 			return
 		}
 		inputValues = append(inputValues, inputObject)
@@ -351,8 +351,8 @@ func newCommandFromMethod(
 func newArgumentsFromInput(object interface{}) (args []Argument, err error) {
 	var (
 		fields   []gstructs.Field
-		nameSet  = gset.NewStrSet()
-		shortSet = gset.NewStrSet()
+		nameSet  = gset.X创建文本()
+		shortSet = gset.X创建文本()
 	)
 	fields, err = gstructs.Fields(gstructs.FieldsInput{
 		Pointer:         object,
@@ -370,13 +370,13 @@ func newArgumentsFromInput(object interface{}) (args []Argument, err error) {
 			arg.Name = field.Name()
 		}
 		if arg.Name == helpOptionName {
-			return nil, gerror.Newf(
+			return nil, gerror.X创建并格式化(
 				`argument name "%s" defined in "%s.%s" is already token by built-in arguments`,
 				arg.Name, reflect.TypeOf(object).String(), field.Name(),
 			)
 		}
 		if arg.Short == helpOptionNameShort {
-			return nil, gerror.Newf(
+			return nil, gerror.X创建并格式化(
 				`short argument name "%s" defined in "%s.%s" is already token by built-in arguments`,
 				arg.Short, reflect.TypeOf(object).String(), field.Name(),
 			)
@@ -385,24 +385,24 @@ func newArgumentsFromInput(object interface{}) (args []Argument, err error) {
 			arg.Brief = field.TagDescription()
 		}
 		if v, ok := metaData[gtag.Arg]; ok {
-			arg.IsArg = gconv.Bool(v)
+			arg.IsArg = gconv.X取布尔(v)
 		}
-		if nameSet.Contains(arg.Name) {
-			return nil, gerror.Newf(
+		if nameSet.X是否存在(arg.Name) {
+			return nil, gerror.X创建并格式化(
 				`argument name "%s" defined in "%s.%s" is already token by other argument`,
 				arg.Name, reflect.TypeOf(object).String(), field.Name(),
 			)
 		}
-		nameSet.Add(arg.Name)
+		nameSet.X加入(arg.Name)
 
 		if arg.Short != "" {
-			if shortSet.Contains(arg.Short) {
-				return nil, gerror.Newf(
+			if shortSet.X是否存在(arg.Short) {
+				return nil, gerror.X创建并格式化(
 					`short argument name "%s" defined in "%s.%s" is already token by other argument`,
 					arg.Short, reflect.TypeOf(object).String(), field.Name(),
 				)
 			}
-			shortSet.Add(arg.Short)
+			shortSet.X加入(arg.Short)
 		}
 
 		args = append(args, arg)

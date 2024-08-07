@@ -12,11 +12,11 @@ import (
 
 	"time"
 
-	"github.com/gogf/gf/v2/os/gtime"
+	gtime "github.com/888go/goframe/os/gtime"
 )
 
-// ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
-func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
+// X底层ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
+func (d *Driver) X底层ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	switch itemValue := fieldValue.(type) {
 		// dm 不支持 time.Time 类型，所以这里将其转换为它支持的时间字符串。 md5:afbc1f9b897fc589
 	case time.Time:
@@ -26,7 +26,7 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 		if itemValue.IsZero() {
 			return nil, nil
 		}
-		return gtime.New(itemValue).String(), nil
+		return gtime.X创建(itemValue).String(), nil
 
 		// dm 不支持 time.Time 类型，所以这里将其转换为它支持的时间字符串。 md5:afbc1f9b897fc589
 	case *time.Time:
@@ -36,7 +36,7 @@ func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fie
 		if itemValue == nil || itemValue.IsZero() {
 			return nil, nil
 		}
-		return gtime.New(itemValue).String(), nil
+		return gtime.X创建(itemValue).String(), nil
 	}
 
 	return fieldValue, nil

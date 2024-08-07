@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtimer
+package 定时类
 
 // Len 用于实现 sort.Interface 接口。 md5:1e9f986dadbd5118
 func (h *priorityQueueHeap) Len() int {

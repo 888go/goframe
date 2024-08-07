@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package garray_test
+package 切片类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/garray"
+	garray "github.com/888go/goframe/container/garray"
 )
 
 type anySortedArrayItem struct {
@@ -19,21 +19,21 @@ type anySortedArrayItem struct {
 }
 
 var (
-	anyArray       = garray.NewArray()
-	anySortedArray = garray.NewSortedArray(func(a, b interface{}) int {
+	anyArray       = garray.NewArray别名()
+	anySortedArray = garray.X创建排序(func(a, b interface{}) int {
 		return int(a.(anySortedArrayItem).priority - b.(anySortedArrayItem).priority)
 	})
 )
 
 func Benchmark_AnyArray_Add(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		anyArray.Append(i)
+		anyArray.Append别名(i)
 	}
 }
 
 func Benchmark_AnySortedArray_Add(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		anySortedArray.Add(anySortedArrayItem{
+		anySortedArray.X入栈右(anySortedArrayItem{
 			priority: int64(i),
 			value:    i,
 		})

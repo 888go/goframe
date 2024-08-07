@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil_test
+package 工具类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_MapCopy(t *testing.T) {
@@ -162,16 +162,16 @@ func Test_MapToSlice(t *testing.T) {
 		}
 		s := gutil.MapToSlice(m)
 		t.Assert(len(s), 4)
-		t.AssertIN(s[0], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s[1], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s[2], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s[3], g.Slice{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[0], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[1], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[2], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[3], g.Slice别名{"k1", "k2", "v1", "v2"})
 		s1 := gutil.MapToSlice(&m)
 		t.Assert(len(s1), 4)
-		t.AssertIN(s1[0], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s1[1], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s1[2], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s1[3], g.Slice{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s1[0], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s1[1], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s1[2], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s1[3], g.Slice别名{"k1", "k2", "v1", "v2"})
 	})
 	gtest.C(t, func(t *gtest.T) {
 		m := g.MapStrStr{
@@ -180,10 +180,10 @@ func Test_MapToSlice(t *testing.T) {
 		}
 		s := gutil.MapToSlice(m)
 		t.Assert(len(s), 4)
-		t.AssertIN(s[0], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s[1], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s[2], g.Slice{"k1", "k2", "v1", "v2"})
-		t.AssertIN(s[3], g.Slice{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[0], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[1], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[2], g.Slice别名{"k1", "k2", "v1", "v2"})
+		t.AssertIN(s[3], g.Slice别名{"k1", "k2", "v1", "v2"})
 	})
 	gtest.C(t, func(t *gtest.T) {
 		m := g.MapStrStr{}

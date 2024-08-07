@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/internal/mutex"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/internal/mutex"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestMutexIsSafe(t *testing.T) {
@@ -41,31 +41,31 @@ func TestMutexIsSafe(t *testing.T) {
 func TestSafeMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		safeLock := mutex.New(true)
-		array := garray.New(true)
+		array := garray.X创建(true)
 
 		go func() {
 			safeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(1000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			safeLock.Unlock()
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
 			safeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(2000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			safeLock.Unlock()
 		}()
 		time.Sleep(500 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		time.Sleep(800 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 4)
+		t.Assert(array.X取长度(), 4)
 	})
 }
 
@@ -73,31 +73,31 @@ func TestUnsafeMutex(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			unsafeLock = mutex.New()
-			array      = garray.New(true)
+			array      = garray.X创建(true)
 		)
 
 		go func() {
 			unsafeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(1000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			unsafeLock.Unlock()
 		}()
 		go func() {
 			time.Sleep(100 * time.Millisecond)
 			unsafeLock.Lock()
-			array.Append(1)
+			array.Append别名(1)
 			time.Sleep(2000 * time.Millisecond)
-			array.Append(1)
+			array.Append别名(1)
 			unsafeLock.Unlock()
 		}()
 		time.Sleep(500 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(500 * time.Millisecond)
-		t.Assert(array.Len(), 3)
+		t.Assert(array.X取长度(), 3)
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 4)
+		t.Assert(array.X取长度(), 4)
 	})
 }

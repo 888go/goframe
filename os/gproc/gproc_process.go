@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gproc
+package 进程类
 
 import (
 	"context"
@@ -19,13 +19,13 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/net/gtrace"
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/net/gtrace"
+	genv "github.com/888go/goframe/os/genv"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // Process 是表示单个进程的结构体。 md5:f6524ce6eee4a18b
@@ -89,9 +89,9 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 	ctx, span = tr.Start(
 		otel.GetTextMapPropagator().Extract(
 			ctx,
-			propagation.MapCarrier(genv.Map()),
+			propagation.MapCarrier(genv.X取Map()),
 		),
-		gstr.Join(os.Args, " "),
+		gstr.X连接(os.Args, " "),
 		trace.WithSpanKind(trace.SpanKindInternal),
 	)
 	defer span.End()
@@ -103,7 +103,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 		p.Env = append(p.Env, tracingEnv...)
 	}
 	p.Env = append(p.Env, fmt.Sprintf("%s=%d", envKeyPPid, p.PPid))
-	p.Env = genv.Filter(p.Env)
+	p.Env = genv.X切片去重(p.Env)
 
 		// 在 Windows 系统中，这可以工作，但在其他平台则无法工作. md5:9aac240ca7d717fe
 	if runtime.GOOS == "windows" {
@@ -112,7 +112,7 @@ func (p *Process) Start(ctx context.Context) (int, error) {
 
 	if err := p.Cmd.Start(); err == nil {
 		if p.Manager != nil {
-			p.Manager.processes.Set(p.Process.Pid, p)
+			p.Manager.processes.X设置值(p.Process.Pid, p)
 		}
 		return p.Process.Pid, nil
 	} else {
@@ -142,7 +142,7 @@ func (p *Process) Send(data []byte) error {
 	if p.Process != nil {
 		return Send(p.Process.Pid, data)
 	}
-	return gerror.NewCode(gcode.CodeInvalidParameter, "invalid process")
+	return gerror.X创建错误码(gcode.CodeInvalidParameter, "invalid process")
 }
 
 // Release 释放与进程 p 关联的任何资源，使其将来无法使用。
@@ -156,11 +156,11 @@ func (p *Process) Release() error {
 func (p *Process) Kill() (err error) {
 	err = p.Process.Kill()
 	if err != nil {
-		err = gerror.Wrapf(err, `kill process failed for pid "%d"`, p.Process.Pid)
+		err = gerror.X多层错误并格式化(err, `kill process failed for pid "%d"`, p.Process.Pid)
 		return err
 	}
 	if p.Manager != nil {
-		p.Manager.processes.Remove(p.Pid())
+		p.Manager.processes.X删除(p.Pid())
 	}
 	if runtime.GOOS != "windows" {
 		if err = p.Process.Release(); err != nil {

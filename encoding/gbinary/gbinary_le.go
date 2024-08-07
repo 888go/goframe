@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gbinary
+package 字节集类
 
 import (
 	"bytes"
@@ -14,8 +14,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 // LeEncode 使用小端字节序编码一个或多个 `values` 成字节。
@@ -88,7 +88,7 @@ func LeDecode(b []byte, values ...interface{}) error {
 	)
 	for i := 0; i < len(values); i++ {
 		if err = binary.Read(buf, binary.LittleEndian, values[i]); err != nil {
-			err = gerror.Wrap(err, `binary.Read failed`)
+			err = gerror.X多层错误(err, `binary.Read failed`)
 			return err
 		}
 	}

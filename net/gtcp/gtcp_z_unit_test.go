@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtcp_test
+package tcp类_test
 
 import (
 	"crypto/tls"
@@ -13,19 +13,19 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/debug/gdebug"
+	gtcp "github.com/888go/goframe/net/gtcp"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 var (
 	simpleTimeout = time.Millisecond * 100
 	sendData      = []byte("hello")
 	invalidAddr   = "127.0.0.1:99999"
-	crtFile       = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.crt"
-	keyFile       = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.key"
+	crtFile       = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.crt"
+	keyFile       = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/server.key"
 )
 
 func startTCPServer(addr string) *gtcp.Server {
@@ -279,7 +279,7 @@ func TestConn_RecvLine(t *testing.T) {
 		conn.Send(data)
 		result, err := conn.RecvLine(gtcp.Retry{Count: 1})
 		t.AssertNil(err)
-		splitData := gstr.Split(string(data), "\n")
+		splitData := gstr.X分割(string(data), "\n")
 		t.Assert(result, splitData[0])
 	})
 }

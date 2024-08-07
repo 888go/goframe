@@ -10,13 +10,13 @@ package sqlite_test
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gctx "github.com/888go/goframe/os/gctx"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -24,8 +24,8 @@ var (
 	dbPrefix   gdb.DB
 	dbInvalid  gdb.DB
 	configNode gdb.ConfigNode
-	dbDir      = gfile.Temp("sqlite")
-	ctx        = gctx.New()
+	dbDir      = gfile.X取临时目录("sqlite")
+	ctx        = gctx.X创建()
 )
 
 const (
@@ -44,13 +44,13 @@ const (
 func init() {
 	fmt.Println("init sqlite db start")
 
-	if err := gfile.Mkdir(dbDir); err != nil {
+	if err := gfile.X创建目录(dbDir); err != nil {
 		gtest.Error(err)
 	}
 
 	fmt.Println("init sqlite db dir: ", dbDir)
 
-	dbFilePath := gfile.Join(dbDir, "test.db")
+	dbFilePath := gfile.X路径生成(dbDir, "test.db")
 	configNode = gdb.ConfigNode{
 		Type:    "sqlite",
 		Link:    fmt.Sprintf(`sqlite::@file(%s)`, dbFilePath),
@@ -61,27 +61,27 @@ func init() {
 
 	nodeInvalid := configNode
 
-	gdb.AddConfigNode(DBGroupTest, configNode)
-	gdb.AddConfigNode(DBGroupPrefix, nodePrefix)
-	gdb.AddConfigNode(DBGroupInvalid, nodeInvalid)
-	gdb.AddConfigNode(gdb.DefaultGroupName, configNode)
+	gdb.X添加配置组节点(DBGroupTest, configNode)
+	gdb.X添加配置组节点(DBGroupPrefix, nodePrefix)
+	gdb.X添加配置组节点(DBGroupInvalid, nodeInvalid)
+	gdb.X添加配置组节点(gdb.DefaultGroupName, configNode)
 
 	// Default db.
-	if r, err := gdb.NewByGroup(); err != nil {
+	if r, err := gdb.X创建DB对象并按配置组(); err != nil {
 		gtest.Error(err)
 	} else {
 		db = r
 	}
 
 	// Prefix db.
-	if r, err := gdb.NewByGroup(DBGroupPrefix); err != nil {
+	if r, err := gdb.X创建DB对象并按配置组(DBGroupPrefix); err != nil {
 		gtest.Error(err)
 	} else {
 		dbPrefix = r
 	}
 
 	// Invalid db.
-	if r, err := gdb.NewByGroup(DBGroupInvalid); err != nil {
+	if r, err := gdb.X创建DB对象并按配置组(DBGroupInvalid); err != nil {
 		gtest.Error(err)
 	} else {
 		dbInvalid = r
@@ -106,11 +106,11 @@ func createTableWithDb(db gdb.DB, table ...string) (name string) {
 	if len(table) > 0 {
 		name = table[0]
 	} else {
-		name = fmt.Sprintf(`%s_%d`, TableName, gtime.TimestampNano())
+		name = fmt.Sprintf(`%s_%d`, TableName, gtime.X取时间戳纳秒())
 	}
 	dropTableWithDb(db, name)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	CREATE TABLE %s (
 		id          INTEGER       PRIMARY KEY AUTOINCREMENT
 									UNIQUE
@@ -122,7 +122,7 @@ func createTableWithDb(db gdb.DB, table ...string) (name string) {
 		nickname    VARCHAR(45),
 		create_time DATETIME
 	);
-	`, db.GetCore().QuoteWord(name),
+	`, db.X取Core对象().X底层QuoteWord(name),
 	)); err != nil {
 		gtest.Fatal(err)
 	}
@@ -132,18 +132,18 @@ func createTableWithDb(db gdb.DB, table ...string) (name string) {
 
 func createInitTableWithDb(db gdb.DB, table ...string) (name string) {
 	name = createTableWithDb(db, table...)
-	array := garray.New(true)
+	array := garray.X创建(true)
 	for i := 1; i <= TableSize; i++ {
-		array.Append(g.Map{
+		array.Append别名(g.Map{
 			"id":          i,
 			"passport":    fmt.Sprintf(`user_%d`, i),
 			"password":    fmt.Sprintf(`pass_%d`, i),
 			"nickname":    fmt.Sprintf(`name_%d`, i),
-			"create_time": gtime.NewFromStr(CreateTime).String(),
+			"create_time": gtime.X创建并从文本(CreateTime).String(),
 		})
 	}
 
-	result, err := db.Insert(ctx, name, array.Slice())
+	result, err := db.X插入(ctx, name, array.X取切片())
 	gtest.AssertNil(err)
 
 	n, e := result.RowsAffected()
@@ -153,7 +153,7 @@ func createInitTableWithDb(db gdb.DB, table ...string) (name string) {
 }
 
 func dropTableWithDb(db gdb.DB, table string) {
-	if _, err := db.Exec(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
 		gtest.Error(err)
 	}
 }

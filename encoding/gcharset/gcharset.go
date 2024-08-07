@@ -19,7 +19,7 @@
 //
 // 其他：macintosh/IBM*/Windows*/ISO-*（*表示各种变种）
 // md5:5f95b30c9186a77b
-package gcharset
+package 编码字符集类
 
 import (
 	"bytes"
@@ -30,9 +30,9 @@ import (
 	"golang.org/x/text/encoding/ianaindex"
 	"golang.org/x/text/transform"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 var (
@@ -65,11 +65,11 @@ func Convert(dstCharset string, srcCharset string, src string) (dst string, err 
 				transform.NewReader(bytes.NewReader([]byte(src)), e.NewDecoder()),
 			)
 			if err != nil {
-				return "", gerror.Wrapf(err, `convert string "%s" to utf8 failed`, srcCharset)
+				return "", gerror.X多层错误并格式化(err, `convert string "%s" to utf8 failed`, srcCharset)
 			}
 			src = string(tmp)
 		} else {
-			return dst, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported srcCharset "%s"`, srcCharset)
+			return dst, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `unsupported srcCharset "%s"`, srcCharset)
 		}
 	}
 		// 将UTF-8转换为`dstCharset`。 md5:4caf3880c33fb49d
@@ -79,11 +79,11 @@ func Convert(dstCharset string, srcCharset string, src string) (dst string, err 
 				transform.NewReader(bytes.NewReader([]byte(src)), e.NewEncoder()),
 			)
 			if err != nil {
-				return "", gerror.Wrapf(err, `convert string from utf8 to "%s" failed`, dstCharset)
+				return "", gerror.X多层错误并格式化(err, `convert string from utf8 to "%s" failed`, dstCharset)
 			}
 			dst = string(tmp)
 		} else {
-			return dst, gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported dstCharset "%s"`, dstCharset)
+			return dst, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `unsupported dstCharset "%s"`, dstCharset)
 		}
 	} else {
 		dst = src

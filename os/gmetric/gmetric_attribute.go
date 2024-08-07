@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/888go/goframe/internal/json"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 // Attributes 是一个 Attribute 类型的切片。 md5:5e8ed6feb0b054bf
@@ -46,7 +46,7 @@ var (
 
 func init() {
 	hostname, _ = os.Hostname()
-	processPath = gfile.SelfPath()
+	processPath = gfile.X取当前进程路径()
 }
 
 // CommonAttributes 返回乐器常用的属性。 md5:a3240e3fe755b09a

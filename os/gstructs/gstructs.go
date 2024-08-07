@@ -11,7 +11,7 @@ package gstructs
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Type 是 reflect.Type 的增强版本，提供了更多功能。 md5:8ebe2d126efacb49
@@ -244,7 +244,7 @@ func StructType(object interface{}) (*Type, error) {
 
 exitLoop:
 	if reflectKind != reflect.Struct {
-		return nil, gerror.Newf(
+		return nil, gerror.X创建并格式化(
 			`invalid object kind "%s", kind of "struct" is required`,
 			reflectKind,
 		)

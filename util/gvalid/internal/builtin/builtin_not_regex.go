@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RuleNotRegex 实现了 `not-regex` 规则：
@@ -33,7 +33,7 @@ func (r RuleNotRegex) Message() string {
 }
 
 func (r RuleNotRegex) Run(in RunInput) error {
-	if gregex.IsMatchString(in.RulePattern, in.Value.String()) {
+	if gregex.X是否匹配文本(in.RulePattern, in.Value.String()) {
 		return errors.New(in.Message)
 	}
 	return nil

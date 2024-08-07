@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -13,51 +13,51 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	gfile "github.com/888go/goframe/os/gfile"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// BindObject 将对象绑定到具有给定模式的服务器路由。
+// X绑定对象 将对象绑定到具有给定模式的服务器路由。
 //
 // 可选参数 `method` 用于指定要注册的方法，支持多个方法名称；多个方法名称之间用字符 `,` 分隔，区分大小写。
 // md5:224eaf0adfd81c84
-func (s *Server) BindObject(pattern string, object interface{}, method ...string) {
+func (s *X服务) X绑定对象(路由规则 string, 处理对象 interface{}, 方法名 ...string) {
 	var bindMethod = ""
-	if len(method) > 0 {
-		bindMethod = method[0]
+	if len(方法名) > 0 {
+		bindMethod = 方法名[0]
 	}
 	s.doBindObject(context.TODO(), doBindObjectInput{
 		Prefix:     "",
-		Pattern:    pattern,
-		Object:     object,
+		Pattern:    路由规则,
+		Object:     处理对象,
 		Method:     bindMethod,
 		Middleware: nil,
 		Source:     "",
 	})
 }
 
-// BindObjectMethod 将指定对象的特定方法与给定模式的服务器路由绑定。
+// X绑定对象方法 将指定对象的特定方法与给定模式的服务器路由绑定。
 // 
 // 可选参数 `method` 用于指定要注册的方法，它不支持多个方法名，仅支持一个，且区分大小写。
 // md5:badb3f7323abfd11
-func (s *Server) BindObjectMethod(pattern string, object interface{}, method string) {
+func (s *X服务) X绑定对象方法(路由规则 string, 处理对象 interface{}, 方法 string) {
 	s.doBindObjectMethod(context.TODO(), doBindObjectMethodInput{
 		Prefix:     "",
-		Pattern:    pattern,
-		Object:     object,
-		Method:     method,
+		Pattern:    路由规则,
+		Object:     处理对象,
+		Method:     方法,
 		Middleware: nil,
 		Source:     "",
 	})
 }
 
-// BindObjectRest 使用指定的模式将对象以REST API风格注册到服务器。 md5:e071850c88eb6751
-func (s *Server) BindObjectRest(pattern string, object interface{}) {
+// X绑定RESTfulAPI对象 使用指定的模式将对象以REST API风格注册到服务器。 md5:e071850c88eb6751
+func (s *X服务) X绑定RESTfulAPI对象(路由规则 string, 处理对象 interface{}) {
 	s.doBindObjectRest(context.TODO(), doBindObjectInput{
 		Prefix:     "",
-		Pattern:    pattern,
-		Object:     object,
+		Pattern:    路由规则,
+		Object:     处理对象,
 		Method:     "",
 		Middleware: nil,
 		Source:     "",
@@ -73,7 +73,7 @@ type doBindObjectInput struct {
 	Source     string
 }
 
-func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
+func (s *X服务) doBindObject(ctx context.Context, in doBindObjectInput) {
 		// 将输入方法转换为映射，以便于进行高效便捷的搜索。 md5:116ad79ef3003f65
 	var methodMap map[string]bool
 	if len(in.Method) > 0 {
@@ -86,14 +86,14 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 	// md5:08bf69a00eee9caa
 	domain, method, path, err := s.parsePattern(in.Pattern)
 	if err != nil {
-		s.Logger().Fatalf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 		return
 	}
-	if gstr.Equal(method, defaultMethod) {
+	if gstr.X相等比较并忽略大小写(method, defaultMethod) {
 		in.Pattern = s.serveHandlerKey("", path, domain)
 	}
 	var (
-		handlerMap   = make(map[string]*HandlerItem)
+		handlerMap   = make(map[string]*X路由处理函数)
 		reflectValue = reflect.ValueOf(in.Object)
 		reflectType  = reflectValue.Type()
 		initFunc     func(*Request)
@@ -116,7 +116,7 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		shutFunc = reflectValue.MethodByName(specialMethodNameShut).Interface().(func(*Request))
 	}
 	pkgPath := reflectType.Elem().PkgPath()
-	pkgName := gfile.Basename(pkgPath)
+	pkgName := gfile.X路径取文件名(pkgPath)
 	for i := 0; i < reflectValue.NumMethod(); i++ {
 		methodName := reflectType.Method(i).Name
 		if methodMap != nil && !methodMap[methodName] {
@@ -125,25 +125,25 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		if methodName == specialMethodNameInit || methodName == specialMethodNameShut {
 			continue
 		}
-		objName := gstr.Replace(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
+		objName := gstr.X替换(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
 		if objName[0] == '*' {
 			objName = fmt.Sprintf(`(%s)`, objName)
 		}
 
 		funcInfo, err := s.checkAndCreateFuncInfo(reflectValue.Method(i).Interface(), pkgPath, objName, methodName)
 		if err != nil {
-			s.Logger().Fatalf(ctx, `%+v`, err)
+			s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 		}
 
 		key := s.mergeBuildInNameToPattern(in.Pattern, structName, methodName, true)
-		handlerMap[key] = &HandlerItem{
-			Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+		handlerMap[key] = &X路由处理函数{
+			X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 			Type:       HandlerTypeObject,
-			Info:       funcInfo,
-			InitFunc:   initFunc,
-			ShutFunc:   shutFunc,
-			Middleware: in.Middleware,
-			Source:     in.Source,
+			X处理器函数信息:       funcInfo,
+			X初始化回调函数:   initFunc,
+			X关闭回调函数:   shutFunc,
+			X中间件切片: in.Middleware,
+			X注册来源:     in.Source,
 		}
 		// 如果存在"Index"方法，则会自动添加一个额外的路由来匹配主URI，例如：
 		// 如果模式是"/user"，那么"/user"和"/user/index"都会被自动
@@ -153,23 +153,23 @@ func (s *Server) doBindObject(ctx context.Context, in doBindObjectInput) {
 		// md5:96b4d9eca149582c
 		var (
 			isIndexMethod = strings.EqualFold(methodName, specialMethodNameIndex)
-			hasBuildInVar = gregex.IsMatchString(`\{\.\w+\}`, in.Pattern)
+			hasBuildInVar = gregex.X是否匹配文本(`\{\.\w+\}`, in.Pattern)
 			hashTwoParams = funcInfo.Type.NumIn() == 2
 		)
 		if isIndexMethod && !hasBuildInVar && !hashTwoParams {
-			p := gstr.PosRI(key, "/index")
+			p := gstr.X倒找并忽略大小写(key, "/index")
 			k := key[0:p] + key[p+6:]
 			if len(k) == 0 || k[0] == '@' {
 				k = "/" + k
 			}
-			handlerMap[k] = &HandlerItem{
-				Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+			handlerMap[k] = &X路由处理函数{
+				X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 				Type:       HandlerTypeObject,
-				Info:       funcInfo,
-				InitFunc:   initFunc,
-				ShutFunc:   shutFunc,
-				Middleware: in.Middleware,
-				Source:     in.Source,
+				X处理器函数信息:       funcInfo,
+				X初始化回调函数:   initFunc,
+				X关闭回调函数:   shutFunc,
+				X中间件切片: in.Middleware,
+				X注册来源:     in.Source,
 			}
 		}
 	}
@@ -185,9 +185,9 @@ type doBindObjectMethodInput struct {
 	Source     string
 }
 
-func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodInput) {
+func (s *X服务) doBindObjectMethod(ctx context.Context, in doBindObjectMethodInput) {
 	var (
-		handlerMap   = make(map[string]*HandlerItem)
+		handlerMap   = make(map[string]*X路由处理函数)
 		reflectValue = reflect.ValueOf(in.Object)
 		reflectType  = reflectValue.Type()
 		initFunc     func(*Request)
@@ -208,7 +208,7 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 		methodValue = reflectValue.MethodByName(methodName)
 	)
 	if !methodValue.IsValid() {
-		s.Logger().Fatalf(ctx, "invalid method name: %s", methodName)
+		s.Logger别名().X输出并格式化FATA(ctx, "invalid method name: %s", methodName)
 		return
 	}
 	if reflectValue.MethodByName(specialMethodNameInit).IsValid() {
@@ -219,8 +219,8 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 	}
 	var (
 		pkgPath = reflectType.Elem().PkgPath()
-		pkgName = gfile.Basename(pkgPath)
-		objName = gstr.Replace(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
+		pkgName = gfile.X路径取文件名(pkgPath)
+		objName = gstr.X替换(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
 	)
 	if objName[0] == '*' {
 		objName = fmt.Sprintf(`(%s)`, objName)
@@ -228,26 +228,26 @@ func (s *Server) doBindObjectMethod(ctx context.Context, in doBindObjectMethodIn
 
 	funcInfo, err := s.checkAndCreateFuncInfo(methodValue.Interface(), pkgPath, objName, methodName)
 	if err != nil {
-		s.Logger().Fatalf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 	}
 
 	key := s.mergeBuildInNameToPattern(in.Pattern, structName, methodName, false)
-	handlerMap[key] = &HandlerItem{
-		Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+	handlerMap[key] = &X路由处理函数{
+		X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 		Type:       HandlerTypeObject,
-		Info:       funcInfo,
-		InitFunc:   initFunc,
-		ShutFunc:   shutFunc,
-		Middleware: in.Middleware,
-		Source:     in.Source,
+		X处理器函数信息:       funcInfo,
+		X初始化回调函数:   initFunc,
+		X关闭回调函数:   shutFunc,
+		X中间件切片: in.Middleware,
+		X注册来源:     in.Source,
 	}
 
 	s.bindHandlerByMap(ctx, in.Prefix, handlerMap)
 }
 
-func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
+func (s *X服务) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 	var (
-		handlerMap   = make(map[string]*HandlerItem)
+		handlerMap   = make(map[string]*X路由处理函数)
 		reflectValue = reflect.ValueOf(in.Object)
 		reflectType  = reflectValue.Type()
 		initFunc     func(*Request)
@@ -275,8 +275,8 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 		if _, ok := methodsMap[strings.ToUpper(methodName)]; !ok {
 			continue
 		}
-		pkgName := gfile.Basename(pkgPath)
-		objName := gstr.Replace(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
+		pkgName := gfile.X路径取文件名(pkgPath)
+		objName := gstr.X替换(reflectType.String(), fmt.Sprintf(`%s.`, pkgName), "")
 		if objName[0] == '*' {
 			objName = fmt.Sprintf(`(%s)`, objName)
 		}
@@ -288,18 +288,18 @@ func (s *Server) doBindObjectRest(ctx context.Context, in doBindObjectInput) {
 			methodName,
 		)
 		if err != nil {
-			s.Logger().Fatalf(ctx, `%+v`, err)
+			s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 		}
 
 		key := s.mergeBuildInNameToPattern(methodName+":"+in.Pattern, structName, methodName, false)
-		handlerMap[key] = &HandlerItem{
-			Name:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
+		handlerMap[key] = &X路由处理函数{
+			X处理器名称:       fmt.Sprintf(`%s.%s.%s`, pkgPath, objName, methodName),
 			Type:       HandlerTypeObject,
-			Info:       funcInfo,
-			InitFunc:   initFunc,
-			ShutFunc:   shutFunc,
-			Middleware: in.Middleware,
-			Source:     in.Source,
+			X处理器函数信息:       funcInfo,
+			X初始化回调函数:   initFunc,
+			X关闭回调函数:   shutFunc,
+			X中间件切片: in.Middleware,
+			X注册来源:     in.Source,
 		}
 	}
 	s.bindHandlerByMap(ctx, in.Prefix, handlerMap)

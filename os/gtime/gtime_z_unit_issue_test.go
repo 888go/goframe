@@ -5,36 +5,36 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtime_test
+package 时间类_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 //github.com/gogf/gf/issues/1681. md5:2eac1ca19dcb940c
 func Test_Issue1681(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gtime.New("2022-03-08T03:01:14-07:00").Local().Time, gtime.New("2022-03-08T10:01:14Z").Local().Time)
-		t.Assert(gtime.New("2022-03-08T03:01:14-08:00").Local().Time, gtime.New("2022-03-08T11:01:14Z").Local().Time)
-		t.Assert(gtime.New("2022-03-08T03:01:14-09:00").Local().Time, gtime.New("2022-03-08T12:01:14Z").Local().Time)
-		t.Assert(gtime.New("2022-03-08T03:01:14+08:00").Local().Time, gtime.New("2022-03-07T19:01:14Z").Local().Time)
+		t.Assert(gtime.X创建("2022-03-08T03:01:14-07:00").X取本地时区().Time, gtime.X创建("2022-03-08T10:01:14Z").X取本地时区().Time)
+		t.Assert(gtime.X创建("2022-03-08T03:01:14-08:00").X取本地时区().Time, gtime.X创建("2022-03-08T11:01:14Z").X取本地时区().Time)
+		t.Assert(gtime.X创建("2022-03-08T03:01:14-09:00").X取本地时区().Time, gtime.X创建("2022-03-08T12:01:14Z").X取本地时区().Time)
+		t.Assert(gtime.X创建("2022-03-08T03:01:14+08:00").X取本地时区().Time, gtime.X创建("2022-03-07T19:01:14Z").X取本地时区().Time)
 	})
 }
 
 //github.com/gogf/gf/issues/2803。gf可能是Go语言的一个库（gogf）的简称，issue号2803表示该库中的一个已知问题或特性请求。具体的内容需要查看该issue页面以获取详细信息。 md5:1ee3164a38e80927
 func Test_Issue2803(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		newTime := gtime.New("2023-07-26").LayoutTo("2006-01")
+		newTime := gtime.X创建("2023-07-26").X设置Layout格式("2006-01")
 		t.Assert(newTime.Year(), 2023)
-		t.Assert(newTime.Month(), 7)
+		t.Assert(newTime.X取月份(), 7)
 		t.Assert(newTime.Day(), 1)
 		t.Assert(newTime.Hour(), 0)
 		t.Assert(newTime.Minute(), 0)
-		t.Assert(newTime.Second(), 0)
+		t.Assert(newTime.X取秒(), 0)
 	})
 }
 
@@ -42,33 +42,33 @@ func Test_Issue2803(t *testing.T) {
 func Test_Issue3558(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		timeStr := "1880-10-24T00:00:00+08:05"
-		gfTime := gtime.NewFromStr(timeStr)
+		gfTime := gtime.X创建并从文本(timeStr)
 		t.Assert(gfTime.Year(), 1880)
-		t.Assert(gfTime.Month(), 10)
+		t.Assert(gfTime.X取月份(), 10)
 		t.Assert(gfTime.Day(), 24)
 		t.Assert(gfTime.Hour(), 0)
 		t.Assert(gfTime.Minute(), 0)
-		t.Assert(gfTime.Second(), 0)
+		t.Assert(gfTime.X取秒(), 0)
 
 		stdTime, err := time.Parse(time.RFC3339, timeStr)
 		t.AssertNil(err)
 		stdTimeFormat := stdTime.Format("2006-01-02 15:04:05")
-		gfTimeFormat := gfTime.Format("Y-m-d H:i:s")
+		gfTimeFormat := gfTime.X取格式文本("Y-m-d H:i:s")
 		t.Assert(gfTimeFormat, stdTimeFormat)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		timeStr := "1880-10-24T00:00:00-08:05"
-		gfTime := gtime.NewFromStr(timeStr)
+		gfTime := gtime.X创建并从文本(timeStr)
 		t.Assert(gfTime.Year(), 1880)
-		t.Assert(gfTime.Month(), 10)
+		t.Assert(gfTime.X取月份(), 10)
 		t.Assert(gfTime.Day(), 24)
 		t.Assert(gfTime.Hour(), 0)
 		t.Assert(gfTime.Minute(), 0)
-		t.Assert(gfTime.Second(), 0)
+		t.Assert(gfTime.X取秒(), 0)
 		stdTime, err := time.Parse(time.RFC3339, timeStr)
 		t.AssertNil(err)
 		stdTimeFormat := stdTime.Format("2006-01-02 15:04:05")
-		gfTimeFormat := gfTime.Format("Y-m-d H:i:s")
+		gfTimeFormat := gfTime.X取格式文本("Y-m-d H:i:s")
 		t.Assert(gfTimeFormat, stdTimeFormat)
 	})
 }

@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtcp_test
+package tcp类_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	gtcp "github.com/888go/goframe/net/gtcp"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 func Test_Pool_Basic1(t *testing.T) {
@@ -146,7 +146,7 @@ func Test_Pool_RecvLine(t *testing.T) {
 		time.Sleep(100 * time.Millisecond)
 		result, err := conn.RecvLine()
 		t.AssertNil(err)
-		splitData := gstr.Split(string(data), "\n")
+		splitData := gstr.X分割(string(data), "\n")
 		t.Assert(result, splitData[0])
 	})
 }

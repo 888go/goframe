@@ -11,10 +11,10 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // RuleRequiredIf 实现了 `required-if` 规则：
@@ -42,10 +42,10 @@ func (r RuleRequiredIf) Run(in RunInput) error {
 		required   = false
 		array      = strings.Split(in.RulePattern, ",")
 		foundValue interface{}
-		dataMap    = in.Data.Map()
+		dataMap    = in.Data.X取Map()
 	)
 	if len(array)%2 != 0 {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid "%s" rule pattern: %s`,
 			r.Name(),
@@ -69,7 +69,7 @@ func (r RuleRequiredIf) Run(in RunInput) error {
 		}
 		i += 2
 	}
-	if required && isRequiredEmpty(in.Value.Val()) {
+	if required && isRequiredEmpty(in.Value.X取值()) {
 		return errors.New(in.Message)
 	}
 	return nil

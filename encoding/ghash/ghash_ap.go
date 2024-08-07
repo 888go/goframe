@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghash
+package 哈希类
 
 // AP 实现了经典的 32 位 AP 哈希算法。 md5:191dd9c40a2bc4c0
 func AP(str []byte) uint32 {

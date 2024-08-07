@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // RuleMax 实现了 `max` 规则：
@@ -39,7 +39,7 @@ func (r RuleMax) Run(in RunInput) error {
 		valueN, err2 = strconv.ParseFloat(in.Value.String(), 10)
 	)
 	if valueN > max || err1 != nil || err2 != nil {
-		return errors.New(gstr.Replace(in.Message, "{max}", strconv.FormatFloat(max, 'f', -1, 64)))
+		return errors.New(gstr.X替换(in.Message, "{max}", strconv.FormatFloat(max, 'f', -1, 64)))
 	}
 	return nil
 }

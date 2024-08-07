@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gring_test
+package 循环链表类_test
 
 import (
 	"container/ring"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gring"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	gring "github.com/888go/goframe/container/gring"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 type Student struct {
@@ -32,16 +32,16 @@ func TestRing_Val(t *testing.T) {
 		r.Put(&Student{3, "alon", false})
 
 		//元素取值并判断和预设值是否相等
-		t.Assert(r.Val().(*Student).name, "jimmy")
+		t.Assert(r.X取值().(*Student).name, "jimmy")
 		//从当前位置往后移两个元素
 		r.Move(2)
-		t.Assert(r.Val().(*Student).name, "alon")
+		t.Assert(r.X取值().(*Student).name, "alon")
 		//更新元素值
 		//测试 value == nil
-		r.Set(nil)
-		t.Assert(r.Val(), nil)
+		r.X设置值(nil)
+		t.Assert(r.X取值(), nil)
 		//测试value != nil
-		r.Set(&Student{3, "jack", true})
+		r.X设置值(&Student{3, "jack", true})
 	})
 }
 
@@ -68,10 +68,10 @@ func TestRing_Position(t *testing.T) {
 		r.Put(2)
 		//往后移动1个元素
 		r.Next()
-		t.Assert(r.Val(), 2)
+		t.Assert(r.X取值(), 2)
 		//往前移动1个元素
 		r.Prev()
-		t.Assert(r.Val(), 1)
+		t.Assert(r.X取值(), 1)
 
 	})
 }
@@ -87,7 +87,7 @@ func TestRing_Link(t *testing.T) {
 		s.Put("b")
 
 		rs := r.Link(s)
-		t.Assert(rs.Move(2).Val(), "b")
+		t.Assert(rs.Move(2).X取值(), "b")
 	})
 }
 
@@ -97,12 +97,12 @@ func TestRing_Unlink(t *testing.T) {
 		for i := 1; i <= 5; i++ {
 			r.Put(i)
 		}
-		t.Assert(r.Val(), 1)
+		t.Assert(r.X取值(), 1)
 		// 1 2 3 4
 		// 删除当前位置往后的2个数据，返回被删除的数据
 		// 重新计算s len
 		s := r.Unlink(2) // 2 3
-		t.Assert(s.Val(), 2)
+		t.Assert(s.X取值(), 2)
 		t.Assert(s.Len(), 2)
 	})
 }
@@ -124,20 +124,20 @@ func TestRing_Slice(t *testing.T) {
 		t.Assert(ra, array)
 
 		//第3个元素设为nil
-		r.Set(nil)
+		r.X设置值(nil)
 		array2 := r.SliceNext() //[4 5 1 2]
 		//返回当前位置往后不为空的元素数组，长度为4
-		t.Assert(array2, g.Slice{nil, 4, 5, 1, 2})
+		t.Assert(array2, g.Slice别名{nil, 4, 5, 1, 2})
 
 		array3 := r.SlicePrev() //[2 1 5 4]
-		t.Assert(array3, g.Slice{nil, 2, 1, 5, 4})
+		t.Assert(array3, g.Slice别名{nil, 2, 1, 5, 4})
 
 		s := gring.New(ringLen)
 		for i := 0; i < ringLen; i++ {
 			s.Put(i + 1)
 		}
 		array4 := s.SlicePrev() // []
-		t.Assert(array4, g.Slice{1, 5, 4, 3, 2})
+		t.Assert(array4, g.Slice别名{1, 5, 4, 3, 2})
 	})
 }
 
@@ -152,7 +152,7 @@ func Test_Issue1394(t *testing.T) {
 		t.Logf("the length:%d", gRing.Len())
 		gRingResult := gRing.Unlink(6)
 		for i := 0; i < 10; i++ {
-			t.Log(gRing.Val())
+			t.Log(gRing.X取值())
 			gRing = gRing.Next()
 		}
 		t.Logf("the ring length:%d", gRing.Len())
@@ -178,7 +178,7 @@ func Test_Issue1394(t *testing.T) {
 		t.Assert(gRingResult.Len(), stdRingResult.Len())
 
 		for i := 0; i < 10; i++ {
-			t.Assert(stdRing.Value, gRing.Val())
+			t.Assert(stdRing.Value, gRing.X取值())
 			stdRing = stdRing.Next()
 			gRing = gRing.Next()
 		}
@@ -190,7 +190,7 @@ func TestRing_RLockIteratorNext(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		r := gring.New(10)
 		for i := 0; i < 10; i++ {
-			r.Set(i).Next()
+			r.X设置值(i).Next()
 		}
 
 		iterVal := 0
@@ -210,7 +210,7 @@ func TestRing_RLockIteratorPrev(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		r := gring.New(10)
 		for i := 0; i < 10; i++ {
-			r.Set(i).Next()
+			r.X设置值(i).Next()
 		}
 
 		iterVal := 0

@@ -5,9 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcfg
+package 配置类
 
-import "context"
+import (
+	"context"
+)
 
 // Adapter是用于获取配置的接口。 md5:5c3d613bea87d056
 type Adapter interface {

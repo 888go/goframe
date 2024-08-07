@@ -10,9 +10,9 @@ package goai
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // requestBody 是由 OpenAPI/Swagger 3.0 标准定义的。 md5:c7f34291e4ca763f
@@ -48,7 +48,7 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 	}
 
 	var (
-		dataFieldsPartsArray      = gstr.Split(in.RequestDataField, ".")
+		dataFieldsPartsArray      = gstr.X分割(in.RequestDataField, ".")
 		bizRequestStructSchemaRef = oai.Components.Schemas.Get(in.BusinessStructName)
 		schema, err               = oai.structToSchema(in.RequestObject)
 	)
@@ -57,8 +57,8 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 	}
 	if in.RequestDataField == "" && bizRequestStructSchemaRef != nil {
 		// Normal request.
-		bizRequestStructSchemaRef.Value.Properties.Iterator(func(key string, ref SchemaRef) bool {
-			schema.Properties.Set(key, ref)
+		bizRequestStructSchemaRef.Value.Properties.X遍历(func(key string, ref SchemaRef) bool {
+			schema.Properties.X设置值(key, ref)
 			return true
 		})
 	} else {
@@ -78,7 +78,7 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 					if err = oai.tagMapToSchema(structField.TagMap(), bizRequestStructSchemaRef.Value); err != nil {
 						return nil, err
 					}
-					schema.Properties.Set(fieldName, *bizRequestStructSchemaRef)
+					schema.Properties.X设置值(fieldName, *bizRequestStructSchemaRef)
 					break
 				}
 			default:
@@ -87,12 +87,12 @@ func (oai *OpenApiV3) getRequestSchemaRef(in getRequestSchemaRefInput) (*SchemaR
 					schemaRef, err := oai.getRequestSchemaRef(getRequestSchemaRefInput{
 						BusinessStructName: in.BusinessStructName,
 						RequestObject:      structFieldInstance,
-						RequestDataField:   gstr.Join(dataFieldsPartsArray[1:], "."),
+						RequestDataField:   gstr.X连接(dataFieldsPartsArray[1:], "."),
 					})
 					if err != nil {
 						return nil, err
 					}
-					schema.Properties.Set(fieldName, *schemaRef)
+					schema.Properties.X设置值(fieldName, *schemaRef)
 					break
 				}
 			}

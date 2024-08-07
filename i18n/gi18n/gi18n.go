@@ -8,7 +8,9 @@
 // Package gi18n 实现国际化和本地化。 md5:c7d7e3f7580f80a2
 package gi18n
 
-import "context"
+import (
+	"context"
+)
 
 // SetPath 设置存储i18n文件的目录路径。 md5:b39e1d244949dcf8
 func SetPath(path string) error {

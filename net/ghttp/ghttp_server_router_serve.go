@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -13,24 +13,24 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/encoding/gurl"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gregex"
+	glist "github.com/888go/goframe/container/glist"
+	gurl "github.com/888go/goframe/encoding/gurl"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/json"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // handlerCacheItem 是仅用于内部路由器搜索缓存的项。 md5:bff6700a37e67c6b
 type handlerCacheItem struct {
-	parsedItems []*HandlerItemParsed
-	serveItem   *HandlerItemParsed
+	parsedItems []*X路由解析
+	serveItem   *X路由解析
 	hasHook     bool
 	hasServe    bool
 }
 
 // serveHandlerKey 为路由器创建并返回一个处理器键。 md5:a4cf69fa7df9d5ac
-func (s *Server) serveHandlerKey(method, path, domain string) string {
+func (s *X服务) serveHandlerKey(method, path, domain string) string {
 	if len(domain) > 0 {
 		domain = "@" + domain
 	}
@@ -41,12 +41,12 @@ func (s *Server) serveHandlerKey(method, path, domain string) string {
 }
 
 // getHandlersWithCache 为给定的请求搜索具有缓存功能的路由项。 md5:00b96b129dd9a5f8
-func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemParsed, serveItem *HandlerItemParsed, hasHook, hasServe bool) {
+func (s *X服务) getHandlersWithCache(r *Request) (parsedItems []*X路由解析, serveItem *X路由解析, hasHook, hasServe bool) {
 	var (
-		ctx    = r.Context()
+		ctx    = r.Context别名()
 		method = r.Method
 		path   = r.URL.Path
-		host   = r.GetHost()
+		host   = r.X取主机名()
 	)
 	// 在以下情况中，例如：
 	// 情况1：
@@ -74,7 +74,7 @@ func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemPar
 		path = xUrlPath
 	}
 	var handlerCacheKey = s.serveHandlerKey(method, path, host)
-	value, err := s.serveCache.GetOrSetFunc(ctx, handlerCacheKey, func(ctx context.Context) (interface{}, error) {
+	value, err := s.serveCache.X取值或设置值_函数(ctx, handlerCacheKey, func(ctx context.Context) (interface{}, error) {
 		parsedItems, serveItem, hasHook, hasServe = s.searchHandlers(method, path, host)
 		if parsedItems != nil {
 			return &handlerCacheItem{parsedItems, serveItem, hasHook, hasServe}, nil
@@ -85,7 +85,7 @@ func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemPar
 		intlog.Errorf(ctx, `%+v`, err)
 	}
 	if value != nil {
-		item := value.Val().(*handlerCacheItem)
+		item := value.X取值().(*handlerCacheItem)
 		return item.parsedItems, item.serveItem, item.hasHook, item.hasServe
 	}
 	return
@@ -94,7 +94,7 @@ func (s *Server) getHandlersWithCache(r *Request) (parsedItems []*HandlerItemPar
 // searchHandlers 根据给定的参数检索并返回路由器。
 // 注意，返回的路由器包含了服务处理程序、中间件处理程序和钩子处理程序。
 // md5:c8f076ede0fbe806
-func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*HandlerItemParsed, serveItem *HandlerItemParsed, hasHook, hasServe bool) {
+func (s *X服务) searchHandlers(method, path, domain string) (parsedItems []*X路由解析, serveItem *X路由解析, hasHook, hasServe bool) {
 	if len(path) == 0 {
 		return nil, nil, false, false
 	}
@@ -173,7 +173,7 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 		// md5:1f7f116128551404
 		for i := len(lists) - 1; i >= 0; i-- {
 			for e := lists[i].Front(); e != nil; e = e.Next() {
-				item := e.Value.(*HandlerItem)
+				item := e.Value.(*X路由处理函数)
 				// 过滤重复的处理器项，特别是中间件和钩子处理器。
 				// 这是必要的，除非你非常清楚为什么需要移除这个检查逻辑，否则请不要删除。
 				//
@@ -198,19 +198,19 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 						continue
 					}
 				}
-				if item.Router.Method == defaultMethod || item.Router.Method == method {
+				if item.X路由.Method == defaultMethod || item.X路由.Method == method {
 										// 注意没有模糊规则的规则：match 的长度等于 1. md5:c26d1818ce3f384e
-					if match, err := gregex.MatchString(item.Router.RegRule, path); err == nil && len(match) > 0 {
-						parsedItem := &HandlerItemParsed{item, nil}
+					if match, err := gregex.X匹配文本(item.X路由.X正则路由规则, path); err == nil && len(match) > 0 {
+						parsedItem := &X路由解析{item, nil}
 						// 如果规则包含模糊名称（fuzzy names），
 						// 需要对URL进行切分以获取名称的值。
 						// md5:022aca8d52d2dc1f
-						if len(item.Router.RegNames) > 0 {
-							if len(match) > len(item.Router.RegNames) {
-								parsedItem.Values = make(map[string]string)
+						if len(item.X路由.X路由参数名称) > 0 {
+							if len(match) > len(item.X路由.X路由参数名称) {
+								parsedItem.X路由值 = make(map[string]string)
 																//如果有重复的名称，它就会覆盖相同的名称。 md5:afb894e9dbad1062
-								for i, name := range item.Router.RegNames {
-									parsedItem.Values[name], _ = gurl.Decode(match[i+1])
+								for i, name := range item.X路由.X路由参数名称 {
+									parsedItem.X路由值[name], _ = gurl.X解码(match[i+1])
 								}
 							}
 						}
@@ -238,7 +238,7 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 							parsedItemList.PushBack(parsedItem)
 
 						default:
-							panic(gerror.Newf(`invalid handler type %s`, item.Type))
+							panic(gerror.X创建并格式化(`invalid handler type %s`, item.Type))
 						}
 					}
 				}
@@ -247,9 +247,9 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 	}
 	if parsedItemList.Len() > 0 {
 		var index = 0
-		parsedItems = make([]*HandlerItemParsed, parsedItemList.Len())
+		parsedItems = make([]*X路由解析, parsedItemList.Len())
 		for e := parsedItemList.Front(); e != nil; e = e.Next() {
-			parsedItems[index] = e.Value.(*HandlerItemParsed)
+			parsedItems[index] = e.Value.(*X路由解析)
 			index++
 		}
 	}
@@ -257,40 +257,40 @@ func (s *Server) searchHandlers(method, path, domain string) (parsedItems []*Han
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-func (item HandlerItem) MarshalJSON() ([]byte, error) {
+func (item X路由处理函数) MarshalJSON() ([]byte, error) {
 	switch item.Type {
 	case HandlerTypeHook:
 		return json.Marshal(
 			fmt.Sprintf(
 				`%s %s:%s (%s)`,
-				item.Router.Uri,
-				item.Router.Domain,
-				item.Router.Method,
-				item.HookName,
+				item.X路由.Uri,
+				item.X路由.Domain,
+				item.X路由.Method,
+				item.Hook名称,
 			),
 		)
 	case HandlerTypeMiddleware:
 		return json.Marshal(
 			fmt.Sprintf(
 				`%s %s:%s (MIDDLEWARE)`,
-				item.Router.Uri,
-				item.Router.Domain,
-				item.Router.Method,
+				item.X路由.Uri,
+				item.X路由.Domain,
+				item.X路由.Method,
 			),
 		)
 	default:
 		return json.Marshal(
 			fmt.Sprintf(
 				`%s %s:%s`,
-				item.Router.Uri,
-				item.Router.Domain,
-				item.Router.Method,
+				item.X路由.Uri,
+				item.X路由.Domain,
+				item.X路由.Method,
 			),
 		)
 	}
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
-func (item HandlerItemParsed) MarshalJSON() ([]byte, error) {
+func (item X路由解析) MarshalJSON() ([]byte, error) {
 	return json.Marshal(item.Handler)
 }

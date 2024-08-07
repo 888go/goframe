@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gudp
+package udp类
 
 import (
 	"net"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // NewNetConn 创建并返回一个具有给定地址的 *net.UDPConn。 md5:7327f361f04568ff
@@ -23,7 +23,7 @@ func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, err
 	)
 	remoteAddr, err = net.ResolveUDPAddr(network, remoteAddress)
 	if err != nil {
-		return nil, gerror.Wrapf(
+		return nil, gerror.X多层错误并格式化(
 			err,
 			`net.ResolveUDPAddr failed for network "%s", address "%s"`,
 			network, remoteAddress,
@@ -32,7 +32,7 @@ func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, err
 	if len(localAddress) > 0 {
 		localAddr, err = net.ResolveUDPAddr(network, localAddress[0])
 		if err != nil {
-			return nil, gerror.Wrapf(
+			return nil, gerror.X多层错误并格式化(
 				err,
 				`net.ResolveUDPAddr failed for network "%s", address "%s"`,
 				network, localAddress[0],
@@ -41,7 +41,7 @@ func NewNetConn(remoteAddress string, localAddress ...string) (*net.UDPConn, err
 	}
 	conn, err := net.DialUDP(network, localAddr, remoteAddr)
 	if err != nil {
-		return nil, gerror.Wrapf(
+		return nil, gerror.X多层错误并格式化(
 			err,
 			`net.DialUDP failed for network "%s", local "%s", remote "%s"`,
 			network, localAddr.String(), remoteAddr.String(),
@@ -91,7 +91,7 @@ func GetFreePort() (port int, err error) {
 	)
 	resolvedAddr, err := net.ResolveUDPAddr(network, address)
 	if err != nil {
-		return 0, gerror.Wrapf(
+		return 0, gerror.X多层错误并格式化(
 			err,
 			`net.ResolveUDPAddr failed for network "%s", address "%s"`,
 			network, address,
@@ -99,7 +99,7 @@ func GetFreePort() (port int, err error) {
 	}
 	l, err := net.ListenUDP(network, resolvedAddr)
 	if err != nil {
-		return 0, gerror.Wrapf(
+		return 0, gerror.X多层错误并格式化(
 			err,
 			`net.ListenUDP failed for network "%s", address "%s"`,
 			network, resolvedAddr.String(),
@@ -119,7 +119,7 @@ func GetFreePorts(count int) (ports []int, err error) {
 	for i := 0; i < count; i++ {
 		resolvedAddr, err := net.ResolveUDPAddr(network, address)
 		if err != nil {
-			return nil, gerror.Wrapf(
+			return nil, gerror.X多层错误并格式化(
 				err,
 				`net.ResolveUDPAddr failed for network "%s", address "%s"`,
 				network, address,
@@ -127,7 +127,7 @@ func GetFreePorts(count int) (ports []int, err error) {
 		}
 		l, err := net.ListenUDP(network, resolvedAddr)
 		if err != nil {
-			return nil, gerror.Wrapf(
+			return nil, gerror.X多层错误并格式化(
 				err,
 				`net.ListenUDP failed for network "%s", address "%s"`,
 				network, resolvedAddr.String(),

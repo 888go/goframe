@@ -11,17 +11,17 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gtag"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	"github.com/888go/goframe/util/gtag"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_Set_Get(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		k := guid.S()
-		v := guid.S()
-		gtag.Set(k, v)
+		k := guid.X生成()
+		v := guid.X生成()
+		gtag.X设置值(k, v)
 		t.Assert(gtag.Get(k), v)
 	})
 }
@@ -30,22 +30,22 @@ func Test_SetOver_Get(t *testing.T) {
 	// panic by Set
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			k  = guid.S()
-			v1 = guid.S()
-			v2 = guid.S()
+			k  = guid.X生成()
+			v1 = guid.X生成()
+			v2 = guid.X生成()
 		)
-		gtag.Set(k, v1)
+		gtag.X设置值(k, v1)
 		t.Assert(gtag.Get(k), v1)
 		defer func() {
 			t.AssertNE(recover(), nil)
 		}()
-		gtag.Set(k, v2)
+		gtag.X设置值(k, v2)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			k  = guid.S()
-			v1 = guid.S()
-			v2 = guid.S()
+			k  = guid.X生成()
+			v1 = guid.X生成()
+			v2 = guid.X生成()
 		)
 		gtag.SetOver(k, v1)
 		t.Assert(gtag.Get(k), v1)
@@ -57,10 +57,10 @@ func Test_SetOver_Get(t *testing.T) {
 func Test_Sets_Get(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			k1 = guid.S()
-			k2 = guid.S()
-			v1 = guid.S()
-			v2 = guid.S()
+			k1 = guid.X生成()
+			k2 = guid.X生成()
+			v1 = guid.X生成()
+			v2 = guid.X生成()
 		)
 		gtag.Sets(g.MapStrStr{
 			k1: v1,
@@ -75,11 +75,11 @@ func Test_SetsOver_Get(t *testing.T) {
 	// panic by Sets
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			k1 = guid.S()
-			k2 = guid.S()
-			v1 = guid.S()
-			v2 = guid.S()
-			v3 = guid.S()
+			k1 = guid.X生成()
+			k2 = guid.X生成()
+			v1 = guid.X生成()
+			v2 = guid.X生成()
+			v3 = guid.X生成()
 		)
 		gtag.Sets(g.MapStrStr{
 			k1: v1,
@@ -97,11 +97,11 @@ func Test_SetsOver_Get(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			k1 = guid.S()
-			k2 = guid.S()
-			v1 = guid.S()
-			v2 = guid.S()
-			v3 = guid.S()
+			k1 = guid.X生成()
+			k2 = guid.X生成()
+			v1 = guid.X生成()
+			v2 = guid.X生成()
+			v3 = guid.X生成()
 		)
 		gtag.SetsOver(g.MapStrStr{
 			k1: v1,
@@ -121,10 +121,10 @@ func Test_SetsOver_Get(t *testing.T) {
 func Test_Parse(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			k1      = guid.S()
-			k2      = guid.S()
-			v1      = guid.S()
-			v2      = guid.S()
+			k1      = guid.X生成()
+			k2      = guid.X生成()
+			v1      = guid.X生成()
+			v2      = guid.X生成()
 			content = fmt.Sprintf(`this is {%s} and {%s}`, k1, k2)
 			expect  = fmt.Sprintf(`this is %s and %s`, v1, v2)
 		)

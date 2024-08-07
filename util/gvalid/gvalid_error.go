@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid
+package 效验类
 
 import (
 	"strings"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gstr"
+	gset "github.com/888go/goframe/container/gset"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // Error是验证结果的错误。 md5:333865ca9d205dfa
@@ -44,10 +44,10 @@ type validationError struct {
 func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap map[string]map[string]error) *validationError {
 	for field, ruleErrorMap := range fieldRuleErrorMap {
 		for rule, err := range ruleErrorMap {
-			if !gerror.HasStack(err) {
+			if !gerror.X判断是否带堆栈(err) {
 				ruleErrorMap[rule] = gerror.NewWithOption(gerror.Option{
 					Stack: false,
-					Text:  gstr.Trim(err.Error()),
+					Text:  gstr.X过滤首尾符并含空白(err.Error()),
 					Code:  code,
 				})
 			}
@@ -55,9 +55,9 @@ func newValidationError(code gcode.Code, rules []fieldRule, fieldRuleErrorMap ma
 		fieldRuleErrorMap[field] = ruleErrorMap
 	}
 		// 过滤重复序列规则。 md5:7a7958b11e315baa
-	var ruleNameSet = gset.NewStrSet()
+	var ruleNameSet = gset.X创建文本()
 	for i := 0; i < len(rules); {
-		if !ruleNameSet.AddIfNotExist(rules[i].Name) {
+		if !ruleNameSet.X加入值并跳过已存在(rules[i].Name) {
 			// Delete repeated rule.
 			rules = append(rules[:i], rules[i+1:]...)
 			continue

@@ -10,9 +10,9 @@ package goai
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 type ResponseRef struct {
@@ -44,7 +44,7 @@ func (oai *OpenApiV3) getResponseSchemaRef(in getResponseSchemaRefInput) (*Schem
 	}
 
 	var (
-		dataFieldsPartsArray       = gstr.Split(in.CommonResponseDataField, ".")
+		dataFieldsPartsArray       = gstr.X分割(in.CommonResponseDataField, ".")
 		bizResponseStructSchemaRef = oai.Components.Schemas.Get(in.BusinessStructName)
 		schema, err                = oai.structToSchema(in.CommonResponseObject)
 	)
@@ -53,8 +53,8 @@ func (oai *OpenApiV3) getResponseSchemaRef(in getResponseSchemaRefInput) (*Schem
 	}
 	if in.CommonResponseDataField == "" && bizResponseStructSchemaRef != nil {
 		// Normal response.
-		bizResponseStructSchemaRef.Value.Properties.Iterator(func(key string, ref SchemaRef) bool {
-			schema.Properties.Set(key, ref)
+		bizResponseStructSchemaRef.Value.Properties.X遍历(func(key string, ref SchemaRef) bool {
+			schema.Properties.X设置值(key, ref)
 			return true
 		})
 	} else {
@@ -74,7 +74,7 @@ func (oai *OpenApiV3) getResponseSchemaRef(in getResponseSchemaRefInput) (*Schem
 					if err = oai.tagMapToSchema(structField.TagMap(), bizResponseStructSchemaRef.Value); err != nil {
 						return nil, err
 					}
-					schema.Properties.Set(fieldName, *bizResponseStructSchemaRef)
+					schema.Properties.X设置值(fieldName, *bizResponseStructSchemaRef)
 					break
 				}
 			default:
@@ -84,12 +84,12 @@ func (oai *OpenApiV3) getResponseSchemaRef(in getResponseSchemaRefInput) (*Schem
 					schemaRef, err := oai.getResponseSchemaRef(getResponseSchemaRefInput{
 						BusinessStructName:      in.BusinessStructName,
 						CommonResponseObject:    structFieldInstance,
-						CommonResponseDataField: gstr.Join(dataFieldsPartsArray[1:], "."),
+						CommonResponseDataField: gstr.X连接(dataFieldsPartsArray[1:], "."),
 					})
 					if err != nil {
 						return nil, err
 					}
-					schema.Properties.Set(fieldName, *schemaRef)
+					schema.Properties.X设置值(fieldName, *schemaRef)
 					break
 				}
 			}

@@ -10,19 +10,19 @@ package pgsql
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gdb "github.com/888go/goframe/database/gdb"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // FormatUpsert 为PgSQL返回一个类型为upsert的SQL子句。
 // 例如：ON CONFLICT (id) DO UPDATE SET ...
 // md5:fb2528b8816e9dc5
-func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInsertOption) (string, error) {
+func (d *Driver) FormatUpsert(columns []string, list gdb.Map切片, option gdb.DoInsertOption) (string, error) {
 	if len(option.OnConflict) == 0 {
-		return "", gerror.NewCode(
+		return "", gerror.X创建错误码(
 			gcode.CodeMissingParameter, `Please specify conflict columns`,
 		)
 	}
@@ -39,14 +39,14 @@ func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInse
 			case gdb.Raw, *gdb.Raw:
 				onDuplicateStr += fmt.Sprintf(
 					"%s=%s",
-					d.Core.QuoteWord(k),
+					d.Core.X底层QuoteWord(k),
 					v,
 				)
 			default:
 				onDuplicateStr += fmt.Sprintf(
 					"%s=EXCLUDED.%s",
-					d.Core.QuoteWord(k),
-					d.Core.QuoteWord(gconv.String(v)),
+					d.Core.X底层QuoteWord(k),
+					d.Core.X底层QuoteWord(gconv.String(v)),
 				)
 			}
 		}
@@ -61,13 +61,13 @@ func (d *Driver) FormatUpsert(columns []string, list gdb.List, option gdb.DoInse
 			}
 			onDuplicateStr += fmt.Sprintf(
 				"%s=EXCLUDED.%s",
-				d.Core.QuoteWord(column),
-				d.Core.QuoteWord(column),
+				d.Core.X底层QuoteWord(column),
+				d.Core.X底层QuoteWord(column),
 			)
 		}
 	}
 
-	conflictKeys := gstr.Join(option.OnConflict, ",")
+	conflictKeys := gstr.X连接(option.OnConflict, ",")
 
 	return fmt.Sprintf("ON CONFLICT (%s) DO UPDATE SET ", conflictKeys) + onDuplicateStr, nil
 }

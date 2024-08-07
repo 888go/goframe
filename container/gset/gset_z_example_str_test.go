@@ -4,23 +4,23 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gset_test
+package 集合类_test
 
 import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/frame/g"
+	gset "github.com/888go/goframe/container/gset"
+	"github.com/888go/goframe/frame/g"
 )
 
 // NewStrSet 创建并返回一个新集合，其中包含不重复的元素。
 // 参数 `safe` 用于指定是否在并发安全环境下使用集合，默认为 false。
 // md5:b4b32102d4f1da78
 func ExampleNewStrSet() {
-	strSet := gset.NewStrSet(true)
-	strSet.Add([]string{"str1", "str2", "str3"}...)
-	fmt.Println(strSet.Slice())
+	strSet := gset.X创建文本(true)
+	strSet.X加入([]string{"str1", "str2", "str3"}...)
+	fmt.Println(strSet.X取集合切片())
 
 	// May Output:
 	// [str3 str1 str2]
@@ -28,8 +28,8 @@ func ExampleNewStrSet() {
 
 // NewStrSetFrom 从`items`创建一个新的集合。 md5:6f9a406a984403d2
 func ExampleNewStrSetFrom() {
-	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
-	fmt.Println(strSet.Slice())
+	strSet := gset.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
+	fmt.Println(strSet.X取集合切片())
 
 	// May Output:
 	// [str1 str2 str3]
@@ -37,10 +37,10 @@ func ExampleNewStrSetFrom() {
 
 // Add 将一个或多个项目添加到集合中。 md5:316141ff7d4b8e45
 func ExampleStrSet_Add() {
-	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
-	strSet.Add("str")
-	fmt.Println(strSet.Slice())
-	fmt.Println(strSet.AddIfNotExist("str"))
+	strSet := gset.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
+	strSet.X加入("str")
+	fmt.Println(strSet.X取集合切片())
+	fmt.Println(strSet.X加入值并跳过已存在("str"))
 
 	// May Output:
 	// [str str1 str2 str3]
@@ -51,10 +51,10 @@ func ExampleStrSet_Add() {
 // 如果项不存在于集合中，它会将项添加到集合中并返回 true，否则什么都不做并返回 false。
 // md5:9cff508c42cffd55
 func ExampleStrSet_AddIfNotExist() {
-	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
-	strSet.Add("str")
-	fmt.Println(strSet.Slice())
-	fmt.Println(strSet.AddIfNotExist("str"))
+	strSet := gset.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
+	strSet.X加入("str")
+	fmt.Println(strSet.X取集合切片())
+	fmt.Println(strSet.X加入值并跳过已存在("str"))
 
 	// May Output:
 	// [str str1 str2 str3]
@@ -67,10 +67,10 @@ func ExampleStrSet_AddIfNotExist() {
 // 请注意，函数 `f` 在无写锁的情况下执行。
 // md5:0a51b9d79022ae82
 func ExampleStrSet_AddIfNotExistFunc() {
-	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
-	strSet.Add("str")
-	fmt.Println(strSet.Slice())
-	fmt.Println(strSet.AddIfNotExistFunc("str5", func() bool {
+	strSet := gset.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
+	strSet.X加入("str")
+	fmt.Println(strSet.X取集合切片())
+	fmt.Println(strSet.X加入值并跳过已存在_函数("str5", func() bool {
 		return true
 	}))
 
@@ -85,10 +85,10 @@ func ExampleStrSet_AddIfNotExistFunc() {
 // 请注意，函数 `f` 在无写锁的情况下执行。
 // md5:0a51b9d79022ae82
 func ExampleStrSet_AddIfNotExistFuncLock() {
-	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
-	strSet.Add("str")
-	fmt.Println(strSet.Slice())
-	fmt.Println(strSet.AddIfNotExistFuncLock("str4", func() bool {
+	strSet := gset.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
+	strSet.X加入("str")
+	fmt.Println(strSet.X取集合切片())
+	fmt.Println(strSet.X加入值并跳过已存在_并发安全函数("str4", func() bool {
 		return true
 	}))
 
@@ -99,10 +99,10 @@ func ExampleStrSet_AddIfNotExistFuncLock() {
 
 // Clear 删除集合中的所有项。 md5:ce349f0cd3114465
 func ExampleStrSet_Clear() {
-	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
-	fmt.Println(strSet.Size())
-	strSet.Clear()
-	fmt.Println(strSet.Size())
+	strSet := gset.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
+	fmt.Println(strSet.X取数量())
+	strSet.X清空()
+	fmt.Println(strSet.X取数量())
 
 	// Output:
 	// 3
@@ -114,9 +114,9 @@ func ExampleStrSet_Clear() {
 // 如果给定的集合`full`并不是`set`的全集，则它返回`full`与`set`之间的差异。
 // md5:2116fbb7587db792
 func ExampleStrSet_Complement() {
-	strSet := gset.NewStrSetFrom([]string{"str1", "str2", "str3", "str4", "str5"}, true)
-	s := gset.NewStrSetFrom([]string{"str1", "str2", "str3"}, true)
-	fmt.Println(s.Complement(strSet).Slice())
+	strSet := gset.X创建文本并按值([]string{"str1", "str2", "str3", "str4", "str5"}, true)
+	s := gset.X创建文本并按值([]string{"str1", "str2", "str3"}, true)
+	fmt.Println(s.X取补集(strSet).X取集合切片())
 
 	// May Output:
 	// [str4 str5]
@@ -125,9 +125,9 @@ func ExampleStrSet_Complement() {
 // Contains 检查集合是否包含 `item`。 md5:20a3bdc6aeef1d67
 func ExampleStrSet_Contains() {
 	var set gset.StrSet
-	set.Add("a")
-	fmt.Println(set.Contains("a"))
-	fmt.Println(set.Contains("A"))
+	set.X加入("a")
+	fmt.Println(set.X是否存在("a"))
+	fmt.Println(set.X是否存在("A"))
 
 	// Output:
 	// true
@@ -139,9 +139,9 @@ func ExampleStrSet_Contains() {
 // md5:851e1bbfa6da1bae
 func ExampleStrSet_ContainsI() {
 	var set gset.StrSet
-	set.Add("a")
-	fmt.Println(set.ContainsI("a"))
-	fmt.Println(set.ContainsI("A"))
+	set.X加入("a")
+	fmt.Println(set.X是否存在并忽略大小写("a"))
+	fmt.Println(set.X是否存在并忽略大小写("A"))
 
 	// Output:
 	// true
@@ -152,9 +152,9 @@ func ExampleStrSet_ContainsI() {
 // 这意味着，`newSet` 中的所有项目都在 `set` 中，但不在 `other` 中。
 // md5:6779e6e007651b53
 func ExampleStrSet_Diff() {
-	s1 := gset.NewStrSetFrom([]string{"a", "b", "c"}, true)
-	s2 := gset.NewStrSetFrom([]string{"a", "b", "c", "d"}, true)
-	fmt.Println(s2.Diff(s1).Slice())
+	s1 := gset.X创建文本并按值([]string{"a", "b", "c"}, true)
+	s2 := gset.X创建文本并按值([]string{"a", "b", "c", "d"}, true)
+	fmt.Println(s2.X取差集(s1).X取集合切片())
 
 	// Output:
 	// [d]
@@ -162,13 +162,13 @@ func ExampleStrSet_Diff() {
 
 // Equal 检查两个集合是否相等。 md5:105ea4dd39b57fe8
 func ExampleStrSet_Equal() {
-	s1 := gset.NewStrSetFrom([]string{"a", "b", "c"}, true)
-	s2 := gset.NewStrSetFrom([]string{"a", "b", "c", "d"}, true)
-	fmt.Println(s2.Equal(s1))
+	s1 := gset.X创建文本并按值([]string{"a", "b", "c"}, true)
+	s2 := gset.X创建文本并按值([]string{"a", "b", "c", "d"}, true)
+	fmt.Println(s2.X是否相等(s1))
 
-	s3 := gset.NewStrSetFrom([]string{"a", "b", "c"}, true)
-	s4 := gset.NewStrSetFrom([]string{"a", "b", "c"}, true)
-	fmt.Println(s3.Equal(s4))
+	s3 := gset.X创建文本并按值([]string{"a", "b", "c"}, true)
+	s4 := gset.X创建文本并按值([]string{"a", "b", "c"}, true)
+	fmt.Println(s3.X是否相等(s4))
 
 	// Output:
 	// false
@@ -179,11 +179,11 @@ func ExampleStrSet_Equal() {
 // 这意味着，`newSet` 中的所有元素都既存在于 `set` 中也存在于 `other` 中。
 // md5:327d3fcc12f06583
 func ExampleStrSet_Intersect() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c"}...)
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c"}...)
 	var s2 gset.StrSet
-	s2.Add([]string{"a", "b", "c", "d"}...)
-	fmt.Println(s2.Intersect(s1).Slice())
+	s2.X加入([]string{"a", "b", "c", "d"}...)
+	fmt.Println(s2.X取交集(s1).X取集合切片())
 
 	// May Output:
 	// [c a b]
@@ -191,11 +191,11 @@ func ExampleStrSet_Intersect() {
 
 // IsSubsetOf 检查当前集合是否是 `other` 的子集. md5:70b7ed1e77ec2f80
 func ExampleStrSet_IsSubsetOf() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
 	var s2 gset.StrSet
-	s2.Add([]string{"a", "b", "d"}...)
-	fmt.Println(s2.IsSubsetOf(s1))
+	s2.X加入([]string{"a", "b", "d"}...)
+	fmt.Println(s2.X是否为子集(s1))
 
 	// Output:
 	// true
@@ -204,9 +204,9 @@ func ExampleStrSet_IsSubsetOf() {
 // Iterator 使用给定的回调函数 `f` 遍历只读集合，如果 `f` 返回 true，则继续遍历；否则停止。
 // md5:b896360b1cf6fc88
 func ExampleStrSet_Iterator() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	s1.Iterator(func(v string) bool {
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	s1.X遍历(func(v string) bool {
 		fmt.Println("Iterator", v)
 		return true
 	})
@@ -220,9 +220,9 @@ func ExampleStrSet_Iterator() {
 
 // Join 使用字符串 `glue` 连接多个项目。 md5:c8699391999ac788
 func ExampleStrSet_Join() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	fmt.Println(s1.Join(","))
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	fmt.Println(s1.X取集合文本(","))
 
 	// May Output:
 	// b,c,d,a
@@ -230,12 +230,12 @@ func ExampleStrSet_Join() {
 
 // LockFunc 使用回调函数 `f` 为写入操作加锁。 md5:85d746d8a49edab7
 func ExampleStrSet_LockFunc() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"1", "2"}...)
-	s1.LockFunc(func(m map[string]struct{}) {
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"1", "2"}...)
+	s1.X写锁定_函数(func(m map[string]struct{}) {
 		m["3"] = struct{}{}
 	})
-	fmt.Println(s1.Slice())
+	fmt.Println(s1.X取集合切片())
 
 	// 可能的输出
 	// [2 3 1]
@@ -253,7 +253,7 @@ func ExampleStrSet_MarshalJSON() {
 	s := Student{
 		Id:     1,
 		Name:   "john",
-		Scores: gset.NewStrSetFrom([]string{"100", "99", "98"}, true),
+		Scores: gset.X创建文本并按值([]string{"100", "99", "98"}, true),
 	}
 	b, _ := json.Marshal(s)
 	fmt.Println(string(b))
@@ -264,11 +264,11 @@ func ExampleStrSet_MarshalJSON() {
 
 // Merge 将 `others` 集合中的项目合并到 `set` 中。 md5:788b02e300c6f440
 func ExampleStrSet_Merge() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
 
-	s2 := gset.NewStrSet(true)
-	fmt.Println(s1.Merge(s2).Slice())
+	s2 := gset.X创建文本(true)
+	fmt.Println(s1.X合并(s2).X取集合切片())
 
 	// May Output:
 	// [d a b c]
@@ -276,10 +276,10 @@ func ExampleStrSet_Merge() {
 
 // 随机从集合中弹出一个元素。 md5:56ac5a59d1852551
 func ExampleStrSet_Pop() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
 
-	fmt.Println(s1.Pop())
+	fmt.Println(s1.X出栈())
 
 	// May Output:
 	// a
@@ -289,9 +289,9 @@ func ExampleStrSet_Pop() {
 // 如果 size == -1，它将返回所有元素。
 // md5:c687f88e0a2df8f2
 func ExampleStrSet_Pops() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	for _, v := range s1.Pops(2) {
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	for _, v := range s1.X出栈多个(2) {
 		fmt.Println(v)
 	}
 
@@ -302,9 +302,9 @@ func ExampleStrSet_Pops() {
 
 // RLockFunc 使用回调函数 `f` 进行读取锁定。 md5:5fe2bf1a85ce319e
 func ExampleStrSet_RLockFunc() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	s1.RLockFunc(func(m map[string]struct{}) {
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	s1.X读锁定_函数(func(m map[string]struct{}) {
 		fmt.Println(m)
 	})
 
@@ -314,10 +314,10 @@ func ExampleStrSet_RLockFunc() {
 
 // Remove 从集合中删除 `item`。 md5:ab30c696cc44d190
 func ExampleStrSet_Remove() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	s1.Remove("a")
-	fmt.Println(s1.Slice())
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	s1.X删除("a")
+	fmt.Println(s1.X取集合切片())
 
 	// May Output:
 	// [b c d]
@@ -325,9 +325,9 @@ func ExampleStrSet_Remove() {
 
 // Size 返回集合的大小。 md5:0d55ac576b7779ee
 func ExampleStrSet_Size() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	fmt.Println(s1.Size())
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	fmt.Println(s1.X取数量())
 
 	// Output:
 	// 4
@@ -335,9 +335,9 @@ func ExampleStrSet_Size() {
 
 // Slice 返回集合中的元素作为切片。 md5:f5bc80ac01ae812b
 func ExampleStrSet_Slice() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	fmt.Println(s1.Slice())
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	fmt.Println(s1.X取集合切片())
 
 	// May Output:
 	// [a,b,c,d]
@@ -345,8 +345,8 @@ func ExampleStrSet_Slice() {
 
 // String 将 items 转换为字符串，其实现方式类似于 json.Marshal。 md5:cedb10711c2e5dac
 func ExampleStrSet_String() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
 	fmt.Println(s1.String())
 
 	// May Output:
@@ -357,9 +357,9 @@ func ExampleStrSet_String() {
 // 否则你可能会得到意想不到的结果。
 // md5:7cca75708fbf4ffc
 func ExampleStrSet_Sum() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"1", "2", "3", "4"}...)
-	fmt.Println(s1.Sum())
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"1", "2", "3", "4"}...)
+	fmt.Println(s1.X求和())
 
 	// Output:
 	// 10
@@ -369,11 +369,11 @@ func ExampleStrSet_Sum() {
 // 意味着，`newSet`中的所有项目都在`set`中或在`other`中。
 // md5:420e241c3c12e8e6
 func ExampleStrSet_Union() {
-	s1 := gset.NewStrSet(true)
-	s1.Add([]string{"a", "b", "c", "d"}...)
-	s2 := gset.NewStrSet(true)
-	s2.Add([]string{"a", "b", "d"}...)
-	fmt.Println(s1.Union(s2).Slice())
+	s1 := gset.X创建文本(true)
+	s1.X加入([]string{"a", "b", "c", "d"}...)
+	s2 := gset.X创建文本(true)
+	s2.X加入([]string{"a", "b", "d"}...)
+	fmt.Println(s1.X取并集(s2).X取集合切片())
 
 	// May Output:
 	// [a b c d]
@@ -415,15 +415,15 @@ func ExampleStrSet_UnmarshalValue() {
 func ExampleStrSet_Walk() {
 	var (
 		set    gset.StrSet
-		names  = g.SliceStr{"user", "user_detail"}
+		names  = g.SliceStr别名{"user", "user_detail"}
 		prefix = "gf_"
 	)
-	set.Add(names...)
+	set.X加入(names...)
 		// 为给定的表名添加前缀。 md5:dea7405f272e0c9e
-	set.Walk(func(item string) string {
+	set.X遍历修改(func(item string) string {
 		return prefix + item
 	})
-	fmt.Println(set.Slice())
+	fmt.Println(set.X取集合切片())
 
 	// May Output:
 	// [gf_user gf_user_detail]

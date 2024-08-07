@@ -6,36 +6,36 @@
 // md5:a9832f33b234e3f3
 
 // 包glog实现了强大且易于使用的等级化日志记录功能。 md5:b8685dc39c4dd154
-package glog
+package 日志类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/os/grpool"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/internal/command"
+	grpool "github.com/888go/goframe/os/grpool"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // ILogger是日志记录器的API接口。 md5:762449020563f6b9
 type ILogger interface {
-	Print(ctx context.Context, v ...interface{})
-	Printf(ctx context.Context, format string, v ...interface{})
-	Debug(ctx context.Context, v ...interface{})
-	Debugf(ctx context.Context, format string, v ...interface{})
-	Info(ctx context.Context, v ...interface{})
-	Infof(ctx context.Context, format string, v ...interface{})
-	Notice(ctx context.Context, v ...interface{})
-	Noticef(ctx context.Context, format string, v ...interface{})
-	Warning(ctx context.Context, v ...interface{})
-	Warningf(ctx context.Context, format string, v ...interface{})
+	X输出(ctx context.Context, v ...interface{})
+	X输出并格式化(ctx context.Context, format string, v ...interface{})
+	X输出DEBU(ctx context.Context, v ...interface{})
+	X输出并格式化DEBU(ctx context.Context, format string, v ...interface{})
+	X输出INFO(ctx context.Context, v ...interface{})
+	X输出并格式化INFO(ctx context.Context, format string, v ...interface{})
+	X输出NOTI(ctx context.Context, v ...interface{})
+	X输出并格式化NOTI(ctx context.Context, format string, v ...interface{})
+	X输出WARN(ctx context.Context, v ...interface{})
+	X输出并格式化WARN(ctx context.Context, format string, v ...interface{})
 	Error(ctx context.Context, v ...interface{})
-	Errorf(ctx context.Context, format string, v ...interface{})
-	Critical(ctx context.Context, v ...interface{})
-	Criticalf(ctx context.Context, format string, v ...interface{})
-	Panic(ctx context.Context, v ...interface{})
-	Panicf(ctx context.Context, format string, v ...interface{})
-	Fatal(ctx context.Context, v ...interface{})
-	Fatalf(ctx context.Context, format string, v ...interface{})
+	X输出并格式化ERR(ctx context.Context, format string, v ...interface{})
+	X输出CRIT(ctx context.Context, v ...interface{})
+	X输出并格式化CRIT(ctx context.Context, format string, v ...interface{})
+	X输出PANI(ctx context.Context, v ...interface{})
+	X输出并格式化PANI(ctx context.Context, format string, v ...interface{})
+	X输出FATA(ctx context.Context, v ...interface{})
+	X输出并格式化FATA(ctx context.Context, format string, v ...interface{})
 }
 
 const (
@@ -47,7 +47,7 @@ var (
 	_ ILogger = &Logger{}
 
 		// 默认的日志记录器对象，供包内方法使用。 md5:f3aa5266bd3b033f
-	defaultLogger = New()
+	defaultLogger = X创建()
 
 	// 用于异步日志输出的Goroutine池。
 	// 它仅使用一个异步工作者来确保日志的顺序。
@@ -60,18 +60,18 @@ var (
 )
 
 func init() {
-	defaultDebug = gconv.Bool(command.GetOptWithEnv(commandEnvKeyForDebug, "true"))
-	SetDebug(defaultDebug)
+	defaultDebug = gconv.X取布尔(command.GetOptWithEnv(commandEnvKeyForDebug, "true"))
+	X设置debug(defaultDebug)
 }
 
-// DefaultLogger 返回默认的logger。 md5:375e904736d75955
-func DefaultLogger() *Logger {
+// X取默认日志类 返回默认的logger。 md5:375e904736d75955
+func X取默认日志类() *Logger {
 	return defaultLogger
 }
 
-// SetDefaultLogger 为 glog 包设置默认的日志记录器。
+// X设置默认日志类 为 glog 包设置默认的日志记录器。
 // 注意，如果在不同的 goroutine 中调用此函数，可能会存在并发安全问题。
 // md5:acb1633d3882d5ab
-func SetDefaultLogger(l *Logger) {
+func X设置默认日志类(l *Logger) {
 	defaultLogger = l
 }

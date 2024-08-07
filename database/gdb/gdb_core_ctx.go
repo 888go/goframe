@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"context"
 	"sync"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gctx"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gctx "github.com/888go/goframe/os/gctx"
 )
 
 // internalCtxData 为内部使用目的，在 ctx 中存储数据。 md5:95073898cc1f4772
@@ -53,7 +53,7 @@ func (c *Core) injectInternalCtxData(ctx context.Context) context.Context {
 func (c *Core) setConfigNodeToCtx(ctx context.Context, node *ConfigNode) error {
 	value := ctx.Value(internalCtxDataKeyInCtx)
 	if value == nil {
-		return gerror.NewCode(gcode.CodeInternalError, `no internal data found in context`)
+		return gerror.X创建错误码(gcode.CodeInternalError, `no internal data found in context`)
 	}
 
 	data := value.(*internalCtxData)
@@ -84,13 +84,13 @@ func (c *Core) getInternalColumnFromCtx(ctx context.Context) *internalColumnData
 	return nil
 }
 
-func (c *Core) InjectIgnoreResult(ctx context.Context) context.Context {
+func (c *Core) X底层_InjectIgnoreResult(ctx context.Context) context.Context {
 	if ctx.Value(ignoreResultKeyInCtx) != nil {
 		return ctx
 	}
 	return context.WithValue(ctx, ignoreResultKeyInCtx, true)
 }
 
-func (c *Core) GetIgnoreResultFromCtx(ctx context.Context) bool {
+func (c *Core) X底层_GetIgnoreResultFromCtx(ctx context.Context) bool {
 	return ctx.Value(ignoreResultKeyInCtx) != nil
 }

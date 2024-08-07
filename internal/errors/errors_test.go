@@ -10,8 +10,8 @@ package errors_test
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/internal/errors"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/internal/errors"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_IsStackModeBrief(t *testing.T) {

@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gstr
+package 文本类
 
 import (
 	"net/url"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
-// Parse 将字符串解析为 map[string]interface{} 类型。
+// X参数解析 将字符串解析为 map[string]interface{} 类型。
 //
 // v1=m&v2=n           -> map[v1:m, v2:n]
 // v[a]=m&v[b]=n       -> map[v:map[a:m, b:n]]
@@ -26,12 +26,12 @@ import (
 // v=m&v[a]=n          -> 错误
 // a .[[b=c            -> 无法解析，缺少有效的键值对格式。
 // md5:28f985708060eab0
-func Parse(s string) (result map[string]interface{}, err error) {
-	if s == "" {
+func X参数解析(文本 string) (map结果 map[string]interface{}, 错误 error) {
+	if 文本 == "" {
 		return nil, nil
 	}
-	result = make(map[string]interface{})
-	parts := strings.Split(s, "&")
+	map结果 = make(map[string]interface{})
+	parts := strings.Split(文本, "&")
 	for _, part := range parts {
 		pos := strings.Index(part, "=")
 		if pos <= 0 {
@@ -39,7 +39,7 @@ func Parse(s string) (result map[string]interface{}, err error) {
 		}
 		key, err := url.QueryUnescape(part[:pos])
 		if err != nil {
-			err = gerror.Wrapf(err, `url.QueryUnescape failed for string "%s"`, part[:pos])
+			err = gerror.X多层错误并格式化(err, `url.QueryUnescape failed for string "%s"`, part[:pos])
 			return nil, err
 		}
 
@@ -52,7 +52,7 @@ func Parse(s string) (result map[string]interface{}, err error) {
 		}
 		value, err := url.QueryUnescape(part[pos+1:])
 		if err != nil {
-			err = gerror.Wrapf(err, `url.QueryUnescape failed for string "%s"`, part[pos+1:])
+			err = gerror.X多层错误并格式化(err, `url.QueryUnescape failed for string "%s"`, part[pos+1:])
 			return nil, err
 		}
 						// 分割成多个键. md5:3bdb5e68a953321c
@@ -93,11 +93,11 @@ func Parse(s string) (result map[string]interface{}, err error) {
 		keys[0] = first
 
 		// build nested map
-		if err = build(result, keys, value); err != nil {
+		if err = build(map结果, keys, value); err != nil {
 			return nil, err
 		}
 	}
-	return result, nil
+	return map结果, nil
 }
 
 // build nested map.
@@ -124,7 +124,7 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 		}
 		children, ok := val.([]interface{})
 		if !ok {
-			return gerror.NewCodef(
+			return gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				"expected type '[]interface{}' for key '%s', but got '%T'",
 				key, val,
@@ -142,7 +142,7 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 		}
 		children, ok := val.([]interface{})
 		if !ok {
-			return gerror.NewCodef(
+			return gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				"expected type '[]interface{}' for key '%s', but got '%T'",
 				key, val,
@@ -170,7 +170,7 @@ func build(result map[string]interface{}, keys []string, value interface{}) erro
 	}
 	children, ok := val.(map[string]interface{})
 	if !ok {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			"expected type 'map[string]interface{}' for key '%s', but got '%T'",
 			key, val,

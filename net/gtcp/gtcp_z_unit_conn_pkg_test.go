@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtcp_test
+package tcp类_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/debug/gdebug"
+	gtcp "github.com/888go/goframe/net/gtcp"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Package_Basic(t *testing.T) {
@@ -290,8 +290,8 @@ func Test_Server_NewServerKeyCrt(t *testing.T) {
 	var (
 		noCrtFile = "noCrtFile"
 		noKeyFile = "noKeyFile"
-		crtFile   = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/crtFile"
-		keyFile   = gfile.Dir(gdebug.CallerFilePath()) + gfile.Separator + "testdata/keyFile"
+		crtFile   = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/crtFile"
+		keyFile   = gfile.X路径取父目录(gdebug.CallerFilePath()) + gfile.Separator + "testdata/keyFile"
 	)
 	gtest.C(t, func(t *gtest.T) {
 		addr := "127.0.0.1:%d"

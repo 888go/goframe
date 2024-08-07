@@ -6,16 +6,16 @@
 // md5:036a875c2d7cd8b1
 
 // 包glist提供了最常见的双链表容器，同时也支持并发安全/不安全切换功能。 md5:0b7229b4fa0fbb49
-package glist
+package 链表类
 
 import (
 	"bytes"
 	"container/list"
 
-	"github.com/gogf/gf/v2/internal/deepcopy"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/internal/deepcopy"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/rwmutex"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 type (
@@ -448,8 +448,8 @@ func (l *List) LockFunc(f func(list *list.List)) {
 	f(l.list)
 }
 
-// Iterator 是 IteratorAsc 的别名。 md5:1bfdea306db62845
-func (l *List) Iterator(f func(e *Element) bool) {
+// X遍历 是 IteratorAsc 的别名。 md5:1bfdea306db62845
+func (l *List) X遍历(f func(e *Element) bool) {
 	l.IteratorAsc(f)
 }
 
@@ -548,9 +548,9 @@ func (l *List) UnmarshalValue(value interface{}) (err error) {
 	var array []interface{}
 	switch value.(type) {
 	case string, []byte:
-		err = json.UnmarshalUseNumber(gconv.Bytes(value), &array)
+		err = json.UnmarshalUseNumber(gconv.X取字节集(value), &array)
 	default:
-		array = gconv.SliceAny(value)
+		array = gconv.SliceAny别名(value)
 	}
 	l.PushBacks(array)
 	return err

@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
-	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/888go/goframe/internal/reflection"
 )
 
 type (

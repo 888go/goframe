@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_MapToMap1(t *testing.T) {
@@ -158,7 +158,7 @@ func Test_MapToMapDeep(t *testing.T) {
 }
 
 func Test_MapToMaps(t *testing.T) {
-	params := g.Slice{
+	params := g.Slice别名{
 		g.Map{"id": 1, "name": "john"},
 		g.Map{"id": 2, "name": "smith"},
 	}
@@ -195,7 +195,7 @@ func Test_MapToMaps_StructParams(t *testing.T) {
 		Id   int
 		Name string
 	}
-	params := g.Slice{
+	params := g.Slice别名{
 		User{1, "name1"},
 		User{2, "name2"},
 	}

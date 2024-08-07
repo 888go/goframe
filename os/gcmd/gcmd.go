@@ -6,15 +6,15 @@
 // md5:a114f4bdd106ab31
 
 // 包gcmd提供控制台操作，如读取选项/参数和运行命令。 md5:bb72337a704c599f
-package gcmd
+package cmd类
 
 import (
 	"os"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/os/gctx"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/internal/utils"
+	gctx "github.com/888go/goframe/os/gctx"
 )
 
 const (
@@ -40,10 +40,10 @@ func Init(args ...string) {
 // GetOpt 作为gvar.Var返回名为`name`的选项值。 md5:1859b868ee779be0
 func GetOpt(name string, def ...string) *gvar.Var {
 	if v := command.GetOpt(name, def...); v != "" {
-		return gvar.New(v)
+		return gvar.X创建(v)
 	}
 	if command.ContainsOpt(name) {
-		return gvar.New("")
+		return gvar.X创建("")
 	}
 	return nil
 }
@@ -56,7 +56,7 @@ func GetOptAll() map[string]string {
 // GetArg 作为gvar.Var返回索引为`index`的参数。 md5:12ea2f8d74c6370d
 func GetArg(index int, def ...string) *gvar.Var {
 	if v := command.GetArg(index, def...); v != "" {
-		return gvar.New(v)
+		return gvar.X创建(v)
 	}
 	return nil
 }
@@ -77,14 +77,14 @@ func GetArgAll() []string {
 func GetOptWithEnv(key string, def ...interface{}) *gvar.Var {
 	cmdKey := utils.FormatCmdKey(key)
 	if command.ContainsOpt(cmdKey) {
-		return gvar.New(GetOpt(cmdKey))
+		return gvar.X创建(GetOpt(cmdKey))
 	} else {
 		envKey := utils.FormatEnvKey(key)
 		if r, ok := os.LookupEnv(envKey); ok {
-			return gvar.New(r)
+			return gvar.X创建(r)
 		} else {
 			if len(def) > 0 {
-				return gvar.New(def[0])
+				return gvar.X创建(def[0])
 			}
 		}
 	}

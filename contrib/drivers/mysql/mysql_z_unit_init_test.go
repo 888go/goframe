@@ -12,11 +12,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 const (
@@ -56,52 +56,52 @@ func init() {
 	nodeInvalid := gdb.ConfigNode{
 		Link: fmt.Sprintf("mysql:root:%s@tcp(127.0.0.1:3307)/?loc=Local&parseTime=true", TestDbPass),
 	}
-	gdb.AddConfigNode("test", nodeDefault)
-	gdb.AddConfigNode("prefix", nodePrefix)
-	gdb.AddConfigNode("nodeinvalid", nodeInvalid)
-	gdb.AddConfigNode("partition", partitionDefault)
-	gdb.AddConfigNode(gdb.DefaultGroupName, nodeDefault)
+	gdb.X添加配置组节点("test", nodeDefault)
+	gdb.X添加配置组节点("prefix", nodePrefix)
+	gdb.X添加配置组节点("nodeinvalid", nodeInvalid)
+	gdb.X添加配置组节点("partition", partitionDefault)
+	gdb.X添加配置组节点(gdb.DefaultGroupName, nodeDefault)
 
 	// Default db.
-	if r, err := gdb.NewByGroup(); err != nil {
+	if r, err := gdb.X创建DB对象并按配置组(); err != nil {
 		gtest.Error(err)
 	} else {
 		db = r
 	}
 	schemaTemplate := "CREATE DATABASE IF NOT EXISTS `%s` CHARACTER SET UTF8"
-	if _, err := db.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
 		gtest.Error(err)
 	}
-	if _, err := db.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
 		gtest.Error(err)
 	}
-	if _, err := db.Exec(ctx, fmt.Sprintf(schemaTemplate, TestPartitionDB)); err != nil {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestPartitionDB)); err != nil {
 		gtest.Error(err)
 	}
-	db = db.Schema(TestSchema1)
-	db2 = db.Schema(TestSchema2)
-	db3 = db.Schema(TestPartitionDB)
+	db = db.X切换数据库(TestSchema1)
+	db2 = db.X切换数据库(TestSchema2)
+	db3 = db.X切换数据库(TestPartitionDB)
 	// Prefix db.
-	if r, err := gdb.NewByGroup("prefix"); err != nil {
+	if r, err := gdb.X创建DB对象并按配置组("prefix"); err != nil {
 		gtest.Error(err)
 	} else {
 		dbPrefix = r
 	}
-	if _, err := dbPrefix.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
+	if _, err := dbPrefix.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema1)); err != nil {
 		gtest.Error(err)
 	}
-	if _, err := dbPrefix.Exec(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
+	if _, err := dbPrefix.X原生SQL执行(ctx, fmt.Sprintf(schemaTemplate, TestSchema2)); err != nil {
 		gtest.Error(err)
 	}
-	dbPrefix = dbPrefix.Schema(TestSchema1)
+	dbPrefix = dbPrefix.X切换数据库(TestSchema1)
 
 	// Invalid db.
-	if r, err := gdb.NewByGroup("nodeinvalid"); err != nil {
+	if r, err := gdb.X创建DB对象并按配置组("nodeinvalid"); err != nil {
 		gtest.Error(err)
 	} else {
 		dbInvalid = r
 	}
-	dbInvalid = dbInvalid.Schema(TestSchema1)
+	dbInvalid = dbInvalid.X切换数据库(TestSchema1)
 }
 
 func createTable(table ...string) string {
@@ -120,10 +120,10 @@ func createTableWithDb(db gdb.DB, table ...string) (name string) {
 	if len(table) > 0 {
 		name = table[0]
 	} else {
-		name = fmt.Sprintf(`%s_%d`, TableName, gtime.TimestampNano())
+		name = fmt.Sprintf(`%s_%d`, TableName, gtime.X取时间戳纳秒())
 	}
 	dropTableWithDb(db, name)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	    CREATE TABLE %s (
 	        id          int(10) unsigned NOT NULL AUTO_INCREMENT,
 	        passport    varchar(45) NULL,
@@ -141,18 +141,18 @@ func createTableWithDb(db gdb.DB, table ...string) (name string) {
 
 func createInitTableWithDb(db gdb.DB, table ...string) (name string) {
 	name = createTableWithDb(db, table...)
-	array := garray.New(true)
+	array := garray.X创建(true)
 	for i := 1; i <= TableSize; i++ {
-		array.Append(g.Map{
+		array.Append别名(g.Map{
 			"id":          i,
 			"passport":    fmt.Sprintf(`user_%d`, i),
 			"password":    fmt.Sprintf(`pass_%d`, i),
 			"nickname":    fmt.Sprintf(`name_%d`, i),
-			"create_time": gtime.NewFromStr(CreateTime).String(),
+			"create_time": gtime.X创建并从文本(CreateTime).String(),
 		})
 	}
 
-	result, err := db.Insert(ctx, name, array.Slice())
+	result, err := db.X插入(ctx, name, array.X取切片())
 	gtest.AssertNil(err)
 
 	n, e := result.RowsAffected()
@@ -162,7 +162,7 @@ func createInitTableWithDb(db gdb.DB, table ...string) (name string) {
 }
 
 func dropTableWithDb(db gdb.DB, table string) {
-	if _, err := db.Exec(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf("DROP TABLE IF EXISTS `%s`", table)); err != nil {
 		gtest.Error(err)
 	}
 }
@@ -174,11 +174,11 @@ func Test_PartitionTable(t *testing.T) {
 
 	//defer dropShopDBTable()
 	gtest.C(t, func(t *gtest.T) {
-		data, err := db3.Ctx(ctx).Model("dbx_order").Partition("p3", "p4").All()
+		data, err := db3.X设置上下文并取副本(ctx).X创建Model对象("dbx_order").X设置分区名称("p3", "p4").X查询()
 		t.AssertNil(err)
 		dataLen := len(data)
 		t.Assert(dataLen, 5)
-		data, err = db3.Ctx(ctx).Model("dbx_order").Partition("p3").All()
+		data, err = db3.X设置上下文并取副本(ctx).X创建Model对象("dbx_order").X设置分区名称("p3").X查询()
 		t.AssertNil(err)
 		dataLen = len(data)
 		t.Assert(dataLen, 5)
@@ -195,13 +195,13 @@ PARTITION BY RANGE (YEAR(sales_date))
  PARTITION p2 VALUES LESS THAN (2021) ENGINE = InnoDB,
  PARTITION p3 VALUES LESS THAN (2022) ENGINE = InnoDB,
  PARTITION p4 VALUES LESS THAN MAXVALUE ENGINE = InnoDB);`
-	_, err := db3.Exec(ctx, sql)
+	_, err := db3.X原生SQL执行(ctx, sql)
 	if err != nil {
 		gtest.Fatal(err.Error())
 	}
 }
 func insertShopDBData() {
-	data := g.Slice{}
+	data := g.Slice别名{}
 	year := 2020
 	for i := 1; i <= 5; i++ {
 		year++
@@ -211,13 +211,13 @@ func insertShopDBData() {
 			"amount":     fmt.Sprintf("1%d.21", i),
 		})
 	}
-	_, err := db3.Model("dbx_order").Ctx(ctx).Data(data).Insert()
+	_, err := db3.X创建Model对象("dbx_order").X设置上下文并取副本(ctx).X设置数据(data).X插入()
 	if err != nil {
 		gtest.Error(err)
 	}
 }
 func dropShopDBTable() {
-	if _, err := db3.Exec(ctx, "DROP TABLE IF EXISTS `dbx_order`"); err != nil {
+	if _, err := db3.X原生SQL执行(ctx, "DROP TABLE IF EXISTS `dbx_order`"); err != nil {
 		gtest.Error(err)
 	}
 }

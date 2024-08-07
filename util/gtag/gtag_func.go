@@ -10,7 +10,7 @@ package gtag
 import (
 	"regexp"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 var (
@@ -18,12 +18,12 @@ var (
 	regex = regexp.MustCompile(`\{(.+?)\}`)
 )
 
-// Set 设置指定名称的标签内容。
+// X设置值 设置指定名称的标签内容。
 // 请注意，如果`name`已经存在，该函数会引发恐慌。
 // md5:3b301b4174b60616
-func Set(name, value string) {
+func X设置值(name, value string) {
 	if _, ok := data[name]; ok {
-		panic(gerror.Newf(`value for tag name "%s" already exists`, name))
+		panic(gerror.X创建并格式化(`value for tag name "%s" already exists`, name))
 	}
 	data[name] = value
 }
@@ -36,7 +36,7 @@ func SetOver(name, value string) {
 // 通过map设置多个标签的内容。 md5:c02ae9dd9350cf50
 func Sets(m map[string]string) {
 	for k, v := range m {
-		Set(k, v)
+		X设置值(k, v)
 	}
 }
 

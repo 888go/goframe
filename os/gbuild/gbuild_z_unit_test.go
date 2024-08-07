@@ -5,20 +5,20 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gbuild_test
+package 构建信息类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gbuild"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/frame/g"
+	gbuild "github.com/888go/goframe/os/gbuild"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Info(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gconv.Map(gbuild.Info()), g.Map{
+		t.Assert(gconv.X取Map(gbuild.Info()), g.Map{
 			"GoFrame": "",
 			"Golang":  "",
 			"Git":     "",

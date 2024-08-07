@@ -11,11 +11,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/888go/goframe/frame/g"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	gmeta "github.com/888go/goframe/util/gmeta"
 )
 
 /*
@@ -92,7 +92,7 @@ func Test_Table_Relation_With_Scan(t *testing.T) {
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_score"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -103,7 +103,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -114,7 +114,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -154,14 +154,14 @@ PRIMARY KEY (id)
 			user := User{
 				Name: fmt.Sprintf(`name_%d`, i),
 			}
-			lastInsertId, err := db.Model(user).Data(user).OmitEmpty().InsertAndGetId()
+			lastInsertId, err := db.X创建Model对象(user).X设置数据(user).X过滤空值().X插入并取ID()
 			t.AssertNil(err)
 			// Detail.
 			userDetail := UserDetail{
 				Uid:     int(lastInsertId),
 				Address: fmt.Sprintf(`address_%d`, lastInsertId),
 			}
-			_, err = db.Model(userDetail).Data(userDetail).OmitEmpty().Insert()
+			_, err = db.X创建Model对象(userDetail).X设置数据(userDetail).X过滤空值().X插入()
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
@@ -169,7 +169,7 @@ PRIMARY KEY (id)
 					Uid:   int(lastInsertId),
 					Score: j,
 				}
-				_, err = db.Model(userScore).Data(userScore).OmitEmpty().Insert()
+				_, err = db.X创建Model对象(userScore).X设置数据(userScore).X过滤空值().X插入()
 				t.AssertNil(err)
 			}
 		}
@@ -179,14 +179,14 @@ PRIMARY KEY (id)
 		user := User{
 			Name: fmt.Sprintf(`name_%d`, i),
 		}
-		lastInsertId, err := db.Model(user).Data(user).OmitEmpty().InsertAndGetId()
+		lastInsertId, err := db.X创建Model对象(user).X设置数据(user).X过滤空值().X插入并取ID()
 		gtest.AssertNil(err)
 		// Detail.
 		userDetail := UserDetail{
 			Uid:     int(lastInsertId),
 			Address: fmt.Sprintf(`address_%d`, lastInsertId),
 		}
-		_, err = db.Model(userDetail).Data(userDetail).Insert()
+		_, err = db.X创建Model对象(userDetail).X设置数据(userDetail).X插入()
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
@@ -194,17 +194,17 @@ PRIMARY KEY (id)
 				Uid:   int(lastInsertId),
 				Score: j,
 			}
-			_, err = db.Model(userScore).Data(userScore).Insert()
+			_, err = db.X创建Model对象(userScore).X设置数据(userScore).X插入()
 			gtest.AssertNil(err)
 		}
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.With(User{}).
-			With(User{}.UserDetail).
-			With(User{}.UserScores).
-			Where("id", 3).
-			Scan(&user)
+		err := db.X关联对象(User{}).
+			X关联对象(User{}.UserDetail).
+			X关联对象(User{}.UserScores).
+			X条件("id", 3).
+			X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -218,11 +218,11 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.With(user).
-			With(user.UserDetail).
-			With(user.UserScores).
-			Where("id", 4).
-			Scan(&user)
+		err := db.X关联对象(user).
+			X关联对象(user.UserDetail).
+			X关联对象(user.UserScores).
+			X条件("id", 4).
+			X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -236,11 +236,11 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.With(User{}).
-			With(UserDetail{}).
-			With(UserScore{}).
-			Where("id", 4).
-			Scan(&user)
+		err := db.X关联对象(User{}).
+			X关联对象(UserDetail{}).
+			X关联对象(UserScore{}).
+			X条件("id", 4).
+			X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -255,10 +255,10 @@ PRIMARY KEY (id)
 			// 带有部分属性：UserDetail.. md5:5d4187f92cc37f3c
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.With(user).
-			With(user.UserDetail).
-			Where("id", 4).
-			Scan(&user)
+		err := db.X关联对象(user).
+			X关联对象(user.UserDetail).
+			X条件("id", 4).
+			X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -269,10 +269,10 @@ PRIMARY KEY (id)
 		// 配置部分属性：UserScores。 md5:c8e42122566fe2d2
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.With(user).
-			With(user.UserScores).
-			Where("id", 4).
-			Scan(&user)
+		err := db.X关联对象(user).
+			X关联对象(user.UserScores).
+			X条件("id", 4).
+			X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.Assert(user.UserDetail, nil)
@@ -290,7 +290,7 @@ func Test_Table_Relation_With(t *testing.T) {
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -301,7 +301,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -312,7 +312,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -349,20 +349,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -372,11 +372,11 @@ PRIMARY KEY (id)
 
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
-		err := db.With(User{}).
-			With(User{}.UserDetail).
-			With(User{}.UserScores).
-			Where("id", []int{3, 4}).
-			Scan(&users)
+		err := db.X关联对象(User{}).
+			X关联对象(User{}.UserDetail).
+			X关联对象(User{}.UserScores).
+			X条件("id", []int{3, 4}).
+			X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -403,11 +403,11 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		err := db.With(User{}).
-			With(User{}.UserDetail).
-			With(User{}.UserScores).
-			Where("id", []int{3, 4}).
-			Scan(&users)
+		err := db.X关联对象(User{}).
+			X关联对象(User{}.UserDetail).
+			X关联对象(User{}.UserScores).
+			X条件("id", []int{3, 4}).
+			X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -435,10 +435,10 @@ PRIMARY KEY (id)
 			// 带有部分属性：UserDetail.. md5:5d4187f92cc37f3c
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
-		err := db.With(User{}).
-			With(User{}.UserDetail).
-			Where("id", []int{3, 4}).
-			Scan(&users)
+		err := db.X关联对象(User{}).
+			X关联对象(User{}.UserDetail).
+			X条件("id", []int{3, 4}).
+			X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -458,10 +458,10 @@ PRIMARY KEY (id)
 		// 配置部分属性：UserScores。 md5:c8e42122566fe2d2
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
-		err := db.With(User{}).
-			With(User{}.UserScores).
-			Where("id", []int{3, 4}).
-			Scan(&users)
+		err := db.X关联对象(User{}).
+			X关联对象(User{}.UserScores).
+			X条件("id", []int{3, 4}).
+			X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -490,7 +490,7 @@ func Test_Table_Relation_WithAll(t *testing.T) {
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -501,7 +501,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -512,7 +512,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -549,20 +549,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -571,7 +571,7 @@ PRIMARY KEY (id)
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 3).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -585,7 +585,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -605,7 +605,7 @@ func Test_Table_Relation_WithAll_List(t *testing.T) {
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -616,7 +616,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -627,7 +627,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -664,20 +664,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -686,7 +686,7 @@ PRIMARY KEY (id)
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
-		err := db.Model(tableUser).WithAll().Where("id", []int{3, 4}).Scan(&users)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", []int{3, 4}).X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -713,7 +713,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		err := db.Model(tableUser).WithAll().Where("id", []int{3, 4}).Scan(&users)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", []int{3, 4}).X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -746,7 +746,7 @@ func Test_Table_Relation_WithAllCondition_List(t *testing.T) {
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -757,7 +757,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -768,7 +768,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -805,20 +805,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -826,12 +826,12 @@ PRIMARY KEY (id)
 		}
 	}
 
-	db.SetDebug(true)
-	defer db.SetDebug(false)
+	db.X设置调试模式(true)
+	defer db.X设置调试模式(false)
 
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
-		err := db.Model(tableUser).WithAll().Where("id", []int{3, 4}).Scan(&users)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", []int{3, 4}).X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -850,7 +850,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		err := db.Model(tableUser).WithAll().Where("id", []int{3, 4}).Scan(&users)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", []int{3, 4}).X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 3)
@@ -882,7 +882,7 @@ func Test_Table_Relation_WithAll_Embedded_With_SelfMaintained_Attributes(t *test
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -893,7 +893,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -904,7 +904,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -941,20 +941,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -963,7 +963,7 @@ PRIMARY KEY (id)
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 3).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -977,7 +977,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -997,7 +997,7 @@ func Test_Table_Relation_WithAll_Embedded_Without_SelfMaintained_Attributes(t *t
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -1008,7 +1008,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -1019,7 +1019,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -1061,32 +1061,32 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
 			gtest.AssertNil(err)
 		}
 	}
-	db.SetDebug(true)
-	defer db.SetDebug(false)
+	db.X设置调试模式(true)
+	defer db.X设置调试模式(false)
 
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 3).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -1100,7 +1100,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -1120,7 +1120,7 @@ func Test_Table_Relation_WithAll_Embedded_WithoutMeta(t *testing.T) {
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -1131,7 +1131,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -1142,7 +1142,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -1180,20 +1180,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -1202,7 +1202,7 @@ PRIMARY KEY (id)
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 3).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -1216,7 +1216,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -1236,7 +1236,7 @@ func Test_Table_Relation_WithAll_AttributeStructAlsoHasWithTag(t *testing.T) {
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -1247,7 +1247,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -1258,7 +1258,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -1295,20 +1295,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -1318,7 +1318,7 @@ PRIMARY KEY (id)
 
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 3).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -1332,7 +1332,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -1352,7 +1352,7 @@ func Test_Table_Relation_WithAll_AttributeStructAlsoHasWithTag_MoreDeep(t *testi
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -1363,7 +1363,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -1374,7 +1374,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -1435,20 +1435,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -1458,7 +1458,7 @@ PRIMARY KEY (id)
 
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.Model(tableUser).WithAll().Where("id", 3).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 3).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -1475,7 +1475,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -1498,7 +1498,7 @@ func Test_Table_Relation_With_AttributeStructAlsoHasWithTag_MoreDeep(t *testing.
 		tableUserDetail = "user_detail"
 		tableUserScores = "user_scores"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -1509,7 +1509,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 uid int(10) unsigned NOT NULL AUTO_INCREMENT,
 address varchar(45) NOT NULL,
@@ -1520,7 +1520,7 @@ PRIMARY KEY (uid)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 uid int(10) unsigned NOT NULL,
@@ -1581,20 +1581,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"uid":     i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"uid":   i,
 				"score": j,
 			})
@@ -1604,7 +1604,7 @@ PRIMARY KEY (id)
 
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.Model(tableUser).With(UserDetail{}, UserDetail2{}, UserDetail3{}, UserScores{}).Where("id", 3).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联对象(UserDetail{}, UserDetail2{}, UserDetail3{}, UserScores{}).X条件("id", 3).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 3)
 		t.AssertNE(user.UserDetail, nil)
@@ -1621,7 +1621,7 @@ PRIMARY KEY (id)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).With(UserDetail{}, UserDetail2{}, UserDetail3{}, UserScores{}).Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联对象(UserDetail{}, UserDetail2{}, UserDetail3{}, UserScores{}).X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 4)
 		t.AssertNE(user.UserDetail, nil)
@@ -1644,8 +1644,8 @@ func Test_Table_Relation_With_MultipleDepends1(t *testing.T) {
 		dropTable("table_b")
 		dropTable("table_c")
 	}()
-	for _, v := range gstr.SplitAndTrim(gfile.GetContents(gtest.DataPath("with_multiple_depends.sql")), ";") {
-		if _, err := db.Exec(ctx, v); err != nil {
+	for _, v := range gstr.X分割并忽略空值(gfile.X读文本(gtest.DataPath("with_multiple_depends.sql")), ";") {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -1669,13 +1669,13 @@ func Test_Table_Relation_With_MultipleDepends1(t *testing.T) {
 		TableB     *TableB `orm:"with:table_a_id=id" json:"table_b"`
 	}
 
-	db.SetDebug(true)
-	defer db.SetDebug(false)
+	db.X设置调试模式(true)
+	defer db.X设置调试模式(false)
 
 	// Struct.
 	gtest.C(t, func(t *gtest.T) {
 		var tableA *TableA
-		err := db.Model("table_a").WithAll().Scan(&tableA)
+		err := db.X创建Model对象("table_a").X关联全部对象().X查询到结构体指针(&tableA)
 		// g.Dump(tableA)
 		t.AssertNil(err)
 		t.AssertNE(tableA, nil)
@@ -1691,7 +1691,7 @@ func Test_Table_Relation_With_MultipleDepends1(t *testing.T) {
 	// Structs
 	gtest.C(t, func(t *gtest.T) {
 		var tableA []*TableA
-		err := db.Model("table_a").WithAll().OrderAsc("id").Scan(&tableA)
+		err := db.X创建Model对象("table_a").X关联全部对象().X排序ASC("id").X查询到结构体指针(&tableA)
 		// g.Dump(tableA)
 		t.AssertNil(err)
 		t.Assert(len(tableA), 2)
@@ -1716,8 +1716,8 @@ func Test_Table_Relation_With_MultipleDepends2(t *testing.T) {
 		dropTable("table_b")
 		dropTable("table_c")
 	}()
-	for _, v := range gstr.SplitAndTrim(gfile.GetContents(gtest.DataPath("with_multiple_depends.sql")), ";") {
-		if _, err := db.Exec(ctx, v); err != nil {
+	for _, v := range gstr.X分割并忽略空值(gfile.X读文本(gtest.DataPath("with_multiple_depends.sql")), ";") {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -1741,13 +1741,13 @@ func Test_Table_Relation_With_MultipleDepends2(t *testing.T) {
 		TableB     []*TableB `orm:"with:table_a_id=id" json:"table_b"`
 	}
 
-	db.SetDebug(true)
-	defer db.SetDebug(false)
+	db.X设置调试模式(true)
+	defer db.X设置调试模式(false)
 
 	// Struct.
 	gtest.C(t, func(t *gtest.T) {
 		var tableA *TableA
-		err := db.Model("table_a").WithAll().Scan(&tableA)
+		err := db.X创建Model对象("table_a").X关联全部对象().X查询到结构体指针(&tableA)
 		// g.Dump(tableA)
 		t.AssertNil(err)
 		t.AssertNE(tableA, nil)
@@ -1770,7 +1770,7 @@ func Test_Table_Relation_With_MultipleDepends2(t *testing.T) {
 	// Structs
 	gtest.C(t, func(t *gtest.T) {
 		var tableA []*TableA
-		err := db.Model("table_a").WithAll().OrderAsc("id").Scan(&tableA)
+		err := db.X创建Model对象("table_a").X关联全部对象().X排序ASC("id").X查询到结构体指针(&tableA)
 		// g.Dump(tableA)
 		t.AssertNil(err)
 		t.Assert(len(tableA), 2)
@@ -1803,8 +1803,8 @@ func Test_Table_Relation_With_MultipleDepends_Embedded(t *testing.T) {
 		dropTable("table_b")
 		dropTable("table_c")
 	}()
-	for _, v := range gstr.SplitAndTrim(gfile.GetContents(gtest.DataPath("with_multiple_depends.sql")), ";") {
-		if _, err := db.Exec(ctx, v); err != nil {
+	for _, v := range gstr.X分割并忽略空值(gfile.X读文本(gtest.DataPath("with_multiple_depends.sql")), ";") {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -1828,13 +1828,13 @@ func Test_Table_Relation_With_MultipleDepends_Embedded(t *testing.T) {
 		*TableB    `orm:"with:table_a_id=id" json:"table_b"`
 	}
 
-	db.SetDebug(true)
-	defer db.SetDebug(false)
+	db.X设置调试模式(true)
+	defer db.X设置调试模式(false)
 
 	// Struct.
 	gtest.C(t, func(t *gtest.T) {
 		var tableA *TableA
-		err := db.Model("table_a").WithAll().Scan(&tableA)
+		err := db.X创建Model对象("table_a").X关联全部对象().X查询到结构体指针(&tableA)
 		// g.Dump(tableA)
 		t.AssertNil(err)
 		t.AssertNE(tableA, nil)
@@ -1850,7 +1850,7 @@ func Test_Table_Relation_With_MultipleDepends_Embedded(t *testing.T) {
 	// Structs
 	gtest.C(t, func(t *gtest.T) {
 		var tableA []*TableA
-		err := db.Model("table_a").WithAll().OrderAsc("id").Scan(&tableA)
+		err := db.X创建Model对象("table_a").X关联全部对象().X排序ASC("id").X查询到结构体指针(&tableA)
 		// g.Dump(tableA)
 		t.AssertNil(err)
 		t.Assert(len(tableA), 2)
@@ -1875,7 +1875,7 @@ func Test_Table_Relation_WithAll_Embedded_Meta_NameMatchingRule(t *testing.T) {
 		tableUserDetail = "user_detail100"
 		tableUserScores = "user_scores100"
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 name varchar(45) NOT NULL,
@@ -1886,7 +1886,7 @@ PRIMARY KEY (id)
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 user_id int(10) unsigned NOT NULL,
 address varchar(45) NOT NULL,
@@ -1897,7 +1897,7 @@ PRIMARY KEY (user_id)
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 id int(10) unsigned NOT NULL AUTO_INCREMENT,
 user_id int(10) unsigned NOT NULL,
@@ -1939,20 +1939,20 @@ PRIMARY KEY (id)
 	var err error
 	for i := 1; i <= 5; i++ {
 		// User.
-		_, err = db.Insert(ctx, tableUser, g.Map{
+		_, err = db.X插入(ctx, tableUser, g.Map{
 			"id":   i,
 			"name": fmt.Sprintf(`name_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Detail.
-		_, err = db.Insert(ctx, tableUserDetail, g.Map{
+		_, err = db.X插入(ctx, tableUserDetail, g.Map{
 			"user_id": i,
 			"address": fmt.Sprintf(`address_%d`, i),
 		})
 		gtest.AssertNil(err)
 		// Scores.
 		for j := 1; j <= 5; j++ {
-			_, err = db.Insert(ctx, tableUserScores, g.Map{
+			_, err = db.X插入(ctx, tableUserScores, g.Map{
 				"user_id": i,
 				"score":   j,
 			})
@@ -1976,7 +1976,7 @@ PRIMARY KEY (id)
 	// md5:1ebf51134a7a3187
 	gtest.C(t, func(t *gtest.T) {
 		var user User
-		err := db.Model(tableUser).WithAll().Where("id", 4).Scan(&user)
+		err := db.X创建Model对象(tableUser).X关联全部对象().X条件("id", 4).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.ID, 4)
 		t.AssertNE(user.UserDetail, nil)

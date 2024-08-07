@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcron
+package 定时cron类
 
 import (
 	"context"
@@ -14,12 +14,12 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gtimer"
-	"github.com/gogf/gf/v2/util/gconv"
+	gtype "github.com/888go/goframe/container/gtype"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	glog "github.com/888go/goframe/os/glog"
+	gtimer "github.com/888go/goframe/os/gtimer"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // JobFunc 是在cron中定时被调用的作业函数。 md5:476072dbc1ca96ff
@@ -52,7 +52,7 @@ type doAddEntryInput struct {
 func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	if in.Name != "" {
 		if c.Search(in.Name) != nil {
-			return nil, gerror.NewCodef(
+			return nil, gerror.X创建错误码并格式化(
 				gcode.CodeInvalidOperation,
 				`duplicated cron job name "%s", already exists`,
 				in.Name,
@@ -82,7 +82,7 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 	// 它在添加到计时器时不能开始执行。
 	// 应该在将条目添加到Cron条目映射后开始运行，以防止在添加过程中（此时条目信息可能不完整）任务运行，从而可能导致恐慌。
 	// md5:e2b503aef8166c84
-	entry.timerEntry = gtimer.AddEntry(
+	entry.timerEntry = gtimer.X加入详细循环任务(
 		in.Ctx,
 		time.Second,
 		entry.checkAndRun,
@@ -90,51 +90,51 @@ func (c *Cron) doAddEntry(in doAddEntryInput) (*Entry, error) {
 		-1,
 		gtimer.StatusStopped,
 	)
-	c.entries.Set(entry.Name, entry)
-	entry.timerEntry.Start()
+	c.entries.X设置值(entry.Name, entry)
+	entry.timerEntry.X开始工作()
 	return entry, nil
 }
 
 // IsSingleton 判断这个条目是否是定时单例任务。 md5:171967c731b60f88
 func (e *Entry) IsSingleton() bool {
-	return e.timerEntry.IsSingleton()
+	return e.timerEntry.X是否单例模式()
 }
 
 // SetSingleton 设置以单例模式运行的条目。 md5:6c81a3a09d0ef0b1
 func (e *Entry) SetSingleton(enabled bool) {
-	e.timerEntry.SetSingleton(enabled)
+	e.timerEntry.X设置单例模式(enabled)
 }
 
 // SetTimes 设置条目可以运行的时间。 md5:663af054d5aab5e9
 func (e *Entry) SetTimes(times int) {
-	e.times.Set(times)
-	e.infinite.Set(false)
+	e.times.X设置值(times)
+	e.infinite.X设置值(false)
 }
 
 // Status 返回条目的状态。 md5:6a9d3438dc575881
 func (e *Entry) Status() int {
-	return e.timerEntry.Status()
+	return e.timerEntry.X取任务状态()
 }
 
 // SetStatus 设置条目的状态。 md5:ea0ecb4171f3f017
 func (e *Entry) SetStatus(status int) int {
-	return e.timerEntry.SetStatus(status)
+	return e.timerEntry.X设置任务状态(status)
 }
 
 // Start 开始运行入口函数。 md5:aa729d73eb626ca1
 func (e *Entry) Start() {
-	e.timerEntry.Start()
+	e.timerEntry.X开始工作()
 }
 
 // Stop 停止运行条目。 md5:06d53148d6536ce9
 func (e *Entry) Stop() {
-	e.timerEntry.Stop()
+	e.timerEntry.X暂停工作()
 }
 
 // Close 停止并从 cron 中移除条目。 md5:a2a5eee9228cd918
 func (e *Entry) Close() {
-	e.cron.entries.Remove(e.Name)
-	e.timerEntry.Close()
+	e.cron.entries.X删除(e.Name)
+	e.timerEntry.X关闭任务()
 }
 
 // checkAndRun是核心定时任务检查逻辑。
@@ -145,7 +145,7 @@ func (e *Entry) checkAndRun(ctx context.Context) {
 	if !e.schedule.checkMeetAndUpdateLastSeconds(ctx, currentTime) {
 		return
 	}
-	switch e.cron.status.Val() {
+	switch e.cron.status.X取值() {
 	case StatusStopped:
 		return
 
@@ -164,16 +164,16 @@ func (e *Entry) checkAndRun(ctx context.Context) {
 			} else {
 				e.logDebugf(ctx, `cron job "%s" ends`, e.getJobNameWithPattern())
 			}
-			if e.timerEntry.Status() == StatusClosed {
+			if e.timerEntry.X取任务状态() == StatusClosed {
 				e.Close()
 			}
 		}()
 
 		// Running times check.
-		if !e.infinite.Val() {
+		if !e.infinite.X取值() {
 			times := e.times.Add(-1)
 			if times <= 0 {
-				if e.timerEntry.SetStatus(StatusClosed) == StatusClosed || times < 0 {
+				if e.timerEntry.X设置任务状态(StatusClosed) == StatusClosed || times < 0 {
 					return
 				}
 			}
@@ -189,14 +189,14 @@ func (e *Entry) getJobNameWithPattern() string {
 
 func (e *Entry) logDebugf(ctx context.Context, format string, v ...interface{}) {
 	if logger := e.cron.GetLogger(); logger != nil {
-		logger.Debugf(ctx, format, v...)
+		logger.X输出并格式化DEBU(ctx, format, v...)
 	}
 }
 
 func (e *Entry) logErrorf(ctx context.Context, format string, v ...interface{}) {
 	logger := e.cron.GetLogger()
 	if logger == nil {
-		logger = glog.DefaultLogger()
+		logger = glog.X取默认日志类()
 	}
-	logger.Errorf(ctx, format, v...)
+	logger.X输出并格式化ERR(ctx, format, v...)
 }

@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RulePassword2 实现了 `password2` 规则：
@@ -35,10 +35,10 @@ func (r RulePassword2) Message() string {
 
 func (r RulePassword2) Run(in RunInput) error {
 	var value = in.Value.String()
-	if gregex.IsMatchString(`^[\w\S]{6,18}$`, value) &&
-		gregex.IsMatchString(`[a-z]+`, value) &&
-		gregex.IsMatchString(`[A-Z]+`, value) &&
-		gregex.IsMatchString(`\d+`, value) {
+	if gregex.X是否匹配文本(`^[\w\S]{6,18}$`, value) &&
+		gregex.X是否匹配文本(`[a-z]+`, value) &&
+		gregex.X是否匹配文本(`[A-Z]+`, value) &&
+		gregex.X是否匹配文本(`\d+`, value) {
 		return nil
 	}
 	return errors.New(in.Message)

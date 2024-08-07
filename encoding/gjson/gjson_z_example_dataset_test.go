@@ -5,24 +5,24 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gjson_test
+package json类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
+	gjson "github.com/888go/goframe/encoding/gjson"
 )
 
 func ExampleJson_Set_DataSetCreate1() {
-	j := gjson.New(nil)
-	j.Set("name", "John")
-	j.Set("score", 99.5)
+	j := gjson.X创建(nil)
+	j.X设置值("name", "John")
+	j.X设置值("score", 99.5)
 	fmt.Printf(
 		"Name: %s, Score: %v\n",
-		j.Get("name").String(),
-		j.Get("score").Float32(),
+		j.X取值("name").String(),
+		j.X取值("score").X取小数32位(),
 	)
-	fmt.Println(j.MustToJsonString())
+	fmt.Println(j.X取json文本PANI())
 
 	// Output:
 	// Name: John, Score: 99.5
@@ -30,12 +30,12 @@ func ExampleJson_Set_DataSetCreate1() {
 }
 
 func ExampleJson_Set_DataSetCreate2() {
-	j := gjson.New(nil)
+	j := gjson.X创建(nil)
 	for i := 0; i < 5; i++ {
-		j.Set(fmt.Sprintf(`%d.id`, i), i)
-		j.Set(fmt.Sprintf(`%d.name`, i), fmt.Sprintf(`student-%d`, i))
+		j.X设置值(fmt.Sprintf(`%d.id`, i), i)
+		j.X设置值(fmt.Sprintf(`%d.name`, i), fmt.Sprintf(`student-%d`, i))
 	}
-	fmt.Println(j.MustToJsonString())
+	fmt.Println(j.X取json文本PANI())
 
 	// Output:
 	// [{"id":0,"name":"student-0"},{"id":1,"name":"student-1"},{"id":2,"name":"student-2"},{"id":3,"name":"student-3"},{"id":4,"name":"student-4"}]
@@ -52,12 +52,12 @@ func ExampleJson_DataSetRuntimeEdit() {
             ]
         }
     }`
-	if j, err := gjson.DecodeToJson(data); err != nil {
+	if j, err := gjson.X解码到json(data); err != nil {
 		panic(err)
 	} else {
-		j.Set("users.list.1.score", 100)
-		fmt.Println("John Score:", j.Get("users.list.1.score").Float32())
-		fmt.Println(j.MustToJsonString())
+		j.X设置值("users.list.1.score", 100)
+		fmt.Println("John Score:", j.X取值("users.list.1.score").X取小数32位())
+		fmt.Println(j.X取json文本PANI())
 	}
 	// Output:
 	// John Score: 100

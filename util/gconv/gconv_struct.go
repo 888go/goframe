@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/util/gtag"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/util/gtag"
 )
 
 // 结构体将参数的键值对映射到对应结构对象的属性。
@@ -48,7 +48,7 @@ func doStruct(
 		return nil
 	}
 	if pointer == nil {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "object pointer cannot be nil")
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "object pointer cannot be nil")
 	}
 
 		// JSON内容转换。 md5:8a29b5a7aa430047
@@ -63,10 +63,10 @@ func doStruct(
 	defer func() {
 				// 捕获panic，尤其是反射操作引发的panic。 md5:dd183bf8028f513a
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && gerror.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception)
+				err = gerror.X创建错误码并跳过堆栈与格式化(gcode.CodeInternalPanic, 1, "%+v", exception)
 			}
 		}
 	}()
@@ -91,7 +91,7 @@ func doStruct(
 		pointerReflectValue = reflect.ValueOf(pointer)
 		pointerReflectKind = pointerReflectValue.Kind()
 		if pointerReflectKind != reflect.Ptr {
-			return gerror.NewCodef(
+			return gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				"destination pointer should be type of '*struct', but got '%v'",
 				pointerReflectKind,
@@ -99,7 +99,7 @@ func doStruct(
 		}
 				// 使用 IsNil 检查 reflect.Ptr 类型的变量是可行的。 md5:0ba920ba8a6a19cf
 		if !pointerReflectValue.IsValid() || pointerReflectValue.IsNil() {
-			return gerror.NewCode(
+			return gerror.X创建错误码(
 				gcode.CodeInvalidParameter,
 				"destination pointer cannot be nil",
 			)
@@ -155,7 +155,7 @@ func doStruct(
 	// md5:96735ea71b035d62
 	paramsMap := doMapConvert(paramsInterface, recursiveTypeAuto, true)
 	if paramsMap == nil {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`convert params from "%#v" to "map[string]interface{}" failed`,
 			params,
@@ -369,7 +369,7 @@ func bindVarToStructAttrWithFieldIndex(
 	defer func() {
 		if exception := recover(); exception != nil {
 			if err = bindVarToReflectValue(structFieldValue, value, paramKeyToAttrMap); err != nil {
-				err = gerror.Wrapf(err, `error binding value to attribute "%s"`, attrName)
+				err = gerror.X多层错误并格式化(err, `error binding value to attribute "%s"`, attrName)
 			}
 		}
 	}()
@@ -489,7 +489,7 @@ func bindVarToReflectValueWithInterfaceCheck(reflectValue reflect.Value, value i
 		}
 	}
 	if v, ok := pointer.(iSet); ok {
-		v.Set(value)
+		v.X设置值(value)
 		return ok, nil
 	}
 	return false, nil
@@ -514,7 +514,7 @@ func bindVarToReflectValue(
 	case reflect.Slice, reflect.Array, reflect.Ptr, reflect.Interface:
 		if !structFieldValue.IsNil() {
 			if v, ok := structFieldValue.Interface().(iSet); ok {
-				v.Set(value)
+				v.X设置值(value)
 				return nil
 			}
 		}
@@ -661,7 +661,7 @@ func bindVarToReflectValue(
 	default:
 		defer func() {
 			if exception := recover(); exception != nil {
-				err = gerror.NewCodef(
+				err = gerror.X创建错误码并格式化(
 					gcode.CodeInternalPanic,
 					`cannot convert value "%+v" to type "%s":%+v`,
 					value,

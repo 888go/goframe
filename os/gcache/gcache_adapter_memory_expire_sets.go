@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcache
+package 缓存类
 
 import (
 	"sync"
 
-	"github.com/gogf/gf/v2/container/gset"
+	gset "github.com/888go/goframe/container/gset"
 )
 
 type adapterMemoryExpireSets struct {
@@ -24,7 +24,7 @@ func newAdapterMemoryExpireSets() *adapterMemoryExpireSets {
 	}
 }
 
-func (d *adapterMemoryExpireSets) Get(key int64) (result *gset.Set) {
+func (d *adapterMemoryExpireSets) X取值(key int64) (result *gset.Set) {
 	d.mu.RLock()
 	result = d.expireSets[key]
 	d.mu.RUnlock()
@@ -32,14 +32,14 @@ func (d *adapterMemoryExpireSets) Get(key int64) (result *gset.Set) {
 }
 
 func (d *adapterMemoryExpireSets) GetOrNew(key int64) (result *gset.Set) {
-	if result = d.Get(key); result != nil {
+	if result = d.X取值(key); result != nil {
 		return
 	}
 	d.mu.Lock()
 	if es, ok := d.expireSets[key]; ok {
 		result = es
 	} else {
-		result = gset.New(true)
+		result = gset.X创建(true)
 		d.expireSets[key] = result
 	}
 	d.mu.Unlock()

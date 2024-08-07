@@ -4,22 +4,22 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gtree_test
+package 树形类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gtree"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gtree "github.com/888go/goframe/container/gtree"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func ExampleRedBlackTree_SetComparator() {
 	var tree gtree.RedBlackTree
-	tree.SetComparator(gutil.ComparatorString)
+	tree.SetComparator(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -31,9 +31,9 @@ func ExampleRedBlackTree_SetComparator() {
 }
 
 func ExampleRedBlackTree_Clone() {
-	b := gtree.NewRedBlackTree(gutil.ComparatorString)
+	b := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		b.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		b.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	tree := b.Clone()
@@ -47,9 +47,9 @@ func ExampleRedBlackTree_Clone() {
 }
 
 func ExampleRedBlackTree_Set() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -61,7 +61,7 @@ func ExampleRedBlackTree_Set() {
 }
 
 func ExampleRedBlackTree_Sets() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 
 	tree.Sets(map[interface{}]interface{}{
 		"key1": "val1",
@@ -77,9 +77,9 @@ func ExampleRedBlackTree_Sets() {
 }
 
 func ExampleRedBlackTree_Get() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Get("key1"))
@@ -91,9 +91,9 @@ func ExampleRedBlackTree_Get() {
 }
 
 func ExampleRedBlackTree_GetOrSet() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.GetOrSet("key1", "newVal1"))
@@ -105,9 +105,9 @@ func ExampleRedBlackTree_GetOrSet() {
 }
 
 func ExampleRedBlackTree_GetOrSetFunc() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.GetOrSetFunc("key1", func() interface{} {
@@ -123,9 +123,9 @@ func ExampleRedBlackTree_GetOrSetFunc() {
 }
 
 func ExampleRedBlackTree_GetOrSetFuncLock() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.GetOrSetFuncLock("key1", func() interface{} {
@@ -141,9 +141,9 @@ func ExampleRedBlackTree_GetOrSetFuncLock() {
 }
 
 func ExampleRedBlackTree_GetVar() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.GetVar("key1").String())
@@ -153,9 +153,9 @@ func ExampleRedBlackTree_GetVar() {
 }
 
 func ExampleRedBlackTree_GetVarOrSet() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSet("key1", "newVal1"))
@@ -167,9 +167,9 @@ func ExampleRedBlackTree_GetVarOrSet() {
 }
 
 func ExampleRedBlackTree_GetVarOrSetFunc() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSetFunc("key1", func() interface{} {
@@ -185,9 +185,9 @@ func ExampleRedBlackTree_GetVarOrSetFunc() {
 }
 
 func ExampleRedBlackTree_GetVarOrSetFuncLock() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.GetVarOrSetFuncLock("key1", func() interface{} {
@@ -203,9 +203,9 @@ func ExampleRedBlackTree_GetVarOrSetFuncLock() {
 }
 
 func ExampleRedBlackTree_SetIfNotExist() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExist("key1", "newVal1"))
@@ -217,9 +217,9 @@ func ExampleRedBlackTree_SetIfNotExist() {
 }
 
 func ExampleRedBlackTree_SetIfNotExistFunc() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExistFunc("key1", func() interface{} {
@@ -235,9 +235,9 @@ func ExampleRedBlackTree_SetIfNotExistFunc() {
 }
 
 func ExampleRedBlackTree_SetIfNotExistFuncLock() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.SetIfNotExistFuncLock("key1", func() interface{} {
@@ -253,9 +253,9 @@ func ExampleRedBlackTree_SetIfNotExistFuncLock() {
 }
 
 func ExampleRedBlackTree_Contains() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Contains("key1"))
@@ -267,9 +267,9 @@ func ExampleRedBlackTree_Contains() {
 }
 
 func ExampleRedBlackTree_Remove() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Remove("key1"))
@@ -283,9 +283,9 @@ func ExampleRedBlackTree_Remove() {
 }
 
 func ExampleRedBlackTree_Removes() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	removeKeys := make([]interface{}, 2)
@@ -301,12 +301,12 @@ func ExampleRedBlackTree_Removes() {
 }
 
 func ExampleRedBlackTree_IsEmpty() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 
 	fmt.Println(tree.IsEmpty())
 
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.IsEmpty())
@@ -317,12 +317,12 @@ func ExampleRedBlackTree_IsEmpty() {
 }
 
 func ExampleRedBlackTree_Size() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 
 	fmt.Println(tree.Size())
 
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Size())
@@ -333,9 +333,9 @@ func ExampleRedBlackTree_Size() {
 }
 
 func ExampleRedBlackTree_Keys() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 6; i > 0; i-- {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Keys())
@@ -345,9 +345,9 @@ func ExampleRedBlackTree_Keys() {
 }
 
 func ExampleRedBlackTree_Values() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 6; i > 0; i-- {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Values())
@@ -357,9 +357,9 @@ func ExampleRedBlackTree_Values() {
 }
 
 func ExampleRedBlackTree_Map() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -369,25 +369,25 @@ func ExampleRedBlackTree_Map() {
 }
 
 func ExampleRedBlackTree_MapStrAny() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set(1000+i, "val"+gconv.String(i))
+		tree.X设置值(1000+i, "val"+gconv.String(i))
 	}
 
-	fmt.Println(tree.MapStrAny())
+	fmt.Println(tree.X取MapStrAny())
 
 	// Output:
 	// map[1000:val0 1001:val1 1002:val2 1003:val3 1004:val4 1005:val5]
 }
 
 func ExampleRedBlackTree_Left() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorInt)
+	tree := gtree.NewRedBlackTree(gutil.X比较整数)
 	for i := 1; i < 100; i++ {
-		tree.Set(i, i)
+		tree.X设置值(i, i)
 	}
 	fmt.Println(tree.Left().Key, tree.Left().Value)
 
-	emptyTree := gtree.NewRedBlackTree(gutil.ComparatorInt)
+	emptyTree := gtree.NewRedBlackTree(gutil.X比较整数)
 	fmt.Println(emptyTree.Left())
 
 	// Output:
@@ -396,13 +396,13 @@ func ExampleRedBlackTree_Left() {
 }
 
 func ExampleRedBlackTree_Right() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorInt)
+	tree := gtree.NewRedBlackTree(gutil.X比较整数)
 	for i := 1; i < 100; i++ {
-		tree.Set(i, i)
+		tree.X设置值(i, i)
 	}
 	fmt.Println(tree.Right().Key, tree.Right().Value)
 
-	emptyTree := gtree.NewRedBlackTree(gutil.ComparatorInt)
+	emptyTree := gtree.NewRedBlackTree(gutil.X比较整数)
 	fmt.Println(emptyTree.Left())
 
 	// Output:
@@ -411,10 +411,10 @@ func ExampleRedBlackTree_Right() {
 }
 
 func ExampleRedBlackTree_Floor() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorInt)
+	tree := gtree.NewRedBlackTree(gutil.X比较整数)
 	for i := 1; i < 100; i++ {
 		if i != 50 {
-			tree.Set(i, i)
+			tree.X设置值(i, i)
 		}
 	}
 
@@ -445,10 +445,10 @@ func ExampleRedBlackTree_Floor() {
 }
 
 func ExampleRedBlackTree_Ceiling() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorInt)
+	tree := gtree.NewRedBlackTree(gutil.X比较整数)
 	for i := 1; i < 100; i++ {
 		if i != 50 {
-			tree.Set(i, i)
+			tree.X设置值(i, i)
 		}
 	}
 
@@ -479,13 +479,13 @@ func ExampleRedBlackTree_Ceiling() {
 }
 
 func ExampleRedBlackTree_Iterator() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	var totalKey, totalValue int
-	tree.Iterator(func(key, value interface{}) bool {
+	tree.X遍历(func(key, value interface{}) bool {
 		totalKey += key.(int)
 		totalValue += value.(int)
 
@@ -505,7 +505,7 @@ func ExampleRedBlackTree_IteratorFrom() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewRedBlackTreeFrom(gutil.ComparatorInt, m)
+	tree := gtree.NewRedBlackTreeFrom(gutil.X比较整数, m)
 
 	tree.IteratorFrom(1, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -521,9 +521,9 @@ func ExampleRedBlackTree_IteratorFrom() {
 }
 
 func ExampleRedBlackTree_IteratorAsc() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	tree.IteratorAsc(func(key, value interface{}) bool {
@@ -549,7 +549,7 @@ func ExampleRedBlackTree_IteratorAscFrom_Normal() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewRedBlackTreeFrom(gutil.ComparatorInt, m)
+	tree := gtree.NewRedBlackTreeFrom(gutil.X比较整数, m)
 
 	tree.IteratorAscFrom(1, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -569,7 +569,7 @@ func ExampleRedBlackTree_IteratorAscFrom_NoExistKey() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewRedBlackTreeFrom(gutil.ComparatorInt, m)
+	tree := gtree.NewRedBlackTreeFrom(gutil.X比较整数, m)
 
 	tree.IteratorAscFrom(0, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -584,7 +584,7 @@ func ExampleRedBlackTree_IteratorAscFrom_NoExistKeyAndMatchFalse() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewRedBlackTreeFrom(gutil.ComparatorInt, m)
+	tree := gtree.NewRedBlackTreeFrom(gutil.X比较整数, m)
 
 	tree.IteratorAscFrom(0, false, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -595,9 +595,9 @@ func ExampleRedBlackTree_IteratorAscFrom_NoExistKeyAndMatchFalse() {
 }
 
 func ExampleRedBlackTree_IteratorDesc() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 10; i++ {
-		tree.Set(i, 10-i)
+		tree.X设置值(i, 10-i)
 	}
 
 	tree.IteratorDesc(func(key, value interface{}) bool {
@@ -623,7 +623,7 @@ func ExampleRedBlackTree_IteratorDescFrom() {
 	for i := 1; i <= 5; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewRedBlackTreeFrom(gutil.ComparatorInt, m)
+	tree := gtree.NewRedBlackTreeFrom(gutil.X比较整数, m)
 
 	tree.IteratorDescFrom(5, true, func(key, value interface{}) bool {
 		fmt.Println("key:", key, ", value:", value)
@@ -639,9 +639,9 @@ func ExampleRedBlackTree_IteratorDescFrom() {
 }
 
 func ExampleRedBlackTree_Clear() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set(1000+i, "val"+gconv.String(i))
+		tree.X设置值(1000+i, "val"+gconv.String(i))
 	}
 	fmt.Println(tree.Size())
 
@@ -654,9 +654,9 @@ func ExampleRedBlackTree_Clear() {
 }
 
 func ExampleRedBlackTree_Replace() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Map())
@@ -677,9 +677,9 @@ func ExampleRedBlackTree_Replace() {
 }
 
 func ExampleRedBlackTree_String() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.String())
@@ -694,9 +694,9 @@ func ExampleRedBlackTree_String() {
 }
 
 func ExampleRedBlackTree_Print() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	tree.Print()
@@ -711,9 +711,9 @@ func ExampleRedBlackTree_Print() {
 }
 
 func ExampleRedBlackTree_Search() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	fmt.Println(tree.Search("key0"))
@@ -725,9 +725,9 @@ func ExampleRedBlackTree_Search() {
 }
 
 func ExampleRedBlackTree_Flip() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 1; i < 6; i++ {
-		tree.Set(i, i*10)
+		tree.X设置值(i, i*10)
 	}
 
 	fmt.Println("Before Flip", tree.Map())
@@ -742,9 +742,9 @@ func ExampleRedBlackTree_Flip() {
 }
 
 func ExampleRedBlackTree_MarshalJSON() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 
 	bytes, err := json.Marshal(tree)
@@ -757,13 +757,13 @@ func ExampleRedBlackTree_MarshalJSON() {
 }
 
 func ExampleRedBlackTree_UnmarshalJSON() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 	for i := 0; i < 6; i++ {
-		tree.Set("key"+gconv.String(i), "val"+gconv.String(i))
+		tree.X设置值("key"+gconv.String(i), "val"+gconv.String(i))
 	}
 	bytes, err := json.Marshal(tree)
 
-	otherTree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	otherTree := gtree.NewRedBlackTree(gutil.X比较文本)
 	err = json.Unmarshal(bytes, &otherTree)
 	if err == nil {
 		fmt.Println(otherTree.Map())
@@ -774,7 +774,7 @@ func ExampleRedBlackTree_UnmarshalJSON() {
 }
 
 func ExampleRedBlackTree_UnmarshalValue() {
-	tree := gtree.NewRedBlackTree(gutil.ComparatorString)
+	tree := gtree.NewRedBlackTree(gutil.X比较文本)
 
 	type User struct {
 		Uid   int

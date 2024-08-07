@@ -6,15 +6,15 @@
 // md5:a9832f33b234e3f3
 
 // Package gfpool 提供可重用的文件指针io池。 md5:994211336c178d55
-package gfpool
+package 文件指针池类
 
 import (
 	"os"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gpool"
-	"github.com/gogf/gf/v2/container/gtype"
+	gmap "github.com/888go/goframe/container/gmap"
+	gpool "github.com/888go/goframe/container/gpool"
+	gtype "github.com/888go/goframe/container/gtype"
 )
 
 // Pool pointer pool.
@@ -38,5 +38,5 @@ type File struct {
 
 var (
 		// 全局文件指针池。 md5:4db4f1674b75c6e1
-	pools = gmap.NewStrAnyMap(true)
+	pools = gmap.X创建StrAny(true)
 )

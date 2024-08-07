@@ -11,7 +11,7 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // RuleRequired 实现了 `required` 规则。
@@ -32,7 +32,7 @@ func (r RuleRequired) Message() string {
 }
 
 func (r RuleRequired) Run(in RunInput) error {
-	if isRequiredEmpty(in.Value.Val()) {
+	if isRequiredEmpty(in.Value.X取值()) {
 		return errors.New(in.Message)
 	}
 	return nil

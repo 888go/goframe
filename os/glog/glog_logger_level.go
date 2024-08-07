@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog
+package 日志类
 
 import (
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // 注意，LEVEL_PANI和LEVEL_FATA级别不用于日志输出，而是用于前缀配置。
@@ -63,43 +63,43 @@ var levelStringMap = map[string]int{
 	"CRITICAL": LEVEL_CRIT,
 }
 
-// SetLevel 设置日志级别。
+// X设置级别 设置日志级别。
 // 注意，`LEVEL_CRIT`、`LEVEL_PANI` 和 `LEVEL_FATA` 级别无法删除，因为它们会自动添加到日志内容中。
 // md5:e488e79c6c4c2e71
-func (l *Logger) SetLevel(level int) {
-	l.config.Level = level | LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA
+func (l *Logger) X设置级别(级别 int) {
+	l.config.Level = 级别 | LEVEL_CRIT | LEVEL_PANI | LEVEL_FATA
 }
 
-// GetLevel 返回日志级别值。 md5:8b5b1f26924bf360
-func (l *Logger) GetLevel() int {
+// X取级别 返回日志级别值。 md5:8b5b1f26924bf360
+func (l *Logger) X取级别() int {
 	return l.config.Level
 }
 
-// SetLevelStr 通过级别字符串设置日志级别。 md5:53cbbdf23584340e
-func (l *Logger) SetLevelStr(levelStr string) error {
-	if level, ok := levelStringMap[strings.ToUpper(levelStr)]; ok {
+// X设置文本级别 通过级别字符串设置日志级别。 md5:53cbbdf23584340e
+func (l *Logger) X设置文本级别(级别 string) error {
+	if level, ok := levelStringMap[strings.ToUpper(级别)]; ok {
 		l.config.Level = level
 	} else {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, `invalid level string: %s`, levelStr)
+		return gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid level string: %s`, 级别)
 	}
 	return nil
 }
 
-// SetLevelPrefix 为指定的日志级别设置前缀字符串。 md5:a2b7a43af150bcb7
-func (l *Logger) SetLevelPrefix(level int, prefix string) {
-	l.config.LevelPrefixes[level] = prefix
+// X设置级别前缀 为指定的日志级别设置前缀字符串。 md5:a2b7a43af150bcb7
+func (l *Logger) X设置级别前缀(级别 int, 前缀 string) {
+	l.config.LevelPrefixes[级别] = 前缀
 }
 
-// SetLevelPrefixes 为记录器设置级别与前缀字符串的映射关系。 md5:a80f5e3de3c222ff
-func (l *Logger) SetLevelPrefixes(prefixes map[int]string) {
-	for k, v := range prefixes {
+// X设置级别前缀Map 为记录器设置级别与前缀字符串的映射关系。 md5:a80f5e3de3c222ff
+func (l *Logger) X设置级别前缀Map(前缀Map map[int]string) {
+	for k, v := range 前缀Map {
 		l.config.LevelPrefixes[k] = v
 	}
 }
 
-// GetLevelPrefix 返回指定级别的前缀字符串。 md5:339b86b4f84d6049
-func (l *Logger) GetLevelPrefix(level int) string {
-	return l.config.LevelPrefixes[level]
+// X取级别前缀 返回指定级别的前缀字符串。 md5:339b86b4f84d6049
+func (l *Logger) X取级别前缀(级别 int) string {
+	return l.config.LevelPrefixes[级别]
 }
 
 // getLevelPrefixWithBrackets 返回指定级别的带有括号的前缀字符串。 md5:a323f3c9d4c0ab4c

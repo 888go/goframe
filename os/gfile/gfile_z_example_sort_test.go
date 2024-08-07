@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/os/gfile"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 func ExampleSortFiles() {
@@ -25,7 +25,7 @@ func ExampleSortFiles() {
 		"/ddd",
 		"/ccc",
 	}
-	sortOut := gfile.SortFiles(files)
+	sortOut := gfile.X排序(files)
 	fmt.Println(sortOut)
 
 	// Output:

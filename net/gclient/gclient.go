@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // gclient 包提供了便捷的 HTTP 客户端功能。 md5:e1b459f6ec089b4e
-package gclient
+package 网页类
 
 import (
 	"crypto/rand"
@@ -16,11 +16,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/net/gsel"
-	"github.com/gogf/gf/v2/net/gsvc"
-	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/888go/goframe"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/net/gsel"
+	"github.com/888go/goframe/net/gsvc"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 // Client 是用于HTTP请求管理的HTTP客户端。 md5:4ad1e09a685144a3
@@ -58,8 +58,8 @@ var (
 	defaultClientAgent = fmt.Sprintf(`GClient %s at %s`, gf.VERSION, hostname)
 )
 
-// New 创建并返回一个新的HTTP客户端对象。 md5:704d6059158b6cda
-func New() *Client {
+// X创建 创建并返回一个新的HTTP客户端对象。 md5:704d6059158b6cda
+func X创建() *Client {
 	c := &Client{
 		Client: http.Client{
 			Transport: &http.Transport{
@@ -77,13 +77,13 @@ func New() *Client {
 	}
 	c.header[httpHeaderUserAgent] = defaultClientAgent
 		// 它默认启用客户端的OpenTelemetry。 md5:d39de17478071c01
-	c.Use(internalMiddlewareObservability, internalMiddlewareDiscovery)
+	c.X中间件(internalMiddlewareObservability, internalMiddlewareDiscovery)
 	return c
 }
 
 // 克隆当前客户端并深拷贝，返回一个新的客户端实例。 md5:6d6f07ba99eeeabe
-func (c *Client) Clone() *Client {
-	newClient := New()
+func (c *Client) X取副本() *Client {
+	newClient := X创建()
 	*newClient = *c
 	if len(c.header) > 0 {
 		newClient.header = make(map[string]string)
@@ -100,19 +100,19 @@ func (c *Client) Clone() *Client {
 	return newClient
 }
 
-// LoadKeyCrt 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。 md5:e31385756c06b0a4
-func LoadKeyCrt(crtFile, keyFile string) (*tls.Config, error) {
-	crtPath, err := gfile.Search(crtFile)
+// X创建TLS配置 根据给定的证书和密钥文件创建并返回一个 TLS 配置对象。 md5:e31385756c06b0a4
+func X创建TLS配置(crt路径, key路径 string) (*tls.Config, error) {
+	crtPath, err := gfile.X查找(crt路径)
 	if err != nil {
 		return nil, err
 	}
-	keyPath, err := gfile.Search(keyFile)
+	keyPath, err := gfile.X查找(key路径)
 	if err != nil {
 		return nil, err
 	}
 	crt, err := tls.LoadX509KeyPair(crtPath, keyPath)
 	if err != nil {
-		err = gerror.Wrapf(err, `tls.LoadX509KeyPair failed for certFile "%s", keyFile "%s"`, crtPath, keyPath)
+		err = gerror.X多层错误并格式化(err, `tls.LoadX509KeyPair failed for certFile "%s", keyFile "%s"`, crtPath, keyPath)
 		return nil, err
 	}
 	tlsConfig := &tls.Config{}

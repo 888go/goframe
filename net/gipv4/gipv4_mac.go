@@ -5,12 +5,12 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gipv4
+package ipv4类
 
 import (
 	"net"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // GetMac 获取并返回当前主机的第一个MAC地址。 md5:59a524347ebb9dcc
@@ -29,7 +29,7 @@ func GetMac() (mac string, err error) {
 func GetMacArray() (macs []string, err error) {
 	netInterfaces, err := net.Interfaces()
 	if err != nil {
-		err = gerror.Wrap(err, `net.Interfaces failed`)
+		err = gerror.X多层错误(err, `net.Interfaces failed`)
 		return nil, err
 	}
 	for _, netInterface := range netInterfaces {

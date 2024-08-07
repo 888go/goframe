@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RulePhone 实现了 `phone` 规则：
@@ -52,7 +52,7 @@ func (r RulePhone) Message() string {
 }
 
 func (r RulePhone) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := gregex.X是否匹配文本(
 		`^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^16[\d]{9}$|^17[0,2,3,5,6,7,8]{1}\d{8}$|^18[\d]{9}$|^19[\d]{9}$`,
 		in.Value.String(),
 	)

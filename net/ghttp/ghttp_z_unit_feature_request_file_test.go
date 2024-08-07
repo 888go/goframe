@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
 	"context"
@@ -14,132 +14,132 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/internal/json"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_Params_File_Single(t *testing.T) {
-	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/single", func(r *ghttp.Request) {
-		file := r.GetUploadFile("file")
+	dstDirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/single", func(r *ghttp.Request) {
+		file := r.X取上传文件对象("file")
 		if file == nil {
-			r.Response.WriteExit("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 
-		if name, err := file.Save(dstDirPath, r.Get("randomlyRename").Bool()); err == nil {
-			r.Response.WriteExit(name)
+		if name, err := file.X保存(dstDirPath, r.Get别名("randomlyRename").X取布尔()); err == nil {
+			r.X响应.X写响应缓冲区并退出(name)
 		}
-		r.Response.WriteExit("upload failed")
+		r.X响应.X写响应缓冲区并退出("upload failed")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// normal name
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath := gtest.DataPath("upload", "file1.txt")
-		dstPath := gfile.Join(dstDirPath, "file1.txt")
-		content := client.PostContent(ctx, "/upload/single", g.Map{
+		dstPath := gfile.X路径生成(dstDirPath, "file1.txt")
+		content := client.Post文本(ctx, "/upload/single", g.Map{
 			"file": "@file:" + srcPath,
 		})
 		t.AssertNE(content, "")
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
 		t.Assert(content, "file1.txt")
-		t.Assert(gfile.GetContents(dstPath), gfile.GetContents(srcPath))
+		t.Assert(gfile.X读文本(dstPath), gfile.X读文本(srcPath))
 	})
 	// randomly rename.
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath := gtest.DataPath("upload", "file2.txt")
-		content := client.PostContent(ctx, "/upload/single", g.Map{
+		content := client.Post文本(ctx, "/upload/single", g.Map{
 			"file":           "@file:" + srcPath,
 			"randomlyRename": true,
 		})
-		dstPath := gfile.Join(dstDirPath, content)
+		dstPath := gfile.X路径生成(dstDirPath, content)
 		t.AssertNE(content, "")
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
-		t.Assert(gfile.GetContents(dstPath), gfile.GetContents(srcPath))
+		t.Assert(gfile.X读文本(dstPath), gfile.X读文本(srcPath))
 	})
 }
 
 func Test_Params_File_CustomName(t *testing.T) {
-	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/single", func(r *ghttp.Request) {
-		file := r.GetUploadFile("file")
+	dstDirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/single", func(r *ghttp.Request) {
+		file := r.X取上传文件对象("file")
 		if file == nil {
-			r.Response.WriteExit("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 		file.Filename = "my.txt"
-		if name, err := file.Save(dstDirPath, r.Get("randomlyRename").Bool()); err == nil {
-			r.Response.WriteExit(name)
+		if name, err := file.X保存(dstDirPath, r.Get别名("randomlyRename").X取布尔()); err == nil {
+			r.X响应.X写响应缓冲区并退出(name)
 		}
-		r.Response.WriteExit("upload failed")
+		r.X响应.X写响应缓冲区并退出("upload failed")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath := gtest.DataPath("upload", "file1.txt")
-		dstPath := gfile.Join(dstDirPath, "my.txt")
-		content := client.PostContent(ctx, "/upload/single", g.Map{
+		dstPath := gfile.X路径生成(dstDirPath, "my.txt")
+		content := client.Post文本(ctx, "/upload/single", g.Map{
 			"file": "@file:" + srcPath,
 		})
 		t.AssertNE(content, "")
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
 		t.Assert(content, "my.txt")
-		t.Assert(gfile.GetContents(dstPath), gfile.GetContents(srcPath))
+		t.Assert(gfile.X读文本(dstPath), gfile.X读文本(srcPath))
 	})
 }
 
 func Test_Params_File_Batch(t *testing.T) {
-	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/batch", func(r *ghttp.Request) {
-		files := r.GetUploadFiles("file")
+	dstDirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/batch", func(r *ghttp.Request) {
+		files := r.X取上传文件切片对象("file")
 		if files == nil {
-			r.Response.WriteExit("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
-		if names, err := files.Save(dstDirPath, r.Get("randomlyRename").Bool()); err == nil {
-			r.Response.WriteExit(gstr.Join(names, ","))
+		if names, err := files.X保存(dstDirPath, r.Get别名("randomlyRename").X取布尔()); err == nil {
+			r.X响应.X写响应缓冲区并退出(gstr.X连接(names, ","))
 		}
-		r.Response.WriteExit("upload failed")
+		r.X响应.X写响应缓冲区并退出("upload failed")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// normal name
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath1 := gtest.DataPath("upload", "file1.txt")
 		srcPath2 := gtest.DataPath("upload", "file2.txt")
-		dstPath1 := gfile.Join(dstDirPath, "file1.txt")
-		dstPath2 := gfile.Join(dstDirPath, "file2.txt")
-		content := client.PostContent(ctx, "/upload/batch", g.Map{
+		dstPath1 := gfile.X路径生成(dstDirPath, "file1.txt")
+		dstPath2 := gfile.X路径生成(dstDirPath, "file2.txt")
+		content := client.Post文本(ctx, "/upload/batch", g.Map{
 			"file[0]": "@file:" + srcPath1,
 			"file[1]": "@file:" + srcPath2,
 		})
@@ -147,17 +147,17 @@ func Test_Params_File_Batch(t *testing.T) {
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
 		t.Assert(content, "file1.txt,file2.txt")
-		t.Assert(gfile.GetContents(dstPath1), gfile.GetContents(srcPath1))
-		t.Assert(gfile.GetContents(dstPath2), gfile.GetContents(srcPath2))
+		t.Assert(gfile.X读文本(dstPath1), gfile.X读文本(srcPath1))
+		t.Assert(gfile.X读文本(dstPath2), gfile.X读文本(srcPath2))
 	})
 	// randomly rename.
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath1 := gtest.DataPath("upload", "file1.txt")
 		srcPath2 := gtest.DataPath("upload", "file2.txt")
-		content := client.PostContent(ctx, "/upload/batch", g.Map{
+		content := client.Post文本(ctx, "/upload/batch", g.Map{
 			"file[0]":        "@file:" + srcPath1,
 			"file[1]":        "@file:" + srcPath2,
 			"randomlyRename": true,
@@ -166,12 +166,12 @@ func Test_Params_File_Batch(t *testing.T) {
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
 
-		array := gstr.SplitAndTrim(content, ",")
+		array := gstr.X分割并忽略空值(content, ",")
 		t.Assert(len(array), 2)
-		dstPath1 := gfile.Join(dstDirPath, array[0])
-		dstPath2 := gfile.Join(dstDirPath, array[1])
-		t.Assert(gfile.GetContents(dstPath1), gfile.GetContents(srcPath1))
-		t.Assert(gfile.GetContents(dstPath2), gfile.GetContents(srcPath2))
+		dstPath1 := gfile.X路径生成(dstDirPath, array[0])
+		dstPath2 := gfile.X路径生成(dstDirPath, array[1])
+		t.Assert(gfile.X读文本(dstPath1), gfile.X读文本(srcPath1))
+		t.Assert(gfile.X读文本(dstPath2), gfile.X读文本(srcPath2))
 	})
 }
 
@@ -182,42 +182,42 @@ func Test_Params_Strict_Route_File_Single_Ptr_Attrr(t *testing.T) {
 	}
 	type Res struct{}
 
-	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/single", func(ctx context.Context, req *Req) (res *Res, err error) {
+	dstDirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/single", func(ctx context.Context, req *Req) (res *Res, err error) {
 		var (
-			r    = g.RequestFromCtx(ctx)
+			r    = g.Http类上下文取请求对象(ctx)
 			file = req.File
 		)
 		if file == nil {
-			r.Response.WriteExit("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
-		name, err := file.Save(dstDirPath)
+		name, err := file.X保存(dstDirPath)
 		if err != nil {
-			r.Response.WriteExit(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(name)
+		r.X响应.X写响应缓冲区并退出(name)
 		return
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// normal name
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath := gtest.DataPath("upload", "file1.txt")
-		dstPath := gfile.Join(dstDirPath, "file1.txt")
-		content := client.PostContent(ctx, "/upload/single", g.Map{
+		dstPath := gfile.X路径生成(dstDirPath, "file1.txt")
+		content := client.Post文本(ctx, "/upload/single", g.Map{
 			"file": "@file:" + srcPath,
 		})
 		t.AssertNE(content, "")
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
 		t.Assert(content, "file1.txt")
-		t.Assert(gfile.GetContents(dstPath), gfile.GetContents(srcPath))
+		t.Assert(gfile.X读文本(dstPath), gfile.X读文本(srcPath))
 	})
 }
 
@@ -228,38 +228,38 @@ func Test_Params_Strict_Route_File_Single_Struct_Attr(t *testing.T) {
 	}
 	type Res struct{}
 
-	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/single", func(ctx context.Context, req *Req) (res *Res, err error) {
+	dstDirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/single", func(ctx context.Context, req *Req) (res *Res, err error) {
 		var (
-			r    = g.RequestFromCtx(ctx)
+			r    = g.Http类上下文取请求对象(ctx)
 			file = req.File
 		)
-		name, err := file.Save(dstDirPath)
+		name, err := file.X保存(dstDirPath)
 		if err != nil {
-			r.Response.WriteExit(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(name)
+		r.X响应.X写响应缓冲区并退出(name)
 		return
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// normal name
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath := gtest.DataPath("upload", "file1.txt")
-		dstPath := gfile.Join(dstDirPath, "file1.txt")
-		content := client.PostContent(ctx, "/upload/single", g.Map{
+		dstPath := gfile.X路径生成(dstDirPath, "file1.txt")
+		content := client.Post文本(ctx, "/upload/single", g.Map{
 			"file": "@file:" + srcPath,
 		})
 		t.AssertNE(content, "")
 		t.AssertNE(content, "upload failed")
 		t.Assert(content, "file1.txt")
-		t.Assert(gfile.GetContents(dstPath), gfile.GetContents(srcPath))
+		t.Assert(gfile.X读文本(dstPath), gfile.X读文本(srcPath))
 	})
 }
 
@@ -270,49 +270,49 @@ func Test_Params_File_Upload_Required(t *testing.T) {
 	}
 	type Res struct{}
 
-	s := g.Server(guid.S())
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/upload/required", func(ctx context.Context, req *Req) (res *Res, err error) {
+	s := g.Http类(guid.X生成())
+	s.Use别名(ghttp.MiddlewareHandlerResponse)
+	s.X绑定("/upload/required", func(ctx context.Context, req *Req) (res *Res, err error) {
 		return
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// file is empty
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		content := client.PostContent(ctx, "/upload/required")
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		content := client.Post文本(ctx, "/upload/required")
 		t.Assert(content, `{"code":51,"message":"upload file is required","data":null}`)
 	})
 }
 
 func Test_Params_File_MarshalJSON(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/single", func(r *ghttp.Request) {
-		file := r.GetUploadFile("file")
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/single", func(r *ghttp.Request) {
+		file := r.X取上传文件对象("file")
 		if file == nil {
-			r.Response.WriteExit("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
 
 		if bytes, err := json.Marshal(file); err != nil {
-			r.Response.WriteExit(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		} else {
-			r.Response.WriteExit(bytes)
+			r.X响应.X写响应缓冲区并退出(bytes)
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// normal name
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath := gtest.DataPath("upload", "file1.txt")
-		content := client.PostContent(ctx, "/upload/single", g.Map{
+		content := client.Post文本(ctx, "/upload/single", g.Map{
 			"file": "@file:" + srcPath,
 		})
 		t.Assert(strings.Contains(content, "file1.txt"), true)
@@ -327,42 +327,42 @@ func Test_Params_Strict_Route_File_Batch_Up_One(t *testing.T) {
 	}
 	type Res struct{}
 
-	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/batch", func(ctx context.Context, req *Req) (res *Res, err error) {
+	dstDirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/batch", func(ctx context.Context, req *Req) (res *Res, err error) {
 		var (
-			r     = g.RequestFromCtx(ctx)
+			r     = g.Http类上下文取请求对象(ctx)
 			files = req.Files
 		)
 		if len(files) == 0 {
-			r.Response.WriteExit("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
-		names, err := files.Save(dstDirPath)
+		names, err := files.X保存(dstDirPath)
 		if err != nil {
-			r.Response.WriteExit(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(gstr.Join(names, ","))
+		r.X响应.X写响应缓冲区并退出(gstr.X连接(names, ","))
 		return
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// normal name
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath := gtest.DataPath("upload", "file1.txt")
-		dstPath := gfile.Join(dstDirPath, "file1.txt")
-		content := client.PostContent(ctx, "/upload/batch", g.Map{
+		dstPath := gfile.X路径生成(dstDirPath, "file1.txt")
+		content := client.Post文本(ctx, "/upload/batch", g.Map{
 			"files": "@file:" + srcPath,
 		})
 		t.AssertNE(content, "")
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
 		t.Assert(content, "file1.txt")
-		t.Assert(gfile.GetContents(dstPath), gfile.GetContents(srcPath))
+		t.Assert(gfile.X读文本(dstPath), gfile.X读文本(srcPath))
 	})
 }
 
@@ -374,37 +374,37 @@ func Test_Params_Strict_Route_File_Batch_Up_Multiple(t *testing.T) {
 	}
 	type Res struct{}
 
-	dstDirPath := gfile.Temp(gtime.TimestampNanoStr())
-	s := g.Server(guid.S())
-	s.BindHandler("/upload/batch", func(ctx context.Context, req *Req) (res *Res, err error) {
+	dstDirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+	s := g.Http类(guid.X生成())
+	s.X绑定("/upload/batch", func(ctx context.Context, req *Req) (res *Res, err error) {
 		var (
-			r     = g.RequestFromCtx(ctx)
+			r     = g.Http类上下文取请求对象(ctx)
 			files = req.Files
 		)
 		if len(files) == 0 {
-			r.Response.WriteExit("upload file cannot be empty")
+			r.X响应.X写响应缓冲区并退出("upload file cannot be empty")
 		}
-		names, err := files.Save(dstDirPath)
+		names, err := files.X保存(dstDirPath)
 		if err != nil {
-			r.Response.WriteExit(err)
+			r.X响应.X写响应缓冲区并退出(err)
 		}
-		r.Response.WriteExit(gstr.Join(names, ","))
+		r.X响应.X写响应缓冲区并退出(gstr.X连接(names, ","))
 		return
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 	time.Sleep(100 * time.Millisecond)
 	// normal name
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		srcPath1 := gtest.DataPath("upload", "file1.txt")
 		srcPath2 := gtest.DataPath("upload", "file2.txt")
-		dstPath1 := gfile.Join(dstDirPath, "file1.txt")
-		dstPath2 := gfile.Join(dstDirPath, "file2.txt")
-		content := client.PostContent(ctx, "/upload/batch",
+		dstPath1 := gfile.X路径生成(dstDirPath, "file1.txt")
+		dstPath2 := gfile.X路径生成(dstDirPath, "file2.txt")
+		content := client.Post文本(ctx, "/upload/batch",
 			"files=@file:"+srcPath1+
 				"&files=@file:"+srcPath2,
 		)
@@ -412,7 +412,7 @@ func Test_Params_Strict_Route_File_Batch_Up_Multiple(t *testing.T) {
 		t.AssertNE(content, "upload file cannot be empty")
 		t.AssertNE(content, "upload failed")
 		t.Assert(content, "file1.txt,file2.txt")
-		t.Assert(gfile.GetContents(dstPath1), gfile.GetContents(srcPath1))
-		t.Assert(gfile.GetContents(dstPath2), gfile.GetContents(srcPath2))
+		t.Assert(gfile.X读文本(dstPath1), gfile.X读文本(srcPath1))
+		t.Assert(gfile.X读文本(dstPath2), gfile.X读文本(srcPath2))
 	})
 }

@@ -6,21 +6,21 @@
 // md5:a9832f33b234e3f3
 
 // 包gtoml提供了访问和转换TOML内容的功能。 md5:0bf787c2f078634a
-package gtoml
+package toml类
 
 import (
 	"bytes"
 
 	"github.com/BurntSushi/toml"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
 )
 
 func Encode(v interface{}) ([]byte, error) {
 	buffer := bytes.NewBuffer(nil)
 	if err := toml.NewEncoder(buffer).Encode(v); err != nil {
-		err = gerror.Wrap(err, `toml.Encoder.Encode failed`)
+		err = gerror.X多层错误(err, `toml.Encoder.Encode failed`)
 		return nil, err
 	}
 	return buffer.Bytes(), nil
@@ -29,7 +29,7 @@ func Encode(v interface{}) ([]byte, error) {
 func Decode(v []byte) (interface{}, error) {
 	var result interface{}
 	if err := toml.Unmarshal(v, &result); err != nil {
-		err = gerror.Wrap(err, `toml.Unmarshal failed`)
+		err = gerror.X多层错误(err, `toml.Unmarshal failed`)
 		return nil, err
 	}
 	return result, nil
@@ -38,7 +38,7 @@ func Decode(v []byte) (interface{}, error) {
 func DecodeTo(v []byte, result interface{}) (err error) {
 	err = toml.Unmarshal(v, result)
 	if err != nil {
-		err = gerror.Wrap(err, `toml.Unmarshal failed`)
+		err = gerror.X多层错误(err, `toml.Unmarshal failed`)
 	}
 	return err
 }

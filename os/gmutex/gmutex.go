@@ -9,11 +9,11 @@
 // 
 // 注意，从 GoFrame 版本 v2.5.2 开始，它采用了标准库同步包 sync 的 mutex。
 // md5:63811cedd95f3f75
-package gmutex
+package 互斥锁类
 
-// New 创建并返回一个新的互斥锁。
+// X创建 创建并返回一个新的互斥锁。
 // 警告：请使用 Mutex 或 RWMutex 替代。
 // md5:c05a094b6b9d3c70
-func New() *RWMutex {
+func X创建() *RWMutex {
 	return &RWMutex{}
 }

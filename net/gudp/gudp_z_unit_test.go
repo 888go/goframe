@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gudp_test
+package udp类_test
 
 import (
 	"context"
@@ -14,10 +14,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/net/gudp"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gudp "github.com/888go/goframe/net/gudp"
+	glog "github.com/888go/goframe/os/glog"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 var (

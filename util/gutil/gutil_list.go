@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/internal/utils"
 )
 
 // ListItemValues 从所有元素为映射或结构体的切片（list）中，根据给定的键（key）获取并返回对应的值。

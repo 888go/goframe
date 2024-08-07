@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -13,12 +13,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtcp "github.com/888go/goframe/net/gtcp"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_SetSingleCustomListener(t *testing.T) {
@@ -35,26 +35,26 @@ func Test_SetSingleCustomListener(t *testing.T) {
 			break
 		}
 	}
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.GET("/test", func(r *ghttp.Request) {
-			r.Response.Write("test")
+	s := g.Http类(guid.X生成())
+	s.X创建分组路由("/", func(group *ghttp.X分组路由) {
+		group.X绑定GET("/test", func(r *ghttp.Request) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
-	err := s.SetListener(ln1)
+	err := s.X设置自定义监听器(ln1)
 	gtest.AssertNil(err)
 
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 		t.Assert(
-			gstr.Trim(c.GetContent(ctx, "/test")),
+			gstr.X过滤首尾符并含空白(c.Get文本(ctx, "/test")),
 			"test",
 		)
 	})
@@ -80,34 +80,34 @@ func Test_SetMultipleCustomListeners(t *testing.T) {
 			break
 		}
 	}
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.GET("/test", func(r *ghttp.Request) {
-			r.Response.Write("test")
+	s := g.Http类(guid.X生成())
+	s.X创建分组路由("/", func(group *ghttp.X分组路由) {
+		group.X绑定GET("/test", func(r *ghttp.Request) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
 
-	err := s.SetListener(ln1, ln2)
+	err := s.X设置自定义监听器(ln1, ln2)
 	gtest.AssertNil(err)
 
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", p1))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", p1))
 
 		t.Assert(
-			gstr.Trim(c.GetContent(ctx, "/test")),
+			gstr.X过滤首尾符并含空白(c.Get文本(ctx, "/test")),
 			"test",
 		)
 
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", p2))
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", p2))
 
 		t.Assert(
-			gstr.Trim(c.GetContent(ctx, "/test")),
+			gstr.X过滤首尾符并含空白(c.Get文本(ctx, "/test")),
 			"test",
 		)
 	})
@@ -115,13 +115,13 @@ func Test_SetMultipleCustomListeners(t *testing.T) {
 
 func Test_SetWrongCustomListeners(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
-		s.Group("/", func(group *ghttp.RouterGroup) {
-			group.GET("/test", func(r *ghttp.Request) {
-				r.Response.Write("test")
+		s := g.Http类(guid.X生成())
+		s.X创建分组路由("/", func(group *ghttp.X分组路由) {
+			group.X绑定GET("/test", func(r *ghttp.Request) {
+				r.X响应.X写响应缓冲区("test")
 			})
 		})
-		err := s.SetListener(nil)
+		err := s.X设置自定义监听器(nil)
 		t.AssertNQ(err, nil)
 	})
 }

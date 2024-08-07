@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -14,18 +14,18 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_WebSocket(t *testing.T) {
-	s := g.Server(guid.S())
-	s.BindHandler("/ws", func(r *ghttp.Request) {
-		ws, err := r.WebSocket()
+	s := g.Http类(guid.X生成())
+	s.X绑定("/ws", func(r *ghttp.Request) {
+		ws, err := r.X升级为websocket请求()
 		if err != nil {
-			r.Exit()
+			r.X退出当前()
 		}
 		for {
 			msgType, msg, err := ws.ReadMessage()
@@ -38,13 +38,13 @@ func Test_WebSocket(t *testing.T) {
 		}
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
 		conn, _, err := websocket.DefaultDialer.Dial(fmt.Sprintf(
-			"ws://127.0.0.1:%d/ws", s.GetListenedPort(),
+			"ws://127.0.0.1:%d/ws", s.X取已监听端口(),
 		), nil)
 		t.AssertNil(err)
 		defer conn.Close()

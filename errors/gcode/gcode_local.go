@@ -4,9 +4,11 @@
 // 您可以从 https://github.com/gogf/gf 获取。
 // md5:c14c707c81272457
 
-package gcode
+package 错误码类
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // localCode 是仅为内部使用而实现接口 Code 的一个实现者。 md5:1ee44496d8d5c874
 type localCode struct {

@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gres提供了文件和字节之间资源管理及打包/解包的功能。 md5:29e79f40a11fe941
-package gres
+package 资源类
 
 const (
 		// 目录分隔符。 md5:a4832545f002edfe

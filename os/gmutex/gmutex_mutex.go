@@ -5,35 +5,37 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gmutex
+package 互斥锁类
 
-import "sync"
+import (
+	"sync"
+)
 
 // Mutex 是一个高级互斥锁，为互斥锁实现了更多丰富功能。 md5:b81f0b26d312bfc2
 type Mutex struct {
 	sync.Mutex
 }
 
-// LockFunc 使用给定的回调函数 `f` 对互斥锁进行写入锁定。
+// X锁定_函数 使用给定的回调函数 `f` 对互斥锁进行写入锁定。
 // 如果已经有写入或读取锁持有互斥锁，它将阻塞直到锁被释放。
 //
 // 在 `f` 执行完毕后，它会释放锁。
 // md5:946a127ed090616d
-func (m *Mutex) LockFunc(f func()) {
+func (m *Mutex) X锁定_函数(回调函数 func()) {
 	m.Lock()
 	defer m.Unlock()
-	f()
+	回调函数()
 }
 
-// TryLockFunc尝试使用给定的回调函数`f`为写入锁定mutex。如果成功，它会立即返回true，或者如果mutex已经有写入或读取锁，它会立即返回false。
+// X非阻塞锁定_函数尝试使用给定的回调函数`f`为写入锁定mutex。如果成功，它会立即返回true，或者如果mutex已经有写入或读取锁，它会立即返回false。
 // 
 // 在执行完`f`后，它会释放锁。
 // md5:d12ccf3fb040146e
-func (m *Mutex) TryLockFunc(f func()) (result bool) {
+func (m *Mutex) X非阻塞锁定_函数(回调函数 func()) (结果 bool) {
 	if m.TryLock() {
-		result = true
+		结果 = true
 		defer m.Unlock()
-		f()
+		回调函数()
 	}
 	return
 }

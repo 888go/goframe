@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcache
+package 缓存类
 
 import (
-	"github.com/gogf/gf/v2/os/gtime"
+	gtime "github.com/888go/goframe/os/gtime"
 )
 
 // IsExpired 检查 `item` 是否已过期。 md5:9e46a52b25ea5be9
@@ -17,5 +17,5 @@ func (item *adapterMemoryItem) IsExpired() bool {
 	// 想象一下缓存时间只有1毫秒。
 	// md5:9d0401593ecbe5eb
 
-	return item.e < gtime.TimestampMilli()
+	return item.e < gtime.X取时间戳毫秒()
 }

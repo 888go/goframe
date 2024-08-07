@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // RuleMin 实现了`min`规则：
@@ -39,7 +39,7 @@ func (r RuleMin) Run(in RunInput) error {
 		valueN, err2 = strconv.ParseFloat(in.Value.String(), 10)
 	)
 	if valueN < min || err1 != nil || err2 != nil {
-		return errors.New(gstr.Replace(in.Message, "{min}", strconv.FormatFloat(min, 'f', -1, 64)))
+		return errors.New(gstr.X替换(in.Message, "{min}", strconv.FormatFloat(min, 'f', -1, 64)))
 	}
 	return nil
 }

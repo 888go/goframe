@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"bytes"
@@ -13,57 +13,57 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Set(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var v gvar.Var
-		v.Set(123.456)
-		t.Assert(v.Val(), 123.456)
+		v.X设置值(123.456)
+		t.Assert(v.X取值(), 123.456)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var v gvar.Var
-		v.Set(123.456)
-		t.Assert(v.Val(), 123.456)
+		v.X设置值(123.456)
+		t.Assert(v.X取值(), 123.456)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		objOne := gvar.New("old", true)
-		objOneOld, _ := objOne.Set("new").(string)
+		objOne := gvar.X创建("old", true)
+		objOneOld, _ := objOne.X设置值("new").(string)
 		t.Assert(objOneOld, "old")
 
-		objTwo := gvar.New("old", false)
-		objTwoOld, _ := objTwo.Set("new").(string)
+		objTwo := gvar.X创建("old", false)
+		objTwoOld, _ := objTwo.X设置值("new").(string)
 		t.Assert(objTwoOld, "old")
 	})
 }
 
 func Test_Val(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		objOne := gvar.New(1, true)
-		objOneOld, _ := objOne.Val().(int)
+		objOne := gvar.X创建(1, true)
+		objOneOld, _ := objOne.X取值().(int)
 		t.Assert(objOneOld, 1)
 
-		objTwo := gvar.New(1, false)
-		objTwoOld, _ := objTwo.Val().(int)
+		objTwo := gvar.X创建(1, false)
+		objTwoOld, _ := objTwo.X取值().(int)
 		t.Assert(objTwoOld, 1)
 
 		objOne = nil
-		t.Assert(objOne.Val(), nil)
+		t.Assert(objOne.X取值(), nil)
 	})
 }
 
 func Test_Interface(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		objOne := gvar.New(1, true)
+		objOne := gvar.X创建(1, true)
 		objOneOld, _ := objOne.Interface().(int)
 		t.Assert(objOneOld, 1)
 
-		objTwo := gvar.New(1, false)
+		objTwo := gvar.X创建(1, false)
 		objTwoOld, _ := objTwo.Interface().(int)
 		t.Assert(objTwoOld, 1)
 	})
@@ -71,11 +71,11 @@ func Test_Interface(t *testing.T) {
 
 func Test_IsNil(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		objOne := gvar.New(nil, true)
-		t.Assert(objOne.IsNil(), true)
+		objOne := gvar.X创建(nil, true)
+		t.Assert(objOne.X是否为Nil(), true)
 
-		objTwo := gvar.New("noNil", false)
-		t.Assert(objTwo.IsNil(), false)
+		objTwo := gvar.X创建("noNil", false)
+		t.Assert(objTwo.X是否为Nil(), false)
 
 	})
 }
@@ -86,9 +86,9 @@ func Test_Bytes(t *testing.T) {
 		bytesBuffer := bytes.NewBuffer([]byte{})
 		binary.Write(bytesBuffer, binary.BigEndian, x)
 
-		objOne := gvar.New(bytesBuffer.Bytes(), true)
+		objOne := gvar.X创建(bytesBuffer.Bytes(), true)
 
-		bBuf := bytes.NewBuffer(objOne.Bytes())
+		bBuf := bytes.NewBuffer(objOne.X取字节集())
 		var y int32
 		binary.Read(bBuf, binary.BigEndian, &y)
 
@@ -100,7 +100,7 @@ func Test_Bytes(t *testing.T) {
 func Test_String(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var str string = "hello"
-		objOne := gvar.New(str, true)
+		objOne := gvar.X创建(str, true)
 		t.Assert(objOne.String(), str)
 
 	})
@@ -109,12 +109,12 @@ func Test_String(t *testing.T) {
 func Test_Bool(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var ok bool = true
-		objOne := gvar.New(ok, true)
-		t.Assert(objOne.Bool(), ok)
+		objOne := gvar.X创建(ok, true)
+		t.Assert(objOne.X取布尔(), ok)
 
 		ok = false
-		objTwo := gvar.New(ok, true)
-		t.Assert(objTwo.Bool(), ok)
+		objTwo := gvar.X创建(ok, true)
+		t.Assert(objTwo.X取布尔(), ok)
 
 	})
 }
@@ -122,8 +122,8 @@ func Test_Bool(t *testing.T) {
 func Test_Int(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num int = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Int(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取整数(), num)
 
 	})
 }
@@ -131,8 +131,8 @@ func Test_Int(t *testing.T) {
 func Test_Int8(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num int8 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Int8(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取整数8位(), num)
 
 	})
 }
@@ -140,8 +140,8 @@ func Test_Int8(t *testing.T) {
 func Test_Int16(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num int16 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Int16(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取整数16位(), num)
 
 	})
 }
@@ -149,8 +149,8 @@ func Test_Int16(t *testing.T) {
 func Test_Int32(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num int32 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Int32(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取整数32位(), num)
 
 	})
 }
@@ -158,8 +158,8 @@ func Test_Int32(t *testing.T) {
 func Test_Int64(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num int64 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Int64(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取整数64位(), num)
 
 	})
 }
@@ -167,8 +167,8 @@ func Test_Int64(t *testing.T) {
 func Test_Uint(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num uint = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Uint(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取正整数(), num)
 
 	})
 }
@@ -176,8 +176,8 @@ func Test_Uint(t *testing.T) {
 func Test_Uint8(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num uint8 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Uint8(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取正整数8位(), num)
 
 	})
 }
@@ -185,8 +185,8 @@ func Test_Uint8(t *testing.T) {
 func Test_Uint16(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num uint16 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Uint16(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取正整数16位(), num)
 
 	})
 }
@@ -194,8 +194,8 @@ func Test_Uint16(t *testing.T) {
 func Test_Uint32(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num uint32 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Uint32(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取正整数32位(), num)
 
 	})
 }
@@ -203,8 +203,8 @@ func Test_Uint32(t *testing.T) {
 func Test_Uint64(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num uint64 = 1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Uint64(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取正整数64位(), num)
 
 	})
 }
@@ -212,8 +212,8 @@ func Test_Uint64(t *testing.T) {
 func Test_Float32(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num float32 = 1.1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Float32(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取小数32位(), num)
 
 	})
 }
@@ -221,8 +221,8 @@ func Test_Float32(t *testing.T) {
 func Test_Float64(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var num float64 = 1.1
-		objOne := gvar.New(num, true)
-		t.Assert(objOne.Float64(), num)
+		objOne := gvar.X创建(num, true)
+		t.Assert(objOne.X取小数64位(), num)
 
 	})
 }
@@ -230,24 +230,24 @@ func Test_Float64(t *testing.T) {
 func Test_Time(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var timeUnix int64 = 1556242660
-		objOne := gvar.New(timeUnix, true)
-		t.Assert(objOne.Time().Unix(), timeUnix)
+		objOne := gvar.X创建(timeUnix, true)
+		t.Assert(objOne.X取时间类().Unix(), timeUnix)
 	})
 }
 
 func Test_GTime(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var timeUnix int64 = 1556242660
-		objOne := gvar.New(timeUnix, true)
-		t.Assert(objOne.GTime().Unix(), timeUnix)
+		objOne := gvar.X创建(timeUnix, true)
+		t.Assert(objOne.X取gtime时间类().Unix(), timeUnix)
 	})
 }
 
 func Test_Duration(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var timeUnix int64 = 1556242660
-		objOne := gvar.New(timeUnix, true)
-		t.Assert(objOne.Duration(), time.Duration(timeUnix))
+		objOne := gvar.X创建(timeUnix, true)
+		t.Assert(objOne.X取时长(), time.Duration(timeUnix))
 	})
 }
 
@@ -319,17 +319,17 @@ func Test_Copy(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		srcVar := gvar.New(src)
-		dstVar := srcVar.Copy()
-		t.Assert(srcVar.Map(), src)
-		t.Assert(dstVar.Map(), src)
+		srcVar := gvar.X创建(src)
+		dstVar := srcVar.X深拷贝()
+		t.Assert(srcVar.X取Map(), src)
+		t.Assert(dstVar.X取Map(), src)
 
-		dstVar.Map()["k3"] = "v3"
-		t.Assert(srcVar.Map(), g.Map{
+		dstVar.X取Map()["k3"] = "v3"
+		t.Assert(srcVar.X取Map(), g.Map{
 			"k1": "v1",
 			"k2": "v2",
 		})
-		t.Assert(dstVar.Map(), g.Map{
+		t.Assert(dstVar.X取Map(), g.Map{
 			"k1": "v1",
 			"k2": "v2",
 			"k3": "v3",
@@ -343,9 +343,9 @@ func Test_DeepCopy(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		srcVar := gvar.New(src)
+		srcVar := gvar.X创建(src)
 		copyVar := srcVar.DeepCopy().(*gvar.Var)
-		copyVar.Set(g.Map{
+		copyVar.X设置值(g.Map{
 			"k3": "v3",
 			"k4": "v4",
 		})

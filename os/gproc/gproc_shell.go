@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gproc
+package 进程类
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 
-	"github.com/gogf/gf/v2/os/gfile"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 // Shell 函数同步地执行命令 `cmd`，并使用给定的输入管道 `in` 和输出管道 `out`。
@@ -77,10 +77,10 @@ func getShell() string {
 
 	default:
 				// 检查默认的二进制存储路径。 md5:11d55faa0b1f45a3
-		if gfile.Exists("/bin/bash") {
+		if gfile.X是否存在("/bin/bash") {
 			return "/bin/bash"
 		}
-		if gfile.Exists("/bin/sh") {
+		if gfile.X是否存在("/bin/sh") {
 			return "/bin/sh"
 		}
 				// 否则，在环境PATH中搜索。 md5:73695e9885dbcbe8

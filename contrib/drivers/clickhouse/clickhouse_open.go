@@ -12,14 +12,14 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
+	gdb "github.com/888go/goframe/database/gdb"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
-// Open 创建并返回clickhouse的底层sql.DB对象。 md5:af49366510276559
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+// X底层Open 创建并返回clickhouse的底层sql.DB对象。 md5:af49366510276559
+func (d *Driver) X底层Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	source := config.Link
 		// 使用clickhouse协议，连接到主机host1和host2的9000端口，数据库为'database'。设置连接超时时间为200毫秒，最大执行时间为60秒。其中，'username'和'password'是用户名和密码。 md5:18f0aa9304f1e37e
 	if config.Link != "" {
@@ -29,10 +29,10 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		// 自定义在运行时更改架构。
 		// md5:636e7e3d9951c8fa
 		if config.Name != "" {
-			source, _ = gregex.ReplaceString(replaceSchemaPattern, "@$1/"+config.Name, config.Link)
+			source, _ = gregex.X替换文本(replaceSchemaPattern, "@$1/"+config.Name, config.Link)
 		} else {
 									// 如果没有模式，该链接将被用于替换. md5:20ef7460fd455598
-			dbName, _ := gregex.MatchString(replaceSchemaPattern, config.Link)
+			dbName, _ := gregex.X匹配文本(replaceSchemaPattern, config.Link)
 			if len(dbName) > 0 {
 				config.Name = dbName[len(dbName)-1]
 			}
@@ -55,7 +55,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		}
 	}
 	if db, err = sql.Open(driverName, source); err != nil {
-		err = gerror.WrapCodef(
+		err = gerror.X多层错误码并格式化(
 			gcode.CodeDbOperationError, err,
 			`sql.Open failed for driver "%s" by source "%s"`, driverName, source,
 		)

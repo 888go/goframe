@@ -5,25 +5,25 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/os/gfile"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 func ExampleSize() {
 	// init
 	var (
 		fileName = "gfile_example.txt"
-		tempDir  = gfile.Temp("gfile_example_size")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = gfile.X取临时目录("gfile_example_size")
+		tempFile = gfile.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "0123456789")
-	fmt.Println(gfile.Size(tempFile))
+	gfile.X写入文本(tempFile, "0123456789")
+	fmt.Println(gfile.X取大小(tempFile))
 
 	// Output:
 	// 10
@@ -33,13 +33,13 @@ func ExampleSizeFormat() {
 	// init
 	var (
 		fileName = "gfile_example.txt"
-		tempDir  = gfile.Temp("gfile_example_size")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = gfile.X取临时目录("gfile_example_size")
+		tempFile = gfile.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "0123456789")
-	fmt.Println(gfile.SizeFormat(tempFile))
+	gfile.X写入文本(tempFile, "0123456789")
+	fmt.Println(gfile.X取大小并易读格式(tempFile))
 
 	// Output:
 	// 10.00B
@@ -49,20 +49,20 @@ func ExampleReadableSize() {
 	// init
 	var (
 		fileName = "gfile_example.txt"
-		tempDir  = gfile.Temp("gfile_example_size")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = gfile.X取临时目录("gfile_example_size")
+		tempFile = gfile.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "01234567899876543210")
-	fmt.Println(gfile.ReadableSize(tempFile))
+	gfile.X写入文本(tempFile, "01234567899876543210")
+	fmt.Println(gfile.ReadableSize别名(tempFile))
 
 	// Output:
 	// 20.00B
 }
 
 func ExampleStrToSize() {
-	size := gfile.StrToSize("100MB")
+	size := gfile.X易读格式转字节长度("100MB")
 	fmt.Println(size)
 
 	// Output:
@@ -70,11 +70,11 @@ func ExampleStrToSize() {
 }
 
 func ExampleFormatSize() {
-	sizeStr := gfile.FormatSize(104857600)
+	sizeStr := gfile.X字节长度转易读格式(104857600)
 	fmt.Println(sizeStr)
-	sizeStr0 := gfile.FormatSize(1024)
+	sizeStr0 := gfile.X字节长度转易读格式(1024)
 	fmt.Println(sizeStr0)
-	sizeStr1 := gfile.FormatSize(999999999999999999)
+	sizeStr1 := gfile.X字节长度转易读格式(999999999999999999)
 	fmt.Println(sizeStr1)
 
 	// Output:

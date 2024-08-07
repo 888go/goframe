@@ -11,10 +11,10 @@ package gsvc
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // LocalEndpoint 实现了接口 Endpoint。 md5:2c8da8dce28b09e7
@@ -26,9 +26,9 @@ type LocalEndpoint struct {
 // NewEndpoint 从地址字符串（格式为"host:port"，如："192.168.1.100:80"）创建并返回一个Endpoint。
 // md5:837de544fe4ec26d
 func NewEndpoint(address string) Endpoint {
-	array := gstr.SplitAndTrim(address, EndpointHostPortDelimiter)
+	array := gstr.X分割并忽略空值(address, EndpointHostPortDelimiter)
 	if len(array) != 2 {
-		panic(gerror.NewCodef(
+		panic(gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid address "%s" for creating endpoint, endpoint address is like "ip:port"`,
 			address,
@@ -36,7 +36,7 @@ func NewEndpoint(address string) Endpoint {
 	}
 	return &LocalEndpoint{
 		host: array[0],
-		port: gconv.Int(array[1]),
+		port: gconv.X取整数(array[1]),
 	}
 }
 

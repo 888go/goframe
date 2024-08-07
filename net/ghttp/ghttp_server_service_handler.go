@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"bytes"
@@ -13,27 +13,27 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// BindHandler 将一个处理器函数注册到服务器，使用给定的模式。
+// X绑定 将一个处理器函数注册到服务器，使用给定的模式。
 // 
 // 注意，参数 `handler` 可以是以下两种类型之一：
 // 1. func(*ghttp.Request)
 // 2. func(context.Context, BizRequest) (BizResponse, error)
 // md5:245b5139c4d933ad
-func (s *Server) BindHandler(pattern string, handler interface{}) {
+func (s *X服务) X绑定(路由规则 string, 处理函数 interface{}) {
 	var ctx = context.TODO()
-	funcInfo, err := s.checkAndCreateFuncInfo(handler, "", "", "")
+	funcInfo, err := s.checkAndCreateFuncInfo(处理函数, "", "", "")
 	if err != nil {
-		s.Logger().Fatalf(ctx, `%+v`, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `%+v`, err)
 	}
 	s.doBindHandler(ctx, doBindHandlerInput{
 		Prefix:     "",
-		Pattern:    pattern,
+		Pattern:    路由规则,
 		FuncInfo:   funcInfo,
 		Middleware: nil,
 		Source:     "",
@@ -53,21 +53,21 @@ type doBindHandlerInput struct {
 // 参数 `pattern` 的格式如下：
 // /user/list, put:/user, delete:/user, post:/user@goframe.org
 // md5:d71f121a1c2830d3
-func (s *Server) doBindHandler(ctx context.Context, in doBindHandlerInput) {
+func (s *X服务) doBindHandler(ctx context.Context, in doBindHandlerInput) {
 	s.setHandler(ctx, setHandlerInput{
 		Prefix:  in.Prefix,
 		Pattern: in.Pattern,
-		HandlerItem: &HandlerItem{
+		HandlerItem: &X路由处理函数{
 			Type:       HandlerTypeHandler,
-			Info:       in.FuncInfo,
-			Middleware: in.Middleware,
-			Source:     in.Source,
+			X处理器函数信息:       in.FuncInfo,
+			X中间件切片: in.Middleware,
+			X注册来源:     in.Source,
 		},
 	})
 }
 
 // bindHandlerByMap 使用映射注册处理器到服务器。 md5:15729f837b1bc875
-func (s *Server) bindHandlerByMap(ctx context.Context, prefix string, m map[string]*HandlerItem) {
+func (s *X服务) bindHandlerByMap(ctx context.Context, prefix string, m map[string]*X路由处理函数) {
 	for pattern, handler := range m {
 		s.setHandler(ctx, setHandlerInput{
 			Prefix:      prefix,
@@ -84,7 +84,7 @@ func (s *Server) bindHandlerByMap(ctx context.Context, prefix string, m map[stri
 // 
 // 参数 `allowAppend` 指定是否允许将方法名称追加到模式的末尾。
 // md5:1c79af7afc57b081
-func (s *Server) mergeBuildInNameToPattern(pattern string, structName, methodName string, allowAppend bool) string {
+func (s *X服务) mergeBuildInNameToPattern(pattern string, structName, methodName string, allowAppend bool) string {
 	structName = s.nameToUri(structName)
 	methodName = s.nameToUri(methodName)
 	pattern = strings.ReplaceAll(pattern, "{.struct}", structName)
@@ -112,7 +112,7 @@ func (s *Server) mergeBuildInNameToPattern(pattern string, structName, methodNam
 // 规则2：将所有方法名转换为小写，单词间不添加连接符号。
 // 规则3：使用驼峰式命名。
 // md5:c9f350c3c6635668
-func (s *Server) nameToUri(name string) string {
+func (s *X服务) nameToUri(name string) string {
 	switch s.config.NameToUriType {
 	case UriTypeFullName:
 		return name
@@ -122,7 +122,7 @@ func (s *Server) nameToUri(name string) string {
 
 	case UriTypeCamel:
 		part := bytes.NewBuffer(nil)
-		if gstr.IsLetterUpper(name[0]) {
+		if gstr.X是否大写字符(name[0]) {
 			part.WriteByte(name[0] + 32)
 		} else {
 			part.WriteByte(name[0])
@@ -136,10 +136,10 @@ func (s *Server) nameToUri(name string) string {
 	default:
 		part := bytes.NewBuffer(nil)
 		for i := 0; i < len(name); i++ {
-			if i > 0 && gstr.IsLetterUpper(name[i]) {
+			if i > 0 && gstr.X是否大写字符(name[i]) {
 				part.WriteByte('-')
 			}
-			if gstr.IsLetterUpper(name[i]) {
+			if gstr.X是否大写字符(name[i]) {
 				part.WriteByte(name[i] + 32)
 			} else {
 				part.WriteByte(name[i])
@@ -149,7 +149,7 @@ func (s *Server) nameToUri(name string) string {
 	}
 }
 
-func (s *Server) checkAndCreateFuncInfo(
+func (s *X服务) checkAndCreateFuncInfo(
 	f interface{}, pkgPath, structName, methodName string,
 ) (funcInfo handlerFuncInfo, err error) {
 	funcInfo = handlerFuncInfo{
@@ -168,13 +168,13 @@ func (s *Server) checkAndCreateFuncInfo(
 	)
 	if reflectType.NumIn() != 2 || reflectType.NumOut() != 2 {
 		if pkgPath != "" {
-			err = gerror.NewCodef(
+			err = gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				`invalid handler: %s.%s.%s defined as "%s", but "func(*ghttp.Request)" or "func(context.Context, *BizReq)(*BizRes, error)" is required`,
 				pkgPath, structName, methodName, reflectType.String(),
 			)
 		} else {
-			err = gerror.NewCodef(
+			err = gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				`invalid handler: defined as "%s", but "func(*ghttp.Request)" or "func(context.Context, *BizReq)(*BizRes, error)" is required`,
 				reflectType.String(),
@@ -184,7 +184,7 @@ func (s *Server) checkAndCreateFuncInfo(
 	}
 
 	if !reflectType.In(0).Implements(reflect.TypeOf((*context.Context)(nil)).Elem()) {
-		err = gerror.NewCodef(
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid handler: defined as "%s", but the first input parameter should be type of "context.Context"`,
 			reflectType.String(),
@@ -193,7 +193,7 @@ func (s *Server) checkAndCreateFuncInfo(
 	}
 
 	if !reflectType.Out(1).Implements(reflect.TypeOf((*error)(nil)).Elem()) {
-		err = gerror.NewCodef(
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid handler: defined as "%s", but the last output parameter should be type of "error"`,
 			reflectType.String(),
@@ -203,7 +203,7 @@ func (s *Server) checkAndCreateFuncInfo(
 
 	if reflectType.In(1).Kind() != reflect.Ptr ||
 		(reflectType.In(1).Kind() == reflect.Ptr && reflectType.In(1).Elem().Kind() != reflect.Struct) {
-		err = gerror.NewCodef(
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid handler: defined as "%s", but the second input parameter should be type of pointer to struct like "*BizReq"`,
 			reflectType.String(),
@@ -227,8 +227,8 @@ func (s *Server) checkAndCreateFuncInfo(
 
 		// 请求结构体应该命名为 `xxxReq`。 md5:f366399bf3de35a1
 	reqStructName := trimGeneric(reflectType.In(1).String())
-	if !gstr.HasSuffix(reqStructName, `Req`) {
-		err = gerror.NewCodef(
+	if !gstr.X末尾判断(reqStructName, `Req`) {
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid struct naming for request: defined as "%s", but it should be named with "Req" suffix like "XxxReq"`,
 			reqStructName,
@@ -238,8 +238,8 @@ func (s *Server) checkAndCreateFuncInfo(
 
 		// 响应结构体应当命名为 `xxxRes`。 md5:0e837067ff972f27
 	resStructName := trimGeneric(reflectType.Out(0).String())
-	if !gstr.HasSuffix(resStructName, `Res`) {
-		err = gerror.NewCodef(
+	if !gstr.X末尾判断(resStructName, `Res`) {
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid struct naming for response: defined as "%s", but it should be named with "Res" suffix like "XxxRes"`,
 			resStructName,
@@ -271,17 +271,17 @@ func createRouterFunc(funcInfo handlerFuncInfo) func(r *Request) {
 			ok          bool
 			err         error
 			inputValues = []reflect.Value{
-				reflect.ValueOf(r.Context()),
+				reflect.ValueOf(r.Context别名()),
 			}
 		)
 		if funcInfo.Type.NumIn() == 2 {
 			var inputObject reflect.Value
 			if funcInfo.Type.In(1).Kind() == reflect.Ptr {
 				inputObject = reflect.New(funcInfo.Type.In(1).Elem())
-				r.error = r.Parse(inputObject.Interface())
+				r.error = r.X解析参数到结构(inputObject.Interface())
 			} else {
 				inputObject = reflect.New(funcInfo.Type.In(1).Elem()).Elem()
-				r.error = r.Parse(inputObject.Addr().Interface())
+				r.error = r.X解析参数到结构(inputObject.Addr().Interface())
 			}
 			if r.error != nil {
 				return

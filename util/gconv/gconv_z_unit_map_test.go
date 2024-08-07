@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"encoding/json"
@@ -13,10 +13,10 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_Map_Basic(t *testing.T) {
@@ -30,64 +30,64 @@ func Test_Map_Basic(t *testing.T) {
 		m3 := map[float64]float32{
 			1.22: 3.1,
 		}
-		t.Assert(gconv.Map(m1), g.Map{
+		t.Assert(gconv.X取Map(m1), g.Map{
 			"k": "v",
 		})
-		t.Assert(gconv.Map(m2), g.Map{
+		t.Assert(gconv.X取Map(m2), g.Map{
 			"3": "v",
 		})
-		t.Assert(gconv.Map(m3), g.Map{
+		t.Assert(gconv.X取Map(m3), g.Map{
 			"1.22": "3.1",
 		})
-		t.Assert(gconv.Map(`{"name":"goframe"}`), g.Map{
+		t.Assert(gconv.X取Map(`{"name":"goframe"}`), g.Map{
 			"name": "goframe",
 		})
-		t.Assert(gconv.Map(`{"name":"goframe"`), nil)
-		t.Assert(gconv.Map(`{goframe}`), nil)
-		t.Assert(gconv.Map([]byte(`{"name":"goframe"}`)), g.Map{
+		t.Assert(gconv.X取Map(`{"name":"goframe"`), nil)
+		t.Assert(gconv.X取Map(`{goframe}`), nil)
+		t.Assert(gconv.X取Map([]byte(`{"name":"goframe"}`)), g.Map{
 			"name": "goframe",
 		})
-		t.Assert(gconv.Map([]byte(`{"name":"goframe"`)), nil)
-		t.Assert(gconv.Map([]byte(`{goframe}`)), nil)
+		t.Assert(gconv.X取Map([]byte(`{"name":"goframe"`)), nil)
+		t.Assert(gconv.X取Map([]byte(`{goframe}`)), nil)
 	})
 }
 
 func Test_Map_Slice(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		slice1 := g.Slice{"1", "2", "3", "4"}
-		slice2 := g.Slice{"1", "2", "3"}
-		slice3 := g.Slice{}
-		t.Assert(gconv.Map(slice1), g.Map{
+		slice1 := g.Slice别名{"1", "2", "3", "4"}
+		slice2 := g.Slice别名{"1", "2", "3"}
+		slice3 := g.Slice别名{}
+		t.Assert(gconv.X取Map(slice1), g.Map{
 			"1": "2",
 			"3": "4",
 		})
-		t.Assert(gconv.Map(slice2), g.Map{
+		t.Assert(gconv.X取Map(slice2), g.Map{
 			"1": "2",
 			"3": nil,
 		})
-		t.Assert(gconv.Map(slice3), g.Map{})
+		t.Assert(gconv.X取Map(slice3), g.Map{})
 	})
 }
 
 func Test_Maps_Basic(t *testing.T) {
-	params := g.Slice{
+	params := g.Slice别名{
 		g.Map{"id": 100, "name": "john"},
 		g.Map{"id": 200, "name": "smith"},
 	}
 	gtest.C(t, func(t *gtest.T) {
-		list := gconv.Maps(params)
+		list := gconv.X取Map切片(params)
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		list := gconv.SliceMap(params)
+		list := gconv.SliceMap别名(params)
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		list := gconv.SliceMapDeep(params)
+		list := gconv.SliceMapDeep别名(params)
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
@@ -107,7 +107,7 @@ func Test_Maps_Basic(t *testing.T) {
 			{"id": 1, "name": "john", "age": 18},
 			{"id": 2, "name": "smith", "age": 20},
 		}
-		err := gconv.SliceStruct(params, &users)
+		err := gconv.SliceStruct别名(params, &users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, params[0]["id"])
@@ -123,22 +123,22 @@ func Test_Maps_Basic(t *testing.T) {
 func Test_Maps_JsonStr(t *testing.T) {
 	jsonStr := `[{"id":100, "name":"john"},{"id":200, "name":"smith"}]`
 	gtest.C(t, func(t *gtest.T) {
-		list := gconv.Maps(jsonStr)
+		list := gconv.X取Map切片(jsonStr)
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 
-		list = gconv.Maps([]byte(jsonStr))
+		list = gconv.X取Map切片([]byte(jsonStr))
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gconv.Maps(`[id]`), nil)
-		t.Assert(gconv.Maps(`test`), nil)
-		t.Assert(gconv.Maps([]byte(`[id]`)), nil)
-		t.Assert(gconv.Maps([]byte(`test`)), nil)
+		t.Assert(gconv.X取Map切片(`[id]`), nil)
+		t.Assert(gconv.X取Map切片(`test`), nil)
+		t.Assert(gconv.X取Map切片([]byte(`[id]`)), nil)
+		t.Assert(gconv.X取Map切片([]byte(`test`)), nil)
 	})
 }
 
@@ -160,8 +160,8 @@ func Test_Map_StructWithGConvTag(t *testing.T) {
 			Pass2:   "456",
 		}
 		user2 := &user1
-		map1 := gconv.Map(user1)
-		map2 := gconv.Map(user2)
+		map1 := gconv.X取Map(user1)
+		map2 := gconv.X取Map(user2)
 		t.Assert(map1["Uid"], 100)
 		t.Assert(map1["Name"], "john")
 		t.Assert(map1["SiteUrl"], nil)
@@ -198,8 +198,8 @@ func Test_Map_StructWithJsonTag(t *testing.T) {
 			Pass2:   "456",
 		}
 		user2 := &user1
-		map1 := gconv.Map(user1)
-		map2 := gconv.Map(user2)
+		map1 := gconv.X取Map(user1)
+		map2 := gconv.X取Map(user2)
 		t.Assert(map1["Uid"], 100)
 		t.Assert(map1["Name"], "john")
 		t.Assert(map1["SiteUrl"], nil)
@@ -236,8 +236,8 @@ func Test_Map_StructWithCTag(t *testing.T) {
 			Pass2:   "456",
 		}
 		user2 := &user1
-		map1 := gconv.Map(user1)
-		map2 := gconv.Map(user2)
+		map1 := gconv.X取Map(user1)
+		map2 := gconv.X取Map(user2)
 		t.Assert(map1["Uid"], 100)
 		t.Assert(map1["Name"], "john")
 		t.Assert(map1["SiteUrl"], nil)
@@ -263,7 +263,7 @@ func Test_Map_PrivateAttribute(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		user := &User{1, "john"}
-		t.Assert(gconv.Map(user), g.Map{"Id": 1})
+		t.Assert(gconv.X取Map(user), g.Map{"Id": 1})
 	})
 }
 
@@ -284,7 +284,7 @@ func Test_Map_Embedded(t *testing.T) {
 		user.Id = 1
 		user.Name = "john"
 
-		m := gconv.Map(user)
+		m := gconv.X取Map(user)
 		t.Assert(len(m), 2)
 		t.Assert(m["Id"], user.Id)
 		t.Assert(m["Name"], user.Name)
@@ -295,7 +295,7 @@ func Test_Map_Embedded(t *testing.T) {
 		user.Name = "john"
 		user.Brief = "john guo"
 
-		m := gconv.Map(user)
+		m := gconv.X取Map(user)
 		t.Assert(len(m), 3)
 		t.Assert(m["Id"], user.Id)
 		t.Assert(m["Name"], user.Name)
@@ -323,7 +323,7 @@ func Test_Map_Embedded2(t *testing.T) {
 		user.Id = 100
 		user.Nickname = "john"
 		user.CreateTime = "2019"
-		m := gconv.Map(user)
+		m := gconv.X取Map(user)
 		t.Assert(m["id"], "100")
 		t.Assert(m["nickname"], user.Nickname)
 		t.Assert(m["create_time"], "2019")
@@ -333,7 +333,7 @@ func Test_Map_Embedded2(t *testing.T) {
 		user.Id = 100
 		user.Nickname = "john"
 		user.CreateTime = "2019"
-		m := gconv.MapDeep(user)
+		m := gconv.X取Map_递归(user)
 		t.Assert(m["id"], user.Id)
 		t.Assert(m["nickname"], user.Nickname)
 		t.Assert(m["create_time"], user.CreateTime)
@@ -365,9 +365,9 @@ func Test_MapDeep2(t *testing.T) {
 		b := new(B)
 		c := new(C)
 		d := new(D)
-		mb := gconv.MapDeep(b)
-		mc := gconv.MapDeep(c)
-		md := gconv.MapDeep(d)
+		mb := gconv.X取Map_递归(b)
+		mc := gconv.X取Map_递归(c)
+		md := gconv.X取Map_递归(d)
 		t.Assert(gutil.MapContains(mb, "F"), true)
 		t.Assert(gutil.MapContains(mb, "G"), true)
 		t.Assert(gutil.MapContains(mb, "H"), true)
@@ -403,7 +403,7 @@ func Test_MapDeep3(t *testing.T) {
 			Password: "123456",
 			Nickname: "JohnGuo",
 		}
-		m := gconv.MapDeep(user)
+		m := gconv.X取Map_递归(user)
 		t.Assert(m, g.Map{
 			"base": g.Map{
 				"id":   user.UserBase.Id,
@@ -425,7 +425,7 @@ func Test_MapDeep3(t *testing.T) {
 			Password: "123456",
 			Nickname: "JohnGuo",
 		}
-		m := gconv.Map(user)
+		m := gconv.X取Map(user)
 		t.Assert(m, g.Map{
 			"base":     user.UserBase,
 			"passport": user.Passport,
@@ -455,7 +455,7 @@ func Test_MapDeepWithAttributeTag(t *testing.T) {
 		user.Id = 100
 		user.Nickname = "john"
 		user.CreateTime = "2019"
-		m := gconv.Map(user)
+		m := gconv.X取Map(user)
 		t.Assert(m["id"], "")
 		t.Assert(m["nickname"], user.Nickname)
 		t.Assert(m["create_time"], "")
@@ -465,7 +465,7 @@ func Test_MapDeepWithAttributeTag(t *testing.T) {
 		user.Id = 100
 		user.Nickname = "john"
 		user.CreateTime = "2019"
-		m := gconv.MapDeep(user)
+		m := gconv.X取Map_递归(user)
 		t.Assert(m["base"].(map[string]interface{})["ids"].(map[string]interface{})["id"], user.Id)
 		t.Assert(m["nickname"], user.Nickname)
 		t.Assert(m["base"].(map[string]interface{})["create_time"], user.CreateTime)
@@ -490,7 +490,7 @@ func Test_MapDeepWithNestedMapAnyAny(t *testing.T) {
 				},
 			},
 		}
-		m := gconv.MapDeep(user)
+		m := gconv.X取Map_递归(user)
 		t.Assert(m, g.Map{
 			"extra_attributes": g.Map{
 				"simple_attribute": 123,
@@ -531,7 +531,7 @@ field3:
 		_, err = json.Marshal(parsed)
 		t.AssertNil(err)
 
-		converted := gconv.MapDeep(parsed)
+		converted := gconv.X取Map_递归(parsed)
 		jsonData, err := json.Marshal(converted)
 		t.AssertNil(err)
 
@@ -561,7 +561,7 @@ func Test_MapWithDeepOption(t *testing.T) {
 			Password: "123456",
 			Nickname: "JohnGuo",
 		}
-		m := gconv.Map(user)
+		m := gconv.X取Map(user)
 		t.Assert(m, g.Map{
 			"base":     user.UserBase,
 			"passport": user.Passport,
@@ -580,7 +580,7 @@ func Test_MapWithDeepOption(t *testing.T) {
 			Password: "123456",
 			Nickname: "JohnGuo",
 		}
-		m := gconv.Map(user, gconv.MapOption{Deep: true})
+		m := gconv.X取Map(user, gconv.MapOption{Deep: true})
 		t.Assert(m, g.Map{
 			"base": g.Map{
 				"id":   user.UserBase.Id,
@@ -595,67 +595,67 @@ func Test_MapWithDeepOption(t *testing.T) {
 
 func TestMapStrStr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gconv.MapStrStr(map[string]string{"k": "v"}), map[string]string{"k": "v"})
-		t.Assert(gconv.MapStrStr(`{}`), nil)
+		t.Assert(gconv.X取文本Map(map[string]string{"k": "v"}), map[string]string{"k": "v"})
+		t.Assert(gconv.X取文本Map(`{}`), nil)
 	})
 }
 
 func TestMapStrStrDeep(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gconv.MapStrStrDeep(map[string]string{"k": "v"}), map[string]string{"k": "v"})
-		t.Assert(gconv.MapStrStrDeep(`{"k":"v"}`), map[string]string{"k": "v"})
-		t.Assert(gconv.MapStrStrDeep(`{}`), nil)
+		t.Assert(gconv.X取文本Map_递归(map[string]string{"k": "v"}), map[string]string{"k": "v"})
+		t.Assert(gconv.X取文本Map_递归(`{"k":"v"}`), map[string]string{"k": "v"})
+		t.Assert(gconv.X取文本Map_递归(`{}`), nil)
 	})
 }
 
 func TestMapsDeep(t *testing.T) {
 	jsonStr := `[{"id":100, "name":"john"},{"id":200, "name":"smith"}]`
-	params := g.Slice{
+	params := g.Slice别名{
 		g.Map{"id": 100, "name": "john"},
 		g.Map{"id": 200, "name": "smith"},
 	}
 
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gconv.MapsDeep(nil), nil)
+		t.Assert(gconv.X取Map切片_递归(nil), nil)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		list := gconv.MapsDeep(params)
+		list := gconv.X取Map切片_递归(params)
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		list := gconv.MapsDeep(jsonStr)
+		list := gconv.X取Map切片_递归(jsonStr)
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 
-		list = gconv.MapsDeep([]byte(jsonStr))
+		list = gconv.X取Map切片_递归([]byte(jsonStr))
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gconv.MapsDeep(`[id]`), nil)
-		t.Assert(gconv.MapsDeep(`test`), nil)
-		t.Assert(gconv.MapsDeep([]byte(`[id]`)), nil)
-		t.Assert(gconv.MapsDeep([]byte(`test`)), nil)
-		t.Assert(gconv.MapsDeep([]string{}), nil)
+		t.Assert(gconv.X取Map切片_递归(`[id]`), nil)
+		t.Assert(gconv.X取Map切片_递归(`test`), nil)
+		t.Assert(gconv.X取Map切片_递归([]byte(`[id]`)), nil)
+		t.Assert(gconv.X取Map切片_递归([]byte(`test`)), nil)
+		t.Assert(gconv.X取Map切片_递归([]string{}), nil)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		stringInterfaceMapList := make([]map[string]interface{}, 0)
 		stringInterfaceMapList = append(stringInterfaceMapList, map[string]interface{}{"id": 100})
 		stringInterfaceMapList = append(stringInterfaceMapList, map[string]interface{}{"id": 200})
-		list := gconv.MapsDeep(stringInterfaceMapList)
+		list := gconv.X取Map切片_递归(stringInterfaceMapList)
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
 
-		list = gconv.MapsDeep([]byte(jsonStr))
+		list = gconv.X取Map切片_递归([]byte(jsonStr))
 		t.Assert(len(list), 2)
 		t.Assert(list[0]["id"], 100)
 		t.Assert(list[1]["id"], 200)
@@ -672,13 +672,13 @@ func TestMapWithJsonOmitEmpty(t *testing.T) {
 			Key:   "",
 			Value: 1,
 		}
-		m1 := gconv.Map(s)
+		m1 := gconv.X取Map(s)
 		t.Assert(m1, g.Map{
 			"Key":   "",
 			"Value": 1,
 		})
 
-		m2 := gconv.Map(s, gconv.MapOption{
+		m2 := gconv.X取Map(s, gconv.MapOption{
 			Deep:      false,
 			OmitEmpty: true,
 			Tags:      nil,
@@ -704,14 +704,14 @@ func TestMapWithJsonOmitEmpty(t *testing.T) {
 			},
 			AutoRenewFlag: 0,
 		}
-		m1 := gconv.Map(s)
+		m1 := gconv.X取Map(s)
 		t.Assert(m1, g.Map{
 			"pid":           1,
 			"timeSpan":      0,
 			"autoRenewFlag": 0,
 		})
 
-		m2 := gconv.Map(s, gconv.MapOption{
+		m2 := gconv.X取Map(s, gconv.MapOption{
 			Deep:      false,
 			OmitEmpty: true,
 			Tags:      nil,

@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcron
+package 定时cron类
 
 import (
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gregex"
+	gtype "github.com/888go/goframe/container/gtype"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gtime "github.com/888go/goframe/os/gtime"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // cronSchedule 是定时任务的调度计划。 md5:4731e43288725f27
@@ -122,12 +122,12 @@ var (
 func newSchedule(pattern string) (*cronSchedule, error) {
 	var currentTimestamp = time.Now().Unix()
 		// 检查给定的`pattern`是否在预定义的模式中。 md5:31badfbc0ed60d2b
-	if match, _ := gregex.MatchString(`(@\w+)\s*(\w*)\s*`, pattern); len(match) > 0 {
+	if match, _ := gregex.X匹配文本(`(@\w+)\s*(\w*)\s*`, pattern); len(match) > 0 {
 		key := strings.ToLower(match[1])
 		if v, ok := predefinedPatternMap[key]; ok {
 			pattern = v
 		} else if strings.Compare(key, "@every") == 0 {
-			d, err := gtime.ParseDuration(match[2])
+			d, err := gtime.X文本取时长(match[2])
 			if err != nil {
 				return nil, err
 			}
@@ -139,13 +139,13 @@ func newSchedule(pattern string) (*cronSchedule, error) {
 				lastCheckTimestamp: gtype.NewInt64(currentTimestamp),
 			}, nil
 		} else {
-			return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
+			return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
 		}
 	}
 		// 处理给定的`pattern`作为常见的6部分模式。 md5:224ce220d8873fe0
-	match, _ := gregex.MatchString(regexForCron, pattern)
+	match, _ := gregex.X匹配文本(regexForCron, pattern)
 	if len(match) != 7 {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
+		return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid pattern: "%s"`, pattern)
 	}
 	var (
 		err error
@@ -216,7 +216,7 @@ func parsePatternItem(
 		)
 		if len(intervalArray) == 2 {
 			if number, err = strconv.Atoi(intervalArray[1]); err != nil {
-				return nil, gerror.NewCodef(
+				return nil, gerror.X创建错误码并格式化(
 					gcode.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem,
 				)
 			} else {
@@ -231,7 +231,7 @@ func parsePatternItem(
 		// Example: 1-30/2
 		if rangeArray[0] != "*" {
 			if number, err = parseWeekAndMonthNameToInt(rangeArray[0], itemType); err != nil {
-				return nil, gerror.NewCodef(
+				return nil, gerror.X创建错误码并格式化(
 					gcode.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem,
 				)
 			} else {
@@ -244,7 +244,7 @@ func parsePatternItem(
 		// Example: 1-30/2
 		if len(rangeArray) == 2 {
 			if number, err = parseWeekAndMonthNameToInt(rangeArray[1], itemType); err != nil {
-				return nil, gerror.NewCodef(
+				return nil, gerror.X创建错误码并格式化(
 					gcode.CodeInvalidParameter, `invalid pattern item: "%s"`, itemElem,
 				)
 			} else {
@@ -260,7 +260,7 @@ func parsePatternItem(
 
 // parseWeekAndMonthNameToInt 根据字段类型将字段值解析为数字。 md5:10e98c83dca57c49
 func parseWeekAndMonthNameToInt(value string, itemType patternItemType) (int, error) {
-	if gregex.IsMatchString(`^\d+$`, value) {
+	if gregex.X是否匹配文本(`^\d+$`, value) {
 		// It is pure number.
 		if number, err := strconv.Atoi(value); err == nil {
 			return number, nil
@@ -286,5 +286,5 @@ func parseWeekAndMonthNameToInt(value string, itemType patternItemType) (int, er
 			}
 		}
 	}
-	return 0, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid pattern value: "%s"`, value)
+	return 0, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid pattern value: "%s"`, value)
 }

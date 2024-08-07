@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gsession
+package session类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/database/gredis"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gmap "github.com/888go/goframe/container/gmap"
+	gredis "github.com/888go/goframe/database/gredis"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 // StorageRedisHashTable 是使用 Redis 哈希表实现的会话存储接口。 md5:4479b82640ee5fc6
@@ -46,7 +46,7 @@ func (s *StorageRedisHashTable) Get(ctx context.Context, sessionId string, key s
 	if err != nil {
 		return nil, err
 	}
-	if v.IsNil() {
+	if v.X是否为Nil() {
 		return nil, nil
 	}
 	return v.String(), nil
@@ -58,7 +58,7 @@ func (s *StorageRedisHashTable) Data(ctx context.Context, sessionId string) (dat
 	if err != nil {
 		return nil, err
 	}
-	return m.Map(), nil
+	return m.X取Map(), nil
 }
 
 // GetSize 从存储中检索键值对的大小。 md5:9dcc1d87ddc0a989
@@ -67,10 +67,10 @@ func (s *StorageRedisHashTable) GetSize(ctx context.Context, sessionId string) (
 	return int(v), err
 }
 
-// Set 将键值对设置到存储中。
+// X设置值 将键值对设置到存储中。
 // 参数 `ttl` 指定了会话 ID 的过期时间（而不是键值对）。
 // md5:561e667e69e855f6
-func (s *StorageRedisHashTable) Set(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
+func (s *StorageRedisHashTable) X设置值(ctx context.Context, sessionId string, key string, value interface{}, ttl time.Duration) error {
 	_, err := s.redis.HSet(ctx, s.sessionIdToRedisKey(sessionId), map[string]interface{}{
 		key: value,
 	})
@@ -113,7 +113,7 @@ func (s *StorageRedisHashTable) GetSession(ctx context.Context, sessionId string
 		// 它不将会话数据存储在内存中，因此返回一个空的映射。
 		// 每次都是直接通过Redis服务器获取会话数据项。
 		// md5:780013e56e130612
-		return gmap.NewStrAnyMap(true), nil
+		return gmap.X创建StrAny(true), nil
 	}
 	return nil, nil
 }

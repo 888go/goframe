@@ -11,8 +11,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/internal/empty"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // RuleRequiredWith 实现了 `required-with` 规则：
@@ -40,7 +40,7 @@ func (r RuleRequiredWith) Run(in RunInput) error {
 		required   = false
 		array      = strings.Split(in.RulePattern, ",")
 		foundValue interface{}
-		dataMap    = in.Data.Map()
+		dataMap    = in.Data.X取Map()
 	)
 
 	for i := 0; i < len(array); i++ {
@@ -51,7 +51,7 @@ func (r RuleRequiredWith) Run(in RunInput) error {
 		}
 	}
 
-	if required && isRequiredEmpty(in.Value.Val()) {
+	if required && isRequiredEmpty(in.Value.X取值()) {
 		return errors.New(in.Message)
 	}
 	return nil

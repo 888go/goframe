@@ -11,15 +11,15 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	gdb "github.com/888go/goframe/database/gdb"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// Open 创建并返回一个底层的 sql.DB 对象，用于 mssql。 md5:942e7644482faff9
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+// X底层Open 创建并返回一个底层的 sql.DB 对象，用于 mssql。 md5:942e7644482faff9
+func (d *Driver) X底层Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlserver"
@@ -32,7 +32,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		source = config.Link
 				// 自定义在运行时更改架构。 md5:69ce0e441b271151
 		if config.Name != "" {
-			source, _ = gregex.ReplaceString(`database=([\w\.\-]+)+`, "database="+config.Name, source)
+			source, _ = gregex.X替换文本(`database=([\w\.\-]+)+`, "database="+config.Name, source)
 		}
 	} else {
 		source = fmt.Sprintf(
@@ -41,7 +41,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		)
 		if config.Extra != "" {
 			var extraMap map[string]interface{}
-			if extraMap, err = gstr.Parse(config.Extra); err != nil {
+			if extraMap, err = gstr.X参数解析(config.Extra); err != nil {
 				return nil, err
 			}
 			for k, v := range extraMap {
@@ -51,7 +51,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	}
 
 	if db, err = sql.Open(underlyingDriverName, source); err != nil {
-		err = gerror.WrapCodef(
+		err = gerror.X多层错误码并格式化(
 			gcode.CodeDbOperationError, err,
 			`sql.Open failed for driver "%s" by source "%s"`, underlyingDriverName, source,
 		)

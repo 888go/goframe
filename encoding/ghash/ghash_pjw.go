@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghash
+package 哈希类
 
 // PJW实现了经典的32位PJW哈希算法。 md5:3822bc8ce34ff2e9
 func PJW(str []byte) uint32 {

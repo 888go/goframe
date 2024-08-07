@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfpool
+package 文件指针池类
 
 import (
 	"fmt"
 	"os"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Open 函数根据给定的文件路径、标志和打开权限创建并返回一个文件项。当它首次被调用时，它会自动内部创建一个关联的文件指针池。然后，它从文件指针池中获取文件项。
@@ -29,7 +29,7 @@ func Open(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *
 	// 如果 err 不为 nil，则：
 	// 返回 nil 和 err
 	// md5:763fc7901895ec01
-	pool := pools.GetOrSetFuncLock(
+	pool := pools.X取值或设置值_函数带锁(
 		fmt.Sprintf("%s&%d&%d&%d", path, flag, fpTTL, perm),
 		func() interface{} {
 			return New(path, flag, perm, fpTTL)
@@ -48,19 +48,19 @@ func Get(path string, flag int, perm os.FileMode, ttl ...time.Duration) (file *F
 		fpTTL = ttl[0]
 	}
 
-	f, found := pools.Search(fmt.Sprintf("%s&%d&%d&%d", path, flag, fpTTL, perm))
+	f, found := pools.X查找(fmt.Sprintf("%s&%d&%d&%d", path, flag, fpTTL, perm))
 	if !found {
 		return nil
 	}
 
-	fp, _ := f.(*Pool).pool.Get()
+	fp, _ := f.(*Pool).pool.X出栈()
 	return fp.(*File)
 }
 
 // Stat 返回描述文件的FileInfo结构。 md5:86e6f3f0a508aa53
 func (f *File) Stat() (os.FileInfo, error) {
 	if f.stat == nil {
-		return nil, gerror.New("file stat is empty")
+		return nil, gerror.X创建("file stat is empty")
 	}
 	return f.stat, nil
 }
@@ -71,8 +71,8 @@ func (f *File) Close(close ...bool) error {
 		f.File.Close()
 	}
 
-	if f.pid == f.pool.id.Val() {
-		return f.pool.pool.Put(f)
+	if f.pid == f.pool.id.X取值() {
+		return f.pool.pool.X入栈(f)
 	}
 	return nil
 }

@@ -5,37 +5,37 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestVars(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var vs = gvar.Vars{
-			gvar.New(1),
-			gvar.New(2),
-			gvar.New(3),
+			gvar.X创建(1),
+			gvar.X创建(2),
+			gvar.X创建(3),
 		}
-		t.AssertEQ(vs.Strings(), []string{"1", "2", "3"})
-		t.AssertEQ(vs.Interfaces(), []interface{}{1, 2, 3})
-		t.AssertEQ(vs.Float32s(), []float32{1, 2, 3})
-		t.AssertEQ(vs.Float64s(), []float64{1, 2, 3})
-		t.AssertEQ(vs.Ints(), []int{1, 2, 3})
-		t.AssertEQ(vs.Int8s(), []int8{1, 2, 3})
-		t.AssertEQ(vs.Int16s(), []int16{1, 2, 3})
-		t.AssertEQ(vs.Int32s(), []int32{1, 2, 3})
-		t.AssertEQ(vs.Int64s(), []int64{1, 2, 3})
-		t.AssertEQ(vs.Uints(), []uint{1, 2, 3})
-		t.AssertEQ(vs.Uint8s(), []uint8{1, 2, 3})
-		t.AssertEQ(vs.Uint16s(), []uint16{1, 2, 3})
-		t.AssertEQ(vs.Uint32s(), []uint32{1, 2, 3})
-		t.AssertEQ(vs.Uint64s(), []uint64{1, 2, 3})
+		t.AssertEQ(vs.X取文本切片(), []string{"1", "2", "3"})
+		t.AssertEQ(vs.X取any切片(), []interface{}{1, 2, 3})
+		t.AssertEQ(vs.X取小数32位切片(), []float32{1, 2, 3})
+		t.AssertEQ(vs.X取小数64位切片(), []float64{1, 2, 3})
+		t.AssertEQ(vs.X取整数切片(), []int{1, 2, 3})
+		t.AssertEQ(vs.X取整数8位切片(), []int8{1, 2, 3})
+		t.AssertEQ(vs.X取整数16位切片(), []int16{1, 2, 3})
+		t.AssertEQ(vs.X取整数32位切片(), []int32{1, 2, 3})
+		t.AssertEQ(vs.X取整数64位切片(), []int64{1, 2, 3})
+		t.AssertEQ(vs.X取正整数切片(), []uint{1, 2, 3})
+		t.AssertEQ(vs.X取正整数8位切片(), []uint8{1, 2, 3})
+		t.AssertEQ(vs.X取正整数16位切片(), []uint16{1, 2, 3})
+		t.AssertEQ(vs.X取正整数32位切片(), []uint32{1, 2, 3})
+		t.AssertEQ(vs.X取正整数64位切片(), []uint64{1, 2, 3})
 	})
 }
 
@@ -46,11 +46,11 @@ func TestVars_Scan(t *testing.T) {
 			Name string
 		}
 		var vs = gvar.Vars{
-			gvar.New(g.Map{"id": 1, "name": "john"}),
-			gvar.New(g.Map{"id": 2, "name": "smith"}),
+			gvar.X创建(g.Map{"id": 1, "name": "john"}),
+			gvar.X创建(g.Map{"id": 2, "name": "smith"}),
 		}
 		var users []User
-		err := vs.Scan(&users)
+		err := vs.X取结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].Id, 1)

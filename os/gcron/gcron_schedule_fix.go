@@ -5,20 +5,20 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcron
+package 定时cron类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 // getAndUpdateLastCheckTimestamp 检查、修复并返回在几秒钟内有延迟修复的最后时间戳。 md5:617d53ed6d0eee3f
 func (s *cronSchedule) getAndUpdateLastCheckTimestamp(ctx context.Context, t time.Time) int64 {
 	var (
 		currentTimestamp   = t.Unix()
-		lastCheckTimestamp = s.lastCheckTimestamp.Val()
+		lastCheckTimestamp = s.lastCheckTimestamp.X取值()
 	)
 	switch {
 	// 通常情况下，定时器在同一秒内触发，但毫秒数不同。
@@ -59,6 +59,6 @@ func (s *cronSchedule) getAndUpdateLastCheckTimestamp(ctx context.Context, t tim
 		)
 		lastCheckTimestamp = currentTimestamp
 	}
-	s.lastCheckTimestamp.Set(lastCheckTimestamp)
+	s.lastCheckTimestamp.X设置值(lastCheckTimestamp)
 	return lastCheckTimestamp
 }

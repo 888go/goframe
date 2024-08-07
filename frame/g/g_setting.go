@@ -8,12 +8,12 @@
 package g
 
 import (
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/internal/utils"
 )
 
-// SetDebug 手动启用/禁用 GoFrame 内部日志。
+// X设置debug 手动启用/禁用 GoFrame 内部日志。
 // 注意，此函数不保证并发安全，可能会导致数据竞争（DATA RACE），因此应在启动时调用此函数，而不是在运行时。
 // md5:c69ba0c4065e5d84
-func SetDebug(enabled bool) {
-	utils.SetDebugEnabled(enabled)
+func X设置debug(开启 bool) {
+	utils.SetDebugEnabled(开启)
 }

@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gudp_test
+package udp类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/net/gudp"
+	gudp "github.com/888go/goframe/net/gudp"
 )
 
 func ExampleGetFreePort() {

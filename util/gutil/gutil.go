@@ -6,24 +6,24 @@
 // md5:a9832f33b234e3f3
 
 // 包gutil提供了实用函数。 md5:94ecbd62b7aa8e76
-package gutil
+package 工具类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (
 	dumpIndent = `    `
 )
 
-// Keys 从给定的映射或结构体中检索并返回键。 md5:90c2f70b36eaef9e
-func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
-	keysOrAttrs = make([]string, 0)
-	if m, ok := mapOrStruct.(map[string]interface{}); ok {
+// X取所有名称 从给定的映射或结构体中检索并返回键。 md5:90c2f70b36eaef9e
+func X取所有名称(map或Struct interface{}) (键或属性 []string) {
+	键或属性 = make([]string, 0)
+	if m, ok := map或Struct.(map[string]interface{}); ok {
 		for k := range m {
-			keysOrAttrs = append(keysOrAttrs, k)
+			键或属性 = append(键或属性, k)
 		}
 		return
 	}
@@ -31,10 +31,10 @@ func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
 		reflectValue reflect.Value
 		reflectKind  reflect.Kind
 	)
-	if v, ok := mapOrStruct.(reflect.Value); ok {
+	if v, ok := map或Struct.(reflect.Value); ok {
 		reflectValue = v
 	} else {
-		reflectValue = reflect.ValueOf(mapOrStruct)
+		reflectValue = reflect.ValueOf(map或Struct)
 	}
 	reflectKind = reflectValue.Kind()
 	for reflectKind == reflect.Ptr {
@@ -49,7 +49,7 @@ func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
 	switch reflectKind {
 	case reflect.Map:
 		for _, k := range reflectValue.MapKeys() {
-			keysOrAttrs = append(keysOrAttrs, gconv.String(k.Interface()))
+			键或属性 = append(键或属性, gconv.String(k.Interface()))
 		}
 	case reflect.Struct:
 		var (
@@ -59,21 +59,21 @@ func Keys(mapOrStruct interface{}) (keysOrAttrs []string) {
 		for i := 0; i < reflectValue.NumField(); i++ {
 			fieldType = reflectType.Field(i)
 			if fieldType.Anonymous {
-				keysOrAttrs = append(keysOrAttrs, Keys(reflectValue.Field(i))...)
+				键或属性 = append(键或属性, X取所有名称(reflectValue.Field(i))...)
 			} else {
-				keysOrAttrs = append(keysOrAttrs, fieldType.Name)
+				键或属性 = append(键或属性, fieldType.Name)
 			}
 		}
 	}
 	return
 }
 
-// Values 从给定的映射或结构体中检索并返回值。 md5:e03f3d848bc2ef9a
-func Values(mapOrStruct interface{}) (values []interface{}) {
-	values = make([]interface{}, 0)
-	if m, ok := mapOrStruct.(map[string]interface{}); ok {
+// X取所有值 从给定的映射或结构体中检索并返回值。 md5:e03f3d848bc2ef9a
+func X取所有值(map或Struct interface{}) (值切片 []interface{}) {
+	值切片 = make([]interface{}, 0)
+	if m, ok := map或Struct.(map[string]interface{}); ok {
 		for _, v := range m {
-			values = append(values, v)
+			值切片 = append(值切片, v)
 		}
 		return
 	}
@@ -81,10 +81,10 @@ func Values(mapOrStruct interface{}) (values []interface{}) {
 		reflectValue reflect.Value
 		reflectKind  reflect.Kind
 	)
-	if v, ok := mapOrStruct.(reflect.Value); ok {
+	if v, ok := map或Struct.(reflect.Value); ok {
 		reflectValue = v
 	} else {
-		reflectValue = reflect.ValueOf(mapOrStruct)
+		reflectValue = reflect.ValueOf(map或Struct)
 	}
 	reflectKind = reflectValue.Kind()
 	for reflectKind == reflect.Ptr {
@@ -94,7 +94,7 @@ func Values(mapOrStruct interface{}) (values []interface{}) {
 	switch reflectKind {
 	case reflect.Map:
 		for _, k := range reflectValue.MapKeys() {
-			values = append(values, reflectValue.MapIndex(k).Interface())
+			值切片 = append(值切片, reflectValue.MapIndex(k).Interface())
 		}
 	case reflect.Struct:
 		var (
@@ -104,9 +104,9 @@ func Values(mapOrStruct interface{}) (values []interface{}) {
 		for i := 0; i < reflectValue.NumField(); i++ {
 			fieldType = reflectType.Field(i)
 			if fieldType.Anonymous {
-				values = append(values, Values(reflectValue.Field(i))...)
+				值切片 = append(值切片, X取所有值(reflectValue.Field(i))...)
 			} else {
-				values = append(values, reflectValue.Field(i).Interface())
+				值切片 = append(值切片, reflectValue.Field(i).Interface())
 			}
 		}
 	}

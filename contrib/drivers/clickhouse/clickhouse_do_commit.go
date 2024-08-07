@@ -10,11 +10,11 @@ package clickhouse
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
-// DoCommit 将当前SQL和参数提交给底层SQL驱动程序。 md5:7cf9b1f6f4d9d2cb
-func (d *Driver) DoCommit(ctx context.Context, in gdb.DoCommitInput) (out gdb.DoCommitOutput, err error) {
-	ctx = d.InjectIgnoreResult(ctx)
-	return d.Core.DoCommit(ctx, in)
+// X底层DoCommit 将当前SQL和参数提交给底层SQL驱动程序。 md5:7cf9b1f6f4d9d2cb
+func (d *Driver) X底层DoCommit(ctx context.Context, in gdb.DoCommitInput) (out gdb.DoCommitOutput, err error) {
+	ctx = d.X底层_InjectIgnoreResult(ctx)
+	return d.Core.X底层DoCommit(ctx, in)
 }

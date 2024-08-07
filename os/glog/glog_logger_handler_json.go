@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog
+package 日志类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/internal/json"
 )
 
 // HandlerOutputJson 是将日志内容作为单一JSON输出的结构体。
@@ -34,8 +34,8 @@ type HandlerOutputJson struct {
 	Stack      string `json:",omitempty"` // 由logger生成的堆栈跟踪字符串，只有在配置了Config.StStatus时才可用。 md5:5951e7cd2f97d44d
 }
 
-// HandlerJson 是一个处理器，用于将输出日志内容作为单个 JSON 字符串。 md5:5f3ff01b64c4588b
-func HandlerJson(ctx context.Context, in *HandlerInput) {
+// X中间件函数Json 是一个处理器，用于将输出日志内容作为单个 JSON 字符串。 md5:5f3ff01b64c4588b
+func X中间件函数Json(上下文 context.Context, in *HandlerInput) {
 	output := HandlerOutputJson{
 		Time:       in.TimeFormat,
 		TraceId:    in.TraceId,
@@ -60,5 +60,5 @@ func HandlerJson(ctx context.Context, in *HandlerInput) {
 	}
 	in.Buffer.Write(jsonBytes)
 	in.Buffer.Write([]byte("\n"))
-	in.Next(ctx)
+	in.Next(上下文)
 }

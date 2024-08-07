@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -30,7 +30,7 @@ func (item *localStatsItem) Stats() sql.DBStats {
 // Stats获取并返回所有已建立节点的池统计信息。 md5:83a29e795d6705a8
 func (c *Core) Stats(ctx context.Context) []StatsItem {
 	var items = make([]StatsItem, 0)
-	c.links.Iterator(func(k, v any) bool {
+	c.links.X遍历(func(k, v any) bool {
 		var (
 			node  = k.(ConfigNode)
 			sqlDB = v.(*sql.DB)

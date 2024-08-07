@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // RuleNotIn 实现了 "not-in" 规则：
@@ -38,7 +38,7 @@ func (r RuleNotIn) Run(in RunInput) error {
 		ok    = true
 		value = in.Value.String()
 	)
-	for _, rulePattern := range gstr.SplitAndTrim(in.RulePattern, ",") {
+	for _, rulePattern := range gstr.X分割并忽略空值(in.RulePattern, ",") {
 		if in.Option.CaseInsensitive {
 			ok = !strings.EqualFold(value, strings.TrimSpace(rulePattern))
 		} else {

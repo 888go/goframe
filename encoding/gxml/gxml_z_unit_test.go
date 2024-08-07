@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gxml_test
+package xml类_test
 
 import (
 	"bytes"
 	"strings"
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gcharset"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/test/gtest"
+	gcharset "github.com/888go/goframe/encoding/gcharset"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gxml "github.com/888go/goframe/encoding/gxml"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var testData = []struct {
@@ -36,11 +36,11 @@ func buildXml(charset string, str string) (string, string) {
 	head := `<?xml version="1.0" encoding="UTF-8"?>`
 	srcXml := strings.Replace(head, "UTF-8", charset, -1)
 
-	srcParser := gjson.New(nil)
-	srcParser.Set("name", str)
-	srcParser.Set("age", "12")
+	srcParser := gjson.X创建(nil)
+	srcParser.X设置值("name", str)
+	srcParser.X设置值("age", "12")
 
-	s, err := srcParser.ToXml()
+	s, err := srcParser.X取xml字节集()
 	if err != nil {
 		return "", ""
 	}

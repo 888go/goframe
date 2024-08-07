@@ -4,24 +4,24 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gmap_test
+package map类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_TreeMap_Var(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var m gmap.TreeMap
-		m.SetComparator(gutil.ComparatorString)
-		m.Set("key1", "val1")
+		m.SetComparator(gutil.X比较文本)
+		m.X设置值("key1", "val1")
 		t.Assert(m.Keys(), []interface{}{"key1"})
 
 		t.Assert(m.Get("key1"), "val1")
@@ -52,8 +52,8 @@ func Test_TreeMap_Var(t *testing.T) {
 
 func Test_TreeMap_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
-		m.Set("key1", "val1")
+		m := gmap.X创建红黑树Map(gutil.X比较文本)
+		m.X设置值("key1", "val1")
 		t.Assert(m.Keys(), []interface{}{"key1"})
 
 		t.Assert(m.Get("key1"), "val1")
@@ -80,14 +80,14 @@ func Test_TreeMap_Basic(t *testing.T) {
 		t.Assert(m.Size(), 0)
 		t.Assert(m.IsEmpty(), true)
 
-		m2 := gmap.NewTreeMapFrom(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m2 := gmap.X创建红黑树Map并从Map(gutil.X比较文本, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		t.Assert(m2.Map(), map[interface{}]interface{}{1: 1, "key1": "val1"})
 	})
 }
 
 func Test_TreeMap_Set_Fun(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := gmap.X创建红黑树Map(gutil.X比较文本)
 		m.GetOrSetFunc("fun", getValue)
 		m.GetOrSetFuncLock("funlock", getValue)
 		t.Assert(m.Get("funlock"), 3)
@@ -100,7 +100,7 @@ func Test_TreeMap_Set_Fun(t *testing.T) {
 
 func Test_TreeMap_Batch(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := gmap.X创建红黑树Map(gutil.X比较文本)
 		m.Sets(map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		t.Assert(m.Map(), map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		m.Removes([]interface{}{"key1", 1})
@@ -111,19 +111,19 @@ func Test_TreeMap_Batch(t *testing.T) {
 func Test_TreeMap_Iterator(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := map[interface{}]interface{}{1: 1, "key1": "val1"}
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, expect)
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m := gmap.X创建红黑树Map并从Map(gutil.X比较文本, expect)
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			t.Assert(expect[k], v)
 			return true
 		})
 		// 断言返回值对遍历控制
 		i := 0
 		j := 0
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			i++
 			return true
 		})
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			j++
 			return false
 		})
@@ -133,7 +133,7 @@ func Test_TreeMap_Iterator(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		expect := map[interface{}]interface{}{1: 1, "key1": "val1"}
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, expect)
+		m := gmap.X创建红黑树Map并从Map(gutil.X比较文本, expect)
 		for i := 0; i < 10; i++ {
 			m.IteratorAsc(func(k interface{}, v interface{}) bool {
 				t.Assert(expect[k], v)
@@ -154,7 +154,7 @@ func Test_TreeMap_Iterator(t *testing.T) {
 func Test_TreeMap_Clone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// clone 方法是深克隆
-		m := gmap.NewTreeMapFrom(gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m := gmap.X创建红黑树Map并从Map(gutil.X比较文本, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		m_clone := m.Clone()
 		m.Remove(1)
 		// 修改原 map,clone 后的 map 不影响
@@ -173,9 +173,9 @@ func Test_TreeMap_Json(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		m1 := gmap.NewTreeMapFrom(gutil.ComparatorString, data)
+		m1 := gmap.X创建红黑树Map并从Map(gutil.X比较文本, data)
 		b1, err1 := json.Marshal(m1)
-		b2, err2 := json.Marshal(gconv.Map(data))
+		b2, err2 := json.Marshal(gconv.X取Map(data))
 		t.Assert(err1, err2)
 		t.Assert(b1, b2)
 	})
@@ -185,10 +185,10 @@ func Test_TreeMap_Json(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		b, err := json.Marshal(gconv.Map(data))
+		b, err := json.Marshal(gconv.X取Map(data))
 		t.AssertNil(err)
 
-		m := gmap.NewTreeMap(gutil.ComparatorString)
+		m := gmap.X创建红黑树Map(gutil.X比较文本)
 		err = json.UnmarshalUseNumber(b, m)
 		t.AssertNil(err)
 		t.Assert(m.Get("k1"), data["k1"])
@@ -199,7 +199,7 @@ func Test_TreeMap_Json(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		b, err := json.Marshal(gconv.Map(data))
+		b, err := json.Marshal(gconv.X取Map(data))
 		t.AssertNil(err)
 
 		var m gmap.TreeMap

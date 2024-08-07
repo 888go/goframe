@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcache
+package 缓存类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/os/gtimer"
+	glist "github.com/888go/goframe/container/glist"
+	gmap "github.com/888go/goframe/container/gmap"
+	gtype "github.com/888go/goframe/container/gtype"
+	gtimer "github.com/888go/goframe/os/gtimer"
 )
 
 // LRU 缓存对象。
@@ -31,7 +31,7 @@ type adapterMemoryLru struct {
 func newMemCacheLru(cache *AdapterMemory) *adapterMemoryLru {
 	lru := &adapterMemoryLru{
 		cache:   cache,
-		data:    gmap.New(true),
+		data:    gmap.X创建(true),
 		list:    glist.New(true),
 		rawList: glist.New(true),
 		closed:  gtype.NewBool(),
@@ -41,20 +41,20 @@ func newMemCacheLru(cache *AdapterMemory) *adapterMemoryLru {
 
 // Close 关闭 LRU 对象。 md5:5fbab2bd7f830bd3
 func (lru *adapterMemoryLru) Close() {
-	lru.closed.Set(true)
+	lru.closed.X设置值(true)
 }
 
-// Remove 从 LRU 缓存中删除 `key`。 md5:1b31a149f111557e
-func (lru *adapterMemoryLru) Remove(key interface{}) {
-	if v := lru.data.Get(key); v != nil {
-		lru.data.Remove(key)
+// X删除并带返回值 从 LRU 缓存中删除 `key`。 md5:1b31a149f111557e
+func (lru *adapterMemoryLru) X删除并带返回值(key interface{}) {
+	if v := lru.data.X取值(key); v != nil {
+		lru.data.X删除(key)
 		lru.list.Remove(v.(*glist.Element))
 	}
 }
 
-// Size 返回 lru 的大小。 md5:e6b8b41e660eeabd
-func (lru *adapterMemoryLru) Size() int {
-	return lru.data.Size()
+// X取数量 返回 lru 的大小。 md5:e6b8b41e660eeabd
+func (lru *adapterMemoryLru) X取数量() int {
+	return lru.data.X取数量()
 }
 
 // Push 将`key`推送到`lru`的尾部。 md5:d0793b82031a3f0e
@@ -65,7 +65,7 @@ func (lru *adapterMemoryLru) Push(key interface{}) {
 // Pop 从`lru`的尾部删除并返回键。 md5:e9a281592f5ec82e
 func (lru *adapterMemoryLru) Pop() interface{} {
 	if v := lru.list.PopBack(); v != nil {
-		lru.data.Remove(v)
+		lru.data.X删除(v)
 		return v
 	}
 	return nil
@@ -74,8 +74,8 @@ func (lru *adapterMemoryLru) Pop() interface{} {
 // SyncAndClear 使用最近最少使用（LRU）算法，将键从`rawList`同步到`list`和`data`中，并清除不再需要的数据。
 // md5:1da6cde3bc8d63d6
 func (lru *adapterMemoryLru) SyncAndClear(ctx context.Context) {
-	if lru.closed.Val() {
-		gtimer.Exit()
+	if lru.closed.X取值() {
+		gtimer.X退出()
 		return
 	}
 	// Data synchronization.
@@ -83,19 +83,19 @@ func (lru *adapterMemoryLru) SyncAndClear(ctx context.Context) {
 	for {
 		if rawListItem := lru.rawList.PopFront(); rawListItem != nil {
 						// 从列表中删除键。 md5:9044ea33db98a37a
-			if alreadyExistItem = lru.data.Get(rawListItem); alreadyExistItem != nil {
+			if alreadyExistItem = lru.data.X取值(rawListItem); alreadyExistItem != nil {
 				lru.list.Remove(alreadyExistItem.(*glist.Element))
 			}
 			// 将键推送到列表的头部
 			// 并将其项目设置到哈希表中，以便快速索引。
 			// md5:c4ec4de48ddb7b0c
-			lru.data.Set(rawListItem, lru.list.PushFront(rawListItem))
+			lru.data.X设置值(rawListItem, lru.list.PushFront(rawListItem))
 		} else {
 			break
 		}
 	}
 	// Data cleaning up.
-	for clearLength := lru.Size() - lru.cache.cap; clearLength > 0; clearLength-- {
+	for clearLength := lru.X取数量() - lru.cache.cap; clearLength > 0; clearLength-- {
 		if topKey := lru.Pop(); topKey != nil {
 			lru.cache.clearByKey(topKey, true)
 		}

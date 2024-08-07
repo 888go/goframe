@@ -10,16 +10,16 @@ package goai
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gvalid"
+	gmap "github.com/888go/goframe/container/gmap"
+	gset "github.com/888go/goframe/container/gset"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	gvalid "github.com/888go/goframe/util/gvalid"
 )
 
 // Schema 按照 OpenAPI/Swagger 3.0 标准指定。 md5:6f1f02d1c3d44b09
@@ -117,7 +117,7 @@ func (oai *OpenApiV3) addSchema(object ...interface{}) error {
 
 func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 	if oai.Components.Schemas.refs == nil {
-		oai.Components.Schemas.refs = gmap.NewListMap()
+		oai.Components.Schemas.refs = gmap.X创建链表mp()
 	}
 
 	var (
@@ -130,14 +130,14 @@ func (oai *OpenApiV3) doAddSchemaSingle(object interface{}) error {
 		return nil
 	}
 	// Take the holder first.
-	oai.Components.Schemas.Set(structTypeName, SchemaRef{})
+	oai.Components.Schemas.X设置值(structTypeName, SchemaRef{})
 
 	schema, err := oai.structToSchema(object)
 	if err != nil {
 		return err
 	}
 
-	oai.Components.Schemas.Set(structTypeName, SchemaRef{
+	oai.Components.Schemas.X设置值(structTypeName, SchemaRef{
 		Ref:   "",
 		Value: schema,
 	})
@@ -183,11 +183,11 @@ func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 	})
 	schema.Type = TypeObject
 	for _, structField := range structFields {
-		if !gstr.IsLetterUpper(structField.Name()[0]) {
+		if !gstr.X是否大写字符(structField.Name()[0]) {
 			continue
 		}
 		var fieldName = structField.TagPriorityName()
-		fieldName = gstr.Split(gstr.Trim(fieldName), ",")[0]
+		fieldName = gstr.X分割(gstr.X过滤首尾符并含空白(fieldName), ",")[0]
 		if fieldName == "" {
 			fieldName = structField.Name()
 		}
@@ -198,13 +198,13 @@ func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 		if err != nil {
 			return nil, err
 		}
-		schema.Properties.Set(fieldName, *schemaRef)
+		schema.Properties.X设置值(fieldName, *schemaRef)
 	}
 
-	schema.Properties.Iterator(func(key string, ref SchemaRef) bool {
+	schema.Properties.X遍历(func(key string, ref SchemaRef) bool {
 		if ref.Value != nil && ref.Value.ValidationRules != "" {
-			validationRuleSet := gset.NewStrSetFrom(gstr.Split(ref.Value.ValidationRules, "|"))
-			if validationRuleSet.Contains(validationRuleKeyForRequired) {
+			validationRuleSet := gset.X创建文本并按值(gstr.X分割(ref.Value.ValidationRules, "|"))
+			if validationRuleSet.X是否存在(validationRuleKeyForRequired) {
 				schema.Required = append(schema.Required, key)
 			}
 		}
@@ -224,7 +224,7 @@ func (oai *OpenApiV3) structToSchema(object interface{}) (*Schema, error) {
 func (oai *OpenApiV3) tagMapToSchema(tagMap map[string]string, schema *Schema) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
 	if err := gconv.Struct(mergedTagMap, schema); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Schema failed`)
+		return gerror.X多层错误(err, `mapping struct tags to Schema failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, schema.XExtensions)
 		// 验证信息到OpenAPI规范模式。 md5:8caca50de8e752c8
@@ -234,22 +234,22 @@ func (oai *OpenApiV3) tagMapToSchema(tagMap map[string]string, schema *Schema) e
 			schema.ValidationRules = validationRules
 			// Enum checks.
 			if len(schema.Enum) == 0 {
-				for _, rule := range gstr.SplitAndTrim(validationRules, "|") {
-					if gstr.HasPrefix(rule, validationRuleKeyForIn) {
+				for _, rule := range gstr.X分割并忽略空值(validationRules, "|") {
+					if gstr.X开头判断(rule, validationRuleKeyForIn) {
 						var (
 							isAllEnumNumber = true
-							enumArray       = gstr.SplitAndTrim(rule[len(validationRuleKeyForIn):], ",")
+							enumArray       = gstr.X分割并忽略空值(rule[len(validationRuleKeyForIn):], ",")
 						)
 						for _, enum := range enumArray {
-							if !gstr.IsNumeric(enum) {
+							if !gstr.X是否为数字(enum) {
 								isAllEnumNumber = false
 								break
 							}
 						}
 						if isAllEnumNumber {
-							schema.Enum = gconv.Interfaces(gconv.Int64s(enumArray))
+							schema.Enum = gconv.X取any切片(gconv.X取整数64位切片(enumArray))
 						} else {
-							schema.Enum = gconv.Interfaces(enumArray)
+							schema.Enum = gconv.X取any切片(enumArray)
 						}
 					}
 				}

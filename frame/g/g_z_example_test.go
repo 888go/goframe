@@ -8,16 +8,16 @@
 package g_test
 
 import (
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
 )
 
 func ExampleServer() {
 	// A hello world example.
-	s := g.Server()
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write("hello world")
+	s := g.Http类()
+	s.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("hello world")
 	})
-	s.SetPort(8999)
-	s.Run()
+	s.X设置监听端口(8999)
+	s.X启动服务()
 }

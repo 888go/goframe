@@ -11,32 +11,32 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/gins"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/gins"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Database(t *testing.T) {
-	databaseContent := gfile.GetContents(
+	databaseContent := gfile.X读文本(
 		gtest.DataPath("database", "config.toml"),
 	)
 	gtest.C(t, func(t *gtest.T) {
 		var err error
-		dirPath := gfile.Temp(gtime.TimestampNanoStr())
-		err = gfile.Mkdir(dirPath)
+		dirPath := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+		err = gfile.X创建目录(dirPath)
 		t.AssertNil(err)
-		defer gfile.Remove(dirPath)
+		defer gfile.X删除(dirPath)
 
 		name := "config.toml"
-		err = gfile.PutContents(gfile.Join(dirPath, name), databaseContent)
+		err = gfile.X写入文本(gfile.X路径生成(dirPath, name), databaseContent)
 		t.AssertNil(err)
 
-		err = gins.Config().GetAdapter().(*gcfg.AdapterFile).AddPath(dirPath)
+		err = gins.Config().X取适配器().(*gcfg.AdapterFile).AddPath(dirPath)
 		t.AssertNil(err)
 
-		defer gins.Config().GetAdapter().(*gcfg.AdapterFile).Clear()
+		defer gins.Config().X取适配器().(*gcfg.AdapterFile).Clear()
 
 						// 用于gfsnotify回调以刷新配置文件的缓存. md5:6c5279392041ab52
 		time.Sleep(500 * time.Millisecond)
@@ -49,9 +49,9 @@ func Test_Database(t *testing.T) {
 		t.AssertNE(db, nil)
 		t.AssertNE(dbDefault, nil)
 
-		t.Assert(db.PingMaster(), nil)
-		t.Assert(db.PingSlave(), nil)
-		t.Assert(dbDefault.PingMaster(), nil)
-		t.Assert(dbDefault.PingSlave(), nil)
+		t.Assert(db.X向主节点发送心跳(), nil)
+		t.Assert(db.X向从节点发送心跳(), nil)
+		t.Assert(dbDefault.X向主节点发送心跳(), nil)
+		t.Assert(dbDefault.X向从节点发送心跳(), nil)
 	})
 }

@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
 	"fmt"
 	"os"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/genv"
+	"github.com/888go/goframe/frame/g"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	genv "github.com/888go/goframe/os/genv"
 )
 
 func ExampleInit() {
@@ -75,7 +75,7 @@ func ExampleGetOptAll() {
 
 func ExampleGetOptWithEnv() {
 	fmt.Printf("Opt[gf.test]:%s\n", gcmd.GetOptWithEnv("gf.test"))
-	_ = genv.Set("GF_TEST", "YES")
+	_ = genv.X设置值("GF_TEST", "YES")
 	fmt.Printf("Opt[gf.test]:%s\n", gcmd.GetOptWithEnv("gf.test"))
 
 	// Output:
@@ -115,9 +115,9 @@ func ExampleCommandFromCtx() {
 		}
 	)
 
-	ctx := context.WithValue(gctx.New(), gcmd.CtxKeyCommand, &command)
-	unAddCtx := context.WithValue(gctx.New(), gcmd.CtxKeyCommand, &gcmd.Command{})
-	nonKeyCtx := context.WithValue(gctx.New(), "Testkey", &gcmd.Command{})
+	ctx := context.WithValue(gctx.X创建(), gcmd.CtxKeyCommand, &command)
+	unAddCtx := context.WithValue(gctx.X创建(), gcmd.CtxKeyCommand, &gcmd.Command{})
+	nonKeyCtx := context.WithValue(gctx.X创建(), "Testkey", &gcmd.Command{})
 
 	fmt.Println(gcmd.CommandFromCtx(ctx).Name)
 	fmt.Println(gcmd.CommandFromCtx(unAddCtx).Name)
@@ -234,8 +234,8 @@ func ExampleScanf() {
 func ExampleParserFromCtx() {
 	parser, _ := gcmd.Parse(nil)
 
-	ctx := context.WithValue(gctx.New(), gcmd.CtxKeyParser, parser)
-	nilCtx := context.WithValue(gctx.New(), "NilCtxKeyParser", parser)
+	ctx := context.WithValue(gctx.X创建(), gcmd.CtxKeyParser, parser)
+	nilCtx := context.WithValue(gctx.X创建(), "NilCtxKeyParser", parser)
 
 	fmt.Println(gcmd.ParserFromCtx(ctx).GetArgAll())
 	fmt.Println(gcmd.ParserFromCtx(nilCtx) == nil)

@@ -5,20 +5,22 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
-import "net/http"
+import (
+	"net/http"
+)
 
 // WrapF 是一个辅助函数，用于包装http.HandlerFunc并返回一个ghttp.HandlerFunc。 md5:f1b5a37e2bddfd19
 func WrapF(f http.HandlerFunc) HandlerFunc {
 	return func(r *Request) {
-		f(r.Response.Writer, r.Request)
+		f(r.X响应.Writer, r.Request)
 	}
 }
 
 // WrapH 是一个辅助函数，用于包装 http.Handler，并返回一个 ghttp.HandlerFunc。 md5:0d35a772811803c8
 func WrapH(h http.Handler) HandlerFunc {
 	return func(r *Request) {
-		h.ServeHTTP(r.Response.Writer, r.Request)
+		h.ServeHTTP(r.X响应.Writer, r.Request)
 	}
 }

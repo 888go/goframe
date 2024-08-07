@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gyaml提供了访问和转换YAML内容的功能。 md5:f1323f1f471201c0
-package gyaml
+package yaml类
 
 import (
 	"bytes"
@@ -14,15 +14,15 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Encode 将 `value` 编码为字节形式的 YAML 格式内容。 md5:df5adae4088970d4
 func Encode(value interface{}) (out []byte, err error) {
 	if out, err = yaml.Marshal(value); err != nil {
-		err = gerror.Wrap(err, `yaml.Marshal failed`)
+		err = gerror.X多层错误(err, `yaml.Marshal failed`)
 	}
 	return
 }
@@ -55,17 +55,17 @@ func Decode(content []byte) (map[string]interface{}, error) {
 		err    error
 	)
 	if err = yaml.Unmarshal(content, &result); err != nil {
-		err = gerror.Wrap(err, `yaml.Unmarshal failed`)
+		err = gerror.X多层错误(err, `yaml.Unmarshal failed`)
 		return nil, err
 	}
-	return gconv.MapDeep(result), nil
+	return gconv.X取Map_递归(result), nil
 }
 
 // DecodeTo 将 content 解析到 result 中。 md5:39ca50eceb6c38b3
 func DecodeTo(value []byte, result interface{}) (err error) {
 	err = yaml.Unmarshal(value, result)
 	if err != nil {
-		err = gerror.Wrap(err, `yaml.Unmarshal failed`)
+		err = gerror.X多层错误(err, `yaml.Unmarshal failed`)
 	}
 	return
 }

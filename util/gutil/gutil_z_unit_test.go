@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil_test
+package 工具类_test
 
 import (
 	"context"
 	"reflect"
 	"testing"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 var (
@@ -25,27 +25,27 @@ var (
 func Test_Try(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		s := `gutil Try test`
-		t.Assert(gutil.Try(ctx, func(ctx context.Context) {
+		t.Assert(gutil.X异常捕捉(ctx, func(ctx context.Context) {
 			panic(s)
 		}), s)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		s := `gutil Try test`
-		t.Assert(gutil.Try(ctx, func(ctx context.Context) {
-			panic(gerror.New(s))
+		t.Assert(gutil.X异常捕捉(ctx, func(ctx context.Context) {
+			panic(gerror.X创建(s))
 		}), s)
 	})
 }
 
 func Test_TryCatch(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		gutil.TryCatch(ctx, func(ctx context.Context) {
+		gutil.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 			panic("gutil TryCatch test")
 		}, nil)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		gutil.TryCatch(ctx, func(ctx context.Context) {
+		gutil.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 			panic("gutil TryCatch test")
 
 		}, func(ctx context.Context, err error) {
@@ -54,8 +54,8 @@ func Test_TryCatch(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		gutil.TryCatch(ctx, func(ctx context.Context) {
-			panic(gerror.New("gutil TryCatch test"))
+		gutil.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
+			panic(gerror.X创建("gutil TryCatch test"))
 
 		}, func(ctx context.Context, err error) {
 			t.Assert(err, "gutil TryCatch test")
@@ -69,7 +69,7 @@ func Test_Throw(t *testing.T) {
 			t.Assert(recover(), "gutil Throw test")
 		}()
 
-		gutil.Throw("gutil Throw test")
+		gutil.X异常输出("gutil Throw test")
 	})
 }
 
@@ -77,19 +77,19 @@ func Test_Keys(t *testing.T) {
 	// not support int
 	gtest.C(t, func(t *gtest.T) {
 		var val int = 1
-		keys := gutil.Keys(reflect.ValueOf(val))
+		keys := gutil.X取所有名称(reflect.ValueOf(val))
 		t.AssertEQ(len(keys), 0)
 	})
 	// map
 	gtest.C(t, func(t *gtest.T) {
-		keys := gutil.Keys(map[int]int{
+		keys := gutil.X取所有名称(map[int]int{
 			1: 10,
 			2: 20,
 		})
 		t.AssertIN("1", keys)
 		t.AssertIN("2", keys)
 
-		strKeys := gutil.Keys(map[string]interface{}{
+		strKeys := gutil.X取所有名称(map[string]interface{}{
 			"key1": 1,
 			"key2": 2,
 		})
@@ -98,7 +98,7 @@ func Test_Keys(t *testing.T) {
 	})
 	// *map
 	gtest.C(t, func(t *gtest.T) {
-		keys := gutil.Keys(&map[int]int{
+		keys := gutil.X取所有名称(&map[int]int{
 			1: 10,
 			2: 20,
 		})
@@ -111,8 +111,8 @@ func Test_Keys(t *testing.T) {
 			A string
 			B int
 		}
-		keys := gutil.Keys(new(T))
-		t.Assert(keys, g.SliceStr{"A", "B"})
+		keys := gutil.X取所有名称(new(T))
+		t.Assert(keys, g.SliceStr别名{"A", "B"})
 	})
 	// *struct nil
 	gtest.C(t, func(t *gtest.T) {
@@ -121,8 +121,8 @@ func Test_Keys(t *testing.T) {
 			B int
 		}
 		var pointer *T
-		keys := gutil.Keys(pointer)
-		t.Assert(keys, g.SliceStr{"A", "B"})
+		keys := gutil.X取所有名称(pointer)
+		t.Assert(keys, g.SliceStr别名{"A", "B"})
 	})
 	// **struct nil
 	gtest.C(t, func(t *gtest.T) {
@@ -131,8 +131,8 @@ func Test_Keys(t *testing.T) {
 			B int
 		}
 		var pointer *T
-		keys := gutil.Keys(&pointer)
-		t.Assert(keys, g.SliceStr{"A", "B"})
+		keys := gutil.X取所有名称(&pointer)
+		t.Assert(keys, g.SliceStr别名{"A", "B"})
 	})
 }
 
@@ -140,19 +140,19 @@ func Test_Values(t *testing.T) {
 	// not support int
 	gtest.C(t, func(t *gtest.T) {
 		var val int = 1
-		keys := gutil.Values(reflect.ValueOf(val))
+		keys := gutil.X取所有值(reflect.ValueOf(val))
 		t.AssertEQ(len(keys), 0)
 	})
 	// map
 	gtest.C(t, func(t *gtest.T) {
-		values := gutil.Values(map[int]int{
+		values := gutil.X取所有值(map[int]int{
 			1: 10,
 			2: 20,
 		})
 		t.AssertIN(10, values)
 		t.AssertIN(20, values)
 
-		values = gutil.Values(map[string]interface{}{
+		values = gutil.X取所有值(map[string]interface{}{
 			"key1": 10,
 			"key2": 20,
 		})
@@ -161,7 +161,7 @@ func Test_Values(t *testing.T) {
 	})
 	// *map
 	gtest.C(t, func(t *gtest.T) {
-		keys := gutil.Values(&map[int]int{
+		keys := gutil.X取所有值(&map[int]int{
 			1: 10,
 			2: 20,
 		})
@@ -174,11 +174,11 @@ func Test_Values(t *testing.T) {
 			A string
 			B int
 		}
-		keys := gutil.Values(T{
+		keys := gutil.X取所有值(T{
 			A: "1",
 			B: 2,
 		})
-		t.Assert(keys, g.Slice{"1", 2})
+		t.Assert(keys, g.Slice别名{"1", 2})
 	})
 }
 
@@ -194,16 +194,16 @@ func TestListToMapByKey(t *testing.T) {
 
 func Test_GetOrDefaultStr(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gutil.GetOrDefaultStr("a", "b"), "b")
-		t.Assert(gutil.GetOrDefaultStr("a", "b", "c"), "b")
-		t.Assert(gutil.GetOrDefaultStr("a"), "a")
+		t.Assert(gutil.X取文本值或取默认值("a", "b"), "b")
+		t.Assert(gutil.X取文本值或取默认值("a", "b", "c"), "b")
+		t.Assert(gutil.X取文本值或取默认值("a"), "a")
 	})
 }
 
 func Test_GetOrDefaultAny(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gutil.GetOrDefaultAny("a", "b"), "b")
-		t.Assert(gutil.GetOrDefaultAny("a", "b", "c"), "b")
-		t.Assert(gutil.GetOrDefaultAny("a"), "a")
+		t.Assert(gutil.X取值或取默认值("a", "b"), "b")
+		t.Assert(gutil.X取值或取默认值("a", "b", "c"), "b")
+		t.Assert(gutil.X取值或取默认值("a"), "a")
 	})
 }

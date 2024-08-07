@@ -9,25 +9,25 @@
 //
 // 待办事项：将context.Context作为所有数据库操作的必需参数。
 // md5:ed61b69bd00b7384
-package gdb
+package db类
 
 import (
 	"context"
 	"database/sql"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gcache"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/util/grand"
-	"github.com/gogf/gf/v2/util/gutil"
+	garray "github.com/888go/goframe/container/garray"
+	gmap "github.com/888go/goframe/container/gmap"
+	gtype "github.com/888go/goframe/container/gtype"
+	gvar "github.com/888go/goframe/container/gvar"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gcache "github.com/888go/goframe/os/gcache"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	glog "github.com/888go/goframe/os/glog"
+	grand "github.com/888go/goframe/util/grand"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // DB 定义 ORM 操作的接口。 md5:328f032182d38455
@@ -38,46 +38,46 @@ type DB interface {
 	// 这里是对一段Go代码中的注释进行翻译，"Model creation"指的是模型的创建过程。这部分代码可能是用于描述一个函数或部分代码的作用，即它负责构建或初始化某个模型。
 	// md5:1c8c0b09089a9689
 
-	// Model 根据给定的模式创建并返回一个新的 ORM 模型。
+	// X创建Model对象 根据给定的模式创建并返回一个新的 ORM 模型。
 	// 参数 `table` 可以是多个表名，也可以包括别名，例如：
 	// 1. 模型名称：
-	//    Model("user")
-	//    Model("user u") 	// u 作为 user 表的别名
-	//    Model("user, user_detail") 	// 多个模型名称
-	//    Model("user u, user_detail ud") 	// 多个模型名称及别名
-	// 2. 带别名的模型名称：Model("user", "u") 	// 第二个参数指定别名
-	// 参见 Core.Model 了解更多。
+	//    X创建Model对象("user")
+	//    X创建Model对象("user u") 	// u 作为 user 表的别名
+	//    X创建Model对象("user, user_detail") 	// 多个模型名称
+	//    X创建Model对象("user u, user_detail ud") 	// 多个模型名称及别名
+	// 2. 带别名的模型名称：X创建Model对象("user", "u") 	// 第二个参数指定别名
+	// 参见 Core.X创建Model对象 了解更多。
 	// md5:61d3e6d835068122
-	Model(tableNameOrStruct ...interface{}) *Model
+	X创建Model对象(tableNameOrStruct ...interface{}) *Model
 
-		// Raw 根据原始SQL（而不是表格）创建并返回一个模型。 md5:96066a9d41296a2a
-	Raw(rawSql string, args ...interface{}) *Model
+		// X原生SQL 根据原始SQL（而不是表格）创建并返回一个模型。 md5:96066a9d41296a2a
+	X原生SQL(rawSql string, args ...interface{}) *Model
 
-	// Schema 创建并返回一个模式。
-	// 参见 Core.Schema。
+	// X切换数据库 创建并返回一个模式。
+	// 参见 Core.X切换数据库。
 	// md5:0f4472ee79f06819
-	Schema(schema string) *Schema
+	X切换数据库(schema string) *Schema
 
-	// With根据给定对象的元数据创建并返回一个ORM模型。同时参见Core.With。
+	// X关联对象根据给定对象的元数据创建并返回一个ORM模型。同时参见Core.X关联对象。
 	// md5:78ab17ce6b00ce6e
-	With(objects ...interface{}) *Model
+	X关联对象(objects ...interface{}) *Model
 
-	// Open 使用给定的节点配置为数据库创建一个原始连接对象。
+	// X底层Open 使用给定的节点配置为数据库创建一个原始连接对象。
 	// 注意，不建议手动使用此函数。
-	// 另请参阅 DriverMysql.Open。
+	// 另请参阅 DriverMysql.X底层Open。
 	// md5:1021f26472df579e
-	Open(config *ConfigNode) (*sql.DB, error)
+	X底层Open(config *ConfigNode) (*sql.DB, error)
 
-	// Ctx 是一个链式函数，它创建并返回一个新的 DB，该 DB 是当前 DB 对象的浅拷贝，并在其中设置了给定的上下文。
-	// 另请参阅 Core.Ctx。
+	// X设置上下文并取副本 是一个链式函数，它创建并返回一个新的 DB，该 DB 是当前 DB 对象的浅拷贝，并在其中设置了给定的上下文。
+	// 另请参阅 Core.X设置上下文并取副本。
 	// md5:7eec5fab912764e7
-	Ctx(ctx context.Context) DB
+	X设置上下文并取副本(ctx context.Context) DB
 
-	// Close 关闭数据库并阻止新的查询开始。然后，Close 等待已经在服务器上开始处理的所有查询完成。
+	// X关闭数据库 关闭数据库并阻止新的查询开始。然后，X关闭数据库 等待已经在服务器上开始处理的所有查询完成。
 	// 
 	// 通常不会关闭 DB，因为 DB句柄应该是长期存在的，并且在多个 goroutine 之间共享。
 	// md5:0985fc8e558f83fc
-	Close(ctx context.Context) error
+	X关闭数据库(ctx context.Context) error
 
 	// =============================================================================
 	// 查询接口。
@@ -85,70 +85,70 @@ type DB interface {
 	// 这里是对查询相关的API进行的注释。
 	// md5:06da8c4c9c8d957b
 
-	Query(ctx context.Context, sql string, args ...interface{}) (Result, error)    // See Core.Query.
-	Exec(ctx context.Context, sql string, args ...interface{}) (sql.Result, error) // See Core.Exec.
-	Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error)  // See Core.Prepare.
+	X原生SQL查询(ctx context.Context, sql string, args ...interface{}) (Result, error)    // See Core.Query.
+	X原生SQL执行(ctx context.Context, sql string, args ...interface{}) (sql.Result, error) // See Core.Exec.
+	X原生sql取参数预处理对象(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error)  // See Core.Prepare.
 
 	// ===========================================================================
 	// 用于CURD操作的通用API。
 	// ===========================================================================
 	// md5:781fc1b4ac386204
 
-	Insert(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                               // See Core.Insert.
-	InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                         // See Core.InsertIgnore.
-	InsertAndGetId(ctx context.Context, table string, data interface{}, batch ...int) (int64, error)                            // 参见Core.InsertAndGetId。 md5:b7dec69920da6e7a
-	Replace(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                              // See Core.Replace.
-	Save(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                                 // See Core.Save.
-	Update(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) // See Core.Update.
-	Delete(ctx context.Context, table string, condition interface{}, args ...interface{}) (sql.Result, error)                   // See Core.Delete.
+	X插入(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                               // See Core.Insert.
+	X插入并跳过已存在(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                         // See Core.InsertIgnore.
+	X插入并取ID(ctx context.Context, table string, data interface{}, batch ...int) (int64, error)                            // 参见Core.InsertAndGetId。 md5:b7dec69920da6e7a
+	X插入并替换已存在(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                              // See Core.Replace.
+	X插入并更新已存在(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error)                                 // See Core.Save.
+	X更新(ctx context.Context, table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error) // See Core.Update.
+	X删除(ctx context.Context, table string, condition interface{}, args ...interface{}) (sql.Result, error)                   // See Core.Delete.
 
 	// ===========================================================================
 	// CURD的内部API，可以被自定义的CURD实现覆盖。
 	// ===========================================================================
 	// md5:02480feeb95bda1e
 
-	DoSelect(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)                                           // See Core.DoSelect.
-	DoInsert(ctx context.Context, link Link, table string, data List, option DoInsertOption) (result sql.Result, err error)                        // See Core.DoInsert.
-	DoUpdate(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) // See Core.DoUpdate.
-	DoDelete(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error)                   // See Core.DoDelete.
+	X底层查询(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)                                           // See Core.DoSelect.
+	X底层插入(ctx context.Context, link Link, table string, data Map切片, option DoInsertOption) (result sql.Result, err error)                        // See Core.DoInsert.
+	X底层更新(ctx context.Context, link Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) // See Core.DoUpdate.
+	X底层删除(ctx context.Context, link Link, table string, condition string, args ...interface{}) (result sql.Result, err error)                   // See Core.DoDelete.
 
-	DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)    // See Core.DoQuery.
-	DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) // See Core.DoExec.
+	X底层原生SQL查询(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error)    // See Core.DoQuery.
+	X底层原生SQL执行(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) // See Core.DoExec.
 
-	DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) // See Core.DoFilter.
-	DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error)                                            // See Core.DoCommit.
+	X底层DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) // See Core.DoFilter.
+	X底层DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error)                                            // See Core.DoCommit.
 
-	DoPrepare(ctx context.Context, link Link, sql string) (*Stmt, error) // See Core.DoPrepare.
+	X底层原生sql参数预处理对象(ctx context.Context, link Link, sql string) (*Stmt, error) // See Core.DoPrepare.
 
 	// ===========================================================================
 	// 为了方便起见，提供查询API。
 	// ===========================================================================
 	// md5:be53a34b0863cf28
 
-	GetAll(ctx context.Context, sql string, args ...interface{}) (Result, error)                // See Core.GetAll.
-	GetOne(ctx context.Context, sql string, args ...interface{}) (Record, error)                // See Core.GetOne.
-	GetValue(ctx context.Context, sql string, args ...interface{}) (Value, error)               // See Core.GetValue.
-	GetArray(ctx context.Context, sql string, args ...interface{}) ([]Value, error)             // See Core.GetArray.
-	GetCount(ctx context.Context, sql string, args ...interface{}) (int, error)                 // See Core.GetCount.
-	GetScan(ctx context.Context, objPointer interface{}, sql string, args ...interface{}) error // See Core.GetScan.
-	Union(unions ...*Model) *Model                                                              // See Core.Union.
-	UnionAll(unions ...*Model) *Model                                                           // See Core.UnionAll.
+	GetAll别名(ctx context.Context, sql string, args ...interface{}) (Result, error)                // See Core.GetAll.
+	X原生SQL查询单条记录(ctx context.Context, sql string, args ...interface{}) (Record, error)                // See Core.GetOne.
+	X原生SQL查询字段值(ctx context.Context, sql string, args ...interface{}) (Value, error)               // See Core.GetValue.
+	X原生SQL查询切片(ctx context.Context, sql string, args ...interface{}) ([]Value, error)             // See Core.GetArray.
+	X原生SQL查询字段计数(ctx context.Context, sql string, args ...interface{}) (int, error)                 // See Core.GetCount.
+	X原生SQL查询到结构体指针(ctx context.Context, objPointer interface{}, sql string, args ...interface{}) error // See Core.GetScan.
+	X多表去重查询(unions ...*Model) *Model                                                              // See Core.Union.
+	X多表查询(unions ...*Model) *Model                                                           // See Core.UnionAll.
 
 	// ===========================================================================
 	// 主从规范支持。
 	// ===========================================================================
 	// md5:f0ac82262204c704
 
-	Master(schema ...string) (*sql.DB, error) // See Core.Master.
-	Slave(schema ...string) (*sql.DB, error)  // See Core.Slave.
+	X取主节点对象(schema ...string) (*sql.DB, error) // See Core.Master.
+	X取从节点对象(schema ...string) (*sql.DB, error)  // See Core.Slave.
 
 	// ===========================================================================
 	// 乒乓游戏。
 	// ===========================================================================
 	// md5:548138891df7682f
 
-	PingMaster() error // See Core.PingMaster.
-	PingSlave() error  // See Core.PingSlave.
+	X向主节点发送心跳() error // See Core.PingMaster.
+	X向从节点发送心跳() error  // See Core.PingSlave.
 
 	// =============================================================================
 	// 事务处理。
@@ -156,28 +156,28 @@ type DB interface {
 	// 这里是对一个名为 "Transaction" 的部分或函数的注释，表示它与交易操作相关。
 	// md5:98c80ce4a302c379
 
-	Begin(ctx context.Context) (TX, error)                                           // See Core.Begin.
-	Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) error // See Core.Transaction.
+	X事务开启(ctx context.Context) (TX, error)                                           // See Core.Begin.
+	X事务(ctx context.Context, f func(ctx context.Context, tx TX) error) error // See Core.Transaction.
 
 	// ===========================================================================
 	// 配置方法。
 	// ===========================================================================
 	// md5:e4c7270c61398365
 
-	GetCache() *gcache.Cache            // See Core.GetCache.
-	SetDebug(debug bool)                // See Core.SetDebug.
-	GetDebug() bool                     // See Core.GetDebug.
-	GetSchema() string                  // See Core.GetSchema.
-	GetPrefix() string                  // See Core.GetPrefix.
-	GetGroup() string                   // See Core.GetGroup.
-	SetDryRun(enabled bool)             // See Core.SetDryRun.
-	GetDryRun() bool                    // See Core.GetDryRun.
-	SetLogger(logger glog.ILogger)      // See Core.SetLogger.
-	GetLogger() glog.ILogger            // See Core.GetLogger.
-	GetConfig() *ConfigNode             // See Core.GetConfig.
-	SetMaxIdleConnCount(n int)          // 参见 Core.SetMaxIdleConnCount。 md5:93a41dde27176210
-	SetMaxOpenConnCount(n int)          // 参见Core.SetMaxOpenConnCount。 md5:781ba14245ef2d2f
-	SetMaxConnLifeTime(d time.Duration) // 请参考Core.SetMaxConnLifeTime。 md5:9886c404ca6b5919
+	X取缓存对象() *gcache.Cache            // See Core.GetCache.
+	X设置调试模式(debug bool)                // See Core.SetDebug.
+	X取调试模式() bool                     // See Core.GetDebug.
+	X取默认数据库名称() string                  // See Core.GetSchema.
+	X取表前缀() string                  // See Core.GetPrefix.
+	X取配置组名称() string                   // See Core.GetGroup.
+	X设置空跑特性(enabled bool)             // See Core.SetDryRun.
+	X取空跑特性() bool                    // See Core.GetDryRun.
+	X设置日志记录器(logger glog.ILogger)      // See Core.SetLogger.
+	X取日志记录器() glog.ILogger            // See Core.GetLogger.
+	X取当前节点配置() *ConfigNode             // See Core.GetConfig.
+	X设置最大闲置连接数(n int)          // 参见 Core.SetMaxIdleConnCount。 md5:93a41dde27176210
+	X设置最大打开连接数(n int)          // 参见Core.SetMaxOpenConnCount。 md5:781ba14245ef2d2f
+	X设置最大空闲时长(d time.Duration) // 请参考Core.SetMaxConnLifeTime。 md5:9886c404ca6b5919
 
 	// ===========================================================================
 	// 辅助方法。
@@ -185,56 +185,56 @@ type DB interface {
 	// md5:0c5a132a773f89c0
 
 	Stats(ctx context.Context) []StatsItem                                                                   // See Core.Stats.
-	GetCtx() context.Context                                                                                 // See Core.GetCtx.
-	GetCore() *Core                                                                                          // See Core.GetCore
-	GetChars() (charLeft string, charRight string)                                                           // See Core.GetChars.
-	Tables(ctx context.Context, schema ...string) (tables []string, err error)                               // 参见 Core.Tables。驱动程序必须实现此函数。 md5:d7f231f6b59af607
-	TableFields(ctx context.Context, table string, schema ...string) (map[string]*TableField, error)         // 参见 Core.TableFields。驱动程序必须实现此函数。 md5:657c24bb39017da1
-	ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 参见Core(ConvertValueForField). md5:cd3e4aabe989b5b0
-	ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 参见Core.ConvertValueForLocal. md5:c5ed8f55d002cc9b
-	CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) // 参见 Core.CheckLocalTypeForField. md5:9dab404962da3137
-	FormatUpsert(columns []string, list List, option DoInsertOption) (string, error)                         // 参见Core.DoFormatUpsert. md5:e28a610aead90684
+	X取上下文对象() context.Context                                                                                 // See Core.GetCtx.
+	X取Core对象() *Core                                                                                          // See Core.GetCore
+	X底层取数据库安全字符() (charLeft string, charRight string)                                                           // See Core.GetChars.
+	X取表名称切片(ctx context.Context, schema ...string) (tables []string, err error)                               // 参见 Core.Tables。驱动程序必须实现此函数。 md5:d7f231f6b59af607
+	X取表字段信息Map(ctx context.Context, table string, schema ...string) (map[string]*TableField, error)         // 参见 Core.TableFields。驱动程序必须实现此函数。 md5:657c24bb39017da1
+	X底层ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 参见Core(ConvertValueForField). md5:cd3e4aabe989b5b0
+	X底层ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) // 参见Core.ConvertValueForLocal. md5:c5ed8f55d002cc9b
+	X底层CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (LocalType, error) // 参见 Core.CheckLocalTypeForField. md5:9dab404962da3137
+	FormatUpsert(columns []string, list Map切片, option DoInsertOption) (string, error)                         // 参见Core.DoFormatUpsert. md5:e28a610aead90684
 }
 
 // TX 定义 ORM 事务操作的接口。 md5:d71a7d0434928cac
 type TX interface {
 	Link
 
-	Ctx(ctx context.Context) TX
-	Raw(rawSql string, args ...interface{}) *Model
-	Model(tableNameQueryOrStruct ...interface{}) *Model
-	With(object interface{}) *Model
+	X设置上下文并取副本(ctx context.Context) TX
+	X原生SQL(rawSql string, args ...interface{}) *Model
+	X创建Model对象(tableNameQueryOrStruct ...interface{}) *Model
+	X关联对象(object interface{}) *Model
 
 	// 如果需要，嵌套事务。
 	// ===========================================================================
 	// md5:96e249df6d75bc7f
 
-	Begin() error
-	Commit() error
-	Rollback() error
-	Transaction(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)
+	X事务开启() error
+	X事务提交() error
+	X事务回滚() error
+	X事务(ctx context.Context, f func(ctx context.Context, tx TX) error) (err error)
 
 	// ===========================================================================
 	// 核心方法。
 	// ===========================================================================
 	// md5:a10911bb5021107c
 
-	Query(sql string, args ...interface{}) (result Result, err error)
-	Exec(sql string, args ...interface{}) (sql.Result, error)
-	Prepare(sql string) (*Stmt, error)
+	X原生SQL查询(sql string, args ...interface{}) (result Result, err error)
+	X原生SQL执行(sql string, args ...interface{}) (sql.Result, error)
+	X原生sql取参数预处理对象(sql string) (*Stmt, error)
 
 	// ===========================================================================
 	// 查询
 	// ===========================================================================
 	// md5:4612a1ae72dd3cf5
 
-	GetAll(sql string, args ...interface{}) (Result, error)
-	GetOne(sql string, args ...interface{}) (Record, error)
-	GetStruct(obj interface{}, sql string, args ...interface{}) error
-	GetStructs(objPointerSlice interface{}, sql string, args ...interface{}) error
-	GetScan(pointer interface{}, sql string, args ...interface{}) error
-	GetValue(sql string, args ...interface{}) (Value, error)
-	GetCount(sql string, args ...interface{}) (int64, error)
+	GetAll别名(sql string, args ...interface{}) (Result, error)
+	X原生SQL查询单条记录(sql string, args ...interface{}) (Record, error)
+	X原生SQL查询单条到结构体指针(obj interface{}, sql string, args ...interface{}) error
+	X原生SQL查询到结构体切片指针(objPointerSlice interface{}, sql string, args ...interface{}) error
+	X原生SQL查询到结构体指针(pointer interface{}, sql string, args ...interface{}) error
+	X原生SQL查询字段值(sql string, args ...interface{}) (Value, error)
+	X原生SQL查询字段计数(sql string, args ...interface{}) (int64, error)
 
 	// =============================================================================
 	// CURD (Create, Read, Update, Delete) 操作。
@@ -242,31 +242,31 @@ type TX interface {
 	// 这是Go语言中的注释，描述了一个与CRUD（创建、读取、更新、删除）操作相关的部分。在软件开发中，CURD通常用于数据库操作的基本操作。
 	// md5:b9584d9a2373e908
 
-	Insert(table string, data interface{}, batch ...int) (sql.Result, error)
-	InsertIgnore(table string, data interface{}, batch ...int) (sql.Result, error)
-	InsertAndGetId(table string, data interface{}, batch ...int) (int64, error)
-	Replace(table string, data interface{}, batch ...int) (sql.Result, error)
-	Save(table string, data interface{}, batch ...int) (sql.Result, error)
-	Update(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error)
-	Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error)
+	X插入(table string, data interface{}, batch ...int) (sql.Result, error)
+	X插入并跳过已存在(table string, data interface{}, batch ...int) (sql.Result, error)
+	X插入并取ID(table string, data interface{}, batch ...int) (int64, error)
+	X插入并替换已存在(table string, data interface{}, batch ...int) (sql.Result, error)
+	X插入并更新已存在(table string, data interface{}, batch ...int) (sql.Result, error)
+	X更新(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error)
+	X删除(table string, condition interface{}, args ...interface{}) (sql.Result, error)
 
 	// ===========================================================================
 	// 辅助方法。
 	// ===========================================================================
 	// md5:0c5a132a773f89c0
 
-	GetCtx() context.Context
-	GetDB() DB
-	GetSqlTX() *sql.Tx
-	IsClosed() bool
+	X取上下文对象() context.Context
+	X取DB对象() DB
+	X底层取事务对象() *sql.Tx
+	X是否已关闭() bool
 
 	// ===================================================================================
 	// 保存点功能。
 	// ===================================================================================
 	// md5:54487b34337e4026
 
-	SavePoint(point string) error
-	RollbackTo(point string) error
+	X保存事务点(point string) error
+	X回滚事务点(point string) error
 }
 
 // StatsItem 定义了配置节点的统计信息。 md5:95acda1876ad44fa
@@ -313,10 +313,10 @@ type DoCommitInput struct {
 // DoCommitOutput是DoCommit函数的输出参数。 md5:bb154a9d2f960894
 type DoCommitOutput struct {
 	Result    sql.Result  // Result 是执行语句的结果。 md5:92181818237c3bdd
-	Records   []Record    // Records 是查询语句的结果。 md5:3ab79979d5bb7a15
-	Stmt      *Stmt       // Stmt是Prepare的结果，是一个Statement对象。 md5:f7d8689435820710
+	X行记录切片   []Record    // Records 是查询语句的结果。 md5:3ab79979d5bb7a15
+	X参数预处理      *Stmt       // Stmt是Prepare的结果，是一个Statement对象。 md5:f7d8689435820710
 	Tx        TX          // Tx是Begin操作的结果交易对象。 md5:388468f78948bf40
-	RawResult interface{} // RawResult 是底层结果，可能是 sql.Result/*sql.Rows/*sql.Row。 md5:8f6721571bd4ebc3
+	X底层结果 interface{} // RawResult 是底层结果，可能是 sql.Result/*sql.Rows/*sql.Row。 md5:8f6721571bd4ebc3
 }
 
 // Driver 是将 sql 驱动程序集成到 gdb 包的接口。 md5:739e8c3911355df2
@@ -363,19 +363,19 @@ type DoInsertOption struct {
 // TableField 是用于表示表字段的结构体。 md5:dad00a23ddbc4525
 type TableField struct {
 	Index   int         // 用于排序，因为map是无序的。 md5:2c2b51c0f42d0aa5
-	Name    string      // Field name.
-	Type    string      // 字段类型。例如：'int(10) unsigned'，'varchar(64)'。 md5:c5cb4af28fd84cc4
+	X名称    string      // Field name.
+	X类型    string      // 字段类型。例如：'int(10) unsigned'，'varchar(64)'。 md5:c5cb4af28fd84cc4
 	Null    bool        // 字段可以为null，也可以不为null。 md5:eecc03ab53cc06c9
 	Key     string      // The index information(empty if it's not an index). Eg: PRI, MUL.
 	Default interface{} // 字段的默认值。 md5:e9e6c4fce349ba5e
-	Extra   string      //额外的信息。例如：auto_increment。 md5:706ba1f1653042e0
+	X额外   string      //额外的信息。例如：auto_increment。 md5:706ba1f1653042e0
 	Comment string      // Field comment.
 }
 
 // Counter 是更新计数的类型。 md5:d05ba3f2911b8013
 type Counter struct {
-	Field string
-	Value float64
+	X字段名称 string
+	X增减值 float64
 }
 
 type (
@@ -384,7 +384,7 @@ type (
 	Record map[string]Value         // Record 是表格的行记录。 md5:f13ea17db2caaf51
 	Result []Record                 // Result 是行记录数组。 md5:cfc50f7c3d051e4e
 	Map    = map[string]interface{} // Map是map[string]interface{}的别名，这是最常用的映射类型。 md5:d30ae3cb84b9285e
-	List   = []Map                  // List 是映射数组的类型。 md5:a6dda10906f1d599
+	Map切片   = []Map                  // List 是映射数组的类型。 md5:a6dda10906f1d599
 )
 
 type CatchSQLManager struct {
@@ -523,7 +523,7 @@ const (
 
 var (
 		// instances 是实例的管理映射。 md5:4600091cea2428de
-	instances = gmap.NewStrAnyMap(true)
+	instances = gmap.X创建StrAny(true)
 
 		// driverMap管理所有自定义注册的驱动程序。 md5:625ff37f5c3fb23d
 	driverMap = map[string]Driver{}
@@ -551,50 +551,50 @@ var (
 	allDryRun = false
 
 		// tableFieldsMap 缓存从数据库获取的表信息。 md5:5ae26e45c71e9a09
-	tableFieldsMap = gmap.NewStrAnyMap(true)
+	tableFieldsMap = gmap.X创建StrAny(true)
 )
 
 func init() {
 		// allDryRun 从环境或命令选项中初始化。 md5:1dffa2ad4982da25
-	allDryRun = gcmd.GetOptWithEnv(commandEnvKeyForDryRun, false).Bool()
+	allDryRun = gcmd.GetOptWithEnv(commandEnvKeyForDryRun, false).X取布尔()
 }
 
-// Register 注册自定义数据库驱动到gdb。 md5:d889e7374da12918
-func Register(name string, driver Driver) error {
-	driverMap[name] = newDriverWrapper(driver)
+// X注册驱动 注册自定义数据库驱动到gdb。 md5:d889e7374da12918
+func X注册驱动(名称 string, 驱动 Driver) error {
+	driverMap[名称] = newDriverWrapper(驱动)
 	return nil
 }
 
-// New 根据给定的配置节点创建并返回一个ORM对象。 md5:c6039a0817062f9e
-func New(node ConfigNode) (db DB, err error) {
-	return newDBByConfigNode(&node, "")
+// X创建DB对象 根据给定的配置节点创建并返回一个ORM对象。 md5:c6039a0817062f9e
+func X创建DB对象(配置项 ConfigNode) (DB对象 DB, 错误 error) {
+	return newDBByConfigNode(&配置项, "")
 }
 
-// NewByGroup 根据指定的配置组名称创建并返回一个ORM对象，带有全局配置。
+// X创建DB对象并按配置组 根据指定的配置组名称创建并返回一个ORM对象，带有全局配置。
 // 参数`name`指定了配置组的名称，默认为DefaultGroupName。
 // md5:a15dd30e999d29e5
-func NewByGroup(group ...string) (db DB, err error) {
+func X创建DB对象并按配置组(配置组名称 ...string) (DB对象 DB, 错误 error) {
 	groupName := configs.group
-	if len(group) > 0 && group[0] != "" {
-		groupName = group[0]
+	if len(配置组名称) > 0 && 配置组名称[0] != "" {
+		groupName = 配置组名称[0]
 	}
 	configs.RLock()
 	defer configs.RUnlock()
 
 	if len(configs.config) < 1 {
-		return nil, gerror.NewCode(
+		return nil, gerror.X创建错误码(
 			gcode.CodeInvalidConfiguration,
 			"database configuration is empty, please set the database configuration before using",
 		)
 	}
 	if _, ok := configs.config[groupName]; ok {
 		var node *ConfigNode
-		if node, err = getConfigNodeByGroup(groupName, true); err == nil {
+		if node, 错误 = getConfigNodeByGroup(groupName, true); 错误 == nil {
 			return newDBByConfigNode(node, groupName)
 		}
-		return nil, err
+		return nil, 错误
 	}
-	return nil, gerror.NewCodef(
+	return nil, gerror.X创建错误码并格式化(
 		gcode.CodeInvalidConfiguration,
 		`database configuration node "%s" is not found, did you misspell group name "%s" or miss the database configuration?`,
 		groupName, groupName,
@@ -613,9 +613,9 @@ func newDBByConfigNode(node *ConfigNode, group string) (db DB, err error) {
 	c := &Core{
 		group:  group,
 		debug:  gtype.NewBool(),
-		cache:  gcache.New(),
-		links:  gmap.New(true),
-		logger: glog.New(),
+		cache:  gcache.X创建(),
+		links:  gmap.X创建(true),
+		logger: glog.X创建(),
 		config: node,
 		dynamicConfig: dynamicConfig{
 			MaxIdleConnCount: node.MaxIdleConnCount,
@@ -632,20 +632,20 @@ func newDBByConfigNode(node *ConfigNode, group string) (db DB, err error) {
 	errorMsg := `cannot find database driver for specified database type "%s"`
 	errorMsg += `, did you misspell type name "%s" or forget importing the database driver? `
 	errorMsg += `possible reference: https://github.com/gogf/gf/tree/master/contrib/drivers`
-	return nil, gerror.NewCodef(gcode.CodeInvalidConfiguration, errorMsg, node.Type, node.Type)
+	return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidConfiguration, errorMsg, node.Type, node.Type)
 }
 
-// Instance 返回用于数据库操作的实例。
+// X取单例对象 返回用于数据库操作的实例。
 // 参数 `name` 指定配置组名称，默认为 DefaultGroupName。
 // md5:06c22232a9c53a60
-func Instance(name ...string) (db DB, err error) {
+func X取单例对象(配置组名称 ...string) (DB对象 DB, 错误 error) {
 	group := configs.group
-	if len(name) > 0 && name[0] != "" {
-		group = name[0]
+	if len(配置组名称) > 0 && 配置组名称[0] != "" {
+		group = 配置组名称[0]
 	}
-	v := instances.GetOrSetFuncLock(group, func() interface{} {
-		db, err = NewByGroup(group)
-		return db
+	v := instances.X取值或设置值_函数带锁(group, func() interface{} {
+		DB对象, 错误 = X创建DB对象并按配置组(group)
+		return DB对象
 	})
 	if v != nil {
 		return v.(DB), nil
@@ -672,7 +672,7 @@ func getConfigNodeByGroup(group string, master bool) (*ConfigNode, error) {
 			}
 		}
 		if len(masterList) < 1 {
-			return nil, gerror.NewCode(
+			return nil, gerror.X创建错误码(
 				gcode.CodeInvalidConfiguration,
 				"at least one master node configuration's need to make sense",
 			)
@@ -686,7 +686,7 @@ func getConfigNodeByGroup(group string, master bool) (*ConfigNode, error) {
 			return getConfigNodeByWeight(slaveList), nil
 		}
 	}
-	return nil, gerror.NewCodef(
+	return nil, gerror.X创建错误码并格式化(
 		gcode.CodeInvalidConfiguration,
 		"empty database configuration for item name '%s'",
 		group,
@@ -720,7 +720,7 @@ func getConfigNodeByWeight(cg ConfigGroup) *ConfigNode {
 	var (
 		min    = 0
 		max    = 0
-		random = grand.N(0, total-1)
+		random = grand.X区间整数(0, total-1)
 	)
 	for i := 0; i < len(cg); i++ {
 		max = min + cg[i].Weight*100
@@ -744,7 +744,7 @@ func getConfigNodeByWeight(cg ConfigGroup) *ConfigNode {
 func (c *Core) getSqlDb(master bool, schema ...string) (sqlDb *sql.DB, err error) {
 	var (
 		node *ConfigNode
-		ctx  = c.db.GetCtx()
+		ctx  = c.db.X取上下文对象()
 	)
 	if c.group != "" {
 		// Load balance.
@@ -757,14 +757,14 @@ func (c *Core) getSqlDb(master bool, schema ...string) (sqlDb *sql.DB, err error
 		}
 	} else {
 		// Value COPY for node.
-		n := *c.db.GetConfig()
+		n := *c.db.X取当前节点配置()
 		node = &n
 	}
 	if node.Charset == "" {
 		node.Charset = defaultCharset
 	}
 	// Changes the schema.
-	nodeSchema := gutil.GetOrDefaultStr(c.schema, schema...)
+	nodeSchema := gutil.X取文本值或取默认值(c.schema, schema...)
 	if nodeSchema != "" {
 		node.Name = nodeSchema
 	}
@@ -776,7 +776,7 @@ func (c *Core) getSqlDb(master bool, schema ...string) (sqlDb *sql.DB, err error
 		// 按节点缓存底层连接池对象。 md5:5ba47140febabd5e
 	var (
 		instanceCacheFunc = func() interface{} {
-			if sqlDb, err = c.db.Open(node); err != nil {
+			if sqlDb, err = c.db.X底层Open(node); err != nil {
 				return nil
 			}
 			if sqlDb == nil {
@@ -800,17 +800,17 @@ func (c *Core) getSqlDb(master bool, schema ...string) (sqlDb *sql.DB, err error
 			return sqlDb
 		}
 				// 这里使用节点值而不是指针作为缓存键，以防出现Oracle ORA-12516错误。 md5:404d8e507e0c4548
-		instanceValue = c.links.GetOrSetFuncLock(*node, instanceCacheFunc)
+		instanceValue = c.links.X取值或设置值_函数带锁(*node, instanceCacheFunc)
 	)
 	if instanceValue != nil && sqlDb == nil {
 				// 从实例映射中读取。 md5:9cd258c405d8d50f
 		sqlDb = instanceValue.(*sql.DB)
 	}
 	if node.Debug {
-		c.db.SetDebug(node.Debug)
+		c.db.X设置调试模式(node.Debug)
 	}
 	if node.DryRun {
-		c.db.SetDryRun(node.DryRun)
+		c.db.X设置空跑特性(node.DryRun)
 	}
 	return
 }

@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -13,16 +13,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 func Test_Issue2594(t *testing.T) {
 	table := "HANDLE_INFO"
-	array := gstr.SplitAndTrim(gtest.DataContent(`issue`, `2594`, `sql.sql`), ";")
+	array := gstr.X分割并忽略空值(gtest.DataContent(`issue`, `2594`, `sql.sql`), ";")
 	for _, v := range array {
-		if _, err := db.Exec(ctx, v); err != nil {
+		if _, err := db.X原生SQL执行(ctx, v); err != nil {
 			gtest.Error(err)
 		}
 	}
@@ -48,8 +48,8 @@ func Test_Issue2594(t *testing.T) {
 			SubPrefix:  "p_",
 			Prefix:     "m_",
 			HandleName: "name",
-			CreateTime: gtime.Now().FormatTo("Y-m-d H:i:s").Time,
-			UpdateTime: gtime.Now().FormatTo("Y-m-d H:i:s").Time,
+			CreateTime: gtime.X创建并按当前时间().X格式设置("Y-m-d H:i:s").Time,
+			UpdateTime: gtime.X创建并按当前时间().X格式设置("Y-m-d H:i:s").Time,
 			Value: []HandleValueMysql{
 				{
 					Index: 10,
@@ -63,11 +63,11 @@ func Test_Issue2594(t *testing.T) {
 				},
 			},
 		}
-		_, err := db.Model(table).OmitEmptyData().Insert(h1)
+		_, err := db.X创建Model对象(table).X过滤空值数据().X插入(h1)
 		t.AssertNil(err)
 
 		var h2 HandleInfoMysql
-		err = db.Model(table).Scan(&h2)
+		err = db.X创建Model对象(table).X查询到结构体指针(&h2)
 		t.AssertNil(err)
 
 		h1.Id = 1

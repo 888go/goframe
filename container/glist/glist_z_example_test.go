@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glist_test
+package 链表类_test
 
 import (
 	"container/list"
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/frame/g"
+	garray "github.com/888go/goframe/container/garray"
+	glist "github.com/888go/goframe/container/glist"
+	"github.com/888go/goframe/frame/g"
 )
 
 func ExampleNew() {
@@ -46,7 +46,7 @@ func ExampleNew() {
 
 func ExampleNewFrom() {
 	n := 10
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 10, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -70,7 +70,7 @@ func ExampleNewFrom() {
 }
 
 func ExampleList_PushFront() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -88,7 +88,7 @@ func ExampleList_PushFront() {
 }
 
 func ExampleList_PushBack() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -106,12 +106,12 @@ func ExampleList_PushBack() {
 }
 
 func ExampleList_PushFronts() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
 
-	l.PushFronts(g.Slice{0, -1, -2, -3, -4})
+	l.PushFronts(g.Slice别名{0, -1, -2, -3, -4})
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -124,12 +124,12 @@ func ExampleList_PushFronts() {
 }
 
 func ExampleList_PushBacks() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
 
-	l.PushBacks(g.Slice{6, 7, 8, 9, 10})
+	l.PushBacks(g.Slice别名{6, 7, 8, 9, 10})
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -142,7 +142,7 @@ func ExampleList_PushBacks() {
 }
 
 func ExampleList_PopBack() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -159,7 +159,7 @@ func ExampleList_PopBack() {
 }
 
 func ExampleList_PopFront() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -176,7 +176,7 @@ func ExampleList_PopFront() {
 }
 
 func ExampleList_PopBacks() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -193,7 +193,7 @@ func ExampleList_PopBacks() {
 }
 
 func ExampleList_PopFronts() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -210,7 +210,7 @@ func ExampleList_PopFronts() {
 }
 
 func ExampleList_PopBackAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -225,7 +225,7 @@ func ExampleList_PopBackAll() {
 }
 
 func ExampleList_PopFrontAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -240,7 +240,7 @@ func ExampleList_PopFrontAll() {
 }
 
 func ExampleList_FrontAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.FrontAll())
@@ -251,7 +251,7 @@ func ExampleList_FrontAll() {
 }
 
 func ExampleList_BackAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.BackAll())
@@ -262,7 +262,7 @@ func ExampleList_BackAll() {
 }
 
 func ExampleList_FrontValue() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.FrontValue())
@@ -273,7 +273,7 @@ func ExampleList_FrontValue() {
 }
 
 func ExampleList_BackValue() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l)
 	fmt.Println(l.BackValue())
@@ -284,7 +284,7 @@ func ExampleList_BackValue() {
 }
 
 func ExampleList_Front() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Front().Value)
 	fmt.Println(l)
@@ -302,7 +302,7 @@ func ExampleList_Front() {
 }
 
 func ExampleList_Back() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Back().Value)
 	fmt.Println(l)
@@ -320,7 +320,7 @@ func ExampleList_Back() {
 }
 
 func ExampleList_Len() {
-	l := glist.NewFrom(g.Slice{1, 2, 3, 4, 5})
+	l := glist.NewFrom(g.Slice别名{1, 2, 3, 4, 5})
 
 	fmt.Println(l.Len())
 
@@ -329,7 +329,7 @@ func ExampleList_Len() {
 }
 
 func ExampleList_Size() {
-	l := glist.NewFrom(g.Slice{1, 2, 3, 4, 5})
+	l := glist.NewFrom(g.Slice别名{1, 2, 3, 4, 5})
 
 	fmt.Println(l.Size())
 
@@ -338,7 +338,7 @@ func ExampleList_Size() {
 }
 
 func ExampleList_MoveBefore() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -372,7 +372,7 @@ func ExampleList_MoveBefore() {
 }
 
 func ExampleList_MoveAfter() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -406,7 +406,7 @@ func ExampleList_MoveAfter() {
 }
 
 func ExampleList_MoveToFront() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -434,7 +434,7 @@ func ExampleList_MoveToFront() {
 }
 
 func ExampleList_MoveToBack() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
@@ -462,12 +462,12 @@ func ExampleList_MoveToBack() {
 }
 
 func ExampleList_PushBackList() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	other := glist.NewFrom(g.Slice{6, 7, 8, 9, 10})
+	other := glist.NewFrom(g.Slice别名{6, 7, 8, 9, 10})
 
 	fmt.Println(other.Size())
 	fmt.Println(other)
@@ -487,12 +487,12 @@ func ExampleList_PushBackList() {
 }
 
 func ExampleList_PushFrontList() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Size())
 	fmt.Println(l)
 
-	other := glist.NewFrom(g.Slice{-4, -3, -2, -1, 0})
+	other := glist.NewFrom(g.Slice别名{-4, -3, -2, -1, 0})
 
 	fmt.Println(other.Size())
 	fmt.Println(other)
@@ -512,7 +512,7 @@ func ExampleList_PushFrontList() {
 }
 
 func ExampleList_InsertAfter() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -531,7 +531,7 @@ func ExampleList_InsertAfter() {
 }
 
 func ExampleList_InsertBefore() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -550,7 +550,7 @@ func ExampleList_InsertBefore() {
 }
 
 func ExampleList_Remove() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -571,7 +571,7 @@ func ExampleList_Remove() {
 }
 
 func ExampleList_Removes() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -589,7 +589,7 @@ func ExampleList_Removes() {
 }
 
 func ExampleList_RemoveAll() {
-	l := glist.NewFrom(garray.NewArrayRange(1, 5, 1).Slice())
+	l := glist.NewFrom(garray.X创建并按范围(1, 5, 1).X取切片())
 
 	fmt.Println(l.Len())
 	fmt.Println(l)
@@ -606,7 +606,7 @@ func ExampleList_RemoveAll() {
 
 func ExampleList_RLockFunc() {
 	// concurrent-safe list.
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := glist.NewFrom(garray.X创建并按范围(1, 10, 1).X取切片(), true)
 		// 从头开始迭代读取。 md5:325279251074c4c7
 	l.RLockFunc(func(list *list.List) {
 		length := list.Len()
@@ -635,7 +635,7 @@ func ExampleList_RLockFunc() {
 
 func ExampleList_IteratorAsc() {
 	// concurrent-safe list.
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := glist.NewFrom(garray.X创建并按范围(1, 10, 1).X取切片(), true)
 		// 使用IteratorAsc从头开始迭代读取。 md5:6446e33c4d8538db
 	l.IteratorAsc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
@@ -648,7 +648,7 @@ func ExampleList_IteratorAsc() {
 
 func ExampleList_IteratorDesc() {
 	// concurrent-safe list.
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := glist.NewFrom(garray.X创建并按范围(1, 10, 1).X取切片(), true)
 		// 使用IteratorDesc从尾部开始迭代读取。 md5:acede477df2af09d
 	l.IteratorDesc(func(e *glist.Element) bool {
 		fmt.Print(e.Value)
@@ -660,7 +660,7 @@ func ExampleList_IteratorDesc() {
 
 func ExampleList_LockFunc() {
 	// concurrent-safe list.
-	l := glist.NewFrom(garray.NewArrayRange(1, 10, 1).Slice(), true)
+	l := glist.NewFrom(garray.X创建并按范围(1, 10, 1).X取切片(), true)
 		// 从头开始遍历写入。 md5:09622b4042e0678f
 	l.LockFunc(func(list *list.List) {
 		length := list.Len()
@@ -681,7 +681,7 @@ func ExampleList_LockFunc() {
 
 func ExampleList_Join() {
 	var l glist.List
-	l.PushBacks(g.Slice{"a", "b", "c", "d"})
+	l.PushBacks(g.Slice别名{"a", "b", "c", "d"})
 
 	fmt.Println(l.Join(","))
 

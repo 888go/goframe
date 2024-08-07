@@ -6,20 +6,20 @@
 // md5:a9832f33b234e3f3
 
 // 包gjson提供了处理JSON/XML/INI/YAML/TOML数据的便捷API。 md5:ddbf6ad5d309a49c
-package gjson
+package json类
 
 import (
 	"reflect"
 	"strconv"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/rwmutex"
+	"github.com/888go/goframe/internal/utils"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 type ContentType string
@@ -57,17 +57,17 @@ type Options struct {
 
 // iInterfaces 用于类型断言接口，用于 Interfaces() 方法。 md5:711dc755f9cd4979
 type iInterfaces interface {
-	Interfaces() []interface{}
+	X取any切片() []interface{}
 }
 
 // iMapStrAny 是一个接口，支持将结构体参数转换为映射。 md5:cfd4642c77fca6ec
 type iMapStrAny interface {
-	MapStrAny() map[string]interface{}
+	X取MapStrAny() map[string]interface{}
 }
 
 // iVal是用于获取底层interface{}的接口。 md5:2915e3bd3d7e4f43
 type iVal interface {
-	Val() interface{}
+	X取值() interface{}
 }
 
 // setValue 将`value`设置为`j`，按照`pattern`。
@@ -86,7 +86,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 	}
 	// Initialization checks.
 	if *j.p == nil {
-		if gstr.IsNumeric(array[0]) {
+		if gstr.X是否为数字(array[0]) {
 			*j.p = make([]interface{}, 0)
 		} else {
 			*j.p = make(map[string]interface{})
@@ -118,7 +118,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 						goto done
 					}
 					// Creating new node.
-					if gstr.IsNumeric(array[i+1]) {
+					if gstr.X是否为数字(array[i+1]) {
 						// Creating array node.
 						n, _ := strconv.Atoi(array[i+1])
 						var v interface{} = make([]interface{}, n+1)
@@ -138,7 +138,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 
 		case []interface{}:
 			// A string key.
-			if !gstr.IsNumeric(array[i]) {
+			if !gstr.X是否为数字(array[i]) {
 				if i == length-1 {
 					*pointer = map[string]interface{}{array[i]: value}
 				} else {
@@ -152,7 +152,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 			// Numeric index.
 			valueNum, err := strconv.Atoi(array[i])
 			if err != nil {
-				err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `strconv.Atoi failed for string "%s"`, array[i])
+				err = gerror.X多层错误码并格式化(gcode.CodeInvalidParameter, err, `strconv.Atoi failed for string "%s"`, array[i])
 				return err
 			}
 
@@ -186,7 +186,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 				}
 			} else {
 				// Branch node.
-				if gstr.IsNumeric(array[i+1]) {
+				if gstr.X是否为数字(array[i+1]) {
 					n, _ := strconv.Atoi(array[i+1])
 					pSlice := (*pointer).([]interface{})
 					if len(pSlice) > valueNum {
@@ -244,7 +244,7 @@ func (j *Json) setValue(pattern string, value interface{}, removed bool) error {
 			if removed && value == nil {
 				goto done
 			}
-			if gstr.IsNumeric(array[i]) {
+			if gstr.X是否为数字(array[i]) {
 				n, _ := strconv.Atoi(array[i])
 				s := make([]interface{}, n+1)
 				if i == length-1 {
@@ -302,28 +302,28 @@ func (j *Json) convertValue(value interface{}) (convertedValue interface{}, err 
 		)
 		switch reflectInfo.OriginKind {
 		case reflect.Array:
-			return gconv.Interfaces(value), nil
+			return gconv.X取any切片(value), nil
 
 		case reflect.Slice:
-			return gconv.Interfaces(value), nil
+			return gconv.X取any切片(value), nil
 
 		case reflect.Map:
-			return gconv.Map(value), nil
+			return gconv.X取Map(value), nil
 
 		case reflect.Struct:
 			if v, ok := value.(iMapStrAny); ok {
-				convertedValue = v.MapStrAny()
+				convertedValue = v.X取MapStrAny()
 			}
 			if utils.IsNil(convertedValue) {
 				if v, ok := value.(iInterfaces); ok {
-					convertedValue = v.Interfaces()
+					convertedValue = v.X取any切片()
 				}
 			}
 			if utils.IsNil(convertedValue) {
-				convertedValue = gconv.Map(value)
+				convertedValue = gconv.X取Map(value)
 			}
 			if utils.IsNil(convertedValue) {
-				err = gerror.NewCodef(gcode.CodeInvalidParameter, `unsupported value type "%s"`, reflect.TypeOf(value))
+				err = gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `unsupported value type "%s"`, reflect.TypeOf(value))
 			}
 			return
 
@@ -464,7 +464,7 @@ func (j *Json) checkPatternByPointer(key string, pointer *interface{}) *interfac
 			return &v
 		}
 	case []interface{}:
-		if gstr.IsNumeric(key) {
+		if gstr.X是否为数字(key) {
 			n, err := strconv.Atoi(key)
 			if err == nil && len((*pointer).([]interface{})) > n {
 				return &(*pointer).([]interface{})[n]

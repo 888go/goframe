@@ -11,8 +11,8 @@ package dm
 import (
 	_ "gitee.com/chunanyong/dm"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
 )
 
 type Driver struct {
@@ -27,10 +27,10 @@ func init() {
 	var (
 		err         error
 		driverObj   = New()
-		driverNames = g.SliceStr{"dm"}
+		driverNames = g.SliceStr别名{"dm"}
 	)
 	for _, driverName := range driverNames {
-		if err = gdb.Register(driverName, driverObj); err != nil {
+		if err = gdb.X注册驱动(driverName, driverObj); err != nil {
 			panic(err)
 		}
 	}
@@ -48,7 +48,7 @@ func (d *Driver) New(core *gdb.Core, node *gdb.ConfigNode) (gdb.DB, error) {
 	}, nil
 }
 
-// GetChars 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
-func (d *Driver) GetChars() (charLeft string, charRight string) {
+// X底层取数据库安全字符 返回这种类型的数据库的安全字符。 md5:8a01432c4ed14729
+func (d *Driver) X底层取数据库安全字符() (charLeft string, charRight string) {
 	return quoteChar, quoteChar
 }

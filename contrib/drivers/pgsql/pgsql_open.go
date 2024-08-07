@@ -11,17 +11,17 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	gdb "github.com/888go/goframe/database/gdb"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// Open 创建并返回一个用于pgsql的底层sql.DB对象。
+// X底层Open 创建并返回一个用于pgsql的底层sql.DB对象。
 // 参考链接：https://pkg.go.dev/github.com/lib/pq
 // md5:9889bcb899248a2b
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "postgres"
@@ -34,7 +34,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		source = config.Link
 				// 自定义在运行时更改架构。 md5:69ce0e441b271151
 		if config.Name != "" {
-			source, _ = gregex.ReplaceString(`dbname=([\w\.\-]+)+`, "dbname="+config.Name, source)
+			source, _ = gregex.X替换文本(`dbname=([\w\.\-]+)+`, "dbname="+config.Name, source)
 		}
 	} else {
 		if config.Name != "" {
@@ -59,7 +59,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 
 		if config.Extra != "" {
 			var extraMap map[string]interface{}
-			if extraMap, err = gstr.Parse(config.Extra); err != nil {
+			if extraMap, err = gstr.X参数解析(config.Extra); err != nil {
 				return nil, err
 			}
 			for k, v := range extraMap {
@@ -69,7 +69,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	}
 
 	if db, err = sql.Open(underlyingDriverName, source); err != nil {
-		err = gerror.WrapCodef(
+		err = gerror.X多层错误码并格式化(
 			gcode.CodeDbOperationError, err,
 			`sql.Open failed for driver "%s" by source "%s"`, underlyingDriverName, source,
 		)

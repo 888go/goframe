@@ -7,41 +7,41 @@
 
 // 静态服务测试。 md5:2105c089651008de
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/encoding/ghtml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gview"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	ghtml "github.com/888go/goframe/encoding/ghtml"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gview "github.com/888go/goframe/os/gview"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_Template_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New(gtest.DataPath("template", "basic"))
-		s := g.Server(guid.S())
-		s.SetView(v)
-		s.BindHandler("/", func(r *ghttp.Request) {
-			err := r.Response.WriteTpl("index.html", g.Map{
+		s := g.Http类(guid.X生成())
+		s.X设置默认模板对象(v)
+		s.X绑定("/", func(r *ghttp.Request) {
+			err := r.X响应.X输出到模板文件("index.html", g.Map{
 				"name": "john",
 			})
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "Name:john")
-		t.Assert(client.GetContent(ctx, "/"), "Name:john")
+		t.Assert(client.Get文本(ctx, "/"), "Name:john")
+		t.Assert(client.Get文本(ctx, "/"), "Name:john")
 	})
 }
 
@@ -49,105 +49,105 @@ func Test_Template_Encode(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New(gtest.DataPath("template", "basic"))
 		v.SetAutoEncode(true)
-		s := g.Server(guid.S())
-		s.SetView(v)
-		s.BindHandler("/", func(r *ghttp.Request) {
-			err := r.Response.WriteTpl("index.html", g.Map{
+		s := g.Http类(guid.X生成())
+		s.X设置默认模板对象(v)
+		s.X绑定("/", func(r *ghttp.Request) {
+			err := r.X响应.X输出到模板文件("index.html", g.Map{
 				"name": "john",
 			})
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "Name:john")
-		t.Assert(client.GetContent(ctx, "/"), "Name:john")
+		t.Assert(client.Get文本(ctx, "/"), "Name:john")
+		t.Assert(client.Get文本(ctx, "/"), "Name:john")
 	})
 }
 
 func Test_Template_Layout1(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New(gtest.DataPath("template", "layout1"))
-		s := g.Server(guid.S())
-		s.SetView(v)
-		s.BindHandler("/layout", func(r *ghttp.Request) {
-			err := r.Response.WriteTpl("layout.html", g.Map{
+		s := g.Http类(guid.X生成())
+		s.X设置默认模板对象(v)
+		s.X绑定("/layout", func(r *ghttp.Request) {
+			err := r.X响应.X输出到模板文件("layout.html", g.Map{
 				"mainTpl": "main/main1.html",
 			})
 			t.AssertNil(err)
 		})
-		s.BindHandler("/nil", func(r *ghttp.Request) {
-			err := r.Response.WriteTpl("layout.html", nil)
+		s.X绑定("/nil", func(r *ghttp.Request) {
+			err := r.X响应.X输出到模板文件("layout.html", nil)
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "Not Found")
-		t.Assert(client.GetContent(ctx, "/layout"), "123")
-		t.Assert(client.GetContent(ctx, "/nil"), "123")
+		t.Assert(client.Get文本(ctx, "/"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/layout"), "123")
+		t.Assert(client.Get文本(ctx, "/nil"), "123")
 	})
 }
 
 func Test_Template_Layout2(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New(gtest.DataPath("template", "layout2"))
-		s := g.Server(guid.S())
-		s.SetView(v)
-		s.BindHandler("/main1", func(r *ghttp.Request) {
-			err := r.Response.WriteTpl("layout.html", g.Map{
+		s := g.Http类(guid.X生成())
+		s.X设置默认模板对象(v)
+		s.X绑定("/main1", func(r *ghttp.Request) {
+			err := r.X响应.X输出到模板文件("layout.html", g.Map{
 				"mainTpl": "main/main1.html",
 			})
 			t.AssertNil(err)
 		})
-		s.BindHandler("/main2", func(r *ghttp.Request) {
-			err := r.Response.WriteTpl("layout.html", g.Map{
+		s.X绑定("/main2", func(r *ghttp.Request) {
+			err := r.X响应.X输出到模板文件("layout.html", g.Map{
 				"mainTpl": "main/main2.html",
 			})
 			t.AssertNil(err)
 		})
-		s.BindHandler("/nil", func(r *ghttp.Request) {
-			err := r.Response.WriteTpl("layout.html", nil)
+		s.X绑定("/nil", func(r *ghttp.Request) {
+			err := r.X响应.X输出到模板文件("layout.html", nil)
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "Not Found")
-		t.Assert(client.GetContent(ctx, "/main1"), "a1b")
-		t.Assert(client.GetContent(ctx, "/main2"), "a2b")
-		t.Assert(client.GetContent(ctx, "/nil"), "ab")
+		t.Assert(client.Get文本(ctx, "/"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/main1"), "a1b")
+		t.Assert(client.Get文本(ctx, "/main2"), "a2b")
+		t.Assert(client.Get文本(ctx, "/nil"), "ab")
 	})
 }
 
 func Test_Template_BuildInVarRequest(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
-		s.BindHandler("/:table/test", func(r *ghttp.Request) {
-			err := r.Response.WriteTplContent("{{.Request.table}}")
+		s := g.Http类(guid.X生成())
+		s.X绑定("/:table/test", func(r *ghttp.Request) {
+			err := r.X响应.X输出文本模板("{{.Request.table}}")
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/user/test"), "user")
-		t.Assert(client.GetContent(ctx, "/order/test"), "order")
+		t.Assert(client.Get文本(ctx, "/user/test"), "user")
+		t.Assert(client.Get文本(ctx, "/order/test"), "order")
 	})
 }
 
@@ -156,21 +156,21 @@ func Test_Template_XSS(t *testing.T) {
 		v := gview.New()
 		v.SetAutoEncode(true)
 		c := "<br>"
-		s := g.Server(guid.S())
-		s.SetView(v)
-		s.BindHandler("/", func(r *ghttp.Request) {
-			err := r.Response.WriteTplContent("{{if eq 1 1}}{{.v}}{{end}}", g.Map{
+		s := g.Http类(guid.X生成())
+		s.X设置默认模板对象(v)
+		s.X绑定("/", func(r *ghttp.Request) {
+			err := r.X响应.X输出文本模板("{{if eq 1 1}}{{.v}}{{end}}", g.Map{
 				"v": c,
 			})
 			t.AssertNil(err)
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), ghtml.Entities(c))
+		t.Assert(client.Get文本(ctx, "/"), ghtml.X编码(c))
 	})
 }

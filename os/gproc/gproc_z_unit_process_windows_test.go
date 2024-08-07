@@ -7,19 +7,19 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-//---build---//go:build windows
+//go:build windows
 
-package gproc_test
+package 进程类_test
 
 import (
 	"path/filepath"
 	"strings"
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gproc"
-	"github.com/gogf/gf/v2/test/gtest"
+	gctx "github.com/888go/goframe/os/gctx"
+	gfile "github.com/888go/goframe/os/gfile"
+	gproc "github.com/888go/goframe/os/gproc"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_ProcessRun(t *testing.T) {
@@ -37,18 +37,18 @@ func Test_ProcessRun(t *testing.T) {
 		command.Args = append(command.Args, "-o", output)
 		command.Args = append(command.Args, filename)
 
-		err := command.Run(gctx.GetInitCtx())
+		err := command.Run(gctx.X取初始化上下文())
 		t.AssertNil(err)
 
-		exists := gfile.Exists(output)
+		exists := gfile.X是否存在(output)
 		t.Assert(exists, true)
-		defer gfile.Remove(output)
+		defer gfile.X删除(output)
 
 		runCmd := gproc.NewProcess(output, nil)
 		var buf strings.Builder
 		runCmd.Stdout = &buf
 		runCmd.Stderr = &buf
-		err = runCmd.Run(gctx.GetInitCtx())
+		err = runCmd.Run(gctx.X取初始化上下文())
 		t.Assert(err, nil)
 		t.Assert(buf.String(), `"test string"`)
 	})
@@ -68,12 +68,12 @@ func Test_ProcessRun(t *testing.T) {
 		command.Args = append(command.Args, "-o", output)
 		command.Args = append(command.Args, filename)
 
-		err := command.Run(gctx.GetInitCtx())
+		err := command.Run(gctx.X取初始化上下文())
 		t.AssertNil(err)
 
-		exists := gfile.Exists(output)
+		exists := gfile.X是否存在(output)
 		t.Assert(exists, true)
 
-		defer gfile.Remove(output)
+		defer gfile.X删除(output)
 	})
 }

@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gcmd
+package cmd类
 
 import (
 	"bytes"
@@ -17,16 +17,16 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/net/gtrace"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/net/gtrace"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	genv "github.com/888go/goframe/os/genv"
+	glog "github.com/888go/goframe/os/glog"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // Run 调用与该命令绑定的自定义函数，根据os.Args执行。
@@ -42,12 +42,12 @@ func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 	value, err := c.RunWithValueError(ctx)
 	if err != nil {
 		var (
-			code   = gerror.Code(err)
+			code   = gerror.X取错误码(err)
 			detail = code.Detail()
 			buffer = bytes.NewBuffer(nil)
 		)
 		if code.Code() == gcode.CodeNotFound.Code() {
-			buffer.WriteString(fmt.Sprintf("ERROR: %s\n", gstr.Trim(err.Error())))
+			buffer.WriteString(fmt.Sprintf("ERROR: %s\n", gstr.X过滤首尾符并含空白(err.Error())))
 			if lastCmd, ok := detail.(*Command); ok {
 				lastCmd.PrintTo(buffer)
 			} else {
@@ -60,7 +60,7 @@ func (c *Command) RunWithValue(ctx context.Context) (value interface{}) {
 			fmt.Println(buffer.String())
 			os.Exit(1)
 		}
-		glog.Stack(false).Fatal(ctx, buffer.String())
+		glog.X堆栈选项(false).X输出FATA(ctx, buffer.String())
 	}
 	return value
 }
@@ -79,7 +79,7 @@ func (c *Command) RunWithValueError(ctx context.Context) (value interface{}, err
 // RunWithSpecificArgs 使用绑定到该命令的特定参数调用自定义函数，并将值和错误输出传递给它。 md5:48c98cbef4733851
 func (c *Command) RunWithSpecificArgs(ctx context.Context, args []string) (value interface{}, err error) {
 	if len(args) == 0 {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "args can not be empty!")
+		return nil, gerror.X创建错误码(gcode.CodeInvalidParameter, "args can not be empty!")
 	}
 	parser, err := ParseArgs(args, nil)
 	if err != nil {
@@ -100,12 +100,12 @@ func (c *Command) RunWithSpecificArgs(ctx context.Context, args []string) (value
 	}
 
 		// 如果未找到命令，则打印错误和帮助信息。 md5:e8829411cb2fb3df
-	err = gerror.NewCodef(
+	err = gerror.X创建错误码并格式化(
 		gcode.WithCode(gcode.CodeNotFound, lastCmd),
 		`command "%s" not found for command "%s", command line: %s`,
-		gstr.Join(parsedArgs, " "),
+		gstr.X连接(parsedArgs, " "),
 		c.Name,
-		gstr.Join(args, " "),
+		gstr.X连接(args, " "),
 	)
 	return
 }
@@ -113,10 +113,10 @@ func (c *Command) RunWithSpecificArgs(ctx context.Context, args []string) (value
 func (c *Command) doRun(ctx context.Context, args []string, parser *Parser) (value interface{}, err error) {
 	defer func() {
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && gerror.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodef(gcode.CodeInternalPanic, "exception recovered: %+v", exception)
+				err = gerror.X创建错误码并格式化(gcode.CodeInternalPanic, "exception recovered: %+v", exception)
 			}
 		}
 	}()
@@ -140,9 +140,9 @@ func (c *Command) doRun(ctx context.Context, args []string, parser *Parser) (val
 	ctx, span = tr.Start(
 		otel.GetTextMapPropagator().Extract(
 			ctx,
-			propagation.MapCarrier(genv.Map()),
+			propagation.MapCarrier(genv.X取Map()),
 		),
-		gstr.Join(os.Args, " "),
+		gstr.X连接(os.Args, " "),
 		trace.WithSpanKind(trace.SpanKindServer),
 	)
 	defer span.End()
@@ -194,12 +194,12 @@ func (c *Command) reParse(ctx context.Context, args []string, parser *Parser) (*
 		return nil, err
 	}
 		// 如果config组件有"config"标签，从其中获取选项值。 md5:25fb126ffe7890dc
-	if c.Config != "" && gcfg.Instance().Available(ctx) {
-		value, err := gcfg.Instance().Get(ctx, c.Config)
+	if c.Config != "" && gcfg.X取单例对象().X是否可用(ctx) {
+		value, err := gcfg.X取单例对象().X取值(ctx, c.Config)
 		if err != nil {
 			return nil, err
 		}
-		configMap := value.Map()
+		configMap := value.X取Map()
 		for optionName := range parser.supportedOptions {
 						// 命令行具有较高优先级。 md5:8326234bd7de1eaa
 			if parser.GetOpt(optionName) != nil {

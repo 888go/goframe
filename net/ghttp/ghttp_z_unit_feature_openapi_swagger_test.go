@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
 	"context"
@@ -13,13 +13,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/guid"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_OpenApi_Swagger(t *testing.T) {
@@ -33,38 +33,38 @@ func Test_OpenApi_Swagger(t *testing.T) {
 		Age  int
 		Name string
 	}
-	s := g.Server(guid.S())
-	s.SetSwaggerPath("/swagger")
-	s.SetOpenApiPath("/api.json")
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s := g.Http类(guid.X生成())
+	s.X设置APISwaggerUI路径("/swagger")
+	s.X设置APIOpenApiUI路径("/api.json")
+	s.Use别名(ghttp.MiddlewareHandlerResponse)
+	s.X绑定("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
 		}, nil
 	})
-	s.BindHandler("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s.X绑定("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
-		}, gerror.New("error")
+		}, gerror.X创建("error")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(c.GetContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
-		t.Assert(c.GetContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
+		t.Assert(c.Get文本(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
+		t.Assert(c.Get文本(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
 
-		t.Assert(gstr.Contains(c.GetContent(ctx, "/swagger/"), `API Reference`), true)
-		t.Assert(gstr.Contains(c.GetContent(ctx, "/api.json"), `/test/error`), true)
+		t.Assert(gstr.X是否包含(c.Get文本(ctx, "/swagger/"), `API Reference`), true)
+		t.Assert(gstr.X是否包含(c.Get文本(ctx, "/api.json"), `/test/error`), true)
 	})
 }
 
@@ -79,31 +79,31 @@ func Test_OpenApi_Multiple_Methods_Swagger(t *testing.T) {
 		Age  int
 		Name string
 	}
-	s := g.Server(guid.S())
-	s.SetSwaggerPath("/swagger")
-	s.SetOpenApiPath("/api.json")
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s := g.Http类(guid.X生成())
+	s.X设置APISwaggerUI路径("/swagger")
+	s.X设置APIOpenApiUI路径("/api.json")
+	s.Use别名(ghttp.MiddlewareHandlerResponse)
+	s.X绑定("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
 		}, nil
 	})
-	s.BindHandler("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s.X绑定("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
-		}, gerror.New("error")
+		}, gerror.X创建("error")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		openapi := s.GetOpenApi()
+		openapi := s.X取OpenApi对象()
 		t.AssertNE(openapi.Paths["/test"].Get, nil)
 		t.AssertNE(openapi.Paths["/test"].Post, nil)
 		t.AssertNE(openapi.Paths["/test/error"].Get, nil)
@@ -111,23 +111,23 @@ func Test_OpenApi_Multiple_Methods_Swagger(t *testing.T) {
 
 		t.Assert(len(openapi.Paths["/test"].Get.Parameters), 2)
 		t.Assert(len(openapi.Paths["/test/error"].Get.Parameters), 2)
-		t.Assert(len(openapi.Components.Schemas.Get(`github.com.gogf.gf.v2.net.ghttp_test.TestReq`).Value.Properties.Map()), 2)
+		t.Assert(len(openapi.Components.Schemas.Get(`github.com.888go.goframe.net.ghttp_test.TestReq`).Value.Properties.Map()), 2)
 
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
 				// 仅限于GET和POST方法。 md5:7c61bc58a2e1a657
-		t.Assert(c.GetContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
-		t.Assert(c.GetContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
-		t.Assert(c.PostContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
-		t.Assert(c.PostContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
+		t.Assert(c.Get文本(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
+		t.Assert(c.Get文本(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
+		t.Assert(c.Post文本(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
+		t.Assert(c.Post文本(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
 
 				// 不适用于其他方法。 md5:4ae430a7ad6e3ac9
-		t.Assert(c.PutContent(ctx, "/test?age=18&name=john"), `{"code":65,"message":"Not Found","data":null}`)
-		t.Assert(c.PutContent(ctx, "/test/error"), `{"code":65,"message":"Not Found","data":null}`)
+		t.Assert(c.Put文本(ctx, "/test?age=18&name=john"), `{"code":65,"message":"Not Found","data":null}`)
+		t.Assert(c.Put文本(ctx, "/test/error"), `{"code":65,"message":"Not Found","data":null}`)
 
-		t.Assert(gstr.Contains(c.GetContent(ctx, "/swagger/"), `API Reference`), true)
-		t.Assert(gstr.Contains(c.GetContent(ctx, "/api.json"), `/test/error`), true)
+		t.Assert(gstr.X是否包含(c.Get文本(ctx, "/swagger/"), `API Reference`), true)
+		t.Assert(gstr.X是否包含(c.Get文本(ctx, "/api.json"), `/test/error`), true)
 	})
 }
 
@@ -142,31 +142,31 @@ func Test_OpenApi_Method_All_Swagger(t *testing.T) {
 		Age  int
 		Name string
 	}
-	s := g.Server(guid.S())
-	s.SetSwaggerPath("/swagger")
-	s.SetOpenApiPath("/api.json")
-	s.Use(ghttp.MiddlewareHandlerResponse)
-	s.BindHandler("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s := g.Http类(guid.X生成())
+	s.X设置APISwaggerUI路径("/swagger")
+	s.X设置APIOpenApiUI路径("/api.json")
+	s.Use别名(ghttp.MiddlewareHandlerResponse)
+	s.X绑定("/test", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
 		}, nil
 	})
-	s.BindHandler("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
+	s.X绑定("/test/error", func(ctx context.Context, req *TestReq) (res *TestRes, err error) {
 		return &TestRes{
 			Id:   1,
 			Age:  req.Age,
 			Name: req.Name,
-		}, gerror.New("error")
+		}, gerror.X创建("error")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		openapi := s.GetOpenApi()
+		openapi := s.X取OpenApi对象()
 		t.AssertNE(openapi.Paths["/test"].Get, nil)
 		t.AssertNE(openapi.Paths["/test"].Post, nil)
 		t.AssertNE(openapi.Paths["/test"].Delete, nil)
@@ -174,15 +174,15 @@ func Test_OpenApi_Method_All_Swagger(t *testing.T) {
 		t.AssertNE(openapi.Paths["/test/error"].Post, nil)
 		t.AssertNE(openapi.Paths["/test/error"].Delete, nil)
 
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(c.GetContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
-		t.Assert(c.GetContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
-		t.Assert(c.PostContent(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
-		t.Assert(c.PostContent(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
+		t.Assert(c.Get文本(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
+		t.Assert(c.Get文本(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
+		t.Assert(c.Post文本(ctx, "/test?age=18&name=john"), `{"code":0,"message":"","data":{"Id":1,"Age":18,"Name":"john"}}`)
+		t.Assert(c.Post文本(ctx, "/test/error"), `{"code":50,"message":"error","data":{"Id":1,"Age":0,"Name":""}}`)
 
-		t.Assert(gstr.Contains(c.GetContent(ctx, "/swagger/"), `API Reference`), true)
-		t.Assert(gstr.Contains(c.GetContent(ctx, "/api.json"), `/test/error`), true)
+		t.Assert(gstr.X是否包含(c.Get文本(ctx, "/swagger/"), `API Reference`), true)
+		t.Assert(gstr.X是否包含(c.Get文本(ctx, "/api.json"), `/test/error`), true)
 	})
 }

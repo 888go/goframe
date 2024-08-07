@@ -5,9 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
-import "github.com/gogf/gf/v2/os/gsession"
+import (
+	gsession "github.com/888go/goframe/os/gsession"
+)
 
 // Session 实际上是 gsession.Session 的别名，它绑定到一个单独的请求。
 // md5:669895d1042f4c49

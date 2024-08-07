@@ -5,64 +5,64 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gjson
+package json类
 
 import (
 	"bytes"
 	"reflect"
 
-	"github.com/gogf/gf/v2/encoding/gini"
-	"github.com/gogf/gf/v2/encoding/gproperties"
-	"github.com/gogf/gf/v2/encoding/gtoml"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/encoding/gyaml"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gini "github.com/888go/goframe/encoding/gini"
+	"github.com/888go/goframe/encoding/gproperties"
+	gtoml "github.com/888go/goframe/encoding/gtoml"
+	gxml "github.com/888go/goframe/encoding/gxml"
+	gyaml "github.com/888go/goframe/encoding/gyaml"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/rwmutex"
+	gfile "github.com/888go/goframe/os/gfile"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// New 使用任何类型的`data`创建一个Json对象，但为了数据访问的原因，`data`应该是map或slice，
+// X创建 使用任何类型的`data`创建一个Json对象，但为了数据访问的原因，`data`应该是map或slice，
 // 否则将失去意义。
 //
 // 参数`safe`指定是否在并发安全的上下文中使用此Json对象，默认值为false。
 // md5:b84f401db24e69d8
-func New(data interface{}, safe ...bool) *Json {
-	return NewWithTag(data, string(ContentTypeJson), safe...)
+func X创建(值 interface{}, 并发安全 ...bool) *Json {
+	return X创建并按类型标签(值, string(ContentTypeJson), 并发安全...)
 }
 
-// NewWithTag 创建一个Json对象，可以包含任何类型的`data`，但出于数据访问的原因，`data`应该是一个map或切片，否则将没有意义。
+// X创建并按类型标签 创建一个Json对象，可以包含任何类型的`data`，但出于数据访问的原因，`data`应该是一个map或切片，否则将没有意义。
 // 
 // 参数`tags`用于指定结构体转换为map的优先标签，多个标签之间用逗号分隔。
 // 
 // 参数`safe`表示是否在并发安全上下文中使用这个Json对象，默认为false。
 // md5:2558f08f4f082a16
-func NewWithTag(data interface{}, tags string, safe ...bool) *Json {
+func X创建并按类型标签(值 interface{}, 类型标签 string, 并发安全 ...bool) *Json {
 	option := Options{
-		Tags: tags,
+		Tags: 类型标签,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return NewWithOptions(data, option)
+	return X创建并按选项(值, option)
 }
 
-// NewWithOptions使用任何类型的'data'创建一个Json对象，但出于数据访问的原因，`data`应该是map或切片，否则将没有意义。
+// X创建并按选项使用任何类型的'data'创建一个Json对象，但出于数据访问的原因，`data`应该是map或切片，否则将没有意义。
 // md5:48be1828a6556518
-func NewWithOptions(data interface{}, options Options) *Json {
+func X创建并按选项(值 interface{}, 选项 Options) *Json {
 	var j *Json
-	switch data.(type) {
+	switch 值.(type) {
 	case string, []byte:
-		if r, err := loadContentWithOptions(data, options); err == nil {
+		if r, err := loadContentWithOptions(值, 选项); err == nil {
 			j = r
 		} else {
 			j = &Json{
-				p:  &data,
+				p:  &值,
 				c:  byte(defaultSplitChar),
 				vc: false,
 			}
@@ -70,23 +70,23 @@ func NewWithOptions(data interface{}, options Options) *Json {
 	default:
 		var (
 			pointedData interface{}
-			reflectInfo = reflection.OriginValueAndKind(data)
+			reflectInfo = reflection.OriginValueAndKind(值)
 		)
 		switch reflectInfo.OriginKind {
 		case reflect.Slice, reflect.Array:
-			pointedData = gconv.Interfaces(data)
+			pointedData = gconv.X取any切片(值)
 
 		case reflect.Map:
-			pointedData = gconv.MapDeep(data, options.Tags)
+			pointedData = gconv.X取Map_递归(值, 选项.Tags)
 
 		case reflect.Struct:
-			if v, ok := data.(iVal); ok {
-				return NewWithOptions(v.Val(), options)
+			if v, ok := 值.(iVal); ok {
+				return X创建并按选项(v.X取值(), 选项)
 			}
-			pointedData = gconv.MapDeep(data, options.Tags)
+			pointedData = gconv.X取Map_递归(值, 选项.Tags)
 
 		default:
-			pointedData = data
+			pointedData = 值
 		}
 		j = &Json{
 			p:  &pointedData,
@@ -94,140 +94,140 @@ func NewWithOptions(data interface{}, options Options) *Json {
 			vc: false,
 		}
 	}
-	j.mu = rwmutex.Create(options.Safe)
+	j.mu = rwmutex.Create(选项.Safe)
 	return j
 }
 
-// Load 从指定的文件`path`加载内容，并根据其内容创建一个Json对象。 md5:fc26d8aa3d537173
-func Load(path string, safe ...bool) (*Json, error) {
-	if p, err := gfile.Search(path); err != nil {
+// X加载文件 从指定的文件`path`加载内容，并根据其内容创建一个Json对象。 md5:fc26d8aa3d537173
+func X加载文件(路径 string, 并发安全 ...bool) (*Json, error) {
+	if p, err := gfile.X查找(路径); err != nil {
 		return nil, err
 	} else {
-		path = p
+		路径 = p
 	}
 	options := Options{
-		Type: ContentType(gfile.Ext(path)),
+		Type: ContentType(gfile.X路径取扩展名(路径)),
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		options.Safe = true
 	}
-	return doLoadContentWithOptions(gfile.GetBytesWithCache(path), options)
+	return doLoadContentWithOptions(gfile.X缓存读字节集(路径), options)
 }
 
-// LoadWithOptions 根据给定的 JSON 格式内容和选项创建一个 Json 对象。 md5:77290b5f994f3ff1
-func LoadWithOptions(data interface{}, options Options) (*Json, error) {
-	return doLoadContentWithOptions(gconv.Bytes(data), options)
+// X加载并按选项 根据给定的 JSON 格式内容和选项创建一个 Json 对象。 md5:77290b5f994f3ff1
+func X加载并按选项(值 interface{}, 选项 Options) (*Json, error) {
+	return doLoadContentWithOptions(gconv.X取字节集(值), 选项)
 }
 
-// LoadJson 从给定的JSON格式内容创建一个Json对象。 md5:1f41cbc0a35bd390
-func LoadJson(data interface{}, safe ...bool) (*Json, error) {
+// X加载json 从给定的JSON格式内容创建一个Json对象。 md5:1f41cbc0a35bd390
+func X加载json(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeJson,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.X取字节集(值), option)
 }
 
-// LoadXml 从给定的XML格式内容创建一个Json对象。 md5:a170d56aa371a2bb
-func LoadXml(data interface{}, safe ...bool) (*Json, error) {
+// X加载xml 从给定的XML格式内容创建一个Json对象。 md5:a170d56aa371a2bb
+func X加载xml(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeXml,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.X取字节集(值), option)
 }
 
-// LoadIni 从给定的INI格式内容创建一个Json对象。 md5:bf3225da0be4c26b
-func LoadIni(data interface{}, safe ...bool) (*Json, error) {
+// X加载ini 从给定的INI格式内容创建一个Json对象。 md5:bf3225da0be4c26b
+func X加载ini(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeIni,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.X取字节集(值), option)
 }
 
-// LoadYaml 根据给定的 YAML 格式内容创建一个 Json 对象。 md5:d810aac213716b5a
-func LoadYaml(data interface{}, safe ...bool) (*Json, error) {
+// X加载Yaml 根据给定的 YAML 格式内容创建一个 Json 对象。 md5:d810aac213716b5a
+func X加载Yaml(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeYaml,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.X取字节集(值), option)
 }
 
-// LoadToml 从给定的TOML格式内容创建一个Json对象。 md5:a27ac84d2a7e5a70
-func LoadToml(data interface{}, safe ...bool) (*Json, error) {
+// X加载Toml 从给定的TOML格式内容创建一个Json对象。 md5:a27ac84d2a7e5a70
+func X加载Toml(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeToml,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.X取字节集(值), option)
 }
 
-// LoadProperties 从给定的TOML格式内容创建一个Json对象。 md5:aacff07e57605d82
-func LoadProperties(data interface{}, safe ...bool) (*Json, error) {
+// X加载Properties 从给定的TOML格式内容创建一个Json对象。 md5:aacff07e57605d82
+func X加载Properties(值 interface{}, 并发安全 ...bool) (*Json, error) {
 	option := Options{
 		Type: ContentTypeProperties,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		option.Safe = true
 	}
-	return doLoadContentWithOptions(gconv.Bytes(data), option)
+	return doLoadContentWithOptions(gconv.X取字节集(值), option)
 }
 
-// LoadContent 根据给定的内容创建一个Json对象，它会自动检查`content`的数据类型，
+// X加载并自动识别格式 根据给定的内容创建一个Json对象，它会自动检查`content`的数据类型，
 // 支持如下数据内容类型：
 // JSON、XML、INI、YAML和TOML。
 // md5:e930374f4ac3b32e
-func LoadContent(data interface{}, safe ...bool) (*Json, error) {
-	content := gconv.Bytes(data)
+func X加载并自动识别格式(值 interface{}, 并发安全 ...bool) (*Json, error) {
+	content := gconv.X取字节集(值)
 	if len(content) == 0 {
-		return New(nil, safe...), nil
+		return X创建(nil, 并发安全...), nil
 	}
-	return LoadContentType(checkDataType(content), content, safe...)
+	return X加载并按格式(checkDataType(content), content, 并发安全...)
 }
 
-// LoadContentType 根据给定的类型和内容创建一个 JSON 对象，支持以下数据内容类型：
+// X加载并按格式 根据给定的类型和内容创建一个 JSON 对象，支持以下数据内容类型：
 // JSON, XML, INI, YAML 和 TOML.
 // md5:7db5bd0b429fea01
-func LoadContentType(dataType ContentType, data interface{}, safe ...bool) (*Json, error) {
-	content := gconv.Bytes(data)
+func X加载并按格式(类型标签 ContentType, 值 interface{}, 并发安全 ...bool) (*Json, error) {
+	content := gconv.X取字节集(值)
 	if len(content) == 0 {
-		return New(nil, safe...), nil
+		return X创建(nil, 并发安全...), nil
 	}
 	// ignore UTF8-BOM
 	if content[0] == 0xEF && content[1] == 0xBB && content[2] == 0xBF {
 		content = content[3:]
 	}
 	options := Options{
-		Type:      dataType,
+		Type:      类型标签,
 		StrNumber: true,
 	}
-	if len(safe) > 0 && safe[0] {
+	if len(并发安全) > 0 && 并发安全[0] {
 		options.Safe = true
 	}
 	return doLoadContentWithOptions(content, options)
 }
 
-// IsValidDataType 检查并返回给定的 `dataType` 是否是用于加载的有效数据类型。 md5:3cc6cab5a2631a3e
-func IsValidDataType(dataType ContentType) bool {
-	if dataType == "" {
+// X检查类型 检查并返回给定的 `dataType` 是否是用于加载的有效数据类型。 md5:3cc6cab5a2631a3e
+func X检查类型(待判断值 ContentType) bool {
+	if 待判断值 == "" {
 		return false
 	}
-	if dataType[0] == '.' {
-		dataType = dataType[1:]
+	if 待判断值[0] == '.' {
+		待判断值 = 待判断值[1:]
 	}
-	switch dataType {
+	switch 待判断值 {
 	case
 		ContentTypeJson,
 		ContentTypeJs,
@@ -243,9 +243,9 @@ func IsValidDataType(dataType ContentType) bool {
 }
 
 func loadContentWithOptions(data interface{}, options Options) (*Json, error) {
-	content := gconv.Bytes(data)
+	content := gconv.X取字节集(data)
 	if len(content) == 0 {
-		return NewWithOptions(nil, options), nil
+		return X创建并按选项(nil, options), nil
 	}
 	if options.Type == "" {
 		options.Type = checkDataType(content)
@@ -254,9 +254,9 @@ func loadContentWithOptions(data interface{}, options Options) (*Json, error) {
 }
 
 func loadContentTypeWithOptions(data interface{}, options Options) (*Json, error) {
-	content := gconv.Bytes(data)
+	content := gconv.X取字节集(data)
 	if len(content) == 0 {
-		return NewWithOptions(nil, options), nil
+		return X创建并按选项(nil, options), nil
 	}
 	// ignore UTF8-BOM
 	if content[0] == 0xEF && content[1] == 0xBB && content[2] == 0xBF {
@@ -275,12 +275,12 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 		result interface{}
 	)
 	if len(data) == 0 {
-		return NewWithOptions(nil, options), nil
+		return X创建并按选项(nil, options), nil
 	}
 	if options.Type == "" {
 		options.Type = checkDataType(data)
 	}
-	options.Type = ContentType(gstr.TrimLeft(
+	options.Type = ContentType(gstr.X过滤首字符并含空白(
 		string(options.Type), "."),
 	)
 	switch options.Type {
@@ -302,7 +302,7 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 		}
 
 	case ContentTypeIni:
-		if data, err = gini.ToJson(data); err != nil {
+		if data, err = gini.X取json(data); err != nil {
 			return nil, err
 		}
 	case ContentTypeProperties:
@@ -311,7 +311,7 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 		}
 
 	default:
-		err = gerror.NewCodef(
+		err = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`unsupported type "%s" for loading`,
 			options.Type,
@@ -329,9 +329,9 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 	}
 	switch result.(type) {
 	case string, []byte:
-		return nil, gerror.Newf(`json decoding failed for content: %s`, data)
+		return nil, gerror.X创建并格式化(`json decoding failed for content: %s`, data)
 	}
-	return NewWithOptions(result, options), nil
+	return X创建并按选项(result, options), nil
 }
 
 // checkDataType 会自动检查并返回`content`的数据类型。
@@ -341,23 +341,23 @@ func doLoadContentWithOptions(data []byte, options Options) (*Json, error) {
 func checkDataType(content []byte) ContentType {
 	if json.Valid(content) {
 		return ContentTypeJson
-	} else if gregex.IsMatch(`^<.+>[\S\s]+<.+>\s*$`, content) {
+	} else if gregex.X是否匹配字节集(`^<.+>[\S\s]+<.+>\s*$`, content) {
 		return ContentTypeXml
-	} else if !gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*"""[\s\S]+"""`, content) &&
-		!gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*'''[\s\S]+'''`, content) &&
-		((gregex.IsMatch(`^[\n\r]*[\w\-\s\t]+\s*:\s*".+"`, content) || gregex.IsMatch(`^[\n\r]*[\w\-\s\t]+\s*:\s*\w+`, content)) ||
-			(gregex.IsMatch(`[\n\r]+[\w\-\s\t]+\s*:\s*".+"`, content) || gregex.IsMatch(`[\n\r]+[\w\-\s\t]+\s*:\s*\w+`, content))) {
+	} else if !gregex.X是否匹配字节集(`[\n\r]*[\s\t\w\-\."]+\s*=\s*"""[\s\S]+"""`, content) &&
+		!gregex.X是否匹配字节集(`[\n\r]*[\s\t\w\-\."]+\s*=\s*'''[\s\S]+'''`, content) &&
+		((gregex.X是否匹配字节集(`^[\n\r]*[\w\-\s\t]+\s*:\s*".+"`, content) || gregex.X是否匹配字节集(`^[\n\r]*[\w\-\s\t]+\s*:\s*\w+`, content)) ||
+			(gregex.X是否匹配字节集(`[\n\r]+[\w\-\s\t]+\s*:\s*".+"`, content) || gregex.X是否匹配字节集(`[\n\r]+[\w\-\s\t]+\s*:\s*\w+`, content))) {
 		return ContentTypeYaml
-	} else if !gregex.IsMatch(`^[\s\t\n\r]*;.+`, content) &&
-		!gregex.IsMatch(`[\s\t\n\r]+;.+`, content) &&
-		!gregex.IsMatch(`[\n\r]+[\s\t\w\-]+\.[\s\t\w\-]+\s*=\s*.+`, content) &&
-		(gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*".+"`, content) || gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content)) {
+	} else if !gregex.X是否匹配字节集(`^[\s\t\n\r]*;.+`, content) &&
+		!gregex.X是否匹配字节集(`[\s\t\n\r]+;.+`, content) &&
+		!gregex.X是否匹配字节集(`[\n\r]+[\s\t\w\-]+\.[\s\t\w\-]+\s*=\s*.+`, content) &&
+		(gregex.X是否匹配字节集(`[\n\r]*[\s\t\w\-\."]+\s*=\s*".+"`, content) || gregex.X是否匹配字节集(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content)) {
 		return ContentTypeToml
-	} else if gregex.IsMatch(`\[[\w\.]+\]`, content) &&
-		(gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*".+"`, content) || gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content)) {
+	} else if gregex.X是否匹配字节集(`\[[\w\.]+\]`, content) &&
+		(gregex.X是否匹配字节集(`[\n\r]*[\s\t\w\-\."]+\s*=\s*".+"`, content) || gregex.X是否匹配字节集(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content)) {
 				// 必须包含"xxx"部分。 md5:6dc6d0a6d417b6a6
 		return ContentTypeIni
-	} else if gregex.IsMatch(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content) {
+	} else if gregex.X是否匹配字节集(`[\n\r]*[\s\t\w\-\."]+\s*=\s*\w+`, content) {
 		return ContentTypeProperties
 	} else {
 		return ""

@@ -6,4 +6,4 @@
 // md5:a9832f33b234e3f3
 
 // 包gtest提供了方便的单元测试工具。 md5:b9acf1a8bbc8ea0c
-package gtest
+package 单元测试类

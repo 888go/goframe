@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gregex
+package 正则类
 
 import (
 	"regexp"
 	"sync"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 var (
@@ -43,7 +43,7 @@ func getRegexp(pattern string) (regex *regexp.Regexp, err error) {
 	// 则编译该模式并创建一个。
 	// md5:16abd6a4a92df88a
 	if regex, err = regexp.Compile(pattern); err != nil {
-		err = gerror.Wrapf(err, `regexp.Compile failed for pattern "%s"`, pattern)
+		err = gerror.X多层错误并格式化(err, `regexp.Compile failed for pattern "%s"`, pattern)
 		return
 	}
 		// 使用写入锁缓存结果对象。 md5:4d4db9dbdc7391d7

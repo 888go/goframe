@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Structs 将任何切片转换为给定结构体类型的切片。
@@ -21,8 +21,8 @@ func Structs(params interface{}, pointer interface{}, paramKeyToAttrMap ...map[s
 	return Scan(params, pointer, paramKeyToAttrMap...)
 }
 
-// SliceStruct 是 Structs 的别名。 md5:844cd0606fb4edf0
-func SliceStruct(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
+// SliceStruct别名 是 Structs 的别名。 md5:844cd0606fb4edf0
+func SliceStruct别名(params interface{}, pointer interface{}, mapping ...map[string]string) (err error) {
 	return Structs(params, pointer, mapping...)
 }
 
@@ -46,10 +46,10 @@ func doStructs(
 	defer func() {
 				// 捕获panic，尤其是反射操作引发的panic。 md5:dd183bf8028f513a
 		if exception := recover(); exception != nil {
-			if v, ok := exception.(error); ok && gerror.HasStack(v) {
+			if v, ok := exception.(error); ok && gerror.X判断是否带堆栈(v) {
 				err = v
 			} else {
-				err = gerror.NewCodeSkipf(gcode.CodeInternalPanic, 1, "%+v", exception)
+				err = gerror.X创建错误码并跳过堆栈与格式化(gcode.CodeInternalPanic, 1, "%+v", exception)
 			}
 		}
 	}()
@@ -59,7 +59,7 @@ func doStructs(
 	if !ok {
 		pointerRv = reflect.ValueOf(pointer)
 		if kind := pointerRv.Kind(); kind != reflect.Ptr {
-			return gerror.NewCodef(
+			return gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				"pointer should be type of pointer, but got: %v", kind,
 			)
@@ -82,7 +82,7 @@ func doStructs(
 			paramsList[i] = paramsRv.Index(i).Interface()
 		}
 	default:
-		var paramsMaps = Maps(params)
+		var paramsMaps = X取Map切片(params)
 		paramsList = make([]interface{}, len(paramsMaps))
 		for i := 0; i < len(paramsMaps); i++ {
 			paramsList[i] = paramsMaps[i]

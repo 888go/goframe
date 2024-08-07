@@ -7,19 +7,19 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-//---build---//go:build windows
+//go:build windows
 
-package gproc_test
+package 进程类_test
 
 import (
 	"fmt"
 	"path/filepath"
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gproc"
-	"github.com/gogf/gf/v2/test/gtest"
+	gctx "github.com/888go/goframe/os/gctx"
+	gfile "github.com/888go/goframe/os/gfile"
+	gproc "github.com/888go/goframe/os/gproc"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_ShellExec_GoBuild_Windows(t *testing.T) {
@@ -29,13 +29,13 @@ func Test_ShellExec_GoBuild_Windows(t *testing.T) {
 		output := filepath.Join(testPath, "main.exe")
 		cmd := fmt.Sprintf(`go build -ldflags="-s -w" -o %s  %s`, output, filename)
 
-		err := gproc.ShellRun(gctx.New(), cmd)
+		err := gproc.ShellRun(gctx.X创建(), cmd)
 		t.Assert(err, nil)
 
-		exists := gfile.Exists(output)
+		exists := gfile.X是否存在(output)
 		t.Assert(exists, true)
 
-		defer gfile.Remove(output)
+		defer gfile.X删除(output)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
@@ -44,14 +44,14 @@ func Test_ShellExec_GoBuild_Windows(t *testing.T) {
 		output := filepath.Join(testPath, "main.exe")
 		cmd := fmt.Sprintf(`go build -ldflags="-X 'main.TestString=\"test string\"'" -o %s %s`, output, filename)
 
-		err := gproc.ShellRun(gctx.New(), cmd)
+		err := gproc.ShellRun(gctx.X创建(), cmd)
 		t.Assert(err, nil)
 
-		exists := gfile.Exists(output)
+		exists := gfile.X是否存在(output)
 		t.Assert(exists, true)
-		defer gfile.Remove(output)
+		defer gfile.X删除(output)
 
-		result, err := gproc.ShellExec(gctx.New(), output)
+		result, err := gproc.ShellExec(gctx.X创建(), output)
 		t.Assert(err, nil)
 		t.Assert(result, `"test string"`)
 	})
@@ -64,30 +64,30 @@ func Test_ShellExec_SpaceDir_Windows(t *testing.T) {
 		filename := filepath.Join(testPath, "main.go")
 						// 使用go build命令，生成名为test.exe的可执行文件，源代码为main.go. md5:3a438d2ac0c99590
 		cmd := fmt.Sprintf(`go build -o test.exe %s`, filename)
-		r, err := gproc.ShellExec(gctx.New(), cmd)
+		r, err := gproc.ShellExec(gctx.X创建(), cmd)
 		t.AssertNil(err)
 		t.Assert(r, "")
 
-		exists := gfile.Exists(filename)
+		exists := gfile.X是否存在(filename)
 		t.Assert(exists, true)
 
 		outputDir := filepath.Join(testPath, "testdir")
 		output := filepath.Join(outputDir, "test.exe")
-		err = gfile.Move("test.exe", output)
+		err = gfile.X移动("test.exe", output)
 		t.AssertNil(err)
-		defer gfile.Remove(output)
+		defer gfile.X删除(output)
 
 		expectContent := "123"
 		testOutput := filepath.Join(testPath, "space dir", "test.txt")
 		cmd = fmt.Sprintf(`%s -c %s -o "%s"`, output, expectContent, testOutput)
-		r, err = gproc.ShellExec(gctx.New(), cmd)
+		r, err = gproc.ShellExec(gctx.X创建(), cmd)
 		t.AssertNil(err)
 
-		exists = gfile.Exists(testOutput)
+		exists = gfile.X是否存在(testOutput)
 		t.Assert(exists, true)
-		defer gfile.Remove(testOutput)
+		defer gfile.X删除(testOutput)
 
-		contents := gfile.GetContents(testOutput)
+		contents := gfile.X读文本(testOutput)
 		t.Assert(contents, expectContent)
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -95,30 +95,30 @@ func Test_ShellExec_SpaceDir_Windows(t *testing.T) {
 		filename := filepath.Join(testPath, "main.go")
 						// 使用go build命令，生成名为test.exe的可执行文件，源代码为main.go. md5:3a438d2ac0c99590
 		cmd := fmt.Sprintf(`go build -o test.exe %s`, filename)
-		r, err := gproc.ShellExec(gctx.New(), cmd)
+		r, err := gproc.ShellExec(gctx.X创建(), cmd)
 		t.AssertNil(err)
 		t.Assert(r, "")
 
-		exists := gfile.Exists(filename)
+		exists := gfile.X是否存在(filename)
 		t.Assert(exists, true)
 
 		outputDir := filepath.Join(testPath, "space dir")
 		output := filepath.Join(outputDir, "test.exe")
-		err = gfile.Move("test.exe", output)
+		err = gfile.X移动("test.exe", output)
 		t.AssertNil(err)
-		defer gfile.Remove(output)
+		defer gfile.X删除(output)
 
 		expectContent := "123"
 		testOutput := filepath.Join(testPath, "testdir", "test.txt")
 		cmd = fmt.Sprintf(`"%s" -c %s -o %s`, output, expectContent, testOutput)
-		r, err = gproc.ShellExec(gctx.New(), cmd)
+		r, err = gproc.ShellExec(gctx.X创建(), cmd)
 		t.AssertNil(err)
 
-		exists = gfile.Exists(testOutput)
+		exists = gfile.X是否存在(testOutput)
 		t.Assert(exists, true)
-		defer gfile.Remove(testOutput)
+		defer gfile.X删除(testOutput)
 
-		contents := gfile.GetContents(testOutput)
+		contents := gfile.X读文本(testOutput)
 		t.Assert(contents, expectContent)
 
 	})

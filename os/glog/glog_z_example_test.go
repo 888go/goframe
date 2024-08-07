@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog_test
+package 日志类_test
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/frame/g"
+	"github.com/888go/goframe/frame/g"
 )
 
 func ExampleContext() {
 	ctx := context.WithValue(context.Background(), "Trace-Id", "123456789")
-	g.Log().Error(ctx, "runtime error")
+	g.X日志类().Error(ctx, "runtime error")
 
 	// May Output:
 	// 2020-06-08 20:17:03.630 [ERRO] {Trace-Id: 123456789} runtime error

@@ -5,29 +5,29 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gctx_test
+package 上下文类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/test/gtest"
+	gctx "github.com/888go/goframe/os/gctx"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_New(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		ctx := gctx.New()
+		ctx := gctx.X创建()
 		t.AssertNE(ctx, nil)
-		t.AssertNE(gctx.CtxId(ctx), "")
+		t.AssertNE(gctx.X取上下文id(ctx), "")
 	})
 }
 
 func Test_WithCtx(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		ctx := context.WithValue(context.TODO(), "TEST", 1)
-		ctx = gctx.WithCtx(ctx)
-		t.AssertNE(gctx.CtxId(ctx), "")
+		ctx = gctx.X创建并从上下文(ctx)
+		t.AssertNE(gctx.X取上下文id(ctx), "")
 		t.Assert(ctx.Value("TEST"), 1)
 	})
 }
@@ -35,8 +35,8 @@ func Test_WithCtx(t *testing.T) {
 func Test_SetInitCtx(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		ctx := context.WithValue(context.TODO(), "TEST", 1)
-		gctx.SetInitCtx(ctx)
-		t.AssertNE(gctx.GetInitCtx(), "")
-		t.Assert(gctx.GetInitCtx().Value("TEST"), 1)
+		gctx.X设置初始化上下文(ctx)
+		t.AssertNE(gctx.X取初始化上下文(), "")
+		t.Assert(gctx.X取初始化上下文().Value("TEST"), 1)
 	})
 }

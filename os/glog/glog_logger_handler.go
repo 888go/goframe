@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog
+package 日志类
 
 import (
 	"bytes"
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Handler 是用于自定义日志内容输出的函数处理器。 md5:486a8db7f7dd8188
@@ -108,13 +108,13 @@ func doFinalPrint(ctx context.Context, in *HandlerInput) {
 	}
 }
 
-// SetDefaultHandler 设置包的默认处理器。 md5:33a213aebe83e5ed
-func SetDefaultHandler(handler Handler) {
-	defaultHandler = handler
+// X设置默认中间件 设置包的默认处理器。 md5:33a213aebe83e5ed
+func X设置默认中间件(处理函数 Handler) {
+	defaultHandler = 处理函数
 }
 
-// GetDefaultHandler 返回包的默认处理器。 md5:8812c42db1189f3b
-func GetDefaultHandler() Handler {
+// X取默认中间件 返回包的默认处理器。 md5:8812c42db1189f3b
+func X取默认中间件() Handler {
 	return defaultHandler
 }
 

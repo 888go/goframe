@@ -5,14 +5,14 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package ghttp
+package http类
 
 import (
 	"net/http"
 	"net/url"
 
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // CORSOptions 是 CORS 功能的选项。
@@ -37,15 +37,15 @@ var (
 )
 
 func init() {
-	array := gstr.SplitAndTrim(defaultAllowHeaders, ",")
+	array := gstr.X分割并忽略空值(defaultAllowHeaders, ",")
 	for _, header := range array {
 		defaultAllowHeadersMap[header] = struct{}{}
 	}
 }
 
-// DefaultCORSOptions 返回默认的 CORS 选项，它允许任何跨域请求。
+// X取跨域默认选项 返回默认的 CORS 选项，它允许任何跨域请求。
 // md5:ed45ce5e88088eac
-func (r *Response) DefaultCORSOptions() CORSOptions {
+func (r *Response) X取跨域默认选项() CORSOptions {
 	options := CORSOptions{
 		AllowOrigin:      "*",
 		AllowMethods:     supportedHttpMethods,
@@ -55,7 +55,7 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 	}
 		// 默认允许客户端的所有自定义头部。 md5:5aa0a6d974ed81b6
 	if headers := r.Request.Header.Get("Access-Control-Request-Headers"); headers != "" {
-		array := gstr.SplitAndTrim(headers, ",")
+		array := gstr.X分割并忽略空值(headers, ",")
 		for _, header := range array {
 			if _, ok := defaultAllowHeadersMap[header]; !ok {
 				options.AllowHeaders += "," + header
@@ -66,7 +66,7 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 	if origin := r.Request.Header.Get("Origin"); origin != "" {
 		options.AllowOrigin = origin
 	} else if referer := r.Request.Referer(); referer != "" {
-		if p := gstr.PosR(referer, "/", 6); p != -1 {
+		if p := gstr.X倒找(referer, "/", 6); p != -1 {
 			options.AllowOrigin = referer[:p]
 		} else {
 			options.AllowOrigin = referer
@@ -75,44 +75,44 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 	return options
 }
 
-// CORS 设置自定义CORS选项。
+// X跨域请求设置 设置自定义X跨域请求设置选项。
 // 参见 https://www.w3.org/TR/cors/ 。
 // md5:5ace1c84086a260a
-func (r *Response) CORS(options CORSOptions) {
-	if r.CORSAllowedOrigin(options) {
-		r.Header().Set("Access-Control-Allow-Origin", options.AllowOrigin)
+func (r *Response) X跨域请求设置(跨域选项 CORSOptions) {
+	if r.X是否允许跨域(跨域选项) {
+		r.Header().Set("Access-Control-Allow-Origin", 跨域选项.AllowOrigin)
 	}
-	if options.AllowCredentials != "" {
-		r.Header().Set("Access-Control-Allow-Credentials", options.AllowCredentials)
+	if 跨域选项.AllowCredentials != "" {
+		r.Header().Set("Access-Control-Allow-Credentials", 跨域选项.AllowCredentials)
 	}
-	if options.ExposeHeaders != "" {
-		r.Header().Set("Access-Control-Expose-Headers", options.ExposeHeaders)
+	if 跨域选项.ExposeHeaders != "" {
+		r.Header().Set("Access-Control-Expose-Headers", 跨域选项.ExposeHeaders)
 	}
-	if options.MaxAge != 0 {
-		r.Header().Set("Access-Control-Max-Age", gconv.String(options.MaxAge))
+	if 跨域选项.MaxAge != 0 {
+		r.Header().Set("Access-Control-Max-Age", gconv.String(跨域选项.MaxAge))
 	}
-	if options.AllowMethods != "" {
-		r.Header().Set("Access-Control-Allow-Methods", options.AllowMethods)
+	if 跨域选项.AllowMethods != "" {
+		r.Header().Set("Access-Control-Allow-Methods", 跨域选项.AllowMethods)
 	}
-	if options.AllowHeaders != "" {
-		r.Header().Set("Access-Control-Allow-Headers", options.AllowHeaders)
+	if 跨域选项.AllowHeaders != "" {
+		r.Header().Set("Access-Control-Allow-Headers", 跨域选项.AllowHeaders)
 	}
 	// 如果请求是OPTIONS类型，不继续服务处理。
 	// 注意，之前的路由器搜索中已经有特殊检查，
 	// 所以如果到达这里，意味着已经存在正在处理的处理器。
 	// md5:178e6bee651f512f
-	if gstr.Equal(r.Request.Method, "OPTIONS") {
+	if gstr.X相等比较并忽略大小写(r.Request.Method, "OPTIONS") {
 		if r.Status == 0 {
 			r.Status = http.StatusOK
 		}
 		// No continue serving.
-		r.Request.ExitAll()
+		r.Request.X退出全部()
 	}
 }
 
-// CORSAllowedOrigin CORSAllowed 检查当前请求的来源是否被允许进行跨域。 md5:599a140b617c5c1c
-func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
-	if options.AllowDomain == nil {
+// X是否允许跨域 CORSAllowed 检查当前请求的来源是否被允许进行跨域。 md5:599a140b617c5c1c
+func (r *Response) X是否允许跨域(跨域选项 CORSOptions) bool {
+	if 跨域选项.AllowDomain == nil {
 		return true
 	}
 	origin := r.Request.Header.Get("Origin")
@@ -123,17 +123,17 @@ func (r *Response) CORSAllowedOrigin(options CORSOptions) bool {
 	if err != nil {
 		return false
 	}
-	for _, v := range options.AllowDomain {
-		if gstr.IsSubDomain(parsed.Host, v) {
+	for _, v := range 跨域选项.AllowDomain {
+		if gstr.X是否为子域名(parsed.Host, v) {
 			return true
 		}
 	}
 	return false
 }
 
-// CORSDefault 使用默认的 CORS 选项设置 CORS，
+// X跨域请求全允许 使用默认的 CORS 选项设置 CORS，
 // 允许任何跨域请求。
 // md5:2808119e534c338a
-func (r *Response) CORSDefault() {
-	r.CORS(r.DefaultCORSOptions())
+func (r *Response) X跨域请求全允许() {
+	r.X跨域请求设置(r.X取跨域默认选项())
 }

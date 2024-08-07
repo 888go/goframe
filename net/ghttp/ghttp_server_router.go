@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"context"
@@ -14,16 +14,16 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gtag"
+	glist "github.com/888go/goframe/container/glist"
+	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/debug/gdebug"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/consts"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/888go/goframe/util/gtag"
 )
 
 var (
@@ -33,29 +33,29 @@ var (
 
 // routerMapKey 为给定参数创建并返回一个唯一的路由键。这个键用于 `Server.routerMap` 属性，主要用于检查重复的路由注册。
 // md5:0a5f0d744a55d4ed
-func (s *Server) routerMapKey(hook HookName, method, path, domain string) string {
+func (s *X服务) routerMapKey(hook Hook名称, method, path, domain string) string {
 	return string(hook) + "%" + s.serveHandlerKey(method, path, domain)
 }
 
 // parsePattern 将给定的模式解析为域名、方法和路径变量。 md5:9f5177d72b0e5cf6
-func (s *Server) parsePattern(pattern string) (domain, method, path string, err error) {
+func (s *X服务) parsePattern(pattern string) (domain, method, path string, err error) {
 	path = strings.TrimSpace(pattern)
 	domain = DefaultDomainName
 	method = defaultMethod
-	if array, err := gregex.MatchString(`([a-zA-Z]+):(.+)`, pattern); len(array) > 1 && err == nil {
+	if array, err := gregex.X匹配文本(`([a-zA-Z]+):(.+)`, pattern); len(array) > 1 && err == nil {
 		path = strings.TrimSpace(array[2])
 		if v := strings.TrimSpace(array[1]); v != "" {
 			method = v
 		}
 	}
-	if array, err := gregex.MatchString(`(.+)@([\w\.\-]+)`, path); len(array) > 1 && err == nil {
+	if array, err := gregex.X匹配文本(`(.+)@([\w\.\-]+)`, path); len(array) > 1 && err == nil {
 		path = strings.TrimSpace(array[1])
 		if v := strings.TrimSpace(array[2]); v != "" {
 			domain = v
 		}
 	}
 	if path == "" {
-		err = gerror.NewCode(gcode.CodeInvalidParameter, "invalid pattern: URI should not be empty")
+		err = gerror.X创建错误码(gcode.CodeInvalidParameter, "invalid pattern: URI should not be empty")
 	}
 	if path != "/" {
 		path = strings.TrimRight(path, "/")
@@ -66,7 +66,7 @@ func (s *Server) parsePattern(pattern string) (domain, method, path string, err 
 type setHandlerInput struct {
 	Prefix      string
 	Pattern     string
-	HandlerItem *HandlerItem
+	HandlerItem *X路由处理函数
 }
 
 // setHandler 根据给定的处理器和模式创建路由项，并将处理器注册到路由树中。
@@ -74,22 +74,22 @@ type setHandlerInput struct {
 // 此函数在服务器启动时被调用，此时对性能要求不高。真正重要的是设计良好的
 // 路由存储结构，以便在处理请求时能够高效地进行路由查找。
 // md5:325f9f3a1c077ca7
-func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
+func (s *X服务) setHandler(ctx context.Context, in setHandlerInput) {
 	var (
 		prefix  = in.Prefix
 		pattern = in.Pattern
 		handler = in.HandlerItem
 	)
-	if handler.Name == "" {
-		handler.Name = runtime.FuncForPC(handler.Info.Value.Pointer()).Name()
+	if handler.X处理器名称 == "" {
+		handler.X处理器名称 = runtime.FuncForPC(handler.X处理器函数信息.Value.Pointer()).Name()
 	}
-	if handler.Source == "" {
+	if handler.X注册来源 == "" {
 		_, file, line := gdebug.CallerWithFilter([]string{consts.StackFilterKeyForGoFrame})
-		handler.Source = fmt.Sprintf(`%s:%d`, file, line)
+		handler.X注册来源 = fmt.Sprintf(`%s:%d`, file, line)
 	}
 	domain, method, uri, err := s.parsePattern(pattern)
 	if err != nil {
-		s.Logger().Fatalf(ctx, `invalid pattern "%s", %+v`, pattern, err)
+		s.Logger别名().X输出并格式化FATA(ctx, `invalid pattern "%s", %+v`, pattern, err)
 		return
 	}
 	// ====================================================================================
@@ -97,20 +97,20 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 	// 它支持使用字符 ',' 连接的多个方法。
 	// ====================================================================================
 	// md5:1ec1db24aded2c53
-	if handler.Info.Type != nil && handler.Info.Type.NumIn() == 2 {
-		var objectReq = reflect.New(handler.Info.Type.In(1))
-		if v := gmeta.Get(objectReq, gtag.Path); !v.IsEmpty() {
+	if handler.X处理器函数信息.Type != nil && handler.X处理器函数信息.Type.NumIn() == 2 {
+		var objectReq = reflect.New(handler.X处理器函数信息.Type.In(1))
+		if v := gmeta.Get(objectReq, gtag.Path); !v.X是否为空() {
 			uri = v.String()
 		}
-		if v := gmeta.Get(objectReq, gtag.Domain); !v.IsEmpty() {
+		if v := gmeta.Get(objectReq, gtag.Domain); !v.X是否为空() {
 			domain = v.String()
 		}
-		if v := gmeta.Get(objectReq, gtag.Method); !v.IsEmpty() {
+		if v := gmeta.Get(objectReq, gtag.Method); !v.X是否为空() {
 			method = v.String()
 		}
 				// 使用字符`,`连接的多个方法注册。 md5:8edb2f5feed892c9
-		if gstr.Contains(method, ",") {
-			methods := gstr.SplitAndTrim(method, ",")
+		if gstr.X是否包含(method, ",") {
+			methods := gstr.X分割并忽略空值(method, ",")
 			for _, v := range methods {
 								// 每个方法都有自己的处理器。 md5:006ab83dd8178a73
 				clonedHandler := *handler
@@ -119,19 +119,19 @@ func (s *Server) setHandler(ctx context.Context, in setHandlerInput) {
 			return
 		}
 				// 将`all`转换为`ALL`。 md5:85c2f9ce5460fdd6
-		if gstr.Equal(method, defaultMethod) {
+		if gstr.X相等比较并忽略大小写(method, defaultMethod) {
 			method = defaultMethod
 		}
 	}
 	s.doSetHandler(ctx, handler, prefix, uri, pattern, method, domain)
 }
 
-func (s *Server) doSetHandler(
-	ctx context.Context, handler *HandlerItem,
+func (s *X服务) doSetHandler(
+	ctx context.Context, handler *X路由处理函数,
 	prefix, uri, pattern, method, domain string,
 ) {
 	if !s.isValidMethod(method) {
-		s.Logger().Fatalf(
+		s.Logger别名().X输出并格式化FATA(
 			ctx,
 			`invalid method value "%s", should be in "%s" or "%s"`,
 			method, supportedHttpMethods, defaultMethod,
@@ -147,16 +147,16 @@ func (s *Server) doSetHandler(
 	}
 
 	if len(uri) == 0 || uri[0] != '/' {
-		s.Logger().Fatalf(ctx, `invalid pattern "%s", URI should lead with '/'`, pattern)
+		s.Logger别名().X输出并格式化FATA(ctx, `invalid pattern "%s", URI should lead with '/'`, pattern)
 	}
 
 		// 重复的路由检查，这个功能可以通过服务器配置来禁用。 md5:16d9ca5ef5f6ce27
-	var routerKey = s.routerMapKey(handler.HookName, method, uri, domain)
+	var routerKey = s.routerMapKey(handler.Hook名称, method, uri, domain)
 	if !s.config.RouteOverWrite {
 		switch handler.Type {
 		case HandlerTypeHandler, HandlerTypeObject:
 			if items, ok := s.routesMap[routerKey]; ok {
-				var duplicatedHandler *HandlerItem
+				var duplicatedHandler *X路由处理函数
 				for i, item := range items {
 					switch item.Type {
 					case HandlerTypeHandler, HandlerTypeObject:
@@ -167,10 +167,10 @@ func (s *Server) doSetHandler(
 					}
 				}
 				if duplicatedHandler != nil {
-					s.Logger().Fatalf(
+					s.Logger别名().X输出并格式化FATA(
 						ctx,
 						`duplicated route registry "%s" at %s , already registered at %s`,
-						pattern, handler.Source, duplicatedHandler.Source,
+						pattern, handler.X注册来源, duplicatedHandler.X注册来源,
 					)
 				}
 			}
@@ -179,13 +179,13 @@ func (s *Server) doSetHandler(
 		// 每个处理器的唯一标识符。 md5:d5cdd6ccf90c625e
 	handler.Id = handlerIdGenerator.Add(1)
 		// 根据给定的参数创建一个新的路由。 md5:a6e213f025b1718b
-	handler.Router = &Router{
+	handler.X路由 = &X路由{
 		Uri:      uri,
 		Domain:   domain,
 		Method:   strings.ToUpper(method),
 		Priority: strings.Count(uri[1:], "/"),
 	}
-	handler.Router.RegRule, handler.Router.RegNames = s.patternToRegular(uri)
+	handler.X路由.X正则路由规则, handler.X路由.X路由参数名称 = s.patternToRegular(uri)
 
 	if _, ok := s.serveTree[domain]; !ok {
 		s.serveTree[domain] = make(map[string]interface{})
@@ -216,7 +216,7 @@ func (s *Server) doSetHandler(
 			continue
 		}
 				// 检查是否为模糊节点。 md5:ea4491ebe7a6c626
-		if gregex.IsMatchString(`^[:\*]|\{[\w\.\-]+\}|\*`, part) {
+		if gregex.X是否匹配文本(`^[:\*]|\{[\w\.\-]+\}|\*`, part) {
 			part = "*fuzz"
 			// 如果它是一个模糊节点，它会在哈希映射中创建一个"*list"项，这实际上是一个列表。
 			// 该模糊节点下的所有子路由器项也将被添加到它的"*list"项中。
@@ -252,11 +252,11 @@ func (s *Server) doSetHandler(
 	// 它遍历`lists`的列表数组，比较优先级，并将新的路由项插入到每个列表的适当位置。
 	// 列表的优先级从高到低排序。
 	// md5:f7e3738ec2e01b79
-	var item *HandlerItem
+	var item *X路由处理函数
 	for _, l := range lists {
 		pushed := false
 		for e := l.Front(); e != nil; e = e.Next() {
-			item = e.Value.(*HandlerItem)
+			item = e.Value.(*X路由处理函数)
 			// 检查是否应在当前项之前插入路由项，即它具有更高的优先级。
 			// md5:0e6fc2994f00bc96
 			if s.compareRouterPriority(handler, item) {
@@ -273,15 +273,15 @@ func (s *Server) doSetHandler(
 	}
 		// 初始化路由项。 md5:6ae2dff0c163c17e
 	if _, ok := s.routesMap[routerKey]; !ok {
-		s.routesMap[routerKey] = make([]*HandlerItem, 0)
+		s.routesMap[routerKey] = make([]*X路由处理函数, 0)
 	}
 
 	// Append the route.
 	s.routesMap[routerKey] = append(s.routesMap[routerKey], handler)
 }
 
-func (s *Server) isValidMethod(method string) bool {
-	if gstr.Equal(method, defaultMethod) {
+func (s *X服务) isValidMethod(method string) bool {
+	if gstr.X相等比较并忽略大小写(method, defaultMethod) {
 		return true
 	}
 	_, ok := methodsMap[strings.ToUpper(method)]
@@ -295,7 +295,7 @@ func (s *Server) isValidMethod(method string) bool {
 // 2. URI：深度越深，优先级越高（简单地检查 URI 中字符 '/' 的数量）。
 // 3. 路由类型：{xxx} > :xxx > *xxx。
 // md5:d3f2e1aac7e71a05
-func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerItem) bool {
+func (s *X服务) compareRouterPriority(newItem *X路由处理函数, oldItem *X路由处理函数) bool {
 		// 如果它们都是中间件类型，则按照注册的顺序决定优先级。 md5:3a53e273b3f3566f
 	if newItem.Type == HandlerTypeMiddleware && oldItem.Type == HandlerTypeMiddleware {
 		return false
@@ -305,10 +305,10 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		return true
 	}
 		// URI：深度越深（只需检查URI中'/'字符的数量）。 md5:cf10a2d60b6808df
-	if newItem.Router.Priority > oldItem.Router.Priority {
+	if newItem.X路由.Priority > oldItem.X路由.Priority {
 		return true
 	}
-	if newItem.Router.Priority < oldItem.Router.Priority {
+	if newItem.X路由.Priority < oldItem.X路由.Priority {
 		return false
 	}
 
@@ -321,12 +321,12 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 	// /{哈希}.{类型}      > /{哈希}
 	// md5:482c38c410b3c591
 	var uriNew, uriOld string
-	uriNew, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", newItem.Router.Uri)
-	uriOld, _ = gregex.ReplaceString(`\{[^/]+?\}`, "", oldItem.Router.Uri)
-	uriNew, _ = gregex.ReplaceString(`:[^/]+?`, "", uriNew)
-	uriOld, _ = gregex.ReplaceString(`:[^/]+?`, "", uriOld)
-	uriNew, _ = gregex.ReplaceString(`\*[^/]*`, "", uriNew) // 替换 "/*" 和 "任何字符串"。 md5:4bbaf5031e185545
-	uriOld, _ = gregex.ReplaceString(`\*[^/]*`, "", uriOld) // 替换 "/*" 和 "任何字符串"。 md5:4bbaf5031e185545
+	uriNew, _ = gregex.X替换文本(`\{[^/]+?\}`, "", newItem.X路由.Uri)
+	uriOld, _ = gregex.X替换文本(`\{[^/]+?\}`, "", oldItem.X路由.Uri)
+	uriNew, _ = gregex.X替换文本(`:[^/]+?`, "", uriNew)
+	uriOld, _ = gregex.X替换文本(`:[^/]+?`, "", uriOld)
+	uriNew, _ = gregex.X替换文本(`\*[^/]*`, "", uriNew) // 替换 "/*" 和 "任何字符串"。 md5:4bbaf5031e185545
+	uriOld, _ = gregex.X替换文本(`\*[^/]*`, "", uriOld) // 替换 "/*" 和 "任何字符串"。 md5:4bbaf5031e185545
 	if len(uriNew) > len(uriOld) {
 		return true
 	}
@@ -356,7 +356,7 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 		fuzzyCountTotalNew int
 		fuzzyCountTotalOld int
 	)
-	for _, v := range newItem.Router.Uri {
+	for _, v := range newItem.X路由.Uri {
 		switch v {
 		case '{':
 			fuzzyCountFieldNew++
@@ -366,7 +366,7 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 			fuzzyCountAnyNew++
 		}
 	}
-	for _, v := range oldItem.Router.Uri {
+	for _, v := range oldItem.X路由.Uri {
 		switch v {
 		case '{':
 			fuzzyCountFieldOld++
@@ -404,10 +404,10 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 
 	// 然后，它会比较它们的HTTP方法的准确性，越准确优先级越高。
 	// md5:19e263d51107b5cb
-	if newItem.Router.Method != defaultMethod {
+	if newItem.X路由.Method != defaultMethod {
 		return true
 	}
-	if oldItem.Router.Method != defaultMethod {
+	if oldItem.X路由.Method != defaultMethod {
 		return true
 	}
 
@@ -425,7 +425,7 @@ func (s *Server) compareRouterPriority(newItem *HandlerItem, oldItem *HandlerIte
 }
 
 // patternToRegular 将路由规则转换为相应的正则表达式。 md5:c212402d9fd8cb59
-func (s *Server) patternToRegular(rule string) (regular string, names []string) {
+func (s *X服务) patternToRegular(rule string) (regular string, names []string) {
 	if len(rule) < 2 {
 		return rule, nil
 	}
@@ -452,12 +452,12 @@ func (s *Server) patternToRegular(rule string) (regular string, names []string) 
 			}
 		default:
 						// 特殊字符替换。 md5:fe1b718da00180dd
-			v = gstr.ReplaceByMap(v, map[string]string{
+			v = gstr.Map替换(v, map[string]string{
 				`.`: `\.`,
 				`+`: `\+`,
 				`*`: `.*`,
 			})
-			s, _ := gregex.ReplaceStringFunc(`\{[\w\.\-]+\}`, v, func(s string) string {
+			s, _ := gregex.X替换文本_函数(`\{[\w\.\-]+\}`, v, func(s string) string {
 				names = append(names, s[1:len(s)-1])
 				return `([^/]+)`
 			})

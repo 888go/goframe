@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile
+package 文件类
 
 import (
 	"bytes"
@@ -15,18 +15,18 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
-// Home 返回当前用户主目录的绝对路径。
+// X取用户目录 返回当前用户主目录的绝对路径。
 // 可选参数 `names` 指定了要与当前系统分隔符连接的子文件夹/子文件，将与路径一起返回。
 // md5:0b575ba0215ebb2d
-func Home(names ...string) (string, error) {
+func X取用户目录(可选子目录或子文件 ...string) (string, error) {
 	path, err := getHomePath()
 	if err != nil {
 		return "", err
 	}
-	for _, name := range names {
+	for _, name := range 可选子目录或子文件 {
 		path += Separator + name
 	}
 	return path, nil
@@ -53,13 +53,13 @@ func homeUnix() (string, error) {
 	cmd := exec.Command("sh", "-c", "eval echo ~$USER")
 	cmd.Stdout = &stdout
 	if err := cmd.Run(); err != nil {
-		err = gerror.Wrapf(err, `retrieve home directory failed`)
+		err = gerror.X多层错误并格式化(err, `retrieve home directory failed`)
 		return "", err
 	}
 
 	result := strings.TrimSpace(stdout.String())
 	if result == "" {
-		return "", gerror.New("blank output when reading home directory")
+		return "", gerror.X创建("blank output when reading home directory")
 	}
 
 	return result, nil
@@ -76,7 +76,7 @@ func homeWindows() (string, error) {
 		home = os.Getenv("USERPROFILE")
 	}
 	if home == "" {
-		return "", gerror.New("environment keys HOMEDRIVE, HOMEPATH and USERPROFILE are empty")
+		return "", gerror.X创建("environment keys HOMEDRIVE, HOMEPATH and USERPROFILE are empty")
 	}
 
 	return home, nil

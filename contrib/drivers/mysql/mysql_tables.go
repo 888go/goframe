@@ -10,19 +10,19 @@ package mysql
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
-// Tables 获取并返回当前模式下的表格列表。
+// X取表名称切片 获取并返回当前模式下的表格列表。
 //主要用于命令行工具链，用于自动生成模型。
 // md5:bce161ba95454bf5
-func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
+func (d *Driver) X取表名称切片(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
-	link, err := d.SlaveLink(schema...)
+	link, err := d.X底层SlaveLink(schema...)
 	if err != nil {
 		return nil, err
 	}
-	result, err = d.DoSelect(ctx, link, `SHOW TABLES`)
+	result, err = d.X底层查询(ctx, link, `SHOW TABLES`)
 	if err != nil {
 		return
 	}

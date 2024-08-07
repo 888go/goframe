@@ -5,40 +5,40 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 func ExampleServer_Run() {
-	s := g.Server()
-	s.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write("hello world")
+	s := g.Http类()
+	s.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("hello world")
 	})
-	s.SetPort(8999)
-	s.Run()
+	s.X设置监听端口(8999)
+	s.X启动服务()
 }
 
 // 自定义保存文件的名称。 md5:ece0b5139469c1f3
 func ExampleUploadFile_Save() {
-	s := g.Server()
-	s.BindHandler("/upload", func(r *ghttp.Request) {
-		file := r.GetUploadFile("TestFile")
+	s := g.Http类()
+	s.X绑定("/upload", func(r *ghttp.Request) {
+		file := r.X取上传文件对象("TestFile")
 		if file == nil {
-			r.Response.Write("empty file")
+			r.X响应.X写响应缓冲区("empty file")
 			return
 		}
 		file.Filename = "MyCustomFileName.txt"
-		fileName, err := file.Save(gfile.Temp())
+		fileName, err := file.X保存(gfile.X取临时目录())
 		if err != nil {
-			r.Response.Write(err)
+			r.X响应.X写响应缓冲区(err)
 			return
 		}
-		r.Response.Write(fileName)
+		r.X响应.X写响应缓冲区(fileName)
 	})
-	s.SetPort(8999)
-	s.Run()
+	s.X设置监听端口(8999)
+	s.X启动服务()
 }

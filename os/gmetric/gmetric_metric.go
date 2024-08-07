@@ -7,10 +7,10 @@
 package gmetric
 
 import (
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // localMetric 实现了 Metric 接口。 md5:1d7e92821badcf91
@@ -23,14 +23,14 @@ func (meter *localMeter) newMetric(
 	metricType MetricType, metricName string, metricOption MetricOption,
 ) (Metric, error) {
 	if metricName == "" {
-		return nil, gerror.NewCodef(
+		return nil, gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`error creating %s metric while given name is empty, option: %s`,
-			metricType, gjson.MustEncodeString(metricOption),
+			metricType, gjson.X变量到json文本PANI(metricOption),
 		)
 	}
-	if !gregex.IsMatchString(MetricNamePattern, metricName) {
-		return nil, gerror.NewCodef(
+	if !gregex.X是否匹配文本(MetricNamePattern, metricName) {
+		return nil, gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid metric name "%s", should match regular expression pattern "%s"`,
 			metricName, MetricNamePattern,

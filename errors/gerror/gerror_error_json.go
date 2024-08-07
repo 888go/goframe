@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gerror
+package 错误类
 
 // MarshalJSON实现了json.Marshal接口的MarshalJSON方法。
 // 注意，这里不要使用指针作为接收者。

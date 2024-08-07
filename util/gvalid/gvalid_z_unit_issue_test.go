@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/util/gvalid"
+	gvalid "github.com/888go/goframe/util/gvalid"
 )
 
 type Foo struct {

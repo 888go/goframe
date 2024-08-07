@@ -10,7 +10,7 @@ package mutex_test
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/internal/mutex"
+	"github.com/888go/goframe/internal/mutex"
 )
 
 var (

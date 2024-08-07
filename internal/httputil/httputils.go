@@ -12,10 +12,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gogf/gf/v2/encoding/gurl"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gurl "github.com/888go/goframe/encoding/gurl"
+	"github.com/888go/goframe/internal/empty"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -40,7 +40,7 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 		}
 	}
 		// 否则，它会将它转换为map并进行URL编码。 md5:932b0b216ae84f60
-	m, urlEncode := gconv.Map(params), true
+	m, urlEncode := gconv.X取Map(params), true
 	if len(m) == 0 {
 		return gconv.String(params)
 	}
@@ -50,7 +50,7 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 		// 如果有文件上传，它将忽略URL编码。 md5:e349803af0cef3a3
 	if urlEncode {
 		for k, v := range m {
-			if gstr.Contains(k, fileUploadingKey) || gstr.Contains(gconv.String(v), fileUploadingKey) {
+			if gstr.X是否包含(k, fileUploadingKey) || gstr.X是否包含(gconv.String(v), fileUploadingKey) {
 				urlEncode = false
 				break
 			}
@@ -70,7 +70,7 @@ func BuildParams(params interface{}, noUrlEncode ...bool) (encodedParamStr strin
 			if strings.HasPrefix(s, fileUploadingKey) && len(s) > len(fileUploadingKey) {
 								// 如果正在上传文件，则不进行URL编码。 md5:1d89b2d337a7a0e9
 			} else {
-				s = gurl.Encode(s)
+				s = gurl.X编码(s)
 			}
 		}
 		encodedParamStr += k + "=" + s

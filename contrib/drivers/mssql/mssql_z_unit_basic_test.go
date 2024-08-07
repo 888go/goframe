@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -16,11 +16,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gxml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gxml "github.com/888go/goframe/encoding/gxml"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestTables(t *testing.T) {
@@ -31,7 +31,7 @@ func TestTables(t *testing.T) {
 			createTable(v)
 		}
 
-		result, err := db.Tables(context.Background())
+		result, err := db.X取表名称切片(context.Background())
 		gtest.Assert(err, nil)
 
 		for i := 0; i < len(tables); i++ {
@@ -45,7 +45,7 @@ func TestTables(t *testing.T) {
 			gtest.AssertEQ(find, true)
 		}
 
-		result, err = db.Tables(context.Background(), "test")
+		result, err = db.X取表名称切片(context.Background(), "test")
 		gtest.Assert(err, nil)
 		for i := 0; i < len(tables); i++ {
 			find := false
@@ -76,39 +76,39 @@ func TestTableFields(t *testing.T) {
 			"CREATE_TIME": {"datetime", true, "", "", "", ""},
 		}
 
-		res, err := db.TableFields(context.Background(), "t_user")
+		res, err := db.X取表字段信息Map(context.Background(), "t_user")
 		gtest.Assert(err, nil)
 
 		for k, v := range expect {
 			_, ok := res[k]
 			gtest.AssertEQ(ok, true)
-			gtest.AssertEQ(res[k].Name, k)
-			gtest.AssertEQ(res[k].Type, v[0])
+			gtest.AssertEQ(res[k].X名称, k)
+			gtest.AssertEQ(res[k].X类型, v[0])
 			gtest.AssertEQ(res[k].Null, v[1])
 			gtest.AssertEQ(res[k].Key, v[2])
 			gtest.AssertEQ(res[k].Default, v[3])
-			gtest.AssertEQ(res[k].Extra, v[4])
+			gtest.AssertEQ(res[k].X额外, v[4])
 			gtest.AssertEQ(res[k].Comment, v[5])
 		}
 
-		res, err = db.TableFields(context.Background(), "t_user", "test")
+		res, err = db.X取表字段信息Map(context.Background(), "t_user", "test")
 		gtest.Assert(err, nil)
 
 		for k, v := range expect {
 			_, ok := res[k]
 			gtest.AssertEQ(ok, true)
-			gtest.AssertEQ(res[k].Name, k)
-			gtest.AssertEQ(res[k].Type, v[0])
+			gtest.AssertEQ(res[k].X名称, k)
+			gtest.AssertEQ(res[k].X类型, v[0])
 			gtest.AssertEQ(res[k].Null, v[1])
 			gtest.AssertEQ(res[k].Key, v[2])
 			gtest.AssertEQ(res[k].Default, v[3])
-			gtest.AssertEQ(res[k].Extra, v[4])
+			gtest.AssertEQ(res[k].X额外, v[4])
 			gtest.AssertEQ(res[k].Comment, v[5])
 		}
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.TableFields(context.Background(), "t_user t_user2")
+		_, err := db.X取表字段信息Map(context.Background(), "t_user t_user2")
 		gtest.AssertNE(err, nil)
 	})
 }
@@ -124,9 +124,9 @@ func TestDoInsert(t *testing.T) {
 			"passport":    fmt.Sprintf(`t%d`, i),
 			"password":    fmt.Sprintf(`p%d`, i),
 			"nickname":    fmt.Sprintf(`T%d`, i),
-			"create_time": gtime.Now(),
+			"create_time": gtime.X创建并按当前时间(),
 		}
-		_, err := db.Insert(context.Background(), "t_user", data)
+		_, err := db.X插入(context.Background(), "t_user", data)
 		gtest.Assert(err, nil)
 
 	})
@@ -141,20 +141,20 @@ func TestDoInsert(t *testing.T) {
 			"passport":    fmt.Sprintf(`t%d`, i),
 			"password":    fmt.Sprintf(`p%d`, i),
 			"nickname":    fmt.Sprintf(`T%d`, i),
-			"create_time": gtime.Now(),
+			"create_time": gtime.X创建并按当前时间(),
 		}
-		_, err := db.Save(context.Background(), "t_user", data, 10)
+		_, err := db.X插入并更新已存在(context.Background(), "t_user", data, 10)
 		gtest.AssertNE(err, nil)
 
-		_, err = db.Replace(context.Background(), "t_user", data, 10)
+		_, err = db.X插入并替换已存在(context.Background(), "t_user", data, 10)
 		gtest.AssertNE(err, nil)
 	})
 }
 
 func Test_DB_Ping(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		err1 := db.PingMaster()
-		err2 := db.PingSlave()
+		err1 := db.X向主节点发送心跳()
+		err2 := db.X向从节点发送心跳()
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 	})
@@ -162,26 +162,26 @@ func Test_DB_Ping(t *testing.T) {
 
 func Test_DB_Query(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.Query(ctx, "SELECT ?", 1)
+		_, err := db.X原生SQL查询(ctx, "SELECT ?", 1)
 		t.AssertNil(err)
 
-		_, err = db.Query(ctx, "SELECT ?+?", 1, 2)
+		_, err = db.X原生SQL查询(ctx, "SELECT ?+?", 1, 2)
 		t.AssertNil(err)
 
-		_, err = db.Query(ctx, "SELECT ?+?", g.Slice{1, 2})
+		_, err = db.X原生SQL查询(ctx, "SELECT ?+?", g.Slice别名{1, 2})
 		t.AssertNil(err)
 
-		_, err = db.Query(ctx, "ERROR")
+		_, err = db.X原生SQL查询(ctx, "ERROR")
 		t.AssertNE(err, nil)
 	})
 }
 
 func Test_DB_Exec(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.Exec(ctx, "SELECT ?", 1)
+		_, err := db.X原生SQL执行(ctx, "SELECT ?", 1)
 		t.AssertNil(err)
 
-		_, err = db.Exec(ctx, "ERROR")
+		_, err = db.X原生SQL执行(ctx, "ERROR")
 		t.AssertNE(err, nil)
 	})
 }
@@ -191,22 +191,22 @@ func Test_DB_Insert(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.Insert(ctx, table, g.Map{
+		_, err := db.X插入(ctx, table, g.Map{
 			"id":          1,
 			"passport":    "t1",
 			"password":    "25d55ad283aa400af464c76d713c07ad",
 			"nickname":    "T1",
-			"create_time": gtime.Now(),
+			"create_time": gtime.X创建并按当前时间(),
 		})
 		t.AssertNil(err)
 
 		// normal map
-		result, err := db.Insert(ctx, table, g.Map{
+		result, err := db.X插入(ctx, table, g.Map{
 			"id":          "2",
 			"passport":    "t2",
 			"password":    "25d55ad283aa400af464c76d713c07ad",
 			"nickname":    "name_2",
-			"create_time": gtime.Now(),
+			"create_time": gtime.X创建并按当前时间(),
 		})
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
@@ -220,8 +220,8 @@ func Test_DB_Insert(t *testing.T) {
 			Nickname   string      `gconv:"nickname"`
 			CreateTime *gtime.Time `json:"create_time"`
 		}
-		timeNow := gtime.New("2024-10-01 12:01:01")
-		result, err = db.Insert(ctx, table, User{
+		timeNow := gtime.X创建("2024-10-01 12:01:01")
+		result, err = db.X插入(ctx, table, User{
 			Id:         3,
 			Passport:   "user_3",
 			Password:   "25d55ad283aa400af464c76d713c07ad",
@@ -232,19 +232,19 @@ func Test_DB_Insert(t *testing.T) {
 		n, _ = result.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).Where("id", 3).One()
+		one, err := db.X创建Model对象(table).X条件("id", 3).X查询一条()
 		t.AssertNil(err)
 		fmt.Println(one)
-		t.Assert(one["ID"].Int(), 3)
+		t.Assert(one["ID"].X取整数(), 3)
 		t.Assert(one["PASSPORT"].String(), "user_3")
 		t.Assert(one["PASSWORD"].String(), "25d55ad283aa400af464c76d713c07ad")
 		t.Assert(one["NICKNAME"].String(), "name_3")
-		t.AssertNE(one["CREATE_TIME"].GTime(), nil)
-		t.AssertLT(timeNow.Sub(one["CREATE_TIME"].GTime()), 3)
+		t.AssertNE(one["CREATE_TIME"].X取gtime时间类(), nil)
+		t.AssertLT(timeNow.X取纳秒时长(one["CREATE_TIME"].X取gtime时间类()), 3)
 
 		// *struct
-		timeNow = gtime.Now()
-		result, err = db.Insert(ctx, table, &User{
+		timeNow = gtime.X创建并按当前时间()
+		result, err = db.X插入(ctx, table, &User{
 			Id:         4,
 			Passport:   "t4",
 			Password:   "25d55ad283aa400af464c76d713c07ad",
@@ -255,16 +255,16 @@ func Test_DB_Insert(t *testing.T) {
 		n, _ = result.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err = db.Model(table).Where("id", 4).One()
+		one, err = db.X创建Model对象(table).X条件("id", 4).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one["ID"].Int(), 4)
+		t.Assert(one["ID"].X取整数(), 4)
 		t.Assert(one["PASSPORT"].String(), "t4")
 		t.Assert(one["PASSWORD"].String(), "25d55ad283aa400af464c76d713c07ad")
 		t.Assert(one["NICKNAME"].String(), "name_4")
 
 		// batch with Insert
-		timeNow = gtime.Now()
-		r, err := db.Insert(ctx, table, g.Slice{
+		timeNow = gtime.X创建并按当前时间()
+		r, err := db.X插入(ctx, table, g.Slice别名{
 			g.Map{
 				"id":          200,
 				"passport":    "t200",
@@ -284,9 +284,9 @@ func Test_DB_Insert(t *testing.T) {
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		one, err = db.Model(table).Where("id", 200).One()
+		one, err = db.X创建Model对象(table).X条件("id", 200).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one["ID"].Int(), 200)
+		t.Assert(one["ID"].X取整数(), 200)
 		t.Assert(one["PASSPORT"].String(), "t200")
 		t.Assert(one["PASSWORD"].String(), "25d55ad283aa400af464c76d71qw07ad")
 		t.Assert(one["NICKNAME"].String(), "T200")
@@ -312,10 +312,10 @@ func Test_DB_Insert_KeyFieldNameMapping(t *testing.T) {
 			Nickname:   "name_1",
 			CreateTime: "2020-10-10 12:00:01",
 		}
-		_, err := db.Insert(ctx, table, data)
+		_, err := db.X插入(ctx, table, data)
 		t.AssertNil(err)
 
-		one, err := db.GetOne(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
+		one, err := db.X原生SQL查询单条记录(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
 		t.AssertNil(err)
 		t.Assert(one["PASSPORT"], data.Passport)
 		t.Assert(one["CREATE_TIME"], data.CreateTime)
@@ -342,10 +342,10 @@ func Test_DB_Update_KeyFieldNameMapping(t *testing.T) {
 			Nickname:   "name_10",
 			CreateTime: "2020-10-10 12:00:01",
 		}
-		_, err := db.Update(ctx, table, data, "id=1")
+		_, err := db.X更新(ctx, table, data, "id=1")
 		t.AssertNil(err)
 
-		one, err := db.GetOne(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
+		one, err := db.X原生SQL查询单条记录(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
 		t.AssertNil(err)
 		t.Assert(one["PASSPORT"], data.Passport)
 		t.Assert(one["CREATE_TIME"], data.CreateTime)
@@ -357,20 +357,20 @@ func Test_DB_BatchInsert(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
-		r, err := db.Insert(ctx, table, g.List{
+		r, err := db.X插入(ctx, table, g.Map切片{
 			{
 				"id":          2,
 				"passport":    "t2",
 				"password":    "25d55ad283aa400af464c76d713c07ad",
 				"nickname":    "name_2",
-				"create_time": gtime.Now(),
+				"create_time": gtime.X创建并按当前时间(),
 			},
 			{
 				"id":          3,
 				"passport":    "user_3",
 				"password":    "25d55ad283aa400af464c76d713c07ad",
 				"nickname":    "name_3",
-				"create_time": gtime.Now(),
+				"create_time": gtime.X创建并按当前时间(),
 			},
 		}, 1)
 		t.AssertNil(err)
@@ -383,20 +383,20 @@ func Test_DB_BatchInsert(t *testing.T) {
 		table := createTable()
 		defer dropTable(table)
 		// []interface{}
-		r, err := db.Insert(ctx, table, g.Slice{
+		r, err := db.X插入(ctx, table, g.Slice别名{
 			g.Map{
 				"id":          2,
 				"passport":    "t2",
 				"password":    "25d55ad283aa400af464c76d713c07ad",
 				"nickname":    "name_2",
-				"create_time": gtime.Now(),
+				"create_time": gtime.X创建并按当前时间(),
 			},
 			g.Map{
 				"id":          3,
 				"passport":    "user_3",
 				"password":    "25d55ad283aa400af464c76d713c07ad",
 				"nickname":    "name_3",
-				"create_time": gtime.Now(),
+				"create_time": gtime.X创建并按当前时间(),
 			},
 		}, 1)
 		t.AssertNil(err)
@@ -408,12 +408,12 @@ func Test_DB_BatchInsert(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		table := createTable()
 		defer dropTable(table)
-		result, err := db.Insert(ctx, table, g.Map{
+		result, err := db.X插入(ctx, table, g.Map{
 			"id":          1,
 			"passport":    "t1",
 			"password":    "p1",
 			"nickname":    "T1",
-			"create_time": gtime.Now(),
+			"create_time": gtime.X创建并按当前时间(),
 		})
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
@@ -439,9 +439,9 @@ func Test_DB_BatchInsert_Struct(t *testing.T) {
 			Passport:   "t1",
 			Password:   "p1",
 			NickName:   "T1",
-			CreateTime: gtime.Now(),
+			CreateTime: gtime.X创建并按当前时间(),
 		}
-		result, err := db.Insert(ctx, table, user)
+		result, err := db.X插入(ctx, table, user)
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
@@ -453,14 +453,14 @@ func Test_DB_Update(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Update(ctx, table, "password='987654321'", "id=3")
+		result, err := db.X更新(ctx, table, "password='987654321'", "id=3")
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).Where("id", 3).One()
+		one, err := db.X创建Model对象(table).X条件("id", 3).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one["ID"].Int(), 3)
+		t.Assert(one["ID"].X取整数(), 3)
 		t.Assert(one["PASSPORT"].String(), "user_3")
 		t.Assert(one["PASSWORD"].String(), "987654321")
 		t.Assert(one["NICKNAME"].String(), "name_3")
@@ -472,48 +472,48 @@ func Test_DB_GetAll(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
 		t.AssertNil(err)
 		t.Assert(len(result), 1)
-		t.Assert(result[0]["ID"].Int(), 1)
+		t.Assert(result[0]["ID"].X取整数(), 1)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), g.Slice{1})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), g.Slice别名{1})
 		t.AssertNil(err)
 		t.Assert(len(result), 1)
-		t.Assert(result[0]["ID"].Int(), 1)
+		t.Assert(result[0]["ID"].X取整数(), 1)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?)", table), g.Slice{1, 2, 3})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?)", table), g.Slice别名{1, 2, 3})
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice{1, 2, 3})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice别名{1, 2, 3})
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice{1, 2, 3}...)
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice别名{1, 2, 3}...)
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id>=? AND id <=?", table), g.Slice{1, 3})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id>=? AND id <=?", table), g.Slice别名{1, 3})
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 }
 
@@ -521,7 +521,7 @@ func Test_DB_GetOne(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		record, err := db.GetOne(ctx, fmt.Sprintf("SELECT * FROM %s WHERE passport=?", table), "user_1")
+		record, err := db.X原生SQL查询单条记录(ctx, fmt.Sprintf("SELECT * FROM %s WHERE passport=?", table), "user_1")
 		t.AssertNil(err)
 		t.Assert(record["NICKNAME"].String(), "name_1")
 	})
@@ -531,9 +531,9 @@ func Test_DB_GetValue(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		value, err := db.GetValue(ctx, fmt.Sprintf("SELECT id FROM %s WHERE passport=?", table), "user_3")
+		value, err := db.X原生SQL查询字段值(ctx, fmt.Sprintf("SELECT id FROM %s WHERE passport=?", table), "user_3")
 		t.AssertNil(err)
-		t.Assert(value.Int(), 3)
+		t.Assert(value.X取整数(), 3)
 	})
 }
 
@@ -541,7 +541,7 @@ func Test_DB_GetCount(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		count, err := db.GetCount(ctx, fmt.Sprintf("SELECT * FROM %s", table))
+		count, err := db.X原生SQL查询字段计数(ctx, fmt.Sprintf("SELECT * FROM %s", table))
 		t.AssertNil(err)
 		t.Assert(count, TableSize)
 	})
@@ -559,7 +559,7 @@ func Test_DB_GetStruct(t *testing.T) {
 			CreateTime gtime.Time
 		}
 		user := new(User)
-		err := db.GetScan(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_3")
 	})
@@ -572,7 +572,7 @@ func Test_DB_GetStruct(t *testing.T) {
 			CreateTime *gtime.Time
 		}
 		user := new(User)
-		err := db.GetScan(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_3")
 	})
@@ -590,7 +590,7 @@ func Test_DB_GetStructs(t *testing.T) {
 			CreateTime gtime.Time
 		}
 		var users []User
-		err := db.GetScan(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
+		err := db.X原生SQL查询到结构体指针(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize-1)
 		t.Assert(users[0].Id, 2)
@@ -610,7 +610,7 @@ func Test_DB_GetStructs(t *testing.T) {
 			CreateTime *gtime.Time
 		}
 		var users []User
-		err := db.GetScan(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
+		err := db.X原生SQL查询到结构体指针(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize-1)
 		t.Assert(users[0].Id, 2)
@@ -634,7 +634,7 @@ func Test_DB_GetScan(t *testing.T) {
 			CreateTime gtime.Time
 		}
 		user := new(User)
-		err := db.GetScan(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_3")
 	})
@@ -647,7 +647,7 @@ func Test_DB_GetScan(t *testing.T) {
 			CreateTime gtime.Time
 		}
 		var user *User
-		err := db.GetScan(ctx, &user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, &user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_3")
 	})
@@ -660,7 +660,7 @@ func Test_DB_GetScan(t *testing.T) {
 			CreateTime *gtime.Time
 		}
 		user := new(User)
-		err := db.GetScan(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.NickName, "name_3")
 	})
@@ -674,7 +674,7 @@ func Test_DB_GetScan(t *testing.T) {
 			CreateTime gtime.Time
 		}
 		var users []User
-		err := db.GetScan(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
+		err := db.X原生SQL查询到结构体指针(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize-1)
 		t.Assert(users[0].Id, 2)
@@ -694,7 +694,7 @@ func Test_DB_GetScan(t *testing.T) {
 			CreateTime *gtime.Time
 		}
 		var users []User
-		err := db.GetScan(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
+		err := db.X原生SQL查询到结构体指针(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 1)
 		t.AssertNil(err)
 		t.Assert(len(users), TableSize-1)
 		t.Assert(users[0].Id, 2)
@@ -710,7 +710,7 @@ func Test_DB_Delete(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Delete(ctx, table, "1=1")
+		result, err := db.X删除(ctx, table, "1=1")
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, TableSize)
@@ -722,7 +722,7 @@ func Test_DB_Time(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Insert(ctx, table, g.Map{
+		result, err := db.X插入(ctx, table, g.Map{
 			"id":          200,
 			"passport":    "t200",
 			"password":    "123456",
@@ -734,14 +734,14 @@ func Test_DB_Time(t *testing.T) {
 		}
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
-		value, err := db.GetValue(ctx, fmt.Sprintf("select passport from %s where id=?", table), 200)
+		value, err := db.X原生SQL查询字段值(ctx, fmt.Sprintf("select passport from %s where id=?", table), 200)
 		t.AssertNil(err)
 		t.Assert(value.String(), "t200")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		t1 := time.Now()
-		result, err := db.Insert(ctx, table, g.Map{
+		result, err := db.X插入(ctx, table, g.Map{
 			"id":          300,
 			"passport":    "t300",
 			"password":    "123456",
@@ -753,13 +753,13 @@ func Test_DB_Time(t *testing.T) {
 		}
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
-		value, err := db.GetValue(ctx, fmt.Sprintf("select passport from %s where id=?", table), 300)
+		value, err := db.X原生SQL查询字段值(ctx, fmt.Sprintf("select passport from %s where id=?", table), 300)
 		t.AssertNil(err)
 		t.Assert(value.String(), "t300")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Delete(ctx, table, "1=1")
+		result, err := db.X删除(ctx, table, "1=1")
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 2)
@@ -769,11 +769,11 @@ func Test_DB_Time(t *testing.T) {
 func Test_DB_ToJson(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).Fields("*").Where("id =? ", 1).All()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id =? ", 1).X查询()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -788,32 +788,32 @@ func Test_DB_ToJson(t *testing.T) {
 
 		users := make([]User, 0)
 
-		err = result.Structs(users)
+		err = result.X取切片结构体指针(users)
 		t.AssertNE(err, nil)
 
-		err = result.Structs(&users)
+		err = result.X取切片结构体指针(&users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
 		// ToJson
-		resultJson, err := gjson.LoadContent(result.Json())
+		resultJson, err := gjson.X加载并自动识别格式(result.X取json())
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		t.Assert(users[0].Id, resultJson.Get("0.ID").Int())
-		t.Assert(users[0].Passport, resultJson.Get("0.PASSPORT").String())
-		t.Assert(users[0].Password, resultJson.Get("0.PASSWORD").String())
-		t.Assert(users[0].NickName, resultJson.Get("0.NICKNAME").String())
-		t.Assert(users[0].CreateTime, resultJson.Get("0.CREATE_TIME").String())
+		t.Assert(users[0].Id, resultJson.X取值("0.ID").X取整数())
+		t.Assert(users[0].Passport, resultJson.X取值("0.PASSPORT").String())
+		t.Assert(users[0].Password, resultJson.X取值("0.PASSWORD").String())
+		t.Assert(users[0].NickName, resultJson.X取值("0.NICKNAME").String())
+		t.Assert(users[0].CreateTime, resultJson.X取值("0.CREATE_TIME").String())
 
 		result = nil
-		t.Assert(result.Structs(&users), sql.ErrNoRows)
+		t.Assert(result.X取切片结构体指针(&users), sql.ErrNoRows)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).Fields("*").Where("id =? ", 1).One()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id =? ", 1).X查询一条()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -828,13 +828,13 @@ func Test_DB_ToJson(t *testing.T) {
 
 		users := User{}
 
-		err = result.Struct(&users)
+		err = result.X取结构体指针(&users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
 		result = nil
-		err = result.Struct(&users)
+		err = result.X取结构体指针(&users)
 		t.AssertNE(err, nil)
 	})
 }
@@ -842,11 +842,11 @@ func Test_DB_ToJson(t *testing.T) {
 func Test_DB_ToXml(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 
 	gtest.C(t, func(t *gtest.T) {
-		record, err := db.Model(table).Fields("*").Where("id = ?", 1).One()
+		record, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id = ?", 1).X查询一条()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -860,12 +860,12 @@ func Test_DB_ToXml(t *testing.T) {
 		}
 
 		user := User{}
-		err = record.Struct(&user)
+		err = record.X取结构体指针(&user)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		result, err := gxml.Decode([]byte(record.Xml("doc")))
+		result, err := gxml.Decode([]byte(record.X取xml("doc")))
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -906,11 +906,11 @@ func Test_DB_ToXml(t *testing.T) {
 func Test_DB_ToStringMap(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 	gtest.C(t, func(t *gtest.T) {
 		id := "1"
-		result, err := db.Model(table).Fields("*").Where("id = ?", 1).All()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id = ?", 1).X查询()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -924,12 +924,12 @@ func Test_DB_ToStringMap(t *testing.T) {
 		}
 
 		t_users := make([]t_user, 0)
-		err = result.Structs(&t_users)
+		err = result.X取切片结构体指针(&t_users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		resultStringMap := result.MapKeyStr("ID")
+		resultStringMap := result.X取字段MapStr("ID")
 		t.Assert(t_users[0].Id, resultStringMap[id]["ID"])
 		t.Assert(t_users[0].Passport, resultStringMap[id]["PASSPORT"])
 		t.Assert(t_users[0].Password, resultStringMap[id]["PASSWORD"])
@@ -941,12 +941,12 @@ func Test_DB_ToStringMap(t *testing.T) {
 func Test_DB_ToIntMap(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 
 	gtest.C(t, func(t *gtest.T) {
 		id := 1
-		result, err := db.Model(table).Fields("*").Where("id = ?", id).All()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id = ?", id).X查询()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -960,12 +960,12 @@ func Test_DB_ToIntMap(t *testing.T) {
 		}
 
 		t_users := make([]t_user, 0)
-		err = result.Structs(&t_users)
+		err = result.X取切片结构体指针(&t_users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		resultIntMap := result.MapKeyInt("ID")
+		resultIntMap := result.X取字段MapInt("ID")
 		t.Assert(t_users[0].Id, resultIntMap[id]["ID"])
 		t.Assert(t_users[0].Passport, resultIntMap[id]["PASSPORT"])
 		t.Assert(t_users[0].Password, resultIntMap[id]["PASSWORD"])
@@ -977,12 +977,12 @@ func Test_DB_ToIntMap(t *testing.T) {
 func Test_DB_ToUintMap(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 
 	gtest.C(t, func(t *gtest.T) {
 		id := 1
-		result, err := db.Model(table).Fields("*").Where("id = ?", id).All()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id = ?", id).X查询()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -996,12 +996,12 @@ func Test_DB_ToUintMap(t *testing.T) {
 		}
 
 		t_users := make([]t_user, 0)
-		err = result.Structs(&t_users)
+		err = result.X取切片结构体指针(&t_users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		resultUintMap := result.MapKeyUint("ID")
+		resultUintMap := result.X取字段MapUint("ID")
 		t.Assert(t_users[0].Id, resultUintMap[uint(id)]["ID"])
 		t.Assert(t_users[0].Passport, resultUintMap[uint(id)]["PASSPORT"])
 		t.Assert(t_users[0].Password, resultUintMap[uint(id)]["PASSWORD"])
@@ -1013,13 +1013,13 @@ func Test_DB_ToUintMap(t *testing.T) {
 func Test_DB_ToStringRecord(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 
 	gtest.C(t, func(t *gtest.T) {
 		id := 1
 		ids := "1"
-		result, err := db.Model(table).Fields("*").Where("id = ?", id).All()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id = ?", id).X查询()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -1033,13 +1033,13 @@ func Test_DB_ToStringRecord(t *testing.T) {
 		}
 
 		t_users := make([]t_user, 0)
-		err = result.Structs(&t_users)
+		err = result.X取切片结构体指针(&t_users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
 		resultStringRecord := result.RecordKeyStr("ID")
-		t.Assert(t_users[0].Id, resultStringRecord[ids]["ID"].Int())
+		t.Assert(t_users[0].Id, resultStringRecord[ids]["ID"].X取整数())
 		t.Assert(t_users[0].Passport, resultStringRecord[ids]["PASSPORT"].String())
 		t.Assert(t_users[0].Password, resultStringRecord[ids]["PASSWORD"].String())
 		t.Assert(t_users[0].NickName, resultStringRecord[ids]["NICKNAME"].String())
@@ -1050,12 +1050,12 @@ func Test_DB_ToStringRecord(t *testing.T) {
 func Test_DB_ToIntRecord(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 
 	gtest.C(t, func(t *gtest.T) {
 		id := 1
-		result, err := db.Model(table).Fields("*").Where("id = ?", id).All()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id = ?", id).X查询()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -1069,13 +1069,13 @@ func Test_DB_ToIntRecord(t *testing.T) {
 		}
 
 		t_users := make([]t_user, 0)
-		err = result.Structs(&t_users)
+		err = result.X取切片结构体指针(&t_users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
 		resultIntRecord := result.RecordKeyInt("ID")
-		t.Assert(t_users[0].Id, resultIntRecord[id]["ID"].Int())
+		t.Assert(t_users[0].Id, resultIntRecord[id]["ID"].X取整数())
 		t.Assert(t_users[0].Passport, resultIntRecord[id]["PASSPORT"].String())
 		t.Assert(t_users[0].Password, resultIntRecord[id]["PASSWORD"].String())
 		t.Assert(t_users[0].NickName, resultIntRecord[id]["NICKNAME"].String())
@@ -1086,12 +1086,12 @@ func Test_DB_ToIntRecord(t *testing.T) {
 func Test_DB_ToUintRecord(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
-	_, err := db.Update(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
+	_, err := db.X更新(ctx, table, "create_time='2010-10-10 00:00:01'", "id=?", 1)
 	gtest.AssertNil(err)
 
 	gtest.C(t, func(t *gtest.T) {
 		id := 1
-		result, err := db.Model(table).Fields("*").Where("id = ?", id).All()
+		result, err := db.X创建Model对象(table).X字段保留过滤("*").X条件("id = ?", id).X查询()
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -1105,13 +1105,13 @@ func Test_DB_ToUintRecord(t *testing.T) {
 		}
 
 		t_users := make([]t_user, 0)
-		err = result.Structs(&t_users)
+		err = result.X取切片结构体指针(&t_users)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
 		resultUintRecord := result.RecordKeyUint("ID")
-		t.Assert(t_users[0].Id, resultUintRecord[uint(id)]["ID"].Int())
+		t.Assert(t_users[0].Id, resultUintRecord[uint(id)]["ID"].X取整数())
 		t.Assert(t_users[0].Passport, resultUintRecord[uint(id)]["PASSPORT"].String())
 		t.Assert(t_users[0].Password, resultUintRecord[uint(id)]["PASSWORD"].String())
 		t.Assert(t_users[0].NickName, resultUintRecord[uint(id)]["NICKNAME"].String())
@@ -1127,7 +1127,7 @@ func Test_Model_InnerJoin(t *testing.T) {
 		defer dropTable(table1)
 		defer dropTable(table2)
 
-		res, err := db.Model(table1).Where("id > ?", 5).Delete()
+		res, err := db.X创建Model对象(table1).X条件("id > ?", 5).X删除()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -1139,14 +1139,14 @@ func Test_Model_InnerJoin(t *testing.T) {
 
 		t.Assert(n, 5)
 
-		result, err := db.Model(table1+" u1").InnerJoin(table2+" u2", "u1.id = u2.id").Order("u1.id").All()
+		result, err := db.X创建Model对象(table1+" u1").X内连接(table2+" u2", "u1.id = u2.id").X排序("u1.id").X查询()
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		t.Assert(len(result), 5)
 
-		result, err = db.Model(table1+" u1").InnerJoin(table2+" u2", "u1.id = u2.id").Where("u1.id > ?", 1).Order("u1.id").All()
+		result, err = db.X创建Model对象(table1+" u1").X内连接(table2+" u2", "u1.id = u2.id").X条件("u1.id > ?", 1).X排序("u1.id").X查询()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -1163,7 +1163,7 @@ func Test_Model_LeftJoin(t *testing.T) {
 		defer dropTable(table1)
 		defer dropTable(table2)
 
-		res, err := db.Model(table2).Where("id > ?", 3).Delete()
+		res, err := db.X创建Model对象(table2).X条件("id > ?", 3).X删除()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -1175,14 +1175,14 @@ func Test_Model_LeftJoin(t *testing.T) {
 			t.Assert(n, 7)
 		}
 
-		result, err := db.Model(table1+" u1").LeftJoin(table2+" u2", "u1.id = u2.id").All()
+		result, err := db.X创建Model对象(table1+" u1").X左连接(table2+" u2", "u1.id = u2.id").X查询()
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		t.Assert(len(result), 10)
 
-		result, err = db.Model(table1+" u1").LeftJoin(table2+" u2", "u1.id = u2.id").Where("u1.id > ? ", 2).All()
+		result, err = db.X创建Model对象(table1+" u1").X左连接(table2+" u2", "u1.id = u2.id").X条件("u1.id > ? ", 2).X查询()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -1199,7 +1199,7 @@ func Test_Model_RightJoin(t *testing.T) {
 		defer dropTable(table1)
 		defer dropTable(table2)
 
-		res, err := db.Model(table1).Where("id > ?", 3).Delete()
+		res, err := db.X创建Model对象(table1).X条件("id > ?", 3).X删除()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -1211,13 +1211,13 @@ func Test_Model_RightJoin(t *testing.T) {
 
 		t.Assert(n, 7)
 
-		result, err := db.Model(table1+" u1").RightJoin(table2+" u2", "u1.id = u2.id").All()
+		result, err := db.X创建Model对象(table1+" u1").X右连接(table2+" u2", "u1.id = u2.id").X查询()
 		if err != nil {
 			t.Fatal(err)
 		}
 		t.Assert(len(result), 10)
 
-		result, err = db.Model(table1+" u1").RightJoin(table2+" u2", "u1.id = u2.id").Where("u1.id > 2").All()
+		result, err = db.X创建Model对象(table1+" u1").X右连接(table2+" u2", "u1.id = u2.id").X条件("u1.id > 2").X查询()
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -1229,7 +1229,7 @@ func Test_Empty_Slice_Argument(t *testing.T) {
 	table := createInitTable()
 	defer dropTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf(`select * from %s where id in(?)`, table), g.Slice{})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf(`select * from %s where id in(?)`, table), g.Slice别名{})
 		t.AssertNil(err)
 		t.Assert(len(result), 0)
 	})

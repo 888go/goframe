@@ -11,12 +11,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
+	gset "github.com/888go/goframe/container/gset"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // Parameters 是由 OpenAPI/Swagger 3.0 标准指定的。 md5:40f2fa7f283687bf
@@ -32,7 +32,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 		tagMap    = field.TagMap()
 		fieldName = field.TagPriorityName()
 	)
-	fieldName = gstr.Split(gstr.Trim(fieldName), ",")[0]
+	fieldName = gstr.X分割(gstr.X过滤首尾符并含空白(fieldName), ",")[0]
 	if fieldName == "" {
 		fieldName = field.Name()
 	}
@@ -47,11 +47,11 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	}
 	if parameter.In == "" {
 				// 自动检测其"in"属性。 md5:681a19858c274871
-		if gstr.ContainsI(path, fmt.Sprintf(`{%s}`, parameter.Name)) {
+		if gstr.X是否包含并忽略大小写(path, fmt.Sprintf(`{%s}`, parameter.Name)) {
 			parameter.In = ParameterInPath
 		} else {
 						// 如果方法为"GET/DELETE"，则将参数输入默认设置为"query"。 md5:e11ada17c61b4191
-			switch gstr.ToUpper(method) {
+			switch gstr.X到大写(method) {
 			case http.MethodGet, http.MethodDelete:
 				parameter.In = ParameterInQuery
 
@@ -69,7 +69,7 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 	case ParameterInCookie, ParameterInHeader, ParameterInQuery:
 
 	default:
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `invalid tag value "%s" for In`, parameter.In)
+		return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid tag value "%s" for In`, parameter.In)
 	}
 		// 必要的模式或内容。 md5:35319ee51590f5ad
 	schemaRef, err := oai.newSchemaRefWithGolangType(field.Type().Type, tagMap)
@@ -85,8 +85,8 @@ func (oai *OpenApiV3) newParameterRefWithStructMethod(field gstructs.Field, path
 
 	// Required check.
 	if parameter.Schema.Value != nil && parameter.Schema.Value.ValidationRules != "" {
-		validationRuleArray := gstr.Split(parameter.Schema.Value.ValidationRules, "|")
-		if gset.NewStrSetFrom(validationRuleArray).Contains(validationRuleKeyForRequired) {
+		validationRuleArray := gstr.X分割(parameter.Schema.Value.ValidationRules, "|")
+		if gset.X创建文本并按值(validationRuleArray).X是否存在(validationRuleKeyForRequired) {
 			parameter.Required = true
 		}
 	}

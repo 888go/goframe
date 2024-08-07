@@ -5,33 +5,33 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcfg_test
+package 配置类_test
 
 import (
 	"fmt"
 	"os"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/genv"
+	"github.com/888go/goframe/frame/g"
+	gcfg "github.com/888go/goframe/os/gcfg"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	genv "github.com/888go/goframe/os/genv"
 )
 
 func ExampleConfig_GetWithEnv() {
 	var (
 		key = `ENV_TEST`
-		ctx = gctx.New()
+		ctx = gctx.X创建()
 	)
-	v, err := g.Cfg().GetWithEnv(ctx, key)
+	v, err := g.Cfg别名().X取值并从环境变量(ctx, key)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("env:%s\n", v)
-	if err = genv.Set(key, "gf"); err != nil {
+	if err = genv.X设置值(key, "gf"); err != nil {
 		panic(err)
 	}
-	v, err = g.Cfg().GetWithEnv(ctx, key)
+	v, err = g.Cfg别名().X取值并从环境变量(ctx, key)
 	if err != nil {
 		panic(err)
 	}
@@ -45,9 +45,9 @@ func ExampleConfig_GetWithEnv() {
 func ExampleConfig_GetWithCmd() {
 	var (
 		key = `cmd.test`
-		ctx = gctx.New()
+		ctx = gctx.X创建()
 	)
-	v, err := g.Cfg().GetWithCmd(ctx, key)
+	v, err := g.Cfg别名().X取值并从启动命令(ctx, key)
 	if err != nil {
 		panic(err)
 	}
@@ -56,7 +56,7 @@ func ExampleConfig_GetWithCmd() {
 	os.Args = append(os.Args, fmt.Sprintf(`--%s=yes`, key))
 	gcmd.Init(os.Args...)
 		// 再次获取配置和命令选项。 md5:4ac97b4c3c56a003
-	v, err = g.Cfg().GetWithCmd(ctx, key)
+	v, err = g.Cfg别名().X取值并从启动命令(ctx, key)
 	if err != nil {
 		panic(err)
 	}
@@ -69,16 +69,16 @@ func ExampleConfig_GetWithCmd() {
 
 func Example_NewWithAdapter() {
 	var (
-		ctx          = gctx.New()
+		ctx          = gctx.X创建()
 		content      = `{"a":"b", "c":1}`
 		adapter, err = gcfg.NewAdapterContent(content)
 	)
 	if err != nil {
 		panic(err)
 	}
-	config := gcfg.NewWithAdapter(adapter)
-	fmt.Println(config.MustGet(ctx, "a"))
-	fmt.Println(config.MustGet(ctx, "c"))
+	config := gcfg.X创建并按适配器(adapter)
+	fmt.Println(config.X取值PANI(ctx, "a"))
+	fmt.Println(config.X取值PANI(ctx, "c"))
 
 	// Output:
 	// b

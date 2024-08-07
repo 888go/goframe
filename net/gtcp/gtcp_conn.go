@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtcp
+package tcp类
 
 import (
 	"bufio"
@@ -15,7 +15,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Conn是TCP连接对象。 md5:d539be0916b2b1b8
@@ -82,7 +82,7 @@ func (c *Conn) Send(data []byte, retry ...Retry) error {
 			}
 						// 重试后仍然失败。 md5:b819d69935ab7496
 			if len(retry) == 0 || retry[0].Count == 0 {
-				err = gerror.Wrap(err, `Write data failed`)
+				err = gerror.X多层错误(err, `Write data failed`)
 				return err
 			}
 			if len(retry) > 0 {
@@ -123,7 +123,7 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 		if length < 0 && index > 0 {
 			bufferWait = true
 			if err = c.SetReadDeadline(time.Now().Add(c.bufferWaitRecv)); err != nil {
-				err = gerror.Wrap(err, `SetReadDeadline for connection failed`)
+				err = gerror.X多层错误(err, `SetReadDeadline for connection failed`)
 				return nil, err
 			}
 		}
@@ -155,7 +155,7 @@ func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error) {
 						// 重新设置读取数据时的超时时间。 md5:a04ae0a806c5a3c6
 			if bufferWait && isTimeout(err) {
 				if err = c.SetReadDeadline(c.deadlineRecv); err != nil {
-					err = gerror.Wrap(err, `SetReadDeadline for connection failed`)
+					err = gerror.X多层错误(err, `SetReadDeadline for connection failed`)
 					return nil, err
 				}
 				err = nil
@@ -287,7 +287,7 @@ func (c *Conn) SetDeadline(t time.Time) (err error) {
 		c.deadlineSend = t
 	}
 	if err != nil {
-		err = gerror.Wrapf(err, `SetDeadline for connection failed with "%s"`, t)
+		err = gerror.X多层错误并格式化(err, `SetDeadline for connection failed with "%s"`, t)
 	}
 	return err
 }
@@ -298,7 +298,7 @@ func (c *Conn) SetDeadlineRecv(t time.Time) (err error) {
 		c.deadlineRecv = t
 	}
 	if err != nil {
-		err = gerror.Wrapf(err, `SetDeadlineRecv for connection failed with "%s"`, t)
+		err = gerror.X多层错误并格式化(err, `SetDeadlineRecv for connection failed with "%s"`, t)
 	}
 	return err
 }
@@ -309,7 +309,7 @@ func (c *Conn) SetDeadlineSend(t time.Time) (err error) {
 		c.deadlineSend = t
 	}
 	if err != nil {
-		err = gerror.Wrapf(err, `SetDeadlineSend for connection failed with "%s"`, t)
+		err = gerror.X多层错误并格式化(err, `SetDeadlineSend for connection failed with "%s"`, t)
 	}
 	return err
 }

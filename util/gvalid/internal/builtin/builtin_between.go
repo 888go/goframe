@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // RuleBetween 实现了 `between` 规则：
@@ -52,7 +52,7 @@ func (r RuleBetween) Run(in RunInput) error {
 	}
 	valueF, err := strconv.ParseFloat(in.Value.String(), 10)
 	if valueF < min || valueF > max || err != nil {
-		return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+		return errors.New(gstr.Map替换(in.Message, map[string]string{
 			"{min}": strconv.FormatFloat(min, 'f', -1, 64),
 			"{max}": strconv.FormatFloat(max, 'f', -1, 64),
 		}))

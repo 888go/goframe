@@ -10,19 +10,19 @@ package sqlite
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gstr"
+	gdb "github.com/888go/goframe/database/gdb"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
-func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+// X底层DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
+func (d *Driver) X底层DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 		// 针对sqlite的特殊插入/忽略操作。 md5:7cfea509103b3cc2
 	switch {
-	case gstr.HasPrefix(sql, gdb.InsertOperationIgnore):
+	case gstr.X开头判断(sql, gdb.InsertOperationIgnore):
 		sql = "INSERT OR IGNORE" + sql[len(gdb.InsertOperationIgnore):]
 
-	case gstr.HasPrefix(sql, gdb.InsertOperationReplace):
+	case gstr.X开头判断(sql, gdb.InsertOperationReplace):
 		sql = "INSERT OR REPLACE" + sql[len(gdb.InsertOperationReplace):]
 	}
-	return d.Core.DoFilter(ctx, link, sql, args)
+	return d.Core.X底层DoFilter(ctx, link, sql, args)
 }

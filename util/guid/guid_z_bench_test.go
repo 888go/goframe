@@ -7,18 +7,18 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package guid_test
+package uid类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/util/guid"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Benchmark_S(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			guid.S()
+			guid.X生成()
 		}
 	})
 }
@@ -26,7 +26,7 @@ func Benchmark_S(b *testing.B) {
 func Benchmark_S_Data_1(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			guid.S([]byte("123"))
+			guid.X生成([]byte("123"))
 		}
 	})
 }
@@ -34,7 +34,7 @@ func Benchmark_S_Data_1(b *testing.B) {
 func Benchmark_S_Data_2(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			guid.S([]byte("123"), []byte("456"))
+			guid.X生成([]byte("123"), []byte("456"))
 		}
 	})
 }

@@ -4,14 +4,14 @@
 // 如果未随本文件一同分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
-package gurl_test
+package url类_test
 
 import (
 	"net/url"
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gurl"
-	"github.com/gogf/gf/v2/test/gtest"
+	gurl "github.com/888go/goframe/encoding/gurl"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -22,9 +22,9 @@ var (
 
 func TestEncodeAndDecode(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gurl.Encode(urlStr), urlEncode)
+		t.Assert(gurl.X编码(urlStr), urlEncode)
 
-		res, err := gurl.Decode(urlEncode)
+		res, err := gurl.X解码(urlEncode)
 		if err != nil {
 			t.Errorf("decode failed. %v", err)
 			return
@@ -35,9 +35,9 @@ func TestEncodeAndDecode(t *testing.T) {
 
 func TestRowEncodeAndDecode(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gurl.RawEncode(urlStr), rawUrlEncode)
+		t.Assert(gurl.X编码RFC3986(urlStr), rawUrlEncode)
 
-		res, err := gurl.RawDecode(rawUrlEncode)
+		res, err := gurl.X解码RFC3986(rawUrlEncode)
 		if err != nil {
 			t.Errorf("decode failed. %v", err)
 			return
@@ -54,7 +54,7 @@ func TestBuildQuery(t *testing.T) {
 			"c": {"c1", "c2"},
 		}
 		expect := "a=a2&a=a1&b=b2&b=b1&c=c1&c=c2"
-		t.Assert(gurl.BuildQuery(src), expect)
+		t.Assert(gurl.X生成URL(src), expect)
 	})
 }
 
@@ -80,7 +80,7 @@ func TestParseURL(t *testing.T) {
 				component = 1 << (uint(k - 1))
 			}
 
-			res, err := gurl.ParseURL(src, component)
+			res, err := gurl.X解析(src, component)
 			if err != nil {
 				t.Errorf("ParseURL failed. component:%v, err:%v", component, err)
 				return

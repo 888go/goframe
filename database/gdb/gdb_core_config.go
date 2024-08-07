@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"sync"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gcache"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gcache "github.com/888go/goframe/os/gcache"
+	glog "github.com/888go/goframe/os/glog"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Config 是配置管理对象。 md5:1ef57338c678e400
@@ -88,39 +88,39 @@ func init() {
 	configs.group = DefaultGroupName
 }
 
-// SetConfig 设置包的全局配置。
+// X设置全局配置 设置包的全局配置。
 // 它将覆盖包原有的配置。
 // md5:e9d794925a260f3e
-func SetConfig(config Config) {
-	defer instances.Clear()
+func X设置全局配置(配置 Config) {
+	defer instances.X清空()
 	configs.Lock()
 	defer configs.Unlock()
-	for k, nodes := range config {
+	for k, nodes := range 配置 {
 		for i, node := range nodes {
 			nodes[i] = parseConfigNode(node)
 		}
-		config[k] = nodes
+		配置[k] = nodes
 	}
-	configs.config = config
+	configs.config = 配置
 }
 
-// SetConfigGroup 设置给定组的配置。 md5:3ca6c2845a6dcd23
-func SetConfigGroup(group string, nodes ConfigGroup) {
-	defer instances.Clear()
+// X设置组配置 设置给定组的配置。 md5:3ca6c2845a6dcd23
+func X设置组配置(配置组名称 string, 配置 ConfigGroup) {
+	defer instances.X清空()
 	configs.Lock()
 	defer configs.Unlock()
-	for i, node := range nodes {
-		nodes[i] = parseConfigNode(node)
+	for i, node := range 配置 {
+		配置[i] = parseConfigNode(node)
 	}
-	configs.config[group] = nodes
+	configs.config[配置组名称] = 配置
 }
 
-// AddConfigNode 向给定组的配置中添加一个节点配置。 md5:3f2a775dc2be575b
-func AddConfigNode(group string, node ConfigNode) {
-	defer instances.Clear()
+// X添加配置组节点 向给定组的配置中添加一个节点配置。 md5:3f2a775dc2be575b
+func X添加配置组节点(配置组名称 string, 配置 ConfigNode) {
+	defer instances.X清空()
 	configs.Lock()
 	defer configs.Unlock()
-	configs.config[group] = append(configs.config[group], parseConfigNode(node))
+	configs.config[配置组名称] = append(configs.config[配置组名称], parseConfigNode(配置))
 }
 
 // parseConfigNode 解析 `Link` 配置语法。 md5:ca390415077cad45
@@ -129,68 +129,68 @@ func parseConfigNode(node ConfigNode) ConfigNode {
 		node = *parseConfigNodeLink(&node)
 	}
 	if node.Link != "" && node.Type == "" {
-		match, _ := gregex.MatchString(`([a-z]+):(.+)`, node.Link)
+		match, _ := gregex.X匹配文本(`([a-z]+):(.+)`, node.Link)
 		if len(match) == 3 {
-			node.Type = gstr.Trim(match[1])
-			node.Link = gstr.Trim(match[2])
+			node.Type = gstr.X过滤首尾符并含空白(match[1])
+			node.Link = gstr.X过滤首尾符并含空白(match[2])
 		}
 	}
 	return node
 }
 
-// AddDefaultConfigNode 在默认组的配置中添加一个节点配置。 md5:0b566ab59e6984e4
-func AddDefaultConfigNode(node ConfigNode) {
-	AddConfigNode(DefaultGroupName, node)
+// X添加默认配置组节点 在默认组的配置中添加一个节点配置。 md5:0b566ab59e6984e4
+func X添加默认配置组节点(配置 ConfigNode) {
+	X添加配置组节点(DefaultGroupName, 配置)
 }
 
-// AddDefaultConfigGroup 将多个节点配置添加到默认组的配置中。 md5:b289b432b1f9a27f
-func AddDefaultConfigGroup(nodes ConfigGroup) {
-	SetConfigGroup(DefaultGroupName, nodes)
+// X添加默认配置组 将多个节点配置添加到默认组的配置中。 md5:b289b432b1f9a27f
+func X添加默认配置组(配置组 ConfigGroup) {
+	X设置组配置(DefaultGroupName, 配置组)
 }
 
-// GetConfig 获取并返回给定组的配置。 md5:e4487cb50b45e5f4
-func GetConfig(group string) ConfigGroup {
+// X取配置组配置 获取并返回给定组的配置。 md5:e4487cb50b45e5f4
+func X取配置组配置(配置组名称 string) ConfigGroup {
 	configs.RLock()
 	defer configs.RUnlock()
-	return configs.config[group]
+	return configs.config[配置组名称]
 }
 
-// SetDefaultGroup 设置默认配置的组名。 md5:e7734b91e5838c18
-func SetDefaultGroup(name string) {
-	defer instances.Clear()
+// X设置默认组名称 设置默认配置的组名。 md5:e7734b91e5838c18
+func X设置默认组名称(配置组名称 string) {
+	defer instances.X清空()
 	configs.Lock()
 	defer configs.Unlock()
-	configs.group = name
+	configs.group = 配置组名称
 }
 
-// GetDefaultGroup 返回默认配置的{名称}。 md5:59cc62505c297d57
-func GetDefaultGroup() string {
-	defer instances.Clear()
+// X获取默认组名称 返回默认配置的{名称}。 md5:59cc62505c297d57
+func X获取默认组名称() string {
+	defer instances.X清空()
 	configs.RLock()
 	defer configs.RUnlock()
 	return configs.group
 }
 
-// IsConfigured 检查并返回数据库是否已配置。
+// X是否已配置数据库 检查并返回数据库是否已配置。
 // 如果存在任何配置，它将返回 true。
 // md5:1232e7ebd0a7ce10
-func IsConfigured() bool {
+func X是否已配置数据库() bool {
 	configs.RLock()
 	defer configs.RUnlock()
 	return len(configs.config) > 0
 }
 
-// SetLogger为ORM设置日志记录器。 md5:a70ca86920e39e54
-func (c *Core) SetLogger(logger glog.ILogger) {
-	c.logger = logger
+// X设置日志记录器为ORM设置日志记录器。 md5:a70ca86920e39e54
+func (c *Core) X设置日志记录器(日志记录器 glog.ILogger) {
+	c.logger = 日志记录器
 }
 
-// GetLogger 返回 ORM 的日志记录器。 md5:8fc6f96186fd98c6
-func (c *Core) GetLogger() glog.ILogger {
+// X取日志记录器 返回 ORM 的日志记录器。 md5:8fc6f96186fd98c6
+func (c *Core) X取日志记录器() glog.ILogger {
 	return c.logger
 }
 
-// SetMaxIdleConnCount 设置空闲连接池中的最大连接数。
+// X设置最大闲置连接数 设置空闲连接池中的最大连接数。
 //
 // 如果 MaxOpenConns 大于 0 但小于新的 MaxIdleConns，那么新的 MaxIdleConns 将被调整为与 MaxOpenConns 的限制相匹配。
 //
@@ -198,33 +198,33 @@ func (c *Core) GetLogger() glog.ILogger {
 //
 // 当前默认的最大空闲连接数为 2。这可能会在未来的版本中改变。
 // md5:7d6f4079c0bfc25f
-func (c *Core) SetMaxIdleConnCount(n int) {
-	c.dynamicConfig.MaxIdleConnCount = n
+func (c *Core) X设置最大闲置连接数(连接数 int) {
+	c.dynamicConfig.MaxIdleConnCount = 连接数
 }
 
-// SetMaxOpenConnCount 设置到数据库的最大打开连接数。
+// X设置最大打开连接数 设置到数据库的最大打开连接数。
 //
 // 如果 MaxIdleConns 大于 0，并且新的 MaxOpenConns 小于 MaxIdleConns，那么 MaxIdleConns 将被调整为与新的 MaxOpenConns 限制相匹配。
 //
 // 如果 n 小于或等于 0，则没有对打开连接数的限制。默认值为 0（无限制）。
 // md5:e8cfc3ecf7f5887e
-func (c *Core) SetMaxOpenConnCount(n int) {
-	c.dynamicConfig.MaxOpenConnCount = n
+func (c *Core) X设置最大打开连接数(连接数 int) {
+	c.dynamicConfig.MaxOpenConnCount = 连接数
 }
 
-// SetMaxConnLifeTime 设置连接可被重用的最大时间。
+// X设置最大空闲时长 设置连接可被重用的最大时间。
 //
 // 过期的连接可能会在被重用前被惰性关闭。
 //
 // 如果 d <= 0，则连接不会因为超时而被关闭。
 // md5:f8d0da250f6387ba
-func (c *Core) SetMaxConnLifeTime(d time.Duration) {
-	c.dynamicConfig.MaxConnLifeTime = d
+func (c *Core) X设置最大空闲时长(时长 time.Duration) {
+	c.dynamicConfig.MaxConnLifeTime = 时长
 }
 
-// GetConfig 返回当前使用的节点配置。 md5:c953d82ac4cddf35
-func (c *Core) GetConfig() *ConfigNode {
-	var configNode = c.getConfigNodeFromCtx(c.db.GetCtx())
+// X取当前节点配置 返回当前使用的节点配置。 md5:c953d82ac4cddf35
+func (c *Core) X取当前节点配置() *ConfigNode {
+	var configNode = c.getConfigNodeFromCtx(c.db.X取上下文对象())
 	if configNode != nil {
 		// 注意：
 		// 它会检查并从当前数据库返回配置，
@@ -239,46 +239,46 @@ func (c *Core) GetConfig() *ConfigNode {
 	return c.config
 }
 
-// SetDebug 启用/禁用调试模式。 md5:44a23ae9ad388bd8
-func (c *Core) SetDebug(debug bool) {
-	c.debug.Set(debug)
+// X设置调试模式 启用/禁用调试模式。 md5:44a23ae9ad388bd8
+func (c *Core) X设置调试模式(开启 bool) {
+	c.debug.X设置值(开启)
 }
 
-// GetDebug 返回调试值。 md5:9bffedbe7bd8f1cf
-func (c *Core) GetDebug() bool {
-	return c.debug.Val()
+// X取调试模式 返回调试值。 md5:9bffedbe7bd8f1cf
+func (c *Core) X取调试模式() bool {
+	return c.debug.X取值()
 }
 
-// GetCache 返回内部的缓存对象。 md5:3d83a15ed3d14950
-func (c *Core) GetCache() *gcache.Cache {
+// X取缓存对象 返回内部的缓存对象。 md5:3d83a15ed3d14950
+func (c *Core) X取缓存对象() *gcache.Cache {
 	return c.cache
 }
 
-// GetGroup 返回配置的组字符串。 md5:fb5b1b36ae36c283
-func (c *Core) GetGroup() string {
+// X取配置组名称 返回配置的组字符串。 md5:fb5b1b36ae36c283
+func (c *Core) X取配置组名称() string {
 	return c.group
 }
 
-// SetDryRun 启用/禁用DryRun功能。 md5:359f8392ba799c27
-func (c *Core) SetDryRun(enabled bool) {
-	c.config.DryRun = enabled
+// X设置空跑特性 启用/禁用DryRun功能。 md5:359f8392ba799c27
+func (c *Core) X设置空跑特性(开启 bool) {
+	c.config.DryRun = 开启
 }
 
-// GetDryRun 返回DryRun的值。 md5:7e133dad1f0ee7ba
-func (c *Core) GetDryRun() bool {
+// X取空跑特性 返回DryRun的值。 md5:7e133dad1f0ee7ba
+func (c *Core) X取空跑特性() bool {
 	return c.config.DryRun || allDryRun
 }
 
-// GetPrefix 返回配置的表前缀字符串。 md5:637396955caa18c4
-func (c *Core) GetPrefix() string {
+// X取表前缀 返回配置的表前缀字符串。 md5:637396955caa18c4
+func (c *Core) X取表前缀() string {
 	return c.config.Prefix
 }
 
-// GetSchema 返回已配置的模式。 md5:89a8c016a19c9022
-func (c *Core) GetSchema() string {
+// X取默认数据库名称 返回已配置的模式。 md5:89a8c016a19c9022
+func (c *Core) X取默认数据库名称() string {
 	schema := c.schema
 	if schema == "" {
-		schema = c.db.GetConfig().Name
+		schema = c.db.X取当前节点配置().Name
 	}
 	return schema
 }
@@ -286,13 +286,13 @@ func (c *Core) GetSchema() string {
 func parseConfigNodeLink(node *ConfigNode) *ConfigNode {
 	var match []string
 	if node.Link != "" {
-		match, _ = gregex.MatchString(linkPattern, node.Link)
+		match, _ = gregex.X匹配文本(linkPattern, node.Link)
 		if len(match) > 5 {
 			node.Type = match[1]
 			node.User = match[2]
 			node.Pass = match[3]
 			node.Protocol = match[4]
-			array := gstr.Split(match[5], ":")
+			array := gstr.X分割(match[5], ":")
 			if len(array) == 2 && node.Protocol != "file" {
 				node.Host = array[0]
 				node.Port = array[1]
@@ -307,7 +307,7 @@ func parseConfigNodeLink(node *ConfigNode) *ConfigNode {
 		}
 	}
 	if node.Extra != "" {
-		if m, _ := gstr.Parse(node.Extra); len(m) > 0 {
+		if m, _ := gstr.X参数解析(node.Extra); len(m) > 0 {
 			_ = gconv.Struct(m, &node)
 		}
 	}

@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview_test
+package 模板类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gview"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gfile "github.com/888go/goframe/os/gfile"
+	gview "github.com/888go/goframe/os/gview"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Encode_Parse(t *testing.T) {
@@ -33,7 +33,7 @@ func Test_Encode_Parse(t *testing.T) {
 func Test_Encode_ParseContent(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		tplContent := gfile.GetContents(gtest.DataPath("tpl", "encode.tpl"))
+		tplContent := gfile.X读文本(gtest.DataPath("tpl", "encode.tpl"))
 		v.SetAutoEncode(true)
 		result, err := v.ParseContent(context.TODO(), tplContent, g.Map{
 			"title": "<b>my title</b>",

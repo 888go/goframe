@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview
+package 模板类
 
 import (
 	"bytes"
@@ -15,19 +15,19 @@ import (
 	"strconv"
 	texttpl "text/template"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/encoding/ghash"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gfsnotify"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gmlock"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/os/gspath"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gutil"
+	gmap "github.com/888go/goframe/container/gmap"
+	ghash "github.com/888go/goframe/encoding/ghash"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gfile "github.com/888go/goframe/os/gfile"
+	gfsnotify "github.com/888go/goframe/os/gfsnotify"
+	glog "github.com/888go/goframe/os/glog"
+	gmlock "github.com/888go/goframe/os/gmlock"
+	gres "github.com/888go/goframe/os/gres"
+	gspath "github.com/888go/goframe/os/gspath"
+	gstr "github.com/888go/goframe/text/gstr"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 const (
@@ -46,7 +46,7 @@ var (
 	// 模板缓存映射，用于模板文件夹。
 	// 注意，这个映射没有过期逻辑。
 	// md5:23e4c8f42fd00704
-	templates = gmap.NewStrAnyMap(true)
+	templates = gmap.X创建StrAny(true)
 
 		// 资源模板文件搜索的尝试文件夹。 md5:17efa863e4db400f
 	resourceTryFolders = []string{
@@ -115,10 +115,10 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		return view.doParseContent(ctx, option.Content, option.Params)
 	}
 	if option.File == "" {
-		return "", gerror.New(`template file cannot be empty`)
+		return "", gerror.X创建(`template file cannot be empty`)
 	}
 		// 它缓存文件、文件夹和内容以提高性能。 md5:18ed1889fbe8ba22
-	r := view.fileCacheMap.GetOrSetFuncLock(option.File, func() interface{} {
+	r := view.fileCacheMap.X取值或设置值_函数带锁(option.File, func() interface{} {
 		var (
 			path     string
 			folder   string
@@ -133,14 +133,14 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 		if resource != nil {
 			content = string(resource.Content())
 		} else {
-			content = gfile.GetContentsWithCache(path)
+			content = gfile.X缓存读文本(path)
 		}
 				// 异步使用fsnotify监视模板文件的更改。 md5:e8a79bcdc9b5c5a4
 		if resource == nil {
 			if _, err = gfsnotify.AddOnce("gview.Parse:"+folder, folder, func(event *gfsnotify.Event) {
 				// CLEAR THEM ALL.
-				view.fileCacheMap.Clear()
-				templates.Clear()
+				view.fileCacheMap.X清空()
+				templates.X清空()
 				gfsnotify.Exit()
 			}); err != nil {
 				intlog.Errorf(ctx, `%+v`, err)
@@ -166,19 +166,19 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	}
 		// 获取`folder`的模板对象实例。 md5:850769d5264084fa
 	var tpl interface{}
-	tpl, err = view.getTemplate(item.path, item.folder, fmt.Sprintf(`*%s`, gfile.Ext(item.path)))
+	tpl, err = view.getTemplate(item.path, item.folder, fmt.Sprintf(`*%s`, gfile.X路径取扩展名(item.path)))
 	if err != nil {
 		return "", err
 	}
 		// 使用内存锁确保模板解析的并发安全性。 md5:b64152a6d03ebce0
-	gmlock.LockFunc("gview.Parse:"+item.path, func() {
+	gmlock.X写锁定_函数("gview.Parse:"+item.path, func() {
 		if view.config.AutoEncode {
 			tpl, err = tpl.(*htmltpl.Template).Parse(item.content)
 		} else {
 			tpl, err = tpl.(*texttpl.Template).Parse(item.content)
 		}
 		if err != nil && item.path != "" {
-			err = gerror.Wrap(err, item.path)
+			err = gerror.X多层错误(err, item.path)
 		}
 	})
 	if err != nil {
@@ -209,7 +209,7 @@ func (view *View) ParseOption(ctx context.Context, option Option) (result string
 	}
 
 		// TODO 有没有一种优雅的计划来替换 "<无值>"？. md5:b722bf3a8104fe3b
-	result = gstr.Replace(buffer.String(), "<no value>", "")
+	result = gstr.X替换(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
 }
@@ -224,7 +224,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 	var (
 		err error
 		key = fmt.Sprintf("%s_%v_%v", templateNameForContentParsing, view.config.Delimiters, view.config.AutoEncode)
-		tpl = templates.GetOrSetFuncLock(key, func() interface{} {
+		tpl = templates.X取值或设置值_函数带锁(key, func() interface{} {
 			if view.config.AutoEncode {
 				return htmltpl.New(templateNameForContentParsing).Delims(
 					view.config.Delimiters[0],
@@ -239,7 +239,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 	)
 		// 使用内存锁确保内容解析的并发安全性。 md5:d526d1fe96e88c9d
 	hash := strconv.FormatUint(ghash.DJB64([]byte(content)), 10)
-	gmlock.LockFunc("gview.ParseContent:"+hash, func() {
+	gmlock.X写锁定_函数("gview.ParseContent:"+hash, func() {
 		if view.config.AutoEncode {
 			tpl, err = tpl.(*htmltpl.Template).Parse(content)
 		} else {
@@ -247,7 +247,7 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		}
 	})
 	if err != nil {
-		err = gerror.Wrapf(err, `template parsing failed`)
+		err = gerror.X多层错误并格式化(err, `template parsing failed`)
 		return "", err
 	}
 	// 请注意，模板变量赋值不能改变现有`params`或view.data的值，
@@ -264,21 +264,21 @@ func (view *View) doParseContent(ctx context.Context, content string, params Par
 		var newTpl *htmltpl.Template
 		newTpl, err = tpl.(*htmltpl.Template).Clone()
 		if err != nil {
-			err = gerror.Wrapf(err, `template clone failed`)
+			err = gerror.X多层错误并格式化(err, `template clone failed`)
 			return "", err
 		}
 		if err = newTpl.Execute(buffer, variables); err != nil {
-			err = gerror.Wrapf(err, `template parsing failed`)
+			err = gerror.X多层错误并格式化(err, `template parsing failed`)
 			return "", err
 		}
 	} else {
 		if err = tpl.(*texttpl.Template).Execute(buffer, variables); err != nil {
-			err = gerror.Wrapf(err, `template parsing failed`)
+			err = gerror.X多层错误并格式化(err, `template parsing failed`)
 			return "", err
 		}
 	}
 		// TODO 有没有一种优雅的计划来替换 "<无值>"？. md5:b722bf3a8104fe3b
-	result := gstr.Replace(buffer.String(), "<no value>", "")
+	result := gstr.X替换(buffer.String(), "<no value>", "")
 	result = view.i18nTranslate(ctx, result, variables)
 	return result, nil
 }
@@ -333,14 +333,14 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 			// 然后递归地自动解析所有子文件。
 			// md5:46d132de94281d12
 			var files []string
-			files, err = gfile.ScanDir(folderPath, pattern, true)
+			files, err = gfile.X枚举并含子目录名(folderPath, pattern, true)
 			if err != nil {
 				return nil
 			}
 			if view.config.AutoEncode {
 				t := tpl.(*htmltpl.Template)
 				for _, file := range files {
-					if _, err = t.Parse(gfile.GetContents(file)); err != nil {
+					if _, err = t.Parse(gfile.X读文本(file)); err != nil {
 						err = view.formatTemplateObjectCreatingError(file, tplName, err)
 						return nil
 					}
@@ -348,7 +348,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 			} else {
 				t := tpl.(*texttpl.Template)
 				for _, file := range files {
-					if _, err = t.Parse(gfile.GetContents(file)); err != nil {
+					if _, err = t.Parse(gfile.X读文本(file)); err != nil {
 						err = view.formatTemplateObjectCreatingError(file, tplName, err)
 						return nil
 					}
@@ -357,7 +357,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 			return tpl
 		}
 	)
-	result := templates.GetOrSetFuncLock(mapKey, mapFunc)
+	result := templates.X取值或设置值_函数带锁(mapKey, mapFunc)
 	if result != nil {
 		return result, nil
 	}
@@ -367,7 +367,7 @@ func (view *View) getTemplate(filePath, folderPath, pattern string) (tpl interfa
 // formatTemplateObjectCreatingError 格式化从创建模板对象中产生的错误。 md5:896510b4d17d39d6
 func (view *View) formatTemplateObjectCreatingError(filePath, tplName string, err error) error {
 	if err != nil {
-		return gerror.NewSkip(1, gstr.Replace(err.Error(), tplName, filePath))
+		return gerror.X创建并跳过堆栈(1, gstr.X替换(err.Error(), tplName, filePath))
 	}
 	return nil
 }
@@ -389,7 +389,7 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 			}
 		}
 		// Search folders.
-		view.searchPaths.RLockFunc(func(array []string) {
+		view.searchPaths.X遍历读锁定(func(array []string) {
 			for _, searchPath := range array {
 				for _, tryFolder := range resourceTryFolders {
 					tempPath = searchPath + tryFolder + file
@@ -406,22 +406,22 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 		// 其次，检查文件系统。 md5:1afe55a17dac6b06
 	if path == "" {
 		// Absolute path.
-		path = gfile.RealPath(file)
+		path = gfile.X取绝对路径且效验(file)
 		if path != "" {
-			folder = gfile.Dir(path)
+			folder = gfile.X路径取父目录(path)
 			return
 		}
 		// In search paths.
-		view.searchPaths.RLockFunc(func(array []string) {
+		view.searchPaths.X遍历读锁定(func(array []string) {
 			for _, searchPath := range array {
-				searchPath = gstr.TrimRight(searchPath, `\/`)
+				searchPath = gstr.X过滤尾字符并含空白(searchPath, `\/`)
 				for _, tryFolder := range localSystemTryFolders {
-					relativePath := gstr.TrimRight(
-						gfile.Join(tryFolder, file),
+					relativePath := gstr.X过滤尾字符并含空白(
+						gfile.X路径生成(tryFolder, file),
 						`\/`,
 					)
 					if path, _ = gspath.Search(searchPath, relativePath); path != "" {
-						folder = gfile.Join(searchPath, tryFolder)
+						folder = gfile.X路径生成(searchPath, tryFolder)
 						return
 					}
 				}
@@ -432,16 +432,16 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 	// Error checking.
 	if path == "" {
 		buffer := bytes.NewBuffer(nil)
-		if view.searchPaths.Len() > 0 {
+		if view.searchPaths.X取长度() > 0 {
 			buffer.WriteString(fmt.Sprintf("cannot find template file \"%s\" in following paths:", file))
-			view.searchPaths.RLockFunc(func(array []string) {
+			view.searchPaths.X遍历读锁定(func(array []string) {
 				index := 1
 				for _, searchPath := range array {
-					searchPath = gstr.TrimRight(searchPath, `\/`)
+					searchPath = gstr.X过滤尾字符并含空白(searchPath, `\/`)
 					for _, tryFolder := range localSystemTryFolders {
 						buffer.WriteString(fmt.Sprintf(
 							"\n%d. %s",
-							index, gfile.Join(searchPath, tryFolder),
+							index, gfile.X路径生成(searchPath, tryFolder),
 						))
 						index++
 					}
@@ -453,7 +453,7 @@ func (view *View) searchFile(ctx context.Context, file string) (path string, fol
 		if errorPrint() {
 			glog.Error(ctx, buffer.String())
 		}
-		err = gerror.NewCodef(gcode.CodeInvalidParameter, `template file "%s" not found`, file)
+		err = gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `template file "%s" not found`, file)
 	}
 	return
 }

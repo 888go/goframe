@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gredis
+package redis类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gstr"
+	gvar "github.com/888go/goframe/container/gvar"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // Redis client.
@@ -50,7 +50,7 @@ const (
 )
 
 var (
-	errorNilAdapter = gstr.Trim(gstr.Replace(`
+	errorNilAdapter = gstr.X过滤首尾符并含空白(gstr.X替换(`
 redis adapter is not set, missing configuration or adapter register? 
 possible reference: https://github.com/gogf/gf/tree/master/contrib/nosql/redis
 `, "\n", ""))
@@ -74,7 +74,7 @@ func (r *Redis) initGroup() *Redis {
 // SetAdapter 将当前 Redis 客户端的底层适配器替换为自定义适配器。 md5:f503f97750dcd95a
 func (r *Redis) SetAdapter(adapter Adapter) {
 	if r == nil {
-		panic(gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis))
+		panic(gerror.X创建错误码(gcode.CodeInvalidParameter, errorNilRedis))
 	}
 	r.localAdapter = adapter
 }
@@ -92,10 +92,10 @@ func (r *Redis) GetAdapter() Adapter {
 // md5:b0379f4ab8131447
 func (r *Redis) Conn(ctx context.Context) (Conn, error) {
 	if r == nil {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)
+		return nil, gerror.X创建错误码(gcode.CodeInvalidParameter, errorNilRedis)
 	}
 	if r.localAdapter == nil {
-		return nil, gerror.NewCode(gcode.CodeNecessaryPackageNotImport, errorNilAdapter)
+		return nil, gerror.X创建错误码(gcode.CodeNecessaryPackageNotImport, errorNilAdapter)
 	}
 	return r.localAdapter.Conn(ctx)
 }
@@ -105,10 +105,10 @@ func (r *Redis) Conn(ctx context.Context) (Conn, error) {
 // md5:bbe59d4e1ff07fa3
 func (r *Redis) Do(ctx context.Context, command string, args ...interface{}) (*gvar.Var, error) {
 	if r == nil {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, errorNilRedis)
+		return nil, gerror.X创建错误码(gcode.CodeInvalidParameter, errorNilRedis)
 	}
 	if r.localAdapter == nil {
-		return nil, gerror.NewCodef(gcode.CodeMissingConfiguration, errorNilAdapter)
+		return nil, gerror.X创建错误码并格式化(gcode.CodeMissingConfiguration, errorNilAdapter)
 	}
 	return r.localAdapter.Do(ctx, command, args...)
 }

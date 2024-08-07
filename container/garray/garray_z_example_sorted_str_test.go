@@ -5,66 +5,66 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package garray_test
+package 切片类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/888go/goframe/internal/empty"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	garray "github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func ExampleSortedStrArray_Walk() {
 	var array garray.SortedStrArray
-	tables := g.SliceStr{"user", "user_detail"}
+	tables := g.SliceStr别名{"user", "user_detail"}
 	prefix := "gf_"
-	array.Append(tables...)
+	array.Append别名(tables...)
 		// 为给定的表名添加前缀。 md5:dea7405f272e0c9e
-	array.Walk(func(value string) string {
+	array.X遍历修改(func(value string) string {
 		return prefix + value
 	})
-	fmt.Println(array.Slice())
+	fmt.Println(array.X取切片())
 
 	// Output:
 	// [gf_user gf_user_detail]
 }
 
 func ExampleNewSortedStrArray() {
-	s := garray.NewSortedStrArray()
-	s.Append("b")
-	s.Append("d")
-	s.Append("c")
-	s.Append("a")
-	fmt.Println(s.Slice())
+	s := garray.X创建文本排序()
+	s.Append别名("b")
+	s.Append别名("d")
+	s.Append别名("c")
+	s.Append别名("a")
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// [a b c d]
 }
 
 func ExampleNewSortedStrArraySize() {
-	s := garray.NewSortedStrArraySize(3)
-	s.SetArray([]string{"b", "d", "a", "c"})
-	fmt.Println(s.Slice(), s.Len(), cap(s.Slice()))
+	s := garray.X创建文本排序并按大小(3)
+	s.X设置切片([]string{"b", "d", "a", "c"})
+	fmt.Println(s.X取切片(), s.X取长度(), cap(s.X取切片()))
 
 	// Output:
 	// [a b c d] 4 4
 }
 
 func ExampleNewStrArrayFromCopy() {
-	s := garray.NewSortedStrArrayFromCopy(g.SliceStr{"b", "d", "c", "a"})
-	fmt.Println(s.Slice())
+	s := garray.X创建文本排序并从切片复制(g.SliceStr别名{"b", "d", "c", "a"})
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// [a b c d]
 }
 
 func ExampleSortedStrArray_At() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "d", "c", "a"})
-	sAt := s.At(2)
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "d", "c", "a"})
+	sAt := s.X取值(2)
 	fmt.Println(s)
 	fmt.Println(sAt)
 
@@ -75,8 +75,8 @@ func ExampleSortedStrArray_At() {
 }
 
 func ExampleSortedStrArray_Get() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "d", "c", "a", "e"})
-	sGet, sBool := s.Get(3)
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "d", "c", "a", "e"})
+	sGet, sBool := s.X取值2(3)
 	fmt.Println(s)
 	fmt.Println(sGet, sBool)
 
@@ -86,28 +86,28 @@ func ExampleSortedStrArray_Get() {
 }
 
 func ExampleSortedStrArray_SetArray() {
-	s := garray.NewSortedStrArray()
-	s.SetArray([]string{"b", "d", "a", "c"})
-	fmt.Println(s.Slice())
+	s := garray.X创建文本排序()
+	s.X设置切片([]string{"b", "d", "a", "c"})
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// [a b c d]
 }
 
 func ExampleSortedStrArray_SetUnique() {
-	s := garray.NewSortedStrArray()
-	s.SetArray([]string{"b", "d", "a", "c", "c", "a"})
-	fmt.Println(s.SetUnique(true))
+	s := garray.X创建文本排序()
+	s.X设置切片([]string{"b", "d", "a", "c", "c", "a"})
+	fmt.Println(s.X设置去重(true))
 
 	// Output:
 	// ["a","b","c","d"]
 }
 
 func ExampleSortedStrArray_Sum() {
-	s := garray.NewSortedStrArray()
-	s.SetArray([]string{"5", "3", "2"})
+	s := garray.X创建文本排序()
+	s.X设置切片([]string{"5", "3", "2"})
 	fmt.Println(s)
-	a := s.Sum()
+	a := s.X求和()
 	fmt.Println(a)
 
 	// Output:
@@ -116,10 +116,10 @@ func ExampleSortedStrArray_Sum() {
 }
 
 func ExampleSortedStrArray_Sort() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"b", "d", "a", "c"})
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"b", "d", "a", "c"})
 	fmt.Println(s)
-	a := s.Sort()
+	a := s.X排序递增()
 	fmt.Println(a)
 
 	// Output:
@@ -128,11 +128,11 @@ func ExampleSortedStrArray_Sort() {
 }
 
 func ExampleSortedStrArray_Remove() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"b", "d", "c", "a"})
-	fmt.Println(s.Slice())
-	s.Remove(1)
-	fmt.Println(s.Slice())
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"b", "d", "c", "a"})
+	fmt.Println(s.X取切片())
+	s.X删除(1)
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// [a b c d]
@@ -140,11 +140,11 @@ func ExampleSortedStrArray_Remove() {
 }
 
 func ExampleSortedStrArray_RemoveValue() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"b", "d", "c", "a"})
-	fmt.Println(s.Slice())
-	s.RemoveValue("b")
-	fmt.Println(s.Slice())
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"b", "d", "c", "a"})
+	fmt.Println(s.X取切片())
+	s.X删除值("b")
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// [a b c d]
@@ -152,11 +152,11 @@ func ExampleSortedStrArray_RemoveValue() {
 }
 
 func ExampleSortedStrArray_PopLeft() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"b", "d", "c", "a"})
-	r, _ := s.PopLeft()
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"b", "d", "c", "a"})
+	r, _ := s.X出栈左()
 	fmt.Println(r)
-	fmt.Println(s.Slice())
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// a
@@ -164,12 +164,12 @@ func ExampleSortedStrArray_PopLeft() {
 }
 
 func ExampleSortedStrArray_PopRight() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"b", "d", "c", "a"})
-	fmt.Println(s.Slice())
-	r, _ := s.PopRight()
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"b", "d", "c", "a"})
+	fmt.Println(s.X取切片())
+	r, _ := s.X出栈右()
 	fmt.Println(r)
-	fmt.Println(s.Slice())
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// [a b c d]
@@ -178,9 +178,9 @@ func ExampleSortedStrArray_PopRight() {
 }
 
 func ExampleSortedStrArray_PopRights() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.PopRights(2)
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X出栈右多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
 
@@ -190,9 +190,9 @@ func ExampleSortedStrArray_PopRights() {
 }
 
 func ExampleSortedStrArray_Rand() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r, _ := s.PopRand()
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r, _ := s.X出栈随机()
 	fmt.Println(r)
 	fmt.Println(s)
 
@@ -202,9 +202,9 @@ func ExampleSortedStrArray_Rand() {
 }
 
 func ExampleSortedStrArray_PopRands() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.PopRands(2)
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X出栈随机多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
 
@@ -214,9 +214,9 @@ func ExampleSortedStrArray_PopRands() {
 }
 
 func ExampleSortedStrArray_PopLefts() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.PopLefts(2)
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X出栈左多个(2)
 	fmt.Println(r)
 	fmt.Println(s)
 
@@ -226,9 +226,9 @@ func ExampleSortedStrArray_PopLefts() {
 }
 
 func ExampleSortedStrArray_Range() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.Range(2, 5)
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X取切片并按范围(2, 5)
 	fmt.Println(r)
 
 	// Output:
@@ -236,10 +236,10 @@ func ExampleSortedStrArray_Range() {
 }
 
 func ExampleSortedStrArray_SubSlice() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.SubSlice(3, 4)
-	fmt.Println(s.Slice())
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X取切片并按数量(3, 4)
+	fmt.Println(s.X取切片())
 	fmt.Println(r)
 
 	// Output:
@@ -248,8 +248,8 @@ func ExampleSortedStrArray_SubSlice() {
 }
 
 func ExampleSortedStrArray_Add() {
-	s := garray.NewSortedStrArray()
-	s.Add("b", "d", "c", "a")
+	s := garray.X创建文本排序()
+	s.X入栈右("b", "d", "c", "a")
 	fmt.Println(s)
 
 	// Output:
@@ -257,10 +257,10 @@ func ExampleSortedStrArray_Add() {
 }
 
 func ExampleSortedStrArray_Append() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"b", "d", "c", "a"})
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"b", "d", "c", "a"})
 	fmt.Println(s)
-	s.Append("f", "e", "g")
+	s.Append别名("f", "e", "g")
 	fmt.Println(s)
 
 	// Output:
@@ -269,10 +269,10 @@ func ExampleSortedStrArray_Append() {
 }
 
 func ExampleSortedStrArray_Len() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
-	fmt.Println(s.Len())
+	fmt.Println(s.X取长度())
 
 	// Output:
 	// ["a","b","c","d","e","f","g","h"]
@@ -280,18 +280,18 @@ func ExampleSortedStrArray_Len() {
 }
 
 func ExampleSortedStrArray_Slice() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	fmt.Println(s.Slice())
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	fmt.Println(s.X取切片())
 
 	// Output:
 	// [a b c d e f g h]
 }
 
 func ExampleSortedStrArray_Interfaces() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.Interfaces()
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X取any切片()
 	fmt.Println(r)
 
 	// Output:
@@ -299,9 +299,9 @@ func ExampleSortedStrArray_Interfaces() {
 }
 
 func ExampleSortedStrArray_Clone() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.Clone()
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X取副本()
 	fmt.Println(r)
 	fmt.Println(s)
 
@@ -311,10 +311,10 @@ func ExampleSortedStrArray_Clone() {
 }
 
 func ExampleSortedStrArray_Clear() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
-	fmt.Println(s.Clear())
+	fmt.Println(s.X清空())
 	fmt.Println(s)
 
 	// Output:
@@ -324,11 +324,11 @@ func ExampleSortedStrArray_Clear() {
 }
 
 func ExampleSortedStrArray_Contains() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	fmt.Println(s.Contains("e"))
-	fmt.Println(s.Contains("E"))
-	fmt.Println(s.Contains("z"))
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	fmt.Println(s.X是否存在("e"))
+	fmt.Println(s.X是否存在("E"))
+	fmt.Println(s.X是否存在("z"))
 
 	// Output:
 	// true
@@ -337,11 +337,11 @@ func ExampleSortedStrArray_Contains() {
 }
 
 func ExampleSortedStrArray_ContainsI() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
-	fmt.Println(s.ContainsI("E"))
-	fmt.Println(s.ContainsI("z"))
+	fmt.Println(s.X是否存在并忽略大小写("E"))
+	fmt.Println(s.X是否存在并忽略大小写("z"))
 
 	// Output:
 	// ["a","b","c","d","e","f","g","h"]
@@ -350,12 +350,12 @@ func ExampleSortedStrArray_ContainsI() {
 }
 
 func ExampleSortedStrArray_Search() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
-	fmt.Println(s.Search("e"))
-	fmt.Println(s.Search("E"))
-	fmt.Println(s.Search("z"))
+	fmt.Println(s.X查找("e"))
+	fmt.Println(s.X查找("E"))
+	fmt.Println(s.X查找("z"))
 
 	// Output:
 	// ["a","b","c","d","e","f","g","h"]
@@ -365,10 +365,10 @@ func ExampleSortedStrArray_Search() {
 }
 
 func ExampleSortedStrArray_Unique() {
-	s := garray.NewSortedStrArray()
-	s.SetArray(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
+	s := garray.X创建文本排序()
+	s.X设置切片(g.SliceStr别名{"a", "b", "c", "c", "c", "d", "d"})
 	fmt.Println(s)
-	fmt.Println(s.Unique())
+	fmt.Println(s.X去重())
 
 	// Output:
 	// ["a","b","c","c","c","d","d"]
@@ -376,8 +376,8 @@ func ExampleSortedStrArray_Unique() {
 }
 
 func ExampleSortedStrArray_LockFunc() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "c", "a"})
-	s.LockFunc(func(array []string) {
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "c", "a"})
+	s.X遍历写锁定(func(array []string) {
 		array[len(array)-1] = "GF fans"
 	})
 	fmt.Println(s)
@@ -387,8 +387,8 @@ func ExampleSortedStrArray_LockFunc() {
 }
 
 func ExampleSortedStrArray_RLockFunc() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "c", "a"})
-	s.RLockFunc(func(array []string) {
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "c", "a"})
+	s.X遍历读锁定(func(array []string) {
 		array[len(array)-1] = "GF fans"
 		fmt.Println(array[len(array)-1])
 	})
@@ -400,13 +400,13 @@ func ExampleSortedStrArray_RLockFunc() {
 }
 
 func ExampleSortedStrArray_Merge() {
-	s1 := garray.NewSortedStrArray()
-	s2 := garray.NewSortedStrArray()
-	s1.SetArray(g.SliceStr{"b", "c", "a"})
-	s2.SetArray(g.SliceStr{"e", "d", "f"})
+	s1 := garray.X创建文本排序()
+	s2 := garray.X创建文本排序()
+	s1.X设置切片(g.SliceStr别名{"b", "c", "a"})
+	s2.X设置切片(g.SliceStr别名{"e", "d", "f"})
 	fmt.Println(s1)
 	fmt.Println(s2)
-	s1.Merge(s2)
+	s1.X合并(s2)
 	fmt.Println(s1)
 
 	// Output:
@@ -416,8 +416,8 @@ func ExampleSortedStrArray_Merge() {
 }
 
 func ExampleSortedStrArray_Chunk() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	r := s.Chunk(3)
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	r := s.X分割(3)
 	fmt.Println(r)
 
 	// Output:
@@ -425,9 +425,9 @@ func ExampleSortedStrArray_Chunk() {
 }
 
 func ExampleSortedStrArray_Rands() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
 	fmt.Println(s)
-	fmt.Println(s.Rands(3))
+	fmt.Println(s.X取值随机多个(3))
 
 	// May Output:
 	// ["a","b","c","d","e","f","g","h"]
@@ -435,24 +435,24 @@ func ExampleSortedStrArray_Rands() {
 }
 
 func ExampleSortedStrArray_Join() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"c", "b", "a", "d", "f", "e", "h", "g"})
-	fmt.Println(s.Join(","))
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"c", "b", "a", "d", "f", "e", "h", "g"})
+	fmt.Println(s.X连接(","))
 
 	// Output:
 	// a,b,c,d,e,f,g,h
 }
 
 func ExampleSortedStrArray_CountValues() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"a", "b", "c", "c", "c", "d", "d"})
-	fmt.Println(s.CountValues())
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"a", "b", "c", "c", "c", "d", "d"})
+	fmt.Println(s.X统计())
 
 	// Output:
 	// map[a:1 b:1 c:3 d:2]
 }
 
 func ExampleSortedStrArray_Iterator() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "c", "a"})
-	s.Iterator(func(k int, v string) bool {
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "c", "a"})
+	s.X遍历(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
 	})
@@ -464,8 +464,8 @@ func ExampleSortedStrArray_Iterator() {
 }
 
 func ExampleSortedStrArray_IteratorAsc() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "c", "a"})
-	s.IteratorAsc(func(k int, v string) bool {
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "c", "a"})
+	s.X遍历升序(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
 	})
@@ -477,8 +477,8 @@ func ExampleSortedStrArray_IteratorAsc() {
 }
 
 func ExampleSortedStrArray_IteratorDesc() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "c", "a"})
-	s.IteratorDesc(func(k int, v string) bool {
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "c", "a"})
+	s.X遍历降序(func(k int, v string) bool {
 		fmt.Println(k, v)
 		return true
 	})
@@ -490,7 +490,7 @@ func ExampleSortedStrArray_IteratorDesc() {
 }
 
 func ExampleSortedStrArray_String() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "c", "a"})
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "c", "a"})
 	fmt.Println(s.String())
 
 	// Output:
@@ -503,7 +503,7 @@ func ExampleSortedStrArray_MarshalJSON() {
 		Name   string
 		Levels garray.SortedStrArray
 	}
-	r := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "c", "a"})
+	r := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "c", "a"})
 	s := Student{
 		ID:     1,
 		Name:   "john",
@@ -546,7 +546,7 @@ func ExampleSortedStrArray_UnmarshalValue() {
 	var s1 *Student
 	gconv.Struct(g.Map{
 		"name":    "john",
-		"lessons": g.SliceStr{"Math", "English", "Sport"},
+		"lessons": g.SliceStr别名{"Math", "English", "Sport"},
 	}, &s1)
 	fmt.Println(s1)
 
@@ -556,9 +556,9 @@ func ExampleSortedStrArray_UnmarshalValue() {
 }
 
 func ExampleSortedStrArray_Filter() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "a", "", "c", "", "", "d"})
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "a", "", "c", "", "", "d"})
 	fmt.Println(s)
-	fmt.Println(s.Filter(func(index int, value string) bool {
+	fmt.Println(s.X遍历删除(func(index int, value string) bool {
 		return empty.IsEmpty(value)
 	}))
 
@@ -568,9 +568,9 @@ func ExampleSortedStrArray_Filter() {
 }
 
 func ExampleSortedStrArray_FilterEmpty() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "a", "", "c", "", "", "d"})
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "a", "", "c", "", "", "d"})
 	fmt.Println(s)
-	fmt.Println(s.FilterEmpty())
+	fmt.Println(s.X删除所有空值())
 
 	// Output:
 	// ["","","","a","b","c","d"]
@@ -578,10 +578,10 @@ func ExampleSortedStrArray_FilterEmpty() {
 }
 
 func ExampleSortedStrArray_IsEmpty() {
-	s := garray.NewSortedStrArrayFrom(g.SliceStr{"b", "a", "", "c", "", "", "d"})
-	fmt.Println(s.IsEmpty())
-	s1 := garray.NewSortedStrArray()
-	fmt.Println(s1.IsEmpty())
+	s := garray.X创建文本排序并从切片(g.SliceStr别名{"b", "a", "", "c", "", "", "d"})
+	fmt.Println(s.X是否为空())
+	s1 := garray.X创建文本排序()
+	fmt.Println(s1.X是否为空())
 
 	// Output:
 	// false

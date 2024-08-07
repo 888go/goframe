@@ -5,29 +5,29 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil_test
+package 工具类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_Copy(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gutil.Copy(0), 0)
-		t.Assert(gutil.Copy(1), 1)
-		t.Assert(gutil.Copy("a"), "a")
-		t.Assert(gutil.Copy(nil), nil)
+		t.Assert(gutil.X深拷贝(0), 0)
+		t.Assert(gutil.X深拷贝(1), 1)
+		t.Assert(gutil.X深拷贝("a"), "a")
+		t.Assert(gutil.X深拷贝(nil), nil)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		src := g.Map{
 			"k1": "v1",
 			"k2": "v2",
 		}
-		dst := gutil.Copy(src)
+		dst := gutil.X深拷贝(src)
 		t.Assert(dst, src)
 
 		dst.(g.Map)["k3"] = "v3"

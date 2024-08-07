@@ -5,9 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview
+package 模板类
 
-import "github.com/gogf/gf/v2/container/gmap"
+import (
+	gmap "github.com/888go/goframe/container/gmap"
+)
 
 const (
 		// DefaultName是实例使用的默认组名。 md5:ca8d8295a8c531f4
@@ -16,7 +18,7 @@ const (
 
 var (
 	// Instances map.
-	instances = gmap.NewStrAnyMap(true)
+	instances = gmap.X创建StrAny(true)
 )
 
 // Instance 返回一个具有默认设置的 View 实例。
@@ -27,7 +29,7 @@ func Instance(name ...string) *View {
 	if len(name) > 0 && name[0] != "" {
 		key = name[0]
 	}
-	return instances.GetOrSetFuncLock(key, func() interface{} {
+	return instances.X取值或设置值_函数带锁(key, func() interface{} {
 		return New()
 	}).(*View)
 }

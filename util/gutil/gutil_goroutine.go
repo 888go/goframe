@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
 	"context"
@@ -20,11 +20,11 @@ import (
 // md5:3820395064a9e843
 func Go(
 	ctx context.Context,
-	goroutineFunc func(ctx context.Context),
-	recoverFunc func(ctx context.Context, exception error),
+	X协程函数 func(ctx context.Context),
+	X异常处理函数 func(ctx context.Context, exception error),
 ) {
-	if goroutineFunc == nil {
+	if X协程函数 == nil {
 		return
 	}
-	go TryCatch(ctx, goroutineFunc, recoverFunc)
+	go X异常捕捉并带异常处理(ctx, X协程函数, X异常处理函数)
 }

@@ -11,7 +11,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RuleDate 实现了 `date` 规则：
@@ -39,12 +39,12 @@ func (r RuleDate) Run(in RunInput) error {
 		IsZero() bool
 	}
 		// 支持时间值，例如：gtime.Time/*gtime.Time, time.Time/*time.Time。 md5:fc74717f7b27de8d
-	if obj, ok := in.Value.Val().(iTime); ok {
+	if obj, ok := in.Value.X取值().(iTime); ok {
 		if obj.IsZero() {
 			return errors.New(in.Message)
 		}
 	}
-	if !gregex.IsMatchString(
+	if !gregex.X是否匹配文本(
 		`\d{4}[\.\-\_/]{0,1}\d{2}[\.\-\_/]{0,1}\d{2}`,
 		in.Value.String(),
 	) {

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtimer
+package 定时类
 
 import (
 	"context"
@@ -15,12 +15,12 @@ import (
 
 var (
 	ctx   = context.TODO()
-	timer = New()
+	timer = X创建()
 )
 
 func Benchmark_Add(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		timer.Add(ctx, time.Hour, func(ctx context.Context) {
+		timer.X加入循环任务(ctx, time.Hour, func(ctx context.Context) {
 
 		})
 	}
@@ -34,7 +34,7 @@ func Benchmark_PriorityQueue_Pop(b *testing.B) {
 
 func Benchmark_StartStop(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		timer.Start()
-		timer.Stop()
+		timer.X开始工作()
+		timer.X暂停工作()
 	}
 }

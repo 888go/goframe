@@ -14,13 +14,13 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gdb "github.com/888go/goframe/database/gdb"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
-// Open 创建并返回一个底层的 sql.DB 对象，用于 pgsql。 md5:a5d566f750df5890
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+// X底层Open 创建并返回一个底层的 sql.DB 对象，用于 pgsql。 md5:a5d566f750df5890
+func (d *Driver) X底层Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "dm"
@@ -60,7 +60,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	}
 
 	if db, err = sql.Open(underlyingDriverName, source); err != nil {
-		err = gerror.WrapCodef(
+		err = gerror.X多层错误码并格式化(
 			gcode.CodeDbOperationError, err,
 			`dm.Open failed for driver "%s" by source "%s"`, underlyingDriverName, source,
 		)

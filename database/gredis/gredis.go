@@ -13,11 +13,11 @@
 //
 // Redis中文文档：http://redisdoc.com/
 // md5:fd856764d3114fd3
-package gredis
+package redis类
 
 import (
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // AdapterFunc 是创建 Redis 适配器的函数。 md5:806d31217d679afd
@@ -48,13 +48,13 @@ func New(config ...*Config) (*Redis, error) {
 		usedAdapter = defaultAdapterFunc(configFromGlobal)
 	}
 	if usedConfig == nil {
-		return nil, gerror.NewCode(
+		return nil, gerror.X创建错误码(
 			gcode.CodeInvalidConfiguration,
 			`no configuration found for creating Redis client`,
 		)
 	}
 	if usedAdapter == nil {
-		return nil, gerror.NewCode(
+		return nil, gerror.X创建错误码(
 			gcode.CodeNecessaryPackageNotImport,
 			errorNilAdapter,
 		)
@@ -69,7 +69,7 @@ func New(config ...*Config) (*Redis, error) {
 // NewWithAdapter 使用给定的适配器创建并返回一个Redis客户端。 md5:ab7dc6695935087f
 func NewWithAdapter(adapter Adapter) (*Redis, error) {
 	if adapter == nil {
-		return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `adapter cannot be nil`)
+		return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `adapter cannot be nil`)
 	}
 	redis := &Redis{localAdapter: adapter}
 	return redis.initGroup(), nil

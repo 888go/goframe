@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvar_test
+package 泛型类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func TestVar_Struct(t *testing.T) {
@@ -27,7 +27,7 @@ func TestVar_Struct(t *testing.T) {
 
 		testObj := &StTest{}
 
-		objOne := gvar.New(Kv, true)
+		objOne := gvar.X创建(Kv, true)
 
 		objOne.Struct(testObj)
 
@@ -38,7 +38,7 @@ func TestVar_Struct(t *testing.T) {
 			Test int8
 		}
 		o := &StTest{}
-		v := gvar.New(g.Slice{"Test", "-25"})
+		v := gvar.X创建(g.Slice别名{"Test", "-25"})
 		v.Struct(o)
 		t.Assert(o.Test, -25)
 	})
@@ -53,8 +53,8 @@ func TestVar_Var_Attribute_Struct(t *testing.T) {
 		user := new(User)
 		err := gconv.Struct(
 			g.Map{
-				"uid":  gvar.New(1),
-				"name": gvar.New("john"),
+				"uid":  gvar.X创建(1),
+				"name": gvar.X创建("john"),
 			}, user)
 		t.AssertNil(err)
 		t.Assert(user.Uid, 1)
@@ -68,8 +68,8 @@ func TestVar_Var_Attribute_Struct(t *testing.T) {
 		var user *User
 		err := gconv.Struct(
 			g.Map{
-				"uid":  gvar.New(1),
-				"name": gvar.New("john"),
+				"uid":  gvar.X创建(1),
+				"name": gvar.X创建("john"),
 			}, &user)
 		t.AssertNil(err)
 		t.Assert(user.Uid, 1)

@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Size(t *testing.T) {
@@ -25,10 +25,10 @@ func Test_Size(t *testing.T) {
 		createTestFile(paths1, "abcdefghijklmn")
 		defer delTestFiles(paths1)
 
-		sizes = gfile.Size(testpath() + paths1)
+		sizes = gfile.X取大小(testpath() + paths1)
 		t.Assert(sizes, 14)
 
-		sizes = gfile.Size("")
+		sizes = gfile.X取大小("")
 		t.Assert(sizes, 0)
 
 	})
@@ -44,10 +44,10 @@ func Test_SizeFormat(t *testing.T) {
 		createTestFile(paths1, "abcdefghijklmn")
 		defer delTestFiles(paths1)
 
-		sizes = gfile.SizeFormat(testpath() + paths1)
+		sizes = gfile.X取大小并易读格式(testpath() + paths1)
 		t.Assert(sizes, "14.00B")
 
-		sizes = gfile.SizeFormat("")
+		sizes = gfile.X取大小并易读格式("")
 		t.Assert(sizes, "0.00B")
 
 	})
@@ -55,41 +55,41 @@ func Test_SizeFormat(t *testing.T) {
 
 func Test_StrToSize(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gfile.StrToSize("0.00B"), 0)
-		t.Assert(gfile.StrToSize("16.00B"), 16)
-		t.Assert(gfile.StrToSize("1.00K"), 1024)
-		t.Assert(gfile.StrToSize("1.00KB"), 1024)
-		t.Assert(gfile.StrToSize("1.00KiloByte"), 1024)
-		t.Assert(gfile.StrToSize("15.26M"), gconv.Int64(15.26*1024*1024))
-		t.Assert(gfile.StrToSize("15.26MB"), gconv.Int64(15.26*1024*1024))
-		t.Assert(gfile.StrToSize("1.49G"), gconv.Int64(1.49*1024*1024*1024))
-		t.Assert(gfile.StrToSize("1.49GB"), gconv.Int64(1.49*1024*1024*1024))
-		t.Assert(gfile.StrToSize("8.73T"), gconv.Int64(8.73*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("8.73TB"), gconv.Int64(8.73*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("8.53P"), gconv.Int64(8.53*1024*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("8.53PB"), gconv.Int64(8.53*1024*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("8.01EB"), gconv.Int64(8.01*1024*1024*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("0.01ZB"), gconv.Int64(0.01*1024*1024*1024*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("0.01YB"), gconv.Int64(0.01*1024*1024*1024*1024*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("0.01BB"), gconv.Int64(0.01*1024*1024*1024*1024*1024*1024*1024*1024*1024))
-		t.Assert(gfile.StrToSize("0.01AB"), gconv.Int64(-1))
-		t.Assert(gfile.StrToSize("123456789"), 123456789)
+		t.Assert(gfile.X易读格式转字节长度("0.00B"), 0)
+		t.Assert(gfile.X易读格式转字节长度("16.00B"), 16)
+		t.Assert(gfile.X易读格式转字节长度("1.00K"), 1024)
+		t.Assert(gfile.X易读格式转字节长度("1.00KB"), 1024)
+		t.Assert(gfile.X易读格式转字节长度("1.00KiloByte"), 1024)
+		t.Assert(gfile.X易读格式转字节长度("15.26M"), gconv.X取整数64位(15.26*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("15.26MB"), gconv.X取整数64位(15.26*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("1.49G"), gconv.X取整数64位(1.49*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("1.49GB"), gconv.X取整数64位(1.49*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("8.73T"), gconv.X取整数64位(8.73*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("8.73TB"), gconv.X取整数64位(8.73*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("8.53P"), gconv.X取整数64位(8.53*1024*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("8.53PB"), gconv.X取整数64位(8.53*1024*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("8.01EB"), gconv.X取整数64位(8.01*1024*1024*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("0.01ZB"), gconv.X取整数64位(0.01*1024*1024*1024*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("0.01YB"), gconv.X取整数64位(0.01*1024*1024*1024*1024*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("0.01BB"), gconv.X取整数64位(0.01*1024*1024*1024*1024*1024*1024*1024*1024*1024))
+		t.Assert(gfile.X易读格式转字节长度("0.01AB"), gconv.X取整数64位(-1))
+		t.Assert(gfile.X易读格式转字节长度("123456789"), 123456789)
 	})
 }
 
 func Test_FormatSize(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gfile.FormatSize(0), "0.00B")
-		t.Assert(gfile.FormatSize(16), "16.00B")
+		t.Assert(gfile.X字节长度转易读格式(0), "0.00B")
+		t.Assert(gfile.X字节长度转易读格式(16), "16.00B")
 
-		t.Assert(gfile.FormatSize(1024), "1.00K")
+		t.Assert(gfile.X字节长度转易读格式(1024), "1.00K")
 
-		t.Assert(gfile.FormatSize(16000000), "15.26M")
+		t.Assert(gfile.X字节长度转易读格式(16000000), "15.26M")
 
-		t.Assert(gfile.FormatSize(1600000000), "1.49G")
+		t.Assert(gfile.X字节长度转易读格式(1600000000), "1.49G")
 
-		t.Assert(gfile.FormatSize(9600000000000), "8.73T")
-		t.Assert(gfile.FormatSize(9600000000000000), "8.53P")
+		t.Assert(gfile.X字节长度转易读格式(9600000000000), "8.73T")
+		t.Assert(gfile.X字节长度转易读格式(9600000000000000), "8.53P")
 	})
 }
 
@@ -101,8 +101,8 @@ func Test_ReadableSize(t *testing.T) {
 		)
 		createTestFile(paths1, "abcdefghijklmn")
 		defer delTestFiles(paths1)
-		t.Assert(gfile.ReadableSize(testpath()+paths1), "14.00B")
-		t.Assert(gfile.ReadableSize(""), "0.00B")
+		t.Assert(gfile.ReadableSize别名(testpath()+paths1), "14.00B")
+		t.Assert(gfile.ReadableSize别名(""), "0.00B")
 
 	})
 }

@@ -11,7 +11,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/gogf/gf/v2/internal/intlog"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 type selectorRoundRobin struct {

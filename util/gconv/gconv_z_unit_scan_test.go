@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"fmt"
 	"math/big"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Scan_WithMapParameter(t *testing.T) {
@@ -74,7 +74,7 @@ func Test_Scan_StructStructs(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			users  []User
-			params = g.Slice{
+			params = g.Slice别名{
 				g.Map{
 					"uid":   1,
 					"name":  "john1",
@@ -91,7 +91,7 @@ func Test_Scan_StructStructs(t *testing.T) {
 		)
 		err := gconv.Scan(params, &users)
 		t.AssertNil(err)
-		t.Assert(users, g.Slice{
+		t.Assert(users, g.Slice别名{
 			&User{
 				Uid:   1,
 				Name:  "john1",
@@ -139,7 +139,7 @@ func Test_Scan_StructStr(t *testing.T) {
 		)
 		err := gconv.Scan(params, &users)
 		t.AssertNil(err)
-		t.Assert(users, g.Slice{
+		t.Assert(users, g.Slice别名{
 			&User{
 				Uid:   1,
 				Name:  "john1",
@@ -193,7 +193,7 @@ func Test_Scan_Map(t *testing.T) {
 func Test_Scan_Maps(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var maps []map[string]string
-		data := g.Slice{
+		data := g.Slice别名{
 			g.Map{
 				"k1": "v1",
 				"k2": "v2",
@@ -213,7 +213,7 @@ func Test_Scan_Maps(t *testing.T) {
 		data := `[{"k1":"v1","k2":"v2"},{"k3":"v3","k4":"v4"}]`
 		err := gconv.Scan(data, &maps)
 		t.AssertNil(err)
-		t.Assert(maps, g.Slice{
+		t.Assert(maps, g.Slice别名{
 			g.Map{
 				"k1": "v1",
 				"k2": "v2",
@@ -236,7 +236,7 @@ func Test_Scan_JsonAttributes(t *testing.T) {
 			CostPrice   int    `json:"cost_price"`
 			Stock       int    `json:"stock"`
 		}
-		v := gvar.New(`
+		v := gvar.X创建(`
 [
 {"name": "red", "stock": 10, "gift_id": 1, "cost_price": 80, "score_price": 188, "market_price": 188}, 
 {"name": "blue", "stock": 100, "gift_id": 2, "cost_price": 81, "score_price": 200, "market_price": 288}

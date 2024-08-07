@@ -11,9 +11,9 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // RuleDifferent 实现了 `different` 规则：
@@ -40,7 +40,7 @@ func (r RuleDifferent) Run(in RunInput) error {
 		ok    = true
 		value = in.Value.String()
 	)
-	fieldName, fieldValue := gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)
+	fieldName, fieldValue := gutil.MapPossibleItemByKey(in.Data.X取Map(), in.RulePattern)
 	if fieldValue != nil {
 		if in.Option.CaseInsensitive {
 			ok = !strings.EqualFold(value, gconv.String(fieldValue))
@@ -51,7 +51,7 @@ func (r RuleDifferent) Run(in RunInput) error {
 	if ok {
 		return nil
 	}
-	return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+	return errors.New(gstr.Map替换(in.Message, map[string]string{
 		"{field1}": fieldName,
 		"{value1}": gconv.String(fieldValue),
 	}))

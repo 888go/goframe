@@ -10,20 +10,20 @@ package gi18n_test
 import (
 	"time"
 
-	"github.com/gogf/gf/v2/encoding/gbase64"
-	"github.com/gogf/gf/v2/os/gctx"
+	gbase64 "github.com/888go/goframe/encoding/gbase64"
+	gctx "github.com/888go/goframe/os/gctx"
 
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/i18n/gi18n"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/i18n/gi18n"
+	gfile "github.com/888go/goframe/os/gfile"
+	gres "github.com/888go/goframe/os/gres"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Basic(t *testing.T) {
@@ -138,11 +138,11 @@ func Test_Instance(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.I18n().T(context.Background(), "{#hello}{#world}"), "你好世界")
+		t.Assert(g.X多语言类().T(context.Background(), "{#hello}{#world}"), "你好世界")
 	})
 			// 默认语言为：英语. md5:bf8699f46eeb3a91
 	gtest.C(t, func(t *gtest.T) {
-		m := gi18n.Instance(gconv.String(gtime.TimestampNano()))
+		m := gi18n.Instance(gconv.String(gtime.X取时间戳纳秒()))
 		m.SetPath(gtest.DataPath("i18n-dir"))
 		t.Assert(m.T(context.Background(), "{#hello}{#world}"), "HelloWorld")
 	})
@@ -150,7 +150,7 @@ func Test_Instance(t *testing.T) {
 
 func Test_Resource(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := g.I18n("resource")
+		m := g.X多语言类("resource")
 		err := m.SetPath(gtest.DataPath("i18n-dir"))
 		t.AssertNil(err)
 
@@ -167,7 +167,7 @@ func Test_Resource(t *testing.T) {
 
 func Test_SetCtxLanguage(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		ctx := gctx.New()
+		ctx := gctx.X创建()
 		t.Assert(gi18n.LanguageFromCtx(ctx), "")
 	})
 
@@ -176,7 +176,7 @@ func Test_SetCtxLanguage(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		ctx := gctx.New()
+		ctx := gctx.X创建()
 		ctx = gi18n.WithLanguage(ctx, "zh-CN")
 		t.Assert(gi18n.LanguageFromCtx(ctx), "zh-CN")
 	})
@@ -207,7 +207,7 @@ func Test_PathInResource(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		binContent, err := gres.Pack(gtest.DataPath("i18n"))
 		t.AssertNil(err)
-		err = gres.Add(gbase64.EncodeToString(binContent))
+		err = gres.Add(gbase64.X字节集编码到文本(binContent))
 		t.AssertNil(err)
 
 		i18n := gi18n.New()
@@ -223,9 +223,9 @@ func Test_PathInResource(t *testing.T) {
 
 func Test_PathInNormal(t *testing.T) {
 		// 将i18n文件复制到当前目录。 md5:6b07de86887858fd
-	gfile.CopyDir(gtest.DataPath("i18n"), gfile.Join(gdebug.CallerDirectory(), "manifest/i18n"))
+	gfile.X复制目录(gtest.DataPath("i18n"), gfile.X路径生成(gdebug.CallerDirectory(), "manifest/i18n"))
 		// 测试后移除复制的文件。 md5:fb4a6779ee5f0ae8
-	defer gfile.Remove(gfile.Join(gdebug.CallerDirectory(), "manifest"))
+	defer gfile.X删除(gfile.X路径生成(gdebug.CallerDirectory(), "manifest"))
 
 	i18n := gi18n.New()
 
@@ -245,7 +245,7 @@ func Test_PathInNormal(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		i18n.SetLanguage("en")
 		t.Assert(i18n.T(context.Background(), "{#hello}{#world}{#name}"), "HelloWorld{#name}")
-		err := gfile.PutContentsAppend(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en.toml"), "\nname = \"GoFrame\"")
+		err := gfile.X追加文本(gfile.X路径生成(gdebug.CallerDirectory(), "manifest/i18n/en.toml"), "\nname = \"GoFrame\"")
 		t.AssertNil(err)
 				// 等待文件的修改时间发生改变。 md5:b4e969d5b430a521
 		time.Sleep(10 * time.Millisecond)
@@ -254,7 +254,7 @@ func Test_PathInNormal(t *testing.T) {
 
 	// Add new language
 	gtest.C(t, func(t *gtest.T) {
-		err := gfile.PutContents(gfile.Join(gdebug.CallerDirectory(), "manifest/i18n/en-US.toml"), "lang = \"en-US\"")
+		err := gfile.X写入文本(gfile.X路径生成(gdebug.CallerDirectory(), "manifest/i18n/en-US.toml"), "lang = \"en-US\"")
 		t.AssertNil(err)
 				// 等待文件的修改时间发生改变。 md5:b4e969d5b430a521
 		time.Sleep(10 * time.Millisecond)

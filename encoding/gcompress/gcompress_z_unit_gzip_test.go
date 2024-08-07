@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcompress_test
+package 压缩类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gcompress"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	gcompress "github.com/888go/goframe/encoding/gcompress"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Gzip_UnGzip(t *testing.T) {
@@ -33,13 +33,13 @@ func Test_Gzip_UnGzip(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		arr := []byte(src)
-		data, _ := gcompress.Gzip(arr)
+		data, _ := gcompress.Gzip压缩字节集(arr)
 		t.Assert(data, gzip)
 
-		data, _ = gcompress.UnGzip(gzip)
+		data, _ = gcompress.Gzip解压字节集(gzip)
 		t.Assert(data, arr)
 
-		data, _ = gcompress.UnGzip(gzip[1:])
+		data, _ = gcompress.Gzip解压字节集(gzip[1:])
 		t.Assert(data, nil)
 	})
 }
@@ -47,23 +47,23 @@ func Test_Gzip_UnGzip(t *testing.T) {
 func Test_Gzip_UnGzip_File(t *testing.T) {
 	var (
 		srcPath  = gtest.DataPath("gzip", "file.txt")
-		dstPath1 = gfile.Temp(gtime.TimestampNanoStr(), "gzip.zip")
-		dstPath2 = gfile.Temp(gtime.TimestampNanoStr(), "file.txt")
+		dstPath1 = gfile.X取临时目录(gtime.X取文本时间戳纳秒(), "gzip.zip")
+		dstPath2 = gfile.X取临时目录(gtime.X取文本时间戳纳秒(), "file.txt")
 	)
 
 	// Compress.
 	gtest.C(t, func(t *gtest.T) {
-		err := gcompress.GzipFile(srcPath, dstPath1, 9)
+		err := gcompress.Gzip压缩文件(srcPath, dstPath1, 9)
 		t.AssertNil(err)
-		defer gfile.Remove(dstPath1)
-		t.Assert(gfile.Exists(dstPath1), true)
+		defer gfile.X删除(dstPath1)
+		t.Assert(gfile.X是否存在(dstPath1), true)
 
 		// Decompress.
-		err = gcompress.UnGzipFile(dstPath1, dstPath2)
+		err = gcompress.Gzip解压文件(dstPath1, dstPath2)
 		t.AssertNil(err)
-		defer gfile.Remove(dstPath2)
-		t.Assert(gfile.Exists(dstPath2), true)
+		defer gfile.X删除(dstPath2)
+		t.Assert(gfile.X是否存在(dstPath2), true)
 
-		t.Assert(gfile.GetContents(srcPath), gfile.GetContents(dstPath2))
+		t.Assert(gfile.X读文本(srcPath), gfile.X读文本(dstPath2))
 	})
 }

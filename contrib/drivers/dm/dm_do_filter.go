@@ -12,26 +12,26 @@ import (
 
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	gdb "github.com/888go/goframe/database/gdb"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
-func (d *Driver) DoFilter(
+// X底层DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
+func (d *Driver) X底层DoFilter(
 	ctx context.Context, link gdb.Link, sql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {
 			// 因为之前已经在字段处理中完成了大写，所以不需要再大写. md5:32e3319fc42c6edf
-	newSql, _ = gregex.ReplaceString(`["\n\t]`, "", sql)
-	newSql = gstr.ReplaceI(gstr.ReplaceI(newSql, "GROUP_CONCAT", "LISTAGG"), "SEPARATOR", ",")
+	newSql, _ = gregex.X替换文本(`["\n\t]`, "", sql)
+	newSql = gstr.X替换并忽略大小写(gstr.X替换并忽略大小写(newSql, "GROUP_CONCAT", "LISTAGG"), "SEPARATOR", ",")
 
 	// 待办事项：当前的方法太过粗略。我们应该处理GROUP_CONCAT函数，以及从匹配的select语句中解析索引字段的问题。
 	// （GROUP_CONCAT功能DM不支持；索引不能作为查询列名使用，并且需要添加安全字符，例如将"index"转义）
 	// md5:125ee1107dd70034
-	l, r := d.GetChars()
+	l, r := d.X底层取数据库安全字符()
 	if strings.Contains(newSql, "INDEX") || strings.Contains(newSql, "index") {
 		if !(strings.Contains(newSql, "_INDEX") || strings.Contains(newSql, "_index")) {
-			newSql = gstr.ReplaceI(newSql, "INDEX", l+"INDEX"+r)
+			newSql = gstr.X替换并忽略大小写(newSql, "INDEX", l+"INDEX"+r)
 		}
 	}
 
@@ -61,7 +61,7 @@ func (d *Driver) DoFilter(
 	// })
 	// md5:e2b3231602b36621
 
-	return d.Core.DoFilter(
+	return d.Core.X底层DoFilter(
 		ctx,
 		link,
 		newSql,

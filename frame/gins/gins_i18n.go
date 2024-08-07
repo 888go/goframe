@@ -8,7 +8,7 @@
 package gins
 
 import (
-	"github.com/gogf/gf/v2/i18n/gi18n"
+	"github.com/888go/goframe/i18n/gi18n"
 )
 
 // I18n 返回一个 gi18n.Manager 的实例。

@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gbinary_test
+package 字节集类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/test/gtest"
+	gbinary "github.com/888go/goframe/encoding/gbinary"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_LeEncodeAndLeDecode(t *testing.T) {

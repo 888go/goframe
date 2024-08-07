@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -15,11 +15,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -92,22 +92,22 @@ func init() {
 		Weight:  1,
 	}
 
-	gdb.AddConfigNode(gdb.DefaultGroupName, node)
-	if r, err := gdb.New(node); err != nil {
+	gdb.X添加配置组节点(gdb.DefaultGroupName, node)
+	if r, err := gdb.X创建DB对象(node); err != nil {
 		gtest.Fatal(err)
 	} else {
 		db = r
 	}
 
-	gdb.AddConfigNode("dblink", nodeLink)
-	if r, err := gdb.New(nodeLink); err != nil {
+	gdb.X添加配置组节点("dblink", nodeLink)
+	if r, err := gdb.X创建DB对象(nodeLink); err != nil {
 		gtest.Fatal(err)
 	} else {
 		dblink = r
 	}
 
-	gdb.AddConfigNode("dbErr", nodeErr)
-	if r, err := gdb.New(nodeErr); err != nil {
+	gdb.X添加配置组节点("dbErr", nodeErr)
+	if r, err := gdb.X创建DB对象(nodeErr); err != nil {
 		gtest.Fatal(err)
 	} else {
 		dbErr = r
@@ -117,7 +117,7 @@ func init() {
 }
 
 func dropTable(table string) {
-	count, err := db.GetCount(
+	count, err := db.X原生SQL查询字段计数(
 		ctx,
 		"SELECT COUNT(*) FROM all_tables WHERE owner = ? And table_name= ?", TestDBName, strings.ToUpper(table),
 	)
@@ -128,7 +128,7 @@ func dropTable(table string) {
 	if count == 0 {
 		return
 	}
-	if _, err := db.Exec(ctx, fmt.Sprintf("DROP TABLE %s", table)); err != nil {
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf("DROP TABLE %s", table)); err != nil {
 		gtest.Fatal(err)
 	}
 }
@@ -137,12 +137,12 @@ func createTable(table ...string) (name string) {
 	if len(table) > 0 {
 		name = table[0]
 	} else {
-		name = fmt.Sprintf("random_%d", gtime.Timestamp())
+		name = fmt.Sprintf("random_%d", gtime.X取时间戳秒())
 	}
 
 	dropTable(name)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	CREATE TABLE "%s"
 (
 "ID" BIGINT NOT NULL,
@@ -165,17 +165,17 @@ NOT CLUSTER PRIMARY KEY("ID")) STORAGE(ON "MAIN", CLUSTERBTR) ;
 
 func createInitTable(table ...string) (name string) {
 	name = createTable(table...)
-	array := garray.New(true)
+	array := garray.X创建(true)
 	for i := 1; i <= TableSize; i++ {
-		array.Append(g.Map{
+		array.Append别名(g.Map{
 			"id":           i,
 			"account_name": fmt.Sprintf(`name_%d`, i),
 			"pwd_reset":    0,
 			"attr_index":   i,
-			"create_time":  gtime.Now().String(),
+			"create_time":  gtime.X创建并按当前时间().String(),
 		})
 	}
-	result, err := db.Schema(TestDBName).Insert(context.Background(), name, array.Slice())
+	result, err := db.X切换数据库(TestDBName).X插入(context.Background(), name, array.X取切片())
 	gtest.Assert(err, nil)
 
 	n, e := result.RowsAffected()
@@ -188,12 +188,12 @@ func createTableFalse(table ...string) (name string, err error) {
 	if len(table) > 0 {
 		name = table[0]
 	} else {
-		name = fmt.Sprintf("random_%d", gtime.Timestamp())
+		name = fmt.Sprintf("random_%d", gtime.X取时间戳秒())
 	}
 
 	dropTable(name)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 	CREATE TABLE "%s"
 (
 "ID" BIGINT NOT NULL,

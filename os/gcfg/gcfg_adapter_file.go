@@ -5,23 +5,23 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcfg
+package 配置类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gfsnotify"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/util/gmode"
-	"github.com/gogf/gf/v2/util/gutil"
+	garray "github.com/888go/goframe/container/garray"
+	gmap "github.com/888go/goframe/container/gmap"
+	gvar "github.com/888go/goframe/container/gvar"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/command"
+	"github.com/888go/goframe/internal/intlog"
+	gfile "github.com/888go/goframe/os/gfile"
+	gfsnotify "github.com/888go/goframe/os/gfsnotify"
+	gres "github.com/888go/goframe/os/gres"
+	gmode "github.com/888go/goframe/util/gmode"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // AdapterFile 实现了使用文件的 Adapter 接口。 md5:c0f0e0b1d4b217fd
@@ -39,8 +39,8 @@ const (
 
 var (
 	supportedFileTypes     = []string{"toml", "yaml", "yml", "json", "ini", "xml", "properties"} // 所支持的文件类型后缀。 md5:3609c8928b780170
-	localInstances         = gmap.NewStrAnyMap(true)                                             // Instances映射，其中包含配置实例。 md5:df7e552f8e970f97
-	customConfigContentMap = gmap.NewStrStrMap(true)                                             // 定制化配置内容。 md5:e408d212ab61e310
+	localInstances         = gmap.X创建StrAny(true)                                             // Instances映射，其中包含配置实例。 md5:df7e552f8e970f97
+	customConfigContentMap = gmap.X创建StrStr(true)                                             // 定制化配置内容。 md5:e408d212ab61e310
 
 		// 用于在资源管理器中尝试搜索的前缀数组。 md5:f69485b110ee7be3
 	resourceTryFolders = []string{
@@ -58,7 +58,7 @@ var (
 func NewAdapterFile(file ...string) (*AdapterFile, error) {
 	var (
 		err  error
-		name = DefaultConfigFileName
+		name = X默认配置文件名称
 	)
 	if len(file) > 0 {
 		name = file[0]
@@ -70,17 +70,17 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 	}
 	config := &AdapterFile{
 		defaultName: name,
-		searchPaths: garray.NewStrArray(true),
-		jsonMap:     gmap.NewStrAnyMap(true),
+		searchPaths: garray.X创建文本(true),
+		jsonMap:     gmap.X创建StrAny(true),
 	}
 		// 从环境变量或命令行自定义的目录路径。 md5:8cfcbca968e23c5b
 	if customPath := command.GetOptWithEnv(commandEnvKeyForPath); customPath != "" {
-		if gfile.Exists(customPath) {
+		if gfile.X是否存在(customPath) {
 			if err = config.SetPath(customPath); err != nil {
 				return nil, err
 			}
 		} else {
-			return nil, gerror.Newf(`configuration directory path "%s" does not exist`, customPath)
+			return nil, gerror.X创建并格式化(`configuration directory path "%s" does not exist`, customPath)
 		}
 	} else {
 		// =================================================================================
@@ -90,19 +90,19 @@ func NewAdapterFile(file ...string) (*AdapterFile, error) {
 		// md5:08a226598ce0311e
 
 				// Dir 是工作目录的路径。 md5:0fba211853ea97a0
-		if err = config.AddPath(gfile.Pwd()); err != nil {
+		if err = config.AddPath(gfile.X取当前工作目录()); err != nil {
 			intlog.Errorf(context.TODO(), `%+v`, err)
 		}
 
 				// 主包的目录路径。 md5:a4d2802779172abe
-		if mainPath := gfile.MainPkgPath(); mainPath != "" && gfile.Exists(mainPath) {
+		if mainPath := gfile.X取main路径(); mainPath != "" && gfile.X是否存在(mainPath) {
 			if err = config.AddPath(mainPath); err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
 		}
 
 		// Dir path of binary.
-		if selfPath := gfile.SelfDir(); selfPath != "" && gfile.Exists(selfPath) {
+		if selfPath := gfile.X取当前进程目录(); selfPath != "" && gfile.X是否存在(selfPath) {
 			if err = config.AddPath(selfPath); err != nil {
 				intlog.Errorf(context.TODO(), `%+v`, err)
 			}
@@ -143,23 +143,23 @@ func (a *AdapterFile) Get(ctx context.Context, pattern string) (value interface{
 		return nil, err
 	}
 	if j != nil {
-		return j.Get(pattern).Val(), nil
+		return j.X取值(pattern).X取值(), nil
 	}
 	return nil, nil
 }
 
-// Set 使用指定的 `pattern` 设置值。
+// X设置值 使用指定的 `pattern` 设置值。
 // 它支持通过字符分隔符（默认为`.`）进行层次数据访问。
 // 这通常用于在运行时更新特定配置值。
-// 请注意，不建议在运行时使用 `Set` 配置，因为如果底层配置文件更改，配置会自动刷新。
+// 请注意，不建议在运行时使用 `X设置值` 配置，因为如果底层配置文件更改，配置会自动刷新。
 // md5:65992c2815af747e
-func (a *AdapterFile) Set(pattern string, value interface{}) error {
+func (a *AdapterFile) X设置值(pattern string, value interface{}) error {
 	j, err := a.getJson()
 	if err != nil {
 		return err
 	}
 	if j != nil {
-		return j.Set(pattern, value)
+		return j.X设置值(pattern, value)
 	}
 	return nil
 }
@@ -171,7 +171,7 @@ func (a *AdapterFile) Data(ctx context.Context) (data map[string]interface{}, er
 		return nil, err
 	}
 	if j != nil {
-		return j.Var().Map(), nil
+		return j.X取泛型类().X取Map(), nil
 	}
 	return nil, nil
 }
@@ -182,25 +182,25 @@ func (a *AdapterFile) MustGet(ctx context.Context, pattern string) *gvar.Var {
 	if err != nil {
 		panic(err)
 	}
-	return gvar.New(v)
+	return gvar.X创建(v)
 }
 
 // Clear 清除所有解析的配置文件内容缓存，这将强制重新从文件加载配置内容。
 // md5:5868c636ce62cb14
 func (a *AdapterFile) Clear() {
-	a.jsonMap.Clear()
+	a.jsonMap.X清空()
 }
 
 // Dump 打印当前的Json对象，使其更便于人工阅读。 md5:c8c6bbdb40fa6383
 func (a *AdapterFile) Dump() {
 	if j, _ := a.getJson(); j != nil {
-		j.Dump()
+		j.X调试输出()
 	}
 }
 
 // 可用检查并返回给定`file`的配置是否可用。 md5:d915d3cb575cbd5b
 func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
-	checkFileName := gutil.GetOrDefaultStr(a.defaultName, fileName...)
+	checkFileName := gutil.X取文本值或取默认值(a.defaultName, fileName...)
 		// 存在自定义配置内容。 md5:50d226a12b07427d
 	if a.GetContent(checkFileName) != "" {
 		return true
@@ -216,10 +216,10 @@ func (a *AdapterFile) Available(ctx context.Context, fileName ...string) bool {
 // md5:4a1366fa2d1d98ab
 func (a *AdapterFile) autoCheckAndAddMainPkgPathToSearchPaths() {
 	if gmode.IsDevelop() {
-		mainPkgPath := gfile.MainPkgPath()
+		mainPkgPath := gfile.X取main路径()
 		if mainPkgPath != "" {
-			if !a.searchPaths.Contains(mainPkgPath) {
-				a.searchPaths.Append(mainPkgPath)
+			if !a.searchPaths.X是否存在(mainPkgPath) {
+				a.searchPaths.Append别名(mainPkgPath)
 			}
 		}
 	}
@@ -238,7 +238,7 @@ func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err e
 		usedFileName = a.defaultName
 	}
 		// 它使用json映射来缓存指定的配置文件内容。 md5:70b9eac1f3ac38b4
-	result := a.jsonMap.GetOrSetFuncLock(usedFileName, func() interface{} {
+	result := a.jsonMap.X取值或设置值_函数带锁(usedFileName, func() interface{} {
 		var (
 			content  string
 			filePath string
@@ -257,31 +257,31 @@ func (a *AdapterFile) getJson(fileName ...string) (configJson *gjson.Json, err e
 			if file := gres.Get(filePath); file != nil {
 				content = string(file.Content())
 			} else {
-				content = gfile.GetContents(filePath)
+				content = gfile.X读文本(filePath)
 			}
 		}
 				// 注意，底层的配置json对象操作是并发安全的。 md5:2cd371ca691286f9
-		dataType := gjson.ContentType(gfile.ExtName(filePath))
-		if gjson.IsValidDataType(dataType) && !isFromConfigContent {
-			configJson, err = gjson.LoadContentType(dataType, content, true)
+		dataType := gjson.ContentType(gfile.X路径取扩展名且不含点号(filePath))
+		if gjson.X检查类型(dataType) && !isFromConfigContent {
+			configJson, err = gjson.X加载并按格式(dataType, content, true)
 		} else {
-			configJson, err = gjson.LoadContent(content, true)
+			configJson, err = gjson.X加载并自动识别格式(content, true)
 		}
 		if err != nil {
 			if filePath != "" {
-				err = gerror.Wrapf(err, `load config file "%s" failed`, filePath)
+				err = gerror.X多层错误并格式化(err, `load config file "%s" failed`, filePath)
 			} else {
-				err = gerror.Wrap(err, `load configuration failed`)
+				err = gerror.X多层错误(err, `load configuration failed`)
 			}
 			return nil
 		}
-		configJson.SetViolenceCheck(a.violenceCheck)
+		configJson.X设置分层冲突检查(a.violenceCheck)
 		// 为这个配置文件添加监控，
 		// 该文件的任何更改都会刷新Config对象中的缓存。
 		// md5:8520fe419f2d8cc1
 		if filePath != "" && !gres.Contains(filePath) {
 			_, err = gfsnotify.Add(filePath, func(event *gfsnotify.Event) {
-				a.jsonMap.Remove(usedFileName)
+				a.jsonMap.X删除(usedFileName)
 			})
 			if err != nil {
 				return nil

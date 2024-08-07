@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtcp
+package tcp类
 
 import (
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gpool"
+	gmap "github.com/888go/goframe/container/gmap"
+	gpool "github.com/888go/goframe/container/gpool"
 )
 
 // PoolConn 是一个具有连接池特性的TCP连接。
@@ -33,14 +33,14 @@ const (
 
 var (
 		// addressPoolMap 是一个将地址映射到其池对象的映射。 md5:8e4ae3e1f1fdc0a6
-	addressPoolMap = gmap.NewStrAnyMap(true)
+	addressPoolMap = gmap.X创建StrAny(true)
 )
 
 // NewPoolConn 创建并返回一个具有连接池特性的连接。 md5:ee2281aa2be8c181
 func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
-	v := addressPoolMap.GetOrSetFuncLock(addr, func() interface{} {
+	v := addressPoolMap.X取值或设置值_函数带锁(addr, func() interface{} {
 		var pool *gpool.Pool
-		pool = gpool.New(defaultPoolExpire, func() (interface{}, error) {
+		pool = gpool.X创建(defaultPoolExpire, func() (interface{}, error) {
 			if conn, err := NewConn(addr, timeout...); err == nil {
 				return &PoolConn{conn, pool, connStatusActive}, nil
 			} else {
@@ -49,7 +49,7 @@ func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
 		})
 		return pool
 	})
-	value, err := v.(*gpool.Pool).Get()
+	value, err := v.(*gpool.Pool).X出栈()
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func NewPoolConn(addr string, timeout ...time.Duration) (*PoolConn, error) {
 func (c *PoolConn) Close() error {
 	if c.pool != nil && c.status == connStatusActive {
 		c.status = connStatusUnknown
-		return c.pool.Put(c)
+		return c.pool.X入栈(c)
 	}
 	return c.Conn.Close()
 }
@@ -73,7 +73,7 @@ func (c *PoolConn) Close() error {
 func (c *PoolConn) Send(data []byte, retry ...Retry) error {
 	err := c.Conn.Send(data, retry...)
 	if err != nil && c.status == connStatusUnknown {
-		if v, e := c.pool.Get(); e == nil {
+		if v, e := c.pool.X出栈(); e == nil {
 			c.Conn = v.(*PoolConn).Conn
 			err = c.Send(data, retry...)
 		} else {

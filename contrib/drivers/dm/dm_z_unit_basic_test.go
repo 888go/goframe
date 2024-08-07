@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -16,15 +16,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_DB_Ping(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		err1 := dblink.PingMaster()
-		err2 := dblink.PingSlave()
+		err1 := dblink.X向主节点发送心跳()
+		err2 := dblink.X向从节点发送心跳()
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 	})
@@ -36,7 +36,7 @@ func TestTables(t *testing.T) {
 		createInitTable(v)
 	}
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Tables(ctx)
+		result, err := db.X取表名称切片(ctx)
 		gtest.Assert(err, nil)
 
 		for i := 0; i < len(tables); i++ {
@@ -50,7 +50,7 @@ func TestTables(t *testing.T) {
 			gtest.AssertEQ(find, true)
 		}
 
-		result, err = dblink.Tables(ctx)
+		result, err = dblink.X取表名称切片(ctx)
 		gtest.Assert(err, nil)
 		for i := 0; i < len(tables); i++ {
 			find := false
@@ -95,25 +95,25 @@ func TestTableFields(t *testing.T) {
 			"CREATED_TIME": {"TIMESTAMP", false},
 		}
 
-		_, err := dbErr.TableFields(ctx, "Fields")
+		_, err := dbErr.X取表字段信息Map(ctx, "Fields")
 		gtest.AssertNE(err, nil)
 
-		res, err := db.TableFields(ctx, tables)
+		res, err := db.X取表字段信息Map(ctx, tables)
 		gtest.Assert(err, nil)
 
 		for k, v := range expect {
 			_, ok := res[k]
 			gtest.AssertEQ(ok, true)
 
-			gtest.AssertEQ(res[k].Name, k)
-			gtest.Assert(res[k].Type, v[0])
+			gtest.AssertEQ(res[k].X名称, k)
+			gtest.Assert(res[k].X类型, v[0])
 			gtest.Assert(res[k].Null, v[1])
 		}
 
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.TableFields(ctx, "t_user t_user2")
+		_, err := db.X取表字段信息Map(ctx, "t_user t_user2")
 		gtest.AssertNE(err, nil)
 	})
 }
@@ -123,21 +123,21 @@ func Test_DB_Query(t *testing.T) {
 	createInitTable(tableName)
 	gtest.C(t, func(t *gtest.T) {
 		// createTable(tableName)
-		_, err := db.Query(ctx, fmt.Sprintf("SELECT * from %s", tableName))
+		_, err := db.X原生SQL查询(ctx, fmt.Sprintf("SELECT * from %s", tableName))
 		t.AssertNil(err)
 
 		resTwo := make([]User, 0)
-		err = db.Model(tableName).Scan(&resTwo)
+		err = db.X创建Model对象(tableName).X查询到结构体指针(&resTwo)
 		t.AssertNil(err)
 
 		resThree := make([]User, 0)
-		model := db.Model(tableName)
-		model.Where("id", g.Slice{1, 2, 3, 4})
+		model := db.X创建Model对象(tableName)
+		model.X条件("id", g.Slice别名{1, 2, 3, 4})
 				// 使用model的Where方法，传入一个SQL条件："account_name"字段包含"%list%"字符串。 md5:008bda1d9a70b4f2
-		model.Where("deleted", 0).Order("pwd_reset desc")
-		_, err = model.Count()
+		model.X条件("deleted", 0).X排序("pwd_reset desc")
+		_, err = model.X查询行数()
 		t.AssertNil(err)
-		err = model.Page(2, 2).Scan(&resThree)
+		err = model.X设置分页(2, 2).X查询到结构体指针(&resThree)
 		t.AssertNil(err)
 	})
 }
@@ -157,37 +157,37 @@ func TestModelSave(t *testing.T) {
 			result sql.Result
 			err    error
 		)
-		db.SetDebug(true)
+		db.X设置调试模式(true)
 
-		result, err = db.Model(table).Data(g.Map{
+		result, err = db.X创建Model对象(table).X设置数据(g.Map{
 			"id":          1,
 			"accountName": "ac1",
 			"attrIndex":   100,
-		}).OnConflict("id").Save()
+		}).OnConflict("id").X插入并更新已存在()
 
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 
-		err = db.Model(table).Scan(&user)
+		err = db.X创建Model对象(table).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.Id, 1)
 		t.Assert(user.AccountName, "ac1")
 		t.Assert(user.AttrIndex, 100)
 
-		_, err = db.Model(table).Data(g.Map{
+		_, err = db.X创建Model对象(table).X设置数据(g.Map{
 			"id":          1,
 			"accountName": "ac2",
 			"attrIndex":   200,
-		}).OnConflict("id").Save()
+		}).OnConflict("id").X插入并更新已存在()
 		t.AssertNil(err)
 
-		err = db.Model(table).Scan(&user)
+		err = db.X创建Model对象(table).X查询到结构体指针(&user)
 		t.AssertNil(err)
 		t.Assert(user.AccountName, "ac2")
 		t.Assert(user.AttrIndex, 200)
 
-		count, err = db.Model(table).Count()
+		count, err = db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, 1)
 	})
@@ -208,7 +208,7 @@ func TestModelInsert(t *testing.T) {
 			UpdatedTime: time.Now(),
 		}
 				// 使用TestDBName数据库的模式，根据table模型和data数据执行插入操作，返回一个表示是否成功的空值和错误信息。 md5:665c442bb4e1be49
-		_, err := db.Model(table).Insert(&data)
+		_, err := db.X创建Model对象(table).X插入(&data)
 		gtest.Assert(err, nil)
 	})
 
@@ -223,7 +223,7 @@ func TestModelInsert(t *testing.T) {
 			UpdatedTime: time.Now(),
 		}
 				// 使用TestDBName数据库的模式，根据table模型和data数据执行插入操作，返回一个表示是否成功的空值和错误信息。 md5:665c442bb4e1be49
-		_, err := db.Model(table).Data(&data).Insert()
+		_, err := db.X创建Model对象(table).X设置数据(&data).X插入()
 		gtest.Assert(err, nil)
 	})
 }
@@ -238,10 +238,10 @@ func TestDBInsert(t *testing.T) {
 			"ACCOUNT_NAME": fmt.Sprintf(`A%dthress`, i),
 			"PWD_RESET":    3,
 			"ATTR_INDEX":   98,
-			"CREATED_TIME": gtime.Now(),
-			"UPDATED_TIME": gtime.Now(),
+			"CREATED_TIME": gtime.X创建并按当前时间(),
+			"UPDATED_TIME": gtime.X创建并按当前时间(),
 		}
-		_, err := db.Insert(ctx, table, &data)
+		_, err := db.X插入(ctx, table, &data)
 		gtest.Assert(err, nil)
 	})
 }
@@ -249,10 +249,10 @@ func TestDBInsert(t *testing.T) {
 func Test_DB_Exec(t *testing.T) {
 	createInitTable("A_tables")
 	gtest.C(t, func(t *gtest.T) {
-		_, err := db.Exec(ctx, "SELECT ? from dual", 1)
+		_, err := db.X原生SQL执行(ctx, "SELECT ? from dual", 1)
 		t.AssertNil(err)
 
-		_, err = db.Exec(ctx, "ERROR")
+		_, err = db.X原生SQL执行(ctx, "ERROR")
 		t.AssertNE(err, nil)
 	})
 }
@@ -263,7 +263,7 @@ func Test_DB_Insert(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		timeNow := time.Now()
 		// normal map
-		_, err := db.Insert(ctx, table, g.Map{
+		_, err := db.X插入(ctx, table, g.Map{
 			"ID":           1000,
 			"ACCOUNT_NAME": "map1",
 			"CREATED_TIME": timeNow,
@@ -271,7 +271,7 @@ func Test_DB_Insert(t *testing.T) {
 		})
 		t.AssertNil(err)
 
-		result, err := db.Insert(ctx, table, g.Map{
+		result, err := db.X插入(ctx, table, g.Map{
 			"ID":           "2000",
 			"ACCOUNT_NAME": "map2",
 			"CREATED_TIME": timeNow,
@@ -281,7 +281,7 @@ func Test_DB_Insert(t *testing.T) {
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 
-		result, err = db.Insert(ctx, table, g.Map{
+		result, err = db.X插入(ctx, table, g.Map{
 			"ID":           3000,
 			"ACCOUNT_NAME": "map3",
 			"CREATED_TIME": timeNow,
@@ -292,7 +292,7 @@ func Test_DB_Insert(t *testing.T) {
 		t.Assert(n, 1)
 
 		// struct
-		result, err = db.Insert(ctx, table, User{
+		result, err = db.X插入(ctx, table, User{
 			ID:          4000,
 			AccountName: "struct_4",
 			CreatedTime: timeNow,
@@ -302,9 +302,9 @@ func Test_DB_Insert(t *testing.T) {
 		n, _ = result.RowsAffected()
 		t.Assert(n, 1)
 
-		ones, err := db.Model(table).Where("ID", 4000).All()
+		ones, err := db.X创建Model对象(table).X条件("ID", 4000).X查询()
 		t.AssertNil(err)
-		t.Assert(ones[0]["ID"].Int(), 4000)
+		t.Assert(ones[0]["ID"].X取整数(), 4000)
 		t.Assert(ones[0]["ACCOUNT_NAME"].String(), "struct_4")
 		// 待办事项：问题2
 		// 这是DM（可能是某个项目或模块的缩写）的bug。
@@ -312,7 +312,7 @@ func Test_DB_Insert(t *testing.T) {
 		// md5:6c078020ce38de99
 
 		// *struct
-		result, err = db.Insert(ctx, table, &User{
+		result, err = db.X插入(ctx, table, &User{
 			ID:          5000,
 			AccountName: "struct_5",
 			CreatedTime: timeNow,
@@ -322,13 +322,13 @@ func Test_DB_Insert(t *testing.T) {
 		n, _ = result.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).Where("ID", 5000).One()
+		one, err := db.X创建Model对象(table).X条件("ID", 5000).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one["ID"].Int(), 5000)
+		t.Assert(one["ID"].X取整数(), 5000)
 		t.Assert(one["ACCOUNT_NAME"].String(), "struct_5")
 
 		// batch with Insert
-		r, err := db.Insert(ctx, table, g.Slice{
+		r, err := db.X插入(ctx, table, g.Slice别名{
 			g.Map{
 				"ID":           6000,
 				"ACCOUNT_NAME": "t6000",
@@ -346,9 +346,9 @@ func Test_DB_Insert(t *testing.T) {
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		one, err = db.Model(table).Where("ID", 6000).One()
+		one, err = db.X创建Model对象(table).X条件("ID", 6000).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one["ID"].Int(), 6000)
+		t.Assert(one["ID"].X取整数(), 6000)
 		t.Assert(one["ACCOUNT_NAME"].String(), "t6000")
 	})
 }
@@ -357,18 +357,18 @@ func Test_DB_BatchInsert(t *testing.T) {
 	table := "A_tables"
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Insert(ctx, table, g.List{
+		r, err := db.X插入(ctx, table, g.Map切片{
 			{
 				"ID":           400,
 				"ACCOUNT_NAME": "list_400",
-				"CREATE_TIME":  gtime.Now(),
-				"UPDATED_TIME": gtime.Now(),
+				"CREATE_TIME":  gtime.X创建并按当前时间(),
+				"UPDATED_TIME": gtime.X创建并按当前时间(),
 			},
 			{
 				"ID":           401,
 				"ACCOUNT_NAME": "list_401",
-				"CREATE_TIME":  gtime.Now(),
-				"UPDATED_TIME": gtime.Now(),
+				"CREATE_TIME":  gtime.X创建并按当前时间(),
+				"UPDATED_TIME": gtime.X创建并按当前时间(),
 			},
 		}, 1)
 		t.AssertNil(err)
@@ -378,18 +378,18 @@ func Test_DB_BatchInsert(t *testing.T) {
 
 	gtest.C(t, func(t *gtest.T) {
 		// []interface{}
-		r, err := db.Insert(ctx, table, g.Slice{
+		r, err := db.X插入(ctx, table, g.Slice别名{
 			g.Map{
 				"ID":           500,
 				"ACCOUNT_NAME": "500_batch_500",
-				"CREATE_TIME":  gtime.Now(),
-				"UPDATED_TIME": gtime.Now(),
+				"CREATE_TIME":  gtime.X创建并按当前时间(),
+				"UPDATED_TIME": gtime.X创建并按当前时间(),
 			},
 			g.Map{
 				"ID":           501,
 				"ACCOUNT_NAME": "501_batch_501",
-				"CREATE_TIME":  gtime.Now(),
-				"UPDATED_TIME": gtime.Now(),
+				"CREATE_TIME":  gtime.X创建并按当前时间(),
+				"UPDATED_TIME": gtime.X创建并按当前时间(),
 			},
 		}, 1)
 		t.AssertNil(err)
@@ -399,11 +399,11 @@ func Test_DB_BatchInsert(t *testing.T) {
 
 	// batch insert map
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Insert(ctx, table, g.Map{
+		result, err := db.X插入(ctx, table, g.Map{
 			"ID":           600,
 			"ACCOUNT_NAME": "600_batch_600",
-			"CREATE_TIME":  gtime.Now(),
-			"UPDATED_TIME": gtime.Now(),
+			"CREATE_TIME":  gtime.X创建并按当前时间(),
+			"UPDATED_TIME": gtime.X创建并按当前时间(),
 		})
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
@@ -423,7 +423,7 @@ func Test_DB_BatchInsert_Struct(t *testing.T) {
 			CreatedTime: time.Now(),
 			UpdatedTime: time.Now(),
 		}
-		result, err := db.Model(table).Insert(user)
+		result, err := db.X创建Model对象(table).X插入(user)
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
@@ -435,14 +435,14 @@ func Test_DB_Update(t *testing.T) {
 	createInitTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Update(ctx, table, "pwd_reset=7", "id=7")
+		result, err := db.X更新(ctx, table, "pwd_reset=7", "id=7")
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).Where("ID", 7).One()
+		one, err := db.X创建Model对象(table).X条件("ID", 7).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one["ID"].Int(), 7)
+		t.Assert(one["ID"].X取整数(), 7)
 		t.Assert(one["ACCOUNT_NAME"].String(), "name_7")
 		t.Assert(one["PWD_RESET"].String(), "7")
 	})
@@ -453,48 +453,48 @@ func Test_DB_GetAll(t *testing.T) {
 	createInitTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 1)
 		t.AssertNil(err)
 		t.Assert(len(result), 1)
-		t.Assert(result[0]["ID"].Int(), 1)
+		t.Assert(result[0]["ID"].X取整数(), 1)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), g.Slice{1})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), g.Slice别名{1})
 		t.AssertNil(err)
 		t.Assert(len(result), 1)
-		t.Assert(result[0]["ID"].Int(), 1)
+		t.Assert(result[0]["ID"].X取整数(), 1)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?)", table), g.Slice{1, 2, 3})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?)", table), g.Slice别名{1, 2, 3})
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice{1, 2, 3})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice别名{1, 2, 3})
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice{1, 2, 3}...)
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id in(?,?,?)", table), g.Slice别名{1, 2, 3}...)
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id>=? AND id <=?", table), g.Slice{1, 3})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf("SELECT * FROM %s WHERE id>=? AND id <=?", table), g.Slice别名{1, 3})
 		t.AssertNil(err)
 		t.Assert(len(result), 3)
-		t.Assert(result[0]["ID"].Int(), 1)
-		t.Assert(result[1]["ID"].Int(), 2)
-		t.Assert(result[2]["ID"].Int(), 3)
+		t.Assert(result[0]["ID"].X取整数(), 1)
+		t.Assert(result[1]["ID"].X取整数(), 2)
+		t.Assert(result[2]["ID"].X取整数(), 3)
 	})
 }
 
@@ -502,7 +502,7 @@ func Test_DB_GetOne(t *testing.T) {
 	table := "A_tables"
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		record, err := db.GetOne(ctx, fmt.Sprintf("SELECT * FROM %s WHERE account_name=?", table), "name_4")
+		record, err := db.X原生SQL查询单条记录(ctx, fmt.Sprintf("SELECT * FROM %s WHERE account_name=?", table), "name_4")
 		t.AssertNil(err)
 		t.Assert(record["ACCOUNT_NAME"].String(), "name_4")
 	})
@@ -512,9 +512,9 @@ func Test_DB_GetValue(t *testing.T) {
 	table := "A_tables"
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		value, err := db.GetValue(ctx, fmt.Sprintf("SELECT id FROM %s WHERE account_name=?", table), "name_2")
+		value, err := db.X原生SQL查询字段值(ctx, fmt.Sprintf("SELECT id FROM %s WHERE account_name=?", table), "name_2")
 		t.AssertNil(err)
-		t.Assert(value.Int(), 2)
+		t.Assert(value.X取整数(), 2)
 	})
 }
 
@@ -522,7 +522,7 @@ func Test_DB_GetCount(t *testing.T) {
 	table := "A_tables"
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		count, err := db.GetCount(ctx, fmt.Sprintf("SELECT * FROM %s", table))
+		count, err := db.X原生SQL查询字段计数(ctx, fmt.Sprintf("SELECT * FROM %s", table))
 		t.AssertNil(err)
 		t.Assert(count, 10)
 	})
@@ -533,13 +533,13 @@ func Test_DB_GetStruct(t *testing.T) {
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
 		user := new(User)
-		err := db.GetScan(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.AccountName, "name_3")
 	})
 	gtest.C(t, func(t *gtest.T) {
 		user := new(User)
-		err := db.GetScan(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 2)
+		err := db.X原生SQL查询到结构体指针(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 2)
 		t.AssertNil(err)
 		t.Assert(user.AccountName, "name_2")
 	})
@@ -550,7 +550,7 @@ func Test_DB_GetStructs(t *testing.T) {
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		err := db.GetScan(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 4)
+		err := db.X原生SQL查询到结构体指针(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id>?", table), 4)
 		t.AssertNil(err)
 		t.Assert(users[0].ID, 5)
 		t.Assert(users[1].ID, 6)
@@ -566,19 +566,19 @@ func Test_DB_GetScan(t *testing.T) {
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
 		user := new(User)
-		err := db.GetScan(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.AccountName, "name_3")
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var user *User
-		err := db.GetScan(ctx, &user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
+		err := db.X原生SQL查询到结构体指针(ctx, &user, fmt.Sprintf("SELECT * FROM %s WHERE id=?", table), 3)
 		t.AssertNil(err)
 		t.Assert(user.AccountName, "name_3")
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		err := db.GetScan(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id<?", table), 4)
+		err := db.X原生SQL查询到结构体指针(ctx, &users, fmt.Sprintf("SELECT * FROM %s WHERE id<?", table), 4)
 		t.AssertNil(err)
 		t.Assert(users[0].ID, 1)
 		t.Assert(users[1].ID, 2)
@@ -593,14 +593,14 @@ func Test_DB_Delete(t *testing.T) {
 	table := "A_tables"
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Delete(ctx, table, "id=32")
+		result, err := db.X删除(ctx, table, "id=32")
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 0)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.Model(table).Where("id", 33).Delete()
+		result, err := db.X创建Model对象(table).X条件("id", 33).X删除()
 		t.AssertNil(err)
 		n, _ := result.RowsAffected()
 		t.Assert(n, 0)
@@ -611,7 +611,7 @@ func Test_Empty_Slice_Argument(t *testing.T) {
 	table := "A_tables"
 	createInitTable(table)
 	gtest.C(t, func(t *gtest.T) {
-		result, err := db.GetAll(ctx, fmt.Sprintf(`select * from %s where id in(?)`, table), g.Slice{})
+		result, err := db.GetAll别名(ctx, fmt.Sprintf(`select * from %s where id in(?)`, table), g.Slice别名{})
 		t.AssertNil(err)
 		t.Assert(len(result), 0)
 	})

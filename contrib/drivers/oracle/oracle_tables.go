@@ -10,25 +10,25 @@ package oracle
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
 const (
 	tablesSqlTmp = `SELECT TABLE_NAME FROM USER_TABLES ORDER BY TABLE_NAME`
 )
 
-// Tables 获取并返回当前模式下的表。
+// X取表名称切片 获取并返回当前模式下的表。
 // 主要用于CLI工具链，用于自动生成模型。
 // 注意，在Oracle数据库中，它会忽略`schema`参数，因为该参数是不必要的。
 // md5:75a87bb44fddc91a
-func (d *Driver) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
+func (d *Driver) X取表名称切片(ctx context.Context, schema ...string) (tables []string, err error) {
 	var result gdb.Result
 		// 不要将`usedSchema`作为`SlaveLink`函数的参数。 md5:283541defa4ac558
-	link, err := d.SlaveLink(schema...)
+	link, err := d.X底层SlaveLink(schema...)
 	if err != nil {
 		return nil, err
 	}
-	result, err = d.DoSelect(ctx, link, tablesSqlTmp)
+	result, err = d.X底层查询(ctx, link, tablesSqlTmp)
 	if err != nil {
 		return
 	}

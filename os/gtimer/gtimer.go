@@ -15,7 +15,7 @@
 //
 // 另外，特别注意定时器常见的延迟问题：https://github.com/golang/go/issues/14410
 // md5:c0dc9837a603eb26
-package gtimer
+package 定时类
 
 import (
 	"context"
@@ -23,10 +23,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
+	gtype "github.com/888go/goframe/container/gtype"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/command"
 )
 
 // Timer 是计时器管理器，它使用ticks来计算时间间隔。 md5:eab16bf4737f12a8
@@ -60,14 +60,14 @@ const (
 
 var (
 	defaultInterval = getDefaultInterval()
-	defaultTimer    = New()
+	defaultTimer    = X创建()
 )
 
 func getDefaultInterval() time.Duration {
 	interval := command.GetOptWithEnv(commandEnvKeyForInterval, defaultTimerInterval)
 	n, err := strconv.Atoi(interval)
 	if err != nil {
-		panic(gerror.WrapCodef(
+		panic(gerror.X多层错误码并格式化(
 			gcode.CodeInvalidConfiguration, err, `error converting string "%s" to int number`,
 			interval,
 		))
@@ -75,33 +75,33 @@ func getDefaultInterval() time.Duration {
 	return time.Duration(n) * time.Millisecond
 }
 
-// DefaultOptions 创建并返回一个用于创建计时器的默认选项对象。 md5:67460fb8c6e56969
-func DefaultOptions() TimerOptions {
+// X取单例对象 创建并返回一个用于创建计时器的默认选项对象。 md5:67460fb8c6e56969
+func X取单例对象() TimerOptions {
 	return TimerOptions{
 		Interval: defaultInterval,
 	}
 }
 
-// SetTimeout 在`delay`时间间隔后执行一次该任务。
+// SetTimeout别名 在`delay`时间间隔后执行一次该任务。
 // 它的作用类似于JavaScript中的同名函数。
 // md5:e0477460fecac4d8
-func SetTimeout(ctx context.Context, delay time.Duration, job JobFunc) {
-	AddOnce(ctx, delay, job)
+func SetTimeout别名(ctx context.Context, delay time.Duration, job JobFunc) {
+	X加入单次任务(ctx, delay, job)
 }
 
-// SetInterval 每隔 `delay` 的时间运行一次任务。
-// 类似于 JavaScript 中的 SetInterval。
+// SetInterval别名 每隔 `delay` 的时间运行一次任务。
+// 类似于 JavaScript 中的 SetInterval别名。
 // md5:1a47e33b3567d415
-func SetInterval(ctx context.Context, interval time.Duration, job JobFunc) {
-	Add(ctx, interval, job)
+func SetInterval别名(ctx context.Context, interval time.Duration, job JobFunc) {
+	X加入循环任务(ctx, interval, job)
 }
 
-// Add 将一个计时任务添加到默认计时器中，该计时器以`interval`的间隔运行。 md5:222cab00f4afd790
-func Add(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
-	return defaultTimer.Add(ctx, interval, job)
+// X加入循环任务 将一个计时任务添加到默认计时器中，该计时器以`interval`的间隔运行。 md5:222cab00f4afd790
+func X加入循环任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc) *Entry {
+	return defaultTimer.X加入循环任务(上下文, 间隔时长, 任务函数)
 }
 
-// AddEntry 向默认计时器添加一个带有详细参数的定时任务。
+// X加入详细循环任务 向默认计时器添加一个带有详细参数的定时任务。
 //
 // 参数 `interval` 指定任务的运行间隔。
 //
@@ -112,56 +112,56 @@ func Add(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
 //
 // 参数 `status` 指定任务首次添加到计时器时的状态。
 // md5:0f65b7fd26b5f483
-func AddEntry(ctx context.Context, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) *Entry {
-	return defaultTimer.AddEntry(ctx, interval, job, isSingleton, times, status)
+func X加入详细循环任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc, 是否单例模式 bool, 次数 int, 任务状态 int) *Entry {
+	return defaultTimer.X加入详细循环任务(上下文, 间隔时长, 任务函数, 是否单例模式, 次数, 任务状态)
 }
 
-// AddSingleton 是一个方便的函数，用于添加单例模式任务。 md5:8530c92e0f700eff
-func AddSingleton(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
-	return defaultTimer.AddSingleton(ctx, interval, job)
+// X加入单例循环任务 是一个方便的函数，用于添加单例模式任务。 md5:8530c92e0f700eff
+func X加入单例循环任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc) *Entry {
+	return defaultTimer.X加入单例循环任务(上下文, 间隔时长, 任务函数)
 }
 
-// AddOnce 是一个方便函数，用于添加一个只运行一次然后退出的工作。 md5:7674bfdda1236b76
-func AddOnce(ctx context.Context, interval time.Duration, job JobFunc) *Entry {
-	return defaultTimer.AddOnce(ctx, interval, job)
+// X加入单次任务 是一个方便函数，用于添加一个只运行一次然后退出的工作。 md5:7674bfdda1236b76
+func X加入单次任务(上下文 context.Context, 间隔时长 time.Duration, 任务函数 JobFunc) *Entry {
+	return defaultTimer.X加入单次任务(上下文, 间隔时长, 任务函数)
 }
 
-// AddTimes 是一个方便的函数，用于添加一个有限运行次数的任务。 md5:98b9f39d64b7906c
-func AddTimes(ctx context.Context, interval time.Duration, times int, job JobFunc) *Entry {
-	return defaultTimer.AddTimes(ctx, interval, times, job)
+// X加入指定次数任务 是一个方便的函数，用于添加一个有限运行次数的任务。 md5:98b9f39d64b7906c
+func X加入指定次数任务(上下文 context.Context, 间隔时长 time.Duration, 次数 int, 任务函数 JobFunc) *Entry {
+	return defaultTimer.X加入指定次数任务(上下文, 间隔时长, 次数, 任务函数)
 }
 
-// DelayAdd 在延迟`interval`持续时间后，添加一个定时任务。
+// X延时加入循环任务 在延迟`interval`持续时间后，添加一个定时任务。
 // 参见Add。
 // md5:e1bb93aeff16693d
-func DelayAdd(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
-	defaultTimer.DelayAdd(ctx, delay, interval, job)
+func X延时加入循环任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc) {
+	defaultTimer.X延时加入循环任务(上下文, 延时加入, 间隔时长, 任务函数)
 }
 
-// DelayAddEntry 在 `interval` 时长后添加一个定时任务。
+// X延时加入详细循环任务 在 `interval` 时长后添加一个定时任务。
 // 另请参阅 AddEntry。
 // md5:e6e85b15472aaf98
-func DelayAddEntry(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc, isSingleton bool, times int, status int) {
-	defaultTimer.DelayAddEntry(ctx, delay, interval, job, isSingleton, times, status)
+func X延时加入详细循环任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc, 是否单例模式 bool, 次数 int, 任务状态 int) {
+	defaultTimer.X延时加入详细循环任务(上下文, 延时加入, 间隔时长, 任务函数, 是否单例模式, 次数, 任务状态)
 }
 
-// DelayAddSingleton 在延迟`interval`时长后添加一个定时任务。
+// X延时加入单例循环任务 在延迟`interval`时长后添加一个定时任务。
 // 参阅 AddSingleton。
 // md5:80f70090fa17a370
-func DelayAddSingleton(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
-	defaultTimer.DelayAddSingleton(ctx, delay, interval, job)
+func X延时加入单例循环任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc) {
+	defaultTimer.X延时加入单例循环任务(上下文, 延时加入, 间隔时长, 任务函数)
 }
 
-// DelayAddOnce 在延迟 `interval` 持续时间后添加一个定时任务。
+// X延时加入单次任务 在延迟 `interval` 持续时间后添加一个定时任务。
 // 参见 AddOnce。
 // md5:71c388c8096e5e48
-func DelayAddOnce(ctx context.Context, delay time.Duration, interval time.Duration, job JobFunc) {
-	defaultTimer.DelayAddOnce(ctx, delay, interval, job)
+func X延时加入单次任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 任务函数 JobFunc) {
+	defaultTimer.X延时加入单次任务(上下文, 延时加入, 间隔时长, 任务函数)
 }
 
-// DelayAddTimes 在延迟`interval`持续时间后，添加一个定时任务。
+// X延时加入指定次数任务 在延迟`interval`持续时间后，添加一个定时任务。
 // 参见AddTimes。
 // md5:62463bf6c56709b2
-func DelayAddTimes(ctx context.Context, delay time.Duration, interval time.Duration, times int, job JobFunc) {
-	defaultTimer.DelayAddTimes(ctx, delay, interval, times, job)
+func X延时加入指定次数任务(上下文 context.Context, 延时加入 time.Duration, 间隔时长 time.Duration, 次数 int, 任务函数 JobFunc) {
+	defaultTimer.X延时加入指定次数任务(上下文, 延时加入, 间隔时长, 次数, 任务函数)
 }

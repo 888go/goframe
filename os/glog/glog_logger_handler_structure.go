@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog
+package 日志类
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 type structuredBuffer struct {
@@ -139,12 +139,12 @@ var safeSet = [utf8.RuneSelf]bool{
 	'\u007f': true,
 }
 
-// HandlerStructure 是一个处理器，用于将输出的日志内容以结构化字符串的形式处理。 md5:392f74b46dcdd1eb
-func HandlerStructure(ctx context.Context, in *HandlerInput) {
+// X中间件函数文本结构化输出 是一个处理器，用于将输出的日志内容以结构化字符串的形式处理。 md5:392f74b46dcdd1eb
+func X中间件函数文本结构化输出(上下文 context.Context, in *HandlerInput) {
 	s := newStructuredBuffer(in)
-	in.Buffer.Write(s.Bytes())
+	in.Buffer.Write(s.X取字节集())
 	in.Buffer.Write([]byte("\n"))
-	in.Next(ctx)
+	in.Next(上下文)
 }
 
 func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
@@ -154,7 +154,7 @@ func newStructuredBuffer(in *HandlerInput) *structuredBuffer {
 	}
 }
 
-func (buf *structuredBuffer) Bytes() []byte {
+func (buf *structuredBuffer) X取字节集() []byte {
 	buf.addValue(structureKeyTime, buf.in.TimeFormat)
 	if buf.in.TraceId != "" {
 		buf.addValue(structureKeyTraceId, buf.in.TraceId)

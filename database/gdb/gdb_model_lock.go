@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
-// LockUpdate 为当前操作设置更新锁。 md5:ecffaffee1e7b1df
-func (m *Model) LockUpdate() *Model {
+// X锁读写 为当前操作设置更新锁。 md5:ecffaffee1e7b1df
+func (m *Model) X锁读写() *Model {
 	model := m.getModel()
 	model.lockInfo = "FOR UPDATE"
 	return model
 }
 
-// LockShared 将当前操作的锁设置为共享模式。 md5:d3afc426055403b9
-func (m *Model) LockShared() *Model {
+// X锁写入 将当前操作的锁设置为共享模式。 md5:d3afc426055403b9
+func (m *Model) X锁写入() *Model {
 	model := m.getModel()
 	model.lockInfo = "LOCK IN SHARE MODE"
 	return model

@@ -11,8 +11,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 type selectorLeastConnection struct {
@@ -57,7 +57,7 @@ func (s *selectorLeastConnection) Pick(ctx context.Context) (node Node, done Don
 		for _, v := range s.nodes {
 			if pickedNode == nil {
 				pickedNode = v
-			} else if v.inflight.Val() < pickedNode.inflight.Val() {
+			} else if v.inflight.X取值() < pickedNode.inflight.X取值() {
 				pickedNode = v
 			}
 		}

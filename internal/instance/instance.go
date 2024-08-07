@@ -12,8 +12,8 @@
 package instance
 
 import (
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/encoding/ghash"
+	gmap "github.com/888go/goframe/container/gmap"
+	ghash "github.com/888go/goframe/encoding/ghash"
 )
 
 const (
@@ -26,7 +26,7 @@ var (
 
 func init() {
 	for i := 0; i < groupNumber; i++ {
-		groups[i] = gmap.NewStrAnyMap(true)
+		groups[i] = gmap.X创建StrAny(true)
 	}
 }
 
@@ -36,19 +36,19 @@ func getGroup(key string) *gmap.StrAnyMap {
 
 // Get 根据给定的名称返回实例。 md5:a44f9ed4c07f4bd7
 func Get(name string) interface{} {
-	return getGroup(name).Get(name)
+	return getGroup(name).X取值(name)
 }
 
 // Set 将给定名称的实例设置到实例管理器中。 md5:b2ea0ff086c307ba
 func Set(name string, instance interface{}) {
-	getGroup(name).Set(name, instance)
+	getGroup(name).X设置值(name, instance)
 }
 
 // GetOrSet 通过名称获取实例，
 // 如果不存在，则将其设置到实例管理器中并返回该实例。
 // md5:6e30e1788811bdcf
 func GetOrSet(name string, instance interface{}) interface{} {
-	return getGroup(name).GetOrSet(name, instance)
+	return getGroup(name).X取值或设置值(name, instance)
 }
 
 // GetOrSetFunc 通过名称获取实例，
@@ -56,7 +56,7 @@ func GetOrSet(name string, instance interface{}) interface{} {
 // 然后返回这个实例。
 // md5:3e2dff7c2a8267b6
 func GetOrSetFunc(name string, f func() interface{}) interface{} {
-	return getGroup(name).GetOrSetFunc(name, f)
+	return getGroup(name).X取值或设置值_函数(name, f)
 }
 
 // GetOrSetFuncLock 通过名称获取实例，
@@ -67,19 +67,19 @@ func GetOrSetFunc(name string, f func() interface{}) interface{} {
 // 它在执行函数 `f` 时会对哈希映射加锁（mutex.Lock）。
 // md5:d7adba14d37045fa
 func GetOrSetFuncLock(name string, f func() interface{}) interface{} {
-	return getGroup(name).GetOrSetFuncLock(name, f)
+	return getGroup(name).X取值或设置值_函数带锁(name, f)
 }
 
 // SetIfNotExist 如果`name`不存在，则将`instance`设置到地图中，然后返回true。
 // 如果`name`已经存在，则忽略`instance`并返回false。
 // md5:0eb14110f7286ae3
 func SetIfNotExist(name string, instance interface{}) bool {
-	return getGroup(name).SetIfNotExist(name, instance)
+	return getGroup(name).X设置值并跳过已存在(name, instance)
 }
 
 // Clear 删除所有存储的实例。 md5:19c1efdd76e32ce6
 func Clear() {
 	for i := 0; i < groupNumber; i++ {
-		groups[i].Clear()
+		groups[i].X清空()
 	}
 }

@@ -5,9 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtimer
+package 定时类
 
-import "time"
+import (
+	"time"
+)
 
 // 使用独立的goroutine启动ticker。 md5:ce88d07fc9fbc1b3
 func (t *Timer) loop() {
@@ -21,7 +23,7 @@ func (t *Timer) loop() {
 			select {
 			case <-timerIntervalTicker.C:
 								// 检查计时器状态。 md5:3099f00b46caf3a0
-				switch t.status.Val() {
+				switch t.status.X取值() {
 				case StatusRunning:
 					// Timer proceeding.
 					if currentTimerTicks = t.ticks.Add(1); currentTimerTicks >= t.queue.NextPriority() {
@@ -52,17 +54,17 @@ func (t *Timer) proceed(currentTimerTicks int64) {
 		}
 		entry := value.(*Entry)
 				// 它检查是否满足ticks的需求。 md5:a861e677e940bac4
-		if jobNextTicks := entry.nextTicks.Val(); currentTimerTicks < jobNextTicks {
+		if jobNextTicks := entry.nextTicks.X取值(); currentTimerTicks < jobNextTicks {
 						// 如果当前的ticks不满足作业的运行ticks要求，它会将作业推回。 md5:cdd563e1c262dcfa
-			t.queue.Push(entry, entry.nextTicks.Val())
+			t.queue.Push(entry, entry.nextTicks.X取值())
 			break
 		}
 				// 它检查任务运行要求，然后进行异步运行。 md5:a7927f4887033102
 		entry.doCheckAndRunByTicks(currentTimerTicks)
 				// 状态检查：推回还是忽略它。 md5:16de30b2fa2279cf
-		if entry.Status() != StatusClosed {
+		if entry.X取任务状态() != StatusClosed {
 						// 它将任务重新推入队列以供下次运行。 md5:c330359de56328e4
-			t.queue.Push(entry, entry.nextTicks.Val())
+			t.queue.Push(entry, entry.nextTicks.X取值())
 		}
 	}
 }

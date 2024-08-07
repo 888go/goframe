@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gsession
+package session类
 
 import (
 	"context"
@@ -13,17 +13,17 @@ import (
 	"os"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/crypto/gaes"
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/os/gtimer"
+	gmap "github.com/888go/goframe/container/gmap"
+	gset "github.com/888go/goframe/container/gset"
+	gaes "github.com/888go/goframe/crypto/gaes"
+	gbinary "github.com/888go/goframe/encoding/gbinary"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/json"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtimer "github.com/888go/goframe/os/gtimer"
 )
 
 // StorageFile实现了使用文件系统作为会话存储的接口。 md5:bae13bc406aa3178
@@ -43,7 +43,7 @@ const (
 )
 
 var (
-	DefaultStorageFilePath      = gfile.Temp("gsessions")
+	DefaultStorageFilePath      = gfile.X取临时目录("gsessions")
 	DefaultStorageFileCryptoKey = []byte("Session storage file crypto key!")
 )
 
@@ -54,17 +54,17 @@ func NewStorageFile(path string, ttl time.Duration) *StorageFile {
 		storagePath = DefaultStorageFilePath
 	)
 	if path != "" {
-		storagePath, _ = gfile.Search(path)
+		storagePath, _ = gfile.X查找(path)
 		if storagePath == "" {
-			panic(gerror.NewCodef(gcode.CodeInvalidParameter, `"%s" does not exist`, path))
+			panic(gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `"%s" does not exist`, path))
 		}
-		if !gfile.IsWritable(storagePath) {
-			panic(gerror.NewCodef(gcode.CodeInvalidParameter, `"%s" is not writable`, path))
+		if !gfile.X是否可写(storagePath) {
+			panic(gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `"%s" is not writable`, path))
 		}
 	}
 	if storagePath != "" {
-		if err := gfile.Mkdir(storagePath); err != nil {
-			panic(gerror.Wrapf(err, `Mkdir "%s" failed in PWD "%s"`, path, gfile.Pwd()))
+		if err := gfile.X创建目录(storagePath); err != nil {
+			panic(gerror.X多层错误并格式化(err, `Mkdir "%s" failed in PWD "%s"`, path, gfile.X取当前工作目录()))
 		}
 	}
 	s := &StorageFile{
@@ -72,11 +72,11 @@ func NewStorageFile(path string, ttl time.Duration) *StorageFile {
 		ttl:           ttl,
 		cryptoKey:     DefaultStorageFileCryptoKey,
 		cryptoEnabled: DefaultStorageFileCryptoEnabled,
-		updatingIdSet: gset.NewStrSet(true),
+		updatingIdSet: gset.X创建文本(true),
 	}
 
-	gtimer.AddSingleton(ctx, DefaultStorageFileUpdateTTLInterval, s.timelyUpdateSessionTTL)
-	gtimer.AddSingleton(ctx, DefaultStorageFileClearExpiredInterval, s.timelyClearExpiredSessionFile)
+	gtimer.X加入单例循环任务(ctx, DefaultStorageFileUpdateTTLInterval, s.timelyUpdateSessionTTL)
+	gtimer.X加入单例循环任务(ctx, DefaultStorageFileClearExpiredInterval, s.timelyClearExpiredSessionFile)
 	return s
 }
 
@@ -88,7 +88,7 @@ func (s *StorageFile) timelyUpdateSessionTTL(ctx context.Context) {
 	)
 		// 批量更新会话。 md5:db1f90067d27cc66
 	for {
-		if sessionId = s.updatingIdSet.Pop(); sessionId == "" {
+		if sessionId = s.updatingIdSet.X出栈(); sessionId == "" {
 			break
 		}
 		if err = s.updateSessionTTl(context.TODO(), sessionId); err != nil {
@@ -99,7 +99,7 @@ func (s *StorageFile) timelyUpdateSessionTTL(ctx context.Context) {
 
 // timelyClearExpiredSessionFile 及时删除所有过期的文件。 md5:5f02dbf03c17d4ca
 func (s *StorageFile) timelyClearExpiredSessionFile(ctx context.Context) {
-	files, err := gfile.ScanDirFile(s.path, "*.session", false)
+	files, err := gfile.X枚举(s.path, "*.session", false)
 	if err != nil {
 		intlog.Errorf(ctx, `%+v`, err)
 		return
@@ -125,12 +125,12 @@ func (s *StorageFile) SetCryptoEnabled(enabled bool) {
 
 // sessionFilePath 根据给定的会话ID返回存储文件的路径。 md5:9cec805dff8d12a7
 func (s *StorageFile) sessionFilePath(sessionId string) string {
-	return gfile.Join(s.path, sessionId) + ".session"
+	return gfile.X路径生成(s.path, sessionId) + ".session"
 }
 
 // RemoveAll 删除存储中的所有键值对。 md5:8b06607595d19a73
 func (s *StorageFile) RemoveAll(ctx context.Context, sessionId string) error {
-	return gfile.Remove(s.sessionFilePath(sessionId))
+	return gfile.X删除(s.sessionFilePath(sessionId))
 }
 
 // GetSession 从存储中根据给定的会话ID获取会话数据，返回一个指向*gmap.StrAnyMap的指针。
@@ -142,18 +142,18 @@ func (s *StorageFile) RemoveAll(ctx context.Context, sessionId string) error {
 func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time.Duration) (sessionData *gmap.StrAnyMap, err error) {
 	var (
 		path    = s.sessionFilePath(sessionId)
-		content = gfile.GetBytes(path)
+		content = gfile.X读字节集(path)
 	)
 		// 只有当会话文件已经存在时，它才会更新TTL。 md5:a9223056bbc67ae2
 	if len(content) > 8 {
 		timestampMilli := gbinary.DecodeToInt64(content[:8])
-		if timestampMilli+ttl.Nanoseconds()/1e6 < gtime.TimestampMilli() {
+		if timestampMilli+ttl.Nanoseconds()/1e6 < gtime.X取时间戳毫秒() {
 			return nil, nil
 		}
 		content = content[8:]
 		// Decrypt with AES.
 		if s.cryptoEnabled {
-			content, err = gaes.Decrypt(content, DefaultStorageFileCryptoKey)
+			content, err = gaes.Decrypt别名(content, DefaultStorageFileCryptoKey)
 			if err != nil {
 				return nil, err
 			}
@@ -165,7 +165,7 @@ func (s *StorageFile) GetSession(ctx context.Context, sessionId string, ttl time
 		if m == nil {
 			return nil, nil
 		}
-		return gmap.NewStrAnyMapFrom(m, true), nil
+		return gmap.X创建AnyStr并从Map(m, true), nil
 	}
 	return nil, nil
 }
@@ -183,24 +183,24 @@ func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionD
 	}
 	// Encrypt with AES.
 	if s.cryptoEnabled {
-		content, err = gaes.Encrypt(content, DefaultStorageFileCryptoKey)
+		content, err = gaes.Encrypt别名(content, DefaultStorageFileCryptoKey)
 		if err != nil {
 			return err
 		}
 	}
-	file, err := gfile.OpenWithFlagPerm(
+	file, err := gfile.OpenWithFlagPerm别名(
 		path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, os.ModePerm,
 	)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
-	if _, err = file.Write(gbinary.EncodeInt64(gtime.TimestampMilli())); err != nil {
-		err = gerror.Wrapf(err, `write data failed to file "%s"`, path)
+	if _, err = file.Write(gbinary.EncodeInt64(gtime.X取时间戳毫秒())); err != nil {
+		err = gerror.X多层错误并格式化(err, `write data failed to file "%s"`, path)
 		return err
 	}
 	if _, err = file.Write(content); err != nil {
-		err = gerror.Wrapf(err, `write data failed to file "%s"`, path)
+		err = gerror.X多层错误并格式化(err, `write data failed to file "%s"`, path)
 		return err
 	}
 	return nil
@@ -213,7 +213,7 @@ func (s *StorageFile) SetSession(ctx context.Context, sessionId string, sessionD
 func (s *StorageFile) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
 	intlog.Printf(ctx, "StorageFile.UpdateTTL: %s, %v", sessionId, ttl)
 	if ttl >= DefaultStorageFileUpdateTTLInterval {
-		s.updatingIdSet.Add(sessionId)
+		s.updatingIdSet.X加入(sessionId)
 	}
 	return nil
 }
@@ -222,12 +222,12 @@ func (s *StorageFile) UpdateTTL(ctx context.Context, sessionId string, ttl time.
 func (s *StorageFile) updateSessionTTl(ctx context.Context, sessionId string) error {
 	intlog.Printf(ctx, "StorageFile.updateSession: %s", sessionId)
 	path := s.sessionFilePath(sessionId)
-	file, err := gfile.OpenWithFlag(path, os.O_WRONLY)
+	file, err := gfile.X打开并按默认权限(path, os.O_WRONLY)
 	if err != nil {
 		return err
 	}
-	if _, err = file.WriteAt(gbinary.EncodeInt64(gtime.TimestampMilli()), 0); err != nil {
-		err = gerror.Wrapf(err, `write data failed to file "%s"`, path)
+	if _, err = file.WriteAt(gbinary.EncodeInt64(gtime.X取时间戳毫秒()), 0); err != nil {
+		err = gerror.X多层错误并格式化(err, `write data failed to file "%s"`, path)
 		return err
 	}
 	return file.Close()
@@ -239,7 +239,7 @@ func (s *StorageFile) checkAndClearSessionFile(ctx context.Context, path string)
 		readBytesCount      int
 		timestampMilliBytes = make([]byte, 8)
 	)
-	file, err = gfile.OpenWithFlag(path, os.O_RDONLY)
+	file, err = gfile.X打开并按默认权限(path, os.O_RDONLY)
 	if err != nil {
 		return err
 	}
@@ -250,22 +250,22 @@ func (s *StorageFile) checkAndClearSessionFile(ctx context.Context, path string)
 		return
 	}
 	if readBytesCount != 8 {
-		return gerror.Newf(`invalid read bytes count "%d", expect "8"`, readBytesCount)
+		return gerror.X创建并格式化(`invalid read bytes count "%d", expect "8"`, readBytesCount)
 	}
 		// 删除过期的会话文件。 md5:f3e7a080ff4d0135
 	var (
 		ttlInMilliseconds     = s.ttl.Nanoseconds() / 1e6
 		fileTimestampMilli    = gbinary.DecodeToInt64(timestampMilliBytes)
-		currentTimestampMilli = gtime.TimestampMilli()
+		currentTimestampMilli = gtime.X取时间戳毫秒()
 	)
 	if fileTimestampMilli+ttlInMilliseconds < currentTimestampMilli {
 		intlog.PrintFunc(ctx, func() string {
 			return fmt.Sprintf(
 				`clear expired session file "%s": updated datetime "%s", ttl "%s"`,
-				path, gtime.NewFromTimeStamp(fileTimestampMilli), s.ttl,
+				path, gtime.X创建并从时间戳(fileTimestampMilli), s.ttl,
 			)
 		})
-		return gfile.Remove(path)
+		return gfile.X删除(path)
 	}
 	return nil
 }

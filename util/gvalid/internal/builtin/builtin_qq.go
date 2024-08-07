@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RuleQQ实现了`qq`规则：
@@ -33,7 +33,7 @@ func (r RuleQQ) Message() string {
 }
 
 func (r RuleQQ) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := gregex.X是否匹配文本(
 		`^[1-9][0-9]{4,}$`,
 		in.Value.String(),
 	)

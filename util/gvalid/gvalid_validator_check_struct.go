@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid
+package 效验类
 
 import (
 	"context"
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gutil"
+	gcode "github.com/888go/goframe/errors/gcode"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/os/gstructs"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error {
@@ -115,7 +115,7 @@ func (v *Validator) doCheckStruct(ctx context.Context, object interface{}) Error
 	if v.assoc == nil || !v.useAssocInsteadOfObjectAttributes {
 		inputParamMap = make(map[string]interface{})
 	} else {
-		inputParamMap = gconv.Map(v.assoc)
+		inputParamMap = gconv.X取Map(v.assoc)
 	}
 		// 检查并使用结构体别名标签扩展参数映射。 md5:d6fb47b89d8c4795
 	if !v.useAssocInsteadOfObjectAttributes {

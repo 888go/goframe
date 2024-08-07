@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // RuleSize 实现了 `size` 规则：
@@ -37,7 +37,7 @@ func (r RuleSize) Message() string {
 
 func (r RuleSize) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = gconv.X取字符切片(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	size, err := strconv.Atoi(in.RulePattern)

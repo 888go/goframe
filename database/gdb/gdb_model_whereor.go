@@ -5,106 +5,106 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
-// WhereOr在where语句中添加"OR"条件。请参考WhereBuilder.WhereOr。
+// X条件或在where语句中添加"OR"条件。请参考WhereBuilder.X条件或。
 // md5:3dc9824669296cea
-func (m *Model) WhereOr(where interface{}, args ...interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOr(where, args...))
+func (m *Model) X条件或(条件 interface{}, 参数 ...interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或(条件, 参数...))
 }
 
-// WhereOrf 使用 fmt.Sprintf 和参数构建 `OR` 条件字符串。
-// 参见 WhereBuilder.WhereOrf。
+// X条件或格式化 使用 fmt.Sprintf 和参数构建 `OR` 条件字符串。
+// 参见 WhereBuilder.X条件或格式化。
 // md5:a94c42c383ac4960
-func (m *Model) WhereOrf(format string, args ...interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrf(format, args...))
+func (m *Model) X条件或格式化(格式 string, 参数 ...interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或格式化(格式, 参数...))
 }
 
-// WhereOrLT 在 `OR` 条件下构建 `column < value` 语句。
-// 参见 WhereBuilder.WhereOrLT。
+// X条件或小于 在 `OR` 条件下构建 `column < value` 语句。
+// 参见 WhereBuilder.X条件或小于。
 // md5:d9d4ee2080c8c040
-func (m *Model) WhereOrLT(column string, value interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrLT(column, value))
+func (m *Model) X条件或小于(字段名 string, 比较值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或小于(字段名, 比较值))
 }
 
-// WhereOrLTE 在`OR`条件中构建 `column <= value` 的语句。
-// 参考 WhereBuilder.WhereOrLTE。
+// X条件或小于等于 在`OR`条件中构建 `column <= value` 的语句。
+// 参考 WhereBuilder.X条件或小于等于。
 // md5:36414de9c787b690
-func (m *Model) WhereOrLTE(column string, value interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrLTE(column, value))
+func (m *Model) X条件或小于等于(字段名 string, 比较值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或小于等于(字段名, 比较值))
 }
 
-// WhereOrGT在`OR`条件下构建`column > value`语句。请参阅WhereBuilder.WhereOrGT。
+// X条件或大于在`OR`条件下构建`column > value`语句。请参阅WhereBuilder.X条件或大于。
 // md5:5b5f0de728017e9e
-func (m *Model) WhereOrGT(column string, value interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrGT(column, value))
+func (m *Model) X条件或大于(字段名 string, 比较值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或大于(字段名, 比较值))
 }
 
-// WhereOrGTE在`OR`条件下构建`column >= value`语句。
-// 参见WhereBuilder.WhereOrGTE。
+// X条件或大于等于在`OR`条件下构建`column >= value`语句。
+// 参见WhereBuilder.X条件或大于等于。
 // md5:5e6ab2d7c60899f4
-func (m *Model) WhereOrGTE(column string, value interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrGTE(column, value))
+func (m *Model) X条件或大于等于(字段名 string, 比较值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或大于等于(字段名, 比较值))
 }
 
-// WhereOrBetween 构建在 `OR` 条件下的 `column BETWEEN min AND max` 语句。
-// 参见 WhereBuilder.WhereOrBetween 的用法。
+// X条件或取范围 构建在 `OR` 条件下的 `column BETWEEN min AND max` 语句。
+// 参见 WhereBuilder.X条件或取范围 的用法。
 // md5:c9b005a18a1fb87e
-func (m *Model) WhereOrBetween(column string, min, max interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrBetween(column, min, max))
+func (m *Model) X条件或取范围(字段名 string, 最小值, 最大值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或取范围(字段名, 最小值, 最大值))
 }
 
-// WhereOrLike 在`OR`条件中构建 `column LIKE like` 语句。
-// 参考 WhereBuilder.WhereOrLike。
+// X条件或模糊匹配 在`OR`条件中构建 `column LIKE like` 语句。
+// 参考 WhereBuilder.X条件或模糊匹配。
 // md5:70c0895d15fd2cc9
-func (m *Model) WhereOrLike(column string, like interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrLike(column, like))
+func (m *Model) X条件或模糊匹配(字段名 string, 通配符条件值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或模糊匹配(字段名, 通配符条件值))
 }
 
-// WhereOrIn在`OR`条件下构建`column IN (in)`语句。参见WhereBuilder.WhereOrIn。
+// X条件或包含在`OR`条件下构建`column IN (in)`语句。参见WhereBuilder.X条件或包含。
 // md5:fac500879081e3cc
-func (m *Model) WhereOrIn(column string, in interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrIn(column, in))
+func (m *Model) X条件或包含(字段名 string, 包含值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或包含(字段名, 包含值))
 }
 
-// WhereOrNull 构建 `columns[0] IS NULL OR columns[1] IS NULL ...` 的 `OR` 条件语句。
-// 参考 WhereBuilder.WhereOrNull。
+// X条件或NULL值 构建 `columns[0] IS NULL OR columns[1] IS NULL ...` 的 `OR` 条件语句。
+// 参考 WhereBuilder.X条件或NULL值。
 // md5:66907cf860f22eff
-func (m *Model) WhereOrNull(columns ...string) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrNull(columns...))
+func (m *Model) X条件或NULL值(字段名 ...string) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或NULL值(字段名...))
 }
 
-// WhereOrNotBetween 用于构建 `column NOT BETWEEN min AND max` 的 SQL 语句，在 `OR` 条件下。
-// 参见 WhereBuilder.WhereOrNotBetween 的用法。
+// X条件或取范围以外 用于构建 `column NOT BETWEEN min AND max` 的 SQL 语句，在 `OR` 条件下。
+// 参见 WhereBuilder.X条件或取范围以外 的用法。
 // md5:e040a9f04b492725
-func (m *Model) WhereOrNotBetween(column string, min, max interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrNotBetween(column, min, max))
+func (m *Model) X条件或取范围以外(字段名 string, 最小值, 最大值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或取范围以外(字段名, 最小值, 最大值))
 }
 
-// WhereOrNotLike 用于构建在`OR`条件下的 `column NOT LIKE 'like'` 语句。
-// 参考 WhereBuilder.WhereOrNotLike。
+// X条件或模糊匹配以外 用于构建在`OR`条件下的 `column NOT LIKE 'like'` 语句。
+// 参考 WhereBuilder.X条件或模糊匹配以外。
 // md5:588ea3675853468b
-func (m *Model) WhereOrNotLike(column string, like interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrNotLike(column, like))
+func (m *Model) X条件或模糊匹配以外(字段名 string, 通配符条件值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或模糊匹配以外(字段名, 通配符条件值))
 }
 
-// WhereOrNot构建`column != value`语句。
-// 参见WhereBuilder.WhereOrNot。
+// X条件或不等于构建`column != value`语句。
+// 参见WhereBuilder.X条件或不等于。
 // md5:076a864671142e49
-func (m *Model) WhereOrNot(column string, value interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrNot(column, value))
+func (m *Model) X条件或不等于(字段名 string, 值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或不等于(字段名, 值))
 }
 
-// WhereOrNotIn构建`column NOT IN (in)`语句。
-// 参见WhereBuilder.WhereOrNotIn。
+// X条件或不包含构建`column NOT IN (in)`语句。
+// 参见WhereBuilder.X条件或不包含。
 // md5:22915d1ba70db001
-func (m *Model) WhereOrNotIn(column string, in interface{}) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrNotIn(column, in))
+func (m *Model) X条件或不包含(字段名 string, 不包含值 interface{}) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或不包含(字段名, 不包含值))
 }
 
-// WhereOrNotNull 构建在 `OR` 条件下的 `columns[0] IS NOT NULL OR columns[1] IS NOT NULL ...` 语句。
-// 参见 WhereBuilder.WhereOrNotNull 的用法。
+// X条件或非Null 构建在 `OR` 条件下的 `columns[0] IS NOT NULL OR columns[1] IS NOT NULL ...` 语句。
+// 参见 WhereBuilder.X条件或非Null 的用法。
 // md5:5645594c534afc8e
-func (m *Model) WhereOrNotNull(columns ...string) *Model {
-	return m.callWhereBuilder(m.whereBuilder.WhereOrNotNull(columns...))
+func (m *Model) X条件或非Null(字段名 ...string) *Model {
+	return m.callWhereBuilder(m.whereBuilder.X条件或非Null(字段名...))
 }

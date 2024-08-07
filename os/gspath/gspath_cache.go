@@ -8,15 +8,15 @@
 // gspath 包实现了对文件夹的索引和搜索功能。
 // md5:04299e0152ee648b
 
-package gspath
+package 文件搜索类
 
 import (
 	"runtime"
 	"strings"
 
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gfsnotify"
-	"github.com/gogf/gf/v2/text/gstr"
+	gfile "github.com/888go/goframe/os/gfile"
+	gfsnotify "github.com/888go/goframe/os/gfsnotify"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // updateCacheByPath 递归地在`path`下添加所有文件。 md5:ef869f8f30af135a
@@ -33,14 +33,14 @@ func (sp *SPath) updateCacheByPath(path string) {
 // md5:ed5316ca14ce4d4c
 func (sp *SPath) formatCacheName(name string) string {
 	if runtime.GOOS != "linux" {
-		name = gstr.Replace(name, "\\", "/")
+		name = gstr.X替换(name, "\\", "/")
 	}
 	return "/" + strings.Trim(name, "./")
 }
 
 // nameFromPath 将 `filePath` 转换为缓存名称。 md5:5e0f623421b9d54d
 func (sp *SPath) nameFromPath(filePath, rootPath string) string {
-	name := gstr.Replace(filePath, rootPath, "")
+	name := gstr.X替换(filePath, rootPath, "")
 	name = sp.formatCacheName(name)
 	return name
 }
@@ -66,16 +66,16 @@ func (sp *SPath) parseCacheValue(value string) (filePath string, isDir bool) {
 // md5:836028ec6822544d
 func (sp *SPath) addToCache(filePath, rootPath string) {
 	// Add itself firstly.
-	idDir := gfile.IsDir(filePath)
-	sp.cache.SetIfNotExist(
+	idDir := gfile.X是否存在目录(filePath)
+	sp.cache.X设置值并跳过已存在(
 		sp.nameFromPath(filePath, rootPath), sp.makeCacheValue(filePath, idDir),
 	)
 		// 如果是一个目录，它会添加其下所有的子文件和子目录。 md5:d133c73c85e80b5b
 	if idDir {
-		if files, err := gfile.ScanDir(filePath, "*", true); err == nil {
+		if files, err := gfile.X枚举并含子目录名(filePath, "*", true); err == nil {
 						// fmt.Println("将文件路径", filePath, "和文件列表添加到缓存:", files). md5:787f23087852cffe
 			for _, path := range files {
-				sp.cache.SetIfNotExist(sp.nameFromPath(path, rootPath), sp.makeCacheValue(path, gfile.IsDir(path)))
+				sp.cache.X设置值并跳过已存在(sp.nameFromPath(path, rootPath), sp.makeCacheValue(path, gfile.X是否存在目录(path)))
 			}
 		}
 	}
@@ -93,11 +93,11 @@ func (sp *SPath) addMonitorByPath(path string) {
 				// 这个Go语言注释的中文翻译是：使用glog库的Debug级别记录event的字符串表示。 md5:9b7b21454414b499
 		switch {
 		case event.IsRemove():
-			sp.cache.Remove(sp.nameFromPath(event.Path, path))
+			sp.cache.X删除(sp.nameFromPath(event.Path, path))
 
 		case event.IsRename():
-			if !gfile.Exists(event.Path) {
-				sp.cache.Remove(sp.nameFromPath(event.Path, path))
+			if !gfile.X是否存在(event.Path) {
+				sp.cache.X删除(sp.nameFromPath(event.Path, path))
 			}
 
 		case event.IsCreate():

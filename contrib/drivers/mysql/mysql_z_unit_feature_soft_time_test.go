@@ -12,16 +12,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 // 创建时间/更新时间/删除时间。 md5:19b2f7344b6c3216
 func Test_SoftTime_CreateUpdateDelete1(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -41,18 +41,18 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneInsert, err := db.Model(table).WherePri(1).One()
+		oneInsert, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneInsert["id"].Int(), 1)
+		t.Assert(oneInsert["id"].X取整数(), 1)
 		t.Assert(oneInsert["name"].String(), "name_1")
 		t.Assert(oneInsert["delete_at"].String(), "")
-		t.AssertGE(oneInsert["create_at"].GTime().Timestamp(), gtime.Timestamp()-2)
-		t.AssertGE(oneInsert["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.AssertGE(oneInsert["create_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
+		t.AssertGE(oneInsert["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -62,19 +62,19 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_10",
 		}
-		r, err = db.Model(table).Data(dataSave).Save()
+		r, err = db.X创建Model对象(table).X设置数据(dataSave).X插入并更新已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneSave, err := db.Model(table).WherePri(1).One()
+		oneSave, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneSave["id"].Int(), 1)
+		t.Assert(oneSave["id"].X取整数(), 1)
 		t.Assert(oneSave["name"].String(), "name_10")
 		t.Assert(oneSave["delete_at"].String(), "")
-		t.Assert(oneSave["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertNE(oneSave["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
-		t.AssertGE(oneSave["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneSave["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertNE(oneSave["update_at"].X取gtime时间类().X取时间戳秒(), oneInsert["update_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneSave["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -83,70 +83,70 @@ CREATE TABLE %s (
 		dataUpdate := g.Map{
 			"name": "name_1000",
 		}
-		r, err = db.Model(table).Data(dataUpdate).WherePri(1).Update()
+		r, err = db.X创建Model对象(table).X设置数据(dataUpdate).X条件并识别主键(1).X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneUpdate, err := db.Model(table).WherePri(1).One()
+		oneUpdate, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneUpdate["id"].Int(), 1)
+		t.Assert(oneUpdate["id"].X取整数(), 1)
 		t.Assert(oneUpdate["name"].String(), "name_1000")
 		t.Assert(oneUpdate["delete_at"].String(), "")
-		t.Assert(oneUpdate["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertGE(oneUpdate["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneUpdate["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneUpdate["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 		// Replace
 		dataReplace := g.Map{
 			"id":   1,
 			"name": "name_100",
 		}
-		r, err = db.Model(table).Data(dataReplace).Replace()
+		r, err = db.X创建Model对象(table).X设置数据(dataReplace).X插入并替换已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneReplace, err := db.Model(table).WherePri(1).One()
+		oneReplace, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneReplace["id"].Int(), 1)
+		t.Assert(oneReplace["id"].X取整数(), 1)
 		t.Assert(oneReplace["name"].String(), "name_100")
 		t.Assert(oneReplace["delete_at"].String(), "")
-		t.AssertGE(oneReplace["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertGE(oneReplace["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
+		t.AssertGE(oneReplace["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneReplace["update_at"].X取gtime时间类().X取时间戳秒(), oneInsert["update_at"].X取gtime时间类().X取时间戳秒())
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
 
 		// Delete
-		r, err = db.Model(table).Delete("id", 1)
+		r, err = db.X创建Model对象(table).X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 		// Delete Select
-		one4, err := db.Model(table).WherePri(1).One()
+		one4, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one4), 0)
-		one5, err := db.Model(table).Unscoped().WherePri(1).One()
+		one5, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one5["id"].Int(), 1)
-		t.AssertGE(one5["delete_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(one5["id"].X取整数(), 1)
+		t.AssertGE(one5["delete_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 		// Delete Count
-		i, err := db.Model(table).Count()
+		i, err := db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 1)
 
 		// Delete Unscoped
-		r, err = db.Model(table).Unscoped().Delete("id", 1)
+		r, err = db.X创建Model对象(table).Unscoped().X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
-		one6, err := db.Model(table).Unscoped().WherePri(1).One()
+		one6, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one6), 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
 	})
@@ -154,8 +154,8 @@ CREATE TABLE %s (
 
 // 创建时间/更新时间/删除时间。 md5:19b2f7344b6c3216
 func Test_SoftTime_CreateUpdateDelete2(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -175,18 +175,18 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneInsert, err := db.Model(table).WherePri(1).One()
+		oneInsert, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneInsert["id"].Int(), 1)
+		t.Assert(oneInsert["id"].X取整数(), 1)
 		t.Assert(oneInsert["name"].String(), "name_1")
 		t.Assert(oneInsert["delete_at"].String(), "")
-		t.AssertGE(oneInsert["create_at"].GTime().Timestamp(), gtime.Timestamp()-2)
-		t.AssertGE(oneInsert["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.AssertGE(oneInsert["create_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
+		t.AssertGE(oneInsert["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -196,19 +196,19 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_10",
 		}
-		r, err = db.Model(table).Data(dataSave).Save()
+		r, err = db.X创建Model对象(table).X设置数据(dataSave).X插入并更新已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneSave, err := db.Model(table).WherePri(1).One()
+		oneSave, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneSave["id"].Int(), 1)
+		t.Assert(oneSave["id"].X取整数(), 1)
 		t.Assert(oneSave["name"].String(), "name_10")
 		t.Assert(oneSave["delete_at"].String(), "")
-		t.Assert(oneSave["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertNE(oneSave["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
-		t.AssertGE(oneSave["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneSave["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertNE(oneSave["update_at"].X取gtime时间类().X取时间戳秒(), oneInsert["update_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneSave["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -217,70 +217,70 @@ CREATE TABLE %s (
 		dataUpdate := g.Map{
 			"name": "name_1000",
 		}
-		r, err = db.Model(table).Data(dataUpdate).WherePri(1).Update()
+		r, err = db.X创建Model对象(table).X设置数据(dataUpdate).X条件并识别主键(1).X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneUpdate, err := db.Model(table).WherePri(1).One()
+		oneUpdate, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneUpdate["id"].Int(), 1)
+		t.Assert(oneUpdate["id"].X取整数(), 1)
 		t.Assert(oneUpdate["name"].String(), "name_1000")
 		t.Assert(oneUpdate["delete_at"].String(), "")
-		t.Assert(oneUpdate["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertGE(oneUpdate["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneUpdate["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneUpdate["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 		// Replace
 		dataReplace := g.Map{
 			"id":   1,
 			"name": "name_100",
 		}
-		r, err = db.Model(table).Data(dataReplace).Replace()
+		r, err = db.X创建Model对象(table).X设置数据(dataReplace).X插入并替换已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneReplace, err := db.Model(table).WherePri(1).One()
+		oneReplace, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneReplace["id"].Int(), 1)
+		t.Assert(oneReplace["id"].X取整数(), 1)
 		t.Assert(oneReplace["name"].String(), "name_100")
 		t.Assert(oneReplace["delete_at"].String(), "")
-		t.AssertGE(oneReplace["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertGE(oneReplace["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
+		t.AssertGE(oneReplace["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneReplace["update_at"].X取gtime时间类().X取时间戳秒(), oneInsert["update_at"].X取gtime时间类().X取时间戳秒())
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
 
 		// Delete
-		r, err = db.Model(table).Delete("id", 1)
+		r, err = db.X创建Model对象(table).X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 		// Delete Select
-		one4, err := db.Model(table).WherePri(1).One()
+		one4, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one4), 0)
-		one5, err := db.Model(table).Unscoped().WherePri(1).One()
+		one5, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one5["id"].Int(), 1)
-		t.AssertGE(one5["delete_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(one5["id"].X取整数(), 1)
+		t.AssertGE(one5["delete_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 		// Delete Count
-		i, err := db.Model(table).Count()
+		i, err := db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 1)
 
 		// Delete Unscoped
-		r, err = db.Model(table).Unscoped().Delete("id", 1)
+		r, err = db.X创建Model对象(table).Unscoped().X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
-		one6, err := db.Model(table).Unscoped().WherePri(1).One()
+		one6, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one6), 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
 	})
@@ -288,8 +288,8 @@ CREATE TABLE %s (
 
 // 创建时间/更新时间/删除时间。 md5:e6765f0f8b916a37
 func Test_SoftTime_CreatedUpdatedDeleted_Map(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -309,18 +309,18 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneInsert, err := db.Model(table).WherePri(1).One()
+		oneInsert, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneInsert["id"].Int(), 1)
+		t.Assert(oneInsert["id"].X取整数(), 1)
 		t.Assert(oneInsert["name"].String(), "name_1")
 		t.Assert(oneInsert["deleted_at"].String(), "")
-		t.AssertGE(oneInsert["created_at"].GTime().Timestamp(), gtime.Timestamp()-2)
-		t.AssertGE(oneInsert["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.AssertGE(oneInsert["created_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
+		t.AssertGE(oneInsert["updated_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -330,19 +330,19 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_10",
 		}
-		r, err = db.Model(table).Data(dataSave).Save()
+		r, err = db.X创建Model对象(table).X设置数据(dataSave).X插入并更新已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneSave, err := db.Model(table).WherePri(1).One()
+		oneSave, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneSave["id"].Int(), 1)
+		t.Assert(oneSave["id"].X取整数(), 1)
 		t.Assert(oneSave["name"].String(), "name_10")
 		t.Assert(oneSave["deleted_at"].String(), "")
-		t.Assert(oneSave["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
-		t.AssertNE(oneSave["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
-		t.AssertGE(oneSave["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneSave["created_at"].X取gtime时间类().X取时间戳秒(), oneInsert["created_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertNE(oneSave["updated_at"].X取gtime时间类().X取时间戳秒(), oneInsert["updated_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneSave["updated_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -351,70 +351,70 @@ CREATE TABLE %s (
 		dataUpdate := g.Map{
 			"name": "name_1000",
 		}
-		r, err = db.Model(table).Data(dataUpdate).WherePri(1).Update()
+		r, err = db.X创建Model对象(table).X设置数据(dataUpdate).X条件并识别主键(1).X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneUpdate, err := db.Model(table).WherePri(1).One()
+		oneUpdate, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneUpdate["id"].Int(), 1)
+		t.Assert(oneUpdate["id"].X取整数(), 1)
 		t.Assert(oneUpdate["name"].String(), "name_1000")
 		t.Assert(oneUpdate["deleted_at"].String(), "")
-		t.Assert(oneUpdate["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
-		t.AssertGE(oneUpdate["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneUpdate["created_at"].X取gtime时间类().X取时间戳秒(), oneInsert["created_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneUpdate["updated_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 		// Replace
 		dataReplace := g.Map{
 			"id":   1,
 			"name": "name_100",
 		}
-		r, err = db.Model(table).Data(dataReplace).Replace()
+		r, err = db.X创建Model对象(table).X设置数据(dataReplace).X插入并替换已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneReplace, err := db.Model(table).WherePri(1).One()
+		oneReplace, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneReplace["id"].Int(), 1)
+		t.Assert(oneReplace["id"].X取整数(), 1)
 		t.Assert(oneReplace["name"].String(), "name_100")
 		t.Assert(oneReplace["deleted_at"].String(), "")
-		t.AssertGE(oneReplace["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
-		t.AssertGE(oneReplace["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
+		t.AssertGE(oneReplace["created_at"].X取gtime时间类().X取时间戳秒(), oneInsert["created_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneReplace["updated_at"].X取gtime时间类().X取时间戳秒(), oneInsert["updated_at"].X取gtime时间类().X取时间戳秒())
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
 
 		// Delete
-		r, err = db.Model(table).Delete("id", 1)
+		r, err = db.X创建Model对象(table).X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 		// Delete Select
-		one4, err := db.Model(table).WherePri(1).One()
+		one4, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one4), 0)
-		one5, err := db.Model(table).Unscoped().WherePri(1).One()
+		one5, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one5["id"].Int(), 1)
-		t.AssertGE(one5["deleted_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(one5["id"].X取整数(), 1)
+		t.AssertGE(one5["deleted_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 		// Delete Count
-		i, err := db.Model(table).Count()
+		i, err := db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 1)
 
 		// Delete Unscoped
-		r, err = db.Model(table).Unscoped().Delete("id", 1)
+		r, err = db.X创建Model对象(table).Unscoped().X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
-		one6, err := db.Model(table).Unscoped().WherePri(1).One()
+		one6, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one6), 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
 	})
@@ -422,8 +422,8 @@ CREATE TABLE %s (
 
 // 创建时间/更新时间/删除时间。 md5:e6765f0f8b916a37
 func Test_SoftTime_CreatedUpdatedDeleted_Struct(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -450,18 +450,18 @@ CREATE TABLE %s (
 			Id:   1,
 			Name: "name_1",
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneInsert, err := db.Model(table).WherePri(1).One()
+		oneInsert, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneInsert["id"].Int(), 1)
+		t.Assert(oneInsert["id"].X取整数(), 1)
 		t.Assert(oneInsert["name"].String(), "name_1")
 		t.Assert(oneInsert["deleted_at"].String(), "")
-		t.AssertGE(oneInsert["created_at"].GTime().Timestamp(), gtime.Timestamp()-2)
-		t.AssertGE(oneInsert["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.AssertGE(oneInsert["created_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
+		t.AssertGE(oneInsert["updated_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -471,19 +471,19 @@ CREATE TABLE %s (
 			Id:   1,
 			Name: "name_10",
 		}
-		r, err = db.Model(table).Data(dataSave).OmitEmpty().Save()
+		r, err = db.X创建Model对象(table).X设置数据(dataSave).X过滤空值().X插入并更新已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneSave, err := db.Model(table).WherePri(1).One()
+		oneSave, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneSave["id"].Int(), 1)
+		t.Assert(oneSave["id"].X取整数(), 1)
 		t.Assert(oneSave["name"].String(), "name_10")
 		t.Assert(oneSave["deleted_at"].String(), "")
-		t.Assert(oneSave["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
-		t.AssertNE(oneSave["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
-		t.AssertGE(oneSave["updated_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneSave["created_at"].X取gtime时间类().X取时间戳秒(), oneInsert["created_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertNE(oneSave["updated_at"].X取gtime时间类().X取时间戳秒(), oneInsert["updated_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneSave["updated_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
@@ -492,78 +492,78 @@ CREATE TABLE %s (
 		dataUpdate := User{
 			Name: "name_1000",
 		}
-		r, err = db.Model(table).Data(dataUpdate).OmitEmpty().WherePri(1).Update()
+		r, err = db.X创建Model对象(table).X设置数据(dataUpdate).X过滤空值().X条件并识别主键(1).X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneUpdate, err := db.Model(table).WherePri(1).One()
+		oneUpdate, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneUpdate["id"].Int(), 1)
+		t.Assert(oneUpdate["id"].X取整数(), 1)
 		t.Assert(oneUpdate["name"].String(), "name_1000")
 		t.Assert(oneUpdate["deleted_at"].String(), "")
-		t.Assert(oneUpdate["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
-		t.AssertGE(oneUpdate["updated_at"].GTime().Timestamp(), gtime.Timestamp()-4)
+		t.Assert(oneUpdate["created_at"].X取gtime时间类().X取时间戳秒(), oneInsert["created_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneUpdate["updated_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-4)
 
 		// Replace
 		dataReplace := User{
 			Id:   1,
 			Name: "name_100",
 		}
-		r, err = db.Model(table).Data(dataReplace).OmitEmpty().Replace()
+		r, err = db.X创建Model对象(table).X设置数据(dataReplace).X过滤空值().X插入并替换已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneReplace, err := db.Model(table).WherePri(1).One()
+		oneReplace, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneReplace["id"].Int(), 1)
+		t.Assert(oneReplace["id"].X取整数(), 1)
 		t.Assert(oneReplace["name"].String(), "name_100")
 		t.Assert(oneReplace["deleted_at"].String(), "")
-		t.AssertGE(oneReplace["created_at"].GTime().Timestamp(), oneInsert["created_at"].GTime().Timestamp())
-		t.AssertGE(oneReplace["updated_at"].GTime().Timestamp(), oneInsert["updated_at"].GTime().Timestamp())
+		t.AssertGE(oneReplace["created_at"].X取gtime时间类().X取时间戳秒(), oneInsert["created_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneReplace["updated_at"].X取gtime时间类().X取时间戳秒(), oneInsert["updated_at"].X取gtime时间类().X取时间戳秒())
 
 				// 用于时间断言目的。 md5:9b80204747a3e820
 		time.Sleep(2 * time.Second)
 
 		// Delete
-		r, err = db.Model(table).Delete("id", 1)
+		r, err = db.X创建Model对象(table).X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 		// Delete Select
-		one4, err := db.Model(table).WherePri(1).One()
+		one4, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one4), 0)
-		one5, err := db.Model(table).Unscoped().WherePri(1).One()
+		one5, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one5["id"].Int(), 1)
-		t.AssertGE(one5["deleted_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(one5["id"].X取整数(), 1)
+		t.AssertGE(one5["deleted_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 		// Delete Count
-		i, err := db.Model(table).Count()
+		i, err := db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 1)
 
 		// Delete Unscoped
-		r, err = db.Model(table).Unscoped().Delete("id", 1)
+		r, err = db.X创建Model对象(table).Unscoped().X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
-		one6, err := db.Model(table).Unscoped().WherePri(1).One()
+		one6, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one6), 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
 	})
 }
 
 func Test_SoftUpdateTime(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   num       int(11) DEFAULT NULL,
@@ -583,18 +583,18 @@ CREATE TABLE %s (
 			"id":  1,
 			"num": 10,
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneInsert, err := db.Model(table).WherePri(1).One()
+		oneInsert, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneInsert["id"].Int(), 1)
-		t.Assert(oneInsert["num"].Int(), 10)
+		t.Assert(oneInsert["id"].X取整数(), 1)
+		t.Assert(oneInsert["num"].X取整数(), 10)
 
 		// Update.
-		r, err = db.Model(table).Data("num=num+1").Where("id=?", 1).Update()
+		r, err = db.X创建Model对象(table).X设置数据("num=num+1").X条件("id=?", 1).X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
@@ -602,8 +602,8 @@ CREATE TABLE %s (
 }
 
 func Test_SoftUpdateTime_WithDO(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   num       int(11) DEFAULT NULL,
@@ -623,15 +623,15 @@ CREATE TABLE %s (
 			"id":  1,
 			"num": 10,
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneInserted, err := db.Model(table).WherePri(1).One()
+		oneInserted, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneInserted["id"].Int(), 1)
-		t.Assert(oneInserted["num"].Int(), 10)
+		t.Assert(oneInserted["id"].X取整数(), 1)
+		t.Assert(oneInserted["num"].X取整数(), 10)
 
 		// Update.
 		time.Sleep(2 * time.Second)
@@ -643,24 +643,24 @@ CREATE TABLE %s (
 			UpdatedAt interface{}
 			DeletedAt interface{}
 		}
-		r, err = db.Model(table).Data(User{
+		r, err = db.X创建Model对象(table).X设置数据(User{
 			Num: 100,
-		}).Where("id=?", 1).Update()
+		}).X条件("id=?", 1).X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneUpdated, err := db.Model(table).WherePri(1).One()
+		oneUpdated, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneUpdated["num"].Int(), 100)
+		t.Assert(oneUpdated["num"].X取整数(), 100)
 		t.Assert(oneUpdated["created_at"].String(), oneInserted["created_at"].String())
 		t.AssertNE(oneUpdated["updated_at"].String(), oneInserted["updated_at"].String())
 	})
 }
 
 func Test_SoftDelete(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -680,38 +680,38 @@ CREATE TABLE %s (
 				"id":   i,
 				"name": fmt.Sprintf("name_%d", i),
 			}
-			r, err := db.Model(table).Data(data).Insert()
+			r, err := db.X创建Model对象(table).X设置数据(data).X插入()
 			t.AssertNil(err)
 			n, _ := r.RowsAffected()
 			t.Assert(n, 1)
 		}
 	})
 	gtest.C(t, func(t *gtest.T) {
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.AssertNE(one["create_at"].String(), "")
 		t.AssertNE(one["update_at"].String(), "")
 		t.Assert(one["delete_at"].String(), "")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		one, err := db.Model(table).WherePri(10).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(10).X查询一条()
 		t.AssertNil(err)
 		t.AssertNE(one["create_at"].String(), "")
 		t.AssertNE(one["update_at"].String(), "")
 		t.Assert(one["delete_at"].String(), "")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		ids := g.SliceInt{1, 3, 5}
-		r, err := db.Model(table).Where("id", ids).Delete()
+		ids := g.SliceInt别名{1, 3, 5}
+		r, err := db.X创建Model对象(table).X条件("id", ids).X删除()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 3)
 
-		count, err := db.Model(table).Where("id", ids).Count()
+		count, err := db.X创建Model对象(table).X条件("id", ids).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, 0)
 
-		all, err := db.Model(table).Unscoped().Where("id", ids).All()
+		all, err := db.X创建Model对象(table).Unscoped().X条件("id", ids).X查询()
 		t.AssertNil(err)
 		t.Assert(len(all), 3)
 		t.AssertNE(all[0]["create_at"].String(), "")
@@ -728,7 +728,7 @@ CREATE TABLE %s (
 
 func Test_SoftDelete_Join(t *testing.T) {
 	table1 := "time_test_table1"
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -743,7 +743,7 @@ CREATE TABLE %s (
 	defer dropTable(table1)
 
 	table2 := "time_test_table2"
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -763,7 +763,7 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table1).Data(dataInsert1).Insert()
+		r, err := db.X创建Model对象(table1).X设置数据(dataInsert1).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
@@ -772,34 +772,34 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_2",
 		}
-		r, err = db.Model(table2).Data(dataInsert2).Insert()
+		r, err = db.X创建Model对象(table2).X设置数据(dataInsert2).X插入()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table1, "t1").LeftJoin(table2, "t2", "t2.id=t1.id").Fields("t1.name").One()
+		one, err := db.X创建Model对象(table1, "t1").X左连接(table2, "t2", "t2.id=t1.id").X字段保留过滤("t1.name").X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"], "name_1")
 
 		// Soft deleting.
-		r, err = db.Model(table1).Where(1).Delete()
+		r, err = db.X创建Model对象(table1).X条件(1).X删除()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err = db.Model(table1, "t1").LeftJoin(table2, "t2", "t2.id=t1.id").Fields("t1.name").One()
+		one, err = db.X创建Model对象(table1, "t1").X左连接(table2, "t2", "t2.id=t1.id").X字段保留过滤("t1.name").X查询一条()
 		t.AssertNil(err)
-		t.Assert(one.IsEmpty(), true)
+		t.Assert(one.X是否为空(), true)
 
-		one, err = db.Model(table2, "t2").LeftJoin(table1, "t1", "t2.id=t1.id").Fields("t2.name").One()
+		one, err = db.X创建Model对象(table2, "t2").X左连接(table1, "t1", "t2.id=t1.id").X字段保留过滤("t2.name").X查询一条()
 		t.AssertNil(err)
-		t.Assert(one.IsEmpty(), true)
+		t.Assert(one.X是否为空(), true)
 	})
 }
 
 func Test_SoftDelete_WhereAndOr(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -821,28 +821,28 @@ CREATE TABLE %s (
 				"id":   i,
 				"name": fmt.Sprintf("name_%d", i),
 			}
-			r, err := db.Model(table).Data(data).Insert()
+			r, err := db.X创建Model对象(table).X设置数据(data).X插入()
 			t.AssertNil(err)
 			n, _ := r.RowsAffected()
 			t.Assert(n, 1)
 		}
 	})
 	gtest.C(t, func(t *gtest.T) {
-		ids := g.SliceInt{1, 3, 5}
-		r, err := db.Model(table).Where("id", ids).Delete()
+		ids := g.SliceInt别名{1, 3, 5}
+		r, err := db.X创建Model对象(table).X条件("id", ids).X删除()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 3)
 
-		count, err := db.Model(table).Where("id", 1).WhereOr("id", 3).Count()
+		count, err := db.X创建Model对象(table).X条件("id", 1).X条件或("id", 3).X查询行数()
 		t.AssertNil(err)
 		t.Assert(count, 0)
 	})
 }
 
 func Test_CreateUpdateTime_Struct(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -876,18 +876,18 @@ CREATE TABLE %s (
 			UpdateAt: nil,
 			DeleteAt: nil,
 		}
-		r, err := db.Model(table).Data(dataInsert).OmitEmpty().Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X过滤空值().X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneInsert, err := db.Model(table).WherePri(1).One()
+		oneInsert, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneInsert["id"].Int(), 1)
+		t.Assert(oneInsert["id"].X取整数(), 1)
 		t.Assert(oneInsert["name"].String(), "name_1")
 		t.Assert(oneInsert["delete_at"].String(), "")
-		t.AssertGE(oneInsert["create_at"].GTime().Timestamp(), gtime.Timestamp()-2)
-		t.AssertGE(oneInsert["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.AssertGE(oneInsert["create_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
+		t.AssertGE(oneInsert["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 		time.Sleep(2 * time.Second)
 
@@ -899,19 +899,19 @@ CREATE TABLE %s (
 			UpdateAt: nil,
 			DeleteAt: nil,
 		}
-		r, err = db.Model(table).Data(dataSave).OmitEmpty().Save()
+		r, err = db.X创建Model对象(table).X设置数据(dataSave).X过滤空值().X插入并更新已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneSave, err := db.Model(table).WherePri(1).One()
+		oneSave, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneSave["id"].Int(), 1)
+		t.Assert(oneSave["id"].X取整数(), 1)
 		t.Assert(oneSave["name"].String(), "name_10")
 		t.Assert(oneSave["delete_at"].String(), "")
-		t.Assert(oneSave["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertNE(oneSave["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
-		t.AssertGE(oneSave["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneSave["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertNE(oneSave["update_at"].X取gtime时间类().X取时间戳秒(), oneInsert["update_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneSave["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 		time.Sleep(2 * time.Second)
 
@@ -923,18 +923,18 @@ CREATE TABLE %s (
 			UpdateAt: nil,
 			DeleteAt: nil,
 		}
-		r, err = db.Model(table).Data(dataUpdate).WherePri(1).OmitEmpty().Update()
+		r, err = db.X创建Model对象(table).X设置数据(dataUpdate).X条件并识别主键(1).X过滤空值().X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		oneUpdate, err := db.Model(table).WherePri(1).One()
+		oneUpdate, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneUpdate["id"].Int(), 1)
+		t.Assert(oneUpdate["id"].X取整数(), 1)
 		t.Assert(oneUpdate["name"].String(), "name_1000")
 		t.Assert(oneUpdate["delete_at"].String(), "")
-		t.Assert(oneUpdate["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertGE(oneUpdate["update_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(oneUpdate["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneUpdate["update_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 
 		// Replace
 		dataReplace := &Entity{
@@ -944,59 +944,59 @@ CREATE TABLE %s (
 			UpdateAt: nil,
 			DeleteAt: nil,
 		}
-		r, err = db.Model(table).Data(dataReplace).OmitEmpty().Replace()
+		r, err = db.X创建Model对象(table).X设置数据(dataReplace).X过滤空值().X插入并替换已存在()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 2)
 
-		oneReplace, err := db.Model(table).WherePri(1).One()
+		oneReplace, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(oneReplace["id"].Int(), 1)
+		t.Assert(oneReplace["id"].X取整数(), 1)
 		t.Assert(oneReplace["name"].String(), "name_100")
 		t.Assert(oneReplace["delete_at"].String(), "")
-		t.AssertGE(oneReplace["create_at"].GTime().Timestamp(), oneInsert["create_at"].GTime().Timestamp())
-		t.AssertGE(oneReplace["update_at"].GTime().Timestamp(), oneInsert["update_at"].GTime().Timestamp())
+		t.AssertGE(oneReplace["create_at"].X取gtime时间类().X取时间戳秒(), oneInsert["create_at"].X取gtime时间类().X取时间戳秒())
+		t.AssertGE(oneReplace["update_at"].X取gtime时间类().X取时间戳秒(), oneInsert["update_at"].X取gtime时间类().X取时间戳秒())
 
 		time.Sleep(2 * time.Second)
 
 		// Delete
-		r, err = db.Model(table).Delete("id", 1)
+		r, err = db.X创建Model对象(table).X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 		// Delete Select
-		one4, err := db.Model(table).WherePri(1).One()
+		one4, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one4), 0)
-		one5, err := db.Model(table).Unscoped().WherePri(1).One()
+		one5, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
-		t.Assert(one5["id"].Int(), 1)
-		t.AssertGE(one5["delete_at"].GTime().Timestamp(), gtime.Timestamp()-2)
+		t.Assert(one5["id"].X取整数(), 1)
+		t.AssertGE(one5["delete_at"].X取gtime时间类().X取时间戳秒(), gtime.X取时间戳秒()-2)
 		// Delete Count
-		i, err := db.Model(table).Count()
+		i, err := db.X创建Model对象(table).X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 1)
 
 		// Delete Unscoped
-		r, err = db.Model(table).Unscoped().Delete("id", 1)
+		r, err = db.X创建Model对象(table).Unscoped().X删除("id", 1)
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
-		one6, err := db.Model(table).Unscoped().WherePri(1).One()
+		one6, err := db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one6), 0)
-		i, err = db.Model(table).Unscoped().Count()
+		i, err = db.X创建Model对象(table).Unscoped().X查询行数()
 		t.AssertNil(err)
 		t.Assert(i, 0)
 	})
 }
 
 func Test_SoftTime_CreateUpdateDelete_UnixTimestamp(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -1016,17 +1016,17 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_1")
-		t.AssertGT(one["create_at"].Int64(), 0)
-		t.AssertGT(one["update_at"].Int64(), 0)
-		t.Assert(one["delete_at"].Int64(), 0)
+		t.AssertGT(one["create_at"].X取整数64位(), 0)
+		t.AssertGT(one["update_at"].X取整数64位(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 0)
 		t.Assert(len(one["create_at"].String()), 10)
 		t.Assert(len(one["update_at"].String()), 10)
 	})
@@ -1040,64 +1040,64 @@ CREATE TABLE %s (
 		dataInsert := g.Map{
 			"name": "name_11",
 		}
-		r, err := db.Model(table).Data(dataInsert).WherePri(1).Update()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X条件并识别主键(1).X更新()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_11")
-		t.AssertGT(one["create_at"].Int64(), 0)
-		t.AssertGT(one["update_at"].Int64(), 0)
-		t.Assert(one["delete_at"].Int64(), 0)
+		t.AssertGT(one["create_at"].X取整数64位(), 0)
+		t.AssertGT(one["update_at"].X取整数64位(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 0)
 		t.Assert(len(one["create_at"].String()), 10)
 		t.Assert(len(one["update_at"].String()), 10)
 
 		var (
-			lastCreateTime = one["create_at"].Int64()
-			lastUpdateTime = one["update_at"].Int64()
+			lastCreateTime = one["create_at"].X取整数64位()
+			lastUpdateTime = one["update_at"].X取整数64位()
 		)
 
 		time.Sleep(2 * time.Second)
 
 		// update: string
-		r, err = db.Model(table).Data("name='name_111'").WherePri(1).Update()
+		r, err = db.X创建Model对象(table).X设置数据("name='name_111'").X条件并识别主键(1).X更新()
 		t.AssertNil(err)
 		n, _ = r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err = db.Model(table).WherePri(1).One()
+		one, err = db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_111")
-		t.Assert(one["create_at"].Int64(), lastCreateTime)
-		t.AssertGT(one["update_at"].Int64(), lastUpdateTime)
-		t.Assert(one["delete_at"].Int64(), 0)
+		t.Assert(one["create_at"].X取整数64位(), lastCreateTime)
+		t.AssertGT(one["update_at"].X取整数64位(), lastUpdateTime)
+		t.Assert(one["delete_at"].X取整数64位(), 0)
 	})
 
 	// delete
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).WherePri(1).Delete()
+		r, err := db.X创建Model对象(table).X条件并识别主键(1).X删除()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one), 0)
 
-		one, err = db.Model(table).Unscoped().WherePri(1).One()
+		one, err = db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_111")
-		t.AssertGT(one["create_at"].Int64(), 0)
-		t.AssertGT(one["update_at"].Int64(), 0)
-		t.AssertGT(one["delete_at"].Int64(), 0)
+		t.AssertGT(one["create_at"].X取整数64位(), 0)
+		t.AssertGT(one["update_at"].X取整数64位(), 0)
+		t.AssertGT(one["delete_at"].X取整数64位(), 0)
 	})
 }
 
 func Test_SoftTime_CreateUpdateDelete_Bool_Deleted(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -1119,44 +1119,44 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_1")
-		t.AssertGT(one["create_at"].Int64(), 0)
-		t.AssertGT(one["update_at"].Int64(), 0)
-		t.Assert(one["delete_at"].Int64(), 0)
+		t.AssertGT(one["create_at"].X取整数64位(), 0)
+		t.AssertGT(one["update_at"].X取整数64位(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 0)
 		t.Assert(len(one["create_at"].String()), 10)
 		t.Assert(len(one["update_at"].String()), 10)
 	})
 
 	// delete
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).WherePri(1).Delete()
+		r, err := db.X创建Model对象(table).X条件并识别主键(1).X删除()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).WherePri(1).One()
+		one, err := db.X创建Model对象(table).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one), 0)
 
-		one, err = db.Model(table).Unscoped().WherePri(1).One()
+		one, err = db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_1")
-		t.AssertGT(one["create_at"].Int64(), 0)
-		t.AssertGT(one["update_at"].Int64(), 0)
-		t.Assert(one["delete_at"].Int64(), 1)
+		t.AssertGT(one["create_at"].X取整数64位(), 0)
+		t.AssertGT(one["update_at"].X取整数64位(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 1)
 	})
 }
 
 func Test_SoftTime_CreateUpdateDelete_Option_SoftTimeTypeTimestampMilli(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -1180,42 +1180,42 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table).SoftTime(softTimeOption).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).SoftTime(softTimeOption).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).SoftTime(softTimeOption).WherePri(1).One()
+		one, err := db.X创建Model对象(table).SoftTime(softTimeOption).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_1")
 		t.Assert(len(one["create_at"].String()), 13)
 		t.Assert(len(one["update_at"].String()), 13)
-		t.Assert(one["delete_at"].Int64(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 0)
 	})
 
 	// delete
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).SoftTime(softTimeOption).WherePri(1).Delete()
+		r, err := db.X创建Model对象(table).SoftTime(softTimeOption).X条件并识别主键(1).X删除()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).SoftTime(softTimeOption).WherePri(1).One()
+		one, err := db.X创建Model对象(table).SoftTime(softTimeOption).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one), 0)
 
-		one, err = db.Model(table).Unscoped().WherePri(1).One()
+		one, err = db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_1")
-		t.AssertGT(one["create_at"].Int64(), 0)
-		t.AssertGT(one["update_at"].Int64(), 0)
-		t.Assert(one["delete_at"].Int64(), 1)
+		t.AssertGT(one["create_at"].X取整数64位(), 0)
+		t.AssertGT(one["update_at"].X取整数64位(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 1)
 	})
 }
 
 func Test_SoftTime_CreateUpdateDelete_Option_SoftTimeTypeTimestampNano(t *testing.T) {
-	table := "soft_time_test_table_" + gtime.TimestampNanoStr()
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	table := "soft_time_test_table_" + gtime.X取文本时间戳纳秒()
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id        int(11) NOT NULL,
   name      varchar(45) DEFAULT NULL,
@@ -1239,35 +1239,35 @@ CREATE TABLE %s (
 			"id":   1,
 			"name": "name_1",
 		}
-		r, err := db.Model(table).SoftTime(softTimeOption).Data(dataInsert).Insert()
+		r, err := db.X创建Model对象(table).SoftTime(softTimeOption).X设置数据(dataInsert).X插入()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).SoftTime(softTimeOption).WherePri(1).One()
+		one, err := db.X创建Model对象(table).SoftTime(softTimeOption).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_1")
 		t.Assert(len(one["create_at"].String()), 19)
 		t.Assert(len(one["update_at"].String()), 19)
-		t.Assert(one["delete_at"].Int64(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 0)
 	})
 
 	// delete
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).SoftTime(softTimeOption).WherePri(1).Delete()
+		r, err := db.X创建Model对象(table).SoftTime(softTimeOption).X条件并识别主键(1).X删除()
 		t.AssertNil(err)
 		n, _ := r.RowsAffected()
 		t.Assert(n, 1)
 
-		one, err := db.Model(table).SoftTime(softTimeOption).WherePri(1).One()
+		one, err := db.X创建Model对象(table).SoftTime(softTimeOption).X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(len(one), 0)
 
-		one, err = db.Model(table).Unscoped().WherePri(1).One()
+		one, err = db.X创建Model对象(table).Unscoped().X条件并识别主键(1).X查询一条()
 		t.AssertNil(err)
 		t.Assert(one["name"].String(), "name_1")
-		t.AssertGT(one["create_at"].Int64(), 0)
-		t.AssertGT(one["update_at"].Int64(), 0)
-		t.Assert(one["delete_at"].Int64(), 1)
+		t.AssertGT(one["create_at"].X取整数64位(), 0)
+		t.AssertGT(one["update_at"].X取整数64位(), 0)
+		t.Assert(one["delete_at"].X取整数64位(), 1)
 	})
 }

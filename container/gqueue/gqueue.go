@@ -17,13 +17,13 @@
 //
 // 4.从队列中读取数据时会阻塞。
 // md5:ff40490071065bb6
-package gqueue
+package 队列类
 
 import (
 	"math"
 
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/container/gtype"
+	glist "github.com/888go/goframe/container/glist"
+	gtype "github.com/888go/goframe/container/gtype"
 )
 
 // Queue是一个基于双向链表和通道的并发安全队列。 md5:dc3dd26386e4acfb
@@ -40,17 +40,17 @@ const (
 	defaultBatchSize = 10    // 从列表中每次预取的最大批处理大小。 md5:d8aca34be43fb879
 )
 
-// New 返回一个空的队列对象。
+// X创建 返回一个空的队列对象。
 // 可选参数 `limit` 用于限制队列的大小，默认情况下无限制。
 // 当提供 `limit` 时，队列将变为静态且高性能，其性能可与标准库中的通道相媲美。
 // md5:9fbd45b8d84f665e
-func New(limit ...int) *Queue {
+func X创建(队列长度 ...int) *Queue {
 	q := &Queue{
 		closed: gtype.NewBool(),
 	}
-	if len(limit) > 0 && limit[0] > 0 {
-		q.limit = limit[0]
-		q.C = make(chan interface{}, limit[0])
+	if len(队列长度) > 0 && 队列长度[0] > 0 {
+		q.limit = 队列长度[0]
+		q.C = make(chan interface{}, 队列长度[0])
 	} else {
 		q.list = glist.New(true)
 		q.events = make(chan struct{}, math.MaxInt32)
@@ -60,31 +60,31 @@ func New(limit ...int) *Queue {
 	return q
 }
 
-// Push 将数据 `v` 推入队列。
-// 注意，如果在关闭队列后调用 Push，它将引发 panic。
+// X入栈 将数据 `v` 推入队列。
+// 注意，如果在关闭队列后调用 X入栈，它将引发 panic。
 // md5:ace317b42ed78776
-func (q *Queue) Push(v interface{}) {
+func (q *Queue) X入栈(值 interface{}) {
 	if q.limit > 0 {
-		q.C <- v
+		q.C <- 值
 	} else {
-		q.list.PushBack(v)
+		q.list.PushBack(值)
 		if len(q.events) < defaultQueueSize {
 			q.events <- struct{}{}
 		}
 	}
 }
 
-// Pop 从队列中按先进先出（FIFO）方式弹出一个项目。
-// 如果在关闭队列后调用 Pop，它会立即返回 nil。
+// X出栈 从队列中按先进先出（FIFO）方式弹出一个项目。
+// 如果在关闭队列后调用 X出栈，它会立即返回 nil。
 // md5:f632ecf6d87ed4c5
-func (q *Queue) Pop() interface{} {
+func (q *Queue) X出栈() interface{} {
 	return <-q.C
 }
 
-// Close 关闭队列。
+// X关闭 关闭队列。
 // 注意：它会通知所有因调用Pop方法而阻塞的goroutine立即返回。
 // md5:bd22bcaaebaed5dc
-func (q *Queue) Close() {
+func (q *Queue) X关闭() {
 	if !q.closed.Cas(false, true) {
 		return
 	}
@@ -95,15 +95,15 @@ func (q *Queue) Close() {
 		close(q.C)
 	} else {
 		for i := 0; i < defaultBatchSize; i++ {
-			q.Pop()
+			q.X出栈()
 		}
 	}
 }
 
-// Len 返回队列的长度。
+// X取长度 返回队列的长度。
 // 请注意，如果使用无限大的队列大小，结果可能不准确，因为有一个异步通道持续读取列表。
 // md5:b2b860a611742a51
-func (q *Queue) Len() (length int64) {
+func (q *Queue) X取长度() (长度 int64) {
 	bufferedSize := int64(len(q.C))
 	if q.limit > 0 {
 		return bufferedSize
@@ -111,11 +111,11 @@ func (q *Queue) Len() (length int64) {
 	return int64(q.list.Size()) + bufferedSize
 }
 
-// Size是Len的别名。
+// Size弃用是Len的别名。
 // 警告：请改用Len。
 // md5:25acbbc5f8f37a14
-func (q *Queue) Size() int64 {
-	return q.Len()
+func (q *Queue) Size弃用() int64 {
+	return q.X取长度()
 }
 
 // asyncLoopFromListToChannel 启动一个异步goroutine，
@@ -123,13 +123,13 @@ func (q *Queue) Size() int64 {
 // md5:fd4f8b385cd5a6ba
 func (q *Queue) asyncLoopFromListToChannel() {
 	defer func() {
-		if q.closed.Val() {
+		if q.closed.X取值() {
 			_ = recover()
 		}
 	}()
-	for !q.closed.Val() {
+	for !q.closed.X取值() {
 		<-q.events
-		for !q.closed.Val() {
+		for !q.closed.X取值() {
 			if bufferLength := q.list.Len(); bufferLength > 0 {
 				// 当q.C被关闭时，这里将会发生恐慌，尤其是当q.C因写入操作而被阻塞时。
 				// 如果这里发生任何错误，它将被recover捕获并被忽略。

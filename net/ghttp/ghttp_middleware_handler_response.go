@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"net/http"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // DefaultHandlerResponse是HandlerResponse的默认实现。 md5:9340fa71a0d9e8f7
@@ -23,18 +23,18 @@ type DefaultHandlerResponse struct {
 
 // MiddlewareHandlerResponse 是默认的处理handler响应对象及其错误的中间件。 md5:d59676d7f703b4b1
 func MiddlewareHandlerResponse(r *Request) {
-	r.Middleware.Next()
+	r.X中间件管理器.Next()
 
 		// 存在自定义缓冲区内容，然后退出当前处理器。 md5:fd21f1b41f115a81
-	if r.Response.BufferLength() > 0 {
+	if r.X响应.BufferLength() > 0 {
 		return
 	}
 
 	var (
 		msg  string
-		err  = r.GetError()
-		res  = r.GetHandlerResponse()
-		code = gerror.Code(err)
+		err  = r.X取错误信息()
+		res  = r.X取响应对象及错误信息()
+		code = gerror.X取错误码(err)
 	)
 	if err != nil {
 		if code == gcode.CodeNil {
@@ -42,9 +42,9 @@ func MiddlewareHandlerResponse(r *Request) {
 		}
 		msg = err.Error()
 	} else {
-		if r.Response.Status > 0 && r.Response.Status != http.StatusOK {
-			msg = http.StatusText(r.Response.Status)
-			switch r.Response.Status {
+		if r.X响应.Status > 0 && r.X响应.Status != http.StatusOK {
+			msg = http.StatusText(r.X响应.Status)
+			switch r.X响应.Status {
 			case http.StatusNotFound:
 				code = gcode.CodeNotFound
 			case http.StatusForbidden:
@@ -53,14 +53,14 @@ func MiddlewareHandlerResponse(r *Request) {
 				code = gcode.CodeUnknown
 			}
 						// 由于其他中间件可以获取到这个错误，所以它会产生错误。 md5:36a5d15e82de8d66
-			err = gerror.NewCode(code, msg)
-			r.SetError(err)
+			err = gerror.X创建错误码(code, msg)
+			r.X设置错误信息(err)
 		} else {
 			code = gcode.CodeOK
 		}
 	}
 
-	r.Response.WriteJson(DefaultHandlerResponse{
+	r.X响应.X写响应缓冲区JSON(DefaultHandlerResponse{
 		Code:    code.Code(),
 		Message: msg,
 		Data:    res,

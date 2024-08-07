@@ -8,9 +8,9 @@
 package goai
 
 import (
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Operation 表示符合OpenAPI/Swagger 3.0标准的“操作”定义。 md5:311e40263896a777
@@ -33,7 +33,7 @@ type Operation struct {
 func (oai *OpenApiV3) tagMapToOperation(tagMap map[string]string, operation *Operation) error {
 	var mergedTagMap = oai.fillMapWithShortTags(tagMap)
 	if err := gconv.Struct(mergedTagMap, operation); err != nil {
-		return gerror.Wrap(err, `mapping struct tags to Operation failed`)
+		return gerror.X多层错误(err, `mapping struct tags to Operation failed`)
 	}
 	oai.tagMapToXExtensions(mergedTagMap, operation.XExtensions)
 	return nil

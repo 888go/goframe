@@ -5,20 +5,20 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gctx_test
+package 上下文类_test
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/test/gtest"
+	gctx "github.com/888go/goframe/os/gctx"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_NeverDone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		ctx, _ := context.WithDeadline(gctx.New(), time.Now().Add(time.Hour))
+		ctx, _ := context.WithDeadline(gctx.X创建(), time.Now().Add(time.Hour))
 		t.AssertNE(ctx, nil)
 		t.AssertNE(ctx.Done(), nil)
 		t.Assert(ctx.Err(), nil)

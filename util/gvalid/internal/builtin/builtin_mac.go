@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RuleMac 实现了 `mac` 规则：
@@ -33,7 +33,7 @@ func (r RuleMac) Message() string {
 }
 
 func (r RuleMac) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := gregex.X是否匹配文本(
 		`^([0-9A-Fa-f]{2}[\-:]){5}[0-9A-Fa-f]{2}$`,
 		in.Value.String(),
 	)

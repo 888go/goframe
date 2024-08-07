@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
 	"bytes"
@@ -15,9 +15,9 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/os/gstructs"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // iString 用于类型断言API，用于String()。 md5:8ec0af717c4f530e
@@ -41,43 +41,43 @@ type DumpOption struct {
 	ExportedOnly bool // 只导出结构体的Exported字段。 md5:b19bd21abecb4c21
 }
 
-// Dump 将变量 `values` 打印到标准输出，以更人工可读的方式。 md5:05206ddf9d48510d
-func Dump(values ...interface{}) {
-	for _, value := range values {
-		DumpWithOption(value, DumpOption{
+// X调试输出 将变量 `values` 打印到标准输出，以更人工可读的方式。 md5:05206ddf9d48510d
+func X调试输出(值s ...interface{}) {
+	for _, value := range 值s {
+		X调试输出并带选项(value, DumpOption{
 			WithType:     false,
 			ExportedOnly: false,
 		})
 	}
 }
 
-// DumpWithType 类似于 Dump，但带有类型信息。同时参阅 Dump。
+// X调试输出并带类型 类似于 Dump，但带有类型信息。同时参阅 Dump。
 // md5:faabab79589d38a3
-func DumpWithType(values ...interface{}) {
-	for _, value := range values {
-		DumpWithOption(value, DumpOption{
+func X调试输出并带类型(值s ...interface{}) {
+	for _, value := range 值s {
+		X调试输出并带选项(value, DumpOption{
 			WithType:     true,
 			ExportedOnly: false,
 		})
 	}
 }
 
-// DumpWithOption 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
-func DumpWithOption(value interface{}, option DumpOption) {
+// X调试输出并带选项 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
+func X调试输出并带选项(值 interface{}, 选项 DumpOption) {
 	buffer := bytes.NewBuffer(nil)
-	DumpTo(buffer, value, DumpOption{
-		WithType:     option.WithType,
-		ExportedOnly: option.ExportedOnly,
+	X调试输出到Writer(buffer, 值, DumpOption{
+		WithType:     选项.WithType,
+		ExportedOnly: 选项.ExportedOnly,
 	})
 	fmt.Println(buffer.String())
 }
 
-// DumpTo 将变量 `values` 作为字符串写入到 `writer` 中，提供更易人工阅读的格式. md5:68fd8fc9ea0dfc4b
-func DumpTo(writer io.Writer, value interface{}, option DumpOption) {
+// X调试输出到Writer 将变量 `values` 作为字符串写入到 `writer` 中，提供更易人工阅读的格式. md5:68fd8fc9ea0dfc4b
+func X调试输出到Writer(writer io.Writer, 值 interface{}, 选项 DumpOption) {
 	buffer := bytes.NewBuffer(nil)
-	doDump(value, "", buffer, doDumpOption{
-		WithType:     option.WithType,
-		ExportedOnly: option.ExportedOnly,
+	doDump(值, "", buffer, doDumpOption{
+		WithType:     选项.WithType,
+		ExportedOnly: 选项.ExportedOnly,
 	})
 	_, _ = writer.Write(buffer.Bytes())
 }
@@ -455,7 +455,7 @@ func doDumpDefault(in doDumpInternalInput) {
 	if s == "" {
 		s = fmt.Sprintf("%v", in.Value)
 	}
-	s = gstr.Trim(s, `<>`)
+	s = gstr.X过滤首尾符并含空白(s, `<>`)
 	if !in.Option.WithType {
 		in.Buffer.WriteString(s)
 	} else {
@@ -464,7 +464,7 @@ func doDumpDefault(in doDumpInternalInput) {
 }
 
 func addSlashesForString(s string) string {
-	return gstr.ReplaceByMap(s, map[string]string{
+	return gstr.Map替换(s, map[string]string{
 		`"`:  `\"`,
 		"\r": `\r`,
 		"\t": `\t`,
@@ -472,8 +472,8 @@ func addSlashesForString(s string) string {
 	})
 }
 
-// DumpJson 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
-func DumpJson(value any) {
+// X调试输出json 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
+func X调试输出json(value any) {
 	switch result := value.(type) {
 	case []byte:
 		doDumpJson(result)

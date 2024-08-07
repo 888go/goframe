@@ -7,14 +7,14 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gqueue_test
+package 队列类_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gqueue"
-	"github.com/gogf/gf/v2/test/gtest"
+	gqueue "github.com/888go/goframe/container/gqueue"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestQueue_Len(t *testing.T) {
@@ -24,12 +24,12 @@ func TestQueue_Len(t *testing.T) {
 			maxTries = 100
 		)
 		for n := 10; n < maxTries; n++ {
-			q1 := gqueue.New(maxNum)
+			q1 := gqueue.X创建(maxNum)
 			for i := 0; i < maxNum; i++ {
-				q1.Push(i)
+				q1.X入栈(i)
 			}
-			t.Assert(q1.Len(), maxNum)
-			t.Assert(q1.Size(), maxNum)
+			t.Assert(q1.X取长度(), maxNum)
+			t.Assert(q1.Size弃用(), maxNum)
 		}
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -38,72 +38,72 @@ func TestQueue_Len(t *testing.T) {
 			maxTries = 100
 		)
 		for n := 10; n < maxTries; n++ {
-			q1 := gqueue.New()
+			q1 := gqueue.X创建()
 			for i := 0; i < maxNum; i++ {
-				q1.Push(i)
+				q1.X入栈(i)
 			}
-			t.AssertLE(q1.Len(), maxNum)
-			t.AssertLE(q1.Size(), maxNum)
+			t.AssertLE(q1.X取长度(), maxNum)
+			t.AssertLE(q1.Size弃用(), maxNum)
 		}
 	})
 }
 
 func TestQueue_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q := gqueue.New()
+		q := gqueue.X创建()
 		for i := 0; i < 100; i++ {
-			q.Push(i)
+			q.X入栈(i)
 		}
-		t.Assert(q.Pop(), 0)
-		t.Assert(q.Pop(), 1)
+		t.Assert(q.X出栈(), 0)
+		t.Assert(q.X出栈(), 1)
 	})
 }
 
 func TestQueue_Pop(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q1 := gqueue.New()
-		q1.Push(1)
-		q1.Push(2)
-		q1.Push(3)
-		q1.Push(4)
-		i1 := q1.Pop()
+		q1 := gqueue.X创建()
+		q1.X入栈(1)
+		q1.X入栈(2)
+		q1.X入栈(3)
+		q1.X入栈(4)
+		i1 := q1.X出栈()
 		t.Assert(i1, 1)
 	})
 }
 
 func TestQueue_Close(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q1 := gqueue.New()
-		q1.Push(1)
-		q1.Push(2)
+		q1 := gqueue.X创建()
+		q1.X入栈(1)
+		q1.X入栈(2)
 		// wait sync to channel
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(q1.Len(), 2)
-		q1.Close()
+		t.Assert(q1.X取长度(), 2)
+		q1.X关闭()
 	})
 	gtest.C(t, func(t *gtest.T) {
-		q1 := gqueue.New(2)
-		q1.Push(1)
-		q1.Push(2)
+		q1 := gqueue.X创建(2)
+		q1.X入栈(1)
+		q1.X入栈(2)
 		// wait sync to channel
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(q1.Len(), 2)
-		q1.Close()
+		t.Assert(q1.X取长度(), 2)
+		q1.X关闭()
 	})
 }
 
 func Test_Issue2509(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		q := gqueue.New()
-		q.Push(1)
-		q.Push(2)
-		q.Push(3)
-		t.AssertLE(q.Len(), 3)
+		q := gqueue.X创建()
+		q.X入栈(1)
+		q.X入栈(2)
+		q.X入栈(3)
+		t.AssertLE(q.X取长度(), 3)
 		t.Assert(<-q.C, 1)
-		t.AssertLE(q.Len(), 2)
+		t.AssertLE(q.X取长度(), 2)
 		t.Assert(<-q.C, 2)
-		t.AssertLE(q.Len(), 1)
+		t.AssertLE(q.X取长度(), 1)
 		t.Assert(<-q.C, 3)
-		t.Assert(q.Len(), 0)
+		t.Assert(q.X取长度(), 0)
 	})
 }

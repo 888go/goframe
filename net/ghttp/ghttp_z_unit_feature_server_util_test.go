@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
@@ -13,10 +13,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 type testWrapStdHTTPStruct struct {
@@ -33,38 +33,38 @@ func (t *testWrapStdHTTPStruct) ServeHTTP(w http.ResponseWriter, req *http.Reque
 
 func Test_Server_Wrap_Handler(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
+		s := g.Http类(guid.X生成())
 		str1 := "hello"
 		str2 := "hello again"
-		s.Group("/api", func(group *ghttp.RouterGroup) {
-			group.GET("/wrapf", ghttp.WrapF(func(w http.ResponseWriter, req *http.Request) {
+		s.X创建分组路由("/api", func(group *ghttp.X分组路由) {
+			group.X绑定GET("/wrapf", ghttp.WrapF(func(w http.ResponseWriter, req *http.Request) {
 				t.Assert(req.Method, "GET")
 				t.Assert(req.URL.Path, "/api/wrapf")
 				w.WriteHeader(http.StatusBadRequest)
 				fmt.Fprint(w, str1)
 			}))
 
-			group.POST("/wraph", ghttp.WrapH(&testWrapStdHTTPStruct{t, str2}))
+			group.X绑定POST("/wraph", ghttp.WrapH(&testWrapStdHTTPStruct{t, str2}))
 		})
 
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d/api", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d/api", s.X取已监听端口()))
 
-		response, err := client.Get(ctx, "/wrapf")
+		response, err := client.Get响应对象(ctx, "/wrapf")
 		t.AssertNil(err)
-		defer response.Close()
+		defer response.X关闭()
 		t.Assert(response.StatusCode, http.StatusBadRequest)
-		t.Assert(response.ReadAllString(), str1)
+		t.Assert(response.X取响应文本(), str1)
 
-		response2, err := client.Post(ctx, "/wraph")
+		response2, err := client.Post响应对象(ctx, "/wraph")
 		t.AssertNil(err)
-		defer response2.Close()
+		defer response2.X关闭()
 		t.Assert(response2.StatusCode, http.StatusInternalServerError)
-		t.Assert(response2.ReadAllString(), str2)
+		t.Assert(response2.X取响应文本(), str2)
 	})
 }

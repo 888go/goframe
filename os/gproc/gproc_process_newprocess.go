@@ -5,9 +5,9 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-//---build---//go:build !windows
+//go:build !windows
 
-package gproc
+package 进程类
 
 // 在Windows平台什么都不做，只是设置它. md5:ff86003bf629168f
-func joinProcessArgs(p *Process) {}//build_func_1|joinProcessArgs|
+func joinProcessArgs(p *Process) {}

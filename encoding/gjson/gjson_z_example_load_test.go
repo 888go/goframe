@@ -5,24 +5,24 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gjson_test
+package json类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/test/gtest"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func ExampleLoad() {
 	jsonFilePath := gtest.DataPath("json", "data1.json")
-	j, _ := gjson.Load(jsonFilePath)
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
+	j, _ := gjson.X加载文件(jsonFilePath)
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
 
 	notExistFilePath := gtest.DataPath("json", "data2.json")
-	j2, _ := gjson.Load(notExistFilePath)
-	fmt.Println(j2.Get("name"))
+	j2, _ := gjson.X加载文件(notExistFilePath)
+	fmt.Println(j2.X取值("name"))
 
 	// Output:
 	// john
@@ -31,9 +31,9 @@ func ExampleLoad() {
 
 func ExampleLoadJson() {
 	jsonContent := `{"name":"john", "score":"100"}`
-	j, _ := gjson.LoadJson(jsonContent)
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
+	j, _ := gjson.X加载json(jsonContent)
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
 
 	// Output:
 	// john
@@ -46,9 +46,9 @@ func ExampleLoadXml() {
 		<name>john</name>
 		<score>100</score>
 	</base>`
-	j, _ := gjson.LoadXml(xmlContent)
-	fmt.Println(j.Get("base.name"))
-	fmt.Println(j.Get("base.score"))
+	j, _ := gjson.X加载xml(xmlContent)
+	fmt.Println(j.X取值("base.name"))
+	fmt.Println(j.X取值("base.score"))
 
 	// Output:
 	// john
@@ -61,9 +61,9 @@ func ExampleLoadIni() {
 	name = john
 	score = 100
 	`
-	j, _ := gjson.LoadIni(iniContent)
-	fmt.Println(j.Get("base.name"))
-	fmt.Println(j.Get("base.score"))
+	j, _ := gjson.X加载ini(iniContent)
+	fmt.Println(j.X取值("base.name"))
+	fmt.Println(j.X取值("base.score"))
 
 	// Output:
 	// john
@@ -76,9 +76,9 @@ func ExampleLoadYaml() {
   name: john
   score: 100`
 
-	j, _ := gjson.LoadYaml(yamlContent)
-	fmt.Println(j.Get("base.name"))
-	fmt.Println(j.Get("base.score"))
+	j, _ := gjson.X加载Yaml(yamlContent)
+	fmt.Println(j.X取值("base.name"))
+	fmt.Println(j.X取值("base.score"))
 
 	// Output:
 	// john
@@ -91,9 +91,9 @@ func ExampleLoadToml() {
   name = "john"
   score = 100`
 
-	j, _ := gjson.LoadToml(tomlContent)
-	fmt.Println(j.Get("base.name"))
-	fmt.Println(j.Get("base.score"))
+	j, _ := gjson.X加载Toml(tomlContent)
+	fmt.Println(j.X取值("base.name"))
+	fmt.Println(j.X取值("base.score"))
 
 	// Output:
 	// john
@@ -103,10 +103,10 @@ func ExampleLoadToml() {
 func ExampleLoadContent() {
 	jsonContent := `{"name":"john", "score":"100"}`
 
-	j, _ := gjson.LoadContent(jsonContent)
+	j, _ := gjson.X加载并自动识别格式(jsonContent)
 
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
 
 	// Output:
 	// john
@@ -122,10 +122,10 @@ func ExampleLoadContent_UTF8BOM() {
 	content[2] = 0xBF
 	content = append(content, jsonContent...)
 
-	j, _ := gjson.LoadContent(content)
+	j, _ := gjson.X加载并自动识别格式(content)
 
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
 
 	// Output:
 	// john
@@ -139,10 +139,10 @@ func ExampleLoadContent_Xml() {
 		<score>100</score>
 	</base>`
 
-	x, _ := gjson.LoadContent(xmlContent)
+	x, _ := gjson.X加载并自动识别格式(xmlContent)
 
-	fmt.Println(x.Get("base.name"))
-	fmt.Println(x.Get("base.score"))
+	fmt.Println(x.X取值("base.name"))
+	fmt.Println(x.X取值("base.score"))
 
 	// Output:
 	// john
@@ -157,15 +157,15 @@ func ExampleLoadContentType() {
 		<score>100</score>
 	</base>`
 
-	j, _ := gjson.LoadContentType("json", jsonContent)
-	x, _ := gjson.LoadContentType("xml", xmlContent)
-	j1, _ := gjson.LoadContentType("json", "")
+	j, _ := gjson.X加载并按格式("json", jsonContent)
+	x, _ := gjson.X加载并按格式("xml", xmlContent)
+	j1, _ := gjson.X加载并按格式("json", "")
 
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
-	fmt.Println(x.Get("base.name"))
-	fmt.Println(x.Get("base.score"))
-	fmt.Println(j1.Get(""))
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
+	fmt.Println(x.X取值("base.name"))
+	fmt.Println(x.X取值("base.score"))
+	fmt.Println(j1.X取值(""))
 
 	// Output:
 	// john
@@ -175,15 +175,15 @@ func ExampleLoadContentType() {
 }
 
 func ExampleIsValidDataType() {
-	fmt.Println(gjson.IsValidDataType("json"))
-	fmt.Println(gjson.IsValidDataType("yml"))
-	fmt.Println(gjson.IsValidDataType("js"))
-	fmt.Println(gjson.IsValidDataType("mp4"))
-	fmt.Println(gjson.IsValidDataType("xsl"))
-	fmt.Println(gjson.IsValidDataType("txt"))
-	fmt.Println(gjson.IsValidDataType(""))
-	fmt.Println(gjson.IsValidDataType(".json"))
-	fmt.Println(gjson.IsValidDataType(".properties"))
+	fmt.Println(gjson.X检查类型("json"))
+	fmt.Println(gjson.X检查类型("yml"))
+	fmt.Println(gjson.X检查类型("js"))
+	fmt.Println(gjson.X检查类型("mp4"))
+	fmt.Println(gjson.X检查类型("xsl"))
+	fmt.Println(gjson.X检查类型("txt"))
+	fmt.Println(gjson.X检查类型(""))
+	fmt.Println(gjson.X检查类型(".json"))
+	fmt.Println(gjson.X检查类型(".properties"))
 
 	// Output:
 	// true
@@ -199,17 +199,17 @@ func ExampleIsValidDataType() {
 
 func ExampleLoad_Xml() {
 	jsonFilePath := gtest.DataPath("xml", "data1.xml")
-	j, _ := gjson.Load(jsonFilePath)
-	fmt.Println(j.Get("doc.name"))
-	fmt.Println(j.Get("doc.score"))
+	j, _ := gjson.X加载文件(jsonFilePath)
+	fmt.Println(j.X取值("doc.name"))
+	fmt.Println(j.X取值("doc.score"))
 }
 
 func ExampleLoad_Properties() {
 	jsonFilePath := gtest.DataPath("properties", "data1.properties")
-	j, _ := gjson.Load(jsonFilePath)
-	fmt.Println(j.Get("pr.name"))
-	fmt.Println(j.Get("pr.score"))
-	fmt.Println(j.Get("pr.sex"))
+	j, _ := gjson.X加载文件(jsonFilePath)
+	fmt.Println(j.X取值("pr.name"))
+	fmt.Println(j.X取值("pr.score"))
+	fmt.Println(j.X取值("pr.sex"))
 
 	//Output:
 	// john

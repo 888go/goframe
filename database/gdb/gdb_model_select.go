@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"context"
 	"fmt"
 	"reflect"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gset "github.com/888go/goframe/container/gset"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/reflection"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // 所有执行的是 "FROM ..." 语句针对该模型。
@@ -27,12 +27,12 @@ import (
 // 可选参数 `where` 和 Model.Where 函数的参数相同，
 // 请参阅 Model.Where。
 // md5:fd88d2addfbe9655
-func (m *Model) All(where ...interface{}) (Result, error) {
-	var ctx = m.GetCtx()
-	return m.doGetAll(ctx, false, where...)
+func (m *Model) X查询(查询条件 ...interface{}) (Result, error) {
+	var ctx = m.X取上下文对象()
+	return m.doGetAll(ctx, false, 查询条件...)
 }
 
-// AllAndCount 从模型中检索所有记录以及记录的总数量。
+// X查询与行数 从模型中检索所有记录以及记录的总数量。
 // 如果 useFieldForCount 为真，它将使用模型中指定的字段进行计数；
 // 否则，它将使用常数值1来进行计数。
 // 此方法返回结果作为一个记录切片，记录的总数量，以及可能存在的错误。
@@ -44,58 +44,58 @@ func (m *Model) All(where ...interface{}) (Result, error) {
 //	var result []Record
 //	var count int
 //	where := []interface{}{"name = ?", "John"}
-//	result, count, err := model.AllAndCount(true, where...)
+//	result, count, err := model.X查询与行数(true, where...)
 //	if err != nil {
 //	    // 处理错误。
 //	}
 //	fmt.Println(result, count)
 // md5:b631bbec9e186f68
-func (m *Model) AllAndCount(useFieldForCount bool) (result Result, totalCount int, err error) {
+func (m *Model) X查询与行数(是否用字段计数 bool) (结果 Result, 行数 int, 错误 error) {
 			// 克隆模型用于计数. md5:662b7475962d2c44
-	countModel := m.Clone()
+	countModel := m.X取副本()
 
 		// 如果useFieldForCount为false，将字段设置为计数的恒定值1. md5:2eea55571801d2ab
-	if !useFieldForCount {
+	if !是否用字段计数 {
 		countModel.fields = "1"
 	}
 
 			// 获取记录的总数. md5:d21517ef51fd67f3
-	totalCount, err = countModel.Count()
-	if err != nil {
+	行数, 错误 = countModel.X查询行数()
+	if 错误 != nil {
 		return
 	}
 
 		// 如果总记录数为0，就没有需要检索的记录，因此提前返回. md5:ae90d44fd00f71aa
-	if totalCount == 0 {
+	if 行数 == 0 {
 		return
 	}
 
 	// Retrieve all records
-	result, err = m.doGetAll(m.GetCtx(), false)
+	结果, 错误 = m.doGetAll(m.X取上下文对象(), false)
 	return
 }
 
-// Chunk 使用给定的 `size` 和 `handler` 函数来分块迭代查询结果。 md5:4c5d0d282b8e1fe4
-func (m *Model) Chunk(size int, handler ChunkHandler) {
+// X分割 使用给定的 `size` 和 `handler` 函数来分块迭代查询结果。 md5:4c5d0d282b8e1fe4
+func (m *Model) X分割(数量 int, 处理函数 ChunkHandler) {
 	page := m.start
 	if page <= 0 {
 		page = 1
 	}
 	model := m
 	for {
-		model = model.Page(page, size)
-		data, err := model.All()
+		model = model.X设置分页(page, 数量)
+		data, err := model.X查询()
 		if err != nil {
-			handler(nil, err)
+			处理函数(nil, err)
 			break
 		}
 		if len(data) == 0 {
 			break
 		}
-		if !handler(data, err) {
+		if !处理函数(data, err) {
 			break
 		}
-		if len(data) < size {
+		if len(data) < 数量 {
 			break
 		}
 		page++
@@ -106,10 +106,10 @@ func (m *Model) Chunk(size int, handler ChunkHandler) {
 //
 // 可选参数`where`与Model.Where函数的参数相同，参见Model.Where。
 // md5:b48f8e0c5d07b484
-func (m *Model) One(where ...interface{}) (Record, error) {
-	var ctx = m.GetCtx()
-	if len(where) > 0 {
-		return m.Where(where[0], where[1:]...).One()
+func (m *Model) X查询一条(条件 ...interface{}) (Record, error) {
+	var ctx = m.X取上下文对象()
+	if len(条件) > 0 {
+		return m.X条件(条件[0], 条件[1:]...).X查询一条()
 	}
 	all, err := m.doGetAll(ctx, true)
 	if err != nil {
@@ -128,36 +128,36 @@ func (m *Model) One(where ...interface{}) (Record, error) {
 // 而 fieldsAndWhere[1:] 则被视为 where 条件字段。
 // 参见 Model.Fields 和 Model.Where 函数。
 // md5:1de6885dc1e83172
-func (m *Model) Array(fieldsAndWhere ...interface{}) ([]Value, error) {
-	if len(fieldsAndWhere) > 0 {
-		if len(fieldsAndWhere) > 2 {
-			return m.Fields(gconv.String(fieldsAndWhere[0])).Where(fieldsAndWhere[1], fieldsAndWhere[2:]...).Array()
-		} else if len(fieldsAndWhere) == 2 {
-			return m.Fields(gconv.String(fieldsAndWhere[0])).Where(fieldsAndWhere[1]).Array()
+func (m *Model) X查询切片(条件 ...interface{}) ([]Value, error) {
+	if len(条件) > 0 {
+		if len(条件) > 2 {
+			return m.X字段保留过滤(gconv.String(条件[0])).X条件(条件[1], 条件[2:]...).X查询切片()
+		} else if len(条件) == 2 {
+			return m.X字段保留过滤(gconv.String(条件[0])).X条件(条件[1]).X查询切片()
 		} else {
-			return m.Fields(gconv.String(fieldsAndWhere[0])).Array()
+			return m.X字段保留过滤(gconv.String(条件[0])).X查询切片()
 		}
 	}
-	all, err := m.All()
+	all, err := m.X查询()
 	if err != nil {
 		return nil, err
 	}
 	var (
 		field string
-		core  = m.db.GetCore()
-		ctx   = core.injectInternalColumn(m.GetCtx())
+		core  = m.db.X取Core对象()
+		ctx   = core.injectInternalColumn(m.X取上下文对象())
 	)
 	if len(all) > 0 {
 		if internalData := core.getInternalColumnFromCtx(ctx); internalData != nil {
 			field = internalData.FirstResultColumn
 		} else {
-			return nil, gerror.NewCode(
+			return nil, gerror.X创建错误码(
 				gcode.CodeInternalError,
 				`query array error: the internal context data is missing. there's internal issue should be fixed`,
 			)
 		}
 	}
-	return all.Array(field), nil
+	return all.X取字段切片(field), nil
 }
 
 // Struct 从表中检索一条记录，并将其转换为给定的结构体。
@@ -182,16 +182,16 @@ func (m *Model) doStruct(pointer interface{}, where ...interface{}) error {
 		// 自动通过结构体属性选择字段。 md5:25f031330d67c88b
 	if model.fieldsEx == "" && (model.fields == "" || model.fields == "*") {
 		if v, ok := pointer.(reflect.Value); ok {
-			model = m.Fields(v.Interface())
+			model = m.X字段保留过滤(v.Interface())
 		} else {
-			model = m.Fields(pointer)
+			model = m.X字段保留过滤(pointer)
 		}
 	}
-	one, err := model.One(where...)
+	one, err := model.X查询一条(where...)
 	if err != nil {
 		return err
 	}
-	if err = one.Struct(pointer); err != nil {
+	if err = one.X取结构体指针(pointer); err != nil {
 		return err
 	}
 	return model.doWithScanStruct(pointer)
@@ -216,30 +216,30 @@ func (m *Model) doStructs(pointer interface{}, where ...interface{}) error {
 		// 自动通过结构体属性选择字段。 md5:25f031330d67c88b
 	if model.fieldsEx == "" && (model.fields == "" || model.fields == "*") {
 		if v, ok := pointer.(reflect.Value); ok {
-			model = m.Fields(
+			model = m.X字段保留过滤(
 				reflect.New(
 					v.Type().Elem(),
 				).Interface(),
 			)
 		} else {
-			model = m.Fields(
+			model = m.X字段保留过滤(
 				reflect.New(
 					reflect.ValueOf(pointer).Elem().Type().Elem(),
 				).Interface(),
 			)
 		}
 	}
-	all, err := model.All(where...)
+	all, err := model.X查询(where...)
 	if err != nil {
 		return err
 	}
-	if err = all.Structs(pointer); err != nil {
+	if err = all.X取切片结构体指针(pointer); err != nil {
 		return err
 	}
 	return model.doWithScanStructs(pointer)
 }
 
-// Scan会根据参数`pointer`的类型自动调用Struct或Structs函数。
+// X查询到结构体指针会根据参数`pointer`的类型自动调用Struct或Structs函数。
 // 如果`pointer`是类型`*struct`或`**struct`，它会调用doStruct函数。
 // 如果`pointer`是类型`*[]struct`或`*[]*struct`，它会调用doStructs函数。
 // 
@@ -249,41 +249,41 @@ func (m *Model) doStructs(pointer interface{}, where ...interface{}) error {
 // 
 // 示例：
 // user := new(User)
-// err := db.Model("user").Where("id", 1).Scan(user)
+// err := db.Model("user").Where("id", 1).X查询到结构体指针(user)
 // 
 // user := (*User)(nil)
-// err := db.Model("user").Where("id", 1).Scan(&user)
+// err := db.Model("user").Where("id", 1).X查询到结构体指针(&user)
 // 
 // users := ([]User)(nil)
-// err := db.Model("user").Scan(&users)
+// err := db.Model("user").X查询到结构体指针(&users)
 // 
 // users := ([]*User)(nil)
-// err := db.Model("user").Scan(&users)
+// err := db.Model("user").X查询到结构体指针(&users)
 // md5:a6df07ddafe5975a
-func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
-	reflectInfo := reflection.OriginTypeAndKind(pointer)
+func (m *Model) X查询到结构体指针(数据指针 interface{}, 条件 ...interface{}) error {
+	reflectInfo := reflection.OriginTypeAndKind(数据指针)
 	if reflectInfo.InputKind != reflect.Ptr {
-		return gerror.NewCode(
+		return gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			`the parameter "pointer" for function Scan should type of pointer`,
 		)
 	}
 	switch reflectInfo.OriginKind {
 	case reflect.Slice, reflect.Array:
-		return m.doStructs(pointer, where...)
+		return m.doStructs(数据指针, 条件...)
 
 	case reflect.Struct, reflect.Invalid:
-		return m.doStruct(pointer, where...)
+		return m.doStruct(数据指针, 条件...)
 
 	default:
-		return gerror.NewCode(
+		return gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			`element of parameter "pointer" for function Scan should type of struct/*struct/[]struct/[]*struct`,
 		)
 	}
 }
 
-// ScanAndCount 扫描与给定条件匹配的单条记录或记录数组，并计算符合这些条件的总记录数。
+// X查询与行数到指针 扫描与给定条件匹配的单条记录或记录数组，并计算符合这些条件的总记录数。
 // 如果 useFieldForCount 为 true，它将使用模型中指定的字段进行计数；
 // pointer 参数是一个指向结构体的指针，用于存储扫描到的数据。
 // pointerCount 参数是一个指向整数的指针，将被设置为符合给定条件的总记录数。
@@ -293,7 +293,7 @@ func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 //
 //	var count int
 //	user := new(User)
-//	err  := db.Model("user").Where("id", 1).ScanAndCount(user, &count, true)
+//	err  := db.Model("user").Where("id", 1).X查询与行数到指针(user, &count, true)
 //	fmt.Println(user, count)
 //
 // 示例（联接）：
@@ -310,91 +310,91 @@ func (m *Model) Scan(pointer interface{}, where ...interface{}) error {
 //		LeftJoin(tableName2, "u2", "u2.id=u1.id").
 //		Fields("u1.passport,u1.id,u2.name,u2.age").
 //		Where("u1.id<2").
-//		ScanAndCount(&users, &count, false)
+//		X查询与行数到指针(&users, &count, false)
 // md5:984fa8f0e50708f4
-func (m *Model) ScanAndCount(pointer interface{}, totalCount *int, useFieldForCount bool) (err error) {
+func (m *Model) X查询与行数到指针(数据指针 interface{}, 行数指针 *int, 是否用字段计数 bool) (错误 error) {
 		// 支持使用 * 的字段，例如：.Fields("a.*, b.name")。计数SQL为：select count(1) from xxx. md5:a3fc56bcc1dcba76
-	countModel := m.Clone()
+	countModel := m.X取副本()
 		// 如果useFieldForCount为false，将字段设置为计数的恒定值1. md5:2eea55571801d2ab
-	if !useFieldForCount {
+	if !是否用字段计数 {
 		countModel.fields = "1"
 	}
 
 			// 获取记录的总数. md5:d21517ef51fd67f3
-	*totalCount, err = countModel.Count()
-	if err != nil {
-		return err
+	*行数指针, 错误 = countModel.X查询行数()
+	if 错误 != nil {
+		return 错误
 	}
 
 		// 如果总记录数为0，就没有需要检索的记录，因此提前返回. md5:ae90d44fd00f71aa
-	if *totalCount == 0 {
+	if *行数指针 == 0 {
 		return
 	}
-	err = m.Scan(pointer)
+	错误 = m.X查询到结构体指针(数据指针)
 	return
 }
 
-// ScanList 将 `r` 转换为包含其他复杂结构体属性的切片。请注意，参数 `listPointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。
+// X查询到指针列表 将 `r` 转换为包含其他复杂结构体属性的切片。请注意，参数 `listPointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。
 // 
-// 参见 Result.ScanList。
+// 参见 Result.X查询到指针列表。
 // md5:4116492a123661b5
-func (m *Model) ScanList(structSlicePointer interface{}, bindToAttrName string, relationAttrNameAndFields ...string) (err error) {
+func (m *Model) X查询到指针列表(结构体切片指针 interface{}, 绑定到结构体属性名称 string, 结构体属性关联 ...string) (错误 error) {
 	var result Result
-	out, err := checkGetSliceElementInfoForScanList(structSlicePointer, bindToAttrName)
-	if err != nil {
-		return err
+	out, 错误 := checkGetSliceElementInfoForScanList(结构体切片指针, 绑定到结构体属性名称)
+	if 错误 != nil {
+		return 错误
 	}
 	if m.fields != defaultFields || m.fieldsEx != "" {
 				// 有自定义字段。 md5:57eb1cc07145128c
-		result, err = m.All()
+		result, 错误 = m.X查询()
 	} else {
 				// 使用反射创建的临时结构体过滤字段。 md5:6873597e9de7f128
-		result, err = m.Fields(reflect.New(out.BindToAttrType).Interface()).All()
+		result, 错误 = m.X字段保留过滤(reflect.New(out.BindToAttrType).Interface()).X查询()
 	}
-	if err != nil {
-		return err
+	if 错误 != nil {
+		return 错误
 	}
 	var (
 		relationAttrName string
 		relationFields   string
 	)
-	switch len(relationAttrNameAndFields) {
+	switch len(结构体属性关联) {
 	case 2:
-		relationAttrName = relationAttrNameAndFields[0]
-		relationFields = relationAttrNameAndFields[1]
+		relationAttrName = 结构体属性关联[0]
+		relationFields = 结构体属性关联[1]
 	case 1:
-		relationFields = relationAttrNameAndFields[0]
+		relationFields = 结构体属性关联[0]
 	}
 	return doScanList(doScanListInput{
 		Model:              m,
 		Result:             result,
-		StructSlicePointer: structSlicePointer,
+		StructSlicePointer: 结构体切片指针,
 		StructSliceValue:   out.SliceReflectValue,
-		BindToAttrName:     bindToAttrName,
+		BindToAttrName:     绑定到结构体属性名称,
 		RelationAttrName:   relationAttrName,
 		RelationFields:     relationFields,
 	})
 }
 
-// Value 从表中获取指定记录的值，并将结果作为接口类型返回。
+// X查询一条值 从表中获取指定记录的值，并将结果作为接口类型返回。
 // 如果根据给定条件在表中找不到记录，它将返回nil。
 //
 // 如果提供了可选参数 `fieldsAndWhere`，其中 fieldsAndWhere[0] 是选择的字段，
 // 而 fieldsAndWhere[1:] 用作 WHERE 条件字段。
 // 另请参阅 Model.Fields 和 Model.Where 函数。
 // md5:e6b48ca188d3d208
-func (m *Model) Value(fieldsAndWhere ...interface{}) (Value, error) {
+func (m *Model) X查询一条值(字段和条件 ...interface{}) (Value, error) {
 	var (
-		core = m.db.GetCore()
-		ctx  = core.injectInternalColumn(m.GetCtx())
+		core = m.db.X取Core对象()
+		ctx  = core.injectInternalColumn(m.X取上下文对象())
 	)
-	if len(fieldsAndWhere) > 0 {
-		if len(fieldsAndWhere) > 2 {
-			return m.Fields(gconv.String(fieldsAndWhere[0])).Where(fieldsAndWhere[1], fieldsAndWhere[2:]...).Value()
-		} else if len(fieldsAndWhere) == 2 {
-			return m.Fields(gconv.String(fieldsAndWhere[0])).Where(fieldsAndWhere[1]).Value()
+	if len(字段和条件) > 0 {
+		if len(字段和条件) > 2 {
+			return m.X字段保留过滤(gconv.String(字段和条件[0])).X条件(字段和条件[1], 字段和条件[2:]...).X查询一条值()
+		} else if len(字段和条件) == 2 {
+			return m.X字段保留过滤(gconv.String(字段和条件[0])).X条件(字段和条件[1]).X查询一条值()
 		} else {
-			return m.Fields(gconv.String(fieldsAndWhere[0])).Value()
+			return m.X字段保留过滤(gconv.String(字段和条件[0])).X查询一条值()
 		}
 	}
 	var (
@@ -410,7 +410,7 @@ func (m *Model) Value(fieldsAndWhere ...interface{}) (Value, error) {
 				return v, nil
 			}
 		} else {
-			return nil, gerror.NewCode(
+			return nil, gerror.X创建错误码(
 				gcode.CodeInternalError,
 				`query value error: the internal context data is missing. there's internal issue should be fixed`,
 			)
@@ -419,16 +419,16 @@ func (m *Model) Value(fieldsAndWhere ...interface{}) (Value, error) {
 	return nil, nil
 }
 
-// Count 对于该模型执行 "SELECT COUNT(x) FROM ..." 语句。
+// X查询行数 对于该模型执行 "SELECT COUNT(x) FROM ..." 语句。
 // 可选参数 `where` 和 Model.Where 函数的参数相同，参见 Model.Where。
 // md5:52b3d2e0e43bb2af
-func (m *Model) Count(where ...interface{}) (int, error) {
+func (m *Model) X查询行数(条件 ...interface{}) (int, error) {
 	var (
-		core = m.db.GetCore()
-		ctx  = core.injectInternalColumn(m.GetCtx())
+		core = m.db.X取Core对象()
+		ctx  = core.injectInternalColumn(m.X取上下文对象())
 	)
-	if len(where) > 0 {
-		return m.Where(where[0], where[1:]...).Count()
+	if len(条件) > 0 {
+		return m.X条件(条件[0], 条件[1:]...).X查询行数()
 	}
 	var (
 		sqlWithHolder, holderArgs = m.getFormattedSqlAndArgs(ctx, queryTypeCount, false)
@@ -440,10 +440,10 @@ func (m *Model) Count(where ...interface{}) (int, error) {
 	if len(all) > 0 {
 		if internalData := core.getInternalColumnFromCtx(ctx); internalData != nil {
 			if v, ok := all[0][internalData.FirstResultColumn]; ok {
-				return v.Int(), nil
+				return v.X取整数(), nil
 			}
 		} else {
-			return 0, gerror.NewCode(
+			return 0, gerror.X创建错误码(
 				gcode.CodeInternalError,
 				`query count error: the internal context data is missing. there's internal issue should be fixed`,
 			)
@@ -452,83 +452,83 @@ func (m *Model) Count(where ...interface{}) (int, error) {
 	return 0, nil
 }
 
-// CountColumn 执行对模型的 "SELECT COUNT(x) FROM ..." 语句。 md5:150abf4737c4588c
-func (m *Model) CountColumn(column string) (int, error) {
-	if len(column) == 0 {
+// X查询字段行数 执行对模型的 "SELECT COUNT(x) FROM ..." 语句。 md5:150abf4737c4588c
+func (m *Model) X查询字段行数(字段名称 string) (int, error) {
+	if len(字段名称) == 0 {
 		return 0, nil
 	}
-	return m.Fields(column).Count()
+	return m.X字段保留过滤(字段名称).X查询行数()
 }
 
-// Min 为模型执行 "SELECT MIN(x) FROM ..." 语句。 md5:e2fc098c542503d1
-func (m *Model) Min(column string) (float64, error) {
-	if len(column) == 0 {
+// X查询最小值 为模型执行 "SELECT MIN(x) FROM ..." 语句。 md5:e2fc098c542503d1
+func (m *Model) X查询最小值(字段名称 string) (float64, error) {
+	if len(字段名称) == 0 {
 		return 0, nil
 	}
-	value, err := m.Fields(fmt.Sprintf(`MIN(%s)`, m.QuoteWord(column))).Value()
+	value, err := m.X字段保留过滤(fmt.Sprintf(`MIN(%s)`, m.X底层QuoteWord(字段名称))).X查询一条值()
 	if err != nil {
 		return 0, err
 	}
-	return value.Float64(), err
+	return value.X取小数64位(), err
 }
 
-// Max 对模型执行 "SELECT MAX(x) FROM ..." 语句。 md5:bb6b4d0dc51fbfaf
-func (m *Model) Max(column string) (float64, error) {
-	if len(column) == 0 {
+// X查询最大值 对模型执行 "SELECT MAX(x) FROM ..." 语句。 md5:bb6b4d0dc51fbfaf
+func (m *Model) X查询最大值(字段名称 string) (float64, error) {
+	if len(字段名称) == 0 {
 		return 0, nil
 	}
-	value, err := m.Fields(fmt.Sprintf(`MAX(%s)`, m.QuoteWord(column))).Value()
+	value, err := m.X字段保留过滤(fmt.Sprintf(`MAX(%s)`, m.X底层QuoteWord(字段名称))).X查询一条值()
 	if err != nil {
 		return 0, err
 	}
-	return value.Float64(), err
+	return value.X取小数64位(), err
 }
 
-// Avg 对于该模型执行"SELECT AVG(x) FROM ..." 语句。 md5:9b360a11d26d6fca
-func (m *Model) Avg(column string) (float64, error) {
-	if len(column) == 0 {
+// X查询平均值 对于该模型执行"SELECT AVG(x) FROM ..." 语句。 md5:9b360a11d26d6fca
+func (m *Model) X查询平均值(字段名称 string) (float64, error) {
+	if len(字段名称) == 0 {
 		return 0, nil
 	}
-	value, err := m.Fields(fmt.Sprintf(`AVG(%s)`, m.QuoteWord(column))).Value()
+	value, err := m.X字段保留过滤(fmt.Sprintf(`AVG(%s)`, m.X底层QuoteWord(字段名称))).X查询一条值()
 	if err != nil {
 		return 0, err
 	}
-	return value.Float64(), err
+	return value.X取小数64位(), err
 }
 
-// Sum 对于该模型执行 "SELECT SUM(x) FROM ..." 语句。 md5:bcbe9e29cd168603
-func (m *Model) Sum(column string) (float64, error) {
-	if len(column) == 0 {
+// X查询求和 对于该模型执行 "SELECT SUM(x) FROM ..." 语句。 md5:bcbe9e29cd168603
+func (m *Model) X查询求和(字段名称 string) (float64, error) {
+	if len(字段名称) == 0 {
 		return 0, nil
 	}
-	value, err := m.Fields(fmt.Sprintf(`SUM(%s)`, m.QuoteWord(column))).Value()
+	value, err := m.X字段保留过滤(fmt.Sprintf(`SUM(%s)`, m.X底层QuoteWord(字段名称))).X查询一条值()
 	if err != nil {
 		return 0, err
 	}
-	return value.Float64(), err
+	return value.X取小数64位(), err
 }
 
-// Union 为模型执行 "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." 语句。 md5:97431dccd533414e
-func (m *Model) Union(unions ...*Model) *Model {
-	return m.db.Union(unions...)
+// X多表去重查询 为模型执行 "(SELECT xxx FROM xxx) UNION (SELECT xxx FROM xxx) ..." 语句。 md5:97431dccd533414e
+func (m *Model) X多表去重查询(Model对象 ...*Model) *Model {
+	return m.db.X多表去重查询(Model对象...)
 }
 
-// UnionAll 对模型执行 "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." 语句。 md5:d112aec0d1929661
-func (m *Model) UnionAll(unions ...*Model) *Model {
-	return m.db.UnionAll(unions...)
+// X多表查询 对模型执行 "(SELECT xxx FROM xxx) UNION ALL (SELECT xxx FROM xxx) ..." 语句。 md5:d112aec0d1929661
+func (m *Model) X多表查询(Model对象 ...*Model) *Model {
+	return m.db.X多表查询(Model对象...)
 }
 
-// Limit 设置模型的 "LIMIT" 语句。
+// X设置条数 设置模型的 "LIMIT" 语句。
 // 参数 `limit` 可以是一个或两个数字。如果传递两个数字，它将为模型设置 "LIMIT limit[0],limit[1]" 语句；否则，它将设置 "LIMIT limit[0]" 语句。
 // md5:fd06ed75a128d403
-func (m *Model) Limit(limit ...int) *Model {
+func (m *Model) X设置条数(条数或两个数字 ...int) *Model {
 	model := m.getModel()
-	switch len(limit) {
+	switch len(条数或两个数字) {
 	case 1:
-		model.limit = limit[0]
+		model.limit = 条数或两个数字[0]
 	case 2:
-		model.start = limit[0]
-		model.limit = limit[1]
+		model.start = 条数或两个数字[0]
+		model.limit = 条数或两个数字[1]
 	}
 	return model
 }
@@ -541,35 +541,35 @@ func (m *Model) Offset(offset int) *Model {
 	return model
 }
 
-// Distinct 强制查询仅返回不重复的结果。 md5:ead62c0e4b4795ab
-func (m *Model) Distinct() *Model {
+// X设置去重 强制查询仅返回不重复的结果。 md5:ead62c0e4b4795ab
+func (m *Model) X设置去重() *Model {
 	model := m.getModel()
 	model.distinct = "DISTINCT "
 	return model
 }
 
-// Page 设置模型的分页号。
+// X设置分页 设置模型的分页号。
 // 参数 `page` 的起始值为1，用于分页。
 // 注意，这与Limit函数在"LIMIT"语句中从0开始不同。
 // md5:02b920e99951ce53
-func (m *Model) Page(page, limit int) *Model {
+func (m *Model) X设置分页(第几页, 条数 int) *Model {
 	model := m.getModel()
-	if page <= 0 {
-		page = 1
+	if 第几页 <= 0 {
+		第几页 = 1
 	}
-	model.start = (page - 1) * limit
-	model.limit = limit
+	model.start = (第几页 - 1) * 条数
+	model.limit = 条数
 	return model
 }
 
-// Having 设置模型的having语句。
+// X设置分组条件 设置模型的having语句。
 // 该函数的使用参数与Where函数相同。
 // 参见Where。
 // md5:b4e737511765f79f
-func (m *Model) Having(having interface{}, args ...interface{}) *Model {
+func (m *Model) X设置分组条件(条件 interface{}, 参数 ...interface{}) *Model {
 	model := m.getModel()
 	model.having = []interface{}{
-		having, args,
+		条件, 参数,
 	}
 	return model
 }
@@ -582,7 +582,7 @@ func (m *Model) Having(having interface{}, args ...interface{}) *Model {
 // md5:d4f7ecca6c5aaa48
 func (m *Model) doGetAll(ctx context.Context, limit1 bool, where ...interface{}) (Result, error) {
 	if len(where) > 0 {
-		return m.Where(where[0], where[1:]...).All()
+		return m.X条件(where[0], where[1:]...).X查询()
 	}
 	sqlWithHolder, holderArgs := m.getFormattedSqlAndArgs(ctx, queryTypeNormal, limit1)
 	return m.doGetAllBySql(ctx, queryTypeNormal, sqlWithHolder, holderArgs...)
@@ -671,9 +671,9 @@ func (m *Model) getHolderAndArgsAsSubModel(ctx context.Context) (holder string, 
 
 func (m *Model) getAutoPrefix() string {
 	autoPrefix := ""
-	if gstr.Contains(m.tables, " JOIN ") {
-		autoPrefix = m.db.GetCore().QuoteWord(
-			m.db.GetCore().guessPrimaryTableName(m.tablesInit),
+	if gstr.X是否包含(m.tables, " JOIN ") {
+		autoPrefix = m.db.X取Core对象().X底层QuoteWord(
+			m.db.X取Core对象().guessPrimaryTableName(m.tablesInit),
 		)
 	}
 	return autoPrefix
@@ -684,31 +684,31 @@ func (m *Model) getAutoPrefix() string {
 func (m *Model) getFieldsFiltered() string {
 	if m.fieldsEx == "" {
 				// 没有过滤，包含特殊字符。 md5:f2ccc24dfd015b85
-		if gstr.ContainsAny(m.fields, "()") {
+		if gstr.X是否包含Any(m.fields, "()") {
 			return m.fields
 		}
 		// No filtering.
-		if !gstr.ContainsAny(m.fields, ". ") {
-			return m.db.GetCore().QuoteString(m.fields)
+		if !gstr.X是否包含Any(m.fields, ". ") {
+			return m.db.X取Core对象().X底层QuoteString(m.fields)
 		}
 		return m.fields
 	}
 	var (
 		fieldsArray []string
-		fieldsExSet = gset.NewStrSetFrom(gstr.SplitAndTrim(m.fieldsEx, ","))
+		fieldsExSet = gset.X创建文本并按值(gstr.X分割并忽略空值(m.fieldsEx, ","))
 	)
 	if m.fields != "*" {
 				// 使用fieldEx过滤自定义字段。 md5:edee7113e1c2daf9
 		fieldsArray = make([]string, 0, 8)
-		for _, v := range gstr.SplitAndTrim(m.fields, ",") {
-			fieldsArray = append(fieldsArray, v[gstr.PosR(v, "-")+1:])
+		for _, v := range gstr.X分割并忽略空值(m.fields, ",") {
+			fieldsArray = append(fieldsArray, v[gstr.X倒找(v, "-")+1:])
 		}
 	} else {
-		if gstr.Contains(m.tables, " ") {
+		if gstr.X是否包含(m.tables, " ") {
 			panic("function FieldsEx supports only single table operations")
 		}
 				// 使用fieldEx过滤表格字段。 md5:e15e7d68ef0a3c54
-		tableFields, err := m.TableFields(m.tablesInit)
+		tableFields, err := m.X取表字段信息Map(m.tablesInit)
 		if err != nil {
 			panic(err)
 		}
@@ -722,13 +722,13 @@ func (m *Model) getFieldsFiltered() string {
 	}
 	newFields := ""
 	for _, k := range fieldsArray {
-		if fieldsExSet.Contains(k) {
+		if fieldsExSet.X是否存在(k) {
 			continue
 		}
 		if len(newFields) > 0 {
 			newFields += ","
 		}
-		newFields += m.db.GetCore().QuoteWord(k)
+		newFields += m.db.X取Core对象().X底层QuoteWord(k)
 	}
 	return newFields
 }
@@ -747,10 +747,10 @@ func (m *Model) formatCondition(
 		conditionExtra += " GROUP BY " + m.groupBy
 	}
 	// WHERE
-	conditionWhere, conditionArgs = m.whereBuilder.Build()
+	conditionWhere, conditionArgs = m.whereBuilder.X生成条件字符串及参数()
 	softDeletingCondition := m.softTimeMaintainer().GetWhereConditionForDelete(ctx)
 	if m.rawSql != "" && conditionWhere != "" {
-		if gstr.ContainsI(m.rawSql, " WHERE ") {
+		if gstr.X是否包含并忽略大小写(m.rawSql, " WHERE ") {
 			conditionWhere = " AND " + conditionWhere
 		} else {
 			conditionWhere = " WHERE " + conditionWhere
@@ -770,7 +770,7 @@ func (m *Model) formatCondition(
 	if len(m.having) > 0 {
 		havingHolder := WhereHolder{
 			Where:  m.having[0],
-			Args:   gconv.Interfaces(m.having[1]),
+			Args:   gconv.X取any切片(m.having[1]),
 			Prefix: autoPrefix,
 		}
 		havingStr, havingArgs := formatWhereHolder(ctx, m.db, formatWhereHolderInput{

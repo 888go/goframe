@@ -10,10 +10,10 @@ package mysql
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
-// DoFilter 在将SQL提交到数据库之前进行处理。 md5:e56455a7432db765
-func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
-	return d.Core.DoFilter(ctx, link, sql, args)
+// X底层DoFilter 在将SQL提交到数据库之前进行处理。 md5:e56455a7432db765
+func (d *Driver) X底层DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+	return d.Core.X底层DoFilter(ctx, link, sql, args)
 }

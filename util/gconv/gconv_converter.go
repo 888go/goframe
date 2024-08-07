@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 type (
@@ -23,7 +23,7 @@ type (
 // customConverters 用于内部转换器的存储。 md5:eb816f1844daac79
 var customConverters = make(map[converterInType]map[converterOutType]converterFunc)
 
-// RegisterConverter 用于注册自定义转换器。
+// X转换器注册 用于注册自定义转换器。
 // 必须在使用此自定义转换功能之前进行注册。
 // 建议在进程的启动程序中执行此操作。
 //
@@ -32,7 +32,7 @@ var customConverters = make(map[converterInType]map[converterOutType]converterFu
 //     它将类型 `T1` 转换为类型 `T2`。
 //  2. `T1` 不应为指针类型，但 `T2` 应为指针类型。
 // md5:8fbaa372837e6d8c
-func RegisterConverter(fn interface{}) (err error) {
+func X转换器注册(fn interface{}) (错误 error) {
 	var (
 		fnReflectType = reflect.TypeOf(fn)
 		errType       = reflect.TypeOf((*error)(nil)).Elem()
@@ -40,7 +40,7 @@ func RegisterConverter(fn interface{}) (err error) {
 	if fnReflectType.Kind() != reflect.Func ||
 		fnReflectType.NumIn() != 1 || fnReflectType.NumOut() != 2 ||
 		!fnReflectType.Out(1).Implements(errType) {
-		err = gerror.NewCodef(
+		错误 = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			"parameter must be type of converter function and defined as pattern `func(T1) (T2, error)`, but defined as `%s`",
 			fnReflectType.String(),
@@ -54,7 +54,7 @@ func RegisterConverter(fn interface{}) (err error) {
 		outType = fnReflectType.Out(0)
 	)
 	if inType.Kind() == reflect.Pointer {
-		err = gerror.NewCodef(
+		错误 = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			"invalid converter function `%s`: invalid input parameter type `%s`, should not be type of pointer",
 			fnReflectType.String(), inType.String(),
@@ -62,7 +62,7 @@ func RegisterConverter(fn interface{}) (err error) {
 		return
 	}
 	if outType.Kind() != reflect.Pointer {
-		err = gerror.NewCodef(
+		错误 = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			"invalid converter function `%s`: invalid output parameter type `%s` should be type of pointer",
 			fnReflectType.String(), outType.String(),
@@ -76,7 +76,7 @@ func RegisterConverter(fn interface{}) (err error) {
 		customConverters[inType] = registeredOutTypeMap
 	}
 	if _, ok = registeredOutTypeMap[outType]; ok {
-		err = gerror.NewCodef(
+		错误 = gerror.X创建错误码并格式化(
 			gcode.CodeInvalidOperation,
 			"the converter parameter type `%s` to type `%s` has already been registered",
 			inType.String(), outType.String(),

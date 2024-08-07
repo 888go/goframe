@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
 	"os"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 type TestNoNameTagCase struct {
@@ -39,7 +39,7 @@ func (c *TestNoNameTagCase) TEST(ctx context.Context, in TestNoNameTagCaseRootIn
 
 func Test_Command_NoNameTagCase(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		var ctx = gctx.New()
+		var ctx = gctx.X创建()
 		cmd, err := gcmd.NewFromObject(TestNoNameTagCase{})
 		t.AssertNil(err)
 

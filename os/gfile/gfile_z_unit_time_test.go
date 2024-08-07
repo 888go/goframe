@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"os"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_MTime(t *testing.T) {
@@ -30,8 +30,8 @@ func Test_MTime(t *testing.T) {
 		fileobj, err = os.Stat(testpath() + file1)
 		t.AssertNil(err)
 
-		t.Assert(gfile.MTime(testpath()+file1), fileobj.ModTime())
-		t.Assert(gfile.MTime(""), "")
+		t.Assert(gfile.X取修改时间秒(testpath()+file1), fileobj.ModTime())
+		t.Assert(gfile.X取修改时间秒(""), "")
 	})
 }
 
@@ -50,9 +50,9 @@ func Test_MTimeMillisecond(t *testing.T) {
 
 		time.Sleep(time.Millisecond * 100)
 		t.AssertGE(
-			gfile.MTimestampMilli(testpath()+file1),
+			gfile.X取修改时间戳毫秒(testpath()+file1),
 			fileobj.ModTime().UnixNano()/1000000,
 		)
-		t.Assert(gfile.MTimestampMilli(""), -1)
+		t.Assert(gfile.X取修改时间戳毫秒(""), -1)
 	})
 }

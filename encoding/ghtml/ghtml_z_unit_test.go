@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghtml_test
+package html类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/ghtml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	ghtml "github.com/888go/goframe/encoding/ghtml"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_StripTags(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		src := `<p>Test paragraph.</p><!-- Comment -->  <a href="#fragment">Other text</a>`
 		dst := `Test paragraph.  Other text`
-		t.Assert(ghtml.StripTags(src), dst)
+		t.Assert(ghtml.X删除HTML标记(src), dst)
 	})
 }
 
@@ -27,8 +27,8 @@ func Test_Entities(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		src := `A 'quote' "is" <b>bold</b>`
 		dst := `A &#39;quote&#39; &#34;is&#34; &lt;b&gt;bold&lt;/b&gt;`
-		t.Assert(ghtml.Entities(src), dst)
-		t.Assert(ghtml.EntitiesDecode(dst), src)
+		t.Assert(ghtml.X编码(src), dst)
+		t.Assert(ghtml.X解码(dst), src)
 	})
 }
 
@@ -36,8 +36,8 @@ func Test_SpecialChars(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		src := `A 'quote' "is" <b>bold</b>`
 		dst := `A &#39;quote&#39; &#34;is&#34; &lt;b&gt;bold&lt;/b&gt;`
-		t.Assert(ghtml.SpecialChars(src), dst)
-		t.Assert(ghtml.SpecialCharsDecode(dst), src)
+		t.Assert(ghtml.X编码特殊字符(src), dst)
+		t.Assert(ghtml.X解码特殊字符(dst), src)
 	})
 }
 
@@ -47,7 +47,7 @@ func Test_SpecialCharsMapOrStruct_Map(t *testing.T) {
 			"Title":   "<h1>T</h1>",
 			"Content": "<div>C</div>",
 		}
-		err := ghtml.SpecialCharsMapOrStruct(a)
+		err := ghtml.X编码Map(a)
 		t.AssertNil(err)
 		t.Assert(a["Title"], `&lt;h1&gt;T&lt;/h1&gt;`)
 		t.Assert(a["Content"], `&lt;div&gt;C&lt;/div&gt;`)
@@ -57,7 +57,7 @@ func Test_SpecialCharsMapOrStruct_Map(t *testing.T) {
 			"Title":   "<h1>T</h1>",
 			"Content": "<div>C</div>",
 		}
-		err := ghtml.SpecialCharsMapOrStruct(a)
+		err := ghtml.X编码Map(a)
 		t.AssertNil(err)
 		t.Assert(a["Title"], `&lt;h1&gt;T&lt;/h1&gt;`)
 		t.Assert(a["Content"], `&lt;div&gt;C&lt;/div&gt;`)
@@ -74,7 +74,7 @@ func Test_SpecialCharsMapOrStruct_Struct(t *testing.T) {
 			Title:   "<h1>T</h1>",
 			Content: "<div>C</div>",
 		}
-		err := ghtml.SpecialCharsMapOrStruct(a)
+		err := ghtml.X编码Map(a)
 		t.AssertNil(err)
 		t.Assert(a.Title, `&lt;h1&gt;T&lt;/h1&gt;`)
 		t.Assert(a.Content, `&lt;div&gt;C&lt;/div&gt;`)

@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtime_test
+package 时间类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Json_Pointer(t *testing.T) {
@@ -23,21 +23,21 @@ func Test_Json_Pointer(t *testing.T) {
 			MyTime *gtime.Time
 		}
 		b, err := json.Marshal(MyTime{
-			MyTime: gtime.NewFromStr("2006-01-02 15:04:05"),
+			MyTime: gtime.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		b, err := json.Marshal(g.Map{
-			"MyTime": gtime.NewFromStr("2006-01-02 15:04:05"),
+			"MyTime": gtime.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		b, err := json.Marshal(g.Map{
-			"MyTime": *gtime.NewFromStr("2006-01-02 15:04:05"),
+			"MyTime": *gtime.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
@@ -78,7 +78,7 @@ func Test_Json_Struct(t *testing.T) {
 			MyTime gtime.Time
 		}
 		b, err := json.Marshal(MyTime{
-			MyTime: *gtime.NewFromStr("2006-01-02 15:04:05"),
+			MyTime: *gtime.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)
@@ -89,7 +89,7 @@ func Test_Json_Struct(t *testing.T) {
 			MyTime gtime.Time
 		}
 		b, err := json.Marshal(&MyTime{
-			MyTime: *gtime.NewFromStr("2006-01-02 15:04:05"),
+			MyTime: *gtime.X创建并从文本("2006-01-02 15:04:05"),
 		})
 		t.AssertNil(err)
 		t.Assert(b, `{"MyTime":"2006-01-02 15:04:05"}`)

@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gproc
+package 进程类
 
 import (
 	"context"
 	"fmt"
 	"sync"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gtcp "github.com/888go/goframe/net/gtcp"
+	gfile "github.com/888go/goframe/os/gfile"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // MsgRequest是进程间通信的请求结构体。 md5:aa294ed7aef773f3
@@ -46,7 +46,7 @@ var (
 	// commReceiveQueues 是一个用于存储接收到的数据的组名到队列的映射。
 	// 该映射的值类型为*gqueue.Queue。
 	// md5:adb11ba95544ea8c
-	commReceiveQueues = gmap.NewStrAnyMap(true)
+	commReceiveQueues = gmap.X创建StrAny(true)
 
 		// commPidFolderPath 指定了存储 PID 到端口映射文件的文件夹路径。 md5:bc9b0e25bfe8ea53
 	commPidFolderPath string
@@ -65,7 +65,7 @@ func getConnByPid(pid int) (*gtcp.PoolConn, error) {
 			return nil, err
 		}
 	}
-	return nil, gerror.Newf(`could not find port for pid "%d"`, pid)
+	return nil, gerror.X创建并格式化(`could not find port for pid "%d"`, pid)
 }
 
 // getPortByPid 根据指定的进程ID返回其监听的端口。
@@ -76,7 +76,7 @@ func getPortByPid(pid int) int {
 	if path == "" {
 		return 0
 	}
-	return gconv.Int(gfile.GetContentsWithCache(path))
+	return gconv.X取整数(gfile.X缓存读文本(path))
 }
 
 // getCommFilePath 返回给定pid的进程到端口映射文件路径。 md5:6b8e5776476edbb5
@@ -86,7 +86,7 @@ func getCommFilePath(pid int) string {
 		intlog.Errorf(context.TODO(), `%+v`, err)
 		return ""
 	}
-	return gfile.Join(path, gconv.String(pid))
+	return gfile.X路径生成(path, gconv.String(pid))
 }
 
 // getCommPidFolderPath 获取并返回用于存储进程映射文件的可用目录。 md5:d871e38ee1ac7054
@@ -96,22 +96,22 @@ func getCommPidFolderPath() (folderPath string, err error) {
 			"/var/tmp",
 			"/var/run",
 		}
-		if path, _ := gfile.Home(".config"); path != "" {
+		if path, _ := gfile.X取用户目录(".config"); path != "" {
 			availablePaths = append(availablePaths, path)
 		}
-		availablePaths = append(availablePaths, gfile.Temp())
+		availablePaths = append(availablePaths, gfile.X取临时目录())
 		for _, availablePath := range availablePaths {
-			checkPath := gfile.Join(availablePath, defaultFolderNameForProcComm)
-			if !gfile.Exists(checkPath) && gfile.Mkdir(checkPath) != nil {
+			checkPath := gfile.X路径生成(availablePath, defaultFolderNameForProcComm)
+			if !gfile.X是否存在(checkPath) && gfile.X创建目录(checkPath) != nil {
 				continue
 			}
-			if gfile.IsWritable(checkPath) {
+			if gfile.X是否可写(checkPath) {
 				commPidFolderPath = checkPath
 				break
 			}
 		}
 		if commPidFolderPath == "" {
-			err = gerror.Newf(
+			err = gerror.X创建并格式化(
 				`cannot find available folder for storing pid to port mapping files in paths: %+v`,
 				availablePaths,
 			)

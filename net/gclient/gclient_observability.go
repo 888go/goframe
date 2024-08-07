@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gclient
+package 网页类
 
 import (
 	"context"
@@ -20,13 +20,13 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/internal/httputil"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/net/gtrace"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gmetric"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe"
+	"github.com/888go/goframe/internal/httputil"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/net/gtrace"
+	gctx "github.com/888go/goframe/os/gctx"
+	"github.com/888go/goframe/os/gmetric"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (

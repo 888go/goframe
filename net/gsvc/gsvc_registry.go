@@ -10,14 +10,14 @@ package gsvc
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Register 将 `服务` 注册到默认注册表中。 md5:07ed2154ce52f6df
 func Register(ctx context.Context, service Service) (Service, error) {
 	if defaultRegistry == nil {
-		return nil, gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
+		return nil, gerror.X创建错误码并格式化(gcode.CodeNotImplemented, `no Registry is registered`)
 	}
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout)
 	defer cancel()
@@ -28,7 +28,7 @@ func Register(ctx context.Context, service Service) (Service, error) {
 // Deregister 将 `service` 从默认注册表中移除。 md5:21de7624550ef4ed
 func Deregister(ctx context.Context, service Service) error {
 	if defaultRegistry == nil {
-		return gerror.NewCodef(gcode.CodeNotImplemented, `no Registry is registered`)
+		return gerror.X创建错误码并格式化(gcode.CodeNotImplemented, `no Registry is registered`)
 	}
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout)
 	defer cancel()

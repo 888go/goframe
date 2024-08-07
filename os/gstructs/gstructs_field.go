@@ -10,9 +10,9 @@ package gstructs
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/util/gtag"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/util/gtag"
 )
 
 // Tag 函数从标签字符串中返回与给定键关联的值。如果标签中没有该键，Tag 函数将返回空字符串。
@@ -102,7 +102,7 @@ func (f *Field) OriginalValue() reflect.Value {
 		reflectKind  = reflectType.Kind()
 	)
 
-	for reflectKind == reflect.Ptr && !f.IsNil() {
+	for reflectKind == reflect.Ptr && !f.X是否为Nil() {
 		reflectValue = reflectValue.Elem()
 		reflectKind = reflectValue.Type().Kind()
 	}
@@ -115,7 +115,7 @@ func (f *Field) IsEmpty() bool {
 	return empty.IsEmpty(f.Value)
 }
 
-// IsNil 检查并返回此Field的值是否为nil。 md5:6637754b5d35923d
-func (f *Field) IsNil(traceSource ...bool) bool {
+// X是否为Nil 检查并返回此Field的值是否为nil。 md5:6637754b5d35923d
+func (f *Field) X是否为Nil(traceSource ...bool) bool {
 	return empty.IsNil(f.Value, traceSource...)
 }

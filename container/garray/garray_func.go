@@ -5,9 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package garray
+package 切片类
 
-import "strings"
+import (
+	"strings"
+)
 
 // defaultComparatorInt 用于整数比较。 md5:c6fa54bf179ad1f1
 func defaultComparatorInt(a, b int) int {

@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gclient
+package 网页类
 
 import (
 	"context"
 	"net/http"
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmeta"
-	"github.com/gogf/gf/v2/util/gtag"
-	"github.com/gogf/gf/v2/util/gutil"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmeta "github.com/888go/goframe/util/gmeta"
+	"github.com/888go/goframe/util/gtag"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // DoRequestObj 使用标准的请求/响应对象进行HTTP请求。
@@ -48,21 +48,21 @@ func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 		path   = gmeta.Get(req, gtag.Path).String()
 	)
 	if method == "" {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`no "%s" tag found in request object: %s`,
 			gtag.Method, reflect.TypeOf(req).String(),
 		)
 	}
 	if path == "" {
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`no "%s" tag found in request object: %s`,
 			gtag.Path, reflect.TypeOf(req).String(),
 		)
 	}
 	path = c.handlePathForObjRequest(path, req)
-	switch gstr.ToUpper(method) {
+	switch gstr.X到大写(method) {
 	case
 		http.MethodGet,
 		http.MethodPut,
@@ -73,13 +73,13 @@ func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 		http.MethodConnect,
 		http.MethodOptions,
 		http.MethodTrace:
-		if result := c.RequestVar(ctx, method, path, req); res != nil && !result.IsEmpty() {
-			return result.Scan(res)
+		if result := c.X请求泛型类(ctx, method, path, req); res != nil && !result.X是否为空() {
+			return result.X取结构体指针(res)
 		}
 		return nil
 
 	default:
-		return gerror.Newf(`invalid HTTP method "%s"`, method)
+		return gerror.X创建并格式化(`invalid HTTP method "%s"`, method)
 	}
 }
 
@@ -89,8 +89,8 @@ func (c *Client) DoRequestObj(ctx context.Context, req, res interface{}) error {
 // /user/{name} -> /user/john
 // md5:96a0939362ee6d87
 func (c *Client) handlePathForObjRequest(path string, req interface{}) string {
-	if gstr.Contains(path, "{") {
-		requestParamsMap := gconv.Map(req)
+	if gstr.X是否包含(path, "{") {
+		requestParamsMap := gconv.X取Map(req)
 		if len(requestParamsMap) > 0 {
 			path, _ = gregex.ReplaceStringFuncMatch(`\{(\w+)\}`, path, func(match []string) string {
 				foundKey, foundValue := gutil.MapPossibleItemByKey(requestParamsMap, match[1])

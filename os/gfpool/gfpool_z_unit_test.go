@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfpool_test
+package 文件指针池类_test
 
 import (
 	"context"
@@ -13,12 +13,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gfpool"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	gfile "github.com/888go/goframe/os/gfile"
+	gfpool "github.com/888go/goframe/os/gfpool"
+	glog "github.com/888go/goframe/os/glog"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // TestOpen 测试打开文件缓存. md5:81eb9fe8e499fb8d
@@ -128,18 +128,18 @@ func TestNewPool(t *testing.T) {
 // test before
 func start(name string) string {
 	testFile := os.TempDir() + string(os.PathSeparator) + name
-	if gfile.Exists(testFile) {
-		gfile.Remove(testFile)
+	if gfile.X是否存在(testFile) {
+		gfile.X删除(testFile)
 	}
 	content := "123"
-	gfile.PutContents(testFile, content)
+	gfile.X写入文本(testFile, content)
 	return testFile
 }
 
 // test after
 func stop(testFile string) {
-	if gfile.Exists(testFile) {
-		err := gfile.Remove(testFile)
+	if gfile.X是否存在(testFile) {
+		err := gfile.X删除(testFile)
 		if err != nil {
 			glog.Error(context.TODO(), err)
 		}
@@ -148,8 +148,8 @@ func stop(testFile string) {
 
 func Test_ConcurrentOS(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
+		path := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+		defer gfile.X删除(path)
 		f1, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
@@ -175,12 +175,12 @@ func Test_ConcurrentOS(t *testing.T) {
 			_, err = f2.Write([]byte("@1234567890#"))
 			t.AssertNil(err)
 		}
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2200)
+		t.Assert(gstr.X统计次数(gfile.X读文本(path), "@1234567890#"), 2200)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
+		path := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+		defer gfile.X删除(path)
 		f1, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
@@ -197,11 +197,11 @@ func Test_ConcurrentOS(t *testing.T) {
 			_, err = f2.Write([]byte("@1234567890#"))
 			t.AssertNil(err)
 		}
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2000)
+		t.Assert(gstr.X统计次数(gfile.X读文本(path), "@1234567890#"), 2000)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
+		path := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+		defer gfile.X删除(path)
 		f1, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
@@ -224,7 +224,7 @@ func Test_ConcurrentOS(t *testing.T) {
 		_, err = f2.Write([]byte(s2))
 		t.AssertNil(err)
 
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2000)
+		t.Assert(gstr.X统计次数(gfile.X读文本(path), "@1234567890#"), 2000)
 	})
 	// ```go
 	// 数据竞争
@@ -271,8 +271,8 @@ func Test_ConcurrentOS(t *testing.T) {
 
 func Test_ConcurrentGFPool(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		path := gfile.Temp(gtime.TimestampNanoStr())
-		defer gfile.Remove(path)
+		path := gfile.X取临时目录(gtime.X取文本时间戳纳秒())
+		defer gfile.X删除(path)
 		f1, err := gfpool.Open(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0666)
 		t.AssertNil(err)
 		defer f1.Close()
@@ -289,7 +289,7 @@ func Test_ConcurrentGFPool(t *testing.T) {
 			_, err = f2.Write([]byte("@1234567890#"))
 			t.AssertNil(err)
 		}
-		t.Assert(gstr.Count(gfile.GetContents(path), "@1234567890#"), 2000)
+		t.Assert(gstr.X统计次数(gfile.X读文本(path), "@1234567890#"), 2000)
 	})
 	// 数据竞争
 	// gtest.C(t, 函数(t *gtest.T)) {

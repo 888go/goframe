@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghash
+package 哈希类
 
 // BKDR 实现了经典的 BKDR 哈希算法，用于生成 32 位哈希值。 md5:b92e10073a79eea4
 func BKDR(str []byte) uint32 {

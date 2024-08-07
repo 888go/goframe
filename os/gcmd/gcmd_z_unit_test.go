@@ -7,7 +7,7 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
@@ -16,13 +16,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/test/gtest"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	genv "github.com/888go/goframe/os/genv"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Default(t *testing.T) {
@@ -33,16 +33,16 @@ func Test_Default(t *testing.T) {
 		t.Assert(gcmd.GetArg(100, "test"), "test")
 		t.Assert(gcmd.GetOpt("force"), "remove")
 		t.Assert(gcmd.GetOpt("n"), "root")
-		t.Assert(gcmd.GetOpt("fq").IsNil(), false)
-		t.Assert(gcmd.GetOpt("p").IsNil(), false)
-		t.Assert(gcmd.GetOpt("none").IsNil(), true)
+		t.Assert(gcmd.GetOpt("fq").X是否为Nil(), false)
+		t.Assert(gcmd.GetOpt("p").X是否为Nil(), false)
+		t.Assert(gcmd.GetOpt("none").X是否为Nil(), true)
 		t.Assert(gcmd.GetOpt("none", "value"), "value")
 	})
 	gtest.C(t, func(t *gtest.T) {
 		gcmd.Init([]string{"gf", "gen", "-h"}...)
 		t.Assert(len(gcmd.GetArgAll()), 2)
 		t.Assert(gcmd.GetOpt("h"), "")
-		t.Assert(gcmd.GetOpt("h").IsNil(), false)
+		t.Assert(gcmd.GetOpt("h").X是否为Nil(), false)
 	})
 }
 
@@ -73,13 +73,13 @@ func Test_BuildOptions(t *testing.T) {
 
 func Test_GetWithEnv(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		genv.Set("TEST", "1")
-		defer genv.Remove("TEST")
+		genv.X设置值("TEST", "1")
+		defer genv.X删除("TEST")
 		t.Assert(gcmd.GetOptWithEnv("test"), 1)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		genv.Set("TEST", "1")
-		defer genv.Remove("TEST")
+		genv.X设置值("TEST", "1")
+		defer genv.X删除("TEST")
 		gcmd.Init("-test", "2")
 		t.Assert(gcmd.GetOptWithEnv("test"), 2)
 	})
@@ -88,7 +88,7 @@ func Test_GetWithEnv(t *testing.T) {
 func Test_Command(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			ctx = gctx.New()
+			ctx = gctx.X创建()
 			err error
 		)
 		commandRoot := &gcmd.Command{
@@ -136,17 +136,17 @@ gf get golang.org/x/sys
 			commandEnv,
 		)
 		if err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 		err = commandRoot.AddObject(
 			commandTest,
 		)
 		if err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 
 		if err = commandRoot.RunWithError(ctx); err != nil {
-			if gerror.Code(err) == gcode.CodeNotFound {
+			if gerror.X取错误码(err) == gcode.CodeNotFound {
 				commandRoot.Print()
 			}
 		}
@@ -156,7 +156,7 @@ gf get golang.org/x/sys
 func Test_Command_Print(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			ctx = gctx.New()
+			ctx = gctx.X创建()
 			err error
 		)
 		c := &gcmd.Command{
@@ -175,7 +175,7 @@ Use 'gf help COMMAND' or 'gf COMMAND -h' for detail about a command, which has '
 			},
 		}
 		if err = c.AddCommand(commandEnv); err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 		// get
 		commandGet := &gcmd.Command{
@@ -194,7 +194,7 @@ gf get golang.org/x/sys
 			},
 		}
 		if err = c.AddCommand(commandGet); err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 		// 构建
 		//-n, --name       输出二进制文件名称
@@ -235,7 +235,7 @@ gf build main.go -n my-app -v 1.0 -a amd64,386 -s linux,windows,darwin -p ./dock
 			},
 		}
 		if err = c.AddCommand(&commandBuild); err != nil {
-			g.Log().Fatal(ctx, err)
+			g.X日志类().X输出FATA(ctx, err)
 		}
 		_ = c.RunWithError(ctx)
 	})
@@ -268,7 +268,7 @@ func Test_Command_NotFound(t *testing.T) {
 		t.AssertNil(c1.AddCommand(c21, c22))
 
 		os.Args = []string{"c0", "c1", "c23", `--test="abc"`}
-		err := c0.RunWithError(gctx.New())
+		err := c0.RunWithError(gctx.X创建())
 		t.Assert(err.Error(), `command "c1 c23" not found for command "c0", command line: c0 c1 c23 --test="abc"`)
 	})
 }

@@ -10,18 +10,18 @@
 // 预留的模板变量名：
 // I18nLanguage：将此变量赋值以定义每个页面的国际化语言。
 // md5:31bd070a7bdcf2a1
-package gview
+package 模板类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/glog"
+	"github.com/888go/goframe"
+	garray "github.com/888go/goframe/container/garray"
+	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/internal/intlog"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gfile "github.com/888go/goframe/os/gfile"
+	glog "github.com/888go/goframe/os/glog"
 )
 
 // 用于模板引擎的视图对象。 md5:d5b31747d89262fc
@@ -71,10 +71,10 @@ func New(path ...string) *View {
 		ctx = context.TODO()
 	)
 	view := &View{
-		searchPaths:  garray.NewStrArray(),
+		searchPaths:  garray.X创建文本(),
 		data:         make(map[string]interface{}),
 		funcMap:      make(map[string]interface{}),
-		fileCacheMap: gmap.NewStrAnyMap(true),
+		fileCacheMap: gmap.X创建StrAny(true),
 		config:       DefaultConfig(),
 	}
 	if len(path) > 0 && len(path[0]) > 0 {
@@ -84,30 +84,30 @@ func New(path ...string) *View {
 	} else {
 				// 从环境变量或命令行自定义的目录路径。 md5:8cfcbca968e23c5b
 		if envPath := gcmd.GetOptWithEnv(commandEnvKeyForPath).String(); envPath != "" {
-			if gfile.Exists(envPath) {
+			if gfile.X是否存在(envPath) {
 				if err := view.SetPath(envPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}
 			} else {
 				if errorPrint() {
-					glog.Errorf(ctx, "Template directory path does not exist: %s", envPath)
+					glog.X输出并格式化ERR(ctx, "Template directory path does not exist: %s", envPath)
 				}
 			}
 		} else {
 						// Dir 是工作目录的路径。 md5:0fba211853ea97a0
-			if pwdPath := gfile.Pwd(); pwdPath != "" {
+			if pwdPath := gfile.X取当前工作目录(); pwdPath != "" {
 				if err := view.SetPath(pwdPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}
 			}
 			// Dir path of binary.
-			if selfPath := gfile.SelfDir(); selfPath != "" && gfile.Exists(selfPath) {
+			if selfPath := gfile.X取当前进程目录(); selfPath != "" && gfile.X是否存在(selfPath) {
 				if err := view.AddPath(selfPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}
 			}
 						// 主包的目录路径。 md5:a4d2802779172abe
-			if mainPath := gfile.MainPkgPath(); mainPath != "" && gfile.Exists(mainPath) {
+			if mainPath := gfile.X取main路径(); mainPath != "" && gfile.X是否存在(mainPath) {
 				if err := view.AddPath(mainPath); err != nil {
 					intlog.Errorf(context.TODO(), `%+v`, err)
 				}

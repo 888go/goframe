@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghash
+package 哈希类
 
 // SDBM实现了经典的32位SDBM哈希算法。 md5:bd39a0f984820134
 func SDBM(str []byte) uint32 {

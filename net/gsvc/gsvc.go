@@ -12,7 +12,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // 服务注册接口。 md5:ee4e4676007285d8
@@ -142,7 +142,7 @@ var defaultRegistry Registry
 // SetRegistry 设置默认的Registry实现为你自定义实现的接口。 md5:4b1340106280e0dd
 func SetRegistry(registry Registry) {
 	if registry == nil {
-		panic(gerror.New(`invalid Registry value "nil" given`))
+		panic(gerror.X创建(`invalid Registry value "nil" given`))
 	}
 	defaultRegistry = registry
 }

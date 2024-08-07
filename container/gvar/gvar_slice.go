@@ -5,74 +5,76 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvar
+package 泛型类
 
-import "github.com/gogf/gf/v2/util/gconv"
+import (
+	gconv "github.com/888go/goframe/util/gconv"
+)
 
-// Ints 将 `v` 转换并返回为 []int 类型。 md5:063ba1cd966af441
-func (v *Var) Ints() []int {
-	return gconv.Ints(v.Val())
+// X取整数切片 将 `v` 转换并返回为 []int 类型。 md5:063ba1cd966af441
+func (v *Var) X取整数切片() []int {
+	return gconv.X取整数切片(v.X取值())
 }
 
-// Int64s 将 `v` 转换并返回为 []int64。 md5:def1c601eff8c141
-func (v *Var) Int64s() []int64 {
-	return gconv.Int64s(v.Val())
+// X取整数64位切片 将 `v` 转换并返回为 []int64。 md5:def1c601eff8c141
+func (v *Var) X取整数64位切片() []int64 {
+	return gconv.X取整数64位切片(v.X取值())
 }
 
-// Uints将`v`转换为[]uint并返回。 md5:fee8ec1b779988fe
-func (v *Var) Uints() []uint {
-	return gconv.Uints(v.Val())
+// X取正整数切片将`v`转换为[]uint并返回。 md5:fee8ec1b779988fe
+func (v *Var) X取正整数切片() []uint {
+	return gconv.X取正整数切片(v.X取值())
 }
 
-// Uint64s 将 `v` 转换为 []uint64 并返回。 md5:b4b77de84a5454a9
-func (v *Var) Uint64s() []uint64 {
-	return gconv.Uint64s(v.Val())
+// X取正整数64位切片 将 `v` 转换为 []uint64 并返回。 md5:b4b77de84a5454a9
+func (v *Var) X取正整数64位切片() []uint64 {
+	return gconv.X取正整数64位切片(v.X取值())
 }
 
-// Floats 是 Float64s 的别名。 md5:df981a5dcf3a4356
-func (v *Var) Floats() []float64 {
-	return gconv.Floats(v.Val())
+// X取小数切片 是 Float64s 的别名。 md5:df981a5dcf3a4356
+func (v *Var) X取小数切片() []float64 {
+	return gconv.X取小数切片(v.X取值())
 }
 
-// Float32s 将 `v` 转换并返回为 []float32。 md5:c1c14441284dfcfd
-func (v *Var) Float32s() []float32 {
-	return gconv.Float32s(v.Val())
+// X取小数32位切片 将 `v` 转换并返回为 []float32。 md5:c1c14441284dfcfd
+func (v *Var) X取小数32位切片() []float32 {
+	return gconv.X取小数32位切片(v.X取值())
 }
 
-// Float64s 将 `v` 转换为 []float64 并返回。 md5:f515ce0f1efc3fca
-func (v *Var) Float64s() []float64 {
-	return gconv.Float64s(v.Val())
+// X取小数64位切片 将 `v` 转换为 []float64 并返回。 md5:f515ce0f1efc3fca
+func (v *Var) X取小数64位切片() []float64 {
+	return gconv.X取小数64位切片(v.X取值())
 }
 
-// Strings 将 `v` 转换为字符串切片并返回。 md5:7f2a45762d2cb9c8
-func (v *Var) Strings() []string {
-	return gconv.Strings(v.Val())
+// X取文本切片 将 `v` 转换为字符串切片并返回。 md5:7f2a45762d2cb9c8
+func (v *Var) X取文本切片() []string {
+	return gconv.X取文本切片(v.X取值())
 }
 
-// Interfaces 将 `v` 转换并返回为 []interface{}。 md5:8b6ea8b55919ad7a
-func (v *Var) Interfaces() []interface{} {
-	return gconv.Interfaces(v.Val())
+// X取any切片 将 `v` 转换并返回为 []interface{}。 md5:8b6ea8b55919ad7a
+func (v *Var) X取any切片() []interface{} {
+	return gconv.X取any切片(v.X取值())
 }
 
-// Slice 是 Interfaces 的别名。 md5:94e5a660c49c5e34
-func (v *Var) Slice() []interface{} {
-	return v.Interfaces()
+// Slice别名 是 Interfaces 的别名。 md5:94e5a660c49c5e34
+func (v *Var) Slice别名() []interface{} {
+	return v.X取any切片()
 }
 
-// Array是Interfaces的别名。 md5:137944f64a8b7b89
-func (v *Var) Array() []interface{} {
-	return v.Interfaces()
+// Array别名是Interfaces的别名。 md5:137944f64a8b7b89
+func (v *Var) Array别名() []interface{} {
+	return v.X取any切片()
 }
 
-// Vars 将 `v` 转换为 []Var 并返回。 md5:fdbc7c7817f9852d
-func (v *Var) Vars() []*Var {
-	array := gconv.Interfaces(v.Val())
+// X取泛型类切片 将 `v` 转换为 []Var 并返回。 md5:fdbc7c7817f9852d
+func (v *Var) X取泛型类切片() []*Var {
+	array := gconv.X取any切片(v.X取值())
 	if len(array) == 0 {
 		return nil
 	}
 	vars := make([]*Var, len(array))
 	for k, v := range array {
-		vars[k] = New(v)
+		vars[k] = X创建(v)
 	}
 	return vars
 }

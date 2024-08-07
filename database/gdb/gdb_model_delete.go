@@ -5,28 +5,28 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"database/sql"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/text/gstr"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
-// Delete 执行针对模型的 "DELETE FROM ... " 语句。
+// X删除 执行针对模型的 "DELETE FROM ... " 语句。
 // 可选参数 `where` 与 Model.Where 函数的参数相同，
 // 请参考 Model.Where 查看详细用法。
 // md5:efc496574e0829d8
-func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(where) > 0 {
-		return m.Where(where[0], where[1:]...).Delete()
+func (m *Model) X删除(条件 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(条件) > 0 {
+		return m.X条件(条件[0], 条件[1:]...).X删除()
 	}
 	defer func() {
-		if err == nil {
+		if 错误 == nil {
 			m.checkAndRemoveSelectCache(ctx)
 		}
 	}()
@@ -40,13 +40,13 @@ func (m *Model) Delete(where ...interface{}) (result sql.Result, err error) {
 	if m.unscoped {
 		fieldNameDelete = ""
 	}
-	if !gstr.ContainsI(conditionStr, " WHERE ") || (fieldNameDelete != "" && !gstr.ContainsI(conditionStr, " AND ")) {
+	if !gstr.X是否包含并忽略大小写(conditionStr, " WHERE ") || (fieldNameDelete != "" && !gstr.X是否包含并忽略大小写(conditionStr, " AND ")) {
 		intlog.Printf(
 			ctx,
 			`sql condition string "%s" has no WHERE for DELETE operation, fieldNameDelete: %s`,
 			conditionStr, fieldNameDelete,
 		)
-		return nil, gerror.NewCode(
+		return nil, gerror.X创建错误码(
 			gcode.CodeMissingParameter,
 			"there should be WHERE condition statement for DELETE operation",
 		)

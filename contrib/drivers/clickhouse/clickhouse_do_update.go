@@ -11,11 +11,11 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
-// DoUpdate 对该表执行 "UPDATE ... " 语句。 md5:d99c5c0beb2de28e
-func (d *Driver) DoUpdate(ctx context.Context, link gdb.Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) {
+// X底层更新 对该表执行 "UPDATE ... " 语句。 md5:d99c5c0beb2de28e
+func (d *Driver) X底层更新(ctx context.Context, link gdb.Link, table string, data interface{}, condition string, args ...interface{}) (result sql.Result, err error) {
 	ctx = d.injectNeedParsedSql(ctx)
-	return d.Core.DoUpdate(ctx, link, table, data, condition, args...)
+	return d.Core.X底层更新(ctx, link, table, data, condition, args...)
 }

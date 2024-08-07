@@ -11,7 +11,7 @@ package gi18n
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/os/gctx"
+	gctx "github.com/888go/goframe/os/gctx"
 )
 
 const (

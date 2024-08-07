@@ -6,4 +6,4 @@
 // md5:a9832f33b234e3f3
 
 // 包`gtcp`提供了TCP服务器和客户端实现。 md5:8981c5b21f0ab245
-package gtcp
+package tcp类

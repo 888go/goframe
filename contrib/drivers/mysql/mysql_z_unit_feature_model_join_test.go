@@ -10,15 +10,15 @@ package mysql_test
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Model_LeftJoinOnField(t *testing.T) {
 	var (
-		table1 = gtime.TimestampNanoStr() + "_table1"
-		table2 = gtime.TimestampNanoStr() + "_table2"
+		table1 = gtime.X取文本时间戳纳秒() + "_table1"
+		table2 = gtime.X取文本时间戳纳秒() + "_table2"
 	)
 	createInitTable(table1)
 	defer dropTable(table1)
@@ -26,11 +26,11 @@ func Test_Model_LeftJoinOnField(t *testing.T) {
 	defer dropTable(table2)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table1).
-			FieldsPrefix(table1, "*").
-			LeftJoinOnField(table2, "id").
-			WhereIn("id", g.Slice{1, 2}).
-			Order("id asc").All()
+		r, err := db.X创建Model对象(table1).
+			X字段保留过滤并带前缀(table1, "*").
+			X左连接相同字段(table2, "id").
+			X条件包含("id", g.Slice别名{1, 2}).
+			X排序("id asc").X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 2)
 		t.Assert(r[0]["id"], "1")
@@ -40,8 +40,8 @@ func Test_Model_LeftJoinOnField(t *testing.T) {
 
 func Test_Model_RightJoinOnField(t *testing.T) {
 	var (
-		table1 = gtime.TimestampNanoStr() + "_table1"
-		table2 = gtime.TimestampNanoStr() + "_table2"
+		table1 = gtime.X取文本时间戳纳秒() + "_table1"
+		table2 = gtime.X取文本时间戳纳秒() + "_table2"
 	)
 	createInitTable(table1)
 	defer dropTable(table1)
@@ -49,11 +49,11 @@ func Test_Model_RightJoinOnField(t *testing.T) {
 	defer dropTable(table2)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table1).
-			FieldsPrefix(table1, "*").
-			RightJoinOnField(table2, "id").
-			WhereIn("id", g.Slice{1, 2}).
-			Order("id asc").All()
+		r, err := db.X创建Model对象(table1).
+			X字段保留过滤并带前缀(table1, "*").
+			X右连接相同字段(table2, "id").
+			X条件包含("id", g.Slice别名{1, 2}).
+			X排序("id asc").X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 2)
 		t.Assert(r[0]["id"], "1")
@@ -63,8 +63,8 @@ func Test_Model_RightJoinOnField(t *testing.T) {
 
 func Test_Model_InnerJoinOnField(t *testing.T) {
 	var (
-		table1 = gtime.TimestampNanoStr() + "_table1"
-		table2 = gtime.TimestampNanoStr() + "_table2"
+		table1 = gtime.X取文本时间戳纳秒() + "_table1"
+		table2 = gtime.X取文本时间戳纳秒() + "_table2"
 	)
 	createInitTable(table1)
 	defer dropTable(table1)
@@ -72,11 +72,11 @@ func Test_Model_InnerJoinOnField(t *testing.T) {
 	defer dropTable(table2)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table1).
-			FieldsPrefix(table1, "*").
-			InnerJoinOnField(table2, "id").
-			WhereIn("id", g.Slice{1, 2}).
-			Order("id asc").All()
+		r, err := db.X创建Model对象(table1).
+			X字段保留过滤并带前缀(table1, "*").
+			X内连接相同字段(table2, "id").
+			X条件包含("id", g.Slice别名{1, 2}).
+			X排序("id asc").X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 2)
 		t.Assert(r[0]["id"], "1")
@@ -86,8 +86,8 @@ func Test_Model_InnerJoinOnField(t *testing.T) {
 
 func Test_Model_LeftJoinOnFields(t *testing.T) {
 	var (
-		table1 = gtime.TimestampNanoStr() + "_table1"
-		table2 = gtime.TimestampNanoStr() + "_table2"
+		table1 = gtime.X取文本时间戳纳秒() + "_table1"
+		table2 = gtime.X取文本时间戳纳秒() + "_table2"
 	)
 	createInitTable(table1)
 	defer dropTable(table1)
@@ -95,11 +95,11 @@ func Test_Model_LeftJoinOnFields(t *testing.T) {
 	defer dropTable(table2)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table1).
-			FieldsPrefix(table1, "*").
-			LeftJoinOnFields(table2, "id", "=", "id").
-			WhereIn("id", g.Slice{1, 2}).
-			Order("id asc").All()
+		r, err := db.X创建Model对象(table1).
+			X字段保留过滤并带前缀(table1, "*").
+			X左连接带比较运算符(table2, "id", "=", "id").
+			X条件包含("id", g.Slice别名{1, 2}).
+			X排序("id asc").X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 2)
 		t.Assert(r[0]["id"], "1")
@@ -109,8 +109,8 @@ func Test_Model_LeftJoinOnFields(t *testing.T) {
 
 func Test_Model_RightJoinOnFields(t *testing.T) {
 	var (
-		table1 = gtime.TimestampNanoStr() + "_table1"
-		table2 = gtime.TimestampNanoStr() + "_table2"
+		table1 = gtime.X取文本时间戳纳秒() + "_table1"
+		table2 = gtime.X取文本时间戳纳秒() + "_table2"
 	)
 	createInitTable(table1)
 	defer dropTable(table1)
@@ -118,11 +118,11 @@ func Test_Model_RightJoinOnFields(t *testing.T) {
 	defer dropTable(table2)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table1).
-			FieldsPrefix(table1, "*").
-			RightJoinOnFields(table2, "id", "=", "id").
-			WhereIn("id", g.Slice{1, 2}).
-			Order("id asc").All()
+		r, err := db.X创建Model对象(table1).
+			X字段保留过滤并带前缀(table1, "*").
+			X右连接带比较运算符(table2, "id", "=", "id").
+			X条件包含("id", g.Slice别名{1, 2}).
+			X排序("id asc").X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 2)
 		t.Assert(r[0]["id"], "1")
@@ -132,8 +132,8 @@ func Test_Model_RightJoinOnFields(t *testing.T) {
 
 func Test_Model_InnerJoinOnFields(t *testing.T) {
 	var (
-		table1 = gtime.TimestampNanoStr() + "_table1"
-		table2 = gtime.TimestampNanoStr() + "_table2"
+		table1 = gtime.X取文本时间戳纳秒() + "_table1"
+		table2 = gtime.X取文本时间戳纳秒() + "_table2"
 	)
 	createInitTable(table1)
 	defer dropTable(table1)
@@ -141,11 +141,11 @@ func Test_Model_InnerJoinOnFields(t *testing.T) {
 	defer dropTable(table2)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table1).
-			FieldsPrefix(table1, "*").
-			InnerJoinOnFields(table2, "id", "=", "id").
-			WhereIn("id", g.Slice{1, 2}).
-			Order("id asc").All()
+		r, err := db.X创建Model对象(table1).
+			X字段保留过滤并带前缀(table1, "*").
+			X内连接带比较运算符(table2, "id", "=", "id").
+			X条件包含("id", g.Slice别名{1, 2}).
+			X排序("id asc").X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 2)
 		t.Assert(r[0]["id"], "1")
@@ -155,8 +155,8 @@ func Test_Model_InnerJoinOnFields(t *testing.T) {
 
 func Test_Model_FieldsPrefix(t *testing.T) {
 	var (
-		table1 = gtime.TimestampNanoStr() + "_table1"
-		table2 = gtime.TimestampNanoStr() + "_table2"
+		table1 = gtime.X取文本时间戳纳秒() + "_table1"
+		table2 = gtime.X取文本时间戳纳秒() + "_table2"
 	)
 	createInitTable(table1)
 	defer dropTable(table1)
@@ -164,12 +164,12 @@ func Test_Model_FieldsPrefix(t *testing.T) {
 	defer dropTable(table2)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table1).
-			FieldsPrefix(table1, "id").
-			FieldsPrefix(table2, "nickname").
-			LeftJoinOnField(table2, "id").
-			WhereIn("id", g.Slice{1, 2}).
-			Order("id asc").All()
+		r, err := db.X创建Model对象(table1).
+			X字段保留过滤并带前缀(table1, "id").
+			X字段保留过滤并带前缀(table2, "nickname").
+			X左连接相同字段(table2, "id").
+			X条件包含("id", g.Slice别名{1, 2}).
+			X排序("id asc").X查询()
 		t.AssertNil(err)
 		t.Assert(len(r), 2)
 		t.Assert(r[0]["id"], "1")

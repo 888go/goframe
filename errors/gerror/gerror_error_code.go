@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gerror
+package 错误类
 
 import (
-	"github.com/gogf/gf/v2/errors/gcode"
+	gcode "github.com/888go/goframe/errors/gcode"
 )
 
 // Code 返回错误代码。
@@ -19,7 +19,7 @@ func (err *Error) Code() gcode.Code {
 		return gcode.CodeNil
 	}
 	if err.code == gcode.CodeNil {
-		return Code(err.Unwrap())
+		return X取错误码(err.Unwrap())
 	}
 	return err.code
 }

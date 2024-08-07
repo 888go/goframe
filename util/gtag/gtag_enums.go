@@ -8,7 +8,7 @@
 package gtag
 
 import (
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/internal/json"
 )
 
 var (

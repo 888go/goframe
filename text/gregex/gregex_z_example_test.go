@@ -4,22 +4,22 @@
 // 如果未随本文件一同分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
-package gregex_test
+package 正则类_test
 
 import (
 	"bytes"
 	"fmt"
 	"strings"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/text/gregex"
+	"github.com/888go/goframe/frame/g"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 func ExampleIsMatch() {
 	patternStr := `\d+`
-	g.Dump(gregex.IsMatch(patternStr, []byte("hello 2022! hello gf!")))
-	g.Dump(gregex.IsMatch(patternStr, nil))
-	g.Dump(gregex.IsMatch(patternStr, []byte("hello gf!")))
+	g.X调试输出(gregex.X是否匹配字节集(patternStr, []byte("hello 2022! hello gf!")))
+	g.X调试输出(gregex.X是否匹配字节集(patternStr, nil))
+	g.X调试输出(gregex.X是否匹配字节集(patternStr, []byte("hello gf!")))
 
 	// Output:
 	// true
@@ -29,9 +29,9 @@ func ExampleIsMatch() {
 
 func ExampleIsMatchString() {
 	patternStr := `\d+`
-	g.Dump(gregex.IsMatchString(patternStr, "hello 2022! hello gf!"))
-	g.Dump(gregex.IsMatchString(patternStr, "hello gf!"))
-	g.Dump(gregex.IsMatchString(patternStr, ""))
+	g.X调试输出(gregex.X是否匹配文本(patternStr, "hello 2022! hello gf!"))
+	g.X调试输出(gregex.X是否匹配文本(patternStr, "hello gf!"))
+	g.X调试输出(gregex.X是否匹配文本(patternStr, ""))
 
 	// Output:
 	// true
@@ -43,9 +43,9 @@ func ExampleMatch() {
 	patternStr := `(\w+)=(\w+)`
 	matchStr := "https://goframe.org/pages/viewpage.action?pageId=1114219&searchId=8QC5D1D2E!"
 			// 这个方法寻找第一个匹配的索引. md5:d933ee1d74dd86c5
-	result, err := gregex.Match(patternStr, []byte(matchStr))
-	g.Dump(result)
-	g.Dump(err)
+	result, err := gregex.X匹配字节集(patternStr, []byte(matchStr))
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// [
@@ -60,9 +60,9 @@ func ExampleMatchString() {
 	patternStr := `(\w+)=(\w+)`
 	matchStr := "https://goframe.org/pages/viewpage.action?pageId=1114219&searchId=8QC5D1D2E!"
 			// 这个方法寻找第一个匹配的索引. md5:d933ee1d74dd86c5
-	result, err := gregex.MatchString(patternStr, matchStr)
-	g.Dump(result)
-	g.Dump(err)
+	result, err := gregex.X匹配文本(patternStr, matchStr)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// [
@@ -76,9 +76,9 @@ func ExampleMatchString() {
 func ExampleMatchAll() {
 	patternStr := `(\w+)=(\w+)`
 	matchStr := "https://goframe.org/pages/viewpage.action?pageId=1114219&searchId=8QC5D1D2E!"
-	result, err := gregex.MatchAll(patternStr, []byte(matchStr))
-	g.Dump(result)
-	g.Dump(err)
+	result, err := gregex.X匹配全部字节集(patternStr, []byte(matchStr))
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	//  [
@@ -99,9 +99,9 @@ func ExampleMatchAll() {
 func ExampleMatchAllString() {
 	patternStr := `(\w+)=(\w+)`
 	matchStr := "https://goframe.org/pages/viewpage.action?pageId=1114219&searchId=8QC5D1D2E!"
-	result, err := gregex.MatchAllString(patternStr, matchStr)
-	g.Dump(result)
-	g.Dump(err)
+	result, err := gregex.X匹配全部文本(patternStr, matchStr)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// [
@@ -120,7 +120,7 @@ func ExampleMatchAllString() {
 }
 
 func ExampleQuote() {
-	result := gregex.Quote(`[1-9]\d+`)
+	result := gregex.X转义特殊符号(`[1-9]\d+`)
 	fmt.Println(result)
 
 	// Output:
@@ -132,10 +132,10 @@ func ExampleReplace() {
 		patternStr  = `\d+`
 		str         = "hello gf 2020!"
 		repStr      = "2021"
-		result, err = gregex.Replace(patternStr, []byte(repStr), []byte(str))
+		result, err = gregex.X替换字节集(patternStr, []byte(repStr), []byte(str))
 	)
-	g.Dump(err)
-	g.Dump(result)
+	g.X调试输出(err)
+	g.X调试输出(result)
 
 	// Output:
 	// <nil>
@@ -147,12 +147,12 @@ func ExampleReplaceFunc() {
 	// 结果包含了所有使用匹配函数的子模式的`pattern`
 	// md5:3cc683990c37065c
 	result, err := gregex.ReplaceFuncMatch(`(\d+)~(\d+)`, []byte("hello gf 2018~2020!"), func(match [][]byte) []byte {
-		g.Dump(match)
+		g.X调试输出(match)
 		match[2] = []byte("2021")
 		return bytes.Join(match[1:], []byte("~"))
 	})
-	g.Dump(result)
-	g.Dump(err)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// [
@@ -173,12 +173,12 @@ func ExampleReplaceFuncMatch() {
 	// 结果包含了使用匹配函数的所有子模式的`pattern`。
 	// md5:1b711898b19df13d
 	result, err := gregex.ReplaceFuncMatch(patternStr, []byte(str), func(match [][]byte) []byte {
-		g.Dump(match)
+		g.X调试输出(match)
 		match[2] = []byte("2021")
 		return bytes.Join(match[1:], []byte("-"))
 	})
-	g.Dump(result)
-	g.Dump(err)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// [
@@ -194,10 +194,10 @@ func ExampleReplaceString() {
 	patternStr := `\d+`
 	str := "hello gf 2020!"
 	replaceStr := "2021"
-	result, err := gregex.ReplaceString(patternStr, replaceStr, str)
+	result, err := gregex.X替换文本(patternStr, replaceStr, str)
 
-	g.Dump(result)
-	g.Dump(err)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// "hello gf 2021!"
@@ -211,19 +211,19 @@ func ExampleReplaceStringFunc() {
 	// 当常规语句可以匹配多个结果时
 	// 函数可以进一步控制需要修改的值
 	// md5:453f5d05c5806c71
-	result, err := gregex.ReplaceStringFunc(`\d+`, `hello gf 2018~2020!`, func(b string) string {
-		g.Dump(b)
+	result, err := gregex.X替换文本_函数(`\d+`, `hello gf 2018~2020!`, func(b string) string {
+		g.X调试输出(b)
 		if replaceStr, ok := replaceStrMap[b]; ok {
 			return replaceStr
 		}
 		return b
 	})
-	g.Dump(result)
-	g.Dump(err)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
-	result, err = gregex.ReplaceStringFunc(`[a-z]*`, "gf@goframe.org", strings.ToUpper)
-	g.Dump(result)
-	g.Dump(err)
+	result, err = gregex.X替换文本_函数(`[a-z]*`, "gf@goframe.org", strings.ToUpper)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// "2018"
@@ -243,12 +243,12 @@ func ExampleReplaceStringFuncMatch() {
 	// 结果包含了使用匹配函数的所有子模式的`pattern`。
 	// md5:1b711898b19df13d
 	result, err := gregex.ReplaceStringFuncMatch(patternStr, str, func(match []string) string {
-		g.Dump(match)
+		g.X调试输出(match)
 		match[0] = "Gf"
 		return match[0]
 	})
-	g.Dump(result)
-	g.Dump(err)
+	g.X调试输出(result)
+	g.X调试输出(err)
 
 	// Output:
 	// [
@@ -262,8 +262,8 @@ func ExampleReplaceStringFuncMatch() {
 func ExampleSplit() {
 	patternStr := `\d+`
 	str := "hello2020gf"
-	result := gregex.Split(patternStr, str)
-	g.Dump(result)
+	result := gregex.X分割(patternStr, str)
+	g.X调试输出(result)
 
 	// Output:
 	// [
@@ -274,9 +274,9 @@ func ExampleSplit() {
 
 func ExampleValidate() {
 	// Valid match statement
-	fmt.Println(gregex.Validate(`\d+`))
+	fmt.Println(gregex.X表达式验证(`\d+`))
 	// Mismatched statement
-	fmt.Println(gregex.Validate(`[a-9]\d+`))
+	fmt.Println(gregex.X表达式验证(`[a-9]\d+`))
 
 	// Output:
 	// <nil>

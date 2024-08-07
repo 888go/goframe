@@ -10,8 +10,8 @@ package mysql_test
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Union(t *testing.T) {
@@ -19,11 +19,11 @@ func Test_Union(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Union(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").All()
+		r, err := db.X多表去重查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询()
 
 		t.AssertNil(err)
 
@@ -34,11 +34,11 @@ func Test_Union(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Union(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").One()
+		r, err := db.X多表去重查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询一条()
 
 		t.AssertNil(err)
 
@@ -51,11 +51,11 @@ func Test_UnionAll(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.UnionAll(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").All()
+		r, err := db.X多表查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询()
 
 		t.AssertNil(err)
 
@@ -68,11 +68,11 @@ func Test_UnionAll(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.UnionAll(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").One()
+		r, err := db.X多表查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询一条()
 
 		t.AssertNil(err)
 
@@ -85,11 +85,11 @@ func Test_Model_Union(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).Union(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").All()
+		r, err := db.X创建Model对象(table).X多表去重查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询()
 
 		t.AssertNil(err)
 
@@ -100,11 +100,11 @@ func Test_Model_Union(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).Union(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").One()
+		r, err := db.X创建Model对象(table).X多表去重查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询一条()
 
 		t.AssertNil(err)
 
@@ -117,11 +117,11 @@ func Test_Model_UnionAll(t *testing.T) {
 	defer dropTable(table)
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).UnionAll(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").All()
+		r, err := db.X创建Model对象(table).X多表查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询()
 
 		t.AssertNil(err)
 
@@ -134,11 +134,11 @@ func Test_Model_UnionAll(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(table).UnionAll(
-			db.Model(table).Where("id", 1),
-			db.Model(table).Where("id", 2),
-			db.Model(table).WhereIn("id", g.Slice{1, 2, 3}).OrderDesc("id"),
-		).OrderDesc("id").One()
+		r, err := db.X创建Model对象(table).X多表查询(
+			db.X创建Model对象(table).X条件("id", 1),
+			db.X创建Model对象(table).X条件("id", 2),
+			db.X创建Model对象(table).X条件包含("id", g.Slice别名{1, 2, 3}).X排序Desc("id"),
+		).X排序Desc("id").X查询一条()
 
 		t.AssertNil(err)
 

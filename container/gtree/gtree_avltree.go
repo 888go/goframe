@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtree
+package 树形类
 
 import (
 	"bytes"
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/rwmutex"
-	"github.com/gogf/gf/v2/util/gconv"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/rwmutex"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // AVLTree 存储AVL树的元素。 md5:d108e2d6ca60747c
@@ -62,8 +62,8 @@ func (tree *AVLTree) Clone() *AVLTree {
 	return newTree
 }
 
-// Set 将节点插入到树中。 md5:8af837873ed60d6a
-func (tree *AVLTree) Set(key interface{}, value interface{}) {
+// X设置值 将节点插入到树中。 md5:8af837873ed60d6a
+func (tree *AVLTree) X设置值(key interface{}, value interface{}) {
 	tree.mu.Lock()
 	defer tree.mu.Unlock()
 	tree.put(key, value, nil, &tree.root)
@@ -180,27 +180,27 @@ func (tree *AVLTree) GetOrSetFuncLock(key interface{}, f func() interface{}) int
 // 返回的 gvar.Var 不是并发安全的。
 // md5:a04747902e4bf242
 func (tree *AVLTree) GetVar(key interface{}) *gvar.Var {
-	return gvar.New(tree.Get(key))
+	return gvar.X创建(tree.Get(key))
 }
 
 // GetVarOrSet 返回一个从 GetVarOrSet 获取的结果的 gvar.Var。返回的 gvar.Var 不是线程安全的。
 // md5:089beb08264e18cf
 func (tree *AVLTree) GetVarOrSet(key interface{}, value interface{}) *gvar.Var {
-	return gvar.New(tree.GetOrSet(key, value))
+	return gvar.X创建(tree.GetOrSet(key, value))
 }
 
 // GetVarOrSetFunc 返回一个 gvar.Var，其结果来自 GetOrSetFunc。
 // 返回的 gvar.Var 不是线程安全的。
 // md5:8c97b145faade5ae
 func (tree *AVLTree) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var {
-	return gvar.New(tree.GetOrSetFunc(key, f))
+	return gvar.X创建(tree.GetOrSetFunc(key, f))
 }
 
 // GetVarOrSetFuncLock 返回一个gvar.Var，其结果来自GetOrSetFuncLock。
 // 返回的gvar.Var是非并发安全的。
 // md5:90c22300c2187ce4
 func (tree *AVLTree) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var {
-	return gvar.New(tree.GetOrSetFuncLock(key, f))
+	return gvar.X创建(tree.GetOrSetFuncLock(key, f))
 }
 
 // SetIfNotExist 如果键`key`不存在，则将`value`设置到映射中，并返回true。如果键`key`已存在，且`value`将被忽略，函数返回false。
@@ -434,8 +434,8 @@ func (tree *AVLTree) Map() map[interface{}]interface{} {
 	return m
 }
 
-// MapStrAny 将所有键值对作为 map[string]interface{} 返回。 md5:412456aafc43f7a8
-func (tree *AVLTree) MapStrAny() map[string]interface{} {
+// X取MapStrAny 将所有键值对作为 map[string]interface{} 返回。 md5:412456aafc43f7a8
+func (tree *AVLTree) X取MapStrAny() map[string]interface{} {
 	m := make(map[string]interface{}, tree.Size())
 	tree.IteratorAsc(func(key, value interface{}) bool {
 		m[gconv.String(key)] = value
@@ -466,8 +466,8 @@ func (tree *AVLTree) Flip(comparator ...func(v1, v2 interface{}) int) {
 	tree.mu.Unlock()
 }
 
-// Iterator 是 IteratorAsc 的别名。 md5:1bfdea306db62845
-func (tree *AVLTree) Iterator(f func(key, value interface{}) bool) {
+// X遍历 是 IteratorAsc 的别名。 md5:1bfdea306db62845
+func (tree *AVLTree) X遍历(f func(key, value interface{}) bool) {
 	tree.IteratorAsc(f)
 }
 
@@ -796,7 +796,7 @@ func (tree AVLTree) MarshalJSON() (jsonBytes []byte, err error) {
 	}
 	buffer := bytes.NewBuffer(nil)
 	buffer.WriteByte('{')
-	tree.Iterator(func(key, value interface{}) bool {
+	tree.X遍历(func(key, value interface{}) bool {
 		valueBytes, valueJsonErr := json.Marshal(value)
 		if valueJsonErr != nil {
 			err = valueJsonErr

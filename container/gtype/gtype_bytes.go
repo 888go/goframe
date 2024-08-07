@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtype
+package 安全变量类
 
 import (
 	"bytes"
 	"encoding/base64"
 	"sync/atomic"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/util/gconv"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Bytes 是一个用于并发安全操作的[]byte类型的结构体。 md5:784dc0993857ec47
@@ -34,20 +34,20 @@ func NewBytes(value ...[]byte) *Bytes {
 
 // Clone 创建并返回一个[]byte类型的浅拷贝新对象。 md5:408a6650b2b17fbd
 func (v *Bytes) Clone() *Bytes {
-	return NewBytes(v.Val())
+	return NewBytes(v.X取值())
 }
 
-// Set 原子地将 `value` 赋值给 t.value，并返回 t.value 的旧值。
+// X设置值 原子地将 `value` 赋值给 t.value，并返回 t.value 的旧值。
 // 注意：参数 `value` 不能为 nil。
 // md5:00adcc3b6d3bb3da
-func (v *Bytes) Set(value []byte) (old []byte) {
-	old = v.Val()
+func (v *Bytes) X设置值(value []byte) (old []byte) {
+	old = v.X取值()
 	v.value.Store(value)
 	return
 }
 
-// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
-func (v *Bytes) Val() []byte {
+// X取值原子性地加载并返回t.value。 md5:429a11b89436cc12
+func (v *Bytes) X取值() []byte {
 	if s := v.value.Load(); s != nil {
 		return s.([]byte)
 	}
@@ -56,12 +56,12 @@ func (v *Bytes) Val() []byte {
 
 // String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
 func (v *Bytes) String() string {
-	return string(v.Val())
+	return string(v.X取值())
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (v Bytes) MarshalJSON() ([]byte, error) {
-	val := v.Val()
+	val := v.X取值()
 	dst := make([]byte, base64.StdEncoding.EncodedLen(len(val)))
 	base64.StdEncoding.Encode(dst, val)
 	return []byte(`"` + string(dst) + `"`), nil
@@ -74,16 +74,16 @@ func (v *Bytes) UnmarshalJSON(b []byte) error {
 		n, err = base64.StdEncoding.Decode(src, bytes.Trim(b, `"`))
 	)
 	if err != nil {
-		err = gerror.Wrap(err, `base64.StdEncoding.Decode failed`)
+		err = gerror.X多层错误(err, `base64.StdEncoding.Decode failed`)
 		return err
 	}
-	v.Set(src[:n])
+	v.X设置值(src[:n])
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
 func (v *Bytes) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Bytes(value))
+	v.X设置值(gconv.X取字节集(value))
 	return nil
 }
 
@@ -92,7 +92,7 @@ func (v *Bytes) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	oldBytes := v.Val()
+	oldBytes := v.X取值()
 	newBytes := make([]byte, len(oldBytes))
 	copy(newBytes, oldBytes)
 	return NewBytes(newBytes)

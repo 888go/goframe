@@ -11,11 +11,11 @@ import (
 	"context"
 	"io"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gproc"
-	"github.com/gogf/gf/v2/util/gutil"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/empty"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gproc "github.com/888go/goframe/os/gproc"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // Go 创建一个新的异步 goroutine 函数，并指定了恢复函数。
@@ -33,15 +33,15 @@ func Go(
 	gutil.Go(ctx, goroutineFunc, recoverFunc)
 }
 
-// NewVar返回一个gvar.Var。 md5:384cbf5dc86048e6
-func NewVar(i interface{}, safe ...bool) *Var {
-	return gvar.New(i, safe...)
+// X泛型类返回一个gvar.Var。 md5:384cbf5dc86048e6
+func X泛型类(值 interface{}, 并发安全 ...bool) *Var {
+	return gvar.X创建(值, 并发安全...)
 }
 
-// Wait 是对 ghttp.Wait 的别名，它会阻塞直到所有的网络服务器停止运行。在多服务器情况下，这通常会被使用。
+// Http类等待所有服务完成 是对 ghttp.Http类等待所有服务完成 的别名，它会阻塞直到所有的网络服务器停止运行。在多服务器情况下，这通常会被使用。
 // md5:efbd28e068404766
-func Wait() {
-	ghttp.Wait()
+func Http类等待所有服务完成() {
+	ghttp.X等待所有服务完成()
 }
 
 // Listen 是 gproc.Listen 的别名，用于处理接收到的信号，并自动调用已注册的信号处理函数。
@@ -51,72 +51,72 @@ func Listen() {
 	gproc.Listen()
 }
 
-// Dump 将变量以更易读的格式输出到标准输出。 md5:e19cf0b857ffd1c6
-func Dump(values ...interface{}) {
-	gutil.Dump(values...)
+// X调试输出 将变量以更易读的格式输出到标准输出。 md5:e19cf0b857ffd1c6
+func X调试输出(值s ...interface{}) {
+	gutil.X调试输出(值s...)
 }
 
-// DumpTo 将变量 `values` 作为字符串写入到 `writer` 中，提供更易人工阅读的格式. md5:68fd8fc9ea0dfc4b
-func DumpTo(writer io.Writer, value interface{}, option gutil.DumpOption) {
-	gutil.DumpTo(writer, value, option)
+// X调试输出到Writer 将变量 `values` 作为字符串写入到 `writer` 中，提供更易人工阅读的格式. md5:68fd8fc9ea0dfc4b
+func X调试输出到Writer(writer io.Writer, 值 interface{}, 选项 gutil.DumpOption) {
+	gutil.X调试输出到Writer(writer, 值, 选项)
 }
 
-// DumpWithType 类似于 Dump，但带有类型信息。同时参阅 Dump。
+// X调试输出并带类型 类似于 Dump，但带有类型信息。同时参阅 Dump。
 // md5:faabab79589d38a3
-func DumpWithType(values ...interface{}) {
-	gutil.DumpWithType(values...)
+func X调试输出并带类型(值s ...interface{}) {
+	gutil.X调试输出并带类型(值s...)
 }
 
-// DumpWithOption 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
-func DumpWithOption(value interface{}, option gutil.DumpOption) {
-	gutil.DumpWithOption(value, option)
+// X调试输出并带选项 函数将变量 `values` 以更易于人工阅读的字符串形式返回。 md5:99fec3f0f209dcf7
+func X调试输出并带选项(值s interface{}, 选项 gutil.DumpOption) {
+	gutil.X调试输出并带选项(值s, 选项)
 }
 
-// DumpJson 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
-func DumpJson(value any) {
-	gutil.DumpJson(value)
+// X调试输出json 将 JSON 内容以美化的方式输出到标准输出。 md5:9f4c95e099395360
+func X调试输出json(value any) {
+	gutil.X调试输出json(value)
 }
 
-// Throw抛出一个异常，可以被TryCatch函数捕获。 md5:ade0a15f9238635b
-func Throw(exception interface{}) {
-	gutil.Throw(exception)
+// X异常输出抛出一个异常，可以被TryCatch函数捕获。 md5:ade0a15f9238635b
+func X异常输出(消息 interface{}) {
+	gutil.X异常输出(消息)
 }
 
-// Try 使用内部的 panic...recover 实现 try...catch 逻辑。如果发生任何异常，它会返回错误；否则返回 nil。
+// X异常捕捉 使用内部的 panic...recover 实现 try...catch 逻辑。如果发生任何异常，它会返回错误；否则返回 nil。
 // md5:7c85aa857bb16fca
-func Try(ctx context.Context, try func(ctx context.Context)) (err error) {
-	return gutil.Try(ctx, try)
+func X异常捕捉(上下文 context.Context, 处理函数 func(上下文 context.Context)) (错误 error) {
+	return gutil.X异常捕捉(上下文, 处理函数)
 }
 
-// TryCatch 使用内部的 panic...recover 机制来实现 try...catch... 的逻辑。
+// X异常捕捉并带异常处理 使用内部的 panic...recover 机制来实现 try...catch... 的逻辑。
 // 如果发生任何异常，它会自动调用函数 `catch` 并将异常作为错误传递。
 //
 // 但请注意，如果函数 `catch` 本身也引发了 panic，当前的 goroutine 会触发 panic。
 // md5:c9fae3297a82421f
-func TryCatch(ctx context.Context, try func(ctx context.Context), catch func(ctx context.Context, exception error)) {
-	gutil.TryCatch(ctx, try, catch)
+func X异常捕捉并带异常处理(上下文 context.Context, 处理函数 func(上下文 context.Context), 异常处理函数 func(上下文 context.Context, 错误 error)) {
+	gutil.X异常捕捉并带异常处理(上下文, 处理函数, 异常处理函数)
 }
 
-// IsNil 检查给定的 `value` 是否为 nil。
+// X是否为Nil 检查给定的 `value` 是否为 nil。
 // 参数 `traceSource` 用于在 `value` 为指向指针的指针类型时，追踪到源变量。当 `traceSource` 为真且源为 nil 时，它会返回 nil。
 // 请注意，该功能可能使用反射，这可能稍微影响性能。
 // md5:1a86ab3bedd8914d
-func IsNil(value interface{}, traceSource ...bool) bool {
+func X是否为Nil(value interface{}, traceSource ...bool) bool {
 	return empty.IsNil(value, traceSource...)
 }
 
-// IsEmpty 检查给定的 `value` 是否为空。
+// X是否为空 检查给定的 `value` 是否为空。
 // 如果 `value` 等于：0，nil，false，""，切片、映射或通道的长度为0，则返回 true。
 // 否则，返回 true。
 // 
 // 参数 `traceSource` 用于追踪，如果给定的 `value` 是指向指针的指针类型，它会追踪到源变量。当 `traceSource` 为 true 时，如果源为空，将返回 true。
 // 注意，它可能使用反射特性，这可能会影响性能。
 // md5:7262defa92ce37cb
-func IsEmpty(value interface{}, traceSource ...bool) bool {
-	return empty.IsEmpty(value, traceSource...)
+func X是否为空(值 interface{}, 追踪到源变量 ...bool) bool {
+	return empty.IsEmpty(值, 追踪到源变量...)
 }
 
-// RequestFromCtx 从上下文中检索并返回Request对象。 md5:c247eac3d031fb2b
-func RequestFromCtx(ctx context.Context) *ghttp.Request {
-	return ghttp.RequestFromCtx(ctx)
+// Http类上下文取请求对象 从上下文中检索并返回Request对象。 md5:c247eac3d031fb2b
+func Http类上下文取请求对象(上下文 context.Context) *ghttp.Request {
+	return ghttp.X从上下文取请求对象(上下文)
 }

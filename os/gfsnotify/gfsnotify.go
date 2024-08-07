@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gfsnotify提供了一个与平台无关的接口，用于文件系统通知。 md5:85a6a9e7b52e09e5
-package gfsnotify
+package 文件监控类
 
 import (
 	"context"
@@ -15,15 +15,15 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gqueue"
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gcache"
+	glist "github.com/888go/goframe/container/glist"
+	gmap "github.com/888go/goframe/container/gmap"
+	gqueue "github.com/888go/goframe/container/gqueue"
+	gset "github.com/888go/goframe/container/gset"
+	gtype "github.com/888go/goframe/container/gtype"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gcache "github.com/888go/goframe/os/gcache"
 )
 
 // Watcher是文件更改的监视器。 md5:82c8c6038aefc543
@@ -76,7 +76,7 @@ const (
 var (
 	mu                  sync.Mutex                // 用于并发安全的defaultWatcher的Mutex。 md5:0b64dbe940db78a8
 	defaultWatcher      *Watcher                  // Default watcher.
-	callbackIdMap       = gmap.NewIntAnyMap(true) // ID到回调函数的映射。 md5:641a269397a47639
+	callbackIdMap       = gmap.X创建IntAny(true) // ID到回调函数的映射。 md5:641a269397a47639
 	callbackIdGenerator = gtype.NewInt()          // 用于回调的原子性ID生成器。 md5:2caf00d0d805af7b
 )
 
@@ -86,11 +86,11 @@ var (
 // md5:a2587b1623329074
 func New() (*Watcher, error) {
 	w := &Watcher{
-		cache:     gcache.New(),
-		events:    gqueue.New(),
-		nameSet:   gset.NewStrSet(true),
+		cache:     gcache.X创建(),
+		events:    gqueue.X创建(),
+		nameSet:   gset.X创建文本(true),
 		closeChan: make(chan struct{}),
-		callbacks: gmap.NewStrAnyMap(true),
+		callbacks: gmap.X创建StrAny(true),
 	}
 	if watcher, err := fsnotify.NewWatcher(); err == nil {
 		w.watcher = watcher
@@ -143,11 +143,11 @@ func RemoveCallback(callbackId int) error {
 		return err
 	}
 	callback := (*Callback)(nil)
-	if r := callbackIdMap.Get(callbackId); r != nil {
+	if r := callbackIdMap.X取值(callbackId); r != nil {
 		callback = r.(*Callback)
 	}
 	if callback == nil {
-		return gerror.NewCodef(gcode.CodeInvalidParameter, `callback for id %d not found`, callbackId)
+		return gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `callback for id %d not found`, callbackId)
 	}
 	w.RemoveCallback(callbackId)
 	return nil

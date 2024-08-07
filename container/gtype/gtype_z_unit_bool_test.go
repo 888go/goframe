@@ -5,28 +5,28 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtype_test
+package 安全变量类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Bool(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		i := gtype.NewBool(true)
 		iClone := i.Clone()
-		t.AssertEQ(iClone.Set(false), true)
-		t.AssertEQ(iClone.Val(), false)
+		t.AssertEQ(iClone.X设置值(false), true)
+		t.AssertEQ(iClone.X取值(), false)
 
 		i1 := gtype.NewBool(false)
 		iClone1 := i1.Clone()
-		t.AssertEQ(iClone1.Set(true), false)
-		t.AssertEQ(iClone1.Val(), true)
+		t.AssertEQ(iClone1.X设置值(true), false)
+		t.AssertEQ(iClone1.X取值(), true)
 
 		t.AssertEQ(iClone1.Cas(false, true), false)
 		t.AssertEQ(iClone1.String(), "true")
@@ -34,15 +34,15 @@ func Test_Bool(t *testing.T) {
 		t.AssertEQ(iClone1.String(), "false")
 
 		copyVal := i1.DeepCopy()
-		iClone.Set(true)
-		t.AssertNE(copyVal, iClone.Val())
+		iClone.X设置值(true)
+		t.AssertNE(copyVal, iClone.X取值())
 		iClone = nil
 		copyVal = iClone.DeepCopy()
 		t.AssertNil(copyVal)
 
 		// empty param test
 		i2 := gtype.NewBool()
-		t.AssertEQ(i2.Val(), false)
+		t.AssertEQ(i2.X取值(), false)
 	})
 }
 
@@ -51,7 +51,7 @@ func Test_Bool_JSON(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		i := gtype.NewBool(true)
 		b1, err1 := json.Marshal(i)
-		b2, err2 := json.Marshal(i.Val())
+		b2, err2 := json.Marshal(i.X取值())
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 		t.Assert(b1, b2)
@@ -59,7 +59,7 @@ func Test_Bool_JSON(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		i := gtype.NewBool(false)
 		b1, err1 := json.Marshal(i)
-		b2, err2 := json.Marshal(i.Val())
+		b2, err2 := json.Marshal(i.X取值())
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 		t.Assert(b1, b2)
@@ -70,22 +70,22 @@ func Test_Bool_JSON(t *testing.T) {
 		i := gtype.NewBool()
 		err = json.UnmarshalUseNumber([]byte("true"), &i)
 		t.AssertNil(err)
-		t.Assert(i.Val(), true)
+		t.Assert(i.X取值(), true)
 		err = json.UnmarshalUseNumber([]byte("false"), &i)
 		t.AssertNil(err)
-		t.Assert(i.Val(), false)
+		t.Assert(i.X取值(), false)
 		err = json.UnmarshalUseNumber([]byte("1"), &i)
 		t.AssertNil(err)
-		t.Assert(i.Val(), true)
+		t.Assert(i.X取值(), true)
 		err = json.UnmarshalUseNumber([]byte("0"), &i)
 		t.AssertNil(err)
-		t.Assert(i.Val(), false)
+		t.Assert(i.X取值(), false)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		i := gtype.NewBool(true)
 		b1, err1 := json.Marshal(i)
-		b2, err2 := json.Marshal(i.Val())
+		b2, err2 := json.Marshal(i.X取值())
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 		t.Assert(b1, b2)
@@ -93,12 +93,12 @@ func Test_Bool_JSON(t *testing.T) {
 		i2 := gtype.NewBool()
 		err := json.UnmarshalUseNumber(b2, &i2)
 		t.AssertNil(err)
-		t.Assert(i2.Val(), i.Val())
+		t.Assert(i2.X取值(), i.X取值())
 	})
 	gtest.C(t, func(t *gtest.T) {
 		i := gtype.NewBool(false)
 		b1, err1 := json.Marshal(i)
-		b2, err2 := json.Marshal(i.Val())
+		b2, err2 := json.Marshal(i.X取值())
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 		t.Assert(b1, b2)
@@ -106,7 +106,7 @@ func Test_Bool_JSON(t *testing.T) {
 		i2 := gtype.NewBool()
 		err := json.UnmarshalUseNumber(b2, &i2)
 		t.AssertNil(err)
-		t.Assert(i2.Val(), i.Val())
+		t.Assert(i2.X取值(), i.X取值())
 	})
 }
 
@@ -123,7 +123,7 @@ func Test_Bool_UnmarshalValue(t *testing.T) {
 		}, &v)
 		t.AssertNil(err)
 		t.Assert(v.Name, "john")
-		t.Assert(v.Var.Val(), true)
+		t.Assert(v.Var.X取值(), true)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var v *V
@@ -133,6 +133,6 @@ func Test_Bool_UnmarshalValue(t *testing.T) {
 		}, &v)
 		t.AssertNil(err)
 		t.Assert(v.Name, "john")
-		t.Assert(v.Var.Val(), false)
+		t.Assert(v.Var.X取值(), false)
 	})
 }

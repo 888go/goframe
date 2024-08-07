@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
 )
 
 // Scan 自动检查`pointer`的类型，并将`params`转换为`pointer`。
@@ -26,7 +26,7 @@ func Scan(srcValue interface{}, dstPointer interface{}, paramKeyToAttrMap ...map
 		return nil
 	}
 	if dstPointer == nil {
-		return gerror.NewCode(
+		return gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			`destination pointer should not be nil`,
 		)
@@ -62,7 +62,7 @@ func Scan(srcValue interface{}, dstPointer interface{}, paramKeyToAttrMap ...map
 			dstPointerReflectType = dstPointerReflectValue.Type()
 			dstPointerReflectKind = dstPointerReflectType.Kind()
 		} else {
-			return gerror.NewCodef(
+			return gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				`destination pointer should be type of pointer, but got type: %v`,
 				dstPointerReflectType,

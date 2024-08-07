@@ -5,17 +5,17 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gsession
+package session类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gmap "github.com/888go/goframe/container/gmap"
+	gvar "github.com/888go/goframe/container/gvar"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 // Session 结构体，用于存储单个会话数据，它与单个请求绑定。Session 结构体是与用户交互的接口，但 Storage 是底层适配器设计的接口，用于实现特定功能。
@@ -71,7 +71,7 @@ func (s *Session) init() error {
 		}
 	}
 	if s.data == nil {
-		s.data = gmap.NewStrAnyMap(true)
+		s.data = gmap.X创建StrAny(true)
 	}
 	s.start = true
 	return nil
@@ -87,7 +87,7 @@ func (s *Session) Close() error {
 		return nil
 	}
 	if s.start && s.id != "" {
-		size := s.data.Size()
+		size := s.data.X取数量()
 		if s.dirty {
 			err := s.manager.storage.SetSession(s.ctx, s.id, s.data, s.manager.ttl)
 			if err != nil && err != ErrorDisabled {
@@ -103,14 +103,14 @@ func (s *Session) Close() error {
 	return nil
 }
 
-// Set 将键值对设置到这个会话中。 md5:09e1539c4a50fcfd
-func (s *Session) Set(key string, value interface{}) (err error) {
+// X设置值 将键值对设置到这个会话中。 md5:09e1539c4a50fcfd
+func (s *Session) X设置值(key string, value interface{}) (err error) {
 	if err = s.init(); err != nil {
 		return err
 	}
-	if err = s.manager.storage.Set(s.ctx, s.id, key, value, s.manager.ttl); err != nil {
+	if err = s.manager.storage.X设置值(s.ctx, s.id, key, value, s.manager.ttl); err != nil {
 		if err == ErrorDisabled {
-			s.data.Set(key, value)
+			s.data.X设置值(key, value)
 		} else {
 			return err
 		}
@@ -126,7 +126,7 @@ func (s *Session) SetMap(data map[string]interface{}) (err error) {
 	}
 	if err = s.manager.storage.SetMap(s.ctx, s.id, data, s.manager.ttl); err != nil {
 		if err == ErrorDisabled {
-			s.data.Sets(data)
+			s.data.X设置值Map(data)
 		} else {
 			return err
 		}
@@ -146,7 +146,7 @@ func (s *Session) Remove(keys ...string) (err error) {
 	for _, key := range keys {
 		if err = s.manager.storage.Remove(s.ctx, s.id, key); err != nil {
 			if err == ErrorDisabled {
-				s.data.Remove(key)
+				s.data.X删除(key)
 			} else {
 				return err
 			}
@@ -171,7 +171,7 @@ func (s *Session) RemoveAll() (err error) {
 	}
 		// 从内存中移除数据。 md5:47322b1cdcaf7596
 	if s.data != nil {
-		s.data.Clear()
+		s.data.X清空()
 	}
 	s.dirty = true
 	return nil
@@ -191,7 +191,7 @@ func (s *Session) Id() (id string, err error) {
 // md5:cf8fd98a6cd07079
 func (s *Session) SetId(id string) error {
 	if s.start {
-		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
+		return gerror.X创建错误码(gcode.CodeInvalidOperation, "session already started")
 	}
 	s.id = id
 	return nil
@@ -202,7 +202,7 @@ func (s *Session) SetId(id string) error {
 // md5:07c5962c3c68bf37
 func (s *Session) SetIdFunc(f func(ttl time.Duration) string) error {
 	if s.start {
-		return gerror.NewCode(gcode.CodeInvalidOperation, "session already started")
+		return gerror.X创建错误码(gcode.CodeInvalidOperation, "session already started")
 	}
 	s.idFunc = f
 	return nil
@@ -225,7 +225,7 @@ func (s *Session) Data() (sessionData map[string]interface{}, err error) {
 	if sessionData != nil {
 		return sessionData, nil
 	}
-	return s.data.Map(), nil
+	return s.data.X取Map(), nil
 }
 
 // Size返回会话的大小。 md5:072795e87a3938d1
@@ -243,7 +243,7 @@ func (s *Session) Size() (size int, err error) {
 	if size > 0 {
 		return size, nil
 	}
-	return s.data.Size(), nil
+	return s.data.X取数量(), nil
 }
 
 // Contains 检查键是否存在于会话中。 md5:7a03d1ea75cda393
@@ -258,7 +258,7 @@ func (s *Session) Contains(key string) (ok bool, err error) {
 	if err != nil {
 		return false, err
 	}
-	return !v.IsNil(), nil
+	return !v.X是否为Nil(), nil
 }
 
 // IsDirty 检查会话中是否有数据变更。 md5:2a726ce013b067fe
@@ -283,13 +283,13 @@ func (s *Session) Get(key string, def ...interface{}) (value *gvar.Var, err erro
 		return nil, err
 	}
 	if v != nil {
-		return gvar.New(v), nil
+		return gvar.X创建(v), nil
 	}
-	if v = s.data.Get(key); v != nil {
-		return gvar.New(v), nil
+	if v = s.data.X取值(key); v != nil {
+		return gvar.X创建(v), nil
 	}
 	if len(def) > 0 {
-		return gvar.New(def[0]), nil
+		return gvar.X创建(def[0]), nil
 	}
 	return nil, nil
 }
@@ -314,7 +314,7 @@ func (s *Session) MustGet(key string, def ...interface{}) *gvar.Var {
 
 // MustSet 的功能与 Set 函数相同，但如果发生任何错误，它会直接 panic。 md5:06fa308e1636bcfa
 func (s *Session) MustSet(key string, value interface{}) {
-	err := s.Set(key, value)
+	err := s.X设置值(key, value)
 	if err != nil {
 		panic(err)
 	}

@@ -5,29 +5,29 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gqueue_test
+package 队列类_test
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gqueue"
-	"github.com/gogf/gf/v2/os/gtimer"
+	gqueue "github.com/888go/goframe/container/gqueue"
+	gtimer "github.com/888go/goframe/os/gtimer"
 )
 
 func ExampleNew() {
 	n := 10
-	q := gqueue.New()
+	q := gqueue.X创建()
 
 	// Producer
 	for i := 0; i < n; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
 		// 三秒后关闭队列。 md5:02742be1c1ceef32
-	gtimer.SetTimeout(context.Background(), time.Second*3, func(ctx context.Context) {
-		q.Close()
+	gtimer.SetTimeout别名(context.Background(), time.Second*3, func(ctx context.Context) {
+		q.X关闭()
 	})
 
 	// 消费者持续读取队列中的数据。
@@ -49,7 +49,7 @@ func ExampleNew() {
 	// 当有值可读时，`v` 会被赋值并打印；若收到的是 `nil`，则表示某种结束条件，消费者退出循环。
 	// md5:4bb8650995a22499
 	for {
-		if v := q.Pop(); v != nil {
+		if v := q.X出栈(); v != nil {
 			fmt.Print(v)
 		} else {
 			break
@@ -61,15 +61,15 @@ func ExampleNew() {
 }
 
 func ExampleQueue_Push() {
-	q := gqueue.New()
+	q := gqueue.X创建()
 
 	for i := 0; i < 10; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
-	fmt.Println(q.Pop())
-	fmt.Println(q.Pop())
-	fmt.Println(q.Pop())
+	fmt.Println(q.X出栈())
+	fmt.Println(q.X出栈())
+	fmt.Println(q.X出栈())
 
 	// Output:
 	// 0
@@ -78,15 +78,15 @@ func ExampleQueue_Push() {
 }
 
 func ExampleQueue_Pop() {
-	q := gqueue.New()
+	q := gqueue.X创建()
 
 	for i := 0; i < 10; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
-	fmt.Println(q.Pop())
-	q.Close()
-	fmt.Println(q.Pop())
+	fmt.Println(q.X出栈())
+	q.X关闭()
+	fmt.Println(q.X出栈())
 
 	// Output:
 	// 0
@@ -94,17 +94,17 @@ func ExampleQueue_Pop() {
 }
 
 func ExampleQueue_Close() {
-	q := gqueue.New()
+	q := gqueue.X创建()
 
 	for i := 0; i < 10; i++ {
-		q.Push(i)
+		q.X入栈(i)
 	}
 
 	time.Sleep(time.Millisecond)
-	q.Close()
+	q.X关闭()
 
-	fmt.Println(q.Len())
-	fmt.Println(q.Pop())
+	fmt.Println(q.X取长度())
+	fmt.Println(q.X出栈())
 
 	// May Output:
 	// 0
@@ -112,25 +112,25 @@ func ExampleQueue_Close() {
 }
 
 func ExampleQueue_Len() {
-	q := gqueue.New()
+	q := gqueue.X创建()
 
-	q.Push(1)
-	q.Push(2)
+	q.X入栈(1)
+	q.X入栈(2)
 
-	fmt.Println(q.Len())
+	fmt.Println(q.X取长度())
 
 	// May Output:
 	// 2
 }
 
 func ExampleQueue_Size() {
-	q := gqueue.New()
+	q := gqueue.X创建()
 
-	q.Push(1)
-	q.Push(2)
+	q.X入栈(1)
+	q.X入栈(2)
 
 	// Size is alias of Len.
-	fmt.Println(q.Size())
+	fmt.Println(q.Size弃用())
 
 	// May Output:
 	// 2

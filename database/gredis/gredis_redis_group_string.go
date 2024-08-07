@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gredis
+package redis类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/gvar"
+	gvar "github.com/888go/goframe/container/gvar"
 )
 
 // IGroupString 管理 Redis 字符串操作。
 // 实现了 redis.GroupString。
 // md5:1b6f861ea35b113e
 type IGroupString interface {
-	Set(ctx context.Context, key string, value interface{}, option ...SetOption) (*gvar.Var, error)
+	X设置值(ctx context.Context, key string, value interface{}, option ...SetOption) (*gvar.Var, error)
 	SetNX(ctx context.Context, key string, value interface{}) (bool, error)
 	SetEX(ctx context.Context, key string, value interface{}, ttlInSeconds int64) error
 	Get(ctx context.Context, key string) (*gvar.Var, error)

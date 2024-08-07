@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview
+package 模板类
 
 import (
-	"github.com/gogf/gf/v2/os/gcmd"
+	gcmd "github.com/888go/goframe/os/gcmd"
 )
 
 const (
@@ -19,5 +19,5 @@ const (
 
 // errorPrint 检查是否将错误打印到标准输出。 md5:9791c350cd960b88
 func errorPrint() bool {
-	return gcmd.GetOptWithEnv(commandEnvKeyForErrorPrint, true).Bool()
+	return gcmd.GetOptWithEnv(commandEnvKeyForErrorPrint, true).X取布尔()
 }

@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghash_test
+package 哈希类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/ghash"
-	"github.com/gogf/gf/v2/test/gtest"
+	ghash "github.com/888go/goframe/encoding/ghash"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (

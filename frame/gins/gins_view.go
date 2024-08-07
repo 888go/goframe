@@ -11,11 +11,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gview"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/internal/intlog"
+	gview "github.com/888go/goframe/os/gview"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // View 返回一个具有默认设置的View实例。
@@ -43,12 +43,12 @@ func getViewInstance(name ...string) *gview.View {
 		instanceName = name[0]
 	}
 	view := gview.Instance(instanceName)
-	if Config().Available(ctx) {
+	if Config().X是否可用(ctx) {
 		var (
 			configMap      map[string]interface{}
 			configNodeName = consts.ConfigNodeNameViewer
 		)
-		if configMap, err = Config().Data(ctx); err != nil {
+		if configMap, err = Config().X取Map(ctx); err != nil {
 			intlog.Errorf(ctx, `retrieve config data map failed: %+v`, err)
 		}
 		if len(configMap) > 0 {
@@ -56,9 +56,9 @@ func getViewInstance(name ...string) *gview.View {
 				configNodeName = v
 			}
 		}
-		configMap = Config().MustGet(ctx, fmt.Sprintf(`%s.%s`, configNodeName, instanceName)).Map()
+		configMap = Config().X取值PANI(ctx, fmt.Sprintf(`%s.%s`, configNodeName, instanceName)).X取Map()
 		if len(configMap) == 0 {
-			configMap = Config().MustGet(ctx, configNodeName).Map()
+			configMap = Config().X取值PANI(ctx, configNodeName).X取Map()
 		}
 		if len(configMap) > 0 {
 			if err = view.SetConfigWithMap(configMap); err != nil {

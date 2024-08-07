@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcron_test
+package 定时cron类_test
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gcron"
-	"github.com/gogf/gf/v2/os/glog"
+	gcron "github.com/888go/goframe/os/gcron"
+	glog "github.com/888go/goframe/os/glog"
 )
 
 func ExampleCronAddSingleton() {
 	gcron.AddSingleton(ctx, "* * * * * *", func(ctx context.Context) {
-		glog.Print(context.TODO(), "doing")
+		glog.X输出(context.TODO(), "doing")
 		time.Sleep(2 * time.Second)
 	})
 	select {}

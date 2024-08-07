@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gmlock_test
+package 内存锁类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gmlock"
+	gmlock "github.com/888go/goframe/os/gmlock"
 )
 
 var (
@@ -19,30 +19,30 @@ var (
 
 func Benchmark_GMLock_Lock_Unlock(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gmlock.Lock(lockKey)
-		gmlock.Unlock(lockKey)
+		gmlock.X写锁定(lockKey)
+		gmlock.X退出写锁定(lockKey)
 	}
 }
 
 func Benchmark_GMLock_RLock_RUnlock(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gmlock.RLock(lockKey)
-		gmlock.RUnlock(lockKey)
+		gmlock.X读锁定(lockKey)
+		gmlock.X退出读锁定(lockKey)
 	}
 }
 
 func Benchmark_GMLock_TryLock_Unlock(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		if gmlock.TryLock(lockKey) {
-			gmlock.Unlock(lockKey)
+		if gmlock.X非阻塞写锁定(lockKey) {
+			gmlock.X退出写锁定(lockKey)
 		}
 	}
 }
 
 func Benchmark_GMLock_TryRLock_RUnlock(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		if gmlock.TryRLock(lockKey) {
-			gmlock.RUnlock(lockKey)
+		if gmlock.X非阻塞读锁定(lockKey) {
+			gmlock.X退出读锁定(lockKey)
 		}
 	}
 }

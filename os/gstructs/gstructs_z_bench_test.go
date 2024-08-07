@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gstructs"
+	"github.com/888go/goframe/os/gstructs"
 )
 
 type User struct {

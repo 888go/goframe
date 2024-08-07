@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gredis
+package redis类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gvar"
+	gvar "github.com/888go/goframe/container/gvar"
 )
 
 // IGroupGeneric 管理通用的 Redis 操作。

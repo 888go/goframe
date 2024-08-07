@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtcp
+package tcp类
 
 import (
 	"crypto/tls"
@@ -13,11 +13,11 @@ import (
 	"net"
 	"sync"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -39,7 +39,7 @@ type Server struct {
 }
 
 // 用于单例目的，存储名称到服务器的映射。 md5:8e877c386766a97c
-var serverMapping = gmap.NewStrAnyMap(true)
+var serverMapping = gmap.X创建StrAny(true)
 
 // GetServer 返回指定名称的 TCP 服务器，如果不存在，则返回一个新创建的默认名为 `name` 的 TCP 服务器。参数 `name` 用于指定 TCP 服务器的名称。
 // md5:f6bb57410cf2ca98
@@ -48,7 +48,7 @@ func GetServer(name ...interface{}) *Server {
 	if len(name) > 0 && name[0] != "" {
 		serverName = gconv.String(name[0])
 	}
-	return serverMapping.GetOrSetFuncLock(serverName, func() interface{} {
+	return serverMapping.X取值或设置值_函数带锁(serverName, func() interface{} {
 		return NewServer("", nil)
 	}).(*Server)
 }
@@ -62,7 +62,7 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 		handler: handler,
 	}
 	if len(name) > 0 && name[0] != "" {
-		serverMapping.Set(name[0], s)
+		serverMapping.X设置值(name[0], s)
 	}
 	return s
 }
@@ -130,7 +130,7 @@ func (s *Server) Close() error {
 // Run 开始运行TCP服务器。 md5:b107bdcd45f1ccdc
 func (s *Server) Run() (err error) {
 	if s.handler == nil {
-		err = gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
+		err = gerror.X创建错误码(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
 		return
 	}
 	if s.tlsConfig != nil {
@@ -139,21 +139,21 @@ func (s *Server) Run() (err error) {
 		s.listen, err = tls.Listen("tcp", s.address, s.tlsConfig)
 		s.mu.Unlock()
 		if err != nil {
-			err = gerror.Wrapf(err, `tls.Listen failed for address "%s"`, s.address)
+			err = gerror.X多层错误并格式化(err, `tls.Listen failed for address "%s"`, s.address)
 			return
 		}
 	} else {
 		// Normal Server
 		var tcpAddr *net.TCPAddr
 		if tcpAddr, err = net.ResolveTCPAddr("tcp", s.address); err != nil {
-			err = gerror.Wrapf(err, `net.ResolveTCPAddr failed for address "%s"`, s.address)
+			err = gerror.X多层错误并格式化(err, `net.ResolveTCPAddr failed for address "%s"`, s.address)
 			return err
 		}
 		s.mu.Lock()
 		s.listen, err = net.ListenTCP("tcp", tcpAddr)
 		s.mu.Unlock()
 		if err != nil {
-			err = gerror.Wrapf(err, `net.ListenTCP failed for address "%s"`, s.address)
+			err = gerror.X多层错误并格式化(err, `net.ListenTCP failed for address "%s"`, s.address)
 			return err
 		}
 	}
@@ -161,7 +161,7 @@ func (s *Server) Run() (err error) {
 	for {
 		var conn net.Conn
 		if conn, err = s.listen.Accept(); err != nil {
-			err = gerror.Wrapf(err, `Listener.Accept failed`)
+			err = gerror.X多层错误并格式化(err, `Listener.Accept failed`)
 			return err
 		} else if conn != nil {
 			go s.handler(NewConnByNetConn(conn))
@@ -171,14 +171,14 @@ func (s *Server) Run() (err error) {
 
 // GetListenedAddress 获取并返回当前服务器所监听的地址字符串。 md5:51d352ffec9dc329
 func (s *Server) GetListenedAddress() string {
-	if !gstr.Contains(s.address, FreePortAddress) {
+	if !gstr.X是否包含(s.address, FreePortAddress) {
 		return s.address
 	}
 	var (
 		address      = s.address
 		listenedPort = s.GetListenedPort()
 	)
-	address = gstr.Replace(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
+	address = gstr.X替换(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
 	return address
 }
 

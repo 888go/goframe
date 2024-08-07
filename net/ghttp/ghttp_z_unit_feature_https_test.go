@@ -5,88 +5,88 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
-	_ "github.com/gogf/gf/v2/net/ghttp/testdata/https/packed"
+	_ "github.com/888go/goframe/net/ghttp/testdata/https/packed"
 
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/net/gtcp"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtcp "github.com/888go/goframe/net/gtcp"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_HTTPS_Basic(t *testing.T) {
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.GET("/test", func(r *ghttp.Request) {
-			r.Response.Write("test")
+	s := g.Http类(guid.X生成())
+	s.X创建分组路由("/", func(group *ghttp.X分组路由) {
+		group.X绑定GET("/test", func(r *ghttp.Request) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
-	s.EnableHTTPS(
+	s.X启用HTTPS(
 		gtest.DataPath("https", "files", "server.crt"),
 		gtest.DataPath("https", "files", "server.key"),
 	)
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
 	// HTTP
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.AssertIN(gstr.Trim(c.GetContent(ctx, "/")), g.Slice{"", "Client sent an HTTP request to an HTTPS server."})
-		t.AssertIN(gstr.Trim(c.GetContent(ctx, "/test")), g.Slice{"", "Client sent an HTTP request to an HTTPS server."})
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.AssertIN(gstr.X过滤首尾符并含空白(c.Get文本(ctx, "/")), g.Slice别名{"", "Client sent an HTTP request to an HTTPS server."})
+		t.AssertIN(gstr.X过滤首尾符并含空白(c.Get文本(ctx, "/test")), g.Slice别名{"", "Client sent an HTTP request to an HTTPS server."})
 	})
 	// HTTPS
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("https://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.GetContent(ctx, "/"), "Not Found")
-		t.Assert(c.GetContent(ctx, "/test"), "test")
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("https://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Get文本(ctx, "/"), "Not Found")
+		t.Assert(c.Get文本(ctx, "/test"), "test")
 	})
 }
 
 func Test_HTTPS_Resource(t *testing.T) {
-	s := g.Server(guid.S())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.GET("/test", func(r *ghttp.Request) {
-			r.Response.Write("test")
+	s := g.Http类(guid.X生成())
+	s.X创建分组路由("/", func(group *ghttp.X分组路由) {
+		group.X绑定GET("/test", func(r *ghttp.Request) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
-	s.EnableHTTPS(
-		gfile.Join("files", "server.crt"),
-		gfile.Join("files", "server.key"),
+	s.X启用HTTPS(
+		gfile.X路径生成("files", "server.crt"),
+		gfile.X路径生成("files", "server.key"),
 	)
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
 	// HTTP
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.AssertIN(gstr.Trim(c.GetContent(ctx, "/")), g.Slice{"", "Client sent an HTTP request to an HTTPS server."})
-		t.AssertIN(gstr.Trim(c.GetContent(ctx, "/test")), g.Slice{"", "Client sent an HTTP request to an HTTPS server."})
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.AssertIN(gstr.X过滤首尾符并含空白(c.Get文本(ctx, "/")), g.Slice别名{"", "Client sent an HTTP request to an HTTPS server."})
+		t.AssertIN(gstr.X过滤首尾符并含空白(c.Get文本(ctx, "/test")), g.Slice别名{"", "Client sent an HTTP request to an HTTPS server."})
 	})
 	// HTTPS
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("https://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(c.GetContent(ctx, "/"), "Not Found")
-		t.Assert(c.GetContent(ctx, "/test"), "test")
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("https://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(c.Get文本(ctx, "/"), "Not Found")
+		t.Assert(c.Get文本(ctx, "/test"), "test")
 	})
 }
 
@@ -95,36 +95,36 @@ func Test_HTTPS_HTTP_Basic(t *testing.T) {
 		portHttp, _  = gtcp.GetFreePort()
 		portHttps, _ = gtcp.GetFreePort()
 	)
-	s := g.Server(gtime.TimestampNanoStr())
-	s.Group("/", func(group *ghttp.RouterGroup) {
-		group.GET("/test", func(r *ghttp.Request) {
-			r.Response.Write("test")
+	s := g.Http类(gtime.X取文本时间戳纳秒())
+	s.X创建分组路由("/", func(group *ghttp.X分组路由) {
+		group.X绑定GET("/test", func(r *ghttp.Request) {
+			r.X响应.X写响应缓冲区("test")
 		})
 	})
-	s.EnableHTTPS(
+	s.X启用HTTPS(
 		gtest.DataPath("https", "files", "server.crt"),
 		gtest.DataPath("https", "files", "server.key"),
 	)
-	s.SetPort(portHttp)
-	s.SetHTTPSPort(portHttps)
+	s.X设置监听端口(portHttp)
+	s.X设置HTTPS监听端口(portHttps)
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 
 	// HTTP
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", portHttp))
-		t.Assert(c.GetContent(ctx, "/"), "Not Found")
-		t.Assert(c.GetContent(ctx, "/test"), "test")
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", portHttp))
+		t.Assert(c.Get文本(ctx, "/"), "Not Found")
+		t.Assert(c.Get文本(ctx, "/test"), "test")
 	})
 	// HTTPS
 	gtest.C(t, func(t *gtest.T) {
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("https://127.0.0.1:%d", portHttps))
-		t.Assert(c.GetContent(ctx, "/"), "Not Found")
-		t.Assert(c.GetContent(ctx, "/test"), "test")
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("https://127.0.0.1:%d", portHttps))
+		t.Assert(c.Get文本(ctx, "/"), "Not Found")
+		t.Assert(c.Get文本(ctx, "/test"), "test")
 	})
 }

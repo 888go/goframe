@@ -7,17 +7,17 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gcmd_test
+package cmd类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/test/gtest"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/frame/g"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gctx "github.com/888go/goframe/os/gctx"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 type Issue3390CommandCase1 struct {
@@ -40,7 +40,7 @@ type Issue3390Case1Output struct {
 
 func (c Issue3390TestCase1) Index(ctx context.Context, in Issue3390Case1Input) (out *Issue3390Case1Output, err error) {
 	out = &Issue3390Case1Output{
-		Content: gjson.MustEncodeString(in),
+		Content: gjson.X变量到json文本PANI(in),
 	}
 	return
 }
@@ -51,7 +51,7 @@ func Test_Issue3390_Case1(t *testing.T) {
 		t.AssertNil(err)
 		command := &Issue3390CommandCase1{root}
 		value, err := command.RunWithSpecificArgs(
-			gctx.New(),
+			gctx.X创建(),
 			[]string{"main", "-a", "aaa", "-b", "bbb"},
 		)
 		t.AssertNil(err)
@@ -79,7 +79,7 @@ type Issue3390Case2Output struct {
 
 func (c Issue3390TestCase2) Index(ctx context.Context, in Issue3390Case2Input) (out *Issue3390Case2Output, err error) {
 	out = &Issue3390Case2Output{
-		Content: gjson.MustEncodeString(in),
+		Content: gjson.X变量到json文本PANI(in),
 	}
 	return
 }
@@ -89,7 +89,7 @@ func Test_Issue3390_Case2(t *testing.T) {
 		t.AssertNil(err)
 		command := &Issue3390CommandCase2{root}
 		value, err := command.RunWithSpecificArgs(
-			gctx.New(),
+			gctx.X创建(),
 			[]string{"main", "-a", "aaa", "-b", "bbb"},
 		)
 		t.AssertNil(err)
@@ -117,7 +117,7 @@ type Issue3390Case3Output struct {
 
 func (c Issue3390TestCase3) Index(ctx context.Context, in Issue3390Case3Input) (out *Issue3390Case3Output, err error) {
 	out = &Issue3390Case3Output{
-		Content: gjson.MustEncodeString(in),
+		Content: gjson.X变量到json文本PANI(in),
 	}
 	return
 }
@@ -127,7 +127,7 @@ func Test_Issue3390_Case3(t *testing.T) {
 		t.AssertNil(err)
 		command := &Issue3390CommandCase3{root}
 		value, err := command.RunWithSpecificArgs(
-			gctx.New(),
+			gctx.X创建(),
 			[]string{"main", "-a", "aaa", "-b", "bbb"},
 		)
 		t.AssertNil(err)
@@ -155,7 +155,7 @@ type Issue3390Case4Output struct {
 
 func (c Issue3390TestCase4) Index(ctx context.Context, in Issue3390Case4Input) (out *Issue3390Case4Output, err error) {
 	out = &Issue3390Case4Output{
-		Content: gjson.MustEncodeString(in),
+		Content: gjson.X变量到json文本PANI(in),
 	}
 	return
 }
@@ -166,7 +166,7 @@ func Test_Issue3390_Case4(t *testing.T) {
 		t.AssertNil(err)
 		command := &Issue3390CommandCase4{root}
 		value, err := command.RunWithSpecificArgs(
-			gctx.New(),
+			gctx.X创建(),
 			[]string{"main", "-a", "aaa", "-b", "bbb"},
 		)
 		t.AssertNil(err)
@@ -203,7 +203,7 @@ type Issue3417BuildOutput struct {
 
 func (c *Issue3417Test) Build(ctx context.Context, in Issue3417BuildInput) (out *Issue3417BuildOutput, err error) {
 	out = &Issue3417BuildOutput{
-		Content: gjson.MustEncodeString(in),
+		Content: gjson.X变量到json文本PANI(in),
 	}
 	return
 }
@@ -213,7 +213,7 @@ func Test_Issue3417(t *testing.T) {
 		command, err := gcmd.NewFromObject(Issue3417Test{})
 		t.AssertNil(err)
 		value, err := command.RunWithSpecificArgs(
-			gctx.New(),
+			gctx.X创建(),
 			[]string{
 				"gf", "build",
 				"-mod", "vendor",

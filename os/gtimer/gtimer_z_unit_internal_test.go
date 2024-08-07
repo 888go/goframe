@@ -5,48 +5,48 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtimer
+package 定时类
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestTimer_Proceed(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		timer := New(TimerOptions{
+		array := garray.X创建(true)
+		timer := X创建(TimerOptions{
 			Interval: time.Hour,
 		})
-		timer.Add(ctx, 10000*time.Hour, func(ctx context.Context) {
-			array.Append(1)
+		timer.X加入循环任务(ctx, 10000*time.Hour, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		timer.proceed(10001)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		timer.proceed(20001)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		array := garray.New(true)
-		timer := New(TimerOptions{
+		array := garray.X创建(true)
+		timer := X创建(TimerOptions{
 			Interval: time.Millisecond * 100,
 		})
-		timer.Add(ctx, 10000*time.Hour, func(ctx context.Context) {
-			array.Append(1)
+		timer.X加入循环任务(ctx, 10000*time.Hour, func(ctx context.Context) {
+			array.Append别名(1)
 		})
 		ticks := int64((10000 * time.Hour) / (time.Millisecond * 100))
 		timer.proceed(ticks + 1)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		timer.proceed(2*ticks + 1)
 		time.Sleep(10 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 	})
 }
 
@@ -70,11 +70,11 @@ func TestTimer_PriorityQueue_FirstOneInArrayIsTheLeast(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			size  = 1000000
-			array = garray.NewIntArrayRange(0, size, 1)
+			array = garray.X创建整数并按范围(0, size, 1)
 		)
-		array.Shuffle()
+		array.X随机排序()
 		queue := newPriorityQueue()
-		array.Iterator(func(k int, v int) bool {
+		array.X遍历(func(k int, v int) bool {
 			queue.Push(v, int64(v))
 			return true
 		})

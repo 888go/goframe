@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gclient
+package 网页类
 
 import (
 	"bytes"
@@ -17,83 +17,83 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/httputil"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/httputil"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/utils"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// Get 发送GET请求并返回响应对象。
+// Get响应对象 发送GET请求并返回响应对象。
 // 请注意，如果响应对象将永远不会被使用，必须关闭它。
 // md5:bf82e1e2c38506f6
-func (c *Client) Get(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodGet, url, data...)
+func (c *Client) Get响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodGet, url, 参数...)
 }
 
 // 发送PUT请求并返回响应对象。
 // 注意，如果响应对象将永远不会使用，必须关闭它。
 // md5:44e5f3e5edebbb91
-func (c *Client) Put(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodPut, url, data...)
+func (c *Client) Put响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodPut, url, 参数...)
 }
 
-// Post 使用HTTP POST方法发送请求，并返回响应对象。
+// Post响应对象 使用HTTP POST方法发送请求，并返回响应对象。
 // 注意，如果响应对象将永远不会使用，必须关闭它。
 // md5:9ba8d1283ba032cb
-func (c *Client) Post(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodPost, url, data...)
+func (c *Client) Post响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodPost, url, 参数...)
 }
 
-// Delete 发送DELETE请求并返回响应对象。
+// Delete响应对象 发送DELETE请求并返回响应对象。
 // 注意，如果响应对象将永远不会被使用，那么必须关闭它。
 // md5:4dde007718fff7a6
-func (c *Client) Delete(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodDelete, url, data...)
+func (c *Client) Delete响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodDelete, url, 参数...)
 }
 
-// Head 发送HEAD请求并返回响应对象。
+// Head响应对象 发送HEAD请求并返回响应对象。
 // 请注意，如果响应对象不会被使用，必须关闭它。
 // md5:400dd3a80c3a0ccb
-func (c *Client) Head(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodHead, url, data...)
+func (c *Client) Head响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodHead, url, 参数...)
 }
 
-// Patch 发送PATCH请求并返回响应对象。
+// Patch响应对象 发送PATCH请求并返回响应对象。
 // 注意，如果响应对象将永远不会使用，必须关闭它。
 // md5:4e530560a87457a1
-func (c *Client) Patch(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodPatch, url, data...)
+func (c *Client) Patch响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodPatch, url, 参数...)
 }
 
-// Connect 发送CONNECT请求并返回响应对象。
+// Connect响应对象 发送CONNECT请求并返回响应对象。
 // 注意，如果响应对象永远不会使用，必须关闭它。
 // md5:cb5555f2c2a7a29d
-func (c *Client) Connect(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodConnect, url, data...)
+func (c *Client) Connect响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodConnect, url, 参数...)
 }
 
-// Options 发送OPTIONS请求并返回响应对象。
+// Options响应对象 发送OPTIONS请求并返回响应对象。
 // 注意，如果响应对象将永远不会被使用，那么必须关闭它。
 // md5:3a2d4fbe5e9f5e31
-func (c *Client) Options(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodOptions, url, data...)
+func (c *Client) Options响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodOptions, url, 参数...)
 }
 
-// Trace 发送TRACE请求并返回响应对象。
+// Trace响应对象 发送TRACE请求并返回响应对象。
 // 请注意，如果响应对象将永远不会被使用，必须关闭它。
 // md5:82834b110d843156
-func (c *Client) Trace(ctx context.Context, url string, data ...interface{}) (*Response, error) {
-	return c.DoRequest(ctx, http.MethodTrace, url, data...)
+func (c *Client) Trace响应对象(上下文 context.Context, url string, 参数 ...interface{}) (*Response, error) {
+	return c.X请求响应对象(上下文, http.MethodTrace, url, 参数...)
 }
 
-// PostForm 与 net/http.PostForm 不同。它是一个 Post 方法的包装器，会将 Content-Type 设置为 "multipart/form-data;"。
+// Post表单响应对象 与 net/http.Post表单响应对象 不同。它是一个 Post 方法的包装器，会将 Content-Type 设置为 "multipart/form-data;"。
 // 它会自动为请求体和 Content-Type 设置边界字符。
 // 
 // 类似于下面的情况：
@@ -108,31 +108,31 @@ func (c *Client) Trace(ctx context.Context, url string, data ...interface{}) (*R
 // 
 // 它用于发送表单数据。请注意，如果响应对象永远不会使用，必须关闭它。
 // md5:bd2237aaca8f2a89
-func (c *Client) PostForm(ctx context.Context, url string, data map[string]string) (resp *Response, err error) {
+func (c *Client) Post表单响应对象(上下文 context.Context, url string, Map参数 map[string]string) (响应 *Response, 错误 error) {
 	body := new(bytes.Buffer)
 	w := multipart.NewWriter(body)
-	for k, v := range data {
+	for k, v := range Map参数 {
 		err := w.WriteField(k, v)
 		if err != nil {
 			return nil, err
 		}
 	}
-	err = w.Close()
-	if err != nil {
-		return nil, err
+	错误 = w.Close()
+	if 错误 != nil {
+		return nil, 错误
 	}
-	return c.ContentType(w.FormDataContentType()).Post(ctx, url, body)
+	return c.X内容类型(w.FormDataContentType()).Post响应对象(上下文, url, body)
 }
 
-// DoRequest 发送给定HTTP方法和数据的请求，并返回响应对象。
+// X请求响应对象 发送给定HTTP方法和数据的请求，并返回响应对象。
 // 注意，如果响应对象永远不会使用，必须关闭它。
 // 
 // 如果包含文件上传，它将使用"multipart/form-data"作为Content-Type，否则使用"application/x-www-form-urlencoded"。它还能自动检测POST内容的JSON格式，并为此自动设置Content-Type为"application/json"。
 // md5:09c1fd65446e9a2e
-func (c *Client) DoRequest(
+func (c *Client) X请求响应对象(
 	ctx context.Context, method, url string, data ...interface{},
 ) (resp *Response, err error) {
-	var requestStartTime = gtime.Now()
+	var requestStartTime = gtime.X创建并按当前时间()
 	req, err := c.prepareRequest(ctx, method, url, data...)
 	if err != nil {
 		return nil, err
@@ -169,9 +169,9 @@ func (c *Client) DoRequest(
 func (c *Client) prepareRequest(ctx context.Context, method, url string, data ...interface{}) (req *http.Request, err error) {
 	method = strings.ToUpper(method)
 	if len(c.prefix) > 0 {
-		url = c.prefix + gstr.Trim(url)
+		url = c.prefix + gstr.X过滤首尾符并含空白(url)
 	}
-	if !gstr.ContainsI(url, httpProtocolName) {
+	if !gstr.X是否包含并忽略大小写(url, httpProtocolName) {
 		url = httpProtocolName + `://` + url
 	}
 	var params string
@@ -194,7 +194,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 			case string, []byte:
 				params = gconv.String(data[0])
 			default:
-				if b, err := gjson.New(data[0]).ToXml(); err != nil {
+				if b, err := gjson.X创建(data[0]).X取xml字节集(); err != nil {
 					return nil, err
 				} else {
 					params = string(b)
@@ -215,7 +215,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 			default:
 				// 如果HTTP方法为GET且未指定Content-Type时，它将参数追加到URL中。
 				// md5:a6325a5bd7f8b355
-				if gstr.Contains(url, "?") {
+				if gstr.X是否包含(url, "?") {
 					url = url + "&" + params
 				} else {
 					url = url + "?" + params
@@ -226,7 +226,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 			bodyBuffer = bytes.NewBuffer(nil)
 		}
 		if req, err = http.NewRequest(method, url, bodyBuffer); err != nil {
-			err = gerror.Wrapf(err, `http.NewRequest failed with method "%s" and URL "%s"`, method, url)
+			err = gerror.X多层错误并格式化(err, `http.NewRequest failed with method "%s" and URL "%s"`, method, url)
 			return nil, err
 		}
 	} else {
@@ -240,24 +240,24 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 				array := strings.Split(item, "=")
 				if len(array[1]) > 6 && strings.Compare(array[1][0:6], httpParamFileHolder) == 0 {
 					path := array[1][6:]
-					if !gfile.Exists(path) {
-						return nil, gerror.NewCodef(gcode.CodeInvalidParameter, `"%s" does not exist`, path)
+					if !gfile.X是否存在(path) {
+						return nil, gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `"%s" does not exist`, path)
 					}
 					var (
 						file          io.Writer
-						formFileName  = gfile.Basename(path)
+						formFileName  = gfile.X路径取文件名(path)
 						formFieldName = array[0]
 					)
 					if file, err = writer.CreateFormFile(formFieldName, formFileName); err != nil {
-						err = gerror.Wrapf(err, `CreateFormFile failed with "%s", "%s"`, formFieldName, formFileName)
+						err = gerror.X多层错误并格式化(err, `CreateFormFile failed with "%s", "%s"`, formFieldName, formFileName)
 						return nil, err
 					} else {
 						var f *os.File
-						if f, err = gfile.Open(path); err != nil {
+						if f, err = gfile.X打开并按只读模式(path); err != nil {
 							return nil, err
 						}
 						if _, err = io.Copy(file, f); err != nil {
-							err = gerror.Wrapf(err, `io.Copy failed from "%s" to form "%s"`, path, formFieldName)
+							err = gerror.X多层错误并格式化(err, `io.Copy failed from "%s" to form "%s"`, path, formFieldName)
 							_ = f.Close()
 							return nil, err
 						}
@@ -269,7 +269,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 						fieldValue = array[1]
 					)
 					if err = writer.WriteField(fieldName, fieldValue); err != nil {
-						err = gerror.Wrapf(err, `write form field failed with "%s", "%s"`, fieldName, fieldValue)
+						err = gerror.X多层错误并格式化(err, `write form field failed with "%s", "%s"`, fieldName, fieldValue)
 						return nil, err
 					}
 				}
@@ -277,12 +277,12 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 			// Close完成multipart消息并写入尾部边界结束行到输出。
 			// md5:0a89f03d075fd9ee
 			if err = writer.Close(); err != nil {
-				err = gerror.Wrapf(err, `form writer close failed`)
+				err = gerror.X多层错误并格式化(err, `form writer close failed`)
 				return nil, err
 			}
 
 			if req, err = http.NewRequest(method, url, buffer); err != nil {
-				err = gerror.Wrapf(err, `http.NewRequest failed for method "%s" and URL "%s"`, method, url)
+				err = gerror.X多层错误并格式化(err, `http.NewRequest failed for method "%s" and URL "%s"`, method, url)
 				return nil, err
 			} else {
 				req.Header.Set(httpHeaderContentType, writer.FormDataContentType())
@@ -291,7 +291,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 			// Normal request.
 			paramBytes := []byte(params)
 			if req, err = http.NewRequest(method, url, bytes.NewReader(paramBytes)); err != nil {
-				err = gerror.Wrapf(err, `http.NewRequest failed for method "%s" and URL "%s"`, method, url)
+				err = gerror.X多层错误并格式化(err, `http.NewRequest failed for method "%s" and URL "%s"`, method, url)
 				return nil, err
 			} else {
 				if v, ok := c.header[httpHeaderContentType]; ok {
@@ -301,7 +301,7 @@ func (c *Client) prepareRequest(ctx context.Context, method, url string, data ..
 					if (paramBytes[0] == '[' || paramBytes[0] == '{') && json.Valid(paramBytes) {
 												// 自动检测并设置帖子内容格式：JSON。 md5:735d9fcd3200585a
 						req.Header.Set(httpHeaderContentType, httpHeaderContentTypeJson)
-					} else if gregex.IsMatchString(httpRegexParamJson, params) {
+					} else if gregex.X是否匹配文本(httpRegexParamJson, params) {
 												// 如果传递的参数形如 "name=value"，则使用表单类型。 md5:2f5188c0993569a1
 						req.Header.Set(httpHeaderContentType, httpHeaderContentTypeForm)
 					}
@@ -362,7 +362,7 @@ func (c *Client) callRequest(req *http.Request) (resp *Response, err error) {
 	for {
 		req.Body = utils.NewReadCloser(reqBodyContent, false)
 		if resp.Response, err = c.Do(req); err != nil {
-			err = gerror.Wrapf(err, `request failed`)
+			err = gerror.X多层错误并格式化(err, `request failed`)
 						// 当err不为nil时，response可能不为nil。 md5:30e2b1a262fbd8ac
 			if resp.Response != nil {
 				_ = resp.Response.Body.Close()

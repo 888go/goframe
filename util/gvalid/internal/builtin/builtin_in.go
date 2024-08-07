@@ -11,7 +11,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // RuleIn 实现了 `in` 规则：
@@ -39,7 +39,7 @@ func (r RuleIn) Run(in RunInput) error {
 		inputValueString = in.Value.String()
 	)
 
-	for _, rulePattern := range gstr.SplitAndTrim(in.RulePattern, ",") {
+	for _, rulePattern := range gstr.X分割并忽略空值(in.RulePattern, ",") {
 		if in.Option.CaseInsensitive {
 			ok = strings.EqualFold(inputValueString, strings.TrimSpace(rulePattern))
 		} else {

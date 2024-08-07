@@ -7,36 +7,36 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gstr_test
+package 文本类_test
 
 import (
 	"net/url"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 func Test_Parse(t *testing.T) {
 	// cover test
 	gtest.C(t, func(t *gtest.T) {
 		// empty
-		m, err := gstr.Parse("")
+		m, err := gstr.X参数解析("")
 		t.AssertNil(err)
 		t.Assert(m, nil)
 		// invalid
-		m, err = gstr.Parse("a&b")
+		m, err = gstr.X参数解析("a&b")
 		t.AssertNil(err)
 		t.Assert(m, make(map[string]interface{}))
 		// special key
-		m, err = gstr.Parse(" =1& b=2&   c =3")
+		m, err = gstr.X参数解析(" =1& b=2&   c =3")
 		t.AssertNil(err)
 		t.Assert(m, map[string]interface{}{"b": "2", "c_": "3"})
-		m, err = gstr.Parse("c[=3")
+		m, err = gstr.X参数解析("c[=3")
 		t.AssertNil(err)
 		t.Assert(m, map[string]interface{}{"c_": "3"})
-		m, err = gstr.Parse("v[a][a]a=m")
+		m, err = gstr.X参数解析("v[a][a]a=m")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"v": g.Map{
@@ -46,10 +46,10 @@ func Test_Parse(t *testing.T) {
 			},
 		})
 				// v[][a]=m&v[][b]=b 翻译为：v 中的任意元素的 a 键值为 m，b 键值为 b => map["v"]：[{"a":"m","b":"b"}]. md5:4c02c4944234a046
-		m, err = gstr.Parse("v[][a]=m&v[][b]=b")
+		m, err = gstr.X参数解析("v[][a]=m&v[][b]=b")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
-			"v": g.Slice{
+			"v": g.Slice别名{
 				g.Map{
 					"a": "m",
 					"b": "b",
@@ -57,10 +57,10 @@ func Test_Parse(t *testing.T) {
 			},
 		})
 				// 当 v 数组的某个元素的 "a" 键对应值为 m 和 b 时， => 结果映射为 "v": [{"a": "m"}, {"a": "b"}]。 md5:c5ab84cca5b2e02d
-		m, err = gstr.Parse("v[][a]=m&v[][a]=b")
+		m, err = gstr.X参数解析("v[][a]=m&v[][a]=b")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
-			"v": g.Slice{
+			"v": g.Slice别名{
 				g.Map{
 					"a": "m",
 				},
@@ -70,19 +70,19 @@ func Test_Parse(t *testing.T) {
 			},
 		})
 		// error
-		m, err = gstr.Parse("v=111&v[]=m&v[]=a&v[]=b")
+		m, err = gstr.X参数解析("v=111&v[]=m&v[]=a&v[]=b")
 		t.Log(err)
 		t.AssertNE(err, nil)
-		m, err = gstr.Parse("v=111&v[a]=m&v[a]=a")
+		m, err = gstr.X参数解析("v=111&v[a]=m&v[a]=a")
 		t.Log(err)
 		t.AssertNE(err, nil)
-		_, err = gstr.Parse("%Q=%Q&b")
+		_, err = gstr.X参数解析("%Q=%Q&b")
 		t.Log(err)
 		t.AssertNE(err, nil)
-		_, err = gstr.Parse("a=%Q&b")
+		_, err = gstr.X参数解析("a=%Q&b")
 		t.Log(err)
 		t.AssertNE(err, nil)
-		_, err = gstr.Parse("v[a][a]=m&v[][a]=b")
+		_, err = gstr.X参数解析("v[a][a]=m&v[][a]=b")
 		t.Log(err)
 		t.AssertNE(err, nil)
 	})
@@ -92,39 +92,39 @@ func Test_Parse(t *testing.T) {
 		s := "goframe.org/index?name=john&score=100"
 		u, err := url.Parse(s)
 		t.AssertNil(err)
-		m, err := gstr.Parse(u.RawQuery)
+		m, err := gstr.X参数解析(u.RawQuery)
 		t.AssertNil(err)
 		t.Assert(m["name"], "john")
 		t.Assert(m["score"], "100")
 
 		// name overwrite
-		m, err = gstr.Parse("a=1&a=2")
+		m, err = gstr.X参数解析("a=1&a=2")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"a": 2,
 		})
 		// slice
-		m, err = gstr.Parse("a[]=1&a[]=2")
+		m, err = gstr.X参数解析("a[]=1&a[]=2")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
-			"a": g.Slice{"1", "2"},
+			"a": g.Slice别名{"1", "2"},
 		})
 		// map
-		m, err = gstr.Parse("a=1&b=2&c=3")
+		m, err = gstr.X参数解析("a=1&b=2&c=3")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"a": "1",
 			"b": "2",
 			"c": "3",
 		})
-		m, err = gstr.Parse("a=1&a=2&c=3")
+		m, err = gstr.X参数解析("a=1&a=2&c=3")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"a": "2",
 			"c": "3",
 		})
 		// map
-		m, err = gstr.Parse("m[a]=1&m[b]=2&m[c]=3")
+		m, err = gstr.X参数解析("m[a]=1&m[b]=2&m[c]=3")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"m": g.Map{
@@ -133,7 +133,7 @@ func Test_Parse(t *testing.T) {
 				"c": "3",
 			},
 		})
-		m, err = gstr.Parse("m[a]=1&m[a]=2&m[b]=3")
+		m, err = gstr.X参数解析("m[a]=1&m[a]=2&m[b]=3")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"m": g.Map{
@@ -142,24 +142,24 @@ func Test_Parse(t *testing.T) {
 			},
 		})
 		// map - slice
-		m, err = gstr.Parse("m[a][]=1&m[a][]=2")
+		m, err = gstr.X参数解析("m[a][]=1&m[a][]=2")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"m": g.Map{
-				"a": g.Slice{"1", "2"},
+				"a": g.Slice别名{"1", "2"},
 			},
 		})
-		m, err = gstr.Parse("m[a][b][]=1&m[a][b][]=2")
+		m, err = gstr.X参数解析("m[a][b][]=1&m[a][b][]=2")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"m": g.Map{
 				"a": g.Map{
-					"b": g.Slice{"1", "2"},
+					"b": g.Slice别名{"1", "2"},
 				},
 			},
 		})
 		// map - complicated
-		m, err = gstr.Parse("m[a1][b1][c1][d1]=1&m[a2][b2]=2&m[a3][b3][c3]=3")
+		m, err = gstr.X参数解析("m[a1][b1][c1][d1]=1&m[a2][b2]=2&m[a3][b3][c3]=3")
 		t.AssertNil(err)
 		t.Assert(m, g.Map{
 			"m": g.Map{

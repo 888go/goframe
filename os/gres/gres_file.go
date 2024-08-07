@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gres
+package 资源类
 
 import (
 	"archive/zip"
@@ -13,7 +13,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/internal/json"
 )
 
 type File struct {

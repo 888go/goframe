@@ -9,7 +9,7 @@ package gmetric
 import (
 	"sync"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // SetGlobalAttributesOption 将全局属性绑定到特定的仪表。 md5:5cba96bea01d2134
@@ -69,7 +69,7 @@ func GetGlobalAttributes(option GetGlobalAttributesOption) Attributes {
 	for _, attrItem := range globalAttributes {
 		// instrument name.
 		if attrItem.InstrumentPattern != "" {
-			if !gregex.IsMatchString(attrItem.InstrumentPattern, option.Instrument) {
+			if !gregex.X是否匹配文本(attrItem.InstrumentPattern, option.Instrument) {
 				continue
 			}
 		} else {

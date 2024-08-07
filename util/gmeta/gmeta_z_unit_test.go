@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gmeta_test
+package 元数据类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmeta"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmeta "github.com/888go/goframe/util/gmeta"
 )
 
 func TestMeta_Basic(t *testing.T) {
@@ -51,7 +51,7 @@ func TestMeta_Convert_Map(t *testing.T) {
 			Id:   100,
 			Name: "john",
 		}
-		m := gconv.Map(a)
+		m := gconv.X取Map(a)
 		t.Assert(len(m), 2)
 		t.Assert(m[`Meta`], nil)
 	})

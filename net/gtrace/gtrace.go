@@ -19,15 +19,15 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.18.0"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/net/gipv4"
-	"github.com/gogf/gf/v2/net/gtrace/internal/provider"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	gvar "github.com/888go/goframe/container/gvar"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/command"
+	gipv4 "github.com/888go/goframe/net/gipv4"
+	"github.com/888go/goframe/net/gtrace/internal/provider"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -51,8 +51,8 @@ var (
 )
 
 func init() {
-	tracingInternal = gconv.Bool(command.GetOptWithEnv(commandEnvKeyForTracingInternal, "true"))
-	if maxContentLogSize := gconv.Int(command.GetOptWithEnv(commandEnvKeyForMaxContentLogSize)); maxContentLogSize > 0 {
+	tracingInternal = gconv.X取布尔(command.GetOptWithEnv(commandEnvKeyForTracingInternal, "true"))
+	if maxContentLogSize := gconv.X取整数(command.GetOptWithEnv(commandEnvKeyForMaxContentLogSize)); maxContentLogSize > 0 {
 		tracingMaxContentLogSize = maxContentLogSize
 	}
 		// 默认的追踪提供者。 md5:61744e697ee81d00
@@ -152,14 +152,14 @@ func GetBaggageVar(ctx context.Context, key string) *gvar.Var {
 
 // WithUUID 向上下文注入自定义的基于UUID的追踪ID以进行传播。 md5:b75be6e561eacb0c
 func WithUUID(ctx context.Context, uuid string) (context.Context, error) {
-	return WithTraceID(ctx, gstr.Replace(uuid, "-", ""))
+	return WithTraceID(ctx, gstr.X替换(uuid, "-", ""))
 }
 
 // WithTraceID 将自定义的跟踪ID注入上下文以进行传播。 md5:74657c53cd9aeefb
 func WithTraceID(ctx context.Context, traceID string) (context.Context, error) {
 	generatedTraceID, err := trace.TraceIDFromHex(traceID)
 	if err != nil {
-		return ctx, gerror.WrapCodef(
+		return ctx, gerror.X多层错误码并格式化(
 			gcode.CodeInvalidParameter,
 			err,
 			`invalid custom traceID "%s", a traceID string should be composed with [0-f] and fixed length 32`,

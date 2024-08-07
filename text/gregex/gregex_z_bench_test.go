@@ -7,13 +7,13 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package gregex_test
+package 正则类_test
 
 import (
 	"regexp"
 	"testing"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 var pattern = `(\w+).+\-\-\s*(.+)`
@@ -22,13 +22,13 @@ var src = `GF is best! -- John`
 
 func Benchmark_GF_IsMatchString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gregex.IsMatchString(pattern, src)
+		gregex.X是否匹配文本(pattern, src)
 	}
 }
 
 func Benchmark_GF_MatchString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		gregex.MatchString(pattern, src)
+		gregex.X匹配文本(pattern, src)
 	}
 }
 

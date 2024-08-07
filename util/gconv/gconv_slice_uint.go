@@ -5,34 +5,34 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/internal/utils"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
+	"github.com/888go/goframe/internal/utils"
 )
 
-// SliceUint是Uints的别名。 md5:75cea5e3f6b32ecb
-func SliceUint(any interface{}) []uint {
-	return Uints(any)
+// SliceUint别名是Uints的别名。 md5:75cea5e3f6b32ecb
+func SliceUint别名(any interface{}) []uint {
+	return X取正整数切片(any)
 }
 
-// SliceUint32是Uint32s的别名。 md5:128b14c8ffd2f906
-func SliceUint32(any interface{}) []uint32 {
-	return Uint32s(any)
+// SliceUint32别名是Uint32s的别名。 md5:128b14c8ffd2f906
+func SliceUint32别名(any interface{}) []uint32 {
+	return X取正整数32位切片(any)
 }
 
-// SliceUint64 是 Uint64s 的别名。 md5:8436f35c37880e8c
-func SliceUint64(any interface{}) []uint64 {
-	return Uint64s(any)
+// SliceUint64别名 是 Uint64s 的别名。 md5:8436f35c37880e8c
+func SliceUint64别名(any interface{}) []uint64 {
+	return X取正整数64位切片(any)
 }
 
-// Uints 将 `any` 转换为 []uint。 md5:5be2a9bb94384311
-func Uints(any interface{}) []uint {
+// X取正整数切片 将 `any` 转换为 []uint。 md5:5be2a9bb94384311
+func X取正整数切片(any interface{}) []uint {
 	if any == nil {
 		return nil
 	}
@@ -47,13 +47,13 @@ func Uints(any interface{}) []uint {
 			return []uint{}
 		}
 		if utils.IsNumeric(value) {
-			return []uint{Uint(value)}
+			return []uint{X取正整数(value)}
 		}
 
 	case []string:
 		array = make([]uint, len(value))
 		for k, v := range value {
-			array[k] = Uint(v)
+			array[k] = X取正整数(v)
 		}
 	case []int8:
 		array = make([]uint, len(value))
@@ -113,22 +113,22 @@ func Uints(any interface{}) []uint {
 	case []float32:
 		array = make([]uint, len(value))
 		for k, v := range value {
-			array[k] = Uint(v)
+			array[k] = X取正整数(v)
 		}
 	case []float64:
 		array = make([]uint, len(value))
 		for k, v := range value {
-			array[k] = Uint(v)
+			array[k] = X取正整数(v)
 		}
 	case []interface{}:
 		array = make([]uint, len(value))
 		for k, v := range value {
-			array[k] = Uint(v)
+			array[k] = X取正整数(v)
 		}
 	case [][]byte:
 		array = make([]uint, len(value))
 		for k, v := range value {
-			array[k] = Uint(v)
+			array[k] = X取正整数(v)
 		}
 	}
 
@@ -138,10 +138,10 @@ func Uints(any interface{}) []uint {
 
 	// Default handler.
 	if v, ok := any.(iUints); ok {
-		return v.Uints()
+		return v.X取正整数切片()
 	}
 	if v, ok := any.(iInterfaces); ok {
-		return Uints(v.Interfaces())
+		return X取正整数切片(v.X取any切片())
 	}
 		// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
 	if checkJsonAndUnmarshalUseNumber(any, &array) {
@@ -156,7 +156,7 @@ func Uints(any interface{}) []uint {
 			slice  = make([]uint, length)
 		)
 		for i := 0; i < length; i++ {
-			slice[i] = Uint(originValueAndKind.OriginValue.Index(i).Interface())
+			slice[i] = X取正整数(originValueAndKind.OriginValue.Index(i).Interface())
 		}
 		return slice
 
@@ -164,31 +164,31 @@ func Uints(any interface{}) []uint {
 		if originValueAndKind.OriginValue.IsZero() {
 			return []uint{}
 		}
-		return []uint{Uint(any)}
+		return []uint{X取正整数(any)}
 	}
 }
 
-// Uint32s 将 `any` 转换为 []uint32。 md5:7a3545642e764e37
-func Uint32s(any interface{}) []uint32 {
-	if any == nil {
+// X取正整数32位切片 将 `any` 转换为 []uint32。 md5:7a3545642e764e37
+func X取正整数32位切片(值 interface{}) []uint32 {
+	if 值 == nil {
 		return nil
 	}
 	var (
 		array []uint32 = nil
 	)
-	switch value := any.(type) {
+	switch value := 值.(type) {
 	case string:
 		value = strings.TrimSpace(value)
 		if value == "" {
 			return []uint32{}
 		}
 		if utils.IsNumeric(value) {
-			return []uint32{Uint32(value)}
+			return []uint32{X取正整数32位(value)}
 		}
 	case []string:
 		array = make([]uint32, len(value))
 		for k, v := range value {
-			array[k] = Uint32(v)
+			array[k] = X取正整数32位(v)
 		}
 	case []int8:
 		array = make([]uint32, len(value))
@@ -248,22 +248,22 @@ func Uint32s(any interface{}) []uint32 {
 	case []float32:
 		array = make([]uint32, len(value))
 		for k, v := range value {
-			array[k] = Uint32(v)
+			array[k] = X取正整数32位(v)
 		}
 	case []float64:
 		array = make([]uint32, len(value))
 		for k, v := range value {
-			array[k] = Uint32(v)
+			array[k] = X取正整数32位(v)
 		}
 	case []interface{}:
 		array = make([]uint32, len(value))
 		for k, v := range value {
-			array[k] = Uint32(v)
+			array[k] = X取正整数32位(v)
 		}
 	case [][]byte:
 		array = make([]uint32, len(value))
 		for k, v := range value {
-			array[k] = Uint32(v)
+			array[k] = X取正整数32位(v)
 		}
 	}
 	if array != nil {
@@ -271,18 +271,18 @@ func Uint32s(any interface{}) []uint32 {
 	}
 
 	// Default handler.
-	if v, ok := any.(iUints); ok {
-		return Uint32s(v.Uints())
+	if v, ok := 值.(iUints); ok {
+		return X取正整数32位切片(v.X取正整数切片())
 	}
-	if v, ok := any.(iInterfaces); ok {
-		return Uint32s(v.Interfaces())
+	if v, ok := 值.(iInterfaces); ok {
+		return X取正整数32位切片(v.X取any切片())
 	}
 		// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
-	if checkJsonAndUnmarshalUseNumber(any, &array) {
+	if checkJsonAndUnmarshalUseNumber(值, &array) {
 		return array
 	}
 		// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
-	originValueAndKind := reflection.OriginValueAndKind(any)
+	originValueAndKind := reflection.OriginValueAndKind(值)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:
 		var (
@@ -290,7 +290,7 @@ func Uint32s(any interface{}) []uint32 {
 			slice  = make([]uint32, length)
 		)
 		for i := 0; i < length; i++ {
-			slice[i] = Uint32(originValueAndKind.OriginValue.Index(i).Interface())
+			slice[i] = X取正整数32位(originValueAndKind.OriginValue.Index(i).Interface())
 		}
 		return slice
 
@@ -298,32 +298,32 @@ func Uint32s(any interface{}) []uint32 {
 		if originValueAndKind.OriginValue.IsZero() {
 			return []uint32{}
 		}
-		return []uint32{Uint32(any)}
+		return []uint32{X取正整数32位(值)}
 	}
 }
 
-// Uint64s 将 `any` 转换为 []uint64。 md5:08b12c62032337ab
-func Uint64s(any interface{}) []uint64 {
-	if any == nil {
+// X取正整数64位切片 将 `any` 转换为 []uint64。 md5:08b12c62032337ab
+func X取正整数64位切片(值 interface{}) []uint64 {
+	if 值 == nil {
 		return nil
 	}
 	var (
 		array []uint64 = nil
 	)
-	switch value := any.(type) {
+	switch value := 值.(type) {
 	case string:
 		value = strings.TrimSpace(value)
 		if value == "" {
 			return []uint64{}
 		}
 		if utils.IsNumeric(value) {
-			return []uint64{Uint64(value)}
+			return []uint64{X取正整数64位(value)}
 		}
 
 	case []string:
 		array = make([]uint64, len(value))
 		for k, v := range value {
-			array[k] = Uint64(v)
+			array[k] = X取正整数64位(v)
 		}
 	case []int8:
 		array = make([]uint64, len(value))
@@ -383,40 +383,40 @@ func Uint64s(any interface{}) []uint64 {
 	case []float32:
 		array = make([]uint64, len(value))
 		for k, v := range value {
-			array[k] = Uint64(v)
+			array[k] = X取正整数64位(v)
 		}
 	case []float64:
 		array = make([]uint64, len(value))
 		for k, v := range value {
-			array[k] = Uint64(v)
+			array[k] = X取正整数64位(v)
 		}
 	case []interface{}:
 		array = make([]uint64, len(value))
 		for k, v := range value {
-			array[k] = Uint64(v)
+			array[k] = X取正整数64位(v)
 		}
 	case [][]byte:
 		array = make([]uint64, len(value))
 		for k, v := range value {
-			array[k] = Uint64(v)
+			array[k] = X取正整数64位(v)
 		}
 	}
 	if array != nil {
 		return array
 	}
 	// Default handler.
-	if v, ok := any.(iUints); ok {
-		return Uint64s(v.Uints())
+	if v, ok := 值.(iUints); ok {
+		return X取正整数64位切片(v.X取正整数切片())
 	}
-	if v, ok := any.(iInterfaces); ok {
-		return Uint64s(v.Interfaces())
+	if v, ok := 值.(iInterfaces); ok {
+		return X取正整数64位切片(v.X取any切片())
 	}
 		// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
-	if checkJsonAndUnmarshalUseNumber(any, &array) {
+	if checkJsonAndUnmarshalUseNumber(值, &array) {
 		return array
 	}
 		// 并非常见类型，因此它使用反射来进行转换。 md5:a4126e9dfe7a56bd
-	originValueAndKind := reflection.OriginValueAndKind(any)
+	originValueAndKind := reflection.OriginValueAndKind(值)
 	switch originValueAndKind.OriginKind {
 	case reflect.Slice, reflect.Array:
 		var (
@@ -424,7 +424,7 @@ func Uint64s(any interface{}) []uint64 {
 			slice  = make([]uint64, length)
 		)
 		for i := 0; i < length; i++ {
-			slice[i] = Uint64(originValueAndKind.OriginValue.Index(i).Interface())
+			slice[i] = X取正整数64位(originValueAndKind.OriginValue.Index(i).Interface())
 		}
 		return slice
 
@@ -432,6 +432,6 @@ func Uint64s(any interface{}) []uint64 {
 		if originValueAndKind.OriginValue.IsZero() {
 			return []uint64{}
 		}
-		return []uint64{Uint64(any)}
+		return []uint64{X取正整数64位(值)}
 	}
 }

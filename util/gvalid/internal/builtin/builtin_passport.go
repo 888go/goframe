@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RulePassport 实现了 `passport` 规则：
@@ -34,7 +34,7 @@ func (r RulePassport) Message() string {
 }
 
 func (r RulePassport) Run(in RunInput) error {
-	ok := gregex.IsMatchString(
+	ok := gregex.X是否匹配文本(
 		`^[a-zA-Z]{1}\w{5,17}$`,
 		in.Value.String(),
 	)

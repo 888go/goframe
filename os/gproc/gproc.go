@@ -6,17 +6,17 @@
 // md5:a9832f33b234e3f3
 
 // gproc 包实现了对进程的管理和通信功能。 md5:2bdecc6699345c91
-package gproc
+package 进程类
 
 import (
 	"os"
 	"runtime"
 	"time"
 
-	"github.com/gogf/gf/v2/os/genv"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	genv "github.com/888go/goframe/os/genv"
+	gfile "github.com/888go/goframe/os/gfile"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -41,7 +41,7 @@ func PPid() int {
 	}
 	ppidValue := os.Getenv(envKeyPPid)
 	if ppidValue != "" && ppidValue != "0" {
-		return gconv.Int(ppidValue)
+		return gconv.X取整数(ppidValue)
 	}
 	return PPidOS()
 }
@@ -83,7 +83,7 @@ func Uptime() time.Duration {
 // SearchBinary 在当前工作目录和PATH环境变量中搜索名为`file`的二进制文件。 md5:56a48fa45711f1c2
 func SearchBinary(file string) string {
 		// 检查它是否是当前工作目录下存在的绝对路径。 md5:5c4a5911487345cd
-	if gfile.Exists(file) {
+	if gfile.X是否存在(file) {
 		return file
 	}
 	return SearchBinaryPath(file)
@@ -94,24 +94,24 @@ func SearchBinaryPath(file string) string {
 	array := ([]string)(nil)
 	switch runtime.GOOS {
 	case "windows":
-		envPath := genv.Get("PATH", genv.Get("Path")).String()
-		if gstr.Contains(envPath, ";") {
-			array = gstr.SplitAndTrim(envPath, ";")
-		} else if gstr.Contains(envPath, ":") {
-			array = gstr.SplitAndTrim(envPath, ":")
+		envPath := genv.X取值("PATH", genv.X取值("Path")).String()
+		if gstr.X是否包含(envPath, ";") {
+			array = gstr.X分割并忽略空值(envPath, ";")
+		} else if gstr.X是否包含(envPath, ":") {
+			array = gstr.X分割并忽略空值(envPath, ":")
 		}
-		if gfile.Ext(file) != ".exe" {
+		if gfile.X路径取扩展名(file) != ".exe" {
 			file += ".exe"
 		}
 
 	default:
-		array = gstr.SplitAndTrim(genv.Get("PATH").String(), ":")
+		array = gstr.X分割并忽略空值(genv.X取值("PATH").String(), ":")
 	}
 	if len(array) > 0 {
 		path := ""
 		for _, v := range array {
 			path = v + gfile.Separator + file
-			if gfile.Exists(path) && gfile.IsFile(path) {
+			if gfile.X是否存在(path) && gfile.X是否为文件(path) {
 				return path
 			}
 		}

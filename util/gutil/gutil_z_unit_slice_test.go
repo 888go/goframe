@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil_test
+package 工具类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_SliceCopy(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Slice{
+		s := g.Slice别名{
 			"K1", "v1", "K2", "v2",
 		}
 		s1 := gutil.SliceCopy(s)
@@ -27,10 +27,10 @@ func Test_SliceCopy(t *testing.T) {
 
 func Test_SliceDelete(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Slice{
+		s := g.Slice别名{
 			"K1", "v1", "K2", "v2",
 		}
-		t.Assert(gutil.SliceDelete(s, 0), g.Slice{
+		t.Assert(gutil.SliceDelete(s, 0), g.Slice别名{
 			"v1", "K2", "v2",
 		})
 		t.Assert(gutil.SliceDelete(s, 5), s)
@@ -39,7 +39,7 @@ func Test_SliceDelete(t *testing.T) {
 
 func Test_SliceToMap(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Slice{
+		s := g.Slice别名{
 			"K1", "v1", "K2", "v2",
 		}
 		m := gutil.SliceToMap(s)
@@ -57,7 +57,7 @@ func Test_SliceToMap(t *testing.T) {
 		})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Slice{
+		s := g.Slice别名{
 			"K1", "v1", "K2",
 		}
 		m := gutil.SliceToMap(s)
@@ -74,7 +74,7 @@ func Test_SliceToMap(t *testing.T) {
 func Test_SliceToMapWithColumnAsKey(t *testing.T) {
 	m1 := g.Map{"K1": "v1", "K2": 1}
 	m2 := g.Map{"K1": "v2", "K2": 2}
-	s := g.Slice{m1, m2}
+	s := g.Slice别名{m1, m2}
 	gtest.C(t, func(t *gtest.T) {
 		m := gutil.SliceToMapWithColumnAsKey(s, "K1")
 		t.Assert(m, g.MapAnyAny{

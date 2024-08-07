@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gproc
+package 进程类
 
 import (
 	"os"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gmap "github.com/888go/goframe/container/gmap"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Manager 是一个管理多个进程的进程管理器。 md5:608ec304d3cca78a
@@ -22,7 +22,7 @@ type Manager struct {
 // NewManager 创建并返回一个新的进程管理器。 md5:bfef06576c70f94f
 func NewManager() *Manager {
 	return &Manager{
-		processes: gmap.NewIntAnyMap(true),
+		processes: gmap.X创建IntAny(true),
 	}
 }
 
@@ -37,7 +37,7 @@ func (m *Manager) NewProcess(path string, args []string, environment []string) *
 // 如果找不到具有给定`pid`的进程，它将返回nil。
 // md5:d5b11d4d0e9fa1a3
 func (m *Manager) GetProcess(pid int) *Process {
-	if v := m.processes.Get(pid); v != nil {
+	if v := m.processes.X取值(pid); v != nil {
 		return v.(*Process)
 	}
 	return nil
@@ -47,24 +47,24 @@ func (m *Manager) GetProcess(pid int) *Process {
 // 如果给定的 `pid` 对应的进程不存在，它不会做任何操作。
 // md5:c51d5832fb1ce691
 func (m *Manager) AddProcess(pid int) {
-	if m.processes.Get(pid) == nil {
+	if m.processes.X取值(pid) == nil {
 		if process, err := os.FindProcess(pid); err == nil {
 			p := m.NewProcess("", nil, nil)
 			p.Process = process
-			m.processes.Set(pid, p)
+			m.processes.X设置值(pid, p)
 		}
 	}
 }
 
 // RemoveProcess 从当前管理器中移除一个进程。 md5:0076407de3a7d26a
 func (m *Manager) RemoveProcess(pid int) {
-	m.processes.Remove(pid)
+	m.processes.X删除(pid)
 }
 
 // Processes 获取并返回当前管理器中的所有进程。 md5:30ac76e5c68d45de
 func (m *Manager) Processes() []*Process {
 	processes := make([]*Process, 0)
-	m.processes.RLockFunc(func(m map[int]interface{}) {
+	m.processes.X遍历读锁定(func(m map[int]interface{}) {
 		for _, v := range m {
 			processes = append(processes, v.(*Process))
 		}
@@ -74,7 +74,7 @@ func (m *Manager) Processes() []*Process {
 
 // Pids 获取并返回当前管理器中的所有进程ID数组。 md5:a5ef21ec52c87400
 func (m *Manager) Pids() []int {
-	return m.processes.Keys()
+	return m.processes.X取所有名称()
 }
 
 // WaitAll等待直到所有进程退出。 md5:1d27f65463fe8c00
@@ -101,7 +101,7 @@ func (m *Manager) KillAll() error {
 func (m *Manager) SignalAll(sig os.Signal) error {
 	for _, p := range m.Processes() {
 		if err := p.Signal(sig); err != nil {
-			err = gerror.Wrapf(err, `send signal to process failed for pid "%d" with signal "%s"`, p.Process.Pid, sig)
+			err = gerror.X多层错误并格式化(err, `send signal to process failed for pid "%d" with signal "%s"`, p.Process.Pid, sig)
 			return err
 		}
 	}
@@ -122,10 +122,10 @@ func (m *Manager) SendTo(pid int, data []byte) error {
 
 // Clear 会清除当前管理器中的所有进程。 md5:26053a86c2f65b33
 func (m *Manager) Clear() {
-	m.processes.Clear()
+	m.processes.X清空()
 }
 
 // Size 返回当前管理器中进程的数量。 md5:ffaeaa3ed9b66ed1
 func (m *Manager) Size() int {
-	return m.processes.Size()
+	return m.processes.X取数量()
 }

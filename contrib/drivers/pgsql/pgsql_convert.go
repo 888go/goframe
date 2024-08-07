@@ -11,18 +11,18 @@ import (
 	"context"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gdb "github.com/888go/goframe/database/gdb"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// CheckLocalTypeForField 检查并返回给定数据库类型对应的本地Go语言类型。 md5:f8aef7c5b09aa9c8
-func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (gdb.LocalType, error) {
+// X底层CheckLocalTypeForField 检查并返回给定数据库类型对应的本地Go语言类型。 md5:f8aef7c5b09aa9c8
+func (d *Driver) X底层CheckLocalTypeForField(ctx context.Context, fieldType string, fieldValue interface{}) (gdb.LocalType, error) {
 	var typeName string
-	match, _ := gregex.MatchString(`(.+?)\((.+)\)`, fieldType)
+	match, _ := gregex.X匹配文本(`(.+?)\((.+)\)`, fieldType)
 	if len(match) == 3 {
-		typeName = gstr.Trim(match[1])
+		typeName = gstr.X过滤首尾符并含空白(match[1])
 	} else {
 		typeName = fieldType
 	}
@@ -50,31 +50,31 @@ func (d *Driver) CheckLocalTypeForField(ctx context.Context, fieldType string, f
 		return gdb.LocalTypeInt64Slice, nil
 
 	default:
-		return d.Core.CheckLocalTypeForField(ctx, fieldType, fieldValue)
+		return d.Core.X底层CheckLocalTypeForField(ctx, fieldType, fieldValue)
 	}
 }
 
-// ConvertValueForLocal 根据从数据库中获取的字段类型名称，将值转换为Go语言中的本地类型。
+// X底层ConvertValueForLocal 根据从数据库中获取的字段类型名称，将值转换为Go语言中的本地类型。
 // 参数 `fieldType` 为小写格式，例如：
 // `float(5,2)`，`unsigned double(5,2)`，`decimal(10,2)`，`char(45)`，`varchar(100)` 等。
 // md5:7e1ede2b68158e31
-func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
-	typeName, _ := gregex.ReplaceString(`\(.+\)`, "", fieldType)
+func (d *Driver) X底层ConvertValueForLocal(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
+	typeName, _ := gregex.X替换文本(`\(.+\)`, "", fieldType)
 	typeName = strings.ToLower(typeName)
 	switch typeName {
 		// 对于pgsql，int2等于smallint，int4等于integer。 md5:9a03a0c9b626da62
 	case "int2", "int4":
-		return gconv.Int(gconv.String(fieldValue)), nil
+		return gconv.X取整数(gconv.String(fieldValue)), nil
 
 		// 对于 PostgreSQL，int8 等同于 bigint. md5:4717ef91027dfe75..
 	case "int8":
-		return gconv.Int64(gconv.String(fieldValue)), nil
+		return gconv.X取整数64位(gconv.String(fieldValue)), nil
 
 	// Int32 slice.
 	case
 		"_int2", "_int4":
-		return gconv.Ints(
-			gstr.ReplaceByMap(gconv.String(fieldValue),
+		return gconv.X取整数切片(
+			gstr.Map替换(gconv.String(fieldValue),
 				map[string]string{
 					"{": "[",
 					"}": "]",
@@ -85,8 +85,8 @@ func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fie
 	// Int64 slice.
 	case
 		"_int8":
-		return gconv.Int64s(
-			gstr.ReplaceByMap(gconv.String(fieldValue),
+		return gconv.X取整数64位切片(
+			gstr.Map替换(gconv.String(fieldValue),
 				map[string]string{
 					"{": "[",
 					"}": "]",
@@ -95,6 +95,6 @@ func (d *Driver) ConvertValueForLocal(ctx context.Context, fieldType string, fie
 		), nil
 
 	default:
-		return d.Core.ConvertValueForLocal(ctx, fieldType, fieldValue)
+		return d.Core.X底层ConvertValueForLocal(ctx, fieldType, fieldValue)
 	}
 }

@@ -13,7 +13,7 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // RawMessage 是一个原始的编码JSON值。
@@ -28,7 +28,7 @@ type RawMessage = json.RawMessage
 func Marshal(v interface{}) (marshaledBytes []byte, err error) {
 	marshaledBytes, err = json.Marshal(v)
 	if err != nil {
-		err = gerror.Wrap(err, `json.Marshal failed`)
+		err = gerror.X多层错误(err, `json.Marshal failed`)
 	}
 	return
 }
@@ -37,7 +37,7 @@ func Marshal(v interface{}) (marshaledBytes []byte, err error) {
 func MarshalIndent(v interface{}, prefix, indent string) (marshaledBytes []byte, err error) {
 	marshaledBytes, err = json.MarshalIndent(v, prefix, indent)
 	if err != nil {
-		err = gerror.Wrap(err, `json.MarshalIndent failed`)
+		err = gerror.X多层错误(err, `json.MarshalIndent failed`)
 	}
 	return
 }
@@ -50,7 +50,7 @@ func MarshalIndent(v interface{}, prefix, indent string) (marshaledBytes []byte,
 func Unmarshal(data []byte, v interface{}) (err error) {
 	err = json.Unmarshal(data, v)
 	if err != nil {
-		err = gerror.Wrap(err, `json.Unmarshal failed`)
+		err = gerror.X多层错误(err, `json.Unmarshal failed`)
 	}
 	return
 }
@@ -61,7 +61,7 @@ func UnmarshalUseNumber(data []byte, v interface{}) (err error) {
 	decoder.UseNumber()
 	err = decoder.Decode(v)
 	if err != nil {
-		err = gerror.Wrap(err, `json.UnmarshalUseNumber failed`)
+		err = gerror.X多层错误(err, `json.UnmarshalUseNumber failed`)
 	}
 	return
 }

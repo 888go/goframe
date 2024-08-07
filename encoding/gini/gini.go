@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gini提供了访问和转换INI内容的功能。 md5:3e0e37cb2af85941
-package gini
+package ini类
 
 import (
 	"bufio"
@@ -15,17 +15,17 @@ import (
 	"io"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
 )
 
-// Decode将INI格式转换为映射。 md5:355a2d8ee06f84fe
-func Decode(data []byte) (res map[string]interface{}, err error) {
-	res = make(map[string]interface{})
+// X取Map将INI格式转换为映射。 md5:355a2d8ee06f84fe
+func X取Map(字节集 []byte) (map值 map[string]interface{}, 错误 error) {
+	map值 = make(map[string]interface{})
 	var (
 		fieldMap    = make(map[string]interface{})
-		bytesReader = bytes.NewReader(data)
+		bytesReader = bytes.NewReader(字节集)
 		bufioReader = bufio.NewReader(bytesReader)
 		section     string
 		lastSection string
@@ -34,13 +34,13 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 	)
 
 	for {
-		line, err = bufioReader.ReadString('\n')
-		if err != nil {
-			if err == io.EOF {
+		line, 错误 = bufioReader.ReadString('\n')
+		if 错误 != nil {
+			if 错误 == io.EOF {
 				break
 			}
-			err = gerror.Wrapf(err, `bufioReader.ReadString failed`)
-			return nil, err
+			错误 = gerror.X多层错误并格式化(错误, `bufioReader.ReadString failed`)
+			return nil, 错误
 		}
 		if line = strings.TrimSpace(line); len(line) == 0 {
 			continue
@@ -69,58 +69,58 @@ func Decode(data []byte) (res map[string]interface{}, err error) {
 		if strings.Contains(line, "=") && haveSection {
 			values := strings.Split(line, "=")
 			fieldMap[strings.TrimSpace(values[0])] = strings.TrimSpace(strings.Join(values[1:], "="))
-			res[section] = fieldMap
+			map值[section] = fieldMap
 		}
 	}
 
 	if !haveSection {
-		return nil, gerror.NewCode(gcode.CodeInvalidParameter, "failed to parse INI file, section not found")
+		return nil, gerror.X创建错误码(gcode.CodeInvalidParameter, "failed to parse INI file, section not found")
 	}
-	return res, nil
+	return map值, nil
 }
 
-// Encode将映射转换为INI格式。 md5:2b1bb156815e46bd
-func Encode(data map[string]interface{}) (res []byte, err error) {
+// Map到ini将映射转换为INI格式。 md5:2b1bb156815e46bd
+func Map到ini(map值 map[string]interface{}) (字节集 []byte, 错误 error) {
 	var (
 		n  int
 		w  = new(bytes.Buffer)
 		m  map[string]interface{}
 		ok bool
 	)
-	for section, item := range data {
+	for section, item := range map值 {
 				// 部分键值对。 md5:4d0c7048f054d3df
 		if m, ok = item.(map[string]interface{}); ok {
-			n, err = w.WriteString(fmt.Sprintf("[%s]\n", section))
-			if err != nil || n == 0 {
-				return nil, gerror.Wrapf(err, "w.WriteString failed")
+			n, 错误 = w.WriteString(fmt.Sprintf("[%s]\n", section))
+			if 错误 != nil || n == 0 {
+				return nil, gerror.X多层错误并格式化(错误, "w.WriteString failed")
 			}
 			for k, v := range m {
-				if n, err = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); err != nil || n == 0 {
-					return nil, gerror.Wrapf(err, "w.WriteString failed")
+				if n, 错误 = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); 错误 != nil || n == 0 {
+					return nil, gerror.X多层错误并格式化(错误, "w.WriteString failed")
 				}
 			}
 			continue
 		}
 				// 简单的键值对。 md5:4ddd5708336bef92
-		for k, v := range data {
-			if n, err = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); err != nil || n == 0 {
-				return nil, gerror.Wrapf(err, "w.WriteString failed")
+		for k, v := range map值 {
+			if n, 错误 = w.WriteString(fmt.Sprintf("%s=%v\n", k, v)); 错误 != nil || n == 0 {
+				return nil, gerror.X多层错误并格式化(错误, "w.WriteString failed")
 			}
 		}
 		break
 	}
-	res = make([]byte, w.Len())
-	if n, err = w.Read(res); err != nil || n == 0 {
-		return nil, gerror.Wrapf(err, "w.Read failed")
+	字节集 = make([]byte, w.Len())
+	if n, 错误 = w.Read(字节集); 错误 != nil || n == 0 {
+		return nil, gerror.X多层错误并格式化(错误, "w.Read failed")
 	}
-	return res, nil
+	return 字节集, nil
 }
 
-// ToJson 将INI格式转换为JSON。 md5:760a6629bda12608
-func ToJson(data []byte) (res []byte, err error) {
-	iniMap, err := Decode(data)
-	if err != nil {
-		return nil, err
+// X取json 将INI格式转换为JSON。 md5:760a6629bda12608
+func X取json(字节集 []byte) (json字节集 []byte, 错误 error) {
+	iniMap, 错误 := X取Map(字节集)
+	if 错误 != nil {
+		return nil, 错误
 	}
 	return json.Marshal(iniMap)
 }

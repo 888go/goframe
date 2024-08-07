@@ -11,18 +11,18 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/internal/intlog"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // Server 函数返回一个指定名称的 http 服务器实例。
 // 注意，如果在创建实例过程中发生任何错误，它将引发 panic。
 // md5:09f2ffb4e37b28a6
-func Server(name ...interface{}) *ghttp.Server {
+func Server(name ...interface{}) *ghttp.X服务 {
 	var (
 		err          error
 		ctx          = context.Background()
@@ -33,8 +33,8 @@ func Server(name ...interface{}) *ghttp.Server {
 		instanceName = gconv.String(name[0])
 	}
 	return instance.GetOrSetFuncLock(instanceKey, func() interface{} {
-		server := ghttp.GetServer(instanceName)
-		if Config().Available(ctx) {
+		server := ghttp.X取服务对象(instanceName)
+		if Config().X是否可用(ctx) {
 						// 从配置中初始化服务器。 md5:0d26e3a48d836ee7
 			var (
 				configMap             map[string]interface{}
@@ -42,7 +42,7 @@ func Server(name ...interface{}) *ghttp.Server {
 				serverLoggerConfigMap map[string]interface{}
 				configNodeName        string
 			)
-			if configMap, err = Config().Data(ctx); err != nil {
+			if configMap, err = Config().X取Map(ctx); err != nil {
 				intlog.Errorf(ctx, `retrieve config data map failed: %+v`, err)
 			}
 						// 根据可能的名称查找服务器配置项。 md5:9a64296188cf11c8
@@ -57,15 +57,15 @@ func Server(name ...interface{}) *ghttp.Server {
 				}
 			}
 						// 根据实例名称自动获取配置。 md5:7140fae5fa8c1aec
-			serverConfigMap = Config().MustGet(
+			serverConfigMap = Config().X取值PANI(
 				ctx,
 				fmt.Sprintf(`%s.%s`, configNodeName, instanceName),
-			).Map()
+			).X取Map()
 			if len(serverConfigMap) == 0 {
-				serverConfigMap = Config().MustGet(ctx, configNodeName).Map()
+				serverConfigMap = Config().X取值PANI(ctx, configNodeName).X取Map()
 			}
 			if len(serverConfigMap) > 0 {
-				if err = server.SetConfigWithMap(serverConfigMap); err != nil {
+				if err = server.X设置配置项Map(serverConfigMap); err != nil {
 					panic(err)
 				}
 			} else {
@@ -77,27 +77,27 @@ func Server(name ...interface{}) *ghttp.Server {
 				)
 			}
 						// 服务器日志配置检查。 md5:22846287f007266c
-			serverLoggerConfigMap = Config().MustGet(
+			serverLoggerConfigMap = Config().X取值PANI(
 				ctx,
 				fmt.Sprintf(`%s.%s.%s`, configNodeName, instanceName, consts.ConfigNodeNameLogger),
-			).Map()
+			).X取Map()
 			if len(serverLoggerConfigMap) == 0 && len(serverConfigMap) > 0 {
-				serverLoggerConfigMap = gconv.Map(serverConfigMap[consts.ConfigNodeNameLogger])
+				serverLoggerConfigMap = gconv.X取Map(serverConfigMap[consts.ConfigNodeNameLogger])
 			}
 			if len(serverLoggerConfigMap) > 0 {
-				if err = server.Logger().SetConfigWithMap(serverLoggerConfigMap); err != nil {
+				if err = server.Logger别名().X设置配置Map(serverLoggerConfigMap); err != nil {
 					panic(err)
 				}
 			}
 		}
 				// 服务器名称是必需的。如果未配置，默认情况下它将设置一个服务器名称。 md5:db6207755fb7815b
-		if server.GetName() == "" || server.GetName() == ghttp.DefaultServerName {
-			server.SetName(instanceName)
+		if server.X取服务名称() == "" || server.X取服务名称() == ghttp.DefaultServerName {
+			server.X设置服务名称(instanceName)
 		}
 		// 由于可能使用了模板功能，
 		// 它也会初始化视图实例。
 		// md5:7c98f1273cb1ece0
 		_ = getViewInstance()
 		return server
-	}).(*ghttp.Server)
+	}).(*ghttp.X服务)
 }

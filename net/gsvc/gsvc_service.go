@@ -10,12 +10,12 @@ package gsvc
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gcmd"
-	"github.com/gogf/gf/v2/text/gstr"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gcmd "github.com/888go/goframe/os/gcmd"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // LocalService 提供了接口 Service 的默认实现。 md5:dd822c79690b7ca2
@@ -43,10 +43,10 @@ func NewServiceWithName(name string) Service {
 func NewServiceWithKV(key, value string) (Service, error) {
 	var (
 		err   error
-		array = gstr.Split(gstr.Trim(key, DefaultSeparator), DefaultSeparator)
+		array = gstr.X分割(gstr.X过滤首尾符并含空白(key, DefaultSeparator), DefaultSeparator)
 	)
 	if len(array) < 6 {
-		err = gerror.NewCodef(gcode.CodeInvalidParameter, `invalid service key "%s"`, key)
+		err = gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid service key "%s"`, key)
 		return nil, err
 	}
 	s := &LocalService{
@@ -60,8 +60,8 @@ func NewServiceWithKV(key, value string) (Service, error) {
 	}
 	s.autoFillDefaultAttributes()
 	if len(value) > 0 {
-		if err = gjson.Unmarshal([]byte(value), &s.Metadata); err != nil {
-			err = gerror.WrapCodef(gcode.CodeInvalidParameter, err, `invalid service value "%s"`, value)
+		if err = gjson.Unmarshal别名([]byte(value), &s.Metadata); err != nil {
+			err = gerror.X多层错误码并格式化(gcode.CodeInvalidParameter, err, `invalid service value "%s"`, value)
 			return nil, err
 		}
 	}
@@ -96,7 +96,7 @@ func (s *LocalService) GetKey() string {
 // GetValue 格式化并返回服务的值。结果值通常用于键值注册服务器。
 // md5:81a88bc4bcc73037
 func (s *LocalService) GetValue() string {
-	b, err := gjson.Marshal(s.Metadata)
+	b, err := gjson.Marshal别名(s.Metadata)
 	if err != nil {
 		intlog.Errorf(context.TODO(), `%+v`, err)
 	}
@@ -111,7 +111,7 @@ func (s *LocalService) GetValue() string {
 // md5:3c443e018050694a
 func (s *LocalService) GetPrefix() string {
 	s.autoFillDefaultAttributes()
-	return DefaultSeparator + gstr.Join(
+	return DefaultSeparator + gstr.X连接(
 		[]string{
 			s.Head,
 			s.Deployment,

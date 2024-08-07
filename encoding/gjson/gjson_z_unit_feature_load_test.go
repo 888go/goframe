@@ -5,60 +5,60 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gjson_test
+package json类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/test/gtest"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/frame/g"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Load_JSON1(t *testing.T) {
 	data := []byte(`{"n":123456789, "m":{"k":"v"}, "a":[1,2,3]}`)
 	// JSON
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{1, 2, 3})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{1, 2, 3})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 	// JSON
 	gtest.C(t, func(t *gtest.T) {
 		errData := []byte(`{"n":123456789, "m":{"k":"v"}, "a":[1,2,3]`)
-		_, err := gjson.LoadContentType("json", errData, true)
+		_, err := gjson.X加载并按格式("json", errData, true)
 		t.AssertNE(err, nil)
 	})
 	// JSON
 	gtest.C(t, func(t *gtest.T) {
 		path := "test.json"
-		gfile.PutBytes(path, data)
-		defer gfile.Remove(path)
-		j, err := gjson.Load(path, true)
+		gfile.X写入字节集(path, data)
+		defer gfile.X删除(path)
+		j, err := gjson.X加载文件(path, true)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{1, 2, 3})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{1, 2, 3})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 }
 
 func Test_Load_JSON2(t *testing.T) {
 	data := []byte(`{"n":123456789000000000000, "m":{"k":"v"}, "a":[1,2,3]}`)
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789000000000000")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{1, 2, 3})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789000000000000")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{1, 2, 3})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 }
 
@@ -66,42 +66,42 @@ func Test_Load_XML(t *testing.T) {
 	data := []byte(`<doc><a>1</a><a>2</a><a>3</a><m><k>v</k></m><n>123456789</n></doc>`)
 	// XML
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		t.AssertNil(err)
-		t.Assert(j.Get("doc.n").String(), "123456789")
-		t.Assert(j.Get("doc.m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("doc.m.k").String(), "v")
-		t.Assert(j.Get("doc.a").Slice(), g.Slice{"1", "2", "3"})
-		t.Assert(j.Get("doc.a.1").Int(), 2)
+		t.Assert(j.X取值("doc.n").String(), "123456789")
+		t.Assert(j.X取值("doc.m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("doc.m.k").String(), "v")
+		t.Assert(j.X取值("doc.a").Slice别名(), g.Slice别名{"1", "2", "3"})
+		t.Assert(j.X取值("doc.a.1").X取整数(), 2)
 	})
 	// XML
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadXml(data, true)
+		j, err := gjson.X加载xml(data, true)
 		t.AssertNil(err)
-		t.Assert(j.Get("doc.n").String(), "123456789")
-		t.Assert(j.Get("doc.m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("doc.m.k").String(), "v")
-		t.Assert(j.Get("doc.a").Slice(), g.Slice{"1", "2", "3"})
-		t.Assert(j.Get("doc.a.1").Int(), 2)
+		t.Assert(j.X取值("doc.n").String(), "123456789")
+		t.Assert(j.X取值("doc.m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("doc.m.k").String(), "v")
+		t.Assert(j.X取值("doc.a").Slice别名(), g.Slice别名{"1", "2", "3"})
+		t.Assert(j.X取值("doc.a.1").X取整数(), 2)
 	})
 	// XML
 	gtest.C(t, func(t *gtest.T) {
 		errData := []byte(`<doc><a>1</a><a>2</a><a>3</a><m><k>v</k></m><n>123456789</n><doc>`)
-		_, err := gjson.LoadContentType("xml", errData, true)
+		_, err := gjson.X加载并按格式("xml", errData, true)
 		t.AssertNE(err, nil)
 	})
 	// XML
 	gtest.C(t, func(t *gtest.T) {
 		path := "test.xml"
-		gfile.PutBytes(path, data)
-		defer gfile.Remove(path)
-		j, err := gjson.Load(path)
+		gfile.X写入字节集(path, data)
+		defer gfile.X删除(path)
+		j, err := gjson.X加载文件(path)
 		t.AssertNil(err)
-		t.Assert(j.Get("doc.n").String(), "123456789")
-		t.Assert(j.Get("doc.m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("doc.m.k").String(), "v")
-		t.Assert(j.Get("doc.a").Array(), g.Slice{"1", "2", "3"})
-		t.Assert(j.Get("doc.a.1").Int(), 2)
+		t.Assert(j.X取值("doc.n").String(), "123456789")
+		t.Assert(j.X取值("doc.m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("doc.m.k").String(), "v")
+		t.Assert(j.X取值("doc.a").Array别名(), g.Slice别名{"1", "2", "3"})
+		t.Assert(j.X取值("doc.a.1").X取整数(), 2)
 	})
 
 	// XML
@@ -116,10 +116,10 @@ func Test_Load_XML(t *testing.T) {
 	<nworkOrderDtos/>
 	<nworkOrderFrontXML/>
 	</Output>`
-		j, err := gjson.LoadContent(xml)
+		j, err := gjson.X加载并自动识别格式(xml)
 		t.AssertNil(err)
-		t.Assert(j.Get("Output.ipageIndex"), "2")
-		t.Assert(j.Get("Output.itotalRecords"), "GF框架")
+		t.Assert(j.X取值("Output.ipageIndex"), "2")
+		t.Assert(j.X取值("Output.itotalRecords"), "GF框架")
 	})
 }
 
@@ -135,49 +135,49 @@ m:
     `)
 	// YAML
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{1, 2, 3})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{1, 2, 3})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 	// YAML
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadYaml(data, true)
+		j, err := gjson.X加载Yaml(data, true)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{1, 2, 3})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{1, 2, 3})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 	// YAML
 	gtest.C(t, func(t *gtest.T) {
 		path := "test.yaml"
-		gfile.PutBytes(path, data)
-		defer gfile.Remove(path)
-		j, err := gjson.Load(path)
+		gfile.X写入字节集(path, data)
+		defer gfile.X删除(path)
+		j, err := gjson.X加载文件(path)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{1, 2, 3})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{1, 2, 3})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 }
 
 func Test_Load_YAML2(t *testing.T) {
 	data := []byte("i : 123456789")
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		t.AssertNil(err)
-		t.Assert(j.Get("i"), "123456789")
+		t.Assert(j.X取值("i"), "123456789")
 	})
 	gtest.C(t, func(t *gtest.T) {
 		errData := []byte("i # 123456789")
-		_, err := gjson.LoadContentType("yaml", errData, true)
+		_, err := gjson.X加载并按格式("yaml", errData, true)
 		t.AssertNE(err, nil)
 	})
 }
@@ -192,73 +192,73 @@ n = 123456789
 `)
 	// TOML
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{"1", "2", "3"})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{"1", "2", "3"})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 	// TOML
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadToml(data, true)
+		j, err := gjson.X加载Toml(data, true)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{"1", "2", "3"})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{"1", "2", "3"})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 	// TOML
 	gtest.C(t, func(t *gtest.T) {
 		path := "test.toml"
-		gfile.PutBytes(path, data)
-		defer gfile.Remove(path)
-		j, err := gjson.Load(path)
+		gfile.X写入字节集(path, data)
+		defer gfile.X删除(path)
+		j, err := gjson.X加载文件(path)
 		t.AssertNil(err)
-		t.Assert(j.Get("n").String(), "123456789")
-		t.Assert(j.Get("m").Map(), g.Map{"k": "v"})
-		t.Assert(j.Get("m.k").String(), "v")
-		t.Assert(j.Get("a").Slice(), g.Slice{"1", "2", "3"})
-		t.Assert(j.Get("a.1").Int(), 2)
+		t.Assert(j.X取值("n").String(), "123456789")
+		t.Assert(j.X取值("m").X取Map(), g.Map{"k": "v"})
+		t.Assert(j.X取值("m.k").String(), "v")
+		t.Assert(j.X取值("a").Slice别名(), g.Slice别名{"1", "2", "3"})
+		t.Assert(j.X取值("a.1").X取整数(), 2)
 	})
 }
 
 func Test_Load_TOML2(t *testing.T) {
 	data := []byte("i=123456789")
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		t.AssertNil(err)
-		t.Assert(j.Get("i"), "123456789")
+		t.Assert(j.X取值("i"), "123456789")
 	})
 	gtest.C(t, func(t *gtest.T) {
 		errData := []byte("i : 123456789")
-		_, err := gjson.LoadContentType("toml", errData, true)
+		_, err := gjson.X加载并按格式("toml", errData, true)
 		t.AssertNE(err, nil)
 	})
 }
 
 func Test_Load_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		j := gjson.New(nil)
+		j := gjson.X创建(nil)
 		t.Assert(j.Interface(), nil)
-		_, err := gjson.Decode(nil)
+		_, err := gjson.Json格式到变量(nil)
 		t.AssertNE(err, nil)
-		_, err = gjson.DecodeToJson(nil)
+		_, err = gjson.X解码到json(nil)
 		t.AssertNE(err, nil)
-		j, err = gjson.LoadContent(nil)
+		j, err = gjson.X加载并自动识别格式(nil)
 		t.AssertNil(err)
 		t.Assert(j.Interface(), nil)
 
-		j, err = gjson.LoadContent(`{"name": "gf"}`)
+		j, err = gjson.X加载并自动识别格式(`{"name": "gf"}`)
 		t.AssertNil(err)
 
-		j, err = gjson.LoadContent(`{"name": "gf"""}`)
+		j, err = gjson.X加载并自动识别格式(`{"name": "gf"""}`)
 		t.AssertNE(err, nil)
 
-		j = gjson.New(&g.Map{"name": "gf"})
-		t.Assert(j.Get("name").String(), "gf")
+		j = gjson.X创建(&g.Map{"name": "gf"})
+		t.Assert(j.X取值("name").String(), "gf")
 
 	})
 }
@@ -281,41 +281,41 @@ enable=true
 `
 
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		t.Assert(j.Get("addr.ip").String(), "127.0.0.1")
-		t.Assert(j.Get("addr.port").String(), "9001")
-		t.Assert(j.Get("addr.enable").String(), "true")
-		t.Assert(j.Get("DBINFO.type").String(), "mysql")
-		t.Assert(j.Get("DBINFO.user").String(), "root")
-		t.Assert(j.Get("DBINFO.password").String(), "password")
+		t.Assert(j.X取值("addr.ip").String(), "127.0.0.1")
+		t.Assert(j.X取值("addr.port").String(), "9001")
+		t.Assert(j.X取值("addr.enable").String(), "true")
+		t.Assert(j.X取值("DBINFO.type").String(), "mysql")
+		t.Assert(j.X取值("DBINFO.user").String(), "root")
+		t.Assert(j.X取值("DBINFO.password").String(), "password")
 
-		_, err = j.ToIni()
+		_, err = j.X取ini字节集()
 		if err != nil {
 			gtest.Fatal(err)
 		}
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadIni(data, true)
+		j, err := gjson.X加载ini(data, true)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		t.Assert(j.Get("addr.ip").String(), "127.0.0.1")
-		t.Assert(j.Get("addr.port").String(), "9001")
-		t.Assert(j.Get("addr.enable").String(), "true")
-		t.Assert(j.Get("DBINFO.type").String(), "mysql")
-		t.Assert(j.Get("DBINFO.user").String(), "root")
-		t.Assert(j.Get("DBINFO.password").String(), "password")
+		t.Assert(j.X取值("addr.ip").String(), "127.0.0.1")
+		t.Assert(j.X取值("addr.port").String(), "9001")
+		t.Assert(j.X取值("addr.enable").String(), "true")
+		t.Assert(j.X取值("DBINFO.type").String(), "mysql")
+		t.Assert(j.X取值("DBINFO.user").String(), "root")
+		t.Assert(j.X取值("DBINFO.password").String(), "password")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		errData := []byte("i : 123456789")
-		_, err := gjson.LoadContentType("ini", errData, true)
+		_, err := gjson.X加载并按格式("ini", errData, true)
 		t.AssertNE(err, nil)
 	})
 }
@@ -358,7 +358,7 @@ gfcli:
       modelFileForDao : "model_dao.go"
 `
 	gtest.C(t, func(t *gtest.T) {
-		_, err := gjson.LoadContent(content)
+		_, err := gjson.X加载并自动识别格式(content)
 		t.AssertNil(err)
 	})
 }
@@ -379,41 +379,41 @@ DBINFO.password=password
 `
 
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadContent(data)
+		j, err := gjson.X加载并自动识别格式(data)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		t.Assert(j.Get("addr.ip").String(), "127.0.0.1")
-		t.Assert(j.Get("addr.port").String(), "9001")
-		t.Assert(j.Get("addr.enable").String(), "true")
-		t.Assert(j.Get("DBINFO.type").String(), "mysql")
-		t.Assert(j.Get("DBINFO.user").String(), "root")
-		t.Assert(j.Get("DBINFO.password").String(), "password")
+		t.Assert(j.X取值("addr.ip").String(), "127.0.0.1")
+		t.Assert(j.X取值("addr.port").String(), "9001")
+		t.Assert(j.X取值("addr.enable").String(), "true")
+		t.Assert(j.X取值("DBINFO.type").String(), "mysql")
+		t.Assert(j.X取值("DBINFO.user").String(), "root")
+		t.Assert(j.X取值("DBINFO.password").String(), "password")
 
-		_, err = j.ToProperties()
+		_, err = j.X取properties字节集()
 		if err != nil {
 			gtest.Fatal(err)
 		}
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		j, err := gjson.LoadProperties(data, true)
+		j, err := gjson.X加载Properties(data, true)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		t.Assert(j.Get("addr.ip").String(), "127.0.0.1")
-		t.Assert(j.Get("addr.port").String(), "9001")
-		t.Assert(j.Get("addr.enable").String(), "true")
-		t.Assert(j.Get("DBINFO.type").String(), "mysql")
-		t.Assert(j.Get("DBINFO.user").String(), "root")
-		t.Assert(j.Get("DBINFO.password").String(), "password")
+		t.Assert(j.X取值("addr.ip").String(), "127.0.0.1")
+		t.Assert(j.X取值("addr.port").String(), "9001")
+		t.Assert(j.X取值("addr.enable").String(), "true")
+		t.Assert(j.X取值("DBINFO.type").String(), "mysql")
+		t.Assert(j.X取值("DBINFO.user").String(), "root")
+		t.Assert(j.X取值("DBINFO.password").String(), "password")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		errData := []byte("i\\u1 : 123456789")
-		_, err := gjson.LoadContentType("properties", errData, true)
+		_, err := gjson.X加载并按格式("properties", errData, true)
 		t.AssertNE(err, nil)
 	})
 }

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -28,7 +28,7 @@ type Stmt struct {
 // ExecContext 使用给定的参数执行一个预编译的语句，并返回一个总结语句影响的结果。
 // md5:aa3184ee6004a352
 func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result, error) {
-	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
+	out, err := s.core.db.X底层DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
@@ -42,7 +42,7 @@ func (s *Stmt) ExecContext(ctx context.Context, args ...interface{}) (sql.Result
 // QueryContext 使用给定的参数执行一个预处理查询语句，并将查询结果作为*Rows返回。
 // md5:2dc9d8dfa34a3cb1
 func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows, error) {
-	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
+	out, err := s.core.db.X底层DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
@@ -53,8 +53,8 @@ func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows
 	if err != nil {
 		return nil, err
 	}
-	if out.RawResult != nil {
-		return out.RawResult.(*sql.Rows), err
+	if out.X底层结果 != nil {
+		return out.X底层结果.(*sql.Rows), err
 	}
 	return nil, nil
 }
@@ -65,7 +65,7 @@ func (s *Stmt) QueryContext(ctx context.Context, args ...interface{}) (*sql.Rows
 // 否则，*Row的Scan会扫描选中的第一行并丢弃其余部分。
 // md5:a2aed2939b0e481c
 func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Row {
-	out, err := s.core.db.DoCommit(ctx, DoCommitInput{
+	out, err := s.core.db.X底层DoCommit(ctx, DoCommitInput{
 		Stmt:          s.Stmt,
 		Link:          s.link,
 		Sql:           s.sql,
@@ -76,22 +76,22 @@ func (s *Stmt) QueryRowContext(ctx context.Context, args ...interface{}) *sql.Ro
 	if err != nil {
 		panic(err)
 	}
-	if out.RawResult != nil {
-		return out.RawResult.(*sql.Row)
+	if out.X底层结果 != nil {
+		return out.X底层结果.(*sql.Row)
 	}
 	return nil
 }
 
-// Exec 使用给定的参数执行预处理语句，并返回一个 Result 来概括该语句的影响。
+// X执行 使用给定的参数执行预处理语句，并返回一个 Result 来概括该语句的影响。
 // md5:7ff0a9731fb27dd1
-func (s *Stmt) Exec(args ...interface{}) (sql.Result, error) {
-	return s.ExecContext(context.Background(), args...)
+func (s *Stmt) X执行(参数 ...interface{}) (sql.Result, error) {
+	return s.ExecContext(context.Background(), 参数...)
 }
 
-// Query 使用给定的参数执行预编译的查询语句，并将查询结果返回为一个 *Rows 对象。
+// X查询 使用给定的参数执行预编译的查询语句，并将查询结果返回为一个 *Rows 对象。
 // md5:5028edd0d7332759
-func (s *Stmt) Query(args ...interface{}) (*sql.Rows, error) {
-	return s.QueryContext(context.Background(), args...)
+func (s *Stmt) X查询(参数 ...interface{}) (*sql.Rows, error) {
+	return s.QueryContext(context.Background(), 参数...)
 }
 
 // QueryRow 执行一个预处理的查询语句，使用给定的参数。如果在执行语句时发生错误，该错误将通过调用返回的 *Row 的 Scan 方法返回，*Row 总是非空的。如果查询没有选择任何行，*Row 的 Scan 将返回 ErrNoRows。否则，*Row 的 Scan 会扫描选中的第一行并忽略其余行。

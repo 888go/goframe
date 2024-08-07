@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvar
+package 泛型类
 
 import (
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Struct 将值`v`映射到`pointer`。
@@ -16,10 +16,10 @@ import (
 // 参数`mapping`用于指定键到属性的映射规则。
 // md5:a5bf066b3ef1c653
 func (v *Var) Struct(pointer interface{}, mapping ...map[string]string) error {
-	return gconv.Struct(v.Val(), pointer, mapping...)
+	return gconv.Struct(v.X取值(), pointer, mapping...)
 }
 
 // Structs 将 `v` 转换并返回为指定结构体切片。 md5:396a4079aac15c40
 func (v *Var) Structs(pointer interface{}, mapping ...map[string]string) error {
-	return gconv.Structs(v.Val(), pointer, mapping...)
+	return gconv.Structs(v.X取值(), pointer, mapping...)
 }

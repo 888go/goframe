@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtimer_test
+package 定时类_test
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gtimer"
+	gtimer "github.com/888go/goframe/os/gtimer"
 )
 
 func ExampleAdd() {
@@ -21,7 +21,7 @@ func ExampleAdd() {
 		now      = time.Now()
 		interval = 1400 * time.Millisecond
 	)
-	gtimer.Add(ctx, interval, func(ctx context.Context) {
+	gtimer.X加入循环任务(ctx, interval, func(ctx context.Context) {
 		fmt.Println(time.Now(), time.Duration(time.Now().UnixNano()-now.UnixNano()))
 		now = time.Now()
 	})

@@ -15,11 +15,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 
-	"github.com/gogf/gf/v2/os/gtime"
+	gtime "github.com/888go/goframe/os/gtime"
 )
 
-// ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
-func (d *Driver) ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
+// X底层ConvertValueForField 将值转换为记录字段的类型。 md5:8da3e2d9dc99c3ab
+func (d *Driver) X底层ConvertValueForField(ctx context.Context, fieldType string, fieldValue interface{}) (interface{}, error) {
 	switch itemValue := fieldValue.(type) {
 	case time.Time:
 		// 如果时间是零值，它将更新为nil，

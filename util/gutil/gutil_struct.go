@@ -5,23 +5,23 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gstructs"
-	"github.com/gogf/gf/v2/util/gconv"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/os/gstructs"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// StructToSlice 将结构体转换为一个键值对作为元素的切片。
+// X结构体到切片 将结构体转换为一个键值对作为元素的切片。
 // 例如：{"K1": "v1", "K2": "v2"} => ["K1", "v1", "K2", "v2"]
 // md5:ca8c34ec711fb0de
-func StructToSlice(data interface{}) []interface{} {
+func X结构体到切片(结构体指针 interface{}) []interface{} {
 	var (
-		reflectValue = reflect.ValueOf(data)
+		reflectValue = reflect.ValueOf(结构体指针)
 		reflectKind  = reflectValue.Kind()
 	)
 	for reflectKind == reflect.Ptr {
@@ -33,7 +33,7 @@ func StructToSlice(data interface{}) []interface{} {
 		array := make([]interface{}, 0)
 		// 如果在结构体属性中找到了gconv标签，它将使用gconv标签名而不是属性名。
 		// md5:697077ff458895f0
-		for k, v := range gconv.Map(reflectValue) {
+		for k, v := range gconv.X取Map(reflectValue) {
 			array = append(array, k)
 			array = append(array, v)
 		}
@@ -58,27 +58,27 @@ func FillStructWithDefault(structPtr interface{}) error {
 		// Nothing to do.
 	case reflect.Array, reflect.Slice:
 		if reflectValue.Elem().Kind() != reflect.Ptr {
-			return gerror.NewCodef(
+			return gerror.X创建错误码并格式化(
 				gcode.CodeInvalidParameter,
 				`invalid parameter "%s", the element of slice should be type of pointer of struct, but given "%s"`,
 				reflectValue.Type().String(), reflectValue.Elem().Type().String(),
 			)
 		}
 	default:
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`invalid parameter "%s", should be type of pointer of struct`,
 			reflectValue.Type().String(),
 		)
 	}
 	if reflectValue.IsNil() {
-		return gerror.NewCode(
+		return gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			`the pointed struct object should not be nil`,
 		)
 	}
 	if !reflectValue.Elem().IsValid() {
-		return gerror.NewCode(
+		return gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			`the pointed struct object should be valid`,
 		)
@@ -102,7 +102,7 @@ func FillStructWithDefault(structPtr interface{}) error {
 		if defaultValue := field.TagDefault(); defaultValue != "" {
 			if field.IsEmpty() {
 				field.Value.Set(reflect.ValueOf(
-					gconv.ConvertWithRefer(defaultValue, field.Value),
+					gconv.X按参考值类型转换(defaultValue, field.Value),
 				))
 			}
 		}

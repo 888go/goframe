@@ -12,12 +12,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gregex"
+	gdb "github.com/888go/goframe/database/gdb"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
-// DoFilter 在将SQL提交到数据库之前进行处理。 md5:e56455a7432db765
-func (d *Driver) DoFilter(
+// X底层DoFilter 在将SQL提交到数据库之前进行处理。 md5:e56455a7432db765
+func (d *Driver) X底层DoFilter(
 	ctx context.Context, link gdb.Link, originSql string, args []interface{},
 ) (newSql string, newArgs []interface{}, err error) {
 	if len(args) == 0 {
@@ -25,7 +25,7 @@ func (d *Driver) DoFilter(
 	}
 		// 将占位符字符'?'转换为字符串 "$x"。 md5:a1e39f745b49128a
 	var index int
-	originSql, _ = gregex.ReplaceStringFunc(`\?`, originSql, func(s string) string {
+	originSql, _ = gregex.X替换文本_函数(`\?`, originSql, func(s string) string {
 		index++
 		return fmt.Sprintf(`$%d`, index)
 	})
@@ -36,7 +36,7 @@ func (d *Driver) DoFilter(
 	}
 
 			// 将标准SQL替换为ClickHouse SQL语法. md5:eb710cc2dce6880f
-	modeRes, err := gregex.MatchString(filterTypePattern, strings.TrimSpace(originSql))
+	modeRes, err := gregex.X匹配文本(filterTypePattern, strings.TrimSpace(originSql))
 	if err != nil {
 		return "", nil, err
 	}

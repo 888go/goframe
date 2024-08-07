@@ -7,38 +7,38 @@
 
 // 静态服务测试。 md5:2105c089651008de
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	. "github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	. "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func TestServer_EnablePProf(t *testing.T) {
 	C(t, func(t *T) {
-		s := g.Server(guid.S())
-		s.EnablePProf("/pprof")
+		s := g.Http类(guid.X生成())
+		s.PProf开启("/pprof")
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		r, err := client.Get(ctx, "/pprof/index")
+		r, err := client.Get响应对象(ctx, "/pprof/index")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 
-		r, err = client.Get(ctx, "/pprof/cmdline")
+		r, err = client.Get响应对象(ctx, "/pprof/cmdline")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 
 		//r, err = client.Get(ctx, "/pprof/profile") 		// 将客户端的GET请求翻译为中文：r, 错误 = 客户端在上下文中获取"/pprof/profile"
 		//Assert(err, nil)                           		// 断言错误应为nil：断言错误，应为空
@@ -46,15 +46,15 @@ func TestServer_EnablePProf(t *testing.T) {
 		//r.Close()                                   		// 关闭响应：关闭r
 		// md5:629678dd0441cb92
 
-		r, err = client.Get(ctx, "/pprof/symbol")
+		r, err = client.Get响应对象(ctx, "/pprof/symbol")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 
-		r, err = client.Get(ctx, "/pprof/trace")
+		r, err = client.Get响应对象(ctx, "/pprof/trace")
 		Assert(err, nil)
 		Assert(r.StatusCode, 200)
-		r.Close()
+		r.X关闭()
 	})
 
 }

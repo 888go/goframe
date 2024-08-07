@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/gins"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/gins"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_Client(t *testing.T) {
@@ -22,8 +22,8 @@ func Test_Client(t *testing.T) {
 			c1 = gins.HttpClient("c1")
 			c2 = gins.HttpClient("c2")
 		)
-		c.SetAgent("test1")
-		c.SetAgent("test2")
+		c.X设置UA("test1")
+		c.X设置UA("test2")
 		t.AssertNE(fmt.Sprintf(`%p`, c), fmt.Sprintf(`%p`, c1))
 		t.AssertNE(fmt.Sprintf(`%p`, c), fmt.Sprintf(`%p`, c2))
 		t.AssertNE(fmt.Sprintf(`%p`, c1), fmt.Sprintf(`%p`, c2))

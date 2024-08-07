@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gproc
+package 进程类
 
 import (
 	"context"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/internal/intlog"
+	gutil "github.com/888go/goframe/util/gutil"
 	"os"
 	"os/signal"
 	"sync"
@@ -98,7 +98,7 @@ func listen() {
 					currentHandler = handler
 					currentSig     = sig
 				)
-				gutil.TryCatch(ctx, func(ctx context.Context) {
+				gutil.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
 					defer wg.Done()
 					currentHandler(currentSig)
 				}, func(ctx context.Context, exception error) {

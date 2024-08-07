@@ -7,41 +7,41 @@
 
 // 静态服务测试。 md5:2105c089651008de
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_Error_Code(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		s := g.Server(guid.S())
-		s.Group("/", func(group *ghttp.RouterGroup) {
-			group.Middleware(func(r *ghttp.Request) {
-				r.Middleware.Next()
-				r.Response.ClearBuffer()
-				r.Response.Write(gerror.Code(r.GetError()))
+		s := g.Http类(guid.X生成())
+		s.X创建分组路由("/", func(group *ghttp.X分组路由) {
+			group.X绑定中间件(func(r *ghttp.Request) {
+				r.X中间件管理器.Next()
+				r.X响应.ClearBuffer()
+				r.X响应.X写响应缓冲区(gerror.X取错误码(r.X取错误信息()))
 			})
-			group.ALL("/", func(r *ghttp.Request) {
-				panic(gerror.NewCode(gcode.New(10000, "", nil), "test error"))
+			group.X绑定所有类型("/", func(r *ghttp.Request) {
+				panic(gerror.X创建错误码(gcode.New(10000, "", nil), "test error"))
 			})
 		})
 		s.SetDumpRouterMap(false)
-		s.Start()
-		defer s.Shutdown()
+		s.X开始监听()
+		defer s.X关闭当前服务()
 		time.Sleep(100 * time.Millisecond)
-		c := g.Client()
-		c.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		c := g.X网页类()
+		c.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(c.GetContent(ctx, "/"), "10000")
+		t.Assert(c.Get文本(ctx, "/"), "10000")
 	})
 }

@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gtag"
+	"github.com/888go/goframe/internal/json"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gtag"
 )
 
 type SchemaRefs []SchemaRef
@@ -38,7 +38,7 @@ type SchemaRef struct {
 // md5:45d275bc85e98290
 func (oai *OpenApiV3) isEmbeddedStructDefinition(golangType reflect.Type) bool {
 	s := golangType.String()
-	return gstr.Contains(s, `struct {`)
+	return gstr.X是否包含(s, `struct {`)
 }
 
 // newSchemaRefWithGolangType 创建一个新的架构（Schema）并返回其架构引用（SchemaRef）。 md5:024c7a7371946acb
@@ -84,35 +84,35 @@ func (oai *OpenApiV3) newSchemaRefWithGolangType(golangType reflect.Type, tagMap
 	// Nothing to do.
 	case TypeInteger:
 		if schemaRef.Value.Default != nil {
-			schemaRef.Value.Default = gconv.Int64(schemaRef.Value.Default)
+			schemaRef.Value.Default = gconv.X取整数64位(schemaRef.Value.Default)
 		}
 				// 将默认值保留为nil。 md5:a85d623b66e78405
 
 				// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
 		if schemaRef.Value.Example != nil {
-			schemaRef.Value.Example = gconv.Int64(schemaRef.Value.Example)
+			schemaRef.Value.Example = gconv.X取整数64位(schemaRef.Value.Example)
 		}
 				// 保持示例值为 nil。 md5:236a31f4aed61b8c
 	case TypeNumber:
 		if schemaRef.Value.Default != nil {
-			schemaRef.Value.Default = gconv.Float64(schemaRef.Value.Default)
+			schemaRef.Value.Default = gconv.X取小数64位(schemaRef.Value.Default)
 		}
 				// 将默认值保留为nil。 md5:a85d623b66e78405
 
 				// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
 		if schemaRef.Value.Example != nil {
-			schemaRef.Value.Example = gconv.Float64(schemaRef.Value.Example)
+			schemaRef.Value.Example = gconv.X取小数64位(schemaRef.Value.Example)
 		}
 				// 保持示例值为 nil。 md5:236a31f4aed61b8c
 	case TypeBoolean:
 		if schemaRef.Value.Default != nil {
-			schemaRef.Value.Default = gconv.Bool(schemaRef.Value.Default)
+			schemaRef.Value.Default = gconv.X取布尔(schemaRef.Value.Default)
 		}
 				// 将默认值保留为nil。 md5:a85d623b66e78405
 
 				// 示例值需要像默认值一样进行转换. md5:6442bc8222d0ea95
 		if schemaRef.Value.Example != nil {
-			schemaRef.Value.Example = gconv.Bool(schemaRef.Value.Example)
+			schemaRef.Value.Example = gconv.X取布尔(schemaRef.Value.Example)
 		}
 				// 保持示例值为 nil。 md5:236a31f4aed61b8c
 	case

@@ -5,9 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gerror
+package 错误类
 
-import "github.com/gogf/gf/v2/errors/gcode"
+import (
+	gcode "github.com/888go/goframe/errors/gcode"
+)
 
 // Option 是创建错误时的选项。 md5:e4c01dc11cd0fde6
 type Option struct {
@@ -32,9 +34,9 @@ func NewWithOption(option Option) error {
 	return err
 }
 
-// NewOption 创建并返回一个带有 Option 的自定义错误。
+// X弃用NewOption 创建并返回一个带有 Option 的自定义错误。
 // 已弃用：请使用 NewWithOption 替代。
 // md5:dba08610e527e0f9
-func NewOption(option Option) error {
-	return NewWithOption(option)
+func X弃用NewOption(选项 Option) error {
+	return NewWithOption(选项)
 }

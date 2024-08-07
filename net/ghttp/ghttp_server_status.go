@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"fmt"
 )
 
 // getStatusHandler 获取并返回给定状态码的处理器。 md5:d572ff16b68347d0
-func (s *Server) getStatusHandler(status int, r *Request) []HandlerFunc {
-	domains := []string{r.GetHost(), DefaultDomainName}
+func (s *X服务) getStatusHandler(status int, r *Request) []HandlerFunc {
+	domains := []string{r.X取主机名(), DefaultDomainName}
 	for _, domain := range domains {
 		if f, ok := s.statusHandlerMap[s.statusHandlerKey(status, domain)]; ok {
 			return f
@@ -25,7 +25,7 @@ func (s *Server) getStatusHandler(status int, r *Request) []HandlerFunc {
 // addStatusHandler 为给定的状态码设置处理器。
 // 参数 `pattern` 的格式形如：domain#status
 // md5:cd0f0b9754ee5b43
-func (s *Server) addStatusHandler(pattern string, handler HandlerFunc) {
+func (s *X服务) addStatusHandler(pattern string, handler HandlerFunc) {
 	if s.statusHandlerMap[pattern] == nil {
 		s.statusHandlerMap[pattern] = make([]HandlerFunc, 0)
 	}
@@ -33,18 +33,18 @@ func (s *Server) addStatusHandler(pattern string, handler HandlerFunc) {
 }
 
 // statusHandlerKey 根据给定的状态和域名创建并返回一个键。 md5:1a4aa99d2a1f13c7
-func (s *Server) statusHandlerKey(status int, domain string) string {
+func (s *X服务) statusHandlerKey(status int, domain string) string {
 	return fmt.Sprintf("%s#%d", domain, status)
 }
 
-// BindStatusHandler 为给定的状态码注册处理器。 md5:c94c3dd2e5b4197e
-func (s *Server) BindStatusHandler(status int, handler HandlerFunc) {
-	s.addStatusHandler(s.statusHandlerKey(status, DefaultDomainName), handler)
+// X绑定状态码中间件 为给定的状态码注册处理器。 md5:c94c3dd2e5b4197e
+func (s *X服务) X绑定状态码中间件(状态码 int, 处理函数 HandlerFunc) {
+	s.addStatusHandler(s.statusHandlerKey(状态码, DefaultDomainName), 处理函数)
 }
 
-// BindStatusHandlerByMap 使用映射为给定的状态码注册处理器。 md5:a9ee1be3cd8089de
-func (s *Server) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc) {
-	for k, v := range handlerMap {
-		s.BindStatusHandler(k, v)
+// X绑定状态码中间件Map 使用映射为给定的状态码注册处理器。 md5:a9ee1be3cd8089de
+func (s *X服务) X绑定状态码中间件Map(中间件Map map[int]HandlerFunc) {
+	for k, v := range 中间件Map {
+		s.X绑定状态码中间件(k, v)
 	}
 }

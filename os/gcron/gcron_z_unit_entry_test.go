@@ -5,57 +5,57 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcron_test
+package 定时cron类_test
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/os/gcron"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gcron "github.com/888go/goframe/os/gcron"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func TestCron_Entry_Operations(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			cron  = gcron.New()
-			array = garray.New(true)
+			array = garray.X创建(true)
 		)
 		cron.DelayAddTimes(ctx, 500*time.Millisecond, "* * * * * *", 2, func(ctx context.Context) {
-			array.Append(1)
+			array.Append别名(1)
 		})
 		t.Assert(cron.Size(), 0)
 		time.Sleep(800 * time.Millisecond)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 		t.Assert(cron.Size(), 1)
 		time.Sleep(3000 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 		t.Assert(cron.Size(), 0)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			cron  = gcron.New()
-			array = garray.New(true)
+			array = garray.X创建(true)
 		)
 		entry, err1 := cron.Add(ctx, "* * * * * *", func(ctx context.Context) {
-			array.Append(1)
+			array.Append别名(1)
 		})
 		t.Assert(err1, nil)
-		t.Assert(array.Len(), 0)
+		t.Assert(array.X取长度(), 0)
 		t.Assert(cron.Size(), 1)
 		time.Sleep(1300 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		t.Assert(cron.Size(), 1)
 		entry.Stop()
 		time.Sleep(5000 * time.Millisecond)
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 		t.Assert(cron.Size(), 1)
 		entry.Start()
 		time.Sleep(1000 * time.Millisecond)
-		t.Assert(array.Len(), 2)
+		t.Assert(array.X取长度(), 2)
 		t.Assert(cron.Size(), 1)
 		entry.Close()
 		time.Sleep(1200 * time.Millisecond)

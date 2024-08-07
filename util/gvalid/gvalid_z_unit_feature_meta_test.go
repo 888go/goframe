@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gvalid"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gvalid "github.com/888go/goframe/util/gvalid"
 )
 
 type UserCreateReq struct {
@@ -25,10 +25,10 @@ type UserCreateReq struct {
 
 func RuleUserCreateReq(ctx context.Context, in gvalid.RuleFuncInput) error {
 	var req *UserCreateReq
-	if err := in.Data.Scan(&req); err != nil {
-		return gerror.Wrap(err, `Scan data to UserCreateReq failed`)
+	if err := in.Data.X取结构体指针(&req); err != nil {
+		return gerror.X多层错误(err, `Scan data to UserCreateReq failed`)
 	}
-	return gerror.Newf(`The name "%s" is already token by others`, req.Name)
+	return gerror.X创建并格式化(`The name "%s" is already token by others`, req.Name)
 }
 
 func Test_Meta(t *testing.T) {
@@ -38,7 +38,7 @@ func Test_Meta(t *testing.T) {
 	}
 
 	gtest.C(t, func(t *gtest.T) {
-		err := g.Validator().RuleFunc("UserCreateReq", RuleUserCreateReq).
+		err := g.X效验类().RuleFunc("UserCreateReq", RuleUserCreateReq).
 			Data(user).
 			Assoc(g.Map{
 				"Name": "john smith",

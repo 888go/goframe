@@ -5,9 +5,11 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gres
+package 资源类
 
-import "github.com/gogf/gf/v2/container/gmap"
+import (
+	gmap "github.com/888go/goframe/container/gmap"
+)
 
 const (
 		// DefaultName 实例使用的默认分组名称。 md5:451d9ed0f5a0a185
@@ -16,7 +18,7 @@ const (
 
 var (
 	// Instances map.
-	instances = gmap.NewStrAnyMap(true)
+	instances = gmap.X创建StrAny(true)
 )
 
 // Instance 返回一个 Resource 的实例。
@@ -27,7 +29,7 @@ func Instance(name ...string) *Resource {
 	if len(name) > 0 && name[0] != "" {
 		key = name[0]
 	}
-	return instances.GetOrSetFuncLock(key, func() interface{} {
+	return instances.X取值或设置值_函数带锁(key, func() interface{} {
 		return New()
 	}).(*Resource)
 }

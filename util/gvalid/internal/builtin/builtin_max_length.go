@@ -11,8 +11,8 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // RuleMaxLength 实现了 `max-length` 规则：
@@ -36,12 +36,12 @@ func (r RuleMaxLength) Message() string {
 
 func (r RuleMaxLength) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = gconv.X取字符切片(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	max, err := strconv.Atoi(in.RulePattern)
 	if valueLen > max || err != nil {
-		return errors.New(gstr.Replace(in.Message, "{max}", strconv.Itoa(max)))
+		return errors.New(gstr.X替换(in.Message, "{max}", strconv.Itoa(max)))
 	}
 	return nil
 }

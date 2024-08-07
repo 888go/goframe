@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"database/sql"
@@ -17,7 +17,7 @@ type DriverDefault struct {
 }
 
 func init() {
-	if err := Register("default", &DriverDefault{}); err != nil {
+	if err := X注册驱动("default", &DriverDefault{}); err != nil {
 		panic(err)
 	}
 }
@@ -30,19 +30,19 @@ func (d *DriverDefault) New(core *Core, node *ConfigNode) (DB, error) {
 	}, nil
 }
 
-// Open 创建并返回一个底层的 sql.DB 对象，用于 MySQL。
+// X底层Open 创建并返回一个底层的 sql.DB 对象，用于 MySQL。
 // 注意，它将时间.Time 参数默认转换为本地时区。
 // md5:341df118003c304e
-func (d *DriverDefault) Open(config *ConfigNode) (db *sql.DB, err error) {
+func (d *DriverDefault) X底层Open(配置对象 *ConfigNode) (db *sql.DB, err error) {
 	return
 }
 
-// PingMaster 向主节点发送请求以检查身份验证或保持连接活动。 md5:47a7df55cbee8583
-func (d *DriverDefault) PingMaster() error {
+// X向主节点发送心跳 向主节点发送请求以检查身份验证或保持连接活动。 md5:47a7df55cbee8583
+func (d *DriverDefault) X向主节点发送心跳() error {
 	return nil
 }
 
-// PingSlave 调用ping命令检查从节点的认证或者维持连接。 md5:62272b38d874eda6
-func (d *DriverDefault) PingSlave() error {
+// X向从节点发送心跳 调用ping命令检查从节点的认证或者维持连接。 md5:62272b38d874eda6
+func (d *DriverDefault) X向从节点发送心跳() error {
 	return nil
 }

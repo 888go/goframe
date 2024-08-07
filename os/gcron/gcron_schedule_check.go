@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcron
+package 定时cron类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gtime"
+	gtime "github.com/888go/goframe/os/gtime"
 )
 
 // checkMeetAndUpdateLastSeconds 检查给定的时间 `t` 是否满足作业的可运行点。
@@ -20,12 +20,12 @@ import (
 func (s *cronSchedule) checkMeetAndUpdateLastSeconds(ctx context.Context, currentTime time.Time) (ok bool) {
 	var (
 		lastCheckTimestamp = s.getAndUpdateLastCheckTimestamp(ctx, currentTime)
-		lastCheckTime      = gtime.NewFromTimeStamp(lastCheckTimestamp)
-		lastMeetTime       = gtime.NewFromTimeStamp(s.lastMeetTimestamp.Val())
+		lastCheckTime      = gtime.X创建并从时间戳(lastCheckTimestamp)
+		lastMeetTime       = gtime.X创建并从时间戳(s.lastMeetTimestamp.X取值())
 	)
 	defer func() {
 		if ok {
-			s.lastMeetTimestamp.Set(currentTime.Unix())
+			s.lastMeetTimestamp.X设置值(currentTime.Unix())
 		}
 	}()
 	if !s.checkMinIntervalAndItemMapMeet(lastMeetTime.Time, lastCheckTime.Time, currentTime) {

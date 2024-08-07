@@ -7,7 +7,7 @@
 
 // 使用`go test`命令，对所有`.go`文件进行测试，指定运行基准测试（Benchmark）中的所有模式（".*"），同时输出内存使用情况（-benchmem）。 md5:81db3d7bd1ed4da8
 
-package gconv
+package 转换类
 
 import (
 	"testing"
@@ -23,114 +23,114 @@ func Benchmark_Str_To_String(b *testing.B) {
 
 func Benchmark_Str_To_Int(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Int(valueStr)
+		X取整数(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Int8(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Int8(valueStr)
+		X取整数8位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Int16(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Int16(valueStr)
+		X取整数16位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Int32(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Int32(valueStr)
+		X取整数32位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Int64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Int(valueStr)
+		X取整数(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Uint(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Uint(valueStr)
+		X取正整数(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Uint8(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Uint8(valueStr)
+		X取正整数8位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Uint16(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Uint16(valueStr)
+		X取正整数16位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Uint32(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Uint32(valueStr)
+		X取正整数32位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Uint64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Uint64(valueStr)
+		X取正整数64位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Float32(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Float32(valueStr)
+		X取小数32位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Float64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Float64(valueStr)
+		X取小数64位(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Time(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Time(valueStr)
+		X取时间(valueStr)
 	}
 }
 
 func Benchmark_Str_To_TimeDuration(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Duration(valueStr)
+		X取时长(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Bytes(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Bytes(valueStr)
+		X取字节集(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Strings(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Strings(valueStr)
+		X取文本切片(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Ints(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Ints(valueStr)
+		X取整数切片(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Floats(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Floats(valueStr)
+		X取小数切片(valueStr)
 	}
 }
 
 func Benchmark_Str_To_Interfaces(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Interfaces(valueStr)
+		X取any切片(valueStr)
 	}
 }

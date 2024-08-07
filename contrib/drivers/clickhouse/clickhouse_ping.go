@@ -14,18 +14,18 @@ import (
 	"github.com/ClickHouse/clickhouse-go/v2"
 )
 
-// PingMaster 向主节点发送请求以检查身份验证或保持连接活动。 md5:47a7df55cbee8583
-func (d *Driver) PingMaster() error {
-	conn, err := d.Master()
+// X向主节点发送心跳 向主节点发送请求以检查身份验证或保持连接活动。 md5:47a7df55cbee8583
+func (d *Driver) X向主节点发送心跳() error {
+	conn, err := d.X取主节点对象()
 	if err != nil {
 		return err
 	}
 	return d.ping(conn)
 }
 
-// PingSlave 调用ping命令检查从节点的认证或者维持连接。 md5:62272b38d874eda6
-func (d *Driver) PingSlave() error {
-	conn, err := d.Slave()
+// X向从节点发送心跳 调用ping命令检查从节点的认证或者维持连接。 md5:62272b38d874eda6
+func (d *Driver) X向从节点发送心跳() error {
+	conn, err := d.X取从节点对象()
 	if err != nil {
 		return err
 	}

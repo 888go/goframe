@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview_test
+package 模板类_test
 
 import (
 	"context"
@@ -15,18 +15,18 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/encoding/ghtml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/os/gview"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gmode"
-	"github.com/gogf/gf/v2/util/guid"
+	ghtml "github.com/888go/goframe/encoding/ghtml"
+	"github.com/888go/goframe/frame/g"
+	gctx "github.com/888go/goframe/os/gctx"
+	gfile "github.com/888go/goframe/os/gfile"
+	gres "github.com/888go/goframe/os/gres"
+	gtime "github.com/888go/goframe/os/gtime"
+	gview "github.com/888go/goframe/os/gview"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gmode "github.com/888go/goframe/util/gmode"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func init() {
@@ -36,7 +36,7 @@ func init() {
 func Test_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		str := `hello {{.name}},version:{{.version}};hello {{GetName}},version:{{GetVersion}};{{.other}}`
-		pwd := gfile.Pwd()
+		pwd := gfile.X取当前工作目录()
 		view := gview.New()
 		view.SetDelimiters("{{", "}}")
 		view.AddPath(pwd)
@@ -131,7 +131,7 @@ func Test_Func(t *testing.T) {
 		str = `{{"https%3NA%2F%2Fgoframe.org"|urldecode}}`
 		result, err = gview.ParseContent(context.TODO(), str, nil)
 		t.Assert(err != nil, false)
-		t.Assert(gstr.Contains(result, "invalid URL escape"), true)
+		t.Assert(gstr.X是否包含(result, "invalid URL escape"), true)
 
 		str = `{{1540822968 | date "Y-m-d"}}`
 		result, err = gview.ParseContent(context.TODO(), str, nil)
@@ -228,16 +228,16 @@ func Test_FuncInclude(t *testing.T) {
 {{include "footer.html" .}}
 {{include "footer_not_exist.html" .}}
 {{include "" .}}`
-			templatePath = gfile.Temp(guid.S())
+			templatePath = gfile.X取临时目录(guid.X生成())
 		)
 
-		gfile.Mkdir(templatePath)
-		defer gfile.Remove(templatePath)
+		gfile.X创建目录(templatePath)
+		defer gfile.X删除(templatePath)
 
-		t.AssertNil(gfile.PutContents(gfile.Join(templatePath, `header.html`), header))
-		t.AssertNil(gfile.PutContents(gfile.Join(templatePath, `main.html`), main))
-		t.AssertNil(gfile.PutContents(gfile.Join(templatePath, `footer.html`), footer))
-		t.AssertNil(gfile.PutContents(gfile.Join(templatePath, `layout.html`), layout))
+		t.AssertNil(gfile.X写入文本(gfile.X路径生成(templatePath, `header.html`), header))
+		t.AssertNil(gfile.X写入文本(gfile.X路径生成(templatePath, `main.html`), main))
+		t.AssertNil(gfile.X写入文本(gfile.X路径生成(templatePath, `footer.html`), footer))
+		t.AssertNil(gfile.X写入文本(gfile.X路径生成(templatePath, `layout.html`), layout))
 
 		view := gview.New(templatePath)
 		result, err := view.Parse(context.TODO(), "notfound.html")
@@ -252,7 +252,7 @@ func Test_FuncInclude(t *testing.T) {
 template file "footer_not_exist.html" not found
 `)
 
-		t.AssertNil(gfile.PutContents(gfile.Join(templatePath, `notfound.html`), "notfound"))
+		t.AssertNil(gfile.X写入文本(gfile.X路径生成(templatePath, `notfound.html`), "notfound"))
 		result, err = view.Parse(context.TODO(), "notfound.html")
 		t.AssertNil(err)
 		t.Assert(result, `notfound`)
@@ -276,7 +276,7 @@ func Test_SetPath(t *testing.T) {
 		err = view.SetPath("gview.go")
 		t.AssertNE(err, nil)
 
-		view = gview.New(gfile.Pwd())
+		view = gview.New(gfile.X取当前工作目录())
 		err = view.SetPath("tmp")
 		t.AssertNE(err, nil)
 
@@ -284,7 +284,7 @@ func Test_SetPath(t *testing.T) {
 		t.AssertNE(err, nil)
 
 		os.Setenv("GF_GVIEW_PATH", "template")
-		gfile.Mkdir(gfile.Pwd() + gfile.Separator + "template")
+		gfile.X创建目录(gfile.X取当前工作目录() + gfile.Separator + "template")
 		view = gview.New()
 	})
 }
@@ -301,16 +301,16 @@ func Test_ParseContent(t *testing.T) {
 
 func Test_HotReload(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		dirPath := gfile.Join(
-			gfile.Temp(),
+		dirPath := gfile.X路径生成(
+			gfile.X取临时目录(),
 			"testdata",
-			"template-"+gconv.String(gtime.TimestampNano()),
+			"template-"+gconv.String(gtime.X取时间戳纳秒()),
 		)
-		defer gfile.Remove(dirPath)
-		filePath := gfile.Join(dirPath, "test.html")
+		defer gfile.X删除(dirPath)
+		filePath := gfile.X路径生成(dirPath, "test.html")
 
 		// Initialize data.
-		err := gfile.PutContents(filePath, "test:{{.var}}")
+		err := gfile.X写入文本(filePath, "test:{{.var}}")
 		t.AssertNil(err)
 
 		view := gview.New(dirPath)
@@ -323,7 +323,7 @@ func Test_HotReload(t *testing.T) {
 		t.Assert(result, `test:1`)
 
 		// Update data.
-		err = gfile.PutContents(filePath, "test2:{{.var}}")
+		err = gfile.X写入文本(filePath, "test2:{{.var}}")
 		t.AssertNil(err)
 
 		time.Sleep(100 * time.Millisecond)
@@ -353,7 +353,7 @@ func Test_XSS(t *testing.T) {
 			"v": s,
 		})
 		t.AssertNil(err)
-		t.Assert(r, ghtml.Entities(s))
+		t.Assert(r, ghtml.X编码(s))
 	})
 	// Tag "if".
 	gtest.C(t, func(t *gtest.T) {
@@ -364,7 +364,7 @@ func Test_XSS(t *testing.T) {
 			"v": s,
 		})
 		t.AssertNil(err)
-		t.Assert(r, ghtml.Entities(s))
+		t.Assert(r, ghtml.X编码(s))
 	})
 }
 
@@ -383,16 +383,16 @@ func Test_BuildInFuncMap(t *testing.T) {
 		v.Assign("v", new(TypeForBuildInFuncMap))
 		r, err := v.ParseContent(context.TODO(), "{{range $k, $v := map .v.Test}} {{$k}}:{{$v}} {{end}}")
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(r, "Name:john"), true)
-		t.Assert(gstr.Contains(r, "Score:99.9"), true)
+		t.Assert(gstr.X是否包含(r, "Name:john"), true)
+		t.Assert(gstr.X是否包含(r, "Score:99.9"), true)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
 		r, err := v.ParseContent(context.TODO(), "{{range $k, $v := map }} {{$k}}:{{$v}} {{end}}")
 		t.AssertNil(err)
-		t.Assert(gstr.Contains(r, "Name:john"), false)
-		t.Assert(gstr.Contains(r, "Score:99.9"), false)
+		t.Assert(gstr.X是否包含(r, "Name:john"), false)
+		t.Assert(gstr.X是否包含(r, "Score:99.9"), false)
 	})
 }
 
@@ -436,14 +436,14 @@ func Test_BuildInFuncDump(t *testing.T) {
 		r, err := v.ParseContent(context.TODO(), "{{dump .}}")
 		t.AssertNil(err)
 		fmt.Println(r)
-		t.Assert(gstr.Contains(r, `"name":  "john"`), true)
-		t.Assert(gstr.Contains(r, `"score": 100`), true)
+		t.Assert(gstr.X是否包含(r, `"name":  "john"`), true)
+		t.Assert(gstr.X是否包含(r, `"score": 100`), true)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
 		mode := gmode.Mode()
 		gmode.SetTesting()
-		defer gmode.Set(mode)
+		defer gmode.X设置值(mode)
 		v := gview.New()
 		v.Assign("v", g.Map{
 			"name":  "john",
@@ -452,8 +452,8 @@ func Test_BuildInFuncDump(t *testing.T) {
 		r, err := v.ParseContent(context.TODO(), "{{dump .}}")
 		t.AssertNil(err)
 		fmt.Println(r)
-		t.Assert(gstr.Contains(r, `"name":  "john"`), false)
-		t.Assert(gstr.Contains(r, `"score": 100`), false)
+		t.Assert(gstr.X是否包含(r, `"name":  "john"`), false)
+		t.Assert(gstr.X是否包含(r, `"score": 100`), false)
 	})
 }
 
@@ -536,13 +536,13 @@ func Test_BuildInFuncToml(t *testing.T) {
 func Test_BuildInFuncPlus(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{plus 1 2 3}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{plus 1 2 3}}")
 		t.AssertNil(err)
 		t.Assert(r, `6`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{1| plus 2}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{1| plus 2}}")
 		t.AssertNil(err)
 		t.Assert(r, `3`)
 	})
@@ -551,13 +551,13 @@ func Test_BuildInFuncPlus(t *testing.T) {
 func Test_BuildInFuncMinus(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{minus 1 2 3}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{minus 1 2 3}}")
 		t.AssertNil(err)
 		t.Assert(r, `-4`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{2 | minus 3}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{2 | minus 3}}")
 		t.AssertNil(err)
 		t.Assert(r, `1`)
 	})
@@ -566,13 +566,13 @@ func Test_BuildInFuncMinus(t *testing.T) {
 func Test_BuildInFuncTimes(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{times 1 2 3 4}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{times 1 2 3 4}}")
 		t.AssertNil(err)
 		t.Assert(r, `24`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{2 | times 3}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{2 | times 3}}")
 		t.AssertNil(err)
 		t.Assert(r, `6`)
 	})
@@ -581,19 +581,19 @@ func Test_BuildInFuncTimes(t *testing.T) {
 func Test_BuildInFuncDivide(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{divide 8 2 2}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{divide 8 2 2}}")
 		t.AssertNil(err)
 		t.Assert(r, `2`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{2 | divide 4}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{2 | divide 4}}")
 		t.AssertNil(err)
 		t.Assert(r, `2`)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		v := gview.New()
-		r, err := v.ParseContent(gctx.New(), "{{divide 8 0}}")
+		r, err := v.ParseContent(gctx.X创建(), "{{divide 8 0}}")
 		t.AssertNil(err)
 		t.Assert(r, `0`)
 	})

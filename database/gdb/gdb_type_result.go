@@ -5,87 +5,87 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"database/sql"
 	"math"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/util/gconv"
+	gvar "github.com/888go/goframe/container/gvar"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/internal/empty"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// IsEmpty 检查 `r` 是否为空，然后返回结果。 md5:4ee28a47e769cceb
-func (r Result) IsEmpty() bool {
-	return r == nil || r.Len() == 0
+// X是否为空 检查 `r` 是否为空，然后返回结果。 md5:4ee28a47e769cceb
+func (r Result) X是否为空() bool {
+	return r == nil || r.X取数量() == 0
 }
 
-// Len 返回结果列表的长度。 md5:9abccfc01a850f4f
-func (r Result) Len() int {
+// X取数量 返回结果列表的长度。 md5:9abccfc01a850f4f
+func (r Result) X取数量() int {
 	return len(r)
 }
 
-// Size 是函数 Len 的别名。 md5:4cfc93cb64eff9b5
-func (r Result) Size() int {
-	return r.Len()
+// Size别名 是函数 Len 的别名。 md5:4cfc93cb64eff9b5
+func (r Result) Size别名() int {
+	return r.X取数量()
 }
 
-// Chunk 将一个 Result 分割成多个 Result，
+// X分割 将一个 Result 分割成多个 Result，
 // 每个数组的大小由 `size` 决定。
 // 最后一块可能包含少于 size 个元素。
 // md5:e1e9bbb7e5ba1969
-func (r Result) Chunk(size int) []Result {
-	if size < 1 {
+func (r Result) X分割(数量 int) []Result {
+	if 数量 < 1 {
 		return nil
 	}
 	length := len(r)
-	chunks := int(math.Ceil(float64(length) / float64(size)))
+	chunks := int(math.Ceil(float64(length) / float64(数量)))
 	var n []Result
 	for i, end := 0, 0; chunks > 0; chunks-- {
-		end = (i + 1) * size
+		end = (i + 1) * 数量
 		if end > length {
 			end = length
 		}
-		n = append(n, r[i*size:end])
+		n = append(n, r[i*数量:end])
 		i++
 	}
 	return n
 }
 
-// Json 将 `r` 转换为JSON格式的内容。 md5:60a0626b0a333d14
-func (r Result) Json() string {
-	content, _ := gjson.New(r.List()).ToJsonString()
+// X取json 将 `r` 转换为JSON格式的内容。 md5:60a0626b0a333d14
+func (r Result) X取json() string {
+	content, _ := gjson.X创建(r.X取Map切片()).X取json文本()
 	return content
 }
 
-// Xml 将 `r` 转换为 XML 格式的内容。 md5:31a335fedb874d26
-func (r Result) Xml(rootTag ...string) string {
-	content, _ := gjson.New(r.List()).ToXmlString(rootTag...)
+// X取xml 将 `r` 转换为 XML 格式的内容。 md5:31a335fedb874d26
+func (r Result) X取xml(根标记 ...string) string {
+	content, _ := gjson.X创建(r.X取Map切片()).X取xml文本(根标记...)
 	return content
 }
 
-// List 将 `r` 转换为一个 List。 md5:ee79a42f10af264e
-func (r Result) List() List {
-	list := make(List, len(r))
+// X取Map切片 将 `r` 转换为一个 X取Map切片。 md5:ee79a42f10af264e
+func (r Result) X取Map切片() Map切片 {
+	list := make(Map切片, len(r))
 	for k, v := range r {
-		list[k] = v.Map()
+		list[k] = v.X取Map()
 	}
 	return list
 }
 
-// Array 用于获取并返回指定列的值作为切片。
+// X取字段切片 用于获取并返回指定列的值作为切片。
 // 参数 `field` 是可选的，如果列字段只有一个。如果未给定 `field` 参数，其默认值为 `Result` 中第一条项的第一个字段名。
 // md5:f3e0a3bab6043d80
-func (r Result) Array(field ...string) []Value {
+func (r Result) X取字段切片(字段名称 ...string) []Value {
 	array := make([]Value, len(r))
 	if len(r) == 0 {
 		return array
 	}
 	key := ""
-	if len(field) > 0 && field[0] != "" {
-		key = field[0]
+	if len(字段名称) > 0 && 字段名称[0] != "" {
+		key = 字段名称[0]
 	} else {
 		for k := range r[0] {
 			key = k
@@ -98,10 +98,10 @@ func (r Result) Array(field ...string) []Value {
 	return array
 }
 
-// MapKeyValue 将 `r` 转换为一个 map[string]Value，其中的键由 `key` 指定。
+// X取字段Map泛型类 将 `r` 转换为一个 map[string]Value，其中的键由 `key` 指定。
 // 注意，项目值可能为切片类型。
 // md5:0c805cb25cfa56ff
-func (r Result) MapKeyValue(key string) map[string]Value {
+func (r Result) X取字段Map泛型类(字段名称 string) map[string]Value {
 	var (
 		s              string
 		m              = make(map[string]Value)
@@ -109,7 +109,7 @@ func (r Result) MapKeyValue(key string) map[string]Value {
 		hasMultiValues bool
 	)
 	for _, item := range r {
-		if k, ok := item[key]; ok {
+		if k, ok := item[字段名称]; ok {
 			s = k.String()
 			tempMap[s] = append(tempMap[s], item)
 			if len(tempMap[s]) > 1 {
@@ -119,42 +119,42 @@ func (r Result) MapKeyValue(key string) map[string]Value {
 	}
 	for k, v := range tempMap {
 		if hasMultiValues {
-			m[k] = gvar.New(v)
+			m[k] = gvar.X创建(v)
 		} else {
-			m[k] = gvar.New(v[0])
+			m[k] = gvar.X创建(v[0])
 		}
 	}
 	return m
 }
 
-// MapKeyStr 将 `r` 转换为一个键为指定字符串的 map[string]Map。 md5:43bb233c139ab262
-func (r Result) MapKeyStr(key string) map[string]Map {
+// X取字段MapStr 将 `r` 转换为一个键为指定字符串的 map[string]Map。 md5:43bb233c139ab262
+func (r Result) X取字段MapStr(字段名称 string) map[string]Map {
 	m := make(map[string]Map)
 	for _, item := range r {
-		if v, ok := item[key]; ok {
-			m[v.String()] = item.Map()
+		if v, ok := item[字段名称]; ok {
+			m[v.String()] = item.X取Map()
 		}
 	}
 	return m
 }
 
-// MapKeyInt 将 `r` 转换为一个 map[int]Map，其中的键由 `key` 指定。 md5:2c63f4f80e8a0e1b
-func (r Result) MapKeyInt(key string) map[int]Map {
+// X取字段MapInt 将 `r` 转换为一个 map[int]Map，其中的键由 `key` 指定。 md5:2c63f4f80e8a0e1b
+func (r Result) X取字段MapInt(字段名称 string) map[int]Map {
 	m := make(map[int]Map)
 	for _, item := range r {
-		if v, ok := item[key]; ok {
-			m[v.Int()] = item.Map()
+		if v, ok := item[字段名称]; ok {
+			m[v.X取整数()] = item.X取Map()
 		}
 	}
 	return m
 }
 
-// MapKeyUint 将 `r` 转换为一个 map，其中的键是通过 `key` 指定的 uint 类型。 md5:0597073b149b7e00
-func (r Result) MapKeyUint(key string) map[uint]Map {
+// X取字段MapUint 将 `r` 转换为一个 map，其中的键是通过 `key` 指定的 uint 类型。 md5:0597073b149b7e00
+func (r Result) X取字段MapUint(字段名称 string) map[uint]Map {
 	m := make(map[uint]Map)
 	for _, item := range r {
-		if v, ok := item[key]; ok {
-			m[v.Uint()] = item.Map()
+		if v, ok := item[字段名称]; ok {
+			m[v.X取正整数()] = item.X取Map()
 		}
 	}
 	return m
@@ -176,7 +176,7 @@ func (r Result) RecordKeyInt(key string) map[int]Record {
 	m := make(map[int]Record)
 	for _, item := range r {
 		if v, ok := item[key]; ok {
-			m[v.Int()] = item
+			m[v.X取整数()] = item
 		}
 	}
 	return m
@@ -187,22 +187,22 @@ func (r Result) RecordKeyUint(key string) map[uint]Record {
 	m := make(map[uint]Record)
 	for _, item := range r {
 		if v, ok := item[key]; ok {
-			m[v.Uint()] = item
+			m[v.X取正整数()] = item
 		}
 	}
 	return m
 }
 
-// Structs 将 `r` 转换为结构体切片。
+// X取切片结构体指针 将 `r` 转换为结构体切片。
 // 注意参数 `pointer` 的类型应该是 `*[]struct` 或 `*[]*struct`。
 // md5:fef766b4997dca03
-func (r Result) Structs(pointer interface{}) (err error) {
+func (r Result) X取切片结构体指针(结构体指针 interface{}) (错误 error) {
 		// 如果结果为空且目标指针不为空，则返回错误。 md5:74dffcb96270ed89
-	if r.IsEmpty() {
-		if !empty.IsEmpty(pointer, true) {
+	if r.X是否为空() {
+		if !empty.IsEmpty(结构体指针, true) {
 			return sql.ErrNoRows
 		}
 		return nil
 	}
-	return gconv.StructsTag(r, pointer, OrmTagForStruct)
+	return gconv.StructsTag(r, 结构体指针, OrmTagForStruct)
 }

@@ -5,21 +5,21 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview
+package 模板类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/i18n/gi18n"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/os/gres"
-	"github.com/gogf/gf/v2/os/gspath"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/i18n/gi18n"
+	"github.com/888go/goframe/internal/intlog"
+	gfile "github.com/888go/goframe/os/gfile"
+	glog "github.com/888go/goframe/os/glog"
+	gres "github.com/888go/goframe/os/gres"
+	gspath "github.com/888go/goframe/os/gspath"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // Config是模板引擎的配置对象。 md5:0c7a20a5c1f534d4
@@ -69,7 +69,7 @@ func (view *View) SetConfig(config Config) error {
 	// 清除全局模板对象缓存。
 	// 这只是一个缓存，不要犹豫清空它。
 	// md5:51c51fe68d143dd8
-	templates.Clear()
+	templates.X清空()
 
 	intlog.Printf(context.TODO(), "SetConfig: %+v", view.config)
 	return nil
@@ -78,7 +78,7 @@ func (view *View) SetConfig(config Config) error {
 // SetConfigWithMap 使用映射为视图设置配置。 md5:1e1d667c3b2ace2b
 func (view *View) SetConfigWithMap(m map[string]interface{}) error {
 	if len(m) == 0 {
-		return gerror.NewCode(gcode.CodeInvalidParameter, "configuration cannot be empty")
+		return gerror.X创建错误码(gcode.CodeInvalidParameter, "configuration cannot be empty")
 	}
 	// m 现在是 m 的浅拷贝。
 	// 对 m 的任何修改都不会影响原始对象。
@@ -116,10 +116,10 @@ func (view *View) SetPath(path string) error {
 		isDir = file.FileInfo().IsDir()
 	} else {
 		// Absolute path.
-		realPath = gfile.RealPath(path)
+		realPath = gfile.X取绝对路径且效验(path)
 		if realPath == "" {
 			// Relative path.
-			view.searchPaths.RLockFunc(func(array []string) {
+			view.searchPaths.X遍历读锁定(func(array []string) {
 				for _, v := range array {
 					if path, _ := gspath.Search(v, path); path != "" {
 						realPath = path
@@ -129,12 +129,12 @@ func (view *View) SetPath(path string) error {
 			})
 		}
 		if realPath != "" {
-			isDir = gfile.IsDir(realPath)
+			isDir = gfile.X是否存在目录(realPath)
 		}
 	}
 	// Path not exist.
 	if realPath == "" {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.SetPath failed: path "%s" does not exist`, path)
+		err := gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `View.SetPath failed: path "%s" does not exist`, path)
 		if errorPrint() {
 			glog.Error(ctx, err)
 		}
@@ -142,19 +142,19 @@ func (view *View) SetPath(path string) error {
 	}
 	// Should be a directory.
 	if !isDir {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.SetPath failed: path "%s" should be directory type`, path)
+		err := gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `View.SetPath failed: path "%s" should be directory type`, path)
 		if errorPrint() {
 			glog.Error(ctx, err)
 		}
 		return err
 	}
 		// 重复路径添加检查。 md5:e210e91d65ec4857
-	if view.searchPaths.Search(realPath) != -1 {
+	if view.searchPaths.X查找(realPath) != -1 {
 		return nil
 	}
-	view.searchPaths.Clear()
-	view.searchPaths.Append(realPath)
-	view.fileCacheMap.Clear()
+	view.searchPaths.X清空()
+	view.searchPaths.Append别名(realPath)
+	view.fileCacheMap.X清空()
 	return nil
 }
 
@@ -170,9 +170,9 @@ func (view *View) AddPath(path string) error {
 		isDir = file.FileInfo().IsDir()
 	} else {
 		// Absolute path.
-		if realPath = gfile.RealPath(path); realPath == "" {
+		if realPath = gfile.X取绝对路径且效验(path); realPath == "" {
 			// Relative path.
-			view.searchPaths.RLockFunc(func(array []string) {
+			view.searchPaths.X遍历读锁定(func(array []string) {
 				for _, v := range array {
 					if searchedPath, _ := gspath.Search(v, path); searchedPath != "" {
 						realPath = searchedPath
@@ -182,12 +182,12 @@ func (view *View) AddPath(path string) error {
 			})
 		}
 		if realPath != "" {
-			isDir = gfile.IsDir(realPath)
+			isDir = gfile.X是否存在目录(realPath)
 		}
 	}
 	// Path not exist.
 	if realPath == "" {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.AddPath failed: path "%s" does not exist`, path)
+		err := gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `View.AddPath failed: path "%s" does not exist`, path)
 		if errorPrint() {
 			glog.Error(ctx, err)
 		}
@@ -195,18 +195,18 @@ func (view *View) AddPath(path string) error {
 	}
 		// realPath 应该是文件夹类型的路径。 md5:8b57fae1c1158ae9
 	if !isDir {
-		err := gerror.NewCodef(gcode.CodeInvalidParameter, `View.AddPath failed: path "%s" should be directory type`, path)
+		err := gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `View.AddPath failed: path "%s" should be directory type`, path)
 		if errorPrint() {
 			glog.Error(ctx, err)
 		}
 		return err
 	}
 		// 重复路径添加检查。 md5:e210e91d65ec4857
-	if view.searchPaths.Search(realPath) != -1 {
+	if view.searchPaths.X查找(realPath) != -1 {
 		return nil
 	}
-	view.searchPaths.Append(realPath)
-	view.fileCacheMap.Clear()
+	view.searchPaths.Append别名(realPath)
+	view.fileCacheMap.X清空()
 	return nil
 }
 
@@ -252,7 +252,7 @@ func (view *View) SetAutoEncode(enable bool) {
 func (view *View) BindFunc(name string, function interface{}) {
 	view.funcMap[name] = function
 	// Clear global template object cache.
-	templates.Clear()
+	templates.X清空()
 }
 
 // BindFuncMap 将自定义的全局模板函数通过映射注册到当前视图对象中。
@@ -264,7 +264,7 @@ func (view *View) BindFuncMap(funcMap FuncMap) {
 		view.funcMap[k] = v
 	}
 	// Clear global template object cache.
-	templates.Clear()
+	templates.X清空()
 }
 
 // SetI18n 将i18n管理器绑定到当前视图引擎。 md5:8d1b88bd87c041ba

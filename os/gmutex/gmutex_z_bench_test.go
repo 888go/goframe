@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gmutex_test
+package 互斥锁类_test
 
 import (
 	"sync"
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gmutex"
+	gmutex "github.com/888go/goframe/os/gmutex"
 )
 
 var (
 	mu   = sync.Mutex{}
 	rwmu = sync.RWMutex{}
-	gmu  = gmutex.New()
+	gmu  = gmutex.X创建()
 )
 
 func Benchmark_Mutex_LockUnlock(b *testing.B) {

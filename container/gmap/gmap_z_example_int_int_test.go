@@ -4,25 +4,25 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gmap_test
+package map类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func ExampleIntIntMap_Iterator() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 	for i := 0; i < 10; i++ {
-		m.Set(i, i*2)
+		m.X设置值(i, i*2)
 	}
 
 	var totalKey, totalValue int
-	m.Iterator(func(k int, v int) bool {
+	m.X遍历(func(k int, v int) bool {
 		totalKey += k
 		totalValue += v
 
@@ -38,12 +38,12 @@ func ExampleIntIntMap_Iterator() {
 }
 
 func ExampleIntIntMap_Clone() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
-	m.Set(1, 1)
+	m.X设置值(1, 1)
 	fmt.Println(m)
 
-	n := m.Clone()
+	n := m.X取副本()
 	fmt.Println(n)
 
 	// Output:
@@ -53,23 +53,23 @@ func ExampleIntIntMap_Clone() {
 
 func ExampleIntIntMap_Map() {
 		// 非并发安全，指向底层数据的指针. md5:0c201eaf65f11ed8
-	m1 := gmap.NewIntIntMap()
-	m1.Set(1, 1)
+	m1 := gmap.X创建IntInt()
+	m1.X设置值(1, 1)
 	fmt.Println("m1:", m1)
 
-	n1 := m1.Map()
+	n1 := m1.X取Map()
 	fmt.Println("before n1:", n1)
-	m1.Set(1, 2)
+	m1.X设置值(1, 2)
 	fmt.Println("after n1:", n1)
 
 			// 并发安全，底层数据的副本. md5:114a4273430037c7
-	m2 := gmap.New(true)
-	m2.Set(1, "1")
+	m2 := gmap.X创建(true)
+	m2.X设置值(1, "1")
 	fmt.Println("m2:", m2)
 
-	n2 := m2.Map()
+	n2 := m2.X取Map()
 	fmt.Println("before n2:", n2)
-	m2.Set(1, "2")
+	m2.X设置值(1, "2")
 	fmt.Println("after n2:", n2)
 
 	// Output:
@@ -82,13 +82,13 @@ func ExampleIntIntMap_Map() {
 }
 
 func ExampleIntIntMap_MapCopy() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
-	m.Set(1, 1)
-	m.Set(2, 2)
+	m.X设置值(1, 1)
+	m.X设置值(2, 2)
 	fmt.Println(m)
 
-	n := m.MapCopy()
+	n := m.X浅拷贝()
 	fmt.Println(n)
 
 	// Output:
@@ -97,11 +97,11 @@ func ExampleIntIntMap_MapCopy() {
 }
 
 func ExampleIntIntMap_MapStrAny() {
-	m := gmap.NewIntIntMap()
-	m.Set(1001, 1)
-	m.Set(1002, 2)
+	m := gmap.X创建IntInt()
+	m.X设置值(1001, 1)
+	m.X设置值(1002, 2)
 
-	n := m.MapStrAny()
+	n := m.X取MapStrAny()
 	fmt.Printf("%#v", n)
 
 	// Output:
@@ -109,21 +109,21 @@ func ExampleIntIntMap_MapStrAny() {
 }
 
 func ExampleIntIntMap_FilterEmpty() {
-	m := gmap.NewIntIntMapFrom(g.MapIntInt{
+	m := gmap.X创建IntInt并从Map(g.MapIntInt{
 		1: 0,
 		2: 1,
 	})
-	m.FilterEmpty()
-	fmt.Println(m.Map())
+	m.X删除所有空值()
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[2:1]
 }
 
 func ExampleIntIntMap_Set() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
-	m.Set(1, 1)
+	m.X设置值(1, 1)
 	fmt.Println(m)
 
 	// Output:
@@ -131,14 +131,14 @@ func ExampleIntIntMap_Set() {
 }
 
 func ExampleIntIntMap_Sets() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
 	addMap := make(map[int]int)
 	addMap[1] = 1
 	addMap[2] = 12
 	addMap[3] = 123
 
-	m.Sets(addMap)
+	m.X设置值Map(addMap)
 	fmt.Println(m)
 
 	// Output:
@@ -146,16 +146,16 @@ func ExampleIntIntMap_Sets() {
 }
 
 func ExampleIntIntMap_Search() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
-	m.Set(1, 1)
+	m.X设置值(1, 1)
 
-	value, found := m.Search(1)
+	value, found := m.X查找(1)
 	if found {
 		fmt.Println("find key1 value:", value)
 	}
 
-	value, found = m.Search(2)
+	value, found = m.X查找(2)
 	if !found {
 		fmt.Println("key2 not find")
 	}
@@ -166,12 +166,12 @@ func ExampleIntIntMap_Search() {
 }
 
 func ExampleIntIntMap_Get() {
-	m := gmap.NewIntIntMap()
+	m := gmap.X创建IntInt()
 
-	m.Set(1, 1)
+	m.X设置值(1, 1)
 
-	fmt.Println("key1 value:", m.Get(1))
-	fmt.Println("key2 value:", m.Get(2))
+	fmt.Println("key1 value:", m.X取值(1))
+	fmt.Println("key2 value:", m.X取值(2))
 
 	// Output:
 	// key1 value: 1
@@ -180,14 +180,14 @@ func ExampleIntIntMap_Get() {
 
 func ExampleIntIntMap_Pop() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
 
-	fmt.Println(m.Pop())
+	fmt.Println(m.X出栈())
 
 	// May Output:
 	// 1 1
@@ -195,23 +195,23 @@ func ExampleIntIntMap_Pop() {
 
 func ExampleIntIntMap_Pops() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
-	fmt.Println(m.Pops(-1))
-	fmt.Println("size:", m.Size())
+	fmt.Println(m.X出栈多个(-1))
+	fmt.Println("size:", m.X取数量())
 
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
-	fmt.Println(m.Pops(2))
-	fmt.Println("size:", m.Size())
+	fmt.Println(m.X出栈多个(2))
+	fmt.Println("size:", m.X取数量())
 
 	// May Output:
 	// map[1:1 2:2 3:3 4:4]
@@ -221,11 +221,11 @@ func ExampleIntIntMap_Pops() {
 }
 
 func ExampleIntIntMap_GetOrSet() {
-	m := gmap.NewIntIntMap()
-	m.Set(1, 1)
+	m := gmap.X创建IntInt()
+	m.X设置值(1, 1)
 
-	fmt.Println(m.GetOrSet(1, 0))
-	fmt.Println(m.GetOrSet(2, 2))
+	fmt.Println(m.X取值或设置值(1, 0))
+	fmt.Println(m.X取值或设置值(2, 2))
 
 	// Output:
 	// 1
@@ -233,13 +233,13 @@ func ExampleIntIntMap_GetOrSet() {
 }
 
 func ExampleIntIntMap_GetOrSetFunc() {
-	m := gmap.NewIntIntMap()
-	m.Set(1, 1)
+	m := gmap.X创建IntInt()
+	m.X设置值(1, 1)
 
-	fmt.Println(m.GetOrSetFunc(1, func() int {
+	fmt.Println(m.X取值或设置值_函数(1, func() int {
 		return 0
 	}))
-	fmt.Println(m.GetOrSetFunc(2, func() int {
+	fmt.Println(m.X取值或设置值_函数(2, func() int {
 		return 0
 	}))
 
@@ -249,13 +249,13 @@ func ExampleIntIntMap_GetOrSetFunc() {
 }
 
 func ExampleIntIntMap_GetOrSetFuncLock() {
-	m := gmap.NewIntIntMap()
-	m.Set(1, 1)
+	m := gmap.X创建IntInt()
+	m.X设置值(1, 1)
 
-	fmt.Println(m.GetOrSetFuncLock(1, func() int {
+	fmt.Println(m.X取值或设置值_函数带锁(1, func() int {
 		return 0
 	}))
-	fmt.Println(m.GetOrSetFuncLock(2, func() int {
+	fmt.Println(m.X取值或设置值_函数带锁(2, func() int {
 		return 0
 	}))
 
@@ -266,9 +266,9 @@ func ExampleIntIntMap_GetOrSetFuncLock() {
 
 func ExampleIntIntMap_SetIfNotExist() {
 	var m gmap.IntIntMap
-	fmt.Println(m.SetIfNotExist(1, 1))
-	fmt.Println(m.SetIfNotExist(1, 2))
-	fmt.Println(m.Map())
+	fmt.Println(m.X设置值并跳过已存在(1, 1))
+	fmt.Println(m.X设置值并跳过已存在(1, 2))
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -278,13 +278,13 @@ func ExampleIntIntMap_SetIfNotExist() {
 
 func ExampleIntIntMap_SetIfNotExistFunc() {
 	var m gmap.IntIntMap
-	fmt.Println(m.SetIfNotExistFunc(1, func() int {
+	fmt.Println(m.X设置值并跳过已存在_函数(1, func() int {
 		return 1
 	}))
-	fmt.Println(m.SetIfNotExistFunc(1, func() int {
+	fmt.Println(m.X设置值并跳过已存在_函数(1, func() int {
 		return 2
 	}))
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -294,13 +294,13 @@ func ExampleIntIntMap_SetIfNotExistFunc() {
 
 func ExampleIntIntMap_SetIfNotExistFuncLock() {
 	var m gmap.IntIntMap
-	fmt.Println(m.SetIfNotExistFuncLock(1, func() int {
+	fmt.Println(m.X设置值并跳过已存在_函数带锁(1, func() int {
 		return 1
 	}))
-	fmt.Println(m.SetIfNotExistFuncLock(1, func() int {
+	fmt.Println(m.X设置值并跳过已存在_函数带锁(1, func() int {
 		return 2
 	}))
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -310,11 +310,11 @@ func ExampleIntIntMap_SetIfNotExistFuncLock() {
 
 func ExampleIntIntMap_Remove() {
 	var m gmap.IntIntMap
-	m.Set(1, 1)
+	m.X设置值(1, 1)
 
-	fmt.Println(m.Remove(1))
-	fmt.Println(m.Remove(2))
-	fmt.Println(m.Size())
+	fmt.Println(m.X删除(1))
+	fmt.Println(m.X删除(2))
+	fmt.Println(m.X取数量())
 
 	// Output:
 	// 1
@@ -324,7 +324,7 @@ func ExampleIntIntMap_Remove() {
 
 func ExampleIntIntMap_Removes() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
@@ -335,9 +335,9 @@ func ExampleIntIntMap_Removes() {
 	removeList = append(removeList, 1)
 	removeList = append(removeList, 2)
 
-	m.Removes(removeList)
+	m.X删除多个值(removeList)
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[3:3 4:4]
@@ -345,13 +345,13 @@ func ExampleIntIntMap_Removes() {
 
 func ExampleIntIntMap_Keys() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
-	fmt.Println(m.Keys())
+	fmt.Println(m.X取所有名称())
 
 	// May Output:
 	// [1 2 3 4]
@@ -359,13 +359,13 @@ func ExampleIntIntMap_Keys() {
 
 func ExampleIntIntMap_Values() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
-	fmt.Println(m.Values())
+	fmt.Println(m.X取所有值())
 
 	// May Output:
 	// [1 v2 v3 4]
@@ -373,15 +373,15 @@ func ExampleIntIntMap_Values() {
 
 func ExampleIntIntMap_Contains() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
 
-	fmt.Println(m.Contains(1))
-	fmt.Println(m.Contains(5))
+	fmt.Println(m.X是否存在(1))
+	fmt.Println(m.X是否存在(5))
 
 	// Output:
 	// true
@@ -390,14 +390,14 @@ func ExampleIntIntMap_Contains() {
 
 func ExampleIntIntMap_Size() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
 
-	fmt.Println(m.Size())
+	fmt.Println(m.X取数量())
 
 	// Output:
 	// 4
@@ -405,10 +405,10 @@ func ExampleIntIntMap_Size() {
 
 func ExampleIntIntMap_IsEmpty() {
 	var m gmap.IntIntMap
-	fmt.Println(m.IsEmpty())
+	fmt.Println(m.X是否为空())
 
-	m.Set(1, 1)
-	fmt.Println(m.IsEmpty())
+	m.X设置值(1, 1)
+	fmt.Println(m.X是否为空())
 
 	// Output:
 	// true
@@ -417,16 +417,16 @@ func ExampleIntIntMap_IsEmpty() {
 
 func ExampleIntIntMap_Clear() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
 
-	m.Clear()
+	m.X清空()
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[]
@@ -434,22 +434,22 @@ func ExampleIntIntMap_Clear() {
 
 func ExampleIntIntMap_Replace() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 	})
 
 	var n gmap.IntIntMap
-	n.Sets(g.MapIntInt{
+	n.X设置值Map(g.MapIntInt{
 		2: 2,
 	})
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
-	m.Replace(n.Map())
-	fmt.Println(m.Map())
+	m.X替换(n.X取Map())
+	fmt.Println(m.X取Map())
 
-	n.Set(2, 1)
-	fmt.Println(m.Map())
+	n.X设置值(2, 1)
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[1:1]
@@ -459,14 +459,14 @@ func ExampleIntIntMap_Replace() {
 
 func ExampleIntIntMap_LockFunc() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
 
-	m.LockFunc(func(m map[int]int) {
+	m.X遍历写锁定(func(m map[int]int) {
 		totalValue := 0
 		for _, v := range m {
 			totalValue += v
@@ -480,14 +480,14 @@ func ExampleIntIntMap_LockFunc() {
 
 func ExampleIntIntMap_RLockFunc() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
 		4: 4,
 	})
 
-	m.RLockFunc(func(m map[int]int) {
+	m.X遍历读锁定(func(m map[int]int) {
 		totalValue := 0
 		for _, v := range m {
 			totalValue += v
@@ -501,11 +501,11 @@ func ExampleIntIntMap_RLockFunc() {
 
 func ExampleIntIntMap_Flip() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 10,
 	})
-	m.Flip()
-	fmt.Println(m.Map())
+	m.X名称值交换()
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[10:1]
@@ -513,10 +513,10 @@ func ExampleIntIntMap_Flip() {
 
 func ExampleIntIntMap_Merge() {
 	var m1, m2 gmap.Map
-	m1.Set(1, "1")
-	m2.Set(2, "2")
-	m1.Merge(&m2)
-	fmt.Println(m1.Map())
+	m1.X设置值(1, "1")
+	m2.X设置值(2, "2")
+	m1.X合并(&m2)
+	fmt.Println(m1.X取Map())
 
 	// May Output:
 	// map[key1:1 key2:2]
@@ -524,7 +524,7 @@ func ExampleIntIntMap_Merge() {
 
 func ExampleIntIntMap_String() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 	})
 
@@ -540,7 +540,7 @@ func ExampleIntIntMap_String() {
 
 func ExampleIntIntMap_MarshalJSON() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
@@ -558,7 +558,7 @@ func ExampleIntIntMap_MarshalJSON() {
 
 func ExampleIntIntMap_UnmarshalJSON() {
 	var m gmap.IntIntMap
-	m.Sets(g.MapIntInt{
+	m.X设置值Map(g.MapIntInt{
 		1: 1,
 		2: 2,
 		3: 3,
@@ -567,9 +567,9 @@ func ExampleIntIntMap_UnmarshalJSON() {
 
 	var n gmap.Map
 
-	err := json.Unmarshal(gconv.Bytes(m.String()), &n)
+	err := json.Unmarshal(gconv.X取字节集(m.String()), &n)
 	if err == nil {
-		fmt.Println(n.Map())
+		fmt.Println(n.X取Map())
 	}
 
 	// Output:
@@ -586,7 +586,7 @@ func ExampleIntIntMap_UnmarshalValue() {
 	}
 
 	if err := gconv.Scan(n, &m); err == nil {
-		fmt.Printf("%#v", m.Map())
+		fmt.Printf("%#v", m.X取Map())
 	}
 	// Output:
 	// map[int]int{1:1001, 2:1002, 3:1003}

@@ -5,28 +5,28 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/os/gfile"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 func ExampleSearch() {
 	// init
 	var (
 		fileName = "gfile_example.txt"
-		tempDir  = gfile.Temp("gfile_example_search")
-		tempFile = gfile.Join(tempDir, fileName)
+		tempDir  = gfile.X取临时目录("gfile_example_search")
+		tempFile = gfile.X路径生成(tempDir, fileName)
 	)
 
 	// write contents
-	gfile.PutContents(tempFile, "goframe example content")
+	gfile.X写入文本(tempFile, "goframe example content")
 
 	// search file
-	realPath, _ := gfile.Search(fileName, tempDir)
-	fmt.Println(gfile.Basename(realPath))
+	realPath, _ := gfile.X查找(fileName, tempDir)
+	fmt.Println(gfile.X路径取文件名(realPath))
 
 	// Output:
 	// gfile_example.txt

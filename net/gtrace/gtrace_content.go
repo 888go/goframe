@@ -11,9 +11,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gogf/gf/v2/encoding/gcompress"
+	gcompress "github.com/888go/goframe/encoding/gcompress"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // SafeContentForHttp 通过 `MaxContentLogSize` 剪切并返回给定内容。如果内容大小超过 `MaxContentLogSize`，它会在结果尾部添加字符串 `...`。
@@ -21,7 +21,7 @@ import (
 func SafeContentForHttp(data []byte, header http.Header) (string, error) {
 	var err error
 	if gzipAccepted(header) {
-		if data, err = gcompress.UnGzip(data); err != nil {
+		if data, err = gcompress.Gzip解压字节集(data); err != nil {
 			return string(data), err
 		}
 	}
@@ -33,8 +33,8 @@ func SafeContentForHttp(data []byte, header http.Header) (string, error) {
 // md5:7ea5429876707ef6
 func SafeContent(data []byte) string {
 	content := string(data)
-	if gstr.LenRune(content) > MaxContentLogSize() {
-		content = gstr.StrLimitRune(content, MaxContentLogSize(), "...")
+	if gstr.X取字符长度(content) > MaxContentLogSize() {
+		content = gstr.X按长度取左边并带前缀Unicode(content, MaxContentLogSize(), "...")
 	}
 
 	return content

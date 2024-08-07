@@ -5,61 +5,63 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gmutex
+package 互斥锁类
 
-import "sync"
+import (
+	"sync"
+)
 
 // RWMutex 是一个高级的 RWMutex，它为互斥锁提供了更多丰富的功能。 md5:25a009f424184cca
 type RWMutex struct {
 	sync.RWMutex
 }
 
-// LockFunc 使用给定的回调函数 `f` 对互斥锁进行写入锁定。
+// X写锁定_函数 使用给定的回调函数 `f` 对互斥锁进行写入锁定。
 // 如果已经有写入或读取锁持有互斥锁，它将阻塞直到锁被释放。
 //
 // 在 `f` 执行完毕后，它会释放锁。
 // md5:946a127ed090616d
-func (m *RWMutex) LockFunc(f func()) {
+func (m *RWMutex) X写锁定_函数(回调函数 func()) {
 	m.Lock()
 	defer m.Unlock()
-	f()
+	回调函数()
 }
 
-// RLockFunc 使用给定的回调函数`f`对互斥锁进行读取锁定。
+// X读锁定_函数 使用给定的回调函数`f`对互斥锁进行读取锁定。
 // 如果有写入锁正在锁定互斥锁，它将阻塞直到锁被释放。
 //
 // 在执行完`f`后，它会释放锁。
 // md5:e97751e4a44accd4
-func (m *RWMutex) RLockFunc(f func()) {
+func (m *RWMutex) X读锁定_函数(回调函数 func()) {
 	m.RLock()
 	defer m.RUnlock()
-	f()
+	回调函数()
 }
 
-// TryLockFunc尝试使用给定的回调函数`f`为写入锁定mutex。如果成功，它会立即返回true，或者如果mutex已经有写入或读取锁，它会立即返回false。
+// X非阻塞写锁定_函数尝试使用给定的回调函数`f`为写入锁定mutex。如果成功，它会立即返回true，或者如果mutex已经有写入或读取锁，它会立即返回false。
 // 
 // 在执行完`f`后，它会释放锁。
 // md5:d12ccf3fb040146e
-func (m *RWMutex) TryLockFunc(f func()) (result bool) {
+func (m *RWMutex) X非阻塞写锁定_函数(回调函数 func()) (结果 bool) {
 	if m.TryLock() {
-		result = true
+		结果 = true
 		defer m.Unlock()
-		f()
+		回调函数()
 	}
 	return
 }
 
-// TryRLockFunc尝试使用给定的回调函数`f`获取读取锁。
+// X非阻塞读锁定_函数尝试使用给定的回调函数`f`获取读取锁。
 // 如果成功，它会立即返回true。如果互斥锁已被写入锁定，
 // 它会立即返回false。
 //
 // 在`f`执行后释放锁。
 // md5:138728820d3bbfa0
-func (m *RWMutex) TryRLockFunc(f func()) (result bool) {
+func (m *RWMutex) X非阻塞读锁定_函数(回调函数 func()) (结果 bool) {
 	if m.TryRLock() {
-		result = true
+		结果 = true
 		defer m.RUnlock()
-		f()
+		回调函数()
 	}
 	return
 }

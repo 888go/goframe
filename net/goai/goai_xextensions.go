@@ -8,7 +8,7 @@
 package goai
 
 import (
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // XExtensions 存储了 `x-` 自定义扩展。 md5:e19838946aa45df7
@@ -16,7 +16,7 @@ type XExtensions map[string]string
 
 func (oai *OpenApiV3) tagMapToXExtensions(tagMap map[string]string, extensions XExtensions) {
 	for k, v := range tagMap {
-		if gstr.HasPrefix(k, "x-") || gstr.HasPrefix(k, "X-") {
+		if gstr.X开头判断(k, "x-") || gstr.X开头判断(k, "X-") {
 			extensions[k] = v
 		}
 	}

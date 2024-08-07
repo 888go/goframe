@@ -8,7 +8,7 @@
 package goai
 
 import (
-	"github.com/gogf/gf/v2/container/gmap"
+	gmap "github.com/888go/goframe/container/gmap"
 )
 
 type Schemas struct {
@@ -17,25 +17,25 @@ type Schemas struct {
 
 func createSchemas() Schemas {
 	return Schemas{
-		refs: gmap.NewListMap(),
+		refs: gmap.X创建链表mp(),
 	}
 }
 
 func (s *Schemas) init() {
 	if s.refs == nil {
-		s.refs = gmap.NewListMap()
+		s.refs = gmap.X创建链表mp()
 	}
 }
 
 func (s *Schemas) Clone() Schemas {
 	newSchemas := createSchemas()
-	newSchemas.refs = s.refs.Clone()
+	newSchemas.refs = s.refs.X取副本()
 	return newSchemas
 }
 
 func (s *Schemas) Get(name string) *SchemaRef {
 	s.init()
-	value := s.refs.Get(name)
+	value := s.refs.X取值(name)
 	if value != nil {
 		ref := value.(SchemaRef)
 		return &ref
@@ -43,29 +43,29 @@ func (s *Schemas) Get(name string) *SchemaRef {
 	return nil
 }
 
-func (s *Schemas) Set(name string, ref SchemaRef) {
+func (s *Schemas) X设置值(name string, ref SchemaRef) {
 	s.init()
-	s.refs.Set(name, ref)
+	s.refs.X设置值(name, ref)
 }
 
 func (s *Schemas) Removes(names []interface{}) {
 	s.init()
-	s.refs.Removes(names)
+	s.refs.X删除多个值(names)
 }
 
 func (s *Schemas) Map() map[string]SchemaRef {
 	s.init()
 	m := make(map[string]SchemaRef)
-	s.refs.Iterator(func(key, value interface{}) bool {
+	s.refs.X遍历(func(key, value interface{}) bool {
 		m[key.(string)] = value.(SchemaRef)
 		return true
 	})
 	return m
 }
 
-func (s *Schemas) Iterator(f func(key string, ref SchemaRef) bool) {
+func (s *Schemas) X遍历(f func(key string, ref SchemaRef) bool) {
 	s.init()
-	s.refs.Iterator(func(key, value interface{}) bool {
+	s.refs.X遍历(func(key, value interface{}) bool {
 		return f(key.(string), value.(SchemaRef))
 	})
 }

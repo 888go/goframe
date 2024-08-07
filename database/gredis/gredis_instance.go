@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gredis
+package redis类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 var (
 		// localInstances 用于管理redis客户端的实例。 md5:3e8c8ec6661fd69a
-	localInstances = gmap.NewStrAnyMap(true)
+	localInstances = gmap.X创建StrAny(true)
 )
 
 // Instance 返回指定分组的 redis 客户端实例。
@@ -27,7 +27,7 @@ func Instance(name ...string) *Redis {
 	if len(name) > 0 && name[0] != "" {
 		group = name[0]
 	}
-	v := localInstances.GetOrSetFuncLock(group, func() interface{} {
+	v := localInstances.X取值或设置值_函数带锁(group, func() interface{} {
 		if config, ok := GetConfig(group); ok {
 			r, err := New(config)
 			if err != nil {

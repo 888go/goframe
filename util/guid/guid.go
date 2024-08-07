@@ -6,19 +6,19 @@
 // md5:a9832f33b234e3f3
 
 // guid包提供了简单且高性能的唯一ID生成功能。 md5:22d1fe7516a2dff2
-package guid
+package uid类
 
 import (
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/encoding/ghash"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/net/gipv4"
-	"github.com/gogf/gf/v2/util/grand"
+	gtype "github.com/888go/goframe/container/gtype"
+	ghash "github.com/888go/goframe/encoding/ghash"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gipv4 "github.com/888go/goframe/net/gipv4"
+	grand "github.com/888go/goframe/util/grand"
 )
 
 const (
@@ -55,7 +55,7 @@ func init() {
 	}
 }
 
-// S 函数创建并返回一个32字节的全局唯一字符串，它满足大多数常见的使用需求，但不严格遵循UUID算法。如果没有提供`data`，则返回默认的唯一字符串。
+// X生成 函数创建并返回一个32字节的全局唯一字符串，它满足大多数常见的使用需求，但不严格遵循UUID算法。如果没有提供`data`，则返回默认的唯一字符串。
 //
 // 指定的`data`最多可以有2个部分。无论每个`data`的长度多长，它们都将被哈希成7字节作为结果的一部分。如果给定的`data`部分少于2个，结果字节的剩余部分将由随机字符串填充。
 //
@@ -67,20 +67,20 @@ func init() {
 //  1. 为了性能考虑，返回的长度固定为32字节。
 //  2. 自定义参数`data`组合的内容在你的业务场景中应具有唯一性。
 // md5:b09b2d34d56e1344
-func S(data ...[]byte) string {
+func X生成(参数 ...[]byte) string {
 	var (
 		b       = make([]byte, 32)
 		nanoStr = strconv.FormatInt(time.Now().UnixNano(), 36)
 	)
-	if len(data) == 0 {
+	if len(参数) == 0 {
 		copy(b, macAddrStr)
 		copy(b[7:], processIdStr)
 		copy(b[11:], nanoStr)
 		copy(b[23:], getSequence())
 		copy(b[26:], getRandomStr(6))
-	} else if len(data) <= 2 {
+	} else if len(参数) <= 2 {
 		n := 0
-		for i, v := range data {
+		for i, v := range 参数 {
 						// 忽略空数据项字节。 md5:653aa2fb92e185e8
 			if len(v) > 0 {
 				copy(b[i*7:], getDataHashStr(v))
@@ -91,7 +91,7 @@ func S(data ...[]byte) string {
 		copy(b[n+12:], getSequence())
 		copy(b[n+12+3:], getRandomStr(32-n-12-3))
 	} else {
-		panic(gerror.NewCode(
+		panic(gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			"too many data parts, it should be no more than 2 parts",
 		))
@@ -116,7 +116,7 @@ func getRandomStr(n int) []byte {
 	}
 	var (
 		b           = make([]byte, n)
-		numberBytes = grand.B(n)
+		numberBytes = grand.X字节集(n)
 	)
 	for i := range b {
 		b[i] = randomStrBase[numberBytes[i]%36]

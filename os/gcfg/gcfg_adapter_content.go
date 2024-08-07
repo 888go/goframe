@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gcfg
+package 配置类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gvar "github.com/888go/goframe/container/gvar"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // AdapterContent 使用内容实现 Adapter 接口。
@@ -27,7 +27,7 @@ type AdapterContent struct {
 // md5:efafcabf61d7087b
 func NewAdapterContent(content ...string) (*AdapterContent, error) {
 	a := &AdapterContent{
-		jsonVar: gvar.New(nil, true),
+		jsonVar: gvar.X创建(nil, true),
 	}
 	if len(content) > 0 {
 		if err := a.SetContent(content[0]); err != nil {
@@ -41,11 +41,11 @@ func NewAdapterContent(content ...string) (*AdapterContent, error) {
 // `file`是可选参数，默认值为DefaultConfigFile。
 // md5:49ae38cf671e3b96
 func (a *AdapterContent) SetContent(content string) error {
-	j, err := gjson.LoadContent(content, true)
+	j, err := gjson.X加载并自动识别格式(content, true)
 	if err != nil {
-		return gerror.Wrap(err, `load configuration content failed`)
+		return gerror.X多层错误(err, `load configuration content failed`)
 	}
-	a.jsonVar.Set(j)
+	a.jsonVar.X设置值(j)
 	return nil
 }
 
@@ -55,7 +55,7 @@ func (a *AdapterContent) SetContent(content string) error {
 // 请注意，此函数不会返回错误，因为它只是简单地检查后端配置服务。
 // md5:79f955eb2fcdd137
 func (a *AdapterContent) Available(ctx context.Context, resource ...string) (ok bool) {
-	if a.jsonVar.IsNil() {
+	if a.jsonVar.X是否为Nil() {
 		return false
 	}
 	return true
@@ -67,10 +67,10 @@ func (a *AdapterContent) Available(ctx context.Context, resource ...string) (ok 
 // "x.0.y" 用于切片中的条目。
 // md5:39b9171603468968
 func (a *AdapterContent) Get(ctx context.Context, pattern string) (value interface{}, err error) {
-	if a.jsonVar.IsNil() {
+	if a.jsonVar.X是否为Nil() {
 		return nil, nil
 	}
-	return a.jsonVar.Val().(*gjson.Json).Get(pattern).Val(), nil
+	return a.jsonVar.X取值().(*gjson.Json).X取值(pattern).X取值(), nil
 }
 
 // Data 获取并以映射的形式返回当前资源中的所有配置数据。
@@ -78,8 +78,8 @@ func (a *AdapterContent) Get(ctx context.Context, pattern string) (value interfa
 // 如有需要，你可以根据实际情况实现这个函数。
 // md5:19dfa88d9aa6ece5
 func (a *AdapterContent) Data(ctx context.Context) (data map[string]interface{}, err error) {
-	if a.jsonVar.IsNil() {
+	if a.jsonVar.X是否为Nil() {
 		return nil, nil
 	}
-	return a.jsonVar.Val().(*gjson.Json).Var().Map(), nil
+	return a.jsonVar.X取值().(*gjson.Json).X取泛型类().X取Map(), nil
 }

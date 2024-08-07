@@ -5,362 +5,362 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp_test
+package http类_test
 
 import (
 	"fmt"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/intlog"
+	ghttp "github.com/888go/goframe/net/ghttp"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
 )
 
 func Test_Router_DomainBasic(t *testing.T) {
-	s := g.Server(guid.S())
-	d := s.Domain("localhost, local")
-	d.BindHandler("/:name", func(r *ghttp.Request) {
-		r.Response.Write("/:name")
+	s := g.Http类(guid.X生成())
+	d := s.X创建域名路由("localhost, local")
+	d.X绑定("/:name", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("/:name")
 	})
-	d.BindHandler("/:name/update", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("name"))
+	d.X绑定("/:name/update", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("name"))
 	})
-	d.BindHandler("/:name/:action", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("action"))
+	d.X绑定("/:name/:action", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("action"))
 	})
-	d.BindHandler("/:name/*any", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("any"))
+	d.X绑定("/:name/*any", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("any"))
 	})
-	d.BindHandler("/user/list/{field}.html", func(r *ghttp.Request) {
-		r.Response.Write(r.Get("field"))
+	d.X绑定("/user/list/{field}.html", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区(r.Get别名("field"))
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
-		t.Assert(client.GetContent(ctx, "/john"), "Not Found")
-		t.Assert(client.GetContent(ctx, "/john/update"), "Not Found")
-		t.Assert(client.GetContent(ctx, "/john/edit"), "Not Found")
-		t.Assert(client.GetContent(ctx, "/user/list/100.html"), "Not Found")
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
+		t.Assert(client.Get文本(ctx, "/john"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/john/update"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/john/edit"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/user/list/100.html"), "Not Found")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://localhost:%d", s.GetListenedPort()))
-		t.Assert(client.GetContent(ctx, "/john"), "")
-		t.Assert(client.GetContent(ctx, "/john/update"), "john")
-		t.Assert(client.GetContent(ctx, "/john/edit"), "edit")
-		t.Assert(client.GetContent(ctx, "/user/list/100.html"), "100")
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://localhost:%d", s.X取已监听端口()))
+		t.Assert(client.Get文本(ctx, "/john"), "")
+		t.Assert(client.Get文本(ctx, "/john/update"), "john")
+		t.Assert(client.Get文本(ctx, "/john/edit"), "edit")
+		t.Assert(client.Get文本(ctx, "/user/list/100.html"), "100")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://local:%d", s.GetListenedPort()))
-		t.Assert(client.GetContent(ctx, "/john"), "")
-		t.Assert(client.GetContent(ctx, "/john/update"), "john")
-		t.Assert(client.GetContent(ctx, "/john/edit"), "edit")
-		t.Assert(client.GetContent(ctx, "/user/list/100.html"), "100")
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://local:%d", s.X取已监听端口()))
+		t.Assert(client.Get文本(ctx, "/john"), "")
+		t.Assert(client.Get文本(ctx, "/john/update"), "john")
+		t.Assert(client.Get文本(ctx, "/john/edit"), "edit")
+		t.Assert(client.Get文本(ctx, "/user/list/100.html"), "100")
 	})
 }
 
 func Test_Router_DomainMethod(t *testing.T) {
-	s := g.Server(guid.S())
-	d := s.Domain("localhost, local")
-	d.BindHandler("GET:/get", func(r *ghttp.Request) {
+	s := g.Http类(guid.X生成())
+	d := s.X创建域名路由("localhost, local")
+	d.X绑定("GET:/get", func(r *ghttp.Request) {
 
 	})
-	d.BindHandler("POST:/post", func(r *ghttp.Request) {
+	d.X绑定("POST:/post", func(r *ghttp.Request) {
 
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		resp1, err := client.Get(ctx, "/get")
+		resp1, err := client.Get响应对象(ctx, "/get")
 		t.AssertNil(err)
-		defer resp1.Close()
+		defer resp1.X关闭()
 		t.Assert(resp1.StatusCode, 404)
 
-		resp2, err := client.Post(ctx, "/get")
+		resp2, err := client.Post响应对象(ctx, "/get")
 		t.AssertNil(err)
-		defer resp2.Close()
+		defer resp2.X关闭()
 		t.Assert(resp2.StatusCode, 404)
 
-		resp3, err := client.Get(ctx, "/post")
+		resp3, err := client.Get响应对象(ctx, "/post")
 		t.AssertNil(err)
-		defer resp3.Close()
+		defer resp3.X关闭()
 		t.Assert(resp3.StatusCode, 404)
 
-		resp4, err := client.Post(ctx, "/post")
+		resp4, err := client.Post响应对象(ctx, "/post")
 		t.AssertNil(err)
-		defer resp4.Close()
+		defer resp4.X关闭()
 		t.Assert(resp4.StatusCode, 404)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://localhost:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://localhost:%d", s.X取已监听端口()))
 
-		resp1, err := client.Get(ctx, "/get")
+		resp1, err := client.Get响应对象(ctx, "/get")
 		t.AssertNil(err)
-		defer resp1.Close()
+		defer resp1.X关闭()
 		t.Assert(resp1.StatusCode, 200)
 
-		resp2, err := client.Post(ctx, "/get")
+		resp2, err := client.Post响应对象(ctx, "/get")
 		t.AssertNil(err)
-		defer resp2.Close()
+		defer resp2.X关闭()
 		t.Assert(resp2.StatusCode, 404)
 
-		resp3, err := client.Get(ctx, "/post")
+		resp3, err := client.Get响应对象(ctx, "/post")
 		t.AssertNil(err)
-		defer resp3.Close()
+		defer resp3.X关闭()
 		t.Assert(resp3.StatusCode, 404)
 
-		resp4, err := client.Post(ctx, "/post")
+		resp4, err := client.Post响应对象(ctx, "/post")
 		t.AssertNil(err)
-		defer resp4.Close()
+		defer resp4.X关闭()
 		t.Assert(resp4.StatusCode, 200)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://local:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://local:%d", s.X取已监听端口()))
 
-		resp1, err := client.Get(ctx, "/get")
+		resp1, err := client.Get响应对象(ctx, "/get")
 		t.AssertNil(err)
-		defer resp1.Close()
+		defer resp1.X关闭()
 		t.Assert(resp1.StatusCode, 200)
 
-		resp2, err := client.Post(ctx, "/get")
+		resp2, err := client.Post响应对象(ctx, "/get")
 		t.AssertNil(err)
-		defer resp2.Close()
+		defer resp2.X关闭()
 		t.Assert(resp2.StatusCode, 404)
 
-		resp3, err := client.Get(ctx, "/post")
+		resp3, err := client.Get响应对象(ctx, "/post")
 		t.AssertNil(err)
-		defer resp3.Close()
+		defer resp3.X关闭()
 		t.Assert(resp3.StatusCode, 404)
 
-		resp4, err := client.Post(ctx, "/post")
+		resp4, err := client.Post响应对象(ctx, "/post")
 		t.AssertNil(err)
-		defer resp4.Close()
+		defer resp4.X关闭()
 		t.Assert(resp4.StatusCode, 200)
 	})
 }
 
 func Test_Router_DomainStatus(t *testing.T) {
-	s := g.Server(guid.S())
-	d := s.Domain("localhost, local")
-	d.BindHandler("/200", func(r *ghttp.Request) {
-		r.Response.WriteStatus(200)
+	s := g.Http类(guid.X生成())
+	d := s.X创建域名路由("localhost, local")
+	d.X绑定("/200", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区与HTTP状态码(200)
 	})
-	d.BindHandler("/300", func(r *ghttp.Request) {
-		r.Response.WriteStatus(300)
+	d.X绑定("/300", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区与HTTP状态码(300)
 	})
-	d.BindHandler("/400", func(r *ghttp.Request) {
-		r.Response.WriteStatus(400)
+	d.X绑定("/400", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区与HTTP状态码(400)
 	})
-	d.BindHandler("/500", func(r *ghttp.Request) {
-		r.Response.WriteStatus(500)
+	d.X绑定("/500", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区与HTTP状态码(500)
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		resp1, err := client.Get(ctx, "/200")
+		resp1, err := client.Get响应对象(ctx, "/200")
 		t.AssertNil(err)
-		defer resp1.Close()
+		defer resp1.X关闭()
 		t.Assert(resp1.StatusCode, 404)
 
-		resp2, err := client.Get(ctx, "/300")
+		resp2, err := client.Get响应对象(ctx, "/300")
 		t.AssertNil(err)
-		defer resp2.Close()
+		defer resp2.X关闭()
 		t.Assert(resp2.StatusCode, 404)
 
-		resp3, err := client.Get(ctx, "/400")
+		resp3, err := client.Get响应对象(ctx, "/400")
 		t.AssertNil(err)
-		defer resp3.Close()
+		defer resp3.X关闭()
 		t.Assert(resp3.StatusCode, 404)
 
-		resp4, err := client.Get(ctx, "/500")
+		resp4, err := client.Get响应对象(ctx, "/500")
 		t.AssertNil(err)
-		defer resp4.Close()
+		defer resp4.X关闭()
 		t.Assert(resp4.StatusCode, 404)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://localhost:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://localhost:%d", s.X取已监听端口()))
 
-		resp1, err := client.Get(ctx, "/200")
+		resp1, err := client.Get响应对象(ctx, "/200")
 		t.AssertNil(err)
-		defer resp1.Close()
+		defer resp1.X关闭()
 		t.Assert(resp1.StatusCode, 200)
 
-		resp2, err := client.Get(ctx, "/300")
+		resp2, err := client.Get响应对象(ctx, "/300")
 		t.AssertNil(err)
-		defer resp2.Close()
+		defer resp2.X关闭()
 		t.Assert(resp2.StatusCode, 300)
 
-		resp3, err := client.Get(ctx, "/400")
+		resp3, err := client.Get响应对象(ctx, "/400")
 		t.AssertNil(err)
-		defer resp3.Close()
+		defer resp3.X关闭()
 		t.Assert(resp3.StatusCode, 400)
 
-		resp4, err := client.Get(ctx, "/500")
+		resp4, err := client.Get响应对象(ctx, "/500")
 		t.AssertNil(err)
-		defer resp4.Close()
+		defer resp4.X关闭()
 		t.Assert(resp4.StatusCode, 500)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://local:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://local:%d", s.X取已监听端口()))
 
-		resp1, err := client.Get(ctx, "/200")
+		resp1, err := client.Get响应对象(ctx, "/200")
 		t.AssertNil(err)
-		defer resp1.Close()
+		defer resp1.X关闭()
 		t.Assert(resp1.StatusCode, 200)
 
-		resp2, err := client.Get(ctx, "/300")
+		resp2, err := client.Get响应对象(ctx, "/300")
 		t.AssertNil(err)
-		defer resp2.Close()
+		defer resp2.X关闭()
 		t.Assert(resp2.StatusCode, 300)
 
-		resp3, err := client.Get(ctx, "/400")
+		resp3, err := client.Get响应对象(ctx, "/400")
 		t.AssertNil(err)
-		defer resp3.Close()
+		defer resp3.X关闭()
 		t.Assert(resp3.StatusCode, 400)
 
-		resp4, err := client.Get(ctx, "/500")
+		resp4, err := client.Get响应对象(ctx, "/500")
 		t.AssertNil(err)
-		defer resp4.Close()
+		defer resp4.X关闭()
 		t.Assert(resp4.StatusCode, 500)
 	})
 }
 
 func Test_Router_DomainCustomStatusHandler(t *testing.T) {
-	s := g.Server(guid.S())
-	d := s.Domain("localhost, local")
-	d.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write("hello")
+	s := g.Http类(guid.X生成())
+	d := s.X创建域名路由("localhost, local")
+	d.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("hello")
 	})
-	d.BindStatusHandler(404, func(r *ghttp.Request) {
-		r.Response.Write("404 page")
+	d.X绑定状态码中间件(404, func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("404 page")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "Not Found")
-		t.Assert(client.GetContent(ctx, "/ThisDoesNotExist"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/ThisDoesNotExist"), "Not Found")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://localhost:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://localhost:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "hello")
-		t.Assert(client.GetContent(ctx, "/ThisDoesNotExist"), "404 page")
+		t.Assert(client.Get文本(ctx, "/"), "hello")
+		t.Assert(client.Get文本(ctx, "/ThisDoesNotExist"), "404 page")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://local:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://local:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "hello")
-		t.Assert(client.GetContent(ctx, "/ThisDoesNotExist"), "404 page")
+		t.Assert(client.Get文本(ctx, "/"), "hello")
+		t.Assert(client.Get文本(ctx, "/ThisDoesNotExist"), "404 page")
 	})
 }
 
 func Test_Router_Domain404(t *testing.T) {
-	s := g.Server(guid.S())
-	d := s.Domain("localhost, local")
-	d.BindHandler("/", func(r *ghttp.Request) {
-		r.Response.Write("hello")
+	s := g.Http类(guid.X生成())
+	d := s.X创建域名路由("localhost, local")
+	d.X绑定("/", func(r *ghttp.Request) {
+		r.X响应.X写响应缓冲区("hello")
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "Not Found")
+		t.Assert(client.Get文本(ctx, "/"), "Not Found")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://localhost:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://localhost:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "hello")
+		t.Assert(client.Get文本(ctx, "/"), "hello")
 	})
 	gtest.C(t, func(t *gtest.T) {
-		client := g.Client()
-		client.SetPrefix(fmt.Sprintf("http://local:%d", s.GetListenedPort()))
+		client := g.X网页类()
+		client.X设置url前缀(fmt.Sprintf("http://local:%d", s.X取已监听端口()))
 
-		t.Assert(client.GetContent(ctx, "/"), "hello")
+		t.Assert(client.Get文本(ctx, "/"), "hello")
 	})
 }
 
 func Test_Router_DomainGroup(t *testing.T) {
-	s := g.Server(guid.S())
-	d := s.Domain("localhost, local")
-	d.Group("/", func(group *ghttp.RouterGroup) {
-		group.Group("/app", func(group *ghttp.RouterGroup) {
-			group.GET("/{table}/list/{page}.html", func(r *ghttp.Request) {
-				intlog.Print(r.Context(), "/{table}/list/{page}.html")
-				r.Response.Write(r.Get("table"), "&", r.Get("page"))
+	s := g.Http类(guid.X生成())
+	d := s.X创建域名路由("localhost, local")
+	d.X创建分组路由("/", func(group *ghttp.X分组路由) {
+		group.X创建分组路由("/app", func(group *ghttp.X分组路由) {
+			group.X绑定GET("/{table}/list/{page}.html", func(r *ghttp.Request) {
+				intlog.Print(r.Context别名(), "/{table}/list/{page}.html")
+				r.X响应.X写响应缓冲区(r.Get别名("table"), "&", r.Get别名("page"))
 			})
-			group.GET("/order/info/{order_id}", func(r *ghttp.Request) {
-				intlog.Print(r.Context(), "/order/info/{order_id}")
-				r.Response.Write(r.Get("order_id"))
+			group.X绑定GET("/order/info/{order_id}", func(r *ghttp.Request) {
+				intlog.Print(r.Context别名(), "/order/info/{order_id}")
+				r.X响应.X写响应缓冲区(r.Get别名("order_id"))
 			})
-			group.DELETE("/comment/{id}", func(r *ghttp.Request) {
-				intlog.Print(r.Context(), "/comment/{id}")
-				r.Response.Write(r.Get("id"))
+			group.X绑定DELETE("/comment/{id}", func(r *ghttp.Request) {
+				intlog.Print(r.Context别名(), "/comment/{id}")
+				r.X响应.X写响应缓冲区(r.Get别名("id"))
 			})
 		})
 	})
 	s.SetDumpRouterMap(false)
-	s.Start()
-	defer s.Shutdown()
+	s.X开始监听()
+	defer s.X关闭当前服务()
 
 	time.Sleep(100 * time.Millisecond)
 	gtest.C(t, func(t *gtest.T) {
-		client1 := g.Client()
-		client1.SetPrefix(fmt.Sprintf("http://local:%d", s.GetListenedPort()))
+		client1 := g.X网页类()
+		client1.X设置url前缀(fmt.Sprintf("http://local:%d", s.X取已监听端口()))
 
-		client2 := g.Client()
-		client2.SetPrefix(fmt.Sprintf("http://127.0.0.1:%d", s.GetListenedPort()))
+		client2 := g.X网页类()
+		client2.X设置url前缀(fmt.Sprintf("http://127.0.0.1:%d", s.X取已监听端口()))
 
-		t.Assert(client1.GetContent(ctx, "/app/t/list/2.html"), "t&2")
-		t.Assert(client2.GetContent(ctx, "/app/t/list/2.html"), "Not Found")
+		t.Assert(client1.Get文本(ctx, "/app/t/list/2.html"), "t&2")
+		t.Assert(client2.Get文本(ctx, "/app/t/list/2.html"), "Not Found")
 
-		t.Assert(client1.GetContent(ctx, "/app/order/info/2"), "2")
-		t.Assert(client2.GetContent(ctx, "/app/order/info/2"), "Not Found")
+		t.Assert(client1.Get文本(ctx, "/app/order/info/2"), "2")
+		t.Assert(client2.Get文本(ctx, "/app/order/info/2"), "Not Found")
 
-		t.Assert(client1.GetContent(ctx, "/app/comment/20"), "Not Found")
-		t.Assert(client2.GetContent(ctx, "/app/comment/20"), "Not Found")
+		t.Assert(client1.Get文本(ctx, "/app/comment/20"), "Not Found")
+		t.Assert(client2.Get文本(ctx, "/app/comment/20"), "Not Found")
 
-		t.Assert(client1.DeleteContent(ctx, "/app/comment/20"), "20")
-		t.Assert(client2.DeleteContent(ctx, "/app/comment/20"), "Not Found")
+		t.Assert(client1.Delete文本(ctx, "/app/comment/20"), "20")
+		t.Assert(client2.Delete文本(ctx, "/app/comment/20"), "Not Found")
 	})
 }

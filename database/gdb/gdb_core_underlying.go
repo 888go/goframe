@@ -5,7 +5,7 @@
 // 您可以在 https://github.com/gogf/gf 获取一个。
 // md5:a114f4bdd106ab31
 
-package gdb
+package db类
 
 import (
 	"context"
@@ -16,147 +16,147 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/util/guid"
+	"github.com/888go/goframe"
+	gvar "github.com/888go/goframe/container/gvar"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gtime "github.com/888go/goframe/os/gtime"
+	guid "github.com/888go/goframe/util/guid"
 )
 
-// Query 向底层驱动提交一个查询SQL并返回执行结果。
+// X原生SQL查询 向底层驱动提交一个查询SQL并返回执行结果。
 // 它最常用于数据查询。
 // md5:06bbbfc29aa3894b
-func (c *Core) Query(ctx context.Context, sql string, args ...interface{}) (result Result, err error) {
-	return c.db.DoQuery(ctx, nil, sql, args...)
+func (c *Core) X原生SQL查询(上下文 context.Context, sql string, 参数 ...interface{}) (结果 Result, 错误 error) {
+	return c.db.X底层原生SQL查询(上下文, nil, sql, 参数...)
 }
 
-// DoQuery 通过给定的链接对象将SQL字符串及其参数提交给底层驱动，并返回执行结果。
+// X底层原生SQL查询 通过给定的链接对象将SQL字符串及其参数提交给底层驱动，并返回执行结果。
 // md5:af7bdcd1a2074bc0
-func (c *Core) DoQuery(ctx context.Context, link Link, sql string, args ...interface{}) (result Result, err error) {
+func (c *Core) X底层原生SQL查询(上下文 context.Context, 链接 Link, sql string, 参数 ...interface{}) (结果 Result, 错误 error) {
 	// Transaction checks.
-	if link == nil {
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
+	if 链接 == nil {
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
 						// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
-			link = &txLink{tx.GetSqlTX()}
-		} else if link, err = c.SlaveLink(); err != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
+		} else if 链接, 错误 = c.X底层SlaveLink(); 错误 != nil {
 						// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
-			return nil, err
+			return nil, 错误
 		}
-	} else if !link.IsTransaction() {
+	} else if !链接.IsTransaction() {
 				// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			link = &txLink{tx.GetSqlTX()}
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
 		}
 	}
 
-	if c.db.GetConfig().QueryTimeout > 0 {
-		ctx, _ = context.WithTimeout(ctx, c.db.GetConfig().QueryTimeout)
+	if c.db.X取当前节点配置().QueryTimeout > 0 {
+		上下文, _ = context.WithTimeout(上下文, c.db.X取当前节点配置().QueryTimeout)
 	}
 
 	// Sql filtering.
-	sql, args = c.FormatSqlBeforeExecuting(sql, args)
-	sql, args, err = c.db.DoFilter(ctx, link, sql, args)
-	if err != nil {
-		return nil, err
+	sql, 参数 = c.X格式化Sql(sql, 参数)
+	sql, 参数, 错误 = c.db.X底层DoFilter(上下文, 链接, sql, 参数)
+	if 错误 != nil {
+		return nil, 错误
 	}
 		// SQL格式化和获取。 md5:815f530302ec8a7e
-	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
+	if v := 上下文.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
-			formattedSql = FormatSqlWithArgs(sql, args)
+			formattedSql = X格式化Sql(sql, 参数)
 		)
-		manager.SQLArray.Append(formattedSql)
-		if !manager.DoCommit && ctx.Value(ctxKeyInternalProducedSQL) == nil {
+		manager.SQLArray.Append别名(formattedSql)
+		if !manager.DoCommit && 上下文.Value(ctxKeyInternalProducedSQL) == nil {
 			return nil, nil
 		}
 	}
 	// Link execution.
 	var out DoCommitOutput
-	out, err = c.db.DoCommit(ctx, DoCommitInput{
-		Link:          link,
+	out, 错误 = c.db.X底层DoCommit(上下文, DoCommitInput{
+		Link:          链接,
 		Sql:           sql,
-		Args:          args,
+		Args:          参数,
 		Stmt:          nil,
 		Type:          SqlTypeQueryContext,
-		IsTransaction: link.IsTransaction(),
+		IsTransaction: 链接.IsTransaction(),
 	})
-	return out.Records, err
+	return out.X行记录切片, 错误
 }
 
-// Exec 将一个查询 SQL 执行到底层驱动并返回执行结果。它最常用于数据插入和更新。
+// X原生SQL执行 将一个查询 SQL 执行到底层驱动并返回执行结果。它最常用于数据插入和更新。
 // md5:6f9ddc85964b9797
-func (c *Core) Exec(ctx context.Context, sql string, args ...interface{}) (result sql.Result, err error) {
-	return c.db.DoExec(ctx, nil, sql, args...)
+func (c *Core) X原生SQL执行(上下文 context.Context, sql string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
+	return c.db.X底层原生SQL执行(上下文, nil, sql, 参数...)
 }
 
-// DoExec 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
+// X底层原生SQL执行 通过给定的链接对象将 sql 字符串及其参数提交到底层驱动，并返回执行结果。
 // md5:947bd2b83e751e10
-func (c *Core) DoExec(ctx context.Context, link Link, sql string, args ...interface{}) (result sql.Result, err error) {
+func (c *Core) X底层原生SQL执行(上下文 context.Context, 链接 Link, sql string, 参数 ...interface{}) (结果 sql.Result, 错误 error) {
 	// Transaction checks.
-	if link == nil {
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
+	if 链接 == nil {
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
 						// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
-			link = &txLink{tx.GetSqlTX()}
-		} else if link, err = c.MasterLink(); err != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
+		} else if 链接, 错误 = c.X底层MasterLink(); 错误 != nil {
 						// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
-			return nil, err
+			return nil, 错误
 		}
-	} else if !link.IsTransaction() {
+	} else if !链接.IsTransaction() {
 				// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			link = &txLink{tx.GetSqlTX()}
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
 		}
 	}
 
-	if c.db.GetConfig().ExecTimeout > 0 {
+	if c.db.X取当前节点配置().ExecTimeout > 0 {
 		var cancelFunc context.CancelFunc
-		ctx, cancelFunc = context.WithTimeout(ctx, c.db.GetConfig().ExecTimeout)
+		上下文, cancelFunc = context.WithTimeout(上下文, c.db.X取当前节点配置().ExecTimeout)
 		defer cancelFunc()
 	}
 
 	// SQL filtering.
-	sql, args = c.FormatSqlBeforeExecuting(sql, args)
-	sql, args, err = c.db.DoFilter(ctx, link, sql, args)
-	if err != nil {
-		return nil, err
+	sql, 参数 = c.X格式化Sql(sql, 参数)
+	sql, 参数, 错误 = c.db.X底层DoFilter(上下文, 链接, sql, 参数)
+	if 错误 != nil {
+		return nil, 错误
 	}
 		// SQL格式化和获取。 md5:815f530302ec8a7e
-	if v := ctx.Value(ctxKeyCatchSQL); v != nil {
+	if v := 上下文.Value(ctxKeyCatchSQL); v != nil {
 		var (
 			manager      = v.(*CatchSQLManager)
-			formattedSql = FormatSqlWithArgs(sql, args)
+			formattedSql = X格式化Sql(sql, 参数)
 		)
-		manager.SQLArray.Append(formattedSql)
-		if !manager.DoCommit && ctx.Value(ctxKeyInternalProducedSQL) == nil {
+		manager.SQLArray.Append别名(formattedSql)
+		if !manager.DoCommit && 上下文.Value(ctxKeyInternalProducedSQL) == nil {
 			return new(SqlResult), nil
 		}
 	}
 	// Link execution.
 	var out DoCommitOutput
-	out, err = c.db.DoCommit(ctx, DoCommitInput{
-		Link:          link,
+	out, 错误 = c.db.X底层DoCommit(上下文, DoCommitInput{
+		Link:          链接,
 		Sql:           sql,
-		Args:          args,
+		Args:          参数,
 		Stmt:          nil,
 		Type:          SqlTypeExecContext,
-		IsTransaction: link.IsTransaction(),
+		IsTransaction: 链接.IsTransaction(),
 	})
-	return out.Result, err
+	return out.Result, 错误
 }
 
-// DoFilter 是一个钩子函数，它在 SQL 语句及其参数提交给底层驱动之前进行过滤。
+// X底层DoFilter 是一个钩子函数，它在 SQL 语句及其参数提交给底层驱动之前进行过滤。
 // 参数 `link` 指定当前数据库连接的操作对象。在 SQL 语句 `sql` 及其参数 `args` 被提交给驱动之前，您可以根据需要随意修改它们。
 // md5:41118fbc4e6c5562
-func (c *Core) DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+func (c *Core) X底层DoFilter(ctx context.Context, link Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	return sql, args, nil
 }
 
-// DoCommit 将当前SQL和参数提交给底层SQL驱动程序。 md5:7cf9b1f6f4d9d2cb
-func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error) {
+// X底层DoCommit 将当前SQL和参数提交给底层SQL驱动程序。 md5:7cf9b1f6f4d9d2cb
+func (c *Core) X底层DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutput, err error) {
 	var (
 		sqlTx                *sql.Tx
 		sqlStmt              *sql.Stmt
@@ -166,8 +166,8 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 		stmtSqlRow           *sql.Row
 		rowsAffected         int64
 		cancelFuncForTimeout context.CancelFunc
-		formattedSql         = FormatSqlWithArgs(in.Sql, in.Args)
-		timestampMilli1      = gtime.TimestampMilli()
+		formattedSql         = X格式化Sql(in.Sql, in.Args)
+		timestampMilli1      = gtime.X取时间戳毫秒()
 	)
 
 	// Trace span start.
@@ -184,11 +184,11 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 				tx:            sqlTx,
 				ctx:           context.WithValue(ctx, transactionIdForLoggerCtx, transactionIdGenerator.Add(1)),
 				master:        in.Db,
-				transactionId: guid.S(),
+				transactionId: guid.X生成(),
 			}
-			ctx = out.Tx.GetCtx()
+			ctx = out.Tx.X取上下文对象()
 		}
-		out.RawResult = sqlTx
+		out.X底层结果 = sqlTx
 
 	case SqlTypeTXCommit:
 		err = in.Tx.Commit()
@@ -197,58 +197,58 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 		err = in.Tx.Rollback()
 
 	case SqlTypeExecContext:
-		if c.db.GetDryRun() {
+		if c.db.X取空跑特性() {
 			sqlResult = new(SqlResult)
 		} else {
 			sqlResult, err = in.Link.ExecContext(ctx, in.Sql, in.Args...)
 		}
-		out.RawResult = sqlResult
+		out.X底层结果 = sqlResult
 
 	case SqlTypeQueryContext:
 		sqlRows, err = in.Link.QueryContext(ctx, in.Sql, in.Args...)
-		out.RawResult = sqlRows
+		out.X底层结果 = sqlRows
 
 	case SqlTypePrepareContext:
 		sqlStmt, err = in.Link.PrepareContext(ctx, in.Sql)
-		out.RawResult = sqlStmt
+		out.X底层结果 = sqlStmt
 
 	case SqlTypeStmtExecContext:
-		ctx, cancelFuncForTimeout = c.GetCtxTimeout(ctx, ctxTimeoutTypeExec)
+		ctx, cancelFuncForTimeout = c.X取超时上下文对象(ctx, ctxTimeoutTypeExec)
 		defer cancelFuncForTimeout()
-		if c.db.GetDryRun() {
+		if c.db.X取空跑特性() {
 			sqlResult = new(SqlResult)
 		} else {
 			sqlResult, err = in.Stmt.ExecContext(ctx, in.Args...)
 		}
-		out.RawResult = sqlResult
+		out.X底层结果 = sqlResult
 
 	case SqlTypeStmtQueryContext:
-		ctx, cancelFuncForTimeout = c.GetCtxTimeout(ctx, ctxTimeoutTypeQuery)
+		ctx, cancelFuncForTimeout = c.X取超时上下文对象(ctx, ctxTimeoutTypeQuery)
 		defer cancelFuncForTimeout()
 		stmtSqlRows, err = in.Stmt.QueryContext(ctx, in.Args...)
-		out.RawResult = stmtSqlRows
+		out.X底层结果 = stmtSqlRows
 
 	case SqlTypeStmtQueryRowContext:
-		ctx, cancelFuncForTimeout = c.GetCtxTimeout(ctx, ctxTimeoutTypeQuery)
+		ctx, cancelFuncForTimeout = c.X取超时上下文对象(ctx, ctxTimeoutTypeQuery)
 		defer cancelFuncForTimeout()
 		stmtSqlRow = in.Stmt.QueryRowContext(ctx, in.Args...)
-		out.RawResult = stmtSqlRow
+		out.X底层结果 = stmtSqlRow
 
 	default:
-		panic(gerror.NewCodef(gcode.CodeInvalidParameter, `invalid SqlType "%s"`, in.Type))
+		panic(gerror.X创建错误码并格式化(gcode.CodeInvalidParameter, `invalid SqlType "%s"`, in.Type))
 	}
 	// Result handling.
 	switch {
-	case sqlResult != nil && !c.GetIgnoreResultFromCtx(ctx):
+	case sqlResult != nil && !c.X底层_GetIgnoreResultFromCtx(ctx):
 		rowsAffected, err = sqlResult.RowsAffected()
 		out.Result = sqlResult
 
 	case sqlRows != nil:
-		out.Records, err = c.RowsToResult(ctx, sqlRows)
-		rowsAffected = int64(len(out.Records))
+		out.X行记录切片, err = c.X原生sql记录到行记录切片对象(ctx, sqlRows)
+		rowsAffected = int64(len(out.X行记录切片))
 
 	case sqlStmt != nil:
-		out.Stmt = &Stmt{
+		out.X参数预处理 = &Stmt{
 			Stmt: sqlStmt,
 			core: c,
 			link: in.Link,
@@ -256,7 +256,7 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 		}
 	}
 	var (
-		timestampMilli2 = gtime.TimestampMilli()
+		timestampMilli2 = gtime.X取时间戳毫秒()
 		sqlObj          = &Sql{
 			Sql:           in.Sql,
 			Type:          in.Type,
@@ -265,8 +265,8 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 			Error:         err,
 			Start:         timestampMilli1,
 			End:           timestampMilli2,
-			Group:         c.db.GetGroup(),
-			Schema:        c.db.GetSchema(),
+			Group:         c.db.X取配置组名称(),
+			Schema:        c.db.X取默认数据库名称(),
 			RowsAffected:  rowsAffected,
 			IsTransaction: in.IsTransaction,
 		}
@@ -276,84 +276,84 @@ func (c *Core) DoCommit(ctx context.Context, in DoCommitInput) (out DoCommitOutp
 	c.traceSpanEnd(ctx, span, sqlObj)
 
 	// Logging.
-	if c.db.GetDebug() {
+	if c.db.X取调试模式() {
 		c.writeSqlToLogger(ctx, sqlObj)
 	}
 	if err != nil && err != sql.ErrNoRows {
-		err = gerror.WrapCode(
+		err = gerror.X多层错误码(
 			gcode.CodeDbOperationError,
 			err,
-			FormatSqlWithArgs(in.Sql, in.Args),
+			X格式化Sql(in.Sql, in.Args),
 		)
 	}
 	return out, err
 }
 
-// Prepare 准备一个预编译语句，供后续查询或执行使用。
+// X原生sql取参数预处理对象 准备一个预编译语句，供后续查询或执行使用。
 // 可以从返回的语句对象并发运行多个查询或执行。
 // 当不再需要语句时，调用者必须调用 statement 的 Close 方法。
 // 
 // 参数 `execOnMaster` 指定是否在主节点上执行 SQL，如果配置了主从复制，则在从节点上执行。
 // md5:639eebcae369b0a2
-func (c *Core) Prepare(ctx context.Context, sql string, execOnMaster ...bool) (*Stmt, error) {
+func (c *Core) X原生sql取参数预处理对象(上下文 context.Context, sql string, 是否主节点执行 ...bool) (*Stmt, error) {
 	var (
 		err  error
 		link Link
 	)
-	if len(execOnMaster) > 0 && execOnMaster[0] {
-		if link, err = c.MasterLink(); err != nil {
+	if len(是否主节点执行) > 0 && 是否主节点执行[0] {
+		if link, err = c.X底层MasterLink(); err != nil {
 			return nil, err
 		}
 	} else {
-		if link, err = c.SlaveLink(); err != nil {
+		if link, err = c.X底层SlaveLink(); err != nil {
 			return nil, err
 		}
 	}
-	return c.db.DoPrepare(ctx, link, sql)
+	return c.db.X底层原生sql参数预处理对象(上下文, link, sql)
 }
 
-// DoPrepare 会调用给定链接对象上的prepare函数，并返回语句对象。 md5:bae03ede256987bd
-func (c *Core) DoPrepare(ctx context.Context, link Link, sql string) (stmt *Stmt, err error) {
+// X底层原生sql参数预处理对象 会调用给定链接对象上的prepare函数，并返回语句对象。 md5:bae03ede256987bd
+func (c *Core) X底层原生sql参数预处理对象(上下文 context.Context, 链接 Link, sql string) (参数预处理 *Stmt, 错误 error) {
 	// Transaction checks.
-	if link == nil {
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
+	if 链接 == nil {
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
 						// 首先，从上下文中检查并获取交易链接。 md5:9ac4c60388fa960d
-			link = &txLink{tx.GetSqlTX()}
+			链接 = &txLink{tx.X底层取事务对象()}
 		} else {
 						// 否则，它将从主节点创建一个。 md5:4bd14606783b43fc
 			var err error
-			if link, err = c.MasterLink(); err != nil {
+			if 链接, err = c.X底层MasterLink(); err != nil {
 				return nil, err
 			}
 		}
-	} else if !link.IsTransaction() {
+	} else if !链接.IsTransaction() {
 				// 如果当前链接不是事务链接，它会检查并从上下文中检索事务。 md5:e3c484ab061699a1
-		if tx := TXFromCtx(ctx, c.db.GetGroup()); tx != nil {
-			link = &txLink{tx.GetSqlTX()}
+		if tx := X事务从上下文取对象(上下文, c.db.X取配置组名称()); tx != nil {
+			链接 = &txLink{tx.X底层取事务对象()}
 		}
 	}
 
-	if c.db.GetConfig().PrepareTimeout > 0 {
+	if c.db.X取当前节点配置().PrepareTimeout > 0 {
 				// 不要在预处理语句中使用取消函数。 md5:5e529fe5094c7942
-		ctx, _ = context.WithTimeout(ctx, c.db.GetConfig().PrepareTimeout)
+		上下文, _ = context.WithTimeout(上下文, c.db.X取当前节点配置().PrepareTimeout)
 	}
 
 	// Link execution.
 	var out DoCommitOutput
-	out, err = c.db.DoCommit(ctx, DoCommitInput{
-		Link:          link,
+	out, 错误 = c.db.X底层DoCommit(上下文, DoCommitInput{
+		Link:          链接,
 		Sql:           sql,
 		Type:          SqlTypePrepareContext,
-		IsTransaction: link.IsTransaction(),
+		IsTransaction: 链接.IsTransaction(),
 	})
-	return out.Stmt, err
+	return out.X参数预处理, 错误
 }
 
 // FormatUpsert 格式化并返回用于 UPSERT 语句的 SQL 子句部分。
 // 在默认实现中，此函数执行类似 MySQL 的 UPSERT 语句：
 // `INSERT INTO ... ON DUPLICATE KEY UPDATE x=VALUES(z),m=VALUES(y)...`
 // md5:c1c6d7b14661682b
-func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) (string, error) {
+func (c *Core) FormatUpsert(columns []string, list Map切片, option DoInsertOption) (string, error) {
 	var onDuplicateStr string
 	if option.OnDuplicateStr != "" {
 		onDuplicateStr = option.OnDuplicateStr
@@ -366,14 +366,14 @@ func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) 
 			case Raw, *Raw:
 				onDuplicateStr += fmt.Sprintf(
 					"%s=%s",
-					c.QuoteWord(k),
+					c.X底层QuoteWord(k),
 					v,
 				)
 			default:
 				onDuplicateStr += fmt.Sprintf(
 					"%s=VALUES(%s)",
-					c.QuoteWord(k),
-					c.QuoteWord(gconv.String(v)),
+					c.X底层QuoteWord(k),
+					c.X底层QuoteWord(gconv.String(v)),
 				)
 			}
 		}
@@ -388,8 +388,8 @@ func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) 
 			}
 			onDuplicateStr += fmt.Sprintf(
 				"%s=VALUES(%s)",
-				c.QuoteWord(column),
-				c.QuoteWord(column),
+				c.X底层QuoteWord(column),
+				c.X底层QuoteWord(column),
 			)
 		}
 	}
@@ -397,27 +397,27 @@ func (c *Core) FormatUpsert(columns []string, list List, option DoInsertOption) 
 	return InsertOnDuplicateKeyUpdate + " " + onDuplicateStr, nil
 }
 
-// RowsToResult 将底层的 sql.Rows 数据记录类型转换为 Result 类型。 md5:ae9065176ef07b2e
-func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error) {
-	if rows == nil {
+// X原生sql记录到行记录切片对象 将底层的 sql.Rows 数据记录类型转换为 Result 类型。 md5:ae9065176ef07b2e
+func (c *Core) X原生sql记录到行记录切片对象(上下文 context.Context, 底层数据记录 *sql.Rows) (Result, error) {
+	if 底层数据记录 == nil {
 		return nil, nil
 	}
 	defer func() {
-		if err := rows.Close(); err != nil {
-			intlog.Errorf(ctx, `%+v`, err)
+		if err := 底层数据记录.Close(); err != nil {
+			intlog.Errorf(上下文, `%+v`, err)
 		}
 	}()
-	if !rows.Next() {
+	if !底层数据记录.Next() {
 		return nil, nil
 	}
 		// 列名和类型。 md5:51cafb00c4482aba
-	columnTypes, err := rows.ColumnTypes()
+	columnTypes, err := 底层数据记录.ColumnTypes()
 	if err != nil {
 		return nil, err
 	}
 
 	if len(columnTypes) > 0 {
-		if internalData := c.getInternalColumnFromCtx(ctx); internalData != nil {
+		if internalData := c.getInternalColumnFromCtx(上下文); internalData != nil {
 			internalData.FirstResultColumn = columnTypes[0].Name()
 		}
 	}
@@ -430,7 +430,7 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 		scanArgs[i] = &values[i]
 	}
 	for {
-		if err = rows.Scan(scanArgs...); err != nil {
+		if err = 底层数据记录.Scan(scanArgs...); err != nil {
 			return result, err
 		}
 		record := Record{}
@@ -442,14 +442,14 @@ func (c *Core) RowsToResult(ctx context.Context, rows *sql.Rows) (Result, error)
 				record[columnTypes[i].Name()] = nil
 			} else {
 				var convertedValue interface{}
-				if convertedValue, err = c.columnValueToLocalValue(ctx, value, columnTypes[i]); err != nil {
+				if convertedValue, err = c.columnValueToLocalValue(上下文, value, columnTypes[i]); err != nil {
 					return nil, err
 				}
-				record[columnTypes[i].Name()] = gvar.New(convertedValue)
+				record[columnTypes[i].Name()] = gvar.X创建(convertedValue)
 			}
 		}
 		result = append(result, record)
-		if !rows.Next() {
+		if !底层数据记录.Next() {
 			break
 		}
 	}
@@ -466,12 +466,12 @@ func (c *Core) columnValueToLocalValue(ctx context.Context, value interface{}, c
 			reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
 			reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
 			reflect.Float32, reflect.Float64:
-			return gconv.Convert(
+			return gconv.X按名称转换(
 				gconv.String(value),
 				columnType.ScanType().String(),
 			), nil
 		}
 	}
 		// 其他复杂类型，特别是自定义类型。 md5:5d9bae215068a0c1
-	return c.db.ConvertValueForLocal(ctx, columnType.DatabaseTypeName(), value)
+	return c.db.X底层ConvertValueForLocal(ctx, columnType.DatabaseTypeName(), value)
 }

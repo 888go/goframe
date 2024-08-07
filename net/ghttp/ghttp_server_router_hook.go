@@ -5,23 +5,23 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"context"
 	"net/http"
 	"reflect"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
+	"github.com/888go/goframe/debug/gdebug"
 )
 
-// BindHookHandler 为指定的钩子注册处理程序。 md5:325d65ceb75f1b33
-func (s *Server) BindHookHandler(pattern string, hook HookName, handler HandlerFunc) {
+// X绑定Hook 为指定的钩子注册处理程序。 md5:325d65ceb75f1b33
+func (s *X服务) X绑定Hook(路由规则 string, 触发时机 Hook名称, 处理函数 HandlerFunc) {
 	s.doBindHookHandler(context.TODO(), doBindHookHandlerInput{
 		Prefix:   "",
-		Pattern:  pattern,
-		HookName: hook,
-		Handler:  handler,
+		Pattern:  路由规则,
+		HookName: 触发时机,
+		Handler:  处理函数,
 		Source:   "",
 	})
 }
@@ -30,41 +30,41 @@ func (s *Server) BindHookHandler(pattern string, hook HookName, handler HandlerF
 type doBindHookHandlerInput struct {
 	Prefix   string
 	Pattern  string
-	HookName HookName
+	HookName Hook名称
 	Handler  HandlerFunc
 	Source   string
 }
 
 // doBindHookHandler是BindHookHandler的内部处理程序。 md5:5393ffad5084d597
-func (s *Server) doBindHookHandler(ctx context.Context, in doBindHookHandlerInput) {
+func (s *X服务) doBindHookHandler(ctx context.Context, in doBindHookHandlerInput) {
 	s.setHandler(
 		ctx,
 		setHandlerInput{
 			Prefix:  in.Prefix,
 			Pattern: in.Pattern,
-			HandlerItem: &HandlerItem{
+			HandlerItem: &X路由处理函数{
 				Type: HandlerTypeHook,
-				Name: gdebug.FuncPath(in.Handler),
-				Info: handlerFuncInfo{
+				X处理器名称: gdebug.FuncPath(in.Handler),
+				X处理器函数信息: handlerFuncInfo{
 					Func: in.Handler,
 					Type: reflect.TypeOf(in.Handler),
 				},
-				HookName: in.HookName,
-				Source:   in.Source,
+				Hook名称: in.HookName,
+				X注册来源:   in.Source,
 			},
 		},
 	)
 }
 
-// BindHookHandlerByMap 为指定的钩子注册处理器。 md5:38d4b79317ac1b3f
-func (s *Server) BindHookHandlerByMap(pattern string, hookMap map[HookName]HandlerFunc) {
-	for k, v := range hookMap {
-		s.BindHookHandler(pattern, k, v)
+// X绑定HookMap 为指定的钩子注册处理器。 md5:38d4b79317ac1b3f
+func (s *X服务) X绑定HookMap(路由规则 string, HookMap map[Hook名称]HandlerFunc) {
+	for k, v := range HookMap {
+		s.X绑定Hook(路由规则, k, v)
 	}
 }
 
 // callHookHandler 按照注册的顺序调用钩子处理器。 md5:4e1a8b2998b73ddb
-func (s *Server) callHookHandler(hook HookName, r *Request) {
+func (s *X服务) callHookHandler(hook Hook名称, r *Request) {
 	if !r.hasHookHandler {
 		return
 	}
@@ -73,12 +73,12 @@ func (s *Server) callHookHandler(hook HookName, r *Request) {
 				// 备份旧的路由器变量映射。 md5:4a1427ee4ccef0a6
 		oldRouterMap := r.routerMap
 		for _, item := range hookItems {
-			r.routerMap = item.Values
+			r.routerMap = item.X路由值
 			// 不要使用钩子处理器的路由器，
 			// 因为它可能会覆盖服务处理器的路由器。
 			// r.Router = item.handler.router
 			// md5:9c797403c522d44d
-			if err := s.niceCallHookHandler(item.Handler.Info.Func, r); err != nil {
+			if err := s.niceCallHookHandler(item.Handler.X处理器函数信息.Func, r); err != nil {
 				switch err {
 				case exceptionExit:
 					break
@@ -87,7 +87,7 @@ func (s *Server) callHookHandler(hook HookName, r *Request) {
 				case exceptionExitHook:
 					return
 				default:
-					r.Response.WriteStatus(http.StatusInternalServerError, err)
+					r.X响应.X写响应缓冲区与HTTP状态码(http.StatusInternalServerError, err)
 					panic(err)
 				}
 			}
@@ -98,10 +98,10 @@ func (s *Server) callHookHandler(hook HookName, r *Request) {
 }
 
 // getHookHandlers 获取并返回指定钩子的处理函数。 md5:f19f77b15aa76d7a
-func (r *Request) getHookHandlers(hook HookName) []*HandlerItemParsed {
-	parsedItems := make([]*HandlerItemParsed, 0, 4)
+func (r *Request) getHookHandlers(hook Hook名称) []*X路由解析 {
+	parsedItems := make([]*X路由解析, 0, 4)
 	for _, v := range r.handlers {
-		if v.Handler.HookName != hook {
+		if v.Handler.Hook名称 != hook {
 			continue
 		}
 		item := v
@@ -113,7 +113,7 @@ func (r *Request) getHookHandlers(hook HookName) []*HandlerItemParsed {
 // niceCallHookHandler 美好地调用钩子处理函数，
 // 即它会自动捕获并返回可能的恐慌错误，以防止goroutine崩溃。
 // md5:915bcff9c5f9cc4e
-func (s *Server) niceCallHookHandler(f HandlerFunc, r *Request) (err interface{}) {
+func (s *X服务) niceCallHookHandler(f HandlerFunc, r *Request) (err interface{}) {
 	defer func() {
 		err = recover()
 	}()

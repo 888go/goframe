@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/internal/json"
 )
 
 // RuleArray 实现了 `array` 规则：
@@ -33,10 +33,10 @@ func (r RuleArray) Message() string {
 }
 
 func (r RuleArray) Run(in RunInput) error {
-	if in.Value.IsSlice() {
+	if in.Value.X是否为切片() {
 		return nil
 	}
-	if json.Valid(in.Value.Bytes()) {
+	if json.Valid(in.Value.X取字节集()) {
 		value := in.Value.String()
 		if len(value) > 1 && value[0] == '[' && value[len(value)-1] == ']' {
 			return nil

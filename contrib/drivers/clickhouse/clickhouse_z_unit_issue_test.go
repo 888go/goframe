@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权归GoFrame作者(https://goframe.org)所有。保留所有权利。
 //
@@ -13,10 +13,10 @@ import (
 	"github.com/shopspring/decimal"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Issue2584(t *testing.T) {
@@ -27,7 +27,7 @@ func Test_Issue2584(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			p1    = TDecimal{}
-			data1 = g.Map{"f1": gvar.New(1111.111)}
+			data1 = g.Map{"f1": gvar.X创建(1111.111)}
 			err   = gconv.Scan(data1, &p1)
 		)
 		t.AssertNil(err)
@@ -37,7 +37,7 @@ func Test_Issue2584(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			p2    = TDecimal{}
-			data2 = g.Map{"f1": gvar.New("2222.222")}
+			data2 = g.Map{"f1": gvar.X创建("2222.222")}
 			err   = gconv.Scan(data2, &p2)
 		)
 		t.AssertNil(err)

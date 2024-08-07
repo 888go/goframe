@@ -5,10 +5,10 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
-// MiddlewareCORS 是一个使用默认选项的CORS中间件处理器。 md5:522ca96c4772b84d
-func MiddlewareCORS(r *Request) {
-	r.Response.CORSDefault()
-	r.Middleware.Next()
+// X中间件跨域函数 是一个使用默认选项的CORS中间件处理器。 md5:522ca96c4772b84d
+func X中间件跨域函数(r *Request) {
+	r.X响应.X跨域请求全允许()
+	r.X中间件管理器.Next()
 }

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid
+package 效验类
 
 import (
 	"context"
@@ -13,8 +13,8 @@ import (
 	"reflect"
 	"runtime"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gvar "github.com/888go/goframe/container/gvar"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 // RuleFunc 是用于数据验证的自定义函数。 md5:7988c41777832ac1

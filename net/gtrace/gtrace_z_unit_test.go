@@ -13,11 +13,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gcompress"
+	gcompress "github.com/888go/goframe/encoding/gcompress"
 
-	"github.com/gogf/gf/v2/net/gtrace"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe/net/gtrace"
+	gtest "github.com/888go/goframe/test/gtest"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 func TestWithTraceID(t *testing.T) {
@@ -31,7 +31,7 @@ func TestWithTraceID(t *testing.T) {
 		t.Assert(newCtx, ctx)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		var traceId = gstr.Replace(uuid, "-", "")
+		var traceId = gstr.X替换(uuid, "-", "")
 		newCtx, err := gtrace.WithTraceID(ctx, traceId)
 		t.AssertNil(err)
 		t.AssertNE(newCtx, ctx)
@@ -55,7 +55,7 @@ func TestWithUUID(t *testing.T) {
 		t.AssertNil(err)
 		t.AssertNE(newCtx, ctx)
 		t.Assert(gtrace.GetTraceID(ctx), "")
-		t.Assert(gtrace.GetTraceID(newCtx), gstr.Replace(uuid, "-", ""))
+		t.Assert(gtrace.GetTraceID(newCtx), gstr.X替换(uuid, "-", ""))
 	})
 }
 
@@ -92,9 +92,9 @@ func TestSafeContent(t *testing.T) {
 
 	// compress content
 	var (
-		compressShortData, _ = gcompress.Gzip([]byte(shortData))
-		compressStandData, _ = gcompress.Gzip([]byte(standData))
-		compressLongData, _  = gcompress.Gzip([]byte(longData))
+		compressShortData, _ = gcompress.Gzip压缩字节集([]byte(shortData))
+		compressStandData, _ = gcompress.Gzip压缩字节集([]byte(standData))
+		compressLongData, _  = gcompress.Gzip压缩字节集([]byte(longData))
 	)
 	gtest.C(t, func(t *gtest.T) {
 

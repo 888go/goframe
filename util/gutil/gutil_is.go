@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/empty"
+	"github.com/888go/goframe/internal/empty"
 )
 
 // IsEmpty 检查给定的 `value` 是否为空。

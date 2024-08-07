@@ -5,38 +5,38 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"time"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gutil"
+	gset "github.com/888go/goframe/container/gset"
+	"github.com/888go/goframe/internal/empty"
+	gtime "github.com/888go/goframe/os/gtime"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
-// QuoteWord 检查给定的字符串 `s` 是否为一个单词，
+// X底层QuoteWord 检查给定的字符串 `s` 是否为一个单词，
 // 如果是，它将使用数据库的安全字符对 `s` 进行转义，并返回带引号的字符串；否则，返回原始字符串不做任何更改。
 //
 // 可以认为一个 `word` 表示列名。
 // md5:71291615d7bcffe0
-func (m *Model) QuoteWord(s string) string {
-	return m.db.GetCore().QuoteWord(s)
+func (m *Model) X底层QuoteWord(s string) string {
+	return m.db.X取Core对象().X底层QuoteWord(s)
 }
 
-// TableFields 获取并返回当前模式下指定表的字段信息。
+// X取表字段信息Map 获取并返回当前模式下指定表的字段信息。
 //
-// 参见 DriverMysql.TableFields。
+// 参见 DriverMysql.X取表字段信息Map。
 // md5:61e256ba53f813cb
-func (m *Model) TableFields(tableStr string, schema ...string) (fields map[string]*TableField, err error) {
+func (m *Model) X取表字段信息Map(表名称 string, schema ...string) (字段信息Map map[string]*TableField, 错误 error) {
 	var (
-		table      = m.db.GetCore().guessPrimaryTableName(tableStr)
-		usedSchema = gutil.GetOrDefaultStr(m.schema, schema...)
+		table      = m.db.X取Core对象().guessPrimaryTableName(表名称)
+		usedSchema = gutil.X取文本值或取默认值(m.schema, schema...)
 	)
-	return m.db.TableFields(m.GetCtx(), table, usedSchema)
+	return m.db.X取表字段信息Map(m.X取上下文对象(), table, usedSchema)
 }
 
 // getModel 如果`safe`为真，则创建并返回当前模型的克隆，否则直接返回当前模型。
@@ -45,7 +45,7 @@ func (m *Model) getModel() *Model {
 	if !m.safe {
 		return m
 	} else {
-		return m.Clone()
+		return m.X取副本()
 	}
 }
 
@@ -57,7 +57,7 @@ func (m *Model) getModel() *Model {
 func (m *Model) mappingAndFilterToTableFields(table string, fields []string, filter bool) []string {
 	var fieldsTable = table
 	if fieldsTable != "" {
-		hasTable, _ := m.db.GetCore().HasTable(fieldsTable)
+		hasTable, _ := m.db.X取Core对象().X是否存在表名(fieldsTable)
 		if !hasTable {
 			fieldsTable = m.tablesInit
 		}
@@ -66,7 +66,7 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 		fieldsTable = m.tablesInit
 	}
 
-	fieldsMap, _ := m.TableFields(fieldsTable)
+	fieldsMap, _ := m.X取表字段信息Map(fieldsTable)
 	if len(fieldsMap) == 0 {
 		return fields
 	}
@@ -77,10 +77,10 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 	}
 	for _, field := range fields {
 		var inputFieldsArray []string
-		if gregex.IsMatchString(regularFieldNameWithoutDotRegPattern, field) {
+		if gregex.X是否匹配文本(regularFieldNameWithoutDotRegPattern, field) {
 			inputFieldsArray = append(inputFieldsArray, field)
-		} else if gregex.IsMatchString(regularFieldNameWithCommaRegPattern, field) {
-			inputFieldsArray = gstr.SplitAndTrim(field, ",")
+		} else if gregex.X是否匹配文本(regularFieldNameWithCommaRegPattern, field) {
+			inputFieldsArray = gstr.X分割并忽略空值(field, ",")
 		} else {
 			// 示例：
 			// user.id, user.name
@@ -90,7 +90,7 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 			continue
 		}
 		for _, inputField := range inputFieldsArray {
-			if !gregex.IsMatchString(regularFieldNameWithoutDotRegPattern, inputField) {
+			if !gregex.X是否匹配文本(regularFieldNameWithoutDotRegPattern, inputField) {
 				outputFieldsArray = append(outputFieldsArray, inputField)
 				continue
 			}
@@ -117,7 +117,7 @@ func (m *Model) mappingAndFilterToTableFields(table string, fields []string, fil
 func (m *Model) filterDataForInsertOrUpdate(data interface{}) (interface{}, error) {
 	var err error
 	switch value := data.(type) {
-	case List:
+	case Map切片:
 		var omitEmpty bool
 		if m.option&optionOmitNilDataList > 0 {
 			omitEmpty = true
@@ -143,8 +143,8 @@ func (m *Model) filterDataForInsertOrUpdate(data interface{}) (interface{}, erro
 // md5:93fefbe3176f55de
 func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEmpty bool) (Map, error) {
 	var err error
-	data, err = m.db.GetCore().mappingAndFilterData(
-		m.GetCtx(), m.schema, m.tablesInit, data, m.filter,
+	data, err = m.db.X取Core对象().mappingAndFilterData(
+		m.X取上下文对象(), m.schema, m.tablesInit, data, m.filter,
 	)
 	if err != nil {
 		return nil, err
@@ -195,22 +195,22 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 	if len(m.fields) > 0 && m.fields != "*" {
 		// Keep specified fields.
 		var (
-			set          = gset.NewStrSetFrom(gstr.SplitAndTrim(m.fields, ","))
-			charL, charR = m.db.GetChars()
+			set          = gset.X创建文本并按值(gstr.X分割并忽略空值(m.fields, ","))
+			charL, charR = m.db.X底层取数据库安全字符()
 			chars        = charL + charR
 		)
-		set.Walk(func(item string) string {
-			return gstr.Trim(item, chars)
+		set.X遍历修改(func(item string) string {
+			return gstr.X过滤首尾符并含空白(item, chars)
 		})
 		for k := range data {
-			k = gstr.Trim(k, chars)
-			if !set.Contains(k) {
+			k = gstr.X过滤首尾符并含空白(k, chars)
+			if !set.X是否存在(k) {
 				delete(data, k)
 			}
 		}
 	} else if len(m.fieldsEx) > 0 {
 				// 过滤指定字段。 md5:c1817e5f938542f0
-		for _, v := range gstr.SplitAndTrim(m.fieldsEx, ",") {
+		for _, v := range gstr.X分割并忽略空值(m.fieldsEx, ",") {
 			delete(data, v)
 		}
 	}
@@ -222,7 +222,7 @@ func (m *Model) doMappingAndFilterForInsertOrUpdateDataMap(data Map, allowOmitEm
 // md5:e8add2f9371393db
 func (m *Model) getLink(master bool) Link {
 	if m.tx != nil {
-		return &txLink{m.tx.GetSqlTX()}
+		return &txLink{m.tx.X底层取事务对象()}
 	}
 	linkType := m.linkType
 	if linkType == 0 {
@@ -234,13 +234,13 @@ func (m *Model) getLink(master bool) Link {
 	}
 	switch linkType {
 	case linkTypeMaster:
-		link, err := m.db.GetCore().MasterLink(m.schema)
+		link, err := m.db.X取Core对象().X底层MasterLink(m.schema)
 		if err != nil {
 			panic(err)
 		}
 		return link
 	case linkTypeSlave:
-		link, err := m.db.GetCore().SlaveLink(m.schema)
+		link, err := m.db.X取Core对象().X底层SlaveLink(m.schema)
 		if err != nil {
 			panic(err)
 		}
@@ -254,13 +254,13 @@ func (m *Model) getLink(master bool) Link {
 // "user", "user u", "user as u, user_detail as ud"。
 // md5:07ea92a426e953d1
 func (m *Model) getPrimaryKey() string {
-	table := gstr.SplitAndTrim(m.tablesInit, " ")[0]
-	tableFields, err := m.TableFields(table)
+	table := gstr.X分割并忽略空值(m.tablesInit, " ")[0]
+	tableFields, err := m.X取表字段信息Map(table)
 	if err != nil {
 		return ""
 	}
 	for name, field := range tableFields {
-		if gstr.ContainsI(field.Key, "pri") {
+		if gstr.X是否包含并忽略大小写(field.Key, "pri") {
 			return name
 		}
 	}

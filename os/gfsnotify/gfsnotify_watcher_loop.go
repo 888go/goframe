@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfsnotify
+package 文件监控类
 
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
 
-	"github.com/gogf/gf/v2/container/glist"
-	"github.com/gogf/gf/v2/internal/intlog"
+	glist "github.com/888go/goframe/container/glist"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 // watchLoop 启动循环以从底层inotify监控器监听事件。 md5:a057c294cb3f7186
@@ -32,11 +32,11 @@ func (w *Watcher) watchLoop() {
 					return
 				}
 								// 过滤自定义持续时间内的重复事件。 md5:f7b5d987e84f8092
-				_, err := w.cache.SetIfNotExist(
+				_, err := w.cache.X设置值并跳过已存在(
 					context.Background(),
 					ev.String(),
 					func(ctx context.Context) (value interface{}, err error) {
-						w.events.Push(&Event{
+						w.events.X入栈(&Event{
 							event:   ev,
 							Path:    ev.Name,
 							Op:      Op(ev.Op),
@@ -60,7 +60,7 @@ func (w *Watcher) watchLoop() {
 func (w *Watcher) eventLoop() {
 	go func() {
 		for {
-			if v := w.events.Pop(); v != nil {
+			if v := w.events.X出栈(); v != nil {
 				event := v.(*Event)
 								// 如果该路径没有任何回调，就从监控中移除它。 md5:1d18925e16d1ccb5
 				callbacks := w.getCallbacks(event.Path)
@@ -140,7 +140,7 @@ func (w *Watcher) eventLoop() {
 									w.RemoveCallback(callback.Id)
 								default:
 									if e, ok := err.(error); ok {
-										panic(gerror.WrapCode(gcode.CodeInternalPanic, e))
+										panic(gerror.X多层错误码(gcode.CodeInternalPanic, e))
 									}
 									panic(err)
 								}
@@ -160,7 +160,7 @@ func (w *Watcher) eventLoop() {
 // md5:abe3c32241868912
 func (w *Watcher) getCallbacks(path string) (callbacks []*Callback) {
 		// 首先，添加自身的回调。 md5:474fe6dbf371de56
-	if v := w.callbacks.Get(path); v != nil {
+	if v := w.callbacks.X取值(path); v != nil {
 		for _, v := range v.(*glist.List).FrontAll() {
 			callback := v.(*Callback)
 			callbacks = append(callbacks, callback)
@@ -171,7 +171,7 @@ func (w *Watcher) getCallbacks(path string) (callbacks []*Callback) {
 	// 特指针对来源于`path`的直接父级目录的事件。
 	// md5:4e4cd99683eb9f66
 	dirPath := fileDir(path)
-	if v := w.callbacks.Get(dirPath); v != nil {
+	if v := w.callbacks.X取值(dirPath); v != nil {
 		for _, v := range v.(*glist.List).FrontAll() {
 			callback := v.(*Callback)
 			callbacks = append(callbacks, callback)
@@ -183,7 +183,7 @@ func (w *Watcher) getCallbacks(path string) (callbacks []*Callback) {
 		if parentDirPath == dirPath {
 			break
 		}
-		if v := w.callbacks.Get(parentDirPath); v != nil {
+		if v := w.callbacks.X取值(parentDirPath); v != nil {
 			for _, v := range v.(*glist.List).FrontAll() {
 				callback := v.(*Callback)
 				if callback.recursive {

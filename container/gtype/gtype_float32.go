@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtype
+package 安全变量类
 
 import (
 	"math"
 	"strconv"
 	"sync/atomic"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // Float32是一个用于并发安全操作float32类型的结构体。 md5:df0c1aaf5f1f5645
@@ -34,16 +34,16 @@ func NewFloat32(value ...float32) *Float32 {
 
 // Clone 创建并返回一个新的并发安全的float32类型对象。 md5:5848ca2b0b7eef06
 func (v *Float32) Clone() *Float32 {
-	return NewFloat32(v.Val())
+	return NewFloat32(v.X取值())
 }
 
-// Set 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
-func (v *Float32) Set(value float32) (old float32) {
+// X设置值 原子地将 `value` 存储到 t.value 中，并返回 t.value 的旧值。 md5:2ce98b05d0290b37
+func (v *Float32) X设置值(value float32) (old float32) {
 	return math.Float32frombits(atomic.SwapUint32(&v.value, math.Float32bits(value)))
 }
 
-// Val原子性地加载并返回t.value。 md5:429a11b89436cc12
-func (v *Float32) Val() float32 {
+// X取值原子性地加载并返回t.value。 md5:429a11b89436cc12
+func (v *Float32) X取值() float32 {
 	return math.Float32frombits(atomic.LoadUint32(&v.value))
 }
 
@@ -70,23 +70,23 @@ func (v *Float32) Cas(old, new float32) (swapped bool) {
 
 // String 实现了 String 接口，用于字符串打印。 md5:9f0b8c0bcf2362d3
 func (v *Float32) String() string {
-	return strconv.FormatFloat(float64(v.Val()), 'g', -1, 32)
+	return strconv.FormatFloat(float64(v.X取值()), 'g', -1, 32)
 }
 
 // MarshalJSON 实现了接口 MarshalJSON 以供 json.Marshal 使用。 md5:43c3b36e60a18f9a
 func (v Float32) MarshalJSON() ([]byte, error) {
-	return []byte(strconv.FormatFloat(float64(v.Val()), 'g', -1, 32)), nil
+	return []byte(strconv.FormatFloat(float64(v.X取值()), 'g', -1, 32)), nil
 }
 
 // UnmarshalJSON实现了json.Unmarshal接口的UnmarshalJSON方法。 md5:f6766b88cf3d63c2
 func (v *Float32) UnmarshalJSON(b []byte) error {
-	v.Set(gconv.Float32(string(b)))
+	v.X设置值(gconv.X取小数32位(string(b)))
 	return nil
 }
 
 // UnmarshalValue 是一个接口实现，用于将任何类型的值设置为 `v`。 md5:f1b49be4502b95a4
 func (v *Float32) UnmarshalValue(value interface{}) error {
-	v.Set(gconv.Float32(value))
+	v.X设置值(gconv.X取小数32位(value))
 	return nil
 }
 
@@ -95,5 +95,5 @@ func (v *Float32) DeepCopy() interface{} {
 	if v == nil {
 		return nil
 	}
-	return NewFloat32(v.Val())
+	return NewFloat32(v.X取值())
 }

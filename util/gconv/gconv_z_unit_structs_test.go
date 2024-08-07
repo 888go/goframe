@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Structs_WithTag(t *testing.T) {
@@ -22,7 +22,7 @@ func Test_Structs_WithTag(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		params := g.Slice{
+		params := g.Slice别名{
 			g.Map{
 				"id":   1,
 				"name": "name1",
@@ -42,7 +42,7 @@ func Test_Structs_WithTag(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
-		params := g.Slice{
+		params := g.Slice别名{
 			g.Map{
 				"id":   1,
 				"name": "name1",
@@ -69,7 +69,7 @@ func Test_Structs_WithoutTag(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		var users []User
-		params := g.Slice{
+		params := g.Slice别名{
 			g.Map{
 				"uid":       1,
 				"nick-name": "name1",
@@ -89,7 +89,7 @@ func Test_Structs_WithoutTag(t *testing.T) {
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var users []*User
-		params := g.Slice{
+		params := g.Slice别名{
 			g.Map{
 				"uid":       1,
 				"nick-name": "name1",
@@ -116,7 +116,7 @@ func Test_Structs_SliceParameter(t *testing.T) {
 			NickName string
 		}
 		var users []User
-		params := g.Slice{
+		params := g.Slice别名{
 			g.Map{
 				"uid":       1,
 				"nick-name": "name1",
@@ -138,7 +138,7 @@ func Test_Structs_SliceParameter(t *testing.T) {
 			Users []User
 		}
 		var a A
-		params := g.Slice{
+		params := g.Slice别名{
 			g.Map{
 				"uid":       1,
 				"nick-name": "name1",
@@ -196,7 +196,7 @@ func Test_Structs_IntSliceAttribute(t *testing.T) {
 		var (
 			array []*B
 		)
-		err := gconv.Structs(g.Slice{
+		err := gconv.Structs(g.Slice别名{
 			g.Map{"id": nil, "name": "john"},
 			g.Map{"id": nil, "name": "smith"},
 		}, &array)

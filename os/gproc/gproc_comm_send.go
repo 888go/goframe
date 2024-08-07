@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gproc
+package 进程类
 
 import (
 	"io"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/net/gtcp"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/json"
+	gtcp "github.com/888go/goframe/net/gtcp"
 )
 
 // Send 向给定pid的指定进程发送数据。 md5:32fd0c7aeb3b969c
@@ -47,7 +47,7 @@ func Send(pid int, data []byte, group ...string) error {
 		response := new(MsgResponse)
 		if err = json.UnmarshalUseNumber(result, response); err == nil {
 			if response.Code != 1 {
-				err = gerror.New(response.Message)
+				err = gerror.X创建(response.Message)
 			}
 		}
 	}

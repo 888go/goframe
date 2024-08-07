@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gstr
+package 文本类
 
 import (
 	"bytes"
@@ -16,7 +16,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/gogf/gf/v2/util/grand"
+	grand "github.com/888go/goframe/util/grand"
 )
 
 var (
@@ -24,13 +24,13 @@ var (
 	octReg = regexp.MustCompile(`\\[0-7]{3}`)
 )
 
-// Chr 函数返回一个数字（0-255）的ASCII字符串。
+// X整数到ascii 函数返回一个数字（0-255）的ASCII字符串。
 //
 // 示例：
-// Chr(65) -> "A"
+// X整数到ascii(65) -> "A"
 // md5:1eeda35a229d907f
-func Chr(ascii int) string {
-	return string([]byte{byte(ascii % 256)})
+func X整数到ascii(整数 int) string {
+	return string([]byte{byte(整数 % 256)})
 }
 
 // Ord 将字符串的第一个字节转换为0到255之间的值。
@@ -42,14 +42,14 @@ func Ord(char string) int {
 	return int(char[0])
 }
 
-// OctStr converts string container octal string to its original string,
+// X八进制到文本 converts string container octal string to its original string,
 // for example, to Chinese string.
 //
 // Example:
-// OctStr("\346\200\241") -> 怡
-func OctStr(str string) string {
+// X八进制到文本("\346\200\241") -> 怡
+func X八进制到文本(文本 string) string {
 	return octReg.ReplaceAllStringFunc(
-		str,
+		文本,
 		func(s string) string {
 			i, _ := strconv.ParseInt(s[1:], 8, 0)
 			return string([]byte{byte(i)})
@@ -57,45 +57,45 @@ func OctStr(str string) string {
 	)
 }
 
-// Reverse 函数返回一个字符串，它是 `str` 的反向字符串。
+// X反转字符 函数返回一个字符串，它是 `str` 的反向字符串。
 //
 // 示例：
-// Reverse("123456") -> "654321"
+// X反转字符("123456") -> "654321"
 // md5:7106270467ce887e
-func Reverse(str string) string {
-	runes := []rune(str)
+func X反转字符(文本 string) string {
+	runes := []rune(文本)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
 		runes[i], runes[j] = runes[j], runes[i]
 	}
 	return string(runes)
 }
 
-// NumberFormat 用千位分隔符格式化数字。
+// X格式化数值 用千位分隔符格式化数字。
 // 参数 `decimals`：设置小数点后的位数。
 // 参数 `decPoint`：设置小数点的分隔符。
 // 参数 `thousandsSep`：设置千位分隔符。
 // 参考：http://php.net/manual/en/function.number-format.php。
 // 
 // 示例：
-// NumberFormat(1234.56, 2, ".", "") -> 1234,56
-// NumberFormat(1234.56, 2, ",", " ") -> 1 234,56
+// X格式化数值(1234.56, 2, ".", "") -> 1234,56
+// X格式化数值(1234.56, 2, ",", " ") -> 1 234,56
 // md5:c4f419bbc874acfc
-func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) string {
+func X格式化数值(数值 float64, 小数点个数 int, 小数点分隔符, 千位分隔符 string) string {
 	neg := false
-	if number < 0 {
-		number = -number
+	if 数值 < 0 {
+		数值 = -数值
 		neg = true
 	}
 	// Will round off
-	str := fmt.Sprintf("%."+strconv.Itoa(decimals)+"F", number)
+	str := fmt.Sprintf("%."+strconv.Itoa(小数点个数)+"F", 数值)
 	prefix, suffix := "", ""
-	if decimals > 0 {
-		prefix = str[:len(str)-(decimals+1)]
-		suffix = str[len(str)-decimals:]
+	if 小数点个数 > 0 {
+		prefix = str[:len(str)-(小数点个数+1)]
+		suffix = str[len(str)-小数点个数:]
 	} else {
 		prefix = str
 	}
-	sep := []byte(thousandsSep)
+	sep := []byte(千位分隔符)
 	n, l1, l2 := 0, len(prefix), len(sep)
 	// thousands sep num
 	c := (l1 - 1) / 3
@@ -111,8 +111,8 @@ func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) s
 		tmp[pos] = prefix[i]
 	}
 	s := string(tmp)
-	if decimals > 0 {
-		s += decPoint + suffix
+	if 小数点个数 > 0 {
+		s += 小数点分隔符 + suffix
 	}
 	if neg {
 		s = "-" + s
@@ -121,39 +121,39 @@ func NumberFormat(number float64, decimals int, decPoint, thousandsSep string) s
 	return s
 }
 
-// `Shuffle` 随机打乱一个字符串。
+// `X随机打散字符` 随机打乱一个字符串。
 // 它将参数 `str` 视为 Unicode 字符串。
 // 
 // 示例：
-// Shuffle("123456") -> "325164"
-// Shuffle("123456") -> "231546"
+// X随机打散字符("123456") -> "325164"
+// X随机打散字符("123456") -> "231546"
 // ...
 // md5:2e7f0ae98e6b5210
-func Shuffle(str string) string {
-	runes := []rune(str)
+func X随机打散字符(文本 string) string {
+	runes := []rune(文本)
 	s := make([]rune, len(runes))
-	for i, v := range grand.Perm(len(runes)) {
+	for i, v := range grand.X整数切片(len(runes)) {
 		s[i] = runes[v]
 	}
 	return string(s)
 }
 
-// HideStr 函数将字符串 `str` 的从中间开始按 `percentage` 比例部分内容替换为 `hide`。
+// X替换中间字符 函数将字符串 `str` 的从中间开始按 `percentage` 比例部分内容替换为 `hide`。
 // 此函数将参数 `str` 视为Unicode字符串处理。
 // md5:f9986962939bb788
-func HideStr(str string, percent int, hide string) string {
-	array := strings.Split(str, "@")
+func X替换中间字符(文本 string, 替换百分比 int, 替换符 string) string {
+	array := strings.Split(文本, "@")
 	if len(array) > 1 {
-		str = array[0]
+		文本 = array[0]
 	}
 	var (
-		rs       = []rune(str)
+		rs       = []rune(文本)
 		length   = len(rs)
 		mid      = math.Floor(float64(length / 2))
-		hideLen  = int(math.Floor(float64(length) * (float64(percent) / 100)))
+		hideLen  = int(math.Floor(float64(length) * (float64(替换百分比) / 100)))
 		start    = int(mid - math.Floor(float64(hideLen)/2))
 		hideStr  = []rune("")
-		hideRune = []rune(hide)
+		hideRune = []rune(替换符)
 	)
 	for i := 0; i < hideLen; i++ {
 		hideStr = append(hideStr, hideRune...)
@@ -168,13 +168,13 @@ func HideStr(str string, percent int, hide string) string {
 	return buffer.String()
 }
 
-// Nl2Br 在字符串中的所有换行符(\n\r, \r\n, \r, \n)前插入HTML换行标签(`br`|<br />)。
+// X替换换行符 在字符串中的所有换行符(\n\r, \r\n, \r, \n)前插入HTML换行标签(`br`|<br />)。
 // 它将参数`str`视为Unicode字符串。
 // md5:6cad5f70848065d0
-func Nl2Br(str string, isXhtml ...bool) string {
-	r, n, runes := '\r', '\n', []rune(str)
+func X替换换行符(文本 string, 是否html ...bool) string {
+	r, n, runes := '\r', '\n', []rune(文本)
 	var br []byte
-	if len(isXhtml) > 0 && isXhtml[0] {
+	if len(是否html) > 0 && 是否html[0] {
 		br = []byte("<br />")
 	} else {
 		br = []byte("<br>")
@@ -202,26 +202,26 @@ func Nl2Br(str string, isXhtml ...bool) string {
 	return buf.String()
 }
 
-// WordWrap 将一个字符串按照给定的字符数进行换行。
+// X按字符数量换行 将一个字符串按照给定的字符数进行换行。
 // 这个函数支持英文和中文标点符号的截断参数。
 // TODO: 开启自定义截断参数，参考 http://php.net/manual/en/function.wordwrap.php。
 // md5:389c5474efb0a8e8
-func WordWrap(str string, width int, br string) string {
-	if br == "" {
-		br = "\n"
+func X按字符数量换行(文本 string, 字符数 int, 换行符 string) string {
+	if 换行符 == "" {
+		换行符 = "\n"
 	}
 	var (
 		current           int
 		wordBuf, spaceBuf bytes.Buffer
-		init              = make([]byte, 0, len(str))
+		init              = make([]byte, 0, len(文本))
 		buf               = bytes.NewBuffer(init)
-		strRunes          = []rune(str)
+		strRunes          = []rune(文本)
 	)
 	for _, char := range strRunes {
 		switch {
 		case char == '\n':
 			if wordBuf.Len() == 0 {
-				if current+spaceBuf.Len() > width {
+				if current+spaceBuf.Len() > 字符数 {
 					current = 0
 				} else {
 					current += spaceBuf.Len()
@@ -260,8 +260,8 @@ func WordWrap(str string, width int, br string) string {
 
 		default:
 			wordBuf.WriteRune(char)
-			if current+spaceBuf.Len()+wordBuf.Len() > width && wordBuf.Len() < width {
-				buf.WriteString(br)
+			if current+spaceBuf.Len()+wordBuf.Len() > 字符数 && wordBuf.Len() < 字符数 {
+				buf.WriteString(换行符)
 				current = 0
 				spaceBuf.Reset()
 			}
@@ -269,7 +269,7 @@ func WordWrap(str string, width int, br string) string {
 	}
 
 	if wordBuf.Len() == 0 {
-		if current+spaceBuf.Len() <= width {
+		if current+spaceBuf.Len() <= 字符数 {
 			_, _ = spaceBuf.WriteTo(buf)
 		}
 	} else {

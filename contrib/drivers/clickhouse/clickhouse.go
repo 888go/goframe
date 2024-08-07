@@ -12,8 +12,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/os/gctx"
+	gdb "github.com/888go/goframe/database/gdb"
+	gctx "github.com/888go/goframe/os/gctx"
 )
 
 // Driver 是用于 postgresql 数据库的驱动程序。 md5:4abf0752f49a3cfc
@@ -39,7 +39,7 @@ const (
 )
 
 func init() {
-	if err := gdb.Register(`clickhouse`, New()); err != nil {
+	if err := gdb.X注册驱动(`clickhouse`, New()); err != nil {
 		panic(err)
 	}
 }

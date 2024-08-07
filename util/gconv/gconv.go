@@ -9,7 +9,7 @@
 //
 // 此包应尽量减少与其他包的依赖关系。
 // md5:b18f07aca2be5125
-package gconv
+package 转换类
 
 import (
 	"context"
@@ -20,12 +20,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/util/gtag"
+	gbinary "github.com/888go/goframe/encoding/gbinary"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
+	gtime "github.com/888go/goframe/os/gtime"
+	"github.com/888go/goframe/util/gtag"
 )
 
 var (
@@ -44,16 +44,16 @@ var (
 	StructTagPriority = gtag.StructTagPriority
 )
 
-// Byte将`any`转换为byte。 md5:aeef919e3fba4f95
-func Byte(any interface{}) byte {
-	if v, ok := any.(byte); ok {
+// X取字节将`any`转换为byte。 md5:aeef919e3fba4f95
+func X取字节(值 interface{}) byte {
+	if v, ok := 值.(byte); ok {
 		return v
 	}
-	return Uint8(any)
+	return X取正整数8位(值)
 }
 
-// Bytes 将 `any` 转换为 []byte。 md5:06125d6ba5f449a5
-func Bytes(any interface{}) []byte {
+// X取字节集 将 `any` 转换为 []byte。 md5:06125d6ba5f449a5
+func X取字节集(any interface{}) []byte {
 	if any == nil {
 		return nil
 	}
@@ -66,7 +66,7 @@ func Bytes(any interface{}) []byte {
 
 	default:
 		if f, ok := value.(iBytes); ok {
-			return f.Bytes()
+			return f.X取字节集()
 		}
 		originValueAndKind := reflection.OriginValueAndKind(any)
 		switch originValueAndKind.OriginKind {
@@ -83,7 +83,7 @@ func Bytes(any interface{}) []byte {
 				bytes = make([]byte, originValueAndKind.OriginValue.Len())
 			)
 			for i := range bytes {
-				int32Value := Int32(originValueAndKind.OriginValue.Index(i).Interface())
+				int32Value := X取整数32位(originValueAndKind.OriginValue.Index(i).Interface())
 				if int32Value < 0 || int32Value > math.MaxUint8 {
 					ok = false
 					break
@@ -98,20 +98,20 @@ func Bytes(any interface{}) []byte {
 	}
 }
 
-// Rune 将 `any` 转换为 rune。 md5:3459f7528861cc23
-func Rune(any interface{}) rune {
-	if v, ok := any.(rune); ok {
+// X取字符 将 `any` 转换为 rune。 md5:3459f7528861cc23
+func X取字符(值 interface{}) rune {
+	if v, ok := 值.(rune); ok {
 		return v
 	}
-	return Int32(any)
+	return X取整数32位(值)
 }
 
-// Runes将`any`转换为[]rune。 md5:25552cd961d1d6bb
-func Runes(any interface{}) []rune {
-	if v, ok := any.([]rune); ok {
+// X取字符切片将`any`转换为[]rune。 md5:25552cd961d1d6bb
+func X取字符切片(值 interface{}) []rune {
+	if v, ok := 值.([]rune); ok {
 		return v
 	}
-	return []rune(String(any))
+	return []rune(String(值))
 }
 
 // String 将 `any` 转换为字符串。它是最常用的转换函数。
@@ -219,10 +219,10 @@ func String(any interface{}) string {
 	}
 }
 
-// Bool 将 `any` 转换为布尔值。
+// X取布尔 将 `any` 转换为布尔值。
 // 如果 `any` 是：false，""，0，"false"，"off"，"no"，空切片/映射，则返回 false。
 // md5:b9d150a8798a274a
-func Bool(any interface{}) bool {
+func X取布尔(any interface{}) bool {
 	if any == nil {
 		return false
 	}
@@ -241,7 +241,7 @@ func Bool(any interface{}) bool {
 		return true
 	default:
 		if f, ok := value.(iBool); ok {
-			return f.Bool()
+			return f.X取布尔()
 		}
 		rv := reflect.ValueOf(any)
 		switch rv.Kind() {

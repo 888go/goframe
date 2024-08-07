@@ -4,14 +4,14 @@
 // 如果未随本文件一同分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
-package gtoml_test
+package toml类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gtoml"
-	"github.com/gogf/gf/v2/test/gtest"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gtoml "github.com/888go/goframe/encoding/gtoml"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var tomlStr string = `
@@ -44,7 +44,7 @@ func TestEncode(t *testing.T) {
 			return
 		}
 
-		t.Assert(gjson.New(res).Get("toml").String(), tomlStr)
+		t.Assert(gjson.X创建(res).X取值("toml").String(), tomlStr)
 	})
 
 	gtest.C(t, func(t *gtest.T) {
@@ -112,8 +112,8 @@ func TestToJson(t *testing.T) {
 			return
 		}
 
-		p := gjson.New(res)
-		expectJson, err := p.ToJson()
+		p := gjson.X创建(res)
+		expectJson, err := p.X取json字节集()
 		if err != nil {
 			t.Errorf("parser ToJson failed. %v", err)
 			return

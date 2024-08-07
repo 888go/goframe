@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/net/gipv4"
+	gipv4 "github.com/888go/goframe/net/gipv4"
 )
 
 // RuleIpv4 实现了 `ipv4` 规则：

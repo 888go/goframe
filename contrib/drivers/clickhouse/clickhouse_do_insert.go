@@ -13,12 +13,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
+	gdb "github.com/888go/goframe/database/gdb"
 )
 
-// DoInsert 为给定的表插入或更新数据。 md5:2a62d01f344269b8
-func (d *Driver) DoInsert(
-	ctx context.Context, link gdb.Link, table string, list gdb.List, option gdb.DoInsertOption,
+// X底层插入 为给定的表插入或更新数据。 md5:2a62d01f344269b8
+func (d *Driver) X底层插入(
+	ctx context.Context, link gdb.Link, table string, list gdb.Map切片, option gdb.DoInsertOption,
 ) (result sql.Result, err error) {
 	var (
 		keys        []string // Field names.
@@ -31,27 +31,27 @@ func (d *Driver) DoInsert(
 	}
 		// 准备批量结果指针。 md5:dfc8aa8bb292f9d5
 	var (
-		charL, charR = d.Core.GetChars()
+		charL, charR = d.Core.X底层取数据库安全字符()
 		keysStr      = charL + strings.Join(keys, charR+","+charL) + charR
 		holderStr    = strings.Join(valueHolder, ",")
 		tx           gdb.TX
 		stmt         *gdb.Stmt
 	)
-	tx, err = d.Core.Begin(ctx)
+	tx, err = d.Core.X事务开启(ctx)
 	if err != nil {
 		return
 	}
 		// 使用`defer`确保事务将被提交或回滚。 md5:f7e6a525062b3162
 	defer func() {
 		if err == nil {
-			_ = tx.Commit()
+			_ = tx.X事务提交()
 		} else {
-			_ = tx.Rollback()
+			_ = tx.X事务回滚()
 		}
 	}()
-	stmt, err = tx.Prepare(fmt.Sprintf(
+	stmt, err = tx.X原生sql取参数预处理对象(fmt.Sprintf(
 		"INSERT INTO %s(%s) VALUES (%s)",
-		d.QuotePrefixTableName(table), keysStr,
+		d.X底层添加前缀字符和引用字符(table), keysStr,
 		holderStr,
 	))
 	if err != nil {

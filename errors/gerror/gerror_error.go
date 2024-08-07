@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gerror
+package 错误类
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gcode"
+	gcode "github.com/888go/goframe/errors/gcode"
 )
 
 // Error 是自定义错误，用于附加功能。 md5:6111a19ebbc88a60
@@ -119,7 +119,7 @@ func (err *Error) Equal(target error) bool {
 	// 代码应该保持不变。
 	// 注意，如果两个错误的代码都为`nil`，那么它们也会被视为相等。
 	// md5:9cd5037f48adc142
-	if err.code != Code(target) {
+	if err.code != X取错误码(target) {
 		return false
 	}
 		// 文本内容应保持一致。 md5:950f9f350f074b9c
@@ -132,14 +132,14 @@ func (err *Error) Equal(target error) bool {
 // Is 判断当前错误 `err` 是否在其嵌套错误中包含目标错误 `target`。这是为了实现从 Go 1.17 版本开始的标准库中的 errors.Is 接口。
 // md5:dfc92c8d3ba58133
 func (err *Error) Is(target error) bool {
-	if Equal(err, target) {
+	if X是否相等(err, target) {
 		return true
 	}
 	nextErr := err.Unwrap()
 	if nextErr == nil {
 		return false
 	}
-	if Equal(nextErr, target) {
+	if X是否相等(nextErr, target) {
 		return true
 	}
 	if e, ok := nextErr.(IIs); ok {

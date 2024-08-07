@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"encoding/json"
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func TestConverter_ConvertWithRefer(t *testing.T) {
@@ -28,7 +28,7 @@ func TestConverter_ConvertWithRefer(t *testing.T) {
 	}
 
 	gtest.C(t, func(t *gtest.T) {
-		err := gconv.RegisterConverter(func(a tA) (b *tB, err error) {
+		err := gconv.X转换器注册(func(a tA) (b *tB, err error) {
 			b = &tB{
 				Val1: int32(a.Val),
 				Val2: "abcd",
@@ -43,7 +43,7 @@ func TestConverter_ConvertWithRefer(t *testing.T) {
 			Val: 1,
 		}
 		var b tB
-		result := gconv.ConvertWithRefer(a, &b)
+		result := gconv.X按参考值类型转换(a, &b)
 		t.Assert(result.(*tB), &tB{
 			Val1: 1,
 			Val2: "abcd",
@@ -55,7 +55,7 @@ func TestConverter_ConvertWithRefer(t *testing.T) {
 			Val: 1,
 		}
 		var b tB
-		result := gconv.ConvertWithRefer(a, b)
+		result := gconv.X按参考值类型转换(a, b)
 		t.Assert(result.(tB), tB{
 			Val1: 1,
 			Val2: "abcd",
@@ -118,7 +118,7 @@ func TestConverter_Struct(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		err := gconv.RegisterConverter(func(a tA) (b *tB, err error) {
+		err := gconv.X转换器注册(func(a tA) (b *tB, err error) {
 			b = &tB{
 				Val1: int32(a.Val),
 				Val2: "abc",
@@ -189,7 +189,7 @@ func TestConverter_Struct(t *testing.T) {
 		t.Assert(bb.ValTop, 123)
 		t.AssertNE(bb.ValTB.Val1, 234)
 
-		err = gconv.RegisterConverter(func(a tAA) (b *tBB, err error) {
+		err = gconv.X转换器注册(func(a tAA) (b *tBB, err error) {
 			b = &tBB{
 				ValTop: int32(a.ValTop) + 2,
 			}
@@ -249,9 +249,9 @@ func TestConverter_Struct(t *testing.T) {
 		err := gconv.Struct(tmp, aa)
 		t.AssertNil(err)
 		t.AssertNE(aa, nil)
-		t.Assert(aa.Val1.Local(), gtime.New("2023-04-15 19:10:00 +0800 CST").Local().Time)
-		t.Assert(aa.Val2.Local(), gtime.New("2023-04-15 19:10:00 +0800 CST").Local().Time)
-		t.Assert(aa.Val3.Local(), gtime.New("2006-01-02T15:04:05Z07:00").Local().Time)
+		t.Assert(aa.Val1.Local(), gtime.X创建("2023-04-15 19:10:00 +0800 CST").X取本地时区().Time)
+		t.Assert(aa.Val2.Local(), gtime.X创建("2023-04-15 19:10:00 +0800 CST").X取本地时区().Time)
+		t.Assert(aa.Val3.Local(), gtime.X创建("2006-01-02T15:04:05Z07:00").X取本地时区().Time)
 	})
 
 			//github.com/gogf/gf/issues/3006. md5:8462c8d1487f0f90
@@ -290,7 +290,7 @@ func TestConverter_CustomBasicType_ToStruct(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		err := gconv.RegisterConverter(func(a CustomString) (b *CustomStruct, err error) {
+		err := gconv.X转换器注册(func(a CustomString) (b *CustomStruct, err error) {
 			b = &CustomStruct{
 				S: string(a),
 			}
@@ -334,7 +334,7 @@ func TestConverter_CustomTimeType_ToStruct(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			a = CustomGTime{
-				T: gtime.NewFromStrFormat("2023-10-26", "Y-m-d"),
+				T: gtime.X创建并按给定格式文本("2023-10-26", "Y-m-d"),
 			}
 			b *CustomPbTime
 		)
@@ -345,21 +345,21 @@ func TestConverter_CustomTimeType_ToStruct(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		err := gconv.RegisterConverter(func(in gtime.Time) (*timestamppb, error) {
+		err := gconv.X转换器注册(func(in gtime.Time) (*timestamppb, error) {
 			return &timestamppb{
-				S: in.Local().Format("Y-m-d"),
+				S: in.X取本地时区().X取格式文本("Y-m-d"),
 			}, nil
 		})
 		t.AssertNil(err)
-		err = gconv.RegisterConverter(func(in timestamppb) (*gtime.Time, error) {
-			return gtime.NewFromStr(in.S), nil
+		err = gconv.X转换器注册(func(in timestamppb) (*gtime.Time, error) {
+			return gtime.X创建并从文本(in.S), nil
 		})
 		t.AssertNil(err)
 	})
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			a = CustomGTime{
-				T: gtime.NewFromStrFormat("2023-10-26", "Y-m-d"),
+				T: gtime.X创建并按给定格式文本("2023-10-26", "Y-m-d"),
 			}
 			b *CustomPbTime
 			c *CustomGTime
@@ -373,6 +373,6 @@ func TestConverter_CustomTimeType_ToStruct(t *testing.T) {
 		t.AssertNil(err)
 		t.AssertNE(c, nil)
 		t.AssertNE(c.T, nil)
-		t.AssertEQ(a.T.Timestamp(), c.T.Timestamp())
+		t.AssertEQ(a.T.X取时间戳秒(), c.T.X取时间戳秒())
 	})
 }

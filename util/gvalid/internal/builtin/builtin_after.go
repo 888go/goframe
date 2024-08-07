@@ -10,9 +10,9 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // RuleAfter 实现了`after`规则：
@@ -36,14 +36,14 @@ func (r RuleAfter) Message() string {
 
 func (r RuleAfter) Run(in RunInput) error {
 	var (
-		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.Map(), in.RulePattern)
-		valueDatetime         = in.Value.Time()
-		fieldDatetime         = gconv.Time(fieldValue)
+		fieldName, fieldValue = gutil.MapPossibleItemByKey(in.Data.X取Map(), in.RulePattern)
+		valueDatetime         = in.Value.X取时间类()
+		fieldDatetime         = gconv.X取时间(fieldValue)
 	)
 	if valueDatetime.After(fieldDatetime) {
 		return nil
 	}
-	return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+	return errors.New(gstr.Map替换(in.Message, map[string]string{
 		"{field1}": fieldName,
 		"{value1}": gconv.String(fieldValue),
 	}))

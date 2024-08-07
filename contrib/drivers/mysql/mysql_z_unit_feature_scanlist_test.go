@@ -12,20 +12,20 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Table_Relation_One(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -86,8 +86,8 @@ CREATE TABLE %s (
 	// Initialize the data.
 	var err error
 	gtest.C(t, func(t *gtest.T) {
-		err = db.Transaction(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
-			r, err := tx.Model(tableUser).Save(EntityUser{
+		err = db.X事务(context.TODO(), func(ctx context.Context, tx gdb.TX) error {
+			r, err := tx.X创建Model对象(tableUser).X插入并更新已存在(EntityUser{
 				Name: "john",
 			})
 			if err != nil {
@@ -97,14 +97,14 @@ CREATE TABLE %s (
 			if err != nil {
 				return err
 			}
-			_, err = tx.Model(tableUserDetail).Save(EntityUserDetail{
+			_, err = tx.X创建Model对象(tableUserDetail).X插入并更新已存在(EntityUserDetail{
 				Uid:     int(uid),
 				Address: "Beijing DongZhiMen #66",
 			})
 			if err != nil {
 				return err
 			}
-			_, err = tx.Model(tableUserScores).Save(g.Slice{
+			_, err = tx.X创建Model对象(tableUserScores).X插入并更新已存在(g.Slice别名{
 				EntityUserScores{Uid: int(uid), Score: 100, Course: "math"},
 				EntityUserScores{Uid: int(uid), Score: 99, Course: "physics"},
 			})
@@ -114,23 +114,23 @@ CREATE TABLE %s (
 	})
 	// Data check.
 	gtest.C(t, func(t *gtest.T) {
-		r, err := db.Model(tableUser).All()
+		r, err := db.X创建Model对象(tableUser).X查询()
 		t.AssertNil(err)
-		t.Assert(r.Len(), 1)
-		t.Assert(r[0]["uid"].Int(), 1)
+		t.Assert(r.X取数量(), 1)
+		t.Assert(r[0]["uid"].X取整数(), 1)
 		t.Assert(r[0]["name"].String(), "john")
 
-		r, err = db.Model(tableUserDetail).Where("uid", r[0]["uid"].Int()).All()
+		r, err = db.X创建Model对象(tableUserDetail).X条件("uid", r[0]["uid"].X取整数()).X查询()
 		t.AssertNil(err)
-		t.Assert(r.Len(), 1)
-		t.Assert(r[0]["uid"].Int(), 1)
+		t.Assert(r.X取数量(), 1)
+		t.Assert(r[0]["uid"].X取整数(), 1)
 		t.Assert(r[0]["address"].String(), `Beijing DongZhiMen #66`)
 
-		r, err = db.Model(tableUserScores).Where("uid", r[0]["uid"].Int()).All()
+		r, err = db.X创建Model对象(tableUserScores).X条件("uid", r[0]["uid"].X取整数()).X查询()
 		t.AssertNil(err)
-		t.Assert(r.Len(), 2)
-		t.Assert(r[0]["uid"].Int(), 1)
-		t.Assert(r[1]["uid"].Int(), 1)
+		t.Assert(r.X取数量(), 2)
+		t.Assert(r[0]["uid"].X取整数(), 1)
+		t.Assert(r[1]["uid"].X取整数(), 1)
 		t.Assert(r[0]["course"].String(), `math`)
 		t.Assert(r[1]["course"].String(), `physics`)
 	})
@@ -138,15 +138,15 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var user Entity
 				// 从"user"表中选择所有列，其中"name"为'john'. md5:032af229cd8affac
-		err := db.Model(tableUser).Scan(&user.User, "name", "john")
+		err := db.X创建Model对象(tableUser).X查询到结构体指针(&user.User, "name", "john")
 		t.AssertNil(err)
 
 				// 从"user_detail"表中选择所有列，WHERE子句的条件是`uid`等于1. md5:d5e73807445a5607
-		err = db.Model(tableUserDetail).Scan(&user.UserDetail, "uid", user.User.Uid)
+		err = db.X创建Model对象(tableUserDetail).X查询到结构体指针(&user.UserDetail, "uid", user.User.Uid)
 		t.AssertNil(err)
 
 						// 从`user_scores`表中SELECT * WHERE `uid`=1. md5:d5e5d47d2cdd7d33
-		err = db.Model(tableUserScores).Scan(&user.UserScores, "uid", user.User.Uid)
+		err = db.X创建Model对象(tableUserScores).X查询到结构体指针(&user.UserScores, "uid", user.User.Uid)
 		t.AssertNil(err)
 
 		t.Assert(user.User, EntityUser{
@@ -166,11 +166,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_Many(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -181,7 +181,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -192,7 +192,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -228,20 +228,20 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
 			// Detail.
-			_, err = db.Insert(ctx, tableUserDetail, g.Map{
+			_, err = db.X插入(ctx, tableUserDetail, g.Map{
 				"uid":     i,
 				"address": fmt.Sprintf(`address_%d`, i),
 			})
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
-				_, err = db.Insert(ctx, tableUserScores, g.Map{
+				_, err = db.X插入(ctx, tableUserScores, g.Map{
 					"uid":   i,
 					"score": j,
 				})
@@ -252,45 +252,45 @@ CREATE TABLE %s (
 
 	// MapKeyValue.
 	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		t.Assert(all.Len(), 2)
-		t.Assert(len(all.MapKeyValue("uid")), 2)
-		t.Assert(all.MapKeyValue("uid")["3"].Map()["uid"], 3)
-		t.Assert(all.MapKeyValue("uid")["4"].Map()["uid"], 4)
-		all, err = db.Model(tableUserScores).Where("uid", g.Slice{3, 4}).Order("id asc").All()
+		t.Assert(all.X取数量(), 2)
+		t.Assert(len(all.X取字段Map泛型类("uid")), 2)
+		t.Assert(all.X取字段Map泛型类("uid")["3"].X取Map()["uid"], 3)
+		t.Assert(all.X取字段Map泛型类("uid")["4"].X取Map()["uid"], 4)
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", g.Slice别名{3, 4}).X排序("id asc").X查询()
 		t.AssertNil(err)
-		t.Assert(all.Len(), 10)
-		t.Assert(len(all.MapKeyValue("uid")), 2)
-		t.Assert(len(all.MapKeyValue("uid")["3"].Slice()), 5)
-		t.Assert(len(all.MapKeyValue("uid")["4"].Slice()), 5)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[0])["uid"], 3)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[0])["score"], 1)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["uid"], 3)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["score"], 5)
+		t.Assert(all.X取数量(), 10)
+		t.Assert(len(all.X取字段Map泛型类("uid")), 2)
+		t.Assert(len(all.X取字段Map泛型类("uid")["3"].Slice别名()), 5)
+		t.Assert(len(all.X取字段Map泛型类("uid")["4"].Slice别名()), 5)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[0])["uid"], 3)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[0])["score"], 1)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[4])["uid"], 3)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[4])["score"], 5)
 	})
 		// Result 使用具有结构体元素和指针属性的ScanList。 md5:b23d106d13859ad5
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -306,24 +306,24 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -357,24 +357,24 @@ CREATE TABLE %s (
 		}
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -409,24 +409,24 @@ CREATE TABLE %s (
 		var users []*Entity
 
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -442,22 +442,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Order("uid asc").
-			ScanList(&users, "User")
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X排序("uid asc").
+			X查询到指针列表(&users, "User")
 		t.AssertNil(err)
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 
 		t.Assert(len(users), 2)
@@ -480,11 +480,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_Many_ModelScanList(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -495,7 +495,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -506,7 +506,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -542,20 +542,20 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
 			// Detail.
-			_, err = db.Insert(ctx, tableUserDetail, g.Map{
+			_, err = db.X插入(ctx, tableUserDetail, g.Map{
 				"uid":     i,
 				"address": fmt.Sprintf(`address_%d`, i),
 			})
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
-				_, err = db.Insert(ctx, tableUserScores, g.Map{
+				_, err = db.X插入(ctx, tableUserScores, g.Map{
 					"uid":   i,
 					"score": j,
 				})
@@ -569,10 +569,10 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Order("uid asc").
-			ScanList(&users, "User")
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X排序("uid asc").
+			X查询到指针列表(&users, "User")
 		t.AssertNil(err)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
@@ -580,19 +580,19 @@ CREATE TABLE %s (
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "User", "uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -607,11 +607,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_Many_RelationKeyCaseInsensitive(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -622,7 +622,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -633,7 +633,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -669,20 +669,20 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
 			// Detail.
-			_, err = db.Insert(ctx, tableUserDetail, g.Map{
+			_, err = db.X插入(ctx, tableUserDetail, g.Map{
 				"uid":     i,
 				"address": fmt.Sprintf(`address_%d`, i),
 			})
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
-				_, err = db.Insert(ctx, tableUserScores, g.Map{
+				_, err = db.X插入(ctx, tableUserScores, g.Map{
 					"uid":   i,
 					"score": j,
 				})
@@ -693,45 +693,45 @@ CREATE TABLE %s (
 
 	// MapKeyValue.
 	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		t.Assert(all.Len(), 2)
-		t.Assert(len(all.MapKeyValue("uid")), 2)
-		t.Assert(all.MapKeyValue("uid")["3"].Map()["uid"], 3)
-		t.Assert(all.MapKeyValue("uid")["4"].Map()["uid"], 4)
-		all, err = db.Model(tableUserScores).Where("uid", g.Slice{3, 4}).Order("id asc").All()
+		t.Assert(all.X取数量(), 2)
+		t.Assert(len(all.X取字段Map泛型类("uid")), 2)
+		t.Assert(all.X取字段Map泛型类("uid")["3"].X取Map()["uid"], 3)
+		t.Assert(all.X取字段Map泛型类("uid")["4"].X取Map()["uid"], 4)
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", g.Slice别名{3, 4}).X排序("id asc").X查询()
 		t.AssertNil(err)
-		t.Assert(all.Len(), 10)
-		t.Assert(len(all.MapKeyValue("uid")), 2)
-		t.Assert(len(all.MapKeyValue("uid")["3"].Slice()), 5)
-		t.Assert(len(all.MapKeyValue("uid")["4"].Slice()), 5)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[0])["uid"], 3)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[0])["score"], 1)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["uid"], 3)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["score"], 5)
+		t.Assert(all.X取数量(), 10)
+		t.Assert(len(all.X取字段Map泛型类("uid")), 2)
+		t.Assert(len(all.X取字段Map泛型类("uid")["3"].Slice别名()), 5)
+		t.Assert(len(all.X取字段Map泛型类("uid")["4"].Slice别名()), 5)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[0])["uid"], 3)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[0])["score"], 1)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[4])["uid"], 3)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[4])["score"], 5)
 	})
 		// Result 使用具有结构体元素和指针属性的ScanList。 md5:b23d106d13859ad5
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid:uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid:uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -747,24 +747,24 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "Uid:UID")
+		err = all.X取指针列表(&users, "UserDetail", "User", "Uid:UID")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "Uid:UID")
+		err = all.X取指针列表(&users, "UserScores", "User", "Uid:UID")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -798,24 +798,24 @@ CREATE TABLE %s (
 		}
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:UId")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:UId")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UId:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "UId:Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -850,24 +850,24 @@ CREATE TABLE %s (
 		var users []*Entity
 
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UID:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "UID:Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -883,22 +883,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Order("uid asc").
-			ScanList(&users, "User")
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X排序("uid asc").
+			X查询到指针列表(&users, "User")
 		t.AssertNil(err)
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 
 		t.Assert(len(users), 2)
@@ -921,11 +921,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_Many_TheSameRelationNames(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -936,7 +936,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -947,7 +947,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -983,20 +983,20 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
 			// Detail.
-			_, err = db.Insert(ctx, tableUserDetail, g.Map{
+			_, err = db.X插入(ctx, tableUserDetail, g.Map{
 				"uid":     i,
 				"address": fmt.Sprintf(`address_%d`, i),
 			})
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
-				_, err = db.Insert(ctx, tableUserScores, g.Map{
+				_, err = db.X插入(ctx, tableUserScores, g.Map{
 					"uid":   i,
 					"score": j,
 				})
@@ -1009,24 +1009,24 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -1042,24 +1042,24 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "Uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UID")
+		err = all.X取指针列表(&users, "UserScores", "User", "UID")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -1093,24 +1093,24 @@ CREATE TABLE %s (
 		}
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "UId")
+		err = all.X取指针列表(&users, "UserDetail", "User", "UId")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -1145,24 +1145,24 @@ CREATE TABLE %s (
 		var users []*Entity
 
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UID")
+		err = all.X取指针列表(&users, "UserScores", "User", "UID")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -1178,22 +1178,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Order("uid asc").
-			ScanList(&users, "User")
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X排序("uid asc").
+			X查询到指针列表(&users, "User")
 		t.AssertNil(err)
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "User", "uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "User", "uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "User", "uid")
 		t.AssertNil(err)
 
 		t.Assert(len(users), 2)
@@ -1216,11 +1216,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_EmptyData(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -1231,7 +1231,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -1242,7 +1242,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -1277,21 +1277,21 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 0)
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:uid")
 		t.AssertNil(err)
 
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid:uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid:uid")
 		t.AssertNil(err)
 	})
 	return
@@ -1299,22 +1299,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 0)
 
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "Uid:UID")
+		err = all.X取指针列表(&users, "UserDetail", "User", "Uid:UID")
 		t.AssertNil(err)
 
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "Uid:UID")
+		err = all.X取指针列表(&users, "UserScores", "User", "Uid:UID")
 		t.AssertNil(err)
 	})
 
@@ -1340,21 +1340,21 @@ CREATE TABLE %s (
 		}
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:UId")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:UId")
 		t.AssertNil(err)
 
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UId:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "UId:Uid")
 		t.AssertNil(err)
 	})
 
@@ -1381,21 +1381,21 @@ CREATE TABLE %s (
 		var users []*Entity
 
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 0)
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UID:Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "UID:Uid")
 		t.AssertNil(err)
 	})
 
@@ -1403,22 +1403,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Order("uid asc").
-			ScanList(&users, "User")
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X排序("uid asc").
+			X查询到指针列表(&users, "User")
 		t.AssertNil(err)
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "User", "uid:Uid")
 		t.AssertNil(err)
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "User", "uid:Uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "User", "uid:Uid")
 		t.AssertNil(err)
 
 		t.Assert(len(users), 0)
@@ -1427,11 +1427,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_NoneEqualDataSize(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -1442,7 +1442,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -1453,7 +1453,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -1489,7 +1489,7 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
@@ -1508,23 +1508,23 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, nil)
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 0)
 	})
@@ -1533,23 +1533,23 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "Uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "Uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, nil)
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UID")
+		err = all.X取指针列表(&users, "UserScores", "User", "UID")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 0)
 	})
@@ -1576,23 +1576,23 @@ CREATE TABLE %s (
 		}
 		var users []Entity
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "UId")
+		err = all.X取指针列表(&users, "UserDetail", "User", "UId")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, EntityUserDetail{})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "Uid")
+		err = all.X取指针列表(&users, "UserScores", "User", "Uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 0)
 	})
@@ -1620,23 +1620,23 @@ CREATE TABLE %s (
 		var users []*Entity
 
 		// User
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "User")
+		err = all.X取指针列表(&users, "User")
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].User, &EntityUser{3, "name_3"})
 		t.Assert(users[1].User, &EntityUser{4, "name_4"})
 		// Detail
-		all, err = db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("uid asc").All()
+		all, err = db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "User", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, EntityUserDetail{})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "User", "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "User", "UID")
+		err = all.X取指针列表(&users, "UserScores", "User", "UID")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 0)
 	})
@@ -1645,22 +1645,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Order("uid asc").
-			ScanList(&users, "User")
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X排序("uid asc").
+			X查询到指针列表(&users, "User")
 		t.AssertNil(err)
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "User", "uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "User", "uid")
 		t.AssertNil(err)
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "User", "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "User", "uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "User", "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "User", "uid")
 		t.AssertNil(err)
 
 		t.Assert(len(users), 2)
@@ -1675,11 +1675,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_EmbeddedStruct1(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -1690,7 +1690,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -1701,7 +1701,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -1735,20 +1735,20 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
 			// Detail.
-			_, err = db.Insert(ctx, tableUserDetail, g.Map{
+			_, err = db.X插入(ctx, tableUserDetail, g.Map{
 				"uid":     i,
 				"address": fmt.Sprintf(`address_%d`, i),
 			})
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
-				_, err = db.Insert(ctx, tableUserScores, g.Map{
+				_, err = db.X插入(ctx, tableUserScores, g.Map{
 					"uid":   i,
 					"score": j,
 				})
@@ -1763,19 +1763,19 @@ CREATE TABLE %s (
 			scores []*EntityUserScores
 		)
 		// SELECT * FROM `user_scores`
-		err = db.Model(tableUserScores).Scan(&scores)
+		err = db.X创建Model对象(tableUserScores).X查询到结构体指针(&scores)
 		t.AssertNil(err)
 
 				// 从 `user_scores` 表中 SELECT * WHERE `uid` 在 (1,2,3,4,5) 中. md5:b0a4359d4663bf31
-		err = db.Model(tableUser).
-			Where("uid", gdb.ListItemValuesUnique(&scores, "Uid")).
-			ScanList(&scores, "EntityUser", "uid:Uid")
+		err = db.X创建Model对象(tableUser).
+			X条件("uid", gdb.X取结构体切片或Map切片值并去重(&scores, "Uid")).
+			X查询到指针列表(&scores, "EntityUser", "uid:Uid")
 		t.AssertNil(err)
 
 				// 从'user_detail'表中选择所有列，其中`uid`在(1,2,3,4,5)范围内. md5:fc3208d19b9f10f6
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValuesUnique(&scores, "Uid")).
-			ScanList(&scores, "EntityUserDetail", "uid:Uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值并去重(&scores, "Uid")).
+			X查询到指针列表(&scores, "EntityUserDetail", "uid:Uid")
 		t.AssertNil(err)
 
 		// Assertions.
@@ -1793,11 +1793,11 @@ CREATE TABLE %s (
 
 func Test_Table_Relation_EmbeddedStruct2(t *testing.T) {
 	var (
-		tableUser       = "user_" + gtime.TimestampMicroStr()
-		tableUserDetail = "user_detail_" + gtime.TimestampMicroStr()
-		tableUserScores = "user_scores_" + gtime.TimestampMicroStr()
+		tableUser       = "user_" + gtime.X取文本时间戳微秒()
+		tableUserDetail = "user_detail_" + gtime.X取文本时间戳微秒()
+		tableUserScores = "user_scores_" + gtime.X取文本时间戳微秒()
 	)
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
@@ -1808,7 +1808,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUser)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   uid int(10) unsigned NOT NULL AUTO_INCREMENT,
   address varchar(45) NOT NULL,
@@ -1819,7 +1819,7 @@ CREATE TABLE %s (
 	}
 	defer dropTable(tableUserDetail)
 
-	if _, err := db.Exec(ctx, fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(ctx, fmt.Sprintf(`
 CREATE TABLE %s (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid int(10) unsigned NOT NULL,
@@ -1855,20 +1855,20 @@ CREATE TABLE %s (
 		var err error
 		for i := 1; i <= 5; i++ {
 			// User.
-			_, err = db.Insert(ctx, tableUser, g.Map{
+			_, err = db.X插入(ctx, tableUser, g.Map{
 				"uid":  i,
 				"name": fmt.Sprintf(`name_%d`, i),
 			})
 			t.AssertNil(err)
 			// Detail.
-			_, err = db.Insert(ctx, tableUserDetail, g.Map{
+			_, err = db.X插入(ctx, tableUserDetail, g.Map{
 				"uid":     i,
 				"address": fmt.Sprintf(`address_%d`, i),
 			})
 			t.AssertNil(err)
 			// Scores.
 			for j := 1; j <= 5; j++ {
-				_, err = db.Insert(ctx, tableUserScores, g.Map{
+				_, err = db.X插入(ctx, tableUserScores, g.Map{
 					"uid":   i,
 					"score": j,
 				})
@@ -1879,44 +1879,44 @@ CREATE TABLE %s (
 
 	// MapKeyValue.
 	gtest.C(t, func(t *gtest.T) {
-		all, err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		t.Assert(all.Len(), 2)
-		t.Assert(len(all.MapKeyValue("uid")), 2)
-		t.Assert(all.MapKeyValue("uid")["3"].Map()["uid"], 3)
-		t.Assert(all.MapKeyValue("uid")["4"].Map()["uid"], 4)
-		all, err = db.Model(tableUserScores).Where("uid", g.Slice{3, 4}).Order("id asc").All()
+		t.Assert(all.X取数量(), 2)
+		t.Assert(len(all.X取字段Map泛型类("uid")), 2)
+		t.Assert(all.X取字段Map泛型类("uid")["3"].X取Map()["uid"], 3)
+		t.Assert(all.X取字段Map泛型类("uid")["4"].X取Map()["uid"], 4)
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", g.Slice别名{3, 4}).X排序("id asc").X查询()
 		t.AssertNil(err)
-		t.Assert(all.Len(), 10)
-		t.Assert(len(all.MapKeyValue("uid")), 2)
-		t.Assert(len(all.MapKeyValue("uid")["3"].Slice()), 5)
-		t.Assert(len(all.MapKeyValue("uid")["4"].Slice()), 5)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[0])["uid"], 3)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[0])["score"], 1)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["uid"], 3)
-		t.Assert(gconv.Map(all.MapKeyValue("uid")["3"].Slice()[4])["score"], 5)
+		t.Assert(all.X取数量(), 10)
+		t.Assert(len(all.X取字段Map泛型类("uid")), 2)
+		t.Assert(len(all.X取字段Map泛型类("uid")["3"].Slice别名()), 5)
+		t.Assert(len(all.X取字段Map泛型类("uid")["4"].Slice别名()), 5)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[0])["uid"], 3)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[0])["score"], 1)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[4])["uid"], 3)
+		t.Assert(gconv.X取Map(all.X取字段Map泛型类("uid")["3"].Slice别名()[4])["score"], 5)
 	})
 
 		// Result 使用具有结构体元素和指针属性的ScanList。 md5:b23d106d13859ad5
 	gtest.C(t, func(t *gtest.T) {
 		var users []Entity
 		// User
-		err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").Scan(&users)
+		err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].EntityUser, &EntityUser{3, "name_3"})
 		t.Assert(users[1].EntityUser, &EntityUser{4, "name_4"})
 		// Detail
-		all, err := db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "Uid")).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "uid")
+		err = all.X取指针列表(&users, "UserScores", "uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -1932,22 +1932,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").Scan(&users)
+		err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].EntityUser, &EntityUser{3, "name_3"})
 		t.Assert(users[1].EntityUser, &EntityUser{4, "name_4"})
 		// Detail
-		all, err := db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "Uid")).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "uid")
+		err = all.X取指针列表(&users, "UserScores", "uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -1981,22 +1981,22 @@ CREATE TABLE %s (
 		}
 		var users []Entity
 		// User
-		err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").Scan(&users)
+		err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].EntityUser, &EntityUser{3, "name_3"})
 		t.Assert(users[1].EntityUser, &EntityUser{4, "name_4"})
 		// Detail
-		all, err := db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "Uid")).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "uid")
+		err = all.X取指针列表(&users, "UserScores", "uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -2031,22 +2031,22 @@ CREATE TABLE %s (
 		var users []*Entity
 
 		// User
-		err := db.Model(tableUser).Where("uid", g.Slice{3, 4}).Order("uid asc").Scan(&users)
+		err := db.X创建Model对象(tableUser).X条件("uid", g.Slice别名{3, 4}).X排序("uid asc").X查询到结构体指针(&users)
 		t.AssertNil(err)
 		t.Assert(len(users), 2)
 		t.Assert(users[0].EntityUser, &EntityUser{3, "name_3"})
 		t.Assert(users[1].EntityUser, &EntityUser{4, "name_4"})
 		// Detail
-		all, err := db.Model(tableUserDetail).Where("uid", gdb.ListItemValues(users, "Uid")).Order("uid asc").All()
+		all, err := db.X创建Model对象(tableUserDetail).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("uid asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserDetail", "uid")
+		err = all.X取指针列表(&users, "UserDetail", "uid")
 		t.AssertNil(err)
 		t.Assert(users[0].UserDetail, &EntityUserDetail{3, "address_3"})
 		t.Assert(users[1].UserDetail, &EntityUserDetail{4, "address_4"})
 		// Scores
-		all, err = db.Model(tableUserScores).Where("uid", gdb.ListItemValues(users, "Uid")).Order("id asc").All()
+		all, err = db.X创建Model对象(tableUserScores).X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).X排序("id asc").X查询()
 		t.AssertNil(err)
-		err = all.ScanList(&users, "UserScores", "uid")
+		err = all.X取指针列表(&users, "UserScores", "uid")
 		t.AssertNil(err)
 		t.Assert(len(users[0].UserScores), 5)
 		t.Assert(len(users[1].UserScores), 5)
@@ -2062,22 +2062,22 @@ CREATE TABLE %s (
 	gtest.C(t, func(t *gtest.T) {
 		var users []*Entity
 		// User
-		err := db.Model(tableUser).
-			Where("uid", g.Slice{3, 4}).
-			Order("uid asc").
-			Scan(&users)
+		err := db.X创建Model对象(tableUser).
+			X条件("uid", g.Slice别名{3, 4}).
+			X排序("uid asc").
+			X查询到结构体指针(&users)
 		t.AssertNil(err)
 		// Detail
-		err = db.Model(tableUserDetail).
-			Where("uid", gdb.ListItemValues(users, "Uid")).
-			Order("uid asc").
-			ScanList(&users, "UserDetail", "uid:Uid")
+		err = db.X创建Model对象(tableUserDetail).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).
+			X排序("uid asc").
+			X查询到指针列表(&users, "UserDetail", "uid:Uid")
 		t.AssertNil(err)
 		// Scores
-		err = db.Model(tableUserScores).
-			Where("uid", gdb.ListItemValues(users, "Uid")).
-			Order("id asc").
-			ScanList(&users, "UserScores", "uid:Uid")
+		err = db.X创建Model对象(tableUserScores).
+			X条件("uid", gdb.X取结构体切片或Map切片值(users, "Uid")).
+			X排序("id asc").
+			X查询到指针列表(&users, "UserScores", "uid:Uid")
 		t.AssertNil(err)
 
 		t.Assert(len(users), 2)

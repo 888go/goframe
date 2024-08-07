@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv_test
+package 转换类_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gvar "github.com/888go/goframe/container/gvar"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Struct_Basic1(t *testing.T) {
@@ -363,9 +363,9 @@ func Test_Struct_Attr_CustomType2(t *testing.T) {
 	}
 	gtest.C(t, func(t *gtest.T) {
 		user := new(User)
-		err := gconv.Struct(g.Map{"id": g.Slice{1, 2}, "name": "john"}, user)
+		err := gconv.Struct(g.Map{"id": g.Slice别名{1, 2}, "name": "john"}, user)
 		t.AssertNil(err)
-		t.Assert(user.Id, g.Slice{1, 2})
+		t.Assert(user.Id, g.Slice别名{1, 2})
 		t.Assert(user.Name, "john")
 	})
 }
@@ -975,7 +975,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []int
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -985,7 +985,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []int32
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -995,7 +995,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []int64
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -1005,7 +1005,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []uint
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -1015,7 +1015,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []uint32
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -1025,7 +1025,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []uint64
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -1035,7 +1035,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []float32
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -1045,7 +1045,7 @@ func Test_Struct_Slice(t *testing.T) {
 			Scores []float64
 		}
 		user := new(User)
-		array := g.Slice{1, 2, 3}
+		array := g.Slice别名{1, 2, 3}
 		err := gconv.Struct(g.Map{"scores": array}, user)
 		t.AssertNil(err)
 		t.Assert(user.Scores, array)
@@ -1218,7 +1218,7 @@ func Test_Struct_GVarAttribute(t *testing.T) {
 			data = g.Map{
 				"id":     100,
 				"name":   "john",
-				"status": gvar.New(false),
+				"status": gvar.X创建(false),
 			}
 		)
 		err := gconv.Struct(data, &a)
@@ -1302,10 +1302,10 @@ func Test_Struct_Issue1597(t *testing.T) {
 			"c": 3
 		}
 	}`)
-		data, err := gjson.DecodeToJson(jsonByte)
+		data, err := gjson.X解码到json(jsonByte)
 		t.AssertNil(err)
 		s := &S{}
-		err = data.Scan(s)
+		err = data.X取结构体指针(s)
 		t.AssertNil(err)
 		t.Assert(s.B, `{"c":3}`)
 	})
@@ -1329,10 +1329,10 @@ func Test_Struct_Issue3449(t *testing.T) {
             "k1": "21",
             "k2": "22"
         }]}`)
-		data, err := gjson.DecodeToJson(jsonByte)
+		data, err := gjson.X解码到json(jsonByte)
 		t.AssertNil(err)
 		s := &S{}
-		err = data.Scan(s)
+		err = data.X取结构体指针(s)
 		t.AssertNil(err)
 		t.Assert(s.B, `[{"k1":"11","k2":"12"},{"k1":"21","k2":"22"}]`)
 	})
@@ -1350,9 +1350,9 @@ func Test_Struct_Issue2980(t *testing.T) {
 	}
 
 	gtest.C(t, func(t *gtest.T) {
-		date := gtime.New("2023-09-22 12:00:00").UTC()
+		date := gtime.X创建("2023-09-22 12:00:00").X取UTC时区()
 		params := g.Map{
-			"CreatedAt": gtime.New("2023-09-22 12:00:00").UTC(),
+			"CreatedAt": gtime.X创建("2023-09-22 12:00:00").X取UTC时区(),
 			"UserName":  "Galileo",
 		}
 		postWithUser := new(PostWithUser)
@@ -1374,8 +1374,8 @@ func Test_Scan_WithDoubleSliceAttribute(t *testing.T) {
 		Data: inputData,
 	}
 	gtest.C(t, func(t *gtest.T) {
-		jv := gjson.New(gjson.MustEncodeString(data))
-		err := jv.Scan(&data)
+		jv := gjson.X创建(gjson.X变量到json文本PANI(data))
+		err := jv.X取结构体指针(&data)
 		t.AssertNil(err)
 		t.Assert(data.Data, inputData)
 	})
@@ -1392,7 +1392,7 @@ func Test_Struct_WithCustomType(t *testing.T) {
 		PayMode *PayMode
 	}
 	var (
-		params = gconv.Map(`{"PayMode": 1000}`)
+		params = gconv.X取Map(`{"PayMode": 1000}`)
 		req1   *Req1
 		req2   *Req2
 		err1   error

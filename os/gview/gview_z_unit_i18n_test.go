@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gview_test
+package 模板类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/i18n/gi18n"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gview"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/i18n/gi18n"
+	gctx "github.com/888go/goframe/os/gctx"
+	gfile "github.com/888go/goframe/os/gfile"
+	gview "github.com/888go/goframe/os/gview"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_I18n(t *testing.T) {
@@ -27,24 +27,24 @@ func Test_I18n(t *testing.T) {
 		expect2 := `john says "こんにちは世界!"`
 		expect3 := `john says "{#hello}{#world}!"`
 
-		g.I18n().SetPath(gtest.DataPath("i18n"))
+		g.X多语言类().SetPath(gtest.DataPath("i18n"))
 
-		g.I18n().SetLanguage("zh-CN")
-		result1, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		g.X多语言类().SetLanguage("zh-CN")
+		result1, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name": "john",
 		})
 		t.AssertNil(err)
 		t.Assert(result1, expect1)
 
-		g.I18n().SetLanguage("ja")
-		result2, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		g.X多语言类().SetLanguage("ja")
+		result2, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name": "john",
 		})
 		t.AssertNil(err)
 		t.Assert(result2, expect2)
 
-		g.I18n().SetLanguage("none")
-		result3, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		g.X多语言类().SetLanguage("none")
+		result3, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name": "john",
 		})
 		t.AssertNil(err)
@@ -56,23 +56,23 @@ func Test_I18n(t *testing.T) {
 		expect2 := `john says "こんにちは世界!"`
 		expect3 := `john says "{#hello}{#world}!"`
 
-		g.I18n().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
+		g.X多语言类().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
 
-		result1, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		result1, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
 			"I18nLanguage": "zh-CN",
 		})
 		t.AssertNil(err)
 		t.Assert(result1, expect1)
 
-		result2, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		result2, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
 			"I18nLanguage": "ja",
 		})
 		t.AssertNil(err)
 		t.Assert(result2, expect2)
 
-		result3, err := g.View().ParseContent(context.TODO(), content, g.Map{
+		result3, err := g.X模板类().ParseContent(context.TODO(), content, g.Map{
 			"name":         "john",
 			"I18nLanguage": "none",
 		})
@@ -84,7 +84,7 @@ func Test_I18n(t *testing.T) {
 		content := `{{.name}} says "{#hello}{#world}!"`
 		expect1 := `john says "{#hello}{#world}!"`
 
-		g.I18n().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
+		g.X多语言类().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
 
 		view := gview.New()
 		view.SetI18n(nil)
@@ -99,8 +99,8 @@ func Test_I18n(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		content := `{{.name}} says "{#hello}{#world}!"`
 		expect1 := `john says "你好世界!"`
-		ctx := gctx.New()
-		g.I18n().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
+		ctx := gctx.X创建()
+		g.X多语言类().SetPath(gdebug.CallerDirectory() + gfile.Separator + "testdata" + gfile.Separator + "i18n")
 		ctx = gi18n.WithLanguage(ctx, "zh-CN")
 		t.Log(gi18n.LanguageFromCtx(ctx))
 

@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gutil"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	gstr "github.com/888go/goframe/text/gstr"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // DriverWrapperDB是一个DB包装器，用于通过嵌入式DB扩展功能。 md5:a926644143c69c76
@@ -25,26 +25,26 @@ type DriverWrapperDB struct {
 	DB
 }
 
-// Open 创建并返回一个用于pgsql的底层sql.DB对象。
+// X底层Open 创建并返回一个用于pgsql的底层sql.DB对象。
 // 参考链接：https://pkg.go.dev/github.com/lib/pq
 // md5:9889bcb899248a2b
-func (d *DriverWrapperDB) Open(node *ConfigNode) (db *sql.DB, err error) {
-	var ctx = d.GetCtx()
+func (d *DriverWrapperDB) X底层Open(node *ConfigNode) (db *sql.DB, err error) {
+	var ctx = d.X取上下文对象()
 	intlog.PrintFunc(ctx, func() string {
-		return fmt.Sprintf(`open new connection:%s`, gjson.MustEncode(node))
+		return fmt.Sprintf(`open new connection:%s`, gjson.X变量到json字节集PANI(node))
 	})
-	return d.DB.Open(node)
+	return d.DB.X底层Open(node)
 }
 
-// Tables 获取并返回当前模式下的表格列表。
+// X取表名称切片 获取并返回当前模式下的表格列表。
 //主要用于命令行工具链，用于自动生成模型。
 // md5:bce161ba95454bf5
-func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables []string, err error) {
-	ctx = context.WithValue(ctx, ctxKeyInternalProducedSQL, struct{}{})
-	return d.DB.Tables(ctx, schema...)
+func (d *DriverWrapperDB) X取表名称切片(上下文 context.Context, schema ...string) (表名称切片 []string, 错误 error) {
+	上下文 = context.WithValue(上下文, ctxKeyInternalProducedSQL, struct{}{})
+	return d.DB.X取表名称切片(上下文, schema...)
 }
 
-// TableFields 获取并返回当前模式指定表的字段信息。
+// X取表字段信息Map 获取并返回当前模式指定表的字段信息。
 // 
 // 参数 `link` 是可选的，如果为 nil，则自动获取一个原始 SQL 连接，用于执行必要的 SQL 查询。
 // 
@@ -52,16 +52,16 @@ func (d *DriverWrapperDB) Tables(ctx context.Context, schema ...string) (tables 
 // 
 // 该方法使用缓存功能来提高性能，直到进程重启，缓存永不过期。
 // md5:c844572d5210b35e
-func (d *DriverWrapperDB) TableFields(
+func (d *DriverWrapperDB) X取表字段信息Map(
 	ctx context.Context, table string, schema ...string,
 ) (fields map[string]*TableField, err error) {
 	if table == "" {
 		return nil, nil
 	}
-	charL, charR := d.GetChars()
-	table = gstr.Trim(table, charL+charR)
-	if gstr.Contains(table, " ") {
-		return nil, gerror.NewCode(
+	charL, charR := d.X底层取数据库安全字符()
+	table = gstr.X过滤首尾符并含空白(table, charL+charR)
+	if gstr.X是否包含(table, " ") {
+		return nil, gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			"function TableFields supports only single table operations",
 		)
@@ -71,13 +71,13 @@ func (d *DriverWrapperDB) TableFields(
 		cacheKey = fmt.Sprintf(
 			`%s%s@%s#%s`,
 			cachePrefixTableFields,
-			d.GetGroup(),
-			gutil.GetOrDefaultStr(d.GetSchema(), schema...),
+			d.X取配置组名称(),
+			gutil.X取文本值或取默认值(d.X取默认数据库名称(), schema...),
 			table,
 		)
-		value = tableFieldsMap.GetOrSetFuncLock(cacheKey, func() interface{} {
+		value = tableFieldsMap.X取值或设置值_函数带锁(cacheKey, func() interface{} {
 			ctx = context.WithValue(ctx, ctxKeyInternalProducedSQL, struct{}{})
-			fields, err = d.DB.TableFields(ctx, table, schema...)
+			fields, err = d.DB.X取表字段信息Map(ctx, table, schema...)
 			if err != nil {
 				return nil
 			}
@@ -90,7 +90,7 @@ func (d *DriverWrapperDB) TableFields(
 	return
 }
 
-// DoInsert 用于插入或更新给定表的数据。
+// X底层插入 用于插入或更新给定表的数据。
 // 此函数通常用于自定义接口定义，您无需手动调用。
 // 参数 `data` 可以为 map/gmap/struct/*struct/[]map/[]struct 等类型。
 // 例如：
@@ -103,13 +103,13 @@ func (d *DriverWrapperDB) TableFields(
 // InsertOptionSave：如果数据中包含唯一键或主键，进行更新，否则插入新记录；
 // InsertOptionIgnore：如果数据中包含唯一键或主键，忽略插入操作。
 // md5:9fab32fdc41df179
-func (d *DriverWrapperDB) DoInsert(ctx context.Context, link Link, table string, list List, option DoInsertOption) (result sql.Result, err error) {
+func (d *DriverWrapperDB) X底层插入(上下文 context.Context, 链接 Link, 表名称 string, list Map切片, option DoInsertOption) (result sql.Result, err error) {
 		// 在将数据类型提交给底层数据库驱动程序之前进行转换。 md5:58b56ae1ed22196f
 	for i, item := range list {
-		list[i], err = d.GetCore().ConvertDataForRecord(ctx, item, table)
+		list[i], err = d.X取Core对象().X底层ConvertDataForRecord(上下文, item, 表名称)
 		if err != nil {
 			return nil, err
 		}
 	}
-	return d.DB.DoInsert(ctx, link, table, list, option)
+	return d.DB.X底层插入(上下文, 链接, 表名称, list, option)
 }

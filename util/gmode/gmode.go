@@ -9,12 +9,12 @@
 //
 // 它使用字符串而非整数来标记模式，便于配置。
 // md5:716bfe2e364994bd
-package gmode
+package 环境类
 
 import (
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/internal/command"
-	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/internal/command"
+	gfile "github.com/888go/goframe/os/gfile"
 )
 
 const (
@@ -31,29 +31,29 @@ var (
 	currentMode = NOT_SET
 )
 
-// Set 设置当前应用程序的模式。 md5:523a8be23f0521ca
-func Set(mode string) {
+// X设置值 设置当前应用程序的模式。 md5:523a8be23f0521ca
+func X设置值(mode string) {
 	currentMode = mode
 }
 
 // SetDevelop 将当前应用的模式设置为 DEVELOP。 md5:7d10eaf834b69114
 func SetDevelop() {
-	Set(DEVELOP)
+	X设置值(DEVELOP)
 }
 
 // SetTesting 将当前应用程序的运行模式设置为测试模式。 md5:3e3ee802bec9b04e
 func SetTesting() {
-	Set(TESTING)
+	X设置值(TESTING)
 }
 
 // SetStaging 将当前应用的模式设置为 STAGING。 md5:c8e3fac819c1d0b9
 func SetStaging() {
-	Set(STAGING)
+	X设置值(STAGING)
 }
 
 // SetProduct 将当前应用设置为PRODUCT模式。 md5:e681c0b16f9b2bf0
 func SetProduct() {
-	Set(PRODUCT)
+	X设置值(PRODUCT)
 }
 
 // Mode 返回当前设置的应用模式。 md5:76410fdca2d2e6a9
@@ -65,7 +65,7 @@ func Mode() string {
 			currentMode = v
 		} else {
 						// 如果找到源代码，则为开发模式，否则为产品模式。 md5:4feb614f3843b3df
-			if gfile.Exists(gdebug.CallerFilePath()) {
+			if gfile.X是否存在(gdebug.CallerFilePath()) {
 				currentMode = DEVELOP
 			} else {
 				currentMode = PRODUCT

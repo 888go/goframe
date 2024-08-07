@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gjson_test
+package json类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
+	gjson "github.com/888go/goframe/encoding/gjson"
 )
 
 func ExampleConversionNormalFormats() {
@@ -22,23 +22,23 @@ func ExampleConversionNormalFormats() {
         }
     }`
 
-	if j, err := gjson.DecodeToJson(data); err != nil {
+	if j, err := gjson.X解码到json(data); err != nil {
 		panic(err)
 	} else {
 		fmt.Println("JSON:")
-		fmt.Println(j.MustToJsonString())
+		fmt.Println(j.X取json文本PANI())
 		fmt.Println("======================")
 
 		fmt.Println("XML:")
-		fmt.Println(j.MustToXmlString())
+		fmt.Println(j.X取xml文本PANI())
 		fmt.Println("======================")
 
 		fmt.Println("YAML:")
-		fmt.Println(j.MustToYamlString())
+		fmt.Println(j.X取YAML文本PANI())
 		fmt.Println("======================")
 
 		fmt.Println("TOML:")
-		fmt.Println(j.MustToTomlString())
+		fmt.Println(j.X取TOML文本PANI())
 	}
 
 	// Output:
@@ -70,7 +70,7 @@ func ExampleJson_ConversionGetStruct() {
             "array" : ["John", "Ming"]
         }
     }`
-	if j, err := gjson.DecodeToJson(data); err != nil {
+	if j, err := gjson.X解码到json(data); err != nil {
 		panic(err)
 	} else {
 		type Users struct {
@@ -78,7 +78,7 @@ func ExampleJson_ConversionGetStruct() {
 			Array []string
 		}
 		users := new(Users)
-		if err := j.Get("users").Scan(users); err != nil {
+		if err := j.X取值("users").X取结构体指针(users); err != nil {
 			panic(err)
 		}
 		fmt.Printf(`%+v`, users)
@@ -95,7 +95,7 @@ func ExampleJson_ConversionToStruct() {
         "count" : 1,
         "array" : ["John", "Ming"]
     }`
-	if j, err := gjson.DecodeToJson(data); err != nil {
+	if j, err := gjson.X解码到json(data); err != nil {
 		panic(err)
 	} else {
 		type Users struct {
@@ -103,7 +103,7 @@ func ExampleJson_ConversionToStruct() {
 			Array []string
 		}
 		users := new(Users)
-		if err := j.Var().Scan(users); err != nil {
+		if err := j.X取泛型类().X取结构体指针(users); err != nil {
 			panic(err)
 		}
 		fmt.Printf(`%+v`, users)
@@ -116,8 +116,8 @@ func ExampleJson_ConversionToStruct() {
 func ExampleValid() {
 	data1 := []byte(`{"n":123456789, "m":{"k":"v"}, "a":[1,2,3]}`)
 	data2 := []byte(`{"n":123456789, "m":{"k":"v"}, "a":[1,2,3]`)
-	fmt.Println(gjson.Valid(data1))
-	fmt.Println(gjson.Valid(data2))
+	fmt.Println(gjson.X是否为有效json(data1))
+	fmt.Println(gjson.X是否为有效json(data2))
 
 	// Output:
 	// true
@@ -130,7 +130,7 @@ func ExampleMarshal() {
 		"score": 100,
 	}
 
-	jsonData, _ := gjson.Marshal(data)
+	jsonData, _ := gjson.Marshal别名(data)
 	fmt.Println(string(jsonData))
 
 	type BaseInfo struct {
@@ -143,7 +143,7 @@ func ExampleMarshal() {
 		Age:  18,
 	}
 
-	infoData, _ := gjson.Marshal(info)
+	infoData, _ := gjson.Marshal别名(info)
 	fmt.Println(string(infoData))
 
 	// Output:
@@ -162,7 +162,7 @@ func ExampleMarshalIndent() {
 		Age:  18,
 	}
 
-	infoData, _ := gjson.MarshalIndent(info, "", "\t")
+	infoData, _ := gjson.MarshalIndent别名(info, "", "\t")
 	fmt.Println(string(infoData))
 
 	// Output:
@@ -181,7 +181,7 @@ func ExampleUnmarshal() {
 	var info BaseInfo
 
 	jsonContent := "{\"name\":\"john\",\"score\":100}"
-	gjson.Unmarshal([]byte(jsonContent), &info)
+	gjson.Unmarshal别名([]byte(jsonContent), &info)
 	fmt.Printf("%+v", info)
 
 	// Output:
@@ -199,7 +199,7 @@ func ExampleEncode() {
 		Age:  18,
 	}
 
-	infoData, _ := gjson.Encode(info)
+	infoData, _ := gjson.X变量到json字节集(info)
 	fmt.Println(string(infoData))
 
 	// Output:
@@ -217,7 +217,7 @@ func ExampleMustEncode() {
 		Age:  18,
 	}
 
-	infoData := gjson.MustEncode(info)
+	infoData := gjson.X变量到json字节集PANI(info)
 	fmt.Println(string(infoData))
 
 	// Output:
@@ -235,7 +235,7 @@ func ExampleEncodeString() {
 		Age:  18,
 	}
 
-	infoData, _ := gjson.EncodeString(info)
+	infoData, _ := gjson.X变量到json文本(info)
 	fmt.Println(infoData)
 
 	// Output:
@@ -253,7 +253,7 @@ func ExampleMustEncodeString() {
 		Age:  18,
 	}
 
-	infoData := gjson.MustEncodeString(info)
+	infoData := gjson.X变量到json文本PANI(info)
 	fmt.Println(infoData)
 
 	// Output:
@@ -262,7 +262,7 @@ func ExampleMustEncodeString() {
 
 func ExampleDecode() {
 	jsonContent := `{"name":"john","score":100}`
-	info, _ := gjson.Decode([]byte(jsonContent))
+	info, _ := gjson.Json格式到变量([]byte(jsonContent))
 	fmt.Println(info)
 
 	// Output:
@@ -278,7 +278,7 @@ func ExampleDecodeTo() {
 	var info BaseInfo
 
 	jsonContent := "{\"name\":\"john\",\"score\":100}"
-	gjson.DecodeTo([]byte(jsonContent), &info)
+	gjson.Json格式到变量指针([]byte(jsonContent), &info)
 	fmt.Printf("%+v", info)
 
 	// Output:
@@ -287,8 +287,8 @@ func ExampleDecodeTo() {
 
 func ExampleDecodeToJson() {
 	jsonContent := `{"name":"john","score":100}"`
-	j, _ := gjson.DecodeToJson([]byte(jsonContent))
-	fmt.Println(j.Map())
+	j, _ := gjson.X解码到json([]byte(jsonContent))
+	fmt.Println(j.X取Map())
 
 	// May Output:
 	// map[name:john score:100]

@@ -7,7 +7,7 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package grand_test
+package 随机类_test
 
 import (
 	cryptoRand "crypto/rand"
@@ -15,7 +15,7 @@ import (
 	mathRand "math/rand"
 	"testing"
 
-	"github.com/gogf/gf/v2/util/grand"
+	grand "github.com/888go/goframe/util/grand"
 )
 
 var (
@@ -45,61 +45,61 @@ func Benchmark_CryptoRand_Buffer1024(b *testing.B) {
 
 func Benchmark_GRand_Intn(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.N(0, 99)
+		grand.X区间整数(0, 99)
 	}
 }
 
 func Benchmark_Perm10(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.Perm(10)
+		grand.X整数切片(10)
 	}
 }
 
 func Benchmark_Perm100(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.Perm(100)
+		grand.X整数切片(100)
 	}
 }
 
 func Benchmark_Rand_N1(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.N(0, 99)
+		grand.X区间整数(0, 99)
 	}
 }
 
 func Benchmark_Rand_N2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.N(0, 999999999)
+		grand.X区间整数(0, 999999999)
 	}
 }
 
 func Benchmark_B(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.B(16)
+		grand.X字节集(16)
 	}
 }
 
 func Benchmark_S(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.S(16)
+		grand.X文本(16)
 	}
 }
 
 func Benchmark_S_Symbols(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.S(16, true)
+		grand.X文本(16, true)
 	}
 }
 
 func Benchmark_Str(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.Str(strForStr, 16)
+		grand.X从文本生成文本(strForStr, 16)
 	}
 }
 
 func Benchmark_Symbols(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		grand.Symbols(16)
+		grand.X特殊字符文本(16)
 	}
 }
 

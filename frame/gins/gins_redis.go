@@ -11,14 +11,14 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gredis"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gredis "github.com/888go/goframe/database/gredis"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/instance"
+	"github.com/888go/goframe/internal/intlog"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // Redis 返回一个根据指定配置组名初始化的 Redis 客户端实例。
@@ -39,21 +39,21 @@ func Redis(name ...string) *gredis.Redis {
 		if _, ok := gredis.GetConfig(group); ok {
 			return gredis.Instance(group)
 		}
-		if Config().Available(ctx) {
+		if Config().X是否可用(ctx) {
 			var (
 				configMap   map[string]interface{}
 				redisConfig *gredis.Config
 				redisClient *gredis.Redis
 			)
-			if configMap, err = Config().Data(ctx); err != nil {
+			if configMap, err = Config().X取Map(ctx); err != nil {
 				intlog.Errorf(ctx, `retrieve config data map failed: %+v`, err)
 			}
 			if _, v := gutil.MapPossibleItemByKey(configMap, consts.ConfigNodeNameRedis); v != nil {
-				configMap = gconv.Map(v)
+				configMap = gconv.X取Map(v)
 			}
 			if len(configMap) > 0 {
 				if v, ok := configMap[group]; ok {
-					if redisConfig, err = gredis.ConfigFromMap(gconv.Map(v)); err != nil {
+					if redisConfig, err = gredis.ConfigFromMap(gconv.X取Map(v)); err != nil {
 						panic(err)
 					}
 				} else {
@@ -67,7 +67,7 @@ func Redis(name ...string) *gredis.Redis {
 			}
 			return redisClient
 		}
-		panic(gerror.NewCode(
+		panic(gerror.X创建错误码(
 			gcode.CodeMissingConfiguration,
 			`no configuration found for creating redis client`,
 		))

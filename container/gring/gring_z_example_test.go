@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gring_test
+package 循环链表类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gring"
+	gring "github.com/888go/goframe/container/gring"
 )
 
 func ExampleNew() {
@@ -25,11 +25,11 @@ func ExampleNew() {
 
 func ExampleRing_Val() {
 	r := gring.New(10)
-	r.Set(1)
-	fmt.Println("Val:", r.Val())
+	r.X设置值(1)
+	fmt.Println("Val:", r.X取值())
 
-	r.Next().Set("GoFrame")
-	fmt.Println("Val:", r.Val())
+	r.Next().X设置值("GoFrame")
+	fmt.Println("Val:", r.X取值())
 
 	// Output:
 	// Val: 1
@@ -39,13 +39,13 @@ func ExampleRing_Val() {
 func ExampleRing_Len() {
 	r1 := gring.New(10)
 	for i := 0; i < 5; i++ {
-		r1.Set(i).Next()
+		r1.X设置值(i).Next()
 	}
 	fmt.Println("Len:", r1.Len())
 
 	r2 := gring.New(10, true)
 	for i := 0; i < 10; i++ {
-		r2.Set(i).Next()
+		r2.X设置值(i).Next()
 	}
 	fmt.Println("Len:", r2.Len())
 
@@ -57,13 +57,13 @@ func ExampleRing_Len() {
 func ExampleRing_Cap() {
 	r1 := gring.New(10)
 	for i := 0; i < 5; i++ {
-		r1.Set(i).Next()
+		r1.X设置值(i).Next()
 	}
 	fmt.Println("Cap:", r1.Cap())
 
 	r2 := gring.New(10, true)
 	for i := 0; i < 10; i++ {
-		r2.Set(i).Next()
+		r2.X设置值(i).Next()
 	}
 	fmt.Println("Cap:", r2.Cap())
 
@@ -74,11 +74,11 @@ func ExampleRing_Cap() {
 
 func ExampleRing_Set() {
 	r := gring.New(10)
-	r.Set(1)
-	fmt.Println("Val:", r.Val())
+	r.X设置值(1)
+	fmt.Println("Val:", r.X取值())
 
-	r.Next().Set("GoFrame")
-	fmt.Println("Val:", r.Val())
+	r.Next().X设置值("GoFrame")
+	fmt.Println("Val:", r.X取值())
 
 	// Output:
 	// Val: 1
@@ -88,8 +88,8 @@ func ExampleRing_Set() {
 func ExampleRing_Put() {
 	r := gring.New(10)
 	r.Put(1)
-	fmt.Println("Val:", r.Val())
-	fmt.Println("Val:", r.Prev().Val())
+	fmt.Println("Val:", r.X取值())
+	fmt.Println("Val:", r.Prev().X取值())
 
 	// Output:
 	// Val: <nil>
@@ -99,15 +99,15 @@ func ExampleRing_Put() {
 func ExampleRing_Move() {
 	r := gring.New(10)
 	for i := 0; i < 10; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 	// ring at Pos 0
-	fmt.Println("CurVal:", r.Val())
+	fmt.Println("CurVal:", r.X取值())
 
 	r.Move(5)
 
 	// ring at Pos 5
-	fmt.Println("CurVal:", r.Val())
+	fmt.Println("CurVal:", r.X取值())
 
 	// Output:
 	// CurVal: 0
@@ -117,11 +117,11 @@ func ExampleRing_Move() {
 func ExampleRing_Prev() {
 	r := gring.New(10)
 	for i := 0; i < 5; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
-	fmt.Println("Prev:", r.Prev().Val())
-	fmt.Println("Prev:", r.Prev().Val())
+	fmt.Println("Prev:", r.Prev().X取值())
+	fmt.Println("Prev:", r.Prev().X取值())
 
 	// Output:
 	// Prev: 4
@@ -131,11 +131,11 @@ func ExampleRing_Prev() {
 func ExampleRing_Next() {
 	r := gring.New(10)
 	for i := 5; i > 0; i-- {
-		r.Set(i).Prev()
+		r.X设置值(i).Prev()
 	}
 
-	fmt.Println("Prev:", r.Next().Val())
-	fmt.Println("Prev:", r.Next().Val())
+	fmt.Println("Prev:", r.Next().X取值())
+	fmt.Println("Prev:", r.Next().X取值())
 
 	// Output:
 	// Prev: 1
@@ -145,13 +145,13 @@ func ExampleRing_Next() {
 func ExampleRing_Link_Common() {
 	r := gring.New(10)
 	for i := 0; i < 5; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
 	s := gring.New(10)
 	for i := 0; i < 10; i++ {
 		val := i + 5
-		s.Set(val).Next()
+		s.X设置值(val).Next()
 	}
 
 	r.Link(s) // Link Ring s to Ring r
@@ -171,7 +171,7 @@ func ExampleRing_Link_Common() {
 func ExampleRing_Link_SameRing() {
 	r := gring.New(10)
 	for i := 0; i < 5; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
 	same_r := r.Link(r.Prev())
@@ -191,7 +191,7 @@ func ExampleRing_Link_SameRing() {
 func ExampleRing_Unlink() {
 	r := gring.New(10)
 	for i := 0; i < 10; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
 	fmt.Println("Before Unlink, Len:", r.Len())
@@ -220,7 +220,7 @@ func ExampleRing_Unlink() {
 func ExampleRing_RLockIteratorNext() {
 	r := gring.New(10)
 	for i := 0; i < 10; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
 	r.RLockIteratorNext(func(value interface{}) bool {
@@ -243,7 +243,7 @@ func ExampleRing_RLockIteratorNext() {
 func ExampleRing_RLockIteratorPrev() {
 	r := gring.New(10)
 	for i := 0; i < 10; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
 	// move r to pos 9
@@ -269,7 +269,7 @@ func ExampleRing_RLockIteratorPrev() {
 func ExampleRing_SliceNext() {
 	r := gring.New(10)
 	for i := 0; i < 10; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
 	fmt.Println(r.SliceNext())
@@ -281,7 +281,7 @@ func ExampleRing_SliceNext() {
 func ExampleRing_SlicePrev() {
 	r := gring.New(10)
 	for i := 0; i < 10; i++ {
-		r.Set(i).Next()
+		r.X设置值(i).Next()
 	}
 
 	fmt.Println(r.SlicePrev())

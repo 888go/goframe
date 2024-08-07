@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gsession
+package session类
 
 import (
 	"context"
 	"time"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/os/gcache"
+	gmap "github.com/888go/goframe/container/gmap"
+	gvar "github.com/888go/goframe/container/gvar"
+	gcache "github.com/888go/goframe/os/gcache"
 )
 
 // StorageMemory 使用内存实现了会话存储接口。 md5:1a9a78b3bd5a138b
@@ -31,13 +31,13 @@ type StorageMemory struct {
 // NewStorageMemory 创建并返回一个用于会话的内存存储对象。 md5:9b1b616d48dd808e
 func NewStorageMemory() *StorageMemory {
 	return &StorageMemory{
-		cache: gcache.New(),
+		cache: gcache.X创建(),
 	}
 }
 
 // RemoveAll 从存储中删除会话。 md5:488d9f9ca747e8e4
 func (s *StorageMemory) RemoveAll(ctx context.Context, sessionId string) error {
-	_, err := s.cache.Remove(ctx, sessionId)
+	_, err := s.cache.X删除并带返回值(ctx, sessionId)
 	return err
 }
 
@@ -53,14 +53,14 @@ func (s *StorageMemory) GetSession(ctx context.Context, sessionId string, ttl ti
 		v   *gvar.Var
 		err error
 	)
-	v, err = s.cache.Get(ctx, sessionId)
+	v, err = s.cache.X取值(ctx, sessionId)
 	if err != nil {
 		return nil, err
 	}
 	if v != nil {
-		return v.Val().(*gmap.StrAnyMap), nil
+		return v.X取值().(*gmap.StrAnyMap), nil
 	}
-	return gmap.NewStrAnyMap(true), nil
+	return gmap.X创建StrAny(true), nil
 }
 
 // SetSession 根据指定的会话ID更新数据映射。
@@ -68,7 +68,7 @@ func (s *StorageMemory) GetSession(ctx context.Context, sessionId string, ttl ti
 // 该操作会将所有会话数据从内存复制到存储中。
 // md5:1caa26989d884fa4
 func (s *StorageMemory) SetSession(ctx context.Context, sessionId string, sessionData *gmap.StrAnyMap, ttl time.Duration) error {
-	return s.cache.Set(ctx, sessionId, sessionData, ttl)
+	return s.cache.X设置值(ctx, sessionId, sessionData, ttl)
 }
 
 // UpdateTTL 更新指定会话ID的生存时间（TTL）。
@@ -76,6 +76,6 @@ func (s *StorageMemory) SetSession(ctx context.Context, sessionId string, sessio
 // 它只是将会话ID添加到异步处理队列中。
 // md5:cc5ac287cbbc0eab
 func (s *StorageMemory) UpdateTTL(ctx context.Context, sessionId string, ttl time.Duration) error {
-	_, err := s.cache.UpdateExpire(ctx, sessionId, ttl)
+	_, err := s.cache.X更新过期时间(ctx, sessionId, ttl)
 	return err
 }

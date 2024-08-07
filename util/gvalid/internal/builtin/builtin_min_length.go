@@ -11,8 +11,8 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // RuleMinLength 实现了 `min-length` 规则：
@@ -37,12 +37,12 @@ func (r RuleMinLength) Message() string {
 
 func (r RuleMinLength) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = gconv.X取字符切片(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	min, err := strconv.Atoi(in.RulePattern)
 	if valueLen < min || err != nil {
-		return errors.New(gstr.Replace(in.Message, "{min}", strconv.Itoa(min)))
+		return errors.New(gstr.X替换(in.Message, "{min}", strconv.Itoa(min)))
 	}
 	return nil
 }

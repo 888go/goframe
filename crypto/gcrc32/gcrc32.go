@@ -6,17 +6,17 @@
 // md5:a9832f33b234e3f3
 
 // gcrc32 包提供了对CRC32校验算法有用的API。 md5:020293e34534da3f
-package gcrc32
+package 加密crc32类
 
 import (
 	"hash/crc32"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// Encrypt 使用CRC32算法对任何类型的变量进行加密。
+// X加密 使用CRC32算法对任何类型的变量进行加密。
 // 它使用gconv包将`v`转换为其字节类型。
 // md5:85f8e447b40cb0f5
-func Encrypt(v interface{}) uint32 {
-	return crc32.ChecksumIEEE(gconv.Bytes(v))
+func X加密(待加密值 interface{}) uint32 {
+	return crc32.ChecksumIEEE(gconv.X取字节集(待加密值))
 }

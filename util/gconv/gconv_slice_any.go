@@ -5,22 +5,22 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/reflection"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/reflection"
 )
 
-// SliceAny 是 Interfaces 的别名。 md5:4a67bb7703f4770e
-func SliceAny(any interface{}) []interface{} {
-	return Interfaces(any)
+// SliceAny别名 是 Interfaces 的别名。 md5:4a67bb7703f4770e
+func SliceAny别名(值 interface{}) []interface{} {
+	return X取any切片(值)
 }
 
-// Interfaces 将 `any` 转换为 []interface{}。 md5:74035d098fdf06f6
-func Interfaces(any interface{}) []interface{} {
+// X取any切片 将 `any` 转换为 []interface{}。 md5:74035d098fdf06f6
+func X取any切片(any interface{}) []interface{} {
 	if any == nil {
 		return nil
 	}
@@ -106,7 +106,7 @@ func Interfaces(any interface{}) []interface{} {
 		return array
 	}
 	if v, ok := any.(iInterfaces); ok {
-		return v.Interfaces()
+		return v.X取any切片()
 	}
 		// 将JSON格式的字符串值转换。 md5:60b4567e3f65e08a
 	if checkJsonAndUnmarshalUseNumber(any, &array) {

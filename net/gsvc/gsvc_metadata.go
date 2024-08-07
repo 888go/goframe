@@ -8,11 +8,11 @@
 package gsvc
 
 import (
-	"github.com/gogf/gf/v2/container/gvar"
+	gvar "github.com/888go/goframe/container/gvar"
 )
 
-// Set 将键值对设置到元数据中。 md5:3d5704977db787ca
-func (m Metadata) Set(key string, value interface{}) {
+// X设置值 将键值对设置到元数据中。 md5:3d5704977db787ca
+func (m Metadata) X设置值(key string, value interface{}) {
 	m[key] = value
 }
 
@@ -26,7 +26,7 @@ func (m Metadata) Sets(kvs map[string]interface{}) {
 // Get 通过指定的键获取并返回作为gvar的值。 md5:000450be6d0167a3
 func (m Metadata) Get(key string) *gvar.Var {
 	if v, ok := m[key]; ok {
-		return gvar.New(v)
+		return gvar.X创建(v)
 	}
 	return nil
 }

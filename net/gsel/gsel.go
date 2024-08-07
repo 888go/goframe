@@ -11,7 +11,7 @@ package gsel
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/net/gsvc"
+	"github.com/888go/goframe/net/gsvc"
 )
 
 // Builder 在运行时创建并返回选择器。 md5:ffd073ea24966ab1

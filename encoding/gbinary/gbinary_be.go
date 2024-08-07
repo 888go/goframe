@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gbinary
+package 字节集类
 
 import (
 	"bytes"
@@ -14,8 +14,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
 )
 
 // BeEncode 使用大端字节序将一个或多个`values`编码为字节。它通过检查`values`中每个值的类型，并调用相应的转换函数来进行内部字节转换。
@@ -87,7 +87,7 @@ func BeDecode(b []byte, values ...interface{}) error {
 	)
 	for i := 0; i < len(values); i++ {
 		if err = binary.Read(buf, binary.BigEndian, values[i]); err != nil {
-			err = gerror.Wrap(err, `binary.Read failed`)
+			err = gerror.X多层错误(err, `binary.Read failed`)
 			return err
 		}
 	}

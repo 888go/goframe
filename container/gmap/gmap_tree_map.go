@@ -4,26 +4,26 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gmap
+package map类
 
 import (
-	"github.com/gogf/gf/v2/container/gtree"
+	gtree "github.com/888go/goframe/container/gtree"
 )
 
 // 基于红黑树的TreeMap，是RedBlackTree的别名。 md5:9f16a90eb8bdf4c1
 type TreeMap = gtree.RedBlackTree
 
-// NewTreeMap 使用自定义比较器创建一个树形映射。
+// X创建红黑树Map 使用自定义比较器创建一个树形映射。
 // 参数 `safe` 用于指定是否在并发安全环境下使用树，其默认值为 false。
 // md5:fde3476bb95496c2
-func NewTreeMap(comparator func(v1, v2 interface{}) int, safe ...bool) *TreeMap {
-	return gtree.NewRedBlackTree(comparator, safe...)
+func X创建红黑树Map(回调函数 func(v1, v2 interface{}) int, 并发安全 ...bool) *TreeMap {
+	return gtree.NewRedBlackTree(回调函数, 并发安全...)
 }
 
-// NewTreeMapFrom使用自定义比较器和`data`映射创建一个树形映射。
+// X创建红黑树Map并从Map使用自定义比较器和`data`映射创建一个树形映射。
 // 注意，`data`映射将被设置为底层数据映射（不进行深拷贝），在外部更改映射时可能会存在并发安全问题。
 // 参数`safe`用于指定是否使用并发安全的树，默认为false。
 // md5:2421c85842b1f367
-func NewTreeMapFrom(comparator func(v1, v2 interface{}) int, data map[interface{}]interface{}, safe ...bool) *TreeMap {
-	return gtree.NewRedBlackTreeFrom(comparator, data, safe...)
+func X创建红黑树Map并从Map(回调函数 func(v1, v2 interface{}) int, map值 map[interface{}]interface{}, 并发安全 ...bool) *TreeMap {
+	return gtree.NewRedBlackTreeFrom(回调函数, map值, 并发安全...)
 }

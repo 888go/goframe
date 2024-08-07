@@ -4,127 +4,127 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gmap_test
+package map类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	garray "github.com/888go/goframe/container/garray"
+	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_StrAnyMap_Var(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var m gmap.StrAnyMap
-		m.Set("a", 1)
+		m.X设置值("a", 1)
 
-		t.Assert(m.Get("a"), 1)
-		t.Assert(m.Size(), 1)
-		t.Assert(m.IsEmpty(), false)
+		t.Assert(m.X取值("a"), 1)
+		t.Assert(m.X取数量(), 1)
+		t.Assert(m.X是否为空(), false)
 
-		t.Assert(m.GetOrSet("b", "2"), "2")
-		t.Assert(m.SetIfNotExist("b", "2"), false)
+		t.Assert(m.X取值或设置值("b", "2"), "2")
+		t.Assert(m.X设置值并跳过已存在("b", "2"), false)
 
-		t.Assert(m.SetIfNotExist("c", 3), true)
+		t.Assert(m.X设置值并跳过已存在("c", 3), true)
 
-		t.Assert(m.Remove("b"), "2")
-		t.Assert(m.Contains("b"), false)
+		t.Assert(m.X删除("b"), "2")
+		t.Assert(m.X是否存在("b"), false)
 
-		t.AssertIN("c", m.Keys())
-		t.AssertIN("a", m.Keys())
-		t.AssertIN(3, m.Values())
-		t.AssertIN(1, m.Values())
+		t.AssertIN("c", m.X取所有名称())
+		t.AssertIN("a", m.X取所有名称())
+		t.AssertIN(3, m.X取所有值())
+		t.AssertIN(1, m.X取所有值())
 
-		m.Flip()
-		t.Assert(m.Map(), map[string]interface{}{"1": "a", "3": "c"})
+		m.X名称值交换()
+		t.Assert(m.X取Map(), map[string]interface{}{"1": "a", "3": "c"})
 
-		m.Clear()
-		t.Assert(m.Size(), 0)
-		t.Assert(m.IsEmpty(), true)
+		m.X清空()
+		t.Assert(m.X取数量(), 0)
+		t.Assert(m.X是否为空(), true)
 	})
 }
 
 func Test_StrAnyMap_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMap()
-		m.Set("a", 1)
+		m := gmap.X创建StrAny()
+		m.X设置值("a", 1)
 
-		t.Assert(m.Get("a"), 1)
-		t.Assert(m.Size(), 1)
-		t.Assert(m.IsEmpty(), false)
+		t.Assert(m.X取值("a"), 1)
+		t.Assert(m.X取数量(), 1)
+		t.Assert(m.X是否为空(), false)
 
-		t.Assert(m.GetOrSet("b", "2"), "2")
-		t.Assert(m.SetIfNotExist("b", "2"), false)
+		t.Assert(m.X取值或设置值("b", "2"), "2")
+		t.Assert(m.X设置值并跳过已存在("b", "2"), false)
 
-		t.Assert(m.SetIfNotExist("c", 3), true)
+		t.Assert(m.X设置值并跳过已存在("c", 3), true)
 
-		t.Assert(m.Remove("b"), "2")
-		t.Assert(m.Contains("b"), false)
+		t.Assert(m.X删除("b"), "2")
+		t.Assert(m.X是否存在("b"), false)
 
-		t.AssertIN("c", m.Keys())
-		t.AssertIN("a", m.Keys())
-		t.AssertIN(3, m.Values())
-		t.AssertIN(1, m.Values())
+		t.AssertIN("c", m.X取所有名称())
+		t.AssertIN("a", m.X取所有名称())
+		t.AssertIN(3, m.X取所有值())
+		t.AssertIN(1, m.X取所有值())
 
-		m.Flip()
-		t.Assert(m.Map(), map[string]interface{}{"1": "a", "3": "c"})
+		m.X名称值交换()
+		t.Assert(m.X取Map(), map[string]interface{}{"1": "a", "3": "c"})
 
-		m.Clear()
-		t.Assert(m.Size(), 0)
-		t.Assert(m.IsEmpty(), true)
+		m.X清空()
+		t.Assert(m.X取数量(), 0)
+		t.Assert(m.X是否为空(), true)
 
-		m2 := gmap.NewStrAnyMapFrom(map[string]interface{}{"a": 1, "b": "2"})
-		t.Assert(m2.Map(), map[string]interface{}{"a": 1, "b": "2"})
+		m2 := gmap.X创建AnyStr并从Map(map[string]interface{}{"a": 1, "b": "2"})
+		t.Assert(m2.X取Map(), map[string]interface{}{"a": 1, "b": "2"})
 	})
 }
 
 func Test_StrAnyMap_Set_Fun(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMap()
+		m := gmap.X创建StrAny()
 
-		m.GetOrSetFunc("a", getAny)
-		m.GetOrSetFuncLock("b", getAny)
-		t.Assert(m.Get("a"), 123)
-		t.Assert(m.Get("b"), 123)
-		t.Assert(m.SetIfNotExistFunc("a", getAny), false)
-		t.Assert(m.SetIfNotExistFunc("c", getAny), true)
+		m.X取值或设置值_函数("a", getAny)
+		m.X取值或设置值_函数带锁("b", getAny)
+		t.Assert(m.X取值("a"), 123)
+		t.Assert(m.X取值("b"), 123)
+		t.Assert(m.X设置值并跳过已存在_函数("a", getAny), false)
+		t.Assert(m.X设置值并跳过已存在_函数("c", getAny), true)
 
-		t.Assert(m.SetIfNotExistFuncLock("b", getAny), false)
-		t.Assert(m.SetIfNotExistFuncLock("d", getAny), true)
+		t.Assert(m.X设置值并跳过已存在_函数带锁("b", getAny), false)
+		t.Assert(m.X设置值并跳过已存在_函数带锁("d", getAny), true)
 	})
 }
 
 func Test_StrAnyMap_Batch(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMap()
+		m := gmap.X创建StrAny()
 
-		m.Sets(map[string]interface{}{"a": 1, "b": "2", "c": 3})
-		t.Assert(m.Map(), map[string]interface{}{"a": 1, "b": "2", "c": 3})
-		m.Removes([]string{"a", "b"})
-		t.Assert(m.Map(), map[string]interface{}{"c": 3})
+		m.X设置值Map(map[string]interface{}{"a": 1, "b": "2", "c": 3})
+		t.Assert(m.X取Map(), map[string]interface{}{"a": 1, "b": "2", "c": 3})
+		m.X删除多个值([]string{"a", "b"})
+		t.Assert(m.X取Map(), map[string]interface{}{"c": 3})
 	})
 }
 
 func Test_StrAnyMap_Iterator(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := map[string]interface{}{"a": true, "b": false}
-		m := gmap.NewStrAnyMapFrom(expect)
-		m.Iterator(func(k string, v interface{}) bool {
+		m := gmap.X创建AnyStr并从Map(expect)
+		m.X遍历(func(k string, v interface{}) bool {
 			t.Assert(expect[k], v)
 			return true
 		})
 		// 断言返回值对遍历控制
 		i := 0
 		j := 0
-		m.Iterator(func(k string, v interface{}) bool {
+		m.X遍历(func(k string, v interface{}) bool {
 			i++
 			return true
 		})
-		m.Iterator(func(k string, v interface{}) bool {
+		m.X遍历(func(k string, v interface{}) bool {
 			j++
 			return false
 		})
@@ -137,11 +137,11 @@ func Test_StrAnyMap_Lock(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		expect := map[string]interface{}{"a": true, "b": false}
 
-		m := gmap.NewStrAnyMapFrom(expect)
-		m.LockFunc(func(m map[string]interface{}) {
+		m := gmap.X创建AnyStr并从Map(expect)
+		m.X遍历写锁定(func(m map[string]interface{}) {
 			t.Assert(m, expect)
 		})
-		m.RLockFunc(func(m map[string]interface{}) {
+		m.X遍历读锁定(func(m map[string]interface{}) {
 			t.Assert(m, expect)
 		})
 	})
@@ -150,79 +150,79 @@ func Test_StrAnyMap_Lock(t *testing.T) {
 func Test_StrAnyMap_Clone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		// clone 方法是深克隆
-		m := gmap.NewStrAnyMapFrom(map[string]interface{}{"a": 1, "b": "2"})
+		m := gmap.X创建AnyStr并从Map(map[string]interface{}{"a": 1, "b": "2"})
 
-		m_clone := m.Clone()
-		m.Remove("a")
+		m_clone := m.X取副本()
+		m.X删除("a")
 		// 修改原 map,clone 后的 map 不影响
-		t.AssertIN("a", m_clone.Keys())
+		t.AssertIN("a", m_clone.X取所有名称())
 
-		m_clone.Remove("b")
+		m_clone.X删除("b")
 		// 修改clone map,原 map 不影响
-		t.AssertIN("b", m.Keys())
+		t.AssertIN("b", m.X取所有名称())
 	})
 }
 
 func Test_StrAnyMap_Merge(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m1 := gmap.NewStrAnyMap()
-		m2 := gmap.NewStrAnyMap()
-		m1.Set("a", 1)
-		m2.Set("b", "2")
-		m1.Merge(m2)
-		t.Assert(m1.Map(), map[string]interface{}{"a": 1, "b": "2"})
+		m1 := gmap.X创建StrAny()
+		m2 := gmap.X创建StrAny()
+		m1.X设置值("a", 1)
+		m2.X设置值("b", "2")
+		m1.X合并(m2)
+		t.Assert(m1.X取Map(), map[string]interface{}{"a": 1, "b": "2"})
 
-		m3 := gmap.NewStrAnyMapFrom(nil)
-		m3.Merge(m2)
-		t.Assert(m3.Map(), m2.Map())
+		m3 := gmap.X创建AnyStr并从Map(nil)
+		m3.X合并(m2)
+		t.Assert(m3.X取Map(), m2.X取Map())
 	})
 }
 
 func Test_StrAnyMap_Map(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMap()
-		m.Set("1", 1)
-		m.Set("2", 2)
-		t.Assert(m.Get("1"), 1)
-		t.Assert(m.Get("2"), 2)
-		data := m.Map()
+		m := gmap.X创建StrAny()
+		m.X设置值("1", 1)
+		m.X设置值("2", 2)
+		t.Assert(m.X取值("1"), 1)
+		t.Assert(m.X取值("2"), 2)
+		data := m.X取Map()
 		t.Assert(data["1"], 1)
 		t.Assert(data["2"], 2)
 		data["3"] = 3
-		t.Assert(m.Get("3"), 3)
-		m.Set("4", 4)
+		t.Assert(m.X取值("3"), 3)
+		m.X设置值("4", 4)
 		t.Assert(data["4"], 4)
 	})
 }
 
 func Test_StrAnyMap_MapCopy(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMap()
-		m.Set("1", 1)
-		m.Set("2", 2)
-		t.Assert(m.Get("1"), 1)
-		t.Assert(m.Get("2"), 2)
-		data := m.MapCopy()
+		m := gmap.X创建StrAny()
+		m.X设置值("1", 1)
+		m.X设置值("2", 2)
+		t.Assert(m.X取值("1"), 1)
+		t.Assert(m.X取值("2"), 2)
+		data := m.X浅拷贝()
 		t.Assert(data["1"], 1)
 		t.Assert(data["2"], 2)
 		data["3"] = 3
-		t.Assert(m.Get("3"), nil)
-		m.Set("4", 4)
+		t.Assert(m.X取值("3"), nil)
+		m.X设置值("4", 4)
 		t.Assert(data["4"], nil)
 	})
 }
 
 func Test_StrAnyMap_FilterEmpty(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMap()
-		m.Set("1", 0)
-		m.Set("2", 2)
-		t.Assert(m.Size(), 2)
-		t.Assert(m.Get("1"), 0)
-		t.Assert(m.Get("2"), 2)
-		m.FilterEmpty()
-		t.Assert(m.Size(), 1)
-		t.Assert(m.Get("2"), 2)
+		m := gmap.X创建StrAny()
+		m.X设置值("1", 0)
+		m.X设置值("2", 2)
+		t.Assert(m.X取数量(), 2)
+		t.Assert(m.X取值("1"), 0)
+		t.Assert(m.X取值("2"), 2)
+		m.X删除所有空值()
+		t.Assert(m.X取数量(), 1)
+		t.Assert(m.X取值("2"), 2)
 	})
 }
 
@@ -233,7 +233,7 @@ func Test_StrAnyMap_Json(t *testing.T) {
 			"k1": "v1",
 			"k2": "v2",
 		}
-		m1 := gmap.NewStrAnyMapFrom(data)
+		m1 := gmap.X创建AnyStr并从Map(data)
 		b1, err1 := json.Marshal(m1)
 		b2, err2 := json.Marshal(data)
 		t.Assert(err1, err2)
@@ -248,11 +248,11 @@ func Test_StrAnyMap_Json(t *testing.T) {
 		b, err := json.Marshal(data)
 		t.AssertNil(err)
 
-		m := gmap.NewStrAnyMap()
+		m := gmap.X创建StrAny()
 		err = json.UnmarshalUseNumber(b, m)
 		t.AssertNil(err)
-		t.Assert(m.Get("k1"), data["k1"])
-		t.Assert(m.Get("k2"), data["k2"])
+		t.Assert(m.X取值("k1"), data["k1"])
+		t.Assert(m.X取值("k2"), data["k2"])
 	})
 	gtest.C(t, func(t *gtest.T) {
 		data := g.MapStrAny{
@@ -265,32 +265,32 @@ func Test_StrAnyMap_Json(t *testing.T) {
 		var m gmap.StrAnyMap
 		err = json.UnmarshalUseNumber(b, &m)
 		t.AssertNil(err)
-		t.Assert(m.Get("k1"), data["k1"])
-		t.Assert(m.Get("k2"), data["k2"])
+		t.Assert(m.X取值("k1"), data["k1"])
+		t.Assert(m.X取值("k2"), data["k2"])
 	})
 }
 
 func Test_StrAnyMap_Pop(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMapFrom(g.MapStrAny{
+		m := gmap.X创建AnyStr并从Map(g.MapStrAny{
 			"k1": "v1",
 			"k2": "v2",
 		})
-		t.Assert(m.Size(), 2)
+		t.Assert(m.X取数量(), 2)
 
-		k1, v1 := m.Pop()
-		t.AssertIN(k1, g.Slice{"k1", "k2"})
-		t.AssertIN(v1, g.Slice{"v1", "v2"})
-		t.Assert(m.Size(), 1)
-		k2, v2 := m.Pop()
-		t.AssertIN(k2, g.Slice{"k1", "k2"})
-		t.AssertIN(v2, g.Slice{"v1", "v2"})
-		t.Assert(m.Size(), 0)
+		k1, v1 := m.X出栈()
+		t.AssertIN(k1, g.Slice别名{"k1", "k2"})
+		t.AssertIN(v1, g.Slice别名{"v1", "v2"})
+		t.Assert(m.X取数量(), 1)
+		k2, v2 := m.X出栈()
+		t.AssertIN(k2, g.Slice别名{"k1", "k2"})
+		t.AssertIN(v2, g.Slice别名{"v1", "v2"})
+		t.Assert(m.X取数量(), 0)
 
 		t.AssertNE(k1, k2)
 		t.AssertNE(v1, v2)
 
-		k3, v3 := m.Pop()
+		k3, v3 := m.X出栈()
 		t.Assert(k3, "")
 		t.Assert(v3, "")
 	})
@@ -298,36 +298,36 @@ func Test_StrAnyMap_Pop(t *testing.T) {
 
 func Test_StrAnyMap_Pops(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMapFrom(g.MapStrAny{
+		m := gmap.X创建AnyStr并从Map(g.MapStrAny{
 			"k1": "v1",
 			"k2": "v2",
 			"k3": "v3",
 		})
-		t.Assert(m.Size(), 3)
+		t.Assert(m.X取数量(), 3)
 
-		kArray := garray.New()
-		vArray := garray.New()
-		for k, v := range m.Pops(1) {
-			t.AssertIN(k, g.Slice{"k1", "k2", "k3"})
-			t.AssertIN(v, g.Slice{"v1", "v2", "v3"})
-			kArray.Append(k)
-			vArray.Append(v)
+		kArray := garray.X创建()
+		vArray := garray.X创建()
+		for k, v := range m.X出栈多个(1) {
+			t.AssertIN(k, g.Slice别名{"k1", "k2", "k3"})
+			t.AssertIN(v, g.Slice别名{"v1", "v2", "v3"})
+			kArray.Append别名(k)
+			vArray.Append别名(v)
 		}
-		t.Assert(m.Size(), 2)
-		for k, v := range m.Pops(2) {
-			t.AssertIN(k, g.Slice{"k1", "k2", "k3"})
-			t.AssertIN(v, g.Slice{"v1", "v2", "v3"})
-			kArray.Append(k)
-			vArray.Append(v)
+		t.Assert(m.X取数量(), 2)
+		for k, v := range m.X出栈多个(2) {
+			t.AssertIN(k, g.Slice别名{"k1", "k2", "k3"})
+			t.AssertIN(v, g.Slice别名{"v1", "v2", "v3"})
+			kArray.Append别名(k)
+			vArray.Append别名(v)
 		}
-		t.Assert(m.Size(), 0)
+		t.Assert(m.X取数量(), 0)
 
-		t.Assert(kArray.Unique().Len(), 3)
-		t.Assert(vArray.Unique().Len(), 3)
+		t.Assert(kArray.X去重().X取长度(), 3)
+		t.Assert(vArray.X去重().X取长度(), 3)
 
-		v := m.Pops(1)
+		v := m.X出栈多个(1)
 		t.AssertNil(v)
-		v = m.Pops(-1)
+		v = m.X出栈多个(-1)
 		t.AssertNil(v)
 	})
 }
@@ -346,9 +346,9 @@ func TestStrAnyMap_UnmarshalValue(t *testing.T) {
 		}, &v)
 		t.AssertNil(err)
 		t.Assert(v.Name, "john")
-		t.Assert(v.Map.Size(), 2)
-		t.Assert(v.Map.Get("k1"), "v1")
-		t.Assert(v.Map.Get("k2"), "v2")
+		t.Assert(v.Map.X取数量(), 2)
+		t.Assert(v.Map.X取值("k1"), "v1")
+		t.Assert(v.Map.X取值("k2"), "v2")
 	})
 	// Map
 	gtest.C(t, func(t *gtest.T) {
@@ -362,56 +362,56 @@ func TestStrAnyMap_UnmarshalValue(t *testing.T) {
 		}, &v)
 		t.AssertNil(err)
 		t.Assert(v.Name, "john")
-		t.Assert(v.Map.Size(), 2)
-		t.Assert(v.Map.Get("k1"), "v1")
-		t.Assert(v.Map.Get("k2"), "v2")
+		t.Assert(v.Map.X取数量(), 2)
+		t.Assert(v.Map.X取值("k1"), "v1")
+		t.Assert(v.Map.X取值("k2"), "v2")
 	})
 }
 
 func Test_StrAnyMap_DeepCopy(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gmap.NewStrAnyMapFrom(g.MapStrAny{
+		m := gmap.X创建AnyStr并从Map(g.MapStrAny{
 			"key1": "val1",
 			"key2": "val2",
 		})
-		t.Assert(m.Size(), 2)
+		t.Assert(m.X取数量(), 2)
 
 		n := m.DeepCopy().(*gmap.StrAnyMap)
-		n.Set("key1", "v1")
-		t.AssertNE(m.Get("key1"), n.Get("key1"))
+		n.X设置值("key1", "v1")
+		t.AssertNE(m.X取值("key1"), n.X取值("key1"))
 	})
 }
 
 func Test_StrAnyMap_IsSubOf(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m1 := gmap.NewStrAnyMapFrom(g.MapStrAny{
+		m1 := gmap.X创建AnyStr并从Map(g.MapStrAny{
 			"k1": "v1",
 			"k2": "v2",
 		})
-		m2 := gmap.NewStrAnyMapFrom(g.MapStrAny{
+		m2 := gmap.X创建AnyStr并从Map(g.MapStrAny{
 			"k2": "v2",
 		})
-		t.Assert(m1.IsSubOf(m2), false)
-		t.Assert(m2.IsSubOf(m1), true)
-		t.Assert(m2.IsSubOf(m2), true)
+		t.Assert(m1.X是否为子集(m2), false)
+		t.Assert(m2.X是否为子集(m1), true)
+		t.Assert(m2.X是否为子集(m2), true)
 	})
 }
 
 func Test_StrAnyMap_Diff(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m1 := gmap.NewStrAnyMapFrom(g.MapStrAny{
+		m1 := gmap.X创建AnyStr并从Map(g.MapStrAny{
 			"0": "v0",
 			"1": "v1",
 			"2": "v2",
 			"3": 3,
 		})
-		m2 := gmap.NewStrAnyMapFrom(g.MapStrAny{
+		m2 := gmap.X创建AnyStr并从Map(g.MapStrAny{
 			"0": "v0",
 			"2": "v2",
 			"3": "v3",
 			"4": "v4",
 		})
-		addedKeys, removedKeys, updatedKeys := m1.Diff(m2)
+		addedKeys, removedKeys, updatedKeys := m1.X比较(m2)
 		t.Assert(addedKeys, []string{"4"})
 		t.Assert(removedKeys, []string{"1"})
 		t.Assert(updatedKeys, []string{"3"})

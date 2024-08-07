@@ -14,13 +14,13 @@ import (
 
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/encoding/gbinary"
-	"github.com/gogf/gf/v2/util/grand"
+	gtype "github.com/888go/goframe/container/gtype"
+	gbinary "github.com/888go/goframe/encoding/gbinary"
+	grand "github.com/888go/goframe/util/grand"
 )
 
 var (
-	randomInitSequence = int32(grand.Intn(math.MaxInt32))
+	randomInitSequence = int32(grand.X整数(math.MaxInt32))
 	sequence           = gtype.NewInt32(randomInitSequence)
 )
 
@@ -34,7 +34,7 @@ func NewTraceID() (traceID trace.TraceID) {
 	var (
 		timestampNanoBytes = gbinary.EncodeInt64(time.Now().UnixNano())
 		sequenceBytes      = gbinary.EncodeInt32(sequence.Add(1))
-		randomBytes        = grand.B(4)
+		randomBytes        = grand.X字节集(4)
 	)
 	copy(traceID[:], timestampNanoBytes)
 	copy(traceID[8:], sequenceBytes)
@@ -45,6 +45,6 @@ func NewTraceID() (traceID trace.TraceID) {
 // NewSpanID 创建并返回一个新的span ID。 md5:02d4095273219037
 func NewSpanID() (spanID trace.SpanID) {
 	copy(spanID[:], gbinary.EncodeInt64(time.Now().UnixNano()/1e3))
-	copy(spanID[4:], grand.B(4))
+	copy(spanID[4:], grand.X字节集(4))
 	return
 }

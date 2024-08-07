@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/text/gregex"
+	gregex "github.com/888go/goframe/text/gregex"
 )
 
 // RuleRegex 实现了 `regex` 规则：
@@ -33,7 +33,7 @@ func (r RuleRegex) Message() string {
 }
 
 func (r RuleRegex) Run(in RunInput) error {
-	if !gregex.IsMatchString(in.RulePattern, in.Value.String()) {
+	if !gregex.X是否匹配文本(in.RulePattern, in.Value.String()) {
 		return errors.New(in.Message)
 	}
 	return nil

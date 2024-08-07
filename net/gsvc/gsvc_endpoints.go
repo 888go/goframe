@@ -9,7 +9,7 @@
 package gsvc
 
 import (
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 // NewEndpoints 从多个地址创建并返回 Endpoints，例如：
@@ -17,7 +17,7 @@ import (
 // md5:a9ff1a4a1317ab38
 func NewEndpoints(addresses string) Endpoints {
 	endpoints := make([]Endpoint, 0)
-	for _, address := range gstr.SplitAndTrim(addresses, EndpointsDelimiter) {
+	for _, address := range gstr.X分割并忽略空值(addresses, EndpointsDelimiter) {
 		endpoints = append(endpoints, NewEndpoint(address))
 	}
 	return endpoints

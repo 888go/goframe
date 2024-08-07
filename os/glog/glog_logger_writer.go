@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glog
+package 日志类
 
 import (
 	"bytes"
@@ -16,6 +16,6 @@ import (
 // 它只是使用 Print 函数打印内容。
 // md5:da123f9fe994f171
 func (l *Logger) Write(p []byte) (n int, err error) {
-	l.Header(false).Print(context.TODO(), string(bytes.TrimRight(p, "\r\n")))
+	l.X是否输出头信息(false).X输出(context.TODO(), string(bytes.TrimRight(p, "\r\n")))
 	return len(p), nil
 }

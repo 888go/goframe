@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gutil
+package 工具类
 
 import (
-	"github.com/gogf/gf/v2/internal/deepcopy"
+	"github.com/888go/goframe/internal/deepcopy"
 )
 
-// Copy 返回 v 的深拷贝。
+// X深拷贝 返回 v 的深拷贝。
 //
-// Copy 无法复制结构体中的未导出字段（小写字段名）。未导出字段不能被 Go 运行时反射，因此无法进行任何数据拷贝。
+// X深拷贝 无法复制结构体中的未导出字段（小写字段名）。未导出字段不能被 Go 运行时反射，因此无法进行任何数据拷贝。
 // md5:3460c0a1329d334a
-func Copy(src interface{}) (dst interface{}) {
-	return deepcopy.Copy(src)
+func X深拷贝(变量 interface{}) (新拷贝值 interface{}) {
+	return deepcopy.Copy(变量)
 }

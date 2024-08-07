@@ -16,12 +16,12 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gtag"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/intlog"
+	"github.com/888go/goframe/internal/json"
+	gstr "github.com/888go/goframe/text/gstr"
+	"github.com/888go/goframe/util/gtag"
 )
 
 // OpenApiV3 是根据以下规范定义的结构体：
@@ -123,7 +123,7 @@ func (oai *OpenApiV3) Add(in AddInput) error {
 		})
 
 	default:
-		return gerror.NewCodef(
+		return gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`unsupported parameter type "%s", only struct/function type is supported`,
 			reflect.TypeOf(in.Object).String(),
@@ -186,7 +186,7 @@ func (oai *OpenApiV3) golangTypeToOAIType(t reflect.Type) string {
 // md5:9fcc3831b2b211c9
 func (oai *OpenApiV3) golangTypeToOAIFormat(t reflect.Type) string {
 	format := t.String()
-	switch gstr.TrimLeft(format, "*") {
+	switch gstr.X过滤首字符并含空白(format, "*") {
 	case `[]uint8`:
 		return FormatBinary
 
@@ -201,7 +201,7 @@ func (oai *OpenApiV3) golangTypeToOAIFormat(t reflect.Type) string {
 func (oai *OpenApiV3) golangTypeToSchemaName(t reflect.Type) string {
 	var (
 		pkgPath    string
-		schemaName = gstr.TrimLeft(t.String(), "*")
+		schemaName = gstr.X过滤首字符并含空白(t.String(), "*")
 	)
 		// 指针类型没有PkgPath。 md5:38ccb85365da232e
 	for t.Kind() == reflect.Ptr {
@@ -209,10 +209,10 @@ func (oai *OpenApiV3) golangTypeToSchemaName(t reflect.Type) string {
 	}
 	if pkgPath = t.PkgPath(); pkgPath != "" && pkgPath != "." {
 		if !oai.Config.IgnorePkgPath {
-			schemaName = gstr.Replace(pkgPath, `/`, `.`) + gstr.SubStrFrom(schemaName, ".")
+			schemaName = gstr.X替换(pkgPath, `/`, `.`) + gstr.SubStrFrom别名(schemaName, ".")
 		}
 	}
-	schemaName = gstr.ReplaceByMap(schemaName, map[string]string{
+	schemaName = gstr.Map替换(schemaName, map[string]string{
 		` `: ``,
 		`{`: ``,
 		`}`: ``,

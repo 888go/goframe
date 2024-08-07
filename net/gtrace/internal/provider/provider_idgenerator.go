@@ -12,7 +12,7 @@ import (
 
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/gogf/gf/v2/internal/tracing"
+	"github.com/888go/goframe/internal/tracing"
 )
 
 // IDGenerator 是一个追踪ID生成器。 md5:72df652f0bf82307

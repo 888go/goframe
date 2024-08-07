@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gconv
+package 转换类
 
 import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/internal/utils"
-	"github.com/gogf/gf/v2/util/gtag"
+	"github.com/888go/goframe/internal/empty"
+	"github.com/888go/goframe/internal/json"
+	"github.com/888go/goframe/internal/utils"
+	"github.com/888go/goframe/util/gtag"
 )
 
 type recursiveType string
@@ -37,24 +37,24 @@ type MapOption struct {
 	Tags []string
 }
 
-// Map 将任何变量 `value` 转换为 map[string]interface{}。如果参数 `value` 不是
+// X取Map 将任何变量 `value` 转换为 map[string]interface{}。如果参数 `value` 不是
 // 类型为 map/struct/*struct，转换将会失败并返回 nil。
 //
 // 如果 `value` 是一个 struct/*struct 对象，第二个参数 `tags` 指定了具有最高优先级的
 // 将被检测的标签，否则它会按照以下顺序检测标签：
 // gconv, json, 字段名称。
 // md5:34498665a6393f82
-func Map(value interface{}, option ...MapOption) map[string]interface{} {
-	return doMapConvert(value, recursiveTypeAuto, false, option...)
+func X取Map(值 interface{}, 选项 ...MapOption) map[string]interface{} {
+	return doMapConvert(值, recursiveTypeAuto, false, 选项...)
 }
 
-// MapDeep递归地执行Map函数，这意味着如果`value`的属性也是一个`struct/*struct`，则会在这个属性上调用Map函数，并将其转换为map[string]interface{}类型的变量。
+// X取Map_递归递归地执行Map函数，这意味着如果`value`的属性也是一个`struct/*struct`，则会在这个属性上调用Map函数，并将其转换为map[string]interface{}类型的变量。
 // 警告：建议使用Map替代。
 // md5:dc0620a4d15b4389
-func MapDeep(value interface{}, tags ...string) map[string]interface{} {
-	return doMapConvert(value, recursiveTypeTrue, false, MapOption{
+func X取Map_递归(值 interface{}, 值标签 ...string) map[string]interface{} {
+	return doMapConvert(值, recursiveTypeTrue, false, MapOption{
 		Deep: true,
-		Tags: tags,
+		Tags: 值标签,
 	})
 }
 
@@ -69,7 +69,7 @@ func doMapConvert(value interface{}, recursive recursiveType, mustMapReturn bool
 	}
 		// 如果它已经实现了iVal接口，那么它会重定向到其底层值。 md5:fb13fb87762a52a2
 	if v, ok := value.(iVal); ok {
-		value = v.Val()
+		value = v.X取值()
 	}
 
 	var (
@@ -338,7 +338,7 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 				// 转换接口检查的映射。 md5:e4adcda9bbeec1fc
 		if v, ok := in.Value.(iMapStrAny); ok {
 						// 为了并发安全，进行值复制。 md5:57f6f9976b1be5ca
-			for mapK, mapV := range v.MapStrAny() {
+			for mapK, mapV := range v.X取MapStrAny() {
 				if in.RecursiveOption {
 					dataMap[mapK] = doMapConvertForMapOrStructValue(
 						doMapConvertForMapOrStructValueInput{
@@ -547,14 +547,14 @@ func doMapConvertForMapOrStructValue(in doMapConvertForMapOrStructValueInput) in
 	return in.Value
 }
 
-// MapStrStr 将 `value` 转换为 map[string]string 类型。
+// X取文本Map 将 `value` 转换为 map[string]string 类型。
 // 注意，对于这种映射类型转换，可能会有数据复制的情况发生。
 // md5:a1ec9ce0d856cd1e
-func MapStrStr(value interface{}, option ...MapOption) map[string]string {
-	if r, ok := value.(map[string]string); ok {
+func X取文本Map(值 interface{}, 选项 ...MapOption) map[string]string {
+	if r, ok := 值.(map[string]string); ok {
 		return r
 	}
-	m := Map(value, option...)
+	m := X取Map(值, 选项...)
 	if len(m) > 0 {
 		vMap := make(map[string]string, len(m))
 		for k, v := range m {
@@ -565,15 +565,15 @@ func MapStrStr(value interface{}, option ...MapOption) map[string]string {
 	return nil
 }
 
-// MapStrStrDeep 递归地将`value`转换为map[string]string。
+// X取文本Map_递归 递归地将`value`转换为map[string]string。
 // 请注意，这种映射类型的转换可能会涉及数据复制。
 // 已弃用：请使用MapStrStr代替。
 // md5:79528a85e8ff4c82
-func MapStrStrDeep(value interface{}, tags ...string) map[string]string {
-	if r, ok := value.(map[string]string); ok {
+func X取文本Map_递归(值 interface{}, 值标签 ...string) map[string]string {
+	if r, ok := 值.(map[string]string); ok {
 		return r
 	}
-	m := MapDeep(value, tags...)
+	m := X取Map_递归(值, 值标签...)
 	if len(m) > 0 {
 		vMap := make(map[string]string, len(m))
 		for k, v := range m {

@@ -12,17 +12,17 @@ import (
 	"database/sql"
 )
 
-// InsertIgnore 不支持用于修改数据部分的其他查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:ac3efdb87c360d83
-func (d *Driver) InsertIgnore(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
+// X插入并跳过已存在 不支持用于修改数据部分的其他查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:ac3efdb87c360d83
+func (d *Driver) X插入并跳过已存在(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	return nil, errUnsupportedInsertIgnore
 }
 
-// InsertAndGetId 不支持其他用于修改数据部分的查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:9d4693bead6866d9
-func (d *Driver) InsertAndGetId(ctx context.Context, table string, data interface{}, batch ...int) (int64, error) {
+// X插入并取ID 不支持其他用于修改数据部分的查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:9d4693bead6866d9
+func (d *Driver) X插入并取ID(ctx context.Context, table string, data interface{}, batch ...int) (int64, error) {
 	return 0, errUnsupportedInsertGetId
 }
 
 // 不支持用于修改数据部分的其他查询：REPLACE、MERGE、UPSERT、INSERT UPDATE。 md5:d0b1de268614fdfa
-func (d *Driver) Replace(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
+func (d *Driver) X插入并替换已存在(ctx context.Context, table string, data interface{}, batch ...int) (sql.Result, error) {
 	return nil, errUnsupportedReplace
 }

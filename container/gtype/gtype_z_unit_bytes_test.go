@@ -5,34 +5,34 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gtype_test
+package 安全变量类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_Bytes(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		i := gtype.NewBytes([]byte("abc"))
 		iClone := i.Clone()
-		t.AssertEQ(iClone.Set([]byte("123")), []byte("abc"))
-		t.AssertEQ(iClone.Val(), []byte("123"))
+		t.AssertEQ(iClone.X设置值([]byte("123")), []byte("abc"))
+		t.AssertEQ(iClone.X取值(), []byte("123"))
 
 		// empty param test
 		i1 := gtype.NewBytes()
-		t.AssertEQ(i1.Val(), nil)
+		t.AssertEQ(i1.X取值(), nil)
 
 		i2 := gtype.NewBytes([]byte("abc"))
 		t.Assert(i2.String(), "abc")
 
 		copyVal := i2.DeepCopy()
-		i2.Set([]byte("def"))
-		t.AssertNE(copyVal, iClone.Val())
+		i2.X设置值([]byte("def"))
+		t.AssertNE(copyVal, iClone.X取值())
 		i2 = nil
 		copyVal = i2.DeepCopy()
 		t.AssertNil(copyVal)
@@ -44,7 +44,7 @@ func Test_Bytes_JSON(t *testing.T) {
 		b := []byte("i love gf")
 		i := gtype.NewBytes(b)
 		b1, err1 := json.Marshal(i)
-		b2, err2 := json.Marshal(i.Val())
+		b2, err2 := json.Marshal(i.X取值())
 		t.Assert(err1, nil)
 		t.Assert(err2, nil)
 		t.Assert(b1, b2)
@@ -52,7 +52,7 @@ func Test_Bytes_JSON(t *testing.T) {
 		i2 := gtype.NewBytes()
 		err := json.UnmarshalUseNumber(b2, &i2)
 		t.AssertNil(err)
-		t.Assert(i2.Val(), b)
+		t.Assert(i2.X取值(), b)
 	})
 }
 
@@ -69,6 +69,6 @@ func Test_Bytes_UnmarshalValue(t *testing.T) {
 		}, &v)
 		t.AssertNil(err)
 		t.Assert(v.Name, "john")
-		t.Assert(v.Var.Val(), "123")
+		t.Assert(v.Var.X取值(), "123")
 	})
 }

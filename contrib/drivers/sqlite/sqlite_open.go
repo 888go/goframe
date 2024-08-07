@@ -11,19 +11,19 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/encoding/gurl"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gdb "github.com/888go/goframe/database/gdb"
+	gurl "github.com/888go/goframe/encoding/gurl"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gfile "github.com/888go/goframe/os/gfile"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
-// Open 创建并返回一个底层的 sql.DB 对象，用于 SQLite。
+// X底层Open 创建并返回一个底层的 sql.DB 对象，用于 SQLite。
 // https://github.com/glebarez/go-sqlite
 // md5:f3c66f09b7236ffa
-func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
+func (d *Driver) X底层Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	var (
 		source               string
 		underlyingDriverName = "sqlite"
@@ -38,7 +38,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 		source = config.Name
 	}
 		// 它会搜索源文件以找到其绝对路径。 md5:c47257e12a6e34cf
-	if absolutePath, _ := gfile.Search(source); absolutePath != "" {
+	if absolutePath, _ := gfile.X查找(source); absolutePath != "" {
 		source = absolutePath
 	}
 
@@ -50,14 +50,14 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 			options  string
 			extraMap map[string]interface{}
 		)
-		if extraMap, err = gstr.Parse(config.Extra); err != nil {
+		if extraMap, err = gstr.X参数解析(config.Extra); err != nil {
 			return nil, err
 		}
 		for k, v := range extraMap {
 			if options != "" {
 				options += "&"
 			}
-			options += fmt.Sprintf(`_pragma=%s(%s)`, k, gurl.Encode(gconv.String(v)))
+			options += fmt.Sprintf(`_pragma=%s(%s)`, k, gurl.X编码(gconv.String(v)))
 		}
 		if len(options) > 1 {
 			source += "?" + options
@@ -65,7 +65,7 @@ func (d *Driver) Open(config *gdb.ConfigNode) (db *sql.DB, err error) {
 	}
 
 	if db, err = sql.Open(underlyingDriverName, source); err != nil {
-		err = gerror.WrapCodef(
+		err = gerror.X多层错误码并格式化(
 			gcode.CodeDbOperationError, err,
 			`sql.Open failed for driver "%s" by source "%s"`, underlyingDriverName, source,
 		)

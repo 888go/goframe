@@ -5,62 +5,62 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gdb
+package db类
 
 import (
 	"context"
 	"database/sql"
 	"reflect"
 
-	"github.com/gogf/gf/v2/container/gset"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/internal/reflection"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gset "github.com/888go/goframe/container/gset"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/internal/reflection"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
-// Batch 为模型设置批处理操作的数量。 md5:7ae8528d1f8ac604
-func (m *Model) Batch(batch int) *Model {
+// X设置批量操作行数 为模型设置批处理操作的数量。 md5:7ae8528d1f8ac604
+func (m *Model) X设置批量操作行数(数量 int) *Model {
 	model := m.getModel()
-	model.batch = batch
+	model.batch = 数量
 	return model
 }
 
-// Data 设置模型的操作数据。
+// X设置数据 设置模型的操作数据。
 // 参数 `data` 可以为字符串/映射/gmap/切片/结构体/**结构体指针**等类型。
 // 注意，如果`data`是映射或切片类型，它将使用浅复制以避免在函数内部改变原数据。
 // 例如：
-// Data("uid=10000")
-// Data("uid", 10000)
-// Data("uid=? AND name=?", 10000, "john")
-// Data(g.Map{"uid": 10000, "name":"john"})
-// Data(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"}})
+// X设置数据("uid=10000")
+// X设置数据("uid", 10000)
+// X设置数据("uid=? AND name=?", 10000, "john")
+// X设置数据(g.Map{"uid": 10000, "name":"john"})
+// X设置数据(g.Slice{g.Map{"uid": 10000, "name":"john"}, g.Map{"uid": 20000, "name":"smith"}})
 // md5:116cf94880dfa535
-func (m *Model) Data(data ...interface{}) *Model {
+func (m *Model) X设置数据(值 ...interface{}) *Model {
 	var model = m.getModel()
-	if len(data) > 1 {
-		if s := gconv.String(data[0]); gstr.Contains(s, "?") {
+	if len(值) > 1 {
+		if s := gconv.String(值[0]); gstr.X是否包含(s, "?") {
 			model.data = s
-			model.extraArgs = data[1:]
+			model.extraArgs = 值[1:]
 		} else {
 			m := make(map[string]interface{})
-			for i := 0; i < len(data); i += 2 {
-				m[gconv.String(data[i])] = data[i+1]
+			for i := 0; i < len(值); i += 2 {
+				m[gconv.String(值[i])] = 值[i+1]
 			}
 			model.data = m
 		}
-	} else if len(data) == 1 {
-		switch value := data[0].(type) {
+	} else if len(值) == 1 {
+		switch value := 值[0].(type) {
 		case Result:
-			model.data = value.List()
+			model.data = value.X取Map切片()
 
 		case Record:
-			model.data = value.Map()
+			model.data = value.X取Map()
 
-		case List:
-			list := make(List, len(value))
+		case Map切片:
+			list := make(Map切片, len(value))
 			for k, v := range value {
 				list[k] = gutil.MapCopy(v)
 			}
@@ -79,11 +79,11 @@ func (m *Model) Data(data ...interface{}) *Model {
 					// 这将过滤掉`data`中的所有空值参数。
 					// md5:c978d65b6ea1129a
 					if isDoStruct(reflectInfo.OriginValue.Index(0).Interface()) {
-						model = model.OmitNilData()
+						model = model.X过滤Nil数据()
 						model.option |= optionOmitNilDataInternal
 					}
 				}
-				list := make(List, reflectInfo.OriginValue.Len())
+				list := make(Map切片, reflectInfo.OriginValue.Len())
 				for i := 0; i < reflectInfo.OriginValue.Len(); i++ {
 					list[i] = anyValueToMapBeforeToRecord(reflectInfo.OriginValue.Index(i).Interface())
 				}
@@ -94,26 +94,26 @@ func (m *Model) Data(data ...interface{}) *Model {
 				// it then adds `OmitNilData` option for this condition,
 				// which will filter all nil parameters in `data`.
 				if isDoStruct(value) {
-					model = model.OmitNilData()
+					model = model.X过滤Nil数据()
 				}
-				if v, ok := data[0].(iInterfaces); ok {
+				if v, ok := 值[0].(iInterfaces); ok {
 					var (
-						array = v.Interfaces()
-						list  = make(List, len(array))
+						array = v.X取any切片()
+						list  = make(Map切片, len(array))
 					)
 					for i := 0; i < len(array); i++ {
 						list[i] = anyValueToMapBeforeToRecord(array[i])
 					}
 					model.data = list
 				} else {
-					model.data = anyValueToMapBeforeToRecord(data[0])
+					model.data = anyValueToMapBeforeToRecord(值[0])
 				}
 
 			case reflect.Map:
-				model.data = anyValueToMapBeforeToRecord(data[0])
+				model.data = anyValueToMapBeforeToRecord(值[0])
 
 			default:
-				model.data = data[0]
+				model.data = 值[0]
 			}
 		}
 	}
@@ -135,120 +135,120 @@ func (m *Model) OnConflict(onConflict ...interface{}) *Model {
 	return model
 }
 
-// OnDuplicate 设置在列发生冲突时执行的操作。
+// X设置插入冲突更新字段 设置在列发生冲突时执行的操作。
 // 在MySQL中，这用于 "ON DUPLICATE KEY UPDATE" 语句。
 // 在PgSQL中，这用于 "ON CONFLICT (id) DO UPDATE SET" 语句。
 // 参数 `onDuplicate` 可以是字符串/Raw/*Raw/映射/切片类型。
 // 示例：
 //
-// OnDuplicate("nickname, age") 
-// OnDuplicate("nickname", "age")
+// X设置插入冲突更新字段("nickname, age")
+// X设置插入冲突更新字段("nickname", "age")
 // 
-// OnDuplicate(g.Map{
+// X设置插入冲突更新字段(g.Map{
 // 	  "nickname": gdb.Raw("CONCAT('name_', VALUES(`nickname`))"),
 // })
 //
-// OnDuplicate(g.Map{
+// X设置插入冲突更新字段(g.Map{
 // 	  "nickname": "passport",
 // })
 // md5:fa9214f9681b4e5d
-func (m *Model) OnDuplicate(onDuplicate ...interface{}) *Model {
-	if len(onDuplicate) == 0 {
+func (m *Model) X设置插入冲突更新字段(字段名称 ...interface{}) *Model {
+	if len(字段名称) == 0 {
 		return m
 	}
 	model := m.getModel()
-	if len(onDuplicate) > 1 {
-		model.onDuplicate = onDuplicate
-	} else if len(onDuplicate) == 1 {
-		model.onDuplicate = onDuplicate[0]
+	if len(字段名称) > 1 {
+		model.onDuplicate = 字段名称
+	} else if len(字段名称) == 1 {
+		model.onDuplicate = 字段名称[0]
 	}
 	return model
 }
 
-// OnDuplicateEx 设置在发生列冲突时排除的列，用于操作。
+// X设置插入冲突不更新字段 设置在发生列冲突时排除的列，用于操作。
 // 在 MySQL 中，这用于 "ON DUPLICATE KEY UPDATE" 语句。
 // 在 PgSQL 中，这用于 "ON CONFLICT (id) DO UPDATE SET" 语句。
 // 参数 `onDuplicateEx` 可以是字符串、映射或切片类型。
 // 示例：
 //
-// OnDuplicateEx("passport, password")
-// OnDuplicateEx("passport", "password")
+// X设置插入冲突不更新字段("passport, password")
+// X设置插入冲突不更新字段("passport", "password")
 //
-//	OnDuplicateEx(g.Map{
+//	X设置插入冲突不更新字段(g.Map{
 //		  "passport": "",
 //		  "password": "",
 //	})
 // md5:6fa8981bef042b71
-func (m *Model) OnDuplicateEx(onDuplicateEx ...interface{}) *Model {
-	if len(onDuplicateEx) == 0 {
+func (m *Model) X设置插入冲突不更新字段(字段名称 ...interface{}) *Model {
+	if len(字段名称) == 0 {
 		return m
 	}
 	model := m.getModel()
-	if len(onDuplicateEx) > 1 {
-		model.onDuplicateEx = onDuplicateEx
-	} else if len(onDuplicateEx) == 1 {
-		model.onDuplicateEx = onDuplicateEx[0]
+	if len(字段名称) > 1 {
+		model.onDuplicateEx = 字段名称
+	} else if len(字段名称) == 1 {
+		model.onDuplicateEx = 字段名称[0]
 	}
 	return model
 }
 
-// Insert 为模型执行 "INSERT INTO ..." 语句。
+// X插入 为模型执行 "INSERT INTO ..." 语句。
 // 可选参数 `data` 等同于 Model.Data 函数的参数，参见 Model.Data。
 // md5:9a6427cabf3ec194
-func (m *Model) Insert(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).Insert()
+func (m *Model) X插入(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionDefault)
 }
 
-// InsertAndGetId 执行插入操作，并返回自动生成的最后一个插入id。 md5:8d00b40a35fa48a5
-func (m *Model) InsertAndGetId(data ...interface{}) (lastInsertId int64, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).InsertAndGetId()
+// X插入并取ID 执行插入操作，并返回自动生成的最后一个插入id。 md5:8d00b40a35fa48a5
+func (m *Model) X插入并取ID(值 ...interface{}) (最后插入ID int64, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并取ID()
 	}
-	result, err := m.doInsertWithOption(ctx, InsertOptionDefault)
-	if err != nil {
-		return 0, err
+	result, 错误 := m.doInsertWithOption(ctx, InsertOptionDefault)
+	if 错误 != nil {
+		return 0, 错误
 	}
 	return result.LastInsertId()
 }
 
-// InsertIgnore 为模型执行 "INSERT IGNORE INTO..." 语句。
+// X插入并跳过已存在 为模型执行 "INSERT IGNORE INTO..." 语句。
 // 可选参数 `data` 和 Model.Data 函数的参数相同，详情请参考 Model.Data。
 // md5:d6d8007d779bd324
-func (m *Model) InsertIgnore(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).InsertIgnore()
+func (m *Model) X插入并跳过已存在(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并跳过已存在()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionIgnore)
 }
 
-// Replace 执行 "REPLACE INTO ..." 语句用于模型。
+// X插入并替换已存在 执行 "REPLACE INTO ..." 语句用于模型。
 // 可选参数 `data` 与 Model.Data 函数的参数相同，
 // 请参阅 Model.Data。
 // md5:d5596c2470b6bcf4
-func (m *Model) Replace(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).Replace()
+func (m *Model) X插入并替换已存在(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并替换已存在()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionReplace)
 }
 
-// Save 执行 "INSERT INTO ... ON DUPLICATE KEY UPDATE..." 语句，针对指定的模型。
+// X插入并更新已存在 执行 "INSERT INTO ... ON DUPLICATE KEY UPDATE..." 语句，针对指定的模型。
 // 可选参数 `data` 与 Model.Data 函数的参数相同，请参阅 Model.Data。
 //
 // 如果保存的数据中包含主键或唯一索引，它将更新记录；
 // 否则，它会向表中插入一条新记录。
 // md5:9d87bd779f8f5acd
-func (m *Model) Save(data ...interface{}) (result sql.Result, err error) {
-	var ctx = m.GetCtx()
-	if len(data) > 0 {
-		return m.Data(data...).Save()
+func (m *Model) X插入并更新已存在(值 ...interface{}) (结果 sql.Result, 错误 error) {
+	var ctx = m.X取上下文对象()
+	if len(值) > 0 {
+		return m.X设置数据(值...).X插入并更新已存在()
 	}
 	return m.doInsertWithOption(ctx, InsertOptionSave)
 }
@@ -261,10 +261,10 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOptio
 		}
 	}()
 	if m.data == nil {
-		return nil, gerror.NewCode(gcode.CodeMissingParameter, "inserting into table with empty data")
+		return nil, gerror.X创建错误码(gcode.CodeMissingParameter, "inserting into table with empty data")
 	}
 	var (
-		list                             List
+		list                             Map切片
 		stm                              = m.softTimeMaintainer()
 		fieldNameCreate, fieldTypeCreate = stm.GetFieldNameAndTypeForCreate(ctx, "", m.tablesInit)
 		fieldNameUpdate, fieldTypeUpdate = stm.GetFieldNameAndTypeForUpdate(ctx, "", m.tablesInit)
@@ -277,15 +277,15 @@ func (m *Model) doInsertWithOption(ctx context.Context, insertOption InsertOptio
 	}
 		// 它将任何数据转换为List类型以便插入。 md5:8e4e33863c8e1d24
 	switch value := newData.(type) {
-	case List:
+	case Map切片:
 		list = value
 
 	case Map:
-		list = List{value}
+		list = Map切片{value}
 	}
 
 	if len(list) < 1 {
-		return result, gerror.NewCode(gcode.CodeMissingParameter, "data list cannot be empty")
+		return result, gerror.X创建错误码(gcode.CodeMissingParameter, "data list cannot be empty")
 	}
 
 		// 自动处理创建/更新时间。 md5:c45a07308954de68
@@ -356,7 +356,7 @@ func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []st
 	if err != nil {
 		return option, err
 	}
-	onDuplicateExKeySet := gset.NewStrSetFrom(onDuplicateExKeys)
+	onDuplicateExKeySet := gset.X创建文本并按值(onDuplicateExKeys)
 	if m.onDuplicate != nil {
 		switch m.onDuplicate.(type) {
 		case Raw, *Raw:
@@ -367,8 +367,8 @@ func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []st
 			switch reflectInfo.OriginKind {
 			case reflect.String:
 				option.OnDuplicateMap = make(map[string]interface{})
-				for _, v := range gstr.SplitAndTrim(reflectInfo.OriginValue.String(), ",") {
-					if onDuplicateExKeySet.Contains(v) {
+				for _, v := range gstr.X分割并忽略空值(reflectInfo.OriginValue.String(), ",") {
+					if onDuplicateExKeySet.X是否存在(v) {
 						continue
 					}
 					option.OnDuplicateMap[v] = v
@@ -376,8 +376,8 @@ func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []st
 
 			case reflect.Map:
 				option.OnDuplicateMap = make(map[string]interface{})
-				for k, v := range gconv.Map(m.onDuplicate) {
-					if onDuplicateExKeySet.Contains(k) {
+				for k, v := range gconv.X取Map(m.onDuplicate) {
+					if onDuplicateExKeySet.X是否存在(k) {
 						continue
 					}
 					option.OnDuplicateMap[k] = v
@@ -385,25 +385,25 @@ func (m *Model) formatDoInsertOption(insertOption InsertOption, columnNames []st
 
 			case reflect.Slice, reflect.Array:
 				option.OnDuplicateMap = make(map[string]interface{})
-				for _, v := range gconv.Strings(m.onDuplicate) {
-					if onDuplicateExKeySet.Contains(v) {
+				for _, v := range gconv.X取文本切片(m.onDuplicate) {
+					if onDuplicateExKeySet.X是否存在(v) {
 						continue
 					}
 					option.OnDuplicateMap[v] = v
 				}
 
 			default:
-				return option, gerror.NewCodef(
+				return option, gerror.X创建错误码并格式化(
 					gcode.CodeInvalidParameter,
 					`unsupported OnDuplicate parameter type "%s"`,
 					reflect.TypeOf(m.onDuplicate),
 				)
 			}
 		}
-	} else if onDuplicateExKeySet.Size() > 0 {
+	} else if onDuplicateExKeySet.X取数量() > 0 {
 		option.OnDuplicateMap = make(map[string]interface{})
 		for _, v := range columnNames {
-			if onDuplicateExKeySet.Contains(v) {
+			if onDuplicateExKeySet.X是否存在(v) {
 				continue
 			}
 			option.OnDuplicateMap[v] = v
@@ -420,16 +420,16 @@ func (m *Model) formatOnDuplicateExKeys(onDuplicateEx interface{}) ([]string, er
 	reflectInfo := reflection.OriginValueAndKind(onDuplicateEx)
 	switch reflectInfo.OriginKind {
 	case reflect.String:
-		return gstr.SplitAndTrim(reflectInfo.OriginValue.String(), ","), nil
+		return gstr.X分割并忽略空值(reflectInfo.OriginValue.String(), ","), nil
 
 	case reflect.Map:
-		return gutil.Keys(onDuplicateEx), nil
+		return gutil.X取所有名称(onDuplicateEx), nil
 
 	case reflect.Slice, reflect.Array:
-		return gconv.Strings(onDuplicateEx), nil
+		return gconv.X取文本切片(onDuplicateEx), nil
 
 	default:
-		return nil, gerror.NewCodef(
+		return nil, gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`unsupported OnDuplicateEx parameter type "%s"`,
 			reflect.TypeOf(onDuplicateEx),
@@ -445,13 +445,13 @@ func (m *Model) formatOnConflictKeys(onConflict interface{}) ([]string, error) {
 	reflectInfo := reflection.OriginValueAndKind(onConflict)
 	switch reflectInfo.OriginKind {
 	case reflect.String:
-		return gstr.SplitAndTrim(reflectInfo.OriginValue.String(), ","), nil
+		return gstr.X分割并忽略空值(reflectInfo.OriginValue.String(), ","), nil
 
 	case reflect.Slice, reflect.Array:
-		return gconv.Strings(onConflict), nil
+		return gconv.X取文本切片(onConflict), nil
 
 	default:
-		return nil, gerror.NewCodef(
+		return nil, gerror.X创建错误码并格式化(
 			gcode.CodeInvalidParameter,
 			`unsupported onConflict parameter type "%s"`,
 			reflect.TypeOf(onConflict),

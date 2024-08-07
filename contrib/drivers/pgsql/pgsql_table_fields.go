@@ -11,8 +11,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/util/gutil"
+	gdb "github.com/888go/goframe/database/gdb"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 var (
@@ -40,19 +40,19 @@ func init() {
 	}
 }
 
-// TableFields 获取并返回当前模式中指定表的字段信息。 md5:920febaff284f5e7
-func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
+// X取表字段信息Map 获取并返回当前模式中指定表的字段信息。 md5:920febaff284f5e7
+func (d *Driver) X取表字段信息Map(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result
 		link       gdb.Link
-		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
+		usedSchema = gutil.X取文本值或取默认值(d.X取默认数据库名称(), schema...)
 				// TODO：id结果重复了吗？. md5:1a107e32ccbc7928
 		structureSql = fmt.Sprintf(tableFieldsSqlTmp, table)
 	)
-	if link, err = d.SlaveLink(usedSchema); err != nil {
+	if link, err = d.X底层SlaveLink(usedSchema); err != nil {
 		return nil, err
 	}
-	result, err = d.DoSelect(ctx, link, structureSql)
+	result, err = d.X底层查询(ctx, link, structureSql)
 	if err != nil {
 		return nil, err
 	}
@@ -70,11 +70,11 @@ func (d *Driver) TableFields(ctx context.Context, table string, schema ...string
 		}
 		fields[name] = &gdb.TableField{
 			Index:   index,
-			Name:    name,
-			Type:    m["type"].String(),
-			Null:    !m["null"].Bool(),
+			X名称:    name,
+			X类型:    m["type"].String(),
+			Null:    !m["null"].X取布尔(),
 			Key:     m["key"].String(),
-			Default: m["default_value"].Val(),
+			Default: m["default_value"].X取值(),
 			Comment: m["comment"].String(),
 		}
 		index++

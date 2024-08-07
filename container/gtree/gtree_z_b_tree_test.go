@@ -4,22 +4,22 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gtree_test
+package 树形类_test
 
 import (
 	"fmt"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gtree"
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	gtree "github.com/888go/goframe/container/gtree"
+	gvar "github.com/888go/goframe/container/gvar"
+	gtest "github.com/888go/goframe/test/gtest"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 func Test_BTree_Basic(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTree(3, gutil.ComparatorString)
-		m.Set("key1", "val1")
+		m := gtree.NewBTree(3, gutil.X比较文本)
+		m.X设置值("key1", "val1")
 
 		t.Assert(m.Height(), 1)
 
@@ -46,7 +46,7 @@ func Test_BTree_Basic(t *testing.T) {
 		t.Assert(m.Size(), 0)
 		t.Assert(m.IsEmpty(), true)
 
-		m2 := gtree.NewBTreeFrom(3, gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m2 := gtree.NewBTreeFrom(3, gutil.X比较文本, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		t.Assert(m2.Map(), map[interface{}]interface{}{1: 1, "key1": "val1"})
 	})
 }
@@ -54,7 +54,7 @@ func Test_BTree_Basic(t *testing.T) {
 func Test_BTree_Set_Fun(t *testing.T) {
 		// GetOrSetFunc 用于锁定或解锁. md5:0ebd30e2c667f970
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTree(3, gutil.ComparatorString)
+		m := gtree.NewBTree(3, gutil.X比较文本)
 		t.Assert(m.GetOrSetFunc("fun", getValue), 3)
 		t.Assert(m.GetOrSetFunc("fun", getValue), 3)
 		t.Assert(m.GetOrSetFuncLock("funlock", getValue), 3)
@@ -64,7 +64,7 @@ func Test_BTree_Set_Fun(t *testing.T) {
 	})
 		//如果不存在则设置函数：锁或解锁. md5:e3586809aed38993
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTree(3, gutil.ComparatorString)
+		m := gtree.NewBTree(3, gutil.X比较文本)
 		t.Assert(m.SetIfNotExistFunc("fun", getValue), true)
 		t.Assert(m.SetIfNotExistFunc("fun", getValue), false)
 		t.Assert(m.SetIfNotExistFuncLock("funlock", getValue), true)
@@ -77,25 +77,25 @@ func Test_BTree_Set_Fun(t *testing.T) {
 
 func Test_BTree_Get_Set_Var(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTree(3, gutil.ComparatorString)
+		m := gtree.NewBTree(3, gutil.X比较文本)
 		t.AssertEQ(m.SetIfNotExist("key1", "val1"), true)
 		t.AssertEQ(m.SetIfNotExist("key1", "val1"), false)
-		t.AssertEQ(m.GetVarOrSet("key1", "val1"), gvar.New("val1", true))
-		t.AssertEQ(m.GetVar("key1"), gvar.New("val1", true))
+		t.AssertEQ(m.GetVarOrSet("key1", "val1"), gvar.X创建("val1", true))
+		t.AssertEQ(m.GetVar("key1"), gvar.X创建("val1", true))
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTree(3, gutil.ComparatorString)
-		t.AssertEQ(m.GetVarOrSetFunc("fun", getValue), gvar.New(3, true))
-		t.AssertEQ(m.GetVarOrSetFunc("fun", getValue), gvar.New(3, true))
-		t.AssertEQ(m.GetVarOrSetFuncLock("funlock", getValue), gvar.New(3, true))
-		t.AssertEQ(m.GetVarOrSetFuncLock("funlock", getValue), gvar.New(3, true))
+		m := gtree.NewBTree(3, gutil.X比较文本)
+		t.AssertEQ(m.GetVarOrSetFunc("fun", getValue), gvar.X创建(3, true))
+		t.AssertEQ(m.GetVarOrSetFunc("fun", getValue), gvar.X创建(3, true))
+		t.AssertEQ(m.GetVarOrSetFuncLock("funlock", getValue), gvar.X创建(3, true))
+		t.AssertEQ(m.GetVarOrSetFuncLock("funlock", getValue), gvar.X创建(3, true))
 	})
 }
 
 func Test_BTree_Batch(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTree(3, gutil.ComparatorString)
+		m := gtree.NewBTree(3, gutil.X比较文本)
 		m.Sets(map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		t.Assert(m.Map(), map[interface{}]interface{}{1: 1, "key1": "val1", "key2": "val2", "key3": "val3"})
 		m.Removes([]interface{}{"key1", 1})
@@ -110,10 +110,10 @@ func Test_BTree_Iterator(t *testing.T) {
 
 	expect := map[interface{}]interface{}{"key4": "val4", 1: 1, "key1": "val1", "key2": "val2", "key3": "val3"}
 
-	m := gtree.NewBTreeFrom(3, gutil.ComparatorString, expect)
+	m := gtree.NewBTreeFrom(3, gutil.X比较文本, expect)
 
 	gtest.C(t, func(t *gtest.T) {
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			t.Assert(k, keys[index])
 			index++
 			t.Assert(expect[k], v)
@@ -133,11 +133,11 @@ func Test_BTree_Iterator(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		i := 0
 		j := 0
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			i++
 			return true
 		})
-		m.Iterator(func(k interface{}, v interface{}) bool {
+		m.X遍历(func(k interface{}, v interface{}) bool {
 			j++
 			return false
 		})
@@ -166,7 +166,7 @@ func Test_BTree_IteratorFrom(t *testing.T) {
 	for i := 1; i <= 10; i++ {
 		m[i] = i * 10
 	}
-	tree := gtree.NewBTreeFrom(3, gutil.ComparatorInt, m)
+	tree := gtree.NewBTreeFrom(3, gutil.X比较整数, m)
 
 	gtest.C(t, func(t *gtest.T) {
 		n := 5
@@ -198,7 +198,7 @@ func Test_BTree_IteratorFrom(t *testing.T) {
 func Test_BTree_Clone(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		//clone 方法是深克隆
-		m := gtree.NewBTreeFrom(3, gutil.ComparatorString, map[interface{}]interface{}{1: 1, "key1": "val1"})
+		m := gtree.NewBTreeFrom(3, gutil.X比较文本, map[interface{}]interface{}{1: 1, "key1": "val1"})
 		m_clone := m.Clone()
 		m.Remove(1)
 		//修改原 map,clone 后的 map 不影响
@@ -214,22 +214,22 @@ func Test_BTree_LRNode(t *testing.T) {
 	expect := map[interface{}]interface{}{"key4": "val4", "key1": "val1", "key2": "val2", "key3": "val3"}
 	//safe
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTreeFrom(3, gutil.ComparatorString, expect)
+		m := gtree.NewBTreeFrom(3, gutil.X比较文本, expect)
 		t.Assert(m.Left().Key, "key1")
 		t.Assert(m.Right().Key, "key4")
 	})
 	//unsafe
 	gtest.C(t, func(t *gtest.T) {
-		m := gtree.NewBTreeFrom(3, gutil.ComparatorString, expect, true)
+		m := gtree.NewBTreeFrom(3, gutil.X比较文本, expect, true)
 		t.Assert(m.Left().Key, "key1")
 		t.Assert(m.Right().Key, "key4")
 	})
 }
 
 func Test_BTree_Remove(t *testing.T) {
-	m := gtree.NewBTree(3, gutil.ComparatorInt)
+	m := gtree.NewBTree(3, gutil.X比较整数)
 	for i := 1; i <= 100; i++ {
-		m.Set(i, fmt.Sprintf("val%d", i))
+		m.X设置值(i, fmt.Sprintf("val%d", i))
 	}
 	expect := m.Map()
 	gtest.C(t, func(t *gtest.T) {

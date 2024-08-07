@@ -13,10 +13,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gutil"
+	garray "github.com/888go/goframe/container/garray"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 var (
@@ -25,54 +25,54 @@ var (
 
 func Test_NewVar(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.NewVar(1).Int(), 1)
-		t.Assert(g.NewVar(1, true).Int(), 1)
+		t.Assert(g.X泛型类(1).X取整数(), 1)
+		t.Assert(g.X泛型类(1, true).X取整数(), 1)
 	})
 }
 
 func Test_Dump(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		g.Dump("GoFrame")
+		g.X调试输出("GoFrame")
 	})
 }
 
 func Test_DumpTo(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		g.DumpTo(os.Stdout, "GoFrame", gutil.DumpOption{})
+		g.X调试输出到Writer(os.Stdout, "GoFrame", gutil.DumpOption{})
 	})
 }
 
 func Test_DumpWithType(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		g.DumpWithType("GoFrame", 123)
+		g.X调试输出并带类型("GoFrame", 123)
 	})
 }
 
 func Test_DumpWithOption(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		g.DumpWithOption("GoFrame", gutil.DumpOption{})
+		g.X调试输出并带选项("GoFrame", gutil.DumpOption{})
 	})
 }
 
 func Test_Try(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		g.Try(ctx, func(ctx context.Context) {
-			g.Dump("GoFrame")
+		g.X异常捕捉(ctx, func(ctx context.Context) {
+			g.X调试输出("GoFrame")
 		})
 	})
 }
 
 func Test_TryCatch(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		g.TryCatch(ctx, func(ctx context.Context) {
-			g.Dump("GoFrame")
+		g.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
+			g.X调试输出("GoFrame")
 		}, func(ctx context.Context, exception error) {
-			g.Dump(exception)
+			g.X调试输出(exception)
 		})
 	})
 	gtest.C(t, func(t *gtest.T) {
-		g.TryCatch(ctx, func(ctx context.Context) {
-			g.Throw("GoFrame")
+		g.X异常捕捉并带异常处理(ctx, func(ctx context.Context) {
+			g.X异常输出("GoFrame")
 		}, func(ctx context.Context, exception error) {
 			t.Assert(exception.Error(), "GoFrame")
 		})
@@ -81,40 +81,40 @@ func Test_TryCatch(t *testing.T) {
 
 func Test_IsNil(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.IsNil(nil), true)
-		t.Assert(g.IsNil(0), false)
-		t.Assert(g.IsNil("GoFrame"), false)
+		t.Assert(g.X是否为Nil(nil), true)
+		t.Assert(g.X是否为Nil(0), false)
+		t.Assert(g.X是否为Nil("GoFrame"), false)
 	})
 }
 
 func Test_IsEmpty(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(g.IsEmpty(nil), true)
-		t.Assert(g.IsEmpty(0), true)
-		t.Assert(g.IsEmpty("GoFrame"), false)
+		t.Assert(g.X是否为空(nil), true)
+		t.Assert(g.X是否为空(0), true)
+		t.Assert(g.X是否为空("GoFrame"), false)
 	})
 }
 
 func Test_SetDebug(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		g.SetDebug(true)
+		g.X设置debug(true)
 	})
 }
 
 func Test_Object(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.AssertNE(g.Client(), nil)
-		t.AssertNE(g.Server(), nil)
-		t.AssertNE(g.TCPServer(), nil)
-		t.AssertNE(g.UDPServer(), nil)
-		t.AssertNE(g.View(), nil)
-		t.AssertNE(g.Config(), nil)
-		t.AssertNE(g.Cfg(), nil)
-		t.AssertNE(g.Resource(), nil)
-		t.AssertNE(g.I18n(), nil)
-		t.AssertNE(g.Res(), nil)
-		t.AssertNE(g.Log(), nil)
-		t.AssertNE(g.Validator(), nil)
+		t.AssertNE(g.X网页类(), nil)
+		t.AssertNE(g.Http类(), nil)
+		t.AssertNE(g.TCP类(), nil)
+		t.AssertNE(g.UDP类(), nil)
+		t.AssertNE(g.X模板类(), nil)
+		t.AssertNE(g.X配置类(), nil)
+		t.AssertNE(g.Cfg别名(), nil)
+		t.AssertNE(g.X资源类(), nil)
+		t.AssertNE(g.X多语言类(), nil)
+		t.AssertNE(g.Res别名(), nil)
+		t.AssertNE(g.X日志类(), nil)
+		t.AssertNE(g.X效验类(), nil)
 	})
 }
 
@@ -122,14 +122,14 @@ func Test_Go(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			wg    = sync.WaitGroup{}
-			array = garray.NewArray(true)
+			array = garray.NewArray别名(true)
 		)
 		wg.Add(1)
 		g.Go(context.Background(), func(ctx context.Context) {
 			defer wg.Done()
-			array.Append(1)
+			array.Append别名(1)
 		}, nil)
 		wg.Wait()
-		t.Assert(array.Len(), 1)
+		t.Assert(array.X取长度(), 1)
 	})
 }

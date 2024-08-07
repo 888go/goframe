@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gclient
+package 网页类
 
 import (
 	"net/http"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/os/gmetric"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe"
+	"github.com/888go/goframe/os/gmetric"
+	gtime "github.com/888go/goframe/os/gtime"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 type localMetricManager struct {
@@ -183,9 +183,9 @@ func (m *localMetricManager) GetMetricAttributeMap(r *http.Request) gmetric.Attr
 		protocolVersion string
 		attrMap         = make(gmetric.AttributeMap)
 	)
-	serverAddress, serverPort = gstr.List2(r.Host, ":")
+	serverAddress, serverPort = gstr.X分割2份(r.Host, ":")
 	if serverPort == "" {
-		_, serverPort = gstr.List2(r.RemoteAddr, ":")
+		_, serverPort = gstr.X分割2份(r.RemoteAddr, ":")
 	}
 	if serverPort == "" {
 		serverPort = "80"
@@ -193,7 +193,7 @@ func (m *localMetricManager) GetMetricAttributeMap(r *http.Request) gmetric.Attr
 			serverPort = "443"
 		}
 	}
-	if array := gstr.Split(r.Proto, "/"); len(array) > 1 {
+	if array := gstr.X分割(r.Proto, "/"); len(array) > 1 {
 		protocolVersion = array[1]
 	}
 	attrMap.Sets(gmetric.AttributeMap{
@@ -243,7 +243,7 @@ func (c *Client) handleMetricsAfterRequestDone(r *http.Request, requestStartTime
 	var (
 		ctx             = r.Context()
 		attrMap         = metricManager.GetMetricAttributeMap(r)
-		duration        = float64(gtime.Now().Sub(requestStartTime).Milliseconds())
+		duration        = float64(gtime.X创建并按当前时间().X取纳秒时长(requestStartTime).Milliseconds())
 		requestOption   = metricManager.GetMetricOptionForRequestByMap(attrMap)
 		responseOption  = metricManager.GetMetricOptionForResponseByMap(attrMap)
 		histogramOption = metricManager.GetMetricOptionForHistogramByMap(attrMap)

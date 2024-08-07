@@ -1,4 +1,4 @@
-//---build---//go:build 屏蔽单元测试
+//go:build 屏蔽单元测试
 
 // 版权所有 2019 gf 作者（https://github.com/gogf/gf）。保留所有权利。
 //
@@ -13,11 +13,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/garray"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
+	garray "github.com/888go/goframe/container/garray"
+	gdb "github.com/888go/goframe/database/gdb"
+	"github.com/888go/goframe/frame/g"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var (
@@ -68,22 +68,22 @@ func init() {
 			node.User, "node.Pass", node.Host, node.Port, node.Name),
 	}
 
-	gdb.AddConfigNode(gdb.DefaultGroupName, node)
-	if r, err := gdb.New(node); err != nil {
+	gdb.X添加配置组节点(gdb.DefaultGroupName, node)
+	if r, err := gdb.X创建DB对象(node); err != nil {
 		gtest.Fatal(err)
 	} else {
 		db = r
 	}
 
-	gdb.AddConfigNode("dblink", nodeLink)
-	if r, err := gdb.New(nodeLink); err != nil {
+	gdb.X添加配置组节点("dblink", nodeLink)
+	if r, err := gdb.X创建DB对象(nodeLink); err != nil {
 		gtest.Fatal(err)
 	} else {
 		dblink = r
 	}
 
-	gdb.AddConfigNode("dbErr", nodeErr)
-	if r, err := gdb.New(nodeErr); err != nil {
+	gdb.X添加配置组节点("dbErr", nodeErr)
+	if r, err := gdb.X创建DB对象(nodeErr); err != nil {
 		gtest.Fatal(err)
 	} else {
 		dbErr = r
@@ -96,12 +96,12 @@ func createTable(table ...string) (name string) {
 	if len(table) > 0 {
 		name = table[0]
 	} else {
-		name = fmt.Sprintf("user_%d", gtime.Timestamp())
+		name = fmt.Sprintf("user_%d", gtime.X取时间戳秒())
 	}
 
 	dropTable(name)
 
-	if _, err := db.Exec(context.Background(), fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(context.Background(), fmt.Sprintf(`
 		IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='%s' and xtype='U')
 		CREATE TABLE %s (
 		ID numeric(10,0) NOT NULL,
@@ -116,23 +116,23 @@ func createTable(table ...string) (name string) {
 		gtest.Fatal(err)
 	}
 
-	db.Schema("test")
+	db.X切换数据库("test")
 	return
 }
 
 func createInitTable(table ...string) (name string) {
 	name = createTable(table...)
-	array := garray.New(true)
+	array := garray.X创建(true)
 	for i := 1; i <= TableSize; i++ {
-		array.Append(g.Map{
+		array.Append别名(g.Map{
 			"id":          i,
 			"passport":    fmt.Sprintf(`user_%d`, i),
 			"password":    fmt.Sprintf(`pass_%d`, i),
 			"nickname":    fmt.Sprintf(`name_%d`, i),
-			"create_time": gtime.Now(),
+			"create_time": gtime.X创建并按当前时间(),
 		})
 	}
-	result, err := db.Insert(context.Background(), name, array.Slice())
+	result, err := db.X插入(context.Background(), name, array.X取切片())
 	gtest.Assert(err, nil)
 
 	n, e := result.RowsAffected()
@@ -142,7 +142,7 @@ func createInitTable(table ...string) (name string) {
 }
 
 func dropTable(table string) {
-	if _, err := db.Exec(context.Background(), fmt.Sprintf(`
+	if _, err := db.X原生SQL执行(context.Background(), fmt.Sprintf(`
 		IF EXISTS (SELECT * FROM sysobjects WHERE name='%s' and xtype='U')
 		DROP TABLE %s
 	`, table, table)); err != nil {

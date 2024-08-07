@@ -13,9 +13,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
+	gdb "github.com/888go/goframe/database/gdb"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 var (
@@ -35,19 +35,19 @@ func init() {
 	}
 }
 
-// DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
-func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
+// X底层DoFilter 在将 SQL 字符串提交给底层 SQL 驱动程序之前处理它。 md5:f9ff7431f1478cfb
+func (d *Driver) X底层DoFilter(ctx context.Context, link gdb.Link, sql string, args []interface{}) (newSql string, newArgs []interface{}, err error) {
 	var index int
 	newArgs = args
 		// 将占位符字符 '?' 转换为字符串 ":vx"。 md5:14aed71041f34fec
-	newSql, err = gregex.ReplaceStringFunc("\\?", sql, func(s string) string {
+	newSql, err = gregex.X替换文本_函数("\\?", sql, func(s string) string {
 		index++
 		return fmt.Sprintf(":v%d", index)
 	})
 	if err != nil {
 		return
 	}
-	newSql, err = gregex.ReplaceString("\"", "", newSql)
+	newSql, err = gregex.X替换文本("\"", "", newSql)
 	if err != nil {
 		return
 	}
@@ -55,7 +55,7 @@ func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args [
 	if err != nil {
 		return
 	}
-	return d.Core.DoFilter(ctx, link, newSql, newArgs)
+	return d.Core.X底层DoFilter(ctx, link, newSql, newArgs)
 }
 
 // parseSql 在将 SQL 语句提交给底层驱动程序之前，进行一些替换，以支持 Oracle 服务器。
@@ -63,8 +63,8 @@ func (d *Driver) DoFilter(ctx context.Context, link gdb.Link, sql string, args [
 func (d *Driver) parseSql(toBeCommittedSql string) (string, error) {
 	var (
 		err       error
-		operation = gstr.StrTillEx(toBeCommittedSql, " ")
-		keyword   = strings.ToUpper(gstr.Trim(operation))
+		operation = gstr.X取左边(toBeCommittedSql, " ")
+		keyword   = strings.ToUpper(gstr.X过滤首尾符并含空白(operation))
 	)
 	switch keyword {
 	case "SELECT":
@@ -81,7 +81,7 @@ func (d *Driver) handleSelectSqlReplacement(toBeCommittedSql string) (newSql str
 		match  [][]string
 		patten = `^\s*(?i)(SELECT)|(LIMIT\s*(\d+)\s*,{0,1}\s*(\d*))`
 	)
-	match, err = gregex.MatchAllString(patten, toBeCommittedSql)
+	match, err = gregex.X匹配全部文本(patten, toBeCommittedSql)
 	if err != nil {
 		return "", err
 	}
@@ -93,7 +93,7 @@ func (d *Driver) handleSelectSqlReplacement(toBeCommittedSql string) (newSql str
 		return toBeCommittedSql, nil
 	}
 		// 只处理`SELECT ... LIMIT ...`语句。 md5:94e3efd3997b47e2
-	queryExpr, err := gregex.MatchString("((?i)SELECT)(.+)((?i)LIMIT)", toBeCommittedSql)
+	queryExpr, err := gregex.X匹配文本("((?i)SELECT)(.+)((?i)LIMIT)", toBeCommittedSql)
 	if err != nil {
 		return "", err
 	}

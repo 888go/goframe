@@ -5,15 +5,15 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package glist
+package 链表类
 
 import (
 	"container/list"
 	"testing"
 
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func checkListLen(t *gtest.T, l *List, len int) bool {
@@ -560,7 +560,7 @@ func TestList_FrontValue(t *testing.T) {
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
 		i1 := l.FrontValue()
-		t.Assert(gconv.Int(i1), 4)
+		t.Assert(gconv.X取整数(i1), 4)
 		t.Assert(l.Len(), 4)
 
 		i1 = l2.FrontValue()
@@ -575,7 +575,7 @@ func TestList_BackValue(t *testing.T) {
 		a1 := []interface{}{1, 2, 3, 4}
 		l.PushFronts(a1)
 		i1 := l.BackValue()
-		t.Assert(gconv.Int(i1), 1)
+		t.Assert(gconv.X取整数(i1), 1)
 		t.Assert(l.Len(), 4)
 
 		i1 = l2.FrontValue()
@@ -649,7 +649,7 @@ func TestList_IteratorAsc(t *testing.T) {
 		l.PushFronts(a1)
 		e1 := l.Back()
 		fun1 := func(e *Element) bool {
-			return gconv.Int(e1.Value) > 2
+			return gconv.X取整数(e1.Value) > 2
 		}
 		checkList(t, l, []interface{}{4, 3, 6, 5, 2, 1})
 		l.IteratorAsc(fun1)
@@ -664,7 +664,7 @@ func TestList_IteratorDesc(t *testing.T) {
 		l.PushFronts(a1)
 		e1 := l.Back()
 		fun1 := func(e *Element) bool {
-			return gconv.Int(e1.Value) > 6
+			return gconv.X取整数(e1.Value) > 6
 		}
 		l.IteratorDesc(fun1)
 		t.Assert(l.Len(), 4)
@@ -682,7 +682,7 @@ func TestList_Iterator(t *testing.T) {
 			return gconv.String(e1.Value) > "c"
 		}
 		checkList(t, l, []interface{}{"e", "d", "c", "b", "a"})
-		l.Iterator(fun1)
+		l.X遍历(fun1)
 		checkList(t, l, []interface{}{"e", "d", "c", "b", "a"})
 	})
 }

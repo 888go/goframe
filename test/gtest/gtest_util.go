@@ -3,7 +3,7 @@
 // 如果未随本文件一同分发MIT许可证副本，
 // 您可以在https://github.com/gogf/gf处获取。 md5:a9832f33b234e3f3
 
-package gtest
+package 单元测试类
 
 import (
 	"fmt"
@@ -12,10 +12,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gogf/gf/v2/debug/gdebug"
-	"github.com/gogf/gf/v2/internal/empty"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/888go/goframe/debug/gdebug"
+	"github.com/888go/goframe/internal/empty"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -132,13 +132,13 @@ func AssertGT(value, expect interface{}) {
 		passed = gconv.String(value) > gconv.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int(value) > gconv.Int(expect)
+		passed = gconv.X取整数(value) > gconv.X取整数(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint(value) > gconv.Uint(expect)
+		passed = gconv.X取正整数(value) > gconv.X取正整数(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) > gconv.Float64(expect)
+		passed = gconv.X取小数64位(value) > gconv.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v > %v`, value, expect))
@@ -155,13 +155,13 @@ func AssertGE(value, expect interface{}) {
 		passed = gconv.String(value) >= gconv.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int64(value) >= gconv.Int64(expect)
+		passed = gconv.X取整数64位(value) >= gconv.X取整数64位(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint64(value) >= gconv.Uint64(expect)
+		passed = gconv.X取正整数64位(value) >= gconv.X取正整数64位(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) >= gconv.Float64(expect)
+		passed = gconv.X取小数64位(value) >= gconv.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(
@@ -182,13 +182,13 @@ func AssertLT(value, expect interface{}) {
 		passed = gconv.String(value) < gconv.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int(value) < gconv.Int(expect)
+		passed = gconv.X取整数(value) < gconv.X取整数(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint(value) < gconv.Uint(expect)
+		passed = gconv.X取正整数(value) < gconv.X取正整数(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) < gconv.Float64(expect)
+		passed = gconv.X取小数64位(value) < gconv.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v < %v`, value, expect))
@@ -205,13 +205,13 @@ func AssertLE(value, expect interface{}) {
 		passed = gconv.String(value) <= gconv.String(expect)
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		passed = gconv.Int(value) <= gconv.Int(expect)
+		passed = gconv.X取整数(value) <= gconv.X取整数(expect)
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		passed = gconv.Uint(value) <= gconv.Uint(expect)
+		passed = gconv.X取正整数(value) <= gconv.X取正整数(expect)
 
 	case reflect.Float32, reflect.Float64:
-		passed = gconv.Float64(value) <= gconv.Float64(expect)
+		passed = gconv.X取小数64位(value) <= gconv.X取小数64位(expect)
 	}
 	if !passed {
 		panic(fmt.Sprintf(`[ASSERT] EXPECT %v <= %v`, value, expect))
@@ -231,8 +231,8 @@ func AssertIN(value, expect interface{}) {
 	)
 	switch expectKind {
 	case reflect.Slice, reflect.Array:
-		expectSlice := gconv.Strings(expect)
-		for _, v1 := range gconv.Strings(value) {
+		expectSlice := gconv.X取文本切片(expect)
+		for _, v1 := range gconv.X取文本切片(value) {
 			result := false
 			for _, v2 := range expectSlice {
 				if v1 == v2 {
@@ -250,7 +250,7 @@ func AssertIN(value, expect interface{}) {
 			valueStr  = gconv.String(value)
 			expectStr = gconv.String(expect)
 		)
-		passed = gstr.Contains(expectStr, valueStr)
+		passed = gstr.X是否包含(expectStr, valueStr)
 	default:
 		panic(fmt.Sprintf(`[ASSERT] INVALID EXPECT VALUE TYPE: %v`, expectKind))
 	}
@@ -271,9 +271,9 @@ func AssertNI(value, expect interface{}) {
 	)
 	switch expectKind {
 	case reflect.Slice, reflect.Array:
-		for _, v1 := range gconv.Strings(value) {
+		for _, v1 := range gconv.X取文本切片(value) {
 			result := true
-			for _, v2 := range gconv.Strings(expect) {
+			for _, v2 := range gconv.X取文本切片(expect) {
 				if v1 == v2 {
 					result = false
 					break
@@ -289,7 +289,7 @@ func AssertNI(value, expect interface{}) {
 			valueStr  = gconv.String(value)
 			expectStr = gconv.String(expect)
 		)
-		passed = !gstr.Contains(expectStr, valueStr)
+		passed = !gstr.X是否包含(expectStr, valueStr)
 	default:
 		panic(fmt.Sprintf(`[ASSERT] INVALID EXPECT VALUE TYPE: %v`, expectKind))
 	}

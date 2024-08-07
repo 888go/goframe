@@ -12,8 +12,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/util/gutil"
+	gdb "github.com/888go/goframe/database/gdb"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 var (
@@ -37,21 +37,21 @@ func init() {
 	}
 }
 
-// TableFields 获取并返回当前模式下指定表的字段信息。
+// X取表字段信息Map 获取并返回当前模式下指定表的字段信息。
 //
-// 参见 DriverMysql.TableFields。
+// 参见 DriverMysql.X取表字段信息Map。
 // md5:7f7a75c67e38ad22
-func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
+func (d *Driver) X取表字段信息Map(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result       gdb.Result
 		link         gdb.Link
-		usedSchema   = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
+		usedSchema   = gutil.X取文本值或取默认值(d.X取默认数据库名称(), schema...)
 		structureSql = fmt.Sprintf(tableFieldsSqlTmp, strings.ToUpper(table))
 	)
-	if link, err = d.SlaveLink(usedSchema); err != nil {
+	if link, err = d.X底层SlaveLink(usedSchema); err != nil {
 		return nil, err
 	}
-	result, err = d.DoSelect(ctx, link, structureSql)
+	result, err = d.X底层查询(ctx, link, structureSql)
 	if err != nil {
 		return nil, err
 	}
@@ -64,8 +64,8 @@ func (d *Driver) TableFields(ctx context.Context, table string, schema ...string
 
 		fields[m["FIELD"].String()] = &gdb.TableField{
 			Index: i,
-			Name:  m["FIELD"].String(),
-			Type:  m["TYPE"].String(),
+			X名称:  m["FIELD"].String(),
+			X类型:  m["TYPE"].String(),
 			Null:  isNull,
 		}
 	}

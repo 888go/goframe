@@ -7,7 +7,9 @@
 
 package pgsql
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 type Result struct {
 	sql.Result

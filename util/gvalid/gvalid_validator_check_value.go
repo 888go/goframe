@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid
+package 效验类
 
 import (
 	"context"
@@ -13,14 +13,14 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gogf/gf/v2/container/gvar"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gregex"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gvalid/internal/builtin"
+	gvar "github.com/888go/goframe/container/gvar"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gregex "github.com/888go/goframe/text/gregex"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
+	"github.com/888go/goframe/util/gvalid/internal/builtin"
 )
 
 type doCheckValueInput struct {
@@ -54,7 +54,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 		msgArray = strings.Split(messages, "|")
 
 	default:
-		for k, message := range gconv.Map(in.Messages) {
+		for k, message := range gconv.X取Map(in.Messages) {
 			customMsgMap[k] = gconv.String(message)
 		}
 	}
@@ -107,8 +107,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 		var (
 			err         error
 			results     = ruleRegex.FindStringSubmatch(ruleItems[index]) // split single rule.
-			ruleKey     = gstr.Trim(results[1])                          // 规则键，如规则 "max: 6" 中的 "max". md5:b9eff8d7691a084c
-			rulePattern = gstr.Trim(results[2])                          // 规则模式类似于 "6" 在规则 "max:6" 中. md5:7766c1e829f5f940
+			ruleKey     = gstr.X过滤首尾符并含空白(results[1])                          // 规则键，如规则 "max: 6" 中的 "max". md5:b9eff8d7691a084c
+			rulePattern = gstr.X过滤首尾符并含空白(results[2])                          // 规则模式类似于 "6" 在规则 "max:6" 中. md5:7766c1e829f5f940
 		)
 
 		if !hasBailRule && ruleKey == ruleNameBail {
@@ -139,7 +139,7 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 		)
 		if hasForeachRule {
 						// 由于它标记了 `foreach`，所以它会将值转换为切片。 md5:9f599bb9b2fe0bba
-			foreachValues = gconv.Interfaces(in.Value)
+			foreachValues = gconv.X取any切片(in.Value)
 						// 重置 `foreach` 规则，因为它只对下一条规则生效一次。 md5:8c7dd94030559037
 			hasForeachRule = false
 		}
@@ -153,8 +153,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 					Message:   message,
 					Field:     in.Name,
 					ValueType: in.ValueType,
-					Value:     gvar.New(value),
-					Data:      gvar.New(in.DataRaw),
+					Value:     gvar.X创建(value),
+					Data:      gvar.X创建(in.DataRaw),
 				})
 
 						// 内置验证规则。 md5:4f4f87cac993a840
@@ -164,8 +164,8 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 					RulePattern: rulePattern,
 					Field:       in.Name,
 					ValueType:   in.ValueType,
-					Value:       gvar.New(value),
-					Data:        gvar.New(in.DataRaw),
+					Value:       gvar.X创建(value),
+					Data:        gvar.X创建(in.DataRaw),
 					Message:     message,
 					Option: builtin.RunOption{
 						CaseInsensitive: hasCaseInsensitive,
@@ -179,22 +179,22 @@ func (v *Validator) doCheckValue(ctx context.Context, in doCheckValueInput) Erro
 			// Error handling.
 			if err != nil {
 								// 用于错误信息的错误变量替换。 md5:c424d98305e44662
-				if errMsg := err.Error(); gstr.Contains(errMsg, "{") {
-					errMsg = gstr.ReplaceByMap(errMsg, map[string]string{
+				if errMsg := err.Error(); gstr.X是否包含(errMsg, "{") {
+					errMsg = gstr.Map替换(errMsg, map[string]string{
 						"{field}":     in.Name,             // `value` 的字段名称。 md5:c75900d2041a10e5
 						"{value}":     gconv.String(value), // 当前验证的值。 md5:17abd56cedea072f
 						"{pattern}":   rulePattern,         // 规则的变量部分。 md5:1463434d04a94902
 						"{attribute}": in.Name,             // 与 `{field}` 相同。此用法已废弃。 md5:0ceaca304a2589af
 					})
-					errMsg, _ = gregex.ReplaceString(`\s{2,}`, ` `, errMsg)
+					errMsg, _ = gregex.X替换文本(`\s{2,}`, ` `, errMsg)
 					err = errors.New(errMsg)
 				}
 								// 错误应该包含堆栈信息，以指示错误的位置。 md5:bef4a94931ed384c
-				if !gerror.HasStack(err) {
-					err = gerror.NewCode(gcode.CodeValidationFailed, err.Error())
+				if !gerror.X判断是否带堆栈(err) {
+					err = gerror.X创建错误码(gcode.CodeValidationFailed, err.Error())
 				}
 								// 错误应该有错误代码，该代码为 `gcode.CodeValidationFailed`。 md5:b54af62f83c4db11
-				if gerror.Code(err) == gcode.CodeNil {
+				if gerror.X取错误码(err) == gcode.CodeNil {
 										// TODO 使用接口可能更好？. md5:04cb382580755c3a
 					if e, ok := err.(*gerror.Error); ok {
 						e.SetCode(gcode.CodeValidationFailed)
@@ -271,7 +271,7 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 
 	case reflect.Map:
 		var (
-			dataMap     = gconv.Map(in.Value)
+			dataMap     = gconv.X取Map(in.Value)
 			mapTypeElem = in.Type.Elem()
 			mapTypeKind = mapTypeElem.Kind()
 		)
@@ -291,10 +291,10 @@ func (v *Validator) doCheckValueRecursively(ctx context.Context, in doCheckValue
 
 	case reflect.Slice, reflect.Array:
 		var array []interface{}
-		if gjson.Valid(in.Value) {
-			array = gconv.Interfaces(gconv.Bytes(in.Value))
+		if gjson.X是否为有效json(in.Value) {
+			array = gconv.X取any切片(gconv.X取字节集(in.Value))
 		} else {
-			array = gconv.Interfaces(in.Value)
+			array = gconv.X取any切片(in.Value)
 		}
 		if len(array) == 0 {
 			return

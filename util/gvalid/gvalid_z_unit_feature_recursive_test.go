@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 func Test_CheckStruct_Recursive_Struct(t *testing.T) {
@@ -32,7 +32,7 @@ func Test_CheckStruct_Recursive_Struct(t *testing.T) {
 				Pass2: "2",
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
+		err := g.X效验类().Data(user).Run(ctx)
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `1` must be the same as field Pass2 value `2`"})
@@ -59,7 +59,7 @@ func Test_CheckStruct_Recursive_Struct_WithData(t *testing.T) {
 				"Pass2": 200,
 			},
 		}
-		err := g.Validator().Data(user).Assoc(data).Run(ctx)
+		err := g.X效验类().Data(user).Assoc(data).Run(ctx)
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], nil)
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `100` must be the same as field Pass2 value `200`"})
@@ -91,8 +91,8 @@ func Test_CheckStruct_Recursive_SliceStruct(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `3` must be the same as field Pass2 value `4`"})
@@ -124,8 +124,8 @@ func Test_CheckStruct_Recursive_SliceStruct_Bail(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Bail().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Bail().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], nil)
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `1` must be the same as field Pass2 value `2`"})
@@ -145,8 +145,8 @@ func Test_CheckStruct_Recursive_SliceStruct_Required(t *testing.T) {
 			Passes []Pass
 		}
 		user := &User{}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.Assert(err.Maps()["Pass1"], nil)
@@ -178,8 +178,8 @@ func Test_CheckStruct_Recursive_MapStruct(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], g.Map{"required": "The Name field is required"})
 		t.AssertNE(err.Maps()["Pass1"], nil)
@@ -206,8 +206,8 @@ func Test_CheckMap_Recursive_SliceStruct(t *testing.T) {
 				},
 			},
 		}
-		err := g.Validator().Data(user).Run(ctx)
-		g.Dump(err.Items())
+		err := g.X效验类().Data(user).Run(ctx)
+		g.X调试输出(err.Items())
 		t.AssertNE(err, nil)
 		t.Assert(err.Maps()["Name"], nil)
 		t.Assert(err.Maps()["Pass1"], g.Map{"same": "The Pass1 value `3` must be the same as field Pass2 value `4`"})
@@ -232,7 +232,7 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"students": `[]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Students field is required`)
 	})
 
@@ -251,7 +251,7 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"name": "john",
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, ``)
 	})
 
@@ -271,7 +271,7 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"students": `[{"age":2}, {"name":"jack", "age":4}]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `Student Name is required`)
 	})
 
@@ -292,7 +292,7 @@ func Test_CheckStruct_Recursively_SliceAttribute(t *testing.T) {
 				"students": `[{"age":2},{"name":"jack", "age":4}]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
 }
@@ -316,7 +316,7 @@ func Test_CheckStruct_Recursively_SliceAttribute_WithTypeAlias(t *testing.T) {
 				"BizParams": `[{}]`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(req).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(req).Run(ctx)
 		t.Assert(err, `The Component field is required; The Params field is required; The Version field is required`)
 	})
 }
@@ -338,7 +338,7 @@ func Test_CheckStruct_Recursively_MapAttribute(t *testing.T) {
 				"students": `{"john":{"age":18}}`,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `Student Name is required`)
 	})
 }
@@ -360,7 +360,7 @@ func Test_Issue1983(t *testing.T) {
 				"students": nil,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
 		// 与 upper 相同，它不受关联值的影响。 md5:d46133fe4ba08bc0
@@ -379,7 +379,7 @@ func Test_Issue1983(t *testing.T) {
 				"students": nil,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, `The Name field is required`)
 	})
 	gtest.C(t, func(t *gtest.T) {
@@ -396,7 +396,7 @@ func Test_Issue1983(t *testing.T) {
 				"students": nil,
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.AssertNil(err)
 	})
 }
@@ -418,7 +418,7 @@ func Test_Issue1921(t *testing.T) {
 				},
 			}
 		)
-		err := g.Validator().Data(req).Run(ctx)
+		err := g.X效验类().Data(req).Run(ctx)
 		t.Assert(err, "The Size value `10000` must be equal or lesser than 100")
 	})
 }
@@ -441,7 +441,7 @@ func Test_Issue2011(t *testing.T) {
 				},
 			}
 		)
-		err := g.Validator().Assoc(data).Data(teacher).Run(ctx)
+		err := g.X效验类().Assoc(data).Data(teacher).Run(ctx)
 		t.Assert(err, "The Name value `john` length must be equal or greater than 6")
 	})
 }

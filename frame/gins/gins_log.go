@@ -11,10 +11,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/internal/consts"
-	"github.com/gogf/gf/v2/internal/instance"
-	"github.com/gogf/gf/v2/os/glog"
-	"github.com/gogf/gf/v2/util/gutil"
+	"github.com/888go/goframe/internal/consts"
+	"github.com/888go/goframe/internal/instance"
+	glog "github.com/888go/goframe/os/glog"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // Log 返回一个 glog.Logger 的实例。
@@ -31,32 +31,32 @@ func Log(name ...string) *glog.Logger {
 	}
 	instanceKey := fmt.Sprintf("%s.%s", frameCoreComponentNameLogger, instanceName)
 	return instance.GetOrSetFuncLock(instanceKey, func() interface{} {
-		logger := glog.Instance(instanceName)
+		logger := glog.X取单例对象(instanceName)
 				// 为了避免在不必要的时候出现文件未找到的错误。 md5:bb553aa936e788c9
 		var (
 			configMap      map[string]interface{}
 			loggerNodeName = consts.ConfigNodeNameLogger
 		)
 				// 尝试以不区分大小写的方式查找可能的`loggerNodeName`。 md5:1c5803eaec1f4f06
-		if configData, _ := Config().Data(ctx); len(configData) > 0 {
+		if configData, _ := Config().X取Map(ctx); len(configData) > 0 {
 			if v, _ := gutil.MapPossibleItemByKey(configData, consts.ConfigNodeNameLogger); v != "" {
 				loggerNodeName = v
 			}
 		}
 				// 通过logger名称获取特定的日志配置。 md5:d07e016490e45c59
 		certainLoggerNodeName := fmt.Sprintf(`%s.%s`, loggerNodeName, instanceName)
-		if v, _ := Config().Get(ctx, certainLoggerNodeName); !v.IsEmpty() {
-			configMap = v.Map()
+		if v, _ := Config().X取值(ctx, certainLoggerNodeName); !v.X是否为空() {
+			configMap = v.X取Map()
 		}
 				// 如果没有为特定日志器名称获取到配置，则从全局日志配置中检索。 md5:40acd9c22e400784
 		if len(configMap) == 0 {
-			if v, _ := Config().Get(ctx, loggerNodeName); !v.IsEmpty() {
-				configMap = v.Map()
+			if v, _ := Config().X取值(ctx, loggerNodeName); !v.X是否为空() {
+				configMap = v.X取Map()
 			}
 		}
 				// 如果配置映射不为空，设置日志配置。 md5:7b4a24e8a6a74588
 		if len(configMap) > 0 {
-			if err := logger.SetConfigWithMap(configMap); err != nil {
+			if err := logger.X设置配置Map(configMap); err != nil {
 				panic(err)
 			}
 		}

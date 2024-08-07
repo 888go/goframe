@@ -10,7 +10,7 @@ package builtin
 import (
 	"errors"
 
-	"github.com/gogf/gf/v2/internal/json"
+	"github.com/888go/goframe/internal/json"
 )
 
 // RuleJson 实现了 `json` 规则：
@@ -33,7 +33,7 @@ func (r RuleJson) Message() string {
 }
 
 func (r RuleJson) Run(in RunInput) error {
-	if json.Valid(in.Value.Bytes()) {
+	if json.Valid(in.Value.X取字节集()) {
 		return nil
 	}
 	return errors.New(in.Message)

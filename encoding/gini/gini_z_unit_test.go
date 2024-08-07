@@ -5,14 +5,14 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gini_test
+package ini类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gini"
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/test/gtest"
+	gini "github.com/888go/goframe/encoding/gini"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var iniContent = `
@@ -37,7 +37,7 @@ command=/bin/echo "gf=GoFrame"
 
 func TestDecode(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		res, err := gini.Decode([]byte(iniContent))
+		res, err := gini.X取Map([]byte(iniContent))
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -53,7 +53,7 @@ func TestDecode(t *testing.T) {
 		errContent := `
 		a = b
 `
-		_, err := gini.Decode([]byte(errContent))
+		_, err := gini.X取Map([]byte(errContent))
 		if err == nil {
 			gtest.Fatal(err)
 		}
@@ -62,17 +62,17 @@ func TestDecode(t *testing.T) {
 
 func TestEncode(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		iniMap, err := gini.Decode([]byte(iniContent))
+		iniMap, err := gini.X取Map([]byte(iniContent))
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		iniStr, err := gini.Encode(iniMap)
+		iniStr, err := gini.Map到ini(iniMap)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		res, err := gini.Decode(iniStr)
+		res, err := gini.X取Map(iniStr)
 		if err != nil {
 			gtest.Fatal(err)
 		}
@@ -87,22 +87,22 @@ func TestEncode(t *testing.T) {
 
 func TestToJson(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		jsonStr, err := gini.ToJson([]byte(iniContent))
+		jsonStr, err := gini.X取json([]byte(iniContent))
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		json, err := gjson.LoadContent(jsonStr)
+		json, err := gjson.X加载并自动识别格式(jsonStr)
 		if err != nil {
 			gtest.Fatal(err)
 		}
 
-		iniMap, err := gini.Decode([]byte(iniContent))
+		iniMap, err := gini.X取Map([]byte(iniContent))
 		t.AssertNil(err)
 
-		t.Assert(iniMap["addr"].(map[string]interface{})["ip"], json.Get("addr.ip").String())
-		t.Assert(iniMap["addr"].(map[string]interface{})["port"], json.Get("addr.port").String())
-		t.Assert(iniMap["DBINFO"].(map[string]interface{})["user"], json.Get("DBINFO.user").String())
-		t.Assert(iniMap["DBINFO"].(map[string]interface{})["type"], json.Get("DBINFO.type").String())
+		t.Assert(iniMap["addr"].(map[string]interface{})["ip"], json.X取值("addr.ip").String())
+		t.Assert(iniMap["addr"].(map[string]interface{})["port"], json.X取值("addr.port").String())
+		t.Assert(iniMap["DBINFO"].(map[string]interface{})["user"], json.X取值("DBINFO.user").String())
+		t.Assert(iniMap["DBINFO"].(map[string]interface{})["type"], json.X取值("DBINFO.type").String())
 	})
 }

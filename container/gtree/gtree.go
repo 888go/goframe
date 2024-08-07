@@ -9,4 +9,4 @@
 //
 // 部分实现来源于：https://github.com/emirpasic/gods
 // md5:d7058919da3c4b80
-package gtree
+package 树形类

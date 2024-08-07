@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package ghttp
+package http类
 
 import (
 	"net"
 	"net/http"
 
-	"github.com/gogf/gf/v2"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/os/gmetric"
-	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/888go/goframe"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/os/gmetric"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 type localMetricManager struct {
@@ -167,20 +167,20 @@ func (m *localMetricManager) GetMetricAttributeMap(r *Request) gmetric.Attribute
 		serverPort      string
 		httpRoute       string
 		protocolVersion string
-		handler         = r.GetServeHandler()
-		localAddr       = r.Context().Value(http.LocalAddrContextKey)
+		handler         = r.X取路由解析对象()
+		localAddr       = r.Context别名().Value(http.LocalAddrContextKey)
 		attrMap         = make(gmetric.AttributeMap)
 	)
-	serverAddress, serverPort = gstr.List2(r.Host, ":")
+	serverAddress, serverPort = gstr.X分割2份(r.Host, ":")
 	if localAddr != nil {
-		_, serverPort = gstr.List2(localAddr.(net.Addr).String(), ":")
+		_, serverPort = gstr.X分割2份(localAddr.(net.Addr).String(), ":")
 	}
-	if handler != nil && handler.Handler.Router != nil {
-		httpRoute = handler.Handler.Router.Uri
+	if handler != nil && handler.Handler.X路由 != nil {
+		httpRoute = handler.Handler.X路由.Uri
 	} else {
 		httpRoute = r.URL.Path
 	}
-	if array := gstr.Split(r.Proto, "/"); len(array) > 1 {
+	if array := gstr.X分割(r.Proto, "/"); len(array) > 1 {
 		protocolVersion = array[1]
 	}
 	attrMap.Sets(gmetric.AttributeMap{
@@ -193,23 +193,23 @@ func (m *localMetricManager) GetMetricAttributeMap(r *Request) gmetric.Attribute
 	})
 	if r.LeaveTime != nil {
 		var errCode int
-		if err := r.GetError(); err != nil {
-			errCode = gerror.Code(err).Code()
+		if err := r.X取错误信息(); err != nil {
+			errCode = gerror.X取错误码(err).Code()
 		}
 		attrMap.Sets(gmetric.AttributeMap{
 			metricAttrKeyErrorCode:              errCode,
-			metricAttrKeyHttpResponseStatusCode: r.Response.Status,
+			metricAttrKeyHttpResponseStatusCode: r.X响应.Status,
 		})
 	}
 	return attrMap
 }
 
-func (s *Server) handleMetricsBeforeRequest(r *Request) {
+func (s *X服务) handleMetricsBeforeRequest(r *Request) {
 	if !gmetric.IsEnabled() {
 		return
 	}
 	var (
-		ctx           = r.Context()
+		ctx           = r.Context别名()
 		attrMap       = metricManager.GetMetricAttributeMap(r)
 		requestOption = metricManager.GetMetricOptionForRequestByMap(attrMap)
 	)
@@ -224,14 +224,14 @@ func (s *Server) handleMetricsBeforeRequest(r *Request) {
 	)
 }
 
-func (s *Server) handleMetricsAfterRequestDone(r *Request) {
+func (s *X服务) handleMetricsAfterRequestDone(r *Request) {
 	if !gmetric.IsEnabled() {
 		return
 	}
 	var (
-		ctx             = r.Context()
+		ctx             = r.Context别名()
 		attrMap         = metricManager.GetMetricAttributeMap(r)
-		durationMilli   = float64(r.LeaveTime.Sub(r.EnterTime).Milliseconds())
+		durationMilli   = float64(r.LeaveTime.X取纳秒时长(r.EnterTime).Milliseconds())
 		responseOption  = metricManager.GetMetricOptionForResponseByMap(attrMap)
 		histogramOption = metricManager.GetMetricOptionForRequestDurationByMap(attrMap)
 	)
@@ -242,7 +242,7 @@ func (s *Server) handleMetricsAfterRequestDone(r *Request) {
 	)
 	metricManager.HttpServerResponseBodySize.Add(
 		ctx,
-		float64(r.Response.BytesWritten()),
+		float64(r.X响应.BytesWritten()),
 		responseOption,
 	)
 	metricManager.HttpServerRequestDurationTotal.Add(

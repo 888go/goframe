@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gvalid_test
+package 效验类_test
 
 import (
 	"context"
 	"errors"
 	"testing"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/guid"
-	"github.com/gogf/gf/v2/util/gvalid"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/frame/g"
+	gtest "github.com/888go/goframe/test/gtest"
+	guid "github.com/888go/goframe/util/guid"
+	gvalid "github.com/888go/goframe/util/gvalid"
 )
 
 func Test_CustomRule1(t *testing.T) {
@@ -28,7 +28,7 @@ func Test_CustomRule1(t *testing.T) {
 			if len(pass) != 6 {
 				return errors.New(in.Message)
 			}
-			m := in.Data.Map()
+			m := in.Data.X取Map()
 			if m["data"] != pass {
 				return errors.New(in.Message)
 			}
@@ -37,9 +37,9 @@ func Test_CustomRule1(t *testing.T) {
 	)
 
 	gtest.C(t, func(t *gtest.T) {
-		err := g.Validator().Data("123456").Rules(rule).Messages("custom message").Run(ctx)
+		err := g.X效验类().Data("123456").Rules(rule).Messages("custom message").Run(ctx)
 		t.Assert(err.String(), "custom message")
-		err = g.Validator().Data("123456").Assoc(g.Map{"data": "123456"}).Rules(rule).Messages("custom message").Run(ctx)
+		err = g.X效验类().Data("123456").Assoc(g.Map{"data": "123456"}).Rules(rule).Messages("custom message").Run(ctx)
 		t.AssertNil(err)
 	})
 		// 结构体验证出错。 md5:cc3d56570f1c426f
@@ -52,7 +52,7 @@ func Test_CustomRule1(t *testing.T) {
 			Value: "123",
 			Data:  "123456",
 		}
-		err := g.Validator().Data(st).Run(ctx)
+		err := g.X效验类().Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
 		// 结构体验证没有错误。 md5:3c75fef5115e7e71
@@ -65,7 +65,7 @@ func Test_CustomRule1(t *testing.T) {
 			Value: "123456",
 			Data:  "123456",
 		}
-		err := g.Validator().Data(st).Run(ctx)
+		err := g.X效验类().Data(st).Run(ctx)
 		t.AssertNil(err)
 	})
 }
@@ -73,7 +73,7 @@ func Test_CustomRule1(t *testing.T) {
 func Test_CustomRule2(t *testing.T) {
 	rule := "required-map"
 	gvalid.RegisterRule(rule, func(ctx context.Context, in gvalid.RuleFuncInput) error {
-		m := in.Value.Map()
+		m := in.Value.X取Map()
 		if len(m) == 0 {
 			return errors.New(in.Message)
 		}
@@ -82,8 +82,8 @@ func Test_CustomRule2(t *testing.T) {
 	// Check.
 	gtest.C(t, func(t *gtest.T) {
 		errStr := "data map should not be empty"
-		t.Assert(g.Validator().Data(g.Map{}).Messages(errStr).Rules(rule).Run(ctx), errStr)
-		t.Assert(g.Validator().Data(g.Map{"k": "v"}).Rules(rule).Messages(errStr).Run(ctx), nil)
+		t.Assert(g.X效验类().Data(g.Map{}).Messages(errStr).Rules(rule).Run(ctx), errStr)
+		t.Assert(g.X效验类().Data(g.Map{"k": "v"}).Rules(rule).Messages(errStr).Run(ctx), nil)
 	})
 		// 结构体验证出错。 md5:cc3d56570f1c426f
 	gtest.C(t, func(t *gtest.T) {
@@ -95,7 +95,7 @@ func Test_CustomRule2(t *testing.T) {
 			Value: map[string]string{},
 			Data:  "123456",
 		}
-		err := g.Validator().Data(st).Run(ctx)
+		err := g.X效验类().Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
 		// 结构体验证没有错误。 md5:3c75fef5115e7e71
@@ -108,7 +108,7 @@ func Test_CustomRule2(t *testing.T) {
 			Value: map[string]string{"k": "v"},
 			Data:  "123456",
 		}
-		err := g.Validator().Data(st).Run(ctx)
+		err := g.X效验类().Data(st).Run(ctx)
 		t.AssertNil(err)
 	})
 }
@@ -125,9 +125,9 @@ func Test_CustomRule_AllowEmpty(t *testing.T) {
 	// Check.
 	gtest.C(t, func(t *gtest.T) {
 		errStr := "error"
-		t.Assert(g.Validator().Data("").Rules(rule).Messages(errStr).Run(ctx), "")
-		t.Assert(g.Validator().Data("gf").Rules(rule).Messages(errStr).Run(ctx), "")
-		t.Assert(g.Validator().Data("gf2").Rules(rule).Messages(errStr).Run(ctx), errStr)
+		t.Assert(g.X效验类().Data("").Rules(rule).Messages(errStr).Run(ctx), "")
+		t.Assert(g.X效验类().Data("gf").Rules(rule).Messages(errStr).Run(ctx), "")
+		t.Assert(g.X效验类().Data("gf2").Rules(rule).Messages(errStr).Run(ctx), errStr)
 	})
 		// 结构体验证出错。 md5:cc3d56570f1c426f
 	gtest.C(t, func(t *gtest.T) {
@@ -139,7 +139,7 @@ func Test_CustomRule_AllowEmpty(t *testing.T) {
 			Value: "",
 			Data:  "123456",
 		}
-		err := g.Validator().Data(st).Run(ctx)
+		err := g.X效验类().Data(st).Run(ctx)
 		t.AssertNil(err)
 	})
 		// 结构体验证没有错误。 md5:3c75fef5115e7e71
@@ -152,7 +152,7 @@ func Test_CustomRule_AllowEmpty(t *testing.T) {
 			Value: "john",
 			Data:  "123456",
 		}
-		err := g.Validator().Data(st).Run(ctx)
+		err := g.X效验类().Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
 }
@@ -164,19 +164,19 @@ func TestValidator_RuleFunc(t *testing.T) {
 		if len(pass) != 6 {
 			return errors.New(in.Message)
 		}
-		if m := in.Data.Map(); m["data"] != pass {
+		if m := in.Data.X取Map(); m["data"] != pass {
 			return errors.New(in.Message)
 		}
 		return nil
 	}
 	gtest.C(t, func(t *gtest.T) {
-		err := g.Validator().Rules(ruleName).
+		err := g.X效验类().Rules(ruleName).
 			Messages("custom message").
 			RuleFunc(ruleName, ruleFunc).
 			Data("123456").
 			Run(ctx)
 		t.Assert(err.String(), "custom message")
-		err = g.Validator().
+		err = g.X效验类().
 			Rules(ruleName).
 			Messages("custom message").
 			Data("123456").Assoc(g.Map{"data": "123456"}).
@@ -194,7 +194,7 @@ func TestValidator_RuleFunc(t *testing.T) {
 			Value: "123",
 			Data:  "123456",
 		}
-		err := g.Validator().RuleFunc(ruleName, ruleFunc).Data(st).Run(ctx)
+		err := g.X效验类().RuleFunc(ruleName, ruleFunc).Data(st).Run(ctx)
 		t.Assert(err.String(), "自定义错误")
 	})
 		// 结构体验证没有错误。 md5:3c75fef5115e7e71
@@ -207,7 +207,7 @@ func TestValidator_RuleFunc(t *testing.T) {
 			Value: "123456",
 			Data:  "123456",
 		}
-		err := g.Validator().RuleFunc(ruleName, ruleFunc).Data(st).Run(ctx)
+		err := g.X效验类().RuleFunc(ruleName, ruleFunc).Data(st).Run(ctx)
 		t.AssertNil(err)
 	})
 }
@@ -219,20 +219,20 @@ func TestValidator_RuleFuncMap(t *testing.T) {
 		if len(pass) != 6 {
 			return errors.New(in.Message)
 		}
-		if m := in.Data.Map(); m["data"] != pass {
+		if m := in.Data.X取Map(); m["data"] != pass {
 			return errors.New(in.Message)
 		}
 		return nil
 	}
 	gtest.C(t, func(t *gtest.T) {
-		err := g.Validator().
+		err := g.X效验类().
 			Rules(ruleName).
 			Messages("custom message").
 			RuleFuncMap(map[string]gvalid.RuleFunc{
 				ruleName: ruleFunc,
 			}).Data("123456").Run(ctx)
 		t.Assert(err.String(), "custom message")
-		err = g.Validator().
+		err = g.X效验类().
 			Rules(ruleName).
 			Messages("custom message").
 			Data("123456").Assoc(g.Map{"data": "123456"}).
@@ -251,7 +251,7 @@ func TestValidator_RuleFuncMap(t *testing.T) {
 			Value: "123",
 			Data:  "123456",
 		}
-		err := g.Validator().
+		err := g.X效验类().
 			RuleFuncMap(map[string]gvalid.RuleFunc{
 				ruleName: ruleFunc,
 			}).Data(st).Run(ctx)
@@ -267,7 +267,7 @@ func TestValidator_RuleFuncMap(t *testing.T) {
 			Value: "123456",
 			Data:  "123456",
 		}
-		err := g.Validator().
+		err := g.X效验类().
 			RuleFuncMap(map[string]gvalid.RuleFunc{
 				ruleName: ruleFunc,
 			}).Data(st).Run(ctx)
@@ -277,17 +277,17 @@ func TestValidator_RuleFuncMap(t *testing.T) {
 
 func Test_CustomRule_Overwrite(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		var rule = "custom-" + guid.S()
+		var rule = "custom-" + guid.X生成()
 		gvalid.RegisterRule(rule, func(ctx context.Context, in gvalid.RuleFuncInput) error {
-			return gerror.New("1")
+			return gerror.X创建("1")
 		})
-		t.Assert(g.Validator().Rules(rule).Data(1).Run(ctx), "1")
+		t.Assert(g.X效验类().Rules(rule).Data(1).Run(ctx), "1")
 		gvalid.RegisterRule(rule, func(ctx context.Context, in gvalid.RuleFuncInput) error {
-			return gerror.New("2")
+			return gerror.X创建("2")
 		})
-		t.Assert(g.Validator().Rules(rule).Data(1).Run(ctx), "2")
+		t.Assert(g.X效验类().Rules(rule).Data(1).Run(ctx), "2")
 	})
-	g.Dump(gvalid.GetRegisteredRuleMap())
+	g.X调试输出(gvalid.GetRegisteredRuleMap())
 }
 
 func Test_Issue2499(t *testing.T) {
@@ -304,7 +304,7 @@ func Test_Issue2499(t *testing.T) {
 			Value: "",
 			Data:  "123456",
 		}
-		err := g.Validator().
+		err := g.X效验类().
 			RuleFuncMap(map[string]gvalid.RuleFunc{
 				ruleName: ruleFunc,
 			}).Data(st).Run(ctx)

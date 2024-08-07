@@ -6,7 +6,7 @@
 // md5:a9832f33b234e3f3
 
 // 包gctx封装了context.Context并提供了额外的上下文功能。 md5:edcfb6983b687169
-package gctx
+package 上下文类
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 
-	"github.com/gogf/gf/v2/net/gtrace"
+	"github.com/888go/goframe/net/gtrace"
 )
 
 type (
@@ -45,40 +45,40 @@ func init() {
 		context.Background(),
 		propagation.MapCarrier(m),
 	)
-	initCtx = WithCtx(initCtx)
+	initCtx = X创建并从上下文(initCtx)
 }
 
-// New 创建并返回一个包含上下文ID的上下文。 md5:ace97871c3d80d4f
-func New() context.Context {
-	return WithCtx(context.Background())
+// X创建 创建并返回一个包含上下文ID的上下文。 md5:ace97871c3d80d4f
+func X创建() context.Context {
+	return X创建并从上下文(context.Background())
 }
 
-// WithCtx 根据给定的父上下文`ctx`创建并返回一个包含上下文ID的新上下文。 md5:bea2d0daa280a6eb
-func WithCtx(ctx context.Context) context.Context {
-	if CtxId(ctx) != "" {
-		return ctx
+// X创建并从上下文 根据给定的父上下文`ctx`创建并返回一个包含上下文ID的新上下文。 md5:bea2d0daa280a6eb
+func X创建并从上下文(上下文 context.Context) context.Context {
+	if X取上下文id(上下文) != "" {
+		return 上下文
 	}
 	var span *gtrace.Span
-	ctx, span = gtrace.NewSpan(ctx, "gctx.WithCtx")
+	上下文, span = gtrace.NewSpan(上下文, "gctx.WithCtx")
 	defer span.End()
-	return ctx
+	return 上下文
 }
 
-// CtxId从上下文中检索并返回context ID。 md5:bd18ae591706e243
-func CtxId(ctx context.Context) string {
-	return gtrace.GetTraceID(ctx)
+// X取上下文id从上下文中检索并返回context ID。 md5:bd18ae591706e243
+func X取上下文id(上下文 context.Context) string {
+	return gtrace.GetTraceID(上下文)
 }
 
-// SetInitCtx 设置自定义初始化上下文。
+// X设置初始化上下文 设置自定义初始化上下文。
 // 注意，此函数不能在多个goroutine中调用。
 // md5:10830063aafa5df4
-func SetInitCtx(ctx context.Context) {
-	initCtx = ctx
+func X设置初始化上下文(上下文 context.Context) {
+	initCtx = 上下文
 }
 
-// GetInitCtx 返回初始化上下文。
+// X取初始化上下文 返回初始化上下文。
 // 初始化上下文用于在`main`函数或`init`函数中。
 // md5:5608d282e442f76c
-func GetInitCtx() context.Context {
+func X取初始化上下文() context.Context {
 	return initCtx
 }

@@ -11,9 +11,9 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/util/gtag"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	"github.com/888go/goframe/util/gtag"
 )
 
 // ParseTag 将标签字符串解析为映射。
@@ -63,7 +63,7 @@ func ParseTag(tag string) map[string]string {
 		tag = tag[i+1:]
 		value, err := strconv.Unquote(quotedValue)
 		if err != nil {
-			panic(gerror.WrapCodef(gcode.CodeInvalidParameter, err, `error parsing tag "%s"`, tag))
+			panic(gerror.X多层错误码并格式化(gcode.CodeInvalidParameter, err, `error parsing tag "%s"`, tag))
 		}
 		data[key] = gtag.Parse(value)
 	}
@@ -161,7 +161,7 @@ exitLoop:
 		reflectKind = reflectValue.Kind()
 	}
 	if reflectKind != reflect.Struct {
-		return nil, gerror.NewCode(
+		return nil, gerror.X创建错误码(
 			gcode.CodeInvalidParameter,
 			"given value should be either type of struct/*struct/[]struct/[]*struct",
 		)

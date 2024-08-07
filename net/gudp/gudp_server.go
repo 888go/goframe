@@ -5,18 +5,18 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gudp
+package udp类
 
 import (
 	"fmt"
 	"net"
 	"sync"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	gcode "github.com/888go/goframe/errors/gcode"
+	gerror "github.com/888go/goframe/errors/gerror"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 const (
@@ -38,7 +38,7 @@ type Server struct {
 
 var (
 		// serverMapping 用于实例名称到其 UDP 服务器映射。 md5:f02a58894dbf986b
-	serverMapping = gmap.NewStrAnyMap(true)
+	serverMapping = gmap.X创建StrAny(true)
 )
 
 // GetServer 创建并返回一个给定名称的UDP服务器实例。 md5:c822bb20e355a198
@@ -47,11 +47,11 @@ func GetServer(name ...interface{}) *Server {
 	if len(name) > 0 && name[0] != "" {
 		serverName = gconv.String(name[0])
 	}
-	if s := serverMapping.Get(serverName); s != nil {
+	if s := serverMapping.X取值(serverName); s != nil {
 		return s.(*Server)
 	}
 	s := NewServer("", nil)
-	serverMapping.Set(serverName, s)
+	serverMapping.X设置值(serverName, s)
 	return s
 }
 
@@ -65,7 +65,7 @@ func NewServer(address string, handler func(*Conn), name ...string) *Server {
 		handler: handler,
 	}
 	if len(name) > 0 && name[0] != "" {
-		serverMapping.Set(name[0], s)
+		serverMapping.X设置值(name[0], s)
 	}
 	return s
 }
@@ -88,7 +88,7 @@ func (s *Server) Close() (err error) {
 	defer s.mu.Unlock()
 	err = s.conn.Close()
 	if err != nil {
-		err = gerror.Wrap(err, "connection failed")
+		err = gerror.X多层错误(err, "connection failed")
 	}
 	return
 }
@@ -96,17 +96,17 @@ func (s *Server) Close() (err error) {
 // Run 开始监听UDP连接。 md5:582eb8bc9f8281c9
 func (s *Server) Run() error {
 	if s.handler == nil {
-		err := gerror.NewCode(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
+		err := gerror.X创建错误码(gcode.CodeMissingConfiguration, "start running failed: socket handler not defined")
 		return err
 	}
 	addr, err := net.ResolveUDPAddr("udp", s.address)
 	if err != nil {
-		err = gerror.Wrapf(err, `net.ResolveUDPAddr failed for address "%s"`, s.address)
+		err = gerror.X多层错误并格式化(err, `net.ResolveUDPAddr failed for address "%s"`, s.address)
 		return err
 	}
 	conn, err := net.ListenUDP("udp", addr)
 	if err != nil {
-		err = gerror.Wrapf(err, `net.ListenUDP failed for address "%s"`, s.address)
+		err = gerror.X多层错误并格式化(err, `net.ListenUDP failed for address "%s"`, s.address)
 		return err
 	}
 	s.mu.Lock()
@@ -118,14 +118,14 @@ func (s *Server) Run() error {
 
 // GetListenedAddress 获取并返回当前服务器所监听的地址字符串。 md5:51d352ffec9dc329
 func (s *Server) GetListenedAddress() string {
-	if !gstr.Contains(s.address, FreePortAddress) {
+	if !gstr.X是否包含(s.address, FreePortAddress) {
 		return s.address
 	}
 	var (
 		address      = s.address
 		listenedPort = s.GetListenedPort()
 	)
-	address = gstr.Replace(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
+	address = gstr.X替换(address, FreePortAddress, fmt.Sprintf(`:%d`, listenedPort))
 	return address
 }
 

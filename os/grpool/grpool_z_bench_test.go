@@ -7,13 +7,13 @@
 
 // 使用go test命令运行当前目录下所有.go文件的性能测试，模式为匹配所有函数. md5:b546d3aaffaebd06
 
-package grpool_test
+package 协程类_test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/gogf/gf/v2/os/grpool"
+	grpool "github.com/888go/goframe/os/grpool"
 )
 
 var (

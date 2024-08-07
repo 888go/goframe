@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gogf/gf/v2/text/gstr"
-	"github.com/gogf/gf/v2/util/gconv"
+	gstr "github.com/888go/goframe/text/gstr"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 // RuleLength 实现了 `length` 规则：
@@ -38,7 +38,7 @@ func (r RuleLength) Message() string {
 
 func (r RuleLength) Run(in RunInput) error {
 	var (
-		valueRunes = gconv.Runes(in.Value.String())
+		valueRunes = gconv.X取字符切片(in.Value.String())
 		valueLen   = len(valueRunes)
 	)
 	var (
@@ -57,7 +57,7 @@ func (r RuleLength) Run(in RunInput) error {
 		}
 	}
 	if valueLen < min || valueLen > max {
-		return errors.New(gstr.ReplaceByMap(in.Message, map[string]string{
+		return errors.New(gstr.Map替换(in.Message, map[string]string{
 			"{min}": strconv.Itoa(min),
 			"{max}": strconv.Itoa(max),
 		}))

@@ -7,13 +7,13 @@
 
 // 使用`go test`命令对所有`.go`文件进行测试，但仅针对包含`_Json`的基准测试（Benchmark）并记录内存使用情况（-benchmem选项）。 md5:306be2fba8e8f7ba
 
-package gtype_test
+package 安全变量类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/internal/json"
+	gtype "github.com/888go/goframe/container/gtype"
+	"github.com/888go/goframe/internal/json"
 )
 
 var (

@@ -5,7 +5,7 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gfile_test
+package 文件类_test
 
 import (
 	"os"
@@ -13,10 +13,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/gogf/gf/v2/util/gconv"
+	gfile "github.com/888go/goframe/os/gfile"
+	gtime "github.com/888go/goframe/os/gtime"
+	gtest "github.com/888go/goframe/test/gtest"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func Test_IsDir(t *testing.T) {
@@ -25,35 +25,35 @@ func Test_IsDir(t *testing.T) {
 		createDir(paths)
 		defer delTestFiles(paths)
 
-		t.Assert(gfile.IsDir(testpath()+paths), true)
-		t.Assert(gfile.IsDir("./testfile2"), false)
-		t.Assert(gfile.IsDir("./testfile/tt.txt"), false)
-		t.Assert(gfile.IsDir(""), false)
+		t.Assert(gfile.X是否存在目录(testpath()+paths), true)
+		t.Assert(gfile.X是否存在目录("./testfile2"), false)
+		t.Assert(gfile.X是否存在目录("./testfile/tt.txt"), false)
+		t.Assert(gfile.X是否存在目录(""), false)
 	})
 }
 
 func Test_IsEmpty(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		path := "/testdir_" + gconv.String(gtime.TimestampNano())
+		path := "/testdir_" + gconv.String(gtime.X取时间戳纳秒())
 		createDir(path)
 		defer delTestFiles(path)
 
-		t.Assert(gfile.IsEmpty(testpath()+path), true)
-		t.Assert(gfile.IsEmpty(testpath()+path+gfile.Separator+"test.txt"), true)
+		t.Assert(gfile.X是否为空(testpath()+path), true)
+		t.Assert(gfile.X是否为空(testpath()+path+gfile.Separator+"test.txt"), true)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		path := "/testfile_" + gconv.String(gtime.TimestampNano())
+		path := "/testfile_" + gconv.String(gtime.X取时间戳纳秒())
 		createTestFile(path, "")
 		defer delTestFiles(path)
 
-		t.Assert(gfile.IsEmpty(testpath()+path), true)
+		t.Assert(gfile.X是否为空(testpath()+path), true)
 	})
 	gtest.C(t, func(t *gtest.T) {
-		path := "/testfile_" + gconv.String(gtime.TimestampNano())
+		path := "/testfile_" + gconv.String(gtime.X取时间戳纳秒())
 		createTestFile(path, "1")
 		defer delTestFiles(path)
 
-		t.Assert(gfile.IsEmpty(testpath()+path), false)
+		t.Assert(gfile.X是否为空(testpath()+path), false)
 	})
 }
 
@@ -67,7 +67,7 @@ func Test_Create(t *testing.T) {
 		filepaths = append(filepaths, "/testfile_cc1.txt")
 		filepaths = append(filepaths, "/testfile_cc2.txt")
 		for _, v := range filepaths {
-			fileobj, err = gfile.Create(testpath() + v)
+			fileobj, err = gfile.X创建文件与目录(testpath() + v)
 			defer delTestFiles(v)
 			fileobj.Close()
 			t.AssertNil(err)
@@ -75,9 +75,9 @@ func Test_Create(t *testing.T) {
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		tmpPath := gfile.Join(gfile.Temp(), "test/testfile_cc1.txt")
-		fileobj, err := gfile.Create(tmpPath)
-		defer gfile.Remove(tmpPath)
+		tmpPath := gfile.X路径生成(gfile.X取临时目录(), "test/testfile_cc1.txt")
+		fileobj, err := gfile.X创建文件与目录(tmpPath)
+		defer gfile.X删除(tmpPath)
 		t.AssertNE(fileobj, nil)
 		t.AssertNil(err)
 		fileobj.Close()
@@ -104,7 +104,7 @@ func Test_Open(t *testing.T) {
 		flags = append(flags, false)
 
 		for k, v := range files {
-			fileobj, err = gfile.Open(testpath() + v)
+			fileobj, err = gfile.X打开并按只读模式(testpath() + v)
 			fileobj.Close()
 			if flags[k] {
 				t.AssertNil(err)
@@ -137,7 +137,7 @@ func Test_OpenFile(t *testing.T) {
 		flags = append(flags, true)
 
 		for k, v := range files {
-			fileobj, err = gfile.OpenFile(testpath()+v, os.O_RDWR, 0666)
+			fileobj, err = gfile.X打开(testpath()+v, os.O_RDWR, 0666)
 			fileobj.Close()
 			if flags[k] {
 				t.AssertNil(err)
@@ -169,7 +169,7 @@ func Test_OpenWithFlag(t *testing.T) {
 		flags = append(flags, false)
 
 		for k, v := range files {
-			fileobj, err = gfile.OpenWithFlag(testpath()+v, os.O_RDWR)
+			fileobj, err = gfile.X打开并按默认权限(testpath()+v, os.O_RDWR)
 			fileobj.Close()
 			if flags[k] {
 				t.AssertNil(err)
@@ -200,7 +200,7 @@ func Test_OpenWithFlagPerm(t *testing.T) {
 		flags = append(flags, false)
 
 		for k, v := range files {
-			fileobj, err = gfile.OpenWithFlagPerm(testpath()+v, os.O_RDWR, 0666)
+			fileobj, err = gfile.OpenWithFlagPerm别名(testpath()+v, os.O_RDWR, 0666)
 			fileobj.Close()
 			if flags[k] {
 				t.AssertNil(err)
@@ -233,7 +233,7 @@ func Test_Exists(t *testing.T) {
 		flags = append(flags, false)
 
 		for k, v := range files {
-			flag = gfile.Exists(testpath() + v)
+			flag = gfile.X是否存在(testpath() + v)
 			if flags[k] {
 				t.Assert(flag, true)
 			} else {
@@ -249,7 +249,7 @@ func Test_Pwd(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		paths, err := os.Getwd()
 		t.AssertNil(err)
-		t.Assert(gfile.Pwd(), paths)
+		t.Assert(gfile.X取当前工作目录(), paths)
 
 	})
 }
@@ -278,7 +278,7 @@ func Test_IsFile(t *testing.T) {
 		flags = append(flags, false)
 
 		for k, v := range files {
-			flag = gfile.IsFile(testpath() + v)
+			flag = gfile.X是否为文件(testpath() + v)
 			if flags[k] {
 				t.Assert(flag, true)
 			} else {
@@ -301,7 +301,7 @@ func Test_Info(t *testing.T) {
 
 		createTestFile(paths, "")
 		defer delTestFiles(paths)
-		files, err = gfile.Stat(testpath() + paths)
+		files, err = gfile.X取详情(testpath() + paths)
 		t.AssertNil(err)
 
 		files2, err = os.Stat(testpath() + paths)
@@ -327,7 +327,7 @@ func Test_Move(t *testing.T) {
 		yfile := testpath() + paths + filepaths
 		tofile := testpath() + paths + topath
 
-		t.Assert(gfile.Move(yfile, tofile), nil)
+		t.Assert(gfile.X移动(yfile, tofile), nil)
 
 		// 检查移动后的文件是否真实存在
 		_, err := os.Stat(tofile)
@@ -350,10 +350,10 @@ func Test_Rename(t *testing.T) {
 		ypath = testpath() + paths + ypath
 		topath = testpath() + paths + topath
 
-		t.Assert(gfile.Rename(ypath, topath), nil)
-		t.Assert(gfile.IsFile(topath), true)
+		t.Assert(gfile.Rename别名(ypath, topath), nil)
+		t.Assert(gfile.X是否为文件(topath), true)
 
-		t.AssertNE(gfile.Rename("", ""), nil)
+		t.AssertNE(gfile.Rename别名("", ""), nil)
 
 	})
 
@@ -378,12 +378,12 @@ func Test_DirNames(t *testing.T) {
 		}
 		defer delTestFiles(paths)
 
-		readlist, err = gfile.DirNames(testpath() + paths)
+		readlist, err = gfile.X取文件列表(testpath() + paths)
 
 		t.AssertNil(err)
 		t.AssertIN(readlist, havelist)
 
-		_, err = gfile.DirNames("")
+		_, err = gfile.X取文件列表("")
 		t.AssertNE(err, nil)
 
 	})
@@ -415,16 +415,16 @@ func Test_Glob(t *testing.T) {
 		}
 		defer delTestFiles(dirpath)
 
-		resultlist, err = gfile.Glob(testpath()+paths, true)
+		resultlist, err = gfile.X模糊查找(testpath()+paths, true)
 		t.AssertNil(err)
 		t.Assert(resultlist, havelist1)
 
-		resultlist, err = gfile.Glob(testpath()+paths, false)
+		resultlist, err = gfile.X模糊查找(testpath()+paths, false)
 
 		t.AssertNil(err)
 		t.Assert(formatpaths(resultlist), formatpaths(havelist2))
 
-		_, err = gfile.Glob("", true)
+		_, err = gfile.X模糊查找("", true)
 		t.AssertNil(err)
 
 	})
@@ -436,9 +436,9 @@ func Test_Remove(t *testing.T) {
 			paths string = "/testfile_t1.txt"
 		)
 		createTestFile(paths, "")
-		t.Assert(gfile.Remove(testpath()+paths), nil)
+		t.Assert(gfile.X删除(testpath()+paths), nil)
 
-		t.Assert(gfile.Remove(""), nil)
+		t.Assert(gfile.X删除(""), nil)
 
 		defer delTestFiles(paths)
 
@@ -455,8 +455,8 @@ func Test_IsReadable(t *testing.T) {
 		createTestFile(paths1, "")
 		defer delTestFiles(paths1)
 
-		t.Assert(gfile.IsReadable(testpath()+paths1), true)
-		t.Assert(gfile.IsReadable(paths2), false)
+		t.Assert(gfile.X是否可读(testpath()+paths1), true)
+		t.Assert(gfile.X是否可读(paths2), false)
 
 	})
 }
@@ -470,8 +470,8 @@ func Test_IsWritable(t *testing.T) {
 
 		createTestFile(paths1, "")
 		defer delTestFiles(paths1)
-		t.Assert(gfile.IsWritable(testpath()+paths1), true)
-		t.Assert(gfile.IsWritable(paths2), false)
+		t.Assert(gfile.X是否可写(testpath()+paths1), true)
+		t.Assert(gfile.X是否可写(paths2), false)
 
 	})
 }
@@ -485,8 +485,8 @@ func Test_Chmod(t *testing.T) {
 		createTestFile(paths1, "")
 		defer delTestFiles(paths1)
 
-		t.Assert(gfile.Chmod(testpath()+paths1, 0777), nil)
-		t.AssertNE(gfile.Chmod(paths2, 0777), nil)
+		t.Assert(gfile.X更改权限(testpath()+paths1, 0777), nil)
+		t.AssertNE(gfile.X更改权限(paths2, 0777), nil)
 
 	})
 }
@@ -504,13 +504,13 @@ func Test_RealPath(t *testing.T) {
 		createDir(paths1)
 		defer delTestFiles(paths1)
 
-		readlPath = gfile.RealPath("./")
+		readlPath = gfile.X取绝对路径且效验("./")
 
 		tempstr, _ = filepath.Abs("./")
 
 		t.Assert(readlPath, tempstr)
 
-		t.Assert(gfile.RealPath("./nodirs"), "")
+		t.Assert(gfile.X取绝对路径且效验("./nodirs"), "")
 
 	})
 }
@@ -523,7 +523,7 @@ func Test_SelfPath(t *testing.T) {
 			readlPath string
 			tempstr   string
 		)
-		readlPath = gfile.SelfPath()
+		readlPath = gfile.X取当前进程路径()
 		readlPath = filepath.ToSlash(readlPath)
 
 		tempstr, _ = filepath.Abs(os.Args[0])
@@ -542,7 +542,7 @@ func Test_SelfDir(t *testing.T) {
 			readlPath string
 			tempstr   string
 		)
-		readlPath = gfile.SelfDir()
+		readlPath = gfile.X取当前进程目录()
 
 		tempstr, _ = filepath.Abs(os.Args[0])
 		paths1 = filepath.Dir(tempstr)
@@ -562,7 +562,7 @@ func Test_Basename(t *testing.T) {
 		createTestFile(paths1, "")
 		defer delTestFiles(paths1)
 
-		readlPath = gfile.Basename(testpath() + paths1)
+		readlPath = gfile.X路径取文件名(testpath() + paths1)
 		t.Assert(readlPath, "testfilerr_GetContents.txt")
 
 	})
@@ -577,11 +577,11 @@ func Test_Dir(t *testing.T) {
 		createDir(paths1)
 		defer delTestFiles(paths1)
 
-		readlPath = gfile.Dir(testpath() + paths1)
+		readlPath = gfile.X路径取父目录(testpath() + paths1)
 
 		t.Assert(readlPath, testpath())
 
-		t.Assert(len(gfile.Dir(".")) > 0, true)
+		t.Assert(len(gfile.X路径取父目录(".")) > 0, true)
 	})
 }
 
@@ -597,30 +597,30 @@ func Test_Ext(t *testing.T) {
 		createDir(dirpath1)
 		defer delTestFiles(dirpath1)
 
-		t.Assert(gfile.Ext(testpath()+paths1), ".txt")
-		t.Assert(gfile.Ext(testpath()+dirpath1), "")
+		t.Assert(gfile.X路径取扩展名(testpath()+paths1), ".txt")
+		t.Assert(gfile.X路径取扩展名(testpath()+dirpath1), "")
 	})
 
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gfile.Ext("/var/www/test.js"), ".js")
-		t.Assert(gfile.Ext("/var/www/test.min.js"), ".js")
-		t.Assert(gfile.Ext("/var/www/test.js?1"), ".js")
-		t.Assert(gfile.Ext("/var/www/test.min.js?v1"), ".js")
+		t.Assert(gfile.X路径取扩展名("/var/www/test.js"), ".js")
+		t.Assert(gfile.X路径取扩展名("/var/www/test.min.js"), ".js")
+		t.Assert(gfile.X路径取扩展名("/var/www/test.js?1"), ".js")
+		t.Assert(gfile.X路径取扩展名("/var/www/test.min.js?v1"), ".js")
 	})
 }
 
 func Test_ExtName(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gfile.ExtName("/var/www/test.js"), "js")
-		t.Assert(gfile.ExtName("/var/www/test.min.js"), "js")
-		t.Assert(gfile.ExtName("/var/www/test.js?v=1"), "js")
-		t.Assert(gfile.ExtName("/var/www/test.min.js?v=1"), "js")
+		t.Assert(gfile.X路径取扩展名且不含点号("/var/www/test.js"), "js")
+		t.Assert(gfile.X路径取扩展名且不含点号("/var/www/test.min.js"), "js")
+		t.Assert(gfile.X路径取扩展名且不含点号("/var/www/test.js?v=1"), "js")
+		t.Assert(gfile.X路径取扩展名且不含点号("/var/www/test.min.js?v=1"), "js")
 	})
 }
 
 func Test_TempDir(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gfile.Temp(), os.TempDir())
+		t.Assert(gfile.X取临时目录(), os.TempDir())
 	})
 }
 
@@ -633,13 +633,13 @@ func Test_Mkdir(t *testing.T) {
 
 		defer delTestFiles("/testfile")
 
-		err = gfile.Mkdir(testpath() + tpath)
+		err = gfile.X创建目录(testpath() + tpath)
 		t.AssertNil(err)
 
-		err = gfile.Mkdir("")
+		err = gfile.X创建目录("")
 		t.AssertNE(err, nil)
 
-		err = gfile.Mkdir(testpath() + tpath + "2/t1")
+		err = gfile.X创建目录(testpath() + tpath + "2/t1")
 		t.AssertNil(err)
 
 	})
@@ -657,12 +657,12 @@ func Test_Stat(t *testing.T) {
 		createTestFile(tpath1, "a")
 		defer delTestFiles(tpath1)
 
-		fileiofo, err = gfile.Stat(testpath() + tpath1)
+		fileiofo, err = gfile.X取详情(testpath() + tpath1)
 		t.AssertNil(err)
 
 		t.Assert(fileiofo.Size(), 1)
 
-		_, err = gfile.Stat(tpath2)
+		_, err = gfile.X取详情(tpath2)
 		t.AssertNE(err, nil)
 
 	})
@@ -670,19 +670,19 @@ func Test_Stat(t *testing.T) {
 
 func Test_MainPkgPath(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		reads := gfile.MainPkgPath()
+		reads := gfile.X取main路径()
 		t.Assert(reads, "")
 	})
 }
 
 func Test_SelfName(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(len(gfile.SelfName()) > 0, true)
+		t.Assert(len(gfile.X取当前进程名()) > 0, true)
 	})
 }
 
 func Test_MTimestamp(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
-		t.Assert(gfile.MTimestamp(gfile.Temp()) > 0, true)
+		t.Assert(gfile.X取修改时间戳秒(gfile.X取临时目录()) > 0, true)
 	})
 }

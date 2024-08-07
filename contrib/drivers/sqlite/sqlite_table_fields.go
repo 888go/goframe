@@ -11,40 +11,40 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/util/gutil"
+	gdb "github.com/888go/goframe/database/gdb"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
-// TableFields 获取并返回当前模式下指定表的字段信息。
+// X取表字段信息Map 获取并返回当前模式下指定表的字段信息。
 //
-// 参见 DriverMysql.TableFields。
+// 参见 DriverMysql.X取表字段信息Map。
 // md5:7f7a75c67e38ad22
-func (d *Driver) TableFields(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
+func (d *Driver) X取表字段信息Map(ctx context.Context, table string, schema ...string) (fields map[string]*gdb.TableField, err error) {
 	var (
 		result     gdb.Result
 		link       gdb.Link
-		usedSchema = gutil.GetOrDefaultStr(d.GetSchema(), schema...)
+		usedSchema = gutil.X取文本值或取默认值(d.X取默认数据库名称(), schema...)
 	)
-	if link, err = d.SlaveLink(usedSchema); err != nil {
+	if link, err = d.X底层SlaveLink(usedSchema); err != nil {
 		return nil, err
 	}
-	result, err = d.DoSelect(ctx, link, fmt.Sprintf(`PRAGMA TABLE_INFO(%s)`, d.QuoteWord(table)))
+	result, err = d.X底层查询(ctx, link, fmt.Sprintf(`PRAGMA TABLE_INFO(%s)`, d.X底层QuoteWord(table)))
 	if err != nil {
 		return nil, err
 	}
 	fields = make(map[string]*gdb.TableField)
 	for i, m := range result {
 		mKey := ""
-		if m["pk"].Bool() {
+		if m["pk"].X取布尔() {
 			mKey = "pri"
 		}
 		fields[m["name"].String()] = &gdb.TableField{
 			Index:   i,
-			Name:    m["name"].String(),
-			Type:    m["type"].String(),
+			X名称:    m["name"].String(),
+			X类型:    m["type"].String(),
 			Key:     mKey,
-			Default: m["dflt_value"].Val(),
-			Null:    !m["notnull"].Bool(),
+			Default: m["dflt_value"].X取值(),
+			Null:    !m["notnull"].X取布尔(),
 		}
 	}
 	return fields, nil

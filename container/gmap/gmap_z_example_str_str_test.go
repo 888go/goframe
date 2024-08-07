@@ -4,25 +4,25 @@
 // 您可以从https://github.com/gogf/gf获取。
 // md5:1d281c30cdc3423b
 
-package gmap_test
+package map类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/util/gconv"
+	gmap "github.com/888go/goframe/container/gmap"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gconv "github.com/888go/goframe/util/gconv"
 )
 
 func ExampleStrStrMap_Iterator() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 	for i := 0; i < 10; i++ {
-		m.Set("key"+gconv.String(i), "var"+gconv.String(i))
+		m.X设置值("key"+gconv.String(i), "var"+gconv.String(i))
 	}
 
 	var str string
-	m.Iterator(func(k string, v string) bool {
+	m.X遍历(func(k string, v string) bool {
 
 		str += v + "|"
 
@@ -36,12 +36,12 @@ func ExampleStrStrMap_Iterator() {
 }
 
 func ExampleStrStrMap_Clone() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
-	n := m.Clone()
+	n := m.X取副本()
 	fmt.Println(n)
 
 	// Output:
@@ -51,23 +51,23 @@ func ExampleStrStrMap_Clone() {
 
 func ExampleStrStrMap_Map() {
 		// 非并发安全，指向底层数据的指针. md5:0c201eaf65f11ed8
-	m1 := gmap.NewStrStrMap()
-	m1.Set("key1", "val1")
+	m1 := gmap.X创建StrStr()
+	m1.X设置值("key1", "val1")
 	fmt.Println("m1:", m1)
 
-	n1 := m1.Map()
+	n1 := m1.X取Map()
 	fmt.Println("before n1:", n1)
-	m1.Set("key1", "val2")
+	m1.X设置值("key1", "val2")
 	fmt.Println("after n1:", n1)
 
 			// 并发安全，底层数据的副本. md5:114a4273430037c7
-	m2 := gmap.NewStrStrMap(true)
-	m2.Set("key1", "val1")
+	m2 := gmap.X创建StrStr(true)
+	m2.X设置值("key1", "val1")
 	fmt.Println("m2:", m2)
 
-	n2 := m2.Map()
+	n2 := m2.X取Map()
 	fmt.Println("before n2:", n2)
-	m2.Set("key1", "val2")
+	m2.X设置值("key1", "val2")
 	fmt.Println("after n2:", n2)
 
 	// Output:
@@ -80,13 +80,13 @@ func ExampleStrStrMap_Map() {
 }
 
 func ExampleStrStrMap_MapCopy() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
-	m.Set("key1", "val1")
-	m.Set("key2", "val2")
+	m.X设置值("key1", "val1")
+	m.X设置值("key2", "val2")
 	fmt.Println(m)
 
-	n := m.MapCopy()
+	n := m.X浅拷贝()
 	fmt.Println(n)
 
 	// Output:
@@ -95,11 +95,11 @@ func ExampleStrStrMap_MapCopy() {
 }
 
 func ExampleStrStrMap_MapStrAny() {
-	m := gmap.NewStrStrMap()
-	m.Set("key1", "val1")
-	m.Set("key2", "val2")
+	m := gmap.X创建StrStr()
+	m.X设置值("key1", "val1")
+	m.X设置值("key2", "val2")
 
-	n := m.MapStrAny()
+	n := m.X取MapStrAny()
 	fmt.Printf("%#v", n)
 
 	// Output:
@@ -107,21 +107,21 @@ func ExampleStrStrMap_MapStrAny() {
 }
 
 func ExampleStrStrMap_FilterEmpty() {
-	m := gmap.NewStrStrMapFrom(g.MapStrStr{
+	m := gmap.X创建StrStr并从Map(g.MapStrStr{
 		"k1": "",
 		"k2": "v2",
 	})
-	m.FilterEmpty()
-	fmt.Println(m.Map())
+	m.X删除所有空值()
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[k2:v2]
 }
 
 func ExampleStrStrMap_Set() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 	fmt.Println(m)
 
 	// Output:
@@ -129,14 +129,14 @@ func ExampleStrStrMap_Set() {
 }
 
 func ExampleStrStrMap_Sets() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
 	addMap := make(map[string]string)
 	addMap["key1"] = "val1"
 	addMap["key2"] = "val2"
 	addMap["key3"] = "val3"
 
-	m.Sets(addMap)
+	m.X设置值Map(addMap)
 	fmt.Println(m)
 
 	// Output:
@@ -144,16 +144,16 @@ func ExampleStrStrMap_Sets() {
 }
 
 func ExampleStrStrMap_Search() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 
-	value, found := m.Search("key1")
+	value, found := m.X查找("key1")
 	if found {
 		fmt.Println("find key1 value:", value)
 	}
 
-	value, found = m.Search("key2")
+	value, found = m.X查找("key2")
 	if !found {
 		fmt.Println("key2 not find")
 	}
@@ -164,12 +164,12 @@ func ExampleStrStrMap_Search() {
 }
 
 func ExampleStrStrMap_Get() {
-	m := gmap.NewStrStrMap()
+	m := gmap.X创建StrStr()
 
-	m.Set("key1", "val1")
+	m.X设置值("key1", "val1")
 
-	fmt.Println("key1 value:", m.Get("key1"))
-	fmt.Println("key2 value:", m.Get("key2"))
+	fmt.Println("key1 value:", m.X取值("key1"))
+	fmt.Println("key2 value:", m.X取值("key2"))
 
 	// Output:
 	// key1 value: val1
@@ -178,14 +178,14 @@ func ExampleStrStrMap_Get() {
 
 func ExampleStrStrMap_Pop() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	fmt.Println(m.Pop())
+	fmt.Println(m.X出栈())
 
 	// May Output:
 	// k1 v1
@@ -193,23 +193,23 @@ func ExampleStrStrMap_Pop() {
 
 func ExampleStrStrMap_Pops() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Pops(-1))
-	fmt.Println("size:", m.Size())
+	fmt.Println(m.X出栈多个(-1))
+	fmt.Println("size:", m.X取数量())
 
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Pops(2))
-	fmt.Println("size:", m.Size())
+	fmt.Println(m.X出栈多个(2))
+	fmt.Println("size:", m.X取数量())
 
 	// May Output:
 	// map[k1:v1 k2:v2 k3:v3 k4:v4]
@@ -219,11 +219,11 @@ func ExampleStrStrMap_Pops() {
 }
 
 func ExampleStrStrMap_GetOrSet() {
-	m := gmap.NewStrStrMap()
-	m.Set("key1", "val1")
+	m := gmap.X创建StrStr()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetOrSet("key1", "NotExistValue"))
-	fmt.Println(m.GetOrSet("key2", "val2"))
+	fmt.Println(m.X取值或设置值("key1", "NotExistValue"))
+	fmt.Println(m.X取值或设置值("key2", "val2"))
 
 	// Output:
 	// val1
@@ -231,13 +231,13 @@ func ExampleStrStrMap_GetOrSet() {
 }
 
 func ExampleStrStrMap_GetOrSetFunc() {
-	m := gmap.NewStrStrMap()
-	m.Set("key1", "val1")
+	m := gmap.X创建StrStr()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetOrSetFunc("key1", func() string {
+	fmt.Println(m.X取值或设置值_函数("key1", func() string {
 		return "NotExistValue"
 	}))
-	fmt.Println(m.GetOrSetFunc("key2", func() string {
+	fmt.Println(m.X取值或设置值_函数("key2", func() string {
 		return "NotExistValue"
 	}))
 
@@ -247,13 +247,13 @@ func ExampleStrStrMap_GetOrSetFunc() {
 }
 
 func ExampleStrStrMap_GetOrSetFuncLock() {
-	m := gmap.NewStrStrMap()
-	m.Set("key1", "val1")
+	m := gmap.X创建StrStr()
+	m.X设置值("key1", "val1")
 
-	fmt.Println(m.GetOrSetFuncLock("key1", func() string {
+	fmt.Println(m.X取值或设置值_函数带锁("key1", func() string {
 		return "NotExistValue"
 	}))
-	fmt.Println(m.GetOrSetFuncLock("key2", func() string {
+	fmt.Println(m.X取值或设置值_函数带锁("key2", func() string {
 		return "NotExistValue"
 	}))
 
@@ -264,9 +264,9 @@ func ExampleStrStrMap_GetOrSetFuncLock() {
 
 func ExampleStrStrMap_SetIfNotExist() {
 	var m gmap.StrStrMap
-	fmt.Println(m.SetIfNotExist("k1", "v1"))
-	fmt.Println(m.SetIfNotExist("k1", "v2"))
-	fmt.Println(m.Map())
+	fmt.Println(m.X设置值并跳过已存在("k1", "v1"))
+	fmt.Println(m.X设置值并跳过已存在("k1", "v2"))
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -276,13 +276,13 @@ func ExampleStrStrMap_SetIfNotExist() {
 
 func ExampleStrStrMap_SetIfNotExistFunc() {
 	var m gmap.StrStrMap
-	fmt.Println(m.SetIfNotExistFunc("k1", func() string {
+	fmt.Println(m.X设置值并跳过已存在_函数("k1", func() string {
 		return "v1"
 	}))
-	fmt.Println(m.SetIfNotExistFunc("k1", func() string {
+	fmt.Println(m.X设置值并跳过已存在_函数("k1", func() string {
 		return "v2"
 	}))
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -292,13 +292,13 @@ func ExampleStrStrMap_SetIfNotExistFunc() {
 
 func ExampleStrStrMap_SetIfNotExistFuncLock() {
 	var m gmap.StrStrMap
-	fmt.Println(m.SetIfNotExistFuncLock("k1", func() string {
+	fmt.Println(m.X设置值并跳过已存在_函数带锁("k1", func() string {
 		return "v1"
 	}))
-	fmt.Println(m.SetIfNotExistFuncLock("k1", func() string {
+	fmt.Println(m.X设置值并跳过已存在_函数带锁("k1", func() string {
 		return "v2"
 	}))
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// true
@@ -308,11 +308,11 @@ func ExampleStrStrMap_SetIfNotExistFuncLock() {
 
 func ExampleStrStrMap_Remove() {
 	var m gmap.StrStrMap
-	m.Set("k1", "v1")
+	m.X设置值("k1", "v1")
 
-	fmt.Println(m.Remove("k1"))
-	fmt.Println(len(m.Remove("k2")))
-	fmt.Println(m.Size())
+	fmt.Println(m.X删除("k1"))
+	fmt.Println(len(m.X删除("k2")))
+	fmt.Println(m.X取数量())
 
 	// Output:
 	// v1
@@ -322,7 +322,7 @@ func ExampleStrStrMap_Remove() {
 
 func ExampleStrStrMap_Removes() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
@@ -333,9 +333,9 @@ func ExampleStrStrMap_Removes() {
 	removeList = append(removeList, "k1")
 	removeList = append(removeList, "k2")
 
-	m.Removes(removeList)
+	m.X删除多个值(removeList)
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[k3:v3 k4:v4]
@@ -343,13 +343,13 @@ func ExampleStrStrMap_Removes() {
 
 func ExampleStrStrMap_Keys() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Keys())
+	fmt.Println(m.X取所有名称())
 
 	// May Output:
 	// [k1 k2 k3 k4]
@@ -357,13 +357,13 @@ func ExampleStrStrMap_Keys() {
 
 func ExampleStrStrMap_Values() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
-	fmt.Println(m.Values())
+	fmt.Println(m.X取所有值())
 
 	// May Output:
 	// [v1 v2 v3 v4]
@@ -371,15 +371,15 @@ func ExampleStrStrMap_Values() {
 
 func ExampleStrStrMap_Contains() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	fmt.Println(m.Contains("k1"))
-	fmt.Println(m.Contains("k5"))
+	fmt.Println(m.X是否存在("k1"))
+	fmt.Println(m.X是否存在("k5"))
 
 	// Output:
 	// true
@@ -388,14 +388,14 @@ func ExampleStrStrMap_Contains() {
 
 func ExampleStrStrMap_Size() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	fmt.Println(m.Size())
+	fmt.Println(m.X取数量())
 
 	// Output:
 	// 4
@@ -403,10 +403,10 @@ func ExampleStrStrMap_Size() {
 
 func ExampleStrStrMap_IsEmpty() {
 	var m gmap.StrStrMap
-	fmt.Println(m.IsEmpty())
+	fmt.Println(m.X是否为空())
 
-	m.Set("k1", "v1")
-	fmt.Println(m.IsEmpty())
+	m.X设置值("k1", "v1")
+	fmt.Println(m.X是否为空())
 
 	// Output:
 	// true
@@ -415,16 +415,16 @@ func ExampleStrStrMap_IsEmpty() {
 
 func ExampleStrStrMap_Clear() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	m.Clear()
+	m.X清空()
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[]
@@ -432,22 +432,22 @@ func ExampleStrStrMap_Clear() {
 
 func ExampleStrStrMap_Replace() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 	})
 
 	var n gmap.StrStrMap
-	n.Sets(g.MapStrStr{
+	n.X设置值Map(g.MapStrStr{
 		"k2": "v2",
 	})
 
-	fmt.Println(m.Map())
+	fmt.Println(m.X取Map())
 
-	m.Replace(n.Map())
-	fmt.Println(m.Map())
+	m.X替换(n.X取Map())
+	fmt.Println(m.X取Map())
 
-	n.Set("k2", "v1")
-	fmt.Println(m.Map())
+	n.X设置值("k2", "v1")
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[k1:v1]
@@ -457,14 +457,14 @@ func ExampleStrStrMap_Replace() {
 
 func ExampleStrStrMap_LockFunc() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	m.LockFunc(func(m map[string]string) {
+	m.X遍历写锁定(func(m map[string]string) {
 		for k, v := range m {
 			fmt.Println("key:", k, " value:", v)
 		}
@@ -479,14 +479,14 @@ func ExampleStrStrMap_LockFunc() {
 
 func ExampleStrStrMap_RLockFunc() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
 		"k4": "v4",
 	})
 
-	m.RLockFunc(func(m map[string]string) {
+	m.X遍历读锁定(func(m map[string]string) {
 		for k, v := range m {
 			fmt.Println("key:", k, " value:", v)
 		}
@@ -501,11 +501,11 @@ func ExampleStrStrMap_RLockFunc() {
 
 func ExampleStrStrMap_Flip() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 	})
-	m.Flip()
-	fmt.Println(m.Map())
+	m.X名称值交换()
+	fmt.Println(m.X取Map())
 
 	// Output:
 	// map[v1:k1]
@@ -513,10 +513,10 @@ func ExampleStrStrMap_Flip() {
 
 func ExampleStrStrMap_Merge() {
 	var m1, m2 gmap.StrStrMap
-	m1.Set("key1", "val1")
-	m2.Set("key2", "val2")
-	m1.Merge(&m2)
-	fmt.Println(m1.Map())
+	m1.X设置值("key1", "val1")
+	m2.X设置值("key2", "val2")
+	m1.X合并(&m2)
+	fmt.Println(m1.X取Map())
 
 	// May Output:
 	// map[key1:val1 key2:val2]
@@ -524,7 +524,7 @@ func ExampleStrStrMap_Merge() {
 
 func ExampleStrStrMap_String() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 	})
 
@@ -540,7 +540,7 @@ func ExampleStrStrMap_String() {
 
 func ExampleStrStrMap_MarshalJSON() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
@@ -558,7 +558,7 @@ func ExampleStrStrMap_MarshalJSON() {
 
 func ExampleStrStrMap_UnmarshalJSON() {
 	var m gmap.StrStrMap
-	m.Sets(g.MapStrStr{
+	m.X设置值Map(g.MapStrStr{
 		"k1": "v1",
 		"k2": "v2",
 		"k3": "v3",
@@ -567,9 +567,9 @@ func ExampleStrStrMap_UnmarshalJSON() {
 
 	var n gmap.StrStrMap
 
-	err := json.Unmarshal(gconv.Bytes(m.String()), &n)
+	err := json.Unmarshal(gconv.X取字节集(m.String()), &n)
 	if err == nil {
-		fmt.Println(n.Map())
+		fmt.Println(n.X取Map())
 	}
 
 	// Output:
@@ -586,7 +586,7 @@ func ExampleStrStrMap_UnmarshalValue() {
 	}
 
 	if err := gconv.Scan(goWeb, &m); err == nil {
-		fmt.Printf("%#v", m.Map())
+		fmt.Printf("%#v", m.X取Map())
 	}
 	// Output:
 	// map[string]string{"echo":"https://echo.labstack.com/", "gin":"https://gin-gonic.com/", "goframe":"https://goframe.org"}

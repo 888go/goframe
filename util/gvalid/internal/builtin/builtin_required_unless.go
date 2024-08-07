@@ -11,8 +11,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/gogf/gf/v2/util/gutil"
+	gconv "github.com/888go/goframe/util/gconv"
+	gutil "github.com/888go/goframe/util/gutil"
 )
 
 // RuleRequiredUnless 实现了 `required-unless` 规则：
@@ -40,7 +40,7 @@ func (r RuleRequiredUnless) Run(in RunInput) error {
 		required   = true
 		array      = strings.Split(in.RulePattern, ",")
 		foundValue interface{}
-		dataMap    = in.Data.Map()
+		dataMap    = in.Data.X取Map()
 	)
 
 		// 它支持多个字段和值对。 md5:42a9e200e1db00d5
@@ -61,7 +61,7 @@ func (r RuleRequiredUnless) Run(in RunInput) error {
 		}
 	}
 
-	if required && isRequiredEmpty(in.Value.Val()) {
+	if required && isRequiredEmpty(in.Value.X取值()) {
 		return errors.New(in.Message)
 	}
 	return nil

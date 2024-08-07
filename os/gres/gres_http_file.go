@@ -5,13 +5,13 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gres
+package 资源类
 
 import (
 	"bytes"
 	"os"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // Close 实现了 http.File 接口。 md5:ed68e1aedf92d678
@@ -47,7 +47,7 @@ func (f *File) Read(b []byte) (n int, err error) {
 		return 0, err
 	}
 	if n, err = reader.Read(b); err != nil {
-		err = gerror.Wrapf(err, `read content failed`)
+		err = gerror.X多层错误并格式化(err, `read content failed`)
 	}
 	return
 }
@@ -59,7 +59,7 @@ func (f *File) Seek(offset int64, whence int) (n int64, err error) {
 		return 0, err
 	}
 	if n, err = reader.Seek(offset, whence); err != nil {
-		err = gerror.Wrapf(err, `seek failed for offset %d, whence %d`, offset, whence)
+		err = gerror.X多层错误并格式化(err, `seek failed for offset %d, whence %d`, offset, whence)
 	}
 	return
 }

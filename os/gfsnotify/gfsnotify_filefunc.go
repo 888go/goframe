@@ -4,7 +4,7 @@
 // 您可以从 https://github.com/gogf/gf 获取。
 // md5:12b80d680e9de440
 
-package gfsnotify
+package 文件监控类
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gogf/gf/v2/errors/gerror"
+	gerror "github.com/888go/goframe/errors/gerror"
 )
 
 // fileDir 返回路径除最后一个元素之外的所有内容，通常为路径的目录。
@@ -108,13 +108,13 @@ func doFileScanDir(path string, pattern string, recursive ...bool) ([]string, er
 		file, err = os.Open(path)
 	)
 	if err != nil {
-		err = gerror.Wrapf(err, `os.Open failed for path "%s"`, path)
+		err = gerror.X多层错误并格式化(err, `os.Open failed for path "%s"`, path)
 		return nil, err
 	}
 	defer file.Close()
 	names, err := file.Readdirnames(-1)
 	if err != nil {
-		err = gerror.Wrapf(err, `read directory files failed for path "%s"`, path)
+		err = gerror.X多层错误并格式化(err, `read directory files failed for path "%s"`, path)
 		return nil, err
 	}
 	filePath := ""

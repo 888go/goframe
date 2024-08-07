@@ -5,19 +5,19 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gjson_test
+package json类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
+	gjson "github.com/888go/goframe/encoding/gjson"
 )
 
 func ExampleNew() {
 	jsonContent := `{"name":"john", "score":"100"}`
-	j := gjson.New(jsonContent)
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
+	j := gjson.X创建(jsonContent)
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
 
 	// Output:
 	// john
@@ -35,10 +35,10 @@ func ExampleNewWithTag() {
 		Score: 100,
 		Title: "engineer",
 	}
-	j := gjson.NewWithTag(me, "tag", true)
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
-	fmt.Println(j.Get("Title"))
+	j := gjson.X创建并按类型标签(me, "tag", true)
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
+	fmt.Println(j.X取值("Title"))
 
 	// Output:
 	// john
@@ -58,12 +58,12 @@ func ExampleNewWithOptions() {
 		Title: "engineer",
 	}
 
-	j := gjson.NewWithOptions(me, gjson.Options{
+	j := gjson.X创建并按选项(me, gjson.Options{
 		Tags: "tag",
 	})
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
-	fmt.Println(j.Get("Title"))
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
+	fmt.Println(j.X取值("Title"))
 
 	// Output:
 	// john
@@ -80,11 +80,11 @@ func ExampleNewWithOptions_UTF8BOM() {
 	content[2] = 0xBF
 	content = append(content, jsonContent...)
 
-	j := gjson.NewWithOptions(content, gjson.Options{
+	j := gjson.X创建并按选项(content, gjson.Options{
 		Tags: "tag",
 	})
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
 
 	// Output:
 	// john
@@ -93,10 +93,10 @@ func ExampleNewWithOptions_UTF8BOM() {
 
 func ExampleNew_Xml() {
 	jsonContent := `<?xml version="1.0" encoding="UTF-8"?><doc><name>john</name><score>100</score></doc>`
-	j := gjson.New(jsonContent)
+	j := gjson.X创建(jsonContent)
 		// 注意XML内容中存在根节点。 md5:8fff88d0927f7c85
-	fmt.Println(j.Get("doc.name"))
-	fmt.Println(j.Get("doc.score"))
+	fmt.Println(j.X取值("doc.name"))
+	fmt.Println(j.X取值("doc.score"))
 	// Output:
 	// john
 	// 100
@@ -111,9 +111,9 @@ func ExampleNew_Struct() {
 		Name:  "john",
 		Score: 100,
 	}
-	j := gjson.New(me)
-	fmt.Println(j.Get("name"))
-	fmt.Println(j.Get("score"))
+	j := gjson.X创建(me)
+	fmt.Println(j.X取值("name"))
+	fmt.Println(j.X取值("score"))
 	// Output:
 	// john
 	// 100

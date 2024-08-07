@@ -11,8 +11,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/gogf/gf/v2/internal/intlog"
-	"github.com/gogf/gf/v2/util/grand"
+	"github.com/888go/goframe/internal/intlog"
+	grand "github.com/888go/goframe/util/grand"
 )
 
 type selectorRandom struct {
@@ -40,7 +40,7 @@ func (s *selectorRandom) Pick(ctx context.Context) (node Node, done DoneFunc, er
 	if len(s.nodes) == 0 {
 		return nil, nil, nil
 	}
-	node = s.nodes[grand.Intn(len(s.nodes))]
+	node = s.nodes[grand.X整数(len(s.nodes))]
 	intlog.Printf(ctx, `Picked node: %s`, node.Address())
 	return node, nil, nil
 }

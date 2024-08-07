@@ -5,12 +5,12 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gstr_test
+package 文本类_test
 
 import (
 	"fmt"
 
-	"github.com/gogf/gf/v2/text/gstr"
+	gstr "github.com/888go/goframe/text/gstr"
 )
 
 func ExampleCount() {
@@ -18,8 +18,8 @@ func ExampleCount() {
 		str     = `goframe is very, very easy to use`
 		substr1 = "goframe"
 		substr2 = "very"
-		result1 = gstr.Count(str, substr1)
-		result2 = gstr.Count(str, substr2)
+		result1 = gstr.X统计次数(str, substr1)
+		result2 = gstr.X统计次数(str, substr2)
 	)
 	fmt.Println(result1)
 	fmt.Println(result2)
@@ -34,8 +34,8 @@ func ExampleCountI() {
 		str     = `goframe is very, very easy to use`
 		substr1 = "GOFRAME"
 		substr2 = "VERY"
-		result1 = gstr.CountI(str, substr1)
-		result2 = gstr.CountI(str, substr2)
+		result1 = gstr.X统计次数并忽略大小写(str, substr1)
+		result2 = gstr.X统计次数并忽略大小写(str, substr2)
 	)
 	fmt.Println(result1)
 	fmt.Println(result2)
@@ -48,7 +48,7 @@ func ExampleCountI() {
 func ExampleToLower() {
 	var (
 		s      = `GOFRAME`
-		result = gstr.ToLower(s)
+		result = gstr.X到小写(s)
 	)
 	fmt.Println(result)
 
@@ -59,7 +59,7 @@ func ExampleToLower() {
 func ExampleToUpper() {
 	var (
 		s      = `goframe`
-		result = gstr.ToUpper(s)
+		result = gstr.X到大写(s)
 	)
 	fmt.Println(result)
 
@@ -70,7 +70,7 @@ func ExampleToUpper() {
 func ExampleUcFirst() {
 	var (
 		s      = `hello`
-		result = gstr.UcFirst(s)
+		result = gstr.X到首字母大写(s)
 	)
 	fmt.Println(result)
 
@@ -81,7 +81,7 @@ func ExampleUcFirst() {
 func ExampleLcFirst() {
 	var (
 		str    = `Goframe`
-		result = gstr.LcFirst(str)
+		result = gstr.X到首字母小写(str)
 	)
 	fmt.Println(result)
 
@@ -92,7 +92,7 @@ func ExampleLcFirst() {
 func ExampleUcWords() {
 	var (
 		str    = `hello world`
-		result = gstr.UcWords(str)
+		result = gstr.X到单词首字母大写(str)
 	)
 	fmt.Println(result)
 
@@ -101,8 +101,8 @@ func ExampleUcWords() {
 }
 
 func ExampleIsLetterLower() {
-	fmt.Println(gstr.IsLetterLower('a'))
-	fmt.Println(gstr.IsLetterLower('A'))
+	fmt.Println(gstr.X是否小写字符('a'))
+	fmt.Println(gstr.X是否小写字符('A'))
 
 	// Output:
 	// true
@@ -110,8 +110,8 @@ func ExampleIsLetterLower() {
 }
 
 func ExampleIsLetterUpper() {
-	fmt.Println(gstr.IsLetterUpper('A'))
-	fmt.Println(gstr.IsLetterUpper('a'))
+	fmt.Println(gstr.X是否大写字符('A'))
+	fmt.Println(gstr.X是否大写字符('a'))
 
 	// Output:
 	// true
@@ -119,9 +119,9 @@ func ExampleIsLetterUpper() {
 }
 
 func ExampleIsNumeric() {
-	fmt.Println(gstr.IsNumeric("88"))
-	fmt.Println(gstr.IsNumeric("3.1415926"))
-	fmt.Println(gstr.IsNumeric("abc"))
+	fmt.Println(gstr.X是否为数字("88"))
+	fmt.Println(gstr.X是否为数字("3.1415926"))
+	fmt.Println(gstr.X是否为数字("abc"))
 	// Output:
 	// true
 	// true
@@ -131,7 +131,7 @@ func ExampleIsNumeric() {
 func ExampleReverse() {
 	var (
 		str    = `123456`
-		result = gstr.Reverse(str)
+		result = gstr.X反转字符(str)
 	)
 	fmt.Println(result)
 
@@ -145,7 +145,7 @@ func ExampleNumberFormat() {
 		decimals             = 2
 		decPoint             = "."
 		thousandsSep         = ","
-		result               = gstr.NumberFormat(number, decimals, decPoint, thousandsSep)
+		result               = gstr.X格式化数值(number, decimals, decPoint, thousandsSep)
 	)
 	fmt.Println(result)
 
@@ -158,7 +158,7 @@ func ExampleChunkSplit() {
 		body     = `1234567890`
 		chunkLen = 2
 		end      = "#"
-		result   = gstr.ChunkSplit(body, chunkLen, end)
+		result   = gstr.X长度分割(body, chunkLen, end)
 	)
 	fmt.Println(result)
 
@@ -167,9 +167,9 @@ func ExampleChunkSplit() {
 }
 
 func ExampleCompare() {
-	fmt.Println(gstr.Compare("c", "c"))
-	fmt.Println(gstr.Compare("a", "b"))
-	fmt.Println(gstr.Compare("c", "b"))
+	fmt.Println(gstr.X顺序比较("c", "c"))
+	fmt.Println(gstr.X顺序比较("a", "b"))
+	fmt.Println(gstr.X顺序比较("c", "b"))
 
 	// Output:
 	// 0
@@ -178,9 +178,9 @@ func ExampleCompare() {
 }
 
 func ExampleEqual() {
-	fmt.Println(gstr.Equal(`A`, `a`))
-	fmt.Println(gstr.Equal(`A`, `A`))
-	fmt.Println(gstr.Equal(`A`, `B`))
+	fmt.Println(gstr.X相等比较并忽略大小写(`A`, `a`))
+	fmt.Println(gstr.X相等比较并忽略大小写(`A`, `A`))
+	fmt.Println(gstr.X相等比较并忽略大小写(`A`, `B`))
 
 	// Output:
 	// true
@@ -191,7 +191,7 @@ func ExampleEqual() {
 func ExampleFields() {
 	var (
 		str    = `Hello World`
-		result = gstr.Fields(str)
+		result = gstr.X单词分割(str)
 	)
 	fmt.Printf(`%#v`, result)
 
@@ -203,7 +203,7 @@ func ExampleHasPrefix() {
 	var (
 		s      = `Hello World`
 		prefix = "Hello"
-		result = gstr.HasPrefix(s, prefix)
+		result = gstr.X开头判断(s, prefix)
 	)
 	fmt.Println(result)
 
@@ -215,7 +215,7 @@ func ExampleHasSuffix() {
 	var (
 		s      = `my best love is goframe`
 		prefix = "goframe"
-		result = gstr.HasSuffix(s, prefix)
+		result = gstr.X末尾判断(s, prefix)
 	)
 	fmt.Println(result)
 
@@ -226,7 +226,7 @@ func ExampleHasSuffix() {
 func ExampleCountWords() {
 	var (
 		str    = `goframe is very, very easy to use!`
-		result = gstr.CountWords(str)
+		result = gstr.X统计单词数(str)
 	)
 	fmt.Printf(`%#v`, result)
 
@@ -237,7 +237,7 @@ func ExampleCountWords() {
 func ExampleCountChars() {
 	var (
 		str    = `goframe`
-		result = gstr.CountChars(str)
+		result = gstr.X统计unicode字符数(str)
 	)
 	fmt.Println(result)
 
@@ -251,7 +251,7 @@ func ExampleWordWrap() {
 			str    = `A very long woooooooooooooooooord. and something`
 			width  = 8
 			br     = "\n"
-			result = gstr.WordWrap(str, width, br)
+			result = gstr.X按字符数量换行(str, width, br)
 		)
 		fmt.Println(result)
 	}
@@ -260,7 +260,7 @@ func ExampleWordWrap() {
 			str    = `The quick brown fox jumped over the lazy dog.`
 			width  = 20
 			br     = "<br />\n"
-			result = gstr.WordWrap(str, width, br)
+			result = gstr.X按字符数量换行(str, width, br)
 		)
 		fmt.Printf("%v", result)
 	}
@@ -279,7 +279,7 @@ func ExampleWordWrap() {
 func ExampleLenRune() {
 	var (
 		str    = `GoFrame框架`
-		result = gstr.LenRune(str)
+		result = gstr.X取字符长度(str)
 	)
 	fmt.Println(result)
 
@@ -291,7 +291,7 @@ func ExampleRepeat() {
 	var (
 		input      = `goframe `
 		multiplier = 3
-		result     = gstr.Repeat(input, multiplier)
+		result     = gstr.X生成重复文本(input, multiplier)
 	)
 	fmt.Println(result)
 
@@ -302,7 +302,7 @@ func ExampleRepeat() {
 func ExampleShuffle() {
 	var (
 		str    = `123456`
-		result = gstr.Shuffle(str)
+		result = gstr.X随机打散字符(str)
 	)
 	fmt.Println(result)
 
@@ -314,7 +314,7 @@ func ExampleSplit() {
 	var (
 		str       = `a|b|c|d`
 		delimiter = `|`
-		result    = gstr.Split(str, delimiter)
+		result    = gstr.X分割(str, delimiter)
 	)
 	fmt.Printf(`%#v`, result)
 
@@ -326,7 +326,7 @@ func ExampleSplitAndTrim() {
 	var (
 		str       = `a|b|||||c|d`
 		delimiter = `|`
-		result    = gstr.SplitAndTrim(str, delimiter)
+		result    = gstr.X分割并忽略空值(str, delimiter)
 	)
 	fmt.Printf(`%#v`, result)
 
@@ -338,7 +338,7 @@ func ExampleJoin() {
 	var (
 		array  = []string{"goframe", "is", "very", "easy", "to", "use"}
 		sep    = ` `
-		result = gstr.Join(array, sep)
+		result = gstr.X连接(array, sep)
 	)
 	fmt.Println(result)
 
@@ -350,7 +350,7 @@ func ExampleJoinAny() {
 	var (
 		sep    = `,`
 		arr2   = []int{99, 73, 85, 66}
-		result = gstr.JoinAny(arr2, sep)
+		result = gstr.X连接Any(arr2, sep)
 	)
 	fmt.Println(result)
 
@@ -362,7 +362,7 @@ func ExampleExplode() {
 	var (
 		str       = `Hello World`
 		delimiter = " "
-		result    = gstr.Explode(delimiter, str)
+		result    = gstr.Explode别名(delimiter, str)
 	)
 	fmt.Printf(`%#v`, result)
 
@@ -374,7 +374,7 @@ func ExampleImplode() {
 	var (
 		pieces = []string{"goframe", "is", "very", "easy", "to", "use"}
 		glue   = " "
-		result = gstr.Implode(glue, pieces)
+		result = gstr.Implode别名(glue, pieces)
 	)
 	fmt.Println(result)
 
@@ -385,7 +385,7 @@ func ExampleImplode() {
 func ExampleChr() {
 	var (
 		ascii  = 65 // A
-		result = gstr.Chr(ascii)
+		result = gstr.X整数到ascii(ascii)
 	)
 	fmt.Println(result)
 
@@ -411,7 +411,7 @@ func ExampleHideStr() {
 		str     = `13800138000`
 		percent = 40
 		hide    = `*`
-		result  = gstr.HideStr(str, percent, hide)
+		result  = gstr.X替换中间字符(str, percent, hide)
 	)
 	fmt.Println(result)
 
@@ -427,7 +427,7 @@ very
 easy
 to
 use`
-		result = gstr.Nl2Br(str)
+		result = gstr.X替换换行符(str)
 	)
 
 	fmt.Println(result)
@@ -439,7 +439,7 @@ use`
 func ExampleAddSlashes() {
 	var (
 		str    = `'aa'"bb"cc\r\n\d\t`
-		result = gstr.AddSlashes(str)
+		result = gstr.X转义(str)
 	)
 
 	fmt.Println(result)
@@ -451,7 +451,7 @@ func ExampleAddSlashes() {
 func ExampleStripSlashes() {
 	var (
 		str    = `C:\\windows\\GoFrame\\test`
-		result = gstr.StripSlashes(str)
+		result = gstr.X转义还原(str)
 	)
 	fmt.Println(result)
 
@@ -463,14 +463,14 @@ func ExampleQuoteMeta() {
 	{
 		var (
 			str    = `.\+?[^]()`
-			result = gstr.QuoteMeta(str)
+			result = gstr.X转义并按字符(str)
 		)
 		fmt.Println(result)
 	}
 	{
 		var (
 			str    = `https://goframe.org/pages/viewpage.action?pageId=1114327`
-			result = gstr.QuoteMeta(str)
+			result = gstr.X转义并按字符(str)
 		)
 		fmt.Println(result)
 	}
@@ -486,7 +486,7 @@ func ExampleSearchArray() {
 	var (
 		array  = []string{"goframe", "is", "very", "nice"}
 		str    = `goframe`
-		result = gstr.SearchArray(array, str)
+		result = gstr.X切片查找(array, str)
 	)
 	fmt.Println(result)
 
@@ -498,7 +498,7 @@ func ExampleInArray() {
 	var (
 		a      = []string{"goframe", "is", "very", "easy", "to", "use"}
 		s      = "goframe"
-		result = gstr.InArray(a, s)
+		result = gstr.X切片是否存在(a, s)
 	)
 	fmt.Println(result)
 
@@ -511,7 +511,7 @@ func ExamplePrefixArray() {
 		strArray = []string{"tom", "lily", "john"}
 	)
 
-	gstr.PrefixArray(strArray, "classA_")
+	gstr.X切片加前缀(strArray, "classA_")
 
 	fmt.Println(strArray)
 
@@ -523,7 +523,7 @@ func ExamplePrefixArray() {
 func ExampleCaseCamel() {
 	var (
 		str    = `hello world`
-		result = gstr.CaseCamel(str)
+		result = gstr.X命名转换到首字母大写驼峰(str)
 	)
 	fmt.Println(result)
 
@@ -534,7 +534,7 @@ func ExampleCaseCamel() {
 func ExampleCaseCamelLower() {
 	var (
 		str    = `hello world`
-		result = gstr.CaseCamelLower(str)
+		result = gstr.X命名转换到首字母小写驼峰(str)
 	)
 	fmt.Println(result)
 
@@ -545,7 +545,7 @@ func ExampleCaseCamelLower() {
 func ExampleCaseSnake() {
 	var (
 		str    = `hello world`
-		result = gstr.CaseSnake(str)
+		result = gstr.X命名转换到全小写蛇形(str)
 	)
 	fmt.Println(result)
 
@@ -556,7 +556,7 @@ func ExampleCaseSnake() {
 func ExampleCaseSnakeScreaming() {
 	var (
 		str    = `hello world`
-		result = gstr.CaseSnakeScreaming(str)
+		result = gstr.X命名转换到大写蛇形(str)
 	)
 	fmt.Println(result)
 
@@ -567,7 +567,7 @@ func ExampleCaseSnakeScreaming() {
 func ExampleCaseSnakeFirstUpper() {
 	var (
 		str    = `RGBCodeMd5`
-		result = gstr.CaseSnakeFirstUpper(str)
+		result = gstr.X命名转换到全小写蛇形2(str)
 	)
 	fmt.Println(result)
 
@@ -578,7 +578,7 @@ func ExampleCaseSnakeFirstUpper() {
 func ExampleCaseKebab() {
 	var (
 		str    = `hello world`
-		result = gstr.CaseKebab(str)
+		result = gstr.X命名转换到小写短横线(str)
 	)
 	fmt.Println(result)
 
@@ -589,7 +589,7 @@ func ExampleCaseKebab() {
 func ExampleCaseKebabScreaming() {
 	var (
 		str    = `hello world`
-		result = gstr.CaseKebabScreaming(str)
+		result = gstr.X命名转换到大写驼峰短横线(str)
 	)
 	fmt.Println(result)
 
@@ -601,7 +601,7 @@ func ExampleCaseDelimited() {
 	var (
 		str    = `hello world`
 		del    = byte('-')
-		result = gstr.CaseDelimited(str, del)
+		result = gstr.X命名转换按符号(str, del)
 	)
 	fmt.Println(result)
 
@@ -614,7 +614,7 @@ func ExampleCaseDelimitedScreaming() {
 		var (
 			str    = `hello world`
 			del    = byte('-')
-			result = gstr.CaseDelimitedScreaming(str, del, true)
+			result = gstr.X命名转换按符号与大小写(str, del, true)
 		)
 		fmt.Println(result)
 	}
@@ -622,7 +622,7 @@ func ExampleCaseDelimitedScreaming() {
 		var (
 			str    = `hello world`
 			del    = byte('-')
-			result = gstr.CaseDelimitedScreaming(str, del, false)
+			result = gstr.X命名转换按符号与大小写(str, del, false)
 		)
 		fmt.Println(result)
 	}
@@ -638,7 +638,7 @@ func ExampleContains() {
 		var (
 			str    = `Hello World`
 			substr = `Hello`
-			result = gstr.Contains(str, substr)
+			result = gstr.X是否包含(str, substr)
 		)
 		fmt.Println(result)
 	}
@@ -646,7 +646,7 @@ func ExampleContains() {
 		var (
 			str    = `Hello World`
 			substr = `hello`
-			result = gstr.Contains(str, substr)
+			result = gstr.X是否包含(str, substr)
 		)
 		fmt.Println(result)
 	}
@@ -660,8 +660,8 @@ func ExampleContainsI() {
 	var (
 		str     = `Hello World`
 		substr  = "hello"
-		result1 = gstr.Contains(str, substr)
-		result2 = gstr.ContainsI(str, substr)
+		result1 = gstr.X是否包含(str, substr)
+		result2 = gstr.X是否包含并忽略大小写(str, substr)
 	)
 	fmt.Println(result1)
 	fmt.Println(result2)
@@ -676,7 +676,7 @@ func ExampleContainsAny() {
 		var (
 			s      = `goframe`
 			chars  = "g"
-			result = gstr.ContainsAny(s, chars)
+			result = gstr.X是否包含Any(s, chars)
 		)
 		fmt.Println(result)
 	}
@@ -684,7 +684,7 @@ func ExampleContainsAny() {
 		var (
 			s      = `goframe`
 			chars  = "G"
-			result = gstr.ContainsAny(s, chars)
+			result = gstr.X是否包含Any(s, chars)
 		)
 		fmt.Println(result)
 	}
@@ -698,7 +698,7 @@ func ExampleContainsAny() {
 func ExampleOctStr() {
 	var (
 		str    = `\346\200\241`
-		result = gstr.OctStr(str)
+		result = gstr.X八进制到文本(str)
 	)
 	fmt.Println(result)
 
@@ -711,7 +711,7 @@ func ExampleIsSubDomain() {
 	var (
 		subDomain  = `s.goframe.org`
 		mainDomain = `goframe.org`
-		result     = gstr.IsSubDomain(subDomain, mainDomain)
+		result     = gstr.X是否为子域名(subDomain, mainDomain)
 	)
 	fmt.Println(result)
 
@@ -740,21 +740,21 @@ func ExampleParse() {
 	{
 		var (
 			str       = `v1=m&v2=n`
-			result, _ = gstr.Parse(str)
+			result, _ = gstr.X参数解析(str)
 		)
 		fmt.Println(result)
 	}
 	{
 		var (
 			str       = `v[a][a]=m&v[a][b]=n`
-			result, _ = gstr.Parse(str)
+			result, _ = gstr.X参数解析(str)
 		)
 		fmt.Println(result)
 	}
 	{
 				// 遍历嵌套切片的格式尚未得到支持。 md5:4ba6b8e024a1bae0
 		var str = `v[][]=m&v[][]=n`
-		result, err := gstr.Parse(str)
+		result, err := gstr.X参数解析(str)
 		if err != nil {
 			panic(err)
 		}
@@ -763,7 +763,7 @@ func ExampleParse() {
 	{
 				// 这将产生一个错误。 md5:a04ca00c0d3445fa
 		var str = `v=m&v[a]=n`
-		result, err := gstr.Parse(str)
+		result, err := gstr.X参数解析(str)
 		if err != nil {
 			println(err)
 		}
@@ -772,7 +772,7 @@ func ExampleParse() {
 	{
 		var (
 			str       = `a .[[b=c`
-			result, _ = gstr.Parse(str)
+			result, _ = gstr.X参数解析(str)
 		)
 		fmt.Println(result)
 	}
@@ -791,7 +791,7 @@ func ExamplePos() {
 	var (
 		haystack = `Hello World`
 		needle   = `World`
-		result   = gstr.Pos(haystack, needle)
+		result   = gstr.X查找(haystack, needle)
 	)
 	fmt.Println(result)
 
@@ -803,8 +803,8 @@ func ExamplePosRune() {
 	var (
 		haystack = `GoFrame是一款模块化、高性能、企业级的Go基础开发框架`
 		needle   = `Go`
-		posI     = gstr.PosRune(haystack, needle)
-		posR     = gstr.PosRRune(haystack, needle)
+		posI     = gstr.X查找Unicode(haystack, needle)
+		posR     = gstr.X倒找Unicode(haystack, needle)
 	)
 	fmt.Println(posI)
 	fmt.Println(posR)
@@ -818,8 +818,8 @@ func ExamplePosI() {
 	var (
 		haystack = `goframe is very, very easy to use`
 		needle   = `very`
-		posI     = gstr.PosI(haystack, needle)
-		posR     = gstr.PosR(haystack, needle)
+		posI     = gstr.X查找并忽略大小写(haystack, needle)
+		posR     = gstr.X倒找(haystack, needle)
 	)
 	fmt.Println(posI)
 	fmt.Println(posR)
@@ -835,7 +835,7 @@ func ExamplePosIRune() {
 			haystack    = `GoFrame是一款模块化、高性能、企业级的Go基础开发框架`
 			needle      = `高性能`
 			startOffset = 10
-			result      = gstr.PosIRune(haystack, needle, startOffset)
+			result      = gstr.X查找并忽略大小写Unicode(haystack, needle, startOffset)
 		)
 		fmt.Println(result)
 	}
@@ -844,7 +844,7 @@ func ExamplePosIRune() {
 			haystack    = `GoFrame是一款模块化、高性能、企业级的Go基础开发框架`
 			needle      = `高性能`
 			startOffset = 30
-			result      = gstr.PosIRune(haystack, needle, startOffset)
+			result      = gstr.X查找并忽略大小写Unicode(haystack, needle, startOffset)
 		)
 		fmt.Println(result)
 	}
@@ -858,8 +858,8 @@ func ExamplePosR() {
 	var (
 		haystack = `goframe is very, very easy to use`
 		needle   = `very`
-		posI     = gstr.PosI(haystack, needle)
-		posR     = gstr.PosR(haystack, needle)
+		posI     = gstr.X查找并忽略大小写(haystack, needle)
+		posR     = gstr.X倒找(haystack, needle)
 	)
 	fmt.Println(posI)
 	fmt.Println(posR)
@@ -873,8 +873,8 @@ func ExamplePosRRune() {
 	var (
 		haystack = `GoFrame是一款模块化、高性能、企业级的Go基础开发框架`
 		needle   = `Go`
-		posI     = gstr.PosIRune(haystack, needle)
-		posR     = gstr.PosRRune(haystack, needle)
+		posI     = gstr.X查找并忽略大小写Unicode(haystack, needle)
+		posR     = gstr.X倒找Unicode(haystack, needle)
 	)
 	fmt.Println(posI)
 	fmt.Println(posR)
@@ -888,8 +888,8 @@ func ExamplePosRI() {
 	var (
 		haystack = `goframe is very, very easy to use`
 		needle   = `VERY`
-		posI     = gstr.PosI(haystack, needle)
-		posR     = gstr.PosRI(haystack, needle)
+		posI     = gstr.X查找并忽略大小写(haystack, needle)
+		posR     = gstr.X倒找并忽略大小写(haystack, needle)
 	)
 	fmt.Println(posI)
 	fmt.Println(posR)
@@ -903,8 +903,8 @@ func ExamplePosRIRune() {
 	var (
 		haystack = `GoFrame是一款模块化、高性能、企业级的Go基础开发框架`
 		needle   = `GO`
-		posI     = gstr.PosIRune(haystack, needle)
-		posR     = gstr.PosRIRune(haystack, needle)
+		posI     = gstr.X查找并忽略大小写Unicode(haystack, needle)
+		posR     = gstr.X倒找并忽略大小写Unicode(haystack, needle)
 	)
 	fmt.Println(posI)
 	fmt.Println(posR)
@@ -920,7 +920,7 @@ func ExampleReplace() {
 		origin  = `golang is very nice!`
 		search  = `golang`
 		replace = `goframe`
-		result  = gstr.Replace(origin, search, replace)
+		result  = gstr.X替换(origin, search, replace)
 	)
 	fmt.Println(result)
 
@@ -933,7 +933,7 @@ func ExampleReplaceI() {
 		origin  = `golang is very nice!`
 		search  = `GOLANG`
 		replace = `goframe`
-		result  = gstr.ReplaceI(origin, search, replace)
+		result  = gstr.X替换并忽略大小写(origin, search, replace)
 	)
 	fmt.Println(result)
 
@@ -946,7 +946,7 @@ func ExampleReplaceByArray() {
 		var (
 			origin = `golang is very nice`
 			array  = []string{"lang", "frame"}
-			result = gstr.ReplaceByArray(origin, array)
+			result = gstr.X切片替换(origin, array)
 		)
 		fmt.Println(result)
 	}
@@ -954,7 +954,7 @@ func ExampleReplaceByArray() {
 		var (
 			origin = `golang is very good`
 			array  = []string{"golang", "goframe", "good", "nice"}
-			result = gstr.ReplaceByArray(origin, array)
+			result = gstr.X切片替换(origin, array)
 		)
 		fmt.Println(result)
 	}
@@ -968,7 +968,7 @@ func ExampleReplaceIByArray() {
 	var (
 		origin = `golang is very Good`
 		array  = []string{"Golang", "goframe", "GOOD", "nice"}
-		result = gstr.ReplaceIByArray(origin, array)
+		result = gstr.X切片替换并忽略大小写(origin, array)
 	)
 
 	fmt.Println(result)
@@ -984,7 +984,7 @@ func ExampleReplaceByMap() {
 			replaces = map[string]string{
 				"lang": "frame",
 			}
-			result = gstr.ReplaceByMap(origin, replaces)
+			result = gstr.Map替换(origin, replaces)
 		)
 		fmt.Println(result)
 	}
@@ -995,7 +995,7 @@ func ExampleReplaceByMap() {
 				"golang": "goframe",
 				"good":   "nice",
 			}
-			result = gstr.ReplaceByMap(origin, replaces)
+			result = gstr.Map替换(origin, replaces)
 		)
 		fmt.Println(result)
 	}
@@ -1011,7 +1011,7 @@ func ExampleReplaceIByMap() {
 		replaces = map[string]string{
 			"Lang": "frame",
 		}
-		result = gstr.ReplaceIByMap(origin, replaces)
+		result = gstr.Map替换并忽略大小写(origin, replaces)
 	)
 	fmt.Println(result)
 
@@ -1025,7 +1025,7 @@ func ExampleSimilarText() {
 		first   = `AaBbCcDd`
 		second  = `ad`
 		percent = 0.80
-		result  = gstr.SimilarText(first, second, &percent)
+		result  = gstr.X取相似度(first, second, &percent)
 	)
 	fmt.Println(result)
 
@@ -1038,8 +1038,8 @@ func ExampleSoundex() {
 	var (
 		str1    = `Hello`
 		str2    = `Hallo`
-		result1 = gstr.Soundex(str1)
-		result2 = gstr.Soundex(str2)
+		result1 = gstr.X取soundex码(str1)
+		result2 = gstr.X取soundex码(str2)
 	)
 	fmt.Println(result1, result2)
 
@@ -1052,7 +1052,7 @@ func ExampleStr() {
 	var (
 		haystack = `xxx.jpg`
 		needle   = `.`
-		result   = gstr.Str(haystack, needle)
+		result   = gstr.X取右边并含关键字(haystack, needle)
 	)
 	fmt.Println(result)
 
@@ -1064,7 +1064,7 @@ func ExampleStrEx() {
 	var (
 		haystack = `https://goframe.org/index.html?a=1&b=2`
 		needle   = `?`
-		result   = gstr.StrEx(haystack, needle)
+		result   = gstr.X取右边(haystack, needle)
 	)
 	fmt.Println(result)
 
@@ -1076,7 +1076,7 @@ func ExampleStrTill() {
 	var (
 		haystack = `https://goframe.org/index.html?test=123456`
 		needle   = `?`
-		result   = gstr.StrTill(haystack, needle)
+		result   = gstr.X取左边并含关键字(haystack, needle)
 	)
 	fmt.Println(result)
 
@@ -1088,7 +1088,7 @@ func ExampleStrTillEx() {
 	var (
 		haystack = `https://goframe.org/index.html?test=123456`
 		needle   = `?`
-		result   = gstr.StrTillEx(haystack, needle)
+		result   = gstr.X取左边(haystack, needle)
 	)
 	fmt.Println(result)
 
@@ -1102,7 +1102,7 @@ func ExampleSubStr() {
 		str    = `1234567890`
 		start  = 0
 		length = 4
-		subStr = gstr.SubStr(str, start, length)
+		subStr = gstr.X按长度取文本(str, start, length)
 	)
 	fmt.Println(subStr)
 
@@ -1115,7 +1115,7 @@ func ExampleSubStrRune() {
 		str    = `GoFrame是一款模块化、高性能、企业级的Go基础开发框架。`
 		start  = 14
 		length = 3
-		subStr = gstr.SubStrRune(str, start, length)
+		subStr = gstr.X按长度取文本Unicode(str, start, length)
 	)
 	fmt.Println(subStr)
 
@@ -1128,7 +1128,7 @@ func ExampleStrLimit() {
 		str    = `123456789`
 		length = 3
 		suffix = `...`
-		result = gstr.StrLimit(str, length, suffix)
+		result = gstr.X按长度取左边并带前缀(str, length, suffix)
 	)
 	fmt.Println(result)
 
@@ -1141,7 +1141,7 @@ func ExampleStrLimitRune() {
 		str    = `GoFrame是一款模块化、高性能、企业级的Go基础开发框架。`
 		length = 17
 		suffix = "..."
-		result = gstr.StrLimitRune(str, length, suffix)
+		result = gstr.X按长度取左边并带前缀Unicode(str, length, suffix)
 	)
 	fmt.Println(result)
 
@@ -1155,7 +1155,7 @@ func ExampleSubStrFrom() {
 		need = `爱`
 	)
 
-	fmt.Println(gstr.SubStrFrom(str, need))
+	fmt.Println(gstr.SubStrFrom别名(str, need))
 
 	// Output:
 	// 爱GoFrameGood
@@ -1167,7 +1167,7 @@ func ExampleSubStrFromEx() {
 		need = `爱`
 	)
 
-	fmt.Println(gstr.SubStrFromEx(str, need))
+	fmt.Println(gstr.SubStrFromEx别名(str, need))
 
 	// Output:
 	// GoFrameGood
@@ -1179,7 +1179,7 @@ func ExampleSubStrFromR() {
 		need = `Go`
 	)
 
-	fmt.Println(gstr.SubStrFromR(str, need))
+	fmt.Println(gstr.X取右边并倒找与含关键字(str, need))
 
 	// Output:
 	// Good
@@ -1191,7 +1191,7 @@ func ExampleSubStrFromREx() {
 		need = `Go`
 	)
 
-	fmt.Println(gstr.SubStrFromREx(str, need))
+	fmt.Println(gstr.X取右边并倒找(str, need))
 
 	// Output:
 	// od
@@ -1202,7 +1202,7 @@ func ExampleTrim() {
 	var (
 		str           = `*Hello World*`
 		characterMask = "*"
-		result        = gstr.Trim(str, characterMask)
+		result        = gstr.X过滤首尾符并含空白(str, characterMask)
 	)
 	fmt.Println(result)
 
@@ -1215,7 +1215,7 @@ func ExampleTrimStr() {
 		str    = `Hello World`
 		cut    = "World"
 		count  = -1
-		result = gstr.TrimStr(str, cut, count)
+		result = gstr.X过滤首尾(str, cut, count)
 	)
 	fmt.Println(result)
 
@@ -1227,7 +1227,7 @@ func ExampleTrimLeft() {
 	var (
 		str           = `*Hello World*`
 		characterMask = "*"
-		result        = gstr.TrimLeft(str, characterMask)
+		result        = gstr.X过滤首字符并含空白(str, characterMask)
 	)
 	fmt.Println(result)
 
@@ -1240,7 +1240,7 @@ func ExampleTrimLeftStr() {
 		str    = `**Hello World**`
 		cut    = "*"
 		count  = 1
-		result = gstr.TrimLeftStr(str, cut, count)
+		result = gstr.X过滤首字符(str, cut, count)
 	)
 	fmt.Println(result)
 
@@ -1252,7 +1252,7 @@ func ExampleTrimRight() {
 	var (
 		str           = `**Hello World**`
 		characterMask = "*def" // 一个字节切片，包含以下元素：星号（`*`），字母 d，字母 e，和字母 f。 md5:c33233e03897a326
-		result        = gstr.TrimRight(str, characterMask)
+		result        = gstr.X过滤尾字符并含空白(str, characterMask)
 	)
 	fmt.Println(result)
 
@@ -1265,7 +1265,7 @@ func ExampleTrimRightStr() {
 		str    = `Hello World!`
 		cut    = "!"
 		count  = -1
-		result = gstr.TrimRightStr(str, cut, count)
+		result = gstr.X过滤尾字符(str, cut, count)
 	)
 	fmt.Println(result)
 
@@ -1277,7 +1277,7 @@ func ExampleTrimAll() {
 	var (
 		str           = `*Hello World*`
 		characterMask = "*"
-		result        = gstr.TrimAll(str, characterMask)
+		result        = gstr.X过滤所有字符并含空白(str, characterMask)
 	)
 	fmt.Println(result)
 
@@ -1287,9 +1287,9 @@ func ExampleTrimAll() {
 
 // version
 func ExampleCompareVersion() {
-	fmt.Println(gstr.CompareVersion("v2.11.9", "v2.10.8"))
-	fmt.Println(gstr.CompareVersion("1.10.8", "1.19.7"))
-	fmt.Println(gstr.CompareVersion("2.8.beta", "2.8"))
+	fmt.Println(gstr.X版本号比较GNU格式("v2.11.9", "v2.10.8"))
+	fmt.Println(gstr.X版本号比较GNU格式("1.10.8", "1.19.7"))
+	fmt.Println(gstr.X版本号比较GNU格式("2.8.beta", "2.8"))
 
 	// Output:
 	// 1
@@ -1298,9 +1298,9 @@ func ExampleCompareVersion() {
 }
 
 func ExampleCompareVersionGo() {
-	fmt.Println(gstr.CompareVersionGo("v2.11.9", "v2.10.8"))
-	fmt.Println(gstr.CompareVersionGo("v4.20.1", "v4.20.1+incompatible"))
-	fmt.Println(gstr.CompareVersionGo(
+	fmt.Println(gstr.X版本号比较GO格式("v2.11.9", "v2.10.8"))
+	fmt.Println(gstr.X版本号比较GO格式("v4.20.1", "v4.20.1+incompatible"))
+	fmt.Println(gstr.X版本号比较GO格式(
 		"v0.0.2-20180626092158-b2ccc119800e",
 		"v1.0.1-20190626092158-b2ccc519800e",
 	))

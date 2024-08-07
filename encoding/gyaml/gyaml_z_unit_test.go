@@ -5,16 +5,16 @@
 // 您可以在https://github.com/gogf/gf处获取。
 // md5:a9832f33b234e3f3
 
-package gyaml_test
+package yaml类_test
 
 import (
 	"testing"
 
-	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/encoding/gyaml"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/internal/json"
-	"github.com/gogf/gf/v2/test/gtest"
+	gjson "github.com/888go/goframe/encoding/gjson"
+	gyaml "github.com/888go/goframe/encoding/gyaml"
+	"github.com/888go/goframe/frame/g"
+	"github.com/888go/goframe/internal/json"
+	gtest "github.com/888go/goframe/test/gtest"
 )
 
 var yamlStr string = `
@@ -79,7 +79,7 @@ func Test_Decode(t *testing.T) {
 
 		t.Assert(result, map[string]interface{}{
 			"url":      "https://goframe.org",
-			"server":   g.Slice{"120.168.117.21", "120.168.117.22"},
+			"server":   g.Slice别名{"120.168.117.21", "120.168.117.22"},
 			"pi":       3.14,
 			"hasChild": true,
 			"name":     "你好YAML",
@@ -94,7 +94,7 @@ func Test_DecodeTo(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(result, map[string]interface{}{
 			"url":      "https://goframe.org",
-			"server":   g.Slice{"120.168.117.21", "120.168.117.22"},
+			"server":   g.Slice别名{"120.168.117.21", "120.168.117.22"},
 			"pi":       3.14,
 			"hasChild": true,
 			"name":     "你好YAML",
@@ -143,12 +143,12 @@ func Test_ToJson(t *testing.T) {
 			return
 		}
 
-		p := gjson.New(res)
+		p := gjson.X创建(res)
 		if err != nil {
 			t.Errorf("parser failed. %v", err)
 			return
 		}
-		expectJson, err := p.ToJson()
+		expectJson, err := p.X取json字节集()
 		if err != nil {
 			t.Errorf("parser ToJson failed. %v", err)
 			return
